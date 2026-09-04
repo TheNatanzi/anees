@@ -51,17 +51,48 @@ for nm in ['dialect', 'speechmatics', 'eleven_auto', 'eleven_ara']:
     print(nm, 'label map', mp)
 
 
+import re
+FILLER = re.compile(r"^[W_]*(u+m+|u+h+|u+h+m+|h+m+|m+m+|e+r+|a+h+|أ*م+|آ+|ا{2,}|ه+م+|إ+م+|ء*م+)[\W_]*$", re.I)
+
+
+def is_filler(w):
+    return bool(FILLER.match(w))
+
+
 def clip_lines(words, st, en):
-    """Words inside the clip window, grouped into speaker runs."""
+    """Words inside the clip window, grouped into speaker runs; filler sounds become (pause Ns)."""
     runs = []
+    pause = None  # [spk, start, end]
+
+    def flush():
+        nonlocal pause
+        if pause:
+            spk, a, b = pause
+            dur = max(0.3, b - a)
+            tok = f'<span class="pz">(pause {dur:.1f}s)</span>'
+            if runs and runs[-1]['spk'] == spk:
+                runs[-1]['text'] += ' ' + tok
+            else:
+                runs.append({'spk': spk, 'text': tok})
+            pause = None
+
     for w in words:
         mid = (w['s'] + w['e']) / 2
         if mid < st or mid > en:
             continue
+        if is_filler(w['w']):
+            if pause and pause[0] == w['spk'] and w['s'] - pause[2] < 1.0:
+                pause[2] = w['e']
+            else:
+                flush()
+                pause = [w['spk'], w['s'], w['e']]
+            continue
+        flush()
         if runs and runs[-1]['spk'] == w['spk']:
-            runs[-1]['text'] += ' ' + w['w']
+            runs[-1]['text'] += ' ' + html.escape(w['w'])
         else:
-            runs.append({'spk': w['spk'], 'text': w['w']})
+            runs.append({'spk': w['spk'], 'text': html.escape(w['w'])})
+    flush()
     return runs
 
 names = list(engines)
@@ -115,7 +146,7 @@ for i, r in enumerate(sel):
     for L, nm in zip('ABCD', order):
         ov = clip_lines(engines[nm], st, en)
         body = ''.join(
-            f'<p class="ar" dir="auto"><b class="spk">{html.escape(str(t["spk"]))}:</b> {html.escape(t["text"])}</p>'
+            f'<p class="ar" dir="auto"><b class="spk">{html.escape(str(t["spk"]))}:</b> {t["text"]}</p>'
             for t in ov) or '<p class="ar none">(nothing)</p>'
         cols.append(f'<div class="col"><div class="lbl">{L}</div>{body}</div>')
     m = int((r['start'] or 0) // 60)
@@ -148,6 +179,7 @@ audio{width:100%;margin:4px 0}
 .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:8px 0}
 .col{border:1px solid var(--line);border-radius:10px;padding:8px 10px;min-width:0;overflow-wrap:anywhere}
 .lbl{font-weight:700;color:var(--teal);font-size:14px;margin-bottom:4px}
+.pz{color:var(--amber);font-size:14px;border:1px dashed var(--amber);border-radius:999px;padding:0 8px;white-space:nowrap}
 .ar{font-size:19px;line-height:1.6;margin:6px 0} .none{color:var(--mute);font-size:14px} .spk{font-size:13px;color:var(--mute);margin-inline-end:6px}
 .btns{display:flex;gap:8px;flex-wrap:wrap} .btns button{flex:1;min-width:70px;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:15px;cursor:pointer}
 .btns button.on{background:var(--teal);color:#fff;border-color:var(--teal)} .btns button.on[data-v=none]{background:var(--coral);border-color:var(--coral)} .btns button.on[data-v=tie]{background:var(--amber);border-color:var(--amber)}
@@ -163,7 +195,7 @@ paint();
 page = (
     '<meta charset="utf-8"><title>Anees Check 02</title>\n<style>' + CSS + '</style>\n<main>\n<h1>Anees check 02</h1>\n'
     f'<p class="lead">Clips from the Aug 25 lesson only (pre-class talk removed). Each clip was written down by {len(names)} different engines, '
-    f'shown as {letters} in a random order on every row. Only the words inside the clip are shown. Hardest clips come first, so stopping early still counts. Play the clip, then tap the letter that matches what was '
+    f'shown as {letters} in a random order on every row. Only the words inside the clip are shown. Hardest clips come first, so stopping early still counts. Filler sounds (um, uh, أمم) are shown as (pause). Play the clip, then tap the letter that matches what was '
     'said best. "All same" if they tie, "All wrong" if none is close.</p>\n'
     f'<div class="bar"><span id="cnt">0 / {n}</span><button id="copy">Copy results</button></div>\n'
     + ''.join(rows) +
