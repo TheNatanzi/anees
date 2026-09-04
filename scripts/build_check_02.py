@@ -90,7 +90,7 @@ def _keep(r):
     if en < LESSON_START:
         return False
     return not any(st < b and en > a for a, b in EXCLUDE)
-sel = [r for r in sel if _keep(r)]
+sel = [r for r in sel if _keep(r) and r['kind'] != 'silence']  # silence rows judged by data, not by Medi (2026-09-04)
 PRI = {'disagree': 0, 'silence': 1, 'correction': 2, 'gap': 3, 'hesitation': 4}
 sel = sorted(sel, key=lambda r: PRI.get(r['kind'], 9))  # hard rows first; Medi may stop early
 rows = []
@@ -162,9 +162,9 @@ paint();
 """.replace('N', str(n))
 page = (
     '<meta charset="utf-8"><title>Anees Check 02</title>\n<style>' + CSS + '</style>\n<main>\n<h1>Anees check 02</h1>\n'
-    f'<p class="lead">Clips from the Aug 25 lesson only (pre-class talk removed), plus silence and hard spots. Each clip was written down by {len(names)} different engines, '
+    f'<p class="lead">Clips from the Aug 25 lesson only (pre-class talk removed). Each clip was written down by {len(names)} different engines, '
     f'shown as {letters} in a random order on every row. Only the words inside the clip are shown. Hardest clips come first, so stopping early still counts. Play the clip, then tap the letter that matches what was '
-    'said best. "All same" if they tie, "All wrong" if none is close. On a silent clip, the right answer is the one that shows (nothing).</p>\n'
+    'said best. "All same" if they tie, "All wrong" if none is close.</p>\n'
     f'<div class="bar"><span id="cnt">0 / {n}</span><button id="copy">Copy results</button></div>\n'
     + ''.join(rows) +
     f'\n<p class="note">Answers save on this device. When you hit {n}, tap Copy results and paste them to Claude.</p>\n'
