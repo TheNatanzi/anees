@@ -50,6 +50,7 @@ for nm in ['dialect', 'speechmatics', 'eleven_auto', 'eleven_ara']:
     mp = {'Medi': 'Medi', 'Amal': 'Amal'} if nm == 'dialect' else speaker_map(ws, ref_words)
     for w in ws:
         w['spk'] = mp.get(w['spk'], w['spk'])
+        w['w'] = w['w'].replace('�', '')   # strip broken chars so the page stays valid UTF-8
     engines[nm] = ws
     print(nm, 'label map', mp)
 
