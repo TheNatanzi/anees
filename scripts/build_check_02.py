@@ -3,7 +3,8 @@ import json, io, base64, os, html, random, subprocess
 random = random.SystemRandom()
 R = 'data/aug25/'
 PAD_BEFORE, PAD_AFTER = 0.25, 0.35   # was 0.5/0.7; Medi heard neighbour words (2026-09-04)
-CLIPS = R + 'clips_v2/'
+CLIPS = R + 'clips_v3/'
+AUDIO = R + 'audio/aug25.mp3'
 sel = json.load(io.open(R + 'gold_selection_v2.json', encoding='utf-8'))
 
 
@@ -115,36 +116,74 @@ def clip_lines(words, st, en):
     return runs
 
 names = list(engines)
-EXTRA = [
-    {'kind': 'silence', 'start': 46.0, 'end': 51.5, 'why': 'pre-lesson silence'},
-    {'kind': 'silence', 'start': 96.0, 'end': 101.5, 'why': 'pre-lesson silence'},
-    {'kind': 'silence', 'start': 3628.0, 'end': 3633.5, 'why': 'after goodbye'},
-    {'kind': 'silence', 'start': 3690.0, 'end': 3695.5, 'why': 'after goodbye'},
-    {'kind': 'disagree', 'start': 223.0, 'end': 233.0, 'why': 'engines disagree'},
-    {'kind': 'disagree', 'start': 2445.7, 'end': 2449.2, 'why': 'engines disagree'},
-    {'kind': 'disagree', 'start': 2683.5, 'end': 2696.0, 'why': 'engines disagree'},
-]
-AUDIO = R + 'audio/aug25.mp3'
-os.makedirs(CLIPS, exist_ok=True)
-sel = sel + EXTRA
-for _i, _r in enumerate(sel):
-    _st = max(0, (_r['start'] or 0) - PAD_BEFORE); _en = (_r['end'] or _st + 3) + PAD_AFTER
-    if _en < _st + 2: _en = _st + 2
-    if _en - _st > 14: _en = _st + 14
-    _r['win'] = (_st, _en)
-    if not os.path.exists(f'{CLIPS}{_i:02d}.mp3'):
-        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', str(_st), '-to', str(_en), '-i', AUDIO, '-ac', '1', '-b:a', '48k', f'{CLIPS}{_i:02d}.mp3'], check=True)
-    _r['clip'] = f'{CLIPS}{_i:02d}.mp3'  # bind audio BEFORE any reordering
 LESSON_START, LESSON_END = 173.0, 3600.0   # first 'Hello' both sides; goodbye
 EXCLUDE = [(218.0, 259.0), (2440.0, 2452.0)]   # Medi talking Farsi to his dad (Medi 2026-09-04)
-def _keep(r):
-    st, en = r['start'] or 0, r['end'] or 0
-    if en < LESSON_START:
-        return False
-    return not any(st < b and en > a for a, b in EXCLUDE)
-sel = [r for r in sel if _keep(r) and r['kind'] != 'silence']  # silence rows judged by data, not by Medi (2026-09-04)
-PRI = {'disagree': 0, 'silence': 1, 'correction': 2, 'gap': 3, 'hesitation': 4}
-sel = sorted(sel, key=lambda r: PRI.get(r['kind'], 9))  # hard rows first; Medi may stop early
+N_CLIPS, TARGET, MIN_LEN, MAX_LEN, GAP = 20, 20.0, 12.0, 24.0, 0.6
+
+
+def natural_segments(words):
+    """Cut the lesson at natural boundaries (pause >= GAP or speaker change), then grow ~TARGET-second clips
+    that start at a sentence start and end at a boundary."""
+    ws = [w for w in words if LESSON_START <= w['s'] <= LESSON_END and not any(a <= w['s'] <= b for a, b in EXCLUDE)]
+    # boundaries: index i is a boundary if a pause or speaker change happens before word i
+    bounds = [0]
+    for i in range(1, len(ws)):
+        if ws[i]['s'] - ws[i - 1]['e'] >= GAP or ws[i]['spk'] != ws[i - 1]['spk']:
+            bounds.append(i)
+    bounds.append(len(ws))
+    segs = []
+    bi = 0
+    while bi < len(bounds) - 1:
+        i0 = bounds[bi]
+        st = ws[i0]['s']
+        best = None
+        for bj in range(bi + 1, len(bounds)):
+            i1 = bounds[bj]
+            en = ws[i1 - 1]['e']
+            if en - st > MAX_LEN:
+                break
+            if en - st >= MIN_LEN and (best is None or abs(en - st - TARGET) < abs(best[1] - st - TARGET)):
+                best = (bj, en)
+        if best is None:          # too little speech here, skip to next boundary
+            bi += 1
+            continue
+        bj, en = best
+        chunk = ws[i0:bounds[bj]]
+        segs.append({'start': st, 'end': en, 'words': chunk})
+        bi = bj
+    return segs
+
+
+segs = natural_segments(engines['eleven_ara'])
+gold = [g for g in sel if LESSON_START <= (g['start'] or 0) <= LESSON_END]
+for sg in segs:
+    txt = ' '.join(w['w'] for w in sg['words'])
+    sg['arabic'] = len(re.findall(r'[؀-ۿ]+', txt))
+    sg['medi_ar'] = sum(1 for w in sg['words'] if w['spk'] == 'Medi' and re.search(r'[؀-ۿ]', w['w']))
+    sg['events'] = sum(1 for g in gold if sg['start'] <= (g['start'] or 0) <= sg['end'])
+    sg['kinds'] = sorted({g['kind'] for g in gold if sg['start'] <= (g['start'] or 0) <= sg['end']})
+    sg['score'] = sg['events'] * 3 + min(sg['medi_ar'], 15) + min(sg['arabic'], 30) / 3
+# pick the best-scoring segment in each of N_CLIPS equal time bins, so the clips spread over the lesson
+span = (LESSON_END - LESSON_START) / N_CLIPS
+picked = []
+for k in range(N_CLIPS):
+    lo, hi = LESSON_START + k * span, LESSON_START + (k + 1) * span
+    cands = [sg for sg in segs if lo <= sg['start'] < hi and sg['medi_ar'] >= 3]
+    if cands:
+        picked.append(max(cands, key=lambda x: x['score']))
+if len(picked) < N_CLIPS:   # top up with the best leftovers
+    rest = sorted((sg for sg in segs if sg not in picked and sg['medi_ar'] >= 3), key=lambda x: -x['score'])
+    picked += rest[:N_CLIPS - len(picked)]
+picked.sort(key=lambda x: x['start'])
+sel = [{'kind': (sg['kinds'][0] if sg['kinds'] else 'talk'), 'start': sg['start'], 'end': sg['end'],
+        'why': f"{sg['events']} events, {sg['medi_ar']} Arabic words by Medi"} for sg in picked]
+os.makedirs(CLIPS, exist_ok=True)
+for _i, _r in enumerate(sel):
+    _st, _en = max(0, _r['start'] - 0.15), _r['end'] + 0.25
+    _r['win'] = (_st, _en)
+    _r['clip'] = f'{CLIPS}{_i:02d}.mp3'
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', str(_st), '-to', str(_en), '-i', AUDIO, '-ac', '1', '-b:a', '48k', _r['clip']], check=True)
+print('clips', len(sel), 'lengths', [round(r['end'] - r['start']) for r in sel])
 rows = []
 key = {}
 block = []
@@ -190,6 +229,7 @@ h1{font-size:26px;margin:8px 0 4px} .lead{color:var(--mute);margin:0 0 14px}
 .meta{display:flex;gap:10px;align-items:center;font-size:12px;color:var(--mute);margin-bottom:6px}
 .k{padding:2px 8px;border-radius:999px;border:1px solid var(--line);text-transform:uppercase;letter-spacing:.06em;font-size:11px}
 .k-silence{color:var(--mute)} .k-disagree{color:#6B4FBB;border-color:#6B4FBB}
+.k-talk{color:var(--mute)}
 .k-correction{color:var(--teal);border-color:var(--teal)} .k-gap{color:var(--amber);border-color:var(--amber)} .k-hesitation{color:var(--coral);border-color:var(--coral)}
 audio{width:100%;margin:4px 0}
 .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:8px 0}
@@ -203,7 +243,7 @@ audio{width:100%;margin:4px 0}
 .note{font-size:13px;color:var(--mute);margin:20px 0}
 """
 JS = """
-const K='anees-check-02-v1';let st={};try{st=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}
+const K='anees-check-02-v2';let st={};try{st=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}
 function paint(){let c=0;document.querySelectorAll('.row').forEach(r=>{const v=st[r.dataset.i];r.classList.toggle('done',!!v);if(v)c++;r.querySelectorAll('.btns button').forEach(b=>b.classList.toggle('on',b.dataset.v===v))});document.getElementById('cnt').textContent=c+' / N'}
 document.querySelectorAll('.btns button').forEach(b=>b.addEventListener('click',()=>{const r=b.closest('.row');st[r.dataset.i]=b.dataset.v;try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}paint()}));
 document.getElementById('copy').addEventListener('click',()=>{const out=Object.entries(st).map(([i,v])=>i+':'+v).join(',');navigator.clipboard.writeText('anees-check-02 '+out).then(()=>{document.getElementById('copy').textContent='Copied'})});
@@ -211,8 +251,8 @@ paint();
 """.replace('N', str(n))
 page = (
     '<meta charset="utf-8"><title>Anees Check 02</title>\n<style>' + CSS + '</style>\n<main>\n<h1>Anees check 02</h1>\n'
-    f'<p class="lead">Clips from the Aug 25 lesson only (pre-class talk removed). Each clip was written down by {len(names)} different engines, '
-    f'shown as {letters} in a random order on every row. Only the words inside the clip are shown. Hardest clips come first, so stopping early still counts. Filler sounds (um, uh, أمم) are shown as (pause). When Amal says mhm, aha, أيوه or صح right after you speak, it is marked as a green check: said it right. Play the clip, then tap the letter that matches what was '
+    f'<p class="lead">20 clips of about 20 seconds from the Aug 25 lesson, each cut at a natural pause. Each clip was written down by {len(names)} different engines, '
+    f'shown as {letters} in a random order on every row. Only the words inside the clip are shown. Filler sounds (um, uh, أمم) are shown as (pause). When Amal says mhm, aha, أيوه or صح right after you speak, it is marked as a green check: said it right. Play the clip, then tap the letter that matches what was '
     'said best. "All same" if they tie, "All wrong" if none is close.</p>\n'
     f'<div class="bar"><span id="cnt">0 / {n}</span><button id="copy">Copy results</button></div>\n'
     + ''.join(rows) +
