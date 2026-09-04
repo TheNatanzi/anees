@@ -2,6 +2,8 @@
 import json, io, base64, os, html, random, subprocess
 random = random.SystemRandom()
 R = 'data/aug25/'
+PAD_BEFORE, PAD_AFTER = 0.25, 0.35   # was 0.5/0.7; Medi heard neighbour words (2026-09-04)
+CLIPS = R + 'clips_v2/'
 sel = json.load(io.open(R + 'gold_selection_v2.json', encoding='utf-8'))
 
 
@@ -83,8 +85,9 @@ def clip_lines(words, st, en):
             pause = None
 
     for w in words:
-        mid = (w['s'] + w['e']) / 2
-        if mid < st or mid > en:
+        dur = max(0.05, w['e'] - w['s'])
+        inside = min(w['e'], en) - max(w['s'], st)
+        if inside / dur < 0.6:   # word must be at least 60% inside the clip
             continue
         if is_filler(w['w']):
             if pause and pause[0] == w['spk'] and w['s'] - pause[2] < 1.0:
@@ -122,14 +125,16 @@ EXTRA = [
     {'kind': 'disagree', 'start': 2683.5, 'end': 2696.0, 'why': 'engines disagree'},
 ]
 AUDIO = R + 'audio/aug25.mp3'
-for j, x in enumerate(EXTRA):
-    out = f'{R}clips/{50 + j:02d}.mp3'
-    if not os.path.exists(out):
-        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', str(max(0, x['start'] - 0.5)), '-to', str(x['end'] + 0.7),
-                        '-i', AUDIO, '-ac', '1', '-b:a', '48k', out], check=True)
+os.makedirs(CLIPS, exist_ok=True)
 sel = sel + EXTRA
 for _i, _r in enumerate(sel):
-    _r['clip'] = f'{R}clips/{_i:02d}.mp3'  # bind audio BEFORE any reordering
+    _st = max(0, (_r['start'] or 0) - PAD_BEFORE); _en = (_r['end'] or _st + 3) + PAD_AFTER
+    if _en < _st + 2: _en = _st + 2
+    if _en - _st > 14: _en = _st + 14
+    _r['win'] = (_st, _en)
+    if not os.path.exists(f'{CLIPS}{_i:02d}.mp3'):
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', str(_st), '-to', str(_en), '-i', AUDIO, '-ac', '1', '-b:a', '48k', f'{CLIPS}{_i:02d}.mp3'], check=True)
+    _r['clip'] = f'{CLIPS}{_i:02d}.mp3'  # bind audio BEFORE any reordering
 LESSON_START, LESSON_END = 173.0, 3600.0   # first 'Hello' both sides; goodbye
 EXCLUDE = [(218.0, 259.0), (2440.0, 2452.0)]   # Medi talking Farsi to his dad (Medi 2026-09-04)
 def _keep(r):
@@ -144,12 +149,7 @@ rows = []
 key = {}
 block = []
 for i, r in enumerate(sel):
-    st = max(0, (r['start'] or 0) - 0.5)
-    en = (r['end'] or st + 3) + 0.7
-    if en < st + 2:
-        en = st + 2
-    if en - st > 14:
-        en = st + 14
+    st, en = r['win']
     b64 = base64.b64encode(open(r['clip'], 'rb').read()).decode()
     if not block:
         base = names[:]
