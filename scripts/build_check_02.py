@@ -81,6 +81,8 @@ for j, x in enumerate(EXTRA):
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', str(max(0, x['start'] - 0.5)), '-to', str(x['end'] + 0.7),
                         '-i', AUDIO, '-ac', '1', '-b:a', '48k', out], check=True)
 sel = sel + EXTRA
+for _i, _r in enumerate(sel):
+    _r['clip'] = f'{R}clips/{_i:02d}.mp3'  # bind audio BEFORE any reordering
 PRI = {'disagree': 0, 'silence': 1, 'correction': 2, 'gap': 3, 'hesitation': 4}
 sel = sorted(sel, key=lambda r: PRI.get(r['kind'], 9))  # hard rows first; Medi may stop early
 rows = []
@@ -93,7 +95,7 @@ for i, r in enumerate(sel):
         en = st + 2
     if en - st > 14:
         en = st + 14
-    b64 = base64.b64encode(open(f'{R}clips/{i:02d}.mp3', 'rb').read()).decode()
+    b64 = base64.b64encode(open(r['clip'], 'rb').read()).decode()
     if not block:
         base = names[:]
         random.shuffle(base)
