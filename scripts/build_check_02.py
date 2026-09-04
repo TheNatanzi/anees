@@ -81,6 +81,8 @@ for j, x in enumerate(EXTRA):
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', str(max(0, x['start'] - 0.5)), '-to', str(x['end'] + 0.7),
                         '-i', AUDIO, '-ac', '1', '-b:a', '48k', out], check=True)
 sel = sel + EXTRA
+PRI = {'disagree': 0, 'silence': 1, 'correction': 2, 'gap': 3, 'hesitation': 4}
+sel = sorted(sel, key=lambda r: PRI.get(r['kind'], 9))  # hard rows first; Medi may stop early
 rows = []
 key = {}
 block = []
@@ -151,7 +153,7 @@ paint();
 page = (
     '<title>Anees Check 02</title>\n<style>' + CSS + '</style>\n<main>\n<h1>Anees check 02</h1>\n'
     f'<p class="lead">50 clips from check 01 plus 7 new ones (silence and hard spots). Each clip was written down by {len(names)} different engines, '
-    f'shown as {letters} in a random order on every row. Only the words inside the clip are shown. Play the clip, then tap the letter that matches what was '
+    f'shown as {letters} in a random order on every row. Only the words inside the clip are shown. Hardest clips come first, so stopping early still counts. Play the clip, then tap the letter that matches what was '
     'said best. "All same" if they tie, "All wrong" if none is close. On a silent clip, the right answer is the one that shows (nothing).</p>\n'
     f'<div class="bar"><span id="cnt">0 / {n}</span><button id="copy">Copy results</button></div>\n'
     + ''.join(rows) +
