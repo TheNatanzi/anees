@@ -190,6 +190,7 @@ for _i, _r in enumerate(sel):
     _r['win'] = (_st, _en)
     _r['clip'] = f'{CLIPS}{_i:02d}.mp3'
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', str(_st), '-to', str(_en), '-i', AUDIO, '-ac', '1', '-b:a', '48k', _r['clip']], check=True)
+json.dump([{'i': _i, 'start': _r['win'][0], 'end': _r['win'][1], 'clip': _r['clip']} for _i, _r in enumerate(sel)], io.open(R + 'check02_windows.json', 'w', encoding='utf-8'), indent=1)
 print('clips', len(sel), 'lengths', [round(r['end'] - r['start']) for r in sel])
 rows = []
 key = {}
