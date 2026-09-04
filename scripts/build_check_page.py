@@ -1,12 +1,12 @@
 import json,io,base64,subprocess,os,html
 src=r"C:\Users\Mahdi\AppData\Local\Temp\claude\C--Claude\b4922477-31d0-4ffd-b5c6-f94db85d4f0c\scratchpad\aug25.mp3"
-sel=json.load(io.open('data/aug25/gold_selection.json',encoding='utf-8'))
+sel=json.load(io.open('data/aug25/gold_selection_v2.json',encoding='utf-8'))
 os.makedirs('data/aug25/clips',exist_ok=True)
 rows=[]
 for i,r in enumerate(sel):
-    st=max(0,(r['start'] or 0)-0.6); en=(r['end'] or st+3)+0.6
-    if en<st+3: en=st+3
-    if en-st>8: en=st+8
+    st=max(0,(r['start'] or 0)-0.5); en=(r['end'] or st+3)+0.7
+    if en<st+2: en=st+2
+    if en-st>14: en=st+14
     out=f"data/aug25/clips/{i:02d}.mp3"
     subprocess.run(["ffmpeg","-v","error","-y","-ss",str(st),"-to",str(en),"-i",src,"-ac","1","-b:a","48k",out],check=True)
     b64=base64.b64encode(open(out,'rb').read()).decode()
@@ -38,13 +38,13 @@ audio{{width:100%;margin:4px 0}}
 </style>
 <main>
 <h1>Anees check 01</h1>
-<p class="lead">Aug 25 lesson, 50 lines from the dialect engine. Play the clip, read the line: does the text match what was said? Right = mostly right. Wrong = wrong words. Unsure = can't tell.</p>
+<p class="lead">Aug 25 lesson, 50 lines from the dialect engine (v2, tight clips). Play the clip, read the line: does the text match what was said? Right = mostly right. Wrong = wrong words. Unsure = can't tell.</p>
 <div class="bar"><span id="cnt">0 / 50</span><button id="copy">Copy results</button></div>
 {''.join(rows)}
 <p class="note">Answers save on this device. When you hit 50, tap Copy results and paste them to Claude.</p>
 </main>
 <script>
-const K='anees-check-01';let st={{}};try{{st=JSON.parse(localStorage.getItem(K)||'{{}}')}}catch(e){{}}
+const K='anees-check-01-v2';let st={{}};try{{st=JSON.parse(localStorage.getItem(K)||'{{}}')}}catch(e){{}}
 function paint(){{let n=0;document.querySelectorAll('.row').forEach(r=>{{const v=st[r.dataset.i];r.classList.toggle('done',!!v);if(v)n++;r.querySelectorAll('.btns button').forEach(b=>b.classList.toggle('on',b.dataset.v===v))}});document.getElementById('cnt').textContent=n+' / 50'}}
 document.querySelectorAll('.btns button').forEach(b=>b.addEventListener('click',()=>{{const r=b.closest('.row');st[r.dataset.i]=b.dataset.v;try{{localStorage.setItem(K,JSON.stringify(st))}}catch(e){{}}paint()}}));
 document.getElementById('copy').addEventListener('click',()=>{{const out=Object.entries(st).map(([i,v])=>i+':'+v).join(',');navigator.clipboard.writeText('anees-check-01 '+out).then(()=>{{document.getElementById('copy').textContent='Copied'}})}});
