@@ -18,7 +18,7 @@ for w in wins:
     with open(ROOT / w['clip'], 'rb') as f:
         r = requests.post('https://api.openai.com/v1/audio/transcriptions',
                           headers={'Authorization': f'Bearer {key}'},
-                          data={k: v for k, v in {'model': MODEL, 'response_format': ('diarized_json' if 'diarize' in MODEL else 'json'), 'chunking_strategy': ('auto' if 'diarize' in MODEL else None), 'language': LANG, 'prompt': PROMPT}.items() if v},
+                          data={k: v for k, v in {'model': MODEL, 'response_format': ('diarized_json' if 'diarize' in MODEL else 'json'), 'chunking_strategy': ('auto' if ('diarize' in MODEL or os.environ.get('OPENAI_CHUNK')) else None), 'language': LANG, 'prompt': PROMPT}.items() if v},
                           files={'file': (os.path.basename(w['clip']), f, 'audio/mpeg')}, timeout=300)
     if r.status_code != 200:
         print(w['i'], r.status_code, r.text[:300])
