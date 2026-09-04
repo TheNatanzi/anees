@@ -52,7 +52,7 @@ for nm in ['dialect', 'speechmatics', 'eleven_auto', 'eleven_ara']:
 
 
 import re
-FILLER = re.compile(r"^[W_]*(u+m+|u+h+|u+h+m+|h+m+|m+m+|e+r+|a+h+|أ*م+|آ+|ا{2,}|ه+م+|إ+م+|ء*م+)[\W_]*$", re.I)
+FILLER = re.compile(r"^[\W_]*(u+m+|u+h+|u+h+m+|h+m+|m+m+|e+r+|a+h+|أ*م+|ا+م+|آ+|ا{2,}|ه+م+|إ+م+|ء*م+)[\W_]*$", re.I)
 
 
 def is_filler(w):
