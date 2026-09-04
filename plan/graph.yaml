@@ -44,7 +44,8 @@ nodes:
   - {id: L5, title: Codex audit M5, owner: codex, depends_on: [S1, C1], done_when: "ranking reproducible, live logging persists, tutor workload ≤5 min"}
   - {id: F5, title: Fix + retest M5, owner: claude, depends_on: [L5], done_when: "findings closed; Medi ticks M5"}
   - {id: W1, title: Weekly improve loop, owner: claude+codex, depends_on: [F5], done_when: "Mondays: metrics → one change → Codex reviews diff → ship or drop; logged in wiki/08"}
-now:   [V0, V1, T0]            # max 3; A0 is done
-next:  [G0, B0, G1, G2, S0, T1, T2, T3, T4, L0, F0]
+done:  [A0, G0, T0]            # 2026-09-03: Codex rounds 1-3, repo scaffold pushed, Aug 25 audio in scratch (62.6 min)
+now:   [V0, T1, B0]            # max 3
+next:  [V1, G1, G2, S0, T2, T3, T4, L0, F0]
 later: [B1, B2, X1, L1, F1, P1, X2, L2, F2, D1, P2, L3, F3, X3, R1, L4, F4, S1, C1, L5, F5, W1]
 deferred_v2: [automatic ASR grading, streaks, secondary charts, N=1 statistics, bulk audio, Wispr Flow]
