@@ -1,4 +1,5 @@
-import json,time,sys
+import json,time,sys,os,glob,site
+for d in glob.glob(os.path.join(site.getsitepackages()[0],"nvidia","*","bin")): os.add_dll_directory(d); os.environ["PATH"]=d+os.pathsep+os.environ["PATH"]
 from faster_whisper import WhisperModel
 src=r"C:\Users\Mahdi\AppData\Local\Temp\claude\C--Claude\b4922477-31d0-4ffd-b5c6-f94db85d4f0c\scratchpad\aug25.mp3"
 t0=time.time()
