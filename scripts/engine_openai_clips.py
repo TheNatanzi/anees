@@ -8,6 +8,9 @@ ROOT = Path(__file__).resolve().parent.parent
 R = ROOT / 'data' / 'aug25'
 key = os.environ.get('OPENAI_API_KEY') or sys.exit('MISSING OPENAI_API_KEY')
 MODEL = os.environ.get('OPENAI_STT_MODEL', 'gpt-4o-transcribe-diarize')
+LANG = os.environ.get('OPENAI_LANG')            # e.g. 'ar' to force Arabic
+PROMPT = os.environ.get('OPENAI_PROMPT')        # context hint
+OUTNAME = os.environ.get('OPENAI_OUT', 'openai_clips.json')
 wins = json.load(io.open(R / 'check02_windows.json', encoding='utf-8'))   # [{'i','start','end','clip'}]
 out = {}
 for w in wins:
@@ -15,7 +18,7 @@ for w in wins:
     with open(ROOT / w['clip'], 'rb') as f:
         r = requests.post('https://api.openai.com/v1/audio/transcriptions',
                           headers={'Authorization': f'Bearer {key}'},
-                          data={'model': MODEL, 'response_format': 'diarized_json', 'chunking_strategy': 'auto'},
+                          data={k: v for k, v in {'model': MODEL, 'response_format': ('diarized_json' if 'diarize' in MODEL else 'json'), 'chunking_strategy': ('auto' if 'diarize' in MODEL else None), 'language': LANG, 'prompt': PROMPT}.items() if v},
                           files={'file': (os.path.basename(w['clip']), f, 'audio/mpeg')}, timeout=300)
     if r.status_code != 200:
         print(w['i'], r.status_code, r.text[:300])
@@ -29,5 +32,5 @@ for w in wins:
     if not segs and d.get('text'):
         out[str(w['i'])] = [{'spk': '?', 's': w['start'], 'e': w['end'], 'text': d['text'].strip()}]
     print(w['i'], f'{time.time() - t0:.0f}s', len(segs), 'segments')
-io.open(R / 'openai_clips.json', 'w', encoding='utf-8').write(json.dumps(out, ensure_ascii=False, indent=1))
+io.open(R / OUTNAME, 'w', encoding='utf-8').write(json.dumps(out, ensure_ascii=False, indent=1))
 print('saved', len(out), 'clips')
