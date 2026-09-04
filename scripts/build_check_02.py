@@ -53,6 +53,12 @@ for nm in ['dialect', 'speechmatics', 'eleven_auto', 'eleven_ara']:
 
 import re
 FILLER = re.compile(r"^[\W_]*(u+m+|u+h+|u+h+m+|h+m+|m+m+|e+r+|a+h+|أ*م+|ا+م+|آ+|ا{2,}|ه+م+|إ+م+|ء*م+)[\W_]*$", re.I)
+CONFIRM = re.compile(r"^[\W_]*(m+h+m+|mm-?hmm|uh-?huh|a+h+a+|yes|yeah|yep|yup|exactly|right|correct|good|perfect|great|bravo|ok|okay|ممتاز|أيوه|ايوه|ايوا|أيوا|آه|اه|صح|تمام|كويس|منيح|برافو|بالظبط|مظبوط|عظيم|حلو|هيك|ايه|إيه)[\W_]*$", re.I)
+TUTOR = "Amal"
+
+
+def is_confirm(w):
+    return bool(CONFIRM.match(w))
 
 
 def is_filler(w):
@@ -93,6 +99,16 @@ def clip_lines(words, st, en):
         else:
             runs.append({'spk': w['spk'], 'text': html.escape(w['w'])})
     flush()
+    for k, r in enumerate(runs):
+        if r['spk'] != TUTOR:
+            continue
+        toks = r['text'].split(' ')
+        plain = [t for t in toks if not t.startswith('<span')]
+        after_medi = k > 0 and runs[k - 1]['spk'] != TUTOR
+        if plain and all(is_confirm(t) for t in plain) and after_medi:
+            r['text'] = '<span class="ok">&#10003; said it right: ' + r['text'] + '</span>'
+        else:
+            r['text'] = ' '.join('<span class="ok">&#10003; ' + t + '</span>' if (not t.startswith('<span') and is_confirm(t)) else t for t in toks)
     return runs
 
 names = list(engines)
@@ -179,6 +195,7 @@ audio{width:100%;margin:4px 0}
 .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:8px 0}
 .col{border:1px solid var(--line);border-radius:10px;padding:8px 10px;min-width:0;overflow-wrap:anywhere}
 .lbl{font-weight:700;color:var(--teal);font-size:14px;margin-bottom:4px}
+.ok{color:var(--teal);font-size:14px;border:1px solid var(--teal);border-radius:999px;padding:0 8px;white-space:nowrap}
 .pz{color:var(--amber);font-size:14px;border:1px dashed var(--amber);border-radius:999px;padding:0 8px;white-space:nowrap}
 .ar{font-size:19px;line-height:1.6;margin:6px 0} .none{color:var(--mute);font-size:14px} .spk{font-size:13px;color:var(--mute);margin-inline-end:6px}
 .btns{display:flex;gap:8px;flex-wrap:wrap} .btns button{flex:1;min-width:70px;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:15px;cursor:pointer}
@@ -195,7 +212,7 @@ paint();
 page = (
     '<meta charset="utf-8"><title>Anees Check 02</title>\n<style>' + CSS + '</style>\n<main>\n<h1>Anees check 02</h1>\n'
     f'<p class="lead">Clips from the Aug 25 lesson only (pre-class talk removed). Each clip was written down by {len(names)} different engines, '
-    f'shown as {letters} in a random order on every row. Only the words inside the clip are shown. Hardest clips come first, so stopping early still counts. Filler sounds (um, uh, أمم) are shown as (pause). Play the clip, then tap the letter that matches what was '
+    f'shown as {letters} in a random order on every row. Only the words inside the clip are shown. Hardest clips come first, so stopping early still counts. Filler sounds (um, uh, أمم) are shown as (pause). Amal's mhm / aha / أيوه / صح right after you speak is marked as a green check: said it right. Play the clip, then tap the letter that matches what was '
     'said best. "All same" if they tie, "All wrong" if none is close.</p>\n'
     f'<div class="bar"><span id="cnt">0 / {n}</span><button id="copy">Copy results</button></div>\n'
     + ''.join(rows) +
