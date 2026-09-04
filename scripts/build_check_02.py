@@ -5,18 +5,58 @@ R = 'data/aug25/'
 sel = json.load(io.open(R + 'gold_selection_v2.json', encoding='utf-8'))
 
 
-def load_engine(path, spk_key, s_key, e_key, txt_key):
-    d = json.load(io.open(path, encoding='utf-8'))
-    d = d['turns'] if isinstance(d, dict) else d
-    return [{'s': t[s_key], 'e': t[e_key], 'spk': t[spk_key], 'text': t[txt_key]} for t in d]
+def load_words(name):
+    """Word-level list {s,e,spk,w} per engine."""
+    if name == 'dialect':
+        d = json.load(io.open(R + 'turns.json', encoding='utf-8'))['words']
+        return [{'s': w['s'], 'e': w['e'], 'spk': w['spk'], 'w': w['w']} for w in d]
+    if name == 'speechmatics':
+        d = json.load(io.open(R + 'speechmatics_ar_en.json', encoding='utf-8'))['results']
+        return [{'s': w['start_time'], 'e': w['end_time'], 'spk': w['alternatives'][0].get('speaker', '?'),
+                 'w': w['alternatives'][0]['content']} for w in d if w['type'] == 'word']
+    f = {'eleven_auto': 'eleven_scribe_auto.json', 'eleven_ara': 'eleven_scribe_ara.json'}[name]
+    d = json.load(io.open(R + f, encoding='utf-8'))['words']
+    return [{'s': w['start'], 'e': w['end'], 'spk': w.get('speaker_id', '?'), 'w': w['text']} for w in d if w['type'] == 'word']
 
 
-engines = {
-    'dialect': load_engine(R + 'turns.json', 'spk', 's', 'e', 'text'),
-    'speechmatics': load_engine(R + 'speechmatics_ar_en_turns.json', 'speaker', 'start', 'end', 'text'),
-    'eleven_auto': load_engine(R + 'eleven_scribe_auto_turns.json', 'speaker', 'start', 'end', 'text'),
-    'eleven_ara': load_engine(R + 'eleven_scribe_ara_turns.json', 'speaker', 'start', 'end', 'text'),
-}
+def speaker_map(words, ref):
+    """Map an engine's raw labels to Medi/Amal by time overlap with the reference (dialect) labels."""
+    from collections import Counter, defaultdict
+    ref_sorted = sorted(ref, key=lambda w: w['s'])
+    import bisect
+    starts = [w['s'] for w in ref_sorted]
+    votes = defaultdict(Counter)
+    for w in words:
+        mid = (w['s'] + w['e']) / 2
+        i = bisect.bisect_right(starts, mid) - 1
+        if 0 <= i < len(ref_sorted) and ref_sorted[i]['e'] + 0.3 >= mid:
+            votes[w['spk']][ref_sorted[i]['spk']] += 1
+    return {lab: (c.most_common(1)[0][0] if c else '?') for lab, c in votes.items()}
+
+
+ref_words = load_words('dialect')
+engines = {}
+for nm in ['dialect', 'speechmatics', 'eleven_auto', 'eleven_ara']:
+    ws = load_words(nm)
+    mp = {'Medi': 'Medi', 'Amal': 'Amal'} if nm == 'dialect' else speaker_map(ws, ref_words)
+    for w in ws:
+        w['spk'] = mp.get(w['spk'], w['spk'])
+    engines[nm] = ws
+    print(nm, 'label map', mp)
+
+
+def clip_lines(words, st, en):
+    """Words inside the clip window, grouped into speaker runs."""
+    runs = []
+    for w in words:
+        if w['e'] < st + 0.15 or w['s'] > en - 0.15:
+            continue
+        if runs and runs[-1]['spk'] == w['spk']:
+            runs[-1]['text'] += ' ' + w['w']
+        else:
+            runs.append({'spk': w['spk'], 'text': w['w']})
+    return runs
+
 names = list(engines)
 rows = []
 key = {}
@@ -33,7 +73,7 @@ for i, r in enumerate(sel):
     key[i] = order
     cols = []
     for L, nm in zip('ABCD', order):
-        ov = [t for t in engines[nm] if t['e'] > st + 0.2 and t['s'] < en - 0.2]
+        ov = clip_lines(engines[nm], st, en)
         body = ''.join(
             f'<p class="ar" dir="auto"><b class="spk">{html.escape(str(t["spk"]))}:</b> {html.escape(t["text"])}</p>'
             for t in ov) or '<p class="ar none">(nothing)</p>'
@@ -82,7 +122,7 @@ paint();
 page = (
     '<title>Anees Check 02</title>\n<style>' + CSS + '</style>\n<main>\n<h1>Anees check 02</h1>\n'
     f'<p class="lead">Same 50 clips as check 01. Each clip was written down by {len(names)} different engines, '
-    f'shown as {letters} in a random order on every row. Play the clip, then tap the letter that matches what was '
+    f'shown as {letters} in a random order on every row. Only the words inside the clip are shown. Play the clip, then tap the letter that matches what was '
     'said best. "All same" if they tie, "All wrong" if none is close.</p>\n'
     f'<div class="bar"><span id="cnt">0 / {n}</span><button id="copy">Copy results</button></div>\n'
     + ''.join(rows) +

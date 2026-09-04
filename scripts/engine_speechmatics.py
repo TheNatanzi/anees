@@ -4,7 +4,7 @@ from engine_common import *
 
 key = need_key("SPEECHMATICS_API_KEY")
 lang = sys.argv[1] if len(sys.argv) > 1 else "ar_en"
-stem = f"speechmatics_{lang}"
+stem = f"speechmatics_{lang}" + os.environ.get("RUN_TAG", "")
 H = {"Authorization": f"Bearer {key}"}
 BASE = "https://asr.api.speechmatics.com/v2"
 cfg = {"type": "transcription",

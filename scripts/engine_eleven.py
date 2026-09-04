@@ -4,7 +4,7 @@ from engine_common import *
 
 key = need_key("ELEVENLABS_API_KEY")
 lang = sys.argv[1] if len(sys.argv) > 1 else "auto"
-stem = f"eleven_scribe_{lang}"
+stem = f"eleven_scribe_{lang}" + os.environ.get("RUN_TAG", "")
 data = {"model_id": "scribe_v2", "diarize": "true", "num_speakers": "2",
         "timestamps_granularity": "word", "tag_audio_events": "true"}
 if lang != "auto":
