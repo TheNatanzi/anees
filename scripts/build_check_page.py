@@ -22,7 +22,7 @@ for i,r in enumerate(sel):
     rows.append(f'''<div class="row" data-i="{i}"><div class="meta"><span class="k k-{r['kind']}">{r['kind']}</span><span class="t">{m:02d}:{s:02d}</span></div>
 <audio controls preload="none" src="data:audio/mpeg;base64,{b64}"></audio>
 {lines_html}
-<div class="btns"><button data-v="right">Right</button><button data-v="wrong">Wrong</button><button data-v="unsure">Unsure</button></div></div>''')
+<div class="btns"><button data-v="right">Right</button><button data-v="wrong">Wrong</button><button data-v="fixed">Auto-fixed my error</button><button data-v="unsure">Unsure</button></div></div>''')
 page=f'''<title>Anees Check 01</title>
 <style>
 :root{{--bg:#F4F6F2;--bg2:#fff;--ink:#1B2620;--mute:#5B6A62;--line:#D6DDD8;--teal:#0F6E56;--amber:#B26F0E;--coral:#B54324}}
@@ -41,18 +41,18 @@ h1{{font-size:26px;margin:8px 0 4px}} .lead{{color:var(--mute);margin:0 0 14px}}
 audio{{width:100%;margin:4px 0}}
 .ar{{font-size:22px;line-height:1.7;margin:8px 0}} .spk{{font-size:14px;color:var(--teal);margin-inline-end:8px}}
 .btns{{display:flex;gap:8px}} .btns button{{flex:1;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:15px;cursor:pointer}}
-.btns button.on{{background:var(--teal);color:#fff;border-color:var(--teal)}} .btns button.on[data-v=wrong]{{background:var(--coral);border-color:var(--coral)}} .btns button.on[data-v=unsure]{{background:var(--amber);border-color:var(--amber)}}
+.btns button.on{{background:var(--teal);color:#fff;border-color:var(--teal)}} .btns button.on[data-v=wrong]{{background:var(--coral);border-color:var(--coral)}} .btns button.on[data-v=unsure]{{background:var(--amber);border-color:var(--amber)}} .btns button.on[data-v=fixed]{{background:#6B4FBB;border-color:#6B4FBB}}
 .note{{font-size:13px;color:var(--mute);margin:20px 0}}
 </style>
 <main>
 <h1>Anees check 01</h1>
-<p class="lead">Aug 25 lesson, 50 lines from the dialect engine (v4: one line per speaker turn). Play the clip, read the line: does the text match what was said? Right = mostly right. Wrong = wrong words. Unsure = can't tell.</p>
+<p class="lead">Aug 25 lesson, 50 lines from the dialect engine (v5: + auto-fixed button). Play the clip, read the line: does the text match what was said? Right = matches what was said. Wrong = wrong words. Auto-fixed = I said it wrong but the text shows it right. Unsure = can't tell.</p>
 <div class="bar"><span id="cnt">0 / 50</span><button id="copy">Copy results</button></div>
 {''.join(rows)}
 <p class="note">Answers save on this device. When you hit 50, tap Copy results and paste them to Claude.</p>
 </main>
 <script>
-const K='anees-check-01-v4';let st={{}};try{{st=JSON.parse(localStorage.getItem(K)||'{{}}')}}catch(e){{}}
+const K='anees-check-01-v5';let st={{}};try{{st=JSON.parse(localStorage.getItem(K)||'{{}}')}}catch(e){{}}
 function paint(){{let n=0;document.querySelectorAll('.row').forEach(r=>{{const v=st[r.dataset.i];r.classList.toggle('done',!!v);if(v)n++;r.querySelectorAll('.btns button').forEach(b=>b.classList.toggle('on',b.dataset.v===v))}});document.getElementById('cnt').textContent=n+' / 50'}}
 document.querySelectorAll('.btns button').forEach(b=>b.addEventListener('click',()=>{{const r=b.closest('.row');st[r.dataset.i]=b.dataset.v;try{{localStorage.setItem(K,JSON.stringify(st))}}catch(e){{}}paint()}}));
 document.getElementById('copy').addEventListener('click',()=>{{const out=Object.entries(st).map(([i,v])=>i+':'+v).join(',');navigator.clipboard.writeText('anees-check-01 '+out).then(()=>{{document.getElementById('copy').textContent='Copied'}})}});

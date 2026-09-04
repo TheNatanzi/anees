@@ -19,3 +19,5 @@
 | Retention (audio) | raw lesson audio 90 days; 3-s item clips kept while the item exists; Medi's recorded speak attempts 30 days then deleted; transcripts and review rows kept. |
 | Ingestion | idempotent by Drive file id; retry 3× with backoff; failed runs email Medi only; raw audio kept 90 days then deleted, transcripts kept; Amal can request deletion of any lesson. |
 | Manual add | one form (word, meaning, optional note) on the Words tab for Medi or Amal; enters at status 0 with source=manual. |
+
+| Error signal (added 2026-09-03 after Medi's check) | ASR auto-corrects learner errors (LearnerVoice finding, confirmed live). Primary miss signal = **Amal's correction/repeat, gaps, hesitations**, never Medi's transcribed form. Every miss keeps its audio clip. v2 experiment: no-LM phonetic engine (wav2vec2 CTC Arabic) to capture Medi's actual form. Check 01 gets an "Auto-fixed" button to measure the rate. |
