@@ -57,7 +57,7 @@ for nm in ['dialect', 'speechmatics', 'eleven_auto', 'eleven_ara']:
 
 import re
 FILLER = re.compile(r"^[\W_]*(u+m+|u+h+|u+h+m+|h+m+|m+m+|e+r+|a+h+|أ*م+|ا+م+|آ+|ا{2,}|ه+م+|إ+م+|ء*م+)[\W_]*$", re.I)
-CONFIRM = re.compile(r"^[\W_]*(m+h+m+|mm-?hmm|uh-?huh|a+h+a+|yes|yeah|yep|yup|exactly|right|correct|good|perfect|great|bravo|ok|okay|ممتاز|أيوه|ايوه|ايوا|أيوا|آه|اه|صح|تمام|كويس|منيح|برافو|بالظبط|مظبوط|عظيم|حلو|هيك|ايه|إيه)[\W_]*$", re.I)
+CONFIRM = re.compile(r"^[\W_]*(m+h+m+|mm-?hmm|uh-?huh|a+h+a+|yes|yeah|yep|yup|exactly|correct|perfect|bravo|ممتاز|أيوه|ايوه|ايوا|أيوا|صح|بالظبط|مظبوط|برافو|عظيم)[\W_]*$", re.I)
 TUTOR = "Amal"
 
 
@@ -105,15 +105,21 @@ def clip_lines(words, st, en):
             runs.append({'spk': w['spk'], 'text': html.escape(w['w'])})
     flush()
     for k, r in enumerate(runs):
-        if r['spk'] != TUTOR:
+        if r['spk'] != TUTOR or k == 0:
             continue
+        prev = runs[k - 1]
+        if prev['spk'] == TUTOR or not re.search(r'[؀-ۿ]', prev['text']):
+            continue   # approval only counts right after Medi said something in Arabic
         toks = r['text'].split(' ')
-        plain = [t for t in toks if not t.startswith('<span')]
-        after_medi = k > 0 and runs[k - 1]['spk'] != TUTOR
-        if plain and all(is_confirm(t) for t in plain) and after_medi:
+        lead = 0
+        while lead < len(toks) and not toks[lead].startswith('<span') and is_confirm(toks[lead]):
+            lead += 1
+        if lead == 0:
+            continue
+        if lead == len(toks):
             r['text'] = '<span class="ok">&#10003; said it right: ' + r['text'] + '</span>'
         else:
-            r['text'] = ' '.join('<span class="ok">&#10003; ' + t + '</span>' if (not t.startswith('<span') and is_confirm(t)) else t for t in toks)
+            r['text'] = '<span class="ok">&#10003; ' + ' '.join(toks[:lead]) + '</span> ' + ' '.join(toks[lead:])
     return runs
 
 names = list(engines)
@@ -255,7 +261,7 @@ paint();
 page = (
     '<meta charset="utf-8"><title>Anees Check 02</title>\n<style>' + CSS + '</style>\n<main>\n<h1>Anees check 02</h1>\n'
     f'<p class="lead">20 clips of about 20 seconds from the Aug 25 lesson, each cut at a natural pause. Each clip was written down by {len(names)} different engines, '
-    f'shown as {letters} in a random order on every row. Only the words inside the clip are shown. Filler sounds (um, uh, أمم) are shown as (pause). When Amal says mhm, aha, أيوه or صح right after you speak, it is marked as a green check: said it right. Play the clip, then tap the letter that matches what was '
+    f'shown as {letters} in a random order on every row. Only the words inside the clip are shown. Filler sounds (um, uh, أمم) are shown as (pause). When Amal opens her reply with mhm, aha, yes, أيوه, صح or ممتاز right after your Arabic, it is marked with a green check: said it right. Ok, تمام, khalas and the like are not counted. Play the clip, then tap the letter that matches what was '
     'said best. "All same" if they tie, "All wrong" if none is close.</p>\n'
     f'<div class="bar"><span id="cnt">0 / {n}</span><button id="copy">Copy results</button></div>\n'
     + ''.join(rows) +
