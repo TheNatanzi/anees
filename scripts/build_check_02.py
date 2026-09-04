@@ -244,9 +244,11 @@ audio{width:100%;margin:4px 0}
 .note{font-size:13px;color:var(--mute);margin:20px 0}
 """
 JS = """
-const K='anees-check-02-v2';let st={};try{st=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}
-function paint(){let c=0;document.querySelectorAll('.row').forEach(r=>{const v=st[r.dataset.i];r.classList.toggle('done',!!v);if(v)c++;r.querySelectorAll('.btns button').forEach(b=>b.classList.toggle('on',b.dataset.v===v))});document.getElementById('cnt').textContent=c+' / N'}
-document.querySelectorAll('.btns button').forEach(b=>b.addEventListener('click',()=>{const r=b.closest('.row');st[r.dataset.i]=b.dataset.v;try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}paint()}));
+const K='anees-check-02-v3';let st={};try{st=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}
+function paint(){let c=0;document.querySelectorAll('.row').forEach(r=>{const v=st[r.dataset.i]||'';r.classList.toggle('done',!!v);if(v)c++;r.querySelectorAll('.btns button').forEach(b=>b.classList.toggle('on',v===b.dataset.v||(v.length<=4&&/^[A-D]+$/.test(v)&&v.includes(b.dataset.v))))});document.getElementById('cnt').textContent=c+' / N'}
+document.querySelectorAll('.btns button').forEach(b=>b.addEventListener('click',()=>{const r=b.closest('.row');const i=r.dataset.i;const L=b.dataset.v;let v=st[i]||'';
+if(L==='tie'||L==='none'){v=(v===L)?'':L;}else{if(!/^[A-D]*$/.test(v))v='';v=v.includes(L)?v.replace(L,''):(v+L).split('').sort().join('');}
+if(v)st[i]=v;else delete st[i];try{localStorage.setItem(K,JSON.stringify(st))}catch(e){}paint()}));
 document.getElementById('copy').addEventListener('click',()=>{const out=Object.entries(st).map(([i,v])=>i+':'+v).join(',');navigator.clipboard.writeText('anees-check-02 '+out).then(()=>{document.getElementById('copy').textContent='Copied'})});
 paint();
 """.replace('N', str(n))
