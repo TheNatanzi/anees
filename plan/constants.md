@@ -21,3 +21,6 @@
 | Manual add | one form (word, meaning, optional note) on the Words tab for Medi or Amal; enters at status 0 with source=manual. |
 
 | Error signal (added 2026-09-03 after Medi's check) | ASR auto-corrects learner errors (LearnerVoice finding, confirmed live). Primary miss signal = **Amal's correction/repeat, gaps, hesitations**, never Medi's transcribed form. Every miss keeps its audio clip. v2 experiment: no-LM phonetic engine (wav2vec2 CTC Arabic) to capture Medi's actual form. Check 01 gets an "Auto-fixed" button to measure the rate. |
+
+| Recording (added 2026-09-03) | From the next lesson on, record TWO channels on Medi's PC: ch1 = Medi's mic, ch2 = system loopback (Meet = Amal). Speaker labels come from channels, never from AI guessing. Meet's own recording stays as backup. |
+| Engines (revised) | Clean words: Speechmatics bilingual Ar-En (Palestinian named) or Soniox; batch fallback ElevenLabs. Raw learner form: wav2vec2 Levantine CTC (no LM) on ch1. Free local dialect Whisper stays as offline fallback. |

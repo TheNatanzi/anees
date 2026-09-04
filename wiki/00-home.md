@@ -12,3 +12,4 @@
 - [11 — Reuse Map: What We Run As-Is vs Copy (Medi's ask 2026-09-03: reuse, don't rebuild)](11-reuse-map-what-we-run-as-is-vs-copy-medi-s-ask-202.md)
 - [12 — Five Tools Medi Flagged (checked 2026-09-03)](12-five-tools-medi-flagged-checked-2026-09-03.md)
 - [09 — Codex reviews](09-codex-reviews.md)
+- [13 — Live transcribers + two-channel recording](13-live-transcribers-and-two-channel-recording.md)
