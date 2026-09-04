@@ -43,6 +43,17 @@ def extract_audio(src, dst):
     return dst
 
 
+def is_arabic_lesson(mp3, d):
+    """5-cent pre-check: transcribe minutes 3-6 only; skip the $1.50 full run when there is no Arabic."""
+    sample = d / 'sample.mp3'
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', '180', '-t', '180', '-i', str(mp3), '-ac', '1', '-ar', '16000', '-b:a', '48k', str(sample)], check=True)
+    res = transcribe(sample)
+    ws = [w['text'] for w in res.get('words', []) if w.get('type') == 'word']
+    share = sum(1 for w in ws if ARABIC.search(w)) / max(1, len(ws))
+    log('pre-check', f'{len(ws)} words, arabic share {share:.2f}, language {res.get("language_code")}')
+    return share >= MIN_ARABIC_SHARE or res.get('language_code') == 'ara'
+
+
 def transcribe(mp3):
     key = os.environ.get('ELEVENLABS_API_KEY') or sys.exit('MISSING ELEVENLABS_API_KEY')
     with open(mp3, 'rb') as f:
@@ -158,6 +169,9 @@ def process(src, date, hhmm, reuse=None, send=True):
         res = json.load(io.open(reuse, encoding='utf-8'))
     else:
         mp3 = extract_audio(src, d / 'audio.mp3')
+        if not is_arabic_lesson(mp3, d):
+            log('not an Arabic lesson (pre-check) -> skipped')
+            return {'skipped': 'not arabic (pre-check)', 'date': date, 'source': src.name}
         log('transcribing', mp3.name)
         res = transcribe(mp3)
         (d / 'scribe.json').write_text(json.dumps(res, ensure_ascii=False), encoding='utf-8')
