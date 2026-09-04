@@ -5,6 +5,7 @@ os.makedirs('data/aug25/clips',exist_ok=True)
 rows=[]
 for i,r in enumerate(sel):
     st=max(0,(r['start'] or 0)-0.6); en=(r['end'] or st+3)+0.6
+    if en<st+3: en=st+3
     if en-st>8: en=st+8
     out=f"data/aug25/clips/{i:02d}.mp3"
     subprocess.run(["ffmpeg","-v","error","-y","-ss",str(st),"-to",str(en),"-i",src,"-ac","1","-b:a","48k",out],check=True)
