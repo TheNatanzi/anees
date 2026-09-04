@@ -212,7 +212,7 @@ paint();
 page = (
     '<meta charset="utf-8"><title>Anees Check 02</title>\n<style>' + CSS + '</style>\n<main>\n<h1>Anees check 02</h1>\n'
     f'<p class="lead">Clips from the Aug 25 lesson only (pre-class talk removed). Each clip was written down by {len(names)} different engines, '
-    f'shown as {letters} in a random order on every row. Only the words inside the clip are shown. Hardest clips come first, so stopping early still counts. Filler sounds (um, uh, أمم) are shown as (pause). Amal's mhm / aha / أيوه / صح right after you speak is marked as a green check: said it right. Play the clip, then tap the letter that matches what was '
+    f'shown as {letters} in a random order on every row. Only the words inside the clip are shown. Hardest clips come first, so stopping early still counts. Filler sounds (um, uh, أمم) are shown as (pause). When Amal says mhm, aha, أيوه or صح right after you speak, it is marked as a green check: said it right. Play the clip, then tap the letter that matches what was '
     'said best. "All same" if they tie, "All wrong" if none is close.</p>\n'
     f'<div class="bar"><span id="cnt">0 / {n}</span><button id="copy">Copy results</button></div>\n'
     + ''.join(rows) +
