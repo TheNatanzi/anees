@@ -1,6 +1,6 @@
 """Anees Check 02: same 50 gold clips, engines side by side (blind, shuffled per row). Medi picks the best."""
-import json, io, base64, os, html, random
-random.seed(2)
+import json, io, base64, os, html, random, subprocess
+random = random.SystemRandom()
 R = 'data/aug25/'
 sel = json.load(io.open(R + 'gold_selection_v2.json', encoding='utf-8'))
 
@@ -12,8 +12,14 @@ def load_words(name):
         return [{'s': w['s'], 'e': w['e'], 'spk': w['spk'], 'w': w['w']} for w in d]
     if name == 'speechmatics':
         d = json.load(io.open(R + 'speechmatics_ar_en.json', encoding='utf-8'))['results']
-        return [{'s': w['start_time'], 'e': w['end_time'], 'spk': w['alternatives'][0].get('speaker', '?'),
-                 'w': w['alternatives'][0]['content']} for w in d if w['type'] == 'word']
+        out = []
+        for w in d:
+            a = w['alternatives'][0]
+            if w['type'] == 'word':
+                out.append({'s': w['start_time'], 'e': w['end_time'], 'spk': a.get('speaker', '?'), 'w': a['content']})
+            elif w['type'] == 'punctuation' and out:
+                out[-1]['w'] += a['content']
+        return out
     f = {'eleven_auto': 'eleven_scribe_auto.json', 'eleven_ara': 'eleven_scribe_ara.json'}[name]
     d = json.load(io.open(R + f, encoding='utf-8'))['words']
     return [{'s': w['start'], 'e': w['end'], 'spk': w.get('speaker_id', '?'), 'w': w['text']} for w in d if w['type'] == 'word']
@@ -49,7 +55,8 @@ def clip_lines(words, st, en):
     """Words inside the clip window, grouped into speaker runs."""
     runs = []
     for w in words:
-        if w['e'] < st + 0.15 or w['s'] > en - 0.15:
+        mid = (w['s'] + w['e']) / 2
+        if mid < st or mid > en:
             continue
         if runs and runs[-1]['spk'] == w['spk']:
             runs[-1]['text'] += ' ' + w['w']
@@ -58,8 +65,25 @@ def clip_lines(words, st, en):
     return runs
 
 names = list(engines)
+EXTRA = [
+    {'kind': 'silence', 'start': 46.0, 'end': 51.5, 'why': 'pre-lesson silence'},
+    {'kind': 'silence', 'start': 96.0, 'end': 101.5, 'why': 'pre-lesson silence'},
+    {'kind': 'silence', 'start': 3628.0, 'end': 3633.5, 'why': 'after goodbye'},
+    {'kind': 'silence', 'start': 3690.0, 'end': 3695.5, 'why': 'after goodbye'},
+    {'kind': 'disagree', 'start': 223.0, 'end': 233.0, 'why': 'engines disagree'},
+    {'kind': 'disagree', 'start': 2445.7, 'end': 2449.2, 'why': 'engines disagree'},
+    {'kind': 'disagree', 'start': 2683.5, 'end': 2696.0, 'why': 'engines disagree'},
+]
+AUDIO = R + 'audio/aug25.mp3'
+for j, x in enumerate(EXTRA):
+    out = f'{R}clips/{50 + j:02d}.mp3'
+    if not os.path.exists(out):
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', str(max(0, x['start'] - 0.5)), '-to', str(x['end'] + 0.7),
+                        '-i', AUDIO, '-ac', '1', '-b:a', '48k', out], check=True)
+sel = sel + EXTRA
 rows = []
 key = {}
+block = []
 for i, r in enumerate(sel):
     st = max(0, (r['start'] or 0) - 0.5)
     en = (r['end'] or st + 3) + 0.7
@@ -68,8 +92,12 @@ for i, r in enumerate(sel):
     if en - st > 14:
         en = st + 14
     b64 = base64.b64encode(open(f'{R}clips/{i:02d}.mp3', 'rb').read()).decode()
-    order = names[:]
-    random.shuffle(order)
+    if not block:
+        base = names[:]
+        random.shuffle(base)
+        block = [base[k:] + base[:k] for k in range(len(base))]
+        random.shuffle(block)
+    order = block.pop()
     key[i] = order
     cols = []
     for L, nm in zip('ABCD', order):
@@ -102,6 +130,7 @@ h1{font-size:26px;margin:8px 0 4px} .lead{color:var(--mute);margin:0 0 14px}
 .row.done{opacity:.55}
 .meta{display:flex;gap:10px;align-items:center;font-size:12px;color:var(--mute);margin-bottom:6px}
 .k{padding:2px 8px;border-radius:999px;border:1px solid var(--line);text-transform:uppercase;letter-spacing:.06em;font-size:11px}
+.k-silence{color:var(--mute)} .k-disagree{color:#6B4FBB;border-color:#6B4FBB}
 .k-correction{color:var(--teal);border-color:var(--teal)} .k-gap{color:var(--amber);border-color:var(--amber)} .k-hesitation{color:var(--coral);border-color:var(--coral)}
 audio{width:100%;margin:4px 0}
 .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:8px 0}
@@ -121,9 +150,9 @@ paint();
 """.replace('N', str(n))
 page = (
     '<title>Anees Check 02</title>\n<style>' + CSS + '</style>\n<main>\n<h1>Anees check 02</h1>\n'
-    f'<p class="lead">Same 50 clips as check 01. Each clip was written down by {len(names)} different engines, '
+    f'<p class="lead">50 clips from check 01 plus 7 new ones (silence and hard spots). Each clip was written down by {len(names)} different engines, '
     f'shown as {letters} in a random order on every row. Only the words inside the clip are shown. Play the clip, then tap the letter that matches what was '
-    'said best. "All same" if they tie, "All wrong" if none is close.</p>\n'
+    'said best. "All same" if they tie, "All wrong" if none is close. On a silent clip, the right answer is the one that shows (nothing).</p>\n'
     f'<div class="bar"><span id="cnt">0 / {n}</span><button id="copy">Copy results</button></div>\n'
     + ''.join(rows) +
     f'\n<p class="note">Answers save on this device. When you hit {n}, tap Copy results and paste them to Claude.</p>\n'

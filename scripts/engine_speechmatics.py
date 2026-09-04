@@ -20,14 +20,21 @@ if r.status_code not in (200, 201):
 job = r.json()["id"]
 while True:
     time.sleep(15)
-    s = requests.get(f"{BASE}/jobs/{job}", headers=H, timeout=60).json()["job"]["status"]
+    g = requests.get(f"{BASE}/jobs/{job}", headers=H, timeout=60)
+    if g.status_code != 200:
+        print("poll", g.status_code, g.text[:200]); continue
+    s = g.json()["job"]["status"]
     print(f"  {s} {time.time()-t0:.0f}s")
     if s == "done":
         break
     if s in ("rejected", "deleted", "expired"):
         sys.exit(f"job {s}: " + json.dumps(requests.get(f'{BASE}/jobs/{job}', headers=H).json())[:1500])
 r = requests.get(f"{BASE}/jobs/{job}/transcript", headers=H, params={"format": "json-v2"}, timeout=120)
+if r.status_code != 200:
+    sys.exit(f"transcript {r.status_code}: {r.text[:300]}")
 res = r.json()
+if res.get("job", {}).get("id") != job or not res.get("results"):
+    sys.exit("transcript mismatch or empty")
 (OUT / f"{stem}.json").write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
 words = []
 for it in res.get("results", []):
