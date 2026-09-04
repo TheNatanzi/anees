@@ -1,0 +1,14 @@
+# Anees wiki
+
+- [01 — Repos & Apps to Learn From](01-repos-apps-to-learn-from.md)
+- [02 — How to Teach a Spoken Language: Methods, Evidence, and What Works 1-on-1](02-how-to-teach-a-spoken-language-methods-evidence-an.md)
+- [03 — Vocabulary Science: How Words Get Learned and Kept](03-vocabulary-science-how-words-get-learned-and-kept.md)
+- [04 — Studies & Proofs of Concept: AI, Transcripts, and Language Learning](04-studies-proofs-of-concept-ai-transcripts-and-langu.md)
+- [05 — Palestinian Arabic Specifics: Dialect, Diglossia, Arabizi, and the Farsi Advantage](05-palestinian-arabic-specifics-dialect-diglossia-ara.md)
+- [06 — Sticking With It: ADHD, Habit Design, and Measuring Progress](06-sticking-with-it-adhd-habit-design-and-measuring-p.md)
+- [07 — Transcription Engines for Levantine Arabic (from first research batch, 2026-09-03)](07-transcription-engines-for-levantine-arabic-from-fi.md)
+- [08 — Plan & Decisions (living page)](08-plan-and-decisions.md)
+- [10 — italki AI Lesson Summaries: How They Organize a Lesson](10-italki-ai-lesson-summaries-how-they-organize-a-les.md)
+- [11 — Reuse Map: What We Run As-Is vs Copy (Medi's ask 2026-09-03: reuse, don't rebuild)](11-reuse-map-what-we-run-as-is-vs-copy-medi-s-ask-202.md)
+- [12 — Five Tools Medi Flagged (checked 2026-09-03)](12-five-tools-medi-flagged-checked-2026-09-03.md)
+- [09 — Codex reviews](09-codex-reviews.md)
