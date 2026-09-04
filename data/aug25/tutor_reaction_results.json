@@ -1,0 +1,3321 @@
+{
+ "speaker_map": {
+  "speaker_0": "Medi",
+  "speaker_1": "Amal"
+ },
+ "n_items": 49,
+ "controls_near_a_correction": [
+  379,
+  758,
+  685,
+  372,
+  696
+ ],
+ "kinds": {
+  "correction": 20,
+  "gap": 10,
+  "hesitation": 10,
+  "random": 9
+ },
+ "windows": {
+  "2": {
+   "features": {
+    "neg": {
+     "tp": 3,
+     "fp": 4,
+     "fn": 17,
+     "precision": 0.429,
+     "recall": 0.15,
+     "f1": 0.222
+    },
+    "repeat": {
+     "tp": 3,
+     "fp": 1,
+     "fn": 17,
+     "precision": 0.75,
+     "recall": 0.15,
+     "f1": 0.25
+    },
+    "recast": {
+     "tp": 5,
+     "fp": 7,
+     "fn": 15,
+     "precision": 0.417,
+     "recall": 0.25,
+     "f1": 0.312
+    },
+    "meta_en": {
+     "tp": 2,
+     "fp": 2,
+     "fn": 18,
+     "precision": 0.5,
+     "recall": 0.1,
+     "f1": 0.167
+    },
+    "elicit": {
+     "tp": 0,
+     "fp": 1,
+     "fn": 20,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0
+    },
+    "uptake": {
+     "tp": 4,
+     "fp": 0,
+     "fn": 16,
+     "precision": 1.0,
+     "recall": 0.2,
+     "f1": 0.333
+    },
+    "confirm_open": {
+     "tp": 2,
+     "fp": 3,
+     "fn": 18,
+     "precision": 0.4,
+     "recall": 0.1,
+     "f1": 0.16
+    }
+   },
+   "rules": {
+    "neg|recast|repeat": {
+     "tp": 11,
+     "fp": 11,
+     "fn": 9,
+     "precision": 0.5,
+     "recall": 0.55,
+     "f1": 0.524
+    },
+    "neg|recast|repeat|meta_en": {
+     "tp": 12,
+     "fp": 11,
+     "fn": 8,
+     "precision": 0.522,
+     "recall": 0.6,
+     "f1": 0.558
+    },
+    "neg|recast": {
+     "tp": 8,
+     "fp": 10,
+     "fn": 12,
+     "precision": 0.444,
+     "recall": 0.4,
+     "f1": 0.421
+    },
+    "(neg|recast|repeat) & !confirm_open": {
+     "tp": 11,
+     "fp": 11,
+     "fn": 9,
+     "precision": 0.5,
+     "recall": 0.55,
+     "f1": 0.524
+    },
+    "recast|uptake": {
+     "tp": 8,
+     "fp": 7,
+     "fn": 12,
+     "precision": 0.533,
+     "recall": 0.4,
+     "f1": 0.457
+    }
+   },
+   "rules_clean_controls": {
+    "neg|recast|repeat": {
+     "tp": 11,
+     "fp": 9,
+     "fn": 9,
+     "precision": 0.55,
+     "recall": 0.55,
+     "f1": 0.55
+    },
+    "neg|recast|repeat|meta_en": {
+     "tp": 12,
+     "fp": 9,
+     "fn": 8,
+     "precision": 0.571,
+     "recall": 0.6,
+     "f1": 0.585
+    },
+    "neg|recast": {
+     "tp": 8,
+     "fp": 8,
+     "fn": 12,
+     "precision": 0.5,
+     "recall": 0.4,
+     "f1": 0.444
+    },
+    "(neg|recast|repeat) & !confirm_open": {
+     "tp": 11,
+     "fp": 9,
+     "fn": 9,
+     "precision": 0.55,
+     "recall": 0.55,
+     "f1": 0.55
+    },
+    "recast|uptake": {
+     "tp": 8,
+     "fp": 6,
+     "fn": 12,
+     "precision": 0.571,
+     "recall": 0.4,
+     "f1": 0.471
+    }
+   },
+   "features_clean_controls": {
+    "neg": {
+     "tp": 3,
+     "fp": 3,
+     "fn": 17,
+     "precision": 0.5,
+     "recall": 0.15,
+     "f1": 0.231
+    },
+    "repeat": {
+     "tp": 3,
+     "fp": 1,
+     "fn": 17,
+     "precision": 0.75,
+     "recall": 0.15,
+     "f1": 0.25
+    },
+    "recast": {
+     "tp": 5,
+     "fp": 6,
+     "fn": 15,
+     "precision": 0.455,
+     "recall": 0.25,
+     "f1": 0.323
+    },
+    "meta_en": {
+     "tp": 2,
+     "fp": 1,
+     "fn": 18,
+     "precision": 0.667,
+     "recall": 0.1,
+     "f1": 0.174
+    },
+    "elicit": {
+     "tp": 0,
+     "fp": 1,
+     "fn": 20,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0
+    },
+    "uptake": {
+     "tp": 4,
+     "fp": 0,
+     "fn": 16,
+     "precision": 1.0,
+     "recall": 0.2,
+     "f1": 0.333
+    },
+    "confirm_open": {
+     "tp": 2,
+     "fp": 2,
+     "fn": 18,
+     "precision": 0.5,
+     "recall": 0.1,
+     "f1": 0.167
+    }
+   },
+   "means": {
+    "amal_words_correction": 1.8,
+    "amal_words_control": 2.1,
+    "latency_correction": 0.54,
+    "latency_control": 0.73
+   },
+   "loo_logreg": {
+    "tp": 6,
+    "fp": 8,
+    "fn": 14,
+    "precision": 0.429,
+    "recall": 0.3,
+    "f1": 0.353,
+    "auc": 0.516
+   }
+  },
+  "5": {
+   "features": {
+    "neg": {
+     "tp": 3,
+     "fp": 6,
+     "fn": 17,
+     "precision": 0.333,
+     "recall": 0.15,
+     "f1": 0.207
+    },
+    "repeat": {
+     "tp": 4,
+     "fp": 1,
+     "fn": 16,
+     "precision": 0.8,
+     "recall": 0.2,
+     "f1": 0.32
+    },
+    "recast": {
+     "tp": 7,
+     "fp": 9,
+     "fn": 13,
+     "precision": 0.438,
+     "recall": 0.35,
+     "f1": 0.389
+    },
+    "meta_en": {
+     "tp": 4,
+     "fp": 3,
+     "fn": 16,
+     "precision": 0.571,
+     "recall": 0.2,
+     "f1": 0.296
+    },
+    "elicit": {
+     "tp": 0,
+     "fp": 6,
+     "fn": 20,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0
+    },
+    "uptake": {
+     "tp": 9,
+     "fp": 2,
+     "fn": 11,
+     "precision": 0.818,
+     "recall": 0.45,
+     "f1": 0.581
+    },
+    "confirm_open": {
+     "tp": 2,
+     "fp": 4,
+     "fn": 18,
+     "precision": 0.333,
+     "recall": 0.1,
+     "f1": 0.154
+    }
+   },
+   "rules": {
+    "neg|recast|repeat": {
+     "tp": 13,
+     "fp": 13,
+     "fn": 7,
+     "precision": 0.5,
+     "recall": 0.65,
+     "f1": 0.565
+    },
+    "neg|recast|repeat|meta_en": {
+     "tp": 14,
+     "fp": 14,
+     "fn": 6,
+     "precision": 0.5,
+     "recall": 0.7,
+     "f1": 0.583
+    },
+    "neg|recast": {
+     "tp": 10,
+     "fp": 13,
+     "fn": 10,
+     "precision": 0.435,
+     "recall": 0.5,
+     "f1": 0.465
+    },
+    "(neg|recast|repeat) & !confirm_open": {
+     "tp": 13,
+     "fp": 12,
+     "fn": 7,
+     "precision": 0.52,
+     "recall": 0.65,
+     "f1": 0.578
+    },
+    "recast|uptake": {
+     "tp": 11,
+     "fp": 9,
+     "fn": 9,
+     "precision": 0.55,
+     "recall": 0.55,
+     "f1": 0.55
+    }
+   },
+   "rules_clean_controls": {
+    "neg|recast|repeat": {
+     "tp": 13,
+     "fp": 10,
+     "fn": 7,
+     "precision": 0.565,
+     "recall": 0.65,
+     "f1": 0.605
+    },
+    "neg|recast|repeat|meta_en": {
+     "tp": 14,
+     "fp": 11,
+     "fn": 6,
+     "precision": 0.56,
+     "recall": 0.7,
+     "f1": 0.622
+    },
+    "neg|recast": {
+     "tp": 10,
+     "fp": 10,
+     "fn": 10,
+     "precision": 0.5,
+     "recall": 0.5,
+     "f1": 0.5
+    },
+    "(neg|recast|repeat) & !confirm_open": {
+     "tp": 13,
+     "fp": 10,
+     "fn": 7,
+     "precision": 0.565,
+     "recall": 0.65,
+     "f1": 0.605
+    },
+    "recast|uptake": {
+     "tp": 11,
+     "fp": 8,
+     "fn": 9,
+     "precision": 0.579,
+     "recall": 0.55,
+     "f1": 0.564
+    }
+   },
+   "features_clean_controls": {
+    "neg": {
+     "tp": 3,
+     "fp": 4,
+     "fn": 17,
+     "precision": 0.429,
+     "recall": 0.15,
+     "f1": 0.222
+    },
+    "repeat": {
+     "tp": 4,
+     "fp": 1,
+     "fn": 16,
+     "precision": 0.8,
+     "recall": 0.2,
+     "f1": 0.32
+    },
+    "recast": {
+     "tp": 7,
+     "fp": 8,
+     "fn": 13,
+     "precision": 0.467,
+     "recall": 0.35,
+     "f1": 0.4
+    },
+    "meta_en": {
+     "tp": 4,
+     "fp": 2,
+     "fn": 16,
+     "precision": 0.667,
+     "recall": 0.2,
+     "f1": 0.308
+    },
+    "elicit": {
+     "tp": 0,
+     "fp": 5,
+     "fn": 20,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0
+    },
+    "uptake": {
+     "tp": 9,
+     "fp": 2,
+     "fn": 11,
+     "precision": 0.818,
+     "recall": 0.45,
+     "f1": 0.581
+    },
+    "confirm_open": {
+     "tp": 2,
+     "fp": 3,
+     "fn": 18,
+     "precision": 0.4,
+     "recall": 0.1,
+     "f1": 0.16
+    }
+   },
+   "means": {
+    "amal_words_correction": 3.3,
+    "amal_words_control": 4.28,
+    "latency_correction": 0.54,
+    "latency_control": 0.98
+   },
+   "loo_logreg": {
+    "tp": 9,
+    "fp": 5,
+    "fn": 11,
+    "precision": 0.643,
+    "recall": 0.45,
+    "f1": 0.529,
+    "auc": 0.572
+   }
+  },
+  "10": {
+   "features": {
+    "neg": {
+     "tp": 3,
+     "fp": 8,
+     "fn": 17,
+     "precision": 0.273,
+     "recall": 0.15,
+     "f1": 0.194
+    },
+    "repeat": {
+     "tp": 6,
+     "fp": 2,
+     "fn": 14,
+     "precision": 0.75,
+     "recall": 0.3,
+     "f1": 0.429
+    },
+    "recast": {
+     "tp": 8,
+     "fp": 11,
+     "fn": 12,
+     "precision": 0.421,
+     "recall": 0.4,
+     "f1": 0.41
+    },
+    "meta_en": {
+     "tp": 4,
+     "fp": 3,
+     "fn": 16,
+     "precision": 0.571,
+     "recall": 0.2,
+     "f1": 0.296
+    },
+    "elicit": {
+     "tp": 1,
+     "fp": 10,
+     "fn": 19,
+     "precision": 0.091,
+     "recall": 0.05,
+     "f1": 0.065
+    },
+    "uptake": {
+     "tp": 13,
+     "fp": 11,
+     "fn": 7,
+     "precision": 0.542,
+     "recall": 0.65,
+     "f1": 0.591
+    },
+    "confirm_open": {
+     "tp": 2,
+     "fp": 4,
+     "fn": 18,
+     "precision": 0.333,
+     "recall": 0.1,
+     "f1": 0.154
+    }
+   },
+   "rules": {
+    "neg|recast|repeat": {
+     "tp": 13,
+     "fp": 17,
+     "fn": 7,
+     "precision": 0.433,
+     "recall": 0.65,
+     "f1": 0.52
+    },
+    "neg|recast|repeat|meta_en": {
+     "tp": 14,
+     "fp": 17,
+     "fn": 6,
+     "precision": 0.452,
+     "recall": 0.7,
+     "f1": 0.549
+    },
+    "neg|recast": {
+     "tp": 10,
+     "fp": 17,
+     "fn": 10,
+     "precision": 0.37,
+     "recall": 0.5,
+     "f1": 0.426
+    },
+    "(neg|recast|repeat) & !confirm_open": {
+     "tp": 13,
+     "fp": 16,
+     "fn": 7,
+     "precision": 0.448,
+     "recall": 0.65,
+     "f1": 0.531
+    },
+    "recast|uptake": {
+     "tp": 15,
+     "fp": 16,
+     "fn": 5,
+     "precision": 0.484,
+     "recall": 0.75,
+     "f1": 0.588
+    }
+   },
+   "rules_clean_controls": {
+    "neg|recast|repeat": {
+     "tp": 13,
+     "fp": 14,
+     "fn": 7,
+     "precision": 0.481,
+     "recall": 0.65,
+     "f1": 0.553
+    },
+    "neg|recast|repeat|meta_en": {
+     "tp": 14,
+     "fp": 14,
+     "fn": 6,
+     "precision": 0.5,
+     "recall": 0.7,
+     "f1": 0.583
+    },
+    "neg|recast": {
+     "tp": 10,
+     "fp": 14,
+     "fn": 10,
+     "precision": 0.417,
+     "recall": 0.5,
+     "f1": 0.455
+    },
+    "(neg|recast|repeat) & !confirm_open": {
+     "tp": 13,
+     "fp": 14,
+     "fn": 7,
+     "precision": 0.481,
+     "recall": 0.65,
+     "f1": 0.553
+    },
+    "recast|uptake": {
+     "tp": 15,
+     "fp": 13,
+     "fn": 5,
+     "precision": 0.536,
+     "recall": 0.75,
+     "f1": 0.625
+    }
+   },
+   "features_clean_controls": {
+    "neg": {
+     "tp": 3,
+     "fp": 6,
+     "fn": 17,
+     "precision": 0.333,
+     "recall": 0.15,
+     "f1": 0.207
+    },
+    "repeat": {
+     "tp": 6,
+     "fp": 1,
+     "fn": 14,
+     "precision": 0.857,
+     "recall": 0.3,
+     "f1": 0.444
+    },
+    "recast": {
+     "tp": 8,
+     "fp": 10,
+     "fn": 12,
+     "precision": 0.444,
+     "recall": 0.4,
+     "f1": 0.421
+    },
+    "meta_en": {
+     "tp": 4,
+     "fp": 2,
+     "fn": 16,
+     "precision": 0.667,
+     "recall": 0.2,
+     "f1": 0.308
+    },
+    "elicit": {
+     "tp": 1,
+     "fp": 8,
+     "fn": 19,
+     "precision": 0.111,
+     "recall": 0.05,
+     "f1": 0.069
+    },
+    "uptake": {
+     "tp": 13,
+     "fp": 8,
+     "fn": 7,
+     "precision": 0.619,
+     "recall": 0.65,
+     "f1": 0.634
+    },
+    "confirm_open": {
+     "tp": 2,
+     "fp": 3,
+     "fn": 18,
+     "precision": 0.4,
+     "recall": 0.1,
+     "f1": 0.16
+    }
+   },
+   "means": {
+    "amal_words_correction": 5.8,
+    "amal_words_control": 5.72,
+    "latency_correction": 0.9,
+    "latency_control": 0.98
+   },
+   "loo_logreg": {
+    "tp": 6,
+    "fp": 8,
+    "fn": 14,
+    "precision": 0.429,
+    "recall": 0.3,
+    "f1": 0.353,
+    "auc": 0.567
+   }
+  }
+ },
+ "items": [
+  {
+   "idx": 104,
+   "kind": "correction",
+   "why": "learner mughni -> tutor mish mughni, mghayyim (cloudy)",
+   "chunk": [
+    532.92,
+    533.36
+   ],
+   "anchor": [
+    522.82,
+    532.29,
+    "عندي منيح، شوب كتير، مش- مش مغني، مغـ، مغـ",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.03,
+    "amal_text": "مغيم.",
+    "loo_prob": 0.524
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 1,
+    "latency": 0.03,
+    "amal_text": "مغيم.",
+    "loo_prob": 0.682
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 4,
+    "latency": 0.03,
+    "amal_text": "مغيم. مغني is singer.",
+    "loo_prob": 0.457
+   }
+  },
+  {
+   "idx": 110,
+   "kind": "correction",
+   "why": "learner el-daraje el-harara -> tutor darajet el-harara, learner repeats",
+   "chunk": [
+    552.08,
+    560.0
+   ],
+   "anchor": [
+    543.04,
+    550.77,
+    "مغيمة. آآآ. الدرجة الحـ-",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.01,
+    "amal_text": "تقريبا.",
+    "loo_prob": 0.534
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 3,
+    "latency": 0.01,
+    "amal_text": "تقريبا. درجة الحرارة.",
+    "loo_prob": 0.619
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 3,
+    "latency": 0.01,
+    "amal_text": "تقريبا. درجة الحرارة.",
+    "loo_prob": 0.445
+   }
+  },
+  {
+   "idx": 188,
+   "kind": "correction",
+   "why": "learner tajrama -> tutor tarjama (metathesis fixed)",
+   "chunk": [
+    894.0,
+    895.0
+   ],
+   "anchor": [
+    884.88,
+    892.3,
+    "يأتي، yeah. يأتينا، آآآ، الـ ترجمة. الـ-",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": true,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 1,
+    "latency": 0.28,
+    "amal_text": "ترجمة.",
+    "loo_prob": 0.733
+   },
+   "w5": {
+    "neg": false,
+    "repeat": true,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 1,
+    "latency": 0.28,
+    "amal_text": "ترجمة.",
+    "loo_prob": 0.792
+   },
+   "w10": {
+    "neg": false,
+    "repeat": true,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 3,
+    "latency": 0.28,
+    "amal_text": "ترجمة. That's it",
+    "loo_prob": 0.692
+   }
+  },
+  {
+   "idx": 320,
+   "kind": "correction",
+   "why": "learner atlobhom -> minhom prompt -> atlob minhom kteer (uptake)",
+   "chunk": [
+    1387.56,
+    1394.0
+   ],
+   "anchor": [
+    1380.35,
+    1388.61,
+    "لازم، uh، لازم أطلب، أطلبهم-",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.52,
+    "amal_text": "منهم.",
+    "loo_prob": 0.457
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 1,
+    "latency": 0.52,
+    "amal_text": "منهم.",
+    "loo_prob": 0.69
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 1,
+    "latency": 0.52,
+    "amal_text": "منهم.",
+    "loo_prob": 0.483
+   }
+  },
+  {
+   "idx": 375,
+   "kind": "correction",
+   "why": "learner babsitha/babsitha variants -> bbasitha recast",
+   "chunk": [
+    1602.3,
+    1609.0
+   ],
+   "anchor": [
+    1597.61,
+    1603.39,
+    "We need-- We never went back. I need to do it again. ببسطها",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": true,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 1,
+    "latency": 0.3,
+    "amal_text": "ببسطها",
+    "loo_prob": 0.729
+   },
+   "w5": {
+    "neg": false,
+    "repeat": true,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 4,
+    "latency": 0.3,
+    "amal_text": "ببسطها ببسطها. If ببسطها",
+    "loo_prob": 0.701
+   },
+   "w10": {
+    "neg": false,
+    "repeat": true,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 4,
+    "latency": 0.3,
+    "amal_text": "ببسطها ببسطها. If ببسطها",
+    "loo_prob": 0.701
+   }
+  },
+  {
+   "idx": 453,
+   "kind": "correction",
+   "why": "explicit: at2assaf takes la, so at2assaf-ilha",
+   "chunk": [
+    1881.46,
+    1885.5
+   ],
+   "anchor": [
+    1870.37,
+    1878.47,
+    "is the verb. This is the verb of أتـ- لما، uh, أتس-- أت-أتأسف",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 1,
+    "latency": 0.52,
+    "amal_text": "أتأسف",
+    "loo_prob": 0.646
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": true,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 6,
+    "latency": 0.52,
+    "amal_text": "أتأسف And أتأسف takes لا، so",
+    "loo_prob": 0.66
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": true,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 10,
+    "latency": 0.52,
+    "amal_text": "أتأسف And أتأسف takes لا، so to her أتأسف لها",
+    "loo_prob": 0.605
+   }
+  },
+  {
+   "idx": 468,
+   "kind": "correction",
+   "why": "learner wa2t kteer -> tutor la, wa2t taweel",
+   "chunk": [
+    1952.0,
+    1952.88
+   ],
+   "anchor": [
+    1950.23,
+    1951.41,
+    "uh, أنا،",
+    "first-run"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.234
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.174
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 1,
+    "latency": 7.22,
+    "amal_text": "ببسطها",
+    "loo_prob": 0.326
+   }
+  },
+  {
+   "idx": 470,
+   "kind": "correction",
+   "why": "learner bsabatha -> tutor bbasitha x3 (second attempt at same verb)",
+   "chunk": [
+    1963.4,
+    1965.6
+   ],
+   "anchor": [
+    1960.07,
+    1963.17,
+    "ببسطها. I hate this verb. ببسطها.",
+    "first-run"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.234
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.174
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.089
+   }
+  },
+  {
+   "idx": 529,
+   "kind": "correction",
+   "why": "prompt: bndeer balna, then a preposition after it, shu huwe?",
+   "chunk": [
+    2262.3,
+    2268.0
+   ],
+   "anchor": [
+    2248.96,
+    2256.1,
+    "بندير. Wouldn't it be بالهم 'cause we're watching the kids?",
+    "handoff"
+   ],
+   "w2": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 3,
+    "latency": 0.72,
+    "amal_text": "No. We are",
+    "loo_prob": 0.341
+   },
+   "w5": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": true,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 11,
+    "latency": 0.72,
+    "amal_text": "No. We are still this is part of the verb. So",
+    "loo_prob": 0.202
+   },
+   "w10": {
+    "neg": true,
+    "repeat": true,
+    "recast": true,
+    "meta_en": true,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 17,
+    "latency": 0.72,
+    "amal_text": "No. We are still this is part of the verb. So we- بندير بالنا، بعدين في preposition",
+    "loo_prob": 0.437
+   }
+  },
+  {
+   "idx": 567,
+   "kind": "correction",
+   "why": "explicit: nkhaf min -> here you do not need min",
+   "chunk": [
+    2370.0,
+    2373.0
+   ],
+   "anchor": [
+    2355.14,
+    2362.9,
+    "بنخاف من، uh, is it نكون أهل؟",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 1.56,
+    "amal_text": "نخاف.",
+    "loo_prob": 0.246
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 3,
+    "latency": 1.56,
+    "amal_text": "نخاف. Yes, من.",
+    "loo_prob": 0.264
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 9,
+    "latency": 1.56,
+    "amal_text": "نخاف. Yes, من. Oh, here هلق ما بتحتاج من.",
+    "loo_prob": 0.459
+   }
+  },
+  {
+   "idx": 581,
+   "kind": "correction",
+   "why": "learner si kaman -> tutor sayy2een kaman (plural adjective)",
+   "chunk": [
+    2438.0,
+    2442.0
+   ],
+   "anchor": [
+    2428.46,
+    2435.64,
+    "um, uh, يخلوا ولادهم-",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.82,
+    "amal_text": "ممتاز",
+    "loo_prob": 0.346
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.82,
+    "amal_text": "ممتاز",
+    "loo_prob": 0.33
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.82,
+    "amal_text": "ممتاز",
+    "loo_prob": 0.205
+   }
+  },
+  {
+   "idx": 613,
+   "kind": "correction",
+   "why": "recast: bikhawwifni -> bikhawwifna, mumtaz",
+   "chunk": [
+    2572.56,
+    2573.72
+   ],
+   "anchor": [
+    2565.45,
+    2571.53,
+    "Okay so، so بخوفني، بخوفنا.",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.48,
+    "amal_text": "ممتاز.",
+    "loo_prob": 0.408
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.48,
+    "amal_text": "ممتاز.",
+    "loo_prob": 0.338
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": false,
+    "amal_words": 2,
+    "latency": 0.48,
+    "amal_text": "ممتاز. مم.",
+    "loo_prob": 0.218
+   }
+  },
+  {
+   "idx": 623,
+   "kind": "correction",
+   "why": "ykoon -> la, nkoon; learner repeats nkoon ahl",
+   "chunk": [
+    2628.0,
+    2637.0
+   ],
+   "anchor": [
+    2618.57,
+    2626.29,
+    "ben-- it's just بنخط right? بنخطط آآآ يكونو أهل.",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.9,
+    "amal_text": "نكون.",
+    "loo_prob": 0.376
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 1,
+    "latency": 0.9,
+    "amal_text": "نكون.",
+    "loo_prob": 0.648
+   },
+   "w10": {
+    "neg": false,
+    "repeat": true,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 5,
+    "latency": 0.9,
+    "amal_text": "نكون. بس- Yeah. نكون أهل.",
+    "loo_prob": 0.639
+   }
+  },
+  {
+   "idx": 672,
+   "kind": "correction",
+   "why": "explicit: for in general say bshakel 3am (not 3ala kullen)",
+   "chunk": [
+    2802.4,
+    2805.0
+   ],
+   "anchor": [
+    2789.15,
+    2797.53,
+    "كل-- كلٍ. Okay.",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": true,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 5,
+    "latency": 0.04,
+    "amal_text": "Every in general has its",
+    "loo_prob": 0.315
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": true,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 7,
+    "latency": 0.04,
+    "amal_text": "Every in general has its own word.",
+    "loo_prob": 0.379
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": true,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 21,
+    "latency": 0.04,
+    "amal_text": "Every in general has its own word. But if you want to say, you would say بشكل عام. آه بشكل عام.",
+    "loo_prob": 0.457
+   }
+  },
+  {
+   "idx": 684,
+   "kind": "correction",
+   "why": "learner yihkooli -> tutor bihkooli (b-prefix)",
+   "chunk": [
+    2850.34,
+    2857.0
+   ],
+   "anchor": [
+    2842.11,
+    2850.99,
+    "الناس بيحكوا الـ-- بيحكولي.",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": true,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 1,
+    "latency": 0.06,
+    "amal_text": "بيحكولي.",
+    "loo_prob": 0.768
+   },
+   "w5": {
+    "neg": false,
+    "repeat": true,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 1,
+    "latency": 0.06,
+    "amal_text": "بيحكولي.",
+    "loo_prob": 0.798
+   },
+   "w10": {
+    "neg": false,
+    "repeat": true,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 1,
+    "latency": 0.06,
+    "amal_text": "بيحكولي.",
+    "loo_prob": 0.671
+   }
+  },
+  {
+   "idx": 686,
+   "kind": "correction",
+   "why": "recast: ana abadan ma ba3sab (after learner ma ab2a b2asab)",
+   "chunk": [
+    2866.0,
+    2871.98
+   ],
+   "anchor": [
+    2863.51,
+    2871.49,
+    "ما بـ-- أنا ما بعصب. آآآ أنا أبدًا ما بعصب.",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.86,
+    "amal_text": "مم.",
+    "loo_prob": 0.401
+   },
+   "w5": {
+    "neg": false,
+    "repeat": true,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 4,
+    "latency": 0.86,
+    "amal_text": "مم. أبدًا، أبدًا، أبدًا.",
+    "loo_prob": 0.294
+   },
+   "w10": {
+    "neg": false,
+    "repeat": true,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 4,
+    "latency": 0.86,
+    "amal_text": "مم. أبدًا، أبدًا، أبدًا.",
+    "loo_prob": 0.426
+   }
+  },
+  {
+   "idx": 693,
+   "kind": "correction",
+   "why": "learner shwai sayye2 -> tutor lazem ykoon ishi sayye2 kteer",
+   "chunk": [
+    2904.0,
+    2912.0
+   ],
+   "anchor": [
+    2894.41,
+    2902.17,
+    "can issue- So if I wanna say it has to be something really bad.",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 2,
+    "latency": 0.98,
+    "amal_text": "لازم يكون",
+    "loo_prob": 0.317
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 5,
+    "latency": 0.98,
+    "amal_text": "لازم يكون issue، issue سيء.",
+    "loo_prob": 0.261
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 5,
+    "latency": 0.98,
+    "amal_text": "لازم يكون issue، issue سيء.",
+    "loo_prob": 0.525
+   }
+  },
+  {
+   "idx": 727,
+   "kind": "correction",
+   "why": "learner ma ta3sab -> tutor bt3asab",
+   "chunk": [
+    3067.54,
+    3068.96
+   ],
+   "anchor": [
+    3059.25,
+    3067.49,
+    "she doesn't get-- هي ما، ما تعصب-",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.64,
+    "amal_text": "بتعصب",
+    "loo_prob": 0.424
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 1,
+    "latency": 0.64,
+    "amal_text": "بتعصب",
+    "loo_prob": 0.659
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 3,
+    "latency": 0.64,
+    "amal_text": "بتعصب Quickly Just",
+    "loo_prob": 0.439
+   }
+  },
+  {
+   "idx": 756,
+   "kind": "correction",
+   "why": "explicit: mazloom does not carry that meaning in Arabic",
+   "chunk": [
+    3159.2,
+    3162.98
+   ],
+   "anchor": [
+    3152.81,
+    3159.17,
+    "آآآ، ما، ما بنعصب وما، آآآ-",
+    "handoff"
+   ],
+   "w2": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": true,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 9,
+    "latency": 0.06,
+    "amal_text": "Well that's not the same meaning. هادا مش نفس",
+    "loo_prob": 0.088
+   },
+   "w5": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": true,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 11,
+    "latency": 0.06,
+    "amal_text": "Well that's not the same meaning. هادا مش نفس المعنى بالعربي",
+    "loo_prob": 0.229
+   },
+   "w10": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": true,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 17,
+    "latency": 0.06,
+    "amal_text": "Well that's not the same meaning. هادا مش نفس المعنى بالعربي What's مظلوم in English for you؟",
+    "loo_prob": 0.194
+   }
+  },
+  {
+   "idx": 854,
+   "kind": "correction",
+   "why": "explicit: no el, just jaw (bghayyir jaw not el-jaw)",
+   "chunk": [
+    3504.8,
+    3505.98
+   ],
+   "anchor": [
+    3498.22,
+    3503.88,
+    "آآآ، أغو-- آآآ، أغير الجو. بغير الجو.",
+    "handoff"
+   ],
+   "w2": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 4,
+    "latency": 1.02,
+    "amal_text": "No ال، just جو.",
+    "loo_prob": 0.221
+   },
+   "w5": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 4,
+    "latency": 1.02,
+    "amal_text": "No ال، just جو.",
+    "loo_prob": 0.265
+   },
+   "w10": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 5,
+    "latency": 1.02,
+    "amal_text": "No ال، just جو. مم.",
+    "loo_prob": 0.177
+   }
+  },
+  {
+   "idx": 141,
+   "kind": "gap",
+   "why": "asks what does bsit mean / shu bsit ya3ni",
+   "chunk": [
+    660.1,
+    662.0
+   ],
+   "anchor": [
+    655.06,
+    657.44,
+    "غير مش مشكلة، آآآ، بسيطة.",
+    "handoff"
+   ],
+   "w2": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 5,
+    "latency": 0.66,
+    "amal_text": "Not a big deal، yes.",
+    "loo_prob": 0.348
+   },
+   "w5": {
+    "neg": true,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 9,
+    "latency": 0.66,
+    "amal_text": "Not a big deal، yes. What does بسيط mean؟",
+    "loo_prob": 0.108
+   },
+   "w10": {
+    "neg": true,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 9,
+    "latency": 0.66,
+    "amal_text": "Not a big deal، yes. What does بسيط mean؟",
+    "loo_prob": 0.095
+   }
+  },
+  {
+   "idx": 156,
+   "kind": "gap",
+   "why": "tutor ma zabat -> learner shu ya3ni ma zabat",
+   "chunk": [
+    724.0,
+    731.0
+   ],
+   "anchor": [
+    717.8,
+    724.18,
+    "We say يلا لحظة one, one moment.",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.314
+   },
+   "w5": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 6,
+    "latency": 3.03,
+    "amal_text": "خلص مش مشكلة. ما، ما زبت.",
+    "loo_prob": 0.253
+   },
+   "w10": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 10,
+    "latency": 3.03,
+    "amal_text": "خلص مش مشكلة. ما، ما زبت. شو يعني ما زبت؟",
+    "loo_prob": 0.113
+   }
+  },
+  {
+   "idx": 246,
+   "kind": "gap",
+   "why": "asks shu ya3ni muDare3 (present tense)",
+   "chunk": [
+    1126.0,
+    1130.52
+   ],
+   "anchor": [
+    1119.35,
+    1125.65,
+    "Oh, it made you sad. Oh, made you tired, tired, yeah.",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 3,
+    "latency": 0.7,
+    "amal_text": "Makes. It's a",
+    "loo_prob": 0.347
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 10,
+    "latency": 0.7,
+    "amal_text": "Makes. It's a be، so it's مضارعة. شو يعني مضارعة؟",
+    "loo_prob": 0.101
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 11,
+    "latency": 0.7,
+    "amal_text": "Makes. It's a be، so it's مضارعة. شو يعني مضارعة؟ Yeah.",
+    "loo_prob": 0.227
+   }
+  },
+  {
+   "idx": 280,
+   "kind": "gap",
+   "why": "asks iza atlob ilhom aw atlobhom",
+   "chunk": [
+    1240.0,
+    1248.0
+   ],
+   "anchor": [
+    1239.97,
+    1247.9,
+    "uh، أطلبهم أو أطلب-- is it أطلب لهم or أطلبهم؟",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": true,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 2,
+    "latency": 0.63,
+    "amal_text": "أطلب منهم.",
+    "loo_prob": 0.545
+   },
+   "w5": {
+    "neg": false,
+    "repeat": true,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 5,
+    "latency": 0.63,
+    "amal_text": "أطلب منهم. شفت تطلب منهم.",
+    "loo_prob": 0.812
+   },
+   "w10": {
+    "neg": false,
+    "repeat": true,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 5,
+    "latency": 0.63,
+    "amal_text": "أطلب منهم. شفت تطلب منهم.",
+    "loo_prob": 0.759
+   }
+  },
+  {
+   "idx": 334,
+   "kind": "gap",
+   "why": "asks kif bahki fiance",
+   "chunk": [
+    1439.36,
+    1442.0
+   ],
+   "anchor": [
+    1443.29,
+    1444.49,
+    "uh، خطيبتي.",
+    "nearest"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.56,
+    "amal_text": "Okay.",
+    "loo_prob": 0.51
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 2,
+    "latency": 0.56,
+    "amal_text": "Okay. إذا",
+    "loo_prob": 0.456
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 4,
+    "latency": 0.56,
+    "amal_text": "Okay. إذا زعلت خطيبتك،",
+    "loo_prob": 0.529
+   }
+  },
+  {
+   "idx": 379,
+   "kind": "gap",
+   "why": "does not know how to say apologize",
+   "chunk": [
+    1615.0,
+    1617.0
+   ],
+   "anchor": [
+    1609.33,
+    1616.73,
+    "ببسطها. مااا-- I don't know how to say apologies.",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 2,
+    "latency": 1.64,
+    "amal_text": "Uh, I",
+    "loo_prob": 0.253
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 8,
+    "latency": 1.64,
+    "amal_text": "Uh, I tell her sorry. أدي. Be creative",
+    "loo_prob": 0.236
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 8,
+    "latency": 1.64,
+    "amal_text": "Uh, I tell her sorry. أدي. Be creative",
+    "loo_prob": 0.469
+   }
+  },
+  {
+   "idx": 590,
+   "kind": "gap",
+   "why": "switches to English for instead, asks the word",
+   "chunk": [
+    2489.0,
+    2498.0
+   ],
+   "anchor": [
+    2492.14,
+    2499.97,
+    "uh, أستعمل الـ فعل, uh, instead. Instead is... Oh my God. Do I understand-",
+    "handoff"
+   ],
+   "w2": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": true,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 6,
+    "latency": 0.01,
+    "amal_text": "we don't know instead. No, no.",
+    "loo_prob": 0.582
+   },
+   "w5": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": true,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 9,
+    "latency": 0.01,
+    "amal_text": "we don't know instead. No, no. Don't worry. بدل.",
+    "loo_prob": 0.495
+   },
+   "w10": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": true,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 9,
+    "latency": 0.01,
+    "amal_text": "we don't know instead. No, no. Don't worry. بدل.",
+    "loo_prob": 0.525
+   }
+  },
+  {
+   "idx": 645,
+   "kind": "gap",
+   "why": "asks how to say in general, tries el-kul",
+   "chunk": [
+    2717.0,
+    2723.0
+   ],
+   "anchor": [
+    2714.37,
+    2721.28,
+    "بتعصب. So in, in general do you say الكل if I wanna say in general?",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.314
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": true,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 2,
+    "latency": 2.35,
+    "amal_text": "In general.",
+    "loo_prob": 0.643
+   },
+   "w10": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": true,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 4,
+    "latency": 2.35,
+    "amal_text": "In general. لا. No.",
+    "loo_prob": 0.458
+   }
+  },
+  {
+   "idx": 758,
+   "kind": "gap",
+   "why": "asks what does mazloom mean in Arabic",
+   "chunk": [
+    3163.66,
+    3165.16
+   ],
+   "anchor": [
+    3152.81,
+    3159.17,
+    "آآآ، ما، ما بنعصب وما، آآآ-",
+    "handoff"
+   ],
+   "w2": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": true,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 9,
+    "latency": 0.06,
+    "amal_text": "Well that's not the same meaning. هادا مش نفس",
+    "loo_prob": 0.383
+   },
+   "w5": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": true,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 11,
+    "latency": 0.06,
+    "amal_text": "Well that's not the same meaning. هادا مش نفس المعنى بالعربي",
+    "loo_prob": 0.426
+   },
+   "w10": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": true,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 17,
+    "latency": 0.06,
+    "amal_text": "Well that's not the same meaning. هادا مش نفس المعنى بالعربي What's مظلوم in English for you؟",
+    "loo_prob": 0.461
+   }
+  },
+  {
+   "idx": 844,
+   "kind": "gap",
+   "why": "asks how to say change of scenery",
+   "chunk": [
+    3477.32,
+    3481.74
+   ],
+   "anchor": [
+    3470.92,
+    3474.46,
+    "أنا بشم هواء أو...",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.52,
+    "amal_text": "ممتاز.",
+    "loo_prob": 0.558
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.52,
+    "amal_text": "ممتاز.",
+    "loo_prob": 0.507
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": false,
+    "amal_words": 2,
+    "latency": 0.52,
+    "amal_text": "ممتاز. Change",
+    "loo_prob": 0.37
+   }
+  },
+  {
+   "idx": 267,
+   "kind": "hesitation",
+   "why": "aw ey umm ma ma before ma ykhalso",
+   "chunk": [
+    1198.0,
+    1202.0
+   ],
+   "anchor": [
+    1196.17,
+    1196.55,
+    "uh،",
+    "first-run"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.314
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.357
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.33
+   }
+  },
+  {
+   "idx": 314,
+   "kind": "hesitation",
+   "why": "w huwa w hu hummi hummi restart before ma bkhalso",
+   "chunk": [
+    1362.0,
+    1370.8
+   ],
+   "anchor": [
+    1355.83,
+    1362.85,
+    "معهم. Um, و هو...",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 1.6,
+    "amal_text": "هما.",
+    "loo_prob": 0.312
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 1.6,
+    "amal_text": "هما.",
+    "loo_prob": 0.436
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 1,
+    "latency": 1.6,
+    "amal_text": "هما.",
+    "loo_prob": 0.571
+   }
+  },
+  {
+   "idx": 461,
+   "kind": "hesitation",
+   "why": "ana lamma ana ba3mel restart, then eish hiye ghalat",
+   "chunk": [
+    1906.76,
+    1917.12
+   ],
+   "anchor": [
+    1909.41,
+    1916.61,
+    "لما أنا بعمل غلط، إشي غلط",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.56,
+    "amal_text": "مم",
+    "loo_prob": 0.51
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.56,
+    "amal_text": "مم",
+    "loo_prob": 0.504
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.56,
+    "amal_text": "مم",
+    "loo_prob": 0.429
+   }
+  },
+  {
+   "idx": 514,
+   "kind": "hesitation",
+   "why": "bni bntla bntla restart before banat akhoi",
+   "chunk": [
+    2178.0,
+    2186.0
+   ],
+   "anchor": [
+    2178.15,
+    2185.69,
+    "بنت-بنتطلع، بنتطلع بنات أخوي",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 1.5,
+    "amal_text": "بنطلع",
+    "loo_prob": 0.347
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 1.5,
+    "amal_text": "بنطلع",
+    "loo_prob": 0.427
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 1.5,
+    "amal_text": "بنطلع",
+    "loo_prob": 0.34
+   }
+  },
+  {
+   "idx": 522,
+   "kind": "hesitation",
+   "why": "ihna bn bn dar bndeer restarts",
+   "chunk": [
+    2223.04,
+    2235.0
+   ],
+   "anchor": [
+    2210.06,
+    2218.16,
+    "دير بالك، no? What, what, what is this?",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 3,
+    "latency": 1.22,
+    "amal_text": "So أنا بدير",
+    "loo_prob": 0.276
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 5,
+    "latency": 1.22,
+    "amal_text": "So أنا بدير بالي. إحنا.",
+    "loo_prob": 0.296
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 5,
+    "latency": 1.22,
+    "amal_text": "So أنا بدير بالي. إحنا.",
+    "loo_prob": 0.369
+   }
+  },
+  {
+   "idx": 545,
+   "kind": "hesitation",
+   "why": "ihna aa aa pause before bnhki",
+   "chunk": [
+    2309.0,
+    2314.0
+   ],
+   "anchor": [
+    2305.72,
+    2306.3,
+    "و",
+    "first-run"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.314
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.357
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.33
+   }
+  },
+  {
+   "idx": 685,
+   "kind": "hesitation",
+   "why": "ma ana ma ana ma ana restarts before ma b2asab",
+   "chunk": [
+    2857.0,
+    2865.0
+   ],
+   "anchor": [
+    2852.43,
+    2857.45,
+    "بيحكولي إنه أنا",
+    "first-run"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.314
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.357
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.33
+   }
+  },
+  {
+   "idx": 697,
+   "kind": "hesitation",
+   "why": "ahki el- ahki el-jumle restart",
+   "chunk": [
+    2922.0,
+    2926.5
+   ],
+   "anchor": [
+    2922.39,
+    2926.95,
+    "آآآ أنا أحكي الـ، أحكي الجملة.",
+    "handoff"
+   ],
+   "w2": {
+    "neg": true,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 3,
+    "latency": 0.06,
+    "amal_text": "لا، لا عشان",
+    "loo_prob": 0.663
+   },
+   "w5": {
+    "neg": true,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 6,
+    "latency": 0.06,
+    "amal_text": "لا، لا عشان I get angry",
+    "loo_prob": 0.703
+   },
+   "w10": {
+    "neg": true,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 7,
+    "latency": 0.06,
+    "amal_text": "لا، لا عشان I get angry أعصب",
+    "loo_prob": 0.443
+   }
+  },
+  {
+   "idx": 804,
+   "kind": "hesitation",
+   "why": "ana ana lamma az-an az az stall before azha2",
+   "chunk": [
+    3306.0,
+    3313.12
+   ],
+   "anchor": [
+    3304.88,
+    3311.08,
+    "لما أنا لما أزآن.",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 1.06,
+    "amal_text": "أز؟",
+    "loo_prob": 0.401
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 2,
+    "latency": 1.06,
+    "amal_text": "أز؟ أز",
+    "loo_prob": 0.249
+   },
+   "w10": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 4,
+    "latency": 1.06,
+    "amal_text": "أز؟ أز شو؟ No.",
+    "loo_prob": 0.104
+   }
+  },
+  {
+   "idx": 851,
+   "kind": "hesitation",
+   "why": "al2 al2aw ah restart before aghayyir el-jaw",
+   "chunk": [
+    3498.0,
+    3500.88
+   ],
+   "anchor": [
+    3486.58,
+    3494.4,
+    "أغير. Oh, I forgot the rest of it.",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 2,
+    "latency": 0.74,
+    "amal_text": "Just, just",
+    "loo_prob": 0.398
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 3,
+    "latency": 0.74,
+    "amal_text": "Just, just weather.",
+    "loo_prob": 0.404
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 5,
+    "latency": 0.74,
+    "amal_text": "Just, just weather. بغير جو.",
+    "loo_prob": 0.535
+   }
+  },
+  {
+   "idx": 474,
+   "kind": "random",
+   "why": "random.seed(25) sample; lamma, iwa, wash? learner stalling before a clause",
+   "chunk": [
+    1979.0,
+    1980.0
+   ],
+   "anchor": [
+    1968.23,
+    1975.77,
+    "أنا ببسطها. Um, لما",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.86,
+    "amal_text": "ايوه",
+    "loo_prob": 0.478
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": false,
+    "amal_words": 3,
+    "latency": 0.86,
+    "amal_text": "ايوه Go on",
+    "loo_prob": 0.397
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": false,
+    "amal_words": 3,
+    "latency": 0.86,
+    "amal_text": "ايوه Go on",
+    "loo_prob": 0.369
+   }
+  },
+  {
+   "idx": 242,
+   "kind": "random",
+   "why": "random.seed(25) sample; asks word by word, shu? learner requesting breakdown",
+   "chunk": [
+    1107.52,
+    1111.0
+   ],
+   "anchor": [
+    1099.67,
+    1101.63,
+    "The be is throwing me up. بي تعبك؟",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 5,
+    "latency": 0.68,
+    "amal_text": "بي تعبك. أكتر إشي بي",
+    "loo_prob": 0.265
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 6,
+    "latency": 0.68,
+    "amal_text": "بي تعبك. أكتر إشي بي تعبك.",
+    "loo_prob": 0.291
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 13,
+    "latency": 0.68,
+    "amal_text": "بي تعبك. أكتر إشي بي تعبك. One, one, one word by word. شو؟",
+    "loo_prob": 0.193
+   }
+  },
+  {
+   "idx": 372,
+   "kind": "random",
+   "why": "random.seed(25) sample; bas mish... we need, we never went back; learner aside",
+   "chunk": [
+    1598.04,
+    1599.34
+   ],
+   "anchor": [
+    1586.67,
+    1594.54,
+    "أنا بـ بنزبط. Is it b-uh, بنزبطها؟ ببسطها",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": false,
+    "amal_words": 5,
+    "latency": 0.77,
+    "amal_text": "Yes, we did a lot.",
+    "loo_prob": 0.255
+   },
+   "w5": {
+    "neg": true,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": false,
+    "amal_words": 8,
+    "latency": 0.77,
+    "amal_text": "Yes, we did a lot. بس مش واثق-",
+    "loo_prob": 0.274
+   },
+   "w10": {
+    "neg": true,
+    "repeat": true,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": true,
+    "amal_words": 9,
+    "latency": 0.77,
+    "amal_text": "Yes, we did a lot. بس مش واثق- ببسطها",
+    "loo_prob": 0.759
+   }
+  },
+  {
+   "idx": 783,
+   "kind": "random",
+   "why": "random.seed(25) sample; mazloom is oppressed; tutor gloss",
+   "chunk": [
+    3245.0,
+    3246.0
+   ],
+   "anchor": [
+    3236.19,
+    3239.09,
+    "Really؟ Oh this is not what it means at all in Arabic",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 0,
+    "latency": null,
+    "amal_text": "",
+    "loo_prob": 0.314
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": false,
+    "amal_words": 4,
+    "latency": 3.28,
+    "amal_text": "Yeah ظلم is oppression.",
+    "loo_prob": 0.276
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": true,
+    "uptake": true,
+    "amal_words": 7,
+    "latency": 3.28,
+    "amal_text": "Yeah ظلم is oppression. مظلوم is oppressed",
+    "loo_prob": 0.586
+   }
+  },
+  {
+   "idx": 595,
+   "kind": "random",
+   "why": "random.seed(25) sample; ah, el fi3l el; learner stalling on el-fi3l",
+   "chunk": [
+    2506.4,
+    2507.16
+   ],
+   "anchor": [
+    2504.98,
+    2511.78,
+    "Uh, الفعل لـ الـ-- الـ، uh, verb is-",
+    "first-run"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 3,
+    "latency": 0.8,
+    "amal_text": "لا، عادي. بس",
+    "loo_prob": 0.344
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 10,
+    "latency": 0.8,
+    "amal_text": "لا، عادي. بس شو إذا بدنا نستعمله؟ ش-- كيف بنحكي",
+    "loo_prob": 0.087
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 13,
+    "latency": 0.8,
+    "amal_text": "لا، عادي. بس شو إذا بدنا نستعمله؟ ش-- كيف بنحكي الجملة هاي؟ فعل",
+    "loo_prob": 0.192
+   }
+  },
+  {
+   "idx": 64,
+   "kind": "random",
+   "why": "random.seed(25) sample; tamanye w nos; learner tells wake-up time",
+   "chunk": [
+    375.5,
+    376.5
+   ],
+   "anchor": [
+    369.02,
+    374.52,
+    "آآآ، أنا صحيت على ثمانية.",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.14,
+    "amal_text": "مم.",
+    "loo_prob": 0.616
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 3,
+    "latency": 0.14,
+    "amal_text": "مم. شو شربت؟",
+    "loo_prob": 0.259
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 5,
+    "latency": 0.14,
+    "amal_text": "مم. شو شربت؟ شو أكلت؟",
+    "loo_prob": 0.329
+   }
+  },
+  {
+   "idx": 305,
+   "kind": "random",
+   "why": "random.seed(25) sample; ana bahki ilak kamle; learner attempt at the full sentence",
+   "chunk": [
+    1323.0,
+    1324.0
+   ],
+   "anchor": [
+    1311.73,
+    1319.73,
+    "الجملة كاملة؟ كامـ... كامـلة؟",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 3,
+    "latency": 0.06,
+    "amal_text": "كاملة. كامل، كاملة.",
+    "loo_prob": 0.501
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 3,
+    "latency": 0.06,
+    "amal_text": "كاملة. كامل، كاملة.",
+    "loo_prob": 0.424
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 3,
+    "latency": 0.06,
+    "amal_text": "كاملة. كامل، كاملة.",
+    "loo_prob": 0.533
+   }
+  },
+  {
+   "idx": 56,
+   "kind": "random",
+   "why": "random.seed(25) sample; Allah ybarik fik; learner reply to mabrook",
+   "chunk": [
+    355.3,
+    357.3
+   ],
+   "anchor": [
+    352.98,
+    353.24,
+    "شو؟",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 0.86,
+    "amal_text": "مبروك.",
+    "loo_prob": 0.443
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 2,
+    "latency": 0.86,
+    "amal_text": "مبروك. ممتاز.",
+    "loo_prob": 0.437
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": false,
+    "meta_en": false,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 7,
+    "latency": 0.86,
+    "amal_text": "مبروك. ممتاز. أي ساعة صحيت اليوم طيب؟",
+    "loo_prob": 0.196
+   }
+  },
+  {
+   "idx": 696,
+   "kind": "random",
+   "why": "random.seed(25) sample; 3ashan, shu el-jumle? tutor prompt for the sentence",
+   "chunk": [
+    2918.0,
+    2920.0
+   ],
+   "anchor": [
+    2908.91,
+    2916.91,
+    "issue سيء، سيء كتير. عشان تع-- امم، امم yeah.",
+    "handoff"
+   ],
+   "w2": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": false,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 1,
+    "latency": 1.18,
+    "amal_text": "عشان،",
+    "loo_prob": 0.403
+   },
+   "w5": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": false,
+    "amal_words": 3,
+    "latency": 1.18,
+    "amal_text": "عشان، شو الجملة.",
+    "loo_prob": 0.195
+   },
+   "w10": {
+    "neg": false,
+    "repeat": false,
+    "recast": true,
+    "meta_en": false,
+    "elicit": true,
+    "confirm_open": false,
+    "uptake": true,
+    "amal_words": 3,
+    "latency": 1.18,
+    "amal_text": "عشان، شو الجملة.",
+    "loo_prob": 0.242
+   }
+  }
+ ]
+}
