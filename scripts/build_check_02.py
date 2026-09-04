@@ -151,7 +151,7 @@ document.getElementById('copy').addEventListener('click',()=>{const out=Object.e
 paint();
 """.replace('N', str(n))
 page = (
-    '<title>Anees Check 02</title>\n<style>' + CSS + '</style>\n<main>\n<h1>Anees check 02</h1>\n'
+    '<meta charset="utf-8"><title>Anees Check 02</title>\n<style>' + CSS + '</style>\n<main>\n<h1>Anees check 02</h1>\n'
     f'<p class="lead">50 clips from check 01 plus 7 new ones (silence and hard spots). Each clip was written down by {len(names)} different engines, '
     f'shown as {letters} in a random order on every row. Only the words inside the clip are shown. Hardest clips come first, so stopping early still counts. Play the clip, then tap the letter that matches what was '
     'said best. "All same" if they tie, "All wrong" if none is close. On a silent clip, the right answer is the one that shows (nothing).</p>\n'
