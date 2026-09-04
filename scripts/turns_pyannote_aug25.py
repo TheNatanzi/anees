@@ -8,7 +8,8 @@ src=r"C:\Users\Mahdi\AppData\Local\Temp\claude\C--Claude\b4922477-31d0-4ffd-b5c6
 pipe=Pipeline.from_pretrained("pyannote/speaker-diarization-3.1",token=tok).to(torch.device("cuda"))
 y,sr=librosa.load(src,sr=16000,mono=True)
 dia=pipe({"waveform":torch.from_numpy(y).unsqueeze(0),"sample_rate":sr},num_speakers=2)
-segs=[(t.start,t.end,s) for t,_,s in dia.itertracks(yield_label=True)]
+ann=getattr(dia,"speaker_diarization",dia)
+segs=[(t.start,t.end,s) for t,_,s in ann.itertracks(yield_label=True)]
 print("diarization segments",len(segs))
 # words from the faster-whisper run (data/aug25/turns.json has words with s/e)
 words=json.load(io.open("data/aug25/turns.json",encoding="utf-8"))["words"]
