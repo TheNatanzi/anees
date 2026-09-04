@@ -24,3 +24,5 @@
 
 | Recording (added 2026-09-03) | From the next lesson on, record TWO channels on Medi's PC: ch1 = Medi's mic, ch2 = system loopback (Meet = Amal). Speaker labels come from channels, never from AI guessing. Meet's own recording stays as backup. |
 | Engines (revised) | Clean words: Speechmatics bilingual Ar-En (Palestinian named) or Soniox; batch fallback ElevenLabs. Raw learner form: wav2vec2 Levantine CTC (no LM) on ch1. Free local dialect Whisper stays as offline fallback. |
+
+| Friction rule (Medi, 2026-09-03) | Repo is PUBLIC. No secrets in the repo, ever. Medi never types keys in PowerShell: Claude moves keys from Medi's clipboard into User env vars with a command that never prints them. Keys needed so far: HF_TOKEN (set), ELEVENLABS_API_KEY / SPEECHMATICS key (pending, same clipboard method). |
