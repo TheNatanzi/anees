@@ -115,4 +115,9 @@ def recompute_and_store():
             r['last_reviewed'] = r['last_reviewed'] + 'T00:00:00Z'
         rows.append(r)
     db.upsert('word_stats', rows, on='word_key')
+    # rows for words that no longer have any event or card are stale (earlier builds, purged test rows): remove them
+    live = set(stats)
+    for r in db.select('word_stats', {'select': 'word_key'}):
+        if r['word_key'] not in live:
+            db.rest('DELETE', 'word_stats', params={'word_key': f"eq.{r['word_key']}"}, prefer='return=minimal')
     return stats
