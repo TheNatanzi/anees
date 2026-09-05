@@ -1,0 +1,82 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>After the lesson</title>
+<style>
+:root{--bg:#F4F6F2;--bg2:#fff;--ink:#1B2620;--mute:#5B6A62;--line:#D6DDD8;--teal:#0F6E56;--amber:#B26F0E;--red:#B23A2E}
+@media(prefers-color-scheme:dark){:root{--bg:#0F1613;--bg2:#17211C;--ink:#E7EDE9;--mute:#9BAAA2;--line:#2A3630;--teal:#4FC4A2;--amber:#E7A93B;--red:#E77A6E}}
+*{box-sizing:border-box} html,body{height:100%} body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;overflow-wrap:anywhere}
+main{max-width:520px;margin:0 auto;padding:14px 14px 24px;min-height:100%;display:flex;flex-direction:column}
+.who{font-size:14px;color:var(--mute);margin:0 0 6px} .prog{font-size:13px;color:var(--teal);font-weight:700;letter-spacing:.04em;margin:0 0 4px}
+h1{font-size:23px;margin:2px 0 8px;line-height:1.25} .sug{font-size:14px;color:var(--mute);margin:0 0 10px}
+.btns{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+button{min-height:52px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:14px;font:600 18px system-ui;padding:10px 14px;text-align:left;cursor:pointer;width:100%}
+button.primary{background:var(--teal);color:#fff;border-color:var(--teal)} button.drop{color:var(--red)} button.play{background:var(--amber);color:#fff;border-color:var(--amber);text-align:center;font-size:20px}
+button.play.on{background:var(--teal);border-color:var(--teal)} button small{display:block;font:14px system-ui;color:var(--mute);font-weight:400}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin:4px 0 10px} .card .big{font-size:22px;font-weight:700}
+.ar{font-size:22px;direction:rtl;display:block} .en{color:var(--mute);font-size:15px;margin-top:2px} .why{font-size:13px;color:var(--amber);margin-top:6px}
+input{width:100%;font:18px system-ui;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);color:var(--ink);margin-top:8px}
+.quit{margin-top:auto;padding-top:12px;font-size:14px;color:var(--mute)} .quit a{color:var(--mute)}
+</style></head><body><main>
+<p class="who" id="who">Medi's app has a few quick questions about today's lesson. Tap ▶ once to hear the moment.</p>
+<p class="prog" id="prog"></p>
+<div id="root"><p class="sug">Loading…</p></div>
+<audio id="player" preload="none"></audio>
+<p class="quit" id="quit"><a href="#" id="quitlink">Stop here</a> · saved as you tap · under 5 minutes</p>
+</main>
+<script src="../js/config.js"></script>
+<script>
+const qs=new URLSearchParams(location.search), TOKEN=qs.get('t')||'';
+const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon,'Content-Type':'application/json','X-Anees-Token':TOKEN};
+const api=(m,p,b,extra)=>fetch(ANEES.url+'/rest/v1/'+p,{method:m,headers:{...H,...(extra||{})},body:b?JSON.stringify(b):undefined});
+const root=document.getElementById('root'), prog=document.getElementById('prog'), who=document.getElementById('who'), player=document.getElementById('player');
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+let link=null, answers={}, step=0, screens=[]; const queue=[]; let flushing=false;
+async function flush(){ if(flushing||!queue.length) return; flushing=true; while(queue.length){ try{ await queue[0](); queue.shift(); }catch(e){ await new Promise(r=>setTimeout(r,1500)); } } flushing=false; }
+function rule(kind,word_key,payload){ queue.push(()=>api('POST','amal_rules',{token:TOKEN,source:'after',lesson_date:link.lesson_date,kind,word_key,payload},{Prefer:'return=minimal'}).then(r=>{if(!r.ok) throw 0;})); flush(); }
+function save(done){ answers.updated=new Date().toISOString(); const body={answers}; if(done) body.done_at=answers.updated; if(!link.opened_at) body.opened_at=answers.updated;
+  queue.push(()=>api('PATCH','amal_links?token=eq.'+encodeURIComponent(TOKEN),body,{Prefer:'return=minimal'}).then(r=>{if(!r.ok) throw 0;})); flush(); }
+function show(i){ step=i; player.pause(); const s=screens[i]; if(!s){ finish(); return; } prog.textContent=s.prog; root.innerHTML=s.html; s.wire&&s.wire(); window.scrollTo(0,0); }
+function next(){ show(step+1); }
+function finish(){ save(true); prog.textContent='Done'; who.textContent='Thank you, Amal.'; root.innerHTML='<h1>All saved. Shukran!</h1><p class="sug">The app suggested; you decided.</p>'; document.getElementById('quit').style.display='none'; }
+function playBtn(id,clip,off){ return `<button id="${id}" class="play" data-clip="${esc(clip)}" data-off="${off}">▶ Play the moment</button>`; }
+function wirePlay(id){ const b=document.getElementById(id); if(!b) return; b.onclick=()=>{ const src=ANEES.pages+'lessons/'+b.dataset.clip; if(!player.src.endsWith(b.dataset.clip)) player.src=src; player.currentTime=0; player.play(); b.classList.add('on'); b.textContent='▶ Playing…'; };
+  player.onended=()=>{ b.classList.remove('on'); b.textContent='▶ Play again'; }; }
+function build(p){
+  const S=[]; const Q=p.questions||[], HW=p.homework||[]; const total=Q.length+(HW.length?HW.length:0);
+  who.textContent=`Medi's app has ${Q.length} quick question${Q.length===1?'':'s'} about today's lesson${HW.length?' and suggests homework':''}. Tap ▶ once to hear the moment.`;
+  Q.forEach((q,i)=>{ const id=`q${i}`;
+    const kinds={'Right':'right','Wrong':'wrong','Not Medi':'not_medi','Skip':'skip','Medi, right':'right','Medi, wrong':'wrong','Yes, a word':'alias','No':'no'};
+    S.push({prog:`${i+1} of ${total}`,html:`<h1>${esc(q.ask)}</h1><p class="sug">${esc(q.why)}. Your answer changes how the app scores this word.</p>
+      <div class="card">${q.arabizi?`<div class="big">${esc(q.arabizi)}</div>`:''}<span class="ar">${esc(q.arabic||'')}</span><div class="en">${esc(q.english||'')}</div></div>
+      ${playBtn(id+'p',q.clip,q.offset)}<div class="btns">${q.buttons.slice(0,3).map((b,j)=>`<button id="${id}b${j}">${esc(b)}</button>`).join('')}</div>
+      ${q.typed?`<input id="${id}t" placeholder="her spelling (optional)" aria-label="spelling">`:''}<div class="sug" style="margin-top:8px"><a href="#" id="${id}skip">Skip this one</a></div>`,
+      wire(){ wirePlay(id+'p');
+        const answer=(label)=>{ const kind=kinds[label]||'skip'; const typed=document.getElementById(id+'t'); const pl={t:q.t,ask:q.ask,label,clip:q.clip,arabic:q.arabic,arabizi:q.arabizi};
+          if(typed&&typed.value.trim()) pl.alias=typed.value.trim();
+          (answers.q=answers.q||{})[i]=label; rule(kind,q.word_key,pl); save(); next(); };
+        q.buttons.slice(0,3).forEach((b,j)=>document.getElementById(id+'b'+j).onclick=()=>answer(b));
+        document.getElementById(id+'skip').onclick=e=>{e.preventDefault(); answer('Skip');}; }});
+  });
+  HW.forEach((h,i)=>{ const id=`h${i}`;
+    S.push({prog:`${Q.length+i+1} of ${total}`,html:`<h1>Homework suggestion ${i+1} of ${HW.length}</h1><p class="sug">The app suggests this for Medi (${esc(h.kind==='say'?'a sentence to say':h.kind==='use'?'a word to use':'a mini-dialogue')}). Keep, drop or edit it.</p>
+      <div class="card"><div class="big">${esc(h.arabizi)}</div><span class="ar">${esc(h.arabic||'')}</span><div class="en">${esc(h.english||'')}</div>${h.note?`<div class="why">${esc(h.note)}</div>`:''}</div>
+      <div class="btns"><button id="${id}k" class="primary">Keep</button><button id="${id}d" class="drop">Drop</button><button id="${id}e">Edit</button></div>
+      <div id="${id}box" style="display:none"><input id="${id}v" value="${esc(h.arabizi)}" aria-label="edited"><button id="${id}g" class="primary" style="margin-top:8px">Save my version</button></div>`,
+      wire(){ const pl={arabizi:h.arabizi,arabic:h.arabic,english:h.english,keys:h.keys,kind:h.kind};
+        document.getElementById(id+'k').onclick=()=>{(answers.hw=answers.hw||{})[i]='keep'; rule('keep',null,{...pl,source:'homework'}); save(); next();};
+        document.getElementById(id+'d').onclick=()=>{(answers.hw=answers.hw||{})[i]='drop'; rule('drop',null,{...pl,source:'homework'}); (h.keys||[]).forEach(k=>rule('drop',k,{homework:h.arabizi})); save(); next();};
+        document.getElementById(id+'e').onclick=()=>{document.getElementById(id+'box').style.display='block';};
+        document.getElementById(id+'g').onclick=()=>{const v=document.getElementById(id+'v').value.trim(); if(!v) return; (answers.hw=answers.hw||{})[i]='edit'; rule('edit',null,{...pl,edited:v,source:'homework'}); save(); next();}; }});
+  });
+  return S;
+}
+document.getElementById('quitlink').onclick=e=>{e.preventDefault(); finish();};
+(async()=>{
+  if(!TOKEN){ root.innerHTML='<h1>This link is missing its code.</h1>'; return; }
+  let rows=[]; try{ rows=await (await api('GET','amal_links?select=*&token=eq.'+encodeURIComponent(TOKEN))).json(); }catch(e){}
+  link=Array.isArray(rows)?rows[0]:null;
+  if(!link){ root.innerHTML='<h1>This link is not valid any more.</h1><p class="sug">Links work for 7 days. Ask Medi for a fresh one.</p>'; prog.textContent=''; return; }
+  if(new Date(link.expires_at)<new Date()){ root.innerHTML='<h1>This link has expired.</h1><p class="sug">Links work for 7 days. Ask Medi for a fresh one.</p>'; prog.textContent=''; return; }
+  if(link.done_at){ root.innerHTML='<h1>Already done, thank you Amal.</h1><p class="sug">Your answers are saved. Nothing else to do.</p>'; prog.textContent='Done'; document.getElementById('quit').style.display='none'; return; }
+  answers=link.answers||{}; screens=build(link.payload||{}); show(0); save();
+})();
+</script></body></html>

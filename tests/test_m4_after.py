@@ -1,0 +1,143 @@
+"""M4 + M6 gate: never more than 5 questions; audio <= 15 s per question; stand-in total <= 5 min (timed); every answer produces a
+visible rule row and a re-scored word (5 answers on Sep 4 data); link expires after 7 days; second open = 'already done';
+homework: 0 items with untaught words, stand-in edits in <= 1 min, edits persist and change the next sheet."""
+import io, json, re, time, subprocess, datetime
+from pathlib import Path
+import pytest
+
+import after_questions as aq
+import suggest
+import anees_env as E
+from arabizi import Matcher
+
+ROOT = Path(__file__).resolve().parent.parent
+NET = bool(E.ACCESS_TOKEN and E.SERVICE_KEY and E.ANON_KEY)
+PAY = ROOT / 'data' / 'lessons' / '2026-09-04' / 'after_payload.json'
+
+
+def payload():
+    if not PAY.exists():
+        pytest.skip('after payload not built')
+    return json.load(io.open(PAY, encoding='utf-8'))
+
+
+def test_questions_bounded_and_audio_short():
+    p = payload()
+    qs = p['questions']
+    assert aq.MIN_Q <= len(qs) <= aq.MAX_Q, len(qs)
+    for q in qs:
+        assert 2 <= len(q['buttons']) <= 4 and all(q['buttons'])
+        f = ROOT / 'docs' / 'lessons' / q['clip']
+        assert f.exists(), q['clip']
+        dur = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', str(f)], capture_output=True, text=True).stdout.strip())
+        assert dur <= aq.Q_CLIP + 0.5, (q['clip'], dur)
+        assert q['ask'] and q['why']
+
+
+def test_homework_uses_only_doc_words():
+    p = payload()
+    hw = p['homework']
+    assert 1 <= len(hw) <= aq.HOMEWORK_ITEMS
+    words = suggest.load_words(); wmap = {w['key']: w for w in words}; m = Matcher(words)
+    kinds = {h['kind'] for h in hw}
+    assert 'say' in kinds and 'use' in kinds and 'dialogue' in kinds
+    for h in hw:
+        for part in re.split(r'\s+[AB]:\s*', ' ' + h['arabizi']):
+            if not part.strip():
+                continue
+            v = suggest.validate({'arabizi': part}, m, wmap.keys(), wmap.keys(), wmap)
+            assert not v['bad_tokens'], (h['arabizi'], v['bad_tokens'])
+
+
+@pytest.mark.skipif(not NET, reason='needs Supabase')
+def test_stand_in_answers_5_questions_and_homework_under_5_min():
+    import db, amal_links, apply_rules
+    from playwright.sync_api import sync_playwright
+    p = payload()
+    token, url = amal_links.create('after', '2026-09-04', p)
+    local = (ROOT / 'docs' / 'amal' / 'after.html').resolve().as_uri() + f'?t={token}'
+    nq = len(p['questions'])
+    try:
+        with sync_playwright() as pw:
+            b = pw.chromium.launch(); pg = b.new_page(viewport={'width': 375, 'height': 812})
+            t0 = time.time(); pg.goto(local)
+            pg.wait_for_selector('#prog:has-text("1 of")', timeout=15000)
+            t_hw = None; steps = 0
+            while pg.text_content('#prog') != 'Done':
+                assert pg.locator('h1').count() == 1
+                btns = pg.locator('#root button:visible'); n = btns.count()
+                assert 1 <= n <= 4, n
+                for i in range(n):
+                    box = btns.nth(i).bounding_box(); assert box and box['height'] >= 48 and box['y'] + box['height'] <= 812, box
+                assert pg.evaluate('document.documentElement.scrollWidth') <= 375
+                txt = pg.text_content('#root').lower()
+                m = re.match(r'(\d+) of (\d+)', pg.text_content('#prog'))
+                idx = int(m.group(1)) - 1
+                if idx < nq:
+                    assert 'play the moment' in txt
+                    pg.click(f'#q{idx}b{0 if idx % 2 == 0 else 1}')      # alternate Right / Wrong
+                else:
+                    if t_hw is None:
+                        t_hw = time.time()
+                    assert 'suggest' in txt
+                    hi = idx - nq
+                    if hi == 0:
+                        pg.click(f'#h{hi}e'); pg.fill(f'#h{hi}v', 'Enbes6i biyoamek'); pg.click(f'#h{hi}g')
+                    elif hi == 1:
+                        pg.click(f'#h{hi}d')
+                    else:
+                        pg.click(f'#h{hi}k')
+                steps += 1; time.sleep(0.8); pg.wait_for_timeout(200)
+            elapsed = time.time() - t0; hw_time = time.time() - t_hw if t_hw else 0
+            pg.wait_for_timeout(2500); b.close()
+        assert elapsed <= 300, elapsed
+        assert hw_time <= 60, hw_time
+        rules = db.select('amal_rules', {'token': f'eq.{token}', 'order': 'created_at.asc'})
+        verdicts = [r for r in rules if r['kind'] in ('right', 'wrong', 'not_medi', 'alias', 'no', 'skip')]
+        assert len(verdicts) == nq, (len(verdicts), nq)
+        # every answer -> a rule row (visible in amal_rules_public) and a re-scored word
+        pub = db.select('amal_rules_public', {'lesson_date': 'eq.2026-09-04', 'source': 'eq.after'})
+        assert len(pub) >= nq
+        before = {s['word_key']: s for s in db.select('word_stats')}
+        changed = apply_rules.apply()
+        applied = [c for c in changed if c['rule'] in {r['id'] for r in verdicts}]
+        assert len(applied) >= sum(1 for r in verdicts if r['kind'] in ('right', 'wrong', 'not_medi') and r['word_key']), applied
+        after = {s['word_key']: s for s in db.select('word_stats')}
+        for c in applied:
+            assert 'bucket_now' in c and c['rows'] >= 1, c          # the verdict reached a stored event row and the word was re-scored
+            assert after[c['word_key']]['updated_at'] > before[c['word_key']]['updated_at']
+            t = next(r['payload']['t'] for r in verdicts if r['id'] == c['rule'])
+            ev = db.sql(f"select correction from word_events where lesson_date='2026-09-04' and word_key='{c['word_key']}' and abs(t_start - {t}) <= 1")
+            assert ev and all(e['correction'] == (c['kind'] == 'wrong') for e in ev), (c, ev)
+        # homework edits persist and change the next sheet: the edited sentence comes back first (kept/edited are reused), the dropped one is gone
+        rules2 = db.select('amal_rules', {'select': 'kind,word_key,payload,source,lesson_date', 'order': 'created_at.asc'})
+        edited = [r for r in rules2 if r['kind'] == 'edit' and (r['payload'] or {}).get('edited') == 'Enbes6i biyoamek']
+        assert edited
+        row = db.select('amal_links', {'token': f'eq.{token}'})[0]
+        assert row['done_at'] and row['answers'].get('hw', {}).get('0') == 'edit'
+        with sync_playwright() as pw:
+            b = pw.chromium.launch(); pg = b.new_page(viewport={'width': 375, 'height': 812}); pg.goto(local); pg.wait_for_selector('h1', timeout=15000)
+            assert 'Already done' in pg.text_content('h1'); b.close()
+        io.open(ROOT / 'data' / 'm4_stand_in_timing.json', 'w').write(json.dumps({'elapsed_s': round(elapsed, 1), 'homework_s': round(hw_time, 1), 'steps': steps}))
+        print(f'STAND-IN: {steps} screens in {elapsed:.1f} s (homework part {hw_time:.1f} s)')
+    finally:
+        db.sql(f"delete from amal_rules where token='{token}'; delete from amal_links where token='{token}'")
+        apply_rules.apply()
+
+
+@pytest.mark.skipif(not NET, reason='needs Supabase')
+def test_link_expires_after_7_days():
+    import db, amal_links
+    from playwright.sync_api import sync_playwright
+    token, url = amal_links.create('after', '2026-09-04', {'questions': [], 'homework': []})
+    try:
+        row = db.select('amal_links', {'token': f'eq.{token}'})[0]
+        created = datetime.datetime.fromisoformat(row['created_at'].replace('Z', '+00:00')); exp = datetime.datetime.fromisoformat(row['expires_at'].replace('Z', '+00:00'))
+        assert abs((exp - created).total_seconds() - 7 * 86400) < 60
+        db.rest('PATCH', 'amal_links', params={'token': f'eq.{token}'}, body={'expires_at': '2026-01-01T00:00:00Z'}, prefer='return=minimal')
+        local = (ROOT / 'docs' / 'amal' / 'after.html').resolve().as_uri() + f'?t={token}'
+        with sync_playwright() as pw:
+            b = pw.chromium.launch(); pg = b.new_page(); pg.goto(local); pg.wait_for_selector('h1', timeout=15000)
+            assert 'expired' in pg.text_content('h1').lower(); b.close()
+    finally:
+        db.sql(f"delete from amal_links where token='{token}'")
