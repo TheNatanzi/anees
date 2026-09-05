@@ -13,8 +13,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from arabizi import ARABIC, arabic_norm
 
-GRAMMAR_KINDS = ('article', 'gender', 'tense', 'plural')
-KINDS = ('word', 'choice', 'article', 'gender', 'tense', 'plural', 'pronunciation', 'unclear')
+GRAMMAR_KINDS = ('article', 'gender', 'tense', 'plural', 'preposition')     # preposition: Medi 2026-09-05 ("ba6lub min is a preposition error, I make a lot of these")
+KINDS = ('word', 'choice', 'article', 'gender', 'tense', 'plural', 'preposition', 'pronunciation', 'unclear')
 CUES = {
     'article': ('أل', 'إل', 'ال ', 'الـ', 'إلـ', 'أل.', 'إل.', ' el ', ' el-', ' al ', 'the el', 'article', 'definite', 'no al', 'no el', 'without el', 'without al', 'بدون ال'),
     'gender': ('feminine', 'masculine', 'female', 'male', 'for a girl', 'for a boy', 'مؤنث', 'مذكر', 'تاء', 'she is', 'he is'),

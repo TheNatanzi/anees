@@ -24,7 +24,7 @@ iframe{width:100%;height:78vh;border:1px solid var(--line);border-radius:14px;ba
 footer{color:var(--mute);font-size:12px;margin:30px 0 10px}
 </style></head><body>
 <header><div class="in"><div class="brand"><b>Anees</b><span>Palestinian Arabic with Amal · Medi's companion</span></div>
-<nav id="nav"><button class="tab" data-tab="today">Today</button><button class="tab" data-tab="lessons">Lessons</button><button class="tab" data-tab="words">Words</button><button class="tab" data-tab="cards">Flashcards</button><button class="tab" data-tab="amal">Amal</button><button class="tab" data-tab="grammar">Grammar</button><button class="tab" data-tab="ai-reports">AI reports</button><button class="tab" data-tab="sys-rules">System rules</button><button class="tab" data-tab="word-rules">Word &amp; grammar rules</button><button class="tab" data-tab="future">Future projects</button></nav></div></header>
+<nav id="nav"><button class="tab" data-tab="today">Today</button><a class="tab" href="slips.html">Slips</a><button class="tab" data-tab="lessons">Lessons</button><button class="tab" data-tab="words">Words</button><button class="tab" data-tab="cards">Flashcards</button><button class="tab" data-tab="amal">Amal</button><button class="tab" data-tab="grammar">Grammar</button><button class="tab" data-tab="ai-reports">AI reports</button><button class="tab" data-tab="sys-rules">System rules</button><button class="tab" data-tab="word-rules">Word &amp; grammar rules</button><button class="tab" data-tab="future">Future projects</button></nav></div></header>
 <main>
 <div id="banner"></div>
 <section id="tab-today"><h1 id="today-h">Today</h1><div class="cards" id="today-cards"></div><div id="today-actions"></div><h2>Last lesson</h2><div id="today-last" class="mute">–</div></section>
@@ -127,7 +127,7 @@ async function renderAiRules(){ try{ AI_RULES=await (await fetch('data/ai_rules.
       +groups.map(g=>`<div class="rgroup"><h2>${esc(g.title)}</h2>${g.rules.map(r=>`<div class="rule"><span class="chip ${esc(r.status)}">${esc(r.status)}</span><span class="mute">${esc(r.id)}</span><b>${esc(r.rule)}</b><div class="why">${esc(r.why)}</div><div class="where">where: ${esc(r.where)}</div></div>`).join('')}</div>`).join('')+`<p class="mute">Updated ${esc(AI_RULES.updated)}. Source: docs/data/ai_rules.json (edit there, the page follows).</p>`; } }
 // ---------- tabs ----------
 function showTab(name){ document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===name)); document.querySelectorAll('main section').forEach(s=>s.classList.toggle('on',s.id==='tab-'+name)); if(name==='cards'){ const f=document.getElementById('cards-frame'); if(!f.src) f.src='cards.html'; } if(location.hash!=='#'+name) history.replaceState(null,'','#'+name); }
-document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>showTab(b.dataset.tab)); window.addEventListener('hashchange',()=>showTab(location.hash.slice(1)||'today'));
+document.querySelectorAll('.tab').forEach(b=>{ if(b.dataset.tab) b.onclick=()=>showTab(b.dataset.tab); }); window.addEventListener('hashchange',()=>showTab(location.hash.slice(1)||'today'));
 ['q','f-bucket','f-topic','sort'].forEach(id=>document.getElementById(id).addEventListener('input',renderWords));
 showTab(location.hash.slice(1)||'today'); loadAll();
 window.AneesIndex={ search, get words(){return words;}, get stats(){return stats;}, get offline(){return offline;} };

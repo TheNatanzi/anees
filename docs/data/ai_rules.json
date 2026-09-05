@@ -132,6 +132,20 @@
           "why": "Medi 2026-09-05.",
           "where": "transcript pages show '(pause)'; buckets ignore pauses; pause analysis waits for two-track audio",
           "status": "enforced"
+        },
+        {
+          "id": "M8",
+          "rule": "A wrong preposition after a verb or adjective (a6lub-hom for a6lub minhom; 5aayef min, mishtaa2 la, 2al2aan 3ala) is its own kind: 'preposition'. The verb is known; the slip is scored apart, never as a missed word.",
+          "why": "Medi 2026-09-05: 'ba6lub min is a preposition error. I make a lot of these.'",
+          "where": "miss_kind.KINDS + GRAMMAR_KINDS include 'preposition'; the Slips page (slips.html, data/tally.json) counts it as its own bar; detector pattern G12 in wiki 17 is planned",
+          "status": "partly"
+        },
+        {
+          "id": "M9",
+          "rule": "Every slip is tied to the rule Medi already learned (Amal's Doc unit or the lesson she taught it). The tally (slips.html) shows Amal which learned rules are slipping so she can put a review into her own plans. Anees never writes her a lesson plan and never sends her grammar questions.",
+          "why": "Medi 2026-09-05: 'let Amal make her own assessments; your job is to keep a tally of my mistakes … assist her in injecting my mistakes into her already formed lesson plans.'",
+          "where": "data/tally.json (hand-curated from the transcripts, wiki 17 section K) -> scripts/build_tally.py -> docs/slips.html; every moment carries its transcript line and, where the audio exists, a clip",
+          "status": "enforced"
         }
       ],
       "tab": "words"
