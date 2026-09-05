@@ -332,3 +332,13 @@ Chairman: **8/10**. Agreement: ship as is for tomorrow. Disagreement: none mater
 |---|---|---|---|
 | ElevenLabs | 0 (all transcripts reused) | 0.00 | 10 |
 | OpenAI | 5 (gpt-5.4-mini ×1 rejected, gpt-5.5 ×4) | 0.44 | 10 |
+
+## Codex audit M5 — findings and fixes  (06:40)
+| # | Finding | Fix (all tested: tests/test_m5_cards.py now 8 green) |
+|---|---|---|
+| P0 | a swallowed localStorage error could drop an answer while the footer said "All answers saved" | every queue write is read back; on failure the row stays in memory, is sent immediately, and the footer says "only in memory until it syncs" |
+| P0 | an old local log overwrote newer server buckets / last_reviewed | pure `mergeLocal()`: only rows newer than the server's last_reviewed count, bucket derived from the server bucket (ice cold + one miss → cold) |
+| P0 | 3× weight went stale when a bucket changed | weight is always derived from the current bucket (`weightOf` ignores stored weights) |
+| P0 | "flag to Amal" lost offline / 4xx ignored | flags go through the same durable queue; status checked; rejected rows parked in `anees-card-dead` |
+| P1 | one permanently rejected row blocked the whole queue | on a 4xx the batch is retried row by row and the bad row is parked, the rest sync |
+Cross-tab write races (two tabs answering at once) remain a P2: single-tab use is the case tonight.
