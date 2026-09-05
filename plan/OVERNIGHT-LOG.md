@@ -397,3 +397,13 @@ full suite: 72 passed
 UI (Medi: "the menu disappears for the report … aligning and more centered"): one shared sticky header + menu on index, cards
 (standalone), report and transcript pages, all inside the same centered 820-px container; the active tab is highlighted; the
 Flashcards iframe hides its own copy. Codex UI/UX audit launched (results in the next chat if still running).
+
+## Miss classifier v2 + data audit  (09:05 → 09:55, from Medi's own checks on the Sep 4 report)
+| Medi's point | What the data showed | Fix (tested, 77 green) |
+|---|---|---|
+| 61:29 "Eshi" tagged, but the slip was "aktar ishi" (the most) | two events 1 s apart under one Amal reaction | phrase merge: the head word (aktar) carries the slip, labeled "superlative: aktar/a7san + noun, NO el-"; eshi is not blamed |
+| 61:07 a7san tagged "word" but he knows a7san; aktar was needed | Amal answered with a different Doc word (aktar) within 8 s | new kind **choice** (known word, wrong place) → bucket shaky, not missed |
+| 08:37 Ba3eed / 08:40 Nafs "another el error" | transcript: "بعيد الـ نفس مشكلة" → Amal "نفس المشكلة" | dangling el- rule: a loose الـ next to the word = article slip |
+| "I missed Na7el, didn't I?" | Medi: "what was bees?" → Amal "Nahl" → Medi "Nahl"; ASR wrote it in Latin so no event existed | chat-typed words (Na7el) anchor Latin ASR spellings and break matcher ties → now a word miss (asked) ✔ |
+| 7ashara "reviewed yesterday" but never used | 56 card_results rows from the Playwright tests (01:33 PT) survived a failed cleanup and drove word_stats | rows purged, buckets recomputed, tests recompute after cleanup, dates shown in local time |
+Sep 4 now: article 4 · choice 1 · word 1 (Na7el) · unclear 5. Sep 4 grammar slips are all the el- article (the lesson's real theme).
