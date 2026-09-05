@@ -2,7 +2,7 @@
 // ice_cold: 5 first-try rights in a row on >= 3 different days; one miss -> cold. cold: unprompted in a lesson / right first try.
 // shaky: prompted / right on second try. missed: corrected / wrong twice in a row on cards. never: no Medi signal.
 (function (root) {
-  const RECENT_LESSONS = 3, NEW_DRILL_RIGHTS = 3, NEW_DRILL_DAYS = 2;
+  const RECENT_LESSONS = 3, NEW_DRILL_RIGHTS = 5, NEW_DRILL_DAYS = 2;
   const GRAMMAR_KINDS = ['article', 'gender', 'tense', 'plural'];
   function signalFromEvent(e) {
     if (e.speaker !== 'Medi' || e.prompted === null || e.prompted === undefined) return null;
@@ -30,9 +30,10 @@
     if (parseInt(last.attempt || 1) > 1) return ['shaky', streak, days];
     return ['cold', streak, days];
   }
-  function compute(wordEvents, cardResults, lessonDates, introduced, docBefore) {
-    // introduced: Set of `${lesson_date}|${word_key}` Amal typed in that lesson's chat; docBefore: {lesson_date: Set(word_key)} in the Doc before the lesson
-    introduced = introduced || new Set(); docBefore = docBefore || {};
+  function compute(wordEvents, cardResults, lessonDates, confirmedNew, docBefore) {
+    // confirmedNew: Set of `${lesson_date}|${word_key}` marked new by Amal/Medi; docBefore: {lesson_date: Set(word_key)} in the Doc before that lesson
+    confirmedNew = confirmedNew || new Set(); docBefore = docBefore || {};
+    const markedKeys = new Set([...confirmedNew].map(x => x.split('|').slice(1).join('|')));
     const dates = [...new Set(lessonDates.map(String))].sort();
     const recent = new Set(dates.slice(-RECENT_LESSONS));
     const evBy = {}, cdBy = {};
@@ -54,9 +55,9 @@
       const lessonSignal = bucket;
       const drilled = streak >= NEW_DRILL_RIGHTS && days.length >= NEW_DRILL_DAYS;
       const seenDates = [...new Set(evs.map(e => String(e.lesson_date)))].sort();
-      const introducedHere = !!firstLesson && (introduced.has(firstLesson + '|' + key) || evs.some(e => String(e.lesson_date) === firstLesson && e.asked));
-      const knownBefore = !!firstLesson && !!docBefore[firstLesson] && docBefore[firstLesson].has(key);
-      if (firstLesson && seenDates.length === 1 && introducedHere && !knownBefore && !drilled) bucket = 'new';
+      const marked = markedKeys.has(key);
+      const byDoc = seenDates.some(d => docBefore[d] && !docBefore[d].has(key));
+      if ((marked || byDoc) && !drilled) bucket = 'new';
       const lastReviewed = [seenDates[seenDates.length - 1], cards.length ? String(cards[cards.length - 1].ts) : null].filter(Boolean).sort().pop() || null;
       const isRecent = firstLesson ? recent.has(firstLesson) : false;
       out[key] = { word_key: key, bucket, last_reviewed: lastReviewed, seen_lessons: seenDates.length, times_seen: evs.length,

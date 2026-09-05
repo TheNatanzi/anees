@@ -46,10 +46,10 @@
         const recent3 = rows.slice(-3).filter(r => r.result === 'missed').length;
         bucket = recent3 >= 2 ? 'missed' : (s.bucket === 'ice_cold' ? 'cold' : 'shaky');
       } else bucket = parseInt(last.attempt || 1) > 1 ? 'shaky' : (s.bucket === 'ice_cold' ? 'ice_cold' : 'cold');
-      if (s.bucket === 'new') {                                   // stays new until 3 first-try rights on 2 different days
+      if (s.bucket === 'new') {                                   // stays new until 5 first-try rights on 2 different days
         let streak = 0; const days = new Set();
         for (let i = rows.length - 1; i >= 0; i--) { if (rows[i].result === 'got' && parseInt(rows[i].attempt || 1) === 1) { streak++; days.add(String(rows[i].ts).slice(0, 10)); } else break; }
-        if (!(streak + (s.streak || 0) >= 3 && days.size + (s.streak_days || []).length >= 2)) bucket = 'new';
+        if (!(streak + (s.streak || 0) >= 5 && days.size + (s.streak_days || []).length >= 2)) bucket = 'new';
       }
       out[k] = Object.assign({}, s, { bucket, weight: weightFromBucket(bucket, s.recent), last_reviewed: last.ts });
     }

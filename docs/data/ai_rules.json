@@ -127,10 +127,10 @@
       "rules": [
         {
           "id": "N1",
-          "rule": "'New' is inferred from the lesson, then confirmed by the Doc: a word Amal introduces (explains, spells, types) that is not in the Doc snapshot taken before the lesson = new (inferred); when it appears in the Doc afterwards = new (confirmed). Never a lesson-count heuristic.",
-          "why": "Medi 2026-09-05: new words are not on the master list yet during the lesson and appear afterwards; the lesson itself shows whether he is learning or reviewing.",
-          "where": "buckets.compute: new only if Amal typed the word/family in that lesson's chat or Medi asked for it, heard in that one lesson only, not drilled (built 2026-09-05: 7 new words for Sep 4, not 154). The 'not in the Doc before the lesson' check waits for the live Doc import (publish-to-web URL).",
-          "status": "partly"
+          "rule": "'New' = only a word marked new: Amal or Medi marks it for a lesson, or the Doc gets it after the lesson but did not have it before. Nothing is guessed into 'new'. It stays new until practised right 5 times (first try) on 2 different days.",
+          "why": "Medi 2026-09-05: 'we don't have any more context for what words are new'; Sep 4 = babse6 and banbese6 only.",
+          "where": "buckets.compute(confirmed_new=, doc_before=); marks live in amal_rules kind 'new'; chat/asked inference only fills 'new candidate' for Amal's after-link",
+          "status": "enforced"
         },
         {
           "id": "N2",

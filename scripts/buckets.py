@@ -5,10 +5,11 @@ the flashcards page carries the same rules in JS (docs/js/buckets.js) and this m
   cold      said unprompted in a lesson with no correction, or flashcard right first try
   shaky     right on second try, or said only after Amal said it (prompted)
   missed    Amal corrected it, Medi asked for it, or wrong twice in a row on cards
-  new       Amal INTRODUCED it in the one lesson where it has been heard (she typed it or its family in the chat, or Medi asked
-            for it), it was not in the Doc before that lesson (when a pre-lesson snapshot exists), and it is not yet drilled
-            (fewer than 3 first-try card rights on 2 different days). Heard again in a later lesson = review, not new.
-            Never "first heard in the last N lessons" (Medi 2026-09-05: that put 154 old words in 'new' and zeroed the rest).
+  new       ONLY a word explicitly marked new: Amal (after-link / chat confirmation) or Medi marked it for a lesson (amal_rules kind
+            'new'), or it appeared in the Doc after a lesson but not in the snapshot before it (Doc diff; needs the live import).
+            It stays new until practised: 5 first-try card rights on 2 different days. Nothing is inferred into 'new'
+            (Medi 2026-09-05: "we don't have any more context for what words are new"). The chat/asked inference only
+            proposes 'new?' candidates for Amal's after-link; it never buckets.
             New words never mix with missed words: they go through the strict review-and-repeat loop first
   never     no Medi signal yet (Amal may have said it: times_seen counts it)
 The latest signal (lesson event or card result) decides, except that the ice-cold streak rule is checked on cards first.
@@ -16,7 +17,7 @@ Missed words and words learned in the last 3 lessons get weight 3 (cards, senten
 import datetime, collections
 
 RECENT_LESSONS = 3
-NEW_DRILL_RIGHTS, NEW_DRILL_DAYS = 3, 2      # a new word leaves 'new' after 3 first-try rights on 2 different days
+NEW_DRILL_RIGHTS, NEW_DRILL_DAYS = 5, 2      # a new word leaves 'new' after 5 first-try rights on 2 different days (Medi 2026-09-05)
 
 
 GRAMMAR_KINDS = ('article', 'gender', 'tense', 'plural')
@@ -66,14 +67,17 @@ def _was_ice(cards):
     return b == 'ice_cold'
 
 
-def compute(word_events, card_results, lesson_dates, today=None, introduced=None, doc_before=None):
+def compute(word_events, card_results, lesson_dates, today=None, confirmed_new=None, doc_before=None, introduced=None):
     """Returns {word_key: stats}. word_events rows need lesson_date, word_key, speaker, prompted, correction, asked, t_start.
     card_results rows need word_key, ts, result, attempt. lesson_dates = all lesson dates (ISO strings).
-    introduced = {(lesson_date, word_key)} Amal typed the word or its family in that lesson's chat (recompute_and_store builds it).
-    doc_before = {lesson_date: {word_key}} words present in the Doc snapshot taken BEFORE that lesson; a date missing from the
-    dict means "unknown" (no pre-lesson snapshot yet), so the Doc rule is skipped for it."""
-    introduced = set(introduced or ())
+    confirmed_new = {(lesson_date, word_key)} marked new for that lesson by Amal or Medi (amal_rules kind 'new').
+    doc_before = {lesson_date: {word_key}} words present in the Doc snapshot taken BEFORE that lesson; a word heard in a lesson
+    and absent from that lesson's snapshot is new by the Doc rule; a date missing from the dict = unknown, rule skipped.
+    introduced = {(lesson_date, word_key)} chat/asked inference; kept in the stats as 'new_candidate', never buckets."""
+    confirmed_new = set(confirmed_new or ())
     doc_before = doc_before or {}
+    introduced = set(introduced or ())
+    marked_keys = {k for _, k in confirmed_new}
     lesson_dates = sorted(set(str(d) for d in lesson_dates))
     recent_dates = set(lesson_dates[-RECENT_LESSONS:])
     ev_by = collections.defaultdict(list)
@@ -102,10 +106,11 @@ def compute(word_events, card_results, lesson_dates, today=None, introduced=None
         lesson_signal = bucket
         drilled = streak >= NEW_DRILL_RIGHTS and len(days) >= NEW_DRILL_DAYS
         seen_dates = sorted({str(e['lesson_date']) for e in evs})
-        introduced_here = bool(first_lesson) and ((first_lesson, key) in introduced
-                                                  or any(e.get('asked') for e in evs if str(e['lesson_date']) == first_lesson))
-        known_before = bool(first_lesson) and first_lesson in doc_before and key in doc_before[first_lesson]
-        if first_lesson and len(seen_dates) == 1 and introduced_here and not known_before and not drilled:
+        marked = key in marked_keys
+        by_doc = any(d in doc_before and key not in doc_before[d] for d in seen_dates)
+        new_candidate = bool(first_lesson) and ((first_lesson, key) in introduced
+                                                or any(e.get('asked') for e in evs if str(e['lesson_date']) == first_lesson))
+        if (marked or by_doc) and not drilled:
             bucket = 'new'                                          # strict review first; the lesson signal is kept in lesson_signal
         last_reviewed = max([x for x in [seen_dates[-1] if seen_dates else None, str(cards[-1]['ts']) if cards else None] if x], default=None)
         recent = first_lesson in recent_dates if first_lesson else False
@@ -113,7 +118,7 @@ def compute(word_events, card_results, lesson_dates, today=None, introduced=None
                     'seen_lessons': len(seen_dates), 'times_seen': len(evs), 'times_missed': sum(1 for e in evs if e.get('correction')) + sum(1 for c in cards if c['result'] == 'missed'),
                     'card_right': sum(1 for c in cards if c['result'] == 'got'), 'card_wrong': sum(1 for c in cards if c['result'] == 'missed'),
                     'streak': streak, 'streak_days': days, 'recent': recent, 'weight': 3.0 if (bucket in ('missed', 'new') or recent) else 1.0, 'lesson_signal': lesson_signal,
-                    'grammar_misses': sum(1 for e in evs if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS),
+                    'new_candidate': new_candidate, 'grammar_misses': sum(1 for e in evs if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS),
                     'grammar_kinds': sorted({e['miss_kind'] for e in evs if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS})}
     return out
 
@@ -155,11 +160,13 @@ def recompute_and_store():
     cards = db.select('card_results', {'select': 'word_key,ts,result,attempt'})
     dates = [r['date'] for r in db.select('lessons', {'select': 'date'})]
     typed = db.select('lesson_events', {'select': 'lesson_date,text', 'kind': 'eq.typed'})
-    stats = compute(evs, cards, dates, introduced=introduced_from_chat(typed))
+    marks = db.select('amal_rules', {'select': 'lesson_date,word_key,kind', 'kind': 'eq.new'})
+    confirmed = {(str(r['lesson_date']), r['word_key']) for r in marks if r.get('word_key')}
+    stats = compute(evs, cards, dates, confirmed_new=confirmed, introduced=introduced_from_chat(typed))
     now = datetime.datetime.now(datetime.timezone.utc).isoformat()
     rows = []
     for s in stats.values():
-        r = dict(s); r['updated_at'] = now
+        r = dict(s); r.pop('new_candidate', None); r['updated_at'] = now
         if r['last_reviewed'] and len(r['last_reviewed']) == 10:
             r['last_reviewed'] = r['last_reviewed'] + 'T00:00:00Z'
         rows.append(r)
