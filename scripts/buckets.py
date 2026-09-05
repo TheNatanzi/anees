@@ -141,10 +141,10 @@ def introduced_from_chat(typed_rows, words=None):
             k = m.match(form, fuzzy=False)
             if k:
                 out.add((d, k))
-            fk = ul.family_key(form)
-            if len(fk) >= 3:
-                for k2 in fam.get(fk, ()):
-                    out.add((d, k2))
+            sk = ul.arabizi_to_ar_skel(form)                     # full consonant skeleton of the typed form (Basa6tek -> بستتك)
+            for fk, keys in fam.items():                          # a Doc family is inside it with at most 4 affix consonants
+                if len(fk) >= 3 and fk in sk and len(sk) - len(fk) <= 4:
+                    out.update((d, k2) for k2 in keys)
     return out
 
 

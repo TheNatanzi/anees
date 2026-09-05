@@ -81,7 +81,7 @@ function picker(){
     <h2>Grammar sets</h2><div class="chips">${S.grammar.map(chip).join('')}</div>
     <h2>Topics from Amal's Doc</h2><div class="chips">${S.topics.map(chip).join('')}</div>
     <h2>Options</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic first</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English first</button></div>
-    <div class="toggle" style="margin-top:8px"><button id="sh" class="${pref.shuffle?'sel':''}">Shuffle ${pref.shuffle?'on':'off'}</button><button id="n20" class="${pref.n===20?'sel':''}">20 cards</button><button id="n10" class="${pref.n===10?'sel':''}">10 cards</button></div>
+    <div class="toggle" style="margin-top:8px"><button id="sh" class="${pref.shuffle?'sel':''}">Shuffle ${pref.shuffle?'on':'off'}</button><button id="n20" class="${pref.n===20?'sel':''}">20 cards</button><button id="n10" class="${pref.n===10?'sel':''}">10 cards</button><button id="nall" class="${!pref.n?'sel':''}">All</button></div>
     <div class="row" style="margin-top:14px"><button id="start" class="primary">Start</button></div>`;
   root.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{pref.subject=b.dataset.s; LS('anees-cards-pref',pref); picker();});
   document.getElementById('m-ar').onclick=()=>{pref.mode='ar_first'; LS('anees-cards-pref',pref); picker();};
@@ -89,10 +89,11 @@ function picker(){
   document.getElementById('sh').onclick=()=>{pref.shuffle=!pref.shuffle; LS('anees-cards-pref',pref); picker();};
   document.getElementById('n20').onclick=()=>{pref.n=20; LS('anees-cards-pref',pref); picker();};
   document.getElementById('n10').onclick=()=>{pref.n=10; LS('anees-cards-pref',pref); picker();};
+  document.getElementById('nall').onclick=()=>{pref.n=0; LS('anees-cards-pref',pref); picker();};      // 0 = every card in the set (e.g. all 31 animals)
   document.getElementById('start').onclick=start;
 }
 function start(){ let p=C.pool(words,stats,pref.subject); if(!p.length){ alert('No words in this set yet.'); return; }
-  let cards=C.draw(p,stats,Math.min(pref.n,p.length)); if(!pref.shuffle) cards=cards.slice().sort((a,b)=>(a.doc_order||0)-(b.doc_order||0));
+  let cards=C.draw(p,stats,pref.n?Math.min(pref.n,p.length):p.length); if(!pref.shuffle) cards=cards.slice().sort((a,b)=>(a.doc_order||0)-(b.doc_order||0));
   round=C.newRound(cards,{mode:pref.mode,subject:pref.subject}); sessionMissed={}; showCard(); }
 function showCard(){ flipped=false; if(C.done(round)) return showSummary();
   const w=round.cards[round.i], s=stats[w.key]||{bucket:(Object.keys(stats).length?'never':'–')}; const front=pref.mode==='ar_first', pct=Math.round(100*round.i/round.cards.length);
