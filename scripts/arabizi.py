@@ -36,7 +36,7 @@ def loose(s):
     s = re.sub(r"[’'`ʼ]", '2', s)
     s = re.sub(r'[^a-z0-9 ]+', ' ', s)
     s = s.replace('kh', '5').replace('gh', '8').replace('th', 's').replace('dh', 'd').replace('sh', 'S').replace('ch', 'S')
-    s = s.replace('q', '2').replace('x', '5').replace('c', 'k').replace('v', 'f').replace('p', 'b')
+    s = s.replace('q', '2').replace('x', '5').replace('c', 'k')          # p and v stay: Arabic has neither, so 'paid' must not become 'baid' (Codex M7)
     s = re.sub(r'\b(el|il|al)[ -]+(?=[a-z0-9])', 'al', s)   # the article el-/il-/al- is written attached: "el jaw" -> "aljaw"
     s = re.sub(r'\b(el|il)(?=[a-z]{3})', 'al', s)
     s = re.sub(r'y(?![aeiou])', 'i', s)                # y as a vowel (ghayr -> gair); y before a vowel stays a consonant

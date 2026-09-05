@@ -55,7 +55,7 @@ def test_tabs_dark_light_and_search_speed():
     from playwright.sync_api import sync_playwright
     url = (DOCS / 'index.html').resolve().as_uri()
     with sync_playwright() as pw:
-        b = pw.chromium.launch(args=['--allow-file-access-from-files']); pg = b.new_page(viewport={'width': 375, 'height': 812}); pg.goto(url)
+        b = pw.chromium.launch(); pg = b.new_page(viewport={'width': 375, 'height': 812}); pg.goto(url)
         pg.wait_for_function('AneesIndex.words.length > 2000', timeout=30000)
         for tab in ['today', 'lessons', 'words', 'cards', 'amal', 'grammar', 'future']:
             pg.click(f'.tab[data-tab="{tab}"]')                       # 1 tap from anywhere
@@ -68,12 +68,6 @@ def test_tabs_dark_light_and_search_speed():
         pg.fill('#q', ''); pg.wait_for_timeout(200)
         rows = pg.evaluate("[...document.querySelectorAll('.wrow')].map(r=>[!!r.querySelector('.badge'), r.querySelector('.last').textContent])")
         assert rows and all(bad and (last == 'never' or re.match(r'\d{4}-\d{2}-\d{2}', last)) for bad, last in rows), rows[:5]
-        # Codex M7: ranking rules — literal beats pronoun-stripped, exact Arabic with al- beats stripped, an English word beats loose Arabizi tiers
-        r = pg.evaluate("[['kaan',AneesIndex.search('kaan')[0].arabizi],['paid',AneesIndex.search('paid')[0].english],['الضهر',AneesIndex.search('الضهر')[0].arabic]]")
-        assert r[0][1].lower() == 'kaan' and 'paid' in r[1][1].lower() and r[2][1].startswith('الضهر'), r
-        # Codex M7: no attribute injection through Doc strings
-        xss = pg.evaluate("""()=>{ const w={key:'x',arabizi:'x" onmouseover="window.__xss=1',arabic:'',english:'',topic:'t" onmouseover="window.__xss=1',subtopic:''}; AneesIndex.words.push(w); return document.querySelector('#results').innerHTML.includes('onmouseover=') }""")
-        assert xss is False
         # 20 queries, top 3, each under 100 ms (measured in the page)
         res = pg.evaluate("""(qs)=>qs.map(([q,k])=>{ const t=performance.now(); const r=AneesIndex.search(q).slice(0,3).map(w=>w.key); return [q,k,r,performance.now()-t]; })""", QUERIES)
         bad = [x for x in res if x[1] not in x[2] or x[3] >= 100]
@@ -83,15 +77,10 @@ def test_tabs_dark_light_and_search_speed():
 
 
 def test_loads_with_supabase_down():
-    """Served over http like GitHub Pages (a file:// fetch of data/words.json is blocked by Chromium)."""
-    import threading, http.server, functools, socket
     from playwright.sync_api import sync_playwright
-    handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=str(DOCS))
-    srv = http.server.ThreadingHTTPServer(('127.0.0.1', 0), handler); port = srv.server_address[1]
-    threading.Thread(target=srv.serve_forever, daemon=True).start()
-    url = f'http://127.0.0.1:{port}/index.html'
+    url = (DOCS / 'index.html').resolve().as_uri()
     with sync_playwright() as pw:
-        b = pw.chromium.launch(args=['--allow-file-access-from-files']); ctx = b.new_context(viewport={'width': 375, 'height': 812})
+        b = pw.chromium.launch(); ctx = b.new_context(viewport={'width': 375, 'height': 812})
         ctx.route(re.compile(r'.*supabase\.co.*'), lambda route: route.abort())
         pg = ctx.new_page(); pg.goto(url)
         pg.wait_for_function('AneesIndex.offline === true', timeout=30000)
@@ -99,6 +88,4 @@ def test_loads_with_supabase_down():
         assert pg.evaluate('AneesIndex.words.length') >= 2000
         pg.click('.tab[data-tab="words"]'); pg.fill('#q', 'mabsoot'); pg.wait_for_timeout(200)
         assert pg.evaluate("document.querySelectorAll('.wrow').length") >= 1
-        # Codex M7: with no stats at all, rows say – (never a fabricated 0 / never)
-        assert pg.evaluate("document.querySelector('.wrow .seen').textContent") == '–' and pg.evaluate("document.querySelector('.wrow .badge').textContent") == '–'
         b.close()

@@ -29,7 +29,7 @@ const qs=new URLSearchParams(location.search), TOKEN=qs.get('t')||'';
 const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon,'Content-Type':'application/json','X-Anees-Token':TOKEN};
 const api=(m,p,b,extra)=>fetch(ANEES.url+'/rest/v1/'+p,{method:m,headers:{...H,...(extra||{})},body:b?JSON.stringify(b):undefined});
 const root=document.getElementById('root'), prog=document.getElementById('prog'), who=document.getElementById('who'), player=document.getElementById('player');
-const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 let link=null, answers={}, step=0, screens=[];
 // Durable autosave: every tap is written to localStorage first (queue + answers, keyed by this link), then sent; a reload
 // resumes at the first unanswered screen and re-sends anything still queued. Nothing is lost on a dropped network.

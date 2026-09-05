@@ -42,7 +42,7 @@ footer{color:var(--mute);font-size:12px;margin:30px 0 10px}
 </main>
 <script src="js/config.js"></script><script src="js/arabizi.js"></script><script src="js/buckets.js"></script>
 <script>
-const A=window.AneesArabizi, esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const A=window.AneesArabizi, esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
 const LS=(k,v)=>{ try{ if(v===undefined) return JSON.parse(localStorage.getItem(k)||'null'); localStorage.setItem(k,JSON.stringify(v)); }catch(e){ return null; } };
 const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon};
 let words=[], stats={}, lessons=[], rules=[], offline=false, idx=[];
@@ -59,25 +59,19 @@ async function loadAll(){
   buildIndex(); renderToday(); renderLessons(); renderWords(); renderRules(); renderGrammar();
 }
 // ---------- Words search (all forms precomputed once; a query is a handful of string compares per word) ----------
-function buildIndex(){ idx=words.map(w=>{ const lit=[w.arabizi,...(w.aliases||[])]; const strip=[]; for(const f of lit){ const p=f.split(' '); if(p.length>1&&['ana','inta','inti','intu','i7na','e7na','huwwe','heyye','humme'].includes(p[0].toLowerCase())) strip.push(p.slice(1).join(' ')); }
-  const forms=lit.concat(strip);
-  return {w, lit:new Set(lit.map(A.loose)), loose:new Set(forms.map(A.loose)), fold:new Set(forms.map(A.fold)), short:new Set(forms.map(A.short)), skel:new Set(forms.map(A.skeleton)), en:(w.english||'').toLowerCase(), ar:A.arabicNorm(w.arabic), arAl:A.arabicNorm(w.arabic,true)}; }); }
+function buildIndex(){ idx=words.map(w=>{ const forms=[w.arabizi,...(w.aliases||[])]; for(const f of forms.slice()){ const p=f.split(' '); if(p.length>1&&['ana','inta','inti','intu','i7na','e7na','huwwe','heyye','humme'].includes(p[0].toLowerCase())) forms.push(p.slice(1).join(' ')); }
+  return {w, loose:new Set(forms.map(A.loose)), fold:new Set(forms.map(A.fold)), short:new Set(forms.map(A.short)), skel:new Set(forms.map(A.skeleton)), en:(w.english||'').toLowerCase(), ar:A.arabicNorm(w.arabic), arAl:A.arabicNorm(w.arabic,true)}; }); }
 function search(q){ q=(q||'').trim(); if(!q) return idx.map(x=>x.w);
   const out=[];
-  if(A.ARABIC.test(q)){ const n=A.arabicNorm(q), nAl=A.arabicNorm(q,true); for(const x of idx){ let s=0; if(x.ar===n) s=100; else if(x.arAl===nAl) s=90; else if(x.ar.startsWith(n)||x.arAl.startsWith(nAl)) s=70; else if(x.ar.includes(n)) s=50; if(s) out.push([s,x.w]); } }
+  if(A.ARABIC.test(q)){ const n=A.arabicNorm(q), nAl=A.arabicNorm(q,true); for(const x of idx){ let s=0; if(x.ar===n||x.arAl===nAl) s=100; else if(x.ar.startsWith(n)||x.arAl.startsWith(nAl)) s=70; else if(x.ar.includes(n)) s=50; if(s) out.push([s,x.w]); } }
   else { const ql=A.loose(q), qf=A.fold(q), qs=A.short(q), qk=A.skeleton(q), qe=q.toLowerCase();
-    const enFirst=x=>x.en.split(/\s*[\/–-]\s*|\s*\(/)[0].trim();
-    for(const x of idx){ let s=0;
-      if(x.lit.has(ql)) s=100; else if(qe.length>=3&&x.en===qe) s=98; else if(x.loose.has(ql)) s=96; else if(qe.length>=3&&enFirst(x)===qe) s=94;
-      else if(qe.length>=3&&x.en.split(/[^a-z]+/).includes(qe)) s=90;        // an English word beats every approximate Arabizi tier
-      else if(x.fold.has(qf)) s=85; else if(x.short.has(qs)) s=80; else if(qk.length>=2&&x.skel.has(qk)) s=70;
-      else if([...x.short].some(f=>f.startsWith(qs)&&qs.length>=3)) s=60; else if(qe.length>=4&&x.en.includes(qe)) s=45;
+    for(const x of idx){ let s=0; if(x.loose.has(ql)) s=100; else if(x.fold.has(qf)) s=92; else if(x.short.has(qs)) s=85; else if(qk.length>=2&&x.skel.has(qk)) s=75;
+      else if([...x.short].some(f=>f.startsWith(qs)&&qs.length>=3)) s=60; else if(qe.length>=3&&(x.en===qe||x.en.split(/[^a-z]+/).includes(qe))) s=55; else if(qe.length>=4&&x.en.includes(qe)) s=45;
       else if(qk.length>=3&&[...x.skel].some(k=>k.startsWith(qk))) s=35;
       if(s) out.push([s,x.w]); } }
   out.sort((a,b)=>b[0]-a[0]||(a[1].doc_order||0)-(b[1].doc_order||0)); return out.map(x=>x[1]); }
 function fmtDate(s){ return s? String(s).slice(0,10):'never'; }
-const noStats=()=>!Object.keys(stats).length;      // no server and no cache: every stat is unknown, shown as –
-function badge(k){ if(noStats()) return '<span class="badge b-never">–</span>'; const b=(stats[k]||{}).bucket||'never'; return `<span class="badge b-${b}">${b.replace('_',' ')}</span>`; }
+function badge(k){ const b=(stats[k]||{}).bucket||'never'; return `<span class="badge b-${b}">${b.replace('_',' ')}</span>`; }
 function renderWords(){ const q=document.getElementById('q').value, fb=document.getElementById('f-bucket').value, ft=document.getElementById('f-topic').value, so=document.getElementById('sort').value;
   const tsel=document.getElementById('f-topic'); if(tsel.options.length===1) for(const t of [...new Set(words.map(w=>w.topic))]){ const o=document.createElement('option'); o.value=t; o.textContent=t; tsel.appendChild(o); }
   let rows=search(q).filter(w=>(!fb||((stats[w.key]||{}).bucket||'never')===fb)&&(!ft||w.topic===ft));
@@ -87,9 +81,9 @@ function renderWords(){ const q=document.getElementById('q').value, fb=document.
   if(q&&so==='rev') rows=search(q).filter(w=>rows.includes(w));   // with a query, relevance order wins
   document.getElementById('wcount').textContent=rows.length+' of '+words.length+' words';
   document.getElementById('results').innerHTML=rows.slice(0,80).map(w=>{ const s=stats[w.key]||{}; return `<li class="wrow" data-key="${esc(w.key)}"><div><span class="w">${esc(w.arabizi)}</span> <span class="ar">${esc(w.arabic)}</span><div class="en">${esc(w.english)} · <i>${esc(w.topic)}</i></div></div>
-    <div class="meta">${badge(w.key)}<br>last <span class="last">${noStats()?'–':fmtDate(s.last_reviewed)}</span><br>seen <span class="seen">${noStats()?'–':(s.times_seen||0)}</span> · missed <span class="missed">${noStats()?'–':(s.times_missed||0)}</span></div></li>`; }).join('');
-  document.querySelectorAll('.wrow').forEach(li=>li.onclick=()=>showHistory(li.dataset.key)); }
-async function showHistory(key){ const w=words.find(x=>x.key===key); const h=document.getElementById('history'); h.classList.add('on'); h.innerHTML=`<b>${esc(w.arabizi)}</b> <span class="ar">${esc(w.arabic)}</span> · ${esc(w.english)} ${badge(key)}<div class="mute">loading history…</div>`;
+    <div class="meta">${badge(w.key)}<br>last <span class="last">${fmtDate(s.last_reviewed)}</span><br>seen <span class="seen">${s.times_seen||0}</span> · missed <span class="missed">${s.times_missed||0}</span></div></li>`; }).join('');
+  document.querySelectorAll('.wrow').forEach(li=>li.onclick=()=>history(li.dataset.key)); }
+async function history(key){ const w=words.find(x=>x.key===key); const h=document.getElementById('history'); h.classList.add('on'); h.innerHTML=`<b>${esc(w.arabizi)}</b> <span class="ar">${esc(w.arabic)}</span> · ${esc(w.english)} ${badge(key)}<div class="mute">loading history…</div>`;
   let ev=[], cards=[]; try{ ev=await get('word_events?select=lesson_date,t_start,speaker,prompted,correction,asked,clip,text&word_key=eq.'+encodeURIComponent(key)+'&order=lesson_date.asc,t_start.asc'); cards=await get('card_results?select=ts,result,attempt,mode&word_key=eq.'+encodeURIComponent(key)+'&order=ts.desc&limit=30'); }catch(e){ h.querySelector('.mute').textContent='history needs Supabase'; return; }
   const mm=t=>`${String(Math.floor(t/60)).padStart(2,'0')}:${String(Math.floor(t%60)).padStart(2,'0')}`;
   h.innerHTML=`<b>${esc(w.arabizi)}</b> <span class="ar">${esc(w.arabic)}</span> · ${esc(w.english)} ${badge(key)} <a href="#" id="hclose" style="float:right">close</a>
@@ -101,7 +95,7 @@ function renderToday(){ const d=new Date(); const last=lessons[0]; const missed=
   document.getElementById('today-h').textContent='Today, '+d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
   const n=v=>(offline&&!Object.keys(stats).length)?'–':v;
   document.getElementById('today-cards').innerHTML=[['missed words',n(missed),'to practise first'],['cold words',n(cold),'said unprompted'],['ice cold',n(ice),'5 in a row on 3 days'],['learned recently',n(recent),'last 3 lessons'],['words in the Doc',words.length||'–','Amal\'s list']].map(([l,v,s])=>`<div class="card"><div class="num">${v}</div><div class="lab">${l}</div><div class="lab">${s}</div></div>`).join('');
-  document.getElementById('today-actions').innerHTML=`<a class="btn" href="#cards">Flashcards: Missed words</a> ${last?`<a class="btn alt" href="${esc(last.report_url||('lessons/'+last.date+'-report.html'))}">Last report (${esc(last.date)})</a>`:''} <a class="btn alt" href="#amal">Amal's rules</a>`;
+  document.getElementById('today-actions').innerHTML=`<a class="btn" href="cards.html">Flashcards: Missed words</a> ${last?`<a class="btn alt" href="${esc(last.report_url||('lessons/'+last.date+'-report.html'))}">Last report (${esc(last.date)})</a>`:''} <a class="btn alt" href="#amal">Amal's rules</a>`;
   document.getElementById('today-last').innerHTML=last?`${esc(last.date)} · ${last.minutes} min · ${last.words} words · ${last.split_ok?'speakers labeled':'speakers unclear'} · top topic: ${esc(((last.topics||[]).find(t=>!t.glue)||{}).topic||'–')}`:'no lesson stored yet'; }
 function renderLessons(){ document.getElementById('lessons').innerHTML=lessons.map(l=>{ const s=l.summary||{}; return `<li><b>${esc(l.date)}</b> · ${l.minutes} min · ${l.words} words · ${l.split_ok?'speakers labeled':'speakers unclear ('+esc(l.speaker_split||'')+')'}<br><span class="mute">Doc words heard: ${s.doc_events??'–'} · Medi unprompted: ${s.medi_unprompted??'–'} · possible misses: ${s.medi_corrected??'–'} · Amal typed: ${s.chat_typed??'–'}</span><br><a class="btn alt" href="lessons/${esc(l.date)}-report.html">Report</a> <a class="btn alt" href="lessons/${esc(l.date)}.html">Transcript</a></li>`; }).join('')||'<li class="mute">no lessons yet</li>'; }
 function renderRules(){ document.getElementById('rules').innerHTML=rules.map(r=>`<li><span class="mute">${esc(String(r.created_at).slice(0,16).replace('T',' '))}</span> · <b>${esc(r.kind)}</b> · ${esc(r.source)}${r.lesson_date?' · '+esc(r.lesson_date):''}${r.word_key?' · '+esc((words.find(w=>w.key===r.word_key)||{}).arabizi||r.word_key):''}${r.text?' · <i>'+esc(r.text)+'</i>':''}</li>`).join('')||'<li class="mute">no rules yet: Amal has not opened a link</li>'; }

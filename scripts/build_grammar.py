@@ -26,8 +26,13 @@ def build():
         if not any(tab.strip().startswith(g) for g in GRAMMAR_TABS):
             continue
         s = line.strip()
-        if not s or s.startswith('|') or s.startswith('[') or s.startswith('-----'):
+        if not s or s.startswith('[') or s.startswith('-----') or re.match(r'^\|\s*:?-', s):
             continue
+        if s.startswith('|'):
+            cells = [re.sub(r'\\\*|\*', '', c).strip() for c in s.strip('|').split('|')]
+            if all(c == '' for c in cells) or any(c.lower() in ('arabic', 'english', 'transliteration') for c in cells):
+                continue
+            s = ' — '.join(c for c in cells if c and c not in ('—', '-'))
         s = re.sub(r'^\s*(\d+\.|-)\s+', lambda mm: '• ' if mm.group(1) == '-' else mm.group(1) + ' ', s)
         s = s.replace('\\*', '').replace('**', '')
         if cur is None or cur['tab'] != tab or cur['heading'] != (sub or tab):

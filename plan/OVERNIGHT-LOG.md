@@ -342,3 +342,13 @@ Chairman: **8/10**. Agreement: ship as is for tomorrow. Disagreement: none mater
 | P0 | "flag to Amal" lost offline / 4xx ignored | flags go through the same durable queue; status checked; rejected rows parked in `anees-card-dead` |
 | P1 | one permanently rejected row blocked the whole queue | on a 4xx the batch is retried row by row and the bad row is parked, the rest sync |
 Cross-tab write races (two tabs answering at once) remain a P2: single-tab use is the case tonight.
+
+## Codex audit M7 — findings and fixes  (06:50)
+| # | Finding | Fix |
+|---|---|---|
+| P0 | `esc()` did not encode quotes → a Doc topic inside `data-s` could inject an event handler (repro confirmed) | all four pages escape `" ' > <` too; test asserts it on every page |
+| P0 | 'paid' ranked baid (eggs) first: p→b folding + Arabizi tiers above English words | p and v are no longer folded (Arabic has neither; 2 Doc keys changed, re-synced); an exact English word beats every approximate Arabizi tier |
+| P0 | exact Arabic with ال tied its al-stripped twin; pronoun-stripped forms tied literal entries | literal > stripped (100 > 96), exact Arabic > al-stripped (100 > 90); test: kaan, paid, الضهر |
+| P0 | offline with no stats rendered "never / 0 / 0" | with no stats at all every stat shows "–" (test) |
+| P1 | Grammar tab had only Past Tense prose | grammar tabs' tables included as lines → 4 tabs, 1,110 lines |
+| P1 | Today's flashcards button left the one interface | it now opens the Flashcards tab (#cards) |

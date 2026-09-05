@@ -9,7 +9,7 @@
     s = s.replace(/[’'`ʼ]/g, '2');
     s = s.replace(/[^a-z0-9 ]+/g, ' ');
     s = s.replace(/kh/g, '5').replace(/gh/g, '8').replace(/th/g, 's').replace(/dh/g, 'd').replace(/sh/g, 'S').replace(/ch/g, 'S');
-    s = s.replace(/q/g, '2').replace(/x/g, '5').replace(/c/g, 'k');   // p and v stay (Arabic has neither): 'paid' must not become 'baid'
+    s = s.replace(/q/g, '2').replace(/x/g, '5').replace(/c/g, 'k').replace(/v/g, 'f').replace(/p/g, 'b');
     s = s.replace(/\b(el|il|al)[ -]+(?=[a-z0-9])/g, 'al');
     s = s.replace(/\b(el|il)(?=[a-z]{3})/g, 'al');
     s = s.replace(/y(?![aeiou])/g, 'i');
