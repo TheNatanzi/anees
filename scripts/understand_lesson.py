@@ -274,7 +274,8 @@ def rank_topics(events, chat_rows, words, lo, hi, exclude, wordmap):
             continue
         n = fam_count(fk)
         if n:
-            label = 'typed family: ' + ' / '.join(dict.fromkeys(forms).keys())[:120]
+            uniq = list(dict.fromkeys(forms))
+            label = 'typed family: ' + ' / '.join(uniq[:5]) + (f' … (+{len(uniq) - 5} more)' if len(uniq) > 5 else '')
             scores[label] += min(n, 5) * max(1, len(set(forms)) // 2)
             why[label] = collections.Counter({f: 1 for f in forms}) + collections.Counter({sk: c for sk, c in tok_sk.items() if fk in sk and len(sk) - len(fk) <= 3})
     ranked = [{'topic': k, 'score': n, 'distinct_words': len(why[k]), 'top_words': [f'{w} ×{c}' for w, c in why[k].most_common(6)],
