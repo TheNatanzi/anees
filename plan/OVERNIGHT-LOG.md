@@ -102,3 +102,44 @@ python -m pytest -q tests/test_m1_understand.py
   بتاسف ×3, لازم ×5, احكي ×4), and ranks 2-3 are the past-tense paradigm and the command tense: the lesson was verbs and their tenses.
 - Clips: Sep 4 76 clips (4.9 MB), Aug 25 119 clips; 20 random clips ffprobe-checked in the test (duration = clip_end − clip_start ± 0.5 s; event offset exact).
 - Label floor unit test: forced one-voice transcript → per-speaker fields None ✔; Sep 4 pitch fallback = 13.6 % unlabeled ≤ 15 % → published with the reason shown.
+
+## M2 — After-lesson report  (00:45 → 01:45)
+
+Built: `scripts/buckets.py` (grip buckets, one reference implementation), `scripts/build_report.py` (understanding →
+Supabase lessons / word_events / lesson_events / word_stats → `docs/lessons/<date>-report.html` → rich email), `send_lesson_email.mjs`
+extended with table-bar chart + log (house rule; Medi-only recipient hard-coded). Pages: https://thenatanzi.github.io/anees/lessons/2026-08-25-report.html
+and …/2026-09-04-report.html. Clips force-added to git (`*.mp3` stays ignored for full recordings).
+
+Gate (10 checks, both lessons) — `python -m pytest -q tests/test_m2_report.py`:
+```
+numbers = counts of stored lesson_events rows        PASS (Aug 25: missed 24 · nailed 110 · new 121 · reused 0 · typed 0 · moments 20;
+                                                           Sep 4: missed 7 · nailed 34 · new 45 · reused 40 · typed 47 · moments 20)
+"–" where unknown                                     PASS (forced speaker-split failure → "–" + reason, no per-speaker bars, no "Amal corrected")
+each miss has audio                                  PASS (every missed + moment row has an existing clip; clips ≤ 25 s, start+end in the file name)
+counts reconcile to Supabase lesson_events           PASS (SQL count per kind == page count, both dates)
+chart present                                        PASS (inline SVG, Medi vs Amal Arabic words per 10 min; single amber series when floor fails)
+mobile 375 px no horizontal scroll                   PASS (Playwright scrollWidth ≤ 375; play buttons ≥ 40 px)
+dark + light                                         PASS (prefers-color-scheme block; body background differs under emulation)
+loads < 3 s on Pages                                 PASS (200 in 0.22 s; clip HEAD 200)
+email received by Medi                               PASS (Gmail INBOX: "Anees: lesson report 2026-08-25" 07:14:47Z, "… 2026-09-04" 07:14:54Z, both with chart bars + 20-line log)
+email links resolve 200                              PASS
+full suite: 33 passed
+```
+Hardening done during the loop: clip path bug on Pages (lessons/clips → lessons/<date>/clips) caught in the browser and fixed;
+stale clip reuse (same start, new end) caught by the ffprobe test → names now carry start+end; Arabic glue words (شو, بس, يعني …)
+were being graded as "missed" → GLUE_KEYS exclusion (Sep 4 misses 13 → 7, Aug 25 27 → 24); page + email now say "possible misses
+(Amal reacted right after)" instead of "corrected by Amal", because the single-channel reaction detector is ~50 % precise (wiki 15).
+The two emails already sent carry the older "corrected by Amal" wording; not re-sent (no duplicate mail).
+
+### Council (Mode A, five advisors, three rounds — compressed)
+| Advisor | Round-1 view | After critique |
+|---|---|---|
+| Strategic | Ship: this is the daily loop's core artifact; value comes from M4 closing the loop on possible misses | Holds. Insists the report links to the Amal question flow (M4) |
+| Skeptical | "13 missed" was noise (glue words); correction detector ≈ 50 % precision; Sep 4 per-speaker facts rest on pitch labels with 14 % unlabeled | Satisfied by glue exclusion + "possible" wording + the floor banner; still wants Amal's verdicts fed back (M4) before any streak/grip claims |
+| Creative | Lead with the 20 audio moments, not counts; counts are secondary for an ADD reader | Partly adopted: moments keep play buttons; big numbers stay because Medi asked for them |
+| Evidence | Gate outputs are real (33 tests, counts reconcile to SQL, live 200 in 0.2 s); "new words" with 2 lessons means "first recorded", page says so | Holds |
+| Audience (Medi) | One screen of big numbers, big play buttons, one caveat line: fits ADD; typed-family label was too long | Fixed (label truncated) |
+Chairman: agreement = page is honest (no guessed numbers, "–" with reason) and usable on a phone; disagreement = whether "possible
+misses" should show at all before Amal confirms (kept, labeled as possible, because M4 exists to confirm them); strongest argument =
+evidence advisor's reconciliation to stored rows; risks = reaction-detector precision, pitch-label speakers on merged recordings.
+**Score 8/10, no open P0.** Would rise with Amal's first 5 verdicts (M4) and one two-channel lesson.

@@ -258,7 +258,7 @@ def email_payload(u, rows, bins, ok, link):
     conf = u['label_confidence']
     def name(k):
         w = W.get(k); return f"{w['arabizi']} ({w['english'][:30]})" if w else k
-    rows_out = [{'tag': 'Missed', 'name': (f"{len(by_kind.get('missed', []))} corrected by Amal" if ok else f'{DASH} not measurable'),
+    rows_out = [{'tag': 'Missed', 'name': (f"{len(by_kind.get('missed', []))} possible misses (Amal reacted right after)" if ok else f'{DASH} not measurable'),
                  'detail': (', '.join(dict.fromkeys(name(r['word_key']) for r in by_kind.get('missed', [])[:6])) if ok else conf['reason'])},
                 {'tag': 'Nailed', 'name': (f"{len(by_kind.get('nailed', []))} said cold" if ok else f'{DASH} not measurable'),
                  'detail': (', '.join(dict.fromkeys(name(r['word_key']) for r in by_kind.get('nailed', [])[:6])) if ok else 'per-speaker facts are blank for this lesson')},
