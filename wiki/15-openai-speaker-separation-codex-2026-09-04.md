@@ -12,3 +12,10 @@
 3. **Known-voice diarizer alone** — identity improves, German risk remains. ≈ $0.36/hr.
 
 **Next experiment:** add `--segments-from data/aug25/eleven_scribe_auto.json` to `scripts/engine_openai_clips.py` (slice → transcribe → reassemble) and compare against ElevenLabs on the 20 clips.
+
+## Recipe 1 RUN 2026-09-04 (scripts/engine_openai_recipe1.py -> data/aug25/openai_recipe1.json)
+- 20 clips -> 129 speaker slices (ElevenLabs auto timings, same-speaker words <1.5 s apart merged, pad 0.15/0.25 s, never into the neighbour) -> gpt-transcribe, `languages[]=ar,en`, verbatim prompt, wav 16 kHz mono. ~7 s/clip, 1 empty slice of 129 (clip 6, Medi "ما،" 1.2 s).
+- Words: ElevenLabs 420 (397 without fillers) vs Recipe 1 333 (327 without fillers) vs plain gpt-transcribe run 303. Recipe 1 = 82% of ElevenLabs, +10% over the plain run, now WITH speaker labels.
+- Loss sits on Medi: his slices 201 vs 273 (74%); Amal's 132 vs 147 (90%). gpt-transcribe keeps 6 fillers vs ElevenLabs 23.
+- It kept at least one learner form ElevenLabs corrected (clip 1: "اشتغلات كتير" vs "اشتغلت كتير") -> a possible LearnerVoice signal worth checking on the 20 corrections.
+- Page: docs/recipe1.html (GitHub Pages) + artifact ee328d55. Verdict: works as designed but still fewer words than ElevenLabs alone; useful only as a second opinion on Medi's slices, not as the engine.
