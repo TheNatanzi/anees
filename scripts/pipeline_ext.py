@@ -89,9 +89,14 @@ def post_process(date, scribe=None, audio=None, src=None, send_email=True, use_o
     Each step is guarded; a failure is logged, emailed to Medi, and never blocks the transcript that already shipped."""
     out = {'date': date}
     try:
-        import understand_lesson, build_report
+        import understand_lesson, build_report, lesson_pipeline
         understand_lesson.understand(date, scribe, audio, src)
-        out['report'] = build_report.build(date, use_db=True, send=send_email)
+        out['report'] = build_report.build(date, use_db=True, send=False)        # writes the page + report_email.json, sends nothing
+        out['report']['url'] = lesson_pipeline.publish_report(date)               # push + wait for HTTP 200; raises otherwise
+        if send_email:
+            subprocess.run(['node', str(ROOT / 'scripts' / 'send_lesson_email.mjs'), f'Anees: lesson report {date}',
+                            str(ROOT / 'data' / 'lessons' / date / 'report_email.json')], check=True, timeout=120)
+            out['report']['emailed'] = True
     except Exception as e:
         out['report_error'] = str(e)[:300]; log('post_process report failed', e); failure_email(f'Anees: report for {date} failed', str(e), date)
         return out

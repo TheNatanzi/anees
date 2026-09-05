@@ -120,3 +120,74 @@ def test_post_process_guards_each_step(monkeypatch, tmp_path):
     out = px.post_process('2099-01-01', send_email=False, log=lambda *a: None)
     assert 'report_error' in out and emails and 'report for 2099-01-01 failed' in emails[0][0]
     assert 'after_link' not in out
+
+
+# ---- 2026-09-05 audit fixes: post-transcription gate + report pushed and live BEFORE its email ----
+
+def test_post_transcription_gate_keeps_code_switched_lesson():
+    # Sep 4 measured 0.11 after a pre-check of 0.49 and was wrongly skipped; the paid transcript must be kept
+    assert not lp.should_skip_after_transcription(0.11, tutor_typed=False)
+    assert lp.should_skip_after_transcription(0.03, tutor_typed=False)
+    assert not lp.should_skip_after_transcription(0.03, tutor_typed=True)       # Amal typed -> it is a lesson
+    assert not lp.should_skip_after_transcription(0.03, tutor_typed=False, force=True)
+    assert lp.MIN_ARABIC_SHARE_POST < lp.MIN_ARABIC_SHARE
+
+
+def test_verify_live_waits_then_succeeds_or_fails():
+    class G:
+        def __init__(self, code): self.status_code = code
+    seq = [G(404), G(404), G(200)]
+    sleeps = []
+    assert lp.verify_live('u', get=lambda url, timeout: seq.pop(0), tries=5, wait=7, sleep=sleeps.append)
+    assert sleeps == [7, 7]
+    assert not lp.verify_live('u', get=lambda url, timeout: G(404), tries=3, wait=1, sleep=lambda s: None)
+
+
+def test_publish_report_push_failure_raises(monkeypatch, tmp_path):
+    class P:
+        def __init__(self, rc): self.returncode, self.stderr, self.stdout = rc, 'remote: rejected', ''
+    monkeypatch.setattr(lp, 'DOCS', tmp_path / 'docs'); monkeypatch.setattr(lp, 'LESSONS', tmp_path / 'lessons')
+    gets = []
+    with pytest.raises(RuntimeError) as e:
+        lp.publish_report('2099-01-01', run=lambda cmd, **k: P(1 if 'push' in cmd else 0), get=lambda *a, **k: gets.append(1), sleep=lambda s: None)
+    assert 'git push failed' in str(e.value) and not gets, 'no liveness check and no link when the push failed'
+
+
+def test_publish_report_not_live_raises(monkeypatch, tmp_path):
+    class P:
+        def __init__(self, rc): self.returncode, self.stderr, self.stdout = rc, '', ''
+    class G:
+        status_code = 404
+    monkeypatch.setattr(lp, 'DOCS', tmp_path / 'docs'); monkeypatch.setattr(lp, 'LESSONS', tmp_path / 'lessons')
+    monkeypatch.setattr(lp, 'LIVE_TRIES', 2)
+    with pytest.raises(RuntimeError) as e:
+        lp.publish_report('2099-01-01', run=lambda cmd, **k: P(0), get=lambda *a, **k: G(), sleep=lambda s: None)
+    assert 'not live' in str(e.value)
+
+
+def test_report_email_only_after_push_and_live(monkeypatch, tmp_path):
+    """post_process order must be: understand -> build (send=False) -> publish_report -> email. A failed publish = no email."""
+    import types, sys, subprocess
+    monkeypatch.setattr(px, 'ROOT', tmp_path)
+    order, emails = [], []
+    monkeypatch.setattr(px, 'failure_email', lambda s, r, d=None, **k: emails.append(s) or True)
+    fu = types.ModuleType('understand_lesson'); fu.understand = lambda *a, **k: order.append('understand')
+    fb = types.ModuleType('build_report')
+    def build(date, use_db=True, send=False, u=None):
+        assert send is False, 'build must never send the email itself any more'
+        order.append('build'); return {'rows': 0}
+    fb.build = build
+    fl = types.ModuleType('lesson_pipeline'); fl.publish_report = lambda date: order.append('publish') or 'https://x/report'
+    for name, mod in (('understand_lesson', fu), ('build_report', fb), ('lesson_pipeline', fl)):
+        monkeypatch.setitem(sys.modules, name, mod)
+    monkeypatch.setattr(subprocess, 'run', lambda cmd, **k: order.append('email:' + cmd[2][:16]))
+    fa = types.ModuleType('after_questions'); fa.payload = lambda *a, **k: {}
+    fk = types.ModuleType('amal_links'); fk.create = lambda *a, **k: ('t', 'https://x/after')
+    monkeypatch.setitem(sys.modules, 'after_questions', fa); monkeypatch.setitem(sys.modules, 'amal_links', fk)
+    out = px.post_process('2099-01-01', send_email=True, use_openai=False, log=lambda *a: None)
+    assert order == ['understand', 'build', 'publish', 'email:Anees: lesson re'] and out['report']['url'] == 'https://x/report' and out['report']['emailed']
+    # now the push fails: build happens, email never does, Medi gets the failure email
+    order.clear(); emails.clear()
+    fl.publish_report = lambda date: (_ for _ in ()).throw(RuntimeError('git push failed: rejected'))
+    out = px.post_process('2099-01-01', send_email=True, use_openai=False, log=lambda *a: None)
+    assert order == ['understand', 'build'] and 'report_error' in out and emails and 'report for 2099-01-01 failed' in emails[0]

@@ -19,7 +19,11 @@ STATE = LESSONS / 'processed.json'
 PAGES = 'https://thenatanzi.github.io/anees/lessons/'
 NAME_RE = re.compile(r'^[a-z]{3}-[a-z]{4}-[a-z]{3} \((\d{4}-\d{2}-\d{2}) (\d{2}) (\d{2}) GMT[-+]\d+\)( \(\d+\))?$')
 MIN_BYTES = 20_000_000
-MIN_ARABIC_SHARE = 0.12      # below this it was not an Arabic lesson
+MIN_ARABIC_SHARE = 0.12      # pre-check (minutes 3-6): below this we do not pay for the full transcription
+# After a PAID full transcription the bar is much lower: a code-switched lesson with long English explanations measured 0.11
+# on Sep 4 (pre-check said 0.49) and was wrongly skipped. Only a recording with (nearly) no Arabic at all is dropped here.
+MIN_ARABIC_SHARE_POST = 0.05
+LIVE_TRIES, LIVE_WAIT = 10, 15   # verify a pushed page answers 200 before any email links to it (Pages deploy ~1 min)
 
 
 def log(*a):
@@ -230,6 +234,48 @@ def email(summary, link):
     subprocess.run(['node', str(ROOT / 'scripts' / 'send_lesson_email.mjs'), f"Anees: lesson {summary['date']} transcribed", str(pf)], check=True)
 
 
+def should_skip_after_transcription(arabic_share, tutor_typed, force=False):
+    """The transcription is already paid for: keep the lesson unless it has almost no Arabic AND nobody typed in the chat."""
+    return arabic_share < MIN_ARABIC_SHARE_POST and not tutor_typed and not force
+
+
+def verify_live(url, get=requests.get, tries=LIVE_TRIES, wait=LIVE_WAIT, sleep=time.sleep):
+    """True once the published URL answers 200 (GitHub Pages needs ~1 min after a push). Never email a link before this."""
+    for i in range(tries):
+        try:
+            if get(url, timeout=20).status_code == 200:
+                return True
+        except Exception:
+            pass
+        if i < tries - 1:
+            sleep(wait)
+    return False
+
+
+def git_publish(paths, message, run=subprocess.run):
+    """Stage, commit and push the given paths. Raises when the push fails (Codex P0: never announce an unpushed page)."""
+    import write_build; write_build.write()
+    paths = list(paths) + [ROOT / 'docs' / 'js' / 'build.js', ROOT / 'docs' / 'data' / 'build.json']
+    run(['git', '-C', str(ROOT), 'add'] + [str(x) for x in paths if Path(x).exists()], check=True)
+    run(['git', '-C', str(ROOT), 'commit', '-q', '-m', message + '\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>'], check=False)
+    push = run(['git', '-C', str(ROOT), 'push', '-q'], capture_output=True, text=True)
+    if push.returncode != 0:
+        raise RuntimeError('git push failed: ' + ((push.stderr or push.stdout) or '').strip()[:300])
+
+
+def publish_report(date, run=subprocess.run, get=requests.get, sleep=time.sleep):
+    """Push the report page + its clips + the stored rows, then wait until the page is live. Returns the report URL.
+    Called by pipeline_ext.post_process BEFORE the report email (the report used to be emailed with nothing pushed)."""
+    d = LESSONS / date
+    paths = [DOCS / f'{date}-report.html', DOCS / date, d / 'report_rows.json', d / 'understanding.json', d / 'report_email.json',
+             ROOT / 'docs' / 'data' / 'words.json']
+    git_publish(paths, f'Lesson {date}: report page + clips', run=run)
+    url = PAGES + f'{date}-report.html'
+    if not verify_live(url, get=get, sleep=sleep):
+        raise RuntimeError(f'report page not live after push: {url}')
+    return url
+
+
 def publish(date, page_html):
     DOCS.mkdir(parents=True, exist_ok=True)
     import write_build; write_build.write()
@@ -265,8 +311,8 @@ def process(src, date, hhmm, reuse=None, send=True, force=False):
     summary['chat_lines'] = tutor_typed
     if tutor_typed:
         log('Meet chat sidecar:', len(tutor_typed), 'lines typed by', sorted({who for _, who, _ in tutor_typed}))
-    if summary['arabic_share'] < MIN_ARABIC_SHARE and not tutor_typed and not force:
-        log('not an Arabic lesson (arabic share', summary['arabic_share'], ') -> skipped')
+    if should_skip_after_transcription(summary['arabic_share'], bool(tutor_typed), force):
+        log('not an Arabic lesson (arabic share', summary['arabic_share'], '<', MIN_ARABIC_SHARE_POST, ', no tutor chat) -> skipped')
         return {'skipped': 'not arabic', **summary}
     (d / 'transcript.txt').write_text('\n'.join(f"[{int(r['s']//60):02d}:{int(r['s']%60):02d}] {r['spk']}: {run_text(r)}" for r in runs), encoding='utf-8')
     (d / 'summary.json').write_text(json.dumps(summary, ensure_ascii=False, indent=1), encoding='utf-8')
