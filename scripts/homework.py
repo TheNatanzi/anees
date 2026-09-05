@@ -160,6 +160,7 @@ def apply_verdicts(log=print):
                          'text': f"homework: {a['answer'][:160]}", 'miss_kind': (kind or 'unclear') if bad else None,
                          'miss_why': (f"Amal: {a.get('amal_fix') or 'fix'}"[:200] if bad else None)})
         if rows:
+            db.rest('DELETE', 'word_events', params={'lesson_date': f"eq.{it['lesson_date']}", 'text': f"eq.homework: {a['answer'][:160]}"}, prefer='return=minimal')   # a retry never doubles the rows  [Codex M10 P1]
             db.upsert('word_events', rows)
         db.rest('PATCH', 'homework_answers', params={'id': f"eq.{a['id']}"}, body={'applied': now}, prefer='return=minimal')
         changed.append({'answer': a['id'], 'verdict': a['amal_verdict'], 'keys': it['keys'], 'wrong': sorted(wrong)})

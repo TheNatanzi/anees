@@ -372,6 +372,10 @@ def understand(date, scribe=None, audio=None, src=None, clips=True):
     m.prefer = frozenset(prefer)
     events = annotate(find_doc_events(words, m, lo, hi, exclude), words)
     chat_diff = CG.apply_typed(events, typed_lines, m)
+    try:
+        CG.store(date, typed_lines)                          # Supabase chat_lines (Codex M10 P1: was never called); offline runs keep going
+    except Exception as e:
+        log_fn('chat_lines not stored:', str(e)[:120])
     import miss_kind
     miss_kind.classify_all(events, words, wordmap, use_llm=False, log=log_fn, matcher=m)
     chat = summary.get('chat_lines') or []

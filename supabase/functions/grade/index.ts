@@ -11,7 +11,7 @@ const DAILY_CAP_USD = 0.5;
 const ORIGINS = ["https://thenatanzi.github.io", "http://localhost", "http://127.0.0.1"];
 
 function cors(origin: string | null) {
-  const ok = origin && ORIGINS.some((o) => origin.startsWith(o));
+  const ok = origin && ORIGINS.some((o) => origin === o || origin.startsWith(o + ":"));   // exact host (or localhost:port); never a prefix look-alike  [Codex M10 P1]
   return {
     "Access-Control-Allow-Origin": ok ? origin! : ORIGINS[0],
     "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
@@ -37,6 +37,9 @@ Deno.serve(async (req) => {
   if (a.grade) return new Response(JSON.stringify({ grade: a.grade, cached: true }), { headers: H });
   const { data: it } = await sb.from("homework_items").select("*").eq("id", a.item_id).maybeSingle();
   if (!it) return new Response(JSON.stringify({ error: "no such item" }), { status: 404, headers: H });
+  // claim the row first: two concurrent calls for the same answer must not both pay for a grade  [Codex M10 P1]
+  const { data: claimed } = await sb.from("homework_answers").update({ graded_at: new Date().toISOString() }).eq("id", a.id).is("graded_at", null).select("id");
+  if (!claimed || !claimed.length) return new Response(JSON.stringify({ error: "already grading" }), { status: 409, headers: H });
 
   const since = new Date(); since.setUTCHours(0, 0, 0, 0);
   const { data: spent } = await sb.from("api_spend").select("usd").gte("ts", since.toISOString());
@@ -75,6 +78,7 @@ Return ONLY JSON: {"verdict": "right" | "close" | "wrong", "notes": [{"kind": "w
   });
   if (!r.ok) {
     const t = await r.text();
+    await sb.from("homework_answers").update({ graded_at: null }).eq("id", a.id);      // release the claim; the page may retry
     return new Response(JSON.stringify({ error: `OpenAI ${r.status}: ${t.slice(0, 200)}` }), { status: 502, headers: H });
   }
   const j = await r.json();

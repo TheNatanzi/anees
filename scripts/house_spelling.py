@@ -45,7 +45,8 @@ def _safe(form, tier, w):
         return False
     if tier == 'exact':
         return True
-    return len(f) >= 4 and abs(len(d) - len(f)) <= 1
+    core = lambda x: re.sub(r'[aeiouAIU]', '', loose(x))      # consonants WITH the digit letters: '3ashrah' (ten) is not 'ashra7' (explain)  [Codex M10 P1]
+    return len(f) >= 4 and abs(len(d) - len(f)) <= 1 and core(f) == core(d)
 
 
 def _display(form, doc):
@@ -122,6 +123,8 @@ def write(table, stats, to_db=True):
     io.open(PUB, 'w', encoding='utf-8').write(json.dumps({**doc, 'items': {k: {'house': v['house'], 'n': v['n']} for k, v in table.items()}}, ensure_ascii=False))
     if to_db:
         import db
+        keys = ','.join("'" + k.replace("'", "''") + "'" for k in table) or "''"
+        db.sql(f"update words set house_spelling = null, house_n = 0 where house_spelling is not null and key not in ({keys})")   # a word that lost its house form goes back to the Doc spelling
         rows = [{'key': k, 'house_spelling': v['house'], 'house_n': v['n']} for k, v in table.items()]
         for i in range(0, len(rows), 200):
             for r in rows[i:i + 200]:

@@ -71,13 +71,13 @@ def merged_lines(summary, date):
     """Meet sidecar lines + WhatsApp lines, tagged by source, sorted by time; a line typed in both places counts once."""
     meet = [list(x) for x in (summary.get('chat_lines') or [])]
     wa = whatsapp_lines(summary, date)
-    seen, out = set(), []
+    out = []
     for src, rows in (('meet', meet), ('whatsapp', wa)):
         for t, who, text in rows:
-            k = (text.strip().lower())
-            if k in seen:
-                continue
-            seen.add(k); out.append({'t': t, 't_rel': rel_seconds(t), 'who': who, 'text': text, 'source': src})
+            k, tr = text.strip().lower(), rel_seconds(t)
+            if any(o['text'].strip().lower() == k and abs(o['t_rel'] - tr) <= 120 for o in out):
+                continue                                    # the same line typed in both places within 2 min counts once; a repeat 20 min later is a new drill  [Codex M10 P1]
+            out.append({'t': t, 't_rel': tr, 'who': who, 'text': text, 'source': src})
     out.sort(key=lambda r: r['t_rel'])
     return out
 
