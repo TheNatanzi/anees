@@ -124,9 +124,9 @@
       "rules": [
         {
           "id": "N1",
-          "rule": "'New' = Amal says it is new: typed in the chat, marked on her after-lesson link, or added to the Doc after the lesson. Never a lesson-count heuristic.",
-          "why": "Medi's rule (2026-09-05). Sep 4: Baboos and Buset were new; the heuristic could not know.",
-          "where": "planned: rewrite buckets.py + docs/js/buckets.js; today = 'first heard in the last 3 lessons'",
+          "rule": "'New' is inferred from the lesson, then confirmed by the Doc: a word Amal introduces (explains, spells, types) that is not in the Doc snapshot taken before the lesson = new (inferred); when it appears in the Doc afterwards = new (confirmed). Never a lesson-count heuristic.",
+          "why": "Medi 2026-09-05: new words are not on the master list yet during the lesson and appear afterwards; the lesson itself shows whether he is learning or reviewing.",
+          "where": "planned: understand_lesson infers per word (Amal introduces + not in pre-lesson Doc) and per lesson (learning vs review); import_vocab diff confirms; rewrite buckets.py",
           "status": "planned"
         },
         {
