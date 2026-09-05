@@ -41,7 +41,9 @@ def main(quick=False):
         step('Planner link', bool(before) and before[0]['expires_at'] > datetime.datetime.now(datetime.timezone.utc).isoformat(), f"{len(before)} open planner link(s); newest lesson_date {before[0]['lesson_date'] if before else '–'}",
              'python scripts/amal_links.py create --kind before --date <today> --payload data/planner_payload_2026-09-05.json')
         step('After-lesson link', bool(after), f"{len(after)} open after-lesson link(s) for {after[0]['lesson_date'] if after else '–'}", 'python scripts/amal_links.py create --kind after --date 2026-09-04 --payload data/lessons/2026-09-04/after_payload.json')
-        step('Payload has 8 sentences', bool(before) and len((db.select('amal_links', {'token': f"eq.{before[0]['token']}", 'select': 'payload'})[0]['payload'] or {}).get('sentences', [])) == 8 if before else False, '8 Doc-checked sentences', 'python scripts/suggest.py (needs OpenAI, ~0.10 USD) then recreate the link')
+        import suggest
+        n_s = suggest.N_SENTENCES
+        step(f'Payload has {n_s} sentences', bool(before) and len((db.select('amal_links', {'token': f"eq.{before[0]['token']}", 'select': 'payload'})[0]['payload'] or {}).get('sentences', [])) == n_s if before else False, f'{n_s} Doc-checked sentences', 'python scripts/suggest.py (needs OpenAI, ~0.15 USD) then recreate the link')
     except Exception as e:
         step('Amal links', False, str(e)[:80], 'do NOT send anything; check Supabase first')
     # 4 Scheduler tasks

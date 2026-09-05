@@ -17,6 +17,8 @@ button small{display:block;font:14px system-ui;color:var(--mute);font-weight:400
 input,textarea{width:100%;font:18px system-ui;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);color:var(--ink)}
 .quit{margin-top:auto;padding-top:14px;font-size:14px;color:var(--mute)} .quit a{color:var(--mute);display:inline-block;padding:12px 4px;min-height:44px} .ok{color:var(--teal)} .err{color:var(--red)}
 .saved{font-size:12px;color:var(--mute);min-height:16px;margin-top:6px}
+.grp{font-size:13px;color:var(--mute);margin:14px 0 6px;text-transform:uppercase;letter-spacing:.06em;font-weight:600} .grp span{font-weight:400}
+.btns button.word{text-align:left;min-height:52px} .btns button.word b{display:block} .btns button.word small{display:block;white-space:normal}
 </style></head><body><main>
 <p class="who" id="who">Medi's app has 3 quick questions before today's lesson. Your choice always wins.</p>
 <p class="prog" id="prog"></p>
@@ -71,13 +73,16 @@ function build(p){
     wire(){ document.getElementById('nw0').onclick=()=>{answers.new_words=[]; rule('new_words',null,{words:[]}); save(); next();};
       document.getElementById('nw1').onclick=()=>{document.getElementById('nwbox').style.display='block';};
       document.getElementById('nwgo').onclick=()=>{const ws=document.getElementById('nw').value.split(/\n/).map(x=>x.trim()).filter(Boolean); answers.new_words=ws; rule('new_words',null,{words:ws}); save(); next();}; }});
-  const rep=p.repeat||[];
-  S.push({prog:'3 of 3',html:`<h1>Anything to repeat?</h1><p class="sug">The app suggests these words Medi missed. Tap the ones you want, then Next.</p><div class="btns" id="rb">
-    ${rep.slice(0,3).map((w,i)=>btn(w.arabizi,(w.arabic||'')+'  ·  '+(w.english||''),null,'r'+i)).join('')}${btn(rep.length?'Next':'Nothing special, next','', 'primary','rgo')}</div>`,
-    wire(){ const sel=new Set(); rep.slice(0,3).forEach((w,i)=>document.getElementById('r'+i).onclick=e=>{const b=e.currentTarget; if(sel.has(w.key)){sel.delete(w.key);b.classList.remove('sel');}else{sel.add(w.key);b.classList.add('sel');}});
-      document.getElementById('rgo').onclick=()=>{answers.repeat=[...sel]; [...sel].forEach(k=>rule('repeat',k,{})); if(!sel.size) rule('repeat',null,{none:true}); save(); next();}; }});
+  const rep=p.repeat||[], menu=p.menu||null, GROUPS=[['verbs','Verbs'],['nouns','Nouns'],['adjectives','Adjectives'],['sayings','Sayings']];
+  const cells=menu?GROUPS.flatMap(([g,label])=>(menu[g]||[]).map(w=>({...w,g}))):rep.slice(0,3).map(w=>({...w,g:'nouns'}));
+  const wordBtn=(w,i)=>`<button id="w${i}" class="word"><b>${esc(w.arabizi)}</b><small>${esc(w.arabic||'')}  ·  ${esc(w.english||'')}${w.why?'  ·  <i>'+esc(w.why)+'</i>':''}</small></button>`;
+  S.push({prog:'3 of 3',html:`<h1>Words for today</h1><p class="sug">${menu?'About 30 words: some Medi got wrong, some he has not heard in a long time. Tap the ones you want to use today, then Next.':'The app suggests these words Medi missed. Tap the ones you want, then Next.'}</p>
+    ${GROUPS.map(([g,label])=>{const cs=cells.map((w,i)=>[w,i]).filter(([w])=>w.g===g); return cs.length?`<div class="grp">${label} <span>(${cs.length})</span></div><div class="btns">${cs.map(([w,i])=>wordBtn(w,i)).join('')}</div>`:'';}).join('')}
+    <button id="rgo" class="primary" style="margin-top:14px">${cells.length?'Next':'Nothing special, next'}</button><div class="saved" id="s3"></div>`,
+    wire(){ const sel=new Set(); cells.forEach((w,i)=>{const b=document.getElementById('w'+i); if(b) b.onclick=()=>{ if(sel.has(w.key)){sel.delete(w.key);b.classList.remove('sel');}else{sel.add(w.key);b.classList.add('sel');} document.getElementById('s3').textContent=sel.size?sel.size+' picked':''; };});
+      document.getElementById('rgo').onclick=()=>{answers.repeat=[...sel]; [...sel].forEach(k=>rule('repeat',k,{picked:true})); if(!sel.size) rule('repeat',null,{none:true}); save(); next();}; }});
   (p.sentences||[]).forEach((s,i)=>{ const n=p.sentences.length;
-    S.push({prog:`Sentence ${i+1} of ${n}`,html:`<h1>Keep this sentence?</h1><p class="sug">The app suggests it for today (it uses a word Medi missed plus one he knows). Keep, drop, or edit it.</p>
+    S.push({prog:`Sentence ${i+1} of ${n}`,html:`<h1>Keep this sentence?</h1><p class="sug">One of ${n} suggestions for today (each uses a word Medi got wrong plus one he has not heard in a while). Keep, drop, or edit it.</p>
       <div class="card"><div class="big">${esc(s.arabizi)}</div><span class="ar">${esc(s.arabic||'')}</span><div class="en">${esc(s.english||'')}</div><div class="words">words: ${(s.words||[]).map(w=>esc(w.arabizi)).join(', ')}</div></div>
       <div class="btns">${btn('Keep','', 'primary','k'+i)}${btn('Drop','', 'drop','d'+i)}${btn('Edit','', null,'e'+i)}</div>
       <div id="ebox${i}" style="display:none;margin-top:10px"><input id="ev${i}" value="${esc(s.arabizi)}" aria-label="edited sentence"><button id="eg${i}" class="primary" style="margin-top:8px">Save my version</button></div>`,

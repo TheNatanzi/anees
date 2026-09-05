@@ -13,7 +13,7 @@ import anees_env as E
 
 ROOT = Path(__file__).resolve().parent.parent
 MODEL = 'gpt-5.5'          # mini produced word salad; 5.5 costs ~2 cents per call
-N_SENTENCES = 8
+N_SENTENCES = 10          # Medi 2026-09-05: 10 example sentences
 GLUE = {'shu', 'bas', 'ai', 'aw', 'em', 'u', 'fi', 'bi', 'min', 'ya3ni', 'iza', 'lama', 'hala', 'ah', 'aha', 'tayeb', 'tamam', '5alas', 'sa7', 'mashi',
         'wala', 'wla', 'ma', 'ma3', 'la', 'mish', 'mesh', 'w', 'wa', 'ya', 'el', 'al', 'hai', 'hada', 'hadi', 'kul', 'ktIr', 'kaman', 'halla', 'alyom', 'hon', 'honak', 'nafs'}
 FUNCTION_TOKENS = set(PRONOUNS) | {'u', 'w', 'wa', 'ya', 'la', 'el', 'al', 'fi', 'bi', 'min', '3ala', '3an', 'ma3', 'mish', 'mesh', 'ma', 'bas', 'shu', 'kteer',
@@ -25,7 +25,7 @@ def load_words():
     return json.load(io.open(ROOT / 'data' / 'vocab' / 'words.json', encoding='utf-8'))['items']
 
 
-def candidate_lists(words, stats, rules, n_a=10, n_b=14):
+def candidate_lists(words, stats, rules, n_a=16, n_b=24):
     """A = WEAK words (missed, new, shaky, or never-heard-right but recent); B = words NOT SEEN IN A LONG TIME (cold / ice_cold,
     oldest last_reviewed first). Every sentence must use one A and one B word, so the planner is a mix of weak + stale
     (Medi 2026-09-05). Dropped-twice words are excluded."""
@@ -40,6 +40,48 @@ def candidate_lists(words, stats, rules, n_a=10, n_b=14):
     stale_key = lambda kv: (str(kv[1].get('last_reviewed') or ''), kv[1]['times_seen'])      # oldest review first; rarely seen breaks ties
     B = [k for k, s in sorted(st.items(), key=stale_key) if ok(k) and s['bucket'] in ('cold', 'ice_cold') and k not in A][:n_b]
     return A, B, wmap
+
+
+GROUP_ORDER = ('verbs', 'nouns', 'adjectives', 'sayings')
+SAYING_TOPICS = ('Sentence Toolbox', 'Everyday Expressions', 'Introductions, greetings , and Pleasantries', 'Quantity / Degree')
+
+
+def word_group(w):
+    """verbs / nouns / adjectives / sayings from the Doc's own topic and subtopic names."""
+    t, s = (w.get('topic') or ''), (w.get('subtopic') or '')
+    if 'Verb' in t or 'Tense' in t or 'Verb' in s or 'Doubled Middle' in s:
+        return 'verbs'
+    if 'Adjective' in t or 'Adjective' in s or s == 'Colors':
+        return 'adjectives'
+    if t in SAYING_TOPICS or 'Adverbs of Time' in s or (w.get('arabizi') or '').count(' ') >= 2:
+        return 'sayings'
+    return 'nouns'
+
+
+def word_menu(words, stats, rules, per_group=8):
+    """Amal's planning menu (Medi 2026-09-05): ~30 words in 4 groups, each group alternating weak words (A) and words not seen
+    in a long time (B), so she can build the lesson herself. Each cell says why it is there."""
+    A, B, wmap = candidate_lists(words, stats, rules, n_a=60, n_b=120)
+    st = {s['word_key']: s for s in stats}
+    def cell(k, why):
+        w = wmap[k]
+        return {'key': k, 'arabizi': w['arabizi'], 'arabic': w['arabic'], 'english': (w['english'] or '')[:60], 'why': why}
+    menu = {}
+    for g in GROUP_ORDER:
+        a = [k for k in A if word_group(wmap[k]) == g]
+        b = [k for k in B if word_group(wmap[k]) == g]
+        out = []
+        for i in range(per_group):
+            for lst, why in ((a, 'weak'), (b, 'long unseen')):
+                if len(out) >= per_group or i >= len(lst):
+                    continue
+                k = lst[i]
+                if k in {c['key'] for c in out}:
+                    continue
+                lr = str((st.get(k) or {}).get('last_reviewed') or '')[:10]
+                out.append(cell(k, why if why == 'weak' else (f'not seen since {lr}' if lr else 'not seen in a while')))
+        menu[g] = out
+    return menu
 
 
 def repeat_mix(A, B, n=3):
@@ -189,5 +231,5 @@ def planner_payload(lesson_date, use_openai=True):
     cell = lambda k: {'key': k, 'arabizi': wmap[k]['arabizi'], 'arabic': wmap[k]['arabic'], 'english': wmap[k]['english'][:60]} if k in wmap else {'key': k}
     return {'lesson_date': lesson_date, 'built': datetime.datetime.now().isoformat(timespec='seconds'), 'topics': list(TOPIC_MENU),
             'last_words': (last_topic or '').replace(" (last lesson's words)", ''), 'suggested': topics[:3],
-            'repeat': [cell(k) for k in repeat_mix(sug['list_a'], sug['list_b'], 3)], 'sentences': [{**s, 'words': [cell(k) for k in s['keys']]} for s in sug['sentences']],
+            'repeat': [cell(k) for k in repeat_mix(sug['list_a'], sug['list_b'], 3)], 'menu': word_menu(words, stats, rules), 'sentences': [{**s, 'words': [cell(k) for k in s['keys']]} for s in sug['sentences']],
             'meta': {'list_a': sug['list_a'], 'list_b': sug['list_b'], 'rejected': sug['rejected'], 'model': sug['model'], 'cost_usd': sug['cost_usd'], 'usage': sug['usage']}}

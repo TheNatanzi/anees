@@ -134,3 +134,17 @@ def test_planner_mixes_weak_and_long_unseen_words():
     assert A == ['weak1', 'weak2']
     assert B == ['old1', 'old2', 'fresh'], 'B is ordered by oldest review first, not by how often it was heard'
     assert suggest.repeat_mix(A, B, 3) == ['weak1', 'old1', 'weak2']
+
+
+def test_word_menu_groups_and_mixes():
+    W = [{'key': 'v1', 'arabizi': 'Ana bakol', 'arabic': 'x', 'english': 'I eat', 'topic': 'Verbs List', 'subtopic': 'Verbs List'},
+         {'key': 'v2', 'arabizi': 'Ana bashrab', 'arabic': 'x', 'english': 'I drink', 'topic': 'Past Tense', 'subtopic': 'Notes:'},
+         {'key': 'n1', 'arabizi': 'Kalb', 'arabic': 'x', 'english': 'Dog', 'topic': 'Animals', 'subtopic': 'Animals'},
+         {'key': 'a1', 'arabizi': 'Kbeer', 'arabic': 'x', 'english': 'Big', 'topic': 'Adjectives', 'subtopic': 'Shape/size Adjectives'},
+         {'key': 's1', 'arabizi': 'Allah ybarek fik', 'arabic': 'x', 'english': 'Bless you', 'topic': 'Introductions, greetings , and Pleasantries', 'subtopic': 'Pleasantries & Social expression'}]
+    st = lambda k, b, lr: {'word_key': k, 'bucket': b, 'weight': 3 if b == 'missed' else 1, 'times_missed': 1 if b == 'missed' else 0, 'times_seen': 2, 'recent': False, 'last_reviewed': lr}
+    stats = [st('v1', 'missed', '2026-09-04'), st('v2', 'cold', '2026-07-01'), st('n1', 'cold', '2026-08-01'), st('a1', 'shaky', '2026-09-04'), st('s1', 'cold', '2026-06-01')]
+    m = suggest.word_menu(W, stats, [])
+    assert [c['key'] for c in m['verbs']] == ['v1', 'v2'] and m['verbs'][0]['why'] == 'weak' and m['verbs'][1]['why'] == 'not seen since 2026-07-01'
+    assert [c['key'] for c in m['nouns']] == ['n1'] and [c['key'] for c in m['adjectives']] == ['a1'] and [c['key'] for c in m['sayings']] == ['s1']
+    assert suggest.N_SENTENCES == 10
