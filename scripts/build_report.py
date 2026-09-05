@@ -176,7 +176,7 @@ def render(u, rows, words, bins, ok):
     def play(clip, off, t):
         if not clip:
             return f'<span class="t">{mmss(t) if t is not None else DASH}</span>'
-        return f'<button class="play" data-clip="clips/{html.escape(clip)}" data-off="{off}" aria-label="play at {mmss(t)}">▶ {mmss(t)}</button>'
+        return f'<button class="play" data-clip="{date}/clips/{html.escape(clip)}" data-off="{off}" aria-label="play at {mmss(t)}">▶ {mmss(t)}</button>'
 
     def li(r):
         d = r.get('detail') or {}

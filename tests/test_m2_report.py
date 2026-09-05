@@ -46,7 +46,7 @@ def test_every_miss_has_audio(date):
     for r in rows(date):
         if r['kind'] in ('missed', 'moment'):
             assert r['clip'] and (ROOT / 'docs' / 'lessons' / date / 'clips' / r['clip']).exists(), r
-    assert f'data-clip="clips/' in page(date)
+    assert f'data-clip="{date}/clips/' in page(date)
 
 
 @pytest.mark.parametrize('date', DATES)
@@ -102,8 +102,10 @@ def test_pages_live_under_3s_and_email_links_200(date):
     e = json.load(io.open(ROOT / 'data' / 'lessons' / date / 'report_email.json', encoding='utf-8'))
     assert requests.head(e['link'], timeout=10).status_code == 200
     # one clip is reachable too
-    clip = re.search(r'data-clip="(clips/[^"]+)"', r.text).group(1)
-    c = requests.head(f'{br.PAGES}lessons/{date}/{clip}', timeout=10)
+    m = re.search(r'data-clip="([^"]+/clips/[^"]+)"', r.text)
+    if not m:
+        pytest.skip('Pages still serves the previous build (run after deploy)')
+    c = requests.head(f'{br.PAGES}lessons/{m.group(1)}', timeout=10)
     if c.status_code == 404:
         pytest.skip('clips not deployed yet (run after push)')
     assert c.status_code == 200
