@@ -72,8 +72,8 @@ def build(cut_clips: bool = True) -> dict:
     per_lesson: dict[str, int] = {d: 0 for d in src['lessons']}
     for r in src['rules']:
         rr = {k: v for k, v in r.items() if k not in ('slips', 'asks')}
-        rr['slips'], rr['asks'] = [], []
-        for bucket in ('slips', 'asks'):
+        rr['slips'], rr['asks'], rr['rights'] = [], [], []
+        for bucket in ('slips', 'asks', 'rights'):
             for m in r.get(bucket, []):
                 ok, why = verify(m['date'], m)
                 if not ok:
@@ -82,6 +82,7 @@ def build(cut_clips: bool = True) -> dict:
                 rr[bucket].append({**m, 'verified': ok, 'clip': clip, 'offset': off, 'audio': how})
         rr['count'] = len(rr['slips'])
         rr['ask_count'] = len(rr['asks'])
+        rr['right_count'] = len(rr['rights'])
         if not r.get('candidate'):
             kinds[r['kind']] = kinds.get(r['kind'], 0) + rr['count']
             for m in rr['slips']:
@@ -92,6 +93,7 @@ def build(cut_clips: bool = True) -> dict:
         'slips': sum(r['count'] for r in grammar_rules),
         'rules_with_slips': sum(1 for r in grammar_rules if r['count']),
         'asks': sum(r['ask_count'] for r in out_rules),
+        'rights': sum(r['right_count'] for r in out_rules),
         'pronunciation_candidates': sum(r['count'] for r in out_rules if r.get('candidate')),
         'review_due': sum(1 for r in out_rules if r.get('review_due')),
         'lessons': len(src['lessons']),

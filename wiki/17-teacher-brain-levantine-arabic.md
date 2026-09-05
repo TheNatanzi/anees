@@ -287,6 +287,8 @@ How to read it: **Rule** = Amal's own unit. **Taught** = where she taught it (Do
 
 Totals after 2 lessons (Aug 25, Sep 4): **13 verified grammar slips on 7 learned rules**, 2 self-caught asks, 3 pronunciation candidates. Rules 1–3 carry 7 of the 13: bare verb after lamma / laazem, ykoon, and el- on superlatives. Those three are the review debt.
 
+**Update 2026-09-05 (third lesson, two clean Recall tracks, speaker split certain):** 1 new slip, 2 asks, 3 rights. New rule R10 (verb ending must match the subject): [39:36] "بيزعجوني" → Amal "بزعجني", Medi: "why do I have the o in there?"; ask [39:25] "do I need هو?" → "بدون هو". Rule 1 wobbled and self-repaired at [59:17] ("لما أتعب … باتعب … أتعب") and held at [39:53] ("بيزعجني لما أنسى … قبل ما أروح", ✓ ممتاز). **Rule 2 held twice** ([55:16], [55:32] "لما أكون شبعان" ✓) after Medi asked "when or if?" [55:13]. Rule 7 held ([43:17] "انزعجنا **من** العاصفة"). Sounds: [55:16] شبعان heard as "hot" (candidate). Classifier false positive: 'article' on العاصفة at 43:25 (correct definite noun, no recast). Running total: **14 slips on 7 rules, 4 asks, 3 rights, 4 sound candidates** (`docs/slips.html`, `data/tally.json`). The live tally is now the site's Slips page; this table stays as the narrative.
+
 Not counted, by rule: pauses (M7), Medi's spelling (M1), anything without Amal's recast or Medi's ask (M1).
 
 ## J. Next

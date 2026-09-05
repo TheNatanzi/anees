@@ -134,10 +134,14 @@ def build(res, date, hhmm, src_name, mp3=None):
     if not words:
         raise RuntimeError('no words')
     arabic_share = sum(1 for w in words if ARABIC.search(w['w'])) / len(words)
-    lab = label_speakers(words)
+    if res.get('speaker_source') == 'tracks':                 # S1: one audio track per person (Recall bot) -> the label IS the channel
+        lab = {k: k for k in {w['spk'] for w in words}}
+        split_note = 'ok: one audio track per person (Recall bot)'
+    else:
+        lab = label_speakers(words)
+        split_note = 'ok'
     for w in words:
         w['spk'] = lab.get(w['spk'], w['spk'])
-    split_note = 'ok'
     if not any(v == 'Medi' for v in lab.values()):
         if mp3 and Path(mp3).exists():
             try:
@@ -183,7 +187,7 @@ def render(runs, summary):
     stats = ''.join(f'<div class="stat"><div class="n">{v}</div><div class="l">{k}</div></div>' for k, v in [
         ('minutes', S['minutes']), ('words', S['words']), ('Arabic words by Medi', S['medi_arabic_words'] if S['medi_arabic_words'] is not None else '–'),
         ('Amal said "right"', S['confirmations'] if S['confirmations'] is not None else '–'), ('Medi pauses', S['medi_pauses'] if S['medi_pauses'] is not None else '–')])
-    warn = '' if S.get('speaker_split', 'ok') == 'ok' else f'<p class="warn">Speaker split {html.escape(S["speaker_split"])}. Counts below cover both voices.</p>'
+    warn = '' if str(S.get('speaker_split', 'ok')).startswith('ok') else f'<p class="warn">Speaker split {html.escape(S["speaker_split"])}. Counts below cover both voices.</p>'
     typed = ''
     if S.get('chat_lines'):
         items = ''.join(f'<li><span class="t">{html.escape(t)}</span><span dir="auto">{html.escape(txt)}</span></li>' for t, who, txt in S['chat_lines'])
@@ -227,7 +231,7 @@ def email(summary, link):
                'text': f"Lesson {summary['date']} transcribed: {link}"}
     if summary.get('chat_lines'):
         payload['rows'].append({'tag': 'Typed', 'name': f"{len(summary['chat_lines'])} words Amal typed in the Meet chat", 'detail': ', '.join(txt for _, _, txt in summary['chat_lines'][:8])})
-    if summary.get('speaker_split', 'ok') != 'ok':
+    if not str(summary.get('speaker_split', 'ok')).startswith('ok'):
         payload['rows'].append({'tag': 'Note', 'name': 'Speaker labels from voice pitch this time', 'detail': summary['speaker_split']})
     pf = LESSONS / summary['date'] / 'email.json'
     pf.write_text(json.dumps(payload, ensure_ascii=False), encoding='utf-8')

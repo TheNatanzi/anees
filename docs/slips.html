@@ -18,7 +18,7 @@ main{max-width:820px;margin:0 auto;padding:12px} h1{font-size:22px;margin:8px 0}
 .pill{display:inline-block;font:600 12px system-ui;padding:3px 9px;border-radius:999px;color:#fff;background:var(--mute);margin-right:6px} .pill.due{background:var(--red)} .pill.watch{background:var(--amber)} .pill.cand{background:var(--mute)}
 .unit{font-size:13px;color:var(--mute)}
 .moment{border-top:1px solid var(--line);padding:10px 0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;align-items:start;font-size:15px}
-.moment .when{font:600 13px system-ui;color:var(--mute);white-space:nowrap} .said{font-size:17px} .ar{direction:rtl;unicode-bidi:plaintext} .rec{color:var(--teal)} .rec::before{content:"→ "}
+.moment .when{font:600 13px system-ui;color:var(--mute);white-space:nowrap} .moment.right .when{color:var(--teal)} .said{font-size:17px} .ar{direction:rtl;unicode-bidi:plaintext} .rec{color:var(--teal)} .rec::before{content:"→ "}
 button.play{min-height:36px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:999px;font:600 14px system-ui;padding:4px 12px;cursor:pointer} button.play.on{background:var(--teal);color:#fff;border-color:var(--teal)} .noaudio{font-size:12px;color:var(--mute)}
 .amal{border-left:4px solid var(--teal);background:var(--bg2);padding:10px 12px;border-radius:0 14px 14px 0;margin:8px 0} .amal li{margin:4px 0}
 .legend{display:flex;flex-wrap:wrap;gap:8px;font-size:13px;color:var(--mute)} .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px}
@@ -42,14 +42,14 @@ button.play{min-height:36px;border:1px solid var(--line);background:var(--bg2);c
 const KIND={tense:'b- / ykoon (tense)',article:'el- (article)',gender:'gender',choice:'verb family (choice)',preposition:'preposition',pronunciation:'sounds'};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const ar=s=>/[؀-ۿ]/.test(s)?`<span class="ar">${esc(s)}</span>`:esc(s);
-function moment(m,kindAsk){
+function moment(m,tag){
   const play=m.clip?`<button class="play" data-clip="lessons/${m.clip}" data-off="${m.offset||0}" aria-label="play ${m.date} ${m.mmss}">▶ ${m.mmss}</button>`:`<span class="noaudio">no audio on this PC</span>`;
-  return `<div class="moment"><div><div class="when">${m.date}${kindAsk?' · asked':''}</div>${play}</div><div><div class="said">${ar(m.said)}</div><div class="rec">${ar(m.recast)} <span class="mute">[${esc(m.recast_at)}]</span></div>${m.verified?'':'<div class="noaudio">transcript line not matched yet</div>'}</div></div>`;
+  return `<div class="moment${tag==='right'?' right':''}"><div><div class="when">${m.date}${tag==='ask'?' · asked':tag==='right'?' · ✓ right':''}</div>${play}</div><div><div class="said">${ar(m.said)}</div><div class="rec">${ar(m.recast)} <span class="mute">[${esc(m.recast_at)}]</span></div>${m.verified?'':'<div class="noaudio">transcript line not matched yet</div>'}</div></div>`;
 }
 fetch('data/tally.json').then(r=>r.json()).then(d=>{
   const t=d.totals, max=Math.max(1,...d.rules.map(r=>r.count));
   document.getElementById('cards').innerHTML=[
-    [t.slips,'verified slips'],[t.rules_with_slips,'learned rules slipping'],[t.review_due,'rules review-due'],[t.lessons,'lessons counted'],[t.asks,'self-caught asks'],[t.pronunciation_candidates,'sound slips (audio only)']
+    [t.slips,'verified slips'],[t.rules_with_slips,'learned rules slipping'],[t.review_due,'rules review-due'],[t.lessons,'lessons counted'],[t.asks,'self-caught asks'],[t.rights||0,'got right after a slip'],[t.pronunciation_candidates,'sound slips (audio only)']
   ].map(([n,l])=>`<div class="card"><div class="num">${n}</div><div class="lab">${l}</div></div>`).join('');
   document.getElementById('amal').innerHTML=d.rules.filter(r=>r.review_due).sort((a,b)=>b.count-a.count).map(r=>{
     const last=r.slips.map(m=>m.date).sort().slice(-1)[0]||'';
@@ -58,7 +58,7 @@ fetch('data/tally.json').then(r=>r.json()).then(d=>{
   document.getElementById('rules').innerHTML=d.rules.map(r=>{
     const pill=r.candidate?'<span class="pill cand">audio only</span>':r.review_due?'<span class="pill due">review due</span>':'<span class="pill watch">watch</span>';
     const n=r.candidate?`${r.count} cand.`:r.ask_count&&!r.count?`${r.ask_count} ask`:r.count;
-    return `<details class="rule k-${r.kind}"><summary><div class="head"><b>${pill}${esc(r.title)}</b><span class="cnt">${n}</span></div><div class="bar"><i style="width:${Math.round(100*r.count/max)}%"></i></div><div class="unit">${esc(r.unit)} · taught: ${esc(r.taught)}</div></summary>${r.medi_note?`<p class="mute">${esc(r.medi_note)}</p>`:''}${r.slips.map(m=>moment(m,false)).join('')}${r.asks.map(m=>moment(m,true)).join('')}</details>`;}).join('');
+    return `<details class="rule k-${r.kind}"><summary><div class="head"><b>${pill}${esc(r.title)}</b><span class="cnt">${n}</span></div><div class="bar"><i style="width:${Math.round(100*r.count/max)}%"></i></div><div class="unit">${esc(r.unit)} · taught: ${esc(r.taught)}</div></summary>${r.medi_note?`<p class="mute">${esc(r.medi_note)}</p>`:''}${r.slips.map(m=>moment(m,'slip')).join('')}${r.asks.map(m=>moment(m,'ask')).join('')}${(r.rights||[]).map(m=>moment(m,'right')).join('')}</details>`;}).join('');
   const mo=d.machine_only||{}; document.getElementById('machine').textContent=(mo.note||'')+' '+Object.entries(mo.choice_labels||{}).map(([k,v])=>`${k}: ${v} word-choice labels`).join(' · ');
   document.getElementById('src').textContent=`Source: data/tally.json (curated from the transcripts, wiki 17 section K), updated ${d.updated}. Problems: ${d.problems.length}.`;
   const a=document.getElementById('a'); let cur=null;

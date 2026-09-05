@@ -194,7 +194,7 @@ def annotate(events, words, tutor='Amal', learner='Medi'):
 def label_confidence(words, summary):
     n = len(words)
     unl = sum(1 for w in words if w['spk'] not in ('Medi', 'Amal')) / max(1, n)
-    split_ok = summary.get('speaker_split', 'ok') == 'ok'
+    split_ok = str(summary.get('speaker_split', 'ok')).startswith('ok')
     ok = split_ok or unl <= MAX_UNLABELED
     reason = '' if split_ok else (f'ElevenLabs merged the two voices; words were labeled by voice pitch, {unl:.0%} stayed unlabeled'
                                   + ('' if ok else f' (> {MAX_UNLABELED:.0%} floor, so per-speaker facts are not published)'))
