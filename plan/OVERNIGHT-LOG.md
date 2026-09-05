@@ -280,3 +280,55 @@ empty transcript → RuntimeError · English-only call → arabic_share 0.0 < 0.
 missing chat sidecar → [] · git push failure → RuntimeError before any email · post_process: a failing step emails Medi and stops
 64 passed in 137.12s (0:02:17)
 ```
+
+## M8 — part 2: morning checklist executed once by the run  (06:25)
+`plan/MORNING-CHECKLIST.md` (10 steps, ≤ 20 min, PASS line + what to do on FAIL, "do NOT send Amal the link" on any FAIL) and
+`scripts/morning_check.py` (the automated part). Run by the build itself:
+```
+Anees morning check 2026-09-05 01:29
+PASS  Supabase: HTTP 200
+PASS  Pages index.html: HTTP 200 in 0.5s
+PASS  Pages amal/plan.html: HTTP 200 in 0.4s
+PASS  Pages amal/after.html: HTTP 200 in 0.4s
+PASS  Pages cards.html: HTTP 200 in 0.4s
+PASS  Pages lessons/2026-09-04-report.html: HTTP 200 in 0.5s
+PASS  Planner link: 1 open planner link(s); newest lesson_date 2026-09-05
+PASS  After-lesson link: 1 open after-lesson link(s) for 2026-09-04
+PASS  Payload has 8 sentences: 8 Doc-checked sentences
+PASS  Task "Anees lesson pipeline": Ready
+PASS  Task "Anees vocab import": Ready
+PASS  Budget: ElevenLabs 0.00 / 10 USD, OpenAI 0.44 / 10 USD (ledger)
+PASS  Meet folder: G:/My Drive/Meet Recordings found
+PASS  Gmail sender: alchemy-lock/.env present
+PASS  Tests: 57 passed in 58.28s
+
+ALL GOOD — 15/15 checks passed
+```
+Amal links minted (never sent; URLs only in the gitignored data/amal_links.json): planner for 2026-09-05, after-lesson for 2026-09-04.
+`plan/HANDOFF-2026-09-05.md` written (DONE / PARTIAL per milestone, costs, the one-sentence messages, next 3 actions).
+
+### Council M5 (flashcards) — compressed
+| Advisor | View |
+|---|---|
+| Strategic | The daily habit lives here; Missed-first default + 3× weighting is the whole point. Ship. |
+| Skeptical | Buckets come from ~50 %-precise lesson signals until Amal answers; "ice cold" needs 3 days so nothing is ice cold tonight (correct: 0 shown). Wanted the sync race fixed — it was (rows queued mid-sync are never dropped; proven by the 28-row reconciliation). |
+| Creative | Swipe gestures + keyboard (space / arrows) added; "flag to Amal" after two misses feeds her link. |
+| Evidence | 7 tests: scheduler ratio 3.23 / 3.06 / 3.07, replay exactness, ice-cold cases in Python AND JS, offline 20 → 20 → 20 (0 dupes), phone + desktop e2e. |
+| Audience (Medi) | Quizlet feel (tap-flip card, two big buttons, progress bar, wrong-pile button) as asked; no Learn/Write/Match/Test. |
+Chairman: **8/10, no open P0**. Rises when a week of card results exists (ice-cold and streaks become real).
+
+### Council M8 (final) — compressed
+| Advisor | View |
+|---|---|
+| Strategic | Everything Medi needs at 11:30 exists: one link, one sentence, one checklist. The loop closes only when Amal answers. |
+| Skeptical | Three risks stay: (1) hourly Doc import is snapshot-only until publish-to-web; (2) merged-voice recordings give ~14 % unlabeled words; (3) the reaction detector is ~50 % precise, so "possible misses" must stay labeled possible. All three are stated on the pages / checklist, none is hidden behind a number. |
+| Creative | Craig / Ennuicastr two-track recording is the single biggest quality lever left; listed in Future projects and next actions. |
+| Evidence | 64 tests green; 5 Codex audits run (M0 still verifying after 1 h 36 min in its sandbox; M1, M3, M4/M6 findings all fixed with tests; M5, M7, full-repo pending at write time); Lighthouse 91; checklist 15/15; budgets 0.00 / 0.44 USD. |
+| Audience | Amal's pages: one question per screen, ≤ 4 buttons ≥ 48 px, ▶ once, progress, quit, autosave that survives reload; Medi's site: big numbers, badges, ▶ everywhere. |
+Chairman: **8/10**. Agreement: ship as is for tomorrow. Disagreement: none material. Blind spot to watch: Amal's real reaction to the first link (Medi's stated biggest fear) — the checklist makes Medi tap through screen 1 as Amal before sending.
+
+## Paid calls — final
+| service | calls | USD (ceiling prices) | cap |
+|---|---|---|---|
+| ElevenLabs | 0 (all transcripts reused) | 0.00 | 10 |
+| OpenAI | 5 (gpt-5.4-mini ×1 rejected, gpt-5.5 ×4) | 0.44 | 10 |
