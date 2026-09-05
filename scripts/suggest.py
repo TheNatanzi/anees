@@ -39,7 +39,25 @@ def candidate_lists(words, stats, rules, n_a=16, n_b=24):
          if ok(k) and (s['bucket'] in ('missed', 'new', 'shaky') or (s['bucket'] == 'never' and s['recent']))][:n_a]
     stale_key = lambda kv: (str(kv[1].get('last_reviewed') or ''), kv[1]['times_seen'])      # oldest review first; rarely seen breaks ties
     B = [k for k, s in sorted(st.items(), key=stale_key) if ok(k) and s['bucket'] in ('cold', 'ice_cold') and k not in A][:n_b]
+    if len(B) < n_b:                                                  # then words Medi has never been scored on ("not reviewed yet")
+        B += [k for k, s in sorted(st.items(), key=stale_key) if ok(k) and s['bucket'] == 'never' and k not in A and k not in B][:n_b - len(B)]
     return A, B, wmap
+
+
+def why_text(s):
+    """One line Amal can hover/tap: why this word is on her menu."""
+    b, ll = s.get('bucket'), str(s.get('last_lesson') or s.get('last_reviewed') or '')[:10]
+    if b == 'missed':
+        return f'got it wrong on {ll}' if ll else 'got it wrong'
+    if b == 'new':
+        return f'new word from {ll}' if ll else 'new word'
+    if b == 'shaky':
+        return f'shaky: only said it after Amal ({ll})' if ll else 'shaky: only said it after Amal'
+    if b == 'never':
+        return 'not reviewed yet: only Amal has said it'
+    if b in ('cold', 'ice_cold'):
+        return f'not seen since {ll}' if ll else 'not seen in a while'
+    return b or ''
 
 
 GROUP_ORDER = ('verbs', 'nouns', 'adjectives', 'sayings')
@@ -65,7 +83,7 @@ def word_menu(words, stats, rules, per_group=8):
     st = {s['word_key']: s for s in stats}
     def cell(k, why):
         w = wmap[k]
-        return {'key': k, 'arabizi': w['arabizi'], 'arabic': w['arabic'], 'english': (w['english'] or '')[:60], 'why': why}
+        return {'key': k, 'arabizi': w['arabizi'], 'arabic': w['arabic'], 'english': (w['english'] or '')[:60], 'why': why_text(st.get(k) or {}) or why, 'kind': why}
     menu = {}
     for g in GROUP_ORDER:
         a = [k for k in A if word_group(wmap[k]) == g]
@@ -78,8 +96,7 @@ def word_menu(words, stats, rules, per_group=8):
                 k = lst[i]
                 if k in {c['key'] for c in out}:
                     continue
-                lr = str((st.get(k) or {}).get('last_reviewed') or '')[:10]
-                out.append(cell(k, why if why == 'weak' else (f'not seen since {lr}' if lr else 'not seen in a while')))
+                out.append(cell(k, why))
         menu[g] = out
     return menu
 
@@ -141,7 +158,8 @@ def ask_openai(A, B, wmap, n=N_SENTENCES, extra='', glue=None):
     glue_list = ', '.join(sorted(glue)) if glue else 'u, w, fi, bi, min, 3ala, ma3, mish, bas, kteer, kaman, ya3ni, lama, iza, hon'
     prompt = f"""You are a Palestinian Arabic tutor writing practice sentences for an adult learner (Medi). Spell the Arabic in the tutor's Arabizi
 (6=ط 7=ح 3=ع 2=ء/ق 5=خ 9=ص 8=غ) exactly as the word lists spell it, and give the Arabic script and the English meaning.
-Write {n + 4} DIFFERENT, natural, grammatical, everyday spoken sentences of 4-9 words that a tutor would actually say or ask.
+Write {n + 4} DIFFERENT, natural, grammatical, everyday spoken sentences a tutor would actually say or ask. Give EACH sentence in
+three lengths that keep the same LIST A word and the same LIST B word: "short" (3-4 words), "medium" (5-8 words), "long" (9-14 words).
 Hard rules:
 1. Content words come ONLY from LIST A and LIST B below (copy the Arabizi exactly; a leading "Ana " may be dropped when a pronoun is present).
 2. You may add pronouns (ana, inta, inti, i7na, huwwe, heyye, humme) and ONLY these glue words: {glue_list}.
@@ -152,7 +170,7 @@ LIST A (words Medi must practise):
 {chr(10).join(fmt(k) for k in A)}
 LIST B (words Medi already knows):
 {chr(10).join(fmt(k) for k in B)}
-Return ONLY a JSON array: [{{"arabizi": "...", "arabic": "...", "english": "..."}}, ...]"""
+Return ONLY a JSON array: [{{"short": {{"arabizi": "...", "arabic": "...", "english": "..."}}, "medium": {{...}}, "long": {{...}}}}, ...]"""
     import pipeline_ext as px
     if not px.budget_ok('openai', 0.15):                     # the plan's hard limit: stop paid calls at 90 % of 10 USD
         raise px.BudgetStop(f"OpenAI budget: {px.ledger().get('openai', 0):.2f} USD spent; a 0.15 USD call would pass 90 % of the cap")
@@ -191,13 +209,26 @@ def suggest_sentences(words, stats, rules, n=N_SENTENCES, use_openai=True, kept_
     if use_openai and len(out) < n:
         items, usage = ask_openai(A, B, wmap, n=n, glue=function_tokens(m) - set(PRONOUNS))
         for it in items:
-            if not isinstance(it, dict) or not it.get('arabizi'):
+            if not isinstance(it, dict):
                 continue
-            v = validate(it, m, A, B, wmap)
-            if v['ok'] and it['arabizi'] not in {x['arabizi'] for x in out}:
-                out.append({'arabizi': it['arabizi'], 'arabic': it.get('arabic', ''), 'english': it.get('english', ''), 'keys': v['keys'], 'source': 'suggested'})
+            if 'medium' in it and isinstance(it['medium'], dict):          # short / medium / long triple (Medi 2026-09-05)
+                main = it['medium']; variants = {k: it[k] for k in ('short', 'long') if isinstance(it.get(k), dict) and it[k].get('arabizi')}
             else:
-                rejected.append({'arabizi': it.get('arabizi'), 'why': v['bad_tokens'] or ('no A word' if not v['a'] else 'no B word')})
+                main = it; variants = {}
+            if not main.get('arabizi'):
+                continue
+            v = validate(main, m, A, B, wmap)
+            if v['ok'] and main['arabizi'] not in {x['arabizi'] for x in out}:
+                good = {}
+                for name, var in variants.items():
+                    vv = validate(var, m, A, B, wmap)
+                    if vv['ok']:
+                        good[name] = {'arabizi': var['arabizi'], 'arabic': var.get('arabic', ''), 'english': var.get('english', ''), 'keys': vv['keys']}
+                    else:
+                        rejected.append({'arabizi': var.get('arabizi'), 'why': (vv['bad_tokens'] or ('no A word' if not vv['a'] else 'no B word')), 'variant': name})
+                out.append({'arabizi': main['arabizi'], 'arabic': main.get('arabic', ''), 'english': main.get('english', ''), 'keys': v['keys'], 'source': 'suggested', 'variants': good})
+            else:
+                rejected.append({'arabizi': main.get('arabizi'), 'why': v['bad_tokens'] or ('no A word' if not v['a'] else 'no B word')})
             if len(out) >= n:
                 break
     return {'sentences': out[:n], 'rejected': rejected, 'list_a': A, 'list_b': B, 'usage': usage, 'cost_usd': cost_usd(usage), 'model': MODEL if usage else None}
@@ -228,7 +259,8 @@ def planner_payload(lesson_date, use_openai=True):
         if tb not in topics:
             topics.append(tb)
     sug = suggest_sentences(words, stats, rules, use_openai=use_openai)
-    cell = lambda k: {'key': k, 'arabizi': wmap[k]['arabizi'], 'arabic': wmap[k]['arabic'], 'english': wmap[k]['english'][:60]} if k in wmap else {'key': k}
+    stmap = {s['word_key']: s for s in stats}
+    cell = lambda k: {'key': k, 'arabizi': wmap[k]['arabizi'], 'arabic': wmap[k]['arabic'], 'english': wmap[k]['english'][:60], 'why': why_text(stmap.get(k) or {})} if k in wmap else {'key': k}
     return {'lesson_date': lesson_date, 'built': datetime.datetime.now().isoformat(timespec='seconds'), 'topics': list(TOPIC_MENU),
             'last_words': (last_topic or '').replace(" (last lesson's words)", ''), 'suggested': topics[:3],
             'repeat': [cell(k) for k in repeat_mix(sug['list_a'], sug['list_b'], 3)], 'menu': word_menu(words, stats, rules, per_group=40), 'menu_page': 8, 'sentences': [{**s, 'words': [cell(k) for k in s['keys']]} for s in sug['sentences']],

@@ -19,6 +19,7 @@ input,textarea{width:100%;font:18px system-ui;padding:12px;border:1px solid var(
 .saved{font-size:12px;color:var(--mute);min-height:16px;margin-top:6px}
 .grp{font-size:13px;color:var(--mute);margin:14px 0 6px;text-transform:uppercase;letter-spacing:.06em;font-weight:600} .grp span{font-weight:400}
 .btns button.word{text-align:left;min-height:52px} .btns button.word b{display:block} .btns button.word small{display:block;white-space:normal}
+.vars{margin-top:10px;border-top:1px solid var(--line);padding-top:8px;font-size:15px} .vars div{margin:6px 0} .vl{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);margin-inline-end:6px} .ar2{direction:rtl;unicode-bidi:isolate;margin-inline-start:6px} .en2{color:var(--mute);font-size:13px;margin-inline-start:6px}
 </style></head><body><main>
 <p class="who" id="who">Medi's app has 2 quick questions before today's lesson. Your choice always wins.</p>
 <p class="prog" id="prog"></p>
@@ -70,7 +71,7 @@ function build(p){
   const rep=p.repeat||[], menu=p.menu||null, PAGE=p.menu_page||8, GROUPS=[['verbs','Verbs'],['nouns','Nouns'],['adjectives','Adjectives'],['sayings','Sayings']];
   const pool=menu?Object.fromEntries(GROUPS.map(([g])=>[g,(menu[g]||[])])):{nouns:rep.slice(0,3)};
   const byKey={}; Object.values(pool).flat().forEach(w=>byKey[w.key]=w);
-  const wordBtn=(w,sel)=>`<button data-k="${esc(w.key)}" class="word${sel.has(w.key)?' sel':''}"><b>${esc(w.arabizi)}</b><small>${esc(w.arabic||'')}  ·  ${esc(w.english||'')}${w.why?'  ·  <i>'+esc(w.why)+'</i>':''}</small></button>`;
+  const wordBtn=(w,sel)=>`<button data-k="${esc(w.key)}" class="word${sel.has(w.key)?' sel':''}" title="${esc(w.why||'')}"><b>${esc(w.arabizi)}</b><small>${esc(w.arabic||'')}  ·  ${esc(w.english||'')}${w.why?'  ·  <i>'+esc(w.why)+'</i>':''}</small></button>`;
   S.push({prog:'2 of 2',html:`<h1>Words for today</h1><p class="sug">${menu?'Some Medi got wrong, some he has not heard in a long time. Tap the ones you want to use today. "Show other words" brings the next set; your taps stay.':'The app suggests these words Medi missed. Tap the ones you want, then Next.'}</p>
     <div id="groups"></div>
     <div class="btns" style="margin-top:10px">${menu?'<button id="more">Show other words ↻</button>':''}<button id="rgo" class="primary">Next</button></div><div class="saved" id="s3"></div>`,
@@ -85,7 +86,9 @@ function build(p){
       document.getElementById('rgo').onclick=()=>{ answers.repeat=[...sel]; [...sel].forEach(k=>rule('repeat',k,{picked:true,arabizi:(byKey[k]||{}).arabizi})); if(!sel.size) rule('repeat',null,{none:true}); save(); next(); }; }});
   (p.sentences||[]).forEach((s,i)=>{ const n=p.sentences.length;
     S.push({prog:`Sentence ${i+1} of ${n}`,html:`<h1>Keep this sentence?</h1><p class="sug">One of ${n} suggestions for today (each uses a word Medi got wrong plus one he has not heard in a while). Keep, drop, or edit it.</p>
-      <div class="card"><div class="big">${esc(s.arabizi)}</div><span class="ar">${esc(s.arabic||'')}</span><div class="en">${esc(s.english||'')}</div><div class="words">words: ${(s.words||[]).map(w=>esc(w.arabizi)).join(', ')}</div></div>
+      <div class="card"><div class="big">${esc(s.arabizi)}</div><span class="ar">${esc(s.arabic||'')}</span><div class="en">${esc(s.english||'')}</div>
+        ${s.variants&&(s.variants.short||s.variants.long)?`<div class="vars">${s.variants.short?`<div><span class="vl">shorter</span> <b>${esc(s.variants.short.arabizi)}</b> <span class="ar2">${esc(s.variants.short.arabic||'')}</span> <span class="en2">${esc(s.variants.short.english||'')}</span></div>`:''}${s.variants.long?`<div><span class="vl">longer</span> <b>${esc(s.variants.long.arabizi)}</b> <span class="ar2">${esc(s.variants.long.arabic||'')}</span> <span class="en2">${esc(s.variants.long.english||'')}</span></div>`:''}</div>`:''}
+        <div class="words">words: ${(s.words||[]).map(w=>`<span title="${esc(w.why||'')}">${esc(w.arabizi)}</span>`).join(', ')}</div></div>
       <div class="btns">${btn('Keep','', 'primary','k'+i)}${btn('Drop','', 'drop','d'+i)}${btn('Edit','', null,'e'+i)}</div>
       <div id="ebox${i}" style="display:none;margin-top:10px"><input id="ev${i}" value="${esc(s.arabizi)}" aria-label="edited sentence"><button id="eg${i}" class="primary" style="margin-top:8px">Save my version</button></div>`,
       wire(){ const pl={arabizi:s.arabizi,arabic:s.arabic,english:s.english,keys:(s.words||[]).map(w=>w.key)};
