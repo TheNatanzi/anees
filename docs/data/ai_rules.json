@@ -51,7 +51,8 @@
           "where": "planned: summary.json + Supabase",
           "status": "planned"
         }
-      ]
+      ],
+      "tab": "system"
     },
     {
       "title": "Who spoke",
@@ -77,7 +78,8 @@
           "where": "understand_lesson.apply_floor; build_report shows the dash",
           "status": "enforced"
         }
-      ]
+      ],
+      "tab": "system"
     },
     {
       "title": "What counts as a mistake",
@@ -117,7 +119,8 @@
           "where": "report wording; after-link verdicts re-score the event",
           "status": "enforced"
         }
-      ]
+      ],
+      "tab": "words"
     },
     {
       "title": "New words and buckets",
@@ -126,8 +129,8 @@
           "id": "N1",
           "rule": "'New' is inferred from the lesson, then confirmed by the Doc: a word Amal introduces (explains, spells, types) that is not in the Doc snapshot taken before the lesson = new (inferred); when it appears in the Doc afterwards = new (confirmed). Never a lesson-count heuristic.",
           "why": "Medi 2026-09-05: new words are not on the master list yet during the lesson and appear afterwards; the lesson itself shows whether he is learning or reviewing.",
-          "where": "planned: understand_lesson infers per word (Amal introduces + not in pre-lesson Doc) and per lesson (learning vs review); import_vocab diff confirms; rewrite buckets.py",
-          "status": "planned"
+          "where": "buckets.compute: new only if Amal typed the word/family in that lesson's chat or Medi asked for it, heard in that one lesson only, not drilled (built 2026-09-05: 7 new words for Sep 4, not 154). The 'not in the Doc before the lesson' check waits for the live Doc import (publish-to-web URL).",
+          "status": "partly"
         },
         {
           "id": "N2",
@@ -150,7 +153,8 @@
           "where": "buckets.py; cards default set",
           "status": "enforced"
         }
-      ]
+      ],
+      "tab": "words"
     },
     {
       "title": "Amal",
@@ -167,7 +171,8 @@
           "rule": "Amal's tap beats any machine label.",
           "why": "She is the ground truth.",
           "where": "apply_rules.py re-scores the exact event",
-          "status": "enforced"
+          "status": "enforced",
+          "tab": "words"
         },
         {
           "id": "A3",
@@ -183,7 +188,8 @@
           "where": "docs/ pages are public; no consent gate in code",
           "status": "enforced"
         }
-      ]
+      ],
+      "tab": "system"
     },
     {
       "title": "Numbers and publishing",
@@ -216,7 +222,8 @@
           "where": "pipeline_ext ledger",
           "status": "enforced"
         }
-      ]
+      ],
+      "tab": "system"
     },
     {
       "title": "Research method",
@@ -235,7 +242,12 @@
           "where": "planned: 5 lessons × 20 events gold set",
           "status": "planned"
         }
-      ]
+      ],
+      "tab": "system"
     }
-  ]
+  ],
+  "tabs": {
+    "system": "System rules: the mechanics (recording, transcribing, who spoke, publishing, numbers, research method)",
+    "words": "Word and grammar rules: what counts as a mistake, what is new, what Amal decides"
+  }
 }

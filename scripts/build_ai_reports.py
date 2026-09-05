@@ -11,7 +11,7 @@ DATA = ROOT / 'docs' / 'data' / 'ai_reports.json'
 OUT = ROOT / 'docs' / 'reports'
 NAV = ('<a class="tab" href="../index.html#today">Today</a><a class="tab" href="../index.html#lessons">Lessons</a><a class="tab" href="../index.html#words">Words</a>'
        '<a class="tab" href="../index.html#cards">Flashcards</a><a class="tab" href="../index.html#amal">Amal</a><a class="tab" href="../index.html#grammar">Grammar</a>'
-       '<a class="tab on" href="../index.html#ai-reports">AI reports</a><a class="tab" href="../index.html#ai-rules">AI rules</a><a class="tab" href="../index.html#future">Future projects</a>')
+       '<a class="tab on" href="../index.html#ai-reports">AI reports</a><a class="tab" href="../index.html#sys-rules">System rules</a><a class="tab" href="../index.html#word-rules">Word &amp; grammar rules</a><a class="tab" href="../index.html#future">Future projects</a>')
 CSS = ''':root{--bg:#F4F6F2;--bg2:#fff;--ink:#1B2620;--mute:#5B6A62;--line:#D6DDD8;--teal:#0F6E56;--amber:#B26F0E}
 @media(prefers-color-scheme:dark){:root{--bg:#0F1613;--bg2:#17211C;--ink:#E7EDE9;--mute:#9BAAA2;--line:#2A3630;--teal:#4FC4A2;--amber:#E7A93B}}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif}

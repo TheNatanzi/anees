@@ -5,8 +5,11 @@ the flashcards page carries the same rules in JS (docs/js/buckets.js) and this m
   cold      said unprompted in a lesson with no correction, or flashcard right first try
   shaky     right on second try, or said only after Amal said it (prompted)
   missed    Amal corrected it, Medi asked for it, or wrong twice in a row on cards
-  new       first heard in one of the last 3 lessons and not yet drilled (fewer than 3 first-try card rights on 2 different days);
-            new words never mix with missed words: they go through the strict review-and-repeat loop first
+  new       Amal INTRODUCED it in the one lesson where it has been heard (she typed it or its family in the chat, or Medi asked
+            for it), it was not in the Doc before that lesson (when a pre-lesson snapshot exists), and it is not yet drilled
+            (fewer than 3 first-try card rights on 2 different days). Heard again in a later lesson = review, not new.
+            Never "first heard in the last N lessons" (Medi 2026-09-05: that put 154 old words in 'new' and zeroed the rest).
+            New words never mix with missed words: they go through the strict review-and-repeat loop first
   never     no Medi signal yet (Amal may have said it: times_seen counts it)
 The latest signal (lesson event or card result) decides, except that the ice-cold streak rule is checked on cards first.
 Missed words and words learned in the last 3 lessons get weight 3 (cards, sentence suggestions, homework)."""
@@ -63,9 +66,14 @@ def _was_ice(cards):
     return b == 'ice_cold'
 
 
-def compute(word_events, card_results, lesson_dates, today=None):
-    """Returns {word_key: stats}. word_events rows need lesson_date, word_key, speaker, prompted, correction, t_start.
-    card_results rows need word_key, ts, result, attempt. lesson_dates = all lesson dates (ISO strings)."""
+def compute(word_events, card_results, lesson_dates, today=None, introduced=None, doc_before=None):
+    """Returns {word_key: stats}. word_events rows need lesson_date, word_key, speaker, prompted, correction, asked, t_start.
+    card_results rows need word_key, ts, result, attempt. lesson_dates = all lesson dates (ISO strings).
+    introduced = {(lesson_date, word_key)} Amal typed the word or its family in that lesson's chat (recompute_and_store builds it).
+    doc_before = {lesson_date: {word_key}} words present in the Doc snapshot taken BEFORE that lesson; a date missing from the
+    dict means "unknown" (no pre-lesson snapshot yet), so the Doc rule is skipped for it."""
+    introduced = set(introduced or ())
+    doc_before = doc_before or {}
     lesson_dates = sorted(set(str(d) for d in lesson_dates))
     recent_dates = set(lesson_dates[-RECENT_LESSONS:])
     ev_by = collections.defaultdict(list)
@@ -93,9 +101,12 @@ def compute(word_events, card_results, lesson_dates, today=None):
         first_lesson = str(evs[0]['lesson_date']) if evs else None
         lesson_signal = bucket
         drilled = streak >= NEW_DRILL_RIGHTS and len(days) >= NEW_DRILL_DAYS
-        if first_lesson and first_lesson in recent_dates and not drilled:
-            bucket = 'new'                                          # strict review first; the lesson signal is kept in lesson_signal
         seen_dates = sorted({str(e['lesson_date']) for e in evs})
+        introduced_here = bool(first_lesson) and ((first_lesson, key) in introduced
+                                                  or any(e.get('asked') for e in evs if str(e['lesson_date']) == first_lesson))
+        known_before = bool(first_lesson) and first_lesson in doc_before and key in doc_before[first_lesson]
+        if first_lesson and len(seen_dates) == 1 and introduced_here and not known_before and not drilled:
+            bucket = 'new'                                          # strict review first; the lesson signal is kept in lesson_signal
         last_reviewed = max([x for x in [seen_dates[-1] if seen_dates else None, str(cards[-1]['ts']) if cards else None] if x], default=None)
         recent = first_lesson in recent_dates if first_lesson else False
         out[key] = {'word_key': key, 'bucket': bucket, 'last_reviewed': last_reviewed, 'last_lesson': seen_dates[-1] if seen_dates else None,
@@ -107,13 +118,44 @@ def compute(word_events, card_results, lesson_dates, today=None):
     return out
 
 
+def introduced_from_chat(typed_rows, words=None):
+    """{(lesson_date, word_key)} for every Doc word Amal typed in a lesson chat, by exact/loose/skeleton match of the typed form
+    or by consonant family (Basa6tek -> the babse6 family), so a conjugation she typed counts for its Doc lemma."""
+    import re
+    from arabizi import Matcher
+    import understand_lesson as ul
+    words = words or ul.load_words()
+    m = Matcher(words)
+    fam = {}
+    for w in words:
+        fk = ul.doc_family(w)
+        if fk:
+            fam.setdefault(fk, set()).add(w['key'])
+    out = set()
+    for r in typed_rows:
+        d = str(r['lesson_date'])
+        for form in re.split(r'\s*/\s*|\n', str(r.get('text') or '')):
+            form = form.strip(' ?.,!')
+            if not form:
+                continue
+            k = m.match(form, fuzzy=False)
+            if k:
+                out.add((d, k))
+            fk = ul.family_key(form)
+            if len(fk) >= 3:
+                for k2 in fam.get(fk, ()):
+                    out.add((d, k2))
+    return out
+
+
 def recompute_and_store():
     """Reads word_events + card_results + lessons from Supabase, writes word_stats. Returns the stats dict."""
     import db
     evs = db.select('word_events', {'select': 'lesson_date,word_key,speaker,prompted,correction,asked,miss_kind,t_start'})
     cards = db.select('card_results', {'select': 'word_key,ts,result,attempt'})
     dates = [r['date'] for r in db.select('lessons', {'select': 'date'})]
-    stats = compute(evs, cards, dates)
+    typed = db.select('lesson_events', {'select': 'lesson_date,text', 'kind': 'eq.typed'})
+    stats = compute(evs, cards, dates, introduced=introduced_from_chat(typed))
     now = datetime.datetime.now(datetime.timezone.utc).isoformat()
     rows = []
     for s in stats.values():

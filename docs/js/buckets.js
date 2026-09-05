@@ -30,7 +30,9 @@
     if (parseInt(last.attempt || 1) > 1) return ['shaky', streak, days];
     return ['cold', streak, days];
   }
-  function compute(wordEvents, cardResults, lessonDates) {
+  function compute(wordEvents, cardResults, lessonDates, introduced, docBefore) {
+    // introduced: Set of `${lesson_date}|${word_key}` Amal typed in that lesson's chat; docBefore: {lesson_date: Set(word_key)} in the Doc before the lesson
+    introduced = introduced || new Set(); docBefore = docBefore || {};
     const dates = [...new Set(lessonDates.map(String))].sort();
     const recent = new Set(dates.slice(-RECENT_LESSONS));
     const evBy = {}, cdBy = {};
@@ -51,8 +53,10 @@
       const firstLesson = evs.length ? String(evs[0].lesson_date) : null;
       const lessonSignal = bucket;
       const drilled = streak >= NEW_DRILL_RIGHTS && days.length >= NEW_DRILL_DAYS;
-      if (firstLesson && recent.has(firstLesson) && !drilled) bucket = 'new';
       const seenDates = [...new Set(evs.map(e => String(e.lesson_date)))].sort();
+      const introducedHere = !!firstLesson && (introduced.has(firstLesson + '|' + key) || evs.some(e => String(e.lesson_date) === firstLesson && e.asked));
+      const knownBefore = !!firstLesson && !!docBefore[firstLesson] && docBefore[firstLesson].has(key);
+      if (firstLesson && seenDates.length === 1 && introducedHere && !knownBefore && !drilled) bucket = 'new';
       const lastReviewed = [seenDates[seenDates.length - 1], cards.length ? String(cards[cards.length - 1].ts) : null].filter(Boolean).sort().pop() || null;
       const isRecent = firstLesson ? recent.has(firstLesson) : false;
       out[key] = { word_key: key, bucket, last_reviewed: lastReviewed, seen_lessons: seenDates.length, times_seen: evs.length,

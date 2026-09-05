@@ -17,6 +17,7 @@ def test_ai_rules_json_is_complete():
             assert r['status'] in ('enforced', 'partly', 'planned'), r
             ids.append(r['id'])
     assert len(ids) == len(set(ids)), 'rule ids must be unique'
+    assert all(g.get('tab') in ('system', 'words') for g in j['groups']), 'every group is a System or a Word rule'
     assert any(r['id'] == 'N1' and 'Amal' in r['rule'] for g in j['groups'] for r in g['rules']), "the 'new' rule must name Amal as the source"
 
 
@@ -37,8 +38,8 @@ def test_ai_reports_json_and_pages():
 
 def test_tabs_present_everywhere():
     idx = (DOCS / 'index.html').read_text(encoding='utf-8')
-    for tab in ('ai-reports', 'ai-rules'):
+    for tab in ('ai-reports', 'sys-rules', 'word-rules'):
         assert f'data-tab="{tab}"' in idx and f'id="tab-{tab}"' in idx
     for f in (ROOT / 'scripts' / 'lesson_pipeline.py', ROOT / 'scripts' / 'build_report.py', DOCS / 'cards.html', ROOT / 'scripts' / 'build_ai_reports.py'):
         t = f.read_text(encoding='utf-8')
-        assert 'index.html#ai-reports' in t and 'index.html#ai-rules' in t, f.name
+        assert 'index.html#ai-reports' in t and 'index.html#sys-rules' in t and 'index.html#word-rules' in t, f.name

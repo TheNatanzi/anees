@@ -57,7 +57,7 @@ def test_tabs_dark_light_and_search_speed():
     with sync_playwright() as pw:
         b = pw.chromium.launch(args=['--allow-file-access-from-files']); pg = b.new_page(viewport={'width': 375, 'height': 812}); pg.goto(url)
         pg.wait_for_function('AneesIndex.words.length > 2000', timeout=30000)
-        for tab in ['today', 'lessons', 'words', 'cards', 'amal', 'grammar', 'ai-reports', 'ai-rules', 'future']:
+        for tab in ['today', 'lessons', 'words', 'cards', 'amal', 'grammar', 'ai-reports', 'sys-rules', 'word-rules', 'future']:
             pg.click(f'.tab[data-tab="{tab}"]')                       # 1 tap from anywhere
             assert pg.evaluate(f"document.getElementById('tab-{tab}').classList.contains('on')")
             assert pg.evaluate('document.documentElement.scrollWidth') <= 375

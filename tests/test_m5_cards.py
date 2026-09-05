@@ -80,12 +80,27 @@ def test_ice_cold_promotion_and_demotion_python():
     # later cards win over an earlier lesson signal; a later lesson wins over earlier cards
     st = buckets.compute(ev, [{'word_key': 'x', 'ts': '2026-09-05T10:00:00Z', 'result': 'missed', 'attempt': 1}, {'word_key': 'x', 'ts': '2026-09-05T10:01:00Z', 'result': 'missed', 'attempt': 1}], D)
     assert st['x']['bucket'] == 'missed'
-    # a word first heard in the LAST lesson is 'new' whatever it did, until 3 first-try rights on 2 days
-    nw = [{'lesson_date': '2026-09-04', 'word_key': 'n', 'speaker': 'Medi', 'prompted': False, 'correction': False, 't_start': 1}]
-    assert buckets.compute(nw, [], D)['n']['bucket'] == 'new' and buckets.compute(nw, [], D)['n']['lesson_signal'] == 'cold'
+    # 'new' (Medi 2026-09-05) = Amal introduced it in the ONE lesson it was heard: she typed it in the chat or Medi asked for it,
+    # it was not in the Doc before that lesson, and it is not drilled yet. Merely being heard in a recent lesson is NOT new.
+    nw = [{'lesson_date': '2026-09-04', 'word_key': 'n', 'speaker': 'Medi', 'prompted': False, 'correction': False, 'asked': False, 't_start': 1}]
+    assert buckets.compute(nw, [], D)['n']['bucket'] == 'cold', 'heard once, nobody introduced it: not new'
+    intro = {('2026-09-04', 'n')}
+    st = buckets.compute(nw, [], D, introduced=intro)['n']
+    assert st['bucket'] == 'new' and st['lesson_signal'] == 'cold'
+    nw[0]['asked'] = True
+    assert buckets.compute(nw, [], D)['n']['bucket'] == 'new', 'Medi asked for it = introduced'
+    assert buckets.compute(nw, [], D, doc_before={'2026-09-04': {'n'}})['n']['bucket'] == 'missed', 'in the Doc before the lesson = not new (asked -> missed)'
     cards = [{'word_key': 'n', 'ts': f'2026-09-0{d}T10:00:00Z', 'result': 'got', 'attempt': 1} for d in (5, 5, 6)]
     assert buckets.compute(nw, cards, D)['n']['bucket'] == 'cold'
     assert buckets.compute(nw, cards[:2], D)['n']['bucket'] == 'new'
+    again = nw + [{'lesson_date': '2026-09-11', 'word_key': 'n', 'speaker': 'Medi', 'prompted': False, 'correction': False, 'asked': False, 't_start': 1}]
+    assert buckets.compute(again, [], D + ['2026-09-11'])['n']['bucket'] == 'cold', 'heard again in a later lesson = review'
+    # chat forms map to Doc keys by exact match or consonant family (a typed conjugation counts for its lemma)
+    W = [{'key': 'ana babse6', 'arabizi': 'Ana babse6', 'arabic': 'أنا ببسط', 'english': 'I cause happiness', 'aliases': []},
+         {'key': 'na7el', 'arabizi': 'Na7el', 'arabic': 'نحل', 'english': 'Bees', 'aliases': []},
+         {'key': 'kalb', 'arabizi': 'Kalb', 'arabic': 'كلب', 'english': 'Dog', 'aliases': []}]
+    got = buckets.introduced_from_chat([{'lesson_date': '2026-09-04', 'text': 'Na7el'}, {'lesson_date': '2026-09-04', 'text': 'Basa6tek?'}], words=W)
+    assert ('2026-09-04', 'na7el') in got and ('2026-09-04', 'ana babse6') in got and not any(k == 'kalb' for _, k in got)
 
 
 def test_js_buckets_parity_with_python():
