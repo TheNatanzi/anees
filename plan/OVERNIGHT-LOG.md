@@ -377,3 +377,23 @@ findings (if any) go to the next chat. M0 was covered by the full-repo audit's s
 - Council: M2 8/10, M4 8/10, M5 8/10, M8 8/10 ✔
 - Checklist executed once by the run (15/15) ✔ · both Amal links minted, NOT sent ✔ · both lesson reports emailed to Medi ✔
 - One flaky test noted: a live-network test failed once in a 4-minute full run and passed on every re-run (5 full runs green).
+
+## M9 — Miss classifier + shared menu  (08:40 → 09:00, Medi's request after the checklist)
+Built: `scripts/miss_kind.py` — every possible miss gets a kind: word · article (el-) · gender · tense · plural · pronunciation · unclear.
+Signals: (2) Medi's spoken form vs the Doc form (الأكتر vs أكتر = extra ال → article; ة/ه swap → gender; plural suffix → plural),
+(1) Amal's words in the 8 s after ("No أل", "feminine", "past", "plural", "pronounce", "means"), (3) Amal's own tap on the after
+link (buttons are now Right · Wrong word · Wrong grammar · Not Medi) which always wins (apply_rules writes miss_kind). Optional
+gpt-5.5 fallback only for 'unclear' with ≥ 8 English words from Amal, capped at 10 per lesson, through the budget ledger (off tonight).
+Effect: a grammar-only slip no longer buckets the WORD as missed (it stays cold/shaky) and counts as a grammar slip instead
+(word_stats.grammar_misses / grammar_kinds; Python and JS agree). Report pages: "Words you missed" vs "Grammar slips" with the kind
+tag and why; Words tab: "Grammar slips" filter + amber tag; history rows show the kind. Migration 005 applied.
+```
+python -m pytest -q tests/test_m9_miss_kind.py → 6 passed
+real Sep 4 61:23 Aktar (الأكتر, Amal: "No أل just أكتر إشي") → article ✔ · 02:15 a7san (الأحسن) → article ✔
+Sep 4 kinds: article 4 · word 2 · unclear 2 → report: 4 word misses + 4 grammar slips (was 8 misses)
+Aug 25 kinds: unclear 19 · article 1 · word 1 (Amal's reactions there are mostly plain repeats: 'unclear' stays unclear, never guessed)
+full suite: 72 passed
+```
+UI (Medi: "the menu disappears for the report … aligning and more centered"): one shared sticky header + menu on index, cards
+(standalone), report and transcript pages, all inside the same centered 820-px container; the active tab is highlighted; the
+Flashcards iframe hides its own copy. Codex UI/UX audit launched (results in the next chat if still running).
