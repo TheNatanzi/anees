@@ -109,6 +109,19 @@ Build: pipeline tests (failed split, missing chat, git push failure, ElevenLabs 
 Gate: `pytest` ≥ 40 tests green; the checklist executed once by the run itself with output pasted; Codex full-repo audit with 0 open P0; council final ≥ 8/10.
 Sign-off: Codex + council.
 
+### M9 — WhatsApp chat as the second source (added 2026-09-05 12:40, after Medi exported the chat)
+Source: `data/whatsapp/raw/` (git-ignored, private): 12,205 lines, Sep 6 2025 → Sep 5 2026; 8,746 Amal lines, 2,443 Medi lines; 142 Quizlet links; 98 Amal voice notes (.opus); 54 photos.
+Finding that changes the design: **Amal live-types every drill sentence into the chat during the Meet** (one line per ~1 min, e.g. 3/13/26 13:39–14:18 = 40 sentences on 7ukk / 7arrek / 7re2), then after class posts 5–8 English prompts; Medi answers in Arabizi; she corrects. Vocab itself is NOT re-mined here (Medi: "all the vocab is on my list").
+
+Build, three pieces, each its own gate:
+- **M9a — House spelling.** Parse Amal's lines into a spelling table (her Arabizi form → Doc word id, via the M0 loose matcher). Her form becomes the display spelling everywhere Anees prints a word; Scribe's form stays as the match key only.
+  Gate: ≥ 90 % of Doc words that appear in her lines get a spelling; 30 random rows hand-checked by Medi = 30/30 same word; Words tab shows her form.
+- **M9b — Chat as lesson transcript.** For each lesson date, align her drill lines (timestamp) to the recording's timeline; store as `chat_utterances` rows (speaker = tutor, source = whatsapp, text, ts). Use them as ground truth: the Scribe eval and the M1 miss classifier read them as "the tutor's model sentence at minute N"; a learner utterance right after a typed model sentence with a different form = candidate miss.
+  Gate: Sep 4 and Aug 25 re-run with chat lines; miss list changes are listed with the chat line that caused each; Medi accepts ≥ 8/10 of a random 10; no chat line is ever shown as Medi's speech.
+- **M9c — Text homework loop + her style.** (1) M6 homework items are generated **in her drill style** (one root, cycle person / tense / negation / command, English prompt lines like "Did he upset you when he did this?"), with the 8,746 lines as few-shot examples. (2) When Medi answers a prompt in chat (pasted or, later, exported), Anees pre-grades: root right / prefix wrong / word order / missing preposition, in one line each, **before** Amal replies; her correction, when it comes, is the verdict that scores the event row (M4 rules apply: her choice always wins, "suggest" on every screen).
+  Gate: 10 real Sep 3–4 prompts → Anees prompts judged "sounds like Amal" by Medi ≥ 8/10; 10 real Medi answers → pre-grade agrees with Amal's actual correction ≥ 8/10; 0 items use untaught words.
+Sign-off: Codex on M9a/M9b; Medi grill on M9c before build (open question: homework help for Medi only, or also ready-made drills handed to Amal?).
+
 ## 4. Amal UX rules (apply to M3, M4, M6; violating one fails the gate)
 
 - English UI, her Arabizi for words, Arabic script as a small second line.
