@@ -231,5 +231,5 @@ def planner_payload(lesson_date, use_openai=True):
     cell = lambda k: {'key': k, 'arabizi': wmap[k]['arabizi'], 'arabic': wmap[k]['arabic'], 'english': wmap[k]['english'][:60]} if k in wmap else {'key': k}
     return {'lesson_date': lesson_date, 'built': datetime.datetime.now().isoformat(timespec='seconds'), 'topics': list(TOPIC_MENU),
             'last_words': (last_topic or '').replace(" (last lesson's words)", ''), 'suggested': topics[:3],
-            'repeat': [cell(k) for k in repeat_mix(sug['list_a'], sug['list_b'], 3)], 'menu': word_menu(words, stats, rules), 'sentences': [{**s, 'words': [cell(k) for k in s['keys']]} for s in sug['sentences']],
+            'repeat': [cell(k) for k in repeat_mix(sug['list_a'], sug['list_b'], 3)], 'menu': word_menu(words, stats, rules, per_group=40), 'menu_page': 8, 'sentences': [{**s, 'words': [cell(k) for k in s['keys']]} for s in sug['sentences']],
             'meta': {'list_a': sug['list_a'], 'list_b': sug['list_b'], 'rejected': sug['rejected'], 'model': sug['model'], 'cost_usd': sug['cost_usd'], 'usage': sug['usage']}}

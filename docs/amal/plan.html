@@ -73,14 +73,22 @@ function build(p){
     wire(){ document.getElementById('nw0').onclick=()=>{answers.new_words=[]; rule('new_words',null,{words:[]}); save(); next();};
       document.getElementById('nw1').onclick=()=>{document.getElementById('nwbox').style.display='block';};
       document.getElementById('nwgo').onclick=()=>{const ws=document.getElementById('nw').value.split(/\n/).map(x=>x.trim()).filter(Boolean); answers.new_words=ws; rule('new_words',null,{words:ws}); save(); next();}; }});
-  const rep=p.repeat||[], menu=p.menu||null, GROUPS=[['verbs','Verbs'],['nouns','Nouns'],['adjectives','Adjectives'],['sayings','Sayings']];
-  const cells=menu?GROUPS.flatMap(([g,label])=>(menu[g]||[]).map(w=>({...w,g}))):rep.slice(0,3).map(w=>({...w,g:'nouns'}));
-  const wordBtn=(w,i)=>`<button id="w${i}" class="word"><b>${esc(w.arabizi)}</b><small>${esc(w.arabic||'')}  ·  ${esc(w.english||'')}${w.why?'  ·  <i>'+esc(w.why)+'</i>':''}</small></button>`;
-  S.push({prog:'3 of 3',html:`<h1>Words for today</h1><p class="sug">${menu?'About 30 words: some Medi got wrong, some he has not heard in a long time. Tap the ones you want to use today, then Next.':'The app suggests these words Medi missed. Tap the ones you want, then Next.'}</p>
-    ${GROUPS.map(([g,label])=>{const cs=cells.map((w,i)=>[w,i]).filter(([w])=>w.g===g); return cs.length?`<div class="grp">${label} <span>(${cs.length})</span></div><div class="btns">${cs.map(([w,i])=>wordBtn(w,i)).join('')}</div>`:'';}).join('')}
-    <button id="rgo" class="primary" style="margin-top:14px">${cells.length?'Next':'Nothing special, next'}</button><div class="saved" id="s3"></div>`,
-    wire(){ const sel=new Set(); cells.forEach((w,i)=>{const b=document.getElementById('w'+i); if(b) b.onclick=()=>{ if(sel.has(w.key)){sel.delete(w.key);b.classList.remove('sel');}else{sel.add(w.key);b.classList.add('sel');} document.getElementById('s3').textContent=sel.size?sel.size+' picked':''; };});
-      document.getElementById('rgo').onclick=()=>{answers.repeat=[...sel]; [...sel].forEach(k=>rule('repeat',k,{picked:true})); if(!sel.size) rule('repeat',null,{none:true}); save(); next();}; }});
+  const rep=p.repeat||[], menu=p.menu||null, PAGE=p.menu_page||8, GROUPS=[['verbs','Verbs'],['nouns','Nouns'],['adjectives','Adjectives'],['sayings','Sayings']];
+  const pool=menu?Object.fromEntries(GROUPS.map(([g])=>[g,(menu[g]||[])])):{nouns:rep.slice(0,3)};
+  const byKey={}; Object.values(pool).flat().forEach(w=>byKey[w.key]=w);
+  const wordBtn=(w,sel)=>`<button data-k="${esc(w.key)}" class="word${sel.has(w.key)?' sel':''}"><b>${esc(w.arabizi)}</b><small>${esc(w.arabic||'')}  ·  ${esc(w.english||'')}${w.why?'  ·  <i>'+esc(w.why)+'</i>':''}</small></button>`;
+  S.push({prog:'3 of 3',html:`<h1>Words for today</h1><p class="sug">${menu?'Some Medi got wrong, some he has not heard in a long time. Tap the ones you want to use today. "Show other words" brings the next set; your taps stay.':'The app suggests these words Medi missed. Tap the ones you want, then Next.'}</p>
+    <div id="groups"></div>
+    <div class="btns" style="margin-top:10px">${menu?'<button id="more">Show other words ↻</button>':''}<button id="rgo" class="primary">Next</button></div><div class="saved" id="s3"></div>`,
+    wire(){ const sel=new Set(answers.repeat||[]); let page=0;
+      const render=()=>{ document.getElementById('groups').innerHTML=GROUPS.map(([g,label])=>{ const all=pool[g]||[]; if(!all.length) return ''; const start=(page*PAGE)%all.length; const show=all.slice(start,start+PAGE).concat(start+PAGE>all.length?all.slice(0,start+PAGE-all.length):[]);
+          const picked=all.filter(w=>sel.has(w.key)&&!show.some(x=>x.key===w.key));   // keep picked words visible even when the page moves on
+          return `<div class="grp">${label} <span>(${show.length} of ${all.length})</span></div><div class="btns">${picked.concat(show).map(w=>wordBtn(w,sel)).join('')}</div>`; }).join('');
+        document.querySelectorAll('#groups button.word').forEach(b=>b.onclick=()=>{ const k=b.dataset.k; if(sel.has(k)) sel.delete(k); else sel.add(k); b.classList.toggle('sel',sel.has(k)); answers.repeat=[...sel]; LS(AK,answers); document.getElementById('s3').textContent=sel.size?sel.size+' picked':''; });
+        document.getElementById('s3').textContent=sel.size?sel.size+' picked':''; };
+      render();
+      const more=document.getElementById('more'); if(more) more.onclick=()=>{ page++; render(); window.scrollTo(0,0); };
+      document.getElementById('rgo').onclick=()=>{ answers.repeat=[...sel]; [...sel].forEach(k=>rule('repeat',k,{picked:true,arabizi:(byKey[k]||{}).arabizi})); if(!sel.size) rule('repeat',null,{none:true}); save(); next(); }; }});
   (p.sentences||[]).forEach((s,i)=>{ const n=p.sentences.length;
     S.push({prog:`Sentence ${i+1} of ${n}`,html:`<h1>Keep this sentence?</h1><p class="sug">One of ${n} suggestions for today (each uses a word Medi got wrong plus one he has not heard in a while). Keep, drop, or edit it.</p>
       <div class="card"><div class="big">${esc(s.arabizi)}</div><span class="ar">${esc(s.arabic||'')}</span><div class="en">${esc(s.english||'')}</div><div class="words">words: ${(s.words||[]).map(w=>esc(w.arabizi)).join(', ')}</div></div>
