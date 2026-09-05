@@ -4,6 +4,8 @@ Started 2026-09-05 at Medi's request ("become an expert Levantine Arabic teacher
 
 **Status: v3 (merged, 2026-09-05).** v2 was Claude's sourced research pass; Codex wrote an independent report blind to this page (`C:\Users\Mahdi\Documents\Codex\2026-09-04\do\outputs\teacher-brain-codex-2026-09-05.md`, 66 KB, 16 outside sources). v3 = the two compared section by section (table in F) and merged: Codex's sources and safeguards added to B, C, G and I; two of Codex's lesson plans added to E; Amal's Docs stay the top authority throughout. Section A is ground truth from Amal's two Docs and the two recorded lessons.
 
+**Purpose (Medi, 2026-09-05, overrides everything below):** this page exists so Claude knows the rules Medi breaks and keeps a **running tally of his mistakes** (section K). Most slips are review debt: a rule Amal already taught that has not been reviewed since. The output for Amal is the tally, so she can inject a review into **her own** lesson plans. Claude never writes plans for her and never pushes grammar questions at her; section E is internal drill reference only.
+
 Standard of proof used on this page:
 - **Amal's Docs beat any textbook** (rule A2). Where they differ, the Doc wins and the textbook is noted.
 - Every outside claim has a URL. Claims are tagged **[sourced]** or **[teacher judgment]**.
@@ -93,11 +95,11 @@ Why Codex saw fewer slips: it was allowed only `understanding.json` (Doc-word ev
 - Each unit gets a one-line Arabizi rule and one Amal example on the Grammar tab (already there for the Materials Doc units; sections B rows 1, 6, 7, 13 need Amal's own examples first).
 - Order of attack for Medi **[teacher judgment]**: C1 + C2 together (they are one rule: bare verb after lamma / iza / modals, and ykoon is just a verb), then C3 (el-), then C4 / C5 (agreement + pointer), then C7 as a 5-minute warm-up in every lesson.
 
-## E. Lesson-plan library — twelve 60-minute plans in Amal's shape (ten core + two from Codex)
+## E. Internal drill reference (never sent to Amal) — twelve 60-minute outlines in her shape
 
-Shape (observed Sep 4, minutes are a proposal **[teacher judgment]**): 0–5 warm-up in Arabic (last lesson's words) · 5–12 English explanation of the one grammar unit · 12–20 Amal models 3 sentences, Medi repeats each · 20–30 Amal types the forms in chat, Medi reads them back · 30–42 drill through persons (ana / inta / inti / huwwe / heyye / i7na / intu / humme) · 42–55 conversation using the unit (Amal asks, Medi answers in full sentences) · 55–60 Amal names the two slips to work on; homework = the after-link sheet.
+Kept only so Claude can recognise which unit a slip belongs to and what a review of it looks like; Amal plans her own lessons. Shape (observed Sep 4, minutes are a proposal **[teacher judgment]**): 0–5 warm-up in Arabic (last lesson's words) · 5–12 English explanation of the one grammar unit · 12–20 Amal models 3 sentences, Medi repeats each · 20–30 Amal types the forms in chat, Medi reads them back · 30–42 drill through persons (ana / inta / inti / huwwe / heyye / i7na / intu / humme) · 42–55 conversation using the unit (Amal asks, Medi answers in full sentences) · 55–60 Amal names the two slips to work on; homework = the after-link sheet.
 
-Target words are copied from the Doc (topic in brackets). In "Listen for", a form marked ✗ is a **wrong** form I composed to describe the expected slip; it is not Arabic to teach and needs Amal's check that it is indeed wrong. Example sentences: **[Doc]** = from Amal's Materials Doc or vocabulary Doc, **[Amal, lesson]** = she said or typed it in a recorded lesson, **[needs Amal's check]** = my composition, not to be shown to Medi until she approves.
+Target words are copied from the Doc (topic in brackets). In "Listen for", a form marked ✗ is a **wrong** form I composed to describe the expected slip; it is not Arabic to teach. "needs Amal's check" is an internal flag meaning "unverified form", not a question to send her. Example sentences: **[Doc]** = from Amal's Materials Doc or vocabulary Doc, **[Amal, lesson]** = she said or typed it in a recorded lesson, **[needs Amal's check]** = my composition, not to be shown to Medi until she approves.
 
 ### Plan 1 — Bare verb after lamma / iza, with akoon / ykoon (units C1 + C2, rule M6)
 - Target words [Sentence Toolbox, Adjectives, Time]: Lamma, Iza, ra7, Ta3baan, Za3laan, Mabsoo6, Ju3aan, Mertaa7, Qalqaan, Na3saan, Mitdaayeq, M3asseb, Bukra, Kul yoam, Marrat.
@@ -266,8 +268,29 @@ Two lines in the Materials Doc to ask Amal about (Codex's catch, F6): "Hadi el-b
 
 Not reached this pass (403 / 404): Routledge tables of contents, Amazon look-inside for *Shou fi ma fi?* and Isleem, Sijal's Levantine syllabus (task-based, not enumerated), the UW-Madison relative-clause thesis, the Reading thesis on pharyngeals. None of the rankings above rests on them.
 
+## K. Medi's mistake tally — review debt for Amal (running; update after every lesson)
+
+How to read it: **Rule** = Amal's own unit. **Taught** = where she taught it (Doc section or lesson). **Slips** = verified moments (transcript [mm:ss]; "ask" = Medi caught it himself and asked). **Review due** = learned once, slipped since, not reviewed. Amal decides how and when to review; this table only says what is slipping.
+
+| # | Rule (Amal's unit) | Taught | Medi's slips | Count | Review due? |
+|---|---|---|---|---|---|
+| 1 | b- drops after laazem / biddi / lamma (Materials Doc "b prefix elimination") | Doc; drilled Sep 4 [58:11] "betenbesti lamma nitla" | Aug 25 [04:51] laazem + past ("who لازم اشتغلت") → "كان لازم أشتغل"; Aug 25 [55:28] "لما بزهأ" → "لما أزهأ"; Sep 4 [61:53] "لما بكون" → "لما أكون" | 3 | **yes** (slipped in both lessons) |
+| 2 | bakoon / ykoon: person and meaning (Materials Doc "Use of Bakoon") | Doc | Aug 25 [43:42] "يكونوا أهل" → "نكون"; Sep 4 [26:38] "akun sayye'" → "baseer sayye'" (becoming, not being) | 2 | **yes** |
+| 3 | No el- on aktar / a7san + eshi (Materials Doc "Pointer rule") | Doc; Amal modelled "أكتر إشي بيتعبك" Aug 25 [18:22] | Sep 4 [02:15] "الأحسن" → "أحسن"; Sep 4 [61:23] "الأكتر إشي" → "أكتر إشي" | 2 | **yes** (taught Aug 25, slipped twice Sep 4) |
+| 4 | hada / hadi gender (Doc Adjectives: Hada, Hadi) | Doc | Sep 4 [58:56] "hadi el-fe3el" → "hada" | 1 | yes |
+| 5 | Pointer pronoun -o / -ha after a fronted object (Materials Doc "Pointer rule") | Doc | Sep 4 [61:29] ask ("do I have to say إلي?") then right at [61:50] | 0 + 1 ask | watch |
+| 6 | babse6 (make happy) vs banbese6 (get happy) (Doc "Causative Verbs"; taught Sep 4) | Sep 4 whole lesson | Sep 4 1866 s "babysit", 1977 s "bibsit", 3012 s "banbesit", [62:23] "بيسبط" → "ببسّط"; Aug 25 [32:40] "ببسطها. I hate this verb" | 4 | **yes** (new Sep 4; first review pending) |
+| 7 | Preposition after the verb: ba6lub **min** (Doc "Ana ba6lub (min)") | Doc | Aug 25 [20:20] "أطلبهم / أطلب لهم؟" → "أطلب منهم" | 1 | yes |
+| 8 | wala vs aw (Doc Toolbox: Wla, Aw) | Doc | Aug 25 [56:02] ask ("what is ولا?") → Amal: options | 0 + 1 ask | watch |
+| 9 | Sounds ع ط غ (no Doc unit) | never as a unit | Sep 4 [58:15] "nitla" for ne6la3; Sep 4 [00:59] "Luka" for lu8a; Aug 25 [55:12] "أزآن" for زهآن | 3 candidates (audio needed) | Amal's call |
+| 10 | Word choice, not grammar (wa2et **taweel** not kteer, Aug 25 [32:19]; kaan, 3018 s) | Doc | classifier 'choice' labels: Aug 25 = 9, Sep 4 = 1 (machine labels, unverified) | 10 (machine) | vocabulary loop, not this table |
+
+Totals after 2 lessons (Aug 25, Sep 4): **13 verified grammar slips on 7 learned rules**, 2 self-caught asks, 3 pronunciation candidates. Rules 1–3 carry 7 of the 13: bare verb after lamma / laazem, ykoon, and el- on superlatives. Those three are the review debt.
+
+Not counted, by rule: pauses (M7), Medi's spelling (M1), anything without Amal's recast or Medi's ask (M1).
+
 ## J. Next
 
-1. Amal to check, on her next planner link: the ykoon boundary (F4), the chain scope (F5), "Hadi el-blooze kum" (F6), 3am (F7), and the eight "needs Amal's check" drills / sentences (Plans 2, 4, 6, 7, 8, 10, 12).
-2. Build G1–G3 and G5–G6 first (C1–C3 and C5, the four most frequent slips), **on the transcript**; re-run both lessons and count how many of the 24 corrections plus the four transcript-only slips get a named pattern.
-3. First lesson to run: **Plan 1** (bare verb + akoon after lamma / iza), because it is Medi's own named hard point (M6) and both lessons show it.
+1. After every lesson: add the new slips to K with timestamps, recount, and push the "review due" rows to the site's Amal tab as "rules slipping since you taught them" (her call what to do with it). Never a plan, never a question list.
+2. Build classifier rows G1–G3 and G5 on the transcript so K fills itself; re-run Aug 25 and Sep 4 and check the machine count matches the 13 above.
+3. Lesson of 2026-09-05 (two clean tracks, see memory "Recall bot works"): run it through the same tally as soon as the per-track transcript exists.
