@@ -55,15 +55,14 @@ def is_arabic_lesson(mp3, d):
 
 
 def transcribe(mp3):
+    """ElevenLabs Scribe v2 with 3 retries on 429/5xx (5 / 20 / 60 s) and the paid-call ledger + 90 % budget stop (pipeline_ext)."""
+    import pipeline_ext as px
     key = os.environ.get('ELEVENLABS_API_KEY') or sys.exit('MISSING ELEVENLABS_API_KEY')
-    with open(mp3, 'rb') as f:
-        r = requests.post('https://api.elevenlabs.io/v1/speech-to-text', headers={'xi-api-key': key},
-                          data={'model_id': 'scribe_v2', 'diarize': 'true', 'num_speakers': '2',
-                                'timestamps_granularity': 'word', 'tag_audio_events': 'true'},
-                          files={'file': (mp3.name, f, 'audio/mpeg')}, timeout=1800)
-    if r.status_code != 200:
-        raise RuntimeError(f'ElevenLabs {r.status_code}: {r.text[:300]}')
-    return r.json()
+    try:
+        minutes = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', str(mp3)], capture_output=True, text=True).stdout.strip() or 0) / 60
+    except Exception:
+        minutes = 65.0
+    return px.transcribe_with_retry(requests.post, mp3, key, minutes)
 
 
 CHAT_LINE = re.compile(r'^([A-Za-z][\w .-]{0,40}):\s?(.*)$')
@@ -272,6 +271,12 @@ def process(src, date, hhmm, reuse=None, send=True, force=False):
     summary['link'] = link
     if send:
         email(summary, link)
+    # M8: understanding → report (+ email) → Amal after-link payload (never sent). Guarded: a failure emails Medi, the transcript stays.
+    try:
+        import pipeline_ext as px
+        summary['post'] = px.post_process(date, scribe=reuse, audio=str(d / 'audio.mp3') if (d / 'audio.mp3').exists() else None, src=str(src), send_email=send, log=log)
+    except Exception as e:
+        log('post_process crashed', e)
     return summary
 
 
@@ -297,6 +302,11 @@ def main():
         except Exception as e:
             log('FAILED', src.name, e)
             state[src.name] = {'date': date, 'failed': str(e)[:200], 'done': datetime.datetime.now().isoformat(timespec='seconds')}
+            try:
+                import pipeline_ext as px
+                px.failure_email(f'Anees: lesson {date} pipeline failed', str(e), date)     # Medi only, never Amal
+            except Exception as e2:
+                log('failure email failed', e2)
         STATE.write_text(json.dumps(state, indent=1), encoding='utf-8')
 
 

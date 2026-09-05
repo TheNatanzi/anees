@@ -246,3 +246,37 @@ ice-cold: 5 first-try rights on 3 days → ice_cold; one miss → cold; two miss
 phone 375×812 AND desktop 1280×800: flip / toggle / shuffle / replay end to end against live Supabase; buttons ≥ 48 px; no horizontal scroll
 offline: 20 answers with the network off → queue 20 → online → 20 rows in Supabase; the same 20 ids replayed → still 20 (0 duplicates)
 ```
+
+## M7 — One interface  (05:15 → 05:55)
+Built: `docs/index.html` (tabs Today · Lessons · Words · Flashcards · Amal · Grammar · Future projects; hash routing; same design
+system), `docs/js/arabizi.js` (JS port of the normaliser, parity-tested against Python on 20 forms), Words tab = search as you
+type across Arabizi (loose / fold / short / skeleton / prefix), English (exact > first meaning > word > substring) and Arabic
+(normalised, al- optional); every row = word · Arabic · English · topic · bucket badge · last reviewed (or "never") · seen · missed;
+filters bucket + topic; sort last reviewed / times missed / Doc order; tap → history (every lesson clip with ▶ + card results);
+Supabase-down = localStorage cache → docs/data/words.json + amber banner; `scripts/build_grammar.py` → Grammar tab (8 sections
+of Amal's past-tense explanations) + wiki links; Future projects = the 4 items.
+Gate:
+```
+python -m pytest -q tests/test_m7_index.py -s
+4 passed in 4.01s
+tabs: all 7 reachable in 1 tap (375 px, no horizontal scroll); dark + light differ
+no dead links: crawler over every docs/**/*.html href/src (relative files exist; external HEAD 200)
+Supabase down (route aborted, served over http): banner shown, 2,120 words from the saved copy, search still works
+Words search: 20/20 queries (10 Medi spellings, 5 English, 5 Arabic) hit the right word in the top 3; slowest 8.1 ms (< 100 ms)
+every row shows a bucket badge and a last-reviewed date or "never"
+LIGHTHOUSE mobile performance 91 accessibility 100   (npx lighthouse 13.4.1, mobile emulation, live Pages URL)
+```
+
+## M8 — Hardening (part 1)  (05:55 → 06:10)
+Built: `scripts/pipeline_ext.py` (ElevenLabs 3 retries on 429/5xx with 5/20/60 s backoff, other 4xx never retried; paid-call ledger
+data/budget.json with hard caps 10 USD each and a 90 % stop; rich failure email to Medi only; guarded post_process = understanding →
+report + email → after-link payload, each failure emailed, transcript never blocked). `lesson_pipeline.py` now calls these
+(code only; the Task Scheduler entry "Anees lesson pipeline" was not touched).
+```
+python -m pytest -q tests/test_m8_pipeline.py   → 11 passed
+429 ×3 → fails after exactly 3 tries, backoff 5/20/60, nothing charged · 429, 503, 200 → charged once (0.22 USD / 60 min)
+401 → no retry · ledger at 8.90 USD + 0.22 → BudgetStop (90 % of 10) · failure email = rich (chart + log), recipient hard-coded thenatanzi@ only, never raises
+empty transcript → RuntimeError · English-only call → arabic_share 0.0 < 0.12 cut · failed split → per-speaker None + floor false
+missing chat sidecar → [] · git push failure → RuntimeError before any email · post_process: a failing step emails Medi and stops
+64 passed in 137.12s (0:02:17)
+```
