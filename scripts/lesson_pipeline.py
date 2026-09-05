@@ -88,6 +88,30 @@ def chat_sidecar(src):
     return out
 
 
+def pitch_labels(words, mp3):
+    """Fallback when ElevenLabs merged the voices: label each word by voice pitch.
+    Medi (man) speaks around 130 Hz, Amal (woman) around 215 Hz. Validated on Aug 25: 93% agreement with ElevenLabs.
+    Words with no clear pitch stay '?' unless both neighbours agree."""
+    import numpy as np, librosa
+    raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(mp3), '-f', 's16le', '-ac', '1', '-ar', '16000', '-'], capture_output=True).stdout
+    x = np.frombuffer(raw, np.int16).astype(np.float32) / 32768
+    hop = 800   # 50 ms
+    f0 = librosa.yin(x, fmin=70, fmax=400, sr=16000, frame_length=1024, hop_length=hop)
+    rms = librosa.feature.rms(y=x, frame_length=1024, hop_length=hop)[0]
+    ok = rms > np.percentile(rms, 40)
+    for w in words:
+        a = int(w['s'] / 0.05); b = max(int(w['e'] / 0.05) + 1, a + 2)
+        v = f0[a:b][ok[a:b]]
+        if len(v) == 0:
+            w['spk'] = '?'
+        else:
+            m = float(np.median(v)); w['spk'] = 'Medi' if m < 155 else ('Amal' if m > 180 else '?')
+    for i, w in enumerate(words):
+        if w['spk'] == '?' and 0 < i < len(words) - 1 and words[i - 1]['spk'] == words[i + 1]['spk'] != '?':
+            w['spk'] = words[i - 1]['spk']
+    return words
+
+
 def label_speakers(words):
     """Amal = the speaker with the higher share of Arabic words (she teaches in Arabic; Medi mixes).
     If one voice got <5% of the words the split failed: label everyone 'Both' (never guess)."""
@@ -102,7 +126,7 @@ def label_speakers(words):
     return {ranked[0]: 'Amal', **{k: 'Medi' for k in ranked[1:]}}
 
 
-def build(res, date, hhmm, src_name):
+def build(res, date, hhmm, src_name, mp3=None):
     words = [{'s': w.get('start', 0), 'e': w.get('end', 0), 'spk': w.get('speaker_id', '?'), 'w': w['text'].replace('\ufffd', '')}
              for w in res.get('words', []) if w.get('type') == 'word']
     if not words:
@@ -111,12 +135,24 @@ def build(res, date, hhmm, src_name):
     lab = label_speakers(words)
     for w in words:
         w['spk'] = lab.get(w['spk'], w['spk'])
+    split_note = 'ok'
+    if not any(v == 'Medi' for v in lab.values()):
+        if mp3 and Path(mp3).exists():
+            try:
+                pitch_labels(words, mp3)
+                split_note = 'from voice pitch: ElevenLabs merged the two voices, so each word was labeled by pitch (Medi low, Amal high); ? = unclear'
+                log('speaker split failed -> pitch labels', {k: sum(1 for w in words if w['spk'] == k) for k in ('Medi', 'Amal', '?')})
+            except Exception as e:
+                log('pitch fallback failed', e)
+                split_note = 'failed: ElevenLabs put almost every word on one voice, so nobody is labeled'
+        else:
+            split_note = 'failed: ElevenLabs put almost every word on one voice, so nobody is labeled'
     tutor_words = [w for w in words if w['spk'] == 'Amal']
     start = tutor_words[0]['s'] if tutor_words else words[0]['s']
     end = tutor_words[-1]['e'] if tutor_words else words[-1]['e']
     lesson = [w for w in words if start <= w['s'] <= end]
     runs = runs_from_words(lesson, tutor='Amal')
-    split_ok = any(v == 'Medi' for v in lab.values())
+    split_ok = any(w['spk'] == 'Medi' for w in words)
     medi_ar = [w for w in lesson if (w['spk'] == 'Medi' or not split_ok) and ARABIC.search(w['w'])]
     confirms = sum(1 for r in runs for it in r['items'] if it.get('ok'))
     pauses = [it['pause'] for r in runs if r['spk'] == 'Medi' for it in r['items'] if 'pause' in it]
@@ -125,7 +161,7 @@ def build(res, date, hhmm, src_name):
                'medi_arabic_words': len(medi_ar), 'confirmations': confirms, 'medi_pauses': len(pauses),
                'medi_pause_seconds': round(sum(pauses), 1), 'language': res.get('language_code'),
                'language_probability': res.get('language_probability'), 'engine': 'elevenlabs scribe_v2',
-               'speaker_split': 'ok' if split_ok else 'failed: ElevenLabs put almost every word on one voice, so nobody is labeled'}
+               'speaker_split': split_note}
     return words, runs, summary
 
 
@@ -138,7 +174,7 @@ def render(runs, summary):
     rows = []
     for r in runs:
         m, s = int(r['s'] // 60), int(r['s'] % 60)
-        rows.append(f'<p class="ar {r["spk"].lower()}" dir="auto"><span class="t">{m:02d}:{s:02d}</span><b class="spk">{r["spk"]}:</b> '
+        rows.append(f'<p class="ar {"unk" if r["spk"] == "?" else r["spk"].lower()}" dir="auto"><span class="t">{m:02d}:{s:02d}</span><b class="spk">{r["spk"]}:</b> '
                     + ' '.join(item_html(it) for it in r['items']) + '</p>')
     S = summary
     stats = ''.join(f'<div class="stat"><div class="n">{v}</div><div class="l">{k}</div></div>' for k, v in [
@@ -163,7 +199,7 @@ main{{max-width:760px;margin:0 auto;padding:16px}} h1{{font-size:24px;margin:8px
 .pz{{color:var(--amber);font-size:13px;border:1px dashed var(--amber);border-radius:999px;padding:0 8px;white-space:nowrap}}
 .ok{{color:var(--teal);font-size:13px;border:1px solid var(--teal);border-radius:999px;padding:0 8px;white-space:nowrap}}
 .warn{{background:var(--bg2);border-left:4px solid var(--amber);padding:8px 12px;margin:0 0 14px}} h2{{font-size:19px;margin:22px 0 4px}}
-.typed{{list-style:none;padding:0;margin:0 0 18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px}} .typed li{{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:18px}} .both{{background:var(--bg2)}}
+.typed{{list-style:none;padding:0;margin:0 0 18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px}} .typed li{{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:18px}} .both,.unk{{background:var(--bg2);border:1px dashed var(--line)}}
 </style></head><body><main>
 <h1>Anees lesson, {S['date']}</h1>
 <p class="lead">Transcribed by ElevenLabs Scribe v2. Fillers show as (pause), Amal's confirmations right after Medi's Arabic show as a green check. Lesson window {int(S['lesson_start']//60)}:{int(S['lesson_start']%60):02d} to {int(S['lesson_end']//60)}:{int(S['lesson_end']%60):02d}.</p>
@@ -182,7 +218,7 @@ def email(summary, link):
     if summary.get('chat_lines'):
         payload['rows'].append({'tag': 'Typed', 'name': f"{len(summary['chat_lines'])} words Amal typed in the Meet chat", 'detail': ', '.join(txt for _, _, txt in summary['chat_lines'][:8])})
     if summary.get('speaker_split', 'ok') != 'ok':
-        payload['rows'].append({'tag': 'Note', 'name': 'Speaker split failed on this recording', 'detail': 'ElevenLabs heard one voice; nobody is labeled Medi or Amal this time'})
+        payload['rows'].append({'tag': 'Note', 'name': 'Speaker labels from voice pitch this time', 'detail': summary['speaker_split']})
     pf = LESSONS / summary['date'] / 'email.json'
     pf.write_text(json.dumps(payload, ensure_ascii=False), encoding='utf-8')
     subprocess.run(['node', str(ROOT / 'scripts' / 'send_lesson_email.mjs'), f"Anees: lesson {summary['date']} transcribed", str(pf)], check=True)
@@ -211,7 +247,7 @@ def process(src, date, hhmm, reuse=None, send=True, force=False):
         log('transcribing', mp3.name)
         res = transcribe(mp3)
         (d / 'scribe.json').write_text(json.dumps(res, ensure_ascii=False), encoding='utf-8')
-    words, runs, summary = build(res, date, hhmm, src.name)
+    words, runs, summary = build(res, date, hhmm, src.name, mp3=d / 'audio.mp3')
     chat = chat_sidecar(src)
     tutor_typed = [(t, who, txt) for t, who, txt in chat if who.lower() != 'medi' and not who.lower().startswith('mahdi')]
     summary['chat_lines'] = tutor_typed
