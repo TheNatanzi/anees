@@ -80,20 +80,29 @@ def fetch(bot_id, date=None, session=requests, wait_minutes=30, sleep=time.sleep
         r = session.get(f'{BASE}/audio_separate', headers=_h(), params={'recording_id': rec['id']}, timeout=60)
         if r.status_code >= 400:
             raise RuntimeError(f'Recall audio_separate {r.status_code}: {r.text[:300]}')
-        for part in r.json().get('results', []):
-            url = (part.get('data') or {}).get('download_url')
+        for art in r.json().get('results', []):
+            url = (art.get('data') or {}).get('download_url')
             if not url:
                 continue
-            p = part.get('participant') or {}
-            who = (p.get('name') or f"participant-{p.get('id', 'x')}").strip().replace(' ', '_')
-            ext = 'mp3' if part.get('format') in (None, 'mp3') else part.get('format')
-            path = out / f'{who}.{ext}'
-            with session.get(url, stream=True, timeout=600) as d:
-                d.raise_for_status()
-                with open(path, 'wb') as f:
-                    for chunk in d.iter_content(1 << 20):
-                        f.write(chunk)
-            saved.append({'participant': p.get('name'), 'is_host': p.get('is_host'), 'file': str(path), 'bytes': path.stat().st_size})
+            ext = 'mp3' if art.get('format') in (None, 'mp3') else art.get('format')
+            # the artifact URL returns a JSON manifest: one part per participant, each with its own download_url
+            m = session.get(url, timeout=120); m.raise_for_status()
+            parts = m.json() if m.headers.get('content-type', '').startswith('application/json') or m.content[:1] in (b'[', b'{') else None
+            if parts is None:                                  # a single audio file after all
+                parts = [{'download_url': url, 'participant': {}}]
+            if isinstance(parts, dict):
+                parts = parts.get('results') or parts.get('parts') or [parts]
+            for part in parts:
+                p = part.get('participant') or {}
+                who = (p.get('name') or f"participant-{p.get('id', 'x')}").strip().replace(' ', '_')
+                path = out / f'{who}.{ext}'
+                with session.get(part['download_url'], stream=True, timeout=1800) as d:
+                    d.raise_for_status()
+                    with open(path, 'wb') as f:
+                        for chunk in d.iter_content(1 << 20):
+                            f.write(chunk)
+                saved.append({'participant': p.get('name'), 'is_host': p.get('is_host'), 'platform': p.get('platform'), 'start': part.get('start_timestamp'),
+                              'duration_s': part.get('duration'), 'file': str(path), 'bytes': path.stat().st_size})
     io.open(out / 'tracks.json', 'w', encoding='utf-8').write(json.dumps({'bot_id': bot_id, 'date': date, 'tracks': saved}, ensure_ascii=False, indent=1))
     return saved
 
