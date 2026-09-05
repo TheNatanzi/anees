@@ -40,7 +40,27 @@ def build():
             sections.append(cur)
         cur['lines'].append(s)
     sections = [s for s in sections if any(len(l) > 12 for l in s['lines'])]
-    out = {'source': snaps[-1].name, 'sections': sections,
+    # Amal's second Doc, "Arabic Materials" (grammar rules: prepositions, possessives, noun+adjective, time, bakoon, kul,
+    # b-prefix drop, pointer rule). Snapshot data/vocab/grammar_materials_*.md; H1 = heading group, H2/H3 = heading.
+    mats = sorted((ROOT / 'data' / 'vocab').glob('grammar_materials_*.md'))
+    if mats:
+        tab, sub, cur = "Amal's Arabic Materials", '', None
+        for line in io.open(mats[-1], encoding='utf-8').read().splitlines()[3:]:
+            m = HEAD_RE.match(line)
+            if m:
+                lvl, title = len(m.group(1)), m.group(2).strip()
+                sub = title if lvl == 1 else f"{sub.split(' › ')[0]} › {title}" if sub else title
+                cur = None
+                continue
+            t = line.strip()
+            if not t:
+                continue
+            t = re.sub(r'^\s*-\s+', '• ', t)
+            if cur is None:
+                cur = {'tab': tab, 'heading': sub or tab, 'lines': []}
+                sections.append(cur)
+            cur['lines'].append(t)
+    out = {'source': snaps[-1].name + (f' + {mats[-1].name}' if mats else ''), 'sections': sections,
            'wiki': [{'title': 'Palestinian Arabic specifics (dialect, diglossia, Arabizi)', 'url': 'https://github.com/TheNatanzi/anees/blob/master/wiki/05-palestinian-arabic-specifics-dialect-diglossia-ara.md'},
                     {'title': 'How to teach a spoken language (methods, evidence)', 'url': 'https://github.com/TheNatanzi/anees/blob/master/wiki/02-how-to-teach-a-spoken-language-methods-evidence-an.md'},
                     {'title': 'Vocabulary science: how words get learned and kept', 'url': 'https://github.com/TheNatanzi/anees/blob/master/wiki/03-vocabulary-science-how-words-get-learned-and-kept.md'}]}
