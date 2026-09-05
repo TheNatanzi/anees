@@ -27,6 +27,8 @@ NEG = {'la', 'laa', 'no', 'nope', 'not', 'mish', 'mush', 'لا', 'لأ', 'لاء
 META_EN = {'say', 'says', 'said', 'instead', 'means', 'mean', 'meaning', 'use', 'takes', 'take', "don't", 'dont', 'should', 'because',
            'preposition', 'verb', 'plural', 'feminine', 'masculine', 'past', 'present', 'form', 'conjugate'}
 STOP_KEYS = {'ana', 'inta', 'inti', 'intu', 'huwe', 'hiye', 'hume', 'i7na', 'shu', 'bas', 'la', 'ah', 'ok', 'okay', 'yes', 'no', 'tamam'}
+# glue keys (Doc rows that are conversation moves, not vocabulary to grade): never counted as missed / nailed
+GLUE_KEYS = {'shu', 'bas', 'ai', 'aw', 'em', 'u', 'fi', 'bi', 'min', 'ya3ni', 'iza', 'lama', 'hala', 'ah', 'aha', 'tayeb', 'tamam', '5alas', 'sa7', 'mashi', 'wala', 'ma', 'ma3', 'la'}
 FARSI_SPANS = {'2026-08-25': [(218.0, 259.0), (2440.0, 2452.0)]}      # Medi talking to his father (memory rule)
 
 # Arabizi -> Arabic consonant skeleton (for chat-form <-> transcript matching without the Doc)
@@ -118,7 +120,7 @@ def find_doc_events(words, matcher, lo, hi, exclude):
             if not r:
                 continue
             k, tier = r
-            if loose(text) in STOP_KEYS:
+            if loose(text) in STOP_KEYS or k in STOP_KEYS or k in GLUE_KEYS:
                 continue
             if not ARABIC.search(text):
                 # Latin token: the lesson is mostly English, so only an Arabizi-looking token may match below the exact tier
@@ -305,7 +307,7 @@ def cut_clips(events, audio, out_dir, date):
         while j + 1 < len(ev) and ev[j + 1]['t_end'] + CLIP_PAD_AFTER - cs <= CLIP_MAX:
             j += 1
         ce = min(ev[j]['t_end'] + CLIP_PAD_AFTER, cs + CLIP_MAX)
-        name = f'{date}_{int(cs * 10):06d}.mp3'
+        name = f'{date}_{int(cs * 10):06d}_{int(ce * 10):06d}.mp3'      # start+end in the name: a re-cut window never reuses a stale file
         path = out_dir / name
         if not path.exists():
             subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', f'{cs:.2f}', '-t', f'{ce - cs:.2f}', '-i', str(audio), '-ac', '1', '-ar', '16000', '-b:a', '32k', str(path)], check=True)

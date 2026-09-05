@@ -71,7 +71,7 @@ def classify(u, earlier_keys):
         if e['word_key'] in used:
             continue
         used.add(e['word_key']); moments.append((pri, e['t_start'], e['t_end'], 'Medi', e['text'], e['word_key'], e['clip'], e['offset'],
-                                                'Amal corrected' if e['correction'] else 'said after Amal'))
+                                                ('Amal repeated it right after (recast)' if e.get('cue') == 'recast' else 'Amal said no / say… right after') if e['correction'] else 'said after Amal'))
     if ok:
         for e in evs:
             if e['speaker'] == 'Medi' and not e['prompted'] and not e['correction'] and e['word_key'] not in used and len(moments) < MOMENTS * 2:
@@ -227,7 +227,7 @@ main{{max-width:760px;margin:0 auto;padding:14px}} h1{{font-size:24px;margin:8px
 <h2>Arabic words per 10 minutes</h2>
 {svg_chart(bins, ok)}
 <h2>Topics</h2><ol class="topics">{topics}</ol>
-{section('What you missed', 'missed', 'Amal corrected it, or said la / no / "say…" right after you. Tap ▶ to hear the moment.')}
+{section('What you missed', 'missed', 'Possible misses: Amal repeated the word or said la / no / "say…" within 5 seconds after you. Tap ▶ to check; Amal confirms or rejects these on her after-lesson link.')}
 {section('What you nailed', 'nailed', 'You said it before Amal did, and she did not correct it.')}
 {section('New words', 'new', 'First time this word appears in any recorded lesson.')}
 {section('Reused old words', 'reused', 'Heard in an earlier lesson and again today.')}
