@@ -120,3 +120,17 @@ def test_stand_in_completes_planner_on_phone_under_2_min():
         print(f'STAND-IN: {steps} screens in {elapsed:.1f} s')
     finally:
         db.sql(f"delete from amal_rules where token='{token}'; delete from amal_links where token='{token}'")
+
+
+def test_planner_mixes_weak_and_long_unseen_words():
+    """Medi 2026-09-05: the planner = weak words (A) + words not seen in a long time (B, oldest review first); repeat screen alternates."""
+    words = [{'key': k, 'arabizi': k.capitalize() + 'a', 'arabic': 'x', 'english': 'x', 'topic': 't', 'subtopic': 's'} for k in ('weak1', 'weak2', 'old1', 'old2', 'fresh')]
+    stats = [{'word_key': 'weak1', 'bucket': 'missed', 'weight': 3, 'times_missed': 2, 'times_seen': 2, 'recent': False, 'last_reviewed': '2026-09-04'},
+             {'word_key': 'weak2', 'bucket': 'shaky', 'weight': 1, 'times_missed': 1, 'times_seen': 1, 'recent': False, 'last_reviewed': '2026-09-04'},
+             {'word_key': 'old1', 'bucket': 'cold', 'weight': 1, 'times_missed': 0, 'times_seen': 9, 'recent': False, 'last_reviewed': '2026-07-01'},
+             {'word_key': 'old2', 'bucket': 'cold', 'weight': 1, 'times_missed': 0, 'times_seen': 1, 'recent': False, 'last_reviewed': '2026-08-01'},
+             {'word_key': 'fresh', 'bucket': 'cold', 'weight': 1, 'times_missed': 0, 'times_seen': 20, 'recent': False, 'last_reviewed': '2026-09-04'}]
+    A, B, _ = suggest.candidate_lists(words, stats, [])
+    assert A == ['weak1', 'weak2']
+    assert B == ['old1', 'old2', 'fresh'], 'B is ordered by oldest review first, not by how often it was heard'
+    assert suggest.repeat_mix(A, B, 3) == ['weak1', 'old1', 'weak2']

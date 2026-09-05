@@ -26,7 +26,9 @@ def load_words():
 
 
 def candidate_lists(words, stats, rules, n_a=10, n_b=14):
-    """A = missed + recent (learned in the last 3 lessons) words; B = cold / ice_cold words. Dropped-twice words are excluded."""
+    """A = WEAK words (missed, new, shaky, or never-heard-right but recent); B = words NOT SEEN IN A LONG TIME (cold / ice_cold,
+    oldest last_reviewed first). Every sentence must use one A and one B word, so the planner is a mix of weak + stale
+    (Medi 2026-09-05). Dropped-twice words are excluded."""
     dropped = collections.Counter(r['word_key'] for r in rules if r['kind'] == 'drop' and r.get('word_key'))
     banned = {k for k, n in dropped.items() if n >= 2} | GLUE
     wmap = {w['key']: w for w in words}
@@ -35,8 +37,19 @@ def candidate_lists(words, stats, rules, n_a=10, n_b=14):
     rank = {'missed': 0, 'new': 0, 'shaky': 1, 'never': 2}
     A = [k for k, s in sorted(st.items(), key=lambda kv: (-(kv[1].get('weight') or 1), rank.get(kv[1]['bucket'], 9), -kv[1]['times_missed'], -kv[1]['times_seen']))
          if ok(k) and (s['bucket'] in ('missed', 'new', 'shaky') or (s['bucket'] == 'never' and s['recent']))][:n_a]
-    B = [k for k, s in sorted(st.items(), key=lambda kv: (-kv[1]['times_seen'])) if ok(k) and s['bucket'] in ('cold', 'ice_cold') and k not in A][:n_b]
+    stale_key = lambda kv: (str(kv[1].get('last_reviewed') or ''), kv[1]['times_seen'])      # oldest review first; rarely seen breaks ties
+    B = [k for k, s in sorted(st.items(), key=stale_key) if ok(k) and s['bucket'] in ('cold', 'ice_cold') and k not in A][:n_b]
     return A, B, wmap
+
+
+def repeat_mix(A, B, n=3):
+    """The 'repeat these' screen: alternate weak (A) and long-unseen (B) words: A0, B0, A1, B1 …"""
+    out = []
+    for i in range(n):
+        for lst in (A, B):
+            if len(out) < n and i < len(lst) and lst[i] not in out:
+                out.append(lst[i])
+    return out[:n]
 
 
 def tokens(arabizi_sentence):
@@ -176,5 +189,5 @@ def planner_payload(lesson_date, use_openai=True):
     cell = lambda k: {'key': k, 'arabizi': wmap[k]['arabizi'], 'arabic': wmap[k]['arabic'], 'english': wmap[k]['english'][:60]} if k in wmap else {'key': k}
     return {'lesson_date': lesson_date, 'built': datetime.datetime.now().isoformat(timespec='seconds'), 'topics': list(TOPIC_MENU),
             'last_words': (last_topic or '').replace(" (last lesson's words)", ''), 'suggested': topics[:3],
-            'repeat': [cell(k) for k in sug['list_a'][:3]], 'sentences': [{**s, 'words': [cell(k) for k in s['keys']]} for s in sug['sentences']],
+            'repeat': [cell(k) for k in repeat_mix(sug['list_a'], sug['list_b'], 3)], 'sentences': [{**s, 'words': [cell(k) for k in s['keys']]} for s in sug['sentences']],
             'meta': {'list_a': sug['list_a'], 'list_b': sug['list_b'], 'rejected': sug['rejected'], 'model': sug['model'], 'cost_usd': sug['cost_usd'], 'usage': sug['usage']}}
