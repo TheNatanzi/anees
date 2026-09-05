@@ -75,7 +75,7 @@ function search(q){ q=(q||'').trim(); if(!q) return idx.map(x=>x.w);
       else if(qk.length>=3&&[...x.skel].some(k=>k.startsWith(qk))) s=35;
       if(s) out.push([s,x.w]); } }
   out.sort((a,b)=>b[0]-a[0]||(a[1].doc_order||0)-(b[1].doc_order||0)); return out.map(x=>x[1]); }
-function fmtDate(s){ return s? String(s).slice(0,10):'never'; }
+function fmtDate(s){ if(!s) return 'never'; const d=new Date(s); return isNaN(d)?String(s).slice(0,10):d.toLocaleDateString('en-CA'); }   // local day, not UTC
 const noStats=()=>!Object.keys(stats).length;      // no server and no cache: every stat is unknown, shown as –
 function badge(k){ if(noStats()) return '<span class="badge b-never">–</span>'; const b=(stats[k]||{}).bucket||'never'; return `<span class="badge b-${b}">${b.replace('_',' ')}</span>`; }
 function renderWords(){ const q=document.getElementById('q').value, fb=document.getElementById('f-bucket').value, ft=document.getElementById('f-topic').value, so=document.getElementById('sort').value;

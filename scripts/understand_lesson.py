@@ -133,9 +133,10 @@ def find_doc_events(words, matcher, lo, hi, exclude):
                     continue
                 # Codex P0 (M1): a Latin hit must look like Arabizi (soon / sit / Aaaa were becoming Doc words) — except an EXACT
                 # spelling of a Doc word with >= 4 letters that is not common English (Nahl for Na7el, said by Amal and repeated by Medi)
-                if not all(looks_arabizi(t) or (tier == 'exact' and len(t) >= 4) for t in clean):
-                    continue
-                if tier in ('skeleton', 'fuzzy'):
+                said_by_amal = any(words[j]['spk'] == 'Amal' and words[j]['w'].lower().strip(".,?!-") in clean for j in range(max(0, i - 25), min(n, i + 25)) if abs(words[j]['s'] - w['s']) <= 10)
+                if not all(looks_arabizi(t) or (tier == 'exact' and len(t) >= 4) or (said_by_amal and len(t) >= 4) for t in clean):
+                    continue                                   # 'Nahl' counts when Amal herself said it within 10 s
+                if tier in ('skeleton', 'fuzzy') and not (said_by_amal and tier == 'skeleton'):
                     continue
             hit = (k, span, text, tier); break
         if hit:

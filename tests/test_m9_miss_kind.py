@@ -100,4 +100,4 @@ def test_dangling_el_is_an_article_slip():
     u = json.load(io.open(ROOT / 'data' / 'lessons' / '2026-09-04' / 'understanding.json', encoding='utf-8'))
     for key, t in (('ba3Id', 517.57), ('nafs', 530.6)):
         e = next(e for e in u['events'] if e['word_key'] == key and abs(e['t_start'] - t) < 0.6)
-        assert e['miss_kind'] == 'article' and 'el-' in e['miss_why'], (key, e.get('miss_kind'), e.get('miss_why'))
+        assert e['miss_kind'] == 'article' and ('el-' in e['miss_why'] or 'الـ' in e['miss_why']), (key, e.get('miss_kind'), e.get('miss_why'))

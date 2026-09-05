@@ -156,7 +156,7 @@ def test_flip_toggle_shuffle_replay_end_to_end(viewport):
     try:
         assert len(rows) == 28 and len({r['id'] for r in rows}) == 28
     finally:
-        db.sql(f"delete from card_results where round_id like '{rid}%'")
+        db.sql(f"delete from card_results where round_id like '{rid}%'"); import buckets; buckets.recompute_and_store()
 
 
 @pytest.mark.skipif(not NET, reason='needs Supabase')
@@ -188,7 +188,7 @@ def test_offline_20_answers_then_sync_no_duplicates():
     try:
         assert len(rows) == 20 and len({r['id'] for r in rows}) == 20 and set(ids) == {r['id'] for r in rows}
     finally:
-        db.sql(f"delete from card_results where round_id = '{rid}'")
+        db.sql(f"delete from card_results where round_id = '{rid}'"); import buckets; buckets.recompute_and_store()
 
 
 def test_no_attribute_injection_in_cards():
