@@ -70,15 +70,22 @@ def test_ice_cold_promotion_and_demotion_python():
         st = buckets.compute([], rows, ['2026-08-25', '2026-09-04'])
         assert st[name]['bucket'] == EXPECT[name], (name, st[name]['bucket'])
     # lesson signals
-    ev = [{'lesson_date': '2026-09-04', 'word_key': 'x', 'speaker': 'Medi', 'prompted': False, 'correction': True, 't_start': 1}]
-    assert buckets.compute(ev, [], ['2026-09-04'])['x']['bucket'] == 'missed'
+    D = ['2026-06-01', '2026-07-01', '2026-08-01', '2026-09-04']
+    ev = [{'lesson_date': '2026-06-01', 'word_key': 'x', 'speaker': 'Medi', 'prompted': False, 'correction': True, 't_start': 1}]
+    assert buckets.compute(ev, [], D)['x']['bucket'] == 'missed'
     ev[0]['correction'] = False; ev[0]['prompted'] = True
-    assert buckets.compute(ev, [], ['2026-09-04'])['x']['bucket'] == 'shaky'
+    assert buckets.compute(ev, [], D)['x']['bucket'] == 'shaky'
     ev[0]['prompted'] = False
-    assert buckets.compute(ev, [], ['2026-09-04'])['x']['bucket'] == 'cold'
+    assert buckets.compute(ev, [], D)['x']['bucket'] == 'cold'
     # later cards win over an earlier lesson signal; a later lesson wins over earlier cards
-    st = buckets.compute(ev, [{'word_key': 'x', 'ts': '2026-09-05T10:00:00Z', 'result': 'missed', 'attempt': 1}, {'word_key': 'x', 'ts': '2026-09-05T10:01:00Z', 'result': 'missed', 'attempt': 1}], ['2026-09-04'])
+    st = buckets.compute(ev, [{'word_key': 'x', 'ts': '2026-09-05T10:00:00Z', 'result': 'missed', 'attempt': 1}, {'word_key': 'x', 'ts': '2026-09-05T10:01:00Z', 'result': 'missed', 'attempt': 1}], D)
     assert st['x']['bucket'] == 'missed'
+    # a word first heard in the LAST lesson is 'new' whatever it did, until 3 first-try rights on 2 days
+    nw = [{'lesson_date': '2026-09-04', 'word_key': 'n', 'speaker': 'Medi', 'prompted': False, 'correction': False, 't_start': 1}]
+    assert buckets.compute(nw, [], D)['n']['bucket'] == 'new' and buckets.compute(nw, [], D)['n']['lesson_signal'] == 'cold'
+    cards = [{'word_key': 'n', 'ts': f'2026-09-0{d}T10:00:00Z', 'result': 'got', 'attempt': 1} for d in (5, 5, 6)]
+    assert buckets.compute(nw, cards, D)['n']['bucket'] == 'cold'
+    assert buckets.compute(nw, cards[:2], D)['n']['bucket'] == 'new'
 
 
 def test_js_buckets_parity_with_python():

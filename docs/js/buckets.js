@@ -2,7 +2,7 @@
 // ice_cold: 5 first-try rights in a row on >= 3 different days; one miss -> cold. cold: unprompted in a lesson / right first try.
 // shaky: prompted / right on second try. missed: corrected / wrong twice in a row on cards. never: no Medi signal.
 (function (root) {
-  const RECENT_LESSONS = 3;
+  const RECENT_LESSONS = 3, NEW_DRILL_RIGHTS = 3, NEW_DRILL_DAYS = 2;
   const GRAMMAR_KINDS = ['article', 'gender', 'tense', 'plural'];
   function signalFromEvent(e) {
     if (e.speaker !== 'Medi' || e.prompted === null || e.prompted === undefined) return null;
@@ -49,13 +49,16 @@
       else if (cardBucket) bucket = cardBucket;
       if (cardBucket === 'ice_cold' && bucket === 'cold') bucket = 'ice_cold';
       const firstLesson = evs.length ? String(evs[0].lesson_date) : null;
+      const lessonSignal = bucket;
+      const drilled = streak >= NEW_DRILL_RIGHTS && days.length >= NEW_DRILL_DAYS;
+      if (firstLesson && recent.has(firstLesson) && !drilled) bucket = 'new';
       const seenDates = [...new Set(evs.map(e => String(e.lesson_date)))].sort();
       const lastReviewed = [seenDates[seenDates.length - 1], cards.length ? String(cards[cards.length - 1].ts) : null].filter(Boolean).sort().pop() || null;
       const isRecent = firstLesson ? recent.has(firstLesson) : false;
       out[key] = { word_key: key, bucket, last_reviewed: lastReviewed, seen_lessons: seenDates.length, times_seen: evs.length,
         times_missed: evs.filter(e => e.correction).length + cards.filter(c => c.result === 'missed').length,
         card_right: cards.filter(c => c.result === 'got').length, card_wrong: cards.filter(c => c.result === 'missed').length,
-        streak, streak_days: days, recent: isRecent, weight: (bucket === 'missed' || isRecent) ? 3 : 1 };
+        streak, streak_days: days, recent: isRecent, weight: (bucket === 'missed' || bucket === 'new' || isRecent) ? 3 : 1, lesson_signal: lessonSignal };
     }
     return out;
   }

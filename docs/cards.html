@@ -17,7 +17,7 @@ button.primary{background:var(--teal);color:#fff;border-color:var(--teal)} butto
 .face{position:absolute;inset:0;backface-visibility:hidden;background:var(--bg2);border:1px solid var(--line);border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center}
 .face.back{transform:rotateY(180deg)} .big{font-size:34px;font-weight:700;line-height:1.2} .ar{font-size:30px;direction:rtl;margin-top:8px} .en{font-size:22px} .hint{color:var(--mute);font-size:13px;position:absolute;bottom:12px}
 .badge{position:absolute;top:12px;left:12px;font:600 12px system-ui;padding:3px 9px;border-radius:999px;color:#fff;background:var(--mute)}
-.b-missed{background:var(--red)} .b-shaky{background:var(--amber)} .b-cold{background:var(--teal)} .b-ice_cold{background:var(--ice)} .b-never{background:var(--mute)}
+.b-missed{background:var(--red)} .b-new{background:#6B4FC4} .b-shaky{background:var(--amber)} .b-cold{background:var(--teal)} .b-ice_cold{background:var(--ice)} .b-never{background:var(--mute)}
 .topic{position:absolute;top:12px;right:12px;font-size:12px;color:var(--mute)}
 .summary{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:14px;margin:8px 0} .num{font-size:30px;font-weight:700}
 .sync{font-size:12px;color:var(--mute);margin-top:auto;padding-top:10px} .toggle{display:flex;gap:8px} .toggle button{flex:1;min-height:44px;font-size:15px}
@@ -37,7 +37,8 @@ const uuid=()=> (crypto.randomUUID? crypto.randomUUID() : 'c'+Date.now().toStrin
 const LS=(k,v)=>{ try{ if(v===undefined) return JSON.parse(localStorage.getItem(k)||'null'); localStorage.setItem(k,JSON.stringify(v)); return true; }catch(e){ return v===undefined?null:false; } };
 let memQueue=[];   // used only when localStorage refuses the write: the answer is still sent, and the footer says it is not saved locally
 const readQ=()=>(LS('anees-card-queue')||[]).concat(memQueue);
-let words=[], stats={}, pref=LS('anees-cards-pref')||{mode:'ar_first',shuffle:true,n:20,subject:'b-missed'};
+let words=[], stats={}, pref=LS('anees-cards-pref')||{mode:'ar_first',shuffle:true,n:20,subject:'b-new'};
+const qsub=new URLSearchParams(location.search).get('subject'); if(qsub) pref.subject=qsub;
 const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon,'Content-Type':'application/json'};
 async function load(){
   try{ let all=[], off=0; while(true){ const r=await fetch(ANEES.url+'/rest/v1/words?select=key,arabizi,arabic,english,plural,topic,subtopic,doc_order&active=eq.true&order=doc_order&limit=1000&offset='+off,{headers:H}); if(!r.ok) break; const part=await r.json(); all=all.concat(part); if(part.length<1000) break; off+=1000; } if(all.length){ words=all; LS('anees-words',words); } }catch(e){}
@@ -74,7 +75,7 @@ function flag(word){ enqueue({id:uuid(), kind:'flag', word_key:word.key, body:{s
 // ---- UI ----
 let round=null, flipped=false, sessionMissed={};
 function picker(){
-  const S=C.subjects(words,stats); const none=!Object.keys(stats).length; const chip=(s)=>`<button data-s="${esc(s.id)}" class="${pref.subject===s.id?'sel':''}">${esc(s.name)} <small>${(none&&s.kind==='bucket')?'–':s.n}</small></button>`;
+  const S=C.subjects(words,stats); const none=!Object.keys(stats).length; if(pref.subject==='b-new' && !S.buckets[0].n && !qsub) pref.subject='b-missed'; const chip=(s)=>`<button data-s="${esc(s.id)}" class="${pref.subject===s.id?'sel':''}">${esc(s.name)} <small>${(none&&s.kind==='bucket')?'–':s.n}</small></button>`;
   root.innerHTML=`<h1>Flashcards</h1><p class="mute">Tap a card to flip. Got it or Missed. Wrong cards come back until the pile is empty.</p>
     <h2>Buckets</h2><div class="chips">${S.buckets.map(chip).join('')}</div>
     <h2>Grammar sets</h2><div class="chips">${S.grammar.map(chip).join('')}</div>

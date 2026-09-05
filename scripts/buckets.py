@@ -5,12 +5,15 @@ the flashcards page carries the same rules in JS (docs/js/buckets.js) and this m
   cold      said unprompted in a lesson with no correction, or flashcard right first try
   shaky     right on second try, or said only after Amal said it (prompted)
   missed    Amal corrected it, Medi asked for it, or wrong twice in a row on cards
+  new       first heard in one of the last 3 lessons and not yet drilled (fewer than 3 first-try card rights on 2 different days);
+            new words never mix with missed words: they go through the strict review-and-repeat loop first
   never     no Medi signal yet (Amal may have said it: times_seen counts it)
 The latest signal (lesson event or card result) decides, except that the ice-cold streak rule is checked on cards first.
 Missed words and words learned in the last 3 lessons get weight 3 (cards, sentence suggestions, homework)."""
 import datetime, collections
 
 RECENT_LESSONS = 3
+NEW_DRILL_RIGHTS, NEW_DRILL_DAYS = 3, 2      # a new word leaves 'new' after 3 first-try rights on 2 different days
 
 
 GRAMMAR_KINDS = ('article', 'gender', 'tense', 'plural')
@@ -88,13 +91,17 @@ def compute(word_events, card_results, lesson_dates, today=None):
         if card_bucket == 'ice_cold' and bucket in ('cold',):
             bucket = 'ice_cold'
         first_lesson = str(evs[0]['lesson_date']) if evs else None
+        lesson_signal = bucket
+        drilled = streak >= NEW_DRILL_RIGHTS and len(days) >= NEW_DRILL_DAYS
+        if first_lesson and first_lesson in recent_dates and not drilled:
+            bucket = 'new'                                          # strict review first; the lesson signal is kept in lesson_signal
         seen_dates = sorted({str(e['lesson_date']) for e in evs})
         last_reviewed = max([x for x in [seen_dates[-1] if seen_dates else None, str(cards[-1]['ts']) if cards else None] if x], default=None)
         recent = first_lesson in recent_dates if first_lesson else False
         out[key] = {'word_key': key, 'bucket': bucket, 'last_reviewed': last_reviewed, 'last_lesson': seen_dates[-1] if seen_dates else None,
                     'seen_lessons': len(seen_dates), 'times_seen': len(evs), 'times_missed': sum(1 for e in evs if e.get('correction')) + sum(1 for c in cards if c['result'] == 'missed'),
                     'card_right': sum(1 for c in cards if c['result'] == 'got'), 'card_wrong': sum(1 for c in cards if c['result'] == 'missed'),
-                    'streak': streak, 'streak_days': days, 'recent': recent, 'weight': 3.0 if (bucket == 'missed' or recent) else 1.0,
+                    'streak': streak, 'streak_days': days, 'recent': recent, 'weight': 3.0 if (bucket in ('missed', 'new') or recent) else 1.0, 'lesson_signal': lesson_signal,
                     'grammar_misses': sum(1 for e in evs if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS),
                     'grammar_kinds': sorted({e['miss_kind'] for e in evs if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS})}
     return out

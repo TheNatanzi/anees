@@ -202,8 +202,8 @@ def render(u, rows, words, bins, ok):
         n = f'{len(items)}' + (f' <small>({len(distinct)} words)</small>' if kind in ('missed', 'nailed') and len(distinct) != len(items) else '')
         return f'<section id="{kind}"><h2>{title} <span class="n">{n}</span></h2><p class="lead">{lead}</p><ul class="list">{body}</ul></section>'
 
-    stats = [('words you missed', len(by_kind.get('missed', [])) if ok else DASH), ('grammar slips', len(by_kind.get('grammar', [])) if ok else DASH), ('what you nailed', len(by_kind.get('nailed', [])) if ok else DASH),
-             ('new words', len(by_kind.get('new', []))), ('reused old words', len(by_kind.get('reused', []))), ('Amal typed', len(by_kind.get('typed', [])))]
+    stats = [('new words', len(by_kind.get('new', []))), ('words you missed', len(by_kind.get('missed', [])) if ok else DASH), ('grammar slips', len(by_kind.get('grammar', [])) if ok else DASH), ('what you nailed', len(by_kind.get('nailed', [])) if ok else DASH),
+             ('reused old words', len(by_kind.get('reused', []))), ('Amal typed', len(by_kind.get('typed', [])))]
     stat_html = ''.join(f'<div class="stat"><div class="num">{v}</div><div class="lab">{k}</div></div>' for k, v in stats)
     warn = '' if conf['split'] == 'ok' else f'<p class="warn">{html.escape(conf["reason"])}.</p>'
     topics = ''.join(f'<li><b>{html.escape(t["topic"])}</b> <small>{", ".join(html.escape(x) for x in t["top_words"][:4])}</small></li>' for t in u['topics'][:3] if not t.get('glue'))
@@ -226,6 +226,7 @@ main{{max-width:820px;margin:0 auto;padding:14px 12px}} h1{{font-size:24px;margi
 .stat{{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px}} .num{{font-size:26px;font-weight:700}} .lab{{font-size:12px;color:var(--mute)}}
 .chart{{width:100%;height:auto;background:var(--bg2);border:1px solid var(--line);border-radius:12px}} .chart .medi{{fill:var(--teal)}} .chart .amal{{fill:var(--mute)}} .chart .all{{fill:var(--amber)}} .chart .tick{{fill:var(--mute);font-size:12px}}
 .list{{list-style:none;padding:0;margin:0}} .list li{{padding:8px 0;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}}
+.btn{{display:inline-block;margin-top:8px;background:var(--teal);color:#fff;text-decoration:none;border-radius:999px;padding:10px 16px;font:600 15px system-ui;min-height:44px}}
 .play{{background:var(--teal);color:#fff;border:0;border-radius:999px;padding:8px 12px;font:600 14px system-ui;min-height:40px;cursor:pointer}} .play.on{{background:var(--amber)}}
 .ar{{font-size:19px}} .en{{color:var(--mute);font-size:14px}} .kind{{font-size:12px;color:#fff;background:var(--amber);border-radius:999px;padding:1px 8px}} .why{{color:var(--amber);font-size:13px}} .t{{color:var(--mute);font-size:13px}} .none{{color:var(--mute)}}
 .topics{{padding-left:18px}} .topics small{{color:var(--mute)}} nav a{{color:var(--teal)}} footer{{color:var(--mute);font-size:13px;margin:30px 0 10px}}
@@ -238,10 +239,10 @@ main{{max-width:820px;margin:0 auto;padding:14px 12px}} h1{{font-size:24px;margi
 <h2>Arabic words per 10 minutes</h2>
 {svg_chart(bins, ok)}
 <h2>Topics</h2><ol class="topics">{topics}</ol>
+{section('New words', 'new', 'First time in a recorded lesson. New words never mix with missed words: they go to the strict review loop first (3 right in a row on 2 different days). <a class="btn" href="../cards.html?subject=b-new">Practice the new words</a>')}
 {section('Words you missed', 'missed', 'Possible misses of the WORD itself: Amal repeated it or said la / no / "say…" within 5 seconds, and the form you said was not just a grammar slip. Amal confirms or rejects these on her after-lesson link.')}
 {section('Grammar slips', 'grammar', 'You knew the word; the slip was the el- article, gender, tense or plural (read from what you said vs the Doc, and from Amal\'s words). These do not count against the word.')}
 {section('What you nailed', 'nailed', 'You said it before Amal did, and she did not correct it.')}
-{section('New words', 'new', 'First time this word appears in any recorded lesson.')}
 {section('Reused old words', 'reused', 'Heard in an earlier lesson and again today.')}
 {section("Amal's typed words", 'typed', 'What she wrote in the Meet chat, in her spelling, with the moment it was said.')}
 <section id="moments"><h2>20 moments <span class="n">{len(moments)}</span></h2><p class="lead">Corrections first, then words you needed a prompt for, then words you said cold. Each plays from the lesson audio.</p><ul class="list">{mom_html}</ul></section>

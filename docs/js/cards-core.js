@@ -9,6 +9,7 @@
     { id: 'g-command', name: 'Command tense', test: w => w.topic === 'Command Tense' },
   ];
   const BUCKET_SETS = [
+    { id: 'b-new', name: 'New words (strict review)', test: (w, s) => s && s.bucket === 'new' },
     { id: 'b-missed', name: 'Missed only', test: (w, s) => s && s.bucket === 'missed' },
     { id: 'b-shaky', name: 'Shaky only', test: (w, s) => s && s.bucket === 'shaky' },
     { id: 'b-recent', name: 'Last 3 lessons', test: (w, s) => s && s.recent },
@@ -26,7 +27,7 @@
     const b = BUCKET_SETS.find(x => x.id === subjectId); if (b) return words.filter(w => b.test(w, stats[w.key]));
     return words;
   }
-  function weightFromBucket(bucket, recent) { return (bucket === 'missed' || recent) ? 3 : 1; }
+  function weightFromBucket(bucket, recent) { return (bucket === 'missed' || bucket === 'new' || recent) ? 3 : 1; }
   // weight always follows the current bucket (a stored weight is never trusted over the bucket it was computed from)
   function weightOf(w, s) { return s ? weightFromBucket(s.bucket, s.recent) : 1; }
   // Merge the local answer log onto server stats: only rows NEWER than the server's last_reviewed count, and the new bucket is
@@ -45,6 +46,11 @@
         const recent3 = rows.slice(-3).filter(r => r.result === 'missed').length;
         bucket = recent3 >= 2 ? 'missed' : (s.bucket === 'ice_cold' ? 'cold' : 'shaky');
       } else bucket = parseInt(last.attempt || 1) > 1 ? 'shaky' : (s.bucket === 'ice_cold' ? 'ice_cold' : 'cold');
+      if (s.bucket === 'new') {                                   // stays new until 3 first-try rights on 2 different days
+        let streak = 0; const days = new Set();
+        for (let i = rows.length - 1; i >= 0; i--) { if (rows[i].result === 'got' && parseInt(rows[i].attempt || 1) === 1) { streak++; days.add(String(rows[i].ts).slice(0, 10)); } else break; }
+        if (!(streak + (s.streak || 0) >= 3 && days.size + (s.streak_days || []).length >= 2)) bucket = 'new';
+      }
       out[k] = Object.assign({}, s, { bucket, weight: weightFromBucket(bucket, s.recent), last_reviewed: last.ts });
     }
     return out;

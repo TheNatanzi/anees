@@ -16,7 +16,7 @@ from arabizi import ARABIC, arabic_norm
 GRAMMAR_KINDS = ('article', 'gender', 'tense', 'plural')
 KINDS = ('word', 'choice', 'article', 'gender', 'tense', 'plural', 'pronunciation', 'unclear')
 CUES = {
-    'article': ('أل', 'ال ', 'الـ', ' el ', ' el-', ' al ', 'the el', 'article', 'definite', 'no al', 'no el', 'without el', 'without al', 'بدون ال'),
+    'article': ('أل', 'إل', 'ال ', 'الـ', 'إلـ', 'أل.', 'إل.', ' el ', ' el-', ' al ', 'the el', 'article', 'definite', 'no al', 'no el', 'without el', 'without al', 'بدون ال'),
     'gender': ('feminine', 'masculine', 'female', 'male', 'for a girl', 'for a boy', 'مؤنث', 'مذكر', 'تاء', 'she is', 'he is'),
     'tense': ('past', 'present', 'future', 'tense', 'command', 'ماضي', 'مضارع', 'أمر', 'conjugat', 'i did', 'you did'),
     'plural': ('plural', 'singular', 'جمع', 'مفرد', 'one of them', 'many of them'),
@@ -167,6 +167,16 @@ def classify_all(events, words, wmap, use_llm=False, log=None, matcher=None):
         if r['miss_kind'] == 'article' and e['word_key'] in SUPERLATIVE:
             e['pattern'] = 'superlative'; e['miss_why'] = PATTERN_LABEL['superlative'] + ' — ' + e['miss_why']
         counts[r['miss_kind']] += 1
+    # second pass: consecutive slips of the SAME grammar kind within 10 s are one discussion (aktar … ishi … el): fold into the head
+    heads = sorted([e for e in events if e.get('speaker') == 'Medi' and e.get('miss_kind') in GRAMMAR_KINDS], key=lambda e: e['t_start'])
+    head = None
+    for e in heads:
+        if head is not None and e['t_start'] - head['t_end'] <= 10 and e['miss_kind'] == head['miss_kind']:
+            counts[e['miss_kind']] -= 1
+            e['correction'] = False; e['asked'] = False; e['part_of'] = head['word_key']; e['miss_kind'] = None
+            e['miss_why'] = f"same el- discussion as {head['word_key']}"; head['phrase'] = (head.get('phrase') or head['word_key']) + ' ' + e['word_key']
+        else:
+            head = e
     if log:
         log('miss kinds', dict(counts), 'llm calls', llm_calls)
     return counts

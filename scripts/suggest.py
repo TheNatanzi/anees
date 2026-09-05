@@ -32,9 +32,9 @@ def candidate_lists(words, stats, rules, n_a=10, n_b=14):
     wmap = {w['key']: w for w in words}
     st = {s['word_key']: s for s in stats}
     ok = lambda k: k in wmap and k not in banned and len(strip_pronoun(wmap[k]['arabizi'])) >= 3 and not wmap[k]['arabizi'].endswith('?')
-    rank = {'missed': 0, 'shaky': 1, 'never': 2}
+    rank = {'missed': 0, 'new': 0, 'shaky': 1, 'never': 2}
     A = [k for k, s in sorted(st.items(), key=lambda kv: (-(kv[1].get('weight') or 1), rank.get(kv[1]['bucket'], 9), -kv[1]['times_missed'], -kv[1]['times_seen']))
-         if ok(k) and (s['bucket'] in ('missed', 'shaky') or (s['bucket'] == 'never' and s['recent']))][:n_a]
+         if ok(k) and (s['bucket'] in ('missed', 'new', 'shaky') or (s['bucket'] == 'never' and s['recent']))][:n_a]
     B = [k for k, s in sorted(st.items(), key=lambda kv: (-kv[1]['times_seen'])) if ok(k) and s['bucket'] in ('cold', 'ice_cold') and k not in A][:n_b]
     return A, B, wmap
 

@@ -54,13 +54,14 @@ def test_real_sep4_aktar_is_article():
 
 
 def test_grammar_slip_does_not_bucket_the_word_as_missed():
-    ev = [{'lesson_date': '2026-09-04', 'word_key': 'aktar', 'speaker': 'Medi', 'prompted': False, 'correction': True, 'miss_kind': 'article', 't_start': 1}]
-    st = buckets.compute(ev, [], ['2026-09-04'])['aktar']
+    D = ['2026-06-01', '2026-07-01', '2026-08-01', '2026-09-04']
+    ev = [{'lesson_date': '2026-06-01', 'word_key': 'aktar', 'speaker': 'Medi', 'prompted': False, 'correction': True, 'miss_kind': 'article', 't_start': 1}]
+    st = buckets.compute(ev, [], D)['aktar']
     assert st['bucket'] == 'cold' and st['grammar_misses'] == 1 and st['grammar_kinds'] == ['article']
     ev[0]['miss_kind'] = 'word'
-    assert buckets.compute(ev, [], ['2026-09-04'])['aktar']['bucket'] == 'missed'
+    assert buckets.compute(ev, [], D)['aktar']['bucket'] == 'missed'
     ev[0]['miss_kind'] = 'unclear'
-    assert buckets.compute(ev, [], ['2026-09-04'])['aktar']['bucket'] == 'missed'   # unclear stays a possible miss
+    assert buckets.compute(ev, [], D)['aktar']['bucket'] == 'missed'   # unclear stays a possible miss
 
 
 def test_llm_fallback_is_capped_and_mockable(monkeypatch):
@@ -91,8 +92,8 @@ def test_word_choice_is_shaky_not_missed():
     u = json.load(io.open(ROOT / 'data' / 'lessons' / '2026-09-04' / 'understanding.json', encoding='utf-8'))
     e = next(e for e in u['events'] if e['word_key'] == 'a7san' and abs(e['t_start'] - 3668.0) < 0.6)
     assert e['miss_kind'] == 'choice' and e.get('wanted') == 'aktar', e
-    ev = [{'lesson_date': '2026-09-04', 'word_key': 'a7san', 'speaker': 'Medi', 'prompted': False, 'correction': False, 'asked': True, 'miss_kind': 'choice', 't_start': 1}]
-    assert buckets.compute(ev, [], ['2026-09-04'])['a7san']['bucket'] == 'shaky'
+    ev = [{'lesson_date': '2026-06-01', 'word_key': 'a7san', 'speaker': 'Medi', 'prompted': False, 'correction': False, 'asked': True, 'miss_kind': 'choice', 't_start': 1}]
+    assert buckets.compute(ev, [], ['2026-06-01', '2026-07-01', '2026-08-01', '2026-09-04'])['a7san']['bucket'] == 'shaky'
 
 
 def test_dangling_el_is_an_article_slip():
