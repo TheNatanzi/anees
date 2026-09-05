@@ -120,7 +120,12 @@ Build, three pieces, each its own gate:
   Gate: Sep 4 and Aug 25 re-run with chat lines; miss list changes are listed with the chat line that caused each; Medi accepts ≥ 8/10 of a random 10; no chat line is ever shown as Medi's speech.
 - **M9c — Text homework loop + her style.** (1) M6 homework items are generated **in her drill style** (one root, cycle person / tense / negation / command, English prompt lines like "Did he upset you when he did this?"), with the 8,746 lines as few-shot examples. (2) When Medi answers a prompt in chat (pasted or, later, exported), Anees pre-grades: root right / prefix wrong / word order / missing preposition, in one line each, **before** Amal replies; her correction, when it comes, is the verdict that scores the event row (M4 rules apply: her choice always wins, "suggest" on every screen).
   Gate: 10 real Sep 3–4 prompts → Anees prompts judged "sounds like Amal" by Medi ≥ 8/10; 10 real Medi answers → pre-grade agrees with Amal's actual correction ≥ 8/10; 0 items use untaught words.
-Sign-off: Codex on M9a/M9b; Medi grill on M9c before build (open question: homework help for Medi only, or also ready-made drills handed to Amal?).
+Settled with Medi (grill, 2026-09-05 12:50) for M9c:
+1. Amal sees Anees's pre-grade too (not Medi-only). Her correction is still the verdict.
+2. Homework lives on an Anees page (not WhatsApp): Medi types the answer there, grade shows on the spot, Amal reads answer + grade on her token link.
+3. Prompts: Anees suggests, Amal dictates; keep / drop / edit, plus a free box to type her own lines.
+4. Answers are TYPED Arabizi only. Voice answers (hold-to-talk, Scribe = ElevenLabs Scribe v2, the chosen engine) go to the Future projects list.
+Sign-off: Codex on M9a/M9b/M9c (gates above stand).
 
 ## 4. Amal UX rules (apply to M3, M4, M6; violating one fails the gate)
 
