@@ -21,7 +21,11 @@ button.primary{background:var(--teal);color:#fff;border-color:var(--teal)} butto
 .topic{position:absolute;top:12px;right:12px;font-size:12px;color:var(--mute)}
 .summary{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:14px;margin:8px 0} .num{font-size:30px;font-weight:700}
 .sync{font-size:12px;color:var(--mute);margin-top:auto;padding-top:10px} .toggle{display:flex;gap:8px} .toggle button{flex:1;min-height:44px;font-size:15px}
-</style></head><body><main>
+.top{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:5} .top .in{max-width:820px;margin:0 auto;padding:10px 12px 0}
+.brand{display:flex;align-items:baseline;gap:10px} .brand b{font-size:20px} .brand span{color:var(--mute);font-size:13px}
+.top nav{display:flex;gap:4px;overflow-x:auto;padding:6px 0;scrollbar-width:none} .top nav::-webkit-scrollbar{display:none}
+.top .tab{flex:0 0 auto;min-height:44px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:999px;padding:8px 14px;font:600 15px system-ui;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center} .top .tab.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+</style></head><body><header class="top" id="topnav"><div class="in"><div class="brand"><b>Anees</b><span>Palestinian Arabic with Amal · Medi's companion</span></div><nav><a class="tab" href="index.html#today">Today</a><a class="tab" href="index.html#lessons">Lessons</a><a class="tab" href="index.html#words">Words</a><a class="tab on" href="index.html#cards">Flashcards</a><a class="tab" href="index.html#amal">Amal</a><a class="tab" href="index.html#grammar">Grammar</a><a class="tab" href="index.html#future">Future projects</a></nav></div></header><main>
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main>
@@ -114,5 +118,6 @@ function showSummary(){ const s=C.summary(round); document.onkeydown=null;
   const rp=document.getElementById('replay'); if(rp) rp.onclick=()=>{ round=C.replayWrong(round); showCard(); };
   const ag=document.getElementById('again'); if(ag) ag.onclick=start; document.getElementById('back').onclick=picker; }
 window.AneesTest={ get round(){return round;}, get stats(){return stats;}, get words(){return words;}, answer, start, picker, sync, pref };
+if(window.self!==window.top){ const t=document.getElementById('topnav'); if(t) t.style.display='none'; }   // inside the Flashcards tab the site menu is already there
 load().then(picker);
 </script></body></html>

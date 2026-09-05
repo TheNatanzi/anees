@@ -13,9 +13,14 @@ import datetime, collections
 RECENT_LESSONS = 3
 
 
+GRAMMAR_KINDS = ('article', 'gender', 'tense', 'plural')
+
+
 def _signal_from_event(e):
     if e.get('speaker') != 'Medi' or e.get('prompted') is None:
         return None
+    if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS and not e.get('asked'):
+        return 'shaky' if e.get('prompted') else 'cold'      # the word was known; the slip is grammar, counted separately
     if e.get('correction') or e.get('asked'):
         return 'missed'
     if e.get('prompted'):
@@ -87,14 +92,16 @@ def compute(word_events, card_results, lesson_dates, today=None):
         out[key] = {'word_key': key, 'bucket': bucket, 'last_reviewed': last_reviewed, 'last_lesson': seen_dates[-1] if seen_dates else None,
                     'seen_lessons': len(seen_dates), 'times_seen': len(evs), 'times_missed': sum(1 for e in evs if e.get('correction')) + sum(1 for c in cards if c['result'] == 'missed'),
                     'card_right': sum(1 for c in cards if c['result'] == 'got'), 'card_wrong': sum(1 for c in cards if c['result'] == 'missed'),
-                    'streak': streak, 'streak_days': days, 'recent': recent, 'weight': 3.0 if (bucket == 'missed' or recent) else 1.0}
+                    'streak': streak, 'streak_days': days, 'recent': recent, 'weight': 3.0 if (bucket == 'missed' or recent) else 1.0,
+                    'grammar_misses': sum(1 for e in evs if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS),
+                    'grammar_kinds': sorted({e['miss_kind'] for e in evs if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS})}
     return out
 
 
 def recompute_and_store():
     """Reads word_events + card_results + lessons from Supabase, writes word_stats. Returns the stats dict."""
     import db
-    evs = db.select('word_events', {'select': 'lesson_date,word_key,speaker,prompted,correction,asked,t_start'})
+    evs = db.select('word_events', {'select': 'lesson_date,word_key,speaker,prompted,correction,asked,miss_kind,t_start'})
     cards = db.select('card_results', {'select': 'word_key,ts,result,attempt'})
     dates = [r['date'] for r in db.select('lessons', {'select': 'date'})]
     stats = compute(evs, cards, dates)

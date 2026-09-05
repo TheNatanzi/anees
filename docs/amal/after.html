@@ -58,13 +58,14 @@ function build(p){
   const S=[]; const Q=p.questions||[], HW=p.homework||[]; const total=Q.length+(HW.length?HW.length:0);
   who.textContent=`Medi's app has ${Q.length} quick question${Q.length===1?'':'s'} about today's lesson${HW.length?' and suggests homework':''}. Tap ▶ once to hear the moment.`;
   Q.forEach((q,i)=>{ const id=`q${i}`;
-    const kinds={'Right':'right','Wrong':'wrong','Not Medi':'not_medi','Skip':'skip','Medi, right':'right','Medi, wrong':'wrong','Yes, a word':'alias','No':'no'};
+    const kinds={'Right':'right','Wrong':'wrong','Wrong word':'wrong','Wrong grammar':'wrong','Not Medi':'not_medi','Skip':'skip','Medi, right':'right','Medi, wrong':'wrong','Yes, a word':'alias','No':'no'};
+    const missKind={'Wrong word':'word','Wrong grammar':'grammar'};
     S.push({prog:`${i+1} of ${total}`,html:`<h1>${esc(q.ask)}</h1><p class="sug">${esc(q.why)}. Your answer changes how the app scores this word.</p>
       <div class="card">${q.arabizi?`<div class="big">${esc(q.arabizi)}</div>`:''}<span class="ar">${esc(q.arabic||'')}</span><div class="en">${esc(q.english||'')}</div></div>
       ${playBtn(id+'p',q.clip,q.offset)}${q.typed?`<input id="${id}t" placeholder="her spelling (optional)" aria-label="spelling">`:''}<div class="btns">${q.buttons.slice(0,3).map((b,j)=>`<button id="${id}b${j}">${esc(b)}</button>`).join('')}</div><a href="#" id="${id}skip" class="skip">Skip this one</a>`,
       wire(){ wirePlay(id+'p');
         const answer=(label)=>{ const kind=kinds[label]||'skip'; const typed=document.getElementById(id+'t'); const pl={t:q.t,ask:q.ask,label,clip:q.clip,arabic:q.arabic,arabizi:q.arabizi};
-          if(typed&&typed.value.trim()) pl.alias=typed.value.trim();
+          if(typed&&typed.value.trim()) pl.alias=typed.value.trim(); if(missKind[label]) pl.miss_kind=missKind[label]; if(q.who) pl.who=true;
           (answers.q=answers.q||{})[i]=label; rule(kind,q.word_key,pl); save(); next(); };
         q.buttons.slice(0,3).forEach((b,j)=>document.getElementById(id+'b'+j).onclick=()=>answer(b));
         document.getElementById(id+'skip').onclick=e=>{e.preventDefault(); answer('Skip');}; }});

@@ -33,11 +33,20 @@ def apply(limit=500):
                 patch = dict(VERDICT[k]); patch['confidence'] = 1.0
                 if p.get('who') and k in ('right', 'wrong'):
                     patch['speaker'] = 'Medi'
+                if k == 'wrong' and p.get('miss_kind'):
+                    sub = q.get('miss_kind')
+                    patch['miss_kind'] = (sub if (p['miss_kind'] == 'grammar' and sub in ('article', 'gender', 'tense', 'plural')) else p['miss_kind'])
+                    patch['miss_why'] = 'Amal tapped ' + ('Wrong grammar' if p['miss_kind'] == 'grammar' else 'Wrong word')
+                if k == 'right':
+                    patch['miss_kind'] = None
                 if q.get('event_id'):
                     params = {'id': f"eq.{q['event_id']}"}
                 else:
                     params = {'lesson_date': f"eq.{r['lesson_date']}", 'word_key': f'eq.{key}', 't_start': f"eq.{q['t']}"}
                 hit = db.rest('PATCH', 'word_events', params=params, body=patch, prefer='return=representation') or []
+                if not hit and q.get('event_id'):        # the lesson was rebuilt after the link was minted: fall back to the exact word + time
+                    params = {'lesson_date': f"eq.{r['lesson_date']}", 'word_key': f'eq.{key}', 't_start': f"eq.{q['t']}"}
+                    hit = db.rest('PATCH', 'word_events', params=params, body=patch, prefer='return=representation') or []
                 changed.append({'rule': r['id'], 'kind': k, 'word_key': key, 'patched': patch, 'rows': len(hit)})
         elif k == 'alias' and p.get('alias'):
             key = key or p.get('word_key')

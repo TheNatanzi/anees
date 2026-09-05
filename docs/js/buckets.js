@@ -3,8 +3,10 @@
 // shaky: prompted / right on second try. missed: corrected / wrong twice in a row on cards. never: no Medi signal.
 (function (root) {
   const RECENT_LESSONS = 3;
+  const GRAMMAR_KINDS = ['article', 'gender', 'tense', 'plural'];
   function signalFromEvent(e) {
     if (e.speaker !== 'Medi' || e.prompted === null || e.prompted === undefined) return null;
+    if (e.correction && GRAMMAR_KINDS.includes(e.miss_kind) && !e.asked) return e.prompted ? 'shaky' : 'cold';
     if (e.correction || e.asked) return 'missed';
     if (e.prompted) return 'shaky';
     return 'cold';

@@ -47,7 +47,7 @@ def test_no_dead_links():
                     pytest.skip(f'no network for external link check: {e}')
                 assert seen_http[u] in (200, 301, 302), (p.name, u, seen_http[u])
             else:
-                target = (p.parent / u.split('?')[0]).resolve()
+                target = (p.parent / u.split('?')[0].split('#')[0]).resolve()
                 assert target.exists(), (p.name, u)
 
 

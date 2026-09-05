@@ -342,6 +342,10 @@ def cut_clips(events, audio, out_dir, date):
     return clips
 
 
+def log_fn(*a):
+    print(*a)
+
+
 def understand(date, scribe=None, audio=None, src=None, clips=True):
     d = LESSONS / date
     scribe = Path(scribe) if scribe else d / 'scribe.json'
@@ -356,6 +360,8 @@ def understand(date, scribe=None, audio=None, src=None, clips=True):
     wlist = load_words(); wordmap = {w['key']: w for w in wlist}
     m = Matcher(wlist)
     events = annotate(find_doc_events(words, m, lo, hi, exclude), words)
+    import miss_kind
+    miss_kind.classify_all(events, words, wordmap, use_llm=False, log=log_fn)
     chat = summary.get('chat_lines') or []
     if not chat and src:
         chat = [list(x) for x in lp.chat_sidecar(Path(src)) if x[1].lower() != 'medi' and not x[1].lower().startswith('mahdi')]

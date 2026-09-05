@@ -15,6 +15,8 @@ DOCS = ROOT / 'docs'
 PAGES = 'https://thenatanzi.github.io/anees/'
 DASH = '–'
 MOMENTS = 20
+GRAMMAR_KINDS = ('article', 'gender', 'tense', 'plural')
+KIND_LABEL = {'word': 'word', 'article': 'grammar: the el- article', 'gender': 'grammar: gender', 'tense': 'grammar: tense', 'plural': 'grammar: plural', 'pronunciation': 'pronunciation', 'unclear': 'kind unclear'}
 
 
 def load_words():
@@ -35,10 +37,12 @@ def classify(u, earlier_keys):
         for e in evs:
             if e['speaker'] != 'Medi':
                 continue
-            kind = 'missed' if (e['correction'] or e.get('asked')) else ('nailed' if not e['prompted'] else None)
+            grammar = e['correction'] and e.get('miss_kind') in GRAMMAR_KINDS and not e.get('asked')
+            kind = 'grammar' if grammar else ('missed' if (e['correction'] or e.get('asked')) else ('nailed' if not e['prompted'] else None))
             if kind:
                 rows.append({'lesson_date': date, 'kind': kind, 'word_key': e['word_key'], 't_start': e['t_start'], 't_end': e['t_end'], 'speaker': 'Medi',
-                             'text': e['text'], 'clip': e['clip'], 'confidence': 1.0, 'detail': {'offset': e['offset'], 'cue': e.get('cue', ''), 'prompted': e['prompted']}})
+                             'text': e['text'], 'clip': e['clip'], 'confidence': 1.0, 'detail': {'offset': e['offset'], 'cue': e.get('cue', ''), 'prompted': e['prompted'],
+                                                                                                  'miss_kind': e.get('miss_kind'), 'miss_why': e.get('miss_why')}})
     seen_now = {}
     for e in evs:
         seen_now.setdefault(e['word_key'], e)
@@ -71,7 +75,7 @@ def classify(u, earlier_keys):
         if e['word_key'] in used:
             continue
         used.add(e['word_key']); moments.append((pri, e['t_start'], e['t_end'], 'Medi', e['text'], e['word_key'], e['clip'], e['offset'],
-                                                ('you asked for it' if e.get('asked') else ('Amal repeated it right after (recast)' if e.get('cue') == 'recast' else 'Amal said no / say… right after')) if (e['correction'] or e.get('asked')) else 'said after Amal'))
+                                                (('you asked for it' if e.get('asked') else ('Amal repeated it right after (recast)' if e.get('cue') == 'recast' else 'Amal said no / say… right after')) + (' · ' + KIND_LABEL.get(e.get('miss_kind'), '') if e.get('miss_kind') else '')) if (e['correction'] or e.get('asked')) else 'said after Amal'))
     if ok:
         for e in evs:
             if e['speaker'] == 'Medi' and not e['prompted'] and not e['correction'] and not e.get('asked') and e['word_key'] not in used and len(moments) < MOMENTS * 2:
@@ -97,7 +101,7 @@ def sync_db(u, rows):
                            'updated_at': datetime.datetime.now(datetime.timezone.utc).isoformat()}], on='date')
     db.rest('DELETE', 'word_events', params={'lesson_date': f'eq.{date}'}, prefer='return=minimal')
     wrows = [{'lesson_date': date, 'word_key': e['word_key'], 't_start': e['t_start'], 't_end': e['t_end'], 'speaker': e['speaker'], 'prompted': e['prompted'],
-              'correction': e['correction'], 'uptake': e['uptake'], 'asked': e.get('asked'), 'confidence': (1.0 if conf['per_speaker_ok'] else 0.0), 'clip': e['clip'], 'text': e['text']} for e in u['events']]
+              'correction': e['correction'], 'uptake': e['uptake'], 'asked': e.get('asked'), 'miss_kind': e.get('miss_kind'), 'miss_why': e.get('miss_why'), 'confidence': (1.0 if conf['per_speaker_ok'] else 0.0), 'clip': e['clip'], 'text': e['text']} for e in u['events']]
     db.upsert('word_events', wrows)
     db.rest('DELETE', 'lesson_events', params={'lesson_date': f'eq.{date}'}, prefer='return=minimal')
     db.upsert('lesson_events', rows)
@@ -180,13 +184,14 @@ def render(u, rows, words, bins, ok):
 
     def li(r):
         d = r.get('detail') or {}
-        return f'<li>{play(r["clip"], d.get("offset", 0), r["t_start"])} {wcell(r["word_key"]) if r["word_key"] else html.escape(r["text"])}' + \
+        tag = f' <span class="kind">{html.escape(KIND_LABEL.get(d["miss_kind"], d["miss_kind"]))}</span>' if d.get('miss_kind') and r['kind'] in ('missed', 'grammar') else ''
+        return f'<li>{play(r["clip"], d.get("offset", 0), r["t_start"])} {wcell(r["word_key"]) if r["word_key"] else html.escape(r["text"])}{tag}' + \
                (f' <span class="why">{html.escape(d["why"])}</span>' if d.get('why') else '') + \
                (f' <span class="why">Amal typed at {d["chat_time"]}{"" if d.get("found") else " · not heard in the transcript"}</span>' if r['kind'] == 'typed' else '') + '</li>'
 
     def section(title, kind, lead):
         items = by_kind.get(kind, [])
-        if kind in ('missed', 'nailed') and not ok:
+        if kind in ('missed', 'nailed', 'grammar') and not ok:
             return f'<section id="{kind}"><h2>{title} <span class="n">{DASH}</span></h2><p class="lead">{html.escape(conf["reason"])}. Per-speaker facts are not published for this lesson.</p></section>'
         distinct = {}
         for r in items:
@@ -195,7 +200,7 @@ def render(u, rows, words, bins, ok):
         n = f'{len(items)}' + (f' <small>({len(distinct)} words)</small>' if kind in ('missed', 'nailed') and len(distinct) != len(items) else '')
         return f'<section id="{kind}"><h2>{title} <span class="n">{n}</span></h2><p class="lead">{lead}</p><ul class="list">{body}</ul></section>'
 
-    stats = [('what you missed', len(by_kind.get('missed', [])) if ok else DASH), ('what you nailed', len(by_kind.get('nailed', [])) if ok else DASH),
+    stats = [('words you missed', len(by_kind.get('missed', [])) if ok else DASH), ('grammar slips', len(by_kind.get('grammar', [])) if ok else DASH), ('what you nailed', len(by_kind.get('nailed', [])) if ok else DASH),
              ('new words', len(by_kind.get('new', []))), ('reused old words', len(by_kind.get('reused', []))), ('Amal typed', len(by_kind.get('typed', [])))]
     stat_html = ''.join(f'<div class="stat"><div class="num">{v}</div><div class="lab">{k}</div></div>' for k, v in stats)
     warn = '' if conf['split'] == 'ok' else f'<p class="warn">{html.escape(conf["reason"])}.</p>'
@@ -209,17 +214,21 @@ def render(u, rows, words, bins, ok):
 :root{{--bg:#F4F6F2;--bg2:#fff;--ink:#1B2620;--mute:#5B6A62;--line:#D6DDD8;--teal:#0F6E56;--amber:#B26F0E;--red:#B23A2E}}
 @media(prefers-color-scheme:dark){{:root{{--bg:#0F1613;--bg2:#17211C;--ink:#E7EDE9;--mute:#9BAAA2;--line:#2A3630;--teal:#4FC4A2;--amber:#E7A93B;--red:#E77A6E}}}}
 *{{box-sizing:border-box}} body{{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 "Atkinson Hyperlegible",system-ui,sans-serif;overflow-wrap:anywhere}}
-main{{max-width:760px;margin:0 auto;padding:14px}} h1{{font-size:24px;margin:8px 0 2px}} h2{{font-size:20px;margin:26px 0 4px}} .n{{color:var(--teal)}}
+main{{max-width:820px;margin:0 auto;padding:14px 12px}} h1{{font-size:24px;margin:8px 0 2px}}
+.top{{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:5}} .top .in{{max-width:820px;margin:0 auto;padding:10px 12px 0}}
+.brand{{display:flex;align-items:baseline;gap:10px}} .brand b{{font-size:20px}} .brand span{{color:var(--mute);font-size:13px}}
+.top nav{{display:flex;gap:4px;overflow-x:auto;padding:6px 0;scrollbar-width:none}} .top nav::-webkit-scrollbar{{display:none}}
+.top .tab{{flex:0 0 auto;min-height:44px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:999px;padding:8px 14px;font:600 15px system-ui;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}} .top .tab.on{{background:var(--teal);color:#fff;border-color:var(--teal)}} h2{{font-size:20px;margin:26px 0 4px}} .n{{color:var(--teal)}}
 .lead{{color:var(--mute);margin:0 0 10px;font-size:14px}} .warn{{background:var(--bg2);border-left:4px solid var(--amber);padding:8px 12px;margin:10px 0}}
 .stats{{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin:12px 0}}
 .stat{{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px}} .num{{font-size:26px;font-weight:700}} .lab{{font-size:12px;color:var(--mute)}}
 .chart{{width:100%;height:auto;background:var(--bg2);border:1px solid var(--line);border-radius:12px}} .chart .medi{{fill:var(--teal)}} .chart .amal{{fill:var(--mute)}} .chart .all{{fill:var(--amber)}} .chart .tick{{fill:var(--mute);font-size:12px}}
 .list{{list-style:none;padding:0;margin:0}} .list li{{padding:8px 0;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}}
 .play{{background:var(--teal);color:#fff;border:0;border-radius:999px;padding:8px 12px;font:600 14px system-ui;min-height:40px;cursor:pointer}} .play.on{{background:var(--amber)}}
-.ar{{font-size:19px}} .en{{color:var(--mute);font-size:14px}} .why{{color:var(--amber);font-size:13px}} .t{{color:var(--mute);font-size:13px}} .none{{color:var(--mute)}}
+.ar{{font-size:19px}} .en{{color:var(--mute);font-size:14px}} .kind{{font-size:12px;color:#fff;background:var(--amber);border-radius:999px;padding:1px 8px}} .why{{color:var(--amber);font-size:13px}} .t{{color:var(--mute);font-size:13px}} .none{{color:var(--mute)}}
 .topics{{padding-left:18px}} .topics small{{color:var(--mute)}} nav a{{color:var(--teal)}} footer{{color:var(--mute);font-size:13px;margin:30px 0 10px}}
-</style></head><body><main>
-<nav><a href="../index.html">Anees</a> · <a href="{date}.html">full transcript</a></nav>
+</style></head><body><header class="top"><div class="in"><div class="brand"><b>Anees</b><span>Palestinian Arabic with Amal · Medi's companion</span></div><nav><a class="tab" href="../index.html#today">Today</a><a class="tab on" href="../index.html#lessons">Lessons</a><a class="tab" href="../index.html#words">Words</a><a class="tab" href="../index.html#cards">Flashcards</a><a class="tab" href="../index.html#amal">Amal</a><a class="tab" href="../index.html#grammar">Grammar</a><a class="tab" href="../index.html#future">Future projects</a></nav></div></header><main>
+<p class="lead"><a href="{date}.html">Full transcript of this lesson</a></p>
 <h1>Lesson report, {date}</h1>
 <p class="lead">{u['minutes']} minutes · {u['words']} words · ElevenLabs Scribe v2. Every number below is a count of stored lesson events; unknown = {DASH}.</p>
 {warn}
@@ -227,7 +236,8 @@ main{{max-width:760px;margin:0 auto;padding:14px}} h1{{font-size:24px;margin:8px
 <h2>Arabic words per 10 minutes</h2>
 {svg_chart(bins, ok)}
 <h2>Topics</h2><ol class="topics">{topics}</ol>
-{section('What you missed', 'missed', 'Possible misses: Amal repeated the word or said la / no / "say…" within 5 seconds after you. Tap ▶ to check; Amal confirms or rejects these on her after-lesson link.')}
+{section('Words you missed', 'missed', 'Possible misses of the WORD itself: Amal repeated it or said la / no / "say…" within 5 seconds, and the form you said was not just a grammar slip. Amal confirms or rejects these on her after-lesson link.')}
+{section('Grammar slips', 'grammar', 'You knew the word; the slip was the el- article, gender, tense or plural (read from what you said vs the Doc, and from Amal\'s words). These do not count against the word.')}
 {section('What you nailed', 'nailed', 'You said it before Amal did, and she did not correct it.')}
 {section('New words', 'new', 'First time this word appears in any recorded lesson.')}
 {section('Reused old words', 'reused', 'Heard in an earlier lesson and again today.')}
@@ -258,7 +268,9 @@ def email_payload(u, rows, bins, ok, link):
     conf = u['label_confidence']
     def name(k):
         w = W.get(k); return f"{w['arabizi']} ({w['english'][:30]})" if w else k
-    rows_out = [{'tag': 'Missed', 'name': (f"{len(by_kind.get('missed', []))} possible misses (Amal reacted right after)" if ok else f'{DASH} not measurable'),
+    rows_out = [{'tag': 'Grammar', 'name': (f"{len(by_kind.get('grammar', []))} grammar slips (word known)" if ok else f'{DASH} not measurable'),
+                 'detail': (', '.join(dict.fromkeys(f"{name(r['word_key'])} · {(r['detail'] or {}).get('miss_kind')}" for r in by_kind.get('grammar', [])[:6])) if ok else conf['reason'])},
+                {'tag': 'Missed', 'name': (f"{len(by_kind.get('missed', []))} possible word misses (Amal reacted right after)" if ok else f'{DASH} not measurable'),
                  'detail': (', '.join(dict.fromkeys(name(r['word_key']) for r in by_kind.get('missed', [])[:6])) if ok else conf['reason'])},
                 {'tag': 'Nailed', 'name': (f"{len(by_kind.get('nailed', []))} said cold" if ok else f'{DASH} not measurable'),
                  'detail': (', '.join(dict.fromkeys(name(r['word_key']) for r in by_kind.get('nailed', [])[:6])) if ok else 'per-speaker facts are blank for this lesson')},
@@ -289,7 +301,7 @@ def build(date, use_db=True, send=False, u=None):
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(page, encoding='utf-8')
     io.open(d / 'report_rows.json', 'w', encoding='utf-8').write(json.dumps(rows, ensure_ascii=False))
-    res = {'page': str(out), 'rows': len(rows), 'kinds': {k: sum(1 for r in rows if r['kind'] == k) for k in ('missed', 'nailed', 'new', 'reused', 'typed', 'moment')}, 'per_speaker_ok': ok}
+    res = {'page': str(out), 'rows': len(rows), 'kinds': {k: sum(1 for r in rows if r['kind'] == k) for k in ('missed', 'grammar', 'nailed', 'new', 'reused', 'typed', 'moment')}, 'per_speaker_ok': ok}
     if use_db:
         res['db'] = sync_db(u, rows)
     link = f'{PAGES}lessons/{date}-report.html'

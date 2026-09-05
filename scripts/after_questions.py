@@ -48,9 +48,11 @@ def choose(u, words_labeled, wmap, matcher):
     if ok:
         for e in sorted([e for e in u['events'] if e['speaker'] == 'Medi' and e['correction']], key=lambda e: (e.get('cue') != 'recast', e['t_start'])):
             w = wmap.get(e['word_key'], {})
-            q.append({'kind': 'correction', 'value': 3, 't': e['t_start'], 'word_key': e['word_key'], 'arabizi': w.get('arabizi', e['word_key']), 'arabic': w.get('arabic', ''),
-                      'english': w.get('english', ''), 'ask': f"Did Medi say {w.get('arabizi', e['word_key'])} right here?", 'why': 'the app thinks you corrected it',
-                      'buttons': ['Right', 'Wrong', 'Not Medi', 'Skip']})
+            mkd = e.get('miss_kind')
+            q.append({'kind': 'correction', 'value': 3 if mkd in (None, 'word', 'unclear') else 2.5, 't': e['t_start'], 'word_key': e['word_key'], 'arabizi': w.get('arabizi', e['word_key']), 'arabic': w.get('arabic', ''),
+                      'english': w.get('english', ''), 'ask': f"Did Medi say {w.get('arabizi', e['word_key'])} right here?",
+                      'why': ('the app thinks you corrected it' + (f' (it reads this as a {mkd} slip)' if mkd and mkd not in ('word', 'unclear') else '')),
+                      'miss_kind': mkd, 'buttons': ['Right', 'Wrong word', 'Wrong grammar', 'Not Medi']})
     # words the app heard but could not attribute (speaker '?'): only real Doc events, never glue words
     from understand_lesson import GLUE_KEYS, STOP_KEYS
     for e in u['events']:

@@ -35,10 +35,10 @@ def test_numbers_are_counts_of_rows(date):
     for kind, n in d['counts'].items():
         assert n == sum(1 for r in rs if r['kind'] == kind), kind
     if d['per_speaker_ok']:
-        assert d['stats']['what you missed'] == d['counts'].get('missed', 0)
+        assert d['stats']['words you missed'] == d['counts'].get('missed', 0) and d['stats']['grammar slips'] == d['counts'].get('grammar', 0)
         assert d['stats']['what you nailed'] == d['counts'].get('nailed', 0)
     else:
-        assert d['stats']['what you missed'] == '–' and d['stats']['what you nailed'] == '–'
+        assert d['stats']['words you missed'] == '–' and d['stats']['what you nailed'] == '–'
 
 
 @pytest.mark.parametrize('date', DATES)
@@ -124,7 +124,7 @@ def test_forced_speaker_split_failure_shows_dash():
     bins, ok = br.chart_bins(u, [])
     html = br.render(u, rs, br.load_words(), bins, ok)
     d = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))
-    assert d['stats']['what you missed'] == '–' and d['stats']['what you nailed'] == '–'
+    assert d['stats']['words you missed'] == '–' and d['stats']['what you nailed'] == '–'
     assert '15% floor' in html and 'not published' in html
     assert 'class="medi"' not in html          # no per-speaker bars either
     assert 'Medi corrected' not in html
