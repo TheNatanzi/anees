@@ -260,7 +260,7 @@ def git_publish(paths, message, run=subprocess.run):
     """Stage, commit and push the given paths. Raises when the push fails (Codex P0: never announce an unpushed page)."""
     import write_build; write_build.write()
     paths = list(paths) + [ROOT / 'docs' / 'js' / 'build.js', ROOT / 'docs' / 'data' / 'build.json']
-    run(['git', '-C', str(ROOT), 'add'] + [str(x) for x in paths if Path(x).exists()], check=True)
+    run(['git', '-C', str(ROOT), 'add', '-f'] + [str(x) for x in paths if Path(x).exists()], check=True)      # -f: clips are *.mp3, which .gitignore excludes (2026-09-05: 103 Sep-5 clips never reached the site)
     run(['git', '-C', str(ROOT), 'commit', '-q', '-m', message + '\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>'], check=False)
     push = run(['git', '-C', str(ROOT), 'push', '-q'], capture_output=True, text=True)
     if push.returncode != 0:
