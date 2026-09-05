@@ -143,3 +143,33 @@ Chairman: agreement = page is honest (no guessed numbers, "–" with reason) and
 misses" should show at all before Amal confirms (kept, labeled as possible, because M4 exists to confirm them); strongest argument =
 evidence advisor's reconciliation to stored rows; risks = reaction-detector precision, pitch-label speakers on merged recordings.
 **Score 8/10, no open P0.** Would rise with Amal's first 5 verdicts (M4) and one two-channel lesson.
+
+## M3 — Amal's before-lesson link (planner)  (01:50 → 02:25)
+
+Built: `scripts/amal_links.py` (secret-token rows, 7-day expiry, URL printed only locally, never sent), `scripts/suggest.py`
+(candidate lists A = missed/shaky/recent-new, B = cold; OpenAI gpt-5.5 writes 12 candidates; a script validator keeps only
+sentences whose every token is a Doc word / pronoun / glue AND that carry ≥ 1 A word and ≥ 1 B word; dropped-twice words are
+banned; kept sentences come back first without an API call), `docs/amal/plan.html` (phone-first: 3 questions then one sentence per
+screen with Keep / Drop / Edit; every tap saved immediately as an amal_rules row; "Stop here" any time; second open = "Already done").
+
+Gate:
+```
+python -m pytest -q tests/test_m3_planner.py -s
+test_sentences_use_only_doc_words_and_taught_topics PASS  (8/8 sentences, 0 token violations, each has an A and a B word; all topics are Doc headings)
+test_drop_twice_removes_word PASS                          (1 drop keeps the word, 2 drops remove it; a kept sentence returns first with no API call)
+test_stand_in_completes_planner_on_phone_under_2_min PASS  (Playwright 375×812, 0.8 s per tap: 11 screens in 12.1 s; per screen: 1 h1, ≤ 4 buttons,
+                                                            every button ≥ 48 px and above the fold, "suggest" on every screen, no horizontal scroll;
+                                                            typing used once (topic); rules stored: topic, new_words, repeat, keep, drop; done_at set;
+                                                            second open shows "Already done, thank you Amal")
+full suite: 36 passed
+```
+Sample of tonight's 8 suggestions (list A = kaan, 8air, Bsur3a, Bil8ala6, Ma7zooz, Mu8anni, Shoab, Ra2ey, Basee6a, Eshi):
+"E7ki Jumle Bsur3a, Shukran." · "kaan Eshi 8ala6 El-youm?" · "El-jaw Shoab kteer elyom." · "huwwe Mu8anni u Banbese6 kteer."
+Note: gpt-5.4-mini produced word salad ("bsur3a inti bi bukra") and 0/12 passed the validator → switched to gpt-5.5.
+
+## Paid calls (running)
+| time | service | what | cost (ceiling price) |
+|---|---|---|---|
+| 02:05 | OpenAI gpt-5.4-mini | planner sentences, 794 tokens, all rejected | $0.0009 |
+| 02:12 | OpenAI gpt-5.5 | planner sentences, 5,433 tokens (8 accepted) | $0.0989 |
+Running total: ElevenLabs $0.00 · OpenAI $0.10

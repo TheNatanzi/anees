@@ -1,0 +1,88 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Before today's lesson</title>
+<style>
+:root{--bg:#F4F6F2;--bg2:#fff;--ink:#1B2620;--mute:#5B6A62;--line:#D6DDD8;--teal:#0F6E56;--amber:#B26F0E;--red:#B23A2E}
+@media(prefers-color-scheme:dark){:root{--bg:#0F1613;--bg2:#17211C;--ink:#E7EDE9;--mute:#9BAAA2;--line:#2A3630;--teal:#4FC4A2;--amber:#E7A93B;--red:#E77A6E}}
+*{box-sizing:border-box} html,body{height:100%} body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;overflow-wrap:anywhere}
+main{max-width:520px;margin:0 auto;padding:14px 14px 24px;min-height:100%;display:flex;flex-direction:column}
+.who{font-size:14px;color:var(--mute);margin:0 0 6px} .prog{font-size:13px;color:var(--teal);font-weight:700;letter-spacing:.04em;margin:0 0 4px}
+h1{font-size:24px;margin:2px 0 10px;line-height:1.25} .sug{font-size:14px;color:var(--mute);margin:0 0 12px}
+.screen{display:none;flex:1;flex-direction:column} .screen.on{display:flex}
+.btns{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+button{min-height:52px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:14px;font:600 18px system-ui;padding:10px 14px;text-align:left;cursor:pointer;width:100%}
+button.primary{background:var(--teal);color:#fff;border-color:var(--teal)} button.sel{outline:3px solid var(--teal)} button.drop{color:var(--red)} button:disabled{opacity:.5}
+button small{display:block;font:14px system-ui;color:var(--mute);font-weight:400} button.primary small{color:#dff5ec}
+.ar{font-size:22px;direction:rtl;display:block} .card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:14px;margin:4px 0 12px}
+.card .big{font-size:22px;font-weight:700} .card .en{color:var(--mute);font-size:15px;margin-top:4px} .words{font-size:13px;color:var(--mute);margin-top:8px}
+input,textarea{width:100%;font:18px system-ui;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);color:var(--ink)}
+.quit{margin-top:auto;padding-top:14px;font-size:14px;color:var(--mute)} .quit a{color:var(--mute)} .ok{color:var(--teal)} .err{color:var(--red)}
+.saved{font-size:12px;color:var(--mute);min-height:16px;margin-top:6px}
+</style></head><body><main>
+<p class="who" id="who">Medi's app has 3 quick questions before today's lesson. Your choice always wins.</p>
+<p class="prog" id="prog"></p>
+<div id="root"><p class="sug">Loading…</p></div>
+<p class="quit" id="quit"><a href="#" id="quitlink">Stop here</a> · everything is saved as you tap · under 3 minutes</p>
+</main>
+<script src="../js/config.js"></script>
+<script>
+const qs=new URLSearchParams(location.search), TOKEN=qs.get('t')||'';
+const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon,'Content-Type':'application/json','X-Anees-Token':TOKEN};
+const api=(m,p,b,extra)=>fetch(ANEES.url+'/rest/v1/'+p,{method:m,headers:{...H,...(extra||{})},body:b?JSON.stringify(b):undefined});
+const root=document.getElementById('root'), prog=document.getElementById('prog'), who=document.getElementById('who');
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+let link=null, answers={}, step=0, screens=[];
+const queue=[]; let flushing=false;
+async function flush(){ if(flushing||!queue.length) return; flushing=true;
+  while(queue.length){ const job=queue[0]; try{ await job(); queue.shift(); }catch(e){ await new Promise(r=>setTimeout(r,1500)); } }
+  flushing=false; }
+function rule(kind,word_key,payload){ queue.push(()=>api('POST','amal_rules',{token:TOKEN,source:'planner',lesson_date:link.lesson_date,kind,word_key,payload},{Prefer:'return=minimal'}).then(r=>{if(!r.ok) throw 0;})); flush(); }
+function save(done){ answers.updated=new Date().toISOString(); const body={answers}; if(done) body.done_at=answers.updated; if(!link.opened_at) body.opened_at=answers.updated;
+  queue.push(()=>api('PATCH','amal_links?token=eq.'+encodeURIComponent(TOKEN),body,{Prefer:'return=minimal'}).then(r=>{if(!r.ok) throw 0;})); flush(); }
+function show(i){ step=i; const s=screens[i]; if(!s){ finish(); return; } prog.textContent=s.prog; root.innerHTML=s.html; s.wire&&s.wire(); window.scrollTo(0,0); }
+function next(){ show(step+1); }
+function finish(){ save(true); prog.textContent='Done'; who.textContent='Thank you, Amal.';
+  root.innerHTML='<h1>All saved. Have a good lesson!</h1><p class="sug">Medi\'s app suggested; you decided. Nothing else to do.</p>'; document.getElementById('quit').style.display='none'; }
+function btn(label,sub,cls,id){ return `<button id="${id}" class="${cls||''}">${esc(label)}${sub?`<small>${esc(sub)}</small>`:''}</button>`; }
+function build(p){
+  const S=[];
+  S.push({prog:'1 of 3',html:`<h1>What is today's topic?</h1><p class="sug">The app suggests these; tap one or type your own.</p><div class="btns" id="b">
+    ${p.topics.slice(0,3).map((t,i)=>btn(t,i===0?'suggested: last lesson\'s topic':'',null,'t'+i)).join('')}${btn('Type a different topic','',null,'ttype')}</div>
+    <div id="typebox" style="display:none;margin-top:10px"><input id="topic" placeholder="Today\'s topic" aria-label="topic"><button id="tgo" class="primary" style="margin-top:8px">Next</button></div><div class="saved" id="s1"></div>`,
+    wire(){ p.topics.slice(0,3).forEach((t,i)=>document.getElementById('t'+i).onclick=()=>{answers.topic=t; rule('topic',null,{topic:t,source:'suggested'}); save(); next();});
+      document.getElementById('ttype').onclick=()=>{document.getElementById('typebox').style.display='block'; document.getElementById('topic').focus();};
+      document.getElementById('tgo').onclick=()=>{const v=document.getElementById('topic').value.trim(); if(!v) return; answers.topic=v; rule('topic',null,{topic:v,source:'typed'}); save(); next();}; }});
+  S.push({prog:'2 of 3',html:`<h1>Any new words today?</h1><p class="sug">Optional. The app suggests you skip this unless you already know them.</p><div class="btns">
+    ${btn('No new words','or I will decide during the lesson','primary','nw0')}${btn('Yes, I will type them','one per line',null,'nw1')}</div>
+    <div id="nwbox" style="display:none;margin-top:10px"><textarea id="nw" rows="4" placeholder="Arabizi, one word per line" aria-label="new words"></textarea><button id="nwgo" class="primary" style="margin-top:8px">Next</button></div>`,
+    wire(){ document.getElementById('nw0').onclick=()=>{answers.new_words=[]; rule('new_words',null,{words:[]}); save(); next();};
+      document.getElementById('nw1').onclick=()=>{document.getElementById('nwbox').style.display='block';};
+      document.getElementById('nwgo').onclick=()=>{const ws=document.getElementById('nw').value.split(/\n/).map(x=>x.trim()).filter(Boolean); answers.new_words=ws; rule('new_words',null,{words:ws}); save(); next();}; }});
+  const rep=p.repeat||[];
+  S.push({prog:'3 of 3',html:`<h1>Anything to repeat?</h1><p class="sug">The app suggests these words Medi missed. Tap the ones you want, then Next.</p><div class="btns" id="rb">
+    ${rep.slice(0,3).map((w,i)=>btn(w.arabizi,(w.arabic||'')+'  ·  '+(w.english||''),null,'r'+i)).join('')}${btn(rep.length?'Next':'Nothing special, next','', 'primary','rgo')}</div>`,
+    wire(){ const sel=new Set(); rep.slice(0,3).forEach((w,i)=>document.getElementById('r'+i).onclick=e=>{const b=e.currentTarget; if(sel.has(w.key)){sel.delete(w.key);b.classList.remove('sel');}else{sel.add(w.key);b.classList.add('sel');}});
+      document.getElementById('rgo').onclick=()=>{answers.repeat=[...sel]; [...sel].forEach(k=>rule('repeat',k,{})); if(!sel.size) rule('repeat',null,{none:true}); save(); next();}; }});
+  (p.sentences||[]).forEach((s,i)=>{ const n=p.sentences.length;
+    S.push({prog:`Sentence ${i+1} of ${n}`,html:`<h1>Keep this sentence?</h1><p class="sug">The app suggests it for today (it uses a word Medi missed plus one he knows). Keep, drop, or edit it.</p>
+      <div class="card"><div class="big">${esc(s.arabizi)}</div><span class="ar">${esc(s.arabic||'')}</span><div class="en">${esc(s.english||'')}</div><div class="words">words: ${(s.words||[]).map(w=>esc(w.arabizi)).join(', ')}</div></div>
+      <div class="btns">${btn('Keep','', 'primary','k'+i)}${btn('Drop','', 'drop','d'+i)}${btn('Edit','', null,'e'+i)}</div>
+      <div id="ebox${i}" style="display:none;margin-top:10px"><input id="ev${i}" value="${esc(s.arabizi)}" aria-label="edited sentence"><button id="eg${i}" class="primary" style="margin-top:8px">Save my version</button></div>`,
+      wire(){ const pl={arabizi:s.arabizi,arabic:s.arabic,english:s.english,keys:(s.words||[]).map(w=>w.key)};
+        document.getElementById('k'+i).onclick=()=>{(answers.sentences=answers.sentences||{})[i]='keep'; rule('keep',null,pl); save(); next();};
+        document.getElementById('d'+i).onclick=()=>{(answers.sentences=answers.sentences||{})[i]='drop'; rule('drop',null,pl); (s.words||[]).forEach(w=>rule('drop',w.key,{sentence:s.arabizi})); save(); next();};
+        document.getElementById('e'+i).onclick=()=>{document.getElementById('ebox'+i).style.display='block';};
+        document.getElementById('eg'+i).onclick=()=>{const v=document.getElementById('ev'+i).value.trim(); if(!v) return; (answers.sentences=answers.sentences||{})[i]='edit'; rule('edit',null,{...pl,edited:v}); save(); next();}; }});
+  });
+  return S;
+}
+document.getElementById('quitlink').onclick=e=>{e.preventDefault(); finish();};
+(async()=>{
+  if(!TOKEN){ root.innerHTML='<h1>This link is missing its code.</h1>'; return; }
+  let rows=[]; try{ rows=await (await api('GET','amal_links?select=*&token=eq.'+encodeURIComponent(TOKEN))).json(); }catch(e){}
+  link=Array.isArray(rows)?rows[0]:null;
+  if(!link){ root.innerHTML='<h1>This link is not valid any more.</h1><p class="sug">Links work for 7 days. Ask Medi for a fresh one.</p>'; prog.textContent=''; return; }
+  if(new Date(link.expires_at)<new Date()){ root.innerHTML='<h1>This link has expired.</h1><p class="sug">Links work for 7 days. Ask Medi for a fresh one.</p>'; prog.textContent=''; return; }
+  if(link.done_at){ root.innerHTML='<h1>Already done, thank you Amal.</h1><p class="sug">Your answers are saved. Nothing else to do.</p>'; prog.textContent='Done'; document.getElementById('quit').style.display='none'; return; }
+  answers=link.answers||{}; screens=build(link.payload||{}); show(0); save();
+})();
+</script></body></html>
