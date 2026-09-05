@@ -407,3 +407,12 @@ Flashcards iframe hides its own copy. Codex UI/UX audit launched (results in the
 | "I missed Na7el, didn't I?" | Medi: "what was bees?" → Amal "Nahl" → Medi "Nahl"; ASR wrote it in Latin so no event existed | chat-typed words (Na7el) anchor Latin ASR spellings and break matcher ties → now a word miss (asked) ✔ |
 | 7ashara "reviewed yesterday" but never used | 56 card_results rows from the Playwright tests (01:33 PT) survived a failed cleanup and drove word_stats | rows purged, buckets recomputed, tests recompute after cleanup, dates shown in local time |
 Sep 4 now: article 4 · choice 1 · word 1 (Na7el) · unclear 5. Sep 4 grammar slips are all the el- article (the lesson's real theme).
+
+## 'new' bucket + report order  (10:00 → 10:25, Medi)
+- New bucket **new**: first heard in one of the last 3 lessons and not yet drilled (< 3 first-try card rights on 2 different days).
+  New words never mix with missed words; the lesson-only signal is kept beside it (word_stats.lesson_signal, migration 006). Python and
+  JS agree; weight 3×. With only 2 lessons recorded, all 154 heard words are 'new' today — the number will settle as lessons accumulate.
+- Report: "New words" is now the first section with a "Practice the new words" button (cards.html?subject=b-new); cards default to the
+  New set when it is non-empty; Words tab has a New filter; Today shows new / missed as two cards.
+- Classifier: "إلـ" counts as an el- cue; consecutive el- slips within 10 s fold into one discussion (aktar ishi … el) → 61:29 eshi is
+  now part of the aktar slip, not "unclear". Data audit: 72 stale word_stats rows + 96 test flag rules purged; recompute is self-cleaning.
