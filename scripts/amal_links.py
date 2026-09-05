@@ -26,6 +26,12 @@ def create(kind, lesson_date, payload):
     row = {'token': token, 'kind': kind, 'lesson_date': lesson_date, 'created_at': now.isoformat(),
            'expires_at': (now + datetime.timedelta(days=DAYS)).isoformat(), 'payload': payload}
     db.upsert('amal_links', [row], on='token')
+    if kind == 'after' and payload.get('prompts'):                       # M10c: the prompt lines live in homework_items, bound to this token
+        import homework
+        stored = homework.mint_items(lesson_date, token, payload['prompts'])
+        if stored:
+            payload = {**payload, 'prompts': [{'id': r['id'], 'n': r['n'], 'english': r['english'], 'keys': r['keys']} for r in stored]}
+            db.rest('PATCH', 'amal_links', params={'token': f'eq.{token}'}, body={'payload': payload}, prefer='return=minimal')
     out = ROOT / 'data' / 'amal_links.json'
     hist = json.load(io.open(out, encoding='utf-8')) if out.exists() else []
     hist.append({'kind': kind, 'lesson_date': lesson_date, 'created_at': row['created_at'], 'expires_at': row['expires_at'], 'url': url(kind, token)})

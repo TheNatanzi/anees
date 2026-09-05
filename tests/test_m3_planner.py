@@ -66,7 +66,7 @@ def test_stand_in_completes_planner_on_phone_under_2_min():
             pg = b.new_page(viewport={'width': 375, 'height': 812})
             t0 = time.time()
             pg.goto(local)
-            pg.wait_for_selector('#prog:has-text("1 of 3")', timeout=15000)
+            pg.wait_for_selector('#prog:has-text("1 of")', timeout=15000)   # the planner has had 2 screens since the 2026-09-05 morning menu redesign
             steps = 0
             typed_fields = 0
             while True:

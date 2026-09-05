@@ -38,12 +38,18 @@ const LS=(k,v)=>{ try{ if(v===undefined) return JSON.parse(localStorage.getItem(
 let flushing=false, pendingDone=false;
 async function flush(){ if(flushing) return; flushing=true;
   while(true){ const q=LS(QK)||[]; if(!q.length) break; const job=q[0]; let ok=false;
-    try{ const r= job.kind==='rule' ? await api('POST','amal_rules',job.body,{Prefer:'return=minimal'}) : await api('PATCH','amal_links?token=eq.'+encodeURIComponent(TOKEN),job.body,{Prefer:'return=minimal'}); ok=r.ok||r.status===409; }catch(e){ ok=false; }
+    try{ let r;
+      if(job.kind==='rule') r=await api('POST','amal_rules',job.body,{Prefer:'return=minimal'});
+      else if(job.kind==='item') r=await api('PATCH','homework_items?id=eq.'+encodeURIComponent(job.id_item),job.body,{Prefer:'return=minimal'});        // M10c: keep / drop / edit a prompt
+      else if(job.kind==='item_new') r=await api('POST','homework_items',job.body,{Prefer:'return=minimal'});                                            // M10c: her own line
+      else if(job.kind==='verdict') r=await api('PATCH','homework_answers?id=eq.'+encodeURIComponent(job.id_answer),job.body,{Prefer:'return=minimal'});  // M10c: her verdict on Medi's answer
+      else r=await api('PATCH','amal_links?token=eq.'+encodeURIComponent(TOKEN),job.body,{Prefer:'return=minimal'});
+      ok=r.ok||r.status===409; }catch(e){ ok=false; }
     if(!ok){ await new Promise(r=>setTimeout(r,2000)); continue; }
     const q2=LS(QK)||[]; LS(QK,q2.filter(x=>x.id!==job.id)); }
   flushing=false; if(pendingDone && !(LS(QK)||[]).length){ pendingDone=false; showDone(); } }
 setInterval(()=>{ if((LS(QK)||[]).length) flush(); },3000); window.addEventListener('online',flush);
-function push(kind,body){ const q=LS(QK)||[]; q.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2),kind,body}); LS(QK,q); flush(); }
+function push(kind,body,extra){ const q=LS(QK)||[]; q.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2),kind,body,...(extra||{})}); LS(QK,q); flush(); }
 function rule(kind,word_key,payload){ push('rule',{token:TOKEN,source:'after',lesson_date:link.lesson_date,kind,word_key,payload}); }
 function save(done){ answers.updated=new Date().toISOString(); LS(AK,answers); const body={answers}; if(done) body.done_at=answers.updated; if(!link.opened_at) body.opened_at=answers.updated; push('link',body); }
 function show(i){ step=i; answers.step=i; LS(AK,answers); player.pause(); const s=screens[i]; if(!s){ finish(); return; } prog.textContent=s.prog; root.innerHTML=s.html; s.wire&&s.wire(); window.scrollTo(0,0); }
@@ -55,8 +61,8 @@ function playBtn(id,clip,off){ return `<button id="${id}" class="play" data-clip
 function wirePlay(id){ const b=document.getElementById(id); if(!b) return; b.onclick=()=>{ const src=ANEES.pages+'lessons/'+b.dataset.clip; if(!player.src.endsWith(b.dataset.clip)) player.src=src; player.currentTime=0; player.play(); b.classList.add('on'); b.textContent='▶ Playing…'; };
   player.onended=()=>{ b.classList.remove('on'); b.textContent='▶ Play again'; }; }
 function build(p){
-  const S=[]; const Q=p.questions||[], HW=p.homework||[]; const total=Q.length+(HW.length?HW.length:0);
-  who.textContent=`Medi's app has ${Q.length} quick question${Q.length===1?'':'s'} about today's lesson${HW.length?' and suggests homework':''}. Tap ▶ once to hear the moment.`;
+  const S=[]; const Q=p.questions||[], HW=p.homework||[], PR=p.prompts||[], PEND=p.pending||[]; const total=Q.length+HW.length+PEND.length+PR.length+(PR.length?1:0);
+  who.textContent=`Medi's app has ${Q.length} quick question${Q.length===1?'':'s'} about today's lesson${(HW.length||PR.length)?' and suggests homework':''}${PEND.length?` · ${PEND.length} typed answer${PEND.length===1?'':'s'} from Medi to check`:''}. Tap ▶ once to hear the moment.`;
   Q.forEach((q,i)=>{ const id=`q${i}`;
     const kinds={'Right':'right','Wrong':'wrong','Wrong word':'wrong','Wrong grammar':'wrong','Not Medi':'not_medi','Skip':'skip','Medi, right':'right','Medi, wrong':'wrong','Yes, a word':'alias','No':'no'};
     const missKind={'Wrong word':'word','Wrong grammar':'grammar'};
@@ -81,6 +87,37 @@ function build(p){
         document.getElementById(id+'e').onclick=()=>{document.getElementById(id+'box').style.display='block';};
         document.getElementById(id+'g').onclick=()=>{const v=document.getElementById(id+'v').value.trim(); if(!v) return; (answers.hw=answers.hw||{})[i]='edit'; rule('edit',null,{...pl,edited:v,source:'homework'}); save(); next();}; }});
   });
+  // M10c (Medi 2026-09-05): Medi's typed answers to the last sheet - her verdict is the one that scores the word
+  PEND.forEach((a,i)=>{ const id=`v${i}`; const it=a.homework_items||{}; const g=a.grade||{}; const en=(it.status==='edit'||it.status==='amal')&&it.edited_english?it.edited_english:(it.english||'');
+    const gtxt=g.verdict?`The app said: <b>${esc(g.verdict==='right'?'right':g.verdict==='close'?'close':g.verdict==='wrong'?'not right':'ungraded')}</b>${(g.notes||[]).length?' · '+esc((g.notes||[]).map(n=>n.say).join(' · ')):''}${g.fixed&&g.verdict!=='right'?' → '+esc(g.fixed):''}`:'The app has not graded this one.';
+    S.push({prog:`${Q.length+HW.length+i+1} of ${total}`,html:`<h1>Medi typed this answer. Is it right?</h1><p class="sug">You have the final word; the app only suggested. Your answer scores the words.</p>
+      <div class="card"><div class="en">${esc(en)}</div><div class="big">${esc(a.answer)}</div><div class="why">${gtxt}</div></div>
+      <div class="btns"><button id="${id}r" class="primary">Correct</button><button id="${id}f">Needs a fix</button><button id="${id}s">Skip</button></div>
+      <div id="${id}box" style="display:none"><input id="${id}v" value="${esc(g.fixed&&g.verdict!=='right'?g.fixed:a.answer)}" aria-label="your fix"><button id="${id}g" class="primary" style="margin-top:8px">Save my fix</button></div>`,
+      wire(){ const done=(verdict,fix)=>{ (answers.v=answers.v||{})[a.id]=verdict; const body={amal_verdict:verdict,amal_at:new Date().toISOString()}; if(fix) body.amal_fix=fix; push('verdict',body,{id_answer:a.id}); save(); next(); };
+        document.getElementById(id+'r').onclick=()=>done('right'); document.getElementById(id+'s').onclick=()=>done('skip');
+        document.getElementById(id+'f').onclick=()=>{document.getElementById(id+'box').style.display='block';};
+        document.getElementById(id+'g').onclick=()=>{const v=document.getElementById(id+'v').value.trim(); if(!v) return; done('fix',v);}; }});
+  });
+  // M10c: tonight's prompt lines - the app suggests, Amal decides (keep / drop / edit), then may add her own
+  PR.forEach((it,i)=>{ const id=`p${i}`;
+    S.push({prog:`${Q.length+HW.length+PEND.length+i+1} of ${total}`,html:`<h1>Homework line ${i+1} of ${PR.length}</h1><p class="sug">The app suggests this English line for Medi to say in Arabic (it practises ${esc((it.keys||[]).length)} of his words). Keep, drop or edit it.</p>
+      <div class="card"><div class="big">${esc(it.english)}</div></div>
+      <div class="btns"><button id="${id}k" class="primary">Keep</button><button id="${id}d" class="drop">Drop</button><button id="${id}e">Edit</button></div>
+      <div id="${id}box" style="display:none"><input id="${id}v" value="${esc(it.english)}" aria-label="edited line"><button id="${id}g" class="primary" style="margin-top:8px">Save my version</button></div>`,
+      wire(){ const decide=(status,edited)=>{ (answers.pr=answers.pr||{})[it.id]=status; const body={status,decided_at:new Date().toISOString()}; if(edited) body.edited_english=edited;
+          push('item',body,{id_item:it.id}); rule(status,null,{english:it.english,edited,keys:it.keys,source:'homework_prompt'}); save(); next(); };
+        document.getElementById(id+'k').onclick=()=>decide('keep'); document.getElementById(id+'d').onclick=()=>decide('drop');
+        document.getElementById(id+'e').onclick=()=>{document.getElementById(id+'box').style.display='block';};
+        document.getElementById(id+'g').onclick=()=>{const v=document.getElementById(id+'v').value.trim(); if(!v) return; decide('edit',v);}; }});
+  });
+  if(PR.length){ const id='own';
+    S.push({prog:`${total} of ${total}`,html:`<h1>Your own lines?</h1><p class="sug">The app suggested its lines; now yours. Type any English line you want Medi to say in Arabic, one at a time, as many as you like.</p>
+      <input id="${id}v" placeholder="e.g. Did you call your brother yesterday?" aria-label="your line"><div class="btns"><button id="${id}a">Add this line</button><button id="${id}n" class="primary">No more lines, finish</button></div><p class="sug" id="${id}c"></p>`,
+      wire(){ let n=0; const inp=document.getElementById(id+'v');
+        document.getElementById(id+'a').onclick=()=>{ const v=inp.value.trim(); if(!v) return; n++; push('item_new',{lesson_date:link.lesson_date,token:TOKEN,n:100+n,english:v,edited_english:v,status:'amal',keys:[]}); rule('keep',null,{english:v,source:'homework_prompt',own:true}); inp.value=''; document.getElementById(id+'c').textContent=`${n} line${n===1?'':'s'} added. Add another or finish.`; save(); };
+        document.getElementById(id+'n').onclick=()=>{ next(); }; }});
+  }
   return S;
 }
 document.getElementById('quitlink').onclick=e=>{e.preventDefault(); finish();};
@@ -91,7 +128,10 @@ document.getElementById('quitlink').onclick=e=>{e.preventDefault(); finish();};
   if(!link){ root.innerHTML='<h1>This link is not valid any more.</h1><p class="sug">Links work for 7 days. Ask Medi for a fresh one.</p>'; prog.textContent=''; return; }
   if(new Date(link.expires_at)<new Date()){ root.innerHTML='<h1>This link has expired.</h1><p class="sug">Links work for 7 days. Ask Medi for a fresh one.</p>'; prog.textContent=''; return; }
   if(link.done_at){ root.innerHTML='<h1>Already done, thank you Amal.</h1><p class="sug">Your answers are saved. Nothing else to do.</p>'; prog.textContent='Done'; document.getElementById('quit').style.display='none'; return; }
-  answers=Object.assign({}, link.answers||{}, LS(AK)||{}); screens=build(link.payload||{});
+  const payload=Object.assign({}, link.payload||{});
+  try{ const pend=await (await api('GET','homework_answers?select=id,answer,grade,item_id,lesson_date,homework_items(english,edited_english,status,n,lesson_date)&amal_verdict=is.null&lesson_date=lte.'+encodeURIComponent(link.lesson_date)+'&order=ts.asc&limit=20')).json();
+    payload.pending=Array.isArray(pend)?pend.filter(a=>!((LS(AK)||{}).v||{})[a.id]):[]; }catch(e){ payload.pending=[]; }   // M10c: Medi's typed answers waiting for her verdict
+  answers=Object.assign({}, link.answers||{}, LS(AK)||{}); screens=build(payload);
   if(answers.done){ finish(); return; }
   show(typeof answers.step==='number' ? Math.min(answers.step, screens.length) : 0); flush(); save();
 })();

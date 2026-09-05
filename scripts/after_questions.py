@@ -124,8 +124,17 @@ def payload(date, audio=None, use_openai=True, with_db=True):
         hw, sug = prev['homework'], {'model': prev.get('meta', {}).get('model'), 'cost_usd': 0.0, 'usage': {}, 'rejected': [], 'note': 'homework reused from the previous build (no API call)'}
     else:
         hw, sug = homework(words, stats, rules, use_openai=use_openai)
-    out = {'lesson_date': date, 'built': datetime.datetime.now().isoformat(timespec='seconds'), 'questions': qs, 'homework': hw,
-           'meta': {'candidates': len(qs), 'model': sug['model'], 'cost_usd': sug['cost_usd'], 'usage': sug['usage'], 'rejected': sug['rejected']}}
+    import homework as hwmod                               # M10c: English prompt lines in Amal's style (Doc-only model answers)
+    if not use_openai and prev.get('prompts'):
+        pr = {'items': prev['prompts'], 'cost_usd': 0.0, 'rejected': [], 'model': None}
+    else:
+        try:
+            pr = hwmod.suggest_prompts(words, stats, rules, use_openai=use_openai)
+        except Exception as e:                             # never block the after link on the prompt engine
+            pr = {'items': [], 'cost_usd': 0.0, 'rejected': [{'why': f'prompt engine failed: {str(e)[:120]}'}], 'model': None}
+    out = {'lesson_date': date, 'built': datetime.datetime.now().isoformat(timespec='seconds'), 'questions': qs, 'homework': hw, 'prompts': pr['items'],
+           'meta': {'candidates': len(qs), 'model': sug['model'], 'cost_usd': round(sug['cost_usd'] + pr['cost_usd'], 4), 'usage': sug['usage'], 'rejected': sug['rejected'],
+                    'prompts_rejected': pr['rejected'], 'prompts_cost_usd': pr['cost_usd']}}
     io.open(d / 'after_payload.json', 'w', encoding='utf-8').write(json.dumps(out, ensure_ascii=False, indent=1))
     return out
 

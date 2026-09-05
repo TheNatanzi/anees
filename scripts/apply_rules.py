@@ -61,6 +61,12 @@ def apply(limit=500):
                         db.rest('PATCH', 'words', params={'key': f'eq.{key}'}, body={'aliases': al, 'updated_at': now}, prefer='return=minimal')
                         changed.append({'rule': r['id'], 'kind': 'alias', 'word_key': key, 'alias': p['alias']})
         db.rest('PATCH', 'amal_rules', params={'id': f"eq.{r['id']}"}, body={'payload': {**p, 'applied': now}}, prefer='return=minimal')
+    try:
+        import homework                                       # M10c: Amal's verdicts on Medi's typed answers score the words too
+        hw = homework.apply_verdicts(log=lambda *a: None)
+        changed.extend({'rule': None, 'kind': 'homework_' + c['verdict'], 'word_key': ','.join(c['keys']), 'rows': len(c['keys']), 'wrong': c['wrong']} for c in hw)
+    except Exception as e:
+        changed.append({'rule': None, 'kind': 'homework_error', 'word_key': None, 'rows': 0, 'refused': str(e)[:160]})
     stats = buckets.recompute_and_store() if changed else {}
     for c in changed:
         if c.get('word_key') in stats:

@@ -1,0 +1,80 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Homework</title>
+<style>
+:root{--bg:#F4F6F2;--bg2:#fff;--ink:#1B2620;--mute:#5B6A62;--line:#D6DDD8;--teal:#0F6E56;--amber:#B26F0E;--red:#B23A2E}
+@media(prefers-color-scheme:dark){:root{--bg:#0F1613;--bg2:#17211C;--ink:#E7EDE9;--mute:#9BAAA2;--line:#2A3630;--teal:#4FC4A2;--amber:#E7A93B;--red:#E77A6E}}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;overflow-wrap:anywhere}
+main{max-width:640px;margin:0 auto;padding:14px 14px 40px}
+h1{font-size:24px;margin:4px 0 4px} .sub{font-size:14px;color:var(--mute);margin:0 0 14px} a{color:var(--teal)}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin:0 0 12px}
+.n{font-size:13px;color:var(--teal);font-weight:700;letter-spacing:.04em} .en{font-size:20px;font-weight:700;margin:2px 0 6px}
+.badge{display:inline-block;font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--mute);margin-left:6px;vertical-align:middle}
+.badge.wait{border-color:var(--amber);color:var(--amber)} .badge.amal{border-color:var(--teal);color:var(--teal)}
+textarea{width:100%;font:18px system-ui;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);min-height:52px;resize:vertical}
+button{min-height:48px;border:1px solid var(--teal);background:var(--teal);color:#fff;border-radius:12px;font:600 17px system-ui;padding:8px 16px;cursor:pointer;margin-top:8px}
+button[disabled]{opacity:.5;cursor:default}
+.grade{margin-top:10px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg)}
+.pill{display:inline-block;font-weight:700;font-size:14px;padding:2px 10px;border-radius:999px;color:#fff;background:var(--mute)}
+.pill.right{background:var(--teal)} .pill.close{background:var(--amber)} .pill.wrong{background:var(--red)}
+.note{font-size:15px;margin:6px 0 0} .note b{color:var(--amber)} .fixed{font-size:16px;margin-top:6px} .mute{color:var(--mute);font-size:14px}
+.prev{font-size:15px;color:var(--mute);margin-top:8px;border-top:1px dashed var(--line);padding-top:8px}
+.amalv{margin-top:6px;font-size:15px} .amalv b{color:var(--teal)}
+.err{color:var(--red);font-size:14px;margin-top:6px}
+</style></head><body><main>
+<h1>Homework</h1>
+<p class="sub" id="sub">Loading…</p>
+<div id="root"></div>
+<p class="mute">Type your answer in Arabizi (6=ط 7=ح 3=ع 2=ء 5=خ). Anees checks it on the spot; Amal gives the final word on her next link. Voice answers are on the <a href="index.html#future">Future projects</a> list.</p>
+</main>
+<script src="js/config.js"></script>
+<script>
+const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon,'Content-Type':'application/json'};
+const api=(m,p,b,extra)=>fetch(ANEES.url+'/rest/v1/'+p,{method:m,headers:{...H,...(extra||{})},body:b?JSON.stringify(b):undefined});
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const uuid=()=>(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2));
+const root=document.getElementById('root'), sub=document.getElementById('sub');
+const KEY=new URLSearchParams(location.search).get('date');
+let items=[], answers={};
+function promptText(it){ return (it.status==='edit'||it.status==='amal')&&it.edited_english ? it.edited_english : it.english; }
+function badge(it){ if(it.status==='suggested') return '<span class="badge wait">Amal has not reviewed yet</span>'; if(it.status==='amal') return '<span class="badge amal">Amal\'s own line</span>'; if(it.status==='edit') return '<span class="badge amal">edited by Amal</span>'; return '<span class="badge amal">kept by Amal</span>'; }
+function gradeHtml(a){ if(!a) return ''; const g=a.grade; let h='<div class="grade">';
+  if(!g) h+='<span class="pill">checking…</span>'; else { const v=g.verdict||'ungraded'; h+=`<span class="pill ${esc(v)}">${v==='right'?'Right':v==='close'?'Close':v==='wrong'?'Not yet':'Ungraded'}</span> <span class="mute">Anees</span>`;
+    (g.notes||[]).forEach(n=>{ h+=`<div class="note"><b>${esc(n.kind||'')}</b> ${esc(n.say||'')}</div>`; });
+    if(g.fixed&&v!=='right') h+=`<div class="fixed">→ ${esc(g.fixed)}</div>`; }
+  if(a.amal_verdict) h+=`<div class="amalv"><b>Amal:</b> ${a.amal_verdict==='right'?'correct ✓':a.amal_verdict==='fix'?('fix → '+esc(a.amal_fix||'')):'skipped'}</div>`; else h+='<div class="mute" style="margin-top:6px">Amal will confirm on her next link.</div>';
+  return h+'</div>'; }
+function card(it){ const mine=(answers[it.id]||[]); const last=mine[0]; const id='i'+it.id;
+  return `<div class="card" id="${id}"><div class="n">${it.n}${badge(it)}</div><div class="en">${esc(promptText(it))}</div>
+   ${last?`<div class="prev">Your answer: <b style="color:var(--ink)">${esc(last.answer)}</b>${gradeHtml(last)}</div>`:''}
+   <textarea id="${id}t" placeholder="${last?'try again…':'your Arabic, in Arabizi'}"></textarea><button id="${id}b">Check</button><div class="err" id="${id}e"></div>
+   ${mine.length>1?`<details class="mute" style="margin-top:6px"><summary>${mine.length-1} earlier ${mine.length-1===1?'try':'tries'}</summary>${mine.slice(1).map(a=>`<div class="prev">${esc(a.answer)}${gradeHtml(a)}</div>`).join('')}</details>`:''}</div>`; }
+function render(){ if(!items.length){ root.innerHTML='<div class="card">No homework sheet yet. It appears after the next lesson.</div>'; return; }
+  const date=items[0].lesson_date; const approved=items.filter(i=>i.status!=='suggested').length;
+  sub.textContent=`Sheet from the ${date} lesson · ${items.length} lines · ${approved} reviewed by Amal`;
+  root.innerHTML=items.map(card).join('');
+  items.forEach(it=>{ const id='i'+it.id; document.getElementById(id+'b').onclick=()=>submit(it); document.getElementById(id+'t').onkeydown=e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); submit(it);} }; }); }
+async function submit(it){ const id='i'+it.id; const t=document.getElementById(id+'t'), b=document.getElementById(id+'b'), err=document.getElementById(id+'e'); const v=t.value.trim(); if(!v) return; b.disabled=true; err.textContent='';
+  const row={id:uuid(),item_id:it.id,lesson_date:it.lesson_date,answer:v};
+  try{ const r=await api('POST','homework_answers',row,{Prefer:'return=minimal'}); if(!r.ok) throw new Error('save failed '+r.status);
+    (answers[it.id]=answers[it.id]||[]).unshift({...row,ts:new Date().toISOString(),grade:null}); render();
+    const g=await fetch(ANEES.url+'/functions/v1/grade',{method:'POST',headers:{...H},body:JSON.stringify({answer_id:row.id})});
+    const j=await g.json().catch(()=>({}));
+    if(!g.ok||!j.grade){ answers[it.id][0].grade={verdict:'ungraded',notes:[{kind:'offline',say:(j.error||'The grader did not answer; Amal will still see it.')}]}; }
+    else answers[it.id][0].grade=j.grade;
+    render(); document.getElementById(id).scrollIntoView({block:'nearest'});
+  }catch(e){ b.disabled=false; err.textContent='Could not save: '+(e.message||e)+'. Check your connection and tap Check again.'; } }
+(async()=>{
+  try{
+    const all=await (await api('GET','homework_items?select=id,lesson_date,n,english,status,edited_english,keys,created_at&order=lesson_date.desc,created_at.desc,n.asc&limit=300')).json();
+    if(!Array.isArray(all)) throw new Error('bad items');
+    const date=KEY||(all[0]&&all[0].lesson_date);
+    // one sheet = the newest batch minted for that lesson (items created within 2 min of the newest suggested one; a link minted
+    // later replaces an earlier draft) plus every line Amal typed herself (status amal)
+    const mine=all.filter(i=>i.lesson_date===date); const top=mine.find(i=>i.status!=='amal'); const t0=top?new Date(top.created_at).getTime():0;
+    items=mine.filter(i=>(i.status==='amal'||Math.abs(new Date(i.created_at).getTime()-t0)<120000)&&i.status!=='drop').sort((a,b)=>a.n-b.n);
+    if(items.length){ const ids=items.map(i=>i.id).join(','); const ans=await (await api('GET','homework_answers?select=*&item_id=in.('+ids+')&order=ts.desc')).json();
+      (Array.isArray(ans)?ans:[]).forEach(a=>{ (answers[a.item_id]=answers[a.item_id]||[]).push(a); }); }
+    render();
+  }catch(e){ sub.textContent='Supabase is not reachable right now.'; root.innerHTML='<div class="card">Try again in a minute.</div>'; }
+})();
+</script><script src="js/build.js"></script></body></html>

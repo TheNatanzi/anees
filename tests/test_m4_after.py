@@ -87,8 +87,10 @@ def test_stand_in_answers_5_questions_and_homework_under_5_min():
                         pg.click(f'#h{hi}e'); pg.fill(f'#h{hi}v', 'Enbes6i biyoamek'); pg.click(f'#h{hi}g')
                     elif hi == 1:
                         pg.click(f'#h{hi}d')
-                    else:
+                    elif pg.locator(f'#h{hi}k').count():
                         pg.click(f'#h{hi}k')
+                    else:                                     # M10c screens: Medi's typed answer (verdict), prompt lines (keep), her own lines (finish)
+                        pg.click('#root button.primary')
                 steps += 1; time.sleep(0.8); pg.wait_for_timeout(200)
             elapsed = time.time() - t0; hw_time = time.time() - t_hw if t_hw else 0
             pg.wait_for_timeout(2500); b.close()
@@ -139,6 +141,7 @@ def test_link_expires_after_7_days():
         created = datetime.datetime.fromisoformat(row['created_at'].replace('Z', '+00:00')); exp = datetime.datetime.fromisoformat(row['expires_at'].replace('Z', '+00:00'))
         assert abs((exp - created).total_seconds() - 7 * 86400) < 60
         db.rest('PATCH', 'amal_links', params={'token': f'eq.{token}'}, body={'expires_at': '2026-01-01T00:00:00Z'}, prefer='return=minimal')
+        db.rest('DELETE', 'homework_items', params={'token': f'eq.{token}'}, prefer='return=minimal')      # M10c: a test sheet must never become Medi's sheet
         local = (ROOT / 'docs' / 'amal' / 'after.html').resolve().as_uri() + f'?t={token}'
         with sync_playwright() as pw:
             b = pw.chromium.launch(); pg = b.new_page(); pg.goto(local); pg.wait_for_selector('h1', timeout=15000)

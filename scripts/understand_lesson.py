@@ -363,9 +363,15 @@ def understand(date, scribe=None, audio=None, src=None, clips=True):
     conf = label_confidence(words, summary)
     wlist = load_words(); wordmap = {w['key']: w for w in wlist}
     m = Matcher(wlist)
+    import chat_ground_truth as CG                          # M10b: Meet sidecar + WhatsApp lines typed by Amal during the lesson
+    typed_lines = CG.merged_lines(summary, date)
     chat0 = summary.get('chat_lines') or []
-    m.prefer = frozenset(k for k in (m.match(re.split(r'\s*/\s*|\s+', t)[0].strip('?.,!'), fuzzy=False) for _, _, t in chat0) if k)   # Amal's typed words break ties (Na7el vs Na7le)
+    prefer = {k for k in (m.match(re.split(r'\s*/\s*|\s+', t)[0].strip('?.,!'), fuzzy=False) for _, _, t in chat0) if k}   # Amal's typed words break ties (Na7el vs Na7le)
+    for ln in typed_lines:
+        prefer.update(CG.line_keys(ln['text'], m))
+    m.prefer = frozenset(prefer)
     events = annotate(find_doc_events(words, m, lo, hi, exclude), words)
+    chat_diff = CG.apply_typed(events, typed_lines, m)
     import miss_kind
     miss_kind.classify_all(events, words, wordmap, use_llm=False, log=log_fn, matcher=m)
     chat = summary.get('chat_lines') or []
@@ -385,7 +391,8 @@ def understand(date, scribe=None, audio=None, src=None, clips=True):
                       'medi_prompted': (sum(1 for e in medi_ev if e['prompted']) if medi_ev is not None else None),
                       'medi_corrected': (sum(1 for e in medi_ev if e['correction']) if medi_ev is not None else None),
                       'chat_typed': len(chat_rows), 'chat_found': sum(1 for r in chat_rows if r['found']), 'chat_found_form': sum(1 for r in chat_rows if r['found_form'])},
-           'chat': chat_rows, 'events': events, 'clips': clip_meta}
+           'chat': chat_rows, 'events': events, 'clips': clip_meta,
+           'typed_lines': typed_lines, 'chat_sources': {src: sum(1 for ln in typed_lines if ln['source'] == src) for src in ('meet', 'whatsapp')}, 'chat_diff': chat_diff}
     io.open(d / 'understanding.json', 'w', encoding='utf-8').write(json.dumps(out, ensure_ascii=False, indent=1))
     io.open(d / 'words_labeled.json', 'w', encoding='utf-8').write(json.dumps(words, ensure_ascii=False))
     return out
