@@ -145,6 +145,6 @@ def test_word_menu_groups_and_mixes():
     st = lambda k, b, lr: {'word_key': k, 'bucket': b, 'weight': 3 if b == 'missed' else 1, 'times_missed': 1 if b == 'missed' else 0, 'times_seen': 2, 'recent': False, 'last_reviewed': lr}
     stats = [st('v1', 'missed', '2026-09-04'), st('v2', 'cold', '2026-07-01'), st('n1', 'cold', '2026-08-01'), st('a1', 'shaky', '2026-09-04'), st('s1', 'cold', '2026-06-01')]
     m = suggest.word_menu(W, stats, [])
-    assert [c['key'] for c in m['verbs']] == ['v1', 'v2'] and m['verbs'][0]['why'] == 'weak' and m['verbs'][1]['why'] == 'not seen since 2026-07-01'
+    assert [c['key'] for c in m['verbs']] == ['v1', 'v2'] and m['verbs'][0]['kind'] == 'weak' and m['verbs'][0]['why'].startswith('got it wrong') and m['verbs'][1]['why'] == 'not seen since 2026-07-01'
     assert [c['key'] for c in m['nouns']] == ['n1'] and [c['key'] for c in m['adjectives']] == ['a1'] and [c['key'] for c in m['sayings']] == ['s1']
     assert suggest.N_SENTENCES == 10
