@@ -26,3 +26,5 @@
 | Engines (revised) | Clean words: Speechmatics bilingual Ar-En (Palestinian named) or Soniox; batch fallback ElevenLabs. Raw learner form: wav2vec2 Levantine CTC (no LM) on ch1. Free local dialect Whisper stays as offline fallback. |
 
 | Friction rule (Medi, 2026-09-03) | Repo is PUBLIC. No secrets in the repo, ever. Medi never types keys in PowerShell: Claude moves keys from Medi's clipboard into User env vars with a command that never prints them. Keys needed so far: HF_TOKEN (set), ELEVENLABS_API_KEY / SPEECHMATICS key (pending, same clipboard method). |
+
+| Meeting accounts (HARD RULE, Medi 2026-09-05) | The lesson Meet is HOSTED by the business Workspace account wc@adibs.com (it records; the pipeline reads its Drive folder). Medi JOINS from his PHONE as thenatanzi@gmail.com. Amal joins as herself. Consequence: a PC recorder hears both voices through Meet, so per-person tracks need a Meet bot (Recall.ai) or a different call tool; the host account admits the bot. |
