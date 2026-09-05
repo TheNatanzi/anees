@@ -146,6 +146,13 @@
           "why": "Medi 2026-09-05: 'let Amal make her own assessments; your job is to keep a tally of my mistakes … assist her in injecting my mistakes into her already formed lesson plans.'",
           "where": "data/tally.json (hand-curated from the transcripts, wiki 17 section K) -> scripts/build_tally.py -> docs/slips.html; every moment carries its transcript line and, where the audio exists, a clip",
           "status": "enforced"
+        },
+        {
+          "id": "M10",
+          "rule": "A cut-off token is a false start of the next word, never a Doc word of its own: a token ending in a dash or '…', or a short token the same speaker immediately continues into a longer word. Two-consonant look-alikes (za'aj → Joaz, biz- → Besse) never match unless Amal typed the word. Pronoun shapes (heyye / huwwe, even spelled 7ayye by the engine) are never graded.",
+          "why": "Medi 2026-09-05 on the Sep 5 report: 'موز-' shown as Moz (banana) while he reached for maz3ooj; 'biz'a-' as Besse (cat); 'za'aj' as Joaz (husband); 'heyye' as 7ayye (snake).",
+          "where": "understand_lesson.is_false_start (single tokens and inside 2-3 word spans); arabizi.Matcher skeleton tier needs 3+ consonants; miss_kind.choice_check never 'wants' a glue word",
+          "status": "enforced"
         }
       ],
       "tab": "words"

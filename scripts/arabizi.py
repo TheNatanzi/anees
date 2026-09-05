@@ -155,6 +155,8 @@ class Matcher:
             return k, 'short'
         sk = skeleton(s)
         cands = self.by_skel.get(sk) or set()
+        if len(sk.replace(' ', '').lstrip('v')) < 3 and not (cands & self.prefer):
+            cands = set()                # 2-consonant skeletons collide (za'aj -> Joaz, biz- -> Besse): never a match unless Amal typed it (2026-09-05)
         if cands:
             best = sorted(((self._ratio(sh, k), k) for k in cands), reverse=True)
             top = [k for r, k in best if r == best[0][0]]

@@ -105,6 +105,32 @@ def looks_arabizi(tok):
     return bool(re.search(r"aa|ee|oo|kh|gh|sh|7|3|'", tok))
 
 
+PRONOUN_SHAPE = re.compile(r"^[7h][ie]?[iy]+[aeiy]*\.?$|^h[uo]w+[aeiy]+\.?$|^[7h]ayy?[ei]+\.?$", re.I)   # heyye / hiyye / 7ayye / huwwe (rule M3: pronouns are never graded)
+
+
+def is_false_start(words, i, gap=3.0):
+    """A cut-off token is a false start of the NEXT word, never a Doc word of its own (rule M10, Medi 2026-09-05:
+    'موز-' before 'موزعوج' was shown as Moz = banana while he was reaching for maz3ooj).
+    True when the token ends in a dash / ellipsis, or when the same speaker's next token (within `gap` s) is longer and starts with it."""
+    w = words[i]
+    raw = w['w'].strip()
+    if raw.endswith(('-', '–', '—', '‐', '…', '...')) and len(raw.rstrip('-–—‐.…')) <= 6:
+        return True
+    if PRONOUN_SHAPE.match(raw):                                     # 'heyye' spelled 7ayye by the engine = she, never Doc 7aiye (snake)
+        return True
+    core = re.sub(r"[^\w؀-ۿ']", '', raw).lower()
+    for j in range(i + 1, min(len(words), i + 3)):
+        nxt = words[j]
+        if nxt['s'] - w['e'] > gap:
+            break
+        if nxt['spk'] != w['spk']:
+            continue
+        ncore = re.sub(r"[^\w؀-ۿ']", '', nxt['w'].strip()).lower()
+        if len(core) >= 2 and len(ncore) > len(core) and ncore.startswith(core):
+            return True
+    return False
+
+
 def find_doc_events(words, matcher, lo, hi, exclude):
     """Every Doc-word occurrence (1-3 word n-grams, longest first) inside the lesson window."""
     events = []
@@ -113,12 +139,12 @@ def find_doc_events(words, matcher, lo, hi, exclude):
     toks = [w['w'] for w in words]
     while i < n:
         w = words[i]
-        if not (lo <= w['s'] <= hi) or any(a <= w['s'] <= b for a, b in exclude) or is_filler(w['w']):
+        if not (lo <= w['s'] <= hi) or any(a <= w['s'] <= b for a, b in exclude) or is_filler(w['w']) or is_false_start(words, i):
             i += 1; continue
         hit = None
         for span in (3, 2, 1):
-            if i + span > n or any(words[j]['spk'] != w['spk'] for j in range(i, i + span)):
-                continue
+            if i + span > n or any(words[j]['spk'] != w['spk'] for j in range(i, i + span)) or any(is_false_start(words, j) for j in range(i + 1, i + span)):
+                continue                                       # 'and موز-' must not become Moz through the 2-gram
             text = ' '.join(toks[i:i + span])
             r = matcher.match_tier(text, fuzzy=False)
             if not r:

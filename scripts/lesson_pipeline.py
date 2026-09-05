@@ -306,9 +306,13 @@ def process(src, date, hhmm, reuse=None, send=True, force=False):
         elif not is_arabic_lesson(mp3, d):
             log('not an Arabic lesson (pre-check) -> skipped')
             return {'skipped': 'not arabic (pre-check)', 'date': date, 'source': src.name}
-        log('transcribing', mp3.name)
-        res = transcribe(mp3)
-        (d / 'scribe.json').write_text(json.dumps(res, ensure_ascii=False), encoding='utf-8')
+        if (d / 'scribe.json').exists():                       # E1: the engine's raw output is written once, never rewritten
+            log('scribe.json already exists for', date, '-> reused, not re-transcribed (E1; 2026-09-05 the hourly task overwrote the two-track result)')
+            res = json.load(io.open(d / 'scribe.json', encoding='utf-8'))
+        else:
+            log('transcribing', mp3.name)
+            res = transcribe(mp3)
+            (d / 'scribe.json').write_text(json.dumps(res, ensure_ascii=False), encoding='utf-8')
     words, runs, summary = build(res, date, hhmm, src.name, mp3=d / 'audio.mp3')
     chat = chat_sidecar(src)
     tutor_typed = [(t, who, txt) for t, who, txt in chat if who.lower() != 'medi' and not who.lower().startswith('mahdi')]

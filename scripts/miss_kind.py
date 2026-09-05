@@ -32,7 +32,7 @@ def _strip_al(s):
     return s[2:] if s.startswith('ال') and len(s) > 3 else s
 
 
-def form_diff(said, doc_arabic, doc_plural=''):
+def form_diff(said, doc_arabic, doc_plural='', doc_key=None, tutor_after=''):
     """Compare Medi's spoken Arabic form with the Doc form. Returns (kind or None, why)."""
     said_ar = [t for t in re.findall(r'[؀-ۿ]+', said or '')]
     if not said_ar or not doc_arabic:
@@ -43,7 +43,11 @@ def form_diff(said, doc_arabic, doc_plural=''):
         if s == doc:
             return 'same', 'same form as the Doc'
         if s.startswith('ال') and _strip_al(s) == _strip_al(doc) and not doc.startswith('ال'):
-            return 'article', f'said {tok}, Doc has {doc_arabic} (extra ال)'
+            # el- on a superlative (الأكتر) or an el- Amal takes away in her reply = slip; el- on an ordinary noun (من العاصفة) = a definite noun, not a slip (2026-09-05)
+            bare_in_reply = bool(re.search(r'(?<![؀-ۿ])' + re.escape(_strip_al(doc)) + r'(?![؀-ۿ])', arabic_norm(tutor_after or '')))
+            if doc_key is None or doc_key in SUPERLATIVE or bare_in_reply:
+                return 'article', f'said {tok}, Doc has {doc_arabic} (extra ال)'
+            return 'same', f'same word, said with ال ({tok}): a definite noun, not a slip'
         if doc.startswith('ال') and s == _strip_al(doc):
             return 'article', f'said {tok}, Doc has {doc_arabic} (missing ال)'
         if s.rstrip('هة') == doc.rstrip('هة') and s != doc and (s.endswith(('ه', 'ة')) != doc.endswith(('ه', 'ة'))):
@@ -73,7 +77,8 @@ def classify(event, tutor_after, doc_word):
     """event: {'text','correction','asked','cue'}; tutor_after: Amal's words within 8 s after; doc_word: words row."""
     if not (event.get('correction') or event.get('asked')):
         return {'miss_kind': None, 'miss_why': ''}
-    fk, fwhy = form_diff(event.get('text', ''), (doc_word or {}).get('arabic', ''), (doc_word or {}).get('arabic_plural', ''))
+    fk, fwhy = form_diff(event.get('text', ''), (doc_word or {}).get('arabic', ''), (doc_word or {}).get('arabic_plural', ''),
+                         doc_key=(doc_word or {}).get('key'), tutor_after=tutor_after)
     ck, cwhy = cue_kind(tutor_after)
     if fk in GRAMMAR_KINDS:                                     # the diff is the strongest cheap signal
         kind, why = fk, fwhy + (f'; Amal: "{cwhy}"' if ck == fk else '')
@@ -131,9 +136,18 @@ def choice_check(e, words, starts, wmap, matcher):
         if w['spk'] != 'Amal' or not ARABIC.search(w['w']):
             continue
         k = matcher.match(w['w'])
-        if k and k != e['word_key'] and k in wmap and len(arabic_norm(w['w'])) >= 3 and k not in ('eshi', 'shu', 'bas', 'ai'):
+        if k and k != e['word_key'] and k in wmap and len(arabic_norm(w['w'])) >= 3 and k not in ('eshi',) and k not in glue_keys():
             return k
     return None
+
+
+def glue_keys():
+    """Glue words (ya3ni, tayeb, shu …) are never 'the word Amal wanted' (rule M3). 2026-09-05: 'مزعوج. شو يعني مزعوج؟' made ya3ni the wanted word."""
+    try:
+        from understand_lesson import GLUE_KEYS
+        return GLUE_KEYS
+    except Exception:
+        return {'shu', 'bas', 'ai', 'aw', 'em', 'u', 'fi', 'bi', 'min', 'ya3ni', 'iza', 'lama', 'hala', 'ah', 'aha', 'tayeb', 'tamam', '5alas', 'sa7', 'mashi', 'wala', 'ma', 'ma3', 'la'}
 
 
 def classify_all(events, words, wmap, use_llm=False, log=None, matcher=None):

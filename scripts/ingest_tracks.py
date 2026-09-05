@@ -73,6 +73,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument('date'); ap.add_argument('--hhmm', default='0000'); ap.add_argument('--send', action='store_true')
     ap.add_argument('--force', action='store_true', help='skip the Arabic-share check')
+    ap.add_argument('--src', help="the Meet recording file, so its '- Chat Transcript' sidecar (Amal's typed lines) is read")
     a = ap.parse_args()
     d = LESSONS / a.date
     manifest = json.load(io.open(d / 'tracks' / 'tracks.json', encoding='utf-8'))
@@ -85,7 +86,7 @@ def main() -> int:
         merged_path.write_text(json.dumps(merge(tracks, per_track), ensure_ascii=False), encoding='utf-8')
         lp.log('merged', merged_path.name)
     mix_audio(d, tracks)
-    src = Path(tracks[0]['file'])                      # only used for its name and the (absent) Meet chat sidecar
+    src = Path(a.src) if a.src else Path(tracks[0]['file'])      # with --src the Meet chat sidecar next to the recording is read
     summary = lp.process(src, a.date, a.hhmm, reuse=merged_path, send=a.send, force=a.force)
     print(json.dumps({k: summary.get(k) for k in ('date', 'minutes', 'words', 'arabic_share', 'medi_arabic_words', 'speaker_split', 'link', 'post', 'skipped')},
                      ensure_ascii=False, indent=1))
