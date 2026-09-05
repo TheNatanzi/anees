@@ -28,4 +28,5 @@ root loop choose boom shoot spoon goose loose sit sits sat set see seen feel fee
 deep feet street between been agree sweet speed indeed cheese coffee degree seem seems teeth queen screen sheet steel wheel she should show
 shows showed short shop wish fish push shut shall shame sheep ship shirt shoe shoes shoulder sharp shape share night light right might
 through though enough laugh high eight weight bought thought taught daughter fight sight tight bright ghost ah aah ahh oh ooh ooo eh hmm
+wait waits waited bien bin been mean means quiet quite
 """.split())

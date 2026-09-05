@@ -133,9 +133,11 @@ def find_doc_events(words, matcher, lo, hi, exclude):
                     continue
                 # Codex P0 (M1): a Latin hit must look like Arabizi (soon / sit / Aaaa were becoming Doc words) — except an EXACT
                 # spelling of a Doc word with >= 4 letters that is not common English (Nahl for Na7el, said by Amal and repeated by Medi)
-                said_by_amal = any(words[j]['spk'] == 'Amal' and words[j]['w'].lower().strip(".,?!-") in clean for j in range(max(0, i - 25), min(n, i + 25)) if abs(words[j]['s'] - w['s']) <= 10)
+                # 'Nahl' counts when Amal herself said it within 10 s AND she typed that word in the chat (prefer set): ASR writes
+                # such words in plain Latin; without the chat anchor an English look-alike (Wait, Bien) would slip through
+                said_by_amal = k in matcher.prefer and any(words[j]['spk'] == 'Amal' and words[j]['w'].lower().strip(".,?!-") in clean for j in range(max(0, i - 25), min(n, i + 25)) if abs(words[j]['s'] - w['s']) <= 10)
                 if not all(looks_arabizi(t) or (tier == 'exact' and len(t) >= 4) or (said_by_amal and len(t) >= 4) for t in clean):
-                    continue                                   # 'Nahl' counts when Amal herself said it within 10 s
+                    continue
                 if tier in ('skeleton', 'fuzzy') and not (said_by_amal and tier == 'skeleton'):
                     continue
             hit = (k, span, text, tier); break
@@ -361,6 +363,8 @@ def understand(date, scribe=None, audio=None, src=None, clips=True):
     conf = label_confidence(words, summary)
     wlist = load_words(); wordmap = {w['key']: w for w in wlist}
     m = Matcher(wlist)
+    chat0 = summary.get('chat_lines') or []
+    m.prefer = frozenset(k for k in (m.match(re.split(r'\s*/\s*|\s+', t)[0].strip('?.,!'), fuzzy=False) for _, _, t in chat0) if k)   # Amal's typed words break ties (Na7el vs Na7le)
     events = annotate(find_doc_events(words, m, lo, hi, exclude), words)
     import miss_kind
     miss_kind.classify_all(events, words, wordmap, use_llm=False, log=log_fn, matcher=m)

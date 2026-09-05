@@ -159,7 +159,7 @@ class Matcher:
             best = sorted(((self._ratio(sh, k), k) for k in cands), reverse=True)
             top = [k for r, k in best if r == best[0][0]]
             k = self._one(set(top))
-            if k and best[0][0] > 0.8 and (len(best) == 1 or best[0][0] - best[1][0] >= 0.1 or self._same_word(set(k2 for _, k2 in best[:2]))) \
+            if k and best[0][0] > 0.8 and (len(best) == 1 or best[0][0] - best[1][0] >= 0.1 or self._same_word(set(k2 for _, k2 in best[:2])) or k in self.prefer) \
                     and not self._final_vowel_clash(sh, k):
                 return k, 'skeleton'
         if not fuzzy or len(sh) < 4:
@@ -192,12 +192,18 @@ class Matcher:
     def _same_word(self, keys):
         return len({arabic_core(self.words[k]['arabic']) for k in keys}) == 1
 
+    prefer = frozenset()          # keys known from context (e.g. the words Amal typed in the chat): break ties in their favour
+
     def _one(self, keys):
-        """One key, or None. Several keys that are the same Arabic word (a row and its pronoun-less twin) resolve to the base row."""
+        """One key, or None. Several keys that are the same Arabic word (a row and its pronoun-less twin) resolve to the base row;
+        a tie between different words resolves only when exactly one of them is in `prefer` (context), never by guessing."""
         if not keys:
             return None
         if len(keys) == 1:
             return next(iter(keys))
+        pref = [k for k in keys if k in self.prefer]
+        if len(pref) == 1:
+            return pref[0]
         if self._same_word(keys):
             base = [k for k in keys if strip_pronoun(self.words[k]['arabizi']) == self.words[k]['arabizi']]
             if len(base) == 1:
