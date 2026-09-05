@@ -30,9 +30,14 @@ for w in wins:
         src = wav
     b64 = base64.b64encode(open(src, 'rb').read()).decode()
     body = {'model': MODEL, 'modalities': ['text'], 'temperature': 0,
+            'response_format': {'type': 'json_schema', 'json_schema': {'name': 'transcript', 'strict': True, 'schema': {
+                'type': 'object', 'additionalProperties': False, 'required': ['turns'],
+                'properties': {'turns': {'type': 'array', 'minItems': 1, 'items': {'type': 'object', 'additionalProperties': False, 'required': ['speaker', 'text'],
+                    'properties': {'speaker': {'type': 'string', 'enum': ['Learner', 'Tutor']}, 'text': {'type': 'string'}}}}}}}} if os.environ.get('OPENAI_SCHEMA') else None,
             'messages': [{'role': 'system', 'content': SYS},
-                         {'role': 'user', 'content': [{'type': 'text', 'text': 'Transcribe this clip verbatim.'},
+                         {'role': 'user', 'content': [{'type': 'text', 'text': 'This clip contains speech. Transcribe every word verbatim, in order, as turns. Do not skip any part of the audio. Take this seriously: a missing word is a failure.'},
                                                       {'type': 'input_audio', 'input_audio': {'data': b64, 'format': FMT}}]}]}
+    if body.get('response_format') is None: body.pop('response_format', None)
     txt = ''
     for attempt in range(RETRIES):
         r = requests.post('https://api.openai.com/v1/chat/completions', headers={'Authorization': f'Bearer {key}'}, json=body, timeout=300)
@@ -47,6 +52,13 @@ for w in wins:
             break
         body['temperature'] = 0.4   # nudge: identical retries tend to blank again
     segs = []
+    try:
+        jt = json.loads(txt)
+        if isinstance(jt, dict) and jt.get('turns'):
+            segs = [{'spk': t['speaker'], 's': w['start'], 'e': w['end'], 'text': t['text'].strip()} for t in jt['turns']]
+            txt = ''
+    except Exception:
+        pass
     for line in txt.splitlines():
         line = line.strip()
         if not line: continue
