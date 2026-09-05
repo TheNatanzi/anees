@@ -209,7 +209,7 @@ main{{max-width:820px;margin:0 auto;padding:14px 12px}} h1{{font-size:24px;margi
 <p class="lead">Transcribed by ElevenLabs Scribe v2. Fillers show as (pause), Amal's confirmations right after Medi's Arabic show as a green check. Lesson window {int(S['lesson_start']//60)}:{int(S['lesson_start']%60):02d} to {int(S['lesson_end']//60)}:{int(S['lesson_end']%60):02d}.</p>
 {warn}<div class="stats">{stats}</div>
 {typed}{''.join(rows)}
-</main></body></html>'''
+</main><script src="../js/build.js"></script><script src="../js/stale.js"></script></body></html>'''
 
 
 def email(summary, link):
@@ -232,8 +232,9 @@ def email(summary, link):
 
 def publish(date, page_html):
     DOCS.mkdir(parents=True, exist_ok=True)
+    import write_build; write_build.write()
     (DOCS / f'{date}.html').write_text(page_html, encoding='utf-8')
-    paths = [DOCS / f'{date}.html', STATE, LESSONS / date / 'summary.json', LESSONS / date / 'transcript.txt', ROOT / '.gitignore']
+    paths = [DOCS / f'{date}.html', STATE, LESSONS / date / 'summary.json', LESSONS / date / 'transcript.txt', ROOT / '.gitignore', ROOT / 'docs' / 'js' / 'build.js', ROOT / 'docs' / 'data' / 'build.json']
     subprocess.run(['git', '-C', str(ROOT), 'add'] + [str(x) for x in paths if x.exists()], check=True)
     subprocess.run(['git', '-C', str(ROOT), 'commit', '-q', '-m', f'Lesson {date}: transcript page\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>'], check=False)
     push = subprocess.run(['git', '-C', str(ROOT), 'push', '-q'], capture_output=True, text=True)

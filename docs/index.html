@@ -114,4 +114,4 @@ document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>showTab(b.dataset.tab
 ['q','f-bucket','f-topic','sort'].forEach(id=>document.getElementById(id).addEventListener('input',renderWords));
 showTab(location.hash.slice(1)||'today'); loadAll();
 window.AneesIndex={ search, get words(){return words;}, get stats(){return stats;}, get offline(){return offline;} };
-</script></body></html>
+</script><script src="js/build.js"></script><script src="js/stale.js"></script></body></html>

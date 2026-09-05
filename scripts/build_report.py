@@ -257,7 +257,7 @@ document.querySelectorAll('.play').forEach(b=>b.addEventListener('click',()=>{{
   a.currentTime=off;a.play();b.classList.add('on');cur=b;
 }}));
 a.addEventListener('ended',()=>{{if(cur)cur.classList.remove('on');cur=null}});
-</script></body></html>'''
+</script><script src="../js/build.js"></script><script src="../js/stale.js"></script></body></html>'''
 
 
 def email_payload(u, rows, bins, ok, link):
@@ -297,6 +297,7 @@ def build(date, use_db=True, send=False, u=None):
     bins, ok = chart_bins(u, words_labeled)
     W = load_words()
     page = render(u, rows, W, bins, ok)
+    import write_build; write_build.write()
     out = DOCS / 'lessons' / f'{date}-report.html'
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(page, encoding='utf-8')
