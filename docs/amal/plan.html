@@ -54,12 +54,17 @@ function finish(){ answers.done=true; save(true); prog.textContent='Saving…'; 
 function btn(label,sub,cls,id){ return `<button id="${id}" class="${cls||''}">${esc(label)}${sub?`<small>${esc(sub)}</small>`:''}</button>`; }
 function build(p){
   const S=[];
-  S.push({prog:'1 of 3',html:`<h1>What is today's topic?</h1><p class="sug">The app suggests these; tap one or type your own.</p><div class="btns" id="b">
-    ${p.topics.slice(0,3).map((t,i)=>btn(t,i===0?'suggested: last lesson\'s topic':'',null,'t'+i)).join('')}${btn('Type a different topic','',null,'ttype')}</div>
-    <div id="typebox" style="display:none;margin-top:10px"><input id="topic" placeholder="Today\'s topic" aria-label="topic"><button id="tgo" class="primary" style="margin-top:8px">Next</button></div><div class="saved" id="s1"></div>`,
-    wire(){ p.topics.slice(0,3).forEach((t,i)=>document.getElementById('t'+i).onclick=()=>{answers.topic=t; rule('topic',null,{topic:t,source:'suggested'}); save(); next();});
-      document.getElementById('ttype').onclick=()=>{document.getElementById('typebox').style.display='block'; document.getElementById('topic').focus();};
-      document.getElementById('tgo').onclick=()=>{const v=document.getElementById('topic').value.trim(); if(!v) return; answers.topic=v; rule('topic',null,{topic:v,source:'typed'}); save(); next();}; }});
+  const MENU=(p.topics&&p.topics.length>3)?p.topics:["Last week's lessons",'Grammar','New verbs','New nouns','New adjectives','Common sayings','Other topic'];
+  S.push({prog:'1 of 3',html:`<h1>What is today's lesson about?</h1><p class="sug">Tap everything that applies, then Next.</p><div class="btns" id="b">
+    ${MENU.map((t,i)=>btn(t,(i===0&&p.last_words)?('last time: '+p.last_words):'',null,'t'+i)).join('')}</div>
+    <div id="typebox" style="display:none;margin-top:10px"><input id="topic" placeholder="Which topic?" aria-label="other topic"></div>
+    <button id="tnext" class="primary" style="margin-top:12px;display:none">Next</button><div class="saved" id="s1"></div>`,
+    wire(){ const sel=new Set(); const nextBtn=document.getElementById('tnext');
+      MENU.forEach((t,i)=>{ const b=document.getElementById('t'+i); b.onclick=()=>{ if(sel.has(t)) sel.delete(t); else sel.add(t); b.classList.toggle('sel',sel.has(t));
+        if(t==='Other topic'){ document.getElementById('typebox').style.display=sel.has(t)?'block':'none'; if(sel.has(t)) document.getElementById('topic').focus(); }
+        nextBtn.style.display=sel.size?'block':'none'; }; });
+      nextBtn.onclick=()=>{ const typed=document.getElementById('topic').value.trim(); const topics=[...sel].filter(t=>t!=='Other topic').concat(typed?[typed]:[]); if(!topics.length) return;
+        answers.topic=topics.join(' + '); answers.topics=topics; rule('topic',null,{topic:answers.topic,topics,typed:typed||null,source:'menu'}); save(); next(); }; }});
   S.push({prog:'2 of 3',html:`<h1>Any new words today?</h1><p class="sug">Optional. The app suggests you skip this unless you already know them.</p><div class="btns">
     ${btn('No new words','or I will decide during the lesson','primary','nw0')}${btn('Yes, I will type them','one per line',null,'nw1')}</div>
     <div id="nwbox" style="display:none;margin-top:10px"><textarea id="nw" rows="4" placeholder="Arabizi, one word per line" aria-label="new words"></textarea><button id="nwgo" class="primary" style="margin-top:8px">Next</button></div>`,

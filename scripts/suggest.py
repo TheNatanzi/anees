@@ -148,6 +148,9 @@ def suggest_sentences(words, stats, rules, n=N_SENTENCES, use_openai=True, kept_
     return {'sentences': out[:n], 'rejected': rejected, 'list_a': A, 'list_b': B, 'usage': usage, 'cost_usd': cost_usd(usage), 'model': MODEL if usage else None}
 
 
+TOPIC_MENU = ["Last week's lessons", 'Grammar', 'New verbs', 'New nouns', 'New adjectives', 'Common sayings', 'Other topic']   # Medi 2026-09-05; Amal may tap several
+
+
 def planner_payload(lesson_date, use_openai=True):
     """Everything the planner page needs: topic suggestions, repeat candidates, sentences (all Doc-checked)."""
     import db
@@ -171,6 +174,7 @@ def planner_payload(lesson_date, use_openai=True):
             topics.append(tb)
     sug = suggest_sentences(words, stats, rules, use_openai=use_openai)
     cell = lambda k: {'key': k, 'arabizi': wmap[k]['arabizi'], 'arabic': wmap[k]['arabic'], 'english': wmap[k]['english'][:60]} if k in wmap else {'key': k}
-    return {'lesson_date': lesson_date, 'built': datetime.datetime.now().isoformat(timespec='seconds'), 'topics': topics[:3],
+    return {'lesson_date': lesson_date, 'built': datetime.datetime.now().isoformat(timespec='seconds'), 'topics': list(TOPIC_MENU),
+            'last_words': (last_topic or '').replace(" (last lesson's words)", ''), 'suggested': topics[:3],
             'repeat': [cell(k) for k in sug['list_a'][:3]], 'sentences': [{**s, 'words': [cell(k) for k in s['keys']]} for s in sug['sentences']],
             'meta': {'list_a': sug['list_a'], 'list_b': sug['list_b'], 'rejected': sug['rejected'], 'model': sug['model'], 'cost_usd': sug['cost_usd'], 'usage': sug['usage']}}
