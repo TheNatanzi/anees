@@ -51,26 +51,26 @@ def choose(u, words_labeled, wmap, matcher):
             q.append({'kind': 'correction', 'value': 3, 't': e['t_start'], 'word_key': e['word_key'], 'arabizi': w.get('arabizi', e['word_key']), 'arabic': w.get('arabic', ''),
                       'english': w.get('english', ''), 'ask': f"Did Medi say {w.get('arabizi', e['word_key'])} right here?", 'why': 'the app thinks you corrected it',
                       'buttons': ['Right', 'Wrong', 'Not Medi', 'Skip']})
-    unl = [w for w in words_labeled if w['spk'] not in ('Medi', 'Amal') and ARABIC.search(w['w'])]
-    seen_t = set()
-    for w in unl:
-        k = matcher.match(w['w'])
-        if not k or int(w['s'] // 20) in seen_t:
+    # words the app heard but could not attribute (speaker '?'): only real Doc events, never glue words
+    from understand_lesson import GLUE_KEYS, STOP_KEYS
+    for e in u['events']:
+        if e['speaker'] in ('Medi', 'Amal') or e['word_key'] in GLUE_KEYS or e['word_key'] in STOP_KEYS:
             continue
-        seen_t.add(int(w['s'] // 20))
-        d = wmap[k]
-        q.append({'kind': 'who', 'value': 2, 't': w['s'], 'word_key': k, 'arabizi': d['arabizi'], 'arabic': d['arabic'], 'english': d['english'],
+        d = wmap.get(e['word_key'])
+        if not d:
+            continue
+        q.append({'kind': 'who', 'value': 2, 't': e['t_start'], 'word_key': e['word_key'], 'arabizi': d['arabizi'], 'arabic': d['arabic'], 'english': d['english'],
                   'ask': f"Who said {d['arabizi']} here, and was it right?", 'why': 'the app could not tell the voices apart', 'buttons': ['Medi, right', 'Medi, wrong', 'Not Medi', 'Skip']})
     for n, cnt, w in unknown_words(u, words_labeled, wmap, matcher):
         q.append({'kind': 'unknown', 'value': 1 + min(cnt, 5) / 10, 't': w['s'], 'word_key': None, 'arabizi': '', 'arabic': n, 'english': '',
                   'ask': f"Medi said this {cnt} times. Is it a word you taught? You can type its spelling.", 'why': 'not in your Doc yet', 'buttons': ['Yes, a word', 'No', 'Skip'], 'typed': True})
     # dedupe by word and spread over the lesson; never more than MAX_Q
-    out, used = [], set()
+    out, used, windows = [], set(), set()
     for c in sorted(q, key=lambda c: (-c['value'], c['t'])):
         key = c['word_key'] or c['arabic']
-        if key in used:
+        if key in used or int(c['t'] // 20) in windows:      # never two questions on the same 20-s stretch of audio
             continue
-        used.add(key); out.append(c)
+        used.add(key); windows.add(int(c['t'] // 20)); out.append(c)
         if len(out) >= MAX_Q:
             break
     return out
@@ -111,7 +111,11 @@ def payload(date, audio=None, use_openai=True, with_db=True):
         stats = db.select('word_stats'); rules = db.select('amal_rules', {'select': 'kind,word_key,payload,source,lesson_date', 'order': 'created_at.asc'})
     else:
         stats, rules = [], []
-    hw, sug = homework(words, stats, rules, use_openai=use_openai)
+    prev = json.load(io.open(d / 'after_payload.json', encoding='utf-8')) if (d / 'after_payload.json').exists() else {}
+    if not use_openai and prev.get('homework'):
+        hw, sug = prev['homework'], {'model': prev.get('meta', {}).get('model'), 'cost_usd': 0.0, 'usage': {}, 'rejected': [], 'note': 'homework reused from the previous build (no API call)'}
+    else:
+        hw, sug = homework(words, stats, rules, use_openai=use_openai)
     out = {'lesson_date': date, 'built': datetime.datetime.now().isoformat(timespec='seconds'), 'questions': qs, 'homework': hw,
            'meta': {'candidates': len(qs), 'model': sug['model'], 'cost_usd': sug['cost_usd'], 'usage': sug['usage'], 'rejected': sug['rejected']}}
     io.open(d / 'after_payload.json', 'w', encoding='utf-8').write(json.dumps(out, ensure_ascii=False, indent=1))

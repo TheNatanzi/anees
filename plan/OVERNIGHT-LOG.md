@@ -173,3 +173,40 @@ Note: gpt-5.4-mini produced word salad ("bsur3a inti bi bukra") and 0/12 passed 
 | 02:05 | OpenAI gpt-5.4-mini | planner sentences, 794 tokens, all rejected | $0.0009 |
 | 02:12 | OpenAI gpt-5.5 | planner sentences, 5,433 tokens (8 accepted) | $0.0989 |
 Running total: ElevenLabs $0.00 · OpenAI $0.10
+
+## M4 — Amal's after-lesson link (3-5 questions) + M6 — Homework sheet  (02:30 → 03:05)
+
+Built: `scripts/after_questions.py` (question candidates ranked by value: possible misses (recast first) > words whose voice was
+unclear > Medi's repeated non-Doc words; hard cap 5, floor 3; each with a dedicated 15-s clip cut from the lesson audio into
+docs/lessons/<date>/q/; homework ≤ 10 items = 6 validated sentences + 3 "use this word" + 1 mini-dialogue, all Doc words),
+`scripts/apply_rules.py` (Right / Wrong / Not Medi patch the exact word_events row at that time; typed spelling → words.aliases;
+then buckets are recomputed; idempotent via an 'applied' marker), `docs/amal/after.html` (one question per screen, ▶ once,
+3 buttons + "Skip this one", optional one-line box only on unknown-word questions; homework = one item per screen Keep / Drop / Edit).
+
+Gate:
+```
+python -m pytest -q tests/test_m4_after.py -s
+test_questions_bounded_and_audio_short PASS                (Sep 4: 5 questions; every clip ≤ 15 s by ffprobe; 4 buttons max, text on each)
+test_homework_uses_only_doc_words PASS                     (10 items: say ×6, use ×3, dialogue ×1; 0 tokens outside the Doc / pronouns / glue)
+test_stand_in_answers_5_questions_and_homework_under_5_min PASS (Playwright 375×812, 0.8 s per tap: 15 screens in 16.3 s; homework part 10.6 s ≤ 1 min;
+                                                            5 verdict rows in amal_rules (visible in amal_rules_public); apply_rules patched exactly the
+                                                            event row at that time (rows=1 each), word_stats.updated_at advanced for every answered word;
+                                                            edited homework sentence stored verbatim; dropped one stored as drop rules; done_at set;
+                                                            second open = "Already done, thank you Amal")
+test_link_expires_after_7_days PASS                        (expires_at = created_at + 7 d; a forced-expired link shows "This link has expired")
+full suite: 40 passed
+```
+Sep 4 questions chosen: a7san @02:15, Ba3eed @08:37, Nafs @08:40, Aktar @61:23, Eshi @61:24 (all "possible miss" events; the
+unclear-voice and unknown-word candidates ranked below them this time). Paid: gpt-5.5 homework sentences 5,821 tokens = $0.1067 (ceiling price).
+
+### Council (Mode A) — advisors attempted the flow as Amal on the 375-px Playwright window (screens + timing above)
+| Advisor | View |
+|---|---|
+| Strategic | This is the loop-closer: five taps from Amal turn "possible misses" into truth and re-score words. Ship. |
+| Skeptical | All 5 questions are the same kind (correction) and two pairs sit 1-3 s apart (Ba3eed/Nafs, Aktar/Eshi) → the same clip twice; wants spread + kind diversity. Also "Not Medi" on a pitch-labeled lesson should flip the speaker (it does: speaker=Amal). |
+| Creative | Show Amal the two words in one clip as one question ("which of these did he get?") — rejected for tonight: breaks one-question-per-screen. |
+| Evidence | Every answer → rule row → patched event row → recomputed bucket, proven by SQL in the test; clips ≤ 15 s proven by ffprobe. |
+| Audience (Amal) | Header says who asks and why; one ▶; three big buttons; "Skip this one" visible; under 20 s for the whole thing. The English "Did Medi say a7san right here?" is clear; Arabic line present. |
+Chairman: agreement = flow is short, honest, saves every tap; disagreement = question diversity (skeptic) — accepted as a P1
+for the morning (add a per-20-s dedupe so two questions never share a clip; kinds interleaved). Strongest argument = evidence
+(rule → row → bucket chain proven). **Score 8/10, no open P0.** Rises when Amal's first real answers arrive.
