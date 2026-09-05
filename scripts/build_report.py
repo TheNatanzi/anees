@@ -16,7 +16,7 @@ PAGES = 'https://thenatanzi.github.io/anees/'
 DASH = '–'
 MOMENTS = 20
 GRAMMAR_KINDS = ('article', 'gender', 'tense', 'plural')
-KIND_LABEL = {'word': 'word', 'article': 'grammar: the el- article', 'gender': 'grammar: gender', 'tense': 'grammar: tense', 'plural': 'grammar: plural', 'pronunciation': 'pronunciation', 'unclear': 'kind unclear'}
+KIND_LABEL = {'word': 'word not known', 'choice': 'word choice (you know it; another word fits here)', 'article': 'grammar: the el- article', 'gender': 'grammar: gender', 'tense': 'grammar: tense', 'plural': 'grammar: plural', 'pronunciation': 'pronunciation', 'unclear': 'kind unclear'}
 
 
 def load_words():
@@ -42,7 +42,7 @@ def classify(u, earlier_keys):
             if kind:
                 rows.append({'lesson_date': date, 'kind': kind, 'word_key': e['word_key'], 't_start': e['t_start'], 't_end': e['t_end'], 'speaker': 'Medi',
                              'text': e['text'], 'clip': e['clip'], 'confidence': 1.0, 'detail': {'offset': e['offset'], 'cue': e.get('cue', ''), 'prompted': e['prompted'],
-                                                                                                  'miss_kind': e.get('miss_kind'), 'miss_why': e.get('miss_why')}})
+                                                                                                  'miss_kind': e.get('miss_kind'), 'miss_why': e.get('miss_why'), 'phrase': e.get('phrase'), 'pattern': e.get('pattern')}})
     seen_now = {}
     for e in evs:
         seen_now.setdefault(e['word_key'], e)
@@ -185,6 +185,8 @@ def render(u, rows, words, bins, ok):
     def li(r):
         d = r.get('detail') or {}
         tag = f' <span class="kind">{html.escape(KIND_LABEL.get(d["miss_kind"], d["miss_kind"]))}</span>' if d.get('miss_kind') and r['kind'] in ('missed', 'grammar') else ''
+        if d.get('phrase'):
+            tag = f' <b>{html.escape(d["phrase"])}</b>' + tag + (f' <span class="why">{html.escape(d["miss_why"])}</span>' if d.get('miss_why') else '')
         return f'<li>{play(r["clip"], d.get("offset", 0), r["t_start"])} {wcell(r["word_key"]) if r["word_key"] else html.escape(r["text"])}{tag}' + \
                (f' <span class="why">{html.escape(d["why"])}</span>' if d.get('why') else '') + \
                (f' <span class="why">Amal typed at {d["chat_time"]}{"" if d.get("found") else " · not heard in the transcript"}</span>' if r['kind'] == 'typed' else '') + '</li>'

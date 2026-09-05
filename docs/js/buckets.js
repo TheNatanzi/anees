@@ -7,6 +7,7 @@
   function signalFromEvent(e) {
     if (e.speaker !== 'Medi' || e.prompted === null || e.prompted === undefined) return null;
     if (e.correction && GRAMMAR_KINDS.includes(e.miss_kind) && !e.asked) return e.prompted ? 'shaky' : 'cold';
+    if (e.miss_kind === 'choice') return 'shaky';
     if (e.correction || e.asked) return 'missed';
     if (e.prompted) return 'shaky';
     return 'cold';

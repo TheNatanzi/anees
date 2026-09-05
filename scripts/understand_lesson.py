@@ -131,8 +131,9 @@ def find_doc_events(words, matcher, lo, hi, exclude):
                 clean = [t.lower().strip(".,?!-'\"") for t in text.split()]
                 if any(t in ENGLISH_STOP for t in clean) or any(len(t) < 2 for t in clean) or any(re.fullmatch(r'[aeiouh]+', t) for t in clean):
                     continue
-                # Codex P0 (M1): even an exact-tier Latin hit must look like Arabizi (soon / sit / Aaaa were becoming Doc words)
-                if not all(looks_arabizi(t) for t in clean):
+                # Codex P0 (M1): a Latin hit must look like Arabizi (soon / sit / Aaaa were becoming Doc words) — except an EXACT
+                # spelling of a Doc word with >= 4 letters that is not common English (Nahl for Na7el, said by Amal and repeated by Medi)
+                if not all(looks_arabizi(t) or (tier == 'exact' and len(t) >= 4) for t in clean):
                     continue
                 if tier in ('skeleton', 'fuzzy'):
                     continue
@@ -361,7 +362,7 @@ def understand(date, scribe=None, audio=None, src=None, clips=True):
     m = Matcher(wlist)
     events = annotate(find_doc_events(words, m, lo, hi, exclude), words)
     import miss_kind
-    miss_kind.classify_all(events, words, wordmap, use_llm=False, log=log_fn)
+    miss_kind.classify_all(events, words, wordmap, use_llm=False, log=log_fn, matcher=m)
     chat = summary.get('chat_lines') or []
     if not chat and src:
         chat = [list(x) for x in lp.chat_sidecar(Path(src)) if x[1].lower() != 'medi' and not x[1].lower().startswith('mahdi')]

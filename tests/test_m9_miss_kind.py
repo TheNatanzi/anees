@@ -66,8 +66,38 @@ def test_grammar_slip_does_not_bucket_the_word_as_missed():
 def test_llm_fallback_is_capped_and_mockable(monkeypatch):
     calls = []
     monkeypatch.setattr(mk, 'llm_classify', lambda e, ctx, d: calls.append(1) or 'tense')
-    words = [{'s': 10 + i * 0.5, 'e': 10.3 + i * 0.5, 'spk': 'Amal', 'w': t} for i, t in enumerate('so here you need to use the other form because we are talking about yesterday okay'.split())]
-    words = [{'s': 9, 'e': 9.5, 'spk': 'Medi', 'w': 'كتير'}] + words
-    events = [{'speaker': 'Medi', 'word_key': 'ktIr', 'text': 'كتير', 't_start': 9, 't_end': 9.5, 'correction': True} for _ in range(12)]
+    words, events = [], []
+    for i in range(12):                                   # 12 separate slips, each followed by an English explanation from Amal
+        t = 100.0 * i
+        words.append({'s': t, 'e': t + 0.5, 'spk': 'Medi', 'w': 'كتير'})
+        words += [{'s': t + 1 + k * 0.4, 'e': t + 1.3 + k * 0.4, 'spk': 'Amal', 'w': w} for k, w in enumerate('so here you need the other form because we are talking about yesterday okay'.split())]
+        events.append({'speaker': 'Medi', 'word_key': 'ktIr', 'text': 'كتير', 't_start': t, 't_end': t + 0.5, 'correction': True})
     counts = mk.classify_all(events, words, {'ktIr': {'arabic': 'كتير'}}, use_llm=True)
     assert len(calls) == mk.MAX_LLM_PER_LESSON and counts['tense'] == 10 and counts['unclear'] == 2
+
+
+def test_phrase_slip_sits_on_the_head_word_not_the_tail():
+    """Sep 4 61:23-61:29: 'الأكتر إشي' -> ONE slip on aktar (phrase 'aktar eshi', superlative pattern); eshi is not blamed."""
+    u = json.load(io.open(ROOT / 'data' / 'lessons' / '2026-09-04' / 'understanding.json', encoding='utf-8'))
+    head = next(e for e in u['events'] if e['word_key'] == 'aktar' and abs(e['t_start'] - 3683.25) < 0.5)
+    tail = next(e for e in u['events'] if e['word_key'] == 'eshi' and abs(e['t_start'] - 3684.41) < 0.5)
+    assert head['miss_kind'] == 'article' and head.get('pattern') == 'superlative' and 'the most' in head['miss_why']
+    assert head.get('phrase', '').startswith('aktar eshi')
+    assert not tail['correction'] and tail.get('part_of') == 'aktar' and tail.get('miss_kind') is None
+
+
+def test_word_choice_is_shaky_not_missed():
+    """61:07 'a7san right?' -> Amal: 'No. The best thing is … أكتر' = word choice: Medi knows a7san, aktar fits 'the most'."""
+    u = json.load(io.open(ROOT / 'data' / 'lessons' / '2026-09-04' / 'understanding.json', encoding='utf-8'))
+    e = next(e for e in u['events'] if e['word_key'] == 'a7san' and abs(e['t_start'] - 3668.0) < 0.6)
+    assert e['miss_kind'] == 'choice' and e.get('wanted') == 'aktar', e
+    ev = [{'lesson_date': '2026-09-04', 'word_key': 'a7san', 'speaker': 'Medi', 'prompted': False, 'correction': False, 'asked': True, 'miss_kind': 'choice', 't_start': 1}]
+    assert buckets.compute(ev, [], ['2026-09-04'])['a7san']['bucket'] == 'shaky'
+
+
+def test_dangling_el_is_an_article_slip():
+    """08:37-08:40: 'بعيد الـ نفس مشكلة' -> Amal 'نفس المشكلة': the loose الـ before nafs is the el- slip (Ba3eed and Nafs both)."""
+    u = json.load(io.open(ROOT / 'data' / 'lessons' / '2026-09-04' / 'understanding.json', encoding='utf-8'))
+    for key, t in (('ba3Id', 517.57), ('nafs', 530.6)):
+        e = next(e for e in u['events'] if e['word_key'] == key and abs(e['t_start'] - t) < 0.6)
+        assert e['miss_kind'] == 'article' and 'el-' in e['miss_why'], (key, e.get('miss_kind'), e.get('miss_why'))

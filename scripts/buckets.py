@@ -21,6 +21,8 @@ def _signal_from_event(e):
         return None
     if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS and not e.get('asked'):
         return 'shaky' if e.get('prompted') else 'cold'      # the word was known; the slip is grammar, counted separately
+    if e.get('miss_kind') == 'choice':
+        return 'shaky'                                        # known word, wrong place: shaky, not missed
     if e.get('correction') or e.get('asked'):
         return 'missed'
     if e.get('prompted'):

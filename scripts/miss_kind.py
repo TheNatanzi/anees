@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from arabizi import ARABIC, arabic_norm
 
 GRAMMAR_KINDS = ('article', 'gender', 'tense', 'plural')
-KINDS = ('word', 'article', 'gender', 'tense', 'plural', 'pronunciation', 'unclear')
+KINDS = ('word', 'choice', 'article', 'gender', 'tense', 'plural', 'pronunciation', 'unclear')
 CUES = {
     'article': ('أل', 'ال ', 'الـ', ' el ', ' el-', ' al ', 'the el', 'article', 'definite', 'no al', 'no el', 'without el', 'without al', 'بدون ال'),
     'gender': ('feminine', 'masculine', 'female', 'male', 'for a girl', 'for a boy', 'مؤنث', 'مذكر', 'تاء', 'she is', 'he is'),
@@ -24,6 +24,8 @@ CUES = {
     'word': ('means', 'meaning', 'how do you say', 'what is', "what's", 'in arabic', 'the word', 'vocab', 'يعني', 'شو معنى', 'الكلمة', 'different word', 'another word'),
 }
 MAX_LLM_PER_LESSON = 10
+SUPERLATIVE = ('aktar', 'a7san', 'a2al', 'akbar', 'as8ar', 'a6wal', 'a2sar', 'ar5as', 'a8la', 'ajmal', 'a7la', 'awal', 'a5er', '2A5er', 'aswa2')
+PATTERN_LABEL = {'superlative': 'superlative: aktar / a7san + noun with NO el- (aktar ishi = the most thing)'}
 
 
 def _strip_al(s):
@@ -103,10 +105,42 @@ def llm_classify(event, context_text, doc_word, model='gpt-5.5'):
     return ans if ans in KINDS + ('none',) else None
 
 
-def classify_all(events, words, wmap, use_llm=False, log=None):
+def merge_phrases(events):
+    """Two Medi possible-miss events within 3 s of each other (one Amal reaction) are ONE phrase slip: the head (first) word keeps
+    the kind, the tail words are cleared and point at the head (aktar + ishi -> the slip is on 'aktar ishi', not on 'ishi')."""
+    miss = sorted([e for e in events if e.get('speaker') == 'Medi' and (e.get('correction') or e.get('asked'))], key=lambda e: e['t_start'])
+    head = None
+    for e in miss:
+        if head is not None and e['t_start'] - head['t_end'] <= 3.0 and e.get('cue') == head.get('cue'):
+            e['correction'] = False; e['asked'] = False; e['part_of'] = head['word_key']; e['miss_kind'] = None
+            e['miss_why'] = f"part of the phrase slip on {head['word_key']}"
+            head['phrase'] = (head.get('phrase') or head['word_key']) + ' ' + e['word_key']
+        else:
+            head = e
+    return events
+
+
+def choice_check(e, words, starts, wmap, matcher):
+    """'choice': Medi's word was fine, but within 8 s Amal answered with a DIFFERENT Doc word (a7san -> aktar for 'the most')."""
+    import bisect
+    if not matcher:
+        return None
+    a, b = bisect.bisect_left(starts, e['t_end']), bisect.bisect_right(starts, e['t_end'] + 8)
+    for j in range(a, b):
+        w = words[j]
+        if w['spk'] != 'Amal' or not ARABIC.search(w['w']):
+            continue
+        k = matcher.match(w['w'])
+        if k and k != e['word_key'] and k in wmap and len(arabic_norm(w['w'])) >= 3 and k not in ('eshi', 'shu', 'bas', 'ai'):
+            return k
+    return None
+
+
+def classify_all(events, words, wmap, use_llm=False, log=None, matcher=None):
     """Annotate every possible-miss event in place with miss_kind / miss_why. Returns counts per kind."""
     starts = [w['s'] for w in words]
     import bisect, collections
+    merge_phrases(events)
     counts = collections.Counter(); llm_calls = 0
     for e in events:
         if e.get('speaker') != 'Medi' or not (e.get('correction') or e.get('asked')):
@@ -114,12 +148,24 @@ def classify_all(events, words, wmap, use_llm=False, log=None):
         a, b = bisect.bisect_left(starts, e['t_end']), bisect.bisect_right(starts, e['t_end'] + 8)
         after = ' '.join(words[j]['w'] for j in range(a, b) if words[j]['spk'] == 'Amal')
         r = classify(e, after, wmap.get(e['word_key']))
+        # a dangling el- (a lone الـ / ال token) right next to Medi's word = the article slip he keeps making (بعيد الـ نفس مشكلة)
+        a0, b0 = bisect.bisect_left(starts, e['t_start'] - 2.5), bisect.bisect_right(starts, e['t_end'] + 3)
+        dangling = [words[j]['w'] for j in range(a0, b0) if words[j]['spk'] == 'Medi' and arabic_norm(words[j]['w']).strip() in ('ال', 'الـ')]
+        if dangling and r['miss_kind'] not in GRAMMAR_KINDS:
+            r = {'miss_kind': 'article', 'miss_why': f"a loose el- ({dangling[0]}) next to {wmap.get(e['word_key'], {}).get('arabizi', e['word_key'])}; Amal: {after[:40]}", 'form_diff': r.get('form_diff')}
         if r['miss_kind'] == 'unclear' and use_llm and llm_calls < MAX_LLM_PER_LESSON and len(re.findall(r'[A-Za-z]+', after)) >= 8:
             ctx = ' '.join(words[j]['spk'] + ': ' + words[j]['w'] for j in range(max(0, a - 12), b))
             k = llm_classify(e, ctx, wmap.get(e['word_key'])); llm_calls += 1
             if k and k != 'none':
                 r = {'miss_kind': k, 'miss_why': 'model read Amal\'s explanation', 'source': 'llm'}
+        if r['miss_kind'] in ('word', 'unclear') and r.get('form_diff') == 'same':
+            other = choice_check(e, words, starts, wmap, matcher)
+            if other:
+                r = {'miss_kind': 'choice', 'miss_why': f"you used {wmap[e['word_key']]['arabizi']}; Amal wanted {wmap[other]['arabizi']} ({wmap[other]['english'][:30]}) here", 'form_diff': 'same'}
+                e['wanted'] = other
         e['miss_kind'], e['miss_why'] = r['miss_kind'], r['miss_why']
+        if r['miss_kind'] == 'article' and e['word_key'] in SUPERLATIVE:
+            e['pattern'] = 'superlative'; e['miss_why'] = PATTERN_LABEL['superlative'] + ' — ' + e['miss_why']
         counts[r['miss_kind']] += 1
     if log:
         log('miss kinds', dict(counts), 'llm calls', llm_calls)
