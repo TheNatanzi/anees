@@ -7,7 +7,7 @@ wins = json.load(io.open(R + 'check02_windows.json', encoding='utf-8'))
 ele = json.load(io.open(R + 'eleven_scribe_auto.json', encoding='utf-8'))['words']
 ele = [w for w in ele if w['type'] == 'word']
 gpt = json.load(io.open(R + 'openai_clips_gpttranscribe.json', encoding='utf-8'))
-chat = json.load(io.open(R + 'openai_chat_full_gpt-audio.json', encoding='utf-8'))
+chat = json.load(io.open(R + 'openai_chat_best.json', encoding='utf-8'))
 def clean(t):
     t = re.sub(r'"?(Learner|Tutor|transcription)"?\s*:\s*', ' ', t)
     return re.sub(r'[{}\[\]"]', ' ', t).strip()
@@ -58,7 +58,7 @@ main{{max-width:900px;margin:0 auto;padding:16px}} h1{{font-size:26px;margin:8px
 {''.join(rows)}
 <p class="note">Answers save on this device. When you hit {n}, tap Copy results (paste to Claude) or Email results to Medi.</p>
 </main><script>
-const K='anees-check-03-v7';let st={{}};try{{st=JSON.parse(localStorage.getItem(K)||'{{}}')}}catch(e){{}}
+const K='anees-check-03-v8';let st={{}};try{{st=JSON.parse(localStorage.getItem(K)||'{{}}')}}catch(e){{}}
 function paint(){{let c=0;document.querySelectorAll('.row').forEach(r=>{{const v=st[r.dataset.i];r.classList.toggle('done',!!v);if(v)c++;r.querySelectorAll('.btns button').forEach(b=>b.classList.toggle('on',b.dataset.v===v))}});document.getElementById('cnt').textContent=c+' / {n}'}}
 document.querySelectorAll('.btns button').forEach(b=>b.addEventListener('click',()=>{{const r=b.closest('.row');st[r.dataset.i]=b.dataset.v;try{{localStorage.setItem(K,JSON.stringify(st))}}catch(e){{}}paint()}}));
 const out=()=>'anees-check-03 '+Object.entries(st).map(([i,v])=>i+':'+v).join(',');
