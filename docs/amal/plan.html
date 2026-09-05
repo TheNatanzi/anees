@@ -56,9 +56,9 @@ function finish(){ answers.done=true; save(true); prog.textContent='Saving…'; 
 function btn(label,sub,cls,id){ return `<button id="${id}" class="${cls||''}">${esc(label)}${sub?`<small>${esc(sub)}</small>`:''}</button>`; }
 function build(p){
   const S=[];
-  const MENU=(p.topics&&p.topics.length>3)?p.topics:["Last week's lessons",'Grammar','New verbs','New nouns','New adjectives','Common sayings','Other topic'];
+  const MENU=(p.topics&&p.topics.length>3)?p.topics:["Last week's lessons", 'Grammar', 'New verbs', 'New nouns', 'New adjectives', 'Common sayings', 'Review listening', 'Review conversation', 'Other topic'];
   S.push({prog:'1 of 3',html:`<h1>What is today's lesson about?</h1><p class="sug">Tap everything that applies, then Next.</p><div class="btns" id="b">
-    ${MENU.map((t,i)=>btn(t,(i===0&&p.last_words)?('last time: '+p.last_words):'',null,'t'+i)).join('')}</div>
+    ${MENU.map((t,i)=>btn(t,(i===0&&p.last_words)?('last time: '+p.last_words):(t==='Review listening'?'Amal speaks, Medi listens and translates':(t==='Review conversation'?'back-and-forth practice on the last lessons':'')),null,'t'+i)).join('')}</div>
     <div id="typebox" style="display:none;margin-top:10px"><input id="topic" placeholder="Which topic?" aria-label="other topic"></div>
     <button id="tnext" class="primary" style="margin-top:12px;display:none">Next</button><div class="saved" id="s1"></div>`,
     wire(){ const sel=new Set(); const nextBtn=document.getElementById('tnext');

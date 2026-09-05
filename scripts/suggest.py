@@ -203,7 +203,7 @@ def suggest_sentences(words, stats, rules, n=N_SENTENCES, use_openai=True, kept_
     return {'sentences': out[:n], 'rejected': rejected, 'list_a': A, 'list_b': B, 'usage': usage, 'cost_usd': cost_usd(usage), 'model': MODEL if usage else None}
 
 
-TOPIC_MENU = ["Last week's lessons", 'Grammar', 'New verbs', 'New nouns', 'New adjectives', 'Common sayings', 'Other topic']   # Medi 2026-09-05; Amal may tap several
+TOPIC_MENU = ["Last week's lessons", "Grammar", "New verbs", "New nouns", "New adjectives", "Common sayings", "Review listening", "Review conversation", "Other topic"]   # Medi 2026-09-05; Amal may tap several. Listening = Amal speaks, Medi translates; Conversation = back-and-forth on recent lessons
 
 
 def planner_payload(lesson_date, use_openai=True):
