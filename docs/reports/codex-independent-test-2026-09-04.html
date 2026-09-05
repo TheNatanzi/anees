@@ -1,0 +1,2732 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Independent test: ElevenLabs vs OpenAI on 20 frozen clips</title><style>:root{--bg:#F4F6F2;--bg2:#fff;--ink:#1B2620;--mute:#5B6A62;--line:#D6DDD8;--teal:#0F6E56;--amber:#B26F0E}
+@media(prefers-color-scheme:dark){:root{--bg:#0F1613;--bg2:#17211C;--ink:#E7EDE9;--mute:#9BAAA2;--line:#2A3630;--teal:#4FC4A2;--amber:#E7A93B}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif}
+main{max-width:860px;margin:0 auto;padding:14px 12px 60px} h1{font-size:26px;line-height:1.2} h2{font-size:21px;margin:30px 0 8px;border-top:1px solid var(--line);padding-top:10px} h3{font-size:17px;margin:20px 0 6px}
+.top{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:5} .top .in{max-width:860px;margin:0 auto;padding:10px 12px 0}
+.brand{display:flex;align-items:baseline;gap:10px} .brand b{font-size:20px} .brand span{color:var(--mute);font-size:13px}
+.top nav{display:flex;gap:4px;overflow-x:auto;padding:6px 0;scrollbar-width:none} .top nav::-webkit-scrollbar{display:none}
+.top .tab{flex:0 0 auto;min-height:44px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:999px;padding:8px 14px;font:600 15px system-ui;text-decoration:none;display:inline-flex;align-items:center} .top .tab.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.lead{color:var(--mute);font-size:14px} .tbl{overflow-x:auto} table{border-collapse:collapse;width:100%;font-size:14px;background:var(--bg2);border:1px solid var(--line)} th,td{padding:6px 8px;border-top:1px solid var(--line);vertical-align:top;text-align:left}
+code,pre{font:13px ui-monospace,Consolas,monospace} pre{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px;overflow-x:auto} blockquote{border-left:4px solid var(--teal);margin:10px 0;padding:4px 12px;color:var(--mute)}
+img{max-width:100%} a{color:var(--teal)}</style></head><body>
+<header class="top"><div class="in"><div class="brand"><b>Anees</b><span>Palestinian Arabic with Amal · Medi's companion</span></div><nav><a class="tab" href="../index.html#today">Today</a><a class="tab" href="../index.html#lessons">Lessons</a><a class="tab" href="../index.html#words">Words</a><a class="tab" href="../index.html#cards">Flashcards</a><a class="tab" href="../index.html#amal">Amal</a><a class="tab" href="../index.html#grammar">Grammar</a><a class="tab on" href="../index.html#ai-reports">AI reports</a><a class="tab" href="../index.html#ai-rules">AI rules</a><a class="tab" href="../index.html#future">Future projects</a></nav></div></header>
+<main><p class="lead">AI report · built from <code>anees-independent-test-report.md</code> · <a href="../index.html#ai-reports">back to AI reports</a></p>
+<h1 id="anees-independent-transcription-test-research-review-and-build-recommendation">Anees: independent transcription test, research review, and build recommendation</h1>
+<p><strong>Prepared:</strong> 2026-09-04<br />
+<strong>Audience:</strong> Medi, Amal, Claude, and any engineer asked to challenge or implement the plan<br />
+<strong>Scope:</strong> the current <code>C:\dev\anees</code> project, the new 2026-09-04 lesson, the Google vocabulary source available during the test, current vendor documentation, and relevant Palestinian-Arabic/pronunciation-assessment research<br />
+<strong>Status:</strong> independent analysis only. I did <strong>not</strong> change <code>C:\dev\anees</code>; it already contains uncommitted work belonging to Medi/Claude. Reproducible test artifacts are in the accompanying ZIP.</p>
+<h2 id="executive-verdict">Executive verdict</h2>
+<p>The best current solution is <strong>not “OpenAI instead of ElevenLabs,” and not “ElevenLabs alone.”</strong> It is a deliberately split system:</p>
+<ol>
+<li><strong>Capture Medi and Amal on separate tracks.</strong> This is the highest-leverage change and should happen before further diarization tuning. Zencastr Free currently advertises unlimited separate-track recording/download and is suitable for 60–70 minute lessons. Amal does not need to upload a file manually; Zencastr records locally and progressively uploads, but both people must keep the recording page open until upload completion.</li>
+<li><strong>Use ElevenLabs Scribe v2 as the primary transcript evidence engine for now</strong>, with <code>no_verbatim=false</code>, no vocabulary keyterms on the raw learner track, and word timestamps. On this independent sample it preserved more speech, fillers, and cut-off forms than either OpenAI prompt.</li>
+<li><strong>Use OpenAI as a targeted second opinion and reasoning layer, not as the sole evidence transcript.</strong> The strict OpenAI prompt stopped the prior wrong-language failures, but it still normalized or dropped learner evidence. Adding the learned vocabulary made the result slightly worse on this sample.</li>
+<li><strong>Keep two transcript layers:</strong> an immutable “observed/evidence” layer that may look messy, and a derived “canonical/display” layer using Amal’s spelling, Arabizi for Medi, Arabic for Amal, and explicit uncertainty links back to the audio.</li>
+<li><strong>Find errors primarily from interaction evidence:</strong> Amal’s correction/recast, Medi asking for or forgetting a word, Medi self-repairing, long within-turn pauses, and lesson chat. Generic ASR cannot be instructed to stop all correction reliably.</li>
+<li><strong>Treat phonetic diagnosis as a later, candidate-only subsystem.</strong> Use known target forms, Amal reference audio, a Palestinian pronunciation lexicon, forced alignment/phone posterior methods, and human calibration. Do not let an MSA or Qur’anic pronunciation model grade free Palestinian conversation as truth.</li>
+</ol>
+<p>My confidence is <strong>high</strong> that separate tracks are necessary, <strong>moderate</strong> that ElevenLabs should remain the near-term primary transcription engine, and <strong>low</strong> for any claim about true word accuracy or “nearly perfect” transcription because there is not yet a human verbatim gold transcript.</p>
+<p>The 20-window experiment does answer Medi’s prompt hypothesis: <strong>better OpenAI prompting fixed language control, but vocabulary-constrained prompting did not beat the strict prompt and did not beat ElevenLabs on learner-form preservation.</strong> O1 recovered 14/20 anchor families; O2 recovered 13/20; ElevenLabs arms recovered 16/20. O1 and O2 retained zero mechanically counted fillers, versus 22 in the short unprompted ElevenLabs control. Those counts are behavior proxies, not WER.</p>
+<h2 id="what-nearly-perfect-must-mean">What “nearly perfect” must mean</h2>
+<p>One percentage cannot represent the goal. Anees needs four separately measured qualities:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>What is being measured</th>
+<th>Why ordinary WER is insufficient</th>
+<th>Proposed gate after gold labeling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Conventional transcript accuracy</td>
+<td>Correct words and order for both languages</td>
+<td>A clean correction can score well while erasing Medi’s actual error</td>
+<td>WER/CER by speaker and language; set threshold only after baseline</td>
+</tr>
+<tr>
+<td>Learner-form preservation</td>
+<td>False starts, malformed words, repetitions, uncertainty, and self-repairs survive</td>
+<td>These are normally treated as ASR noise but are the educational signal</td>
+<td>Recall on Amal/Medi-labeled learner-form events; initial target ≥80%</td>
+</tr>
+<tr>
+<td>Speaker identity</td>
+<td>Every timed word/turn belongs to Medi or Amal</td>
+<td>Correct words attached to the tutor would create false learner errors</td>
+<td>Channel identity should be deterministic; fallback diarization DER measured separately</td>
+</tr>
+<tr>
+<td>Learning-event detection</td>
+<td>Corrections, gaps, hesitation, and grammar/pronunciation candidates are found without flooding Amal</td>
+<td>A perfect transcript does not automatically identify why the learner struggled</td>
+<td>Top-20 precision is primary; target ≥85% accepted or usefully edited, plus missed-event audit</td>
+</tr>
+</tbody>
+</table></div>
+<p>“Nearly perfect transcript” should therefore mean: an audio-linked transcript good enough that the <strong>20 most valuable candidate moments</strong> can be reviewed by Amal in 3–5 minutes, not an unsupported 99% WER claim.</p>
+<h2 id="direct-answers-to-the-central-questions">Direct answers to the central questions</h2>
+<h3 id="can-asr-be-told-to-transcribe-phonetically-and-stop-auto-correcting">Can ASR be told to transcribe phonetically and stop auto-correcting?</h3>
+<p>Only partially. Prompting can request verbatim output, phonetic approximations, false starts, and uncertainty. It cannot turn a modern sequence-to-sequence recognizer into a neutral phonetic measurement device. The decoder still chooses likely words from linguistic context. The present test demonstrates the limit: both OpenAI arms removed every counted filler and sometimes collapsed conjugation practice into a clean phrase, even though the prompt explicitly said not to.</p>
+<p>The practical answer is a layered one:</p>
+<ul>
+<li>preserve raw audio and word times;</li>
+<li>generate a no-keyterm evidence transcript;</li>
+<li>detect high-value moments from the interaction;</li>
+<li>re-run only those clips through independent hypotheses;</li>
+<li>use phone-level alignment/scoring only where a target word is known;</li>
+<li>let Amal confirm rather than pretending the machine has ground truth.</li>
+</ul>
+<h3 id="should-the-vocabulary-list-be-a-hard-whitelist">Should the vocabulary list be a hard whitelist?</h3>
+<p>No. It should be a <strong>prior and post-transcription validator</strong>, never a decoder cage. A hard whitelist would hide exactly the categories Anees needs to discover: malformed learned words, ordinary inflections not stored as separate entries, fillers, proper nouns, loanwords, and genuinely new words. The correct rule is:</p>
+<blockquote>
+<p>English, known Palestinian forms, regular Palestinian morphology, fillers, proper nouns, and natural loanwords are allowed. Any other form is retained with audio and flagged as <code>OOV/uncertain</code>; it is never silently replaced.</p>
+</blockquote>
+<h3 id="do-i-agree-with-the-public-report-that-elevenlabs-is-much-better-than-openai">Do I agree with the public report that ElevenLabs is “much better than OpenAI”?</h3>
+<p>The conclusion is directionally supported for <strong>transcript evidence on the two tested lessons</strong>, but the report’s headline proof is overstated. Its <code>15/20</code> blind vote compared the ElevenLabs family against Speechmatics and a local dialect Whisper system. OpenAI was not one of the blind-vote candidates. Therefore “ElevenLabs won Amal’s blind vote 15/20” does not logically prove “nothing from ChatGPT beats it.”</p>
+<p>This independent 2026-09-04 test does provide new direct evidence against two current OpenAI configurations: ElevenLabs preserved more material and more disfluencies, while O1/O2 recovered fewer chat-anchor families. Still, without human verbatim gold, the defensible statement is <strong>“ElevenLabs is the better operational primary now,”</strong> not “ElevenLabs has proven lower Palestinian-Arabic WER.”</p>
+<h2 id="independent-experiment-exact-design">Independent experiment: exact design</h2>
+<h3 id="preregistration-and-independence">Preregistration and independence</h3>
+<p>The protocol was frozen before inspecting any new OpenAI output or the existing ElevenLabs transcript for this lesson. The existing project was used only to locate an already-paid Scribe response; its conclusions were not inherited. The protocol file hash recorded at test creation is <code>4363178DDE2DDA9C6E78861D6E6BA784FA86003EC3D742069193F48DDA2EB1A4</code>.</p>
+<h3 id="frozen-inputs">Frozen inputs</h3>
+<ul>
+<li>Recording: <code>G:\My Drive\Meet Recordings\jir-hcex-xzd (2026-09-04 14 03 GMT-7)</code></li>
+<li>Duration: <code>3876.083333</code> seconds (<code>01:04:36</code>)</li>
+<li>Recording SHA-256: <code>248EE52C3D0FD02A62AB72518B34B381A4F26CA75BB8A088D93DF10CA4CA1576</code></li>
+<li>Media structure: H.264 video, one AAC stereo stream, and one timed-text stream. The AAC stream is treated as a mixed recording because it does not provide one participant per channel.</li>
+<li>Meet chat SHA-256: <code>CB8A8F3380792FE71AA8E26771C9A91636B521BF22459C5974A51175418345BE</code>; 21 timestamped Amal messages.</li>
+<li>Existing Scribe v2 response SHA-256: <code>A94C9E18376E95B0A96A51F4F289F3680A6000B0CC004C7F9137D48B9DBCFD6E</code>.</li>
+<li>Vocabulary used for the prompt: the selected Meet chat plus exported <code>Latest Topic</code> and <code>Animals</code> tabs from Medi’s Google document. The direct unauthenticated Google export returned 401; the signed-in browser was used read-only. Only these relevant tabs were used because further automated tab export hit rate limiting.</li>
+</ul>
+<h3 id="sampling">Sampling</h3>
+<p>Medi requested 20 examples per lesson. All 21 chat messages were numbered chronologically; <code>random.Random(20260904)</code> selected 20 without replacement. The selected set was messages 1–19 and 21; message 20 was excluded. Each frozen clip is <code>[chat time − 15 s, chat time + 10 s]</code>, 25 seconds. Total nominal audio per arm is 500 seconds; after overlapping windows are unioned, unique audio is 490.557 seconds.</p>
+<p>This is a high-value lexical sample, not a representative random sample of the entire lesson. Adjacent windows are not independent.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th style="text-align: right;">#</th>
+<th style="text-align: right;">Chat time</th>
+<th>Amal’s typed anchor</th>
+<th>Frozen audio window</th>
+<th>Clip</th>
+<th>SHA-256 prefix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">00:24:17</td>
+<td><code>Na7el</code></td>
+<td>00:24:02–00:24:27</td>
+<td><code>clip-01.mp3</code></td>
+<td><code>CAADB5567F56…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">00:28:15</td>
+<td><code>Mabsoo6</code></td>
+<td>00:28:00–00:28:25</td>
+<td><code>clip-02.mp3</code></td>
+<td><code>C1A14155E4EE…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">00:30:22</td>
+<td><code>Basa6</code></td>
+<td>00:30:08–00:30:33</td>
+<td><code>clip-03.mp3</code></td>
+<td><code>488D0853A107…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">00:30:45</td>
+<td><code>Basa6ni</code></td>
+<td>00:30:30–00:30:55</td>
+<td><code>clip-04.mp3</code></td>
+<td><code>776AFA5BEDF9…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">00:31:32</td>
+<td><code>Babse6</code></td>
+<td>00:31:17–00:31:42</td>
+<td><code>clip-05.mp3</code></td>
+<td><code>26F502702F36…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">00:33:12</td>
+<td><code>Byebse6ni</code></td>
+<td>00:32:57–00:33:22</td>
+<td><code>clip-06.mp3</code></td>
+<td><code>2EF82873AFE6…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">00:34:48</td>
+<td><code>Babse6 / Btebse6 / Btebse6i / Btebse6u / Byebse6 / Btebse6 / Byebse6u / Bnebse6</code></td>
+<td>00:34:34–00:34:59</td>
+<td><code>clip-07.mp3</code></td>
+<td><code>75287CF1A14D…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">00:35:14</td>
+<td><code>Bnebse6o</code></td>
+<td>00:35:00–00:35:25</td>
+<td><code>clip-08.mp3</code></td>
+<td><code>EE22D0C43501…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">00:36:14</td>
+<td><code>Basa6 / Basa6at / Basa6u / Basa6eet / Basa6ti / Basa6tu / Basa6na</code></td>
+<td>00:36:00–00:36:25</td>
+<td><code>clip-09.mp3</code></td>
+<td><code>F6753040F9D6…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">00:36:43</td>
+<td><code>Basa6tek?</code></td>
+<td>00:36:28–00:36:53</td>
+<td><code>clip-10.mp3</code></td>
+<td><code>292C272A05EF…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">00:37:01</td>
+<td><code>Hasa6to</code></td>
+<td>00:36:46–00:37:11</td>
+<td><code>clip-11.mp3</code></td>
+<td><code>A2506CB1B05E…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">00:46:21</td>
+<td><code>Banbese6</code></td>
+<td>00:46:06–00:46:31</td>
+<td><code>clip-12.mp3</code></td>
+<td><code>40BDAB84F4B6…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">00:48:33</td>
+<td><code>Baboos</code></td>
+<td>00:48:19–00:48:44</td>
+<td><code>clip-13.mp3</code></td>
+<td><code>36506438830C…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">00:49:46</td>
+<td><code>Buset</code></td>
+<td>00:49:32–00:49:57</td>
+<td><code>clip-14.mp3</code></td>
+<td><code>6C830171F5AF…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">00:53:26</td>
+<td><code>Enbasa6 / Enbas6at / Enbasa6u / Enbasa6et / Enbasa6ti / Enbasa6tu / Enbasa6na</code></td>
+<td>00:53:12–00:53:37</td>
+<td><code>clip-15.mp3</code></td>
+<td><code>4EBB543B6452…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">00:54:54</td>
+<td><code>Enbasa6ti bi/fi el-7afle</code></td>
+<td>00:54:40–00:55:05</td>
+<td><code>clip-16.mp3</code></td>
+<td><code>E34A7D71380B…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">00:56:42</td>
+<td><code>Enbasa6u bisafrethom</code></td>
+<td>00:56:28–00:56:53</td>
+<td><code>clip-17.mp3</code></td>
+<td><code>D95A89F0F0D6…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">00:58:28</td>
+<td><code>Banbese6 / Btenbese6 / Btenbes6i / Btenbes6u / Byenbese6 / Btenbese6 / Byenbes6u / Bnenbese6</code></td>
+<td>00:58:13–00:58:38</td>
+<td><code>clip-18.mp3</code></td>
+<td><code>67D84B40E9BE…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">00:59:14</td>
+<td><code>Btenbese6i lamma ne6la3?</code></td>
+<td>00:58:59–00:59:24</td>
+<td><code>clip-19.mp3</code></td>
+<td><code>9AF451780A9B…</code></td>
+</tr>
+<tr>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">01:01:10</td>
+<td><code>Enbes6i biyoamek</code></td>
+<td>01:00:56–01:01:21</td>
+<td><code>clip-21.mp3</code></td>
+<td><code>050F1FE5791C…</code></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="test-arms">Test arms</h3>
+<ul>
+<li><strong>E-long:</strong> the original one-call, full-lesson ElevenLabs Scribe v2 response; words whose midpoint lies in each frozen window were extracted. It is not directly call-matched to the short-clip arms.</li>
+<li><strong>O1:</strong> <code>gpt-transcribe</code>, Arabic + English language hints, strict verbatim bilingual prompt, no vocabulary.</li>
+<li><strong>O2:</strong> the same request plus 41 selected chat forms and 75 Arabizi/Arabic document pairs. The prompt says the lexicon is context rather than a correction key.</li>
+<li><strong>ES (post-hoc control):</strong> Scribe v2 on each same 25-second clip, <code>diarize=true</code>, two expected speakers, word timestamps, <code>no_verbatim=false</code>, no keyterms.</li>
+<li><strong>EKG (post-hoc):</strong> same short ElevenLabs clips with 184 global keyterms from the selected chat and two document tabs.</li>
+<li><strong>EKL (post-hoc):</strong> same short ElevenLabs clips with the two document tabs plus only chat terms posted within ±120 seconds of each clip; 144–161 keyterms.</li>
+</ul>
+<p>O1 and O2 were pre-registered. ES, EKG, and EKL were exploratory follow-ups and must not be presented as if they were pre-registered. ES was added specifically because comparing short keyterm calls to the long baseline confounds vocabulary with chunking.</p>
+<h3 id="exact-openai-prompts">Exact OpenAI prompts</h3>
+<p><strong>O1 strict</strong></p>
+<blockquote>
+<p>This is a one-to-one Palestinian Arabic lesson between a male learner, Medi, and his female tutor, Amal. The only languages spoken are Palestinian Arabic and English. Transcribe exactly what is audible. Write Arabic speech in Arabic script and English speech in Latin script. Never translate. Never output German, Japanese, Chinese, Azerbaijani, Spanish, or any other language. Preserve fillers, repetitions, false starts, cut-off words, wrong grammar, learner mistakes, and uncertain pronunciations. Do not silently repair Medi's speech into a fluent or correct sentence. If a sound cannot be identified, write [غير واضح] or a brief phonetic approximation instead of inventing a plausible word. Do not add explanations or speaker labels.</p>
+</blockquote>
+<p><strong>O2 vocabulary-conditioned</strong></p>
+<blockquote>
+<p>This is a one-to-one Palestinian Arabic lesson between a male learner, Medi, and his female tutor, Amal. The only languages spoken are Palestinian Arabic and English. Transcribe exactly what is audible. Write Arabic speech in Arabic script and English speech in Latin script. Never translate. Never output German, Japanese, Chinese, Azerbaijani, Spanish, or any other language. Preserve fillers, repetitions, false starts, cut-off words, wrong grammar, learner mistakes, and uncertain pronunciations. Do not silently repair Medi's speech into a fluent or correct sentence. The approved vocabulary below is context, not a correction key: prefer one of its words or an ordinary Palestinian inflection only when the audio supports it. If Medi mispronounces a listed word or produces a nonword, preserve the closest phonetic form rather than replacing it with the approved word. If a sound does not fit the list, write [غير واضح] or a brief phonetic approximation; do not invent a different Arabic word. Do not add explanations or speaker labels. APPROVED TOPIC VOCABULARY: CHAT FORMS: Na7el; Mabsoo6; Basa6; Basa6ni; Babse6; Byebse6ni; Btebse6; Btebse6i; Btebse6u; Byebse6; Byebse6u; Bnebse6; Bnebse6o; Basa6at; Basa6u; Basa6eet; Basa6ti; Basa6tu; Basa6na; Basa6tek?; Hasa6to; Banbese6; Baboos; Buset; Enbasa6; Enbas6at; Enbasa6u; Enbasa6et; Enbasa6ti; Enbasa6tu; Enbasa6na; Enbasa6ti bi/fi el-7afle; Enbasa6u bisafrethom; Btenbese6; Btenbes6i; Btenbes6u; Byenbese6; Byenbes6u; Bnenbese6; Btenbese6i lamma ne6la3?; Enbes6i biyoamek. LEARNED FORMS: Ma3na = معنى; Raqam = رقم; 7arf = حرف; Kelme = كلمة; Jumle = جملة; Esem = اسم; Sifa = صفة; Jame3 = جمع; Zarf = ظرف; Fe3el = فعل; Maadi = ماضي; Mudaare3 = مضارع; Amer = أمر; Musta2bal = مستقبل; Sabab = سبب; 5ayaar = خيار; 7atta = حتى; 7atta law = حتى لو; 7aades = حادث; Bil8ala6 = بالغلط; Bazeed = بزيد; Ziaadeh = زيادة; Ba2eem = بقيم; Muraaja3a = مراجعة; Ana baraaje3 = أنا براجع; Ana 7aafez = أنا حافظ; Daafe3 = دافع; Mu7aadase/a = محادثة; Ana bad7ak = بضحك; Ana bada77ek = بضحِّك; Ana bazha2 = بزهق; Ana bazahhe2 = بزهِّق; Ana baz3al = بزعَل; Ana baza33el = بزعِّل; Ana bat3ab = بتعب; Ana bata33eb = بتعِّب; Ana ba5aaf = بخاف; Ana ba5awwef = بخوِّف; Ana bajhaz = بجهز; Ana bajahhez = بجهِّز; Ana ba3asseb = بعصِّب; 7aywaan = حيوان; Besse/a = بسة; Kalb = كلب; Jaaje/a = جاجة; Deek = ديك; 9oo9 = صوص; 7maar = حمار; 5aroof = خروف; 7ayye/a = حية; Tair = طير; 3asfoor = عصفور; 7ashara = حشرة; Dubaan = دبان; Dubaane/a = دبانة; Namel = نمل; Namle/a = نملة; His-his = بعوضة; His-hise/a = هسهسة; Sarsoor = صرصور; 3ankaboot = عنكبوت; Faar = فار; Ba2ar = بقر; Ba2ara = بقرة; 7saan = حصان; 2erd = قرد; Sinjaab = سنجاب; Na7el = نحل; Na7le/a = نحلة; 7adee2et el-7aywaanaat = حديقة الحيوانات; 8azaal = غزال; Albaan = ألبان.</p>
+</blockquote>
+<h3 id="call-controls">Call controls</h3>
+<ul>
+<li>Odd-numbered clips called O1 then O2; even-numbered clips called O2 then O1.</li>
+<li>One successful request per arm/clip; only 429 or 5xx was eligible for at most two retries with deterministic 2 s and 5 s backoff.</li>
+<li>Successful but poor, empty, or wrong-language outputs were outcomes, not manually “fixed.”</li>
+<li>All 40 OpenAI calls and all 60 new ElevenLabs calls returned HTTP 200 and nonempty text.</li>
+<li>The full raw response, response metadata, prompts/keyterms, clip hashes, elapsed time, and estimated audio cost are stored in the evidence bundle.</li>
+</ul>
+<h2 id="results">Results</h2>
+<h3 id="aggregate-behavior">Aggregate behavior</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Successful</th>
+<th style="text-align: right;">Surface tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th style="text-align: right;">Chat families visible</th>
+<th style="text-align: right;">Foreign-script clips</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">20/20</td>
+<td style="text-align: right;">714</td>
+<td style="text-align: right;">82</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">16/20</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">20/20</td>
+<td style="text-align: right;">725</td>
+<td style="text-align: right;">123</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">16/20</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">20/20</td>
+<td style="text-align: right;">590</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">14/20</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">20/20</td>
+<td style="text-align: right;">593</td>
+<td style="text-align: right;">83</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">13/20</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">20/20</td>
+<td style="text-align: right;">716</td>
+<td style="text-align: right;">58</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">16/20</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">20/20</td>
+<td style="text-align: right;">702</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">16/20</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table></div>
+<p>Definitions:</p>
+<ul>
+<li>“Surface tokens” is a regex count of Latin/Arabic alphanumeric forms; it is <strong>not accuracy</strong>.</li>
+<li>“Arabic-script tokens” reflects script choice, not Arabic content; ElevenLabs often emits Arabic words in Latin/Arabizi.</li>
+<li>Filler and cutoff counts are mechanical lower bounds.</li>
+<li>“Chat family visible” is a manual surface judgment that the typed form or its relevant lexical family appears. It is not audio-grounded correctness.</li>
+<li>Four anchors are structurally unscorable/missed because the typed chat appeared tens of seconds after the spoken word; this is why no WER is calculated.</li>
+</ul>
+<h3 id="main-findings">Main findings</h3>
+<ol>
+<li><strong>The strict OpenAI prompt solved the old wrong-language failure mode in this sample.</strong> O1/O2 produced no non-Latin/non-Arabic scripts. This is meaningful operational progress over the older report’s German/Japanese/Chinese failures.</li>
+<li><strong>It did not preserve enough learner evidence.</strong> O1/O2 produced 590/593 tokens versus 725 for the directly matched short unprompted ElevenLabs control. More text is not inherently better, but the missing content included conjugation attempts, fillers, and false starts that Anees explicitly needs.</li>
+<li><strong>The vocabulary prompt did not improve OpenAI.</strong> O1 recovered 14 anchor families; O2 recovered 13. O2 worsened clips 12 and 16 and reduced the mechanical cutoff count from 12 to 7. O1 and O2 were identical in 4 clips and changed in 16; mean character similarity was 0.8893.</li>
+<li><strong>Both OpenAI conditions removed every counted filler.</strong> This directly contradicts the prompt’s request to preserve them. It does not prove every hesitation was absent, but it makes OpenAI unsafe as the only pause/error evidence source.</li>
+<li><strong>Short clipping, not keyterms, fixed ElevenLabs speaker-cluster collapse.</strong> E-long assigned 695 of 708 extracted word records to <code>speaker_0</code> and only 13 to <code>speaker_1</code>; only 1/20 windows contained two Scribe IDs although Meet captions showed both named speakers in 19/20. ES detected at least two clusters in 19/20 with no keyterms. EKG and EKL also detected at least two in 19/20. The only defensible causal attribution is segmentation/request context, not vocabulary.</li>
+<li><strong>Even recovered clusters are not stable identities.</strong> A local 25-second call labeling <code>speaker_0</code> and <code>speaker_1</code> does not prove which is Medi or Amal, nor that the mapping is consistent between clips. Separate tracks make this inference unnecessary.</li>
+<li><strong>Global future vocabulary can poison the transcript.</strong> In clip 1 the unprompted systems and local-keyterm arm heard “Awesome”; EKG substituted the future lesson term <code>Mabsoo6</code>. This is the exact leakage risk created by waiting for the entire lesson vocabulary and then applying all of it globally.</li>
+<li><strong>Local keyterms are useful for display but dangerous for evidence.</strong> EKL produced readable forms such as <code>Babse6</code>, <code>Byebse6ni</code>, <code>Enbas6ti fi el-7afle</code>, and <code>Btenbes6i lamma ne6la3</code>; it also reduced fillers/cutoffs versus ES and may overwrite Medi’s malformed form. It belongs in the canonical interpretation layer only.</li>
+</ol>
+<h3 id="high-value-examples">High-value examples</h3>
+<ul>
+<li><strong>Clip 2:</strong> E-long retained <code>Masbu- mabsut</code>, an apparent false start; OpenAI produced the clean <code>مبسوط</code>. This is precisely the kind of evidence Anees must not discard.</li>
+<li><strong>Clips 8–9:</strong> OpenAI collapsed a conjugation drill; clip 8 became only <code>هو. هي.</code> and clip 9 only “I made him happy.” ElevenLabs retained more paradigm attempts.</li>
+<li><strong>Clip 12:</strong> O1 and ElevenLabs retained <code>Banbisat/Nabasat</code>-like attempts; O2 returned <code>[unclear]</code>, so the learned-vocabulary prompt harmed recovery.</li>
+<li><strong>Clip 16:</strong> E-long and the short ElevenLabs arms retained the <code>enbasa6ti/fi el-7afle</code> phrase; O1 hallucinated “Airbnb” and O2 omitted most of it.</li>
+<li><strong>Clip 18:</strong> ElevenLabs preserved <code>lamaaa uh nitlaaw Nitla-…</code>; OpenAI made the utterance cleaner and removed the counted hesitation.</li>
+<li><strong>Clip 1:</strong> global ElevenLabs keyterms inserted <code>Mabsoo6</code> where the no-keyterm and local-context arms had “Awesome,” demonstrating temporal vocabulary leakage.</li>
+</ul>
+<h3 id="what-cannot-be-concluded">What cannot be concluded</h3>
+<ul>
+<li>No arm’s WER, CER, or learner-error recall is known.</li>
+<li>The 16/20 family score does not mean 80% accuracy.</li>
+<li>More tokens do not prove ElevenLabs is more correct.</li>
+<li>Meet caption speaker names are useful weak metadata, not verbatim gold.</li>
+<li>The sample heavily represents one verb family and tutor-typed vocabulary.</li>
+<li>The lesson recording is mixed, so Medi-vs-Amal identity is not audio-ground-truth.</li>
+<li>The result ranks tested configurations on this lesson, not every OpenAI/ElevenLabs model or future model revision.</li>
+</ul>
+<h2 id="why-the-four-missing-anchors-matter">Why the four missing anchors matter</h2>
+<p>The frozen windows intentionally were not moved after seeing output. That exposed a design flaw in using chat timestamps as exact word times:</p>
+<ul>
+<li><code>Baboos</code> was spoken roughly 65 seconds before its chat post.</li>
+<li><code>Buset</code> was spoken roughly 42 seconds before its post.</li>
+<li>the full <code>Btenbese6i lamma ne6la3?</code> example was earlier than its post;</li>
+<li><code>Enbes6i biyoamek</code> was spoken roughly 80 seconds before its post.</li>
+</ul>
+<p>Therefore lesson chat should create a <strong>search anchor</strong>, not a 25-second truth window. Production should search ±120 seconds using lexical/semantic matching, preserve multiple candidates, and ask Amal only when the match is ambiguous.</p>
+<h2 id="speaker-identity-diagnosis">Speaker identity diagnosis</h2>
+<p>The current recording contains one mixed audio stream. The project’s Scribe full-lesson call asked for two speakers, but today it collapsed almost everything into one cluster. The fallback then labels everyone <code>Both</code>, which avoids a false identity claim but makes downstream learning metrics unusable.</p>
+<p>The current code also creates an internal contradiction when the split fails: line 120 treats Arabic words from both voices as “Medi Arabic,” while line 122 counts pauses only in runs labeled <code>Medi</code>; after fallback, those runs are labeled <code>Both</code>. Thus the published statistics can count tutor Arabic as learner Arabic while reporting zero learner pauses. This is a P0 correctness issue, not a cosmetic one.</p>
+<p>Recommended identity order:</p>
+<ol>
+<li><strong>Separate capture tracks</strong> named at ingestion (<code>medi</code>, <code>amal</code>) — ground truth by construction.</li>
+<li>If only a mixed Meet file exists, use its embedded named captions as weak time-boundary hints, not transcript truth.</li>
+<li>For fallback experiments, OpenAI’s diarization API currently accepts up to four known speaker names paired with 2–10 second reference samples. Test it on a labeled gold set before production.</li>
+<li>Never assign names merely from “the speaker with more Arabic.” Amal may speak English and Medi’s Arabic share should increase over time; the heuristic is nonstationary.</li>
+</ol>
+<h2 id="recommended-end-to-end-architecture">Recommended end-to-end architecture</h2>
+<pre><code class="language-mermaid">flowchart TD
+    A[Zencastr lesson call] --&gt; B1[Medi local audio track]
+    A --&gt; B2[Amal local audio track]
+    A --&gt; C[Zencastr/Meet chat export]
+    D[Google vocabulary document] --&gt; E[Versioned vocabulary snapshot]
+    B1 --&gt; F[Immutable raw lesson record]
+    B2 --&gt; F
+    C --&gt; F
+    F --&gt; G[Base evidence transcript&lt;br/&gt;Scribe v2; no keyterms; no_verbatim=false]
+    G --&gt; H[Candidate event detector]
+    C --&gt; H
+    E --&gt; H
+    H --&gt; I[Candidate clips&lt;br/&gt;20 highest-value moments]
+    I --&gt; J1[ElevenLabs no-keyterm short pass]
+    I --&gt; J2[OpenAI strict short pass]
+    I --&gt; J3[Local-time keyterm interpretation pass]
+    J1 --&gt; K[Evidence fusion with uncertainty]
+    J2 --&gt; K
+    J3 --&gt; K
+    E --&gt; K
+    K --&gt; L[Dual display&lt;br/&gt;Medi: Arabizi; Amal: Arabic]
+    L --&gt; M[Amal 3–5 minute review]
+    M --&gt; N[Confirmed errors and vocabulary]
+    N --&gt; O[Practice cards and progress]
+    M --&gt; P[Calibration data for future thresholds]
+</code></pre>
+<h3 id="capture-workflow">Capture workflow</h3>
+<ul>
+<li>Use one Zencastr session as the call, not Zencastr plus another call simultaneously.</li>
+<li>The host sends Amal a link. Both wear headphones.</li>
+<li>Record separate tracks. The current pricing page says the free plan includes unlimited separate recording/download, up to six participants, progressive upload, and local recording.</li>
+<li>At the end, both keep the page open until upload confirmation. The host downloads the participant files or a ZIP. Amal does not manually send/upload audio.</li>
+<li>Free separate MP3 tracks are sufficient. Zencastr’s pricing page and older help center conflict on whether free WAV is available; verify the account UI before depending on WAV.</li>
+<li>Do not rely on Zencastr’s native transcription for Arabic: its November 2024 help article lists only English, French, German, Portuguese, and Spanish on paid plans, while the current pricing grid says “10 supported languages” without naming them. Either way, this project supplies its own ASR.</li>
+<li>Keep Google Meet recording/chat as a fallback only if Zencastr proves operationally annoying. Today’s Meet artifact showed why it is weaker: named captions and chat were useful, but the audio was one mixed stream.</li>
+</ul>
+<h3 id="grace-period-and-vocabulary-snapshots">Grace period and vocabulary snapshots</h3>
+<p>Recommended default: <strong>45 minutes after the lesson</strong>, configurable to 30–60 minutes.</p>
+<ol>
+<li>Immediately ingest and hash both audio tracks and chat; mark lesson <code>provisional</code>.</li>
+<li>Start the no-keyterm evidence transcription immediately. It does not need the vocabulary update.</li>
+<li>At +45 minutes, snapshot the Google document revision and chat, including tab/revision identifiers and a content hash.</li>
+<li>Run OOV matching, canonical display, and candidate ranking using that frozen snapshot.</li>
+<li>If Amal adds words later, create a new vocabulary-snapshot version and re-run matching/display only. Do not spend money retranscribing the entire audio.</li>
+</ol>
+<p>This gives Amal time to add lesson vocabulary without letting future chat terms contaminate earlier raw ASR.</p>
+<h3 id="transcript-data-contract">Transcript data contract</h3>
+<p>Every token/span should preserve provenance. A minimum schema:</p>
+<pre><code class="language-json">{
+  &quot;lesson_id&quot;: &quot;2026-09-04&quot;,
+  &quot;source_track&quot;: &quot;medi&quot;,
+  &quot;start_ms&quot;: 3279772,
+  &quot;end_ms&quot;: 3280410,
+  &quot;observed_surface&quot;: &quot;en-enbas...&quot;,
+  &quot;canonical_arabizi&quot;: &quot;Enbasa6ti&quot;,
+  &quot;canonical_arabic&quot;: &quot;انبسطتي&quot;,
+  &quot;language&quot;: &quot;ar-PS&quot;,
+  &quot;asr_engine&quot;: &quot;elevenlabs/scribe_v2&quot;,
+  &quot;asr_config_hash&quot;: &quot;...&quot;,
+  &quot;vocabulary_snapshot_id&quot;: null,
+  &quot;uncertainty&quot;: 0.42,
+  &quot;flags&quot;: [&quot;self_repair&quot;, &quot;possible_pronunciation_error&quot;],
+  &quot;audio_clip_id&quot;: &quot;...&quot;,
+  &quot;human_status&quot;: &quot;unreviewed&quot;
+}
+</code></pre>
+<p>The raw <code>observed_surface</code> is append-only. Human edits and canonical forms are separate records with author, timestamp, and reason.</p>
+<h3 id="arabiziarabic-display-policy">Arabizi/Arabic display policy</h3>
+<ul>
+<li>Medi’s default interface: Arabizi, preserving the project’s exact numeral conventions and Amal’s forms.</li>
+<li>Amal’s default interface: Arabic script plus the aligned audio.</li>
+<li>Both can reveal the other representation.</li>
+<li>Automatic transliteration is a suggestion with confidence; it must never overwrite the evidence transcript.</li>
+<li>The project vocabulary document is authoritative for canonical spellings, but not proof of what Medi actually uttered.</li>
+</ul>
+<h2 id="learning-event-detector">Learning-event detector</h2>
+<p>Candidate generation should be evidence-based and multi-signal. Each candidate stores all signals, not just a model conclusion.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Event type</th>
+<th>Strong signals</th>
+<th>Output</th>
+<th>Auto-confirm?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tutor correction/recast</td>
+<td>Medi utterance followed within ~0–8 s by Amal repeating a minimally different form; words such as “no,” “say…,” <code>صح</code>, or explicit explanation</td>
+<td>before/after audio, observed hypothesis, tutor target</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Forgotten/asked word</td>
+<td>Medi says “I forgot,” “what does X mean?”, “how do I say…?”, long search followed by Amal supply</td>
+<td>question + supplied word + clip</td>
+<td>Usually candidate with high priority</td>
+</tr>
+<tr>
+<td>Self-repair</td>
+<td>same speaker restarts/changes a form (<code>Masbu- mabsut</code>)</td>
+<td>initial and repaired spans</td>
+<td>No; may be productive learning rather than error</td>
+</tr>
+<tr>
+<td>Hesitation/retrieval gap</td>
+<td>within-Medi-turn silence, filler chain, lengthened onset, repeated partial word</td>
+<td>duration and neighboring words</td>
+<td>No; pause alone is not error</td>
+</tr>
+<tr>
+<td>Grammar candidate</td>
+<td>disagreement between Medi form, tutor recast, vocabulary/morphology rules, and independent transcripts</td>
+<td>evidence bundle and rule citation</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Pronunciation candidate</td>
+<td>known target + observable phone mismatch across repeated attempts/reference</td>
+<td>target/observed phones, confidence, audio</td>
+<td>No until calibrated</td>
+</tr>
+<tr>
+<td>OOV/new word</td>
+<td>surface form unmatched after allowed English, morphology, fillers, names, and loanwords</td>
+<td>retained surface + nearest candidates</td>
+<td>Ask/flag, never replace</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="candidate-ranking-for-a-20-item-review">Candidate ranking for a 20-item review</h3>
+<p>Use a transparent score, tuned later from Amal labels:</p>
+<pre><code class="language-text">score = 4*tutor_explicit_correction
+      + 3*learner_explicit_gap
+      + 2*tutor_recast_similarity
+      + 2*chat_match
+      + 1*self_repair
+      + 1*long_pause
+      + 1*cross_engine_disagreement
+      - 2*already_confirmed_duplicate
+      - 2*low_audio_quality
+</code></pre>
+<p>Diversify the final 20 so one conjugation drill cannot occupy the whole list. Suggested caps: at most eight examples from one lexical family and at least two candidate types when available.</p>
+<h3 id="the-35-minute-amal-review">The 3–5 minute Amal review</h3>
+<p>Twenty items at an average 8–12 seconds each is 2:40–4:00 before occasional edits. Each card should have:</p>
+<ul>
+<li>tap-to-play 4–10 second audio, with one-tap “more context”;</li>
+<li><code>Medi said</code> evidence field;</li>
+<li><code>Suggested target</code> in Arabic and Arabizi;</li>
+<li>reason/type and confidence;</li>
+<li>buttons: <strong>Correct error</strong>, <strong>Not an error</strong>, <strong>Edit target</strong>, <strong>Needs context</strong>;</li>
+<li>keyboard/mobile shortcuts and automatic advance;</li>
+<li>bulk “these are the same conjugation pattern” grouping.</li>
+</ul>
+<p>Do not ask Amal to proofread the whole hour. For the first five lessons, sample a few rejected/low-score events too; otherwise recall can never be estimated.</p>
+<h2 id="phonetic-layer-feasible-but-not-a-turnkey-palestinian-model">Phonetic layer: feasible, but not a turnkey Palestinian model</h2>
+<p>Palestinian-specific phonetic diagnosis is possible as an engineering/research milestone, not as a prompt switch.</p>
+<p>Recommended sequence:</p>
+<ol>
+<li>Restrict phonetic analysis to candidate clips where a target form is known.</li>
+<li>Build a pronunciation dictionary from Amal’s canonical forms and recordings. Seed it with Maknuune, an open Palestinian lexicon with more than 36,000 entries, 17,000 lemmas, 3,700 roots, diacritized Arabic, phonological transcriptions, and English glosses.</li>
+<li>Use forced alignment to align the known orthographic target to audio phones. Montreal Forced Aligner defines forced alignment as producing a time-aligned transcript using a pronunciation dictionary.</li>
+<li>Compute phone posterior/GOP-style features or CTC alignment disagreement. Kaldi’s GOP implementation explicitly describes GOP as a canonical-phone posterior ratio and notes classifier-based features usually outperform a raw threshold.</li>
+<li>Calibrate phone-specific thresholds on Medi’s speech using Amal’s labels. Classic CALL work likewise used phone-specific thresholds and human judgments.</li>
+<li>Use a universal phone recognizer such as Allosaurus only as an exploratory hypothesis source; it supports 2,000+ language inventories, but its timestamps are approximate and it is not a Palestinian learner grader.</li>
+</ol>
+<p>Available Arabic mispronunciation datasets are mismatched to this task. ASMDD is Egyptian speech from children aged 2–8 on 100 frequent words. Iqra’Eval is Qur’anic/MSA read-speech assessment. Neither should be used as the truth standard for an adult’s spontaneous Palestinian conversation.</p>
+<p>Azure and Google are worth later baseline tests because both explicitly list <code>ar-PS</code> speech recognition/adaptation. Azure’s pronunciation-assessment locale list, however, names Arabic Egypt and Saudi Arabia rather than Palestinian Arabic, and some fine-grained outputs are English-only. This supports benchmarking their ASR, not adopting their pronunciation score uncritically.</p>
+<h2 id="existing-project-audit">Existing project audit</h2>
+<h3 id="what-already-exists">What already exists</h3>
+<p>The repository is not empty despite the README saying “nothing built yet.” It contains:</p>
+<ul>
+<li>multiple Aug 25 engine outputs and comparison pages;</li>
+<li>an ElevenLabs/Meet lesson pipeline;</li>
+<li>generated lesson transcripts for Aug 25 and Sep 4;</li>
+<li>Google Meet chat extraction;</li>
+<li>HTML publishing to GitHub Pages;</li>
+<li>Gmail notification code;</li>
+<li>experimental speaker diarization, local Whisper, Speechmatics, OpenAI, and tutor-reaction scripts;</li>
+<li>extensive product/research planning documents.</li>
+</ul>
+<p>There is <strong>no implemented candidate error inbox, vocabulary-document ingestion, database/schema, review dashboard, flashcard loop, or production-grade test suite</strong> visible in the repo.</p>
+<h3 id="severity-findings">Severity findings</h3>
+<h4 id="p0-fix-before-trusting-or-automatically-publishing-learning-metrics">P0 — fix before trusting or automatically publishing learning metrics</h4>
+<ol>
+<li><strong>Mixed-channel capture defeats speaker-grounded learning analysis.</strong> Today’s full Scribe call collapsed nearly all words into one cluster. Separate tracks are the remedy.</li>
+<li><strong>No human verbatim gold exists, yet the engine report uses categorical language.</strong> Preference votes and token counts cannot establish accuracy.</li>
+<li><strong>The published <code>15/20</code> vote excludes OpenAI.</strong> <code>build_engine_report.py</code> and <code>check02_scoring.md</code> show that the blind comparison was ElevenLabs vs Speechmatics vs local dialect Whisper. The headline overgeneralizes the result.</li>
+<li><strong>Fallback metrics are internally invalid.</strong> On failed speaker split, Arabic from both speakers is counted as Medi’s, while pauses can disappear because no run remains labeled Medi.</li>
+<li><strong>Unvalidated transcripts are published and emailed automatically.</strong> There is no human gate even when speaker split failed.</li>
+<li><strong>Publish failure is suppressed.</strong> <code>git commit</code> and <code>git push</code> use <code>check=False</code>, after which the function returns a public URL anyway. An email can therefore announce a page that was not successfully pushed.</li>
+</ol>
+<h4 id="p1-required-for-a-dependable-mvp">P1 — required for a dependable MVP</h4>
+<ol>
+<li>No vocabulary-document synchronization, snapshotting, revision ID, or reconciliation exists.</li>
+<li>No error-event extraction/review workflow exists; the current output is a transcript and coarse counts.</li>
+<li>Ingestion identity uses a filename/state key, not Drive file ID as the binding contract requires.</li>
+<li>The ElevenLabs request has no retry/backoff; the failure path only logs and updates state, with no failure email.</li>
+<li>The 90-day raw-audio deletion contract is not implemented.</li>
+<li>The pre-check samples only minutes 3–6 and runs before reading chat; a slow-English introduction could cause an Arabic lesson to be skipped even when the chat proves otherwise.</li>
+<li>README, graph, blueprint, and constants disagree about what is built, which engine is primary, and whether two-channel capture is active.</li>
+<li>The Python/Node dependencies are not pinned in <code>requirements.txt</code>, <code>pyproject.toml</code>, or a repo-local <code>package.json</code>; email code borrows another project’s <code>node_modules</code> and <code>.env</code> by absolute path.</li>
+<li>No automated tests or CI checks cover parsing, speaker failure, idempotency, metrics, publishing, email, or deletion.</li>
+<li>Provider model aliases/configurations are not captured as immutable run records in production, making later comparisons hard to reproduce.</li>
+</ol>
+<h4 id="p2-cleanup-and-operational-resilience">P2 — cleanup and operational resilience</h4>
+<ol>
+<li>The pre-check comment still estimates <code>$1.50</code> for a full run although current Scribe pricing is $0.22/hour.</li>
+<li>The Meet filename regex and minimum file-size heuristic are brittle.</li>
+<li>State is written after the publish step, so the state version is not necessarily included in the same published commit.</li>
+<li>The recipient address and external Alchemy path are hard-coded.</li>
+<li>Public lesson transcript publishing is intentional and accepted by Medi, but the UI should still show that it is public and offer per-lesson deletion.</li>
+</ol>
+<h3 id="documentation-reconciliation-required">Documentation reconciliation required</h3>
+<p><code>plan/constants.md</code> says the binding design is separate channels, Drive-ID idempotency, three retries, failure email, 90-day deletion, and Supabase secrets. The current pipeline implements none of those except local secret avoidance in Git. <code>plan/graph.yaml</code> still marks early transcription/gold-sheet work as current even though later live pipeline artifacts exist. The README date/status is stale. Before additional features, turn the constants into executable acceptance tests and update the task graph from actual repository state.</p>
+<h2 id="proposed-production-pipeline">Proposed production pipeline</h2>
+<h3 id="stage-0-safe-ingestion">Stage 0 — safe ingestion</h3>
+<ul>
+<li>Unique lesson ID from provider session ID plus content hashes.</li>
+<li>Store both tracks, chat, recording metadata, consent/privacy status, and hashes.</li>
+<li>Idempotent state machine: <code>discovered → uploading → transcribing → provisional → awaiting_vocab → candidates_ready → tutor_reviewed → published</code>.</li>
+<li>Retry transient vendor calls three times with jittered backoff; permanent failures create a visible job and email Medi only.</li>
+<li>Never email/publish a success URL until the page/database transaction is verified.</li>
+</ul>
+<h3 id="stage-1-evidence-transcript">Stage 1 — evidence transcript</h3>
+<ul>
+<li>Transcribe each named track separately with ElevenLabs Scribe v2, no keyterms, <code>no_verbatim=false</code>, word timestamps.</li>
+<li>Use 2–5 minute chunks with 1–2 second overlap for the searchable whole-lesson pass; deduplicate overlap deterministically. Twenty-five-second segmentation was useful today but has not been validated as the ideal production chunk length.</li>
+<li>Preserve provider response, config, model label, clip hash, and confidence/log-probability data.</li>
+<li>Calculate silence and pause features directly from audio/VAD, not only from text fillers.</li>
+</ul>
+<h3 id="stage-2-candidate-discovery">Stage 2 — candidate discovery</h3>
+<ul>
+<li>Rule/model pass over cross-speaker temporal patterns.</li>
+<li>Search each chat item within ±120 seconds and attach best candidate(s).</li>
+<li>Allow all vocabulary/morphology; flag OOV after decoding.</li>
+<li>Rank/deduplicate/diversify to 20.</li>
+</ul>
+<h3 id="stage-3-candidate-adjudication">Stage 3 — candidate adjudication</h3>
+<ul>
+<li>Recut 4–15 second core clips plus wider context.</li>
+<li>Run ElevenLabs no-keyterm and OpenAI strict on the exact clips.</li>
+<li>Optionally run local-temporal keyterms to generate canonical Arabizi/Arabic, clearly marked non-evidence.</li>
+<li>Ask an LLM to produce structured hypotheses only from supplied evidence. It must cite timestamps and may return <code>uncertain</code>.</li>
+</ul>
+<p>Suggested reasoning prompt:</p>
+<pre><code class="language-text">You are analyzing a Palestinian Arabic tutoring event, not rewriting a transcript.
+Inputs: (1) Medi-track audio/transcript hypotheses, (2) Amal-track audio/transcript
+hypotheses, (3) exact timestamps, (4) lesson chat near this moment, (5) a versioned
+vocabulary/rules snapshot. Vocabulary is a prior, not a whitelist.
+
+Return JSON only:
+- event_type: correction | gap | self_repair | hesitation | grammar_candidate |
+  pronunciation_candidate | oov | none
+- observed_medi: preserve malformed/partial surface; never silently repair
+- likely_target_arabizi
+- likely_target_arabic
+- amal_evidence: exact timestamped span or null
+- evidence_spans: source/start/end/text
+- alternatives: up to 3
+- confidence: 0..1
+- needs_amal_review: true/false
+- explanation: one short factual sentence
+
+Do not infer an error from accent alone. Do not call a pause an error without context.
+If evidence conflicts, choose uncertain and preserve all hypotheses.
+</code></pre>
+<h3 id="stage-4-review-and-learning-loop">Stage 4 — review and learning loop</h3>
+<ul>
+<li>Amal reviews only the top 20 and a small quality-control sample.</li>
+<li>Confirmed events feed the vocabulary/error database and review cards.</li>
+<li>Cards always retain source lesson/audio and both scripts.</li>
+<li>Medi’s pause/retrieval metrics become a separate milestone after deterministic tracks exist.</li>
+</ul>
+<h2 id="human-gold-benchmark-required-next">Human gold benchmark required next</h2>
+<p>The smallest defensible next evaluation is <strong>100 clips accumulated as 20 per lesson across five lessons</strong>. The current 20 are a pilot and may be reused only if Amal relabels the exact audio rather than accepting chat text as truth.</p>
+<p>For each clip, Amal should provide:</p>
+<ul>
+<li>exact Medi words as heard, preserving malformed/partial forms;</li>
+<li>exact Amal words;</li>
+<li>speaker and word/turn boundaries to a reasonable tolerance;</li>
+<li>target/correction if present;</li>
+<li>event type;</li>
+<li><code>not sure</code> where the audio is ambiguous;</li>
+<li>whether each machine output is acceptable for evidence and for display.</li>
+</ul>
+<p>Evaluation:</p>
+<ul>
+<li>WER/CER by speaker and language on fully transcribed clips;</li>
+<li>learner-form event recall and precision;</li>
+<li>filler/cutoff/self-repair recall;</li>
+<li>speaker-attributed word accuracy and DER for mixed-file fallback;</li>
+<li>top-20 candidate precision, plus recall from a random rejected sample;</li>
+<li>review time median and 90th percentile;</li>
+<li>inter-rater check on 10–20 clips if possible, because the target dialect spelling itself can vary.</li>
+</ul>
+<p>Do not tune thresholds on all 100 and report the same set. Use the first 60 for development, 20 validation, and final 20 held out—or continue collecting until there is a meaningful holdout.</p>
+<h2 id="cost-analysis">Cost analysis</h2>
+<p>Current official list prices used here are OpenAI <code>gpt-transcribe</code> at $0.0045/minute and ElevenLabs Scribe v2 at $0.22/hour, with ElevenLabs keyterms listed at $0.05/hour/20% surcharge depending on billing presentation.</p>
+<p>For this <code>64.60</code>-minute lesson:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Operation</th>
+<th style="text-align: right;">Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ElevenLabs one full-duration pass</td>
+<td style="text-align: right;"><code>$0.237</code></td>
+</tr>
+<tr>
+<td>ElevenLabs one full-duration keyterm pass</td>
+<td style="text-align: right;"><code>$0.291</code></td>
+</tr>
+<tr>
+<td>OpenAI one full-duration pass</td>
+<td style="text-align: right;"><code>$0.291</code></td>
+</tr>
+<tr>
+<td>Recommended one-track base + one-track keyterm interpretation + 20×25 s OpenAI</td>
+<td style="text-align: right;"><code>$0.565</code></td>
+</tr>
+<tr>
+<td>Conservative two-track version of both ElevenLabs passes + 20×25 s OpenAI</td>
+<td style="text-align: right;"><code>$1.093</code></td>
+</tr>
+<tr>
+<td>All new API calls made for this independent experiment</td>
+<td style="text-align: right;"><code>$0.18056</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>The recommended workflow is comfortably under Medi’s $3/lesson ceiling even under the conservative two-track calculation and before a small LLM reasoning charge. Production should meter actual invoice units because multichannel/rounding/minimum-duration rules can differ from simple arithmetic.</p>
+<h2 id="vendor-and-research-findings">Vendor and research findings</h2>
+<h3 id="openai">OpenAI</h3>
+<ul>
+<li><a href="https://developers.openai.com/api/docs/models/gpt-transcribe"><code>gpt-transcribe</code> model documentation</a> lists high-accuracy file/realtime transcription, unstructured context, keyword hints, multiple language hints, and $0.0045/minute.</li>
+<li><a href="https://developers.openai.com/api/docs/models/gpt-4o-transcribe-diarize"><code>gpt-4o-transcribe-diarize</code></a> provides built-in speaker diarization.</li>
+<li>The <a href="https://developers.openai.com/api/reference/resources/audio/subresources/transcriptions/methods/create">transcription API reference</a> documents <code>known_speaker_names</code> and 2–10 second reference samples for up to four speakers; <code>gpt-transcribe</code> supports multiple language hints and prompt/keyword guidance.</li>
+</ul>
+<p>Implication: OpenAI remains worth targeted use, particularly known-speaker fallback and cross-engine adjudication. Its current strict prompt was operationally safe on language choice, but this experiment rejects the assumption that adding the full learned vocabulary automatically improves verbatim learner transcription.</p>
+<h3 id="elevenlabs">ElevenLabs</h3>
+<ul>
+<li>The <a href="https://elevenlabs.io/docs/api-reference/speech-to-text/convert">Scribe request reference</a> documents keyterms, up to 1,000 entries with length constraints, a 20% surcharge, <code>no_verbatim=false</code> by default, diarization, and multichannel responses.</li>
+<li>The <a href="https://elevenlabs.io/docs/overview/capabilities/speech-to-text">STT overview</a> documents word timestamps, files up to 3 GB, up to 10 hours in standard mode, and up to five independently processed channels.</li>
+<li>The <a href="https://elevenlabs.io/pricing/api">API pricing page</a> lists Scribe v2 at $0.22/hour, keyterm prompting at $0.05/hour, and realtime at $0.39/hour.</li>
+</ul>
+<p>Implication: Scribe remains the best primary evidence engine tested. Use separate channels and no keyterms for the raw learner layer. Keyterms may improve canonical spelling but are not neutral.</p>
+<h3 id="zencastr-and-google-meet">Zencastr and Google Meet</h3>
+<ul>
+<li><a href="https://zencastr.com/pricing">Zencastr pricing</a> currently advertises a free plan with unlimited separate-track recording/download, local recording, progressive upload, six participants, and unlimited track storage.</li>
+<li><a href="https://support.zencastr.com/en/articles/9745874-getting-started-with-recording">Zencastr’s recording guide</a> says each participant has a separate track, guests join by link, and everyone must keep the page open until upload confirmation. It says free MP3 downloads and paid WAV, conflicting with the newer pricing grid on WAV.</li>
+<li><a href="https://support.zencastr.com/en/articles/5452702-how-zencastr-records">How Zencastr records</a> explains local browser recording and progressive upload, which means Amal does not manually upload after every lesson.</li>
+<li>Zencastr’s <a href="https://support.zencastr.com/en/articles/9746991-getting-transcripts-for-zencastr-recordings">transcript help article</a> lists only five non-Arabic languages and paid transcription; use Zencastr for capture, not Arabic ASR.</li>
+<li><a href="https://support.google.com/meet/answer/9308681?hl=en">Google Meet recording documentation</a> confirms embedded captions and chat recording behavior. It does not promise downloadable per-participant audio tracks. The actual 2026-09-04 file had one mixed audio stream.</li>
+</ul>
+<h3 id="palestinian-arabic-and-pronunciation-assessment">Palestinian Arabic and pronunciation assessment</h3>
+<ul>
+<li><a href="https://aclanthology.org/2022.wanlp-1.13/">Maknuune</a> is the strongest directly relevant lexical resource found: open Palestinian entries with phonological transcriptions, diacritized Arabic, and English glosses.</li>
+<li><a href="https://montreal-forced-aligner.readthedocs.io/en/v3.4.1/user_guide/index.html">Montreal Forced Aligner</a> supplies the forced-alignment framework when target text and a pronunciation dictionary are known.</li>
+<li><a href="https://github.com/kaldi-asr/kaldi/blob/master/src/bin/compute-gop.cc">Kaldi’s GOP implementation</a> and classic <a href="https://www.isca-archive.org/still_1998/witt98_still.html">Witt &amp; Young CALL work</a> show the appropriate phone-level direction and the need for human/phone-specific calibration.</li>
+<li><a href="https://github.com/xinjli/allosaurus">Allosaurus</a> is a universal phone recognizer covering more than 2,000 languages, useful for exploratory hypotheses rather than uncalibrated grading.</li>
+<li><a href="https://arxiv.org/abs/2111.01136">ASMDD</a> and <a href="https://aclanthology.org/2025.arabicnlp-sharedtasks.61/">Iqra’Eval</a> demonstrate Arabic MDD resources but expose the domain mismatch: Egyptian children/top-100 words and Qur’anic MSA reading, respectively.</li>
+<li>Microsoft documents <a href="https://learn.microsoft.com/en-us/azure/ai-services/Speech-Service/language-support"><code>ar-PS</code> recognition/custom speech</a>, but its pronunciation-assessment locale table lists Arabic Egypt and Saudi Arabia, not Palestinian Arabic. Google likewise lists <a href="https://docs.cloud.google.com/speech-to-text/docs/speech-to-text-supported-languages"><code>ar-PS</code> with Chirp 3/long/short and adaptation</a>.</li>
+</ul>
+<h3 id="open-source-projects-worth-learning-fromnot-adopting-as-a-turnkey-answer">Open-source projects worth learning from—not adopting as a turnkey answer</h3>
+<ul>
+<li><a href="https://github.com/JuhongPark/mcp-server-pronunciation">mcp-server-pronunciation</a>: local audio capture, ASR, grammar/fluency feedback; its explicit safety disclaimer is a good product pattern.</li>
+<li><a href="https://github.com/pstepanovum/Cadence">Cadence</a>: Next.js/Supabase/Python pronunciation-coach architecture and audio-linked practice flows.</li>
+<li><a href="https://github.com/Jim-Elijah/fluent-any-lang">FluentAnyLang</a>: local-first, sentence-level playback/shadowing and user-owned media.</li>
+<li><a href="https://github.com/frank613/CTC-based-GOP">CTC-based GOP</a>: research implementation for phone-level pronunciation assessment.</li>
+<li><a href="https://github.com/HumanSignal/label-studio">Label Studio</a>: possible audio annotation interface if building the 100-clip gold set quickly.</li>
+<li><a href="https://github.com/open-spaced-repetition/ts-fsrs">ts-fsrs</a>: later spaced-repetition scheduling component; not relevant to transcript truth.</li>
+</ul>
+<p>None of these provides validated adult Palestinian conversational error detection out of the box. They are patterns/components.</p>
+<h2 id="implementation-milestones-and-acceptance-criteria">Implementation milestones and acceptance criteria</h2>
+<h3 id="m0-capture-and-evidence-integrity">M0 — capture and evidence integrity</h3>
+<ul>
+<li>Complete one real 60–70 minute Zencastr lesson with separate Medi/Amal MP3s.</li>
+<li>Both tracks ingest automatically or through one host download action; Amal does no manual file transfer.</li>
+<li>Channel-to-name mapping verified from session metadata and a short listen.</li>
+<li>Hashes/configs stored; no transcript published on failed processing.</li>
+</ul>
+<h3 id="m1-20-card-candidate-inbox">M1 — 20-card candidate inbox</h3>
+<ul>
+<li>Base no-keyterm transcript per channel.</li>
+<li>Chat ±120-second matcher and explicit-gap/correction/self-repair rules.</li>
+<li>Twenty candidate cards with audio, Arabic, Arabizi, and evidence.</li>
+<li>Amal completes one real review unaided in ≤5 minutes.</li>
+</ul>
+<h3 id="m2-five-lesson-gold-benchmark">M2 — five-lesson gold benchmark</h3>
+<ul>
+<li>100 reviewed candidate clips plus a random rejected sample.</li>
+<li>Report WER/CER, learner-form preservation, event precision/recall, and review time separately.</li>
+<li>Lock engine/config decision only from held-out labels.</li>
+</ul>
+<h3 id="m3-phonetic-experiment">M3 — phonetic experiment</h3>
+<ul>
+<li>Select 30–50 known-target words with multiple Medi attempts and Amal references.</li>
+<li>Build Palestinian phone dictionary entries.</li>
+<li>Compare forced-alignment/GOP/CTC signals to Amal labels.</li>
+<li>Ship only if it improves candidate ranking without increasing false accusations.</li>
+</ul>
+<h3 id="m4-learning-loop">M4 — learning loop</h3>
+<ul>
+<li>Confirmed events generate cards with source audio.</li>
+<li>Medi sees Arabizi; Amal sees Arabic; both can reveal both.</li>
+<li>Existing FSRS contracts, caps, retention, and deletion rules become tested code.</li>
+</ul>
+<h2 id="questions-claude-should-attack">Questions Claude should attack</h2>
+<ol>
+<li>Can Claude reproduce every aggregate from <code>comparison.json</code> and identify any manual surface judgment it disputes after listening to the bundled clips?</li>
+<li>Does Claude agree that its existing 15/20 vote excluded OpenAI? If not, which exact blind candidate maps to an OpenAI result?</li>
+<li>Why does the current README say nothing is built while the pipeline publishes real lessons? Which document is authoritative today?</li>
+<li>How will the current <code>Both</code> fallback avoid counting Amal’s Arabic as Medi’s while losing Medi’s pauses?</li>
+<li>What exact mechanism turns Zencastr outputs into a Drive-ID/session-ID-idempotent job without asking Amal to upload anything?</li>
+<li>What is the chosen vocabulary snapshot cutoff, and how are late edits versioned without retranscribing audio?</li>
+<li>How will raw observed forms be protected from later canonical normalization and human edits?</li>
+<li>What evidence proves a form is an error rather than a valid Palestinian variant, hesitation, joke, or ASR mistake?</li>
+<li>How will recall be measured if Amal only reviews the top 20? What random-negative sampling rate is acceptable?</li>
+<li>Is 2–5 minute base chunking appropriate, or should a controlled chunk-length test be run first? What metric decides?</li>
+<li>Will ElevenLabs process two separate mono tracks or one multichannel container, and what are the actual billed units?</li>
+<li>Should OpenAI known-speaker diarization be kept solely as Meet fallback? What gold threshold must it meet?</li>
+<li>How does the system prevent a vocabulary item learned late in the lesson from biasing an earlier clip, as EKG did with <code>Mabsoo6</code>?</li>
+<li>What is the exact Arabizi normalization policy for <code>2/3/5/6/7/8/9</code>, capitalization, vowels, and variants? Which transformations are reversible?</li>
+<li>Who decides canonical Palestinian variants: Amal, Maknuune, or a model? The correct answer should preserve Amal’s local rules while documenting alternatives.</li>
+<li>What is the privacy/deletion experience for a public transcript, and can Amal delete a lesson without editing Git?</li>
+<li>Why are Git commit/push failures ignored before emailing a success link?</li>
+<li>Where will secrets and dependencies live so Anees no longer borrows another project’s <code>.env</code> and <code>node_modules</code>?</li>
+<li>What tests enforce the binding constants: retries, retention, idempotency, limits, speaker identity, and failure notifications?</li>
+<li>What would falsify the recommendation that ElevenLabs remain primary? Define the held-out evidence before the next engine comparison.</li>
+</ol>
+<h2 id="bottom-line">Bottom line</h2>
+<p>Medi’s intuition was half right: a much stricter OpenAI prompt makes the transcription safer and linguistically better constrained. It did <strong>not</strong> make OpenAI the best raw evidence engine in today’s controlled comparison, and adding the full learned vocabulary made the output slightly worse. ElevenLabs currently preserves more of the messy speech that Anees needs, but its full-lesson diarization failed dramatically on today’s mixed recording.</p>
+<p>The decisive design move is therefore <strong>separate participant tracks</strong>, followed by a no-keyterm evidence transcript, targeted multi-engine adjudication, and a fast human review loop. Build that before trying to solve Palestinian phonetic grading. Once 100 clips have real labels, the project can make evidence-based engine and threshold decisions rather than relying on a persuasive-looking transcript or a preference bar chart.</p>
+<h2 id="appendix-a-complete-clip-by-clip-comparison">Appendix A — complete clip-by-clip comparison</h2>
+<p>All six text outputs for every selected clip are included below. Raw JSON additionally contains word timestamps, speaker IDs, confidence/log-probability fields where returned, request metadata, keyterms, elapsed time, hashes, and cost estimates.</p>
+<h3 id="clip-1-chat-anchor-na7el">Clip 1: chat anchor <code>Na7el</code></h3>
+<ul>
+<li>Frozen window: <code>00:24:02–00:24:27</code>; audio file in evidence bundle: <code>clips/clip-01.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0, speaker_1; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: All recover bee(s)/Na7el; O1/O2 render نحل.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> Oh my God, bees. What was bees? Bee. Awesome. Nahl. Nahl. My wife then, yeah. If I wanna buy more, do you have like a card? Uh, I have just one. I forgot take,
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> Oh my God, bees. What was bees? Bee. Awesome. [background chatter] My wife, Dania. If I wanna buy more, do you have, like, a card? Uh, I have just one. I forgot take-
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> Oh my God, bees. What bees? نحل. نحل. My wife. If I want to buy more, do you have like a card? I have just one. I forgot to.
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> Oh my God, bees. What was bees? نحل. نحل. My wife. If I want to buy more, do you have like a card? I have just one. I forgot to take.
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> Oh my God, bees. What was bees? Bee. Mabsoo6. Na7el. Na7eb. My wife, Dania. If I wanna buy more, do you have like a card? Uh, I have just one. I forgot take it
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> Oh my God, bees. What was bees? Bee. Awesome. Na7el. Na7el. My wife, Dania. If I wanna buy more, do you have, like, a card? Uh, I have just one. I forgot take it.
+
+</details>
+
+<h3 id="clip-2-chat-anchor-mabsoo6">Clip 2: chat anchor <code>Mabsoo6</code></h3>
+<ul>
+<li>Frozen window: <code>00:28:00–00:28:25</code>; audio file in evidence bundle: <code>clips/clip-02.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: All recover mabsoo6; E alone keeps the audible-looking false start 'Masbu-'.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> Happy is just sameeh? No, that's good. Masbu- mabsut. Mabsut. I think we need to add a third part two. Mabsut. Ihkiha. Yeah Mabsut. Mabsut. Now bedna nakhood
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> Happy is. This is just a ni? No, that's good. مبسوط مبسوط I think we need to add this part too. مبسوط. احكيها. مبسوط. مبسوط. now بدنا ناخد
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> Happy is... Is this منيح? No, that's good. مبسوط. I think we need to add this word too. مبسوط، احكيها. مبسوط. مبسوط. Now, بدنا ناخد...
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> Happy is... Is this منيح? No, that's good. مبسوط. I think we need to add this word too. مبسوط، احكيها. مبسوط. مبسوط. Now, بدنا ناخد.
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> Happy is. Is this just a ni? No, that's good. Mabsoo6. Mabsoo6. I think we need to add a s- part too. Mabsoo6. 3ahkiha. Mabsoo6. Mabsoo6. Now, bedna na'kho-
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> Happy is just a ni? No, that's good. Mabsoo6. Mabsoo6. I think we need to add this part too. Mabsoo6. Ahkiha. Mabsoo6. Mabsoo6. Now, bedna naakhod
+
+</details>
+
+<h3 id="clip-3-chat-anchor-basa6">Clip 3: chat anchor <code>Basa6</code></h3>
+<ul>
+<li>Frozen window: <code>00:30:08–00:30:33</code>; audio file in evidence bundle: <code>clips/clip-03.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: All recover the b-s-6 family and basa6ni.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> he made someone happy. Besat. OK. So- He said he made someone happy. Was that- Mm-hmm. He made someone happy. So he made me happy with B. Basatne. Basatne. Why? Did I lose you
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> Made someone happy. Basat Okay So- So he made someone happy, Basat Mm-hmm. He made someone happy. So he made me happy would be? Basat me Basat me What? Did I lose you?
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> Made someone happy. بسط. Okay. So, he made someone happy. بسط. He made someone happy. So, he made me happy would be. بسطني. بسطني. What? Did I lose you?
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> Made someone happy. Basat. Okay. So he made someone happy. Basat. He made someone happy. So he made me happy would be? Basatni. Basatni. What? Did I lose you?
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> Made someone happy. Basat. Okay. So- So he made someone happy, Basat. Mm-hmm. He made someone happy. So he made me happy would be? Basa6ni. Basa6ni. What? Did I lose you?
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> Made someone happy. Basat. Okay. So- So he made someone happy, basat. Mm-hmm. He made someone happy. So he made me happy would be? Basa6ni. Basa6ni. What? Did I lose you?
+
+</details>
+
+<h3 id="clip-4-chat-anchor-basa6ni">Clip 4: chat anchor <code>Basa6ni</code></h3>
+<ul>
+<li>Frozen window: <code>00:30:30–00:30:55</code>; audio file in evidence bundle: <code>clips/clip-04.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: All recover basa6ni; wording differs around صح.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> Did I lose you مهم، بسطني صح. بسّتني. بسطني. Okay هلأ بسط، بستني whatever هي past ماضي- مم. شو الـ indicator for present؟ How do I make it present كيف
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> Did I lose you? ممكن. بسطني، صح. Okay. بسطني. بسطني. Okay. هلأ بسط، بسطني whatever هي past ماضي. شو ال indicator for present؟ So- How do I make it present؟ كيف بعمل
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> بسطني. أوكي. هلا بسط، بسطني whatever هي past، ماضي. شو الـindicator for present? So... How do I make it present? كيف بعمل...
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> بسطني، صح. بسطني. أوكي. هلا بسط، بسطني whatever هي past، ماضي. شو الـindicator for present? So. How do I make it present? كيف بعمل؟
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> Basa6ni صح Okay. Basa6ni بسطني. Okay. هلأ بسط، بسطني whatever هي past ماضي. شو الindicator for present؟ How do I make it present؟ كيف بعمل
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> Did I lose you? مهم، بسطني صح. Okay, بسطني. بسطني، okay. هلأ بسط، بسطني whatever هي past ماضي. شو الـ indicator for present؟ So. How do I make it present؟ كيف بعمل
+
+</details>
+
+<h3 id="clip-5-chat-anchor-babse6">Clip 5: chat anchor <code>Babse6</code></h3>
+<ul>
+<li>Frozen window: <code>00:31:17–00:31:42</code>; audio file in evidence bundle: <code>clips/clip-05.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: All produce a plausible phonetic form for babse6; orthography remains uncertain.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> sat or bab sit? e or a؟ i babysit. Okay, babysit but said beset was the he so just okay. لأن بالماضي we always يعني the- Goes say a. Yes, we-- it goes back to a like by default بس we have exceptions that internal flipping goes back to e. So
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> Sat or bab sit? Bab sit. E or A? E. Bab sit. Okay. Bab sit. But said basat was, uh, he. So just, okay. [speaking Arabic] we always, yeah, need, uh- Go say- Yes. We, it goes back to A, like, by default. Best we have exceptions that internal flipping goes back to E. So-
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> Saat, or babsat, E or A? E, babsat. Okay, babsat. But said, but saat was the E, so just okay. Because in the past, we always, يعني, yes, it goes back to A, like by default, but we have exceptions that internal flipping goes back to E. So.
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> Saat, or babsat, E or A? E, babsat. Okay, babsat. But said, but saat was the E, so just okay. Because in the past, we always, yes, it goes back to A, like by default, but we have exceptions that internal flipping goes back to E. So.
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> Baset or Babset? Baset. E or A? E. Baset. Okay, Baset. But said Basat was, uh, he. So just, okay. La'anna bil maadi we always, ya'ani the- Goes to A. Yes, we-- it goes back to A, like, by default. Bas we have exceptions that internal flipping goes back to E. So
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> Basat أو Babse6? E أو A. Babse6. E. Babse6. Okay. Babse6. But said Basat was, uh, E. So just-- okay. لأن بالماضي we always يعني the- Goes to A. Yes, we-- it goes back to A like by default. بس we have exceptions that internal flipping goes back to E. So
+
+</details>
+
+<h3 id="clip-6-chat-anchor-byebse6ni">Clip 6: chat anchor <code>Byebse6ni</code></h3>
+<ul>
+<li>Frozen window: <code>00:32:57–00:33:22</code>; audio file in evidence bundle: <code>clips/clip-06.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: All recover byebse6/byebse6ni; O1/O2 use بسط orthography.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> bibsit yeah. Bibsit so it makes me happy. بييبستني. بييبستني طيب هلأ بدي تحكيلي كل conjugations ل-"babset". امم مضارعة؟ خلينا نبلش مضارعة بعدين ماضي بعدين أمر. Ok
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> بيبسط، yeah. بيبسط. So it makes me happy. اه بيبسطني. بيبسطني. طب هلأ بدي تحكيلي كل الـ conjugations لـ ببسط. اه مدارة؟ خلينا نبلش مدارة بعدين ماضي بعدين أمر. Okay مدارة
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> بيبسط. So it makes me happy. بيبسطني. بيبسطني. هلا بدي تحكيلي كل الـconjugations لـ ببسط. مضارع. خلينا نبلش مضارع، بعدين ماضي، بعدين أمر. Okay. مضارع.
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> بيبسط. So it makes me happy. بيبسطني. بيبسطني. هلا بدي تحكيلي كل الـconjugations لـ ببسط. مضارع. خلينا نبلش مضارع، بعدين ماضي، بعدين أمر. Okay. مضارع.
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> Byebset, yeah. Byebset. So it makes me happy. Byebsetni. Byebsetni. Hel2a beddi te7ki li kol el-conjugations la babset. Mudaare3? Khalina nbelsh mudaare3, ba3den maadi, ba3den amer. Okay. Mudaare3
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> Byebse6, yeah. Byebse6. So it makes me happy. Byebse6ni. Byebse6ni. Hala beddi te7kili kol el-conjugations la babse6. Mudaare3? Khalina nbelsh mudaare3, ba3den maadi, ba3den amr. Okay. Mudaare3
+
+</details>
+
+<h3 id="clip-7-chat-anchor-babse6-btebse6-btebse6i-btebse6u-byebse6-btebse6-byebse6u-bnebse6">Clip 7: chat anchor <code>Babse6 / Btebse6 / Btebse6i / Btebse6u / Byebse6 / Btebse6 / Byebse6u / Bnebse6</code></h3>
+<ul>
+<li>Frozen window: <code>00:34:34–00:34:59</code>; audio file in evidence bundle: <code>clips/clip-07.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: The spoken portion includes bnebse6o; all render بنبسطه.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> we make him happy. We make him happy احنا بنبسط- بنبسطه. ممتاز ok كمل go on. الماضي اه هو
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> Like we make him happy. We make him happy. إحنا بنبسط، بنبسطه. ممتاز. Okay، كمل. Go on. آآ، الماضي آآ، هو
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> We make him happy. We make him happy. إحنا بنبسطه. ممتاز. Okay, كمل. Go on. الماضي هو.
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> We make him happy. We make him happy. إحنا بنبسطه. ممتاز. Okay, كمل. Go on. الماضي هو.
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> Like we make him happy We make him happy. إحنا بنبسط، بنبسطه ممتاز. Okay، كمل. Go on آآآ، الماضي آآآ هو
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> Like we make him happy We make him happy. إحنا بنبسط، بنبسطه ممتاز. Okay، كمِّل. Go on آآآ، الماضي، آآآ، هو
+
+</details>
+
+<h3 id="clip-8-chat-anchor-bnebse6o">Clip 8: chat anchor <code>Bnebse6o</code></h3>
+<ul>
+<li>Frozen window: <code>00:35:00–00:35:25</code>; audio file in evidence bundle: <code>clips/clip-08.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0.</li>
+<li>Manual surface-audit note: Frozen window contains sparse paradigm fragments; O1/O2 collapse it to 'هو. هي.'</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>not_recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> مم hold on هو بسات- أم. هي بسيتا ات اه هم بساتوا انا
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> ‫أمم، الآن. هو بساط. هي بساطات. هم بساطو. أنا بساط.‬
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> هو. هي.
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> هو. هي.
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> Amaan. Hoe Basa6. Hee Basa6at. Homma Basa6u. Ana
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> Amaan. Huwe Basaat. Heeye Basataat. Humme Basaatu. Ana
+
+</details>
+
+<h3 id="clip-9-chat-anchor-basa6-basa6at-basa6u-basa6eet-basa6ti-basa6tu-basa6na">Clip 9: chat anchor <code>Basa6 / Basa6at / Basa6u / Basa6eet / Basa6ti / Basa6tu / Basa6na</code></h3>
+<ul>
+<li>Frozen window: <code>00:36:00–00:36:25</code>; audio file in evidence bundle: <code>clips/clip-09.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: E retains several conjugation attempts; both OpenAI arms reduce the clip to 'I made him happy.'</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> اه بسات- بساتِ- بساتِتني أسف بساتِتك. بَسْتَكْ. is it just بسَتِّك do remove the ET؟ Ok بسَتَّكْ. I made him happy. مم
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> Uh, basa- basat- basatit ni. Uh, so basat-- Hold on. Basatetik. Basatet? Is it just basatet? Do you remove the E-T? Basatet. Okay. Basatet. I made him happy. Mm, basat-
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> I made him happy.
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> I made him happy.
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> آآآ Basa6, Basa6ti, Basa6itni. Hasa Basa6, a7lan Basa6atit. Basa6tek? Is it just Basa6tek? Do you remove the et? Basa6tek. Okay. Basa6tek. I made him happy. ممم Basa6-
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> Basa6. Basa6ti. Basa6itnee. Asal basa6. Awaam basa6at tik. Basa6tek? Is it just basa6tek? Do you remove the ET? Basa6tek. Okay. Basa6tek. I made him happy. Basa6-
+
+</details>
+
+<h3 id="clip-10-chat-anchor-basa6tek">Clip 10: chat anchor <code>Basa6tek?</code></h3>
+<ul>
+<li>Frozen window: <code>00:36:28–00:36:53</code>; audio file in evidence bundle: <code>clips/clip-10.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: All capture basato/basatto family; O2 changes some forms to Arabic script.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> between he makes am happy and I make him happy Basato, basatto. It's a double t Oh gosh. Okay . O and te. Okay. So, uh, also some people you might hear people say absato, abstatni. If it's easier we can also learn it.
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> It's between he makes him happy and I make him happy Basato, basatto. It's a double- Oh, gosh. Okay [laughs] Ta and ta. Okay. So, uh, also some people you might hear people say absato, absatni. If it's easier, we can also learn it
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> It's between he makes him happy and I make him happy. Basato, basatto. It's a double. Oh gosh. Okay. So also some people, you might hear people say, absatto, absatni. If it's easier, we can also learn it.
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> It's between he makes him happy and I make him happy. بسطه، بسطه. It's doubled. Oh gosh. Okay. Okay. So also some people, you might hear people say أبسطه, أبسطني. If it's easier, we can also learn it.
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> It's between he makes him happy and I make him happy Basato, basatto. It's a double- Oh, gosh. Okay [laughs] Ta and ta Okay So, uh, also some people you might hear people say absato, absatni. If it's easier, we can also learn it
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> It's between he makes him happy and I make him happy Basato, basatto. It's a double- Oh gosh. Okay [laughs] Ta and ta Okay So, uh, also some people you might hear people say absato, absatni. If it's easier, we can also learn it
+
+</details>
+
+<h3 id="clip-11-chat-anchor-hasa6to">Clip 11: chat anchor <code>Hasa6to</code></h3>
+<ul>
+<li>Frozen window: <code>00:36:46–00:37:11</code>; audio file in evidence bundle: <code>clips/clip-11.mp3</code>.</li>
+<li>Meet caption speakers: Amal; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: All capture absato/absatni family; chat spelling Hasa6to may itself be a typo or delayed note.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td>recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> might hear people say absato, abstatni. If it's easier we can also learn it. Absat- why would it be absato? Yeah, I mean, some people- Just keep - Do just add an A at the beginning The Jerusalem people don't right? I don't know. Oh okay. Some people just say absatni,absato,absatna or
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> You might hear people say absato, absatni. If it's easier, we can also learn it Absat. Why would it be absat to? Yeah, I mean, some people- Oh, just keep- ... do just, uh, add an A at the beginning The Jerusalem people don't, right? I don't know. [laughs] Oh, right. Some people just say absatni, absato, absatno or basatni, basato, basa-
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> Might hear people say, absatto, absatni. If it's easier, we can also learn it. Absatto? Why would it be absatto? Yeah, I mean, some people do just add an A at the beginning. The Jerusalem people don't, right? I don't know. Some people just say absatni, absatto, absatno, or basatni, basatto.
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> Might hear people say, absatto, absatni. If it's easier, we can also learn it. Absatto? Why would it be absatto? Yeah, I mean, some people do just add an a at the beginning. The Jerusalem people don't, right? I don't know. Some people just say absatni, absatto, absatno, or basatni, basatto.
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> You might hear people say absato, absatni. If it's easier, we can also learn it Absatni. Why would it be absato? Yeah, I mean, some people- Oh, just keeps- ... do just, uh, add an A at the beginning The Jerusalem people don't, right? I don't know. [laughs] Oh, right. Some people just say absatni, absato, absatna or basatni, basato, basa-
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> Might hear people say absato, absatni. If it's easier, we can also learn it Absat. Why would it be absat to? Yeah, I mean, some people- Oh, just keep- ... do just, uh, add an A at the beginning The Jerusalem people don't, right? I don't know. [laughs] Oh, right. Some people just say absatni, absato, absatna or basatni, basato, basa-
+
+</details>
+
+<h3 id="clip-12-chat-anchor-banbese6">Clip 12: chat anchor <code>Banbese6</code></h3>
+<ul>
+<li>Frozen window: <code>00:46:06–00:46:31</code>; audio file in evidence bundle: <code>clips/clip-12.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: Vocabulary arm replaces Banbisat/Nabasat with [unclear], a harmful prompt effect.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> easier. Okay. Uh, before we go to banebeset, add the A to the, uh, past now. Let's see if it's easier. So um, um, is it, is it nabasat
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> Be easier Okay Uh, before we go to ban visit, add the A to the, uh, past now. Let's see if it's easier So, um, um, zit, zit nabasat or-
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> It easier. Okay. Before we go to Banbisat, add the A to the past now. Let's see if it's easier. So, the Nabasat or...
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> It'll be easier. Okay. Before we go to [unclear], add the a to the past now. Let's see if it's easier. So, the [unclear] or...
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> Be easier. Okay. Uh, before we go to Banbese6, add the A to the, uh, past now. Let's see if it's easier. So, um, um, is it, is it Nabasa6?
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> Okay. Uh, before we go to banbeset, add the A to the, uh, past now. Let's see if it's easier. So, um, um, zin-zinnabasat or
+
+</details>
+
+<h3 id="clip-13-chat-anchor-baboos">Clip 13: chat anchor <code>Baboos</code></h3>
+<ul>
+<li>Frozen window: <code>00:48:19–00:48:44</code>; audio file in evidence bundle: <code>clips/clip-13.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: Chat says Baboos (kiss), but the frozen window is later and discusses basa6/basat. Meet captions place baboos about 65 s before the chat post.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>not_recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> So the past i-... Oh. It turns into a. So they're both basit? Ba- No, but it's the, it's, it's a longer A. Basat. Basat. Is it always the Us turn into a long A? Do Us always turn into
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> So the pa... Oh. It turns into A. So they're both basat? Ba- No, but it's the, it's, it's a longer A. Basat. Basat. Is it always the Us turn into a long A? Yes. Do Us always turn into-
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> So the path, it turns into a. So they're both basat? No, but it's a longer A, baasat. Baasat. Is it always the u's turn into a long A? Yes. The u's always turn into...
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> So the path, it turns into a. So they're both basat? No, but it's a longer A, basat. Basat. Is it always the u's turn into a long A? Yes. The u's always turn into...
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> So the path is, uh- It turns into a. So they're both Basa6at? Ba... No, but it's the, it's, it's a longer A. Basa6at. Basa6at. Is it always the Us turn into a long A? Yes. Do Us always turn into-
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> So the pa-- uh. It turns into a. So they're both basat? Ba-- no, but it's the, it's, it's a longer A. Basat. Basat. Is it always the Us turn into a long A? Yes. Do Us always turn into-
+
+</details>
+
+<h3 id="clip-14-chat-anchor-buset">Clip 14: chat anchor <code>Buset</code></h3>
+<ul>
+<li>Frozen window: <code>00:49:32–00:49:57</code>; audio file in evidence bundle: <code>clips/clip-14.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: Chat says Buset (I kissed), but the frozen window is later and discusses basat. Meet captions place Buset about 42 s before the chat post.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>not_recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> So basat. What does basat turn into? And she immediately says sorry 'cause she knows. Um, so basat- Sorry? She immediately said sorry because she's like, "That's really, really, really confusing." With the kiss and the- Make me happy. It never crossed my mind.
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> So Basat, what does Basat turn into? And she immediately says sorry 'cause she knows. Um, so Basat- True? She immediately said sorry because she's like, "That's really, really, really confusing with the kiss and the make me happy." [laughs] It never crossed my mind. [laughs]
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> So, Basat. What does Basat turn into? And she immediately said sorry because she knows. So, Basat, she immediately said sorry because she's like, that's really, really, really confusing with the kiss and the make me happy. It never crossed my mind.
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> So, Basat, what does Basat turn into? And she immediately says sorry because she knows. So, Basat, she immediately said sorry because she's like, that's really, really, really confusing with the kiss and the make me happy. It never crossed my mind.
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> So Basa6at. What does Basa6at turn into? And she immediately says sorry 'cause she knows. Um, so Basa6- True? She immediately said sorry because she's like, "That's really, really, really confusing with the kiss and the make me happy." [laughs] It never crossed my mind. [laughs]
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> So Basat, what does Basat turn into? And she immediately says sorry because she knows. Um, so Basat- True? She immediately said sorry because she's like, "That's really, really, really confusing with the kiss and the make me happy." [laughs] It never crossed my mind. [laughs]
+
+</details>
+
+<h3 id="clip-15-chat-anchor-enbasa6-enbas6at-enbasa6u-enbasa6et-enbasa6ti-enbasa6tu-enbasa6na">Clip 15: chat anchor <code>Enbasa6 / Enbas6at / Enbasa6u / Enbasa6et / Enbasa6ti / Enbasa6tu / Enbasa6na</code></h3>
+<ul>
+<li>Frozen window: <code>00:53:12–00:53:37</code>; audio file in evidence bundle: <code>clips/clip-15.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: All capture enbasa6-family attempts; spellings differ.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">46</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">48</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> So this is to be happy and did you have fun or to have fun. So it would be, uh, embaixoet. Yes. Embasotet, EMBASOTI. Now if I want to say did you enjoy something? Kif bakia? Did you enjoy something? Did you enjoy the party? So th- this
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> So this is to be happy. Did you have fun or to have fun? So it would be, uh, in- inbasatet. Yes. Inbasatet. Inbasati. Now, if I want to say did you enjoy something? Did you enjoy something? Did you enjoy the party? So did- did-
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> So this is to be happy. Did you have fun or to have fun? So it would be in basattet. Yes, in basattet, in basatti. Now, if I want to say, did you enjoy something? كيف بحكيها? Did you enjoy something? Did you enjoy the party? So this...
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> So this is to be happy. Did you have fun or to have fun? So it would be inbasatet. Yes, inbasatet, inbasatti. Now, if I want to say, did you enjoy something? كيف بحكيها? Did you enjoy something? Did you enjoy the party? So this...
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> So this is to be happy. Did you have fun or to have fun? So it would be, uh, en- Enbasatet. Yes. Enbasatet. Enbasati. Now, if I want to say, "Did you enjoy something?" Keef bahkyeha? Did you enjoy something? Did you enjoy the party? So did, did s-
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> So this is to be happy. Did you have fun or to have fun? So it would be, uh, en-enbasatet. Yes. Enbasatet, enbasati. Now, if I want to say, "Did you enjoy something?" Did you enjoy something? Did you enjoy the party? So did-
+
+</details>
+
+<h3 id="clip-16-chat-anchor-enbasa6ti-bifi-el-7afle">Clip 16: chat anchor <code>Enbasa6ti bi/fi el-7afle</code></h3>
+<ul>
+<li>Frozen window: <code>00:54:40–00:55:05</code>; audio file in evidence bundle: <code>clips/clip-16.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: E keeps embasati/mbsetti; O1 hallucinates 'Airbnb' and O2 omits the target phrase.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">3</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> Yeah. Saib. And, and embasati fi el B or B doesn't matter. Feel hafleh Mm-hmm. Yes, mbset fel hafleh? Mbsetti bilhafleh both are perfect fine-- perfectly fine. How do I say did they enjoy their trip? Did they enjoy past
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> Yeah. انبسطت في الـ P or B doesn't matter. في الحفلة. Yes. انبسطت في الحفلة. انبسطت بالحفلة. Both are perfect fine. Perfectly fine. How do I say did they enjoy their trip? Did they enjoy
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> Yeah. Does it in the ... in the Airbnb, does it matter? في الحفلة. Yes. ... في الحفلة. ... both are perfect fine, perfectly fine. How do I say, Did they enjoy their trip? They enjoy.
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> Yeah. In... does it matter? Yes. Both are perfect fine, perfectly fine. How do I say, Did they enjoy their trip?
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> Yeah. Enbasetee fee el- B or B, doesn't matter. Fee el-7afle. Mhm. Yes. Enbasetee fee el-7afle. Enbasetee bil-7afle. Both are perfect fine. Perfectly fine. How do I say, "Did they enjoy their trip?" Did they enjoy
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> Yeah. En-enbas6ti fi el- B or B doesn't matter. Fi el-7afle. Yes. Enbas6ti fi el-7afle. Enbas6ti bil-7afle. Both are perfect fine. Perfectly fine. How do I say, "Did they enjoy their trip?" Did they enjoy
+
+</details>
+
+<h3 id="clip-17-chat-anchor-enbasa6u-bisafrethom">Clip 17: chat anchor <code>Enbasa6u bisafrethom</code></h3>
+<ul>
+<li>Frozen window: <code>00:56:28–00:56:53</code>; audio file in evidence bundle: <code>clips/clip-17.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: All capture btenbese6-family conjugation practice; O2 violates Arabic-script instruction.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> bitin besit Mmm Inti beten bestiti Betenbisti Betenbisti Inti Betenbisti And then intoo uuuh betenbestu Ummm
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> مـ بتنبسط مم. إنتي بتنبسطي بتنبسطي. بتنبسطي. إنتي بتنبسطي. And then into، آآآ، بتنبسطوا
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> بتنبستي. انتي بتنبستي. بتنبستي. انتي بتنبستي. And then into. بتنبستو.
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> Bittenbest. Inti bittenbesti. Bittenbesti. Inti bittenbesti. And then into bittenbestu.
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> مـم، بتنبسط. مم. إنتي بتنبسطي. بتنبسطي. بتنبسطي. إنتي بتنبسطي. And then إنت، آآآ، بتنبسطو. مم.
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> Mmm. Btenbese6. Am. Entee btenbese6tee. Btenbes6tee. Btenbes6tee. Entee btenbes6tee. And then into, ah, btenbes2. Am.
+
+</details>
+
+<h3 id="clip-18-chat-anchor-banbese6-btenbese6-btenbes6i-btenbes6u-byenbese6-btenbese6-byenbes6u-bnenbese6">Clip 18: chat anchor <code>Banbese6 / Btenbese6 / Btenbes6i / Btenbes6u / Byenbese6 / Btenbese6 / Byenbes6u / Bnenbese6</code></h3>
+<ul>
+<li>Frozen window: <code>00:58:13–00:58:38</code>; audio file in evidence bundle: <code>clips/clip-18.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: All capture btenbese6i lamma ne6la3 family; E shows the most disfluency.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> lamaaa uh nitlaaw Nitla- Nitla Betenbistilama nitla I'm kinda glad we only got through this one verb 'cause I'm happy to do all the homework on this one verb Tayeb atini anta hela jumla With ban biscuits Ana, ana
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> لما نتلا. نتلا. نتلا. تنبسطي لما نتلا؟ I'm kinda glad we only got through this one verb cause I'm happy to do all the homework on this one verb. طيب أعطيني إنت هلا جملة with بنبسط. أنا
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> لما نطلع، نطلع. تنبسطي لما نطلع؟ I'm kind of glad we only got through this one verb because I'm happy to do all the homework on this one verb. طيب، عطيني أنت هالجملة. وأنا...
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> لما نطلع. نطلع. تنبسطي لما نطلع. I'm kind of glad we only got through this one verb because I'm happy to do all the homework on this one verb. طيب، عطيني أنت هلا جملة. وتنبسط. أنا...
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> Lamma ne6la3, ne6la3 Ne6la3. Btenbese6 lamma ne6la3? I'm kinda glad we only got through this one verb because I'm happy to do all the homework on this one verb. Taieb. 3a2tini enta hala Jumle with Banbese6. Ana
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> Lamma ne6la3. Ne6la3 Ne6la3. Btenbes6i lamma ne6la3? I'm kind of glad we only got through this one verb because I'm happy to do all the homework on this one verb. Taieb. A3tini enta hala Jumle with banbese6. Ana
+
+</details>
+
+<h3 id="clip-19-chat-anchor-btenbese6i-lamma-ne6la3">Clip 19: chat anchor <code>Btenbese6i lamma ne6la3?</code></h3>
+<ul>
+<li>Frozen window: <code>00:58:59–00:59:24</code>; audio file in evidence bundle: <code>clips/clip-19.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: Only family-level fragments occur in-window; O2's بنبسط is the cleanest surface form. Full chat sentence was spoken earlier.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td>recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td>recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> Umm bass Hadi al filll Hada Hada al fill Is it bass hadaal fil Only this- Bass hadal fill yes Yeah Okay Now the amir Shoo alamir min bann bisit Okay so this is what I had a question about So in basalt
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> اممم بس هذي الفعل. هذا. هذا الفعل. Is it بس هذا الفعل؟ only this- بس هذا الفعل. Yes. Yeah. Okay. طيب now the أمر. شو الأمر من بنبسط؟ Okay. So this is what I had a question about. So in بسط
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> بس هادي الفعل. هذا. هذا الفعل. بس هذا الفعل. نعم. طيب، now the أمر، شو الأمر من بن بالست؟ Okay, so this is what I had a question about. So in...
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> Pass. Hadi al-fi'l. Hada. Hada al-fi'l. The bas, hada al-fi'l, only this. Bas hada al-fi'l, yes. Okay. Now the amr. شو الأمر من بنبسط؟ Okay, so this is what I had a question about. So, in...
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> امم بس هذي الـ فعل. هذا. هذا الفعل. Is it بس هذا الفعل؟ Only this- بس هذا الفعل، yes. Yeah, okay. طيب now the أمر. شو الأمر من Banbaset؟ Okay, so this is what I had a question about. So Enbasa6-
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> Um, bas hade el-fe3el. Hada. Hada el-fe3el. Is it bas hada el-fe3el? Only this- Bas hada el-fe3el, yes. Yeah. Okay. Taieb. Now the amer. Shu el-amer min Banbese6? Okay. So this is what I had a question about. So in bas-
+
+</details>
+
+<h3 id="clip-21-chat-anchor-enbes6i-biyoamek">Clip 21: chat anchor <code>Enbes6i biyoamek</code></h3>
+<ul>
+<li>Frozen window: <code>01:00:56–01:01:21</code>; audio file in evidence bundle: <code>clips/clip-21.mp3</code>.</li>
+<li>Meet caption speakers: Amal, Medi Natanzi; E-long clusters: speaker_0; ES clusters: speaker_0, speaker_1.</li>
+<li>Manual surface-audit note: The command was spoken roughly 80 s before the chat post; the frozen window contains the next question instead.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs/ellipses</th>
+<th>Anchor family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>ES</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>O1</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>O2</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>EKG</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td>not_recovered</td>
+</tr>
+<tr>
+<td>EKL</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td>not_recovered</td>
+</tr>
+</tbody>
+</table></div>
+<details><summary>All six transcript outputs</summary>
+
+**E — E-long: ElevenLabs, existing 64-min call; frozen windows extracted**
+
+> what is the, what is the thing that makes you happy؟ More, uh more happy? The most. The most. Oh, the most happy. Did you say أحسن or أكثر؟ أحسن right? شو أكتر إشي. The most thing not the best thing، okay. No. The best thing is أحسن إشي. Yeah. آآآ- اعطيني جملة زي هيك.
+**ES — ES: ElevenLabs, same 25-s clips, no keyterms (post-hoc control)**
+
+> What is the, what is the thing that makes you happy? The mo- uh, more happy? Mm-hmm. The most. The most. Oh, the most happy. Did you say ahsan or akthar? Ahsan, right? [speaking Arabic] The most thing, not the best thing. Okay. Yeah. The best thing is ahsan ishi. Yeah. Uh- [speaking Arabic]
+**O1 — O1: OpenAI strict bilingual/verbatim prompt (pre-registered)**
+
+> What is the thing that makes you happy? More happy? The most. Oh, the most happy. Did you say ahsan or aktar? Ahsan, right? شو أكتر إشي. The most thing, not the best thing. Okay. The best thing is ahsan.
+**O2 — O2: OpenAI plus learned/topic vocabulary (pre-registered)**
+
+> What is the thing that makes you happy? More happy? The most. The most. Oh, the most happy. Did you say ahsan or aktar? Ahsan, right? شو أكتر إشي. The most thing, not the best thing. Okay. The best thing is أحسن إشي. عطيني جملة زي هيك.
+**EKG — EKG: ElevenLabs short clips plus global keyterms (post-hoc)**
+
+> What is the, what is the thing that makes you happy? The mo-- uh, more happy? Mm-hmm. The most. The most. Oh, the most happy. Did you say ahsan or akthar? Ahsan, right? Sho akthar ishi. The most thing, not the best thing. Okay. Yeah. The best thing is ahsan ishi. Yeah. Uh- A3tini jumle zay hak
+**EKL — EKL: ElevenLabs short clips plus local ±120-s keyterms (post-hoc)**
+
+> What is the, what is the thing that makes you happy? The mo-- uh, more happy? The most. The most. Oh, the most happy. Did you say ahsan or akthar? Ahsan, right? Sho akthar ishi. The most thing, not the best thing. Okay. The best thing is ahsan ishi. Yeah. Uh- A3tini jumle zay heek
+
+</details>
+
+<h2 id="appendix-b-metric-caveats">Appendix B — metric caveats</h2>
+<ul>
+<li>Unicode Arabic and Arabizi are tokenized differently, so cross-arm token counts are approximate behavior indicators.</li>
+<li>A “filler” count recognizes a small spelling set (<code>uh</code>, <code>um</code>, <code>mm</code>, <code>mhm</code>, and Arabic approximations); prolonged sounds can evade it.</li>
+<li>Cutoff counts recognize hyphen-final fragments and ellipses; an engine may normalize a cutoff without an explicit marker.</li>
+<li>E-long word-window extraction uses token midpoints from the full call; ES/EKG/EKL/O1/O2 transcribed recut audio files. Boundary effects are unavoidable.</li>
+<li>Latency is workstation-to-vendor wall time under unknown shared load; ES had two extreme calls and is not a throughput benchmark.</li>
+<li>Model aliases can change. The report records vendor labels and raw response IDs but cannot recover an undisclosed backend snapshot.</li>
+<li>Chat text is authored by Amal and is valuable target evidence; its timestamp is a post time, not necessarily the speech time.</li>
+<li>Meet captions supply named speaker intervals but are themselves ASR output and may have delayed or inaccurate text.</li>
+</ul>
+<h2 id="appendix-c-evidence-bundle-map">Appendix C — evidence bundle map</h2>
+<ul>
+<li><code>protocol.md</code> — frozen preregistration.</li>
+<li><code>manifest.json</code> — hashes, selection, exact prompts, lexicon, clips.</li>
+<li><code>comparison.json</code> — all computed metrics and six-arm text comparison.</li>
+<li><code>results-openai-strict.json</code>, <code>results-openai-vocab.json</code> — raw O1/O2 outputs.</li>
+<li><code>results-elevenlabs.json</code> — E-long frozen-window extraction.</li>
+<li><code>results-elevenlabs-segmented.json</code> — ES no-keyterm control.</li>
+<li><code>results-elevenlabs-keyterms.json</code> — EKG global-keyterm experiment.</li>
+<li><code>results-elevenlabs-keyterms-local.json</code> — EKL local-keyterm experiment.</li>
+<li><code>meet-captions-selected.json</code> — named Meet caption blocks overlapping every window.</li>
+<li><code>clips/</code> — all 20 sampled MP3s.</li>
+<li><code>source-vocabulary/</code> — exact relevant vocabulary/chat snapshots used by the test.</li>
+<li><code>*.py</code> — generation and analysis scripts.</li>
+<li><code>claim-to-source-ledger.md</code> — claim verification map.</li>
+<li><code>SHA256SUMS.txt</code> — bundle file hashes.</li>
+</ul>
+</main><script src="../js/build.js"></script><script src="../js/stale.js"></script></body></html>

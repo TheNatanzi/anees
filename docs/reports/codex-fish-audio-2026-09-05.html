@@ -1,0 +1,301 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fish Audio: research and test status</title><style>:root{--bg:#F4F6F2;--bg2:#fff;--ink:#1B2620;--mute:#5B6A62;--line:#D6DDD8;--teal:#0F6E56;--amber:#B26F0E}
+@media(prefers-color-scheme:dark){:root{--bg:#0F1613;--bg2:#17211C;--ink:#E7EDE9;--mute:#9BAAA2;--line:#2A3630;--teal:#4FC4A2;--amber:#E7A93B}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif}
+main{max-width:860px;margin:0 auto;padding:14px 12px 60px} h1{font-size:26px;line-height:1.2} h2{font-size:21px;margin:30px 0 8px;border-top:1px solid var(--line);padding-top:10px} h3{font-size:17px;margin:20px 0 6px}
+.top{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:5} .top .in{max-width:860px;margin:0 auto;padding:10px 12px 0}
+.brand{display:flex;align-items:baseline;gap:10px} .brand b{font-size:20px} .brand span{color:var(--mute);font-size:13px}
+.top nav{display:flex;gap:4px;overflow-x:auto;padding:6px 0;scrollbar-width:none} .top nav::-webkit-scrollbar{display:none}
+.top .tab{flex:0 0 auto;min-height:44px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:999px;padding:8px 14px;font:600 15px system-ui;text-decoration:none;display:inline-flex;align-items:center} .top .tab.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.lead{color:var(--mute);font-size:14px} .tbl{overflow-x:auto} table{border-collapse:collapse;width:100%;font-size:14px;background:var(--bg2);border:1px solid var(--line)} th,td{padding:6px 8px;border-top:1px solid var(--line);vertical-align:top;text-align:left}
+code,pre{font:13px ui-monospace,Consolas,monospace} pre{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px;overflow-x:auto} blockquote{border-left:4px solid var(--teal);margin:10px 0;padding:4px 12px;color:var(--mute)}
+img{max-width:100%} a{color:var(--teal)}</style></head><body>
+<header class="top"><div class="in"><div class="brand"><b>Anees</b><span>Palestinian Arabic with Amal · Medi's companion</span></div><nav><a class="tab" href="../index.html#today">Today</a><a class="tab" href="../index.html#lessons">Lessons</a><a class="tab" href="../index.html#words">Words</a><a class="tab" href="../index.html#cards">Flashcards</a><a class="tab" href="../index.html#amal">Amal</a><a class="tab" href="../index.html#grammar">Grammar</a><a class="tab on" href="../index.html#ai-reports">AI reports</a><a class="tab" href="../index.html#ai-rules">AI rules</a><a class="tab" href="../index.html#future">Future projects</a></nav></div></header>
+<main><p class="lead">AI report · built from <code>anees-fish-audio-research-and-test-status-2026-09-05.md</code> · <a href="../index.html#ai-reports">back to AI reports</a></p>
+<h1 id="anees-fish-audio-research-findings-and-controlled-test-status">Anees × Fish Audio: research findings and controlled-test status</h1>
+<p><strong>Date:</strong> 2026-09-05<br />
+<strong>Status:</strong> Research complete; benchmark preregistered and technically ready; audio transmission paused for informed consent and Fish account access.</p>
+<h2 id="bottom-line">Bottom line</h2>
+<p>Fish Audio is worth a small direct test, but the evidence currently points <strong>against</strong> replacing ElevenLabs Scribe v2 for Anees.</p>
+<p>The reasons are unusually aligned with Anees's hardest requirements:</p>
+<ol>
+<li>Fish exposes no documented prompt, keyterm/vocabulary, verbatim, disfluency, phonetic, word-confidence, word-timestamp, diarization, or named-speaker control for ASR.</li>
+<li>Its response has one detected language code for the file, an awkward fit for English–Palestinian-Arabic code-switching.</li>
+<li>The best relevant outside benchmark found—English/German rather than Arabic—shows Fish preserving far fewer fillers and other disfluencies than ElevenLabs Scribe v2.</li>
+<li>Fish is more expensive than the ElevenLabs rate used in the prior Anees analysis.</li>
+<li>Most importantly, Fish's current Terms of Use explicitly permit using uploaded Content to develop, train, or enhance Fish and third-party AI/ML models. That requires a deliberate privacy decision by both Medi and Amal before their lesson audio is sent.</li>
+</ol>
+<p>None of this proves Fish will be bad at Palestinian Arabic. A model can outperform its documented controls, and Fish could still surprise on raw acoustics. That is why the direct Anees test has been preregistered rather than dismissed—but no lesson audio has been uploaded without consent.</p>
+<h2 id="what-fish-audio-currently-offers">What Fish Audio currently offers</h2>
+<p>Fish's public speech-to-text product is the beta <code>transcribe-1</code> model through <code>POST https://api.fish.audio/v1/asr</code>.</p>
+<h3 id="inputs-and-controls">Inputs and controls</h3>
+<p>The official endpoint accepts an audio file through multipart form data or MessagePack. JSON/base64 input is not supported. Bearer authentication is required.</p>
+<p>The documented request fields are:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+<th>Anees consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>audio</code></td>
+<td>Required audio file</td>
+<td>Compatible with the existing MP3 clips</td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>Optional language hint; Fish says language is auto-detected regardless</td>
+<td>We can compare automatic mode with an Arabic hint, but cannot declare both Arabic and English</td>
+</tr>
+<tr>
+<td><code>ignore_timestamps</code></td>
+<td>Defaults to <code>true</code>; setting it to <code>false</code> returns precise timestamps and increases latency for clips under 30 seconds</td>
+<td>The benchmark requests timestamps so timing quality can be inspected</td>
+</tr>
+</tbody>
+</table></div>
+<p>The documented response contains:</p>
+<ul>
+<li>one transcript string;</li>
+<li>audio duration;</li>
+<li>timestamped text segments;</li>
+<li>one detected ISO 639-1 language code and display name.</li>
+</ul>
+<h3 id="important-missing-controls">Important missing controls</h3>
+<p>The public schema documents none of the following:</p>
+<ul>
+<li>vocabulary, keyterms, or the Anees learned-word list;</li>
+<li>a prompt or style instruction;</li>
+<li>“transcribe exactly,” verbatim, filler, or disfluency mode;</li>
+<li>phonetic output or an “uncertain/nonword” representation;</li>
+<li>word-level timestamps or confidence values;</li>
+<li>alternate hypotheses;</li>
+<li>speaker diarization, speaker count, voiceprint, or named-speaker enrollment;</li>
+<li>Palestinian, Levantine, or other Arabic-dialect selection;</li>
+<li>a multi-language hint such as <code>ar,en</code>;</li>
+<li>an ASR model selector.</li>
+</ul>
+<p>This means Fish cannot be prompted into the Anees rules at recognition time. The learned vocabulary can still be used after ASR to flag out-of-list tokens and generate Medi/Amal review questions, but it cannot make Fish hear a difficult word differently.</p>
+<h2 id="pricing-and-operating-cost">Pricing and operating cost</h2>
+<p>Fish publishes pay-as-you-go ASR pricing of <strong>$0.36 per processed audio hour</strong>, rounded up to the nearest second, with no API subscription or monthly minimum. The starter concurrency limit is five requests.</p>
+<p>Approximate costs:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Workload</th>
+<th style="text-align: right;">Processed audio</th>
+<th style="text-align: right;">Fish cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One frozen benchmark arm</td>
+<td style="text-align: right;">20 × 25-second clips = 500 seconds</td>
+<td style="text-align: right;">$0.05</td>
+</tr>
+<tr>
+<td>Both preregistered arms</td>
+<td style="text-align: right;">1,000 seconds</td>
+<td style="text-align: right;">$0.10</td>
+</tr>
+<tr>
+<td>One mixed 60-minute track</td>
+<td style="text-align: right;">1 hour</td>
+<td style="text-align: right;">$0.36</td>
+</tr>
+<tr>
+<td>One mixed 70-minute track</td>
+<td style="text-align: right;">1.17 hours</td>
+<td style="text-align: right;">$0.42</td>
+</tr>
+<tr>
+<td>Two separate 60-minute speaker tracks</td>
+<td style="text-align: right;">2 hours</td>
+<td style="text-align: right;">$0.72</td>
+</tr>
+<tr>
+<td>Two separate 70-minute speaker tracks</td>
+<td style="text-align: right;">2.33 hours</td>
+<td style="text-align: right;">$0.84</td>
+</tr>
+<tr>
+<td>Existing 64m36s full recording, one track</td>
+<td style="text-align: right;">1.077 hours</td>
+<td style="text-align: right;">about $0.39</td>
+</tr>
+</tbody>
+</table></div>
+<p>Separate capture tracks remain the safer Anees design because Fish does not document diarization. At the prior ElevenLabs reference rate of $0.22/hour, Fish is about 64% more expensive for the ASR portion.</p>
+<h2 id="evidence-about-transcript-fidelity">Evidence about transcript fidelity</h2>
+<h3 id="no-directly-relevant-fish-benchmark-was-found">No directly relevant Fish benchmark was found</h3>
+<p>The search found no official Fish evaluation for:</p>
+<ul>
+<li>Palestinian or Levantine Arabic;</li>
+<li>Arabic–English code-switching;</li>
+<li>second-language learner speech;</li>
+<li>preserving grammatical or pronunciation errors;</li>
+<li>literal disfluency transcription in Arabic.</li>
+</ul>
+<p>TTS support for Arabic is not evidence of ASR quality, so it was excluded.</p>
+<h3 id="outside-verbatim-benchmark">Outside verbatim benchmark</h3>
+<p>Nyra Labs' open verbatim-speech benchmark evaluates 15 systems on 4,957 English clips and a smaller German set. On its English leaderboard:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th style="text-align: right;">ElevenLabs Scribe v2</th>
+<th style="text-align: right;">Fish Audio ASR</th>
+<th>Better direction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Disfluency F1</td>
+<td style="text-align: right;">90.3</td>
+<td style="text-align: right;">49.7</td>
+<td>Higher</td>
+</tr>
+<tr>
+<td>Filler F1</td>
+<td style="text-align: right;">95.5</td>
+<td style="text-align: right;">30.5</td>
+<td>Higher</td>
+</tr>
+<tr>
+<td>Vocal-sound F1</td>
+<td style="text-align: right;">83.4</td>
+<td style="text-align: right;">0.0</td>
+<td>Higher</td>
+</tr>
+<tr>
+<td>Cut-off F1</td>
+<td style="text-align: right;">80.1</td>
+<td style="text-align: right;">60.1</td>
+<td>Higher</td>
+</tr>
+<tr>
+<td>Repetition F1</td>
+<td style="text-align: right;">87.9</td>
+<td style="text-align: right;">82.1</td>
+<td>Higher</td>
+</tr>
+<tr>
+<td>Verbatim WER</td>
+<td style="text-align: right;">3.2</td>
+<td style="text-align: right;">5.9</td>
+<td>Lower</td>
+</tr>
+</tbody>
+</table></div>
+<p>This is highly relevant to the <em>kind</em> of transcript Anees needs: the missing fillers, repetitions, sounds, and false starts are part of the learning signal. But it is not a Palestinian-Arabic result and must not be presented as one. Nyra Labs also makes a competing verbatim ASR model, so this should be treated as reproducible interested-party evidence rather than neutral certification.</p>
+<p>The directional warning is still strong: Fish's largest deficit is filler preservation—the exact behavior ordinary transcription systems tend to erase and Anees needs to retain.</p>
+<h2 id="privacy-and-consent-finding">Privacy and consent finding</h2>
+<p>This is the immediate blocker to a live test with the real lesson.</p>
+<p>Fish's privacy policy classifies file uploads and environmental recordings as personal data. It says user content may be disclosed to several categories of partners and may be used for service improvement, testing, research, internal analytics, and product development. Its retention rule is purpose-based, not a short fixed window: content is retained as long as Fish says it needs it for its systems.</p>
+<p>Fish's Terms of Use are more explicit. In the section titled “Usage Data and Content,” Fish says Usage Data and Content may be used to <strong>develop, train, or enhance artificial-intelligence or machine-learning models</strong>, including third-party components, and that the user authorizes this processing.</p>
+<p>The public terms do not visibly exempt API uploads. Therefore:</p>
+<ul>
+<li>the benchmark clips should be uploaded only after Medi confirms Amal knowingly agrees to this Fish-specific processing;</li>
+<li>production use should require the same consent, or a separate written Fish enterprise/data-processing commitment that excludes training and narrows retention;</li>
+<li>an anonymous third-party “free Fish” demo is not an acceptable workaround because it adds another processor and makes provenance less certain.</li>
+</ul>
+<h2 id="preregistered-direct-anees-test">Preregistered direct Anees test</h2>
+<p>The benchmark was frozen before any Fish output was seen.</p>
+<h3 id="audio">Audio</h3>
+<ul>
+<li>The same 20 existing 25-second MP3 clips used for ElevenLabs, OpenAI, and Speechmatics.</li>
+<li>Total: 500 seconds per arm.</li>
+<li>Each clip is checked against the SHA-256 hash in the original manifest before upload.</li>
+<li>The clips were selected around lesson-chat anchors, giving a target word family to look for without pretending the chat is a full gold transcript.</li>
+</ul>
+<h3 id="fish-arms">Fish arms</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th>Language field</th>
+<th>Timestamp field</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>F0_auto</code></td>
+<td>omitted</td>
+<td><code>ignore_timestamps=false</code></td>
+<td>Test Fish's native code-switch behavior</td>
+</tr>
+<tr>
+<td><code>FA_ar_hint</code></td>
+<td><code>ar</code></td>
+<td><code>ignore_timestamps=false</code></td>
+<td>Test whether an Arabic hint helps or damages the mixed transcript</td>
+</tr>
+</tbody>
+</table></div>
+<p>No undocumented tuning will be introduced after results are visible.</p>
+<h3 id="measurements">Measurements</h3>
+<p>The harness records:</p>
+<ul>
+<li>successful/nonempty clips;</li>
+<li>Latin/Arabic surface token counts;</li>
+<li>conservative filler counts;</li>
+<li>conservative cut-off/ellipsis counts;</li>
+<li>unexpected writing systems;</li>
+<li>Fish-reported language-code distribution;</li>
+<li>timestamp segment counts and duration summaries;</li>
+<li>request latency;</li>
+<li>exact output changes caused by the Arabic hint;</li>
+<li>side-by-side text against ElevenLabs, both OpenAI arms, and Speechmatics;</li>
+<li>manual chat-anchor-family visibility for all 20 clips.</li>
+</ul>
+<p>The last measure is deliberately called <strong>family visibility</strong>, not accuracy. Without a complete human verbatim reference, this test cannot honestly report WER/CER or “percent accurate.”</p>
+<h3 id="full-lesson-gate">Full-lesson gate</h3>
+<p>The 64m36s full file will not be sent by default. It adds roughly $0.39, does not solve speaker identity, and increases the privacy exposure. The preregistered gate permits that run only if the best 20-clip arm recovers at least 16/20 target families and appears competitive on learner-error preservation.</p>
+<h2 id="current-execution-status">Current execution status</h2>
+<p>The Fish API dashboard in the user's Chrome session is logged out, and no <code>FISH_API_KEY</code>, OpenRouter key, Vercel AI Gateway credential, or other Fish-compatible credential was found in the available environment.</p>
+<p>The following have been completed locally:</p>
+<ul>
+<li>official and outside-evidence research;</li>
+<li>privacy/terms review;</li>
+<li>frozen protocol and hash registration;</li>
+<li>input-hash verification logic;</li>
+<li>two-arm API runner with five-worker concurrency and bounded retries;</li>
+<li>mechanical comparison script and manual-review template;</li>
+<li>a successful Python syntax check;</li>
+<li>a dry run confirming it stops safely when <code>FISH_API_KEY</code> is absent.</li>
+</ul>
+<p>No audio has been uploaded to Fish and no Fish transcript has been observed.</p>
+<h2 id="preliminary-recommendation">Preliminary recommendation</h2>
+<ol>
+<li><strong>Do not replace ElevenLabs yet.</strong> Fish has neither direct Anees evidence nor the controls needed for error-preserving transcription, and outside verbatim evidence favors Scribe v2 by a wide margin.</li>
+<li><strong>Run only the $0.10 two-arm test if both Medi and Amal consent to Fish's stated training/content terms.</strong> This is cheap enough to settle the Palestinian-Arabic question empirically.</li>
+<li><strong>Do not upload a full lesson unless Fish passes the frozen short-clip gate.</strong></li>
+<li><strong>Keep speaker separation in capture, not ASR.</strong> Continue designing around separate Medi and Amal tracks; Fish does not solve identity.</li>
+<li><strong>Treat ASR as evidence, not correction.</strong> Even if Fish wins raw recognition, vocabulary enforcement, Arabizi rendering, error classification, pause analysis, and Amal confirmation remain downstream stages.</li>
+</ol>
+<h2 id="reproducibility-files">Reproducibility files</h2>
+<p>The working directory contains:</p>
+<ul>
+<li><code>protocol.md</code> — frozen design and decision rules;</li>
+<li><code>preregistration.json</code> — protocol/manifest hashes recorded before results;</li>
+<li><code>run_fish.py</code> — API runner;</li>
+<li><code>analyze_fish.py</code> — side-by-side and mechanical analysis;</li>
+<li><code>manual-recovery.json</code> — unfilled 20-clip review form;</li>
+<li><code>research-notes.md</code> — source notes and caveats.</li>
+</ul>
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://docs.fish.audio/api-reference/endpoint/openapi-v1/speech-to-text">Fish Audio speech-to-text endpoint</a></li>
+<li><a href="https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits">Fish Audio pricing and rate limits</a></li>
+<li><a href="https://docs.fish.audio/developer-guide/getting-started/quickstart">Fish Audio quick start and API-key requirements</a></li>
+<li><a href="https://github.com/fishaudio/fish-audio-python">Fish Audio official Python SDK</a></li>
+<li><a href="https://docs.fish.audio/llms.txt">Fish Audio documentation index</a></li>
+<li><a href="https://fish.audio/privacy/">Fish Audio Privacy Policy</a></li>
+<li><a href="https://fish.audio/terms/">Fish Audio Terms of Use</a></li>
+<li><a href="https://nyra-labs.com/research/nyra-verbatim-speech-benchmark">Nyra Labs verbatim-speech benchmark</a></li>
+</ul>
+</main><script src="../js/build.js"></script><script src="../js/stale.js"></script></body></html>

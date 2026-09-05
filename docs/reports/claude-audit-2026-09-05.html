@@ -1,0 +1,1085 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Adversarial audit of the Codex bake-off and the project</title><style>:root{--bg:#F4F6F2;--bg2:#fff;--ink:#1B2620;--mute:#5B6A62;--line:#D6DDD8;--teal:#0F6E56;--amber:#B26F0E}
+@media(prefers-color-scheme:dark){:root{--bg:#0F1613;--bg2:#17211C;--ink:#E7EDE9;--mute:#9BAAA2;--line:#2A3630;--teal:#4FC4A2;--amber:#E7A93B}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif}
+main{max-width:860px;margin:0 auto;padding:14px 12px 60px} h1{font-size:26px;line-height:1.2} h2{font-size:21px;margin:30px 0 8px;border-top:1px solid var(--line);padding-top:10px} h3{font-size:17px;margin:20px 0 6px}
+.top{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:5} .top .in{max-width:860px;margin:0 auto;padding:10px 12px 0}
+.brand{display:flex;align-items:baseline;gap:10px} .brand b{font-size:20px} .brand span{color:var(--mute);font-size:13px}
+.top nav{display:flex;gap:4px;overflow-x:auto;padding:6px 0;scrollbar-width:none} .top nav::-webkit-scrollbar{display:none}
+.top .tab{flex:0 0 auto;min-height:44px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:999px;padding:8px 14px;font:600 15px system-ui;text-decoration:none;display:inline-flex;align-items:center} .top .tab.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.lead{color:var(--mute);font-size:14px} .tbl{overflow-x:auto} table{border-collapse:collapse;width:100%;font-size:14px;background:var(--bg2);border:1px solid var(--line)} th,td{padding:6px 8px;border-top:1px solid var(--line);vertical-align:top;text-align:left}
+code,pre{font:13px ui-monospace,Consolas,monospace} pre{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px;overflow-x:auto} blockquote{border-left:4px solid var(--teal);margin:10px 0;padding:4px 12px;color:var(--mute)}
+img{max-width:100%} a{color:var(--teal)}</style></head><body>
+<header class="top"><div class="in"><div class="brand"><b>Anees</b><span>Palestinian Arabic with Amal · Medi's companion</span></div><nav><a class="tab" href="../index.html#today">Today</a><a class="tab" href="../index.html#lessons">Lessons</a><a class="tab" href="../index.html#words">Words</a><a class="tab" href="../index.html#cards">Flashcards</a><a class="tab" href="../index.html#amal">Amal</a><a class="tab" href="../index.html#grammar">Grammar</a><a class="tab on" href="../index.html#ai-reports">AI reports</a><a class="tab" href="../index.html#ai-rules">AI rules</a><a class="tab" href="../index.html#future">Future projects</a></nav></div></header>
+<main><p class="lead">AI report · built from <code>claude-adversarial-audit-2026-09-05.md</code> · <a href="../index.html#ai-reports">back to AI reports</a></p>
+<h1 id="anees-independent-adversarial-audit-of-the-codex-overnight-asr-bake-off-and-the-project">Anees: independent adversarial audit of the Codex overnight ASR bake-off and the project</h1>
+<p><strong>Prepared:</strong> 2026-09-05, by Claude (Fable 5.1) for Medi, Amal and Codex.
+<strong>Inputs audited:</strong> <code>anees-overnight-asr-bakeoff-report-2026-09-05.md</code>, its evidence ZIP and SHA256SUMS, <code>anees-full-deep-research-report-2026-09-04.md</code>, the Fish report, the raw JSON in <code>work/</code>, the 20 frozen clips, the full Sep-4 lesson audio and Scribe output in <code>C:\dev\anees</code>, the repo code, and current provider documentation (fetched today).
+<strong>Standard of proof:</strong> every number below was recomputed from raw JSON or measured from audio. "Better", "accurate" and "phonetic" are only used with a named metric. I could not listen to audio with ears; where a claim depends on hearing, I say which measurement replaced the ear and how much confidence that buys.</p>
+<hr />
+<h2 id="0-one-line-verdict">0. One-line verdict</h2>
+<p><strong>Codex's recommendation (keep ElevenLabs Scribe v2 as the evidence transcriber) survives an adversarial recount, but three of its headline numbers are softer than stated, its "cleanest poisoning example" is the wrong clip, its 25-second test windows hide the fact that Scribe itself degrades badly on short chunks, and the project's real risk is upstream (mixed-voice capture) and downstream (a report email that can point at an unpushed page), not the engine.</strong></p>
+<hr />
+<h2 id="1-phase-1-evidence-integrity">1. Phase 1: evidence integrity</h2>
+<h3 id="11-what-verified-clean">1.1 What verified clean</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Report and ZIP SHA-256 vs <code>SHA256SUMS</code></td>
+<td>Both match (<code>5D96…3EFC</code>, <code>4045…14B4</code>)</td>
+</tr>
+<tr>
+<td>Bundle-internal <code>SHA256SUMS.txt</code></td>
+<td>65/65 files match</td>
+</tr>
+<tr>
+<td>20 clip hashes vs original manifest (<code>D113…4CA4</code>)</td>
+<td>20/20 match; every Gemini and CrisperWhisper row carries the matching <code>clip_sha256</code> / <code>input_sha256</code></td>
+</tr>
+<tr>
+<td>Preregistration order (Gemini)</td>
+<td><code>protocol.md</code> 00:57:03, <code>preregistration.json</code> 00:57:18, first result file created 00:58:18 local; the API's own <code>created</code> stamp on clip 1 is 07:58:18Z, which is the same instant. Protocol hash inside the preregistration matches the file</td>
+</tr>
+<tr>
+<td>Preregistration order (CrisperWhisper)</td>
+<td>prereg 01:10:49 / 01:11:04, first result 01:11:36; hash matches</td>
+</tr>
+<tr>
+<td>Gemini outputs</td>
+<td>81 rows: 80 × HTTP 200 (one of them empty text: <code>G0</code> clip 5), 1 × 429</td>
+</tr>
+<tr>
+<td>CrisperWhisper outputs</td>
+<td>40/40 <code>ok</code>, all non-empty, word timestamps used on all 40</td>
+</tr>
+<tr>
+<td>Upload ledger</td>
+<td>21 rows, 21 <code>deleted: true</code> (clip 16 uploaded twice)</td>
+</tr>
+<tr>
+<td>Secrets in bundle</td>
+<td>none; only env-var names (<code>GEMINI_API_KEY</code>, <code>XAI_API_KEY</code>, …)</td>
+</tr>
+<tr>
+<td>Loop flags</td>
+<td>reproduced mechanically: "same token ≥ 8 times in a row" selects exactly <code>CW_AUTO</code> clip 2 and <code>CW_AR</code> clips 7, 8, 18; nothing else</td>
+</tr>
+<tr>
+<td>Aggregates</td>
+<td>every token / Arabic-token / filler / cutoff figure in the combined table reproduces from raw JSON with the bundled regexes</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="12-what-does-not-hold-as-written">1.2 What does not hold as written</h3>
+<ol>
+<li><strong>"One 429, resolved by the retry policy" undercounts.</strong> <code>run_gemini.py::call()</code> returns only the last attempt; intermediate failures are never persisted. Attempt counters on the 80 successes are <code>{1: 74, 3: 2, 4: 5}</code>, so at least 19 rate-limit or 5xx responses happened and were discarded, plus the one persisted 429 (<code>GD</code> clip 16, which exhausted four attempts and then succeeded after a second upload). Results are unaffected; the protocol sentence "persist every … error response" was not met and the report's description is wrong.</li>
+<li><strong>The runner was edited after the run.</strong> <code>run_gemini.py</code> mtime 01:04:48 is after the last write to the results file (01:04:41). Probably the <code>delete_leftovers</code> recovery path. Should be disclosed; the bundled script is not byte-identical to what produced the data.</li>
+<li><strong>ElevenLabs segmented anchors were never judged.</strong> <code>analyze_results.py</code> line 114: <code>judgment["ES"] = judgment["E"]</code> (same for EKG/EKL). The headline "ES 16/20" is inherited from the full-lesson arm. On clip 1 the ES text is "Oh my God, bees. What was bees? Bee. Awesome. [background chatter] My wife, Dania…" — the Arabic target is gone and a name ("Dania") was invented. Honest ES = 15/20 unless the English word "bees" counts, and if it counts, CrisperWhisper (which also wrote "bees") must be 8/20 instead of 7/20. The rubric was applied asymmetrically between arms.</li>
+<li><strong>Token counts include content-destroying tags.</strong> ES's 725 tokens include 12 tokens from <code>[speaking Arabic]</code> ×3, <code>[background chatter]</code> ×1, <code>[laughs]</code> ×4. Three of those tags <em>replace</em> Amal's Arabic (clip 21: her correction "شو أكتر إشي … أحسن إشي" became "[speaking Arabic]" twice). CrisperWhisper's 849 / 997 tokens include 42 / 238 bracket tags (<code>[UH]</code>, <code>[UM]</code>).</li>
+<li><strong>"Cutoff markers" mislabels OpenAI.</strong> O1's 12 are all ellipses ("…"), zero hyphen cut-offs; ES's 25 are 23 hyphens + 2 ellipses. Ellipses are punctuation, not evidence of a truncated word.</li>
+<li><strong>Two filler regexes.</strong> The 2026-09-04 analyzer counts Arabic fillers with <code>آ+|آه+|ا+ه+</code>; the overnight analyzers add <code>ام+|امم+</code>. With one regex ES = 23 and E = 22, not 22 and 21. ±1, but the arms were not measured with the same instrument, and <code>ام</code> also matches the word "mother".</li>
+<li><strong>Gemini usage reports <code>total_output_tokens: 0</code> on all 80 calls.</strong> The $0.1666 estimate is therefore a list-price assumption, not an observed charge. Codex flagged this itself; it remains open.</li>
+<li><strong>Gemini diarization: request shape was valid.</strong> <code>generation_config.transcription_config.mode.diarization_mode = "speaker"</code> is exactly what Google documents today. So the missing <code>word_info</code> is either API behaviour for that model/release or the SDK's <code>model_dump(exclude_none=True)</code> dropping an <code>annotations</code> field it does not model. The <code>google-genai</code> version is not recorded anywhere in the bundle (it ran from a <code>_deps</code> folder, and it is not installed in the system Python). Unresolved; re-run one clip over raw REST before concluding anything about Gemini diarization.</li>
+<li><strong>"Buset was spoken about 42 seconds before the frozen window"</strong> mixes two reference points. From the full-lesson Scribe timeline, Amal's "Buset … buset" sits at −31.1 s and −29.0 s before the clip-14 window start, and 44–46 s before the chat post. Both are outside the window, so the conclusion stands; the sentence does not.</li>
+</ol>
+<h3 id="13-integrity-verdict">1.3 Integrity verdict</h3>
+<p>Preregistration, hashing, deletion ledger and reproducibility are real and above the norm for this kind of work. The bookkeeping errors (2, 3, 4, 5, 6) all lean the same way: they make the ElevenLabs short-clip arm look slightly better and cleaner than it was. None reverses the ranking (Section 5.5), but the report should be corrected before it is cited.</p>
+<hr />
+<h2 id="2-phase-2-transcript-audit">2. Phase 2: transcript audit</h2>
+<h3 id="21-how-i-listened">2.1 How I "listened"</h3>
+<p>No ear was available. Each clip was reconstructed from five independent sources and one acoustic measurement:</p>
+<ol>
+<li>Full-lesson Scribe word timeline (<code>scribe.json</code>, 11,066 words, word start/end, logprob).</li>
+<li>Google Meet live captions with Meet's own speaker names (an independent decoder).</li>
+<li>Per-word fundamental frequency (librosa pYIN): Medi ≈ 105–155 Hz, Amal ≈ 190–350 Hz; 160–185 Hz called ambiguous. Loudness per word relative to clip peak.</li>
+<li>LPC formants (F1/F2) of the disputed vowel in clip 14.</li>
+<li>The 12 machine outputs per clip (E, ES, O1, O2, Melia short/full, four Gemini arms, two CrisperWhisper arms) plus CrisperWhisper word timings.</li>
+</ol>
+<p>Confidence is "high" only where ≥ 3 sources and the acoustics agree. Everything marked "learner event" below was located by timestamp and pitch, not by trusting any single transcript.</p>
+<h3 id="22-the-disputed-items-one-by-one">2.2 The disputed items, one by one</h3>
+<p><strong>Gemini clip 14 "Buset" (suspected vocabulary poisoning): CONFIRMED, on acoustic grounds.</strong>
+The three in-window tokens that every non-vocabulary engine wrote as "basat" have first-vowel F1 = 806, 663 and 591 Hz (F2 1319 / 1261 / 1438). Reference "Basat" tokens elsewhere in the lesson measure F1 678–896. Amal's real "Buset" at −31 s and −29 s measures F1 483 and 453 Hz (F2 1268 / 1089). An /a/ vowel, not /u/. The <code>GV</code> vocabulary list for clip 14 begins <code>['Baboos', 'Buset', …]</code>, so the substitution came from the prompt. Codex's conclusion is right; its evidence (a timeline argument) was weaker than it could have been, and the one contrary signal (Meet captions heard "Buffett" at +8 s) is outweighed by the formants.</p>
+<p><strong>Gemini clip 16 is the cleaner poisoning example, and Codex scored it as a recovery.</strong> In-window, Amal asks in English "How do I say did they enjoy their trip?" (pitch F, 16.8–20.9 s; present in E, ES, O1, O2, Melia, G0, CW). <code>GV</code> output: "Enbasa6ti fi el-7afle? Enbasa6u bisafrethom? How do I say, 'Did they enjoy their trip?'" — it emitted the <em>next</em> chat anchor as a spoken Arabizi phrase that nobody said. Codex's note says "also anticipates the next exercise" and still counts the clip as recovered. This should be the headline poisoning case: the inserted string is verifiable against every other engine and against the English sentence it shadows.</p>
+<p><strong>Gemini clip 11: a third insertion.</strong> Amal's "Yeah, I mean, some people-" (E, ES, O1, CW all have "I mean") became "Ya3ni, some people" in <code>GV</code>. The English filler was rewritten into the Arabizi vocabulary item.</p>
+<p><strong>Gemini clip 17: family-level scoring hid a meaning change.</strong> Medi drills form VII ("bitin besit … Betenbisti … betenbestu", all M-pitch 0.7–23 s; Amal models "Betenbisti" once at 8.3 s). <code>GV</code> wrote بتبسِط / بتبسِطي (form I, "you make happy") for his بتنبسط attempts ("you become happy"). Codex marked <code>GV</code> "recovered: b-s-6 present-tense family". Under the project's own rule ("must not silently replace with a known vocabulary word") this is a failure, not a recovery. <code>G0</code> reduced the whole drill to "Mhm. Mhm. And then in two"; <code>GH</code>/<code>GD</code> to "امم امم".</p>
+<p><strong>Gemini clip 1 "Na7el": vocabulary helped and hurt at once.</strong> Timeline: Medi "Oh my God, bees. What was bees?" (M, 0–1.5 s) = a self-declared gap; Amal "Nahl" (F196 Hz, 8.7 s); Medi "Nahl" (M126 Hz, 10.2 s) = repeat. <code>G0</code> dropped the first 13 s of speech entirely and began at "If I want to buy more". <code>GH</code> wrote "نحل. نحل." but dropped the English question. <code>GV</code> wrote "Oh my god, bees. What's bees? Na7el. Na7el." — the only Gemini arm to keep the gap and the repeat, but the spelling "Na7el" is the prompt's, not evidence of pronunciation. ES (the arm Codex ranks first) lost the word to "[background chatter]" and invented "Dania". Full-lesson E kept "Nahl. Nahl."</p>
+<p><strong>Gemini diarization arm:</strong> zero <code>word_info</code> annotations in all 20 responses; text collapsed and fused (clip 1: "نحالينحالي"; clip 2: "مبسوطمبسوطمبسوطمبسوط"). Request shape was correct (Section 1.2 item 8). Unusable as run; cause unresolved.</p>
+<p><strong>CrisperWhisper loops:</strong> mechanically confirmed (Section 1.1). <code>CW_AUTO</code> clip 2 = "ba-" ×~110; <code>CW_AR</code> clip 7 alternates "[UH] b-" ×~50; clip 8 "b-" ×~110; clip 18 "[UH]/[UM]" ×~90. The model card says loop suppression is on by default; it is not working on this audio with the Transformers backend. Untested: the CTranslate2 backend, <code>small</code>/<code>large</code>, or chunking.</p>
+<p><strong>CrisperWhisper clip 11 <code>[fart]</code>:</strong> five sound tags where Amal says "absato, absatni … absatni, absato, absatna". <code>CW_AUTO</code> on the same audio wrote "Apsato, Apsatmi". A sound-event hallucination triggered by forcing <code>language="ar"</code>; not a joke and not noise.</p>
+<p><strong>Where ElevenLabs produced more text but not more correct text:</strong>
+- ES clip 1: "[background chatter] My wife, Dania" (hallucinated name; lost target).
+- ES clip 8: "أنا بساط" where E and the timeline have only "انا" (a plausible completion, not evidence).
+- ES clip 12: "zit, zit nabasat" for "is it, is it nabasat".
+- ES clip 16: Medi's "embasati" (M-pitch, 3.8 s) rendered انبسطت (masculine, no ي) — a silent alteration of the learner form.
+- ES clip 21: two "[speaking Arabic]" tags in place of Amal's correction.
+- E clip 18: Amal's "with بنبسط" (F-pitch, 22.6 s) rendered "With ban biscuits".
+These are exactly the cases a token count rewards.</p>
+<h3 id="23-the-clips-that-actually-test-the-objective">2.3 The clips that actually test the objective</h3>
+<p>Eight moments in the 20 windows are verifiable learner events (self-declared gap, self-repair, malformed attempt, tutor correction), located by timestamp + pitch. Preserved = the attempt or the correction is legible in the output; partial = half of the pair; altered = replaced by a different or corrected form.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Clip</th>
+<th>Learner event (speaker by pitch)</th>
+<th>E full</th>
+<th>ES 25 s</th>
+<th>O1</th>
+<th>M0</th>
+<th>G0</th>
+<th>GH</th>
+<th>GV</th>
+<th>GD</th>
+<th>CW_AUTO</th>
+<th>CW_AR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Medi "what was bees?" gap → Amal "Nahl" → Medi repeat</td>
+<td>✓</td>
+<td>✗ tag</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗ dropped</td>
+<td>½</td>
+<td>✓</td>
+<td>✗</td>
+<td>½</td>
+<td>½</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Medi "sameeh?" guess, "Masbu-" false start</td>
+<td>✓</td>
+<td>½</td>
+<td>½</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗ loop</td>
+<td>½</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Medi "بسات- بساتِ- بساتِتني أسف بساتِتك" stumble chain (M, 0.7–5.7 s)</td>
+<td>✓</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Medi "embasati fi el" (M, 3.8 s)</td>
+<td>✓</td>
+<td>altered</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓ + insertion</td>
+<td>✓</td>
+<td>½</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Medi form-VII drill (M, 0.7–23 s)</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+<td>altered (form I)</td>
+<td>✗</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Medi "nitla" for نطلع (ع dropped; M, 2.3–5 s)</td>
+<td>✓ Latin</td>
+<td>✓ "نتلا"</td>
+<td>✗ نطلع</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗ loop</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Medi "هادي الفعل → هذا الفعل" gender self-repair (M, 1.9–6.3 s)</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✓</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Medi "أحسن" for "أكثر"; Amal corrects "شو أكتر إشي"</td>
+<td>✓</td>
+<td>✗ tag</td>
+<td>✓</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+<td>✓</td>
+<td>½</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td><strong>Score /8</strong></td>
+<td></td>
+<td><strong>8</strong></td>
+<td><strong>5</strong></td>
+<td><strong>4.5</strong></td>
+<td><strong>3</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1.5</strong></td>
+<td><strong>3</strong></td>
+<td><strong>1.5</strong></td>
+<td><strong>4</strong></td>
+<td><strong>4</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Three things this table says that the token table does not:</p>
+<ol>
+<li><strong>Scribe on the full lesson (E) is the only output that kept all eight.</strong> It is also the configuration the pipeline actually runs.</li>
+<li><strong>Scribe on 25-second chunks (ES) lost three of eight</strong> and altered a fourth. The window, not the engine, cost those. Every challenger was only ever tested on 25-second chunks, so their full-track behaviour is unknown, and Codex's production advice ("2–5 minute chunks with 1–2 s overlap") is untested and, on this evidence, risky.</li>
+<li><strong>Gemini's failure mode is omission, not correction.</strong> <code>G0</code> scored 0/8 by dropping the moments outright (clip 5: empty for 25 s of speech; clip 1: first 13 s gone; clip 9, 17, 19: reduced to the surrounding English). An omitted moment cannot be reviewed at all.</li>
+</ol>
+<p>CrisperWhisper is worth one sentence more: outside its loops, <code>CW_AUTO</code> was the second-best renderer of Medi's stumbles ("basa- basat- basat- ne-", "buts hadi al fa'il. Hadah."), and its collapses all happen on Amal's fluent Arabic (clips 4, 6, 7, 18: translated to English or looped). That is a Medi-track engine, not a mixed-track engine.</p>
+<hr />
+<h2 id="3-phase-3-research-audit-documentation-checked-2026-09-05">3. Phase 3: research audit (documentation checked 2026-09-05)</h2>
+<p>Legend for evidence class: <strong>D</strong> direct Anees evidence, <strong>O</strong> official provider documentation, <strong>I</strong> independent research, <strong>V</strong> vendor benchmark or interested party, <strong>S</strong> inference.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Arabic / Levantine</th>
+<th>Within-utterance code-switch</th>
+<th>Verbatim / filler control</th>
+<th>Vocabulary bias</th>
+<th>Word times + confidence</th>
+<th>Channels / speakers</th>
+<th>Retention / training</th>
+<th>Price</th>
+<th>Evidence</th>
+<th>Codex claim check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ElevenLabs Scribe v2</td>
+<td><code>ara</code> generic, no dialect (O)</td>
+<td>not documented (O); works in practice (D)</td>
+<td><code>no_verbatim</code> (default keeps fillers/false starts) (O)</td>
+<td><code>keyterms</code> ≤ 1000 (O)</td>
+<td>word start/end + <code>logprob</code> (O)</td>
+<td><code>diarize</code> ≤ 32, <code>use_multi_channel</code> ≤ 5 channels, <code>channel_index</code> (O)</td>
+<td>default retention per privacy policy; Zero Retention Mode is enterprise-only (<code>enable_logging=false</code>) and the docs name TTS/Voice Changer, not STT (O)</td>
+<td>$0.22/h all tiers (O)</td>
+<td>D + O + I (Abdoli 2026)</td>
+<td>Correct on features; silent on retention. <strong>STT ZRM must be confirmed before Amal's voice is sent routinely</strong></td>
+</tr>
+<tr>
+<td>OpenAI <code>gpt-transcribe</code></td>
+<td>ISO codes incl. <code>ar</code> (O)</td>
+<td>prompt hints (O)</td>
+<td>none; prompt is "unstructured context" (O)</td>
+<td>prompt (O)</td>
+<td><strong>word timestamps only on <code>whisper-1</code></strong> (O)</td>
+<td><code>gpt-4o-transcribe-diarize</code> with <code>known_speaker_references</code> (O)</td>
+<td>not used for training; <code>/v1/audio/transcriptions</code> shows no abuse-monitoring retention (O)</td>
+<td>$0.0045/min (O)</td>
+<td>D + O</td>
+<td>Codex under-weighted the missing timestamps: without them a clip cannot be cut. Second opinion only</td>
+</tr>
+<tr>
+<td>Gemini 3.5 Transcribe</td>
+<td><code>ar-EG</code> only (O)</td>
+<td>automatic (O)</td>
+<td><code>verbatim</code> mode (O); did not behave as verbatim here (D)</td>
+<td><code>custom_vocabulary</code> ≤ 1000, not with diarization/timestamps (O)</td>
+<td><code>word_info</code> offsets; "may degrade accuracy" (O)</td>
+<td>diarization ≤ 8 (O); returned nothing here (D)</td>
+<td>paid tier not used for improvement; abuse logs "limited period" (O)</td>
+<td>≈ $0.005/min blended (O)</td>
+<td>D + O</td>
+<td>Correct</td>
+</tr>
+<tr>
+<td>xAI STT</td>
+<td><code>ar</code> generic (O)</td>
+<td>file-level language detection (O)</td>
+<td><code>filler_words</code> (default <strong>false</strong> = removed); <code>format</code> = inverse text normalization only (O)</td>
+<td><code>keyterms</code> ≤ 100 (O)</td>
+<td>word <code>start</code>/<code>end</code>; <strong>confidence not documented</strong> (O)</td>
+<td><code>diarize</code>, <code>multichannel</code> ≤ 8, <code>vad_threshold</code> (O)</td>
+<td>no training without permission; 30-day abuse retention; self-serve ZDR (disables Files/Batch APIs) (O)</td>
+<td>$0.10/h REST, $0.20/h streaming (O)</td>
+<td>O + V (Nyra EN 73.9 disfluency F1)</td>
+<td>Codex's "word timestamps/confidence" is half right (no confidence); "format=false avoids normalization" is only ITN. Still the best cheap untested candidate</td>
+</tr>
+<tr>
+<td>Inworld STT-1</td>
+<td><code>ar</code> in a 30-language list; <strong>current languages page shows no "experimental" label</strong> (O)</td>
+<td>not documented</td>
+<td>not documented</td>
+<td>—</td>
+<td>word timestamps (O)</td>
+<td>diarization "Experimental" (O)</td>
+<td>training use in privacy policy (per Codex; not re-verified)</td>
+<td>on-demand</td>
+<td>O</td>
+<td>Codex's "Arabic experimental" came from <code>dev.docs.inworld.ai</code>, which no longer resolves. Unverified; doc drift</td>
+</tr>
+<tr>
+<td>Fish <code>transcribe-1</code></td>
+<td>auto-detect, one language per file (O)</td>
+<td>no</td>
+<td>none (O)</td>
+<td>none (O)</td>
+<td>segment timestamps only (O)</td>
+<td>none (O)</td>
+<td>Terms (effective 2024-08-18) allow training on Content incl. third-party components; no API exemption (O)</td>
+<td>$0.36/h (O)</td>
+<td>O + V (Nyra filler F1 30.5)</td>
+<td>Correct; consent gate is justified</td>
+</tr>
+<tr>
+<td>StepAudio 2.5 ASR</td>
+<td>zh/en only (O)</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>O</td>
+<td>Correct, eliminated</td>
+</tr>
+<tr>
+<td>Cartesia Ink</td>
+<td><code>ink-2</code> en; <code>ink-preview</code> en/fr/hi/ja/es (O)</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>O</td>
+<td>Correct, eliminated</td>
+</tr>
+<tr>
+<td>CrisperWhisper 2.0 medium</td>
+<td>not listed; 8/10 benchmark languages synthetic (O/V)</td>
+<td>window-level</td>
+<td>verbatim/intended modes, <code>[UH]</code> <code>[UM]</code> sounds (O)</td>
+<td>hotwords Pro only (O)</td>
+<td>word timestamps (D)</td>
+<td>none</td>
+<td>local (D)</td>
+<td>"free for research and other non-commercial use" (O)</td>
+<td>D + O + V</td>
+<td>Codex: "production licensing must be considered". For a single-user personal project this reads as non-commercial; read the licence text, do not assume. Loop suppression "on by default" failed on 4/40 (D)</td>
+</tr>
+<tr>
+<td>Cohere Transcribe Arabic 07-2026</td>
+<td>dialect-resampled; <strong>Casablanca (has Palestinian) WER 49.71 / CER 20.66</strong> (V, model card)</td>
+<td>"does not feature explicit automatic language detection and exhibits inconsistent performance on code-switched audio" (O, model card)</td>
+<td>not documented</td>
+<td>—</td>
+<td><strong>no timestamps, no diarization</strong> (O)</td>
+<td>none</td>
+<td>Apache 2.0, self-host (O); hosted 25 MB limit (O)</td>
+<td>contact sales / free weights</td>
+<td>O + V</td>
+<td>Codex's 09-04 report called it "built for Arabic dialects plus English code-switching"; the model card says the opposite for code-switching. Not a mixed-track candidate</td>
+</tr>
+<tr>
+<td>Azure <code>ar-PS</code></td>
+<td>explicit locale; Custom Speech from audio+human transcript and plain text; no pronunciation customization (O)</td>
+<td>continuous LID cannot switch mid-sentence (O, per Codex)</td>
+<td>lexical/raw text</td>
+<td>phrase list</td>
+<td>yes</td>
+<td>yes</td>
+<td>Azure DPA</td>
+<td>≈ $1/h</td>
+<td>O</td>
+<td>Correct; <strong>pronunciation assessment has no <code>ar-PS</code></strong> (O)</td>
+</tr>
+<tr>
+<td>Deepgram Nova-3</td>
+<td><code>ar-PS</code> listed (O)</td>
+<td><code>language=multi</code> = en/es/fr/de/hi/ru/pt/ja/it/nl — <strong>no Arabic</strong> (O)</td>
+<td><code>filler_words</code> noted for Nova-2 only (O)</td>
+<td>keyterm</td>
+<td>yes</td>
+<td>yes</td>
+<td>—</td>
+<td>—</td>
+<td>O</td>
+<td>Correct</td>
+</tr>
+<tr>
+<td>Google Chirp 3</td>
+<td><code>ar-PS</code> with model adaptation; no diarization or word confidence on <code>chirp_3</code> rows (O)</td>
+<td>prevalent-language mode</td>
+<td>—</td>
+<td>phrase sets</td>
+<td>partial</td>
+<td>none for Arabic</td>
+<td>GCP</td>
+<td>—</td>
+<td>O</td>
+<td>Correct</td>
+</tr>
+<tr>
+<td>Speechmatics Melia / <code>ar_en</code></td>
+<td>"Global Arabic … Gulf, Egypt, and the Levant"; <strong>Palestinian not named</strong> on the languages page (O)</td>
+<td><code>ar_en</code> bilingual pack (O)</td>
+<td>none on that page</td>
+<td>none (O)</td>
+<td>word times, no confidence (O)</td>
+<td>6 clusters for 2 people (D)</td>
+<td>—</td>
+<td>—</td>
+<td>D + O</td>
+<td>wiki 13's "Palestinian named" is unverified</td>
+</tr>
+<tr>
+<td><strong>Voxtral Transcribe 2 (Mistral, Feb 2026) — missed by Codex</strong></td>
+<td>Arabic among 13 languages, no dialect note (O)</td>
+<td>not documented</td>
+<td>not documented</td>
+<td>context bias ≤ 100 terms, non-English "experimental" (O)</td>
+<td>word timestamps (O)</td>
+<td>diarization with times (O)</td>
+<td>Realtime weights Apache 2.0, self-hostable (O)</td>
+<td>$0.003/min batch ($0.18/h) (O)</td>
+<td>O</td>
+<td>Cheap, timestamped, self-hostable; untested; verbatim behaviour unknown</td>
+</tr>
+<tr>
+<td><strong>Munsit — missed by Codex</strong></td>
+<td>vendor: 25+ dialects incl. Levantine "Lebanon, Syria, Jordan, and Palestine" (V)</td>
+<td>vendor claim (V)</td>
+<td>not documented</td>
+<td>—</td>
+<td>not documented</td>
+<td>not documented</td>
+<td>not documented</td>
+<td>not published</td>
+<td>V only</td>
+<td>Vendor claims only; no independent evidence; needs a doc read before any test</td>
+</tr>
+<tr>
+<td><strong>Talafha, Abu Alhassan, Abdul-Mageed 2025/26 (arXiv 2511.18774) — missed by Codex</strong></td>
+<td>zero-shot context-aware decoding for Arabic varieties: first-pass-hypothesis prompting and retrieved exemplars, −9.15 % relative WER on dialects, −22 % on MSA (I)</td>
+<td></td>
+<td></td>
+<td>conditions on <em>hypotheses</em>, not word lists</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>I</td>
+<td>The academically grounded form of the "vocabulary prior" idea, with less insertion risk than a term list</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Nyra verbatim benchmark:</strong> every figure Codex quoted matches the page (published 2026-06-24; EN 4,957 clips, DE 202). The page itself does not say which languages are synthetic; that statement is on the Hugging Face model card. Interested party; English only; directional.</p>
+<p><strong>Ennuicastr (ecastr.com today):</strong> per-speaker synchronized tracks; "Works on Android and iPhone"; Chrome/Firefox; $1/h Opus, $2/h FLAC, "$10/month unlimited". Codex's "$15/month continuous subscription" no longer matches the site; the "continuous" (no-VAD) tier and chat export are not stated on the home page. Both must be confirmed in the 5-minute pilot, not assumed.</p>
+<hr />
+<h2 id="4-phase-4-architecture-review-of-cdevanees">4. Phase 4: architecture review of <code>C:\dev\anees</code></h2>
+<h3 id="41-built-and-running-verified-in-code-logs-and-task-scheduler">4.1 Built and running (verified in code, logs and Task Scheduler)</h3>
+<ul>
+<li>Hourly Task Scheduler jobs <code>Anees lesson pipeline</code> (:15) and <code>Anees vocab import</code> (:35), both <code>Ready</code>.</li>
+<li><code>lesson_pipeline.py</code>: Meet-folder watcher keyed by <strong>filename</strong> (not Drive file id), ffmpeg extract, pre-check (minutes 3–6, ≥ 12 % Arabic share, or the Meet chat sidecar shows a tutor typing), full-lesson Scribe v2 call with 3 retries / backoff / budget ledger (stop at 90 % of a $10 cap) / failure email to Medi only, transcript page, git commit + push that <strong>raises on push failure</strong> (the Codex P0 is fixed for this path).</li>
+<li>Speaker labels: Scribe diarization → "more Arabic = Amal" heuristic → pitch fallback (yin, &lt; 155 Hz Medi, &gt; 180 Hz Amal, neighbours vote) → <code>?</code>; a 15 % unlabeled floor suppresses per-speaker facts.</li>
+<li><code>understand_lesson.py</code>: Doc-word events with prompted / correction / asked / elicited / uptake flags, chat location ±120 s, topic ranking, clips ≤ 25 s; <code>miss_kind.py</code> classifier; <code>buckets.py</code>.</li>
+<li>Supabase <code>anees</code>: 8 tables, RLS, token links with 7-day expiry, update-guard trigger, public rules view without tokens.</li>
+<li>Report pages, rich emails, planner/after links (minted, never sent), flashcards with offline queue, morning check, 77 tests collected (66 passed on the last full local run per the log; the two link suites are excluded from the morning check as live tests).</li>
+</ul>
+<h3 id="42-only-in-documentation">4.2 Only in documentation</h3>
+<ul>
+<li>Two-track capture. Three incompatible versions exist: <code>constants.md</code> (PC mic + WASAPI loopback), wiki 13 (same), Codex (Ennuicastr on Android), handoff ("Craig or Ennuicastr"). No code, no pilot.</li>
+<li>90-day raw-audio deletion and "Amal can request deletion of any lesson" (<code>constants.md</code>): no code path deletes anything.</li>
+<li>Drive-file-id idempotency: code keys <code>processed.json</code> by filename.</li>
+<li>Secrets in Supabase Edge Functions: actual secrets are Windows User env vars plus <code>C:/Claude/Personal/Project Alchemy/alchemy-lock/.env</code> (Gmail app password) and that project's <code>node_modules</code> (nodemailer), hard-coded by absolute path in <code>send_lesson_email.mjs</code> and checked by <code>morning_check.py</code>.</li>
+<li>Engines contract (<code>constants.md</code>): "Speechmatics bilingual primary, wav2vec2 Levantine CTC for raw learner form". Reality: ElevenLabs only; wav2vec2 never run in the pipeline.</li>
+<li>FSRS per card, 6 word statuses, caps: replaced by the simpler bucket scheme.</li>
+<li>Cohere transcription (graph node T1): never done.</li>
+</ul>
+<h3 id="43-experimental-works-unproven">4.3 Experimental (works, unproven)</h3>
+<ul>
+<li>Pitch labels ("93 % agreement with ElevenLabs on Aug 25"; ElevenLabs is not ground truth, and my per-word check shows the 160–185 Hz band and short tokens are ambiguous).</li>
+<li>Tutor-reaction detector (~50 % precision by the overnight log).</li>
+<li>Miss classifier v2; <code>looks_arabizi</code> and skeleton matching.</li>
+<li><strong>The <code>new</code> bucket</strong> (<code>buckets.py</code>: "first heard in one of the last 3 lessons and not yet drilled"). Medi's definition, stated today: <em>new = the words Amal indicates were newly introduced in that lesson</em> (e.g. babse6 / banbese6 on Sep 4). The heuristic must be replaced by an explicit Amal signal (after-link answer, chat, or grace-period Doc addition).</li>
+<li><code>models/dialect-ct2</code> local Whisper (untracked, unused by the pipeline).</li>
+</ul>
+<h3 id="44-where-docs-contradict-code">4.4 Where docs contradict code</h3>
+<p><code>README.md</code> ("nothing built yet"), <code>plan/graph.yaml</code> (<code>now: [V0, T1, T2]</code>), <code>plan/constants.md</code> (engines, secrets, capture, retention, FSRS) and the blueprint mind map all describe a project that does not exist. <code>plan/HANDOFF-2026-09-05.md</code> and <code>OVERNIGHT-LOG.md</code> are accurate. The task graph should be regenerated from the repo, not edited.</p>
+<h3 id="45-can-raw-evidence-be-overwritten">4.5 Can raw evidence be overwritten?</h3>
+<p><code>scribe.json</code> is written once and never rewritten (good). But it is gitignored, unhashed, and exists only on this PC; Supabase holds derived rows; GitHub Pages holds derived clips. There is no immutable evidence store and no hash chain from audio → Scribe output → events. Codex's benchmark manifest did this properly; the production pipeline does not.</p>
+<h3 id="46-speaker-attribution">4.6 Speaker attribution</h3>
+<p>Not trustworthy on Meet mixed audio. The Sep-4 Scribe output puts almost every word on <code>speaker_0</code>; the pitch fallback leaves ~14 % unlabeled and mislabels ambiguous tokens; the "more Arabic = Amal" rule is nonstationary (Codex is right). Named tracks are the only fix. Until then every per-speaker number is an estimate and the pages already say so.</p>
+<h3 id="47-retries-idempotency-retention-deletion-failure-notices">4.7 Retries, idempotency, retention, deletion, failure notices</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Contract</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scribe retry ×3 with backoff</td>
+<td>implemented (<code>pipeline_ext.transcribe_with_retry</code>)</td>
+</tr>
+<tr>
+<td>Budget stop</td>
+<td>implemented</td>
+</tr>
+<tr>
+<td>Failure email, Medi only</td>
+<td>implemented</td>
+</tr>
+<tr>
+<td>Idempotent re-run</td>
+<td>yes, by filename; cached <code>scribe.json</code> reused</td>
+</tr>
+<tr>
+<td>90-day audio deletion</td>
+<td><strong>not implemented</strong></td>
+</tr>
+<tr>
+<td>Amal deletion request</td>
+<td><strong>no path</strong></td>
+</tr>
+<tr>
+<td>OpenAI calls (suggest / after questions) retry</td>
+<td>not verified in this audit</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="48-can-publishing-claim-success-before-it-is-durable">4.8 Can publishing claim success before it is durable?</h3>
+<p><strong>Yes, still, for the report.</strong> <code>build_report.build()</code> writes <code>docs/lessons/&lt;date&gt;-report.html</code>, cuts clips into <code>docs/lessons/&lt;date&gt;/clips/</code>, and sends the report email; nothing in <code>build_report.py</code> or <code>pipeline_ext.py</code> commits or pushes. The transcript email is safe (its <code>publish()</code> raises on push failure), the report email is not. The morning checklist's step 5 ("404 → run git push") is the symptom. The Sep-4 report page reached GitHub only through manual commits later that morning.</p>
+<p>Second fragility: the Sep-4 lesson was first <strong>skipped</strong> ("arabic share 0.11 → not an Arabic lesson") although the pre-check measured 0.49, and was rescued only by the chat-sidecar rule added afterwards. Today's 13:30 lesson is skipped again if Amal does not type in chat and the post-hoc share is &lt; 0.12. A code-switched lesson with long English explanations fails a 12 % gate.</p>
+<h3 id="49-public-exposure">4.9 Public exposure</h3>
+<ul>
+<li>Anyone can insert <code>card_results</code> with the public anon key (known P1).</li>
+<li>31 dead Amal tokens sit in two public commits (verified dead by Codex; low risk).</li>
+<li>Lesson transcripts and Amal's voice clips are public on GitHub Pages. Amal has not been asked. See Section 5.13.</li>
+</ul>
+<hr />
+<h2 id="5-phase-5-independent-verdict">5. Phase 5: independent verdict</h2>
+<h3 id="51-bottom-line">5.1 Bottom line</h3>
+<p>Keep <strong>ElevenLabs Scribe v2 on the full track</strong> as the raw evidence transcriber. Do not chunk it. Stop searching for a replacement engine until (a) two named tracks exist and (b) 100 Amal-adjudicated events exist to score against. The next direct engine tests, in order and only after (a): xAI, Voxtral Mini Transcribe V2, CrisperWhisper on Medi's own track. Gemini, Fish, Cohere, Inworld: no test now.</p>
+<h3 id="52-where-i-agree-with-codex-material">5.2 Where I agree with Codex (material)</h3>
+<ol>
+<li>ElevenLabs remains the best operational evidence pass on this sample; my learner-event recount widens, not narrows, its lead on the full-lesson configuration.</li>
+<li>Clip 14 "Buset" is vocabulary poisoning (now shown acoustically).</li>
+<li>Vocabulary prompts belong only in a labelled secondary arm; never in the primary pass.</li>
+<li>Speaker identity must come from capture, not diarization; Gemini's diarization arm and Melia's six clusters both support this.</li>
+<li>CrisperWhisper is not a mixed-track primary; its loops are real and mechanically reproducible.</li>
+<li>Fish must not receive Amal's audio without informed consent to training terms; the schema offers no controls that would justify the risk.</li>
+<li>StepAudio and current Cartesia fail the language gate.</li>
+<li>xAI is the highest-value untested commercial challenger.</li>
+<li>No WER or accuracy claim is possible without human verbatim gold; the report's own caveats are correct.</li>
+<li>The project's mixed-channel capture and the report/README contradictions are P0/P1 problems.</li>
+</ol>
+<h3 id="53-where-i-disagree-material">5.3 Where I disagree (material)</h3>
+<ol>
+<li><strong>"ES 16/20" was never judged</strong>; it was copied from E. Honest ES is 15/20 with the rubric applied symmetrically.</li>
+<li><strong>Clip 16, not clip 14, is the cleanest poisoning example</strong>, and Codex counted it as a recovery.</li>
+<li><strong>The anchor-family rubric rewards the failure Anees fears most</strong>: <code>GV</code> clip 17 (form VII → form I) and clip 11 ("I mean" → "Ya3ni") were credited or unnoticed.</li>
+<li><strong>Short windows are a confound Codex did not test.</strong> Scribe itself drops from 8/8 to 5/8 learner events between the full-lesson and 25-second configurations. Every challenger was tested only on 25-second chunks. Codex's Stage-1 advice to run production in 2–5-minute chunks is contrary to the one piece of direct evidence on chunking.</li>
+<li><strong>Cohere Transcribe Arabic was overstated in the 09-04 report</strong> ("built for … code-switching"); the model card says code-switching is inconsistent, Casablanca WER is 49.7 %, and there are no timestamps.</li>
+<li><strong>Voxtral Transcribe 2 and Munsit were missed</strong>; Voxtral is cheaper than Scribe, timestamped, diarizing and self-hostable.</li>
+<li><strong>"One 429"</strong> is not what happened (≥ 20 rate-limit/5xx responses).</li>
+<li><strong>The report-page publish path still announces success before the page is pushed</strong>; Codex's 09-04 P0 was only half fixed and the overnight report does not say so.</li>
+</ol>
+<h3 id="54-true-but-overstated">5.4 True but overstated</h3>
+<ul>
+<li>"ElevenLabs preserves more of the conjugation drill without a runaway loop" — true, but ES also replaced Amal's Arabic with <code>[speaking Arabic]</code> tags and invented "Dania"; token counts hide both.</li>
+<li>"xAI documents word timestamps/confidence" — timestamps yes, confidence no.</li>
+<li>"xAI <code>format=false</code> avoids normalization" — it disables inverse text normalization (numbers, currency), nothing about disfluencies.</li>
+<li>"Inworld Arabic is experimental" — the current docs do not say so; the source page moved.</li>
+<li>"Gemini's diarization arm returned no machine-readable annotations" — true for this run; the SDK version is unrecorded, so "operational failure of the exact tested configuration" cannot be separated from "SDK dropped the field".</li>
+<li>"CrisperWhisper's standard weights are research-only; production licensing must be considered separately" — the licence text says non-commercial use is free; Anees is non-commercial. Check, do not assume either way.</li>
+<li>"Speechmatics names Palestinian" (wiki 13) — the languages page says "the Levant".</li>
+</ul>
+<h3 id="55-methodological-errors-that-could-reverse-the-ranking">5.5 Methodological errors that could reverse the ranking</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Effect if corrected</th>
+<th>Reverses?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ES anchors copied from E</td>
+<td>ES 16 → 15</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Family rubric credits wrong-form and inserted words</td>
+<td>GV 14 → ≤ 11; ES 16 → 15; E stays 16</td>
+<td>No</td>
+</tr>
+<tr>
+<td>25-s windows for all challengers</td>
+<td>unknown for xAI/Voxtral; Gemini <code>GV</code> might gain on full tracks</td>
+<td>Could narrow; cannot be known without a full-track test</td>
+</tr>
+<tr>
+<td>Tags counted as tokens</td>
+<td>ES 725 → 713; CW 849 → 807, 997 → 759</td>
+<td>No</td>
+</tr>
+<tr>
+<td>One lesson, one verb family, mixed audio, no gold</td>
+<td>all rankings are sample-specific</td>
+<td>Any ranking could move on a different lesson; that is why the gold set comes first</td>
+</tr>
+</tbody>
+</table></div>
+<p>Nothing found reverses "Scribe full-lesson ≥ every tested alternative on this sample". The evidence that it <em>stays</em> first on Medi's own track, on a different lesson, does not exist yet.</p>
+<h3 id="56-my-ranked-table-for-aneess-objective-not-for-readable-prose">5.6 My ranked table (for Anees's objective, not for readable prose)</h3>
+<p>Metric: learner-event preservation on the 8 timeline-verified events (Section 2.3), then controls and cost. Direct evidence unless marked.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Engine / configuration</th>
+<th>Events /8</th>
+<th>Why here</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>ElevenLabs Scribe v2, full track, no keyterms, <code>no_verbatim=false</code>, word timestamps</td>
+<td>8</td>
+<td>Only output that kept every attempt, false start and correction; logprob per word; multichannel</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ElevenLabs Scribe v2, 25-s chunks</td>
+<td>5</td>
+<td>Same engine, worse by the window; tags replace content</td>
+</tr>
+<tr>
+<td>3</td>
+<td>OpenAI <code>gpt-transcribe</code>, strict prompt</td>
+<td>4.5</td>
+<td>Keeps self-repairs it hears, removes fillers, no word timestamps</td>
+</tr>
+<tr>
+<td>4</td>
+<td>CrisperWhisper 2.0 medium, auto (Medi-heavy audio only)</td>
+<td>4</td>
+<td>Best Latin rendering of stumbles; collapses on fluent Arabic; loops</td>
+</tr>
+<tr>
+<td>5</td>
+<td>CrisperWhisper 2.0 medium, forced <code>ar</code></td>
+<td>4</td>
+<td>Same, plus <code>[fart]</code> and three loops</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Gemini 3.5 Transcribe, local vocabulary</td>
+<td>3</td>
+<td>Recovers forms by prompting; inserted three unspoken items</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Speechmatics Melia, auto</td>
+<td>3</td>
+<td>Clean, compressed, no cut-offs</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Gemini bilingual hints</td>
+<td>1.5</td>
+<td>Drops English around Arabic</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Gemini diarization</td>
+<td>1.5</td>
+<td>Fused text, no speakers</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Gemini auto verbatim</td>
+<td>0</td>
+<td>Omits whole stretches (25 s empty on clip 5)</td>
+</tr>
+<tr>
+<td>untested</td>
+<td>xAI STT ($0.10/h, fillers on, timestamps, multichannel)</td>
+<td>—</td>
+<td>First to test after two-track capture</td>
+</tr>
+<tr>
+<td>untested</td>
+<td>Voxtral Mini Transcribe V2 ($0.18/h, timestamps, diarization, Apache 2.0 realtime weights)</td>
+<td>—</td>
+<td>Second</td>
+</tr>
+<tr>
+<td>untested</td>
+<td>Inworld, Cohere, Munsit, Azure custom, Chirp 3, Deepgram</td>
+<td>—</td>
+<td>Gated by language fit, consent, or missing timestamps</td>
+</tr>
+<tr>
+<td>refused</td>
+<td>Fish</td>
+<td>—</td>
+<td>Training terms; no controls</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="57-should-elevenlabs-remain-primary">5.7 Should ElevenLabs remain primary?</h3>
+<p>Yes, as the <strong>raw evidence layer on full named tracks</strong>, with three conditions: confirm STT zero-retention or accept the default retention in writing with Amal; pin <code>model_id</code>, <code>no_verbatim=false</code>, <code>timestamps_granularity=word</code>, no <code>keyterms</code>; add golden regression clips (clips 9, 17, 18, 19 above) that fail the build if a future Scribe release starts correcting them.</p>
+<h3 id="58-who-deserves-another-direct-test-in-order">5.8 Who deserves another direct test, in order</h3>
+<ol>
+<li><strong>xAI</strong> — $0.03 for the frozen 20 + one full Medi track; <code>filler_words=true</code>, <code>format=false</code>, <code>vad_threshold=0</code>, no keyterms; then a second arm with ≤ 100 keyterms to measure insertion rate against the E timeline.</li>
+<li><strong>Voxtral Mini Transcribe V2</strong> — same protocol; also self-host the Realtime weights on the 4070 Ti to remove the retention question entirely.</li>
+<li><strong>CrisperWhisper 2.0</strong> — only on Medi's separate track, CTranslate2 backend, <code>small</code> and <code>large</code>, with loop detection as a hard gate. Purpose: a stumble-renderer arm, never truth.</li>
+<li><strong>Gemini <code>GV</code></strong> — not as a transcriber; as a <em>hypothesis generator</em> on flagged 10-s clips, with its output shown next to the unprompted text and its vocabulary list logged.</li>
+<li><strong>Inworld</strong> — only with a written no-training term.</li>
+<li><strong>Cohere Transcribe Arabic</strong> — only on Amal's Arabic-only track, self-hosted, and only if a timestamp path (forced alignment) exists.</li>
+<li><strong>Fish</strong> — only after Amal's informed consent to the training clause; expected value low.</li>
+</ol>
+<h3 id="59-would-a-multi-engine-ensemble-help">5.9 Would a multi-engine ensemble help?</h3>
+<p>Only as a <strong>disagreement detector</strong>, never as a merged transcript. Evidence from this sample: <code>GV</code> inserts prompted words, ES emits tags instead of words, CrisperWhisper loops, OpenAI deletes fillers. A majority vote across those would launder each engine's confident error into the "consensus". Useful pattern: run one unprompted second engine on Medi's track only; where its tokens disagree with Scribe inside a 10-s window that already contains an interaction signal (Amal correction, gap, self-repair), raise that window's rank and show both hypotheses to Amal. Vocabulary-prompted arms never vote.</p>
+<h3 id="510-the-architecture-i-would-build">5.10 The architecture I would build</h3>
+<pre><code class="language-mermaid">flowchart TD
+  A[Ennuicastr room on Android&lt;br/&gt;continuous, named tracks Medi + Amal + chat] --&gt; B[Ingest: hash tracks, chat, Doc snapshot&lt;br/&gt;lesson id = session id + content hashes]
+  B --&gt; C[(Immutable evidence store&lt;br/&gt;audio, Scribe JSON, config, hashes; append-only)]
+  C --&gt; D1[Scribe v2 full Medi track&lt;br/&gt;no keyterms, verbatim, word times, logprob]
+  C --&gt; D2[Scribe v2 full Amal track&lt;br/&gt;same config]
+  D1 --&gt; E[Timeline merge by timestamp&lt;br/&gt;overlaps kept, silences kept]
+  D2 --&gt; E
+  B --&gt; E
+  E --&gt; F[Interaction detector&lt;br/&gt;gap, ask, recast, correction, self-repair, chat ±120 s, low logprob run]
+  G[(Vocabulary snapshots&lt;br/&gt;start-of-lesson and post-grace)] --&gt; F
+  F --&gt; H[Rank and cap: 20 events + 3 random rejected]
+  H --&gt; I[Optional second opinion on Medi clips only&lt;br/&gt;xAI or CrisperWhisper, unprompted; disagreement raises rank]
+  H --&gt; J[Amal inbox: Arabic + 5-12 s audio + one tap&lt;br/&gt;correct / edit / variant / not an error / new word]
+  J --&gt; K[Medi cards: Arabizi + audio + Amal's target]
+  J --&gt; L[(Gold labels: event, verbatim, target, type, time-to-review)]
+  L --&gt; F
+  L --&gt; M[Engine regression gate&lt;br/&gt;golden clips must keep stumbles]
+</code></pre>
+<p>Rules baked in: the evidence store is append-only; every derived row carries the evidence hash; canonical Arabic/Arabizi are annotations linked to spans, never edits; nothing is emailed or linked until the page is pushed and fetched back with HTTP 200; no per-speaker number is published from a mixed track.</p>
+<h3 id="511-minimum-human-gold-dataset-before-claiming-improvement">5.11 Minimum human-gold dataset before claiming improvement</h3>
+<ul>
+<li><strong>5 lessons × 20 adjudicated events = 100 events</strong>, each with: exact Medi words as heard (fillers, fragments), Amal's target, event type, valid-variant flag, importance, speaker + times, review seconds.</li>
+<li><strong>Plus 10 minutes of fully verbatim Medi-track transcript per lesson (50 minutes)</strong> labelled by Amal, so WER/CER on learner speech is computable at all.</li>
+<li><strong>Plus 20 random rejected candidates per lesson</strong> so recall of the top-20 is measured, not assumed.</li>
+<li>Split: 3 lessons development, 2 lessons frozen hold-out; inter-rater check on 20 items (Medi listens, Amal labels).</li>
+<li>Until this exists, no engine may be called better; the word is "different".</li>
+</ul>
+<h3 id="512-milestones-with-acceptance-criteria">5.12 Milestones with acceptance criteria</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Milestone</th>
+<th>Accept when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>5-minute Ennuicastr pilot on Medi's phone</td>
+<td>download contains two named tracks + machine-readable chat; reconnect test passes; continuous (no-VAD) tier confirmed or FLAC used</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Evidence store + full-track Scribe per track</td>
+<td>audio and Scribe hashes recorded; re-run is byte-identical; golden clips 9/17/18/19 keep their stumbles</td>
+</tr>
+<tr>
+<td>C</td>
+<td>Report/email transaction fix</td>
+<td>no email leaves before <code>git push</code> succeeds and the page returns 200; test exists</td>
+</tr>
+<tr>
+<td>D</td>
+<td><code>new</code> bucket from Amal's signal</td>
+<td><code>new</code> rows only from after-link "new words" / chat / grace-period Doc additions; heuristic removed; test exists</td>
+</tr>
+<tr>
+<td>E</td>
+<td>Top-20 inbox</td>
+<td>Amal completes one real inbox unaided; median and p90 seconds recorded; ≥ 85 % accepted or usefully edited</td>
+</tr>
+<tr>
+<td>F</td>
+<td>Gold set (5.11)</td>
+<td>100 events + 50 verbatim minutes + rejected sample labelled; hold-out frozen</td>
+</tr>
+<tr>
+<td>G</td>
+<td>Challenger test (xAI, Voxtral)</td>
+<td>preregistered; scored on hold-out; replacement only if learner-event recall or verbatim WER improves without more insertions, speaker errors or review time</td>
+</tr>
+<tr>
+<td>H</td>
+<td>Pause analysis</td>
+<td>separate tracks ≥ 3 lessons; causes labelled; personal threshold fitted</td>
+</tr>
+<tr>
+<td>I</td>
+<td>Known-target phonetics</td>
+<td>30–50 attempt/reference pairs; ranking gain vs Amal labels or drop it</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="513-privacy-and-consent-policy-medi-and-amal">5.13 Privacy and consent policy (Medi and Amal)</h3>
+<ol>
+<li>Amal is told, in one page, in Arabic and English: what is recorded (her voice, chat), where it is stored (this PC, Google Drive, ElevenLabs for processing, Supabase for derived rows, GitHub Pages for clips), for how long (raw audio 90 days, clips while the word exists), who can see it (public pages: yes for clips today), and how to delete any lesson (one message to Medi; deletion within 7 days, logged).</li>
+<li>No new provider receives her audio without a named data-use statement she has seen; providers whose terms allow training (Fish, Inworld by policy, Cartesia) are off unless she accepts in writing.</li>
+<li>ElevenLabs: obtain the STT retention terms in writing or enable enterprise ZRM; record which applies.</li>
+<li>Public GitHub Pages: either make clip pages token-gated like Amal's links, or get Amal's explicit yes to public clips of her voice.</li>
+<li>Medi's own data: raw speak attempts 30 days; cards and reviews kept; export on request.</li>
+<li>Every consent is a row with date, text shown, and answer.</li>
+</ol>
+<h3 id="514-a-20-item-amal-workflow-that-can-reach-35-minutes">5.14 A 20-item Amal workflow that can reach 3–5 minutes</h3>
+<ul>
+<li>One link, one screen per item, no scrolling; the item is a 5–12 s clip auto-playing once, Medi's attempt in Arabic script (and Latin if the engine wrote Latin), the machine's guessed target, and four buttons: <strong>صح</strong> (right), <strong>غلط كلمة</strong> (wrong word), <strong>غلط قواعد</strong> (wrong grammar), <strong>مش مدي</strong> (not Medi / not an error). A fifth small control: <strong>كلمة جديدة</strong> (new word) which is the only source of the <code>new</code> bucket.</li>
+<li>Edit is a single Arabic text field that appears only after "wrong"; default target is prefilled so one tap keeps it.</li>
+<li>Order: explicit corrections first (cheapest to judge), then gaps, then self-repairs, then low-logprob runs.</li>
+<li>Budget: 20 × 12 s of audio = 4 min of listening; taps are free. Instrument seconds per item and plays per item; stop adding item types until p90 &lt; 15 s.</li>
+<li>Three of the 20 are random rejected candidates, labelled as such after the session, to measure recall.</li>
+</ul>
+<h3 id="515-later-pause-retrieval-analysis">5.15 Later pause / retrieval analysis</h3>
+<p>Only on Medi's separate track. Silence intervals from audio energy + VAD, not from text fillers. Label the first 100 pauses &gt; 1.2 s by cause (Amal speaking on her track, reading chat, thinking, retrieval, network) using the merged timeline; fit a personal threshold from the retrieval-labelled subset; report as a candidate signal into the ranker, never as a standalone "error".</p>
+<h3 id="516-known-target-phonetic-analysis">5.16 Known-target phonetic analysis</h3>
+<p>For each Amal-confirmed correction where both an attempt (Medi track) and a reference (Amal track) exist within 15 s: forced-align both to the Palestinian target's phone string (Maknuune phonology as the dictionary seed, Amal overrides); compute per-phone goodness-of-pronunciation and DTW distance between attempt and reference; validate against Amal's "pronunciation" labels on 30–50 pairs. Ship only if it improves candidate ranking; never show a phone score to Medi without Amal's label beside it.</p>
+<h3 id="517-what-to-build-next-inside-cdevanees-do-not-build-yet">5.17 What to build next inside <code>C:\dev\anees</code> (do not build yet)</h3>
+<ol>
+<li>Report-email transaction: push-then-verify-then-email (Section 4.8).</li>
+<li>Lesson gate: replace the 12 % post-hoc share with "pre-check share OR chat OR Doc-word hits ≥ N", so a Sep-4-style lesson is never skipped.</li>
+<li>Evidence hashing: record SHA-256 of audio and <code>scribe.json</code> in <code>summary.json</code> and Supabase; copy <code>scribe.json</code> to a second location.</li>
+<li><code>new</code> bucket from Amal's signal; remove the heuristic.</li>
+<li>Ingest path for a two-track package (two mono files + chat), with a hard refusal when a named track is missing.</li>
+<li>Golden regression test with clips 9, 17, 18, 19.</li>
+<li>90-day deletion job and an Amal deletion path.</li>
+<li>Move the mail sender's secrets and dependency out of the Alchemy folder.</li>
+</ol>
+<h3 id="518-delete-deprecate-or-rewrite-in-the-existing-plans">5.18 Delete, deprecate or rewrite in the existing plans</h3>
+<ul>
+<li>Rewrite <code>README.md</code> status line and regenerate <code>plan/graph.yaml</code> from the repo.</li>
+<li>Rewrite <code>constants.md</code> rows: Engines (ElevenLabs full-track primary; no Speechmatics/wav2vec2 claim), Secrets (state the truth), Recording (pick one capture design), Retention (mark as not implemented until it is).</li>
+<li>Deprecate the blueprint mind map; replace with the diagram in 5.10.</li>
+<li>Deprecate wiki 13's "Palestinian named" for Speechmatics and the Zencastr mentions; add Voxtral and Munsit rows as untested.</li>
+<li>In the engine report page: replace "15/20 blind vote" phrasing with the exact comparison set (ElevenLabs vs Speechmatics vs local Whisper; OpenAI not included), and remove any wording that reads as accuracy.</li>
+<li>In Codex's overnight report: correct items 1.2 (1, 3, 4, 5, 9), re-label clip 16 as the poisoning example, and add the E-vs-ES window finding.</li>
+</ul>
+<h3 id="519-roadmap">5.19 Roadmap</h3>
+<pre><code class="language-mermaid">gantt
+  title Anees roadmap (weeks from 2026-09-08)
+  dateFormat  YYYY-MM-DD
+  section Capture
+  Ennuicastr 5-min pilot            :a1, 2026-09-08, 3d
+  First two-track lesson             :a2, after a1, 7d
+  section Evidence
+  Report push transaction + gate fix :b1, 2026-09-08, 4d
+  Evidence hashing + golden clips    :b2, after b1, 5d
+  Two-track ingest                   :b3, after a1, 7d
+  section Review loop
+  new bucket from Amal signal        :c1, 2026-09-08, 3d
+  Top-20 inbox, timed                :c2, after b3, 10d
+  Gold set, 5 lessons                :c3, after c2, 35d
+  section Engines
+  xAI + Voxtral preregistered test   :d1, after c3, 7d
+  CrisperWhisper on Medi track       :d2, after d1, 7d
+  section Later
+  Pause analysis                     :e1, after c3, 14d
+  Known-target phonetics             :e2, after e1, 21d
+</code></pre>
+<h3 id="520-the-five-decisions-i-need-from-medi">5.20 The five decisions I need from Medi</h3>
+<ol>
+<li><strong>Capture:</strong> Ennuicastr on your phone as the call itself (replacing Meet), or Meet plus a second recorder on the PC? Everything downstream depends on named tracks.</li>
+<li><strong>Public clips:</strong> keep Amal's voice clips public on GitHub Pages, or token-gate lesson pages the way her links are gated?</li>
+<li><strong>Retention:</strong> accept ElevenLabs default retention for now, or block routine processing until STT zero-retention is confirmed?</li>
+<li><strong>The <code>new</code> signal:</strong> which single source defines it — Amal's after-link answer, the Meet chat, or the Doc grace-period diff?</li>
+<li><strong>Engine testing:</strong> freeze engine work until the 100-event gold set exists (my recommendation), or run the $0.05 xAI/Voxtral clip test now for information only?</li>
+</ol>
+<hr />
+<h2 id="6-cross-reference-against-the-master-vocabulary-doc-snapshot-2026-09-05-1035-2120-words">6. Cross-reference against the master vocabulary Doc (snapshot 2026-09-05 10:35, 2,120 words)</h2>
+<p>Medi asked whether every word was checked against the master Doc. Result, using the project's own matcher (<code>scripts/arabizi.py</code>, exact → loose → skeleton → fuzzy):</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Amal's Sep-4 typed form</th>
+<th>Doc match</th>
+<th>Meaning for Anees</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Na7el, Mabsoo6, Babse6, Banbese6</td>
+<td>exact (<code>na7el</code>, <code>mabsU6</code>, <code>ana babse6</code>, <code>banbese6</code>)</td>
+<td>known lemmas</td>
+</tr>
+<tr>
+<td>Basa6, Basa6ni, Byebse6ni, Btebse6i, Bnebse6o, Basa6tek, Hasa6to, Enbasa6, Enbasa6ti, Enbasa6u, Btenbese6i, Enbes6i</td>
+<td><strong>not in Doc</strong></td>
+<td>conjugations of Doc verbs (<code>Ana babse6</code>, <code>Byebse6</code>, <code>Enbese6</code>, <code>Banbese6</code>); the Doc stores lemmas, not paradigms, so single-form matching fails and only <code>family_key</code> (consonant skeleton) finds them</td>
+</tr>
+<tr>
+<td>Baboos, Buset</td>
+<td><strong>not in Doc</strong></td>
+<td>genuinely new words Amal introduced (kiss / I kissed) — exactly Medi's definition of <strong>new</strong>: Amal indicated them, the Doc does not have them yet</td>
+</tr>
+<tr>
+<td>ne6la3</td>
+<td>present only inside the sentence "Bra2yak laazem ne6la3?"</td>
+<td>words embedded in multi-word Doc entries are invisible to word-level matching; Medi's "nitla" mispronunciation (clip 18) therefore has no standalone Doc target to score against</td>
+</tr>
+<tr>
+<td>biyoamek, bisafrethom</td>
+<td>not in Doc</td>
+<td>prepositional phrases built from Doc nouns (<code>yoam</code>, <code>safra</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Also in the Doc and relevant to the clips: <code>a7san / أحسن / Better</code>, <code>Aktar / أكتر / More</code>, <code>Aktar shee / أكتر شيء / The most</code> (clip 21 word-choice slip), <code>Hada / هادا</code> (clip 19), <code>7afle / حفلة</code> (clip 16), <code>Ya3ni / يعني</code> (the word <code>GV</code> inserted for "I mean" in clip 11), <code>mneeh / منيح</code> (what OpenAI heard for Medi's "sameeh" guess in clip 2 — the Doc has مُنيح, not سميح, so "sameeh" is an out-of-list learner form and should have been flagged, not silently corrected). Codex's <code>GV</code> vocabulary lists were built from these Doc pairs plus nearby chat, which is why <code>Buset</code> and <code>Ya3ni</code> were available to be inserted.</p>
+<p>Consequences for the build: (1) the <code>new</code> bucket must be fed by Amal's indication (chat / after-link / grace-period Doc diff against the lesson-start snapshot), which is precisely what "not in Doc but typed by Amal" gives; (2) matching needs morphology (the existing <code>family_key</code>) at first tier, not last; (3) multi-word Doc entries should be tokenized so <code>ne6la3</code> is a target.</p>
+<h2 id="appendix-a-reproduction-commands">Appendix A: reproduction commands</h2>
+<pre><code class="language-bash"># bundle + clip hashes
+python - &lt;&lt;'EOF'
+import hashlib,json
+m=json.load(open('prior-benchmark/manifest.json',encoding='utf-8'))
+for w in m['windows']:
+    d=hashlib.sha256(open(f&quot;prior-benchmark/clips/clip-{w['index']:02d}.mp3&quot;,'rb').read()).hexdigest()
+    print(w['index'], d.upper()==w['clip_sha256'])
+EOF
+# retry undercount
+python -c &quot;import json,collections;g=json.load(open('overnight/results-gemini-3.5-transcribe.json',encoding='utf-8'));print(collections.Counter(r['attempt'] for r in g))&quot;
+# loop flags, mechanical
+python - &lt;&lt;'EOF'
+import json,re
+c=json.load(open('overnight/results-crisperwhisper-2-medium.json',encoding='utf-8'))
+for r in c['results']:
+    t=[x.lower() for x in re.findall(r&quot;\[[A-Za-z-]+\]|[A-Za-z0-9]+(?:['’-][A-Za-z0-9]+)*|[\u0600-\u06ff]+&quot;,r['text'])]
+    run=best=1
+    for i in range(1,len(t)): run=run+1 if t[i]==t[i-1] else 1; best=max(best,run)
+    if best&gt;=8: print(r['arm'],r['clip_id'],best)
+EOF
+</code></pre>
+<h2 id="appendix-b-acoustic-measurements-used">Appendix B: acoustic measurements used</h2>
+<p>Clip 14 first-vowel formants (LPC order 12, 30 ms loudest frame of the first syllable, 16 kHz):</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Time (s)</th>
+<th>f0</th>
+<th>F1</th>
+<th>F2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in-window "basat."</td>
+<td>2972.42</td>
+<td>232</td>
+<td>806</td>
+<td>1319</td>
+</tr>
+<tr>
+<td>in-window "basat"</td>
+<td>2973.68</td>
+<td>217</td>
+<td>663</td>
+<td>1261</td>
+</tr>
+<tr>
+<td>in-window "basat-"</td>
+<td>2979.84</td>
+<td>191</td>
+<td>591</td>
+<td>1438</td>
+</tr>
+<tr>
+<td>reference "Buset." (Amal)</td>
+<td>2940.84</td>
+<td>251</td>
+<td>483</td>
+<td>1268</td>
+</tr>
+<tr>
+<td>reference "buset." (Amal)</td>
+<td>2942.94</td>
+<td>226</td>
+<td>453</td>
+<td>1089</td>
+</tr>
+<tr>
+<td>reference "Basat." (clip 13)</td>
+<td>2911.86</td>
+<td>211</td>
+<td>850</td>
+<td>1722</td>
+</tr>
+<tr>
+<td>reference "Basat." (clip 13)</td>
+<td>2914.16</td>
+<td>125</td>
+<td>734</td>
+<td>1176</td>
+</tr>
+<tr>
+<td>reference "Basatne." (clip 3)</td>
+<td>1823.92</td>
+<td>134</td>
+<td>725</td>
+<td>1310</td>
+</tr>
+</tbody>
+</table></div>
+<p>Per-word pitch labels for all 20 clips are in the audit scratch file <code>pitch_words.txt</code> (Medi &lt; 160 Hz, Amal &gt; 185 Hz).</p>
+</main><script src="../js/build.js"></script><script src="../js/stale.js"></script></body></html>

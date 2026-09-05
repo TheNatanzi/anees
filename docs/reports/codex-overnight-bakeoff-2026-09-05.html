@@ -1,0 +1,798 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Overnight bake-off: Gemini 3.5 Transcribe and CrisperWhisper 2.0</title><style>:root{--bg:#F4F6F2;--bg2:#fff;--ink:#1B2620;--mute:#5B6A62;--line:#D6DDD8;--teal:#0F6E56;--amber:#B26F0E}
+@media(prefers-color-scheme:dark){:root{--bg:#0F1613;--bg2:#17211C;--ink:#E7EDE9;--mute:#9BAAA2;--line:#2A3630;--teal:#4FC4A2;--amber:#E7A93B}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif}
+main{max-width:860px;margin:0 auto;padding:14px 12px 60px} h1{font-size:26px;line-height:1.2} h2{font-size:21px;margin:30px 0 8px;border-top:1px solid var(--line);padding-top:10px} h3{font-size:17px;margin:20px 0 6px}
+.top{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:5} .top .in{max-width:860px;margin:0 auto;padding:10px 12px 0}
+.brand{display:flex;align-items:baseline;gap:10px} .brand b{font-size:20px} .brand span{color:var(--mute);font-size:13px}
+.top nav{display:flex;gap:4px;overflow-x:auto;padding:6px 0;scrollbar-width:none} .top nav::-webkit-scrollbar{display:none}
+.top .tab{flex:0 0 auto;min-height:44px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:999px;padding:8px 14px;font:600 15px system-ui;text-decoration:none;display:inline-flex;align-items:center} .top .tab.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.lead{color:var(--mute);font-size:14px} .tbl{overflow-x:auto} table{border-collapse:collapse;width:100%;font-size:14px;background:var(--bg2);border:1px solid var(--line)} th,td{padding:6px 8px;border-top:1px solid var(--line);vertical-align:top;text-align:left}
+code,pre{font:13px ui-monospace,Consolas,monospace} pre{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px;overflow-x:auto} blockquote{border-left:4px solid var(--teal);margin:10px 0;padding:4px 12px;color:var(--mute)}
+img{max-width:100%} a{color:var(--teal)}</style></head><body>
+<header class="top"><div class="in"><div class="brand"><b>Anees</b><span>Palestinian Arabic with Amal · Medi's companion</span></div><nav><a class="tab" href="../index.html#today">Today</a><a class="tab" href="../index.html#lessons">Lessons</a><a class="tab" href="../index.html#words">Words</a><a class="tab" href="../index.html#cards">Flashcards</a><a class="tab" href="../index.html#amal">Amal</a><a class="tab" href="../index.html#grammar">Grammar</a><a class="tab on" href="../index.html#ai-reports">AI reports</a><a class="tab" href="../index.html#ai-rules">AI rules</a><a class="tab" href="../index.html#future">Future projects</a></nav></div></header>
+<main><p class="lead">AI report · built from <code>anees-overnight-asr-bakeoff-report-2026-09-05.md</code> · <a href="../index.html#ai-reports">back to AI reports</a></p>
+<h1 id="anees-overnight-asr-bake-off-full-findings-and-recommendation">Anees overnight ASR bake-off: full findings and recommendation</h1>
+<p><strong>Prepared:</strong> 2026-09-05<br />
+<strong>For:</strong> Medi, Amal, Claude, and the engineer who will build Anees<br />
+<strong>Question:</strong> Can Gemini, xAI, Inworld, Fish Audio, StepAudio, Cartesia, or a newly found local model produce a better evidence transcript than ElevenLabs for English–Palestinian-Arabic tutoring?<br />
+<strong>Priority:</strong> Preserve what Medi actually said—including mistakes, hesitations, repetitions, false starts, and uncertain pronunciations—rather than silently repairing it.<br />
+<strong>Status:</strong> Independent overnight extension to the 2026-09-04 full project analysis. All accessible and ethically authorized runs are complete. Missing-provider outputs are explicitly marked missing; none were invented.</p>
+<h2 id="executive-verdict">Executive verdict</h2>
+<p><strong>Do not replace ElevenLabs Scribe v2 as Anees’s primary evidence transcriber yet.</strong></p>
+<p>The overnight work produced two genuinely new direct tests:</p>
+<ol>
+<li><strong>Gemini 3.5 Transcribe:</strong> 80 successful calls—four configurations across the same twenty frozen 25-second lesson clips. Its dedicated <code>verbatim</code> mode and multilingual documentation looked unusually well matched to Anees. It still produced substantially less learner evidence than ElevenLabs. The best vocabulary-biased arm recovered 14/20 credible chat-anchor families, versus 16/20 for ElevenLabs, and also inserted at least one target form at a time where the audio window did not support it. The diarization arm returned no machine-readable word/speaker annotations in this run.</li>
+<li><strong>CrisperWhisper 2.0 Medium:</strong> 40 successful local calls—automatic and Arabic-forced configurations—on an RTX 4070 Ti. It explicitly emits fillers, sounds, repetitions, and fragments and keeps audio local. It recovered only 7/20 and 8/20 anchor families, emitted almost no Arabic script, and produced pathological repetition loops on one automatic clip and three Arabic-forced clips.</li>
+</ol>
+<p>The advertisement that triggered this review compares <strong>text-to-speech (TTS)</strong> prices. Anees needs <strong>speech-to-text (STT)</strong>. I researched the corresponding STT offerings rather than treating a speech-generation price chart as an accuracy benchmark.</p>
+<p>The full provider verdict is:</p>
+<ul>
+<li><strong>ElevenLabs Scribe v2:</strong> keep as the primary raw-evidence pass.</li>
+<li><strong>xAI Speech-to-Text:</strong> highest-priority commercial challenger not yet run. Its explicit filler switch, optional formatting, keyterms, word confidence/timing, Arabic support, and low price make it more relevant than Fish. No authorized xAI credential exists in the available project, so a complete runner was prepared but not executed.</li>
+<li><strong>Inworld STT 1:</strong> technically interesting because it scores well on an open English verbatim benchmark, but Arabic is experimental and its voice/content data terms are a concern. No available credential.</li>
+<li><strong>Fish Audio <code>transcribe-1</code>:</strong> included in full. Its public controls and outside evidence make it unlikely to beat Scribe on learner-error preservation. Its terms also permit uploaded Content to train or enhance Fish and third-party models. No Fish key exists, and Amal has not knowingly accepted that specific use, so her lesson audio was not uploaded. The frozen Fish runner is ready if consent or a no-training agreement clears that gate.</li>
+<li><strong>StepAudio 2.5 ASR:</strong> eliminated before upload; official support is Chinese and English, not Arabic.</li>
+<li><strong>Cartesia:</strong> Sonic 3.5 in the advertisement is TTS. Current Ink 2/preview STT does not support Arabic. Legacy Ink-Whisper accepts generic Arabic but performed extremely poorly for verbatim English in the open comparison and exposes no compelling Anees-specific controls.</li>
+<li><strong>CrisperWhisper 2.0:</strong> useful research component, not a production replacement on the observed Palestinian lesson behavior.</li>
+</ul>
+<p>The strongest system remains:</p>
+<blockquote>
+<p>Android-compatible separate named tracks + chat → ElevenLabs Scribe v2 per track, no keyterms, verbatim enabled → immutable raw evidence → interaction-driven top-20 candidate detector → optional disagreement/phonetic evidence → Amal approval in Arabic → Medi review in Arabizi.</p>
+</blockquote>
+<p>“Nearly perfect” is not yet a defensible claim for any engine. The missing ingredient is not another provider name; it is a small, human-labeled, genuinely verbatim Palestinian learner benchmark made from Medi and Amal’s own lessons.</p>
+<h2 id="what-was-actually-tested-researched-or-eliminated">What was actually tested, researched, or eliminated</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Candidate</th>
+<th style="text-align: right;">Direct Anees test?</th>
+<th>Why this status is honest</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ElevenLabs Scribe v2</td>
+<td style="text-align: right;">Yes</td>
+<td>Existing full lesson plus frozen segmented/keyterm controls</td>
+</tr>
+<tr>
+<td>OpenAI <code>gpt-transcribe</code></td>
+<td style="text-align: right;">Yes</td>
+<td>Two strict prompt configurations on the frozen clips</td>
+</tr>
+<tr>
+<td>Speechmatics Melia 1</td>
+<td style="text-align: right;">Yes</td>
+<td>Two frozen short-clip arms plus one full-lesson call</td>
+</tr>
+<tr>
+<td>Gemini 3.5 Transcribe</td>
+<td style="text-align: right;"><strong>Yes, overnight</strong></td>
+<td>Four preregistered arms × 20 clips; 80 successful calls</td>
+</tr>
+<tr>
+<td>CrisperWhisper 2.0 Medium</td>
+<td style="text-align: right;"><strong>Yes, overnight</strong></td>
+<td>Two preregistered local arms × 20 clips; 40 successful calls</td>
+</tr>
+<tr>
+<td>xAI Speech-to-Text</td>
+<td style="text-align: right;">No</td>
+<td>No <code>XAI_API_KEY</code>; exact runner prepared</td>
+</tr>
+<tr>
+<td>Inworld STT 1</td>
+<td style="text-align: right;">No</td>
+<td>No <code>INWORLD_API_KEY</code>; exact runner prepared</td>
+</tr>
+<tr>
+<td>Fish Audio <code>transcribe-1</code></td>
+<td style="text-align: right;">No lesson upload</td>
+<td>No key; model-training-use consent gate not cleared; frozen kit prepared</td>
+</tr>
+<tr>
+<td>StepAudio 2.5 ASR</td>
+<td style="text-align: right;">No</td>
+<td>Arabic unsupported; testing would not answer the question</td>
+</tr>
+<tr>
+<td>Cartesia current Ink</td>
+<td style="text-align: right;">No</td>
+<td>Arabic unsupported in current Ink 2/preview</td>
+</tr>
+<tr>
+<td>Cartesia legacy Ink-Whisper</td>
+<td style="text-align: right;">No</td>
+<td>Generic Arabic only, weak verbatim evidence, no credential, low expected value</td>
+</tr>
+</tbody>
+</table></div>
+<p>This distinction matters. Product documentation establishes what controls are offered; an English benchmark establishes directional verbatim behavior; only a test on Medi and Amal’s audio establishes behavior on this lesson; and only a human verbatim reference can establish accuracy.</p>
+<h2 id="combined-direct-result">Combined direct result</h2>
+<p>All rows use the same twenty frozen 25-second mixed-audio windows. “Anchor” is the manual surface presence of the lesson-chat target or its lexical family. Chat is not perfectly time-aligned ground truth. Token/filler/cutoff counts are evidence-density proxies, not WER.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>System / arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic-script tokens</th>
+<th style="text-align: right;">Counted fillers</th>
+<th style="text-align: right;">Cutoff markers</th>
+<th style="text-align: right;">Anchor-family surface</th>
+<th style="text-align: right;">Flagged runaway loops</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ElevenLabs Scribe v2 — segmented, no keyterms</strong></td>
+<td style="text-align: right;"><strong>725</strong></td>
+<td style="text-align: right;"><strong>123</strong></td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;"><strong>16/20</strong></td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>OpenAI strict prompt</td>
+<td style="text-align: right;">590</td>
+<td style="text-align: right;">98</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">14/20</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>Speechmatics Melia 1 automatic</td>
+<td style="text-align: right;">511</td>
+<td style="text-align: right;">102</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">14/20</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>Gemini automatic verbatim</td>
+<td style="text-align: right;">429</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5/20</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>Gemini <code>ar-EG</code> + <code>en-US</code> verbatim</td>
+<td style="text-align: right;">367</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9/20</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>Gemini local-vocabulary verbatim</td>
+<td style="text-align: right;">489</td>
+<td style="text-align: right;">93</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">14/20 credible; 15/20 including one suspicious</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>Gemini diarization requested</td>
+<td style="text-align: right;">226</td>
+<td style="text-align: right;">75</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9/20</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>CrisperWhisper automatic</td>
+<td style="text-align: right;">849; <strong>718 excluding loop</strong></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">150; <strong>30 excluding loop</strong></td>
+<td style="text-align: right;">7/20</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td>CrisperWhisper forced Arabic</td>
+<td style="text-align: right;">997; <strong>608 excluding loops</strong></td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">239; <strong>40 excluding loops</strong></td>
+<td style="text-align: right;">225; <strong>49 excluding loops</strong></td>
+<td style="text-align: right;">8/20</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="what-this-table-does-and-does-not-prove">What this table does and does not prove</h3>
+<p>It supports ElevenLabs as the best <strong>operational evidence pass</strong> among the directly tested configurations. It does not prove that every ElevenLabs word is correct or that Scribe has the lowest Palestinian-Arabic WER. More text can be hallucination; a vocabulary-supplied word can be a biased insertion; a cutoff count can be inflated by a decoder loop. That is why the report keeps each failure mode separate.</p>
+<p>The comparison is nevertheless consequential:</p>
+<ul>
+<li>ElevenLabs preserves more of the conjugation drill without a runaway loop.</li>
+<li>The strict OpenAI pass controls output language better than earlier unprompted behavior but silently removes fillers.</li>
+<li>Melia produces a clean, compressed transcript and loses most explicit hesitation/cutoff evidence.</li>
+<li>Gemini’s explicit verbatim switch did not behave like an exact learner-evidence transcript on these clips.</li>
+<li>CrisperWhisper’s explicit verbatim switch preserves the <em>type</em> of signal Anees wants, but its lexical recognition and loop stability are currently unacceptable here.</li>
+</ul>
+<h2 id="experimental-design-and-integrity">Experimental design and integrity</h2>
+<h3 id="frozen-source-material">Frozen source material</h3>
+<p>The overnight tests reuse the twenty 25-second MP3 windows chosen from the 2026-09-04 lesson before the prior OpenAI/ElevenLabs outputs were inspected. Selection was based on timestamped lesson-chat anchors. The windows did not move for Gemini or CrisperWhisper.</p>
+<ul>
+<li>Frozen manifest SHA-256: <code>D1139A06263D9A254762710BBC8D9187AC3193CD4C91AB349EAEF9E33A6CA7A4</code></li>
+<li>Gemini protocol SHA-256: <code>520EE762CD84876F38DB2F08EBEE204B976BF0AFDCC859FAC7D8A0AC102C89F3</code></li>
+<li>CrisperWhisper additive protocol SHA-256: <code>610DDF9E4EE7F64276D47818DAAEDCD2DD48B75A2C3BE9AF20E4F646DA69F195</code></li>
+<li>Fish protocol SHA-256: <code>2F65364DF06C139B4FE61EDE322ABAB893FBF161582051395E78DF1819948259</code></li>
+</ul>
+<h3 id="why-preregistration-matters">Why preregistration matters</h3>
+<p>Configuration choices, retry rules, spend caps, and the interpretation rule were frozen before outputs were seen. This prevents changing a language hint, moving a clip, or choosing a favorable metric after learning which system won. Post-run anchor judgments are stored separately and labeled as transcript-surface judgments, not audio gold.</p>
+<h3 id="limitations-frozen-in-advance">Limitations frozen in advance</h3>
+<ul>
+<li>No complete human word-for-word verbatim reference exists.</li>
+<li>Chat messages identify high-value teaching moments but may be posted tens of seconds late.</li>
+<li>Windows overlap and are not independent samples.</li>
+<li>The sample overrepresents a single <code>b-s-6</code> conjugation lesson.</li>
+<li>Audio is mixed rather than clean Medi/Amal tracks.</li>
+<li>Twenty clips from one lesson cannot establish population-wide Palestinian-dialect performance.</li>
+<li>Arabic script count measures rendering choice, not whether a Latin spelling is phonetically correct.</li>
+</ul>
+<h2 id="new-direct-test-1-gemini-35-transcribe">New direct test 1: Gemini 3.5 Transcribe</h2>
+<h3 id="why-gemini-deserved-a-serious-test">Why Gemini deserved a serious test</h3>
+<p>Google’s dedicated transcription documentation advertises several features that map unusually closely to Anees: default verbatim output preserving fillers, repetitions, pauses, and false starts; automatic code-switching; custom vocabulary; diarization; and word timestamps. The model supports 85+ locales, but the only listed Arabic locale is Egyptian Arabic (<code>ar-EG</code>), not Palestinian Arabic. Google also documents that custom vocabulary cannot be combined with diarization or timestamps and warns that timestamps can reduce accuracy. <a href="https://ai.google.dev/gemini-api/docs/transcribe">Gemini transcription guide</a></p>
+<p>The key used for this test belongs to a visibly paid Tier 1 prepaid Google AI Studio project. Google states that paid-service prompts and responses are not used to improve its products. Each temporary Files API upload was explicitly deleted after its clip completed rather than relying on the documented 48-hour expiration. <a href="https://ai.google.dev/gemini-api/terms">Gemini API terms</a>, <a href="https://ai.google.dev/gemini-api/docs/files">Files API</a>, <a href="https://ai.google.dev/gemini-api/docs/billing">billing</a></p>
+<h3 id="four-frozen-arms">Four frozen arms</h3>
+<ul>
+<li><strong>G0 — automatic verbatim:</strong> auto language detection, verbatim, no vocabulary, no timing, no diarization.</li>
+<li><strong>GH — bilingual hinted:</strong> <code>ar-EG</code> and <code>en-US</code>, verbatim, no vocabulary.</li>
+<li><strong>GV — local vocabulary:</strong> the two language hints plus a deterministic clip-local list of at most 100 terms from nearby chat and the frozen vocabulary snapshot.</li>
+<li><strong>GD — diarization:</strong> the two language hints plus diarization; no vocabulary or timestamps because the API disallows that combination.</li>
+</ul>
+<p>Word timestamps were not enabled in the text-quality arms because Google warns they can affect accuracy. Pause analysis remains a later milestone.</p>
+<h3 id="run-integrity-and-cost">Run integrity and cost</h3>
+<ul>
+<li>Intended successful outputs: 80.</li>
+<li>Final successful outputs: 80.</li>
+<li>Historical rate-limit responses: one 429, resolved by the preregistered retry.</li>
+<li>Temporary upload ledger rows: 21, including the retry upload.</li>
+<li>Uploads with <code>deleted=true</code>: 21/21.</li>
+<li>Estimated audio cost: <code>$0.16664</code> using Google’s <code>$0.005/minute</code> paid blended rate.</li>
+<li>Mean per-clip call latency: 1.715–1.847 seconds across arms.</li>
+</ul>
+<h3 id="aggregate-behavior">Aggregate behavior</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Gemini arm</th>
+<th style="text-align: right;">Nonempty</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs</th>
+<th style="text-align: right;">Credible anchors</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G0 auto</td>
+<td style="text-align: right;">19/20</td>
+<td style="text-align: right;">429</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5/20</td>
+</tr>
+<tr>
+<td>GH bilingual hints</td>
+<td style="text-align: right;">20/20</td>
+<td style="text-align: right;">367</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9/20</td>
+</tr>
+<tr>
+<td>GV local vocabulary</td>
+<td style="text-align: right;">20/20</td>
+<td style="text-align: right;">489</td>
+<td style="text-align: right;">93</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">14/20</td>
+</tr>
+<tr>
+<td>GD diarization</td>
+<td style="text-align: right;">20/20</td>
+<td style="text-align: right;">226</td>
+<td style="text-align: right;">75</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9/20</td>
+</tr>
+</tbody>
+</table></div>
+<p>Every pair of Gemini configurations changed all twenty clip texts. Mean character similarity between GH and GV was only 0.6186; between GH and GD, 0.5917. The configuration is therefore not a harmless formatting preference—it materially changes the evidence.</p>
+<h3 id="high-value-examples">High-value examples</h3>
+<p><strong>Clip 1, <code>Na7el</code>:</strong> automatic mode omitted the bee exchange and began with “If I want to buy more.” The bilingual arm emitted <code>نحل</code>. The vocabulary arm produced “Oh my god, bees. What’s bees? Na7el. Na7el.” This shows vocabulary can recover a teaching target, but it does not tell us whether every supplied spelling is acoustically earned.</p>
+<p><strong>Clip 3, <code>Basa6</code>:</strong> automatic mode and vocabulary mode retained <code>basat</code>/<code>basa6ni</code>-like forms; the bilingual control omitted them and retained only the English explanation. Language hints alone did not guarantee Arabic evidence.</p>
+<p><strong>Clip 14, <code>Buset</code>:</strong> only the vocabulary arm emitted “Buset.” Earlier timing evidence shows that word was spoken about 42 seconds before the frozen window; the window contains a different <code>basat</code> discussion. This is the cleanest observed example of vocabulary poisoning: a plausible expected word is inserted at the wrong time.</p>
+<p><strong>Clip 16, <code>Enbasa6ti fi/bi el-7afle</code>:</strong> the bilingual and diarized arms retained Arabic-family material; the vocabulary arm returned the expected Arabizi phrase but also anticipated the next exercise. Again, surface recovery alone is not proof.</p>
+<p><strong>Diarization failure in this run:</strong> GD returned zero <code>word_info</code> annotations and zero speaker labels across all twenty clips. Text was also aggressively compressed—226 tokens total—and sometimes fused, such as <code>نحالينحالي</code>. This is an operational failure of the exact tested configuration, not proof that Google diarization can never work.</p>
+<h3 id="gemini-decision">Gemini decision</h3>
+<p>Gemini should not replace Scribe as the raw evidence layer. Its vocabulary mode may be useful as a <strong>secondary hypothesis generator</strong>, but only when the unprompted transcript and audio remain visible and supplied-word insertions receive an explicit bias warning. The current diarization result reinforces the separate-track capture decision.</p>
+<h2 id="new-direct-test-2-crisperwhisper-20-medium">New direct test 2: CrisperWhisper 2.0 Medium</h2>
+<h3 id="why-this-was-more-relevant-than-most-screenshot-vendors">Why this was more relevant than most screenshot vendors</h3>
+<p>CrisperWhisper 2.0 was released specifically to separate “what was said” from “what was meant.” It has explicit verbatim and intended modes, marks fillers/repetitions/fragments/vocal sounds, produces word timing, handles long-form audio, and runs locally. The standard weights are published under a non-commercial research license; production/commercial use requires a licensing review. <a href="https://nyra-labs.com/crisperwhisper">CrisperWhisper model overview</a>, <a href="https://huggingface.co/nyralabs/CrisperWhisper2.0_medium">model card</a>, <a href="https://arxiv.org/abs/2607.18934">paper</a></p>
+<p>This is exactly the conceptual control the user originally wanted: “turn off correction.” Unlike a prompt on a general transcriber, CrisperWhisper was trained with an explicit output-policy signal. That justified a direct test even though no Palestinian benchmark was found.</p>
+<h3 id="frozen-local-setup">Frozen local setup</h3>
+<ul>
+<li>Model: <code>nyralabs/CrisperWhisper2.0_medium</code>.</li>
+<li>Package: <code>crisperwhisper 2.0.2</code>.</li>
+<li>Backend: Transformers/PyTorch.</li>
+<li>Hardware: NVIDIA RTX 4070 Ti, CUDA available.</li>
+<li>PyTorch: <code>2.6.0+cu124</code>; Transformers: <code>4.57.6</code>.</li>
+<li>Audio uploaded to a provider: <strong>no</strong>.</li>
+<li>Arms: automatic language and forced <code>language="ar"</code>, both default verbatim with word timestamps.</li>
+<li>No hotwords: the standard model card documents hotword boosting only for Pro models.</li>
+</ul>
+<h3 id="aggregate-behavior_1">Aggregate behavior</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Tokens</th>
+<th style="text-align: right;">Arabic tokens</th>
+<th style="text-align: right;">Fillers</th>
+<th style="text-align: right;">Cutoffs</th>
+<th style="text-align: right;">Anchors</th>
+<th style="text-align: right;">Loop clips</th>
+<th style="text-align: right;">Median latency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CW_AUTO</td>
+<td style="text-align: right;">849; 718 excluding loop</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">150; 30 excluding loop</td>
+<td style="text-align: right;">7/20</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3.302 s</td>
+</tr>
+<tr>
+<td>CW_AR</td>
+<td style="text-align: right;">997; 608 excluding loops</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">239; 40 excluding loops</td>
+<td style="text-align: right;">225; 49 excluding loops</td>
+<td style="text-align: right;">8/20</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">12.231 s</td>
+</tr>
+</tbody>
+</table></div>
+<p>The forced-Arabic and automatic outputs differed on all twenty clips, with mean character similarity 0.5979.</p>
+<h3 id="what-worked">What worked</h3>
+<ul>
+<li>It consistently emitted canonical tags such as <code>[UH]</code>, <code>[UM]</code>, <code>[breath]</code>, and <code>[laughter]</code>.</li>
+<li>It preserved useful partial forms on some drills: <code>Babsat</code>, <code>basa-</code>, <code>basat-</code>, <code>Banbassat</code>, <code>Nabassat</code>, and <code>Bitinbissiti</code>-like surfaces.</li>
+<li>It ran locally, avoiding a new audio-data processor.</li>
+<li>Outside the flagged loops, it exposed more fillers/cutoff symbols than the other non-Eleven challengers.</li>
+</ul>
+<h3 id="what-failed">What failed</h3>
+<ul>
+<li>Automatic mode emitted zero Arabic-script tokens; forced Arabic emitted only two. Latin output is not automatically bad for Medi, who reads Arabizi, but most spellings were English phonetic guesses rather than stable project Arabizi.</li>
+<li>Many Palestinian forms became English meanings. For example, clip 6 reduced the target to “it makes me happy.”</li>
+<li>It recovered fewer than half the anchor families in either arm.</li>
+<li>It hallucinated/looped on four arm-clips:</li>
+<li>CW_AUTO clip 2 repeated <code>ba-</code> roughly a hundred times.</li>
+<li>CW_AR clip 7 repeated alternating <code>b-</code> and <code>[UH]</code> through much of the output.</li>
+<li>CW_AR clip 8 repeated <code>b-</code> through most of the output.</li>
+<li>CW_AR clip 18 emitted a long <code>[UH]</code>/<code>[UM]</code> loop.</li>
+<li>CW_AR clip 11 emitted repeated <code>[fart]</code> sound labels where the automatic arm preserved conjugation-like surfaces—an obvious semantic failure in this lesson context.</li>
+</ul>
+<p>The model advertises looping-hallucination mitigation, so this observed behavior is important. It may reflect a model/backend/language interaction or genuinely difficult audio, but the user-facing consequence is the same: raw counts from those clips cannot be trusted.</p>
+<h3 id="crisperwhisper-decision">CrisperWhisper decision</h3>
+<p>Do not make it Anees’s primary. Keep it as a research option for <strong>selected English-heavy clips or transcript-conditioned “verbatimize” experiments</strong>, never as unreviewed Palestinian truth. <code>verbatimize</code> could take a trusted clean transcript and attempt to reinsert audible disfluencies, but because that output is conditioned on the supplied words, it must remain an evidence-fusion arm and cannot independently validate lexical accuracy.</p>
+<h2 id="fish-audio-full-finding-and-why-no-lesson-audio-was-sent">Fish Audio: full finding and why no lesson audio was sent</h2>
+<h3 id="product-fit">Product fit</h3>
+<p>Fish’s public ASR is beta <code>transcribe-1</code> through <code>POST /v1/asr</code>. Its documented inputs are the audio file, one optional language hint, and whether to return timestamped segments. The response contains one transcript, duration, segments, and one detected file-level language. <a href="https://docs.fish.audio/api-reference/endpoint/openapi-v1/speech-to-text">Fish STT endpoint</a></p>
+<p>The public schema does <strong>not</strong> document:</p>
+<ul>
+<li>prompts or style instructions;</li>
+<li>keyterms/custom vocabulary;</li>
+<li>a verbatim/filler/disfluency switch;</li>
+<li>phonetic output or uncertain/nonword notation;</li>
+<li>word-level confidence or word timestamps;</li>
+<li>alternatives;</li>
+<li>diarization, speaker count, voiceprints, or named-speaker enrollment;</li>
+<li>a Palestinian/Levantine dialect selector;</li>
+<li>a simultaneous <code>ar,en</code> language hint.</li>
+</ul>
+<p>That makes Fish structurally less controllable than xAI and less aligned with Anees’s evidence requirement than ElevenLabs.</p>
+<h3 id="price">Price</h3>
+<p>Fish publishes <code>$0.36</code> per processed audio hour, billed by the second. The two frozen 20-clip arms would cost about <code>$0.10</code>. A 70-minute two-track lesson would cost about <code>$0.84</code>. <a href="https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits">Fish pricing</a></p>
+<h3 id="outside-verbatim-evidence">Outside verbatim evidence</h3>
+<p>Nyra’s open English benchmark reports Fish Audio ASR at 49.7% disfluency F1, 30.5% filler F1, 0% vocal-sound F1, 60.1% cutoff F1, 82.1% repetition F1, and 5.9% verbatim WER. On the identical English set, ElevenLabs Scribe v2 scored 90.3%, 95.5%, 83.4%, 80.1%, 87.9%, and 3.2%, respectively. This is relevant to error preservation but not Palestinian accuracy. <a href="https://nyra-labs.com/research/nyra-verbatim-speech-benchmark">Nyra benchmark</a>, <a href="https://github.com/nyrahealth/nyra_verbatim_speech_benchmark">open evaluator and cached predictions</a></p>
+<h3 id="privacy-gate">Privacy gate</h3>
+<p>Fish’s current Terms permit using uploaded Content to develop, train, or enhance Fish and third-party AI/ML models. Its privacy policy also contains broad retention language. That is a materially different question from ordinary processing of a tutoring recording. Amal’s voice is her data; “include Fish” is not the same as her informed acceptance of third-party model-training use. <a href="https://fish.audio/terms/">Fish Terms</a>, <a href="https://fish.audio/privacy/">Fish privacy policy</a></p>
+<p>No <code>FISH_AUDIO_API_KEY</code> was available. More importantly, even if a key had appeared, the protocol required one of:</p>
+<ol>
+<li>Amal explicitly agrees, after being told that Fish’s public terms permit this training use; or</li>
+<li>Fish supplies a binding no-training/ZDR arrangement for the account.</li>
+</ol>
+<p>Therefore no lesson audio was sent. This is not a missing-analysis excuse: the complete research, two-arm preregistration, runner, manual-recovery template, and analyzer are in the evidence bundle.</p>
+<h3 id="fish-decision">Fish decision</h3>
+<p>Fish is not the next best bet. If the consent/key gate is later cleared, run the frozen test for completeness—but prioritize xAI first. Fish would need a surprisingly large Palestinian-specific acoustic advantage to overcome its weak verbatim controls, outside filler result, lack of word/speaker evidence, higher price than Scribe, and privacy posture.</p>
+<h2 id="xai-speech-to-text">xAI Speech-to-Text</h2>
+<p>xAI is the most promising untested commercial challenger found in this extension.</p>
+<p>Its current REST/streaming interface documents:</p>
+<ul>
+<li>Arabic support;</li>
+<li>word-level timestamps and confidence;</li>
+<li>speaker diarization and multichannel mode;</li>
+<li>up to 100 keyterms;</li>
+<li>explicit <code>filler_words=true</code>—the default otherwise removes fillers;</li>
+<li><code>format=false</code> to avoid formatting/normalization;</li>
+<li>VAD threshold <code>0</code> to avoid discarding quiet audio;</li>
+<li>REST pricing of <code>$0.10/hour</code> and streaming pricing of <code>$0.20/hour</code>.</li>
+</ul>
+<p><a href="https://docs.x.ai/developers/models/speech-to-text">xAI STT overview</a>, <a href="https://docs.x.ai/developers/model-capabilities/audio/speech-to-text">capability guide</a>, <a href="https://docs.x.ai/developers/rest-api-reference/inference/speech-to-text">REST schema</a></p>
+<p>xAI says API data is not used to train models without explicit permission; its security FAQ describes encrypted default audit retention and account-dependent zero-data-retention behavior. That exact account setting must be verified before production. <a href="https://docs.x.ai/developers/faq/security">xAI security FAQ</a></p>
+<p>The Nyra English benchmark reports xAI at 73.9% disfluency F1 and 84.4% filler F1—behind ElevenLabs but ahead of Fish. Combined with explicit controls and generic Arabic support, this makes xAI the rational next <code>$0.03</code> frozen-sample test once a project key exists. The prepared runner uses no language hint, <code>filler_words=true</code>, <code>format=false</code>, diarization off, multichannel off, and <code>vad_threshold=0</code> so the base text pass is not vocabulary-contaminated.</p>
+<h2 id="inworld-stt-1">Inworld STT 1</h2>
+<p>Inworld exposes synchronous and WebSocket transcription with <code>inworld/inworld-stt-1</code>, word timestamps, speech events, and an optional Voice Profile describing age, pitch, emotion, style, and accent. Voice Profile is descriptive metadata, not reliable persistent enrollment of Medi versus Amal. <a href="https://dev.docs.inworld.ai/stt/overview">Inworld STT overview</a>, <a href="https://dev.docs.inworld.ai/stt/quickstart">quickstart</a></p>
+<p>The critical language fact is that English is listed as available while Arabic is listed as <strong>experimental</strong>. No first-party filler/verbatim control comparable with xAI’s is documented for the synchronous endpoint. The two prepared arms are therefore automatic and forced generic <code>ar</code>; neither assumes Palestinian support.</p>
+<p>The Nyra English benchmark gives Inworld 84.4% disfluency F1 and 95.2% filler F1, close to Scribe on fillers but with only 10.7% vocal-sound F1. It is useful directional evidence from English, not evidence about Medi.</p>
+<p>Inworld’s privacy policy describes collecting content and voice recordings and using data for research/development, including model training; it also contains biometric-information retention language. Published zero-data-retention positioning is enterprise-priced. This is not an economical privacy match for a small tutoring workflow without a clearer contract. <a href="https://inworld.ai/pricing">Inworld pricing</a>, <a href="https://inworld.ai/privacy">privacy policy</a></p>
+<p>No authorized key was available, so the exact reproducible two-arm runner is included but not executed.</p>
+<h2 id="stepaudio-and-cartesia">StepAudio and Cartesia</h2>
+<h3 id="stepaudio-25">StepAudio 2.5</h3>
+<p>The screenshot’s StepAudio entry is TTS. The relevant <code>stepaudio-2.5-asr</code> is a streaming recognizer whose official overview says it supports Chinese and English with inverse text normalization. It has hotwords and a default normalization behavior, but no Arabic. <a href="https://platform.stepfun.ai/docs/en/guides/models/overview">StepFun model overview</a>, <a href="https://platform.stepfun.ai/docs/en/api-reference/audio/asr-sse">ASR schema</a></p>
+<p>It was correctly eliminated before upload. A low price cannot compensate for missing the target language.</p>
+<h3 id="cartesia-sonic-ink">Cartesia Sonic / Ink</h3>
+<p>Sonic 3.5 is TTS. Cartesia’s current STT line is Ink. Current Ink 2 is English-focused, and the newer preview language set still excludes Arabic. The older batch <code>ink-whisper</code> endpoint accepts generic <code>ar</code>, long files, and word timestamps. <a href="https://docs.cartesia.ai/build-with-cartesia/stt/latest">current Cartesia STT</a>, <a href="https://docs.cartesia.ai/build-with-cartesia/stt/older-models">older STT models</a>, <a href="https://docs.cartesia.ai/api-reference/stt/transcribe">batch endpoint</a></p>
+<p>The Nyra English benchmark places legacy Ink-Whisper last among the listed systems: 7.6% disfluency F1, 6.0% filler F1, 0% vocal-sound F1, 32.5% cutoff F1, 3.7% repetition F1, and 10.4% verbatim WER. That does not establish Arabic accuracy, but it is strong evidence that legacy Ink-Whisper is mismatched to Anees’s “preserve the mess” objective.</p>
+<p>Cartesia’s public terms permit model-training use of inputs/outputs, and its documented ZDR is enterprise. No direct test was justified during this run. <a href="https://www.cartesia.ai/legal/terms">Cartesia Terms</a>, <a href="https://www.cartesia.ai/legal/privacy">privacy</a>, <a href="https://docs.cartesia.ai/enterprise/zero-data-retention">ZDR</a></p>
+<h2 id="independent-outside-verbatim-benchmark">Independent outside verbatim benchmark</h2>
+<p>Nyra’s benchmark is the best directly relevant public framework found for the “do not clean my mistakes” requirement. It uses paired verbatim and intended transcripts and separately scores fillers, vocal sounds, cutoffs, repetitions, and verbatim WER. Its English set contains 4,957 clips and 6,120 typed disfluencies; German adds 202 clips and 1,385 disfluencies. Predictions and the evaluator are public. <a href="https://nyra-labs.com/research/nyra-verbatim-speech-benchmark">method and results</a>, <a href="https://github.com/nyrahealth/nyra_verbatim_speech_benchmark">repository</a></p>
+<h3 id="english-leaderboard-subset">English leaderboard subset</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Model</th>
+<th style="text-align: right;">Disfluency F1</th>
+<th style="text-align: right;">Filler F1</th>
+<th style="text-align: right;">Sound F1</th>
+<th style="text-align: right;">Cutoff F1</th>
+<th style="text-align: right;">Repetition F1</th>
+<th style="text-align: right;">vWER ↓</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CrisperWhisper 2.0 Pro</td>
+<td style="text-align: right;">93.2</td>
+<td style="text-align: right;">95.7</td>
+<td style="text-align: right;">94.8</td>
+<td style="text-align: right;">90.7</td>
+<td style="text-align: right;">88.3</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr>
+<td>CrisperWhisper 2.0 standard</td>
+<td style="text-align: right;">90.7</td>
+<td style="text-align: right;">94.3</td>
+<td style="text-align: right;">83.5</td>
+<td style="text-align: right;">89.3</td>
+<td style="text-align: right;">87.8</td>
+<td style="text-align: right;">3.6</td>
+</tr>
+<tr>
+<td><strong>ElevenLabs Scribe v2</strong></td>
+<td style="text-align: right;"><strong>90.3</strong></td>
+<td style="text-align: right;"><strong>95.5</strong></td>
+<td style="text-align: right;"><strong>83.4</strong></td>
+<td style="text-align: right;"><strong>80.1</strong></td>
+<td style="text-align: right;"><strong>87.9</strong></td>
+<td style="text-align: right;"><strong>3.2</strong></td>
+</tr>
+<tr>
+<td>Inworld STT</td>
+<td style="text-align: right;">84.4</td>
+<td style="text-align: right;">95.2</td>
+<td style="text-align: right;">10.7</td>
+<td style="text-align: right;">84.8</td>
+<td style="text-align: right;">86.8</td>
+<td style="text-align: right;">4.0</td>
+</tr>
+<tr>
+<td>xAI Grok STT</td>
+<td style="text-align: right;">73.9</td>
+<td style="text-align: right;">84.4</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">60.3</td>
+<td style="text-align: right;">83.4</td>
+<td style="text-align: right;">4.7</td>
+</tr>
+<tr>
+<td>Fish Audio ASR</td>
+<td style="text-align: right;">49.7</td>
+<td style="text-align: right;">30.5</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">60.1</td>
+<td style="text-align: right;">82.1</td>
+<td style="text-align: right;">5.9</td>
+</tr>
+<tr>
+<td>Cartesia Ink-Whisper</td>
+<td style="text-align: right;">7.6</td>
+<td style="text-align: right;">6.0</td>
+<td style="text-align: right;">0.0</td>
+<td style="text-align: right;">32.5</td>
+<td style="text-align: right;">3.7</td>
+<td style="text-align: right;">10.4</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="required-caveats">Required caveats</h3>
+<ul>
+<li>Nyra makes CrisperWhisper, so it has an interested-party conflict even though the artifacts are open.</li>
+<li>The human-labeled public sets are English and German, not Arabic.</li>
+<li>The ten-language average on the Crisper product page uses synthetic verbatim data for eight non-English/German languages.</li>
+<li>It measures transcript policy and recognition on its datasets, not beginner Palestinian speech.</li>
+<li>The direct Anees test contradicts any lazy inference that Crisper’s English leaderboard win automatically transfers to this lesson.</li>
+</ul>
+<p>The benchmark is valuable because it independently confirms that Fish, xAI, Inworld, and Eleven differ substantially in disfluency policy. It cannot pick the Palestinian winner by itself.</p>
+<h2 id="prior-direct-evidence-carried-forward">Prior direct evidence carried forward</h2>
+<p>The preceding full analysis remains part of this decision:</p>
+<ul>
+<li>ElevenLabs full-lesson extraction: 714 tokens, 82 Arabic-script tokens, 21 fillers, 19 cutoff markers, 16/20 anchors.</li>
+<li>ElevenLabs segmented/no-keyterm: 725, 123, 22, 25, 16/20.</li>
+<li>OpenAI strict prompt: 590, 98, 0, 12, 14/20.</li>
+<li>OpenAI vocabulary prompt: 593, 83, 0, 7, 13/20.</li>
+<li>Speechmatics Melia short: 511, 102, 2, 0, 14/20.</li>
+<li>Speechmatics Melia full-context windows: 509, 124, 3, 0, 15/20; its full lesson divided two people into six anonymous speaker clusters.</li>
+</ul>
+<p>An independent 2026 commercial code-switching paper evaluated Egyptian-Arabic/English, Saudi-Arabic/English, Persian/English, and German/English and ranked ElevenLabs first overall. It does not include Palestinian learners or error-preservation scoring, but it agrees directionally with the local decision. <a href="https://arxiv.org/abs/2605.19069">Abdoli et al., 2026</a></p>
+<h2 id="the-core-scientific-conclusion-a-phonetic-off-switch-is-only-partly-possible">The core scientific conclusion: a phonetic “off switch” is only partly possible</h2>
+<p>The original intuition was right: ordinary transcription tends to repair speech. The wrong part is assuming that a prompt can fully disable this.</p>
+<p>Modern ASR combines acoustic evidence with learned language probabilities. If Medi produces something between a known word and a nonword, the decoder may output:</p>
+<ul>
+<li>the intended correct word;</li>
+<li>a different plausible Arabic word;</li>
+<li>an English look-alike;</li>
+<li>a rough Latin phonetic spelling;</li>
+<li>a filler/fragment;</li>
+<li>nothing.</li>
+</ul>
+<p>Gemini demonstrates that an explicit <code>verbatim</code> flag does not guarantee Anees-grade preservation. CrisperWhisper demonstrates that a model truly optimized for explicit verbatim output can expose fragments and fillers while still failing lexical recognition or hallucinating repetitions. “More phonetic-looking” is not synonymous with “more accurate.”</p>
+<p>The safe representation is three-layered:</p>
+<ol>
+<li><strong>Observed evidence:</strong> immutable provider output, words/timestamps/confidence where available, model/config/version, source-audio hash.</li>
+<li><strong>Phone hypothesis:</strong> optional, only for selected known-target clips; never shown as certainty.</li>
+<li><strong>Canonical target:</strong> Amal-approved Palestinian Arabic plus Medi-facing Arabizi.</li>
+</ol>
+<p>An error is the relationship between those layers and the audio. The canonical target must never overwrite the observation.</p>
+<h2 id="palestinian-and-learner-speech-resources">Palestinian and learner-speech resources</h2>
+<p>The overnight review reconfirmed that there is no turnkey repository that solves adult Palestinian conversational learner-error detection. Useful building blocks do exist:</p>
+<ul>
+<li><strong>Maknuune:</strong> open Palestinian lexicon with more than 36,000 entries, approximately 17,000 lemmas and 3,700 roots, including diacritized Arabic, English glosses, and phonological transcription. It can seed a pronunciation dictionary but cannot override Amal’s lesson-specific rules. <a href="https://aclanthology.org/2022.wanlp-1.13/">Maknuune</a></li>
+<li><strong>Open Universal Arabic ASR Leaderboard:</strong> includes Palestinian Casablanca data among several dialect resources; reported open-model error rates remain far from “nearly perfect” and the task is ordinary orthographic ASR, not learner-error preservation. <a href="https://www.isca-archive.org/interspeech_2025/wang25_interspeech.pdf">Interspeech 2025 paper</a></li>
+<li><strong>NADI multidialect ASR:</strong> additional evidence that cross-dialect Arabic recognition remains difficult. <a href="https://aclanthology.org/2025.arabicnlp-sharedtasks.99/">NADI 2025</a></li>
+<li><strong>Tactical Language Training System:</strong> directly studied beginning learners of Levantine Arabic and used expected error grammars/noisy-channel reasoning plus learner history and pedagogical importance. The enduring lesson is architectural: target context and modeled learner errors belong beside ASR. <a href="https://www.isca-archive.org/interspeech_2005/sethy05b_interspeech.pdf">Sethy et al., 2005</a></li>
+<li><strong>Native/non-native Levantine comparison:</strong> alignment/DTW between learner and reference utterances maps naturally to Medi attempting a form and Amal immediately modeling it. <a href="https://www.isca-archive.org/slate_2013/lee13b_slate.html">Lee and Glass, 2013</a></li>
+<li><strong>Montreal Forced Aligner, Kaldi GOP, CTC-based GOP, Allosaurus:</strong> useful experimental alignment/phone components, but none is validated as an adult Palestinian free-conversation judge. <a href="https://montreal-forced-aligner.readthedocs.io/en/v3.4.1/user_guide/index.html">MFA</a>, <a href="https://github.com/kaldi-asr/kaldi/blob/master/src/bin/compute-gop.cc">Kaldi GOP</a>, <a href="https://github.com/frank613/CTC-based-GOP">CTC-GOP</a>, <a href="https://github.com/xinjli/allosaurus">Allosaurus</a></li>
+</ul>
+<p>Language-learning repositories such as pronunciation-coach demos are useful for UI and workflow patterns, not as accuracy evidence. Anees’s defensible advantage will come from Amal-confirmed labels, exact lesson context, separate speaker tracks, and a tightly versioned Palestinian vocabulary—not from cloning a generic language-learning app.</p>
+<h2 id="recommended-production-design">Recommended production design</h2>
+<h3 id="1-capture-solves-speaker-identity">1. Capture solves speaker identity</h3>
+<p>Use one Android-compatible lesson room that records synchronized <strong>separate local tracks</strong> named <code>Medi</code> and <code>Amal</code> and preserves chat. The prior full report recommends a five-minute Ennuicastr continuous-mode trial, then one shadow lesson. Do not ask an anonymous diarizer to rediscover identities that capture can know exactly.</p>
+<p>Practical rules:</p>
+<ul>
+<li>headset for both speakers;</li>
+<li>power connected;</li>
+<li>browser foreground and screen awake on Android;</li>
+<li>one call application only, avoiding microphone/audio-focus competition;</li>
+<li>short verbal identity check at the start;</li>
+<li>backup plan documented before the first full lesson;</li>
+<li>verify the download contains two named tracks and machine-readable chat.</li>
+</ul>
+<h3 id="2-immutable-primary-transcript">2. Immutable primary transcript</h3>
+<p>Transcribe each named mono track separately with ElevenLabs Scribe v2:</p>
+<ul>
+<li><code>no_verbatim=false</code>;</li>
+<li>diarization off;</li>
+<li>word timestamps on;</li>
+<li>no keyterms on the primary pass;</li>
+<li>exact provider/model/config stored;</li>
+<li>raw JSON and audio hashes immutable.</li>
+</ul>
+<p>Keyterms belong only in a secondary hypothesis arm. The overnight Gemini test makes the reason concrete: expected words can appear where the audio does not support them.</p>
+<h3 id="3-merge-by-time-never-by-rewritten-prose">3. Merge by time, never by rewritten prose</h3>
+<p>Merge Medi and Amal tokens using timestamps. Preserve overlaps. Store silence intervals on each track for the later pause milestone. Do not have an LLM rewrite the merged evidence into a fluent dialogue before candidate extraction.</p>
+<h3 id="4-detect-learning-events-from-interaction">4. Detect learning events from interaction</h3>
+<p>Prioritize observable events:</p>
+<ol>
+<li>Medi explicitly says he forgot a word.</li>
+<li>Medi asks what a word means or how to say it.</li>
+<li>Amal immediately corrects or recasts him.</li>
+<li>Amal posts a form in chat near the speech.</li>
+<li>Medi repeats or self-repairs a form.</li>
+<li>Two unprompted ASR systems materially disagree on a high-value short window.</li>
+<li>Later: an unusually long within-turn pause, after personal calibration.</li>
+</ol>
+<p>A suspicious word alone is not enough to accuse Medi of an error.</p>
+<h3 id="5-enforce-the-vocabulary-policy-after-recognition">5. Enforce the vocabulary policy after recognition</h3>
+<p>Allowed without flagging:</p>
+<ul>
+<li>exact list words;</li>
+<li>ordinary Palestinian clitics/inflections and productive morphology;</li>
+<li>English code-switches;</li>
+<li>names, fillers, and natural loanwords;</li>
+<li>forms Amal adds during the grace period.</li>
+</ul>
+<p>Out-of-list forms are retained and flagged <code>OOV/uncertain</code>; they are never silently replaced. Version the vocabulary snapshot used for each lesson. Amal’s post-lesson additions should affect interpretation/review, not rewrite the primary ASR evidence.</p>
+<h3 id="6-top-20-review-inbox">6. Top-20 review inbox</h3>
+<p>Each candidate card should show:</p>
+<ul>
+<li>a 5–12 second audio clip;</li>
+<li>speaker name from the capture track;</li>
+<li>raw transcript and uncertainty;</li>
+<li>Amal-facing Arabic;</li>
+<li>Medi-facing Arabizi;</li>
+<li>proposed target, error type, and evidence reason;</li>
+<li>one-tap <code>correct</code>, <code>edit</code>, <code>valid variant</code>, <code>not an error</code>, and <code>skip</code> actions.</li>
+</ul>
+<p>Keep the full evidence available, but present only the twenty highest-value events. Measure review time rather than promising it.</p>
+<h3 id="7-pause-analysis-later">7. Pause analysis later</h3>
+<p>Pause length is only meaningful on Medi’s clean track. A silence may mean word retrieval, listening to Amal, reading chat, thinking about content, network lag, or emphasis. Label causes first, then calculate a personal threshold. Do not use a generic fluency norm to score him.</p>
+<h2 id="cost-sketch-for-a-70-minute-two-track-lesson">Cost sketch for a 70-minute, two-track lesson</h2>
+<p>Approximate transcription-only costs at current listed rates:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Engine</th>
+<th style="text-align: right;">Two 70-minute tracks</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ElevenLabs Scribe v2</td>
+<td style="text-align: right;">about <code>$0.51</code></td>
+<td>Current primary</td>
+</tr>
+<tr>
+<td>xAI REST STT</td>
+<td style="text-align: right;">about <code>$0.23</code></td>
+<td>Best untested next candidate</td>
+</tr>
+<tr>
+<td>Inworld on-demand</td>
+<td style="text-align: right;">about <code>$0.35</code></td>
+<td>Privacy/language caveats</td>
+</tr>
+<tr>
+<td>Fish Audio</td>
+<td style="text-align: right;">about <code>$0.84</code></td>
+<td>Higher cost and consent issue</td>
+</tr>
+<tr>
+<td>Gemini Transcribe</td>
+<td style="text-align: right;">about <code>$0.70</code></td>
+<td>Direct result does not justify switch</td>
+</tr>
+<tr>
+<td>CrisperWhisper</td>
+<td style="text-align: right;">local compute + license</td>
+<td>Standard weights are research-only</td>
+</tr>
+</tbody>
+</table></div>
+<p>Using the prior recommended continuous separate-track capture mode, the total capture-plus-Scribe estimate remains under the user’s stated <code>$3</code> per lesson ceiling. Cost is not the bottleneck; evidence quality and review efficiency are.</p>
+<h2 id="the-benchmark-anees-must-build-next">The benchmark Anees must build next</h2>
+<h3 id="gold-set-design">Gold set design</h3>
+<p>Start with <strong>20 candidates from each lesson</strong>, as requested. Do not demand 100 labels at once. After five lessons, the project will have roughly 100 high-value items plus a small sample of rejected events.</p>
+<p>For each item, Amal should label without seeing provider identity:</p>
+<ul>
+<li>exact audible words, including fillers/repetitions/fragments;</li>
+<li>intended/canonical Palestinian form;</li>
+<li>valid variant versus error;</li>
+<li>error type: vocabulary gap, pronunciation, morphology, grammar, comprehension, fluency, or ASR-only error;</li>
+<li>pedagogical importance;</li>
+<li>speaker and timestamps;</li>
+<li>whether chat was a correction, expansion, or unrelated late note;</li>
+<li>confidence;</li>
+<li>review duration and replay count.</li>
+</ul>
+<h3 id="metrics-that-match-the-goal">Metrics that match the goal</h3>
+<p>Report separately:</p>
+<ul>
+<li>verbatim WER/CER under an agreed Arabic/Arabizi normalization;</li>
+<li>target-form recall;</li>
+<li>filler, repetition, and cutoff precision/recall;</li>
+<li>learner-event recall and precision;</li>
+<li>unsupported expected-word insertion rate;</li>
+<li>speaker attribution accuracy;</li>
+<li>fraction of candidate cards caused only by ASR error;</li>
+<li>top-20 recall, using a small random sample of rejected events;</li>
+<li>Amal median and p90 review time;</li>
+<li>number of plays/edits per item.</li>
+</ul>
+<h3 id="replacement-rule">Replacement rule</h3>
+<p>Freeze this before testing xAI or another provider:</p>
+<blockquote>
+<p>Replace Scribe only if the challenger improves held-out learner-event recall or verbatim accuracy without increasing unsupported insertions, speaker errors, operational failures, privacy risk, or Amal review time beyond the agreed tolerance.</p>
+</blockquote>
+<p>Clean prose and lower cost alone do not qualify.</p>
+<h2 id="ordered-next-actions">Ordered next actions</h2>
+<ol>
+<li><strong>Run the five-minute Android separate-track capture pilot.</strong> Verify reconnect behavior, quiet starts, continuous audio, named tracks, and chat export.</li>
+<li><strong>Build the immutable Scribe-per-track ingestion path.</strong> No keyterms in the primary pass.</li>
+<li><strong>Build the top-20 evidence inbox before adding more engines.</strong> The bottleneck is turning audio into correct learning events, not producing another full transcript.</li>
+<li><strong>Collect 20 Amal-reviewed items from each of five lessons.</strong> Time the review from the first lesson.</li>
+<li><strong>Acquire an xAI project key only if a blind challenger test is still wanted.</strong> Run the prepared frozen base arm first; do not add vocabulary until the unprompted output is scored.</li>
+<li><strong>Treat Fish as optional, not urgent.</strong> Proceed only after informed acceptance of its training terms or a no-training agreement.</li>
+<li><strong>Keep Inworld behind the same privacy gate</strong> and remember Arabic is experimental.</li>
+<li><strong>After 30–60 minutes of exact Medi labels, test Azure <code>ar-PS</code> Custom Speech</strong> as the personalized path; hold out evaluation clips permanently.</li>
+<li><strong>After 30–50 known-target attempt/reference pairs, test alignment/GOP/phone hypotheses.</strong> Ship only if they improve ranking against Amal’s labels.</li>
+<li><strong>Add pause analysis after separate tracks and cause labels exist.</strong></li>
+</ol>
+<h2 id="questions-claude-should-use-to-challenge-this-report">Questions Claude should use to challenge this report</h2>
+<ol>
+<li>Recompute every aggregate from the included JSON. Do token, filler, and cutoff regexes handle bracketed tags consistently?</li>
+<li>Listen to all twenty clips blind. Which anchor-surface judgments change, and why?</li>
+<li>Can any line be called “correct” without a human verbatim reference?</li>
+<li>Is clip 14 Gemini <code>Buset</code> definitely vocabulary poisoning after listening and checking the full-lesson timeline?</li>
+<li>Why did Gemini’s diarization request return no <code>word_info</code> objects? Was the exact client/API feature shape valid for that model release?</li>
+<li>Does enabling Gemini word timestamps change text quality enough to reverse the result?</li>
+<li>Why did <code>gemini-3.5-transcribe</code> report zero output tokens in its usage object despite returning text? Do not infer zero output cost without resolving this.</li>
+<li>Can CrisperWhisper’s looping be reproduced with its CTranslate2 backend, another model size, or the documented hallucination thresholds?</li>
+<li>Did the Crisper Transformers warning about attention masks affect reliability? Re-test one frozen copy only after preregistering the compatibility change.</li>
+<li>Does Crisper forced <code>ar</code> really set the decoder language in package 2.0.2, given that it emitted almost all Latin text?</li>
+<li>Does a transcript-conditioned Crisper <code>verbatimize</code> arm add real disfluencies or merely decorate Scribe’s lexical errors?</li>
+<li>Is Nyra’s interested-party benchmark reproducible from cached predictions at the cited commit?</li>
+<li>Do Nyra’s English/German results have any predictive value for Palestinian code-switching beyond transcript-policy direction?</li>
+<li>Is xAI’s <code>format=false</code> behavior truly non-normalizing for Arabic, or only punctuation/ITN control?</li>
+<li>Can xAI auto-detect language within a single utterance, or only return one file-level language?</li>
+<li>What exact retention/ZDR flag will the xAI response/account expose before Amal’s audio is sent?</li>
+<li>Does Inworld’s experimental Arabic preserve code-switches, or does forcing <code>ar</code> damage English?</li>
+<li>Can Inworld provide a no-training agreement at a price consistent with this personal project?</li>
+<li>Are Fish’s Terms still identical on the date of any future test? Capture the accepted version and consent record.</li>
+<li>Is Fish segment timing sufficiently precise to link corrections when it lacks word timing?</li>
+<li>Does legacy Cartesia Ink-Whisper’s Arabic accuracy justify even a low-priority test despite its disfluency policy?</li>
+<li>Are there any current Arabic-capable CrisperWhisper Pro hosting/licensing terms that materially change the local result?</li>
+<li>Does Ennuicastr reliably export named tracks and chat from Medi’s exact Android device after reconnect or browser suspension?</li>
+<li>What prevents the vocabulary grace-period update from contaminating raw transcript evidence?</li>
+<li>How are legitimate Palestinian variants represented when Amal, the learned list, and Maknuune disagree?</li>
+<li>What sample of rejected events is reviewed so top-20 recall can be measured rather than assumed?</li>
+<li>What transaction boundary prevents a job from publishing/emailing “success” before audio, transcript, review data, and GitHub deployment are durable?</li>
+<li>Can Amal actually complete twenty decisions in five minutes on her usual device? Report median and p90, not anecdotes.</li>
+<li>What privacy/consent message do Medi and Amal see, and how does either person delete a lesson?</li>
+<li>What objective held-out threshold would falsify the current ElevenLabs recommendation?</li>
+</ol>
+<h2 id="final-conclusion">Final conclusion</h2>
+<p>The overnight evidence strengthens rather than weakens the prior recommendation.</p>
+<p>Gemini’s new dedicated transcription model had the right documentation but did not preserve this lesson nearly as well as Scribe. Vocabulary bias recovered more expected forms, yet also demonstrated the exact failure Anees must avoid: inserting a lesson word because it was expected rather than because it was present. CrisperWhisper’s explicit verbatim training proved that filler/fragment control is technically possible, but on this Palestinian-English lesson it lost most target forms and produced dangerous repetition loops. Fish offers fewer useful controls, weaker outside verbatim behavior, higher per-hour cost than Scribe, and unacceptable default training-use ambiguity for Amal’s voice. StepAudio and current Cartesia fail the target-language gate. xAI is the only newly surveyed commercial option that deserves priority over Fish for the next controlled run; Inworld is second, subject to privacy and experimental-Arabic caveats.</p>
+<p>The project should stop searching for a magical transcript that is simultaneously exact, phonetic, pedagogically correct, speaker-aware, dialect-constrained, and fully automatic. Build an evidence-preserving system:</p>
+<blockquote>
+<p>Separate named tracks + chat → Scribe raw evidence → ranked correction interactions → short audio-linked review → Amal-confirmed Palestinian target → Medi-facing Arabizi → accumulating personal gold set.</p>
+</blockquote>
+<p>That system can reach the practical goal even before an engine reaches “nearly perfect.” It also creates the only dataset capable of proving when a future engine actually becomes better.</p>
+<h2 id="evidence-bundle-contents">Evidence bundle contents</h2>
+<p>The companion ZIP contains:</p>
+<ul>
+<li>frozen manifests and protocol hashes;</li>
+<li>Gemini runner, raw result JSON, comparison JSON, all clip texts, and upload-deletion ledger;</li>
+<li>CrisperWhisper preregistration, runner, raw local results, analysis, and all clip texts;</li>
+<li>xAI and Inworld ready-to-run scripts;</li>
+<li>Fish research notes, preregistration, runner, analyzer, and manual-recovery template;</li>
+<li>the combined comparison and evidence-gap matrix;</li>
+<li>claim-to-source ledger;</li>
+<li>SHA-256 inventory.</li>
+</ul>
+<p>The earlier 2026-09-04 full deep-research report remains the detailed source for the project audit, Android capture survey, prior OpenAI/ElevenLabs/Speechmatics clip appendix, and implementation findings.</p>
+</main><script src="../js/build.js"></script><script src="../js/stale.js"></script></body></html>

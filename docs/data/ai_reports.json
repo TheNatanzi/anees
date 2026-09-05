@@ -1,0 +1,129 @@
+{
+  "updated": "2026-09-05",
+  "reports": [
+    {
+      "slug": "claude-audit-2026-09-05", "date": "2026-09-05", "author": "Claude",
+      "title": "Adversarial audit of the Codex bake-off and the project",
+      "question": "Does Codex's 'keep ElevenLabs' survive a recount from raw JSON, audio measurement and a repo read?",
+      "verdict": "Yes, on the full lesson track only. On 25-second chunks the same engine lost 3 of 8 of Medi's mistakes. Clip 16, not 14, is the cleanest vocabulary-poisoning case. The report email could go out before the page was pushed (fixed today).",
+      "numbers": [
+        {"label": "learner mistakes kept", "value": "8/8", "note": "ElevenLabs, full lesson"},
+        {"label": "same engine, 25-s chunks", "value": "5/8", "note": "window, not engine"},
+        {"label": "hashes verified", "value": "85", "note": "65 bundle + 20 clips"},
+        {"label": "Amal's typed forms in the Doc", "value": "5/21", "note": "16 conjugations or new"}
+      ],
+      "bars_title": "Learner mistakes kept, out of 8 (gap, false start, stumble, malformed form, drill, dropped ع, gender slip, word choice)",
+      "bars": [
+        {"label": "ElevenLabs Scribe v2, full lesson", "value": 8, "max": 8, "text": "8"},
+        {"label": "ElevenLabs Scribe v2, 25-s chunks", "value": 5, "max": 8, "text": "5"},
+        {"label": "OpenAI gpt-transcribe, strict", "value": 4.5, "max": 8, "text": "4.5", "tone": "grey"},
+        {"label": "CrisperWhisper 2.0 auto", "value": 4, "max": 8, "text": "4", "tone": "grey"},
+        {"label": "Gemini 3.5, vocabulary", "value": 3, "max": 8, "text": "3", "tone": "grey"},
+        {"label": "Speechmatics Melia", "value": 3, "max": 8, "text": "3", "tone": "grey"},
+        {"label": "Gemini 3.5, auto", "value": 0, "max": 8, "text": "0", "tone": "low"}
+      ],
+      "source_md": "C:/Users/Mahdi/Documents/Codex/2026-09-04/do/outputs/claude-adversarial-audit-2026-09-05.md",
+      "links": [{"label": "Full audit", "url": "reports/claude-audit-2026-09-05.html"}]
+    },
+    {
+      "slug": "codex-overnight-bakeoff-2026-09-05", "date": "2026-09-05", "author": "Codex",
+      "title": "Overnight bake-off: Gemini 3.5 Transcribe and CrisperWhisper 2.0",
+      "question": "Can Gemini, xAI, Inworld, Fish, StepAudio, Cartesia or a local model beat ElevenLabs on the same 20 frozen clips?",
+      "verdict": "No. Gemini's best arm found 14 of 20 target families but inserted a word the audio did not support. CrisperWhisper kept fillers but lost most targets and looped on 4 of 40 clips. xAI is the best untested option.",
+      "numbers": [
+        {"label": "Gemini calls", "value": "80", "note": "4 arms × 20 clips"},
+        {"label": "CrisperWhisper calls", "value": "40", "note": "local, no upload"},
+        {"label": "Gemini cost", "value": "$0.17", "note": "list price"},
+        {"label": "pathological loops", "value": "4", "note": "of 40 CrisperWhisper clips"}
+      ],
+      "bars_title": "Target word families found, out of 20 clips (surface presence, not accuracy)",
+      "bars": [
+        {"label": "ElevenLabs, 25-s no keyterms", "value": 16, "max": 20, "text": "16"},
+        {"label": "OpenAI strict prompt", "value": 14, "max": 20, "text": "14", "tone": "grey"},
+        {"label": "Speechmatics Melia", "value": 14, "max": 20, "text": "14", "tone": "grey"},
+        {"label": "Gemini, local vocabulary", "value": 14, "max": 20, "text": "14*", "tone": "grey"},
+        {"label": "Gemini, bilingual hints", "value": 9, "max": 20, "text": "9", "tone": "grey"},
+        {"label": "CrisperWhisper forced Arabic", "value": 8, "max": 20, "text": "8", "tone": "grey"},
+        {"label": "CrisperWhisper auto", "value": 7, "max": 20, "text": "7", "tone": "grey"},
+        {"label": "Gemini auto verbatim", "value": 5, "max": 20, "text": "5", "tone": "low"}
+      ],
+      "source_md": "C:/Users/Mahdi/Documents/Codex/2026-09-04/do/outputs/anees-overnight-asr-bakeoff-report-2026-09-05.md",
+      "links": [{"label": "Full report", "url": "reports/codex-overnight-bakeoff-2026-09-05.html"}]
+    },
+    {
+      "slug": "codex-fish-audio-2026-09-05", "date": "2026-09-05", "author": "Codex",
+      "title": "Fish Audio: research and test status",
+      "question": "Is Fish Audio's cheap ASR worth Amal's audio?",
+      "verdict": "Not now. Its API has no vocabulary, verbatim, speaker or word-timing controls, its terms allow training on uploads, and it costs more than ElevenLabs. Test only with Amal's informed consent.",
+      "numbers": [
+        {"label": "price per audio hour", "value": "$0.36", "note": "ElevenLabs $0.22"},
+        {"label": "filler F1 (English)", "value": "30.5", "note": "ElevenLabs 95.5"},
+        {"label": "lesson audio uploaded", "value": "0", "note": "consent gate"},
+        {"label": "controls documented", "value": "2", "note": "language hint, timestamps"}
+      ],
+      "bars_title": "Verbatim benchmark, English, filler F1 (Nyra Labs; interested party)",
+      "bars": [
+        {"label": "ElevenLabs Scribe v2", "value": 95.5, "max": 100, "text": "95.5"},
+        {"label": "Inworld", "value": 95.2, "max": 100, "text": "95.2", "tone": "grey"},
+        {"label": "xAI", "value": 84.4, "max": 100, "text": "84.4", "tone": "grey"},
+        {"label": "Fish Audio", "value": 30.5, "max": 100, "text": "30.5", "tone": "low"}
+      ],
+      "source_md": "C:/Users/Mahdi/Documents/Codex/2026-09-04/do/outputs/anees-fish-audio-research-and-test-status-2026-09-05.md",
+      "links": [{"label": "Full report", "url": "reports/codex-fish-audio-2026-09-05.html"}]
+    },
+    {
+      "slug": "codex-full-deep-research-2026-09-04", "date": "2026-09-04", "author": "Codex",
+      "title": "Full deep research: capture, engines, architecture, project audit",
+      "question": "What should Anees be built around, and does anything beat ElevenLabs?",
+      "verdict": "Build a better system around ElevenLabs, not a better engine: Ennuicastr separate tracks on Android, Scribe per track without keyterms, a 20-item Amal inbox. Speechmatics Melia tested and rejected as primary. Six P0 findings in the repo.",
+      "numbers": [
+        {"label": "Melia target families", "value": "14/20", "note": "ElevenLabs 16/20"},
+        {"label": "Melia speaker clusters", "value": "6", "note": "for 2 people"},
+        {"label": "P0 findings", "value": "6", "note": "all now fixed or tracked"},
+        {"label": "70-min lesson cost", "value": "$2.88", "note": "capture + 2 tracks"}
+      ],
+      "bars_title": "Fillers kept on the 20 clips (hesitation evidence)",
+      "bars": [
+        {"label": "ElevenLabs, 25-s", "value": 22, "max": 22, "text": "22"},
+        {"label": "Speechmatics Melia", "value": 2, "max": 22, "text": "2", "tone": "low"},
+        {"label": "OpenAI strict", "value": 0, "max": 22, "text": "0", "tone": "low"}
+      ],
+      "source_md": "C:/Users/Mahdi/Documents/Codex/2026-09-04/do/outputs/anees-full-deep-research-report-2026-09-04.md",
+      "links": [{"label": "Full report", "url": "reports/codex-full-deep-research-2026-09-04.html"}]
+    },
+    {
+      "slug": "codex-independent-test-2026-09-04", "date": "2026-09-04", "author": "Codex",
+      "title": "Independent test: ElevenLabs vs OpenAI on 20 frozen clips",
+      "question": "Does a strict OpenAI prompt beat ElevenLabs at keeping Medi's words?",
+      "verdict": "No. The strict prompt fixed OpenAI's wrong-language habit but removed every filler and found fewer target families. Adding the vocabulary list to the prompt made it worse.",
+      "numbers": [
+        {"label": "ElevenLabs tokens", "value": "725", "note": "22 fillers"},
+        {"label": "OpenAI strict tokens", "value": "590", "note": "0 fillers"},
+        {"label": "target families", "value": "16 vs 14", "note": "of 20"},
+        {"label": "vocabulary prompt", "value": "13/20", "note": "worse, not better"}
+      ],
+      "bars_title": "Target word families found, out of 20",
+      "bars": [
+        {"label": "ElevenLabs, 25-s", "value": 16, "max": 20, "text": "16"},
+        {"label": "OpenAI strict", "value": 14, "max": 20, "text": "14", "tone": "grey"},
+        {"label": "OpenAI + vocabulary", "value": 13, "max": 20, "text": "13", "tone": "low"}
+      ],
+      "source_md": "C:/Users/Mahdi/Documents/Codex/2026-09-04/do/outputs/anees-independent-test-report.md",
+      "links": [{"label": "Full report", "url": "reports/codex-independent-test-2026-09-04.html"}, {"label": "Wiki summary", "url": "../wiki/16-codex-independent-test-2026-09-04.md"}]
+    },
+    {
+      "slug": "engine-report-2026-09-04", "date": "2026-09-04", "author": "Claude",
+      "title": "Engine report: 14 engines on the Aug 25 lesson",
+      "question": "Which transcriber should Anees use for now?",
+      "verdict": "ElevenLabs Scribe v2 for now: Amal preferred it on 15 of 20 blind clips against Speechmatics and a local Whisper (OpenAI was not in that vote). It wins on words and hesitations kept, not on a human accuracy score.",
+      "numbers": [
+        {"label": "Amal's blind vote", "value": "15/20", "note": "vs Speechmatics + local Whisper"},
+        {"label": "head-to-head", "value": "11-1", "note": "vs Speechmatics"},
+        {"label": "engines compared", "value": "14", "note": "paid, free, hybrid"},
+        {"label": "price per hour", "value": "$0.22", "note": "Speechmatics $0.80"}
+      ],
+      "bars": [],
+      "links": [{"label": "Open the engine report", "url": "engine-report.html"}, {"label": "Codex Recipe 1", "url": "recipe1.html"}]
+    }
+  ]
+}
