@@ -13,7 +13,7 @@ Paste this whole file as the first message of a fresh Claude Code chat in `C:\de
 - **Live data = Supabase** (new free project `anees`). Pages = GitHub Pages (`docs/`). Amal has no login: her links carry a secret token. Medi's flashcard results sync via localStorage queue → Supabase.
 - **Speaker-label floor:** per-speaker scores are published only when ElevenLabs' split is OK or the pitch fallback leaves ≤ 15% of words unlabeled; otherwise the report shows "–" and says why. Never a guessed number (standing rule).
 - **Amal is included, never replaced:** every planner/homework item is a *suggestion*; her edits and rejections are stored as rules that change future suggestions.
-- **Flashcards = Quizlet, exactly:** Flashcards (flip), Learn, Write, Match, Test. Subject picker = Doc headings + grammar sets (past tense, all verb tenses, plurals, …).
+- **Flashcards = Quizlet's Flashcards mode only** (no Learn/Write/Match/Test). Must-haves Medi named: the same flip-card review feel; toggle Arabic-first or English-first; shuffle; wrong cards are saved and a "Review the ones I got wrong" round replays only those, repeatable until the pile is empty. Subject picker = Doc headings + grammar sets (past tense, all verb tenses, plurals, …) + buckets (Missed only, Shaky only, last 3 lessons).
 - **Future projects section (not built tonight, listed in the UI):** 1 deep research on language-learning studies → rules the app follows (extend wiki 02/03/04/06); 2 audio homework that listens to Medi's pronunciation (ElevenLabs TTS + STT; LearnerVoice caveat); 3 adding words inside the app; 4 Discord + Craig separate-track recording (design agreed 2026-09-04, Ennuicastr as paid fallback).
 
 ## 1. Hard limits (violating any one = stop, write handoff, do not continue)
@@ -84,10 +84,10 @@ Gate:
 - link expires after 7 days; second open shows "already done, thank you" not the questions again.
 Sign-off: Codex + council (≥ 8/10, they must attempt it as Amal on a phone-size window).
 
-### M5 — Flashcards (Quizlet parity)
-Build: Flashcards / Learn / Write / Match / Test; subject picker (Doc headings + grammar sets); 4 buckets; 3× weighting; first-try/second-try/wrong tracking; localStorage queue → Supabase; "flag to Amal" on often-wrong words feeds M3/M8.
+### M5 — Flashcards (Quizlet Flashcards mode, done right)
+Build: flip cards with Quizlet's feel (tap to flip, swipe/buttons Got it / Missed, progress bar, end-of-round summary); Arabic-first / English-first toggle; shuffle; wrong pile saved per round with a "Review the ones I got wrong" button that replays only those until empty; subject picker (Doc headings + grammar sets + buckets); 4 buckets; 3× weighting; first-try/second-try/wrong tracking; localStorage queue → Supabase; "flag to Amal" on often-wrong words feeds M3/M6.
 Gate:
-- all 5 modes work on phone and desktop; Match times a round; Test grades and stores.
+- flip, toggle, shuffle, wrong-pile replay all work on phone and desktop; a round of 20 with 6 misses → replay shows exactly those 6; second replay shows only the still-missed ones; end summary counts reconcile with stored rows.
 - scheduler test: a Missed word appears ≥ 3× as often as a Cold word over 300 simulated draws (script).
 - Ice-cold promotion test: 5 correct on 3 simulated days → Ice cold; one miss → Cold.
 - offline test: 20 answers with network off, then on → 20 rows in Supabase, 0 duplicates.
@@ -99,8 +99,9 @@ Gate: 0 items using untaught words; Medi as stand-in edits in ≤ 1 min; edits p
 Sign-off: Codex.
 
 ### M7 — One interface
-Build: single URL `docs/index.html` with tabs: Today · Lessons · Words (grip table, search, buckets) · Flashcards · Amal (links + rules log) · Grammar (reference from Doc grammar sections + wiki) · Future projects (the 4 items). Same design system as the lesson pages.
-Gate: every tab reachable in ≤ 2 taps; Lighthouse mobile performance ≥ 80; dark/light; no dead links (crawler test); loads with Supabase down (shows cached data + banner).
+Build: single URL `docs/index.html` with tabs: Today · Lessons · Words · Flashcards · Amal (links + rules log) · Grammar (reference from Doc grammar sections + wiki) · Future projects (the 4 items). Same design system as the lesson pages.
+**Words tab requirements:** strong search as you type across Arabizi (loose matching: 6/7/3/2/5 and vowels ignored), Arabic script, and English meaning; results in < 100 ms for 2,200 words; each row shows word, Arabic, English, topic, bucket badge (Ice cold / Cold / Shaky / Missed / Never seen), last reviewed date (cards or lesson, whichever is later), times seen in lessons, times missed; filter by bucket and topic; sort by last reviewed; tap a row → its history (every lesson clip + card result).
+Gate: every tab reachable in ≤ 2 taps; Lighthouse mobile performance ≥ 80; dark/light; no dead links (crawler test); loads with Supabase down (shows cached data + banner); Words search test: 20 queries (10 Medi misspellings, 5 English, 5 Arabic) → 20/20 hit the right word in the top 3, each < 100 ms; every word row shows a bucket and a last-reviewed value or "never".
 Sign-off: Codex.
 
 ### M8 — Hardening, morning checklist, handoff
