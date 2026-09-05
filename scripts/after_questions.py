@@ -109,6 +109,12 @@ def payload(date, audio=None, use_openai=True, with_db=True):
     if with_db:
         import db
         stats = db.select('word_stats'); rules = db.select('amal_rules', {'select': 'kind,word_key,payload,source,lesson_date', 'order': 'created_at.asc'})
+        for q in qs:                                   # bind each question to its stored event row (Codex P0: patch by id, never by a time range)
+            if q.get('word_key'):
+                rows = db.select('word_events', {'lesson_date': f'eq.{date}', 'word_key': f"eq.{q['word_key']}", 'select': 'id,t_start'})
+                near = [x for x in rows if abs(float(x['t_start']) - float(q['t'])) < 0.05]
+                q['event_id'] = near[0]['id'] if len(near) == 1 else None
+                q['who'] = q['kind'] == 'who'
     else:
         stats, rules = [], []
     prev = json.load(io.open(d / 'after_payload.json', encoding='utf-8')) if (d / 'after_payload.json').exists() else {}

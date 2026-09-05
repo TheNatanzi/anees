@@ -24,6 +24,8 @@ CLIP_MAX = 25.0
 CLIP_PAD_BEFORE, CLIP_PAD_AFTER = 3.0, 4.0
 CHAT_WINDOW = 120.0
 NEG = {'la', 'laa', 'no', 'nope', 'not', 'mish', 'mush', 'لا', 'لأ', 'لاء', 'مش', 'مو'}
+ELICIT_TUTOR = ('how do you say', 'how do we say', 'how would you say', 'what is', "what's", 'what do you say', 'say it', 'in arabic', 'شو يعني', 'كيف بتقول', 'كيف بنقول', 'كيف بتحكي', 'شو بتقول', 'ايش يعني')
+ASK_LEARNER = ('how do you say', 'how do i say', 'how to say', 'what is', "what's", 'in arabic', 'what was', 'شو يعني', 'كيف بقول', 'كيف بحكي', 'شو اسم', 'كيف بنقول')
 META_EN = {'say', 'says', 'said', 'instead', 'means', 'mean', 'meaning', 'use', 'takes', 'take', "don't", 'dont', 'should', 'because',
            'preposition', 'verb', 'plural', 'feminine', 'masculine', 'past', 'present', 'form', 'conjugate'}
 STOP_KEYS = {'ana', 'inta', 'inti', 'intu', 'huwe', 'hiye', 'hume', 'i7na', 'shu', 'bas', 'la', 'ah', 'ok', 'okay', 'yes', 'no', 'tamam'}
@@ -93,10 +95,12 @@ def labeled_words(date, scribe, audio, src_name):
 
 
 def looks_arabizi(tok):
-    """A Latin token that is plausibly Arabizi: has a digit, or an Arabic digraph / long vowel and is not common English."""
+    """A Latin token that is plausibly Arabizi: has a digit, or an Arabic digraph / long vowel and is not common English.
+    Pure vowel runs (Aaaa, ooo) are fillers, never words."""
+    tok = tok.lower().strip(".,?!-'\"")
     if re.search(r'[0-9]', tok):
         return True
-    if tok in ENGLISH_STOP or len(tok) < 4:
+    if tok in ENGLISH_STOP or len(tok) < 4 or re.fullmatch(r'[aeiouh]+', tok):
         return False
     return bool(re.search(r"aa|ee|oo|kh|gh|sh|7|3|'", tok))
 
@@ -125,9 +129,10 @@ def find_doc_events(words, matcher, lo, hi, exclude):
             if not ARABIC.search(text):
                 # Latin token: the lesson is mostly English, so only an Arabizi-looking token may match below the exact tier
                 clean = [t.lower().strip(".,?!-'\"") for t in text.split()]
-                if any(t in ENGLISH_STOP for t in clean) or any(len(t) < 2 for t in clean):
+                if any(t in ENGLISH_STOP for t in clean) or any(len(t) < 2 for t in clean) or any(re.fullmatch(r'[aeiouh]+', t) for t in clean):
                     continue
-                if tier != 'exact' and not all(looks_arabizi(t) for t in clean):
+                # Codex P0 (M1): even an exact-tier Latin hit must look like Arabizi (soon / sit / Aaaa were becoming Doc words)
+                if not all(looks_arabizi(t) for t in clean):
                     continue
                 if tier in ('skeleton', 'fuzzy'):
                     continue
@@ -142,8 +147,16 @@ def find_doc_events(words, matcher, lo, hi, exclude):
     return events
 
 
+def _window_text(words, starts, t0, t1, spk):
+    import bisect
+    a, b = bisect.bisect_left(starts, t0), bisect.bisect_right(starts, t1)
+    return ' '.join(words[j]['w'].lower() for j in range(a, b) if words[j]['spk'] == spk)
+
+
 def annotate(events, words, tutor='Amal', learner='Medi'):
-    """prompted: Amal said the same word <= 10 s before. correction: within 5 s after Medi's word Amal says la/no/meta or repeats it.
+    """prompted: Amal said the same word <= 10 s before. correction: within 5 s after Medi's word Amal says la/no/meta, or repeats
+    it (recast) unless she had just elicited it ("how do you say sorry?" -> Medi answers -> Amal repeats = confirmation).
+    asked: Medi asked for the word ("how do you say", "شو يعني") <= 8 s before Amal said it; his repeat is then prompted+asked.
     uptake: Medi repeats Amal's word within 10 s (marks Amal's event)."""
     by_key = collections.defaultdict(list)
     for e in events:
@@ -151,18 +164,26 @@ def annotate(events, words, tutor='Amal', learner='Medi'):
     starts = [w['s'] for w in words]
     import bisect
     for e in events:
-        e['prompted'] = e['correction'] = e['uptake'] = False
+        e['prompted'] = e['correction'] = e['uptake'] = e['asked'] = e['elicited'] = False
         same = by_key[e['word_key']]
         if e['speaker'] == learner:
-            e['prompted'] = any(o['speaker'] == tutor and 0 < e['t_start'] - o['t_end'] <= 10 for o in same)
+            prior_tutor = [o for o in same if o['speaker'] == tutor and 0 < e['t_start'] - o['t_end'] <= 10]
+            e['prompted'] = bool(prior_tutor)
+            tutor_before = _window_text(words, starts, e['t_start'] - 8, e['t_start'], tutor)
+            e['elicited'] = any(c in tutor_before for c in ELICIT_TUTOR) and not e['prompted']
             recast = any(o['speaker'] == tutor and 0 < o['t_start'] - e['t_end'] <= 5 for o in same)
             a, b = bisect.bisect_left(starts, e['t_end']), bisect.bisect_right(starts, e['t_end'] + 5)
             cue = any(words[j]['spk'] == tutor and (loose(words[j]['w']) in NEG or words[j]['w'].lower().strip('.,?!') in META_EN or words[j]['w'] in NEG)
                       for j in range(a, b))
-            e['correction'] = bool(recast or cue)
-            e['cue'] = 'recast' if recast else ('cue' if cue else '')
+            e['correction'] = bool(cue or (recast and not e['elicited']))
+            e['cue'] = 'cue' if cue else ('recast' if (recast and not e['elicited']) else '')
         elif e['speaker'] == tutor:
             e['uptake'] = any(o['speaker'] == learner and 0 < o['t_start'] - e['t_end'] <= 10 for o in same)
+            learner_before = _window_text(words, starts, e['t_start'] - 8, e['t_start'], learner)
+            e['asked'] = any(c in learner_before for c in ASK_LEARNER)
+    for e in events:            # Medi's repeat of a word he asked for is prompted + asked (bucket: missed)
+        if e['speaker'] == learner and e['prompted']:
+            e['asked'] = any(o['speaker'] == tutor and o.get('asked') and 0 < e['t_start'] - o['t_end'] <= 10 for o in by_key[e['word_key']])
     return events
 
 
@@ -197,12 +218,14 @@ def locate_chat(chat_lines, words, lo=0):
             if ARABIC.search(tok):
                 ts = ar_skel(tok)
                 fam_ok = len(fam) >= 3 and fam in ts
-                form_ok = bool(sk) and (ts == sk or difflib.SequenceMatcher(None, ts, sk).ratio() >= 0.85)
+                form_ok = bool(sk) and ts == sk
             else:
-                ts = skeleton(tok)
-                r = difflib.SequenceMatcher(None, ts, lat_sk).ratio()
-                fam_ok = len(lat_sk) >= 3 and (lat_sk in ts or ts in lat_sk or r >= 0.75)
-                form_ok = ts == lat_sk or r >= 0.9
+                tl = tok.lower()
+                if tl in ENGLISH_STOP or len(tl) < 3 or re.fullmatch(r'[aeiouh]+', tl):
+                    continue                         # Codex P0 (M1): 'the' / 'both' / 'Inti' are not Arabizi forms
+                ts = arabizi_to_ar_skel(tok)         # same consonant alphabet as the Arabic branch (ASR spells Medi's forms freely: Betenbisti, Imbasatu)
+                fam_ok = len(fam) >= 3 and fam in ts and len(ts) - len(fam) <= 4
+                form_ok = bool(sk) and ts == sk
             if not (fam_ok or form_ok):
                 continue
             better = best is None or (form_ok and not best_form) or (form_ok == best_form and abs(w['s'] - ct) < abs(best['s'] - ct))
@@ -292,7 +315,7 @@ def apply_floor(events, conf):
     for e in events:
         e['label_ok'] = conf['per_speaker_ok']
         if not conf['per_speaker_ok']:
-            e['speaker'] = '?'; e['prompted'] = e['correction'] = e['uptake'] = None
+            e['speaker'] = '?'; e['prompted'] = e['correction'] = e['uptake'] = e['asked'] = None
     return events
 
 

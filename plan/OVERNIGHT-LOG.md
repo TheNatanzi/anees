@@ -210,3 +210,39 @@ unclear-voice and unknown-word candidates ranked below them this time). Paid: gp
 Chairman: agreement = flow is short, honest, saves every tap; disagreement = question diversity (skeptic) — accepted as a P1
 for the morning (add a per-20-s dedupe so two questions never share a clip; kinds interleaved). Strongest argument = evidence
 (rule → row → bucket chain proven). **Score 8/10, no open P0.** Rises when Amal's first real answers arrive.
+
+## Codex audits M1 + M3 + M4/M6 — findings and fixes  (03:20 → 04:40)
+
+Codex (rescue runs task-mto1ewgu, task-mto2ckyi, task-mto2ou9w) verified by running, not reading. Everything P0/P1 below is FIXED
+and covered by a test; the full suite is 49 green after the fixes.
+| # | Finding (Codex) | Fix |
+|---|---|---|
+| M1 P0 | English tokens (soon / sit / Aaaa) became Doc-word events at the exact tier | Latin hits must look Arabizi even at exact tier; vowel runs = fillers; 90 more English words in the stop-list; test `test_english_tokens_never_become_doc_words` |
+| M1 P0 | chat location accepted 'the' / 'both' / 'Inti' and called approximations "exact form" | Latin ASR forms compared by Arabic consonant FAMILY core (same rule as Arabic tokens), exact form = equal skeletons; **honest numbers: 46/47 family, 41/47 exact form** (Codex's strict recount: 46 / 41) |
+| M1 P0 | "How do you say sorry?" → Medi answers → Amal repeats was counted as a correction | elicitation rule: a tutor repeat after her own elicitation is confirmation; Medi asking ("how do you say", شو يعني) marks the word `asked` (bucket missed); test `test_elicited_answer_is_not_a_correction`. Aug 25 misses 24 → 21 |
+| M1 P1 | the chat test trusted stored booleans | test recomputes from words_labeled + chat lines and compares to the stored flags |
+| M3 P0 | expired holder could revive / PATCH its link; public rules view leaked payloads | migration 003: trigger blocks anon changes to token / kind / lesson_date / expires_at / created_at / payload; migration 004: expired links invisible to anon; public view = kind / word / lesson / 120-char label only |
+| M3/M4 P0 | autosave was an in-memory queue; "done" rendered before the PATCH landed | both pages: localStorage queue + answers per token, reload resumes at the first unanswered screen, "Saving…" until the queue is empty |
+| M4 P0 | a token could insert rules for any lesson/word; verdicts patched by ±1 s range; test mutated real rows | rules must match the link's lesson_date (RLS) and the link's own question list (apply_rules), patch by word_events.id bound at link creation; test snapshots and restores the rows |
+| M4 P0 | 'who' question built from raw words (glue word shu, no event row) | unclear-voice questions come from real events, never glue words |
+| M4 P1 | "wrong twice" = only consecutive; edits not reused; function tokens approved untaught glue; 3× weight unused | two misses within the last three answers (py + js parity test); edited sentences return first; glue = only Doc-present tokens (OpenAI prompt too); A-list sorted by weight |
+| M4 P1/P2 | Arabic line same size as Arabizi; Skip a tiny link | Arabic 17 px muted second line; Skip is a 44-px full-width control (question screens keep ≤ 4 buttons: ▶ + 3 answers) |
+Not fixed (by design): 'Right' no longer touches `prompted` (Codex was right); unknown-word "Yes, a word" with a typed spelling is kept as a rule row for the Words tab but never creates a Doc word (the Doc stays the truth).
+Also: `data/amal_links.json` (token URLs) was committed at M3 → removed from git and ignored; only test tokens were ever in it and all were deleted.
+
+## M5 — Flashcards  (03:00 → 04:45, interleaved)
+Built: `docs/cards.html` (Quizlet Flashcards mode: tap/space to flip, Got it / Missed buttons or swipe, progress bar, end summary,
+"Review the ones I got wrong (N)" until the pile is empty, Arabic-first / English-first, shuffle, 10/20 cards, subject picker =
+Doc topics + grammar sets (past tense, all verb tenses, plurals, command) + buckets (Missed / Shaky / Last 3 lessons / Cold+ice)),
+`docs/js/cards-core.js` (pure: weighted draw 3× for Missed + recent, round state machine), `docs/js/buckets.js` (JS port of
+buckets.py), offline queue in localStorage → card_results (client uuid = idempotency key, duplicates ignored), "flag to Amal" after
+two misses in a session (migration 002 policy), bucket badge on every card.
+```
+python -m pytest -q tests/test_m5_cards.py
+7 passed in 34.81s
+scheduler: seeded 300 draws Missed/Cold = 3.23 (≥ 3); 3,000 draws 3.06; mean over 200 seeds 3.07 (weight is exactly 3)
+round of 20 with 6 misses → replay = exactly those 6 → second replay = the 2 still missed → pile empty; 28 stored rows reconcile (20 got / 8 missed)
+ice-cold: 5 first-try rights on 3 days → ice_cold; one miss → cold; two misses in three → missed; Python and JS agree on 7 cases
+phone 375×812 AND desktop 1280×800: flip / toggle / shuffle / replay end to end against live Supabase; buttons ≥ 48 px; no horizontal scroll
+offline: 20 answers with the network off → queue 20 → online → 20 rows in Supabase; the same 20 ids replayed → still 20 (0 duplicates)
+```

@@ -14,7 +14,6 @@ button.play.on{background:var(--teal);border-color:var(--teal)} button small{dis
 .card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin:4px 0 10px} .card .big{font-size:22px;font-weight:700}
 .ar{font-size:17px;color:var(--mute);direction:rtl;display:block} .en{color:var(--mute);font-size:15px;margin-top:2px} .why{font-size:13px;color:var(--amber);margin-top:6px}
 input{width:100%;font:18px system-ui;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);color:var(--ink);margin-top:8px}
-.skip{display:block;min-height:44px;padding:12px 4px;margin-top:6px;color:var(--mute);font-size:15px;text-align:center}
 .quit{margin-top:auto;padding-top:12px;font-size:14px;color:var(--mute)} .quit a{color:var(--mute);display:inline-block;padding:12px 4px;min-height:44px}
 </style></head><body><main>
 <p class="who" id="who">Medi's app has a few quick questions about today's lesson. Tap ▶ once to hear the moment.</p>
@@ -61,13 +60,13 @@ function build(p){
     const kinds={'Right':'right','Wrong':'wrong','Not Medi':'not_medi','Skip':'skip','Medi, right':'right','Medi, wrong':'wrong','Yes, a word':'alias','No':'no'};
     S.push({prog:`${i+1} of ${total}`,html:`<h1>${esc(q.ask)}</h1><p class="sug">${esc(q.why)}. Your answer changes how the app scores this word.</p>
       <div class="card">${q.arabizi?`<div class="big">${esc(q.arabizi)}</div>`:''}<span class="ar">${esc(q.arabic||'')}</span><div class="en">${esc(q.english||'')}</div></div>
-      ${playBtn(id+'p',q.clip,q.offset)}${q.typed?`<input id="${id}t" placeholder="her spelling (optional)" aria-label="spelling">`:''}<div class="btns">${q.buttons.slice(0,3).map((b,j)=>`<button id="${id}b${j}">${esc(b)}</button>`).join('')}</div><a href="#" id="${id}skip" class="skip">Skip this one</a>`,
+      ${playBtn(id+'p',q.clip,q.offset)}${q.typed?`<input id="${id}t" placeholder="her spelling (optional)" aria-label="spelling">`:''}<div class="btns">${q.buttons.slice(0,3).map((b,j)=>`<button id="${id}b${j}">${esc(b)}</button>`).join('')}<button id="${id}skip" style="color:var(--mute)">Skip this one</button></div>`,
       wire(){ wirePlay(id+'p');
         const answer=(label)=>{ const kind=kinds[label]||'skip'; const typed=document.getElementById(id+'t'); const pl={t:q.t,ask:q.ask,label,clip:q.clip,arabic:q.arabic,arabizi:q.arabizi};
           if(typed&&typed.value.trim()) pl.alias=typed.value.trim();
           (answers.q=answers.q||{})[i]=label; rule(kind,q.word_key,pl); save(); next(); };
         q.buttons.slice(0,3).forEach((b,j)=>document.getElementById(id+'b'+j).onclick=()=>answer(b));
-        document.getElementById(id+'skip').onclick=e=>{e.preventDefault(); answer('Skip');}; }});
+        document.getElementById(id+'skip').onclick=()=>answer('Skip'); }});
   });
   HW.forEach((h,i)=>{ const id=`h${i}`;
     S.push({prog:`${Q.length+i+1} of ${total}`,html:`<h1>Homework suggestion ${i+1} of ${HW.length}</h1><p class="sug">The app suggests this for Medi (${esc(h.kind==='say'?'a sentence to say':h.kind==='use'?'a word to use':'a mini-dialogue')}). Keep, drop or edit it.</p>

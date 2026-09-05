@@ -142,8 +142,6 @@ def test_link_expires_after_7_days():
         local = (ROOT / 'docs' / 'amal' / 'after.html').resolve().as_uri() + f'?t={token}'
         with sync_playwright() as pw:
             b = pw.chromium.launch(); pg = b.new_page(); pg.goto(local); pg.wait_for_selector('h1', timeout=15000)
-            h = pg.text_content('h1').lower()
-            assert 'expired' in h or 'not valid any more' in h, h      # RLS hides expired rows, so the page cannot tell expired from unknown
-            b.close()
+            assert 'expired' in pg.text_content('h1').lower(); b.close()
     finally:
         db.sql(f"delete from amal_links where token='{token}'")

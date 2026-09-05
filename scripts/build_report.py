@@ -35,7 +35,7 @@ def classify(u, earlier_keys):
         for e in evs:
             if e['speaker'] != 'Medi':
                 continue
-            kind = 'missed' if e['correction'] else ('nailed' if not e['prompted'] else None)
+            kind = 'missed' if (e['correction'] or e.get('asked')) else ('nailed' if not e['prompted'] else None)
             if kind:
                 rows.append({'lesson_date': date, 'kind': kind, 'word_key': e['word_key'], 't_start': e['t_start'], 't_end': e['t_end'], 'speaker': 'Medi',
                              'text': e['text'], 'clip': e['clip'], 'confidence': 1.0, 'detail': {'offset': e['offset'], 'cue': e.get('cue', ''), 'prompted': e['prompted']}})
@@ -58,8 +58,8 @@ def classify(u, earlier_keys):
     # moments: corrections first, then prompted, then typed forms that were found, then nailed words (distinct), all with audio
     ranked = []
     if ok:
-        ranked += [(0 if e.get('cue') == 'recast' else 1, e) for e in evs if e['speaker'] == 'Medi' and e['correction']]
-        ranked += [(2, e) for e in evs if e['speaker'] == 'Medi' and e['prompted'] and not e['correction']]
+        ranked += [(0 if e.get('cue') == 'recast' else 1, e) for e in evs if e['speaker'] == 'Medi' and (e['correction'] or e.get('asked'))]
+        ranked += [(2, e) for e in evs if e['speaker'] == 'Medi' and e['prompted'] and not (e['correction'] or e.get('asked'))]
     seen_k = set()
     for _, e in sorted(ranked, key=lambda x: (x[0], x[1]['t_start'])):
         if e['word_key'] in seen_k:
@@ -71,10 +71,10 @@ def classify(u, earlier_keys):
         if e['word_key'] in used:
             continue
         used.add(e['word_key']); moments.append((pri, e['t_start'], e['t_end'], 'Medi', e['text'], e['word_key'], e['clip'], e['offset'],
-                                                ('Amal repeated it right after (recast)' if e.get('cue') == 'recast' else 'Amal said no / say… right after') if e['correction'] else 'said after Amal'))
+                                                ('you asked for it' if e.get('asked') else ('Amal repeated it right after (recast)' if e.get('cue') == 'recast' else 'Amal said no / say… right after')) if (e['correction'] or e.get('asked')) else 'said after Amal'))
     if ok:
         for e in evs:
-            if e['speaker'] == 'Medi' and not e['prompted'] and not e['correction'] and e['word_key'] not in used and len(moments) < MOMENTS * 2:
+            if e['speaker'] == 'Medi' and not e['prompted'] and not e['correction'] and not e.get('asked') and e['word_key'] not in used and len(moments) < MOMENTS * 2:
                 used.add(e['word_key']); moments.append((3, e['t_start'], e['t_end'], 'Medi', e['text'], e['word_key'], e['clip'], e['offset'], 'said cold'))
     else:
         for e in evs:
@@ -97,7 +97,7 @@ def sync_db(u, rows):
                            'updated_at': datetime.datetime.now(datetime.timezone.utc).isoformat()}], on='date')
     db.rest('DELETE', 'word_events', params={'lesson_date': f'eq.{date}'}, prefer='return=minimal')
     wrows = [{'lesson_date': date, 'word_key': e['word_key'], 't_start': e['t_start'], 't_end': e['t_end'], 'speaker': e['speaker'], 'prompted': e['prompted'],
-              'correction': e['correction'], 'uptake': e['uptake'], 'confidence': (1.0 if conf['per_speaker_ok'] else 0.0), 'clip': e['clip'], 'text': e['text']} for e in u['events']]
+              'correction': e['correction'], 'uptake': e['uptake'], 'asked': e.get('asked'), 'confidence': (1.0 if conf['per_speaker_ok'] else 0.0), 'clip': e['clip'], 'text': e['text']} for e in u['events']]
     db.upsert('word_events', wrows)
     db.rest('DELETE', 'lesson_events', params={'lesson_date': f'eq.{date}'}, prefer='return=minimal')
     db.upsert('lesson_events', rows)

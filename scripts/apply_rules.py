@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import db, buckets
 
 ROOT = Path(__file__).resolve().parent.parent
-VERDICT = {'right': {'correction': False, 'prompted': False}, 'wrong': {'correction': True}, 'not_medi': {'speaker': 'Amal', 'correction': False, 'prompted': False}}
+VERDICT = {'right': {'correction': False, 'asked': False}, 'wrong': {'correction': True}, 'not_medi': {'speaker': 'Amal', 'correction': False, 'prompted': False, 'asked': False}}
 
 
 def apply(limit=500):
@@ -23,15 +23,26 @@ def apply(limit=500):
             continue
         k, key = r['kind'], r.get('word_key')
         if k in VERDICT and key and r.get('lesson_date'):
-            t = p.get('t')
-            params = {'lesson_date': f"eq.{r['lesson_date']}", 'word_key': f'eq.{key}'}
-            if t is not None:
-                params['and'] = f'(t_start.gte.{float(t) - 1.0},t_start.lte.{float(t) + 1.0})'
-            patch = dict(VERDICT[k]); patch['confidence'] = 1.0
-            hit = db.rest('PATCH', 'word_events', params=params, body=patch, prefer='return=representation') or []
-            changed.append({'rule': r['id'], 'kind': k, 'word_key': key, 'patched': patch, 'rows': len(hit)})
+            # Codex P0: a verdict is applied only when the link's own payload asked exactly this question (word + time)
+            link = db.select('amal_links', {'token': f"eq.{r['token']}", 'select': 'lesson_date,payload'}) if r.get('token') else []
+            qs = ((link[0].get('payload') or {}).get('questions') or []) if link else []
+            q = next((x for x in qs if x.get('word_key') == key and abs(float(x.get('t', -9)) - float(p.get('t', -1))) < 0.01), None)
+            if not link or link[0]['lesson_date'] != r['lesson_date'] or not q:
+                changed.append({'rule': r['id'], 'kind': k, 'word_key': key, 'rows': 0, 'refused': 'rule does not match a question of its link'})
+            else:
+                patch = dict(VERDICT[k]); patch['confidence'] = 1.0
+                if p.get('who') and k in ('right', 'wrong'):
+                    patch['speaker'] = 'Medi'
+                if q.get('event_id'):
+                    params = {'id': f"eq.{q['event_id']}"}
+                else:
+                    params = {'lesson_date': f"eq.{r['lesson_date']}", 'word_key': f'eq.{key}', 't_start': f"eq.{q['t']}"}
+                hit = db.rest('PATCH', 'word_events', params=params, body=patch, prefer='return=representation') or []
+                changed.append({'rule': r['id'], 'kind': k, 'word_key': key, 'patched': patch, 'rows': len(hit)})
         elif k == 'alias' and p.get('alias'):
             key = key or p.get('word_key')
+            if not key:
+                changed.append({'rule': r['id'], 'kind': 'alias', 'word_key': None, 'rows': 0, 'note': 'new word typed by Amal; kept as a rule for the Words tab (the Doc stays the truth)'})
             if key:
                 w = db.select('words', {'key': f'eq.{key}', 'select': 'key,aliases'})
                 if w:

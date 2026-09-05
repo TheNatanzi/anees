@@ -12,10 +12,10 @@ h1{font-size:24px;margin:2px 0 10px;line-height:1.25} .sug{font-size:14px;color:
 button{min-height:52px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:14px;font:600 18px system-ui;padding:10px 14px;text-align:left;cursor:pointer;width:100%}
 button.primary{background:var(--teal);color:#fff;border-color:var(--teal)} button.sel{outline:3px solid var(--teal)} button.drop{color:var(--red)} button:disabled{opacity:.5}
 button small{display:block;font:14px system-ui;color:var(--mute);font-weight:400} button.primary small{color:#dff5ec}
-.ar{font-size:22px;direction:rtl;display:block} .card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:14px;margin:4px 0 12px}
+.ar{font-size:17px;color:var(--mute);direction:rtl;display:block} .card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:14px;margin:4px 0 12px}
 .card .big{font-size:22px;font-weight:700} .card .en{color:var(--mute);font-size:15px;margin-top:4px} .words{font-size:13px;color:var(--mute);margin-top:8px}
 input,textarea{width:100%;font:18px system-ui;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);color:var(--ink)}
-.quit{margin-top:auto;padding-top:14px;font-size:14px;color:var(--mute)} .quit a{color:var(--mute)} .ok{color:var(--teal)} .err{color:var(--red)}
+.quit{margin-top:auto;padding-top:14px;font-size:14px;color:var(--mute)} .quit a{color:var(--mute);display:inline-block;padding:12px 4px;min-height:44px} .ok{color:var(--teal)} .err{color:var(--red)}
 .saved{font-size:12px;color:var(--mute);min-height:16px;margin-top:6px}
 </style></head><body><main>
 <p class="who" id="who">Medi's app has 3 quick questions before today's lesson. Your choice always wins.</p>
@@ -31,17 +31,26 @@ const api=(m,p,b,extra)=>fetch(ANEES.url+'/rest/v1/'+p,{method:m,headers:{...H,.
 const root=document.getElementById('root'), prog=document.getElementById('prog'), who=document.getElementById('who');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
 let link=null, answers={}, step=0, screens=[];
-const queue=[]; let flushing=false;
-async function flush(){ if(flushing||!queue.length) return; flushing=true;
-  while(queue.length){ const job=queue[0]; try{ await job(); queue.shift(); }catch(e){ await new Promise(r=>setTimeout(r,1500)); } }
-  flushing=false; }
-function rule(kind,word_key,payload){ queue.push(()=>api('POST','amal_rules',{token:TOKEN,source:'planner',lesson_date:link.lesson_date,kind,word_key,payload},{Prefer:'return=minimal'}).then(r=>{if(!r.ok) throw 0;})); flush(); }
-function save(done){ answers.updated=new Date().toISOString(); const body={answers}; if(done) body.done_at=answers.updated; if(!link.opened_at) body.opened_at=answers.updated;
-  queue.push(()=>api('PATCH','amal_links?token=eq.'+encodeURIComponent(TOKEN),body,{Prefer:'return=minimal'}).then(r=>{if(!r.ok) throw 0;})); flush(); }
-function show(i){ step=i; const s=screens[i]; if(!s){ finish(); return; } prog.textContent=s.prog; root.innerHTML=s.html; s.wire&&s.wire(); window.scrollTo(0,0); }
+// Durable autosave: every tap is written to localStorage first (queue + answers, keyed by this link), then sent; a reload
+// resumes at the first unanswered screen and re-sends anything still queued. Nothing is lost on a dropped network.
+const QK='anees-amal-q-'+TOKEN, AK='anees-amal-a-'+TOKEN;
+const LS=(k,v)=>{ try{ if(v===undefined) return JSON.parse(localStorage.getItem(k)||'null'); localStorage.setItem(k,JSON.stringify(v)); }catch(e){ return null; } };
+let flushing=false, pendingDone=false;
+async function flush(){ if(flushing) return; flushing=true;
+  while(true){ const q=LS(QK)||[]; if(!q.length) break; const job=q[0]; let ok=false;
+    try{ const r= job.kind==='rule' ? await api('POST','amal_rules',job.body,{Prefer:'return=minimal'}) : await api('PATCH','amal_links?token=eq.'+encodeURIComponent(TOKEN),job.body,{Prefer:'return=minimal'}); ok=r.ok||r.status===409; }catch(e){ ok=false; }
+    if(!ok){ await new Promise(r=>setTimeout(r,2000)); continue; }
+    const q2=LS(QK)||[]; LS(QK,q2.filter(x=>x.id!==job.id)); }
+  flushing=false; if(pendingDone && !(LS(QK)||[]).length){ pendingDone=false; showDone(); } }
+setInterval(()=>{ if((LS(QK)||[]).length) flush(); },3000); window.addEventListener('online',flush);
+function push(kind,body){ const q=LS(QK)||[]; q.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2),kind,body}); LS(QK,q); flush(); }
+function rule(kind,word_key,payload){ push('rule',{token:TOKEN,source:'planner',lesson_date:link.lesson_date,kind,word_key,payload}); }
+function save(done){ answers.updated=new Date().toISOString(); LS(AK,answers); const body={answers}; if(done) body.done_at=answers.updated; if(!link.opened_at) body.opened_at=answers.updated; push('link',body); }
+function show(i){ step=i; answers.step=i; LS(AK,answers); const s=screens[i]; if(!s){ finish(); return; } prog.textContent=s.prog; root.innerHTML=s.html; s.wire&&s.wire(); window.scrollTo(0,0); }
 function next(){ show(step+1); }
-function finish(){ save(true); prog.textContent='Done'; who.textContent='Thank you, Amal.';
-  root.innerHTML='<h1>All saved. Have a good lesson!</h1><p class="sug">Medi\'s app suggested; you decided. Nothing else to do.</p>'; document.getElementById('quit').style.display='none'; }
+function showDone(){ prog.textContent='Done'; who.textContent='Thank you, Amal.'; root.innerHTML='<h1>All saved. Have a good lesson!</h1><p class="sug">Medi\'s app suggested; you decided. Nothing else to do.</p>'; document.getElementById('quit').style.display='none'; }
+function finish(){ answers.done=true; save(true); prog.textContent='Saving…'; root.innerHTML='<h1>Saving your answers…</h1><p class="sug">One moment. If you are offline this finishes by itself when you are back online.</p>'; document.getElementById('quit').style.display='none';
+  if(!(LS(QK)||[]).length) showDone(); else { pendingDone=true; flush(); } }
 function btn(label,sub,cls,id){ return `<button id="${id}" class="${cls||''}">${esc(label)}${sub?`<small>${esc(sub)}</small>`:''}</button>`; }
 function build(p){
   const S=[];
@@ -83,6 +92,8 @@ document.getElementById('quitlink').onclick=e=>{e.preventDefault(); finish();};
   if(!link){ root.innerHTML='<h1>This link is not valid any more.</h1><p class="sug">Links work for 7 days. Ask Medi for a fresh one.</p>'; prog.textContent=''; return; }
   if(new Date(link.expires_at)<new Date()){ root.innerHTML='<h1>This link has expired.</h1><p class="sug">Links work for 7 days. Ask Medi for a fresh one.</p>'; prog.textContent=''; return; }
   if(link.done_at){ root.innerHTML='<h1>Already done, thank you Amal.</h1><p class="sug">Your answers are saved. Nothing else to do.</p>'; prog.textContent='Done'; document.getElementById('quit').style.display='none'; return; }
-  answers=link.answers||{}; screens=build(link.payload||{}); show(0); save();
+  answers=Object.assign({}, link.answers||{}, LS(AK)||{}); screens=build(link.payload||{});
+  if(answers.done){ finish(); return; }
+  show(typeof answers.step==='number' ? Math.min(answers.step, screens.length) : 0); flush(); save();
 })();
 </script></body></html>

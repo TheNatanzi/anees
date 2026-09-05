@@ -22,4 +22,10 @@ morning evening night week weekend month year time times day days hour minute se
 add added remove removed change changed learn learned study studied practice practiced remember forget forgot understand
 understood repeat repeated write wrote read speak spoke talk talked listen heard hear finish finished end ended
 al ma am an ben bin been being fill has had ai has us use tell all mad made past boat sin em ma we gosh they're we're you're i'm it's that's there's what's he's she's let's qeem
+
+soon look looks looked book books good too food room rooms school cool moon door floor poor boot foot noon mood roof tool took wood zoo pool
+root loop choose boom shoot spoon goose loose sit sits sat set see seen feel feels need needs keep meet week free three tree green sleep
+deep feet street between been agree sweet speed indeed cheese coffee degree seem seems teeth queen screen sheet steel wheel she should show
+shows showed short shop wish fish push shut shall shame sheep ship shirt shoe shoes shoulder sharp shape share night light right might
+through though enough laugh high eight weight bought thought taught daughter fight sight tight bright ghost ah aah ahh oh ooh ooo eh hmm
 """.split())

@@ -16,7 +16,7 @@ RECENT_LESSONS = 3
 def _signal_from_event(e):
     if e.get('speaker') != 'Medi' or e.get('prompted') is None:
         return None
-    if e.get('correction'):
+    if e.get('correction') or e.get('asked'):
         return 'missed'
     if e.get('prompted'):
         return 'shaky'
@@ -40,8 +40,7 @@ def _signal_from_cards(cards):
     if streak >= 5 and len(days) >= 3:
         return 'ice_cold', streak, days
     if last['result'] == 'missed':
-        prev = cards[-2] if len(cards) > 1 else None
-        if prev and prev['result'] == 'missed':
+        if sum(1 for c in cards[-3:] if c['result'] == 'missed') >= 2:   # wrong twice (within the last three answers)
             return 'missed', 0, []
         return 'cold' if _was_ice(cards[:-1]) else 'shaky', 0, []      # one miss after an ice-cold streak -> cold
     if int(last.get('attempt') or 1) > 1:
@@ -95,7 +94,7 @@ def compute(word_events, card_results, lesson_dates, today=None):
 def recompute_and_store():
     """Reads word_events + card_results + lessons from Supabase, writes word_stats. Returns the stats dict."""
     import db
-    evs = db.select('word_events', {'select': 'lesson_date,word_key,speaker,prompted,correction,t_start'})
+    evs = db.select('word_events', {'select': 'lesson_date,word_key,speaker,prompted,correction,asked,t_start'})
     cards = db.select('card_results', {'select': 'word_key,ts,result,attempt'})
     dates = [r['date'] for r in db.select('lessons', {'select': 'date'})]
     stats = compute(evs, cards, dates)

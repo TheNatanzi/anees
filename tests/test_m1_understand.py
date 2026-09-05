@@ -32,12 +32,20 @@ def test_aug25_top_topic_is_stated_with_reason():
 
 
 def test_sep4_typed_words_found_within_120s():
+    """Recomputed from the cached labeled words + the chat lines (never trusting the serialized booleans)."""
     u = load('2026-09-04')
-    rows = u['chat']
+    words = json.load(io.open(LESSONS / '2026-09-04' / 'words_labeled.json', encoding='utf-8'))
+    chat = json.load(io.open(LESSONS / '2026-09-04' / 'summary.json', encoding='utf-8'))['chat_lines']
+    rows = ul.locate_chat(chat, words)
     assert len(rows) == 47
     found = [r for r in rows if r['found']]
     assert len(found) >= 0.9 * len(rows), f'{len(found)}/{len(rows)}'
     assert all(abs(r['delta']) <= ul.CHAT_WINDOW for r in found)
+    assert [r['found'] for r in rows] == [r['found'] for r in u['chat']], 'stored flags differ from the recomputation'
+    from english_stop import ENGLISH_STOP
+    for r in found:
+        assert r['token'].lower().strip('.,?!-') not in ENGLISH_STOP, r     # never matched to an English word
+    print('chat family found', len(found), '/ 47; exact form', sum(1 for r in rows if r['found_form']))
 
 
 @pytest.mark.parametrize('date', DATES)
@@ -85,6 +93,27 @@ def test_label_floor_pitch_fallback_under_15pct_is_published():
     words = [{'spk': '?' if i % 10 == 0 else 'Amal'} for i in range(100)]
     conf = ul.label_confidence(words, {'speaker_split': 'from voice pitch'})
     assert conf['per_speaker_ok'] is True and conf['unlabeled_share'] == 0.1
+
+
+def test_english_tokens_never_become_doc_words():
+    m = ul.Matcher(ul.load_words())
+    w = [{'s': i, 'e': i + .2, 'spk': 'Medi', 'w': t} for i, t in enumerate(['soon', 'Aaaa', 'sit', 'the', 'both', 'Inti', 'and', 'so', 'say'], 1)]
+    assert ul.find_doc_events(w, m, 0, 20, []) == []
+
+
+def test_elicited_answer_is_not_a_correction():
+    """Amal: 'how do you say sorry?' -> Medi: أسف -> Amal: أسف = confirmation, not a recast; Medi asking = 'asked'."""
+    m = ul.Matcher(ul.load_words())
+    seq = [('Amal', 'how'), ('Amal', 'do'), ('Amal', 'you'), ('Amal', 'say'), ('Amal', 'sorry?'), ('Medi', 'أسف'), ('Amal', 'أسف')]
+    words = [{'s': 10 + i, 'e': 10.5 + i, 'spk': sp, 'w': t} for i, (sp, t) in enumerate(seq)]
+    ev = ul.annotate(ul.find_doc_events(words, m, 0, 100, []), words)
+    me = [e for e in ev if e['speaker'] == 'Medi'][0]
+    assert me['elicited'] and not me['correction'] and not me['prompted']
+    seq = [('Medi', 'how'), ('Medi', 'do'), ('Medi', 'you'), ('Medi', 'say'), ('Medi', 'sorry'), ('Amal', 'أسف'), ('Medi', 'أسف')]
+    words = [{'s': 10 + i, 'e': 10.5 + i, 'spk': sp, 'w': t} for i, (sp, t) in enumerate(seq)]
+    ev = ul.annotate(ul.find_doc_events(words, m, 0, 100, []), words)
+    me = [e for e in ev if e['speaker'] == 'Medi'][0]
+    assert me['prompted'] and me['asked']
 
 
 def test_arabizi_skeleton_bridge():

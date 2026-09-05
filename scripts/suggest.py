@@ -33,7 +33,7 @@ def candidate_lists(words, stats, rules, n_a=10, n_b=14):
     st = {s['word_key']: s for s in stats}
     ok = lambda k: k in wmap and k not in banned and len(strip_pronoun(wmap[k]['arabizi'])) >= 3 and not wmap[k]['arabizi'].endswith('?')
     rank = {'missed': 0, 'shaky': 1, 'never': 2}
-    A = [k for k, s in sorted(st.items(), key=lambda kv: (rank.get(kv[1]['bucket'], 9), -kv[1]['times_missed'], -kv[1]['times_seen']))
+    A = [k for k, s in sorted(st.items(), key=lambda kv: (-(kv[1].get('weight') or 1), rank.get(kv[1]['bucket'], 9), -kv[1]['times_missed'], -kv[1]['times_seen']))
          if ok(k) and (s['bucket'] in ('missed', 'shaky') or (s['bucket'] == 'never' and s['recent']))][:n_a]
     B = [k for k, s in sorted(st.items(), key=lambda kv: (-kv[1]['times_seen'])) if ok(k) and s['bucket'] in ('cold', 'ice_cold') and k not in A][:n_b]
     return A, B, wmap
@@ -41,6 +41,17 @@ def candidate_lists(words, stats, rules, n_a=10, n_b=14):
 
 def tokens(arabizi_sentence):
     return [t for t in re.split(r'[\s,.!?…]+', arabizi_sentence) if t]
+
+
+_FN_CACHE = {}
+
+
+def function_tokens(matcher):
+    """Pronouns (taught in the Introductions tab) + only those glue tokens that ARE Doc words. Anything else is untaught."""
+    k = id(matcher)
+    if k not in _FN_CACHE:
+        _FN_CACHE[k] = set(PRONOUNS) | {'u', 'w', 'ya', 'el', 'al'} | {t for t in FUNCTION_TOKENS if matcher.match(t, fuzzy=False)}
+    return _FN_CACHE[k]
 
 
 def validate(sentence, matcher, allowed_a, allowed_b, wmap):
@@ -57,8 +68,8 @@ def validate(sentence, matcher, allowed_a, allowed_b, wmap):
                     hit = (k, span); break
         if hit:
             keys.append(hit[0]); i += hit[1]; continue
-        t = loose(toks[i])
-        if t in FUNCTION_TOKENS or toks[i].lower().strip('-') in FUNCTION_TOKENS or len(t) <= 1:
+        t = loose(toks[i]); fn = function_tokens(matcher)
+        if t in fn or toks[i].lower().strip('-') in fn or len(t) <= 1:
             i += 1; continue
         bad.append(toks[i]); i += 1
     fam = lambda k: loose(strip_pronoun(wmap[k]['arabizi'])) if k in wmap else k
@@ -67,17 +78,18 @@ def validate(sentence, matcher, allowed_a, allowed_b, wmap):
     return {'ok': not bad and bool(a_hit) and bool(b_hit), 'bad_tokens': bad, 'keys': keys, 'a': a_hit, 'b': b_hit}
 
 
-def ask_openai(A, B, wmap, n=N_SENTENCES, extra=''):
+def ask_openai(A, B, wmap, n=N_SENTENCES, extra='', glue=None):
     import requests
     if not E.OPENAI_KEY:
         raise RuntimeError('OPENAI_API_KEY missing')
     fmt = lambda k: f"{wmap[k]['arabizi']} | {wmap[k]['arabic']} | {wmap[k]['english'][:50]}"
+    glue_list = ', '.join(sorted(glue)) if glue else 'u, w, fi, bi, min, 3ala, ma3, mish, bas, kteer, kaman, ya3ni, lama, iza, hon'
     prompt = f"""You are a Palestinian Arabic tutor writing practice sentences for an adult learner (Medi). Spell the Arabic in the tutor's Arabizi
 (6=ط 7=ح 3=ع 2=ء/ق 5=خ 9=ص 8=غ) exactly as the word lists spell it, and give the Arabic script and the English meaning.
 Write {n + 4} DIFFERENT, natural, grammatical, everyday spoken sentences of 4-9 words that a tutor would actually say or ask.
 Hard rules:
 1. Content words come ONLY from LIST A and LIST B below (copy the Arabizi exactly; a leading "Ana " may be dropped when a pronoun is present).
-2. You may add pronouns (ana, inta, inti, i7na, huwwe, heyye, humme) and glue: u, w, fi, bi, min, 3ala, ma3, mish, bas, kteer, kaman, ya3ni, lama, iza, hon, elyom, bukra, embare7, hada, hadi, esh, wein, keef, leish, meen.
+2. You may add pronouns (ana, inta, inti, i7na, huwwe, heyye, humme) and ONLY these glue words: {glue_list}.
 3. Every sentence has >= 1 word from LIST A and >= 1 word from LIST B. Use each LIST A word at least once across the set.
 4. No English words inside the Arabizi. No vocabulary outside the lists (no other nouns, verbs or adjectives).
 {extra}
@@ -109,14 +121,16 @@ def suggest_sentences(words, stats, rules, n=N_SENTENCES, use_openai=True, kept_
     out, rejected = [], []
     if kept_first:
         for r in rules:
-            if r['kind'] == 'keep' and (r.get('payload') or {}).get('arabizi'):
-                s = {'arabizi': r['payload']['arabizi'], 'arabic': r['payload'].get('arabic', ''), 'english': r['payload'].get('english', ''), 'source': 'kept by Amal'}
+            pl = r.get('payload') or {}
+            if r['kind'] in ('keep', 'edit') and (pl.get('edited') or pl.get('arabizi')):
+                s = {'arabizi': pl.get('edited') or pl['arabizi'], 'arabic': '' if pl.get('edited') else pl.get('arabic', ''), 'english': pl.get('english', ''),
+                     'source': 'edited by Amal' if pl.get('edited') else 'kept by Amal'}
                 v = validate(s, m, A, B, wmap)
                 if v['ok'] and s['arabizi'] not in {x['arabizi'] for x in out}:
                     out.append({**s, 'keys': v['keys']})
     usage = {}
     if use_openai and len(out) < n:
-        items, usage = ask_openai(A, B, wmap, n=n)
+        items, usage = ask_openai(A, B, wmap, n=n, glue=function_tokens(m) - set(PRONOUNS))
         for it in items:
             if not isinstance(it, dict) or not it.get('arabizi'):
                 continue

@@ -1,0 +1,60 @@
+// Grip buckets — JS port of scripts/buckets.py (the Python file is the reference; tests/test_m5_cards.py checks parity).
+// ice_cold: 5 first-try rights in a row on >= 3 different days; one miss -> cold. cold: unprompted in a lesson / right first try.
+// shaky: prompted / right on second try. missed: corrected / wrong twice in a row on cards. never: no Medi signal.
+(function (root) {
+  const RECENT_LESSONS = 3;
+  function signalFromEvent(e) {
+    if (e.speaker !== 'Medi' || e.prompted === null || e.prompted === undefined) return null;
+    if (e.correction || e.asked) return 'missed';
+    if (e.prompted) return 'shaky';
+    return 'cold';
+  }
+  function wasIce(cards) { return cards.length ? signalFromCards(cards)[0] === 'ice_cold' : false; }
+  function signalFromCards(cards) {
+    if (!cards.length) return [null, 0, []];
+    let streak = 0; const days = [];
+    for (let i = cards.length - 1; i >= 0; i--) {
+      const c = cards[i];
+      if (c.result === 'got' && (parseInt(c.attempt || 1) === 1)) { streak++; const d = String(c.ts).slice(0, 10); if (!days.includes(d)) days.push(d); }
+      else break;
+    }
+    const last = cards[cards.length - 1];
+    if (streak >= 5 && days.length >= 3) return ['ice_cold', streak, days];
+    if (last.result === 'missed') {
+      if (cards.slice(-3).filter(c => c.result === 'missed').length >= 2) return ['missed', 0, []];   // wrong twice within the last three
+      return [wasIce(cards.slice(0, -1)) ? 'cold' : 'shaky', 0, []];
+    }
+    if (parseInt(last.attempt || 1) > 1) return ['shaky', streak, days];
+    return ['cold', streak, days];
+  }
+  function compute(wordEvents, cardResults, lessonDates) {
+    const dates = [...new Set(lessonDates.map(String))].sort();
+    const recent = new Set(dates.slice(-RECENT_LESSONS));
+    const evBy = {}, cdBy = {};
+    for (const e of wordEvents) (evBy[e.word_key] = evBy[e.word_key] || []).push(e);
+    for (const c of cardResults) (cdBy[c.word_key] = cdBy[c.word_key] || []).push(c);
+    const out = {};
+    for (const key of new Set([...Object.keys(evBy), ...Object.keys(cdBy)])) {
+      const evs = (evBy[key] || []).slice().sort((a, b) => (String(a.lesson_date) + (a.t_start || 0)).localeCompare(String(b.lesson_date) + (b.t_start || 0)) || ((a.t_start || 0) - (b.t_start || 0)));
+      const cards = (cdBy[key] || []).slice().sort((a, b) => String(a.ts).localeCompare(String(b.ts)));
+      const lessonSignals = evs.map(e => [String(e.lesson_date), signalFromEvent(e)]).filter(x => x[1]);
+      const [cardBucket, streak, days] = signalFromCards(cards);
+      const lastLesson = lessonSignals.length ? lessonSignals[lessonSignals.length - 1] : null;
+      const lastCardTs = cards.length ? String(cards[cards.length - 1].ts).slice(0, 10) : null;
+      let bucket = 'never';
+      if (lastLesson && (!lastCardTs || lastLesson[0] >= lastCardTs)) bucket = lastLesson[1];
+      else if (cardBucket) bucket = cardBucket;
+      if (cardBucket === 'ice_cold' && bucket === 'cold') bucket = 'ice_cold';
+      const firstLesson = evs.length ? String(evs[0].lesson_date) : null;
+      const seenDates = [...new Set(evs.map(e => String(e.lesson_date)))].sort();
+      const lastReviewed = [seenDates[seenDates.length - 1], cards.length ? String(cards[cards.length - 1].ts) : null].filter(Boolean).sort().pop() || null;
+      const isRecent = firstLesson ? recent.has(firstLesson) : false;
+      out[key] = { word_key: key, bucket, last_reviewed: lastReviewed, seen_lessons: seenDates.length, times_seen: evs.length,
+        times_missed: evs.filter(e => e.correction).length + cards.filter(c => c.result === 'missed').length,
+        card_right: cards.filter(c => c.result === 'got').length, card_wrong: cards.filter(c => c.result === 'missed').length,
+        streak, streak_days: days, recent: isRecent, weight: (bucket === 'missed' || isRecent) ? 3 : 1 };
+    }
+    return out;
+  }
+  root.AneesBuckets = { compute, signalFromCards, signalFromEvent };
+})(typeof window !== 'undefined' ? window : globalThis);
