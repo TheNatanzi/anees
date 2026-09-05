@@ -1,0 +1,2283 @@
+{
+  "definitions": {
+    "token_count": "Regex count of Latin/Arabic alphanumeric surface tokens; not accuracy.",
+    "chat_anchor_family_recovered": "Manual surface judgment that the chat form or its relevant lexical family visibly occurs; not an audio-grounded correctness score.",
+    "filler_count": "Mechanical count of common English/Arabic filler spellings; a lower bound.",
+    "cutoffs_or_ellipses": "Mechanical count of hyphen-final fragments and ellipses; a lower bound."
+  },
+  "aggregate": {
+    "E": {
+      "successful_clips": 20,
+      "nonempty_clips": 20,
+      "tokens": 714,
+      "arabic_tokens": 82,
+      "fillers": 21,
+      "cutoffs_or_ellipses": 19,
+      "clips_with_foreign_script": 0,
+      "chat_anchor_family_recovered": 16,
+      "chat_anchor_family_not_recovered": 4
+    },
+    "ES": {
+      "successful_clips": 20,
+      "nonempty_clips": 20,
+      "tokens": 725,
+      "arabic_tokens": 123,
+      "fillers": 22,
+      "cutoffs_or_ellipses": 25,
+      "clips_with_foreign_script": 0,
+      "chat_anchor_family_recovered": 16,
+      "chat_anchor_family_not_recovered": 4
+    },
+    "O1": {
+      "successful_clips": 20,
+      "nonempty_clips": 20,
+      "tokens": 590,
+      "arabic_tokens": 98,
+      "fillers": 0,
+      "cutoffs_or_ellipses": 12,
+      "clips_with_foreign_script": 0,
+      "chat_anchor_family_recovered": 14,
+      "chat_anchor_family_not_recovered": 6
+    },
+    "O2": {
+      "successful_clips": 20,
+      "nonempty_clips": 20,
+      "tokens": 593,
+      "arabic_tokens": 83,
+      "fillers": 0,
+      "cutoffs_or_ellipses": 7,
+      "clips_with_foreign_script": 0,
+      "chat_anchor_family_recovered": 13,
+      "chat_anchor_family_not_recovered": 7
+    },
+    "EKG": {
+      "successful_clips": 20,
+      "nonempty_clips": 20,
+      "tokens": 716,
+      "arabic_tokens": 58,
+      "fillers": 20,
+      "cutoffs_or_ellipses": 20,
+      "clips_with_foreign_script": 0,
+      "chat_anchor_family_recovered": 16,
+      "chat_anchor_family_not_recovered": 4
+    },
+    "EKL": {
+      "successful_clips": 20,
+      "nonempty_clips": 20,
+      "tokens": 702,
+      "arabic_tokens": 32,
+      "fillers": 17,
+      "cutoffs_or_ellipses": 15,
+      "clips_with_foreign_script": 0,
+      "chat_anchor_family_recovered": 16,
+      "chat_anchor_family_not_recovered": 4
+    }
+  },
+  "openai_prompt_effect": {
+    "exactly_identical_clips": 4,
+    "changed_clips": 16,
+    "mean_character_similarity": 0.8893,
+    "strict_mean_latency_seconds": 1.932,
+    "vocab_mean_latency_seconds": 1.891,
+    "strict_median_latency_seconds": 1.783,
+    "vocab_median_latency_seconds": 1.683,
+    "returned_language_codes_strict": [
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "ar"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "ar"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "ar"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "ar"
+        }
+      ],
+      [
+        {
+          "code": "ar"
+        }
+      ],
+      [
+        {
+          "code": "ar"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ]
+    ],
+    "returned_language_codes_vocab": [
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "ar"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "ar"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "ar"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "ar"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ],
+      [
+        {
+          "code": "en"
+        }
+      ]
+    ]
+  },
+  "eleven_keyterm_prompt_effect_posthoc": {
+    "control": "ES is the same short-clip Scribe v2 request without keyterms; compare EKG/EKL to ES, not to the one-shot full-lesson E extraction.",
+    "segmented_changed_clips_vs_full_lesson": 20,
+    "global_changed_clips_vs_segmented_control": 20,
+    "local_changed_clips_vs_segmented_control": 20,
+    "segmented_mean_character_similarity_to_full_lesson": 0.6031,
+    "global_mean_character_similarity_to_segmented_control": 0.708,
+    "local_mean_character_similarity_to_segmented_control": 0.6595,
+    "segmented_mean_latency_seconds": 10.361,
+    "global_mean_latency_seconds": 2.771,
+    "local_mean_latency_seconds": 2.199,
+    "global_keyterm_count": 184,
+    "local_keyterm_count_min": 144,
+    "local_keyterm_count_max": 161,
+    "observed_global_poisoning": {
+      "clip": 1,
+      "substitution": "Global keyterms changed the consensus 'Awesome' to future lesson term 'Mabsoo6'; local keyterms retained 'Awesome'."
+    }
+  },
+  "cost": {
+    "openai_strict_estimated_usd": 0.0375,
+    "openai_vocab_estimated_usd": 0.0375,
+    "openai_total_estimated_usd": 0.075,
+    "eleven_segmented_no_keyterm_estimated_usd": 0.03056,
+    "eleven_global_keyterm_estimated_usd": 0.0375,
+    "eleven_local_keyterm_estimated_usd": 0.0375,
+    "all_new_calls_estimated_usd": 0.18056,
+    "sampled_seconds_per_arm": 500.0
+  },
+  "sampling": {
+    "nominal_clip_seconds": 500.0,
+    "unique_audio_seconds_after_overlap": 490.557,
+    "overlap_seconds": 9.443
+  },
+  "diarization": {
+    "eleven_word_assignments_by_speaker": {
+      "speaker_0": 695,
+      "speaker_1": 13
+    },
+    "clips_with_two_meet_caption_speakers": 19,
+    "clips_with_two_eleven_speaker_ids": 1,
+    "clips_with_at_least_two_segmented_no_keyterm_speaker_ids": 19,
+    "clips_with_at_least_two_global_keyterm_speaker_ids": 19,
+    "clips_with_at_least_two_local_keyterm_speaker_ids": 19,
+    "clips_where_meet_has_two_but_eleven_has_one": 18,
+    "interpretation": "Short segmentation, not keyterms, accounts for the speaker-count recovery: ES, EKG, and EKL each identify at least two speaker clusters in 19/20 windows."
+  },
+  "eleven_word_logprob": {
+    "count": 708,
+    "mean": -0.5626,
+    "median": -0.0025,
+    "below_minus_1": 120
+  },
+  "rows": [
+    {
+      "index": 1,
+      "chat": "Na7el",
+      "window_start": 1442.406,
+      "window_end": 1467.406,
+      "texts": {
+        "E": "Oh my God, bees. What was bees? Bee. Awesome. Nahl. Nahl. My wife then, yeah. If I wanna buy more, do you have like a card? Uh, I have just one. I forgot take,",
+        "O1": "Oh my God, bees. What bees? نحل. نحل. My wife. If I want to buy more, do you have like a card? I have just one. I forgot to.",
+        "O2": "Oh my God, bees. What was bees? نحل. نحل. My wife. If I want to buy more, do you have like a card? I have just one. I forgot to take.",
+        "ES": "Oh my God, bees. What was bees? Bee. Awesome. [background chatter] My wife, Dania. If I wanna buy more, do you have, like, a card? Uh, I have just one. I forgot take-",
+        "EKG": "Oh my God, bees. What was bees? Bee. Mabsoo6. Na7el. Na7eb. My wife, Dania. If I wanna buy more, do you have like a card? Uh, I have just one. I forgot take it",
+        "EKL": "Oh my God, bees. What was bees? Bee. Awesome. Na7el. Na7el. My wife, Dania. If I wanna buy more, do you have, like, a card? Uh, I have just one. I forgot take it."
+      },
+      "metrics": {
+        "E": {
+          "token_count": 34,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 29,
+          "arabic_token_count": 2,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 31,
+          "arabic_token_count": 2,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 33,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 34,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 34,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 0.965,
+      "openai_exact_match": false,
+      "eleven_global_keyterms_similarity": 0.8931,
+      "eleven_local_keyterms_similarity": 0.9221,
+      "eleven_segmented_similarity": 0.8738,
+      "eleven_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1",
+        "speaker_2"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1",
+        "speaker_2"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "recovered",
+        "O1": "recovered",
+        "O2": "recovered",
+        "note": "All recover bee(s)/Na7el; O1/O2 render نحل.",
+        "EKG": "recovered",
+        "EKL": "recovered",
+        "ES": "recovered"
+      }
+    },
+    {
+      "index": 2,
+      "chat": "Mabsoo6",
+      "window_start": 1680.244,
+      "window_end": 1705.244,
+      "texts": {
+        "E": "Happy is just sameeh? No, that's good. Masbu- mabsut. Mabsut. I think we need to add a third part two. Mabsut. Ihkiha. Yeah Mabsut. Mabsut. Now bedna nakhood",
+        "O1": "Happy is... Is this منيح? No, that's good. مبسوط. I think we need to add this word too. مبسوط، احكيها. مبسوط. مبسوط. Now, بدنا ناخد...",
+        "O2": "Happy is... Is this منيح? No, that's good. مبسوط. I think we need to add this word too. مبسوط، احكيها. مبسوط. مبسوط. Now, بدنا ناخد.",
+        "ES": "Happy is. This is just a ni? No, that's good. مبسوط مبسوط I think we need to add this part too. مبسوط. احكيها. مبسوط. مبسوط. now بدنا ناخد",
+        "EKG": "Happy is. Is this just a ni? No, that's good. Mabsoo6. Mabsoo6. I think we need to add a s- part too. Mabsoo6. 3ahkiha. Mabsoo6. Mabsoo6. Now, bedna na'kho-",
+        "EKL": "Happy is just a ni? No, that's good. Mabsoo6. Mabsoo6. I think we need to add this part too. Mabsoo6. Ahkiha. Mabsoo6. Mabsoo6. Now, bedna naakhod"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 28,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 25,
+          "arabic_token_count": 8,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 2,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 25,
+          "arabic_token_count": 8,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 28,
+          "arabic_token_count": 8,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 29,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 2,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 26,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 0.9925,
+      "openai_exact_match": false,
+      "eleven_global_keyterms_similarity": 0.7732,
+      "eleven_local_keyterms_similarity": 0.8119,
+      "eleven_segmented_similarity": 0.5695,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "recovered",
+        "O1": "recovered",
+        "O2": "recovered",
+        "note": "All recover mabsoo6; E alone keeps the audible-looking false start 'Masbu-'.",
+        "EKG": "recovered",
+        "EKL": "recovered",
+        "ES": "recovered"
+      }
+    },
+    {
+      "index": 3,
+      "chat": "Basa6",
+      "window_start": 1807.67,
+      "window_end": 1832.67,
+      "texts": {
+        "E": "he made someone happy. Besat. OK. So- He said he made someone happy. Was that- Mm-hmm. He made someone happy. So he made me happy with B. Basatne. Basatne. Why? Did I lose you",
+        "O1": "Made someone happy. بسط. Okay. So, he made someone happy. بسط. He made someone happy. So, he made me happy would be. بسطني. بسطني. What? Did I lose you?",
+        "O2": "Made someone happy. Basat. Okay. So he made someone happy. Basat. He made someone happy. So he made me happy would be? Basatni. Basatni. What? Did I lose you?",
+        "ES": "Made someone happy. Basat Okay So- So he made someone happy, Basat Mm-hmm. He made someone happy. So he made me happy would be? Basat me Basat me What? Did I lose you?",
+        "EKG": "Made someone happy. Basat. Okay. So- So he made someone happy, Basat. Mm-hmm. He made someone happy. So he made me happy would be? Basa6ni. Basa6ni. What? Did I lose you?",
+        "EKL": "Made someone happy. Basat. Okay. So- So he made someone happy, basat. Mm-hmm. He made someone happy. So he made me happy would be? Basa6ni. Basa6ni. What? Did I lose you?"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 34,
+          "arabic_token_count": 0,
+          "filler_count": 2,
+          "cutoff_or_ellipsis_count": 2,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 29,
+          "arabic_token_count": 4,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 29,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 33,
+          "arabic_token_count": 0,
+          "filler_count": 2,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 31,
+          "arabic_token_count": 0,
+          "filler_count": 2,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 31,
+          "arabic_token_count": 0,
+          "filler_count": 2,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 0.8516,
+      "openai_exact_match": false,
+      "eleven_global_keyterms_similarity": 0.8174,
+      "eleven_local_keyterms_similarity": 0.8174,
+      "eleven_segmented_similarity": 0.8421,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "recovered",
+        "O1": "recovered",
+        "O2": "recovered",
+        "note": "All recover the b-s-6 family and basa6ni.",
+        "EKG": "recovered",
+        "EKL": "recovered",
+        "ES": "recovered"
+      }
+    },
+    {
+      "index": 4,
+      "chat": "Basa6ni",
+      "window_start": 1830.134,
+      "window_end": 1855.134,
+      "texts": {
+        "E": "Did I lose you مهم، بسطني صح. بسّتني. بسطني. Okay هلأ بسط، بستني whatever هي past ماضي- مم. شو الـ indicator for present؟ How do I make it present كيف",
+        "O1": "بسطني. أوكي. هلا بسط، بسطني whatever هي past، ماضي. شو الـindicator for present? So... How do I make it present? كيف بعمل...",
+        "O2": "بسطني، صح. بسطني. أوكي. هلا بسط، بسطني whatever هي past، ماضي. شو الـindicator for present? So. How do I make it present? كيف بعمل؟",
+        "ES": "Did I lose you? ممكن. بسطني، صح. Okay. بسطني. بسطني. Okay. هلأ بسط، بسطني whatever هي past ماضي. شو ال indicator for present؟ So- How do I make it present؟ كيف بعمل",
+        "EKG": "Basa6ni صح Okay. Basa6ni بسطني. Okay. هلأ بسط، بسطني whatever هي past ماضي. شو الindicator for present؟ How do I make it present؟ كيف بعمل",
+        "EKL": "Did I lose you? مهم، بسطني صح. Okay, بسطني. بسطني، okay. هلأ بسط، بسطني whatever هي past ماضي. شو الـ indicator for present؟ So. How do I make it present؟ كيف بعمل"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 31,
+          "arabic_token_count": 15,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 24,
+          "arabic_token_count": 12,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 2,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 26,
+          "arabic_token_count": 14,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 34,
+          "arabic_token_count": 16,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 28,
+          "arabic_token_count": 13,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 34,
+          "arabic_token_count": 16,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 0.9333,
+      "openai_exact_match": false,
+      "eleven_global_keyterms_similarity": 0.7778,
+      "eleven_local_keyterms_similarity": 0.901,
+      "eleven_segmented_similarity": 0.8917,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "recovered",
+        "O1": "recovered",
+        "O2": "recovered",
+        "note": "All recover basa6ni; wording differs around صح.",
+        "EKG": "recovered",
+        "EKL": "recovered",
+        "ES": "recovered"
+      }
+    },
+    {
+      "index": 5,
+      "chat": "Babse6",
+      "window_start": 1877.321,
+      "window_end": 1902.321,
+      "texts": {
+        "E": "sat or bab sit? e or a؟ i babysit. Okay, babysit but said beset was the he so just okay. لأن بالماضي we always يعني the- Goes say a. Yes, we-- it goes back to a like by default بس we have exceptions that internal flipping goes back to e. So",
+        "O1": "Saat, or babsat, E or A? E, babsat. Okay, babsat. But said, but saat was the E, so just okay. Because in the past, we always, يعني, yes, it goes back to A, like by default, but we have exceptions that internal flipping goes back to E. So.",
+        "O2": "Saat, or babsat, E or A? E, babsat. Okay, babsat. But said, but saat was the E, so just okay. Because in the past, we always, yes, it goes back to A, like by default, but we have exceptions that internal flipping goes back to E. So.",
+        "ES": "Sat or bab sit? Bab sit. E or A? E. Bab sit. Okay. Bab sit. But said basat was, uh, he. So just, okay. [speaking Arabic] we always, yeah, need, uh- Go say- Yes. We, it goes back to A, like, by default. Best we have exceptions that internal flipping goes back to E. So-",
+        "EKG": "Baset or Babset? Baset. E or A? E. Baset. Okay, Baset. But said Basat was, uh, he. So just, okay. La'anna bil maadi we always, ya'ani the- Goes to A. Yes, we-- it goes back to A, like, by default. Bas we have exceptions that internal flipping goes back to E. So",
+        "EKL": "Basat أو Babse6? E أو A. Babse6. E. Babse6. Okay. Babse6. But said Basat was, uh, E. So just-- okay. لأن بالماضي we always يعني the- Goes to A. Yes, we-- it goes back to A like by default. بس we have exceptions that internal flipping goes back to E. So"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 52,
+          "arabic_token_count": 5,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 48,
+          "arabic_token_count": 1,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 47,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 55,
+          "arabic_token_count": 0,
+          "filler_count": 2,
+          "cutoff_or_ellipsis_count": 3,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 52,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 51,
+          "arabic_token_count": 6,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 0.9872,
+      "openai_exact_match": false,
+      "eleven_global_keyterms_similarity": 0.5788,
+      "eleven_local_keyterms_similarity": 0.6789,
+      "eleven_segmented_similarity": 0.189,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "recovered",
+        "O1": "recovered",
+        "O2": "recovered",
+        "note": "All produce a plausible phonetic form for babse6; orthography remains uncertain.",
+        "EKG": "recovered",
+        "EKL": "recovered",
+        "ES": "recovered"
+      }
+    },
+    {
+      "index": 6,
+      "chat": "Byebse6ni",
+      "window_start": 1977.368,
+      "window_end": 2002.368,
+      "texts": {
+        "E": "bibsit yeah. Bibsit so it makes me happy. بييبستني. بييبستني طيب هلأ بدي تحكيلي كل conjugations ل-\"babset\". امم مضارعة؟ خلينا نبلش مضارعة بعدين ماضي بعدين أمر. Ok",
+        "O1": "بيبسط. So it makes me happy. بيبسطني. بيبسطني. هلا بدي تحكيلي كل الـconjugations لـ ببسط. مضارع. خلينا نبلش مضارع، بعدين ماضي، بعدين أمر. Okay. مضارع.",
+        "O2": "بيبسط. So it makes me happy. بيبسطني. بيبسطني. هلا بدي تحكيلي كل الـconjugations لـ ببسط. مضارع. خلينا نبلش مضارع، بعدين ماضي، بعدين أمر. Okay. مضارع.",
+        "ES": "بيبسط، yeah. بيبسط. So it makes me happy. اه بيبسطني. بيبسطني. طب هلأ بدي تحكيلي كل الـ conjugations لـ ببسط. اه مدارة؟ خلينا نبلش مدارة بعدين ماضي بعدين أمر. Okay مدارة",
+        "EKG": "Byebset, yeah. Byebset. So it makes me happy. Byebsetni. Byebsetni. Hel2a beddi te7ki li kol el-conjugations la babset. Mudaare3? Khalina nbelsh mudaare3, ba3den maadi, ba3den amer. Okay. Mudaare3",
+        "EKL": "Byebse6, yeah. Byebse6. So it makes me happy. Byebse6ni. Byebse6ni. Hala beddi te7kili kol el-conjugations la babse6. Mudaare3? Khalina nbelsh mudaare3, ba3den maadi, ba3den amr. Okay. Mudaare3"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 28,
+          "arabic_token_count": 17,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 26,
+          "arabic_token_count": 19,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 26,
+          "arabic_token_count": 19,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 31,
+          "arabic_token_count": 23,
+          "filler_count": 2,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 28,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 27,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 1.0,
+      "openai_exact_match": true,
+      "eleven_global_keyterms_similarity": 0.4246,
+      "eleven_local_keyterms_similarity": 0.4056,
+      "eleven_segmented_similarity": 0.7795,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "recovered",
+        "O1": "recovered",
+        "O2": "recovered",
+        "note": "All recover byebse6/byebse6ni; O1/O2 use بسط orthography.",
+        "EKG": "recovered",
+        "EKL": "recovered",
+        "ES": "recovered"
+      }
+    },
+    {
+      "index": 7,
+      "chat": "Babse6\nBtebse6\nBtebse6i\nBtebse6u\nByebse6\nBtebse6\nByebse6u\nBnebse6",
+      "window_start": 2073.539,
+      "window_end": 2098.539,
+      "texts": {
+        "E": "we make him happy. We make him happy احنا بنبسط- بنبسطه. ممتاز ok كمل go on. الماضي اه هو",
+        "O1": "We make him happy. We make him happy. إحنا بنبسطه. ممتاز. Okay, كمل. Go on. الماضي هو.",
+        "O2": "We make him happy. We make him happy. إحنا بنبسطه. ممتاز. Okay, كمل. Go on. الماضي هو.",
+        "ES": "Like we make him happy. We make him happy. إحنا بنبسط، بنبسطه. ممتاز. Okay، كمل. Go on. آآ، الماضي آآ، هو",
+        "EKG": "Like we make him happy We make him happy. إحنا بنبسط، بنبسطه ممتاز. Okay، كمل. Go on آآآ، الماضي آآآ هو",
+        "EKL": "Like we make him happy We make him happy. إحنا بنبسط، بنبسطه ممتاز. Okay، كمِّل. Go on آآآ، الماضي، آآآ، هو"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 19,
+          "arabic_token_count": 8,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 17,
+          "arabic_token_count": 6,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 17,
+          "arabic_token_count": 6,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 22,
+          "arabic_token_count": 10,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 22,
+          "arabic_token_count": 10,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 22,
+          "arabic_token_count": 10,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 1.0,
+      "openai_exact_match": true,
+      "eleven_global_keyterms_similarity": 0.6562,
+      "eleven_local_keyterms_similarity": 0.6429,
+      "eleven_segmented_similarity": 0.8557,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "recovered",
+        "O1": "recovered",
+        "O2": "recovered",
+        "note": "The spoken portion includes bnebse6o; all render بنبسطه.",
+        "EKG": "recovered",
+        "EKL": "recovered",
+        "ES": "recovered"
+      }
+    },
+    {
+      "index": 8,
+      "chat": "Bnebse6o",
+      "window_start": 2099.824,
+      "window_end": 2124.824,
+      "texts": {
+        "E": "مم hold on هو بسات- أم. هي بسيتا ات اه هم بساتوا انا",
+        "O1": "هو. هي.",
+        "O2": "هو. هي.",
+        "ES": "‫أمم، الآن. هو بساط. هي بساطات. هم بساطو. أنا بساط.‬",
+        "EKG": "Amaan. Hoe Basa6. Hee Basa6at. Homma Basa6u. Ana",
+        "EKL": "Amaan. Huwe Basaat. Heeye Basataat. Humme Basaatu. Ana"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 13,
+          "arabic_token_count": 11,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 2,
+          "arabic_token_count": 2,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 2,
+          "arabic_token_count": 2,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 10,
+          "arabic_token_count": 10,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 8,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 8,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 1.0,
+      "openai_exact_match": true,
+      "eleven_global_keyterms_similarity": 0.18,
+      "eleven_local_keyterms_similarity": 0.1698,
+      "eleven_segmented_similarity": 0.5962,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "not_recovered",
+        "O1": "not_recovered",
+        "O2": "not_recovered",
+        "note": "Frozen window contains sparse paradigm fragments; O1/O2 collapse it to 'هو. هي.'",
+        "EKG": "not_recovered",
+        "EKL": "not_recovered",
+        "ES": "not_recovered"
+      }
+    },
+    {
+      "index": 9,
+      "chat": "Basa6\nBasa6at\nBasa6u\nBasa6eet\nBasa6ti\nBasa6tu\nBasa6na",
+      "window_start": 2159.766,
+      "window_end": 2184.766,
+      "texts": {
+        "E": "اه بسات- بساتِ- بساتِتني أسف بساتِتك. بَسْتَكْ. is it just بسَتِّك do remove the ET؟ Ok بسَتَّكْ. I made him happy. مم",
+        "O1": "I made him happy.",
+        "O2": "I made him happy.",
+        "ES": "Uh, basa- basat- basatit ni. Uh, so basat-- Hold on. Basatetik. Basatet? Is it just basatet? Do you remove the E-T? Basatet. Okay. Basatet. I made him happy. Mm, basat-",
+        "EKG": "آآآ Basa6, Basa6ti, Basa6itni. Hasa Basa6, a7lan Basa6atit. Basa6tek? Is it just Basa6tek? Do you remove the et? Basa6tek. Okay. Basa6tek. I made him happy. ممم Basa6-",
+        "EKL": "Basa6. Basa6ti. Basa6itnee. Asal basa6. Awaam basa6at tik. Basa6tek? Is it just basa6tek? Do you remove the ET? Basa6tek. Okay. Basa6tek. I made him happy. Basa6-"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 23,
+          "arabic_token_count": 11,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 2,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 4,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 4,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 30,
+          "arabic_token_count": 0,
+          "filler_count": 3,
+          "cutoff_or_ellipsis_count": 3,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 27,
+          "arabic_token_count": 2,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 26,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 1.0,
+      "openai_exact_match": true,
+      "eleven_global_keyterms_similarity": 0.4,
+      "eleven_local_keyterms_similarity": 0.3929,
+      "eleven_segmented_similarity": 0.4266,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "recovered",
+        "O1": "not_recovered",
+        "O2": "not_recovered",
+        "note": "E retains several conjugation attempts; both OpenAI arms reduce the clip to 'I made him happy.'",
+        "EKG": "recovered",
+        "EKL": "recovered",
+        "ES": "recovered"
+      }
+    },
+    {
+      "index": 10,
+      "chat": "Basa6tek?",
+      "window_start": 2188.396,
+      "window_end": 2213.396,
+      "texts": {
+        "E": "between he makes am happy and I make him happy Basato, basatto. It's a double t Oh gosh. Okay . O and te. Okay. So, uh, also some people you might hear people say absato, abstatni. If it's easier we can also learn it.",
+        "O1": "It's between he makes him happy and I make him happy. Basato, basatto. It's a double. Oh gosh. Okay. So also some people, you might hear people say, absatto, absatni. If it's easier, we can also learn it.",
+        "O2": "It's between he makes him happy and I make him happy. بسطه، بسطه. It's doubled. Oh gosh. Okay. Okay. So also some people, you might hear people say أبسطه, أبسطني. If it's easier, we can also learn it.",
+        "ES": "It's between he makes him happy and I make him happy Basato, basatto. It's a double- Oh, gosh. Okay [laughs] Ta and ta. Okay. So, uh, also some people you might hear people say absato, absatni. If it's easier, we can also learn it",
+        "EKG": "It's between he makes him happy and I make him happy Basato, basatto. It's a double- Oh, gosh. Okay [laughs] Ta and ta Okay So, uh, also some people you might hear people say absato, absatni. If it's easier, we can also learn it",
+        "EKL": "It's between he makes him happy and I make him happy Basato, basatto. It's a double- Oh gosh. Okay [laughs] Ta and ta Okay So, uh, also some people you might hear people say absato, absatni. If it's easier, we can also learn it"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 43,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 38,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 38,
+          "arabic_token_count": 4,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 44,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 44,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 44,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 0.8465,
+      "openai_exact_match": false,
+      "eleven_global_keyterms_similarity": 0.427,
+      "eleven_local_keyterms_similarity": 0.4279,
+      "eleven_segmented_similarity": 0.9038,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "recovered",
+        "O1": "recovered",
+        "O2": "recovered",
+        "note": "All capture basato/basatto family; O2 changes some forms to Arabic script.",
+        "EKG": "recovered",
+        "EKL": "recovered",
+        "ES": "recovered"
+      }
+    },
+    {
+      "index": 11,
+      "chat": "Hasa6to",
+      "window_start": 2206.489,
+      "window_end": 2231.489,
+      "texts": {
+        "E": "might hear people say absato, abstatni. If it's easier we can also learn it. Absat- why would it be absato? Yeah, I mean, some people- Just keep - Do just add an A at the beginning The Jerusalem people don't right? I don't know. Oh okay. Some people just say absatni,absato,absatna or",
+        "O1": "Might hear people say, absatto, absatni. If it's easier, we can also learn it. Absatto? Why would it be absatto? Yeah, I mean, some people do just add an A at the beginning. The Jerusalem people don't, right? I don't know. Some people just say absatni, absatto, absatno, or basatni, basatto.",
+        "O2": "Might hear people say, absatto, absatni. If it's easier, we can also learn it. Absatto? Why would it be absatto? Yeah, I mean, some people do just add an a at the beginning. The Jerusalem people don't, right? I don't know. Some people just say absatni, absatto, absatno, or basatni, basatto.",
+        "ES": "You might hear people say absato, absatni. If it's easier, we can also learn it Absat. Why would it be absat to? Yeah, I mean, some people- Oh, just keep- ... do just, uh, add an A at the beginning The Jerusalem people don't, right? I don't know. [laughs] Oh, right. Some people just say absatni, absato, absatno or basatni, basato, basa-",
+        "EKG": "You might hear people say absato, absatni. If it's easier, we can also learn it Absatni. Why would it be absato? Yeah, I mean, some people- Oh, just keeps- ... do just, uh, add an A at the beginning The Jerusalem people don't, right? I don't know. [laughs] Oh, right. Some people just say absatni, absato, absatna or basatni, basato, basa-",
+        "EKL": "Might hear people say absato, absatni. If it's easier, we can also learn it Absat. Why would it be absat to? Yeah, I mean, some people- Oh, just keep- ... do just, uh, add an A at the beginning The Jerusalem people don't, right? I don't know. [laughs] Oh, right. Some people just say absatni, absato, absatna or basatni, basato, basa-"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 53,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 2,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 51,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 51,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 61,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 4,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 60,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 4,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 60,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 4,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 0.9966,
+      "openai_exact_match": false,
+      "eleven_global_keyterms_similarity": 0.2761,
+      "eleven_local_keyterms_similarity": 0.2751,
+      "eleven_segmented_similarity": 0.2765,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal"
+      ],
+      "manual_anchor_surface": {
+        "E": "recovered",
+        "O1": "recovered",
+        "O2": "recovered",
+        "note": "All capture absato/absatni family; chat spelling Hasa6to may itself be a typo or delayed note.",
+        "EKG": "recovered",
+        "EKL": "recovered",
+        "ES": "recovered"
+      }
+    },
+    {
+      "index": 12,
+      "chat": "Banbese6",
+      "window_start": 2766.456,
+      "window_end": 2791.456,
+      "texts": {
+        "E": "easier. Okay. Uh, before we go to banebeset, add the A to the, uh, past now. Let's see if it's easier. So um, um, is it, is it nabasat",
+        "O1": "It easier. Okay. Before we go to Banbisat, add the A to the past now. Let's see if it's easier. So, the Nabasat or...",
+        "O2": "It'll be easier. Okay. Before we go to [unclear], add the a to the past now. Let's see if it's easier. So, the [unclear] or...",
+        "ES": "Be easier Okay Uh, before we go to ban visit, add the A to the, uh, past now. Let's see if it's easier So, um, um, zit, zit nabasat or-",
+        "EKG": "Be easier. Okay. Uh, before we go to Banbese6, add the A to the, uh, past now. Let's see if it's easier. So, um, um, is it, is it Nabasa6?",
+        "EKL": "Okay. Uh, before we go to banbeset, add the A to the, uh, past now. Let's see if it's easier. So, um, um, zin-zinnabasat or"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 29,
+          "arabic_token_count": 0,
+          "filler_count": 4,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 24,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 25,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 30,
+          "arabic_token_count": 0,
+          "filler_count": 4,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 30,
+          "arabic_token_count": 0,
+          "filler_count": 4,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 25,
+          "arabic_token_count": 0,
+          "filler_count": 4,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 0.8477,
+      "openai_exact_match": false,
+      "eleven_global_keyterms_similarity": 0.9485,
+      "eleven_local_keyterms_similarity": 0.8872,
+      "eleven_segmented_similarity": 0.8996,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "recovered",
+        "O1": "recovered",
+        "O2": "not_recovered",
+        "note": "Vocabulary arm replaces Banbisat/Nabasat with [unclear], a harmful prompt effect.",
+        "EKG": "recovered",
+        "EKL": "recovered",
+        "ES": "recovered"
+      }
+    },
+    {
+      "index": 13,
+      "chat": "Baboos",
+      "window_start": 2898.524,
+      "window_end": 2923.524,
+      "texts": {
+        "E": "So the past i-... Oh. It turns into a. So they're both basit? Ba- No, but it's the, it's, it's a longer A. Basat. Basat. Is it always the Us turn into a long A? Do Us always turn into",
+        "O1": "So the path, it turns into a. So they're both basat? No, but it's a longer A, baasat. Baasat. Is it always the u's turn into a long A? Yes. The u's always turn into...",
+        "O2": "So the path, it turns into a. So they're both basat? No, but it's a longer A, basat. Basat. Is it always the u's turn into a long A? Yes. The u's always turn into...",
+        "ES": "So the pa... Oh. It turns into A. So they're both basat? Ba- No, but it's the, it's, it's a longer A. Basat. Basat. Is it always the Us turn into a long A? Yes. Do Us always turn into-",
+        "EKG": "So the path is, uh- It turns into a. So they're both Basa6at? Ba... No, but it's the, it's, it's a longer A. Basa6at. Basa6at. Is it always the Us turn into a long A? Yes. Do Us always turn into-",
+        "EKL": "So the pa-- uh. It turns into a. So they're both basat? Ba-- no, but it's the, it's, it's a longer A. Basat. Basat. Is it always the Us turn into a long A? Yes. Do Us always turn into-"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 40,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 2,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 35,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 35,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 40,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 3,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 41,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 3,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 40,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 0.994,
+      "openai_exact_match": false,
+      "eleven_global_keyterms_similarity": 0.9101,
+      "eleven_local_keyterms_similarity": 0.9373,
+      "eleven_segmented_similarity": 0.9591,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "not_recovered",
+        "O1": "not_recovered",
+        "O2": "not_recovered",
+        "note": "Chat says Baboos (kiss), but the frozen window is later and discusses basa6/basat. Meet captions place baboos about 65 s before the chat post.",
+        "EKG": "not_recovered",
+        "EKL": "not_recovered",
+        "ES": "not_recovered"
+      }
+    },
+    {
+      "index": 14,
+      "chat": "Buset",
+      "window_start": 2971.922,
+      "window_end": 2996.922,
+      "texts": {
+        "E": "So basat. What does basat turn into? And she immediately says sorry 'cause she knows. Um, so basat- Sorry? She immediately said sorry because she's like, \"That's really, really, really confusing.\" With the kiss and the- Make me happy. It never crossed my mind.",
+        "O1": "So, Basat. What does Basat turn into? And she immediately said sorry because she knows. So, Basat, she immediately said sorry because she's like, that's really, really, really confusing with the kiss and the make me happy. It never crossed my mind.",
+        "O2": "So, Basat, what does Basat turn into? And she immediately says sorry because she knows. So, Basat, she immediately said sorry because she's like, that's really, really, really confusing with the kiss and the make me happy. It never crossed my mind.",
+        "ES": "So Basat, what does Basat turn into? And she immediately says sorry 'cause she knows. Um, so Basat- True? She immediately said sorry because she's like, \"That's really, really, really confusing with the kiss and the make me happy.\" [laughs] It never crossed my mind. [laughs]",
+        "EKG": "So Basa6at. What does Basa6at turn into? And she immediately says sorry 'cause she knows. Um, so Basa6- True? She immediately said sorry because she's like, \"That's really, really, really confusing with the kiss and the make me happy.\" [laughs] It never crossed my mind. [laughs]",
+        "EKL": "So Basat, what does Basat turn into? And she immediately says sorry because she knows. Um, so Basat- True? She immediately said sorry because she's like, \"That's really, really, really confusing with the kiss and the make me happy.\" [laughs] It never crossed my mind. [laughs]"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 44,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 2,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 42,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 42,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 46,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 46,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 46,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 0.9798,
+      "openai_exact_match": false,
+      "eleven_global_keyterms_similarity": 0.8052,
+      "eleven_local_keyterms_similarity": 0.4216,
+      "eleven_segmented_similarity": 0.4187,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "not_recovered",
+        "O1": "not_recovered",
+        "O2": "not_recovered",
+        "note": "Chat says Buset (I kissed), but the frozen window is later and discusses basat. Meet captions place Buset about 42 s before the chat post.",
+        "EKG": "not_recovered",
+        "EKL": "not_recovered",
+        "ES": "not_recovered"
+      }
+    },
+    {
+      "index": 15,
+      "chat": "Enbasa6\nEnbas6at\nEnbasa6u\nEnbasa6et\nEnbasa6ti\nEnbasa6tu\nEnbasa6na",
+      "window_start": 3191.822,
+      "window_end": 3216.822,
+      "texts": {
+        "E": "So this is to be happy and did you have fun or to have fun. So it would be, uh, embaixoet. Yes. Embasotet, EMBASOTI. Now if I want to say did you enjoy something? Kif bakia? Did you enjoy something? Did you enjoy the party? So th- this",
+        "O1": "So this is to be happy. Did you have fun or to have fun? So it would be in basattet. Yes, in basattet, in basatti. Now, if I want to say, did you enjoy something? كيف بحكيها? Did you enjoy something? Did you enjoy the party? So this...",
+        "O2": "So this is to be happy. Did you have fun or to have fun? So it would be inbasatet. Yes, inbasatet, inbasatti. Now, if I want to say, did you enjoy something? كيف بحكيها? Did you enjoy something? Did you enjoy the party? So this...",
+        "ES": "So this is to be happy. Did you have fun or to have fun? So it would be, uh, in- inbasatet. Yes. Inbasatet. Inbasati. Now, if I want to say did you enjoy something? Did you enjoy something? Did you enjoy the party? So did- did-",
+        "EKG": "So this is to be happy. Did you have fun or to have fun? So it would be, uh, en- Enbasatet. Yes. Enbasatet. Enbasati. Now, if I want to say, \"Did you enjoy something?\" Keef bahkyeha? Did you enjoy something? Did you enjoy the party? So did, did s-",
+        "EKL": "So this is to be happy. Did you have fun or to have fun? So it would be, uh, en-enbasatet. Yes. Enbasatet, enbasati. Now, if I want to say, \"Did you enjoy something?\" Did you enjoy something? Did you enjoy the party? So did-"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 48,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 48,
+          "arabic_token_count": 2,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 45,
+          "arabic_token_count": 2,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 46,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 3,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 49,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 2,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 44,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 0.9247,
+      "openai_exact_match": false,
+      "eleven_global_keyterms_similarity": 0.3237,
+      "eleven_local_keyterms_similarity": 0.3399,
+      "eleven_segmented_similarity": 0.3377,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "recovered",
+        "O1": "recovered",
+        "O2": "recovered",
+        "note": "All capture enbasa6-family attempts; spellings differ.",
+        "EKG": "recovered",
+        "EKL": "recovered",
+        "ES": "recovered"
+      }
+    },
+    {
+      "index": 16,
+      "chat": "Enbasa6ti bi/fi el-7afle",
+      "window_start": 3279.772,
+      "window_end": 3304.772,
+      "texts": {
+        "E": "Yeah. Saib. And, and embasati fi el B or B doesn't matter. Feel hafleh Mm-hmm. Yes, mbset fel hafleh? Mbsetti bilhafleh both are perfect fine-- perfectly fine. How do I say did they enjoy their trip? Did they enjoy past",
+        "O1": "Yeah. Does it in the ... in the Airbnb, does it matter? في الحفلة. Yes. ... في الحفلة. ... both are perfect fine, perfectly fine. How do I say, Did they enjoy their trip? They enjoy.",
+        "O2": "Yeah. In... does it matter? Yes. Both are perfect fine, perfectly fine. How do I say, Did they enjoy their trip?",
+        "ES": "Yeah. انبسطت في الـ P or B doesn't matter. في الحفلة. Yes. انبسطت في الحفلة. انبسطت بالحفلة. Both are perfect fine. Perfectly fine. How do I say did they enjoy their trip? Did they enjoy",
+        "EKG": "Yeah. Enbasetee fee el- B or B, doesn't matter. Fee el-7afle. Mhm. Yes. Enbasetee fee el-7afle. Enbasetee bil-7afle. Both are perfect fine. Perfectly fine. How do I say, \"Did they enjoy their trip?\" Did they enjoy",
+        "EKL": "Yeah. En-enbas6ti fi el- B or B doesn't matter. Fi el-7afle. Yes. Enbas6ti fi el-7afle. Enbas6ti bil-7afle. Both are perfect fine. Perfectly fine. How do I say, \"Did they enjoy their trip?\" Did they enjoy"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 40,
+          "arabic_token_count": 0,
+          "filler_count": 2,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 33,
+          "arabic_token_count": 4,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 3,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 21,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 35,
+          "arabic_token_count": 10,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 36,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 35,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 0.7483,
+      "openai_exact_match": false,
+      "eleven_global_keyterms_similarity": 0.2454,
+      "eleven_local_keyterms_similarity": 0.227,
+      "eleven_segmented_similarity": 0.6568,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "recovered",
+        "O1": "not_recovered",
+        "O2": "not_recovered",
+        "note": "E keeps embasati/mbsetti; O1 hallucinates 'Airbnb' and O2 omits the target phrase.",
+        "EKG": "recovered",
+        "EKL": "recovered",
+        "ES": "recovered"
+      }
+    },
+    {
+      "index": 17,
+      "chat": "Enbasa6u bisafrethom",
+      "window_start": 3387.989,
+      "window_end": 3412.989,
+      "texts": {
+        "E": "bitin besit Mmm Inti beten bestiti Betenbisti Betenbisti Inti Betenbisti And then intoo uuuh betenbestu Ummm",
+        "O1": "بتنبستي. انتي بتنبستي. بتنبستي. انتي بتنبستي. And then into. بتنبستو.",
+        "O2": "Bittenbest. Inti bittenbesti. Bittenbesti. Inti bittenbesti. And then into bittenbestu.",
+        "ES": "مـ بتنبسط مم. إنتي بتنبسطي بتنبسطي. بتنبسطي. إنتي بتنبسطي. And then into، آآآ، بتنبسطوا",
+        "EKG": "مـم، بتنبسط. مم. إنتي بتنبسطي. بتنبسطي. بتنبسطي. إنتي بتنبسطي. And then إنت، آآآ، بتنبسطو. مم.",
+        "EKL": "Mmm. Btenbese6. Am. Entee btenbese6tee. Btenbes6tee. Btenbes6tee. Entee btenbes6tee. And then into, ah, btenbes2. Am."
+      },
+      "metrics": {
+        "E": {
+          "token_count": 16,
+          "arabic_token_count": 0,
+          "filler_count": 2,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 10,
+          "arabic_token_count": 7,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 10,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 15,
+          "arabic_token_count": 12,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 15,
+          "arabic_token_count": 13,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 15,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 0.3077,
+      "openai_exact_match": false,
+      "eleven_global_keyterms_similarity": 0.2079,
+      "eleven_local_keyterms_similarity": 0.4622,
+      "eleven_segmented_similarity": 0.2462,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "recovered",
+        "O1": "recovered",
+        "O2": "recovered",
+        "note": "All capture btenbese6-family conjugation practice; O2 violates Arabic-script instruction.",
+        "EKG": "recovered",
+        "EKL": "recovered",
+        "ES": "recovered"
+      }
+    },
+    {
+      "index": 18,
+      "chat": "Banbese6\nBtenbese6\nBtenbes6i\nBtenbes6u\nByenbese6\nBtenbese6\nByenbes6u\nBnenbese6",
+      "window_start": 3493.214,
+      "window_end": 3518.214,
+      "texts": {
+        "E": "lamaaa uh nitlaaw Nitla- Nitla Betenbistilama nitla I'm kinda glad we only got through this one verb 'cause I'm happy to do all the homework on this one verb Tayeb atini anta hela jumla With ban biscuits Ana, ana",
+        "O1": "لما نطلع، نطلع. تنبسطي لما نطلع؟ I'm kind of glad we only got through this one verb because I'm happy to do all the homework on this one verb. طيب، عطيني أنت هالجملة. وأنا...",
+        "O2": "لما نطلع. نطلع. تنبسطي لما نطلع. I'm kind of glad we only got through this one verb because I'm happy to do all the homework on this one verb. طيب، عطيني أنت هلا جملة. وتنبسط. أنا...",
+        "ES": "لما نتلا. نتلا. نتلا. تنبسطي لما نتلا؟ I'm kinda glad we only got through this one verb cause I'm happy to do all the homework on this one verb. طيب أعطيني إنت هلا جملة with بنبسط. أنا",
+        "EKG": "Lamma ne6la3, ne6la3 Ne6la3. Btenbese6 lamma ne6la3? I'm kinda glad we only got through this one verb because I'm happy to do all the homework on this one verb. Taieb. 3a2tini enta hala Jumle with Banbese6. Ana",
+        "EKL": "Lamma ne6la3. Ne6la3 Ne6la3. Btenbes6i lamma ne6la3? I'm kind of glad we only got through this one verb because I'm happy to do all the homework on this one verb. Taieb. A3tini enta hala Jumle with banbese6. Ana"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 39,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 34,
+          "arabic_token_count": 11,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 36,
+          "arabic_token_count": 13,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 37,
+          "arabic_token_count": 14,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 37,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 38,
+          "arabic_token_count": 0,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 0.9607,
+      "openai_exact_match": false,
+      "eleven_global_keyterms_similarity": 0.564,
+      "eleven_local_keyterms_similarity": 0.5674,
+      "eleven_segmented_similarity": 0.6162,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "recovered",
+        "O1": "recovered",
+        "O2": "recovered",
+        "note": "All capture btenbese6i lamma ne6la3 family; E shows the most disfluency.",
+        "EKG": "recovered",
+        "EKL": "recovered",
+        "ES": "recovered"
+      }
+    },
+    {
+      "index": 19,
+      "chat": "Btenbese6i lamma ne6la3?",
+      "window_start": 3539.231,
+      "window_end": 3564.231,
+      "texts": {
+        "E": "Umm bass Hadi al filll Hada Hada al fill Is it bass hadaal fil Only this- Bass hadal fill yes Yeah Okay Now the amir Shoo alamir min bann bisit Okay so this is what I had a question about So in basalt",
+        "O1": "بس هادي الفعل. هذا. هذا الفعل. بس هذا الفعل. نعم. طيب، now the أمر، شو الأمر من بن بالست؟ Okay, so this is what I had a question about. So in...",
+        "O2": "Pass. Hadi al-fi'l. Hada. Hada al-fi'l. The bas, hada al-fi'l, only this. Bas hada al-fi'l, yes. Okay. Now the amr. شو الأمر من بنبسط؟ Okay, so this is what I had a question about. So, in...",
+        "ES": "اممم بس هذي الفعل. هذا. هذا الفعل. Is it بس هذا الفعل؟ only this- بس هذا الفعل. Yes. Yeah. Okay. طيب now the أمر. شو الأمر من بنبسط؟ Okay. So this is what I had a question about. So in بسط",
+        "EKG": "امم بس هذي الـ فعل. هذا. هذا الفعل. Is it بس هذا الفعل؟ Only this- بس هذا الفعل، yes. Yeah, okay. طيب now the أمر. شو الأمر من Banbaset؟ Okay, so this is what I had a question about. So Enbasa6-",
+        "EKL": "Um, bas hade el-fe3el. Hada. Hada el-fe3el. Is it bas hada el-fe3el? Only this- Bas hada el-fe3el, yes. Yeah. Okay. Taieb. Now the amer. Shu el-amer min Banbese6? Okay. So this is what I had a question about. So in bas-"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 43,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 31,
+          "arabic_token_count": 17,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 36,
+          "arabic_token_count": 4,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 41,
+          "arabic_token_count": 20,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 42,
+          "arabic_token_count": 20,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 2,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 41,
+          "arabic_token_count": 0,
+          "filler_count": 1,
+          "cutoff_or_ellipsis_count": 2,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 0.5509,
+      "openai_exact_match": false,
+      "eleven_global_keyterms_similarity": 0.5584,
+      "eleven_local_keyterms_similarity": 0.5728,
+      "eleven_segmented_similarity": 0.5309,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "recovered",
+        "O1": "recovered",
+        "O2": "recovered",
+        "note": "Only family-level fragments occur in-window; O2's بنبسط is the cleanest surface form. Full chat sentence was spoken earlier.",
+        "EKG": "recovered",
+        "EKL": "recovered",
+        "ES": "recovered"
+      }
+    },
+    {
+      "index": 21,
+      "chat": "Enbes6i biyoamek",
+      "window_start": 3655.647,
+      "window_end": 3680.647,
+      "texts": {
+        "E": "what is the, what is the thing that makes you happy؟ More, uh more happy? The most. The most. Oh, the most happy. Did you say أحسن or أكثر؟ أحسن right? شو أكتر إشي. The most thing not the best thing، okay. No. The best thing is أحسن إشي. Yeah. آآآ- اعطيني جملة زي هيك.",
+        "O1": "What is the thing that makes you happy? More happy? The most. Oh, the most happy. Did you say ahsan or aktar? Ahsan, right? شو أكتر إشي. The most thing, not the best thing. Okay. The best thing is ahsan.",
+        "O2": "What is the thing that makes you happy? More happy? The most. The most. Oh, the most happy. Did you say ahsan or aktar? Ahsan, right? شو أكتر إشي. The most thing, not the best thing. Okay. The best thing is أحسن إشي. عطيني جملة زي هيك.",
+        "ES": "What is the, what is the thing that makes you happy? The mo- uh, more happy? Mm-hmm. The most. The most. Oh, the most happy. Did you say ahsan or akthar? Ahsan, right? [speaking Arabic] The most thing, not the best thing. Okay. Yeah. The best thing is ahsan ishi. Yeah. Uh- [speaking Arabic]",
+        "EKG": "What is the, what is the thing that makes you happy? The mo-- uh, more happy? Mm-hmm. The most. The most. Oh, the most happy. Did you say ahsan or akthar? Ahsan, right? Sho akthar ishi. The most thing, not the best thing. Okay. Yeah. The best thing is ahsan ishi. Yeah. Uh- A3tini jumle zay hak",
+        "EKL": "What is the, what is the thing that makes you happy? The mo-- uh, more happy? The most. The most. Oh, the most happy. Did you say ahsan or akthar? Ahsan, right? Sho akthar ishi. The most thing, not the best thing. Okay. The best thing is ahsan ishi. Yeah. Uh- A3tini jumle zay heek"
+      },
+      "metrics": {
+        "E": {
+          "token_count": 57,
+          "arabic_token_count": 15,
+          "filler_count": 2,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O1": {
+          "token_count": 40,
+          "arabic_token_count": 3,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "O2": {
+          "token_count": 47,
+          "arabic_token_count": 9,
+          "filler_count": 0,
+          "cutoff_or_ellipsis_count": 0,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "ES": {
+          "token_count": 54,
+          "arabic_token_count": 0,
+          "filler_count": 4,
+          "cutoff_or_ellipsis_count": 2,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKG": {
+          "token_count": 57,
+          "arabic_token_count": 0,
+          "filler_count": 4,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        },
+        "EKL": {
+          "token_count": 55,
+          "arabic_token_count": 0,
+          "filler_count": 2,
+          "cutoff_or_ellipsis_count": 1,
+          "foreign_scripts": [],
+          "empty": false
+        }
+      },
+      "openai_similarity": 0.8995,
+      "openai_exact_match": false,
+      "eleven_global_keyterms_similarity": 0.4021,
+      "eleven_local_keyterms_similarity": 0.4554,
+      "eleven_segmented_similarity": 0.1932,
+      "eleven_speaker_ids": [
+        "speaker_0"
+      ],
+      "eleven_segmented_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_global_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "eleven_local_keyterm_speaker_ids": [
+        "speaker_0",
+        "speaker_1"
+      ],
+      "meet_caption_speakers": [
+        "Amal",
+        "Medi Natanzi"
+      ],
+      "manual_anchor_surface": {
+        "E": "not_recovered",
+        "O1": "not_recovered",
+        "O2": "not_recovered",
+        "note": "The command was spoken roughly 80 s before the chat post; the frozen window contains the next question instead.",
+        "EKG": "not_recovered",
+        "EKL": "not_recovered",
+        "ES": "not_recovered"
+      }
+    }
+  ]
+}

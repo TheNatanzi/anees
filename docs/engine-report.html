@@ -25,7 +25,8 @@ audio{width:100%;margin:0 0 10px}
 </style>
 </head><body><main><h1>Anees Engine Report</h1>
 <p class="lead">Every speech-to-text engine tried for the Palestinian Arabic lessons, all on the same Aug 25 recording (62 min, Medi + Amal, Arabic and English mixed). Written 2026-09-04.</p>
-<div class="verdict">Verdict: ElevenLabs Scribe v2 is the engine. It won Amal's blind vote 15 of 20, keeps the most hesitations, labels speakers, and costs $0.22 per hour. Nothing from ChatGPT beats it, and nothing free comes close.</div>
+<div class="verdict">Verdict: ElevenLabs Scribe v2 is the engine for now. It won Amal's blind vote 15 of 20 against Speechmatics and the local engine (ChatGPT was not in that vote), keeps the most hesitations, labels speakers, and costs $0.22 per hour. Against ChatGPT it wins on words kept and speaker labels, not on a human accuracy score: nobody has written a word-perfect transcript yet.</div>
+<div class="verdict" style="border-left-color:var(--amber)">Codex independent test (same day, 2026-09-04, new lesson, pre-registered): ElevenLabs kept 725 tokens and 22 fillers on 20 clips; ChatGPT's strict prompt kept 590 tokens and 0 fillers; feeding it the vocab list made it slightly worse. Full report: <a href="https://github.com/TheNatanzi/anees/blob/master/wiki/16-codex-independent-test-2026-09-04.md">wiki/16</a>.</div>
 <div class="toc"><a href="#vote">Amal's vote</a><a href="#engines">All engines</a><a href="#clips20">20-clip words</a><a href="#findings">Findings</a><a href="#next">Next step</a><a href="#side">Side by side</a></div>
 
 <h2 id="vote">1. Amal's blind vote (Check 02)</h2>
@@ -40,6 +41,24 @@ audio{width:100%;margin:0 0 10px}
 <h2 id="clips20">3. Words found on the same 20 clips</h2>
 <p class="lead">Same 20 short clips (about 405 s of audio). More words is better only if they are the right language: red bars are wrong-language or repeated output.</p>
 <div class="bars"><div class="bar ok"><span>ElevenLabs</span><i style="width:100%"></i><em>420</em><small>own labels, word times</small></div><div class="bar mid"><span>gpt-audio-mini</span><i style="width:98%"></i><em>412</em><small>includes repeats</small></div><div class="bar bad"><span>whisper-1</span><i style="width:88%"></i><em>371</em><small>English translation</small></div><div class="bar bad"><span>gpt-4o-transcribe-diarize</span><i style="width:85%"></i><em>356</em><small>German hallucinations</small></div><div class="bar mid"><span>Recipe 1 gpt-transcribe</span><i style="width:79%"></i><em>333</em><small>labels from ElevenLabs</small></div><div class="bar mid"><span>gpt-transcribe plain</span><i style="width:72%"></i><em>303</em><small>no labels</small></div><div class="bar bad"><span>gpt-4o-transcribe + chunking</span><i style="width:64%"></i><em>268</em><small>wrong languages</small></div><div class="bar mid"><span>gpt-audio</span><i style="width:60%"></i><em>252</em><small>no blanks</small></div><div class="bar bad"><span>gpt-4o-transcribe</span><i style="width:21%"></i><em>90</em><small>truncates</small></div></div>
+
+<h2 id="codex">3b. Codex's independent test on the Sep 4 lesson</h2>
+<p class="lead">Codex (OpenAI's coding agent) ran its own pre-registered test the same day on a NEW lesson: 20 windows of 25 s around the words Amal typed in the Meet chat. Sample, prompts and metrics were frozen before any output was seen. Bundle: data/codex-2026-09-04/.</p>
+<div class="tw"><table><thead><tr><th>Arm</th><th>What it is</th><th>Tokens</th><th>Fillers kept</th><th>Cut-offs kept</th><th>Amal's typed word found</th></tr></thead><tbody>
+<tr><td><b>E</b></td><td>ElevenLabs, one call for the whole lesson</td><td class="num">714</td><td class="num">21</td><td class="num">19</td><td class="num">16 / 20</td></tr>
+<tr><td><b>ES</b></td><td>ElevenLabs, each 25-s clip sent alone</td><td class="num">725</td><td class="num">22</td><td class="num">25</td><td class="num">16 / 20</td></tr>
+<tr><td><b>O1</b></td><td>ChatGPT gpt-transcribe, strict verbatim prompt</td><td class="num">590</td><td class="num">0</td><td class="num">12</td><td class="num">14 / 20</td></tr>
+<tr><td><b>O2</b></td><td>ChatGPT gpt-transcribe, strict prompt + vocab list</td><td class="num">593</td><td class="num">0</td><td class="num">7</td><td class="num">13 / 20</td></tr>
+<tr><td><b>EKG</b></td><td>ElevenLabs + whole-lesson vocab as keyterms</td><td class="num">716</td><td class="num">20</td><td class="num">20</td><td class="num">16 / 20</td></tr>
+<tr><td><b>EKL</b></td><td>ElevenLabs + only the vocab typed so far</td><td class="num">702</td><td class="num">17</td><td class="num">15</td><td class="num">16 / 20</td></tr>
+</tbody></table></div>
+<ul>
+<li><b>Strict prompt fixed ChatGPT's wrong-language problem</b> (no German or Japanese) but it still deleted every filler and cleaned up Medi's false starts.</li>
+<li><b>Vocab list did not help ChatGPT</b> (13 vs 14 anchors found) and on ElevenLabs it can poison: whole-lesson keyterms turned "Awesome" into "Mabsoo6", a word taught later in the lesson.</li>
+<li><b>Speaker split fix found:</b> ElevenLabs saw two voices in 19 of 20 clips when each clip was sent alone, but only 1 of 20 in the whole-lesson call. Short chunks, not vocab, repair the split.</li>
+<li><b>Meet recordings carry captions with names.</b> The MP4 has a caption track that names Medi and Amal; a free weak speaker hint we had not used.</li>
+<li><b>Codex's verdict:</b> ElevenLabs stays primary, ChatGPT is a second opinion only, separate tracks per person are the real fix. Codex flagged 6 P0 issues in the pipeline (3 fixed the same evening: push failures were silently ignored before emailing, Amal's Arabic was counted as Medi's when the split failed, the pre-check ran before reading the chat).</li>
+</ul>
 
 <h2 id="findings">4. Findings</h2>
 <ul>

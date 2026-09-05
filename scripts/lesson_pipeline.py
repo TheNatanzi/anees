@@ -153,13 +153,14 @@ def build(res, date, hhmm, src_name, mp3=None):
     lesson = [w for w in words if start <= w['s'] <= end]
     runs = runs_from_words(lesson, tutor='Amal')
     split_ok = any(w['spk'] == 'Medi' for w in words)
-    medi_ar = [w for w in lesson if (w['spk'] == 'Medi' or not split_ok) and ARABIC.search(w['w'])]
+    # Codex P0: with no speaker labels Medi's Arabic is NOT measurable -> None, never "all Arabic words"
+    medi_ar = [w for w in lesson if w['spk'] == 'Medi' and ARABIC.search(w['w'])] if split_ok else None
     confirms = sum(1 for r in runs for it in r['items'] if it.get('ok'))
     pauses = [it['pause'] for r in runs if r['spk'] == 'Medi' for it in r['items'] if 'pause' in it]
     summary = {'date': date, 'time': hhmm, 'source': src_name, 'lesson_start': round(start, 1), 'lesson_end': round(end, 1),
                'minutes': round((end - start) / 60, 1), 'words': len(lesson), 'arabic_share': round(arabic_share, 2),
-               'medi_arabic_words': len(medi_ar), 'confirmations': confirms, 'medi_pauses': len(pauses),
-               'medi_pause_seconds': round(sum(pauses), 1), 'language': res.get('language_code'),
+               'medi_arabic_words': (len(medi_ar) if medi_ar is not None else None), 'confirmations': (confirms if split_ok else None),
+               'medi_pauses': (len(pauses) if split_ok else None), 'medi_pause_seconds': (round(sum(pauses), 1) if split_ok else None), 'language': res.get('language_code'),
                'language_probability': res.get('language_probability'), 'engine': 'elevenlabs scribe_v2',
                'speaker_split': split_note}
     return words, runs, summary
@@ -178,8 +179,8 @@ def render(runs, summary):
                     + ' '.join(item_html(it) for it in r['items']) + '</p>')
     S = summary
     stats = ''.join(f'<div class="stat"><div class="n">{v}</div><div class="l">{k}</div></div>' for k, v in [
-        ('minutes', S['minutes']), ('words', S['words']), ('Arabic words by Medi', S['medi_arabic_words']),
-        ('Amal said "right"', S['confirmations']), ('Medi pauses', S['medi_pauses'])])
+        ('minutes', S['minutes']), ('words', S['words']), ('Arabic words by Medi', S['medi_arabic_words'] if S['medi_arabic_words'] is not None else '–'),
+        ('Amal said "right"', S['confirmations'] if S['confirmations'] is not None else '–'), ('Medi pauses', S['medi_pauses'] if S['medi_pauses'] is not None else '–')])
     warn = '' if S.get('speaker_split', 'ok') == 'ok' else f'<p class="warn">Speaker split {html.escape(S["speaker_split"])}. Counts below cover both voices.</p>'
     typed = ''
     if S.get('chat_lines'):
@@ -211,9 +212,11 @@ main{{max-width:760px;margin:0 auto;padding:16px}} h1{{font-size:24px;margin:8px
 def email(summary, link):
     payload = {'headline': f"Lesson {summary['date']} is transcribed", 'sub': f"{summary['minutes']} minutes, {summary['words']} words. ElevenLabs Scribe v2.",
                'link': link, 'footer': 'Anees, automatic after every recorded lesson. Only Medi gets this email.',
-               'rows': [{'tag': 'Arabic', 'name': f"{summary['medi_arabic_words']} Arabic words by Medi", 'detail': f"{int(summary['arabic_share']*100)}% of all words were Arabic"},
+               'rows': ([{'tag': 'Arabic', 'name': f"{summary['medi_arabic_words']} Arabic words by Medi", 'detail': f"{int(summary['arabic_share']*100)}% of all words were Arabic"},
                         {'tag': 'Right', 'name': f"{summary['confirmations']} confirmations from Amal", 'detail': 'mhm / aha / ممتاز right after Medi spoke Arabic'},
-                        {'tag': 'Pauses', 'name': f"{summary['medi_pauses']} pauses by Medi", 'detail': f"{summary['medi_pause_seconds']} seconds of um and uh"}],
+                        {'tag': 'Pauses', 'name': f"{summary['medi_pauses']} pauses by Medi", 'detail': f"{summary['medi_pause_seconds']} seconds of um and uh"}]
+                        if summary['medi_arabic_words'] is not None else
+                        [{'tag': 'Arabic', 'name': f"{int(summary['arabic_share']*100)}% of all words were Arabic", 'detail': 'per-speaker counts not measurable: no speaker labels on this recording'}]),
                'text': f"Lesson {summary['date']} transcribed: {link}"}
     if summary.get('chat_lines'):
         payload['rows'].append({'tag': 'Typed', 'name': f"{len(summary['chat_lines'])} words Amal typed in the Meet chat", 'detail': ', '.join(txt for _, _, txt in summary['chat_lines'][:8])})
@@ -230,7 +233,9 @@ def publish(date, page_html):
     paths = [DOCS / f'{date}.html', STATE, LESSONS / date / 'summary.json', LESSONS / date / 'transcript.txt', ROOT / '.gitignore']
     subprocess.run(['git', '-C', str(ROOT), 'add'] + [str(x) for x in paths if x.exists()], check=True)
     subprocess.run(['git', '-C', str(ROOT), 'commit', '-q', '-m', f'Lesson {date}: transcript page\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>'], check=False)
-    subprocess.run(['git', '-C', str(ROOT), 'push', '-q'], check=False)
+    push = subprocess.run(['git', '-C', str(ROOT), 'push', '-q'], capture_output=True, text=True)
+    if push.returncode != 0:   # Codex P0: never email a link that was not pushed
+        raise RuntimeError('git push failed: ' + (push.stderr or push.stdout).strip()[:300])
     return PAGES + f'{date}.html'
 
 
@@ -241,7 +246,10 @@ def process(src, date, hhmm, reuse=None, send=True, force=False):
         res = json.load(io.open(reuse, encoding='utf-8'))
     else:
         mp3 = extract_audio(src, d / 'audio.mp3')
-        if not is_arabic_lesson(mp3, d):
+        chat_proof = [1 for _, who, _ in chat_sidecar(src) if who.lower() != 'medi' and not who.lower().startswith('mahdi')]
+        if chat_proof:
+            log('Meet chat shows a tutor typing -> it is a lesson, pre-check skipped')
+        elif not is_arabic_lesson(mp3, d):
             log('not an Arabic lesson (pre-check) -> skipped')
             return {'skipped': 'not arabic (pre-check)', 'date': date, 'source': src.name}
         log('transcribing', mp3.name)

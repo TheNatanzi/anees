@@ -111,24 +111,6 @@ audio{{width:100%;margin:0 0 10px}}
 <p class="lead">Same 20 short clips (about 405 s of audio). More words is better only if they are the right language: red bars are wrong-language or repeated output.</p>
 <div class="bars">{clipw_html}</div>
 
-<h2 id="codex">3b. Codex's independent test on the Sep 4 lesson</h2>
-<p class="lead">Codex (OpenAI's coding agent) ran its own pre-registered test the same day on a NEW lesson: 20 windows of 25 s around the words Amal typed in the Meet chat. Sample, prompts and metrics were frozen before any output was seen. Bundle: data/codex-2026-09-04/.</p>
-<div class="tw"><table><thead><tr><th>Arm</th><th>What it is</th><th>Tokens</th><th>Fillers kept</th><th>Cut-offs kept</th><th>Amal's typed word found</th></tr></thead><tbody>
-<tr><td><b>E</b></td><td>ElevenLabs, one call for the whole lesson</td><td class="num">714</td><td class="num">21</td><td class="num">19</td><td class="num">16 / 20</td></tr>
-<tr><td><b>ES</b></td><td>ElevenLabs, each 25-s clip sent alone</td><td class="num">725</td><td class="num">22</td><td class="num">25</td><td class="num">16 / 20</td></tr>
-<tr><td><b>O1</b></td><td>ChatGPT gpt-transcribe, strict verbatim prompt</td><td class="num">590</td><td class="num">0</td><td class="num">12</td><td class="num">14 / 20</td></tr>
-<tr><td><b>O2</b></td><td>ChatGPT gpt-transcribe, strict prompt + vocab list</td><td class="num">593</td><td class="num">0</td><td class="num">7</td><td class="num">13 / 20</td></tr>
-<tr><td><b>EKG</b></td><td>ElevenLabs + whole-lesson vocab as keyterms</td><td class="num">716</td><td class="num">20</td><td class="num">20</td><td class="num">16 / 20</td></tr>
-<tr><td><b>EKL</b></td><td>ElevenLabs + only the vocab typed so far</td><td class="num">702</td><td class="num">17</td><td class="num">15</td><td class="num">16 / 20</td></tr>
-</tbody></table></div>
-<ul>
-<li><b>Strict prompt fixed ChatGPT's wrong-language problem</b> (no German or Japanese) but it still deleted every filler and cleaned up Medi's false starts.</li>
-<li><b>Vocab list did not help ChatGPT</b> (13 vs 14 anchors found) and on ElevenLabs it can poison: whole-lesson keyterms turned "Awesome" into "Mabsoo6", a word taught later in the lesson.</li>
-<li><b>Speaker split fix found:</b> ElevenLabs saw two voices in 19 of 20 clips when each clip was sent alone, but only 1 of 20 in the whole-lesson call. Short chunks, not vocab, repair the split.</li>
-<li><b>Meet recordings carry captions with names.</b> The MP4 has a caption track that names Medi and Amal; a free weak speaker hint we had not used.</li>
-<li><b>Codex's verdict:</b> ElevenLabs stays primary, ChatGPT is a second opinion only, separate tracks per person are the real fix. Codex flagged 6 P0 issues in the pipeline (3 fixed the same evening: push failures were silently ignored before emailing, Amal's Arabic was counted as Medi's when the split failed, the pre-check ran before reading the chat).</li>
-</ul>
-
 <h2 id="findings">4. Findings</h2>
 <ul>
 <li><b>Every engine auto-corrects Medi.</b> They all write the correct word even when he said it wrong (the "LearnerVoice" effect). ChatGPT's plain model slipped once and kept "اشتغلات" (clip 1); ElevenLabs wrote "اشتغلت".</li>

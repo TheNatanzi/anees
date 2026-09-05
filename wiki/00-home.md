@@ -13,3 +13,7 @@
 - [12 — Five Tools Medi Flagged (checked 2026-09-03)](12-five-tools-medi-flagged-checked-2026-09-03.md)
 - [09 — Codex reviews](09-codex-reviews.md)
 - [13 — Live transcribers + two-channel recording](13-live-transcribers-and-two-channel-recording.md)
+- [14 — LearnerVoice workarounds (Codex, 2026-09-04)](14-learnervoice-workarounds-codex-2026-09-04.md)
+- [15 — OpenAI speaker separation + Recipe 1 (Codex, 2026-09-04)](15-openai-speaker-separation-codex-2026-09-04.md)
+- [15b — Tutor-reaction experiment (2026-09-04)](15-tutor-reaction-experiment-2026-09-04.md)
+- [16 — Codex independent test, research review and build recommendation (2026-09-04)](16-codex-independent-test-2026-09-04.md) — bundle in `data/codex-2026-09-04/`, PDF [16-codex-research-and-architecture-2026-09-04.pdf](16-codex-research-and-architecture-2026-09-04.pdf)
