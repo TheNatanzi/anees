@@ -88,6 +88,22 @@ def test_js_buckets_parity_with_python():
         assert out[k] == EXPECT[k] == buckets.compute([], [{'word_key': k, **c} for c in CASES[k]], ['2026-08-25', '2026-09-04'])[k]['bucket'], k
 
 
+def test_merge_local_never_overrides_newer_server_and_weight_follows_bucket():
+    out = node(PRELUDE + """
+const C=globalThis.AneesCards;
+const server={ a:{word_key:'a',bucket:'missed',recent:false,weight:3,last_reviewed:'2026-09-05T10:00:00Z'},
+               b:{word_key:'b',bucket:'ice_cold',recent:false,weight:1,last_reviewed:'2026-09-01T10:00:00Z'},
+               c:{word_key:'c',bucket:'cold',recent:false,weight:1,last_reviewed:'2026-09-01T10:00:00Z'} };
+const log=[ {word_key:'a',ts:'2026-09-01T12:00:00Z',result:'got',attempt:1},          // OLD: must not override the newer server bucket
+            {word_key:'b',ts:'2026-09-06T09:00:00Z',result:'missed',attempt:1},       // one miss after ice cold -> cold
+            {word_key:'c',ts:'2026-09-06T09:00:00Z',result:'missed',attempt:1},{word_key:'c',ts:'2026-09-06T09:01:00Z',result:'missed',attempt:1} ];  // two misses -> missed, weight 3
+const m=C.mergeLocal(server,log);
+console.log(JSON.stringify({a:[m.a.bucket,m.a.weight,m.a.last_reviewed], b:[m.b.bucket,m.b.weight], c:[m.c.bucket,m.c.weight], w:C.weightOf({key:'x'},{bucket:'missed',weight:1}), w2:C.weightOf({key:'x'},{bucket:'cold',weight:3})}));
+""")
+    assert out['a'] == ['missed', 3, '2026-09-05T10:00:00Z'] and out['b'] == ['cold', 1] and out['c'] == ['missed', 3]
+    assert out['w'] == 3 and out['w2'] == 1
+
+
 def _run_round(pg, n_miss_idx):
     """Answer the current round: miss the cards at the given indexes. Returns the summary text."""
     i = 0

@@ -26,7 +26,29 @@
     const b = BUCKET_SETS.find(x => x.id === subjectId); if (b) return words.filter(w => b.test(w, stats[w.key]));
     return words;
   }
-  function weightOf(w, s) { return s ? (s.weight || ((s.bucket === 'missed' || s.recent) ? 3 : 1)) : 1; }
+  function weightFromBucket(bucket, recent) { return (bucket === 'missed' || recent) ? 3 : 1; }
+  // weight always follows the current bucket (a stored weight is never trusted over the bucket it was computed from)
+  function weightOf(w, s) { return s ? weightFromBucket(s.bucket, s.recent) : 1; }
+  // Merge the local answer log onto server stats: only rows NEWER than the server's last_reviewed count, and the new bucket is
+  // derived from the server bucket (ice_cold + one miss -> cold; two misses in the last three -> missed; else shaky / cold).
+  function mergeLocal(stats, log) {
+    const out = Object.assign({}, stats);
+    const by = {};
+    for (const r of log || []) (by[r.word_key] = by[r.word_key] || []).push(r);
+    for (const k in by) {
+      const s = out[k] || { word_key: k, bucket: 'never', recent: false };
+      const rows = by[k].filter(r => !s.last_reviewed || String(r.ts) > String(s.last_reviewed)).sort((a, b) => String(a.ts).localeCompare(String(b.ts)));
+      if (!rows.length) continue;
+      const last = rows[rows.length - 1];
+      let bucket;
+      if (last.result === 'missed') {
+        const recent3 = rows.slice(-3).filter(r => r.result === 'missed').length;
+        bucket = recent3 >= 2 ? 'missed' : (s.bucket === 'ice_cold' ? 'cold' : 'shaky');
+      } else bucket = parseInt(last.attempt || 1) > 1 ? 'shaky' : (s.bucket === 'ice_cold' ? 'ice_cold' : 'cold');
+      out[k] = Object.assign({}, s, { bucket, weight: weightFromBucket(bucket, s.recent), last_reviewed: last.ts });
+    }
+    return out;
+  }
   // Weighted draw WITHOUT replacement of n distinct words from the pool (each word at most once per round).
   function draw(words, stats, n, seed) {
     const rnd = typeof seed === 'number' ? mulberry32(seed) : Math.random;
@@ -68,5 +90,5 @@
     return next;
   }
   function summary(round) { return { n: round.cards.length, got: round.got, missed: round.missed, wrong: round.wrong.map(w => w.key), attempt: round.attempt, history: round.history }; }
-  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, done, replayWrong, summary, weightOf, mulberry32 };
+  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, done, replayWrong, summary, weightOf, weightFromBucket, mergeLocal, mulberry32 };
 })(typeof window !== 'undefined' ? window : globalThis);

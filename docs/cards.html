@@ -30,7 +30,9 @@ button.primary{background:var(--teal);color:#fff;border-color:var(--teal)} butto
 const C=window.AneesCards, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;');
 const uuid=()=> (crypto.randomUUID? crypto.randomUUID() : 'c'+Date.now().toString(36)+Math.random().toString(36).slice(2));
-const LS=(k,v)=>{ try{ if(v===undefined) return JSON.parse(localStorage.getItem(k)||'null'); localStorage.setItem(k,JSON.stringify(v)); }catch(e){ return null; } };
+const LS=(k,v)=>{ try{ if(v===undefined) return JSON.parse(localStorage.getItem(k)||'null'); localStorage.setItem(k,JSON.stringify(v)); return true; }catch(e){ return v===undefined?null:false; } };
+let memQueue=[];   // used only when localStorage refuses the write: the answer is still sent, and the footer says it is not saved locally
+const readQ=()=>(LS('anees-card-queue')||[]).concat(memQueue);
 let words=[], stats={}, pref=LS('anees-cards-pref')||{mode:'ar_first',shuffle:true,n:20,subject:'b-missed'};
 const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon,'Content-Type':'application/json'};
 async function load(){
@@ -40,22 +42,31 @@ async function load(){
   if(!Object.keys(stats).length) stats=LS('anees-stats')||{};
   applyLocalResults();
 }
-// local results (not yet synced, or synced today) keep the buckets fresh between server recomputes
-function applyLocalResults(){ const q=LS('anees-card-log')||[]; if(!q.length) return; const by={}; for(const r of q)(by[r.word_key]=by[r.word_key]||[]).push(r);
-  for(const k in by){ const [b]=AneesBuckets.signalFromCards(by[k].sort((a,c)=>a.ts.localeCompare(c.ts))); if(b) stats[k]={...(stats[k]||{word_key:k}),bucket:b,weight:(b==='missed'||(stats[k]&&stats[k].recent))?3:1,last_reviewed:by[k][by[k].length-1].ts}; } }
+// local answers newer than the server's last_reviewed refine the buckets (pure rule in cards-core.js, tested in node)
+function applyLocalResults(){ stats=C.mergeLocal(stats, LS('anees-card-log')||[]); }
 // ---- offline queue -> Supabase (id = idempotency key; duplicates ignored server-side) ----
-function enqueue(row){ const q=LS('anees-card-queue')||[]; q.push(row); LS('anees-card-queue',q); const log=LS('anees-card-log')||[]; log.push(row); LS('anees-card-log',log.slice(-2000)); sync(); }
+function enqueue(row){ const q=LS('anees-card-queue')||[]; q.push(row); const okQ=LS('anees-card-queue',q); if(row.kind!=='flag'){ const log=LS('anees-card-log')||[]; log.push(row); LS('anees-card-log',log.slice(-2000)); }
+  if(!okQ || !(LS('anees-card-queue')||[]).some(x=>x.id===row.id)){ memQueue.push(row); syncEl.textContent='Storage is full or blocked: this answer is only in memory until it syncs.'; }
+  sync(); }
+function dropRow(row,why){ const q=(LS('anees-card-queue')||[]).filter(x=>x.id!==row.id); LS('anees-card-queue',q); memQueue=memQueue.filter(x=>x.id!==row.id); const d=LS('anees-card-dead')||[]; d.push({row,why,t:new Date().toISOString()}); LS('anees-card-dead',d.slice(-200)); }
+function removeSent(ids){ const set=new Set(ids); LS('anees-card-queue',(LS('anees-card-queue')||[]).filter(x=>!set.has(x.id))); memQueue=memQueue.filter(x=>!set.has(x.id)); }
+async function postRows(rows){ const clean=rows.map(({kind,body,...r})=>r); return fetch(ANEES.url+'/rest/v1/card_results?on_conflict=id',{method:'POST',headers:{...H,Prefer:'resolution=ignore-duplicates,return=minimal'},body:JSON.stringify(clean)}); }
+async function postFlag(row){ return fetch(ANEES.url+'/rest/v1/amal_rules',{method:'POST',headers:{...H,Prefer:'return=minimal'},body:JSON.stringify(row.body)}); }
 let syncing=false, again=false;
 async function sync(){ if(syncing){ again=true; return; } syncing=true;
-  try{ while(true){ const q=LS('anees-card-queue')||[]; if(!q.length) break; const batch=q.slice(0,50);
-    const r=await fetch(ANEES.url+'/rest/v1/card_results?on_conflict=id',{method:'POST',headers:{...H,Prefer:'resolution=ignore-duplicates,return=minimal'},body:JSON.stringify(batch)});
-    if(!r.ok) throw new Error('sync '+r.status);
-    const sent=new Set(batch.map(x=>x.id)); LS('anees-card-queue',(LS('anees-card-queue')||[]).filter(x=>!sent.has(x.id)));   // never drop rows queued meanwhile
-  } syncEl.textContent='All answers saved.'; }
-  catch(e){ const n=(LS('anees-card-queue')||[]).length; syncEl.textContent=`${n} answer${n===1?'':'s'} waiting to sync (offline is fine).`; }
+  try{ while(true){ const q=readQ(); if(!q.length) break; const flags=q.filter(x=>x.kind==='flag'), rows=q.filter(x=>x.kind!=='flag');
+    if(rows.length){ const batch=rows.slice(0,50); const r=await postRows(batch);
+      if(r.ok){ removeSent(batch.map(x=>x.id)); }
+      else if(r.status===429||r.status>=500){ throw new Error('sync '+r.status); }
+      else { // a permanent 4xx: find the bad row(s) one by one so one bad answer never blocks the rest
+        for(const row of batch){ const r1=await postRows([row]); if(r1.ok) removeSent([row.id]); else if(r1.status===429||r1.status>=500) throw new Error('sync '+r1.status); else dropRow(row,'HTTP '+r1.status); } }
+      continue; }
+    for(const fl of flags){ const r=await postFlag(fl); if(r.ok) removeSent([fl.id]); else if(r.status===429||r.status>=500) throw new Error('flag '+r.status); else dropRow(fl,'HTTP '+r.status); }
+  } const dead=(LS('anees-card-dead')||[]).length; syncEl.textContent='All answers saved.'+(dead?` (${dead} rejected by the server, kept in anees-card-dead)`:''); }
+  catch(e){ const n=readQ().length; syncEl.textContent=`${n} answer${n===1?'':'s'} waiting to sync (offline is fine).`; }
   syncing=false; if(again){ again=false; sync(); } }
 window.addEventListener('online',sync); setInterval(()=>{ if((LS('anees-card-queue')||[]).length) sync(); },5000);
-async function flag(word){ try{ await fetch(ANEES.url+'/rest/v1/amal_rules',{method:'POST',headers:{...H,Prefer:'return=minimal'},body:JSON.stringify({source:'flashcards',kind:'flag',word_key:word.key,payload:{arabizi:word.arabizi,why:'often wrong on flashcards'}})}); }catch(e){} }
+function flag(word){ enqueue({id:uuid(), kind:'flag', word_key:word.key, body:{source:'flashcards',kind:'flag',word_key:word.key,payload:{arabizi:word.arabizi,why:'often wrong on flashcards'}}}); }
 // ---- UI ----
 let round=null, flipped=false, sessionMissed={};
 function picker(){
@@ -91,7 +102,7 @@ function showCard(){ flipped=false; if(C.done(round)) return showSummary();
   document.onkeydown=e=>{ if(e.key===' '){card.click();} if(e.key==='ArrowRight') answer('got'); if(e.key==='ArrowLeft') answer('missed'); };
 }
 function answer(result){ const w=round.cards[round.i]; const row=C.answer(round,result,new Date().toISOString(),uuid()); if(!row) return; enqueue(row);
-  const hist=(LS('anees-card-log')||[]).filter(r=>r.word_key===w.key).sort((a,b)=>a.ts.localeCompare(b.ts)); const [b]=AneesBuckets.signalFromCards(hist); stats[w.key]={...(stats[w.key]||{word_key:w.key}),bucket:b,last_reviewed:row.ts};
+  stats=C.mergeLocal(stats,[row]);            // bucket AND weight follow the new answer (Codex P0: stale 3× weight)
   if(result==='missed'){ sessionMissed[w.key]=(sessionMissed[w.key]||0)+1; if(sessionMissed[w.key]===2) flag(w); }
   showCard(); }
 function showSummary(){ const s=C.summary(round); document.onkeydown=null;
