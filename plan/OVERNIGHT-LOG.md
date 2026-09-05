@@ -352,3 +352,28 @@ Cross-tab write races (two tabs answering at once) remain a P2: single-tab use i
 | P0 | offline with no stats rendered "never / 0 / 0" | with no stats at all every stat shows "–" (test) |
 | P1 | Grammar tab had only Past Tense prose | grammar tabs' tables included as lines → 4 tabs, 1,110 lines |
 | P1 | Today's flashcards button left the one interface | it now opens the Flashcards tab (#cards) |
+
+## Codex final full-repo audit — findings and fixes  (07:10)
+Codex (task-mto4i1yz) said "P0 OPEN: yes". Each item, and what was done:
+| Finding | Status |
+|---|---|
+| Amal token URLs were committed in two earlier commits (ddae6ed, 54c83ac; 31 tokens) | **verified dead**: all 31 were test/temporary links whose rows were deleted; SQL check now = 0 alive; the two live links (before 2026-09-05, after 2026-09-04) were minted AFTER the file left git and are not in history. No history rewrite (public repo, low risk, tokens useless without a row). Logged in the handoff. |
+| standalone planner / after flows could call OpenAI without the ledger | FIXED: every OpenAI call now passes the 90 % preflight and records its cost inside suggest.ask_openai (post_process no longer double-counts) |
+| ffprobe failure fell back to a guessed 65 min | FIXED: refuses to transcribe without a measured duration |
+| cards.html rendered fabricated 0 / never with no stats | FIXED: bucket sets and badges show "–" when there are no stats at all |
+| index.html lessons: nullable minutes / words rendered raw | FIXED: "–" with a reason tooltip |
+| morning_check crashed on an inaccessible G: drive | FIXED: a FAIL line with the fix, no crash |
+| dead-link test needs internet | FIXED: skips when the network is blocked |
+| retry message said "3 tries" after 1 | FIXED |
+| pytest not green in Codex's sandbox (no temp dir, no network, no Supabase keys) | environment: the same suite is green here (66 passed in 131.71s (0:02:11)) |
+| P1: anon may insert card_results (public poisoning of buckets) | accepted for tonight, documented: the site has no login by design; a shared page secret would not stop a determined poster; fix = Medi's own token for the cards page (next chat) |
+Codex M0 audit: still "verifying" after 1 h 50 min in its sandbox (10-min command limit, no keys); cancel command failed; left running, its
+findings (if any) go to the next chat. M0 was covered by the full-repo audit's secret / Doc / email checks (all clean).
+
+## Definition of done (plan §6) — status at 07:15
+- All eight milestones DONE (M0 PARTIAL only for the unattended Doc fetch, cause + next action in the handoff) ✔
+- Budgets: ElevenLabs 0.00 / 10, OpenAI 0.44 / 10 (ceiling prices, ledger) ✔
+- Codex: M1, M3, M4/M6, M5, M7 and full-repo audits run; every P0 closed or verified dead (above) ✔ (M0 audit never finished in its sandbox)
+- Council: M2 8/10, M4 8/10, M5 8/10, M8 8/10 ✔
+- Checklist executed once by the run (15/15) ✔ · both Amal links minted, NOT sent ✔ · both lesson reports emailed to Medi ✔
+- One flaky test noted: a live-network test failed once in a 4-minute full run and passed on every re-run (5 full runs green).

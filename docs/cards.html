@@ -70,7 +70,7 @@ function flag(word){ enqueue({id:uuid(), kind:'flag', word_key:word.key, body:{s
 // ---- UI ----
 let round=null, flipped=false, sessionMissed={};
 function picker(){
-  const S=C.subjects(words,stats); const chip=(s)=>`<button data-s="${esc(s.id)}" class="${pref.subject===s.id?'sel':''}">${esc(s.name)} <small>${s.n}</small></button>`;
+  const S=C.subjects(words,stats); const none=!Object.keys(stats).length; const chip=(s)=>`<button data-s="${esc(s.id)}" class="${pref.subject===s.id?'sel':''}">${esc(s.name)} <small>${(none&&s.kind==='bucket')?'–':s.n}</small></button>`;
   root.innerHTML=`<h1>Flashcards</h1><p class="mute">Tap a card to flip. Got it or Missed. Wrong cards come back until the pile is empty.</p>
     <h2>Buckets</h2><div class="chips">${S.buckets.map(chip).join('')}</div>
     <h2>Grammar sets</h2><div class="chips">${S.grammar.map(chip).join('')}</div>
@@ -90,11 +90,11 @@ function start(){ let p=C.pool(words,stats,pref.subject); if(!p.length){ alert('
   let cards=C.draw(p,stats,Math.min(pref.n,p.length)); if(!pref.shuffle) cards=cards.slice().sort((a,b)=>(a.doc_order||0)-(b.doc_order||0));
   round=C.newRound(cards,{mode:pref.mode,subject:pref.subject}); sessionMissed={}; showCard(); }
 function showCard(){ flipped=false; if(C.done(round)) return showSummary();
-  const w=round.cards[round.i], s=stats[w.key]||{bucket:'never'}; const front=pref.mode==='ar_first', pct=Math.round(100*round.i/round.cards.length);
+  const w=round.cards[round.i], s=stats[w.key]||{bucket:(Object.keys(stats).length?'never':'–')}; const front=pref.mode==='ar_first', pct=Math.round(100*round.i/round.cards.length);
   const arFace=`<div class="big">${esc(w.arabizi)}</div><div class="ar">${esc(w.arabic)}</div>`, enFace=`<div class="en">${esc(w.english)}</div>`;
   root.innerHTML=`<div class="row"><button id="back" style="flex:0 0 auto">‹ Sets</button><div style="flex:1"><div class="mute">${round.attempt>1?'Review round '+round.attempt+' · ':''}${round.i+1} of ${round.cards.length}</div><div class="bar"><i style="width:${pct}%"></i></div></div></div>
-    <div class="scene"><div class="card" id="card"><div class="face"><span class="badge b-${esc(s.bucket)}">${esc(String(s.bucket).replace('_',' '))}</span><span class="topic">${esc(w.topic)}</span>${front?arFace:enFace}<span class="hint">tap to flip</span></div>
-    <div class="face back"><span class="badge b-${esc(s.bucket)}">${esc(String(s.bucket).replace('_',' '))}</span>${front?enFace:arFace}<span class="hint">${esc(w.subtopic)}</span></div></div></div>
+    <div class="scene"><div class="card" id="card"><div class="face"><span class="badge b-${esc(s.bucket==='–'?'never':s.bucket)}">${esc(String(s.bucket).replace('_',' '))}</span><span class="topic">${esc(w.topic)}</span>${front?arFace:enFace}<span class="hint">tap to flip</span></div>
+    <div class="face back"><span class="badge b-${esc(s.bucket==='–'?'never':s.bucket)}">${esc(String(s.bucket).replace('_',' '))}</span>${front?enFace:arFace}<span class="hint">${esc(w.subtopic)}</span></div></div></div>
     <div class="row"><button id="miss" class="bad">Missed</button><button id="got" class="primary">Got it</button></div>`;
   const card=document.getElementById('card'); card.onclick=()=>{flipped=!flipped; card.classList.toggle('flip',flipped);};
   let x0=null; card.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true}); card.addEventListener('touchend',e=>{ if(x0===null) return; const dx=e.changedTouches[0].clientX-x0; x0=null; if(dx>70) answer('got'); else if(dx<-70) answer('missed'); });

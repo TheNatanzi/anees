@@ -98,6 +98,9 @@ LIST A (words Medi must practise):
 LIST B (words Medi already knows):
 {chr(10).join(fmt(k) for k in B)}
 Return ONLY a JSON array: [{{"arabizi": "...", "arabic": "...", "english": "..."}}, ...]"""
+    import pipeline_ext as px
+    if not px.budget_ok('openai', 0.15):                     # the plan's hard limit: stop paid calls at 90 % of 10 USD
+        raise px.BudgetStop(f"OpenAI budget: {px.ledger().get('openai', 0):.2f} USD spent; a 0.15 USD call would pass 90 % of the cap")
     r = requests.post('https://api.openai.com/v1/chat/completions', headers={'Authorization': f'Bearer {E.OPENAI_KEY}', 'Content-Type': 'application/json'},
                       json={'model': MODEL, 'messages': [{'role': 'user', 'content': prompt}]}, timeout=180)
     if r.status_code != 200:
@@ -105,6 +108,7 @@ Return ONLY a JSON array: [{{"arabizi": "...", "arabic": "...", "english": "..."
     j = r.json()
     text = j['choices'][0]['message']['content']
     usage = j.get('usage', {})
+    px.spend('openai', cost_usd(usage), f'{MODEL} sentences ({usage.get("total_tokens", 0)} tokens)')
     m = re.search(r'\[.*\]', text, re.S)
     items = json.loads(m.group(0)) if m else []
     return items, usage

@@ -58,11 +58,10 @@ def transcribe(mp3):
     """ElevenLabs Scribe v2 with 3 retries on 429/5xx (5 / 20 / 60 s) and the paid-call ledger + 90 % budget stop (pipeline_ext)."""
     import pipeline_ext as px
     key = os.environ.get('ELEVENLABS_API_KEY') or sys.exit('MISSING ELEVENLABS_API_KEY')
-    try:
-        minutes = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', str(mp3)], capture_output=True, text=True).stdout.strip() or 0) / 60
-    except Exception:
-        minutes = 65.0
-    return px.transcribe_with_retry(requests.post, mp3, key, minutes)
+    out = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', str(mp3)], capture_output=True, text=True).stdout.strip()
+    if not out:
+        raise RuntimeError(f'cannot measure {mp3.name} with ffprobe: refusing to transcribe without a real duration (budget rule)')
+    return px.transcribe_with_retry(requests.post, mp3, key, float(out) / 60)
 
 
 CHAT_LINE = re.compile(r'^([A-Za-z][\w .-]{0,40}):\s?(.*)$')

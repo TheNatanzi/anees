@@ -46,7 +46,9 @@ def transcribe_with_retry(post, mp3_path, key, minutes, tries=3, backoff=(5, 20,
     if not budget_ok('elevenlabs', est):
         raise BudgetStop(f'ElevenLabs budget: {ledger().get("elevenlabs", 0):.2f} + {est:.2f} USD would pass 90 % of the {CAPS["elevenlabs"]:.0f} USD cap')
     last = None
+    attempts = 0
     for i in range(tries):
+        attempts += 1
         try:
             with open(mp3_path, 'rb') as f:
                 r = post('https://api.elevenlabs.io/v1/speech-to-text', headers={'xi-api-key': key},
@@ -62,7 +64,7 @@ def transcribe_with_retry(post, mp3_path, key, minutes, tries=3, backoff=(5, 20,
         if r.status_code == 429 or r.status_code >= 500:
             sleep(backoff[min(i, len(backoff) - 1)]); continue
         break                                       # 4xx other than 429: do not retry
-    raise RuntimeError(f'ElevenLabs failed after {tries} tries: {last}')
+    raise RuntimeError(f'ElevenLabs failed after {attempts} tr{"y" if attempts == 1 else "ies"}: {last}')
 
 
 def failure_email(subject, reason, date=None, run=subprocess.run):
@@ -97,8 +99,6 @@ def post_process(date, scribe=None, audio=None, src=None, send_email=True, use_o
         import after_questions, amal_links
         ok = use_openai and budget_ok('openai', 0.15)
         p = after_questions.payload(date, audio, use_openai=ok)
-        if ok and p['meta'].get('cost_usd'):
-            spend('openai', p['meta']['cost_usd'], f'after-lesson homework {date}')
         token, url = amal_links.create('after', date, p)
         out['after_link'] = url            # printed to the log only; never sent to Amal
     except Exception as e:

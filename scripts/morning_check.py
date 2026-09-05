@@ -58,7 +58,11 @@ def main(quick=False):
         step('Budget', False, str(e)[:80], 'check data/budget.json')
     # 6 Recording folder
     src = Path('G:/My Drive/Meet Recordings')
-    step('Meet folder', src.exists(), 'G:/My Drive/Meet Recordings ' + ('found' if src.exists() else 'MISSING'), 'is Google Drive for Desktop running? the pipeline reads the recording from there')
+    try:
+        found = src.exists()
+    except OSError as e:
+        found = False
+    step('Meet folder', found, 'G:/My Drive/Meet Recordings ' + ('found' if found else 'MISSING or not accessible'), 'is Google Drive for Desktop running and signed in? the pipeline reads the recording from there')
     # 7 Email path
     env = Path('C:/Claude/Personal/Project Alchemy/alchemy-lock/.env')
     step('Gmail sender', env.exists() and 'GMAIL_APP_PASSWORD' in env.read_text(encoding='utf-8', errors='ignore'), 'alchemy-lock/.env present', 'emails will not send: check the Gmail app password in alchemy-lock/.env')
