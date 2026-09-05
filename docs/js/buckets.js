@@ -43,7 +43,9 @@
     for (const key of new Set([...Object.keys(evBy), ...Object.keys(cdBy)])) {
       const evs = (evBy[key] || []).slice().sort((a, b) => (String(a.lesson_date) + (a.t_start || 0)).localeCompare(String(b.lesson_date) + (b.t_start || 0)) || ((a.t_start || 0) - (b.t_start || 0)));
       const cards = (cdBy[key] || []).slice().sort((a, b) => String(a.ts).localeCompare(String(b.ts)));
-      const lessonSignals = evs.map(e => [String(e.lesson_date), signalFromEvent(e)]).filter(x => x[1]);
+      const byDay = new Map();
+      for (const e of evs) { const s = signalFromEvent(e); if (s) { const d = String(e.lesson_date); if (!byDay.has(d)) byDay.set(d, []); byDay.get(d).push(s); } }
+      const lessonSignals = [...byDay.entries()].map(([d, sigs]) => [d, sigs.includes('missed') ? 'missed' : (sigs.includes('cold') ? 'cold' : 'shaky')]);   // one signal per lesson: unprompted use beats a later echo
       const [cardBucket, streak, days] = signalFromCards(cards);
       const lastLesson = lessonSignals.length ? lessonSignals[lessonSignals.length - 1] : null;
       const lastCardTs = cards.length ? String(cards[cards.length - 1].ts).slice(0, 10) : null;
@@ -63,7 +65,7 @@
       out[key] = { word_key: key, bucket, last_reviewed: lastReviewed, seen_lessons: seenDates.length, times_seen: evs.length,
         times_missed: evs.filter(e => e.correction).length + cards.filter(c => c.result === 'missed').length,
         card_right: cards.filter(c => c.result === 'got').length, card_wrong: cards.filter(c => c.result === 'missed').length,
-        streak, streak_days: days, recent: isRecent, weight: (bucket === 'missed' || bucket === 'new' || isRecent) ? 3 : 1, lesson_signal: lessonSignal };
+        streak, streak_days: days, recent: isRecent, weight: (bucket === 'missed' || bucket === 'new') ? 3 : 1, lesson_signal: lessonSignal };
     }
     return out;
   }

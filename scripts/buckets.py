@@ -37,6 +37,28 @@ def _signal_from_event(e):
     return 'cold'
 
 
+SIGNAL_RANK = {'missed': 0, 'shaky': 1, 'cold': 2}
+
+
+def _per_lesson_signals(evs):
+    """One signal per lesson, not per event (Medi 2026-09-05, the lAzem case): a word Medi said on his own in a lesson is cold for
+    that lesson even if he also echoed it after Amal later; any correction or 'asked' in the lesson makes it missed."""
+    by_day = collections.OrderedDict()
+    for e in evs:
+        s = _signal_from_event(e)
+        if s:
+            by_day.setdefault(str(e['lesson_date']), []).append(s)
+    out = []
+    for d, sigs in by_day.items():
+        if 'missed' in sigs:
+            out.append((d, 'missed'))
+        elif 'cold' in sigs:
+            out.append((d, 'cold'))          # said unprompted at least once: a later echo does not downgrade it
+        else:
+            out.append((d, 'shaky'))
+    return out
+
+
 def _signal_from_cards(cards):
     """cards: chronological [{'ts','result','attempt'}] -> (bucket, streak, streak_days)."""
     if not cards:
@@ -90,8 +112,7 @@ def compute(word_events, card_results, lesson_dates, today=None, confirmed_new=N
     for key in set(ev_by) | set(cd_by):
         evs = sorted(ev_by[key], key=lambda e: (str(e['lesson_date']), e.get('t_start') or 0))
         cards = sorted(cd_by[key], key=lambda c: str(c['ts']))
-        lesson_signals = [(str(e['lesson_date']), _signal_from_event(e)) for e in evs]
-        lesson_signals = [(d, s) for d, s in lesson_signals if s]
+        lesson_signals = _per_lesson_signals(evs)
         card_bucket, streak, days = _signal_from_cards(cards)
         last_lesson_sig = lesson_signals[-1] if lesson_signals else None
         last_card_ts = str(cards[-1]['ts'])[:10] if cards else None
@@ -117,7 +138,7 @@ def compute(word_events, card_results, lesson_dates, today=None, confirmed_new=N
         out[key] = {'word_key': key, 'bucket': bucket, 'last_reviewed': last_reviewed, 'last_lesson': seen_dates[-1] if seen_dates else None,
                     'seen_lessons': len(seen_dates), 'times_seen': len(evs), 'times_missed': sum(1 for e in evs if e.get('correction')) + sum(1 for c in cards if c['result'] == 'missed'),
                     'card_right': sum(1 for c in cards if c['result'] == 'got'), 'card_wrong': sum(1 for c in cards if c['result'] == 'missed'),
-                    'streak': streak, 'streak_days': days, 'recent': recent, 'weight': 3.0 if (bucket in ('missed', 'new') or recent) else 1.0, 'lesson_signal': lesson_signal,
+                    'streak': streak, 'streak_days': days, 'recent': recent, 'weight': 3.0 if bucket in ('missed', 'new') else 1.0, 'lesson_signal': lesson_signal,
                     'new_candidate': new_candidate, 'grammar_misses': sum(1 for e in evs if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS),
                     'grammar_kinds': sorted({e['miss_kind'] for e in evs if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS})}
     return out

@@ -80,6 +80,14 @@ def test_ice_cold_promotion_and_demotion_python():
     # later cards win over an earlier lesson signal; a later lesson wins over earlier cards
     st = buckets.compute(ev, [{'word_key': 'x', 'ts': '2026-09-05T10:00:00Z', 'result': 'missed', 'attempt': 1}, {'word_key': 'x', 'ts': '2026-09-05T10:01:00Z', 'result': 'missed', 'attempt': 1}], D)
     assert st['x']['bucket'] == 'missed'
+    # one signal per lesson (the lAzem case): three unprompted uses + one echo after Amal in the same lesson = cold, not shaky
+    lz = [{'lesson_date': '2026-08-25', 'word_key': 'lz', 'speaker': 'Medi', 'prompted': False, 'correction': False, 'asked': False, 't_start': t} for t in (302, 1235, 1385)]
+    lz.append({'lesson_date': '2026-08-25', 'word_key': 'lz', 'speaker': 'Medi', 'prompted': True, 'correction': False, 'asked': False, 't_start': 2908})
+    assert buckets.compute(lz, [], D)['lz']['bucket'] == 'cold'
+    lz.append({'lesson_date': '2026-08-25', 'word_key': 'lz', 'speaker': 'Medi', 'prompted': False, 'correction': True, 'asked': False, 't_start': 3000})
+    assert buckets.compute(lz, [], D)['lz']['bucket'] == 'missed', 'a correction in the lesson still wins'
+    # weight 3 only for missed / new; being heard recently is not weakness
+    assert buckets.compute(ev, [], D)['x']['weight'] == 1.0
     # 'new' (Medi 2026-09-05): ONLY a word marked new (Amal/Medi rule, or Doc diff). Heard, typed or asked is never enough.
     nw = [{'lesson_date': '2026-09-04', 'word_key': 'n', 'speaker': 'Medi', 'prompted': False, 'correction': False, 'asked': True, 't_start': 1}]
     st = buckets.compute(nw, [], D, introduced={('2026-09-04', 'n')})['n']
