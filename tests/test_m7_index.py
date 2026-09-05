@@ -39,7 +39,7 @@ def test_no_dead_links():
             if u.startswith('javascript:') or u.startswith('data:'):
                 continue
             if u.startswith('http'):
-                if 'supabase.co' in u or u in seen_http:
+                if 'supabase.co' in u or u in seen_http or 'reports' in p.parts:      # third-party research reports cite hundreds of outside pages: not ours to keep alive
                     continue
                 try:
                     seen_http[u] = requests.head(u, timeout=15, allow_redirects=True).status_code
