@@ -1,0 +1,141 @@
+"""Anees Engine Report: every transcription engine / model tested on the Aug 25 lesson, with results.
+Sections: verdict, Amal's blind vote, engine table (local, Speechmatics, ElevenLabs, ChatGPT family), 20-clip word counts,
+findings, next step, and the 20 clips side by side (ElevenLabs | gpt-transcribe Recipe 1 | gpt-audio-mini).
+Writes docs/engine-report.html (GitHub Pages) + a scratchpad copy for the artifact. Usage: python build_engine_report.py <scratch.html>"""
+import json, io, base64, html, re, sys
+R = 'data/aug25/'
+wins = json.load(io.open(R + 'check02_windows.json', encoding='utf-8'))
+rec = json.load(io.open(R + 'openai_recipe1.json', encoding='utf-8'))
+chat = json.load(io.open(R + 'openai_chat_best.json', encoding='utf-8'))
+FILL = re.compile(r"^[\W_]*(u+m+|u+h+|h+m+|m+m+|أ*م+|ا+م+|آ+|ا{2,}|ه+م+|إ+م+)[\W_]*$", re.I)
+def clean(t):
+    t = re.sub(r'"?(Learner|Tutor|transcription)"?\s*:\s*', ' ', t)
+    return re.sub(r'[{}\[\]"]', ' ', t).strip()
+NAME = {'Learner': 'Medi', 'Tutor': 'Amal', 'Medi': 'Medi', 'Amal': 'Amal'}
+def turn(spk, t):
+    t = t.strip() or '(nothing)'
+    return f'<div class="turn {spk.lower()}"><span class="who">{spk}</span><span class="txt" dir="auto">{html.escape(t)}</span></div>'
+tot = {'ele': 0, 'r1': 0, 'mini': 0, 'ele_f': 0, 'r1_f': 0, 'mini_f': 0, 'medi_ele': 0, 'medi_r1': 0}
+rows = []
+for w in wins:
+    i = w['i']; segs = rec[str(i)]; csegs = chat.get(str(i), [])
+    ew = [x for s in segs for x in s['ele'].split()]; rw = [x for s in segs for x in s['text'].split()]
+    mw = [x for s in csegs for x in clean(s['text']).split()]
+    tot['ele'] += len(ew); tot['r1'] += len(rw); tot['mini'] += len(mw)
+    tot['ele_f'] += sum(bool(FILL.match(x)) for x in ew); tot['r1_f'] += sum(bool(FILL.match(x)) for x in rw); tot['mini_f'] += sum(bool(FILL.match(x)) for x in mw)
+    tot['medi_ele'] += sum(len(s['ele'].split()) for s in segs if s['spk'] == 'Medi'); tot['medi_r1'] += sum(len(s['text'].split()) for s in segs if s['spk'] == 'Medi')
+    b64 = base64.b64encode(open(w['clip'], 'rb').read()).decode()
+    m, s_ = int(w['start'] // 60), int(w['start'] % 60)
+    c1 = ''.join(turn(s['spk'], s['ele']) for s in segs); c2 = ''.join(turn(s['spk'], s['text']) for s in segs)
+    c3 = ''.join(turn(NAME.get(s['spk'], 'Medi'), clean(s['text'])) for s in csegs) or turn('Medi', '')
+    rows.append(f'<section class="row" id="clip{i+1}"><div class="meta"><span class="t">#{i+1}</span><span class="t">{m:02d}:{s_:02d}</span><span class="t">{len(ew)} / {len(rw)} / {len(mw)} words</span></div>'
+                f'<audio controls preload="none" src="data:audio/mpeg;base64,{b64}"></audio>'
+                f'<div class="cols"><div class="col"><div class="lbl">A · ElevenLabs</div>{c1}</div><div class="col"><div class="lbl">B · ChatGPT gpt-transcribe (Recipe 1)</div>{c2}</div><div class="col"><div class="lbl">C · ChatGPT gpt-audio-mini</div>{c3}</div></div></section>')
+pct = lambda a, b: f'{round(100 * a / b)}%'
+
+def pill(kind, text):
+    return f'<span class="pill {kind}">{text}</span>'
+# (family, engine, cost, what it did on Aug 25 (62 min), speakers, verdict-kind, verdict)
+ENGINES = [
+ ('Free, on this PC', 'Whisper large-v3 (OpenAI, local)', '$0', '695 chunks in 857 s; Standard-Arabic bias; drops dialect words', 'none', 'bad', 'Rejected'),
+ ('Free, on this PC', 'Dialect Whisper (oddadmix) v4 = "local"', '$0', '367 chunks in 140 s; + word times + ECAPA voices = 445 turns / 3,446 words; INVENTS "إيه ده!" in silence; 64 fillers', 'guessed (k-means on voices)', 'bad', 'Lost 13-0 to ElevenLabs in Amal\'s vote'),
+ ('Free, on this PC', 'pyannote 3.1 speaker split', '$0', '143 turns, Amal only 21 -> worse than the ECAPA split (445)', 'guessed', 'bad', 'Rejected'),
+ ('Free, on this PC', 'whisperx word alignment', '$0', 'Never ran: torchvision mismatch, then nltk punkt_tab missing', 'none', 'bad', 'Blocked'),
+ ('Free, on this PC', 'wav2vec2 Levantine CTC (elgeish)', '$0', 'Not run yet; Codex: single Damascene reader, weak', 'none', 'mid', 'Parked'),
+ ('Paid cloud', 'Speechmatics bilingual ar+en', '$0.80/hr', '815 turns / 2,907 words in 8 min; 3 repeat runs identical; 78 fillers; turns Medi\'s Arabic into English ("But Anna Cartier" = أنا اشتغلت كتير)', 'yes', 'mid', 'Backup only: 5 votes, lost 11-1'),
+ ('Paid cloud', 'Speechmatics Arabic-only', '$0.80/hr', 'Drops the English half of the lesson (1,420 words)', 'yes', 'bad', 'Rejected'),
+ ('Paid cloud', 'ElevenLabs Scribe v2, auto language', '$0.22/hr', '1,024 turns / 3,544 words in 33 s; ~200 fillers kept; word times + confidence', 'yes', 'ok', 'THE ENGINE (9 votes)'),
+ ('Paid cloud', 'ElevenLabs Scribe v2, forced Arabic', '$0.22/hr', '986 turns / 3,532 words; same quality, tied with auto', 'yes', 'ok', 'Same engine (9 votes)'),
+ ('ChatGPT (OpenAI)', 'gpt-4o-transcribe-diarize', '$0.006/min', 'Hallucinates German for Medi ("Ich habe leider zu viel"); refuses a prompt', 'yes, but wrong words', 'bad', 'Rejected'),
+ ('ChatGPT (OpenAI)', 'gpt-4o-transcribe (+ Arabic hint)', '$0.006/min', 'Stops after the first sentence: ~90 words on 20 clips', 'none', 'bad', 'Rejected'),
+ ('ChatGPT (OpenAI)', 'gpt-4o-transcribe + auto chunking', '$0.006/min', '268 words but Japanese / Chinese / Azeri / German garbage on Medi', 'none', 'bad', 'Rejected'),
+ ('ChatGPT (OpenAI)', 'whisper-1', '$0.006/min', '371 words but translated to English and looping ("Yes, I had to work a lot" x3)', 'none', 'bad', 'Rejected'),
+ ('ChatGPT (OpenAI)', 'gpt-transcribe + Levantine prompt', '$0.006/min', '303 words, no German, keeps stumbles ("banzibit? Banzibitha?")', 'none', 'mid', 'Usable, no speakers'),
+ ('ChatGPT (OpenAI)', 'Recipe 1: ElevenLabs slices -> gpt-transcribe', '$0.22 + $0.27/hr', f'{tot["r1"]} words on the 20 clips ({pct(tot["r1"], tot["ele"])} of ElevenLabs); 1 of 129 slices empty; kept "اشتغلات" that ElevenLabs auto-fixed', 'borrowed from ElevenLabs', 'mid', 'Second opinion only (column B)'),
+ ('ChatGPT (OpenAI)', 'gpt-audio-1.5 (chat model)', '$0.04/min in', '6 of 20 clips came back EMPTY, 3 retries + stern instruction did not help', 'Learner/Tutor', 'bad', 'Rejected: silent failures'),
+ ('ChatGPT (OpenAI)', 'gpt-audio (older chat model)', '$0.04/min in', '252 words, 0 blanks, keeps hesitations', 'Learner/Tutor', 'mid', 'Fallback'),
+ ('ChatGPT (OpenAI)', 'gpt-audio-mini + loop guard', '$0.01/min in', f'{tot["mini"]} words on the 20 clips but repeats itself (clip 3 ran to 8,571 words before the guard)', 'Learner/Tutor', 'mid', 'Column C, not safe unattended'),
+ ('Not tested', 'Soniox ($0.10/hr), Google, Azure', '-', 'Only outside benchmark (arXiv 2605.19069, Egyptian+Saudi): ElevenLabs 13% word errors, 3x better than Google / OpenAI / Azure', '-', 'mid', 'Skipped'),
+]
+eng_html = ''.join(f'<tr><td class="fam">{html.escape(a)}</td><td><b>{html.escape(b)}</b></td><td class="num">{html.escape(c)}</td><td>{html.escape(d)}</td><td>{html.escape(e)}</td><td>{pill(k, html.escape(v))}</td></tr>' for a, b, c, d, e, k, v in ENGINES)
+
+VOTES = [('ElevenLabs (auto + Arabic)', 15, 'ok'), ('Speechmatics ar+en', 5, 'mid'), ('Local dialect Whisper', 2, 'bad')]
+vote_html = ''.join(f'<div class="bar {k}"><span>{n}</span><i style="width:{round(100*v/20)}%"></i><em>{v} / 20</em></div>' for n, v, k in VOTES)
+CLIPW = [('ElevenLabs', tot['ele'], 'ok', 'own labels, word times'), ('gpt-audio-mini', tot['mini'], 'mid', 'includes repeats'), ('whisper-1', 371, 'bad', 'English translation'),
+         ('gpt-4o-transcribe-diarize', 356, 'bad', 'German hallucinations'), ('Recipe 1 gpt-transcribe', tot['r1'], 'mid', 'labels from ElevenLabs'), ('gpt-transcribe plain', 303, 'mid', 'no labels'),
+         ('gpt-4o-transcribe + chunking', 268, 'bad', 'wrong languages'), ('gpt-audio', 252, 'mid', 'no blanks'), ('gpt-4o-transcribe', 90, 'bad', 'truncates')]
+mx = max(v for _, v, _, _ in CLIPW)
+clipw_html = ''.join(f'<div class="bar {k}"><span>{n}</span><i style="width:{round(100*v/mx)}%"></i><em>{v}</em><small>{note}</small></div>' for n, v, k, note in CLIPW)
+
+body = f'''<title>Anees Engine Report</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+:root{{--bg:#F4F6F2;--bg2:#fff;--ink:#1B2620;--mute:#5B6A62;--line:#D6DDD8;--teal:#0F6E56;--amber:#B26F0E;--coral:#B54324;--medi:#E9F1EC;--amal:#F7EFE3;--okbg:#DDF1E8;--midbg:#F6E9CF;--badbg:#F7DDD6}}
+@media(prefers-color-scheme:dark){{:root:not([data-theme="light"]){{--bg:#0F1613;--bg2:#17211C;--ink:#E7EDE9;--mute:#9BAAA2;--line:#2A3630;--teal:#4FC4A2;--amber:#E7A93B;--coral:#F08A6C;--medi:#1B2A24;--amal:#2A2419;--okbg:#173A2E;--midbg:#3A2E14;--badbg:#3F2019}}}}
+:root[data-theme="dark"]{{--bg:#0F1613;--bg2:#17211C;--ink:#E7EDE9;--mute:#9BAAA2;--line:#2A3630;--teal:#4FC4A2;--amber:#E7A93B;--coral:#F08A6C;--medi:#1B2A24;--amal:#2A2419;--okbg:#173A2E;--midbg:#3A2E14;--badbg:#3F2019}}
+body{{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 "Atkinson Hyperlegible",system-ui,sans-serif}}
+main{{max-width:1080px;margin:0 auto;padding:16px}} h1{{font-size:30px;margin:8px 0 4px;text-wrap:balance}} h2{{font-size:21px;margin:30px 0 8px;text-wrap:balance}} .lead{{color:var(--mute);margin:0 0 12px;max-width:72ch}}
+.verdict{{background:var(--bg2);border-left:5px solid var(--teal);padding:12px 16px;margin:0 0 18px;font-size:19px;font-weight:700;max-width:72ch}}
+.toc{{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 6px}} .toc a{{color:var(--teal);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px;background:var(--bg2)}}
+.score{{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:0 0 8px}}
+.score div{{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}} .score b{{display:block;font-size:26px;font-variant-numeric:tabular-nums}} .score span{{color:var(--mute);font-size:14px}} .score small{{display:block;color:var(--mute);font-size:13px}}
+.bars{{margin:10px 0 0;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 14px}} .bar{{display:grid;grid-template-columns:230px 1fr 64px 170px;gap:10px;align-items:center;margin:6px 0;font-size:15px}} .bar i{{display:block;height:14px;border-radius:7px;background:var(--teal)}} .bar.mid i{{background:var(--amber)}} .bar.bad i{{background:var(--coral)}} .bar em{{font-style:normal;font-variant-numeric:tabular-nums;text-align:right}} .bar small{{color:var(--mute);font-size:13px}}
+@media(max-width:700px){{.bar{{grid-template-columns:1fr 60px}} .bar span{{grid-column:1/-1}} .bar small{{grid-column:1/-1}}}}
+ul{{padding-left:22px;margin:6px 0;max-width:80ch}} li{{margin:5px 0}}
+table{{border-collapse:collapse;width:100%;font-size:15px;min-width:900px}} th,td{{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}} th{{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}} td.fam{{color:var(--mute);font-size:13px;white-space:nowrap}} td.num{{white-space:nowrap;font-variant-numeric:tabular-nums}} .tw{{overflow-x:auto;background:var(--bg2);border:1px solid var(--line);border-radius:12px}}
+.pill{{display:inline-block;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:700;white-space:nowrap}} .pill.ok{{background:var(--okbg);color:var(--teal)}} .pill.mid{{background:var(--midbg);color:var(--amber)}} .pill.bad{{background:var(--badbg);color:var(--coral)}}
+.row{{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 14px}}
+.meta{{display:flex;gap:14px;color:var(--mute);font-size:14px;font-variant-numeric:tabular-nums;margin-bottom:6px}} .meta .t:first-child{{color:var(--teal);font-weight:700}}
+audio{{width:100%;margin:0 0 10px}}
+.cols{{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}} @media(max-width:820px){{.cols{{grid-template-columns:1fr}}}}
+.lbl{{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}}
+.turn{{display:grid;grid-template-columns:44px 1fr;gap:8px;padding:4px 8px;border-radius:6px;margin-bottom:3px}} .turn.medi{{background:var(--medi)}} .turn.amal{{background:var(--amal)}}
+.who{{font-size:12px;font-weight:700;color:var(--mute);padding-top:4px}} .txt{{font-size:18px;line-height:1.5}}
+</style>
+<main><h1>Anees Engine Report</h1>
+<p class="lead">Every speech-to-text engine tried for the Palestinian Arabic lessons, all on the same Aug 25 recording (62 min, Medi + Amal, Arabic and English mixed). Written 2026-09-04.</p>
+<div class="verdict">Verdict: ElevenLabs Scribe v2 is the engine. It won Amal's blind vote 15 of 20, keeps the most hesitations, labels speakers, and costs $0.22 per hour. Nothing from ChatGPT beats it, and nothing free comes close.</div>
+<div class="toc"><a href="#vote">Amal's vote</a><a href="#engines">All engines</a><a href="#clips20">20-clip words</a><a href="#findings">Findings</a><a href="#next">Next step</a><a href="#side">Side by side</a></div>
+
+<h2 id="vote">1. Amal's blind vote (Check 02)</h2>
+<p class="lead">20 clips, 4 transcripts each, letters shuffled so she could not tell which engine was which. She picked the best one or several per clip.</p>
+<div class="bars">{vote_html}</div>
+<p class="lead" style="margin-top:8px">Head to head: ElevenLabs beat Speechmatics 11-1 and the local engine 13-0. On 3 clips she said all were wrong, 2 were ties. Rule was set before the vote: ElevenLabs stays unless beaten on 60% of the clips where they differ.</p>
+
+<h2 id="engines">2. Every engine, one line each</h2>
+<p class="lead">Fillers = um / uh / آآآ sounds. Anees needs them: they show where Medi hesitates. Speakers = does the engine know who is talking.</p>
+<div class="tw"><table><thead><tr><th>Family</th><th>Engine</th><th>Cost</th><th>What it did on Aug 25</th><th>Speakers</th><th>Verdict</th></tr></thead><tbody>{eng_html}</tbody></table></div>
+
+<h2 id="clips20">3. Words found on the same 20 clips</h2>
+<p class="lead">Same 20 short clips (about 405 s of audio). More words is better only if they are the right language: red bars are wrong-language or repeated output.</p>
+<div class="bars">{clipw_html}</div>
+
+<h2 id="findings">4. Findings</h2>
+<ul>
+<li><b>Every engine auto-corrects Medi.</b> They all write the correct word even when he said it wrong (the "LearnerVoice" effect). ChatGPT's plain model slipped once and kept "اشتغلات" (clip 1); ElevenLabs wrote "اشتغلت".</li>
+<li><b>Fillers survive only in ElevenLabs:</b> about 200 per lesson vs 78 (Speechmatics) and 64 (local). On the 20 clips: {tot['ele_f']} vs {tot['r1_f']} (Recipe 1) vs {tot['mini_f']} (gpt-audio-mini).</li>
+<li><b>Speakers:</b> ElevenLabs and Speechmatics label them from the audio. ChatGPT either hallucinates (German) when asked for speakers, or needs ElevenLabs' timings first (Recipe 1).</li>
+<li><b>Silence:</b> the local engine invents words in silence ("إيه ده!"); paid engines output nothing. That is why silent clips are never shown to a human rater.</li>
+<li><b>ChatGPT failure modes:</b> German / Japanese hallucinations, cutting off after one sentence, translating to English, empty answers (gpt-audio-1.5, 6 of 20), and looping (gpt-audio-mini, clip 3).</li>
+<li><b>Recipe 1 (Codex's best idea for ChatGPT)</b> reaches {pct(tot['r1'], tot['ele'])} of ElevenLabs' words, only {pct(tot['medi_r1'], tot['medi_ele'])} on Medi's own turns. Adds $0.27/hr. Second opinion, not a replacement.</li>
+<li><b>Speechmatics</b> is stable (3 identical runs) but turns Medi's Arabic into English words. Backup only.</li>
+<li><b>Free path ceiling:</b> the best free result (dialect Whisper + ECAPA voices, 445 turns) lost 13-0. Stop iterating there.</li>
+<li><b>Tutor-reaction detector</b> (finding Medi's errors from how Amal reacts) on one-channel audio: precision 0.50, recall 0.70 at 5 s. Too weak until speakers are recorded separately.</li>
+</ul>
+
+<h2 id="next">5. Next step</h2>
+<ul>
+<li><b>Record two channels</b> from the next lesson: microphone = Medi, speaker output = Amal. Then every engine gets perfect speaker labels for free.</li>
+<li>Then re-run the tutor-reaction detector and feed Medi's vocab list as ElevenLabs keyterms on Amal's channel only (never on Medi's, or it hides his mistakes).</li>
+<li>Pipeline already live: new Meet recordings -> ElevenLabs -> lesson page + email, hourly.</li>
+</ul>
+
+<h2 id="side">6. The 20 clips, side by side</h2>
+<p class="lead">Green rows = Medi, sand rows = Amal. A = ElevenLabs. B = ChatGPT gpt-transcribe fed one ElevenLabs speaker slice at a time (labels borrowed from A). C = ChatGPT gpt-audio-mini, its own labels. Numbers under each clip = words in A / B / C.</p>
+{''.join(rows)}
+<p class="lead">Data: data/aug25/eleven_scribe_auto.json, openai_recipe1.json, openai_chat_best.json, check02_results_amal.json. Scripts: scripts/engine_eleven.py, engine_speechmatics.py, engine_openai_clips.py, engine_openai_chat_audio.py, engine_openai_recipe1.py, build_engine_report.py. Repo: github.com/TheNatanzi/anees.</p>
+</main>'''
+open(sys.argv[1], 'w', encoding='utf-8').write(body)
+open('docs/engine-report.html', 'w', encoding='utf-8').write('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' + body.replace('<main>', '</head><body><main>', 1) + '</body></html>')
+open('docs/recipe1.html', 'w', encoding='utf-8').write('<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=engine-report.html"></head><body><a href="engine-report.html">Moved to the Engine Report</a></body></html>')
+print('ok', tot, 'KB', len(body) // 1024)
