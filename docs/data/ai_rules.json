@@ -153,6 +153,13 @@
           "why": "Medi 2026-09-05 on the Sep 5 report: 'موز-' shown as Moz (banana) while he reached for maz3ooj; 'biz'a-' as Besse (cat); 'za'aj' as Joaz (husband); 'heyye' as 7ayye (snake).",
           "where": "understand_lesson.is_false_start (single tokens and inside 2-3 word spans); arabizi.Matcher skeleton tier needs 3+ consonants; miss_kind.choice_check never 'wants' a glue word",
           "status": "enforced"
+        },
+        {
+          "id": "M11",
+          "rule": "Only words Medi says count. A word is known (nailed), missed, new or reused only when Medi himself said the word or phrase. Words only Amal said or typed are shown apart as 'heard from Amal, not said by you' and never counted or bucketed.",
+          "why": "Medi 2026-09-05: 'we only want to count the words I say; it can only be demonstrated that I know a word, or make an error, if I say the word or phrase.' Sep 5 report had 40 Amal-only rows inside new / reused.",
+          "where": "build_report.classify: new / reused from Medi events only, Amal-only keys -> kind 'heard'; buckets already Medi-only; tally = Medi's moments only",
+          "status": "enforced"
         }
       ],
       "tab": "words"

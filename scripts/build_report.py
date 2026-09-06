@@ -43,12 +43,22 @@ def classify(u, earlier_keys):
                 rows.append({'lesson_date': date, 'kind': kind, 'word_key': e['word_key'], 't_start': e['t_start'], 't_end': e['t_end'], 'speaker': 'Medi',
                              'text': e['text'], 'clip': e['clip'], 'confidence': 1.0, 'detail': {'offset': e['offset'], 'cue': e.get('cue', ''), 'prompted': e['prompted'],
                                                                                                   'miss_kind': e.get('miss_kind'), 'miss_why': e.get('miss_why'), 'phrase': e.get('phrase'), 'pattern': e.get('pattern')}})
-    seen_now = {}
+    # M11 (Medi 2026-09-05): only words MEDI says count. new / reused = his first saying of the word today; a word only Amal said is
+    # 'heard' (shown apart, never counted). When speakers are unknown nothing is his, so nothing is new or reused.
+    seen_now, heard_only = {}, {}
     for e in evs:
-        seen_now.setdefault(e['word_key'], e)
+        if ok and e['speaker'] == 'Medi':
+            seen_now.setdefault(e['word_key'], e)
+        else:
+            heard_only.setdefault(e['word_key'], e)
     for k, e in seen_now.items():
         kind = 'reused' if k in earlier_keys else 'new'
-        rows.append({'lesson_date': date, 'kind': kind, 'word_key': k, 't_start': e['t_start'], 't_end': e['t_end'], 'speaker': e['speaker'],
+        rows.append({'lesson_date': date, 'kind': kind, 'word_key': k, 't_start': e['t_start'], 't_end': e['t_end'], 'speaker': 'Medi',
+                     'text': e['text'], 'clip': e['clip'], 'confidence': 1.0, 'detail': {'offset': e['offset'], 'times': sum(1 for x in evs if x['word_key'] == k and x['speaker'] == 'Medi')}})
+    for k, e in heard_only.items():
+        if k in seen_now:
+            continue
+        rows.append({'lesson_date': date, 'kind': 'heard', 'word_key': k, 't_start': e['t_start'], 't_end': e['t_end'], 'speaker': e['speaker'],
                      'text': e['text'], 'clip': e['clip'], 'confidence': 1.0, 'detail': {'offset': e['offset'], 'times': sum(1 for x in evs if x['word_key'] == k)}})
     for r in u.get('chat', []):
         clip = None; off = None
@@ -111,7 +121,7 @@ def sync_db(u, rows):
 
 def earlier_keys_from_db(date):
     import db
-    rows = db.select('word_events', {'select': 'word_key', 'lesson_date': f'lt.{date}'})
+    rows = db.select('word_events', {'select': 'word_key', 'lesson_date': f'lt.{date}', 'speaker': 'eq.Medi'})     # M11: only what Medi said counts as 'seen before'
     return {r['word_key'] for r in rows}
 
 
@@ -120,7 +130,7 @@ def earlier_keys_local(date):
     for p in sorted(LESSONS.glob('*/understanding.json')):
         d = p.parent.name
         if d < date:
-            keys |= {e['word_key'] for e in json.load(io.open(p, encoding='utf-8'))['events']}
+            keys |= {e['word_key'] for e in json.load(io.open(p, encoding='utf-8'))['events'] if e.get('speaker') == 'Medi'}     # M11
     return keys
 
 
@@ -239,11 +249,12 @@ main{{max-width:820px;margin:0 auto;padding:14px 12px}} h1{{font-size:24px;margi
 <h2>Arabic words per 10 minutes</h2>
 {svg_chart(bins, ok)}
 <h2>Topics</h2><ol class="topics">{topics}</ol>
-{section('New words', 'new', 'First time in a recorded lesson. New words never mix with missed words: they go to the strict review loop first (3 right in a row on 2 different days). <a class="btn" href="../cards.html?subject=b-new">Practice the new words</a>')}
+{section('New words', 'new', 'You said it for the first time in a recorded lesson. New words never mix with missed words: they go to the strict review loop first (3 right in a row on 2 different days). <a class="btn" href="../cards.html?subject=b-new">Practice the new words</a>')}
 {section('Words you missed', 'missed', 'Possible misses of the WORD itself: Amal repeated it or said la / no / "say…" within 5 seconds, and the form you said was not just a grammar slip. Amal confirms or rejects these on her after-lesson link.')}
 {section('Grammar slips', 'grammar', 'You knew the word; the slip was the el- article, gender, tense or plural (read from what you said vs the Doc, and from Amal\'s words). These do not count against the word.')}
 {section('What you nailed', 'nailed', 'You said it before Amal did, and she did not correct it.')}
-{section('Reused old words', 'reused', 'Heard in an earlier lesson and again today.')}
+{section('Reused old words', 'reused', 'You said it in an earlier lesson and again today.')}
+{section('Heard from Amal, not said by you', 'heard', 'Amal said or typed these; you did not say them, so they do not count as known, new or missed (rule M11).')}
 {section("Amal's typed words", 'typed', 'What she wrote in the Meet chat, in her spelling, with the moment it was said.')}
 <section id="moments"><h2>20 moments <span class="n">{len(moments)}</span></h2><p class="lead">Corrections first, then words you needed a prompt for, then words you said cold. Each plays from the lesson audio.</p><ul class="list">{mom_html}</ul></section>
 <audio id="player" preload="none"></audio>
