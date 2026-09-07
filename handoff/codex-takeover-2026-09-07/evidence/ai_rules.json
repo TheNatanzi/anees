@@ -1,0 +1,302 @@
+{
+  "updated": "2026-09-05",
+  "legend": {
+    "enforced": "code + test do this today",
+    "partly": "done in part or by a fallback",
+    "planned": "agreed, not built yet"
+  },
+  "groups": [
+    {
+      "title": "Evidence",
+      "rules": [
+        {
+          "id": "E1",
+          "rule": "The engine's raw output is written once and never rewritten.",
+          "why": "Every page, count and card is derived from it; if it changes, nothing can be checked later.",
+          "where": "lesson_pipeline.process writes scribe.json once; understanding.json is regenerated from it",
+          "status": "enforced"
+        },
+        {
+          "id": "E2",
+          "rule": "Transcribe the whole lesson track, never 25-second chunks.",
+          "why": "Same engine on 25-s chunks lost 3 of 8 of Medi's mistakes (audit 2026-09-05).",
+          "where": "lesson_pipeline.transcribe sends the full audio.mp3",
+          "status": "enforced"
+        },
+        {
+          "id": "E3",
+          "rule": "No vocabulary list in the recognizer's ear on the primary pass.",
+          "why": "A prompted engine inserted Buset, Ya3ni and a whole chat sentence that nobody said.",
+          "where": "transcribe(): no keyterms; vocabulary is used only after recognition",
+          "status": "enforced"
+        },
+        {
+          "id": "E4",
+          "rule": "An unknown form stays unknown and flagged; it is never replaced by the nearest Doc word.",
+          "why": "Medi's 'sameeh' for 'mneeh' is the lesson; a silent fix erases it.",
+          "where": "arabizi.Matcher tiers exact > loose > skeleton; fuzzy only for chat-anchored words",
+          "status": "partly"
+        },
+        {
+          "id": "E5",
+          "rule": "Every reported miss or moment carries its audio clip.",
+          "why": "Nobody, human or machine, is trusted without the sound.",
+          "where": "understand_lesson.cut_clips; report play buttons",
+          "status": "enforced"
+        },
+        {
+          "id": "E6",
+          "rule": "Hash the audio and the raw transcript and keep a second copy.",
+          "why": "Today the raw file lives on one PC only.",
+          "where": "planned: summary.json + Supabase",
+          "status": "planned"
+        }
+      ],
+      "tab": "system"
+    },
+    {
+      "title": "Who spoke",
+      "rules": [
+        {
+          "id": "S1",
+          "rule": "Speaker = recording channel, never a guess.",
+          "why": "On the mixed Meet audio the engine put nearly every word on one speaker.",
+          "where": "planned: two named tracks (Ennuicastr / Craig); today: pitch fallback with a 15 % unlabeled floor, shown on the page",
+          "status": "partly"
+        },
+        {
+          "id": "S2",
+          "rule": "'More Arabic = Amal' is a hint, never a fact.",
+          "why": "Medi's Arabic share grows every lesson; the rule flips.",
+          "where": "lesson_pipeline.label_speakers is only used when the engine already split two voices",
+          "status": "partly"
+        },
+        {
+          "id": "S3",
+          "rule": "When speakers are unclear, per-speaker numbers show '–' with the reason.",
+          "why": "A wrong number is worse than no number.",
+          "where": "understand_lesson.apply_floor; build_report shows the dash",
+          "status": "enforced"
+        }
+      ],
+      "tab": "system"
+    },
+    {
+      "title": "What counts as a mistake",
+      "rules": [
+        {
+          "id": "M1",
+          "rule": "A miss needs a signal: Amal corrects or recasts, or Medi asks or says he forgot. Medi's spelling alone is never a miss.",
+          "why": "ASR auto-corrects learners (LearnerVoice finding, confirmed on our audio).",
+          "where": "understand_lesson.annotate: correction / asked / elicited flags",
+          "status": "enforced"
+        },
+        {
+          "id": "M2",
+          "rule": "A grammar slip (article, gender, tense, plural) keeps the word out of 'missed'.",
+          "why": "The word is known; the slip is scored separately.",
+          "where": "miss_kind.classify_all; buckets._signal_from_event",
+          "status": "enforced"
+        },
+        {
+          "id": "M3",
+          "rule": "Glue words (shu, bas, ya3ni, tamam …) are never graded.",
+          "why": "They are conversation moves, not vocabulary.",
+          "where": "understand_lesson.GLUE_KEYS",
+          "status": "enforced"
+        },
+        {
+          "id": "M4",
+          "rule": "Keep the stumble: false starts, repeats, 'nitla' for ne6la3. Never clean them.",
+          "why": "They are the evidence Anees exists for.",
+          "where": "engine choice (Scribe full track); planned: golden clips 9, 17, 18, 19 fail the build if a new engine version cleans them",
+          "status": "partly"
+        },
+        {
+          "id": "M5",
+          "rule": "'Possible miss' stays labelled possible until Amal taps.",
+          "why": "The reaction detector is about 50 % precise.",
+          "where": "report wording; after-link verdicts re-score the event",
+          "status": "enforced"
+        },
+        {
+          "id": "M6",
+          "rule": "Known hard grammar for Medi: the linking verb ykun / akun / tkun. An adjective inside a condition or time clause needs it ('lamma akun za3lan' = when I am sad), a plain statement does not ('ana za3lan' = I am sad). Dropping or adding it wrongly is a grammar slip (kind: tense), never a missed word.",
+          "why": "Medi 2026-09-05.",
+          "where": "planned: miss_kind pattern for ykun/akun/tkun next to an adjective after lamma / iza / bas; Amal's after-link verdict decides",
+          "status": "planned"
+        },
+        {
+          "id": "M7",
+          "rule": "A pause is never a mistake. Medi often pauses to build the whole sentence in his head. Pauses are shown on the transcript and may later rank a moment, but never score a word.",
+          "why": "Medi 2026-09-05.",
+          "where": "transcript pages show '(pause)'; buckets ignore pauses; pause analysis waits for two-track audio",
+          "status": "enforced"
+        },
+        {
+          "id": "M8",
+          "rule": "A wrong preposition after a verb or adjective (a6lub-hom for a6lub minhom; 5aayef min, mishtaa2 la, 2al2aan 3ala) is its own kind: 'preposition'. The verb is known; the slip is scored apart, never as a missed word.",
+          "why": "Medi 2026-09-05: 'ba6lub min is a preposition error. I make a lot of these.'",
+          "where": "miss_kind.KINDS + GRAMMAR_KINDS include 'preposition'; the Slips page (slips.html, data/tally.json) counts it as its own bar; detector pattern G12 in wiki 17 is planned",
+          "status": "partly"
+        },
+        {
+          "id": "M9",
+          "rule": "Every slip is tied to the rule Medi already learned (Amal's Doc unit or the lesson she taught it). The tally (slips.html) shows Amal which learned rules are slipping so she can put a review into her own plans. Anees never writes her a lesson plan and never sends her grammar questions.",
+          "why": "Medi 2026-09-05: 'let Amal make her own assessments; your job is to keep a tally of my mistakes … assist her in injecting my mistakes into her already formed lesson plans.'",
+          "where": "data/tally.json (hand-curated from the transcripts, wiki 17 section K) -> scripts/build_tally.py -> docs/slips.html; every moment carries its transcript line and, where the audio exists, a clip",
+          "status": "enforced"
+        },
+        {
+          "id": "M10",
+          "rule": "A cut-off token is a false start of the next word, never a Doc word of its own: a token ending in a dash or '…', or a short token the same speaker immediately continues into a longer word. Two-consonant look-alikes (za'aj → Joaz, biz- → Besse) never match unless Amal typed the word. Pronoun shapes (heyye / huwwe, even spelled 7ayye by the engine) are never graded.",
+          "why": "Medi 2026-09-05 on the Sep 5 report: 'موز-' shown as Moz (banana) while he reached for maz3ooj; 'biz'a-' as Besse (cat); 'za'aj' as Joaz (husband); 'heyye' as 7ayye (snake).",
+          "where": "understand_lesson.is_false_start (single tokens and inside 2-3 word spans); arabizi.Matcher skeleton tier needs 3+ consonants; miss_kind.choice_check never 'wants' a glue word",
+          "status": "enforced"
+        },
+        {
+          "id": "M11",
+          "rule": "Only words Medi says count. A word is known (nailed), missed, new or reused only when Medi himself said the word or phrase. Words only Amal said or typed are shown apart as 'heard from Amal, not said by you' and never counted or bucketed.",
+          "why": "Medi 2026-09-05: 'we only want to count the words I say; it can only be demonstrated that I know a word, or make an error, if I say the word or phrase.' Sep 5 report had 40 Amal-only rows inside new / reused.",
+          "where": "build_report.classify: new / reused from Medi events only, Amal-only keys -> kind 'heard'; buckets already Medi-only; tally = Medi's moments only",
+          "status": "enforced"
+        }
+      ],
+      "tab": "words"
+    },
+    {
+      "title": "New words and buckets",
+      "rules": [
+        {
+          "id": "N1",
+          "rule": "'New' = only a word marked new: Amal or Medi marks it for a lesson, or the Doc gets it after the lesson but did not have it before. Nothing is guessed into 'new'. It stays new until practised right 5 times (first try) on 2 different days.",
+          "why": "Medi 2026-09-05: 'we don't have any more context for what words are new'; Sep 4 = babse6 and banbese6 only.",
+          "where": "buckets.compute(confirmed_new=, doc_before=); marks live in amal_rules kind 'new'; chat/asked inference only fills 'new candidate' for Amal's after-link",
+          "status": "enforced"
+        },
+        {
+          "id": "N2",
+          "rule": "The Google Doc is the only word truth. The app never writes it.",
+          "why": "Amal owns the list.",
+          "where": "import_vocab.py is one-way",
+          "status": "enforced"
+        },
+        {
+          "id": "N3",
+          "rule": "A Doc lemma covers its conjugations: Basa6tek belongs to babse6's family.",
+          "why": "16 of Amal's 21 typed Sep-4 forms are conjugations the Doc does not list.",
+          "where": "understand_lesson.family_key (consonant skeleton); planned: first-tier, and split multi-word entries so ne6la3 is a target",
+          "status": "partly"
+        },
+        {
+          "id": "N4",
+          "rule": "New words never mix with missed words in practice; strict review first.",
+          "why": "Different loops.",
+          "where": "buckets.py; cards default set",
+          "status": "enforced"
+        },
+        {
+          "id": "N5",
+          "rule": "Amal's topic pick decides whether new words are expected: any 'New …' topic = yes; review-only topics (Last week's lessons, Grammar, Review listening, Review conversation) = no. Nobody is asked twice.",
+          "why": "Medi 2026-09-05: 'if it's New we can assume there will be new words; if it's review, assume not'.",
+          "where": "amal/plan.html topic screen writes rule new_words {expected}; the after-link's 'new word?' question is planned to show only when expected",
+          "status": "enforced"
+        }
+      ],
+      "tab": "words"
+    },
+    {
+      "title": "Amal",
+      "rules": [
+        {
+          "id": "A1",
+          "rule": "Code never contacts Amal. Links are minted; Medi sends them.",
+          "why": "Her time and trust.",
+          "where": "amal_links.py; send_lesson_email.mjs hard-codes Medi",
+          "status": "enforced"
+        },
+        {
+          "id": "A2",
+          "rule": "Amal's tap beats any machine label.",
+          "why": "She is the ground truth.",
+          "where": "apply_rules.py re-scores the exact event",
+          "status": "enforced",
+          "tab": "words"
+        },
+        {
+          "id": "A3",
+          "rule": "At most 5 questions, clips of at most 15 s, one tap each; target 3 to 5 minutes; measure it.",
+          "why": "Her budget is minutes.",
+          "where": "after_questions.py; timing measured only on stand-ins so far",
+          "status": "partly"
+        },
+        {
+          "id": "A4",
+          "rule": "Lessons are public by choice: audio, clips and transcripts stay on the open site; any transcription provider may receive the audio.",
+          "why": "Medi 2026-09-05: nothing sensitive is said. Amal said yes to all of it the same day (relayed by Medi).",
+          "where": "docs/ pages are public; no consent gate in code",
+          "status": "enforced"
+        }
+      ],
+      "tab": "system"
+    },
+    {
+      "title": "Numbers and publishing",
+      "rules": [
+        {
+          "id": "H1",
+          "rule": "No guessed number. Unknown shows '–' and why.",
+          "why": "Medi's standing rule.",
+          "where": "every page and email",
+          "status": "enforced"
+        },
+        {
+          "id": "H2",
+          "rule": "Counts are counts. 'Better' or 'accurate' only with a named metric and human labels.",
+          "why": "No word-perfect transcript exists yet.",
+          "where": "engine report wording; AI reports cards",
+          "status": "enforced"
+        },
+        {
+          "id": "H3",
+          "rule": "Nothing is emailed before the page is pushed and answers 200.",
+          "why": "A link to a 404 is a lie.",
+          "where": "lesson_pipeline.publish + publish_report (2026-09-05)",
+          "status": "enforced"
+        },
+        {
+          "id": "H4",
+          "rule": "Paid calls stop at 90 % of the budget.",
+          "why": "Ceiling prices, no surprises.",
+          "where": "pipeline_ext ledger",
+          "status": "enforced"
+        }
+      ],
+      "tab": "system"
+    },
+    {
+      "title": "Research method",
+      "rules": [
+        {
+          "id": "R1",
+          "rule": "Freeze clips, hashes and test arms before any output is seen.",
+          "why": "So a result cannot be steered.",
+          "where": "Codex bake-offs; Claude audit reproduced 65/65 hashes",
+          "status": "enforced"
+        },
+        {
+          "id": "R2",
+          "rule": "An engine is replaced only on held-out, Amal-labelled events, tested on full tracks.",
+          "why": "20 clips of one verb from one lesson prove direction, not superiority.",
+          "where": "planned: 5 lessons × 20 events gold set",
+          "status": "planned"
+        }
+      ],
+      "tab": "system"
+    }
+  ],
+  "tabs": {
+    "system": "System rules: the mechanics (recording, transcribing, who spoke, publishing, numbers, research method)",
+    "words": "Word and grammar rules: what counts as a mistake, what is new, what Amal decides"
+  }
+}
