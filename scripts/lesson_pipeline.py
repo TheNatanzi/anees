@@ -10,6 +10,7 @@ import requests
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from lesson_text import runs_from_words, run_text, ARABIC, is_confirm
+from transcript_display import annotate_runs, render_display_item, render_spelling_word, StaleDisplayRule
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = Path(os.environ.get('MEET_RECORDINGS', 'G:/My Drive/Meet Recordings'))
@@ -173,22 +174,63 @@ def build(res, date, hhmm, src_name, mp3=None):
 
 
 def render(runs, summary):
+    audio_enabled = summary['date'] == '2026-09-05'
+    spelling_count = 0
     def item_html(it):
+        nonlocal spelling_count
         if 'pause' in it:
             return f'<span class="pz">(pause {it["pause"]}s)</span>'
-        t = html.escape(it['w'])
+        spelling = render_spelling_word(it['w'])
+        if spelling:
+            spelling_count += 1
+        t = spelling or html.escape(it['w'])
         return f'<span class="ok">&#10003; {t}</span>' if it.get('ok') else t
     rows = []
-    for r in runs:
+    stale_display = False
+    try:
+        display_runs = annotate_runs(runs, summary['date'])
+    except StaleDisplayRule:
+        # A changed/corrected transcript must never receive an old display note.
+        display_runs = runs
+        stale_display = True
+    flagged = sum('display' in it for r in display_runs for it in r['items'])
+    for r in display_runs:
         m, s = int(r['s'] // 60), int(r['s'] % 60)
-        rows.append(f'<p class="ar {"unk" if r["spk"] == "?" else r["spk"].lower()}" dir="auto"><span class="t">{m:02d}:{s:02d}</span><b class="spk">{r["spk"]}:</b> '
-                    + ' '.join(item_html(it) for it in r['items']) + '</p>')
+        play = (f'<button type="button" class="line-play" data-start="{r["s"]:.3f}" '
+                f'data-label="{html.escape(r["spk"], quote=True)} at {m:02d}:{s:02d}" '
+                f'aria-label="Play {html.escape(r["spk"], quote=True)} at {m:02d}:{s:02d}" '
+                'aria-pressed="false" disabled>▶</button> ') if audio_enabled else ''
+        visible_items, source_details = [], []
+        for it in r['items']:
+            display = render_display_item(it)
+            visible_items.append(display['inline_html'] if display else item_html(it))
+            if display:
+                source_details.append(display['details_html'])
+        rows.append(f'<p class="ar {"unk" if r["spk"] == "?" else r["spk"].lower()}" dir="auto">{play}<span class="t">{m:02d}:{s:02d}</span><b class="spk">{r["spk"]}:</b> '
+                    + ' '.join(visible_items) + '</p>' + ''.join(source_details))
     S = summary
+    audio_panel = '''<section id="lesson-audio-panel" aria-label="Lesson audio"
+ data-bytes="30113517" data-sha256="001a38fc6dd077b8ca9a1d163539b59fb85f279a1650bd6bf56d58b6b7a3d284">
+<div class="listen-heading"><h2>Listen to any line</h2><button type="button" id="lesson-audio-choose">Choose recording</button></div>
+<input id="lesson-audio-file" type="file" accept="audio/mpeg,.mp3" aria-label="Choose the full September 5 mixed recording" hidden>
+<p class="lead">Choose the full September 5 recording from your device once per visit. It stays on your device—nothing is uploaded.</p>
+<audio id="lesson-audio" controls preload="metadata" aria-label="Full lesson recording" hidden></audio>
+<p id="lesson-audio-status" class="lead" role="status" aria-live="polite">Then tap ▶ beside any line. Playback starts just before the line and continues until paused.</p>
+<noscript>JavaScript is needed for timestamp playback.</noscript></section>''' if audio_enabled else ''
+    audio_script = '<script src="../js/transcript-player.js?v=20260908-1"></script>' if audio_enabled else ''
     stats = ''.join(f'<div class="stat"><div class="n">{v}</div><div class="l">{k}</div></div>' for k, v in [
         ('minutes', S['minutes']), ('words', S['words']), ('Arabic words by Medi', S['medi_arabic_words'] if S['medi_arabic_words'] is not None else '–'),
         ('Amal said "right"', S['confirmations'] if S['confirmations'] is not None else '–'), ('Medi pauses', S['medi_pauses'] if S['medi_pauses'] is not None else '–')])
     warn = '' if str(S.get('speaker_split', 'ok')).startswith('ok') else f'<p class="warn">Speaker split {html.escape(S["speaker_split"])}. Counts below cover both voices.</p>'
     typed = ''
+    script_note = ('<p class="warn">Writing rule: Arabic in Arabic script; English in English. '
+                   f'{flagged} unclear phrases are flagged below; expand “Raw source output” to see the original. '
+                   'This draft still contains other Arabizi awaiting script review. No words have been guessed or corrected.</p>') if flagged else ''
+    if stale_display:
+        script_note = '<p class="warn">Previous display notes do not match this transcript version. No old unclear-phrase replacements were applied; script review is still needed.</p>'
+    if spelling_count:
+        script_note += (f'<p class="lead">Approved spelling rules applied to {spelling_count} words. '
+                        'Original spellings are retained with each word. These changes do not assess pronunciation.</p>')
     if S.get('chat_lines'):
         items = ''.join(f'<li><span class="t">{html.escape(t)}</span><span dir="auto">{html.escape(txt)}</span></li>' for t, who, txt in S['chat_lines'])
         typed = f'<h2>Amal typed in the Meet chat</h2><p class="lead">Words she wrote for Medi during the call, in her own spelling (numbers stand for Arabic letters: 6 = ط, 7 = ح, 3 = ع).</p><ul class="typed">{items}</ul>'
@@ -209,15 +251,25 @@ main{{max-width:820px;margin:0 auto;padding:14px 12px}} h1{{font-size:24px;margi
 .spk{{font-size:13px;color:var(--teal);margin-inline-end:8px}} .t{{font-size:11px;color:var(--mute);margin-inline-end:8px;font-variant-numeric:tabular-nums}}
 .pz{{color:var(--amber);font-size:13px;border:1px dashed var(--amber);border-radius:999px;padding:0 8px;white-space:nowrap}}
 .ok{{color:var(--teal);font-size:13px;border:1px solid var(--teal);border-radius:999px;padding:0 8px;white-space:nowrap}}
+.transcript-unclear{{color:var(--amber);border-bottom:1px dashed var(--amber);font-size:14px}}
+.transcript-source{{font-size:13px;color:var(--mute);margin:0 10px 12px;padding:4px 8px;border-left:2px solid var(--line)}}
+.transcript-source summary{{cursor:pointer;min-height:32px;display:list-item}}
+.line-play,#lesson-audio-choose{{min-width:44px;min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--bg2);color:var(--teal);cursor:pointer;font:600 16px system-ui;vertical-align:middle}}
+.line-play{{margin-inline-end:8px}} .line-play.playing{{background:var(--teal);color:var(--bg2)}}
+.line-play:disabled{{opacity:.5;cursor:default}} .line-play:focus-visible,#lesson-audio-choose:focus-visible{{outline:3px solid var(--teal);outline-offset:3px}}
+#lesson-audio-panel{{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px;margin:12px 0 18px}}
+.listen-heading{{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}} .listen-heading h2{{margin:0;font-size:18px}}
+#lesson-audio-choose{{padding:8px 12px}} #lesson-audio-panel .lead{{margin:10px 0 0}} #lesson-audio{{width:100%;margin-top:10px}}
 .warn{{background:var(--bg2);border-left:4px solid var(--amber);padding:8px 12px;margin:0 0 14px}} h2{{font-size:19px;margin:22px 0 4px}}
 .typed{{list-style:none;padding:0;margin:0 0 18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px}} .typed li{{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:18px}} .both,.unk{{background:var(--bg2);border:1px dashed var(--line)}}
 </style></head><body><header class="top"><div class="in"><div class="brand"><b>Anees</b><span>Palestinian Arabic with Amal · Medi's companion</span></div><nav><a class="tab" href="../index.html#today">Today</a><a class="tab on" href="../index.html#lessons">Lessons</a><a class="tab" href="../index.html#words">Words</a><a class="tab" href="../index.html#cards">Flashcards</a><a class="tab" href="../index.html#amal">Amal</a><a class="tab" href="../index.html#grammar">Grammar</a><a class="tab" href="../index.html#ai-reports">AI reports</a><a class="tab" href="../index.html#sys-rules">System rules</a><a class="tab" href="../index.html#word-rules">Word &amp; grammar rules</a><a class="tab" href="../index.html#future">Future projects</a></nav></div></header><main>
 <p class="lead"><a href="{S['date']}-report.html">Report for this lesson</a></p>
 <h1>Anees lesson, {S['date']}</h1>
+{audio_panel}
 <p class="lead">Transcribed by ElevenLabs Scribe v2. Fillers show as (pause), Amal's confirmations right after Medi's Arabic show as a green check. Lesson window {int(S['lesson_start']//60)}:{int(S['lesson_start']%60):02d} to {int(S['lesson_end']//60)}:{int(S['lesson_end']%60):02d}.</p>
-{warn}<div class="stats">{stats}</div>
+{script_note}{warn}<div class="stats">{stats}</div>
 {typed}{''.join(rows)}
-</main><script src="../js/build.js"></script><script src="../js/stale.js"></script></body></html>'''
+</main>{audio_script}<script src="../js/build.js"></script><script src="../js/stale.js"></script></body></html>'''
 
 
 def email(summary, link):
