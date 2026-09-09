@@ -1,0 +1,432 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer"><meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; connect-src https://yljcbdxvnkfrwvelypfu.supabase.co; media-src data:; img-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Anees · Word review</title><style>
+:root{font:17px/1.55 system-ui,"Segoe UI",Tahoma,sans-serif;color:#1b302b;background:#f4f7f5}*{box-sizing:border-box}body{margin:0}main{max-width:860px;margin:auto;padding:24px 18px 60px}h1{font-size:1.6rem;margin:0 0 8px}h2{font-size:1.1rem;margin:0}.intro{margin:8px 0 18px}button{font:inherit;min-height:46px;border:1px solid #8da89e;background:white;color:#164839;border-radius:9px;padding:10px 14px;cursor:pointer}button:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid #187a5b;outline-offset:3px}button:disabled{opacity:.5;cursor:default}.turn{background:white;border:1px solid #d1ddd7;border-radius:12px;padding:18px;margin:18px 0;scroll-margin-top:18px}.turn.playing{outline:2px solid #0f6e56}.turn-head{display:flex;align-items:center;gap:12px}.turn-head span{margin-left:auto;font-size:.9rem}.line-play{min-width:46px}.line-play[aria-pressed=true]{background:#0f6e56;color:white}.context{font-size:1.1rem;white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 0}details{font-size:.9rem;color:#476255}summary{cursor:pointer}.audio-sr-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.inline-audio-status{color:#884615}audio[hidden]{display:none!important}.page-note{font-size:.9rem;color:#496059}.word-review{margin:16px 0;padding:16px;border:1px solid #cbd9d3;border-radius:10px;background:#f8fbfa}
+.review-question{font-weight:650;margin:0}.review-proposal{font-size:1.5rem;margin:6px 0 12px;white-space:pre-wrap}
+.review-options{display:flex;flex-wrap:wrap;gap:8px}.review-options button{min-height:46px;font-size:1rem}
+.review-options button[aria-pressed=true]{background:#0f6e56;color:white;border-color:#0f6e56}
+.custom-answer{display:block;margin-top:14px}.custom-answer[hidden]{display:none!important}
+.custom-answer textarea{display:block;width:100%;font:inherit;font-size:1.2rem;padding:10px;margin-top:6px;border:1px solid #8a9f96;border-radius:8px}
+.answer-note,#review-save-status{font-size:.9rem;color:#496059;margin:8px 0 0}.answer-note:empty{display:none}
+.review-toolbar{margin:16px 0}.review-toolbar details{margin-top:8px}.review-toolbar button{margin:6px 8px 6px 0}
+[hidden]{display:none!important}@media(max-width:600px){.review-options{flex-direction:column}.review-options button{width:100%;text-align:left}.word-review{padding:12px}}
+
+</style></head><body><audio id="audio" hidden preload="none"></audio><p id="audio-status" class="audio-sr-status" role="status" aria-live="polite"></p>
+<main><h1>Anees word review</h1><p id="page-status" role="status">Opening your review…</p>
+<div id="review-content" hidden><p class="intro">Listen, then confirm what was actually said—even if the attempt was incorrect. You can skip unclear audio.</p>
+<strong id="review-progress"></strong><p id="review-save-status" role="status" aria-live="polite"></p><button type="button" id="review-retry" hidden>Retry saving</button>
+<div id="review-groups"></div><details class="review-toolbar"><summary>Backup answers</summary><button type="button" id="review-download">Download answers</button></details>
+<p class="page-note">Answers save for Medi automatically. This access link is private to anyone you share it with; please don’t post it publicly.</p></div>
+<noscript>JavaScript is required to open this private review.</noscript></main>
+<script src="../js/config.js"></script><script>'use strict';
+const PLAYER_DATA = {sources:{}};
+// Shared local audio, controlled only by transcript-line buttons. No file picker.
+function createTrackPlayer(audio, sources, status, active) {
+  let serial = 0, selected = null, currentSource = null;
+  let pending = false, wants = false, cancelWait = null, internalPause = false;
+
+  function pause() {
+    internalPause = true;
+    audio.pause();
+    internalPause = false;
+  }
+  function invalidate() {
+    serial++;
+    if (cancelWait) cancelWait();
+    cancelWait = null;
+  }
+  function clear() { active(null); selected = null; }
+  function metadata() {
+    if (audio.readyState >= 1) return Promise.resolve();
+    return new Promise((resolve, reject) => {
+      let timer;
+      function clean() {
+        clearTimeout(timer);
+        audio.removeEventListener('loadedmetadata', done);
+        audio.removeEventListener('error', fail);
+        if (cancelWait === cancel) cancelWait = null;
+      }
+      function done() { clean(); resolve(); }
+      function fail() { clean(); reject(Error('metadata')); }
+      function cancel() {
+        clean();
+        reject(Object.assign(Error('cancelled'), {name: 'AbortError'}));
+      }
+      cancelWait = cancel;
+      audio.addEventListener('loadedmetadata', done);
+      audio.addEventListener('error', fail);
+      timer = setTimeout(fail, 20000);
+    });
+  }
+  async function playFrom(button, sourceId, start) {
+    if (!sources[sourceId] || !Number.isFinite(start) || start < 0) {
+      status('Audio unavailable for this line. Medi needs to repair its audio link.', true);
+      return;
+    }
+    if (selected === button && wants && (!audio.paused || pending)) {
+      invalidate(); wants = false; pending = false;
+      pause(); clear(); status('Paused.');
+      return;
+    }
+    invalidate();
+    const request = serial;
+    pause(); clear(); selected = button; pending = true; wants = true;
+    active(button); // The same button can cancel while loading, too.
+    status('Loading ' + sources[sourceId].speaker_label + '’s recording…');
+    try {
+      if (currentSource !== sourceId || audio.error) {
+        currentSource = sourceId;
+        audio.src = sources[sourceId].file_uri;
+        audio.load();
+      }
+      await metadata();
+      if (request !== serial) return;
+      if (!Number.isFinite(audio.duration) || audio.duration <= 0 || start >= audio.duration) {
+        throw Error('timestamp');
+      }
+      // Always use the original participant-track time, not the merged timeline.
+      audio.currentTime = start;
+      await audio.play();
+      if (request !== serial) { if (!wants) pause(); return; }
+      pending = false;
+      status('Playing ' + sources[sourceId].speaker_label + '’s recording. Tap pause to stop.');
+    } catch (error) {
+      if (request !== serial) return;
+      pending = false; wants = false;
+      pause(); clear();
+      if (error.name === 'NotAllowedError') {
+        status('Tap ▶ again to start the recording.', true);
+      } else if (error.message === 'timestamp') {
+        status('This line’s audio link needs fixing. Let Medi know; you can skip it.', true);
+      } else if (error.name === 'AbortError') {
+        status('Playback stopped. Tap ▶ to retry.', true);
+      } else {
+        currentSource = null; // A later tap retries the linked original automatically.
+        status('Audio unavailable here. Let Medi know; you can skip this line.', true);
+      }
+    }
+  }
+  function onPause() {
+    if (internalPause || pending || !audio.paused) return;
+    invalidate(); wants = false; clear(); status('Paused.');
+  }
+  function onEnd() {
+    invalidate(); wants = false; pending = false; clear();
+    status('Recording ended. Tap any line to replay.');
+  }
+  function onError() {
+    // Let the pending metadata/play promise report its own request's failure.
+    if (pending) return;
+    invalidate(); wants = false; pending = false; currentSource = null;
+    pause(); clear();
+    status('Audio unavailable here. Let Medi know; you can skip this line.', true);
+  }
+  audio.addEventListener('pause', onPause);
+  audio.addEventListener('ended', onEnd);
+  audio.addEventListener('error', onError);
+  return {
+    playFrom,
+    destroy() {
+      invalidate(); wants = false; pending = false;
+      pause(); clear();
+      audio.removeEventListener('pause', onPause);
+      audio.removeEventListener('ended', onEnd);
+      audio.removeEventListener('error', onError);
+      audio.removeAttribute('src'); audio.load();
+    }
+  };
+}
+
+function mountPlayer(doc, win) {
+  const audio = doc.getElementById('audio');
+  const statusElement = doc.getElementById('audio-status');
+  const buttons = Array.from(doc.querySelectorAll('.line-play'));
+  const labels = new Map(buttons.map(button => [button, button.getAttribute('aria-label')]));
+  let lastButton = null;
+  const status = (text, error = false) => {
+    statusElement.textContent = text;
+    statusElement.className = error ? 'inline-audio-status' : 'audio-sr-status';
+    const row = lastButton && lastButton.closest('.turn');
+    if (row) row.appendChild(statusElement);
+  };
+  const player = createTrackPlayer(audio, PLAYER_DATA.sources, status, chosen => {
+    buttons.forEach(button => {
+      const on = button === chosen;
+      button.setAttribute('aria-pressed', String(on));
+      const label = labels.get(button) || 'Play recording';
+      button.setAttribute('aria-label', on ? label.replace(/^Play\b/, 'Pause') : label);
+      button.textContent = on ? '❚❚' : '▶';
+      const article = button.closest('.turn');
+      if (article) article.classList.toggle('playing', on);
+    });
+  });
+  const handlers = new Map();
+  buttons.forEach(button => {
+    if (button.disabled) return;
+    const handle = () => {
+      lastButton = button;
+      const start = button.dataset.start;
+      player.playFrom(button, button.dataset.source, start.trim() ? Number(start) : NaN);
+    };
+    handlers.set(button, handle);
+    button.addEventListener('click', handle);
+  });
+  let cleaned = false;
+  function cleanup() {
+    if (cleaned) return;
+    cleaned = true;
+    player.destroy();
+    handlers.forEach((handle, button) => button.removeEventListener('click', handle));
+    win.removeEventListener('pagehide', onHide);
+  }
+  function onHide(event) { if (!event.persisted) cleanup(); }
+  win.addEventListener('pagehide', onHide);
+  return {player, cleanup};
+}
+
+
+// Transcript wording assertions only. These do not grade Medi or train a model.
+function reviewCanonical(value) {
+  if (Array.isArray(value)) return '['+value.map(reviewCanonical).join(',')+']';
+  if (value && typeof value === 'object') return '{'+Object.keys(value).sort().map(k => JSON.stringify(k)+':'+reviewCanonical(value[k])).join(',')+'}';
+  return JSON.stringify(value);
+}
+function reviewBinding(payload) {
+  return JSON.stringify({batch_id: payload.batch_id, source_sha256: payload.source_sha256,
+    selection_sha256: payload.selection_sha256,
+    items: payload.items.map(i => [i.id, i.source_word_ids, i.proposal])});
+}
+function completedAnswer(item, answer) {
+  return !!answer && (answer.choice === 'inaudible' ||
+    (answer.choice === 'yes' && answer.text === item.proposal) ||
+    (answer.choice === 'different' && typeof answer.text === 'string' && !!answer.text.trim()));
+}
+function validateReviewState(payload, state) {
+  if (!state || state.schema_version !== 1 || state.binding !== reviewBinding(payload) ||
+      !Number.isSafeInteger(state.revision) || state.revision < 0 ||
+      !state.answers || typeof state.answers !== 'object' || Array.isArray(state.answers)) throw Error('different-review');
+  const items = new Map(payload.items.map(i => [i.id, i]));
+  for (const [id, a] of Object.entries(state.answers)) {
+    if (!items.has(id) || !a || !['yes','different','inaudible'].includes(a.choice) ||
+        typeof a.draft !== 'string' || a.draft.length > 1000 ||
+        typeof a.updated_at !== 'string' || !Number.isFinite(Date.parse(a.updated_at))) throw Error('invalid-answer');
+    if (a.choice === 'yes' && a.text !== items.get(id).proposal) throw Error('invalid-proposal');
+    if (a.choice === 'inaudible' && a.text !== null) throw Error('inaudible-is-not-wording');
+    if (a.choice === 'different' && a.text !== (a.draft.trim() || null)) throw Error('invalid-custom-wording');
+  }
+  return state;
+}
+function emptyReviewState(payload) {
+  return {schema_version:1, binding:reviewBinding(payload), revision:0, answers:{}};
+}
+function makeReviewAnswer(item, choice, draft = '') {
+  if (!['yes','different','inaudible'].includes(choice) || typeof draft !== 'string' || draft.length > 1000) throw Error('invalid-answer');
+  return {choice, text:choice === 'yes' ? item.proposal : choice === 'different' ? draft.trim() || null : null,
+    draft, updated_at:new Date().toISOString()};
+}
+function reviewCardHTML(item) {
+  const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  return '<section class="word-review" data-review-id="'+esc(item.id)+'" aria-label="Wording check">'+
+    '<p class="review-question">What do you hear?</p><p class="review-proposal" dir="auto">'+esc(item.proposal)+'</p>'+
+    '<div class="review-options" role="group" aria-label="Choose what matches the audio">'+
+    '<button type="button" data-choice="yes" aria-pressed="false">✓ Yes, that’s what I hear</button>'+
+    '<button type="button" data-choice="different" aria-pressed="false">✎ Different word</button>'+
+    '<button type="button" data-choice="inaudible" aria-pressed="false">Can’t hear clearly</button></div>'+
+    '<label class="custom-answer" hidden>What was actually said?<textarea dir="auto" rows="2" maxlength="1000" placeholder="Write what you hear, even if the attempt was incorrect."></textarea></label>'+
+    '<p class="answer-note" aria-live="polite"></p></section>';
+}
+function mountWordReview(doc, win, payload, options = {}) {
+  const binding = reviewBinding(payload), index = new Map(payload.items.map(i => [i.id,i]));
+  const storageKey = 'anees-word-review-v1:'+payload.batch_id+':'+(options.scope || 'local');
+  const status = doc.getElementById('review-save-status'), progress = doc.getElementById('review-progress');
+  const cards = Array.from(doc.querySelectorAll('.word-review'));
+  let state = options.initial ? validateReviewState(payload, options.initial) : emptyReviewState(payload);
+  state = JSON.parse(JSON.stringify(state));
+  let version = 0, savedVersion = 0, timer, busy = false, conflict = false, storageBlocked = false;
+  let pending = false;
+  const announce = text => { if (status) status.textContent = text; };
+  try {
+    const raw = win.localStorage.getItem(storageKey);
+    if (raw) {
+      const draft = JSON.parse(raw);
+      validateReviewState(payload, draft.state);
+      if (options.save && draft.pending && draft.state.revision !== state.revision &&
+          reviewCanonical(draft.state.answers) !== reviewCanonical(state.answers)) {
+        conflict = true;
+        announce('Answers changed on another device. Your unsent draft is kept; download it before resolving this with Medi.');
+        state = draft.state;
+      } else if (!options.save || (draft.pending && draft.state.revision === state.revision)) {
+        state = draft.state; pending = !!draft.pending;
+        if (pending) version = 1;
+      }
+    }
+  } catch (_) {
+    storageBlocked = true;
+    announce('This browser could not restore the saved draft. Existing storage was left unchanged.');
+  }
+  function persist() {
+    if (storageBlocked) return;
+    try { win.localStorage.setItem(storageKey, JSON.stringify({state,pending})); }
+    catch (_) { storageBlocked = true; announce('Device backup unavailable. Keep this page open until the answers are saved.'); }
+  }
+  function draw() {
+    let count = 0;
+    for (const item of payload.items) if (completedAnswer(item,state.answers[item.id])) count++;
+    if (progress) progress.textContent = count+' / '+payload.items.length+' checks answered';
+    for (const card of cards) {
+      const item = index.get(card.dataset.reviewId), answer = state.answers[item.id];
+      card.querySelectorAll('[data-choice]').forEach(button => button.setAttribute('aria-pressed', String(!!answer && answer.choice === button.dataset.choice)));
+      const custom = card.querySelector('.custom-answer'), input = card.querySelector('textarea');
+      custom.hidden = !answer || answer.choice !== 'different';
+      if (doc.activeElement !== input) input.value = answer ? answer.draft : '';
+      card.querySelector('.answer-note').textContent = !answer ? '' : answer.choice === 'inaudible' ? 'Left unresolved.' :
+        answer.choice === 'different' && !answer.text ? 'Type the wording to finish this answer.' : 'Answer recorded.';
+      card.querySelectorAll('button,textarea').forEach(control => { control.disabled = conflict; });
+    }
+  }
+  async function flush() {
+    if (!options.save || busy || conflict || !pending) return;
+    busy = true;
+    const snapshot = JSON.parse(JSON.stringify(state)), sentVersion = version;
+    snapshot.revision = state.revision + 1;
+    try {
+      validateReviewState(payload,snapshot);
+      const saved = await options.save(snapshot, state.revision);
+      validateReviewState(payload,saved);
+      if (saved.revision !== snapshot.revision || reviewCanonical(saved.answers) !== reviewCanonical(snapshot.answers)) throw Error('save-mismatch');
+      state.revision = saved.revision; savedVersion = sentVersion;
+      pending = version !== savedVersion; persist();
+      announce(pending ? 'Saving…' : 'Saved for Medi.');
+    } catch (error) {
+      conflict = error.message === 'save-conflict';
+      announce(conflict ? 'Answers changed on another device, or this link expired. Download your unsent answers before reloading; let Medi know.' :
+        storageBlocked ? 'Not saved online and device backup is unavailable. Keep this page open or download your answers, then retry.' :
+        'Not saved online yet. Your draft is kept on this device. Tap Retry saving when connected.');
+      const retry = doc.getElementById('review-retry');
+      if (retry) retry.hidden = conflict;
+      draw();
+    } finally { busy = false; }
+    if (pending && version !== sentVersion && !conflict) flush();
+  }
+  function changed(item, choice, draft) {
+    if (conflict) return;
+    state.answers[item.id] = makeReviewAnswer(item,choice,draft);
+    version++; pending = !!options.save; persist(); draw();
+    if (options.save) {
+      announce('Saving…'); clearTimeout(timer); timer = setTimeout(flush,350);
+    } else announce(storageBlocked ? 'Not saved on this device. Download answers before leaving.' : 'Saved on this device. Download answers to return them to Medi.');
+  }
+  for (const card of cards) {
+    const item = index.get(card.dataset.reviewId);
+    if (!item) throw Error('unknown-card');
+    card.querySelectorAll('[data-choice]').forEach(button => button.addEventListener('click',() => {
+      const previous = state.answers[item.id];
+      changed(item,button.dataset.choice,previous ? previous.draft : '');
+      if (button.dataset.choice === 'different') card.querySelector('textarea').focus();
+    }));
+    card.querySelector('textarea').addEventListener('input',event => changed(item,'different',event.target.value));
+  }
+  const download = doc.getElementById('review-download');
+  if (download) download.addEventListener('click',() => {
+    const blob = new win.Blob([JSON.stringify(state,null,2)],{type:'application/json'}), url = win.URL.createObjectURL(blob);
+    const a = doc.createElement('a'); a.href = url; a.download = 'anees-review-'+payload.batch_id+'.json';
+    a.click(); setTimeout(() => win.URL.revokeObjectURL(url),1000);
+  });
+  const retry = doc.getElementById('review-retry');
+  if (retry) retry.addEventListener('click',() => { retry.hidden = true; flush(); });
+  win.addEventListener('online',flush);
+  win.addEventListener('beforeunload',event => { if (options.save && pending) { event.preventDefault(); event.returnValue = ''; } });
+  draw();
+  if (pending && !conflict) flush();
+  return {flush, getState:() => JSON.parse(JSON.stringify(state))};
+}
+
+async function openSharedReview(doc, win) {
+  const pageStatus = doc.getElementById('page-status');
+  try {
+    const token = new URLSearchParams(win.location.hash.slice(1)).get('t');
+    if (!token || !/^[A-Za-z0-9_-]{43}$/.test(token)) throw Error('missing-link');
+    const config = win.ANEES;
+    if (!config || config.url !== 'https://yljcbdxvnkfrwvelypfu.supabase.co' || !config.anon) throw Error('configuration');
+    const endpoint = config.url+'/rest/v1/transcript_review_links?token=eq.'+encodeURIComponent(token);
+    const headers = {apikey:config.anon,Authorization:'Bearer '+config.anon,'X-Anees-Token':token,'Content-Type':'application/json'};
+    async function request(url, method = 'GET', body) {
+      const controller = new AbortController(), timer = setTimeout(() => controller.abort(), 20000);
+      try {
+        const response = await win.fetch(url,{method,headers:{...headers,Prefer:'return=representation'},body:body ? JSON.stringify(body):undefined,cache:'no-store',referrerPolicy:'no-referrer',signal:controller.signal});
+        if (!response.ok) throw Error('network');
+        return await response.json();
+      } finally { clearTimeout(timer); }
+    }
+    const rows = await request(endpoint+'&select=payload,answers,expires_at');
+    if (!Array.isArray(rows) || rows.length !== 1) throw Error('expired-link');
+    const link = rows[0], payload = link.payload;
+    if (!payload || payload.schema_version !== 1 || !Array.isArray(payload.items) || !Array.isArray(payload.groups) ||
+        !payload.items.length || payload.items.length > 20 || !Number.isSafeInteger(payload.word_count) || payload.word_count < 1 || payload.word_count > 20 ||
+        !/^[a-f0-9]{64}$/.test(payload.source_sha256) || !/^[a-f0-9]{64}$/.test(payload.selection_sha256)) throw Error('invalid-review');
+    const ids = new Set(), groupIds = new Set(), wordIds = new Set();
+    for (const item of payload.items) {
+      if (!item || typeof item.id !== 'string' || ids.has(item.id) || typeof item.proposal !== 'string' ||
+          !item.proposal.trim() || item.proposal.length > 1000 || !Array.isArray(item.source_word_ids) || !item.source_word_ids.length) throw Error('invalid-review');
+      ids.add(item.id);
+      for (const id of item.source_word_ids) {
+        if (typeof id !== 'string' || !id || wordIds.has(id)) throw Error('invalid-word-budget');
+        wordIds.add(id);
+      }
+    }
+    if (wordIds.size !== payload.word_count || wordIds.size > 20) throw Error('invalid-word-budget');
+    const container = doc.getElementById('review-groups');
+    for (const group of payload.groups) {
+      if (groupIds.has(group.id) || typeof group.id !== 'string' || !['Medi','Amal'].includes(group.speaker) ||
+          typeof group.audio_data_uri !== 'string' || !/^data:audio\/mpeg;base64,[A-Za-z0-9+/]+=*$/.test(group.audio_data_uri) ||
+          group.audio_data_uri.length > 1500000 || !Number.isFinite(group.clip_start) || !Number.isFinite(group.clip_end) ||
+          group.clip_start < 0 || group.clip_end <= group.clip_start) throw Error('invalid-audio');
+      groupIds.add(group.id);
+      PLAYER_DATA.sources[group.id] = {file_uri:group.audio_data_uri,speaker_label:group.speaker};
+      const section = doc.createElement('article'); section.className = 'turn'; section.id = group.id;
+      const header = doc.createElement('div'); header.className = 'turn-head';
+      const play = doc.createElement('button'); play.type = 'button'; play.className = 'line-play';
+      play.dataset.source = group.id; play.dataset.start = '0'; play.setAttribute('aria-pressed','false');
+      play.setAttribute('aria-label','Play '+group.speaker+' recording at '+group.time_label); play.textContent = '▶';
+      const name = doc.createElement('strong'); name.textContent = group.speaker+'’s recording';
+      const time = doc.createElement('span'); time.textContent = group.time_label;
+      header.append(play,name,time); section.appendChild(header);
+      const details = doc.createElement('details'), summary = doc.createElement('summary'), context = doc.createElement('p');
+      summary.textContent = 'Surrounding transcript'; context.className = 'context'; context.dir = 'auto'; context.textContent = group.text;
+      details.append(summary,context); section.appendChild(details);
+      const items = payload.items.filter(item => item.row_id === group.id);
+      if (!items.length) throw Error('invalid-review');
+      for (const item of items) section.insertAdjacentHTML('beforeend',reviewCardHTML(item));
+      container.appendChild(section);
+    }
+    if (payload.items.some(item => !groupIds.has(item.row_id))) throw Error('missing-audio');
+    validateReviewState(payload,link.answers);
+    // Scope local drafts to this particular bearer without storing the bearer in draft content.
+    const hashed = await win.crypto.subtle.digest('SHA-256',new TextEncoder().encode(token));
+    const scope = Array.from(new Uint8Array(hashed), b => b.toString(16).padStart(2,'0')).join('');
+    async function save(snapshot, previousRevision) {
+      const complete = payload.items.every(item => completedAnswer(item,snapshot.answers[item.id]));
+      const changed = await request(endpoint+'&answers->>revision=eq.'+previousRevision+'&select=answers','PATCH',
+        {answers:snapshot,opened_at:new Date().toISOString(),done_at:complete ? new Date().toISOString():null});
+      if (!Array.isArray(changed) || changed.length > 1) throw Error('save-conflict');
+      const readback = await request(endpoint+'&select=answers');
+      // A previous PATCH may have succeeded before its response/readback was lost.
+      // An identical persisted snapshot is safe to accept on a CAS retry.
+      if (!Array.isArray(readback) || readback.length !== 1 || readback[0].answers.revision !== snapshot.revision ||
+          reviewCanonical(readback[0].answers.answers) !== reviewCanonical(snapshot.answers)) throw Error('save-conflict');
+      return readback[0].answers;
+    }
+    mountPlayer(doc,win);
+    mountWordReview(doc,win,payload,{initial:link.answers,scope,save});
+    pageStatus.textContent = payload.word_count+' words · '+payload.items.length+' quick checks · September 5 lesson';
+    doc.getElementById('review-content').hidden = false;
+  } catch (error) {
+    pageStatus.textContent = error.message === 'missing-link' ? 'Open the complete private link Medi sent you.' :
+      error.message === 'expired-link' ? 'This review link has expired or was closed. Ask Medi for a new link.' :
+      'The review could not open. Check your connection and reload. If it still fails, let Medi know.';
+  }
+}
+if (typeof document !== 'undefined') openSharedReview(document,window);
+
+</script></body></html>
