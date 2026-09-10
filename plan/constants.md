@@ -1,5 +1,9 @@
 # Anees contracts (binding; supersede any conflicting wiki line)
 
+### Current app labels (Medi, 2026-09-10)
+
+Display `cold` as **Good** and `ice_cold` as **Mastered** throughout the app. This is a naming change only: retain the stored IDs, existing links, progress and scoring thresholds. The other four current bucket labels are unchanged. “Mastered” is the category name, not a new guarantee of proficiency.
+
 ### CONTRACTS(one `plan/constants.md`, supersedes any conflicting line elsewhere in this file)
 | Contract | Value |
 |---|---|

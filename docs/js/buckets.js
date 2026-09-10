@@ -2,6 +2,9 @@
 // ice_cold: 5 first-try rights in a row on >= 3 different days; one miss -> cold. cold: unprompted in a lesson / right first try.
 // shaky: prompted / right on second try. missed: corrected / wrong twice in a row on cards. never: no Medi signal.
 (function (root) {
+  // Display names only: keep stored IDs and scoring rules compatible with saved progress.
+  const DISPLAY_LABELS = Object.freeze({ cold: 'Good', ice_cold: 'Mastered' });
+  function label(bucket) { return Object.prototype.hasOwnProperty.call(DISPLAY_LABELS, bucket) ? DISPLAY_LABELS[bucket] : String(bucket ?? '').replace(/_/g, ' '); }
   const RECENT_LESSONS = 3, NEW_DRILL_RIGHTS = 5, NEW_DRILL_DAYS = 2;
   const GRAMMAR_KINDS = ['article', 'gender', 'tense', 'plural'];
   function signalFromEvent(e) {
@@ -69,5 +72,5 @@
     }
     return out;
   }
-  root.AneesBuckets = { compute, signalFromCards, signalFromEvent };
+  root.AneesBuckets = { compute, signalFromCards, signalFromEvent, label };
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -1,6 +1,8 @@
 """Grip buckets (plan section 0), computed from word_events (lessons) + card_results (flashcards). One function, one truth;
 the flashcards page carries the same rules in JS (docs/js/buckets.js) and this module is the reference the JS test compares to.
 
+Display names (Medi, 2026-09-10): cold = Good; ice_cold = Mastered. Stored IDs, thresholds and history stay unchanged.
+
   ice_cold  right 5 in a row on flashcards on >= 3 different days (first-try rights); one miss -> cold
   cold      said unprompted in a lesson with no correction, or flashcard right first try
   shaky     right on second try, or said only after Amal said it (prompted)

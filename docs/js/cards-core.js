@@ -13,7 +13,7 @@
     { id: 'b-missed', name: 'Missed only', test: (w, s) => s && s.bucket === 'missed' },
     { id: 'b-shaky', name: 'Shaky only', test: (w, s) => s && s.bucket === 'shaky' },
     { id: 'b-recent', name: 'Last 3 lessons', test: (w, s) => s && s.recent },
-    { id: 'b-cold', name: 'Cold + ice cold (keep them)', test: (w, s) => s && (s.bucket === 'cold' || s.bucket === 'ice_cold') },
+    { id: 'b-cold', name: 'Good + Mastered (keep them)', test: (w, s) => s && (s.bucket === 'cold' || s.bucket === 'ice_cold') },
   ];
   function subjects(words, stats) {
     const topics = [...new Set(words.map(w => w.topic))].map(t => ({ id: 't:' + t, name: t, kind: 'topic', n: words.filter(w => w.topic === t).length }));

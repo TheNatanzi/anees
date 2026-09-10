@@ -29,7 +29,7 @@ button.primary{background:var(--teal);color:#fff;border-color:var(--teal)} butto
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main>
-<script src="js/config.js"></script><script src="js/buckets.js"></script><script src="js/cards-core.js"></script>
+<script src="js/config.js"></script><script src="js/buckets.js?v=20260910-labels"></script><script src="js/cards-core.js?v=20260910-labels"></script>
 <script>
 const C=window.AneesCards, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -99,8 +99,8 @@ function showCard(){ flipped=false; if(C.done(round)) return showSummary();
   const w=round.cards[round.i], s=stats[w.key]||{bucket:(Object.keys(stats).length?'never':'–')}; const front=pref.mode==='ar_first', pct=Math.round(100*round.i/round.cards.length);
   const arFace=`<div class="big">${esc(w.arabizi)}</div><div class="ar">${esc(w.arabic)}</div>`, enFace=`<div class="en">${esc(w.english)}</div>`;
   root.innerHTML=`<div class="row"><button id="back" style="flex:0 0 auto">‹ Sets</button><div style="flex:1"><div class="mute">${round.attempt>1?'Review round '+round.attempt+' · ':''}${round.i+1} of ${round.cards.length}</div><div class="bar"><i style="width:${pct}%"></i></div></div></div>
-    <div class="scene"><div class="card" id="card"><div class="face"><span class="badge b-${esc(s.bucket==='–'?'never':s.bucket)}">${esc(String(s.bucket).replace('_',' '))}</span><span class="topic">${esc(w.topic)}</span>${front?arFace:enFace}<span class="hint">tap to flip</span></div>
-    <div class="face back"><span class="badge b-${esc(s.bucket==='–'?'never':s.bucket)}">${esc(String(s.bucket).replace('_',' '))}</span>${front?enFace:arFace}<span class="hint">${esc(w.subtopic)}</span></div></div></div>
+    <div class="scene"><div class="card" id="card"><div class="face"><span class="badge b-${esc(s.bucket==='–'?'never':s.bucket)}">${esc(window.AneesBuckets.label(s.bucket))}</span><span class="topic">${esc(w.topic)}</span>${front?arFace:enFace}<span class="hint">tap to flip</span></div>
+    <div class="face back"><span class="badge b-${esc(s.bucket==='–'?'never':s.bucket)}">${esc(window.AneesBuckets.label(s.bucket))}</span>${front?enFace:arFace}<span class="hint">${esc(w.subtopic)}</span></div></div></div>
     <div class="row"><button id="miss" class="bad">Missed</button><button id="got" class="primary">Got it</button></div>`;
   const card=document.getElementById('card'); card.onclick=()=>{flipped=!flipped; card.classList.toggle('flip',flipped);};
   let x0=null; card.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true}); card.addEventListener('touchend',e=>{ if(x0===null) return; const dx=e.changedTouches[0].clientX-x0; x0=null; if(dx>70) answer('got'); else if(dx<-70) answer('missed'); });
@@ -113,7 +113,7 @@ function answer(result){ const w=round.cards[round.i]; const row=C.answer(round,
   showCard(); }
 function showSummary(){ const s=C.summary(round); document.onkeydown=null;
   root.innerHTML=`<h1>${round.attempt>1?'Review round '+round.attempt:'Round'} done</h1>
-    <div class="summary"><div class="num">${s.got} <span class="mute" style="font-size:16px">got</span> · ${s.missed} <span class="mute" style="font-size:16px">missed</span></div><div class="mute">${s.n} cards · ${esc(round.subject)} · ${pref.mode==='ar_first'?'Arabic first':'English first'}</div>
+    <div class="summary"><div class="num">${s.got} <span class="mute" style="font-size:16px">got</span> · ${s.missed} <span class="mute" style="font-size:16px">missed</span></div><div class="mute">${s.n} cards · ${esc((C.subjects(words,stats).buckets.find(b=>b.id===round.subject)||{}).name||round.subject)} · ${pref.mode==='ar_first'?'Arabic first':'English first'}</div>
     ${s.history.map(h=>`<div class="mute">round ${h.attempt}: ${h.got}/${h.n} got</div>`).join('')}</div>
     <div class="row">${s.wrong.length?`<button id="replay" class="primary">Review the ones I got wrong (${s.wrong.length})</button>`:`<button id="again" class="primary">Pile empty — new round</button>`}</div>
     <div class="row"><button id="back">‹ Sets</button></div><p class="mute" id="wrongs">${s.wrong.length?'Still wrong: '+s.wrong.map(k=>esc((words.find(w=>w.key===k)||{}).arabizi||k)).join(', '):''}</p>`;

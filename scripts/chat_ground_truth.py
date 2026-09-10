@@ -96,7 +96,7 @@ def apply_typed(events, lines, matcher, learner='Medi'):
             if e['speaker'] == learner and not e['prompted'] and not e['correction']:
                 e['prompted'] = True
                 e['prompted_by'] = 'typed sentence'
-                diff.append({'word_key': e['word_key'], 't_start': e['t_start'], 'text': e.get('text', ''), 'was': 'unprompted (counted as said cold)',
+                diff.append({'word_key': e['word_key'], 't_start': e['t_start'], 'text': e.get('text', ''), 'was': 'unprompted (counted as Good)',
                              'now': 'prompted (read from her typed sentence)', 'line': ln['text'][:160], 'line_t': ln['t'], 'source': ln['source']})
     return diff
 

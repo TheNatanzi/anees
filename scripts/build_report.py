@@ -89,7 +89,7 @@ def classify(u, earlier_keys):
     if ok:
         for e in evs:
             if e['speaker'] == 'Medi' and not e['prompted'] and not e['correction'] and not e.get('asked') and e['word_key'] not in used and len(moments) < MOMENTS * 2:
-                used.add(e['word_key']); moments.append((3, e['t_start'], e['t_end'], 'Medi', e['text'], e['word_key'], e['clip'], e['offset'], 'said cold'))
+                used.add(e['word_key']); moments.append((3, e['t_start'], e['t_end'], 'Medi', e['text'], e['word_key'], e['clip'], e['offset'], 'said unprompted'))
     else:
         for e in evs:
             if e['word_key'] not in used and len(moments) < MOMENTS * 2:
@@ -256,7 +256,7 @@ main{{max-width:820px;margin:0 auto;padding:14px 12px}} h1{{font-size:24px;margi
 {section('Reused old words', 'reused', 'You said it in an earlier lesson and again today.')}
 {section('Heard from Amal, not said by you', 'heard', 'Amal said or typed these; you did not say them, so they do not count as known, new or missed (rule M11).')}
 {section("Amal's typed words", 'typed', 'What she wrote in the Meet chat, in her spelling, with the moment it was said.')}
-<section id="moments"><h2>20 moments <span class="n">{len(moments)}</span></h2><p class="lead">Corrections first, then words you needed a prompt for, then words you said cold. Each plays from the lesson audio.</p><ul class="list">{mom_html}</ul></section>
+<section id="moments"><h2>20 moments <span class="n">{len(moments)}</span></h2><p class="lead">Corrections first, then words you needed a prompt for, then words you said unprompted. Each plays from the lesson audio.</p><ul class="list">{mom_html}</ul></section>
 <audio id="player" preload="none"></audio>
 <footer>Built {u['built'][:16]} from the recording. Speaker labels: {html.escape(conf['split'])}.</footer>
 </main>
@@ -286,7 +286,7 @@ def email_payload(u, rows, bins, ok, link):
                  'detail': (', '.join(dict.fromkeys(f"{name(r['word_key'])} · {(r['detail'] or {}).get('miss_kind')}" for r in by_kind.get('grammar', [])[:6])) if ok else conf['reason'])},
                 {'tag': 'Missed', 'name': (f"{len(by_kind.get('missed', []))} possible word misses (Amal reacted right after)" if ok else f'{DASH} not measurable'),
                  'detail': (', '.join(dict.fromkeys(name(r['word_key']) for r in by_kind.get('missed', [])[:6])) if ok else conf['reason'])},
-                {'tag': 'Nailed', 'name': (f"{len(by_kind.get('nailed', []))} said cold" if ok else f'{DASH} not measurable'),
+                {'tag': 'Nailed', 'name': (f"{len(by_kind.get('nailed', []))} said unprompted" if ok else f'{DASH} not measurable'),
                  'detail': (', '.join(dict.fromkeys(name(r['word_key']) for r in by_kind.get('nailed', [])[:6])) if ok else 'per-speaker facts are blank for this lesson')},
                 {'tag': 'New', 'name': f"{len(by_kind.get('new', []))} new words", 'detail': ', '.join(name(r['word_key']) for r in by_kind.get('new', [])[:6])},
                 {'tag': 'Reused', 'name': f"{len(by_kind.get('reused', []))} reused words", 'detail': ', '.join(name(r['word_key']) for r in by_kind.get('reused', [])[:6])},
