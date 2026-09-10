@@ -18,7 +18,7 @@ def test_display_labels_and_legacy_card_links():
 require('./docs/js/buckets.js'); require('./docs/js/cards-core.js');
 const B=globalThis.AneesBuckets, C=globalThis.AneesCards;
 const words=[{key:'g',topic:'Test'},{key:'m',topic:'Test'},{key:'s',topic:'Test'}];
-const stats={g:{bucket:'cold'},m:{bucket:'ice_cold'},s:{bucket:'shaky'}};
+const stats=Object.fromEntries([['g','cold'],['m','ice_cold'],['s','shaky']].map(([k,b])=>[k,{bucket:'never',progress_scores:{version:1,flashcards:{bucket:b}}}]));
 console.log(JSON.stringify({
   labels:['cold','ice_cold','new','missed','shaky','never','–','__proto__'].map(B.label),
   subject:C.subjects(words,stats).buckets.find(s=>s.id==='b-cold'),
@@ -35,7 +35,8 @@ console.log(JSON.stringify({
     assert result['pool'] == ['g', 'm']
     assert result['event'] == result['good'] == 'cold'
     assert result['mastered'] == 'ice_cold'
-    assert result['stored'] == {'g': {'bucket': 'cold'}, 'm': {'bucket': 'ice_cold'}, 's': {'bucket': 'shaky'}}
+    assert all(s['bucket'] == 'never' for s in result['stored'].values())
+    assert [s['progress_scores']['flashcards']['bucket'] for s in result['stored'].values()] == ['cold', 'ice_cold', 'shaky']
 
 
 def test_all_badges_filters_and_summary_use_display_names():
@@ -44,15 +45,16 @@ def test_all_badges_filters_and_summary_use_display_names():
     assert 'value="cold">Good</option>' in hub
     assert 'value="ice_cold">Mastered</option>' in hub
     assert 'esc(window.AneesBuckets.label(b))' in hub
-    assert 'class="badge b-cold">Good</span>' in hub
-    assert "['Good words',n(cold)" in hub
-    assert "['Mastered',n(ice)" in hub
+    assert 'Without help (detected)' in hub and 'Unknown evidence' in hub
+    assert "['Speaking: Good',n(cold)" in hub
+    assert "['Speaking: Mastered',n(ice)" in hub
+    assert 'Flashcards: Good' in hub and 'Flashcards: Mastered' in hub
     assert cards.count('esc(window.AneesBuckets.label(s.bucket))') == 2
     assert 'esc(round.subject)' not in cards
     assert 'buckets.find(b=>b.id===round.subject)' in cards
     assert "String(s.bucket).replace('_',' ')" not in cards
     for page in (hub, cards):
-        assert 'js/buckets.js?v=20260910-recovery-v1' in page
+        assert 'js/buckets.js?v=20260910-separate-v1' in page
 
 
 def test_published_report_wording_and_generator():

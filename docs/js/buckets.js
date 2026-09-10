@@ -1,5 +1,5 @@
 // Grip buckets — JS port of scripts/buckets.py (the Python file is the reference; tests/test_m5_cards.py checks parity).
-// Mastered: 5 consecutive lesson/card successes on >=3 days; max one lesson success per date. Counts/dates are Medi-only.
+// Speaking and Flashcards are isolated. Mastered: 5 successes in that lane on >=3 dates.
 // Missed recovery: two consecutive independent successes, first -> Shaky, second -> Good.
 // shaky: prompted / right on second try. missed: corrected / wrong twice in a row on cards. never: no Medi signal.
 (function (root) {
@@ -37,10 +37,11 @@
   function independentUse(e) {
     return e.speaker === 'Medi' && e.prompted === false && e.correction === false && e.asked === false && !['choice','unclear'].includes(e.miss_kind);
   }
-  function progressFromContext(context) {
-    const cards=context.cards.slice().sort((a,b)=>String(a.ts).localeCompare(String(b.ts)) || String(a.id||'').localeCompare(String(b.id||'')));
+  function isSpoken(e) { return e.speaker==='Medi' && typeof e.t_start==='number' && Number.isFinite(e.t_start) && e.t_start>=0 && !String(e.text||'').toLowerCase().startsWith('homework:'); }
+  function trackProgress(context,lane) {
+    const cards=(lane==='flashcards'?context.cards:[]).slice().sort((a,b)=>String(a.ts).localeCompare(String(b.ts)) || String(a.id||'').localeCompare(String(b.id||'')));
     const timeline=cards.map((c,i)=>({day:String(c.ts).slice(0,10),rank:0,ts:String(c.ts),i,source:'card',value:c}));
-    for(const [i,[day,signal,qualifies]] of context.lessons.entries()) timeline.push({day,rank:1,ts:'',i,source:'lesson',value:[signal,qualifies]});
+    for(const [i,[day,signal,qualifies]] of (lane==='speaking'?context.lessons:[]).entries()) timeline.push({day,rank:1,ts:'',i,source:'lesson',value:[signal,qualifies]});
     timeline.sort((a,b)=>a.day.localeCompare(b.day)||a.rank-b.rank||a.ts.localeCompare(b.ts)||a.i-b.i);
     let bucket='never', masteryStreak=0, masteryDays=[], recoveryLeft=0; const lastCards=[];
     for(const event of timeline) {
@@ -59,9 +60,23 @@
       }
       bucket=masteryStreak>=5 && masteryDays.length>=3?'ice_cold':signal;
     }
-    const [,streak,days]=signalFromCards(cards), lessonSignal=bucket;
-    if(context.new && !(streak>=NEW_DRILL_RIGHTS && days.length>=NEW_DRILL_DAYS)) bucket='new';
-    return {bucket,lesson_signal:lessonSignal,streak,streak_days:days,mastery_streak:masteryStreak,mastery_days:masteryDays};
+    return {bucket,streak:masteryStreak,streak_days:masteryDays,mastery_streak:masteryStreak,mastery_days:masteryDays,recovery_left:recoveryLeft};
+  }
+  function progressFromContext(context) {
+    if(context.version!==3) throw new Error('Speaking provenance must be rebuilt before scoring old mixed contexts');
+    const speaking={...trackProgress(context,'speaking'),...context.speaking}, rawSpeaking=speaking.bucket;
+    if(context.new && speaking.intro_uses<5) speaking.bucket='new';
+    speaking.intro_target=context.new?5:0; speaking.weight=['new','missed'].includes(speaking.bucket)?3:1;
+    const cards=context.cards.slice().sort((a,b)=>String(a.ts).localeCompare(String(b.ts))||String(a.id||'').localeCompare(String(b.id||'')));
+    const flashcards=trackProgress(context,'flashcards');
+    if(context.new && !(flashcards.streak>=NEW_DRILL_RIGHTS && flashcards.streak_days.length>=NEW_DRILL_DAYS)) flashcards.bucket='new';
+    Object.assign(flashcards,{last_reviewed:cards.length?String(cards[cards.length-1].ts):null,attempts:cards.length,
+      card_right:cards.filter(c=>c.result==='got').length,times_missed:cards.filter(c=>c.result==='missed').length,
+      first_try_right:cards.filter(c=>c.result==='got'&&parseInt(c.attempt||1)===1).length});
+    flashcards.weight=['new','missed'].includes(flashcards.bucket)?3:1;
+    return {...Object.fromEntries(['bucket','streak','streak_days','mastery_streak','mastery_days','last_reviewed','times_missed','weight'].map(k=>[k,speaking[k]])),
+      lesson_signal:rawSpeaking,card_right:flashcards.card_right,card_wrong:flashcards.times_missed,
+      progress_scores:{version:1,speaking,flashcards}};
   }
   function mergeProgress(stats, log) {
     // Merge durable server card records and unsynced local IDs, not activity dates used as sync cursors.
@@ -72,28 +87,24 @@
       cards.push({...c}); if(c.id) ids.add(c.id);
     }
     cards.sort((a,b)=>String(a.ts).localeCompare(String(b.ts))||String(a.id||'').localeCompare(String(b.id||'')));
-    const context={...source,cards}, progress=progressFromContext(context), wrong=cards.filter(c=>c.result==='missed').length;
-    const priorWrong=source.cards.filter(c=>c.result==='missed').length;
-    const reviewed=[stats.last_lesson,cards.length?String(cards[cards.length-1].ts):null].filter(Boolean).sort().pop()||null;
-    return {...stats,...progress,progress_context:context,card_right:cards.filter(c=>c.result==='got').length,card_wrong:wrong,
-      times_missed:Math.max(0,(stats.times_missed||0)-priorWrong)+wrong,last_reviewed:reviewed};
+    const context={...source,cards};
+    return {...stats,...progressFromContext(context),progress_context:context};
   }
   function emptyStats(key) {
+    const context={version:3,new:false,lessons:[],cards:[],speaking:{times_seen:0,independent_uses:0,times_missed:0,last_reviewed:null,seen_lessons:0,intro_uses:0,new_since:null}};
     return {word_key:key,bucket:'never',recent:false,times_seen:0,independent_uses:0,times_missed:0,seen_lessons:0,
       last_lesson:null,last_reviewed:null,card_right:0,card_wrong:0,
-      progress_context:{version:2,new:false,lessons:[],cards:[]}};
+      ...progressFromContext(context),progress_context:context};
   }
   function mergeStats(stats, log) {
-    // Re-score every compatible snapshot, including lesson-only words with no new card rows.
-    // Context version describes the evidence format; it is unchanged by a scoring-rule update.
-    const out=Object.fromEntries(Object.entries(stats).map(([key,s])=>[key,s.progress_context?.version===2?mergeProgress(s,[]):s])), by=new Map();
+    const out=Object.fromEntries(Object.entries(stats).filter(([,s])=>s.progress_context?.version===3).map(([key,s])=>[key,mergeProgress(s,[])])), by=new Map();
     for(const row of log||[]) {
       if(!row.word_key || !['got','missed'].includes(row.result) || !row.ts) continue;
       if(!by.has(row.word_key)) by.set(row.word_key,[]); by.get(row.word_key).push(row);
     }
     for(const [key,rows] of by) {
       const s=out[key]||emptyStats(key);
-      if(s.progress_context?.version!==2) continue; // Never reinterpret legacy all-speaker counts as Medi-only.
+      if(s.progress_context?.version!==3) continue; // Never reinterpret legacy mixed scores as Speaking.
       const merged=mergeProgress(s,rows);
       out[key]={...merged,weight:['missed','new'].includes(merged.bucket)?3:1};
     }
@@ -109,26 +120,31 @@
     for (const e of wordEvents) (evBy[e.word_key] = evBy[e.word_key] || []).push(e);
     for (const c of cardResults) (cdBy[c.word_key] = cdBy[c.word_key] || []).push(c);
     const out = {};
-    for (const key of new Set([...Object.keys(evBy), ...Object.keys(cdBy)])) {
+    for (const key of new Set([...Object.keys(evBy), ...Object.keys(cdBy), ...markedKeys])) {
       const evs = (evBy[key] || []).slice().sort((a, b) => String(a.lesson_date).localeCompare(String(b.lesson_date)) || ((a.t_start || 0) - (b.t_start || 0)));
       const cards = (cdBy[key] || []).slice().sort((a, b) => String(a.ts).localeCompare(String(b.ts)));
-      const medi=evs.filter(e=>e.speaker==='Medi'), independent=medi.filter(independentUse);
+      const medi=evs.filter(isSpoken), independent=medi.filter(independentUse);
       const qualifyingDates=new Set(independent.map(e=>String(e.lesson_date)));
       const helpedDates=new Set(medi.filter(e=>e.prompted===true||e.correction===true||e.asked===true||e.miss_kind==='choice').map(e=>String(e.lesson_date)));
       const byDay = new Map();
-      for (const e of evs) { const s = signalFromEvent(e); if (s) { const d = String(e.lesson_date); if (!byDay.has(d)) byDay.set(d, []); byDay.get(d).push(s); } }
+      for (const e of medi) { const s = signalFromEvent(e); if (s) { const d = String(e.lesson_date); if (!byDay.has(d)) byDay.set(d, []); byDay.get(d).push(s); } }
       const lessonSignals = [...byDay.entries()].map(([d, sigs]) => [d, sigs.includes('missed') ? 'missed' : (sigs.includes('cold') ? 'cold' : 'shaky')]);   // one signal per lesson: unprompted use beats a later echo
       const firstLesson = medi.length ? String(medi[0].lesson_date) : null;
       const seenDates = [...new Set(medi.map(e => String(e.lesson_date)))].sort();
       const marked = markedKeys.has(key);
       const byDoc = evs.some(e => docBefore[String(e.lesson_date)] && !docBefore[String(e.lesson_date)].has(key));
-      const context={version:2,new:marked||byDoc,lessons:lessonSignals.map(([d,s])=>[d,s,qualifyingDates.has(d)?true:(helpedDates.has(d)?false:null)]),
+      const newDates=[...[...confirmedNew].filter(x=>x.split('|').slice(1).join('|')===key).map(x=>x.split('|')[0]),
+        ...evs.filter(e=>docBefore[String(e.lesson_date)]&&!docBefore[String(e.lesson_date)].has(key)).map(e=>String(e.lesson_date))].sort();
+      const newSince=newDates[0]||null;
+      const speaking={times_seen:medi.length,independent_uses:independent.length,times_missed:medi.filter(e=>signalFromEvent(e)==='missed').length,
+        last_reviewed:seenDates[seenDates.length-1]||null,seen_lessons:seenDates.length,intro_uses:medi.filter(e=>!newSince||String(e.lesson_date)>=newSince).length,new_since:newSince};
+      const context={version:3,new:marked||byDoc,speaking,lessons:lessonSignals.map(([d,s])=>[d,s,qualifyingDates.has(d)?true:(helpedDates.has(d)?false:null)]),
         cards:cards.map(c=>Object.fromEntries(['id','ts','result','attempt'].filter(k=>k in c).map(k=>[k,c[k]])))};
       const progress=progressFromContext(context), bucket=progress.bucket;
-      const lastReviewed = [seenDates[seenDates.length - 1], cards.length ? String(cards[cards.length - 1].ts) : null].filter(Boolean).sort().pop() || null;
+      const lastReviewed = seenDates[seenDates.length - 1] || null;
       const isRecent = firstLesson ? recent.has(firstLesson) : false;
       out[key] = { word_key: key, bucket, last_reviewed: lastReviewed, last_lesson:seenDates[seenDates.length-1]||null, seen_lessons: seenDates.length, times_seen: medi.length, independent_uses:independent.length,
-        times_missed: medi.filter(e => signalFromEvent(e)==='missed').length + cards.filter(c => c.result === 'missed').length,
+        times_missed: medi.filter(e => signalFromEvent(e)==='missed').length,
         card_right: cards.filter(c => c.result === 'got').length, card_wrong: cards.filter(c => c.result === 'missed').length,
         ...progress,progress_context:context,recent: isRecent, weight: (bucket === 'missed' || bucket === 'new') ? 3 : 1,
         grammar_misses:medi.filter(e=>e.correction&&GRAMMAR_KINDS.includes(e.miss_kind)).length,

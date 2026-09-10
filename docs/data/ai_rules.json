@@ -156,7 +156,7 @@
         },
         {
           "id": "M11",
-          "rule": "Only words Medi says count. A word is known (nailed), missed, new or reused only when Medi himself said the word or phrase. Words only Amal said or typed are shown apart as 'heard from Amal, not said by you' and never counted or bucketed.",
+          "rule": "Only Medi's recorded speech counts toward Speaking. Words only Amal said or typed do not earn learner progress. Flashcards has its own independent score from card answers. Explicit New marking is vocabulary metadata, not proof of use.",
           "why": "Medi 2026-09-05: 'we only want to count the words I say; it can only be demonstrated that I know a word, or make an error, if I say the word or phrase.' Sep 5 report had 40 Amal-only rows inside new / reused.",
           "where": "build_report.classify: new / reused from Medi events only, Amal-only keys -> kind 'heard'; buckets already Medi-only; tally = Medi's moments only",
           "status": "enforced"
@@ -169,7 +169,7 @@
       "rules": [
         {
           "id": "N1",
-          "rule": "'New' = only a word marked new: Amal or Medi marks it for a lesson, or the Doc gets it after the lesson but did not have it before. Nothing is guessed into 'new'. It stays new until practised right 5 times (first try) on 2 different days.",
+          "rule": "'New' requires an explicit mark by Amal/Medi or a known Doc introduction. Speaking introduction ends after 5 Medi spoken uses since that introduction, even in one lesson; helped uses count as practice, not mastery. Then the underlying Speaking score applies. Flashcards keeps its own drill: 5 consecutive first-try successes across 2 dates. Neither finishes the other's target.",
           "why": "Medi 2026-09-05: 'we don't have any more context for what words are new'; Sep 4 = babse6 and banbese6 only.",
           "where": "buckets.compute(confirmed_new=, doc_before=); marks live in amal_rules kind 'new'; chat/asked inference only fills 'new candidate' for Amal's after-link",
           "status": "enforced"
@@ -190,7 +190,7 @@
         },
         {
           "id": "N4",
-          "rule": "New words never mix with missed words in practice; strict review first.",
+          "rule": "Flashcards offers separate New and Missed sets; New words retain their strict drill. Speaking introductions are tracked separately as five-use conversation targets.",
           "why": "Different loops.",
           "where": "buckets.py; cards default set",
           "status": "enforced"
@@ -204,23 +204,30 @@
         },
         {
           "id": "N6",
-          "rule": "'You used it' counts only Medi's uses, including prompted attempts. 'Without help' counts only uses explicitly marked unprompted, not corrected and not asking for help. Amal's words never increase either count or Medi's practice dates.",
+          "rule": "Speaking 'You used it' counts only timed recorded Medi uses, including prompted attempts. Typed homework, untimed evidence and Amal's words are excluded. 'Without help' requires explicit unprompted, uncorrected and no-help-request labels, with no unclear/choice marker. Flashcards never changes these counts or Speaking dates.",
           "why": "A tutor saying a word is not evidence that Medi can use it. These counts come from transcript labels, not verified pronunciation.",
           "where": "scripts/buckets.py; docs/js/buckets.js; Medi-only word_stats backfill",
           "status": "enforced"
         },
         {
           "id": "N7",
-          "rule": "Mastered needs 5 consecutive successes across at least 3 dates: first-try flashcards or independent lesson use. A lesson contributes at most one success per word/date. Help, correction or prompted-only evidence interrupts the streak; unknown evidence earns nothing and does not reset it. The separate New-word flashcard drill stays unchanged.",
+          "rule": "Mastered needs 5 consecutive successes in the same score across at least 3 dates. Speaking uses independent lesson evidence, at most one success per word/lesson date. Flashcards uses first-try answers only. Help or correction interrupts only its own score's streak; unknown speech is neutral. Successes are never combined between scores.",
           "why": "Repeated mentions in one lesson are not the same as recalling the word independently over time.",
           "where": "Python and browser progress rules; dashboard and cards replay saved answers by ID",
           "status": "enforced"
         },
         {
           "id": "N8",
-          "rule": "Recover from Missed with two consecutive independent successes: the first moves to Shaky, the second to Good. Help or another error interrupts recovery; unclear evidence does not. Both successes also count toward Mastered. A Shaky word not recovering from Missed still needs only one independent success to reach Good.",
+          "rule": "Recover from Missed with two consecutive independent successes in that same score: first to Shaky, second to Good. Help/error interrupts that lane's recovery; unclear speech is neutral. Both successes also count toward its Mastered streak. Ordinary Shaky needs one independent success. The other score remains unchanged.",
           "why": "Medi 2026-09-10: one successful recall after a miss should show progress, not immediately count as Good.",
-          "where": "scripts/buckets.py and docs/js/buckets.js replay saved lesson/card evidence; at most one lesson success per word/date",
+          "where": "scripts/buckets.py and docs/js/buckets.js replay separate evidence lanes; at most one Speaking success per word/lesson date",
+          "status": "enforced"
+        },
+        {
+          "id": "N9",
+          "rule": "Each word has separate Speaking and Flashcards scores, including its bucket, mistakes, last-practice date, recovery and mastery. Flashcard sets and weighting use only the Flashcards score. The Amal tab shows Speaking introduction uses out of 5 and how many more to practise; it sends nothing automatically.",
+          "why": "Medi 2026-09-10: keep flashcard practice separate from verbal lessons and help Amal bring new words to five spoken uses quickly.",
+          "where": "progress_scores v1; provenance context v3; Words, Today, Amal and Flashcards pages; old combined caches rejected",
           "status": "enforced"
         }
       ],

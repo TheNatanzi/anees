@@ -28,6 +28,10 @@ def calc(events, cards=None, marked=False):
                            confirmed_new={('2026-09-01', 'x')} if marked else None)['x']
 
 
+def score(s, lane='flashcards'):
+    return s['progress_scores'][lane]
+
+
 def node(source):
     r = subprocess.run(['node', '-'], input=source, cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
     assert r.returncode == 0, r.stderr
@@ -59,34 +63,40 @@ def test_repetition_is_not_mastery_but_five_lessons_are():
     assert s['mastery_streak'] == 1 and s['bucket'] == 'cold'
     s = calc([event(d) for d in range(1, 6)])
     assert s['bucket'] == 'ice_cold' and s['mastery_streak'] == 5
-    assert s['card_right'] == s['streak'] == 0
+    assert s['card_right'] == score(s)['streak'] == 0
+    assert s['streak'] == 5
 
 
-def test_mixed_mastery_requires_three_dates_and_resets_on_help():
+def test_mixed_evidence_never_combines_mastery_and_help_resets_only_speaking():
     s = calc([event(1), event(2), event(3)], [card(1, ident='a'), card(2, ident='b')])
-    assert s['bucket'] == 'ice_cold' and s['mastery_streak'] == 5
+    assert s['bucket'] == 'cold' and s['mastery_streak'] == 3
+    assert score(s)['bucket'] == 'cold' and score(s)['mastery_streak'] == 2
     s = calc([event(1), event(2)], [card(1, ident='a'), card(1, ident='b'), card(2, ident='c')])
-    assert s['mastery_streak'] == 5 and s['bucket'] == 'cold'
+    assert s['mastery_streak'] == 2 and score(s)['mastery_streak'] == 3
+    assert s['bucket'] == score(s)['bucket'] == 'cold'
     for failure in ({'prompted': True}, {'asked': True}, {'correction': True}):
         s = calc([event(1), event(2), changed(3, **failure), event(4), event(5)])
         assert s['mastery_streak'] == 2 and s['bucket'] == 'cold'
     s = calc([event(d) for d in range(1, 6)], [card(6, 'missed')])
-    assert s['bucket'] == 'cold' and s['mastery_streak'] == 0
+    assert s['bucket'] == 'ice_cold' and s['mastery_streak'] == 5
+    assert score(s)['bucket'] == 'shaky'
 
 
-def test_new_drill_remains_card_only_and_same_day_lesson_still_wins():
+def test_new_has_separate_introduction_gates_and_no_same_day_cross_precedence():
     s = calc([event(d) for d in range(1, 6)], marked=True)
-    assert s['bucket'] == 'new' and s['mastery_streak'] == 5 and s['streak'] == 0
+    assert s['bucket'] == 'ice_cold' and s['mastery_streak'] == 5
+    assert score(s)['bucket'] == 'new' and score(s)['streak'] == 0
     s = calc([changed(5, asked=True)], [card(d, ident=str(i)) for i, d in enumerate([1, 1, 2, 3, 5])])
     assert s['bucket'] == 'missed' and s['mastery_streak'] == 0
+    assert score(s)['bucket'] == 'ice_cold'
 
 
 def test_first_miss_after_lesson_mastery_ignores_old_card_failures():
     cards = [card(1, 'missed', ident='old1'), card(2, 'missed', ident='old2'), card(8, 'missed', ident='new')]
     s = calc([event(d) for d in range(3, 8)], cards)
-    assert s['bucket'] == 'cold' and s['mastery_streak'] == 0
+    assert s['bucket'] == 'ice_cold' and s['mastery_streak'] == 5
     s = calc([event(d) for d in range(3, 8)], cards + [card(9, 'missed', ident='new2')])
-    assert s['bucket'] == 'missed'
+    assert s['bucket'] == 'ice_cold' and score(s)['bucket'] == 'missed'
 
 
 def test_unknown_evidence_neither_promotes_nor_demotes_mastery():
@@ -120,16 +130,16 @@ def test_incremental_cards_match_full_replay_and_deduplicate_ids():
     result = node(source)
     assert result[0] == result[1] == result[2]
     expected = calc(events, cards)
-    for k in ('bucket', 'mastery_streak', 'mastery_days', 'streak', 'streak_days', 'card_right', 'times_seen', 'independent_uses'):
+    for k in ('bucket', 'mastery_streak', 'mastery_days', 'streak', 'streak_days', 'card_right', 'times_seen', 'independent_uses', 'progress_scores'):
         assert result[0][k] == expected[k]
-    assert result[0]['bucket'] == 'ice_cold'
+    assert result[0]['bucket'] == 'cold' and score(result[0])['streak'] == 2
 
 
 def test_local_new_streak_never_double_counts_days_or_bridges_a_miss():
     initial = calc([], [card(1, ident=str(i)) for i in range(4)], marked=True)
     for rows in ([card(1, ident='new')], [card(2, 'missed', ident='miss'), card(2, ident='new')]):
         actual = node("require('./docs/js/buckets.js');require('./docs/js/cards-core.js');console.log(JSON.stringify(AneesCards.mergeLocal({x:" + json.dumps(initial) + "}," + json.dumps(rows) + ").x));")
-        assert actual['bucket'] == 'new'
+        assert actual['bucket'] == score(actual)['bucket'] == 'new'
 
 
 def test_ui_uses_versioned_counts_and_durable_card_reads():
@@ -140,7 +150,8 @@ def test_ui_uses_versioned_counts_and_durable_card_reads():
         assert 'word_stats?select=*&limit=5000' in text
     hub = (ROOT / 'docs/index.html').read_text(encoding='utf-8')
     assert 'You used it <span' in hub and 's.independent_uses' in hub
-    assert 'Your last practice' in hub
+    assert 'Last lesson' in hub and 'Last practice' in hub
+    assert 'Speaking' in hub and 'Flashcards' in hub and 'Introduction' in hub
     assert "window.AneesBuckets.mergeStats(window.AneesProgress.cached(" in hub
     cards = (ROOT / 'docs/cards.html').read_text(encoding='utf-8')
     assert 'window.AneesProgress.requireCurrent(stats)' in cards
@@ -151,7 +162,7 @@ def test_legacy_cache_rejected_and_saved_remote_cards_survive_reopen():
     initial = calc([event(1), event(2), event(3)])
     rows = [card(4, ident='remote1'), card(5, ident='remote2')]
     actual = node("require('./docs/js/buckets.js');require('./docs/js/progress.js');const stats={x:" + json.dumps(initial) + "};const rows=" + json.dumps(rows) + ";global.fetch=async()=>({ok:true,json:async()=>rows});(async()=>{const ready=await AneesProgress.load(stats,'https://example.invalid',{},rows);console.log(JSON.stringify({bucket:ready.x.bucket,count:ready.x.card_right,legacy:AneesProgress.cached({x:{times_seen:6}})}));})();")
-    assert actual == {'bucket': 'ice_cold', 'count': 2, 'legacy': {}}
+    assert actual == {'bucket': 'cold', 'count': 2, 'legacy': {}}
 
 
 def test_missed_recovery_requires_two_independent_successes():
@@ -159,9 +170,10 @@ def test_missed_recovery_requires_two_independent_successes():
     assert [calc(events[:n])['bucket'] for n in (1, 2, 3)] == ['missed', 'shaky', 'cold']
     cards = [card(1, 'missed', ident='m1'), card(2, 'missed', ident='m2'),
              card(3, ident='r1'), card(4, ident='r2')]
-    assert [calc([], cards[:n])['bucket'] for n in (2, 3, 4)] == ['missed', 'shaky', 'cold']
+    assert [score(calc([], cards[:n]))['bucket'] for n in (2, 3, 4)] == ['missed', 'shaky', 'cold']
     mixed = calc([changed(1, correction=True), event(2)], [card(3, ident='r2')])
-    assert mixed['bucket'] == 'cold' and mixed['mastery_streak'] == 2
+    assert mixed['bucket'] == 'shaky' and mixed['mastery_streak'] == 1
+    assert score(mixed)['bucket'] == 'cold' and score(mixed)['mastery_streak'] == 1
     assert mixed['times_seen'] == 2 and mixed['independent_uses'] == mixed['times_missed'] == 1
 
 
@@ -192,7 +204,58 @@ def test_recovery_context_replay_survives_reload_and_duplicate_answers():
     initial = calc([changed(1, asked=True)])
     rows = [card(2, ident='one'), card(3, ident='two')]
     source = "require('./docs/js/buckets.js');require('./docs/js/cards-core.js');const stats={x:" + json.dumps(initial) + "}, rows=" + json.dumps(rows) + ";const one=AneesCards.mergeLocal(stats,[rows[0]]);const same=AneesCards.mergeLocal(JSON.parse(JSON.stringify(one)),[rows[0]]);const two=AneesCards.mergeLocal(same,[rows[1]]);const batch=AneesCards.mergeLocal(stats,rows);console.log(JSON.stringify({states:[one.x.bucket,same.x.bucket,two.x.bucket],parity:JSON.stringify(two)===JSON.stringify(batch),streak:two.x.mastery_streak}));"
-    assert node(source) == {'states': ['shaky', 'shaky', 'cold'], 'parity': True, 'streak': 2}
+    assert node(source) == {'states': ['missed', 'missed', 'missed'], 'parity': True, 'streak': 0}
+
+
+def test_entire_score_is_invariant_to_other_lane_history():
+    evs = [changed(1, asked=True), event(2)]
+    cards = [card(d, ident=str(i)) for i, d in enumerate([1, 1, 2, 3, 3])]
+    base = calc(evs, cards)
+    for extra in ([card(6, 'missed')], [card(7, attempt=2)], [card(8)]):
+        assert score(calc(evs, cards + extra), 'speaking') == score(base, 'speaking')
+    for extra in ([changed(4, correction=True)], [event(d) for d in range(4, 9)], [event(9, 'Amal')]):
+        assert score(calc(evs + extra, cards)) == score(base)
+    assert calc([], cards)['bucket'] == 'never'
+    assert score(calc([], cards))['bucket'] == 'ice_cold'
+
+
+def test_speaking_introduction_counts_five_medi_uses_not_five_success_days():
+    for kwargs, expected in (({}, 'cold'), ({'prompted': True}, 'shaky'),
+                             ({'correction': True}, 'missed'), ({'prompted': None}, 'never')):
+        evs = [changed(1, **kwargs) for _ in range(5)]
+        assert calc(evs[:4], marked=True)['bucket'] == 'new'
+        result = calc(evs, marked=True)
+        assert result['bucket'] == expected
+        assert score(result, 'speaking')['intro_uses'] == 5
+        assert result['mastery_streak'] == (1 if not kwargs else 0)
+        assert score(result)['bucket'] == 'new'
+    evs = [event(1) for _ in range(5)] + [changed(2, asked=True)]
+    assert calc(evs, marked=True)['bucket'] == 'missed'  # Never re-enter introduction.
+    assert score(calc([], marked=True), 'speaking')['intro_uses'] == 0
+    assert score(calc([event(1, 'Amal') for _ in range(100)], marked=True), 'speaking')['intro_uses'] == 0
+
+
+def test_intro_excludes_before_mark_homework_and_untimed_evidence():
+    evs = [event(1) for _ in range(8)] + [event(3)]
+    marks = {('2026-09-03', 'x'), ('2026-09-05', 'x')}
+    result = buckets.compute(evs, [], ['2026-09-01', '2026-09-03'], confirmed_new=marks)['x']
+    assert score(result, 'speaking')['intro_uses'] == 1
+    assert score(result, 'speaking')['new_since'] == '2026-09-03'
+    excluded = [changed(1, t_start=None), changed(1, t_start=-1), changed(1, t_start=True),
+                changed(1, text='homework: typed'), changed(1, text='HOMEWORK: typed', t_start=12)]
+    result = calc(excluded, marked=True)
+    assert result['times_seen'] == result['independent_uses'] == score(result, 'speaking')['intro_uses'] == 0
+    actual = node("require('./docs/js/buckets.js');console.log(JSON.stringify(AneesBuckets.compute(" + json.dumps(excluded) + ",[],['2026-09-01'],new Set(['2026-09-01|x'])).x));")
+    assert actual == {k: v for k, v in result.items() if k != 'new_candidate'}
+
+
+def test_v2_cache_and_missing_flashcard_scores_cannot_leak_speaking():
+    source = """require('./docs/js/buckets.js');require('./docs/js/cards-core.js');require('./docs/js/progress.js');
+    const C=AneesCards, stale={x:{bucket:'ice_cold',progress_context:{version:2}}};
+    const explicit={bucket:'missed',recent:true,progress_scores:{version:1,flashcards:{bucket:'cold'}}};
+    console.log(JSON.stringify({cache:AneesProgress.cached(stale),legacyWeight:C.weightOf({key:'x'},stale.x),
+      cardWeight:C.weightOf({key:'x'},explicit),missing:C.cardScore(stale.x).bucket}));"""
+    assert node(source) == {'cache': {}, 'legacyWeight': 1, 'cardWeight': 1, 'missing': 'never'}
 
 
 def test_lesson_only_old_snapshot_is_rescored_even_with_no_new_cards():

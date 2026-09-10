@@ -1,5 +1,6 @@
 """Preview/apply a derived-only progress backfill. Never rewrite raw lesson or card evidence."""
 import argparse
+import collections
 import datetime
 import hashlib
 import json
@@ -10,7 +11,7 @@ import db
 
 ROOT = Path(__file__).resolve().parent.parent
 MODEL_FILES = ('scripts/buckets.py', 'docs/js/buckets.js', 'docs/js/cards-core.js', 'docs/js/progress.js')
-NEW_FIELDS = ('independent_uses', 'mastery_streak', 'mastery_days', 'progress_context')
+NEW_FIELDS = ('independent_uses', 'mastery_streak', 'mastery_days', 'progress_context', 'progress_scores')
 SOURCES = {'word_events': 'id', 'card_results': 'id', 'amal_rules': 'id', 'lessons': 'date', 'words': 'key', 'word_stats': 'word_key'}
 
 
@@ -55,7 +56,7 @@ def preview(folder):
         raise RuntimeError('Snapshot exists; use its apply/verify command or choose a new output folder.')
     before = fingerprints()
     sources = {
-        'events': db.select('word_events', {'select': 'id,lesson_date,word_key,speaker,prompted,correction,asked,miss_kind,t_start', 'order': 'id.asc'}),
+        'events': db.select('word_events', {'select': 'id,lesson_date,word_key,speaker,prompted,correction,asked,miss_kind,t_start,text', 'order': 'id.asc'}),
         'cards': db.select('card_results', {'select': 'id,word_key,ts,result,attempt', 'order': 'id.asc'}),
         'lessons': db.select('lessons', {'select': 'date', 'order': 'date.asc'}),
         'marks': db.select('amal_rules', {'select': 'lesson_date,word_key,kind', 'kind': 'eq.new', 'order': 'id.asc'}),
@@ -84,6 +85,9 @@ def preview(folder):
                'old_total_seen': sum(r.get('times_seen', 0) for r in sources['old_stats']),
                'new_total_medi_uses': sum(r['times_seen'] for r in rows),
                'independent_uses': sum(r['independent_uses'] for r in rows),
+               'speaking_buckets': dict(collections.Counter(r['bucket'] for r in rows)),
+               'flashcard_buckets': dict(collections.Counter(r['progress_scores']['flashcards']['bucket'] for r in rows)),
+               'speaking_intro_targets': [{'word_key': r['word_key'], 'uses': r['progress_scores']['speaking']['intro_uses']} for r in rows if r['progress_scores']['speaking']['intro_target'] and r['progress_scores']['speaking']['intro_uses'] < 5],
                'samples': [{k: r[k] for k in ('word_key', 'bucket', 'times_seen', 'independent_uses', 'seen_lessons', 'last_lesson', 'mastery_streak')} for r in rows if r['word_key'] in sample_keys]}
     save(folder / 'preview.json', summary)
     print(compact(summary))
@@ -122,6 +126,7 @@ def apply(folder):
         print(compact(receipt))
         return
     db.sql((ROOT / 'supabase/migrations/012_medi_progress.sql').read_text(encoding='utf-8'))
+    db.sql((ROOT / 'supabase/migrations/013_separate_progress.sql').read_text(encoding='utf-8'))
     rows = snapshot['expected']
     if not rows:
         raise RuntimeError('Refusing an empty backfill.')

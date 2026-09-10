@@ -4,23 +4,27 @@
 
 Display `cold` as **Good** and `ice_cold` as **Mastered** throughout the app. This is a naming change only: retain the stored IDs, existing links, progress and scoring thresholds. The other four current bucket labels are unchanged. “Mastered” is the category name, not a new guarantee of proficiency.
 
-### Medi-only progress (approved next, 2026-09-10)
+### Current separate Speaking and Flashcards scores (Medi, 2026-09-10)
 
-- **You used it:** only word occurrences labeled Medi. Prompted attempts count as uses; Amal/unknown speakers never count. Review dates, lesson counts, recent-use flags and learner error counts also exclude Amal.
+- **Two scores:** Speaking and Flashcards have independent buckets, errors, dates, streaks and recovery. Neither can promote or demote the other. Generic legacy `word_stats` score fields now mean Speaking only; `progress_scores` exposes both lanes explicitly.
+- **You used it:** only timed recorded word occurrences labeled Medi, excluding typed homework. Prompted attempts count as uses; Amal/unknown speakers and untimed events never count. Speaking review dates, lesson counts, recent-use flags and learner error counts follow this same source filter.
 - **Without help:** Medi use with explicit `prompted=false`, `asked=false`, `correction=false`, and no `choice`/`unclear` marker. These are detected transcript signals, not audio-verified success or pronunciation grades.
-- **Recovery from Missed (Medi, 2026-09-10):** two consecutive independent successes: first → Shaky, second → Good. Prompted attempts, second-try cards and known corrections do not earn recovery and interrupt its streak; unknown evidence is neutral. Recovery remains active while Shaky, including after a prompted attempt. The two successes also count toward the existing mastery streak; no extra successes are added to the Mastered threshold. A Shaky word that is not recovering from Missed still needs only one independent success to reach Good.
-- **Mastered:** five consecutive qualifying successes across at least three distinct dates, combining first-try cards with independent lesson use. At most one lesson success per word/date. Word corrections/help requests or prompted-only lessons break the mastery streak. Existing word-vs-grammar bucket exceptions remain; a grammar-corrected attempt is not a clean mastery success.
-- Existing same-day precedence is retained: a date-only lesson signal follows cards on that date. A single card miss after Mastered drops to Good; two misses in the last three cards drops to Missed.
-- New-word graduation stays separate: five consecutive first-try **cards** across two days. Lesson mastery does not bypass that drill.
-- Database `word_stats` is a derived snapshot. Both pages also replay durable `card_results` plus unsynced local answer IDs, so cross-device card progress does not wait for another lesson job. No browser write access to stats is granted.
-- Raw lesson/card evidence stays unchanged. Cached all-speaker stats must never be labeled as Medi-only; use the versioned progress cache.
+- **Recovery from Missed:** two consecutive independent successes within the same score: first → Shaky, second → Good. Known help/error in that lane interrupts recovery; unknown speech is neutral. The other lane has no effect. Recovery remains active while Shaky. Both successes also count toward mastery. Ordinary Shaky, outside Missed recovery, needs one independent success to reach Good.
+- **Mastered:** five consecutive qualifying successes in the same score across at least three distinct dates. Speaking earns at most one independent success per word/lesson date; Flashcards uses first-try answers. Word corrections/help requests or prompted-only lessons break the Speaking streak. Existing word-vs-grammar bucket exceptions remain; a grammar-corrected attempt is not a clean mastery success.
+- No cross-lane same-day precedence. Within Flashcards only, one miss after Mastered drops to Good; two misses in the last three answers drops to Missed.
+- **Speaking New:** a cumulative target of five Medi spoken uses on/after the earliest explicit New mark or Doc introduction date. They may occur in one lesson; helped uses count as practice. Before five, display New. At five, reveal the underlying Speaking score—not automatic Good or Mastered. Later errors do not restart this introduction count. The Amal tab lists unfinished targets and remaining uses; nothing is sent automatically.
+- **Flashcards New:** retain five consecutive first-try successes across two dates. Speaking practice never bypasses the drill; card answers never increase the Speaking introduction count.
+- Database `word_stats` is derived. Both pages replay durable `card_results` plus unsynced local answer IDs into Flashcards only. No browser write access to stats is granted. Card sets and weighting use only Flashcards; Last 3 lessons is an explicit vocabulary filter, not a score or weighting input.
+- Raw lesson/card evidence stays unchanged. Old combined/all-speaker caches are rejected. Provenance context v3 is rebuilt from raw events including `text`; explicit score format v1 and a fresh browser cache prevent relabeling old combined scores.
 
-### CONTRACTS(one `plan/constants.md`, supersedes any conflicting line elsewhere in this file)
+### Other contracts and historical proposals
+
+The current separate-score rules above supersede older combined/item-level progression proposals below. Unimplemented FSRS/speak/type proposals are not the current score model.
 | Contract | Value |
 |---|---|
-| Word status | exactly 6: 0 New · 1 Recognised · 2 Recalled · 3 Spoken · 4 Used · 5 Kept. Tutor labels map onto these (new=0-1, shaky=2-3, solid=4, known=5). No other vocab. |
+| Current word scores | Two independent scores, each using New / Missed / Shaky / Good / Mastered / never assessed. Old Recognised/Recalled/Spoken/Used/Kept levels are a superseded proposal, not current UI. |
 | Headline metric | "Words I can say cold": **spoken** attempts only (typed does not count); first attempt on a due day; ≥7 days since last exposure; no hint; pass; trailing **28** days; dedup by item. |
-| FSRS unit | per **card** = item × mode (speak / type / flip). Item status derives from its cards. |
+| FSRS unit (future proposal) | Per card/mode scheduling may be evaluated later; it must not derive or change the lesson Speaking score. |
 | Retention target | 0.90. |
 | Caps | 8 new items/lesson · 25/week · 40 reviews/day · session 7 min. |
 | Leech | warn at 4 lapses, flag+suspend at 8. |
@@ -29,7 +33,7 @@ Display `cold` as **Good** and `ice_cold` as **Mastered** throughout the app. Th
 | Secrets | ElevenLabs + Anthropic keys live in Supabase Edge Function secrets only. Static page calls Edge Functions with the user's session token. |
 | Trust test M0 | stratified gold sample from Aug 25: 20 Amal corrections, 10 "how do you say" gaps, 10 hesitation/self-repair lines, 10 random Arabic lines; plus speaker labels and timestamps on all 50. Thresholds: Arabic word accuracy ≥75%; speaker label accuracy ≥90%; hesitation/self-repair preserved ≥60%; extraction precision ≥70% on corrections, ≥70% on gaps, ≥50% on hesitations; grammar-slip extraction measured at M0 for information only (no gate; gated at L2 ≥60%). Any gated miss → fallback = Amal tags live, recordings secondary. |
 | Pass ↔ rating | speak/type/flip all rate Again / Hard / Good / Easy (FSRS 1-4). **Pass = Good or Easy.** Again = fail. Hard = pass for scheduling but does NOT count toward the headline metric. |
-| Item status from cards | item status = the level its **weakest required card** has earned: 1 needs flip pass; 2 needs flip+type pass; 3 needs speak pass; 4 needs speak-in-sentence pass; 5 = level 4 held ≥30 days with no Again on any card. Two consecutive Again on any card drops the item one level. |
+| Item status from cards (superseded) | The old weakest-required-card hierarchy is not implemented and is not binding. Current Speaking and Flashcards scores are independent; see the rules above. |
 | Fallback audio | if no clip exists when an item enters speak practice, the item shows "needs audio" on Amal's Inbox **and** on the Words row; she records 3 s from either place. Manual-add items get audio the same way. |
 | Retention (audio) | raw lesson audio 90 days; 3-s item clips kept while the item exists; Medi's recorded speak attempts 30 days then deleted; transcripts and review rows kept. |
 | Ingestion | idempotent by Drive file id; retry 3× with backoff; failed runs email Medi only; raw audio kept 90 days then deleted, transcripts kept; Amal can request deletion of any lesson. |

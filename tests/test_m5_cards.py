@@ -26,7 +26,7 @@ PRELUDE = "require('./buckets.js'); require('./cards-core.js');"
 def test_scheduler_missed_3x_cold_over_300_draws():
     out = node(PRELUDE + """
 const C=globalThis.AneesCards; const words=[]; const stats={};
-for(let i=0;i<10;i++){ words.push({key:'m'+i}); stats['m'+i]={bucket:'missed',weight:3}; words.push({key:'c'+i}); stats['c'+i]={bucket:'cold',weight:1}; }
+for(let i=0;i<10;i++){ words.push({key:'m'+i}); stats['m'+i]={bucket:'cold',progress_scores:{version:1,flashcards:{bucket:'missed'}}}; words.push({key:'c'+i}); stats['c'+i]={bucket:'missed',recent:true,progress_scores:{version:1,flashcards:{bucket:'cold'}}}; }
 function run(seed,n){ const rnd=C.mulberry32(seed); let m=0,c=0; for(let i=0;i<n;i++){ const w=C.drawOne(words,stats,rnd); if(w.key[0]==='m') m++; else c++; } return m/c; }
 const seeds=Array.from({length:200},(_,i)=>run(i+1,300));
 console.log(JSON.stringify({r300:run(20260905,300), r3000:run(7,3000), mean200:seeds.reduce((a,b)=>a+b,0)/seeds.length}));
@@ -68,7 +68,8 @@ def test_ice_cold_promotion_and_demotion_python():
     for name, cards in CASES.items():
         rows = [{'word_key': name, **c} for c in cards]
         st = buckets.compute([], rows, ['2026-08-25', '2026-09-04'])
-        assert st[name]['bucket'] == EXPECT[name], (name, st[name]['bucket'])
+        assert st[name]['progress_scores']['flashcards']['bucket'] == EXPECT[name], name
+        assert st[name]['bucket'] == 'never'
     # lesson signals
     D = ['2026-06-01', '2026-07-01', '2026-08-01', '2026-09-04']
     ev = [{'lesson_date': '2026-06-01', 'word_key': 'x', 'speaker': 'Medi', 'prompted': False, 'correction': True, 'asked': False, 't_start': 1}]
@@ -77,9 +78,10 @@ def test_ice_cold_promotion_and_demotion_python():
     assert buckets.compute(ev, [], D)['x']['bucket'] == 'shaky'
     ev[0]['prompted'] = False
     assert buckets.compute(ev, [], D)['x']['bucket'] == 'cold'
-    # later cards win over an earlier lesson signal; a later lesson wins over earlier cards
+    # Cards never override a lesson score, regardless of date.
     st = buckets.compute(ev, [{'word_key': 'x', 'ts': '2026-09-05T10:00:00Z', 'result': 'missed', 'attempt': 1}, {'word_key': 'x', 'ts': '2026-09-05T10:01:00Z', 'result': 'missed', 'attempt': 1}], D)
-    assert st['x']['bucket'] == 'missed'
+    assert st['x']['bucket'] == 'cold'
+    assert st['x']['progress_scores']['flashcards']['bucket'] == 'missed'
     # one signal per lesson (the lAzem case): three unprompted uses + one echo after Amal in the same lesson = cold, not shaky
     lz = [{'lesson_date': '2026-08-25', 'word_key': 'lz', 'speaker': 'Medi', 'prompted': False, 'correction': False, 'asked': False, 't_start': t} for t in (302, 1235, 1385)]
     lz.append({'lesson_date': '2026-08-25', 'word_key': 'lz', 'speaker': 'Medi', 'prompted': True, 'correction': False, 'asked': False, 't_start': 2908})
@@ -98,8 +100,9 @@ def test_ice_cold_promotion_and_demotion_python():
     assert buckets.compute(nw, [], D, doc_before={'2026-09-04': {'n'}})['n']['bucket'] == 'missed', 'in the Doc before the lesson = not new'
     C = {('2026-09-04', 'n')}
     cards = [{'word_key': 'n', 'ts': f'2026-09-0{d}T10:00:00Z', 'result': 'got', 'attempt': 1} for d in (5, 5, 6, 6, 7)]
-    assert buckets.compute(nw, cards[:4], D, confirmed_new=C)['n']['bucket'] == 'new', '4 rights: still new'
-    assert buckets.compute(nw, cards, D, confirmed_new=C)['n']['bucket'] != 'new', '5 first-try rights on 2 days: no longer new'
+    assert buckets.compute(nw, cards[:4], D, confirmed_new=C)['n']['progress_scores']['flashcards']['bucket'] == 'new', '4 rights: still new'
+    assert buckets.compute(nw, cards, D, confirmed_new=C)['n']['progress_scores']['flashcards']['bucket'] != 'new', '5 first-try rights on 2 days: no longer new'
+    assert buckets.compute(nw, cards, D, confirmed_new=C)['n']['bucket'] == 'new', 'cards do not finish the Speaking introduction'
     again = nw + [{'lesson_date': '2026-09-11', 'word_key': 'n', 'speaker': 'Medi', 'prompted': False, 'correction': False, 'asked': False, 't_start': 1}]
     assert buckets.compute(again, [], D + ['2026-09-11'], confirmed_new=C)['n']['bucket'] == 'new', 'heard again but not yet practised 5x: still new'
     # chat forms map to Doc keys by exact match or consonant family (a typed conjugation counts for its lemma) -> candidates only
@@ -112,25 +115,23 @@ def test_ice_cold_promotion_and_demotion_python():
 
 def test_js_buckets_parity_with_python():
     payload = json.dumps({k: [{'word_key': k, **c} for c in v] for k, v in CASES.items()})
-    out = node(PRELUDE + f"const cases={payload}; const res={{}}; for(const k in cases) res[k]=globalThis.AneesBuckets.compute([],cases[k],['2026-08-25','2026-09-04'])[k].bucket; console.log(JSON.stringify(res));")
+    out = node(PRELUDE + f"const cases={payload}; const res={{}}; for(const k in cases) res[k]=globalThis.AneesBuckets.compute([],cases[k],['2026-08-25','2026-09-04'])[k].progress_scores.flashcards.bucket; console.log(JSON.stringify(res));")
     for k in CASES:
-        assert out[k] == EXPECT[k] == buckets.compute([], [{'word_key': k, **c} for c in CASES[k]], ['2026-08-25', '2026-09-04'])[k]['bucket'], k
+        assert out[k] == EXPECT[k] == buckets.compute([], [{'word_key': k, **c} for c in CASES[k]], ['2026-08-25', '2026-09-04'])[k]['progress_scores']['flashcards']['bucket'], k
 
 
-def test_merge_local_never_overrides_newer_server_and_weight_follows_bucket():
+def test_merge_local_replays_cards_separately_and_weight_follows_card_bucket():
     out = node(PRELUDE + """
 const C=globalThis.AneesCards;
-const server={ a:{word_key:'a',bucket:'missed',recent:false,weight:3,last_reviewed:'2026-09-05T10:00:00Z'},
-               b:{word_key:'b',bucket:'ice_cold',recent:false,weight:1,last_reviewed:'2026-09-01T10:00:00Z'},
-               c:{word_key:'c',bucket:'cold',recent:false,weight:1,last_reviewed:'2026-09-01T10:00:00Z'} };
-const log=[ {word_key:'a',ts:'2026-09-01T12:00:00Z',result:'got',attempt:1},          // OLD: must not override the newer server bucket
-            {word_key:'b',ts:'2026-09-06T09:00:00Z',result:'missed',attempt:1},       // one miss after ice cold -> cold
-            {word_key:'c',ts:'2026-09-06T09:00:00Z',result:'missed',attempt:1},{word_key:'c',ts:'2026-09-06T09:01:00Z',result:'missed',attempt:1} ];  // two misses -> missed, weight 3
+const server=AneesBuckets.compute(['a','b','c'].map(k=>({word_key:k,lesson_date:'2026-09-05',speaker:'Medi',t_start:1,prompted:false,correction:k==='a',asked:false})),
+ [1,1,2,3,3].map((d,i)=>({id:'b'+i,word_key:'b',ts:'2026-09-0'+d+'T10:00:00Z',result:'got',attempt:1})),['2026-09-05']);
+const log=[ {id:'a1',word_key:'a',ts:'2026-09-01T12:00:00Z',result:'got',attempt:1},
+            {id:'bm',word_key:'b',ts:'2026-09-06T09:00:00Z',result:'missed',attempt:1},
+            {id:'c1',word_key:'c',ts:'2026-09-06T09:00:00Z',result:'missed',attempt:1},{id:'c2',word_key:'c',ts:'2026-09-06T09:01:00Z',result:'missed',attempt:1} ];
 const m=C.mergeLocal(server,log);
-console.log(JSON.stringify({a:[m.a.bucket,m.a.weight,m.a.last_reviewed], b:[m.b.bucket,m.b.weight], c:[m.c.bucket,m.c.weight], w:C.weightOf({key:'x'},{bucket:'missed',weight:1}), w2:C.weightOf({key:'x'},{bucket:'cold',weight:3})}));
+console.log(JSON.stringify({speaking:['a','b','c'].map(k=>m[k].bucket),cards:['a','b','c'].map(k=>C.cardScore(m[k]).bucket),weights:['a','b','c'].map(k=>C.weightOf({key:k},m[k])),unchanged:JSON.stringify(m.a.progress_scores.speaking)===JSON.stringify(server.a.progress_scores.speaking)}));
 """)
-    assert out['a'] == ['missed', 3, '2026-09-05T10:00:00Z'] and out['b'] == ['cold', 1] and out['c'] == ['missed', 3]
-    assert out['w'] == 3 and out['w2'] == 1
+    assert out == {'speaking': ['missed', 'cold', 'cold'], 'cards': ['cold', 'cold', 'missed'], 'weights': [1, 1, 3], 'unchanged': True}
 
 
 def _run_round(pg, n_miss_idx):
