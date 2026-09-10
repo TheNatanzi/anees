@@ -3,7 +3,7 @@ the flashcards page carries the same rules in JS (docs/js/buckets.js) and this m
 
 Display names (Medi, 2026-09-10): cold = Good; ice_cold = Mastered. Stored IDs, thresholds and history stay unchanged.
 
-  ice_cold  right 5 in a row on flashcards on >= 3 different days (first-try rights); one miss -> cold
+  ice_cold  5 consecutive successes across >= 3 days: first-try cards or independent lesson use (one per lesson date)
   cold      said unprompted in a lesson with no correction, or flashcard right first try
   shaky     right on second try, or said only after Amal said it (prompted)
   missed    Amal corrected it, Medi asked for it, or wrong twice in a row on cards
@@ -13,8 +13,8 @@ Display names (Medi, 2026-09-10): cold = Good; ice_cold = Mastered. Stored IDs, 
             (Medi 2026-09-05: "we don't have any more context for what words are new"). The chat/asked inference only
             proposes 'new?' candidates for Amal's after-link; it never buckets.
             New words never mix with missed words: they go through the strict review-and-repeat loop first
-  never     no Medi signal yet (Amal may have said it: times_seen counts it)
-The latest signal (lesson event or card result) decides, except that the ice-cold streak rule is checked on cards first.
+  never     no Medi signal yet. Amal never adds to usage, review dates or mastery.
+Lesson evidence is ordered after cards on the same date, matching the existing date-only lesson precedence.
 Missed words and words learned in the last 3 lessons get weight 3 (cards, sentence suggestions, homework)."""
 import datetime, collections
 
@@ -91,6 +91,54 @@ def _was_ice(cards):
     return b == 'ice_cold'
 
 
+def _independent_use(e):
+    """A detected Medi use with explicit no-help/no-correction evidence, not verified pronunciation."""
+    return (e.get('speaker') == 'Medi' and e.get('prompted') is False
+            and e.get('correction') is False and e.get('asked') is False
+            and e.get('miss_kind') not in ('choice', 'unclear'))
+
+
+def _known_help_or_correction(e):
+    return (e.get('prompted') is True or e.get('correction') is True
+            or e.get('asked') is True or e.get('miss_kind') == 'choice')
+
+
+def progress_from_context(context):
+    """Shared lesson/card mastery model. Card drill streak remains separate for New words."""
+    cards = sorted(context['cards'], key=lambda c: (str(c['ts']), str(c.get('id') or '')))
+    timeline = [(str(c['ts'])[:10], 0, str(c['ts']), i, 'card', c) for i, c in enumerate(cards)]
+    timeline += [(d, 1, '', i, 'lesson', (signal, qualifies))
+                 for i, (d, signal, qualifies) in enumerate(context['lessons'])]
+    bucket, streak, days, last_cards = 'never', 0, [], []
+    for day, _, _, _, source, value in sorted(timeline, key=lambda r: r[:4]):
+        was_mastered = bucket == 'ice_cold'
+        if source == 'card':
+            last_cards.append(value)
+            success = value['result'] == 'got' and int(value.get('attempt') or 1) == 1
+            if value['result'] == 'missed':
+                signal = 'cold' if was_mastered else ('missed' if sum(c['result'] == 'missed' for c in last_cards[-3:]) >= 2 else 'shaky')
+            else:
+                signal = 'cold' if success else 'shaky'
+        else:
+            signal, qualifies = value
+            if qualifies is None:
+                continue  # Unknown evidence neither earns mastery nor erases an established streak.
+            success = signal == 'cold' and qualifies
+        if success:
+            streak += 1
+            if day not in days:
+                days.append(day)
+        else:
+            streak, days = 0, []
+        bucket = 'ice_cold' if streak >= 5 and len(days) >= 3 else signal
+    _, card_streak, card_days = _signal_from_cards(cards)
+    signal = bucket
+    if context['new'] and not (card_streak >= NEW_DRILL_RIGHTS and len(card_days) >= NEW_DRILL_DAYS):
+        bucket = 'new'
+    return {'bucket': bucket, 'lesson_signal': signal, 'streak': card_streak, 'streak_days': card_days,
+            'mastery_streak': streak, 'mastery_days': days}
+
+
 def compute(word_events, card_results, lesson_dates, today=None, confirmed_new=None, doc_before=None, introduced=None):
     """Returns {word_key: stats}. word_events rows need lesson_date, word_key, speaker, prompted, correction, asked, t_start.
     card_results rows need word_key, ts, result, attempt. lesson_dates = all lesson dates (ISO strings).
@@ -114,35 +162,33 @@ def compute(word_events, card_results, lesson_dates, today=None, confirmed_new=N
     for key in set(ev_by) | set(cd_by):
         evs = sorted(ev_by[key], key=lambda e: (str(e['lesson_date']), e.get('t_start') or 0))
         cards = sorted(cd_by[key], key=lambda c: str(c['ts']))
-        lesson_signals = _per_lesson_signals(evs)
-        card_bucket, streak, days = _signal_from_cards(cards)
-        last_lesson_sig = lesson_signals[-1] if lesson_signals else None
-        last_card_ts = str(cards[-1]['ts'])[:10] if cards else None
-        bucket = 'never'
-        if last_lesson_sig and (not last_card_ts or last_lesson_sig[0] >= last_card_ts):
-            bucket = last_lesson_sig[1]
-        elif card_bucket:
-            bucket = card_bucket
-        if card_bucket == 'ice_cold' and bucket in ('cold',):
-            bucket = 'ice_cold'
-        first_lesson = str(evs[0]['lesson_date']) if evs else None
-        lesson_signal = bucket
-        drilled = streak >= NEW_DRILL_RIGHTS and len(days) >= NEW_DRILL_DAYS
-        seen_dates = sorted({str(e['lesson_date']) for e in evs})
+        medi = [e for e in evs if e.get('speaker') == 'Medi']
+        independent = [e for e in medi if _independent_use(e)]
+        qualifying_dates = {str(e['lesson_date']) for e in independent}
+        helped_dates = {str(e['lesson_date']) for e in medi if _known_help_or_correction(e)}
+        lesson_signals = _per_lesson_signals(medi)
+        first_lesson = str(medi[0]['lesson_date']) if medi else None
+        seen_dates = sorted({str(e['lesson_date']) for e in medi})
+        # Introduction semantics are independent of who spoke; don't lose existing New marks.
+        all_dates = sorted({str(e['lesson_date']) for e in evs})
         marked = key in marked_keys
-        by_doc = any(d in doc_before and key not in doc_before[d] for d in seen_dates)
+        by_doc = any(d in doc_before and key not in doc_before[d] for d in all_dates)
         new_candidate = bool(first_lesson) and ((first_lesson, key) in introduced
                                                 or any(e.get('asked') for e in evs if str(e['lesson_date']) == first_lesson))
-        if (marked or by_doc) and not drilled:
-            bucket = 'new'                                          # strict review first; the lesson signal is kept in lesson_signal
+        context = {'version': 2, 'new': marked or by_doc,
+                   'lessons': [[d, sig, True if d in qualifying_dates else (False if d in helped_dates else None)] for d, sig in lesson_signals],
+                   'cards': [{k: c[k] for k in ('id', 'ts', 'result', 'attempt') if k in c} for c in cards]}
+        progress = progress_from_context(context)
+        bucket = progress['bucket']
         last_reviewed = max([x for x in [seen_dates[-1] if seen_dates else None, str(cards[-1]['ts']) if cards else None] if x], default=None)
         recent = first_lesson in recent_dates if first_lesson else False
         out[key] = {'word_key': key, 'bucket': bucket, 'last_reviewed': last_reviewed, 'last_lesson': seen_dates[-1] if seen_dates else None,
-                    'seen_lessons': len(seen_dates), 'times_seen': len(evs), 'times_missed': sum(1 for e in evs if e.get('correction')) + sum(1 for c in cards if c['result'] == 'missed'),
+                    'seen_lessons': len(seen_dates), 'times_seen': len(medi), 'independent_uses': len(independent),
+                    'times_missed': sum(1 for e in medi if _signal_from_event(e) == 'missed') + sum(1 for c in cards if c['result'] == 'missed'),
                     'card_right': sum(1 for c in cards if c['result'] == 'got'), 'card_wrong': sum(1 for c in cards if c['result'] == 'missed'),
-                    'streak': streak, 'streak_days': days, 'recent': recent, 'weight': 3.0 if bucket in ('missed', 'new') else 1.0, 'lesson_signal': lesson_signal,
-                    'new_candidate': new_candidate, 'grammar_misses': sum(1 for e in evs if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS),
-                    'grammar_kinds': sorted({e['miss_kind'] for e in evs if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS})}
+                    **progress, 'progress_context': context, 'recent': recent, 'weight': 3.0 if bucket in ('missed', 'new') else 1.0,
+                    'new_candidate': new_candidate, 'grammar_misses': sum(1 for e in medi if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS),
+                    'grammar_kinds': sorted({e['miss_kind'] for e in medi if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS})}
     return out
 
 
@@ -180,7 +226,7 @@ def recompute_and_store():
     """Reads word_events + card_results + lessons from Supabase, writes word_stats. Returns the stats dict."""
     import db
     evs = db.select('word_events', {'select': 'lesson_date,word_key,speaker,prompted,correction,asked,miss_kind,t_start'})
-    cards = db.select('card_results', {'select': 'word_key,ts,result,attempt'})
+    cards = db.select('card_results', {'select': 'id,word_key,ts,result,attempt'})
     dates = [r['date'] for r in db.select('lessons', {'select': 'date'})]
     typed = db.select('lesson_events', {'select': 'lesson_date,text', 'kind': 'eq.typed'})
     marks = db.select('amal_rules', {'select': 'lesson_date,word_key,kind', 'kind': 'eq.new'})

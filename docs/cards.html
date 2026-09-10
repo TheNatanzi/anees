@@ -29,7 +29,7 @@ button.primary{background:var(--teal);color:#fff;border-color:var(--teal)} butto
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main>
-<script src="js/config.js"></script><script src="js/buckets.js?v=20260910-labels"></script><script src="js/cards-core.js?v=20260910-labels"></script>
+<script src="js/config.js"></script><script src="js/buckets.js?v=20260910-medi-v2"></script><script src="js/cards-core.js?v=20260910-medi-v2"></script><script src="js/progress.js?v=20260910-medi-v2"></script>
 <script>
 const C=window.AneesCards, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -43,11 +43,13 @@ const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon,'Content-Type':'ap
 async function load(){
   try{ let all=[], off=0; while(true){ const r=await fetch(ANEES.url+'/rest/v1/words?select=key,arabizi,arabic,english,plural,topic,subtopic,doc_order&active=eq.true&order=doc_order&limit=1000&offset='+off,{headers:H}); if(!r.ok) break; const part=await r.json(); all=all.concat(part); if(part.length<1000) break; off+=1000; } if(all.length){ words=all; LS('anees-words',words); } }catch(e){}
   if(!words.length){ words=LS('anees-words')||[]; if(!words.length){ try{ const r=await fetch('data/words.json'); words=(await r.json()).items; }catch(e){} } if(words.length) syncEl.textContent='Offline: using the saved word list.'; }
-  try{ const r=await fetch(ANEES.url+'/rest/v1/word_stats?select=word_key,bucket,recent,weight,last_reviewed,times_missed&limit=5000',{headers:H}); if(r.ok){ for(const s of await r.json()) stats[s.word_key]=s; LS('anees-stats',stats); } }catch(e){}
-  if(!Object.keys(stats).length) stats=LS('anees-stats')||{};
+  try{ const r=await fetch(ANEES.url+'/rest/v1/word_stats?select=*&limit=5000',{headers:H}); if(r.ok){ for(const s of await r.json()) stats[s.word_key]=s; window.AneesProgress.requireCurrent(stats); } }catch(e){ stats={}; }
+  if(!Object.keys(stats).length) stats=window.AneesProgress.cached(LS(window.AneesProgress.CACHE_KEY));
+  try { stats=await window.AneesProgress.load(stats,ANEES.url,H,LS('anees-card-log')||[]); LS(window.AneesProgress.CACHE_KEY,stats); }
+  catch(e) { const saved=window.AneesProgress.cached(LS(window.AneesProgress.CACHE_KEY)); if(Object.keys(saved).length) stats=saved; syncEl.textContent='Latest card progress unavailable; showing saved progress and this device’s answers.'; }
   applyLocalResults();
 }
-// local answers newer than the server's last_reviewed refine the buckets (pure rule in cards-core.js, tested in node)
+// Merge durable and unsynced answers by ID; last_reviewed is a display date, not a sync cursor.
 function applyLocalResults(){ stats=C.mergeLocal(stats, LS('anees-card-log')||[]); }
 // ---- offline queue -> Supabase (id = idempotency key; duplicates ignored server-side) ----
 function enqueue(row){ const q=LS('anees-card-queue')||[]; q.push(row); const okQ=LS('anees-card-queue',q); if(row.kind!=='flag'){ const log=LS('anees-card-log')||[]; log.push(row); LS('anees-card-log',log.slice(-2000)); }

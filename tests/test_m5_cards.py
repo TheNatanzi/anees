@@ -71,7 +71,7 @@ def test_ice_cold_promotion_and_demotion_python():
         assert st[name]['bucket'] == EXPECT[name], (name, st[name]['bucket'])
     # lesson signals
     D = ['2026-06-01', '2026-07-01', '2026-08-01', '2026-09-04']
-    ev = [{'lesson_date': '2026-06-01', 'word_key': 'x', 'speaker': 'Medi', 'prompted': False, 'correction': True, 't_start': 1}]
+    ev = [{'lesson_date': '2026-06-01', 'word_key': 'x', 'speaker': 'Medi', 'prompted': False, 'correction': True, 'asked': False, 't_start': 1}]
     assert buckets.compute(ev, [], D)['x']['bucket'] == 'missed'
     ev[0]['correction'] = False; ev[0]['prompted'] = True
     assert buckets.compute(ev, [], D)['x']['bucket'] == 'shaky'

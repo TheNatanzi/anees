@@ -4,6 +4,16 @@
 
 Display `cold` as **Good** and `ice_cold` as **Mastered** throughout the app. This is a naming change only: retain the stored IDs, existing links, progress and scoring thresholds. The other four current bucket labels are unchanged. “Mastered” is the category name, not a new guarantee of proficiency.
 
+### Medi-only progress (approved next, 2026-09-10)
+
+- **You used it:** only word occurrences labeled Medi. Prompted attempts count as uses; Amal/unknown speakers never count. Review dates, lesson counts, recent-use flags and learner error counts also exclude Amal.
+- **Without help:** Medi use with explicit `prompted=false`, `asked=false`, `correction=false`, and no `choice`/`unclear` marker. These are detected transcript signals, not audio-verified success or pronunciation grades.
+- **Mastered:** five consecutive qualifying successes across at least three distinct dates, combining first-try cards with independent lesson use. At most one lesson success per word/date. Word corrections/help requests or prompted-only lessons break the mastery streak. Existing word-vs-grammar bucket exceptions remain; a grammar-corrected attempt is not a clean mastery success.
+- Existing same-day precedence is retained: a date-only lesson signal follows cards on that date. A single card miss after Mastered drops to Good; two misses in the last three cards drops to Missed.
+- New-word graduation stays separate: five consecutive first-try **cards** across two days. Lesson mastery does not bypass that drill.
+- Database `word_stats` is a derived snapshot. Both pages also replay durable `card_results` plus unsynced local answer IDs, so cross-device card progress does not wait for another lesson job. No browser write access to stats is granted.
+- Raw lesson/card evidence stays unchanged. Cached all-speaker stats must never be labeled as Medi-only; use the versioned progress cache.
+
 ### CONTRACTS(one `plan/constants.md`, supersedes any conflicting line elsewhere in this file)
 | Contract | Value |
 |---|---|

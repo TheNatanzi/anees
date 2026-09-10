@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-05",
+  "updated": "2026-09-10",
   "legend": {
     "enforced": "code + test do this today",
     "partly": "done in part or by a fallback",
@@ -200,6 +200,20 @@
           "rule": "Amal's topic pick decides whether new words are expected: any 'New …' topic = yes; review-only topics (Last week's lessons, Grammar, Review listening, Review conversation) = no. Nobody is asked twice.",
           "why": "Medi 2026-09-05: 'if it's New we can assume there will be new words; if it's review, assume not'.",
           "where": "amal/plan.html topic screen writes rule new_words {expected}; the after-link's 'new word?' question is planned to show only when expected",
+          "status": "enforced"
+        },
+        {
+          "id": "N6",
+          "rule": "'You used it' counts only Medi's uses, including prompted attempts. 'Without help' counts only uses explicitly marked unprompted, not corrected and not asking for help. Amal's words never increase either count or Medi's practice dates.",
+          "why": "A tutor saying a word is not evidence that Medi can use it. These counts come from transcript labels, not verified pronunciation.",
+          "where": "scripts/buckets.py; docs/js/buckets.js; Medi-only word_stats backfill",
+          "status": "enforced"
+        },
+        {
+          "id": "N7",
+          "rule": "Mastered needs 5 consecutive successes across at least 3 dates: first-try flashcards or independent lesson use. A lesson contributes at most one success per word/date. Help, correction or prompted-only evidence interrupts the streak; unknown evidence earns nothing and does not reset it. The separate New-word flashcard drill stays unchanged.",
+          "why": "Repeated mentions in one lesson are not the same as recalling the word independently over time.",
+          "where": "Python and browser progress rules; dashboard and cards replay saved answers by ID",
           "status": "enforced"
         }
       ],

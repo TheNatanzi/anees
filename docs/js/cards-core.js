@@ -37,7 +37,12 @@
     const by = {};
     for (const r of log || []) (by[r.word_key] = by[r.word_key] || []).push(r);
     for (const k in by) {
-      const s = out[k] || { word_key: k, bucket: 'never', recent: false };
+      const s = out[k] || root.AneesBuckets.emptyStats(k);
+      if(s.progress_context && s.progress_context.version===2) {
+        const merged=root.AneesBuckets.mergeProgress(s,by[k]);
+        out[k]={...merged,weight:weightFromBucket(merged.bucket,merged.recent)};
+        continue;
+      }
       const rows = by[k].filter(r => !s.last_reviewed || String(r.ts) > String(s.last_reviewed)).sort((a, b) => String(a.ts).localeCompare(String(b.ts)));
       if (!rows.length) continue;
       const last = rows[rows.length - 1];
