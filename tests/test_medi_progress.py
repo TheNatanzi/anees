@@ -152,3 +152,51 @@ def test_legacy_cache_rejected_and_saved_remote_cards_survive_reopen():
     rows = [card(4, ident='remote1'), card(5, ident='remote2')]
     actual = node("require('./docs/js/buckets.js');require('./docs/js/progress.js');const stats={x:" + json.dumps(initial) + "};const rows=" + json.dumps(rows) + ";global.fetch=async()=>({ok:true,json:async()=>rows});(async()=>{const ready=await AneesProgress.load(stats,'https://example.invalid',{},rows);console.log(JSON.stringify({bucket:ready.x.bucket,count:ready.x.card_right,legacy:AneesProgress.cached({x:{times_seen:6}})}));})();")
     assert actual == {'bucket': 'ice_cold', 'count': 2, 'legacy': {}}
+
+
+def test_missed_recovery_requires_two_independent_successes():
+    events = [changed(1, asked=True), event(2), event(3)]
+    assert [calc(events[:n])['bucket'] for n in (1, 2, 3)] == ['missed', 'shaky', 'cold']
+    cards = [card(1, 'missed', ident='m1'), card(2, 'missed', ident='m2'),
+             card(3, ident='r1'), card(4, ident='r2')]
+    assert [calc([], cards[:n])['bucket'] for n in (2, 3, 4)] == ['missed', 'shaky', 'cold']
+    mixed = calc([changed(1, correction=True), event(2)], [card(3, ident='r2')])
+    assert mixed['bucket'] == 'cold' and mixed['mastery_streak'] == 2
+    assert mixed['times_seen'] == 2 and mixed['independent_uses'] == mixed['times_missed'] == 1
+
+
+def test_recovery_ignores_unknown_but_restarts_after_help():
+    start = [changed(1, asked=True), event(2)]
+    assert calc(start + [changed(3, prompted=None), event(4)])['bucket'] == 'cold'
+    for failure in ({'prompted': True}, {'asked': True}, {'correction': True},
+                    {'correction': True, 'miss_kind': 'gender'}):
+        assert calc(start + [changed(3, **failure), event(4)])['bucket'] == 'shaky'
+        assert calc(start + [changed(3, **failure), event(4), event(5)])['bucket'] == 'cold'
+    assert calc(start, [card(3, attempt=2), card(4, ident='r1')])['bucket'] == 'shaky'
+    # A grammar-only Good signal is not an independent success and cannot skip recovery.
+    assert calc([changed(1, asked=True), changed(2, correction=True, miss_kind='gender')])['bucket'] == 'shaky'
+
+
+def test_recovery_preserves_lesson_cap_new_gate_and_mastery_threshold():
+    start = [changed(1, asked=True)]
+    assert calc(start + [event(2) for _ in range(6)])['bucket'] == 'shaky'
+    for n, expected in ((1, 'shaky'), (2, 'cold'), (4, 'cold'), (5, 'ice_cold')):
+        s = calc(start + [event(d) for d in range(2, 2 + n)])
+        assert s['bucket'] == expected and s['mastery_streak'] == n
+    assert calc(start + [event(2), event(3)], marked=True)['bucket'] == 'new'
+    assert calc([changed(1, prompted=True), event(2)])['bucket'] == 'cold'
+    assert calc([event(1)])['bucket'] == 'cold'  # No invented recovery for an unassessed word.
+
+
+def test_recovery_context_replay_survives_reload_and_duplicate_answers():
+    initial = calc([changed(1, asked=True)])
+    rows = [card(2, ident='one'), card(3, ident='two')]
+    source = "require('./docs/js/buckets.js');require('./docs/js/cards-core.js');const stats={x:" + json.dumps(initial) + "}, rows=" + json.dumps(rows) + ";const one=AneesCards.mergeLocal(stats,[rows[0]]);const same=AneesCards.mergeLocal(JSON.parse(JSON.stringify(one)),[rows[0]]);const two=AneesCards.mergeLocal(same,[rows[1]]);const batch=AneesCards.mergeLocal(stats,rows);console.log(JSON.stringify({states:[one.x.bucket,same.x.bucket,two.x.bucket],parity:JSON.stringify(two)===JSON.stringify(batch),streak:two.x.mastery_streak}));"
+    assert node(source) == {'states': ['shaky', 'shaky', 'cold'], 'parity': True, 'streak': 2}
+
+
+def test_lesson_only_old_snapshot_is_rescored_even_with_no_new_cards():
+    initial = calc([changed(1, asked=True), event(2)])
+    initial['bucket'] = 'cold'  # Materialized value from the previous single-success rule.
+    source = "require('./docs/js/buckets.js');require('./docs/js/progress.js');global.fetch=async()=>({ok:true,json:async()=>[]});(async()=>{const s={x:" + json.dumps(initial) + "};const loaded=await AneesProgress.load(s,'https://example.invalid',{},[]);const offline=AneesBuckets.mergeStats(AneesProgress.cached(s),[]);console.log(JSON.stringify([loaded.x.bucket,offline.x.bucket]));})();"
+    assert node(source) == ['shaky', 'shaky']

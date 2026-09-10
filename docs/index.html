@@ -29,7 +29,7 @@ footer{color:var(--mute);font-size:12px;margin:30px 0 10px}
 <div id="banner"></div>
 <section id="tab-today"><h1 id="today-h">Today</h1><div class="cards" id="today-cards"></div><div id="today-actions"></div><h2>Last lesson</h2><div id="today-last" class="mute">–</div></section>
 <section id="tab-lessons"><h1>Lessons</h1><p class="mute">Every recorded lesson: report (what you missed / nailed, moments with audio) and full transcript.</p><ul class="list" id="lessons"></ul></section>
-<section id="tab-words"><h1>Words</h1><p class="mute">Your uses only—not Amal’s. “Without help” means no detected prompt, help request or correction. Mastered: 5 consecutive lesson/card successes across 3+ days; at most one lesson success per word/date. Transcript-based, not audio-verified.</p><p class="mute">All of Amal's Doc. Type as you spell it (mabsoot, khalas, ba3dain), or English, or Arabic.</p>
+<section id="tab-words"><h1>Words</h1><p class="mute">Your uses only—not Amal’s. “Without help” means no detected prompt, help request or correction. Recovery: Missed → 1 independent success → Shaky → 1 more → Good. The two successes must be consecutive. Mastered: 5 consecutive lesson/card successes across 3+ days; at most one lesson success per word/date. Transcript-based, not audio-verified.</p><p class="mute">All of Amal's Doc. Type as you spell it (mabsoot, khalas, ba3dain), or English, or Arabic.</p>
 <div class="filters"><input id="q" placeholder="search… (Arabizi, English or Arabic)" aria-label="search words"><select id="f-bucket"><option value="">any bucket</option><option value="new">New (strict review)</option><option value="missed">Missed</option><option value="shaky">Shaky</option><option value="cold">Good</option><option value="ice_cold">Mastered</option><option value="never">Never seen</option><option value="grammar">Grammar slips</option></select><select id="f-topic"><option value="">any topic</option></select><select id="sort"><option value="rev">sort: last reviewed</option><option value="miss">sort: times missed</option><option value="doc">sort: Doc order</option></select></div>
 <div class="mute" id="wcount"></div><div id="history"></div><ul class="list" id="results"></ul></section>
 <section id="tab-cards"><h1>Flashcards</h1><p class="mute">Quizlet-style cards. Tap to flip, Got it / Missed, wrong cards come back until the pile is empty.</p><iframe id="cards-frame" title="flashcards" loading="lazy"></iframe></section>
@@ -44,7 +44,7 @@ footer{color:var(--mute);font-size:12px;margin:30px 0 10px}
 <audio id="player" preload="none"></audio>
 <footer id="foot">Data: Amal's Google Doc (imported one-way), lesson recordings, Medi's flashcards. Unknown = –.</footer>
 </main>
-<script src="js/config.js"></script><script src="js/arabizi.js"></script><script src="js/buckets.js?v=20260910-medi-v2"></script><script src="js/progress.js?v=20260910-medi-v2"></script>
+<script src="js/config.js"></script><script src="js/arabizi.js"></script><script src="js/buckets.js?v=20260910-recovery-v1"></script><script src="js/progress.js?v=20260910-recovery-v1"></script>
 <script>
 const A=window.AneesArabizi, esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 const LS=(k,v)=>{ try{ if(v===undefined) return JSON.parse(localStorage.getItem(k)||'null'); localStorage.setItem(k,JSON.stringify(v)); }catch(e){ return null; } };

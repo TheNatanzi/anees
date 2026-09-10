@@ -1,6 +1,6 @@
 // Durable card_results are the source of truth; local rows only cover not-yet-synced answers.
 (function(root) {
-  const CACHE_KEY='anees-stats-medi-v2';
+  const CACHE_KEY='anees-stats-medi-recovery-v1';
   function requireCurrent(stats) {
     if(!stats || typeof stats!=='object' || Array.isArray(stats) || Object.values(stats).some(s=>s?.progress_context?.version!==2)) throw new Error('Progress recalculation is not ready');
     return stats;

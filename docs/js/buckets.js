@@ -1,5 +1,6 @@
 // Grip buckets — JS port of scripts/buckets.py (the Python file is the reference; tests/test_m5_cards.py checks parity).
 // Mastered: 5 consecutive lesson/card successes on >=3 days; max one lesson success per date. Counts/dates are Medi-only.
+// Missed recovery: two consecutive independent successes, first -> Shaky, second -> Good.
 // shaky: prompted / right on second try. missed: corrected / wrong twice in a row on cards. never: no Medi signal.
 (function (root) {
   // Display names only: keep stored IDs and scoring rules compatible with saved progress.
@@ -41,7 +42,7 @@
     const timeline=cards.map((c,i)=>({day:String(c.ts).slice(0,10),rank:0,ts:String(c.ts),i,source:'card',value:c}));
     for(const [i,[day,signal,qualifies]] of context.lessons.entries()) timeline.push({day,rank:1,ts:'',i,source:'lesson',value:[signal,qualifies]});
     timeline.sort((a,b)=>a.day.localeCompare(b.day)||a.rank-b.rank||a.ts.localeCompare(b.ts)||a.i-b.i);
-    let bucket='never', masteryStreak=0, masteryDays=[]; const lastCards=[];
+    let bucket='never', masteryStreak=0, masteryDays=[], recoveryLeft=0; const lastCards=[];
     for(const event of timeline) {
       const wasMastered=bucket==='ice_cold'; let signal, success;
       if(event.source==='card') {
@@ -49,8 +50,13 @@
         success=c.result==='got' && parseInt(c.attempt||1)===1;
         signal=c.result==='missed' ? (wasMastered?'cold':(lastCards.slice(-3).filter(c=>c.result==='missed').length>=2?'missed':'shaky')) : (success?'cold':'shaky');
       } else { const [s,qualifies]=event.value; if(qualifies===null) continue; signal=s; success=s==='cold' && qualifies; }
-      if(success) { masteryStreak++; if(!masteryDays.includes(event.day)) masteryDays.push(event.day); }
-      else { masteryStreak=0; masteryDays=[]; }
+      if(success) {
+        masteryStreak++; if(!masteryDays.includes(event.day)) masteryDays.push(event.day);
+        if(recoveryLeft) { recoveryLeft--; signal=recoveryLeft?'shaky':'cold'; }
+      } else {
+        masteryStreak=0; masteryDays=[];
+        if(signal==='missed'||recoveryLeft) { recoveryLeft=2; if(signal==='cold') signal='shaky'; }
+      }
       bucket=masteryStreak>=5 && masteryDays.length>=3?'ice_cold':signal;
     }
     const [,streak,days]=signalFromCards(cards), lessonSignal=bucket;
@@ -78,7 +84,9 @@
       progress_context:{version:2,new:false,lessons:[],cards:[]}};
   }
   function mergeStats(stats, log) {
-    const out={...stats}, by=new Map();
+    // Re-score every compatible snapshot, including lesson-only words with no new card rows.
+    // Context version describes the evidence format; it is unchanged by a scoring-rule update.
+    const out=Object.fromEntries(Object.entries(stats).map(([key,s])=>[key,s.progress_context?.version===2?mergeProgress(s,[]):s])), by=new Map();
     for(const row of log||[]) {
       if(!row.word_key || !['got','missed'].includes(row.result) || !row.ts) continue;
       if(!by.has(row.word_key)) by.set(row.word_key,[]); by.get(row.word_key).push(row);

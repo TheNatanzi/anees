@@ -215,6 +215,13 @@
           "why": "Repeated mentions in one lesson are not the same as recalling the word independently over time.",
           "where": "Python and browser progress rules; dashboard and cards replay saved answers by ID",
           "status": "enforced"
+        },
+        {
+          "id": "N8",
+          "rule": "Recover from Missed with two consecutive independent successes: the first moves to Shaky, the second to Good. Help or another error interrupts recovery; unclear evidence does not. Both successes also count toward Mastered. A Shaky word not recovering from Missed still needs only one independent success to reach Good.",
+          "why": "Medi 2026-09-10: one successful recall after a miss should show progress, not immediately count as Good.",
+          "where": "scripts/buckets.py and docs/js/buckets.js replay saved lesson/card evidence; at most one lesson success per word/date",
+          "status": "enforced"
         }
       ],
       "tab": "words"

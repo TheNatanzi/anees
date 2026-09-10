@@ -4,7 +4,7 @@ the flashcards page carries the same rules in JS (docs/js/buckets.js) and this m
 Display names (Medi, 2026-09-10): cold = Good; ice_cold = Mastered. Stored IDs, thresholds and history stay unchanged.
 
   ice_cold  5 consecutive successes across >= 3 days: first-try cards or independent lesson use (one per lesson date)
-  cold      said unprompted in a lesson with no correction, or flashcard right first try
+  cold      independent success; after Missed, two consecutive independent successes are needed (first -> shaky)
   shaky     right on second try, or said only after Amal said it (prompted)
   missed    Amal corrected it, Medi asked for it, or wrong twice in a row on cards
   new       ONLY a word explicitly marked new: Amal (after-link / chat confirmation) or Medi marked it for a lesson (amal_rules kind
@@ -110,6 +110,7 @@ def progress_from_context(context):
     timeline += [(d, 1, '', i, 'lesson', (signal, qualifies))
                  for i, (d, signal, qualifies) in enumerate(context['lessons'])]
     bucket, streak, days, last_cards = 'never', 0, [], []
+    recovery_left = 0  # Replay carries Missed recovery even while the displayed bucket is Shaky.
     for day, _, _, _, source, value in sorted(timeline, key=lambda r: r[:4]):
         was_mastered = bucket == 'ice_cold'
         if source == 'card':
@@ -128,8 +129,15 @@ def progress_from_context(context):
             streak += 1
             if day not in days:
                 days.append(day)
+            if recovery_left:
+                recovery_left -= 1
+                signal = 'shaky' if recovery_left else 'cold'
         else:
             streak, days = 0, []
+            if signal == 'missed' or recovery_left:
+                recovery_left = 2
+                if signal == 'cold':
+                    signal = 'shaky'  # A grammar-only correction cannot shortcut independent recovery.
         bucket = 'ice_cold' if streak >= 5 and len(days) >= 3 else signal
     _, card_streak, card_days = _signal_from_cards(cards)
     signal = bucket

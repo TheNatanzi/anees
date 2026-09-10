@@ -52,7 +52,7 @@ def test_all_badges_filters_and_summary_use_display_names():
     assert 'buckets.find(b=>b.id===round.subject)' in cards
     assert "String(s.bucket).replace('_',' ')" not in cards
     for page in (hub, cards):
-        assert 'js/buckets.js?v=20260910-medi-v2' in page
+        assert 'js/buckets.js?v=20260910-recovery-v1' in page
 
 
 def test_published_report_wording_and_generator():
