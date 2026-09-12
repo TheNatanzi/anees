@@ -144,4 +144,15 @@ def test_loads_with_supabase_down():
         assert pg.evaluate("document.querySelector('.word-item.open .wrow').getAttribute('aria-expanded')") == 'true'
         pg.click('.word-item.open .wrow')
         assert pg.evaluate("document.querySelector('.word-item.open') === null")
+        # The three source verb lists appear as one topic, narrowed by tense.
+        pg.fill('#q', '')
+        assert pg.locator('#f-topic option[value="__verbs__"]').count() == 1
+        assert pg.locator('#f-topic option[value="__verbs__"]').text_content() == 'Verbs'
+        assert pg.evaluate("[...document.querySelectorAll('#f-topic option')].every(o=>!['Verbs List','Past Tense','Command Tense'].includes(o.textContent))")
+        pg.select_option('#f-topic', '__verbs__')
+        assert pg.is_visible('#f-tense')
+        pg.select_option('#f-tense', 'past')
+        assert pg.evaluate("document.querySelectorAll('.word-item').length > 0")
+        assert pg.evaluate("[...document.querySelectorAll('.word-item .en i')].every(x=>x.textContent==='Verbs · Past')")
+        assert pg.evaluate("AneesIndex.verbTense({topic:'Verbs List'}) === 'present' && AneesIndex.verbTense({topic:'Past Tense'}) === 'past' && AneesIndex.verbTense({topic:'Command Tense'}) === 'command'")
         b.close()
