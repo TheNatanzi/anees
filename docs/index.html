@@ -55,7 +55,7 @@ footer{color:var(--mute);font-size:12px;margin:30px 0 10px}
 const A=window.AneesArabizi, esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 const LS=(k,v)=>{ try{ if(v===undefined) return JSON.parse(localStorage.getItem(k)||'null'); localStorage.setItem(k,JSON.stringify(v)); }catch(e){ return null; } };
 const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon};
-let words=[], stats={}, listening={}, listeningKnown=false, lessons=[], rules=[], offline=false, idx=[];
+let words=[], stats={}, listening={}, listeningKnown=false, lessons=[], rules=[], offline=false, idx=[],cardLogFingerprint='';
 let wordDraft=null,draftError=false;
 let draftReviews={},draftEvents={};
 const historyAudio=document.getElementById('player');
@@ -86,6 +86,7 @@ async function loadAll(){
     const savedListening=LS('anees-listening');if(savedListening!==null){listening=savedListening;listeningKnown=true;}
     if(!words.length){ try{ words=(await (await fetch('data/words.json')).json()).items; }catch(e2){} }
     const b=document.getElementById('banner'); b.textContent='Supabase is not reachable right now: showing saved data ('+words.length+' words'+(Object.keys(stats).length?', buckets from the last sync':', no buckets')+'). Flashcard answers still queue offline.'; b.classList.add('on'); }
+  cardLogFingerprint=JSON.stringify(LS('anees-card-log')||[]);
   try{wordDraft=window.AneesWordDrafts.latest(await window.AneesWordDrafts.load());draftError=false;await loadDraftReviews();}catch(e){draftError=true;}
   buildIndex(); renderToday(); renderLessons(); renderWords(); renderRules(); renderGrammar(); renderAiReports(); renderAiRules();
 }
@@ -196,9 +197,9 @@ async function renderAiRules(){ try{ AI_RULES=await (await fetch('data/ai_rules.
 function showTab(name){ document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===name)); document.querySelectorAll('main section').forEach(s=>s.classList.toggle('on',s.id==='tab-'+name)); if(name==='cards'){ const f=document.getElementById('cards-frame'); if(!f.src) f.src='cards.html'; } if(location.hash!=='#'+name) history.replaceState(null,'','#'+name); }
 document.querySelectorAll('.tab').forEach(b=>{ if(b.dataset.tab) b.onclick=()=>showTab(b.dataset.tab); }); window.addEventListener('hashchange',()=>showTab(location.hash.slice(1)||'today'));
 ['q','f-score','f-bucket','f-topic','f-tense','sort','f-draft'].forEach(id=>document.getElementById(id).addEventListener('input',renderWords));
-function refreshLocalCards(){if(!Object.keys(stats).length)return;stats=window.AneesBuckets.mergeStats(stats,LS('anees-card-log')||[]);LS(window.AneesProgress.CACHE_KEY,stats);renderWords();renderToday();}
-window.addEventListener('storage',e=>{if(e.key==='anees-card-log')refreshLocalCards();});
-window.addEventListener('focus',refreshLocalCards);
+function refreshLocalCards(force=false){if(!Object.keys(stats).length)return;const log=LS('anees-card-log')||[],next=JSON.stringify(log);if(!force&&next===cardLogFingerprint)return;cardLogFingerprint=next;stats=window.AneesBuckets.mergeStats(stats,log);LS(window.AneesProgress.CACHE_KEY,stats);renderWords();renderToday();}
+window.addEventListener('storage',e=>{if(e.key==='anees-card-log')refreshLocalCards(true);});
+window.addEventListener('focus',()=>refreshLocalCards());
 showTab(location.hash.slice(1)||'today'); loadAll();
 window.AneesIndex={ search, clipOffset, buildListening, listeningBucket, verbTense, topicValue, topicLabel, draftReviewId, get words(){return words;}, get stats(){return stats;}, get listening(){return listening;}, get draftReviews(){return draftReviews;}, get offline(){return offline;} };
 </script><script src="js/build.js"></script><script src="js/stale.js"></script></body></html>

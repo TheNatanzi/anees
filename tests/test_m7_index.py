@@ -171,4 +171,9 @@ def test_loads_with_supabase_down():
         assert pg.evaluate("Object.values(JSON.parse(localStorage.getItem('anees-draft-reviews'))).some(r=>r.verdict==='correct')")
         row.locator('.draft-play').click()
         assert pg.evaluate("document.getElementById('player').getAttribute('src').includes('lessons/2026-09-11/clips/')")
+        # Merely refocusing the browser must not rebuild the list and close
+        # the accordion when no flashcard data changed.
+        pg.evaluate("AneesIndex.stats.__focus_probe=AneesBuckets.emptyStats('__focus_probe')")
+        pg.evaluate("window.dispatchEvent(new Event('focus'))")
+        assert draft_item.locator('.word-history').is_visible()
         b.close()
