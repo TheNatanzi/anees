@@ -94,7 +94,29 @@ def test_word_history_audio_uses_the_event_offset_and_reliable_player():
     html = (DOCS / 'index.html').read_text(encoding='utf-8')
     assert 'js/transcript-player.js?v=20260912-history-audio-v1' in html
     assert 'historyPlayer.playFrom(b,Number(b.dataset.off))' in html
-    assert 'id="history-audio-status"' in html
+    assert 'class="word-history" hidden' in html
+    assert "if(item.classList.contains('open'))" in html
+    assert "openHistoryItem)closeHistory(openHistoryItem)" in html
+    assert 'class="mute history-audio-status"' in html
+
+
+def test_listening_counts_only_timed_amal_words():
+    from playwright.sync_api import sync_playwright
+    url = (DOCS / 'index.html').resolve().as_uri()
+    events = [
+        {'word_key': 'x', 'lesson_date': '2026-09-04', 't_start': 2, 'speaker': 'Amal'},
+        {'word_key': 'x', 'lesson_date': '2026-09-11', 't_start': 3, 'speaker': 'Amal'},
+        {'word_key': 'x', 'lesson_date': '2026-09-11', 't_start': 4, 'speaker': 'Medi'},
+        {'word_key': 'x', 'lesson_date': '2026-09-11', 't_start': -1, 'speaker': 'Amal'},
+    ]
+    with sync_playwright() as pw:
+        b = pw.chromium.launch(args=['--allow-file-access-from-files'])
+        pg = b.new_page()
+        pg.goto(url)
+        assert pg.evaluate('(events)=>AneesIndex.buildListening(events)', events) == {
+            'x': {'times_heard': 2, 'lesson_count': 2, 'last_heard': '2026-09-11'}
+        }
+        b.close()
 
 
 def test_loads_with_supabase_down():
@@ -116,4 +138,10 @@ def test_loads_with_supabase_down():
         assert pg.evaluate("document.querySelectorAll('.wrow').length") >= 1
         # Codex M7: with no stats at all, rows say – (never a fabricated 0 / never)
         assert pg.evaluate("document.querySelector('.wrow .seen').textContent") == '–' and pg.evaluate("document.querySelector('.wrow .badge').textContent") == '–'
+        # Word history opens beneath its own row as an accordion and toggles closed.
+        pg.click('.word-item .wrow')
+        assert pg.evaluate("document.querySelector('.word-item.open > .word-history').hidden === false")
+        assert pg.evaluate("document.querySelector('.word-item.open .wrow').getAttribute('aria-expanded')") == 'true'
+        pg.click('.word-item.open .wrow')
+        assert pg.evaluate("document.querySelector('.word-item.open') === null")
         b.close()
