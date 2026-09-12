@@ -132,6 +132,7 @@ def test_loads_with_supabase_down():
         ctx.route(re.compile(r'.*supabase\.co.*'), lambda route: route.abort())
         pg = ctx.new_page(); pg.goto(url)
         pg.wait_for_function('AneesIndex.offline === true', timeout=30000)
+        pg.wait_for_function("document.getElementById('banner').classList.contains('on')", timeout=30000)
         assert pg.evaluate("document.getElementById('banner').classList.contains('on')")
         assert pg.evaluate('AneesIndex.words.length') >= 2000
         pg.click('.tab[data-tab="words"]'); pg.fill('#q', 'mabsoot'); pg.wait_for_timeout(200)
@@ -155,4 +156,19 @@ def test_loads_with_supabase_down():
         assert pg.evaluate("document.querySelectorAll('.word-item').length > 0")
         assert pg.evaluate("[...document.querySelectorAll('.word-item .en i')].every(x=>x.textContent==='Verbs · Past')")
         assert pg.evaluate("AneesIndex.verbTense({topic:'Verbs List'}) === 'present' && AneesIndex.verbTense({topic:'Past Tense'}) === 'past' && AneesIndex.verbTense({topic:'Command Tense'}) === 'command'")
+
+        # Every playable draft match can be reviewed in place. The choice is
+        # kept locally when Supabase is unavailable and will sync later.
+        pg.select_option('#f-topic', '')
+        pg.select_option('#f-draft', 'latest')
+        draft_item = pg.locator('.word-item').filter(has=pg.locator('.draft-use')).first
+        draft_item.locator('.wrow').click()
+        row = draft_item.locator('.draft-review-row').filter(has=pg.locator('.draft-play')).first
+        row.wait_for()
+        assert row.locator('.draft-choice').count() == 3
+        row.locator('[data-verdict="correct"]').click()
+        assert row.locator('[data-verdict="correct"]').get_attribute('aria-pressed') == 'true'
+        assert pg.evaluate("Object.values(JSON.parse(localStorage.getItem('anees-draft-reviews'))).some(r=>r.verdict==='correct')")
+        row.locator('.draft-play').click()
+        assert pg.evaluate("document.getElementById('player').getAttribute('src').includes('lessons/2026-09-11/clips/')")
         b.close()

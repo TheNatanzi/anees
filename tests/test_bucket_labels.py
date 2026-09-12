@@ -8,7 +8,9 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 def node(script):
-    result = subprocess.run(['node', '-e', script], cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
+    # Feed JavaScript over stdin so large inline page scripts do not exceed
+    # Windows' command-line length limit.
+    result = subprocess.run(['node', '-'], input=script, cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
     assert result.returncode == 0, result.stderr
     return json.loads(result.stdout)
 

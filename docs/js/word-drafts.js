@@ -7,7 +7,10 @@
       let count=0;
       for(const w of Object.values(l.words)){
         if(!Array.isArray(w.events)||w.count!==w.events.length||!Number.isInteger(w.count)||w.count<1)throw Error('Invalid draft count');
-        for(const e of w.events)if(typeof e.row_id!=='string'||!Number.isFinite(e.timeline_start)||e.timeline_start<0||e.status!=='unreviewed')throw Error('Invalid draft evidence');
+        for(const e of w.events){
+          if(typeof e.row_id!=='string'||!Number.isFinite(e.timeline_start)||e.timeline_start<0||e.status!=='unreviewed')throw Error('Invalid draft evidence');
+          if(e.clip!==undefined&&(!/^\d{4}-\d{2}-\d{2}_\d{6}_\d{6}\.mp3$/.test(e.clip)||!Number.isFinite(e.clip_offset)||e.clip_offset<0))throw Error('Invalid draft clip');
+        }
         count+=w.count;
       }
       if(l.word_count!==Object.keys(l.words).length||l.occurrence_count!==count)throw Error('Draft summary mismatch');

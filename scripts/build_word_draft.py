@@ -13,6 +13,24 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def attach_clips(result, clips_dir):
+    """Attach the shortest published clip containing each draft timestamp."""
+    clips = []
+    for path in Path(clips_dir).glob('*.mp3'):
+        match = re.search(r'_(\d{6})_(\d{6})\.mp3$', path.name, re.I)
+        if match:
+            clips.append((int(match.group(1)) / 10, int(match.group(2)) / 10, path.name))
+    for word in result['words'].values():
+        for event in word['events']:
+            t = event['timeline_start']
+            choices = [clip for clip in clips if clip[0] <= t <= clip[1]]
+            if choices:
+                start, _, name = min(choices, key=lambda clip: (clip[1] - clip[0], clip[0]))
+                event['clip'] = name
+                event['clip_offset'] = round(max(0, t - start), 6)
+    return result
+
+
 def norm(text):
     text = unicodedata.normalize('NFKC', text)
     text = ''.join(c for c in text if unicodedata.category(c) != 'Mn' and c != 'ـ')
@@ -96,6 +114,7 @@ if __name__ == '__main__':
     parser.add_argument('--transcript', type=Path, required=True)
     parser.add_argument('--vocab', type=Path, required=True)
     parser.add_argument('--fetch-vocab', action='store_true', help='Read active database vocabulary into a new private snapshot')
+    parser.add_argument('--clips', type=Path, help='Published lesson clip directory for inline draft playback')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     if args.fetch_vocab:
@@ -109,6 +128,8 @@ if __name__ == '__main__':
     if isinstance(words, dict):
         words = words['items']
     result = build(data, words)
+    if args.clips:
+        attach_clips(result, args.clips)
     result['source_sha256'] = digest(args.transcript)
     result['vocab_sha256'] = digest(args.vocab)
     artifact = {'schema_version': 1, 'updated_at': datetime.now(timezone.utc).isoformat(), 'lessons': [result]}

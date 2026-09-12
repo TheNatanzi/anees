@@ -8,7 +8,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
-from build_word_draft import build
+from build_word_draft import attach_clips, build
 
 
 def fixture(texts, speaker='Medi'):
@@ -55,6 +55,16 @@ class DraftTests(unittest.TestCase):
         d = fixture(['كلمة']);before = copy.deepcopy(d)
         build(d, [{'key': 'k', 'arabic': 'كلمة'}])
         self.assertEqual(d, before)
+
+    def test_shortest_containing_clip_is_attached(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as td:
+            for name in ('2026-09-10_000000_000100.mp3', '2026-09-10_000004_000008.mp3'):
+                (Path(td) / name).touch()
+            result = build(fixture(['كلمة']), [{'key': 'k', 'arabic': 'كلمة'}])
+            event = attach_clips(result, td)['words']['k']['events'][0]
+            self.assertEqual(event['clip'], '2026-09-10_000004_000008.mp3')
+            self.assertAlmostEqual(event['clip_offset'], 0.2)
 
     def test_js_validation_is_display_only(self):
         js = (ROOT / 'docs/js/word-drafts.js').read_text(encoding='utf-8')
