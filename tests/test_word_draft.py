@@ -63,7 +63,7 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const d=JSON.parse(fs.readFileSync('docs/data/lesson-word-drafts.json','utf8'));
 const before=JSON.stringify(d);const good=AneesWordDrafts.valid(d);const l=AneesWordDrafts.latest(good);
-assert.equal(l.date,'2026-09-10');assert.equal(l.word_count,70);assert.equal(l.occurrence_count,169);
+assert.equal(l.date,'2026-09-11');assert.equal(l.word_count,57);assert.equal(l.occurrence_count,104);
 assert.equal(JSON.stringify(d),before);assert.equal(AneesWordDrafts.word(l,'__proto__'),null);
 assert(AneesWordDrafts.link(l,{row_id:'a:b'}).endsWith('#a%3Ab'));
 const bad=JSON.parse(before);bad.lessons[0].occurrence_count++;assert.throws(()=>AneesWordDrafts.valid(bad));
