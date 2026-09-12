@@ -37,6 +37,16 @@ def new_recordings(state):
         m = NAME_RE.match(p.name)
         if not m or p.stat().st_size < MIN_BYTES or p.name in state:
             continue
+        # A completed participant-track lesson is the higher-quality source.
+        # Do not later overwrite it when Google's mixed recording arrives.
+        summary = LESSONS / m.group(1) / 'summary.json'
+        if summary.exists():
+            try:
+                saved = json.load(io.open(summary, encoding='utf-8'))
+                if saved.get('speaker_split') == 'ok: one audio track per person (Recall bot)':
+                    continue
+            except (OSError, ValueError):
+                pass
         out.append((p, m.group(1), f'{m.group(2)}{m.group(3)}'))
     return out
 

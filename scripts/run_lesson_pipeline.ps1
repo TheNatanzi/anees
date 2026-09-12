@@ -2,4 +2,5 @@
 $env:ELEVENLABS_API_KEY=[Environment]::GetEnvironmentVariable("ELEVENLABS_API_KEY","User")
 $env:PYTHONIOENCODING="utf-8"
 Set-Location C:\dev\anees
+python scripts\process_recall_queue.py *>> data\lessons\pipeline.log
 python scripts\lesson_pipeline.py *>> data\lessons\pipeline.log
