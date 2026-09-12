@@ -82,6 +82,21 @@ def test_tabs_dark_light_and_search_speed():
         b.close()
 
 
+def test_word_history_audio_uses_the_event_offset_and_reliable_player():
+    from playwright.sync_api import sync_playwright
+    url = (DOCS / 'index.html').resolve().as_uri()
+    with sync_playwright() as pw:
+        b = pw.chromium.launch(args=['--allow-file-access-from-files'])
+        pg = b.new_page()
+        pg.goto(url)
+        assert pg.evaluate("Math.abs(AneesIndex.clipOffset({clip:'2026-09-11_002334_002517.mp3',t_start:238.03})-4.63)<0.001")
+        b.close()
+    html = (DOCS / 'index.html').read_text(encoding='utf-8')
+    assert 'js/transcript-player.js?v=20260912-history-audio-v1' in html
+    assert 'historyPlayer.playFrom(b,Number(b.dataset.off))' in html
+    assert 'id="history-audio-status"' in html
+
+
 def test_loads_with_supabase_down():
     """Served over http like GitHub Pages (a file:// fetch of data/words.json is blocked by Chromium)."""
     import threading, http.server, functools, socket

@@ -49,13 +49,20 @@ footer{color:var(--mute);font-size:12px;margin:30px 0 10px}
 <audio id="player" preload="none"></audio>
 <footer id="foot">Data: Amal's Google Doc (imported one-way), lesson recordings, Medi's flashcards. Unknown = –.</footer>
 </main>
-<script src="js/config.js"></script><script src="js/arabizi.js"></script><script src="js/buckets.js?v=20260910-separate-v1"></script><script src="js/progress.js?v=20260910-separate-v1"></script><script src="js/word-drafts.js?v=20260910-v1"></script>
+<script src="js/config.js"></script><script src="js/arabizi.js"></script><script src="js/buckets.js?v=20260910-separate-v1"></script><script src="js/progress.js?v=20260910-separate-v1"></script><script src="js/word-drafts.js?v=20260910-v1"></script><script src="js/transcript-player.js?v=20260912-history-audio-v1"></script>
 <script>
 const A=window.AneesArabizi, esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 const LS=(k,v)=>{ try{ if(v===undefined) return JSON.parse(localStorage.getItem(k)||'null'); localStorage.setItem(k,JSON.stringify(v)); }catch(e){ return null; } };
 const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon};
 let words=[], stats={}, lessons=[], rules=[], offline=false, idx=[];
 let wordDraft=null,draftError=false;
+const historyAudio=document.getElementById('player');
+let historyButtons=[],historyClip='';
+const historyPlayer=window.AneesTranscriptPlayer.createPlayer({audio:historyAudio,
+  status:text=>{const el=document.getElementById('history-audio-status');if(el)el.textContent=text;},
+  needFile:()=>{const el=document.getElementById('history-audio-status');if(el)el.textContent='Audio is unavailable for this moment.';},
+  active:selected=>historyButtons.forEach(button=>{const on=button===selected;button.classList.toggle('on',on);button.setAttribute('aria-pressed',String(on));button.textContent=(on?'❚❚ ':'▶ ')+button.dataset.time;})});
+function clipOffset(e){const t=Number(e.t_start),m=String(e.clip||'').match(/_(\d+)_(\d+)\.mp3$/i);return Number.isFinite(t)&&m?Math.max(0,t-Number(m[1])/10):0;}
 async function get(path){ const r=await fetch(ANEES.url+'/rest/v1/'+path,{headers:H}); if(!r.ok) throw new Error(path+' '+r.status); return r.json(); }
 async function loadAll(){
   try{ let all=[], off=0; while(true){ const part=await get('words?select=key,arabizi,arabic,english,plural,topic,subtopic,doc_order,aliases,house_spelling&active=eq.true&order=doc_order&limit=1000&offset='+off); all=all.concat(part); if(part.length<1000) break; off+=1000; }
@@ -108,7 +115,7 @@ function renderWords(){ const q=document.getElementById('q').value, fb=document.
     <div class="meta scores"><div><strong class="score-title">Speaking</strong>${badge(w.key)}<div class="score-detail">Last lesson ${n(s.last_reviewed||'—')}<br>You used it <span class="seen">${n(s.times_seen)}</span> · without help ${n(s.independent_uses)}<br>Missed ${n(s.times_missed)}${s.intro_target&&s.intro_uses<5?`<br><b>Introduction: ${s.intro_uses}/5 uses</b>`:''}</div></div>
     <div><strong class="score-title">Flashcards</strong>${badge(w.key,'flashcards')}<div class="score-detail">Last practice ${n(c.last_reviewed?fmtDate(c.last_reviewed):'—')}<br>${n(c.attempts)} answers · ${n(c.first_try_right)} first-try correct<br>Missed ${n(c.times_missed)}</div></div></div></li>`; }).join('');
   document.querySelectorAll('.wrow').forEach(li=>li.onclick=()=>showHistory(li.dataset.key)); }
-async function showHistory(key){ const w=words.find(x=>x.key===key); const h=document.getElementById('history'); h.classList.add('on'); h.innerHTML=`<b>${esc(w.house_spelling||w.arabizi)}</b> <span class="ar">${esc(w.arabic)}</span> · ${esc(w.english)}<div class="mute">Speaking ${badge(key)} · Flashcards ${badge(key,'flashcards')}<br>loading history…</div>`;
+async function showHistory(key){ historyPlayer.setSource(null);historyClip='';const w=words.find(x=>x.key===key); const h=document.getElementById('history'); h.classList.add('on'); h.innerHTML=`<b>${esc(w.house_spelling||w.arabizi)}</b> <span class="ar">${esc(w.arabic)}</span> · ${esc(w.english)}<div class="mute">Speaking ${badge(key)} · Flashcards ${badge(key,'flashcards')}<br>loading history…</div>`;
   let ev=[], cards=[]; try{ ev=await get('word_events?select=lesson_date,t_start,speaker,prompted,correction,asked,miss_kind,clip,text&word_key=eq.'+encodeURIComponent(key)+'&order=lesson_date.asc,t_start.asc'); cards=await get('card_results?select=ts,result,attempt,mode&word_key=eq.'+encodeURIComponent(key)+'&order=ts.desc&limit=30'); }catch(e){ h.querySelector('.mute').textContent='history needs Supabase'; return; }
   const mm=t=>Number.isFinite(t)&&t>=0?`${String(Math.floor(t/60)).padStart(2,'0')}:${String(Math.floor(t%60)).padStart(2,'0')}`:'No audio time';
   const evidence=e=>{
@@ -123,11 +130,11 @@ async function showHistory(key){ const w=words.find(x=>x.key===key); const h=doc
     return 'Unknown evidence';
   };
   h.innerHTML=`<b>${esc(w.house_spelling||w.arabizi)}</b> <span class="ar">${esc(w.arabic)}</span> · ${esc(w.english)} <a href="#" id="hclose" style="float:right">close</a><div>Speaking ${badge(key)} · Flashcards ${badge(key,'flashcards')}</div>
-   <h2>Recorded and typed history, including Amal (${ev.length})</h2><ul class="list">${ev.map(e=>`<li>${e.clip?`<button class="play" data-clip="lessons/${esc(e.lesson_date)}/clips/${esc(e.clip)}">▶ ${mm(e.t_start)}</button>`:mm(e.t_start)} ${esc(e.lesson_date)} · ${esc(e.speaker)} <span class="badge">${esc(evidence(e))}</span> <span class="mute">${esc(e.text)}</span></li>`).join('')||'<li class="mute">no lesson evidence yet</li>'}</ul>
+   <h2>Recorded and typed history, including Amal (${ev.length})</h2><p class="mute" id="history-audio-status">Tap ▶ to play the word.</p><ul class="list">${ev.map(e=>`<li>${e.clip?`<button class="play" data-clip="lessons/${esc(e.lesson_date)}/clips/${esc(e.clip)}" data-off="${clipOffset(e)}" data-time="${mm(e.t_start)}" aria-pressed="false">▶ ${mm(e.t_start)}</button>`:mm(e.t_start)} ${esc(e.lesson_date)} · ${esc(e.speaker)} <span class="badge">${esc(evidence(e))}</span> <span class="mute">${esc(e.text)}</span></li>`).join('')||'<li class="mute">no lesson evidence yet</li>'}</ul>
    <h2>Flashcards (${cards.length})</h2><ul class="list">${cards.map(c=>`<li>${esc(String(c.ts).slice(0,16).replace('T',' '))} · ${c.result==='got'?'got it':'missed'} (try ${c.attempt}, ${c.mode==='en_first'?'English first':'Arabic first'})</li>`).join('')||'<li class="mute">no card results yet</li>'}</ul>`;
   const draft=draftWord(key);if(draft)h.insertAdjacentHTML('beforeend',`<h2>${esc(wordDraft.date)} · Draft uses (${draft.count})</h2><p class="mute">Possible word matches on Medi’s recording—not yet scored or audio-verified.</p><ul class="list">${draft.events.map(e=>`<li><a href="${esc(window.AneesWordDrafts.link(wordDraft,e))}">▶ ${mm(e.timeline_start)} · <bdi>${esc(e.text)}</bdi></a></li>`).join('')}</ul>`);
-  document.getElementById('hclose').onclick=e=>{e.preventDefault(); h.classList.remove('on');};
-  const a=document.getElementById('player'); h.querySelectorAll('.play').forEach(b=>b.onclick=()=>{ a.src=b.dataset.clip; a.currentTime=0; a.play(); }); }
+  document.getElementById('hclose').onclick=e=>{e.preventDefault();historyPlayer.setSource(null);historyClip='';h.classList.remove('on');};
+  historyButtons=[...h.querySelectorAll('.play')];historyButtons.forEach(b=>b.onclick=()=>{historyAudio.muted=false;historyAudio.volume=1;const clip=b.dataset.clip;if(historyClip!==clip){historyClip=clip;historyPlayer.setSource(clip);}historyPlayer.playFrom(b,Number(b.dataset.off));}); }
 function renderToday(){ const d=new Date(); const last=lessons[0]; const nw=Object.values(stats).filter(s=>s.bucket==='new').length, missed=Object.values(stats).filter(s=>s.bucket==='missed').length, recent=Object.values(stats).filter(s=>s.recent).length, ice=Object.values(stats).filter(s=>s.bucket==='ice_cold').length, cold=Object.values(stats).filter(s=>s.bucket==='cold').length;
   const cardCount=b=>Object.values(stats).filter(s=>s.progress_scores.flashcards.bucket===b).length;
   document.getElementById('today-h').textContent='Today, '+d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
@@ -163,5 +170,5 @@ function refreshLocalCards(){if(!Object.keys(stats).length)return;stats=window.A
 window.addEventListener('storage',e=>{if(e.key==='anees-card-log')refreshLocalCards();});
 window.addEventListener('focus',refreshLocalCards);
 showTab(location.hash.slice(1)||'today'); loadAll();
-window.AneesIndex={ search, get words(){return words;}, get stats(){return stats;}, get offline(){return offline;} };
+window.AneesIndex={ search, clipOffset, get words(){return words;}, get stats(){return stats;}, get offline(){return offline;} };
 </script><script src="js/build.js"></script><script src="js/stale.js"></script></body></html>
