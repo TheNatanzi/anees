@@ -4,6 +4,11 @@
   if (typeof window === 'undefined') return;
   const mine = window.ANEES_BUILD || '';
   const base = (function () { const s = document.querySelector('script[src*="js/stale.js"]'); return s ? s.getAttribute('src').replace(/js\/stale\.js.*$/, '') : ''; })();
+  if (!document.querySelector('script[src*="js/brand.js"]')) {
+    const branding = document.createElement('script');
+    branding.src = base + 'js/brand.js';
+    document.head.appendChild(branding);
+  }
   let bar = null;
   function show(theirs) {
     if (bar) return;
