@@ -6,7 +6,7 @@ function apply(events,review={}){
  const originals=new Map(events.map(e=>[e.id,e])),stale=[];
  let result=events.map(e=>{const p=review.patches?.[e.id];if(!p)return {...e};if(!matches(e,p.expected)){stale.push(e.id);return {...e};}return {...e,...p.changes};});
  for(const a of review.additions||[]){const anchor=originals.get(a.anchor_id);if(anchor?.source_sha256===a.expected_source&&!originals.has(a.event.id))result.push({...a.event});else if(!originals.has(a.event.id))stale.push(a.event.id);}
- result=result.map(e=>({...e,context:(e.context||[]).map(r=>{const edit=review.transcript_rows?.[r.row_id];return edit&&edit.original===r.text&&edit.source_sha256===e.source_sha256?{...r,reviewed_text:edit.display,transcript_note:edit.reason}:r;})}));
+ result=result.map(e=>({...e,context:(e.context||[]).map(r=>{const edit=review.transcript_rows?.[r.row_id];return edit&&edit.original===r.text&&edit.source_sha256===e.source_sha256?{...r,reviewed_text:edit.display,reviewed_arabizi:edit.arabizi,transcript_note:edit.reason}:r;})}));
  return {events:result,stale};
 }
 function escape(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}

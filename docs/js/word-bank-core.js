@@ -19,6 +19,7 @@ function sentence(e){
 }
 function prepareEvidence(events){return unique(events).map(e=>{
  if(isGrammar(e))return {...e,grammar_only:true,classification:"grammar",vocab_points:null,contextual_audit:true,reason:"Preposition or prepositional construction: tracked as grammar, excluded from vocabulary scoring."};
+ if(e.review_locked)return e;
  const own=(e.context||[]).find(r=>r.row_id===e.row_id&&r.speaker===e.speaker);
  const text=normalize(sentence(e)),word=normalize(e.text);
  if(e.speaker==='Medi'&&!e.grammar_only){
@@ -38,7 +39,7 @@ function prepareEvidence(events){return unique(events).map(e=>{
 });}
 function points(e,lane='speaking'){
  if(isGrammar(e))return null;
- if(e.observation_only||e.ignored||e.immediate_repeat||e.is_echo||e.grammar_only||e.classification==='grammar'||e.classification==='ignored')return null;
+ if(e.scored_in_event||e.observation_only||e.ignored||e.immediate_repeat||e.is_echo||e.grammar_only||e.classification==='grammar'||e.classification==='ignored')return null;
  if(lane==='speaking'&&e.speaker!=='Medi')return null;
  if(lane==='speaking'&&(!date(e)||!Number.isFinite(e.t_start)))return null;
  if(lane==='speaking'&&(e.assessment==='unresolved'||e.needs_review||e.wording_status==='unresolved'))return null;

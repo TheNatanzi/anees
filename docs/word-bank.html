@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Word Bank · Anees</title><link rel="stylesheet" href="css/word-bank.css?v=tutor-blue-1"></head><body><div id="anees-bank" aria-label="Anees Word Bank">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Word Bank · Anees</title><link rel="stylesheet" href="css/word-bank.css?v=reliability-1"></head><body><div id="anees-bank" aria-label="Anees Word Bank">
 
 <div class="ab-shell">
 <aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="index.html#today">Progress & Stats</a><a class="ab-nav" href="index.html#lessons">Lessons & Audio</a><button class="ab-nav" aria-current="page">Word Bank</button><a class="ab-nav" href="index.html#grammar">Grammar Rules</a><a class="ab-nav" href="cards.html">Flashcards & Review</a><a class="ab-nav" href="index.html#amal">Tutor Notes & Practice</a><a class="ab-nav" href="index.html#sys-rules">System Settings</a></nav></aside>
@@ -11,4 +11,16 @@
 <div class="ab-viewnote"><span id="ab-results" aria-live="polite"></span><span><a href="word-bank-audit.html">Review audit</a> · Green = correct · Orange = partial · Red = incorrect · Blue = tutor correction / confirmation</span></div>
 <div class="ab-grid ab-tablehead"><div>Word & forms</div><div>Meaning / topic</div><div>Level by form</div><div>Practice</div><div>Last said</div></div><section id="ab-rows" aria-label="Vocabulary words"></section>
 <button id="ab-more" class="ab-control" hidden>Show more words</button></main></div></div>
-<script src="js/config.js"></script><script src="js/word-bank-review.js?v=context-1"></script><script src="js/word-bank-core.js?v=tutor-blue-1"></script><script src="js/word-bank-arabizi.js?v=audit-6"></script><script src="js/word-bank.js?v=tutor-blue-1"></script></body></html>
+<script>
+(async function(){
+ try {
+  let build='reliability-1';
+  try{const response=await fetch('data/build.json',{cache:'no-store',signal:AbortSignal.timeout(10000)});if(response.ok){const latest=await response.json();if(latest.build)build=latest.build;}}catch{}
+  window.ANEES_WORD_BANK_BUILD=build;
+  document.querySelector('link[rel="stylesheet"]').href='css/word-bank.css?build='+encodeURIComponent(build);
+  for(const name of ['config','word-bank-review','word-bank-core','word-bank-arabizi','word-bank-context','word-bank']){
+   await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='js/'+name+'.js?build='+encodeURIComponent(build);script.onload=resolve;script.onerror=reject;document.body.append(script);});
+  }
+ }catch{document.getElementById('ab-notice').textContent='The latest Word Bank could not load. Please refresh to retry.';}
+})();
+</script></body></html>

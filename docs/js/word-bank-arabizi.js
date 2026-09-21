@@ -5,6 +5,7 @@ const AR=/[\u0621-\u063A\u0641-\u064A\u0671]/;
 const norm=s=>String(s||'').normalize('NFC').replace(/[\u064B-\u065F\u0670\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ى/g,'ي');
 // Common spoken forms and discourse words. These do not correct the source wording.
 const spoken={
+ 'جواب':'jawaab','المضارع':'el-muDaare3','مضارع':'muDaare3','سهل':'sahel','نجوم':'nujoom','نجمة':'nejme','ألوان':'alwaan','بلوز':'buluz','ريحته':'ree7to','السؤال':'el-su2aal','سؤال':'su2aal','درجة':'darjet',
  'أنا':'ana','إنت':'inta','إنتي':'inti','أنت':'inta','أنتي':'inti','إنتو':'intu','هو':'huwwe','هي':'hiyye','إحنا':'i7na','احنا':'i7na','هم':'humme','هما':'humma','همه':'humme',
  'شو':'shu','مش':'mish','ما':'ma','لا':'la','آه':'aah','اه':'ah','آآآ':'aaa','آآ':'aa','أآ':'aa','آ':'aa','مم':'mm','مهم':'muhim','امم':'umm','أمم':'umm','طيب':'6ayyeb','بس':'bas','يعني':'ya3ni',
  'كل':'kul','إشي':'ishi','اشي':'ishi','شي':'shi','كمان':'kaman','مرة':'marra','تاني':'tani','هلا':'halla','هلأ':'halla2','هلأك':'halla2ak','هلق':'halla2','اليوم':'el-yom','امبارح':'embare7','مبارح':'mbare7',
@@ -34,8 +35,6 @@ const spoken={
  'مغيم':'m8ayyem','مغيمة':'m8ayyme','مغني':'m8anni','شوب':'shob','درجة':'daraje','الحرارة':'el-7arara','حوالين':'7awalen','نفس':'nafs',
  'تمنتاش':'tmanta3sh','تمانين':'tamanin','ثمانين':'thamanin','تلاتة':'tlate','خمسة':'5amse','وعشرين':'w-3ishrin','ونص':'w-nu99','بسرعة':'bisur3a'
 };
-const letters={'ء':'2','أ':'2a','إ':'2i','آ':'aa','ا':'a','ب':'b','ت':'t','ث':'th','ج':'j','ح':'7','خ':'5','د':'d','ذ':'dh','ر':'r','ز':'z','س':'s','ش':'sh','ص':'9','ض':'D','ط':'6','ظ':'Z','ع':'3','غ':'8','ف':'f','ق':'2','ك':'k','ل':'l','م':'m','ن':'n','ه':'h','و':'w','ي':'y','ى':'a','ة':'a','ؤ':'2','ئ':'2','ٱ':'a','َ':'a','ِ':'i','ُ':'u','ً':'an','ٍ':'in','ٌ':'un','ْ':'','ٰ':'a','ـ':''};
-function fallback(word){let out='',last='';for(const c of word){if(c==='ّ'){out+=last;continue;}last=letters[c]??c;out+=last;}return out;}
 function create(words=[],catalog={}){
  const exact=new Map(),lexicon=new Map();
  function add(ar,latin){
@@ -46,14 +45,17 @@ function create(words=[],catalog={}){
  }
  for(const w of words)add(w.arabic,w.house_spelling||w.arabizi);
  for(const g of catalog.groups||[])for(const f of g.entries||[]){add(f.arabic,f.word);for(const p of f.persons||[])if(p.provenance==='document')add(p.arabic,p.word);}
+ // Pronouns in documented conjugations disambiguate homographs such as Hayy (here’s) versus heyye (she).
+ for(const [key,ar] of [['heiye ','هي'],['huwe ','هو'],['i7na ','إحنا'],['intu ','إنتو'],['hume ','هم']]){const form=words.find(w=>w.key?.startsWith(key)&&w.arabizi);if(form)lexicon.set(norm(ar),form.arabizi.split(/\s+/)[0]);}
  for(const [ar,latin] of Object.entries(spoken)){exact.set(ar,latin);if(!lexicon.has(norm(ar)))lexicon.set(norm(ar),latin);}
  function word(raw){
-  if(exact.has(raw))return {text:exact.get(raw),approximate:false};
+  if(/^آ+ه?$/.test(raw))return {text:raw.endsWith("ه")?"aaah":"aaa",approximate:false};
   const n=norm(raw);if(lexicon.has(n))return {text:lexicon.get(n),approximate:false};
+  if(exact.has(raw))return {text:exact.get(raw),approximate:false};
   for(const [prefix,latin] of [['وال','w-el-'],['بال','b-el-'],['لل','l-el-'],['ال','el-'],['و','w-']]){
    if(n.startsWith(prefix)&&lexicon.has(n.slice(prefix.length)))return {text:latin+lexicon.get(n.slice(prefix.length)),approximate:false};
   }
-  return {text:fallback(raw),approximate:true};
+  return {text:raw,approximate:true}; // Keep Arabic when vowels/spelling are not documented; never invent a consonant string.
  }
  return function render(text){let approximate=false;const source=String(text||'');const value=source.replace(/ـ/g,'').replace(/[\u061C\u200E\u200F\u202A-\u202E\u2066-\u2069]/g,'').replace(/[\u0621-\u063A\u0641-\u065F\u0670\u0671]+/g,s=>{const w=word(s);approximate ||= w.approximate;return w.text;}).replace(/،/g,',').replace(/؟/g,'?').replace(/؛/g,';');return {text:value,source,generated:AR.test(source),approximate};};
 }
