@@ -10,10 +10,10 @@ function apply(events,review={}){
  return {events:result,stale};
 }
 function escape(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function mark(text,parts=[]){
+function mark(text,parts=[],partial=[]){
  text=String(text??'');const ranges=[];
- for(const part of parts.filter(Boolean)){const re=new RegExp(String(part).replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'giu');let m;while((m=re.exec(text))){const left=text[m.index-1]||'',right=text[m.index+m[0].length]||'';if(!/[\p{L}\p{N}]/u.test(left)&&!/[\p{L}\p{N}]/u.test(right))ranges.push([m.index,m.index+m[0].length]);}}
- ranges.sort((a,b)=>a[0]-b[0]);let out='',at=0;for(const [a,b] of ranges){if(a<at)continue;out+=escape(text.slice(at,a))+'<mark class="ab-wrong" title="Incorrect word or pronunciation">'+escape(text.slice(a,b))+'</mark>';at=b;}return out+escape(text.slice(at));
+ for(const [kind,list] of [["wrong",parts],["partial",partial]])for(const part of list.filter(Boolean)){const re=new RegExp(String(part).replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'giu');let m;while((m=re.exec(text))){const left=text[m.index-1]||'',right=text[m.index+m[0].length]||'';if(!/[\p{L}\p{N}]/u.test(left)&&!/[\p{L}\p{N}]/u.test(right))ranges.push([m.index,m.index+m[0].length,kind]);}}
+ ranges.sort((a,b)=>a[0]-b[0]);let out='',at=0;for(const [a,b,kind] of ranges){if(a<at)continue;out+=escape(text.slice(at,a))+'<mark class="ab-'+kind+'" title="'+(kind==='partial'?'Partial credit':'Incorrect word or pronunciation')+'">'+escape(text.slice(a,b))+'</mark>';at=b;}return out+escape(text.slice(at));
 }
 const api={apply,matches,mark};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.AneesWordBankReview=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
