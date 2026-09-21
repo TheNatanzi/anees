@@ -42,12 +42,34 @@ function chart(series){
  const dots=series.map((p,i)=>`<circle cx="${x(i)}" cy="${y(p.known)}" r="${series.length===1?4:2}" fill="var(--ab-accent)"><title>${p.date}: ${p.known} known, ${p.mastered} mastered</title></circle>`).join('');
  return `<svg class="vp-chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Recorded vocabulary growth: ${series[0].known} known on ${series[0].date}, ${series.at(-1).known} on ${series.at(-1).date}">${grid}<path class="vp-known" d="${path('known')}"/><path class="vp-mastered" d="${path('mastered')}"/>${dots}${ticks}</svg><details class="vp-method"><summary>View exact daily counts</summary><table class="vp-history-table"><thead><tr><th>Date</th><th>Known</th><th>Mastered</th></tr></thead><tbody>${series.map(p=>`<tr><td>${p.date}</td><td>${p.known}</td><td>${p.mastered}</td></tr>`).join('')}</tbody></table></details>`;
 }
+function aggregate(){
+ const now=M.today(new Date()),cut=now-period;
+ const valid=rows.filter(r=>!r.grammar_only),all=stats.all;
+ const topicMap=new Map();
+ for(const x of all){const name=x.row.topic||'Other',v=topicMap.get(name)||{total:0,known:0,attempted:0};v.total++;v.known+=['Good','Mastered'].includes(x.form.speaking.status);v.attempted+=x.form.speaking.status!=='Untested';topicMap.set(name,v);}
+ const topics=[...topicMap].map(([name,v])=>({name,...v,rate:v.attempted?Math.round(v.known/v.attempted*100):0})).sort((a,b)=>b.total-a.total||a.name.localeCompare(b.name));
+ const attempts=all.flatMap(x=>x.form.speaking.attempts).filter(e=>{const d=M.day(C.date(e));return d!==null&&d<=now&&d>cut;});
+ const recall={Independent:attempts.filter(e=>e.p===1).length,Assisted:attempts.filter(e=>e.p===.5).length,Missed:attempts.filter(e=>e.p===0).length};
+ const typeMap=new Map();for(const r of valid){const type=r.type||'Word',v=typeMap.get(type)||{forms:0,known:0};for(const f of r.entries){v.forms++;v.known+=['Good','Mastered'].includes(f.speaking.status);}typeMap.set(type,v);}
+ return {topics,recall,types:[...typeMap].map(([name,v])=>({name,...v})).sort((a,b)=>b.forms-a.forms),attempts};
+}
+function topicRows(items){return items.slice(0,8).map(v=>`<div class="vp-topic"><div><strong>${esc(v.name)}</strong><span>${v.known} known · ${v.total} studied forms</span></div><div class="vp-ring" style="--p:${v.rate}">${v.attempted?v.rate+'%':'—'}</div></div>`).join('')||'<p class="ab-sub">Topic totals will appear when vocabulary is available.</p>';}
+function recallView(data){const total=Object.values(data).reduce((a,b)=>a+b,0);return `<div class="vp-donut" style="--ind:${total?data.Independent/total*100:0};--assist:${total?(data.Independent+data.Assisted)/total*100:0}"><span><strong>${total}</strong><small>scored attempts</small></span></div><div class="vp-key">${Object.entries(data).map(([k,n],i)=>`<div><i class="vp-dot vp-dot-${i}"></i><span>${k}</span><strong>${n}</strong></div>`).join('')}</div>`;}
+function typeRows(items){const max=Math.max(1,...items.map(x=>x.forms));return items.slice(0,7).map(v=>`<div class="vp-type"><div><strong>${esc(v.name)}</strong><span>${v.known}/${v.forms} known</span></div><span class="vp-track"><span class="vp-fill" style="width:${v.forms/max*100}%"></span></span></div>`).join('');}
+function milestones(series,a){
+ if(!series.length)return '<p class="ab-sub">Milestones will appear after scored lesson evidence is available.</p>';
+ const end=series.at(-1),first=series[0],marks=[[first.date,'First recorded vocabulary evidence']];
+ for(const n of [25,50,100,250,500,1000]){const hit=series.find(x=>x.known>=n);if(hit)marks.push([hit.date,`${n} forms reached Good or Mastered`]);}
+ marks.push([end.date,`${end.known} known · ${end.mastered} mastered now`]);
+ return [...new Map(marks.map(x=>[x.join('|'),x])).values()].slice(-6).reverse().map(([date,label],i)=>`<div class="vp-milestone"><i>${i?'':'◆'}</i><div><strong>${esc(label)}</strong><span>${esc(date)}</span></div></div>`).join('');
+}
 function render(){
  stats=M.summary(rows,new Date(),period);
  const metrics=[['Words known',stats.known,'Good + Mastered'],['Mastered',stats.mastered,'Across separate lessons'],[`Practised · ${period} days`,stats.practised,'Unique scored entries'],[`Newly added · ${period} days`,stats.newCount,'Document dates '+(stats.newCount===null?'not yet recorded':'verified')],['Memory at risk',stats.atRisk,'At risk + High risk'],['Not yet checked',stats.unchecked,'No scored evidence']];
  $('vp-metrics').innerHTML=metrics.map(([title,n,desc])=>`<div class="ab-metric"><div class="ab-metric-label">${esc(title)}</div><div class="ab-number">${n===null?'—':n.toLocaleString()}</div><div class="ab-tiny">${esc(desc)}</div></div>`).join('');
+ const series=M.growth(rows,new Date(),period),a=aggregate();
  $('vp-status-bars').innerHTML=bars(stats.statusCounts,'status');$('vp-memory-bars').innerHTML=bars(stats.memoryCounts,'memory');
- $('vp-growth').innerHTML=chart(M.growth(rows,new Date(),period));
+ $('vp-growth').innerHTML=chart(series);$('vp-topics').innerHTML=topicRows(a.topics);$('vp-recall').innerHTML=recallView(a.recall);$('vp-types').innerHTML=typeRows(a.types);$('vp-milestones').innerHTML=milestones(series,a);
 }
 $('vp-period').onchange=e=>{period=Number(e.target.value);render();};$('vp-retry').onclick=load;
 window.AneesVocabularyProgress={reload:load,get rows(){return rows;},get stats(){return stats;}};load();
