@@ -810,14 +810,14 @@
       "changes": {
         "contextual_audit": true,
         "audit_version": "2026-09-21-context-v1",
-        "reason": "New connected answer to a question. No word-specific error established; tutor use of the word in a question is not sufficient evidence of help.",
-        "assessment": "independent",
-        "vocab_points": 1,
+        "reason": "Repetition after Amal supplied nejme in the same correction exchange. The Farsi-name comment discusses the supplied word; it is not a new independent retrieval. Retained in transcript, excluded from counts and scores.",
+        "assessment": "helped",
+        "vocab_points": null,
         "ignored": false,
         "observation_only": false,
         "needs_review": false,
-        "immediate_repeat": false,
-        "is_echo": false,
+        "immediate_repeat": true,
+        "is_echo": true,
         "grammar_only": false,
         "classification": "lexical"
       }
@@ -3121,6 +3121,46 @@
         "immediate_repeat": true,
         "vocab_points": null,
         "reason": "Opening fragment of the same answer; scored once on the completed kul shee kharab sentence."
+      }
+    },
+    "a0feb4c83d2506c1851f5330584998d3642f6c28a11dd8378a05c2190067d120": {
+      "expected": {
+        "source_sha256": "3eafa069bd8ed762b7904c5510ce9ccde5603fd732d6336d9c7f1deeb92b5570",
+        "row_id": "anees-20260911-recall-medi:row:612",
+        "word_key": "nejme",
+        "text": "نجمة.",
+        "t_start": 558.795565139,
+        "t_end": 559.415565139,
+        "assessment": "helped",
+        "reason": "Same vocabulary supplied by Amal within 15 seconds; repetition is practice, not independent credit"
+      },
+      "changes": {
+        "contextual_audit": true,
+        "assessment": "helped",
+        "vocab_points": null,
+        "immediate_repeat": true,
+        "is_echo": true,
+        "reason": "Repetition after Amal supplied nejme in the same correction exchange. The Farsi-name comment discusses the supplied word; it is not a new independent retrieval. Retained in transcript, excluded from counts and scores."
+      }
+    },
+    "a6cc6a57e639e29bccb844336dd70ff82e1872723134e43cbcdbc200ca577b53": {
+      "expected": {
+        "source_sha256": "3eafa069bd8ed762b7904c5510ce9ccde5603fd732d6336d9c7f1deeb92b5570",
+        "row_id": "anees-20260911-recall-medi:row:614",
+        "word_key": "nejme",
+        "text": "نجمة",
+        "t_start": 565.165565139,
+        "t_end": 565.165565139,
+        "assessment": "helped",
+        "reason": "Trailing nejme repeats the target from the preceding nejme is a name in Farsi statement, without another sentence."
+      },
+      "changes": {
+        "contextual_audit": true,
+        "assessment": "helped",
+        "vocab_points": null,
+        "immediate_repeat": true,
+        "is_echo": true,
+        "reason": "Repetition after Amal supplied nejme in the same correction exchange. The Farsi-name comment discusses the supplied word; it is not a new independent retrieval. Retained in transcript, excluded from counts and scores."
       }
     }
   },
