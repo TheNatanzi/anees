@@ -485,3 +485,7 @@ Identical spelling is not sufficient to assign a meaning, tense, or error. Read 
 - Highlight only supported incorrect spans in red, in sentence and expanded context. Do not color an entire sentence for one word's error.
 - Source-bound review overlays are in docs/data/word-bank-review.json; changed source evidence must invalidate the overlay. Ambiguous cases remain unscored with a review reason.
 - Conversation excerpts are bound to original recording hashes and lesson timestamps. Display incomplete participant coverage; a successful file request is not proof that every speaker is present.
+
+### Prepositions — user update
+
+Treat standalone prepositions and prepositional constructions as grammar. Exclude them from vocabulary scores, accuracy, mastery and the default Word Bank list. Preserve their source history and audio in the Grammar · prepositions view. Do not exclude nouns or verbs merely because their sentence contains a preposition; yameen/right remains vocabulary. Existing flashcard records remain intact, but preposition answers do not contribute to Word Bank vocabulary metrics.

@@ -1,5 +1,14 @@
 const test=require('node:test'),assert=require('node:assert/strict'),C=require('../docs/js/word-bank-core.js'),R=require('../docs/js/word-bank-review.js');
 const base={id:'a',speaker:'Medi',lesson_date:'2026-09-19',t_start:1,t_end:2,spoken:true,row_id:'r',assessment:'helped',source_sha256:'source'};
+test('prepositions are grammar in both scoring lanes and retain history outside vocabulary',()=>{
+ const e={...base,word_key:'min',text:'min',assessment:'incorrect',vocab_points:0};
+ assert.equal(C.points(e),null);assert.equal(C.points({...e,result:'got'},'flashcards'),null);
+ const rows=C.models([{key:'min',arabizi:'min'},{key:'yamIn',arabizi:'yameen'}],{},[e,{...base,id:'y',word_key:'yamIn',text:'yameen',assessment:'independent'}],[]);
+ const prep=rows.find(r=>r.id==='min');assert(prep.grammar_only);assert.equal(prep.events.length,1);assert.equal(prep.spoke,0);
+ assert.deepEqual(C.filter(rows,{}).rows.map(r=>r.id),['yamIn']);assert.deepEqual(C.filter(rows,{usage:'grammar'}).rows.map(r=>r.id),['min']);
+ assert.equal(rows.find(r=>r.id==='yamIn').spoke,1);
+ assert.equal(C.points({...base,word_key:'ana ba7ki',text:'ba7ki ma3 Amal',assessment:'independent'}),1);
+});
 test('meaning request scores ree7a and excludes question wrapper',()=>{
  const context=[{row_id:'r',speaker:'Medi',text:'شو يعني ريحة؟'}];
  const es=C.prepareEvidence([{...base,word_key:'rI7a',text:'ريحة',context},{...base,id:'b',word_key:'shu',text:'شو',context}]);
