@@ -1,5 +1,7 @@
 # Spoken Vocabulary progress — September 21, 2026
 
+> **Status: superseded as a screen specification.** The calculations below remain useful implementation history, but they do not define the approved Progress & Stats layout. On September 21, Medi rejected the interpreted dashboard and directed: reproduce Stitch screen `d36a5029632e4f8fa37eb6378f590acf` exactly, after a one-question-at-a-time interview about every box. Do not simplify, substitute, or remove sections based on the phrase “broad aggregate data.” See `plan/SESSION-DECISIONS-2026-09-21.md`.
+
 The Word Bank specification and September 21 review rules remain authoritative for demonstrated grades, eligibility, scored forms, and correction handling. This page does not introduce a replacement grade or combine flashcards with speaking.
 
 ## Confirmed product decisions
