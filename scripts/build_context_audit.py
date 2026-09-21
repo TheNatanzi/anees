@@ -54,6 +54,9 @@ for pref in ['8873d9589f','bdb049b891','cadde19a66']:
  correct(find(pref),'Self-corrected before Amal supplied the answer: final target earns 1; original false start is not penalized.',self_corrected=True)
 ignore(find('2339cba193'),'Abandoned eighteen corrected to eighty by Medi before the tutor supplied eighty. No miss for the abandoned word.',scored_in_event=find('8873d9589f')['id'])
 # Existing genuine substitutions also follow the agreed both-words rule.
+for pref in ['80485988fd','bcbd99d026']:
+ e=find(pref);setp(e,e['reason'],wrong_parts=[])
+e=find('ac5a7ffbd9');setp(e,e['reason'],wrong_parts=['بخسر'])
 wrong(find('39b569c9bd'),'Explicitly swapped the meanings of annoyed and annoying; both vocabulary items receive a linked miss.',attempt_target={'word_key':'muz3ej'},confusion_pair=True)
 wrong(find('d8fc282b86'),'Eleven was offered for twelve and corrected by Amal; both vocabulary items receive a linked miss.',attempt_target={'word_key':'tna3sh'},confusion_pair=True)
 # Do not invent a confidently recognized spoken word for an uncertain ASR fragment.
