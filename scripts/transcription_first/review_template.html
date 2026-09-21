@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; media-src data:; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Anees · Listen and review</title>
+<style>
+:root{color-scheme:light;--ink:#23352f;--muted:#65736c;--paper:#f8f5ee;--card:#fffefa;--line:#deded2;--green:#215f49;--tint:#e8f2e9;--amber:#805211;--red:#962f2c;--shadow:0 6px 25px #193c2410;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:16px}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink)}button,input,select,textarea{font:inherit}button,.file-label{cursor:pointer;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:.6rem .85rem;min-height:42px}button:hover,.file-label:hover{border-color:var(--green);background:#f0f5ed}button:disabled{opacity:.45;cursor:default}button.primary,button[aria-pressed=true]{background:var(--green);color:#fff;border-color:var(--green)}button.danger{color:var(--red)}:focus-visible{outline:3px solid #deaf54;outline-offset:3px}a{color:var(--green)}header{max-width:1280px;margin:auto;padding:1.6rem 1.5rem .8rem}.brand{font-weight:750;letter-spacing:.12em;text-transform:uppercase;font-size:.75rem;color:var(--green)}h1{font:600 clamp(1.65rem,4vw,2.55rem)/1.2 Georgia,serif;margin:.5rem 0}h2{font-size:1.3rem;margin:.3rem 0 .6rem}h3{font-size:1rem;margin:0}p{line-height:1.5;margin:.5rem 0}.muted{color:var(--muted);font-size:.9rem}.toolbar,.row{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}.toolbar{justify-content:space-between}.tools{display:flex;gap:.5rem;flex-wrap:wrap}.shell{max-width:1280px;margin:auto;padding:0 1.5rem 5rem}.notice{background:#f2e9d5;border:1px solid #ddc89d;border-radius:12px;padding:.9rem 1rem;margin:.9rem 0}.notice.error{background:#fcebea;border-color:#cf9793}.notice:empty{display:none}.success{background:var(--tint);border-color:#b4ccbb}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:1.1rem;box-shadow:var(--shadow);margin:.8rem 0}.reviewer-card{border:2px solid #b7c5b7}.reviewer-card select{margin:.5rem}.overview{display:flex;justify-content:space-between;gap:.75rem;flex-wrap:wrap}.progress{height:7px;background:#e4e6dc;border-radius:10px;margin:1rem 0 .4rem;overflow:hidden}.progress>div{height:100%;background:var(--green);transition:width .2s}.nav{display:flex;align-items:center;justify-content:space-between;gap:.75rem;position:sticky;top:0;z-index:5;background:var(--paper);padding:.8rem 0}.nav select{max-width:min(52vw,430px)}select,input[type=number],input[type=text],textarea{border:1px solid #bcc6bb;background:#fff;color:var(--ink);border-radius:7px;padding:.6rem}textarea{width:100%;resize:vertical;line-height:1.7;min-height:88px;font-family:system-ui,"Noto Naskh Arabic",Arial,sans-serif;font-size:1.03rem}label{font-size:.9rem}label.block{display:block;margin:.5rem 0 .25rem}.window-title{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}.tag{display:inline-block;padding:.3rem .55rem;background:#eaf0e8;border:1px solid #d4dece;border-radius:6px;font-size:.78rem}.audio-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem}.audio-block{background:#f2f4ed;border-radius:10px;padding:.7rem}.audio-block button{width:100%;margin:.35rem 0}.audio-block span{display:block;font-size:.78rem;color:var(--muted)}audio{width:100%;margin:.7rem 0 .2rem}.candidates{display:grid;grid-template-columns:1fr 1fr;align-items:start;gap:1rem}.candidate{min-width:0}.candidate-heading{border-bottom:1px solid var(--line);padding-bottom:.8rem}.candidate-id{font-size:1.4rem;font-family:Georgia,serif;font-weight:700}.run{margin:1rem 0;padding:1rem 0;border-bottom:1px solid var(--line)}.run:first-of-type{margin-top:.2rem}.run-head{display:flex;align-items:center;justify-content:space-between;gap:.4rem;flex-wrap:wrap}.speaker{font-size:.77rem;color:var(--muted)}.raw{font-size:1.12rem;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere;padding:.7rem .8rem;background:#f7f6f0;border-radius:8px;margin:.65rem 0}.event{color:#755320;font-size:.88rem;border-left:3px solid #d9bd85;padding:.3rem .6rem;margin:.4rem 0;white-space:pre-wrap;overflow-wrap:anywhere}.verdicts{display:flex;gap:.4rem}.verdicts button{flex:1}.run.unreviewed{border-left:3px solid #e0d9c6;padding-left:.65rem}.run.reviewed{border-left:3px solid #91b293;padding-left:.65rem}.small{font-size:.78rem}.field-pair{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}.field-pair>label{display:flex;flex-direction:column;gap:.25rem}.field-pair select{width:100%}details{margin:.7rem 0}summary{cursor:pointer;color:var(--green);padding:.35rem 0}fieldset{border:0;padding:0;margin:.8rem 0}legend{font-weight:650;margin-bottom:.4rem}.metric{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin:.6rem 0}.metric label{max-width:65%}.metric select{max-width:46%}.metric input{width:86px}.missing{border:1px dashed #b6c5b4;background:#f6f8f2;border-radius:8px;padding:.7rem;margin:.6rem 0}.footer-actions{display:flex;justify-content:space-between;align-items:center;gap:.8rem;flex-wrap:wrap}.check{display:flex;align-items:center;gap:.5rem}.check input{width:18px;height:18px}.source{font-size:.83rem;color:var(--amber);padding:.4rem 0}.hidden{display:none!important}#toast{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);z-index:50;background:var(--ink);color:#fff;padding:.8rem 1.1rem;border-radius:10px;max-width:90vw;box-shadow:var(--shadow)}dialog{border:1px solid var(--line);border-radius:15px;max-width:630px;width:calc(100% - 2rem);padding:1.3rem;background:var(--card);color:var(--ink)}dialog::backdrop{background:#14291fb3}.conflict-row{border-top:1px solid var(--line);padding:.8rem 0}.conflict-row select{display:block;width:100%;margin-top:.5rem}.privacy{font-size:.8rem;color:var(--muted);line-height:1.5}kbd{font:inherit;font-size:.8em;padding:.1rem .3rem;border:1px solid var(--line);border-radius:4px}.script-note{padding:.7rem 0}.empty{font-style:italic;color:var(--muted);padding:1rem 0}.stats{font-variant-numeric:tabular-nums}.original-label{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.hidden-count{background:#f2f0e6;padding:.6rem;border-radius:8px;font-size:.83rem}.review-lock{padding:1rem;text-align:center;color:var(--muted)}@media(max-width:800px){.candidates{grid-template-columns:1fr}.shell{padding:0 .8rem 4rem}header{padding:1.2rem .8rem .5rem}.audio-controls{grid-template-columns:1fr}.audio-block{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}.audio-block button{width:auto;flex:1}.audio-block span{width:100%}.toolbar{align-items:flex-start}.field-pair{grid-template-columns:1fr}.nav{gap:.35rem}.nav button{padding:.55rem}.candidate .card{padding:.9rem}.metric select{max-width:50%}}@media print{.tools,.nav,audio,button,#toast{display:none}.candidates{display:block}.card{break-inside:avoid;box-shadow:none}}
+.verdicts{flex-wrap:wrap}.verdicts button{flex:1 1 5.5rem}
+</style>
+</head>
+<body>
+<header>
+<div class="brand">Anees · Human transcript review</div>
+<h1>Listen to what was actually said.</h1>
+<p>Keep the hesitation, the unfinished word, and the mistaken attempt. A fluent correction belongs in a later lesson review.</p>
+<div class="toolbar">
+<p class="muted" id="lesson-label"></p>
+<div class="tools"><button id="import-button">Import review</button><button id="export-button" class="primary">Download review JSON</button><input id="import-file" type="file" accept=".json,application/json" class="hidden"></div>
+</div>
+</header>
+<main class="shell">
+<div id="fatal" class="notice error" role="alert"></div>
+<div id="storage-warning" class="notice" role="status"></div>
+<section class="card reviewer-card" aria-labelledby="reviewer-title">
+<h2 id="reviewer-title">Who is reviewing?</h2>
+<div class="row"><label for="reviewer">Choose your own name to start</label><select id="reviewer"><option value="">Choose reviewer…</option><option value="Medi">Medi · my attempts</option><option value="Amal">Amal · Arabic wording</option></select><span id="save-status" class="muted" role="status"></span></div>
+<p class="muted">Medi and Amal have separate answers. Import each other's JSON to carry both reviews in one download. No account or upload is needed.</p>
+</section>
+<details class="card" id="instructions"><summary>How to review · read this first</summary>
+<p>Listen before judging. Review A and B independently. A/B ordering is fixed for this set; source names are hidden until you choose to reveal them.</p>
+<p>Choose <strong>Exact</strong> if the transcript matches what you hear. Choose <strong>Minor</strong> or <strong>Wrong</strong> and type what you actually hear if it needs a correction. Choose <strong>Can’t tell</strong> if you cannot determine the wording. Keep spoken mistakes, repetitions, fillers and incomplete words; do not substitute the intended correct word.</p>
+<p>There is no second confirmation step: clicking Exact confirms the original wording; entering a correction records the words you heard. An unfinished correction, <code>[unclear]</code>, or Can’t tell stays unverified. Use <strong>Add missing speech</strong> if needed, then <strong>Next clip</strong>. You may skip anything you cannot review; technical checks and notes are optional.</p>
+<p>The A/B comparison is calculated from your saved wording when you download your review. No overall vote is needed. It compares word edits only where the same audio has a shared, fully reviewed written reference; incomplete or conflicting evidence stays pending. Results are not shown while you review, so they cannot influence the next answer.</p>
+<p>Named speakers indicate the source track, not an acoustic identity check. Mixed-recording speaker labels remain uncertain. You can audition the mixed audio and each named track.</p>
+<p>Twenty 25-second windows already contain over eight minutes of audio. A careful first review can take longer than five minutes. Review a subset, download your progress, and resume later. The eventual 3–5 minute goal needs measurement.</p>
+<p>No human gold is assumed here. Downloads are human-review records; only explicitly confirmed wording is eligible for a reference set after conflicts are resolved.</p>
+<p class="privacy">This file contains lesson audio. Keep it private and pass it to Amal through Medi. The page sends no network requests. Browser storage is only a convenience; it may be unavailable or behave differently for local files, so download JSON before closing or moving this page.</p>
+</details>
+<div class="overview"><span id="progress-copy" class="stats muted">Choose a reviewer to begin.</span><span id="elapsed-copy" class="stats muted"></span></div>
+<div class="progress" aria-hidden="true"><div id="progress-fill" style="width:0"></div></div>
+<nav class="nav" aria-label="Review windows"><button id="previous" aria-label="Previous window">← Previous</button><select id="window-picker" aria-label="Choose a window"></select><button id="next" aria-label="Next window">Next →</button></nav>
+<section id="window-area"></section>
+<p class="privacy">Keyboard: <kbd>←</kbd> and <kbd>→</kbd> move between windows when you are not editing a field. Audio always uses the original clip. Text and audio events below are raw candidate evidence; no automatic Arabizi conversion is applied.</p>
+</main>
+<div id="toast" class="hidden" role="status"></div>
+<dialog id="import-dialog" aria-labelledby="import-title"><h2 id="import-title">Resolve imported answers</h2><p id="import-summary"></p><div id="import-choices"></div><div class="row"><button id="cancel-import">Cancel</button><button id="apply-import" class="primary">Apply selected choices</button></div></dialog>
+<script id="review-data" type="application/json">__REVIEW_DATA_JSON__</script>
+<script>
+'use strict';
+/* __REVIEW_COMPARISON_JS__ */
+(() => {
+const $ = id => document.getElementById(id);
+const METRIC_CHOICES = [['','Not checked'],['yes','Yes'],['no','No'],['uncertain','Uncertain'],['not_applicable','Not applicable']];
+const VERDICTS = ['exact','minor','wrong','cant_tell'];
+const CERTAINTIES = ['confirmed','unclear'];
+const METRIC_KEYS = ['learner_attempt_preserved','speaker_correct','timestamp_within_1s','recall_utterance_preserved'];
+const VALID_PREFS = ['A','B','tie','neither','uncertain'];
+const ROLES = ['Medi','Amal'];
+let DATA;
+try {
+  DATA = JSON.parse($('review-data').textContent);
+  if (!DATA || DATA.schema_version !== '1.0' || typeof DATA.lesson !== 'string' || !DATA.manifest_sha256 || !DATA.review_set_id || !Array.isArray(DATA.windows) || !DATA.windows.length) throw Error('The embedded review manifest is incomplete.');
+  const ids = new Set();
+  for (const w of DATA.windows) {
+    if (!w.id || ids.has(w.id) || !Number.isFinite(w.start) || !Number.isFinite(w.end) || w.end <= w.start || !w.audio || !Array.isArray(w.candidates)) throw Error('Invalid window manifest.');
+    ids.add(w.id);
+    if (w.candidates.length !== 2 || new Set(w.candidates.map(c=>c.id)).size !== 2 || !w.candidates.every(c=>['A','B'].includes(c.id)&&Array.isArray(c.runs))) throw Error('Each window needs one A and one B candidate.');
+    for (const c of w.candidates) {
+      const runIds = new Set();
+      for (const r of c.runs) {
+        if (!r.id || runIds.has(r.id) || typeof r.text !== 'string' || !Number.isFinite(r.start) || !Number.isFinite(r.end) || r.end < r.start) throw Error('Invalid run in review manifest.');
+        runIds.add(r.id);
+      }
+    }
+  }
+} catch (err) { $('fatal').textContent = 'Cannot open this review set: ' + err.message; $('reviewer').disabled=true; $('export-button').disabled=true; $('import-button').disabled=true; return; }
+const baseKey = 'anees-review-v1:' + DATA.review_set_id + ':' + DATA.manifest_sha256;
+const reviewers = Object.create(null);
+const protectedSaved = new Set();
+let reviewer = '', index = 0, focusOnly = true, revealed = false, activeRun = null;
+let lastInteraction = Date.now(), lastTick = Date.now(), saveTimer, toastTimer, player = null, stopAt = null, pendingImport = null;
+const iso = () => new Date().toISOString();
+const copy = x => JSON.parse(JSON.stringify(x));
+const seconds = x => Number.isFinite(x) ? Math.max(0,x) : 0;
+const duration = value => { const s=Math.floor(seconds(value));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); };
+const stamp = value => { const s=Math.max(0,Number(value)||0);return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'); };
+const timeRange = (a,b) => stamp(a)+'–'+stamp(b);
+const node = (tag,text,cls) => { const e=document.createElement(tag);if(text!==undefined&&text!==null)e.textContent=String(text);if(cls)e.className=cls;return e; };
+const button = (text,handler,cls) => { const b=node('button',text,cls);b.type='button';b.addEventListener('click',handler);return b; };
+const select = (choices,value,handler,label) => { const s=node('select');if(label)s.setAttribute('aria-label',label);for(const [v,t] of choices){const o=node('option',t);o.value=v;s.append(o);}s.value=value||'';s.addEventListener('change',()=>handler(s.value||null));return s; };
+function notify(text) { $('toast').textContent=text;$('toast').classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.add('hidden'),4200); }
+function emptyMetrics(){return {learner_attempt_preserved:null,speaker_correct:null,timestamp_within_1s:null,recall_utterance_preserved:null,unsupported_insertions:null};}
+function emptyReviewer(role){return {reviewer:role,updated_at:iso(),active_seconds:0,windows:{}};}
+function windowRecord(role=reviewer,w=DATA.windows[index]) {
+  const person=reviewers[role]||(reviewers[role]=emptyReviewer(role));
+  if(!person.windows[w.id]) person.windows[w.id]={id:w.id,status:'pending',active_seconds:0,playback_count:0,candidate_preference:null,source_names_revealed_at:null,notes:'',candidates:{}};
+  const record=person.windows[w.id];
+  for(const c of w.candidates) if(!record.candidates[c.id])record.candidates[c.id]={metrics:emptyMetrics(),runs:{},missing_speech:[]};
+  return record;
+}
+function runRecord(w,c,r){
+  const candidate=windowRecord(reviewer,w).candidates[c.id];
+  if(!candidate.runs[r.id])candidate.runs[r.id]={id:r.id,speaker:r.speaker||'Unknown',start:r.start,end:r.end,original_text:r.text,verdict:null,fixed_text:null,text_certainty:null,deliberate_error:null,active_seconds:0,updated_at:null};
+  return candidate.runs[r.id];
+}
+function markChanged(){if(!reviewer)return;reviewers[reviewer].updated_at=iso();lastInteraction=Date.now();clearTimeout(saveTimer);saveTimer=setTimeout(save,600);updateProgress();}
+function touchRun(c,r){activeRun={windowId:DATA.windows[index].id,candidateId:c.id,runId:r.id};lastInteraction=Date.now();}
+function save(){
+  if(!reviewer)return;
+  clearTimeout(saveTimer);
+  if(protectedSaved.has(reviewer)){$('save-status').textContent='Download to save';return;}
+  try{localStorage.setItem(baseKey+':'+reviewer,JSON.stringify({schema_version:'1.0',lesson:DATA.lesson,review_set_id:DATA.review_set_id,manifest_sha256:DATA.manifest_sha256,record:reviewers[reviewer]}));$('save-status').textContent='Saved on this browser · '+new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});}
+  catch(e){$('storage-warning').textContent='Browser saving is unavailable or full. Download review JSON now and before closing this page. Your current answers remain in memory.';$('save-status').textContent='Download to save';}
+}
+function readSaved(){
+  for(const role of ROLES){
+    try{
+      const raw=localStorage.getItem(baseKey+':'+role);if(!raw)continue;
+      const stored=JSON.parse(raw);
+      if(stored.lesson!==DATA.lesson||stored.review_set_id!==DATA.review_set_id||stored.manifest_sha256!==DATA.manifest_sha256)throw Error('Saved review belongs to another manifest.');
+      reviewers[role]=validateReviewer(stored.record,role);
+    }catch(e){protectedSaved.add(role);$('storage-warning').textContent='A saved '+role+' review could not be loaded safely. Use a downloaded JSON backup. Existing browser storage is protected; download JSON to save new answers.';}
+  }
+}
+function updateProgress(){
+  if(!reviewer)return;
+  const person=reviewers[reviewer];let checked=0,uncertain=0,exact=0,reviewed=0,total=0;
+  for(const w of DATA.windows){const wr=person.windows[w.id];if(wr&&completionIssues(w,wr).length===0)reviewed++;for(const c of w.candidates)for(const r of c.runs){if(!isRelevant(r))continue;total++;const rr=wr?.candidates?.[c.id]?.runs?.[r.id];if(rr?.verdict==='cant_tell')uncertain++;else if(rr?.verdict)checked++;if(rr?.verdict==='exact'&&rr.text_certainty==='confirmed')exact++;}}
+  $('progress-copy').textContent=reviewer+': '+(checked+uncertain)+'/'+total+' segments answered · '+uncertain+' can’t tell · '+exact+' exact · '+reviewed+'/'+DATA.windows.length+' clips answered';
+  $('elapsed-copy').textContent=duration(person.active_seconds)+' active review time';
+  $('progress-fill').style.width=(reviewed/DATA.windows.length*100)+'%';
+  for(let i=0;i<DATA.windows.length;i++){const w=DATA.windows[i],wr=person.windows[w.id];const done=wr&&completionIssues(w,wr).length===0;$('window-picker').options[i].textContent=(done?'✓ ':'')+(i+1)+'. '+timeRange(w.start,w.end)+' · '+(w.category||'Review');}
+}
+function isRelevant(r){return reviewer==='Medi'?(r.speaker==='Medi'||!['Medi','Amal'].includes(r.speaker)):(r.speaker==='Amal'||!['Medi','Amal'].includes(r.speaker)||/[\u0600-\u06ff]/u.test(r.text));}
+function isTrack(c){return /track|separate/i.test(c.source_kind||'');}
+function trackLabel(c,r){if(isTrack(c)&&['Medi','Amal'].includes(r.speaker))return r.speaker+' · source track (identity unverified)';const anonymous=String(r.speaker||'').match(/speaker[_ ]?(\d+)/i);return anonymous?'Anonymous speaker '+anonymous[1]+' · identity uncertain':'Mixed recording · speaker uncertain';}
+function pauseAudio(){if(player){player.pause();player.removeAttribute('src');player.load();}stopAt=null;}
+function playAudio(w,track,start=w.start,end=w.end){
+  if(!reviewer)return notify('Choose your reviewer name first.');
+  const source=w.audio[track];
+  if(typeof source!=='string'||!source.startsWith('data:audio/'))return notify('This audio source is unavailable in the embedded review file.');
+  const localStart=Math.max(0,start-w.start),localEnd=Math.min(w.end-w.start,end-w.start);
+  if(localEnd<=localStart)return notify('This run has no playable overlap with the frozen window.');
+  player.pause();player.src=source;stopAt=localEnd;
+  const wr=windowRecord();wr.playback_count++;markChanged();
+  $('now-playing').textContent=(track==='mixed'?'Mixed audio':track+' source track')+' · '+timeRange(Math.max(w.start,start),Math.min(w.end,end));
+  const begin=()=>{try{player.currentTime=localStart;const promise=player.play();if(promise)promise.catch(()=>notify('Playback was blocked. Use the audio player’s play control.'));}catch(e){notify('This browser could not seek the embedded audio.');}};
+  player.addEventListener('loadedmetadata',begin,{once:true});
+  player.load();
+}
+function editLabel(labelText,control){const label=node('label');label.append(node('span',labelText),control);return label;}
+function correctionCertainty(text,original){
+  if(typeof text!=='string'||!text.trim()||text===original)return null;
+  if(/\[\s*(unclear|inaudible|unintelligible|غير واضح|غير مسموع)\s*\]/iu.test(text))return 'unclear';
+  return 'confirmed';
+}
+function renderRun(w,c,r){
+  const rr=runRecord(w,c,r), section=node('section',null,'run '+(rr.verdict&&rr.verdict!=='cant_tell'?'reviewed':'unreviewed'));
+  section.dataset.runId=r.id;
+  section.addEventListener('focusin',()=>touchRun(c,r));section.addEventListener('pointerdown',()=>touchRun(c,r));
+  const head=node('div',null,'run-head');head.append(node('span',trackLabel(c,r),'speaker'),node('span',timeRange(r.start,r.end),'muted small'));
+  section.append(head,node('div','Raw speech · '+r.id,'original-label'));
+  const raw=node('p',r.text||'(No word text)','raw');raw.dir='auto';section.append(raw);
+  if(r.crosses_window_boundary||r.timing_warning)section.append(node('p','ASR timestamp crosses the clip boundary or covers a long span; timing is unverified. Listen rather than assuming silence. This clip cannot confirm the full raw span; it remains provisional.'+(typeof r.timing_warning_text==='string'?' '+r.timing_warning_text:typeof r.timing_warning==='string'?' '+r.timing_warning:''),'notice'));
+  for(const ev of r.events||[]){const e=node('p',(typeof ev==='string'?ev:(ev.text||ev.type||'audio event'))+(Number.isFinite(ev.start)?' · '+timeRange(ev.start,Number.isFinite(ev.end)?ev.end:ev.start):''),'event');e.dir='auto';section.append(e);}
+  const verdicts=node('div',null,'verdicts');
+  for(const v of VERDICTS){
+    const label=v==='cant_tell'?'Can’t tell':v[0].toUpperCase()+v.slice(1);
+    const b=button(label,()=>{
+      if(v==='exact'&&rr.fixed_text!==null&&rr.fixed_text!==r.text&&!window.confirm('Mark this Exact? This will replace your correction with the original transcript.'))return;
+      const previous=rr.verdict;
+      rr.verdict=v;rr.updated_at=iso();
+      if(v==='exact'){rr.fixed_text=r.text;rr.text_certainty='confirmed';}
+      else if(v==='cant_tell'){rr.text_certainty='unclear';}
+      else{if(rr.fixed_text===null)rr.fixed_text=r.text;if(previous==='cant_tell'||previous==='exact'||rr.fixed_text===r.text)rr.text_certainty=null;}
+      markChanged();renderWindow(true);
+    });
+    b.setAttribute('aria-pressed',String(rr.verdict===v));b.setAttribute('aria-label',label+' wording for candidate '+c.id+', run '+r.id);verdicts.append(b);
+  }section.append(verdicts);
+  if(rr.verdict){
+    if(rr.verdict==='minor'||rr.verdict==='wrong'){
+      const fixedLabel=node('label','What you actually hear (keep mistakes)','block');const area=node('textarea');area.dir='auto';area.value=rr.fixed_text??r.text;area.setAttribute('aria-label','Verbatim correction for candidate '+c.id+', run '+r.id);area.placeholder='Write the spoken form, or [unclear].';
+      const status=node('p',undefined,'muted small');
+      const updateStatus=()=>{status.textContent=rr.text_certainty==='confirmed'?'Correction saved.':rr.text_certainty==='unclear'?'Unclear wording stays unverified.':'Edit the wording to match what you hear, or choose Can’t tell.';};
+      area.addEventListener('input',()=>{rr.fixed_text=area.value;rr.text_certainty=correctionCertainty(area.value,r.text);rr.updated_at=iso();markChanged();updateStatus();});fixedLabel.append(area);section.append(fixedLabel,status);updateStatus();
+    }
+    const fields=node('div',null,'field-pair');
+    if(reviewer==='Medi'&&rr.verdict!=='cant_tell')fields.append(editLabel('Was the mistaken form deliberate?',select([['','Choose if relevant'],['yes','Yes, deliberate'],['no','No, unintentional'],['uncertain','Not sure'],['not_applicable','No learner error here']],rr.deliberate_error,v=>{rr.deliberate_error=v;rr.updated_at=iso();markChanged();},'Deliberate learner error')));
+    section.append(fields);
+    if(rr.verdict==='exact')section.append(node('p','Exact means the raw wording matches the audio. If you change the words, use Minor or Wrong.','muted small'));
+    if(rr.verdict==='exact'&&rr.text_certainty!=='confirmed')section.append(node('p','Your earlier answer is still unverified. Click Exact again if it matches what you hear, or choose Can’t tell.','notice'));
+    if(rr.verdict==='cant_tell')section.append(node('p','Left unverified and excluded from reference text. Any correction you entered is kept as a draft.','notice'));
+    section.append(button('Clear this run’s judgment',()=>{if(!window.confirm('Clear your judgment and correction for this run?'))return;rr.verdict=null;rr.fixed_text=null;rr.text_certainty=null;rr.deliberate_error=null;rr.updated_at=iso();markChanged();renderWindow(true);},'small'));
+  }
+  return section;
+}
+function renderMissing(w,c,record,container){
+  const list=node('div');
+  for(const missing of record.missing_speech){
+    const box=node('div',null,'missing');box.append(node('h3','Missing speech · '+missing.id));
+    const fields=node('div',null,'field-pair');
+    fields.append(editLabel('Speaker',select([['Unknown','Uncertain'],['Medi','Medi'],['Amal','Amal']],missing.speaker,v=>{missing.speaker=v;markChanged();},'Missing speech speaker')));
+for(const [key,title] of [['start','Start · lesson seconds'],['end','End · lesson seconds']]){const input=node('input');input.type='number';input.step='0.1';input.min=w.start;input.max=w.end;input.value=missing[key];input.addEventListener('change',()=>{const n=Number(input.value);if(!Number.isFinite(n)||n<w.start||n>w.end||(key==='start'&&n>=missing.end)||(key==='end'&&n<=missing.start)){input.value=missing[key];notify('Use an ordered start/end inside this window.');return;}missing[key]=n;markChanged();});fields.append(editLabel(title,input));}
+    box.append(fields);
+    const area=node('textarea');area.dir='auto';area.value=missing.text;area.placeholder='Speech missing from this candidate…';area.setAttribute('aria-label','Missing speech text');area.addEventListener('input',()=>{missing.text=area.value;markChanged();});box.append(area);
+    box.append(editLabel('Wording certainty',select([['','Choose…'],['confirmed','Confirmed by listening'],['unclear','Some sound remains unclear']],missing.text_certainty,v=>{missing.text_certainty=v;markChanged();},'Missing speech certainty')));
+    box.append(button('Remove missing-speech entry',()=>{if(!window.confirm('Remove this missing-speech entry?'))return;record.missing_speech=record.missing_speech.filter(x=>x.id!==missing.id);markChanged();renderWindow(true);},'small danger'));list.append(box);
+  }
+  container.append(list,button('+ Add missing speech',()=>{record.missing_speech.push({id:'missing-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,6),speaker:'Unknown',start:w.start,end:w.end,text:'',text_certainty:null});markChanged();renderWindow(true);}));
+}
+function renderCandidate(w,c){
+  const container=node('article',null,'candidate card'), record=windowRecord().candidates[c.id], head=node('div',null,'candidate-heading');
+  head.append(node('h2','Candidate '+c.id,'candidate-id'));
+  if(revealed)head.append(node('p',(c.label||c.source_kind||'Source not labeled'),'source'));
+  head.append(node('p','Use the same shared clip above for A and B. Events are raw engine labels, not verified sounds.','muted small'));container.append(head);
+  const shown=c.runs.filter(r=>!focusOnly||isRelevant(r)),hidden=c.runs.length-shown.length;
+  if(hidden)container.append(node('p',hidden+' other-track run'+(hidden===1?' is':'s are')+' hidden by your review focus. Use “Show all runs” to inspect them.','hidden-count'));
+  if(!shown.length)container.append(node('p',c.runs.length?'No runs match this review focus.':'No speech runs returned. Use missing speech if words are audible.','empty'));
+  for(const r of shown)container.append(renderRun(w,c,r));
+  const missing=node('details');missing.open=record.missing_speech.length>0;missing.append(node('summary','Missing speech ('+record.missing_speech.length+')'));renderMissing(w,c,record,missing);container.append(missing);
+  const advanced=node('details');advanced.append(node('summary','Optional technical checks'));
+  const fieldset=node('fieldset');fieldset.append(node('legend','Candidate '+c.id+' · optional checks'));
+  const labels={learner_attempt_preserved:'Learner’s actual attempt preserved?',speaker_correct:'Speaker attribution correct?',timestamp_within_1s:'Play timing within 1 second?',recall_utterance_preserved:'Explicit forgetting or word-question utterance preserved?'};
+  for(const key of METRIC_KEYS){if(key==='recall_utterance_preserved'&&w.category!=='explicit_recall_or_word_question')continue;const row=node('div',null,'metric');const label=node('label',labels[key]);const s=select(METRIC_CHOICES,record.metrics[key],v=>{record.metrics[key]=v;markChanged();},'Candidate '+c.id+': '+labels[key]);if(key==='learner_attempt_preserved'&&reviewer==='Amal')label.append(node('span',' · Medi makes the final call','muted small'));row.append(label,s);fieldset.append(row);}
+  const insertRow=node('div',null,'metric');const input=node('input');input.type='number';input.min='0';input.step='1';input.placeholder='—';input.value=record.metrics.unsupported_insertions??'';input.setAttribute('aria-label','Unsupported inserted words count for candidate '+c.id);input.addEventListener('change',()=>{if(input.value===''){record.metrics.unsupported_insertions=null;markChanged();return;}const n=Number(input.value);if(!Number.isInteger(n)||n<0){input.value=record.metrics.unsupported_insertions??'';notify('Enter a whole number of inserted words, or leave blank.');return;}record.metrics.unsupported_insertions=n;markChanged();});insertRow.append(node('label','Words inserted without audio evidence'),input);fieldset.append(insertRow,node('p','Optional: 0 means checked and none found; blank means unmeasured. These checks do not block moving to the next clip.','muted small'));advanced.append(fieldset);container.append(advanced);
+  return container;
+}
+function renderWindow(keepScroll=false){
+  const scrollY=window.scrollY;const w=DATA.windows[index];const area=$('window-area');area.replaceChildren();activeRun=null;
+  $('previous').disabled=index===0;$('next').disabled=index===DATA.windows.length-1;$('window-picker').value=String(index);
+  if(!reviewer){area.append(node('div','Choose Medi or Amal above to enable this review.','card review-lock'));return;}
+  pauseAudio();
+  const wr=windowRecord(),intro=node('section',null,'card'),title=node('div',null,'window-title');
+  if(revealed&&!wr.source_names_revealed_at){wr.source_names_revealed_at=iso();markChanged();}
+  const titleLeft=node('div');titleLeft.append(node('span','Clip '+(index+1)+' of '+DATA.windows.length,'tag'),node('h2',timeRange(w.start,w.end)+' · '+(w.category||'Review clip')));title.append(titleLeft,node('span',w.id,'muted small'));intro.append(title);
+  const selection=node('details');selection.append(node('summary','Why this window was selected'),node('p',w.selection_reason||'See the frozen selection manifest.','muted'));intro.append(selection);
+  const controls=node('div',null,'row');
+  const shared=button('▶ Play shared clip',()=>playAudio(w,'mixed',w.start,w.end),'primary');shared.disabled=!w.audio.mixed;controls.append(shared,node('span','A and B: the same audio, the same time range.','muted small'));intro.append(controls);
+  const solo=node('details');solo.append(node('summary','Listen to one voice (optional)'));const soloControls=node('div',null,'audio-controls');
+  for(const track of ['Medi','Amal']){const block=node('div',null,'audio-block');const b=button('▶ '+track+' track',()=>playAudio(w,track,w.start,w.end));b.disabled=!w.audio[track];block.append(b,node('span','Listening aid for both candidates · track identity needs human verification.'));soloControls.append(block);}solo.append(soloControls);intro.append(solo);
+  const now=node('p','Play the shared clip to judge both transcripts.','muted small');now.id='now-playing';intro.append(now);player=node('audio');player.controls=true;player.preload='none';player.setAttribute('aria-label','Original lesson audio');
+  player.addEventListener('timeupdate',()=>{if(stopAt!==null&&player.currentTime>=stopAt){player.pause();stopAt=null;}});
+  player.addEventListener('play',()=>{lastInteraction=Date.now();});player.addEventListener('error',()=>{if(player.getAttribute('src'))notify('Audio could not be decoded. Try a current browser or another track.');});intro.append(player);
+  const viewControls=node('div',null,'row');const focusLabel=node('label',null,'check'),focus=node('input');focus.type='checkbox';focus.checked=!focusOnly;focus.addEventListener('change',()=>{focusOnly=!focus.checked;renderWindow(true);});focusLabel.append(focus,node('span','Show all runs'));viewControls.append(focusLabel,button(revealed?'Hide source names':'Reveal source names',()=>{if(!revealed&&!window.confirm('Reveal candidate sources? This can influence your A/B judgment. Continue?'))return;revealed=!revealed;renderWindow(true);},'small'));intro.append(viewControls,node('p',reviewer==='Medi'?'Your focus: Medi’s track and uncertain mixed-speaker runs.':'Your focus: Arabic-script speech, Amal’s track, and uncertain mixed-speaker runs. Show all runs to inspect Latin-script Arabic on Medi’s track.','muted small'));area.append(intro);
+  if(reviewer==='Medi')intro.append(node('p','If Arabic script is unreadable to you, leave that wording pending or mark it unclear for Amal. You do not need to approve Arabic you cannot read.','notice'));
+  const candidates=node('div',null,'candidates');for(const c of w.candidates)candidates.append(renderCandidate(w,c));area.append(candidates);
+  const finish=node('section',null,'card');
+  const optionalNotes=node('details');optionalNotes.append(node('summary',wr.notes.trim()?'Edit note (optional)':'Add a note (optional)'));
+  const notesLabel=node('label','Notes','block');const notes=node('textarea');notes.dir='auto';notes.value=wr.notes;notes.placeholder='Optional. Include the timestamp if useful.';notes.addEventListener('input',()=>{wr.notes=notes.value;markChanged();});notesLabel.append(notes);optionalNotes.append(notesLabel);finish.append(optionalNotes);
+  const actions=node('div',null,'footer-actions');actions.append(node('span','Answers save automatically. You can skip a clip and return later.','muted small'));
+  actions.append(button(index===DATA.windows.length-1?'Download review JSON':'Next clip',()=>{if(index===DATA.windows.length-1)exportReview();else move(index+1);},'primary'));
+  finish.append(actions);area.append(finish);updateProgress();if(keepScroll)window.scrollTo(0,scrollY);
+}
+function completionIssues(w,wr){
+  const problems=[];
+  // Read-only progress information; never a navigation gate or a source of gold labels.
+  for(const c of w.candidates){const cr=wr.candidates[c.id];for(const r of c.runs.filter(isRelevant)){
+    const rr=cr.runs[r.id];
+    if(!rr?.verdict)problems.push('Candidate '+c.id+' has a segment still awaiting a rating or Can’t tell.');
+    else if(rr.verdict==='cant_tell'){if(rr.text_certainty!=='unclear')problems.push('Choose Can’t tell again to leave this segment unverified.');}
+    else if(!rr.text_certainty)problems.push('Enter a correction, choose Exact if it matches, or choose Can’t tell for candidate '+c.id+'.');
+    else if(rr.fixed_text===null||!rr.fixed_text.trim())problems.push('Enter the spoken wording or choose Can’t tell for candidate '+c.id+'.');
+    else if(rr.verdict==='exact'&&rr.fixed_text!==r.text)problems.push('Candidate '+c.id+' has edited text marked Exact. Use Minor or Wrong for changed wording.');
+    else if(rr.verdict!=='exact'&&rr.text_certainty==='confirmed'&&rr.fixed_text===r.text)problems.push('Candidate '+c.id+' needs a correction or Can’t tell.');
+  }
+    for(const m of cr.missing_speech)if(!m.text.trim()||!m.text_certainty||m.end<=m.start)problems.push('Complete or remove the missing-speech entry in candidate '+c.id+'.');
+  }
+  return problems;
+}
+function move(next){if(next<0||next>=DATA.windows.length)return;save();pauseAudio();index=next;renderWindow();$('window-area').scrollIntoView({behavior:'smooth',block:'start'});}
+function makeExport(){
+  save();
+  const answers=copy(reviewers), automatic_comparison={};
+  for(const [role,person] of Object.entries(answers)){
+    try{automatic_comparison[role]=AneesComparison.summarize(DATA.windows,person);}
+    catch(e){automatic_comparison[role]={state:'pending',reason:'comparison_unavailable',message:'Answers are preserved. Recalculate the comparison from this review file.'};}
+  }
+  return {schema_version:'1.0',kind:'anees-human-review',lesson:DATA.lesson,review_set_id:DATA.review_set_id,manifest_sha256:DATA.manifest_sha256,exported_at:iso(),reviewers:answers,automatic_comparison};
+}
+function exportReview(){if(!Object.keys(reviewers).length)return notify('Choose a reviewer and review a window first.');const blob=new Blob([JSON.stringify(makeExport(),null,2)+'\n'],{type:'application/json;charset=utf-8'});const url=URL.createObjectURL(blob);const a=node('a');a.href=url;a.download='anees-'+DATA.lesson+'-'+(reviewer||'combined')+'-review-'+new Date().toISOString().replace(/[:.]/g,'-')+'.json';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);notify('Review JSON downloaded, including imported reviewer records.');}
+function assert(condition,message){if(!condition)throw Error(message);}
+function optionalEnum(value,allowed,label){assert(value===null||value===undefined||allowed.includes(value),'Invalid '+label);return value??null;}
+function finiteNonnegative(value,label){assert(Number.isFinite(value)&&value>=0,'Invalid '+label);return value;}
+function validateReviewer(input,role){
+  assert(input&&typeof input==='object'&&!Array.isArray(input)&&input.reviewer===role,'Reviewer identity mismatch.');
+  assert(input.windows&&typeof input.windows==='object'&&!Array.isArray(input.windows),'Reviewer windows are missing.');
+  const output=emptyReviewer(role);output.updated_at=typeof input.updated_at==='string'?input.updated_at:iso();output.active_seconds=finiteNonnegative(input.active_seconds??0,'review time');
+  for(const [id,wr] of Object.entries(input.windows)){
+    const w=DATA.windows.find(item=>item.id===id);assert(w,'Unknown window ID: '+id);assert(wr&&wr.id===id,'Window ID mismatch.');
+    assert(['pending','reviewed'].includes(wr.status),'Invalid window status.');
+    const ow={id,status:wr.status,active_seconds:finiteNonnegative(wr.active_seconds??0,'window time'),playback_count:finiteNonnegative(wr.playback_count??0,'playback count'),candidate_preference:optionalEnum(wr.candidate_preference,VALID_PREFS,'candidate preference'),source_names_revealed_at:typeof wr.source_names_revealed_at==='string'?wr.source_names_revealed_at:null,notes:typeof wr.notes==='string'?wr.notes:'',candidates:{}};
+    if(typeof wr.reviewed_at==='string')ow.reviewed_at=wr.reviewed_at;
+    assert(wr.candidates&&typeof wr.candidates==='object'&&!Array.isArray(wr.candidates),'Missing candidates.');
+    for(const cid of Object.keys(wr.candidates))assert(['A','B'].includes(cid),'Unknown candidate: '+cid);
+    for(const c of w.candidates){
+      const cr=wr.candidates[c.id];assert(cr&&cr.runs&&typeof cr.runs==='object'&&!Array.isArray(cr.runs),'Missing candidate runs.');
+      const oc={metrics:emptyMetrics(),runs:{},missing_speech:[]};
+      for(const key of METRIC_KEYS)oc.metrics[key]=optionalEnum(cr.metrics?.[key],METRIC_CHOICES.map(x=>x[0]).filter(Boolean),'metric');
+      const count=cr.metrics?.unsupported_insertions??null;assert(count===null||(Number.isInteger(count)&&count>=0),'Invalid insertion count.');oc.metrics.unsupported_insertions=count;
+      for(const [rid,rr] of Object.entries(cr.runs)){
+        const r=c.runs.find(item=>item.id===rid);assert(r,'Unknown run ID: '+rid);assert(rr&&rr.id===rid&&rr.original_text===r.text&&rr.start===r.start&&rr.end===r.end&&(rr.speaker||'Unknown')===(r.speaker||'Unknown'),'Run evidence does not match this manifest: '+rid);
+        assert(rr.fixed_text===null||rr.fixed_text===undefined||typeof rr.fixed_text==='string','Invalid corrected text.');
+        assert(rr.verdict!=='cant_tell'||rr.text_certainty!=='confirmed','Can’t tell cannot confirm wording.');
+        oc.runs[rid]={id:rid,speaker:r.speaker||'Unknown',start:r.start,end:r.end,original_text:r.text,verdict:optionalEnum(rr.verdict,VERDICTS,'verdict'),fixed_text:rr.fixed_text??null,text_certainty:optionalEnum(rr.text_certainty,CERTAINTIES,'certainty'),deliberate_error:optionalEnum(rr.deliberate_error,METRIC_CHOICES.map(x=>x[0]).filter(Boolean),'deliberate error'),active_seconds:finiteNonnegative(rr.active_seconds??0,'run time'),updated_at:typeof rr.updated_at==='string'?rr.updated_at:null};
+      }
+      assert(Array.isArray(cr.missing_speech??[]),'Invalid missing speech array.');const missingIds=new Set();
+      for(const m of cr.missing_speech??[]){assert(m&&typeof m.id==='string'&&m.id&&!missingIds.has(m.id),'Invalid missing-speech ID.');missingIds.add(m.id);assert(['Medi','Amal','Unknown'].includes(m.speaker)&&Number.isFinite(m.start)&&Number.isFinite(m.end)&&m.start>=w.start&&m.end<=w.end&&m.end>=m.start&&typeof m.text==='string','Invalid missing-speech entry.');oc.missing_speech.push({id:m.id,speaker:m.speaker,start:m.start,end:m.end,text:m.text,text_certainty:optionalEnum(m.text_certainty,CERTAINTIES,'missing-speech certainty')});}
+      ow.candidates[c.id]=oc;
+    }
+    output.windows[id]=ow;
+  }
+  return output;
+}
+function validateImport(payload){
+  assert(payload&&payload.schema_version==='1.0'&&payload.kind==='anees-human-review','Unsupported review format.');
+  assert(payload.lesson===DATA.lesson&&payload.review_set_id===DATA.review_set_id&&payload.manifest_sha256===DATA.manifest_sha256,'This JSON belongs to a different lesson or frozen manifest.');
+  assert(payload.reviewers&&typeof payload.reviewers==='object'&&!Array.isArray(payload.reviewers),'Missing reviewer records.');
+  const cleaned=Object.create(null);for(const role of Object.keys(payload.reviewers)){assert(ROLES.includes(role),'Unknown reviewer: '+role);cleaned[role]=validateReviewer(payload.reviewers[role],role);}assert(Object.keys(cleaned).length,'The file has no reviewer records.');return cleaned;
+}
+function importFile(file){
+  if(!file)return;if(file.size>20*1024*1024)return notify('Review JSON is too large; the review export should not contain audio.');
+  file.text().then(text=>{
+    let imported;try{imported=validateImport(JSON.parse(text));}catch(e){notify('Import rejected: '+e.message);return;}
+    pendingImport=imported;const choices=$('import-choices');choices.replaceChildren();let conflicts=0;
+    for(const role of Object.keys(imported)){
+      const existing=reviewers[role],incoming=imported[role],row=node('div',null,'conflict-row');row.append(node('strong',role));
+      const identical=existing&&JSON.stringify(existing)===JSON.stringify(incoming);
+      if(!existing)row.append(node('p','New reviewer record. It will be added; existing reviewers remain.','muted'));
+      else if(identical)row.append(node('p','Identical to the record already loaded. No change needed.','muted'));
+      else {conflicts++;row.append(node('p','This reviewer already has answers. Choose explicitly which complete record to keep. Download your current review first if you need both versions.','muted'));const picker=select([['keep','Keep the current answers'],['replace','Replace with the imported answers']], 'keep',()=>{},role+' import conflict');picker.dataset.role=role;row.append(picker);}
+      choices.append(row);
+    }
+    $('import-summary').textContent=conflicts?conflicts+' reviewer record(s) differ. No existing answers will be replaced unless you explicitly choose replacement.':'The file matches this lesson and every imported evidence ID. Confirm to add the records.';
+    $('import-dialog').showModal();
+  }).catch(()=>notify('Could not read that file.'));
+}
+function applyImport(){
+  if(!pendingImport)return;let added=0;
+  for(const role of Object.keys(pendingImport)){
+    const choice=$('import-choices').querySelector('select[data-role="'+role+'"]');
+    if(!reviewers[role]||(choice&&choice.value==='replace')){
+      reviewers[role]=pendingImport[role];added++;
+      try{if(!protectedSaved.has(role))localStorage.setItem(baseKey+':'+role,JSON.stringify({schema_version:'1.0',lesson:DATA.lesson,review_set_id:DATA.review_set_id,manifest_sha256:DATA.manifest_sha256,record:reviewers[role]}));}catch(e){$('storage-warning').textContent='Imported answers are in memory. Download the combined JSON because browser storage is unavailable.';}
+    }
+  }
+  pendingImport=null;$('import-dialog').close();renderWindow(true);updateProgress();notify(added+' reviewer record(s) imported. Other answers were preserved.');
+}
+readSaved();
+$('lesson-label').textContent='Lesson '+DATA.lesson+' · '+DATA.windows.length+' frozen windows · '+DATA.review_set_id;
+for(let i=0;i<DATA.windows.length;i++){const w=DATA.windows[i],o=node('option',(i+1)+'. '+timeRange(w.start,w.end)+' · '+(w.category||'Review'));o.value=String(i);$('window-picker').append(o);}
+$('reviewer').addEventListener('change',()=>{save();pauseAudio();reviewer=$('reviewer').value;revealed=false;lastInteraction=Date.now();lastTick=Date.now();if(reviewer&&!reviewers[reviewer])reviewers[reviewer]=emptyReviewer(reviewer);$('save-status').textContent=reviewer?'Reviewing as '+reviewer:'';renderWindow();});
+$('previous').addEventListener('click',()=>move(index-1));$('next').addEventListener('click',()=>move(index+1));$('window-picker').addEventListener('change',()=>move(Number($('window-picker').value)));
+$('export-button').addEventListener('click',exportReview);$('import-button').addEventListener('click',()=>{save();$('import-file').value='';$('import-file').click();});$('import-file').addEventListener('change',() => importFile($('import-file').files[0]));$('cancel-import').addEventListener('click',()=>{pendingImport=null;$('import-dialog').close();});$('apply-import').addEventListener('click',applyImport);
+document.addEventListener('keydown',e=>{lastInteraction=Date.now();if(e.defaultPrevented||e.altKey||e.ctrlKey||e.metaKey||e.shiftKey||$('import-dialog').open||['INPUT','TEXTAREA','SELECT','AUDIO'].includes(e.target.tagName)||e.target.isContentEditable)return;if(e.key==='ArrowLeft'){e.preventDefault();move(index-1);}if(e.key==='ArrowRight'){e.preventDefault();move(index+1);}});
+for(const event of ['pointerdown','input','scroll'])document.addEventListener(event,()=>{lastInteraction=Date.now();},{passive:true});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){if(player)player.pause();save();}else{lastTick=Date.now();lastInteraction=Date.now();}});
+window.addEventListener('pagehide',save);
+window.addEventListener('blur',save);
+window.addEventListener('focus',()=>{lastTick=Date.now();lastInteraction=Date.now();});
+setInterval(()=>{
+  const now=Date.now(),elapsed=Math.min(2,(now-lastTick)/1000);lastTick=now;
+  if(!reviewer||document.hidden||!document.hasFocus()||now-lastInteraction>45000||$('import-dialog').open)return;
+  const person=reviewers[reviewer],wr=windowRecord();person.active_seconds=Math.round((person.active_seconds+elapsed)*1000)/1000;wr.active_seconds=Math.round((wr.active_seconds+elapsed)*1000)/1000;
+  if(activeRun&&activeRun.windowId===wr.id){const rr=wr.candidates[activeRun.candidateId]?.runs[activeRun.runId];if(rr)rr.active_seconds=Math.round((rr.active_seconds+elapsed)*1000)/1000;}
+  person.updated_at=iso();updateProgress();if(Math.floor(person.active_seconds)%10===0)save();
+},1000);
+renderWindow();
+})();
+</script>
+</body>
+</html>

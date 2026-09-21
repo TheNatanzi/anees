@@ -115,7 +115,10 @@ def sync_db(u, rows):
     db.upsert('word_events', wrows)
     db.rest('DELETE', 'lesson_events', params={'lesson_date': f'eq.{date}'}, prefer='return=minimal')
     db.upsert('lesson_events', rows)
-    buckets.recompute_and_store()
+    unified = db.sql("select to_regclass('public.speaking_release') is not null as installed", retries=1)[0]['installed']
+    active = unified and bool(db.select('speaking_release', {'select': 'id', 'limit': '1'}))
+    if not active:
+        buckets.recompute_and_store()
     return {'word_events': len(wrows), 'lesson_events': len(rows)}
 
 

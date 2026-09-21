@@ -4,11 +4,12 @@
 // shaky: prompted / right on second try. missed: corrected / wrong twice in a row on cards. never: no Medi signal.
 (function (root) {
   // Display names only: keep stored IDs and scoring rules compatible with saved progress.
-  const DISPLAY_LABELS = Object.freeze({ cold: 'Good', ice_cold: 'Mastered' });
+  const DISPLAY_LABELS = Object.freeze({ cold: 'Good', ice_cold: 'Mastered', never: 'Not assessed' });
   function label(bucket) { return Object.prototype.hasOwnProperty.call(DISPLAY_LABELS, bucket) ? DISPLAY_LABELS[bucket] : String(bucket ?? '').replace(/_/g, ' '); }
   const RECENT_LESSONS = 3, NEW_DRILL_RIGHTS = 5, NEW_DRILL_DAYS = 2;
   const GRAMMAR_KINDS = ['article', 'gender', 'tense', 'plural'];
   function signalFromEvent(e) {
+    if('assessment' in e) return e.speaker==='Medi'?({independent:'cold',helped:'shaky',recall_failure:'missed',incorrect:'missed'}[e.assessment]||null):null;
     if (e.speaker !== 'Medi' || e.prompted === null || e.prompted === undefined) return null;
     if (e.correction && GRAMMAR_KINDS.includes(e.miss_kind) && !e.asked) return e.prompted ? 'shaky' : 'cold';
     if (e.miss_kind === 'choice') return 'shaky';
@@ -35,9 +36,10 @@
     return ['cold', streak, days];
   }
   function independentUse(e) {
+    if('assessment' in e) return e.speaker==='Medi' && e.spoken===true && e.assessment==='independent';
     return e.speaker === 'Medi' && e.prompted === false && e.correction === false && e.asked === false && !['choice','unclear'].includes(e.miss_kind);
   }
-  function isSpoken(e) { return e.speaker==='Medi' && typeof e.t_start==='number' && Number.isFinite(e.t_start) && e.t_start>=0 && !String(e.text||'').toLowerCase().startsWith('homework:'); }
+  function isSpoken(e) { return e.spoken!==false && !e.typed_line_id && e.speaker==='Medi' && typeof e.t_start==='number' && Number.isFinite(e.t_start) && e.t_start>=0 && !String(e.text||'').toLowerCase().startsWith('homework:'); }
   function trackProgress(context,lane) {
     const cards=(lane==='flashcards'?context.cards:[]).slice().sort((a,b)=>String(a.ts).localeCompare(String(b.ts)) || String(a.id||'').localeCompare(String(b.id||'')));
     const timeline=cards.map((c,i)=>({day:String(c.ts).slice(0,10),rank:0,ts:String(c.ts),i,source:'card',value:c}));
@@ -58,7 +60,7 @@
         masteryStreak=0; masteryDays=[];
         if(signal==='missed'||recoveryLeft) { recoveryLeft=2; if(signal==='cold') signal='shaky'; }
       }
-      bucket=masteryStreak>=5 && masteryDays.length>=3?'ice_cold':signal;
+      bucket=masteryStreak>=5 && masteryDays.length>=(lane==='speaking'?5:3)?'ice_cold':signal;
     }
     return {bucket,streak:masteryStreak,streak_days:masteryDays,mastery_streak:masteryStreak,mastery_days:masteryDays,recovery_left:recoveryLeft};
   }
@@ -123,11 +125,11 @@
     for (const key of new Set([...Object.keys(evBy), ...Object.keys(cdBy), ...markedKeys])) {
       const evs = (evBy[key] || []).slice().sort((a, b) => String(a.lesson_date).localeCompare(String(b.lesson_date)) || ((a.t_start || 0) - (b.t_start || 0)));
       const cards = (cdBy[key] || []).slice().sort((a, b) => String(a.ts).localeCompare(String(b.ts)));
-      const medi=evs.filter(isSpoken), independent=medi.filter(independentUse);
+      const medi=evs.filter(isSpoken), assessed=evs.filter(e=>isSpoken(e)||(e.eligible_evidence===true&&e.speaker==='Medi')), independent=medi.filter(independentUse);
       const qualifyingDates=new Set(independent.map(e=>String(e.lesson_date)));
-      const helpedDates=new Set(medi.filter(e=>e.prompted===true||e.correction===true||e.asked===true||e.miss_kind==='choice').map(e=>String(e.lesson_date)));
+      const helpedDates=new Set(assessed.filter(e=>'assessment' in e?['helped','recall_failure','incorrect'].includes(e.assessment):(e.prompted===true||e.correction===true||e.asked===true||e.miss_kind==='choice')).map(e=>String(e.lesson_date)));
       const byDay = new Map();
-      for (const e of medi) { const s = signalFromEvent(e); if (s) { const d = String(e.lesson_date); if (!byDay.has(d)) byDay.set(d, []); byDay.get(d).push(s); } }
+      for (const e of assessed) { const s = signalFromEvent(e); if (s) { const d = String(e.lesson_date); if (!byDay.has(d)) byDay.set(d, []); byDay.get(d).push(s); } }
       const lessonSignals = [...byDay.entries()].map(([d, sigs]) => [d, sigs.includes('missed') ? 'missed' : (sigs.includes('cold') ? 'cold' : 'shaky')]);   // one signal per lesson: unprompted use beats a later echo
       const firstLesson = medi.length ? String(medi[0].lesson_date) : null;
       const seenDates = [...new Set(medi.map(e => String(e.lesson_date)))].sort();
@@ -136,15 +138,16 @@
       const newDates=[...[...confirmedNew].filter(x=>x.split('|').slice(1).join('|')===key).map(x=>x.split('|')[0]),
         ...evs.filter(e=>docBefore[String(e.lesson_date)]&&!docBefore[String(e.lesson_date)].has(key)).map(e=>String(e.lesson_date))].sort();
       const newSince=newDates[0]||null;
-      const speaking={times_seen:medi.length,independent_uses:independent.length,times_missed:medi.filter(e=>signalFromEvent(e)==='missed').length,
+      const speaking={times_seen:medi.length,independent_uses:independent.length,times_missed:assessed.filter(e=>signalFromEvent(e)==='missed').length,
         last_reviewed:seenDates[seenDates.length-1]||null,seen_lessons:seenDates.length,intro_uses:medi.filter(e=>!newSince||String(e.lesson_date)>=newSince).length,new_since:newSince};
+      if(evs.some(e=>'assessment' in e)) Object.assign(speaking,{helped_uses:medi.filter(e=>e.assessment==='helped').length,recall_failures:assessed.filter(e=>e.assessment==='recall_failure').length,incorrect_attempts:assessed.filter(e=>e.assessment==='incorrect').length,unresolved:assessed.filter(e=>e.assessment==='unresolved').length,provisional:assessed.filter(e=>e.assessment_status==='provisional').length,human_reviewed:assessed.filter(e=>e.assessment_status==='human_reviewed').length,last_reviewed:assessed.map(e=>String(e.lesson_date)).sort().at(-1)||null,mastery_credits:lessonSignals.filter(([d,s])=>s==='cold'&&qualifyingDates.has(d)).length});
       const context={version:3,new:marked||byDoc,speaking,lessons:lessonSignals.map(([d,s])=>[d,s,qualifyingDates.has(d)?true:(helpedDates.has(d)?false:null)]),
         cards:cards.map(c=>Object.fromEntries(['id','ts','result','attempt'].filter(k=>k in c).map(k=>[k,c[k]])))};
       const progress=progressFromContext(context), bucket=progress.bucket;
       const lastReviewed = seenDates[seenDates.length - 1] || null;
       const isRecent = firstLesson ? recent.has(firstLesson) : false;
       out[key] = { word_key: key, bucket, last_reviewed: lastReviewed, last_lesson:seenDates[seenDates.length-1]||null, seen_lessons: seenDates.length, times_seen: medi.length, independent_uses:independent.length,
-        times_missed: medi.filter(e => signalFromEvent(e)==='missed').length,
+        times_missed: assessed.filter(e => signalFromEvent(e)==='missed').length,
         card_right: cards.filter(c => c.result === 'got').length, card_wrong: cards.filter(c => c.result === 'missed').length,
         ...progress,progress_context:context,recent: isRecent, weight: (bucket === 'missed' || bucket === 'new') ? 3 : 1,
         grammar_misses:medi.filter(e=>e.correction&&GRAMMAR_KINDS.includes(e.miss_kind)).length,

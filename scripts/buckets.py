@@ -1,8 +1,8 @@
 """Independent Speaking and Flashcards scores, mirrored in docs/js/buckets.js.
 
 Stored cold/ice_cold display as Good/Mastered. Each lane owns its dates, errors,
-recovery and mastery: five consecutive successes across >=3 dates. Speaking
-earns at most one success per word/lesson date; Flashcards earns first-try rights.
+recovery and mastery. Speaking needs five successful lesson dates (one credit
+per word/date); Flashcards needs five first-try rights across at least three dates.
 Missed recovery within that lane: one independent success -> Shaky, another -> Good.
 Unknown speech is neutral; helped or corrected evidence interrupts clean streaks.
 
@@ -23,6 +23,8 @@ GRAMMAR_KINDS = ('article', 'gender', 'tense', 'plural')
 
 
 def _signal_from_event(e):
+    if 'assessment' in e:
+        return {'independent':'cold', 'helped':'shaky', 'recall_failure':'missed', 'incorrect':'missed'}.get(e['assessment']) if e.get('speaker')=='Medi' else None
     if e.get('speaker') != 'Medi' or e.get('prompted') is None:
         return None
     if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS and not e.get('asked'):
@@ -90,18 +92,22 @@ def _was_ice(cards):
 
 def _independent_use(e):
     """A detected Medi use with explicit no-help/no-correction evidence, not verified pronunciation."""
+    if 'assessment' in e:
+        return e.get('speaker')=='Medi' and e.get('spoken') is True and e['assessment']=='independent'
     return (e.get('speaker') == 'Medi' and e.get('prompted') is False
             and e.get('correction') is False and e.get('asked') is False
             and e.get('miss_kind') not in ('choice', 'unclear'))
 
 
 def _known_help_or_correction(e):
+    if 'assessment' in e:
+        return e['assessment'] in ('helped','recall_failure','incorrect')
     return (e.get('prompted') is True or e.get('correction') is True
             or e.get('asked') is True or e.get('miss_kind') == 'choice')
 
 
 def _is_spoken(e):
-    return (e.get('speaker') == 'Medi' and type(e.get('t_start')) in (int, float)
+    return (e.get('spoken') is not False and not e.get('typed_line_id') and e.get('speaker') == 'Medi' and type(e.get('t_start')) in (int, float)
             and math.isfinite(e['t_start']) and e['t_start'] >= 0
             and not str(e.get('text') or '').lower().startswith('homework:'))
 
@@ -141,7 +147,7 @@ def _track_progress(context, lane):
                 recovery_left = 2
                 if signal == 'cold':
                     signal = 'shaky'  # A grammar-only correction cannot shortcut independent recovery.
-        bucket = 'ice_cold' if streak >= 5 and len(days) >= 3 else signal
+        bucket = 'ice_cold' if streak >= 5 and len(days) >= (5 if lane=='speaking' else 3) else signal
     return {'bucket': bucket, 'streak': streak, 'streak_days': days,
             'mastery_streak': streak, 'mastery_days': days, 'recovery_left': recovery_left}
 
@@ -194,10 +200,11 @@ def compute(word_events, card_results, lesson_dates, today=None, confirmed_new=N
         evs = sorted(ev_by[key], key=lambda e: (str(e['lesson_date']), e.get('t_start') or 0))
         cards = sorted(cd_by[key], key=lambda c: str(c['ts']))
         medi = [e for e in evs if _is_spoken(e)]
+        assessed = [e for e in evs if _is_spoken(e) or (e.get('eligible_evidence') is True and e.get('speaker')=='Medi')]
         independent = [e for e in medi if _independent_use(e)]
         qualifying_dates = {str(e['lesson_date']) for e in independent}
-        helped_dates = {str(e['lesson_date']) for e in medi if _known_help_or_correction(e)}
-        lesson_signals = _per_lesson_signals(medi)
+        helped_dates = {str(e['lesson_date']) for e in assessed if _known_help_or_correction(e)}
+        lesson_signals = _per_lesson_signals(assessed)
         first_lesson = str(medi[0]['lesson_date']) if medi else None
         seen_dates = sorted({str(e['lesson_date']) for e in medi})
         # Introduction semantics are independent of who spoke; don't lose existing New marks.
@@ -208,10 +215,19 @@ def compute(word_events, card_results, lesson_dates, today=None, confirmed_new=N
                                                 or any(e.get('asked') for e in evs if str(e['lesson_date']) == first_lesson))
         new_since = min([str(d) for d, k in confirmed_new if k == key] + [d for d in all_dates if d in doc_before and key not in doc_before[d]], default=None)
         speaking_summary = {'times_seen': len(medi), 'independent_uses': len(independent),
-                            'times_missed': sum(_signal_from_event(e) == 'missed' for e in medi),
+                            'times_missed': sum(_signal_from_event(e) == 'missed' for e in assessed),
                             'last_reviewed': seen_dates[-1] if seen_dates else None, 'seen_lessons': len(seen_dates),
                             'intro_uses': sum(not new_since or str(e['lesson_date']) >= new_since for e in medi),
                             'new_since': new_since}
+        if any('assessment' in e for e in evs):
+            speaking_summary.update(helped_uses=sum(e.get('assessment')=='helped' for e in medi),
+                recall_failures=sum(e.get('assessment')=='recall_failure' for e in assessed),
+                incorrect_attempts=sum(e.get('assessment')=='incorrect' for e in assessed),
+                unresolved=sum(e.get('assessment')=='unresolved' for e in assessed),
+                provisional=sum(e.get('assessment_status')=='provisional' for e in assessed),
+                human_reviewed=sum(e.get('assessment_status')=='human_reviewed' for e in assessed),
+                last_reviewed=max((str(e['lesson_date']) for e in assessed),default=None),
+                mastery_credits=sum(sig=='cold' and d in qualifying_dates for d,sig in lesson_signals))
         context = {'version': 3, 'new': marked or by_doc, 'speaking': speaking_summary,
                    'lessons': [[d, sig, True if d in qualifying_dates else (False if d in helped_dates else None)] for d, sig in lesson_signals],
                    'cards': [{k: c[k] for k in ('id', 'ts', 'result', 'attempt') if k in c} for c in cards]}
@@ -221,7 +237,7 @@ def compute(word_events, card_results, lesson_dates, today=None, confirmed_new=N
         recent = first_lesson in recent_dates if first_lesson else False
         out[key] = {'word_key': key, 'bucket': bucket, 'last_reviewed': last_reviewed, 'last_lesson': seen_dates[-1] if seen_dates else None,
                     'seen_lessons': len(seen_dates), 'times_seen': len(medi), 'independent_uses': len(independent),
-                    'times_missed': sum(1 for e in medi if _signal_from_event(e) == 'missed'),
+                    'times_missed': sum(1 for e in assessed if _signal_from_event(e) == 'missed'),
                     'card_right': sum(1 for c in cards if c['result'] == 'got'), 'card_wrong': sum(1 for c in cards if c['result'] == 'missed'),
                     **progress, 'progress_context': context, 'recent': recent, 'weight': 3.0 if bucket in ('missed', 'new') else 1.0,
                     'new_candidate': new_candidate, 'grammar_misses': sum(1 for e in medi if e.get('correction') and e.get('miss_kind') in GRAMMAR_KINDS),
@@ -260,8 +276,11 @@ def introduced_from_chat(typed_rows, words=None):
 
 
 def recompute_and_store():
-    """Reads word_events + card_results + lessons from Supabase, writes word_stats. Returns the stats dict."""
+    """Legacy recomputation; never overwrite a published Speaking evidence release."""
     import db
+    if db.sql("select to_regclass('public.speaking_release') is not null as installed")[0]['installed']:
+        if db.select('speaking_release', {'select':'id', 'limit':'1'}):
+            raise RuntimeError('Unified Speaking ledger is active. Use build_speaking_release.py and its guarded publisher; raw word_events cannot replace reviewed evidence.')
     evs = db.select('word_events', {'select': 'lesson_date,word_key,speaker,prompted,correction,asked,miss_kind,t_start,text'})
     cards = db.select('card_results', {'select': 'id,word_key,ts,result,attempt'})
     dates = [r['date'] for r in db.select('lessons', {'select': 'date'})]

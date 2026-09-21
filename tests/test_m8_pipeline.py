@@ -178,16 +178,17 @@ def test_report_email_only_after_push_and_live(monkeypatch, tmp_path):
         order.append('build'); return {'rows': 0}
     fb.build = build
     fl = types.ModuleType('lesson_pipeline'); fl.publish_report = lambda date: order.append('publish') or 'https://x/report'
-    for name, mod in (('understand_lesson', fu), ('build_report', fb), ('lesson_pipeline', fl)):
+    fs = types.ModuleType('sync_speaking_lesson'); fs.sync_if_active = lambda date: order.append('speaking') or {'status':'synced'}
+    for name, mod in (('understand_lesson', fu), ('build_report', fb), ('lesson_pipeline', fl), ('sync_speaking_lesson', fs)):
         monkeypatch.setitem(sys.modules, name, mod)
     monkeypatch.setattr(subprocess, 'run', lambda cmd, **k: order.append('email:' + cmd[2][:16]))
     fa = types.ModuleType('after_questions'); fa.payload = lambda *a, **k: {}
     fk = types.ModuleType('amal_links'); fk.create = lambda *a, **k: ('t', 'https://x/after')
     monkeypatch.setitem(sys.modules, 'after_questions', fa); monkeypatch.setitem(sys.modules, 'amal_links', fk)
     out = px.post_process('2099-01-01', send_email=True, use_openai=False, log=lambda *a: None)
-    assert order == ['understand', 'build', 'publish', 'email:Anees: lesson re'] and out['report']['url'] == 'https://x/report' and out['report']['emailed']
+    assert order == ['understand', 'build', 'speaking', 'publish', 'email:Anees: lesson re'] and out['report']['url'] == 'https://x/report' and out['report']['emailed']
     # now the push fails: build happens, email never does, Medi gets the failure email
     order.clear(); emails.clear()
     fl.publish_report = lambda date: (_ for _ in ()).throw(RuntimeError('git push failed: rejected'))
     out = px.post_process('2099-01-01', send_email=True, use_openai=False, log=lambda *a: None)
-    assert order == ['understand', 'build'] and 'report_error' in out and emails and 'report for 2099-01-01 failed' in emails[0]
+    assert order == ['understand', 'build', 'speaking'] and 'report_error' in out and emails and 'report for 2099-01-01 failed' in emails[0]

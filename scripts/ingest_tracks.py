@@ -38,7 +38,25 @@ def transcribe_track(d: Path, who: str, mp3: Path) -> dict:
     return res
 
 
+def validate_single_segment_tracks(tracks: list[dict]) -> None:
+    """The legacy cache is keyed by person, so reconnects must fail closed.
+
+    Run before transcription/provider calls and again in merge so direct callers
+    cannot duplicate one cached transcript at multiple segment offsets. Original
+    reconnect files remain available for a source-bound segment ingestion path.
+    """
+    names = [person(t['participant']) for t in tracks]
+    files = [str(Path(t['file']).resolve()).casefold() for t in tracks]
+    if len(names) != len(set(names)) or len(files) != len(set(files)):
+        raise ValueError('Reconnect segments require source-bound per-segment transcription; '
+                         'the person-keyed cache cannot safely ingest this manifest. '
+                         'No transcription or merge was performed.')
+    if not tracks:
+        raise ValueError('No recording tracks in manifest')
+
+
 def merge(tracks: list[dict], per_track: dict[str, dict]) -> dict:
+    validate_single_segment_tracks(tracks)
     words = []
     for t in tracks:
         who = person(t['participant'])
@@ -78,6 +96,7 @@ def main() -> int:
     d = LESSONS / a.date
     manifest = json.load(io.open(d / 'tracks' / 'tracks.json', encoding='utf-8'))
     tracks = manifest['tracks']
+    validate_single_segment_tracks(tracks)
     per_track = {person(t['participant']): transcribe_track(d, person(t['participant']), Path(t['file'])) for t in tracks}
     merged_path = d / 'scribe.json'
     if merged_path.exists():

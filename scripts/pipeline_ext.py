@@ -92,6 +92,8 @@ def post_process(date, scribe=None, audio=None, src=None, send_email=True, use_o
         import understand_lesson, build_report, lesson_pipeline
         understand_lesson.understand(date, scribe, audio, src)
         out['report'] = build_report.build(date, use_db=True, send=False)        # writes the page + report_email.json, sends nothing
+        import sync_speaking_lesson
+        out['speaking'] = sync_speaking_lesson.sync_if_active(date)
         out['report']['url'] = lesson_pipeline.publish_report(date)               # push + wait for HTTP 200; raises otherwise
         if send_email:
             subprocess.run(['node', str(ROOT / 'scripts' / 'send_lesson_email.mjs'), f'Anees: lesson report {date}',

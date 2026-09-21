@@ -31,7 +31,7 @@ console.log(JSON.stringify({
   stored:stats
 }));
 """)
-    assert result['labels'] == ['Good', 'Mastered', 'new', 'missed', 'shaky', 'never', '–', '  proto  ']
+    assert result['labels'] == ['Good', 'Mastered', 'new', 'missed', 'shaky', 'Not assessed', '–', '  proto  ']
     assert result['subject']['name'] == 'Good + Mastered (keep them)'
     assert result['subject']['id'] == 'b-cold'
     assert result['pool'] == ['g', 'm']
@@ -47,7 +47,7 @@ def test_all_badges_filters_and_summary_use_display_names():
     assert 'value="cold">Good</option>' in hub
     assert 'value="ice_cold">Mastered</option>' in hub
     assert 'esc(window.AneesBuckets.label(b))' in hub
-    assert 'Without help (detected)' in hub and 'Unknown evidence' in hub
+    assert 'window.AneesSpeaking.label(e)' in hub and 'wording reviewed by Amal' in hub
     assert "['Speaking: Good',n(cold)" in hub
     assert "['Speaking: Mastered',n(ice)" in hub
     assert 'Flashcards: Good' in hub and 'Flashcards: Mastered' in hub
@@ -55,8 +55,8 @@ def test_all_badges_filters_and_summary_use_display_names():
     assert 'esc(round.subject)' not in cards
     assert 'buckets.find(b=>b.id===round.subject)' in cards
     assert "String(s.bucket).replace('_',' ')" not in cards
-    for page in (hub, cards):
-        assert 'js/buckets.js?v=20260910-separate-v1' in page
+    assert 'js/buckets.js?v=20260911-evidence-v1' in hub
+    assert 'js/buckets.js?v=20260911-evidence-v1' in cards
 
 
 def test_published_report_wording_and_generator():

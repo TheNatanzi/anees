@@ -1,0 +1,28 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>Anees · Speaking review</title>
+<style>body{font:17px/1.55 system-ui;margin:0;background:#f4f6f2;color:#1b2620}main{max-width:780px;margin:auto;padding:24px}article{background:white;border:1px solid #d6ddd8;border-radius:14px;padding:20px;margin:16px 0}h1{margin-bottom:4px}h2{font-size:21px}p{margin:10px 0}.muted,small{color:#5b6a62}label{display:block;margin:12px 0}select,textarea,button{font:inherit;max-width:100%;min-height:44px;border:1px solid #aab9b0;border-radius:8px;padding:8px}select,textarea{width:100%;box-sizing:border-box}button{background:#0f6e56;color:white;padding:8px 20px;cursor:pointer}audio{width:100%}.saved{color:#0f6e56;font-weight:bold}input[type=checkbox]{width:20px;height:20px;vertical-align:middle}details{margin:12px 0}a{color:#0f6e56}</style></head>
+<body><main><a href="index.html#words">← Words</a><h1>Speaking review</h1><p class="muted">A short list of useful questions. Each answer saves immediately and updates Speaking. You can leave the rest for later.</p><p id="status" role="status">Loading your review…</p><div id="questions"></div></main>
+<script src="js/config.js"></script><script src="js/speaking.js?v=20260911-v1"></script><script>
+'use strict';
+const token=location.hash.slice(1);history.replaceState(null,'',location.pathname); // keep the capability out of later copied URLs/referrers
+const headers={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon,'X-Anees-Token':token,'Content-Type':'application/json'};
+const escapeText=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let review;const vocabulary=new Map();
+async function request(route,body){const response=await fetch(ANEES.url+'/rest/v1/'+route,{method:body?'POST':'GET',headers,cache:'no-store',...(body?{body:JSON.stringify(body)}:{})});if(!response.ok)throw Error(response.status===400?'Evidence changed or the answer needs a resolved word. Reload this review from your saved link.':'Review unavailable. Use the original unexpired review link.');return response.json();}
+async function load(){
+ if(!/^[A-Za-z0-9_-]{43}$/.test(token))throw Error('Open your private review link to answer these questions.');
+ review=await request('rpc/get_speaking_review');
+ for(let offset=0;;offset+=1000){const page=await request('words?select=key,arabizi,arabic,english&active=eq.true&limit=1000&offset='+offset);for(const w of page)vocabulary.set(w.key,w);if(page.length<1000)break;}
+ render();
+}
+function render(){
+ document.getElementById('status').textContent=`${review.lesson_date} · ${review.events.filter(q=>q.saved).length} of ${review.events.length} saved`;
+ document.getElementById('questions').innerHTML=review.events.map((q,n)=>{const e=q.event;const keys=[...new Set([e.word_key,...e.candidate_keys].filter(Boolean))];return `<article data-id="${escapeText(e.id)}"><h2>${n+1}. <bdi>${escapeText(e.text)}</bdi></h2><p class="${q.saved?'saved':'muted'}">${q.saved?'✓ Saved — you can revise this answer':escapeText(AneesSpeaking.label(e))}</p>${typeof q.audio==='string'&&q.audio.startsWith('data:audio/mpeg;base64,')?`<audio controls preload="none" src="${q.audio}"></audio>`:''}<p>${escapeText(e.reason)}</p><details><summary>Conversation context</summary>${e.context.map(r=>`<p><b>${escapeText(r.speaker)}:</b> <bdi>${escapeText(r.text)}</bdi></p>`).join('')}</details><label>Which word is this? <select class="target"><option value="">Not identified / not a word use</option>${keys.map(k=>{const w=vocabulary.get(k)||{};return `<option value="${escapeText(k)}" ${e.word_key===k?'selected':''}>${escapeText(w.arabizi||k)} · ${escapeText(w.arabic)} · ${escapeText(w.english)}</option>`;}).join('')}</select></label><label>How did Medi do? <select class="assessment">${[['independent','Independent success'],['helped','Practised after help or from a prepared answer'],['recall_failure','Could not recall the word'],['incorrect','Incorrect attempt / meaning'],['unresolved','Unclear / inaudible']].map(([v,t])=>`<option value="${v}" ${e.assessment===v?'selected':''}>${t}</option>`).join('')}</select></label><label><input type="checkbox" class="spoken" ${e.spoken?'checked':''}> Medi actually spoke this vocabulary word</label><p class="muted">Leave this unchecked for an unsaid word, false match, or inaudible speech. Helped uses count as practice.</p><label>Optional note (private)<textarea class="note" rows="2" maxlength="1000">${escapeText(q.saved?.note||'')}</textarea></label><button class="save">Save this answer</button><p class="feedback" role="status"></p></article>`;}).join('');
+ for(const article of document.querySelectorAll('article'))article.querySelector('.save').onclick=()=>save(article);
+}
+async function save(article){
+ const q=review.events.find(x=>x.event.id===article.dataset.id),b=article.querySelector('.save'),feedback=article.querySelector('.feedback');b.disabled=true;feedback.textContent='Saving…';
+ const body={p_event_id:q.event.id,p_expected:q.expected,p_assessment:article.querySelector('.assessment').value,p_spoken:article.querySelector('.spoken').checked,p_word_key:article.querySelector('.target').value||null,p_note:article.querySelector('.note').value,p_request_id:crypto.randomUUID()};
+ try{await request('rpc/review_speaking_event',body);review=await request('rpc/get_speaking_review');render();}catch(e){feedback.textContent=e.message;b.disabled=false;}
+}
+load().catch(e=>document.getElementById('status').textContent=e.message);
+</script></body></html>

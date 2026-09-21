@@ -7,7 +7,7 @@
 Needs RECALL_API_KEY (User env, clipboard method) and RECALL_REGION (default us-west-2). Never sends anything to Amal; the host
 account admits the bot once (or "Quick access" lets it in). Costs ~$0.50/h + $0.10/h for the 4-core bot the per-participant
 audio needs. Files are kept on Recall for 7 days; here forever. Nothing is uploaded to any other provider by this script."""
-import argparse, datetime, io, json, sys, time
+import argparse, datetime, hashlib, io, json, re, sys, time
 from pathlib import Path
 import requests
 
@@ -60,6 +60,16 @@ def status(bot_id, session=requests):
     return b, (codes[-1] if codes else None)
 
 
+def segment_filename(part, recording_id, ext='mp3'):
+    """Reconnects must never overwrite earlier audio from the same participant."""
+    participant=part.get('participant') or {}
+    who=re.sub(r'[^A-Za-z0-9_-]+','_',participant.get('name') or str(participant.get('id') or 'participant')).strip('_') or 'participant'
+    identity=[recording_id,participant.get('id'),participant.get('name'),part.get('start_timestamp'),part.get('duration')]
+    suffix=hashlib.sha256(json.dumps(identity,sort_keys=True).encode()).hexdigest()[:16]
+    ext=ext if ext in ('mp3','wav','m4a','mp4','ogg') else 'bin'
+    return f'{who}-{suffix}.{ext}'
+
+
 def fetch(bot_id, date=None, session=requests, wait_minutes=30, sleep=time.sleep):
     """Wait for the bot to finish, then download one file per participant into data/lessons/<date>/tracks/."""
     deadline = time.time() + wait_minutes * 60
@@ -94,13 +104,15 @@ def fetch(bot_id, date=None, session=requests, wait_minutes=30, sleep=time.sleep
                 parts = parts.get('results') or parts.get('parts') or [parts]
             for part in parts:
                 p = part.get('participant') or {}
-                who = (p.get('name') or f"participant-{p.get('id', 'x')}").strip().replace(' ', '_')
-                path = out / f'{who}.{ext}'
-                with session.get(part['download_url'], stream=True, timeout=1800) as d:
-                    d.raise_for_status()
-                    with open(path, 'wb') as f:
-                        for chunk in d.iter_content(1 << 20):
-                            f.write(chunk)
+                path = out / segment_filename(part, rec['id'], ext)
+                if not path.exists():
+                    pending=path.with_suffix(path.suffix+'.partial')
+                    with session.get(part['download_url'], stream=True, timeout=1800) as d:
+                        d.raise_for_status()
+                        with open(pending, 'wb') as f:
+                            for chunk in d.iter_content(1 << 20):
+                                f.write(chunk)
+                    pending.replace(path)
                 saved.append({'participant': p.get('name'), 'is_host': p.get('is_host'), 'platform': p.get('platform'), 'start': part.get('start_timestamp'),
                               'duration_s': part.get('duration'), 'file': str(path), 'bytes': path.stat().st_size})
     io.open(out / 'tracks.json', 'w', encoding='utf-8').write(json.dumps({'bot_id': bot_id, 'date': date, 'tracks': saved}, ensure_ascii=False, indent=1))

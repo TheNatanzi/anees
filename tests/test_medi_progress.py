@@ -147,9 +147,9 @@ def test_ui_uses_versioned_counts_and_durable_card_reads():
         text = (ROOT / f).read_text(encoding='utf-8')
         assert "LS('anees-stats'" not in text
         assert 'window.AneesProgress.load(' in text
-        assert 'word_stats?select=*&limit=5000' in text
+        assert ('rpc/speaking_snapshot' if f=='docs/index.html' else 'word_stats?select=*&limit=5000') in text
     hub = (ROOT / 'docs/index.html').read_text(encoding='utf-8')
-    assert 'You used it <span' in hub and 's.independent_uses' in hub
+    assert 'Recorded uses <span' in hub and 's.independent_uses' in hub
     assert 'Last lesson' in hub and 'Last practice' in hub
     assert 'Speaking' in hub and 'Flashcards' in hub and 'Introduction' in hub
     assert "window.AneesBuckets.mergeStats(window.AneesProgress.cached(" in hub

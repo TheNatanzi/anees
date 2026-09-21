@@ -8,7 +8,7 @@ Sources, in order of preference:
 Idempotent: rows are keyed by Amal's Arabizi (loose form); unchanged rows are not rewritten, missing rows are deactivated.
 Usage:  python scripts/import_vocab.py [--file PATH] [--dry] [--json-only]
 """
-import argparse, datetime, hashlib, io, json, re, sys
+import argparse, datetime, hashlib, html, io, json, re, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -25,6 +25,7 @@ SEP_RE = re.compile(r'^\|\s*:?-')
 
 
 def clean(c):
+    c = html.unescape(c)
     c = c.replace('\\*', '').replace('**', '').replace('\\', '')
     c = re.sub(r'[​‌‍﻿]', '', c)
     return re.sub(r'\s+', ' ', c).strip()
@@ -75,6 +76,35 @@ def split_slash(s):
 
 def arabizi_forms(s):
     """'Mu7aadase/a' -> ['Mu7aadase', 'Mu7aadasa']; 'Babse6 / Btebse6' -> both; plain -> [s]."""
+    # Reviewed source shorthand replaces the attached pronoun ending. It
+    # must not append ak to ek, or index an isolated "ek?" as a word.
+    if re.fullmatch(r'Allah ysallmek\s*/\s*ak', s, re.I):
+        return ['Allah ysallmek', 'Allah ysallmak']
+    opinion=re.fullmatch(r'(Shu ra2y)ak/ek(?:\?|\s*\+ verb \(no b-\)|\s+bi-/fi…\?)',s,re.I)
+    if opinion:
+        # The following text describes how to complete the construction; it
+        # is not part of the spoken head or a standalone alternative word.
+        return [opinion[1]+suffix for suffix in ['ak','ek']]
+    if re.fullmatch(r'El-jaw\s*/\s*el-denia shoab',s,re.I):
+        return ['El-jaw shoab','el-denia shoab']
+    # This source row combines command variants with attached pronoun suffixes.
+    # Preserve its existing base identity; never index bare ek/kom as verbs.
+    if re.fullmatch(r'Jahhez\s*/\s*jahhzi\s*/\s*jahhzu\s+7aalak/ek/kom', s, re.I):
+        return ['Jahhez', 'jahhzi', 'jahhzu', 'Jahhez 7aalak', 'jahhzi 7aalek', 'jahhzu 7aalkom']
+    # This documented adjective shares its preposition across masculine and
+    # feminine spellings. Never index the suffix fragment "a la" as a word.
+    if re.fullmatch(r'mishtaaq/2/a\s+la', s, re.I):
+        return ['mishtaaq la', 'mishtaa2 la', 'mishtaaqa la', 'mishtaa2a la']
+    # q/2 is an alternative spelling of one consonant, not a word boundary.
+    alternate=re.search(r'(?<=[A-Za-z0-9])(q/2|2/q)',s,re.I)
+    if alternate:
+        left,right=alternate.group().split('/')
+        return list(dict.fromkeys(v for letter in (left,right) for v in arabizi_forms(s[:alternate.start()]+letter+s[alternate.end():])))
+    # Shared tail: both alternatives retain biddi/biddak/etc. Bare kaan is
+    # "was", not the whole phrase "wanted".
+    wanted=re.fullmatch(r'(kaan)\s*/\s*(kunet|kunti|kuntu|kunna)\s+(bidd\w+)',s,re.I)
+    if wanted:
+        return [wanted[1]+' '+wanted[3],wanted[2]+' '+wanted[3]]
     parts = split_slash(s)
     if len(parts) == 1:
         return parts
@@ -97,7 +127,7 @@ def parse_markdown(text):
     for line in lines:
         m = HEAD_RE.match(line)
         if m:
-            level, title = len(m.group(1)), clean(m.group(2))
+            level, title = len(m.group(1)), clean(re.sub(r'\s*\{#[^}]+\}\s*$', '', m.group(2)))
             if level == 1:
                 if not last_h1_had_rows and topic:
                     tab = topic                       # previous H1 was only a tab name
@@ -201,17 +231,62 @@ def same_word(a, b):
     return len(lo) >= 1 and hi.startswith(lo) and len(lo) * 2 < len(hi)
 
 
+def source_key(row):
+    """Preserve reviewed lexical distinctions lost by loose transliteration."""
+    raw=row['arabizi'].strip()
+    # Preserve identities from the earlier importer while repairing display
+    # and aliases. Their spelling alone must not reset existing histories.
+    if re.fullmatch(r'Ana baq/2aatel',raw,re.I):return 'ana ba2'
+    if re.fullmatch(r'Ana ba2/qul',raw,re.I):return 'ana ba2~2'
+    if re.fullmatch(r'Ana balte2/qi',raw,re.I):return 'ana balte2'
+    if re.fullmatch(r'mishtaaq/2/a\s+la',raw,re.I):return 'mishtA2'
+    if re.fullmatch(r'kaan\s*/\s*kunet biddi',raw,re.I):return 'kAn'
+    if re.fullmatch(r'El-jaw\s*/\s*el-denia shoab',raw,re.I):return 'aljaw'
+    base = loose(arabizi_forms(raw)[0])
+    # Distinct documented lexical senses must not inherit each other's scores.
+    # Preserve the first source identity and give the other sense a stable key.
+    sense_keys={('2arIb','Relative'):'2arIb~relative',
+                ('salon','Hair Salon'):'salon~hair-salon',
+                ('sA7eb','Owner'):'sA7eb~owner',
+                ('mara','One time'):'mara~time'}
+    if (base,row.get('english','').strip()) in sense_keys:
+        return sense_keys[(base,row['english'].strip())]
+    if base == 'kul' and row.get('topic') == 'Command Tense' and row.get('english', '').strip().lower() == 'eat':
+        return 'kul~eat'
+    # Double k distinguishes scratch from talk even where unvowelled Arabic
+    # and the loose Arabizi key coincide. Preserve existing talk identities.
+    if row.get('topic') == 'Past Tense' and re.search(r'\bscratched\b', row.get('english', ''), re.I) and base in {
+        'ana 7akait', 'inta 7akait', 'inti 7akaiti', 'intu 7akaitu',
+        'i7na 7akaina', 'heiye 7akat', 'hume 7aku'}:
+        return base + '~scratch'
+    return base
+
+
+def source_arabic_forms(row):
+    """Expand only the reviewed shared-tail wanted phrases in the document."""
+    if re.fullmatch(r'El-jaw\s*/\s*el-denia shoab',row['arabizi'],re.I) and row['arabic']=='الجو / الدنيا شوب':
+        return ['الجو شوب','الدنيا شوب']
+    if re.fullmatch(r'kaan\s*/\s*(kunet|kunti|kuntu|kunna)\s+bidd\w+',row['arabizi'],re.I):
+        match=re.fullmatch(r'(كان)\s*/\s*(كنت\w*|كنا)\s+(بد\w+)',row['arabic'])
+        if match:return [match[1]+' '+match[3],match[2]+' '+match[3]]
+    return split_slash(row['arabic'])
+
+
 def to_words(rows):
     """Rows -> unique word records keyed by loose(Arabizi). Same key + same Arabic = merged; same key + other Arabic = key~2."""
     words, by_key = [], {}
     dup_merged = 0
     for r in rows:
         forms = arabizi_forms(r['arabizi'])
-        key0 = loose(forms[0])
+        key0 = source_key(r)
         if not key0:
             continue
-        ar_parts = split_slash(r['arabic'])
+        ar_parts = source_arabic_forms(r)
+        shared_tail=bool(re.fullmatch(r'kaan\s*/\s*(kunet|kunti|kuntu|kunna)\s+bidd\w+|El-jaw\s*/\s*el-denia shoab',r['arabizi'],re.I))
         arabic, arabic_plural = ar_parts[0], (ar_parts[1] if len(ar_parts) > 1 else '')
+        if shared_tail:
+            arabic_plural=''
+            forms=list(dict.fromkeys(forms+ar_parts[1:]))
         an = arabic_norm(arabic)
         key, n = key0, 1
         while key in by_key and not same_word(by_key[key]['arabic_norm'], an):
@@ -220,7 +295,7 @@ def to_words(rows):
             w = by_key[key]; dup_merged += 1
             if r['english'] and r['english'].lower() not in w['english'].lower():
                 w['english'] = (w['english'] + ' / ' + r['english']) if w['english'] else r['english']
-            for f in forms[1:]:
+            for f in forms:
                 if f not in w['aliases'] and f != w['arabizi']:
                     w['aliases'].append(f)
             continue
@@ -229,7 +304,7 @@ def to_words(rows):
             plural = ''
         w = {'key': key, 'arabizi': forms[0], 'arabic': arabic, 'english': r['english'], 'plural': plural, 'arabic_plural': arabic_plural,
              'topic': r['topic'], 'subtopic': r['subtopic'], 'tab': r['tab'], 'doc_order': r['doc_order'],
-             'match_loose': key0, 'match_skeleton': skeleton(forms[0]), 'arabic_norm': an, 'aliases': forms[1:]}
+             'match_loose': loose(forms[0]), 'match_skeleton': skeleton(forms[0]), 'arabic_norm': an, 'aliases': forms[1:]}
         by_key[key] = w; words.append(w)
     for w in words:
         h = hashlib.sha1('|'.join([w['arabizi'], w['arabic'], w['english'], w['plural'], w['topic'], w['subtopic'], ','.join(w['aliases'])]).encode('utf-8')).hexdigest()[:16]
@@ -287,6 +362,13 @@ def main():
     io.open(VOCAB / 'words.json', 'w', encoding='utf-8').write(json.dumps(snap, ensure_ascii=False, indent=0))
     io.open(DOCS_DATA / 'words.json', 'w', encoding='utf-8').write(json.dumps({k: v for k, v in snap.items() if k != 'items'} | {'items': [{k: w[k] for k in ('key', 'arabizi', 'arabic', 'english', 'plural', 'topic', 'subtopic', 'match_loose', 'match_skeleton', 'arabic_norm', 'aliases')} for w in words]}, ensure_ascii=False))
     print(f'source: {label}\nrows: {len(rows)}  words: {len(words)}  merged duplicates: {merged}  topics: {len({w["topic"] for w in words})}  subtopics: {len({(w["topic"], w["subtopic"]) for w in words})}')
+    # Rebuild the source-linked Word Bank forms from this exact export, not a stale snapshot.
+    import subprocess
+    catalog_source = VOCAB / ('word_bank_source.html' if kind == 'html' else 'word_bank_source.md')
+    catalog_source.write_text(text, encoding='utf-8')
+    subprocess.run([sys.executable, str(ROOT / 'scripts' / 'build_word_bank_catalog.py'),
+                    '--document', str(catalog_source), '--words', str(DOCS_DATA / 'words.json'),
+                    '--output', str(DOCS_DATA / 'word-bank-catalog.json')], check=True)
     if a.json_only:
         return
     res = sync(words, dry=a.dry)

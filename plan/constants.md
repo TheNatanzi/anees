@@ -1,4 +1,8 @@
 # Anees contracts (binding; supersede any conflicting wiki line)
+### Word Bank page rules (Medi, 2026-09-17)
+
+For the new Word Bank page, `plan/word-bank-specification.md` supersedes the older score, form, metric, and display rules below. It defines the approved pre-10 and rolling latest-10 system with independent Spoken and Flashcard scores. Other pages retain their current rules until explicitly migrated. The Word Bank uses raw evidence rather than legacy derived buckets.
+
 
 ### Current app labels (Medi, 2026-09-10)
 

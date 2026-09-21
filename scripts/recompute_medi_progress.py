@@ -113,6 +113,9 @@ def check_expected(snapshot):
 
 
 def apply(folder):
+    if db.sql("select to_regclass('public.speaking_release') is not null as installed")[0]['installed']:
+        if db.select('speaking_release', {'select':'id', 'limit':'1'}):
+            raise RuntimeError('Unified Speaking ledger is active. Use the guarded Speaking release publisher; this legacy backfill must not replace reviewed evidence.')
     snapshot = read(folder / 'snapshot.json')
     if snapshot['model_hash'] != model_hash():
         raise RuntimeError('Calculation code changed after preview; create a new preview.')
