@@ -18,11 +18,18 @@ function sentence(e){
 function prepareEvidence(events){return unique(events).map(e=>{
  const own=(e.context||[]).find(r=>r.row_id===e.row_id&&r.speaker===e.speaker);
  const text=normalize(sentence(e)),word=normalize(e.text);
+ if(e.speaker==='Medi'&&!e.grammar_only){
+  const meaning=sentence(e).match(/(?:شو\s+يعني|shu\s+ya3ni|what\s+does)\s+(.+)/i);
+  if(meaning&&['shu','ya3ni'].includes(e.word_key))return {...e,ignored:true,vocab_points:null};
+  if(meaning&&word&&normalize(meaning[1]).includes(word))return {...e,assessment:'incorrect',vocab_points:0,ignored:false,immediate_repeat:false,is_echo:false,classification:'lexical'};
+  if(e.word_key==='shu'&&/^(?:(?:uh|um|شو|shu|what|huh)\s*)+$/i.test(text))return {...e,ignored:true,vocab_points:null};
+  if(e.self_corrected&&!e.is_echo&&!e.immediate_repeat&&!e.scored_in_event)return {...e,assessment:'independent',vocab_points:1,ignored:false};
+ }
  const supplied=(e.context||[]).filter(r=>r.speaker==='Amal'&&Number.isFinite(r.timeline_end)&&Number.isFinite(own?.timeline_start)&&own.timeline_start>=r.timeline_end&&own.timeline_start-r.timeline_end<=15);
  // Only an exact repeated sentence or isolated supplied word establishes an echo.
  // A new sentence containing the target remains eligible for partial credit.
  const echo=e.speaker==='Medi'&&e.assessment==='helped'&&text&&supplied.some(r=>{
-  const tutor=normalize(r.text);return text===tutor||(text===word&&(' '+tutor+' ').includes(' '+word+' '));
+  const tutor=normalize(r.text),clean=text.replace(/\b(?:uh|um|yeah|okay|oh|so)\b/g,'').replace(/\s+/g,' ').trim();return text===tutor||((text===word||clean===word)&&(' '+tutor+' ').includes(' '+word+' '));
  });
  return echo?{...e,immediate_repeat:true}:e;
 });}
@@ -99,10 +106,11 @@ function models(words,catalog,events,cards){
   // scored event; separate observations drive Last said, Heard and usage.
   const attempted=e.attempt_target?{...e,...e.attempt_target,entry_id:e.attempt_target.entry_id,tense:e.attempt_target.tense,form:e.attempt_target.form}:e;
   const f=target(attempted),actual=target(e);
+  if(e.attempt_target&&actual&&actual!==f&&e.speaker==='Medi'&&points(e)===0)actual.events.push({...e,attempt_target:undefined});
   if(f)f.events.push({...e,use_id:e.use_id||(f.uses||[]).some(u=>u.id===attempted.word_key)?(e.use_id||attempted.word_key):undefined});
   else for(const r of parents.get(attempted.word_key)||[])r.unassigned.push(e);
   if(actual&&Number.isFinite(e.t_start)&&(e.speaker==='Amal'||e.speaker==='Medi'&&e.spoken!==false)){
-   actual.observations.push(f&&f!==actual?{...e,observation_only:true}:e);
+   actual.observations.push(f&&f!==actual&&!(e.attempt_target&&points(e)===0)?{...e,observation_only:true}:e);
   }
  }
  for(const e of unique(cards)){const f=target(e,'flashcards');if(f)f.cardEvents.push({...e,use_id:e.use_id||(f.uses||[]).some(u=>u.id===e.word_key)?(e.use_id||e.word_key):undefined});}

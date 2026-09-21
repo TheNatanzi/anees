@@ -14,24 +14,24 @@ test('talk and scratch source paradigms have distinct identities',()=>{
  assert(talk&&scratch);assert.equal(talk.keys.some(k=>scratch.keys.includes(k)),false);
  assert(scratch.entries[0].keys.includes('ana 7akait~scratch'));
 });
-test('one self-correction earns half credit on the intended word and preserves actual speech',()=>{
+test('one self-correction earns full credit on the intended word and preserves actual speech',()=>{
  const words=[{key:'annoy',arabizi:'baza3ej'},{key:'annoyed',arabizi:'banze3ej'}];
  const start={id:'wrong',word_key:'annoy',speaker:'Medi',lesson_date:'2026-09-05',t_start:1,text:'baza3ej',spoken:true,assessment:'unresolved',ignored:true,scored_in_event:'correct'};
- const end={id:'correct',word_key:'annoyed',speaker:'Medi',lesson_date:'2026-09-05',t_start:2,text:'banze3ej',spoken:true,assessment:'helped',vocab_points:.5};
+ const end={id:'correct',word_key:'annoyed',speaker:'Medi',lesson_date:'2026-09-05',t_start:2,text:'banze3ej',spoken:true,assessment:'helped',vocab_points:.5,self_corrected:true};
  const rows=C.models(words,{},[start,end],[]),wrong=rows.find(r=>r.id==='annoy'),right=rows.find(r=>r.id==='annoyed');
  assert.equal(wrong.spoke,0);assert.equal(wrong.last.id,'wrong');
- assert.equal(right.spoke,1);assert.equal(right.entries[0].speaking.status,'Shaky');
- assert.equal(right.entries[0].speaking.attempts[0].p,.5);
+ assert.equal(right.spoke,1);assert.equal(right.entries[0].speaking.status,'Good');
+ assert.equal(right.entries[0].speaking.attempts[0].p,1);
 });
-test('wrong word scores intended retrieval once while recency belongs to actual speech',()=>{
+test('wrong word scores both vocabulary items while recency belongs to actual speech',()=>{
  const words=[{key:'annoying',arabizi:'muz3ej'},{key:'annoyed',arabizi:'maz3uuj'}];
  const event={id:'a',word_key:'annoying',attempt_target:{word_key:'annoyed'},speaker:'Medi',spoken:true,lesson_date:'2026-09-10',t_start:5,text:'muz3ej',assessment:'incorrect',vocab_points:0};
  const rows=C.models(words,{},[event],[]),actual=rows.find(r=>r.id==='annoying'),intended=rows.find(r=>r.id==='annoyed');
- assert.equal(actual.spoke,0);assert.equal(actual.last.id,'a');assert.equal(actual.used,1);
- assert.equal(C.points(actual.events[0]),null);assert.equal(actual.events[0].observation_only,true);
+ assert.equal(actual.spoke,1);assert.equal(actual.last.id,'a');assert.equal(actual.used,1);
+ assert.equal(C.points(actual.events[0]),0);assert.equal(!!actual.events[0].observation_only,false);
  assert.equal(intended.spoke,1);assert.equal(intended.entries[0].speaking.status,'Shaky');
  assert.equal(intended.last,null);assert.equal(intended.used,0);
- assert.equal(rows.flatMap(r=>r.entries.flatMap(f=>f.speaking.attempts)).length,1);
+ assert.equal(rows.flatMap(r=>r.entries.flatMap(f=>f.speaking.attempts)).length,2);
  assert.equal(event.observation_only,undefined); // Evidence remains immutable.
 });
 test('forgotten target alone does not count as an actual lesson occurrence',()=>{

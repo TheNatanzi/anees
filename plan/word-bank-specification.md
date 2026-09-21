@@ -472,3 +472,16 @@ These illustrate agreed behavior. Scoring and browser coverage is reported separ
 ### Context establishes lexical meaning (Kul correction)
 
 Identical spelling is not sufficient to assign a meaning, tense, or error. Read the learner sentence and tutor exchange. Kul meaning all/every is a separate vocabulary identity from Kul, the command eat. The user confirms his loaded kul occurrences were quantifier uses. Preserve distinct source meanings; an ambiguous homograph remains unscored until context or review establishes its sense. Do not mark a vocabulary error solely because the matched dictionary entry has the wrong meaning.
+
+
+## Context review rules — 2026-09-21 (supersede earlier conflicting rules)
+
+- Wrong-word substitution corrected by the tutor: score both the actual and intended vocabulary items 0, linked to one incident. Only actual speech affects Last said.
+- Repeating the supplied correction earns no additional attempt or points.
+- Self-correction before tutor help: final word earns 1 with a self-corrected note. The abandoned word receives no miss. Count the episode once.
+- Asking what a word means scores the unknown target 0; question words such as shu/ya3ni are not penalized. Standalone requests to repeat/clarify are unscored.
+- A word used in a new answer is not helped merely because it appeared in the tutor's question. Nearby errors or hesitation cannot transfer a miss to another word.
+- A confirmed incorrect pronunciation earns 0. ASR corruption alone is not evidence of an incorrect pronunciation. User-confirmed transcript repairs preserve the original ASR alongside the corrected display.
+- Highlight only supported incorrect spans in red, in sentence and expanded context. Do not color an entire sentence for one word's error.
+- Source-bound review overlays are in docs/data/word-bank-review.json; changed source evidence must invalidate the overlay. Ambiguous cases remain unscored with a review reason.
+- Conversation excerpts are bound to original recording hashes and lesson timestamps. Display incomplete participant coverage; a successful file request is not proof that every speaker is present.

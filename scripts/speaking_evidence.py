@@ -229,11 +229,25 @@ def assess(events):
         cue=any(re.search(r'\b(no|instead|wrong|pronounce|correction)\b|(?:^|\s)(لا|مش)(?:\s|[.،؟])',r['text'],re.I) for r in after)
         repeat=any(o['speaker']=='Amal' and o['word_key']==e['word_key'] and 0<=o['t_start']-e['t_end']<=5 for o in events)
         forgot=bool(re.search(r"\b(forgot|forget|don.t know|don.t remember)\b|نسيت|مش عارف",own,re.I))
+        meaning=re.search(r'(?:شو\s+يعني|shu\s+ya3ni|what\s+does)\s+(.+)',own,re.I)
+        if meaning and e['word_key'] in ('shu','ya3ni'):
+            e.update(ignored=True,reason='Question wording, not the unknown vocabulary target'); continue
+        if meaning and e['text'].strip(' .،؟?!') in meaning.group(1):
+            e.update(assessment='incorrect',classification='lexical',vocab_points=0,reason='Explicit request for this vocabulary item’s meaning'); continue
+        if e['word_key']=='shu' and re.fullmatch(r'(?:uh|um|شو|shu|what|huh|[\s،,.?!؟])+',own,re.I):
+            e.update(ignored=True,reason='Clarification request, not failed recall of shu'); continue
+        # Script is not proficiency: a connected Arabizi sentence is still a
+        # connected sentence. Do not award this for an actual supplied echo.
+        own_tokens=re.findall(r'[\w]+',own,flags=re.UNICODE)
         if before:
-            e.update(assessment='helped',reason='Same vocabulary supplied by Amal within 15 seconds; repetition is practice, not independent credit')
+            questions=[r for r in e['context'] if r['speaker']=='Amal' and 0<=e['t_start']-r['timeline_end']<=15 and re.search(r'[?؟]',r['text'])]
+            if questions and len(own_tokens)>=3 and not cue and not repeat:
+                e.update(assessment='independent',reason='Word used in a new answer; tutor question wording alone is not evidence of help')
+            else:
+                e.update(assessment='helped',reason='Same vocabulary supplied by Amal within 15 seconds; repetition is practice, not independent credit')
         elif cue or repeat or forgot:
             e['reason']='Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error'
-        elif len(re.findall(r'[\u0621-\u064a]+',own))>=3:
+        elif len(own_tokens)>=3:
             e.update(assessment='independent',reason='Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified')
         else:
             e['reason']='Isolated production; insufficient evidence of independent contextual success'
