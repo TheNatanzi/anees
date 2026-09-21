@@ -24,11 +24,11 @@ test('written who and from remain distinct without correcting raw ASR spelling',
  assert.equal(render('من').text,'min');
  assert.equal(render('min').text,'min');
 });
-test('unlisted Arabic gets marked approximate; rendering never mutates evidence',()=>{
+test('unlisted Arabic stays in Arabic with an uncertainty label; source evidence is immutable',()=>{
  const event={text:'زغردفل',assessment:'unresolved',context:[{text:'زغردفل'}]};
  const before=JSON.stringify(event),value=A.create()(event.text);
  assert.equal(value.approximate,true);
  assert.equal(value.generated,true);
- assert(!/[\u0621-\u064A]/.test(value.text));
+ assert.equal(value.text,event.text,'Do not invent vowels or an Arabizi consonant string');
  assert.equal(JSON.stringify(event),before);
 });

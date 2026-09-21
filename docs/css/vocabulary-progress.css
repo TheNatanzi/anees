@@ -1,0 +1,42 @@
+#anees-bank .vp-eyebrow{font-size:10px;letter-spacing:1.6px;color:var(--ab-accent);font-weight:700;margin-bottom:9px}
+#anees-bank .vp-banklink{text-decoration:none;color:var(--ab-accent);white-space:nowrap}
+#anees-bank .vp-notice{border-left:3px solid var(--ab-accent);background:var(--ab-panel);padding:10px 13px;font-size:12px;color:var(--ab-muted);margin-bottom:16px}
+#anees-bank .vp-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 17px}
+#anees-bank .vp-toolbar select{margin-left:7px}
+#anees-bank .vp-panel{border:1px solid var(--ab-line);background:var(--ab-panel);border-radius:10px;padding:20px;margin-bottom:16px;min-width:0}
+#anees-bank .vp-panelhead{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:20px}
+#anees-bank .vp-panel h2{font-size:16px;font-weight:600;margin:0 0 4px;letter-spacing:-.2px}
+#anees-bank .vp-panel p{margin:0 0 7px}
+#anees-bank .vp-split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+#anees-bank .vp-icon{border-radius:9px;background:var(--ab-raised);color:var(--ab-accent);padding:6px 11px;font-size:20px}
+#anees-bank .vp-legend{display:flex;gap:16px;font-size:11px;white-space:nowrap;color:var(--ab-accent)}
+#anees-bank .vp-legend span:last-child{color:var(--ab-green)}
+#anees-bank .vp-chart{width:100%;height:auto;display:block;max-height:245px;overflow:visible}
+#anees-bank .vp-chart text{font:11px 'Segoe UI',sans-serif;fill:var(--ab-muted)}
+#anees-bank .vp-chart .vp-gridline{stroke:var(--ab-line);stroke-dasharray:4 5}
+#anees-bank .vp-chart .vp-known{stroke:var(--ab-accent);fill:none;stroke-width:3}
+#anees-bank .vp-chart .vp-mastered{stroke:var(--ab-green);fill:none;stroke-width:2}
+#anees-bank .vp-bar{display:grid;grid-template-columns:140px 1fr 50px;gap:12px;align-items:center;border:0;background:none;width:100%;padding:8px 0;text-align:left;font-size:12px}
+
+#anees-bank .vp-track{height:7px;border-radius:5px;background:var(--ab-raised);overflow:hidden}
+#anees-bank .vp-fill{height:100%;display:block;min-width:0;background:var(--ab-accent);border-radius:5px}
+#anees-bank .vp-bar strong{text-align:right;font-variant-numeric:tabular-nums}
+#anees-bank .vp-method{margin-top:16px;padding-top:12px;border-top:1px solid var(--ab-line);font-size:12px;color:var(--ab-muted)}
+#anees-bank .vp-method summary{cursor:pointer;color:var(--ab-accent);margin-bottom:8px}
+
+
+
+
+
+#anees-bank .vp-memory-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;line-height:1.4;border:1px solid currentColor;border-radius:5px;padding:3px 6px;width:fit-content}
+#anees-bank .vp-memory-strong{color:var(--ab-green)}
+#anees-bank .vp-memory-fading{color:var(--ab-orange)}
+#anees-bank .vp-memory-risk,#anees-bank .vp-memory-high{color:var(--ab-red)}
+#anees-bank .vp-memory-unchecked,#anees-bank .vp-memory-no-recall{color:var(--ab-muted)}
+#anees-bank .vp-history-table{font-size:11px;border-collapse:collapse;width:100%;margin:10px 0}
+#anees-bank .vp-history-table td,#anees-bank .vp-history-table th{text-align:left;padding:5px 8px;border-bottom:1px solid var(--ab-line)}
+#anees-bank .vp-memory-detail{margin:10px 0;padding:8px 0;border-top:1px solid var(--ab-line)}
+#anees-bank .vp-memory-mini{font-size:10px;font-weight:400;display:block;margin-top:3px}
+@media(min-width:1500px){#anees-bank main{max-width:1500px;width:100%;margin:auto}}
+@media(max-width:950px){#anees-bank .vp-split{grid-template-columns:1fr}}
+@media(max-width:680px){#anees-bank .vp-panel{padding:15px}#anees-bank .vp-toolbar{align-items:flex-start;flex-direction:column}#anees-bank .vp-panelhead{flex-wrap:wrap;margin-bottom:12px}#anees-bank .vp-bar{grid-template-columns:125px 1fr 40px;gap:8px}#anees-bank .vp-banklink{font-size:11px;white-space:normal}#anees-bank .vp-chart text{font-size:14px}}
