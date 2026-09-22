@@ -91,7 +91,9 @@ function models(words,catalog,events,cards){
  const parents=new Map();for(const r of rows)for(const k of r.keys||[r.key]){if(!parents.has(k))parents.set(k,[]);parents.get(k).push(r);}
  function target(e,lane='speaking'){
   if(e.entry_id&&byId.has(e.entry_id))return byId.get(e.entry_id);
-  if(lane==='flashcards'&&/^form:/.test(e.word_key||'')&&byId.has(e.word_key.slice(5)))return byId.get(e.word_key.slice(5)); // a keyless form practised on Flashcards
+  if(lane==='flashcards'&&/^form:/.test(e.word_key||'')){ // a keyless form practised on Flashcards: form:<entry id>[:<person>[:<add-on>]] -> longest known entry id
+   let id=e.word_key.slice(5);while(id&&!byId.has(id))id=id.includes(':')?id.slice(0,id.lastIndexOf(':')):'';
+   if(id)return byId.get(id);}
   const parentRows=parents.get(e.word_key)||[];let opts=byKey.get(e.word_key)||[];
   if(e.tense||e.form){opts=parentRows.flatMap(r=>r.entries).filter(f=>f.label.toLowerCase()===String(e.tense||e.form).toLowerCase());return opts.length===1?opts[0]:null;}
   if(lane==='speaking'&&e.text){
