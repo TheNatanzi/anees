@@ -1,0 +1,354 @@
+/* ==========================================================================
+   SABZ — design tokens (sabz-tokens.css)
+   ==========================================================================
+   The single token file every Sabz screen variant imports. Do not restyle
+   ad hoc — consume these custom properties.
+
+   SOURCE OF TRUTH: docs/BRAND-SABZ.md (v1, locked by Medi 2026-08-06).
+   If a value here ever disagrees with BRAND-SABZ.md, the brandbook wins.
+
+   LIGHT mode  = V1 "botanical archive" (cream herbarium; the design target —
+                 BRAND-SABZ.md §2 hexes verbatim).
+   DARK mode   = V2 "deep canopy" (teal-ink structure over #141D1A paper-dark;
+                 washes at HALF the light opacity per §3; derived values are
+                 commented inline with the reasoning).
+
+   Theme resolution: OS preference via @media (prefers-color-scheme: dark),
+   then an explicit app toggle via :root[data-sabz-theme="dark"|"light"],
+   which beats the OS setting in BOTH directions. 'auto' sets neither
+   attribute value's rules in motion, so the OS media query governs.
+
+   CONSUMED DIRECTLY: apps/ganjsta-next imports THIS file (main.tsx) —
+   there is no app-side copy to drift. Do not fork it back into the app.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   0 · RAW PALETTE — theme-independent constants (BRAND-SABZ.md §2, exact).
+   These never change between themes; semantic tokens below point at them.
+   -------------------------------------------------------------------------- */
+:root {
+  --sabz-c-paper:        #F5F2EA;  /* app background, light */
+  --sabz-c-greige:       #E3E1D5;  /* cards, wells, divider base */
+  --sabz-c-sage:         #7FA08C;  /* watercolor washes, calm fills */
+  --sabz-c-forest:       #3E5C4B;  /* the data ink: curve, dots, accents */
+  --sabz-c-teal-ink:     #26363B;  /* deep structure; dark-mode base */
+  --sabz-c-ink:          #1E2A22;  /* text + numerals; never pure black */
+  --sabz-c-muted:        #6E7A6B;  /* secondary text, labels, axis text */
+  --sabz-c-hairline:     #C9C5B4;  /* rules, borders, axis lines */
+  --sabz-c-burnt-orange: #B9631F;  /* THE warm accent · drifting state */
+  --sabz-c-ochre-wash:   #EFE4CB;  /* drifting pill fill */
+  --sabz-c-ochre-text:   #7A5A1E;  /* drifting pill text */
+  --sabz-c-coral:        #D96A4E;  /* over state only */
+  --sabz-c-coral-fill:   #EDDCD4;  /* over pill fill */
+  --sabz-c-coral-text:   #7E3A28;  /* over pill text */
+  --sabz-c-sage-pill:    #E4E8DA;  /* calm pill fill */
+  --sabz-c-sage-pill-text: #4C5C39; /* calm pill text */
+  --sabz-c-khaki:        #B39D6B;  /* rare tertiary accent (3rd chart series) */
+  --sabz-c-paper-dark:   #141D1A;  /* dark-mode ground (§3) */
+}
+
+/* --------------------------------------------------------------------------
+   1 · TYPOGRAPHY (BRAND-SABZ.md §4) — theme-independent.
+   -------------------------------------------------------------------------- */
+:root {
+  --sabz-font-serif: "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --sabz-font-sans:  system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --sabz-font-mono:  ui-monospace, Consolas, monospace;
+
+  /* Hero figure: serif, tabular lining, 44–52px, colour --sabz-text */
+  --sabz-type-hero:    clamp(44px, 6vw, 52px);
+  --sabz-type-section: 20px;          /* section headings (serif) */
+  --sabz-type-body:    15px;          /* body 14–15px; use -sm at density */
+  --sabz-type-body-sm: 14px;
+  --sabz-type-label:   12.5px;        /* labels 12–13px, --sabz-text-muted */
+  --sabz-type-pill:    11.5px;        /* status pills 11–12px (§7) */
+
+  --sabz-line-body: 1.45;
+
+  /* Wordmark: "SABZ" letterspaced caps (tracking does the spacing, no literal
+     spaces), 12px, muted — never a logo block */
+  --sabz-wordmark-size:     12px;
+  --sabz-wordmark-tracking: 0.30em;
+  --sabz-caps-tracking:     0.22em;   /* generic small-caps captions */
+
+  /* Tabular numerals for every figure */
+  --sabz-numeric: "tnum" 1, "lnum" 1;
+}
+
+/* --------------------------------------------------------------------------
+   2 · SHAPE, SPACE, LINES, WASH CONSTANTS (§3, §7)
+   -------------------------------------------------------------------------- */
+:root {
+  --sabz-radius-card: 12px;
+  --sabz-radius-pill: 999px;
+
+  --sabz-space-1: 4px;
+  --sabz-space-2: 8px;
+  --sabz-space-3: 12px;
+  --sabz-space-4: 16px;
+  --sabz-space-5: 24px;
+  --sabz-space-6: 32px;
+  --sabz-space-7: 48px;
+  --sabz-space-8: 64px;
+
+  --sabz-hairline-w:      1px;
+  --sabz-hairline-w-fine: 0.5px;
+
+  /* Wash opacity bounds: light 8–25% (§3). Dark halves these — see themes. */
+  --sabz-wash-opacity-min:   0.08;
+  --sabz-wash-opacity-max:   0.25;
+  --sabz-wash-opacity-curve: 0.20;  /* sage wash under the pace curve (§7) */
+  --sabz-halo-opacity:       0.25;  /* burnt-orange today-dot halo (§7) */
+
+  /* Pace curve strokes (§7) */
+  --sabz-curve-stroke-w: 2.5px;
+  --sabz-today-dot-size: 6px;  /* today-dot RADIUS (not diameter): forest dot, 5–6px radius */
+
+  /* ------------------------------------------------------------------------
+     CATEGORICAL CHART SERIES (Gate-B order O1; companion to the A4 note).
+     CONSTRAINT: a series colour may come ONLY from granted stones — forest,
+     sage, khaki (§2's third-series grant) — plus NEUTRAL muted/hairline-
+     alpha steps. NEVER a pill/state pair (ochre, clay, olive pill texts),
+     NEVER solid hairline #C9C5B4 in dark (the annex's "glow like a wire"
+     value), and no two series may share a stone within one theme.
+     light-dark() resolves against the color-scheme each theme block sets,
+     so ONE definition serves every theme path.
+     ------------------------------------------------------------------------ */
+  --sabz-series-1: light-dark(var(--sabz-c-forest), var(--sabz-c-sage));
+  --sabz-series-2: light-dark(var(--sabz-c-sage),
+                              color-mix(in srgb, var(--sabz-c-forest) 55%, var(--sabz-c-sage))); /* lifted forest */
+  --sabz-series-3: var(--sabz-c-khaki);
+  --sabz-series-4: light-dark(var(--sabz-c-muted), #96A394); /* muted, annex-swapped */
+  --sabz-series-5: light-dark(var(--sabz-c-hairline), rgba(127, 160, 140, 0.45)); /* hairline / sage-alpha */
+  --sabz-series-6: light-dark(color-mix(in srgb, var(--sabz-c-forest) 50%, var(--sabz-c-paper)),
+                              color-mix(in srgb, var(--sabz-c-khaki) 55%, var(--sabz-c-paper-dark)));
+  --sabz-series-7: light-dark(color-mix(in srgb, var(--sabz-c-khaki) 55%, var(--sabz-c-paper)),
+                              color-mix(in srgb, var(--sabz-c-sage) 45%, var(--sabz-c-paper-dark)));
+  --sabz-series-8: light-dark(color-mix(in srgb, var(--sabz-c-muted) 55%, var(--sabz-c-paper)),
+                              color-mix(in srgb, #96A394 50%, var(--sabz-c-paper-dark)));
+}
+
+/* ==========================================================================
+   3 · LIGHT THEME (default) — V1 botanical archive. §2 verbatim.
+   ========================================================================== */
+:root {
+  --sabz-bg:         var(--sabz-c-paper);
+  --sabz-surface:    var(--sabz-c-greige);       /* cards/wells; may invert to paper-on-greige */
+  --sabz-text:       var(--sabz-c-ink);
+  --sabz-text-muted: var(--sabz-c-muted);
+  --sabz-data-ink:   var(--sabz-c-forest);       /* curve stroke, dots, accents */
+  --sabz-structure:  var(--sabz-c-teal-ink);     /* nav, footers, deep blocks */
+  --sabz-hairline:   var(--sabz-c-hairline);
+
+  /* Wash: sage at 20% — organic blobs only, never under text or data */
+  --sabz-wash:            rgba(127, 160, 140, 0.20);
+  --sabz-wash-forest:     rgba(62, 92, 75, 0.12);
+  --sabz-wash-burnt:      rgba(185, 99, 31, 0.10);
+
+  /* States — calm until it matters (§2 semantics) */
+  --sabz-state-calm:          var(--sabz-c-forest);
+  --sabz-state-calm-fill:     var(--sabz-c-sage-pill);
+  --sabz-state-calm-text:     var(--sabz-c-sage-pill-text);
+  --sabz-state-drifting:      var(--sabz-c-burnt-orange);
+  --sabz-state-drifting-fill: var(--sabz-c-ochre-wash);
+  --sabz-state-drifting-text: var(--sabz-c-ochre-text);
+  --sabz-state-over:          var(--sabz-c-coral);
+  --sabz-state-over-fill:     var(--sabz-c-coral-fill);
+  --sabz-state-over-text:     var(--sabz-c-coral-text);
+  /* Gold owner feed (Medi 2026-09-09): Rinad's rows are purple when a profit
+     figure exists, orange while it is still pending. Medi's stay sage / ochre / coral. */
+  --sabz-state-rinad-fill:          #E6DCF5;
+  --sabz-state-rinad-text:          #4F2E8A;
+  --sabz-state-rinad-drifting-fill: #D3EEF2;
+  --sabz-state-rinad-drifting-text: #0B5966;
+
+  /* Filled controls (Gate-A amendment A4). §7's "ink fill" is a LIGHT-mode
+     instruction; in dark an ink-token fill would be a bright cream slab and
+     solid sage is reserved for data ink. So: in dark, a filled control is a
+     DEEP WELL, never a bright slab — see the dark blocks below. */
+  --sabz-cta-fill:       var(--sabz-c-forest);  /* primary button fill */
+  --sabz-cta-text:       var(--sabz-c-paper);
+  --sabz-active-fill:    var(--sabz-c-ink);     /* active pill: ink fill, paper text (§7) */
+  --sabz-active-text:    var(--sabz-c-paper);
+  --sabz-active-border:  var(--sabz-c-ink);
+
+  /* Imagery layer (§9, ruling 4A): real CC0 macro photos on onboarding &
+     empty states, served from the app's own /photos. Light shows the pale
+     seed-heads; the scrim stays clear because the light photos already sit
+     in the palette. The photo is a BAND — copy never rides on it. Files
+     logged in docs/brand/photos/LICENSES.md. */
+  --sabz-photo-scrim:      linear-gradient(rgba(245, 242, 234, 0), rgba(245, 242, 234, 0));
+  --sabz-empty-photo:      url('/photos/v1-seedhead-01.jpg');
+  --sabz-onboarding-photo: url('/photos/v1-seedhead-02.jpg');
+
+  color-scheme: light;
+}
+
+/* ==========================================================================
+   4 · DARK THEME — V2 deep canopy. Ground #141D1A, structure from teal-ink,
+   sage-tinted light text, washes at HALF light opacity (§3). Every derived
+   value carries its one-line why.
+   ==========================================================================
+   The block body is repeated three times below (OS media query + both
+   explicit toggles) because CSS has no mixins; keep all three IDENTICAL. */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sabz-bg:         var(--sabz-c-paper-dark);   /* §3 paper-dark, teal-ink-derived ground */
+    --sabz-surface:    var(--sabz-c-teal-ink);     /* §2: teal-ink IS the deep structure/dark base — cards rise onto it */
+    --sabz-text:       #E9E6DA;                    /* paper dimmed one step: keeps the cream identity without glare on #141D1A */
+    --sabz-text-muted: #96A394;                    /* muted #6E7A6B lifted ~2 steps lighter, same sage-grey hue, to clear contrast on dark */
+    --sabz-data-ink:   var(--sabz-c-sage);         /* forest is near-invisible on paper-dark; sage is the same green family with the needed lift */
+    --sabz-structure:  var(--sabz-c-teal-ink);
+    --sabz-hairline:   rgba(127, 160, 140, 0.28);  /* sage at low alpha — matches V2's cover rule; solid #C9C5B4 would glow on dark */
+
+    /* Washes: same sage/forest/burnt hues, HALF the light alpha (§3) */
+    --sabz-wash:            rgba(127, 160, 140, 0.10);
+    --sabz-wash-forest:     rgba(62, 92, 75, 0.06);
+    --sabz-wash-burnt:      rgba(185, 99, 31, 0.05);
+    --sabz-wash-opacity-min:   0.04;   /* half of light 0.08 */
+    --sabz-wash-opacity-max:   0.125;  /* half of light 0.25 */
+    --sabz-wash-opacity-curve: 0.10;   /* half of light 0.20 */
+
+    /* States — hue unchanged, adjusted only as far as dark legibility demands */
+    --sabz-state-calm:          var(--sabz-c-sage); /* forest→sage: same swap as data-ink, for the same contrast reason */
+    --sabz-state-calm-fill:     #26332B;            /* sage-pill re-grounded: a dark sage well one step above bg, not a pastel */
+    --sabz-state-calm-text:     #B9C8AC;            /* sage-pill-text lightened to sit legibly on the dark fill, hue kept */
+    --sabz-state-drifting:      #CE7930;            /* burnt-orange +1 step brightness; #B9631F alone dips below 3:1 on #141D1A */
+    --sabz-state-drifting-fill: #372B17;            /* ochre-wash inverted to a dark amber well; pastel #EFE4CB would blind on dark */
+    --sabz-state-drifting-text: #E5C185;            /* ochre-text flipped light, same golden hue, for text-on-dark-fill contrast */
+    --sabz-state-over:          #E07E63;            /* coral +1 step brightness for stroke/icon legibility on dark ground */
+    --sabz-state-over-fill:     #3D241E;            /* coral-fill inverted to a dark clay well, matching the calm/drifting treatment */
+    --sabz-state-over-text:     #EFA793;            /* coral-text flipped light, same clay hue, readable on the dark fill */
+    --sabz-state-rinad-fill:          #3A2A55;            /* purple wash inverted to a dark plum well for Rinad's proven rows */
+    --sabz-state-rinad-text:          #D9C2FF;            /* lavender text on the plum well */
+    --sabz-state-rinad-drifting-fill: #0F3D46;            /* teal well for Rinad's pending rows (orange reads as brown on dark, same as ochre) */
+    --sabz-state-rinad-drifting-text: #7EDCEA;            /* aqua text on the teal well */
+
+    /* Filled controls in dark (A4): deep wells, not bright slabs. CTA keeps
+       the forest fill with cream label; the active pill re-grounds as the
+       dark sage well (same stone as the calm pill fill) with cream text and
+       a sage hairline, so nothing shouts on the canopy. */
+    --sabz-cta-fill:       var(--sabz-c-forest);
+    --sabz-cta-text:       #E9E6DA;
+    --sabz-active-fill:    #26332B;
+    --sabz-active-text:    #E9E6DA;
+    --sabz-active-border:  var(--sabz-c-sage);
+
+    /* Imagery layer (§9, 4A): the dark canopy shows the cedar fern; a soft
+       paper-dark scrim keeps the band from glaring against #141D1A. */
+    --sabz-photo-scrim:      linear-gradient(rgba(20, 29, 26, 0.30), rgba(20, 29, 26, 0.30));
+    --sabz-empty-photo:      url('/photos/v2-fern-01.jpg');
+    --sabz-onboarding-photo: url('/photos/v2-fern-01.jpg');
+
+    color-scheme: dark;
+  }
+}
+
+/* Explicit toggle: data-sabz-theme="dark" beats an OS light preference. */
+:root[data-sabz-theme="dark"] {
+  --sabz-bg:         var(--sabz-c-paper-dark);   /* §3 paper-dark, teal-ink-derived ground */
+  --sabz-surface:    var(--sabz-c-teal-ink);     /* §2: teal-ink IS the deep structure/dark base — cards rise onto it */
+  --sabz-text:       #E9E6DA;                    /* paper dimmed one step: keeps the cream identity without glare on #141D1A */
+  --sabz-text-muted: #96A394;                    /* muted #6E7A6B lifted ~2 steps lighter, same sage-grey hue, to clear contrast on dark */
+  --sabz-data-ink:   var(--sabz-c-sage);         /* forest is near-invisible on paper-dark; sage is the same green family with the needed lift */
+  --sabz-structure:  var(--sabz-c-teal-ink);
+  --sabz-hairline:   rgba(127, 160, 140, 0.28);  /* sage at low alpha — matches V2's cover rule; solid #C9C5B4 would glow on dark */
+
+  --sabz-wash:            rgba(127, 160, 140, 0.10);
+  --sabz-wash-forest:     rgba(62, 92, 75, 0.06);
+  --sabz-wash-burnt:      rgba(185, 99, 31, 0.05);
+  --sabz-wash-opacity-min:   0.04;   /* half of light 0.08 */
+  --sabz-wash-opacity-max:   0.125;  /* half of light 0.25 */
+  --sabz-wash-opacity-curve: 0.10;   /* half of light 0.20 */
+
+  --sabz-state-calm:          var(--sabz-c-sage); /* forest→sage: same swap as data-ink, for the same contrast reason */
+  --sabz-state-calm-fill:     #26332B;            /* sage-pill re-grounded: a dark sage well one step above bg, not a pastel */
+  --sabz-state-calm-text:     #B9C8AC;            /* sage-pill-text lightened to sit legibly on the dark fill, hue kept */
+  --sabz-state-drifting:      #CE7930;            /* burnt-orange +1 step brightness; #B9631F alone dips below 3:1 on #141D1A */
+  --sabz-state-drifting-fill: #372B17;            /* ochre-wash inverted to a dark amber well; pastel #EFE4CB would blind on dark */
+  --sabz-state-drifting-text: #E5C185;            /* ochre-text flipped light, same golden hue, for text-on-dark-fill contrast */
+  --sabz-state-over:          #E07E63;            /* coral +1 step brightness for stroke/icon legibility on dark ground */
+  --sabz-state-over-fill:     #3D241E;            /* coral-fill inverted to a dark clay well, matching the calm/drifting treatment */
+  --sabz-state-over-text:     #EFA793;            /* coral-text flipped light, same clay hue, readable on the dark fill */
+  --sabz-state-rinad-fill:          #3A2A55;            /* purple wash inverted to a dark plum well for Rinad's proven rows */
+  --sabz-state-rinad-text:          #D9C2FF;            /* lavender text on the plum well */
+  --sabz-state-rinad-drifting-fill: #0F3D46;            /* teal well for Rinad's pending rows (orange reads as brown on dark, same as ochre) */
+  --sabz-state-rinad-drifting-text: #7EDCEA;            /* aqua text on the teal well */
+
+    /* Filled controls in dark (A4): deep wells, not bright slabs. CTA keeps
+       the forest fill with cream label; the active pill re-grounds as the
+       dark sage well (same stone as the calm pill fill) with cream text and
+       a sage hairline, so nothing shouts on the canopy. */
+  --sabz-cta-fill:       var(--sabz-c-forest);
+  --sabz-cta-text:       #E9E6DA;
+  --sabz-active-fill:    #26332B;
+  --sabz-active-text:    #E9E6DA;
+  --sabz-active-border:  var(--sabz-c-sage);
+
+  /* Imagery layer (§9, 4A): dark canopy fern, soft paper-dark scrim. */
+  --sabz-photo-scrim:      linear-gradient(rgba(20, 29, 26, 0.30), rgba(20, 29, 26, 0.30));
+  --sabz-empty-photo:      url('/photos/v2-fern-01.jpg');
+  --sabz-onboarding-photo: url('/photos/v2-fern-01.jpg');
+
+  color-scheme: dark;
+}
+
+/* Explicit toggle: data-sabz-theme="light" beats an OS dark preference —
+   restates the full light set so it wins inside the media query too. */
+:root[data-sabz-theme="light"] {
+  --sabz-bg:         var(--sabz-c-paper);
+  --sabz-surface:    var(--sabz-c-greige);
+  --sabz-text:       var(--sabz-c-ink);
+  --sabz-text-muted: var(--sabz-c-muted);
+  --sabz-data-ink:   var(--sabz-c-forest);
+  --sabz-structure:  var(--sabz-c-teal-ink);
+  --sabz-hairline:   var(--sabz-c-hairline);
+
+  --sabz-wash:            rgba(127, 160, 140, 0.20);
+  --sabz-wash-forest:     rgba(62, 92, 75, 0.12);
+  --sabz-wash-burnt:      rgba(185, 99, 31, 0.10);
+  --sabz-wash-opacity-min:   0.08;
+  --sabz-wash-opacity-max:   0.25;
+  --sabz-wash-opacity-curve: 0.20;
+
+  --sabz-state-calm:          var(--sabz-c-forest);
+  --sabz-state-calm-fill:     var(--sabz-c-sage-pill);
+  --sabz-state-calm-text:     var(--sabz-c-sage-pill-text);
+  --sabz-state-drifting:      var(--sabz-c-burnt-orange);
+  --sabz-state-drifting-fill: var(--sabz-c-ochre-wash);
+  --sabz-state-drifting-text: var(--sabz-c-ochre-text);
+  --sabz-state-over:          var(--sabz-c-coral);
+  --sabz-state-over-fill:     var(--sabz-c-coral-fill);
+  --sabz-state-over-text:     var(--sabz-c-coral-text);
+  /* Gold owner feed (Medi 2026-09-09): Rinad's rows are purple when a profit
+     figure exists, orange while it is still pending. Medi's stay sage / ochre / coral. */
+  --sabz-state-rinad-fill:          #E6DCF5;
+  --sabz-state-rinad-text:          #4F2E8A;
+  --sabz-state-rinad-drifting-fill: #D3EEF2;
+  --sabz-state-rinad-drifting-text: #0B5966;
+
+  --sabz-cta-fill:       var(--sabz-c-forest);
+  --sabz-cta-text:       var(--sabz-c-paper);
+  --sabz-active-fill:    var(--sabz-c-ink);
+  --sabz-active-text:    var(--sabz-c-paper);
+  --sabz-active-border:  var(--sabz-c-ink);
+
+  /* Imagery layer (§9, 4A): light seed-heads, clear scrim — re-asserted so
+     a forced-light toggle wins inside an OS-dark media query. */
+  --sabz-photo-scrim:      linear-gradient(rgba(245, 242, 234, 0), rgba(245, 242, 234, 0));
+  --sabz-empty-photo:      url('/photos/v1-seedhead-01.jpg');
+  --sabz-onboarding-photo: url('/photos/v1-seedhead-02.jpg');
+
+  color-scheme: light;
+}
+
+/* --------------------------------------------------------------------------
+   5 · STANDING RULES the tokens cannot enforce (from BRAND-SABZ.md):
+   - Default state = ink on paper, NO colour. Burnt-orange ONLY when
+     drifting; coral ONLY when over. Red never exists. No blue/purple.
+   - Washes never touch data: numerals, curve strokes, axes, pills, labels
+     stay crisp full-opacity --sabz-text / --sabz-data-ink.
+   - No wash above --sabz-wash-opacity-max; nothing painted under text.
+   - Keep 60%+ of any screen unpainted --sabz-bg. One hero figure per screen.
+   -------------------------------------------------------------------------- */

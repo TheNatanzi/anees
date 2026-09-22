@@ -1,51 +1,109 @@
-#anees-bank .vp-eyebrow{font-size:10px;letter-spacing:1.6px;color:var(--ab-accent);font-weight:700;margin-bottom:9px}
-#anees-bank .vp-banklink{text-decoration:none;color:var(--ab-accent);white-space:nowrap}
-#anees-bank .vp-notice{border-left:3px solid var(--ab-accent);background:var(--ab-panel);padding:10px 13px;font-size:12px;color:var(--ab-muted);margin-bottom:16px}
-#anees-bank .vp-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 17px}
-#anees-bank .vp-toolbar select{margin-left:7px}
-#anees-bank .vp-panel{border:1px solid var(--ab-line);background:var(--ab-panel);border-radius:10px;padding:20px;margin-bottom:16px;min-width:0}
-#anees-bank .vp-panelhead{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:20px}
-#anees-bank .vp-panel h2{font-size:16px;font-weight:600;margin:0 0 4px;letter-spacing:-.2px}
-#anees-bank .vp-panel p{margin:0 0 7px}
-#anees-bank .vp-split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-#anees-bank .vp-icon{border-radius:9px;background:var(--ab-raised);color:var(--ab-accent);padding:6px 11px;font-size:20px}
-#anees-bank .vp-legend{display:flex;gap:16px;font-size:11px;white-space:nowrap;color:var(--ab-accent)}
-#anees-bank .vp-legend span:last-child{color:var(--ab-green)}
-#anees-bank .vp-chart{width:100%;height:auto;display:block;max-height:245px;overflow:visible}
-#anees-bank .vp-chart text{font:11px 'Segoe UI',sans-serif;fill:var(--ab-muted)}
-#anees-bank .vp-chart .vp-gridline{stroke:var(--ab-line);stroke-dasharray:4 5}
-#anees-bank .vp-chart .vp-known{stroke:var(--ab-accent);fill:none;stroke-width:3}
-#anees-bank .vp-chart .vp-mastered{stroke:var(--ab-green);fill:none;stroke-width:2}
-#anees-bank .vp-bar{display:grid;grid-template-columns:140px 1fr 50px;gap:12px;align-items:center;border:0;background:none;width:100%;padding:8px 0;text-align:left;font-size:12px}
+/* Progress & Stats — Sabz skin over the Stitch "Arabic Dashboard – Vocab Macro-Overview" layout.
+   Tokens come from css/sabz-tokens.css (source: C:\dev\ganjsta-ui\docs\BRAND-SABZ.md).
+   Medi removed the Sabz "no red / no blue" rule for this page: chart colours
+   follow the transcript convention (green correct, orange hinted, red wrong). */
 
-#anees-bank .vp-track{height:7px;border-radius:5px;background:var(--ab-raised);overflow:hidden}
-#anees-bank .vp-fill{height:100%;display:block;min-width:0;background:var(--ab-accent);border-radius:5px}
-#anees-bank .vp-bar strong{text-align:right;font-variant-numeric:tabular-nums}
-#anees-bank .vp-topic{display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--ab-line)}
-#anees-bank .vp-topic:last-child{border-bottom:0}#anees-bank .vp-topic>div:first-child{display:flex;flex-direction:column;gap:3px}#anees-bank .vp-topic span,#anees-bank .vp-type span,#anees-bank .vp-milestone span{font-size:10px;color:var(--ab-muted)}
-#anees-bank .vp-ring{--p:0;width:45px;height:45px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:700;background:radial-gradient(circle closest-side,var(--ab-panel) 72%,transparent 73% 99%),conic-gradient(var(--ab-accent) calc(var(--p)*1%),var(--ab-raised) 0)}
-#anees-bank .vp-donut{width:155px;height:155px;margin:8px auto 22px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle closest-side,var(--ab-panel) 63%,transparent 64%),conic-gradient(var(--ab-green) calc(var(--ind)*1%),var(--ab-orange) 0 calc(var(--assist)*1%),var(--ab-red) 0)}
-#anees-bank .vp-donut span{display:flex;flex-direction:column;text-align:center}#anees-bank .vp-donut strong{font-size:25px}#anees-bank .vp-donut small{font-size:9px;color:var(--ab-muted)}
-#anees-bank .vp-key>div{display:grid;grid-template-columns:10px 1fr auto;gap:9px;align-items:center;padding:6px 0;font-size:12px}.vp-dot{width:7px;height:7px;border-radius:50%;background:var(--ab-green)}.vp-dot-1{background:var(--ab-orange)}.vp-dot-2{background:var(--ab-red)}
-#anees-bank .vp-type{display:grid;grid-template-columns:145px 1fr;gap:12px;align-items:center;padding:9px 0}#anees-bank .vp-type>div{display:flex;flex-direction:column;gap:2px}
-#anees-bank .vp-milestone{display:grid;grid-template-columns:18px 1fr;gap:8px;padding:8px 0;border-left:1px solid var(--ab-line)}#anees-bank .vp-milestone i{color:var(--ab-accent);font-size:9px;transform:translateX(-5px)}#anees-bank .vp-milestone div{display:flex;flex-direction:column;gap:3px}
-#anees-bank .vp-wide-left{grid-template-columns:1.35fr .65fr}
-#anees-bank .vp-method{margin-top:16px;padding-top:12px;border-top:1px solid var(--ab-line);font-size:12px;color:var(--ab-muted)}
-#anees-bank .vp-method summary{cursor:pointer;color:var(--ab-accent);margin-bottom:8px}
+/* --- Sabz mapping for the shared shell (sidebar, cards, text) ------------- */
+#anees-bank.vp-sabz{
+ --ab-bg:var(--sabz-bg);--ab-panel:var(--sabz-surface);--ab-raised:var(--sabz-bg);--ab-line:var(--sabz-hairline);
+ --ab-text:var(--sabz-text);--ab-muted:var(--sabz-text-muted);--ab-accent:var(--sabz-data-ink);--ab-active:var(--sabz-state-calm-fill);
+ --ab-green:light-dark(#176347,#6dd8b0);--ab-orange:light-dark(#b45309,#f5b36b);--ab-red:light-dark(#b42332,#ff9aa4);--ab-blue:light-dark(#295da6,#8dbbff);
+ --vp-serif:var(--sabz-font-serif);--vp-forest:var(--sabz-c-forest);--vp-sage:var(--sabz-c-sage);--vp-khaki:var(--sabz-c-khaki);
+ background:var(--ab-bg);color:var(--ab-text);font-family:var(--sabz-font-sans);
+}
+#anees-bank.vp-sabz aside{background:var(--sabz-bg);border-right:1px solid var(--ab-line)}
+#anees-bank.vp-sabz .ab-nav[aria-current="page"]{background:var(--sabz-state-calm-fill);color:var(--sabz-state-calm-text,var(--ab-text))}
+#anees-bank.vp-sabz h1{font-family:var(--vp-serif);font-weight:500;font-size:34px;letter-spacing:-.3px;margin:2px 0 6px}
+#anees-bank.vp-sabz h2{font-family:var(--vp-serif);font-weight:500;font-size:19px;letter-spacing:-.2px;margin:0 0 4px}
+#anees-bank .vp-num{font-family:var(--vp-serif);font-variant-numeric:tabular-nums lining-nums;letter-spacing:-.5px}
 
+/* --- Header + pills ------------------------------------------------------ */
+#anees-bank .vp-header{align-items:flex-end;gap:18px;margin-bottom:18px}
+#anees-bank .vp-eyebrow{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ab-muted);font-weight:600}
+#anees-bank .vp-horizon{display:inline-flex;align-items:center;gap:4px;padding:4px;border:1px solid var(--ab-line);border-radius:999px;background:var(--ab-bg);white-space:nowrap}
+#anees-bank .vp-horizon-label{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ab-muted);padding:0 8px 0 10px}
+#anees-bank .vp-pill{border:1px solid transparent;background:none;border-radius:999px;padding:6px 13px;font-size:12.5px;color:var(--ab-muted);cursor:pointer}
+#anees-bank .vp-pill[aria-pressed="true"]{background:var(--ab-text);color:var(--ab-bg);border-color:var(--ab-text)}
+#anees-bank .vp-notice{border-left:3px solid var(--vp-sage);background:var(--ab-panel);padding:9px 13px;font-size:12px;color:var(--ab-muted);margin-bottom:16px;border-radius:0 8px 8px 0}
 
+/* --- KPI cards ----------------------------------------------------------- */
+#anees-bank .vp-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px}
+#anees-bank .vp-card{display:block;text-decoration:none;color:inherit;border:1px solid var(--ab-line);background:var(--ab-panel);border-radius:12px;padding:16px 18px 14px;min-width:0}
+#anees-bank a.vp-card:hover{border-color:var(--vp-sage)}
+#anees-bank .vp-card-parked{opacity:.55}
+#anees-bank .vp-card-label{display:flex;justify-content:space-between;align-items:center;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ab-muted);font-weight:600;margin-bottom:10px}
+#anees-bank .vp-card-label i{font-style:normal;color:var(--vp-sage);font-size:14px}
+#anees-bank .vp-card-value{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+#anees-bank .vp-card-value .vp-num{font-size:32px;line-height:1;color:var(--ab-text)}
+#anees-bank .vp-card-unit{font-size:12px;color:var(--ab-muted)}
+#anees-bank .vp-trend{font-size:11.5px;font-weight:600;color:var(--ab-green)}
+#anees-bank .vp-trend-down{color:var(--ab-red)}#anees-bank .vp-trend-flat{color:var(--ab-muted);font-weight:500}
+#anees-bank .vp-card-sub{margin-top:9px;font-size:11.5px;color:var(--ab-muted);line-height:1.45}
+#anees-bank .vp-card-sub b{color:var(--ab-text);font-weight:600}
+#anees-bank .vp-card-bar{margin-top:10px;height:6px;border-radius:4px;background:var(--ab-raised);overflow:hidden;display:flex}
+#anees-bank .vp-card-bar span{display:block;height:100%}
+#anees-bank .vp-card-status{margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;font-size:11px;color:var(--ab-muted)}
+#anees-bank .vp-card-status b{font-weight:600;color:var(--ab-text)}
 
+/* --- Tabs ---------------------------------------------------------------- */
+#anees-bank .vp-tabs{display:flex;gap:2px;border-bottom:1px solid var(--ab-line);margin:4px 0 18px;overflow-x:auto}
+#anees-bank .vp-tab{background:none;border:0;border-bottom:2px solid transparent;padding:10px 14px;font-size:13px;color:var(--ab-muted);white-space:nowrap;cursor:pointer}
+#anees-bank .vp-tab[aria-current="page"]{color:var(--ab-text);border-bottom-color:var(--ab-text);font-weight:600}
+#anees-bank .vp-tab:disabled{opacity:.5;cursor:default}
+#anees-bank .vp-tab-note{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;margin-left:6px;padding:2px 6px;border-radius:999px;background:var(--ab-raised);color:var(--ab-muted)}
 
+/* --- Chart panels -------------------------------------------------------- */
+#anees-bank .vp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+#anees-bank .vp-panel{border:1px solid var(--ab-line);background:var(--ab-panel);border-radius:12px;padding:20px;min-width:0}
+#anees-bank .vp-panelhead{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;margin-bottom:16px}
+#anees-bank .vp-panel p{margin:0}
+#anees-bank .vp-legend{display:flex;gap:12px;font-size:11px;white-space:nowrap;color:var(--ab-muted);flex-wrap:wrap;justify-content:flex-end}
+#anees-bank .vp-legend button{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer}
+#anees-bank .vp-legend button[aria-pressed="false"]{text-decoration:line-through;opacity:.6}
+#anees-bank .vp-key-correct{color:var(--ab-green)}#anees-bank .vp-key-hinted{color:var(--ab-orange)}#anees-bank .vp-key-wrong{color:var(--ab-red)}#anees-bank .vp-key-avg{color:var(--ab-muted)}
+#anees-bank .vp-key-mastered{color:var(--vp-forest)}#anees-bank .vp-key-good{color:var(--ab-blue)}#anees-bank .vp-key-weak{color:var(--ab-orange)}#anees-bank .vp-key-unchecked{color:var(--ab-muted)}
+#anees-bank .vp-side{font-size:11px;color:var(--ab-muted);text-align:right;white-space:nowrap}
+#anees-bank .vp-side b{display:block;font-family:var(--vp-serif);font-size:18px;color:var(--ab-text);font-weight:500}
+#anees-bank .vp-chart{width:100%;height:auto;display:block;overflow:visible}
+#anees-bank .vp-chart text{font:10.5px var(--sabz-font-sans);fill:var(--ab-muted)}
+#anees-bank .vp-chart .vp-axis{stroke:var(--ab-line)}
+#anees-bank .vp-chart .vp-gridline{stroke:var(--ab-line);stroke-dasharray:3 5}
+#anees-bank .vp-chart .vp-avg{stroke:var(--ab-muted);stroke-dasharray:5 5;fill:none;stroke-width:1.2}
+#anees-bank .vp-chart .vp-line{fill:none;stroke:var(--vp-forest);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+#anees-bank .vp-chart .vp-dot{fill:var(--vp-forest)}
+#anees-bank .vp-chart .vp-dot-peak{fill:var(--ab-green)}
+#anees-bank .vp-chart .vp-callout{fill:var(--ab-text);font-weight:600}
+#anees-bank .vp-chart .vp-area-mastered{fill:var(--vp-forest);opacity:.9}
+#anees-bank .vp-chart .vp-area-good{fill:var(--ab-blue);opacity:.75}
+#anees-bank .vp-chart .vp-area-weak{fill:var(--ab-orange);opacity:.75}
+#anees-bank .vp-chart .vp-area-unchecked{fill:var(--vp-sage);opacity:.18}
+#anees-bank .vp-chart .vp-bar-correct{fill:var(--ab-green)}#anees-bank .vp-chart .vp-bar-hinted{fill:var(--ab-orange)}#anees-bank .vp-chart .vp-bar-wrong{fill:var(--ab-red)}
+#anees-bank .vp-chart .vp-bar-new{fill:var(--vp-sage)}#anees-bank .vp-chart .vp-bar-new-peak{fill:var(--vp-forest)}
+#anees-bank .vp-chart .vp-lesson-label{font-size:9.5px}
+#anees-bank .vp-empty{padding:26px 8px;text-align:center;font-size:12.5px;color:var(--ab-muted);border:1px dashed var(--ab-line);border-radius:10px}
+#anees-bank .vp-foot{display:flex;gap:22px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid var(--ab-line);font-size:11px;color:var(--ab-muted)}
+#anees-bank .vp-foot b{display:block;font-family:var(--vp-serif);font-size:17px;font-weight:500;color:var(--ab-text);margin-top:2px}
+#anees-bank .vp-foot i{font-style:normal;color:var(--ab-green)}
+#anees-bank .vp-minipills{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--ab-line);border-radius:999px;white-space:nowrap}
+#anees-bank .vp-minipill{border:0;background:none;border-radius:999px;padding:4px 10px;font-size:11px;color:var(--ab-muted);cursor:pointer}
+#anees-bank .vp-minipill[aria-pressed="true"]{background:var(--ab-text);color:var(--ab-bg)}
 
-#anees-bank .vp-memory-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;line-height:1.4;border:1px solid currentColor;border-radius:5px;padding:3px 6px;width:fit-content}
-#anees-bank .vp-memory-strong{color:var(--ab-green)}
-#anees-bank .vp-memory-fading{color:var(--ab-orange)}
-#anees-bank .vp-memory-risk,#anees-bank .vp-memory-high{color:var(--ab-red)}
-#anees-bank .vp-memory-unchecked,#anees-bank .vp-memory-no-recall{color:var(--ab-muted)}
-#anees-bank .vp-history-table{font-size:11px;border-collapse:collapse;width:100%;margin:10px 0}
-#anees-bank .vp-history-table td,#anees-bank .vp-history-table th{text-align:left;padding:5px 8px;border-bottom:1px solid var(--ab-line)}
-#anees-bank .vp-memory-detail{margin:10px 0;padding:8px 0;border-top:1px solid var(--ab-line)}
-#anees-bank .vp-memory-mini{font-size:10px;font-weight:400;display:block;margin-top:3px}
+/* Sections list */
+#anees-bank .vp-section{display:block;text-decoration:none;color:inherit;padding:9px 0;border-bottom:1px solid var(--ab-line)}
+#anees-bank .vp-section:last-child{border-bottom:0}
+#anees-bank .vp-section-head{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;margin-bottom:6px}
+#anees-bank .vp-section-head b{font-weight:600}
+#anees-bank .vp-section-head span{color:var(--ab-muted);font-size:11px;white-space:nowrap}
+#anees-bank .vp-section-track{height:6px;border-radius:4px;background:var(--ab-raised);overflow:hidden}
+#anees-bank .vp-section-fill{height:100%;background:var(--vp-forest);border-radius:4px}
+#anees-bank .vp-section-sub{margin-top:5px;font-size:10.5px;color:var(--ab-muted);display:flex;justify-content:space-between}
+#anees-bank .vp-showall{margin-top:10px;background:none;border:1px solid var(--ab-line);border-radius:999px;padding:5px 12px;font-size:11.5px;color:var(--ab-muted);cursor:pointer}
+
+/* Footer */
+#anees-bank .vp-footer{margin:18px 0 0;font-size:11.5px;color:var(--ab-muted);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#anees-bank .vp-footer::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--vp-sage)}
+
 @media(min-width:1500px){#anees-bank main{max-width:1500px;width:100%;margin:auto}}
-@media(max-width:950px){#anees-bank .vp-split,#anees-bank .vp-wide-left{grid-template-columns:1fr}}
-@media(max-width:680px){#anees-bank .vp-panel{padding:15px}#anees-bank .vp-toolbar{align-items:flex-start;flex-direction:column}#anees-bank .vp-panelhead{flex-wrap:wrap;margin-bottom:12px}#anees-bank .vp-bar{grid-template-columns:125px 1fr 40px;gap:8px}#anees-bank .vp-banklink{font-size:11px;white-space:normal}#anees-bank .vp-chart text{font-size:14px}}
+@media(max-width:1100px){#anees-bank .vp-cards{grid-template-columns:1fr 1fr}}
+@media(max-width:950px){#anees-bank .vp-grid{grid-template-columns:1fr}}
+@media(max-width:680px){#anees-bank .vp-cards{grid-template-columns:1fr}#anees-bank .vp-panel{padding:15px}#anees-bank .vp-header{flex-direction:column;align-items:flex-start}#anees-bank .vp-horizon{align-self:stretch;justify-content:space-between}#anees-bank .vp-horizon-label{display:none}#anees-bank .vp-panelhead{flex-wrap:wrap;margin-bottom:12px}#anees-bank .vp-side{text-align:left}#anees-bank.vp-sabz h1{font-size:28px}}

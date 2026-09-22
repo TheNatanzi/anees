@@ -103,3 +103,9 @@ This file is the permanent session record for decisions made while auditing the 
 - Context scoring implementation: `docs/js/word-bank-core.js`
 - Manual overlays: `docs/data/word-bank-review.json`
 
+## Progress & Stats — interview outcome (later on September 21)
+
+- Only **starred** Stitch screens are approved designs; everything else in the Stitch project is planning phase. The starred "Arabic Dashboard – Vocab Macro-Overview" is the Progress & Stats blueprint. The unstarred "Progress & Stats" screen (FSR-4, Ebbinghaus, register, radar) is parked.
+- Skin is the Sabz brand book (`docs/css/sabz-tokens.css`, source `C:\dev\ganjsta-ui\docs\BRAND-SABZ.md`). Medi removed the Sabz "no red / no blue" rule for this page: chart colours follow the transcript convention.
+- Box-by-box definitions, formulas, periods, click targets and empty states are in `plan/PROGRESS-STATS-VOCAB-SPEC-2026-09-21.md` (approved by Medi before the build). Talk time is parked with the lesson work; the four non-Vocab tabs render dimmed as planning.
+- Hints count as slips in "Correct vs slips". Retention counts only forms known before the lesson that were tested again. No targets, benchmarks or fabricated history anywhere; document add dates are shown as "—" until the sync records them.

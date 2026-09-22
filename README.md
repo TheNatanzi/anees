@@ -1,6 +1,6 @@
 # Anees (أنيس)
 
-> **Future agents:** read `plan/SESSION-DECISIONS-2026-09-21.md`, `plan/word-bank-specification.md`, and `docs/word-bank-review-rules.md` before changing scoring, transcripts, Word Bank, or Progress & Stats. The September 21 session record supersedes older conflicting notes.
+> **Future agents:** read `plan/SESSION-DECISIONS-2026-09-21.md`, `plan/word-bank-specification.md`, and `docs/word-bank-review-rules.md` before changing scoring, transcripts, Word Bank, or Progress & Stats. The Progress & Stats (Vocab page) build contract is `plan/PROGRESS-STATS-VOCAB-SPEC-2026-09-21.md`. The September 21 session record supersedes older conflicting notes.
 
 A companion for Medi's spoken Palestinian Arabic lessons with Amal: recording → checked transcript → misses → tutor suggestions → own flashcards → scoreboard.
 
