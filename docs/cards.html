@@ -81,6 +81,11 @@ button.sel{border-color:var(--blue);color:var(--blue)} button.bad{background:var
 #anees-bank button.vp-card.empty{cursor:default} #anees-bank button.vp-card.empty .vp-num{color:var(--ab-muted)}
 #anees-bank .vp-card-label .fc-shaky{color:var(--ab-orange)} #anees-bank .vp-card-label .fc-wrong{color:var(--ab-red)}
 #anees-bank .fc-back{border:none;background:none;min-height:40px;padding:0;color:var(--ab-muted);font:600 13px var(--sans);align-self:flex-start}
+#anees-bank{--mx-mastered:light-dark(#1b5e36,#2f9a5c);--mx-good:light-dark(#7ccb8f,#a6e8b5);--mx-shaky:light-dark(#e2b203,#f5d04a);--mx-wrong:light-dark(#c62f2f,#ff8a80);--mx-untested:light-dark(#b9b9b4,#5f635f)}
+#anees-bank .fc-mix{width:100%;margin-top:8px} #anees-bank .fc-mixbar{display:flex;height:6px;border-radius:3px;overflow:hidden;background:var(--mx-untested)} #anees-bank .fc-mixbar i{display:block;height:100%}
+#anees-bank .fc-mixn{display:flex;gap:10px;margin-top:6px;font:700 13px var(--sans);font-variant-numeric:tabular-nums} #anees-bank .fc-mixn .zero{opacity:.35}
+#anees-bank .fc-mixbar .mx-mastered{background:var(--mx-mastered)} #anees-bank .fc-mixbar .mx-good{background:var(--mx-good)} #anees-bank .fc-mixbar .mx-shaky{background:var(--mx-shaky)} #anees-bank .fc-mixbar .mx-wrong{background:var(--mx-wrong)} #anees-bank .fc-mixbar .mx-untested{background:var(--mx-untested)}
+#anees-bank .fc-mixn .mx-mastered{color:var(--mx-mastered)} #anees-bank .fc-mixn .mx-good{color:var(--mx-good)} #anees-bank .fc-mixn .mx-shaky{color:var(--mx-shaky)} #anees-bank .fc-mixn .mx-wrong{color:var(--mx-wrong)} #anees-bank .fc-mixn .mx-untested{color:var(--mx-untested)}
 @media(max-width:1100px){#anees-bank .fc-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){#anees-bank .fc-grid.three{grid-template-columns:1fr 1fr 1fr}#anees-bank .vp-card{padding:12px 13px}#anees-bank .vp-card-value .vp-num{font-size:26px}}
 .sec{margin:22px 0 4px} .sec h2{margin:0 0 2px;display:flex;align-items:baseline;gap:8px} .sec h2 small{font:600 13px var(--sans);color:var(--mute)} .sec>p.mute{margin:0 0 8px}
@@ -222,55 +227,80 @@ function cardView(o){
 // ---- Home = the selection screen (plan/FLASHCARDS-SELECTION-SPEC-2026-09-21.md): labelled sections, top to bottom ----
 let lastAnswer=null, sessionMissed={}, sess=null, tileMap=new Map();
 const fmt=n=>Number(n).toLocaleString();
-function selection(){ const log=fullLog(), match=SEL.matcher(words), qcards=new Map(quizlet.map(set=>[set.id,SEL.quizletCards(set,match)]));
-  return { split:SEL.statusSplit(WB.models(words,catalog||{groups:[]},speakEvents,log),words), amal:SEL.newFromAmal(words,stats), never:SEL.neverTested(words,log),
+function selection(){ const log=fullLog(), match=SEL.matcher(words), qcards=new Map(quizlet.map(set=>[set.id,SEL.quizletCards(set,match)])), rows=WB.models(words,catalog||{groups:[]},speakEvents,log);
+  return { status:SEL.statusByKey(rows), split:SEL.statusSplit(rows,words), amal:SEL.newFromAmal(words,stats), never:SEL.neverTested(words,log),
     tenses:SEL.tenses(words,catalog), drills:VD.verbs(catalog,words), topics:SEL.topics(words), colloc:SEL.collocationSets(quizlet), groups:SEL.quizletGroups(quizlet), qcards }; }
 const union=lists=>{ const m=new Map(); for(const l of lists) for(const w of l) if(!m.has(w.key)) m.set(w.key,w); return [...m.values()]; };
 // Every tile shows its count; an empty tile shows "—" and why, never a bare 0.
 function tileHtml(t){ const n=t.words.length, empty=!n; tileMap.set(t.id,t);
-  return `<button class="vp-card stile${empty?' empty':''}${t.wide?' wide':''}" data-t="${esc(t.id)}"${empty?' aria-disabled="true"':''}><div class="vp-card-label"><span${t.tone?` class="fc-${t.tone}"`:''}>${esc(t.label)}</span></div><div class="vp-card-value"><span class="vp-num">${empty?'—':fmt(t.shown??n)}</span>${!empty&&t.unit?`<span class="vp-card-unit">${esc(t.unit)}</span>`:''}</div><div class="vp-card-sub">${esc(empty?t.reason:(t.note||''))}</div></button>`; }
+  return `<button class="vp-card stile${empty?' empty':''}${t.wide?' wide':''}" data-t="${esc(t.id)}"${empty?' aria-disabled="true"':''}><div class="vp-card-label"><span${t.tone?` class="fc-${t.tone}"`:''}>${esc(t.label)}</span></div><div class="vp-card-value"><span class="vp-num">${empty?'—':fmt(t.shown??n)}</span>${!empty&&t.unit?`<span class="vp-card-unit">${esc(t.unit)}</span>`:''}</div><div class="vp-card-sub">${esc(empty?t.reason:(t.note||''))}</div>${!empty&&t.mix?mixHtml(t.mix):''}</button>`; }
 // Section heading in the Progress & Stats style: serif title, small-caps eyebrow note.
 const section=(n,title,note,body)=>`<section class="fc-sec sec" data-sec="${n}"><div class="fc-head"><h2>${esc(title)}</h2>${note?`<span class="vp-eyebrow">${esc(note)}</span>`:''}</div>${body}</section>`;
 function bindTiles(onTile){ root.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{ const t=tileMap.get(b.dataset.t); if(t&&t.words.length) onTile(t); }); }
-function openTile(t){ t.kind==='topic'?topicView(t):t.kind==='group'?groupView(t):t.kind==='drill'?drillView(t):opts(t,home); }
-function home(){ document.onkeydown=null; rebuild(); tileMap=new Map(); const q=dueQueue(), n=q.counts, S=selection();
-  const f=F.forecast([...cards.values()],new Date(),7), leeches=[...cards.values()].filter(c=>F.isLeech(c)).length;
-  const notes=[`New today ${q.newToday} of ${F.DEFAULTS.newPerDay}`]; if(q.buried) notes.push(`${q.buried} sibling form${q.buried===1?'':'s'} held for another day`); if(leeches) notes.push(`${leeches} leech${leeches===1?'':'es'}`); if(q.nextLearning&&!q.items.length) notes.push(`next learning card in ${wait(q.nextLearning-Date.now())}`);
-  const noun=t=>t==='Other'?'other words':SEL.TYPE_LABEL[t].toLowerCase();
-  const where=lane=>lane==='speaking'?'in lessons':'on cards';
-  const split=(st,lane)=>`<div class="fc-grid">${['All',...SEL.TYPES].map(t=>tileHtml({id:[st,lane,t].join('|'),tone:st.toLowerCase(),wide:t==='All',label:t==='All'?`All ${st.toLowerCase()} ${where(lane)}`:SEL.TYPE_LABEL[t],unit:t==='All'?'forms':'',
-    note:t==='All'?(lane==='speaking'?'Same count as the Word Bank '+st+' filter':'From your flashcard answers'):'',
-    title:`${st} ${where(lane)}${t==='All'?'':' · '+SEL.TYPE_LABEL[t]}`,words:S.split[[st,lane,t].join('|')],
-    reason:lane==='speaking'&&lessonScores!=='ok'?'Lesson scores are offline':`No ${st.toLowerCase()} ${t==='All'?'forms':noun(t)} ${where(lane)} yet`})).join('')}</div>`;
-  const qs=set=>S.qcards.get(set.id)||[];
-  root.innerHTML=`<header class="ab-header vp-header"><div><div class="vp-eyebrow">Spoken Palestinian Arabic · with Amal</div><h1>Flashcards &amp; Review</h1><p class="ab-sub">Pick what to practise. Every answer feeds the scheduler; scores match the Word Bank.</p></div></header>
-    ${section(1,'Due for review','FSRS schedule',`<div class="fc-grid three">${[['Due',n.due,'reviews due today'],['New',n.new,'new cards today'],['Learning',n.learning,'coming back soon']].map(([l,v,sub])=>`<div class="vp-card"><div class="vp-card-label"><span>${l}</span></div><div class="vp-card-value"><span class="vp-num">${v}</span></div><div class="vp-card-sub">${sub}</div></div>`).join('')}</div>
-      <button id="go" class="primary study" ${q.items.length?'':'disabled'}>${q.items.length?'Study the review queue':'All done for today'}</button><p class="mute" style="text-align:center">${notes.join(' · ')}</p>`)}
-    ${section(2,'New from Amal','words she marked newly taught',`<div class="fc-grid">${tileHtml({id:'amal',label:'New from Amal',title:'New from Amal',unit:'words',words:S.amal,wide:true,reason:'Amal has not marked any new words yet'})}</div>`)}
-    ${section(3,'Shaky','',`<h3>In lessons</h3>${split('Shaky','speaking')}<h3>On cards</h3>${split('Shaky','flashcards')}`)}
-    ${section(4,'Wrong','',`<h3>In lessons</h3>${split('Wrong','speaking')}<h3>On cards</h3>${split('Wrong','flashcards')}`)}
-    ${section(5,'Never tested','never answered on cards',`<div class="fc-grid">${tileHtml({id:'never',label:'Never tested',title:'Never tested',words:S.never,shown:Math.min(20,S.never.length),note:`20 at random from ${fmt(S.never.length)}`,wide:true,reason:'Every word has been answered on cards'})}</div>`)}
-    ${section(6,'Verb tenses','',`<div class="fc-grid">${S.tenses.map(t=>tileHtml({id:'tense:'+t.id,label:t.name,title:t.name+' tense',words:t.words,reason:`No ${t.name.toLowerCase()} forms in the Doc`})).join('')}</div>`)}
-    ${section(7,'Verb drills',`${S.drills.length} verbs · both directions`,`<div class="fc-grid">${[['random','20 verbs · random','one random person and tense per verb'],['full','5 or 10 verbs · every person','every person of the tenses you pick']].map(([m,l,note])=>tileHtml({id:'drill:'+m,kind:'drill',mode:m,label:l,title:'Verb drills · '+l,words:S.drills,shown:m==='random'?Math.min(20,S.drills.length):undefined,unit:'verbs',note,reason:'No verbs in the catalog'})).join('')}</div><p class="mute">Forms the engine guessed show “not checked by Amal” until she checks them.</p>`)}
-    ${section(8,'Verbs + prepositions','Amal’s Quizlet',S.colloc.length?`<div class="fc-grid">${S.colloc.map(set=>tileHtml({id:'q:'+set.id,label:set.title,title:set.title,words:qs(set),reason:'No usable terms'})).join('')}</div>`:'<p class="mute">Quizlet sets did not load.</p>')}
-    ${section(9,'Amal’s Doc categories',`${S.topics.length} topics · ${S.topics.reduce((a,t)=>a+t.subs.length,0)} sub-topics`,`<div class="fc-grid">${S.topics.map(t=>tileHtml({id:'topic:'+t.name,kind:'topic',label:t.name,title:t.name,words:t.words,subs:t.subs,note:t.subs.length?`${t.subs.length} sub-topic${t.subs.length===1?'':'s'}`:'',reason:'No words'})).join('')}</div>`)}
-    ${section(10,'Amal’s Quizlet sets',`${quizlet.length} sets`,quizlet.length?`<div class="fc-grid">${S.groups.map(g=>tileHtml({id:'group:'+g.id,kind:'group',label:g.name,title:g.name,words:union(g.sets.map(qs)),sets:g.sets.map(set=>({set,words:qs(set)})),note:`${g.sets.length} set${g.sets.length===1?'':'s'}`,reason:'No sets in this group'})).join('')}</div>
-      <p class="mute">26 more sets Amal sent are not imported yet (Quizlet blocked the read).</p>`:'<p class="mute">Quizlet sets did not load.</p>')}
+function openTile(t,back){ t.kind==='cat'?catView(t.cat):t.kind==='topic'?topicView(t,back):t.kind==='group'?groupView(t,back):t.kind==='drill'?drillView(t,back):opts(t,back); }
+// Colour counts on Amal's card sets (Medi 2026-09-22): mastered, good, shaky, wrong, untested; colours only, no words.
+const MIX_NAME={mastered:'Mastered',good:'Good',shaky:'Shaky',wrong:'Wrong',untested:'Untested'};
+const mixOf=ws=>{ const st=(lastSel&&lastSel.status)||new Map(); return SEL.scoreMix(ws,w=>st.get(w.key)||C.cardScore(stats[w.key]).bucket); };   // Word Bank status; Quizlet-only cards use their card answers
+function mixHtml(m){ const n=SEL.MIX.reduce((a,k)=>a+m[k],0)||1;
+  return `<div class="fc-mix" aria-label="${SEL.MIX.map(k=>m[k]+' '+MIX_NAME[k].toLowerCase()).join(', ')}"><div class="fc-mixbar">${SEL.MIX.filter(k=>m[k]).map(k=>`<i class="mx-${k}" style="width:${100*m[k]/n}%"></i>`).join('')}</div><div class="fc-mixn">${SEL.MIX.map(k=>`<span class="mx-${k}${m[k]?'':' zero'}" title="${MIX_NAME[k]}">${fmt(m[k])}</span>`).join('')}</div></div>`; }
+const setTile=(set,ws)=>({id:'q:'+set.id,label:set.title,title:set.title,words:ws,mix:mixOf(ws),reason:'No usable terms'});
+// Home = the category menu (Medi 2026-09-22): pick a category first, including the randomized ones.
+let lastSel=null;
+function home(){ document.onkeydown=null; rebuild(); tileMap=new Map(); window.scrollTo(0,0); const q=dueQueue(), n=q.counts, S=selection(); lastSel=S;
+  const f=F.forecast([...cards.values()],new Date(),7), qs=set=>S.qcards.get(set.id)||[];
+  const both=st=>union([S.split[st+'|speaking|All'],S.split[st+'|flashcards|All']]), named=S.groups.flatMap(g=>g.sets), namedWords=union(named.map(qs)), collocWords=union(S.colloc.map(qs));
+  const cat=(id,label,words,o={})=>tileHtml(Object.assign({id:'cat:'+id,kind:'cat',cat:id,label,title:label,words},o));
+  const group=(title,tiles)=>`<section class="fc-sec sec"><div class="fc-head"><h2>${esc(title)}</h2></div><div class="fc-grid">${tiles.join('')}</div></section>`;
+  root.innerHTML=`<header class="ab-header vp-header"><div><div class="vp-eyebrow">Spoken Palestinian Arabic · with Amal</div><h1>Flashcards &amp; Review</h1><p class="ab-sub">Pick a category. Every answer feeds the scheduler; scores match the Word Bank.</p></div></header>
+    ${group('Today',[cat('due','Due for review',q.items,{shown:n.due+n.new+n.learning,unit:'cards',wide:true,note:`${n.due} due · ${n.new} new · ${n.learning} learning`,reason:'All done for today'})])}
+    ${group('Randomized',[
+      tileHtml({id:'drill:random',kind:'drill',mode:'random',label:'Verb drills · 20 random',title:'Verb drills · 20 verbs · random',words:S.drills,shown:Math.min(20,S.drills.length),unit:'verbs',note:'one random person and tense per verb',reason:'No verbs in the catalog'}),
+      tileHtml({id:'drill:full',kind:'drill',mode:'full',label:'Verb drills · 5 or 10 full',title:'Verb drills · 5 or 10 verbs · every person',words:S.drills,shown:10,unit:'verbs',note:'every person of the tenses you pick',reason:'No verbs in the catalog'}),
+      tileHtml({id:'never',label:'Never tested',title:'Never tested',words:S.never,shown:Math.min(20,S.never.length),note:`20 at random from ${fmt(S.never.length)}`,reason:'Every word has been answered on cards'})])}
+    ${group('Weak spots',[
+      tileHtml({id:'amal',label:'New from Amal',title:'New from Amal',unit:'words',words:S.amal,reason:'Amal has not marked any new words yet'}),
+      cat('shaky','Shaky',both('Shaky'),{tone:'shaky',unit:'forms',note:'in lessons + on cards',reason:'Nothing shaky yet'}),
+      cat('wrong','Wrong',both('Wrong'),{tone:'wrong',unit:'forms',note:'in lessons + on cards',reason:'Nothing wrong yet'})])}
+    ${group('Sets',[
+      cat('sets','Amal’s card sets',namedWords,{unit:'cards',note:`${named.length} named sets`,mix:mixOf(namedWords),reason:'Quizlet sets did not load'}),
+      cat('colloc','Verbs + prepositions',collocWords,{unit:'cards',note:`${S.colloc.length} sets`,mix:mixOf(collocWords),reason:'Quizlet sets did not load'}),
+      cat('tenses','Verb tenses',union(S.tenses.map(t=>t.words)),{unit:'forms',note:S.tenses.map(t=>t.name).join(' · '),reason:'No tense forms in the Doc'}),
+      cat('topics','Amal’s Doc categories',S.topics.flatMap(t=>t.words),{shown:S.topics.length,unit:'topics',note:`${S.topics.reduce((a,t)=>a+t.subs.length,0)} sub-topics`,reason:'No Doc topics'})])}
     <h2>Next 7 days</h2><div class="fc">${f.map((d,i)=>`<div><b>${d.due}</b><span>${i===0?'Today':new Date(d.date+'T12:00').toLocaleDateString(undefined,{weekday:'short'})}</span></div>`).join('')}</div>
     <div class="panel"><h2 style="margin-top:0">Front of the card</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English</button></div>
     <h2>Desired retention</h2><div class="toggle">${F.RETENTIONS.map(r=>`<button data-r="${r}" class="${pref.retention===r?'sel':''}">${Math.round(r*100)}%</button>`).join('')}</div>
     <p class="mute">FSRS scheduler · default parameters, not fitted to you. Higher retention means more reviews.</p></div>`;
-  if(q.items.length) document.getElementById('go').onclick=startReview;
   root.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{pref.retention=Number(b.dataset.r); savePref(); home();});
   document.getElementById('m-ar').onclick=()=>{pref.mode='ar_first'; savePref(); home();};
   document.getElementById('m-en').onclick=()=>{pref.mode='en_first'; savePref(); home();};
-  bindTiles(openTile);
+  bindTiles(t=>openTile(t,home));
 }
-function subList(t,tiles){ document.onkeydown=null; tileMap=new Map(); window.scrollTo(0,0);
-  root.innerHTML=`<button class="fc-back" id="back">‹ Flashcards</button><h1>${esc(t.title)}</h1><p class="mute">${fmt(t.words.length)} cards</p><div class="fc-grid">${tiles.map(tileHtml).join('')}</div>`;
-  document.getElementById('back').onclick=home; bindTiles(x=>opts(x,()=>subList(t,tiles))); }
-function topicView(t){ subList(t,[{id:'all:'+t.id,label:'All of '+t.label,title:t.title,words:t.words,wide:true,reason:'No words'},...t.subs.map(s=>({id:t.id+'/'+s.name,label:s.name,title:t.label+' · '+s.name,words:s.words,reason:'No words'}))]); }
-function groupView(t){ subList(t,t.sets.map(({set,words:ws})=>({id:'q:'+set.id,label:set.title,title:set.title,words:ws,reason:'No usable terms'}))); }
+// One category screen; its tiles come back here, and ‹ Flashcards returns to the menu.
+function catView(id){ document.onkeydown=null; rebuild(); tileMap=new Map(); window.scrollTo(0,0); const S=lastSel||selection(), q=dueQueue(), n=q.counts, qs=set=>S.qcards.get(set.id)||[], back=()=>catView(id);
+  const noun=t=>t==='Other'?'other words':SEL.TYPE_LABEL[t].toLowerCase(), where=lane=>lane==='speaking'?'in lessons':'on cards';
+  const split=(st,lane)=>`<div class="fc-grid">${['All',...SEL.TYPES].map(t=>tileHtml({id:[st,lane,t].join('|'),tone:st.toLowerCase(),wide:t==='All',label:t==='All'?`All ${st.toLowerCase()} ${where(lane)}`:SEL.TYPE_LABEL[t],unit:t==='All'?'forms':'',
+    note:t==='All'?(lane==='speaking'?'Same count as the Word Bank '+st+' filter':'From your flashcard answers'):'',
+    title:`${st} ${where(lane)}${t==='All'?'':' · '+SEL.TYPE_LABEL[t]}`,words:S.split[[st,lane,t].join('|')],
+    reason:lane==='speaking'&&lessonScores!=='ok'?'Lesson scores are offline':`No ${st.toLowerCase()} ${t==='All'?'forms':noun(t)} ${where(lane)} yet`})).join('')}</div>`;
+  const body={
+    due:()=>section(1,'Due for review','FSRS schedule',`<div class="fc-grid three">${[['Due',n.due,'reviews due today'],['New',n.new,'new cards today'],['Learning',n.learning,'coming back soon']].map(([l,v,sub])=>`<div class="vp-card"><div class="vp-card-label"><span>${l}</span></div><div class="vp-card-value"><span class="vp-num">${v}</span></div><div class="vp-card-sub">${sub}</div></div>`).join('')}</div>
+      <button id="go" class="primary study" ${q.items.length?'':'disabled'}>${q.items.length?'Study the review queue':'All done for today'}</button>`),
+    shaky:()=>section(3,'Shaky','',`<h3>In lessons</h3>${split('Shaky','speaking')}<h3>On cards</h3>${split('Shaky','flashcards')}`),
+    wrong:()=>section(4,'Wrong','',`<h3>In lessons</h3>${split('Wrong','speaking')}<h3>On cards</h3>${split('Wrong','flashcards')}`),
+    tenses:()=>section(6,'Verb tenses','',`<div class="fc-grid">${S.tenses.map(t=>tileHtml({id:'tense:'+t.id,label:t.name,title:t.name+' tense',words:t.words,reason:`No ${t.name.toLowerCase()} forms in the Doc`})).join('')}</div>`),
+    colloc:()=>section(8,'Verbs + prepositions','Amal’s Quizlet',S.colloc.length?`<div class="fc-grid">${S.colloc.map(set=>tileHtml(setTile(set,qs(set)))).join('')}</div>`:'<p class="mute">Quizlet sets did not load.</p>'),
+    topics:()=>section(9,'Amal’s Doc categories',`${S.topics.length} topics · ${S.topics.reduce((a,t)=>a+t.subs.length,0)} sub-topics`,`<div class="fc-grid">${S.topics.map(t=>tileHtml({id:'topic:'+t.name,kind:'topic',label:t.name,title:t.name,words:t.words,subs:t.subs,note:t.subs.length?`${t.subs.length} sub-topic${t.subs.length===1?'':'s'}`:'',reason:'No words'})).join('')}</div>`),
+    sets:()=>section(10,'Amal’s card sets',`${S.groups.reduce((a,g)=>a+g.sets.length,0)} named sets`,S.groups.length?`<div class="fc-grid">${S.groups.map(g=>{ const ws=union(g.sets.map(qs)); return tileHtml({id:'group:'+g.id,kind:'group',label:g.name,title:g.name,words:ws,mix:mixOf(ws),sets:g.sets.map(set=>({set,words:qs(set)})),note:`${g.sets.length} set${g.sets.length===1?'':'s'}`,reason:'No sets in this group'}); }).join('')}</div>`:'<p class="mute">Quizlet sets did not load.</p>'),
+  }[id];
+  root.innerHTML=`<button class="fc-back" id="back">‹ Flashcards</button>${body()}`;
+  document.getElementById('back').onclick=home; if(id==='due'&&q.items.length) document.getElementById('go').onclick=startReview;
+  bindTiles(t=>openTile(t,back));
+}
+function subList(t,tiles,back){ document.onkeydown=null; tileMap=new Map(); window.scrollTo(0,0);
+  root.innerHTML=`<button class="fc-back" id="back">‹ Back</button><h1>${esc(t.title)}</h1><p class="mute">${fmt(t.words.length)} cards</p><div class="fc-grid">${tiles.map(tileHtml).join('')}</div>`;
+  document.getElementById('back').onclick=back||home; bindTiles(x=>opts(x,()=>subList(t,tiles,back))); }
+function topicView(t,back){ subList(t,[{id:'all:'+t.id,label:'All of '+t.label,title:t.title,words:t.words,wide:true,reason:'No words'},...t.subs.map(s=>({id:t.id+'/'+s.name,label:s.name,title:t.label+' · '+s.name,words:s.words,reason:'No words'}))],back); }
+function groupView(t,back){ subList(t,t.sets.map(({set,words:ws})=>setTile(set,ws)),back); }
 // Options for one tile, then the same swipe cards; answers write the same card_results row.
 function opts(t,back){ document.onkeydown=null; window.scrollTo(0,0); const n=t.words.length, k=pref.n?Math.min(pref.n,n):n;
   root.innerHTML=`<button class="fc-back" id="back">‹ Back</button><h1>${esc(t.title||t.label)}</h1><p class="mute">${fmt(n)} card${n===1?'':'s'}${t.words.some(w=>SEL.isQuizletOnly(w.key))?' · Quizlet-only cards count on cards, never in lesson scores':''}</p>
@@ -335,7 +365,7 @@ function start(){ let p=C.pool(words,stats,pref.subject); if(!p.length){ alert('
   let cs=C.draw(p,stats,pref.n?Math.min(pref.n,p.length):p.length); if(!pref.shuffle) cs=cs.slice().sort((a,b)=>(a.doc_order||0)-(b.doc_order||0));
   round=C.newRound(cs,{mode:pref.mode,subject:pref.subject}); sessionMissed={}; roundMs=[]; showCard(); }
 // Verb drills: pick mode options, then the same swipe cards / card_results row / FSRS log.
-function drillView(t){ document.onkeydown=null; window.scrollTo(0,0); const d=pref.drill=Object.assign({count:10,tense:'All',level:1},pref.drill||{}), full=t.mode==='full';
+function drillView(t,back){ back=back||home; document.onkeydown=null; window.scrollTo(0,0); const d=pref.drill=Object.assign({count:10,tense:'All',level:1},pref.drill||{}), full=t.mode==='full';
   const chip=(key,v,label)=>`<button data-k="${key}" data-v="${v}" class="${String(d[key])===String(v)?'sel':''}">${label}</button>`;
   root.innerHTML=`<button class="fc-back" id="back">‹ Flashcards</button><h1>${esc(t.title)}</h1><p class="mute">${fmt(t.words.length)} verbs · Present, Past, Command</p>
     ${full?`<h2>Verbs</h2><div class="toggle">${chip('count',5,'5 verbs')}${chip('count',10,'10 verbs')}</div>`:''}
@@ -343,12 +373,12 @@ function drillView(t){ document.onkeydown=null; window.scrollTo(0,0); const d=pr
     <h2>Level</h2><div class="toggle">${chip('level',1,'Level 1 · the verb')}${window.AneesVerbAddons?chip('level',2,'Level 2 · + me / with them …'):''}</div>
     <h2>Front of the card</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English</button></div>
     <div class="row" style="margin-top:18px"><button id="start" class="primary study">Start</button></div>`;
-  root.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{ d[b.dataset.k]=b.dataset.k==='tense'?b.dataset.v:Number(b.dataset.v); savePref(); drillView(t); });
-  document.getElementById('back').onclick=home; document.getElementById('m-ar').onclick=()=>{pref.mode='ar_first';savePref();drillView(t);}; document.getElementById('m-en').onclick=()=>{pref.mode='en_first';savePref();drillView(t);};
-  document.getElementById('start').onclick=()=>startDrill(t); }
-function startDrill(t){ const d=pref.drill, full=t.mode==='full', cs=VD.round(t.words,{mode:t.mode,count:full?d.count:20,tense:d.tense,level:d.level});
+  root.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{ d[b.dataset.k]=b.dataset.k==='tense'?b.dataset.v:Number(b.dataset.v); savePref(); drillView(t,back); });
+  document.getElementById('back').onclick=back; document.getElementById('m-ar').onclick=()=>{pref.mode='ar_first';savePref();drillView(t,back);}; document.getElementById('m-en').onclick=()=>{pref.mode='en_first';savePref();drillView(t,back);};
+  document.getElementById('start').onclick=()=>startDrill(t,back); }
+function startDrill(t,back){ const d=pref.drill, full=t.mode==='full', cs=VD.round(t.words,{mode:t.mode,count:full?d.count:20,tense:d.tense,level:d.level});
   if(!cs.length){ alert('No verb forms for this choice yet.'); return; }
-  round=C.newRound(cs,{mode:pref.mode,subject:['drill',t.mode,d.tense,'L'+d.level].join(':')}); Object.assign(round,{title:t.title+' · '+d.tense+(d.level===2?' · level 2':''),back:()=>drillView(t),restart:()=>startDrill(t)}); sessionMissed={}; roundMs=[]; showCard(); }
+  round=C.newRound(cs,{mode:pref.mode,subject:['drill',t.mode,d.tense,'L'+d.level].join(':')}); Object.assign(round,{title:t.title+' · '+d.tense+(d.level===2?' · level 2':''),back:()=>drillView(t,back),restart:()=>startDrill(t,back)}); sessionMissed={}; roundMs=[]; showCard(); }
 function showCard(){ if(C.done(round)) return showSummary();
   const w=round.cards[round.i], s=Object.keys(stats).length?C.cardScore(stats[w.key]):{bucket:'–'};
   cardView({w, count:`${round.attempt>1?'Round '+round.attempt+' · ':''}${round.i+1} / ${round.cards.length}`, pct:100*round.i/round.cards.length, learnN:round.missed, knowN:round.got,

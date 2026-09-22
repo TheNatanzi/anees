@@ -40,14 +40,25 @@ test('all 106 imported sets parse; every blank-sided term (6) is skipped',()=>{
  const blanks=sets.flatMap(s=>s.terms).filter(([a,b])=>!String(a||'').trim()||!String(b||'').trim()).length;
  assert.equal(blanks,6);assert.ok(cards<=terms-blanks);
 });
-test('Quizlet groups cover every set once; section 7 finds both collocation sets',()=>{
+test('Quizlet groups: named sets once each, dated sets hidden (Medi 2026-09-22); collocation sets found',()=>{
  const g=S.quizletGroups(sets);
- assert.deepEqual(g.map(x=>x.name),['Dated lessons','Plurals','Possession & pronouns','Verbs','Topics']);
- assert.equal(g.reduce((n,x)=>n+x.sets.length,0),106);
+ assert.deepEqual(g.map(x=>x.name),['Plurals','Possession & pronouns','Verbs','Topics']);
+ const dated=sets.filter(s=>S.isDated(s.title));
+ assert.equal(g.reduce((n,x)=>n+x.sets.length,0),106-dated.length);
+ const shown=g.flatMap(x=>x.sets.map(s=>s.title));
+ for(const t of ['December 12 Verbs','March 15 Audio Homework','Friday December 5, 2025','Feb 12 Emotions','May 2 Audio Homework','January 2 verbs']){assert.ok(S.isDated(t),t);assert.ok(!shown.includes(t),t);}
+ for(const t of ['Colors','Command','Audio Homework','Mishwaar-Mashaweer Plural List','Pleasantries PT1','Adjectives (PT2)']) assert.ok(!S.isDated(t),t);
  const by=Object.fromEntries(g.map(x=>[x.id,x.sets.map(s=>s.title)]));
- assert.ok(by.dated.includes('December 12 Verbs'));assert.ok(by.dated.includes('March 15 Audio Homework'));
  assert.ok(by.plurals.includes('Family Plurals'));assert.ok(by.possession.includes('Possessive Forms'));assert.ok(by.verbs.includes('Command'));assert.ok(by.topics.includes('Colors'));
  const c=S.collocationSets(sets);assert.deepEqual(c.map(s=>s.terms.length),[36,25]);
+});
+test('Set colour counts: mastered / good / shaky / wrong / untested from the flashcard bucket',()=>{
+ const b={a:'ice_cold',b:'cold',c:'shaky',d:'missed',e:'never',f:'new'};
+ assert.deepEqual(S.scoreMix(Object.keys(b).map(key=>({key})),w=>b[w.key]),{mastered:1,good:1,shaky:1,wrong:1,untested:2});
+ assert.deepEqual(S.MIX,['mastered','good','shaky','wrong','untested']);
+ assert.deepEqual(S.scoreMix([{key:'x'},{key:'y'}],w=>({x:'Mastered',y:'Wrong'})[w.key]),{mastered:1,good:0,shaky:0,wrong:1,untested:0});
+ const st=S.statusByKey([{entries:[{keys:['k1'],speaking:{status:'Shaky'},flashcards:{status:'Good'}},{keys:['k2'],speaking:{status:'Untested'},flashcards:{status:'Wrong'}},{keys:['k3'],speaking:{status:'Untested'},flashcards:{status:'Untested'}}]}]);
+ assert.equal(st.get('k1'),'Shaky');assert.equal(st.get('k2'),'Wrong');assert.equal(st.has('k3'),false);   // lessons first, else cards, untested = absent
 });
 test('Shaky / Wrong split by lane and by word type (Verb / Noun / Adjective / Other)',()=>{
  const log=[card('bait','missed','01','c1'),card('bait','missed','02','c2'),card('bait','missed','03','c3'),card('7elu','missed','04','c4')];

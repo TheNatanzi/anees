@@ -15,8 +15,11 @@
     { id: 'verb-prep', test: t => /verb\s*\+\s*preposition/i.test(t) },
     { id: 'pronoun-obj', test: t => /pronoun objects? with verbs/i.test(t) },
   ];
+  // A dated set is named after a lesson day ("December 12 Verbs", "March 15 Audio Homework").
+  // Medi 2026-09-22: dated sets are hidden; only sets with a real name are shown.
+  const DATED = /\b(jan(uary)?|feb(ruary)?|mar(ch)?|apr(il)?|may|june?|july?|aug(ust)?|sep(tember)?|oct(ober)?|nov(ember)?|dec(ember)?)\b\.?\s*\d/i;
+  function isDated(title) { return DATED.test(String(title || '')); }
   const SET_GROUPS = [
-    { id: 'dated', name: 'Dated lessons', test: t => /audio homework/i.test(t) || (/\b(jan(uary)?|feb(ruary)?|mar(ch)?|apr(il)?|may|june?|july?|aug(ust)?|sep(tember)?|oct(ober)?|nov(ember)?|dec(ember)?)\b/i.test(t) && /\d/.test(t)) },
     { id: 'plurals', name: 'Plurals', test: t => /plur/i.test(t) },
     { id: 'possession', name: 'Possession & pronouns', test: t => /pronoun|possess|conjugation/i.test(t) },
     { id: 'verbs', name: 'Verbs', test: t => /verb|command/i.test(t) },
@@ -123,14 +126,34 @@
 
   function quizletGroups(sets) {
     const groups = SET_GROUPS.map(g => ({ id: g.id, name: g.name, sets: [] }));
-    for (const s of sets || []) groups[SET_GROUPS.findIndex(g => g.test(s.title || ''))].sets.push(s);
-    return groups;
+    for (const s of sets || []) if (!isDated(s.title)) groups[SET_GROUPS.findIndex(g => g.test(s.title || ''))].sets.push(s);
+    return groups.filter(g => g.sets.length);
+  }
+  // Colour counts for a set: mastered, good, shaky, wrong, untested. bucketOf may return a Word Bank
+  // status (Mastered / Good / Shaky / Wrong) or a flashcard bucket (ice_cold / cold / shaky / missed).
+  const MIX = ['mastered', 'good', 'shaky', 'wrong', 'untested'];
+  const MIX_OF = { ice_cold: 'mastered', cold: 'good', shaky: 'shaky', missed: 'wrong', Mastered: 'mastered', Good: 'good', Shaky: 'shaky', Wrong: 'wrong' };
+  // Word Bank status per card key: the lesson status when tested in lessons, else the flashcard status.
+  function statusByKey(rows) {
+    const out = new Map();
+    for (const r of rows || []) for (const f of r.entries || []) {
+      const sp = f.speaking && f.speaking.status, fc = f.flashcards && f.flashcards.status;
+      const st = sp && sp !== 'Untested' ? sp : fc && fc !== 'Untested' ? fc : null;
+      if (!st) continue;
+      for (const k of (f.keys || []).concat((f.persons || []).map(p => p.key).filter(Boolean), f.id ? ['form:' + f.id] : [])) if (!out.has(k)) out.set(k, st);
+    }
+    return out;
+  }
+  function scoreMix(words, bucketOf) {
+    const out = Object.fromEntries(MIX.map(k => [k, 0]));
+    for (const w of words || []) out[MIX_OF[bucketOf(w)] || 'untested']++;
+    return out;
   }
   function collocationSets(sets) { return COLLOCATION_SETS.map(c => (sets || []).find(s => c.test(s.title || ''))).filter(Boolean); }
 
   function isQuizletOnly(key) { return /^q:/.test(String(key || '')); }
   function isFormCard(key) { return /^form:/.test(String(key || '')); }
 
-  root.AneesCardSelection = { TYPES, TYPE_LABEL, TENSES, statusSplit, newFromAmal, neverTested, answeredKeys, tenses, topics, splitTerm, matcher, quizletCards, quizletGroups, collocationSets, isQuizletOnly, isFormCard, formCard, typeOf };
+  root.AneesCardSelection = { TYPES, TYPE_LABEL, TENSES, statusSplit, newFromAmal, neverTested, answeredKeys, tenses, topics, splitTerm, matcher, quizletCards, quizletGroups, collocationSets, isDated, MIX, scoreMix, statusByKey, isQuizletOnly, isFormCard, formCard, typeOf };
   if (typeof module !== 'undefined' && module.exports) module.exports = root.AneesCardSelection;
 })(typeof window !== 'undefined' ? window : globalThis);
