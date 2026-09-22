@@ -84,7 +84,7 @@ function adjectiveHeading(r){
 }
 function formPeople(r,f){
  if(r.type==='Adjective'||!f.persons?.length)return '';
- const people=`<div class="ab-personlist">${f.persons.map(p=>`<div class="ab-personrow"><span>${esc(p.person)}</span><div class="ab-personword">${esc(p.word)}<div class="ab-sub" lang="ar">${esc(p.arabic)}</div><span class="ab-source">${p.provenance==='inferred'?'Inferred form':'From Amal’s document'}</span></div></div>`).join('')}</div>`;
+ const people=`<div class="ab-personlist">${f.persons.map(p=>`<div class="ab-personrow"><span>${esc(p.person)}</span><div class="ab-personword">${esc(p.word)}<div class="ab-sub" lang="ar">${esc(p.arabic)}</div><span class="ab-source">${p.provenance!=='inferred'?'From Amal’s document':p.checked?'Checked by Amal':p.checked===false?'Guess · not checked by Amal':'Inferred form'}</span></div></div>`).join('')}</div>`;
  return r.type==='Adjective'?people:`<details class="ab-person"><summary>Person forms <span class="ab-count">${f.persons.length}</span></summary>${people}</details>`;
 }
 

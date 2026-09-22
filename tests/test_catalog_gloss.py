@@ -19,7 +19,10 @@ def test_documented_alternatives_irregulars_and_prose_fill_only_supported_forms(
     for entry,word in expected.items():
         assert entries[entry]['word']==word
         assert entries[entry]['provenance']=='document'
-    assert len(entries['ana basta5dem:command']['persons'])==1  # No invented gender variants.
+    # Only one person is documented; the rest are guesses tagged for Amal (verb drills ruling 1).
+    persons=entries['ana basta5dem:command']['persons']
+    assert [p['provenance'] for p in persons]==['document','inferred','inferred']
+    assert all(p['checked'] is False for p in persons[1:])
     assert 'source_note' in entries['ana basA3ed:past']['persons'][0]
     assert 'akalet' in entries['ana bakul:past']['keys']
     assert 'shrebet' in entries['ana bashrab:past']['keys']
@@ -29,7 +32,9 @@ def test_documented_alternatives_irregulars_and_prose_fill_only_supported_forms(
     assert 'byebse6' in entries['ana babse6:present']['keys']
     assert 'kul' not in groups['ana bakul']['keys']  # All/every is not command eat.
     for entry in ['ana basawi:past','ana babda:past','ana balef:past','ana ba7dar:command','ana bat7arak:past']:
-        assert not entries[entry]['word']  # An English synonym alone is insufficient.
+        # An English synonym alone is insufficient: no document form is attached, only a tagged guess.
+        assert entries[entry]['provenance']!='document'
+        assert all(p['provenance']=='inferred' and p['checked'] is False for p in entries[entry]['persons'])
     owners={}
     for g in groups.values():
         for key in g['keys']:

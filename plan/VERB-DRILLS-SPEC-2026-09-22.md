@@ -11,6 +11,7 @@ randomizers to Flashcards, and a level 2 with "to / from / with someone".
 | 2 | What one card tests | **1 verb + 1 tense + 1 person.** Front = English cue ("she · knew"), back = Arabizi + Arabic ("heyye 3irfat · هي عرفت"). |
 | 3 | Level 2 add-ons | **Both kinds:** object endings on the verb (3atini, akhadtik) and a preposition + person after it (7akait ma3na, emshi ma3hom). |
 | 4 | Which verbs get level 2 | **Every verb**, with only add-ons that make sense for it: every verb gets ma3 / la + person; verbs that take an object also get endings. Claude tags each verb; Amal's pairs win; Amal checks the tags. |
+| 6 | Card direction | **Both ways** (Medi 2026-09-22): English → Arabic and Arabic → English. Verb drills reuse the Flashcards "Front of the card: Arabic / English" switch (`pref.mode`, already stored per answer in `card_results.mode`). |
 | 5 | Arabic script on guessed forms | **Yes, Arabic too** (Medi reversed "Arabizi only"): built from Amal's own Arabic for that verb, tagged `not checked`. If she has no Arabic for the verb, Arabizi only. |
 
 ## Defaults (Claude's, not asked; change only if Medi says)
@@ -65,6 +66,14 @@ randomizers to Flashcards, and a level 2 with "to / from / with someone".
   forms as in Amal's Quizlet sets "Ma3 + pronouns", "La + Pronouns", "Other Prepositions + Pronouns".
 - Verb tags: `object: yes/no`, `preps: [...]`. Seed from Quizlet "verb + preposition collocations" (36) and
   "Pronoun Objects With Verbs" (25); Claude tags the rest; Amal checks the tags on the same list.
+
+## Status
+
+- Step 1 DONE 88ec6a6: `scripts/verb_forms.py`, report `scripts/verb_forms_holdout.py`, floors in `tests/test_verb_forms.py`.
+  Hold-one-out Present 93% / Past 98% / Command 95%; from the present "I" form only 93 / 92 / 85; Arabic 99 / 99 / 96.
+- Step 2: catalog fills every person (`checked: false`); Amal's list = `docs/amal/verb-check.html` + table `verb_check_links`
+  (migration 018) + `scripts/verb_check_links.py create|pull|list`; her answers land in `data/vocab/amal_verb_checks.json`
+  and the catalog build applies them. The link is minted for Medi only; nothing is sent to Amal.
 
 ## Build order
 

@@ -122,8 +122,8 @@ class Verb:
         self.geminate = gem_past or gem_written or gem_command or gem_arabic
         self.defective = ends_vowel(s)
         self.hollow = (not self.geminate and not self.hamza and not self.defective and
-                       re.fullmatch(r'[^aeiou]{1,2}(?:u|o|oo|ee|aa|e)[^aeiou]{1,2}', s) is not None and
-                       shape(s) in ('CVC',) and (re.search('(oo|ee|aa|u|o)', s) is not None) and not self._sound_one_vowel_e())
+                       re.fullmatch(r'[^aeiou]{1,2}(?:u|o|oo|ee|aa|e|i)[^aeiou]{1,2}', s) is not None and
+                       shape(s) in ('CVC',) and (re.search('(oo|ee|aa|u|o|i)', s) is not None) and not self._sound_one_vowel_e())
         self.form2 = re.fullmatch(r'[^aeiou]{1,2}a([^aeiou])\1(?:e|i)[^aeiou]{1,2}', s) is not None or \
             re.fullmatch(r'[^aeiou]{1,2}a([^aeiou]{1,2})\1?e[^aeiou]{1,2}', s) is not None and len(consonants(s)) == 4
         self.form2_def = re.fullmatch(r'[^aeiou]{1,2}a([^aeiou])\1i', s) is not None
@@ -521,10 +521,47 @@ def command_arabic(v, known_ar):
 
 # ---------------------------------------------------------------- public
 
+POSSESSIVE = {'I': ('i', 'ي'), 'You (m)': ('ak', 'ك'), 'You (f)': ('ek', 'ك'), 'You (pl)': ('kom', 'كم'),
+              'He': ('o', 'و'), 'She': ('ha', 'ها'), 'We': ('na', 'نا'), 'They': ('hom', 'هم')}
+
+
+def _split_phrase(forms):
+    """'ba2addi wa2et' -> head verb + fixed tail; 'badir baali' -> tail that
+    takes the doer's ending (baali, baalak, baalek ...). None when not a phrase."""
+    word, arabic = forms.get('Present', {}).get('I', ('', ''))
+    w, a = clean_variant(word), strip_ar_pronoun(arabic)
+    if ' ' not in w:
+        return None
+    head, tail = w.split(' ', 1)
+    a_head, _, a_tail = a.partition(' ')
+    agrees = tail.endswith('i') and a_tail.endswith('ي') and ' ' not in tail
+    return head, a_head, (tail[:-1] if agrees else tail), (a_tail[:-1] if agrees else a_tail), agrees
+
+
 def conjugate(forms):
     """forms: {tense: {person: (arabizi, arabic)}} bare, documented only.
     Returns {tense: {person: {'word','arabic','provenance'}}} for every person;
     documented entries are returned unchanged."""
+    phrase = _split_phrase(forms)
+    if phrase:
+        head, a_head, tail, a_tail, agrees = phrase
+        core = conjugate({'Present': {'I': (head, a_head)}})
+        out = {}
+        for tense, rows in core.items():
+            out[tense] = {}
+            for p in PERSONS_BY_TENSE[tense]:
+                documented = forms.get(tense, {}).get(p)
+                if documented and documented[0]:
+                    out[tense][p] = {'word': documented[0], 'arabic': documented[1], 'provenance': 'document'}
+                    continue
+                r = rows.get(p)
+                if not r:
+                    continue
+                end, a_end = POSSESSIVE[p] if agrees else ('', '')
+                out[tense][p] = {'word': r['word'] + ' ' + tail + end,
+                                 'arabic': (r['arabic'] + ' ' + a_tail + a_end) if r['arabic'] and a_tail else '',
+                                 'provenance': 'inferred'}
+        return out
     v = Verb(forms)
     out = {}
     for tense in TENSES:

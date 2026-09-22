@@ -29,10 +29,52 @@ def consonants(s):
     s=s.lower().replace('q','2').replace('kh','5').replace('gh','8').replace('sh','S').replace('6','t').replace('9','s')
     s=re.sub('[aeiou\\W]','',s)
     return re.sub(r'(.)\1+',r'\1',s)
+VERB_ENGINE_SKIP={'ana beddi'}  # a pseudo-verb (bidd- + ending), not conjugated
+def load_verb_checks(root):
+    """Amal's answers from the verb check list (scripts/verb_check_links.py pull). Her text always wins."""
+    path=root/'data/vocab/amal_verb_checks.json'
+    return json.loads(path.read_text(encoding='utf-8')).get('answers',{}) if path.exists() else {}
+def fill_verb_forms(groups,checks):
+    """Every person of Present/Past/Command: Amal's documented form, else the
+    engine's guess tagged checked=False. This is the only writer of guessed forms."""
+    import verb_forms as vf
+    for g in groups:
+        if g['type']!='Verb' or g['key'] in VERB_ENGINE_SKIP:continue
+        forms={}
+        for f in g['entries']:
+            if f['label'] not in vf.TENSES:continue
+            forms[f['label']]={p['person']:(vf.strip_pronoun(p['word']),vf.strip_ar_pronoun(p.get('arabic',''))) for p in f['persons'] if p['provenance']=='document' and (' / ' not in p['word'] or f['label']=='Present')}
+        if not forms.get('Present',{}).get('I'):continue
+        out=vf.conjugate(forms)
+        for f in g['entries']:
+            if f['label'] not in vf.TENSES:continue
+            documented={p['person']:p for p in f['persons'] if p['provenance']=='document'}
+            people=[]
+            for person in vf.PERSONS_BY_TENSE[f['label']]:
+                if person in documented:people.append(documented[person]);continue
+                guess=out[f['label']].get(person)
+                if not guess:continue
+                word,arabic=guess['word'],guess['arabic']
+                if f['label']!='Command':word,arabic=vf.with_pronoun(person,word,arabic)
+                item={'id':f['id']+':'+person,'person':person,'word':word,'arabic':arabic,'provenance':'inferred','checked':False}
+                answer=checks.get(item['id'])
+                if answer and answer.get('choice')=='yes' and answer.get('word')==word:item['checked']=True
+                elif answer and answer.get('choice')=='fix' and (answer.get('word') or '').strip():
+                    fixed,fixed_ar=answer['word'].strip(),(answer.get('arabic') or '').strip()
+                    if f['label']!='Command':fixed,fixed_ar=vf.with_pronoun(person,vf.strip_pronoun(fixed),vf.strip_ar_pronoun(fixed_ar))
+                    item.update(word=fixed,arabic=fixed_ar,checked=True,guess=word)
+                people.append(item)
+            # Documented persons the engine does not model (e.g. extra variants) stay.
+            people+=[p for p in f['persons'] if p['provenance']=='document' and p['person'] not in vf.PERSONS_BY_TENSE[f['label']]]
+            f['persons']=people
+            if not f['word'] and people:
+                lead=next((p for p in people if p['person']==('You (m)' if f['label']=='Command' else 'I')),people[0])
+                f['word']=vf.strip_pronoun(lead['word']);f['arabic']=vf.strip_ar_pronoun(lead['arabic']);f['provenance']='inferred'
 def main():
     p=argparse.ArgumentParser();p.add_argument('--document',type=Path);p.add_argument('--words',type=Path);p.add_argument('--output',type=Path);p.add_argument('--source-scripts',type=Path);a=p.parse_args()
     root=Path(__file__).resolve().parents[1]
     if a.source_scripts:sys.path.insert(0,str(a.source_scripts))
+    sys.path.insert(0,str(Path(__file__).resolve().parent))
     from import_vocab import parse_markdown,parse_html,arabizi_forms,source_key,arabic_norm,source_arabic_forms,same_word
     from arabizi import loose
     document=a.document or max((root/'data/vocab').glob('doc_*.md'))
@@ -200,6 +242,7 @@ def main():
             if w['english']=='It causes happiness / makes someone happy':
                 present=g['entries'][1];present['keys'].append('byebse6');g['keys'].append('byebse6')
                 present['persons']=[p for p in present['persons'] if p['person']!='He']+[{'person':'He','word':w['arabizi'],'arabic':w['arabic'],'provenance':'document','key':'byebse6'}]
+    fill_verb_forms(groups, load_verb_checks(root))
     # The same first-person form also appears without Ana in topic tables
     # (Akalet in Food and Ana akalet in Past Tense). Keep both source keys,
     # but attach their histories to the same tense instead of a duplicate row.
