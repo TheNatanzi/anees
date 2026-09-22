@@ -106,7 +106,10 @@ function models(words,catalog,events,cards){
    const future=candidates.filter(f=>f.label==='Future');
    if(future.length===1)return future[0];
    if(candidates.length===1)return candidates[0];
-   // Unvocalized Arabic makes homographs (انبسط = he got happy / get happy!): a form from Amal's Doc beats an engine guess.
+   // Unvocalized Arabic makes homographs (انبسط = he got happy / get happy!). 1) the form said WITH its pronoun wins
+   // ("هو انبسط" is past, never the command); 2) else a form from Amal's Doc beats an engine guess; 3) else no attribution.
+   const withPronoun=candidates.filter(f=>(f.persons||[]).some(p=>[p.word,p.arabic].some(s=>s&&/\s/.test(String(s).trim())&&text.includes(' '+normalize(s)+' '))));
+   if(withPronoun.length===1)return withPronoun[0];
    const documented=candidates.filter(f=>hits(f).some(([,guess])=>!guess));
    if(candidates.length>1)return documented.length===1?documented[0]:null;
   }

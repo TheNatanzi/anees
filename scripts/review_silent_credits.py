@@ -29,11 +29,10 @@ def main():
         by_t = {(round(e['t_start'], 1), e.get('word_key')): e for e in events if e['speaker'] == 'Medi' and e.get('spoken')}
         for t, key, level in A.silent_credits(shown, data['sources']):
             e = by_t[(t, key)]
-            if e['id'] in review['patches']:
-                found.setdefault(d, []).append((t, key, 'already reviewed, left alone')); continue
-            review['patches'][e['id']] = {'expected': {k: e.get(k) for k in ['source_sha256', 'row_id', 'word_key', 'text', 't_start', 't_end']},
-                                          'changes': {'ignored': True, 'needs_review': False,
-                                                      'reason': f"Recognized while Medi's own recording was silent ({level} dBFS): speech-engine hallucination, not counted."}}
+            why = f"Recognized while Medi's own recording was silent ({level} dBFS): speech-engine hallucination, not counted."
+            p = review['patches'].setdefault(e['id'], {'expected': {k: e.get(k) for k in ['source_sha256', 'row_id', 'word_key', 'text', 't_start', 't_end']}, 'changes': {}})
+            # Silence wins over any other patch (Codex 2026-09-23): an earlier review never proves Medi spoke.
+            p['changes'].update(ignored=True, needs_review=False, silence_rule=True, reason=why + (' Earlier review: ' + p['changes']['reason'] if p['changes'].get('reason') and 'silent' not in p['changes']['reason'] else ''))
             found.setdefault(d, []).append((t, key, level))
     if found:
         review['version'] = review['version'] + '+silence'

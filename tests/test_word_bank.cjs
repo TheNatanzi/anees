@@ -66,6 +66,9 @@ test('an unvocalized homograph goes to the Doc form, never to an engine guess',(
  const rows=C.models([word],catalog,[said],[]);
  assert.equal(rows[0].entries[1].speaking.count,1,'command (Doc) gets the attempt');
  assert.equal(rows[0].entries[0].speaking.count,0,'guessed past does not');
+ // said with its pronoun ("هو انبسط" = he got happy): the past form wins even though it is a guess
+ const he=C.models([word],catalog,[{...said,id:'he',text:'هو انبسط.'}],[]);
+ assert.equal(he[0].entries[0].speaking.count,1);assert.equal(he[0].entries[1].speaking.count,0);
  // two guesses tie: nobody gets it (held, not guessed)
  catalog.groups[0].entries[1].persons[0].provenance='inferred';catalog.groups[0].entries[1].provenance='inferred';
  const tie=C.models([word],catalog,[said],[]);assert.equal(tie[0].entries.reduce((n,f)=>n+f.speaking.count,0),0);
