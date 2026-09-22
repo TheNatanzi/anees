@@ -137,15 +137,15 @@ console.log(JSON.stringify({speaking:['a','b','c'].map(k=>m[k].bucket),cards:['a
 def _run_round(pg, n_miss_idx):
     """Answer the current round: miss the cards at the given indexes. Returns the summary text."""
     i = 0
-    while pg.locator('#show').count() or pg.locator('#got').count():
-        if pg.locator('#show').count():   # grading appears only after the answer is revealed
-            assert pg.locator('#got').count() == 0
-            pg.click('#card'); pg.wait_for_timeout(400 if i == 0 else 60)
-            if i == 0:
-                assert 'flip' in pg.get_attribute('#card', 'class')
+    while pg.locator('#got').count():
+        # grading unlocks only after the card is flipped (Quizlet-style tap to flip)
+        assert pg.locator('#got:disabled').count() == 1
+        pg.click('#card'); pg.wait_for_timeout(500 if i == 0 else 80)
+        if i == 0:
+            assert 'flip' in pg.get_attribute('#card', 'class')
         pg.click('#miss' if i in n_miss_idx else '#got')
         i += 1
-        pg.wait_for_timeout(60)
+        pg.wait_for_timeout(320)   # the card flies off before the next one renders
     return pg.text_content('#root')
 
 
@@ -157,14 +157,14 @@ def test_flip_toggle_shuffle_replay_end_to_end(viewport):
     url = (ROOT / 'docs' / 'cards.html').resolve().as_uri()
     with sync_playwright() as pw:
         b = pw.chromium.launch(); ctx = b.new_context(viewport=viewport); pg = ctx.new_page(); pg.goto(url)
-        pg.wait_for_selector('#sets', timeout=20000)   # home is today's FSRS queue; direction lives there, sets are extra practice
+        pg.wait_for_selector('#sets', timeout=20000)   # home is today's FSRS queue; card front choice lives there, sets are extra practice
         pg.click('#m-en'); pg.wait_for_selector('#m-en.sel'); pg.click('#sets'); pg.wait_for_selector('#start')
         pg.click('[data-s="t:Animals"]')
         pg.click('#sh'); pg.wait_for_timeout(100); sh1 = pg.text_content('#sh'); pg.click('#sh'); pg.wait_for_timeout(100); sh2 = pg.text_content('#sh')
         assert sh1 != sh2 and 'Shuffle' in sh1
         pg.click('#n20'); pg.click('#start'); pg.wait_for_selector('#card')
         assert pg.evaluate('document.documentElement.scrollWidth') <= viewport['width']
-        assert pg.evaluate("document.querySelector('#show').getBoundingClientRect().height") >= 48
+        assert pg.evaluate("document.querySelector('#got').getBoundingClientRect().height") >= 48
         rid = pg.evaluate('AneesTest.round.id')
         first_face = pg.text_content('#card .face:not(.back) .en')
         assert first_face, 'English-first mode should show English on the front'

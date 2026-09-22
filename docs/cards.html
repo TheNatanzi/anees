@@ -1,37 +1,74 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Anees flashcards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=Noto+Naskh+Arabic:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F4F6F2;--bg2:#fff;--ink:#1B2620;--mute:#5B6A62;--line:#D6DDD8;--teal:#0F6E56;--amber:#B26F0E;--red:#B23A2E;--ice:#4F7FC4}
-@media(prefers-color-scheme:dark){:root{--bg:#0F1613;--bg2:#17211C;--ink:#E7EDE9;--mute:#9BAAA2;--line:#2A3630;--teal:#4FC4A2;--amber:#E7A93B;--red:#E77A6E;--ice:#8FB4F0}}
-*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 "Atkinson Hyperlegible",system-ui,sans-serif;overflow-wrap:anywhere}
-main{max-width:560px;margin:0 auto;padding:12px;min-height:100vh;display:flex;flex-direction:column}
-h1{font-size:22px;margin:6px 0} h2{font-size:16px;color:var(--mute);margin:14px 0 6px;font-weight:600} .mute{color:var(--mute);font-size:14px}
-button{min-height:48px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:14px;font:600 17px system-ui;padding:8px 14px;cursor:pointer}
-button.primary{background:var(--teal);color:#fff;border-color:var(--teal)} button.bad{background:var(--red);color:#fff;border-color:var(--red)} button.sel{outline:3px solid var(--teal)}
-.chips{display:flex;flex-wrap:wrap;gap:8px} .chips button{font-size:15px;min-height:44px} .chips small{color:inherit;opacity:.7;font-weight:400}
-.row{display:flex;gap:10px;align-items:center;margin:10px 0} .row button{flex:1}
-.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:10px 0} .bar i{display:block;height:100%;background:var(--teal);width:0;transition:width .2s}
-.scene{perspective:1200px;flex:1;display:flex;align-items:stretch;min-height:300px}
-.card{position:relative;width:100%;min-height:300px;transform-style:preserve-3d;transition:transform .35s;cursor:pointer;border-radius:20px}
-.card.flip{transform:rotateY(180deg)}
-.face{position:absolute;inset:0;backface-visibility:hidden;background:var(--bg2);border:1px solid var(--line);border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center}
-.face.back{transform:rotateY(180deg)} .big{font-size:34px;font-weight:700;line-height:1.2} .ar{font-size:30px;direction:rtl;margin-top:8px} .en{font-size:22px} .hint{color:var(--mute);font-size:13px;position:absolute;bottom:12px}
-.badge{position:absolute;top:12px;left:12px;font:600 12px system-ui;padding:3px 9px;border-radius:999px;color:#fff;background:var(--mute)}
-.b-missed{background:var(--red)} .b-new{background:#6B4FC4} .b-shaky{background:var(--amber)} .b-cold{background:var(--teal)} .b-ice_cold{background:var(--ice)} .b-never{background:var(--mute)}
-.topic{position:absolute;top:12px;right:12px;font-size:12px;color:var(--mute)}
-.summary{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:14px;margin:8px 0} .num{font-size:30px;font-weight:700}
-.sync{font-size:12px;color:var(--mute);margin-top:auto;padding-top:10px} .toggle{display:flex;gap:8px} .toggle button{flex:1;min-height:44px;font-size:15px}
+/* Quizlet-style flashcards (Medi 2026-09-21). Palette and layout follow Quizlet's study screen. */
+:root{--bg:#f6f7fb;--bg2:#fff;--ink:#282e3e;--mute:#586380;--line:#d9dde8;--blue:#4255ff;--blue2:#423ed8;--know:#18ae79;--learn:#ff8c22;--learnbg:#fff1e0;--knowbg:#e3f6ef;--shadow:0 .25rem 1rem rgba(40,46,62,.1);--teal:#4255ff;--amber:#ff8c22;--red:#e2474b;--ice:#4255ff}
+@media(prefers-color-scheme:dark){:root{--bg:#0a092d;--bg2:#2e3856;--ink:#f6f7fb;--mute:#d9dde8;--line:#586380;--blue:#8a93ff;--blue2:#a8b0ff;--know:#3ccfa0;--learn:#ffa04d;--learnbg:#4a3526;--knowbg:#1f4a3f;--shadow:0 .25rem 1rem rgba(0,0,0,.35);--teal:#8a93ff;--red:#ff7b7e}}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 Figtree,system-ui,sans-serif;overflow-wrap:anywhere;-webkit-tap-highlight-color:transparent}
+main{max-width:760px;margin:0 auto;padding:12px 16px;min-height:100vh;display:flex;flex-direction:column}
+h1{font-size:28px;font-weight:800;margin:10px 0 4px} h2{font-size:16px;font-weight:700;margin:22px 0 10px} .mute{color:var(--mute);font-size:14px}
+button{min-height:48px;border:2px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:8px;font:600 16px Figtree,system-ui,sans-serif;padding:8px 16px;cursor:pointer}
+button:hover{border-color:var(--mute)} button:disabled{opacity:.45;cursor:default}
+button.primary{background:var(--blue);color:#fff;border-color:var(--blue)} button.primary:hover{background:var(--blue2);border-color:var(--blue2)}
+button.sel{border-color:var(--blue);color:var(--blue)} button.bad{background:var(--learn);border-color:var(--learn);color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px} .chips button{font-size:15px;min-height:44px;border-radius:999px} .chips small{color:inherit;opacity:.7;font-weight:400}
+.row{display:flex;gap:10px;align-items:center;margin:12px 0} .row button{flex:1}
+.toggle{display:flex;gap:8px} .toggle button{flex:1;min-height:44px;font-size:15px}
+.sync{font-size:12px;color:var(--mute);margin-top:auto;padding-top:14px;text-align:center}
+/* home */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.tile{background:var(--bg2);border-radius:12px;box-shadow:var(--shadow);padding:14px 12px;text-align:center}
+.tile b{display:block;font-size:30px;font-weight:800;line-height:1.1} .tile span{font-size:13px;color:var(--mute);font-weight:600}
+.tile.due b{color:var(--blue)} .tile.new b{color:var(--know)} .tile.lrn b{color:var(--learn)}
+.study{width:100%;min-height:56px;font-size:18px;font-weight:800;border-radius:12px}
+.fc{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.fc div{background:var(--bg2);border-radius:10px;box-shadow:var(--shadow);padding:8px 2px;text-align:center}.fc b{display:block;font-size:18px}.fc span{font-size:11px;color:var(--mute)}
+.panel{background:var(--bg2);border-radius:12px;box-shadow:var(--shadow);padding:14px;margin:10px 0}
+/* study screen */
+.qtop{display:grid;grid-template-columns:48px 1fr 48px;align-items:center;margin:2px 0 6px}
+.qtop button{min-height:44px;width:44px;padding:0;border:none;background:none;font-size:22px;color:var(--mute)} .qtop .count{text-align:center;font-weight:700;font-size:16px}
+.prog{height:4px;background:var(--line);border-radius:2px;overflow:hidden} .prog i{display:block;height:100%;background:var(--blue);transition:width .25s}
+.tally{display:flex;justify-content:space-between;align-items:center;margin:14px 2px 10px;font-weight:700;font-size:14px}
+.pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:4px 12px 4px 4px}
+.pill b{display:inline-grid;place-items:center;min-width:30px;height:30px;border-radius:999px;border:2px solid currentColor;font-size:14px}
+.pill.learn{color:var(--learn);background:var(--learnbg)} .pill.know{color:var(--know);background:var(--knowbg);flex-direction:row-reverse;padding:4px 4px 4px 12px}
+.scene{perspective:1400px;flex:1;display:flex;min-height:340px;max-height:520px;touch-action:pan-y;user-select:none}
+.card{position:relative;width:100%;min-height:340px;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.2,.8,.2,1);cursor:pointer;border-radius:16px}
+.card.flip .inner{transform:rotateY(180deg)} .inner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--bg2);border-radius:16px;box-shadow:var(--shadow);border:3px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;text-align:center;transition:border-color .12s}
+.face.back{transform:rotateY(180deg)}
+.face .lab{position:absolute;top:16px;left:20px;font-size:14px;font-weight:600;color:var(--mute)} .face .tag{position:absolute;top:16px;right:20px;font-size:13px;font-weight:600;color:var(--mute)}
+.big{font-size:40px;font-weight:600;line-height:1.2} .ar{font:700 34px/1.5 "Noto Naskh Arabic",serif;direction:rtl;margin-top:10px} .en{font-size:30px;font-weight:600;line-height:1.3} .sub{font-size:14px;color:var(--mute);margin-top:12px}
+.stamp{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-weight:800;font-size:26px;opacity:0;pointer-events:none;z-index:3;padding:6px 16px;border-radius:10px;border:3px solid currentColor;background:var(--bg2)}
+.card.dragL .face{border-color:var(--learn)} .card.dragR .face{border-color:var(--know)}
+.card.dragL .stamp.l{opacity:1;color:var(--learn)} .card.dragR .stamp.r{opacity:1;color:var(--know)}
+.card.gone{transition:transform .28s ease-in,opacity .28s} .card.leech .face.front{border-color:var(--red)}
+.ctrls{display:flex;justify-content:center;align-items:center;gap:22px;margin:16px 0 4px}
+.ctrls .circle{width:64px;height:64px;min-height:64px;border-radius:999px;padding:0;font-size:26px;font-weight:700;background:var(--bg2);box-shadow:var(--shadow)}
+#miss.circle{color:var(--learn);border-color:var(--learn)} #got.circle{color:var(--know);border-color:var(--know)}
+#miss.circle:not(:disabled):hover{background:var(--learnbg)} #got.circle:not(:disabled):hover{background:var(--knowbg)}
+.ctrls .undo{width:44px;height:44px;min-height:44px;border-radius:999px;padding:0;border:none;background:none;font-size:22px;color:var(--mute)}
+.hint{text-align:center;color:var(--mute);font-size:13px;min-height:18px}
+/* summary */
+.done{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.donut{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto}
+.donut i{width:88px;height:88px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-style:normal;font-weight:800;font-size:22px}
+.legend div{display:flex;justify-content:space-between;gap:24px;font-weight:700;padding:6px 12px;border-radius:999px;margin:6px 0}
+.legend .k{color:var(--know);background:var(--knowbg)} .legend .l{color:var(--learn);background:var(--learnbg)} .legend .t{color:var(--ink);background:var(--bg2);box-shadow:var(--shadow)}
+.num{font-size:28px;font-weight:800}
+/* site nav (hidden inside the Flashcards tab) */
 .top{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:5} .top .in{max-width:820px;margin:0 auto;padding:10px 12px 0}
 .brand{display:flex;align-items:baseline;gap:10px} .brand b{font-size:20px} .brand span{color:var(--mute);font-size:13px}
 .top nav{display:flex;gap:4px;overflow-x:auto;padding:6px 0;scrollbar-width:none} .top nav::-webkit-scrollbar{display:none}
-.top .tab{flex:0 0 auto;min-height:44px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:999px;padding:8px 14px;font:600 15px system-ui;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center} .top .tab.on{background:var(--teal);color:#fff;border-color:var(--teal)}
-.fc{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.fc div{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:8px 4px;text-align:center}.fc b{display:block;font-size:20px}.fc span{font-size:12px;color:var(--mute)}
-button small{font-weight:400;opacity:.8;font-size:13px;margin-left:4px} button:disabled{opacity:.55;cursor:default}
+.top .tab{flex:0 0 auto;min-height:44px;border:2px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:999px;padding:8px 14px;font:600 15px Figtree,system-ui;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center} .top .tab.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+@media(max-width:480px){.big{font-size:32px}.en{font-size:24px}.ar{font-size:28px}.scene,.card{min-height:300px}}
+@media(prefers-reduced-motion:reduce){.card,.inner,.prog i{transition:none}}
 </style></head><body><header class="top" id="topnav"><div class="in"><div class="brand"><b>Anees</b><span>Palestinian Arabic with Amal · Medi's companion</span></div><nav><a class="tab" href="index.html#today">Today</a><a class="tab" href="slips.html">Slips</a><a class="tab" href="index.html#lessons">Lessons</a><a class="tab" href="index.html#words">Words</a><a class="tab on" href="index.html#cards">Flashcards</a><a class="tab" href="index.html#amal">Amal</a><a class="tab" href="index.html#grammar">Grammar</a><a class="tab" href="index.html#ai-reports">AI reports</a><a class="tab" href="index.html#sys-rules">System rules</a><a class="tab" href="index.html#word-rules">Word &amp; grammar rules</a><a class="tab" href="index.html#future">Future projects</a></nav></div></header><main>
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main>
-<script src="js/config.js"></script><script src="js/buckets.js?v=20260921-fsrs-v1"></script><script src="js/fsrs.js?v=20260921-fsrs-v1"></script><script src="js/cards-core.js?v=20260921-fsrs-v1"></script><script src="js/progress.js?v=20260921-fsrs-v1"></script>
+<script src="js/config.js"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260921-quizlet-v1"></script><script src="js/cards-core.js?v=20260921-quizlet-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script>
 <script>
 const C=window.AneesCards, F=window.AneesFSRS, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -51,7 +88,7 @@ async function load(){
   try{ const r=await fetch('data/word-bank-catalog.json'); if(r.ok){ catalog=await r.json(); LS('anees-cards-catalog',catalog); } }catch(e){}
   if(!catalog) catalog=LS('anees-cards-catalog');
   siblings=C.siblingMap(words,catalog);
-  try{ const rows=[]; for(let off=0;;off+=1000){ const r=await fetch(ANEES.url+'/rest/v1/card_results?select=id,word_key,ts,result,attempt,mode,undone_at&order=ts.asc,id.asc&limit=1000&offset='+off,{headers:H}); if(!r.ok) throw new Error('log'); const p=await r.json(); rows.push(...p); if(p.length<1000) break; } serverLog=rows; LS('anees-card-server-log',rows); }
+  try{ const rows=[]; for(let off=0;;off+=1000){ const r=await fetch(ANEES.url+'/rest/v1/card_results?select=id,word_key,ts,result,attempt,mode,undone_at,flip_ms,answer_ms&order=ts.asc,id.asc&limit=1000&offset='+off,{headers:H}); if(!r.ok) throw new Error('log'); const p=await r.json(); rows.push(...p); if(p.length<1000) break; } serverLog=rows; LS('anees-card-server-log',rows); }
   catch(e){ serverLog=LS('anees-card-server-log')||[]; syncEl.textContent='Card history is offline: scheduling from this device’s saved answers.'; }
   try{ const r=await fetch(ANEES.url+'/rest/v1/word_stats?select=*&limit=5000',{headers:H}); if(r.ok){ for(const s of await r.json()) stats[s.word_key]=s; window.AneesProgress.requireCurrent(stats); } }catch(e){ stats={}; }
   if(!Object.keys(stats).length) stats=window.AneesProgress.cached(LS(window.AneesProgress.CACHE_KEY));
@@ -94,62 +131,109 @@ const byKey=()=>new Map(words.map(w=>[w.key,w]));
 const fsrsOpts=()=>({desiredRetention:pref.retention});
 function dueQueue(){ return C.queue(words,cards,fullLog(),new Date(),{newPerDay:F.DEFAULTS.newPerDay,siblings}); }
 function wait(msFromNow){ const m=Math.round(msFromNow/60000); if(m<60) return m<1?'<1m':m+'m'; const h=Math.round(m/60); if(h<24) return h+'h'; const d=Math.round(m/1440); return d<60?d+'d':Math.round(d/30)+'mo'; }
+// ---- answer timer: visible time only (a hidden tab does not count) ----
+const timer={start:0,acc:0,flip:null,run:false,
+  begin(){ this.acc=0; this.flip=null; this.start=performance.now(); this.run=!document.hidden; },
+  now(){ return Math.round(this.acc+(this.run?performance.now()-this.start:0)); },
+  pause(){ if(this.run){ this.acc+=performance.now()-this.start; this.run=false; } },
+  resume(){ if(!this.run){ this.start=performance.now(); this.run=true; } } };
+document.addEventListener('visibilitychange',()=>document.hidden?timer.pause():timer.resume());
+const secs=ms=>{ if(!Number.isFinite(ms)) return '—'; const s=ms/1000; if(s<60) return s.toFixed(1)+'s'; const m=Math.floor(s/60); return m+'m '+Math.round(s-m*60)+'s'; };
+function faces(w){ const arFace=`<div class="big">${esc(w.arabizi)}</div><div class="ar">${esc(w.arabic)}</div>`, enFace=`<div class="en">${esc(w.english)}</div>`; return pref.mode==='ar_first'?[arFace,enFace]:[enFace,arFace]; }
+const LABELS=()=>pref.mode==='ar_first'?['Arabic','English']:['English','Arabic'];
+// ---- one Quizlet-style card: tap to flip, then swipe right = Know, left = Still learning ----
+let revealed=false;
+function cardView(o){
+  const [front,back]=faces(o.w), [fl,bl]=LABELS(); revealed=false; timer.begin(); let answered=false;
+  root.innerHTML=`<div class="qtop"><button id="close" aria-label="Close">✕</button><div class="count">${esc(o.count)}</div><span></span></div>
+    <div class="prog"><i style="width:${Math.round(o.pct)}%"></i></div>
+    <div class="tally"><span class="pill learn"><b>${o.learnN}</b>Still learning</span><span class="pill know"><b>${o.knowN}</b>Know</span></div>
+    <div class="scene"><div class="card${o.leech?' leech':''}" id="card" role="button" aria-label="Flip card"><div class="stamp l">Still learning</div><div class="stamp r">Know</div>
+      <div class="inner"><div class="face front"><span class="lab">${fl}</span><span class="tag">${esc(o.tag||'')}</span>${front}</div>
+      <div class="face back"><span class="lab">${bl}</span>${back}${o.w.subtopic?`<div class="sub">${esc(o.w.subtopic)}</div>`:''}</div></div></div></div>
+    <div class="ctrls">${o.onUndo?'<button id="undo" class="undo" aria-label="Undo last answer" title="Undo (Ctrl+Z)">↺</button>':'<span style="width:44px"></span>'}
+      <button id="miss" class="circle" aria-label="Still learning" title="Still learning (←)" disabled>✕</button><button id="got" class="circle" aria-label="Know" title="Know (→)" disabled>✓</button><span style="width:44px"></span></div>
+    <p class="hint" id="hint">Tap the card to flip · Space</p>`;
+  const card=document.getElementById('card'), hint=document.getElementById('hint'), miss=document.getElementById('miss'), got=document.getElementById('got');
+  const flip=()=>{ card.classList.toggle('flip'); if(!revealed){ revealed=true; timer.flip=timer.now(); miss.disabled=got.disabled=false; hint.textContent='Swipe or press → Know · ← Still learning'; } };
+  const fly=result=>{ if(!revealed||answered) return; answered=true; const t={flip_ms:timer.flip, answer_ms:timer.now()}, s=result==='got'?1:-1;
+    card.classList.add('gone',s>0?'dragR':'dragL'); card.style.transform=`translateX(${s*130}%) rotate(${s*16}deg)`; card.style.opacity='0';
+    setTimeout(()=>o.onAnswer(result,t),matchMedia('(prefers-reduced-motion: reduce)').matches?0:230); };
+  let x0=null,y0=0,dx=0,drag=false;
+  card.addEventListener('pointerdown',e=>{ x0=e.clientX; y0=e.clientY; dx=0; drag=false; card.setPointerCapture(e.pointerId); });
+  card.addEventListener('pointermove',e=>{ if(x0===null) return; dx=e.clientX-x0; if(!drag&&Math.abs(dx)>8&&Math.abs(dx)>Math.abs(e.clientY-y0)){ drag=true; card.style.transition='none'; }
+    if(!drag) return; card.style.transform=`translateX(${dx}px) rotate(${dx/18}deg)`; card.classList.toggle('dragR',revealed&&dx>40); card.classList.toggle('dragL',revealed&&dx<-40); });
+  const end=()=>{ if(x0===null) return; x0=null; card.style.transition='';
+    if(!drag){ flip(); return; }
+    if(revealed&&Math.abs(dx)>110){ fly(dx>0?'got':'missed'); return; }
+    card.style.transform=''; card.classList.remove('dragL','dragR'); if(!revealed&&Math.abs(dx)>60) hint.textContent='Flip the card first'; };
+  card.addEventListener('pointerup',end); card.addEventListener('pointercancel',()=>{ x0=null; card.style.transition=''; card.style.transform=''; card.classList.remove('dragL','dragR'); });
+  miss.onclick=()=>fly('missed'); got.onclick=()=>fly('got'); document.getElementById('close').onclick=o.onClose;
+  const u=document.getElementById('undo'); if(u) u.onclick=o.onUndo;
+  document.onkeydown=e=>{ if(e.target.closest&&e.target.closest('button')&&(e.key===' '||e.key==='Enter')&&e.target.id!=='card') return;
+    if([' ','Enter','ArrowUp','ArrowDown'].includes(e.key)){ e.preventDefault(); flip(); }
+    else if(e.key==='ArrowRight'||e.key==='2'||e.key==='3') fly('got'); else if(e.key==='ArrowLeft'||e.key==='1') fly('missed');
+    else if(o.onUndo&&((e.key==='z'&&(e.ctrlKey||e.metaKey))||e.key==='u')) o.onUndo(); };
+}
 // ---- Home: today's scheduled queue ----
-let lastAnswer=null, sessionMissed={}, revealed=false;
+let lastAnswer=null, sessionMissed={}, sess=null;
 function home(){ document.onkeydown=null; rebuild(); const q=dueQueue(), n=q.counts;
   const f=F.forecast([...cards.values()],new Date(),7), leeches=[...cards.values()].filter(c=>F.isLeech(c)).length;
-  const waitNext=q.nextLearning?` · next learning card in ${wait(q.nextLearning-Date.now())}`:'';
-  root.innerHTML=`<h1>Flashcards</h1>
-    <div class="summary"><div class="num">${n.due} <span class="mute" style="font-size:16px">due</span> · ${n.new} <span class="mute" style="font-size:16px">new</span> · ${n.learning} <span class="mute" style="font-size:16px">learning</span></div>
-    <div class="mute">New today: ${q.newToday} of ${F.DEFAULTS.newPerDay}${q.buried?` · ${q.buried} sibling form${q.buried===1?'':'s'} held for another day`:''}${leeches?` · ${leeches} leech${leeches===1?'':'es'}`:''}${waitNext}</div></div>
-    <div class="row"><button id="go" class="primary" ${q.items.length?'':'disabled'}>${q.items.length?'Review now':'Done for today'}</button></div>
-    <h2>Next 7 days</h2><div class="fc">${f.map((d,i)=>`<div><b>${d.due}</b><span>${i===0?'today':new Date(d.date+'T12:00').toLocaleDateString(undefined,{weekday:'short'})}</span></div>`).join('')}</div>
+  const notes=[`New today ${q.newToday} of ${F.DEFAULTS.newPerDay}`]; if(q.buried) notes.push(`${q.buried} sibling form${q.buried===1?'':'s'} held for another day`); if(leeches) notes.push(`${leeches} leech${leeches===1?'':'es'}`); if(q.nextLearning&&!q.items.length) notes.push(`next learning card in ${wait(q.nextLearning-Date.now())}`);
+  root.innerHTML=`<h1>Flashcards</h1><p class="mute">Palestinian Arabic · today's review</p>
+    <div class="tiles"><div class="tile due"><b>${n.due}</b><span>Due</span></div><div class="tile new"><b>${n.new}</b><span>New</span></div><div class="tile lrn"><b>${n.learning}</b><span>Learning</span></div></div>
+    <button id="go" class="primary study" ${q.items.length?'':'disabled'}>${q.items.length?'Study':'All done for today'}</button>
+    <p class="mute" style="text-align:center">${notes.join(' · ')}</p>
+    <h2>Next 7 days</h2><div class="fc">${f.map((d,i)=>`<div><b>${d.due}</b><span>${i===0?'Today':new Date(d.date+'T12:00').toLocaleDateString(undefined,{weekday:'short'})}</span></div>`).join('')}</div>
+    <div class="panel"><h2 style="margin-top:0">Front of the card</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English</button></div>
     <h2>Desired retention</h2><div class="toggle">${F.RETENTIONS.map(r=>`<button data-r="${r}" class="${pref.retention===r?'sel':''}">${Math.round(r*100)}%</button>`).join('')}</div>
-    <p class="mute">FSRS scheduler · default parameters, not fitted to you. Higher retention means more reviews.</p>
-    <h2>Card direction</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic first</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English first</button></div>
-    <div class="row" style="margin-top:14px"><button id="sets">Practice a set instead</button></div>`;
-  if(q.items.length) document.getElementById('go').onclick=review;
+    <p class="mute">FSRS scheduler · default parameters, not fitted to you. Higher retention means more reviews.</p></div>
+    <div class="row"><button id="sets">Practice a set instead</button></div>`;
+  if(q.items.length) document.getElementById('go').onclick=startReview;
   root.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{pref.retention=Number(b.dataset.r); savePref(); home();});
   document.getElementById('m-ar').onclick=()=>{pref.mode='ar_first'; savePref(); home();};
   document.getElementById('m-en').onclick=()=>{pref.mode='en_first'; savePref(); home();};
   document.getElementById('sets').onclick=picker;
 }
-function faces(w){ const arFace=`<div class="big">${esc(w.arabizi)}</div><div class="ar">${esc(w.arabic)}</div>`, enFace=`<div class="en">${esc(w.english)}</div>`; return pref.mode==='ar_first'?[arFace,enFace]:[enFace,arFace]; }
-function review(){ rebuild(); const q=dueQueue(); if(!q.items.length) return home();
-  const c=q.items[0], w=byKey().get(c.id), phase=F.phase(c), [front,back]=faces(w), now=Date.now();
-  const iv=g=>wait(F.schedule(c,g,now,fsrsOpts()).due-now); revealed=false;
-  root.innerHTML=`<div class="row"><button id="back" style="flex:0 0 auto">‹ Home</button><div style="flex:1" class="mute">${q.counts.due} due · ${q.counts.new} new · ${q.counts.learning} learning</div>${lastAnswer?'<button id="undo" style="flex:0 0 auto">Undo</button>':''}</div>
-    <div class="scene"><div class="card" id="card"><div class="face"><span class="badge b-${phase==='new'?'new':phase==='mature'?'cold':'shaky'}">${phase==='new'?'New':phase==='mature'?'Mature':'Learning'}</span>${F.isLeech(c)?`<span class="topic">Leech · ${c.lapses} lapses</span>`:`<span class="topic">${esc(w.topic)}</span>`}${front}<span class="hint">tap or Space to reveal</span></div>
-    <div class="face back">${back}<span class="hint">${esc(w.subtopic)}</span></div></div></div>
-    <div class="row" id="grade"><button id="show" class="primary">Show answer</button></div>`;
-  const card=document.getElementById('card'), gradeEl=document.getElementById('grade');
-  const reveal=()=>{ if(revealed) return; revealed=true; card.classList.add('flip');
-    gradeEl.innerHTML=`<button id="again" class="bad">Again <small>${iv('again')}</small></button><button id="good" class="primary">Good <small>${iv('good')}</small></button>`;
-    document.getElementById('again').onclick=()=>grade(c,w,'missed'); document.getElementById('good').onclick=()=>grade(c,w,'got'); };
-  card.onclick=reveal; document.getElementById('show').onclick=reveal; document.getElementById('back').onclick=home;
-  const u=document.getElementById('undo'); if(u) u.onclick=undo;
-  document.onkeydown=e=>{ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); if(!revealed) reveal(); else grade(c,w,'got'); } else if(revealed&&e.key==='1') grade(c,w,'missed'); else if(revealed&&(e.key==='2'||e.key==='3')) grade(c,w,'got'); else if((e.key==='z'&&(e.ctrlKey||e.metaKey))||e.key==='u') undo(); };
+function startReview(){ sess={know:0,learn:0,ms:[]}; lastAnswer=null; sessionMissed={}; review(); }
+function review(){ if(!sess) sess={know:0,learn:0,ms:[]}; rebuild(); const q=dueQueue(); if(!q.items.length) return reviewDone(q);
+  const c=q.items[0], w=byKey().get(c.id), left=q.counts.due+q.counts.new+q.counts.learning, doneN=sess.know+sess.learn, total=doneN+Math.max(left,1);
+  cardView({w, count:`${doneN+1} / ${total}`, pct:100*doneN/total, learnN:sess.learn, knowN:sess.know, leech:F.isLeech(c),
+    tag:F.isLeech(c)?`Leech · ${c.lapses} lapses`:({new:'New',learning:'Learning',mature:'Mature'})[F.phase(c)],
+    onUndo:lastAnswer?undo:null, onAnswer:(r,t)=>grade(c,w,r,t), onClose:home});
 }
 // Both grading surfaces (this page and the future stats-tab queue) write this same card_results row.
-function grade(c,w,result){ if(!revealed) return; revealed=false; const row={id:uuid(), word_key:w.key, ts:new Date().toISOString(), mode:pref.mode, result, attempt:1, round_id:'fsrs-'+C.dayStart(Date.now()).toString(36), subject:'fsrs'};
+function grade(c,w,result,t){ const row={id:uuid(), word_key:w.key, ts:new Date().toISOString(), mode:pref.mode, result, attempt:1, round_id:'fsrs-'+C.dayStart(Date.now()).toString(36), subject:'fsrs', flip_ms:t&&Number.isFinite(t.flip_ms)?t.flip_ms:null, answer_ms:t&&Number.isFinite(t.answer_ms)?t.answer_ms:null};
   enqueue(row); stats=C.mergeLocal(stats,[row]); lastAnswer=row;
+  if(result==='got') sess.know++; else sess.learn++; if(row.answer_ms!==null) sess.ms.push(row.answer_ms);
   if(result==='missed'){ sessionMissed[w.key]=(sessionMissed[w.key]||0)+1; if(sessionMissed[w.key]===2) flag(w); }
   review(); }
 function undo(){ if(!lastAnswer) return; const row=lastAnswer; lastAnswer=null;
   LS('anees-card-log',(LS('anees-card-log')||[]).map(r=>r.id===row.id?{...r,undone:true}:r));
   removeSent([row.id]); enqueue({id:'undo-'+row.id, kind:'undo', target:row.id, at:new Date().toISOString()});
-  if(row.result==='missed'&&sessionMissed[row.word_key]) sessionMissed[row.word_key]--;
+  if(row.result==='got') sess.know--; else { sess.learn--; if(sessionMissed[row.word_key]) sessionMissed[row.word_key]--; }
+  if(row.answer_ms!==null){ const i=sess.ms.lastIndexOf(row.answer_ms); if(i>=0) sess.ms.splice(i,1); }
   stats=C.mergeLocal(stats,[]); review(); }
+function timeLines(ms){ const total=ms.reduce((a,b)=>a+b,0); return ms.length?`<div class="t"><span>Time</span><span>${secs(total)}</span></div><div class="t"><span>Per card</span><span>${secs(total/ms.length)}</span></div>`:''; }
+function donut(know,learn){ const n=know+learn, p=n?Math.round(100*know/n):0; return `<div class="donut" style="background:conic-gradient(var(--know) 0 ${p}%,var(--learn) ${p}% 100%)"><i>${p}%</i></div>`; }
+function reviewDone(q){ document.onkeydown=null; const s=sess||{know:0,learn:0,ms:[]}; if(!s.know&&!s.learn) return home();
+  const later=q.nextLearning?`<p class="mute">Next learning card comes back in ${wait(q.nextLearning-Date.now())}.</p>`:'';
+  root.innerHTML=`<div class="qtop"><button id="close" aria-label="Close">✕</button><div class="count">Done</div><span></span></div><div class="prog"><i style="width:100%"></i></div>
+    <h1>Nice work — that's today's queue.</h1>${later}
+    <div class="done">${donut(s.know,s.learn)}<div class="legend"><div class="k"><span>Know</span><span>${s.know}</span></div><div class="l"><span>Still learning</span><span>${s.learn}</span></div>${timeLines(s.ms)}</div></div>
+    <div class="row" style="margin-top:22px"><button id="home" class="primary study">Back to Flashcards</button></div>`;
+  document.getElementById('home').onclick=home; document.getElementById('close').onclick=home; sess=null; lastAnswer=null; }
 // ---- Practice a set (extra, outside the schedule; answers still feed FSRS) ----
-let round=null, flipped=false;
+let round=null, roundMs=[];
 function picker(){ document.onkeydown=null;
   const S=C.subjects(words,stats); const none=!Object.keys(stats).length; if(pref.subject==='b-new' && !S.buckets[0].n && !qsub) pref.subject='b-missed'; const chip=(s)=>`<button data-s="${esc(s.id)}" class="${pref.subject===s.id?'sel':''}">${esc(s.name)} <small>${(none&&s.kind==='bucket')?'–':s.n}</small></button>`;
-  root.innerHTML=`<div class="row"><button id="home" style="flex:0 0 auto">‹ Today's queue</button></div><h1>Practice a set</h1><p class="mute">Extra practice outside today's schedule. Answers still count toward Flashcards and the scheduler—not Speaking.</p>
+  root.innerHTML=`<div class="qtop"><button id="home" aria-label="Back to today's queue">✕</button><div class="count">Practice a set</div><span></span></div>
+    <p class="mute">Extra practice outside today's schedule. Answers still count toward Flashcards and the scheduler—not Speaking.</p>
     <h2>Choose a set</h2><p class="mute">Score sets use Flashcards only. “Last 3 lessons” selects vocabulary, not a score.</p><div class="chips">${S.buckets.map(chip).join('')}</div>
     <h2>Grammar sets</h2><div class="chips">${S.grammar.map(chip).join('')}</div>
     <h2>Topics from Amal's Doc</h2><div class="chips">${S.topics.map(chip).join('')}</div>
     <h2>Options</h2><div class="toggle"><button id="sh" class="${pref.shuffle?'sel':''}">Shuffle ${pref.shuffle?'on':'off'}</button><button id="n20" class="${pref.n===20?'sel':''}">20 cards</button><button id="n10" class="${pref.n===10?'sel':''}">10 cards</button><button id="nall" class="${!pref.n?'sel':''}">All</button></div>
-    <div class="row" style="margin-top:14px"><button id="start" class="primary">Start</button></div>`;
+    <div class="row" style="margin-top:14px"><button id="start" class="primary study">Start</button></div>`;
   root.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{pref.subject=b.dataset.s; savePref(); picker();});
   document.getElementById('home').onclick=home;
   document.getElementById('sh').onclick=()=>{pref.shuffle=!pref.shuffle; savePref(); picker();};
@@ -160,32 +244,28 @@ function picker(){ document.onkeydown=null;
 }
 function start(){ let p=C.pool(words,stats,pref.subject); if(!p.length){ alert('No words in this set yet.'); return; }
   let cs=C.draw(p,stats,pref.n?Math.min(pref.n,p.length):p.length); if(!pref.shuffle) cs=cs.slice().sort((a,b)=>(a.doc_order||0)-(b.doc_order||0));
-  round=C.newRound(cs,{mode:pref.mode,subject:pref.subject}); sessionMissed={}; showCard(); }
-function showCard(){ flipped=false; if(C.done(round)) return showSummary();
-  const w=round.cards[round.i], s=Object.keys(stats).length?C.cardScore(stats[w.key]):{bucket:'–'}, pct=Math.round(100*round.i/round.cards.length), [front,back]=faces(w);
-  root.innerHTML=`<div class="row"><button id="back" style="flex:0 0 auto">‹ Sets</button><div style="flex:1"><div class="mute">${round.attempt>1?'Review round '+round.attempt+' · ':''}${round.i+1} of ${round.cards.length}</div><div class="bar"><i style="width:${pct}%"></i></div></div></div>
-    <div class="scene"><div class="card" id="card"><div class="face"><span class="badge b-${esc(s.bucket==='–'?'never':s.bucket)}">${esc(window.AneesBuckets.label(s.bucket))}</span><span class="topic">${esc(w.topic)}</span>${front}<span class="hint">tap or Space to reveal</span></div>
-    <div class="face back"><span class="badge b-${esc(s.bucket==='–'?'never':s.bucket)}">${esc(window.AneesBuckets.label(s.bucket))}</span>${back}<span class="hint">${esc(w.subtopic)}</span></div></div></div>
-    <div class="row" id="grade"><button id="show" class="primary">Show answer</button></div>`;
-  const card=document.getElementById('card'), gradeEl=document.getElementById('grade');
-  const reveal=()=>{ if(flipped) return; flipped=true; card.classList.add('flip'); gradeEl.innerHTML='<button id="miss" class="bad">Again</button><button id="got" class="primary">Good</button>';
-    document.getElementById('got').onclick=()=>answer('got'); document.getElementById('miss').onclick=()=>answer('missed'); };
-  card.onclick=reveal; document.getElementById('show').onclick=reveal; document.getElementById('back').onclick=picker;
-  document.onkeydown=e=>{ if(e.key===' '){ e.preventDefault(); if(!flipped) reveal(); else answer('got'); } else if(flipped&&e.key==='1') answer('missed'); else if(flipped&&(e.key==='2'||e.key==='3')) answer('got'); };
+  round=C.newRound(cs,{mode:pref.mode,subject:pref.subject}); sessionMissed={}; roundMs=[]; showCard(); }
+function showCard(){ if(C.done(round)) return showSummary();
+  const w=round.cards[round.i], s=Object.keys(stats).length?C.cardScore(stats[w.key]):{bucket:'–'};
+  cardView({w, count:`${round.attempt>1?'Round '+round.attempt+' · ':''}${round.i+1} / ${round.cards.length}`, pct:100*round.i/round.cards.length, learnN:round.missed, knowN:round.got,
+    tag:s.bucket==='–'?w.topic:window.AneesBuckets.label(s.bucket), onUndo:null, onAnswer:(r,t)=>answer(r,t), onClose:picker});
 }
-function answer(result){ if(!flipped) return; flipped=false; const w=round.cards[round.i]; const row=C.answer(round,result,new Date().toISOString(),uuid()); if(!row) return; enqueue(row);
-  stats=C.mergeLocal(stats,[row]);            // bucket AND weight follow the new answer (Codex P0: stale 3× weight)
+function answer(result,t){ const w=round.cards[round.i]; const row=C.answer(round,result,new Date().toISOString(),uuid()); if(!row) return;
+  row.flip_ms=t&&Number.isFinite(t.flip_ms)?t.flip_ms:null; row.answer_ms=t&&Number.isFinite(t.answer_ms)?t.answer_ms:null; if(row.answer_ms!==null) roundMs.push(row.answer_ms);
+  enqueue(row); stats=C.mergeLocal(stats,[row]);            // bucket AND weight follow the new answer (Codex P0: stale 3× weight)
   if(result==='missed'){ sessionMissed[w.key]=(sessionMissed[w.key]||0)+1; if(sessionMissed[w.key]===2) flag(w); }
   showCard(); }
-function showSummary(){ const s=C.summary(round); document.onkeydown=null;
-  root.innerHTML=`<h1>${round.attempt>1?'Review round '+round.attempt:'Round'} done</h1>
-    <div class="summary"><div class="num">${s.got} <span class="mute" style="font-size:16px">good</span> · ${s.missed} <span class="mute" style="font-size:16px">again</span></div><div class="mute">${s.n} cards · ${esc((C.subjects(words,stats).buckets.find(b=>b.id===round.subject)||{}).name||round.subject)} · ${pref.mode==='ar_first'?'Arabic first':'English first'}</div>
-    ${s.history.map(h=>`<div class="mute">round ${h.attempt}: ${h.got}/${h.n} good</div>`).join('')}</div>
-    <div class="row">${s.wrong.length?`<button id="replay" class="primary">Review the ones I got wrong (${s.wrong.length})</button>`:`<button id="again" class="primary">Pile empty — new round</button>`}</div>
-    <div class="row"><button id="back">‹ Sets</button><button id="home">Today's queue</button></div><p class="mute" id="wrongs">${s.wrong.length?'Still wrong: '+s.wrong.map(k=>esc((words.find(w=>w.key===k)||{}).arabizi||k)).join(', '):''}</p>`;
+function showSummary(){ const s=C.summary(round); document.onkeydown=null; const ms=roundMs; roundMs=[];
+  root.innerHTML=`<div class="qtop"><button id="close" aria-label="Back to sets">✕</button><div class="count">${round.attempt>1?'Review round '+round.attempt:'Round'} done</div><span></span></div><div class="prog"><i style="width:100%"></i></div>
+    <h1>${s.wrong.length?'Keep going — you\'re getting there.':'You know every card in this round.'}</h1>
+    <div class="done">${donut(s.got,s.missed)}<div class="legend"><div class="k"><span>Know</span><span>${s.got}</span></div><div class="l"><span>Still learning</span><span>${s.missed}</span></div>${timeLines(ms)}</div></div>
+    <p class="mute">${s.n} cards · ${esc((C.subjects(words,stats).buckets.find(b=>b.id===round.subject)||{}).name||round.subject)}</p>
+    ${s.history.map(h=>`<div class="mute">round ${h.attempt}: ${h.got}/${h.n} known</div>`).join('')}
+    <div class="row">${s.wrong.length?`<button id="replay" class="primary study">Review the ones I got wrong (${s.wrong.length})</button>`:`<button id="again" class="primary study">Pile empty — new round</button>`}</div>
+    <div class="row"><button id="back">‹ Sets</button><button id="home">Today's queue</button></div><p class="mute" id="wrongs">${s.wrong.length?'Still learning: '+s.wrong.map(k=>esc((words.find(w=>w.key===k)||{}).arabizi||k)).join(', '):''}</p>`;
   const rp=document.getElementById('replay'); if(rp) rp.onclick=()=>{ round=C.replayWrong(round); showCard(); };
-  const ag=document.getElementById('again'); if(ag) ag.onclick=start; document.getElementById('back').onclick=picker; document.getElementById('home').onclick=home; }
-window.AneesTest={ get round(){return round;}, get stats(){return stats;}, get words(){return words;}, get cards(){return cards;}, answer:r=>{flipped=true;answer(r);}, grade:r=>{const q=dueQueue();const c=q.items[0];if(!c)return false;revealed=true;grade(c,byKey().get(c.id),r);return true;}, undo, queue:dueQueue, start, picker, home, sync, pref };
+  const ag=document.getElementById('again'); if(ag) ag.onclick=start; document.getElementById('back').onclick=picker; document.getElementById('close').onclick=picker; document.getElementById('home').onclick=home; }
+window.AneesTest={ get round(){return round;}, get stats(){return stats;}, get words(){return words;}, get cards(){return cards;}, answer:r=>{revealed=true;answer(r,{});}, grade:r=>{if(!sess)sess={know:0,learn:0,ms:[]};const q=dueQueue();const c=q.items[0];if(!c)return false;grade(c,byKey().get(c.id),r,{});return true;}, undo, queue:dueQueue, start, picker, home, startReview, sync, pref };
 if(window.self!==window.top){ const t=document.getElementById('topnav'); if(t) t.style.display='none'; }   // inside the Flashcards tab the site menu is already there
 load().then(()=>qsub?picker():home());
 </script><script src="js/build.js"></script><script src="js/stale.js"></script></body></html>
