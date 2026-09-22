@@ -47,7 +47,7 @@ def parse_chat(text):
 
 def merge(rows, chat, offset=0.0):
     """Interleave transcript rows and chat lines by time. offset = lesson-timeline seconds at Meet chat 00:00:00."""
-    items = [{'kind': 'speech', 't': r['timeline_start'], 'who': r['speaker_label'],
+    items = [{'kind': 'speech', 't': r['timeline_start'], 'who': r['speaker_label'], 'id': r.get('id'),
               'text': ' '.join(i['text'] for i in r['items'] if i.get('type') != 'spacing') or r.get('text', '')}
              for r in rows if r.get('timeline_start') is not None]
     items += [{'kind': 'chat', 't': max(0.0, c['t'] + offset), 'who': c['who'], 'text': c['text']} for c in chat]
@@ -82,10 +82,13 @@ REVIEW = ('<script src="../js/word-bank-review.js?v=context-1"></script>'
 def render(date, merged, *, minutes, words, note, audio=None):
     lines = []
     for x in merged:
-        cls = ' class="chat"' if x['kind'] == 'chat' else ''
-        stamp = (f'<button class="t" data-t="{x["t"]:.2f}" aria-label="Play from {clock(x["t"])}"><small>{clock(x["t"])}</small></button>' if audio
-                 else f'<small>{clock(x["t"])}</small> ')
-        lines.append(f'<p dir="auto"{cls}>{stamp}<b>{html.escape(x["who"])}</b>: {html.escape(x["text"])}</p>')
+        # class "turn" + data-row + span.words = the hooks docs/js/transcript-context-review.js uses to mark wrong parts
+        # and add the conversation-excerpt button for a Word Bank event on this row.
+        cls = ' class="chat"' if x['kind'] == 'chat' else ' class="turn"'
+        row = f' data-row="{html.escape(x["id"])}"' if x.get('id') else ''
+        stamp = (f'<button class="t" data-t="{x["t"]:.2f}"{row} aria-label="Play from {clock(x["t"])}"><small>{clock(x["t"])}</small></button>' if audio
+                 else f'<small{row}>{clock(x["t"])}</small> ')
+        lines.append(f'<p dir="auto"{cls}>{stamp}<b>{html.escape(x["who"])}</b>: <span class="words">{html.escape(x["text"])}</span></p>')
     player = (f'<div class="bar"><audio id="lesson-audio" controls preload="none" src="{html.escape(audio)}"></audio>'
               '<small>Tap a time to hear that line.</small></div>') if audio else ''
     typed = sum(x['kind'] == 'chat' for x in merged)

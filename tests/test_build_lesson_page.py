@@ -25,7 +25,7 @@ def test_parse_chat_names_continuations_and_colons():
 
 
 def row(t, who, *words):
-    return {'timeline_start': t, 'timeline_end': t + 1, 'speaker_label': who,
+    return {'id': 'src:row:7', 'timeline_start': t, 'timeline_end': t + 1, 'speaker_label': who,
             'items': [{'type': 'word', 'text': w} for w in words]}
 
 
@@ -40,7 +40,8 @@ def test_merge_orders_by_time_with_offset_and_speech_first_on_ties():
 def test_render_escapes_text_and_seeks_audio():
     merged = B.merge([row(3725.5, 'Medi', '<b>', 'x')], [{'t': 1, 'who': 'Amal', 'text': 'a&b'}])
     page = B.render('2026-09-21', merged, minutes=62.1, words=2, note='n', audio='2026-09-21/audio/lesson.mp3')
-    assert '<b>Medi</b>: &lt;b&gt; x</p>' in page and 'a&amp;b' in page
+    assert '<b>Medi</b>: <span class="words">&lt;b&gt; x</span></p>' in page and 'a&amp;b' in page
+    assert 'data-row="src:row:7"' in page and '<p dir="auto" class="turn">' in page
     assert 'data-t="3725.50"' in page and '<small>62:05</small>' in page
     assert 'transcript-context-review.js' in page
     assert 'id="lesson-audio"' in page and 'src="2026-09-21/audio/lesson.mp3"' in page
