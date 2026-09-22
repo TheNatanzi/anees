@@ -107,3 +107,83 @@
 @media(max-width:1100px){#anees-bank .vp-cards{grid-template-columns:1fr 1fr}}
 @media(max-width:950px){#anees-bank .vp-grid{grid-template-columns:1fr}}
 @media(max-width:680px){#anees-bank .vp-cards{grid-template-columns:1fr}#anees-bank .vp-panel{padding:15px}#anees-bank .vp-header{flex-direction:column;align-items:flex-start}#anees-bank .vp-horizon{align-self:stretch;justify-content:space-between}#anees-bank .vp-horizon-label{display:none}#anees-bank .vp-panelhead{flex-wrap:wrap;margin-bottom:12px}#anees-bank .vp-side{text-align:left}#anees-bank.vp-sabz h1{font-size:28px}}
+
+/* --- Flashcards tab (plan/PROGRESS-STATS-FLASHCARDS-SPEC-2026-09-22.md) ---- */
+#anees-bank .fp-tab .vp-grid{margin-bottom:16px}
+#anees-bank .fp-wide{grid-column:1/-1}
+#anees-bank .fp-h{margin:22px 0 10px}
+#anees-bank .fp-three{grid-template-columns:repeat(3,minmax(0,1fr))}
+#anees-bank .fp-cardbtn{font:inherit;text-align:left;cursor:pointer;width:100%}
+#anees-bank .fp-cardbtn:hover{border-color:var(--vp-sage)}
+#anees-bank .fp-seg{display:flex;gap:2px;padding:3px;border:1px solid var(--ab-line);border-radius:999px;margin:2px 0 4px}
+#anees-bank .fp-seg button{flex:1;border:0;background:none;border-radius:999px;padding:7px 0;font-family:var(--vp-serif);font-size:17px;color:var(--ab-muted);cursor:pointer}
+#anees-bank .fp-seg button[aria-pressed="true"]{background:var(--ab-text);color:var(--ab-bg)}
+#anees-bank .vp-chart .fp-bar{fill:var(--vp-forest)}
+#anees-bank .vp-chart .fp-bar-low{fill:var(--ab-orange)}
+#anees-bank .vp-chart .fp-target{stroke:var(--ab-red);stroke-dasharray:2 4;stroke-width:1.5}
+#anees-bank .vp-chart .fp-target-label{fill:var(--ab-red)}
+#anees-bank .vp-chart .fp-future{stroke-dasharray:6 6;opacity:.55}
+#anees-bank .vp-chart .fp-bump{fill:var(--ab-green);stroke:var(--ab-panel);stroke-width:2}
+#anees-bank .fp-key-bump{color:var(--ab-green)}
+#anees-bank .fp-today{font-size:15px;margin:0 0 4px}
+#anees-bank .fp-today b{font-family:var(--vp-serif);font-weight:500;font-size:19px}
+#anees-bank .fp-heatwrap{overflow-x:auto}
+#anees-bank .fp-heatmap{min-width:560px}
+#anees-bank .vp-chart .fp-heat{fill:var(--ab-raised);stroke:var(--ab-line);stroke-width:.5}
+#anees-bank .vp-chart .fp-heat-1{fill:var(--ab-green);fill-opacity:.25}
+#anees-bank .vp-chart .fp-heat-2{fill:var(--ab-green);fill-opacity:.5}
+#anees-bank .vp-chart .fp-heat-3{fill:var(--ab-green);fill-opacity:.75}
+#anees-bank .vp-chart .fp-heat-4{fill:var(--ab-green);fill-opacity:1}
+#anees-bank .fp-streak{margin:0;padding:0;border:0}
+#anees-bank .fp-dueside{display:flex;flex-direction:column;align-items:flex-end;gap:6px;font-size:11.5px;color:var(--ab-muted)}
+#anees-bank .fp-dueside b{color:var(--ab-text)}
+#anees-bank .fp-tablewrap{overflow-x:auto}
+#anees-bank .fp-table{width:100%;border-collapse:collapse;font-size:12.5px}
+#anees-bank .fp-table th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ab-muted);font-weight:600;text-align:left;padding:8px 10px;border-bottom:1px solid var(--ab-line);white-space:nowrap}
+#anees-bank .fp-table td{padding:10px;border-bottom:1px solid var(--ab-line);vertical-align:middle}
+#anees-bank .fp-table tbody tr:last-child td,#anees-bank .fp-table tbody tr:last-child th{border-bottom:0}
+#anees-bank .fp-rt tbody th{text-transform:none;letter-spacing:0;font-size:12.5px;color:var(--ab-text)}
+#anees-bank .fp-rt small{display:block;color:var(--ab-muted);font-size:10.5px;font-weight:400}
+#anees-bank .fp-rt td b{font-family:var(--vp-serif);font-weight:500;font-size:16px}
+#anees-bank .fp-word b{display:block;font-weight:600}
+#anees-bank .fp-word span{font-family:'Noto Naskh Arabic',serif;font-size:15px;color:var(--ab-muted)}
+#anees-bank .fp-num{font-variant-numeric:tabular-nums;white-space:nowrap}
+#anees-bank .fp-reveal{border:1px dashed var(--ab-line);background:none;border-radius:8px;padding:5px 10px;font-size:11.5px;color:var(--ab-muted);cursor:pointer}
+#anees-bank .fp-phase{display:inline-block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:3px 8px;border-radius:999px;white-space:nowrap}
+#anees-bank .fp-phase-new{background:var(--ab-raised);color:var(--ab-muted);border:1px solid var(--ab-line)}
+#anees-bank .fp-phase-learning{background:color-mix(in srgb,var(--ab-orange) 16%,transparent);color:var(--ab-orange)}
+#anees-bank .fp-phase-mature{background:color-mix(in srgb,var(--ab-green) 16%,transparent);color:var(--ab-green)}
+#anees-bank .fp-phase-leech{background:color-mix(in srgb,var(--ab-red) 14%,transparent);color:var(--ab-red)}
+#anees-bank .fp-grade{white-space:nowrap;text-align:right}
+#anees-bank .fp-grade button{border:1px solid var(--ab-line);background:var(--ab-bg);border-radius:999px;padding:6px 11px;font-size:12px;font-weight:600;cursor:pointer;margin-left:6px}
+#anees-bank .fp-miss{color:var(--ab-red)}#anees-bank .fp-got{color:var(--ab-green)}
+#anees-bank .fp-miss:hover{border-color:var(--ab-red)}#anees-bank .fp-got:hover{border-color:var(--ab-green)}
+#anees-bank .fp-qhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+#anees-bank .fp-qhead .vp-showall{margin:0}
+#anees-bank .fp-qhead button:disabled,#anees-bank .vp-minipill:disabled{opacity:.45;cursor:default}
+#anees-bank .fp-tab .ab-sub{margin-top:10px}
+#anees-bank .fp-hists{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+#anees-bank .fp-hist-head{display:flex;justify-content:space-between;font-size:12px;color:var(--ab-muted);margin-bottom:4px}
+#anees-bank .fp-hist-head b{color:var(--ab-text)}
+#anees-bank .fp-faded{opacity:.45}
+#anees-bank .fp-foot-top{margin-top:0;padding-top:0;border-top:0}
+#anees-bank .fp-slow{margin:12px 0 0;padding:0;list-style:none;counter-reset:slow}
+#anees-bank .fp-slow li{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--ab-line);font-size:12.5px}
+#anees-bank .fp-slow li:last-child{border-bottom:0}
+#anees-bank .fp-slow a{color:inherit;font-weight:600}
+#anees-bank .fp-slow span[lang="ar"]{font-family:'Noto Naskh Arabic',serif;color:var(--ab-muted)}
+#anees-bank .fp-slow small{color:var(--ab-muted);font-size:10.5px}
+#anees-bank .fp-mlabel{display:none;color:var(--ab-muted)}
+#anees-bank .fp-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(max-width:950px){#anees-bank .fp-hists{grid-template-columns:1fr}}
+@media(max-width:680px){#anees-bank .fp-three{grid-template-columns:1fr}
+ #anees-bank .fp-queue thead{display:none}
+ #anees-bank .fp-queue tr{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:10px 0;border-bottom:1px solid var(--ab-line)}
+ #anees-bank .fp-queue td{padding:0;border:0}
+ #anees-bank .fp-queue .fp-mlabel{display:inline}
+ #anees-bank .fp-queue .fp-grade{grid-column:1/-1;display:flex;gap:8px}
+ #anees-bank .fp-queue .fp-grade button{flex:1;margin:0;padding:10px}
+ #anees-bank .fp-dueside{align-items:flex-start}}
+#anees-bank .fp-minipill{border:0;background:none;border-radius:999px;padding:4px 10px;font-size:11px;color:var(--ab-muted);cursor:pointer}
+#anees-bank .fp-minipill[aria-pressed="true"]{background:var(--ab-text);color:var(--ab-bg)}
+#anees-bank .fp-minipill:disabled{opacity:.45;cursor:default}
