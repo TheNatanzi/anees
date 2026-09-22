@@ -15,7 +15,7 @@ async function wordsLive(){const all=[];for(let offset=0;;offset+=1000){const p=
 async function load(){
  if(loading)return;loading=true;$('vp-retry').hidden=true;
  try{
-  const results=await Promise.allSettled([wordsLive(),json(ANEES.url+'/rest/v1/rpc/speaking_snapshot',{headers}),json('data/words.json'),json('data/word-bank-evidence.json'),json('data/word-bank-catalog.json'),json('data/word-bank-review.json')]);
+  const results=await Promise.allSettled([wordsLive(),window.AneesSnapshot.load(ANEES.url,headers),json('data/words.json'),json('data/word-bank-evidence.json'),json('data/word-bank-catalog.json'),json('data/word-bank-review.json')]);
   const get=i=>results[i].status==='fulfilled'?results[i].value:null;
   const liveWords=get(0),savedWords=get(2),catalog=get(4),review=get(5);let words=liveWords||cached('anees-bank-words-v2')||cached('anees-words')||savedWords?.items;
   const live=get(1),published=get(3),snap=Array.isArray(live?.events)?live:published||cached('anees-speaking-evidence-v1');

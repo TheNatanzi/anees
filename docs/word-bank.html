@@ -18,7 +18,7 @@
   try{const response=await fetch('data/build.json',{cache:'no-store',signal:AbortSignal.timeout(10000)});if(response.ok){const latest=await response.json();if(latest.build)build=latest.build;}}catch{}
   window.ANEES_WORD_BANK_BUILD=build;
   for(const link of document.querySelectorAll('link[rel="stylesheet"]'))link.href=link.getAttribute('href').split('?')[0]+'?build='+encodeURIComponent(build);
-  for(const name of ['config','word-bank-review','word-bank-core','vocabulary-memory','word-bank-arabizi','word-bank-context','word-bank']){
+  for(const name of ['config','speaking-snapshot','word-bank-review','word-bank-core','vocabulary-memory','word-bank-arabizi','word-bank-context','word-bank']){
    await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='js/'+name+'.js?build='+encodeURIComponent(build);script.onload=resolve;script.onerror=reject;document.body.append(script);});
   }
  }catch{document.getElementById('ab-notice').textContent='The latest Word Bank could not load. Please refresh to retry.';}

@@ -50,7 +50,7 @@ footer{color:var(--mute);font-size:12px;margin:30px 0 10px}
 <audio id="player" preload="none"></audio>
 <footer id="foot">Data: Amal's Google Doc (imported one-way), lesson recordings, Medi's flashcards. Unknown = –.</footer>
 </main>
-<script src="js/config.js"></script><script src="js/arabizi.js"></script><script src="js/buckets.js?v=20260921-fsrs-v1"></script><script src="js/progress.js?v=20260921-fsrs-v1"></script><script src="js/speaking.js?v=20260911-v1"></script>
+<script src="js/config.js"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/arabizi.js"></script><script src="js/buckets.js?v=20260921-fsrs-v1"></script><script src="js/progress.js?v=20260921-fsrs-v1"></script><script src="js/speaking.js?v=20260911-v1"></script>
 <script>
 const A=window.AneesArabizi, esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 const LS=(k,v)=>{ try{ if(v===undefined) return JSON.parse(localStorage.getItem(k)||'null'); localStorage.setItem(k,JSON.stringify(v)); }catch(e){ return null; } };
@@ -61,7 +61,7 @@ async function get(path){ const r=await fetch(ANEES.url+'/rest/v1/'+path,{header
 async function loadAll(){
   try{ let all=[], off=0; while(true){ const part=await get('words?select=key,arabizi,arabic,english,plural,topic,subtopic,doc_order,aliases,house_spelling&active=eq.true&order=doc_order&limit=1000&offset='+off); all=all.concat(part); if(part.length<1000) break; off+=1000; }
     words=all; LS('anees-words',words);
-    const snap=await get('rpc/speaking_snapshot'); if(!snap.release||!Array.isArray(snap.events))throw Error('Speaking evidence unavailable'); speakingEvents=snap.events;speakingRelease=snap.release;latestLesson=window.AneesSpeaking.lessons(speakingEvents)[0]||null;speakingRecent=window.AneesSpeaking.recentByWord(speakingEvents); LS('anees-speaking-evidence-v1',snap);const st=snap.stats; stats={}; for(const s of st) stats[s.word_key]=s; stats=await window.AneesProgress.load(stats,ANEES.url,H,LS('anees-card-log')||[]); LS(window.AneesProgress.CACHE_KEY,stats);
+    const snap=await window.AneesSnapshot.load(ANEES.url,H); if(!Array.isArray(snap.events))throw Error('Speaking evidence unavailable');   // release is optional (table empty since the September ledger work) speakingEvents=snap.events;speakingRelease=snap.release;latestLesson=window.AneesSpeaking.lessons(speakingEvents)[0]||null;speakingRecent=window.AneesSpeaking.recentByWord(speakingEvents); LS('anees-speaking-evidence-v1',snap);const st=snap.stats; stats={}; for(const s of st) stats[s.word_key]=s; stats=await window.AneesProgress.load(stats,ANEES.url,H,LS('anees-card-log')||[]); LS(window.AneesProgress.CACHE_KEY,stats);
     lessons=await get('lessons?select=date,minutes,words,speaker_split,split_ok,unlabeled_share,topics,summary,report_url&order=date.desc'); LS('anees-lessons',lessons);
     rules=await get('amal_rules_public?select=*&order=created_at.desc&limit=100'); LS('anees-rules',rules);
   }catch(e){ offline=true; words=LS('anees-words')||[]; stats=window.AneesBuckets.mergeStats(window.AneesProgress.cached(LS(window.AneesProgress.CACHE_KEY)),LS('anees-card-log')||[]); lessons=LS('anees-lessons')||[]; rules=LS('anees-rules')||[];
