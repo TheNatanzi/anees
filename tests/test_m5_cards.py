@@ -157,9 +157,9 @@ def test_flip_toggle_shuffle_replay_end_to_end(viewport):
     url = (ROOT / 'docs' / 'cards.html').resolve().as_uri()
     with sync_playwright() as pw:
         b = pw.chromium.launch(); ctx = b.new_context(viewport=viewport); pg = ctx.new_page(); pg.goto(url)
-        pg.wait_for_selector('#sets', timeout=20000)   # home is today's FSRS queue; card front choice lives there, sets are extra practice
-        pg.click('#m-en'); pg.wait_for_selector('#m-en.sel'); pg.click('#sets'); pg.wait_for_selector('#start')
-        pg.click('[data-s="t:Animals"]')
+        pg.wait_for_selector('[data-t="topic:Animals"]', timeout=20000)   # home is the selection screen; card front choice lives there too
+        pg.click('#m-en'); pg.wait_for_selector('#m-en.sel'); pg.click('[data-t="topic:Animals"]')
+        pg.click('[data-t="all:topic:Animals"]'); pg.wait_for_selector('#start')
         pg.click('#sh'); pg.wait_for_timeout(100); sh1 = pg.text_content('#sh'); pg.click('#sh'); pg.wait_for_timeout(100); sh2 = pg.text_content('#sh')
         assert sh1 != sh2 and 'Shuffle' in sh1
         pg.click('#n20'); pg.click('#start'); pg.wait_for_selector('#card')
@@ -199,9 +199,9 @@ def test_offline_20_answers_then_sync_no_duplicates():
     url = (ROOT / 'docs' / 'cards.html').resolve().as_uri()
     with sync_playwright() as pw:
         b = pw.chromium.launch(); ctx = b.new_context(viewport={'width': 375, 'height': 812}); pg = ctx.new_page(); pg.goto(url)
-        pg.wait_for_selector('#sets', timeout=20000); pg.click('#sets')   # home is today's FSRS queue; sets are extra practice
-        pg.wait_for_selector('#start')
-        pg.click('[data-s="t:Numbers"]'); pg.click('#n20'); pg.click('#start'); pg.wait_for_selector('#card')
+        pg.wait_for_selector('[data-t="topic:Numbers"]', timeout=20000); pg.click('[data-t="topic:Numbers"]')   # home is the selection screen
+        pg.click('[data-t="all:topic:Numbers"]'); pg.wait_for_selector('#start')
+        pg.click('#n20'); pg.click('#start'); pg.wait_for_selector('#card')
         rid = pg.evaluate('AneesTest.round.id')
         ctx.set_offline(True)
         _run_round(pg, {2, 5})
