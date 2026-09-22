@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Big Picture · Anees</title><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/word-bank.css"><link rel="stylesheet" href="css/vocabulary-progress.css">
+<style>
+#anees-bank .bp-add{border:1px solid var(--ab-line);background:var(--ab-panel);border-radius:12px;padding:16px 18px;margin-bottom:22px}
+#anees-bank .bp-add textarea{width:100%;min-height:92px;resize:vertical;border:1px solid var(--ab-line);border-radius:10px;background:var(--ab-bg);color:var(--ab-text);font:15px/1.5 var(--sabz-font-sans);padding:10px 12px;box-sizing:border-box}
+#anees-bank .bp-add textarea:focus{outline:2px solid var(--vp-sage);outline-offset:1px}
+#anees-bank .bp-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap}
+#anees-bank .bp-btn{border:0;border-radius:999px;background:var(--ab-text);color:var(--ab-bg);padding:9px 20px;font-size:14px;font-weight:600;cursor:pointer}
+#anees-bank .bp-btn:disabled{opacity:.4;cursor:default}
+#anees-bank .bp-hint{font-size:12px;color:var(--ab-muted)}
+#anees-bank .bp-sec{margin-bottom:22px}
+#anees-bank .bp-sec>summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+#anees-bank .bp-sec>summary::-webkit-details-marker{display:none}
+#anees-bank .bp-sec>summary::before{content:"▸";color:var(--ab-muted);font-size:12px}
+#anees-bank .bp-sec[open]>summary::before{content:"▾"}
+#anees-bank .bp-sec h2{margin:0}
+#anees-bank .bp-count{font-family:var(--vp-serif);font-size:17px;color:var(--ab-muted)}
+#anees-bank .bp-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+#anees-bank .bp-idea{border:1px solid var(--ab-line);background:var(--ab-panel);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+#anees-bank .bp-idea.bp-new{border-color:var(--vp-sage)}
+#anees-bank .bp-title{font-family:var(--vp-serif);font-size:18px;line-height:1.3}
+#anees-bank .bp-note{font-size:12.5px;color:var(--ab-muted);line-height:1.45}
+#anees-bank .bp-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;font-size:11px;color:var(--ab-muted)}
+#anees-bank .bp-src{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--ab-raised);border:1px solid var(--ab-line)}
+#anees-bank .bp-src-medi{background:var(--sabz-state-calm-fill);border-color:transparent;color:var(--ab-text)}
+#anees-bank .bp-meta select{border:1px solid var(--ab-line);background:var(--ab-bg);color:var(--ab-text);border-radius:999px;padding:4px 8px;font-size:12px}
+#anees-bank .bp-empty{font-size:12.5px;color:var(--ab-muted);padding:4px 0 0}
+#anees-bank .bp-sec-dropped .bp-idea{opacity:.6}
+</style></head>
+<body><div id="anees-bank" class="vp-sabz"><div class="ab-shell">
+<aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="progress.html">Progress &amp; Stats</a><a class="ab-nav" href="index.html#lessons">Lessons &amp; Audio</a><a class="ab-nav" href="word-bank.html">Word Bank</a><a class="ab-nav" href="index.html#grammar">Grammar Rules</a><a class="ab-nav" href="cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="index.html#amal">Tutor Notes &amp; Practice</a><a class="ab-nav" aria-current="page" href="big-picture.html">Big Picture</a><a class="ab-nav" href="index.html#sys-rules">System Settings</a></nav></aside>
+<main>
+<header class="ab-header vp-header"><div><div class="vp-eyebrow">Plans · ideas only</div><h1>Big Picture</h1><p class="ab-sub">Dump ideas here. Nothing gets built until you pick one and we turn it into a spec.</p></div></header>
+<section class="bp-add" aria-label="Add ideas"><label for="bp-text" class="vp-eyebrow">New ideas · one per line</label>
+<textarea id="bp-text" placeholder="Type an idea. Press Enter for the next one."></textarea>
+<div class="bp-row"><span class="bp-hint" id="bp-status" role="status">Ctrl + Enter to add.</span><button class="bp-btn" id="bp-add" disabled>Add</button></div></section>
+<div id="bp-board"><div class="vp-notice">Loading ideas…</div></div>
+</main></div></div>
+<script src="js/config.js"></script><script src="js/big-picture.js"></script>
+<script>
+(function(){
+const B=window.AneesBigPicture,$=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const LS=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||'null');localStorage.setItem(k,JSON.stringify(v));return true;}catch(e){return v===undefined?null:false;}};
+const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon,'Content-Type':'application/json'};
+const API=ANEES.url+'/rest/v1/big_picture_ideas';
+let ideas=[],fresh=new Set(),offline=false;
+const pending=()=>LS('anees-ideas-pending')||[];
+async function load(){
+ try{const r=await fetch(API+'?select=*&order=created_at.desc',{headers:H,cache:'no-store'});if(!r.ok)throw Error();ideas=await r.json();LS('anees-ideas',ideas);offline=false;}
+ catch(e){ideas=LS('anees-ideas')||[];offline=true;}
+ await flush();render();
+}
+// Unsaved ideas stay on this device until the server takes them; nothing typed is lost.
+async function flush(){
+ const q=pending();if(!q.length)return;
+ try{const r=await fetch(API,{method:'POST',headers:{...H,Prefer:'return=representation'},body:JSON.stringify(q.map(({tmp,...i})=>i))});if(!r.ok)throw Error();
+  const saved=await r.json();LS('anees-ideas-pending',[]);ideas=ideas.filter(i=>!i.tmp);
+  if(Array.isArray(saved)){for(const s of saved)fresh.add(s.id);ideas=saved.concat(ideas);}}
+ catch(e){}
+}
+async function add(){
+ const list=B.split($('bp-text').value);if(!list.length)return;
+ const now=new Date().toISOString(),rows=list.map((i,k)=>({...i,source:'medi',created_at:new Date(Date.parse(now)+k).toISOString()}));
+ LS('anees-ideas-pending',pending().concat(rows));
+ ideas=rows.map((r,k)=>({...r,id:'tmp'+k+now,tmp:true,status:'idea'})).concat(ideas);
+ $('bp-text').value='';sync();render();await flush();render();
+}
+async function move(id,status){
+ const i=ideas.find(x=>x.id===id);if(!i||i.tmp)return;const was=i.status;i.status=status;render();
+ try{const r=await fetch(API+'?id=eq.'+encodeURIComponent(id),{method:'PATCH',headers:{...H,Prefer:'return=minimal'},body:JSON.stringify({status})});if(!r.ok)throw Error();}
+ catch(e){i.status=was;render();$('bp-status').textContent='Could not save that change. Check the connection and try again.';}
+}
+function sync(){$('bp-add').disabled=!B.split($('bp-text').value).length;}
+function render(){
+ const g=B.group(ideas),waiting=pending().length;
+ $('bp-status').textContent=waiting?`${waiting} idea${waiting===1?'':'s'} waiting to save (offline is fine).`:offline?'Offline: showing the ideas saved on this device.':'Ctrl + Enter to add.';
+ const date=t=>new Date(t).toLocaleDateString(undefined,{month:'short',day:'numeric'});
+ $('bp-board').innerHTML=g.map(s=>`<details class="bp-sec bp-sec-${s.id}" ${s.id==='dropped'||s.id==='done'?'':'open'}><summary><h2>${s.label}</h2><span class="bp-count">${s.ideas.length}</span></summary>${s.ideas.length?`<div class="bp-list">${s.ideas.map(i=>`<article class="bp-idea${fresh.has(i.id)||i.tmp?' bp-new':''}"><div class="bp-title">${esc(i.title)}</div>${i.note?`<div class="bp-note">${esc(i.note)}</div>`:''}<div class="bp-meta"><span><span class="bp-src bp-src-${esc(i.source)}">${esc(B.SOURCE[i.source]||i.source)}</span> · ${i.tmp?'saving…':date(i.created_at)}</span>${i.tmp?'':`<select data-id="${esc(i.id)}" aria-label="Status of ${esc(i.title)}">${B.STATUSES.map(x=>`<option value="${x.id}" ${x.id===i.status?'selected':''}>${x.one}</option>`).join('')}</select>`}</div></article>`).join('')}</div>`:`<p class="bp-empty">${s.id==='idea'?'No ideas yet. Type one above.':'Nothing here yet.'}</p>`}</details>`).join('');
+ document.querySelectorAll('#bp-board select').forEach(el=>el.onchange=()=>move(el.dataset.id,el.value));
+}
+$('bp-text').addEventListener('input',sync);
+$('bp-text').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();add();}});
+$('bp-add').onclick=add;
+window.addEventListener('online',()=>flush().then(render));
+window.AneesBigPictureTest={get ideas(){return ideas;},add,move,load};
+load();
+})();
+</script><script src="js/build.js"></script></body></html>
