@@ -35,7 +35,11 @@ def bot_date(bot, tz_hours=-7):
         return meta
     stamp = bot.get('join_at') or ((bot.get('status_changes') or [{}])[0].get('created_at'))
     t = datetime.datetime.fromisoformat(str(stamp).replace('Z', '+00:00'))
-    return t.astimezone(datetime.timezone(datetime.timedelta(hours=tz_hours))).date().isoformat()
+    try:
+        from zoneinfo import ZoneInfo                # Pacific civil time: -7 in summer, -8 in winter (Codex 2026-09-23)
+        return t.astimezone(ZoneInfo('America/Los_Angeles')).date().isoformat()
+    except Exception:
+        return t.astimezone(datetime.timezone(datetime.timedelta(hours=tz_hours))).date().isoformat()
 
 
 def merge_bots(ledger, bots):
@@ -72,9 +76,11 @@ def chat_has_tutor(recording):
     return side.exists() and any(c['who'] == 'Amal' for c in P.parse_chat(side.read_text(encoding='utf-8', errors='replace')))
 
 
-def plan(ledger, bots, recordings, loaded_dates, raw, decided=()):
-    """What this hour should do. Tracks win over a Meet file; a loaded date is never touched again."""
-    todo, new_rows = [], merge_bots(ledger, bots)
+def plan(ledger, bots, recordings, loaded_dates, raw, decided=(), half_done=()):
+    """What this hour should do. Tracks win over a Meet file; a loaded date is never touched again.
+    half_done = dates with a database row but no published page (a run that failed after loading): republish them."""
+    todo, new_rows = [{'kind': 'republish', 'date': d} for d in sorted(half_done)], merge_bots(ledger, bots)
+    loaded_dates = set(loaded_dates) | set(half_done)
     by_bot = {b['id']: b for b in bots}
     track_dates = set()
     for e in ledger + new_rows:
@@ -131,8 +137,19 @@ def meet_for(date, recordings):
     return same[0][0] if same else None
 
 
-def load(date, raw, work, meet, apply):
-    cmd = [sys.executable, str(HERE / 'load_lesson.py'), date, '--raw', str(raw / date), '--work', str(work)]
+def longest_tracks(tracks):
+    """{'Amal': track, 'Medi': track}: each person's longest recording (the host's silent track is skipped)."""
+    import load_lesson as L
+    best = {}
+    for trk in tracks:
+        who = L._person(trk['participant'])
+        if who and (who not in best or (trk.get('duration_s') or 0) > (best[who].get('duration_s') or 0)):
+            best[who] = trk
+    return best
+
+
+def load(date, lesson_dir, work, meet, apply):
+    cmd = [sys.executable, str(HERE / 'load_lesson.py'), date, '--raw', str(lesson_dir), '--work', str(work)]
     if meet:
         cmd += ['--meet', str(meet)]
     if apply:
@@ -143,14 +160,35 @@ def load(date, raw, work, meet, apply):
     return json.loads(out.stdout)
 
 
+def build_clips(dates, raw, work):
+    """Word Bank excerpts for every learner event (build_audit_audio.py). The audio map lives with the raw archive
+    (raw/audio-source-map.json, first written 2026-09-23); new lessons' recordings are hashed into it."""
+    import hashlib
+    review = json.loads((ROOT / 'docs/data/word-bank-review.json').read_text(encoding='utf-8'))
+    events = json.loads((ROOT / 'docs/data/word-bank-evidence.json').read_text(encoding='utf-8'))['events']
+    audited = [{**e, **review['patches'].get(e['id'], {}).get('changes', {})} for e in events] + [x['event'] for x in review['additions']]
+    cw = work / 'clipbuild'
+    (cw / 'audit-audio').mkdir(parents=True, exist_ok=True)
+    (cw / 'audited-events.json').write_text(json.dumps(audited, ensure_ascii=False), encoding='utf-8')
+    mp = raw / 'audio-source-map.json'
+    amap = json.loads(mp.read_text(encoding='utf-8')) if mp.exists() else {}
+    for d in dates:
+        for f in list((raw / d).glob('tracks/*.mp3')) + list((raw / d).glob('meet-*/audio.mp3')) + list((raw / d).glob('tracks/recovered/*.mp3')):
+            amap.setdefault(hashlib.sha256(f.read_bytes()).hexdigest(), str(f))
+    mp.write_text(json.dumps(amap, indent=2), encoding='utf-8')
+    (cw / 'audio-source-map.json').write_text(json.dumps(amap, indent=2), encoding='utf-8')
+    subprocess.run([sys.executable, str(HERE / 'build_audit_audio.py'), str(cw)], check=True, cwd=ROOT, capture_output=True)
+
+
 def refresh_published(dates, raw, work):
     """Published fallback + review + audit for the new dates (clips are rebuilt by hand with build_audit_audio.py)."""
     import db
-    live = db.rest('GET', 'rpc/speaking_snapshot', retries=1)
+    live = db.rest('GET', 'rpc/speaking_snapshot', retries=4)      # 2026-09-23: one call failed transiently under load
     (ROOT / 'docs/data/word-bank-evidence.json').write_text(
         json.dumps({'version': datetime.date.today().isoformat(), 'events': live['events']}, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
     run = lambda *c: subprocess.run([*c], check=True, cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
     run(sys.executable, str(HERE / 'review_new_lessons.py'), *dates)
+    build_clips(dates, raw, work)
     track_dates = [d for d in dates if (raw / d / 'tracks' / 'tracks.json').exists()]
     if track_dates:
         run(sys.executable, str(HERE / 'review_silent_credits.py'), '--raw', str(raw), '--work', str(work), *track_dates)
@@ -161,9 +199,16 @@ def refresh_published(dates, raw, work):
 def publish(dates):
     run = lambda *c: subprocess.run(['git', *c], check=True, cwd=ROOT, capture_output=True, text=True)
     run('add', 'docs/data', 'docs/js/build.js', 'data/lessons/recall_bots.json', *[f'docs/lessons/{d}.html' for d in dates])
-    run('add', '-f', *[f'docs/lessons/{d}/audio/lesson.mp3' for d in dates])
+    run('add', '-f', *[f'docs/lessons/{d}/audio/lesson.mp3' for d in dates],
+        *[f'docs/lessons/{d}/clips' for d in dates if (ROOT / 'docs' / 'lessons' / d / 'clips').exists()])
     run('commit', '-m', f'Lessons {", ".join(dates)} loaded by the hourly job\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>')
-    run('pull', '--rebase', '-X', 'theirs', 'origin', 'master')
+    # No automatic conflict side: '-X theirs' in a rebase keeps THIS job's copy and could drop another session's review
+    # patches in docs/data. On any conflict: abort, keep the local commit, fail loudly; a person merges.
+    try:
+        run('pull', '--rebase', 'origin', 'master')
+    except subprocess.CalledProcessError:
+        subprocess.run(['git', 'rebase', '--abort'], cwd=ROOT, capture_output=True)
+        raise RuntimeError('pull --rebase conflicted; lesson commit kept locally, not pushed')
     run('push', 'origin', 'HEAD:master')
 
 
@@ -180,9 +225,11 @@ def main():
     ledger = json.loads(ledger_path.read_text(encoding='utf-8-sig')) if ledger_path.exists() else []
     decided_path = raw / 'meet_decisions.json'
     decided = json.loads(decided_path.read_text(encoding='utf-8')) if decided_path.exists() else {}
-    loaded = {r['date'] for r in db.select('lessons', {'select': 'date'}, retries=1)}
+    in_db = {r['date'] for r in db.select('lessons', {'select': 'date'}, retries=4)}
+    published = {p.stem for p in (ROOT / 'docs' / 'lessons').glob('20??-??-??.html')}
     recordings = meet_recordings(DRIVE)
-    new_rows, todo = plan(ledger, recall_bots(), recordings, loaded, raw, decided)
+    new_rows, todo = plan(ledger, recall_bots(), recordings, in_db & published, raw, decided,
+                          half_done={d for d in in_db - published if d >= AUTO_START})
     for r in new_rows:
         log('new Recall bot found in the API list', r['date'], r['bot_id'])
     if a.dry_run:
@@ -193,27 +240,30 @@ def main():
     for t in todo:
         d = t['date']
         try:
-            if t['kind'] == 'tracks':
-                if not (raw / d / 'tracks' / 'tracks.json').exists():
+            lesson_dir, meet = raw / d, meet_for(d, recordings)
+            if t['kind'] == 'republish':
+                if not (lesson_dir / 'tracks' / 'tracks.json').exists():
+                    found = sorted(p.parent for p in lesson_dir.glob('meet-*/scribe.json'))
+                    if not found:
+                        raise RuntimeError('database has the lesson but no saved transcript on this PC')
+                    lesson_dir = found[0]
+            elif t['kind'] == 'tracks':
+                if not (lesson_dir / 'tracks' / 'tracks.json').exists():
                     R.fetch(t['bot_id'], date=d, wait_minutes=0)
-                for trk in json.loads((raw / d / 'tracks' / 'tracks.json').read_text(encoding='utf-8'))['tracks']:
-                    import load_lesson as L
-                    who = L._person(trk['participant'])
-                    if not who:
-                        continue                  # host account: silent, never a speaker
-                    same = [x for x in json.loads((raw / d / 'tracks' / 'tracks.json').read_text(encoding='utf-8'))['tracks'] if L._person(x['participant']) == who]
-                    if trk is max(same, key=lambda x: x.get('duration_s') or 0):
-                        transcribe_once(raw / d / f'scribe_{who}.json', Path(trk['file']), who)
+                for who, trk in longest_tracks(json.loads((lesson_dir / 'tracks' / 'tracks.json').read_text(encoding='utf-8'))['tracks']).items():
+                    transcribe_once(lesson_dir / f'scribe_{who}.json', Path(trk['file']), who)
             else:
                 import lesson_pipeline as lp
                 src = Path(t['path'])
-                (raw / d).mkdir(parents=True, exist_ok=True)
-                mp3 = lp.extract_audio(src, raw / d / 'audio.mp3')
-                if not (chat_has_tutor(src) or (raw / d / 'scribe.json').exists() or lp.is_arabic_lesson(mp3, raw / d)):
+                lesson_dir = raw / d / ('meet-' + t['code'])     # one folder per call: two calls on one day never share audio
+                lesson_dir.mkdir(parents=True, exist_ok=True)
+                mp3 = lp.extract_audio(src, lesson_dir / 'audio.mp3')
+                if not (chat_has_tutor(src) or (lesson_dir / 'scribe.json').exists() or lp.is_arabic_lesson(mp3, lesson_dir)):
                     decided[src.name] = 'not a lesson (no tutor chat, Arabic pre-check failed)'
                     decided_path.write_text(json.dumps(decided, indent=1), encoding='utf-8'); continue
-                transcribe_once(raw / d / 'scribe.json', mp3, 'mixed Meet recording')
-            receipt = load(d, raw, work, meet_for(d, recordings), apply=True)
+                transcribe_once(lesson_dir / 'scribe.json', mp3, 'mixed Meet recording')
+                meet = src
+            receipt = load(d, lesson_dir, work, meet, apply=True)
             log('loaded', d, receipt.get('events'), 'events')
             done.append(d)
         except Exception as ex:

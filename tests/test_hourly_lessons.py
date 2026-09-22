@@ -52,3 +52,19 @@ def test_plan_tracks_beat_meet_loaded_dates_untouched_and_unfinished_bots_wait(t
 
 def test_host_account_is_never_a_speaker():
     assert L._person('Ray Adib') is None and L._person('Amal Abusrour') == 'Amal' and L._person('Medi Natanzi') == 'Medi'
+
+
+def test_each_person_longest_track_is_transcribed_and_host_skipped():
+    tracks = [{'participant': 'Ray Adib', 'duration_s': 5000}, {'participant': 'Amal', 'duration_s': 59, 'file': 'a1'},
+              {'participant': 'Amal', 'duration_s': 4056, 'file': 'a2'}, {'participant': 'Medi Natanzi', 'duration_s': 4108, 'file': 'm'}]
+    best = H.longest_tracks(tracks)
+    assert {k: v['file'] for k, v in best.items()} == {'Amal': 'a2', 'Medi': 'm'}
+
+
+def test_half_done_dates_are_republished_not_forgotten(tmp_path):
+    new_rows, todo = H.plan([], [], [], loaded_dates=set(), raw=tmp_path, half_done={'2026-09-24'})
+    assert todo == [{'kind': 'republish', 'date': '2026-09-24'}]
+
+
+def test_winter_join_uses_pacific_standard_time():
+    assert H.bot_date(bot('w', join='2026-12-01T07:30:00Z')) == '2026-11-30'
