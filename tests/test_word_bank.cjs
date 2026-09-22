@@ -57,3 +57,16 @@ test('Last said and default recency use only actual Medi speech; Heard stays ind
  assert.equal(b.last.id,'b1');assert.equal(b.spoke,0,'grammar-only use can be last said without scoring');
  assert.deepEqual(C.filter(rows,{sort:'recent'}).rows.map(r=>r.key),['b','a','c']);
 });
+test('an unvocalized homograph goes to the Doc form, never to an engine guess',()=>{
+ const word={key:'happy',arabizi:'Banbese6',arabic:'بنبسط',english:'I get happy',topic:'Verbs'};
+ const catalog={groups:[{id:'happy',key:'happy',keys:['happy'],name:'Banbese6',type:'Verb',entries:[
+  {id:'happy:past',label:'Past',word:'inbasa6',arabic:'انبسطت',keys:[],persons:[{person:'He',word:'huwwe inbasa6',arabic:'هو انبسط',provenance:'inferred',checked:false}]},
+  {id:'happy:command',label:'Command',word:'Enbese6',arabic:'انبسط',keys:['happy'],provenance:'document',persons:[{person:'You (m)',word:'Enbese6',arabic:'انبسط',provenance:'document'}]}]}]};
+ const said={...events([1])[0],word_key:'happy',text:'انبسط.'};
+ const rows=C.models([word],catalog,[said],[]);
+ assert.equal(rows[0].entries[1].speaking.count,1,'command (Doc) gets the attempt');
+ assert.equal(rows[0].entries[0].speaking.count,0,'guessed past does not');
+ // two guesses tie: nobody gets it (held, not guessed)
+ catalog.groups[0].entries[1].persons[0].provenance='inferred';catalog.groups[0].entries[1].provenance='inferred';
+ const tie=C.models([word],catalog,[said],[]);assert.equal(tie[0].entries.reduce((n,f)=>n+f.speaking.count,0),0);
+});

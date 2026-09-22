@@ -96,12 +96,17 @@ function models(words,catalog,events,cards){
   if(e.tense||e.form){opts=parentRows.flatMap(r=>r.entries).filter(f=>f.label.toLowerCase()===String(e.tense||e.form).toLowerCase());return opts.length===1?opts[0]:null;}
   if(lane==='speaking'&&e.text){
    const text=' '+normalize(e.text)+' ';
-   const candidates=parentRows.flatMap(r=>r.entries).filter(f=>[f.word,f.arabic,...(f.persons||[]).flatMap(p=>[p.word.replace(/^(Ana|inta|inti|huwwe|heyye|i7na|intu|humme)\s+/i,''),p.arabic.replace(/^(أنا|إنت|إنتي|هو|هي|إحنا|إنتو|هم)\s+/, '')])].some(s=>s&&text.includes(' '+normalize(s)+' ')));
+   // [form, guessed?] pairs; a guess is an engine-filled person (provenance 'inferred', not yet checked by Amal).
+   const forms=f=>[[f.word,f.provenance==='inferred'],[f.arabic,f.provenance==='inferred'],...(f.persons||[]).flatMap(p=>[[p.word.replace(/^(Ana|inta|inti|huwwe|heyye|i7na|intu|humme)\s+/i,''),p.provenance==='inferred'],[String(p.arabic||'').replace(/^(أنا|إنت|إنتي|هو|هي|إحنا|إنتو|هم)\s+/, ''),p.provenance==='inferred']])];
+   const hits=f=>forms(f).filter(([s])=>s&&text.includes(' '+normalize(s)+' '));
+   const candidates=parentRows.flatMap(r=>r.entries).filter(f=>hits(f).length);
    // A future phrase contains its bare verb too; prefer its full future match.
    const future=candidates.filter(f=>f.label==='Future');
    if(future.length===1)return future[0];
    if(candidates.length===1)return candidates[0];
-   if(candidates.length>1)return null;
+   // Unvocalized Arabic makes homographs (انبسط = he got happy / get happy!): a form from Amal's Doc beats an engine guess.
+   const documented=candidates.filter(f=>hits(f).some(([,guess])=>!guess));
+   if(candidates.length>1)return documented.length===1?documented[0]:null;
   }
   // A lexeme key is not evidence of tense: matched inflections can share its
   // canonical present key. Require actual form evidence for spoken verbs.
