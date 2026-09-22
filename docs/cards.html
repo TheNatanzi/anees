@@ -2,7 +2,7 @@
 <title>Anees flashcards</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@500;700&display=swap" rel="stylesheet">
-<meta name="color-scheme" content="light dark"><link rel="stylesheet" href="css/sabz-tokens.css">
+<meta name="color-scheme" content="light dark"><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/word-bank.css"><link rel="stylesheet" href="css/vocabulary-progress.css">
 <style>
 /* Quizlet layout, Sabz skin (Medi 2026-09-21): tokens from css/sabz-tokens.css
    (source C:\dev\ganjsta-ui\docs\BRAND-SABZ.md). Know / Still learning use the
@@ -12,7 +12,7 @@
  --knowbg:var(--sabz-state-calm-fill);--learnbg:var(--sabz-state-drifting-fill);--red:light-dark(#b42332,#ff9aa4);--shadow:none;
  --serif:var(--sabz-font-serif);--sans:var(--sabz-font-sans);--teal:var(--sabz-cta-fill);--amber:var(--learn);--ice:var(--sabz-data-ink)}
 *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 var(--sans);overflow-wrap:anywhere;-webkit-tap-highlight-color:transparent}
-main{max-width:760px;margin:0 auto;padding:12px 16px;min-height:100vh;display:flex;flex-direction:column}
+#root{max-width:980px;min-height:calc(100vh - 140px);display:flex;flex-direction:column} #anees-bank main{display:flex;flex-direction:column}
 h1{font-size:28px;font-weight:800;margin:10px 0 4px} h2{font-size:16px;font-weight:700;margin:22px 0 10px} .mute{color:var(--mute);font-size:14px}
 button{min-height:48px;border:2px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:8px;font:600 16px var(--sans);padding:8px 16px;cursor:pointer}
 button:hover{border-color:var(--mute)} button:disabled{opacity:.45;cursor:default}
@@ -62,7 +62,27 @@ button.sel{border-color:var(--blue);color:var(--blue)} button.bad{background:var
 .legend div{display:flex;justify-content:space-between;gap:24px;font-weight:700;padding:6px 12px;border-radius:999px;margin:6px 0}
 .legend .k{color:var(--know);background:var(--knowbg)} .legend .l{color:var(--learn);background:var(--learnbg)} .legend .t{color:var(--ink);background:var(--bg2);box-shadow:var(--shadow)}
 .num{font-size:28px;font-weight:800}
-/* selection screen (plan/FLASHCARDS-SELECTION-SPEC-2026-09-21.md) */
+/* selection screen (plan/FLASHCARDS-SELECTION-SPEC-2026-09-21.md), Progress & Stats card style */
+#anees-bank .fc-sec{margin:26px 0 6px} #anees-bank .fc-sec>.fc-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+#anees-bank .fc-sec h3{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ab-muted);font-weight:600;margin:12px 0 8px}
+#anees-bank .fc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+#anees-bank .fc-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+#anees-bank aside{overflow-wrap:normal}
+/* word-bank.css resets every button to font/color:inherit; restore the card-page buttons */
+#anees-bank #root button{font:600 16px var(--sans);color:var(--ink)} #anees-bank #root .toggle button,#anees-bank #root .chips button{font-size:15px}
+#anees-bank #root button.study{font-size:18px;font-weight:800} #anees-bank #root button.primary{color:var(--sabz-cta-text)}
+#anees-bank #root button.sel{color:var(--sabz-data-ink)} #anees-bank #root button.bad{color:#fff}
+#anees-bank #root .qtop button,#anees-bank #root .ctrls .undo{font-size:22px;color:var(--mute)} #anees-bank #root .ctrls .circle{font-size:26px;font-weight:700}
+#anees-bank #root #miss.circle{color:var(--learn)} #anees-bank #root #got.circle{color:var(--know)}
+#anees-bank #root button.fc-back{font:600 13px var(--sans);color:var(--ab-muted)}
+#anees-bank #root button.vp-card{font:inherit;color:var(--ab-text)}
+#anees-bank button.vp-card{width:100%;min-height:0;text-align:left;font:inherit;cursor:pointer;color:inherit}
+#anees-bank button.vp-card:hover{border-color:var(--vp-sage)} #anees-bank .vp-card.wide{grid-column:1/-1}
+#anees-bank button.vp-card.empty{cursor:default} #anees-bank button.vp-card.empty .vp-num{color:var(--ab-muted)}
+#anees-bank .vp-card-label .fc-shaky{color:var(--ab-orange)} #anees-bank .vp-card-label .fc-wrong{color:var(--ab-red)}
+#anees-bank .fc-back{border:none;background:none;min-height:40px;padding:0;color:var(--ab-muted);font:600 13px var(--sans);align-self:flex-start}
+@media(max-width:1100px){#anees-bank .fc-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){#anees-bank .fc-grid.three{grid-template-columns:1fr 1fr 1fr}#anees-bank .vp-card{padding:12px 13px}#anees-bank .vp-card-value .vp-num{font-size:26px}}
 .sec{margin:22px 0 4px} .sec h2{margin:0 0 2px;display:flex;align-items:baseline;gap:8px} .sec h2 small{font:600 13px var(--sans);color:var(--mute)} .sec>p.mute{margin:0 0 8px}
 .sec h3{font:600 13px var(--sans);color:var(--mute);margin:10px 0 6px;text-transform:uppercase;letter-spacing:.4px}
 .tgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -71,11 +91,6 @@ button.sel{border-color:var(--blue);color:var(--blue)} button.bad{background:var
 .stile.wide{grid-column:1/-1} .stile.empty{cursor:default;opacity:.8} .stile:not(.empty):hover{border-color:var(--sabz-data-ink)}
 .stile .go{margin-left:auto}
 .back{border:none;background:none;min-height:44px;padding:0;color:var(--mute);font:600 15px var(--sans)}
-/* site nav (hidden inside the Flashcards tab) */
-.top{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:5} .top .in{max-width:820px;margin:0 auto;padding:10px 12px 0}
-.brand{display:flex;align-items:baseline;gap:10px} .brand b{font-size:20px} .brand span{color:var(--mute);font-size:13px}
-.top nav{display:flex;gap:4px;overflow-x:auto;padding:6px 0;scrollbar-width:none} .top nav::-webkit-scrollbar{display:none}
-.top .tab{flex:0 0 auto;min-height:44px;border:2px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:999px;padding:8px 14px;font:600 15px var(--sans);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center} .top .tab.on{background:var(--blue);color:#fff;border-color:var(--blue)}
 @media(max-width:480px){.big{font-size:32px}.en{font-size:24px}.ar{font-size:28px}.scene,.card{min-height:300px}}
 @media(prefers-reduced-motion:reduce){.card,.inner,.prog i{transition:none}}
 .tile,.fc div,.panel,.face,.ctrls .circle{border:1px solid var(--line)}
@@ -84,11 +99,13 @@ h1,h2,.tile b,.fc b,.qtop .count,.num,.big,.en,.donut i,.legend span:last-child{
 h1{font-weight:500;font-size:32px;letter-spacing:-.3px} h2{font-weight:500;font-size:19px} .tile b{font-weight:500} .big,.en{font-weight:500} .donut i{font-weight:500}
 .tile.due b{color:var(--sabz-data-ink)} button.primary{color:var(--sabz-cta-text)} button.sel{border-color:var(--sabz-data-ink);color:var(--sabz-data-ink);background:var(--sabz-state-calm-fill)}
 .stamp{background:var(--sabz-bg)} .donut i{background:var(--sabz-bg)}
-</style></head><body><header class="top" id="topnav"><div class="in"><div class="brand"><b>Anees</b><span>Palestinian Arabic with Amal · Medi's companion</span></div><nav><a class="tab" href="index.html#today">Today</a><a class="tab" href="slips.html">Slips</a><a class="tab" href="index.html#lessons">Lessons</a><a class="tab" href="index.html#words">Words</a><a class="tab on" href="index.html#cards">Flashcards</a><a class="tab" href="index.html#amal">Amal</a><a class="tab" href="index.html#grammar">Grammar</a><a class="tab" href="index.html#ai-reports">AI reports</a><a class="tab" href="index.html#sys-rules">System rules</a><a class="tab" href="index.html#word-rules">Word &amp; grammar rules</a><a class="tab" href="index.html#future">Future projects</a></nav></div></header><main>
+</style></head><body><div id="anees-bank" class="vp-sabz"><div class="ab-shell">
+<aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="progress.html">Progress &amp; Stats</a><a class="ab-nav" href="index.html#lessons">Lessons &amp; Audio</a><a class="ab-nav" href="word-bank.html">Word Bank</a><a class="ab-nav" href="index.html#grammar">Grammar Rules</a><a class="ab-nav" aria-current="page" href="cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="index.html#amal">Tutor Notes &amp; Practice</a><a class="ab-nav" href="index.html#sys-rules">System Settings</a></nav></aside>
+<main>
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
-</main>
-<script src="js/config.js"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260921-quizlet-v1"></script><script src="js/cards-core.js?v=20260921-quizlet-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260921-select-v1"></script><script src="js/word-bank-review.js?v=20260921-select-v1"></script><script src="js/cards-selection.js?v=20260921-select-v1"></script>
+</main></div></div>
+<script src="js/config.js"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260921-quizlet-v1"></script><script src="js/cards-core.js?v=20260921-quizlet-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260922-select-v2"></script><script src="js/word-bank-review.js?v=20260922-select-v2"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script>
 <script>
 const C=window.AneesCards, F=window.AneesFSRS, SEL=window.AneesCardSelection, WB=window.AneesWordBank, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -210,28 +227,32 @@ function selection(){ const log=fullLog(), match=SEL.matcher(words), qcards=new 
 const union=lists=>{ const m=new Map(); for(const l of lists) for(const w of l) if(!m.has(w.key)) m.set(w.key,w); return [...m.values()]; };
 // Every tile shows its count; an empty tile shows "—" and why, never a bare 0.
 function tileHtml(t){ const n=t.words.length, empty=!n; tileMap.set(t.id,t);
-  return `<button class="stile${empty?' empty':''}${t.wide?' wide':''}" data-t="${esc(t.id)}"${empty?' aria-disabled="true"':''}><b>${empty?'—':fmt(t.shown??n)}</b><span>${esc(t.label)}</span>${empty?`<em>${esc(t.reason)}</em>`:(t.note?`<em>${esc(t.note)}</em>`:'')}</button>`; }
-const section=(n,title,note,body)=>`<section class="sec" data-sec="${n}"><h2>${esc(title)}${note?` <small>${esc(note)}</small>`:''}</h2>${body}</section>`;
+  return `<button class="vp-card stile${empty?' empty':''}${t.wide?' wide':''}" data-t="${esc(t.id)}"${empty?' aria-disabled="true"':''}><div class="vp-card-label"><span${t.tone?` class="fc-${t.tone}"`:''}>${esc(t.label)}</span></div><div class="vp-card-value"><span class="vp-num">${empty?'—':fmt(t.shown??n)}</span>${!empty&&t.unit?`<span class="vp-card-unit">${esc(t.unit)}</span>`:''}</div><div class="vp-card-sub">${esc(empty?t.reason:(t.note||''))}</div></button>`; }
+// Section heading in the Progress & Stats style: serif title, small-caps eyebrow note.
+const section=(n,title,note,body)=>`<section class="fc-sec sec" data-sec="${n}"><div class="fc-head"><h2>${esc(title)}</h2>${note?`<span class="vp-eyebrow">${esc(note)}</span>`:''}</div>${body}</section>`;
 function bindTiles(onTile){ root.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{ const t=tileMap.get(b.dataset.t); if(t&&t.words.length) onTile(t); }); }
 function openTile(t){ t.kind==='topic'?topicView(t):t.kind==='group'?groupView(t):opts(t,home); }
 function home(){ document.onkeydown=null; rebuild(); tileMap=new Map(); const q=dueQueue(), n=q.counts, S=selection();
   const f=F.forecast([...cards.values()],new Date(),7), leeches=[...cards.values()].filter(c=>F.isLeech(c)).length;
   const notes=[`New today ${q.newToday} of ${F.DEFAULTS.newPerDay}`]; if(q.buried) notes.push(`${q.buried} sibling form${q.buried===1?'':'s'} held for another day`); if(leeches) notes.push(`${leeches} leech${leeches===1?'':'es'}`); if(q.nextLearning&&!q.items.length) notes.push(`next learning card in ${wait(q.nextLearning-Date.now())}`);
   const noun=t=>t==='Other'?'other words':SEL.TYPE_LABEL[t].toLowerCase();
-  const split=(st,lane)=>SEL.TYPES.map(t=>tileHtml({id:[st,lane,t].join('|'),label:SEL.TYPE_LABEL[t],title:`${st} ${lane==='speaking'?'in lessons':'on cards'} · ${SEL.TYPE_LABEL[t]}`,words:S.split[[st,lane,t].join('|')],
-    reason:lane==='speaking'&&lessonScores!=='ok'?'Lesson scores are offline':`No ${st.toLowerCase()} ${noun(t)} ${lane==='speaking'?'in lessons':'on cards'} yet`})).join('');
+  const where=lane=>lane==='speaking'?'in lessons':'on cards';
+  const split=(st,lane)=>`<div class="fc-grid">${['All',...SEL.TYPES].map(t=>tileHtml({id:[st,lane,t].join('|'),tone:st.toLowerCase(),wide:t==='All',label:t==='All'?`All ${st.toLowerCase()} ${where(lane)}`:SEL.TYPE_LABEL[t],unit:t==='All'?'forms':'',
+    note:t==='All'?(lane==='speaking'?'Same count as the Word Bank '+st+' filter':'From your flashcard answers'):'',
+    title:`${st} ${where(lane)}${t==='All'?'':' · '+SEL.TYPE_LABEL[t]}`,words:S.split[[st,lane,t].join('|')],
+    reason:lane==='speaking'&&lessonScores!=='ok'?'Lesson scores are offline':`No ${st.toLowerCase()} ${t==='All'?'forms':noun(t)} ${where(lane)} yet`})).join('')}</div>`;
   const qs=set=>S.qcards.get(set.id)||[];
-  root.innerHTML=`<h1>Flashcards</h1><p class="mute">Palestinian Arabic · pick what to practise. Every answer feeds the scheduler.</p>
-    ${section(1,'Due for review','FSRS schedule',`<div class="tiles"><div class="tile due"><b>${n.due}</b><span>Due</span></div><div class="tile new"><b>${n.new}</b><span>New</span></div><div class="tile lrn"><b>${n.learning}</b><span>Learning</span></div></div>
+  root.innerHTML=`<header class="ab-header vp-header"><div><div class="vp-eyebrow">Spoken Palestinian Arabic · with Amal</div><h1>Flashcards &amp; Review</h1><p class="ab-sub">Pick what to practise. Every answer feeds the scheduler; scores match the Word Bank.</p></div></header>
+    ${section(1,'Due for review','FSRS schedule',`<div class="fc-grid three">${[['Due',n.due,'reviews due today'],['New',n.new,'new cards today'],['Learning',n.learning,'coming back soon']].map(([l,v,sub])=>`<div class="vp-card"><div class="vp-card-label"><span>${l}</span></div><div class="vp-card-value"><span class="vp-num">${v}</span></div><div class="vp-card-sub">${sub}</div></div>`).join('')}</div>
       <button id="go" class="primary study" ${q.items.length?'':'disabled'}>${q.items.length?'Study the review queue':'All done for today'}</button><p class="mute" style="text-align:center">${notes.join(' · ')}</p>`)}
-    ${section(2,'New from Amal','words she marked newly taught',`<div class="tgrid">${tileHtml({id:'amal',label:'New from Amal',title:'New from Amal',words:S.amal,wide:true,reason:'Amal has not marked any new words yet'})}</div>`)}
-    ${section(3,'Shaky','',`<h3>In lessons</h3><div class="tgrid">${split('Shaky','speaking')}</div><h3>On cards</h3><div class="tgrid">${split('Shaky','flashcards')}</div>`)}
-    ${section(4,'Wrong','',`<h3>In lessons</h3><div class="tgrid">${split('Wrong','speaking')}</div><h3>On cards</h3><div class="tgrid">${split('Wrong','flashcards')}</div>`)}
-    ${section(5,'Never tested','never answered on cards',`<div class="tgrid">${tileHtml({id:'never',label:'Never tested',title:'Never tested',words:S.never,shown:Math.min(20,S.never.length),note:`20 at random from ${fmt(S.never.length)}`,wide:true,reason:'Every word has been answered on cards'})}</div>`)}
-    ${section(6,'Verb tenses','',`<div class="tgrid">${S.tenses.map(t=>tileHtml({id:'tense:'+t.id,label:t.name,title:t.name+' tense',words:t.words,reason:`No ${t.name.toLowerCase()} forms in the Doc`})).join('')}</div>`)}
-    ${section(7,'Verbs + prepositions','Amal’s Quizlet',S.colloc.length?`<div class="tgrid">${S.colloc.map(set=>tileHtml({id:'q:'+set.id,label:set.title,title:set.title,words:qs(set),reason:'No usable terms'})).join('')}</div>`:'<p class="mute">Quizlet sets did not load.</p>')}
-    ${section(8,'Amal’s Doc categories',`${S.topics.length} topics · ${S.topics.reduce((a,t)=>a+t.subs.length,0)} sub-topics`,`<div class="tgrid">${S.topics.map(t=>tileHtml({id:'topic:'+t.name,kind:'topic',label:t.name,title:t.name,words:t.words,subs:t.subs,note:t.subs.length?`${t.subs.length} sub-topic${t.subs.length===1?'':'s'}`:'',reason:'No words'})).join('')}</div>`)}
-    ${section(9,'Amal’s Quizlet sets',`${quizlet.length} sets`,quizlet.length?`<div class="tgrid">${S.groups.map(g=>tileHtml({id:'group:'+g.id,kind:'group',label:g.name,title:g.name,words:union(g.sets.map(qs)),sets:g.sets.map(set=>({set,words:qs(set)})),note:`${g.sets.length} set${g.sets.length===1?'':'s'}`,reason:'No sets in this group'})).join('')}</div>
+    ${section(2,'New from Amal','words she marked newly taught',`<div class="fc-grid">${tileHtml({id:'amal',label:'New from Amal',title:'New from Amal',unit:'words',words:S.amal,wide:true,reason:'Amal has not marked any new words yet'})}</div>`)}
+    ${section(3,'Shaky','',`<h3>In lessons</h3>${split('Shaky','speaking')}<h3>On cards</h3>${split('Shaky','flashcards')}`)}
+    ${section(4,'Wrong','',`<h3>In lessons</h3>${split('Wrong','speaking')}<h3>On cards</h3>${split('Wrong','flashcards')}`)}
+    ${section(5,'Never tested','never answered on cards',`<div class="fc-grid">${tileHtml({id:'never',label:'Never tested',title:'Never tested',words:S.never,shown:Math.min(20,S.never.length),note:`20 at random from ${fmt(S.never.length)}`,wide:true,reason:'Every word has been answered on cards'})}</div>`)}
+    ${section(6,'Verb tenses','',`<div class="fc-grid">${S.tenses.map(t=>tileHtml({id:'tense:'+t.id,label:t.name,title:t.name+' tense',words:t.words,reason:`No ${t.name.toLowerCase()} forms in the Doc`})).join('')}</div>`)}
+    ${section(7,'Verbs + prepositions','Amal’s Quizlet',S.colloc.length?`<div class="fc-grid">${S.colloc.map(set=>tileHtml({id:'q:'+set.id,label:set.title,title:set.title,words:qs(set),reason:'No usable terms'})).join('')}</div>`:'<p class="mute">Quizlet sets did not load.</p>')}
+    ${section(8,'Amal’s Doc categories',`${S.topics.length} topics · ${S.topics.reduce((a,t)=>a+t.subs.length,0)} sub-topics`,`<div class="fc-grid">${S.topics.map(t=>tileHtml({id:'topic:'+t.name,kind:'topic',label:t.name,title:t.name,words:t.words,subs:t.subs,note:t.subs.length?`${t.subs.length} sub-topic${t.subs.length===1?'':'s'}`:'',reason:'No words'})).join('')}</div>`)}
+    ${section(9,'Amal’s Quizlet sets',`${quizlet.length} sets`,quizlet.length?`<div class="fc-grid">${S.groups.map(g=>tileHtml({id:'group:'+g.id,kind:'group',label:g.name,title:g.name,words:union(g.sets.map(qs)),sets:g.sets.map(set=>({set,words:qs(set)})),note:`${g.sets.length} set${g.sets.length===1?'':'s'}`,reason:'No sets in this group'})).join('')}</div>
       <p class="mute">26 more sets Amal sent are not imported yet (Quizlet blocked the read).</p>`:'<p class="mute">Quizlet sets did not load.</p>')}
     <h2>Next 7 days</h2><div class="fc">${f.map((d,i)=>`<div><b>${d.due}</b><span>${i===0?'Today':new Date(d.date+'T12:00').toLocaleDateString(undefined,{weekday:'short'})}</span></div>`).join('')}</div>
     <div class="panel"><h2 style="margin-top:0">Front of the card</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English</button></div>
@@ -244,13 +265,13 @@ function home(){ document.onkeydown=null; rebuild(); tileMap=new Map(); const q=
   bindTiles(openTile);
 }
 function subList(t,tiles){ document.onkeydown=null; tileMap=new Map(); window.scrollTo(0,0);
-  root.innerHTML=`<button class="back" id="back">‹ Flashcards</button><h1>${esc(t.title)}</h1><p class="mute">${fmt(t.words.length)} cards</p><div class="tgrid">${tiles.map(tileHtml).join('')}</div>`;
+  root.innerHTML=`<button class="fc-back" id="back">‹ Flashcards</button><h1>${esc(t.title)}</h1><p class="mute">${fmt(t.words.length)} cards</p><div class="fc-grid">${tiles.map(tileHtml).join('')}</div>`;
   document.getElementById('back').onclick=home; bindTiles(x=>opts(x,()=>subList(t,tiles))); }
 function topicView(t){ subList(t,[{id:'all:'+t.id,label:'All of '+t.label,title:t.title,words:t.words,wide:true,reason:'No words'},...t.subs.map(s=>({id:t.id+'/'+s.name,label:s.name,title:t.label+' · '+s.name,words:s.words,reason:'No words'}))]); }
 function groupView(t){ subList(t,t.sets.map(({set,words:ws})=>({id:'q:'+set.id,label:set.title,title:set.title,words:ws,reason:'No usable terms'}))); }
 // Options for one tile, then the same swipe cards; answers write the same card_results row.
 function opts(t,back){ document.onkeydown=null; window.scrollTo(0,0); const n=t.words.length, k=pref.n?Math.min(pref.n,n):n;
-  root.innerHTML=`<button class="back" id="back">‹ Back</button><h1>${esc(t.title||t.label)}</h1><p class="mute">${fmt(n)} card${n===1?'':'s'}${t.words.some(w=>SEL.isQuizletOnly(w.key))?' · Quizlet-only cards count on cards, never in lesson scores':''}</p>
+  root.innerHTML=`<button class="fc-back" id="back">‹ Back</button><h1>${esc(t.title||t.label)}</h1><p class="mute">${fmt(n)} card${n===1?'':'s'}${t.words.some(w=>SEL.isQuizletOnly(w.key))?' · Quizlet-only cards count on cards, never in lesson scores':''}</p>
     <h2>Cards</h2><div class="toggle"><button id="n20" class="${pref.n===20?'sel':''}">20</button><button id="n10" class="${pref.n===10?'sel':''}">10</button><button id="nall" class="${!pref.n?'sel':''}">All</button><button id="sh" class="${pref.shuffle?'sel':''}">Shuffle ${pref.shuffle?'on':'off'}</button></div>
     <h2>Front of the card</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English</button></div>
     <div class="row" style="margin-top:18px"><button id="start" class="primary study">Start ${fmt(k)} card${k===1?'':'s'}</button></div>`;
@@ -332,6 +353,6 @@ function showSummary(){ const s=C.summary(round); document.onkeydown=null; const
   const rp=document.getElementById('replay'); if(rp) rp.onclick=()=>{ const {title,back,restart}=round; round=Object.assign(C.replayWrong(round),{title,back,restart}); showCard(); };
   const ag=document.getElementById('again'); if(ag) ag.onclick=round.restart||start; const bk=round.back||picker; document.getElementById('back').onclick=bk; document.getElementById('close').onclick=bk; document.getElementById('home').onclick=home; }
 window.AneesTest={ get round(){return round;}, get stats(){return stats;}, get words(){return words;}, get cards(){return cards;}, answer:r=>{revealed=true;answer(r,{});}, grade:r=>{if(!sess)sess={know:0,learn:0,ms:[]};const q=dueQueue();const c=q.items[0];if(!c)return false;grade(c,byKey().get(c.id),r,{});return true;}, undo, queue:dueQueue, start, picker, home, selection, get tiles(){return tileMap;}, startTile, opts, startReview, sync, pref };
-if(window.self!==window.top){ const t=document.getElementById('topnav'); if(t) t.style.display='none'; }   // inside the Flashcards tab the site menu is already there
+if(window.self!==window.top){ const t=document.querySelector('#anees-bank aside'); if(t) t.style.display='none'; }   // inside the Flashcards tab the site menu is already there
 load().then(()=>qsub?picker():home());
 </script><script src="js/build.js"></script><script src="js/stale.js"></script></body></html>

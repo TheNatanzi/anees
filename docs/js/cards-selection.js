@@ -28,20 +28,27 @@
   // Row type as word-bank-core models it: catalog Verb / Adjective, Noun = has a plural, else Other.
   function typeOf(row) { return TYPES.includes(row && row.type) ? row.type : 'Other'; }
 
+  // The card for one scored form: its first Doc word key, else a documented person form,
+  // else the form itself as "form:<entry id>" (word-bank-core maps it back to that form).
+  function formCard(r, f, byKey) {
+    const key = (f.keys || []).concat((f.persons || []).map(p => p.key).filter(Boolean)).find(k => byKey.has(k));
+    if (key) return byKey.get(key);
+    if (!f.id || !(f.word || f.arabic)) return null;
+    return { key: 'form:' + f.id, arabizi: f.word || f.arabic, arabic: f.word ? (f.arabic || '') : '', english: [r.english, f.label ? '(' + String(f.label).toLowerCase() + ')' : ''].filter(Boolean).join(' '), topic: r.topic, form: f.id };
+  }
   // Shaky / Wrong in lessons (speaking) and on cards (flashcards), each split by word type.
-  // One card per scored form: the form's first active word key.
+  // Counts equal the Word Bank status chips: one card per scored form.
   function statusSplit(rows, words) {
     const byKey = new Map(words.map(w => [w.key, w]));
     const out = {};
-    for (const lane of ['speaking', 'flashcards']) for (const st of ['Shaky', 'Wrong']) for (const t of TYPES) out[[st, lane, t].join('|')] = [];
+    for (const lane of ['speaking', 'flashcards']) for (const st of ['Shaky', 'Wrong']) { out[[st, lane, 'All'].join('|')] = []; for (const t of TYPES) out[[st, lane, t].join('|')] = []; }
     for (const r of rows || []) {
       if (r.grammar_only) continue;
       for (const f of r.entries || []) {
-        const key = (f.keys || []).find(k => byKey.has(k)); if (!key) continue;
         for (const lane of ['speaking', 'flashcards']) {
           const st = f[lane] && f[lane].status; if (st !== 'Shaky' && st !== 'Wrong') continue;
-          const list = out[[st, lane, typeOf(r)].join('|')];
-          if (!list.some(w => w.key === key)) list.push(byKey.get(key));
+          const card = formCard(r, f, byKey); if (!card) continue;
+          for (const bucket of [typeOf(r), 'All']) { const list = out[[st, lane, bucket].join('|')]; if (!list.some(w => w.key === card.key)) list.push(card); }
         }
       }
     }
@@ -122,7 +129,8 @@
   function collocationSets(sets) { return COLLOCATION_SETS.map(c => (sets || []).find(s => c.test(s.title || ''))).filter(Boolean); }
 
   function isQuizletOnly(key) { return /^q:/.test(String(key || '')); }
+  function isFormCard(key) { return /^form:/.test(String(key || '')); }
 
-  root.AneesCardSelection = { TYPES, TYPE_LABEL, TENSES, statusSplit, newFromAmal, neverTested, answeredKeys, tenses, topics, splitTerm, matcher, quizletCards, quizletGroups, collocationSets, isQuizletOnly, typeOf };
+  root.AneesCardSelection = { TYPES, TYPE_LABEL, TENSES, statusSplit, newFromAmal, neverTested, answeredKeys, tenses, topics, splitTerm, matcher, quizletCards, quizletGroups, collocationSets, isQuizletOnly, isFormCard, formCard, typeOf };
   if (typeof module !== 'undefined' && module.exports) module.exports = root.AneesCardSelection;
 })(typeof window !== 'undefined' ? window : globalThis);

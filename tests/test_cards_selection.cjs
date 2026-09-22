@@ -52,7 +52,8 @@ test('Quizlet groups cover every set once; section 7 finds both collocation sets
 test('Shaky / Wrong split by lane and by word type (Verb / Noun / Adjective / Other)',()=>{
  const log=[card('bait','missed','01','c1'),card('bait','missed','02','c2'),card('bait','missed','03','c3'),card('7elu','missed','04','c4')];
  const rows=WB.models(words,cat,[],log);const out=S.statusSplit(rows,words);
- assert.equal(Object.keys(out).length,16);
+ assert.equal(Object.keys(out).length,20);   // 2 statuses x 2 lanes x (All + 4 types)
+ assert.deepEqual(out['Wrong|flashcards|All'].map(w=>w.key),['bait']);
  assert.deepEqual(out['Wrong|flashcards|Noun'].map(w=>w.key),['bait']);
  assert.deepEqual(out['Shaky|flashcards|Adjective'].map(w=>w.key),['7elu']);
  assert.equal(out['Wrong|speaking|Noun'].length,0);   // cards never leak into the lesson lane
@@ -75,4 +76,15 @@ test('verb tenses = Doc topic plus the catalog forms of that tense',()=>{
 test('Doc categories carry their sub-topics',()=>{
  const t=S.topics(words);const h=t.find(x=>x.name==='Household Items');
  assert.equal(t.length,5);assert.deepEqual(h.subs.map(s=>[s.name,s.words.length]),[['Rooms',1]]);
+});
+test('a scored form with no Doc key still gets a card, and Word Bank maps its answers back',()=>{
+ const c={groups:[{id:'v',key:'v',keys:['v'],type:'Verb',name:'Basaa3ed',arabic:'بساعد',english:'I help',topic:'Verbs List',
+  entries:[{id:'v:past',label:'Past',word:'saa3adet',arabic:'ساعدت',keys:[],persons:[]}]}]};
+ const ws=[{key:'v',arabizi:'ana basaa3ed',arabic:'بساعد',english:'I help',topic:'Verbs List'}];
+ const log=[1,2,3].map(i=>card('form:v:past','missed','0'+i,'f'+i));
+ const rows=WB.models(ws,c,[],log);const past=rows[0].entries.find(f=>f.label==='Past');
+ assert.equal(past.flashcards.count,3);assert.equal(past.speaking.count,0);
+ const out=S.statusSplit(rows,ws);const cardFor=out['Wrong|flashcards|Verb'][0];
+ assert.equal(cardFor.key,'form:v:past');assert.equal(cardFor.arabizi,'saa3adet');assert.equal(cardFor.english,'I help (past)');
+ assert.ok(S.isFormCard(cardFor.key));
 });
