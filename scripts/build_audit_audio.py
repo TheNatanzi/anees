@@ -5,7 +5,7 @@ W=Path(sys.argv[1]);R=Path(__file__).resolve().parents[1];tmp=W/'audit-audio';tm
 events=json.loads((W/'audited-events.json').read_text(encoding='utf8'));paths=json.loads((W/'audio-source-map.json').read_text())
 sources={}
 for e in events:
- sources.setdefault(e['lesson_date'],{})[e['source_sha256']]={'path':paths[e['source_sha256']],'speaker':'Mixed' if 'meeting-recording' in e['source_id'] else e['speaker'],'offset':e['t_start']-e['local_start']}
+ sources.setdefault(e['lesson_date'],{})[e['source_sha256']]={'path':paths[e['source_sha256']],'speaker':'Mixed' if ('meeting-recording' in e['source_id'] or '-meet-' in e['source_id']) else e['speaker'],'offset':e['t_start']-e['local_start']}
 def run(args):subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y',*args],check=True,capture_output=True)
 durations={}
 for date,ss in sources.items():

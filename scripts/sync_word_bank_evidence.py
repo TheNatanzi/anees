@@ -29,8 +29,12 @@ def validate(folder):
     return events,revision
 
 def sync(folder,apply=False):
-    import db
     events,revision=validate(folder)
+    return sync_events(events,revision,apply)
+
+def sync_events(events,revision,apply=False):
+    """Insert-only install of already-built events (used by scripts/load_lesson.py too)."""
+    import db
     current={r['id']:r['data'] for r in db.select('speaking_events',retries=1)}
     if any(e['id'] in current and current[e['id']]!=e for e in events):
         raise ValueError('Existing evidence differs; preserve it and reconcile explicitly')
