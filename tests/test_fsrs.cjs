@@ -72,3 +72,39 @@ test('forecast counts overdue in day 0 and ignores new cards',()=>{
  assert.equal(f.reduce((s,d)=>s+d.due,0),3);
 });
 test('invalid review time is refused',()=>assert.throws(()=>F.schedule(F.newCard(),'good','nope')));
+
+// ---- daily queue (docs/js/cards-core.js) ----
+globalThis.AneesFSRS=F;require('../docs/js/cards-core.js');const Q=globalThis.AneesCards;
+const words=Array.from({length:30},(_,i)=>({key:'w'+i,doc_order:i}));
+const catalog={groups:[{key:'w0',keys:['w0','w1','w2']},{key:'w3',keys:['w3','w4']}]};
+const noon=new Date(2026,8,21,12).getTime(),iso=t=>new Date(t).toISOString();
+const row=(id,k,t,result='got')=>({id,word_key:k,ts:iso(t),result});
+const run=(log,now=noon,n=20)=>{const cards=F.replay(log);return Q.queue(words,cards,log,now,{newPerDay:n,siblings:Q.siblingMap(words,catalog)});};
+test('new cards respect the daily limit and bury sibling forms',()=>{
+ const q=run([]);assert.equal(q.counts.new,20);assert.equal(q.counts.due,0);
+ const keys=q.items.map(c=>c.id);assert.ok(keys.includes('w0')&&!keys.includes('w1')&&!keys.includes('w2'));assert.ok(keys.includes('w3')&&!keys.includes('w4'));
+ assert.equal(q.buried,3);
+});
+test('new cards answered today use up the limit',()=>{
+ const log=Array.from({length:5},(_,i)=>row('a'+i,'w'+(10+i),noon-3600000));
+ const q=run(log);assert.equal(q.newToday,5);assert.equal(q.counts.new,15);
+});
+test('order is learning first, then due reviews, then new',()=>{
+ const day=86400000,log=[row('r1','w20',noon-10*day),row('r2','w20',noon-10*day+60000),row('r3','w20',noon-10*day+700000),row('l1','w21',noon-120000,'missed')];
+ const q=run(log);assert.equal(q.items[0].id,'w21');assert.equal(q.items[0].state,'learning');
+ assert.equal(q.items[1].id,'w20');assert.equal(q.items[1].state,'review');assert.equal(q.items[2].reps,0);
+ assert.equal(q.counts.learning,1);assert.equal(q.counts.due,1);
+});
+test('a review card is buried when its sibling was answered today',()=>{
+ const day=86400000,old=noon-10*day,log=[row('a','w0',old),row('b','w0',old+60000),row('c','w0',old+700000),row('d','w1',noon-3600000)];
+ const q=run(log);assert.equal(q.counts.due,0);assert.ok(!q.items.some(c=>c.id==='w0'));
+});
+test('undone answers are ignored by the queue and the replay',()=>{
+ const log=[{...row('x','w5',noon-60000),undone:true}];const q=run(log);
+ assert.equal(q.newToday,0);assert.equal(q.counts.learning,0);assert.equal(F.replay(log).size,0);
+});
+test('word-bank-core drops undone answers, whichever copy arrives last',()=>{
+ const WB=require('../docs/js/word-bank-core.js');
+ const u=WB.unique([{id:'1',ts:'2026-09-21T10:00:00Z'},{id:'2',ts:'2026-09-21T10:01:00Z'},{id:'2',ts:'2026-09-21T10:01:00Z',undone_at:'2026-09-21T10:02:00Z'}]);
+ assert.deepEqual(u.map(e=>e.id),['1']);
+});

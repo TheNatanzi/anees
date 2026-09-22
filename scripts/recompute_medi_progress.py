@@ -57,7 +57,7 @@ def preview(folder):
     before = fingerprints()
     sources = {
         'events': db.select('word_events', {'select': 'id,lesson_date,word_key,speaker,prompted,correction,asked,miss_kind,t_start,text', 'order': 'id.asc'}),
-        'cards': db.select('card_results', {'select': 'id,word_key,ts,result,attempt', 'order': 'id.asc'}),
+        'cards': db.select('card_results', {'select': 'id,word_key,ts,result,attempt,undone_at', 'order': 'id.asc'}),
         'lessons': db.select('lessons', {'select': 'date', 'order': 'date.asc'}),
         'marks': db.select('amal_rules', {'select': 'lesson_date,word_key,kind', 'kind': 'eq.new', 'order': 'id.asc'}),
         'word_keys': [r['key'] for r in db.select('words', {'select': 'key', 'order': 'key.asc'})],

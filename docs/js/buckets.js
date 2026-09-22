@@ -100,7 +100,9 @@
   }
   function mergeStats(stats, log) {
     const out=Object.fromEntries(Object.entries(stats).filter(([,s])=>s.progress_context?.version===3).map(([key,s])=>[key,mergeProgress(s,[])])), by=new Map();
+    const undone=new Set((log||[]).filter(r=>r&&(r.undone||r.undone_at)).map(r=>r.id));
     for(const row of log||[]) {
+      if(undone.has(row.id)) continue; // undo last answer: kept for the record, never scored
       if(!row.word_key || !['got','missed'].includes(row.result) || !row.ts) continue;
       if(!by.has(row.word_key)) by.set(row.word_key,[]); by.get(row.word_key).push(row);
     }
@@ -120,7 +122,7 @@
     const recent = new Set(dates.slice(-RECENT_LESSONS));
     const evBy = {}, cdBy = {};
     for (const e of wordEvents) (evBy[e.word_key] = evBy[e.word_key] || []).push(e);
-    for (const c of cardResults) (cdBy[c.word_key] = cdBy[c.word_key] || []).push(c);
+    for (const c of cardResults) if (!c.undone && !c.undone_at) (cdBy[c.word_key] = cdBy[c.word_key] || []).push(c);
     const out = {};
     for (const key of new Set([...Object.keys(evBy), ...Object.keys(cdBy), ...markedKeys])) {
       const evs = (evBy[key] || []).slice().sort((a, b) => String(a.lesson_date).localeCompare(String(b.lesson_date)) || ((a.t_start || 0) - (b.t_start || 0)));

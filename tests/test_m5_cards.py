@@ -137,10 +137,12 @@ console.log(JSON.stringify({speaking:['a','b','c'].map(k=>m[k].bucket),cards:['a
 def _run_round(pg, n_miss_idx):
     """Answer the current round: miss the cards at the given indexes. Returns the summary text."""
     i = 0
-    while pg.locator('#got').count():
-        if i == 0:
-            pg.click('#card'); pg.wait_for_timeout(400)
-            assert 'flip' in pg.get_attribute('#card', 'class')
+    while pg.locator('#show').count() or pg.locator('#got').count():
+        if pg.locator('#show').count():   # grading appears only after the answer is revealed
+            assert pg.locator('#got').count() == 0
+            pg.click('#card'); pg.wait_for_timeout(400 if i == 0 else 60)
+            if i == 0:
+                assert 'flip' in pg.get_attribute('#card', 'class')
         pg.click('#miss' if i in n_miss_idx else '#got')
         i += 1
         pg.wait_for_timeout(60)
@@ -155,13 +157,14 @@ def test_flip_toggle_shuffle_replay_end_to_end(viewport):
     url = (ROOT / 'docs' / 'cards.html').resolve().as_uri()
     with sync_playwright() as pw:
         b = pw.chromium.launch(); ctx = b.new_context(viewport=viewport); pg = ctx.new_page(); pg.goto(url)
-        pg.wait_for_selector('#start', timeout=20000)
-        pg.click('[data-s="t:Animals"]'); pg.click('#m-en'); pg.wait_for_selector('#m-en.sel')
+        pg.wait_for_selector('#sets', timeout=20000)   # home is today's FSRS queue; direction lives there, sets are extra practice
+        pg.click('#m-en'); pg.wait_for_selector('#m-en.sel'); pg.click('#sets'); pg.wait_for_selector('#start')
+        pg.click('[data-s="t:Animals"]')
         pg.click('#sh'); pg.wait_for_timeout(100); sh1 = pg.text_content('#sh'); pg.click('#sh'); pg.wait_for_timeout(100); sh2 = pg.text_content('#sh')
         assert sh1 != sh2 and 'Shuffle' in sh1
         pg.click('#n20'); pg.click('#start'); pg.wait_for_selector('#card')
         assert pg.evaluate('document.documentElement.scrollWidth') <= viewport['width']
-        assert pg.evaluate("document.querySelector('#got').getBoundingClientRect().height") >= 48
+        assert pg.evaluate("document.querySelector('#show').getBoundingClientRect().height") >= 48
         rid = pg.evaluate('AneesTest.round.id')
         first_face = pg.text_content('#card .face:not(.back) .en')
         assert first_face, 'English-first mode should show English on the front'
@@ -186,7 +189,7 @@ def test_flip_toggle_shuffle_replay_end_to_end(viewport):
     try:
         assert len(rows) == 28 and len({r['id'] for r in rows}) == 28
     finally:
-        db.sql(f"delete from card_results where round_id like '{rid}%'"); import buckets; buckets.recompute_and_store()
+        db.sql(f"delete from card_results where round_id like '{rid}%'")
 
 
 @pytest.mark.skipif(not NET, reason='needs Supabase')
@@ -196,7 +199,8 @@ def test_offline_20_answers_then_sync_no_duplicates():
     url = (ROOT / 'docs' / 'cards.html').resolve().as_uri()
     with sync_playwright() as pw:
         b = pw.chromium.launch(); ctx = b.new_context(viewport={'width': 375, 'height': 812}); pg = ctx.new_page(); pg.goto(url)
-        pg.wait_for_selector('#start', timeout=20000)
+        pg.wait_for_selector('#sets', timeout=20000); pg.click('#sets')   # home is today's FSRS queue; sets are extra practice
+        pg.wait_for_selector('#start')
         pg.click('[data-s="t:Numbers"]'); pg.click('#n20'); pg.click('#start'); pg.wait_for_selector('#card')
         rid = pg.evaluate('AneesTest.round.id')
         ctx.set_offline(True)
@@ -218,7 +222,7 @@ def test_offline_20_answers_then_sync_no_duplicates():
     try:
         assert len(rows) == 20 and len({r['id'] for r in rows}) == 20 and set(ids) == {r['id'] for r in rows}
     finally:
-        db.sql(f"delete from card_results where round_id = '{rid}'"); import buckets; buckets.recompute_and_store()
+        db.sql(f"delete from card_results where round_id = '{rid}'")
 
 
 def test_no_attribute_injection_in_cards():

@@ -76,5 +76,44 @@
     return next;
   }
   function summary(round) { return { n: round.cards.length, got: round.got, missed: round.missed, wrong: round.wrong.map(w => w.key), attempt: round.attempt, history: round.history }; }
-  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, done, replayWrong, summary, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32 };
+  // ---- FSRS daily queue (scheduling only; card grade stays in word-bank-core) ----
+  // Siblings = the forms of one word (tenses, persons, plural) from the Word Bank catalog.
+  function siblingMap(words, catalog) {
+    const group = new Map();
+    for (const g of (catalog && catalog.groups) || []) for (const k of g.keys || [g.key]) if (!group.has(k)) group.set(k, 'g:' + g.key);
+    for (const w of words) if (!group.has(w.key)) group.set(w.key, 'w:' + w.key);
+    return group;
+  }
+  function dayStart(t) { const d = new Date(t); return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(); }
+  const LEARN_AHEAD = 20 * 60000;   // Anki's default: finish a session by showing learning cards due in the next 20 minutes
+  // Order: learning cards due now, then reviews due today, then new cards up to the daily limit.
+  // A new or review card is buried when a sibling was answered today or is already in today's queue.
+  function queue(words, cards, log, now, opts) {
+    const F = root.AneesFSRS, o = Object.assign({ newPerDay: 20 }, opts || {}), t = +now, today = dayStart(t), end = today + 86400000;
+    const group = opts && opts.siblings || siblingMap(words, null), usedGroup = new Set();
+    const live = (log || []).filter(r => r && !r.undone && !r.undone_at && r.kind !== 'flag' && r.ts);
+    for (const r of live) if (Date.parse(r.ts) >= today) usedGroup.add(group.get(r.word_key) || 'w:' + r.word_key);
+    const firstSeen = new Map();
+    for (const r of live) { const ms = Date.parse(r.ts); if (!firstSeen.has(r.word_key) || ms < firstSeen.get(r.word_key)) firstSeen.set(r.word_key, ms); }
+    const newToday = [...firstSeen.values()].filter(ms => ms >= today).length;
+    const byKey = new Map(words.map(w => [w.key, w]));
+    const learning = [], reviews = [], fresh = [], later = [];
+    for (const [key, c] of cards) {
+      const w = byKey.get(key); if (!w || !c.reps) continue;
+      if (c.state !== 'review') { if (c.due <= t) learning.push(c); else if (c.due < end) later.push(c); }
+      else if (c.due < end) reviews.push(c);
+    }
+    learning.sort((a, b) => a.due - b.due); later.sort((a, b) => a.due - b.due); reviews.sort((a, b) => a.due - b.due);
+    let buried = 0;
+    const take = (list, key) => list.filter(x => { const g = group.get(key(x)) || 'w:' + key(x); if (usedGroup.has(g)) { buried++; return false; } usedGroup.add(g); return true; });
+    const dueReviews = take(reviews, c => c.id);
+    const room = Math.max(0, o.newPerDay - newToday);
+    const unseen = words.filter(w => !cards.has(w.key) || !cards.get(w.key).reps).sort((a, b) => (a.doc_order || 0) - (b.doc_order || 0));
+    for (const w of unseen) { if (fresh.length >= room) break; const g = group.get(w.key) || 'w:' + w.key; if (usedGroup.has(g)) { buried++; continue; } usedGroup.add(g); fresh.push(F.newCard(w.key)); }
+    const ahead = later.filter(c => c.due - t <= LEARN_AHEAD);
+    const items = learning.concat(dueReviews, fresh);
+    const next = items.length ? items : ahead.slice(0, 1);
+    return { items: next, counts: { due: dueReviews.length, new: fresh.length, learning: learning.length + later.length }, newToday, room, buried, nextLearning: later[0] ? later[0].due : null };
+  }
+  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, done, replayWrong, summary, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart };
 })(typeof window !== 'undefined' ? window : globalThis);

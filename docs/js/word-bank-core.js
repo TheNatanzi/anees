@@ -11,7 +11,7 @@ function daysAgo(e,now=new Date()){
  const [y,m,d]=date(e).split('-').map(Number);
  return Math.floor((Date.UTC(now.getFullYear(),now.getMonth(),now.getDate())-Date.UTC(y,m-1,d))/86400000);
 }
-function unique(events){const m=new Map();for(const e of events||[]){if(e.id)m.set(e.id,e);}return [...m.values()].sort((a,b)=>time(a).localeCompare(time(b))||(Number(a.t_start)||0)-(Number(b.t_start)||0)||String(a.id).localeCompare(String(b.id)));}
+function unique(events){const m=new Map(),undone=new Set();for(const e of events||[]){if(!e.id)continue;m.set(e.id,e);if(e.undone||e.undone_at)undone.add(e.id);}return [...m.values()].filter(e=>!undone.has(e.id)).sort((a,b)=>time(a).localeCompare(time(b))||(Number(a.t_start)||0)-(Number(b.t_start)||0)||String(a.id).localeCompare(String(b.id)));}
 // Preserve the source ledger; adapt its sentence context for the agreed Word Bank rules.
 function sentence(e){
  const own=(e.context||[]).find(r=>r.row_id===e.row_id&&r.speaker===e.speaker);

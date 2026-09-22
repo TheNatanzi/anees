@@ -10,7 +10,7 @@
     requireCurrent(stats);
     const rows=[];
     for(let offset=0;;offset+=1000) {
-      const response=await fetch(url+'/rest/v1/card_results?select=id,word_key,ts,result,attempt&order=ts.asc,id.asc&limit=1000&offset='+offset,{headers});
+      const response=await fetch(url+'/rest/v1/card_results?select=id,word_key,ts,result,attempt,undone_at&order=ts.asc,id.asc&limit=1000&offset='+offset,{headers});
       if(!response.ok) throw new Error('Card progress unavailable');
       const page=await response.json(); rows.push(...page);
       if(page.length<1000) break;

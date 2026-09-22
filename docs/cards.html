@@ -25,103 +25,167 @@ button.primary{background:var(--teal);color:#fff;border-color:var(--teal)} butto
 .brand{display:flex;align-items:baseline;gap:10px} .brand b{font-size:20px} .brand span{color:var(--mute);font-size:13px}
 .top nav{display:flex;gap:4px;overflow-x:auto;padding:6px 0;scrollbar-width:none} .top nav::-webkit-scrollbar{display:none}
 .top .tab{flex:0 0 auto;min-height:44px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:999px;padding:8px 14px;font:600 15px system-ui;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center} .top .tab.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.fc{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.fc div{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:8px 4px;text-align:center}.fc b{display:block;font-size:20px}.fc span{font-size:12px;color:var(--mute)}
+button small{font-weight:400;opacity:.8;font-size:13px;margin-left:4px} button:disabled{opacity:.55;cursor:default}
 </style></head><body><header class="top" id="topnav"><div class="in"><div class="brand"><b>Anees</b><span>Palestinian Arabic with Amal · Medi's companion</span></div><nav><a class="tab" href="index.html#today">Today</a><a class="tab" href="slips.html">Slips</a><a class="tab" href="index.html#lessons">Lessons</a><a class="tab" href="index.html#words">Words</a><a class="tab on" href="index.html#cards">Flashcards</a><a class="tab" href="index.html#amal">Amal</a><a class="tab" href="index.html#grammar">Grammar</a><a class="tab" href="index.html#ai-reports">AI reports</a><a class="tab" href="index.html#sys-rules">System rules</a><a class="tab" href="index.html#word-rules">Word &amp; grammar rules</a><a class="tab" href="index.html#future">Future projects</a></nav></div></header><main>
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main>
-<script src="js/config.js"></script><script src="js/buckets.js?v=20260911-evidence-v1"></script><script src="js/cards-core.js?v=20260910-separate-v1"></script><script src="js/progress.js?v=20260911-evidence-v1"></script>
+<script src="js/config.js"></script><script src="js/buckets.js?v=20260921-fsrs-v1"></script><script src="js/fsrs.js?v=20260921-fsrs-v1"></script><script src="js/cards-core.js?v=20260921-fsrs-v1"></script><script src="js/progress.js?v=20260921-fsrs-v1"></script>
 <script>
-const C=window.AneesCards, root=document.getElementById('root'), syncEl=document.getElementById('sync');
+const C=window.AneesCards, F=window.AneesFSRS, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 const uuid=()=> (crypto.randomUUID? crypto.randomUUID() : 'c'+Date.now().toString(36)+Math.random().toString(36).slice(2));
 const LS=(k,v)=>{ try{ if(v===undefined) return JSON.parse(localStorage.getItem(k)||'null'); localStorage.setItem(k,JSON.stringify(v)); return true; }catch(e){ return v===undefined?null:false; } };
 let memQueue=[];   // used only when localStorage refuses the write: the answer is still sent, and the footer says it is not saved locally
 const readQ=()=>(LS('anees-card-queue')||[]).concat(memQueue);
-let words=[], stats={}, pref=LS('anees-cards-pref')||{mode:'ar_first',shuffle:true,n:20,subject:'b-new'};
+let words=[], stats={}, catalog=null, siblings=null, serverLog=[], cards=new Map();
+let pref=Object.assign({mode:'ar_first',shuffle:true,n:20,subject:'b-new',retention:0.9},LS('anees-cards-pref')||{});
+if(!F.RETENTIONS.includes(pref.retention)) pref.retention=0.9;
+const savePref=()=>LS('anees-cards-pref',pref);
 const qsub=new URLSearchParams(location.search).get('subject'); if(qsub) pref.subject=qsub;
 const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon,'Content-Type':'application/json'};
 async function load(){
   try{ let all=[], off=0; while(true){ const r=await fetch(ANEES.url+'/rest/v1/words?select=key,arabizi,arabic,english,plural,topic,subtopic,doc_order&active=eq.true&order=doc_order&limit=1000&offset='+off,{headers:H}); if(!r.ok) break; const part=await r.json(); all=all.concat(part); if(part.length<1000) break; off+=1000; } if(all.length){ words=all; LS('anees-words',words); } }catch(e){}
   if(!words.length){ words=LS('anees-words')||[]; if(!words.length){ try{ const r=await fetch('data/words.json'); words=(await r.json()).items; }catch(e){} } if(words.length) syncEl.textContent='Offline: using the saved word list.'; }
+  try{ const r=await fetch('data/word-bank-catalog.json'); if(r.ok){ catalog=await r.json(); LS('anees-cards-catalog',catalog); } }catch(e){}
+  if(!catalog) catalog=LS('anees-cards-catalog');
+  siblings=C.siblingMap(words,catalog);
+  try{ const rows=[]; for(let off=0;;off+=1000){ const r=await fetch(ANEES.url+'/rest/v1/card_results?select=id,word_key,ts,result,attempt,mode,undone_at&order=ts.asc,id.asc&limit=1000&offset='+off,{headers:H}); if(!r.ok) throw new Error('log'); const p=await r.json(); rows.push(...p); if(p.length<1000) break; } serverLog=rows; LS('anees-card-server-log',rows); }
+  catch(e){ serverLog=LS('anees-card-server-log')||[]; syncEl.textContent='Card history is offline: scheduling from this device’s saved answers.'; }
   try{ const r=await fetch(ANEES.url+'/rest/v1/word_stats?select=*&limit=5000',{headers:H}); if(r.ok){ for(const s of await r.json()) stats[s.word_key]=s; window.AneesProgress.requireCurrent(stats); } }catch(e){ stats={}; }
   if(!Object.keys(stats).length) stats=window.AneesProgress.cached(LS(window.AneesProgress.CACHE_KEY));
   try { stats=await window.AneesProgress.load(stats,ANEES.url,H,LS('anees-card-log')||[]); LS(window.AneesProgress.CACHE_KEY,stats); }
-  catch(e) { const saved=window.AneesProgress.cached(LS(window.AneesProgress.CACHE_KEY)); if(Object.keys(saved).length) stats=saved; syncEl.textContent='Latest card progress unavailable; showing saved progress and this device’s answers.'; }
-  applyLocalResults();
+  catch(e) { const saved=window.AneesProgress.cached(LS(window.AneesProgress.CACHE_KEY)); if(Object.keys(saved).length) stats=saved; }
+  applyLocalResults(); rebuild();
 }
-// Merge durable and unsynced answers by ID; last_reviewed is a display date, not a sync cursor.
+// One answer log: durable rows plus this device's unsynced rows, by id; an undo on either copy wins.
+function fullLog(){ const m=new Map(), undone=new Set(); for(const r of serverLog.concat(LS('anees-card-log')||[])){ if(!r||!r.id) continue; m.set(r.id,{...(m.get(r.id)||{}),...r}); if(r.undone||r.undone_at) undone.add(r.id); } return [...m.values()].map(r=>undone.has(r.id)?{...r,undone:true}:r); }
+// FSRS state is never stored: it is replayed from the whole answer log, so history is always kept.
+function rebuild(){ cards=F.replay(fullLog(),{desiredRetention:pref.retention}); }
 function applyLocalResults(){ stats=C.mergeLocal(stats, LS('anees-card-log')||[]); }
 // ---- offline queue -> Supabase (id = idempotency key; duplicates ignored server-side) ----
-function enqueue(row){ const q=LS('anees-card-queue')||[]; q.push(row); const okQ=LS('anees-card-queue',q); if(row.kind!=='flag'){ const log=LS('anees-card-log')||[]; log.push(row); LS('anees-card-log',log.slice(-2000)); }
+function enqueue(row){ const q=LS('anees-card-queue')||[]; q.push(row); const okQ=LS('anees-card-queue',q); if(row.kind!=='flag'&&row.kind!=='undo'){ const log=LS('anees-card-log')||[]; log.push(row); LS('anees-card-log',log.slice(-2000)); }
   if(!okQ || !(LS('anees-card-queue')||[]).some(x=>x.id===row.id)){ memQueue.push(row); syncEl.textContent='Storage is full or blocked: this answer is only in memory until it syncs.'; }
   sync(); }
 function dropRow(row,why){ const q=(LS('anees-card-queue')||[]).filter(x=>x.id!==row.id); LS('anees-card-queue',q); memQueue=memQueue.filter(x=>x.id!==row.id); const d=LS('anees-card-dead')||[]; d.push({row,why,t:new Date().toISOString()}); LS('anees-card-dead',d.slice(-200)); }
 function removeSent(ids){ const set=new Set(ids); LS('anees-card-queue',(LS('anees-card-queue')||[]).filter(x=>!set.has(x.id))); memQueue=memQueue.filter(x=>!set.has(x.id)); }
-async function postRows(rows){ const clean=rows.map(({kind,body,...r})=>r); return fetch(ANEES.url+'/rest/v1/card_results?on_conflict=id',{method:'POST',headers:{...H,Prefer:'resolution=ignore-duplicates,return=minimal'},body:JSON.stringify(clean)}); }
+async function postRows(rows){ const clean=rows.map(({kind,body,undone,...r})=>r); return fetch(ANEES.url+'/rest/v1/card_results?on_conflict=id',{method:'POST',headers:{...H,Prefer:'resolution=ignore-duplicates,return=minimal'},body:JSON.stringify(clean)}); }
 async function postFlag(row){ return fetch(ANEES.url+'/rest/v1/amal_rules',{method:'POST',headers:{...H,Prefer:'return=minimal'},body:JSON.stringify(row.body)}); }
+// Undo marks the stored answer; zero matched rows means it never reached the server, which is also fine.
+async function postUndo(op){ return fetch(ANEES.url+'/rest/v1/card_results?id=eq.'+encodeURIComponent(op.target)+'&undone_at=is.null',{method:'PATCH',headers:{...H,Prefer:'return=minimal'},body:JSON.stringify({undone_at:op.at})}); }
 let syncing=false, again=false;
 async function sync(){ if(syncing){ again=true; return; } syncing=true;
-  try{ while(true){ const q=readQ(); if(!q.length) break; const flags=q.filter(x=>x.kind==='flag'), rows=q.filter(x=>x.kind!=='flag');
+  try{ while(true){ const q=readQ(); if(!q.length) break; const flags=q.filter(x=>x.kind==='flag'), undos=q.filter(x=>x.kind==='undo'), rows=q.filter(x=>x.kind!=='flag'&&x.kind!=='undo');
     if(rows.length){ const batch=rows.slice(0,50); const r=await postRows(batch);
       if(r.ok){ removeSent(batch.map(x=>x.id)); }
       else if(r.status===429||r.status>=500){ throw new Error('sync '+r.status); }
       else { // a permanent 4xx: find the bad row(s) one by one so one bad answer never blocks the rest
         for(const row of batch){ const r1=await postRows([row]); if(r1.ok) removeSent([row.id]); else if(r1.status===429||r1.status>=500) throw new Error('sync '+r1.status); else dropRow(row,'HTTP '+r1.status); } }
       continue; }
+    for(const u of undos){ const r=await postUndo(u); if(r.ok) removeSent([u.id]); else if(r.status===429||r.status>=500) throw new Error('undo '+r.status); else dropRow(u,'HTTP '+r.status); }
     for(const fl of flags){ const r=await postFlag(fl); if(r.ok) removeSent([fl.id]); else if(r.status===429||r.status>=500) throw new Error('flag '+r.status); else dropRow(fl,'HTTP '+r.status); }
   } const dead=(LS('anees-card-dead')||[]).length; syncEl.textContent='All answers saved.'+(dead?` (${dead} rejected by the server, kept in anees-card-dead)`:''); }
   catch(e){ const n=readQ().length; syncEl.textContent=`${n} answer${n===1?'':'s'} waiting to sync (offline is fine).`; }
   syncing=false; if(again){ again=false; sync(); } }
 window.addEventListener('online',sync); setInterval(()=>{ if((LS('anees-card-queue')||[]).length) sync(); },5000);
 function flag(word){ enqueue({id:uuid(), kind:'flag', word_key:word.key, body:{source:'flashcards',kind:'flag',word_key:word.key,payload:{arabizi:word.arabizi,why:'often wrong on flashcards'}}}); }
-// ---- UI ----
-let round=null, flipped=false, sessionMissed={};
-function picker(){
+const byKey=()=>new Map(words.map(w=>[w.key,w]));
+const fsrsOpts=()=>({desiredRetention:pref.retention});
+function dueQueue(){ return C.queue(words,cards,fullLog(),new Date(),{newPerDay:F.DEFAULTS.newPerDay,siblings}); }
+function wait(msFromNow){ const m=Math.round(msFromNow/60000); if(m<60) return m<1?'<1m':m+'m'; const h=Math.round(m/60); if(h<24) return h+'h'; const d=Math.round(m/1440); return d<60?d+'d':Math.round(d/30)+'mo'; }
+// ---- Home: today's scheduled queue ----
+let lastAnswer=null, sessionMissed={}, revealed=false;
+function home(){ document.onkeydown=null; rebuild(); const q=dueQueue(), n=q.counts;
+  const f=F.forecast([...cards.values()],new Date(),7), leeches=[...cards.values()].filter(c=>F.isLeech(c)).length;
+  const waitNext=q.nextLearning?` · next learning card in ${wait(q.nextLearning-Date.now())}`:'';
+  root.innerHTML=`<h1>Flashcards</h1>
+    <div class="summary"><div class="num">${n.due} <span class="mute" style="font-size:16px">due</span> · ${n.new} <span class="mute" style="font-size:16px">new</span> · ${n.learning} <span class="mute" style="font-size:16px">learning</span></div>
+    <div class="mute">New today: ${q.newToday} of ${F.DEFAULTS.newPerDay}${q.buried?` · ${q.buried} sibling form${q.buried===1?'':'s'} held for another day`:''}${leeches?` · ${leeches} leech${leeches===1?'':'es'}`:''}${waitNext}</div></div>
+    <div class="row"><button id="go" class="primary" ${q.items.length?'':'disabled'}>${q.items.length?'Review now':'Done for today'}</button></div>
+    <h2>Next 7 days</h2><div class="fc">${f.map((d,i)=>`<div><b>${d.due}</b><span>${i===0?'today':new Date(d.date+'T12:00').toLocaleDateString(undefined,{weekday:'short'})}</span></div>`).join('')}</div>
+    <h2>Desired retention</h2><div class="toggle">${F.RETENTIONS.map(r=>`<button data-r="${r}" class="${pref.retention===r?'sel':''}">${Math.round(r*100)}%</button>`).join('')}</div>
+    <p class="mute">FSRS scheduler · default parameters, not fitted to you. Higher retention means more reviews.</p>
+    <h2>Card direction</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic first</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English first</button></div>
+    <div class="row" style="margin-top:14px"><button id="sets">Practice a set instead</button></div>`;
+  if(q.items.length) document.getElementById('go').onclick=review;
+  root.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{pref.retention=Number(b.dataset.r); savePref(); home();});
+  document.getElementById('m-ar').onclick=()=>{pref.mode='ar_first'; savePref(); home();};
+  document.getElementById('m-en').onclick=()=>{pref.mode='en_first'; savePref(); home();};
+  document.getElementById('sets').onclick=picker;
+}
+function faces(w){ const arFace=`<div class="big">${esc(w.arabizi)}</div><div class="ar">${esc(w.arabic)}</div>`, enFace=`<div class="en">${esc(w.english)}</div>`; return pref.mode==='ar_first'?[arFace,enFace]:[enFace,arFace]; }
+function review(){ rebuild(); const q=dueQueue(); if(!q.items.length) return home();
+  const c=q.items[0], w=byKey().get(c.id), phase=F.phase(c), [front,back]=faces(w), now=Date.now();
+  const iv=g=>wait(F.schedule(c,g,now,fsrsOpts()).due-now); revealed=false;
+  root.innerHTML=`<div class="row"><button id="back" style="flex:0 0 auto">‹ Home</button><div style="flex:1" class="mute">${q.counts.due} due · ${q.counts.new} new · ${q.counts.learning} learning</div>${lastAnswer?'<button id="undo" style="flex:0 0 auto">Undo</button>':''}</div>
+    <div class="scene"><div class="card" id="card"><div class="face"><span class="badge b-${phase==='new'?'new':phase==='mature'?'cold':'shaky'}">${phase==='new'?'New':phase==='mature'?'Mature':'Learning'}</span>${F.isLeech(c)?`<span class="topic">Leech · ${c.lapses} lapses</span>`:`<span class="topic">${esc(w.topic)}</span>`}${front}<span class="hint">tap or Space to reveal</span></div>
+    <div class="face back">${back}<span class="hint">${esc(w.subtopic)}</span></div></div></div>
+    <div class="row" id="grade"><button id="show" class="primary">Show answer</button></div>`;
+  const card=document.getElementById('card'), gradeEl=document.getElementById('grade');
+  const reveal=()=>{ if(revealed) return; revealed=true; card.classList.add('flip');
+    gradeEl.innerHTML=`<button id="again" class="bad">Again <small>${iv('again')}</small></button><button id="good" class="primary">Good <small>${iv('good')}</small></button>`;
+    document.getElementById('again').onclick=()=>grade(c,w,'missed'); document.getElementById('good').onclick=()=>grade(c,w,'got'); };
+  card.onclick=reveal; document.getElementById('show').onclick=reveal; document.getElementById('back').onclick=home;
+  const u=document.getElementById('undo'); if(u) u.onclick=undo;
+  document.onkeydown=e=>{ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); if(!revealed) reveal(); else grade(c,w,'got'); } else if(revealed&&e.key==='1') grade(c,w,'missed'); else if(revealed&&(e.key==='2'||e.key==='3')) grade(c,w,'got'); else if((e.key==='z'&&(e.ctrlKey||e.metaKey))||e.key==='u') undo(); };
+}
+// Both grading surfaces (this page and the future stats-tab queue) write this same card_results row.
+function grade(c,w,result){ if(!revealed) return; revealed=false; const row={id:uuid(), word_key:w.key, ts:new Date().toISOString(), mode:pref.mode, result, attempt:1, round_id:'fsrs-'+C.dayStart(Date.now()).toString(36), subject:'fsrs'};
+  enqueue(row); stats=C.mergeLocal(stats,[row]); lastAnswer=row;
+  if(result==='missed'){ sessionMissed[w.key]=(sessionMissed[w.key]||0)+1; if(sessionMissed[w.key]===2) flag(w); }
+  review(); }
+function undo(){ if(!lastAnswer) return; const row=lastAnswer; lastAnswer=null;
+  LS('anees-card-log',(LS('anees-card-log')||[]).map(r=>r.id===row.id?{...r,undone:true}:r));
+  removeSent([row.id]); enqueue({id:'undo-'+row.id, kind:'undo', target:row.id, at:new Date().toISOString()});
+  if(row.result==='missed'&&sessionMissed[row.word_key]) sessionMissed[row.word_key]--;
+  stats=C.mergeLocal(stats,[]); review(); }
+// ---- Practice a set (extra, outside the schedule; answers still feed FSRS) ----
+let round=null, flipped=false;
+function picker(){ document.onkeydown=null;
   const S=C.subjects(words,stats); const none=!Object.keys(stats).length; if(pref.subject==='b-new' && !S.buckets[0].n && !qsub) pref.subject='b-missed'; const chip=(s)=>`<button data-s="${esc(s.id)}" class="${pref.subject===s.id?'sel':''}">${esc(s.name)} <small>${(none&&s.kind==='bucket')?'–':s.n}</small></button>`;
-  root.innerHTML=`<h1>Flashcards</h1><p class="mute">Card answers change only your Flashcards score—not Speaking. Tap to flip, then Got it or Missed.</p>
+  root.innerHTML=`<div class="row"><button id="home" style="flex:0 0 auto">‹ Today's queue</button></div><h1>Practice a set</h1><p class="mute">Extra practice outside today's schedule. Answers still count toward Flashcards and the scheduler—not Speaking.</p>
     <h2>Choose a set</h2><p class="mute">Score sets use Flashcards only. “Last 3 lessons” selects vocabulary, not a score.</p><div class="chips">${S.buckets.map(chip).join('')}</div>
     <h2>Grammar sets</h2><div class="chips">${S.grammar.map(chip).join('')}</div>
     <h2>Topics from Amal's Doc</h2><div class="chips">${S.topics.map(chip).join('')}</div>
-    <h2>Options</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic first</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English first</button></div>
-    <div class="toggle" style="margin-top:8px"><button id="sh" class="${pref.shuffle?'sel':''}">Shuffle ${pref.shuffle?'on':'off'}</button><button id="n20" class="${pref.n===20?'sel':''}">20 cards</button><button id="n10" class="${pref.n===10?'sel':''}">10 cards</button><button id="nall" class="${!pref.n?'sel':''}">All</button></div>
+    <h2>Options</h2><div class="toggle"><button id="sh" class="${pref.shuffle?'sel':''}">Shuffle ${pref.shuffle?'on':'off'}</button><button id="n20" class="${pref.n===20?'sel':''}">20 cards</button><button id="n10" class="${pref.n===10?'sel':''}">10 cards</button><button id="nall" class="${!pref.n?'sel':''}">All</button></div>
     <div class="row" style="margin-top:14px"><button id="start" class="primary">Start</button></div>`;
-  root.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{pref.subject=b.dataset.s; LS('anees-cards-pref',pref); picker();});
-  document.getElementById('m-ar').onclick=()=>{pref.mode='ar_first'; LS('anees-cards-pref',pref); picker();};
-  document.getElementById('m-en').onclick=()=>{pref.mode='en_first'; LS('anees-cards-pref',pref); picker();};
-  document.getElementById('sh').onclick=()=>{pref.shuffle=!pref.shuffle; LS('anees-cards-pref',pref); picker();};
-  document.getElementById('n20').onclick=()=>{pref.n=20; LS('anees-cards-pref',pref); picker();};
-  document.getElementById('n10').onclick=()=>{pref.n=10; LS('anees-cards-pref',pref); picker();};
-  document.getElementById('nall').onclick=()=>{pref.n=0; LS('anees-cards-pref',pref); picker();};      // 0 = every card in the set (e.g. all 31 animals)
+  root.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{pref.subject=b.dataset.s; savePref(); picker();});
+  document.getElementById('home').onclick=home;
+  document.getElementById('sh').onclick=()=>{pref.shuffle=!pref.shuffle; savePref(); picker();};
+  document.getElementById('n20').onclick=()=>{pref.n=20; savePref(); picker();};
+  document.getElementById('n10').onclick=()=>{pref.n=10; savePref(); picker();};
+  document.getElementById('nall').onclick=()=>{pref.n=0; savePref(); picker();};      // 0 = every card in the set (e.g. all 31 animals)
   document.getElementById('start').onclick=start;
 }
 function start(){ let p=C.pool(words,stats,pref.subject); if(!p.length){ alert('No words in this set yet.'); return; }
-  let cards=C.draw(p,stats,pref.n?Math.min(pref.n,p.length):p.length); if(!pref.shuffle) cards=cards.slice().sort((a,b)=>(a.doc_order||0)-(b.doc_order||0));
-  round=C.newRound(cards,{mode:pref.mode,subject:pref.subject}); sessionMissed={}; showCard(); }
+  let cs=C.draw(p,stats,pref.n?Math.min(pref.n,p.length):p.length); if(!pref.shuffle) cs=cs.slice().sort((a,b)=>(a.doc_order||0)-(b.doc_order||0));
+  round=C.newRound(cs,{mode:pref.mode,subject:pref.subject}); sessionMissed={}; showCard(); }
 function showCard(){ flipped=false; if(C.done(round)) return showSummary();
-  const w=round.cards[round.i], s=Object.keys(stats).length?C.cardScore(stats[w.key]):{bucket:'–'}; const front=pref.mode==='ar_first', pct=Math.round(100*round.i/round.cards.length);
-  const arFace=`<div class="big">${esc(w.arabizi)}</div><div class="ar">${esc(w.arabic)}</div>`, enFace=`<div class="en">${esc(w.english)}</div>`;
+  const w=round.cards[round.i], s=Object.keys(stats).length?C.cardScore(stats[w.key]):{bucket:'–'}, pct=Math.round(100*round.i/round.cards.length), [front,back]=faces(w);
   root.innerHTML=`<div class="row"><button id="back" style="flex:0 0 auto">‹ Sets</button><div style="flex:1"><div class="mute">${round.attempt>1?'Review round '+round.attempt+' · ':''}${round.i+1} of ${round.cards.length}</div><div class="bar"><i style="width:${pct}%"></i></div></div></div>
-    <div class="scene"><div class="card" id="card"><div class="face"><span class="badge b-${esc(s.bucket==='–'?'never':s.bucket)}">${esc(window.AneesBuckets.label(s.bucket))}</span><span class="topic">${esc(w.topic)}</span>${front?arFace:enFace}<span class="hint">tap to flip</span></div>
-    <div class="face back"><span class="badge b-${esc(s.bucket==='–'?'never':s.bucket)}">${esc(window.AneesBuckets.label(s.bucket))}</span>${front?enFace:arFace}<span class="hint">${esc(w.subtopic)}</span></div></div></div>
-    <div class="row"><button id="miss" class="bad">Missed</button><button id="got" class="primary">Got it</button></div>`;
-  const card=document.getElementById('card'); card.onclick=()=>{flipped=!flipped; card.classList.toggle('flip',flipped);};
-  let x0=null; card.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true}); card.addEventListener('touchend',e=>{ if(x0===null) return; const dx=e.changedTouches[0].clientX-x0; x0=null; if(dx>70) answer('got'); else if(dx<-70) answer('missed'); });
-  document.getElementById('got').onclick=()=>answer('got'); document.getElementById('miss').onclick=()=>answer('missed'); document.getElementById('back').onclick=picker;
-  document.onkeydown=e=>{ if(e.key===' '){card.click();} if(e.key==='ArrowRight') answer('got'); if(e.key==='ArrowLeft') answer('missed'); };
+    <div class="scene"><div class="card" id="card"><div class="face"><span class="badge b-${esc(s.bucket==='–'?'never':s.bucket)}">${esc(window.AneesBuckets.label(s.bucket))}</span><span class="topic">${esc(w.topic)}</span>${front}<span class="hint">tap or Space to reveal</span></div>
+    <div class="face back"><span class="badge b-${esc(s.bucket==='–'?'never':s.bucket)}">${esc(window.AneesBuckets.label(s.bucket))}</span>${back}<span class="hint">${esc(w.subtopic)}</span></div></div></div>
+    <div class="row" id="grade"><button id="show" class="primary">Show answer</button></div>`;
+  const card=document.getElementById('card'), gradeEl=document.getElementById('grade');
+  const reveal=()=>{ if(flipped) return; flipped=true; card.classList.add('flip'); gradeEl.innerHTML='<button id="miss" class="bad">Again</button><button id="got" class="primary">Good</button>';
+    document.getElementById('got').onclick=()=>answer('got'); document.getElementById('miss').onclick=()=>answer('missed'); };
+  card.onclick=reveal; document.getElementById('show').onclick=reveal; document.getElementById('back').onclick=picker;
+  document.onkeydown=e=>{ if(e.key===' '){ e.preventDefault(); if(!flipped) reveal(); else answer('got'); } else if(flipped&&e.key==='1') answer('missed'); else if(flipped&&(e.key==='2'||e.key==='3')) answer('got'); };
 }
-function answer(result){ const w=round.cards[round.i]; const row=C.answer(round,result,new Date().toISOString(),uuid()); if(!row) return; enqueue(row);
+function answer(result){ if(!flipped) return; flipped=false; const w=round.cards[round.i]; const row=C.answer(round,result,new Date().toISOString(),uuid()); if(!row) return; enqueue(row);
   stats=C.mergeLocal(stats,[row]);            // bucket AND weight follow the new answer (Codex P0: stale 3× weight)
   if(result==='missed'){ sessionMissed[w.key]=(sessionMissed[w.key]||0)+1; if(sessionMissed[w.key]===2) flag(w); }
   showCard(); }
 function showSummary(){ const s=C.summary(round); document.onkeydown=null;
   root.innerHTML=`<h1>${round.attempt>1?'Review round '+round.attempt:'Round'} done</h1>
-    <div class="summary"><div class="num">${s.got} <span class="mute" style="font-size:16px">got</span> · ${s.missed} <span class="mute" style="font-size:16px">missed</span></div><div class="mute">${s.n} cards · ${esc((C.subjects(words,stats).buckets.find(b=>b.id===round.subject)||{}).name||round.subject)} · ${pref.mode==='ar_first'?'Arabic first':'English first'}</div>
-    ${s.history.map(h=>`<div class="mute">round ${h.attempt}: ${h.got}/${h.n} got</div>`).join('')}</div>
+    <div class="summary"><div class="num">${s.got} <span class="mute" style="font-size:16px">good</span> · ${s.missed} <span class="mute" style="font-size:16px">again</span></div><div class="mute">${s.n} cards · ${esc((C.subjects(words,stats).buckets.find(b=>b.id===round.subject)||{}).name||round.subject)} · ${pref.mode==='ar_first'?'Arabic first':'English first'}</div>
+    ${s.history.map(h=>`<div class="mute">round ${h.attempt}: ${h.got}/${h.n} good</div>`).join('')}</div>
     <div class="row">${s.wrong.length?`<button id="replay" class="primary">Review the ones I got wrong (${s.wrong.length})</button>`:`<button id="again" class="primary">Pile empty — new round</button>`}</div>
-    <div class="row"><button id="back">‹ Sets</button></div><p class="mute" id="wrongs">${s.wrong.length?'Still wrong: '+s.wrong.map(k=>esc((words.find(w=>w.key===k)||{}).arabizi||k)).join(', '):''}</p>`;
+    <div class="row"><button id="back">‹ Sets</button><button id="home">Today's queue</button></div><p class="mute" id="wrongs">${s.wrong.length?'Still wrong: '+s.wrong.map(k=>esc((words.find(w=>w.key===k)||{}).arabizi||k)).join(', '):''}</p>`;
   const rp=document.getElementById('replay'); if(rp) rp.onclick=()=>{ round=C.replayWrong(round); showCard(); };
-  const ag=document.getElementById('again'); if(ag) ag.onclick=start; document.getElementById('back').onclick=picker; }
-window.AneesTest={ get round(){return round;}, get stats(){return stats;}, get words(){return words;}, answer, start, picker, sync, pref };
+  const ag=document.getElementById('again'); if(ag) ag.onclick=start; document.getElementById('back').onclick=picker; document.getElementById('home').onclick=home; }
+window.AneesTest={ get round(){return round;}, get stats(){return stats;}, get words(){return words;}, get cards(){return cards;}, answer:r=>{flipped=true;answer(r);}, grade:r=>{const q=dueQueue();const c=q.items[0];if(!c)return false;revealed=true;grade(c,byKey().get(c.id),r);return true;}, undo, queue:dueQueue, start, picker, home, sync, pref };
 if(window.self!==window.top){ const t=document.getElementById('topnav'); if(t) t.style.display='none'; }   // inside the Flashcards tab the site menu is already there
-load().then(picker);
+load().then(()=>qsub?picker():home());
 </script><script src="js/build.js"></script><script src="js/stale.js"></script></body></html>

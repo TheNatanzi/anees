@@ -194,6 +194,8 @@ def compute(word_events, card_results, lesson_dates, today=None, confirmed_new=N
         ev_by[e['word_key']].append(e)
     cd_by = collections.defaultdict(list)
     for c in card_results:
+        if c.get('undone_at') or c.get('undone'):
+            continue  # undo last answer: kept for the record, never scored
         cd_by[c['word_key']].append(c)
     out = {}
     for key in set(ev_by) | set(cd_by) | marked_keys:
@@ -282,7 +284,7 @@ def recompute_and_store():
         if db.select('speaking_release', {'select':'id', 'limit':'1'}):
             raise RuntimeError('Unified Speaking ledger is active. Use build_speaking_release.py and its guarded publisher; raw word_events cannot replace reviewed evidence.')
     evs = db.select('word_events', {'select': 'lesson_date,word_key,speaker,prompted,correction,asked,miss_kind,t_start,text'})
-    cards = db.select('card_results', {'select': 'id,word_key,ts,result,attempt'})
+    cards = db.select('card_results', {'select': 'id,word_key,ts,result,attempt,undone_at'})
     dates = [r['date'] for r in db.select('lessons', {'select': 'date'})]
     typed = db.select('lesson_events', {'select': 'lesson_date,text', 'kind': 'eq.typed'})
     marks = db.select('amal_rules', {'select': 'lesson_date,word_key,kind', 'kind': 'eq.new'})
