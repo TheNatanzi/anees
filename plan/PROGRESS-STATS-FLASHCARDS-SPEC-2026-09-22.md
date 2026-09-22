@@ -49,6 +49,22 @@ Rows = today's queue (`AneesCards.queue`), same order as cards.html. A grade wri
 `card_results` row (+ flip_ms null, answer_ms from row reveal) and the row leaves the table; undo last.
 English is never shown before grading unless tapped (tap = reveal, still gradeable).
 
+## 5 · Anki additions (Medi picked all four, 2026-09-22)
+
+Placed between section 3 and the queue table, same vp-card look. All from `card_results` + FSRS replay.
+
+| Block | Contents | Empty state |
+|---|---|---|
+| **Today** | "Studied N cards in M min · N% right" + split New / Learning / Review; time = sum of `answer_ms` | "No cards studied today" |
+| **Calendar heatmap + streak** | one square per day for the last 12 months, shade = reviews that day; current streak and longest streak in days | all squares blank |
+| **True retention table** (Anki's) | rows Young (< 21 d) · Mature (≥ 21 d) · Total; columns Today · Yesterday · Last week · Last month · Last year; cell = % right (N passed / N answered) | "—" per cell with 0 answers |
+| **Future due** | bars per day with range toggle 1 month / 3 months *(ret)*; separate "Overdue backlog: N cards" | "No cards scheduled" |
+| **FSRS histograms** | Stability (days, buckets), Difficulty (1–10), Retrievability now (0–100%), each with the average | "—" until one review |
+| **Time per card** | average seconds per answer (visible time only), median, and the 10 slowest cards (link to the card) | "No timed answers yet" |
+| **Hourly breakdown** | answers and % right per hour of day (0–23, local); shown faded with "needs a few weeks of reviews" under 100 answers | faded + reason |
+
+Slow answers are only shown, never change a grade (existing ruling).
+
 ## Validation
 
 As in plan/NEXT-PROMPT-flashcards-selection-2026-09-21.md; browser checks with writes stubbed;
