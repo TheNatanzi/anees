@@ -34,7 +34,10 @@ def test_documented_alternatives_irregulars_and_prose_fill_only_supported_forms(
     for entry in ['ana basawi:past','ana babda:past','ana balef:past','ana ba7dar:command','ana bat7arak:past']:
         # An English synonym alone is insufficient: no document form is attached, only a tagged guess.
         assert entries[entry]['provenance']!='document'
-        assert all(p['provenance']=='inferred' and p['checked'] is False for p in entries[entry]['persons'])
+        # Still guesses; `checked` flips only where Amal's check list confirmed the form (ruling 1:
+        # her answer wins). She checked every ana basawi past person on 2026-09-22.
+        amal=json.loads((root/'data/vocab/amal_verb_checks.json').read_text(encoding='utf-8'))['answers'] if (root/'data/vocab/amal_verb_checks.json').exists() else {}
+        assert all(p['provenance']=='inferred' and p['checked'] is (amal.get(p['id'],{}).get('choice') in ('yes','fix')) for p in entries[entry]['persons'])
     owners={}
     for g in groups.values():
         for key in g['keys']:
