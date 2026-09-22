@@ -105,7 +105,7 @@ h1{font-weight:500;font-size:32px;letter-spacing:-.3px} h2{font-weight:500;font-
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main></div></div>
-<script src="js/config.js"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260921-quizlet-v1"></script><script src="js/cards-core.js?v=20260921-quizlet-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260923-drills-v1"></script><script src="js/word-bank-review.js?v=20260922-select-v2"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
+<script src="js/config.js"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260921-quizlet-v1"></script><script src="js/cards-core.js?v=20260921-quizlet-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260923-drills-v2"></script><script src="js/word-bank-review.js?v=20260922-select-v2"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
 <script>
 const C=window.AneesCards, F=window.AneesFSRS, SEL=window.AneesCardSelection, VD=window.AneesVerbDrills, WB=window.AneesWordBank, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -295,7 +295,7 @@ function review(){ if(!sess) sess={know:0,learn:0,ms:[]}; rebuild(); const q=due
 function grade(c,w,result,t){ const row={id:uuid(), word_key:w.key, ts:new Date().toISOString(), mode:pref.mode, result, attempt:1, round_id:'fsrs-'+C.dayStart(Date.now()).toString(36), subject:'fsrs', flip_ms:t&&Number.isFinite(t.flip_ms)?t.flip_ms:null, answer_ms:t&&Number.isFinite(t.answer_ms)?t.answer_ms:null};
   enqueue(row); stats=C.mergeLocal(stats,[row]); lastAnswer=row;
   if(result==='got') sess.know++; else sess.learn++; if(row.answer_ms!==null) sess.ms.push(row.answer_ms);
-  if(result==='missed'){ sessionMissed[w.key]=(sessionMissed[w.key]||0)+1; if(sessionMissed[w.key]===2) flag(w); }
+  if(result==='missed'){ sessionMissed[w.key]=(sessionMissed[w.key]||0)+1; if(sessionMissed[w.key]===2&&!SEL.isFormCard(w.key)) flag(w); }   // engine-made drill forms never go to Amal's rules list
   review(); }
 function undo(){ if(!lastAnswer) return; const row=lastAnswer; lastAnswer=null;
   LS('anees-card-log',(LS('anees-card-log')||[]).map(r=>r.id===row.id?{...r,undone:true}:r));
@@ -357,7 +357,7 @@ function showCard(){ if(C.done(round)) return showSummary();
 function answer(result,t){ const w=round.cards[round.i]; const row=C.answer(round,result,new Date().toISOString(),uuid()); if(!row) return;
   row.flip_ms=t&&Number.isFinite(t.flip_ms)?t.flip_ms:null; row.answer_ms=t&&Number.isFinite(t.answer_ms)?t.answer_ms:null; if(row.answer_ms!==null) roundMs.push(row.answer_ms);
   enqueue(row); stats=C.mergeLocal(stats,[row]);            // bucket AND weight follow the new answer (Codex P0: stale 3× weight)
-  if(result==='missed'){ sessionMissed[w.key]=(sessionMissed[w.key]||0)+1; if(sessionMissed[w.key]===2) flag(w); }
+  if(result==='missed'){ sessionMissed[w.key]=(sessionMissed[w.key]||0)+1; if(sessionMissed[w.key]===2&&!SEL.isFormCard(w.key)) flag(w); }   // engine-made drill forms never go to Amal's rules list
   showCard(); }
 function showSummary(){ const s=C.summary(round); document.onkeydown=null; const ms=roundMs; roundMs=[];
   root.innerHTML=`<div class="qtop"><button id="close" aria-label="Back to sets">✕</button><div class="count">${round.attempt>1?'Review round '+round.attempt:'Round'} done</div><span></span></div><div class="prog"><i style="width:100%"></i></div>

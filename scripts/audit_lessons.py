@@ -69,20 +69,24 @@ def coverage(intervals, duration, audio):
         else:
             merged.append([s, e])
     first, last = (merged[0][0], merged[-1][1]) if merged else (0, 0)
-    gaps = [(a[1], b[0]) for a, b in zip(merged, merged[1:])]
+    # the recording before the first and after the last transcribed line counts too (Codex 2026-09-23)
+    gaps = [(0.0, first)] + [(a[1], b[0]) for a, b in zip(merged, merged[1:])] + [(last, duration)]
     loud_gaps = [(round(a), round(b), round(loudness(audio, a, b), 1)) for a, b in gaps if b - a > 60]
     loud_gaps = [g for g in loud_gaps if g[2] > SILENT_DB]
     span = sum(e - s for s, e in merged)
     return {'covered_min': round(span / 60, 1), 'audio_min': round(duration / 60, 1), 'share': round(span / duration, 3) if duration else 0,
-            'lesson_window_share': round(span / (last - first), 3) if last > first else 0, 'speech_gaps_over_60s': loud_gaps}
+            'lesson_window_share': round(span / duration, 3) if duration else 0, 'speech_gaps_over_60s': loud_gaps}
 
 
-def spot_check(rows, audio, who='Medi', n=5, seed=7):
+def spot_check(rows, audio, who='Medi', n=5, seed=7, sources=None):
+    """Loudness of 5 random Medi lines in Medi's OWN track (tracks lessons) or the single recording (mixed)."""
     pick = [r for r in rows if r['speaker_label'] == who and r.get('timeline_start') is not None and r['timeline_end'] - r['timeline_start'] > 0.6]
     random.Random(seed).shuffle(pick)
     out = []
     for r in pick[:n]:
-        db_level = loudness(audio, r['timeline_start'], r['timeline_end'])
+        src = (sources or {}).get(r['source_id'])
+        db_level = (loudness(src['input_path'], r['local_start'], r['local_end']) if src and '-meet-' not in r['source_id']
+                    else loudness(audio, r['timeline_start'], r['timeline_end']))
         out.append((round(r['timeline_start'], 1), round(float(db_level), 1), db_level > SILENT_DB))
     return out
 
@@ -104,8 +108,12 @@ def main():
         by_date[e['lesson_date']].append(e)
     published = json.loads((ROOT / 'docs/data/word-bank-evidence.json').read_text(encoding='utf-8'))['events']
     pub_by_date = collections.Counter(e['lesson_date'] for e in published)
+    raw_live = {e['id']: e for e in db.rest('GET', 'rpc/speaking_snapshot', retries=4)['events']}
+    same_as_live = {d: all(raw_live.get(e['id']) == e for e in published if e['lesson_date'] == d)
+                    and sum(1 for e in raw_live.values() if e['lesson_date'] == d) == pub_by_date.get(d, 0) for d in pub_by_date}
     checks = json.loads((ROOT / 'docs/data/word-bank-audit-checks.json').read_text(encoding='utf-8'))['ledger']
     rel = collections.Counter(r['date'] for r in checks if any(v is False for c in r['passes'].values() for v in c.values()))
+    audited_ids = {r['id'] for r in checks}
     meet_dirs = list(Path(a.meet_root, 'Google Meet').glob('*')) + [Path(a.meet_root, 'Meet Recordings')]
     rows_out, notes = [], {}
     for les in lessons:
@@ -122,7 +130,8 @@ def main():
         res['page_note'] = ('opens + audio' if res['page'] else ('opens, no playable audio' if page.ok else f'HTTP {page.status_code}'))
         res['db_events'] = len(by_date.get(d, [])); res['published_events'] = pub_by_date.get(d, 0)
         res['lesson_row'] = True
-        res['reliability_failures'] = rel.get(d, 0)
+        medi_ids = {e['id'] for e in by_date.get(d, []) if e['speaker'] == 'Medi'}
+        res['reliability_failures'] = rel.get(d, 0) + len(medi_ids - audited_ids)     # an unaudited event counts as a failure
         chat_page = html.count('class="chat"') or len(re.findall(r'<li><span class="t">', html))
         side = None
         for folder in meet_dirs:
@@ -149,7 +158,7 @@ def main():
             res['speakers_ok'] = info['kind'] == 'tracks' or info['unlabeled_share'] < 0.05
             share = collections.Counter(r['speaker_label'] for r in data['rows'])
             res['row_share'] = {k: round(v / sum(share.values()), 2) for k, v in share.items()}
-            res['spot'] = spot_check(data['rows'], audio)
+            res['spot'] = spot_check(data['rows'], audio, sources=data['sources'])
             res['spot_ok'] = all(s[2] for s in res['spot'])
             events = S.detected_events(d, data=data)
             L.guard_events(events, data, info)
@@ -172,13 +181,13 @@ def main():
                 res['wordbank_ok'] = not bad and res['medi_uncredited'] == 0 and not silent
             else:
                 res['medi_uncredited'] = 0
-                res['wordbank_sample'] = 'events built from an older transcript of this lesson; published = live: ' + str(res['published_events'] == res['db_events'])
-                res['wordbank_ok'] = res['published_events'] == res['db_events']
+                res['wordbank_sample'] = 'events built from an older transcript of this lesson; published = live: ' + str(same_as_live.get(d, False))
+                res['wordbank_ok'] = same_as_live.get(d, False)
         else:
             res['speakers'] = les.get('speaker_split'); res['speakers_ok'] = None
-            res['wordbank_sample'] = 'transcript source not on this PC; published = live: ' + str(res['published_events'] == res['db_events'])
-            res['wordbank_ok'] = res['published_events'] == res['db_events']
-        res['db_ok'] = res['db_events'] > 0 and res['published_events'] == res['db_events']
+            res['wordbank_sample'] = 'transcript source not on this PC; published = live: ' + str(same_as_live.get(d, False))
+            res['wordbank_ok'] = same_as_live.get(d, False)
+        res['db_ok'] = res['db_events'] > 0 and same_as_live.get(d, False)
         rows_out.append(res); print(json.dumps(res, default=str)[:400], flush=True)
     write_report(a.out, rows_out, notes)
 
