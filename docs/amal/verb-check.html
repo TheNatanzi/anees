@@ -22,7 +22,7 @@ details.verb>summary::-webkit-details-marker{display:none}.vname{font-weight:700
 </style></head><body>
 <main><h1>Verb check</h1><p id="page-status" role="status">Opening your check list…</p>
 <div id="content" hidden>
-<p class="intro">Claude guessed these verb forms from the forms you already taught Medi. Tap <b>✓ Right</b>, or <b>Fix</b> and type the correct form. Your answer always replaces the guess. You can stop any time — everything saves.</p>
+<p class="intro" data-kind="verb-forms">Claude guessed these verb forms from the forms you already taught Medi. Tap <b>✓ Right</b>, or <b>Fix</b> and type the correct form. Your answer always replaces the guess. You can stop any time — everything saves.</p><p class="intro" data-kind="verb-addons" hidden>Level 2: Claude guessed how each verb takes an ending (<i>him, me…</i>) or a small word after it (<i>ma3, la, 3ala…</i>). Tap <b>✓ Right</b>, or <b>Fix</b> and type the correct form. If the verb never takes this, type <b>no</b>. Your answer always wins.</p>
 <div class="bar"><div class="meter" aria-hidden="true"><i id="meter"></i></div><strong id="progress"></strong>
 <span class="filters"><label><input type="checkbox" id="hide-done" checked> Hide finished verbs</label></span>
 <span id="status" role="status" aria-live="polite"></span><button type="button" id="retry" hidden>Retry saving</button></div>
@@ -47,6 +47,7 @@ details.verb>summary::-webkit-details-marker{display:none}.vname{font-weight:700
   const rows=await request(endpoint+'&select=payload,answers');
   if(!Array.isArray(rows)||rows.length!==1)throw Error('expired-link');
   const payload=rows[0].payload;
+  document.querySelectorAll('.intro[data-kind]').forEach(p=>p.hidden=p.dataset.kind!==(payload&&payload.kind));
   if(!VC.validPayload(payload)||!VC.validState(payload,rows[0].answers))throw Error('invalid');
   let saved=rows[0].answers,answers={...saved.answers},timer=null,saving=false,again=false;
   const hash=Array.from(new Uint8Array(await win.crypto.subtle.digest('SHA-256',new TextEncoder().encode(token))),b=>b.toString(16).padStart(2,'0')).join('').slice(0,16);

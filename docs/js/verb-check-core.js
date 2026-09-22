@@ -3,11 +3,11 @@
  'use strict';
  const TENSES=['Present','Past','Command'];
  function validPayload(p){
-  if(!p||p.schema_version!==1||p.kind!=='verb-forms'||!p.items||typeof p.items!=='object'||!Array.isArray(p.verbs)||!p.verbs.length)return false;
+  if(!p||p.schema_version!==1||!['verb-forms','verb-addons'].includes(p.kind)||!p.items||typeof p.items!=='object'||!Array.isArray(p.verbs)||!p.verbs.length)return false;
   const seen=new Set();
   for(const v of p.verbs){
    if(!v||typeof v.key!=='string'||typeof v.name!=='string'||!Array.isArray(v.ids)||!v.ids.length)return false;
-   for(const id of v.ids){const it=p.items[id];if(seen.has(id)||!it||!TENSES.includes(it.tense)||typeof it.word!=='string'||typeof it.arabic!=='string'||typeof it.person!=='string')return false;seen.add(id);}
+   for(const id of v.ids){const it=p.items[id];if(seen.has(id)||!it||!(TENSES.includes(it.tense)||(p.kind==='verb-addons'&&it.tense==='Level 2'))||typeof it.word!=='string'||typeof it.arabic!=='string'||typeof it.person!=='string')return false;seen.add(id);}
   }
   return seen.size===Object.keys(p.items).length;
  }
@@ -34,6 +34,6 @@
   const verbsDone=p.verbs.filter(v=>v.ids.every(id=>done(answers,id))).length;
   return {total,finished,fixes:Object.values(answers).filter(a=>a.choice==='fix'&&a.word.trim()).length,verbs:p.verbs.length,verbsDone};
  }
- function byTense(p,verb){const out={};for(const id of verb.ids){const t=p.items[id].tense;(out[t]=out[t]||[]).push(id);}return TENSES.filter(t=>out[t]).map(t=>({tense:t,ids:out[t]}));}
+ function byTense(p,verb){const out={};for(const id of verb.ids){const t=p.items[id].tense;(out[t]=out[t]||[]).push(id);}return TENSES.concat(['Level 2']).filter(t=>out[t]).map(t=>({tense:t,ids:out[t]}));}
  return {TENSES,validPayload,emptyState,validState,answer,sendable,done,progress,byTense};
 });

@@ -22,4 +22,8 @@ assert.deepStrictEqual(VC.byTense(p,p.verbs[0]).map(t=>t.tense),['Present','Past
 assert.ok(VC.validState(p,{schema_version:1,revision:3,answers:a}));
 assert.ok(!VC.validState(p,{schema_version:1,revision:3,answers:{nope:{choice:'yes',word:'',arabic:'',updated_at:''}}}));
 assert.throws(()=>VC.answer(p,a,'missing','yes'));
+// level-2 add-on lists are a second, separate kind
+{const p={schema_version:1,kind:'verb-addons',items:{'v:addon:obj':{tense:'Level 2',person:'I · + him (ending)',word:'Ana ba3rafo',arabic:'أنا بعرفو'}},verbs:[{key:'v',name:'ba3raf',arabic:'بعرف',english:'I know',ids:['v:addon:obj']}]};
+ assert.strictEqual(VC.validPayload(p),true);assert.deepStrictEqual(VC.byTense(p,p.verbs[0]).map(t=>t.tense),['Level 2']);
+ assert.strictEqual(VC.validPayload({...p,kind:'verb-forms'}),false);}
 console.log('verb check core: ok');

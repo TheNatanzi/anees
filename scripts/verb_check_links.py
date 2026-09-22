@@ -1,6 +1,7 @@
 """Amal's check list for guessed verb forms. NEVER sends anything to Amal.
 
   python scripts/verb_check_links.py create      # mint a private link from the catalog's unchecked guesses
+  python scripts/verb_check_links.py create-addons   # level 2 (endings / prepositions): a second, separate link
   python scripts/verb_check_links.py pull        # her answers -> data/vocab/amal_verb_checks.json
   python scripts/verb_check_links.py list
 After pull, rebuild the catalog (build_word_bank_catalog.py) so her answers overwrite the guesses."""
@@ -41,9 +42,13 @@ def payload(catalog):
     return {'schema_version': 1, 'kind': 'verb-forms', 'items': items, 'verbs': verbs}
 
 
-def create():
-    catalog = json.loads((ROOT / 'docs/data/word-bank-catalog.json').read_text(encoding='utf-8'))
-    body = payload(catalog)
+def create(kind='verb-forms'):
+    if kind == 'verb-addons':      # level 2: endings / prepositions per verb, built by the same JS engine the cards use
+        import subprocess
+        body = json.loads(subprocess.run(['node', str(ROOT / 'scripts' / 'verb_addon_payload.cjs')], capture_output=True, text=True, check=True, encoding='utf-8').stdout)
+    else:
+        catalog = json.loads((ROOT / 'docs/data/word-bank-catalog.json').read_text(encoding='utf-8'))
+        body = payload(catalog)
     token = secrets.token_urlsafe(32)[:43]
     now = datetime.datetime.now(datetime.timezone.utc)
     row = {'token': token, 'created_at': now.isoformat(), 'expires_at': (now + datetime.timedelta(days=DAYS)).isoformat(),
@@ -51,7 +56,7 @@ def create():
     db.upsert('verb_check_links', [row], on='token')
     out = ROOT / 'data' / 'amal_links.json'
     hist = json.load(io.open(out, encoding='utf-8')) if out.exists() else []
-    hist.append({'kind': 'verb-check', 'created_at': row['created_at'], 'expires_at': row['expires_at'], 'url': url(token), 'items': len(body['items'])})
+    hist.append({'kind': 'verb-check' if kind == 'verb-forms' else 'verb-addon-check', 'created_at': row['created_at'], 'expires_at': row['expires_at'], 'url': url(token), 'items': len(body['items'])})
     io.open(out, 'w', encoding='utf-8').write(json.dumps(hist, ensure_ascii=False, indent=1))
     return url(token), len(body['items']), len(body['verbs'])
 
@@ -60,7 +65,20 @@ def pull():
     """Merge every link's answers; the newest answer per form wins."""
     old = json.loads(CHECKS.read_text(encoding='utf-8')) if CHECKS.exists() else {'answers': {}}
     merged = dict(old.get('answers', {}))
+    addon = {}
     for r in db.select('verb_check_links', {'select': 'payload,answers,created_at', 'order': 'created_at.asc'}):
+        if r['payload'].get('kind') == 'verb-addons':
+            for item_id, a in (r['answers'] or {}).get('answers', {}).items():
+                verb, _, k = item_id.rpartition(':addon:')
+                entry = addon.setdefault(verb, {})
+                off = a['choice'] == 'fix' and a['word'].strip().lower() in ('no', 'x', '-', 'none')
+                if k == 'obj':
+                    entry['object'] = not off
+                else:
+                    entry.setdefault('preps_off' if off else 'preps_ok', []).append(k)
+                if a['choice'] == 'fix' and not off:
+                    entry.setdefault('forms', {})[k] = {'word': a['word'].strip(), 'arabic': a['arabic'].strip()}
+            continue
         for item_id, a in (r['answers'] or {}).get('answers', {}).items():
             guess = r['payload']['items'].get(item_id, {})
             if item_id in merged and merged[item_id].get('updated_at', '') > a.get('updated_at', ''):
@@ -73,10 +91,10 @@ def pull():
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('cmd', choices=['create', 'pull', 'list'])
+    ap.add_argument('cmd', choices=['create', 'create-addons', 'pull', 'list'])
     a = ap.parse_args()
-    if a.cmd == 'create':
-        u, n, v = create()
+    if a.cmd in ('create', 'create-addons'):
+        u, n, v = create('verb-addons' if a.cmd == 'create-addons' else 'verb-forms')
         print(f'{n} forms across {v} verbs')
         print(u)
     elif a.cmd == 'pull':
