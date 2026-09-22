@@ -89,7 +89,7 @@
       en = card.english.replace(/!$/, '') + ' ' + p.en + ' ' + a.obj + (/!$/.test(card.english) ? '!' : '');
     }
     return { ...card, key: 'form:' + card.entry + ':' + card.person + ':' + a.kind + '-' + a.obj.replace(/[^a-z]/g, ''), arabizi, arabic, english: en,
-      addon: a.kind + ':' + a.obj, guessed: true, level: 2 };
+      addon: a.kind + ':' + a.obj, guessed: true, checked: false, level: 2 };
   }
   function decorate(card, random) {
     const list = addons(card); if (!list.length) return null;

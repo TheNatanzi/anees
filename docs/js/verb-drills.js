@@ -50,8 +50,9 @@
     return (entry.persons || []).filter(p => String(p.word || '').trim()).map(p => {
       const doc = p.key && byKey.has(p.key) ? p.key : null;
       const guessed = p.provenance === 'inferred' && p.checked !== true;
+      const checked = p.provenance === 'inferred' && p.checked === true;  // a guess Amal marked right or fixed
       return { key: doc || 'form:' + entry.id + ':' + p.person, arabizi: p.word, arabic: p.arabic || '', english: cue(group, entry, p.person, glossOf),
-        topic: 'Verb drills', verb: group.id, tense: entry.label, person: p.person, entry: entry.id, guessed, drill: true };
+        topic: 'Verb drills', verb: group.id, tense: entry.label, person: p.person, entry: entry.id, guessed, checked, drill: true };
     });
   }
 

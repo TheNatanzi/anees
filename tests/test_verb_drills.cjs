@@ -25,6 +25,15 @@ test('card keys: Doc word key when the person form is in the Doc, else form:<ent
  assert.equal(new Set(all.map(c=>c.key)).size,all.length,'no two drill cards share a key');
 });
 
+test('Amal checked forms: not a guess any more, tagged checked (check list 1, 2026-09-22)',()=>{
+ const learn=V.find(v=>v.verb==='ana ba7faz');
+ const she=learn.tenses.Present.find(c=>c.person==='She');
+ assert.equal(she.arabizi,'heyye bte7faz');assert.equal(she.guessed,false);assert.equal(she.checked,true);
+ assert.equal(learn.tenses.Command.find(c=>c.person==='You (pl)').checked,true);
+ assert.equal(all.filter(c=>c.checked).length,41);
+ assert.ok(all.every(c=>!(c.checked&&c.guessed)));
+});
+
 test('20 random verbs: each verb once, tense from the option',()=>{
  for(const tense of ['All','Past','Present','Command']){
   const r=D.round(V,{mode:'random',count:20,tense,random:D.rng(7)});
