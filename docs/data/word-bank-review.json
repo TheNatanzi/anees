@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-21-reliability-v1+lessons-0914-0918-0921",
+  "version": "2026-09-21-reliability-v1+lessons-0914-0918-0921+silence",
   "patches": {
     "14451e90578dc9ffc26af8db425e0c639905c361a2bdc850a03be575e3830243": {
       "expected": {
@@ -21407,6 +21407,21 @@
       "changes": {
         "needs_review": true,
         "reason": "Heard form does not match any form of this word in the catalog (for example I-form vs command); held for review, not scored."
+      }
+    },
+    "278429de00c05e67a101b438047af3e26071d26883f900eba9449db0d800341d": {
+      "expected": {
+        "source_sha256": "c3d2485c636774575b167b2b32105ae9523d2685283d840abf0ffac2a434135b",
+        "row_id": "anees-20260914-recall-medi:row:3463",
+        "word_key": "shu",
+        "text": "شو",
+        "t_start": 2660.5290885160002,
+        "t_end": 2660.5290885160002
+      },
+      "changes": {
+        "ignored": true,
+        "needs_review": false,
+        "reason": "Recognized while Medi's own recording was silent (-180.0 dBFS): speech-engine hallucination, not counted."
       }
     }
   },
