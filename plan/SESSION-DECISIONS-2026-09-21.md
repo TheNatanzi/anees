@@ -109,3 +109,12 @@ This file is the permanent session record for decisions made while auditing the 
 - Skin is the Sabz brand book (`docs/css/sabz-tokens.css`, source `C:\dev\ganjsta-ui\docs\BRAND-SABZ.md`). Medi removed the Sabz "no red / no blue" rule for this page: chart colours follow the transcript convention.
 - Box-by-box definitions, formulas, periods, click targets and empty states are in `plan/PROGRESS-STATS-VOCAB-SPEC-2026-09-21.md` (approved by Medi before the build). Talk time is parked with the lesson work; the four non-Vocab tabs render dimmed as planning.
 - Hints count as slips in "Correct vs slips". Retention counts only forms known before the lesson that were tested again. No targets, benchmarks or fabricated history anywhere; document add dates are shown as "—" until the sync records them.
+
+## Flashcards (later on September 21)
+
+- Scheduler: FSRS-6 default parameters, Again / Good only, retention 90% (80/85/90/95), phases New / Learning / Mature at 21 days, leech at 8 lapses, 20 new per day, sibling forms buried, undo. State is replayed from `card_results`; nothing else stores it.
+- `card_results` stays the one answer log (no `card_reviews` table). Undo sets `undone_at`; every reader ignores undone rows.
+- Look: Quizlet layout (tap to flip, swipe right = Know, left = Still learning) with the Sabz skin. The Stitch flashcards design is dropped.
+- Timing: `flip_ms` and `answer_ms` per answer, visible time only. Slow answers are only recorded; they never change a grade.
+- Selection screen: approved in `plan/FLASHCARDS-SELECTION-SPEC-2026-09-21.md`. Shaky and Wrong are shown for both lessons and cards, as separate tiles.
+- Medi's Quizlet sets = the 132 links Amal sent him on WhatsApp; other students' sets (JD, Jana) are excluded. 106 are in `docs/data/quizlet/amal-quizlet-sets.json`.
