@@ -159,7 +159,9 @@ def status(uses, mistakes):
     pct = round(100 * (uses - mistakes) / uses)
     if uses >= 10 and pct >= 95:
         return "Mastered"
-    if uses >= 5 and pct >= 85:
+    # Medi 2026-09-23: few uses are rated on the score alone (3 of 3 right = Good, not Shaky).
+    # Mastered still needs 10+ uses.
+    if pct >= 85:
         return "Good"
     if pct >= 65:
         return "Shaky"
