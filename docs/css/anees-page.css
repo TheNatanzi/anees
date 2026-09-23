@@ -40,13 +40,3 @@ html .btn, html .play, html button.primary { background: var(--sabz-cta-fill); c
 html .btn.alt { background: var(--bg2); color: var(--ink); border-color: var(--line); }
 
 /* ---- Theme switch (js/theme.js mounts it) -------------------------------- */
-.sabz-theme { display: flex; gap: 4px; margin: 14px 0 0; }
-.sabz-theme button {
-  flex: 1 1 auto; min-height: 34px; padding: 5px 8px; cursor: pointer;
-  border: 1px solid var(--line); border-radius: var(--sabz-radius-pill);
-  background: transparent; color: var(--sabz-text-muted);
-  font: 600 11.5px/1 var(--sabz-font-sans); letter-spacing: .04em;
-}
-.sabz-theme button[aria-pressed="true"] { background: var(--sabz-state-calm-fill); color: var(--sabz-state-calm-text); border-color: var(--sabz-state-calm); }
-.sabz-theme-float { position: fixed; right: 12px; bottom: 12px; z-index: 50; margin: 0; padding: 4px; border-radius: var(--sabz-radius-pill); background: var(--bg2); border: 1px solid var(--line); box-shadow: 0 2px 10px rgba(30, 42, 34, .10); }
-@media print { .sabz-theme { display: none; } }
