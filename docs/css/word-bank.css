@@ -17,7 +17,14 @@ html,body{margin:0;background:var(--sabz-bg);color:var(--sabz-text)}#anees-bank 
 /* Keep the type translation below its English label. */
 #anees-bank .ab-type span[lang="ar"]{display:block;font-size:10px}
 
-.ab-wrong{color:#b42332;background:#fee4e6;text-decoration:underline;text-decoration-thickness:2px;border-radius:3px;padding:0 2px}.ab-transcript-original .ab-wrong{font-weight:700}@media(prefers-color-scheme:dark){.ab-wrong{color:#ffb3ba;background:#51242c}}
+/* Scored words are underlined, never highlighted: the sentence stays readable. */
+#anees-bank mark.ab-wrong,#anees-bank mark.ab-partial,#anees-bank mark.ab-correct,#anees-bank mark.ab-feedback,.ab-wrong,.ab-partial,.ab-correct,.ab-feedback{background:none;color:inherit;padding:0;border-radius:0;text-decoration-line:underline;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-skip-ink:none}
+/* light-dark() follows the Sabz token color-scheme, so the OS and the Light/Dark switch both work. */
+#anees-bank mark.ab-wrong,.ab-wrong{text-decoration-style:solid;text-decoration-color:light-dark(#e5484d,#ff7b85)}
+#anees-bank mark.ab-partial,.ab-partial{text-decoration-style:dashed;text-decoration-color:light-dark(#c77700,#f5a524)}
+#anees-bank mark.ab-correct,.ab-correct{text-decoration-style:solid;text-decoration-color:light-dark(#2f9e68,#4cc38a)}
+#anees-bank mark.ab-feedback,.ab-feedback{text-decoration-style:dotted;text-decoration-color:light-dark(#4b7fe0,#7aa2f7)}
+.ab-transcript-original .ab-wrong{font-weight:700}
 
 #anees-bank .ab-excerpt-player{display:block;width:100%;max-width:520px;margin:8px 0 12px}
 
@@ -29,8 +36,3 @@ html,body{margin:0;background:var(--sabz-bg);color:var(--sabz-text)}#anees-bank 
 #anees-bank .ab-outcome-pending{color:#374151;background:#e5e7eb;border-color:#9ca3af}
 #anees-bank .ab-outcome-neutral{color:#475569;background:#f1f5f9;border-color:#cbd5e1}
 
-#anees-bank mark.ab-partial{background:#ffedd5;color:#9a3412;border-radius:3px;padding:0 2px;text-decoration:underline;text-decoration-color:#ea580c}
-
-#anees-bank mark.ab-correct{background:#dcfce7;color:#166534;border-radius:3px;padding:0 2px}
-
-#anees-bank mark.ab-feedback{background:#dbeafe;color:#1e40af;border-radius:3px;padding:0 2px}
