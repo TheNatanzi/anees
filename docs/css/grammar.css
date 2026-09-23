@@ -154,3 +154,12 @@
 #anees-bank .gc-checkword{font-size:18px;text-align:left}
 #anees-bank .gc-checkctx{font-size:12px;color:var(--ab-muted);margin-top:4px;unicode-bidi:plaintext;text-align:left}
 #anees-bank .gc-checkopts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+
+/* Line sparkline: fixed-width stroke, round dots, dates underneath */
+#anees-bank .gc-spark{position:relative;width:100%;height:62px;margin-bottom:14px}
+#anees-bank .gc-spark svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#anees-bank .gc-spark .gc-line{stroke-width:1.5}
+#anees-bank .gc-area{fill:var(--ab-accent);opacity:.12;stroke:none}
+#anees-bank .gc-sdot{position:absolute;width:5px;height:5px;margin:-2.5px 0 0 -2.5px;border-radius:50%;background:var(--ab-panel);box-shadow:0 0 0 1.5px var(--ab-accent)}
+#anees-bank .gc-sdot-last{width:8px;height:8px;margin:-4px 0 0 -4px;background:var(--ab-accent)}
+#anees-bank .gc-spark-axis{position:absolute;left:0;right:0;bottom:-15px;display:flex;justify-content:space-between;font-size:9px;color:var(--ab-muted)}

@@ -137,27 +137,46 @@ function sparkline(values, opts) {
       svg.appendChild(r);
     });
   } else {
+    // Line: the SVG stretches to the card, so the stroke is kept at a fixed pixel
+    // width and the dots are round HTML dots placed on top - nothing gets squashed.
+    var wrap = document.createElement('div');
+    wrap.className = 'gc-spark';
     var pts = [];
     values.forEach(function (v, i) {
       if (typeof v !== 'number') return;
       var x = n === 1 ? W / 2 : (i / (n - 1)) * W;
-      var y = H - 2 - ((v - lo) / (hi - lo)) * (H - 4);
-      pts.push([x, y]);
+      var y = H - 3 - ((v - lo) / (hi - lo)) * (H - 8);
+      pts.push([x, y, v, i]);
     });
     if (pts.length > 1) {
+      var d = 'M' + pts.map(function (p) { return p[0].toFixed(2) + ' ' + p[1].toFixed(2); }).join(' L');
+      var area = document.createElementNS(svg.namespaceURI, 'path');
+      area.setAttribute('d', d + ' L' + pts[pts.length - 1][0].toFixed(2) + ' ' + H + ' L' + pts[0][0].toFixed(2) + ' ' + H + ' Z');
+      area.setAttribute('class', 'gc-area');
+      svg.appendChild(area);
       var path = document.createElementNS(svg.namespaceURI, 'path');
-      path.setAttribute('d', 'M' + pts.map(function (p) { return p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' L'));
+      path.setAttribute('d', d);
       path.setAttribute('class', 'gc-line');
+      path.setAttribute('vector-effect', 'non-scaling-stroke');
       svg.appendChild(path);
     }
-    pts.forEach(function (p, i) {
-      var c = document.createElementNS(svg.namespaceURI, 'circle');
-      c.setAttribute('cx', p[0].toFixed(1));
-      c.setAttribute('cy', p[1].toFixed(1));
-      c.setAttribute('r', i === pts.length - 1 ? '3' : '2');
-      c.setAttribute('class', 'gc-dot');
-      svg.appendChild(c);
+    wrap.appendChild(svg);
+    pts.forEach(function (p, k) {
+      var dot = document.createElement('span');
+      dot.className = 'gc-sdot' + (k === pts.length - 1 ? ' gc-sdot-last' : '');
+      dot.style.left = (p[0] / W * 100) + '%';
+      dot.style.top = (p[1] / H * 100) + '%';
+      if (opts.dates && opts.dates[p[3]]) dot.title = pretty(opts.dates[p[3]]) + ': ' + (opts.fmt ? opts.fmt(p[2]) : p[2]);
+      wrap.appendChild(dot);
     });
+    if (opts.dates && opts.dates.length > 1) {
+      var ax = document.createElement('div');
+      ax.className = 'gc-spark-axis';
+      ax.appendChild(el('span', null, pretty(opts.dates[0])));
+      ax.appendChild(el('span', null, pretty(opts.dates[opts.dates.length - 1])));
+      wrap.appendChild(ax);
+    }
+    return wrap;
   }
   return svg;
 }
@@ -219,7 +238,7 @@ function renderCharts() {
   var sentences = sum('medi_sentences');
   var rate = sentences ? sum('slips_counted') / sentences : null;
   fill('c1', rate == null ? '—' : rate.toFixed(3),
-    L.length ? sparkline(mps, { label: 'Mistakes per sentence by lesson' }) : null,
+    L.length ? sparkline(mps, { label: 'Mistakes per sentence by lesson', dates: L.map(function (x) { return x.date; }), fmt: function (v) { return v.toFixed(3); } }) : null,
     L.length ? foot(sum('slips_counted') + ' slips in ' + sentences + ' sentences · ' +
       L.length + ' lessons · latest ' + latest) : null);
 
