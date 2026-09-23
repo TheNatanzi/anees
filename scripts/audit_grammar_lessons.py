@@ -170,6 +170,7 @@ def same_form(x, y):
     return skel(x) == skel(y) and has_al(x) == has_al(y) and tail(x) == tail(y)
 
 
+FUNC_KEYS = {"min", "mn", "fi", "ma", "mish", "la", "bi", "bas", "an", "ala", "u", "w", "ia", "ya", "hu", "hi", "ana"}
 FUNCTION = {"mn", "f", "m", "l", "n", "b", "bs", "'n", "'l", "S", "hn", "k"}
 
 
@@ -200,7 +201,7 @@ def stems(s):
 # make-X / get-X pairs (bucket B12): the only words where a doubled middle
 # letter is grammar. Anywhere else a double is Arabizi spelling.
 B12_ROOTS = {"Krb", "Kf", "Kwf", "dhk", "dk", "zhk", "zh", "tb", "zl", "sb", "jhz", "bst", "dk", "tdk", "d", "Gr", "Gyr", "sl"}
-PRON_SUFFIX = ("", "h", "m", "hm", "k", "km", "n", "t", "tk", "tn", "l", "lk", "lh", "lm")
+PRON_SUFFIX = ("", "h", "m", "hm", "k", "km", "n", "t", "tk", "l", "lk", "lh", "lm")
 
 
 NUMBER_PAIRS = [
@@ -242,6 +243,8 @@ def related(m, a):
 
 
 def _related(m, a, ayn):
+    if ("ً" in m and key(a).endswith("an")) or ("ً" in a and key(m).endswith("an")):
+        return None
     sm, sa = skel(m, ayn=ayn), skel(a, ayn=ayn)
     if not sm or not sa:
         return None
@@ -252,6 +255,8 @@ def _related(m, a, ayn):
         if fm in PREPS and fa in PREPS:
             return "prep"
         return None
+    if bare(m) == bare(a) and has_al(m) != has_al(a) and bare(m) and family(m) is None             and key(re.sub(r"^ال", "", m)).strip("'") not in FUNC_KEYS:
+        return "al"
     if len(sm) < 2 and not (len(sm) == 1 and sa == "b" + sm):
         return None
     if len(sa) < 2:
@@ -267,9 +272,12 @@ def _related(m, a, ayn):
             return "al"
     if sa.startswith("b") and not sm.startswith("b") and len(sm) == 1 and sa == "b" + sm:
         return "b"
-    if sa.startswith("b") and not sm.startswith("b") and (sa[1:] == sm or stems(sa[1:]) & stems(sm) & {x for x in stems(sm) if len(x) >= 2}):
+    if sa.startswith("b") and not sm.startswith("b") and (sa[1:] == sm or {x for x in stems(sa[1:]) & stems(sm) if len(x) >= 3}):
         return "b"
-    if sm.startswith("b") and not sa.startswith("b") and (sm[1:] == sa or stems(sm[1:]) & stems(sa) & {x for x in stems(sa) if len(x) >= 2}):
+    for pre, suf in (("bn", "n"), ("bt", "t")):
+        if sa.startswith(pre) and sm.endswith(suf) and len(sm) >= 3 and sa[len(pre):] == sm[:-len(suf)]:
+            return "b"
+    if sm.startswith("b") and not sa.startswith("b") and (sm[1:] == sa or {x for x in stems(sm[1:]) & stems(sa) if len(x) >= 3}):
         return "b"
     if sm == sa:
         if doubled(a) != doubled(m) and (sm in B12_ROOTS or any(r in sm for r in B12_ROOTS if len(r) >= 3))                 and not is_ar(m):
@@ -285,6 +293,8 @@ def _related(m, a, ayn):
     if sm.startswith(sa) and sm[len(sa):] in PRON_SUFFIX:
         if not (sm[len(sa):] == "k" and key(a).endswith("'")):
             return "suffix"
+    if (sm == sa + "k" and key(a).endswith("'")) or (sa == sm + "k" and key(m).endswith("'")):
+        return None
     core = {x for x in stems(sm) & stems(sa) if len(x) >= 3}
     if core:
         return "shape"
@@ -300,6 +310,8 @@ def _related(m, a, ayn):
 def english_cue(recast, said):
     """A rule Amal named in English, with the bucket it points at."""
     r = recast.lower()
+    if re.search(r"not (a |the )?(pointer|feminine|masculine|present|past|plural|singular)", r):
+        return None
     if re.search(r"\b(is|it's|its|be|for|so|was)\s+(a\s+)?(feminine|masculine|woman)\b|\b(feminine|masculine)\?|has to be (masculine|feminine)", r):
         return "A10" if DEMO.search(said + " " + recast) and re.search(r"هذ|هاد|hadi|hada|haadi", recast + said) else "A8"
     if re.search(r"\bpointer\b", r):
@@ -477,11 +489,14 @@ def person_swap(m, a):
 
 ASK = re.compile(r"\b(is it|isn't it|would it be|would i say|do i say|do you say|can i say|how do i say|should it be|"
                  r"or is it|what's|what is|is there a difference|is that)\b|,?\s*right\s*\?", re.I)
+INSTRUCT = re.compile(r"(^|\s)(احكي|احكيلي|قول|قولي|جرب|اسأل|خلينا|يلا|يلّا)(\s|$|[،,.])")
 ALTERNATIVE = re.compile(r"another (term|way|word)|you (can|could) (also )?say|some people say|^\s*(or|أو)\b", re.I)
 
 
 def is_ask(M):
     """Medi asking which form is right - rule M1 counts it as an ask."""
+    if M.get("ask_tail"):
+        return True
     t = M["text"]
     eng = sum(1 for w in tokens(t) if is_english(w))
     return bool(ASK.search(t))
@@ -500,6 +515,8 @@ def _drop(M, m, a, ch, A, why):
 
 def keep_pair(M, m, a, ch, A, question, window):
     """Last checks on one candidate. False = not a correction."""
+    if INSTRUCT.search(A["text"]) and ch in ("prep", "al", "ending", "suffix", "shape"):
+        return _drop(M, m, a, ch, A, "her-instruction")
     if ALTERNATIVE.search(A["text"]):
         return _drop(M, m, a, ch, A, "alternative")  # she offers another way to say it, not a fix
     if any(same_form(w, a) for w in M["ar"]) and ch not in ("insert",) and not CONTRAST.search(A["text"]):
@@ -667,7 +684,7 @@ def pair_up(window, A):
     for mt in re.finditer(r"(\S+?)[،,]?\s+(?:not|مش|mish)\s+([^\s.,،؟?]+)", A["text"]):
         right, wrong = mt.group(1), mt.group(2)
         for M in reversed(window):
-            m = next((w for w in M["ar"] if related(w, wrong) in (None,) and skel(w) and
+            m = next((w for w in M["ar"] if skel(w) and
                       (same_form(w, wrong) or bare(w) == bare(wrong) or (family(w) and family(w) == family(wrong)))), None)
             if m and not any(o[1] == m and o[2] == right for o in out):
                 ch = related(m, right)
@@ -717,8 +734,17 @@ if __name__ == "__main__" or True:
         return arabic_tokens(text, LEX)
 
     lessons, events, selfs, asks = [], [], [], []
+    known_by_date, seen_words = {}, set()
+    for d in dates:
+        known_by_date[d] = set(seen_words)
+        Td, _ = lesson_turns(d, with_chat=False)
+        for t in Td:
+            if t["speaker"] == "Medi":
+                seen_words |= {bare(w) for w in arabic_tokens(t["text"], LEX)}
     for date in dates:
         CUR_DATE[0] = date
+        known = known_by_date[date]
+        known_stems = {x for k in known for x in stems(k) if len(x) >= 3}
         T, src = lesson_turns(date, with_chat=True)
         if not T:
             continue
@@ -731,6 +757,7 @@ if __name__ == "__main__" or True:
                 if is_ar(w0) and not w0.startswith("ال"):
                     medi[i + 1]["ar"][0] = "ال" + w0
         medi_ar = [t for t in medi if t["ar"]]
+
         found = []
 
         # --- 1. her words re-saying his in another shape (voice + chat)
@@ -764,11 +791,16 @@ if __name__ == "__main__" or True:
             taught = {bare(w): B["start"] for B in T if B["speaker"] == "Amal" and not B.get("chat")
                       and A["start"] - 60 <= B["start"] < A["start"] for w in B["ar"]}
             for f in pair_up(window, A):
-                if f["a"] and bare(f["a"]) in taught and taught[bare(f["a"])] < f["M"]["start"] \
-                        and not A.get("chat") and f["change"] in ("shape", "suffix", "double"):
+                # a word he has never used in any form (earlier lessons, or earlier
+                # in this one): his try is imitation, not a slip
+                earlier = {x for M0 in medi if M0["start"] < f["M"]["start"] - 30 for w in tokens(M0["text"])
+                           if not is_english(w) for x in stems(bare(w)) if len(x) >= 3}
+                new_word = f["a"] and len(bare(f["a"])) >= 3 and not (stems(bare(f["a"])) & (known_stems | earlier))
+                if f["a"] and not A.get("chat") and f["change"] in ("shape", "suffix", "double") and new_word:
                     _drop(f["M"], f["m"], f["a"], f["change"], A, "imitating-new-word")
                     continue
-                if not A.get("chat") and A["text"].rstrip().endswith(("?", "؟")) and f["kind"] == "echo" and f["overlap"] < 0.5:
+                if not A.get("chat") and A["text"].rstrip().endswith(("?", "؟")) and f["kind"] == "echo" and f["overlap"] < 0.5 \
+                        and not CONTRAST.search(A["text"]):
                     _drop(f["M"], f["m"], f["a"], f["change"], A, "her-question")
                     continue  # her own question, not a recast
                 found.append(f)
@@ -780,7 +812,7 @@ if __name__ == "__main__" or True:
             cue = None
             prev = [M for M in medi if M["start"] < A["start"] and A["start"] - M["end"] <= ENGLISH_WINDOW]
             prev_ar = [M for M in prev if M["ar"]]
-            if not prev_ar or not prev[-1]["ar"]:
+            if not prev_ar or (not prev[-1]["ar"] and ("?" in prev[-1]["text"] or is_ask(prev[-1]))):
                 continue  # she is answering an English question - an ask, not a slip
             if len(tokens(A["text"])) > 30:
                 continue
@@ -806,6 +838,11 @@ if __name__ == "__main__" or True:
             if f["a"] and any(fx == (bare(f["a"]), b) and abs(t0 - t1) <= REPEAT for fx, t1 in seen_fix):
                 _drop(f["M"], f["m"], f["a"], f["change"], f["A"], "dedupe")
                 continue
+            akey = (id(f["A"]), id(f["M"]), b)
+            if akey in seen_turn:
+                _drop(f["M"], f["m"], f["a"], f["change"], f["A"], "dedupe")
+                continue
+            seen_turn.add(akey)
             tk = (round(t0, 1), b, f["kind"] == "english")
             if (round(t0, 1), b) in {(x[0], x[1]) for x in seen_turn}:
                 _drop(f["M"], f["m"], f["a"], f["change"], f["A"], "dedupe")

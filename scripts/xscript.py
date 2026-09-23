@@ -37,6 +37,7 @@ chef chefs customer customers told tell hot dog word hold wait sorry right okay
 guys guy fire department ambulance sirens trucks crispy fried rice cooker spoon pastry croissant chocolate
 mm-hmm mhm mmhmm uhhuh uh-huh uh-uh hmm-hmm mmm oops whoops daisy gonna wanna gotta kinda
 arab arabs arabic persian iranian iranians farsi
+full empty whole half part verb verbs noun nouns bit fun funny quiz card cards plan plans
 """.split())
 
 _LAT = [
