@@ -187,7 +187,7 @@ def same_form(x, y):
 
 
 FUNC_KEYS = {"min", "mn", "fi", "ma", "mish", "la", "bi", "bas", "an", "ala", "u", "w", "ia", "ya", "hu", "hi", "ana"}
-FUNCTION = {"mn", "f", "m", "l", "n", "b", "bs", "'n", "'l", "S", "hn", "k"}
+FUNCTION = {"mn", "f", "m", "l", "n", "b", "bs", "'n", "'l", "S", "mS", "hn", "k"}
 
 
 def doubled(w):
@@ -225,6 +225,7 @@ NUMBER_PAIRS = [
     ("سنة", "سنين", "sane", "sneen"), ("مرة", "مرات", "marra", "marraat"), ("دقيقة", "دقايق", "da2ee2a", "da2aye2"),
     ("اسبوع", "اسابيع", "usboo3", "asabee3"), ("مطعم", "مطاعم", "ma6am", "ma6aa3em"), ("دولة", "دول", "dawle", "duwal"),
     ("ولد", "ولاد", "walad", "wlad"), ("بنت", "بنات", "bint", "banaat"), ("كتاب", "كتب", "ktaab", "kutub"),
+    ("صورة", "صور", "soora", "sowar"), ("خطة", "خطط", "5u66a", "5u6a6"), ("مرة", "مرات", "marra", "marraat"),
 ]
 
 
@@ -528,6 +529,8 @@ def classify(m, a, said, recast, change):
             return ("E2", "clock time") if re.search(r"الساعة|saa3a|إلا|illa|ربع|rube3|نص|ثلث", ctx) else ("E4", "the date")
         return None
     if change == "number":
+        if re.search(r"(^|\s)(كم|kam|cam)(\s|$)", said.lower() + " " + recast.lower()):
+            return ("E1", "kam takes a singular noun")
         n = NUMS.search(ctx)
         big = re.search(r"عشر|عشرين|تلاتين|ثلاثين|اربعين|خمسين|مية|3ashr|3eshreen|talateen|\b(1[1-9]|[2-9]\d)\b", ctx, re.I)
         if big:
@@ -555,6 +558,9 @@ def classify(m, a, said, recast, change):
     if change in ("suffix", "shape") and any(g in said for g in GATE_MODAL) and \
             re.search(r"(ت|t|it)$", m) and not re.search(r"(ت|t)$", a) and stems(sm) & stems(sa):
         return ("B2", "after a modal the verb is the bare present, not the past")
+    if change in ("suffix", "shape") and (re.search(r"ة$", m) or (not is_ar(m) and re.search(r"(a|e)$", m.lower()) and not verbish(m))) \
+            and sa.startswith(sm) and sa[len(sm):len(sm) + 1] == "t":
+        return ("A4", "the possessive ending (the -a becomes -t before it)")
     if change in ("suffix", "shape"):
         a_past0 = bool(re.search(r"(ت|تي|نا|وا)(ه|ها|هم|ك|كي|كم|ني)?$", a) and is_ar(a)) or \
             bool(re.search(r"(t|ti|tu|na)(u|ha|hum|ak|ik|ni)?$", key(a)) and not is_ar(a))
