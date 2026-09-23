@@ -7,6 +7,7 @@ A companion for Medi's spoken Palestinian Arabic lessons with Amal: recording �
 - Live plan page: https://claude.ai/code/artifact/a8752cee-3d3d-44c9-821b-46c172bc0d8f
 - `plan/blueprint.md` — the 4-section blueprint (goal, flow, tools, first milestone)
 - `plan/graph.yaml` — task graph, source of truth for status (Now = max 3)
+- `RULES.md` — standing rules (S1 Amal's spelling, S2 raw transcripts, S3 signal, S4 pronunciation, S5 pauses)
 - `plan/constants.md` — binding contracts
 - `wiki/` — 12 research pages + Codex reviews
 

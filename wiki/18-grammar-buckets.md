@@ -71,6 +71,7 @@ Ordering note: Amal front-loads the verb system and teaches the small grammar as
 | D2 | Verb + preposition pairs | the verb picks it: a6lub **min**, 5aayef **min**, mishtaa2 **la**, 2al2aan **3ala**, mu5talef **3an** | Doc | **rank 9** | — |
 | D3 | Suffixes on prepositions | ma3i, minnak, minno, 3alayha, ilhom | Doc | untested | 10 |
 | D4 | Object suffixes on verbs | shuf-o, basawwi-h, bi7ki-lak — separate from D3 | Doc | rank 5 | 10 |
+| D5 | Preposition + el- | where English drops "the", Levantine keeps it: **bi-lseyyara** = by car, **min el-bait** = from home, **3ala el-6aawle** = on the table. `bi` / `la` / `fi` fuse with it (bi-l…, la-l…, fi-l…); min / 3ala / ma3 keep it separate. No `el-` on a proper noun (la-Mehdi, fi America), on a noun already owned (ma3i, ma3 sadiqi), or when it really is indefinite (ma3 3aseer) | Doc (in every example) | untested | 4 |
 
 ## Family E — Numbers and time
 
@@ -95,7 +96,7 @@ Kept here because these slips look like grammar in the transcript but are not. R
 
 ## Counts
 
-- 12 noun-phrase + 15 verb + 9 sentence-glue + 4 partner-words + 4 numbers/time = **44 grammar buckets**, plus 3 pronunciation buckets.
+- 12 noun-phrase + 15 verb + 9 sentence-glue + 5 partner-words + 4 numbers/time = **45 grammar buckets**, plus 3 pronunciation buckets.
 - Amal's own material already covers **34** of the 43; **7** are gaps in both her Docs (B7, B11, B14, B15, C4, C9, E1 partly).
 - Medi has a recorded slip on 13 of them. Top five by frequency: B2/B3/B4 (b-drop), B8/B9 (ykoon), A1/A2/A7/C3 (definiteness), A8/A10 (gender), C2 (pointer).
 
