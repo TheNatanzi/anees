@@ -1,0 +1,1086 @@
+{
+ "updated": "2026-09-22",
+ "source": "wiki/18-grammar-buckets.md + Medi additions B16/B17/C10 (2026-09-22)",
+ "families": {
+  "A": "The noun phrase",
+  "B": "The verb system",
+  "C": "Sentence glue",
+  "D": "Words that pick their partner",
+  "E": "Numbers and time",
+  "F": "Sound shape (pronunciation, not grammar)"
+ },
+ "count": 49,
+ "buckets": [
+  {
+   "id": "A1",
+   "family": "A",
+   "name": "el- (the)",
+   "one_line": "`el-` marks a thing you already know; nothing marks a new one.",
+   "examples": [
+    [
+     "bait",
+     "a house"
+    ],
+    [
+     "el-bait",
+     "the house"
+    ],
+    [
+     "el-shams -> esh-shams",
+     "the sun (sun letters)"
+    ]
+   ],
+   "why": "English has 'a' and 'the'. Arabic only has 'the' - leaving it off is how you say 'a'.",
+   "more": [
+    "The sun-letter half: before s, sh, t, d, r, n, z, l the l disappears and the next letter doubles.",
+    "el-shams is written with an l but said esh-shams.",
+    "el-dar -> ed-dar.  el-nas -> en-nas.  el-rajol -> er-rajol.",
+    "Moon letters keep the l: el-bait, el-kalb, el-walad."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "A2",
+   "family": "A",
+   "name": "idafa (possession)",
+   "one_line": "Thing first, owner second - and the first word never takes `el-`.",
+   "examples": [
+    [
+     "bait Medi",
+     "Medi's house"
+    ],
+    [
+     "bab el-bait",
+     "the door of the house"
+    ]
+   ],
+   "why": "There is no word for 'of'. You just put the two nouns next to each other.",
+   "more": [
+    "el-bait Medi is always wrong - the first noun drops el-.",
+    "The LAST noun decides whether the whole phrase is definite.",
+    "bait m3allem = a teacher's house.  bait el-m3allem = the teacher's house."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "A3",
+   "family": "A",
+   "name": "feminine -t in idafa",
+   "one_line": "A feminine first word grows a `-t` before the owner.",
+   "examples": [
+    [
+     "sayyaara",
+     "a car"
+    ],
+    [
+     "sayyaaret Medi",
+     "Medi's car"
+    ]
+   ],
+   "why": "The hidden -a ending on feminine nouns wakes up as -t when something follows it.",
+   "more": [
+    "8urfe room -> 8urfet el-noam the bedroom.",
+    "madrase school -> madraset el-walad the boy's school.",
+    "Only feminine nouns do this. bait Medi stays plain."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "A4",
+   "family": "A",
+   "name": "possessive endings",
+   "one_line": "Stick the owner on the end of the word.",
+   "examples": [
+    [
+     "ismi",
+     "my name"
+    ],
+    [
+     "ismak",
+     "your name (m)"
+    ],
+    [
+     "ismek",
+     "your name (f)"
+    ]
+   ],
+   "why": "Instead of 'my name', Arabic says 'name-my' as one word.",
+   "more": [
+    "The set: -i my, -ak your (m), -ek your (f), -o his, -ha her, -na our, -kom your (pl), -hom their.",
+    "baiti my house, baitha her house, baithom their house."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "A5",
+   "family": "A",
+   "name": "chain possession",
+   "one_line": "Stack three or more nouns; only the last can take `el-`.",
+   "examples": [
+    [
+     "bab bait Medi",
+     "the door of Medi's house"
+    ]
+   ],
+   "why": "Same rule as A2, just longer - every noun except the last stays bare.",
+   "more": [
+    "muftaa7 bab el-bait = the key of the door of the house.",
+    "You never put el- on muftaa7 or bab - only on el-bait."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "A6",
+   "family": "A",
+   "name": "professions",
+   "one_line": "Job titles are idafa too - watch where `el-` lands.",
+   "examples": [
+    [
+     "doktoar snaan",
+     "a dentist"
+    ],
+    [
+     "m3allem el-3arabi",
+     "the Arabic teacher"
+    ]
+   ],
+   "why": "A job made of two words follows A2 exactly.",
+   "more": [
+    "doktoar snaan = a tooth-doctor, no el- anywhere = 'a dentist'.",
+    "m3allem el-3arabi = the Arabic teacher - el- only on the second word."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "A7",
+   "family": "A",
+   "name": "noun + adjective",
+   "one_line": "Adjective goes AFTER. Where `el-` sits changes sentence vs phrase.",
+   "examples": [
+    [
+     "el-bait 7elu",
+     "the house is pretty"
+    ],
+    [
+     "el-bait el-7elu",
+     "the pretty house"
+    ]
+   ],
+   "why": "One el- = a full sentence. Two el- = just a name for a thing.",
+   "more": [
+    "el-bait 7elu is a complete sentence - no word for 'is' needed (see C1).",
+    "el-bait el-7elu is not a sentence, it's a label. It leaves you waiting for more.",
+    "bait 7elu = a pretty house."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "A8",
+   "family": "A",
+   "name": "gender on adjectives",
+   "one_line": "Feminine noun takes a feminine adjective.",
+   "examples": [
+    [
+     "walad 7elu",
+     "a cute boy"
+    ],
+    [
+     "bint 7elwa",
+     "a cute girl"
+    ]
+   ],
+   "why": "Adjectives change shape to match the noun - usually by adding -a or -e.",
+   "more": [
+    "akel zaaki tasty food (m), akle zaakye a tasty dish (f).",
+    "If the noun ends in -a/-e it is almost always feminine."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "A9",
+   "family": "A",
+   "name": "plurals",
+   "one_line": "Some add an ending, many change shape, and two has its own form.",
+   "examples": [
+    [
+     "bait -> byoot",
+     "house -> houses"
+    ],
+    [
+     "yomein",
+     "two days"
+    ]
+   ],
+   "why": "Arabic has three plurals: regular endings, irregular reshapes, and a special 'exactly two'.",
+   "more": [
+    "Regular: -een (people, m) and -aat (things/f) - muwazzaf -> muwazzafeen.",
+    "Irregular: you memorise them - bait->byoot, bab->bwaab, shubbak->shababeek.",
+    "Exactly two: add -ein - yom->yomein, saa3a->saa3tain."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "A10",
+   "family": "A",
+   "name": "hada / hadi",
+   "one_line": "This-and-that words must match the gender.",
+   "examples": [
+    [
+     "hada fe3el",
+     "this is a verb (m)"
+    ],
+    [
+     "hadi kilme",
+     "this is a word (f)"
+    ]
+   ],
+   "why": "Pick the form by the gender of the thing you are pointing at.",
+   "more": [
+    "Near: hada (m), hadi (f), hadol (plural).",
+    "Far: hadaak (m), hadeek (f).",
+    "Common slip: using hada for a feminine noun."
+   ],
+   "tally_rule": "R4"
+  },
+  {
+   "id": "A11",
+   "family": "A",
+   "name": "kul: all vs every",
+   "one_line": "`kul` + `el-` = all of it. `kul` alone = every.",
+   "examples": [
+    [
+     "kul el-yom",
+     "all day"
+    ],
+    [
+     "kul yom",
+     "every day"
+    ]
+   ],
+   "why": "One little el- flips the whole meaning.",
+   "more": [
+    "kul el-zlaam = all the men (a specific group).",
+    "kul zalame = every man (each one separately).",
+    "el-kul on its own = everybody."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "B1",
+   "family": "B",
+   "name": "present with b-",
+   "one_line": "Every ordinary present verb starts with b-.",
+   "examples": [
+    [
+     "ana bashrab ahwe",
+     "I drink coffee"
+    ]
+   ],
+   "why": "The b- is the marker that says 'this is a normal present-tense verb'.",
+   "more": [
+    "ana ba-, inta bti-, inti bti-..i, huwwe bi-, heyye bti-, i7na bni-, intu bti-..u, humme bi-..u.",
+    "Drop the b- only in the cases listed in B2, B3 and B4."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "B2",
+   "family": "B",
+   "name": "b-drop after modals",
+   "one_line": "No b- after want/must/can words.",
+   "examples": [
+    [
+     "biddi ashrab",
+     "I want to drink - right"
+    ],
+    [
+     "biddi bashrab",
+     "wrong"
+    ]
+   ],
+   "why": "The first word already carries the tense, so the second verb goes bare.",
+   "more": [
+    "Trigger words: biddi, laazem, mumkin, ba7eb, ba2dar, baballesh, bajarreb.",
+    "laazem aru7 I have to go - never laazem baru7.",
+    "This is your single most recorded slip."
+   ],
+   "tally_rule": "R1"
+  },
+  {
+   "id": "B3",
+   "family": "B",
+   "name": "b-drop after time words",
+   "one_line": "No b- after lamma, iza, ra7, 3ashaan - but KEEP it after enno.",
+   "examples": [
+    [
+     "lamma azha2",
+     "when I get bored - right"
+    ],
+    [
+     "enno bashrab",
+     "that I drink - right"
+    ]
+   ],
+   "why": "Same logic as B2 - the linking word carries the tense.",
+   "more": [
+    "Drop after: lamma, iza, abel-ma, ba3ed-ma, ra7, la-, 3ashaan.",
+    "KEEP after enno - this is the one exception that catches people.",
+    "3ashaan aru7 so that I go, enno baru7 that I go."
+   ],
+   "tally_rule": "R1"
+  },
+  {
+   "id": "B4",
+   "family": "B",
+   "name": "the drop carries down a chain",
+   "one_line": "Once dropped, it stays dropped across u / aw / wala.",
+   "examples": [
+    [
+     "biddi ashrab u akol",
+     "I want to drink and eat"
+    ]
+   ],
+   "why": "The second and third verbs stay bare as long as the person doing them hasn't changed.",
+   "more": [
+    "laazem aru7 u ashuf u arja3 - all three bare.",
+    "A new subject ends the chain: laazem aru7 u huwwe biji - biji gets its b- back."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "B5",
+   "family": "B",
+   "name": "past tense",
+   "one_line": "Endings on the back of the verb say who did it.",
+   "examples": [
+    [
+     "ana shribet",
+     "I drank"
+    ],
+    [
+     "huwwe shirib",
+     "he drank"
+    ]
+   ],
+   "why": "No b-, no prefix - the past is all endings.",
+   "more": [
+    "-et I, -et you (m), -ti you (f), nothing for he, -et she, -na we, -tu you (pl), -u they.",
+    "Amal's Doc has all 8 persons for each verb - 825 rows."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "B6",
+   "family": "B",
+   "name": "kaan = was / were",
+   "one_line": "Arabic has no 'was' in the present, but it does in the past.",
+   "examples": [
+    [
+     "kunt ta3baan",
+     "I was tired"
+    ],
+    [
+     "kaan fi akel",
+     "there was food"
+    ]
+   ],
+   "why": "C1 says you skip 'am/is/are'. In the past you must put kaan back.",
+   "more": [
+    "ana ta3baan I am tired -> kunt ta3baan I was tired.",
+    "kunt I, kaan he, kaanat she, kunna we, kaanu they."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "B7",
+   "family": "B",
+   "name": "kaan + b-verb = used to",
+   "one_line": "Habitual past - something you did regularly.",
+   "examples": [
+    [
+     "kunt bashte8el hon",
+     "I used to work here"
+    ]
+   ],
+   "why": "kaan plus a normal b-verb means it happened over and over back then.",
+   "more": [
+    "Note the b- STAYS here - this is not a drop case.",
+    "kaan bishrab ahwe kul yom he used to drink coffee every day."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "B8",
+   "family": "B",
+   "name": "bakoon / ykoon",
+   "one_line": "No 'to be' in the plain present, but you need it after lamma/iza and for habits.",
+   "examples": [
+    [
+     "ana ta3baan",
+     "I am tired (now)"
+    ],
+    [
+     "lamma akoon ta3baan",
+     "when I'm tired"
+    ]
+   ],
+   "why": "This is the 'being' verb that appears only in certain slots.",
+   "more": [
+    "Plain now: drop it - ana ta3baan.",
+    "After lamma / iza: you must use it - lamma akoon, iza bikoon.",
+    "For habits and the future: bakoon ta3baan ba3ed el-shu8el."
+   ],
+   "tally_rule": "R2"
+  },
+  {
+   "id": "B9",
+   "family": "B",
+   "name": "person on ykoon",
+   "one_line": "The ykoon form must match who you're talking about.",
+   "examples": [
+    [
+     "i7na lamma nkoon",
+     "when we are - right"
+    ],
+    [
+     "i7na ykoonu",
+     "wrong"
+    ]
+   ],
+   "why": "Easy to freeze on one form and use it for everybody.",
+   "more": [
+    "akoon I, tkoon you, ykoon he, tkoon she, nkoon we, ykoonu they.",
+    "Recorded slip: you said ykoonu ahl where it needed nkoon."
+   ],
+   "tally_rule": "R2"
+  },
+  {
+   "id": "B10",
+   "family": "B",
+   "name": "commands",
+   "one_line": "Telling someone to do something.",
+   "examples": [
+    [
+     "ishrab!",
+     "drink!"
+    ],
+    [
+     "ruu7!",
+     "go!"
+    ]
+   ],
+   "why": "Strip the present prefix and you're usually most of the way there.",
+   "more": [
+    "btishrab you drink -> ishrab drink!",
+    "Feminine adds -i: ishrabi. Plural adds -u: ishrabu.",
+    "Amal's Doc has 107 rows of these."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "B11",
+   "family": "B",
+   "name": "negative commands",
+   "one_line": "`ma` or `la` in front of the YOU-form.",
+   "examples": [
+    [
+     "ma tishrab",
+     "don't drink"
+    ],
+    [
+     "ma tez3ejini",
+     "don't annoy me"
+    ]
+   ],
+   "why": "You don't negate the command form - you negate the 'you do' form.",
+   "more": [
+    "Not ma ishrab - you need ma tishrab.",
+    "Feminine: ma tishrabi. Plural: ma tishrabu.",
+    "Amal drills this heavily - 202 hits across 9 of your lessons."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "B12",
+   "family": "B",
+   "name": "make-X vs get-X",
+   "one_line": "Doubling the middle letter turns 'I become' into 'I make someone'.",
+   "examples": [
+    [
+     "banbese6",
+     "I get happy"
+    ],
+    [
+     "babse6ha",
+     "I make her happy"
+    ]
+   ],
+   "why": "One is about you, the other is about what you do to somebody else.",
+   "more": [
+    "bad7ak I laugh -> bada77ek I make people laugh.",
+    "baz3al I get sad -> baza33el I make someone sad.",
+    "bazha2 I get bored -> bazahhe2 I bore people.",
+    "7 pairs in her Doc, plus ba3asseb."
+   ],
+   "tally_rule": "R6"
+  },
+  {
+   "id": "B13",
+   "family": "B",
+   "name": "future with ra7",
+   "one_line": "`ra7` plus a bare verb.",
+   "examples": [
+    [
+     "ra7 ashrab",
+     "I'm going to drink"
+    ]
+   ],
+   "why": "ra7 does the work of 'will' / 'going to'.",
+   "more": [
+    "The verb after ra7 drops its b- (this is a B3 case).",
+    "ra7 aru7 I'll go - never ra7 baru7."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "B14",
+   "family": "B",
+   "name": "3am = right now",
+   "one_line": "`3am` plus a verb means it's happening this second.",
+   "examples": [
+    [
+     "3am bashrab",
+     "I'm drinking right now"
+    ]
+   ],
+   "why": "English uses -ing for both habits and right-now. Arabic splits them.",
+   "more": [
+    "bashrab ahwe = I drink coffee (generally).",
+    "3am bashrab ahwe = I'm drinking coffee right now.",
+    "Amal has said this only 3 times in your recorded lessons."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "B15",
+   "family": "B",
+   "name": "participles",
+   "one_line": "State words that act like adjectives.",
+   "examples": [
+    [
+     "ana raaye7",
+     "I'm on my way"
+    ],
+    [
+     "ana naasi",
+     "I've forgotten"
+    ]
+   ],
+   "why": "Not really a verb - it describes the state you're in.",
+   "more": [
+    "raaye7 going, naasi having forgotten, 3aaref knowing, saaken living.",
+    "They take gender: raaye7 (m) / raay7a (f).",
+    "Only 1 hit in all your lessons - this is your thinnest bucket."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "B16",
+   "family": "B",
+   "name": "kan laazem",
+   "one_line": "`kaan` stacked on `laazem` = had to / should have.",
+   "examples": [
+    [
+     "kaan laazem ashte8el",
+     "I had to work"
+    ],
+    [
+     "ma kaan laazem",
+     "I shouldn't have"
+    ]
+   ],
+   "why": "B6 kaan plus B2 laazem, together - and the b- still drops.",
+   "more": [
+    "kaan laazem aru7 I had to go - never kaan laazem baru7.",
+    "Negative flips the meaning to regret: ma kaan laazem a7ki I shouldn't have spoken.",
+    "Amal corrected you on this live on Aug 25."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "B17",
+   "family": "B",
+   "name": "saarli",
+   "one_line": "'It's been X for me' - duration up to now.",
+   "examples": [
+    [
+     "saarli saa3a hon",
+     "I've been here an hour"
+    ],
+    [
+     "min saarlha?",
+     "how long has it been?"
+    ]
+   ],
+   "why": "Takes the PERSON ending, not a separate subject word.",
+   "more": [
+    "saarli me, saarlak you (m), saarlek you (f), saarlo him, saarlha her.",
+    "saarli sitt shhoor bat3allam 3arabi - I've been learning Arabic for six months.",
+    "From your Sep 21 lesson: min saarlha inta akaltha?"
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "C1",
+   "family": "C",
+   "name": "no word for 'to be'",
+   "one_line": "Arabic drops am / is / are in the plain present.",
+   "examples": [
+    [
+     "ana ta3baan",
+     "I am tired"
+    ],
+    [
+     "el-bait 7elu",
+     "the house is pretty"
+    ]
+   ],
+   "why": "You just put the two parts side by side. Nothing goes between them.",
+   "more": [
+    "huwwe doktoar - he is a doctor.",
+    "Put kaan back for the past (B6) and ykoon after lamma/iza (B8)."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "C2",
+   "family": "C",
+   "name": "the pointer rule",
+   "one_line": "Move the object to the front and the verb grows an ending pointing back.",
+   "examples": [
+    [
+     "aktar eshi basawwih",
+     "the thing I do most"
+    ]
+   ],
+   "why": "The -h on the end is the 'it' you already mentioned at the front.",
+   "more": [
+    "el-akel illi taba5to - the food that I cooked; -o points back to the food.",
+    "Endings: -o him/it, -ha her/it (f), -hom them.",
+    "Forgetting the ending is one of your recorded slips."
+   ],
+   "tally_rule": "R5"
+  },
+  {
+   "id": "C3",
+   "family": "C",
+   "name": "comparatives",
+   "one_line": "`a7san`, `aktar`, `a2al` - and never `el-` in front.",
+   "examples": [
+    [
+     "a7san 6ari2a",
+     "the best way"
+    ],
+    [
+     "aktar min heik",
+     "more than that"
+    ]
+   ],
+   "why": "The same word covers 'better' and 'best'. Context tells you which.",
+   "more": [
+    "a7san better/best, aktar more/most, a2al less/least, aswa2 worse/worst.",
+    "Never el-a7san - that's the recorded slip."
+   ],
+   "tally_rule": "R3"
+  },
+  {
+   "id": "C4",
+   "family": "C",
+   "name": "saying no",
+   "one_line": "`ma` before verbs, `mish` before nouns and adjectives.",
+   "examples": [
+    [
+     "ma bashrab",
+     "I don't drink"
+    ],
+    [
+     "mish ta3baan",
+     "not tired"
+    ]
+   ],
+   "why": "Two different 'not' words, picked by what comes after.",
+   "more": [
+    "Verb -> ma: ma baru7 I don't go.",
+    "Adjective or noun -> mish: mish zaaki not tasty.",
+    "Never: abadan ma baru7 I never go."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "C5",
+   "family": "C",
+   "name": "u / aw / wala",
+   "one_line": "and, either-or, nor/nothing.",
+   "examples": [
+    [
+     "ahwe u shay",
+     "coffee and tea"
+    ],
+    [
+     "wala shi",
+     "nothing"
+    ]
+   ],
+   "why": "Three small joining words that don't overlap the way English 'or' does.",
+   "more": [
+    "u = and.  aw = or (a real choice).  wala = nor / not even / none.",
+    "wala 7ada nobody, wala ishi nothing.",
+    "Mixing up aw and wala is a recorded slip."
+   ],
+   "tally_rule": "R8"
+  },
+  {
+   "id": "C6",
+   "family": "C",
+   "name": "iza / lamma",
+   "one_line": "if, when - and both change the verb after them.",
+   "examples": [
+    [
+     "iza bteji, bansu6",
+     "if you come, I'm happy"
+    ]
+   ],
+   "why": "They trigger the b-drop (B3) and often need ykoon (B8).",
+   "more": [
+    "lamma = when (it will happen).  iza = if (it might).",
+    "lamma aru7 when I go - bare verb.",
+    "lamma akoon ta3baan when I'm tired - needs ykoon."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "C7",
+   "family": "C",
+   "name": "illi",
+   "one_line": "'the one that' - never changes shape.",
+   "examples": [
+    [
+     "el-bait illi ishtareto",
+     "the house that I bought"
+    ]
+   ],
+   "why": "One word covers that / which / who, for everything.",
+   "more": [
+    "It never changes for gender or number.",
+    "The clause after it usually needs the C2 pointer ending - ishtareto not ishtarait."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "C8",
+   "family": "C",
+   "name": "question words",
+   "one_line": "The basic set.",
+   "examples": [
+    [
+     "wein raaye7?",
+     "where are you going?"
+    ],
+    [
+     "shu hada?",
+     "what's this?"
+    ]
+   ],
+   "why": "Arabic doesn't need a 'do' helper - the question word just goes first.",
+   "more": [
+    "shu what, wein where, keef how, 2addesh how much, kam how many, lesh why, meen who, aymta when."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "C9",
+   "family": "C",
+   "name": "word order",
+   "one_line": "Normal is verb then object; front the object and C2 kicks in.",
+   "examples": [
+    [
+     "basawwi el-akel",
+     "I make the food"
+    ],
+    [
+     "el-akel basawwih",
+     "the food, I make it"
+    ]
+   ],
+   "why": "Moving something to the front is allowed - but then you owe a pointer ending.",
+   "more": [
+    "Plain: verb, then what it acts on.",
+    "Fronted: the thing first, then the verb WITH its ending."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "C10",
+   "family": "C",
+   "name": "preposition goes in front",
+   "one_line": "English leaves it dangling; Arabic never does.",
+   "examples": [
+    [
+     "min wein ishtareto?",
+     "where did you buy it from?"
+    ],
+    [
+     "ma3 meen?",
+     "with who?"
+    ]
+   ],
+   "why": "The preposition fuses to the question word and leads the sentence.",
+   "more": [
+    "min wein from where, lawein to where, 3an shu about what.",
+    "ma3 meen with who, min emta since when, min shu from what.",
+    "Amal taught this out loud on Sep 16: lawein - we add it to the question, always."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "D1",
+   "family": "D",
+   "name": "prepositions",
+   "one_line": "Small words with several jobs each.",
+   "examples": [
+    [
+     "min el-bait",
+     "from the house"
+    ],
+    [
+     "3ala el-6aawle",
+     "on the table"
+    ]
+   ],
+   "why": "Each one covers 2-4 English prepositions, so you learn them by use, not translation.",
+   "more": [
+    "min from, 3ala on/about, fi in, ma3 with, bi by/with, la to/for.",
+    "3ala alone covers on, about, against and owing."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "D2",
+   "family": "D",
+   "name": "verb + its fixed preposition",
+   "one_line": "The verb chooses it. You can't guess from English.",
+   "examples": [
+    [
+     "a6lub minhom",
+     "I ask them"
+    ],
+    [
+     "5aayef min",
+     "scared of"
+    ]
+   ],
+   "why": "Learn the verb and its preposition as one unit.",
+   "more": [
+    "ba6lub min - ask FROM (not 'to').",
+    "5aayef min - scared FROM (not 'of').",
+    "mishtaa2 la missing TO, 2al2aan 3ala worried ON, mu5talef 3an different FROM.",
+    "Zero hits in your lessons - nobody has drilled this set."
+   ],
+   "tally_rule": "R7"
+  },
+  {
+   "id": "D3",
+   "family": "D",
+   "name": "endings on prepositions",
+   "one_line": "Stick the person on the end of the preposition.",
+   "examples": [
+    [
+     "ma3i",
+     "with me"
+    ],
+    [
+     "minnak",
+     "from you"
+    ]
+   ],
+   "why": "Same idea as A4, but on prepositions instead of nouns.",
+   "more": [
+    "ma3i with me, ma3ak with you, ma3o with him.",
+    "minni from me, minnak from you, minno from him.",
+    "Some double their letter: min -> minno, not mino."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "D4",
+   "family": "D",
+   "name": "endings on verbs",
+   "one_line": "The object rides on the back of the verb.",
+   "examples": [
+    [
+     "shufo",
+     "see him"
+    ],
+    [
+     "bi7kilak",
+     "he tells you"
+    ]
+   ],
+   "why": "A different set from D3 - these attach straight to the verb.",
+   "more": [
+    "shufo see him, shufha see her, shufhom see them.",
+    "bi7kili he tells me, bi7kilak he tells you.",
+    "Feeds the C2 pointer rule."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "E1",
+   "family": "E",
+   "name": "number + noun",
+   "one_line": "2 has its own form; 3-10 take a plural; 11+ take a SINGULAR.",
+   "examples": [
+    [
+     "yomein",
+     "2 days"
+    ],
+    [
+     "talat iyyaam",
+     "3 days"
+    ],
+    [
+     "7da3sh yom",
+     "11 day"
+    ]
+   ],
+   "why": "The rule flips twice as the number gets bigger - this is the part English never prepares you for.",
+   "more": [
+    "Exactly 2: no number word, just the -ein ending - yomein, saa3tain.",
+    "3 to 10: number + plural noun - talat iyyaam, 5ams saa3aat.",
+    "11 and up: number + SINGULAR noun - 7da3sh yom, 3ishreen saa3a."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "E2",
+   "family": "E",
+   "name": "clock time",
+   "one_line": "`el-saa3a` + the feminine number.",
+   "examples": [
+    [
+     "el-saa3a tlaate u noss",
+     "3:30"
+    ],
+    [
+     "el-saa3a talaat illa rube3",
+     "2:45"
+    ]
+   ],
+   "why": "You say 'the hour three and a half', not 'three thirty'.",
+   "more": [
+    "u noss and a half, u rube3 and a quarter, illa rube3 quarter to.",
+    "u talateen and thirty, for exact minutes."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "E3",
+   "family": "E",
+   "name": "time units, two-of and many-of",
+   "one_line": "Each unit has three forms.",
+   "examples": [
+    [
+     "d2ee2a / d2ee2tain / d2aaye2",
+     "minute / two minutes / minutes"
+    ]
+   ],
+   "why": "One, exactly two, and many - the middle one is the A9 dual.",
+   "more": [
+    "saa3a / saa3tain / saa3aat - hour.",
+    "yom / yomein / iyyaam - day.",
+    "shahr / shahrein / shhoor - month."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "E4",
+   "family": "E",
+   "name": "calendar",
+   "one_line": "Days, months, and 'on Monday'.",
+   "examples": [
+    [
+     "yom el-itnein",
+     "Monday"
+    ],
+    [
+     "el-jum3a",
+     "Friday"
+    ]
+   ],
+   "why": "Days are just 'day the-second', 'day the-third' and so on.",
+   "more": [
+    "el-itnein Monday (day 2), el-talaata Tuesday, el-arb3a Wednesday.",
+    "el-jum3a Friday, el-sabet Saturday, el-a7ad Sunday."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "F1",
+   "family": "F",
+   "name": "the seven hard letters",
+   "one_line": "Sounds English doesn't have - scored as pronunciation, not grammar.",
+   "examples": [
+    [
+     "ne6la3",
+     "we go out - not 'nitla'"
+    ]
+   ],
+   "why": "Dropping them makes a different word, or no word at all.",
+   "more": [
+    "2 = hamza glottal stop, 3 = ayn, 7 = ha, 5 = kha, 6 = ta, 8 = ghayn, 9 = sad.",
+    "Your recorded slips are mostly ayn, ta and ghayn."
+   ],
+   "tally_rule": "R9"
+  },
+  {
+   "id": "F2",
+   "family": "F",
+   "name": "vowel length",
+   "one_line": "Holding a vowel longer changes the word.",
+   "examples": [
+    [
+     "saam / sam",
+     "fasted / poison"
+    ]
+   ],
+   "why": "Arabic treats a long vowel and a short one as two different letters.",
+   "more": [
+    "Written Arabic doesn't mark short vowels, so this can only be judged by ear.",
+    "In Arabizi a doubled letter means hold it: saam vs sam."
+   ],
+   "tally_rule": null
+  },
+  {
+   "id": "F3",
+   "family": "F",
+   "name": "shadda (doubled letter)",
+   "one_line": "Hold the consonant twice as long.",
+   "examples": [
+    [
+     "sakker",
+     "he closed"
+    ],
+    [
+     "bazahhe2",
+     "I bore people"
+    ]
+   ],
+   "why": "It's the difference between B12's two verb types - audio only, never judged from spelling.",
+   "more": [
+    "sakar sugar vs sakkar he closed.",
+    "In B12 the doubling IS the grammar: bad7ak vs bada77ek."
+   ],
+   "tally_rule": null
+  }
+ ]
+}

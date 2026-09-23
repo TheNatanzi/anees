@@ -1,0 +1,91 @@
+/* Grammar Console. Layers on top of word-bank.css, same #anees-bank shell. */
+
+#anees-bank .gc-periods{display:flex;gap:6px;margin:0 0 16px}
+#anees-bank .gc-period{background:var(--ab-panel);border:1px solid var(--ab-line);border-radius:6px;padding:6px 14px;font-size:12px;color:var(--ab-muted)}
+#anees-bank .gc-period[aria-pressed=true]{background:var(--ab-active);border-color:var(--ab-accent);color:var(--ab-accent);font-weight:500}
+
+/* ---- the four chart boxes ---- */
+#anees-bank .gc-charts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:22px}
+#anees-bank .gc-chart{margin:0;background:var(--ab-panel);border:1px solid var(--ab-line);border-radius:8px;padding:13px 13px 11px;min-width:0}
+#anees-bank .gc-chart figcaption{display:flex;flex-direction:column;gap:2px;margin-bottom:8px}
+#anees-bank .gc-chart-title{font-size:11px;font-weight:500;color:var(--ab-text);line-height:1.3}
+#anees-bank .gc-chart-note{font-size:10px;color:var(--ab-muted)}
+#anees-bank .gc-chart-value{font-size:27px;line-height:1;letter-spacing:-1px;margin-bottom:8px}
+#anees-bank .gc-chart-body{min-height:62px;display:flex;align-items:flex-end}
+#anees-bank .gc-pie-body{align-items:center;justify-content:center;gap:10px}
+#anees-bank .gc-chart-body svg{width:100%;height:62px;overflow:visible}
+#anees-bank .gc-pie-body svg{width:62px;height:62px;flex:0 0 62px}
+#anees-bank .gc-chart-foot{font-size:10px;color:var(--ab-muted);margin-top:7px;line-height:1.4}
+#anees-bank .gc-delta-good{color:var(--ab-green)}
+#anees-bank .gc-delta-bad{color:var(--ab-red)}
+#anees-bank .gc-bar{fill:var(--ab-accent);opacity:.75}
+#anees-bank .gc-bar-last{opacity:1}
+#anees-bank .gc-axis{stroke:var(--ab-line);stroke-width:1}
+#anees-bank .gc-line{fill:none;stroke:var(--ab-accent);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+#anees-bank .gc-dot{fill:var(--ab-accent)}
+#anees-bank .gc-blank{font-size:11px;color:var(--ab-muted);align-self:center}
+#anees-bank .gc-legend{display:grid;gap:3px;font-size:10px;min-width:0}
+#anees-bank .gc-legend div{display:flex;align-items:center;gap:5px;white-space:nowrap}
+#anees-bank .gc-swatch{width:8px;height:8px;border-radius:2px;flex:0 0 8px}
+
+/* ---- the rule table ---- */
+#anees-bank .gc-grid{display:grid;grid-template-columns:minmax(150px,2.4fr) 96px 86px 104px 104px;gap:10px;align-items:center}
+#anees-bank .gc-tablehead{font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:var(--ab-muted);padding:10px;background:var(--ab-raised);border-radius:5px 5px 0 0}
+#anees-bank .gc-row{border:1px solid var(--ab-line);border-top:0;background:var(--ab-panel)}
+#anees-bank .gc-rowhead{padding:13px 10px;width:100%;border:0;background:transparent;text-align:left;color:inherit}
+#anees-bank .gc-rowhead:hover{background:var(--ab-raised)}
+#anees-bank .gc-name{display:flex;gap:7px;align-items:baseline;font-weight:500;min-width:0}
+#anees-bank .gc-id{font-size:10px;color:var(--ab-accent);background:var(--ab-active);border-radius:3px;padding:2px 5px;flex:0 0 auto;font-variant-numeric:tabular-nums}
+#anees-bank .gc-oneline{font-size:11px;color:var(--ab-muted);margin-top:4px;margin-left:34px;line-height:1.4}
+#anees-bank .gc-num{font-variant-numeric:tabular-nums;font-size:15px;text-align:center}
+#anees-bank .gc-num small{display:block;font-size:10px;color:var(--ab-muted);margin-top:3px}
+#anees-bank .gc-meter{height:4px;border-radius:2px;background:var(--ab-raised);margin-top:6px;overflow:hidden}
+#anees-bank .gc-meter i{display:block;height:100%;border-radius:2px}
+#anees-bank .gc-pill{font-size:11px;padding:4px 9px;border-radius:20px;text-align:center;border:1px solid transparent;white-space:nowrap}
+#anees-bank .gc-pill-Mastered{color:var(--ab-green);border-color:currentColor}
+#anees-bank .gc-pill-Good{color:var(--ab-blue);border-color:currentColor}
+#anees-bank .gc-pill-Shaky{color:var(--ab-orange);border-color:currentColor}
+#anees-bank .gc-pill-Wrong{color:var(--ab-red);border-color:currentColor}
+#anees-bank .gc-pill-Untested{color:var(--ab-muted);border-color:var(--ab-line)}
+
+/* ---- the accordion ---- */
+#anees-bank .gc-detail{padding:18px;background:var(--ab-bg);border-top:1px solid var(--ab-line);border-left:2px solid var(--ab-accent)}
+#anees-bank .gc-secttitle{font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:var(--ab-muted);margin:0 0 9px}
+#anees-bank .gc-why{font-size:13px;line-height:1.55;margin:0 0 15px}
+#anees-bank .gc-examples{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin-bottom:16px}
+#anees-bank .gc-example{background:var(--ab-panel);border:1px solid var(--ab-line);border-radius:6px;padding:10px 11px}
+#anees-bank .gc-ex-ar{font-size:14px;font-weight:500;font-family:var(--sabz-font-mono,ui-monospace,monospace)}
+#anees-bank .gc-ex-en{font-size:11px;color:var(--ab-muted);margin-top:4px}
+#anees-bank .gc-more{margin:0 0 16px;padding-left:18px;font-size:12px;line-height:1.7}
+#anees-bank .gc-more li{margin-bottom:3px}
+
+/* ---- the uses list ---- */
+#anees-bank .gc-useshead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+#anees-bank .gc-toggle{background:var(--ab-panel);border:1px solid var(--ab-line);border-radius:5px;padding:5px 9px;font-size:11px;color:var(--ab-muted)}
+#anees-bank .gc-toggle[aria-pressed=true]{background:var(--ab-active);border-color:var(--ab-red);color:var(--ab-red)}
+#anees-bank .gc-use{border:1px solid var(--ab-line);border-left-width:3px;border-radius:6px;padding:11px 12px;margin-bottom:7px;background:var(--ab-panel)}
+#anees-bank .gc-use-slip{border-left-color:var(--ab-red)}
+#anees-bank .gc-use-right{border-left-color:var(--ab-green)}
+#anees-bank .gc-use-ask{border-left-color:var(--ab-blue)}
+#anees-bank .gc-usehead{display:flex;gap:9px;justify-content:space-between;flex-wrap:wrap;font-size:10px;color:var(--ab-muted);margin-bottom:8px}
+#anees-bank .gc-tag{font-size:10px;padding:2px 6px;border-radius:3px;background:var(--ab-raised)}
+#anees-bank .gc-said{font-size:14px;line-height:1.6;margin:0}
+#anees-bank .gc-said[dir=rtl]{text-align:right}
+#anees-bank .gc-recast{font-size:12px;margin:7px 0 0;padding-top:7px;border-top:1px solid var(--ab-line);color:var(--ab-muted)}
+#anees-bank .gc-recast b{color:var(--ab-green);font-weight:500}
+#anees-bank .gc-use audio{width:100%;margin-top:9px;height:32px}
+#anees-bank .gc-noaudio{font-size:10px;color:var(--ab-muted);margin-top:7px;font-style:italic}
+#anees-bank .gc-empty{padding:26px 14px;text-align:center;color:var(--ab-muted);font-size:12px}
+
+@media(max-width:1000px){#anees-bank .gc-charts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){
+  #anees-bank .gc-charts{grid-template-columns:1fr}
+  #anees-bank .gc-tablehead{display:none}
+  #anees-bank .gc-grid{grid-template-columns:1fr 1fr;gap:10px}
+  #anees-bank .gc-name{grid-column:1/-1}
+  #anees-bank .gc-oneline{margin-left:0}
+  #anees-bank .gc-row{border-top:1px solid var(--ab-line);border-radius:6px;margin-bottom:8px}
+  #anees-bank .gc-detail{padding:12px}
+  #anees-bank .gc-examples{grid-template-columns:1fr}
+  #anees-bank #gc-search{width:100%;flex-basis:100%;font-size:16px}
+}
