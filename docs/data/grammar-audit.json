@@ -1,6 +1,6 @@
 {
  "updated": "2026-09-23",
- "method": "Amal repeats Medi's sentence within 25s sharing at least 40% of his Arabic words; the changed words are the correction. Classified by rule, never guessed.",
+ "method": "Amal repeats Medi's sentence within 25s sharing at least 30% of his Arabic words; the changed words are the correction. Classified by rule, never guessed.",
  "lessons": [
   {
    "date": "2026-08-25",
@@ -8,7 +8,7 @@
    "turns": 624,
    "medi_turns": 313,
    "medi_arabic_turns": 201,
-   "corrections": 23
+   "corrections": 42
   },
   {
    "date": "2026-09-04",
@@ -16,7 +16,7 @@
    "turns": 1046,
    "medi_turns": 547,
    "medi_arabic_turns": 110,
-   "corrections": 10
+   "corrections": 22
   },
   {
    "date": "2026-09-05",
@@ -24,7 +24,7 @@
    "turns": 834,
    "medi_turns": 420,
    "medi_arabic_turns": 79,
-   "corrections": 5
+   "corrections": 11
   },
   {
    "date": "2026-09-11",
@@ -32,7 +32,7 @@
    "turns": 756,
    "medi_turns": 378,
    "medi_arabic_turns": 101,
-   "corrections": 6
+   "corrections": 23
   },
   {
    "date": "2026-09-14",
@@ -40,7 +40,7 @@
    "turns": 832,
    "medi_turns": 493,
    "medi_arabic_turns": 171,
-   "corrections": 14
+   "corrections": 31
   },
   {
    "date": "2026-09-15",
@@ -48,7 +48,7 @@
    "turns": 1095,
    "medi_turns": 535,
    "medi_arabic_turns": 164,
-   "corrections": 3
+   "corrections": 4
   },
   {
    "date": "2026-09-16",
@@ -56,7 +56,7 @@
    "turns": 862,
    "medi_turns": 487,
    "medi_arabic_turns": 63,
-   "corrections": 0
+   "corrections": 5
   },
   {
    "date": "2026-09-17",
@@ -64,7 +64,7 @@
    "turns": 825,
    "medi_turns": 460,
    "medi_arabic_turns": 91,
-   "corrections": 0
+   "corrections": 2
   },
   {
    "date": "2026-09-19",
@@ -72,7 +72,7 @@
    "turns": 690,
    "medi_turns": 348,
    "medi_arabic_turns": 22,
-   "corrections": 2
+   "corrections": 7
   },
   {
    "date": "2026-09-21",
@@ -80,26 +80,27 @@
    "turns": 1080,
    "medi_turns": 647,
    "medi_arabic_turns": 291,
-   "corrections": 11
+   "corrections": 43
   }
  ],
  "totals": {
-  "events": 74,
-  "buckets_hit": 12,
+  "events": 190,
+  "buckets_hit": 13,
   "lessons_with_text": 10
  },
  "by_bucket": {
+  "UNFILED": 118,
   "B1": 27,
-  "B12": 19,
-  "A8": 8,
+  "B12": 18,
+  "A8": 7,
   "A1": 6,
-  "C2": 4,
+  "C2": 3,
   "F1": 2,
   "B3": 2,
+  "D5": 2,
   "A10": 2,
   "B9": 1,
   "C3": 1,
-  "D5": 1,
   "E1": 1
  },
  "events": [
@@ -131,6 +132,56 @@
    "verified": false
   },
   {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 402.0,
+   "mmss": "06:42",
+   "said": "كوري، كوري، كوريا، كوري.",
+   "recast": "كوري؟",
+   "said_html": "<mark class=\"ab-wrong\">كوري، كوري، كوريا، كوري</mark>",
+   "recast_html": "<mark class=\"ab-correct\">كوري؟</mark>",
+   "wrong": [
+    "كوري، كوري، كوريا، كوري"
+   ],
+   "fixed": [
+    "كوري؟"
+   ],
+   "pair_wrong": "كوريا،",
+   "pair_fixed": "كوري؟",
+   "pair_similarity": 0.89,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 465.0,
+   "mmss": "07:45",
+   "said": "الساعة تلاتة ونص.",
+   "recast": "لا، مش تلاتة ونص.",
+   "said_html": "<mark class=\"ab-wrong\">الساعة</mark> تلاتة ونص",
+   "recast_html": "<mark class=\"ab-correct\">لا، مش</mark> تلاتة ونص",
+   "wrong": [
+    "الساعة"
+   ],
+   "fixed": [
+    "لا، مش"
+   ],
+   "pair_wrong": "الساعة",
+   "pair_fixed": "لا، مش",
+   "pair_similarity": 0.0,
+   "why": "correction found, rule not identified",
+   "match": "echo",
+   "overlap": 0.67,
+   "source": "transcript.txt",
+   "confidence": "high",
+   "verified": false
+  },
+  {
    "bucket": "F1",
    "date": "2026-08-25",
    "t": 520.0,
@@ -156,28 +207,28 @@
    "verified": false
   },
   {
-   "bucket": "C2",
+   "bucket": "UNFILED",
    "date": "2026-08-25",
    "t": 530.0,
    "mmss": "08:50",
    "said": "مش مغني، مغـ، مغـ.",
-   "recast": "مغني is singer.",
+   "recast": "مغيم.",
    "said_html": "<mark class=\"ab-wrong\">مش مغني، مغـ، مغـ</mark>",
-   "recast_html": "<mark class=\"ab-correct\">مغني</mark>",
+   "recast_html": "<mark class=\"ab-correct\">مغيم</mark>",
    "wrong": [
     "مش مغني، مغـ، مغـ"
    ],
    "fixed": [
-    "مغني"
+    "مغيم"
    ],
-   "pair_wrong": "مغـ،",
-   "pair_fixed": "مغني",
-   "pair_similarity": 0.67,
-   "why": "the pointer ending was missing",
+   "pair_wrong": "مغني،",
+   "pair_fixed": "مغيم",
+   "pair_similarity": 0.75,
+   "why": "correction found, rule not identified",
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "low",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -224,6 +275,31 @@
    "pair_fixed": "بزبت،",
    "pair_similarity": 0.86,
    "why": "the b- prefix",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 834.0,
+   "mmss": "13:54",
+   "said": "Sure. الـ Google Meet، بقدر، understand. بقدر، آ-آآآ، تفهم-",
+   "recast": "يفهم",
+   "said_html": "<mark class=\"ab-wrong\">الـ ، بقدر، بقدر، آ آآآ، تفهم</mark>",
+   "recast_html": "<mark class=\"ab-correct\">يفهم</mark>",
+   "wrong": [
+    "الـ ، بقدر، بقدر، آ آآآ، تفهم"
+   ],
+   "fixed": [
+    "يفهم"
+   ],
+   "pair_wrong": "تفهم",
+   "pair_fixed": "يفهم",
+   "pair_similarity": 0.75,
+   "why": "correction found, rule not identified",
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
@@ -306,6 +382,31 @@
    "verified": false
   },
   {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 1112.0,
+   "mmss": "18:32",
+   "said": "بي تعب أك.",
+   "recast": "بي تعب أك، yeah.",
+   "said_html": "بي تعب <mark class=\"ab-wrong\">أك</mark>",
+   "recast_html": "بي تعب <mark class=\"ab-correct\">أك،</mark>",
+   "wrong": [
+    "أك"
+   ],
+   "fixed": [
+    "أك،"
+   ],
+   "pair_wrong": "أك",
+   "pair_fixed": "أك،",
+   "pair_similarity": 0.0,
+   "why": "correction found, rule not identified",
+   "match": "echo",
+   "overlap": 0.67,
+   "source": "transcript.txt",
+   "confidence": "high",
+   "verified": false
+  },
+  {
    "bucket": "B1",
    "date": "2026-08-25",
    "t": 1250.0,
@@ -374,6 +475,31 @@
    "pair_fixed": "كامل،",
    "pair_similarity": 0.89,
    "why": "feminine agreement",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 1368.0,
+   "mmss": "22:48",
+   "said": "هما ما بيخلصوا اشتغلتهم.",
+   "recast": "شغلهم.",
+   "said_html": "<mark class=\"ab-wrong\">هما ما بيخلصوا اشتغلتهم</mark>",
+   "recast_html": "<mark class=\"ab-correct\">شغلهم</mark>",
+   "wrong": [
+    "هما ما بيخلصوا اشتغلتهم"
+   ],
+   "fixed": [
+    "شغلهم"
+   ],
+   "pair_wrong": "اشتغلتهم",
+   "pair_fixed": "شغلهم",
+   "pair_similarity": 0.77,
+   "why": "correction found, rule not identified",
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
@@ -506,6 +632,106 @@
    "verified": false
   },
   {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 2037.0,
+   "mmss": "33:57",
+   "said": "ما، ما بأعمل إشي.",
+   "recast": "هي، شو بتعمل؟",
+   "said_html": "<mark class=\"ab-wrong\">ما، ما بأعمل إشي</mark>",
+   "recast_html": "<mark class=\"ab-correct\">هي، شو بتعمل؟</mark>",
+   "wrong": [
+    "ما، ما بأعمل إشي"
+   ],
+   "fixed": [
+    "هي، شو بتعمل؟"
+   ],
+   "pair_wrong": "بأعمل",
+   "pair_fixed": "بتعمل؟",
+   "pair_similarity": 0.8,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 2066.0,
+   "mmss": "34:26",
+   "said": "بتتأسف، بتأف-- oh my God. بتتأسف لي.",
+   "recast": "خلاص، بس، hết؟",
+   "said_html": "<mark class=\"ab-wrong\">بتتأسف، بتأف بتتأسف لي</mark>",
+   "recast_html": "<mark class=\"ab-correct\">خلاص، بس، ؟</mark>",
+   "wrong": [
+    "بتتأسف، بتأف بتتأسف لي"
+   ],
+   "fixed": [
+    "خلاص، بس، ؟"
+   ],
+   "pair_wrong": "بتتأسف،",
+   "pair_fixed": "بس،",
+   "pair_similarity": 0.5,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 2166.0,
+   "mmss": "36:06",
+   "said": "عتيته أنا، بنت-- بنتطلع، بنتطلع بنات أخوي-",
+   "recast": "بنطلع؟",
+   "said_html": "<mark class=\"ab-wrong\">عتيته أنا، بنت بنتطلع، بنتطلع بنات أخوي</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بنطلع؟</mark>",
+   "wrong": [
+    "عتيته أنا، بنت بنتطلع، بنتطلع بنات أخوي"
+   ],
+   "fixed": [
+    "بنطلع؟"
+   ],
+   "pair_wrong": "بنتطلع،",
+   "pair_fixed": "بنطلع؟",
+   "pair_similarity": 0.91,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 2605.0,
+   "mmss": "43:25",
+   "said": "بتخططوا. اه، بخطط. اه، اه.",
+   "recast": "بنخطط.",
+   "said_html": "<mark class=\"ab-wrong\">بتخططوا اه، بخطط اه، اه</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بنخطط</mark>",
+   "wrong": [
+    "بتخططوا اه، بخطط اه، اه"
+   ],
+   "fixed": [
+    "بنخطط"
+   ],
+   "pair_wrong": "بخطط",
+   "pair_fixed": "بنخطط",
+   "pair_similarity": 0.89,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
    "bucket": "F1",
    "date": "2026-08-25",
    "t": 2612.0,
@@ -553,6 +779,81 @@
    "overlap": 0.0,
    "source": "transcript.txt",
    "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 2729.0,
+   "mmss": "45:29",
+   "said": "'Cause we say كلًا. We say كلًا.",
+   "recast": "Yeah. على كل.",
+   "said_html": "<mark class=\"ab-wrong\">كلًا كلًا</mark>",
+   "recast_html": "<mark class=\"ab-correct\">على كل</mark>",
+   "wrong": [
+    "كلًا كلًا"
+   ],
+   "fixed": [
+    "على كل"
+   ],
+   "pair_wrong": "كلًا",
+   "pair_fixed": "كل",
+   "pair_similarity": 0.8,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 2908.0,
+   "mmss": "48:28",
+   "said": "لازم يكون issue سيء. سيء كتير.",
+   "recast": "لا، لا. عشان I get angry",
+   "said_html": "<mark class=\"ab-wrong\">لازم يكون سيء سيء كتير</mark>",
+   "recast_html": "<mark class=\"ab-correct\">لا، لا عشان</mark>",
+   "wrong": [
+    "لازم يكون سيء سيء كتير"
+   ],
+   "fixed": [
+    "لا، لا عشان"
+   ],
+   "pair_wrong": "لازم",
+   "pair_fixed": "لا،",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 2922.0,
+   "mmss": "48:42",
+   "said": "اه، أنا أحكي الـ، أحكي الجملة؟",
+   "recast": "لا، لا. عشان I get angry",
+   "said_html": "<mark class=\"ab-wrong\">اه، أنا أحكي الـ، أحكي الجملة؟</mark>",
+   "recast_html": "<mark class=\"ab-correct\">لا، لا عشان</mark>",
+   "wrong": [
+    "اه، أنا أحكي الـ، أحكي الجملة؟"
+   ],
+   "fixed": [
+    "لا، لا عشان"
+   ],
+   "pair_wrong": "أنا",
+   "pair_fixed": "عشان",
+   "pair_similarity": 0.57,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -656,6 +957,132 @@
    "verified": false
   },
   {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 3298.0,
+   "mmss": "54:58",
+   "said": "لما أنا لما أزآن.",
+   "recast": "أز؟",
+   "said_html": "<mark class=\"ab-wrong\">لما أنا لما أزآن</mark>",
+   "recast_html": "<mark class=\"ab-correct\">أز؟</mark>",
+   "wrong": [
+    "لما أنا لما أزآن"
+   ],
+   "fixed": [
+    "أز؟"
+   ],
+   "pair_wrong": "أزآن",
+   "pair_fixed": "أز؟",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 3316.0,
+   "mmss": "55:16",
+   "said": "أز، أزأل.",
+   "recast": "No. زهـ، زهآن.",
+   "said_html": "<mark class=\"ab-wrong\">أز، أزأل</mark>",
+   "recast_html": "<mark class=\"ab-correct\">زهـ، زهآن</mark>",
+   "wrong": [
+    "أز، أزأل"
+   ],
+   "fixed": [
+    "زهـ، زهآن"
+   ],
+   "pair_wrong": "أز،",
+   "pair_fixed": "زهـ،",
+   "pair_similarity": 0.5,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 3320.0,
+   "mmss": "55:20",
+   "said": "وي أزآن. لم، did you say أزآن؟",
+   "recast": "No. زهـ، زهآن.",
+   "said_html": "<mark class=\"ab-wrong\">وي أزآن لم، أزآن؟</mark>",
+   "recast_html": "<mark class=\"ab-correct\">زهـ، زهآن</mark>",
+   "wrong": [
+    "وي أزآن لم، أزآن؟"
+   ],
+   "fixed": [
+    "زهـ، زهآن"
+   ],
+   "pair_wrong": "أزآن",
+   "pair_fixed": "زهآن",
+   "pair_similarity": 0.75,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 3328.0,
+   "mmss": "55:28",
+   "said": "زهآن. زهآن. بس، آه، لما بزهأ.",
+   "recast": "لما أزهأ.",
+   "said_html": "<mark class=\"ab-wrong\">زهآن زهآن بس، آه،</mark> لما <mark class=\"ab-wrong\">بزهأ</mark>",
+   "recast_html": "لما <mark class=\"ab-correct\">أزهأ</mark>",
+   "wrong": [
+    "زهآن زهآن بس، آه،",
+    "بزهأ"
+   ],
+   "fixed": [
+    "أزهأ"
+   ],
+   "pair_wrong": "زهآن",
+   "pair_fixed": "أزهأ",
+   "pair_similarity": 0.75,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.17,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 3402.0,
+   "mmss": "56:42",
+   "said": "مسلسل، مسلسل اللي... No, no. Yeah. No.",
+   "recast": "مالي.",
+   "said_html": "<mark class=\"ab-wrong\">مسلسل، مسلسل اللي</mark>",
+   "recast_html": "<mark class=\"ab-correct\">مالي</mark>",
+   "wrong": [
+    "مسلسل، مسلسل اللي"
+   ],
+   "fixed": [
+    "مالي"
+   ],
+   "pair_wrong": "اللي",
+   "pair_fixed": "مالي",
+   "pair_similarity": 0.75,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
    "bucket": "B1",
    "date": "2026-08-25",
    "t": 3498.0,
@@ -674,6 +1101,106 @@
    "pair_fixed": "بغير",
    "pair_similarity": 0.75,
    "why": "the b- prefix",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 3502.0,
+   "mmss": "58:22",
+   "said": "بغير الجو.",
+   "recast": "No ال. Just جو.",
+   "said_html": "<mark class=\"ab-wrong\">بغير الجو</mark>",
+   "recast_html": "<mark class=\"ab-correct\">ال جو</mark>",
+   "wrong": [
+    "بغير الجو"
+   ],
+   "fixed": [
+    "ال جو"
+   ],
+   "pair_wrong": "الجو",
+   "pair_fixed": "ال",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-08-25",
+   "t": 3521.0,
+   "mmss": "58:41",
+   "said": "I... Yeah. أنا، أنا، it's really hard that you guys don't use بحس as I, I feel. أنا بظن إنه، عملنا كتير. عملنا-",
+   "recast": "إنه.",
+   "said_html": "<mark class=\"ab-wrong\">أنا، أنا، بحس أنا بظن إنه، عملنا كتير عملنا</mark>",
+   "recast_html": "<mark class=\"ab-correct\">إنه</mark>",
+   "wrong": [
+    "أنا، أنا، بحس أنا بظن إنه، عملنا كتير عملنا"
+   ],
+   "fixed": [
+    "إنه"
+   ],
+   "pair_wrong": "أنا،",
+   "pair_fixed": "إنه",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-04",
+   "t": 13.0,
+   "mmss": "00:13",
+   "said": "عمام، وإنتي؟",
+   "recast": "بعرف nerd آه. إنتا nerd.",
+   "said_html": "<mark class=\"ab-wrong\">عمام، وإنتي؟</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بعرف آه إنتا</mark>",
+   "wrong": [
+    "عمام، وإنتي؟"
+   ],
+   "fixed": [
+    "بعرف آه إنتا"
+   ],
+   "pair_wrong": "وإنتي؟",
+   "pair_fixed": "إنتا",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-04",
+   "t": 29.0,
+   "mmss": "00:29",
+   "said": "Nerd بعرف، انتَ بتعرف-",
+   "recast": "بعرف nerd آه. إنتا nerd.",
+   "said_html": "<mark class=\"ab-wrong\">بعرف، انتَ بتعرف</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بعرف آه إنتا</mark>",
+   "wrong": [
+    "بعرف، انتَ بتعرف"
+   ],
+   "fixed": [
+    "بعرف آه إنتا"
+   ],
+   "pair_wrong": "بتعرف",
+   "pair_fixed": "بعرف",
+   "pair_similarity": 0.89,
+   "why": "correction found, rule not identified",
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
@@ -706,26 +1233,128 @@
    "verified": false
   },
   {
-   "bucket": "A8",
+   "bucket": "UNFILED",
+   "date": "2026-09-04",
+   "t": 223.0,
+   "mmss": "03:43",
+   "said": "I excited؟ أنا بهمس.",
+   "recast": "بتحمس.",
+   "said_html": "<mark class=\"ab-wrong\">؟ أنا بهمس</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بتحمس</mark>",
+   "wrong": [
+    "؟ أنا بهمس"
+   ],
+   "fixed": [
+    "بتحمس"
+   ],
+   "pair_wrong": "بهمس",
+   "pair_fixed": "بتحمس",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
    "date": "2026-09-04",
    "t": 423.0,
    "mmss": "07:03",
    "said": "مشكلة، مشكل-- yeah. عندي",
-   "recast": "عندي مشكلة فيها",
-   "said_html": "<mark class=\"ab-wrong\">مشكلة، مشكل</mark> عندي",
-   "recast_html": "عندي <mark class=\"ab-correct\">مشكلة فيها</mark>",
+   "recast": "مشكلة، أي كلمة؟",
+   "said_html": "مشكلة، <mark class=\"ab-wrong\">مشكل عندي</mark>",
+   "recast_html": "مشكلة، <mark class=\"ab-correct\">أي كلمة؟</mark>",
    "wrong": [
-    "مشكلة، مشكل"
+    "مشكل عندي"
    ],
    "fixed": [
-    "مشكلة فيها"
+    "أي كلمة؟"
    ],
    "pair_wrong": "مشكل",
-   "pair_fixed": "مشكلة",
-   "pair_similarity": 0.89,
-   "why": "feminine agreement",
-   "match": "spot",
+   "pair_fixed": "كلمة؟",
+   "pair_similarity": 0.5,
+   "why": "correction found, rule not identified",
+   "match": "echo",
    "overlap": 0.33,
+   "source": "transcript.txt",
+   "confidence": "high",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-04",
+   "t": 582.0,
+   "mmss": "09:42",
+   "said": "smart? ذكي؟ ذك-ذكي.",
+   "recast": "ذكی",
+   "said_html": "<mark class=\"ab-wrong\">ذكي؟ ذك ذكي</mark>",
+   "recast_html": "<mark class=\"ab-correct\">ذكی</mark>",
+   "wrong": [
+    "ذكي؟ ذك ذكي"
+   ],
+   "fixed": [
+    "ذكی"
+   ],
+   "pair_wrong": "ذكي؟",
+   "pair_fixed": "ذكی",
+   "pair_similarity": 0.8,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "A8",
+   "date": "2026-09-04",
+   "t": 596.0,
+   "mmss": "09:56",
+   "said": "عند-- ما عنده،",
+   "recast": "صحيح. لما ما يكون عنده جواب للـ السؤال When it doesn't have an answer to this question.",
+   "said_html": "<mark class=\"ab-wrong\">عند</mark> ما <mark class=\"ab-wrong\">عنده،</mark>",
+   "recast_html": "<mark class=\"ab-correct\">صحيح لما</mark> ما <mark class=\"ab-correct\">يكون عنده جواب للـ السؤال</mark>",
+   "wrong": [
+    "عند",
+    "عنده،"
+   ],
+   "fixed": [
+    "صحيح لما",
+    "يكون عنده جواب للـ السؤال"
+   ],
+   "pair_wrong": "عند",
+   "pair_fixed": "عنده",
+   "pair_similarity": 0.86,
+   "why": "feminine agreement",
+   "match": "echo",
+   "overlap": 0.33,
+   "source": "transcript.txt",
+   "confidence": "high",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-04",
+   "t": 1950.0,
+   "mmss": "32:30",
+   "said": "so بيسبوت بيسبيت sorry بيسبت.",
+   "recast": "the present بس بضل be here and verb is BC6 or T. So bib set two Bs then",
+   "said_html": "<mark class=\"ab-wrong\">بيسبوت بيسبيت بيسبت</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بس بضل</mark>",
+   "wrong": [
+    "بيسبوت بيسبيت بيسبت"
+   ],
+   "fixed": [
+    "بس بضل"
+   ],
+   "pair_wrong": "بيسبت",
+   "pair_fixed": "بس",
+   "pair_similarity": 0.57,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
    "source": "transcript.txt",
    "confidence": "medium",
    "verified": false
@@ -781,6 +1410,81 @@
    "verified": false
   },
   {
+   "bucket": "UNFILED",
+   "date": "2026-09-04",
+   "t": 2113.0,
+   "mmss": "35:13",
+   "said": "بسيتا ات اه بساتوا انا",
+   "recast": "بساتيت أمhmm.",
+   "said_html": "<mark class=\"ab-wrong\">بسيتا ات اه بساتوا انا</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بساتيت أم</mark>",
+   "wrong": [
+    "بسيتا ات اه بساتوا انا"
+   ],
+   "fixed": [
+    "بساتيت أم"
+   ],
+   "pair_wrong": "بسيتا",
+   "pair_fixed": "بساتيت",
+   "pair_similarity": 0.73,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-04",
+   "t": 2603.0,
+   "mmss": "43:23",
+   "said": "بستي، بستو.",
+   "recast": "بست. إبست We do need an",
+   "said_html": "<mark class=\"ab-wrong\">بستي، بستو</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بست إبست</mark>",
+   "wrong": [
+    "بستي، بستو"
+   ],
+   "fixed": [
+    "بست إبست"
+   ],
+   "pair_wrong": "بستي،",
+   "pair_fixed": "بست",
+   "pair_similarity": 0.86,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-04",
+   "t": 2611.0,
+   "mmss": "43:31",
+   "said": "So yeah, بسّت، بسτι. بسّت.",
+   "recast": "بست. إبست We do need an",
+   "said_html": "<mark class=\"ab-wrong\">بسّت، بس بسّت</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بست إبست</mark>",
+   "wrong": [
+    "بسّت، بس بسّت"
+   ],
+   "fixed": [
+    "بست إبست"
+   ],
+   "pair_wrong": "بسّت،",
+   "pair_fixed": "إبست",
+   "pair_similarity": 0.86,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
    "bucket": "B1",
    "date": "2026-09-04",
    "t": 2665.0,
@@ -799,6 +1503,56 @@
    "pair_fixed": "ابستين",
    "pair_similarity": 0.91,
    "why": "wrong person ending on the verb",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-04",
+   "t": 2684.0,
+   "mmss": "44:44",
+   "said": "make them ا- ابستههم.",
+   "recast": "أبستيهم. Good.",
+   "said_html": "<mark class=\"ab-wrong\">ا ابستههم</mark>",
+   "recast_html": "<mark class=\"ab-correct\">أبستيهم</mark>",
+   "wrong": [
+    "ا ابستههم"
+   ],
+   "fixed": [
+    "أبستيهم"
+   ],
+   "pair_wrong": "ابستههم",
+   "pair_fixed": "أبستيهم",
+   "pair_similarity": 0.86,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-04",
+   "t": 3667.0,
+   "mmss": "61:07",
+   "said": "or أكثر؟ أحسن right?",
+   "recast": "شو أكتر",
+   "said_html": "<mark class=\"ab-wrong\">أكثر؟ أحسن</mark>",
+   "recast_html": "<mark class=\"ab-correct\">شو أكتر</mark>",
+   "wrong": [
+    "أكثر؟ أحسن"
+   ],
+   "fixed": [
+    "شو أكتر"
+   ],
+   "pair_wrong": "أكثر؟",
+   "pair_fixed": "أكتر",
+   "pair_similarity": 0.75,
+   "why": "correction found, rule not identified",
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
@@ -828,6 +1582,31 @@
    "overlap": 0.5,
    "source": "transcript.txt",
    "confidence": "high",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-04",
+   "t": 3692.0,
+   "mmss": "61:32",
+   "said": "إلي right؟ No there's no",
+   "recast": "إلـ.",
+   "said_html": "<mark class=\"ab-wrong\">إلي ؟</mark>",
+   "recast_html": "<mark class=\"ab-correct\">إلـ</mark>",
+   "wrong": [
+    "إلي ؟"
+   ],
+   "fixed": [
+    "إلـ"
+   ],
+   "pair_wrong": "إلي",
+   "pair_fixed": "إلـ",
+   "pair_similarity": 0.8,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -932,6 +1711,31 @@
    "verified": false
   },
   {
+   "bucket": "UNFILED",
+   "date": "2026-09-05",
+   "t": 2233.0,
+   "mmss": "37:13",
+   "said": "So الولاد أزعجووو، أزعجووو،",
+   "recast": "أزعجوه؟‬",
+   "said_html": "<mark class=\"ab-wrong\">الولاد أزعجووو، أزعجووو،</mark>",
+   "recast_html": "<mark class=\"ab-correct\">أزعجوه؟</mark>",
+   "wrong": [
+    "الولاد أزعجووو، أزعجووو،"
+   ],
+   "fixed": [
+    "أزعجوه؟"
+   ],
+   "pair_wrong": "أزعجووو،",
+   "pair_fixed": "أزعجوه؟",
+   "pair_similarity": 0.77,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
    "bucket": "B1",
    "date": "2026-09-05",
    "t": 2317.0,
@@ -977,6 +1781,133 @@
    "why": "wrong person ending on the verb",
    "match": "spot",
    "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-05",
+   "t": 2365.0,
+   "mmss": "39:25",
+   "said": "If I wanna say, \"It annoys me when...\" Can I say-- Do I need to say like، هو بيزعج؟",
+   "recast": "بزعجني.",
+   "said_html": "<mark class=\"ab-wrong\">، هو بيزعج؟</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بزعجني</mark>",
+   "wrong": [
+    "، هو بيزعج؟"
+   ],
+   "fixed": [
+    "بزعجني"
+   ],
+   "pair_wrong": "بيزعج؟",
+   "pair_fixed": "بزعجني",
+   "pair_similarity": 0.73,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-05",
+   "t": 2376.0,
+   "mmss": "39:36",
+   "said": "Okay, so بي-بيزعج-بيزعجوني.",
+   "recast": "بزعجني.",
+   "said_html": "<mark class=\"ab-wrong\">بي بيزعج بيزعجوني</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بزعجني</mark>",
+   "wrong": [
+    "بي بيزعج بيزعجوني"
+   ],
+   "fixed": [
+    "بزعجني"
+   ],
+   "pair_wrong": "بيزعجوني",
+   "pair_fixed": "بزعجني",
+   "pair_similarity": 0.86,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-05",
+   "t": 3316.0,
+   "mmss": "55:16",
+   "said": "لما أكون شبعان.",
+   "recast": "شبعان. كمان مرة.",
+   "said_html": "<mark class=\"ab-wrong\">لما أكون</mark> شبعان",
+   "recast_html": "شبعان <mark class=\"ab-correct\">كمان مرة</mark>",
+   "wrong": [
+    "لما أكون"
+   ],
+   "fixed": [
+    "كمان مرة"
+   ],
+   "pair_wrong": "لما",
+   "pair_fixed": "كمان",
+   "pair_similarity": 0.57,
+   "why": "correction found, rule not identified",
+   "match": "echo",
+   "overlap": 0.33,
+   "source": "transcript.txt",
+   "confidence": "high",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-05",
+   "t": 3386.0,
+   "mmss": "56:26",
+   "said": "اللي who annoys me. Okay. So، اه، بينزعجني.",
+   "recast": "ليش أن annoys",
+   "said_html": "<mark class=\"ab-wrong\">اللي ، اه، بينزعجني</mark>",
+   "recast_html": "<mark class=\"ab-correct\">ليش أن</mark>",
+   "wrong": [
+    "اللي ، اه، بينزعجني"
+   ],
+   "fixed": [
+    "ليش أن"
+   ],
+   "pair_wrong": "اللي",
+   "pair_fixed": "ليش",
+   "pair_similarity": 0.57,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-05",
+   "t": 3502.0,
+   "mmss": "58:22",
+   "said": "أتعب when I tire her. لما أتعبك. اه، أتعبها.",
+   "recast": "هي بتنزعج لما أتعبها. احكيها كمان مرة.",
+   "said_html": "<mark class=\"ab-wrong\">أتعب</mark> لما <mark class=\"ab-wrong\">أتعبك اه،</mark> أتعبها",
+   "recast_html": "<mark class=\"ab-correct\">هي بتنزعج</mark> لما أتعبها <mark class=\"ab-correct\">احكيها كمان مرة</mark>",
+   "wrong": [
+    "أتعب",
+    "أتعبك اه،"
+   ],
+   "fixed": [
+    "هي بتنزعج",
+    "احكيها كمان مرة"
+   ],
+   "pair_wrong": "اه،",
+   "pair_fixed": "هي",
+   "pair_similarity": 0.5,
+   "why": "correction found, rule not identified",
+   "match": "echo",
+   "overlap": 0.4,
    "source": "transcript.txt",
    "confidence": "medium",
    "verified": false
@@ -1057,6 +1988,56 @@
    "verified": false
   },
   {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 60.0,
+   "mmss": "01:00",
+   "said": "أنا من المحل محـ-- ملايين،",
+   "recast": "مليان.",
+   "said_html": "<mark class=\"ab-wrong\">أنا من المحل محـ ملايين،</mark>",
+   "recast_html": "<mark class=\"ab-correct\">مليان</mark>",
+   "wrong": [
+    "أنا من المحل محـ ملايين،"
+   ],
+   "fixed": [
+    "مليان"
+   ],
+   "pair_wrong": "ملايين،",
+   "pair_fixed": "مليان",
+   "pair_similarity": 0.73,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 68.0,
+   "mmss": "01:08",
+   "said": "ملا-مليان. هو مشغول كتير، كان مشغول كتير.",
+   "recast": "شو",
+   "said_html": "<mark class=\"ab-wrong\">ملا مليان هو مشغول كتير، كان مشغول كتير</mark>",
+   "recast_html": "<mark class=\"ab-correct\">شو</mark>",
+   "wrong": [
+    "ملا مليان هو مشغول كتير، كان مشغول كتير"
+   ],
+   "fixed": [
+    "شو"
+   ],
+   "pair_wrong": "مشغول",
+   "pair_fixed": "شو",
+   "pair_similarity": 0.57,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "low",
+   "verified": false
+  },
+  {
    "bucket": "A1",
    "date": "2026-09-11",
    "t": 329.0,
@@ -1075,6 +2056,31 @@
    "pair_fixed": "شمال",
    "pair_similarity": 0.8,
    "why": "el- added or dropped",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 337.0,
+   "mmss": "05:37",
+   "said": "رو... شس...",
+   "recast": "بس شمال روسيا.",
+   "said_html": "<mark class=\"ab-wrong\">رو شس</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بس شمال روسيا</mark>",
+   "wrong": [
+    "رو شس"
+   ],
+   "fixed": [
+    "بس شمال روسيا"
+   ],
+   "pair_wrong": "رو",
+   "pair_fixed": "روسيا",
+   "pair_similarity": 0.57,
+   "why": "correction found, rule not identified",
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
@@ -1107,6 +2113,107 @@
    "verified": false
   },
   {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 423.0,
+   "mmss": "07:03",
+   "said": "Or I say الدنيا أ-أخلى؟",
+   "recast": "تحط الدنيا قبل الدنيا، like الدنيا مطر وثلج، و... مغيمة وعتمة. What's darkness؟",
+   "said_html": "الدنيا <mark class=\"ab-wrong\">أ أخلى؟</mark>",
+   "recast_html": "<mark class=\"ab-correct\">تحط</mark> الدنيا <mark class=\"ab-correct\">قبل الدنيا، الدنيا مطر وثلج، و مغيمة وعتمة ؟</mark>",
+   "wrong": [
+    "أ أخلى؟"
+   ],
+   "fixed": [
+    "تحط",
+    "قبل الدنيا، الدنيا مطر وثلج، و مغيمة وعتمة ؟"
+   ],
+   "pair_wrong": "أخلى؟",
+   "pair_fixed": "الدنيا،",
+   "pair_similarity": 0.6,
+   "why": "correction found, rule not identified",
+   "match": "echo",
+   "overlap": 0.33,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 500.0,
+   "mmss": "08:20",
+   "said": "أنا بحب الـ. أنا بشتغل أحسن",
+   "recast": "وأنا كمان.",
+   "said_html": "<mark class=\"ab-wrong\">أنا بحب الـ أنا بشتغل أحسن</mark>",
+   "recast_html": "<mark class=\"ab-correct\">وأنا كمان</mark>",
+   "wrong": [
+    "أنا بحب الـ أنا بشتغل أحسن"
+   ],
+   "fixed": [
+    "وأنا كمان"
+   ],
+   "pair_wrong": "أنا",
+   "pair_fixed": "وأنا",
+   "pair_similarity": 0.86,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 512.0,
+   "mmss": "08:32",
+   "said": "في الليل في الـ. وآآآ أنا، أنا بحب العتمة أكثر.",
+   "recast": "وأنا كمان.",
+   "said_html": "<mark class=\"ab-wrong\">في الليل في الـ وآآآ أنا، أنا بحب العتمة أكثر</mark>",
+   "recast_html": "<mark class=\"ab-correct\">وأنا كمان</mark>",
+   "wrong": [
+    "في الليل في الـ وآآآ أنا، أنا بحب العتمة أكثر"
+   ],
+   "fixed": [
+    "وأنا كمان"
+   ],
+   "pair_wrong": "أنا،",
+   "pair_fixed": "وأنا",
+   "pair_similarity": 0.86,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 560.0,
+   "mmss": "09:20",
+   "said": "نجمة it's a name in Farsi. نجمة and is it أنجم؟ I don't know. أنجم،",
+   "recast": "نجوم.",
+   "said_html": "<mark class=\"ab-wrong\">نجمة نجمة أنجم؟ أنجم،</mark>",
+   "recast_html": "<mark class=\"ab-correct\">نجوم</mark>",
+   "wrong": [
+    "نجمة نجمة أنجم؟ أنجم،"
+   ],
+   "fixed": [
+    "نجوم"
+   ],
+   "pair_wrong": "نجمة",
+   "pair_fixed": "نجوم",
+   "pair_similarity": 0.75,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
    "bucket": "A1",
    "date": "2026-09-11",
    "t": 573.0,
@@ -1125,6 +2232,182 @@
    "pair_fixed": "النجوم؟",
    "pair_similarity": 0.8,
    "why": "el- added or dropped",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 671.0,
+   "mmss": "11:11",
+   "said": "نعيد بنعيد الـ.",
+   "recast": "بزيد.",
+   "said_html": "<mark class=\"ab-wrong\">نعيد بنعيد الـ</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بزيد</mark>",
+   "wrong": [
+    "نعيد بنعيد الـ"
+   ],
+   "fixed": [
+    "بزيد"
+   ],
+   "pair_wrong": "بنعيد",
+   "pair_fixed": "بزيد",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 727.0,
+   "mmss": "12:07",
+   "said": "is it بس، بسات؟ البخ-- فا-فائيم ال-آن،",
+   "recast": "بـ aim الـ an.",
+   "said_html": "<mark class=\"ab-wrong\">بس، بسات؟ البخ فا فائيم ال آن،</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بـ الـ</mark>",
+   "wrong": [
+    "بس، بسات؟ البخ فا فائيم ال آن،"
+   ],
+   "fixed": [
+    "بـ الـ"
+   ],
+   "pair_wrong": "بس،",
+   "pair_fixed": "بـ",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 766.0,
+   "mmss": "12:46",
+   "said": "ع الـ-- أول الكلمة.",
+   "recast": "لا، أول الكلمة.",
+   "said_html": "<mark class=\"ab-wrong\">ع الـ</mark> أول الكلمة",
+   "recast_html": "<mark class=\"ab-correct\">لا،</mark> أول الكلمة",
+   "wrong": [
+    "ع الـ"
+   ],
+   "fixed": [
+    "لا،"
+   ],
+   "pair_wrong": "الـ",
+   "pair_fixed": "لا،",
+   "pair_similarity": 0.5,
+   "why": "correction found, rule not identified",
+   "match": "echo",
+   "overlap": 0.5,
+   "source": "transcript.txt",
+   "confidence": "high",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 781.0,
+   "mmss": "13:01",
+   "said": "بر-- بخرب. بخرب",
+   "recast": "بخرب. شو يعني بخرب؟",
+   "said_html": "<mark class=\"ab-wrong\">بر</mark> بخرب <mark class=\"ab-wrong\">بخرب</mark>",
+   "recast_html": "بخرب <mark class=\"ab-correct\">شو يعني بخرب؟</mark>",
+   "wrong": [
+    "بر",
+    "بخرب"
+   ],
+   "fixed": [
+    "شو يعني بخرب؟"
+   ],
+   "pair_wrong": "بر",
+   "pair_fixed": "بخرب؟",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "echo",
+   "overlap": 0.33,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 955.0,
+   "mmss": "15:55",
+   "said": "خرب. هو خرب. Okay. هو خرب. هي خربات.",
+   "recast": "خربوا.",
+   "said_html": "<mark class=\"ab-wrong\">خرب هو خرب هو خرب هي خربات</mark>",
+   "recast_html": "<mark class=\"ab-correct\">خربوا</mark>",
+   "wrong": [
+    "خرب هو خرب هو خرب هي خربات"
+   ],
+   "fixed": [
+    "خربوا"
+   ],
+   "pair_wrong": "خربات",
+   "pair_fixed": "خربوا",
+   "pair_similarity": 0.8,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 968.0,
+   "mmss": "16:08",
+   "said": "آآآم. خربوا.",
+   "recast": "خربت.",
+   "said_html": "<mark class=\"ab-wrong\">آآآم خربوا</mark>",
+   "recast_html": "<mark class=\"ab-correct\">خربت</mark>",
+   "wrong": [
+    "آآآم خربوا"
+   ],
+   "fixed": [
+    "خربت"
+   ],
+   "pair_wrong": "خربوا",
+   "pair_fixed": "خربت",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 977.0,
+   "mmss": "16:17",
+   "said": "خربوا. It's خربات or خربات؟ خربات.",
+   "recast": "خربت.",
+   "said_html": "<mark class=\"ab-wrong\">خربوا خربات خربات؟ خربات</mark>",
+   "recast_html": "<mark class=\"ab-correct\">خربت</mark>",
+   "wrong": [
+    "خربوا خربات خربات؟ خربات"
+   ],
+   "fixed": [
+    "خربت"
+   ],
+   "pair_wrong": "خربات",
+   "pair_fixed": "خربت",
+   "pair_similarity": 0.89,
+   "why": "correction found, rule not identified",
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
@@ -1182,6 +2465,81 @@
    "verified": false
   },
   {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 1485.0,
+   "mmss": "24:45",
+   "said": "يخيا-- يخرب. إذا... ما، ما، ما، ما تفتحي. ما",
+   "recast": "بتحطي...‬",
+   "said_html": "<mark class=\"ab-wrong\">يخيا يخرب إذا ما، ما، ما، ما تفتحي ما</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بتحطي</mark>",
+   "wrong": [
+    "يخيا يخرب إذا ما، ما، ما، ما تفتحي ما"
+   ],
+   "fixed": [
+    "بتحطي"
+   ],
+   "pair_wrong": "تفتحي",
+   "pair_fixed": "بتحطي",
+   "pair_similarity": 0.6,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 1505.0,
+   "mmss": "25:05",
+   "said": "ما بهتي. بي-- بتفتحي",
+   "recast": "بتحطي...‬",
+   "said_html": "<mark class=\"ab-wrong\">ما بهتي بي بتفتحي</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بتحطي</mark>",
+   "wrong": [
+    "ما بهتي بي بتفتحي"
+   ],
+   "fixed": [
+    "بتحطي"
+   ],
+   "pair_wrong": "بتفتحي",
+   "pair_fixed": "بتحطي",
+   "pair_similarity": 0.73,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-11",
+   "t": 1640.0,
+   "mmss": "27:20",
+   "said": "تاكلي. إلي، إلي. خخخ عشان راح يخرب.",
+   "recast": "طيب. I'm gonna give you an example and you tell me what do you think it means.",
+   "said_html": "<mark class=\"ab-wrong\">تاكلي إلي، إلي خخخ عشان راح يخرب</mark>",
+   "recast_html": "<mark class=\"ab-correct\">طيب</mark>",
+   "wrong": [
+    "تاكلي إلي، إلي خخخ عشان راح يخرب"
+   ],
+   "fixed": [
+    "طيب"
+   ],
+   "pair_wrong": "يخرب",
+   "pair_fixed": "طيب",
+   "pair_similarity": 0.57,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "low",
+   "verified": false
+  },
+  {
    "bucket": "B1",
    "date": "2026-09-11",
    "t": 2415.0,
@@ -1229,6 +2587,232 @@
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
    "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 178.5,
+   "mmss": "02:58",
+   "said": "اختارت، uh،",
+   "recast": "Mhm. Some people say اشتريت، they add E to make it easier.",
+   "said_html": "<mark class=\"ab-wrong\">اختارت، ،</mark>",
+   "recast_html": "<mark class=\"ab-correct\">اشتريت،</mark>",
+   "wrong": [
+    "اختارت، ،"
+   ],
+   "fixed": [
+    "اشتريت،"
+   ],
+   "pair_wrong": "اختارت،",
+   "pair_fixed": "اشتريت،",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 182.8,
+   "mmss": "03:02",
+   "said": "اختارت أدل... Is it خ-- what is it?",
+   "recast": "Mhm. Some people say اشتريت، they add E to make it easier.",
+   "said_html": "<mark class=\"ab-wrong\">اختارت أدل خ</mark>",
+   "recast_html": "<mark class=\"ab-correct\">اشتريت،</mark>",
+   "wrong": [
+    "اختارت أدل خ"
+   ],
+   "fixed": [
+    "اشتريت،"
+   ],
+   "pair_wrong": "اختارت",
+   "pair_fixed": "اشتريت،",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 201.0,
+   "mmss": "03:21",
+   "said": "Uh، I think it makes more sense. Yeah، اختارت، uh، بي-- اختارت بدول-- uh، اختارت أدل بيتي.",
+   "recast": "في بيتي.",
+   "said_html": "<mark class=\"ab-wrong\">، ، اختارت، ، بي اختارت بدول ، اختارت أدل</mark> بيتي",
+   "recast_html": "<mark class=\"ab-correct\">في</mark> بيتي",
+   "wrong": [
+    "، ، اختارت، ، بي اختارت بدول ، اختارت أدل"
+   ],
+   "fixed": [
+    "في"
+   ],
+   "pair_wrong": "بي",
+   "pair_fixed": "في",
+   "pair_similarity": 0.5,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.09,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 213.8,
+   "mmss": "03:33",
+   "said": "في بيتي.",
+   "recast": "بالبيت.",
+   "said_html": "<mark class=\"ab-wrong\">في بيتي</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بالبيت</mark>",
+   "wrong": [
+    "في بيتي"
+   ],
+   "fixed": [
+    "بالبيت"
+   ],
+   "pair_wrong": "بيتي",
+   "pair_fixed": "بالبيت",
+   "pair_similarity": 0.6,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 387.5,
+   "mmss": "06:27",
+   "said": "uh, احنا كل الزب-- um, زلام, uh, ما,",
+   "recast": "اخترنا.",
+   "said_html": "<mark class=\"ab-wrong\">احنا كل الزب زلام ما</mark>",
+   "recast_html": "<mark class=\"ab-correct\">اخترنا</mark>",
+   "wrong": [
+    "احنا كل الزب زلام ما"
+   ],
+   "fixed": [
+    "اخترنا"
+   ],
+   "pair_wrong": "احنا",
+   "pair_fixed": "اخترنا",
+   "pair_similarity": 0.6,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 404.5,
+   "mmss": "06:44",
+   "said": "uh, ص-خطار-- اختار-اختارينا--",
+   "recast": "اخترنا.",
+   "said_html": "<mark class=\"ab-wrong\">ص خطار اختار اختارينا</mark>",
+   "recast_html": "<mark class=\"ab-correct\">اخترنا</mark>",
+   "wrong": [
+    "ص خطار اختار اختارينا"
+   ],
+   "fixed": [
+    "اخترنا"
+   ],
+   "pair_wrong": "اختارينا",
+   "pair_fixed": "اخترنا",
+   "pair_similarity": 0.86,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 478.4,
+   "mmss": "07:58",
+   "said": "No, it was not. Uh, اسم، اسم؟ اسم.",
+   "recast": "اسم. What's جمع اسم؟",
+   "said_html": "<mark class=\"ab-wrong\">اسم،</mark> اسم؟ <mark class=\"ab-wrong\">اسم</mark>",
+   "recast_html": "<mark class=\"ab-correct\">اسم جمع</mark> اسم؟",
+   "wrong": [
+    "اسم،",
+    "اسم"
+   ],
+   "fixed": [
+    "اسم جمع"
+   ],
+   "pair_wrong": "اسم، اسم",
+   "pair_fixed": "اسم جمع",
+   "pair_similarity": 0.0,
+   "why": "correction found, rule not identified",
+   "match": "echo",
+   "overlap": 0.67,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 551.2,
+   "mmss": "09:11",
+   "said": "Okay. سهل. Uh, and then you remember the-- remove the B, right? 'Cause it's to remember. So أتذكرهم.",
+   "recast": "نتذكرهم.",
+   "said_html": "<mark class=\"ab-wrong\">سهل أتذكرهم</mark>",
+   "recast_html": "<mark class=\"ab-correct\">نتذكرهم</mark>",
+   "wrong": [
+    "سهل أتذكرهم"
+   ],
+   "fixed": [
+    "نتذكرهم"
+   ],
+   "pair_wrong": "أتذكرهم",
+   "pair_fixed": "نتذكرهم",
+   "pair_similarity": 0.86,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 680.1,
+   "mmss": "11:20",
+   "said": "أنا لازم أعمله-- أم-أعملهم هون. هون؟ هلق, goddammit. I always mix up هلق and هون.",
+   "recast": "هلا.",
+   "said_html": "<mark class=\"ab-wrong\">أنا لازم أعمله أم أعملهم هون هون؟ هلق هلق هون</mark>",
+   "recast_html": "<mark class=\"ab-correct\">هلا</mark>",
+   "wrong": [
+    "أنا لازم أعمله أم أعملهم هون هون؟ هلق هلق هون"
+   ],
+   "fixed": [
+    "هلا"
+   ],
+   "pair_wrong": "هلق",
+   "pair_fixed": "هلا",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -1307,28 +2891,78 @@
    "verified": false
   },
   {
-   "bucket": "B12",
+   "bucket": "UNFILED",
    "date": "2026-09-14",
    "t": 1601.0,
    "mmss": "26:40",
    "said": "هو beset- بساط. هو بسط. هي بسطت.",
-   "recast": "No, no, no, I don't want you to do this. I'm gonna give you conjugate any \"I broke him.\" Something like this and you're gonna tell me what it، what it is. Don't worry . بس.",
+   "recast": "بسات.",
    "said_html": "<mark class=\"ab-wrong\">هو بساط هو بسط هي بسطت</mark>",
-   "recast_html": "<mark class=\"ab-correct\">، بس</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بسات</mark>",
    "wrong": [
     "هو بساط هو بسط هي بسطت"
    ],
    "fixed": [
-    "، بس"
+    "بسات"
    ],
-   "pair_wrong": "بسط",
-   "pair_fixed": "بس",
-   "pair_similarity": 0.8,
-   "why": "make-X vs get-X pair",
+   "pair_wrong": "بساط",
+   "pair_fixed": "بسات",
+   "pair_similarity": 0.75,
+   "why": "correction found, rule not identified",
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
    "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 1914.7,
+   "mmss": "31:54",
+   "said": "No, no, it's what is. شو بينزعج--",
+   "recast": "شو بيزعجك؟",
+   "said_html": "شو <mark class=\"ab-wrong\">بينزعج</mark>",
+   "recast_html": "شو <mark class=\"ab-correct\">بيزعجك؟</mark>",
+   "wrong": [
+    "بينزعج"
+   ],
+   "fixed": [
+    "بيزعجك؟"
+   ],
+   "pair_wrong": "بينزعج",
+   "pair_fixed": "بيزعجك؟",
+   "pair_similarity": 0.83,
+   "why": "correction found, rule not identified",
+   "match": "echo",
+   "overlap": 0.5,
+   "source": "scribe per-speaker tracks",
+   "confidence": "high",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 1920.3,
+   "mmss": "32:00",
+   "said": "شو بين-بينزعجك؟",
+   "recast": "شو بيزعجك؟",
+   "said_html": "شو <mark class=\"ab-wrong\">بين بينزعجك؟</mark>",
+   "recast_html": "شو <mark class=\"ab-correct\">بيزعجك؟</mark>",
+   "wrong": [
+    "بين بينزعجك؟"
+   ],
+   "fixed": [
+    "بيزعجك؟"
+   ],
+   "pair_wrong": "بينزعجك؟",
+   "pair_fixed": "بيزعجك؟",
+   "pair_similarity": 0.92,
+   "why": "correction found, rule not identified",
+   "match": "echo",
+   "overlap": 0.33,
+   "source": "scribe per-speaker tracks",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -1352,6 +2986,82 @@
    "why": "the b- prefix",
    "match": "spot",
    "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 2035.0,
+   "mmss": "33:55",
+   "said": "I think it's بنزعج، اه زعج، تزعجنا. No, تزعجنا, okay.",
+   "recast": "It's neither. It's just زعجنا.",
+   "said_html": "<mark class=\"ab-wrong\">بنزعج، اه زعج، تزعجنا تزعجنا</mark>",
+   "recast_html": "<mark class=\"ab-correct\">زعجنا</mark>",
+   "wrong": [
+    "بنزعج، اه زعج، تزعجنا تزعجنا"
+   ],
+   "fixed": [
+    "زعجنا"
+   ],
+   "pair_wrong": "تزعجنا",
+   "pair_fixed": "زعجنا",
+   "pair_similarity": 0.91,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 2106.2,
+   "mmss": "35:06",
+   "said": "بينزعج-- Uh, no, بتنزعج، بتنزعجوني.",
+   "recast": "بتزعجوني.",
+   "said_html": "<mark class=\"ab-wrong\">بينزعج بتنزعج، بتنزعجوني</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بتزعجوني</mark>",
+   "wrong": [
+    "بينزعج بتنزعج، بتنزعجوني"
+   ],
+   "fixed": [
+    "بتزعجوني"
+   ],
+   "pair_wrong": "بتنزعجوني",
+   "pair_fixed": "بتزعجوني",
+   "pair_similarity": 0.94,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 2173.5,
+   "mmss": "36:13",
+   "said": "Okay. So can I say كل حدا or just حدا؟",
+   "recast": "يمكن تقول كل حدا or الكل.",
+   "said_html": "كل حدا <mark class=\"ab-wrong\">حدا؟</mark>",
+   "recast_html": "<mark class=\"ab-correct\">يمكن تقول</mark> كل حدا <mark class=\"ab-correct\">الكل</mark>",
+   "wrong": [
+    "حدا؟"
+   ],
+   "fixed": [
+    "يمكن تقول",
+    "الكل"
+   ],
+   "pair_wrong": "حدا؟",
+   "pair_fixed": "يمكن تقول الكل",
+   "pair_similarity": 0.0,
+   "why": "correction found, rule not identified",
+   "match": "echo",
+   "overlap": 0.67,
    "source": "scribe per-speaker tracks",
    "confidence": "medium",
    "verified": false
@@ -1407,6 +3117,31 @@
    "verified": false
   },
   {
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 2842.0,
+   "mmss": "47:22",
+   "said": "انبسطنا منهم.",
+   "recast": "Mm. Mm-hmm. We would use this من one as like something did something and you're happy because they did it. So we do use من. Could be m-- confused with with 'cause like you could be happy with someone, like you both are happy. That would be...",
+   "said_html": "<mark class=\"ab-wrong\">انبسطنا منهم</mark>",
+   "recast_html": "<mark class=\"ab-correct\">من من</mark>",
+   "wrong": [
+    "انبسطنا منهم"
+   ],
+   "fixed": [
+    "من من"
+   ],
+   "pair_wrong": "منهم",
+   "pair_fixed": "من",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
    "bucket": "B12",
    "date": "2026-09-14",
    "t": 2889.5,
@@ -1425,6 +3160,31 @@
    "pair_fixed": "انبسطنا",
    "pair_similarity": 0.83,
    "why": "make-X vs get-X pair",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 2903.6,
+   "mmss": "48:23",
+   "said": "Okay, انبسطنا معهم. Yeah. Okay.",
+   "recast": "There's three options. There's من، مع or لا.",
+   "said_html": "<mark class=\"ab-wrong\">انبسطنا معهم</mark>",
+   "recast_html": "<mark class=\"ab-correct\">من، مع لا</mark>",
+   "wrong": [
+    "انبسطنا معهم"
+   ],
+   "fixed": [
+    "من، مع لا"
+   ],
+   "pair_wrong": "معهم",
+   "pair_fixed": "مع",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
@@ -1557,24 +3317,74 @@
    "verified": false
   },
   {
-   "bucket": "A8",
+   "bucket": "UNFILED",
+   "date": "2026-09-14",
+   "t": 3675.6,
+   "mmss": "61:15",
+   "said": "ما انبث-- انبسط. ما انبسط بـ Azume.",
+   "recast": "Although we didn't get through bak-- سربنكسر بس I think it was a success.",
+   "said_html": "<mark class=\"ab-wrong\">ما انبث انبسط ما انبسط بـ</mark>",
+   "recast_html": "<mark class=\"ab-correct\">سربنكسر بس</mark>",
+   "wrong": [
+    "ما انبث انبسط ما انبسط بـ"
+   ],
+   "fixed": [
+    "سربنكسر بس"
+   ],
+   "pair_wrong": "بـ",
+   "pair_fixed": "بس",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-15",
+   "t": 130.0,
+   "mmss": "02:10",
+   "said": "You can use ما تفي for people?",
+   "recast": "it would be better to say في إشي انكسر.",
+   "said_html": "<mark class=\"ab-wrong\">ما تفي</mark>",
+   "recast_html": "<mark class=\"ab-correct\">في إشي انكسر</mark>",
+   "wrong": [
+    "ما تفي"
+   ],
+   "fixed": [
+    "في إشي انكسر"
+   ],
+   "pair_wrong": "تفي",
+   "pair_fixed": "في",
+   "pair_similarity": 0.8,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
    "date": "2026-09-15",
    "t": 1634.0,
    "mmss": "27:14",
    "said": "عطلوا ما بعد واحدة.",
-   "recast": "واحد of How the children many...",
+   "recast": "who? قتلوا بعض.",
    "said_html": "<mark class=\"ab-wrong\">عطلوا ما بعد واحدة</mark>",
-   "recast_html": "<mark class=\"ab-correct\">واحد</mark>",
+   "recast_html": "<mark class=\"ab-correct\">قتلوا بعض</mark>",
    "wrong": [
     "عطلوا ما بعد واحدة"
    ],
    "fixed": [
-    "واحد"
+    "قتلوا بعض"
    ],
-   "pair_wrong": "واحدة",
-   "pair_fixed": "واحد",
-   "pair_similarity": 0.89,
-   "why": "feminine agreement",
+   "pair_wrong": "بعد",
+   "pair_fixed": "بعض",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
@@ -1632,6 +3442,257 @@
    "verified": false
   },
   {
+   "bucket": "UNFILED",
+   "date": "2026-09-16",
+   "t": 462.8,
+   "mmss": "07:42",
+   "said": "بنبسط بس-- ببسط وبنزج بن-- بز- بزج. ووو",
+   "recast": "Yeah, the only one that was an was بكسر، بانكسر. أصلًا the an ones are very little. They're just three.",
+   "said_html": "<mark class=\"ab-wrong\">بنبسط بس ببسط وبنزج بن بز بزج ووو</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بكسر، بانكسر أصلًا</mark>",
+   "wrong": [
+    "بنبسط بس ببسط وبنزج بن بز بزج ووو"
+   ],
+   "fixed": [
+    "بكسر، بانكسر أصلًا"
+   ],
+   "pair_wrong": "بس",
+   "pair_fixed": "بكسر،",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-16",
+   "t": 476.4,
+   "mmss": "07:56",
+   "said": "ز-وز بنكسر؟ بكسر؟",
+   "recast": "Yeah, the only one that was an was بكسر، بانكسر. أصلًا the an ones are very little. They're just three.",
+   "said_html": "<mark class=\"ab-wrong\">ز وز بنكسر؟ بكسر؟</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بكسر، بانكسر أصلًا</mark>",
+   "wrong": [
+    "ز وز بنكسر؟ بكسر؟"
+   ],
+   "fixed": [
+    "بكسر، بانكسر أصلًا"
+   ],
+   "pair_wrong": "بنكسر؟",
+   "pair_fixed": "بانكسر",
+   "pair_similarity": 0.91,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-16",
+   "t": 489.9,
+   "mmss": "08:09",
+   "said": "كمان إن فعل.",
+   "recast": "وكمان عملنا كمان واحد.",
+   "said_html": "كمان <mark class=\"ab-wrong\">إن فعل</mark>",
+   "recast_html": "<mark class=\"ab-correct\">وكمان عملنا</mark> كمان <mark class=\"ab-correct\">واحد</mark>",
+   "wrong": [
+    "إن فعل"
+   ],
+   "fixed": [
+    "وكمان عملنا",
+    "واحد"
+   ],
+   "pair_wrong": "إن",
+   "pair_fixed": "وكمان",
+   "pair_similarity": 0.57,
+   "why": "correction found, rule not identified",
+   "match": "echo",
+   "overlap": 0.33,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-16",
+   "t": 701.7,
+   "mmss": "11:41",
+   "said": "بيهمسوا، gosh. بيهمسوا.",
+   "recast": "شو بيحمسك؟",
+   "said_html": "<mark class=\"ab-wrong\">بيهمسوا، بيهمسوا</mark>",
+   "recast_html": "<mark class=\"ab-correct\">شو بيحمسك؟</mark>",
+   "wrong": [
+    "بيهمسوا، بيهمسوا"
+   ],
+   "fixed": [
+    "شو بيحمسك؟"
+   ],
+   "pair_wrong": "بيهمسوا،",
+   "pair_fixed": "بيحمسك؟",
+   "pair_similarity": 0.62,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-16",
+   "t": 715.7,
+   "mmss": "11:55",
+   "said": "بيهمـ... So does this take بيهمس or is it بيهمس؟",
+   "recast": "شو بيحمسك؟",
+   "said_html": "<mark class=\"ab-wrong\">بيهمـ بيهمس بيهمس؟</mark>",
+   "recast_html": "<mark class=\"ab-correct\">شو بيحمسك؟</mark>",
+   "wrong": [
+    "بيهمـ بيهمس بيهمس؟"
+   ],
+   "fixed": [
+    "شو بيحمسك؟"
+   ],
+   "pair_wrong": "بيهمس",
+   "pair_fixed": "بيحمسك؟",
+   "pair_similarity": 0.73,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-17",
+   "t": 613.3,
+   "mmss": "10:13",
+   "said": "Uh, بس، um، في المدينة الأول مطر. Uh,",
+   "recast": "الدنيا.",
+   "said_html": "<mark class=\"ab-wrong\">بس، ، في المدينة الأول مطر</mark>",
+   "recast_html": "<mark class=\"ab-correct\">الدنيا</mark>",
+   "wrong": [
+    "بس، ، في المدينة الأول مطر"
+   ],
+   "fixed": [
+    "الدنيا"
+   ],
+   "pair_wrong": "المدينة",
+   "pair_fixed": "الدنيا",
+   "pair_similarity": 0.62,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-17",
+   "t": 2274.2,
+   "mmss": "37:54",
+   "said": "إشي تاني.",
+   "recast": "كانوا إلي.",
+   "said_html": "<mark class=\"ab-wrong\">إشي تاني</mark>",
+   "recast_html": "<mark class=\"ab-correct\">كانوا إلي</mark>",
+   "wrong": [
+    "إشي تاني"
+   ],
+   "fixed": [
+    "كانوا إلي"
+   ],
+   "pair_wrong": "إشي",
+   "pair_fixed": "إلي",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-19",
+   "t": 409.0,
+   "mmss": "06:49",
+   "said": "ألفين وسبعة عشرين.",
+   "recast": "تسعطاش تسعة.",
+   "said_html": "<mark class=\"ab-wrong\">ألفين وسبعة عشرين</mark>",
+   "recast_html": "<mark class=\"ab-correct\">تسعطاش تسعة</mark>",
+   "wrong": [
+    "ألفين وسبعة عشرين"
+   ],
+   "fixed": [
+    "تسعطاش تسعة"
+   ],
+   "pair_wrong": "وسبعة",
+   "pair_fixed": "تسعة",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-19",
+   "t": 418.0,
+   "mmss": "06:58",
+   "said": "I said, ستة عشر ستة ألفين وسبعة عشرين.",
+   "recast": "ستة؟",
+   "said_html": "<mark class=\"ab-wrong\">ستة عشر ستة ألفين وسبعة عشرين</mark>",
+   "recast_html": "<mark class=\"ab-correct\">ستة؟</mark>",
+   "wrong": [
+    "ستة عشر ستة ألفين وسبعة عشرين"
+   ],
+   "fixed": [
+    "ستة؟"
+   ],
+   "pair_wrong": "وسبعة",
+   "pair_fixed": "ستة؟",
+   "pair_similarity": 0.5,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-19",
+   "t": 424.0,
+   "mmss": "07:04",
+   "said": "or تيش-- تسعش or تسعش. تسعش ستة.",
+   "recast": "تسعطاش تسعة.",
+   "said_html": "<mark class=\"ab-wrong\">تيش تسعش تسعش تسعش ستة</mark>",
+   "recast_html": "<mark class=\"ab-correct\">تسعطاش تسعة</mark>",
+   "wrong": [
+    "تيش تسعش تسعش تسعش ستة"
+   ],
+   "fixed": [
+    "تسعطاش تسعة"
+   ],
+   "pair_wrong": "تسعش",
+   "pair_fixed": "تسعطاش",
+   "pair_similarity": 0.8,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
    "bucket": "B1",
    "date": "2026-09-19",
    "t": 467.0,
@@ -1650,6 +3711,57 @@
    "pair_fixed": "تغير،",
    "pair_similarity": 0.89,
    "why": "the b- prefix",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-19",
+   "t": 531.0,
+   "mmss": "08:51",
+   "said": "بــ-- غـ-- أب-أب المـ-امبارح. أب المامبارح or أب الامبارح?",
+   "recast": "or أول امبارح some",
+   "said_html": "<mark class=\"ab-wrong\">بــ غـ أب أب المـ</mark> امبارح <mark class=\"ab-wrong\">أب المامبارح أب الامبارح</mark>",
+   "recast_html": "<mark class=\"ab-correct\">أول</mark> امبارح",
+   "wrong": [
+    "بــ غـ أب أب المـ",
+    "أب المامبارح أب الامبارح"
+   ],
+   "fixed": [
+    "أول"
+   ],
+   "pair_wrong": "المـ",
+   "pair_fixed": "أول",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.1,
+   "source": "transcript.txt",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-19",
+   "t": 571.0,
+   "mmss": "09:31",
+   "said": "Okay. Okay. شو يعني ريحة؟",
+   "recast": "ريحة. ريحت.",
+   "said_html": "<mark class=\"ab-wrong\">شو يعني ريحة؟</mark>",
+   "recast_html": "<mark class=\"ab-correct\">ريحة ريحت</mark>",
+   "wrong": [
+    "شو يعني ريحة؟"
+   ],
+   "fixed": [
+    "ريحة ريحت"
+   ],
+   "pair_wrong": "ريحة؟",
+   "pair_fixed": "ريحت",
+   "pair_similarity": 0.75,
+   "why": "correction found, rule not identified",
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
@@ -1700,6 +3812,31 @@
    "pair_fixed": "الشغل؟",
    "pair_similarity": 0.75,
    "why": "the preposition keeps the el-",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 149.7,
+   "mmss": "02:29",
+   "said": "آآآ. آآآ،",
+   "recast": "آه، أنا متأكدة.",
+   "said_html": "<mark class=\"ab-wrong\">آآآ آآآ،</mark>",
+   "recast_html": "<mark class=\"ab-correct\">آه، أنا متأكدة</mark>",
+   "wrong": [
+    "آآآ آآآ،"
+   ],
+   "fixed": [
+    "آه، أنا متأكدة"
+   ],
+   "pair_wrong": "آآآ",
+   "pair_fixed": "أنا",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
@@ -1808,6 +3945,132 @@
    "verified": false
   },
   {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 279.6,
+   "mmss": "04:39",
+   "said": "Oh. But مرجة، uh, is... No، uh. That's right. Review. Okay.",
+   "recast": "مراجعة is، آآآ، the noun. Review as a noun. نراجع is we review. When we review.",
+   "said_html": "<mark class=\"ab-wrong\">مرجة،</mark> ،",
+   "recast_html": "<mark class=\"ab-correct\">مراجعة</mark> ، <mark class=\"ab-correct\">آآآ، نراجع</mark>",
+   "wrong": [
+    "مرجة،"
+   ],
+   "fixed": [
+    "مراجعة",
+    "آآآ، نراجع"
+   ],
+   "pair_wrong": "مرجة،",
+   "pair_fixed": "مراجعة",
+   "pair_similarity": 0.8,
+   "why": "correction found, rule not identified",
+   "match": "echo",
+   "overlap": 0.5,
+   "source": "scribe per-speaker tracks",
+   "confidence": "high",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 357.3,
+   "mmss": "05:57",
+   "said": "فضاء means space, right? Oh، uh-- oh، ف-- season",
+   "recast": "آه، فضل.",
+   "said_html": "<mark class=\"ab-wrong\">فضاء ، ، ف</mark>",
+   "recast_html": "<mark class=\"ab-correct\">آه، فضل</mark>",
+   "wrong": [
+    "فضاء ، ، ف"
+   ],
+   "fixed": [
+    "آه، فضل"
+   ],
+   "pair_wrong": "فضاء",
+   "pair_fixed": "فضل",
+   "pair_similarity": 0.57,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 382.1,
+   "mmss": "06:22",
+   "said": "And then صيف is summer. شتاء is winter.",
+   "recast": "خريف.",
+   "said_html": "<mark class=\"ab-wrong\">صيف شتاء</mark>",
+   "recast_html": "<mark class=\"ab-correct\">خريف</mark>",
+   "wrong": [
+    "صيف شتاء"
+   ],
+   "fixed": [
+    "خريف"
+   ],
+   "pair_wrong": "صيف",
+   "pair_fixed": "خريف",
+   "pair_similarity": 0.57,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 529.0,
+   "mmss": "08:48",
+   "said": "بلوزة-- uh, نص كم عشان.",
+   "recast": "عنا.",
+   "said_html": "<mark class=\"ab-wrong\">بلوزة نص كم عشان</mark>",
+   "recast_html": "<mark class=\"ab-correct\">عنا</mark>",
+   "wrong": [
+    "بلوزة نص كم عشان"
+   ],
+   "fixed": [
+    "عنا"
+   ],
+   "pair_wrong": "عشان",
+   "pair_fixed": "عنا",
+   "pair_similarity": 0.57,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 554.7,
+   "mmss": "09:14",
+   "said": "يومي-- okay. أنا",
+   "recast": "بعد العشرة يوم.",
+   "said_html": "<mark class=\"ab-wrong\">يومي أنا</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بعد العشرة يوم</mark>",
+   "wrong": [
+    "يومي أنا"
+   ],
+   "fixed": [
+    "بعد العشرة يوم"
+   ],
+   "pair_wrong": "يومي",
+   "pair_fixed": "يوم",
+   "pair_similarity": 0.86,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
    "bucket": "E1",
    "date": "2026-09-21",
    "t": 561.7,
@@ -1856,6 +4119,237 @@
    "overlap": 0.2,
    "source": "scribe per-speaker tracks",
    "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 941.6,
+   "mmss": "15:41",
+   "said": "أكون إمني يومين.",
+   "recast": "إنت كنت كسلان",
+   "said_html": "<mark class=\"ab-wrong\">أكون إمني يومين</mark>",
+   "recast_html": "<mark class=\"ab-correct\">إنت كنت كسلان</mark>",
+   "wrong": [
+    "أكون إمني يومين"
+   ],
+   "fixed": [
+    "إنت كنت كسلان"
+   ],
+   "pair_wrong": "إمني",
+   "pair_fixed": "إنت",
+   "pair_similarity": 0.57,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 1041.6,
+   "mmss": "17:21",
+   "said": "Yeah، بس هذا.",
+   "recast": "أنا، أنا بس بحب عليها، اه، بندورة وزيتون",
+   "said_html": "<mark class=\"ab-wrong\">،</mark> بس <mark class=\"ab-wrong\">هذا</mark>",
+   "recast_html": "<mark class=\"ab-correct\">أنا، أنا</mark> بس <mark class=\"ab-correct\">بحب عليها، اه، بندورة وزيتون</mark>",
+   "wrong": [
+    "،",
+    "هذا"
+   ],
+   "fixed": [
+    "أنا، أنا",
+    "بحب عليها، اه، بندورة وزيتون"
+   ],
+   "pair_wrong": "هذا",
+   "pair_fixed": "عليها،",
+   "pair_similarity": 0.5,
+   "why": "correction found, rule not identified",
+   "match": "echo",
+   "overlap": 0.33,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 1067.6,
+   "mmss": "17:47",
+   "said": "آآآ أنا ما بحب الـ، الفلفل اللي",
+   "recast": "ولا أنا ما بحب الحلو. بحب البحري. ما بحب الفلفل الحلو. بحب البحري.",
+   "said_html": "<mark class=\"ab-wrong\">آآآ</mark> أنا ما بحب <mark class=\"ab-wrong\">الـ،</mark> الفلفل <mark class=\"ab-wrong\">اللي</mark>",
+   "recast_html": "<mark class=\"ab-correct\">ولا</mark> أنا ما بحب <mark class=\"ab-correct\">الحلو بحب البحري ما بحب</mark> الفلفل <mark class=\"ab-correct\">الحلو بحب البحري</mark>",
+   "wrong": [
+    "آآآ",
+    "الـ،",
+    "اللي"
+   ],
+   "fixed": [
+    "ولا",
+    "الحلو بحب البحري ما بحب",
+    "الحلو بحب البحري"
+   ],
+   "pair_wrong": "اللي",
+   "pair_fixed": "الحلو",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "echo",
+   "overlap": 0.57,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 1085.0,
+   "mmss": "18:04",
+   "said": "أنا بحب الـ فلفل بهري آآآ نشاف or yeah نشاف؟",
+   "recast": "ناشف.",
+   "said_html": "<mark class=\"ab-wrong\">أنا بحب الـ فلفل بهري آآآ نشاف نشاف؟</mark>",
+   "recast_html": "<mark class=\"ab-correct\">ناشف</mark>",
+   "wrong": [
+    "أنا بحب الـ فلفل بهري آآآ نشاف نشاف؟"
+   ],
+   "fixed": [
+    "ناشف"
+   ],
+   "pair_wrong": "نشاف",
+   "pair_fixed": "ناشف",
+   "pair_similarity": 0.75,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 1236.5,
+   "mmss": "20:36",
+   "said": "So if you ask for a pastry, do you say واحد حلو؟ حلوة؟ أو واحدة حلوة؟",
+   "recast": "وحدة يعني Croissant يعني؟",
+   "said_html": "<mark class=\"ab-wrong\">واحد حلو؟ حلوة؟ أو واحدة حلوة؟</mark>",
+   "recast_html": "<mark class=\"ab-correct\">وحدة يعني يعني؟</mark>",
+   "wrong": [
+    "واحد حلو؟ حلوة؟ أو واحدة حلوة؟"
+   ],
+   "fixed": [
+    "وحدة يعني يعني؟"
+   ],
+   "pair_wrong": "واحدة",
+   "pair_fixed": "وحدة",
+   "pair_similarity": 0.89,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 1347.4,
+   "mmss": "22:27",
+   "said": "أنا راح أستانك. أستانك. يا أستانك.",
+   "recast": "استناك.",
+   "said_html": "<mark class=\"ab-wrong\">أنا راح أستانك أستانك يا أستانك</mark>",
+   "recast_html": "<mark class=\"ab-correct\">استناك</mark>",
+   "wrong": [
+    "أنا راح أستانك أستانك يا أستانك"
+   ],
+   "fixed": [
+    "استناك"
+   ],
+   "pair_wrong": "أستانك",
+   "pair_fixed": "استناك",
+   "pair_similarity": 0.83,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 1432.2,
+   "mmss": "23:52",
+   "said": "uh, أديش الحق؟",
+   "recast": "قديش حقها. Cuz it's coffee.",
+   "said_html": "<mark class=\"ab-wrong\">أديش الحق؟</mark>",
+   "recast_html": "<mark class=\"ab-correct\">قديش حقها</mark>",
+   "wrong": [
+    "أديش الحق؟"
+   ],
+   "fixed": [
+    "قديش حقها"
+   ],
+   "pair_wrong": "أديش",
+   "pair_fixed": "قديش",
+   "pair_similarity": 0.75,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 1437.8,
+   "mmss": "23:57",
+   "said": "أديش حقو؟",
+   "recast": "قديش حقها. mm-hmm.",
+   "said_html": "<mark class=\"ab-wrong\">أديش حقو؟</mark>",
+   "recast_html": "<mark class=\"ab-correct\">قديش حقها</mark>",
+   "wrong": [
+    "أديش حقو؟"
+   ],
+   "fixed": [
+    "قديش حقها"
+   ],
+   "pair_wrong": "أديش",
+   "pair_fixed": "قديش",
+   "pair_similarity": 0.75,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 1442.6,
+   "mmss": "24:02",
+   "said": "Uh, أديش حقها؟ Or حقهم 'cause it's a pastry too.",
+   "recast": "Um, قديش حقها. Um,",
+   "said_html": "<mark class=\"ab-wrong\">أديش حقها؟ حقهم</mark>",
+   "recast_html": "<mark class=\"ab-correct\">قديش حقها</mark>",
+   "wrong": [
+    "أديش حقها؟ حقهم"
+   ],
+   "fixed": [
+    "قديش حقها"
+   ],
+   "pair_wrong": "أديش",
+   "pair_fixed": "قديش",
+   "pair_similarity": 0.75,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -1910,6 +4404,56 @@
    "verified": false
   },
   {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 1748.1,
+   "mmss": "29:08",
+   "said": "Or how do I say something's wrong with it? Is she, is she غلط مايك or-- does that make sense or no?",
+   "recast": "أو فيها إشي غلط.",
+   "said_html": "غلط <mark class=\"ab-wrong\">مايك</mark>",
+   "recast_html": "<mark class=\"ab-correct\">أو فيها إشي</mark> غلط",
+   "wrong": [
+    "مايك"
+   ],
+   "fixed": [
+    "أو فيها إشي"
+   ],
+   "pair_wrong": "مايك",
+   "pair_fixed": "إشي",
+   "pair_similarity": 0.57,
+   "why": "correction found, rule not identified",
+   "match": "echo",
+   "overlap": 0.5,
+   "source": "scribe per-speaker tracks",
+   "confidence": "high",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 2584.9,
+   "mmss": "43:04",
+   "said": "الـ— أساهم الـ، uh,",
+   "recast": "Machine. مhm ماكينة الرز.",
+   "said_html": "<mark class=\"ab-wrong\">الـ أساهم الـ،</mark>",
+   "recast_html": "<mark class=\"ab-correct\">م ماكينة الرز</mark>",
+   "wrong": [
+    "الـ أساهم الـ،"
+   ],
+   "fixed": [
+    "م ماكينة الرز"
+   ],
+   "pair_wrong": "الـ",
+   "pair_fixed": "الرز",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
    "bucket": "B1",
    "date": "2026-09-21",
    "t": 2620.5,
@@ -1928,6 +4472,31 @@
    "pair_fixed": "بعمله",
    "pair_similarity": 0.8,
    "why": "the b- prefix",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 2625.2,
+   "mmss": "43:45",
+   "said": "بعمله الـ طريق طويل.",
+   "recast": "الطريقة.",
+   "said_html": "<mark class=\"ab-wrong\">بعمله الـ طريق طويل</mark>",
+   "recast_html": "<mark class=\"ab-correct\">الطريقة</mark>",
+   "wrong": [
+    "بعمله الـ طريق طويل"
+   ],
+   "fixed": [
+    "الطريقة"
+   ],
+   "pair_wrong": "طريق",
+   "pair_fixed": "الطريقة",
+   "pair_similarity": 0.73,
+   "why": "correction found, rule not identified",
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
@@ -1957,6 +4526,362 @@
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
    "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 2680.8,
+   "mmss": "44:40",
+   "said": "what? Oh، الـ ثلث. uh, الـ-- لا، ثلث ساعية؟ Or",
+   "recast": "ثلث ساعة.",
+   "said_html": "<mark class=\"ab-wrong\">، الـ</mark> ثلث <mark class=\"ab-wrong\">الـ لا، ثلث ساعية؟</mark>",
+   "recast_html": "ثلث <mark class=\"ab-correct\">ساعة</mark>",
+   "wrong": [
+    "، الـ",
+    "الـ لا، ثلث ساعية؟"
+   ],
+   "fixed": [
+    "ساعة"
+   ],
+   "pair_wrong": "ساعية؟",
+   "pair_fixed": "ساعة",
+   "pair_similarity": 0.89,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.14,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 2701.3,
+   "mmss": "45:01",
+   "said": "أقيم الـ مي",
+   "recast": "Or برجع أحط الرز.",
+   "said_html": "<mark class=\"ab-wrong\">أقيم الـ مي</mark>",
+   "recast_html": "<mark class=\"ab-correct\">برجع أحط الرز</mark>",
+   "wrong": [
+    "أقيم الـ مي"
+   ],
+   "fixed": [
+    "برجع أحط الرز"
+   ],
+   "pair_wrong": "الـ",
+   "pair_fixed": "الرز",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 2705.4,
+   "mmss": "45:05",
+   "said": "من الـ rose، و بحط الـ rose. Or برجع الـ rose في الـ طنجرة.",
+   "recast": "Or برجع أحط الرز.",
+   "said_html": "<mark class=\"ab-wrong\">من الـ ، و بحط الـ</mark> برجع <mark class=\"ab-wrong\">الـ في الـ طنجرة</mark>",
+   "recast_html": "برجع <mark class=\"ab-correct\">أحط الرز</mark>",
+   "wrong": [
+    "من الـ ، و بحط الـ",
+    "الـ في الـ طنجرة"
+   ],
+   "fixed": [
+    "أحط الرز"
+   ],
+   "pair_wrong": "الـ",
+   "pair_fixed": "الرز",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.09,
+   "source": "scribe per-speaker tracks",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 2782.3,
+   "mmss": "46:22",
+   "said": "uh، زبداية.",
+   "recast": "زبدة.",
+   "said_html": "<mark class=\"ab-wrong\">، زبداية</mark>",
+   "recast_html": "<mark class=\"ab-correct\">زبدة</mark>",
+   "wrong": [
+    "، زبداية"
+   ],
+   "fixed": [
+    "زبدة"
+   ],
+   "pair_wrong": "زبداية",
+   "pair_fixed": "زبدة",
+   "pair_similarity": 0.8,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 2807.8,
+   "mmss": "46:47",
+   "said": "بزيد الـ- الـ زبداية.",
+   "recast": "زبدة.",
+   "said_html": "<mark class=\"ab-wrong\">بزيد الـ الـ زبداية</mark>",
+   "recast_html": "<mark class=\"ab-correct\">زبدة</mark>",
+   "wrong": [
+    "بزيد الـ الـ زبداية"
+   ],
+   "fixed": [
+    "زبدة"
+   ],
+   "pair_wrong": "زبداية",
+   "pair_fixed": "زبدة",
+   "pair_similarity": 0.8,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 2881.1,
+   "mmss": "48:01",
+   "said": "الـ تحت تاني من مقلاة، مقلاة؟ The other side of the big spoon?",
+   "recast": "لا، لا تحت is just under. Below. Under.",
+   "said_html": "<mark class=\"ab-wrong\">الـ</mark> تحت <mark class=\"ab-wrong\">تاني من مقلاة، مقلاة؟</mark>",
+   "recast_html": "<mark class=\"ab-correct\">لا، لا</mark> تحت",
+   "wrong": [
+    "الـ",
+    "تاني من مقلاة، مقلاة؟"
+   ],
+   "fixed": [
+    "لا، لا"
+   ],
+   "pair_wrong": "مقلاة؟",
+   "pair_fixed": "لا",
+   "pair_similarity": 0.57,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.17,
+   "source": "scribe per-speaker tracks",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 2907.5,
+   "mmss": "48:27",
+   "said": "الـ، uh،",
+   "recast": "لا، لا تحت is just under. Below. Under.",
+   "said_html": "<mark class=\"ab-wrong\">الـ، ،</mark>",
+   "recast_html": "<mark class=\"ab-correct\">لا، لا تحت</mark>",
+   "wrong": [
+    "الـ، ،"
+   ],
+   "fixed": [
+    "لا، لا تحت"
+   ],
+   "pair_wrong": "الـ،",
+   "pair_fixed": "لا،",
+   "pair_similarity": 0.5,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 2912.2,
+   "mmss": "48:32",
+   "said": "الـ تحت، الـ تحت تاني.",
+   "recast": "لا، لا تحت is just under. Below. Under.",
+   "said_html": "<mark class=\"ab-wrong\">الـ تحت، الـ</mark> تحت <mark class=\"ab-wrong\">تاني</mark>",
+   "recast_html": "<mark class=\"ab-correct\">لا، لا</mark> تحت",
+   "wrong": [
+    "الـ تحت، الـ",
+    "تاني"
+   ],
+   "fixed": [
+    "لا، لا"
+   ],
+   "pair_wrong": "الـ",
+   "pair_fixed": "لا،",
+   "pair_similarity": 0.5,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.2,
+   "source": "scribe per-speaker tracks",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 2938.7,
+   "mmss": "48:58",
+   "said": "طلقة. So أنا أساهم بالعكس المقلاة.",
+   "recast": "عكس الملعقة.",
+   "said_html": "<mark class=\"ab-wrong\">طلقة أنا أساهم بالعكس المقلاة</mark>",
+   "recast_html": "<mark class=\"ab-correct\">عكس الملعقة</mark>",
+   "wrong": [
+    "طلقة أنا أساهم بالعكس المقلاة"
+   ],
+   "fixed": [
+    "عكس الملعقة"
+   ],
+   "pair_wrong": "المقلاة",
+   "pair_fixed": "الملعقة",
+   "pair_similarity": 0.71,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "D5",
+   "date": "2026-09-21",
+   "t": 3782.8,
+   "mmss": "63:02",
+   "said": "uh، رزنا أحسن من الـ دنيا.",
+   "recast": "أحسن من كل الدنيا؟",
+   "said_html": "<mark class=\"ab-wrong\">، رزنا</mark> أحسن من <mark class=\"ab-wrong\">الـ دنيا</mark>",
+   "recast_html": "أحسن من <mark class=\"ab-correct\">كل الدنيا؟</mark>",
+   "wrong": [
+    "، رزنا",
+    "الـ دنيا"
+   ],
+   "fixed": [
+    "كل الدنيا؟"
+   ],
+   "pair_wrong": "دنيا",
+   "pair_fixed": "الدنيا؟",
+   "pair_similarity": 0.8,
+   "why": "the preposition keeps the el-",
+   "match": "echo",
+   "overlap": 0.33,
+   "source": "scribe per-speaker tracks",
+   "confidence": "high",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 3858.8,
+   "mmss": "64:18",
+   "said": "أنـ-- uh، أنكم أكل،",
+   "recast": "ما عندكم.",
+   "said_html": "<mark class=\"ab-wrong\">أنـ ، أنكم أكل،</mark>",
+   "recast_html": "<mark class=\"ab-correct\">ما عندكم</mark>",
+   "wrong": [
+    "أنـ ، أنكم أكل،"
+   ],
+   "fixed": [
+    "ما عندكم"
+   ],
+   "pair_wrong": "أنكم",
+   "pair_fixed": "عندكم",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 3863.3,
+   "mmss": "64:23",
+   "said": "uh، أنكم أكل من،",
+   "recast": "ما عندكم.",
+   "said_html": "<mark class=\"ab-wrong\">، أنكم أكل من،</mark>",
+   "recast_html": "<mark class=\"ab-correct\">ما عندكم</mark>",
+   "wrong": [
+    "، أنكم أكل من،"
+   ],
+   "fixed": [
+    "ما عندكم"
+   ],
+   "pair_wrong": "أنكم",
+   "pair_fixed": "عندكم",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 3884.7,
+   "mmss": "64:44",
+   "said": "بس مش عندك إيراني. ما أنتم إيراني.",
+   "recast": "ما عندكم.",
+   "said_html": "<mark class=\"ab-wrong\">بس مش عندك إيراني</mark> ما <mark class=\"ab-wrong\">أنتم إيراني</mark>",
+   "recast_html": "ما <mark class=\"ab-correct\">عندكم</mark>",
+   "wrong": [
+    "بس مش عندك إيراني",
+    "أنتم إيراني"
+   ],
+   "fixed": [
+    "عندكم"
+   ],
+   "pair_wrong": "عندك",
+   "pair_fixed": "عندكم",
+   "pair_similarity": 0.89,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.14,
+   "source": "scribe per-speaker tracks",
+   "confidence": "medium",
+   "verified": false
+  },
+  {
+   "bucket": "UNFILED",
+   "date": "2026-09-21",
+   "t": 3960.0,
+   "mmss": "65:59",
+   "said": "Okay. أحسن م-مطعم الإيراني،",
+   "recast": "أم.",
+   "said_html": "<mark class=\"ab-wrong\">أحسن م مطعم الإيراني،</mark>",
+   "recast_html": "<mark class=\"ab-correct\">أم</mark>",
+   "wrong": [
+    "أحسن م مطعم الإيراني،"
+   ],
+   "fixed": [
+    "أم"
+   ],
+   "pair_wrong": "م",
+   "pair_fixed": "أم",
+   "pair_similarity": 0.67,
+   "why": "correction found, rule not identified",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "low",
    "verified": false
   }
  ]

@@ -19,6 +19,12 @@ buckets = json.load(open(os.path.join(DOCS, "data", "grammar-buckets.json"), enc
 # move a number on the page.
 AUDIT = os.path.join(DOCS, "data", "grammar-audit.json")
 audit = json.load(open(AUDIT, encoding="utf-8")) if os.path.exists(AUDIT) else {"events": [], "lessons": []}
+USAGE = os.path.join(DOCS, "data", "grammar-usage.json")
+usage = json.load(open(USAGE, encoding="utf-8")) if os.path.exists(USAGE) else {"uses": {}, "lessons": {}}
+# F1 and F3 match any hard letter / any shadda, so their "use" count is every
+# Arabic word Medi says. That is not a rule being exercised - leave them unscored.
+NO_USAGE_SCORE = {"F1", "F2", "F3"}
+
 cands = {}
 for e in audit.get("events", []):
     cands.setdefault(e["bucket"], []).append(e)
@@ -40,12 +46,12 @@ def medi_sentences(date):
                 n += 1
     return n or None
 
-lesson_dates = list(tally["lessons"])
+lesson_dates = sorted(set(list(tally["lessons"]) + list(usage.get("lessons", {}).keys())))
 lessons = []
 for d in lesson_dates:
     lessons.append({
         "date": d,
-        "medi_sentences": medi_sentences(d),
+        "medi_sentences": medi_sentences(d) or (usage.get("lessons", {}).get(d) or {}).get("medi_arabic_turns"),
         "slips": tally["totals"]["per_lesson"].get(d, 0),
     })
 
@@ -96,11 +102,11 @@ def status(uses, mistakes):
     if not uses:
         return "Untested"
     pct = round(100 * (uses - mistakes) / uses)
-    if uses >= 4 and pct >= 90:
+    if uses >= 10 and pct >= 95:
         return "Mastered"
-    if pct >= 70:
+    if uses >= 5 and pct >= 85:
         return "Good"
-    if pct >= 40:
+    if pct >= 65:
         return "Shaky"
     return "Wrong"
 
@@ -117,9 +123,22 @@ for b in buckets:
         for e in r.get("asks", []):
             events.append(event("ask", e))
     events.sort(key=lambda e: (str(e["date"]), e["t"] if isinstance(e["t"], (int, float)) else 0), reverse=True)
-    uses = len(events)
-    mistakes = sum(1 for e in events if e["kind"] == "slip")
+
+    # How many times he actually used this rule, right or wrong.
+    u = [] if b["id"] in NO_USAGE_SCORE else usage.get("uses", {}).get(b["id"], [])
+    u = sorted(u, key=lambda x: (x["date"], x["t"]), reverse=True)
+    mine = cands.get(b["id"], [])
+    verified_slips = sum(1 for e in events if e["kind"] == "slip")
     asks = sum(1 for e in events if e["kind"] == "ask")
+
+    uses = len(u)
+    # A mistake is a correction on record. The hand-verified ones always count;
+    # the machine's high-confidence ones are added so the score is not stuck at
+    # three lessons, and everything below high stays out of the number.
+    auto_slips = len(mine)
+    mistakes = verified_slips + auto_slips
+    if uses and mistakes > uses:
+        mistakes = uses
     rows.append({
         "id": b["id"], "family": b["family"], "name": b["name"],
         "one_line": b["one_line"], "examples": b["examples"],
@@ -127,8 +146,14 @@ for b in buckets:
         "tally_rule": rid,
         "tally_title": r["title"] if r else None,
         "kind": r.get("kind") if r else None,
-        "candidates": cands.get(b["id"], []),
-        "candidate_count": len(cands.get(b["id"], [])),
+        "candidates": mine,
+        "candidate_count": len(mine),
+        "usage": u[:40],
+        "usage_total": len(u),
+        "last_used": u[0]["date"] if u else None,
+        "last_used_mmss": u[0]["mmss"] if u else None,
+        "verified_slips": verified_slips,
+        "auto_slips": auto_slips,
         "uses": uses, "mistakes": mistakes, "asks": asks,
         "pct": round(100 * (uses - mistakes) / uses) if uses else None,
         "status": status(uses, mistakes),
@@ -151,9 +176,14 @@ for L in lessons:
             seen.add(key)
             # Family F is pronunciation, not grammar (wiki/18 rule M4).
             (sound if row["family"] == "F" else ev).append(e)
-    L["slips_counted"] = sum(1 for e in ev if e["kind"] == "slip")
+    L["slips_counted"] = sum(1 for e in ev if e["kind"] == "slip") + sum(
+        1 for row in rows for c in row["candidates"]
+        if c["date"] == d)
     L["sound_slips"] = sum(1 for e in sound if e["kind"] == "slip")
-    L["unique_rules"] = len({row["id"] for row in rows for e in row["events"] if e["date"] == d})
+    lu = usage.get("lessons", {}).get(d, {})
+    L["rule_uses"] = lu.get("uses")
+    L["unique_rules"] = lu.get("unique_rules") or len(
+        {row["id"] for row in rows for e in row["events"] if e["date"] == d})
     L["rights"] = sum(1 for e in ev if e["kind"] == "right")
     L["asks"] = sum(1 for e in ev if e["kind"] == "ask")
     L["mistakes_per_sentence"] = (

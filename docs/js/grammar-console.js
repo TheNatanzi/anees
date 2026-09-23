@@ -226,6 +226,7 @@ function visibleRules() {
   out.sort(function (a, b) {
     if (SORT === 'weak') return (a.pct == null ? 999 : a.pct) - (b.pct == null ? 999 : b.pct) || a.id.localeCompare(b.id);
     if (SORT === 'used') return b.uses - a.uses || a.id.localeCompare(b.id);
+    if (SORT === 'recent') return String(b.last_used || '').localeCompare(String(a.last_used || '')) || a.id.localeCompare(b.id);
     if (SORT === 'mistakes') return b.mistakes - a.mistakes || a.id.localeCompare(b.id);
     return FAMILY_ORDER[a.family] - FAMILY_ORDER[b.family] || (+a.id.slice(1)) - (+b.id.slice(1));
   });
@@ -369,7 +370,7 @@ function detail(r) {
 
 
 function row(r) {
-  var wrap = el('div', 'gc-row');
+  var wrap = el('div', 'gc-row gc-row-' + r.status);
   var head = el('button', 'gc-grid gc-rowhead');
   head.type = 'button';
   head.setAttribute('aria-expanded', OPEN[r.id] ? 'true' : 'false');
@@ -383,12 +384,12 @@ function row(r) {
   head.appendChild(c1);
 
   var used = el('div', 'gc-num', r.uses ? String(r.uses) : '—');
-  used.appendChild(el('small', null, r.uses ? 'recorded'
-    : r.candidate_count ? r.candidate_count + ' to check' : 'not scored'));
+  used.appendChild(el('small', null, r.uses ? 'times used' : 'never used'));
   head.appendChild(used);
 
   var miss = el('div', 'gc-num', r.uses ? String(r.mistakes) : '—');
-  miss.appendChild(el('small', null, r.asks ? r.asks + ' self-caught' : 'slips'));
+  miss.appendChild(el('small', null, r.verified_slips
+    ? r.verified_slips + ' confirmed' : 'corrections'));
   head.appendChild(miss);
 
   var score = el('div', 'gc-num', r.pct == null ? '—' : r.pct + '%');
@@ -403,6 +404,15 @@ function row(r) {
   var st = el('div');
   st.appendChild(el('div', 'gc-pill gc-pill-' + r.status, r.status));
   head.appendChild(st);
+
+  var last = el('div', 'gc-last');
+  if (r.last_used) {
+    last.appendChild(el('div', null, pretty(r.last_used)));
+    last.appendChild(el('small', null, r.last_used_mmss || ''));
+  } else {
+    last.appendChild(el('div', 'gc-muted', '—'));
+  }
+  head.appendChild(last);
 
   head.addEventListener('click', function () { OPEN[r.id] = !OPEN[r.id]; render(); });
   wrap.appendChild(head);

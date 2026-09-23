@@ -25,7 +25,7 @@ WORD = re.compile(r"[\u0600-\u06FF]+|[A-Za-z0-9']+")
 # Recast window: Amal answering within this many seconds of Medi finishing.
 WINDOW = 25.0
 # How much of Medi's line Amal must repeat before we treat it as a recast.
-MIN_OVERLAP = 0.40
+MIN_OVERLAP = 0.30
 MIN_WORDS = 2
 
 
@@ -374,14 +374,20 @@ for date in dates:
             # not a correction, so we leave it out rather than guess.
             pair = minimal_pair(d["wrong"], d["fixed"])
             if not pair:
-                continue
+                # A tight echo with a small change is still a correction even
+                # when she swaps the word outright rather than reshaping it.
+                if kind == "echo" and ov >= 0.55 and d["changed"] <= 6:
+                    pair = (" ".join(d["wrong"])[:40], " ".join(d["fixed"])[:40], 0.0)
+                else:
+                    continue
             d["pair"] = pair
             hit = classify(m["text"], a["text"], d)
-            if not hit:
-                continue
-            bucket, why = hit
-            if bucket not in buckets:
-                continue
+            if hit and hit[0] in buckets:
+                bucket, why = hit
+            else:
+                # Real correction, no rule we can name. Park it for filing
+                # rather than throw away evidence.
+                bucket, why = "UNFILED", "correction found, rule not identified"
             # Be honest about how much to trust each row. Only Amal, or Medi,
             # can promote one of these to a scored slip.
             score = 0
@@ -424,4 +430,4 @@ json.dump({
 print("\nwrote", OUT)
 print("events:", len(events), "across", len(by_bucket), "buckets")
 for b, n in by_bucket.most_common(20):
-    print("  %-5s %-34s %d" % (b, buckets[b]["name"], n))
+    print("  %-7s %-34s %d" % (b, buckets[b]["name"] if b in buckets else "(needs filing)", n))

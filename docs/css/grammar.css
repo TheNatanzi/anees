@@ -106,3 +106,16 @@
 #anees-bank .gc-conf-high .gc-conf-tag{color:var(--ab-orange)}
 #anees-bank .gc-candnote{margin:-4px 0 10px}
 #anees-bank .gc-pairline{margin-top:8px;padding-top:8px;border-top:1px solid var(--ab-line);font-size:13px;direction:rtl;text-align:right}
+
+/* Last used column + status colour on the row, matching the Word Bank levels */
+#anees-bank .gc-grid{grid-template-columns:minmax(140px,2.2fr) 92px 84px 96px 98px 92px}
+#anees-bank .gc-last{font-size:12px;font-variant-numeric:tabular-nums;text-align:center}
+#anees-bank .gc-last small{display:block;font-size:10px;color:var(--ab-muted);margin-top:3px}
+#anees-bank .gc-muted{color:var(--ab-muted)}
+#anees-bank .gc-row{border-left:3px solid transparent}
+#anees-bank .gc-row-Mastered{border-left-color:var(--ab-green)}
+#anees-bank .gc-row-Good{border-left-color:var(--ab-blue)}
+#anees-bank .gc-row-Shaky{border-left-color:var(--ab-orange)}
+#anees-bank .gc-row-Wrong{border-left-color:var(--ab-red)}
+#anees-bank .gc-row-Untested{border-left-color:var(--ab-line)}
+@media(max-width:680px){#anees-bank .gc-grid{grid-template-columns:1fr 1fr}#anees-bank .gc-last{text-align:left}}
