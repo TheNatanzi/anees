@@ -9,8 +9,8 @@
 | Mayy |  | مي | water |
 | Akle |  | أكلة | a dish / a meal |
 | Irani |  | إيراني | Iranian |
-| Ana ba5rab |  | خرب | I break down / go bad (food: bye5rab = it spoils) |
-| Ana ba5arreb |  | خرّب | I ruin / break (something) |
+| Ana ba5rab |  | أنا بخرب | I break down / go bad (food: bye5rab = it spoils) |
+| Ana ba5arreb |  | أنا بخرّب | I ruin / break (something) |
 | Amriki |  | أمريكي | American |
 | 3aks |  | عكس | opposite (bel-3aks = on the contrary) |
 | Ahel |  | أهل | parents / family |
