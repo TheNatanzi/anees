@@ -280,6 +280,9 @@ def related(m, a):
 
 
 def _related(m, a, ayn):
+    qm, qa = skel(m, ayn=True), skel(a, ayn=True)
+    if is_ar(m) and is_ar(a) and qm != qa and qm.replace("Q", "") == qa.replace("Q", "") and ("Q" in qm) != ("Q" in qa):
+        return "hardletter"
     if ("ً" in m and key(a).endswith("an")) or ("ً" in a and key(m).endswith("an")):
         return None
     sm, sa = skel(m, ayn=ayn), skel(a, ayn=ayn)
@@ -443,13 +446,26 @@ def classify(m, a, said, recast, change):
     if change == "al":
         if re.match(r"^(بال|bil-?|bel-?)", m.lower()) and not has_al(a):
             return ("A2", "idafa: the first noun takes no el-")
-        if SUPERL.search(ctx):
+        ws_ = tokens(recast)
+        near_ = [ws_[i - 1] for i, w in enumerate(ws_) if w == a and i > 0] + [a]
+        if any(SUPERL.fullmatch(re.sub(r"^ال", "", w)) or SUPERL.fullmatch(w.lower()) for w in near_) or SUPERL.fullmatch(re.sub(r"^ال", "", m)):
             return ("C3", "no el- after a superlative")
         ws = tokens(recast)
         if has_al(a) and a in ws:
             i_ = ws.index(a)
             if i_ > 0 and has_al(ws[i_ - 1]):
                 return ("A7", "the adjective takes el- like its noun")
+        hs = tokens(said)
+        if has_al(a) and m in hs:
+            i_ = hs.index(m)
+            if i_ > 0 and (has_al(hs[i_ - 1]) or re.match(r"^(il|el|al)[a-z]{2,}", hs[i_ - 1].lower())):
+                return ("A7", "the adjective takes el- like its noun")
+        if has_al(a) and a in ws:
+            i_ = ws.index(a)
+            prev_ = ws[i_ - 1] if i_ > 0 else None
+            if prev_ and not has_al(prev_) and not family(prev_) and not verbish(prev_) and bare(prev_) not in FUNCTION \
+                    and not is_english(prev_):
+                return ("A2", "idafa: the el- goes on the owner")
         if has_al(m) and not has_al(a):
             ws = tokens(recast)
             nxt = next((ws[i + 1] for i, w in enumerate(ws[:-1]) if w == a), None)
@@ -518,6 +534,8 @@ def classify(m, a, said, recast, change):
         if n:
             return ("E3", "three-to-ten takes the plural")
         return ("A9", "plural")
+    if change == "hardletter":
+        return ("F1", "the ع was dropped or added - pronunciation, not grammar")
     if change == "participle":
         return ("B15", "the participle, not the verb")
     if change in ("shape", "prefix", "suffix", "ending"):
@@ -542,6 +560,8 @@ def classify(m, a, said, recast, change):
         m_imperf0 = bool(re.match(r"^(b|a|t|y|n)", key(m).lstrip("'"))) and not re.search(r"(t|ti|na)$", key(m))
         if a_past0 and m_imperf0 and stems(sm) & stems(sa):
             return ("B5", "past tense")
+        if sa.startswith(sm) and sa[len(sm):] in ("t", "n") and looks_past(a) and not has_al(m):
+            return ("B5", "the past tense ending")
         # an ending grew on the same word: pointer on a verb, possessive on a noun
         if sa.startswith(sm) and len(sa) > len(sm) and len(sm) >= 2:
             verb = verbish(m) and not has_al(m) and len(sm) >= 3
@@ -572,6 +592,8 @@ def classify(m, a, said, recast, change):
             return ("A9", "plural")
         if a_past and stems(sm) & stems(sa) and not has_al(m):
             return ("B5", "the past tense ending")
+        if sa.startswith(sm) and sa[len(sm):] in ("t", "tn", "n") and looks_past(a) and not has_al(m):
+            return ("B5", "the past tense ending")
         # possessive / object ending changed on the same stem
         if stems(sm) & stems(sa):
             if sm[-1:] != sa[-1:] or len(sm) != len(sa):
@@ -592,7 +614,7 @@ def person_swap(m, a):
     return False
 
 
-ASK = re.compile(r"\bdo i (just |still |only )?say\b|شو يعني|شو معنى|what was|what does .* mean|what's the word|"
+ASK = re.compile(r"\bdo i (need|have) to\b|\bshould i\b|\bshu\s*[?؟]|شو\s*[?؟]\s*$|\bdo i (just |still |only )?say\b|شو يعني|شو معنى|what was|what does .* mean|what's the word|"
                  r"(would|wouldn't|does|doesn't|will|won't|can|could)\s+(it|that|this)\s+work|can i use|could i use|"
                  r"\b(is it|isn't it|would it be|would i say|do i say|do you say|can i say|how do i say|should it be|"
                  r"or is it|what's|what is|is there a difference|is that)\b|,?\s*right\s*\?", re.I)
@@ -757,7 +779,7 @@ def pair_up(window, A):
                     if same_form(m, a):
                         continue
                     ch = related(m, a)
-                    if ch in ("suffix", "shape", "prefix", "ending") and bare(a) in FUNCTION:
+                    if ch in ("suffix", "shape", "prefix", "ending") and (bare(a) in FUNCTION or bare(m) in FUNCTION):
                         continue
                     if ch == "ending" and len(skel(m)) < 3:
                         continue  # too short to trust on its own
@@ -1038,12 +1060,24 @@ if __name__ == "__main__" or True:
             d = diff_spans(M["text"], A["text"], wrong_word=f["m"] if f["a"] else None, fixed_word=f["a"] or None)
             bucket = f["bucket"]
             why = f["hit"][1] if f["hit"] and bucket != "UNFILED" else "correction found, rule not identified"
-            score = 0
-            score += 2 if f["kind"] in ("echo", "chat") else 1 if f["kind"] == "english" else 0
-            score += 1 if f["change"] in ("al", "b", "family", "prep", "double") else 0
-            score += 1 if len(A["ar"]) >= 2 else 0
-            score += 1 if bucket != "UNFILED" else 0
-            confidence = "high" if score >= 4 else "medium" if score >= 2 else "low"
+            # How sure. Measured on ~100 hand-judged random events (M3): family,
+            # inserted grammar words, participles, prepositions, doubled letters
+            # and English rule names were right 75-100% of the time; el-,
+            # endings, suffixes and stem changes about 25-50% unless something
+            # else backs them. "possible" rows stay in the file for review and
+            # are never counted (docs/data/grammar-audit.json -> "possible").
+            strong_change = f["change"] in ("family", "insert", "participle", "prep", "double",
+                                            "number", "numword", "hardletter", "english")
+            gap = A["start"] - M["end"]
+            backed = (bool(CONTRAST.search(A["text"]))
+                      or (f["kind"] in ("echo", "chat") and f["overlap"] * len(A["ar"]) >= 2)
+                      or (f["kind"] == "spot" and gap <= 4 and len(M["ar"]) >= 2))
+            if strong_change or (backed and f["change"] in ("b", "al")):
+                confidence = "high"
+            elif backed:
+                confidence = "medium"
+            else:
+                confidence = "low"
             events.append({
                 "bucket": bucket, "date": date, "t": round(M["start"], 1),
                 "mmss": "%02d:%02d" % (int(M["start"]) // 60, int(M["start"]) % 60),

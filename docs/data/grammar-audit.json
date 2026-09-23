@@ -9,8 +9,8 @@
    "turns": 624,
    "medi_turns": 313,
    "medi_arabic_turns": 227,
-   "corrections": 18,
-   "self_corrections": 12
+   "corrections": 16,
+   "self_corrections": 14
   },
   {
    "date": "2026-09-04",
@@ -18,8 +18,8 @@
    "turns": 1046,
    "medi_turns": 547,
    "medi_arabic_turns": 230,
-   "corrections": 9,
-   "self_corrections": 26
+   "corrections": 8,
+   "self_corrections": 27
   },
   {
    "date": "2026-09-05",
@@ -36,7 +36,7 @@
    "turns": 756,
    "medi_turns": 378,
    "medi_arabic_turns": 193,
-   "corrections": 10,
+   "corrections": 11,
    "self_corrections": 27
   },
   {
@@ -45,7 +45,7 @@
    "turns": 1036,
    "medi_turns": 614,
    "medi_arabic_turns": 332,
-   "corrections": 23,
+   "corrections": 25,
    "self_corrections": 37
   },
   {
@@ -55,7 +55,7 @@
    "medi_turns": 535,
    "medi_arabic_turns": 284,
    "corrections": 12,
-   "self_corrections": 31
+   "self_corrections": 30
   },
   {
    "date": "2026-09-16",
@@ -63,7 +63,7 @@
    "turns": 1056,
    "medi_turns": 576,
    "medi_arabic_turns": 237,
-   "corrections": 10,
+   "corrections": 11,
    "self_corrections": 24
   },
   {
@@ -73,7 +73,7 @@
    "medi_turns": 537,
    "medi_arabic_turns": 249,
    "corrections": 25,
-   "self_corrections": 23
+   "self_corrections": 24
   },
   {
    "date": "2026-09-19",
@@ -81,7 +81,7 @@
    "turns": 768,
    "medi_turns": 348,
    "medi_arabic_turns": 115,
-   "corrections": 3,
+   "corrections": 2,
    "self_corrections": 4
   },
   {
@@ -89,38 +89,40 @@
    "source": "scribe per-speaker tracks",
    "turns": 1340,
    "medi_turns": 804,
-   "medi_arabic_turns": 498,
+   "medi_arabic_turns": 497,
    "corrections": 51,
-   "self_corrections": 36
+   "self_corrections": 39
   }
  ],
  "totals": {
   "events": 176,
-  "buckets_hit": 31,
+  "buckets_hit": 32,
   "lessons_with_text": 10,
-  "self_corrections": 256
+  "self_corrections": 262
  },
  "by_bucket": {
+  "B5": 23,
   "A8": 23,
-  "A1": 22,
-  "B5": 21,
+  "A1": 20,
   "D1": 15,
-  "C2": 12,
-  "A4": 10,
+  "C2": 11,
   "B1": 10,
   "D3": 7,
   "D4": 7,
+  "A2": 6,
+  "A4": 6,
   "B12": 5,
   "E4": 5,
   "B10": 4,
-  "A2": 4,
   "B3": 3,
   "B16": 3,
-  "C3": 3,
+  "A7": 3,
   "A9": 3,
   "D2": 3,
   "A10": 2,
   "B15": 2,
+  "C3": 2,
+  "F1": 2,
   "C4": 2,
   "B2": 1,
   "B9": 1,
@@ -129,7 +131,6 @@
   "B6": 1,
   "B13": 1,
   "B11": 1,
-  "A7": 1,
   "E3": 1,
   "B8": 1
  },
@@ -160,11 +161,11 @@
    "match": "echo",
    "overlap": 0.5,
    "source": "transcript.txt",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
-   "bucket": "A1",
+   "bucket": "A2",
    "date": "2026-08-25",
    "t": 552.0,
    "mmss": "09:12",
@@ -183,11 +184,11 @@
    "pair_fixed": "الحرارة",
    "pair_similarity": 0.8,
    "change": "al",
-   "why": "el- added or dropped",
+   "why": "idafa: the el- goes on the owner",
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -214,7 +215,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -241,7 +242,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -323,33 +324,6 @@
    "verified": false
   },
   {
-   "bucket": "A4",
-   "date": "2026-08-25",
-   "t": 1947.0,
-   "mmss": "32:27",
-   "said": "و أنا، أنا، بس-- بس بت، أنا بس بتها.",
-   "recast": "ببسطها.",
-   "recast_at": "32:38",
-   "said_html": "<mark class=\"ab-wrong\">و أنا أنا بس بت أنا بس بتها</mark>",
-   "recast_html": "<mark class=\"ab-correct\">ببسطها</mark>",
-   "wrong": [
-    "و أنا أنا بس بت أنا بس بتها"
-   ],
-   "fixed": [
-    "ببسطها"
-   ],
-   "pair_wrong": "بس",
-   "pair_fixed": "ببسطها",
-   "pair_similarity": 0.67,
-   "change": "shape",
-   "why": "the possessive ending",
-   "match": "spot",
-   "overlap": 0.0,
-   "source": "transcript.txt",
-   "confidence": "low",
-   "verified": false
-  },
-  {
    "bucket": "D1",
    "date": "2026-08-25",
    "t": 2254.0,
@@ -373,7 +347,7 @@
    "match": "english",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -400,7 +374,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -427,34 +401,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
-   "verified": false
-  },
-  {
-   "bucket": "A1",
-   "date": "2026-08-25",
-   "t": 2827.0,
-   "mmss": "47:07",
-   "said": "اه. كل الناس. اه. كل الناس. بيحكوا الـ... بيحكولي.",
-   "recast": "بيحكولي.",
-   "recast_at": "47:32",
-   "said_html": "<mark class=\"ab-wrong\">اه كل الناس اه كل الناس بيحكوا البيحكولي</mark>",
-   "recast_html": "<mark class=\"ab-correct\">بيحكولي</mark>",
-   "wrong": [
-    "اه كل الناس اه كل الناس بيحكوا البيحكولي"
-   ],
-   "fixed": [
-    "بيحكولي"
-   ],
-   "pair_wrong": "البيحكولي",
-   "pair_fixed": "بيحكولي",
-   "pair_similarity": 0.89,
-   "change": "al",
-   "why": "el- added or dropped",
-   "match": "spot",
-   "overlap": 0.0,
-   "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -481,7 +428,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -508,7 +455,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -536,7 +483,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -563,7 +510,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -590,7 +537,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -646,7 +593,34 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
+   "verified": false
+  },
+  {
+   "bucket": "A2",
+   "date": "2026-09-04",
+   "t": 516.0,
+   "mmss": "08:36",
+   "said": "ana بعيد الـ، الـ نفس مش الـ-",
+   "recast": "No, نفس المشكلة",
+   "recast_at": "08:42",
+   "said_html": "<mark class=\"ab-wrong\">ana بعيد النفس مش</mark>",
+   "recast_html": "<mark class=\"ab-correct\">نفس المشكلة</mark>",
+   "wrong": [
+    "ana بعيد النفس مش"
+   ],
+   "fixed": [
+    "نفس المشكلة"
+   ],
+   "pair_wrong": "النفس",
+   "pair_fixed": "نفس",
+   "pair_similarity": 0.86,
+   "change": "al",
+   "why": "idafa: the el- goes on the owner",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "transcript.txt",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -679,33 +653,6 @@
   {
    "bucket": "B5",
    "date": "2026-09-04",
-   "t": 2809.0,
-   "mmss": "46:49",
-   "said": "a soft T it sounds like she kissed me. Isn't that bus?",
-   "recast": "Beset. Yes,",
-   "recast_at": "46:57",
-   "said_html": "<mark class=\"ab-wrong\">soft T sounds kissed Isn&#x27;t bus</mark>",
-   "recast_html": "<mark class=\"ab-correct\">Beset</mark>",
-   "wrong": [
-    "soft T sounds kissed Isn't bus"
-   ],
-   "fixed": [
-    "Beset"
-   ],
-   "pair_wrong": "bus",
-   "pair_fixed": "Beset",
-   "pair_similarity": 0.8,
-   "change": "suffix",
-   "why": "past tense",
-   "match": "spot",
-   "overlap": 0.0,
-   "source": "transcript.txt",
-   "confidence": "low",
-   "verified": false
-  },
-  {
-   "bucket": "B5",
-   "date": "2026-09-04",
    "t": 3009.0,
    "mmss": "50:09",
    "said": "So ban- banbesit. So we- Not",
@@ -725,7 +672,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -778,7 +725,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -805,7 +752,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -833,38 +780,11 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
-   "bucket": "A4",
-   "date": "2026-09-04",
-   "t": 3732.0,
-   "mmss": "62:12",
-   "said": "بس",
-   "recast": "ببسّط.",
-   "recast_at": "62:30",
-   "said_html": "<mark class=\"ab-wrong\">بس</mark>",
-   "recast_html": "<mark class=\"ab-correct\">ببسّط</mark>",
-   "wrong": [
-    "بس"
-   ],
-   "fixed": [
-    "ببسّط"
-   ],
-   "pair_wrong": "بس",
-   "pair_fixed": "ببسّط",
-   "pair_similarity": 0.8,
-   "change": "suffix",
-   "why": "the possessive ending",
-   "match": "spot",
-   "overlap": 0.0,
-   "source": "transcript.txt",
-   "confidence": "low",
-   "verified": false
-  },
-  {
-   "bucket": "C2",
+   "bucket": "B5",
    "date": "2026-09-05",
    "t": 392.0,
    "mmss": "06:32",
@@ -882,7 +802,7 @@
    "pair_fixed": "انبسطتي",
    "pair_similarity": 0.86,
    "change": "suffix",
-   "why": "the pointer ending was missing",
+   "why": "the past tense ending",
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
@@ -913,7 +833,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -965,7 +885,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -1019,7 +939,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -1046,7 +966,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -1071,7 +991,7 @@
    "match": "echo",
    "overlap": 0.75,
    "source": "transcript.txt",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -1125,7 +1045,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -1151,7 +1071,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -1205,7 +1125,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -1273,11 +1193,11 @@
    "said": "الشمال الـ، روسيا the, the north of Russia. الشمال.",
    "recast": "بس، بس شمال روسيا.",
    "recast_at": "05:05",
-   "said_html": "<mark class=\"ab-wrong\">الشمال الروسيا north</mark> Russia <mark class=\"ab-wrong\">الشمال</mark>",
+   "said_html": "<mark class=\"ab-wrong\">الشمال</mark> روسيا <mark class=\"ab-wrong\">north Russia الشمال</mark>",
    "recast_html": "<mark class=\"ab-correct\">بس بس شمال</mark> روسيا",
    "wrong": [
-    "الشمال الروسيا north",
-    "الشمال"
+    "الشمال",
+    "north Russia الشمال"
    ],
    "fixed": [
     "بس بس شمال"
@@ -1291,6 +1211,34 @@
    "overlap": 0.5,
    "source": "transcript.txt",
    "confidence": "high",
+   "verified": false
+  },
+  {
+   "bucket": "A8",
+   "date": "2026-09-11",
+   "t": 329.0,
+   "mmss": "05:29",
+   "said": "Okay. الـ، الشمال الـ، روس شمال؟ Did you say?",
+   "recast": "بس شمال روسيا.",
+   "recast_at": "05:38",
+   "said_html": "<mark class=\"ab-wrong\">الشمال روس شمال</mark>",
+   "recast_html": "<mark class=\"ab-correct\">بس شمال روسيا</mark>",
+   "wrong": [
+    "الشمال",
+    "شمال"
+   ],
+   "fixed": [
+    "بس شمال"
+   ],
+   "pair_wrong": "روس",
+   "pair_fixed": "روسيا",
+   "pair_similarity": 1.0,
+   "change": "ending",
+   "why": "feminine agreement",
+   "match": "echo",
+   "overlap": 0.67,
+   "source": "transcript.txt",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -1317,7 +1265,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "low",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -1348,7 +1296,7 @@
    "verified": false
   },
   {
-   "bucket": "A4",
+   "bucket": "B5",
    "date": "2026-09-11",
    "t": 991.0,
    "mmss": "16:31",
@@ -1365,7 +1313,7 @@
    "pair_fixed": "خربتي",
    "pair_similarity": 0.86,
    "change": "suffix",
-   "why": "the possessive ending",
+   "why": "the past tense ending",
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
@@ -1396,7 +1344,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "low",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -1423,7 +1371,7 @@
    "match": "english",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -1454,7 +1402,7 @@
    "verified": false
   },
   {
-   "bucket": "A1",
+   "bucket": "A7",
    "date": "2026-09-11",
    "t": 2628.0,
    "mmss": "43:48",
@@ -1473,11 +1421,11 @@
    "pair_fixed": "الشوب",
    "pair_similarity": 0.8,
    "change": "al",
-   "why": "el- added or dropped",
+   "why": "the adjective takes el- like its noun",
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -1504,7 +1452,7 @@
    "match": "english",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -1531,7 +1479,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -1569,10 +1517,10 @@
    "said": "في المحل. في الـ، في البيت.",
    "recast": "بالبيت.",
    "recast_at": "03:45",
-   "said_html": "<mark class=\"ab-wrong\">في المحل في الفي البيت</mark>",
+   "said_html": "<mark class=\"ab-wrong\">في المحل في في البيت</mark>",
    "recast_html": "<mark class=\"ab-correct\">بالبيت</mark>",
    "wrong": [
-    "في المحل في الفي البيت"
+    "في المحل في في البيت"
    ],
    "fixed": [
     "بالبيت"
@@ -1585,7 +1533,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -1612,7 +1560,58 @@
    "match": "english",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
+   "verified": false
+  },
+  {
+   "bucket": "F1",
+   "date": "2026-09-14",
+   "t": 495.6,
+   "mmss": "08:15",
+   "said": "The es-es-اسمي.",
+   "recast": "أسماء.",
+   "recast_at": "08:18",
+   "said_html": "<mark class=\"ab-wrong\">es-es اسمي</mark>",
+   "recast_html": "<mark class=\"ab-correct\">أسماء</mark>",
+   "wrong": [
+    "es-es"
+   ],
+   "fixed": [],
+   "pair_wrong": "اسمي",
+   "pair_fixed": "أسماء",
+   "pair_similarity": 1.0,
+   "change": "hardletter",
+   "why": "the ع was dropped or added - pronunciation, not grammar",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "high",
+   "verified": false
+  },
+  {
+   "bucket": "F1",
+   "date": "2026-09-14",
+   "t": 686.7,
+   "mmss": "11:26",
+   "said": "هون؟ هلق, goddammit. I always mix up هلق and هون.",
+   "recast": "هلا.",
+   "recast_at": "11:26",
+   "said_html": "<mark class=\"ab-wrong\">هون هلق goddammit I mix هلق هون</mark>",
+   "recast_html": "<mark class=\"ab-correct\">هلا</mark>",
+   "wrong": [
+    "هون",
+    "goddammit I mix هلق هون"
+   ],
+   "fixed": [],
+   "pair_wrong": "هلق",
+   "pair_fixed": "هلا",
+   "pair_similarity": 1.0,
+   "change": "hardletter",
+   "why": "the ع was dropped or added - pronunciation, not grammar",
+   "match": "spot",
+   "overlap": 0.0,
+   "source": "scribe per-speaker tracks",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -1637,7 +1636,7 @@
    "match": "chat",
    "overlap": 0.33,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -1664,7 +1663,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -1690,7 +1689,7 @@
    "match": "chat",
    "overlap": 0.22,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -1748,7 +1747,7 @@
    "verified": false
   },
   {
-   "bucket": "A1",
+   "bucket": "A7",
    "date": "2026-09-14",
    "t": 1426.4,
    "mmss": "23:46",
@@ -1767,11 +1766,11 @@
    "pair_fixed": "الحرارة",
    "pair_similarity": 0.8,
    "change": "al",
-   "why": "el- added or dropped",
+   "why": "the adjective takes el- like its noun",
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -1797,7 +1796,7 @@
    "match": "chat",
    "overlap": 0.75,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -1824,7 +1823,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -1878,7 +1877,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "low",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -1905,7 +1904,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -1933,7 +1932,7 @@
    "match": "echo",
    "overlap": 0.25,
    "source": "scribe per-speaker tracks",
-   "confidence": "high",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -1960,7 +1959,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -1987,7 +1986,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -2014,7 +2013,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -2041,7 +2040,7 @@
    "match": "chat",
    "overlap": 0.67,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -2068,7 +2067,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -2095,7 +2094,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "low",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -2122,7 +2121,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "low",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -2149,7 +2148,7 @@
    "match": "chat",
    "overlap": 0.5,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -2176,7 +2175,7 @@
    "match": "english",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -2201,7 +2200,7 @@
    "match": "english",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -2212,11 +2211,11 @@
    "said": "flight time. The time of the flight. وقت ال... اه... flight. Oh my God.",
    "recast": "e7na laazem n8ayyer wa2et el-tayyara",
    "recast_at": "31:25",
-   "said_html": "<mark class=\"ab-wrong\">flight flight</mark> وقت <mark class=\"ab-wrong\">flight God</mark>",
+   "said_html": "<mark class=\"ab-wrong\">flight flight</mark> وقت <mark class=\"ab-wrong\">اه flight God</mark>",
    "recast_html": "<mark class=\"ab-correct\">e7na laazem n8ayyer wa2et el-tayyara</mark>",
    "wrong": [
     "flight flight",
-    "flight God"
+    "اه flight God"
    ],
    "fixed": [
     "e7na laazem n8ayyer",
@@ -2257,7 +2256,7 @@
    "match": "english",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -2280,7 +2279,7 @@
    "match": "chat",
    "overlap": 1.0,
    "source": "transcript.txt + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -2305,7 +2304,7 @@
    "match": "chat",
    "overlap": 1.0,
    "source": "transcript.txt + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -2332,7 +2331,7 @@
    "match": "english",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -2357,7 +2356,7 @@
    "match": "chat",
    "overlap": 0.38,
    "source": "transcript.txt + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -2384,7 +2383,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -2438,7 +2437,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -2465,7 +2464,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -2490,7 +2489,7 @@
    "match": "english",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -2515,7 +2514,7 @@
    "match": "chat",
    "overlap": 1.0,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -2542,7 +2541,7 @@
    "match": "chat",
    "overlap": 0.67,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -2567,7 +2566,7 @@
    "match": "english",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -2594,7 +2593,7 @@
    "match": "chat",
    "overlap": 0.5,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -2617,7 +2616,34 @@
    "match": "chat",
    "overlap": 1.0,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "medium",
+   "confidence": "low",
+   "verified": false
+  },
+  {
+   "bucket": "B5",
+   "date": "2026-09-16",
+   "t": 2780.6,
+   "mmss": "46:20",
+   "said": "Layesh teyadaya ti.",
+   "recast": "laish etdaaya2ti",
+   "recast_at": "45:53",
+   "said_html": "Layesh <mark class=\"ab-wrong\">teyadaya ti</mark>",
+   "recast_html": "laish <mark class=\"ab-correct\">etdaaya2ti</mark>",
+   "wrong": [
+    "teyadaya ti"
+   ],
+   "fixed": [
+    "etdaaya2ti"
+   ],
+   "pair_wrong": "teyadaya",
+   "pair_fixed": "etdaaya2ti",
+   "pair_similarity": 0.8,
+   "change": "suffix",
+   "why": "past tense",
+   "match": "chat",
+   "overlap": 0.5,
+   "source": "scribe per-speaker tracks + Meet chat",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -2642,7 +2668,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "low",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -2669,7 +2695,7 @@
    "match": "chat",
    "overlap": 0.67,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -2749,7 +2775,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -2808,7 +2834,7 @@
    "verified": false
   },
   {
-   "bucket": "A4",
+   "bucket": "B5",
    "date": "2026-09-17",
    "t": 514.0,
    "mmss": "08:34",
@@ -2827,11 +2853,11 @@
    "pair_fixed": "سبت",
    "pair_similarity": 0.8,
    "change": "suffix",
-   "why": "the possessive ending",
+   "why": "the past tense ending",
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -2858,7 +2884,7 @@
    "match": "english",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -2913,7 +2939,7 @@
    "match": "english",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -2940,7 +2966,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -2967,7 +2993,7 @@
    "match": "chat",
    "overlap": 0.5,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -3047,7 +3073,7 @@
    "match": "english",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -3074,7 +3100,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -3101,7 +3127,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -3128,7 +3154,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "low",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -3209,7 +3235,7 @@
    "match": "chat",
    "overlap": 0.5,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -3237,7 +3263,7 @@
    "match": "chat",
    "overlap": 0.6,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -3264,7 +3290,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -3291,7 +3317,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -3345,7 +3371,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -3399,7 +3425,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "low",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -3426,7 +3452,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -3451,34 +3477,7 @@
    "match": "chat",
    "overlap": 1.0,
    "source": "transcript.txt + Meet chat",
-   "confidence": "medium",
-   "verified": false
-  },
-  {
-   "bucket": "B5",
-   "date": "2026-09-19",
-   "t": 3427.0,
-   "mmss": "57:07",
-   "said": "Basatu shu?",
-   "recast": "انبسطت معه.",
-   "recast_at": "57:09",
-   "said_html": "<mark class=\"ab-wrong\">Basatu shu</mark>",
-   "recast_html": "<mark class=\"ab-correct\">انبسطت معه</mark>",
-   "wrong": [
-    "Basatu shu"
-   ],
-   "fixed": [
-    "انبسطت معه"
-   ],
-   "pair_wrong": "Basatu",
-   "pair_fixed": "انبسطت",
-   "pair_similarity": 0.86,
-   "change": "shape",
-   "why": "past tense",
-   "match": "spot",
-   "overlap": 0.0,
-   "source": "transcript.txt",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -3532,7 +3531,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -3557,7 +3556,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "low",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -3637,7 +3636,7 @@
    "match": "chat",
    "overlap": 0.3,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -3664,7 +3663,35 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
+   "verified": false
+  },
+  {
+   "bucket": "A1",
+   "date": "2026-09-21",
+   "t": 731.9,
+   "mmss": "12:11",
+   "said": "yeah، في الـ، uh, شتاء",
+   "recast": "byet8ayyaru marraat usboo3 shoab u marraat usboo3 bard fi el-shita",
+   "recast_at": "11:40",
+   "said_html": "في <mark class=\"ab-wrong\">شتاء</mark>",
+   "recast_html": "<mark class=\"ab-correct\">byet8ayyaru marraat usboo3 shoab u marraat usboo3 bard</mark> fi <mark class=\"ab-correct\">el-shita</mark>",
+   "wrong": [
+    "شتاء"
+   ],
+   "fixed": [
+    "byet8ayyaru marraat usboo3 shoab u marraat usboo3 bard",
+    "el-shita"
+   ],
+   "pair_wrong": "شتاء",
+   "pair_fixed": "el-shita",
+   "pair_similarity": 0.8,
+   "change": "al",
+   "why": "el- added or dropped",
+   "match": "chat",
+   "overlap": 0.56,
+   "source": "scribe per-speaker tracks + Meet chat",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -3691,7 +3718,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -3716,7 +3743,7 @@
    "match": "english",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -3769,7 +3796,7 @@
    "match": "chat",
    "overlap": 0.75,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -3796,7 +3823,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -3823,7 +3850,7 @@
    "match": "chat",
    "overlap": 1.0,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -3877,7 +3904,7 @@
    "match": "english",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -3955,7 +3982,7 @@
    "match": "chat",
    "overlap": 0.44,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -3982,7 +4009,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -4010,7 +4037,7 @@
    "match": "chat",
    "overlap": 0.67,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -4035,7 +4062,7 @@
    "match": "chat",
    "overlap": 0.67,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -4062,7 +4089,7 @@
    "match": "chat",
    "overlap": 0.67,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -4094,33 +4121,6 @@
    "verified": false
   },
   {
-   "bucket": "A8",
-   "date": "2026-09-21",
-   "t": 2461.1,
-   "mmss": "41:01",
-   "said": "Bi, bibi'u, ishna bibi'?",
-   "recast": "بتبيع because شركة is",
-   "recast_at": "41:05",
-   "said_html": "<mark class=\"ab-wrong\">Bi bibi&#x27;u ishna bibi&#x27;</mark>",
-   "recast_html": "<mark class=\"ab-correct\">بتبيع شركة</mark>",
-   "wrong": [
-    "Bi bibi'u ishna bibi'"
-   ],
-   "fixed": [
-    "بتبيع شركة"
-   ],
-   "pair_wrong": "bibi'u",
-   "pair_fixed": "بتبيع",
-   "pair_similarity": 0.5,
-   "change": "shape",
-   "why": "the verb agrees with a feminine subject",
-   "match": "spot",
-   "overlap": 0.0,
-   "source": "scribe per-speaker tracks",
-   "confidence": "medium",
-   "verified": false
-  },
-  {
    "bucket": "C2",
    "date": "2026-09-21",
    "t": 2466.6,
@@ -4143,7 +4143,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "low",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -4197,7 +4197,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -4223,7 +4223,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "low",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -4278,7 +4278,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -4305,7 +4305,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -4332,11 +4332,11 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
-   "bucket": "C3",
+   "bucket": "A1",
    "date": "2026-09-21",
    "t": 2967.3,
    "mmss": "49:27",
@@ -4358,7 +4358,7 @@
    "pair_fixed": "3aks",
    "pair_similarity": 0.8,
    "change": "al",
-   "why": "no el- after a superlative",
+   "why": "el- added or dropped",
    "match": "chat",
    "overlap": 0.12,
    "source": "scribe per-speaker tracks + Meet chat",
@@ -4389,7 +4389,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -4416,7 +4416,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "low",
    "verified": false
   },
   {
@@ -4443,7 +4443,7 @@
    "match": "chat",
    "overlap": 1.0,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -4471,7 +4471,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -4525,7 +4525,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -4551,7 +4551,7 @@
    "match": "chat",
    "overlap": 0.8,
    "source": "scribe per-speaker tracks + Meet chat",
-   "confidence": "high",
+   "confidence": "medium",
    "verified": false
   },
   {
@@ -4578,7 +4578,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -4605,7 +4605,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -4660,7 +4660,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -4687,7 +4687,7 @@
    "match": "english",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -4714,7 +4714,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -4741,7 +4741,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -4766,7 +4766,7 @@
    "match": "english",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -4793,7 +4793,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "medium",
+   "confidence": "high",
    "verified": false
   },
   {
@@ -4846,7 +4846,7 @@
    "match": "spot",
    "overlap": 0.0,
    "source": "scribe per-speaker tracks",
-   "confidence": "low",
+   "confidence": "high",
    "verified": false
   }
  ],
@@ -4958,6 +4958,33 @@
    "fixed": "كلًا",
    "change": "al",
    "text": "It wouldn't work in الكل؟ / 'Cause we say كلًا. We say كلًا."
+  },
+  {
+   "date": "2026-08-25",
+   "t": 2827.0,
+   "mmss": "47:07",
+   "said": "بيحكوا",
+   "fixed": "بيحكولي",
+   "change": "suffix",
+   "text": "اه. كل الناس. اه. كل الناس. بيحكوا الـ... بيحكولي."
+  },
+  {
+   "date": "2026-08-25",
+   "t": 3194.0,
+   "mmss": "53:14",
+   "said": "رايق",
+   "fixed": "راي",
+   "change": "hardletter",
+   "text": "رايق / Does this come from راي or no?"
+  },
+  {
+   "date": "2026-09-04",
+   "t": 39.0,
+   "mmss": "00:39",
+   "said": "الالـ",
+   "fixed": "لقة",
+   "change": "hardletter",
+   "text": "للـ اليوم nerd أن الـ الـ اللغة الـ software لقة."
   },
   {
    "date": "2026-09-04",
@@ -6239,15 +6266,6 @@
   },
   {
    "date": "2026-09-15",
-   "t": 2387.0,
-   "mmss": "39:47",
-   "said": "الالآن",
-   "fixed": "ألوان",
-   "change": "al",
-   "text": "ال، الآن / ألوان."
-  },
-  {
-   "date": "2026-09-15",
    "t": 2399.0,
    "mmss": "39:59",
    "said": "ألوان",
@@ -6617,6 +6635,15 @@
   },
   {
    "date": "2026-09-17",
+   "t": 685.6,
+   "mmss": "11:25",
+   "said": "ما",
+   "fixed": "قايمة",
+   "change": "hardletter",
+   "text": "ما قايمة."
+  },
+  {
+   "date": "2026-09-17",
    "t": 2190.9,
    "mmss": "36:30",
    "said": "kharab",
@@ -6887,15 +6914,6 @@
   },
   {
    "date": "2026-09-21",
-   "t": 796.0,
-   "mmss": "13:16",
-   "said": "الالـ",
-   "fixed": "اللي",
-   "change": "al",
-   "text": "So الـ, الـ pizza اللي..."
-  },
-  {
-   "date": "2026-09-21",
    "t": 858.9,
    "mmss": "14:18",
    "said": "كل",
@@ -6956,6 +6974,15 @@
    "fixed": "الفطر",
    "change": "al",
    "text": "آآآ فطر. / It was correct, don't repeat. آآآ الفطر و"
+  },
+  {
+   "date": "2026-09-21",
+   "t": 1172.9,
+   "mmss": "19:32",
+   "said": "ما",
+   "fixed": "مع",
+   "change": "hardletter",
+   "text": "yeah. ما بنحكي كتير مع الـ barista."
   },
   {
    "date": "2026-09-21",
@@ -7040,6 +7067,15 @@
   },
   {
    "date": "2026-09-21",
+   "t": 2656.2,
+   "mmss": "44:16",
+   "said": "مع",
+   "fixed": "مي",
+   "change": "hardletter",
+   "text": "مع مي."
+  },
+  {
+   "date": "2026-09-21",
    "t": 2662.9,
    "mmss": "44:22",
    "said": "أطبخ",
@@ -7112,6 +7148,24 @@
   },
   {
    "date": "2026-09-21",
+   "t": 3686.3,
+   "mmss": "61:26",
+   "said": "أنا",
+   "fixed": "عن",
+   "change": "hardletter",
+   "text": "لا أنا، / أنا حكيت عن الـ rice كتير."
+  },
+  {
+   "date": "2026-09-21",
+   "t": 3688.9,
+   "mmss": "61:28",
+   "said": "أنا",
+   "fixed": "عن",
+   "change": "hardletter",
+   "text": "أنا حكيت عن الـ rice كتير."
+  },
+  {
+   "date": "2026-09-21",
    "t": 3734.5,
    "mmss": "62:14",
    "said": "مخية",
@@ -7159,6 +7213,20 @@
  "asks": [
   {
    "date": "2026-08-25",
+   "t": 352.0,
+   "mmss": "05:52",
+   "said": "شو؟",
+   "answer": "مبروك."
+  },
+  {
+   "date": "2026-08-25",
+   "t": 362.0,
+   "mmss": "06:02",
+   "said": "أي، أي ساعة شو؟",
+   "answer": "صحييت اليوم."
+  },
+  {
+   "date": "2026-08-25",
    "t": 733.0,
    "mmss": "12:13",
    "said": "آآآم. ما زبت. زبت is... oh my God, what was زبت؟",
@@ -7177,6 +7245,13 @@
    "mmss": "27:53",
    "said": "عملت or is it خليت?",
    "answer": "عملت"
+  },
+  {
+   "date": "2026-08-25",
+   "t": 2229.0,
+   "mmss": "37:09",
+   "said": "‹Bindir›. Do I have to use the second part or do I just need the verb?",
+   "answer": "Oh, ‹balna›."
   },
   {
    "date": "2026-08-25",
@@ -7873,6 +7948,13 @@
   },
   {
    "date": "2026-09-15",
+   "t": 3936.0,
+   "mmss": "65:36",
+   "said": "general? El kul. Do I need to say el kul, el sema",
+   "answer": "كل"
+  },
+  {
+   "date": "2026-09-15",
    "t": 3965.0,
    "mmss": "66:05",
    "said": "dar, to dar, To, to put the flashcards, but to, to take the flashcards or... 'Cause they're already written, right?",
@@ -7915,10 +7997,24 @@
   },
   {
    "date": "2026-09-16",
+   "t": 1504.4,
+   "mmss": "25:04",
+   "said": "Batheb shu?",
+   "answer": "بتحب نحكي بس؟"
+  },
+  {
+   "date": "2026-09-16",
    "t": 1988.2,
    "mmss": "33:08",
    "said": "would I use بطن here?",
    "answer": "Just wanted to make sure you remember all of these."
+  },
+  {
+   "date": "2026-09-16",
+   "t": 2791.6,
+   "mmss": "46:31",
+   "said": "What did you just say? Shu?",
+   "answer": "مممم."
   },
   {
    "date": "2026-09-16",
@@ -7989,6 +8085,13 @@
    "mmss": "03:55",
    "said": "أو زي...",
    "answer": "آه، أول الجملة شو كان؟"
+  },
+  {
+   "date": "2026-09-17",
+   "t": 242.4,
+   "mmss": "04:02",
+   "said": "uh، شو؟",
+   "answer": "شو حكيت أول إشي؟ زي شو؟"
   },
   {
    "date": "2026-09-17",
@@ -8216,6 +8319,13 @@
   },
   {
    "date": "2026-09-19",
+   "t": 3427.0,
+   "mmss": "57:07",
+   "said": "Basatu shu?",
+   "answer": "انبسطت معه."
+  },
+  {
+   "date": "2026-09-19",
    "t": 3487.0,
    "mmss": "58:07",
    "said": "it's imbasatu and imbasatu are different, right? Imbasatu is they, imbasatu",
@@ -8227,6 +8337,13 @@
    "mmss": "59:39",
    "said": "Did, did you guys enjoy to me? Did you guys... I don't",
    "answer": "انبسطولي."
+  },
+  {
+   "date": "2026-09-21",
+   "t": 83.9,
+   "mmss": "01:23",
+   "said": "آآآ، شو؟",
+   "answer": "كيفك؟"
   },
   {
    "date": "2026-09-21",

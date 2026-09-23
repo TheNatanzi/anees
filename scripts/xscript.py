@@ -137,6 +137,9 @@ def tokens(text):
         return w + " "
     text = CUT.sub(_cut, text)
     text = re.sub(r"(?<!\S)(?!الـ)[؀-ۿ]+ـ(?=\s|$|[،,.])", " ", text)  # بيـ cut before the word (not the article الـ)
+    text = re.sub(r"(^|\s)(الـ|ال)\s*(\.\.\.|…|[،,.])", " ", text)
+    # "biyamal-- or bikhall": a word he broke off to try another is not an attempt
+    text = re.sub(r"\S+(--|—)\s*(?=(or|no|not|wait|i mean|أو|لا)\b)", " ", text, flags=re.I)
     out, pend = [], None
     for w in TOK.findall(text):
         if pend is not None and w.lower() in FILLER:

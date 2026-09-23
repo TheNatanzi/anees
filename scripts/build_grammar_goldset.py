@@ -144,12 +144,48 @@ R = [
 ("2026-09-21", "52:19", "A9", "self", "self", "ihna Irani", "Iraniyin", ""),
 ]
 
+# Held out: labelled AFTER the auditor was tuned on the two lessons above, and
+# never used to tune it. Its score is the honest estimate for an unseen lesson.
+HELDOUT = {"2026-09-11"}
+R += [
+("2026-09-11", "05:01", "A2", "grammar", "voice", "الشمال الـ، روسيا", "بس شمال روسيا", ""),
+("2026-09-11", "10:02", "A9", "grammar", "voice", "Oakland قريب، قريبًا مني", "وشو جمع غريب؟ ... غراب", "she prompted the plural"),
+("2026-09-11", "12:46", "C3", "grammar", "voice", "ع الـ-- أول الكلمة", "لا، أول الكلمة", ""),
+("2026-09-11", "13:01", "B12", "grammar", "voice+english", "بر-- بخرب. بخرب", "It's not بخرب yet. It's بخرب.", ""),
+("2026-09-11", "15:55", "B5", "grammar", "voice", "هي خربات", "خربت", ""),
+("2026-09-11", "16:31", "B5", "grammar", "voice", "إنتي خرب--", "خربتي", "he broke off; she supplied the ending"),
+("2026-09-11", "20:11", "B12", "grammar", "english", "(not transcribed)", "بس still هذا الفعل الثاني. not بخرب", "medi_text_missing"),
+("2026-09-11", "21:13", "B1", "grammar", "voice+english", "(not transcribed)", "بتستعمل ... it's she and not you", "medi_text_missing"),
+("2026-09-11", "21:25", "C2", "grammar", "voice", "(not transcribed)", "بتستعمله", "medi_text_missing"),
+("2026-09-11", "24:45", "B4b", "grammar", "voice+english", "إذا... ما تفتحي", "With B ... ما بتحطي", ""),
+("2026-09-11", "30:22", "A8", "grammar", "english", "(العزومة) لازم. اه، خرب", "عزومة is feminine or masculine? خربت", ""),
+("2026-09-11", "40:15", "A3", "grammar", "voice", "جلايك", "جلاية؟ -> جلايتك", ""),
+("2026-09-11", "42:19", "C4", "grammar", "voice+english", "مش قصدهم / مش كان", "Not مش ... ما كان قصدهم", ""),
+("2026-09-11", "43:48", "A7", "grammar", "voice", "Iljao shoub", "الشوب", "Latin-script"),
+("2026-09-11", "44:32", "B10", "grammar", "voice+english", "echarrab, echarrbi", "No ... خرب / when do I not put the a in command?", "Latin-script"),
+("2026-09-11", "52:55", "B12", "grammar", "english", "bidullu yikharabu", "Mm-mm, no ... they are what's breaking", "Latin-script"),
+("2026-09-11", "53:32", "B5", "grammar", "english", "bitakhrobi. Bitakhrib.", "Did you? (past)", "Latin-script"),
+("2026-09-11", "54:51", "B5", "grammar", "english", "sawarna kharab", "Which one is it? -> kharabu", "Latin-script"),
+("2026-09-11", "56:29", "C2", "grammar", "english", "rah titkharabi", "شوربة is feminine ... راح تخربيها", "Latin-script"),
+("2026-09-11", "57:20", "A8", "grammar", "voice", "rah yikhrab (the soup)", "we're talking about شوربة -> tikhreb", "Latin-script"),
+("2026-09-11", "01:00", "VOCAB", "vocab", "voice", "ملايين", "مليان", ""),
+("2026-09-11", "10:54", "VOCAB", "vocab", "voice", "قربان", "خربان", ""),
+("2026-09-11", "12:23", "VOCAB", "vocab", "voice", "تحت الكلمة", "آخر الكلمة", ""),
+("2026-09-11", "17:59", "VOCAB", "vocab", "voice", "صححته", "صلحته", ""),
+("2026-09-11", "37:14", "VOCAB", "vocab", "voice", "ثانورك", "تنورة is skirt", ""),
+("2026-09-11", "39:02", "D1", "self", "self", "بغلط", "بالغلط", ""),
+("2026-09-11", "05:40", "B8", "ask", "english", "Is it just بيكون؟ What I use أكون here؟", "you can use be going", ""),
+("2026-09-11", "09:20", "A9", "ask", "voice", "is it أنجم؟", "نجوم", ""),
+("2026-09-11", "25:21", "B1", "ask", "voice", "Is it يخربوا؟", "بيخرب ... rose راح يخرب", ""),
+]
+
 
 def build():
     ev = []
     sec = lambda x: int(x.split(":")[0]) * 60 + int(x.split(":")[1])
     for d, mmss, b, k, ch, said, corr, note in R:
         ev.append({
+            "split": "heldout" if d in HELDOUT else "tuned",
             "date": d, "t": sec(mmss), "mmss": mmss,
             "t_from": sec(FROM.get((d, mmss), mmss)), "t_to": sec(TO.get((d, mmss), mmss)),
             "bucket": b, "kind": k,
@@ -160,9 +196,11 @@ def build():
     g = [e for e in ev if e["kind"] == "grammar"]
     out = {
         "updated": "2026-09-23", "source": "hand",
-        "method": ("Every Medi turn in two lessons read by hand with the 25 s after it - Amal's voice and "
+        "method": ("Every Medi turn in three lessons read by hand with the 25 s after it - Amal's voice and "
                    "her Meet chat. Times are on Medi's track after the track-start offset. Only kind=grammar "
-                   "is scored for recall; vocab, pron (Family F, rule M4) and self are kept, never scored as grammar."),
+                   "is scored for recall; vocab, pron (Family F, rule M4), self and ask are kept, never scored "
+                   "as grammar. split=tuned: the auditor was tuned on these. split=heldout: labelled after "
+                   "tuning and never tuned on - the honest estimate."),
         "lessons": {d: {"grammar": sum(1 for e in g if e["date"] == d)} for d in sorted({e["date"] for e in ev})},
         "counts": {k: sum(1 for e in ev if e["kind"] == k) for k in ("grammar", "vocab", "pron", "self", "ask")},
         "events": ev,

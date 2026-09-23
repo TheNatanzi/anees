@@ -85,11 +85,14 @@ def why_missed(g):
     return "Arabic voice correction the auditor did not pair"
 
 
-def score(verbose=True):
+def score(verbose=True, split=None, tiers=None):
+    """split: 'tuned' | 'heldout' | None (all). tiers: confidence levels to count (None = all)."""
     gold_all = json.load(open(os.path.join(DOCS, "grammar-goldset.json"), encoding="utf-8"))["events"]
+    if split:
+        gold_all = [g for g in gold_all if g.get("split", "tuned") == split]
     audit = json.load(open(os.path.join(DOCS, "grammar-audit.json"), encoding="utf-8"))
     dates = sorted({g["date"] for g in gold_all})
-    det = [dict(e) for e in audit["events"] if e["date"] in dates]
+    det = [dict(e) for e in audit["events"] if e["date"] in dates and (not tiers or e.get("confidence") in tiers)]
     for e in det:
         # Older audit files kept each speaker on its own track clock.
         if not audit.get("aligned") and e.get("source", "").startswith("scribe"):
@@ -154,8 +157,14 @@ def found_keys():
 if __name__ == "__main__":
     if "--no-run" not in sys.argv:
         run_auditor()
-    r = score(verbose="--quiet" not in sys.argv)
+    tiers = None
+    for a_ in sys.argv:
+        if a_.startswith("--tiers="):
+            tiers = a_.split("=", 1)[1].split(",")
+    r = score(verbose="--quiet" not in sys.argv, tiers=tiers)
     print("\n" + json.dumps(r))
+    for sp in ("tuned", "heldout"):
+        print("%-8s %s" % (sp, json.dumps(score(verbose=False, split=sp, tiers=tiers))))
     # what changed since the last run (scratch file, not committed)
     last = os.path.join(HERE, "_backups", "score_last_found.json")
     now = sorted(found_keys())
