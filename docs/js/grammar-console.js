@@ -290,11 +290,11 @@ function buildHeaders() {
     var b = el('button', 'gc-sortbtn' + (active ? ' is-active' : ''));
     b.type = 'button';
     b.appendChild(el('span', null, c.label));
-    if (active) {
-      var arrow = el('span', 'gc-arrow', SORT.dir === 'asc' ? '\u25B2' : '\u25BC');
-      arrow.setAttribute('aria-hidden', 'true');
-      b.appendChild(arrow);
-    }
+    // every column shows its arrow; idle ones are faint and point the way the first click sorts
+    var dir = active ? SORT.dir : c.first;
+    var arrow = el('span', 'gc-arrow' + (active ? '' : ' gc-arrow-idle'), dir === 'asc' ? '\u25B2' : '\u25BC');
+    arrow.setAttribute('aria-hidden', 'true');
+    b.appendChild(arrow);
     b.setAttribute('aria-label', 'Sort by ' + c.label + (active ? ', ' + word + '. Click to flip.' : ''));
     b.addEventListener('click', function () {
       SORT = SORT.key === c.key
