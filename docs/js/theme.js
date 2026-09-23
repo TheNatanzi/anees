@@ -19,12 +19,14 @@
   function set(mode) { try { mode === 'auto' ? localStorage.removeItem(KEY) : localStorage.setItem(KEY, mode); } catch (e) {} apply(mode); paint(); }
   function paint() {
     const now = read();
+    document.querySelectorAll('.sabz-theme').forEach(box => box.dataset.active = now);   // CSS slides the knob to it
     document.querySelectorAll('.sabz-theme button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.theme === now)));
   }
   function control() {
     const box = document.createElement('div');
     box.className = 'sabz-theme'; box.setAttribute('role', 'group'); box.setAttribute('aria-label', 'Colour theme');
-    box.innerHTML = MODES.map(([m, label]) => `<button type="button" data-theme="${m}" title="${label}" aria-label="${label}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">${ICONS[m]}</svg><span>${label}</span></button>`).join('');
+    box.innerHTML = '<span class="sabz-theme-knob" aria-hidden="true"></span>' + MODES.map(([m, label]) =>
+      `<button type="button" data-theme="${m}" title="${label}" aria-label="${label}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">${ICONS[m]}</svg><span class="sabz-theme-name">${label}</span></button>`).join('');
     box.addEventListener('click', e => { const b = e.target.closest('button'); if (b) set(b.dataset.theme); });
     return box;
   }
