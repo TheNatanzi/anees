@@ -58,6 +58,7 @@ Ordering note: Amal front-loads the verb system and teaches the small grammar as
 | C2 | Pointer rule (resumptive pronoun) | object fronted → the verb needs `-o / -h / -ha / -hom`: aktar eshi basawwi**h** | Doc | **rank 5** | 10 |
 | C3 | Comparatives and superlatives | aktar / a7san / aswa2 / a2al — and **never** `el-` in front of them | Doc | rank 3 | 12 |
 | C4 | Negation system | `ma` before verbs, `mish` before nouns and adjectives, `abadan` for never; the Palestinian `-sh` ending needs Amal's ruling | gap (passing only) | rank 10 | 7 |
+| C4b | **Words that drag a `ma` along** | `abadan` is not enough on its own — the verb still needs the negator: *Ana abadan **ma** baru7* = I never go. Compare the `-ma` glued onto a time word, which is **not** negation at all but part of the conjunction: *abel-**ma** yiju* (before they come), *ba3ed-**ma** teshra7i* (after you explain), *lamma*. The two pull opposite ways on the b-: `abadan ma **b**aru7` keeps it, `abel-ma yiju` drops it (B3) | Doc | untested | 7 |
 | C5 | u / wala / aw | `u` = and, `aw` = either-or, `wala` = options / nor | lesson | rank 10 | — |
 | C6 | Conditionals iza / lamma | when / if clauses — and what they do to the verb (B3) and to ykoon (B8) | Doc | rank 2 | 13 |
 | C7 | Relative clauses with illi | `illi` never changes form; the clause after it often needs the pointer suffix (C2) | Doc (examples only) | untested | 13 |
@@ -97,7 +98,7 @@ Kept here because these slips look like grammar in the transcript but are not. R
 
 ## Counts
 
-- 12 noun-phrase + 16 verb + 9 sentence-glue + 5 partner-words + 4 numbers/time = **46 grammar buckets**, plus 3 pronunciation buckets.
+- 12 noun-phrase + 16 verb + 10 sentence-glue + 5 partner-words + 4 numbers/time = **47 grammar buckets**, plus 3 pronunciation buckets.
 - Amal's own material already covers **34** of the 43; **7** are gaps in both her Docs (B7, B11, B14, B15, C4, C9, E1 partly).
 - Medi has a recorded slip on 13 of them. Top five by frequency: B2/B3/B4 (b-drop), B8/B9 (ykoon), A1/A2/A7/C3 (definiteness), A8/A10 (gender), C2 (pointer).
 
