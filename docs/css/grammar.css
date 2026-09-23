@@ -137,16 +137,14 @@
   #anees-bank .gc-sortbtn.is-active{border-color:var(--ab-accent)}
 }
 
-/* Spoken lines match the Word Bank: Amal's Arabizi on top, Arabic small underneath, all on the right */
-#anees-bank .gc-use{text-align:right}
-#anees-bank .gc-usehead{flex-direction:row-reverse}
-#anees-bank .gc-speech{text-align:right}
-#anees-bank .gc-latin{font-size:14px;line-height:1.55;unicode-bidi:plaintext;text-align:right}
-#anees-bank .gc-arabic{font-size:.8em;color:var(--ab-muted);line-height:1.6;margin-top:2px;text-align:right}
+/* Spoken lines match the Word Bank: Amal's Arabizi on top, Arabic small underneath, all on the left */
+#anees-bank .gc-speech{text-align:left}
+#anees-bank .gc-latin{font-size:14px;line-height:1.55;unicode-bidi:plaintext;text-align:left}
+#anees-bank .gc-arabic{font-size:.8em;color:var(--ab-muted);line-height:1.6;margin-top:2px;text-align:left}
 #anees-bank .gc-spellnote{font-size:10px;color:var(--ab-muted);margin-top:2px}
-#anees-bank .gc-recast{text-align:right}
 #anees-bank .gc-recast>span{display:block;margin-bottom:2px}
 #anees-bank .gc-fix .gc-latin{color:var(--ab-green);font-weight:500}
-#anees-bank .gc-pairline{direction:ltr;text-align:right}
+#anees-bank .gc-pairline{direction:ltr;text-align:left}
 #anees-bank .gc-pairline .gc-latin{font-size:13px}
 #anees-bank .gc-pairline .gc-arabic{direction:ltr}
+#anees-bank .gc-said[dir=rtl]{text-align:left}

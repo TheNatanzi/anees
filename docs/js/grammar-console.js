@@ -46,7 +46,7 @@ function isArabic(s) { return /[؀-ۿ]/.test(s || ''); }
 var toArabizi = window.AneesWordBankArabizi ? window.AneesWordBankArabizi.create() : null;
 
 // One spoken line: her Arabizi spelling on top, the Arabic small underneath,
-// both right-aligned. html may carry the audit's <mark> spans (our own markup);
+// both left-aligned like the Word Bank. html may carry the audit's <mark> spans (our own markup);
 // the marks survive because only the Arabic words inside text nodes are swapped.
 function speech(cls, html, text) {
   var box = el('div', 'gc-speech ' + (cls || ''));
@@ -73,7 +73,7 @@ function speech(cls, html, text) {
   top.appendChild(latin);
   box.appendChild(top);
   var ar = el('div', 'gc-arabic');
-  ar.setAttribute('dir', 'rtl');
+  ar.setAttribute('dir', 'auto');
   ar.setAttribute('lang', 'ar');
   ar.appendChild(src);
   box.appendChild(ar);
