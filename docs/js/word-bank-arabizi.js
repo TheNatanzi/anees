@@ -38,7 +38,9 @@ const spoken={
 function create(words=[],catalog={}){
  const exact=new Map(),lexicon=new Map();
  function add(ar,latin){
-  ar=String(ar||'').trim();latin=String(latin||'').trim();
+  // Her Doc adds notes in brackets: "أسبوع (أسبوعين" / "Usboo3", "3ain (F)". Keep the word, drop the note.
+  const clean=x=>String(x||'').replace(/\([^)]*\)?/g,' ').replace(/\s+/g,' ').trim();
+  ar=clean(ar);latin=clean(latin);
   if(!ar||!latin||AR.test(latin)||/[\/|()[\]]/.test(ar+latin)||!AR.test(ar))return;
   const a=ar.split(/\s+/),b=latin.split(/\s+/);if(a.length!==b.length)return;
   a.forEach((s,i)=>{if(AR.test(s)&&/^[\p{L}0-9'’\-]+$/u.test(b[i])&&!lexicon.has(norm(s)))lexicon.set(norm(s),b[i]);});
