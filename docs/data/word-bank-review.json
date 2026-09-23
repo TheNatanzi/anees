@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-21-reliability-v1+lessons-0914-0918-0921+silence",
+  "version": "2026-09-21-reliability-v1+lessons-0914-0918-0921+silence+zibdeh-wrong-form",
   "patches": {
     "14451e90578dc9ffc26af8db425e0c639905c361a2bdc850a03be575e3830243": {
       "expected": {
@@ -21794,6 +21794,117 @@
         "contextual_audit": true,
         "classification": "lexical",
         "vocab_points": 1
+      }
+    },
+    {
+      "anchor_id": "d9b658b5f07994adf77e537778d3c5bf5d2772bbff990f11f76fef1f2d90d5e7",
+      "expected_source": "9442c3ad0455494f0a420975a13c3a6b5417cab3d8190e6c9d5ddc2eb81f4ccd",
+      "event": {
+        "id": "ff70380ff28f3045b42338889b661a991fa5e1d0834e9f6c63f41b869dd7c2e6",
+        "lesson_date": "2026-09-21",
+        "word_key": "zibdeh",
+        "candidate_keys": [
+          "zibdeh"
+        ],
+        "source_id": "anees-20260921-recall-medi",
+        "source_sha256": "9442c3ad0455494f0a420975a13c3a6b5417cab3d8190e6c9d5ddc2eb81f4ccd",
+        "row_id": "anees-20260921-recall-medi:row:3533",
+        "item_ids": [],
+        "local_start": 2810.554,
+        "local_end": 2811.274,
+        "t_start": 2811.424506425,
+        "t_end": 2812.144506425,
+        "speaker": "Medi",
+        "speaker_basis": "participant_track_not_voice_verified",
+        "text": "زبداية",
+        "original_text": "بزيد الـ- الـ زبداية.",
+        "match_method": "user_transcript_correction",
+        "assessment": "incorrect",
+        "assessment_status": "user_reviewed",
+        "spoken": true,
+        "wording_status": "asr",
+        "review_ids": [],
+        "audio_url": null,
+        "transcript_url": null,
+        "context": [
+          {
+            "text": "",
+            "row_id": "anees-20260921-recall-amal:row:2790",
+            "speaker": "Amal",
+            "timeline_end": 2802.594221902,
+            "timeline_start": 2786.594221902
+          },
+          {
+            "text": "أنا نسيت، uh, أنا نسيت الـ مح– ملح مع المي، uh، أول.",
+            "row_id": "anees-20260921-recall-medi:row:3503",
+            "speaker": "Medi",
+            "timeline_end": 2801.384506425,
+            "timeline_start": 2791.2245064249996
+          },
+          {
+            "text": "مظبوط.",
+            "row_id": "anees-20260921-recall-amal:row:2792",
+            "speaker": "Amal",
+            "timeline_end": 2803.394221902,
+            "timeline_start": 2802.6542219020002
+          },
+          {
+            "text": "Okay. بعدين، uh،",
+            "row_id": "anees-20260921-recall-medi:row:3527",
+            "speaker": "Medi",
+            "timeline_end": 2806.884506425,
+            "timeline_start": 2803.924506425
+          },
+          {
+            "text": "بزيد الـ- الـ زبداية.",
+            "row_id": "anees-20260921-recall-medi:row:3533",
+            "speaker": "Medi",
+            "timeline_end": 2812.1445064249997,
+            "timeline_start": 2808.6645064249997
+          },
+          {
+            "text": "زبدة.",
+            "row_id": "anees-20260921-recall-amal:row:2794",
+            "speaker": "Amal",
+            "timeline_end": 2813.594221902,
+            "timeline_start": 2813.174221902
+          },
+          {
+            "text": "",
+            "row_id": "anees-20260921-recall-amal:row:2796",
+            "speaker": "Amal",
+            "timeline_end": 2845.014221902,
+            "timeline_start": 2813.674221902
+          },
+          {
+            "text": "زبدة،",
+            "row_id": "anees-20260921-recall-medi:row:3541",
+            "speaker": "Medi",
+            "timeline_end": 2814.6045064249997,
+            "timeline_start": 2814.1445064249997
+          },
+          {
+            "text": "uh، في الطنجرة. زبدة، uh، لا، لا أنا، أنا، أنا نسيت",
+            "row_id": "anees-20260921-recall-medi:row:3543",
+            "speaker": "Medi",
+            "timeline_end": 2821.1045064249997,
+            "timeline_start": 2815.924506425
+          }
+        ],
+        "reason": "Medi said زبداية (zibdiyyeh, bowl) for butter. Amal supplied زبدة right after; score 0 on this attempt.",
+        "version": "speaking-evidence-1",
+        "contextual_audit": true,
+        "classification": "lexical",
+        "vocab_points": 0,
+        "wrong_parts": [
+          "زبداية"
+        ],
+        "corrected_text": "زبدة.",
+        "corrected_arabizi": "Zibdeh",
+        "correction_speaker": "Amal",
+        "transcript_correction": false,
+        "audit_version": "2026-09-22-zibdeh-wrong-form-v1",
+        "review_locked": true
       }
     }
   ],
