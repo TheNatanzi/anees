@@ -426,13 +426,19 @@ function detail(r) {
   if (!list.length && !WRONGONLY[r.id] && r.usage && r.usage.length) {
     // no hand-checked uses: show where the usage pass saw him use the rule
     r.usage.slice(0, SHOW).forEach(function (u) {
-      var card = el('div', 'gc-use');
+      var card = el('div', 'gc-use gc-use-right');
       var hd = el('div', 'gc-usehead');
       hd.appendChild(el('span', 'gc-tag', 'You used it'));
       hd.appendChild(el('span', null, pretty(u.date) + ' · ' + u.mmss));
       card.appendChild(hd);
-      card.appendChild(speech('gc-said', null, u.said || ''));
-      if (u.hit) card.appendChild(speech('gc-pairline', null, u.hit));
+      card.appendChild(speech('gc-said', u.said_html, u.said || ''));
+      if (u.clip) {
+        var ua = document.createElement('audio');
+        ua.controls = true;
+        ua.preload = 'none';
+        ua.src = 'lessons/' + u.clip;
+        card.appendChild(ua);
+      }
       d.appendChild(card);
     });
     if (r.usage_total > SHOW) d.appendChild(el('p', 'ab-mini', 'Showing ' + SHOW + ' of ' + r.usage_total + ' uses.'));
@@ -623,11 +629,35 @@ function renderDoc() {
     .catch(function (err) { box.textContent = 'Could not load Amal’s notes: ' + err.message; });
 }
 
+// Words the spelling pass could not settle: which word did he say? Listed, never guessed.
+function renderCheck(extra) {
+  var list = (extra && extra.check) || [];
+  if (!list.length) return;
+  $('gc-check').hidden = false;
+  $('gc-check-sum').textContent = 'Words to check (' + list.length + ') - which word did you say?';
+  var body = $('gc-check-body');
+  body.textContent = '';
+  body.appendChild(el('p', 'ab-mini', 'These stay in Arabic on the cards until you pick the word. Your pick is about WHICH word, not how to spell it.'));
+  list.forEach(function (c) {
+    var card = el('div', 'gc-use gc-checkcard');
+    var w = el('div', 'gc-checkword', c.word);
+    w.setAttribute('dir', 'rtl'); w.setAttribute('lang', 'ar');
+    card.appendChild(w);
+    (c.context || []).forEach(function (t) { card.appendChild(el('div', 'gc-checkctx', t)); });
+    var opts = el('div', 'gc-checkopts');
+    (c.options || []).forEach(function (o) {
+      opts.appendChild(el('span', 'ab-chip', o.latin + (o.meaning ? ' = ' + o.meaning : '')));
+    });
+    if (c.options && c.options.length) card.appendChild(opts);
+    body.appendChild(card);
+  });
+}
+
 function optional(url) {
   return fetch(url).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
 }
 // Her spellings: words.json (her Doc) with house_spelling.json (her WhatsApp typing) on top.
-Promise.all([optional('data/words.json'), optional('data/house_spelling.json'), optional('data/word-bank-catalog.json')])
+Promise.all([optional('data/words.json'), optional('data/house_spelling.json'), optional('data/word-bank-catalog.json'), optional('data/arabizi-extra.json')])
   .then(function (res) {
     if (!window.AneesWordBankArabizi) return;
     var house = (res[1] && res[1].items) || {};
@@ -635,7 +665,8 @@ Promise.all([optional('data/words.json'), optional('data/house_spelling.json'), 
       var h = house[w.match_loose];
       return h && h.house ? Object.assign({}, w, { house_spelling: h.house }) : w;
     });
-    toArabizi = window.AneesWordBankArabizi.create(words, res[2] || {});
+    toArabizi = window.AneesWordBankArabizi.create(words, res[2] || {}, res[3] || {});
+    renderCheck(res[3]);
   })
   .then(function () { return fetch('data/grammar-console.json?v=' + Date.now()); })
   .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })

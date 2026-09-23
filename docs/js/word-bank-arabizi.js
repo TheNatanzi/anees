@@ -35,8 +35,10 @@ const spoken={
  'مغيم':'m8ayyem','مغيمة':'m8ayyme','مغني':'m8anni','شوب':'shob','درجة':'daraje','الحرارة':'el-7arara','حوالين':'7awalen','نفس':'nafs',
  'تمنتاش':'tmanta3sh','تمانين':'tamanin','ثمانين':'thamanin','تلاتة':'tlate','خمسة':'5amse','وعشرين':'w-3ishrin','ونص':'w-nu99','بسرعة':'bisur3a'
 };
-function create(words=[],catalog={}){
+function create(words=[],catalog={},extra={}){
  const exact=new Map(),lexicon=new Map();
+ // Words she never typed whole: sound-alike matches and her own pieces, checked against the sentence (arabizi-extra.json).
+ const built=new Map();for(const [ar,e] of Object.entries(extra.words||{}))if(e&&e.latin)built.set(norm(ar),e.latin);
  function add(ar,latin){
   // Her Doc adds notes in brackets: "أسبوع (أسبوعين" / "Usboo3", "3ain (F)". Keep the word, drop the note.
   const clean=x=>String(x||'').replace(/\([^)]*\)?/g,' ').replace(/\s+/g,' ').trim();
@@ -57,6 +59,7 @@ function create(words=[],catalog={}){
   for(const [prefix,latin] of [['وال','w-el-'],['بال','b-el-'],['لل','l-el-'],['ال','el-'],['و','w-']]){
    if(n.startsWith(prefix)&&lexicon.has(n.slice(prefix.length)))return {text:latin+lexicon.get(n.slice(prefix.length)),approximate:false};
   }
+  if(built.has(n))return {text:built.get(n),approximate:false,built:true};
   return {text:raw,approximate:true}; // Keep Arabic when vowels/spelling are not documented; never invent a consonant string.
  }
  return function render(text){let approximate=false;const source=String(text||'');const value=source.replace(/ـ/g,'').replace(/[\u061C\u200E\u200F\u202A-\u202E\u2066-\u2069]/g,'').replace(/[\u0621-\u063A\u0641-\u065F\u0670\u0671]+/g,s=>{const w=word(s);approximate ||= w.approximate;return w.text;}).replace(/،/g,',').replace(/؟/g,'?').replace(/؛/g,';');return {text:value,source,generated:AR.test(source),approximate};};

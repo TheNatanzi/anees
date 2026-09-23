@@ -27,6 +27,10 @@ NO_USAGE_SCORE = {"F1", "F2", "F3"}
 
 cands = {}
 for e in audit.get("events", []):
+    # Medi 2026-09-23: only the voice lesson counts. A fix Amal only typed in the Meet
+    # chat is context, not a correction - it never shows or scores on its own.
+    if e.get("match") == "chat":
+        continue
     cands.setdefault(e["bucket"], []).append(e)
 for v in cands.values():
     v.sort(key=lambda e: ({"high": 0, "medium": 1, "low": 2}[e["confidence"]], e["date"]), reverse=False)
@@ -38,13 +42,13 @@ import hashlib, shutil, subprocess
 PRE, POST, GAP = 1.0, 4.0, 20.0
 
 
-def cut_clip(c):
+def cut_clip(c, post=None):
     src = os.path.join(DOCS, "lessons", c["date"], "audio", "lesson.mp3")
     if not isinstance(c.get("t"), (int, float)) or not os.path.exists(src) or not shutil.which("ffmpeg"):
         return None
     ts = sorted([c["t"]] + ([c["recast_t"]] if isinstance(c.get("recast_t"), (int, float)) else []))
     # his line and her fix; if they sit far apart (a typed chat fix), join two short pieces
-    parts = [(max(0.0, ts[0] - PRE), ts[-1] + POST)] if ts[-1] - ts[0] <= GAP         else [(max(0.0, t - PRE), t + 8.0) for t in ts]
+    parts = [(max(0.0, ts[0] - PRE), ts[-1] + (POST if post is None else post))] if ts[-1] - ts[0] <= GAP         else [(max(0.0, t - PRE), t + 8.0) for t in ts]
     key_ = "|".join(f"{a:.1f}-{b:.1f}" for a, b in parts)
     name = "gc-" + hashlib.sha1(f"{c['date']}|{key_}".encode()).hexdigest()[:16] + ".mp3"
     out = os.path.join(DOCS, "lessons", c["date"], "clips", name)
@@ -62,6 +66,21 @@ def cut_clip(c):
 for v in cands.values():
     for c in v:
         c["clip"] = cut_clip(c)
+
+
+# "You used it" entries get the same card: his line with the rule word marked, plus a clip.
+import html as _html
+
+
+def dress_use(u):
+    said = u.get("said") or ""
+    esc = _html.escape(said)
+    hit = u.get("hit")
+    if hit and _html.escape(hit) in esc:
+        esc = esc.replace(_html.escape(hit), '<mark class="ab-correct">' + _html.escape(hit) + "</mark>", 1)
+    u["said_html"] = esc
+    u["clip"] = cut_clip({"date": u["date"], "t": u["t"]}, post=6.0)
+    return u
 
 # ---- Medi sentence counts per lesson, straight from the transcripts ----
 def medi_sentences(date):
@@ -188,7 +207,7 @@ for b in buckets:
         "kind": r.get("kind") if r else None,
         "candidates": mine,
         "candidate_count": len(mine),
-        "usage": u[:40],
+        "usage": [dress_use(x) for x in u[:40]],
         "usage_total": len(u),
         "last_used": u[0]["date"] if u else None,
         "last_used_mmss": u[0]["mmss"] if u else None,

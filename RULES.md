@@ -21,6 +21,19 @@ an Arabizi spelling, never normalises hers toward MSA, and never borrows another
 
 There is no step 5. If Amal has never written it, Anees does not guess it in Latin letters.
 
+**Amended by Medi 2026-09-23 ("these are all no brainers"):** a word that is not on her list whole may be
+shown in Arabizi when it is built from her own spellings and fits the sentence. Kept in
+`docs/data/arabizi-extra.json`, one row per word with its method and source:
+
+| Method | What it is | Example |
+|---|---|---|
+| `sound` | the transcript or his accent swapped a similar letter; her word fits the sentence | دلت → her ضلت **dallat** |
+| `pieces` | her word + her prefixes/endings, with the real vowel change | بيزعجني → **byez3ejni** (her baz3ej); شغلي → **shu8li** (her Shu8ul) |
+| `her-chat` | she typed it in WhatsApp, even once | مقلاة → **Ma2la** |
+| `guess` | no piece of hers exists; natural Levantine in her style | country names |
+
+Target: 95 of 100 correct on a random hand check. Fragments and unclear words stay in Arabic.
+
 **Her letters.** `2` ء · `3` ع · `5` خ · `6` ط · `7` ح · `8` غ · `9` ص. Use these, not IPA, not MSA
 transliteration, not another tutor's chart.
 
