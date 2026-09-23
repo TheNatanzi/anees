@@ -41,6 +41,45 @@ function css(name, fallback) {
   return v || fallback;
 }
 function isArabic(s) { return /[؀-ۿ]/.test(s || ''); }
+
+// Amal's Arabizi (rule S1), built by the Word Bank's own converter. Display only.
+var toArabizi = window.AneesWordBankArabizi ? window.AneesWordBankArabizi.create() : null;
+
+// One spoken line: her Arabizi spelling on top, the Arabic small underneath,
+// both right-aligned. html may carry the audit's <mark> spans (our own markup);
+// the marks survive because only the Arabic words inside text nodes are swapped.
+function speech(cls, html, text) {
+  var box = el('div', 'gc-speech ' + (cls || ''));
+  var src = el('span');
+  if (html) src.innerHTML = html; else src.textContent = text || '—';
+  var source = src.textContent;
+  if (!toArabizi || !isArabic(source)) {
+    var only = el('div', 'gc-latin');
+    only.appendChild(src);
+    box.appendChild(only);
+    return box;
+  }
+  var latin = src.cloneNode(true), approximate = false;
+  var walk = document.createTreeWalker(latin, NodeFilter.SHOW_TEXT, null), n, nodes = [];
+  while ((n = walk.nextNode())) nodes.push(n);
+  nodes.forEach(function (t) {
+    if (!isArabic(t.nodeValue)) return;
+    var r = toArabizi(t.nodeValue);
+    if (r.approximate) approximate = true;
+    t.nodeValue = r.text;
+  });
+  var top = el('div', 'gc-latin');
+  top.setAttribute('dir', 'auto');
+  top.appendChild(latin);
+  box.appendChild(top);
+  var ar = el('div', 'gc-arabic');
+  ar.setAttribute('dir', 'rtl');
+  ar.setAttribute('lang', 'ar');
+  ar.appendChild(src);
+  box.appendChild(ar);
+  if (approximate) box.appendChild(el('div', 'gc-spellnote', 'Unverified spelling stays in Arabic'));
+  return box;
+}
 function pretty(d) {
   if (!d) return '';
   var p = d.split('-');
@@ -322,19 +361,13 @@ function useCard(e) {
 
   // said_html / recast_html carry <mark> spans from the audit. They are built
   // by our own script from the transcript, so the markup is ours, not a page's.
-  var said = el('p', 'gc-said');
-  if (e.said_html) said.innerHTML = e.said_html; else said.textContent = e.said || '—';
-  if (isArabic(e.said)) { said.setAttribute('dir', 'rtl'); said.setAttribute('lang', 'ar'); }
-  card.appendChild(said);
+  card.appendChild(speech('gc-said', e.said_html, e.said));
 
   if (e.recast || e.recast_html) {
     var rc = el('p', 'gc-recast');
     rc.appendChild(el('span', null, e.kind === 'slip' ? 'Amal said: ' : 'Amal: '));
-    var b = el('b');
-    if (e.recast_html) b.innerHTML = e.recast_html; else b.textContent = e.recast;
-    if (isArabic(e.recast)) { b.setAttribute('dir', 'rtl'); b.setAttribute('lang', 'ar'); }
-    rc.appendChild(b);
-    if (e.recast_at) rc.appendChild(el('span', null, '  (' + e.recast_at + ')'));
+    if (e.recast_at) rc.firstChild.textContent += '(' + e.recast_at + ')';
+    rc.appendChild(speech('gc-fix', e.recast_html, e.recast));
     card.appendChild(rc);
   }
 
@@ -398,11 +431,8 @@ function detail(r) {
       hd.appendChild(el('span', 'gc-tag', 'You used it'));
       hd.appendChild(el('span', null, pretty(u.date) + ' · ' + u.mmss));
       card.appendChild(hd);
-      var p = el('p', 'gc-said');
-      p.textContent = u.said || '';
-      if (isArabic(u.said)) { p.setAttribute('dir', 'auto'); }
-      card.appendChild(p);
-      if (u.hit) card.appendChild(el('div', 'gc-pairline', u.hit));
+      card.appendChild(speech('gc-said', null, u.said || ''));
+      if (u.hit) card.appendChild(speech('gc-pairline', null, u.hit));
       d.appendChild(card);
     });
     if (r.usage_total > SHOW) d.appendChild(el('p', 'ab-mini', 'Showing ' + SHOW + ' of ' + r.usage_total + ' uses.'));
@@ -438,21 +468,14 @@ function detail(r) {
       head.appendChild(el('span', null, pretty(c.date) + ' · ' + c.mmss));
       card.appendChild(head);
 
-      var m = el('p', 'gc-said');
-      m.innerHTML = c.said_html;
-      m.setAttribute('dir', 'rtl'); m.setAttribute('lang', 'ar');
-      card.appendChild(m);
+      card.appendChild(speech('gc-said', c.said_html, c.said));
 
-      var a = el('p', 'gc-recast');
+      var a = el('div', 'gc-recast');
       a.appendChild(el('span', null, 'Amal: '));
-      var bb = el('b');
-      bb.innerHTML = c.recast_html;
-      bb.setAttribute('dir', 'rtl'); bb.setAttribute('lang', 'ar');
-      a.appendChild(bb);
+      a.appendChild(speech('gc-fix', c.recast_html, c.recast));
       card.appendChild(a);
 
-      card.appendChild(el('div', 'gc-pairline',
-        c.pair_wrong + '  →  ' + c.pair_fixed));
+      card.appendChild(speech('gc-pairline', null, c.pair_wrong + '  →  ' + c.pair_fixed));
       if (c.clip) {
         // a short clip cut from just before he spoke to a few seconds after her fix
         var au = document.createElement('audio');
@@ -600,7 +623,21 @@ function renderDoc() {
     .catch(function (err) { box.textContent = 'Could not load Amal’s notes: ' + err.message; });
 }
 
-fetch('data/grammar-console.json?v=' + Date.now())
+function optional(url) {
+  return fetch(url).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+}
+// Her spellings: words.json (her Doc) with house_spelling.json (her WhatsApp typing) on top.
+Promise.all([optional('data/words.json'), optional('data/house_spelling.json'), optional('data/word-bank-catalog.json')])
+  .then(function (res) {
+    if (!window.AneesWordBankArabizi) return;
+    var house = (res[1] && res[1].items) || {};
+    var words = ((res[0] && res[0].items) || []).map(function (w) {
+      var h = house[w.match_loose];
+      return h && h.house ? Object.assign({}, w, { house_spelling: h.house }) : w;
+    });
+    toArabizi = window.AneesWordBankArabizi.create(words, res[2] || {});
+  })
+  .then(function () { return fetch('data/grammar-console.json?v=' + Date.now()); })
   .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
   .then(function (json) {
     DATA = json;
