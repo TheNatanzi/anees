@@ -17,3 +17,5 @@
 - [15 — OpenAI speaker separation + Recipe 1 (Codex, 2026-09-04)](15-openai-speaker-separation-codex-2026-09-04.md)
 - [15b — Tutor-reaction experiment (2026-09-04)](15-tutor-reaction-experiment-2026-09-04.md)
 - [16 — Codex independent test, research review and build recommendation (2026-09-04)](16-codex-independent-test-2026-09-04.md) — bundle in `data/codex-2026-09-04/`, PDF [16-codex-research-and-architecture-2026-09-04.pdf](16-codex-research-and-architecture-2026-09-04.pdf)
+- [17 — Teacher brain: Levantine Arabic (living)](17-teacher-brain-levantine-arabic.md)
+- [18 — Grammar buckets (43 rules, Amal's shape)](18-grammar-buckets.md)
