@@ -1,0 +1,52 @@
+/* ==========================================================================
+   ANEES — the Sabz skin for every plain page (Medi 2026-09-22)
+   ==========================================================================
+   Pages built before the brand book each carried their own palette
+   (--bg/--bg2/--ink/--mute/--line/--teal/--amber/--red). This file repoints
+   those names at the Sabz tokens (css/sabz-tokens.css, source of truth
+   ganjsta-ui docs/BRAND-SABZ.md v1), so a page keeps its layout and gets the
+   brand's paper, ink and hairlines.
+
+   Load order on a page: sabz-tokens.css, then this file, then the page's own
+   <style>. The `html` prefix below outranks a page's own body/h1 rule, so a
+   legacy font stack or background cannot win.
+
+   Medi's rulings: red stays for Wrong (the one place the book's "no red" is
+   overruled); theme = Light / Dark / Phone, switched by js/theme.js.
+   ========================================================================== */
+
+:root {
+  --bg: var(--sabz-bg);
+  --bg2: light-dark(#FBF9F2, #1B2621);       /* cards: paper lifted one step / canopy above ground */
+  --ink: var(--sabz-text);
+  --mute: var(--sabz-text-muted);
+  --line: var(--sabz-hairline);
+  --teal: var(--sabz-data-ink);              /* forest in light, sage in dark */
+  --amber: var(--sabz-state-drifting);
+  --red: light-dark(#A33A2C, #F09080);       /* Wrong only (Medi 2026-09-22) */
+  --ice: var(--sabz-c-khaki);
+  --coral: var(--sabz-state-over);           /* Amal's check pages used this name */
+  --sabz-cta-on-fill: var(--sabz-cta-text);
+}
+
+html body { background: var(--bg); color: var(--ink); font-family: var(--sabz-font-sans); }
+html h1, html h2, html h3 { font-family: var(--sabz-font-serif); font-weight: 500; letter-spacing: -.2px; }
+html a { color: var(--teal); }
+html .num, html .big, html .stat, html tbody td:not([class]) { font-variant-numeric: var(--sabz-numeric); }
+html hr, html table, html th, html td { border-color: var(--line); }
+
+/* Buttons that were solid teal keep the brand's call-to-action pair. */
+html .btn, html .play, html button.primary { background: var(--sabz-cta-fill); color: var(--sabz-cta-text); border-color: var(--sabz-cta-fill); }
+html .btn.alt { background: var(--bg2); color: var(--ink); border-color: var(--line); }
+
+/* ---- Theme switch (js/theme.js mounts it) -------------------------------- */
+.sabz-theme { display: flex; gap: 4px; margin: 14px 0 0; }
+.sabz-theme button {
+  flex: 1 1 auto; min-height: 34px; padding: 5px 8px; cursor: pointer;
+  border: 1px solid var(--line); border-radius: var(--sabz-radius-pill);
+  background: transparent; color: var(--sabz-text-muted);
+  font: 600 11.5px/1 var(--sabz-font-sans); letter-spacing: .04em;
+}
+.sabz-theme button[aria-pressed="true"] { background: var(--sabz-state-calm-fill); color: var(--sabz-state-calm-text); border-color: var(--sabz-state-calm); }
+.sabz-theme-float { position: fixed; right: 12px; bottom: 12px; z-index: 50; margin: 0; padding: 4px; border-radius: var(--sabz-radius-pill); background: var(--bg2); border: 1px solid var(--line); box-shadow: 0 2px 10px rgba(30, 42, 34, .10); }
+@media print { .sabz-theme { display: none; } }
