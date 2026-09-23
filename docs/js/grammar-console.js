@@ -173,7 +173,7 @@ function renderCharts() {
   var scPct = (caught + missed) ? Math.round(100 * caught / (caught + missed)) : null;
   fill('c2', scPct == null ? '—' : scPct + '%',
     L.length ? sparkline(sc, { bars: true, max: 100, label: 'Self-correction rate by lesson' }) : null,
-    L.length ? foot(caught + ' caught by you · ' + missed + ' caught by Amal') : null);
+    L.length ? foot(caught + ' asked or caught by you · ' + missed + ' corrected by Amal') : null);
 
   // 3 - unique rules per lesson, averaged over the range
   var uq = L.map(function (x) { return x.unique_rules; });
@@ -313,7 +313,23 @@ function detail(r) {
   d.appendChild(head);
 
   var list = WRONGONLY[r.id] ? all.filter(function (e) { return e.kind === 'slip'; }) : all;
-  if (!list.length) {
+  if (!list.length && !WRONGONLY[r.id] && r.usage && r.usage.length) {
+    // no hand-checked uses: show where the usage pass saw him use the rule
+    r.usage.slice(0, SHOW).forEach(function (u) {
+      var card = el('div', 'gc-use');
+      var hd = el('div', 'gc-usehead');
+      hd.appendChild(el('span', 'gc-tag', 'You used it'));
+      hd.appendChild(el('span', null, pretty(u.date) + ' · ' + u.mmss));
+      card.appendChild(hd);
+      var p = el('p', 'gc-said');
+      p.textContent = u.said || '';
+      if (isArabic(u.said)) { p.setAttribute('dir', 'auto'); }
+      card.appendChild(p);
+      if (u.hit) card.appendChild(el('div', 'gc-pairline', u.hit));
+      d.appendChild(card);
+    });
+    if (r.usage_total > SHOW) d.appendChild(el('p', 'ab-mini', 'Showing ' + SHOW + ' of ' + r.usage_total + ' uses.'));
+  } else if (!list.length) {
     d.appendChild(el('div', 'gc-empty', all.length
       ? 'No wrong uses on record for this rule in this range.'
       : r.tally_rule
@@ -330,10 +346,11 @@ function detail(r) {
   var cand = r.candidates || [];
   if (cand.length) {
     var ch = el('div', 'gc-useshead');
-    ch.appendChild(el('h3', 'gc-secttitle', 'Found by the audit — not scored yet (' + cand.length + ')'));
+    ch.appendChild(el('h3', 'gc-secttitle', 'Found by the audit — machine, not yet checked (' + cand.length + ')'));
     d.appendChild(ch);
     d.appendChild(el('p', 'ab-mini gc-candnote',
-      'The machine spotted these in your transcripts. They do not move any number on this page until you or Amal confirm them.'));
+      'The machine spotted these in your transcripts and they count in the numbers above. ' +
+      'Checked against hand-labelled lessons, about 85 in 100 are real corrections and about 7 in 10 sit in the right rule.'));
     cand.slice(0, SHOW).forEach(function (c) {
       var card = el('div', 'gc-use gc-cand gc-conf-' + c.confidence);
       var head = el('div', 'gc-usehead');
@@ -359,6 +376,15 @@ function detail(r) {
 
       card.appendChild(el('div', 'gc-pairline',
         c.pair_wrong + '  →  ' + c.pair_fixed));
+      if (typeof c.t === 'number') {
+        // the whole lesson recording, played from just before he spoke to just after her fix
+        var au = document.createElement('audio');
+        au.controls = true;
+        au.preload = 'none';
+        var t0 = Math.max(0, c.t - 1), t1 = (typeof c.recast_t === 'number' ? c.recast_t : c.t) + 5;
+        au.src = 'lessons/' + c.date + '/audio/lesson.mp3#t=' + t0.toFixed(1) + ',' + t1.toFixed(1);
+        card.appendChild(au);
+      }
       d.appendChild(card);
     });
     if (cand.length > SHOW) {

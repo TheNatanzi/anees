@@ -1118,6 +1118,7 @@ if __name__ == "__main__" or True:
                 "mmss": "%02d:%02d" % (int(M["start"]) // 60, int(M["start"]) % 60),
                 "said": M["text"], "recast": A["text"],
                 "recast_at": "%02d:%02d" % (int(A["start"]) // 60, int(A["start"]) % 60),
+                "recast_t": round(A["start"], 1),
                 "said_html": d["said_html"], "recast_html": d["recast_html"],
                 "wrong": d["wrong"], "fixed": d["fixed"],
                 "pair_wrong": f["m"], "pair_fixed": f["a"],
@@ -1148,9 +1149,14 @@ if __name__ == "__main__" or True:
         n_self = len({(s["date"], s["mmss"]) for s in selfs if s["date"] == date})
 
         n = sum(1 for e in events if e["date"] == date)
+        # A "sentence" is one of his turns with at least two Arabic words in any
+        # script - the unit a mistake-per-sentence rate is measured against.
+        n_sent = sum(1 for M in medi if len(M["ar"]) >= 2)
         lessons.append({"date": date, "source": src, "turns": len(T),
                         "medi_turns": len(medi), "medi_arabic_turns": len(medi_ar),
-                        "corrections": n, "self_corrections": n_self})
+                        "medi_sentences": n_sent,
+                        "corrections": n, "self_corrections": n_self,
+                        "asks": sum(1 for x in asks if x["date"] == date)})
         print("%s  %-26s turns=%4d  Medi=%4d (%3d Arabic)  corrections=%3d  self=%3d"
               % (date, src, len(T), len(medi), len(medi_ar), n, n_self))
 

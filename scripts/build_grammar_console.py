@@ -46,12 +46,16 @@ def medi_sentences(date):
                 n += 1
     return n or None
 
-lesson_dates = sorted(set(list(tally["lessons"]) + list(usage.get("lessons", {}).keys())))
+audit_lessons = {L["date"]: L for L in audit.get("lessons", [])}
+lesson_dates = sorted(set(list(tally["lessons"]) + list(usage.get("lessons", {}).keys()) + list(audit_lessons)))
 lessons = []
 for d in lesson_dates:
+    al = audit_lessons.get(d) or {}
     lessons.append({
         "date": d,
-        "medi_sentences": medi_sentences(d) or (usage.get("lessons", {}).get(d) or {}).get("medi_arabic_turns"),
+        # his turns with two or more Arabic words, in any script - the same unit for every lesson
+        "medi_sentences": al.get("medi_sentences") or medi_sentences(d)
+                          or (usage.get("lessons", {}).get(d) or {}).get("medi_arabic_turns"),
         "slips": tally["totals"]["per_lesson"].get(d, 0),
     })
 
@@ -131,12 +135,16 @@ for b in buckets:
     verified_slips = sum(1 for e in events if e["kind"] == "slip")
     asks = sum(1 for e in events if e["kind"] == "ask")
 
-    uses = len(u)
-    # A mistake is a correction on record. The hand-verified ones always count;
-    # the machine's high-confidence ones are added so the score is not stuck at
-    # three lessons, and everything below high stays out of the number.
+    # A mistake is a correction on record: the hand-verified ones plus the
+    # machine's (measured: ~85% of them are real corrections).
     auto_slips = len(mine)
     mistakes = verified_slips + auto_slips
+    # A correction is also a use - he tried the rule. The usage pass reads only
+    # Arabic script, so a correction on a turn it did not count adds its use.
+    used_at = {(x["date"], int(x["t"])) for x in u}
+    extra = sum(1 for c in mine
+                if not any((c["date"], int(c["t"]) + k) in used_at for k in (-2, -1, 0, 1, 2)))
+    uses = len(u) + extra if b["id"] not in NO_USAGE_SCORE else 0
     if uses and mistakes > uses:
         mistakes = uses
     rows.append({
@@ -185,7 +193,9 @@ for L in lessons:
     L["unique_rules"] = lu.get("unique_rules") or len(
         {row["id"] for row in rows for e in row["events"] if e["date"] == d})
     L["rights"] = sum(1 for e in ev if e["kind"] == "right")
-    L["asks"] = sum(1 for e in ev if e["kind"] == "ask")
+    L["asks_verified"] = sum(1 for e in ev if e["kind"] == "ask")
+    L["asks_machine"] = (audit_lessons.get(d) or {}).get("asks", 0)
+    L["asks"] = L["asks_verified"] + L["asks_machine"]
     L["mistakes_per_sentence"] = (
         round(L["slips_counted"] / L["medi_sentences"], 4) if L["medi_sentences"] else None
     )
@@ -194,15 +204,17 @@ for L in lessons:
 
 scored = [r for r in rows if r["uses"]]
 payload = {
-    "updated": "2026-09-22",
+    "updated": "2026-09-23",
     "source": "docs/data/tally.json (hand-curated, rule M1) + transcripts in C:/dev/anees/data/lessons",
     "coverage": {
         "buckets_total": len(rows),
         "buckets_scored": len(scored),
         "lessons_scored": len(lessons),
-        "lessons_recorded": 11,
-        "note": "A use is counted only when Amal recast it or Medi asked (rule M1). "
-                "39 buckets have no detector yet and show as Untested.",
+        "lessons_recorded": len(lesson_dates),
+        "note": "Corrections: machine-found (recall ~77% on two hand-labelled lessons, ~40% on a held-out one; "
+                "~85% of what it finds is a real correction) plus the hand-verified tally. Uses: every time his Arabic "
+                "exercises the rule, right or wrong. Asks: his own questions about a form (rule M1). "
+                "Untested = he never used it in any recorded lesson (checked by hand), or it is a sound (F).",
     },
     "lessons": lessons,
     "audit": {

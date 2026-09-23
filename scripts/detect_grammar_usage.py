@@ -182,6 +182,12 @@ def word_rules(words):
             hits["B10"] = w
         if n in ADJ and "A8" not in hits:
             hits["A8"] = w
+        # the pointer: a verb of hers with an object ending (بعمله, بتبيعه, خربتهم)
+        if "C2" not in hits and not w.endswith("ة"):
+            for s_ in ("ها", "هم", "ه"):
+                if n.endswith(s_) and len(n) - len(s_) >= 3 and (is_b_present(n[:-len(s_)]) or n[:-len(s_)] in PAST):
+                    hits["C2"] = w
+                    break
     for i, w in enumerate(words[:-1]):
         n = nrm(w)
         if n.endswith("ت") and n[:-1] + "ه" in FEM_NOUNS and "A3" not in hits \
