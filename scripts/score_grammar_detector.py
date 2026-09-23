@@ -10,7 +10,8 @@ bucket acc = found gold grammar corrections filed under the same bucket
 
 A match is one auditor event and one gold row on the same date, the event
 inside the gold row's span (his first wrong try .. her fix) give or take TOL
-seconds. Paired one-to-one: same bucket first, then nearest.
+seconds, about at least one of the same words of his. Paired one-to-one:
+same bucket first, then nearest.
 """
 import json, os, subprocess, sys
 from collections import Counter, defaultdict
@@ -38,13 +39,24 @@ def run_auditor():
         sys.exit("auditor failed")
 
 
+def same_words(g, d):
+    """The detection is about the words the gold row is about (not just the same minute)."""
+    if g.get("medi_text_missing") or d.get("match") == "english":
+        return True  # an English rule-name is tied to the moment, not to one word
+    sys.path.insert(0, HERE)
+    from xscript import tokens, bare, is_english
+    gs = {bare(w) for w in tokens(g["said"]) if not is_english(w) and len(bare(w)) >= 1}
+    ds = {bare(w) for w in tokens(d.get("said", "")) if not is_english(w) and len(bare(w)) >= 1}
+    return bool(gs & ds)
+
+
 def match(gold, det):
-    """One-to-one, nearest first."""
+    """One-to-one, nearest first. Same words, same span."""
     pairs = []
     for gi, g in enumerate(gold):
         lo, hi = g.get("t_from", g["t"]) - TOL, max(g.get("t_to", g["t"]), g["t"]) + TOL
         for di, d in enumerate(det):
-            if g["date"] == d["date"] and lo <= d["t"] <= hi:
+            if g["date"] == d["date"] and lo <= d["t"] <= hi and same_words(g, d):
                 dt = 0 if g.get("t_from", g["t"]) <= d["t"] <= g.get("t_to", g["t"]) else abs(g["t"] - d["t"])
                 # a same-bucket pairing wins over a nearer wrong-bucket one
                 pairs.append((d.get("bucket") != g["bucket"], dt, gi, di))

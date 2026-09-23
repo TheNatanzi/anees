@@ -32,7 +32,7 @@ OUT = os.path.join(DOCS, "data", "grammar-audit.json")
 
 WINDOW = 25.0        # her voice reply within this long after he stops
 CHAT_BACK = 150.0    # a typed line looks this far back for what he said
-CHAT_AHEAD = 45.0    # she sometimes types the model sentence while he is still trying
+CHAT_AHEAD = 90.0    # she sometimes types the model sentence while he is still trying
 ENGLISH_WINDOW = 20.0
 REPEAT = 90.0        # the same fix again within this long is the same event
 
@@ -101,16 +101,17 @@ def diff_spans(said, recast, arabic_only=True, wrong_word=None, fixed_word=None)
 
 # ---------------------------------------------------------------- run
 PRAISE = re.compile(r"✓|ممتاز|برافو|\bperfect\b|\bexactly\b|\bgood job\b|\bawesome\b|\bnice\b|\bgreat\b|\bcorrect\b", re.I)
-CONTRAST = re.compile(r"\bnot\b|\bno\b|\bnever\b|مش|^لا|\sلا\b|\bjust\b|\bonly\b|\binstead\b", re.I)
+CONTRAST = re.compile(r"\b(not|no|just|only|instead of)[,.]?\s+(the\s+)?[\u0600-\u06FF]|[\u0600-\u06FF]+[،,]?\s+(not|مش)\s|"
+                      r"(^|\s)مش\s|(^|\s)لا[،,.]?\s+[\u0600-\u06FF]|\bno[,.]?\s+no\b|\bneither\b", re.I)
 
 # Small closed word families. Two members of one family are the same word in
 # a different shape; a swap between families is a different word.
 FAMILY_KEYS = {
-    "3ind": r"^'?[aiu]?n(d|n|a$|ak$|ik$|i$|u$|kum$|hum$)", "fi": r"^fi(h|ha|hum|hm|na|k|ki)?[a]?$|^f(ih|iha|ihum|ina)",
-    "ma3": r"^m'a?[kh]?|^ma'(ak|ik|i|u|ha|hum|na)", "3ala": r"^'?ala",
+    "3ind": r"^'?[aiu]?n(d|n|a$|ak$|ik$|i$|u$|kum$|hum$)", "fi": r"^fi(h|ha|hum|hm|na|k|ki)?[a]?$|^f(ih|iha|ihum|ina|iu|ihm)$",
+    "ma3": r"^ma?'a?(k|ak|ik|i|u|uh|ha|hum|na|kum)?$", "3ala": r"^('a?|a)la(i|ik|ak|iha|ihum|hum|ha|ina|kum|ih|iik)?$",
     "hada": r"^h[aei]?(d|z)[aei]?[ai]?$|^hdul|^hadul|^hadi|^haza|^hazi|^hadak|^hadik",
     "kaan": r"^k(a|aa|i|u|uu)?n(it|at|t|u|ua|tu|ti|na|tum|tu)?$",
-    "koon": r"^(b|t|y|n|a)?[aiu]?k(u|oo)n",
+    "koon": r"^(b|t|y|n|a)?[aiu]?k(u|uu)n(i|u|ua|a|t|ti|tu|na|u)?$",
     "neg": r"^(ma|mish|mush|mis|la)$",
     "min": r"^m(i|u)?n$",
     "li": r"^l(ak|ik|ek|u|uh|ha|hum|hm|na|kum|km|i|ii)$",
@@ -130,6 +131,8 @@ NUMS = re.compile(r"تلات|ثلاث|ثلث|اربع|أربع|خمس|ست|سب�
 
 def family(w):
     k = key(w)
+    if k in ("ana", "'ana", "an", "'na") and not is_ar(w) or re.sub(r"[\u064B-\u0652]", "", w) in ("أنا", "انا", "آنا"):
+        return None
     for name, rx in FAMILY_KEYS.items():
         if re.search(rx, k):
             return name
@@ -142,7 +145,9 @@ def tail(w):
         w2 = re.sub(r"[\u064B-\u065F\u0670\u0640]", "", w)
         if re.search(r"(وا|و)$", w2):
             return "u"
-        if re.search(r"[اةىأء]$", w2):
+        if re.search(r"[أءئؤ]$", w2):
+            return "?"
+        if re.search(r"[اةى]$", w2):
             return "a"
         if w2.endswith("ي"):
             return "i"
@@ -150,6 +155,8 @@ def tail(w):
             return "o"
         return ""
     lw = re.sub(r"[^a-z0-9]", "", w.lower())
+    if re.search(r"[23]$", lw):
+        return "?"
     if re.search(r"[0-9]$", lw):
         return ""
     if re.search(r"(ah|eh)$", lw):
@@ -181,7 +188,7 @@ def doubled(w):
 
 
 PREFIXES = ("bt", "bn", "by", "b", "m", "t", "n", "l", "")
-SUFFIXES = ("hm", "km", "tk", "tn", "nk", "t", "n", "k", "m", "")
+SUFFIXES = ("thm", "th", "hm", "km", "tk", "tn", "nk", "t", "n", "k", "m", "")
 
 
 def stems(s):
@@ -212,24 +219,45 @@ NUMBER_PAIRS = [
 ]
 
 
+NUMWORDS = {
+    "wahad": 1, "wa7ad": 1, "waa7ad": 1, "tnen": 2, "tenain": 2, "tintain": 2, "talat": 3, "talate": 3, "arba3": 4, "arba3a": 4,
+    "5ams": 5, "5amse": 5, "sitt": 6, "sitte": 6, "sab3": 7, "sab3a": 7, "tamaan": 8, "tamanye": 8, "tes3": 9, "tes3a": 9,
+    "3ashr": 10, "3ashara": 10, "3eshreen": 20, "talateen": 30,
+    "واحد": 1, "تنين": 2, "اتنين": 2, "ثنتين": 2, "تلاتة": 3, "ثلاثة": 3, "اربعة": 4, "أربعة": 4, "خمسة": 5, "ستة": 6,
+    "سبعة": 7, "تمانية": 8, "تسعة": 9, "عشرة": 10, "عشرين": 20, "وعشرين": 20, "تلاتين": 30,
+}
+_NUMK = {}
+for _w, _n in NUMWORDS.items():
+    _NUMK[key(_w)] = _n
+
+
+def num_of(w):
+    k = key(re.sub(r"^و", "", w) if is_ar(w) else re.sub(r"^u-?", "", w.lower()))
+    return _NUMK.get(k)
+
+
 def number_pair(m, a):
     """'number' when m and a are the singular and plural of one noun."""
     def nk(w):
         w = re.sub(r"^ال", "", w) if is_ar(w) else re.sub(r"^(el|il|al)-", "", w.lower())
         k = key(w).replace("'", "")
-        k = re.sub(r"(.)+", r"", k)
-        return re.sub(r"[aiu]+$", "", k) or k
+        k = re.sub(r"(.)\1+", r"\1", k)
+        t = re.sub(r"[aiu]+$", "", k)
+        return t if len(t) >= 2 else k
 
     def which(w):
         k = nk(w)
         for i, forms in enumerate(NUMBER_PAIRS):
             for j, f in enumerate(forms):
-                if len(k) >= 2 and (k == nk(f) or (len(k) >= 4 and sim(k, nk(f)) >= 0.85)):
+                if len(k) >= 2 and (k == nk(f) or (len(k) >= 3 and sim(k, nk(f)) >= 0.85)):
                     return i, j % 2
         return None
     wm, wa = which(m), which(a)
     if wm and wa and wm[0] == wa[0] and wm[1] != wa[1]:
         return "number"
+    nm, na = num_of(m), num_of(a)
+    if nm and na and nm != na:
+        return "numword"
     return None
 
 
@@ -249,13 +277,16 @@ def _related(m, a, ayn):
     if not sm or not sa:
         return None
     fm, fa = family(m), family(a)
+    if bool(fm) != bool(fa) and (fm in ("neg", "3ind", "fi", "min", "li", "3an", "bi", "ma3", "3ala") or
+                                 fa in ("neg", "3ind", "fi", "min", "li", "3an", "bi", "ma3", "3ala")):
+        return None
     if fm and fa:
         if fm == fa:
             return None if key(m) == key(a) or (sm == sa and tail(m) == tail(a)) else "family"
         if fm in PREPS and fa in PREPS:
             return "prep"
         return None
-    if bare(m) == bare(a) and has_al(m) != has_al(a) and bare(m) and family(m) is None             and key(re.sub(r"^ال", "", m)).strip("'") not in FUNC_KEYS:
+    if bare(m, ayn=is_ar(m) and is_ar(a)) == bare(a, ayn=is_ar(m) and is_ar(a)) and has_al(m) != has_al(a) and bare(m) and family(m) is None             and key(re.sub(r"^ال", "", m)).strip("'") not in FUNC_KEYS:
         return "al"
     if len(sm) < 2 and not (len(sm) == 1 and sa == "b" + sm):
         return None
@@ -310,7 +341,7 @@ def _related(m, a, ayn):
 def english_cue(recast, said):
     """A rule Amal named in English, with the bucket it points at."""
     r = recast.lower()
-    if re.search(r"not (a |the )?(pointer|feminine|masculine|present|past|plural|singular)", r):
+    if re.search(r"\bnot (a |the )?(pointer|feminine|masculine|present|past|plural|singular)\b", r):
         return None
     if re.search(r"\b(is|it's|its|be|for|so|was)\s+(a\s+)?(feminine|masculine|woman)\b|\b(feminine|masculine)\?|has to be (masculine|feminine)", r):
         return "A10" if DEMO.search(said + " " + recast) and re.search(r"هذ|هاد|hadi|hada|haadi", recast + said) else "A8"
@@ -318,17 +349,17 @@ def english_cue(recast, said):
         return "C2"
     if re.search(r"preposition|أي حرف", r):
         return "D1"
-    if re.search(r"\bnot present\b|\bis past\b|past tense|\bin the past\b", r):
+    if re.search(r"\bnot present\b|\bis past\b|past tense", r):
         return "B5"
     if re.search(r"\bpresent\b", r) and re.search(r"\bnot\b|\bno\b|\bsay\b|\bit's\b|\bis\b", r):
         return "B1"
     if re.search(r"\bone l\b|\bthe l\b|put the l|\bone ال|the ال", r):
         return "A2"
     if re.search(r"\bplural\b|\bsingular\b", r):
-        return "A9"
+        return "E1" if re.search(r"\bkam\b|\bcam\b|كم|number|\b\d+\b", r + " " + said.lower()) else "A9"
     if re.search(r"\bfirst\b.*\bthen\b|\bthe \w+ first\b", r):
         return "C3" if SUPERL.search(said) or "best" in r else "E4"
-    if re.search(r"\bcommand\b", r):
+    if re.search(r"\b(it's|is|it is|needs? to be|should be) (a )?command\b", r):
         return "B10"
     return None
 
@@ -357,6 +388,12 @@ def classify(m, a, said, recast, change):
                 return ("B16", "kaan + laazem")
             return ("B6", "kaan takes the person")
         if fm == "koon":
+            mb_, ab_ = skel(m).startswith("b"), skel(a).startswith("b")
+            if mb_ != ab_:
+                gate = next((g for g in GATE_MODAL + GATE_TIME if g in said), None)
+                if ab_ and not mb_:
+                    return ("B4b", "the b- comes back" + (" outside " + gate if gate else ""))
+                return ("B2" if gate in GATE_MODAL else "B3", "the b- drops after " + (gate or "the trigger"))
             return ("B9", "wrong person on ykoon")
         if fm == "neg":
             return ("C4", "ma vs mish")
@@ -384,15 +421,26 @@ def classify(m, a, said, recast, change):
         return ("B13", "kaan + ra7 = was going to")
 
     if change == "al":
+        if re.match(r"^(بال|bil-?|bel-?)", m.lower()) and not has_al(a):
+            return ("A2", "idafa: the first noun takes no el-")
         if SUPERL.search(ctx):
             return ("C3", "no el- after a superlative")
         if has_al(m) and not has_al(a):
-            return ("A2", "idafa: the el- goes on the owner")
+            ws = tokens(recast)
+            nxt = next((ws[i + 1] for i, w in enumerate(ws[:-1]) if w == a), None)
+            if nxt and has_al(nxt):
+                return ("A2", "idafa: the el- goes on the owner")
+            return ("A1", "el- added or dropped")
         if DEMO.search(ctx) and not has_al(m):
             return ("A10b", "the noun after hada keeps its el-")
         return ("A1", "el- added or dropped")
 
     if change == "b":
+        root = sa[1:] if sa.startswith("b") else sa
+        if doubled(a) != doubled(m) and not is_ar(m) and any(r in root for r in B12_ROOTS if len(r) >= 2):
+            return ("B12", "make-X vs get-X: the middle letter doubles")
+        if re.match(r"^(بال|بل|bil-?|bel-?|bi-?el-?|b-?il-?)", a.lower()):
+            return ("D1", "the preposition bi- was missing")
         mb = sm.startswith("b")
         gate = next((g for g in GATE_MODAL + GATE_TIME if g in said), None)
         if gate and mb:
@@ -414,12 +462,18 @@ def classify(m, a, said, recast, change):
             return ("A8", "feminine agreement")
         if ta == "u" and tm != "u":
             return ("B1", "wrong person ending on the verb")
+        if tm == "i" and ta == "" and re.match(r"^(b|t)", km.lstrip("'")):
+            return ("B1", "wrong person ending on the verb")
         if ta == "i" and tm != "i":
             if re.search(r"^(ma )?t", ka) or re.search(r"^ت", a):
                 return ("B10", "the command takes -i for a woman")
             return ("D4", "the ending on the verb")
         return None
 
+    if change == "numword":
+        if re.search(r"ألفين|الفين|alfain|alfein|سنة|شهر|تسعة|يوم|yoam|الساعة|saa3a", ctx):
+            return ("E2", "clock time") if re.search(r"الساعة|saa3a|إلا|illa|ربع|rube3|نص|ثلث", ctx) else ("E4", "the date")
+        return None
     if change == "number":
         n = NUMS.search(ctx)
         big = re.search(r"عشر|عشرين|تلاتين|ثلاثين|اربعين|خمسين|مية|3ashr|3eshreen|talateen|\b(1[1-9]|[2-9]\d)\b", ctx, re.I)
@@ -437,6 +491,8 @@ def classify(m, a, said, recast, change):
         if (he and she and not re.match(r"^(bit|bt|ti|t)", km_)) or (she2 and he2):
             return ("A8", "the verb agrees with a feminine subject")
         if sm == "t" + sa and not sa.startswith("b"):
+            if re.search(r"(na|nا|u|ua|it|at|t)$", ka) or re.search(r"(نا|وا|ت)$", a):
+                return ("B5", "the past tense takes no t-")
             return ("B10", "the command drops the t-")
         if sa.startswith("m") and (sm.startswith("b") or sm.startswith("t")) and stems(sm) & stems(sa):
             return ("B15", "the participle, not the verb")
@@ -460,7 +516,8 @@ def classify(m, a, said, recast, change):
                 return ("E2", "clock time")
         # past vs present
         m_imperf = bool(re.match(r"^(b|a|t|y|n)", sm)) and not sm.endswith("t")
-        a_past = bool(re.search(r"(t|tu|na|u)$", key(a)) or re.search(r"(ت|تي|نا|وا)$", a))
+        a_past = bool(re.search(r"(t|tu|na|u)$", key(a)) or re.search(r"(ت|تي|نا|وا)$", a)
+                      or re.search(r"(ت|تي|نا|وا)(ه|ها|هم|ك|كي|كم|ني)$", a) or re.search(r"(t|ti|na)(u|ha|hum|ak|ik|ni)$", key(a)))
         a_imperf = bool(re.match(r"^(b|a|t|y|n)", sa))
         if a_past and m_imperf and not a_imperf:
             return ("B5", "past tense")
@@ -487,8 +544,10 @@ def person_swap(m, a):
     return False
 
 
-ASK = re.compile(r"\b(is it|isn't it|would it be|would i say|do i say|do you say|can i say|how do i say|should it be|"
+ASK = re.compile(r"(would|wouldn't|does|doesn't|will|won't|can|could)\s+(it|that|this)\s+work|can i use|could i use|"
+                 r"\b(is it|isn't it|would it be|would i say|do i say|do you say|can i say|how do i say|should it be|"
                  r"or is it|what's|what is|is there a difference|is that)\b|,?\s*right\s*\?", re.I)
+CONFIRM = re.compile(r"^\W*(صح|صحيح|آه صح|اه صح|yes|yeah|yep|exactly|mm-hmm|mhm|ممتاز|perfect|right)\b", re.I)
 INSTRUCT = re.compile(r"(^|\s)(احكي|احكيلي|قول|قولي|جرب|اسأل|خلينا|يلا|يلّا)(\s|$|[،,.])")
 ALTERNATIVE = re.compile(r"another (term|way|word)|you (can|could) (also )?say|some people say|^\s*(or|أو)\b", re.I)
 
@@ -499,6 +558,9 @@ def is_ask(M):
         return True
     t = M["text"]
     eng = sum(1 for w in tokens(t) if is_english(w))
+    first = tokens(t)[:1]
+    if first and not is_english(first[0]) and re.match(r"^\W*\S+\s+(is|means|meant|was)\b", t, re.I):
+        return True
     return bool(ASK.search(t))
 
 
@@ -515,8 +577,30 @@ def _drop(M, m, a, ch, A, why):
 
 def keep_pair(M, m, a, ch, A, question, window):
     """Last checks on one candidate. False = not a correction."""
+    # he is only repeating a word she just said (a one-word turn): she is
+    # teaching him the word, not fixing a sentence of his
+    if ch != "insert" and len(M["ar"]) <= 1 and any(
+            B["speaker"] == "Amal" and not B.get("chat") and M["start"] - 30 <= B["start"] < M["start"]
+            and any(same_form(m, w) and sim(key(m), key(w)) >= 0.75 for w in B["ar"]) for B in A.get("_T", [])):
+        return _drop(M, m, a, ch, A, "echoing-her")
+    # her prompt for the next drill, or her question about meaning
+    if re.search(r"what about|how about|what does|what's .* mean|شو يعني|شو معنى|put it in a sentence|another one", A["text"], re.I):
+        return _drop(M, m, a, ch, A, "her-prompt")
+    if ch == "ending" and a in A["ar"]:
+        j = A["ar"].index(a)
+        if j > 0 and re.sub(r"[\u064B-\u0652]", "", A["ar"][j - 1]) in ("أنا", "انا", "ana"):
+            return _drop(M, m, a, ch, A, "about-herself")
     if INSTRUCT.search(A["text"]) and ch in ("prep", "al", "ending", "suffix", "shape"):
         return _drop(M, m, a, ch, A, "her-instruction")
+    if CONFIRM.search(A["text"]) and not re.search(r"\b(no|not|but)\b|مش|(^|\s)بس(\s|$)|\bbas\b", A["text"], re.I) \
+            and not A.get("chat"):
+        return _drop(M, m, a, ch, A, "she-confirmed")
+    # "في or ب": she offers his form as one of the right ones
+    if re.search(r"(\bor\b|\sأو\s)", A["text"]) and any(same_form(m, w) for w in A["ar"]):
+        return _drop(M, m, a, ch, A, "his-form-is-an-option")
+    # vowel marks on her word: she is teaching the sound, not the grammar
+    if ch in ("al", "ending") and re.search(r"[\u064B-\u0650]", a):
+        return _drop(M, m, a, ch, A, "pronunciation")
     if ALTERNATIVE.search(A["text"]):
         return _drop(M, m, a, ch, A, "alternative")  # she offers another way to say it, not a fix
     if any(same_form(w, a) for w in M["ar"]) and ch not in ("insert",) and not CONTRAST.search(A["text"]):
@@ -534,7 +618,7 @@ def keep_pair(M, m, a, ch, A, question, window):
     if ch == "al" and question and not A.get("chat"):
         return _drop(M, m, a, ch, A, "question-al")  # she is asking her own question with the word in it
     # he said her form himself before she spoke: that is his own fix
-    for N in window:
+    for N in A.get("_medi_all", window):
         if M["start"] < N["start"] < A["start"] and any(same_form(w, a) for w in N["ar"]):
             return _drop(M, m, a, ch, A, "self-fixed-before-her")
     return True
@@ -562,6 +646,8 @@ def align(stretch, A, aw):
             for k in range(i2 - i1):
                 (m, M), a = ms[i1 + k], aw[j1 + k]
                 ch = related(m, a)
+                if ch in ("al", "ending") and (i2 - i1) < 2 and len(aw) > 2:
+                    continue  # one word in common is not a re-said sentence
                 if ch in ("al", "ending", "double", "family"):
                     out.append((M, m, a, ch))
             continue
@@ -572,7 +658,7 @@ def align(stretch, A, aw):
             for j in range(j1, j2):
                 a = aw[j]
                 fa_ = family(a)
-                if fa_ in ("kaan", "koon", "fi") or re.fullmatch(r"(اللي|إللي|illi|elli|lli|يلي)", a.lower()):
+                if fa_ in ("kaan", "koon") or re.fullmatch(r"(اللي|إللي|illi|elli|lli|يلي)", a.lower()):
                     m, M = ms[i1 - 1]
                     out.append((M, m, a, "insert"))
             continue
@@ -602,10 +688,13 @@ def pair_up(window, A):
     aw = A["ar"]
     eng_words = sum(1 for w in tokens(A["text"]) if is_english(w))
     if len(aw) <= 2 and not A.get("chat"):
-        if eng_words >= 4 and not CONTRAST.search(A["text"]):
+        if eng_words >= 4 and (re.search(r"[?؟]", A["text"]) or not re.search(r"\b(no|not|just)\b|مش", A["text"], re.I)):
             return []  # a question or a comment with the word in it, not a fix
+        qm = re.match(r"^\W*(شو|وين|كيف|ليش|مين|قديش|أي|shu|sho|wain|wein|keef|kif|laish|meen|2addaish)\b", A["text"], re.I)
+        if qm and not any(bare(w) == bare(qm.group(1)) for M in window[-2:] for w in M["ar"]):
+            return []  # she is asking him something ("شو فيه؟"), not re-saying his question
         last = window[-1]
-        near = [M for M in window if last["start"] - M["start"] <= 6]
+        near = [M for M in window if last["start"] - M["start"] <= (12 if len(last["ar"]) <= 1 else 6)]
         for a in aw:
             for M in reversed(near):
                 hit = None
@@ -627,7 +716,7 @@ def pair_up(window, A):
             else:
                 fa_ = family(a)
                 his = [w for M in near for w in M["ar"]]
-                ok_neg = fa_ != "neg" or key(a) == "ma"
+                ok_neg = fa_ != "neg" or (key(a) == "ma" and re.search(r"[.?!؟]\s*$", A["text"]))
                 if fa_ in ("koon", "kaan", "neg") and ok_neg and not any(family(w) == fa_ for w in his) and his and len(aw) == 1 \
                         and not A.get("prev_amal_ar"):
                     out.append((last, last["ar"][-1], a, "insert"))
@@ -672,12 +761,15 @@ def pair_up(window, A):
             if any(family(w) == fa_ for w in his) or (fa_ is None and any(re.fullmatch(r"(اللي|إللي|illi|elli|lli)", w.lower()) for w in his)):
                 continue
             # the word right after hers must be one he said (her addition sits in his sentence)
-            nxt = aw[j + 1] if j + 1 < len(aw) and bare(aw[j + 1]) in set(sm_) else None
-            if not nxt:
+            # (said as he said it, or in the shape she fixed it to)
+            nxt = aw[j + 1] if j + 1 < len(aw) else None
+            if not nxt or not any(bare(w) == bare(nxt) or related(w, nxt) in ("suffix", "ending", "shape", "b") for w in his):
                 continue
             if fa_ == "kaan" and not re.search(r"^(راح|ra7|ra'ah|لازم|laazem|lazim)$", nxt.lower()):
                 continue
             m, M = next(((w, N) for w, N in ms if bare(w) == bare(nxt)), (None, None))
+            if m is None:
+                m, M = next(((w, N) for w, N in ms if related(w, nxt)), (None, None))
             if m and not any(o[2] == a for o in out):
                 out.append((M, m, a, "insert"))
         kind = "chat" if A.get("chat") else "echo"
@@ -693,9 +785,12 @@ def pair_up(window, A):
                 break
     res = []
     out = [o for o in out if not (o[3] == "family" and classify(o[1], o[2], o[0]["text"], A["text"], "family") is None)]
-    question = A["text"].rstrip().endswith(("?", "؟"))
+    question = bool(re.search(r"[?؟][\s\u200e\u200f\u202a-\u202e]*$", A["text"]))
     later = [w for M in window for w in M["ar"]]
+    fixed_real = {a for M, m, a, ch in out if ch != "insert"}
     for M, m, a, ch in out:
+        if ch == "insert" and a in fixed_real:
+            continue
         if not keep_pair(M, m, a, ch, A, question, window):
             continue
         if TRACE is not None:
@@ -757,6 +852,11 @@ if __name__ == "__main__" or True:
                 if is_ar(w0) and not w0.startswith("ال"):
                     medi[i + 1]["ar"][0] = "ال" + w0
         medi_ar = [t for t in medi if t["ar"]]
+        for i, t in enumerate(medi):
+            if is_ask(t) and not re.search(r"[?؟.]\s*$", t["text"]):
+                for u in medi[i + 1:i + 2]:
+                    if u["start"] - t["end"] <= 8 and not any(B["speaker"] == "Amal" and B["ar"] and t["end"] <= B["start"] < u["start"] for B in T):
+                        u["ask_tail"] = True
 
         found = []
 
@@ -773,6 +873,8 @@ if __name__ == "__main__" or True:
                 window = [M for M in medi_ar if A["start"] - CHAT_BACK <= M["start"] <= A["start"] + CHAT_AHEAD]
             else:
                 window = [M for M in medi_ar if M["start"] < A["start"] and A["start"] - M["end"] <= WINDOW]
+            A["_T"] = T
+            A["_medi_all"] = [M for M in medi_ar if abs(M["start"] - A["start"]) <= CHAT_BACK + CHAT_AHEAD]
             # his questions about a form are asks (rule M1), kept apart
             asked = [M for M in window if is_ask(M)]
             window = [M for M in window if not is_ask(M)]
@@ -799,7 +901,7 @@ if __name__ == "__main__" or True:
                 if f["a"] and not A.get("chat") and f["change"] in ("shape", "suffix", "double") and new_word:
                     _drop(f["M"], f["m"], f["a"], f["change"], A, "imitating-new-word")
                     continue
-                if not A.get("chat") and A["text"].rstrip().endswith(("?", "؟")) and f["kind"] == "echo" and f["overlap"] < 0.5 \
+                if not A.get("chat") and re.search(r"[?؟][\s\u200e\u200f\u202a-\u202e]*$", A["text"]) and f["kind"] == "echo" and f["overlap"] < 0.5 \
                         and not CONTRAST.search(A["text"]):
                     _drop(f["M"], f["m"], f["a"], f["change"], A, "her-question")
                     continue  # her own question, not a recast
@@ -820,15 +922,23 @@ if __name__ == "__main__" or True:
             if not cue:
                 continue
             M = prev_ar[-1]
+            if is_ask(M) or (len(prev) and is_ask(prev[-1])):
+                continue  # answering his question (an ask), not fixing a slip
+            if A["start"] - M["end"] > 8:
+                continue  # talk about the rule, not a reply to what he just said
             found.append({"M": M, "A": A, "m": " ".join(M["ar"])[:40], "a": "", "change": "english",
                           "hit": (cue, "Amal named the rule in English"), "kind": "english", "overlap": 0.0})
 
         # --- one event per real fix: the same pair again soon after is a repeat,
         #     and one Medi turn files each bucket once.
-        found.sort(key=lambda f: (f["M"]["start"], {"echo": 0, "spot": 1, "chat": 2, "english": 3}[f["kind"]]))
+        # a real word pair is kept before an inserted word for the same fix
+        found.sort(key=lambda f: (f["change"] == "insert", f["M"]["start"], {"echo": 0, "spot": 1, "chat": 2, "english": 3}[f["kind"]]))
         kept, seen_pairs, seen_turn, seen_fix = [], [], set(), []
         for f in found:
             b = f["hit"][0] if f["hit"] and f["hit"][0] in buckets else "UNFILED"
+            if b == "UNFILED" and f["kind"] == "chat" and f["change"] in ("ending", "shape", "suffix"):
+                _drop(f["M"], f["m"], f["a"], f["change"], f["A"], "unfiled-chat")
+                continue
             pair = (bare(f["m"]) if f["a"] else None, bare(f["a"]) if f["a"] else None)
             t0 = f["M"]["start"]
             if f["a"] and any(p == pair and abs(t0 - t1) <= REPEAT for p, t1 in seen_pairs):

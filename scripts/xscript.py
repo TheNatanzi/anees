@@ -87,7 +87,7 @@ def skel(w, keep_double=False, ayn=False):
 
 def has_al(w):
     if is_ar(w):
-        return w.startswith("ال") and len(w) > 3
+        return w.startswith("ال") and len(w) > 3 and w not in ("اللي", "الّي", "إللي")
     lw = (w or "").lower()
     return bool(re.match(r"^(el|il|al|l)[-'][a-z0-9]{2}", lw) or
                 re.match(r"^[aei](t|th|d|dh|r|z|s|sh|n|l)-(t|th|d|dh|r|z|s|sh|n|l)[a-z]", lw))
@@ -105,7 +105,7 @@ def bare(w, ayn=False):
 def is_english(w):
     raw = (w or "").lower()
     lw = re.sub(r"[^a-z']", "", raw)
-    return raw in ENGLISH or lw in ENGLISH or lw.rstrip("s") in ENGLISH
+    return raw in ENGLISH or lw in ENGLISH or (len(lw) > 3 and lw.endswith("s") and lw[:-1] in ENGLISH)
 
 
 def sim(a, b):
@@ -115,7 +115,7 @@ def sim(a, b):
 TOK = re.compile(r"[ء-غـ-ْٰ-ۓ]+|[A-Za-z0-9'’`]+(?:-[A-Za-z0-9'’`]+)*")
 
 
-CUT = re.compile(r"(\S+?)(--|—|–)(?=\s|$|[،,.?؟])")
+CUT = re.compile(r"(\S+?)(--|—|–|-)(?=\s|$|[،,.?؟])")
 FILLER = {"uh", "um", "umm", "uhm", "mm", "hmm", "er", "ah", "آآآ", "امم", "اه", "ممم"}
 
 
@@ -123,7 +123,17 @@ def tokens(text):
     """Words of a line. The transcript writes the article apart ("الـ دنيا",
     "il roz"); glue it back so a split article is not read as a missing one.
     A word cut off mid-way ("أمريك--") is a stutter and is dropped."""
-    text = CUT.sub(" ", text or "")
+    text = text or ""
+
+    def _cut(mt):
+        w = mt.group(1)
+        rest = text[mt.end():].lstrip(" ،,.")
+        nxt = re.match(r"\S+", rest)
+        # a stutter: a fragment, or he restarts the same word right after
+        if len(re.sub(r"[^\w]", "", w)) <= 2 or (nxt and nxt.group(0)[:2] == w[:2]):
+            return " "
+        return w + " "
+    text = CUT.sub(_cut, text)
     text = re.sub(r"(?<!\S)(?!الـ)[؀-ۿ]+ـ(?=\s|$|[،,.])", " ", text)  # بيـ cut before the word (not the article الـ)
     out, pend = [], None
     for w in TOK.findall(text):
@@ -158,6 +168,8 @@ def arabic_tokens(text, lexicon=None):
         if is_ar(w):
             out.append(w)
             continue
+        if re.fullmatch(r"[A-Za-z](-[A-Za-z])+", w):
+            continue  # spelling letters out
         if (is_english(w) and w.lower() not in LATIN_AR) or len(w) < 2:
             continue
         if lexicon is None or looks_arabic_latin(w, lexicon):
@@ -170,6 +182,7 @@ LATIN_AR = set("""
 ana inti inta intu ihna e7na huwe huwwe hiye hiyye humme ma mish mush fi bas u wa la lal hon hoon shu
 kif keef lesh laish iza lamma lama kaan kan kanu kanit kunt kunet ya yalla shway shwai kteer katir
 anna andi andak andik andna andu andhum fih fiha fihom fihum ili illi ilak ilik
+saa saa3a sa3a yom yoam youm sane sana shahr marra hek heik hayk
 """.split())
 AR_PREFIX = re.compile(r"^(bi|ba|bt|bn|by|ma|mi|ya|yi|ta|ti|il|el|al|fi|wa|mu)[a-z']{2,}")
 AR_SUFFIX = re.compile(r"[a-z']{2,}(ik|ak|ek|na|hom|hum|kom|kum|it|et|ti|ni|ha|tu|li|lu|lak|lik|u|o)$")
