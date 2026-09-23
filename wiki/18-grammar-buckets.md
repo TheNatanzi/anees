@@ -25,6 +25,7 @@ Ordering note: Amal front-loads the verb system and teaches the small grammar as
 | A7 | Noun + adjective, and where el- goes | adjective **after** the noun; `el-` on the noun only = a sentence ("the house is pretty"); `el-` on both = a phrase ("the pretty house") | Doc | rank 3 | 3 |
 | A8 | Gender agreement on adjectives | feminine adds `-a/-e`; the adjective must match its noun | Doc | rank 4 | 3 |
 | A9 | Plurals: sound, broken, dual | `-een/-aat`, memorised broken plurals (byoot, bwaab, shababeek), dual `-ein` | Doc (word by word) | untested | 11 |
+| A9b | Broken plurals as **patterns** | her Doc lists them one word at a time; the shapes repeat (bait → byoot, baab → bwaab, shubbaak → shababeek) so they can be learned as moulds, not as 200 separate words | **gap** | untested | 11 |
 | A10 | Demonstratives + agreement | hada (m) / hadi (f) / hadol (pl), hadaak / hadeek; must match the noun's gender | Doc (partly) | rank 4 | 5 |
 | A10b | Demonstrative + el- | the noun after hada / hadi / hadol **keeps** `el-`: Hada el-ktab la-Mehdi, Hadi el-moazeh. Drop the `el-` and it becomes a sentence instead of a phrase (hadi kilme = this **is a** word). Superlatives are the one exception, they never take `el-` (Hadi a2al akleh) | Doc | untested | 5 |
 | A11 | Kul: all vs every | `kul + el-` = all of it; `kul` with no `el-` = every | Doc | untested | 4 |
@@ -74,6 +75,7 @@ Ordering note: Amal front-loads the verb system and teaches the small grammar as
 | D3 | Suffixes on prepositions | ma3i, minnak, minno, 3alayha, ilhom | Doc | untested | 10 |
 | D4 | Object suffixes on verbs | shuf-o, basawwi-h, bi7ki-lak — separate from D3 | Doc | rank 5 | 10 |
 | D5 | Preposition + el- | where English drops "the", Levantine keeps it: **bi-lseyyara** = by car, **min el-bait** = from home, **3ala el-6aawle** = on the table. `bi` / `la` / `fi` fuse with it (bi-l…, la-l…, fi-l…); min / 3ala / ma3 keep it separate. No `el-` on a proper noun (la-Mehdi, fi America), on a noun already owned (ma3i, ma3 sadiqi), or when it really is indefinite (ma3 3aseer) | Doc (in every example) | untested | 4 |
+| D6 | **iyyaa — the second object** | a verb can carry only one pronoun; a second one rides on `iyyaa`: *ba36ii-k **iyyaa*** = I give it to you, *jeeb-li **iyyaa*** = bring it to me | **gap** | untested | 10 |
 
 ## Family E — Numbers and time
 
@@ -96,10 +98,32 @@ Kept here because these slips look like grammar in the transcript but are not. R
 
 ---
 
+## Gap buckets — Amal has not taught these yet
+
+**Scoring rule:** a gap bucket is never scored against Medi. He cannot be wrong about a rule his
+tutor has not given him. They sit in the list so the hole is visible, and so Anees knows what to put
+on Amal's request list. A gap flips to a normal bucket the day she teaches it.
+
+| # | Bucket | Why it is missing | Who fills it |
+|---|---|---|---|
+| A9b | Broken plurals as patterns | her Doc lists each plural as its own word | Amal — one lesson on the common moulds |
+| B7 | kaan + b- = used to | the past chapter has no habitual past | Amal |
+| B11 | Negative commands | the Command Tense tab has 107 positive rows, none negative | Amal |
+| B14 | 3am + verb (right now) | not in either Doc; every other Levantine source teaches it | Amal — or ask if Palestinian prefers the bare present |
+| B15 | Active participles | raaye7, naasi, 3aaref are in the vocabulary but never as a form | Amal |
+| C4 | Negation as a system | `ma`, `mish`, `wala`, `abadan` appear only in passing examples; the Palestinian `-sh` ending is absent | Amal — and she should rule on `-sh` |
+| C9 | Word order | never stated; only visible through the pointer rule | Anees can write this from her own examples |
+| D6 | iyyaa (second object) | absent from both Docs, confirmed against the live Doc 2026-09-22 | Amal |
+| E1 | Number + noun agreement | she teaches the dual for clock units only, not the 3–10 + plural / 11+ singular rule | Amal |
+| F1 | The seven hard letters as a unit | drilled implicitly, never taught as a set | Amal, or Anees drills |
+| F2 | Long vs short vowels | not taught | Amal, or Anees drills |
+
+Nine of the eleven need Amal. Two (C9, F-drills) Anees can build from her own material without asking.
+
 ## Counts
 
-- 12 noun-phrase + 16 verb + 10 sentence-glue + 5 partner-words + 4 numbers/time = **47 grammar buckets**, plus 3 pronunciation buckets.
-- Amal's own material already covers **34** of the 43; **7** are gaps in both her Docs (B7, B11, B14, B15, C4, C9, E1 partly).
+- 13 noun-phrase + 16 verb + 10 sentence-glue + 6 partner-words + 4 numbers/time = **49 grammar buckets**, plus 3 pronunciation buckets.
+- Amal's own material already covers **38** of the 49; **11** are gaps, listed in their own section above.
 - Medi has a recorded slip on 13 of them. Top five by frequency: B2/B3/B4 (b-drop), B8/B9 (ykoon), A1/A2/A7/C3 (definiteness), A8/A10 (gender), C2 (pointer).
 
 ## Where each bucket's score would come from
