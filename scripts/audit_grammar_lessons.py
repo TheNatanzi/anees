@@ -485,7 +485,8 @@ def classify(m, a, said, recast, change):
             return ("B12", "make-X vs get-X: the middle letter doubles")
         if re.match(r"^(بال|بل|bil-?|bel-?|bi-?el-?|b-?il-?)", a.lower()):
             return ("D1", "the preposition bi- was missing")
-        if is_ar(a) and re.search(r"(ك|كي|ها|هم|نا|تي|تك)$", a) and re.search(r"(ik|ak|ek|ha|hum|na|ti|tik)$", key(m)):
+        if is_ar(a) and re.search(r"(ك|كي|ها|هم|نا|تي|تك)$", a) and re.search(r"(ik|ak|ek|ha|hum|na|ti|tik|k)$", key(m)) \
+                and sm[-1:] == sa[-1:] and not re.match(r"^ب(ن|ت|ي)", a):
             return ("D1", "the preposition bi- was missing")
         mb = sm.startswith("b")
         gate = next((g for g in GATE_MODAL + GATE_TIME if g in said), None)
@@ -560,8 +561,14 @@ def classify(m, a, said, recast, change):
         m_imperf0 = bool(re.match(r"^(b|a|t|y|n)", key(m).lstrip("'"))) and not re.search(r"(t|ti|na)$", key(m))
         if a_past0 and m_imperf0 and stems(sm) & stems(sa):
             return ("B5", "past tense")
+        if (re.search(r"ة$", m) or (not is_ar(m) and re.search(r"(a|e)$", m.lower()) and not verbish(m))) \
+                and sa.startswith(sm) and sa[len(sm):len(sm) + 1] == "t":
+            return ("A4", "the possessive ending (the -a becomes -t before it)")
         if sa.startswith(sm) and sa[len(sm):] in ("t", "n") and looks_past(a) and not has_al(m):
             return ("B5", "the past tense ending")
+        # a dative ending (-lak, -li, -lha) on the verb
+        if sa.startswith(sm) and sa[len(sm):].startswith("l") and len(sm) >= 2:
+            return ("D4", "the -la- ending on the verb")
         # an ending grew on the same word: pointer on a verb, possessive on a noun
         if sa.startswith(sm) and len(sa) > len(sm) and len(sm) >= 2:
             verb = verbish(m) and not has_al(m) and len(sm) >= 3
@@ -590,6 +597,9 @@ def classify(m, a, said, recast, change):
         # plural of a noun (broken plural)
         if re.search(r"مطاعم|ma6aa3em|mata3em", a):
             return ("A9", "plural")
+        if (re.search(r"ة$", m) or (not is_ar(m) and re.search(r"(a|e)$", m.lower()) and not verbish(m))) \
+                and sa.startswith(sm) and sa[len(sm):len(sm) + 1] == "t":
+            return ("A4", "the possessive ending (the -a becomes -t before it)")
         if a_past and stems(sm) & stems(sa) and not has_al(m):
             return ("B5", "the past tense ending")
         if sa.startswith(sm) and sa[len(sm):] in ("t", "tn", "n") and looks_past(a) and not has_al(m):
@@ -670,7 +680,10 @@ def keep_pair(M, m, a, ch, A, question, window):
             and any(same_form(m, w) and sim(key(m), key(w)) >= 0.75 for w in B["ar"]) for B in A.get("_T", [])):
         return _drop(M, m, a, ch, A, "echoing-her")
     # her prompt for the next drill, or her question about meaning
-    if re.search(r"what about|how about|what does|what's .* mean|شو يعني|شو معنى|put it in a sentence|another one", A["text"], re.I):
+    prev_her = [B for B in A.get("_T", []) if B["speaker"] == "Amal" and not B.get("chat") and A["start"] - 8 <= B["start"] < A["start"]]
+    if any(re.search(r"what do you think|there's (two|three) options|for example", B["text"], re.I) for B in prev_her):
+        return _drop(M, m, a, ch, A, "her-example")
+    if re.search(r"what about|how about|what does|what's .* mean|شو يعني|شو معنى|put it in a sentence|another one|what do you think", A["text"], re.I):
         return _drop(M, m, a, ch, A, "her-prompt")
     if ch == "ending" and a in A["ar"]:
         j = A["ar"].index(a)
