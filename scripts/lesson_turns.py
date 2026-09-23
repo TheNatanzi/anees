@@ -113,14 +113,14 @@ def lesson_turns(date, with_chat=False):
         if T:
             src = "scribe per-speaker tracks"
     if with_chat and T:
-        from arabizi import chat_offset
+        from xscript import chat_offset
         C = chat_lines(date)
         if C:
-            off = chat_offset(C, T)
-            for c in C:
+            offs = chat_offset(C, T)
+            for c, off in zip(C, offs):
                 c["start"] += off
                 c["end"] += off
-                c["chat_offset"] = off
+                c["chat_offset"] = round(off, 1)
             T = T + C
     T.sort(key=lambda x: x["start"])
     return T, src

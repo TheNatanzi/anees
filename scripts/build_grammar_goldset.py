@@ -19,6 +19,21 @@ import json, os
 OUT = os.path.join(os.path.dirname(__file__), "..", "docs", "data", "grammar-goldset.json")
 
 # date, mm:ss, bucket, kind, channel, what Medi said, how Amal fixed it, note
+# Where he tried more than once before she fixed it, the event runs from his
+# first wrong attempt (FROM[date, mm:ss]) to the row's time.
+FROM = {
+    ("2026-09-17", "10:00"): "10:00", ("2026-09-17", "10:58"): "10:58",
+    ("2026-09-17", "54:15"): "53:02", ("2026-09-17", "36:30"): "36:23",
+    ("2026-09-21", "09:41"): "09:41", ("2026-09-21", "23:53"): "23:47",
+}
+TO = {
+    ("2026-09-17", "10:00"): "10:47", ("2026-09-17", "10:58"): "11:07",
+    ("2026-09-21", "09:41"): "10:06", ("2026-09-21", "23:53"): "24:03",
+    ("2026-09-21", "12:56"): "15:02",  # he said it again at 15:02; her chat fix came after that
+    ("2026-09-17", "27:56"): "28:30",  # "yita'assif illi" .. "yita'assif fillik"
+    ("2026-09-21", "38:10"): "38:29",  # "mashhur bi atbuk" .. "bi tabakh il-kebab"
+}
+
 R = [
 # ---- 2026-09-17
 ("2026-09-17", "02:26", "D3", "grammar", "voice+chat", "عندهم زباين كتير", "عنا / 3indna", ""),
@@ -27,7 +42,7 @@ R = [
 ("2026-09-17", "07:02", "A1", "grammar", "chat", "daiman behtr, sos behtr", "daymaan beykoon el-sauce bey7re2", "Latin-script"),
 ("2026-09-17", "08:42", "E4", "grammar", "english", "سبعتاش ... خميس", "It's Thursday first then seventeenth", "date order"),
 ("2026-09-17", "09:02", "A1", "grammar", "chat", "يوم الخميس", "el-yoam el-5amees", ""),
-("2026-09-17", "09:39", "A2", "grammar", "voice", "نفس الجو اليوم", "نفس جو اليوم or نفس اليوم", "he also self-corrected"),
+("2026-09-17", "09:39", "A2", "self", "self", "نفس الجو اليوم", "نفس جو اليوم (he fixed it; she confirmed after)", ""),
 ("2026-09-17", "10:00", "A8", "grammar", "voice+english", "بتبدأ / دبات", "بدا - جو so it has to be masculine", ""),
 ("2026-09-17", "10:58", "A1", "grammar", "voice", "دنيا الجو / دنيا بارد", "الدنيا - either دنيا or جو", ""),
 ("2026-09-17", "13:22", "B13", "grammar", "voice+chat", "أنا راح أعمله", "إنت كنت راح تعمله / kunet ra7", ""),
@@ -35,7 +50,7 @@ R = [
 ("2026-09-17", "22:06", "A11", "grammar", "voice+chat", "(not transcribed)", "تتأسفي / All كل / inti laazem tet2assafi lalkul", "medi_text_missing"),
 ("2026-09-17", "27:56", "D4", "grammar", "chat", "wala hada ra'ah yita'assif illi / fillik", "ma 7ada ra7 yet2assaflek", "Latin-script"),
 ("2026-09-17", "29:59", "D1", "grammar", "voice+chat", "ma ba'dar aru ala andik", "either على بيتك or عندك / 3indek", "Latin-script"),
-("2026-09-17", "34:39", "B5", "grammar", "english", "kam khutat - is it still present tense?", "It's not present tense, no - have you ruined is past", "Latin-script"),
+("2026-09-17", "34:39", "B5", "ask", "english", "kam khutat - is it still present tense?", "It's not present tense, no - have you ruined is past", "he asked; not a slip (rule M1)"),
 ("2026-09-17", "36:30", "B12", "grammar", "voice+chat", "kharab, kharabit", "خرّبتي أو خرّبت / 5arrabti", "Latin-script"),
 ("2026-09-17", "36:58", "C2", "grammar", "english", "kharabti or kharabit", "This is pointer", "Latin-script"),
 ("2026-09-17", "37:54", "B6", "grammar", "voice+chat", "Kan / kanit", "كانوا / kaanu ili", "Latin-script"),
@@ -132,10 +147,12 @@ R = [
 
 def build():
     ev = []
+    sec = lambda x: int(x.split(":")[0]) * 60 + int(x.split(":")[1])
     for d, mmss, b, k, ch, said, corr, note in R:
-        m, s = mmss.split(":")
         ev.append({
-            "date": d, "t": int(m) * 60 + int(s), "mmss": mmss, "bucket": b, "kind": k,
+            "date": d, "t": sec(mmss), "mmss": mmss,
+            "t_from": sec(FROM.get((d, mmss), mmss)), "t_to": sec(TO.get((d, mmss), mmss)),
+            "bucket": b, "kind": k,
             "channel": ch, "said": said, "correction": corr, "note": note,
             "medi_text_missing": "medi_text_missing" in note,
             "latin_script": "Latin-script" in note, "source": "hand",
@@ -147,7 +164,7 @@ def build():
                    "her Meet chat. Times are on Medi's track after the track-start offset. Only kind=grammar "
                    "is scored for recall; vocab, pron (Family F, rule M4) and self are kept, never scored as grammar."),
         "lessons": {d: {"grammar": sum(1 for e in g if e["date"] == d)} for d in sorted({e["date"] for e in ev})},
-        "counts": {k: sum(1 for e in ev if e["kind"] == k) for k in ("grammar", "vocab", "pron", "self")},
+        "counts": {k: sum(1 for e in ev if e["kind"] == k) for k in ("grammar", "vocab", "pron", "self", "ask")},
         "events": ev,
     }
     json.dump(out, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)

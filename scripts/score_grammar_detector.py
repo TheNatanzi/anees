@@ -8,8 +8,9 @@ recall     = gold grammar corrections the auditor found / all gold grammar corre
 precision  = auditor events that sit on a real correction (any kind) / auditor events
 bucket acc = found gold grammar corrections filed under the same bucket
 
-A match is one auditor event and one gold row on the same date within
-TOL seconds of each other, paired one-to-one nearest first.
+A match is one auditor event and one gold row on the same date, the event
+inside the gold row's span (his first wrong try .. her fix) give or take TOL
+seconds. Paired one-to-one: same bucket first, then nearest.
 """
 import json, os, subprocess, sys
 from collections import Counter, defaultdict
@@ -41,12 +42,14 @@ def match(gold, det):
     """One-to-one, nearest first."""
     pairs = []
     for gi, g in enumerate(gold):
+        lo, hi = g.get("t_from", g["t"]) - TOL, max(g.get("t_to", g["t"]), g["t"]) + TOL
         for di, d in enumerate(det):
-            if g["date"] == d["date"]:
-                dt = abs(g["t"] - d["t"])
-                if dt <= TOL:
-                    pairs.append((dt, gi, di))
+            if g["date"] == d["date"] and lo <= d["t"] <= hi:
+                dt = 0 if g.get("t_from", g["t"]) <= d["t"] <= g.get("t_to", g["t"]) else abs(g["t"] - d["t"])
+                # a same-bucket pairing wins over a nearer wrong-bucket one
+                pairs.append((d.get("bucket") != g["bucket"], dt, gi, di))
     pairs.sort()
+    pairs = [(dt, gi, di) for _, dt, gi, di in pairs]
     used_g, used_d, out = set(), set(), {}
     for dt, gi, di in pairs:
         if gi in used_g or di in used_d:
@@ -127,8 +130,28 @@ def score(verbose=True):
     return res
 
 
+def found_keys():
+    gold_all = json.load(open(os.path.join(DOCS, "grammar-goldset.json"), encoding="utf-8"))["events"]
+    audit = json.load(open(os.path.join(DOCS, "grammar-audit.json"), encoding="utf-8"))
+    det = [e for e in audit["events"] if e["date"] in {g["date"] for g in gold_all}]
+    m = match(gold_all, det)
+    return {"%s %s %s" % (g["date"][5:], g["mmss"], g["bucket"]) for i, g in enumerate(gold_all)
+            if g["kind"] == "grammar" and i in m}
+
+
 if __name__ == "__main__":
     if "--no-run" not in sys.argv:
         run_auditor()
-    r = score()
+    r = score(verbose="--quiet" not in sys.argv)
     print("\n" + json.dumps(r))
+    # what changed since the last run (scratch file, not committed)
+    last = os.path.join(HERE, "_backups", "score_last_found.json")
+    now = sorted(found_keys())
+    try:
+        prev = set(json.load(open(last, encoding="utf-8")))
+        gained, lost = sorted(set(now) - prev), sorted(prev - set(now))
+        if gained or lost:
+            print("since last run  + %s   - %s" % (gained, lost))
+    except Exception:
+        pass
+    json.dump(now, open(last, "w", encoding="utf-8"))
