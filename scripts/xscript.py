@@ -127,6 +127,8 @@ def tokens(text):
 
     def _cut(mt):
         w = mt.group(1)
+        if mt.group(2) == "-":
+            return " "
         rest = text[mt.end():].lstrip(" ،,.")
         nxt = re.match(r"\S+", rest)
         # a stutter: a fragment, or he restarts the same word right after
@@ -159,6 +161,9 @@ def tokens(text):
     return [w for w in out if w not in ("ال", "الـ")]
 
 
+AR_FILLER = {"أم", "ام", "آم", "مم", "ممم", "مـم", "مـمم", "آآآ", "آآ", "اه", "آه", "أه", "أها", "اها", "امم", "إمم", "هممم", "أوكي", "اوكي"}
+
+
 def arabic_tokens(text, lexicon=None):
     """Arabic words of a line in any script. A Latin token counts when it is not
     English and (when a lexicon is given) its skeleton is a known Arabic word, or
@@ -166,7 +171,8 @@ def arabic_tokens(text, lexicon=None):
     out = []
     for w in tokens(text):
         if is_ar(w):
-            out.append(w)
+            if w not in AR_FILLER:
+                out.append(w)
             continue
         if re.fullmatch(r"[A-Za-z](-[A-Za-z])+", w):
             continue  # spelling letters out

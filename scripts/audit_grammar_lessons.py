@@ -172,6 +172,15 @@ def tail(w):
     return ""
 
 
+def verbish(w):
+    """Looks like a verb: a person prefix, or a past-tense ending."""
+    if is_ar(w):
+        w2 = re.sub(r"^(و|ف)", "", w)
+        return bool(re.match(r"^(ي|ت|ن|ب|أ|ا)", w2)) and not w2.startswith("ال") or bool(re.search(r"(ت|تي|تو|نا|وا)$", w2))
+    k = key(w).lstrip("'")
+    return bool(re.match(r"^(b|y|t|n|a|i)", k)) or bool(re.search(r"(t|it|et|ti|tu|na|u)$", k))
+
+
 def same_form(x, y):
     """The same word in the same shape, whatever the script."""
     return skel(x) == skel(y) and has_al(x) == has_al(y) and tail(x) == tail(y)
@@ -364,10 +373,16 @@ def english_cue(recast, said):
     return None
 
 
+def looks_past(w):
+    return bool(re.search(r"(ت|تي|تو|نا|وا)(ه|ها|هم|ك|كي|كم|ني)?$", w)) if is_ar(w) else bool(re.search(r"(t|it|et|ti|tu|na)(u|o|ha|hum|ak|ik|ni)?$", w.lower()))
+
+
 def classify(m, a, said, recast, change):
     """(bucket, why) for one wrong word m and her word a, or None."""
     km, ka = key(m), key(a)
     sm, sa = skel(m), skel(a)
+    if len(sm) < 2 or len(sa) < 2:
+        sm, sa = skel(m, ayn=True), skel(a, ayn=True)
     ctx = said + " " + recast
     fm, fa = family(m), family(a)
 
@@ -412,6 +427,11 @@ def classify(m, a, said, recast, change):
             return ("D1", "the preposition was missing")
         return ("C7", "illi was missing")
     if change == "prep":
+        ws = tokens(said)
+        if m in ws:
+            i_ = ws.index(m)
+            if i_ > 0 and verbish(ws[i_ - 1]) and not family(ws[i_ - 1]):
+                return ("D2", "the verb wants a different preposition")
         return ("D1", "a different preposition")
     if fa == "3ind" and fm != "3ind" and fm is not None:
         return ("D1", "a different preposition")
@@ -425,6 +445,11 @@ def classify(m, a, said, recast, change):
             return ("A2", "idafa: the first noun takes no el-")
         if SUPERL.search(ctx):
             return ("C3", "no el- after a superlative")
+        ws = tokens(recast)
+        if has_al(a) and a in ws:
+            i_ = ws.index(a)
+            if i_ > 0 and has_al(ws[i_ - 1]):
+                return ("A7", "the adjective takes el- like its noun")
         if has_al(m) and not has_al(a):
             ws = tokens(recast)
             nxt = next((ws[i + 1] for i, w in enumerate(ws[:-1]) if w == a), None)
@@ -436,10 +461,15 @@ def classify(m, a, said, recast, change):
         return ("A1", "el- added or dropped")
 
     if change == "b":
+        if sm.startswith("b") and not sa.startswith("b") and looks_past(a):
+            return ("B5", "past tense, not the present")
         root = sa[1:] if sa.startswith("b") else sa
-        if doubled(a) != doubled(m) and not is_ar(m) and any(r in root for r in B12_ROOTS if len(r) >= 2):
+        if (doubled(a) != doubled(m) and not is_ar(m) and any(r in root for r in B12_ROOTS if len(r) >= 2)) or \
+                (root in B12_ROOTS and not is_ar(a) and re.search(r"(aw|aww|arr|all|abb)", a.lower())):
             return ("B12", "make-X vs get-X: the middle letter doubles")
         if re.match(r"^(بال|بل|bil-?|bel-?|bi-?el-?|b-?il-?)", a.lower()):
+            return ("D1", "the preposition bi- was missing")
+        if is_ar(a) and re.search(r"(ك|كي|ها|هم|نا|تي|تك)$", a) and re.search(r"(ik|ak|ek|ha|hum|na|ti|tik)$", key(m)):
             return ("D1", "the preposition bi- was missing")
         mb = sm.startswith("b")
         gate = next((g for g in GATE_MODAL + GATE_TIME if g in said), None)
@@ -456,7 +486,13 @@ def classify(m, a, said, recast, change):
 
     if change == "ending":
         tm, ta = tail(m), tail(a)
-        if ta in ("o", "h") and tm in ("", "a", "i", "u") and re.match(r"^(b|t|y|n)", km.lstrip("'")):
+        pron_a = re.search(r"(ها|هم|ك|كي|كم|نا)$", a) if is_ar(a) else re.search(r"(ha|hum|hom|ak|ik|kum|na)$", a.lower())
+        pron_m = re.search(r"(و|ه|ها|هم|ك|كي|كم|نا)$", m) if is_ar(m) else re.search(r"(u|o|ha|hum|hom|ak|ik|kum|na)$", m.lower())
+        if pron_a and pron_m and pron_a.group(1) != pron_m.group(1):
+            return ("D4", "the ending on the verb") if verbish(m) else ("A4", "the possessive ending")
+        if verbish(a) and (re.search(r"(يت|ت|تي|نا)$", a) if is_ar(a) else re.search(r"(it|et|ti|na)$", a.lower())):
+            return ("B5", "the past tense ending")
+        if ta in ("o", "h") and tm in ("", "a", "i", "u") and verbish(m):
             return ("C2", "the pointer ending was missing")
         if "a" in (tm, ta) and not re.search(r"^(ma|mish)\b", ka):
             return ("A8", "feminine agreement")
@@ -497,13 +533,23 @@ def classify(m, a, said, recast, change):
         if sa.startswith("m") and (sm.startswith("b") or sm.startswith("t")) and stems(sm) & stems(sa):
             return ("B15", "the participle, not the verb")
 
+    if change in ("suffix", "shape") and any(g in said for g in GATE_MODAL) and \
+            re.search(r"(ت|t|it)$", m) and not re.search(r"(ت|t)$", a) and stems(sm) & stems(sa):
+        return ("B2", "after a modal the verb is the bare present, not the past")
     if change in ("suffix", "shape"):
+        a_past0 = bool(re.search(r"(ت|تي|نا|وا)(ه|ها|هم|ك|كي|كم|ني)?$", a) and is_ar(a)) or \
+            bool(re.search(r"(t|ti|tu|na)(u|ha|hum|ak|ik|ni)?$", key(a)) and not is_ar(a))
+        m_imperf0 = bool(re.match(r"^(b|a|t|y|n)", key(m).lstrip("'"))) and not re.search(r"(t|ti|na)$", key(m))
+        if a_past0 and m_imperf0 and stems(sm) & stems(sa):
+            return ("B5", "past tense")
         # an ending grew on the same word: pointer on a verb, possessive on a noun
         if sa.startswith(sm) and len(sa) > len(sm) and len(sm) >= 2:
-            verb = bool(re.match(r"^(b|y|t|n|a)", km.lstrip("'"))) and not has_al(m) and len(sm) >= 3
+            verb = verbish(m) and not has_al(m) and len(sm) >= 3
             if has_al(m) or not verb:
                 return ("A4", "the possessive ending")
             return ("C2", "the pointer ending was missing")
+        if sm.startswith(sa) and sm[len(sa):].startswith("l") and len(sa) >= 2:
+            return ("D3", "li is its own word with its ending")
         if sm.startswith(sa) and len(sm) > len(sa) and not sa.endswith("t") and re.match(r"^(b|t|y|n|a)", km.lstrip("'")):
             return ("D4", "the ending on the verb")
         # number + noun
@@ -524,6 +570,8 @@ def classify(m, a, said, recast, change):
         # plural of a noun (broken plural)
         if re.search(r"مطاعم|ma6aa3em|mata3em", a):
             return ("A9", "plural")
+        if a_past and stems(sm) & stems(sa) and not has_al(m):
+            return ("B5", "the past tense ending")
         # possessive / object ending changed on the same stem
         if stems(sm) & stems(sa):
             if sm[-1:] != sa[-1:] or len(sm) != len(sa):
@@ -544,7 +592,8 @@ def person_swap(m, a):
     return False
 
 
-ASK = re.compile(r"(would|wouldn't|does|doesn't|will|won't|can|could)\s+(it|that|this)\s+work|can i use|could i use|"
+ASK = re.compile(r"\bdo i (just |still |only )?say\b|شو يعني|شو معنى|what was|what does .* mean|what's the word|"
+                 r"(would|wouldn't|does|doesn't|will|won't|can|could)\s+(it|that|this)\s+work|can i use|could i use|"
                  r"\b(is it|isn't it|would it be|would i say|do i say|do you say|can i say|how do i say|should it be|"
                  r"or is it|what's|what is|is there a difference|is that)\b|,?\s*right\s*\?", re.I)
 CONFIRM = re.compile(r"^\W*(صح|صحيح|آه صح|اه صح|yes|yeah|yep|exactly|mm-hmm|mhm|ممتاز|perfect|right)\b", re.I)
@@ -558,6 +607,8 @@ def is_ask(M):
         return True
     t = M["text"]
     eng = sum(1 for w in tokens(t) if is_english(w))
+    if re.search(r"^\W*(hold on\.?\s*|so\s+|okay\.?\s*|oh,?\s*)?(is|does|do|can|should|would|are|was|did|isn't|doesn't)\b[^.]*[?؟]", t, re.I):
+        return True
     first = tokens(t)[:1]
     if first and not is_english(first[0]) and re.match(r"^\W*\S+\s+(is|means|meant|was)\b", t, re.I):
         return True
@@ -609,7 +660,7 @@ def keep_pair(M, m, a, ch, A, question, window):
         return _drop(M, m, a, ch, A, "chat-question-al")
     if ch in ("shape", "suffix", "ending") and person_swap(m, a):
         return _drop(M, m, a, ch, A, "her-you-form")
-    if ch == "b" and skel(m).startswith("b") and not skel(a).startswith("b"):
+    if ch == "b" and skel(m).startswith("b") and not skel(a).startswith("b") and not looks_past(a):
         # she took the b- off: only a rule after a trigger word (B2/B3)
         if re.match(r"^(بال|bil|bel|bi-?el|bi-?il)", m.lower()):
             return _drop(M, m, a, ch, A, "bi-preposition")  # that b- is the preposition bi-, not the verb prefix
@@ -621,6 +672,9 @@ def keep_pair(M, m, a, ch, A, question, window):
     for N in A.get("_medi_all", window):
         if M["start"] < N["start"] < A["start"] and any(same_form(w, a) for w in N["ar"]):
             return _drop(M, m, a, ch, A, "self-fixed-before-her")
+        if M["start"] - 30 <= N["start"] < M["start"] and ch == "b" and \
+                any(same_form(w, a) and sim(key(w), key(a)) >= 0.8 for w in N["ar"]):
+            return _drop(M, m, a, ch, A, "he-knew-it")
     return True
 
 
@@ -698,18 +752,24 @@ def pair_up(window, A):
         for a in aw:
             for M in reversed(near):
                 hit = None
+                cands_ = []
                 for m in M["ar"]:
                     if same_form(m, a):
                         continue
                     ch = related(m, a)
+                    if ch in ("suffix", "shape", "prefix", "ending") and bare(a) in FUNCTION:
+                        continue
                     if ch == "ending" and len(skel(m)) < 3:
                         continue  # too short to trust on its own
                     if ch and ch != "shape" or (ch == "shape" and len(skel(a)) >= 3):
                         # he already says her form in the same turn: not a fix
                         if any(same_form(w, a) for w in M["ar"]):
                             continue
-                        hit = (M, m, a, ch)
-                        break
+                        cands_.append((M, m, a, ch))
+                if cands_:
+                    rank = {"family": 0, "prep": 0, "b": 1, "al": 1, "number": 1, "numword": 1, "double": 1,
+                            "participle": 1, "prefix": 2, "suffix": 2, "ending": 3, "shape": 4}
+                    hit = min(cands_, key=lambda c: rank.get(c[3], 5))
                 if hit:
                     out.append(hit)
                     break
@@ -914,8 +974,13 @@ if __name__ == "__main__" or True:
             cue = None
             prev = [M for M in medi if M["start"] < A["start"] and A["start"] - M["end"] <= ENGLISH_WINDOW]
             prev_ar = [M for M in prev if M["ar"]]
-            if not prev_ar or (not prev[-1]["ar"] and ("?" in prev[-1]["text"] or is_ask(prev[-1]))):
-                continue  # she is answering an English question - an ask, not a slip
+            if not prev_ar:
+                continue
+            last_real = next((P_ for P_ in reversed(prev) if P_["ar"] or len(tokens(P_["text"])) > 2), None)
+            if last_real is None or not last_real["ar"]:
+                continue  # she is answering something he said in English, not a slip in Arabic
+            if all(re.sub(r"[^\u0600-\u06FF]", "", w) in ("صح", "اه", "آه", "أه", "تمام", "ماشي") for w in last_real["ar"]):
+                continue  # his "yes" - she is explaining, not fixing
             if len(tokens(A["text"])) > 30:
                 continue
             cue = english_cue(A["text"], " ".join(M["text"] for M in prev_ar[-2:]))
@@ -936,7 +1001,7 @@ if __name__ == "__main__" or True:
         kept, seen_pairs, seen_turn, seen_fix = [], [], set(), []
         for f in found:
             b = f["hit"][0] if f["hit"] and f["hit"][0] in buckets else "UNFILED"
-            if b == "UNFILED" and f["kind"] == "chat" and f["change"] in ("ending", "shape", "suffix"):
+            if b == "UNFILED" and f["change"] in ("ending", "shape", "suffix", "prefix"):
                 _drop(f["M"], f["m"], f["a"], f["change"], f["A"], "unfiled-chat")
                 continue
             pair = (bare(f["m"]) if f["a"] else None, bare(f["a"]) if f["a"] else None)
