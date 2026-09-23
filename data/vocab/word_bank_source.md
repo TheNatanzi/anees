@@ -1,5 +1,31 @@
 # Latest Topic
 
+## Added from lessons (Medi, Sep 23)
+
+&nbsp;
+
+| Transliteration | Plural | Arabic | English |
+| ----- | ----- | ----- | ----- |
+| Mayy |  | مي | water |
+| Akle |  | أكلة | a dish / a meal |
+| Irani |  | إيراني | Iranian |
+| Ana ba5rab |  | خرب | I break down / go bad (food: bye5rab = it spoils) |
+| Ana ba5arreb |  | خرّب | I ruin / break (something) |
+| Amriki |  | أمريكي | American |
+| 3aks |  | عكس | opposite (bel-3aks = on the contrary) |
+| Ahel |  | أهل | parents / family |
+| Koari |  | كوري | Korean |
+| Eh |  | إيه | yes |
+| Aimta |  | امتى | when? (question) |
+| Janoob |  | جنوب | south |
+| Tarjame |  | ترجمة | translation |
+| Iyyah |  | إياه | it / him (object: biddna iyyah = we want it) |
+| 3arabi |  | عربي | Arabic / Arab |
+| Lissa |  | لسه | still / yet |
+| 3aalam |  | عالم | the world / people (el-3aalam) |
+| Kulliyyan |  | كليًا | completely / fully |
+
+
 ## Grammar Termonology & Causative Verbs&nbsp;
 
 ## Grammar Termonology&nbsp;
