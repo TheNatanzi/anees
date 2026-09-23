@@ -26,6 +26,7 @@ Ordering note: Amal front-loads the verb system and teaches the small grammar as
 | A8 | Gender agreement on adjectives | feminine adds `-a/-e`; the adjective must match its noun | Doc | rank 4 | 3 |
 | A9 | Plurals: sound, broken, dual | `-een/-aat`, memorised broken plurals (byoot, bwaab, shababeek), dual `-ein` | Doc (word by word) | untested | 11 |
 | A10 | Demonstratives + agreement | hada (m) / hadi (f) / hadol (pl), hadaak / hadeek; must match the noun's gender | Doc (partly) | rank 4 | 5 |
+| A10b | Demonstrative + el- | the noun after hada / hadi / hadol **keeps** `el-`: Hada el-ktab la-Mehdi, Hadi el-moazeh. Drop the `el-` and it becomes a sentence instead of a phrase (hadi kilme = this **is a** word). Superlatives are the one exception, they never take `el-` (Hadi a2al akleh) | Doc | untested | 5 |
 | A11 | Kul: all vs every | `kul + el-` = all of it; `kul` with no `el-` = every | Doc | untested | 4 |
 
 ## Family B — The verb system
@@ -94,7 +95,7 @@ Kept here because these slips look like grammar in the transcript but are not. R
 
 ## Counts
 
-- 11 noun-phrase + 15 verb + 9 sentence-glue + 4 partner-words + 4 numbers/time = **43 grammar buckets**, plus 3 pronunciation buckets.
+- 12 noun-phrase + 15 verb + 9 sentence-glue + 4 partner-words + 4 numbers/time = **44 grammar buckets**, plus 3 pronunciation buckets.
 - Amal's own material already covers **34** of the 43; **7** are gaps in both her Docs (B7, B11, B14, B15, C4, C9, E1 partly).
 - Medi has a recorded slip on 13 of them. Top five by frequency: B2/B3/B4 (b-drop), B8/B9 (ykoon), A1/A2/A7/C3 (definiteness), A8/A10 (gender), C2 (pointer).
 
