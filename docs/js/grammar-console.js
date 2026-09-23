@@ -376,13 +376,12 @@ function detail(r) {
 
       card.appendChild(el('div', 'gc-pairline',
         c.pair_wrong + '  →  ' + c.pair_fixed));
-      if (typeof c.t === 'number') {
-        // the whole lesson recording, played from just before he spoke to just after her fix
+      if (c.clip) {
+        // a short clip cut from just before he spoke to a few seconds after her fix
         var au = document.createElement('audio');
         au.controls = true;
         au.preload = 'none';
-        var t0 = Math.max(0, c.t - 1), t1 = (typeof c.recast_t === 'number' ? c.recast_t : c.t) + 5;
-        au.src = 'lessons/' + c.date + '/audio/lesson.mp3#t=' + t0.toFixed(1) + ',' + t1.toFixed(1);
+        au.src = 'lessons/' + c.clip;
         card.appendChild(au);
       }
       d.appendChild(card);

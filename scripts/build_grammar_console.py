@@ -31,6 +31,38 @@ for e in audit.get("events", []):
 for v in cands.values():
     v.sort(key=lambda e: ({"high": 0, "medium": 1, "low": 2}[e["confidence"]], e["date"]), reverse=False)
 
+# Each candidate gets its own short clip, cut like the word bank's: from just
+# before he spoke to a few seconds after her fix. Streaming the hour-long
+# lesson.mp3 with a #t= jump left the player at 0:00 on phones.
+import hashlib, shutil, subprocess
+PRE, POST, GAP = 1.0, 4.0, 20.0
+
+
+def cut_clip(c):
+    src = os.path.join(DOCS, "lessons", c["date"], "audio", "lesson.mp3")
+    if not isinstance(c.get("t"), (int, float)) or not os.path.exists(src) or not shutil.which("ffmpeg"):
+        return None
+    ts = sorted([c["t"]] + ([c["recast_t"]] if isinstance(c.get("recast_t"), (int, float)) else []))
+    # his line and her fix; if they sit far apart (a typed chat fix), join two short pieces
+    parts = [(max(0.0, ts[0] - PRE), ts[-1] + POST)] if ts[-1] - ts[0] <= GAP         else [(max(0.0, t - PRE), t + 8.0) for t in ts]
+    key_ = "|".join(f"{a:.1f}-{b:.1f}" for a, b in parts)
+    name = "gc-" + hashlib.sha1(f"{c['date']}|{key_}".encode()).hexdigest()[:16] + ".mp3"
+    out = os.path.join(DOCS, "lessons", c["date"], "clips", name)
+    if not os.path.exists(out) or not os.path.getsize(out):
+        os.makedirs(os.path.dirname(out), exist_ok=True)
+        tmp = out + ".part.mp3"
+        chain = "".join(f"[0:a]atrim={a:.2f}:{b:.2f},asetpts=PTS-STARTPTS[p{i}];" for i, (a, b) in enumerate(parts))
+        chain += "".join(f"[p{i}]" for i in range(len(parts))) + f"concat=n={len(parts)}:v=0:a=1[o]"
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", src, "-filter_complex", chain, "-map", "[o]",
+                        "-ac", "1", "-b:a", "48k", tmp], check=True)
+        os.replace(tmp, out)
+    return f"{c['date']}/clips/{name}"
+
+
+for v in cands.values():
+    for c in v:
+        c["clip"] = cut_clip(c)
+
 # ---- Medi sentence counts per lesson, straight from the transcripts ----
 def medi_sentences(date):
     p = os.path.join(LESSONS, date, "transcript.txt")

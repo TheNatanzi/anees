@@ -471,7 +471,8 @@ def classify(m, a, said, recast, change):
             ws = tokens(recast)
             nxt = next((ws[i + 1] for i, w in enumerate(ws[:-1]) if w == a), None)
             if nxt and has_al(nxt):
-                return ("A2", "idafa: the el- goes on the owner")
+                # he put el- on the first word (النفس المشكلة); she moved it to the owner
+                return ("A2", "idafa: the first noun takes no el-")
             return ("A1", "el- added or dropped")
         if DEMO.search(ctx) and not has_al(m):
             return ("A10b", "the noun after hada keeps its el-")
