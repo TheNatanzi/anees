@@ -306,7 +306,7 @@ def _related(m, a, ayn):
         return None
     if bare(m) == bare(a) and has_al(m) != has_al(a):
         return "al" if bare(m) not in FUNCTION and len(bare(m)) >= 2 else None
-    if sa.startswith("m") and not sm.startswith("m") and len(sa) >= 3 and stems(sm) & stems(sa[1:] if len(sa) > 3 else sa) \
+    if sa.startswith("m") and not sm.startswith("m") and len(sa) > 3 and stems(sm) & stems(sa[1:]) \
             and len(stems(sm) & stems(sa)) and max(len(x) for x in stems(sm) & stems(sa)) >= 3:
         return "participle"
     if re.match(r"^(بال|bil-?|bel-?|bi-?el-?|bi-?il-?)", m.lower()) and not has_al(a):
@@ -628,6 +628,8 @@ def is_ask(M):
     if M.get("ask_tail"):
         return True
     t = M["text"]
+    if len(tokens(t)) == 1 and re.search(r"[?؟]\s*$", t):
+        return True
     eng = sum(1 for w in tokens(t) if is_english(w))
     if re.search(r"^\W*(hold on\.?\s*|so\s+|okay\.?\s*|oh,?\s*)?(is|does|do|can|should|would|are|was|did|isn't|doesn't)\b[^.]*[?؟]", t, re.I):
         return True
@@ -650,9 +652,20 @@ def _drop(M, m, a, ch, A, why):
 
 def keep_pair(M, m, a, ch, A, question, window):
     """Last checks on one candidate. False = not a correction."""
+    # "I should not repeat. Sorry." - she echoed a right answer (he asked her not to)
+    if re.search(r"should(n't| not) repeat|don't repeat|sorry", A["text"], re.I):
+        return _drop(M, m, a, ch, A, "she-echoed-a-right-answer")
+    # she says his form and hers side by side, no "not": she is laying out forms
+    if ch not in ("double", "insert", "number", "numword") and not A.get("chat") \
+            and any(same_form(m, w) for w in A["ar"]) and not CONTRAST.search(A["text"]):
+        return _drop(M, m, a, ch, A, "both-forms-listed")
+    # her question built on his words ("متوتر من الشغل؟") asks, it does not fix -
+    # only a lost grammar word or a number in a question counts
+    if question and not A.get("chat") and ch in ("prep", "al", "ending", "suffix", "shape", "b") and not CONTRAST.search(A["text"]):
+        return _drop(M, m, a, ch, A, "her-question")
     # he is only repeating a word she just said (a one-word turn): she is
     # teaching him the word, not fixing a sentence of his
-    if ch != "insert" and len(M["ar"]) <= 1 and any(
+    if ch != "insert" and len({bare(w) for w in M["ar"]}) <= 1 and any(
             B["speaker"] == "Amal" and not B.get("chat") and M["start"] - 30 <= B["start"] < M["start"]
             and any(same_form(m, w) and sim(key(m), key(w)) >= 0.75 for w in B["ar"]) for B in A.get("_T", [])):
         return _drop(M, m, a, ch, A, "echoing-her")
@@ -968,6 +981,9 @@ if __name__ == "__main__" or True:
             if not window:
                 continue
             if not A.get("chat"):
+                last_any = [M for M in medi if M["start"] < A["start"]]
+                if last_any and is_ask(last_any[-1]) and A["start"] - last_any[-1]["end"] <= 10:
+                    continue  # she is answering his question
                 last = window[-1]
                 A["prev_amal_ar"] = any(B["speaker"] == "Amal" and B["ar"] and not B.get("chat")
                                         and last["end"] <= B["start"] < A["start"] for B in T)
