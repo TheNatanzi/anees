@@ -82,6 +82,14 @@ A("A9", "A", "plurals",
    "Irregular: you memorise them - bait->byoot, bab->bwaab, shubbak->shababeek.",
    "Exactly two: add -ein - yom->yomein, saa3a->saa3tain."])
 
+A("A10b", "A", "demonstrative keeps el-",
+  "The noun after hada / hadi / hadol keeps its `el-`.",
+  [["hada el-ktab", "this book"], ["hadi kilme", "this IS a word"]],
+  "Keep the el- and it is a phrase. Drop it and you just made a sentence.",
+  ["hada el-ktab la-Mehdi = this book is Mehdi's.",
+   "hadi el-moazeh = this banana. hadi moazeh = this is a banana.",
+   "Superlatives are the exception - they never take el-: hadi a2al akleh."])
+
 A("A10", "A", "hada / hadi",
   "This-and-that words must match the gender.",
   [["hada fe3el", "this is a verb (m)"], ["hadi kilme", "this is a word (f)"]],
@@ -89,6 +97,15 @@ A("A10", "A", "hada / hadi",
   ["Near: hada (m), hadi (f), hadol (plural).",
    "Far: hadaak (m), hadeek (f).",
    "Common slip: using hada for a feminine noun."], rule="R4")
+
+A("A9b", "A", "broken plurals are patterns",
+  "The irregular plurals repeat the same few shapes - learn the mould, not 200 words.",
+  [["bait -> byoot", "house"], ["baab -> bwaab", "door"], ["shubbaak -> shababeek", "window"]],
+  "Her Doc lists each plural as its own word, so the repeating shapes are easy to miss.",
+  ["byoot / swaa2 / 3yoon all share one mould.",
+   "bwaab / twaab share another.",
+   "shababeek / masaajed / makaateb share a third.",
+   "Not in her Docs as a lesson - this is a gap."])
 
 A("A11", "A", "kul: all vs every",
   "`kul` + `el-` = all of it. `kul` alone = every.",
@@ -128,6 +145,15 @@ A("B4", "B", "the drop carries down a chain",
   "The second and third verbs stay bare as long as the person doing them hasn't changed.",
   ["laazem aru7 u ashuf u arja3 - all three bare.",
    "A new subject ends the chain: laazem aru7 u huwwe biji - biji gets its b- back."])
+
+A("B4b", "B", "when the b- comes back",
+  "The b- returns the moment you leave the want/must clause.",
+  [["ana bazonn enno ma beyhebna", "I think that he doesn't like us"]],
+  "B2 and B3 take the b- away. This is the rule that puts it back.",
+  ["enno starts a real new sentence, so the b- returns.",
+   "A full stop restarts it too.",
+   "Any clause stating a real fact rather than a wish keeps it: 3endo tilfizion ma byista5demo.",
+   "Inside the gatekeeper's reach even a pointer verb stays bare."])
 
 A("B5", "B", "past tense",
   "Endings on the back of the verb say who did it.",
@@ -260,6 +286,14 @@ A("C4", "C", "saying no",
    "Adjective or noun -> mish: mish zaaki not tasty.",
    "Never: abadan ma baru7 I never go."])
 
+A("C4b", "C", "words that drag a ma along",
+  "`abadan` is not enough on its own - the verb still needs `ma`.",
+  [["ana abadan ma baru7", "I never go"]],
+  "Two different -ma's that pull opposite ways on the b-.",
+  ["abadan ma baru7 - keeps the b-, because abadan is real negation.",
+   "abel-ma yiju (before they come) - that -ma is part of the conjunction, not negation.",
+   "ba3ed-ma teshra7i (after you explain) - same, and the b- drops."])
+
 A("C5", "C", "u / aw / wala",
   "and, either-or, nor/nothing.",
   [["ahwe u shay", "coffee and tea"], ["wala shi", "nothing"]],
@@ -321,6 +355,14 @@ A("D2", "D", "verb + its fixed preposition",
    "mishtaa2 la missing TO, 2al2aan 3ala worried ON, mu5talef 3an different FROM.",
    "Zero hits in your lessons - nobody has drilled this set."], rule="R7")
 
+A("D5", "D", "preposition keeps el-",
+  "Where English drops 'the', Levantine keeps it.",
+  [["min el-bait", "from home"], ["bi-lseyyara", "by car"]],
+  "English says 'from home' and 'by car' with no 'the'. Arabic puts it back.",
+  ["bi / la / fi fuse with it: bi-l..., la-l..., fi-l...",
+   "min / 3ala / ma3 keep it separate: min el-bait, 3ala el-6aawle.",
+   "No el- on a name (la-Mehdi, fi America), on something already owned (ma3i, ma3 sadiqi), or when it really is indefinite (ma3 3aseer)."])
+
 A("D3", "D", "endings on prepositions",
   "Stick the person on the end of the preposition.",
   [["ma3i", "with me"], ["minnak", "from you"]],
@@ -336,6 +378,14 @@ A("D4", "D", "endings on verbs",
   ["shufo see him, shufha see her, shufhom see them.",
    "bi7kili he tells me, bi7kilak he tells you.",
    "Feeds the C2 pointer rule."])
+
+A("D6", "D", "iyyaa - the second object",
+  "A verb carries only one pronoun; a second one rides on `iyyaa`.",
+  [["ba36ii-k iyyaa", "I give it to you"], ["jeeb-li iyyaa", "bring it to me"]],
+  "You cannot stack two object endings on one verb, so the second gets its own word.",
+  ["ba36ii-k = I give you. ba36ii-k iyyaa = I give it to you.",
+   "jeeb-li = bring me. jeeb-li iyyaa = bring it to me.",
+   "Absent from both her Docs - confirmed against the live Doc 2026-09-22."])
 
 # ---------------- Family E - numbers and time ----------------
 A("E1", "E", "number + noun",

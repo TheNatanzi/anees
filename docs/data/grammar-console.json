@@ -2,7 +2,7 @@
  "updated": "2026-09-22",
  "source": "docs/data/tally.json (hand-curated, rule M1) + transcripts in C:/dev/anees/data/lessons",
  "coverage": {
-  "buckets_total": 49,
+  "buckets_total": 55,
   "buckets_scored": 11,
   "lessons_scored": 3,
   "lessons_recorded": 11,
@@ -46,6 +46,17 @@
    "self_correction_rate": 100
   }
  ],
+ "audit": {
+  "events": 74,
+  "buckets_hit": 12,
+  "lessons": 10,
+  "method": "Amal repeats Medi's sentence within 25s sharing at least 40% of his Arabic words; the changed words are the correction. Classified by rule, never guessed.",
+  "by_confidence": {
+   "high": 4,
+   "medium": 57,
+   "low": 13
+  }
+ },
  "rules": [
   {
    "id": "A1",
@@ -76,6 +87,159 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [
+    {
+     "bucket": "A1",
+     "date": "2026-08-25",
+     "t": 552.0,
+     "mmss": "09:12",
+     "said": "درجة حرارة.",
+     "recast": "درجة الحرارة.",
+     "said_html": "درجة <mark class=\"ab-wrong\">حرارة</mark>",
+     "recast_html": "درجة <mark class=\"ab-correct\">الحرارة</mark>",
+     "wrong": [
+      "حرارة"
+     ],
+     "fixed": [
+      "الحرارة"
+     ],
+     "pair_wrong": "حرارة",
+     "pair_fixed": "الحرارة",
+     "pair_similarity": 0.83,
+     "why": "el- added or dropped",
+     "match": "echo",
+     "overlap": 0.5,
+     "source": "transcript.txt",
+     "confidence": "high",
+     "verified": false
+    },
+    {
+     "bucket": "A1",
+     "date": "2026-08-25",
+     "t": 931.0,
+     "mmss": "15:31",
+     "said": "الـ تاني مشكلة. No.",
+     "recast": "شو، شو التاني؟",
+     "said_html": "<mark class=\"ab-wrong\">الـ تاني مشكلة</mark>",
+     "recast_html": "<mark class=\"ab-correct\">شو، شو التاني؟</mark>",
+     "wrong": [
+      "الـ تاني مشكلة"
+     ],
+     "fixed": [
+      "شو، شو التاني؟"
+     ],
+     "pair_wrong": "تاني",
+     "pair_fixed": "التاني؟",
+     "pair_similarity": 0.8,
+     "why": "el- added or dropped",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "A1",
+     "date": "2026-09-04",
+     "t": 39.0,
+     "mmss": "00:39",
+     "said": "للـ اليوم nerd أن الـ الـ اللغة الـ software لقة.",
+     "recast": "لُغَة.",
+     "said_html": "<mark class=\"ab-wrong\">للـ اليوم أن الـ الـ اللغة الـ لقة</mark>",
+     "recast_html": "<mark class=\"ab-correct\">لُغَة</mark>",
+     "wrong": [
+      "للـ اليوم أن الـ الـ اللغة الـ لقة"
+     ],
+     "fixed": [
+      "لُغَة"
+     ],
+     "pair_wrong": "اللغة",
+     "pair_fixed": "لُغَة",
+     "pair_similarity": 0.75,
+     "why": "el- added or dropped",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "A1",
+     "date": "2026-09-11",
+     "t": 329.0,
+     "mmss": "05:29",
+     "said": "Okay. الـ، الشمال الـ، روس شمال؟ Did you say?",
+     "recast": "بس شمال روسيا.",
+     "said_html": "<mark class=\"ab-wrong\">الـ، الشمال الـ، روس شمال؟</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بس شمال روسيا</mark>",
+     "wrong": [
+      "الـ، الشمال الـ، روس شمال؟"
+     ],
+     "fixed": [
+      "بس شمال روسيا"
+     ],
+     "pair_wrong": "الشمال",
+     "pair_fixed": "شمال",
+     "pair_similarity": 0.8,
+     "why": "el- added or dropped",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "A1",
+     "date": "2026-09-11",
+     "t": 573.0,
+     "mmss": "09:33",
+     "said": "نجوم، نجوم.",
+     "recast": "إنت بتحب النجوم؟",
+     "said_html": "<mark class=\"ab-wrong\">نجوم، نجوم</mark>",
+     "recast_html": "<mark class=\"ab-correct\">إنت بتحب النجوم؟</mark>",
+     "wrong": [
+      "نجوم، نجوم"
+     ],
+     "fixed": [
+      "إنت بتحب النجوم؟"
+     ],
+     "pair_wrong": "نجوم،",
+     "pair_fixed": "النجوم؟",
+     "pair_similarity": 0.8,
+     "why": "el- added or dropped",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "A1",
+     "date": "2026-09-14",
+     "t": 1573.0,
+     "mmss": "26:13",
+     "said": "الـ مفضل لي-- أو just مفضل لي. Right? No El.",
+     "recast": "المفضل عندي.",
+     "said_html": "<mark class=\"ab-wrong\">الـ مفضل لي أو مفضل لي</mark>",
+     "recast_html": "<mark class=\"ab-correct\">المفضل عندي</mark>",
+     "wrong": [
+      "الـ مفضل لي أو مفضل لي"
+     ],
+     "fixed": [
+      "المفضل عندي"
+     ],
+     "pair_wrong": "مفضل",
+     "pair_fixed": "المفضل",
+     "pair_similarity": 0.8,
+     "why": "el- added or dropped",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    }
+   ],
+   "candidate_count": 6,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -107,6 +271,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -138,6 +304,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -172,6 +340,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -198,6 +368,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -228,6 +400,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -259,6 +433,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -289,6 +465,210 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [
+    {
+     "bucket": "A8",
+     "date": "2026-08-25",
+     "t": 1311.0,
+     "mmss": "21:51",
+     "said": "الجملة كاملة؟",
+     "recast": "كاملة، كامل، كاملة.",
+     "said_html": "<mark class=\"ab-wrong\">الجملة كاملة؟</mark>",
+     "recast_html": "<mark class=\"ab-correct\">كاملة، كامل، كاملة</mark>",
+     "wrong": [
+      "الجملة كاملة؟"
+     ],
+     "fixed": [
+      "كاملة، كامل، كاملة"
+     ],
+     "pair_wrong": "كاملة؟",
+     "pair_fixed": "كامل،",
+     "pair_similarity": 0.89,
+     "why": "feminine agreement",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "A8",
+     "date": "2026-08-25",
+     "t": 1317.0,
+     "mmss": "21:57",
+     "said": "كام... كاملة؟",
+     "recast": "كاملة، كامل، كاملة.",
+     "said_html": "<mark class=\"ab-wrong\">كام كاملة؟</mark>",
+     "recast_html": "<mark class=\"ab-correct\">كاملة، كامل، كاملة</mark>",
+     "wrong": [
+      "كام كاملة؟"
+     ],
+     "fixed": [
+      "كاملة، كامل، كاملة"
+     ],
+     "pair_wrong": "كاملة؟",
+     "pair_fixed": "كامل،",
+     "pair_similarity": 0.89,
+     "why": "feminine agreement",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "A8",
+     "date": "2026-08-25",
+     "t": 1725.0,
+     "mmss": "28:45",
+     "said": "So ما, ما بتضل معصب؟",
+     "recast": "معصبة",
+     "said_html": "<mark class=\"ab-wrong\">ما ما بتضل معصب؟</mark>",
+     "recast_html": "<mark class=\"ab-correct\">معصبة</mark>",
+     "wrong": [
+      "ما ما بتضل معصب؟"
+     ],
+     "fixed": [
+      "معصبة"
+     ],
+     "pair_wrong": "معصب؟",
+     "pair_fixed": "معصبة",
+     "pair_similarity": 0.89,
+     "why": "feminine agreement",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "A8",
+     "date": "2026-09-04",
+     "t": 423.0,
+     "mmss": "07:03",
+     "said": "مشكلة، مشكل-- yeah. عندي",
+     "recast": "عندي مشكلة فيها",
+     "said_html": "<mark class=\"ab-wrong\">مشكلة، مشكل</mark> عندي",
+     "recast_html": "عندي <mark class=\"ab-correct\">مشكلة فيها</mark>",
+     "wrong": [
+      "مشكلة، مشكل"
+     ],
+     "fixed": [
+      "مشكلة فيها"
+     ],
+     "pair_wrong": "مشكل",
+     "pair_fixed": "مشكلة",
+     "pair_similarity": 0.89,
+     "why": "feminine agreement",
+     "match": "spot",
+     "overlap": 0.33,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "A8",
+     "date": "2026-09-15",
+     "t": 1634.0,
+     "mmss": "27:14",
+     "said": "عطلوا ما بعد واحدة.",
+     "recast": "واحد of How the children many...",
+     "said_html": "<mark class=\"ab-wrong\">عطلوا ما بعد واحدة</mark>",
+     "recast_html": "<mark class=\"ab-correct\">واحد</mark>",
+     "wrong": [
+      "عطلوا ما بعد واحدة"
+     ],
+     "fixed": [
+      "واحد"
+     ],
+     "pair_wrong": "واحدة",
+     "pair_fixed": "واحد",
+     "pair_similarity": 0.89,
+     "why": "feminine agreement",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "A8",
+     "date": "2026-09-19",
+     "t": 588.0,
+     "mmss": "09:48",
+     "said": "Yeah. اليوم بلبس، بلوز، أبيض. أبيض؟ بيض؟ أبيض. أبيض.",
+     "recast": "بيضة.",
+     "said_html": "<mark class=\"ab-wrong\">اليوم بلبس، بلوز، أبيض أبيض؟ بيض؟ أبيض أبيض</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بيضة</mark>",
+     "wrong": [
+      "اليوم بلبس، بلوز، أبيض أبيض؟ بيض؟ أبيض أبيض"
+     ],
+     "fixed": [
+      "بيضة"
+     ],
+     "pair_wrong": "بيض؟",
+     "pair_fixed": "بيضة",
+     "pair_similarity": 0.86,
+     "why": "feminine agreement",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "A8",
+     "date": "2026-09-21",
+     "t": 156.5,
+     "mmss": "02:36",
+     "said": "آآآ، متأكد إنه أنا",
+     "recast": "آه، أنا متأكدة.",
+     "said_html": "<mark class=\"ab-wrong\">آآآ، متأكد إنه</mark> أنا",
+     "recast_html": "<mark class=\"ab-correct\">آه،</mark> أنا <mark class=\"ab-correct\">متأكدة</mark>",
+     "wrong": [
+      "آآآ، متأكد إنه"
+     ],
+     "fixed": [
+      "آه،",
+      "متأكدة"
+     ],
+     "pair_wrong": "متأكد",
+     "pair_fixed": "متأكدة",
+     "pair_similarity": 0.91,
+     "why": "feminine agreement",
+     "match": "spot",
+     "overlap": 0.25,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "A8",
+     "date": "2026-09-21",
+     "t": 203.1,
+     "mmss": "03:23",
+     "said": "Would you say أنا كامل نسيت-- نسيتو؟ أنا-- can you say كامل نسيتو؟ I completely forgot. Okay.",
+     "recast": "مم؟ نسيته؟",
+     "said_html": "<mark class=\"ab-wrong\">أنا كامل نسيت نسيتو؟ أنا كامل نسيتو؟</mark>",
+     "recast_html": "<mark class=\"ab-correct\">مم؟ نسيته؟</mark>",
+     "wrong": [
+      "أنا كامل نسيت نسيتو؟ أنا كامل نسيتو؟"
+     ],
+     "fixed": [
+      "مم؟ نسيته؟"
+     ],
+     "pair_wrong": "نسيت",
+     "pair_fixed": "نسيته؟",
+     "pair_similarity": 0.89,
+     "why": "feminine agreement",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    }
+   ],
+   "candidate_count": 8,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -320,6 +700,41 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
+   "uses": 0,
+   "mistakes": 0,
+   "asks": 0,
+   "pct": null,
+   "status": "Untested",
+   "events": []
+  },
+  {
+   "id": "A10b",
+   "family": "A",
+   "name": "demonstrative keeps el-",
+   "one_line": "The noun after hada / hadi / hadol keeps its `el-`.",
+   "examples": [
+    [
+     "hada el-ktab",
+     "this book"
+    ],
+    [
+     "hadi kilme",
+     "this IS a word"
+    ]
+   ],
+   "why": "Keep the el- and it is a phrase. Drop it and you just made a sentence.",
+   "more": [
+    "hada el-ktab la-Mehdi = this book is Mehdi's.",
+    "hadi el-moazeh = this banana. hadi moazeh = this is a banana.",
+    "Superlatives are the exception - they never take el-: hadi a2al akleh."
+   ],
+   "tally_rule": null,
+   "tally_title": null,
+   "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -351,6 +766,60 @@
    "tally_rule": "R4",
    "tally_title": "hada (m) / hadi (f) must match the noun",
    "kind": "gender",
+   "candidates": [
+    {
+     "bucket": "A10",
+     "date": "2026-09-21",
+     "t": 1708.2,
+     "mmss": "28:28",
+     "said": "هاد-- uh, هادي الـ",
+     "recast": "You were right هذي الأكلة. هذي is for feminine.",
+     "said_html": "<mark class=\"ab-wrong\">هاد هادي الـ</mark>",
+     "recast_html": "<mark class=\"ab-correct\">هذي الأكلة هذي</mark>",
+     "wrong": [
+      "هاد هادي الـ"
+     ],
+     "fixed": [
+      "هذي الأكلة هذي"
+     ],
+     "pair_wrong": "هادي",
+     "pair_fixed": "هذي",
+     "pair_similarity": 0.57,
+     "why": "hada / hadi must match the noun",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "A10",
+     "date": "2026-09-21",
+     "t": 1712.0,
+     "mmss": "28:32",
+     "said": "أكل-- أكل-- is it أكلة؟ This meal? Okay. Or it's feminine. هذا الأكلة.",
+     "recast": "You were right هذي الأكلة. هذي is for feminine.",
+     "said_html": "<mark class=\"ab-wrong\">أكل أكل أكلة؟ هذا</mark> الأكلة",
+     "recast_html": "<mark class=\"ab-correct\">هذي</mark> الأكلة <mark class=\"ab-correct\">هذي</mark>",
+     "wrong": [
+      "أكل أكل أكلة؟ هذا"
+     ],
+     "fixed": [
+      "هذي",
+      "هذي"
+     ],
+     "pair_wrong": "هذا",
+     "pair_fixed": "هذي",
+     "pair_similarity": 0.67,
+     "why": "hada / hadi must match the noun",
+     "match": "spot",
+     "overlap": 0.2,
+     "source": "scribe per-speaker tracks",
+     "confidence": "low",
+     "verified": false
+    }
+   ],
+   "candidate_count": 2,
    "uses": 1,
    "mistakes": 1,
    "asks": 0,
@@ -371,6 +840,44 @@
      "verified": true
     }
    ]
+  },
+  {
+   "id": "A9b",
+   "family": "A",
+   "name": "broken plurals are patterns",
+   "one_line": "The irregular plurals repeat the same few shapes - learn the mould, not 200 words.",
+   "examples": [
+    [
+     "bait -> byoot",
+     "house"
+    ],
+    [
+     "baab -> bwaab",
+     "door"
+    ],
+    [
+     "shubbaak -> shababeek",
+     "window"
+    ]
+   ],
+   "why": "Her Doc lists each plural as its own word, so the repeating shapes are easy to miss.",
+   "more": [
+    "byoot / swaa2 / 3yoon all share one mould.",
+    "bwaab / twaab share another.",
+    "shababeek / masaajed / makaateb share a third.",
+    "Not in her Docs as a lesson - this is a gap."
+   ],
+   "tally_rule": null,
+   "tally_title": null,
+   "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
+   "uses": 0,
+   "mistakes": 0,
+   "asks": 0,
+   "pct": null,
+   "status": "Untested",
+   "events": []
   },
   {
    "id": "A11",
@@ -396,6 +903,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -422,6 +931,686 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [
+    {
+     "bucket": "B1",
+     "date": "2026-08-25",
+     "t": 291.0,
+     "mmss": "04:51",
+     "said": "بدأنا a marketing project who who لازم اشتغلت كتير",
+     "recast": "كان لازم أشتغل كتير.",
+     "said_html": "<mark class=\"ab-wrong\">بدأنا</mark> لازم <mark class=\"ab-wrong\">اشتغلت</mark> كتير",
+     "recast_html": "<mark class=\"ab-correct\">كان</mark> لازم <mark class=\"ab-correct\">أشتغل</mark> كتير",
+     "wrong": [
+      "بدأنا",
+      "اشتغلت"
+     ],
+     "fixed": [
+      "كان",
+      "أشتغل"
+     ],
+     "pair_wrong": "اشتغلت",
+     "pair_fixed": "أشتغل",
+     "pair_similarity": 0.91,
+     "why": "wrong person ending on the verb",
+     "match": "echo",
+     "overlap": 0.5,
+     "source": "transcript.txt",
+     "confidence": "high",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-08-25",
+     "t": 733.0,
+     "mmss": "12:13",
+     "said": "آآآم. ما زبت. زبت is... oh my God, what was زبت؟",
+     "recast": "بزبت، بزبت.",
+     "said_html": "<mark class=\"ab-wrong\">آآآم ما زبت زبت زبت؟</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بزبت، بزبت</mark>",
+     "wrong": [
+      "آآآم ما زبت زبت زبت؟"
+     ],
+     "fixed": [
+      "بزبت، بزبت"
+     ],
+     "pair_wrong": "زبت",
+     "pair_fixed": "بزبت،",
+     "pair_similarity": 0.86,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-08-25",
+     "t": 1080.0,
+     "mmss": "18:00",
+     "said": "تعب، تعب. Oh, make-",
+     "recast": "أكتر إشي بتعبك.",
+     "said_html": "<mark class=\"ab-wrong\">تعب، تعب</mark>",
+     "recast_html": "<mark class=\"ab-correct\">أكتر إشي بتعبك</mark>",
+     "wrong": [
+      "تعب، تعب"
+     ],
+     "fixed": [
+      "أكتر إشي بتعبك"
+     ],
+     "pair_wrong": "تعب،",
+     "pair_fixed": "بتعبك",
+     "pair_similarity": 0.75,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-08-25",
+     "t": 1250.0,
+     "mmss": "20:50",
+     "said": "أطلب منهم.",
+     "recast": "شو بتطلب منهم؟",
+     "said_html": "<mark class=\"ab-wrong\">أطلب منهم</mark>",
+     "recast_html": "<mark class=\"ab-correct\">شو بتطلب منهم؟</mark>",
+     "wrong": [
+      "أطلب منهم"
+     ],
+     "fixed": [
+      "شو بتطلب منهم؟"
+     ],
+     "pair_wrong": "أطلب",
+     "pair_fixed": "بتطلب",
+     "pair_similarity": 0.67,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-08-25",
+     "t": 1390.0,
+     "mmss": "23:10",
+     "said": "أطلب منهم كتير إنو، يخلص، يخلصهم؟",
+     "recast": "يخلصوه.",
+     "said_html": "<mark class=\"ab-wrong\">أطلب منهم كتير إنو، يخلص، يخلصهم؟</mark>",
+     "recast_html": "<mark class=\"ab-correct\">يخلصوه</mark>",
+     "wrong": [
+      "أطلب منهم كتير إنو، يخلص، يخلصهم؟"
+     ],
+     "fixed": [
+      "يخلصوه"
+     ],
+     "pair_wrong": "يخلصهم؟",
+     "pair_fixed": "يخلصوه",
+     "pair_similarity": 0.83,
+     "why": "wrong person ending on the verb",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-08-25",
+     "t": 1445.0,
+     "mmss": "24:05",
+     "said": "خطيب، خطيبتي.",
+     "recast": "إذا زعلت خطيبتك، How do you say by accident or accidentally or by mistake?",
+     "said_html": "<mark class=\"ab-wrong\">خطيب، خطيبتي</mark>",
+     "recast_html": "<mark class=\"ab-correct\">إذا زعلت خطيبتك،</mark>",
+     "wrong": [
+      "خطيب، خطيبتي"
+     ],
+     "fixed": [
+      "إذا زعلت خطيبتك،"
+     ],
+     "pair_wrong": "خطيبتي",
+     "pair_fixed": "خطيبتك،",
+     "pair_similarity": 0.83,
+     "why": "wrong person ending on the verb",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-08-25",
+     "t": 3050.0,
+     "mmss": "50:50",
+     "said": "آآآه، هي، آآآه. She doesn't get-- هي ما، ما تعصب",
+     "recast": "بتعصب",
+     "said_html": "<mark class=\"ab-wrong\">آآآه، هي، آآآه هي ما، ما تعصب</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بتعصب</mark>",
+     "wrong": [
+      "آآآه، هي، آآآه هي ما، ما تعصب"
+     ],
+     "fixed": [
+      "بتعصب"
+     ],
+     "pair_wrong": "تعصب",
+     "pair_fixed": "بتعصب",
+     "pair_similarity": 0.89,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-08-25",
+     "t": 3078.0,
+     "mmss": "51:18",
+     "said": "بسرعة كمان",
+     "recast": "سرعة،",
+     "said_html": "<mark class=\"ab-wrong\">بسرعة كمان</mark>",
+     "recast_html": "<mark class=\"ab-correct\">سرعة،</mark>",
+     "wrong": [
+      "بسرعة كمان"
+     ],
+     "fixed": [
+      "سرعة،"
+     ],
+     "pair_wrong": "بسرعة",
+     "pair_fixed": "سرعة،",
+     "pair_similarity": 0.89,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-08-25",
+     "t": 3498.0,
+     "mmss": "58:18",
+     "said": "أغو، أغير الجو.",
+     "recast": "بغير جو.",
+     "said_html": "<mark class=\"ab-wrong\">أغو، أغير الجو</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بغير جو</mark>",
+     "wrong": [
+      "أغو، أغير الجو"
+     ],
+     "fixed": [
+      "بغير جو"
+     ],
+     "pair_wrong": "أغير",
+     "pair_fixed": "بغير",
+     "pair_similarity": 0.75,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-04",
+     "t": 2665.0,
+     "mmss": "44:25",
+     "said": "So ابست، ابستي، ابسطو.",
+     "recast": "ابستين. make them happy.",
+     "said_html": "<mark class=\"ab-wrong\">ابست، ابستي، ابسطو</mark>",
+     "recast_html": "<mark class=\"ab-correct\">ابستين</mark>",
+     "wrong": [
+      "ابست، ابستي، ابسطو"
+     ],
+     "fixed": [
+      "ابستين"
+     ],
+     "pair_wrong": "ابستي،",
+     "pair_fixed": "ابستين",
+     "pair_similarity": 0.91,
+     "why": "wrong person ending on the verb",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-04",
+     "t": 3768.0,
+     "mmss": "62:48",
+     "said": "بنن– بنبسط.",
+     "recast": "انبستي، okay. انبسط خلصنا.",
+     "said_html": "<mark class=\"ab-wrong\">بنن بنبسط</mark>",
+     "recast_html": "<mark class=\"ab-correct\">انبستي، انبسط خلصنا</mark>",
+     "wrong": [
+      "بنن بنبسط"
+     ],
+     "fixed": [
+      "انبستي، انبسط خلصنا"
+     ],
+     "pair_wrong": "بنبسط",
+     "pair_fixed": "انبسط",
+     "pair_similarity": 0.8,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-05",
+     "t": 2329.0,
+     "mmss": "38:49",
+     "said": "هو بيزعج، بيزعجوني.",
+     "recast": "بيزعجني.",
+     "said_html": "<mark class=\"ab-wrong\">هو بيزعج، بيزعجوني</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بيزعجني</mark>",
+     "wrong": [
+      "هو بيزعج، بيزعجوني"
+     ],
+     "fixed": [
+      "بيزعجني"
+     ],
+     "pair_wrong": "بيزعجوني",
+     "pair_fixed": "بيزعجني",
+     "pair_similarity": 0.93,
+     "why": "wrong person ending on the verb",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-11",
+     "t": 361.0,
+     "mmss": "06:01",
+     "said": "Okay. الشمال روس بيكون برد كتير ويكون بيمطر أو بتثلج.",
+     "recast": "مطر،",
+     "said_html": "<mark class=\"ab-wrong\">الشمال روس بيكون برد كتير ويكون بيمطر أو بتثلج</mark>",
+     "recast_html": "<mark class=\"ab-correct\">مطر،</mark>",
+     "wrong": [
+      "الشمال روس بيكون برد كتير ويكون بيمطر أو بتثلج"
+     ],
+     "fixed": [
+      "مطر،"
+     ],
+     "pair_wrong": "بيمطر",
+     "pair_fixed": "مطر،",
+     "pair_similarity": 0.75,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-11",
+     "t": 986.0,
+     "mmss": "16:26",
+     "said": "أنا خربت.",
+     "recast": "خربتي.",
+     "said_html": "<mark class=\"ab-wrong\">أنا خربت</mark>",
+     "recast_html": "<mark class=\"ab-correct\">خربتي</mark>",
+     "wrong": [
+      "أنا خربت"
+     ],
+     "fixed": [
+      "خربتي"
+     ],
+     "pair_wrong": "خربت",
+     "pair_fixed": "خربتي",
+     "pair_similarity": 0.89,
+     "why": "wrong person ending on the verb",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-11",
+     "t": 991.0,
+     "mmss": "16:31",
+     "said": "خربت. أنا خربت. إنت خربت. إنتي خرب--",
+     "recast": "خربتي.",
+     "said_html": "<mark class=\"ab-wrong\">خربت أنا خربت إنت خربت إنتي خرب</mark>",
+     "recast_html": "<mark class=\"ab-correct\">خربتي</mark>",
+     "wrong": [
+      "خربت أنا خربت إنت خربت إنتي خرب"
+     ],
+     "fixed": [
+      "خربتي"
+     ],
+     "pair_wrong": "خربت",
+     "pair_fixed": "خربتي",
+     "pair_similarity": 0.89,
+     "why": "wrong person ending on the verb",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-11",
+     "t": 2415.0,
+     "mmss": "40:15",
+     "said": "شو خرب? One ticket was like forty-five dollars. جلايك. They raised it.",
+     "recast": "جلاية؟",
+     "said_html": "<mark class=\"ab-wrong\">شو خرب جلايك</mark>",
+     "recast_html": "<mark class=\"ab-correct\">جلاية؟</mark>",
+     "wrong": [
+      "شو خرب جلايك"
+     ],
+     "fixed": [
+      "جلاية؟"
+     ],
+     "pair_wrong": "جلايك",
+     "pair_fixed": "جلاية؟",
+     "pair_similarity": 0.8,
+     "why": "wrong person ending on the verb",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-14",
+     "t": 69.8,
+     "mmss": "01:09",
+     "said": "تمام. اليوم بشتري في بيتي.",
+     "recast": "اشتريت؟",
+     "said_html": "<mark class=\"ab-wrong\">تمام اليوم بشتري في بيتي</mark>",
+     "recast_html": "<mark class=\"ab-correct\">اشتريت؟</mark>",
+     "wrong": [
+      "تمام اليوم بشتري في بيتي"
+     ],
+     "fixed": [
+      "اشتريت؟"
+     ],
+     "pair_wrong": "بشتري",
+     "pair_fixed": "اشتريت؟",
+     "pair_similarity": 0.73,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-14",
+     "t": 1942.6,
+     "mmss": "32:22",
+     "said": "يزعجك، يزعجك.",
+     "recast": "شو بيزعجك؟",
+     "said_html": "<mark class=\"ab-wrong\">يزعجك، يزعجك</mark>",
+     "recast_html": "<mark class=\"ab-correct\">شو بيزعجك؟</mark>",
+     "wrong": [
+      "يزعجك، يزعجك"
+     ],
+     "fixed": [
+      "شو بيزعجك؟"
+     ],
+     "pair_wrong": "يزعجك،",
+     "pair_fixed": "بيزعجك؟",
+     "pair_similarity": 0.91,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-14",
+     "t": 2600.7,
+     "mmss": "43:20",
+     "said": "آآآ، انبسطتي قهوتك؟",
+     "recast": "بقهوتك.",
+     "said_html": "<mark class=\"ab-wrong\">آآآ، انبسطتي قهوتك؟</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بقهوتك</mark>",
+     "wrong": [
+      "آآآ، انبسطتي قهوتك؟"
+     ],
+     "fixed": [
+      "بقهوتك"
+     ],
+     "pair_wrong": "قهوتك؟",
+     "pair_fixed": "بقهوتك",
+     "pair_similarity": 0.91,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-14",
+     "t": 2617.9,
+     "mmss": "43:37",
+     "said": "بي قهوتك. إيه.",
+     "recast": "بقهوتك.",
+     "said_html": "<mark class=\"ab-wrong\">بي قهوتك إيه</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بقهوتك</mark>",
+     "wrong": [
+      "بي قهوتك إيه"
+     ],
+     "fixed": [
+      "بقهوتك"
+     ],
+     "pair_wrong": "قهوتك",
+     "pair_fixed": "بقهوتك",
+     "pair_similarity": 0.91,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-15",
+     "t": 2584.0,
+     "mmss": "43:04",
+     "said": "Is that تغيري؟ ما تغيري؟",
+     "recast": "I heard تغير.",
+     "said_html": "<mark class=\"ab-wrong\">تغيري؟ ما تغيري؟</mark>",
+     "recast_html": "<mark class=\"ab-correct\">تغير</mark>",
+     "wrong": [
+      "تغيري؟ ما تغيري؟"
+     ],
+     "fixed": [
+      "تغير"
+     ],
+     "pair_wrong": "تغيري؟",
+     "pair_fixed": "تغير",
+     "pair_similarity": 0.89,
+     "why": "wrong person ending on the verb",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-19",
+     "t": 467.0,
+     "mmss": "07:47",
+     "said": "اليوم الجو بتغي-- بتغير كتير. No, بتغير كتير. It's masculine.",
+     "recast": "تغير، no be.",
+     "said_html": "<mark class=\"ab-wrong\">اليوم الجو بتغي بتغير كتير بتغير كتير</mark>",
+     "recast_html": "<mark class=\"ab-correct\">تغير،</mark>",
+     "wrong": [
+      "اليوم الجو بتغي بتغير كتير بتغير كتير"
+     ],
+     "fixed": [
+      "تغير،"
+     ],
+     "pair_wrong": "بتغير",
+     "pair_fixed": "تغير،",
+     "pair_similarity": 0.89,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-21",
+     "t": 163.2,
+     "mmss": "02:43",
+     "said": "آآآ، أتعلم-- آآآ، بتعلمه؟",
+     "recast": "تعلمتها.",
+     "said_html": "<mark class=\"ab-wrong\">آآآ، أتعلم آآآ، بتعلمه؟</mark>",
+     "recast_html": "<mark class=\"ab-correct\">تعلمتها</mark>",
+     "wrong": [
+      "آآآ، أتعلم آآآ، بتعلمه؟"
+     ],
+     "fixed": [
+      "تعلمتها"
+     ],
+     "pair_wrong": "بتعلمه؟",
+     "pair_fixed": "تعلمتها",
+     "pair_similarity": 0.77,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-21",
+     "t": 229.6,
+     "mmss": "03:49",
+     "said": "Okay، cuz we say we كل-- كلان in Farsi. So yeah. So كليان نسيتو.",
+     "recast": "عن جد؟ كليًا.",
+     "said_html": "<mark class=\"ab-wrong\">، كل كلان كليان نسيتو</mark>",
+     "recast_html": "<mark class=\"ab-correct\">عن جد؟ كليًا</mark>",
+     "wrong": [
+      "، كل كلان كليان نسيتو"
+     ],
+     "fixed": [
+      "عن جد؟ كليًا"
+     ],
+     "pair_wrong": "كليان",
+     "pair_fixed": "كليًا",
+     "pair_similarity": 0.89,
+     "why": "wrong person ending on the verb",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-21",
+     "t": 2620.5,
+     "mmss": "43:40",
+     "said": "أنا أعمل، أعمله،",
+     "recast": "بعمله.",
+     "said_html": "<mark class=\"ab-wrong\">أنا أعمل، أعمله،</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بعمله</mark>",
+     "wrong": [
+      "أنا أعمل، أعمله،"
+     ],
+     "fixed": [
+      "بعمله"
+     ],
+     "pair_wrong": "أعمله،",
+     "pair_fixed": "بعمله",
+     "pair_similarity": 0.8,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-21",
+     "t": 2662.0,
+     "mmss": "44:21",
+     "said": "أ-أ-أطبخ، أطبخه،",
+     "recast": "بطبخه.",
+     "said_html": "<mark class=\"ab-wrong\">أ أ أطبخ، أطبخه،</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بطبخه</mark>",
+     "wrong": [
+      "أ أ أطبخ، أطبخه،"
+     ],
+     "fixed": [
+      "بطبخه"
+     ],
+     "pair_wrong": "أطبخه،",
+     "pair_fixed": "بطبخه",
+     "pair_similarity": 0.8,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B1",
+     "date": "2026-09-05",
+     "t": 2317.0,
+     "mmss": "38:37",
+     "said": "هو، مزو-- مُ-مزعج.",
+     "recast": "بيزعج،",
+     "said_html": "<mark class=\"ab-wrong\">هو، مزو مُ مزعج</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بيزعج،</mark>",
+     "wrong": [
+      "هو، مزو مُ مزعج"
+     ],
+     "fixed": [
+      "بيزعج،"
+     ],
+     "pair_wrong": "مزعج",
+     "pair_fixed": "بيزعج،",
+     "pair_similarity": 0.67,
+     "why": "the b- prefix",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "low",
+     "verified": false
+    }
+   ],
+   "candidate_count": 27,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -453,6 +1642,8 @@
    "tally_rule": "R1",
    "tally_title": "Bare verb after laazem / biddi / lamma (no b-)",
    "kind": "tense",
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 5,
    "mistakes": 3,
    "asks": 1,
@@ -496,7 +1687,9 @@
      "clip": "2026-09-04/clips/tally_2026-09-04_3713.mp3",
      "offset": 3.0,
      "audio_note": "cut from lesson audio",
-     "verified": true
+     "verified": true,
+     "said_html": "لما <mark class=\"ab-wrong\">بكون في الطبيعة</mark>",
+     "recast_html": "لما <mark class=\"ab-correct\">أكون</mark>"
     },
     {
      "kind": "slip",
@@ -509,7 +1702,9 @@
      "clip": null,
      "offset": null,
      "audio_note": "no lesson audio on this PC",
-     "verified": true
+     "verified": true,
+     "said_html": "لما <mark class=\"ab-wrong\">بزهأ</mark>",
+     "recast_html": "لما <mark class=\"ab-correct\">أزهأ</mark>"
     },
     {
      "kind": "slip",
@@ -522,7 +1717,9 @@
      "clip": null,
      "offset": null,
      "audio_note": "no lesson audio on this PC",
-     "verified": true
+     "verified": true,
+     "said_html": "لازم <mark class=\"ab-wrong\">اشتغلت</mark> كتير",
+     "recast_html": "<mark class=\"ab-correct\">كان</mark> لازم <mark class=\"ab-correct\">أشتغل</mark> كتير"
     }
    ]
   },
@@ -550,6 +1747,60 @@
    "tally_rule": "R1",
    "tally_title": "Bare verb after laazem / biddi / lamma (no b-)",
    "kind": "tense",
+   "candidates": [
+    {
+     "bucket": "B3",
+     "date": "2026-08-25",
+     "t": 2931.0,
+     "mmss": "48:51",
+     "said": "عشان، اه، بعصب",
+     "recast": "أعصب",
+     "said_html": "<mark class=\"ab-wrong\">عشان، اه، بعصب</mark>",
+     "recast_html": "<mark class=\"ab-correct\">أعصب</mark>",
+     "wrong": [
+      "عشان، اه، بعصب"
+     ],
+     "fixed": [
+      "أعصب"
+     ],
+     "pair_wrong": "بعصب",
+     "pair_fixed": "أعصب",
+     "pair_similarity": 0.75,
+     "why": "the b- drops after عشان",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B3",
+     "date": "2026-09-04",
+     "t": 3713.0,
+     "mmss": "61:53",
+     "said": "بيبسطني لماaa would this be conditional؟ لما بكون في الطبيعة؟",
+     "recast": "لما أكون",
+     "said_html": "<mark class=\"ab-wrong\">بيبسطني</mark> لما <mark class=\"ab-wrong\">؟ لما بكون في الطبيعة؟</mark>",
+     "recast_html": "لما <mark class=\"ab-correct\">أكون</mark>",
+     "wrong": [
+      "بيبسطني",
+      "؟ لما بكون في الطبيعة؟"
+     ],
+     "fixed": [
+      "أكون"
+     ],
+     "pair_wrong": "بكون",
+     "pair_fixed": "أكون",
+     "pair_similarity": 0.75,
+     "why": "the b- drops after لما",
+     "match": "spot",
+     "overlap": 0.14,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    }
+   ],
+   "candidate_count": 2,
    "uses": 5,
    "mistakes": 3,
    "asks": 1,
@@ -593,7 +1844,9 @@
      "clip": "2026-09-04/clips/tally_2026-09-04_3713.mp3",
      "offset": 3.0,
      "audio_note": "cut from lesson audio",
-     "verified": true
+     "verified": true,
+     "said_html": "لما <mark class=\"ab-wrong\">بكون في الطبيعة</mark>",
+     "recast_html": "لما <mark class=\"ab-correct\">أكون</mark>"
     },
     {
      "kind": "slip",
@@ -606,7 +1859,9 @@
      "clip": null,
      "offset": null,
      "audio_note": "no lesson audio on this PC",
-     "verified": true
+     "verified": true,
+     "said_html": "لما <mark class=\"ab-wrong\">بزهأ</mark>",
+     "recast_html": "لما <mark class=\"ab-correct\">أزهأ</mark>"
     },
     {
      "kind": "slip",
@@ -619,7 +1874,9 @@
      "clip": null,
      "offset": null,
      "audio_note": "no lesson audio on this PC",
-     "verified": true
+     "verified": true,
+     "said_html": "لازم <mark class=\"ab-wrong\">اشتغلت</mark> كتير",
+     "recast_html": "<mark class=\"ab-correct\">كان</mark> لازم <mark class=\"ab-correct\">أشتغل</mark> كتير"
     }
    ]
   },
@@ -642,6 +1899,38 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
+   "uses": 0,
+   "mistakes": 0,
+   "asks": 0,
+   "pct": null,
+   "status": "Untested",
+   "events": []
+  },
+  {
+   "id": "B4b",
+   "family": "B",
+   "name": "when the b- comes back",
+   "one_line": "The b- returns the moment you leave the want/must clause.",
+   "examples": [
+    [
+     "ana bazonn enno ma beyhebna",
+     "I think that he doesn't like us"
+    ]
+   ],
+   "why": "B2 and B3 take the b- away. This is the rule that puts it back.",
+   "more": [
+    "enno starts a real new sentence, so the b- returns.",
+    "A full stop restarts it too.",
+    "Any clause stating a real fact rather than a wish keeps it: 3endo tilfizion ma byista5demo.",
+    "Inside the gatekeeper's reach even a pointer verb stays bare."
+   ],
+   "tally_rule": null,
+   "tally_title": null,
+   "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -672,6 +1961,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -702,6 +1993,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -728,6 +2021,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -759,6 +2054,8 @@
    "tally_rule": "R2",
    "tally_title": "bakoon / ykoon: right person, and 'being' vs 'becoming'",
    "kind": "tense",
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 3,
    "mistakes": 2,
    "asks": 0,
@@ -802,7 +2099,9 @@
      "clip": null,
      "offset": null,
      "audio_note": "no lesson audio on this PC",
-     "verified": true
+     "verified": true,
+     "said_html": "<mark class=\"ab-wrong\">يكونوا أهل</mark>",
+     "recast_html": "<mark class=\"ab-correct\">نكون</mark>"
     }
    ]
   },
@@ -829,6 +2128,34 @@
    "tally_rule": "R2",
    "tally_title": "bakoon / ykoon: right person, and 'being' vs 'becoming'",
    "kind": "tense",
+   "candidates": [
+    {
+     "bucket": "B9",
+     "date": "2026-08-25",
+     "t": 2622.0,
+     "mmss": "43:42",
+     "said": "بنخطط. اه، يكونوا أهل.",
+     "recast": "نكون.",
+     "said_html": "<mark class=\"ab-wrong\">بنخطط اه، يكونوا أهل</mark>",
+     "recast_html": "<mark class=\"ab-correct\">نكون</mark>",
+     "wrong": [
+      "بنخطط اه، يكونوا أهل"
+     ],
+     "fixed": [
+      "نكون"
+     ],
+     "pair_wrong": "يكونوا",
+     "pair_fixed": "نكون",
+     "pair_similarity": 0.6,
+     "why": "wrong person on ykoon",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "low",
+     "verified": false
+    }
+   ],
+   "candidate_count": 1,
    "uses": 3,
    "mistakes": 2,
    "asks": 0,
@@ -872,7 +2199,9 @@
      "clip": null,
      "offset": null,
      "audio_note": "no lesson audio on this PC",
-     "verified": true
+     "verified": true,
+     "said_html": "<mark class=\"ab-wrong\">يكونوا أهل</mark>",
+     "recast_html": "<mark class=\"ab-correct\">نكون</mark>"
     }
    ]
   },
@@ -900,6 +2229,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -931,6 +2262,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -963,6 +2296,484 @@
    "tally_rule": "R6",
    "tally_title": "Make-X vs get-X verb pairs: babse6 / banbese6, baz3ej / banze3ej",
    "kind": "choice",
+   "candidates": [
+    {
+     "bucket": "B12",
+     "date": "2026-08-25",
+     "t": 1092.0,
+     "mmss": "18:12",
+     "said": "So made- The be is throwing me up. بي تعبك؟",
+     "recast": "بي تعب أك، yeah.",
+     "said_html": "بي <mark class=\"ab-wrong\">تعبك؟</mark>",
+     "recast_html": "بي <mark class=\"ab-correct\">تعب أك،</mark>",
+     "wrong": [
+      "تعبك؟"
+     ],
+     "fixed": [
+      "تعب أك،"
+     ],
+     "pair_wrong": "تعبك؟",
+     "pair_fixed": "تعب",
+     "pair_similarity": 0.86,
+     "why": "make-X vs get-X pair",
+     "match": "echo",
+     "overlap": 0.5,
+     "source": "transcript.txt",
+     "confidence": "high",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-08-25",
+     "t": 1576.0,
+     "mmss": "26:16",
+     "said": "و أنا, that's... We never did this word. it's أنا بـ بنزبط. Is it b- بنزبطها؟",
+     "recast": "ببسطها.",
+     "said_html": "<mark class=\"ab-wrong\">و أنا أنا بـ بنزبط بنزبطها؟</mark>",
+     "recast_html": "<mark class=\"ab-correct\">ببسطها</mark>",
+     "wrong": [
+      "و أنا أنا بـ بنزبط بنزبطها؟"
+     ],
+     "fixed": [
+      "ببسطها"
+     ],
+     "pair_wrong": "بنزبطها؟",
+     "pair_fixed": "ببسطها",
+     "pair_similarity": 0.77,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-08-25",
+     "t": 2959.0,
+     "mmss": "49:19",
+     "said": "آآآه. ولا إشي makes me angry. آآآه. ولا إشي، ولا إشي بيعص-- بعصبني",
+     "recast": "بيعصبني",
+     "said_html": "<mark class=\"ab-wrong\">آآآه ولا إشي آآآه ولا إشي، ولا إشي بيعص بعصبني</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بيعصبني</mark>",
+     "wrong": [
+      "آآآه ولا إشي آآآه ولا إشي، ولا إشي بيعص بعصبني"
+     ],
+     "fixed": [
+      "بيعصبني"
+     ],
+     "pair_wrong": "بعصبني",
+     "pair_fixed": "بيعصبني",
+     "pair_similarity": 0.92,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-09-04",
+     "t": 2044.0,
+     "mmss": "34:04",
+     "said": "sorry هية بتيبست- يبستوا and احنا بين- بينبست.",
+     "recast": "بنص- بنبسط.",
+     "said_html": "<mark class=\"ab-wrong\">هية بتيبست يبستوا احنا بين بينبست</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بنص بنبسط</mark>",
+     "wrong": [
+      "هية بتيبست يبستوا احنا بين بينبست"
+     ],
+     "fixed": [
+      "بنص بنبسط"
+     ],
+     "pair_wrong": "بينبست",
+     "pair_fixed": "بنبسط",
+     "pair_similarity": 0.73,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-09-04",
+     "t": 2061.0,
+     "mmss": "34:21",
+     "said": "احنا بنس- بنسبت.",
+     "recast": "بنص- بنبسط.",
+     "said_html": "<mark class=\"ab-wrong\">احنا بنس بنسبت</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بنص بنبسط</mark>",
+     "wrong": [
+      "احنا بنس بنسبت"
+     ],
+     "fixed": [
+      "بنص بنبسط"
+     ],
+     "pair_wrong": "بنس",
+     "pair_fixed": "بنبسط",
+     "pair_similarity": 0.75,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-09-04",
+     "t": 3774.0,
+     "mmss": "62:54",
+     "said": "انبł, انبستي.",
+     "recast": "انبستي، okay. انبسط خلصنا.",
+     "said_html": "<mark class=\"ab-wrong\">انب انبستي</mark>",
+     "recast_html": "<mark class=\"ab-correct\">انبستي، انبسط خلصنا</mark>",
+     "wrong": [
+      "انب انبستي"
+     ],
+     "fixed": [
+      "انبستي، انبسط خلصنا"
+     ],
+     "pair_wrong": "انب",
+     "pair_fixed": "انبسط",
+     "pair_similarity": 0.75,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-09-14",
+     "t": 1581.9,
+     "mmss": "26:21",
+     "said": "Uh, المفضل عندي um ببسط،",
+     "recast": "No, no, no, I don't want you to do this. I'm gonna give you conjugate any \"I broke him.\" Something like this and you're gonna tell me what it، what it is. Don't worry . بس.",
+     "said_html": "<mark class=\"ab-wrong\">المفضل عندي ببسط،</mark>",
+     "recast_html": "<mark class=\"ab-correct\">، بس</mark>",
+     "wrong": [
+      "المفضل عندي ببسط،"
+     ],
+     "fixed": [
+      "، بس"
+     ],
+     "pair_wrong": "ببسط،",
+     "pair_fixed": "بس",
+     "pair_similarity": 0.67,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-09-14",
+     "t": 1601.0,
+     "mmss": "26:40",
+     "said": "هو beset- بساط. هو بسط. هي بسطت.",
+     "recast": "No, no, no, I don't want you to do this. I'm gonna give you conjugate any \"I broke him.\" Something like this and you're gonna tell me what it، what it is. Don't worry . بس.",
+     "said_html": "<mark class=\"ab-wrong\">هو بساط هو بسط هي بسطت</mark>",
+     "recast_html": "<mark class=\"ab-correct\">، بس</mark>",
+     "wrong": [
+      "هو بساط هو بسط هي بسطت"
+     ],
+     "fixed": [
+      "، بس"
+     ],
+     "pair_wrong": "بسط",
+     "pair_fixed": "بس",
+     "pair_similarity": 0.8,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-09-14",
+     "t": 2889.5,
+     "mmss": "48:09",
+     "said": "So انبسن-- آآآ، انبث--",
+     "recast": "صح انبسطنا.",
+     "said_html": "<mark class=\"ab-wrong\">انبسن آآآ، انبث</mark>",
+     "recast_html": "<mark class=\"ab-correct\">صح انبسطنا</mark>",
+     "wrong": [
+      "انبسن آآآ، انبث"
+     ],
+     "fixed": [
+      "صح انبسطنا"
+     ],
+     "pair_wrong": "انبسن",
+     "pair_fixed": "انبسطنا",
+     "pair_similarity": 0.83,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-09-14",
+     "t": 2914.6,
+     "mmss": "48:34",
+     "said": "آآآ، انبسطنا الـ-- انبسطنا لهم؟",
+     "recast": "انبسطت فيك.",
+     "said_html": "<mark class=\"ab-wrong\">آآآ، انبسطنا الـ انبسطنا لهم؟</mark>",
+     "recast_html": "<mark class=\"ab-correct\">انبسطت فيك</mark>",
+     "wrong": [
+      "آآآ، انبسطنا الـ انبسطنا لهم؟"
+     ],
+     "fixed": [
+      "انبسطت فيك"
+     ],
+     "pair_wrong": "انبسطنا",
+     "pair_fixed": "انبسطت",
+     "pair_similarity": 0.77,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-09-14",
+     "t": 3549.5,
+     "mmss": "59:09",
+     "said": "Oh my god, this is confusing because it's إن, إن-- I'm trying not to say انبسط. نبسط.",
+     "recast": "نبسـ... نبسِته.",
+     "said_html": "<mark class=\"ab-wrong\">إن إن انبسط نبسط</mark>",
+     "recast_html": "<mark class=\"ab-correct\">نبسـ نبسِته</mark>",
+     "wrong": [
+      "إن إن انبسط نبسط"
+     ],
+     "fixed": [
+      "نبسـ نبسِته"
+     ],
+     "pair_wrong": "نبسط",
+     "pair_fixed": "نبسـ",
+     "pair_similarity": 0.86,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-09-14",
+     "t": 3557.2,
+     "mmss": "59:17",
+     "said": "نبسط. نبسطه. That's really confusing. انبسطه and انبس-- ونبسطه. انبسطه. نبسطه. نبسطه.",
+     "recast": "نبسـ... نبسِته.",
+     "said_html": "<mark class=\"ab-wrong\">نبسط نبسطه انبسطه انبس ونبسطه انبسطه نبسطه نبسطه</mark>",
+     "recast_html": "<mark class=\"ab-correct\">نبسـ نبسِته</mark>",
+     "wrong": [
+      "نبسط نبسطه انبسطه انبس ونبسطه انبسطه نبسطه نبسطه"
+     ],
+     "fixed": [
+      "نبسـ نبسِته"
+     ],
+     "pair_wrong": "نبسط",
+     "pair_fixed": "نبسـ",
+     "pair_similarity": 0.86,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-08-25",
+     "t": 1947.0,
+     "mmss": "32:27",
+     "said": "و أنا، أنا، بس-- بس بت، أنا بس بتها.",
+     "recast": "ببسطها.",
+     "said_html": "<mark class=\"ab-wrong\">و أنا، أنا، بس بس بت، أنا بس بتها</mark>",
+     "recast_html": "<mark class=\"ab-correct\">ببسطها</mark>",
+     "wrong": [
+      "و أنا، أنا، بس بس بت، أنا بس بتها"
+     ],
+     "fixed": [
+      "ببسطها"
+     ],
+     "pair_wrong": "بتها",
+     "pair_fixed": "ببسطها",
+     "pair_similarity": 0.6,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "low",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-09-04",
+     "t": 3743.0,
+     "mmss": "62:23",
+     "said": "to make someone happy is آآá بيسبط.",
+     "recast": "ببسّط.",
+     "said_html": "<mark class=\"ab-wrong\">آآ بيسبط</mark>",
+     "recast_html": "<mark class=\"ab-correct\">ببسّط</mark>",
+     "wrong": [
+      "آآ بيسبط"
+     ],
+     "fixed": [
+      "ببسّط"
+     ],
+     "pair_wrong": "بيسبط",
+     "pair_fixed": "ببسّط",
+     "pair_similarity": 0.67,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "low",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-09-05",
+     "t": 3655.0,
+     "mmss": "60:55",
+     "said": "Oh, أنا ما انزعجت.",
+     "recast": "زعلت.",
+     "said_html": "<mark class=\"ab-wrong\">أنا ما انزعجت</mark>",
+     "recast_html": "<mark class=\"ab-correct\">زعلت</mark>",
+     "wrong": [
+      "أنا ما انزعجت"
+     ],
+     "fixed": [
+      "زعلت"
+     ],
+     "pair_wrong": "انزعجت",
+     "pair_fixed": "زعلت",
+     "pair_similarity": 0.6,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "low",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-09-05",
+     "t": 3659.0,
+     "mmss": "60:59",
+     "said": "اه، أنا، اه، زعلان.",
+     "recast": "زعلت.",
+     "said_html": "<mark class=\"ab-wrong\">اه، أنا، اه، زعلان</mark>",
+     "recast_html": "<mark class=\"ab-correct\">زعلت</mark>",
+     "wrong": [
+      "اه، أنا، اه، زعلان"
+     ],
+     "fixed": [
+      "زعلت"
+     ],
+     "pair_wrong": "زعلان",
+     "pair_fixed": "زعلت",
+     "pair_similarity": 0.67,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "low",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-09-05",
+     "t": 3671.0,
+     "mmss": "61:11",
+     "said": "زعلان، زعلان.",
+     "recast": "زعلت.",
+     "said_html": "<mark class=\"ab-wrong\">زعلان، زعلان</mark>",
+     "recast_html": "<mark class=\"ab-correct\">زعلت</mark>",
+     "wrong": [
+      "زعلان، زعلان"
+     ],
+     "fixed": [
+      "زعلت"
+     ],
+     "pair_wrong": "زعلان،",
+     "pair_fixed": "زعلت",
+     "pair_similarity": 0.67,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "low",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-09-14",
+     "t": 1547.2,
+     "mmss": "25:47",
+     "said": "ببسط، بنبسط.",
+     "recast": "Your favorite بس.",
+     "said_html": "<mark class=\"ab-wrong\">ببسط، بنبسط</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بس</mark>",
+     "wrong": [
+      "ببسط، بنبسط"
+     ],
+     "fixed": [
+      "بس"
+     ],
+     "pair_wrong": "ببسط،",
+     "pair_fixed": "بس",
+     "pair_similarity": 0.67,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "low",
+     "verified": false
+    },
+    {
+     "bucket": "B12",
+     "date": "2026-09-14",
+     "t": 3401.3,
+     "mmss": "56:41",
+     "said": "Hold on. بنبسط. بت--",
+     "recast": "بسطتك.",
+     "said_html": "<mark class=\"ab-wrong\">بنبسط بت</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بسطتك</mark>",
+     "wrong": [
+      "بنبسط بت"
+     ],
+     "fixed": [
+      "بسطتك"
+     ],
+     "pair_wrong": "بنبسط",
+     "pair_fixed": "بسطتك",
+     "pair_similarity": 0.6,
+     "why": "make-X vs get-X pair",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "low",
+     "verified": false
+    }
+   ],
+   "candidate_count": 19,
    "uses": 4,
    "mistakes": 4,
    "asks": 0,
@@ -980,7 +2791,9 @@
      "clip": "2026-09-04/clips/tally_2026-09-04_3742.mp3",
      "offset": 3.0,
      "audio_note": "cut from lesson audio",
-     "verified": true
+     "verified": true,
+     "said_html": "<mark class=\"ab-wrong\">بيسبط</mark>",
+     "recast_html": "<mark class=\"ab-correct\">ببسّط ببسط</mark>"
     },
     {
      "kind": "slip",
@@ -1042,6 +2855,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1069,6 +2884,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1100,6 +2917,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1131,6 +2950,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1162,6 +2983,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1192,6 +3015,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1219,6 +3044,110 @@
    "tally_rule": "R5",
    "tally_title": "Pointer pronoun -o / -ha after a fronted object",
    "kind": "article",
+   "candidates": [
+    {
+     "bucket": "C2",
+     "date": "2026-09-14",
+     "t": 3411.9,
+     "mmss": "56:51",
+     "said": "هي بسطت-- uh, بسط--",
+     "recast": "بسطتك.",
+     "said_html": "<mark class=\"ab-wrong\">هي بسطت بسط</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بسطتك</mark>",
+     "wrong": [
+      "هي بسطت بسط"
+     ],
+     "fixed": [
+      "بسطتك"
+     ],
+     "pair_wrong": "بسطت",
+     "pair_fixed": "بسطتك",
+     "pair_similarity": 0.89,
+     "why": "the pointer ending was missing",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "C2",
+     "date": "2026-08-25",
+     "t": 530.0,
+     "mmss": "08:50",
+     "said": "مش مغني، مغـ، مغـ.",
+     "recast": "مغني is singer.",
+     "said_html": "<mark class=\"ab-wrong\">مش مغني، مغـ، مغـ</mark>",
+     "recast_html": "<mark class=\"ab-correct\">مغني</mark>",
+     "wrong": [
+      "مش مغني، مغـ، مغـ"
+     ],
+     "fixed": [
+      "مغني"
+     ],
+     "pair_wrong": "مغـ،",
+     "pair_fixed": "مغني",
+     "pair_similarity": 0.67,
+     "why": "the pointer ending was missing",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "low",
+     "verified": false
+    },
+    {
+     "bucket": "C2",
+     "date": "2026-09-15",
+     "t": 1666.0,
+     "mmss": "27:46",
+     "said": "واحد من",
+     "recast": "منهم.",
+     "said_html": "<mark class=\"ab-wrong\">واحد من</mark>",
+     "recast_html": "<mark class=\"ab-correct\">منهم</mark>",
+     "wrong": [
+      "واحد من"
+     ],
+     "fixed": [
+      "منهم"
+     ],
+     "pair_wrong": "من",
+     "pair_fixed": "منهم",
+     "pair_similarity": 0.67,
+     "why": "the pointer ending was missing",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "low",
+     "verified": false
+    },
+    {
+     "bucket": "C2",
+     "date": "2026-09-21",
+     "t": 858.0,
+     "mmss": "14:18",
+     "said": "كل الـ، كل الـ fire department وambulance",
+     "recast": "الـ pizza اللي remained from yesterday or weekend.",
+     "said_html": "<mark class=\"ab-wrong\">كل الـ، كل</mark> الـ <mark class=\"ab-wrong\">و</mark>",
+     "recast_html": "الـ <mark class=\"ab-correct\">اللي</mark>",
+     "wrong": [
+      "كل الـ، كل",
+      "و"
+     ],
+     "fixed": [
+      "اللي"
+     ],
+     "pair_wrong": "الـ،",
+     "pair_fixed": "اللي",
+     "pair_similarity": 0.67,
+     "why": "the pointer ending was missing",
+     "match": "spot",
+     "overlap": 0.2,
+     "source": "scribe per-speaker tracks",
+     "confidence": "low",
+     "verified": false
+    }
+   ],
+   "candidate_count": 4,
    "uses": 1,
    "mistakes": 0,
    "asks": 1,
@@ -1236,7 +3165,9 @@
      "clip": "2026-09-04/clips/2026-09-04_036814_036997.mp3",
      "offset": 7.5900000000001455,
      "audio_note": "existing clip",
-     "verified": true
+     "verified": true,
+     "said_html": "<mark class=\"ab-wrong\">إلي</mark>",
+     "recast_html": "<mark class=\"ab-correct\">إلـ أكتر إشي بيبسطني</mark>"
     }
    ]
   },
@@ -1263,6 +3194,34 @@
    "tally_rule": "R3",
    "tally_title": "No el- on aktar / a7san + eshi",
    "kind": "article",
+   "candidates": [
+    {
+     "bucket": "C3",
+     "date": "2026-09-04",
+     "t": 3683.0,
+     "mmss": "61:23",
+     "said": "So الأكتر إشي-",
+     "recast": "No أل just أكتر إشي.",
+     "said_html": "<mark class=\"ab-wrong\">الأكتر</mark> إشي",
+     "recast_html": "<mark class=\"ab-correct\">أل أكتر</mark> إشي",
+     "wrong": [
+      "الأكتر"
+     ],
+     "fixed": [
+      "أل أكتر"
+     ],
+     "pair_wrong": "الأكتر",
+     "pair_fixed": "أكتر",
+     "pair_similarity": 0.8,
+     "why": "no el- on a comparative",
+     "match": "echo",
+     "overlap": 0.5,
+     "source": "transcript.txt",
+     "confidence": "high",
+     "verified": false
+    }
+   ],
+   "candidate_count": 1,
    "uses": 2,
    "mistakes": 2,
    "asks": 0,
@@ -1280,7 +3239,9 @@
      "clip": "2026-09-04/clips/2026-09-04_036637_036882.mp3",
      "offset": 19.210000000000036,
      "audio_note": "existing clip",
-     "verified": true
+     "verified": true,
+     "said_html": "<mark class=\"ab-wrong\">الأكتر</mark> إشي",
+     "recast_html": "<mark class=\"ab-correct\">أل أكتر</mark> إشي"
     },
     {
      "kind": "slip",
@@ -1293,7 +3254,9 @@
      "clip": "2026-09-04/clips/2026-09-04_001321_001443.mp3",
      "offset": 3.019999999999982,
      "audio_note": "existing clip",
-     "verified": true
+     "verified": true,
+     "said_html": "<mark class=\"ab-wrong\">الأحسن</mark>",
+     "recast_html": "<mark class=\"ab-correct\">شو أحسن طريقة</mark>"
     }
    ]
   },
@@ -1321,6 +3284,37 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
+   "uses": 0,
+   "mistakes": 0,
+   "asks": 0,
+   "pct": null,
+   "status": "Untested",
+   "events": []
+  },
+  {
+   "id": "C4b",
+   "family": "C",
+   "name": "words that drag a ma along",
+   "one_line": "`abadan` is not enough on its own - the verb still needs `ma`.",
+   "examples": [
+    [
+     "ana abadan ma baru7",
+     "I never go"
+    ]
+   ],
+   "why": "Two different -ma's that pull opposite ways on the b-.",
+   "more": [
+    "abadan ma baru7 - keeps the b-, because abadan is real negation.",
+    "abel-ma yiju (before they come) - that -ma is part of the conjunction, not negation.",
+    "ba3ed-ma teshra7i (after you explain) - same, and the b- drops."
+   ],
+   "tally_rule": null,
+   "tally_title": null,
+   "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1352,6 +3346,8 @@
    "tally_rule": "R8",
    "tally_title": "wala (options / nor) vs aw (or)",
    "kind": "choice",
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 1,
    "mistakes": 0,
    "asks": 1,
@@ -1393,6 +3389,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1419,6 +3417,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1448,6 +3448,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1478,6 +3480,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1509,6 +3513,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1539,6 +3545,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1571,6 +3579,8 @@
    "tally_rule": "R7",
    "tally_title": "Preposition the verb wants: ba6lub MIN, 5aayef MIN, mishtaa2 LA",
    "kind": "preposition",
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 2,
    "mistakes": 1,
    "asks": 0,
@@ -1601,9 +3611,70 @@
      "clip": null,
      "offset": null,
      "audio_note": "no lesson audio on this PC",
-     "verified": true
+     "verified": true,
+     "said_html": "<mark class=\"ab-wrong\">أطلبهم أو</mark> أطلب <mark class=\"ab-wrong\">لهم؟</mark>",
+     "recast_html": "أطلب <mark class=\"ab-correct\">منهم</mark>"
     }
    ]
+  },
+  {
+   "id": "D5",
+   "family": "D",
+   "name": "preposition keeps el-",
+   "one_line": "Where English drops 'the', Levantine keeps it.",
+   "examples": [
+    [
+     "min el-bait",
+     "from home"
+    ],
+    [
+     "bi-lseyyara",
+     "by car"
+    ]
+   ],
+   "why": "English says 'from home' and 'by car' with no 'the'. Arabic puts it back.",
+   "more": [
+    "bi / la / fi fuse with it: bi-l..., la-l..., fi-l...",
+    "min / 3ala / ma3 keep it separate: min el-bait, 3ala el-6aawle.",
+    "No el- on a name (la-Mehdi, fi America), on something already owned (ma3i, ma3 sadiqi), or when it really is indefinite (ma3 3aseer)."
+   ],
+   "tally_rule": null,
+   "tally_title": null,
+   "kind": null,
+   "candidates": [
+    {
+     "bucket": "D5",
+     "date": "2026-09-21",
+     "t": 106.6,
+     "mmss": "01:46",
+     "said": "عندي شغل كتير.",
+     "recast": "متوتر من الشغل؟",
+     "said_html": "<mark class=\"ab-wrong\">عندي شغل كتير</mark>",
+     "recast_html": "<mark class=\"ab-correct\">متوتر من الشغل؟</mark>",
+     "wrong": [
+      "عندي شغل كتير"
+     ],
+     "fixed": [
+      "متوتر من الشغل؟"
+     ],
+     "pair_wrong": "شغل",
+     "pair_fixed": "الشغل؟",
+     "pair_similarity": 0.75,
+     "why": "the preposition keeps the el-",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    }
+   ],
+   "candidate_count": 1,
+   "uses": 0,
+   "mistakes": 0,
+   "asks": 0,
+   "pct": null,
+   "status": "Untested",
+   "events": []
   },
   {
    "id": "D3",
@@ -1629,6 +3700,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1660,6 +3733,41 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
+   "uses": 0,
+   "mistakes": 0,
+   "asks": 0,
+   "pct": null,
+   "status": "Untested",
+   "events": []
+  },
+  {
+   "id": "D6",
+   "family": "D",
+   "name": "iyyaa - the second object",
+   "one_line": "A verb carries only one pronoun; a second one rides on `iyyaa`.",
+   "examples": [
+    [
+     "ba36ii-k iyyaa",
+     "I give it to you"
+    ],
+    [
+     "jeeb-li iyyaa",
+     "bring it to me"
+    ]
+   ],
+   "why": "You cannot stack two object endings on one verb, so the second gets its own word.",
+   "more": [
+    "ba36ii-k = I give you. ba36ii-k iyyaa = I give it to you.",
+    "jeeb-li = bring me. jeeb-li iyyaa = bring it to me.",
+    "Absent from both her Docs - confirmed against the live Doc 2026-09-22."
+   ],
+   "tally_rule": null,
+   "tally_title": null,
+   "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1695,6 +3803,34 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [
+    {
+     "bucket": "E1",
+     "date": "2026-09-21",
+     "t": 561.7,
+     "mmss": "09:21",
+     "said": "uh, تلاتين أيام.",
+     "recast": "بعد العشرة يوم.",
+     "said_html": "<mark class=\"ab-wrong\">تلاتين أيام</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بعد العشرة يوم</mark>",
+     "wrong": [
+      "تلاتين أيام"
+     ],
+     "fixed": [
+      "بعد العشرة يوم"
+     ],
+     "pair_wrong": "أيام",
+     "pair_fixed": "يوم",
+     "pair_similarity": 0.57,
+     "why": "11 and up takes a singular noun",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "scribe per-speaker tracks",
+     "confidence": "medium",
+     "verified": false
+    }
+   ],
+   "candidate_count": 1,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1725,6 +3861,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1752,6 +3890,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1782,6 +3922,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1808,6 +3950,59 @@
    "tally_rule": "R9",
    "tally_title": "Sounds ع ط غ ه (dropped or swapped)",
    "kind": "pronunciation",
+   "candidates": [
+    {
+     "bucket": "F1",
+     "date": "2026-08-25",
+     "t": 520.0,
+     "mmss": "08:40",
+     "said": "الجو عندي منيح، شوب كتير، مش-",
+     "recast": "مغني is singer.",
+     "said_html": "<mark class=\"ab-wrong\">الجو عندي منيح، شوب كتير، مش</mark>",
+     "recast_html": "<mark class=\"ab-correct\">مغني</mark>",
+     "wrong": [
+      "الجو عندي منيح، شوب كتير، مش"
+     ],
+     "fixed": [
+      "مغني"
+     ],
+     "pair_wrong": "منيح،",
+     "pair_fixed": "مغني",
+     "pair_similarity": 0.75,
+     "why": "a hard letter was dropped or swapped",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    },
+    {
+     "bucket": "F1",
+     "date": "2026-08-25",
+     "t": 2612.0,
+     "mmss": "43:32",
+     "said": "إحنا، إحنا بنخ-- بنخط. Ben-- it's just بنخط، right?",
+     "recast": "بنخطط.",
+     "said_html": "<mark class=\"ab-wrong\">إحنا، إحنا بنخ بنخط بنخط،</mark>",
+     "recast_html": "<mark class=\"ab-correct\">بنخطط</mark>",
+     "wrong": [
+      "إحنا، إحنا بنخ بنخط بنخط،"
+     ],
+     "fixed": [
+      "بنخطط"
+     ],
+     "pair_wrong": "بنخط",
+     "pair_fixed": "بنخطط",
+     "pair_similarity": 0.89,
+     "why": "a hard letter was dropped or swapped",
+     "match": "spot",
+     "overlap": 0.0,
+     "source": "transcript.txt",
+     "confidence": "medium",
+     "verified": false
+    }
+   ],
+   "candidate_count": 2,
    "uses": 4,
    "mistakes": 4,
    "asks": 0,
@@ -1825,7 +4020,9 @@
      "clip": "2026-09-05/clips/2026-09-05_033022_033254.mp3",
      "offset": 17.7199999999998,
      "audio_note": "existing clip",
-     "verified": true
+     "verified": true,
+     "said_html": "<mark class=\"ab-wrong\">شبعان</mark>",
+     "recast_html": "<mark class=\"ab-correct\">مش شبعان، كمان مرة</mark>"
     },
     {
      "kind": "slip",
@@ -1864,7 +4061,9 @@
      "clip": null,
      "offset": null,
      "audio_note": "no lesson audio on this PC",
-     "verified": true
+     "verified": true,
+     "said_html": "<mark class=\"ab-wrong\">أزآن</mark> زهآن",
+     "recast_html": "<mark class=\"ab-correct\">زهـ،</mark> زهآن"
     }
    ]
   },
@@ -1887,6 +4086,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,
@@ -1917,6 +4118,8 @@
    "tally_rule": null,
    "tally_title": null,
    "kind": null,
+   "candidates": [],
+   "candidate_count": 0,
    "uses": 0,
    "mistakes": 0,
    "asks": 0,

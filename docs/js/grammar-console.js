@@ -242,14 +242,18 @@ function useCard(e) {
   head.appendChild(el('span', null, pretty(e.date) + (e.mmss ? ' · ' + e.mmss : '')));
   card.appendChild(head);
 
-  var said = el('p', 'gc-said', e.said || '—');
+  // said_html / recast_html carry <mark> spans from the audit. They are built
+  // by our own script from the transcript, so the markup is ours, not a page's.
+  var said = el('p', 'gc-said');
+  if (e.said_html) said.innerHTML = e.said_html; else said.textContent = e.said || '—';
   if (isArabic(e.said)) { said.setAttribute('dir', 'rtl'); said.setAttribute('lang', 'ar'); }
   card.appendChild(said);
 
-  if (e.recast) {
+  if (e.recast || e.recast_html) {
     var rc = el('p', 'gc-recast');
     rc.appendChild(el('span', null, e.kind === 'slip' ? 'Amal said: ' : 'Amal: '));
-    var b = el('b', null, e.recast);
+    var b = el('b');
+    if (e.recast_html) b.innerHTML = e.recast_html; else b.textContent = e.recast;
     if (isArabic(e.recast)) { b.setAttribute('dir', 'rtl'); b.setAttribute('lang', 'ar'); }
     rc.appendChild(b);
     if (e.recast_at) rc.appendChild(el('span', null, '  (' + e.recast_at + ')'));
@@ -320,8 +324,49 @@ function detail(r) {
       d.appendChild(el('p', 'ab-mini', 'Showing ' + SHOW + ' of ' + list.length + ' recorded uses.'));
     }
   }
+
+  // Machine-found candidates. Never scored - they wait for a human tick.
+  var cand = r.candidates || [];
+  if (cand.length) {
+    var ch = el('div', 'gc-useshead');
+    ch.appendChild(el('h3', 'gc-secttitle', 'Found by the audit — not scored yet (' + cand.length + ')'));
+    d.appendChild(ch);
+    d.appendChild(el('p', 'ab-mini gc-candnote',
+      'The machine spotted these in your transcripts. They do not move any number on this page until you or Amal confirm them.'));
+    cand.slice(0, SHOW).forEach(function (c) {
+      var card = el('div', 'gc-use gc-cand gc-conf-' + c.confidence);
+      var head = el('div', 'gc-usehead');
+      var left = el('span');
+      left.appendChild(el('span', 'gc-tag gc-conf-tag', c.confidence + ' confidence'));
+      left.appendChild(el('span', 'gc-tag', c.why));
+      head.appendChild(left);
+      head.appendChild(el('span', null, pretty(c.date) + ' · ' + c.mmss));
+      card.appendChild(head);
+
+      var m = el('p', 'gc-said');
+      m.innerHTML = c.said_html;
+      m.setAttribute('dir', 'rtl'); m.setAttribute('lang', 'ar');
+      card.appendChild(m);
+
+      var a = el('p', 'gc-recast');
+      a.appendChild(el('span', null, 'Amal: '));
+      var bb = el('b');
+      bb.innerHTML = c.recast_html;
+      bb.setAttribute('dir', 'rtl'); bb.setAttribute('lang', 'ar');
+      a.appendChild(bb);
+      card.appendChild(a);
+
+      card.appendChild(el('div', 'gc-pairline',
+        c.pair_wrong + '  →  ' + c.pair_fixed));
+      d.appendChild(card);
+    });
+    if (cand.length > SHOW) {
+      d.appendChild(el('p', 'ab-mini', 'Showing ' + SHOW + ' of ' + cand.length + ' candidates.'));
+    }
+  }
   return d;
 }
+
 
 function row(r) {
   var wrap = el('div', 'gc-row');
@@ -338,7 +383,8 @@ function row(r) {
   head.appendChild(c1);
 
   var used = el('div', 'gc-num', r.uses ? String(r.uses) : '—');
-  used.appendChild(el('small', null, r.uses ? 'recorded' : 'not scored'));
+  used.appendChild(el('small', null, r.uses ? 'recorded'
+    : r.candidate_count ? r.candidate_count + ' to check' : 'not scored'));
   head.appendChild(used);
 
   var miss = el('div', 'gc-num', r.uses ? String(r.mistakes) : '—');

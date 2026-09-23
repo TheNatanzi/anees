@@ -14,6 +14,17 @@ OUT = os.path.join(DOCS, "data", "grammar-console.json")
 tally = json.load(open(os.path.join(DOCS, "data", "tally.json"), encoding="utf-8"))
 buckets = json.load(open(os.path.join(DOCS, "data", "grammar-buckets.json"), encoding="utf-8"))["buckets"]
 
+# The machine audit. These are candidates, never scores: only a human ticking
+# one promotes it to a slip. Kept in a separate stream so a guess can never
+# move a number on the page.
+AUDIT = os.path.join(DOCS, "data", "grammar-audit.json")
+audit = json.load(open(AUDIT, encoding="utf-8")) if os.path.exists(AUDIT) else {"events": [], "lessons": []}
+cands = {}
+for e in audit.get("events", []):
+    cands.setdefault(e["bucket"], []).append(e)
+for v in cands.values():
+    v.sort(key=lambda e: ({"high": 0, "medium": 1, "low": 2}[e["confidence"]], e["date"]), reverse=False)
+
 # ---- Medi sentence counts per lesson, straight from the transcripts ----
 def medi_sentences(date):
     p = os.path.join(LESSONS, date, "transcript.txt")
@@ -41,7 +52,31 @@ for d in lesson_dates:
 # ---- roll the tally rules onto buckets ----
 by_rule = {r["id"]: r for r in tally["rules"]}
 
+# Reuse the auditor's differ so the hand-verified rows get the same
+# underlining as the machine-found ones.
+import importlib.util
+_spec = importlib.util.spec_from_file_location(
+    "gaudit", os.path.join(ROOT, "scripts", "audit_grammar_lessons.py"))
+
+
+def _differ():
+    src = open(os.path.join(ROOT, "scripts", "audit_grammar_lessons.py"), encoding="utf-8").read()
+    ns = {}
+    exec(src.split("# ---------------------------------------------------------------- run")[0], ns)
+    return ns["diff_spans"]
+
+
+diff_spans = _differ()
+
+
 def event(kind, e):
+    said, recast = e.get("said") or "", e.get("recast") or ""
+    marks = {}
+    # A recast that is a tick or a note, not a re-saying, has nothing to underline.
+    if said and recast and not recast.lstrip().startswith(("✓", "✔")):
+        d = diff_spans(said, recast)
+        if d["wrong"] and d["fixed"]:
+            marks = {"said_html": d["said_html"], "recast_html": d["recast_html"]}
     return {
         "kind": kind,                      # slip | right | ask
         "date": e.get("date"),
@@ -54,6 +89,7 @@ def event(kind, e):
         "offset": e.get("offset"),
         "audio_note": e.get("audio"),
         "verified": e.get("verified", False),
+        **marks,
     }
 
 def status(uses, mistakes):
@@ -91,6 +127,8 @@ for b in buckets:
         "tally_rule": rid,
         "tally_title": r["title"] if r else None,
         "kind": r.get("kind") if r else None,
+        "candidates": cands.get(b["id"], []),
+        "candidate_count": len(cands.get(b["id"], [])),
         "uses": uses, "mistakes": mistakes, "asks": asks,
         "pct": round(100 * (uses - mistakes) / uses) if uses else None,
         "status": status(uses, mistakes),
@@ -137,6 +175,16 @@ payload = {
                 "39 buckets have no detector yet and show as Untested.",
     },
     "lessons": lessons,
+    "audit": {
+        "events": sum(len(v) for v in cands.values()),
+        "buckets_hit": len(cands),
+        "lessons": len(audit.get("lessons", [])),
+        "method": audit.get("method", ""),
+        "by_confidence": {
+            k: sum(1 for v in cands.values() for e in v if e["confidence"] == k)
+            for k in ("high", "medium", "low")
+        },
+    },
     "rules": rows,
 }
 json.dump(payload, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
