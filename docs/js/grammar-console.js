@@ -419,6 +419,29 @@ function wire() {
   });
 }
 
+/* Amal's own grammar tabs, carried over from the retired index.html#grammar. */
+function renderDoc() {
+  var box = $('gc-doc-body');
+  fetch('data/grammar.json?v=' + Date.now())
+    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function (g) {
+      box.textContent = '';
+      var tab = null;
+      (g.sections || []).forEach(function (s) {
+        if (s.tab !== tab) {
+          tab = s.tab;
+          box.appendChild(el('h3', 'gc-doc-tab', tab));
+        }
+        box.appendChild(el('h4', 'gc-doc-head', s.heading));
+        var ul = el('ul', 'gc-doc-list');
+        (s.lines || []).forEach(function (line) { ul.appendChild(el('li', null, line)); });
+        box.appendChild(ul);
+      });
+      box.appendChild(el('p', 'ab-mini', 'Source: ' + (g.source || 'Amal’s Doc')));
+    })
+    .catch(function (err) { box.textContent = 'Could not load Amal’s notes: ' + err.message; });
+}
+
 fetch('data/grammar-console.json?v=' + Date.now())
   .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
   .then(function (json) {
@@ -432,6 +455,7 @@ fetch('data/grammar-console.json?v=' + Date.now())
     buildStatusChips();
     wire();
     render();
+    renderDoc();
   })
   .catch(function (err) {
     $('gc-notice').textContent = 'Could not load the grammar data: ' + err.message;
