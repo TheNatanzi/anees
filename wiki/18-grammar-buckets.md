@@ -33,10 +33,11 @@ Ordering note: Amal front-loads the verb system and teaches the small grammar as
 
 | # | Bucket | The rule in one line | Amal | Medi | Order |
 |---|---|---|---|---|---|
-| B1 | Present with b- | every ordinary present verb carries `b-/bi-/by-` (ana ba-, inta bti-, huwwe bi-, i7na bn-) | Doc (145 rows) | clean | 7 |
+| B1 | Present with b- | the b- marks the **real** present: happening, habitual, true. *ba7ki, bitshoof, biroou7* | Doc (145 rows) | clean | 7 |
 | B2 | b-drop after modals | no `b-` after biddi, laazem, mumkin, ba7eb, ba2dar, baballesh, bajarreb | Doc | **rank 1** | 8 |
 | B3 | b-drop after time / purpose words | no `b-` after lamma, iza, abel-ma, ba3ed-ma, ra7, la-, 3ashaan — but **keep** it after enno | Doc | **rank 1** | 8 |
-| B4 | b-drop through chains | the drop carries across `u / wala / aw` while the subject stays the same; a new subject ends the chain | Doc | rank 1 | 8 |
+| B4 | b-drop through chains | after a gatekeeper (biddi, ba7eb, ra7, laazem) everything joined by `u / wala / aw` stays bare: *Ma ba3ref a7ki 3arabi wala aktubo*. Whether a **new subject** ends the chain is open — her own line *Beddak tiji 3alinna aw e7na niji 3alaik* keeps it bare across a subject change (needs Amal's ruling) | Doc | rank 1 | 8 |
+| B4b | **When the b- comes back** | the b- returns the moment you leave the gatekeeper's clause. Three signals: **enno** starts a new real sentence (*Ana bazonn enno ma **b**ey7ebna*), a **full stop / new sentence** restarts it, and any clause stating a **real fact** rather than a wanted or uncertain one (*3endo tilfizion ma **b**yista5demo*). Inside the gatekeeper's reach even a pointer verb stays bare (*Laazem tlaa2u eshi te3maluh*) | Doc | **rank 1** | 8 |
 | B5 | Past tense | the full 8-person past of each verb; her Doc has 825 rows | Doc | clean | 9 |
 | B6 | kaan — was / were | `kaan` supplies the missing "was" in past states and before laazem | lesson | rank 2 | 9 |
 | B7 | kaan + b-verb = used to | habitual past ("I used to work") | gap | untested | 9 |
@@ -96,7 +97,7 @@ Kept here because these slips look like grammar in the transcript but are not. R
 
 ## Counts
 
-- 12 noun-phrase + 15 verb + 9 sentence-glue + 5 partner-words + 4 numbers/time = **45 grammar buckets**, plus 3 pronunciation buckets.
+- 12 noun-phrase + 16 verb + 9 sentence-glue + 5 partner-words + 4 numbers/time = **46 grammar buckets**, plus 3 pronunciation buckets.
 - Amal's own material already covers **34** of the 43; **7** are gaps in both her Docs (B7, B11, B14, B15, C4, C9, E1 partly).
 - Medi has a recorded slip on 13 of them. Top five by frequency: B2/B3/B4 (b-drop), B8/B9 (ykoon), A1/A2/A7/C3 (definiteness), A8/A10 (gender), C2 (pointer).
 
