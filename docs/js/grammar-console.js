@@ -4,7 +4,24 @@
 'use strict';
 
 var DATA = null, OPEN = Object.create(null), WRONGONLY = Object.create(null);
-var PERIOD = 'all', FAMILY = 'all', SORT = 'order', QUERY = '';
+var PERIOD = 'all', FAMILY = 'all', QUERY = '';
+// Column sort. First click: numbers and dates biggest/newest first, RULE A1->F3,
+// STATUS worst first. Untested rows always sit at the bottom.
+var COLS = [
+  { key: 'rule', label: 'Rule', first: 'asc' },
+  { key: 'used', label: 'Times used', first: 'desc' },
+  { key: 'mistakes', label: 'Mistakes', first: 'desc' },
+  { key: 'score', label: 'Score', first: 'desc' },
+  { key: 'status', label: 'Status', first: 'asc' },
+  { key: 'last', label: 'Last used', first: 'desc' }
+];
+var STATUS_RANK = { Wrong: 0, Shaky: 1, Good: 2, Mastered: 3, Untested: 4 };
+var SORT = { key: 'rule', dir: 'asc' };
+var SORT_KEY = 'anees.grammar.sort';
+try {
+  var saved = JSON.parse(localStorage.getItem(SORT_KEY) || 'null');
+  if (saved && COLS.some(function (c) { return c.key === saved.key; }) && /^(asc|desc)$/.test(saved.dir)) SORT = saved;
+} catch (e) { /* storage blocked: default sort */ }
 var STATUS_ON = Object.create(null);
 var STATUSES = ['Mastered', 'Good', 'Shaky', 'Wrong', 'Untested'];
 var FAMILY_ORDER = { A: 0, B: 1, C: 2, D: 3, E: 4, F: 5 };
@@ -223,14 +240,74 @@ function visibleRules() {
     ).join(' ').toLowerCase();
     return hay.indexOf(q) >= 0;
   });
+  var sign = SORT.dir === 'asc' ? 1 : -1;
   out.sort(function (a, b) {
-    if (SORT === 'weak') return (a.pct == null ? 999 : a.pct) - (b.pct == null ? 999 : b.pct) || a.id.localeCompare(b.id);
-    if (SORT === 'used') return b.uses - a.uses || a.id.localeCompare(b.id);
-    if (SORT === 'recent') return String(b.last_used || '').localeCompare(String(a.last_used || '')) || a.id.localeCompare(b.id);
-    if (SORT === 'mistakes') return b.mistakes - a.mistakes || a.id.localeCompare(b.id);
-    return FAMILY_ORDER[a.family] - FAMILY_ORDER[b.family] || (+a.id.slice(1)) - (+b.id.slice(1));
+    var ua = isUntested(a), ub = isUntested(b);
+    if (ua !== ub) return ua ? 1 : -1;
+    var va = sortValue(a), vb = sortValue(b);
+    if (va == null && vb != null) return 1;
+    if (vb == null && va != null) return -1;
+    var d = va == null ? 0 : (va < vb ? -1 : va > vb ? 1 : 0) * sign;
+    return d || idOrder(a, b);
   });
   return out;
+}
+
+function mmssToSec(t) {
+  var p = String(t || '').split(':');
+  return p.length === 2 ? (+p[0] || 0) * 60 + (+p[1] || 0) : 0;
+}
+function isUntested(r) { return r.status === 'Untested' || (r.pct == null && !r.last_used); }
+// A1 < A2 < ... < A9 < A9b < A10 < A10b < A11 < B1 ... F3
+function idKey(r) {
+  var m = /^([A-Z])(\d+)([a-z]*)$/.exec(r.id) || [null, r.id, 0, ''];
+  return [FAMILY_ORDER[m[1]] != null ? FAMILY_ORDER[m[1]] : 9, +m[2], m[3]];
+}
+function idOrder(a, b) {
+  var x = idKey(a), y = idKey(b);
+  return x[0] - y[0] || x[1] - y[1] || (x[2] < y[2] ? -1 : x[2] > y[2] ? 1 : 0);
+}
+function sortValue(r) {
+  switch (SORT.key) {
+    case 'used': return r.uses || 0;
+    case 'mistakes': return r.uses ? r.mistakes : null;
+    case 'score': return r.pct;
+    case 'status': return STATUS_RANK[r.status];
+    case 'last': return r.last_used ? String(r.last_used) + ' ' + ('00000' + mmssToSec(r.last_used_mmss)).slice(-5) : null;
+    default: var k = idKey(r); return k[0] * 1e4 + k[1] * 10 + (k[2] ? 1 : 0);
+  }
+}
+
+function buildHeaders() {
+  var head = $('gc-tablehead');
+  head.textContent = '';
+  COLS.forEach(function (c, i) {
+    var cell = el('div');
+    cell.setAttribute('role', 'columnheader');
+    var active = SORT.key === c.key;
+    var word = SORT.dir === 'asc' ? 'ascending' : 'descending';
+    cell.setAttribute('aria-sort', active ? word : 'none');
+    var b = el('button', 'gc-sortbtn' + (active ? ' is-active' : ''));
+    b.type = 'button';
+    b.appendChild(el('span', null, c.label));
+    if (active) {
+      var arrow = el('span', 'gc-arrow', SORT.dir === 'asc' ? '\u25B2' : '\u25BC');
+      arrow.setAttribute('aria-hidden', 'true');
+      b.appendChild(arrow);
+    }
+    b.setAttribute('aria-label', 'Sort by ' + c.label + (active ? ', ' + word + '. Click to flip.' : ''));
+    b.addEventListener('click', function () {
+      SORT = SORT.key === c.key
+        ? { key: c.key, dir: SORT.dir === 'asc' ? 'desc' : 'asc' }
+        : { key: c.key, dir: c.first };
+      try { localStorage.setItem(SORT_KEY, JSON.stringify(SORT)); } catch (e) { /* not saved */ }
+      render();
+      var again = $('gc-tablehead').querySelectorAll('.gc-sortbtn')[i];
+      if (again) again.focus();
+    });
+    cell.appendChild(b);
+    head.appendChild(cell);
+  });
 }
 
 function useCard(e) {
@@ -448,6 +525,7 @@ function row(r) {
 /* ---------- render ---------- */
 function render() {
   renderCharts();
+  buildHeaders();
   var rows = $('gc-rows');
   rows.textContent = '';
   var list = visibleRules();
@@ -490,7 +568,6 @@ function wire() {
   });
   $('gc-search').addEventListener('input', function (e) { QUERY = e.target.value; render(); });
   $('gc-family').addEventListener('change', function (e) { FAMILY = e.target.value; render(); });
-  $('gc-sort').addEventListener('change', function (e) { SORT = e.target.value; render(); });
   $('gc-reset').addEventListener('click', function () {
     QUERY = ''; FAMILY = 'all';
     $('gc-search').value = ''; $('gc-family').value = 'all';
