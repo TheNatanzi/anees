@@ -58,6 +58,11 @@ def select_tracks(manifest, raw):
     return chosen, omitted
 
 
+def _clock(seconds):
+    s = int(round(seconds))
+    return f'{s // 60}:{s % 60:02d}'
+
+
 def _person(name):
     low = str(name).lower()
     if 'amal' in low:
@@ -289,7 +294,10 @@ def main():
     words = sum(i.get('type') == 'word' for r in data['rows'] for i in r['items'])
     if info['kind'] == 'tracks':
         note = ('Unreviewed speech recognition. Speakers are identified by recording track (one audio file per person). '
-                + (f'{len(info["omitted"])} short reconnect recordings are not transcribed. ' if info['omitted'] else 'Both participant tracks are transcribed. ')
+                + ('Not transcribed: ' + '; '.join(f'{_person(o["participant"])}\'s other recording at {_clock(o["start"]["relative"])}'
+                                                   f'-{_clock(o["start"]["relative"] + (o["duration_s"] or 0))} ({round((o["duration_s"] or 0) / 60, 1)} min)'
+                                                   for o in info['omitted']) + '. '
+                   if info['omitted'] else 'Both participant tracks are transcribed. ')
                 + ('Amal\'s typed chat lines are placed by matching the host recording to this audio. ' if chat else '')
                 + 'Tap a time to play that line.')
     else:

@@ -28,7 +28,8 @@ def track_offset(date, who):
     except Exception:
         return 0.0
     try:
-        dur = json.load(open(os.path.join(d, "scribe_%s.provenance.json" % who), encoding="utf-8")).get("duration")
+        dur = json.load(open(os.path.join(d, "scribe_%s.provenance.json" % who), encoding="utf-8"))
+        dur = dur.get("duration") or dur.get("audio_duration_secs")   # provenance files write audio_duration_secs (09-23 fix)
     except Exception:
         dur = None
     mine = [t for t in tracks if t.get("participant", "").startswith(who)]

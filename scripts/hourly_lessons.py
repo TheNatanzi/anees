@@ -198,17 +198,19 @@ def refresh_published(dates, raw, work):
 
 def publish(dates):
     run = lambda *c: subprocess.run(['git', *c], check=True, cwd=ROOT, capture_output=True, text=True)
-    run('add', 'docs/data', 'docs/js/build.js', 'data/lessons/recall_bots.json', *[f'docs/lessons/{d}.html' for d in dates])
+    # data/budget.json: transcribing writes the cost log; left unstaged it made 'pull --rebase' refuse (exit 128) and the
+    # 2026-09-23 lesson commit never reached master (2026-09-24 fix; --autostash covers any other stray edit).
+    run('add', 'docs/data', 'docs/js/build.js', 'data/lessons/recall_bots.json', 'data/budget.json', *[f'docs/lessons/{d}.html' for d in dates])
     run('add', '-f', *[f'docs/lessons/{d}/audio/lesson.mp3' for d in dates],
         *[f'docs/lessons/{d}/clips' for d in dates if (ROOT / 'docs' / 'lessons' / d / 'clips').exists()])
     run('commit', '-m', f'Lessons {", ".join(dates)} loaded by the hourly job\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>')
     # No automatic conflict side: '-X theirs' in a rebase keeps THIS job's copy and could drop another session's review
     # patches in docs/data. On any conflict: abort, keep the local commit, fail loudly; a person merges.
     try:
-        run('pull', '--rebase', 'origin', 'master')
-    except subprocess.CalledProcessError:
+        run('pull', '--rebase', '--autostash', 'origin', 'master')
+    except subprocess.CalledProcessError as e:
         subprocess.run(['git', 'rebase', '--abort'], cwd=ROOT, capture_output=True)
-        raise RuntimeError('pull --rebase conflicted; lesson commit kept locally, not pushed')
+        raise RuntimeError('pull --rebase failed; lesson commit kept locally, not pushed: ' + (e.stderr or '')[-400:])
     run('push', 'origin', 'HEAD:master')
 
 
@@ -275,6 +277,15 @@ def main():
         log('published', done)
     else:
         log('nothing new')
+        # A lesson commit a failed push left behind is 'published' locally (its page exists), so no later hour re-plans it:
+        # push it here instead of stranding it (2026-09-23 sat unpushed overnight).
+        ahead = subprocess.run(['git', 'rev-list', '--count', 'origin/master..HEAD'], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+        if not a.dry_run and not a.no_push and ahead not in ('', '0'):
+            if subprocess.run(['git', 'pull', '--rebase', '--autostash', 'origin', 'master'], cwd=ROOT, capture_output=True).returncode:
+                subprocess.run(['git', 'rebase', '--abort'], cwd=ROOT, capture_output=True)
+                log('FAILED to rebase', ahead, 'unpushed local commit(s); a person merges'); return 1
+            subprocess.run(['git', 'push', 'origin', 'HEAD:master'], check=True, cwd=ROOT, capture_output=True)
+            log('pushed', ahead, 'local commit(s) left by an earlier run')
     return 1 if failures else 0
 
 
