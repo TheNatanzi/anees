@@ -528,7 +528,7 @@ def build():
         med = sorted((p for p in P if p["who"] == "Medi" and not p["chat"]), key=lambda p: p["t"])
         mts = [p["t"] for p in med]
         verr = []
-        for s in sorted((s for s in S if s["points"] < 1), key=lambda s: s["t_start"]):
+        for s in sorted((s for s in S if s["points"] == 0), key=lambda s: s["t_start"]):  # Medi 2026-09-25: "helped" (Amal said the word first) is not an error
             i = bisect.bisect_right(mts, s["t_start"] + 0.05) - 1
             said = med[i]["text"] if i >= 0 and s["t_start"] - med[i]["t"] < 60 else (s["said"] or s["text"])
             tok = wrong_token(s["text"], s["arabic"])
