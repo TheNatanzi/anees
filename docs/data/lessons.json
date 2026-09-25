@@ -1,0 +1,1889 @@
+{
+ "updated": "2026-09-25T10:39:25-07:00",
+ "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
+ "definitions": {
+  "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
+  "duration_min": "Length of the lesson audio the page plays, in minutes.",
+  "type": "Claude's reading of what the lesson mostly was: free-speak = conversation; review-words = practising words already taught; new-words = Amal teaching new vocabulary (new verb pairs drilled in all tenses count here); new-grammar = Amal teaching a rule. One main type; if mixed, the one with the most minutes, and type_why says so. type_source 'claude-read' = Medi can correct it.",
+  "review_mode": "For review lessons only: listening = Amal says Arabic, Medi gives the meaning; speaking = Medi says it in Arabic; both.",
+  "words.unique": "How many different Word Bank words Medi was scored on in this lesson.",
+  "words.right": "Scored uses marked correct (same rules as the Word Bank page: its own code is run on docs/data/word-bank-evidence.json + word-bank-review.json).",
+  "words.partial": "Scored uses marked partial (he got there with help) - worth half.",
+  "words.wrong": "Scored uses marked incorrect.",
+  "words.pct": "Word score for the lesson: (right + half of partial) / all scored uses, as a percent. The Word Bank's own weighting.",
+  "grammar.uses": "Times Medi's Arabic exercised a grammar rule in this lesson, right or wrong (docs/data/grammar-usage.json). Turns the engine wrote in Latin letters are not counted there.",
+  "grammar.mistakes": "Grammar slips Amal corrected out loud in this lesson (hand sweep 2026-09-24, speaking rows filed in an approved rule).",
+  "grammar.pct": "Share of rule uses that were right: 1 - mistakes / uses, as a percent. Null when uses are missing.",
+  "talk.medi_s": "Seconds Medi was talking: his words glued into turns (gaps under 1.2 s), turn lengths added up. Stretches the engine marked '[speaking Arabic]' count as talk.",
+  "talk.amal_s": "Same for Amal.",
+  "talk.speak_pct": "Medi's share of the talking: medi_s / (medi_s + amal_s).",
+  "talk.listen_pct": "Amal's share of the talking (the time Medi was listening to her).",
+  "fillers.count": "Medi's filled pauses (the technical name: filled pauses, a kind of disfluency) - uh, um, er, eh, mm, hmm, ah, and Arabic ام / امم / آآ / ممم; آه and اه only when they come mid-sentence (at the start they usually mean 'yes'). The engine drops some, so this is a floor.",
+  "fillers.per_min": "Filled pauses per minute of Medi's own talk time.",
+  "fillers.top": "The most frequent ones, with counts.",
+  "latency.median_s": "Response latency: seconds from the end of Amal's turn to the start of Medi's reply, middle value. Only replies within 15 s; overlaps (he starts before she stops) are left out. A pause is not an error (rule S5) - this is a speed measure only.",
+  "latency.p75_s": "Three quarters of his replies started within this many seconds.",
+  "latency.n": "How many replies were measured.",
+  "flow.wpm": "Speaking flow: Arabic words per minute inside Medi's Arabic turns (a turn = words with gaps under 1.2 s; only turns with at least 2 Arabic-script words; filled pauses not counted as words). English-only turns and Latin-script transliterations are left out.",
+  "flow.n_turns": "How many of his Arabic turns went into wpm.",
+  "new_words": "New-words lessons only: words on Amal's list whose first appearance in any recorded lesson is this one and that Amal said in it. Arabizi is her spelling (rule S1); a word she never wrote stays in Arabic."
+ },
+ "lessons": [
+  {
+   "date": "2026-08-25",
+   "start_local": "2026-08-25T14:27:00-07:00",
+   "start_source": "Meet folder name in processed.json (minute precision)",
+   "duration_min": 62.6,
+   "type": "free-speak",
+   "review_mode": null,
+   "type_why": "Conversation from Amal's questions (time, clothes, weather, what tires you, fears, fiancee) with fixes as they come; ~4 min of Meet setup talk; no drill.",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 55,
+    "right": 69,
+    "wrong": 6,
+    "partial": 3,
+    "pct": 90.4,
+    "scored": 78
+   },
+   "grammar": {
+    "uses": 219,
+    "mistakes": 22,
+    "pct": 90.0
+   },
+   "talk": {
+    "medi_s": 1054.9,
+    "amal_s": 755.3,
+    "speak_pct": 58.3,
+    "listen_pct": 41.7,
+    "window": [
+     0.0,
+     3596.2
+    ]
+   },
+   "fillers": {
+    "count": 167,
+    "per_min": 9.5,
+    "top": [
+     [
+      "uh",
+      69
+     ],
+     [
+      "آآ",
+      50
+     ],
+     [
+      "um",
+      26
+     ],
+     [
+      "امم",
+      11
+     ],
+     [
+      "ah",
+      3
+     ],
+     [
+      "اه",
+      3
+     ]
+    ]
+   },
+   "latency": {
+    "median_s": 1.13,
+    "p75_s": 1.8,
+    "n": 276
+   },
+   "flow": {
+    "wpm": 68.1,
+    "n_turns": 193,
+    "arabic_words": 602
+   },
+   "new_words": [],
+   "coverage": "read all 624 turns 02:54-59:55 (source transcript.txt, chat=0 so no typed lines). 36:27-42:30 is transcribed in Latin transliteration (‹›) not Arabic script. No untranscribed gaps; 09:32-13:48 is Meet setup talk in English.",
+   "notes": [
+    "timings: one mixed recording, speakers labelled by the engine's diarization (words_labeled.json)"
+   ],
+   "page": "lessons/2026-08-25.html",
+   "detail": "data/lessons/2026-08-25.json",
+   "counts": {
+    "turns": 623,
+    "chat_lines": 0,
+    "vocab_errors": 9,
+    "grammar_errors": 22
+   }
+  },
+  {
+   "date": "2026-09-04",
+   "start_local": "2026-09-04T14:03:00-07:00",
+   "start_source": "Meet folder name in processed.json (minute precision)",
+   "duration_min": 64.6,
+   "type": "new-grammar",
+   "review_mode": null,
+   "type_why": "28:00-1:03:00 (~35 of 63 min) is the first causative/reflexive pair: Amal teaches how بسط/انبسط conjugate (b- before a root b, past endings, command); 11:00-28:00 is mostly English about AI tools and a honey seller.",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 17,
+    "right": 13,
+    "wrong": 4,
+    "partial": 0,
+    "pct": 76.5,
+    "scored": 17
+   },
+   "grammar": {
+    "uses": 70,
+    "mistakes": 24,
+    "pct": 65.7
+   },
+   "talk": {
+    "medi_s": 1080.8,
+    "amal_s": 1027.9,
+    "speak_pct": 51.3,
+    "listen_pct": 48.7,
+    "window": [
+     0.0,
+     3792.6
+    ]
+   },
+   "fillers": {
+    "count": 129,
+    "per_min": 7.16,
+    "top": [
+     [
+      "uh",
+      56
+     ],
+     [
+      "um",
+      32
+     ],
+     [
+      "آآ",
+      13
+     ],
+     [
+      "ah",
+      12
+     ],
+     [
+      "امم",
+      4
+     ],
+     [
+      "umm",
+      3
+     ]
+    ]
+   },
+   "latency": {
+    "median_s": 1.0,
+    "p75_s": 1.92,
+    "n": 334
+   },
+   "flow": {
+    "wpm": 52.0,
+    "n_turns": 64,
+    "arabic_words": 182
+   },
+   "new_words": [],
+   "coverage": "read all 1046 turns 00:04-1:03:11 (source transcript.txt, chat=0). Diarization is badly fragmented: many turns are 1-3 words and sentences are split across speakers, so Amal/Medi labels are often swapped (e.g. 02:15-02:19, 52:21-52:33, 1:01:29-1:01:33). 11:00-22:30 is almost all English about AI tooling; 22:50-24:50 is an English interruption with a honey seller. 21:00 onward is mostly Latin transliteration. Lesson core 28:00-1:03:00 is a بسط/انبسط conjugation drill.",
+   "notes": [
+    "timings: one mixed recording, speakers labelled by the engine's diarization (words_labeled.json)"
+   ],
+   "page": "lessons/2026-09-04.html",
+   "detail": "data/lessons/2026-09-04.json",
+   "counts": {
+    "turns": 1395,
+    "chat_lines": 0,
+    "vocab_errors": 4,
+    "grammar_errors": 24
+   }
+  },
+  {
+   "date": "2026-09-05",
+   "start_local": "2026-09-05T14:19:52-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "duration_min": 62.7,
+   "type": "new-words",
+   "review_mode": null,
+   "type_why": "Most of the lesson (~22:00-1:02) drills the new pair زعج/انزعج in past, present and command; 07:00-22:00 reviews بسط/انبسط; first 6 min is app-demo talk.",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 28,
+    "right": 33,
+    "wrong": 3,
+    "partial": 3,
+    "pct": 88.5,
+    "scored": 39
+   },
+   "grammar": {
+    "uses": 79,
+    "mistakes": 25,
+    "pct": 68.4
+   },
+   "talk": {
+    "medi_s": 1381.9,
+    "amal_s": 876.9,
+    "speak_pct": 61.2,
+    "listen_pct": 38.8,
+    "window": [
+     0.0,
+     3747.0
+    ]
+   },
+   "fillers": {
+    "count": 141,
+    "per_min": 6.12,
+    "top": [
+     [
+      "uh",
+      94
+     ],
+     [
+      "um",
+      35
+     ],
+     [
+      "ah",
+      4
+     ],
+     [
+      "mm",
+      3
+     ],
+     [
+      "اه",
+      3
+     ],
+     [
+      "eh",
+      1
+     ]
+    ]
+   },
+   "latency": {
+    "median_s": 1.37,
+    "p75_s": 2.27,
+    "n": 235
+   },
+   "flow": {
+    "wpm": 54.8,
+    "n_turns": 63,
+    "arabic_words": 193
+   },
+   "new_words": [
+    {
+     "key": "mAshi",
+     "arabic": "ماشي",
+     "english": "Sounds good / Okay / Alright",
+     "t": 122.2,
+     "arabizi": "Maashi"
+    },
+    {
+     "key": "ana ba5ali",
+     "arabic": "أنا بخلّي",
+     "english": "I let",
+     "t": 586.1,
+     "arabizi": "Ana ba5alli"
+    },
+    {
+     "key": "ta5yIm",
+     "arabic": "تخييم",
+     "english": "Camping",
+     "t": 599.8,
+     "arabizi": "ta5yeem"
+    },
+    {
+     "key": "byebse6",
+     "arabic": "بيبسط",
+     "english": "It causes happiness / makes someone happy",
+     "t": 832.8,
+     "arabizi": "Byebse6"
+    },
+    {
+     "key": "mbAre7",
+     "arabic": "مبارح",
+     "english": "Yesterday",
+     "t": 964.6,
+     "arabizi": "Mbaare7"
+    },
+    {
+     "key": "ziAdeh",
+     "arabic": "زيادة",
+     "english": "Extra / increase",
+     "t": 1223.9,
+     "arabizi": "Ziaadeh"
+    },
+    {
+     "key": "ana baz3ej",
+     "arabic": "أنا بزعج",
+     "english": "I annoy",
+     "t": 1324.0,
+     "arabizi": "Ana baz3ej"
+    },
+    {
+     "key": "maz3Uj",
+     "arabic": "مزعوج",
+     "english": "Annoyed",
+     "t": 1339.6,
+     "arabizi": "Maz3ooj"
+    },
+    {
+     "key": "muz3ej",
+     "arabic": "مزعج",
+     "english": "Annoying",
+     "t": 1369.7,
+     "arabizi": "Muz3ej"
+    },
+    {
+     "key": "mawjU3",
+     "arabic": "موجوع",
+     "english": "In pain / hurt (physical)",
+     "t": 1406.6,
+     "arabizi": "Mawjoo3"
+    },
+    {
+     "key": "ma7rUj",
+     "arabic": "محروج",
+     "english": "Emberrassed",
+     "t": 1408.4,
+     "arabizi": "Ma7rooj"
+    },
+    {
+     "key": "majrU7",
+     "arabic": "مجروح",
+     "english": "Hurt",
+     "t": 1411.1,
+     "arabizi": "Majroo7"
+    },
+    {
+     "key": "mut3eb",
+     "arabic": "متعب",
+     "english": "Tiring",
+     "t": 1428.3,
+     "arabizi": "Mut3eb"
+    },
+    {
+     "key": "ana bas2al",
+     "arabic": "أنا بسأل",
+     "english": "Ask (question)",
+     "t": 1474.7,
+     "arabizi": "Ana bas2al"
+    },
+    {
+     "key": "ana banze3ej",
+     "arabic": "أنا بنزعج",
+     "english": "I get annoyed",
+     "t": 1632.3,
+     "arabizi": "Ana banze3ej"
+    },
+    {
+     "key": "jAhez",
+     "arabic": "جاهز",
+     "english": "Ready",
+     "t": 1966.4,
+     "arabizi": "Jaahez"
+    },
+    {
+     "key": "bidUn",
+     "arabic": "بدون",
+     "english": "Without",
+     "t": 2373.1,
+     "arabizi": "bidoon"
+    },
+    {
+     "key": "3Asefe",
+     "arabic": "عاصفة",
+     "english": "Storm",
+     "t": 2587.7,
+     "arabizi": "3aasefe"
+    },
+    {
+     "key": "3am",
+     "arabic": "عم",
+     "english": "Uncle (Paternal)",
+     "t": 2770.3,
+     "arabizi": "3aam"
+    },
+    {
+     "key": "5arbAn",
+     "arabic": "خربان",
+     "english": "Not working properly",
+     "t": 2774.0,
+     "arabizi": "5arbaan"
+    },
+    {
+     "key": "3ain f",
+     "arabic": "عين",
+     "english": "Eye",
+     "t": 3052.1,
+     "arabizi": "3ain (F)"
+    },
+    {
+     "key": "shab3An",
+     "arabic": "شبعان",
+     "english": "Full (Food)",
+     "t": 3327.3,
+     "arabizi": "Shab3aan"
+    },
+    {
+     "key": "5ali",
+     "arabic": "خلّي",
+     "english": "Let",
+     "t": null,
+     "arabizi": "5ali"
+    },
+    {
+     "key": "beizahe2",
+     "arabic": "بيزهق",
+     "english": "Boring / causes boredom",
+     "t": null,
+     "arabizi": "beyzahhe2"
+    }
+   ],
+   "coverage": "read all 834 turns 00:26-1:02:14; no chat lines in file; 00:26-06:02 is app demo talk (Medi recounts an OLD lazim ba'amal fix at 04:32 - not counted); Medi's Arabic mostly transcribed in Latin letters, so wrong/right pieces are rendered in Arabic script from those spellings",
+   "notes": [
+    "timings: one mixed recording, speakers labelled by the engine's diarization (words_labeled.json)"
+   ],
+   "page": "lessons/2026-09-05.html",
+   "detail": "data/lessons/2026-09-05.json",
+   "counts": {
+    "turns": 833,
+    "chat_lines": 0,
+    "vocab_errors": 6,
+    "grammar_errors": 25
+   }
+  },
+  {
+   "date": "2026-09-10",
+   "start_local": "2026-09-10T13:39:04-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "duration_min": 62.7,
+   "type": "new-words",
+   "review_mode": null,
+   "type_why": "27:00-57:00 teaches the new pair كسر/انكسر in every tense; before that ~25 min of conversation and a review of زعج/انزعج; ends with Amal listing the causative verbs to learn.",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 59,
+    "right": 100,
+    "wrong": 2,
+    "partial": 1,
+    "pct": 97.6,
+    "scored": 103
+   },
+   "grammar": {
+    "uses": 232,
+    "mistakes": 20,
+    "pct": 91.4
+   },
+   "talk": null,
+   "fillers": null,
+   "latency": null,
+   "flow": null,
+   "new_words": [
+    {
+     "key": "ana bab3at la",
+     "arabic": "أنا ببعت",
+     "english": "I send",
+     "t": 9.5,
+     "arabizi": "Ana bab3at (la-)"
+    },
+    {
+     "key": "risAle",
+     "arabic": "رسالة",
+     "english": "Message / Letter",
+     "t": 10.0,
+     "arabizi": "Risaale"
+    },
+    {
+     "key": "7ot",
+     "arabic": "حط",
+     "english": "Put",
+     "t": 17.7,
+     "arabizi": "7ott"
+    },
+    {
+     "key": "7uk",
+     "arabic": "حك",
+     "english": "Scratch",
+     "t": 29.6,
+     "arabizi": "7ukk"
+    },
+    {
+     "key": "eb3at",
+     "arabic": "ابعت",
+     "english": "Send",
+     "t": 101.0,
+     "arabizi": "Eb3at"
+    },
+    {
+     "key": "marhaba",
+     "arabic": "مرحبا",
+     "english": "Hello / Hello / Hi",
+     "t": 104.7,
+     "arabizi": "marhaba"
+    },
+    {
+     "key": "3ashrah",
+     "arabic": "عشرة",
+     "english": "ten",
+     "t": 406.9,
+     "arabizi": "3ashrah"
+    },
+    {
+     "key": "tes3ah",
+     "arabic": "تسعة",
+     "english": "nine",
+     "t": 407.3,
+     "arabizi": "tes3ah"
+    },
+    {
+     "key": "sitah",
+     "arabic": "ستة",
+     "english": "six",
+     "t": 418.9,
+     "arabizi": "sittah"
+    },
+    {
+     "key": "talat",
+     "arabic": "تلات",
+     "english": "three",
+     "t": 438.3,
+     "arabizi": "talat"
+    },
+    {
+     "key": "tentain",
+     "arabic": "تنتين",
+     "english": "Two (F)",
+     "t": 439.0,
+     "arabizi": "Tentain"
+    },
+    {
+     "key": "ila",
+     "arabic": "إلا",
+     "english": "Except",
+     "t": 443.0,
+     "arabizi": "illa"
+    },
+    {
+     "key": "tult~2",
+     "arabic": "تلت",
+     "english": "Third",
+     "t": 443.2,
+     "arabizi": "Tult"
+    },
+    {
+     "key": "kIf aljaw",
+     "arabic": "كيف الجو؟",
+     "english": "How's the weather? / How's the vibe?",
+     "t": 448.2,
+     "arabizi": "Keef el-jaww?"
+    },
+    {
+     "key": "jad",
+     "arabic": "جد",
+     "english": "Seriously / Really",
+     "t": 455.6,
+     "arabizi": "Jadd"
+    },
+    {
+     "key": "kahraba",
+     "arabic": "كهربا",
+     "english": "Electricity",
+     "t": 531.2,
+     "arabizi": "Kahraba"
+    },
+    {
+     "key": "muhandes",
+     "arabic": "مهندس",
+     "english": "Engineer",
+     "t": 544.0,
+     "arabizi": "Muhandes"
+    },
+    {
+     "key": "dars",
+     "arabic": "درس",
+     "english": "Lesson",
+     "t": 789.9,
+     "arabizi": "Dars"
+    },
+    {
+     "key": "aljAi",
+     "arabic": "الجاي",
+     "english": "Next / the coming (M)",
+     "t": 997.6,
+     "arabizi": "El-jaay"
+    },
+    {
+     "key": "wa7ad",
+     "arabic": "واحد",
+     "english": "One",
+     "t": 1024.2,
+     "arabizi": "Wa7ad"
+    },
+    {
+     "key": "wAjeb",
+     "arabic": "واجب",
+     "english": "Homework / Duty",
+     "t": 1105.2,
+     "arabizi": "Waajeb"
+    },
+    {
+     "key": "ana bashuf",
+     "arabic": "أنا بشوف",
+     "english": "I see",
+     "t": 1349.2,
+     "arabizi": "Ana bashuf"
+    },
+    {
+     "key": "ya2tiki al2afyah",
+     "arabic": "يعطيكي العافية",
+     "english": "said when someone is working, doing effort or casual hello/bye (f))",
+     "t": 1525.4,
+     "arabizi": "ya'tiki al'afyah"
+    },
+    {
+     "key": "hadIk",
+     "arabic": "هديك",
+     "english": "That (F)",
+     "t": 1532.8,
+     "arabizi": "Hadik"
+    },
+    {
+     "key": "2arIb",
+     "arabic": "قريب",
+     "english": "Close",
+     "t": 1674.5,
+     "arabizi": "2areeb"
+    },
+    {
+     "key": "ana bakser",
+     "arabic": "أنا بكسر",
+     "english": "I break",
+     "t": 1675.9,
+     "arabizi": "Ana bakser"
+    },
+    {
+     "key": "haiyo",
+     "arabic": "هيو",
+     "english": "Here it is",
+     "t": 1691.7,
+     "arabizi": "Hayyo"
+    },
+    {
+     "key": "sa3b",
+     "arabic": "صعب",
+     "english": "Difficult",
+     "t": 1692.9,
+     "arabizi": "sa3b"
+    },
+    {
+     "key": "jAr",
+     "arabic": "جار",
+     "english": "Neighbour",
+     "t": 2198.5,
+     "arabizi": "Jaar"
+    },
+    {
+     "key": "noa3",
+     "arabic": "نوع",
+     "english": "Type / kind",
+     "t": 2314.5,
+     "arabizi": "Noa3"
+    },
+    {
+     "key": "maksUr",
+     "arabic": "مكسور",
+     "english": "Broken (physical)",
+     "t": 2995.9,
+     "arabizi": "Maksoor"
+    },
+    {
+     "key": "law samaht",
+     "arabic": "لو سمحت",
+     "english": "Please (m)",
+     "t": 3032.5,
+     "arabizi": "Law samaht"
+    },
+    {
+     "key": "wala mara",
+     "arabic": "ولا مرة",
+     "english": "Never / not once",
+     "t": 3149.9,
+     "arabizi": "Wala marra"
+    },
+    {
+     "key": "kulshi",
+     "arabic": "كلشي",
+     "english": "Everything",
+     "t": 3269.7,
+     "arabizi": "kulshi"
+    },
+    {
+     "key": "ana ba7rej",
+     "arabic": "أنا بحرج",
+     "english": "I embarrass",
+     "t": 3455.1,
+     "arabizi": "Ana ba7rej"
+    },
+    {
+     "key": "ana ban7erej",
+     "arabic": "أنا بنحرج",
+     "english": "I get embarrassed",
+     "t": 3455.6,
+     "arabizi": "Ana ban7erej"
+    },
+    {
+     "key": "su5un",
+     "arabic": "سخن",
+     "english": "Hot (M)",
+     "t": 3567.9,
+     "arabizi": "Su5un"
+    }
+   ],
+   "coverage": "read all 970 turns 00:03-1:02:40; no chat lines; no machine audit exists for this lesson (never audited) so every row is a machine miss; 00:03-01:42 is setup noise; 42:15-42:34 Medi talks to a passer-by; 57:27-end is mostly Amal explaining which verbs to learn",
+   "notes": [
+    "talk, fillers, latency and flow are null: no word-level timings on disk for this lesson (the page has line start times only)."
+   ],
+   "page": "lessons/2026-09-10.html",
+   "detail": "data/lessons/2026-09-10.json",
+   "counts": {
+    "turns": 970,
+    "chat_lines": 0,
+    "vocab_errors": 3,
+    "grammar_errors": 20
+   }
+  },
+  {
+   "date": "2026-09-11",
+   "start_local": "2026-09-11T14:27:20-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "duration_min": 62.6,
+   "type": "new-words",
+   "review_mode": null,
+   "type_why": "~10:00-1:00:00 drills the new pair خرب/خرّب (past, present, command, 'rots', 'mess up'); the first 10 min is small talk plus a short review of north/darkness/stars words.",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 44,
+    "right": 57,
+    "wrong": 0,
+    "partial": 1,
+    "pct": 99.1,
+    "scored": 58
+   },
+   "grammar": {
+    "uses": 98,
+    "mistakes": 21,
+    "pct": 78.6
+   },
+   "talk": {
+    "medi_s": 1366.5,
+    "amal_s": 961.3,
+    "speak_pct": 58.7,
+    "listen_pct": 41.3,
+    "window": [
+     0.0,
+     3752.3
+    ]
+   },
+   "fillers": {
+    "count": 187,
+    "per_min": 8.21,
+    "top": [
+     [
+      "uh",
+      98
+     ],
+     [
+      "آآ",
+      46
+     ],
+     [
+      "um",
+      36
+     ],
+     [
+      "mm",
+      3
+     ],
+     [
+      "ah",
+      2
+     ],
+     [
+      "hmm",
+      1
+     ]
+    ]
+   },
+   "latency": {
+    "median_s": 1.3,
+    "p75_s": 2.61,
+    "n": 199
+   },
+   "flow": {
+    "wpm": 65.1,
+    "n_turns": 101,
+    "arabic_words": 327
+   },
+   "new_words": [
+    {
+     "key": "malyAn",
+     "arabic": "مليان",
+     "english": "Full (General/Object)",
+     "t": 68.5,
+     "arabizi": "Malyaan"
+    },
+    {
+     "key": "akalet",
+     "arabic": "أكلت",
+     "english": "I ate",
+     "t": 101.0,
+     "arabizi": "Akalet"
+    },
+    {
+     "key": "sahtein",
+     "arabic": "صحتين",
+     "english": "Bon appétit",
+     "t": 119.7,
+     "arabizi": "sahtein"
+    },
+    {
+     "key": "murAja3a",
+     "arabic": "مراجعة",
+     "english": "Review",
+     "t": 155.7,
+     "arabizi": "Muraaja3a"
+    },
+    {
+     "key": "ana barAje3",
+     "arabic": "أنا براجع",
+     "english": "I review",
+     "t": 163.5,
+     "arabizi": "Ana baraaje3"
+    },
+    {
+     "key": "ma6ar",
+     "arabic": "مطر",
+     "english": "Rain",
+     "t": 385.0,
+     "arabizi": "Ma6ar"
+    },
+    {
+     "key": "3etme",
+     "arabic": "عتمة",
+     "english": "Darkness",
+     "t": 421.2,
+     "arabizi": "3etme"
+    },
+    {
+     "key": "aldenia",
+     "arabic": "الدنيا",
+     "english": "The world / the conditions",
+     "t": 431.4,
+     "arabizi": "El-denia"
+    },
+    {
+     "key": "3Adatan",
+     "arabic": "عادةً",
+     "english": "Usually",
+     "t": 496.2,
+     "arabizi": "3aadatan"
+    },
+    {
+     "key": "nejme",
+     "arabic": "نجمة",
+     "english": "Star",
+     "t": 557.8,
+     "arabizi": "Nejme"
+    },
+    {
+     "key": "jame3",
+     "arabic": "جمع",
+     "english": "Plural",
+     "t": 629.4,
+     "arabizi": "Jame3"
+    },
+    {
+     "key": "8arIb",
+     "arabic": "غريب",
+     "english": "Weird",
+     "t": 629.9,
+     "arabizi": "8areeb"
+    },
+    {
+     "key": "kul yoam",
+     "arabic": "كل يوم",
+     "english": "Everyday",
+     "t": 865.3,
+     "arabizi": "Kul yoam"
+    },
+    {
+     "key": "safra",
+     "arabic": "سفرة",
+     "english": "(Travel) trip",
+     "t": 1701.2,
+     "arabizi": "Safra"
+    },
+    {
+     "key": "3azUme",
+     "arabic": "عزومة",
+     "english": "House gathering / Invitation",
+     "t": 1827.8,
+     "arabizi": "3azoome"
+    },
+    {
+     "key": "tanUra",
+     "arabic": "تنورة",
+     "english": "Skirt",
+     "t": 2258.4,
+     "arabizi": "Tannoora"
+    },
+    {
+     "key": "2afwan",
+     "arabic": "عفواً",
+     "english": "You're welcome",
+     "t": 2406.2,
+     "arabizi": "'afwan"
+    },
+    {
+     "key": "shoraba",
+     "arabic": "شوربة",
+     "english": "Soup",
+     "t": 3403.7,
+     "arabizi": "Shoraba"
+    }
+   ],
+   "coverage": "read all 937 turns 00:41-1:02:26 (no chat lines). Gaps: Medi's Arabic mostly '[speaking Arabic]' 18:13-22:42, 30:33-31:57, 33:14-36:33; Amal '[speaks Arabic]' 49:44-56:28; 46:02-58:37 Medi in Latin script.",
+   "notes": [
+    "38 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow."
+   ],
+   "page": "lessons/2026-09-11.html",
+   "detail": "data/lessons/2026-09-11.json",
+   "counts": {
+    "turns": 937,
+    "chat_lines": 0,
+    "vocab_errors": 1,
+    "grammar_errors": 21
+   }
+  },
+  {
+   "date": "2026-09-14",
+   "start_local": "2026-09-14T15:13:33-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "duration_min": 62.8,
+   "type": "review-words",
+   "review_mode": "speaking",
+   "type_why": "After ~22 min of small talk, Amal gives English sentences and Medi says them in Arabic with the verbs already taught (زعج/انزعج, كسر/انكسر, بسط/انبسط) - 'we're repeating today'; Amal types each answer in chat.",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 37,
+    "right": 50,
+    "wrong": 1,
+    "partial": 8,
+    "pct": 91.5,
+    "scored": 59
+   },
+   "grammar": {
+    "uses": 106,
+    "mistakes": 29,
+    "pct": 72.6
+   },
+   "talk": {
+    "medi_s": 1070.8,
+    "amal_s": 731.2,
+    "speak_pct": 59.4,
+    "listen_pct": 40.6,
+    "window": [
+     0.0,
+     3760.4
+    ]
+   },
+   "fillers": {
+    "count": 195,
+    "per_min": 10.93,
+    "top": [
+     [
+      "uh",
+      129
+     ],
+     [
+      "um",
+      46
+     ],
+     [
+      "آآ",
+      7
+     ],
+     [
+      "ah",
+      5
+     ],
+     [
+      "mm",
+      5
+     ],
+     [
+      "آه",
+      2
+     ]
+    ]
+   },
+   "latency": {
+    "median_s": 1.37,
+    "p75_s": 2.42,
+    "n": 219
+   },
+   "flow": {
+    "wpm": 59.8,
+    "n_turns": 106,
+    "arabic_words": 323
+   },
+   "new_words": [],
+   "coverage": "read all 1041 lines (996 spoken turns + 45 chat) 00:02-1:02:40. Medi often in Latin script (12:00-23:30, 40:00-53:50); STT garbles Amal's اخترت as اشتريت; 43:59-45:38 Medi away.",
+   "notes": [],
+   "page": "lessons/2026-09-14.html",
+   "detail": "data/lessons/2026-09-14.json",
+   "counts": {
+    "turns": 996,
+    "chat_lines": 45,
+    "vocab_errors": 9,
+    "grammar_errors": 29
+   }
+  },
+  {
+   "date": "2026-09-15",
+   "start_local": "2026-09-15T14:34:40-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "duration_min": 67.1,
+   "type": "new-words",
+   "review_mode": null,
+   "type_why": "28:00-1:05 (~37 min) teaches new T-verbs غيّر/تغيّر, صوّر/تصوّر, ذكّر/تذكّر; 10:00-28:00 (~18 min) reviews كسر/انكسر; first 10 min is small talk.",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 24,
+    "right": 27,
+    "wrong": 1,
+    "partial": 1,
+    "pct": 94.8,
+    "scored": 29
+   },
+   "grammar": {
+    "uses": 92,
+    "mistakes": 29,
+    "pct": 68.5
+   },
+   "talk": {
+    "medi_s": 1193.7,
+    "amal_s": 905.4,
+    "speak_pct": 56.9,
+    "listen_pct": 43.1,
+    "window": [
+     0.0,
+     4024.3
+    ]
+   },
+   "fillers": {
+    "count": 191,
+    "per_min": 9.6,
+    "top": [
+     [
+      "uh",
+      132
+     ],
+     [
+      "um",
+      47
+     ],
+     [
+      "ah",
+      5
+     ],
+     [
+      "mm",
+      3
+     ],
+     [
+      "ممم",
+      2
+     ],
+     [
+      "eh",
+      1
+     ]
+    ]
+   },
+   "latency": {
+    "median_s": 1.48,
+    "p75_s": 2.85,
+    "n": 221
+   },
+   "flow": {
+    "wpm": 52.9,
+    "n_turns": 91,
+    "arabic_words": 264
+   },
+   "new_words": [
+    {
+     "key": "beidal",
+     "arabic": "بيضل",
+     "english": "Remains",
+     "t": 1456.8,
+     "arabizi": "Beydall"
+    },
+    {
+     "key": "rAs",
+     "arabic": "راس",
+     "english": "Head",
+     "t": 1701.6,
+     "arabizi": "Raas"
+    },
+    {
+     "key": "ana bat8aiyar",
+     "arabic": "أنا بتغير",
+     "english": "I get changed",
+     "t": 1747.1,
+     "arabizi": "Ana bat8ayyar"
+    },
+    {
+     "key": "maw3ed",
+     "arabic": "موعد",
+     "english": "Appointment (time)",
+     "t": 1954.6,
+     "arabizi": "Maw3ed"
+    },
+    {
+     "key": "ana batzakar",
+     "arabic": "أنا بتذكر",
+     "english": "I remember",
+     "t": 2795.0,
+     "arabizi": "Ana batzakkar"
+    },
+    {
+     "key": "ana bazaker",
+     "arabic": "أنا بذكر",
+     "english": "I remind",
+     "t": 2795.8,
+     "arabizi": "Ana bazakker"
+    },
+    {
+     "key": "ana batwaja3",
+     "arabic": "أنا بتوجع",
+     "english": "I get hurt",
+     "t": 3456.2,
+     "arabizi": "Ana batwajja3"
+    },
+    {
+     "key": "ana ba7ames",
+     "arabic": "أنا بحمس",
+     "english": "I excite (someone)",
+     "t": 3460.4,
+     "arabizi": "Ana ba7ammes"
+    },
+    {
+     "key": "tfadal",
+     "arabic": "تفضل",
+     "english": "Here you go / welcome (M)",
+     "t": null,
+     "arabizi": "tfaddal"
+    },
+    {
+     "key": "estana",
+     "arabic": "استنى",
+     "english": "Wait",
+     "t": null,
+     "arabizi": "estanna"
+    }
+   ],
+   "coverage": "read all 1097 turns 00:36-1:07:03; Medi's Arabic often Latin-script STT; no untranscribed gaps",
+   "notes": [],
+   "page": "lessons/2026-09-15.html",
+   "detail": "data/lessons/2026-09-15.json",
+   "counts": {
+    "turns": 1025,
+    "chat_lines": 72,
+    "vocab_errors": 2,
+    "grammar_errors": 29
+   }
+  },
+  {
+   "date": "2026-09-16",
+   "start_local": "2026-09-16T14:37:36-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "duration_min": 69.7,
+   "type": "new-words",
+   "review_mode": null,
+   "type_why": "~10:00-1:08 teaches new pairs حمّس/تحمّس, وجّع/توجّع, ضايق/تضايق, حرّك/تحرّك with English-to-Arabic sentences; first ~10 min is small talk (date, clothes).",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 33,
+    "right": 35,
+    "wrong": 2,
+    "partial": 0,
+    "pct": 94.6,
+    "scored": 37
+   },
+   "grammar": {
+    "uses": 52,
+    "mistakes": 23,
+    "pct": 55.8
+   },
+   "talk": {
+    "medi_s": 1054.1,
+    "amal_s": 831.6,
+    "speak_pct": 55.9,
+    "listen_pct": 44.1,
+    "window": [
+     0.0,
+     4163.0
+    ]
+   },
+   "fillers": {
+    "count": 174,
+    "per_min": 9.9,
+    "top": [
+     [
+      "uh",
+      127
+     ],
+     [
+      "um",
+      38
+     ],
+     [
+      "mm",
+      4
+     ],
+     [
+      "ah",
+      2
+     ],
+     [
+      "eh",
+      2
+     ],
+     [
+      "اه",
+      1
+     ]
+    ]
+   },
+   "latency": {
+    "median_s": 1.73,
+    "p75_s": 2.73,
+    "n": 206
+   },
+   "flow": {
+    "wpm": 53.2,
+    "n_turns": 41,
+    "arabic_words": 118
+   },
+   "new_words": [
+    {
+     "key": "ana balashet",
+     "arabic": "أنا بلشت",
+     "english": "I started",
+     "t": 255.9,
+     "arabizi": "Ana ballashet"
+    },
+    {
+     "key": "mnIhah",
+     "arabic": "منيحة",
+     "english": "Good (female)",
+     "t": 318.2,
+     "arabizi": "mneehah"
+    },
+    {
+     "key": "bei7ames",
+     "arabic": "بيحمس",
+     "english": "Exciting",
+     "t": 798.4,
+     "arabizi": "bey7ammes"
+    },
+    {
+     "key": "kAmel",
+     "arabic": "كامل",
+     "english": "Whole / Complete",
+     "t": 1559.6,
+     "arabizi": "kaamel"
+    },
+    {
+     "key": "ana badAye2",
+     "arabic": "أنا بدايق",
+     "english": "I upset someone",
+     "t": 2583.0,
+     "arabizi": "Ana badaaye2"
+    },
+    {
+     "key": "ana ba7arek",
+     "arabic": "أنا بحرك",
+     "english": "I move",
+     "t": 2585.0,
+     "arabizi": "Ana ba7arrek"
+    },
+    {
+     "key": "ana bat7arak",
+     "arabic": "أنا بتحرك",
+     "english": "I (get moved) move",
+     "t": 2585.6,
+     "arabizi": "Ana bat7arrak"
+    },
+    {
+     "key": "shwai shwai",
+     "arabic": "شوي شوي",
+     "english": "Bit by bit / Slowly",
+     "t": 2900.4,
+     "arabizi": "Shwai shwai"
+    },
+    {
+     "key": "sir",
+     "arabic": "صير",
+     "english": "Become",
+     "t": 3203.2,
+     "arabizi": "Sir"
+    },
+    {
+     "key": "7arek",
+     "arabic": "حرّك",
+     "english": "Move (something)",
+     "t": 3392.9,
+     "arabizi": "7arrek"
+    },
+    {
+     "key": "yamIn",
+     "arabic": "يمين",
+     "english": "Right",
+     "t": 3455.4,
+     "arabizi": "Yameen"
+    },
+    {
+     "key": "wara2a",
+     "arabic": "ورقة",
+     "english": "Leaf / Paper / Sheet",
+     "t": 3929.3,
+     "arabizi": "Waraqa"
+    },
+    {
+     "key": "alah i2afiki",
+     "arabic": "الله يعافيكي",
+     "english": "ya'tiki al'afyah response",
+     "t": 4149.9,
+     "arabizi": "Allah Y'afiki"
+    }
+   ],
+   "coverage": "read all 1038 turns 01:17-1:09:56; untranscribed Medi Arabic at 27:01-27:45, 28:55-31:33, 1:02:47-1:08:20 ([speaking Arabic]) so fixes there rest on Amal's side only",
+   "notes": [
+    "25 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow."
+   ],
+   "page": "lessons/2026-09-16.html",
+   "detail": "data/lessons/2026-09-16.json",
+   "counts": {
+    "turns": 969,
+    "chat_lines": 69,
+    "vocab_errors": 2,
+    "grammar_errors": 23
+   }
+  },
+  {
+   "date": "2026-09-17",
+   "start_local": "2026-09-17T15:07:40-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "duration_min": 63.8,
+   "type": "new-words",
+   "review_mode": null,
+   "type_why": "Mixed: 14:00-32:00 teaches the new verb تأسف (with لـ/من) and 50:00-57:00 introduces the doubled-middle adjectives (خوّف, ضحّك); 32:00-50:00 (~18 min) reviews خرب/خرّب; first 14 min small talk. New material is the larger share.",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 35,
+    "right": 52,
+    "wrong": 0,
+    "partial": 0,
+    "pct": 100.0,
+    "scored": 52
+   },
+   "grammar": {
+    "uses": 70,
+    "mistakes": 28,
+    "pct": 60.0
+   },
+   "talk": {
+    "medi_s": 1112.9,
+    "amal_s": 777.8,
+    "speak_pct": 58.9,
+    "listen_pct": 41.1,
+    "window": [
+     0.0,
+     3826.0
+    ]
+   },
+   "fillers": {
+    "count": 198,
+    "per_min": 10.67,
+    "top": [
+     [
+      "uh",
+      127
+     ],
+     [
+      "um",
+      56
+     ],
+     [
+      "mm",
+      12
+     ],
+     [
+      "hmm",
+      2
+     ],
+     [
+      "ah",
+      1
+     ]
+    ]
+   },
+   "latency": {
+    "median_s": 1.64,
+    "p75_s": 2.65,
+    "n": 220
+   },
+   "flow": {
+    "wpm": 70.7,
+    "n_turns": 59,
+    "arabic_words": 180
+   },
+   "new_words": [
+    {
+     "key": "sawi",
+     "arabic": "سوي",
+     "english": "Do / make",
+     "t": 160.4,
+     "arabizi": "Sawwi"
+    },
+    {
+     "key": "5afIf",
+     "arabic": "خفيف",
+     "english": "Light",
+     "t": 277.7,
+     "arabizi": "5afeef"
+    },
+    {
+     "key": "9U9",
+     "arabic": "صوص",
+     "english": "Chick",
+     "t": 431.8,
+     "arabizi": "9oo9"
+    },
+    {
+     "key": "se7i",
+     "arabic": "صحي",
+     "english": "Healthy",
+     "t": 470.5,
+     "arabizi": "Se77i"
+    },
+    {
+     "key": "hAda hu",
+     "arabic": "هذا هو",
+     "english": "That’s it",
+     "t": 881.4,
+     "arabizi": "Haada hu"
+    },
+    {
+     "key": "ana ba7ut",
+     "arabic": "أنا بحط",
+     "english": "I put",
+     "t": 915.2,
+     "arabizi": "Ana ba7ut"
+    },
+    {
+     "key": "7arf",
+     "arabic": "حرف",
+     "english": "Letter – letters / preposition",
+     "t": 918.3,
+     "arabizi": "7arf"
+    },
+    {
+     "key": "ana ba5awef",
+     "arabic": "بخوِّف",
+     "english": "I scare / make people scared / I scare (someone)",
+     "t": 1901.2,
+     "arabizi": "Ana ba5awwef"
+    },
+    {
+     "key": "5a6et",
+     "arabic": "خطّط",
+     "english": "Plan",
+     "t": 2290.4,
+     "arabizi": "5a66et"
+    },
+    {
+     "key": "kun",
+     "arabic": "كن",
+     "english": "Be",
+     "t": 3481.2,
+     "arabizi": "Kun"
+    }
+   ],
+   "coverage": "read all 954 turns + 41 chat lines 00:30-1:03:45; Medi's Arabic untranscribed ('[speaking Arabic]') in ~14:00-22:15 and scattered later, so 0917-08/09 rest on Amal's side only",
+   "notes": [
+    "16 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow."
+   ],
+   "page": "lessons/2026-09-17.html",
+   "detail": "data/lessons/2026-09-17.json",
+   "counts": {
+    "turns": 954,
+    "chat_lines": 41,
+    "vocab_errors": 0,
+    "grammar_errors": 28
+   }
+  },
+  {
+   "date": "2026-09-18",
+   "start_local": "2026-09-18T14:08:00-07:00",
+   "start_source": "source.json (Meet folder time, minute precision)",
+   "duration_min": 63.8,
+   "type": "new-words",
+   "review_mode": null,
+   "type_why": "After ~5 min of small talk the whole lesson drills a new group of doubled-middle verb pairs (زهّق/زهق, تعّب/تعب, زعّل/زعل, خوّف/خاف, ضحّك/ضحك, عصّب) across tenses and persons; Amal: 'the best group yet'.",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 0,
+    "right": 0,
+    "wrong": 0,
+    "partial": 0,
+    "pct": null,
+    "scored": 0
+   },
+   "grammar": {
+    "uses": 23,
+    "mistakes": 20,
+    "pct": 13.0
+   },
+   "talk": {
+    "medi_s": 884.0,
+    "amal_s": 797.7,
+    "speak_pct": 52.6,
+    "listen_pct": 47.4,
+    "window": [
+     0.0,
+     3789.2
+    ]
+   },
+   "fillers": {
+    "count": 113,
+    "per_min": 7.67,
+    "top": [
+     [
+      "uh",
+      69
+     ],
+     [
+      "um",
+      21
+     ],
+     [
+      "آآ",
+      12
+     ],
+     [
+      "ah",
+      6
+     ],
+     [
+      "mm",
+      5
+     ]
+    ]
+   },
+   "latency": {
+    "median_s": 1.32,
+    "p75_s": 2.58,
+    "n": 304
+   },
+   "flow": {
+    "wpm": 65.7,
+    "n_turns": 24,
+    "arabic_words": 64
+   },
+   "new_words": [
+    {
+     "key": "ai sA3a",
+     "arabic": "أي ساعة؟",
+     "english": "At what time?",
+     "t": 27.0,
+     "arabizi": "Ay saa3a"
+    },
+    {
+     "key": "alsube7",
+     "arabic": "الصبح",
+     "english": "Morning",
+     "t": 91.5,
+     "arabizi": "el-sube7"
+    }
+   ],
+   "coverage": "read all 962 turns + 66 chat lines 00:12-1:04:26; no machine audit exists; Medi's Arabic is blank/untranscribed in 20:40-31:10 (causative-adjective drill), so rows there are low or missing; chat is on the raw Meet clock and runs ~0.5-2 min behind the spoken exchange it matches",
+   "notes": [
+    "timings: speakers estimated by voice pitch on one mixed recording (as on the lesson page)",
+    "no scored word uses for this lesson in the Word Bank evidence (its events are all pending review), so words.pct is null.",
+    "grammar.pct is low partly because uses (23) are undercounted: the usage count skips turns written in Latin letters or left blank ('[speaking Arabic]'), while Amal's fixes there are still counted."
+   ],
+   "page": "lessons/2026-09-18.html",
+   "detail": "data/lessons/2026-09-18.json",
+   "counts": {
+    "turns": 962,
+    "chat_lines": 66,
+    "vocab_errors": 0,
+    "grammar_errors": 20
+   }
+  },
+  {
+   "date": "2026-09-19",
+   "start_local": "2026-09-19T14:16:09-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "duration_min": 62.1,
+   "type": "review-words",
+   "review_mode": "listening",
+   "type_why": "After ~12 min of songs and small talk, Amal wraps up the verb pairs 'by doing some listening': she says a form, Medi says what it means in English; Medi's own Arabic is only ~06:30-10:30 and a few drill lines.",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 20,
+    "right": 21,
+    "wrong": 2,
+    "partial": 0,
+    "pct": 91.3,
+    "scored": 23
+   },
+   "grammar": {
+    "uses": 23,
+    "mistakes": 5,
+    "pct": 78.3
+   },
+   "talk": {
+    "medi_s": 782.9,
+    "amal_s": 699.4,
+    "speak_pct": 52.8,
+    "listen_pct": 47.2,
+    "window": [
+     0.0,
+     3723.7
+    ]
+   },
+   "fillers": {
+    "count": 103,
+    "per_min": 7.89,
+    "top": [
+     [
+      "uh",
+      85
+     ],
+     [
+      "um",
+      15
+     ],
+     [
+      "ah",
+      2
+     ],
+     [
+      "mmm",
+      1
+     ]
+    ]
+   },
+   "latency": {
+    "median_s": 1.84,
+    "p75_s": 4.56,
+    "n": 225
+   },
+   "flow": {
+    "wpm": 77.7,
+    "n_turns": 26,
+    "arabic_words": 80
+   },
+   "new_words": [],
+   "coverage": "read all 843 turns + 78 chat lines, 00:00-1:02:03. Lesson is mostly a listening drill (Amal says a verb form, Medi translates to English); most grammar fixes are comprehension of causative/reflexive, tense and person, marked '(listening drill)' in mistake. Medi's own Arabic production is only ~06:30-10:30 and a few drill lines. Several Medi lines ASR-garbled (e.g. 'Kamara', 'Tawamara' = kamaan marra).",
+   "notes": [],
+   "page": "lessons/2026-09-19.html",
+   "detail": "data/lessons/2026-09-19.json",
+   "counts": {
+    "turns": 843,
+    "chat_lines": 78,
+    "vocab_errors": 2,
+    "grammar_errors": 5
+   }
+  },
+  {
+   "date": "2026-09-21",
+   "start_local": "2026-09-21T13:35:19-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "duration_min": 72.2,
+   "type": "free-speak",
+   "review_mode": null,
+   "type_why": "Conversation and role plays for the whole hour: stress at work, pizza, ordering at a cafe, complaining about food to a manager, how he cooks rice (tahdig), Iranian food abroad.",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 64,
+    "right": 121,
+    "wrong": 2,
+    "partial": 11,
+    "pct": 94.4,
+    "scored": 134
+   },
+   "grammar": {
+    "uses": 216,
+    "mistakes": 41,
+    "pct": 81.0
+   },
+   "talk": {
+    "medi_s": 1397.9,
+    "amal_s": 1015.0,
+    "speak_pct": 57.9,
+    "listen_pct": 42.1,
+    "window": [
+     0.0,
+     4325.1
+    ]
+   },
+   "fillers": {
+    "count": 289,
+    "per_min": 12.4,
+    "top": [
+     [
+      "uh",
+      196
+     ],
+     [
+      "um",
+      49
+     ],
+     [
+      "آآ",
+      35
+     ],
+     [
+      "eh",
+      2
+     ],
+     [
+      "hmm",
+      2
+     ],
+     [
+      "mm",
+      2
+     ]
+    ]
+   },
+   "latency": {
+    "median_s": 1.17,
+    "p75_s": 1.98,
+    "n": 310
+   },
+   "flow": {
+    "wpm": 68.7,
+    "n_turns": 187,
+    "arabic_words": 581
+   },
+   "new_words": [],
+   "coverage": "read all 1274 turns + 57 chat lines, 00:01-1:12:04; no untranscribed gaps; 32:13-32:48 and 49:54-50:33 have overlapping/garbled lines",
+   "notes": [],
+   "page": "lessons/2026-09-21.html",
+   "detail": "data/lessons/2026-09-21.json",
+   "counts": {
+    "turns": 1274,
+    "chat_lines": 57,
+    "vocab_errors": 13,
+    "grammar_errors": 41
+   }
+  },
+  {
+   "date": "2026-09-23",
+   "start_local": "2026-09-23T14:36:12-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "duration_min": 64.6,
+   "type": "free-speak",
+   "review_mode": null,
+   "type_why": "Conversation and role plays: coffee, stomach ache, then booking a hotel room, breakfast, paying, complaining to the manager, booking tickets and appointments, a weekend drive. Medi's first ~23 min is not transcribed (Amal's side only).",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 31,
+    "right": 42,
+    "wrong": 0,
+    "partial": 6,
+    "pct": 93.8,
+    "scored": 48
+   },
+   "grammar": {
+    "uses": 105,
+    "mistakes": 22,
+    "pct": 79.0
+   },
+   "talk": {
+    "medi_s": 864.2,
+    "amal_s": 633.6,
+    "speak_pct": 57.7,
+    "listen_pct": 42.3,
+    "window": [
+     1423.4,
+     3873.1
+    ]
+   },
+   "fillers": {
+    "count": 136,
+    "per_min": 9.44,
+    "top": [
+     [
+      "uh",
+      59
+     ],
+     [
+      "آآ",
+      39
+     ],
+     [
+      "um",
+      27
+     ],
+     [
+      "mm",
+      5
+     ],
+     [
+      "امم",
+      4
+     ],
+     [
+      "آه",
+      1
+     ]
+    ]
+   },
+   "latency": {
+    "median_s": 1.45,
+    "p75_s": 2.29,
+    "n": 149
+   },
+   "flow": {
+    "wpm": 61.1,
+    "n_turns": 86,
+    "arabic_words": 276
+   },
+   "new_words": [],
+   "coverage": "read all 790 turns + 57 chat lines, 00:52-1:04:32. GAP: Medi's track missing 00:00-~23:40 (first Medi line 23:44); only Amal's side exists there. Logged 3 Amal-only recasts from the gap (0923-01..03, low, medi_said null); skipped ambiguous ones (08:21 أكلت, 21:33 أحجز, 13:08 date). 59:08-1:02:16 dual drill + sentence: Medi's Arabic mostly '[speaking Arabic]', unreadable.",
+   "notes": [
+    "talk, fillers, latency and flow measured from 23:43 on: Medi's first recording (0:00-22:37) has no transcript, so only Amal's side exists before that.",
+    "32 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow."
+   ],
+   "page": "lessons/2026-09-23.html",
+   "detail": "data/lessons/2026-09-23.json",
+   "counts": {
+    "turns": 790,
+    "chat_lines": 57,
+    "vocab_errors": 6,
+    "grammar_errors": 22
+   }
+  }
+ ]
+}
