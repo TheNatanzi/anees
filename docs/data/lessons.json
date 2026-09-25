@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-25T12:14:06-07:00",
+ "updated": "2026-09-25T12:22:58-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -39,12 +39,12 @@
    "type_why": "Conversation from Amal's questions (time, clothes, weather, what tires you, fears, fiancee) with fixes as they come; ~4 min of Meet setup talk; no drill.",
    "type_source": "claude-read",
    "words": {
-    "unique": 55,
-    "right": 69,
-    "wrong": 6,
-    "partial": 3,
-    "pct": 90.4,
-    "scored": 78
+    "unique": 53,
+    "right": 70,
+    "wrong": 5,
+    "partial": 1,
+    "pct": 92.8,
+    "scored": 76
    },
    "grammar": {
     "uses": 219,
@@ -111,7 +111,7 @@
    "counts": {
     "turns": 623,
     "chat_lines": 0,
-    "vocab_errors": 6,
+    "vocab_errors": 5,
     "grammar_errors": 22
    }
   },
@@ -125,12 +125,12 @@
    "type_why": "28:00-1:03:00 (~35 of 63 min) is the first causative/reflexive pair: Amal teaches how بسط/انبسط conjugate (b- before a root b, past endings, command); 11:00-28:00 is mostly English about AI tools and a honey seller.",
    "type_source": "claude-read",
    "words": {
-    "unique": 17,
+    "unique": 13,
     "right": 13,
-    "wrong": 4,
+    "wrong": 0,
     "partial": 0,
-    "pct": 76.5,
-    "scored": 17
+    "pct": 100.0,
+    "scored": 13
    },
    "grammar": {
     "uses": 70,
@@ -197,7 +197,7 @@
    "counts": {
     "turns": 1395,
     "chat_lines": 0,
-    "vocab_errors": 4,
+    "vocab_errors": 0,
     "grammar_errors": 24
    }
   },
@@ -212,10 +212,10 @@
    "type_source": "claude-read",
    "words": {
     "unique": 28,
-    "right": 33,
+    "right": 34,
     "wrong": 3,
-    "partial": 3,
-    "pct": 88.5,
+    "partial": 2,
+    "pct": 89.7,
     "scored": 39
    },
    "grammar": {
@@ -466,12 +466,12 @@
    "type_why": "27:00-57:00 teaches the new pair كسر/انكسر in every tense; before that ~25 min of conversation and a review of زعج/انزعج; ends with Amal listing the causative verbs to learn.",
    "type_source": "claude-read",
    "words": {
-    "unique": 59,
-    "right": 100,
+    "unique": 60,
+    "right": 103,
     "wrong": 2,
     "partial": 1,
     "pct": 97.6,
-    "scored": 103
+    "scored": 106
    },
    "grammar": {
     "uses": 232,
@@ -766,12 +766,12 @@
    "type_why": "~10:00-1:00:00 drills the new pair خرب/خرّب (past, present, command, 'rots', 'mess up'); the first 10 min is small talk plus a short review of north/darkness/stars words.",
    "type_source": "claude-read",
    "words": {
-    "unique": 44,
-    "right": 57,
-    "wrong": 0,
+    "unique": 46,
+    "right": 58,
+    "wrong": 2,
     "partial": 1,
-    "pct": 99.1,
-    "scored": 58
+    "pct": 95.9,
+    "scored": 61
    },
    "grammar": {
     "uses": 98,
@@ -965,7 +965,7 @@
    "counts": {
     "turns": 937,
     "chat_lines": 0,
-    "vocab_errors": 0,
+    "vocab_errors": 2,
     "grammar_errors": 21
    }
   },
@@ -979,12 +979,12 @@
    "type_why": "After ~22 min of small talk, Amal gives English sentences and Medi says them in Arabic with the verbs already taught (زعج/انزعج, كسر/انكسر, بسط/انبسط) - 'we're repeating today'; Amal types each answer in chat.",
    "type_source": "claude-read",
    "words": {
-    "unique": 37,
-    "right": 50,
-    "wrong": 1,
-    "partial": 8,
-    "pct": 91.5,
-    "scored": 59
+    "unique": 42,
+    "right": 62,
+    "wrong": 2,
+    "partial": 0,
+    "pct": 96.9,
+    "scored": 64
    },
    "grammar": {
     "uses": 106,
@@ -1049,7 +1049,7 @@
    "counts": {
     "turns": 996,
     "chat_lines": 45,
-    "vocab_errors": 1,
+    "vocab_errors": 2,
     "grammar_errors": 29
    }
   },
@@ -1064,11 +1064,11 @@
    "type_source": "claude-read",
    "words": {
     "unique": 24,
-    "right": 27,
-    "wrong": 1,
-    "partial": 1,
-    "pct": 94.8,
-    "scored": 29
+    "right": 28,
+    "wrong": 0,
+    "partial": 2,
+    "pct": 96.7,
+    "scored": 30
    },
    "grammar": {
     "uses": 92,
@@ -1204,7 +1204,7 @@
    "counts": {
     "turns": 1025,
     "chat_lines": 72,
-    "vocab_errors": 1,
+    "vocab_errors": 0,
     "grammar_errors": 29
    }
   },
@@ -1397,11 +1397,11 @@
    "type_source": "claude-read",
    "words": {
     "unique": 35,
-    "right": 52,
+    "right": 54,
     "wrong": 0,
     "partial": 0,
     "pct": 100.0,
-    "scored": 52
+    "scored": 54
    },
    "grammar": {
     "uses": 70,
@@ -1549,12 +1549,12 @@
    "type_why": "After ~5 min of small talk the whole lesson drills a new group of doubled-middle verb pairs (زهّق/زهق, تعّب/تعب, زعّل/زعل, خوّف/خاف, ضحّك/ضحك, عصّب) across tenses and persons; Amal: 'the best group yet'.",
    "type_source": "claude-read",
    "words": {
-    "unique": 0,
-    "right": 0,
+    "unique": 2,
+    "right": 2,
     "wrong": 0,
     "partial": 0,
-    "pct": null,
-    "scored": 0
+    "pct": 100.0,
+    "scored": 2
    },
    "grammar": {
     "uses": 23,
@@ -1626,7 +1626,6 @@
    "coverage": "read all 962 turns + 66 chat lines 00:12-1:04:26; no machine audit exists; Medi's Arabic is blank/untranscribed in 20:40-31:10 (causative-adjective drill), so rows there are low or missing; chat is on the raw Meet clock and runs ~0.5-2 min behind the spoken exchange it matches",
    "notes": [
     "timings: speakers estimated by voice pitch on one mixed recording (as on the lesson page)",
-    "no scored word uses for this lesson in the Word Bank evidence (its events are all pending review), so words.pct is null.",
     "grammar.pct is low partly because uses (23) are undercounted: the usage count skips turns written in Latin letters or left blank ('[speaking Arabic]'), while Amal's fixes there are still counted."
    ],
    "page": "lessons/2026-09-18.html",
@@ -1724,12 +1723,12 @@
    "type_why": "Conversation and role plays for the whole hour: stress at work, pizza, ordering at a cafe, complaining about food to a manager, how he cooks rice (tahdig), Iranian food abroad.",
    "type_source": "claude-read",
    "words": {
-    "unique": 64,
-    "right": 121,
-    "wrong": 2,
-    "partial": 11,
-    "pct": 94.4,
-    "scored": 134
+    "unique": 71,
+    "right": 144,
+    "wrong": 6,
+    "partial": 0,
+    "pct": 96.0,
+    "scored": 150
    },
    "grammar": {
     "uses": 216,
@@ -1794,7 +1793,7 @@
    "counts": {
     "turns": 1274,
     "chat_lines": 57,
-    "vocab_errors": 2,
+    "vocab_errors": 6,
     "grammar_errors": 41
    }
   },
@@ -1808,12 +1807,12 @@
    "type_why": "Conversation and role plays: coffee, stomach ache, then booking a hotel room, breakfast, paying, complaining to the manager, booking tickets and appointments, a weekend drive. Medi's first ~23 min is not transcribed (Amal's side only).",
    "type_source": "claude-read",
    "words": {
-    "unique": 31,
-    "right": 42,
+    "unique": 34,
+    "right": 52,
     "wrong": 0,
-    "partial": 6,
-    "pct": 93.8,
-    "scored": 48
+    "partial": 0,
+    "pct": 100.0,
+    "scored": 52
    },
    "grammar": {
     "uses": 105,
