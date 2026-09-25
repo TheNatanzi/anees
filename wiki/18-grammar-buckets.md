@@ -25,7 +25,7 @@ Ordering note: Amal front-loads the verb system and teaches the small grammar as
 | A7 | Noun + adjective, and where el- goes | adjective **after** the noun; `el-` on the noun only = a sentence ("the house is pretty"); `el-` on both = a phrase ("the pretty house") | Doc | rank 3 | 3 |
 | A8 | Gender agreement on adjectives | feminine adds `-a/-e`; the adjective must match its noun | Doc | rank 4 | 3 |
 | A9 | Plurals: sound, broken, dual | `-een/-aat`, memorised broken plurals (byoot, bwaab, shababeek), dual `-ein` | Doc (word by word) | untested | 11 |
-| A9b | Broken plurals as **patterns** | her Doc lists them one word at a time; the shapes repeat (bait → byoot, baab → bwaab, shubbaak → shababeek) so they can be learned as moulds, not as 200 separate words | **gap** | untested | 11 |
+| A9b | Broken plurals as **patterns** | her Doc lists them one word at a time; the shapes repeat (bait → byoot, baab → bwaab, shubbaak → shababeek) so they can be learned as moulds, not as 200 separate words | lesson (was gap; 1 fixes in 09-24 sweep) | untested | 11 |
 | A10 | Demonstratives + agreement | hada (m) / hadi (f) / hadol (pl), hadaak / hadeek; must match the noun's gender | Doc (partly) | rank 4 | 5 |
 | A10b | Demonstrative + el- | the noun after hada / hadi / hadol **keeps** `el-`: Hada el-ktab la-Mehdi, Hadi el-moazeh. Drop the `el-` and it becomes a sentence instead of a phrase (hadi kilme = this **is a** word). Superlatives are the one exception, they never take `el-` (Hadi a2al akleh) | Doc | untested | 5 |
 | A11 | Kul: all vs every | `kul + el-` = all of it; `kul` with no `el-` = every | Doc | untested | 4 |
@@ -41,15 +41,15 @@ Ordering note: Amal front-loads the verb system and teaches the small grammar as
 | B4b | **When the b- comes back** | the b- returns the moment you leave the gatekeeper's clause. Three signals: **enno** starts a new real sentence (*Ana bazonn enno ma **b**ey7ebna*), a **full stop / new sentence** restarts it, and any clause stating a **real fact** rather than a wanted or uncertain one (*3endo tilfizion ma **b**yista5demo*). Inside the gatekeeper's reach even a pointer verb stays bare (*Laazem tlaa2u eshi te3maluh*) | Doc | **rank 1** | 8 |
 | B5 | Past tense | the full 8-person past of each verb; her Doc has 825 rows | Doc | clean | 9 |
 | B6 | kaan — was / were | `kaan` supplies the missing "was" in past states and before laazem | lesson | rank 2 | 9 |
-| B7 | kaan + b-verb = used to | habitual past ("I used to work") | gap | untested | 9 |
+| B7 | kaan + b-verb = used to | habitual past ("I used to work") | lesson (was gap; 1 fixes in 09-24 sweep) | untested | 9 |
 | B8 | bakoon / ykoon for states | no "to be" in the plain present, but `akoon/ykoon` is required after lamma / iza, and for habit and future | Doc | **rank 2** | 13 |
 | B9 | Person on ykoon | the ykoon form must match the subject (i7na → nkoon, not ykoonu) | lesson | rank 2 | 13 |
 | B10 | Commands | 107 Doc rows; the command form per person | Doc | clean | 11 |
-| B11 | Negative commands | `ma tsakker` / `la tsakker` — telling someone *not* to | gap | untested | 11 |
+| B11 | Negative commands | `ma tsakker` / `la tsakker` — telling someone *not* to | lesson (was gap; 9 fixes in 09-24 sweep) | untested | 11 |
 | B12 | Causative vs reflexive pairs | babse6 (I make happy) vs banbese6 (I become happy); 7 pairs in her Doc plus ba3asseb | Doc | rank 6 | — |
 | B13 | Future with ra7 | `ra7 + bare verb` | Doc | untested | 8 |
 | B14 | Progressive 3am | `3am + bare verb` = happening right now | gap | untested | 13 |
-| B15 | Active participles | raaye7, naasi, 3aaref — state-now forms that behave like adjectives | gap | untested | — |
+| B15 | Active participles | raaye7, naasi, 3aaref — state-now forms that behave like adjectives | lesson (was gap; 9 fixes in 09-24 sweep) | untested | — |
 | B18 | **Verb matches its subject** | the verb's person / gender / number matches who does it: *el-sharika illi betbi3o bet8asselo*, *shu bey7ammsek?* — present prefixes and noun subjects; past endings stay B5, adjectives A8. Added by Medi 2026-09-25 from the 09-24 sweep (26 fixes) | lesson | 26 fixes | 7 |
 
 ## Family C — Sentence glue
@@ -59,13 +59,13 @@ Ordering note: Amal front-loads the verb system and teaches the small grammar as
 | C1 | Nominal sentence (no "to be") | "ana ta3baan" — Arabic drops am/is/are in the plain present | Doc | rank 2 | 3 |
 | C2 | Pointer rule (resumptive pronoun) | object fronted → the verb needs `-o / -h / -ha / -hom`: aktar eshi basawwi**h** | Doc | **rank 5** | 10 |
 | C3 | Comparatives and superlatives | aktar / a7san / aswa2 / a2al — and **never** `el-` in front of them | Doc | rank 3 | 12 |
-| C4 | Negation system | `ma` before verbs, `mish` before nouns and adjectives, `abadan` for never; the Palestinian `-sh` ending needs Amal's ruling | gap (passing only) | rank 10 | 7 |
+| C4 | Negation system | `ma` before verbs, `mish` before nouns and adjectives, `abadan` for never; the Palestinian `-sh` ending needs Amal's ruling | lesson (was gap; 6 fixes in 09-24 sweep) | rank 10 | 7 |
 | C4b | **Words that drag a `ma` along** | `abadan` is not enough on its own — the verb still needs the negator: *Ana abadan **ma** baru7* = I never go. Compare the `-ma` glued onto a time word, which is **not** negation at all but part of the conjunction: *abel-**ma** yiju* (before they come), *ba3ed-**ma** teshra7i* (after you explain), *lamma*. The two pull opposite ways on the b-: `abadan ma **b**aru7` keeps it, `abel-ma yiju` drops it (B3) | Doc | untested | 7 |
 | C5 | u / wala / aw | `u` = and, `aw` = either-or, `wala` = options / nor | lesson | rank 10 | — |
 | C6 | Conditionals iza / lamma | when / if clauses — and what they do to the verb (B3) and to ykoon (B8) | Doc | rank 2 | 13 |
 | C7 | Relative clauses with illi | `illi` never changes form; the clause after it often needs the pointer suffix (C2) | Doc (examples only) | untested | 13 |
 | C8 | Question words | shu, wein, keef, 2addesh, kam, lesh, meen, aymta | Doc | clean | 5 |
-| C9 | Word order | subject–verb–object is normal; fronting an object triggers C2 | gap | untested | — |
+| C9 | Word order | subject–verb–object is normal; fronting an object triggers C2 | lesson (was gap; 2 fixes in 09-24 sweep) | untested | — |
 
 ## Family D — Words that pick their partner
 
@@ -82,7 +82,7 @@ Ordering note: Amal front-loads the verb system and teaches the small grammar as
 
 | # | Bucket | The rule in one line | Amal | Medi | Order |
 |---|---|---|---|---|---|
-| E1 | Number + noun agreement | 2 = dual `-ein`; 3–10 + plural noun; 11+ + **singular** noun | gap (clock only) | rank 8 | 6 |
+| E1 | Number + noun agreement | 2 = dual `-ein`; 3–10 + plural noun; 11+ + **singular** noun | lesson (was gap; 3 fixes in 09-24 sweep) | rank 8 | 6 |
 | E2 | Clock time | `el-saa3a` + the feminine number; `u` + minutes; rube3 / noss / ella rube3 | Doc | untested | 6 |
 | E3 | Dual / plural of time units | d2ee2a → d2ee2tain → d2aaye2; saa3a → saa3tain → saa3aat | Doc | untested | 6 |
 | E4 | Dates and the calendar | days, months, "on Monday", last / next week | Doc (vocab) | untested | 6 |
@@ -101,25 +101,20 @@ Kept here because these slips look like grammar in the transcript but are not. R
 
 ## Gap buckets — Amal has not taught these yet
 
+**Updated by Medi 2026-09-25:** the 09-24 sweep found Amal correcting 7 of the gap rules out loud in lessons (A9b 1, B7 1, B11 9, B15 9, C4 6, C9 2, E1 3). Per the rule below they are now taught and scored. Two gaps remain: B14 and D6.
+
 **Scoring rule:** a gap bucket is never scored against Medi. He cannot be wrong about a rule his
 tutor has not given him. They sit in the list so the hole is visible, and so Anees knows what to put
 on Amal's request list. A gap flips to a normal bucket the day she teaches it.
 
 | # | Bucket | Why it is missing | Who fills it |
 |---|---|---|---|
-| A9b | Broken plurals as patterns | her Doc lists each plural as its own word | Amal — one lesson on the common moulds |
-| B7 | kaan + b- = used to | the past chapter has no habitual past | Amal |
-| B11 | Negative commands | the Command Tense tab has 107 positive rows, none negative | Amal |
 | B14 | 3am + verb (right now) | not in either Doc; every other Levantine source teaches it | Amal — or ask if Palestinian prefers the bare present |
-| B15 | Active participles | raaye7, naasi, 3aaref are in the vocabulary but never as a form | Amal |
-| C4 | Negation as a system | `ma`, `mish`, `wala`, `abadan` appear only in passing examples; the Palestinian `-sh` ending is absent | Amal — and she should rule on `-sh` |
-| C9 | Word order | never stated; only visible through the pointer rule | Anees can write this from her own examples |
 | D6 | iyyaa (second object) | absent from both Docs, confirmed against the live Doc 2026-09-22 | Amal |
-| E1 | Number + noun agreement | she teaches the dual for clock units only, not the 3–10 + plural / 11+ singular rule | Amal |
 | F1 | The seven hard letters as a unit | drilled implicitly, never taught as a set | Amal, or Anees drills |
 | F2 | Long vs short vowels | not taught | Amal, or Anees drills |
 
-Nine of the eleven need Amal. Two (C9, F-drills) Anees can build from her own material without asking.
+Both remaining gaps (B14, D6) need Amal.
 
 ## Counts
 
