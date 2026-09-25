@@ -469,8 +469,9 @@ function transcript(body, x) {
   turns.forEach(function (t, i) {
     var r = el('div', 'ls-turn ls-turn-' + (t.who === 'Medi' ? 'medi' : t.who === 'chat' ? 'chat' : 'amal'));
     var h = el('div', 'ls-turnhead');
+    var who_ = el('span', 'ls-who', t.who === 'Medi' ? 'Medi' : t.who === 'chat' ? 'Amal · chat' : t.who === '?' ? 'Unknown' : t.who);
+    h.appendChild(who_);
     h.appendChild(timeButton(x.date, t.t, t.who));
-    h.appendChild(el('span', 'ls-who', t.who === 'Medi' ? 'You' : t.who === 'chat' ? 'Chat' : t.who === '?' ? 'Unknown' : t.who));
     r.appendChild(h);
     r.appendChild(speech('ls-turntext', markText(t.text, marks[i]), null));
     list.appendChild(r);
