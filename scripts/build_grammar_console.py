@@ -360,8 +360,10 @@ for b in buckets:
         "verified_slips": verified_slips,
         "auto_slips": auto_slips,
         "uses": uses, "mistakes": mistakes, "asks": asks,
-        "pct": round(100 * (uses - mistakes) / uses) if uses else None,
-        "status": status(uses, mistakes),
+        # No detector sees his correct uses of this rule, so every use on record is a fix:
+        # a % would read 0 for lack of a counter, not for lack of skill. Show it unscored.
+        "pct": None if (not u and mistakes) else (round(100 * (uses - mistakes) / uses) if uses else None),
+        "status": "Unscored" if (not u and mistakes) else status(uses, mistakes),
         "events": events,
     })
 

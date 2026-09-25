@@ -40,7 +40,9 @@ def header(m):
     head = re.sub(r'<span class="pill s-[^"]*">[^<]*</span>',
                   '<span class="pill s-%s">%s</span>' % (r["status"], pill), head, count=1)
     head = re.sub(r'<span class="uses">[^<]*</span>',
-                  '<span class="uses">%s use%s</span>' % (r["uses"], "" if r["uses"] == 1 else "s"), head, count=1)
+                  '<span class="uses">%s</span>' % (
+                      "%s correction%s" % (r["mistakes"], "" if r["mistakes"] == 1 else "s") if r["status"] == "Unscored"
+                      else "%s use%s" % (r["uses"], "" if r["uses"] == 1 else "s")), head, count=1)
     return '<article id="%s"><header>%s</header>' % (rid, head)
 
 
@@ -51,7 +53,7 @@ dates = [L["date"] for L in g["lessons"]]
 cov = g["coverage"]
 foot = ("Scores from %d recorded lessons (%s &ndash; %s). Corrections are the ones you said aloud, checked by hand "
         "(%d, sweep of Sep 24); uses are counted by machine. Mastered = 10+ uses, 95%%+ right &middot; Good = 85%%+ "
-        "&middot; Shaky = 65%%+ &middot; Wrong = below 65%% &middot; Untested = not used yet."
+        "&middot; Shaky = 65%%+ &middot; Wrong = below 65%% &middot; Untested = not used yet &middot; Unscored = only your corrections are counted so far, no %% yet."
         % (cov["lessons_scored"], pretty(dates[0]), pretty(dates[-1]),
            sum(r["mistakes"] for r in g["rules"])))
 s, n = re.subn(r"<footer>.*?</footer>", "<footer>" + foot + "</footer>", s, count=1, flags=re.S)

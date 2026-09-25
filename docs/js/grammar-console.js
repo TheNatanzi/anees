@@ -15,7 +15,7 @@ var COLS = [
   { key: 'status', label: 'Status', first: 'asc' },
   { key: 'last', label: 'Last used', first: 'desc' }
 ];
-var STATUS_RANK = { Wrong: 0, Shaky: 1, Good: 2, Mastered: 3, Untested: 4 };
+var STATUS_RANK = { Wrong: 0, Shaky: 1, Good: 2, Mastered: 3, Unscored: 4, Untested: 5 };
 var SORT = { key: 'rule', dir: 'asc' };
 var SORT_KEY = 'anees.grammar.sort';
 try {
@@ -23,7 +23,7 @@ try {
   if (saved && COLS.some(function (c) { return c.key === saved.key; }) && /^(asc|desc)$/.test(saved.dir)) SORT = saved;
 } catch (e) { /* storage blocked: default sort */ }
 var STATUS_ON = Object.create(null);
-var STATUSES = ['Mastered', 'Good', 'Shaky', 'Wrong', 'Untested'];
+var STATUSES = ['Mastered', 'Good', 'Shaky', 'Wrong', 'Unscored', 'Untested'];
 var FAMILY_ORDER = { A: 0, B: 1, C: 2, D: 3, E: 4, F: 5 };
 var SHOW = 5;
 
@@ -268,6 +268,7 @@ function renderCharts() {
   var colors = {
     Mastered: css('--ab-green', '#5B8C6E'), Good: css('--ab-blue', '#4E7FA8'),
     Shaky: css('--ab-orange', '#C98A3E'), Wrong: css('--ab-red', '#C4573C'),
+    Unscored: css('--ab-muted', '#8A8578'),
     Untested: css('--ab-line', '#CFC9BC')
   };
   var slices = STATUSES.map(function (s) { return { label: s, value: counts[s], color: colors[s] }; });
@@ -554,7 +555,7 @@ function row(r) {
   var meter = el('div', 'gc-meter');
   var bar = el('i');
   bar.style.width = (r.pct == null ? 0 : r.pct) + '%';
-  bar.style.background = css('--ab-' + (r.status === 'Mastered' ? 'green' : r.status === 'Good' ? 'blue' : r.status === 'Shaky' ? 'orange' : 'red'), '#999');
+  bar.style.background = css('--ab-' + (r.status === 'Mastered' ? 'green' : r.status === 'Good' ? 'blue' : r.status === 'Shaky' ? 'orange' : r.status === 'Unscored' ? 'muted' : 'red'), '#999');
   meter.appendChild(bar);
   score.appendChild(meter);
   head.appendChild(score);
