@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Build docs/data/grammar-console.json from tally.json + lesson transcripts.
+"""Build docs/data/grammar-console.json from the hand sweep + lesson transcripts.
+
+Corrections (mistakes) come ONLY from the hand sweep data/grammar-sweep-2026-09-24.json
+(Medi approved 2026-09-25): every speaking row filed in an approved bucket is one
+mistake in `bucket` (bucket2 never adds a second). Listening rows, rejected rows,
+pronunciation rows and the unapproved NEW-A12 / NEW-C11 groups never count; NEW-B18
+is bucket B18. The machine audit no longer counts. Uses stay machine-counted
+(docs/data/grammar-usage.json).
 
 Only real data. Rules with no recorded use are emitted as status "Untested"
 with uses=0 so the console can show an honest empty row.
@@ -25,15 +32,29 @@ usage = json.load(open(USAGE, encoding="utf-8")) if os.path.exists(USAGE) else {
 # Arabic word Medi says. That is not a rule being exercised - leave them unscored.
 NO_USAGE_SCORE = {"F1", "F2", "F3"}
 
-cands = {}
-for e in audit.get("events", []):
-    # Medi 2026-09-23: only the voice lesson counts. A fix Amal only typed in the Meet
-    # chat is context, not a correction - it never shows or scores on its own.
-    if e.get("match") == "chat":
+# ---- the hand sweep: the only source of corrections ----
+SWEEP_NAME = "grammar-sweep-2026-09-24"
+SWEEP = os.path.join(ROOT, "data", SWEEP_NAME + ".json")
+sweep = json.load(open(SWEEP, encoding="utf-8"))
+BUCKET_IDS = {b["id"] for b in buckets}
+APPROVED_NEW = {"NEW-B18": "B18"}          # NEW-A12 / NEW-C11 are not approved buckets
+_not_counted = {x["id"] for x in sweep.get("rejected_on_hand_check", []) + sweep.get("pron_from_sweep", [])}
+
+
+def secs(v):
+    if not v:
+        return None
+    p = [float(x) for x in str(v).split(":")]
+    return p[0] * 3600 + p[1] * 60 + p[2] if len(p) == 3 else p[0] * 60 + p[1]
+
+
+sweep_rows, sweep_left_out = [], []
+for r in sweep["rows"] + sweep.get("unfiled", []):
+    b = r.get("bucket") or APPROVED_NEW.get(r.get("new_bucket_group"))
+    if r.get("mode") != "speaking" or r["id"] in _not_counted or b not in BUCKET_IDS:
+        sweep_left_out.append(r["id"])
         continue
-    cands.setdefault(e["bucket"], []).append(e)
-for v in cands.values():
-    v.sort(key=lambda e: ({"high": 0, "medium": 1, "low": 2}[e["confidence"]], e["date"]), reverse=False)
+    sweep_rows.append(dict(r, bucket=b))
 
 # Each candidate gets its own short clip, cut like the word bank's: from just
 # before he spoke to a few seconds after her fix. Streaming the hour-long
@@ -43,8 +64,12 @@ PRE, POST, GAP = 1.0, 4.0, 20.0
 
 
 def cut_clip(c, post=None):
-    src = os.path.join(DOCS, "lessons", c["date"], "audio", "lesson.mp3")
-    if not isinstance(c.get("t"), (int, float)) or not os.path.exists(src) or not shutil.which("ffmpeg"):
+    adir = os.path.join(DOCS, "lessons", c["date"], "audio")
+    srcs = [os.path.join(adir, "lesson.mp3")]
+    if not os.path.exists(srcs[0]):
+        # a lesson kept only as per-speaker tracks on one clock (09-10): mix them
+        srcs = [os.path.join(adir, f) for f in ("Amal.mp3", "Medi.mp3")]
+    if not isinstance(c.get("t"), (int, float)) or not all(map(os.path.exists, srcs)) or not shutil.which("ffmpeg"):
         return None
     ts = sorted([c["t"]] + ([c["recast_t"]] if isinstance(c.get("recast_t"), (int, float)) else []))
     # his line and her fix; if they sit far apart (a typed chat fix), join two short pieces
@@ -55,17 +80,21 @@ def cut_clip(c, post=None):
     if not os.path.exists(out) or not os.path.getsize(out):
         os.makedirs(os.path.dirname(out), exist_ok=True)
         tmp = out + ".part.mp3"
-        chain = "".join(f"[0:a]atrim={a:.2f}:{b:.2f},asetpts=PTS-STARTPTS[p{i}];" for i, (a, b) in enumerate(parts))
+        chain = ""
+        for i, (a, b) in enumerate(parts):
+            if len(srcs) == 1:
+                chain += f"[0:a]atrim={a:.2f}:{b:.2f},asetpts=PTS-STARTPTS[p{i}];"
+            else:
+                chain += "".join(f"[{k}:a]atrim={a:.2f}:{b:.2f},asetpts=PTS-STARTPTS[p{i}s{k}];" for k in range(len(srcs)))
+                chain += "".join(f"[p{i}s{k}]" for k in range(len(srcs))) + f"amix=inputs={len(srcs)}:normalize=0[p{i}];"
         chain += "".join(f"[p{i}]" for i in range(len(parts))) + f"concat=n={len(parts)}:v=0:a=1[o]"
-        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", src, "-filter_complex", chain, "-map", "[o]",
+        ins = [x for f in srcs for x in ("-i", f)]
+        subprocess.run(["ffmpeg", "-v", "error", "-y", *ins, "-filter_complex", chain, "-map", "[o]",
                         "-ac", "1", "-b:a", "48k", tmp], check=True)
         os.replace(tmp, out)
     return f"{c['date']}/clips/{name}"
 
 
-for v in cands.values():
-    for c in v:
-        c["clip"] = cut_clip(c)
 
 
 # "You used it" entries get the same card: his line with the rule word marked, plus a clip.
@@ -98,16 +127,32 @@ def medi_sentences(date):
     return n or None
 
 audit_lessons = {L["date"]: L for L in audit.get("lessons", [])}
-lesson_dates = sorted(set(list(tally["lessons"]) + list(usage.get("lessons", {}).keys()) + list(audit_lessons)))
+lesson_dates = sorted(set(list(tally["lessons"]) + list(usage.get("lessons", {}).keys()) + list(audit_lessons)
+                          + [r["date"] for r in sweep_rows]))
+
+import sys
+sys.path.insert(0, os.path.join(ROOT, "scripts"))
+from lesson_turns import lesson_turns  # noqa: E402
+_AUD = {}
+
+
+def turns_sentences(date):
+    """His turns with two or more Arabic words - the auditor's own unit and word test
+    (Arabic script or a non-English Latin word), for lessons the auditor never read."""
+    if not _AUD:
+        src = open(os.path.join(ROOT, "scripts", "audit_grammar_lessons.py"), encoding="utf-8").read()
+        exec(src.split("# ---------------------------------------------------------------- run")[0], _AUD)
+    T, _ = lesson_turns(date)
+    return sum(1 for x in T if x["speaker"] == "Medi" and len(_AUD["_ar_words"](x["text"])) >= 2) or None
 lessons = []
 for d in lesson_dates:
     al = audit_lessons.get(d) or {}
     lessons.append({
         "date": d,
         # his turns with two or more Arabic words, in any script - the same unit for every lesson
-        "medi_sentences": al.get("medi_sentences") or medi_sentences(d)
+        "medi_sentences": al.get("medi_sentences") or turns_sentences(d) or medi_sentences(d)
                           or (usage.get("lessons", {}).get(d) or {}).get("medi_arabic_turns"),
-        "slips": tally["totals"]["per_lesson"].get(d, 0),
+        "slips": sum(1 for r in sweep_rows if r["date"] == d),
     })
 
 # ---- roll the tally rules onto buckets ----
@@ -128,6 +173,96 @@ def _differ():
 
 
 diff_spans = _differ()
+
+# ---- sweep rows -> console candidates (same shape the JS reads) ----
+import difflib, unicodedata
+
+_TASHKEEL = re.compile(r"[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]")
+
+
+def _n(w):
+    w = _TASHKEEL.sub("", unicodedata.normalize("NFC", w)).lower()
+    w = re.sub(r"[أإآ]", "ا", w).replace("ى", "ي").replace("ة", "ه")
+    return re.sub(r"[^\w]", "", w)
+
+
+def mark_piece(text, piece, cls):
+    """Wrap the words of `text` that best match `piece` in <mark class=cls>. None if no match."""
+    text, piece = text or "", (piece or "").strip()
+    if not text or not piece:
+        return None
+    esc = _html.escape
+    if piece in text:
+        i = text.index(piece)
+        return esc(text[:i]) + f'<mark class="{cls}">' + esc(piece) + "</mark>" + esc(text[i + len(piece):])
+    toks = list(re.finditer(r"\S+", text))
+    want = [_n(w) for w in piece.split() if _n(w)]
+    norm = [_n(m.group(0)) for m in toks]
+    if not want or not toks:
+        return None
+    best, span = 0.0, None
+    k = len(want)
+    for size in {max(1, k - 1), k, k + 1}:
+        for i in range(0, len(toks) - size + 1):
+            sc = difflib.SequenceMatcher(a=" ".join(want), b=" ".join(norm[i:i + size]), autojunk=False).ratio()
+            if sc > best:
+                best, span = sc, (i, i + size)
+    if best < 0.7:
+        return None
+    a, b = toks[span[0]].start(), toks[span[1] - 1].end()
+    return esc(text[:a]) + f'<mark class="{cls}">' + esc(text[a:b]) + "</mark>" + esc(text[b:])
+
+
+mark_stats = {"said": 0, "recast": 0, "fallback": 0, "none": 0}
+cands = {}
+for r in sweep_rows:
+    said, recast = r.get("medi_said") or "", r.get("amal_said") or ""
+    sh, rh = mark_piece(said, r.get("wrong"), "ab-wrong"), mark_piece(recast, r.get("right"), "ab-correct")
+    if not (sh and rh) and said and recast:
+        d = diff_spans(said, recast, wrong_word=r.get("wrong"), fixed_word=r.get("right"))
+        if d["wrong"] and d["fixed"]:
+            mark_stats["fallback"] += 1
+            sh, rh = sh or d["said_html"], rh or d["recast_html"]
+    mark_stats["said"] += bool(sh)
+    mark_stats["recast"] += bool(rh)
+    mark_stats["none"] += not (sh or rh)
+    t, ta = secs(r.get("t")), secs(r.get("t_amal"))
+    c = {
+        "id": r["id"],
+        "bucket": r["bucket"],
+        "bucket2": r.get("bucket2"),
+        "date": r["date"],
+        # three 09-23 rows have no time for his line: the card and clip sit on her fix
+        "t": t if t is not None else ta,
+        "mmss": r.get("t") or r.get("t_amal"),
+        "said": said,
+        "recast": recast,
+        "recast_at": r.get("t_amal"),
+        "recast_t": ta,
+        "said_html": sh or _html.escape(said),
+        "recast_html": rh or _html.escape(recast),
+        "wrong": r.get("wrong"),
+        "right": r.get("right"),
+        "pair_wrong": r.get("wrong") or "",
+        "pair_fixed": r.get("right") or "",
+        "said_arabizi": r.get("medi_said_arabizi"),
+        "recast_arabizi": r.get("amal_said_arabizi"),
+        "wrong_arabizi": r.get("wrong_arabizi"),
+        "right_arabizi": r.get("right_arabizi"),
+        "why": r.get("mistake") or "",
+        "signal": r.get("signal"),
+        "chat": r.get("chat"),
+        "confidence": r.get("confidence") or "medium",
+        "confidence_why": r.get("confidence_why"),
+        "machine_audit": r.get("machine_audit", False),
+        "verified": True,
+        "source": "hand-sweep-2026-09-24",
+    }
+    clip_at = dict(c) if t is not None else dict(c, t=max(0.0, ta - 6.0))
+    c["clip"] = cut_clip(clip_at)
+    cands.setdefault(c["bucket"], []).append(c)
+for v in cands.values():
+    v.sort(key=lambda e: (e["date"], e["t"] or 0), reverse=True)
 
 
 def event(kind, e):
@@ -173,8 +308,8 @@ for b in buckets:
     r = by_rule.get(rid) if rid else None
     events = []
     if r:
-        for e in r.get("slips", []):
-            events.append(event("slip", e))
+        # The tally's slips are not shown or counted any more: the hand sweep re-read
+        # those three lessons in full and carries every fix Amal said aloud.
         for e in r.get("rights", []):
             events.append(event("right", e))
         for e in r.get("asks", []):
@@ -185,18 +320,27 @@ for b in buckets:
     u = [] if b["id"] in NO_USAGE_SCORE else usage.get("uses", {}).get(b["id"], [])
     u = sorted(u, key=lambda x: (x["date"], x["t"]), reverse=True)
     mine = cands.get(b["id"], [])
-    verified_slips = sum(1 for e in events if e["kind"] == "slip")
     asks = sum(1 for e in events if e["kind"] == "ask")
 
-    # A mistake is a correction on record: the hand-verified ones plus the
-    # machine's (measured: ~85% of them are real corrections).
-    auto_slips = len(mine)
-    mistakes = verified_slips + auto_slips
+    # A mistake is a correction Amal said aloud, hand-verified in the sweep.
+    verified_slips = len(mine)
+    auto_slips = 0
+    mistakes = verified_slips
     # A correction is also a use - he tried the rule. The usage pass reads only
-    # Arabic script, so a correction on a turn it did not count adds its use.
-    used_at = {(x["date"], int(x["t"])) for x in u}
-    extra = sum(1 for c in mine
-                if not any((c["date"], int(c["t"]) + k) in used_at for k in (-2, -1, 0, 1, 2)))
+    # Arabic script, so a correction with no counted use within 2 s adds its use.
+    # One use pairs with at most one correction, so mistakes never exceed uses.
+    free = {}
+    for x in u:
+        key_ = (x["date"], int(x["t"]))
+        free[key_] = free.get(key_, 0) + 1
+    extra = 0
+    for c in mine:
+        hit = next(((c["date"], int(c["t"]) + k) for k in (0, -1, 1, -2, 2)
+                    if c["t"] is not None and free.get((c["date"], int(c["t"]) + k))), None)
+        if hit:
+            free[hit] -= 1
+        else:
+            extra += 1
     uses = len(u) + extra if b["id"] not in NO_USAGE_SCORE else 0
     if uses and mistakes > uses:
         mistakes = uses
@@ -247,38 +391,47 @@ for L in lessons:
         {row["id"] for row in rows for e in row["events"] if e["date"] == d})
     L["rights"] = sum(1 for e in ev if e["kind"] == "right")
     L["asks_verified"] = sum(1 for e in ev if e["kind"] == "ask")
+    # Asks are still found by the audit pass; a lesson it never read has no ask count,
+    # so its self-correction rate is unknown, not 0%.
     L["asks_machine"] = (audit_lessons.get(d) or {}).get("asks", 0)
     L["asks"] = L["asks_verified"] + L["asks_machine"]
     L["mistakes_per_sentence"] = (
         round(L["slips_counted"] / L["medi_sentences"], 4) if L["medi_sentences"] else None
     )
     denom = L["slips_counted"] + L["asks"]
-    L["self_correction_rate"] = round(100 * L["asks"] / denom) if denom else None
+    L["self_correction_rate"] = round(100 * L["asks"] / denom) if denom and d in audit_lessons else None
 
 scored = [r for r in rows if r["uses"]]
 payload = {
-    "updated": "2026-09-23",
-    "source": "docs/data/tally.json (hand-curated, rule M1) + transcripts in C:/dev/anees/data/lessons",
+    "updated": "2026-09-25",
+    "source": "data/grammar-sweep-2026-09-24.json (hand sweep, rule M1) + transcripts in C:/dev/anees/data/lessons",
     "coverage": {
         "buckets_total": len(rows),
         "buckets_scored": len(scored),
         "lessons_scored": len(lessons),
         "lessons_recorded": len(lesson_dates),
-        "note": "Corrections: machine-found (recall ~77% on two hand-labelled lessons, ~40% on a held-out one; "
-                "~85% of what it finds is a real correction) plus the hand-verified tally. Uses: every time his Arabic "
-                "exercises the rule, right or wrong. Asks: his own questions about a form (rule M1). "
-                "Untested = he never used it in any recorded lesson (checked by hand), or it is a sound (F).",
+        "note": "Corrections are hand-verified: the 2026-09-24 sweep read every lesson and found 312 spoken fixes "
+                "Amal said aloud (a random hand check of 20 found 17 right); the %d filed in an approved rule are "
+                "counted. Uses are machine-counted: every time his Arabic exercises the rule, right or wrong. Asks: his "
+                "own questions about a form (rule M1). Untested = he never used it in any recorded lesson, or it is a "
+                "sound (F)." % len(sweep_rows),
     },
     "lessons": lessons,
-    "audit": {
-        "events": sum(len(v) for v in cands.values()),
+    "sweep": {
+        "file": "data/" + SWEEP_NAME + ".json",
+        "counted": len(sweep_rows),
         "buckets_hit": len(cands),
+        "lessons": len({r["date"] for r in sweep_rows}),
+        "left_out": len(sweep_left_out),
+        "clips": sum(1 for v in cands.values() for c in v if c["clip"]),
+        "marks": mark_stats,
+    },
+    # kept for reference only - the machine audit no longer counts anywhere
+    "audit": {
+        "counted": False,
+        "events": sum(1 for e in audit.get("events", []) if e.get("match") != "chat"),
         "lessons": len(audit.get("lessons", [])),
         "method": audit.get("method", ""),
-        "by_confidence": {
-            k: sum(1 for v in cands.values() for e in v if e["confidence"] == k)
-            for k in ("high", "medium", "low")
-        },
     },
     "rules": rows,
 }
@@ -286,6 +439,8 @@ json.dump(payload, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=
 
 print("wrote", OUT)
 print("buckets:", len(rows), "scored:", len(scored))
+print("sweep rows counted:", len(sweep_rows), "left out:", len(sweep_left_out),
+      "mistakes on page:", sum(r["mistakes"] for r in rows), "clips:", payload["sweep"]["clips"], "marks:", mark_stats)
 for L in lessons:
     print(" ", L["date"], "sentences=", L["medi_sentences"], "slips=", L["slips_counted"],
           "asks=", L["asks"], "rights=", L["rights"], "uniq=", L["unique_rules"],

@@ -244,7 +244,10 @@ function renderCharts() {
 
   // 2 - self-correction rate, pooled over the range
   var sc = L.map(function (x) { return x.self_correction_rate; });
-  var caught = sum('asks'), missed = sum('slips_counted');
+  // pooled only over lessons where asks were looked for (rate is null otherwise)
+  var LA = L.filter(function (x) { return x.self_correction_rate != null; });
+  var caught = LA.reduce(function (a, x) { return a + (x.asks || 0); }, 0);
+  var missed = LA.reduce(function (a, x) { return a + (x.slips_counted || 0); }, 0);
   var scPct = (caught + missed) ? Math.round(100 * caught / (caught + missed)) : null;
   fill('c2', scPct == null ? '—' : scPct + '%',
     L.length ? sparkline(sc, { bars: true, max: 100, label: 'Self-correction rate by lesson' }) : null,
@@ -474,15 +477,20 @@ function detail(r) {
     }
   }
 
-  // Machine-found candidates. Never scored - they wait for a human tick.
+  // Amal's corrections. Since 2026-09-25 these come from the hand sweep
+  // (verified:true); they are the mistakes counted in the numbers above.
   var cand = r.candidates || [];
   if (cand.length) {
+    var handChecked = cand.every(function (c) { return c.verified; });
     var ch = el('div', 'gc-useshead');
-    ch.appendChild(el('h3', 'gc-secttitle', 'Found by the audit — machine, not yet checked (' + cand.length + ')'));
+    ch.appendChild(el('h3', 'gc-secttitle', handChecked
+      ? 'Amal corrected you — hand-checked (' + cand.length + ')'
+      : 'Found by the audit — machine, not yet checked (' + cand.length + ')'));
     d.appendChild(ch);
-    d.appendChild(el('p', 'ab-mini gc-candnote',
-      'The machine spotted these in your transcripts and they count in the numbers above. ' +
-      'Checked against hand-labelled lessons, about 85 in 100 are real corrections and about 7 in 10 sit in the right rule.'));
+    d.appendChild(el('p', 'ab-mini gc-candnote', handChecked
+      ? 'Every fix Amal said aloud, read by hand in each lesson (sweep of 2026-09-24). These are the mistakes counted above.'
+      : 'The machine spotted these in your transcripts and they count in the numbers above. ' +
+        'Checked against hand-labelled lessons, about 85 in 100 are real corrections and about 7 in 10 sit in the right rule.'));
     cand.slice(0, SHOW).forEach(function (c) {
       var card = el('div', 'gc-use gc-cand gc-conf-' + c.confidence);
       var head = el('div', 'gc-usehead');
