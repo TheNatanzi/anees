@@ -50,6 +50,7 @@ Ordering note: Amal front-loads the verb system and teaches the small grammar as
 | B13 | Future with ra7 | `ra7 + bare verb` | Doc | untested | 8 |
 | B14 | Progressive 3am | `3am + bare verb` = happening right now | gap | untested | 13 |
 | B15 | Active participles | raaye7, naasi, 3aaref — state-now forms that behave like adjectives | gap | untested | — |
+| B18 | **Verb matches its subject** | the verb's person / gender / number matches who does it: *el-sharika illi betbi3o bet8asselo*, *shu bey7ammsek?* — present prefixes and noun subjects; past endings stay B5, adjectives A8. Added by Medi 2026-09-25 from the 09-24 sweep (26 fixes) | lesson | 26 fixes | 7 |
 
 ## Family C — Sentence glue
 
