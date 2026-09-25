@@ -1,0 +1,28 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Lessons &amp; Audio · Anees</title><script src="js/theme.js"></script><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/word-bank.css?v=reliability-1"><link rel="stylesheet" href="css/grammar.css?v=9"><link rel="stylesheet" href="css/lessons.css?v=1"></head><body><div id="anees-bank" aria-label="Anees Lessons and Audio">
+
+<div class="ab-shell">
+<aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="progress.html">Progress &amp; Stats</a><button class="ab-nav" aria-current="page">Lessons &amp; Audio</button><a class="ab-nav" href="word-bank.html">Word Bank</a><a class="ab-nav" href="grammar.html">Grammar Rules</a><a class="ab-nav" href="cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="index.html#amal">Tutor Notes &amp; Practice</a><a class="ab-nav" href="big-picture.html">Big Picture</a><a class="ab-nav" href="index.html#sys-rules">System Settings</a></nav></aside>
+<main><header class="ab-header"><div><h1>Lessons &amp; Audio</h1><div class="ab-sub">Every lesson with Amal: what kind it was, how it went, and the audio behind it.</div></div><span class="ab-preview" id="ls-source">Loading lessons…</span></header>
+<p id="ls-notice" class="ab-sub" role="status"></p><section class="ab-metrics" id="ls-metrics" aria-label="Lessons summary"></section>
+<div class="ab-tabs ls-tabs" id="ls-tabs" aria-label="Lesson type"></div>
+<div class="ab-controls"><input id="ls-search" type="search" aria-label="Search a date, a lesson type, or a new word" placeholder="Search a date, a type, or a new word…"><select id="ls-sort" aria-label="Sort lessons"><option value="new">Newest first</option><option value="old">Oldest first</option><option value="grammar">Weakest grammar first</option><option value="words">Weakest words first</option><option value="fillers">Most filled pauses (per min)</option></select></div>
+<div class="ab-controls"><div class="ab-chips" id="ls-modes" aria-label="Review mode filters"></div><button class="ab-clear" id="ls-reset" hidden>Clear filters</button></div>
+<div class="ab-viewnote"><span id="ls-results" aria-live="polite"></span><span>Red underline = what you said · Green = Amal's fix · Orange dashed = partial · Tap a time to play the lesson from there</span></div>
+<div class="ab-grid ls-grid ab-tablehead"><div>Lesson</div><div>Type</div><div>Words</div><div>Grammar</div><div>You speak · you listen</div></div><section id="ls-rows" aria-label="Lessons"></section>
+<p class="ab-mini" id="ls-coverage"></p>
+</main></div>
+<div class="ls-player" id="ls-player" hidden><div class="ls-playerlabel" id="ls-playerlabel"></div><audio id="ls-audio" controls preload="none"></audio><button class="ab-clear" id="ls-playerclose" type="button" aria-label="Close player">Close</button></div>
+</div>
+<script>
+(async function(){
+ try {
+  let build='lessons-1';
+  try{const response=await fetch('data/build.json',{cache:'no-store',signal:AbortSignal.timeout(10000)});if(response.ok){const latest=await response.json();if(latest.build)build=latest.build;}}catch{}
+  window.ANEES_LESSONS_BUILD=build;
+  for(const link of document.querySelectorAll('link[rel="stylesheet"]'))link.href=link.getAttribute('href').split('?')[0]+'?build='+encodeURIComponent(build);
+  for(const name of ['word-bank-arabizi','lessons-page']){
+   await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='js/'+name+'.js?build='+encodeURIComponent(build);script.onload=resolve;script.onerror=reject;document.body.append(script);});
+  }
+ }catch{document.getElementById('ls-notice').textContent='The lessons page could not load. Please refresh to retry.';}
+})();
+</script></body></html>
