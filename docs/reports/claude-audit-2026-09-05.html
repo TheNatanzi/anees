@@ -1,17 +1,9 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Adversarial audit of the Codex bake-off and the project</title><style>:root{--bg:#F4F6F2;--bg2:#fff;--ink:#1B2620;--mute:#5B6A62;--line:#D6DDD8;--teal:#0F6E56;--amber:#B26F0E}
-@media(prefers-color-scheme:dark){:root{--bg:#0F1613;--bg2:#17211C;--ink:#E7EDE9;--mute:#9BAAA2;--line:#2A3630;--teal:#4FC4A2;--amber:#E7A93B}}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Atkinson Hyperlegible",system-ui,sans-serif}
-main{max-width:860px;margin:0 auto;padding:14px 12px 60px} h1{font-size:26px;line-height:1.2} h2{font-size:21px;margin:30px 0 8px;border-top:1px solid var(--line);padding-top:10px} h3{font-size:17px;margin:20px 0 6px}
-.top{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:5} .top .in{max-width:860px;margin:0 auto;padding:10px 12px 0}
-.brand{display:flex;align-items:baseline;gap:10px} .brand b{font-size:20px} .brand span{color:var(--mute);font-size:13px}
-.top nav{display:flex;gap:4px;overflow-x:auto;padding:6px 0;scrollbar-width:none} .top nav::-webkit-scrollbar{display:none}
-.top .tab{flex:0 0 auto;min-height:44px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:999px;padding:8px 14px;font:600 15px system-ui;text-decoration:none;display:inline-flex;align-items:center} .top .tab.on{background:var(--teal);color:#fff;border-color:var(--teal)}
-.lead{color:var(--mute);font-size:14px} .tbl{overflow-x:auto} table{border-collapse:collapse;width:100%;font-size:14px;background:var(--bg2);border:1px solid var(--line)} th,td{padding:6px 8px;border-top:1px solid var(--line);vertical-align:top;text-align:left}
-code,pre{font:13px ui-monospace,Consolas,monospace} pre{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px;overflow-x:auto} blockquote{border-left:4px solid var(--teal);margin:10px 0;padding:4px 12px;color:var(--mute)}
-img{max-width:100%} a{color:var(--teal)}</style></head><body>
-<header class="top"><div class="in"><div class="brand"><b>Anees</b><span>Palestinian Arabic with Amal · Medi's companion</span></div><nav><a class="tab" href="../index.html#today">Today</a><a class="tab" href="../index.html#lessons">Lessons</a><a class="tab" href="../index.html#words">Words</a><a class="tab" href="../index.html#cards">Flashcards</a><a class="tab" href="../index.html#amal">Amal</a><a class="tab" href="../grammar.html">Grammar</a><a class="tab on" href="../index.html#ai-reports">AI reports</a><a class="tab" href="../index.html#sys-rules">System rules</a><a class="tab" href="../index.html#word-rules">Word &amp; grammar rules</a><a class="tab" href="../index.html#future">Future projects</a></nav></div></header>
-<main><p class="lead">AI report · built from <code>claude-adversarial-audit-2026-09-05.md</code> · <a href="../index.html#ai-reports">back to AI reports</a></p>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Adversarial audit of the Codex bake-off and the project · AI Reports · Anees</title><script src="../js/theme.js"></script><link rel="stylesheet" href="../css/sabz-tokens.css"><link rel="stylesheet" href="../css/word-bank.css"><link rel="stylesheet" href="../css/vocabulary-progress.css"><link rel="stylesheet" href="../css/ai-reports.css?v=20260926-v1"></head>
+<body><div id="anees-bank" class="vp-sabz" aria-label="Anees AI report"><div class="ab-shell">
+<aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="../progress.html">Progress &amp; Stats</a><a class="ab-nav" href="../lessons.html">Lessons &amp; Audio</a><a class="ab-nav" href="../word-bank.html">Word Bank</a><a class="ab-nav" href="../grammar.html">Grammar Rules</a><a class="ab-nav" href="../cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="../index.html#amal">Tutor Notes &amp; Practice</a><a class="ab-nav" aria-current="page" href="../ai-reports.html">AI Reports</a><a class="ab-nav" href="../big-picture.html">Big Picture</a><a class="ab-nav" href="../settings.html">System Settings</a></nav></aside>
+<main>
+<header class="ab-header"><div><div class="vp-eyebrow">AI report · Claude · 2026-09-05</div><h1>Adversarial audit of the Codex bake-off and the project</h1><div class="ab-sub">Built from claude-adversarial-audit-2026-09-05.md</div></div><a class="ab-preview" href="../ai-reports.html">‹ All AI reports</a></header>
+<article class="ar-doc">
 <h1 id="anees-independent-adversarial-audit-of-the-codex-overnight-asr-bake-off-and-the-project">Anees: independent adversarial audit of the Codex overnight ASR bake-off and the project</h1>
 <p><strong>Prepared:</strong> 2026-09-05, by Claude (Fable 5.1) for Medi, Amal and Codex.
 <strong>Inputs audited:</strong> <code>anees-overnight-asr-bakeoff-report-2026-09-05.md</code>, its evidence ZIP and SHA256SUMS, <code>anees-full-deep-research-report-2026-09-04.md</code>, the Fish report, the raw JSON in <code>work/</code>, the 20 frozen clips, the full Sep-4 lesson audio and Scribe output in <code>C:\dev\anees</code>, the repo code, and current provider documentation (fetched today).
@@ -1082,4 +1074,5 @@ EOF
 </tbody>
 </table></div>
 <p>Per-word pitch labels for all 20 clips are in the audit scratch file <code>pitch_words.txt</code> (Medi &lt; 160 Hz, Amal &gt; 185 Hz).</p>
-</main><script src="../js/build.js"></script><script src="../js/stale.js"></script></body></html>
+</article>
+</main></div></div><script src="../js/build.js"></script><script src="../js/stale.js"></script></body></html>

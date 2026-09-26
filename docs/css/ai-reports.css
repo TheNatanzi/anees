@@ -1,0 +1,51 @@
+/* AI Reports · Word Bank skin (Medi 2026-09-26): the index list and every full report share this. */
+#anees-bank .ar-list{display:grid;gap:14px}
+#anees-bank .ar-rep{border:1px solid var(--ab-line);background:var(--ab-panel);border-radius:12px;padding:16px 18px 14px;min-width:0}
+#anees-bank .ar-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+#anees-bank .ar-badge{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;padding:2px 8px;border-radius:999px;border:1px solid var(--ab-line);background:var(--ab-raised);color:var(--ab-text)}
+#anees-bank .ar-badge-claude{background:var(--sabz-state-calm-fill);border-color:transparent}
+#anees-bank .ar-date{font-size:11px;color:var(--ab-muted)}
+#anees-bank .ar-title{font-family:var(--sabz-font-serif);font-size:20px;line-height:1.25;margin:0 0 4px;font-weight:500}
+#anees-bank .ar-title a{color:inherit;text-decoration:none}
+#anees-bank .ar-title a:hover{text-decoration:underline}
+#anees-bank .ar-q{font-size:12.5px;color:var(--ab-muted);margin:0 0 8px;line-height:1.45}
+#anees-bank .ar-verdict{font-size:14px;line-height:1.5;margin:0 0 12px;border-left:3px solid var(--vp-sage);padding-left:10px}
+#anees-bank .ar-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:7px;margin:0 0 10px}
+#anees-bank .ar-kpi{background:var(--ab-bg);border:1px solid var(--ab-line);border-radius:7px;padding:9px 10px}
+#anees-bank .ar-kpi .ab-number{font-size:20px;margin:0}
+#anees-bank .ar-kpi .ab-tiny{margin-top:2px}
+#anees-bank .ar-bars{margin:8px 0 10px}
+#anees-bank .ar-bars .vp-eyebrow{display:block;margin-bottom:6px;letter-spacing:.12em}
+#anees-bank .ar-brow{display:grid;grid-template-columns:minmax(120px,1fr) minmax(0,2fr) 34px;gap:8px;align-items:center;font-size:12px;margin:3px 0}
+#anees-bank .ar-track{height:8px;border-radius:999px;background:var(--ab-raised);overflow:hidden}
+#anees-bank .ar-fill{height:100%;border-radius:999px;background:var(--vp-sage)}
+#anees-bank .ar-fill.grey{background:var(--ab-muted);opacity:.55}
+#anees-bank .ar-fill.low{background:var(--ab-red)}
+#anees-bank .ar-bv{text-align:right;font-variant-numeric:tabular-nums;color:var(--ab-muted)}
+#anees-bank .ar-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+#anees-bank .ar-btn{border:1px solid var(--ab-line);border-radius:999px;background:var(--ab-bg);color:var(--ab-text);padding:6px 14px;font-size:12px;font-weight:600;text-decoration:none}
+#anees-bank .ar-btn:hover{background:var(--ab-raised)}
+#anees-bank .ar-foot{font-size:12px;color:var(--ab-muted);margin-top:18px}
+
+/* Full report body: converted Markdown, one column, reads like a document. */
+#anees-bank .ar-doc{max-width:860px;font-size:15px;line-height:1.6}
+#anees-bank .ar-doc h1{font-size:24px;margin:0 0 12px}
+#anees-bank .ar-doc h2{font-family:var(--sabz-font-serif);font-size:20px;font-weight:500;margin:30px 0 8px;padding-top:12px;border-top:1px solid var(--ab-line)}
+#anees-bank .ar-doc h3{font-size:16px;font-weight:600;margin:20px 0 6px}
+#anees-bank .ar-doc p{margin:0 0 10px}
+#anees-bank .ar-doc a{color:var(--ab-accent)}
+#anees-bank .ar-doc hr{border:0;border-top:1px solid var(--ab-line);margin:18px 0}
+#anees-bank .ar-doc .tbl{overflow-x:auto;margin:8px 0 14px}
+#anees-bank .ar-doc table{border-collapse:collapse;width:100%;font-size:13px;background:var(--ab-panel);border:1px solid var(--ab-line);border-radius:8px}
+#anees-bank .ar-doc th,#anees-bank .ar-doc td{padding:6px 9px;border-top:1px solid var(--ab-line);text-align:left;vertical-align:top}
+#anees-bank .ar-doc th{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ab-muted);border-top:0;background:var(--ab-raised)}
+#anees-bank .ar-doc code{font:12.5px ui-monospace,Consolas,monospace;background:var(--ab-raised);padding:1px 5px;border-radius:4px}
+#anees-bank .ar-doc pre{background:var(--ab-panel);border:1px solid var(--ab-line);border-radius:10px;padding:10px 12px;overflow-x:auto;font:12.5px/1.5 ui-monospace,Consolas,monospace}
+#anees-bank .ar-doc pre code{background:transparent;padding:0}
+#anees-bank .ar-doc blockquote{border-left:3px solid var(--vp-sage);margin:10px 0;padding:4px 12px;color:var(--ab-muted)}
+#anees-bank .ar-doc ul,#anees-bank .ar-doc ol{padding-left:22px;margin:0 0 10px}
+#anees-bank .ar-doc li{margin:3px 0}
+#anees-bank .ar-doc img{max-width:100%;border-radius:8px}
+#anees-bank .ar-doc strong{font-weight:600}
+@media(max-width:680px){#anees-bank .ar-brow{grid-template-columns:1fr;gap:3px}#anees-bank .ar-bv{text-align:left}#anees-bank .ar-doc{font-size:14px}}
+#anees-bank .ar-doc > h1:first-child{display:none}

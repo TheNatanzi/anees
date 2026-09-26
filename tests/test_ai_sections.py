@@ -38,8 +38,18 @@ def test_ai_reports_json_and_pages():
 
 def test_tabs_present_everywhere():
     idx = (DOCS / 'index.html').read_text(encoding='utf-8')
-    for tab in ('ai-reports', 'sys-rules', 'word-rules'):
+    for tab in ('sys-rules', 'word-rules'):
         assert f'data-tab="{tab}"' in idx and f'id="tab-{tab}"' in idx
-    for f in (ROOT / 'scripts' / 'lesson_pipeline.py', ROOT / 'scripts' / 'build_report.py', DOCS / 'cards.html', ROOT / 'scripts' / 'build_ai_reports.py'):
+    assert 'href="ai-reports.html"' in idx and "if(name==='ai-reports'){location.replace('ai-reports.html')" in idx   # old #ai-reports links still land
+    page = (DOCS / 'ai-reports.html').read_text(encoding='utf-8')
+    assert 'aria-current="page" href="ai-reports.html"' in page and 'js/ai-reports.js' in page and 'css/ai-reports.css' in page
+    for f in (ROOT / 'scripts' / 'lesson_pipeline.py', ROOT / 'scripts' / 'build_report.py'):
         t = f.read_text(encoding='utf-8')
-        assert 'index.html#ai-reports' in t and 'index.html#sys-rules' in t and 'index.html#word-rules' in t, f.name
+        assert 'ai-reports.html' in t and 'index.html#sys-rules' in t and 'index.html#word-rules' in t, f.name
+    assert 'aria-current="page" href="../ai-reports.html"' in (ROOT / 'scripts' / 'build_ai_reports.py').read_text(encoding='utf-8')
+    assert 'ai-reports.html' in (DOCS / 'cards.html').read_text(encoding='utf-8'), 'cards.html'
+    for f in sorted((DOCS / 'reports').glob('*.html')):                                              # every built report wears the skin
+        t = f.read_text(encoding='utf-8')
+        assert 'css/ai-reports.css' in t and 'aria-current="page" href="../ai-reports.html"' in t and '<article class="ar-doc">' in t, f.name
+    for f in ('big-picture', 'cards', 'grammar', 'lessons', 'progress', 'settings', 'word-bank'):    # sidebar link everywhere
+        assert '<a class="ab-nav" href="ai-reports.html">AI Reports</a>' in (DOCS / f'{f}.html').read_text(encoding='utf-8'), f
