@@ -39,18 +39,20 @@ def _confirmed_new():
     except Exception:
         return [("2026-09-04", "ana babse6"), ("2026-09-04", "banbese6")]   # last read 2026-09-25
 CONFIRMED_NEW = _confirmed_new()
-# Claude's reading of what each lesson drilled (from LESSON_TYPES notes); shown as a reading, never scored.
-TAUGHT = {   # [her-style Arabizi (built from her Doc/chat forms), Arabic]
-    "2026-09-04": [["babse6 / banbese6", "بسط / انبسط"]],
-    "2026-09-05": [["baz3ej / banze3ej", "زعج / انزعج"], ["babse6 / banbese6 (review)", "بسط / انبسط"]],
-    "2026-09-10": [["bakser / bankeser", "كسر / انكسر"], ["baz3ej / banze3ej (review)", "زعج / انزعج"]],
-    "2026-09-11": [["5arab / 5arrab", "خرب / خرّب"]],
-    "2026-09-14": [["baz3ej / banze3ej", "زعج / انزعج"], ["bakser / bankeser", "كسر / انكسر"], ["babse6 / banbese6", "بسط / انبسط"]],
-    "2026-09-15": [["8ayyar / t8ayyar", "غيّر / تغيّر"], ["sawwar / tsawwar", "صوّر / تصوّر"], ["zakkar / tzakkar", "ذكّر / تذكّر"], ["bakser / bankeser (review)", "كسر / انكسر"]],
-    "2026-09-16": [["7ammas / t7ammas", "حمّس / تحمّس"], ["wajja3 / twajja3", "وجّع / توجّع"], ["daaya2 / tdaaya2", "ضايق / تضايق"], ["7arrak / t7arrak", "حرّك / تحرّك"]],
-    "2026-09-17": [["t2assaf (la / min)", "تأسف (لـ / من)"], ["5awwaf", "خوّف"], ["da77ak", "ضحّك"], ["5arab / 5arrab (review)", "خرب / خرّب"]],
-    "2026-09-18": [["zahha2 / zehe2", "زهّق / زهق"], ["ta33ab / te3eb", "تعّب / تعب"], ["za33al / ze3el", "زعّل / زعل"], ["5awwaf / 5aaf", "خوّف / خاف"], ["da77ak / de7ek", "ضحّك / ضحك"], ["3assab", "عصّب"]],
-    "2026-09-19": [["the verb pairs, as listening", "—"]],
+# New verbs per lesson: the verb pairs Amal taught that lesson. Medi confirmed 2026-09-25 ("you don't see bat3eb and
+# bata33eb as new verbs I learned?") - these ARE his new words. Spelled as her Doc writes the "Ana ba-" form.
+# Pairs marked review=True were first taught in an earlier lesson.
+V = lambda lat, ar, review=False: {"latin": lat, "arabic": ar, "review": review}
+TAUGHT = {
+    "2026-09-04": [V("Ana babse6 / Ana banbese6", "أنا ببسط / أنا بنبسط")],
+    "2026-09-05": [V("Ana baz3ej / Ana banze3ej", "أنا بزعج / أنا بنزعج"), V("Ana babse6 / Ana banbese6", "أنا ببسط / أنا بنبسط", True)],
+    "2026-09-10": [V("Ana bakser / Ana bankeser", "أنا بكسر / أنا بنكسر"), V("Ana baz3ej / Ana banze3ej", "أنا بزعج / أنا بنزعج", True)],
+    "2026-09-11": [V("Ana ba5rab / Ana ba5arreb", "أنا بخرب / أنا بخرّب")],
+    "2026-09-14": [V("Ana baz3ej / Ana banze3ej", "أنا بزعج / أنا بنزعج", True), V("Ana bakser / Ana bankeser", "أنا بكسر / أنا بنكسر", True), V("Ana babse6 / Ana banbese6", "أنا ببسط / أنا بنبسط", True)],
+    "2026-09-15": [V("Ana ba8ayyer / Ana bat8ayyar", "أنا بغيّر / أنا بتغيّر"), V("Ana basawwer / Ana batsawwar", "أنا بصوّر / أنا بتصوّر"), V("Ana bazakker / Ana batzakkar", "أنا بذكّر / أنا بتذكّر"), V("Ana bakser / Ana bankeser", "أنا بكسر / أنا بنكسر", True)],
+    "2026-09-16": [V("Ana ba7ammes / Ana bat7ammas", "أنا بحمّس / أنا بتحمّس"), V("Ana bawajje3 / Ana batwajja3", "أنا بوجّع / أنا بتوجّع"), V("Ana badaaye2 / Ana batdaaya2", "أنا بضايق / أنا بتضايق"), V("Ana ba7arrek / Ana bat7arrak", "أنا بحرّك / أنا بتحرّك")],
+    "2026-09-17": [V("Ana bat2assaf (la / min)", "أنا بتأسف (لـ / من)"), V("Ana ba5awwef", "أنا بخوّف"), V("Ana bada77ek", "أنا بضحّك"), V("Ana ba5rab / Ana ba5arreb", "أنا بخرب / أنا بخرّب", True)],
+    "2026-09-18": [V("Ana bazha2 / Ana bazahhe2", "أنا بزهق / أنا بزهّق"), V("Ana bat3ab / Ana bata33eb", "أنا بتعب / أنا بتعّب"), V("Ana baz3al / Ana baza33el", "أنا بزعل / أنا بزعّل"), V("Ana ba5aaf / Ana ba5awwef", "أنا بخاف / أنا بخوّف"), V("Ana bad7ak / Ana bada77ek", "أنا بضحك / أنا بضحّك"), V("Ana ba3asseb", "أنا بعصّب")],
 }
 DATES = ["2026-08-25", "2026-09-04", "2026-09-05", "2026-09-10", "2026-09-11", "2026-09-14", "2026-09-15",
          "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-21", "2026-09-23"]
@@ -385,7 +387,7 @@ DEFINITIONS = {
     "flow.wpm": "Speaking flow: Arabic words per minute inside Medi's Arabic turns (a turn = words with gaps under 1.2 s; only turns with at least 2 Arabic-script words; filled pauses not counted as words). English-only turns and Latin-script transliterations are left out.",
     "flow.n_turns": "How many of his Arabic turns went into wpm.",
     "new_words": "Only words Amal (or Medi) marked new for this lesson (amal_rules kind='new'). Never guessed from the recording (hard rule 2026-09-05).",
-    "taught": "What the lesson drilled, from Claude's reading of the transcript - not Amal's mark, never scored.",
+    "taught": "New verbs: the verb pairs Amal taught in this lesson (Medi confirmed 2026-09-25). review = first taught in an earlier lesson.",
 }
 
 

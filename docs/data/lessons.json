@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-25T23:45:02-07:00",
+ "updated": "2026-09-25T23:48:04-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -27,7 +27,7 @@
   "flow.wpm": "Speaking flow: Arabic words per minute inside Medi's Arabic turns (a turn = words with gaps under 1.2 s; only turns with at least 2 Arabic-script words; filled pauses not counted as words). English-only turns and Latin-script transliterations are left out.",
   "flow.n_turns": "How many of his Arabic turns went into wpm.",
   "new_words": "Only words Amal (or Medi) marked new for this lesson (amal_rules kind='new'). Never guessed from the recording (hard rule 2026-09-05).",
-  "taught": "What the lesson drilled, from Claude's reading of the transcript - not Amal's mark, never scored."
+  "taught": "New verbs: the verb pairs Amal taught in this lesson (Medi confirmed 2026-09-25). review = first taught in an earlier lesson."
  },
  "lessons": [
   {
@@ -206,10 +206,11 @@
     }
    ],
    "taught": [
-    [
-     "babse6 / banbese6",
-     "بسط / انبسط"
-    ]
+    {
+     "latin": "Ana babse6 / Ana banbese6",
+     "arabic": "أنا ببسط / أنا بنبسط",
+     "review": false
+    }
    ],
    "coverage": "read all 1046 turns 00:04-1:03:11 (source transcript.txt, chat=0). Diarization is badly fragmented: many turns are 1-3 words and sentences are split across speakers, so Amal/Medi labels are often swapped (e.g. 02:15-02:19, 52:21-52:33, 1:01:29-1:01:33). 11:00-22:30 is almost all English about AI tooling; 22:50-24:50 is an English interruption with a honey seller. 21:00 onward is mostly Latin transliteration. Lesson core 28:00-1:03:00 is a بسط/انبسط conjugation drill.",
    "notes": [
@@ -298,14 +299,16 @@
    },
    "new_words": [],
    "taught": [
-    [
-     "baz3ej / banze3ej",
-     "زعج / انزعج"
-    ],
-    [
-     "babse6 / banbese6 (review)",
-     "بسط / انبسط"
-    ]
+    {
+     "latin": "Ana baz3ej / Ana banze3ej",
+     "arabic": "أنا بزعج / أنا بنزعج",
+     "review": false
+    },
+    {
+     "latin": "Ana babse6 / Ana banbese6",
+     "arabic": "أنا ببسط / أنا بنبسط",
+     "review": true
+    }
    ],
    "coverage": "read all 834 turns 00:26-1:02:14; no chat lines in file; 00:26-06:02 is app demo talk (Medi recounts an OLD lazim ba'amal fix at 04:32 - not counted); Medi's Arabic mostly transcribed in Latin letters, so wrong/right pieces are rendered in Arabic script from those spellings",
    "notes": [
@@ -348,14 +351,16 @@
    "flow": null,
    "new_words": [],
    "taught": [
-    [
-     "bakser / bankeser",
-     "كسر / انكسر"
-    ],
-    [
-     "baz3ej / banze3ej (review)",
-     "زعج / انزعج"
-    ]
+    {
+     "latin": "Ana bakser / Ana bankeser",
+     "arabic": "أنا بكسر / أنا بنكسر",
+     "review": false
+    },
+    {
+     "latin": "Ana baz3ej / Ana banze3ej",
+     "arabic": "أنا بزعج / أنا بنزعج",
+     "review": true
+    }
    ],
    "coverage": "read all 970 turns 00:03-1:02:40; no chat lines; no machine audit exists for this lesson (never audited) so every row is a machine miss; 00:03-01:42 is setup noise; 42:15-42:34 Medi talks to a passer-by; 57:27-end is mostly Amal explaining which verbs to learn",
    "notes": [
@@ -444,10 +449,11 @@
    },
    "new_words": [],
    "taught": [
-    [
-     "5arab / 5arrab",
-     "خرب / خرّب"
-    ]
+    {
+     "latin": "Ana ba5rab / Ana ba5arreb",
+     "arabic": "أنا بخرب / أنا بخرّب",
+     "review": false
+    }
    ],
    "coverage": "read all 937 turns 00:41-1:02:26 (no chat lines). Gaps: Medi's Arabic mostly '[speaking Arabic]' 18:13-22:42, 30:33-31:57, 33:14-36:33; Amal '[speaks Arabic]' 49:44-56:28; 46:02-58:37 Medi in Latin script.",
    "notes": [
@@ -536,18 +542,21 @@
    },
    "new_words": [],
    "taught": [
-    [
-     "baz3ej / banze3ej",
-     "زعج / انزعج"
-    ],
-    [
-     "bakser / bankeser",
-     "كسر / انكسر"
-    ],
-    [
-     "babse6 / banbese6",
-     "بسط / انبسط"
-    ]
+    {
+     "latin": "Ana baz3ej / Ana banze3ej",
+     "arabic": "أنا بزعج / أنا بنزعج",
+     "review": true
+    },
+    {
+     "latin": "Ana bakser / Ana bankeser",
+     "arabic": "أنا بكسر / أنا بنكسر",
+     "review": true
+    },
+    {
+     "latin": "Ana babse6 / Ana banbese6",
+     "arabic": "أنا ببسط / أنا بنبسط",
+     "review": true
+    }
    ],
    "coverage": "read all 1041 lines (996 spoken turns + 45 chat) 00:02-1:02:40. Medi often in Latin script (12:00-23:30, 40:00-53:50); STT garbles Amal's اخترت as اشتريت; 43:59-45:38 Medi away.",
    "notes": [],
@@ -634,22 +643,26 @@
    },
    "new_words": [],
    "taught": [
-    [
-     "8ayyar / t8ayyar",
-     "غيّر / تغيّر"
-    ],
-    [
-     "sawwar / tsawwar",
-     "صوّر / تصوّر"
-    ],
-    [
-     "zakkar / tzakkar",
-     "ذكّر / تذكّر"
-    ],
-    [
-     "bakser / bankeser (review)",
-     "كسر / انكسر"
-    ]
+    {
+     "latin": "Ana ba8ayyer / Ana bat8ayyar",
+     "arabic": "أنا بغيّر / أنا بتغيّر",
+     "review": false
+    },
+    {
+     "latin": "Ana basawwer / Ana batsawwar",
+     "arabic": "أنا بصوّر / أنا بتصوّر",
+     "review": false
+    },
+    {
+     "latin": "Ana bazakker / Ana batzakkar",
+     "arabic": "أنا بذكّر / أنا بتذكّر",
+     "review": false
+    },
+    {
+     "latin": "Ana bakser / Ana bankeser",
+     "arabic": "أنا بكسر / أنا بنكسر",
+     "review": true
+    }
    ],
    "coverage": "read all 1097 turns 00:36-1:07:03; Medi's Arabic often Latin-script STT; no untranscribed gaps",
    "notes": [],
@@ -736,22 +749,26 @@
    },
    "new_words": [],
    "taught": [
-    [
-     "7ammas / t7ammas",
-     "حمّس / تحمّس"
-    ],
-    [
-     "wajja3 / twajja3",
-     "وجّع / توجّع"
-    ],
-    [
-     "daaya2 / tdaaya2",
-     "ضايق / تضايق"
-    ],
-    [
-     "7arrak / t7arrak",
-     "حرّك / تحرّك"
-    ]
+    {
+     "latin": "Ana ba7ammes / Ana bat7ammas",
+     "arabic": "أنا بحمّس / أنا بتحمّس",
+     "review": false
+    },
+    {
+     "latin": "Ana bawajje3 / Ana batwajja3",
+     "arabic": "أنا بوجّع / أنا بتوجّع",
+     "review": false
+    },
+    {
+     "latin": "Ana badaaye2 / Ana batdaaya2",
+     "arabic": "أنا بضايق / أنا بتضايق",
+     "review": false
+    },
+    {
+     "latin": "Ana ba7arrek / Ana bat7arrak",
+     "arabic": "أنا بحرّك / أنا بتحرّك",
+     "review": false
+    }
    ],
    "coverage": "read all 1038 turns 01:17-1:09:56; untranscribed Medi Arabic at 27:01-27:45, 28:55-31:33, 1:02:47-1:08:20 ([speaking Arabic]) so fixes there rest on Amal's side only",
    "notes": [
@@ -836,22 +853,26 @@
    },
    "new_words": [],
    "taught": [
-    [
-     "t2assaf (la / min)",
-     "تأسف (لـ / من)"
-    ],
-    [
-     "5awwaf",
-     "خوّف"
-    ],
-    [
-     "da77ak",
-     "ضحّك"
-    ],
-    [
-     "5arab / 5arrab (review)",
-     "خرب / خرّب"
-    ]
+    {
+     "latin": "Ana bat2assaf (la / min)",
+     "arabic": "أنا بتأسف (لـ / من)",
+     "review": false
+    },
+    {
+     "latin": "Ana ba5awwef",
+     "arabic": "أنا بخوّف",
+     "review": false
+    },
+    {
+     "latin": "Ana bada77ek",
+     "arabic": "أنا بضحّك",
+     "review": false
+    },
+    {
+     "latin": "Ana ba5rab / Ana ba5arreb",
+     "arabic": "أنا بخرب / أنا بخرّب",
+     "review": true
+    }
    ],
    "coverage": "read all 954 turns + 41 chat lines 00:30-1:03:45; Medi's Arabic untranscribed ('[speaking Arabic]') in ~14:00-22:15 and scattered later, so 0917-08/09 rest on Amal's side only",
    "notes": [
@@ -936,30 +957,36 @@
    },
    "new_words": [],
    "taught": [
-    [
-     "zahha2 / zehe2",
-     "زهّق / زهق"
-    ],
-    [
-     "ta33ab / te3eb",
-     "تعّب / تعب"
-    ],
-    [
-     "za33al / ze3el",
-     "زعّل / زعل"
-    ],
-    [
-     "5awwaf / 5aaf",
-     "خوّف / خاف"
-    ],
-    [
-     "da77ak / de7ek",
-     "ضحّك / ضحك"
-    ],
-    [
-     "3assab",
-     "عصّب"
-    ]
+    {
+     "latin": "Ana bazha2 / Ana bazahhe2",
+     "arabic": "أنا بزهق / أنا بزهّق",
+     "review": false
+    },
+    {
+     "latin": "Ana bat3ab / Ana bata33eb",
+     "arabic": "أنا بتعب / أنا بتعّب",
+     "review": false
+    },
+    {
+     "latin": "Ana baz3al / Ana baza33el",
+     "arabic": "أنا بزعل / أنا بزعّل",
+     "review": false
+    },
+    {
+     "latin": "Ana ba5aaf / Ana ba5awwef",
+     "arabic": "أنا بخاف / أنا بخوّف",
+     "review": false
+    },
+    {
+     "latin": "Ana bad7ak / Ana bada77ek",
+     "arabic": "أنا بضحك / أنا بضحّك",
+     "review": false
+    },
+    {
+     "latin": "Ana ba3asseb",
+     "arabic": "أنا بعصّب",
+     "review": false
+    }
    ],
    "coverage": "read all 962 turns + 66 chat lines 00:12-1:04:26; no machine audit exists; Medi's Arabic is blank/untranscribed in 20:40-31:10 (causative-adjective drill), so rows there are low or missing; chat is on the raw Meet clock and runs ~0.5-2 min behind the spoken exchange it matches",
    "notes": [
@@ -1040,12 +1067,7 @@
     "arabic_words": 80
    },
    "new_words": [],
-   "taught": [
-    [
-     "the verb pairs, as listening",
-     "—"
-    ]
-   ],
+   "taught": [],
    "coverage": "read all 843 turns + 78 chat lines, 00:00-1:02:03. Lesson is mostly a listening drill (Amal says a verb form, Medi translates to English); most grammar fixes are comprehension of causative/reflexive, tense and person, marked '(listening drill)' in mistake. Medi's own Arabic production is only ~06:30-10:30 and a few drill lines. Several Medi lines ASR-garbled (e.g. 'Kamara', 'Tawamara' = kamaan marra).",
    "notes": [],
    "page": "lessons/2026-09-19.html",
