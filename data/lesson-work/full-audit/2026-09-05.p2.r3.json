@@ -1,0 +1,260 @@
+{
+  "date": "2026-09-05",
+  "reader": "r3",
+  "note": "Pass-2 rulings made with the transcript open. D7 and D13 are the SAME 39:37 row (r1 0905-26 and r2 0905-26); the disputes matcher paired r1's 39:37 row with r2's 39:25 question row. Final: one B18 row at 39:37 (kept under D7), D13 dropped as its duplicate, and r2's 39:25 'هو بيزعج؟' question is not written (a question, not a produced error). The ما تنزعجي cluster (47:38-49:06) collapses to ONE row (D9, t=48:15) - D15 is a stall, D16 the same slip 19 s later, D17 his English restatement of it. One real error in that cluster is NOT in the disputes: 49:06 'matanzajini' for 'don't get annoyed by me' (object -ni on the N-verb) -> Amal 'No.' (49:21) -> 'By me. ما تنزعجي' -> 'Yes. ما تنزعجي مني' (49:38); bucket D2 (انزعج من). By id order it is almost certainly r1 0905-32 / r2 0905-36 and therefore an agreed row; if it is not in the agreed set the merger should add it (grammar, D2, explicit-no, medium). 50:10-51:28 (D10) is pronunciation by Amal's own framing and she accepted his last attempts. Speaker labels look right throughout; no transcript holes around the D-rows except that the engine already wrote شبعان at 55:16 (D18).",
+  "rulings": [
+    {
+      "id": "D1",
+      "verdict": "keep",
+      "row": {
+        "id": "0905-1",
+        "t": "06:17",
+        "t_amal": "06:41",
+        "medi_said": "Did you enjoy, past tense, your time outside? Okay, so isn't it en-enbistee? Did you enjoy?",
+        "amal_said": "But what is it-- what is missing? It's not \"انبسطتي.\" Something is missing. What is it? ... \"في\" or be?",
+        "chat": null,
+        "wrong": "enbistee",
+        "right": "انبسطتي في (وقتك برا)",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "D2",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "prompt-then-fix",
+        "confidence": "high",
+        "why": "His written and spoken sentence (enbistee wa2tik barra) had no preposition after انبسط; the first thing she went after was that: 'what is missing? It's not انبسطتي' (06:41), he found 'the fee' (06:50), she confirmed في or بـ (06:54) and repeated 'you forgot the double T and the في' at 07:41-07:45.",
+        "english": "Did you enjoy your time outside?"
+      },
+      "why": "Two distinct errors sit in this one episode (missing في and missing past -t-); both readers wrote both and only swapped which t carries which bucket. The transcript order is: she prompts for the missing في first (06:41-06:54), so the 06:17 row carries D2 and the 06:33 row (D2 below) carries B5, as r2 had it."
+    },
+    {
+      "id": "D2",
+      "verdict": "keep",
+      "row": {
+        "id": "0905-2",
+        "t": "06:33",
+        "t_amal": "07:12",
+        "medi_said": "I think I gotta take that off. Enbas... Oh, I put enbustee. I put enbustee.",
+        "amal_said": "\"انبسطتي.\" ... \"انبسطت. انبسطوا.\" ... the past... Yes, it is double T. ... You forgot the double T and the \"في.\"",
+        "chat": null,
+        "wrong": "enbustee",
+        "right": "انبسطتي",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B5",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "high",
+        "why": "Past 2fs of انبسط is انبسطتي (stem + -t- + -i); he said enbustee (= the command انبسطي, no -t-) and defended it at 07:03 ('I thought it was enbustee, you remove the A'); she recast انبسطتي (06:38, 07:12), listed انبسطت / انبسطوا (07:18) and named it 'Yes, it is double T ... you forgot the double T' (07:35-07:41); he closed with enbasatee fee wa2tik barra (07:56).",
+        "english": "you (f) enjoyed"
+      },
+      "why": "Real and separate from D1: the doubled-t past ending is a B5 rule, she named it explicitly at 07:35-07:41. Bucket B5 (r2) is the one the transcript supports for this t; the في belongs to D1."
+    },
+    {
+      "id": "D3",
+      "verdict": "drop",
+      "why": "S4 root-letter slip plus self-fix: 'bisbat' has the B-S-T letters out of order (the very thing she remarks on at 21:01, 'the B is always before the S'), and he corrected himself to 'bibsit' in the same breath as her بتبسط (13:53); her later بتبسط/بيبسط at 17:12 was new teaching of the adjective-like use, not a correction of him. Not vocab, not grammar."
+    },
+    {
+      "id": "D4",
+      "verdict": "keep",
+      "row": {
+        "id": "0905-17",
+        "t": "23:50",
+        "t_amal": "24:03",
+        "medi_said": "Mutab? ... No.",
+        "amal_said": "Do you remember متعب؟ ... متعب ... is tiring. ... Same pattern as مزعج.",
+        "chat": null,
+        "wrong": "Mutab (meaning not recalled)",
+        "right": "متعب = tiring",
+        "kind": "vocab-A",
+        "tier": 0,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "asked",
+        "confidence": "medium",
+        "why": "Recall check: she asked whether he remembers متعب, he echoed it and said No, she supplied 'tiring' and he said 'Oh, that's right' (24:04); a didn't-know (tier 0), not a wrong word.",
+        "english": "tiring"
+      },
+      "why": "Both readers agree on the row; only mode differs. Mode 'listening' is reserved for drills where he misreads her Arabic aloud; here he read/echoed the word fine and simply did not recall its meaning, so the default 'speaking' (r1) stands."
+    },
+    {
+      "id": "D5",
+      "verdict": "keep",
+      "row": {
+        "id": "0905-19",
+        "t": "29:25",
+        "t_amal": "29:32",
+        "medi_said": "\"Feeya za'ajat-za'ajatek.\"",
+        "amal_said": "أزعجتك. See? It's easier to say أزعجتك.",
+        "chat": null,
+        "wrong": "za'ajatek",
+        "right": "أزعجتك",
+        "kind": "vocab-A",
+        "tier": 2,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "low",
+        "why": "The drill was 'she annoyed you, with an a' (29:01, the أزعج form she introduced at 28:13 as the more-used one); he gave bare زعجتك, she recast أزعجتك and he fixed to az'ajet (29:32); the endings (-at, -ek) were right, so it is a wrong form of the verb (tier 2), not a bucket rule; low because she said both زعج and أزعج exist and to learn both.",
+        "english": "She annoyed you."
+      },
+      "why": "Same slip in both readers, label differs. No bucket in buckets.md covers Form I vs the a-initial form (B5's past endings were correct), so it is vocab tier 2 'wrong form of a word he knows' as r1 had it; kept low as both readers had it."
+    },
+    {
+      "id": "D6",
+      "verdict": "drop",
+      "why": "Self-fix before help and then S4: he started 'Baz- baz'ajni. Ana biyaz...' and corrected himself to 'biz'ajni' before she said anything (her first word was صح at 35:07); her 'almost. صح. بيزعجني' at 35:09 is about the sound of the fixed version (his biz'ajni vs بيزعجني, the same بزعجني she herself says at 39:41), and she closed with 'صح. ممتاز' at 35:20."
+    },
+    {
+      "id": "D7",
+      "verdict": "keep",
+      "row": {
+        "id": "0905-26",
+        "t": "39:37",
+        "t_amal": "39:41",
+        "medi_said": "Okay, so بي-بيزعج-بيزعجوني.",
+        "amal_said": "بزعجني.",
+        "chat": null,
+        "wrong": "بيزعجوني",
+        "right": "بيزعجني",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B18",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "high",
+        "why": "For 'it annoys me' (subject = it, 3ms) he put the plural -u on the verb (بيزعجوني = they annoy me), the same slip as at 38:50; she recast بزعجني and he fixed at once ('بيزعجني. Why do I have the o in there?' 39:41).",
+        "english": "it annoys me"
+      },
+      "why": "The matcher paired two different moments. r1's 39:37 row is a real produced slip and is the final row here (B18, high). r2's 39:25 'Can I say... Do I need to say هو بيزعج؟' is a question he asked before producing anything and she answered (بدون هو); a question is not an error, so that row is not written. r2's own 39:37 row is D13 (dropped as a duplicate of this one)."
+    },
+    {
+      "id": "D8",
+      "verdict": "keep",
+      "row": {
+        "id": "0905-30",
+        "t": "45:54",
+        "t_amal": null,
+        "medi_said": "ليش، ليش فرق من-- ليش فرق من WhatsApp? ... ليش فرق؟",
+        "amal_said": "كيف؟ ... No because I'm using لأنه عم بستعمل الـ telephone.",
+        "chat": null,
+        "wrong": "فرق",
+        "right": "مختلف عن (my reading; or ليش في فرق / شو الفرق)",
+        "kind": "vocab-B",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "medium",
+        "why": "فرق is the noun 'difference'; 'why is it different' wants the adjective مختلف (sheet: different (from) | mu5talef | مختلف) or غير (sheet: other/different | 8air | غير) - a different lexical item, so tier 1 not tier 2; she said كيف؟ (did not follow), he re-asked in English and she answered the question without fixing; the من after it is part of the same slip (مختلف عن), see D14.",
+        "english": "Why is it different from WhatsApp?"
+      },
+      "why": "Both readers have the row; tier differs. فرق -> مختلف swaps the word (noun 'difference' for adjective 'different', different roots), which is the tier-1 definition; tier 2 is for a wrong form of the same word. Let-pass, so vocab-B."
+    },
+    {
+      "id": "D9",
+      "verdict": "keep",
+      "row": {
+        "id": "0905-31",
+        "t": "48:15",
+        "t_amal": "48:13",
+        "medi_said": "ما تزع-- ما تزعجي. ما تزع-- ما، ما تن-- Oh yeah, that's right. ما تنزعج. ما تنزعج.",
+        "amal_said": "تنزعجي. ... ما تنزعجي. Cuz it's ززز، all of the، all of them together. ... ما تنزعجي. خلص. ما تنزعجي.",
+        "chat": null,
+        "wrong": "ما تزعجي",
+        "right": "ما تنزعجي",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B12",
+        "bucket2": "B11",
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "medium",
+        "why": "'Don't get annoyed' is the N-form ما تنزعجي; he dropped the ن (ما تزعجي = don't annoy) at 48:08, 48:15 and again at 48:34, and at 48:47 even said 'this is without the N'; she recast تنزعجي / ما تنزعجي at 48:13, 48:33 and 48:42 and he got it at 48:39; medium because at 48:34 she also framed it as the ت-ن-ز cluster being hard to say.",
+        "english": "Don't get annoyed (f)."
+      },
+      "why": "Real get-vs-make slip with repeated recasts. One row for the whole 48:08-48:47 drill: D16 (48:34) is the same wrong piece 19 s later and D17 (48:47) is his English restatement of it - both folded here."
+    },
+    {
+      "id": "D10",
+      "verdict": "drop",
+      "why": "S4 by Amal's own framing: across 50:10-51:28 she treated his 'Matanzajini' as stress on the ع ('How about you just don't stress on the عين', 'Do you see me stressing?', 'It is there, but it's not ما تزعجني [stressed]') and accepted his last attempts ('Yeah' at 51:27 and 51:28); he had produced matazajini correctly at 49:57 and 50:34, so the engine's 'n' cannot be verified as a real ن and no get/make fix was voiced."
+    },
+    {
+      "id": "D11",
+      "verdict": "drop",
+      "why": "Cannot be verified: 'shu ra7ty' is a Latin fragment the engine guessed (could be شو رحتي, شو حكيتي, or a stall while starting his sentence) and her شو تحكي؟ is 'what are you saying?' - a did-not-catch after her fast instruction, after which she just restated the prompt ('خلص you annoyed me'); no fix voiced and no intended word provable."
+    },
+    {
+      "id": "D12",
+      "verdict": "drop",
+      "why": "S4: in 'ma ta'az'ajini' the negation, the feminine -i and the object -ni are all right; the only difference from ما تزعجيني is the extra a'-vowel/glottal before the ز (his ta'az- vs tiz-), which she was treating as sound order in the same drill ('Which goes first? الـ ز أو الـ ع؟' 36:13) - pronunciation, not B11."
+    },
+    {
+      "id": "D13",
+      "verdict": "drop",
+      "why": "Duplicate of D7: r2's 0905-26 is the same 39:37 بيزعجوني -> بيزعجني slip that r1 wrote (matched into D7). One final row, kept under D7."
+    },
+    {
+      "id": "D14",
+      "verdict": "drop",
+      "why": "Folded into D8: the من rides on the wrong head word (فرق), so it cannot be judged as a separate verb+preposition error; D8's right piece already gives مختلف عن. A second row would double-count one utterance."
+    },
+    {
+      "id": "D15",
+      "verdict": "drop",
+      "why": "S5 stall: at 47:38 he was producing the right form ('ما تنزع--', with the ن) and stuttered; her 47:52 'ما تنزعج. ما تنزعجي. احكيها كمان مرة' completed the stall and started the drill - no wrong piece was said."
+    },
+    {
+      "id": "D16",
+      "verdict": "drop",
+      "why": "Duplicate of D9: same wrong piece (ما تزعجي), same drill, 19 s later, same recast (ما تنزعجي at 48:33/48:42); folded into D9's why."
+    },
+    {
+      "id": "D17",
+      "verdict": "drop",
+      "why": "No Arabic form produced: 'So this is without the N' is his English restatement of the D9 slip; her ليش؟ made him retract it ('It does have an N', 49:06). Same error as D9, not a second row. (The next thing he said, 'matanzajini' for 'don't get annoyed by me' -> her 'No.' -> ما تنزعجي مني, is a different, real error - see note; it is not in the disputes so it is presumably agreed.)"
+    },
+    {
+      "id": "D18",
+      "verdict": "keep",
+      "row": {
+        "id": "0905-40",
+        "t": "55:16",
+        "t_amal": "55:23",
+        "medi_said": "لما أكون شبعان.",
+        "amal_said": "Full، مش hot. ... شبعان. كمان مرة.",
+        "chat": null,
+        "wrong": "لما أكون شبعان",
+        "right": "شبعان",
+        "kind": "vocab-A",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "explicit-no",
+        "confidence": "low",
+        "why": "She explicitly rejected what she heard ('Full, مش hot' = you said the hot word, not full) and re-supplied شبعان (sheet: full (food) | Shab3aan | شبعان); the engine already wrote شبعان, so his actual slip is not visible in the transcript - kept low; if it was only a mispronunciation of شبعان it is S4, but her voiced fix is real.",
+        "english": "when I am full"
+      },
+      "why": "A voiced fix with the wrong piece hidden by the engine's normalisation; the brief says keep such a row with confidence low and say so."
+    },
+    {
+      "id": "D19",
+      "verdict": "drop",
+      "why": "Not tier 3: 'لما I make retired' is a whole English clause used while building the sentence (he then said 'hold on'), not an English word dropped into an Arabic sentence; he produced أتعبها himself 30 s later after only her 'Her.' hint, and she gave no signal on the English (mm-hmm at 58:07). A build stall; sheet word بتعِّب was not asked for or supplied by her."
+    },
+    {
+      "id": "D20",
+      "verdict": "drop",
+      "why": "Self-fix before help: her 'Her.' (58:18) came before his line as a hint to finish the clause, not as a reaction to أتعبك; he said 'لما أتعبك. اه، أتعبها' and fixed the ending in the same breath before she spoke, and she only confirmed ('✓ Yes، أتعبها' 58:38)."
+    }
+  ],
+  "added": []
+}

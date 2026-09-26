@@ -52,6 +52,9 @@ function create(words=[],catalog={},extra={}){
  // Pronouns in documented conjugations disambiguate homographs such as Hayy (here’s) versus heyye (she).
  for(const [key,ar] of [['heiye ','هي'],['huwe ','هو'],['i7na ','إحنا'],['intu ','إنتو'],['hume ','هم']]){const form=words.find(w=>w.key?.startsWith(key)&&w.arabizi);if(form)lexicon.set(norm(ar),form.arabizi.split(/\s+/)[0]);}
  for(const [ar,latin] of Object.entries(spoken)){exact.set(ar,latin);if(!lexicon.has(norm(ar)))lexicon.set(norm(ar),latin);}
+ // Homographs and Doc typos (hand check 2026-09-26, 96/100): the same Arabic has several Doc rows; pick the everyday sense.
+ // Her own spellings only (Marra = 'one time' row; Tenein = her 'two' row minus a stray V).
+ for(const [ar,latin] of [['مرة','Marra'],['تنين','Tenein']])lexicon.set(norm(ar),latin);
  function word(raw){
   if(/^آ+ه?$/.test(raw))return {text:raw.endsWith("ه")?"aaah":"aaa",approximate:false};
   const n=norm(raw);if(lexicon.has(n))return {text:lexicon.get(n),approximate:false};

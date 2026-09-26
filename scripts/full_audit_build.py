@@ -25,12 +25,9 @@ NOT_COUNTED = ("rejected_on_hand_check", "pron_from_sweep")
 
 
 def load_settled(date):
-    """The last settled pass of a lesson (pass 2 when it ran, else pass 1)."""
-    for tag in (".p2", ""):
-        p = os.path.join(WORK, f"{date}{tag}.settled.json")
-        if os.path.exists(p):
-            return json.load(open(p, encoding="utf-8"))
-    return None
+    """The lesson's final rows: pass-1 settled rows plus what pass 2 settled and pass 1 did not have (full_audit_compare.union_rows)."""
+    from full_audit_compare import union_rows
+    return union_rows(date)
 
 
 def pass_log(date):

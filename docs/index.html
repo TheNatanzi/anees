@@ -163,4 +163,4 @@ showTab(location.hash.slice(1)||'today'); loadAll();
 setInterval(async()=>{if(document.hidden)return;try{const rows=await get('speaking_release?select=data');if(rows[0]?.data?.revision!==speakingRelease?.revision)await loadAll();}catch(e){}},60000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadAll();});
 window.AneesIndex={ search, get words(){return words;}, get stats(){return stats;}, get offline(){return offline;} };
-</script><script src="js/build.js"></script><script src="js/stale.js"></script><script src="js/word-bank-arabizi.js?v=az1"></script><script src="js/transcript-arabizi.js?v=az1" data-arabizi-selector="#tab-amal bdi, #tab-words bdi"></script></body></html>
+</script><script src="js/build.js"></script><script src="js/stale.js"></script><script src="js/word-bank-arabizi.js?v=az2"></script><script src="js/transcript-arabizi.js?v=az2" data-arabizi-selector="#tab-amal bdi, #tab-words bdi"></script></body></html>

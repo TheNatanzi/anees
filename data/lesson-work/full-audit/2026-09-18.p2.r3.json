@@ -1,0 +1,225 @@
+{
+  "date": "2026-09-18",
+  "reader": "r3",
+  "note": "Pass-2 third read. First 5 minutes are Arabic-script ASR (MSA-normalising engine possible), the rest is a Latin/English engine that drops most of his Arabic and swallows final -h and shadda, so chat-only differences of a final -h or a doubled letter (D7, D13) are not evidence of an error when Amal accepted aloud. Her chat lines are routine model sentences typed after each answer; I counted them as chat-fix only where the typed piece differs from his spoken piece (D2, D5) and marked those low because the script engine may have dropped el-/b-. D12 (30:12-30:31) has a real rejection signal ('But I want the other one', chat 'ahli za33aluni') but his Arabic is absent and 'the other one' most plausibly means the other upset-verb (daaye2 vs za33al, both on her sheet), so no honest wrong piece or kind can be written; merger may want a placeholder. D6 (17:36) is a meta question about the 16:08 correction, not a new attempt. No additions: without the agreed list I cannot be sure anything was missed; candidates the merger may check against the agreed rows: 01:25 الصباح -> 3ala el-sub7 (Amal prompt 01:31), 42:36 'Nihayin?' (didn't-know nihaya), 52:31 'id hakini' -> id7akili (52:41).",
+  "rulings": [
+    {
+      "id": "D1",
+      "verdict": "keep",
+      "row": {
+        "id": "0918-1",
+        "t": "00:17",
+        "t_amal": null,
+        "medi_said": "يمني، يمني. الآن. وإنتي؟",
+        "amal_said": "تعبانة. تمام.",
+        "chat": null,
+        "wrong": "الآن",
+        "right": "هلا (Halla)",
+        "kind": "vocab-B",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "Transcript has MSA al-aan for 'now' where her sheet row is 'now | Halla | هلا'; Amal answered the question and let it pass (B, my reading). Low because the Arabic-script engine may have normalised a spoken halla2 to الآن; goes to her review page unscored.",
+        "english": "Good, good. Now. And you?"
+      },
+      "why": "Only r1 found it; the transcript literally shows الآن with no fix from Amal, so it is a defensible vocab-B tier 1, kept low because the engine may have normalised it."
+    },
+    {
+      "id": "D2",
+      "verdict": "keep",
+      "row": {
+        "id": "0918-7",
+        "t": "03:25",
+        "t_amal": "03:43",
+        "medi_said": "اليوم. آآآ جمعة.",
+        "amal_said": null,
+        "chat": "el-jum3a tamanta3sh tes3a alfain u sitte u 3eshreen",
+        "wrong": "جمعة",
+        "right": "الجمعة (el-jum3a)",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "A1",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "chat-fix",
+        "confidence": "low",
+        "why": "'Today is Friday' takes el- on the day name (sheet: friday | Yoam el-jum3a); he said bare jum3a, no spoken fix, but her typed model line writes el-jum3a - that typed recast is the signal, so A-side grammar, low because the script engine may have dropped the el-.",
+        "english": "Today is Friday, 18 September 2026."
+      },
+      "why": "Both readers saw the same slip and only A/B differs; her chat line differs from his spoken piece exactly on el-, which the brief counts as a chat-fix signal, so kind=grammar (A) with signal chat-fix; r2's grammar-B with signal chat-fix is self-contradictory."
+    },
+    {
+      "id": "D3",
+      "verdict": "keep",
+      "row": {
+        "id": "0918-8",
+        "t": "03:41",
+        "t_amal": "03:50",
+        "medi_said": "الساعة تلات ووو آآ ستة وعشرين.",
+        "amal_said": "تنتين.",
+        "chat": null,
+        "wrong": "تلات",
+        "right": "تنتين",
+        "kind": "vocab-A",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "low",
+        "why": "Asked the time he gave 'three' for the hour; she recast tintain (two) and he repeated it; kept because she voiced a fix and his numbers were unstable in this exchange (see D4), low because it may be a clock misread rather than a wrong number word.",
+        "english": "It is three (two) twenty-six."
+      },
+      "why": "Only r1 found it; the transcript shows a voiced number fix he repeated, so it is a real row, but the transcript cannot tell a lexical slip from a clock misread - kept low."
+    },
+    {
+      "id": "D4",
+      "verdict": "keep",
+      "row": {
+        "id": "0918-9",
+        "t": "04:02",
+        "t_amal": "04:11",
+        "medi_said": "تنتين ووو تسعة و تن-- آآعشرين.",
+        "amal_said": "ستة وعشرين.",
+        "chat": null,
+        "wrong": "تسعة و",
+        "right": "ستة وعشرين",
+        "kind": "vocab-A",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "medium",
+        "why": "Repeating the time he said tis3a u ... 3eshreen (29) after having said sitte u 3eshreen (26) himself at 03:47, apparently carrying tis3a over from the date; she recast sitte u 3eshreen and he repeated - a wrong number word, not a clock read, since the minutes had not changed.",
+        "english": "Two twenty-nine (twenty-six)."
+      },
+      "why": "Only r1 found it; the transcript shows a wrong number word (nine for six) fifteen seconds after he had the right one, and a voiced recast he repeated - real, medium."
+    },
+    {
+      "id": "D5",
+      "verdict": "keep",
+      "row": {
+        "id": "0918-10",
+        "t": "04:22",
+        "t_amal": "04:49",
+        "medi_said": "اليوم ألبس بلوزة ريج ووو بنطلون zara أزرق- ووو كندرة بنية.",
+        "amal_said": null,
+        "chat": "el-yoam balbes blooze beige u ban6aloan azra2 u kundara binniyye",
+        "wrong": "ألبس",
+        "right": "بلبس (balbes)",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B1",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "chat-fix",
+        "confidence": "low",
+        "why": "Plain present 'I wear' needs b- (sheet: i wear | Balbes); transcript has albes, no spoken fix, her typed model line writes balbes - the typed recast is the signal; low because the script engine may have dropped the b-.",
+        "english": "Today I am wearing a beige blouse, blue Zara trousers and brown shoes."
+      },
+      "why": "Same slip seen by both, only A/B differs; ruled like D2 - her chat differs from his spoken piece exactly on the b-, so grammar (A) with signal chat-fix, low for the possible transcription drop."
+    },
+    {
+      "id": "D6",
+      "verdict": "drop",
+      "why": "Duplicate of the agreed 16:08 'Ana bakhaf' -> 'Ana khayef' (B15) row and a meta question, not a new attempt: at 17:31-17:38 he asks 'I am scared, you can't say ana bakhaf?' and then says 'I was trying to see if you could still use the verb form' - she restates the same fix she gave at 16:23."
+    },
+    {
+      "id": "D7",
+      "verdict": "drop",
+      "why": "Cannot be verified / no signal: Amal accepted 'Khawaftu' aloud at 32:09 (Mm-hmm) and she is quick to demand the object when it is missing (05:43 'Him. Him.', 27:42 'Me.'); the only difference from her chat 5awwaftuh is a final -h that the Latin engine routinely swallows, and the 33:56 chat line is her routine typed model, not a fix."
+    },
+    {
+      "id": "D8",
+      "verdict": "keep",
+      "row": {
+        "id": "0918-27",
+        "t": "36:58",
+        "t_amal": "37:01",
+        "medi_said": "So is it, uh, khaliq?",
+        "amal_said": "No, you anger someone. What does you anger mean?",
+        "chat": "marraat inti bet3assbini",
+        "wrong": "khaliq",
+        "right": "bit'asib (bet3asseb) - the causative verb itself",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B12",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "explicit-no",
+        "confidence": "medium",
+        "why": "For 'you make me angry' he reached for a khalli-type 'make' + verb; she said No and pointed him to the doubled causative 3assab ('you anger someone'), which is the make-X vs get-X rule B12 (the brief files causative-vs-plain choices as B12, not vocab); he then produced bit'asibini at 37:24.",
+        "english": "Sometimes you make me angry."
+      },
+      "why": "Both saw the same slip; the transcript supports grammar B12 over vocab: the fix is 'use the causative verb, not make + verb', exactly the doubled-middle-letter rule, with an explicit no from Amal."
+    },
+    {
+      "id": "D9",
+      "verdict": "drop",
+      "why": "Not an error - transcription segmentation: 'haket illi iya' is the Latin engine's spelling of 7akaiti-li iyyah (you-f told me it), the same sounds her chat writes as '7akaitili iyyah'; Amal accepted it twice aloud (40:17 Mm-hmm, 41:13 Sah after the full sentence) and never recast it."
+    },
+    {
+      "id": "D10",
+      "verdict": "keep",
+      "row": {
+        "id": "0918-36",
+        "t": "45:58",
+        "t_amal": "46:00",
+        "medi_said": "So what he did, shu huwa-",
+        "amal_said": "Let's use ili better, 'cause shu would sound like a question- ... more.",
+        "chat": "illi sawwaah kaan bey3asseb",
+        "wrong": "shu huwa",
+        "right": "illi (illi sawwaah)",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "C7",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "high",
+        "why": "'What he did' as a headless relative is illi, not the question word shu; she redirected him explicitly and he restarted with 'Ili sawa' at 46:07; her chat later spells the full sentence with illi.",
+        "english": "What he did was angering."
+      },
+      "why": "Only r1 found it, but the transcript is unambiguous: a wrong relative word and an explicit spoken redirect she named ('shu would sound like a question'), followed by his restart with illi."
+    },
+    {
+      "id": "D11",
+      "verdict": "keep",
+      "row": {
+        "id": "0918-42",
+        "t": "1:02:57",
+        "t_amal": "1:02:53",
+        "medi_said": "Min shuf is we'll see?",
+        "amal_said": "Min shuf. We'll see is what? ... Min shuf, yes. Min shuf.",
+        "chat": null,
+        "wrong": "we'll see",
+        "right": "minshuf (min shuf)",
+        "kind": "vocab-A",
+        "tier": 0,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "asked",
+        "confidence": "medium",
+        "why": "Didn't-know: during an all-English chat he said 'but we'll see' (1:02:44); she offered minshuf and he asked what it meant - he never attempted it in Arabic, and the English clause is not tier 3 (whole clause English, and minshuf is not on her sheet - only shoof/bashuf), so tier 0.",
+        "english": "We'll see."
+      },
+      "why": "Both readers agree on kind, tier and signal and differ only on the wrong piece; the transcript supports r1's piece - 'we'll see' is what he actually said (in English at 1:02:44), r2's 'min shuf (unknown)' is not something he produced."
+    },
+    {
+      "id": "D12",
+      "verdict": "drop",
+      "why": "Cannot be verified - transcript hole: his Arabic at 30:12-30:23 is not transcribed ('They upset me. ... Upset me.' are his English prompts), and her 'But I want the other one [laughs]' plus chat 'ahli za33aluni' does not fix a piece - it most plausibly means the other upset-verb (daaye2 vs za33al, both on her sheet, so not an error), and r2's 'non-causative form' is a guess; writing a wrong piece and a bucket here would be inventing what he said. Flagged in the note."
+    },
+    {
+      "id": "D13",
+      "verdict": "drop",
+      "why": "No signal / not verifiable: Amal accepted 'Matakhafi' aloud (57:32 'It does', then 'Best group yet'); the only difference from her chat 'ma t5awwfiih' is a final -h and a shadda, both of which the Latin engine drops (compare 55:58 'Matazaeliha' where she accepted the same shape), and the 1:00:35 chat line is her routine typed model, not a fix."
+    }
+  ],
+  "added": []
+}

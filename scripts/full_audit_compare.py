@@ -209,6 +209,8 @@ def settle(date, pas=1):
     for x in R.get("added", []):
         x = dict(x)
         x["agreed_by"] = "r3-added"
+        if any(same_moment(x, r) and (same_piece(x.get("wrong"), r.get("wrong")) or same_piece(x.get("right"), r.get("right"))) for r in rows):
+            continue                                # the third reader re-found an agreed row: not a second row
         rows.append(x)
     rows.sort(key=lambda r: (sec(r.get("t")) if sec(r.get("t")) is not None else 1e9))
     for i, r in enumerate(rows, 1):
@@ -236,8 +238,55 @@ def passes(date):
                 break
     union = len(P1) + len(P2) - both
     pct = round(100.0 * both / union, 1) if union else None
+    out = {"date": date, "pass1": len(P1), "pass2": len(P2), "both": both, "union": union, "agreement_pct": pct}
+    json.dump(out, open(os.path.join(WORK, f"{date}.passes.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(date, "pass1", len(P1), "pass2", len(P2), "in both", both, "agreement", pct)
-    return {"date": date, "pass1": len(P1), "pass2": len(P2), "both": both, "agreement_pct": pct}
+    return out
+
+
+def union_rows(date):
+    """Final rows of a lesson = every settled row of pass 1 plus the pass-2 settled rows pass 1 did not have.
+    Each row records which passes found it; a row in one pass only is capped at confidence 'medium'."""
+    P1p = os.path.join(WORK, f"{date}.settled.json")
+    P2p = os.path.join(WORK, f"{date}.p2.settled.json")
+    if not os.path.exists(P1p):
+        return None
+    P1 = json.load(open(P1p, encoding="utf-8"))
+    if not os.path.exists(P2p):
+        for r in P1["rows"]:
+            r["passes"] = [1]
+        return P1
+    P2 = json.load(open(P2p, encoding="utf-8"))
+    used = set()
+    for a in P1["rows"]:
+        a["passes"] = [1]
+        for j, b in enumerate(P2["rows"]):
+            if j in used or not same_moment(a, b):
+                continue
+            if same_piece(a.get("wrong"), b.get("wrong")) or same_piece(a.get("right"), b.get("right")):
+                used.add(j)
+                a["passes"] = [1, 2]
+                a["p2_fid"] = b.get("fid")
+                if RANK.get(b.get("confidence"), 0) > RANK.get(a.get("confidence"), 0):
+                    a["confidence"] = b["confidence"]
+                break
+        if a["passes"] == [1] and a.get("confidence") == "high":
+            a["confidence"] = "medium"
+    extra = []
+    for j, b in enumerate(P2["rows"]):
+        if j in used:
+            continue
+        b = dict(b)
+        b["passes"] = [2]
+        if b.get("confidence") == "high":
+            b["confidence"] = "medium"
+        extra.append(b)
+    rows = P1["rows"] + extra
+    rows.sort(key=lambda r: (sec(r.get("t")) if sec(r.get("t")) is not None else 1e9))
+    for i, r in enumerate(rows, 1):
+        r["fid"] = f"{date[5:7]}{date[8:10]}-{i:03d}"
+    return {**P1, "rows": rows, "counts": {**P1["counts"], "pass2_final": P2["counts"].get("final"), "in_both_passes": len(used), "pass2_only": len(extra)},
+            "coverage": {**(P1.get("coverage") or {}), "p2": P2.get("coverage")}, "r3_note": (P1.get("r3_note") or "") + (" | p2: " + P2["r3_note"] if P2.get("r3_note") else "")}
 
 
 if __name__ == "__main__":

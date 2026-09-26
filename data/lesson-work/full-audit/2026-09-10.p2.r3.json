@@ -1,0 +1,433 @@
+{
+  "date": "2026-09-10",
+  "reader": "r3",
+  "note": "Pass 2. The compare step mis-paired D9/D10: r1-28 (متأكتي, 20:57) was paired with r2-34 (إلي→إنو, 21:01) while r1-29 is the same إلي→إنو row - so إلي→إنو was in fact found by BOTH readers; it is settled once under D10 (high) and D9 carries only the متأكتي piece. D22 is kept but re-labelled: the transcript shows a wrong VERB (صلح for ساعد, he fixed to ساعدني after her prompt at 11:02), not a D3 preposition-ending error - the merger should check whether an agreed row already covers 10:34 صلاحني→ساعدني and dedupe. One added row (53:14 تعبي→تبعي) may also duplicate an agreed row; match by t and wrong. Lesson-wide: ASR badly garbles his Arabic in this file (Next far, take Allah, Dan's, بتداي), so several B rows are low; his D1-style letter swaps (زعمت/عزمت, تعبي/تبعي) are ruled tier-1 vocab because they produce a different real word that Amal treated as wrong, not as a slip.",
+  "rulings": [
+    {
+      "id": "D1",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D1",
+        "t": "02:59",
+        "t_amal": "03:02",
+        "medi_said": "زعمت، أنا زعمت.",
+        "amal_said": "عزمت.",
+        "chat": null,
+        "wrong": "زعمت",
+        "right": "عزمت",
+        "kind": "vocab-A",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "medium",
+        "why": "He said زعمت (I claimed) three times in a row (02:49, 02:56, 02:59) for عزمت (I invited; sheet: i invited | Ana 3azamet | أنا عزمت); Amal first made him retry (جرّب كم مرة) then recast عزمت, and he himself flags it as a corrected word at 04:05 - a consistent different real word, not a one-off S4 slip, so tier 1 not tier 2.",
+        "english": "I invited (my family)"
+      },
+      "why": "Both readers agree on the slip; tier 1 fits: زعم is a different lexical item, not a wrong form of عزم, and she treated it as an error (retry prompt then recast)."
+    },
+    {
+      "id": "D2",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D2",
+        "t": "08:30",
+        "t_amal": null,
+        "medi_said": "أنا رنيت لمهندس، uh...",
+        "amal_said": null,
+        "chat": null,
+        "wrong": "رنيت لمهندس",
+        "right": "رنيت على مهندس (my reading)",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "D2",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "Her sheet fixes the preposition on this verb (i call | Ana barenn (3ala) | أنا برن); he used لـ; she let it pass while they hunted the word for electrician (08:39-09:10); low because رنّ لـ is also heard colloquially and she did not react.",
+        "english": "I called an (electrical) engineer"
+      },
+      "why": "Real per her own sheet (3ala), unflagged by Amal, so grammar-B low; not a duplicate."
+    },
+    {
+      "id": "D3",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D3",
+        "t": "09:39",
+        "t_amal": "09:42",
+        "medi_said": "كراجي. This is a new word. It's not gonna be on the list.",
+        "amal_said": "كهـ، كهربجي.",
+        "chat": null,
+        "wrong": "كراجي",
+        "right": "كهربجي",
+        "kind": "vocab-A",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "medium",
+        "why": "Amal volunteered كهربجي at 09:10; he said it right once (09:13) then reproduced it as كراجي (garage-man, a different word) at 09:30, 09:39 and 09:48, and she recast كهـ، كهربجي syllable by syllable at 09:42 - he attempted the word and got it wrong, so a recast fix (tier 1), not a didn't-know; low stakes because the word was 30 s old and not on her sheet.",
+        "english": "electrician"
+      },
+      "why": "Tier 0 is for a word he never attempted or asked for; here he produced a wrong word and she recast it, so tier 1 recast."
+    },
+    {
+      "id": "D4",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D4",
+        "t": "12:44",
+        "t_amal": "12:48",
+        "medi_said": "اه، this is take Allah بيتي.",
+        "amal_said": "بِ أو فِي بيتي؟",
+        "chat": null,
+        "wrong": "بيتي",
+        "right": "ببيتي / في بيتي",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "D1",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "prompt-then-fix",
+        "confidence": "medium",
+        "why": "Telling her he stayed home (ضليت, ASR 'دولت'/'take Allah') he said بيتي with no preposition; she prompted 'بِ أو فِي بيتي؟' and he fixed to بي بيتي at 12:50; medium because his line is ASR-garbled.",
+        "english": "(today I stayed) at my house"
+      },
+      "why": "Transcript shows the prompt and his fix; real grammar row only r1 wrote."
+    },
+    {
+      "id": "D5",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D5",
+        "t": "12:53",
+        "t_amal": null,
+        "medi_said": "عشان يكون air conditioning.",
+        "amal_said": null,
+        "chat": null,
+        "wrong": "عشان يكون",
+        "right": "عشان الـ air conditioning كان (خربان) / عشان في (my reading)",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "B8",
+        "bucket2": "B6",
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "Reason for staying home was the broken AC he described at 07:46 and again at 53:29 (عشان الـ air conditioning كان خربان); يكون (subjunctive 'be') has no place here - either في (there is) or كان (was); Amal moved on to شو بتتذكر; low because the clause was left unfinished; 'air conditioning' is not on her sheet so no tier-3.",
+        "english": "because the air conditioning (was broken)"
+      },
+      "why": "Wrong ykoon in a plain statement, unflagged; kept low because the sentence is a fragment."
+    },
+    {
+      "id": "D6",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D6",
+        "t": "13:27",
+        "t_amal": null,
+        "medi_said": "بس كلمة-- بس فعل، اه، تنين،",
+        "amal_said": "أههم بس فعلاً.",
+        "chat": null,
+        "wrong": "فعل، اه، تنين",
+        "right": "فعلين",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "E1",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "'Two verbs' needs the dual فعلين, he said فعل + تنين; her reply is transcribed 'بس فعلاً', which is not a fix as written - it may be an ASR-garbled 'بس فعلين' (same 'بس X' recast shape as her 'بس كلمة وحدة' 2 s earlier) but the transcript cannot prove it, so B for Amal to confirm.",
+        "english": "just two verbs"
+      },
+      "why": "Both saw the slip; the transcript does not show a clear voiced fix (فعلاً), so grammar-B low rather than grammar-A."
+    },
+    {
+      "id": "D7",
+      "verdict": "drop",
+      "why": "Not a produced error: at 14:19 he asked an English meta question ('What is the preposition here? Is it ... takes be?') and Amal answered it (no preposition; من for 'annoyed with'); no Arabic sentence with a wrong preposition was spoken, so it is a didn't-know question, not a fix of his speech."
+    },
+    {
+      "id": "D8",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D8",
+        "t": "16:39",
+        "t_amal": null,
+        "medi_said": "كم مرة؟",
+        "amal_said": null,
+        "chat": null,
+        "wrong": "كم مرة",
+        "right": "كمان مرة",
+        "kind": "vocab-B",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "medium",
+        "why": "Asking her to repeat بدك نشوف الواجب أو ناخد الفعل الجاي (16:33) he said كم مرة (how many times) for كمان مرة (sheet: one more time | Kaman marra | كمان مرة); she just rephrased the question (16:41); the same rendering recurs at 25:38 while ASR writes كمان correctly elsewhere (43:58, 57:03), so not an ASR drop.",
+        "english": "one more time? / say that again?"
+      },
+      "why": "Real let-pass vocab slip, consistent across two moments; kept medium."
+    },
+    {
+      "id": "D9",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D9",
+        "t": "20:57",
+        "t_amal": null,
+        "medi_said": "إنتي متأكتي",
+        "amal_said": null,
+        "chat": null,
+        "wrong": "متأكتي",
+        "right": "متأكدة (my reading)",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "B15",
+        "bucket2": "A8",
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "'Are you (f) sure' is the feminine participle متأكدة (sheet: sure / certain | Mit2akked | متأكد); he gave it a verb-like -ti ending; Amal only addressed اللي in this sentence (21:27-21:37); low because ASR may have mis-rendered the ending.",
+        "english": "are you (f) sure"
+      },
+      "why": "r1's piece is real and unflagged, kept low; r2's piece in this D (إلي→إنو) is the same row as D10 and is settled there - the pairing was a compare artefact."
+    },
+    {
+      "id": "D10",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D10",
+        "t": "21:01",
+        "t_amal": "21:35",
+        "medi_said": "إلي إنتو ما ... ازعجتو.",
+        "amal_said": "Why اللي؟ / إنو مش اللي.",
+        "chat": null,
+        "wrong": "إلي",
+        "right": "إنو",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "C7",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "explicit-no",
+        "confidence": "high",
+        "why": "'Sure THAT you didn't annoy him' takes the complementizer إنو; he used the relative اللي; Amal asked 'Why اللي؟' (21:27) then said 'إنو مش اللي' (21:35) and he said 'Oh, whoops'.",
+        "english": "(are you sure) that you (pl) didn't annoy him"
+      },
+      "why": "Both readers actually found this row (r1-29 and r2-34); explicit fix in the transcript; high."
+    },
+    {
+      "id": "D11",
+      "verdict": "drop",
+      "why": "Cannot be verified: the detached 'أزد هم' (24:25, 24:28) is an ASR spacing artefact - spoken قصدهم with the suffix is what 'azd-hom' sounds like, and مش قصدهم is correct; Amal's 'No' at 24:37 answers his tense question, not this word."
+    },
+    {
+      "id": "D12",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D12",
+        "t": "25:38",
+        "t_amal": null,
+        "medi_said": "كم مرة؟",
+        "amal_said": null,
+        "chat": null,
+        "wrong": "كم مرة",
+        "right": "كمان مرة",
+        "kind": "vocab-B",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "medium",
+        "why": "Second occurrence: asked to repeat زي ما حكينا هديك المرة (25:29) he said كم مرة (how many times) for كمان مرة (sheet: one more time | Kaman marra | كمان مرة); she simply repeated زي ما حكينا and switched to English.",
+        "english": "one more time? / say that again?"
+      },
+      "why": "Separate moment from D8 (not a duplicate), same let-pass slip; kept medium."
+    },
+    {
+      "id": "D13",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D13",
+        "t": "26:49",
+        "t_amal": "26:51",
+        "medi_said": "and to remove his, uh, شول، فيل،",
+        "amal_said": "بقيم.",
+        "chat": null,
+        "wrong": "شول، فيل",
+        "right": "بقيم",
+        "kind": "vocab-A",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "finished-sentence",
+        "confidence": "low",
+        "why": "Explaining the rule ('and to remove his...') he groped with non-words شول، فيل for a sheet word he had learned (i remove / take away | Ba2eem | بقيم) and did not ask; Amal supplied بقيم; he then said بعيم/بعين (dropped ق, S4, not scored); tier 1 as a non-word attempt at a known sheet word - not tier 2 (شول is not a form of بقيم) and not tier 0 (he attempted it, did not ask); low because the attempt is fragmentary.",
+        "english": "I remove (the ma)"
+      },
+      "why": "Both saw it; transcript shows an attempt (not a question) at a sheet word she then supplied, so tier 1."
+    },
+    {
+      "id": "D14",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D14",
+        "t": "36:58",
+        "t_amal": "37:02",
+        "medi_said": "Next far. Is it next far?",
+        "amal_said": "So it's either inكسر or انكسر.",
+        "chat": null,
+        "wrong": "Next far",
+        "right": "انكسر",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B5",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "low",
+        "why": "Asked for the past (ماضي, 36:38) of the in-verb بنكسر he offered a form ASR wrote as 'Next far' (most likely نكسر without the initial alef); Amal recast the past as انكسر (with the 'in-' onset) and he repeated انكسر at 37:05; low because his exact form is unrecoverable from the transcript.",
+        "english": "it broke / got broken (he)"
+      },
+      "why": "He produced an Arabic verb form (not a meta question) and she recast it; real but his line is ASR garbage, so low."
+    },
+    {
+      "id": "D15",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D15",
+        "t": "48:25",
+        "t_amal": "48:29",
+        "medi_said": "conditioning, air conditionery. Do I say for air condition?",
+        "amal_said": "الـ air conditioning تبعي.",
+        "chat": null,
+        "wrong": "for air condition",
+        "right": "الـ air conditioning تبعي",
+        "kind": "vocab-A",
+        "tier": 0,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "asked",
+        "confidence": "medium",
+        "why": "Didn't-know: he asked how to say 'my air conditioning' and she supplied the تبعي possessive with el- on the noun; he echoed it as تباين (48:31) which she let pass; neither 'air conditioning' nor تبع is on her sheet, so tier 0.",
+        "english": "my air conditioning"
+      },
+      "why": "Clear asked/supplied exchange in the transcript; tier 0 didn't-know."
+    },
+    {
+      "id": "D16",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D16",
+        "t": "1:02:38",
+        "t_amal": null,
+        "medi_said": "ما شوفتك. Bye.",
+        "amal_said": "باي.",
+        "chat": null,
+        "wrong": "ما شوفتك",
+        "right": "بشوفك (my reading)",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "B1",
+        "bucket2": "B5",
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "Answering her يلا بشوفك (see you) he said ما شوفتك (I didn't see you): a negated past where the b-present بشوفك is needed; she just said باي; low because the ASR may have mis-heard a mumbled بشوفك / منشوفك.",
+        "english": "see you"
+      },
+      "why": "Both saw it; the piece he needed is the b-present (B1), the form he used was a past (B5 as bucket2)."
+    },
+    {
+      "id": "D17",
+      "verdict": "drop",
+      "why": "S4 sound shape (F2/F3): صلاحتو vs صلحته is the same verb صلّح with the vowel length / shadda wrong (recurs as صلاحني, صلاحلي at 10:34-10:40 and Amal still heard it as صلح, 11:02); the -و/-ه ending is only ASR spelling of the same 3ms suffix; pronunciation, never vocab or grammar."
+    },
+    {
+      "id": "D18",
+      "verdict": "drop",
+      "why": "Not an error and not a didn't-know: at 42:00 he produced the word himself ('Is it إيد's hand, right?' - ASR 'Dan's') and Amal only confirmed (ASR 'ear. مهم'); he then used إيدها correctly at 42:53; she supplied nothing."
+    },
+    {
+      "id": "D19",
+      "verdict": "drop",
+      "why": "Cannot be verified - transcript hole/garble: 'الليلة جو كتير كتير' is a broken ASR line (الليلة جو is a plausible mis-hearing of اليوم الجو, and the adjective may simply be lost); Amal's عن جد؟ reacts to the content (very hot), not the form; no defensible wrong piece."
+    },
+    {
+      "id": "D20",
+      "verdict": "drop",
+      "why": "S4 letter slip / ASR: قربان for خربان at 07:46 is a single ق/خ substitution; he knows the word and said خربان correctly three times later (48:58, 50:12, 53:20); Amal's هييي reacts to the news; pronunciation, not vocab."
+    },
+    {
+      "id": "D21",
+      "verdict": "drop",
+      "why": "Self-fix before help: at 06:40 he said 'tisa asha. Oh no, that's right. Yeah, asha tisa' - he landed on the day-first order himself before Amal's 'First we say عشرة تسعة' (06:42), which restates his fixed version."
+    },
+    {
+      "id": "D22",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D22",
+        "t": "10:34",
+        "t_amal": "11:02",
+        "medi_said": "صلاح، صلاحني شوي.",
+        "amal_said": "You said صلح which is fix. You did wha-- did you wanna say he helped me?",
+        "chat": null,
+        "wrong": "صلاحني",
+        "right": "ساعدني",
+        "kind": "vocab-A",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "prompt-then-fix",
+        "confidence": "medium",
+        "why": "He meant 'he helped me a bit' (10:40 'helps to me') but used the verb صلح (fix) - a different word; Amal explained صلحني = he fixed me, then prompted 'did you wanna say he helped me?' and he fixed to ساعدني (11:07, 'Oops'); the D3 reading (صلح لي vs صلحني) is moot because the -ني object is right for his intended verb ساعد.",
+        "english": "he helped me a bit"
+      },
+      "why": "Real fix she voiced, but the transcript supports a wrong-verb vocab row (صلح for ساعد), not the D3 preposition-ending row r2 wrote; merger should dedupe against any agreed 10:34 row."
+    },
+    {
+      "id": "D23",
+      "verdict": "drop",
+      "why": "Not an error: her own sheet gives بلبس for both senses (i wear / i'm putting on | Balbes | بلبس), Amal accepted اليوم بلبس and went on with the colours; لابس is a nicety she has not taught as a rule."
+    },
+    {
+      "id": "D24",
+      "verdict": "drop",
+      "why": "S5 mid-drill stumble: 'هي هو uh, بينكسري' was said before he had picked the subject; Amal did not treat it as a form but redirected to إنتو, and the هي/هو forms were then produced and fixed at 45:34-45:46 (هو بينكسر, هي بتنكسر), which covers the same drill step."
+    }
+  ],
+  "added": [
+    {
+      "id": "0910-r3-add1",
+      "t": "53:14",
+      "t_amal": "53:19",
+      "medi_said": "Because عشان الـ air conditioning تعبي، uh, كان،",
+      "amal_said": "Tired me out. / Do you wanna say because the, the air conditioning tired me?",
+      "chat": null,
+      "wrong": "تعبي",
+      "right": "تبعي",
+      "kind": "vocab-A",
+      "tier": 1,
+      "bucket": null,
+      "bucket2": null,
+      "mode": "speaking",
+      "signal": "explicit-no",
+      "confidence": "medium",
+      "why": "Reusing the تبعي she gave him at 48:29 he said تعبي, a different real word (tired me), so Amal heard 'tired me out' and queried it (53:19, 53:25); he did not repair it but rephrased without the possessive (53:29 عشان الـ air conditioning كان خربان); same letter-swap-to-real-word pattern as D1, so tier 1 vocab-A; merger: check for an agreed row at 53:14 before adding.",
+      "english": "because my air conditioning (was broken)"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-25T23:48:04-07:00",
+ "updated": "2026-09-26T05:10:51-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -49,8 +49,8 @@
    },
    "grammar": {
     "uses": 219,
-    "mistakes": 22,
-    "pct": 90.0
+    "mistakes": 30,
+    "pct": 86.3
    },
    "talk": {
     "medi_s": 1054.9,
@@ -104,7 +104,7 @@
    },
    "new_words": [],
    "taught": [],
-   "coverage": "read all 624 turns 02:54-59:55 (source transcript.txt, chat=0 so no typed lines). 36:27-42:30 is transcribed in Latin transliteration (‹›) not Arabic script. No untranscribed gaps; 09:32-13:48 is Meet setup talk in English.",
+   "coverage": "Whole file read in order. Latin-transliterated stretch [36:42]-[42:33] (‹...› forms; wrong/right kept in the transcript's Latin there). English-only stretches: [09:32]-[10:26] (Meet/computer logistics), [13:21]-[13:48], [16:12]-[16:57], and most of [29:33]-[31:05] (her explanation of بتأسف). Garbled/uncertain transcript lines left out: [03:31] 'تمام. مهمتي', [03:38] 'يا مهمني. بابا جان من ميرم بيته سريع', [03:45] 'يومي كان مني', [04:19] Amal 'جان ملت', [07:04] Amal 'وهلا شو بتمشي', [08:32] 'فندرة بنية', [20:54] 'لما كم يخلصوا', [32:07] 'مناسبة' (she said Perfect - surely معصبة misheard), [36:06] 'عتيته', [55:36] 'أنا بكرى'. [07:32] Amal 'خمسة' after his date line is a repeat I could not pin to a fix (pronunciation at most). S4 pronunciation left out: ثمانية/تلاتة for تمانية, اثنتين for تنتين (08:04), هواء for هوا (57:50), الله يفيكي (59:42), bin khaf/nakun vowels (39:24-39:39), and 'بس بتها' for ببسطها (32:27) which is a dropped root letter, not vocab. English drops in Arabic sentences ('understand' 13:54, 'makes me angry' 49:19, 'noodles' 06:50, 'Arabic or English letters' 15:54) were all self-fixed to Arabic within the turn, so no tier-3 rows; 'project', 'issue', 'problem', 'instead', 'apologize', 'moment', 'noodles' are not on her sheet. Comprehension misses not written as rows: 43:18 (بتخططوا, caught on repeat), 33:57 (answered for himself when she asked what SHE does), 50:18 (كان مرة؟ to إذا شفت حدا معصب). No swapped speaker labels noticed. / Lesson opens with Meet audio trouble 09:32-13:48 (mostly English). Stretch 36:42-42:33 is Latin-transliterated in ‹...›; Latin kept there. 07:19 date line: Amal replied 'خمسة.' - unclear whether pronunciation or a fix, not filed. 07:45/08:04 clock answer changed after her 'لا، مش تلاتة ونص' - treated as a fact/time-zone correction, not language. 08:17 'blouze' is her word بلوزة in Latin, not English filler. 05:15 'project', 06:50 'noodles' (self-fixed to مكرونة), English 'issue' (used by Amal herself) are not on her sheet - no tier-3 rows. 14:08 يأتينا (MSA verb, echoed by her) and 59:42 الله يفيكي (dropped ع, S4) not filed. Several stutter-fragments (32:27 بتها for ببسطها, 34:03 بتأسف→بتتأسف self-fix) left out per S5. Medi Arabic turns counted by script: Medi lines containing Arabic script or ‹Latin Arabic›.",
    "notes": [
     "timings: one mixed recording, speakers labelled by the engine's diarization (words_labeled.json)"
    ],
@@ -113,8 +113,8 @@
    "counts": {
     "turns": 623,
     "chat_lines": 0,
-    "vocab_errors": 5,
-    "grammar_errors": 22
+    "vocab_errors": 30,
+    "grammar_errors": 30
    }
   },
   {
@@ -136,8 +136,8 @@
    },
    "grammar": {
     "uses": 70,
-    "mistakes": 24,
-    "pct": 65.7
+    "mistakes": 47,
+    "pct": 32.9
    },
    "talk": {
     "medi_s": 1080.8,
@@ -212,17 +212,18 @@
      "review": false
     }
    ],
-   "coverage": "read all 1046 turns 00:04-1:03:11 (source transcript.txt, chat=0). Diarization is badly fragmented: many turns are 1-3 words and sentences are split across speakers, so Amal/Medi labels are often swapped (e.g. 02:15-02:19, 52:21-52:33, 1:01:29-1:01:33). 11:00-22:30 is almost all English about AI tooling; 22:50-24:50 is an English interruption with a honey seller. 21:00 onward is mostly Latin transliteration. Lesson core 28:00-1:03:00 is a بسط/انبسط conjugation drill.",
+   "coverage": "Roughly 14:53-20:30 is an all-English planning talk (AI tools, tests); 12:27-13:25, 20:31-30:23, 36:37-42:59 and 45:18-1:00:46 are Latin-transliterated, often garbled (e.g. 25:05-25:38 'ana bihna binkhales al-asal', 'ahana shay na'na' ma asal mufrad' could not be parsed into rows). 22:49-24:55 is a honey seller at the door (not Amal). Speaker labels are fragmented; many '?' lines were assigned from flow (e.g. 02:31 'or يتعلّم', 34:00 'هو بتيبست' self-fixed). The lesson is one long drill on بسّط/انبسط conjugations, so grammar rows dominate and vocab rows are few. Left out as S4 pronunciation: لقة/luka for لغة (00:39), بسّتني for بسطني (30:35), بيسبت for بيبسط (32:30), بنسبت for بنبسط (34:21), bansebet for banbeset (56:04), بيسبط for ببسّط (1:02:23), maruj for mahruj (22:09), 'ma' for ma3 (25:38, 26:19), stress on the T (55:25). Self-fixes not logged: أكتب→احكي (05:28), سميح→مبسوط (27:54), basati→basatini (41:09), بساتِتني→بساتِتك (35:58). English words inside Arabic not on her sheet, so not tier 3: software, research, possibility, test (she uses 'test' herself), mispronounce, AI. 26:19 'aswad' read as aswa2 = worse (on sheet), so not a vocab error. / Diarization fragmented: many Medi lines split across '?' fragments and some Amal/Medi labels swapped (e.g. 09:34-09:38 'Al AI مرات مش ناجح' labelled Amal is Medi). Latin-transliterated stretches: 12:27-13:21, 20:31-30:30, 36:44-43:10, 44:55-59:35. English-only stretches: 11:00-20:30 (AI tooling discussion), 22:49-25:00 (beekeeper at the door), 45:39-49:57 (Renata / kiss-verb aside). Garbled and left out: 00:39 'software لقة' idafa order, 25:05-25:29 honey lines ('bihna binkhales', 'mufrad'), 28:22-29:20 'nqeemaha/eem' exchange. S4 letter slips not written: لقة/luka 00:39, بسّتني 30:35, بنسبت 34:21, embasana 52:33, bansabet/ban sebet 56:04-56:12, بيسبط 1:01:34. No CHAT Amal lines in this transcript. Medi turn count = 110 Medi lines with Arabic script + ~70 Latin-transliterated Arabic lines.",
    "notes": [
-    "timings: one mixed recording, speakers labelled by the engine's diarization (words_labeled.json)"
+    "timings: one mixed recording, speakers labelled by the engine's diarization (words_labeled.json)",
+    "grammar.pct is low partly because uses (70) are undercounted: the usage count skips turns written in Latin letters or left blank ('[speaking Arabic]'), while Amal's fixes there are still counted."
    ],
    "page": "lessons/2026-09-04.html",
    "detail": "data/lessons/2026-09-04.json",
    "counts": {
     "turns": 1395,
     "chat_lines": 0,
-    "vocab_errors": 0,
-    "grammar_errors": 24
+    "vocab_errors": 13,
+    "grammar_errors": 47
    }
   },
   {
@@ -244,8 +245,8 @@
    },
    "grammar": {
     "uses": 79,
-    "mistakes": 25,
-    "pct": 68.4
+    "mistakes": 37,
+    "pct": 53.2
    },
    "talk": {
     "medi_s": 1381.9,
@@ -310,7 +311,7 @@
      "review": true
     }
    ],
-   "coverage": "read all 834 turns 00:26-1:02:14; no chat lines in file; 00:26-06:02 is app demo talk (Medi recounts an OLD lazim ba'amal fix at 04:32 - not counted); Medi's Arabic mostly transcribed in Latin letters, so wrong/right pieces are rendered in Arabic script from those spellings",
+   "coverage": "First 6 min are English (app demo). Medi's Arabic is Latin-transliterated through ~37:00, Arabic script after; two 'Unclear - needs audio review' Medi turns (01:51, 02:24). Amal's Arabic is garbled in places (08:57 'سعود' for صوروا, 10:14 'وحم' for حمس, 43:07 'سيفاء' for عاصفة). Left out as S4 pronunciation: 10:17 'ams' for حمّس (dropped ح), 25:12 inti maz'ooj self-fixed to maz'ooja, 33:44 biniz'aj 'ej sound', 34:54 baz'ajni->biz'ajni self-fix then 'almost', 35:57/36:31 ta'az'aj letter-order slips (she asked 'which goes first, ز or ع'), 49:57-51:28 'matanzajini' for don't annoy me which Amal treated as over-stressed ع (ما تزعجيني), 55:16 شبعان heard as 'hot'. Self-fixes skipped: 44:28 بزعج->بنزعج, 54:52 bansabit->بنبسط, 58:22 أتعبك->أتعبها, 59:18 باتعب->أتعب after لما (B3). 45:27 Amal 'Been catching you saying the [?] instead of the ب' - target word inaudible, no row. 32:06 'shu ra7ty' unclear, Amal 'شو تحكي؟'. 29:25 za'ajatek vs her أزعجتك: she said learn both variants, not filed. Amal ruled at 53:49 that إذا keeps the b- (إذا بكون), which conflicts with buckets.md B3. / Lines 1-140 (00:26-06:10) are English app talk, no Arabic from Medi. Medi's Arabic is Latin-transliterated from 06:17 to ~36:48, Arabic script from ~36:48 to 45:20, then mixed. Amal's Arabic is sometimes garbled by the engine (08:57 'سعود' for صوروا, 43:07/43:29 'سيفاء' for عاصفة, 31:06 'أزعجتُ' for أزعجتوه, 36:44 'زد أن دنع'). Not written (S4 pronunciation / root-letter slips): 'bisbat' for bibsit [13:28] and her B-S-T order note [21:01]; 'wa atik' for وقتك [08:01]; 'oo ams' for وحمس [10:17]; 'biniz'aj' vowel note [33:54]; 'matanzajini' stretch 50:10-51:28 which she treated as ع stress; 'Azajitini' [52:00]; 'شبعان' heard as hot [55:23]; 'إيه' for هي [57:49, 59:13]; 'joan' for جوعان. Not written (self-fixed before she helped): 'inta baz'aj' -> bitz'aj [33:05], 'بزعج، بنزعج' [44:28], 'ana bansabit' -> بنبسط [54:52], 'باتعب' -> أتعب after لما [59:18], 'هي انزعج' -> انزعجت [41:17]. Medi's 'shu ra7ty' [32:06] is unclear (she answered شو تحكي؟). Medi's 'khalee' [09:37] was accepted as possible but not wanted. Meta questions in English (futtuli [17:54], adverb [24:15], 'does this take من' [42:06]) not written.",
    "notes": [
     "timings: one mixed recording, speakers labelled by the engine's diarization (words_labeled.json)"
    ],
@@ -319,8 +320,8 @@
    "counts": {
     "turns": 833,
     "chat_lines": 0,
-    "vocab_errors": 3,
-    "grammar_errors": 25
+    "vocab_errors": 9,
+    "grammar_errors": 37
    }
   },
   {
@@ -342,8 +343,8 @@
    },
    "grammar": {
     "uses": 232,
-    "mistakes": 20,
-    "pct": 91.4
+    "mistakes": 36,
+    "pct": 84.5
    },
    "talk": null,
    "fillers": null,
@@ -362,7 +363,7 @@
      "review": true
     }
    ],
-   "coverage": "read all 970 turns 00:03-1:02:40; no chat lines; no machine audit exists for this lesson (never audited) so every row is a machine miss; 00:03-01:42 is setup noise; 42:15-42:34 Medi talks to a passer-by; 57:27-end is mostly Amal explaining which verbs to learn",
+   "coverage": "Whole file read in order. Long English-only stretches (meta talk about the recorder 03:40-05:52; verb-pair explanation 17:06-18:06; usage discussion 46:08-48:13; causative-verb wrap-up 57:27-1:02:40). Latin transliteration on Medi's lines at 06:38-06:47 (date), 07:08-07:20 (clock), 19:39 (means ajik), 30:49 (albo), 48:20-48:31. ASR-garbled Amal fixes: 12:13 'بدائية' (read as وردية), 13:42 'فعلاً' (read as فعلين), 38:33 'أشياءي نوع الإل' (unreadable; Medi says he did not say ال - no row), 45:57 'بتنكسر'. Not written (S4/S5/self-fix): 03:11 جهزت->وجهّزت (shadda F3, twice), 05:58 الأربعاء->الخميس self-fix, 06:40 date order self-fix before her عشرة تسعة, 07:46 قربان for خربان (ق/خ), 15:02 أزعشتك (ش/ج), 20:57 متأكتي, 29:46 سكرتي self-fix, 33:41 سهوني (ص/س), 34:14 يسكر->اكسر self-fix (her 'K before S' = letter order), 35:17 كنا self-fix, 42:53-43:16 انكسرت letter-order fix, 52:52 اشي->إشي vowel, 44:18 اثنعش accepted as ممتاز. 'air conditioning' is used in English by both (07:39, 12:53, 48:29, 53:14) and is not on her sheet, so not tier 3. 09:13 'مهندس كهربجي' (redundant pairing) got an explanation, not a fix - no row. Medi turns counted = Medi lines containing Arabic script (366 of 615 Medi lines). / Whole file read in order. Left out as S4 pronunciation: وجهّزت shadda 03:13, صلاحتو→صلحته 08:11 (vowel length), قربان for خربان 07:46, أزعشتك 15:02, سكرتي/سهوني/يسكر letter-order slips 29:46/33:41/34:14 ('The K is before the S'), إن كسر→انكسر spacing 49:31, إيدها انكسرت letter order 43:10, ولا اشي→إشي vowel 52:52, بعيم for بقيم 27:05, بفزت for ببسّط 56:04, تباين for تبعي 48:31. Three letter-order slips that produced real other words (زعمت, بخسر, تعبي) ARE written as low-confidence vocab rows because Amal treated them as words and Medi asked (04:05) that such fixes be marked. Latin-transliterated stretch 06:38-07:20 (date and clock). Garbled/unreadable Medi lines not judged: 19:36-19:39 (مين أزعجك), 19:54 أشيك تير, 24:50 بتدايك, 30:02-30:21 (we broke your windows), 38:33 Amal 'أشياءي نوع الإل' (unclear, he says he did not say el-), 42:05-42:15 (hand), 54:24 إمّني, 55:05 أبن كتير, 55:30 بفيت, 55:33 Amal 'أنا واعي'. English-only stretches: 03:40-05:51 (recording rules), 17:06-18:06, 46:08-48:13, 57:37-1:01:49 (causative verbs). Drill slips during conjugation runs (45:24 بينكسري, 45:34) and self-fixes (13:37, 29:46, 34:20, 05:58) not written. Amal used English 'air conditioning' herself (48:29) and مكيف is not on her sheet, so his 'air conditioning' is not tier 3; YouTube, bones not on sheet.",
    "notes": [
     "talk, fillers, latency and flow are null: no word-level timings on disk for this lesson (the page has line start times only)."
    ],
@@ -371,8 +372,8 @@
    "counts": {
     "turns": 970,
     "chat_lines": 0,
-    "vocab_errors": 2,
-    "grammar_errors": 20
+    "vocab_errors": 19,
+    "grammar_errors": 36
    }
   },
   {
@@ -394,8 +395,8 @@
    },
    "grammar": {
     "uses": 98,
-    "mistakes": 21,
-    "pct": 78.6
+    "mistakes": 34,
+    "pct": 65.3
    },
    "talk": {
     "medi_s": 1366.5,
@@ -455,7 +456,7 @@
      "review": false
     }
    ],
-   "coverage": "read all 937 turns 00:41-1:02:26 (no chat lines). Gaps: Medi's Arabic mostly '[speaking Arabic]' 18:13-22:42, 30:33-31:57, 33:14-36:33; Amal '[speaks Arabic]' 49:44-56:28; 46:02-58:37 Medi in Latin script.",
+   "coverage": "Latin-transliterated stretch 40:47-59:51 plus 1:02:24-1:02:27 (Medi's Arabizi, Amal's Arabic in script). Untranscribed '[speaking Arabic]' holes on Medi's side: 18:14-18:25, 18:52-18:58, 20:49, 21:08-21:19, 22:42, 30:30-30:38, 33:14-36:29; Amal's fixes untranscribed at 30:51-31:01 (only 'ما أجا' shows), 53:11, 53:50, 55:06, 54:31-54:43. English-only stretches: 13:29-15:40 (meaning of خرب), 23:12-24:35, 46:56-49:11 (Medi explains the AI tool), 1:00:12-1:02:10 (planning). Farsi interjections 'كما ما (را)' at 02:11, 14:28, 18:14 not treated as Arabic. Left out as S4 pronunciation: قربان for خربان 10:55, ثلاجة for تلاجة 25:18, banbesit/بنبسط 58:29, banzaj/بنزعج 58:54, mat kharab vs ما تخرّب (shadda) 45:51, jumla/جملة 22:17, 'ruf' for روح 45:42. Left out as self-fixes: ملايين→مليان 01:05, 'also'→كمان 04:47, بغلط→بالغلط 39:42. Unclear, not filed: 07:03 'الدنيا أخلى', 08:05-08:08 'أكثر إنت ساليني أكثر', 58:03 'ana batsakat'. Questions he asked and she answered (not errors): 05:57 بيكون/أكون, 25:49 يخربوا?, 40:47 bakharreb or bakharraab, 40:58 bitkharbi or bitkharibi, 35:56-36:21 past forms. / Medi's Arabic is untranscribed ('[speaking Arabic]') from 18:14 to 19:11, 20:49-22:42 (fiancee sentence), 30:30-31:16 (3azoome sentence), 31:32-36:36 (command + past of ba5arreb; her fixes 35:52 5arab, 36:02 5arrabet, 36:22 5arrabti are answers to his 'is it X or Y' choices, not written as errors); 40:47-59:51 is Latin transliteration (rows copy his Latin). English-only stretches: 13:29-15:22 (meaning of 5ereb), 20:25-24:35, 46:56-49:11 (talk about the AI form), 1:00:12-1:02:10 (planning). 40:16 Medi line mixes a background conversation ('One ticket was like forty-five dollars'). Not written (S4 pronunciation / self-fixes): 01:05 ملايين->مليان self-fix, 04:47 'also'->كمان self-fix, 10:55 قربان for خربان (root-letter slip), 25:18 ثلاجة for تلاجة, 06:19 بتثلج, 39:42 بغلط->بالغلط self-fix, 58:22-58:54 banbesit/bazaj (dropped ط/ع), 01:21 هلا يا فيكي and 02:00 هلا قلبك (garbled الله يعافيكي / ع قلبك), 02:11/14:28 'كما ما' = كمان مرة. Unclear, not written: 07:03 'الدنيا أ-أخلى', 08:05-08:08 'أكثر إنت ساليني أكثر', 51:40 'the wawu ha?' (asked about ضوها, never finished), 53:11 Amal 'Mm-mm, no' after 'bidullu yikharabu' (she then agreed 'they are what's breaking'; her Arabic untranscribed). Amal's 59:29 'break. break.' is an English hint, not a supplied word.",
    "notes": [
     "38 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow."
    ],
@@ -464,8 +465,8 @@
    "counts": {
     "turns": 937,
     "chat_lines": 0,
-    "vocab_errors": 2,
-    "grammar_errors": 21
+    "vocab_errors": 13,
+    "grammar_errors": 34
    }
   },
   {
@@ -487,8 +488,8 @@
    },
    "grammar": {
     "uses": 106,
-    "mistakes": 29,
-    "pct": 72.6
+    "mistakes": 47,
+    "pct": 55.7
    },
    "talk": {
     "medi_s": 1070.8,
@@ -558,15 +559,15 @@
      "review": true
     }
    ],
-   "coverage": "read all 1041 lines (996 spoken turns + 45 chat) 00:02-1:02:40. Medi often in Latin script (12:00-23:30, 40:00-53:50); STT garbles Amal's اخترت as اشتريت; 43:59-45:38 Medi away.",
+   "coverage": "Whole file read. Two long Latin-transliterated stretches: homework sentences ~12:00-24:00 and N-verb drill ~36:50-54:40 (his Arabic is in ad-hoc Latin there; `wrong` copied as printed). Engine garbles: Amal 03:09 'اشتريت. ما فتاك' is her اخترت/no-alef fix; Amal 04:12 'بيعطوني' = bey2aat3uni per chat; 28:22 'أزعجني' = زعجني. Left out as S4 pronunciation (she did react to some): 28:18 زاجني/28:38 زاجتها (dropped ع), 30:06 تنزلي, 19:03 nitlab, 16:10 Wahta, 04:33 أطلستي, 20:42 inkisar→انكسر ('no internal flipping'), 26:43 بساط→بسّط, 59:26 نبسطه→نبسّته (shadda), 53:16 enbasena→enbasa6na (she said 'you missed a letter' - root ط, S4). Left out as self-fixes: 11:27 هون→هلق (she then said هلا), 13:53 tistamel→tistameli, 42:16 aju→ajitu, 36:53 bezaj→bienzaj. Not on her sheet so not tier 3: football, fantasy football, players, team (the last two filed as didn't-know tier 0). Amal chat lines at 09:48, 13:32, 15:41, 19:40, 21:24, 23:18, 23:39, 24:13, 24:48 lag 60-120 s and were matched to the voice turns above. Amal dropped from the Meet ~27:40-28:10. / Whole lesson read. Latin-transliterated stretches: ~12:00-24:00 and ~36:30-54:40 (Medi and some Amal lines in Latin). Amal's spoken echoes are sometimes garbled by the engine (03:09 'اشتريت' = اخترت; 04:12 'بيعطوني' = بيقاطعوني; 28:22 'أزعجني' = زعجني; 50:33 'تنبسطي' = بتنبسطي); chat lines used to confirm. Dropped-out stretch 43:57-45:38 (Medi away from mic). S4 pronunciation left out: 04:33 أطلستي (عطلتي), 05:17 هدرت (حضرت), 06:34 ما (مع), 12:59 mazuruj, 16:10 Wahta, 19:03 nitlab (نلعب), 19:09 mabad (مع بعض), 28:20 زاجني / 28:38 زاجتها (dropped ع), 30:10 تنزلي (تنزعجي), 1:02:34 علي فيك (الله يعافيك). Self-fixes not written: 12:19 eskir→kasar, 30:06 تنزلش→تنزلي, 37:52 bienzaj→bienzaju, 42:16 aju→ajitu, 42:55 انبسطتي→انبسطت. English 'football' (04:45), 'fantasy football' (05:55) not on her sheet so no tier-3 rows.",
    "notes": [],
    "page": "lessons/2026-09-14.html",
    "detail": "data/lessons/2026-09-14.json",
    "counts": {
     "turns": 996,
     "chat_lines": 45,
-    "vocab_errors": 2,
-    "grammar_errors": 29
+    "vocab_errors": 19,
+    "grammar_errors": 47
    }
   },
   {
@@ -588,8 +589,8 @@
    },
    "grammar": {
     "uses": 92,
-    "mistakes": 29,
-    "pct": 68.5
+    "mistakes": 50,
+    "pct": 45.7
    },
    "talk": {
     "medi_s": 1193.7,
@@ -664,15 +665,17 @@
      "review": true
     }
    ],
-   "coverage": "read all 1097 turns 00:36-1:07:03; Medi's Arabic often Latin-script STT; no untranscribed gaps",
-   "notes": [],
+   "coverage": "Large Latin-transliterated stretches with wobbly spelling: 06:05-13:00, 18:14-24:25, 48:51-1:07:03 (Medi's Arabic written as e.g. qasar/Zakarini); Arabic-script Medi lines often show S4 slips (عطلوا for قاتلوا, بتدري for بتقدري, شهر for شعر at 44:12, كسا for كسر at 27:52) - all left out as pronunciation. Unclear Medi fragments not scored: 01:58 'شو كما ما مرا', 04:42 'آه هلا قلبك', 10:48 'haketni bare', 1:00:10 'Zakarsaf', 58:00 'maqtarakhar'. 41:58 'بوتنا' for خططنا is probably a transcription of 5u66atna (Amal said Perfect; chat 5u66atna). 47:37 'تصوري' vs chat tetsawwari - Amal said ممتاز so not filed. 1:00:18 zakaratni for 'she remembered me' - Amal accepted with optional et-, not filed. English-only meta stretches 07:00-07:50, 21:18-23:58 (fi / word-order discussion, no error), 1:03:30-1:05:00 (Farsi/shukr chat). ~311 Medi Arabic turns = 176 Arabic-script lines + ~135 Latin-transliterated lines. / Whole file read in order. Latin-transliterated stretches (transcriber Latin, q for k): 06:05-13:00 partial, 18:14-24:11, 48:51-56:04, 57:52-1:05:45. Not filed (S4 pronunciation): ما تفي for مطفي (02:04), عطلوا for قاتلوا (26:47, dropped ق), كسا for كسر (27:52/28:13), اقرب for أغلب (17:38), شهر for شعر (44:12, she did call it out as 'month'), maqsudin for maksooreen (19:12), هلات إلى 12 for talaat illa tult (05:05, chat has it), بوتنا for 5u66atna (41:58), Asmaa vowel length (1:03:08). Self-fixes not filed: الأمبارح->امبارح (05:52/06:01), كان في محل->كنت (03:17), 'خروف is pig'->lamb (04:00, English meta), كسروا->انكسروا (14:57/15:06), اكسرو->ما تكسرو (17:13), meeting->ijtema (24:11), شعرها->شعرك (44:12/44:18), sawarti->sawarit (55:46). Not errors: asawi (08:27) and بوتك (38:27) are on her sheet (Sawwi / Boat). Unclear garbles left out: يومي امني (01:17), بتيت (01:24, she said 'it doesn't go' but the word is unrecoverable), شو كما ما مرا (01:58), آه هلا قلبك (04:42), haketni bare (10:48), kamamana (52:30/54:23). Ambiguous: 16:18 بتكسري vs her تكسري (chat has btekser) not filed. Speaker labels looked consistent; chat lines lag 30-120 s as expected.",
+   "notes": [
+    "grammar.pct is low partly because uses (92) are undercounted: the usage count skips turns written in Latin letters or left blank ('[speaking Arabic]'), while Amal's fixes there are still counted."
+   ],
    "page": "lessons/2026-09-15.html",
    "detail": "data/lessons/2026-09-15.json",
    "counts": {
     "turns": 1025,
     "chat_lines": 72,
-    "vocab_errors": 0,
-    "grammar_errors": 29
+    "vocab_errors": 12,
+    "grammar_errors": 50
    }
   },
   {
@@ -694,8 +697,8 @@
    },
    "grammar": {
     "uses": 52,
-    "mistakes": 23,
-    "pct": 55.8
+    "mistakes": 59,
+    "pct": null
    },
    "talk": {
     "medi_s": 1054.1,
@@ -770,17 +773,18 @@
      "review": false
     }
    ],
-   "coverage": "read all 1038 turns 01:17-1:09:56; untranscribed Medi Arabic at 27:01-27:45, 28:55-31:33, 1:02:47-1:08:20 ([speaking Arabic]) so fixes there rest on Amal's side only",
+   "coverage": "Whole file read. Holes: ~33 Medi turns are '[speaking Arabic]'/'[speaking foreign language]' (05:28, 06:13-06:28, 26:46-30:50, 1:02:48-1:09:06) so several fixes there are inferred from Amal's recast only (rows 3,5,21,22,42,43,44 marked low/medium). 18:52-1:01:44 is mostly ASR Latin for both speakers (t- prefixes and 7/3 often dropped, e.g. hamasna 19:19, daya ti 46:42); I did not score those as errors. Pronunciation left out per S4: h for 7 in every 7ammas form (10:44, 12:39, 12:53, 13:22 - Amal recast each), ba7seb for ba3asseb 11:30, 'It's a three' 30:08, long-a in daaya2ni 44:52 and tetdaaya2i 51:16 (F2), shufeta 54:29, بندارة 08:32 (ASR of kundara), akhti 57:26 (ASR of ta5ti). Skipped: chat 21:17 't7ammastu hunaak' (he was reconnecting, no attempt); 1:08:21 he asked about singular after 30 and knew the rule; Medi corrected Amal at 49:59 (kaan drops b-). Chat 39:33 'e7na bnetwajja3 bsur3a' lacks the ma he said - her typo, not his error. / Whole file read. Holes: Medi's Arabic is hidden as [speaking Arabic]/[speaking foreign language] at 03:25, 04:22-04:47, 05:28 (she prompted صـ... صغيرة; his attempt unseen), 06:13-06:28, 26:46-27:45 (she prompted 'Fi eish' twice; chat 'lamma ana biddi ba9eer a7san bi ishi laazem atmarran' - a preposition fix is likely but unprovable), 28:22-28:55, 29:56-30:34 ('It's a three. Wajja'tek' - unclear what he said), 31:27, 1:02:48-1:03:27, 1:04:29-1:04:37, 1:05:13, 1:07:09-1:08:10, 1:09:06 (her 'أو الله يعافيكي ألف مرة' answers a hidden line). Long Latin-transliterated stretch 13:41-1:02:00 (verb drill); Arabic script only at the start and in scattered lines. Not filed as errors (S4 pronunciation): ح→ه in بتهمس/بيهمسوني (10:44, 12:39, 12:44, 12:58, 13:12, 13:22 - she recast بيحمس 5 times), بحسب for بعصب (11:30), بسوار for بصور (09:31-09:48), ستطاش (07:34), دول for ضل (10:21), 'akhti' for ta5ti (57:26), 'ada' for 7ada (39:10), dayani vowel length (44:43-44:52, F2), 7amasna/7ammesna shadda (21:24). Transcript garble left alone: فيسة (07:41, probably tes3a), حمارة (08:53, 10:15), بندارة for kundara (08:32), 'Hamamara' (1:00:49), نوبي تحركي (1:03:07), بتسكر/بتزكر for remind/remember (10:26 - cannot tell ذ from تس). Self-fixes not filed: إلا خلت→إلا ربع (07:53), batham→muthammis (23:59-24:20), ما بنوجع→ما بنتوجع (37:33-37:38), daya una→tedaya u minna (52:48-52:52), baharrak→bit haraki (1:01:33). Medi corrected Amal at 49:59 (kaan + bare verb) and she agreed (كان يضايق). Speaker labels look consistent.",
    "notes": [
-    "25 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow."
+    "25 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow.",
+    "grammar: 59 corrected slips but only 52 detected rule uses (uses skip Latin-script turns), so grammar.pct is null."
    ],
    "page": "lessons/2026-09-16.html",
    "detail": "data/lessons/2026-09-16.json",
    "counts": {
     "turns": 969,
     "chat_lines": 69,
-    "vocab_errors": 2,
-    "grammar_errors": 23
+    "vocab_errors": 13,
+    "grammar_errors": 59
    }
   },
   {
@@ -802,8 +806,8 @@
    },
    "grammar": {
     "uses": 70,
-    "mistakes": 28,
-    "pct": 60.0
+    "mistakes": 43,
+    "pct": 38.6
    },
    "talk": {
     "medi_s": 1112.9,
@@ -874,17 +878,18 @@
      "review": true
     }
    ],
-   "coverage": "read all 954 turns + 41 chat lines 00:30-1:03:45; Medi's Arabic untranscribed ('[speaking Arabic]') in ~14:00-22:15 and scattered later, so 0917-08/09 rest on Amal's side only",
+   "coverage": "Medi's Arabic is transcribed as [speaking foreign language]/[speaking Arabic] 33 times, mostly 14:11-14:47, 16:21-24:07 (the whole 'apologize' translation drill) and 33:03-34:01; in those stretches only Amal's fixes/chat show what he said. From 27:46 to the end (1:03:44) his Arabic is Latin-transliterated by the engine, often garbled (e.g. 'sijal', 'behtr', 'mata kharab po', 'Glesh'), so 'wrong' strings there are the engine's spelling. 09:13 Amal asks 'متى؟' and types 'talaate u rube3' but his time answer is not in the transcript. Skipped as S4/S5: 'ما تارات' for ma66arat (41:29), 'خربات' for 5erbat (41:14), 'سرابته' (44:20), 'بيصلع' restart (43:23), self-fixes 'سبعتين'->'سبعتاش' (08:32), 'يوم السب--'->'يوم الخميس' (09:00), 'نفس الجو اليوم'->'نفس جو اليوم' (09:44). 05:32-05:41 he asked whether 'they put' should be past; she said present (rule answer, not an error). 55:11 'bidahik/bizahik' mix-up was self-fixed before her 'Bizahiq'. / 33 Medi turns are '[speaking foreign language]' / '[speaking Arabic]' with no text (mostly the apology drill 14:11-24:07 and 33:03-36:06); for those, rows 21-23 rest on Amal's fix lines and chat only. From ~27:46 to the end Medi's Arabic is Latin-transliterated by the engine (kharab, kanit, tistamali...), so shadda and emphatic letters are invisible; several B12 rows rely on her chat spelling. English-only stretches: 16:29-17:12 (apologize from/to debate), 35:30-36:21 (pointer-in-questions meta), 1:02:44-1:03:23 (the AI app). Not written: pronunciation slips ('behtr' for بحري, 'ma tarat' for مطّرت, 'khirbat' as خربات), his self-fixes (سبعتين->سبعتاش, ما تخرب->ما تخربي, blouzeti->blouzetik, ando->andik), meta questions he asked before speaking (pointer in questions 35:49; بيخربه أو بيخرب 43:02; asfi/asafi 19:46), 'pantalon' at 13:03 (= her sheet word بنطلون), and 'اليومي' at 02:08 which her chat kept as yoami. medi_turns = Medi lines with Arabic script (109) plus Latin-transliterated Arabic (113); 33 untranscribed Arabic turns not counted. Timestamps after the hour appear as 1:00:02 style, kept as in the transcript.",
    "notes": [
-    "16 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow."
+    "16 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow.",
+    "grammar.pct is low partly because uses (70) are undercounted: the usage count skips turns written in Latin letters or left blank ('[speaking Arabic]'), while Amal's fixes there are still counted."
    ],
    "page": "lessons/2026-09-17.html",
    "detail": "data/lessons/2026-09-17.json",
    "counts": {
     "turns": 954,
     "chat_lines": 41,
-    "vocab_errors": 0,
-    "grammar_errors": 28
+    "vocab_errors": 14,
+    "grammar_errors": 43
    }
   },
   {
@@ -906,8 +911,8 @@
    },
    "grammar": {
     "uses": 23,
-    "mistakes": 20,
-    "pct": 13.0
+    "mistakes": 48,
+    "pct": null
    },
    "talk": {
     "medi_s": 884.0,
@@ -988,18 +993,18 @@
      "review": false
     }
    ],
-   "coverage": "read all 962 turns + 66 chat lines 00:12-1:04:26; no machine audit exists; Medi's Arabic is blank/untranscribed in 20:40-31:10 (causative-adjective drill), so rows there are low or missing; chat is on the raw Meet clock and runs ~0.5-2 min behind the spoken exchange it matches",
+   "coverage": "Lines 1-90 are Arabic script; from ~05:00 the transcript is Latin transliteration. 19:20-31:30 has many Medi/Amal Arabic words dropped entirely (blank gaps: 'So can, can', 'Is it or-', 'be as'), so the flight/meetings/parents/'I made him smile' drills could not be checked and rows 20-21 are low confidence. Speaker labels look right; a few Amal echo lines (15:49 'Leesh zehekti', 46:19 'Saw') may be flattened. Not written as errors: pronunciation/vowel repeats (01:52 أتمارنت, 04:27 أزرق, 09:13 kuffet->khuffet, 46:13 sawa->sawwa, 53:44 and 58:42 double-T commands), factual time fixes at 03:41-04:11 (2 o'clock, 26 min), his own self-fix 03:02 مختلفة, listening comprehension 56:07 him/her, and his unfinished 1:00:54 'il film mbare' which she completed in chat at 1:04:26. medi_turns counts every Medi line with an Arabic attempt (script or Latin), excluding pure filler. / Arabic script only for 00:13-04:53; from 05:00 to the end the engine wrote Latin transliteration, and between roughly 19:30 and 31:30 it dropped many of Medi's and Amal's Arabic words entirely (lines like 'So is it ?', 'Is [ ] I am tired'), so several fixes there (show made me laugh, work made me tired, he's funny, he makes me bored, I made him smile, meetings make me bored, my parents made me upset, the flight made me tired) can only be inferred from Amal's English prompts and her later chat lines; those rows are marked low. Speaker labels looked right throughout. Not filed: clock corrections at 03:41 (tlaat -> tentain) and 04:02 (minutes -> sitte u 3eshreen) are fact fixes, not language; pronunciation-only fixes skipped per S4 (02:17 atmaarant -> atmarrant vowel length, 09:13 kuffet -> khuffet, 46:13 sawa vowel length, 53:59/58:57 double-T simplification ma etta3ebhom / ma tta3bina, 04:31 azra2 repeat). Medi's own free sentence at 1:00:54 'il film mbare' was abandoned and only completed in chat (el-filem mbaare7 da77akni). 31:24 'I made them scared / khawafatum' for her prompt 'him' was accepted by Amal and her chat also has -hom, so not filed.",
    "notes": [
     "timings: speakers estimated by voice pitch on one mixed recording (as on the lesson page)",
-    "grammar.pct is low partly because uses (23) are undercounted: the usage count skips turns written in Latin letters or left blank ('[speaking Arabic]'), while Amal's fixes there are still counted."
+    "grammar: 48 corrected slips but only 23 detected rule uses (uses skip Latin-script turns), so grammar.pct is null."
    ],
    "page": "lessons/2026-09-18.html",
    "detail": "data/lessons/2026-09-18.json",
    "counts": {
     "turns": 962,
     "chat_lines": 66,
-    "vocab_errors": 0,
-    "grammar_errors": 20
+    "vocab_errors": 11,
+    "grammar_errors": 48
    }
   },
   {
@@ -1068,14 +1073,14 @@
    },
    "new_words": [],
    "taught": [],
-   "coverage": "read all 843 turns + 78 chat lines, 00:00-1:02:03. Lesson is mostly a listening drill (Amal says a verb form, Medi translates to English); most grammar fixes are comprehension of causative/reflexive, tense and person, marked '(listening drill)' in mistake. Medi's own Arabic production is only ~06:30-10:30 and a few drill lines. Several Medi lines ASR-garbled (e.g. 'Kamara', 'Tawamara' = kamaan marra).",
+   "coverage": "First ~6.5 min is English chat about a song; her Arabic there is redacted as [foreign language] so the balad/bilad and 'sakit/yard' questions cannot be quoted in Arabic. Speaking Arabic is limited to 06:26-10:40 (date, time, weather, clothes) plus a few Arabic productions inside the drill (38:13 ma tahammasi, 41:10 inti kharabti il safra - correct, 44:46 bored->زهقان, 1:00:47 ahsan katir iliyom - correct). From 11:13 to 1:00:35 the lesson is a listening drill: Amal says a verb sentence, he translates to English; misreads are logged with mode=listening (rows 14-36); correctly translated sentences are not logged. Pronunciation-only slips left out per S4: خندرة for كندرة (10:31, chat kundara), بيكميس for قميص (10:08), Shufik for أشوفك (1:02:02), Kamara/Tawamara for 'كمان مرة'. Some Medi Arabic in the drill is Latin-transliterated by the engine (Bisar, Ma bistah, Min daya ik, Basat, Imbasat). Amal's 'بيضة' at 10:02 is likely a mis-transcribed بيضا. Trailing CHAT lines 1:02:22-1:04:26 are transcriptions of drill sentences, not fixes. medi_turns = 37 Medi turns with Arabic script + 12 Arabizi/Latin Arabic turns; ~55 further Medi turns are English translations in the listening drill. / 00:00-06:26 is English chat about a song; Amal's Arabic there is redacted as [foreign language], so the 03:22-03:57 words (loaf, yard) cannot be recovered - only two asked-rows written from his Latin (balad/bilad, Sakit). 06:26-10:49 is the only speaking stretch (date, time, weather, clothes). 11:13-1:00:35 is a listening drill: Amal says a sentence, Medi gives the English - so most rows are mode=listening and 'wrong' is his English reading. His Arabic in the drill is Latin and often garbled by the engine: Kamara / Kamamara / Tawamara = kaman marra / tani marra ('again', not errors); Bisar, bizat, Ma bistah, Bin hafi bin, Namaste, Basatu shu, Mao, ume mit as, Ume safulu, 'My choose Aloo' are garbled echoes of her line and were skipped. [07:26] 'ألفين تنين وتلات' is probably the engine's rendering of tentain u tult (she said صح) - two low/medium rows written from her chat spelling. خندرة (10:31) for كندرة and بيكميس (10:08) for قميص treated as S4/transcription, not vocab. [35:10] is stray background speech (library). [58:36] 'the gatherings' for بالعزومة not written: her sheet glosses عزومة as 'house gathering / invitation'. Chat lines lag 30-120 s; used as fixes only where they differ from what he said.",
    "notes": [],
    "page": "lessons/2026-09-19.html",
    "detail": "data/lessons/2026-09-19.json",
    "counts": {
     "turns": 843,
     "chat_lines": 78,
-    "vocab_errors": 2,
+    "vocab_errors": 17,
     "grammar_errors": 5
    }
   },
@@ -1098,8 +1103,8 @@
    },
    "grammar": {
     "uses": 216,
-    "mistakes": 41,
-    "pct": 81.0
+    "mistakes": 70,
+    "pct": 67.6
    },
    "talk": {
     "medi_s": 1397.9,
@@ -1153,15 +1158,15 @@
    },
    "new_words": [],
    "taught": [],
-   "coverage": "read all 1274 turns + 57 chat lines, 00:01-1:12:04; no untranscribed gaps; 32:13-32:48 and 49:54-50:33 have overlapping/garbled lines",
+   "coverage": "Whole file read. 800 Medi turns: 348 with Arabic script, ~130 more in Latin transliteration (31:49-32:48, 34:07-35:31, 37:41-43:03, 49:25-1:00:47, 1:07:43-1:11:18) where vowel/pronoun endings are ambiguous. Garbled/untrustworthy Medi lines skipped: 01:14 'بابا، مريان بيضرهبي', 12:00 'access في الـ', 16:00 'Sven is lazy', 26:20 'على البرك' (probably على قلبك), 26:31 'By كما ما', 27:15 'بنجرة شي-شيطاني' (echoing her), 31:29 'Shumel', 49:13 'bixfun', 50:05 'thway sufun', 1:07:39 'Is bafta internal'. Transcript renders his 'roz' as English 'rose' (44:09-47:27) - treated as رز, not an English drop. 25:47 'سبق أن أدفع أطفالك' = his 'بقدر أدفع لك' per chat 26:53. 11:46 'أسبوع شغل' is almost surely 'أسبوع شوب' (chat: usboo3 shoab) - pronunciation, not vocab. Pronunciation left out (S4): 'أديش' for قديش, 'pantalón' for بنطلون, 'بهري' for بحري, 'إمني' for منيح, 'أوالي' for حوالي, 'دايّة' for دقيقة, 'ذكي' vowel for زاكي (F2), 'wa'atir' for واطية, 'ma'ali' for مقلي, 'ما السلامة', 'Al-yafeeki'. English-only stretches: 13:22-13:55 sirens, 36:13-37:29 proficiency test, 1:08:27-1:09:02, 1:11:31-1:12:05. Long meta/English exchange 25:03-25:40 about pay-for vs pay-to. Self-fixes not logged: 07:08 نوصف→ثلت, 15:32 قدرت, 39:25 علمتني, 46:31 ملح, 52:19 Irani→Iraniyin, 55:40 بيعملوا, 1:02:29 مخية→مقلوبة (logged low). Amal's 33:44 'لا، خلص شكرًا' answers his 33:41 question about سلامة إيديك; the earlier 22:59 'سلامتي' is logged against it. / Whole file read in order. Latin-transliterated stretches: 31:49-35:12, 37:41-42:52, 49:13-1:00:47, 1:08:03-1:11:59 (kept as printed). English-only stretches: 13:22-13:55 (sirens), 36:13-37:29 (proficiency test), 1:08:27-1:09:02, 1:11:31-1:12:05. ASR garbage not scored: 01:14 'مريان بيضرهبي', 12:00 'access', 16:00 'Sven is lazy' (= كسلان), 24:34 'أدفع أطفالهم' and 25:47 'سبق أن أدفع أطفالك' (probably أدفع لك / بقدر; her 'تقدر' at 26:01 may be a fix but his line is unreadable), 26:20 'على البرك', 26:31 'By كما ما', 26:47 'يا تيك يا راسي' (= يعطيك العافية), 49:00 'طلقة', 55:17, 1:06:47 'مطبخ'. Pronunciation only (S4, left out): pantalón with P (07:32-07:50 -> بنطلون), كندورة for كندرة, آل/أوالي/أديش/دايّة dropped ق-ح-ق, ما السلامة, كليان for كليًا, بهري for بحري, hamid/malh, Al-yafeeki. Self-fixes left out: 12:12 صيف->شتاء, 15:32 أقدر->قدرت, 16:22 جايبة لي->جايبالي (she recast 'كان جاي على بالك' but changed only the tense), 19:27 حكينا->بنحكي, 39:25 ta'alamathni->'alamathni (B12), 53:11 tahet min roz->roz min tahet, 1:02:29 مخية->مقلوبة. Not errors: 'crispy' (52:11, she said not learned); pizza/pepperoni/bacon/croissant/chocolate/cappuccino/credit card/holes/fire department/ambulance not on her sheet (she uses several herself); 31:16 'A shawarma' is a whole English clause. 11:46 'أسبوع شغل' is most likely her 'usboo3 shoab' misheard by the ASR, not a vocab slip. 47:27 'أرجع أحط' after بعدين left unflagged because her own chat keeps arja3. medi_turns counts Medi lines carrying Arabic script or Latin-transliterated Arabic.",
    "notes": [],
    "page": "lessons/2026-09-21.html",
    "detail": "data/lessons/2026-09-21.json",
    "counts": {
     "turns": 1274,
     "chat_lines": 57,
-    "vocab_errors": 6,
-    "grammar_errors": 41
+    "vocab_errors": 45,
+    "grammar_errors": 70
    }
   },
   {
@@ -1183,8 +1188,8 @@
    },
    "grammar": {
     "uses": 105,
-    "mistakes": 22,
-    "pct": 79.0
+    "mistakes": 33,
+    "pct": 68.6
    },
    "talk": {
     "medi_s": 864.2,
@@ -1238,7 +1243,7 @@
    },
    "new_words": [],
    "taught": [],
-   "coverage": "read all 790 turns + 57 chat lines, 00:52-1:04:32. GAP: Medi's track missing 00:00-~23:40 (first Medi line 23:44); only Amal's side exists there. Logged 3 Amal-only recasts from the gap (0923-01..03, low, medi_said null); skipped ambiguous ones (08:21 أكلت, 21:33 أحجز, 13:08 date). 59:08-1:02:16 dual drill + sentence: Medi's Arabic mostly '[speaking Arabic]', unreadable.",
+   "coverage": "Medi's audio track is MISSING from 00:00 to 23:45 - only Amal's voice and her CHAT lines exist there. Rows 0923-1..0923-8 and 0923-57 are built only from Amal's echo of his word plus her chat line; medi_said is marked '[Medi track missing]' and t is the time of HER line. Nothing of his was guessed beyond what she quotes. Items in that stretch left OUT because his piece cannot be seen: 04:03-04:15 the 'شو ده' exchange (she says 'What ده?' - unclear if he used Egyptian ده); 06:12-06:50 ما ضحكت عليك / chat 'de7kat 3allayy' (some fix around 'you laughed at me', wrong piece unknown); 09:37 'لازم توظف'; 10:03-11:55 ما إله طعم (comprehension only, listening); 12:57-14:02 date/number exchange; 16:07-16:27 'started' - she said 'No it's not. The first letter is B. ببدأ ... إحنا عنا بلش، بدأ' - his verb unknown. From 23:45 on his track exists but the engine left many of his Arabic turns untranscribed as '[speaking Arabic]' / '[speaking foreign language]' (42:13-47:49 and 54:29-1:02:12); rows there quote his English gloss and her echo/chat. Not written per S4/S5: 38:23 موافظ -> 38:26 موظف (root-letter slip), 27:14 دول for ضل, 35:47 ينضف, 48:19 بتألم, 50:39 بيتكير (غ->ك), 40:39/40:45 بدزكر/هزكر (ذ->ز), 27:26 ثنتين (ث). Self-fixes not written: 49:43-49:49 الموعد -> موعد, 49:51 سنين -> سنان (she then echoed سنان). 39:15 extra إن before الموظف - she said عادي. 44:20-44:46 لما لازم نشتري - she queried then accepted it. 45:00 'بس فيه error' - referent unclear. Chat lines at 33:05, 38:38, 46:38, 1:01:01 mostly transcribe what he said right. Speaker labels look consistent. / Medi's audio track is MISSING from 00:00 to 23:45 - only Amal's voice and her CHAT lines exist there. Rows in that stretch (ids 1-17) quote her echo/fix and her chat only; his wrong piece is inferred from what she repeats and is marked as such, never guessed beyond her words. From 42:13 to 1:02:12 many of his Arabic lines are untranscribed ('[speaking Arabic]' / '[speaking foreign language]'), so several rows there rest on her echo + his English gloss (confidence lowered). Not written as errors (S4/S5): 'بدول/أدول/دول' for ضل (27:14, 27:21, 37:38 - she praised it at 37:41), 'ثنتين' for تنتين (27:26), 'موافظ' for موظف (38:23, she said موظف), 'تزكر/تذكر' for تذكرة (41:49, 52:50), 'بتألم' for بتعلم (48:19, chat bat3allam), 'بيتكير' غ-drop (50:39; the TENSE is row 54), 'إله not إلـه' (11:12), 'خيار vs خيـار' stress (18:55), 'hajaz' for 7ajez (52:02), 'بتس-بتسأليني' stutter (24:03), 'دكتور السنين. سنان' self-fixed before she spoke (49:51). Unresolved, not rowed: 12:57-14:02 date drill ('تلاتة وعشرين شو؟ ... بالعكس ... عشرة') - she corrected something about the day/month numbers but his words are missing; 09:37 'لازم توظف' and 12:15 'ما إلها طعمة' unclear; 36:53 she echoed 'الأمريكي' after his 'الأكل الأمريكي' - transcript shows the same text, no visible error; 45:00 'بس فيه error' refers to an untranscribed line of his; 59:09 'you've been forgetting the dual' refers to untranscribed lines around 58:30-59:28. Two Amal lines carry her own typo, not his: 35:08 'الموظف ولا الموظف؟' (surely 'موظف ولا الموظف'), 43:47 'el-tazkar'. English-only stretches: 17:07-18:29 (grammar list talk), 30:33-31:00 (please/culture), 55:51-56:30 (chauffeur), 1:03:20-end.",
    "notes": [
     "talk, fillers, latency and flow measured from 23:43 on: Medi's first recording (0:00-22:37) has no transcript, so only Amal's side exists before that.",
     "32 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow."
@@ -1248,8 +1253,8 @@
    "counts": {
     "turns": 790,
     "chat_lines": 57,
-    "vocab_errors": 0,
-    "grammar_errors": 22
+    "vocab_errors": 35,
+    "grammar_errors": 33
    }
   }
  ]

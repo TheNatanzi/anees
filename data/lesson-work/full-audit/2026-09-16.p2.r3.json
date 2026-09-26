@@ -1,0 +1,344 @@
+{
+  "date": "2026-09-16",
+  "reader": "r3",
+  "note": "Pass 2. Transcript traps used in the rulings: (1) at [19:14]-[19:19] the engine wrote 'etna' then 'hamasna' - the t of t7ammasna is very likely absorbed into 'etna' (i7na), so D3 stays a B row only; (2) at [1:09:04] the engine merged two Amal lines - 'يعطيك ألف عافية' is her farewell and 'الله يعافيكي بس' is her reply to his untranscribed attempt at [1:09:06]; (3) Arabic-script رجله is the ordinary spelling of Levantine ijr-o (root r-j-l), not evidence of Fusha rijl - he says 'ijrik' himself at [1:01:42]; (4) her chat lines in this lesson routinely transcribe the whole target sentence, so a chat line alone is not a fix signal. D13 and D14 are the same slip (dangling 'to' -> lawain) - D13 carries the final row, D14 dropped as its duplicate. Merger should check the agreed list has the [06:28]-[06:40] moment (his 'lazem tseer' rejected with 'أنا لازم تصير؟ No' and recast a5alliha t9eer) and the [32:28]-[32:31] verb-gender fix (بيوجع -> بتوجع after 'is feminine'); neither was in the disputes so I assume they are agreed. Sheet has no ashyaa2, no kammel/continue, no lawain - the tier-0 rows are genuine didn't-knows.",
+  "rulings": [
+    {
+      "id": "D1",
+      "verdict": "keep",
+      "row": {
+        "id": "0916-D1",
+        "t": "05:28",
+        "t_amal": "05:33",
+        "medi_said": "[speaking Arabic]",
+        "amal_said": "صـ... / صغيرة.",
+        "chat": "heye z8eere kteer u ma ba3ref keef heyye ra7 teshte8el",
+        "wrong": "[speaking Arabic]",
+        "right": "z8eere (صغيرة)",
+        "kind": "vocab-A",
+        "tier": 0,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "prompt-then-fix",
+        "confidence": "low",
+        "why": "Asked how the new girl seemed (منيحة؟ شاطرة؟), he stalled ('Um, yeah, uh') and she cued the first letter صـ then supplied صغيرة, which her chat confirms; his Arabic is untranscribed so the attempt cannot be scored as wrong, hence tier 0 and low. Sheet: small | Z8eer.",
+        "english": "She is very young/small"
+      },
+      "why": "Real: she voiced a word he could not produce (prompt then supply). His line is a transcript hole, so kept as a tier-0 didn't-know with low confidence."
+    },
+    {
+      "id": "D2",
+      "verdict": "drop",
+      "why": "Cannot be verified - transcript hole. His attempt is untranscribed; her only explicit No at [06:37] targets the structure 'أنا لازم تصير؟ No' (lazem tseer -> a5alliha t9eer), not the noun. She says موظفة at [06:30] and [06:52] while dictating the recast sentence 'أخليها تصير موظفة منيحة'; nothing shows he said the noun wrong or lacked it, and his 'Would it be [Arabic]?' reads as asking her to confirm a word. A confirmation is not a fix."
+    },
+    {
+      "id": "D3",
+      "verdict": "keep",
+      "row": {
+        "id": "0916-D3",
+        "t": "19:19",
+        "t_amal": "19:21",
+        "medi_said": "Uh, etna / hamasna / fi el shara.",
+        "amal_said": "Mm-hmm.",
+        "chat": "e7na t7ammasna 3ala el-taree2",
+        "wrong": "hamasna",
+        "right": "t7ammasna",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "B12",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "'We got excited' needs the get-form t7ammasna; the engine has 7ammasna (we excited someone) and Amal said only Mm-hmm aloud; her chat writes the whole target sentence as she does all lesson, not a pointed fix. Low because the t was probably swallowed into the preceding 'etna' (i7na) by the engine, and he produced the t-form correctly at [16:14] and [23:08]. B row for Amal to confirm."
+      },
+      "why": "Both readers saw the same piece; the transcript shows no spoken fix, and her chat line is the routine full-sentence transcription, so the label the transcript supports is grammar-B with signal none."
+    },
+    {
+      "id": "D4",
+      "verdict": "drop",
+      "why": "Self-fix before help / not the piece she fixed. Her reaction at [19:29] 'street. What's the road?' corrects the NOUN (shaare3 -> taree2), not the preposition; 'fi el-shaare3' (in the street) is acceptable Levantine, and he switched to 3ala himself at [19:36] 'so ala el taree-' once the noun changed. The noun fix belongs to the agreed row for this moment."
+    },
+    {
+      "id": "D5",
+      "verdict": "keep",
+      "row": {
+        "id": "0916-D5",
+        "t": "25:44",
+        "t_amal": "25:36",
+        "medi_said": "In camel. Okay. / Been camel. / So camel, does that mean like in total in Arabic or no?",
+        "amal_said": "نكمل-- We, we need to learn this verb نكمل. Continue. / أنا بكمل as I continue",
+        "chat": null,
+        "wrong": "(not attempted)",
+        "right": "nkammel / bakammel (نكمل / بكمل)",
+        "kind": "vocab-A",
+        "tier": 0,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "asked",
+        "confidence": "medium",
+        "why": "Didn't-know: she introduced kammal = continue as a verb he needs to learn; he had not attempted it, echoed it ('In camel') and asked whether it means 'in total', confusing it with kaamel = whole, which she then explained at [26:00]-[26:29]. Not on her sheet.",
+        "english": "to continue / I continue"
+      },
+      "why": "Both readers agree on kind, tier and signal; only the 'wrong' piece differs. He never produced the verb, so wrong = (not attempted) and right = her two forms."
+    },
+    {
+      "id": "D6",
+      "verdict": "keep",
+      "row": {
+        "id": "0916-D6",
+        "t": "29:56",
+        "t_amal": "29:59",
+        "medi_said": "uh, [speaking foreign language] is... Hold on. How do-- I don't know if it's like to...",
+        "amal_said": "Wajja'tek. / It's a three. Wajja'tek.",
+        "chat": "wajja3tek?",
+        "wrong": "[speaking foreign language] is... Hold on",
+        "right": "wajja3tek",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B5",
+        "bucket2": "D4",
+        "mode": "speaking",
+        "signal": "finished-sentence",
+        "confidence": "low",
+        "why": "'Did I hurt you?': he knows the verb (sheet: i hurt | Ana wajja3et) but stalled on stacking the past 1sg ending and the object 'you' (wajja3t + ek); she finished the sentence wajja3tek and he then asked 'To a girl?' and 'What if it's to a guy?'. 'It's a three' is the ع sound (S4, not scored). Low because his attempt is untranscribed.",
+        "english": "Did I hurt you?"
+      },
+      "why": "The gap is the conjugation (past ending + object suffix) of a verb already on his sheet, not a missing word, so grammar B5/D4 with signal finished-sentence fits the transcript better than a tier-0 vocab row."
+    },
+    {
+      "id": "D7",
+      "verdict": "keep",
+      "row": {
+        "id": "0916-D7",
+        "t": "32:35",
+        "t_amal": "32:38",
+        "medi_said": "so رجلك. Uh,",
+        "amal_said": "No, just [laughs]",
+        "chat": "ijro betwajje3",
+        "wrong": "رجلك",
+        "right": "رجله (ijro)",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "A4",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "explicit-no",
+        "confidence": "medium",
+        "why": "'His leg hurts': told the noun 'is feminine' (meant for the verb), he changed the owner ending to -ik ('your leg') instead of the verb; she said 'No, just' and he went back to رجله and fixed the verb to بتوجع at [32:45]. A distinct slip from the verb-gender fix at [32:31].",
+        "english": "His leg hurts"
+      },
+      "why": "Real and explicit: a wrong possessive ending she rejected with 'No'. Separate wrong piece from the agreed verb-gender row at the same moment."
+    },
+    {
+      "id": "D8",
+      "verdict": "drop",
+      "why": "Not an error, most likely. Arabic-script رجله is the normal spelling of Levantine ijr-o (same root r-j-l as Fusha rijl), so the transcript does not show him saying rijl; he uses ijrik himself at [1:01:42]; Amal gave no signal aloud (her fix at [32:31] was the verb gender) and her chat 'ijro betwajje3' is the routine full-sentence transcription. Both readers filed it but the transcript does not support a wrong word."
+    },
+    {
+      "id": "D9",
+      "verdict": "drop",
+      "why": "Not an error / cannot be verified. She said 'ممتاز' first at [54:44] and then repeated his sentence approvingly ('لازم تشوفها الأسبوع الماضي' is the engine's version of ma shufetha el-usboo3 el-maadi); 'ileshu avadi' is the engine garbling el-usboo3 el-maadi, which her chat at [57:42] spells out for the whole sentence. No fix voiced."
+    },
+    {
+      "id": "D10",
+      "verdict": "drop",
+      "why": "Cannot be verified. The only evidence for -ak vs -ek is the engine's Latin vowel in 'halak', which is unreliable for a/e (compare 'hamasi', 'tamas'); her spoken 'حرك حالك' is unvowelled and followed by 'And or' (offering t7arraki), with no No, no recast of the ending; her chat 'ما 7arrki 7aalek' is the routine transcription and she even says 'Oh, I wrote it wrong' at [59:53]. Too thin to file."
+    },
+    {
+      "id": "D11",
+      "verdict": "drop",
+      "why": "Cannot be verified / likely transcription. 'akhti' (my sister) for ta5ti (my bed) is the engine dropping the initial t; Amal answered 'Mm' and went straight to the preposition fix (La el yameen), which she would not have done if he had said 'I moved my sister to the right'; her chat 'ta5ti' is the full-sentence transcription. He has bed | Ta5t on the sheet."
+    },
+    {
+      "id": "D12",
+      "verdict": "keep",
+      "row": {
+        "id": "0916-D12",
+        "t": "1:00:25",
+        "t_amal": "1:00:27",
+        "medi_said": "I was gonna say, can things be possessive? / Bish-bishik? / Shag? I don't think we've used that before.",
+        "amal_said": "Ashya ak or ashya ek. Ashya e.",
+        "chat": null,
+        "wrong": "Bish-bishik",
+        "right": "ashyaa2ek (أشياءك)",
+        "kind": "vocab-A",
+        "tier": 0,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "asked",
+        "confidence": "medium",
+        "why": "'Your things': he asked whether 'things' can take a possessive and tried a form on the singular ishi; he did not have the plural ashyaa2 at all ('I don't think we've used that before') and the sheet has only thing | Eshi, so this is a didn't-know (tier 0) rather than a wrong form of a word he knows.",
+        "english": "your things"
+      },
+      "why": "Both readers agree on the moment and the fix; the transcript supports tier 0 (he asked, and the plural was new to him) over tier 2."
+    },
+    {
+      "id": "D13",
+      "verdict": "keep",
+      "row": {
+        "id": "0916-D13",
+        "t": "1:03:21",
+        "t_amal": "1:03:39",
+        "medi_said": "[speaking Arabic] Two is ala? / Uh, so is it alawain? / Lawain. I don't think I've ever said this before.",
+        "amal_said": "It's لوين. We added to the question to always. / يا لوين. From to is la.",
+        "chat": "lawain ra7 t7arrki hadi el-taawla",
+        "wrong": "ala",
+        "right": "lawain (لوين)",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "C10",
+        "bucket2": "C8",
+        "mode": "speaking",
+        "signal": "named-rule",
+        "confidence": "high",
+        "why": "'Where will you move this table to?': he left the 'to' dangling at the end of the question and guessed 3ala ('to is ala?'), then tried 3ala+wain; she named the rule - the 'to' goes on the question word, la-wain - and he said he had never said lawain before (also a didn't-know of the question word, C8).",
+        "english": "Where ... to?"
+      },
+      "why": "Same moment as D14; the fix she voiced is a rule (preposition fronted onto the question word), so grammar C10 carries the row. r1's separate 'hadi el-taawla' piece is dropped: 'هذي الطاولة' at [1:03:29] answers his 'What's that?' and nothing shows a wrong demonstrative on his side."
+    },
+    {
+      "id": "D14",
+      "verdict": "drop",
+      "why": "Duplicate of D13 - same slip (dangling 'to' / 3ala -> lawain), same lines. Filed once as grammar C10 with C8 in bucket2; the didn't-know flavour is recorded in D13's why."
+    },
+    {
+      "id": "D15",
+      "verdict": "keep",
+      "row": {
+        "id": "0916-D15",
+        "t": "1:09:06",
+        "t_amal": "1:09:13",
+        "medi_said": "[speaking Arabic] [laughs] Does that, [laughs] does that not work?",
+        "amal_said": "الله يعافيكي بس. / أو الله يعافيكي ألف مرة or I don't know.",
+        "chat": null,
+        "wrong": "[speaking Arabic]",
+        "right": "الله يعافيكي (بس) / الله يعافيكي ألف مرة",
+        "kind": "vocab-A",
+        "tier": 2,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "low",
+        "why": "Replying to her يعطيك ألف عافية he built a reply that carried ألف over (untranscribed; the engine merged her two lines at [1:09:04]); she gave the set replies - just الله يعافيكي, or الله يعافيكي ألف مرة. A wrong form of a fixed expression he knows, so tier 2; low because his words are unseen.",
+        "english": "reply to 'ya3teek alf 3afye' (may God give you health)"
+      },
+      "why": "Both readers saw the same recast; tier 2 fits (right words, wrong shape of a set phrase) better than tier 1 (wrong word). His line is a hole, so low."
+    },
+    {
+      "id": "D16",
+      "verdict": "keep",
+      "row": {
+        "id": "0916-D16",
+        "t": "46:42",
+        "t_amal": "46:46",
+        "medi_said": "Min shu dayat-- daya ti?",
+        "amal_said": "Yes.",
+        "chat": "min shu etdaaya2ti",
+        "wrong": "daya ti",
+        "right": "etdaaya2ti",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "B12",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "'What did you get upset about' needs the get-form etdaaya2ti; the engine has daaya2ti (you upset someone) and she said Yes; her chat has the t-form but as the routine full-sentence transcription. Low: he had just said the t-form at [46:14] 'tedaya ti', and the line is a restart, so the engine may have lost the prefix. B row for Amal to confirm."
+      },
+      "why": "Same kind of case as D3 (t-form vs make-form with no spoken signal); kept as grammar-B low for consistency so Amal can rule on it."
+    },
+    {
+      "id": "D17",
+      "verdict": "drop",
+      "why": "Not an error - a meta question about the paradigm. He asked whether a make-form بأسف exists ('But is it بأسف؟'); she answered No (يؤسف is Fusha only). No sentence was produced with a wrong form, and 'does X exist' is not a didn't-know of a word he needed."
+    },
+    {
+      "id": "D18",
+      "verdict": "keep",
+      "row": {
+        "id": "0916-D18",
+        "t": "22:34",
+        "t_amal": "22:37",
+        "medi_said": "Do I know how to say too?",
+        "amal_said": "You know how to say extra، which is what we say.",
+        "chat": "humme t7ammasu ziaade",
+        "wrong": "too",
+        "right": "ziaade (زيادة)",
+        "kind": "vocab-A",
+        "tier": 0,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "asked",
+        "confidence": "medium",
+        "why": "Didn't-know: 'they got too excited' - he asked how to say 'too'; she pointed him to ziaade (extra), which he then used at [22:47]. Sheet: extra / increase | Ziaadeh (the sheet's 'too' entries are kamaan = also).",
+        "english": "too (excessively)"
+      },
+      "why": "A clear 'how do you say X' answered by her; tier-0 didn't-know per the brief."
+    },
+    {
+      "id": "D19",
+      "verdict": "keep",
+      "row": {
+        "id": "0916-D19",
+        "t": "28:55",
+        "t_amal": "29:18",
+        "medi_said": "I, I can't use it 'cause I don't have the adjective.",
+        "amal_said": "Bas we know a verb. We know mawjua'. / another adjective, possible adjective is mitwajja', meaning hurt as well.",
+        "chat": null,
+        "wrong": "the adjective (hurt)",
+        "right": "mawjoo3 / mitwajja3",
+        "kind": "vocab-A",
+        "tier": 0,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "asked",
+        "confidence": "medium",
+        "why": "Didn't-know: he said he lacked the adjective 'hurt'; she reminded him of mawjoo3 (sheet: in pain / hurt | Mawjoo3) and supplied mitwajja3. He had not attempted a word, so tier 0.",
+        "english": "hurt (adjective)"
+      },
+      "why": "He stated the gap himself and she supplied the words; a didn't-know she voiced."
+    },
+    {
+      "id": "D20",
+      "verdict": "drop",
+      "why": "Not an error. مش قصدي ('I didn't mean it') is ordinary Levantine, and he had already offered the fully correct بالغلط first ('either بالغلط or مش قصدي'); Amal gave no signal aloud, and her chat 'bil8ala6/mish bilazd' writes the sentence with both of his options, swapping in her preferred spelling of the second. Not a wrong form of a known word."
+    },
+    {
+      "id": "D21",
+      "verdict": "drop",
+      "why": "Cannot be verified, and it is the second attempt of the same sentence whose first attempt at [48:52]-[48:55] ('ili amalti' / 'عملت') is not in the disputes, so presumably an agreed row. The -ih pointer on 3meltih is a final -h the engine would never render, Amal said ممتاز, and her chat at [52:30] is the routine full-sentence transcription."
+    },
+    {
+      "id": "D22",
+      "verdict": "keep",
+      "row": {
+        "id": "0916-D22",
+        "t": "1:02:48",
+        "t_amal": "1:03:07",
+        "medi_said": "Um, [speaking Arabic] Oh, / oh yeah. / Yeah, [speaking Arabic] . No. Yeah, [speaking Arabic] .",
+        "amal_said": "نوبي تحركي.",
+        "chat": "lawain ra7 t7arrki hadi el-taawla",
+        "wrong": "[speaking Arabic] (b- kept after ra7)",
+        "right": "ra7 t7arrki",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B3",
+        "bucket2": "B13",
+        "mode": "speaking",
+        "signal": "explicit-no",
+        "confidence": "low",
+        "why": "'Where will you move this table?': her 'no b-, t7arrki' (engine: نوبي تحركي) is an explicit No that names the b- prefix, so he kept bit7arrki after ra7; he answered 'oh yeah' and rebuilt the sentence. Her chat has ra7 t7arrki. Low only because his Arabic is untranscribed.",
+        "english": "Where will you move this table to?"
+      },
+      "why": "Real: her line is an explicit No naming the b- after ra7 (buckets B3/B13). His line is a transcript hole, so kept with low confidence as the brief requires."
+    }
+  ],
+  "added": []
+}

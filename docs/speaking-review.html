@@ -25,4 +25,4 @@ async function save(article){
  try{await request('rpc/review_speaking_event',body);review=await request('rpc/get_speaking_review');render();}catch(e){feedback.textContent=e.message;b.disabled=false;}
 }
 load().catch(e=>document.getElementById('status').textContent=e.message);
-</script><script src="js/word-bank-arabizi.js?v=az1"></script><script src="js/transcript-arabizi.js?v=az1" data-arabizi-selector="#questions bdi, #questions .ar"></script></body></html>
+</script><script src="js/word-bank-arabizi.js?v=az2"></script><script src="js/transcript-arabizi.js?v=az2" data-arabizi-selector="#questions bdi, #questions .ar"></script></body></html>
