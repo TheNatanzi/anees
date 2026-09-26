@@ -76,7 +76,10 @@ SCRIPT = ('<script>(function(){var a=document.getElementById("lesson-audio");if(
 
 # Word Bank review overlay (wrong-part marks, corrected lines, excerpt buttons) -- same tags as every lesson page before.
 REVIEW = ('<script src="../js/word-bank-review.js?v=context-1"></script>'
-          '<script src="../js/transcript-context-review.js?v=context-1"></script>')
+          '<script src="../js/transcript-context-review.js?v=context-1"></script>'
+          # Arabizi everywhere (Medi 2026-09-25, decision b): her spelling on top, the recorded Arabic small underneath.
+          '<script src="../js/word-bank-arabizi.js?v=az1"></script>'
+          '<script src="../js/transcript-arabizi.js?v=az1" data-arabizi-selector="p.turn .words, p.chat .words"></script>')
 
 
 def render(date, merged, *, minutes, words, note, audio=None):

@@ -424,7 +424,11 @@ def mark_html(said, token, cls):
 
 
 def build():
-    sweep = J(os.path.join(REPO, "data", "grammar-sweep-2026-09-24.json"))
+    # Full audit 2026-09-26 (two readers + third reader per lesson, reconciled with the 09-24 sweep) is the source of
+    # grammar AND vocab errors; it carries a sweep-shaped view so the rest of this builder is unchanged. Falls back to
+    # the 09-24 sweep only while the audit file does not exist.
+    audit_p = os.path.join(REPO, "data", "full-audit-2026-09-26.json")
+    sweep = J(audit_p)["sweep_compat"] if os.path.exists(audit_p) else J(os.path.join(REPO, "data", "grammar-sweep-2026-09-24.json"))
     buckets = {b["id"]: b for b in J(os.path.join(DOCS, "data", "grammar-buckets.json"))["buckets"]}
     usage_p = os.path.join(DOCS, "data", "grammar-usage.json")
     usage = J(usage_p).get("lessons", {}) if os.path.exists(usage_p) else {}
@@ -564,6 +568,23 @@ def build():
                          "said": said, "said_html": mark_html(said, tok, "ab-wrong" if s["points"] == 0 else "ab-partial"),
                          "wrong": tok, "fix": fix, "clip": clip, "why": s["reason"], "event_id": s["id"]})
             need_ar.add(said)
+        # Medi 2026-09-25 (decision A): every vocab fix Amal voiced or typed is an error on his page. The audit's vocab-A
+        # rows join the Word Bank's scored misses; a row within 5 s of an existing miss is the same moment and is skipped.
+        for v in sorted(vocab_fix.get(date, []), key=lambda v: sec(v.get("t")) or 0):
+            tv = sec(v.get("t"))
+            if tv is None or v.get("source") != "audit-2026-09-26":
+                continue
+            if any(abs(e["t"] - tv) <= 5 for e in verr):
+                continue
+            asked = v.get("tier") == 0
+            verr.append({"t": round(tv, 2), "mmss": v.get("t"), "kind": "asked" if asked else "wrong",
+                         "label": ("Asked Amal for the word" if asked else {1: "Wrong word", 2: "Wrong form", 3: "English for a word she taught"}.get(v.get("tier"), "Word slip")),
+                         "word_key": None, "arabic": v.get("amal_gave"), "arabizi": v.get("amal_gave_arabizi"), "english": v.get("english"),
+                         "said": v.get("medi_said"), "said_html": mark_html(v.get("medi_said") or "", v.get("wrong") or "", "ab-wrong") if v.get("wrong") else esc(v.get("medi_said") or ""),
+                         "wrong": v.get("wrong"), "fix": v.get("amal_gave"), "clip": None, "why": v.get("why"), "event_id": None,
+                         "tier": v.get("tier"), "signal": v.get("signal"), "confidence": v.get("confidence"), "source": "audit-2026-09-26", "audit_uid": v.get("uid")})
+            need_ar.add(v.get("medi_said") or "")
+        verr.sort(key=lambda e: e["t"])
         gerr = []
         for r in rows:
             b = buckets.get(r["bucket"], {})
@@ -574,7 +595,7 @@ def build():
                          "chat": r.get("chat"), "wrong": r.get("wrong"), "wrong_arabizi": r.get("wrong_arabizi"),
                          "right": r.get("right"), "right_arabizi": r.get("right_arabizi"),
                          "confidence": r.get("confidence"), "signal": r.get("signal"), "id": r.get("id")})
-        marks = sorted([{"t": v["t"], "kind": "vocab", "wrong": v["wrong"], "right": v["fix"] or v["arabic"]} for v in verr if v["kind"] == "wrong"] +
+        marks = sorted([{"t": v["t"], "kind": "vocab", "wrong": v["wrong"], "right": v["fix"] or v["arabic"]} for v in verr if v["kind"] == "wrong" and v.get("wrong")] +
                        [{"t": g["t"], "kind": "grammar", "wrong": g["wrong"], "right": g["right"]} for g in gerr if g["wrong"]],
                        key=lambda m: m["t"])
         per[date] = {"date": date, "clock": "seconds on the lesson page audio (docs/lessons/%s/audio/...)" % date,

@@ -1,0 +1,360 @@
+{
+  "date": "2026-09-04",
+  "reader": "r3",
+  "note": "Diarization is badly fragmented (many '?:' lines, Amal/Medi labels swapped in places); I judged speaker from content. D5 is a mis-pairing by the compare step: r1's row inside D5 (26:38 akun -> 3am baseer) is the same row as D16, so D16 carries the grammar row and D5 is ruled only on r2's 26:19 'aswad' vocab question. The 26:19 Latin transcript cannot show a final hamza (aswad 'black' vs aswa2 'worse'), so D5 is kept low. D18 turns on a doubled t (basato vs basatto) that the Latin transliteration cannot encode and Amal echoed without a fix, so it is dropped as unverifiable rather than as 'not an error'. Several r2/r1 rows in the 30:00-52:00 conjugation drill are letter-order slips (بيسبت for بيبسط, embasana for embasatna) that the READER-BRIEF explicitly classes as S4; I dropped those (D8, D10, D12, D17, D20). D14 (بتحمس -> متحمس, B15) is a separate moment from the 03:43 بهمس -> بتحمس fix and should not be merged with it. 22:49-25:00 is a beekeeper interruption in English, not lesson content.",
+  "rulings": [
+    {
+      "id": "D1",
+      "verdict": "keep",
+      "row": {
+        "id": "0904-D1",
+        "t": "01:34",
+        "t_amal": "01:35",
+        "medi_said": "يعني ،شو يعني شو لا-- what... What language?",
+        "amal_said": "No بلاقي، إنتا بتلاقي، شو لقيت؟",
+        "chat": null,
+        "wrong": "What language?",
+        "right": "لقيت = you found",
+        "kind": "vocab-A",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "listening",
+        "signal": "explicit-no",
+        "confidence": "medium",
+        "why": "She asked شو لقيت؟ twice (01:24, 01:31) and he decoded it as 'what language?' - he took لقيت for لغة, the word they had just been on at 00:57-01:03; she said 'No' and explained بلاقي / بتلاقي / لقيت (sheet: i found | Ana la2ait | أنا لقيت), so this is a wrong-word listening error, not a didn't-know: he never asked, he answered wrong and she corrected.",
+        "english": "What did you find?"
+      },
+      "why": "Both readers saw the same listening slip; tier 1 fits because he mapped her word onto a different lexical item (لغة) rather than asking for it, and her 'No' is an explicit-no, not an 'asked' signal. t=01:34 is the line that carries the wrong reading."
+    },
+    {
+      "id": "D2",
+      "verdict": "keep",
+      "row": {
+        "id": "0904-D2",
+        "t": "01:55",
+        "t_amal": "02:01",
+        "medi_said": "أنا لقيت الطريق منيح كتير",
+        "amal_said": "طريق أو طريقة؟",
+        "chat": null,
+        "wrong": "الطريق",
+        "right": "طريقة",
+        "kind": "vocab-A",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "prompt-then-fix",
+        "confidence": "high",
+        "why": "He meant 'the method' (research on how to learn) and said طريق; her sheet lists them as two separate words, 'road / way / route | 6ariq | طريق' and 'way / method | Tariqa | طريقة', she asked طريق أو طريقة؟ and he fixed to طريقة at 02:03.",
+        "english": "I found a very good way / method."
+      },
+      "why": "Tier 1, not 2: طريق and طريقة are two different sheet entries with different meanings (road vs method), so he picked the wrong lexical item, not the wrong gender form of one noun."
+    },
+    {
+      "id": "D3",
+      "verdict": "keep",
+      "row": {
+        "id": "0904-D3",
+        "t": "02:31",
+        "t_amal": "02:33",
+        "medi_said": "To learn would be أتأل-- or يتعلّم or-",
+        "amal_said": "لا أتعلم.",
+        "chat": null,
+        "wrong": "يتعلّم",
+        "right": "أتعلم",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B18",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "explicit-no",
+        "confidence": "low",
+        "why": "Building 'the best way (for me) to learn' he offered the he-form يتعلّم; she said لا أتعلم (I-form), he repeated it and only THEN asked 'is that for me or just to learn?' (02:35), so the form was attempted and rejected before any question - the 'or يتعلّم' line is unlabeled ('?:') but sits inside his 'أتأل-- ... or-' turn and cannot be Amal since she answers it with لا.",
+        "english": "(the best way) to learn / for me to learn"
+      },
+      "why": "Not a didn't-know: he produced a form (يتعلّم) and she said 'no' to it before he asked anything; the fix is the person of the verb (he -> I), so grammar B18. Low because the key line carries a '?' label."
+    },
+    {
+      "id": "D4",
+      "verdict": "keep",
+      "row": {
+        "id": "0904-D4",
+        "t": "10:50",
+        "t_amal": null,
+        "medi_said": "... ووا ال أول مشكلة. I mean, that's what you did for the first-",
+        "amal_said": null,
+        "chat": null,
+        "wrong": "ال أول مشكلة",
+        "right": "أول مشكلة",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "A2",
+        "bucket2": "A7",
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "'The first problem' is أول مشكلة - أول + noun behaves like idafa and the first word takes no el- (sheet: 'the beginning of the day | Awal el-yoam | أول اليوم', 'first person | Awal 7ada'); he put el- on أول and she let it pass (she was already answering in English); the turn is fragmentary so this is my best reading.",
+        "english": "and the first problem"
+      },
+      "why": "Both readers agree on the slip; the transcript-supported rule is A2 (first word of the أول + noun construction never takes el-, as her own sheet row Awal el-yoam shows), A7 kept as bucket2 for the alternative المشكلة الأولى shape."
+    },
+    {
+      "id": "D5",
+      "verdict": "keep",
+      "row": {
+        "id": "0904-D5",
+        "t": "26:19",
+        "t_amal": "26:35",
+        "medi_said": "Ana hakeet ma khatibti ashan Arabiyi. Arabiyi, aswad or-",
+        "amal_said": "Sayyie'.",
+        "chat": null,
+        "wrong": "aswad",
+        "right": "sayyie' (سيء)",
+        "kind": "vocab-A",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "low",
+        "why": "Reaching for 'my Arabic is bad / getting worse' he trailed off on 'aswad or-' and she supplied a different word, sayyie' (sheet: bad | Sayyi2 | سيء), which he then built on (baseer sayyee'); the transcript shows aswad (sheet: black (m/f) | Aswad | أسود) but the Latin transliteration cannot show the final hamza of aswa2 (worse, also on the sheet), so his actual word is uncertain - her substitution rather than an echo is the only signal.",
+        "english": "I talked with my fiancee because my Arabic is bad / getting worse"
+      },
+      "why": "r1's half of this pair (26:38 akun -> 3am baseer) is the same row as D16 and is ruled there; the 26:19 moment is separate. Kept low: the transcript literally says aswad and Amal replaced it instead of confirming it, but aswad vs aswa2 is a transliteration hole so it cannot be proven."
+    },
+    {
+      "id": "D6",
+      "verdict": "keep",
+      "row": {
+        "id": "0904-D6",
+        "t": "34:04",
+        "t_amal": null,
+        "medi_said": "sorry هية بتيبست- يبستوا and احنا بين- بينبست.",
+        "amal_said": null,
+        "chat": null,
+        "wrong": "يبستوا",
+        "right": "بيبسطوا",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "B1",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "In the present-tense run (33:21-34:26: babset, بتيبست, بتيبستي, بتيبستو, بيبست, بتيبست) the they-form came out as يبستوا with no b- prefix; she only prompted the next person (احنا at 34:19) and never touched it, so it passed. The letter order inside the stem is S4 and not counted here; the missing b- is the grammar piece.",
+        "english": "they make (someone) happy"
+      },
+      "why": "Real but unfixed: every other person in his list carried the b- and this one did not; she moved on to احنا. Low because the drill is rapid and the line is fragmentary."
+    },
+    {
+      "id": "D7",
+      "verdict": "keep",
+      "row": {
+        "id": "0904-D7",
+        "t": "39:38",
+        "t_amal": "39:43",
+        "medi_said": "basati is she, she makes happy right?",
+        "amal_said": "No,- Or you make happy female ...that's you. You make happy.",
+        "chat": null,
+        "wrong": "basati = she makes happy",
+        "right": "basati = you (f) made (someone) happy",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B5",
+        "bucket2": "B18",
+        "mode": "speaking",
+        "signal": "explicit-no",
+        "confidence": "medium",
+        "why": "He asserted that the -ti ending on basati is the she-form present; she said No, it is you (feminine) - the -ti past ending; this is his own wrong reading of a form he was listing (38:58), not a decoding of something she said, so it stays in speaking mode.",
+        "english": "basati = you (f) made happy, not 'she makes happy'"
+      },
+      "why": "Both readers agree on the row; mode is speaking because the brief reserves listening for misreading HER Arabic in a drill, and here he produced the form-meaning claim himself and she rejected it."
+    },
+    {
+      "id": "D8",
+      "verdict": "drop",
+      "why": "S4 pronunciation. His 'inbashatat' already carries the correct she-ending -at (inbasat + at); her 'Inbastat' only changes the sound shape (the sh for ط and the elided middle vowel), which the brief classes as a root-letter / vowel slip, never grammar."
+    },
+    {
+      "id": "D9",
+      "verdict": "keep",
+      "row": {
+        "id": "0904-D9",
+        "t": "51:42",
+        "t_amal": "51:52",
+        "medi_said": "Inbastat. Huwa, hiya imbastat. Into, hume, imbestu.",
+        "amal_said": "And, ... Imbasatu.",
+        "chat": null,
+        "wrong": "imbestu",
+        "right": "Imbasatu",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B5",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "prompt-then-fix",
+        "confidence": "medium",
+        "why": "For 'they got happy' he put the present stem (-bseT-, from bibset/banbeset) under the past ending: imbestu; she prompted at 51:52, he produced imbasatu, then asked 'It's not imbstu?' (51:57) and she confirmed Imbasatu (51:59) - the past stem vowel 'a' is the rule she had spelled out at 31:29-31:45, so this is the past-tense form, not a sound slip.",
+        "english": "they had fun / they got happy"
+      },
+      "why": "Kept: the they-ending -u is right but the stem is the present one, which is a tense-form error (B5) she explicitly taught and then corrected twice (51:52 prompt, 51:59 answer to his 'imbstu?'). Not a self-fix: her prompt came first."
+    },
+    {
+      "id": "D10",
+      "verdict": "drop",
+      "why": "S4 pronunciation. 'embasana' for embasatna keeps the correct we-ending -na; what is missing is the root letter ط (the -t- r1 heard as an ending is the root's third letter), and a dropped root letter is S4 by the brief."
+    },
+    {
+      "id": "D11",
+      "verdict": "keep",
+      "row": {
+        "id": "0904-D11",
+        "t": "1:01:07",
+        "t_amal": "1:01:08",
+        "medi_said": "Oh, the most happy. Did you say أحسن or أكثر؟ أحسن right?",
+        "amal_said": "شو أكتر إشي. ... No. The best thing is أحسن إشي.",
+        "chat": null,
+        "wrong": "أحسن",
+        "right": "أكتر",
+        "kind": "vocab-A",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "listening",
+        "signal": "explicit-no",
+        "confidence": "medium",
+        "why": "Her question at 1:00:46 was شو أكتر إشي بيبسطك (the thing that MOST makes you happy); after translating it as 'more happy' he guessed she had said أحسن (best) and asked 'أحسن right?'; she repeated شو أكتر إشي and at 1:01:15 said No, the best thing is أحسن إشي - he swapped one word for another, which is a lexical (which word) slip, not a comparative-formation rule.",
+        "english": "the thing that most makes you happy (not 'the best thing')"
+      },
+      "why": "Both readers have the same listening slip; the transcript supports vocab tier 1 (أحسن vs أكتر are two different words and no comparative was built wrongly), so r2's label is kept. The later الأكتر إشي -> أكتر إشي at 1:01:23 is a different moment (C3) and not this row."
+    },
+    {
+      "id": "D12",
+      "verdict": "drop",
+      "why": "Not provable. He trailed off mid-word (بيسبط–, an S5 cut-off), so the -ni object ending was never shown to be missing; the part she did fix out loud was the letter order (بي and then س), which is exactly the بنسبت-for-بنبسط S4 case in the brief."
+    },
+    {
+      "id": "D13",
+      "verdict": "drop",
+      "why": "Derivative of D2, not a separate error. He said الطريق (masculine) and منيح (masculine) - the adjective agrees with the noun he actually said; the mismatch only appears once the noun is corrected to طريقة, and she never asked him to redo the adjective. Scoring A8 here would count the one wrong-noun slip twice."
+    },
+    {
+      "id": "D14",
+      "verdict": "keep",
+      "row": {
+        "id": "0904-D14",
+        "t": "03:47",
+        "t_amal": "04:19",
+        "medi_said": "shit! أنا بتحمس. amm أنا بتحمس شو بنقدر",
+        "amal_said": "You are excited or you get excited? ... So neither not تحمس not بهمِس. What is it?",
+        "chat": null,
+        "wrong": "بتحمس",
+        "right": "متحمس",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B15",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "prompt-then-fix",
+        "confidence": "high",
+        "why": "He wanted the state 'I am excited' (he said so in English at 03:27 and 04:16) but used the verb بتحمس (sheet: i get excited | Ana bat7ammas); she asked 'you are excited or you get excited?', rejected both تحمس and بهمس, he produced أنا متحمس (sheet: excited | mit7ammes | متحمس) and she marked ✓ صح at 04:26. Separate from the 03:43 بهمس -> بتحمس fix, which was about the word shape.",
+        "english": "I am excited (state) - participle, not the 'I get excited' verb"
+      },
+      "why": "Real and fully voiced: a distinct second correction after the بهمس slip, aimed at participle-vs-verb, with a prompt, his fix, and her ✓. r1 missed it."
+    },
+    {
+      "id": "D15",
+      "verdict": "drop",
+      "why": "Not tier 3. 'An easy answer, I should say' is a whole-clause English aside correcting HER English translation ('When it doesn't have an answer to this question', 10:03); her جواب سهل is a translation of his aside, not a fix of an Arabic sentence, and he then repeated it correctly. The brief excludes English used to make a point / a fully English clause."
+    },
+    {
+      "id": "D16",
+      "verdict": "keep",
+      "row": {
+        "id": "0904-D16",
+        "t": "26:38",
+        "t_amal": "26:45",
+        "medi_said": "Is getting worse so she would it be akun, akunsayye'?",
+        "amal_said": "Am baseer sayyie'.",
+        "chat": null,
+        "wrong": "akun sayye'",
+        "right": "3am baseer sayyie'",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B14",
+        "bucket2": "B8",
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "high",
+        "why": "For 'is getting worse' (a change happening now) he reached for akun (I be); she recast with 3am + baseer (I am becoming; sheet: i become / i turn into | Ana ba9eer | أنا بصير) and he repeated baseer sayyee' at 26:46 - 3am for the ongoing action is B14, akun for 'become' is the B8 side.",
+        "english": "(my Arabic) is getting worse"
+      },
+      "why": "Both readers actually wrote this row (r1's copy was mis-paired into D5); the transcript shows a clean recast and his uptake, so it is kept once here with the B14 bucket both readers chose."
+    },
+    {
+      "id": "D17",
+      "verdict": "drop",
+      "why": "S4 pronunciation. بيسبت for بيبسط is a swapped / dropped root letter with the present b- prefix present (he had just said 'babysit' correctly at 31:22); the brief names بنسبت-for-بنبسط as the model S4 case, and her explanation ('two Bs then S T') is about letter order, not about adding the prefix."
+    },
+    {
+      "id": "D18",
+      "verdict": "drop",
+      "why": "Cannot be verified - transcript hole. The only difference between his form and the right one is a doubled t (basato = he made him, basatto = I made him, as she set up at 36:37), which the Latin transliteration does not encode; her reply is the identical 'Basato. Basato.' with no 'no' and she went straight on to 'she made him happy', so the transcript cannot show whether he said the he-form or she simply echoed a correct basatto."
+    },
+    {
+      "id": "D19",
+      "verdict": "keep",
+      "row": {
+        "id": "0904-D19",
+        "t": "42:07",
+        "t_amal": "42:28",
+        "medi_said": "when I tell you about what I found.",
+        "amal_said": "Lama haketilli. ... Innekh. ... Laiti shughal.",
+        "chat": null,
+        "wrong": "laiti = what I found",
+        "right": "laiti = you (f) found",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B5",
+        "bucket2": "D4",
+        "mode": "listening",
+        "signal": "prompt-then-fix",
+        "confidence": "low",
+        "why": "Her sentence (41:19, 41:52) was Basatini lama haketili innekh laiti shughal = you made me happy when you told me that you found work; he decoded haketili as 'I tell you' and laiti (sheet: you (f) found | inti la2aiti) as 'what I found', i.e. he read the -ti you-feminine past endings as I-forms; she fed it back piece by piece (Lama haketilli / Innekh / Laiti shughal) until he said 'you found' at 42:31 and gave the full sentence at 42:50. Low: he had already produced 'when you find work?' at 41:50, so part of this is the sentence-level jumble he complained of at 41:34.",
+        "english": "when you told me that you found work"
+      },
+      "why": "Real listening error on who-did-what (the -ti endings on haketili and laiti), corrected by her step-by-step recast; kept low because his earlier 41:50 attempt had the person right and the slip may be overload rather than a rule gap."
+    },
+    {
+      "id": "D20",
+      "verdict": "drop",
+      "why": "S4 pronunciation. The he-form بيبسط is itself on her sheet for exactly this gloss ('it causes happiness / makes someone happy | Byebse6 | بيبسط'), so choosing it for 'to make someone happy' is not a person error; what she then drilled five times (ببسط، ببسط...) is the letter order of his بيسبط, which the brief classes as S4."
+    },
+    {
+      "id": "D21",
+      "verdict": "keep",
+      "row": {
+        "id": "0904-D21",
+        "t": "1:03:05",
+        "t_amal": null,
+        "medi_said": "عافيا فيكي. شكرًا.",
+        "amal_said": null,
+        "chat": null,
+        "wrong": "عافيا فيكي",
+        "right": "الله يعافيكي",
+        "kind": "vocab-B",
+        "tier": 2,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "She closed with يعطيك العافية; the sheet reply is 'ya'tiki al'afyah response | Allah Y'afiki | الله يعافيكي' and what the transcript shows is a garbled form of that phrase (no الله ي-, an extra في); she answered 'Good job today' and let it pass - my best reading (B), low because the machine may have swallowed the start of the phrase.",
+        "english": "(reply to 'may God give you health') - God keep you well"
+      },
+      "why": "Kept as an unconfirmed B row: the transcript line is his and is not the sheet phrase, but the transliteration of a fast closing formula is unreliable, so low confidence for Amal to confirm."
+    }
+  ],
+  "added": []
+}

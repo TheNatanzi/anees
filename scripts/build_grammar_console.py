@@ -35,7 +35,13 @@ NO_USAGE_SCORE = {"F1", "F2", "F3"}
 # ---- the hand sweep: the only source of corrections ----
 SWEEP_NAME = "grammar-sweep-2026-09-24"
 SWEEP = os.path.join(ROOT, "data", SWEEP_NAME + ".json")
-sweep = json.load(open(SWEEP, encoding="utf-8"))
+# Full audit 2026-09-26 supersedes the sweep: same row shape through its sweep_compat view (see scripts/full_audit_build.py).
+AUDIT = os.path.join(ROOT, "data", "full-audit-2026-09-26.json")
+if os.path.exists(AUDIT):
+    SWEEP_NAME = "full-audit-2026-09-26"
+    sweep = json.load(open(AUDIT, encoding="utf-8"))["sweep_compat"]
+else:
+    sweep = json.load(open(SWEEP, encoding="utf-8"))
 BUCKET_IDS = {b["id"] for b in buckets}
 APPROVED_NEW = {"NEW-B18": "B18"}          # NEW-A12 / NEW-C11 are not approved buckets
 _not_counted = {x["id"] for x in sweep.get("rejected_on_hand_check", []) + sweep.get("pron_from_sweep", [])}
@@ -256,7 +262,7 @@ for r in sweep_rows:
         "confidence_why": r.get("confidence_why"),
         "machine_audit": r.get("machine_audit", False),
         "verified": True,
-        "source": "hand-sweep-2026-09-24",
+        "source": "hand-" + SWEEP_NAME,
     }
     clip_at = dict(c) if t is not None else dict(c, t=max(0.0, ta - 6.0))
     c["clip"] = cut_clip(clip_at)
@@ -406,7 +412,7 @@ for L in lessons:
 scored = [r for r in rows if r["uses"]]
 payload = {
     "updated": "2026-09-25",
-    "source": "data/grammar-sweep-2026-09-24.json (hand sweep, rule M1) + transcripts in C:/dev/anees/data/lessons",
+    "source": "data/" + SWEEP_NAME + ".json (hand read, rule M1) + transcripts in C:/dev/anees/data/lessons",
     "coverage": {
         "buckets_total": len(rows),
         "buckets_scored": len(scored),

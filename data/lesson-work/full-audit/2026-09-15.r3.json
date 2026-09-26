@@ -1,0 +1,432 @@
+{
+  "date": "2026-09-15",
+  "reader": "r3",
+  "note": "D6 and D7 are two different errors that the matcher glued together: D6's r1 half (Aqlab min -> no min, A2 idafa) and D7 (snenha -> snanha, vocab tier 1). r2's 0915-19 is the same row as D7, so D6 is settled as the grammar row and D7 as the vocab row; do not count them as one. Chat policy used here: every one of Amal's typed model lines that differs from what he said is labelled kind A with signal chat-fix, with confidence lowered to low when her voice had approved (Perfect / Nice / Mm-hmm) - the merger may want to keep those apart from voice fixes. The ASR in this lesson drops a final -h even in Amal's own lines (12:45 ما تكسري for ma tekserih), writes kasaro/kasaru both as كسروا, and its Latin stretches (livil, lavit, yaref) are rough, so several D-rows rest on her chat lines. Nothing added: every other slip I saw (راي/رأيي, تغير/تغيرت, Program masculine, kam sawar, Zakarini, ma id zakar, aja min/على, نفس الـ امبارح, تصوريني/صوريني, bitsawri/بتتصوري) reads as ground both readers would have covered.",
+  "rulings": [
+    {
+      "id": "D1",
+      "verdict": "drop",
+      "why": "بتيت is not recoverable from the ASR; he asked a meta question whether it works with يوم, she said 'it doesn't go', then answered Yeah to his next 'وي بتيت' at 01:32; no wrong -> right pair can be read from the transcript (transcript hole), and inventing the intended word is not allowed."
+    },
+    {
+      "id": "D2",
+      "verdict": "drop",
+      "why": "Not a didn't-know: he had already translated her مطفي as 'off' himself at 02:07 ('Why am I off?'); ما تفي is the ASR spelling of مطفي (S4 at most) and his 02:12 question is about usage (can it be said of people), not the word's meaning; she taught nothing he had attempted and got wrong."
+    },
+    {
+      "id": "D3",
+      "verdict": "drop",
+      "why": "Her chat 'talaat illa tult' at 05:15 transcribes his time answer exactly as her 05:05 chat transcribed his correct date; 'هلات إلى 12' is the ASR mangling of talaate illa tult (tult heard as twelve); no voice signal, she moved straight on to the weather."
+    },
+    {
+      "id": "D4",
+      "verdict": "keep",
+      "row": {
+        "id": "0915-D4",
+        "t": "11:31",
+        "t_amal": null,
+        "medi_said": "Ana khali ishi maksur.",
+        "amal_said": "طيب.",
+        "chat": null,
+        "wrong": "khali",
+        "right": "بخلي (ba5alli)",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "B1",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "medium",
+        "why": "Defining bakser he said plain-present 'I make something broken' as bare khali; B1 wants the b- (sheet 'i let | Ana ba5alli | أنا بخلّي'); Amal only said طيب, so let-pass.",
+        "english": "I make / let something (be) broken."
+      },
+      "why": "Real B1 slip visible in the transcript with no signal from her; kept as grammar-B."
+    },
+    {
+      "id": "D5",
+      "verdict": "keep",
+      "row": {
+        "id": "0915-D5",
+        "t": "17:25",
+        "t_amal": "17:57",
+        "medi_said": "ما تكسري.",
+        "amal_said": "مم.",
+        "chat": "ma tekserih",
+        "wrong": "ما تكسري",
+        "right": "ma tekserih (ما تكسريه)",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "D4",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "chat-fix",
+        "confidence": "low",
+        "why": "'Don't break IT' (f.) needs the -ih object on the verb; asked for the feminine form after she said 'I wrote تكسري, you?', he gave ما تكسري with no ending, she said only مم and then typed ma tekserih and ma teksero; low because the ASR drops a final -h even in her own 12:45 line, so his omission cannot be proven.",
+        "english": "Don't (f.) break it."
+      },
+      "why": "Second occurrence of the D4 object-ending miss (first is D20 at 12:49), different drill, so not a duplicate; real but unprovable from the ASR, kept low."
+    },
+    {
+      "id": "D6",
+      "verdict": "keep",
+      "row": {
+        "id": "0915-D6",
+        "t": "18:14",
+        "t_amal": "18:17",
+        "medi_said": "Uh, \"\"Aqlab min--",
+        "amal_said": "نومن.",
+        "chat": "a8lab snaanha enkasaru",
+        "wrong": "Aqlab min",
+        "right": "أغلب سنانها (a8lab snaanha)",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "A2",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "explicit-no",
+        "confidence": "medium",
+        "why": "'Most of her teeth' is a bare idafa (أغلب سنانها); he inserted min (أغلب من) and she cut in with 'no min' (نومن); he dropped it and went on with aqlab snenha; the snenha/snanha slip that follows is D7, a separate vocab error.",
+        "english": "Most of her teeth (broke)."
+      },
+      "why": "r1's grammar half is a real, distinct error; r2's half of this pair is the same row as D7 and is settled there, so this row is grammar A2 only."
+    },
+    {
+      "id": "D7",
+      "verdict": "keep",
+      "row": {
+        "id": "0915-D7",
+        "t": "18:18",
+        "t_amal": "18:20",
+        "medi_said": "aqlab snenha.",
+        "amal_said": "سنان، ha. What's سنين؟ ... Years.",
+        "chat": "a8lab snaanha enkasaru",
+        "wrong": "snenha",
+        "right": "سنانها (snanha)",
+        "kind": "vocab-A",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "prompt-then-fix",
+        "confidence": "high",
+        "why": "He said سنين (years) for سنان (teeth); she asked 'what's سنين?', he answered 'year' and fixed to snanha (sheet 'tooth brush | Furshayet snan | فرشاية سنان', 'dentist | Doctoar snan') - a different lexical item, tier 1.",
+        "english": "most of her teeth"
+      },
+      "why": "Both readers saw this slip (r2 wrote it inside D6); one vocab-A tier-1 row, matched to r2 0915-19 as well."
+    },
+    {
+      "id": "D8",
+      "verdict": "keep",
+      "row": {
+        "id": "0915-D8",
+        "t": "20:10",
+        "t_amal": "20:21",
+        "medi_said": "the plural for \"qasa\" is... Is \"qasa\"-- Did you-- Did we learn? That's just general, right? Cups is cups. \"Qasa.\"",
+        "amal_said": "Kasar? What's the... If we didn't learn it, then it's at.",
+        "chat": "who broke these cups",
+        "wrong": "qasa",
+        "right": "kasat (كاسات)",
+        "kind": "vocab-A",
+        "tier": 0,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "asked",
+        "confidence": "medium",
+        "why": "He never produced a wrong plural; he asked what the plural of كاسة is (sheet 'cup | Kaasa | كاسة'), she gave the -at rule (buckets A9) and he said qasat - a didn't-know of a word form, tier 0, not a scored grammar error.",
+        "english": "cups (plural of cup)"
+      },
+      "why": "Both readers agree on the moment; the brief files an 'asked' didn't-know as vocab-A tier 0, and no wrong form was produced, so r2's label wins over r1's grammar A9."
+    },
+    {
+      "id": "D9",
+      "verdict": "keep",
+      "row": {
+        "id": "0915-D9",
+        "t": "20:52",
+        "t_amal": "20:54",
+        "medi_said": "Uh, \"Min qasar hadhol il qasarat.\"",
+        "amal_said": "Kasat.",
+        "chat": "meen kasar kasar hadoal el-kasaat",
+        "wrong": "qasarat",
+        "right": "كاسات (kasat)",
+        "kind": "vocab-A",
+        "tier": 2,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "medium",
+        "why": "Plural of كاسة (sheet 'cup | Kaasa | كاسة'), which she had just given him as kasat at 20:21, came out as the invented pattern qasarat (blended with kasar, as he explains at 21:04); she recast Kasat and he took it - a wrong form of a word he knows, tier 2, not a different word.",
+        "english": "Who broke these cups?"
+      },
+      "why": "The brief's tier 2 is 'wrong plural pattern he invented' for a known word; that is exactly qasarat, so tier 2 over r2's tier 1. His sentence spans 20:43-20:52; t is the line holding the wrong piece."
+    },
+    {
+      "id": "D10",
+      "verdict": "keep",
+      "row": {
+        "id": "0915-D10",
+        "t": "27:15",
+        "t_amal": "27:23",
+        "medi_said": "عطلوا ما بعد واحدة. Fat. Is it ما بعد or fat? Fat.",
+        "amal_said": "They fought each other.",
+        "chat": "el-walaad 2aatalu ba3ad u wa7ad minhom kasar kasar raas el-taani",
+        "wrong": "ما بعد",
+        "right": "بعض (ba3ad)",
+        "kind": "vocab-A",
+        "tier": 1,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "medium",
+        "why": "'Each other' is بعض (sheet 'each other | Ba3ad | بعض'); he used مع بعض (sheet 'together | Ma3 ba3ad | مع بعض'), a different sheet item, right after she had modelled قتلوا بعض at 27:12; she re-glossed 'they fought each other', he conceded 'not fought together', and her chat has 2aatalu ba3ad. His عطلوا for 2aatalu is S4.",
+        "english": "The kids fought each other."
+      },
+      "why": "Both readers saw it; مع بعض and بعض are two separate sheet entries with different meanings, so this is a wrong word (tier 1), not a wrong form (tier 2)."
+    },
+    {
+      "id": "D11",
+      "verdict": "keep",
+      "row": {
+        "id": "0915-D11",
+        "t": "27:38",
+        "t_amal": "27:40",
+        "medi_said": "واحد من ولاد.",
+        "amal_said": "or of them. One of them.",
+        "chat": "el-walaad 2aatalu ba3ad u wa7ad minhom kasar kasar raas el-taani",
+        "wrong": "من ولاد",
+        "right": "من الولاد / منهم",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "A1",
+        "bucket2": "D5",
+        "mode": "speaking",
+        "signal": "prompt-then-fix",
+        "confidence": "medium",
+        "why": "The kids were just named (الولاد عطلوا), so 'one of the kids' keeps el-: واحد من الولاد; he said من ولاد twice, she steered him to منهم right after the slip, and when he asked at 28:00 whether واحد من الولاد also works she said Yeah - her redirect plus his asking is a signal (S3), so A, and the missing el- on a known noun is A1 (English keeps 'the' here too, so D5 only as second).",
+        "english": "One of the kids (broke the other one's head)."
+      },
+      "why": "Both readers saw it; the transcript shows her reacting to the wrong form at once and confirming the el- form when he asked, so grammar (A), not grammar-B."
+    },
+    {
+      "id": "D12",
+      "verdict": "drop",
+      "why": "بوت is a valid word for shoes (sheet 'sneakers / boots | Boat | بوت'); the formal-shoes instruction was drill framing that she left out when she repeated the prompt at 37:31, he produced كندرتك the moment she asked for 'the other shoes', and her chat accepts both 'kundartek? / boatek?' - not a wrong word."
+    },
+    {
+      "id": "D13",
+      "verdict": "drop",
+      "why": "الآن for ألوان is a dropped و inside a word he knows (sheet 'colors | Alwaan | ألوان') - a root-letter sound slip, S4 pronunciation, never vocab; she said 'very close' and he fixed it at once."
+    },
+    {
+      "id": "D14",
+      "verdict": "keep",
+      "row": {
+        "id": "0915-D14",
+        "t": "45:07",
+        "t_amal": "45:11",
+        "medi_said": "ليش اليوم...",
+        "amal_said": "Day of the meeting.",
+        "chat": "laish yaom el-ijtimaa3 t8ayyar",
+        "wrong": "اليوم",
+        "right": "يوم الاجتماع",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "A2",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "prompt-then-fix",
+        "confidence": "medium",
+        "why": "'Day of the meeting' is an idafa whose first noun takes no el-; he opened with اليوم, she prompted 'day of the meeting' and he produced يوم ال-- الاجتماع; medium because her prompt could partly be re-feeding the English.",
+        "english": "Why did the day of the meeting change?"
+      },
+      "why": "Real A2 slip with a prompt and an immediate fix in the transcript."
+    },
+    {
+      "id": "D15",
+      "verdict": "keep",
+      "row": {
+        "id": "0915-D15",
+        "t": "53:42",
+        "t_amal": "57:12",
+        "medi_said": "fi hada yaref.",
+        "amal_said": "Mm-hmm.",
+        "chat": "fi 7ada bye3raf keef ysawwer hoan?",
+        "wrong": "yaref",
+        "right": "bye3raf (بيعرف)",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B1",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "chat-fix",
+        "confidence": "low",
+        "why": "Plain present 'knows' takes b- (بيعرف); the transcript has bare yaref, her voice let it pass (Mm-hmm) and her typed model line has bye3raf; low because the Latin ASR may have swallowed the b- and she gave no voice flag.",
+        "english": "Is there someone who knows (how to photograph here)?"
+      },
+      "why": "Both readers saw it; a typed line that differs from his form is a chat-fix, so kind grammar (A) with low confidence rather than grammar-B."
+    },
+    {
+      "id": "D16",
+      "verdict": "keep",
+      "row": {
+        "id": "0915-D16",
+        "t": "54:07",
+        "t_amal": "54:41",
+        "medi_said": "uh, bisawar",
+        "amal_said": "No Bs either way. بيعرف يصور or بيعرف كيف يصور.",
+        "chat": "bye3raf ysawwer",
+        "wrong": "bisawar",
+        "right": "يصور (ysawwer)",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B2",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "named-rule",
+        "confidence": "medium",
+        "why": "After بيعرف (كيف) the second verb is bare; the transcript has bisawar, he asked 'does it work with the B?' and admitted 'I said it wrong', and she named the rule 'No Bs either way'; she then said she had heard يصور, so the rule came from his question, not her ear.",
+        "english": "(someone who knows how) to photograph"
+      },
+      "why": "Transcript and his own admission show the b-; his asking plus her stated rule is a voiced signal (S3), so grammar (A), medium."
+    },
+    {
+      "id": "D17",
+      "verdict": "keep",
+      "row": {
+        "id": "0915-D17",
+        "t": "55:15",
+        "t_amal": "55:28",
+        "medi_said": "Uh, uh, lama ana livil, livil-- oh my God.",
+        "amal_said": "First do the left, left past. Make it past.",
+        "chat": "lamma ana laffait el-3aalam, ana sawwaret suwar kteer",
+        "wrong": "livil",
+        "right": "laffait (لفيت)",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B5",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "prompt-then-fix",
+        "confidence": "medium",
+        "why": "Narrating 'when I toured the world' he produced a non-past form of لف (livil; sheet 'i turn | Ana baleff | أنا بلف'); she told him to make it past, he said lavit / laffait and she called it perfect; the Latin ASR of his attempt is rough.",
+        "english": "When I toured the world (I took a lot of pictures)."
+      },
+      "why": "Her 'make it past' proves the tense was wrong even though the ASR garbles the attempt; real B5 with prompt-then-fix."
+    },
+    {
+      "id": "D18",
+      "verdict": "keep",
+      "row": {
+        "id": "0915-D18",
+        "t": "55:57",
+        "t_amal": "59:11",
+        "medi_said": "sawarit sawar ktirin.",
+        "amal_said": "Mm. Nice.",
+        "chat": "lamma ana laffait el-3aalam, ana sawwaret suwar kteer",
+        "wrong": "ktirin",
+        "right": "kteer (كتير)",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "A8",
+        "bucket2": "A9",
+        "mode": "speaking",
+        "signal": "chat-fix",
+        "confidence": "low",
+        "why": "كتير does not take plural -in after a non-human plural noun (suwar kteer, sheet 'a lot / very / much | Kteer | كتير'); he said ktirin; her voice said Nice and her typed version of his own sentence has kteer - a silent chat fix; adjective agreement, so A8 with A9 second.",
+        "english": "I took a lot of pictures."
+      },
+      "why": "Both readers saw it; the rule is adjective agreement with a plural noun (A8), not noun pluralisation (A9); her retyped line differs from his form, so chat-fix, low."
+    },
+    {
+      "id": "D19",
+      "verdict": "drop",
+      "why": "He produced ami (عمي) correctly first and then hesitated over the vowel (Ami? Amoy?); her عمي confirms his first form - S5 hesitation, not a fix and not a didn't-know."
+    },
+    {
+      "id": "D20",
+      "verdict": "keep",
+      "row": {
+        "id": "0915-D20",
+        "t": "12:49",
+        "t_amal": "12:54",
+        "medi_said": "ما تكسري. ما تكسري.",
+        "amal_said": "ما تكسرييي. [تضحك]",
+        "chat": "e7na benfaddel enno inti ma tekserih",
+        "wrong": "ما تكسري",
+        "right": "ma tekserih (ما تكسريه)",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "D4",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "medium",
+        "why": "'We prefer you don't break IT' needs the -ih object on the verb; he repeated ما تكسري without it, she echoed it stretching the ending (ما تكسرييي) and typed ma tekserih; the ASR drops a final -h even in her own 12:45 line, so the proof is her stressed echo plus the chat.",
+        "english": "We prefer that you (f.) don't break it."
+      },
+      "why": "Real D4 miss with a voiced stressed recast and a chat line; distinct from the B11 b-drop fix at 12:45 and from D5 (17:25, a later drill)."
+    },
+    {
+      "id": "D21",
+      "verdict": "drop",
+      "why": "kasaro (he broke it) and kasaru (they broke) are the same sounds to the ASR, which also wrote his correct 13:19 kasarto as كسرتوا; she said طيب and moved to the next prompt, and her chat kasaro transcribes what he said - nothing shows a wrong form."
+    },
+    {
+      "id": "D22",
+      "verdict": "keep",
+      "row": {
+        "id": "0915-D22",
+        "t": "16:01",
+        "t_amal": "17:11",
+        "medi_said": "امتى.",
+        "amal_said": "Perfect.",
+        "chat": "min aimta btekser ashyaa2",
+        "wrong": "امتى",
+        "right": "من امتى (min aimta)",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "D1",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "chat-fix",
+        "confidence": "low",
+        "why": "'Since when' is min aimta; he opened the sentence with امتى alone (sheet 'when? (question) | Aimta | امتى'), she said Perfect by voice and her typed model line 70 s later carries the min; low because her voice approved it and the ASR may have dropped a short من.",
+        "english": "Since when do you break things?"
+      },
+      "why": "Real preposition miss shown by the transcript and her chat; her voiced Perfect keeps it low."
+    },
+    {
+      "id": "D23",
+      "verdict": "keep",
+      "row": {
+        "id": "0915-D23",
+        "t": "40:20",
+        "t_amal": "40:31",
+        "medi_said": "هدول الألوان لازم، uh, um, يتغيروا.",
+        "amal_said": "يتغير، يتغيروا. ... No. ... لازم تغيروا would be should have been changed.",
+        "chat": "hadoal el-alwaan lazem yet8ayyaru",
+        "wrong": "يتغيروا",
+        "right": "يتغيروا (bare present after لازم)",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B2",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "medium",
+        "why": "The transcript prints the right form, but the exchange proves he said the past تغيروا: she recast يتغير، يتغيروا, he asked 'it's not past tense?', she said No and explained that لازم تغيروا would mean 'should have been changed', and he conceded 'you're right, it's present tense'; wrong is copied as printed - do not read the printed form as what he said.",
+        "english": "These colors should be changed."
+      },
+      "why": "His line as printed looks right, but her recast, her 'No' to his 'not past tense?' and his concession make the past-tense slip certain; form after لازم is B2."
+    },
+    {
+      "id": "D24",
+      "verdict": "drop",
+      "why": "She said ممتاز immediately; the only evidence is the Arabic ASR's تصوري, which cannot be trusted for the doubled t (it wrote his 48:51 form as matitsawri); when he really dropped the t at 51:01 she corrected it on the spot (بتتصوري), so her silence here means she heard تتصوري, and the chat is her model answer, not a fix."
+    }
+  ],
+  "added": []
+}

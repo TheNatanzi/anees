@@ -1,0 +1,41 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer"><meta name="robots" content="noindex,nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://yljcbdxvnkfrwvelypfu.supabase.co; img-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Amal · Tutor Hub</title><link rel="stylesheet" href="../css/sabz-tokens.css"><link rel="stylesheet" href="../css/anees-page.css"><script src="../js/theme.js"></script>
+<style>
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;overflow-wrap:anywhere}
+main{max-width:560px;margin:0 auto;padding:16px 14px 40px} .who{font-size:14px;color:var(--mute);margin:0 0 6px} h1{font-size:24px;margin:2px 0 6px} .sug{font-size:14px;color:var(--mute);margin:0 0 14px}
+a.tile{display:block;text-decoration:none;color:var(--ink);background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin:0 0 10px}
+a.tile:hover{border-color:var(--teal)} .tile b{font-size:19px;display:block} .tile .what{font-size:15px;color:var(--ink);margin:4px 0 0} .tile .how{font-size:13px;color:var(--mute);margin-top:4px}
+.tile.off{opacity:.55;pointer-events:none} .tile .badge{display:inline-block;font-size:12px;color:#fff;background:var(--teal);border-radius:999px;padding:1px 9px;margin-left:6px;vertical-align:middle}
+.tile .badge.grey{background:var(--mute)} .foot{font-size:13px;color:var(--mute);margin-top:16px} .err{color:var(--red)}
+</style></head><body><main>
+<p class="who">Amal's pages · Medi's app</p>
+<h1>Tutor Hub</h1>
+<p class="sug">Everything the app ever asks you, in one place. Each tile says what it is and how long it takes. Nothing is sent to Medi's score until you tap.</p>
+<div id="tiles"><p class="sug" id="status">Loading your links…</p></div>
+<p class="foot" id="foot">Links are personal. Medi sends you this page; the app never emails you.</p>
+</main>
+<script src="../js/config.js"></script>
+<script>
+const qs=new URLSearchParams(location.search), TOKEN=qs.get('t')||'';
+const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon,'Content-Type':'application/json','X-Anees-Token':TOKEN};
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const PAGES=[
+ {key:'review', title:'Review Medi’s slips', what:'Word and grammar slips the app thinks you let pass, grouped by pattern with the real moments to play. You say: correct him, or give a reason not to.', how:'10–20 min once · then a few minutes after each lesson'},
+ {key:'after', title:'After the lesson', what:'3–5 quick questions about today’s lesson (was he right here?) and the homework suggestions to keep, drop or edit.', how:'under 5 min · after each lesson'},
+ {key:'plan', title:'Before the lesson', what:'Three suggestions for today: words to bring back, sentences to try. Keep or drop.', how:'2 min · before each lesson'},
+ {key:'verb_check', title:'Verb check', what:'Verb forms the app guessed from the ones you taught. Tap right, or fix the spelling.', how:'5–15 min · when there is a new batch'},
+ {key:'word_review', title:'Word review', what:'Transcript lines where the app is not sure what Medi said. Confirm the wording or type what you heard.', how:'5–10 min · when there is a new batch'},
+ {key:'grammar_rules', title:'Medi’s grammar rules', what:'The rulebook the app scores him on, with his level on each rule. Read-only; tell Medi if a rule is wrong.', how:'read when you like', static:'grammar-rules.html'}
+];
+(async()=>{
+  const tiles=document.getElementById('tiles'), status=document.getElementById('status');
+  let links={}, ok=false;
+  if(TOKEN){ try{ const r=await fetch(ANEES.url+'/rest/v1/amal_links?select=kind,payload,expires_at&token=eq.'+encodeURIComponent(TOKEN),{headers:H}); const rows=await r.json(); const row=rows&&rows[0]; if(row){ ok=true; links=(row.payload||{}).links||{}; if(row.kind==='review') links.review=links.review||('review.html?t='+encodeURIComponent(TOKEN)); } }catch(e){} }
+  tiles.innerHTML=PAGES.map(p=>{ const href=p.static||links[p.key]; const open=!!href; const badge=p.static?'':(open?'<span class="badge">open</span>':'<span class="badge grey">nothing waiting</span>');
+    return `<a class="tile${open?'':' off'}" href="${esc(href||'#')}"><b>${esc(p.title)}${badge}</b><div class="what">${esc(p.what)}</div><div class="how">${esc(p.how)}</div></a>`; }).join('');
+  if(!TOKEN) document.getElementById('foot').innerHTML='<span class="err">This page needs your personal link from Medi.</span> The tiles below show what exists; only the rulebook opens without a link.';
+  else if(!ok) document.getElementById('foot').innerHTML='<span class="err">This link has expired.</span> Ask Medi for a new one.';
+})();
+</script></body></html>

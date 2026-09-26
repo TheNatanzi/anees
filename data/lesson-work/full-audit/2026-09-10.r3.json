@@ -1,0 +1,461 @@
+{
+  "date": "2026-09-10",
+  "reader": "r3",
+  "note": "Transcript notes for the merger: several of Amal's fixes are garbled by ASR and I read them from structure, not spelling - 12:13 'بدائية' (= وردية), 13:42 'بس فعلاً' (= بس فعلين), 45:57 'بتنكسر' (probably her feeding بننكسر). 06:38-07:20 is Latin-transliterated (date, clock). Medi's ق comes out as ء/nothing throughout (أزد = قصد, بعيم = بقيم) - S4, not vocab. D19 and D26 were the same الفعلات slip split by the matcher; D26 carries the row, D19 drops r2's separate 'verbs' half. D1 and D2 were the same جو/الجو slip; D1 carries the row. D24's row is re-anchored from r2's 12:14 echo to the real slip at 12:06 (ورداني); if an agreed row already sits at 12:06 it is a duplicate. I did not open the readers' JSON or compare.json, so 'added' is empty - the explicit 10:34-11:07 صلح→ساعد fix (Amal 11:02 'You said صلح which is fix... he helped me?') is almost certainly an agreed row; if it is not, it is a vocab-A tier 1 recast worth adding.",
+  "rulings": [
+    {
+      "id": "D1",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D1",
+        "t": "07:32",
+        "t_amal": null,
+        "medi_said": "جو كتير كتير. و،",
+        "amal_said": "عن جد؟",
+        "chat": null,
+        "wrong": "جو",
+        "right": "الجو (شوب)",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "A1",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "Answering her كيف الجو عندكم اليوم he said جو كتير كتير: 'the weather' is a known thing and takes el- (her prompt and the sheet row 'it's hot | El-jaw shoab | الجو شوب' both have الجو). The adjective شوب is absent in the transcript but she answered عن جد؟ as if she heard a complete statement, so the missing word is likely an ASR drop and is not scored - only the el- is. B reading.",
+        "english": "The weather is very (hot) tonight."
+      },
+      "why": "Both readers saw the same moment; the transcript proves only the missing el- (جو without ال), so the final row is r2's A1 grammar-B, not r1's vocab-B 'missing شوب', which cannot be verified (possible ASR drop, no signal from her)."
+    },
+    {
+      "id": "D2",
+      "verdict": "drop",
+      "why": "Duplicate of D1: same moment (07:30-07:32), same wrong piece جو -> الجو, same bucket A1; r2's half of D1 is this very row, so it is written once, under D1."
+    },
+    {
+      "id": "D3",
+      "verdict": "drop",
+      "why": "S4 pronunciation (F2 vowel length + F3 shadda): صلاحتو / صلاhto vs her صلحته has the same consonants, the same verb صلّح 'fixed' and the same object -o; only the vowel shape differs, and buckets.md scores that as sound shape, not grammar or vocab. He repeats the shape at 10:34/10:40, but her fixes there are about -ني vs لي (10:44-10:51) and then صلّح vs ساعد (11:02), never the vowel."
+    },
+    {
+      "id": "D4",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D4",
+        "t": "10:15",
+        "t_amal": null,
+        "medi_said": "ما، ما يكون، uh, كهربج-- uh, كهربجي، هو مهندس، uh, مهندس.",
+        "amal_said": null,
+        "chat": null,
+        "wrong": "ما يكون",
+        "right": "مش",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "C4",
+        "bucket2": "B8",
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "Saying who the man he called is - 'he is not a kahrabji, he is an engineer' - is a present noun predicate: Levantine negates it with مش and no 'to be' (C4); ما يكون is neither that nor a licensed ykoon context (B8: only after lamma/iza or for habits). The man's job is a present fact, so ما كان (r2) is not the target either. She said nothing about it; her 10:30 صلح لي moves to his next clause.",
+        "english": "He isn't an electrician, he's an engineer."
+      },
+      "why": "Both readers saw the slip; the transcript supports C4 (noun predicate negated with a verb form) over B6 (the identity claim is present, not past); B8 goes in bucket2 for the stray ykoon."
+    },
+    {
+      "id": "D5",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D5",
+        "t": "12:53",
+        "t_amal": null,
+        "medi_said": "عشان يكون air conditioning.",
+        "amal_said": null,
+        "chat": null,
+        "wrong": "عشان يكون",
+        "right": "عشان في / عشان عندي",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "B8",
+        "bucket2": "C1",
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "Explaining why he stayed home today (اليوم ضليت بي بيتي): 'because there is AC' - existence in the plain present is في / عندي, not يكون (B8: ykoon only after lamma/iza or for habits; C1: no 'to be' in the present). She moved on to شو بتتذكر at 13:04 without a fix. 'air conditioning' is not on her sheet, so the English word itself is not an error. B reading.",
+        "english": "because there is air conditioning (at home)"
+      },
+      "why": "Real let-pass: عشان يكون AC is not how a native states that the AC is there; kept as grammar-B, low because his intent (cause vs purpose) is not spelled out."
+    },
+    {
+      "id": "D6",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D6",
+        "t": "13:22",
+        "t_amal": "13:25",
+        "medi_said": "وحدة كلمة صح و",
+        "amal_said": "بس كلمة وحدة.",
+        "chat": null,
+        "wrong": "وحدة كلمة",
+        "right": "كلمة وحدة",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "A7",
+        "bucket2": "E1",
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "high",
+        "why": "'One word': the modifier وحدة sits after the noun like an adjective; he put it first (English order) and she recast noun-first, بس كلمة وحدة. A7 is the rule broken (modifier after the noun); E1 is the secondary tag because the modifier is the number one.",
+        "english": "just one word, right?"
+      },
+      "why": "Both readers agree on the slip; the transcript shows a word-order fix, which is A7's rule (E1 only covers the form of the noun after 2 / 3-10 / 11+), so A7 with E1 as bucket2."
+    },
+    {
+      "id": "D7",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D7",
+        "t": "13:27",
+        "t_amal": "13:42",
+        "medi_said": "بس كلمة-- بس فعل، اه، تنين،",
+        "amal_said": "أههم بس فعلاً.",
+        "chat": null,
+        "wrong": "فعل، اه، تنين",
+        "right": "فعلين",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "E1",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "medium",
+        "why": "'Two verbs' takes the dual فعلين, not فعل + تنين (E1: 2 has its own form). Her reply mirrors his phrase (أههم بس فعل-) and 'فعلاً' ('indeed') makes no sense after أههم بس, so it is almost certainly فعلين mis-transcribed - filed as her recast. Medium because the transcript does not show the ين.",
+        "english": "just two verbs"
+      },
+      "why": "Both readers saw the slip; the transcript's structure (her أههم بس فعل- right after his بس فعل تنين) supports a recast rather than a let-pass, so kind = grammar with signal recast, medium confidence for the garbled ending."
+    },
+    {
+      "id": "D8",
+      "verdict": "drop",
+      "why": "Self-fix before help: in the same turn he went زعجتيك -> زاجتك, i.e. he dropped the extra -ي himself before she spoke; her 14:50 زعجتك confirms his own second form (the missing ع in زاجتك is S4) and adds the variant أزعجتك. The brief writes a self-fix only if she then corrected the fixed version, which she did not. His 15:02 أزعشتك is ج->ش pronunciation."
+    },
+    {
+      "id": "D9",
+      "verdict": "drop",
+      "why": "Not an error: he said only 'got annoyed. The past tense.' while building the sentence and she supplied انزعجتِ into the pause; no wrong Arabic form was produced (S5), and a form she volunteers before he tries is a didn't-know, not a slip. He then produced انزعجتي / انزعجتي مني himself (15:52, 16:22, 'Perfect')."
+    },
+    {
+      "id": "D10",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D10",
+        "t": "16:03",
+        "t_amal": "16:06",
+        "medi_said": "ما، ماضي.",
+        "amal_said": "ليش ما؟",
+        "chat": null,
+        "wrong": "ما",
+        "right": "مني",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "D2",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "prompt-then-fix",
+        "confidence": "medium",
+        "why": "Drill 'you got annoyed with me': after انزعجتي he started ما (reaching for 'with me'); she asked ليش ما؟, he answered 'You said with by me... مني، مني sorry' (16:10) and gave انزعجتي مني at 16:22 ('Perfect'). انزعج takes من (her 14:35: 'annoyed with you you would say مِنْ'). Medium: his ما may partly be a stutter of ماضي, but her question and his fix show she heard a wrong preposition.",
+        "english": "you got annoyed with me"
+      },
+      "why": "Real prompt-then-fix: her ليش ما؟ and his correction to مني are both in the transcript; D2 (verb + its fixed preposition)."
+    },
+    {
+      "id": "D11",
+      "verdict": "drop",
+      "why": "Not an error: he asked before producing ('Is it تكوني or just مبسوطة?'), so there is no wrong piece; she answered بس مبسوطة and explained C1 (22:42-22:57). A grammar question answered is a didn't-know, not a slip, and grammar rows have no tier 0 to keep it apart, so nothing is written."
+    },
+    {
+      "id": "D12",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D12",
+        "t": "26:34",
+        "t_amal": "26:41",
+        "medi_said": "So I add his بزيء، بزياد،",
+        "amal_said": "بزيد.",
+        "chat": null,
+        "wrong": "بزياد",
+        "right": "بزيد",
+        "kind": "vocab-A",
+        "tier": 2,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "medium",
+        "why": "'I add' (sheet: i add | Bazeed | بزيد): he produced بزياد, a wrong vowel mould of a verb he knows (the ī became yā - a different shape, not a length slip); she recast بزيد and he repeated it at 26:42.",
+        "english": "I add (the n-)"
+      },
+      "why": "Real: a committed wrong form of a sheet verb, recast by her and echoed back; tier 2 (wrong form of a known word), medium because the first fragment بزيء shows he was still searching."
+    },
+    {
+      "id": "D13",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D13",
+        "t": "26:49",
+        "t_amal": "26:51",
+        "medi_said": "شول، فيل،",
+        "amal_said": "بقيم.",
+        "chat": null,
+        "wrong": "شول، فيل",
+        "right": "بقيم",
+        "kind": "vocab-A",
+        "tier": 0,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "asked",
+        "confidence": "medium",
+        "why": "Groping for 'I remove' he produced only fragments (شول may be the start of بشيل, which would also be usable), never a committed wrong word; she supplied بقيم (sheet: i remove / take away | Ba2eem | بقيم), so this is a didn't-know (tier 0), not a tier-1 wrong word. His later بعينك / بعين / بعيم are بقيم with a dropped ق (S4).",
+        "english": "I remove (the n-)"
+      },
+      "why": "Both readers saw the moment; the transcript shows search fragments, not a wrong lexical item, so tier 0 / asked (r2) over tier 1 (r1)."
+    },
+    {
+      "id": "D14",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D14",
+        "t": "33:22",
+        "t_amal": "33:30",
+        "medi_said": "زري.",
+        "amal_said": "I didn't hear the \"t\".",
+        "chat": null,
+        "wrong": "زري",
+        "right": "بتكسري",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "B18",
+        "bucket2": "B1",
+        "mode": "speaking",
+        "signal": "prompt-then-fix",
+        "confidence": "low",
+        "why": "'You keep breaking my plates': after إنتِ بتظلي the verb needs the you-f prefix بت- (بتكسري). His production is transcribed only as the tail زري and she said she did not hear the t, i.e. the person marker was missing; he fixed to بتكسري at 33:31. Low: the transcript holds only a fragment, so whether he said بكسري (B18) or كسري (B1) cannot be shown.",
+        "english": "you keep breaking my plates"
+      },
+      "why": "Real prompt-then-fix (her 'I didn't hear the t' + his بتكسري), but his line is a fragment, so kept at low confidence; the missing piece she named is the person marker, hence B18 with B1 second."
+    },
+    {
+      "id": "D15",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D15",
+        "t": "45:24",
+        "t_amal": "45:25",
+        "medi_said": "هي هو uh, بينكسري.",
+        "amal_said": "إنتو.",
+        "chat": null,
+        "wrong": "بينكسري",
+        "right": "بينكسر / بتنكسر",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "B18",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "Conjugating انكسر for هو/هي he produced بينكسري (masc بي- prefix + fem -ي ending), a form that exists for no subject; she did not fix it, she redirected him to the skipped إنتو. Low: he was switching subjects mid-word. Her هو at 45:38 fixes a different slip (هي بينكسر).",
+        "english": "he/she gets broken"
+      },
+      "why": "Real let-pass of a non-existent form; kept low because it sits inside a subject switch and she steered away rather than reacting to it."
+    },
+    {
+      "id": "D16",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D16",
+        "t": "46:02",
+        "t_amal": null,
+        "medi_said": "بن-بنكسر.",
+        "amal_said": null,
+        "chat": null,
+        "wrong": "بنكسر",
+        "right": "بننكسر",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "B18",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "إحنا of the un-verb انكسر is بننكسر (b-n-nkasir); he gave بنكسر, which is the إحنا form of plain كسر ('we break'), and she went straight into usage talk (46:08). Low: ASR may have collapsed the double ن, and her 45:57 line (transcribed بتنكسر) may itself have been her feeding him بننكسر.",
+        "english": "we get broken"
+      },
+      "why": "Kept as a low-confidence let-pass: the transcript shows بنكسر after a hesitation, but a merged double ن in ASR is plausible, so the merger should weigh it lightly."
+    },
+    {
+      "id": "D17",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D17",
+        "t": "48:25",
+        "t_amal": "48:29",
+        "medi_said": "Do I say for air condition?",
+        "amal_said": "الـ air conditioning تبعي.",
+        "chat": null,
+        "wrong": "air condition (my)",
+        "right": "الـ air conditioning تبعي",
+        "kind": "vocab-A",
+        "tier": 0,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "asked",
+        "confidence": "medium",
+        "why": "Didn't-know: he asked how to say 'my AC' and she supplied the الـ X تبعي construction (AC is not on her sheet and she keeps it in English); tier 0 keeps it apart from slips. His echo تباين (48:31) is pronunciation.",
+        "english": "my air conditioner"
+      },
+      "why": "A 'how do you say X' answered by her is a didn't-know per the brief: vocab-A, tier 0, signal asked."
+    },
+    {
+      "id": "D18",
+      "verdict": "drop",
+      "why": "Not an error: her sheet lists 'everything | Kul shee | كل شيء' as its own row beside 'kulshi | كلشي'; spoken kul shee tamaam is what he said and the ء is the ASR's spelling. She answered Mm."
+    },
+    {
+      "id": "D19",
+      "verdict": "drop",
+      "why": "r2's half (54:40 'شو؟ شو الـ verbs اليوم؟'): he is echoing her own 'شو الـ unverbs?' (54:37) in a meta question about the lesson - plainly switching to English to ask a meta point, which the brief excludes from tier 3. r1's half (54:44 الفعلات -> أفعال) is the same slip as D26 and is written there."
+    },
+    {
+      "id": "D20",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D20",
+        "t": "1:02:38",
+        "t_amal": null,
+        "medi_said": "ما شوفتك. Bye.",
+        "amal_said": "باي.",
+        "chat": null,
+        "wrong": "ما شوفتك",
+        "right": "بشوفك / منشوفك",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "B1",
+        "bucket2": "B5",
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "low",
+        "why": "Replying to her يلا بشوفك ('see you') the transcript has ما شوفتك, a negated past ('I didn't see you') where the present b-verb بشوفك / منشوفك is the set reply (B1; B5 second for the tense). She just said باي. Low: very likely an ASR rendering of منشوفك (m-n-shoofak), so the merger may treat it as a transcript hole.",
+        "english": "see you"
+      },
+      "why": "Both readers saw it and the transcript literally shows ما شوفتك, so it is kept as a low-confidence let-pass; the rule broken, if he said it, is the present b-verb replaced by a negated past (B1 + B5), not C4 (ما before a verb is correct)."
+    },
+    {
+      "id": "D21",
+      "verdict": "drop",
+      "why": "Self-fix before help: 'tisa / asha. Oh no, that's right. Yeah, asha tisa' - he corrected to day-first at 06:40, before her 06:42 'First we say عشرة تسعة', which only states the rule for his already-fixed order. The brief does not write a self-fix unless she then corrected the fixed version."
+    },
+    {
+      "id": "D22",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D22",
+        "t": "08:37",
+        "t_amal": null,
+        "medi_said": "أنا رنيت لمهندس، uh...",
+        "amal_said": null,
+        "chat": null,
+        "wrong": "لمهندس",
+        "right": "على مهندس",
+        "kind": "grammar-B",
+        "tier": null,
+        "bucket": "D2",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "none",
+        "confidence": "medium",
+        "why": "رن takes على (sheet: i call | Ana barenn (3ala) | أنا برن); he used لـ and she let it pass - he then got lost hunting for 'electricity' and she followed that (08:51). B reading.",
+        "english": "I called an engineer"
+      },
+      "why": "Real let-pass: the transcript shows لمهندس clearly and her own sheet fixes the preposition as على."
+    },
+    {
+      "id": "D23",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D23",
+        "t": "09:13",
+        "t_amal": "09:10",
+        "medi_said": "مهندس، مهندس كهربجي.",
+        "amal_said": "Or some people say كهربجي. It's easier.",
+        "chat": null,
+        "wrong": "electrician",
+        "right": "كهربجي",
+        "kind": "vocab-A",
+        "tier": 0,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "asked",
+        "confidence": "medium",
+        "why": "Didn't-know: after his مهندس كهرباء she volunteered the everyday word كهربجي, which he had never attempted; he repeated it at 09:13 (and as كراجي at 09:30 / 09:39, pronunciation). Not on her sheet - he says so himself at 09:39 - so it is a new-word row, tier 0.",
+        "english": "electrician"
+      },
+      "why": "A new word she taught that he never attempted is a didn't-know per the brief: vocab-A, tier 0, signal asked."
+    },
+    {
+      "id": "D24",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D24",
+        "t": "12:06",
+        "t_amal": "12:13",
+        "medi_said": "بلوزة، um, ورداني",
+        "amal_said": "بدائية.",
+        "chat": null,
+        "wrong": "ورداني",
+        "right": "وردية",
+        "kind": "grammar",
+        "tier": null,
+        "bucket": "A8",
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "medium",
+        "why": "بلوزة is feminine, so 'pink' must be وردية; he said the masculine ورداني. Her 12:13 line (transcribed بدائية, an ASR shape of وردية) is the recast - his 'وردنية that's right' at 12:14 accepts it and her 12:16 صح confirms his echo. The extra ن in his echo وردنية (r2's wrong piece) is S4, so the row is anchored on the real slip ورداني. Her sheet has pink as زهري, but she accepted وردي here.",
+        "english": "a pink blouse"
+      },
+      "why": "r2's 12:14 وردنية is his echo of her fix (she said صح), so that piece alone is pronunciation; the underlying slip the transcript supports is 12:06 ورداني (masc adjective on a feminine noun) with her 12:13 recast - kept as grammar A8. If an agreed row already covers 12:06, this is its duplicate."
+    },
+    {
+      "id": "D25",
+      "verdict": "drop",
+      "why": "Not an error: 'أزد هم' is قصدهم with his ق->ء pronunciation (she says أزت herself at 24:14) plus an ASR word-space; مش قصدهم = 'it wasn't their intention' is right (sheet: intention | Qaṣd | قصد), and his 24:38 مش أزتم shows the suffix attached. She moved on to 'upset' without reacting."
+    },
+    {
+      "id": "D26",
+      "verdict": "keep",
+      "row": {
+        "id": "0910-D26",
+        "t": "54:44",
+        "t_amal": "54:51",
+        "medi_said": "إن و-- إن. الف-الفعلات. الفعلات إن.",
+        "amal_said": "أفعال.",
+        "chat": null,
+        "wrong": "الفعلات",
+        "right": "الأفعال",
+        "kind": "vocab-A",
+        "tier": 2,
+        "bucket": null,
+        "bucket2": null,
+        "mode": "speaking",
+        "signal": "recast",
+        "confidence": "high",
+        "why": "Plural of فعل (sheet: verb – verbs | Fe3el | فعل) is the broken plural أفعال; he invented a -ات plural فعلات, she recast أفعال and he said الأفعال at 54:53. The reader brief files an invented plural pattern as vocab tier 2; A9 is the grammar mould it belongs to, should the tally want a bucket2.",
+        "english": "the verbs (the in- verbs)"
+      },
+      "why": "Both readers saw the slip and only the label differs; the reader brief explicitly lists 'wrong plural pattern he invented' under vocab tier 2, so vocab-A tier 2 (r1) over grammar A9 (r2)."
+    }
+  ],
+  "added": []
+}
