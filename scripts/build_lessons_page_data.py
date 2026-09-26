@@ -32,6 +32,26 @@ DOCS = os.path.join(REPO, "docs")
 RAW = r"C:\dev\anees\data\lessons"
 NODE = r"C:\dev\tools\node-v24.18.0-win-x64\node.exe"
 TMP = os.path.join(__import__("tempfile").gettempdir(), "anees-lessons-page")
+def _confirmed_new():
+    try:
+        import db
+        return sorted({(str(r["lesson_date"]), r["word_key"]) for r in db.select("amal_rules", {"select": "lesson_date,word_key,kind", "kind": "eq.new"}) if r.get("word_key")})
+    except Exception:
+        return [("2026-09-04", "ana babse6"), ("2026-09-04", "banbese6")]   # last read 2026-09-25
+CONFIRMED_NEW = _confirmed_new()
+# Claude's reading of what each lesson drilled (from LESSON_TYPES notes); shown as a reading, never scored.
+TAUGHT = {   # [her-style Arabizi (built from her Doc/chat forms), Arabic]
+    "2026-09-04": [["babse6 / banbese6", "بسط / انبسط"]],
+    "2026-09-05": [["baz3ej / banze3ej", "زعج / انزعج"], ["babse6 / banbese6 (review)", "بسط / انبسط"]],
+    "2026-09-10": [["bakser / bankeser", "كسر / انكسر"], ["baz3ej / banze3ej (review)", "زعج / انزعج"]],
+    "2026-09-11": [["5arab / 5arrab", "خرب / خرّب"]],
+    "2026-09-14": [["baz3ej / banze3ej", "زعج / انزعج"], ["bakser / bankeser", "كسر / انكسر"], ["babse6 / banbese6", "بسط / انبسط"]],
+    "2026-09-15": [["8ayyar / t8ayyar", "غيّر / تغيّر"], ["sawwar / tsawwar", "صوّر / تصوّر"], ["zakkar / tzakkar", "ذكّر / تذكّر"], ["bakser / bankeser (review)", "كسر / انكسر"]],
+    "2026-09-16": [["7ammas / t7ammas", "حمّس / تحمّس"], ["wajja3 / twajja3", "وجّع / توجّع"], ["daaya2 / tdaaya2", "ضايق / تضايق"], ["7arrak / t7arrak", "حرّك / تحرّك"]],
+    "2026-09-17": [["t2assaf (la / min)", "تأسف (لـ / من)"], ["5awwaf", "خوّف"], ["da77ak", "ضحّك"], ["5arab / 5arrab (review)", "خرب / خرّب"]],
+    "2026-09-18": [["zahha2 / zehe2", "زهّق / زهق"], ["ta33ab / te3eb", "تعّب / تعب"], ["za33al / ze3el", "زعّل / زعل"], ["5awwaf / 5aaf", "خوّف / خاف"], ["da77ak / de7ek", "ضحّك / ضحك"], ["3assab", "عصّب"]],
+    "2026-09-19": [["the verb pairs, as listening", "—"]],
+}
 DATES = ["2026-08-25", "2026-09-04", "2026-09-05", "2026-09-10", "2026-09-11", "2026-09-14", "2026-09-15",
          "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-21", "2026-09-23"]
 GLUE = 1.2          # s: words closer than this are one turn
@@ -364,7 +384,8 @@ DEFINITIONS = {
     "latency.n": "How many replies were measured.",
     "flow.wpm": "Speaking flow: Arabic words per minute inside Medi's Arabic turns (a turn = words with gaps under 1.2 s; only turns with at least 2 Arabic-script words; filled pauses not counted as words). English-only turns and Latin-script transliterations are left out.",
     "flow.n_turns": "How many of his Arabic turns went into wpm.",
-    "new_words": "New-words lessons only: words on Amal's list whose first appearance in any recorded lesson is this one and that Amal said in it. Arabizi is her spelling (rule S1); a word she never wrote stays in Arabic.",
+    "new_words": "Only words Amal (or Medi) marked new for this lesson (amal_rules kind='new'). Never guessed from the recording (hard rule 2026-09-05).",
+    "taught": "What the lesson drilled, from Claude's reading of the transcript - not Amal's mark, never scored.",
 }
 
 
@@ -507,21 +528,16 @@ def build():
 
         # ---- new words
         typ, mode, why = LESSON_TYPES[date]
+        # HARD RULE (Medi 2026-09-05): "new" = only words Amal (or Medi) marked new for this lesson
+        # (amal_rules kind='new') or a Doc diff. Never inferred from "first time on the recording" -
+        # that listed words Medi already knew (Medi 2026-09-25).
         new_words = []
-        if typ == "new-words":
-            for k, f in node["firstSeen"].items():
+        for d_, k in CONFIRMED_NEW:
+            if d_ == date:
                 wi = info.get(k, {})
-                ft = first_text(wi.get("arabic"), text_all)
-                first = min(x for x in (f["date"], ft) if x)
-                amal_here = (f["date"] == date and f["amal"]) or first_text(wi.get("arabic"), {d: (text_amal[d] if d == date else "") for d in DATES}) == date
-                if first == date and amal_here:
-                    new_words.append({"key": k, "arabic": wi.get("arabic"), "english": wi.get("english"),
-                                      "t": round(min(f["amal"]), 1) if f["date"] == date and f["amal"] else None,
-                                      "_ar": wi.get("arabic")})
-            new_words.sort(key=lambda x: (x["t"] is None, x["t"] or 0))
-            for x in new_words:
-                need_ar.add(x["_ar"])
-
+                new_words.append({"key": k, "arabic": wi.get("arabic"), "english": wi.get("english"), "t": None, "_ar": wi.get("arabic")})
+                need_ar.add(wi.get("arabic"))
+        taught = TAUGHT.get(date, [])
         # ---- per-lesson heavy parts
         turns = [{"t": round(p["t"], 2), "end": p["end"], "who": "chat" if p["chat"] else p["who"],
                   **({"typed_by": p["who"]} if p["chat"] else {}), "text": p["text"]} for p in P]
@@ -567,7 +583,7 @@ def build():
             "duration_min": round(dur / 60, 1) if dur else None,
             "type": typ, "review_mode": mode, "type_why": why, "type_source": "claude-read",
             "words": words, "grammar": grammar, "talk": talk, "fillers": fillers, "latency": latency, "flow": flow,
-            "new_words": new_words, "coverage": per_lesson_cov.get(date), "notes": notes,
+            "new_words": new_words, "taught": taught, "coverage": per_lesson_cov.get(date), "notes": notes,
             "page": f"lessons/{date}.html", "detail": f"data/lessons/{date}.json",
             "counts": {"turns": sum(1 for p in P if not p["chat"]), "chat_lines": sum(1 for p in P if p["chat"]),
                        "vocab_errors": len(verr), "grammar_errors": len(gerr)},

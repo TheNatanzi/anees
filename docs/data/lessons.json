@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-25T12:46:16-07:00",
+ "updated": "2026-09-25T23:45:02-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -26,7 +26,8 @@
   "latency.n": "How many replies were measured.",
   "flow.wpm": "Speaking flow: Arabic words per minute inside Medi's Arabic turns (a turn = words with gaps under 1.2 s; only turns with at least 2 Arabic-script words; filled pauses not counted as words). English-only turns and Latin-script transliterations are left out.",
   "flow.n_turns": "How many of his Arabic turns went into wpm.",
-  "new_words": "New-words lessons only: words on Amal's list whose first appearance in any recorded lesson is this one and that Amal said in it. Arabizi is her spelling (rule S1); a word she never wrote stays in Arabic."
+  "new_words": "Only words Amal (or Medi) marked new for this lesson (amal_rules kind='new'). Never guessed from the recording (hard rule 2026-09-05).",
+  "taught": "What the lesson drilled, from Claude's reading of the transcript - not Amal's mark, never scored."
  },
  "lessons": [
   {
@@ -102,6 +103,7 @@
     "arabic_words": 602
    },
    "new_words": [],
+   "taught": [],
    "coverage": "read all 624 turns 02:54-59:55 (source transcript.txt, chat=0 so no typed lines). 36:27-42:30 is transcribed in Latin transliteration (‹›) not Arabic script. No untranscribed gaps; 09:32-13:48 is Meet setup talk in English.",
    "notes": [
     "timings: one mixed recording, speakers labelled by the engine's diarization (words_labeled.json)"
@@ -187,7 +189,28 @@
     "n_turns": 64,
     "arabic_words": 182
    },
-   "new_words": [],
+   "new_words": [
+    {
+     "key": "ana babse6",
+     "arabic": "أنا ببسط",
+     "english": "I cause happiness",
+     "t": null,
+     "arabizi": "Ana babse6"
+    },
+    {
+     "key": "banbese6",
+     "arabic": "بنبسط",
+     "english": "I get happy / enjoy myself",
+     "t": null,
+     "arabizi": "Banbese6"
+    }
+   ],
+   "taught": [
+    [
+     "babse6 / banbese6",
+     "بسط / انبسط"
+    ]
+   ],
    "coverage": "read all 1046 turns 00:04-1:03:11 (source transcript.txt, chat=0). Diarization is badly fragmented: many turns are 1-3 words and sentences are split across speakers, so Amal/Medi labels are often swapped (e.g. 02:15-02:19, 52:21-52:33, 1:01:29-1:01:33). 11:00-22:30 is almost all English about AI tooling; 22:50-24:50 is an English interruption with a honey seller. 21:00 onward is mostly Latin transliteration. Lesson core 28:00-1:03:00 is a بسط/انبسط conjugation drill.",
    "notes": [
     "timings: one mixed recording, speakers labelled by the engine's diarization (words_labeled.json)"
@@ -273,175 +296,16 @@
     "n_turns": 63,
     "arabic_words": 193
    },
-   "new_words": [
-    {
-     "key": "mAshi",
-     "arabic": "ماشي",
-     "english": "Sounds good / Okay / Alright",
-     "t": 122.2,
-     "arabizi": "Maashi"
-    },
-    {
-     "key": "ana ba5ali",
-     "arabic": "أنا بخلّي",
-     "english": "I let",
-     "t": 586.1,
-     "arabizi": "Ana ba5alli"
-    },
-    {
-     "key": "ta5yIm",
-     "arabic": "تخييم",
-     "english": "Camping",
-     "t": 599.8,
-     "arabizi": "ta5yeem"
-    },
-    {
-     "key": "byebse6",
-     "arabic": "بيبسط",
-     "english": "It causes happiness / makes someone happy",
-     "t": 832.8,
-     "arabizi": "Byebse6"
-    },
-    {
-     "key": "mbAre7",
-     "arabic": "مبارح",
-     "english": "Yesterday",
-     "t": 964.6,
-     "arabizi": "Mbaare7"
-    },
-    {
-     "key": "ziAdeh",
-     "arabic": "زيادة",
-     "english": "Extra / increase",
-     "t": 1223.9,
-     "arabizi": "Ziaadeh"
-    },
-    {
-     "key": "ana baz3ej",
-     "arabic": "أنا بزعج",
-     "english": "I annoy",
-     "t": 1324.0,
-     "arabizi": "Ana baz3ej"
-    },
-    {
-     "key": "maz3Uj",
-     "arabic": "مزعوج",
-     "english": "Annoyed",
-     "t": 1339.6,
-     "arabizi": "Maz3ooj"
-    },
-    {
-     "key": "muz3ej",
-     "arabic": "مزعج",
-     "english": "Annoying",
-     "t": 1369.7,
-     "arabizi": "Muz3ej"
-    },
-    {
-     "key": "mawjU3",
-     "arabic": "موجوع",
-     "english": "In pain / hurt (physical)",
-     "t": 1406.6,
-     "arabizi": "Mawjoo3"
-    },
-    {
-     "key": "ma7rUj",
-     "arabic": "محروج",
-     "english": "Emberrassed",
-     "t": 1408.4,
-     "arabizi": "Ma7rooj"
-    },
-    {
-     "key": "majrU7",
-     "arabic": "مجروح",
-     "english": "Hurt",
-     "t": 1411.1,
-     "arabizi": "Majroo7"
-    },
-    {
-     "key": "mut3eb",
-     "arabic": "متعب",
-     "english": "Tiring",
-     "t": 1428.3,
-     "arabizi": "Mut3eb"
-    },
-    {
-     "key": "ana bas2al",
-     "arabic": "أنا بسأل",
-     "english": "Ask (question)",
-     "t": 1474.7,
-     "arabizi": "Ana bas2al"
-    },
-    {
-     "key": "ana banze3ej",
-     "arabic": "أنا بنزعج",
-     "english": "I get annoyed",
-     "t": 1632.3,
-     "arabizi": "Ana banze3ej"
-    },
-    {
-     "key": "jAhez",
-     "arabic": "جاهز",
-     "english": "Ready",
-     "t": 1966.4,
-     "arabizi": "Jaahez"
-    },
-    {
-     "key": "bidUn",
-     "arabic": "بدون",
-     "english": "Without",
-     "t": 2373.1,
-     "arabizi": "bidoon"
-    },
-    {
-     "key": "3Asefe",
-     "arabic": "عاصفة",
-     "english": "Storm",
-     "t": 2587.7,
-     "arabizi": "3aasefe"
-    },
-    {
-     "key": "3am",
-     "arabic": "عم",
-     "english": "Uncle (Paternal)",
-     "t": 2770.3,
-     "arabizi": "3aam"
-    },
-    {
-     "key": "5arbAn",
-     "arabic": "خربان",
-     "english": "Not working properly",
-     "t": 2774.0,
-     "arabizi": "5arbaan"
-    },
-    {
-     "key": "3ain f",
-     "arabic": "عين",
-     "english": "Eye",
-     "t": 3052.1,
-     "arabizi": "3ain (F)"
-    },
-    {
-     "key": "shab3An",
-     "arabic": "شبعان",
-     "english": "Full (Food)",
-     "t": 3327.3,
-     "arabizi": "Shab3aan"
-    },
-    {
-     "key": "5ali",
-     "arabic": "خلّي",
-     "english": "Let",
-     "t": null,
-     "arabizi": "5ali"
-    },
-    {
-     "key": "beizahe2",
-     "arabic": "بيزهق",
-     "english": "Boring / causes boredom",
-     "t": null,
-     "arabizi": "beyzahhe2"
-    }
+   "new_words": [],
+   "taught": [
+    [
+     "baz3ej / banze3ej",
+     "زعج / انزعج"
+    ],
+    [
+     "babse6 / banbese6 (review)",
+     "بسط / انبسط"
+    ]
    ],
    "coverage": "read all 834 turns 00:26-1:02:14; no chat lines in file; 00:26-06:02 is app demo talk (Medi recounts an OLD lazim ba'amal fix at 04:32 - not counted); Medi's Arabic mostly transcribed in Latin letters, so wrong/right pieces are rendered in Arabic script from those spellings",
    "notes": [
@@ -482,266 +346,16 @@
    "fillers": null,
    "latency": null,
    "flow": null,
-   "new_words": [
-    {
-     "key": "ana bab3at la",
-     "arabic": "أنا ببعت",
-     "english": "I send",
-     "t": 9.5,
-     "arabizi": "Ana bab3at (la-)"
-    },
-    {
-     "key": "risAle",
-     "arabic": "رسالة",
-     "english": "Message / Letter",
-     "t": 10.0,
-     "arabizi": "Risaale"
-    },
-    {
-     "key": "7ot",
-     "arabic": "حط",
-     "english": "Put",
-     "t": 17.7,
-     "arabizi": "7ott"
-    },
-    {
-     "key": "7uk",
-     "arabic": "حك",
-     "english": "Scratch",
-     "t": 29.6,
-     "arabizi": "7ukk"
-    },
-    {
-     "key": "eb3at",
-     "arabic": "ابعت",
-     "english": "Send",
-     "t": 101.0,
-     "arabizi": "Eb3at"
-    },
-    {
-     "key": "marhaba",
-     "arabic": "مرحبا",
-     "english": "Hello / Hello / Hi",
-     "t": 104.7,
-     "arabizi": "marhaba"
-    },
-    {
-     "key": "3ashrah",
-     "arabic": "عشرة",
-     "english": "ten",
-     "t": 406.9,
-     "arabizi": "3ashrah"
-    },
-    {
-     "key": "tes3ah",
-     "arabic": "تسعة",
-     "english": "nine",
-     "t": 407.3,
-     "arabizi": "tes3ah"
-    },
-    {
-     "key": "sitah",
-     "arabic": "ستة",
-     "english": "six",
-     "t": 418.9,
-     "arabizi": "sittah"
-    },
-    {
-     "key": "talat",
-     "arabic": "تلات",
-     "english": "three",
-     "t": 438.3,
-     "arabizi": "talat"
-    },
-    {
-     "key": "tentain",
-     "arabic": "تنتين",
-     "english": "Two (F)",
-     "t": 439.0,
-     "arabizi": "Tentain"
-    },
-    {
-     "key": "ila",
-     "arabic": "إلا",
-     "english": "Except",
-     "t": 443.0,
-     "arabizi": "illa"
-    },
-    {
-     "key": "tult~2",
-     "arabic": "تلت",
-     "english": "Third",
-     "t": 443.2,
-     "arabizi": "Tult"
-    },
-    {
-     "key": "kIf aljaw",
-     "arabic": "كيف الجو؟",
-     "english": "How's the weather? / How's the vibe?",
-     "t": 448.2,
-     "arabizi": "Keef el-jaww?"
-    },
-    {
-     "key": "jad",
-     "arabic": "جد",
-     "english": "Seriously / Really",
-     "t": 455.6,
-     "arabizi": "Jadd"
-    },
-    {
-     "key": "kahraba",
-     "arabic": "كهربا",
-     "english": "Electricity",
-     "t": 531.2,
-     "arabizi": "Kahraba"
-    },
-    {
-     "key": "muhandes",
-     "arabic": "مهندس",
-     "english": "Engineer",
-     "t": 544.0,
-     "arabizi": "Muhandes"
-    },
-    {
-     "key": "dars",
-     "arabic": "درس",
-     "english": "Lesson",
-     "t": 789.9,
-     "arabizi": "Dars"
-    },
-    {
-     "key": "aljAi",
-     "arabic": "الجاي",
-     "english": "Next / the coming (M)",
-     "t": 997.6,
-     "arabizi": "El-jaay"
-    },
-    {
-     "key": "wa7ad",
-     "arabic": "واحد",
-     "english": "One",
-     "t": 1024.2,
-     "arabizi": "Wa7ad"
-    },
-    {
-     "key": "wAjeb",
-     "arabic": "واجب",
-     "english": "Homework / Duty",
-     "t": 1105.2,
-     "arabizi": "Waajeb"
-    },
-    {
-     "key": "ana bashuf",
-     "arabic": "أنا بشوف",
-     "english": "I see",
-     "t": 1349.2,
-     "arabizi": "Ana bashuf"
-    },
-    {
-     "key": "ya2tiki al2afyah",
-     "arabic": "يعطيكي العافية",
-     "english": "said when someone is working, doing effort or casual hello/bye (f))",
-     "t": 1525.4,
-     "arabizi": "ya'tiki al'afyah"
-    },
-    {
-     "key": "hadIk",
-     "arabic": "هديك",
-     "english": "That (F)",
-     "t": 1532.8,
-     "arabizi": "Hadik"
-    },
-    {
-     "key": "2arIb",
-     "arabic": "قريب",
-     "english": "Close",
-     "t": 1674.5,
-     "arabizi": "2areeb"
-    },
-    {
-     "key": "ana bakser",
-     "arabic": "أنا بكسر",
-     "english": "I break",
-     "t": 1675.9,
-     "arabizi": "Ana bakser"
-    },
-    {
-     "key": "haiyo",
-     "arabic": "هيو",
-     "english": "Here it is",
-     "t": 1691.7,
-     "arabizi": "Hayyo"
-    },
-    {
-     "key": "sa3b",
-     "arabic": "صعب",
-     "english": "Difficult",
-     "t": 1692.9,
-     "arabizi": "sa3b"
-    },
-    {
-     "key": "jAr",
-     "arabic": "جار",
-     "english": "Neighbour",
-     "t": 2198.5,
-     "arabizi": "Jaar"
-    },
-    {
-     "key": "noa3",
-     "arabic": "نوع",
-     "english": "Type / kind",
-     "t": 2314.5,
-     "arabizi": "Noa3"
-    },
-    {
-     "key": "maksUr",
-     "arabic": "مكسور",
-     "english": "Broken (physical)",
-     "t": 2995.9,
-     "arabizi": "Maksoor"
-    },
-    {
-     "key": "law samaht",
-     "arabic": "لو سمحت",
-     "english": "Please (m)",
-     "t": 3032.5,
-     "arabizi": "Law samaht"
-    },
-    {
-     "key": "wala mara",
-     "arabic": "ولا مرة",
-     "english": "Never / not once",
-     "t": 3149.9,
-     "arabizi": "Wala marra"
-    },
-    {
-     "key": "kulshi",
-     "arabic": "كلشي",
-     "english": "Everything",
-     "t": 3269.7,
-     "arabizi": "kulshi"
-    },
-    {
-     "key": "ana ba7rej",
-     "arabic": "أنا بحرج",
-     "english": "I embarrass",
-     "t": 3455.1,
-     "arabizi": "Ana ba7rej"
-    },
-    {
-     "key": "ana ban7erej",
-     "arabic": "أنا بنحرج",
-     "english": "I get embarrassed",
-     "t": 3455.6,
-     "arabizi": "Ana ban7erej"
-    },
-    {
-     "key": "su5un",
-     "arabic": "سخن",
-     "english": "Hot (M)",
-     "t": 3567.9,
-     "arabizi": "Su5un"
-    }
+   "new_words": [],
+   "taught": [
+    [
+     "bakser / bankeser",
+     "كسر / انكسر"
+    ],
+    [
+     "baz3ej / banze3ej (review)",
+     "زعج / انزعج"
+    ]
    ],
    "coverage": "read all 970 turns 00:03-1:02:40; no chat lines; no machine audit exists for this lesson (never audited) so every row is a machine miss; 00:03-01:42 is setup noise; 42:15-42:34 Medi talks to a passer-by; 57:27-end is mostly Amal explaining which verbs to learn",
    "notes": [
@@ -828,133 +442,12 @@
     "n_turns": 101,
     "arabic_words": 327
    },
-   "new_words": [
-    {
-     "key": "malyAn",
-     "arabic": "مليان",
-     "english": "Full (General/Object)",
-     "t": 68.5,
-     "arabizi": "Malyaan"
-    },
-    {
-     "key": "akalet",
-     "arabic": "أكلت",
-     "english": "I ate",
-     "t": 101.0,
-     "arabizi": "Akalet"
-    },
-    {
-     "key": "sahtein",
-     "arabic": "صحتين",
-     "english": "Bon appétit",
-     "t": 119.7,
-     "arabizi": "sahtein"
-    },
-    {
-     "key": "murAja3a",
-     "arabic": "مراجعة",
-     "english": "Review",
-     "t": 155.7,
-     "arabizi": "Muraaja3a"
-    },
-    {
-     "key": "ana barAje3",
-     "arabic": "أنا براجع",
-     "english": "I review",
-     "t": 163.5,
-     "arabizi": "Ana baraaje3"
-    },
-    {
-     "key": "ma6ar",
-     "arabic": "مطر",
-     "english": "Rain",
-     "t": 385.0,
-     "arabizi": "Ma6ar"
-    },
-    {
-     "key": "3etme",
-     "arabic": "عتمة",
-     "english": "Darkness",
-     "t": 421.2,
-     "arabizi": "3etme"
-    },
-    {
-     "key": "aldenia",
-     "arabic": "الدنيا",
-     "english": "The world / the conditions",
-     "t": 431.4,
-     "arabizi": "El-denia"
-    },
-    {
-     "key": "3Adatan",
-     "arabic": "عادةً",
-     "english": "Usually",
-     "t": 496.2,
-     "arabizi": "3aadatan"
-    },
-    {
-     "key": "nejme",
-     "arabic": "نجمة",
-     "english": "Star",
-     "t": 557.8,
-     "arabizi": "Nejme"
-    },
-    {
-     "key": "jame3",
-     "arabic": "جمع",
-     "english": "Plural",
-     "t": 629.4,
-     "arabizi": "Jame3"
-    },
-    {
-     "key": "8arIb",
-     "arabic": "غريب",
-     "english": "Weird",
-     "t": 629.9,
-     "arabizi": "8areeb"
-    },
-    {
-     "key": "kul yoam",
-     "arabic": "كل يوم",
-     "english": "Everyday",
-     "t": 865.3,
-     "arabizi": "Kul yoam"
-    },
-    {
-     "key": "safra",
-     "arabic": "سفرة",
-     "english": "(Travel) trip",
-     "t": 1701.2,
-     "arabizi": "Safra"
-    },
-    {
-     "key": "3azUme",
-     "arabic": "عزومة",
-     "english": "House gathering / Invitation",
-     "t": 1827.8,
-     "arabizi": "3azoome"
-    },
-    {
-     "key": "tanUra",
-     "arabic": "تنورة",
-     "english": "Skirt",
-     "t": 2258.4,
-     "arabizi": "Tannoora"
-    },
-    {
-     "key": "2afwan",
-     "arabic": "عفواً",
-     "english": "You're welcome",
-     "t": 2406.2,
-     "arabizi": "'afwan"
-    },
-    {
-     "key": "shoraba",
-     "arabic": "شوربة",
-     "english": "Soup",
-     "t": 3403.7,
-     "arabizi": "Shoraba"
-    }
+   "new_words": [],
+   "taught": [
+    [
+     "5arab / 5arrab",
+     "خرب / خرّب"
+    ]
    ],
    "coverage": "read all 937 turns 00:41-1:02:26 (no chat lines). Gaps: Medi's Arabic mostly '[speaking Arabic]' 18:13-22:42, 30:33-31:57, 33:14-36:33; Amal '[speaks Arabic]' 49:44-56:28; 46:02-58:37 Medi in Latin script.",
    "notes": [
@@ -1042,6 +535,20 @@
     "arabic_words": 323
    },
    "new_words": [],
+   "taught": [
+    [
+     "baz3ej / banze3ej",
+     "زعج / انزعج"
+    ],
+    [
+     "bakser / bankeser",
+     "كسر / انكسر"
+    ],
+    [
+     "babse6 / banbese6",
+     "بسط / انبسط"
+    ]
+   ],
    "coverage": "read all 1041 lines (996 spoken turns + 45 chat) 00:02-1:02:40. Medi often in Latin script (12:00-23:30, 40:00-53:50); STT garbles Amal's اخترت as اشتريت; 43:59-45:38 Medi away.",
    "notes": [],
    "page": "lessons/2026-09-14.html",
@@ -1125,77 +632,24 @@
     "n_turns": 91,
     "arabic_words": 264
    },
-   "new_words": [
-    {
-     "key": "beidal",
-     "arabic": "بيضل",
-     "english": "Remains",
-     "t": 1456.8,
-     "arabizi": "Beydall"
-    },
-    {
-     "key": "rAs",
-     "arabic": "راس",
-     "english": "Head",
-     "t": 1701.6,
-     "arabizi": "Raas"
-    },
-    {
-     "key": "ana bat8aiyar",
-     "arabic": "أنا بتغير",
-     "english": "I get changed",
-     "t": 1747.1,
-     "arabizi": "Ana bat8ayyar"
-    },
-    {
-     "key": "maw3ed",
-     "arabic": "موعد",
-     "english": "Appointment (time)",
-     "t": 1954.6,
-     "arabizi": "Maw3ed"
-    },
-    {
-     "key": "ana batzakar",
-     "arabic": "أنا بتذكر",
-     "english": "I remember",
-     "t": 2795.0,
-     "arabizi": "Ana batzakkar"
-    },
-    {
-     "key": "ana bazaker",
-     "arabic": "أنا بذكر",
-     "english": "I remind",
-     "t": 2795.8,
-     "arabizi": "Ana bazakker"
-    },
-    {
-     "key": "ana batwaja3",
-     "arabic": "أنا بتوجع",
-     "english": "I get hurt",
-     "t": 3456.2,
-     "arabizi": "Ana batwajja3"
-    },
-    {
-     "key": "ana ba7ames",
-     "arabic": "أنا بحمس",
-     "english": "I excite (someone)",
-     "t": 3460.4,
-     "arabizi": "Ana ba7ammes"
-    },
-    {
-     "key": "tfadal",
-     "arabic": "تفضل",
-     "english": "Here you go / welcome (M)",
-     "t": null,
-     "arabizi": "tfaddal"
-    },
-    {
-     "key": "estana",
-     "arabic": "استنى",
-     "english": "Wait",
-     "t": null,
-     "arabizi": "estanna"
-    }
+   "new_words": [],
+   "taught": [
+    [
+     "8ayyar / t8ayyar",
+     "غيّر / تغيّر"
+    ],
+    [
+     "sawwar / tsawwar",
+     "صوّر / تصوّر"
+    ],
+    [
+     "zakkar / tzakkar",
+     "ذكّر / تذكّر"
+    ],
+    [
+     "bakser / bankeser (review)",
+     "كسر / انكسر"
+    ]
    ],
    "coverage": "read all 1097 turns 00:36-1:07:03; Medi's Arabic often Latin-script STT; no untranscribed gaps",
    "notes": [],
@@ -1280,98 +734,24 @@
     "n_turns": 41,
     "arabic_words": 118
    },
-   "new_words": [
-    {
-     "key": "ana balashet",
-     "arabic": "أنا بلشت",
-     "english": "I started",
-     "t": 255.9,
-     "arabizi": "Ana ballashet"
-    },
-    {
-     "key": "mnIhah",
-     "arabic": "منيحة",
-     "english": "Good (female)",
-     "t": 318.2,
-     "arabizi": "mneehah"
-    },
-    {
-     "key": "bei7ames",
-     "arabic": "بيحمس",
-     "english": "Exciting",
-     "t": 798.4,
-     "arabizi": "bey7ammes"
-    },
-    {
-     "key": "kAmel",
-     "arabic": "كامل",
-     "english": "Whole / Complete",
-     "t": 1559.6,
-     "arabizi": "kaamel"
-    },
-    {
-     "key": "ana badAye2",
-     "arabic": "أنا بدايق",
-     "english": "I upset someone",
-     "t": 2583.0,
-     "arabizi": "Ana badaaye2"
-    },
-    {
-     "key": "ana ba7arek",
-     "arabic": "أنا بحرك",
-     "english": "I move",
-     "t": 2585.0,
-     "arabizi": "Ana ba7arrek"
-    },
-    {
-     "key": "ana bat7arak",
-     "arabic": "أنا بتحرك",
-     "english": "I (get moved) move",
-     "t": 2585.6,
-     "arabizi": "Ana bat7arrak"
-    },
-    {
-     "key": "shwai shwai",
-     "arabic": "شوي شوي",
-     "english": "Bit by bit / Slowly",
-     "t": 2900.4,
-     "arabizi": "Shwai shwai"
-    },
-    {
-     "key": "sir",
-     "arabic": "صير",
-     "english": "Become",
-     "t": 3203.2,
-     "arabizi": "Sir"
-    },
-    {
-     "key": "7arek",
-     "arabic": "حرّك",
-     "english": "Move (something)",
-     "t": 3392.9,
-     "arabizi": "7arrek"
-    },
-    {
-     "key": "yamIn",
-     "arabic": "يمين",
-     "english": "Right",
-     "t": 3455.4,
-     "arabizi": "Yameen"
-    },
-    {
-     "key": "wara2a",
-     "arabic": "ورقة",
-     "english": "Leaf / Paper / Sheet",
-     "t": 3929.3,
-     "arabizi": "Waraqa"
-    },
-    {
-     "key": "alah i2afiki",
-     "arabic": "الله يعافيكي",
-     "english": "ya'tiki al'afyah response",
-     "t": 4149.9,
-     "arabizi": "Allah Y'afiki"
-    }
+   "new_words": [],
+   "taught": [
+    [
+     "7ammas / t7ammas",
+     "حمّس / تحمّس"
+    ],
+    [
+     "wajja3 / twajja3",
+     "وجّع / توجّع"
+    ],
+    [
+     "daaya2 / tdaaya2",
+     "ضايق / تضايق"
+    ],
+    [
+     "7arrak / t7arrak",
+     "حرّك / تحرّك"
+    ]
    ],
    "coverage": "read all 1038 turns 01:17-1:09:56; untranscribed Medi Arabic at 27:01-27:45, 28:55-31:33, 1:02:47-1:08:20 ([speaking Arabic]) so fixes there rest on Amal's side only",
    "notes": [
@@ -1454,77 +834,24 @@
     "n_turns": 59,
     "arabic_words": 180
    },
-   "new_words": [
-    {
-     "key": "sawi",
-     "arabic": "سوي",
-     "english": "Do / make",
-     "t": 160.4,
-     "arabizi": "Sawwi"
-    },
-    {
-     "key": "5afIf",
-     "arabic": "خفيف",
-     "english": "Light",
-     "t": 277.7,
-     "arabizi": "5afeef"
-    },
-    {
-     "key": "9U9",
-     "arabic": "صوص",
-     "english": "Chick",
-     "t": 431.8,
-     "arabizi": "9oo9"
-    },
-    {
-     "key": "se7i",
-     "arabic": "صحي",
-     "english": "Healthy",
-     "t": 470.5,
-     "arabizi": "Se77i"
-    },
-    {
-     "key": "hAda hu",
-     "arabic": "هذا هو",
-     "english": "That’s it",
-     "t": 881.4,
-     "arabizi": "Haada hu"
-    },
-    {
-     "key": "ana ba7ut",
-     "arabic": "أنا بحط",
-     "english": "I put",
-     "t": 915.2,
-     "arabizi": "Ana ba7ut"
-    },
-    {
-     "key": "7arf",
-     "arabic": "حرف",
-     "english": "Letter – letters / preposition",
-     "t": 918.3,
-     "arabizi": "7arf"
-    },
-    {
-     "key": "ana ba5awef",
-     "arabic": "بخوِّف",
-     "english": "I scare / make people scared / I scare (someone)",
-     "t": 1901.2,
-     "arabizi": "Ana ba5awwef"
-    },
-    {
-     "key": "5a6et",
-     "arabic": "خطّط",
-     "english": "Plan",
-     "t": 2290.4,
-     "arabizi": "5a66et"
-    },
-    {
-     "key": "kun",
-     "arabic": "كن",
-     "english": "Be",
-     "t": 3481.2,
-     "arabizi": "Kun"
-    }
+   "new_words": [],
+   "taught": [
+    [
+     "t2assaf (la / min)",
+     "تأسف (لـ / من)"
+    ],
+    [
+     "5awwaf",
+     "خوّف"
+    ],
+    [
+     "da77ak",
+     "ضحّك"
+    ],
+    [
+     "5arab / 5arrab (review)",
+     "خرب / خرّب"
+    ]
    ],
    "coverage": "read all 954 turns + 41 chat lines 00:30-1:03:45; Medi's Arabic untranscribed ('[speaking Arabic]') in ~14:00-22:15 and scattered later, so 0917-08/09 rest on Amal's side only",
    "notes": [
@@ -1607,21 +934,32 @@
     "n_turns": 24,
     "arabic_words": 64
    },
-   "new_words": [
-    {
-     "key": "ai sA3a",
-     "arabic": "أي ساعة؟",
-     "english": "At what time?",
-     "t": 27.0,
-     "arabizi": "Ay saa3a"
-    },
-    {
-     "key": "alsube7",
-     "arabic": "الصبح",
-     "english": "Morning",
-     "t": 91.5,
-     "arabizi": "el-sube7"
-    }
+   "new_words": [],
+   "taught": [
+    [
+     "zahha2 / zehe2",
+     "زهّق / زهق"
+    ],
+    [
+     "ta33ab / te3eb",
+     "تعّب / تعب"
+    ],
+    [
+     "za33al / ze3el",
+     "زعّل / زعل"
+    ],
+    [
+     "5awwaf / 5aaf",
+     "خوّف / خاف"
+    ],
+    [
+     "da77ak / de7ek",
+     "ضحّك / ضحك"
+    ],
+    [
+     "3assab",
+     "عصّب"
+    ]
    ],
    "coverage": "read all 962 turns + 66 chat lines 00:12-1:04:26; no machine audit exists; Medi's Arabic is blank/untranscribed in 20:40-31:10 (causative-adjective drill), so rows there are low or missing; chat is on the raw Meet clock and runs ~0.5-2 min behind the spoken exchange it matches",
    "notes": [
@@ -1702,6 +1040,12 @@
     "arabic_words": 80
    },
    "new_words": [],
+   "taught": [
+    [
+     "the verb pairs, as listening",
+     "—"
+    ]
+   ],
    "coverage": "read all 843 turns + 78 chat lines, 00:00-1:02:03. Lesson is mostly a listening drill (Amal says a verb form, Medi translates to English); most grammar fixes are comprehension of causative/reflexive, tense and person, marked '(listening drill)' in mistake. Medi's own Arabic production is only ~06:30-10:30 and a few drill lines. Several Medi lines ASR-garbled (e.g. 'Kamara', 'Tawamara' = kamaan marra).",
    "notes": [],
    "page": "lessons/2026-09-19.html",
@@ -1786,6 +1130,7 @@
     "arabic_words": 581
    },
    "new_words": [],
+   "taught": [],
    "coverage": "read all 1274 turns + 57 chat lines, 00:01-1:12:04; no untranscribed gaps; 32:13-32:48 and 49:54-50:33 have overlapping/garbled lines",
    "notes": [],
    "page": "lessons/2026-09-21.html",
@@ -1870,6 +1215,7 @@
     "arabic_words": 276
    },
    "new_words": [],
+   "taught": [],
    "coverage": "read all 790 turns + 57 chat lines, 00:52-1:04:32. GAP: Medi's track missing 00:00-~23:40 (first Medi line 23:44); only Amal's side exists there. Logged 3 Amal-only recasts from the gap (0923-01..03, low, medi_said null); skipped ambiguous ones (08:21 أكلت, 21:33 أحجز, 13:08 date). 59:08-1:02:16 dual drill + sentence: Medi's Arabic mostly '[speaking Arabic]', unreadable.",
    "notes": [
     "talk, fillers, latency and flow measured from 23:43 on: Medi's first recording (0:00-22:37) has no transcript, so only Amal's side exists before that.",

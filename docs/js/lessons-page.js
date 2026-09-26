@@ -494,23 +494,33 @@ function transcript(body, x) {
 function newWords(L) {
   var box = el('div', 'ls-newwords');
   var words = L.new_words || [];
-  box.appendChild(el('h3', 'gc-secttitle', 'New words in this lesson (' + words.length + ')'));
-  if (!words.length) { box.appendChild(el('div', 'gc-empty', 'No new words on Amal’s list first appeared in this lesson.')); return box; }
-  var grid = el('div', 'ls-nwgrid');
-  words.forEach(function (w) {
-    var c = el('div', 'ls-nw');
-    var top = el('div', 'ls-nwtop');
-    top.appendChild(el('strong', 'ls-nwlatin', w.arabizi || w.arabic));
-    if (num(w.t)) top.appendChild(timeButton(L.date, w.t, 'Amal'));
-    c.appendChild(top);
-    var ar = el('div', 'ls-ar', w.arabic);
-    ar.setAttribute('lang', 'ar'); ar.setAttribute('dir', 'rtl');
-    c.appendChild(ar);
-    if (!w.arabizi) c.appendChild(el('div', 'gc-spellnote', 'Unverified spelling stays in Arabic'));
-    c.appendChild(el('div', 'ls-en', w.english || ''));
-    grid.appendChild(c);
-  });
-  box.appendChild(grid);
+  box.appendChild(el('h3', 'gc-secttitle', 'New words Amal marked (' + words.length + ')'));
+  if (!words.length) box.appendChild(el('div', 'gc-empty', 'Amal hasn’t marked any new words for this lesson. Anees never guesses them.'));
+  else {
+    var grid = el('div', 'ls-nwgrid');
+    words.forEach(function (w) {
+      var c = el('div', 'ls-nw');
+      var top = el('div', 'ls-nwtop');
+      top.appendChild(el('strong', 'ls-nwlatin', w.arabizi || w.arabic));
+      c.appendChild(top);
+      var ar = el('div', 'ls-ar', w.arabic); ar.setAttribute('lang', 'ar'); ar.setAttribute('dir', 'rtl'); c.appendChild(ar);
+      c.appendChild(el('div', 'ls-en', w.english || ''));
+      grid.appendChild(c);
+    });
+    box.appendChild(grid);
+  }
+  var taught = L.taught || [];
+  if (taught.length) {
+    box.appendChild(el('h3', 'gc-secttitle', 'What this lesson drilled (Claude’s reading, not Amal’s mark)'));
+    var row = el('div', 'ls-tags');
+    taught.forEach(function (x) {
+      var c = el('div', 'ls-taught');
+      c.appendChild(el('strong', 'ls-nwlatin', x[0]));
+      var ar = el('div', 'ls-ar', x[1]); ar.setAttribute('lang', 'ar'); ar.setAttribute('dir', 'rtl'); c.appendChild(ar);
+      row.appendChild(c);
+    });
+    box.appendChild(row);
+  }
   return box;
 }
 function detail(L) {
