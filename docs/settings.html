@@ -1,0 +1,26 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>System Settings · Anees</title><script src="js/theme.js"></script><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/word-bank.css?v=reliability-1"><link rel="stylesheet" href="css/settings.css?v=1"></head><body><div id="anees-bank" aria-label="Anees System Settings">
+
+<div class="ab-shell">
+<aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="progress.html">Progress &amp; Stats</a><a class="ab-nav" href="lessons.html">Lessons &amp; Audio</a><a class="ab-nav" href="word-bank.html">Word Bank</a><a class="ab-nav" href="grammar.html">Grammar Rules</a><a class="ab-nav" href="cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="index.html#amal">Tutor Notes &amp; Practice</a><a class="ab-nav" href="big-picture.html">Big Picture</a><button class="ab-nav" aria-current="page">System Settings</button></nav></aside>
+<main><header class="ab-header"><div><h1>System Settings</h1><div class="ab-sub">The rules Anees runs on, the research behind them, and what is planned next.</div></div><span class="ab-preview" id="st-source">Loading…</span></header>
+<p id="st-notice" class="ab-sub" role="status"></p><section class="ab-metrics" id="st-metrics" aria-label="Settings summary"></section>
+<div class="ab-tabs st-tabs" id="st-tabs" aria-label="Settings section"></div>
+<p class="ab-sub st-tabnote" id="st-tabnote"></p>
+<div class="ab-controls"><input id="st-search" type="search" aria-label="Search rules, reports and projects" placeholder="Search an id, a rule, a word…"></div>
+<div class="ab-controls"><div class="ab-chips" id="st-chips" aria-label="Status filters"></div><button class="ab-clear" id="st-reset" type="button" hidden>Clear filters</button></div>
+<div class="ab-viewnote"><span id="st-results" aria-live="polite"></span><span id="st-legend"></span></div>
+<div class="ab-grid st-grid ab-tablehead" id="st-head"></div><section id="st-rows" aria-label="Settings rows"></section>
+<p class="ab-mini" id="st-coverage"></p>
+</main></div>
+</div>
+<script>
+(async function(){
+ try {
+  let build='settings-1';
+  try{const response=await fetch('data/build.json',{cache:'no-store',signal:AbortSignal.timeout(10000)});if(response.ok){const latest=await response.json();if(latest.build)build=latest.build;}}catch{}
+  window.ANEES_SETTINGS_BUILD=build;
+  for(const link of document.querySelectorAll('link[rel="stylesheet"]'))link.href=link.getAttribute('href').split('?')[0]+'?build='+encodeURIComponent(build);
+  await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='js/settings-page.js?build='+encodeURIComponent(build);script.onload=resolve;script.onerror=reject;document.body.append(script);});
+ }catch{document.getElementById('st-notice').textContent='The settings page could not load. Please refresh to retry.';}
+})();
+</script></body></html>

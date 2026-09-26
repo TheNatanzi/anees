@@ -1,0 +1,32 @@
+{
+ "updated": "2026-09-23",
+ "source": "RULES.md",
+ "intro_md": "Rules that outlive any one build. Everything here binds the code, the pages, the wiki, and every\nagent (Claude, Codex) writing to Medi. A rule changes only when Medi says so, in writing, here.",
+ "rules": [
+  {
+   "id": "S1",
+   "title": "Amal's spelling is the only spelling",
+   "body_md": "**The rule.** Every Arabic word Anees prints is spelled the way **Amal** writes it. Anees never invents\nan Arabizi spelling, never normalises hers toward MSA, and never borrows another dialect's convention.\n\n**Where a spelling comes from, in order.** First match wins:\n\n| # | Source | What it is |\n|---|---|---|\n| 1 | `words.house_spelling` | Her own typed form, mined from her WhatsApp lines by `scripts/house_spelling.py` (seen ≥ 2 times, most frequent wins; a tie goes to the most recent and both stay in `forms`) |\n| 2 | The vocabulary Doc `arabizi` column | Her Doc spelling |\n| 3 | The Doc's Arabic script | Her Arabic |\n| 4 | — | Nothing. The word stays in **Arabic script** on screen, labelled \"Unverified spelling stays in Arabic\" |\n\nThere is no step 5. If Amal has never written it, Anees does not guess it in Latin letters.\n\n**Amended by Medi 2026-09-23 (\"these are all no brainers\"):** a word that is not on her list whole may be\nshown in Arabizi when it is built from her own spellings and fits the sentence. Kept in\n`docs/data/arabizi-extra.json`, one row per word with its method and source:\n\n| Method | What it is | Example |\n|---|---|---|\n| `sound` | the transcript or his accent swapped a similar letter; her word fits the sentence | دلت → her ضلت **dallat** |\n| `pieces` | her word + her prefixes/endings, with the real vowel change | بيزعجني → **byez3ejni** (her baz3ej); شغلي → **shu8li** (her Shu8ul) |\n| `her-chat` | she typed it in WhatsApp, even once | مقلاة → **Ma2la** |\n| `guess` | no piece of hers exists; natural Levantine in her style | country names |\n\nTarget: 95 of 100 correct on a random hand check. Fragments and unclear words stay in Arabic.\n\n**Her letters.** `2` ء · `3` ع · `5` خ · `6` ط · `7` ح · `8` غ · `9` ص. Use these, not IPA, not MSA\ntransliteration, not another tutor's chart.\n\n**Her dialect choices win over any textbook.** Example: she writes the \"we\" prefix as `bn-`\n(bnebse6, bne2dar, benkoon). Other Levantine sources write `m-`. Anees keeps `bn-`.\n\n**Display vs matching.** Her spelling is for **display only**. The Doc key stays the match key, so\nchanging a display spelling never re-scores anything.\n\n**Who this binds.**\n- every screen, card, report, drill and email Anees generates\n- every wiki and plan page in this repo\n- **every answer an agent writes to Medi in chat** — examples are quoted from her Doc, and anything\n  not from her is marked as unverified, not presented as her spelling\n\n**Medi never reviews Arabizi spellings.** Best guess ships, Amal corrects. (Standing rule since\n2026-09-05.)\n\n**Where it lives in code.** `scripts/house_spelling.py`, `docs/data/house_spelling.json`,\n`words.house_spelling` in Supabase, and the \"Unverified spelling stays in Arabic\" fallback in\n`docs/js/word-bank-arabizi.js`."
+  },
+  {
+   "id": "S2",
+   "title": "Raw transcripts are never edited",
+   "body_md": "Amal's and Medi's recorded words stay exactly as the engine wrote them. Corrections live in an\noverlay (`docs/data/word-bank-review.json`), never in the source. See `docs/word-bank-review-rules.md`."
+  },
+  {
+   "id": "S3",
+   "title": "A slip is only a slip when there is a signal",
+   "body_md": "Nothing is scored wrong because a model thinks it sounds wrong. A grammar or word miss needs Amal\nrecasting it, or Medi asking. (Rule M1.)"
+  },
+  {
+   "id": "S4",
+   "title": "Pronunciation is never a missed word",
+   "body_md": "A dropped ع or ط is logged as pronunciation, with the stumble kept. It never reduces a word's score\nand never counts as \"did not say it\". (Rule M4.)"
+  },
+  {
+   "id": "S5",
+   "title": "Pauses are not errors",
+   "body_md": "Medi builds a sentence before he says it. A long pause before a right answer is a right answer.\n(Rule M7.)"
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+/* System Settings: the Word Bank's layout (word-bank.css). Only what it lacks. */
+#anees-bank .ab-grid.st-grid{grid-template-columns:78px minmax(0,2.4fr) minmax(90px,1fr) 118px;gap:12px;align-items:center}
+#anees-bank .st-tabs{flex-wrap:wrap;column-gap:18px;row-gap:0}
+#anees-bank .st-tabnote{margin:0 0 12px;line-height:1.5}
+#anees-bank .st-rowhead{width:100%;border:0;background:transparent;text-align:left;color:inherit;padding:13px 10px}
+#anees-bank .st-rowhead:hover{background:var(--ab-raised)}
+#anees-bank .st-row{border-left:3px solid var(--ab-line)}
+#anees-bank .st-row-enforced{border-left-color:var(--ab-green)}
+#anees-bank .st-row-partly{border-left-color:var(--ab-orange)}
+#anees-bank .st-row-planned{border-left-color:var(--ab-muted)}
+#anees-bank .st-row-standing{border-left-color:var(--ab-accent)}
+#anees-bank .st-id{display:flex;gap:7px;align-items:baseline;font-weight:500;font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap}
+#anees-bank .st-title{font-size:13px;font-weight:500;line-height:1.4;min-width:0}
+#anees-bank .st-group{font-size:11px;color:var(--ab-muted)}
+#anees-bank .st-status{display:inline-block;font-size:11px;padding:3px 9px;border-radius:20px;border:1px solid currentColor;white-space:nowrap;text-transform:capitalize}
+#anees-bank .st-enforced{color:var(--ab-green)}#anees-bank .st-partly{color:var(--ab-orange)}#anees-bank .st-planned{color:var(--ab-muted)}
+#anees-bank .st-standing{color:var(--ab-accent)}#anees-bank .st-claude{color:var(--ab-orange)}#anees-bank .st-codex{color:var(--ab-blue)}
+#anees-bank .st-chip-enforced[aria-pressed=true]{border-color:var(--ab-green)}#anees-bank .st-chip-partly[aria-pressed=true]{border-color:var(--ab-orange)}
+#anees-bank .st-kpinum{font-family:var(--sabz-font-serif);font-size:18px;font-weight:500;font-variant-numeric:tabular-nums;line-height:1.1}
+#anees-bank .st-small{font-size:11px;color:var(--ab-muted);margin-top:3px}
+#anees-bank .st-detail{display:grid;gap:10px;font-size:12px;line-height:1.55}
+#anees-bank .st-detail{grid-template-columns:minmax(0,1fr);min-width:0}#anees-bank .st-detail>*{margin:0;min-width:0}
+#anees-bank .st-field strong{font-weight:600}
+#anees-bank .st-md p,#anees-bank .st-md ul{margin:0 0 10px}#anees-bank .st-md ul{padding-left:20px}
+#anees-bank .st-md code,#anees-bank .st-detail code{font-size:11px;padding:1px 4px;border-radius:3px;background:var(--ab-raised)}
+#anees-bank .st-tablewrap{overflow-x:auto;margin:0 0 10px}
+#anees-bank .st-table{border-collapse:collapse;font-size:12px;min-width:100%}
+#anees-bank .st-table th,#anees-bank .st-table td{border:1px solid var(--ab-line);padding:6px 8px;text-align:left;vertical-align:top}
+#anees-bank .st-table th{background:var(--ab-raised);font-weight:500}
+#anees-bank .st-kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:7px}
+#anees-bank .st-kpi .ab-number{font-size:20px}
+#anees-bank .st-bars{display:grid;gap:5px}
+#anees-bank .st-barstitle{margin-bottom:3px}
+#anees-bank .st-brow{display:grid;grid-template-columns:minmax(120px,240px) minmax(60px,1fr) 34px;gap:9px;align-items:center;font-size:11px}
+#anees-bank .st-track{height:9px;border-radius:5px;background:var(--ab-raised);overflow:hidden}
+#anees-bank .st-fill{height:100%;background:var(--ab-accent)}
+#anees-bank .st-fill.st-grey{background:light-dark(#B9B4A6,#56645C)}#anees-bank .st-fill.st-low{background:var(--ab-red)}
+#anees-bank .st-bv{text-align:right;font-variant-numeric:tabular-nums}
+#anees-bank .st-links{display:flex;gap:8px;flex-wrap:wrap}
+#anees-bank .st-link{border:1px solid var(--ab-line);background:var(--ab-raised);border-radius:5px;padding:5px 10px;font-size:12px;color:var(--ab-accent);text-decoration:none}
+#anees-bank .st-link:hover{border-color:var(--ab-accent)}
+@media(max-width:680px){
+#anees-bank .ab-grid.st-grid{grid-template-columns:auto minmax(0,1fr);gap:6px 10px}
+#anees-bank .st-title{grid-column:1/-1;grid-row:2}
+#anees-bank .st-group{grid-column:1;grid-row:3}
+#anees-bank .st-last{grid-column:2;grid-row:1;justify-self:end}
+#anees-bank .st-brow{grid-template-columns:1fr 34px}#anees-bank .st-track{grid-column:1/-1;grid-row:2}
+}
