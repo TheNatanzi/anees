@@ -408,12 +408,25 @@ function grammarClip(date, e) {
   var c = CLIPS[e.id] || CLIPS[date + ' ' + e.mmss];
   return c && c.clip ? 'lessons/' + c.clip : null;
 }
+// The rule this slip belongs to, loud: id + name, your level on it (Grammar page status + % right), its one-line rule.
+function ruleHead(e, date) {
+  var r = RULES[e.bucket] || {};
+  var box = el('div', 'ls-rulehead');
+  var top = el('div', 'ls-ruletop');
+  top.appendChild(el('span', 'ls-ruleid', e.bucket || '?'));
+  top.appendChild(el('span', 'ls-rulename', r.name || e.bucket_name || 'grammar'));
+  if (r.status) top.appendChild(el('span', 'ls-rulepill ls-rulepill-' + r.status, r.status + (num(r.pct) ? ' · ' + r.pct + '%' : '')));
+  var t = el('span', 'ls-ruletime'); t.appendChild(timeButton(date, e.t, 'Medi')); top.appendChild(t);
+  box.appendChild(top);
+  if (r.one_line) box.appendChild(el('div', 'ls-ruleline', r.one_line.replace(/`/g, '')));
+  return box;
+}
 function grammarList(body, x) {
   var list = x.grammar_errors || [];
   if (!list.length) { body.appendChild(el('div', 'gc-empty', 'No grammar slips Amal corrected in this lesson.')); return; }
   list.forEach(function (e) {
     var card = el('div', 'gc-use gc-use-slip');
-    card.appendChild(itemHead((e.bucket ? e.bucket + ' · ' : '') + (e.bucket_name || 'grammar'), null, x.date, e.t));
+    card.appendChild(ruleHead(e, x.date));
     if (e.mistake) card.appendChild(el('div', 'ls-mistake', e.mistake));
     card.appendChild(speech('gc-said', markText(e.said, [[e.wrong, 'ab-wrong']]), null));
     if (e.fix) {
@@ -557,6 +570,7 @@ function wire() {
 function optional(url) {
   return fetch(url).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
 }
+var RULES = Object.create(null);
 var q = '?build=' + encodeURIComponent(BUILD);
 Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json' + q), optional('data/word-bank-catalog.json' + q), optional('data/arabizi-extra.json' + q), optional('data/grammar-console.json' + q)])
   .then(function (res) {
@@ -570,6 +584,7 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
     }
     // Grammar clips cut from the hand sweep: joined by sweep id, else by date + mm:ss.
     ((res[4] && res[4].rules) || []).forEach(function (r) {
+      RULES[r.id] = { name: r.name, status: r.status, pct: r.pct, one_line: r.one_line };
       (r.candidates || []).concat(r.events || []).forEach(function (c) {
         if (!c.clip) return;
         if (c.id) CLIPS[c.id] = c;
