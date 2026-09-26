@@ -127,13 +127,33 @@ def build():
         per_lesson.append({"date": d, "coverage": st.get("coverage"), "r3_note": st.get("r3_note"), "passes": pass_log(d),
                            "agreement_pct": c.get("agreement_pct"), "readers_rows": c.get("final"),
                            "in_sweep_too": n_both, "new_vs_sweep": n_new, "sweep_only_kept": kept})
+    # rows a human hand check rejected (data/lesson-work/full-audit/rejected.json): kept in the file, never scored
+    rej_p = os.path.join(WORK, "rejected.json")
+    if os.path.exists(rej_p):
+        for x in json.load(open(rej_p, encoding="utf-8"))["rows"]:
+            for r in rows:
+                if r["date"] == x["date"] and same_moment(r, x) and same_piece(r.get("wrong"), x.get("wrong")) and r["kind"] != "rejected":
+                    r["kind_before_rejection"] = r["kind"]
+                    r["kind"] = "rejected"
+                    r["rejected_why"] = x["why"]
+                    break
     # per-row bucket names + a stable order
     for r in rows:
         if r.get("bucket") in buckets:
             r["bucket_name"] = buckets[r["bucket"]]["name"]
     rows.sort(key=lambda r: (r["date"], sec(r.get("t")) if sec(r.get("t")) is not None else 1e9))
+    # uid is STABLE across rebuilds (patterns.json and Amal's rulings key on it): a hash of date + moment + wrong piece,
+    # not a position. `n` is the display order.
+    import hashlib
+    seen_uid = set()
     for i, r in enumerate(rows, 1):
-        r["uid"] = f"FA-{i:04d}"
+        base = f"{r['date']}|{int(sec(r.get('t')) or 0)}|{norm(r.get('wrong'))}|{kind_class(r.get('kind'))}"
+        uid = "FA-" + hashlib.sha1(base.encode("utf-8")).hexdigest()[:8]
+        while uid in seen_uid:
+            uid += "x"
+        seen_uid.add(uid)
+        r["uid"] = uid
+        r["n"] = i
 
     def cnt(pred):
         return sum(1 for r in rows if pred(r))
