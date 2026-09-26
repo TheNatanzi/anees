@@ -1,0 +1,59 @@
+# Grammar buckets (docs/data/grammar-buckets.json)
+
+- **A1** el- (the) (The noun phrase): `el-` marks a thing you already know; nothing marks a new one.
+- **A2** idafa (possession) (The noun phrase): Thing first, owner second - and the first word never takes `el-`.
+- **A3** feminine -t in idafa (The noun phrase): A feminine first word grows a `-t` before the owner.
+- **A4** possessive endings (The noun phrase): Stick the owner on the end of the word.
+- **A5** chain possession (The noun phrase): Stack three or more nouns; only the last can take `el-`.
+- **A6** professions (The noun phrase): Job titles are idafa too - watch where `el-` lands.
+- **A7** noun + adjective (The noun phrase): Adjective goes AFTER. Where `el-` sits changes sentence vs phrase.
+- **A8** gender on adjectives (The noun phrase): Feminine noun takes a feminine adjective.
+- **A9** plurals (The noun phrase): Some add an ending, many change shape, and two has its own form.
+- **A10b** demonstrative keeps el- (The noun phrase): The noun after hada / hadi / hadol keeps its `el-`.
+- **A10** hada / hadi (The noun phrase): This-and-that words must match the gender.
+- **A9b** broken plurals are patterns (The noun phrase): The irregular plurals repeat the same few shapes - learn the mould, not 200 words.
+- **A11** kul: all vs every (The noun phrase): `kul` + `el-` = all of it. `kul` alone = every.
+- **B1** present with b- (The verb system): Every ordinary present verb starts with b-.
+- **B2** b-drop after modals (The verb system): No b- after want/must/can words.
+- **B3** b-drop after time words (The verb system): No b- after lamma, iza, ra7, 3ashaan - but KEEP it after enno.
+- **B4** the drop carries down a chain (The verb system): Once dropped, it stays dropped across u / aw / wala.
+- **B4b** when the b- comes back (The verb system): The b- returns the moment you leave the want/must clause.
+- **B5** past tense (The verb system): Endings on the back of the verb say who did it.
+- **B6** kaan = was / were (The verb system): Arabic has no 'was' in the present, but it does in the past.
+- **B7** kaan + b-verb = used to (The verb system): Habitual past - something you did regularly.
+- **B8** bakoon / ykoon (The verb system): No 'to be' in the plain present, but you need it after lamma/iza and for habits.
+- **B9** person on ykoon (The verb system): The ykoon form must match who you're talking about.
+- **B10** commands (The verb system): Telling someone to do something.
+- **B11** negative commands (The verb system): `ma` or `la` in front of the YOU-form.
+- **B12** make-X vs get-X (The verb system): Doubling the middle letter turns 'I become' into 'I make someone'.
+- **B13** future with ra7 (The verb system): `ra7` plus a bare verb.
+- **B14** 3am = right now (The verb system): `3am` plus a verb means it's happening this second.
+- **B15** participles (The verb system): State words that act like adjectives.
+- **B16** kan laazem (The verb system): `kaan` stacked on `laazem` = had to / should have.
+- **B17** saarli (The verb system): 'It's been X for me' - duration up to now.
+- **B18** verb matches its subject (The verb system): The verb's person, gender and number must match who or what is doing it.
+- **C1** no word for 'to be' (Sentence glue): Arabic drops am / is / are in the plain present.
+- **C2** the pointer rule (Sentence glue): Move the object to the front and the verb grows an ending pointing back.
+- **C3** comparatives (Sentence glue): `a7san`, `aktar`, `a2al` - and never `el-` in front.
+- **C4** saying no (Sentence glue): `ma` before verbs, `mish` before nouns and adjectives.
+- **C4b** words that drag a ma along (Sentence glue): `abadan` is not enough on its own - the verb still needs `ma`.
+- **C5** u / aw / wala (Sentence glue): and, either-or, nor/nothing.
+- **C6** iza / lamma (Sentence glue): if, when - and both change the verb after them.
+- **C7** illi (Sentence glue): 'the one that' - never changes shape.
+- **C8** question words (Sentence glue): The basic set.
+- **C9** word order (Sentence glue): Normal is verb then object; front the object and C2 kicks in.
+- **C10** preposition goes in front (Sentence glue): English leaves it dangling; Arabic never does.
+- **D1** prepositions (Words that pick their partner): Small words with several jobs each.
+- **D2** verb + its fixed preposition (Words that pick their partner): The verb chooses it. You can't guess from English.
+- **D5** preposition keeps el- (Words that pick their partner): Where English drops 'the', Levantine keeps it.
+- **D3** endings on prepositions (Words that pick their partner): Stick the person on the end of the preposition.
+- **D4** endings on verbs (Words that pick their partner): The object rides on the back of the verb.
+- **D6** iyyaa - the second object (Words that pick their partner): A verb carries only one pronoun; a second one rides on `iyyaa`.
+- **E1** number + noun (Numbers and time): 2 has its own form; 3-10 take a plural; 11+ take a SINGULAR.
+- **E2** clock time (Numbers and time): `el-saa3a` + the feminine number.
+- **E3** time units, two-of and many-of (Numbers and time): Each unit has three forms.
+- **E4** calendar (Numbers and time): Days, months, and 'on Monday'.
+- **E5** kam + singular (Numbers and time): After `kam` (how many) the noun is always singular - never plural.
+- **F1** the seven hard letters (Sound shape (pronunciation, not grammar)): Sounds English doesn't have - scored as pronunciation, not grammar.
+- **F2** vowel length (Sound shape (pronunciation, not grammar)): Holding a vowel longer changes the word.
+- **F3** shadda (doubled letter) (Sound shape (pronunciation, not grammar)): Hold the consonant twice as long.
