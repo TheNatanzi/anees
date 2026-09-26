@@ -33,10 +33,11 @@ test('ambiguous Arabic never matches a Doc word',()=>{
  assert.equal(S.matcher(two)({arabic:'هو',arabizi:''}),null);
  assert.equal(S.matcher(two)({arabic:'هو',arabizi:'huwwe'}).key,'a');
 });
-test('all 106 imported sets parse; every blank-sided term (6) is skipped',()=>{
+test('all 107 imported sets parse (106 Amal WhatsApp + Body Parts & Clothing 2026-09-26); every blank-sided term (6) is skipped',()=>{
  const match=S.matcher([]);let terms=0,cards=0;
  for(const set of sets){terms+=set.terms.length;cards+=S.quizletCards(set,match).length;}
- assert.equal(sets.length,106);assert.equal(terms,2330);
+ assert.equal(sets.length,107);assert.equal(terms,2406);
+ const bpc=sets.find(x=>x.id==='1155772050');assert.equal(bpc.title,'Body Parts & Clothing');assert.equal(bpc.terms.length,76);assert.equal(S.quizletCards(bpc,match).length,76);
  const blanks=sets.flatMap(s=>s.terms).filter(([a,b])=>!String(a||'').trim()||!String(b||'').trim()).length;
  assert.equal(blanks,6);assert.ok(cards<=terms-blanks);
 });
@@ -44,12 +45,12 @@ test('Quizlet groups: named sets once each, dated sets hidden (Medi 2026-09-22);
  const g=S.quizletGroups(sets);
  assert.deepEqual(g.map(x=>x.name),['Plurals','Possession & pronouns','Verbs','Topics']);
  const dated=sets.filter(s=>S.isDated(s.title));
- assert.equal(g.reduce((n,x)=>n+x.sets.length,0),106-dated.length);
+ assert.equal(g.reduce((n,x)=>n+x.sets.length,0),107-dated.length);
  const shown=g.flatMap(x=>x.sets.map(s=>s.title));
  for(const t of ['December 12 Verbs','March 15 Audio Homework','Friday December 5, 2025','Feb 12 Emotions','May 2 Audio Homework','January 2 verbs']){assert.ok(S.isDated(t),t);assert.ok(!shown.includes(t),t);}
  for(const t of ['Colors','Command','Audio Homework','Mishwaar-Mashaweer Plural List','Pleasantries PT1','Adjectives (PT2)']) assert.ok(!S.isDated(t),t);
  const by=Object.fromEntries(g.map(x=>[x.id,x.sets.map(s=>s.title)]));
- assert.ok(by.plurals.includes('Family Plurals'));assert.ok(by.possession.includes('Possessive Forms'));assert.ok(by.verbs.includes('Command'));assert.ok(by.topics.includes('Colors'));
+ assert.ok(by.plurals.includes('Family Plurals'));assert.ok(by.possession.includes('Possessive Forms'));assert.ok(by.verbs.includes('Command'));assert.ok(by.topics.includes('Colors'));assert.ok(by.topics.includes('Body Parts & Clothing'));
  const c=S.collocationSets(sets);assert.deepEqual(c.map(s=>s.terms.length),[36,25]);
 });
 test('Set colour counts: mastered / good / shaky / wrong / untested from the flashcard bucket',()=>{
