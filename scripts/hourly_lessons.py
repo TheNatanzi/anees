@@ -194,6 +194,10 @@ def refresh_published(dates, raw, work):
         run(sys.executable, str(HERE / 'review_silent_credits.py'), '--raw', str(raw), '--work', str(work), *track_dates)
     run('node', str(HERE / 'audit_word_bank_reliability.cjs'), str(ROOT / 'docs/data/word-bank-evidence.json'))
     run(sys.executable, str(HERE / 'build_lessons_page_data.py'))          # the transcript on the lesson clock, for the readers
+    try:                                                                     # sentence-length ladder (never blocks the publish)
+        subprocess.run([sys.executable, str(HERE / 'build_sentence_ladder.py')], cwd=ROOT, check=False, timeout=900, capture_output=True)
+    except Exception as e:
+        log('build_sentence_ladder failed', e)
     run(sys.executable, str(HERE / 'write_build.py'))
     # Same-day review (full audit step 8, Medi 2026-09-25): two readers -> third reader -> pages -> Amal's line items.
     # Runs claude headlessly; a failure here never blocks the publish above (logged, the next hour retries the missing file).

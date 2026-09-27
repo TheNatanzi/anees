@@ -22,6 +22,8 @@ from lesson_turns import lesson_turns  # noqa: E402
 
 ANEES = r"C:\dev\anees\data\lessons"
 DOCS = r"C:\dev\anees-hourly\docs"
+if not os.path.isdir(DOCS):   # 2026-09-27: a machine without the hourly worktree reads this repo's docs (same files)
+    DOCS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs")
 OUT = os.path.join(DOCS, "data", "grammar-usage.json")
 
 AR_WORD = re.compile(r"[\u0621-\u063A\u0641-\u064A\u064B-\u0652\u0670]+")
