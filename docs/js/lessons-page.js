@@ -465,7 +465,7 @@ function vocabList(body, x, mode) {
     var card = el('div', 'gc-use ' + (v.kind === 'partial' ? 'ls-use-partial' : 'gc-use-slip'));
     card.appendChild(itemHead(v.label || v.kind, null, x.date, v.t));
     card.appendChild(headWord(v));
-    card.appendChild(speech('gc-said', v.said_html, v.said));
+    card.appendChild(mediSaid(v.t, speech('gc-said', v.said_html, v.said)));
     if (v.fix) {
       var rc = el('div', 'gc-recast');
       rc.appendChild(el('span', null, 'Amal: '));
@@ -481,11 +481,18 @@ function vocabList(body, x, mode) {
     body.appendChild(card);
   });
 }
+// "Medi (mm:ss):" over what he said - the same shape as Amal's line under it (Medi 2026-09-26)
+function mediSaid(t, sp) {
+  var box = el('div', 'gc-recast ls-medisaid');
+  box.appendChild(el('span', null, 'Medi' + (num(t) ? ' (' + mmss(t) + ')' : '') + ': '));
+  box.appendChild(sp);
+  return box;
+}
 function okCard(x, v) {
   var card = el('div', 'gc-use ' + (v.kind === 'partial' ? 'ls-use-partial' : 'ls-use-ok'));
   card.appendChild(itemHead(v.label || 'Correct', 'ls-tag-ok', x.date, v.t));
   card.appendChild(headWord(v));
-  card.appendChild(speech('gc-said', v.said_html, v.said));
+  card.appendChild(mediSaid(v.t, speech('gc-said', v.said_html, v.said)));
   var cv = convoFold(x, v.t, null, null); if (cv) card.appendChild(cv);
   var bar = el('div', 'ls-plays');
   if (v.clip) bar.appendChild(playButton('Play clip', function () { play(v.clip, 0, prettyDate(x.date) + ' · ' + v.mmss + ' · ' + (v.arabizi || v.arabic)); }));
@@ -517,7 +524,7 @@ function grammarList(body, x) {
     var card = el('div', 'gc-use gc-use-slip');
     card.appendChild(ruleHead(e, x.date));
     if (e.mistake) card.appendChild(el('div', 'ls-mistake', e.mistake));
-    card.appendChild(speech('gc-said', markText(e.said, [[e.wrong, 'ab-wrong']]), null));
+    card.appendChild(mediSaid(e.t, speech('gc-said', markText(e.said, [[e.wrong, 'ab-wrong']]), null)));
     if (e.fix) {
       var rc = el('div', 'gc-recast');
       rc.appendChild(el('span', null, 'Amal' + (num(e.t_fix) ? ' (' + mmss(e.t_fix) + ')' : '') + ': '));
