@@ -729,7 +729,7 @@ def build():
         keep, dropped = [], []
         for e in v["vocab_errors"]:
             x = VD.get((d, e.get("mmss"), e.get("arabic")))
-            if x and x.get("verdict") == "not_an_error":
+            if x and x.get("verdict") in ("not_an_error", "duplicate"):   # duplicate = the same slip already counted once
                 e["verdict_reason"] = x.get("reason")
                 dropped.append(e)
                 continue
@@ -758,7 +758,7 @@ def build():
                 w["scored"] -= 1
             w["not_an_error"] = len(dropped)
             w["pct"] = round(100 * (w["right"] + .5 * w["partial"]) / w["scored"], 1) if w["scored"] else None
-            L["notes"].append(f"{len(dropped)} word card(s) dropped after the 2026-09-27 hand check (the transcript shows he said it right or it was not his slip): "
+            L["notes"].append(f"{len(dropped)} word card(s) dropped after the 2026-09-27 hand check (he said it right, it was not his slip, or it repeats a slip already counted): "
                               + "; ".join(f"{e['mmss']} {e.get('arabic')}" for e in dropped) + ".")
     # The rating must count the audit's slips too (Medi 2026-09-26: an error card said "Mastered · 100% right · 0 wrong").
     # Every on-sheet audit slip of a word (all lessons) is added to its Word Bank record: wrong = a miss, asked = partial.
