@@ -14,6 +14,7 @@ Steps (each idempotent - an existing output file is reused, so a crash resumes w
   6 pages     build_lessons_page_data.py, build_grammar_console.py, build_amal_grammar_rules.py, arabizi_everywhere.py
   7 Amal      `claude -p` pattern reader for this lesson's B rows (PATTERN-BRIEF.md, appends to patterns.json)
               -> build_amal_review.py -> amal_review_link.py (refreshes her hub payload) -> prints the hub link
+  7b after     after_from_audit.py -> 3-5 "was he right here?" questions with clips -> amal_links kind after (on her hub)
   8 git       commit + push (unless --no-push / --dry-run)
 Never sends anything to Amal. Never re-transcribes. `claude` = the Claude Code CLI on PATH (2.1+).
 """
@@ -118,6 +119,12 @@ def main():
         else:
             claude(pattern_prompt(d), f"{d} patterns")
     py(os.path.join(HERE, "build_amal_review.py"), check=False)
+    # 7b Amal's after-lesson questions for THIS lesson (scripts/after_from_audit.py): 3-5 rows the readers were least
+    # sure of, one clip each; her taps come back through apply_amal_audit_rulings.py. Never sent - the hub shows it.
+    if a.dry_run:
+        py(os.path.join(HERE, "after_from_audit.py"), d, "--dry-run", check=False)
+    else:
+        py(os.path.join(HERE, "after_from_audit.py"), d, check=False)
     link = None
     if not a.dry_run:
         r = subprocess.run([sys.executable, os.path.join(HERE, "amal_review_link.py")], cwd=REPO, capture_output=True, text=True, encoding="utf-8")

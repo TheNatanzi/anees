@@ -69,7 +69,7 @@ function build(p){
       ${playBtn(id+'p',q.clip,q.offset)}${q.typed?`<input id="${id}t" placeholder="her spelling (optional)" aria-label="spelling">`:''}<div class="btns">${q.buttons.slice(0,3).map((b,j)=>`<button id="${id}b${j}">${esc(b)}</button>`).join('')}</div><a href="#" id="${id}skip" class="skip">Skip this one</a>`,
       wire(){ wirePlay(id+'p');
         const answer=(label)=>{ const kind=kinds[label]||'skip'; const typed=document.getElementById(id+'t'); const pl={t:q.t,ask:q.ask,label,clip:q.clip,arabic:q.arabic,arabizi:q.arabizi};
-          if(typed&&typed.value.trim()) pl.alias=typed.value.trim(); if(missKind[label]) pl.miss_kind=missKind[label]; if(q.who) pl.who=true;
+          if(typed&&typed.value.trim()) pl.alias=typed.value.trim(); if(q.audit_uid) pl.audit_uid=q.audit_uid; if(missKind[label]) pl.miss_kind=missKind[label]; if(q.who) pl.who=true;
           (answers.q=answers.q||{})[i]=label; rule(kind,q.word_key,pl); save(); next(); };
         q.buttons.slice(0,3).forEach((b,j)=>document.getElementById(id+'b'+j).onclick=()=>answer(b));
         document.getElementById(id+'skip').onclick=e=>{e.preventDefault(); answer('Skip');}; }});

@@ -23,8 +23,12 @@ REVIEW = os.path.join(REPO, "docs", "data", "amal-review.json")
 
 def load_rulings():
     import db
-    return [r for r in db.select("amal_rules", {"select": "*", "source": "eq.review", "order": "created_at.asc"})
+    rows = [r for r in db.select("amal_rules", {"select": "*", "source": "eq.review", "order": "created_at.asc"})
             if r.get("kind") in ("audit_confirm", "audit_skip")]
+    # after-lesson taps on audit rows (scripts/after_from_audit.py): Right = not an error, Wrong = confirmed, Not Medi = drop
+    rows += [r for r in db.select("amal_rules", {"select": "*", "source": "eq.after", "order": "created_at.asc"})
+             if (r.get("payload") or {}).get("audit_uid") and r.get("kind") in ("right", "wrong", "not_medi")]
+    return rows
 
 
 def apply(dry=False):
@@ -46,6 +50,22 @@ def apply(dry=False):
             continue
         uids = p.get("rows") or []
         pid = ru.get("word_key")
+        if p.get("audit_uid"):                                   # one after-lesson question = one row
+            r = rows.get(p["audit_uid"])
+            if r:
+                if ru["kind"] == "wrong":
+                    r["confidence"] = "high"
+                    r["signal"] = r.get("signal") or "amal-ruling"
+                    r["amal_ruling"] = {"kind": "confirm", "at": ru.get("created_at"), "rule_id": ru.get("id"), "label": p.get("label"), "alias": p.get("alias")}
+                    flipped += 1
+                else:
+                    r["kind_before_rejection"] = r["kind"]
+                    r["kind"] = "rejected"
+                    r["rejected_why"] = "Amal tapped " + str(p.get("label")) + " on the after-lesson link " + str(ru.get("created_at"))[:10]
+                    r["amal_ruling"] = {"kind": "drop", "at": ru.get("created_at"), "rule_id": ru.get("id"), "label": p.get("label")}
+                    dropped += 1
+            changed.append(ru["id"])
+            continue
         if ru["kind"] == "audit_confirm":
             for u in uids:
                 r = rows.get(u)
