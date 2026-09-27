@@ -722,14 +722,44 @@ def build():
     # judged each word against his list by meaning -> data/lesson-work/sheet-verdicts.json [{date, mmss, arabic, verdict}].
     vp = os.path.join(REPO, "data", "lesson-work", "sheet-verdicts.json")
     VD = {(x["date"], x["mmss"], x["arabic"]): x for x in (J(vp) if os.path.exists(vp) else [])}
+    # 2026-09-27 overnight audit: every card judged (on_list / new / not_an_error). on_list carries the list word's key,
+    # which the rating uses. not_an_error = the transcript shows he said it right (or it was not his slip): the card leaves
+    # vocab_errors and the Words %, and is kept under "not_errors" with the reason.
     for d, v in per.items():
+        keep, dropped = [], []
         for e in v["vocab_errors"]:
             x = VD.get((d, e.get("mmss"), e.get("arabic")))
+            if x and x.get("verdict") == "not_an_error":
+                e["verdict_reason"] = x.get("reason")
+                dropped.append(e)
+                continue
             if x and x.get("verdict") in ("on_list", "new"):
                 e["on_sheet"] = x["verdict"] == "on_list"
                 e["sheet_reason"] = x.get("reason")
                 if x["verdict"] == "new":
                     e["rating"] = None
+                elif x.get("list_key") and not e.get("word_key") and x["list_key"] != e.get("sheet_key"):
+                    e["sheet_key"], e["rating"] = x["list_key"], NO["ratings"].get(x["list_key"])
+            keep.append(e)
+        v["vocab_errors"], v["not_errors"] = keep, dropped
+        v["marks"] = [m for m in v["marks"] if m["kind"] != "vocab" or any(abs(m["t"] - e["t"]) < .01 for e in keep)]
+        L = next(L for L in lessons if L["date"] == d)
+        L["counts"]["vocab_errors"] = len(keep)
+        if dropped:
+            w = L["words"]
+            for e in dropped:
+                if e.get("source") == "audit-2026-09-26":
+                    if e["kind"] == "wrong":
+                        w["wrong"] -= 1; w["audit_wrong"] = w.get("audit_wrong", 0) - 1
+                    else:
+                        w["partial"] -= 1; w["audit_partial"] = w.get("audit_partial", 0) - 1
+                else:
+                    w["wrong"] -= 1
+                w["scored"] -= 1
+            w["not_an_error"] = len(dropped)
+            w["pct"] = round(100 * (w["right"] + .5 * w["partial"]) / w["scored"], 1) if w["scored"] else None
+            L["notes"].append(f"{len(dropped)} word card(s) dropped after the 2026-09-27 hand check (the transcript shows he said it right or it was not his slip): "
+                              + "; ".join(f"{e['mmss']} {e.get('arabic')}" for e in dropped) + ".")
     # The rating must count the audit's slips too (Medi 2026-09-26: an error card said "Mastered · 100% right · 0 wrong").
     # Every on-sheet audit slip of a word (all lessons) is added to its Word Bank record: wrong = a miss, asked = partial.
     # Status = the Word Bank's accuracy bands (>=90 Mastered/Good, >=75 Good, >=50 Shaky, else Wrong), never above its own status.
@@ -759,13 +789,14 @@ def build():
     # tagged "Not on sheet", sent to Amal's review, and left out of the Words %.
     for L in lessons:
         V = per[L["date"]]["vocab_errors"]
-        off = [e for e in V if e.get("source") == "audit-2026-09-26" and e.get("on_sheet") is False]
+        off = [e for e in V if e.get("on_sheet") is False]
+        offa = [e for e in off if e.get("source") == "audit-2026-09-26"]
         w = L["words"]
         if off:
             w["wrong"] -= sum(1 for e in off if e["kind"] == "wrong"); w["partial"] -= sum(1 for e in off if e["kind"] == "asked")
             w["scored"] -= len(off); w["not_on_sheet"] = len(off)
-            w["audit_wrong"] = w.get("audit_wrong", 0) - sum(1 for e in off if e["kind"] == "wrong")
-            w["audit_partial"] = w.get("audit_partial", 0) - sum(1 for e in off if e["kind"] == "asked")
+            w["audit_wrong"] = w.get("audit_wrong", 0) - sum(1 for e in offa if e["kind"] == "wrong")
+            w["audit_partial"] = w.get("audit_partial", 0) - sum(1 for e in offa if e["kind"] == "asked")
             w["pct"] = round(100 * (w["right"] + .5 * w["partial"]) / w["scored"], 1) if w["scored"] else None
 
     os.makedirs(os.path.join(DOCS, "data", "lessons"), exist_ok=True)
