@@ -41,7 +41,10 @@ def _confirmed_new():
 CONFIRMED_NEW = _confirmed_new()
 # New verbs per lesson: the verb pairs Amal taught that lesson. Medi confirmed 2026-09-25 ("you don't see bat3eb and
 # bata33eb as new verbs I learned?") - these ARE his new words. Spelled as her Doc writes the "Ana ba-" form.
-# Pairs marked review=True were first taught in an earlier lesson.
+# Pairs marked review=True were first taught in an earlier lesson (or before the recordings). Medi 2026-09-26: "new" comes
+# from CONTEXT (is she introducing it?), never from the sheet; a context read of all lessons
+# (data/lesson-work/new-words-context-2026-09-26.md) found the last new-word lesson is 09-11 - 09-14..09-19 are one
+# planned review series, one verb group per lesson ("a lesson for each group like this N then T then middle").
 V = lambda lat, ar, review=False: {"latin": lat, "arabic": ar, "review": review}
 TAUGHT = {
     "2026-09-04": [V("Ana babse6 / Ana banbese6", "أنا ببسط / أنا بنبسط")],
@@ -49,10 +52,10 @@ TAUGHT = {
     "2026-09-10": [V("Ana bakser / Ana bankeser", "أنا بكسر / أنا بنكسر"), V("Ana baz3ej / Ana banze3ej", "أنا بزعج / أنا بنزعج", True)],
     "2026-09-11": [V("Ana ba5rab / Ana ba5arreb", "أنا بخرب / أنا بخرّب")],
     "2026-09-14": [V("Ana baz3ej / Ana banze3ej", "أنا بزعج / أنا بنزعج", True), V("Ana bakser / Ana bankeser", "أنا بكسر / أنا بنكسر", True), V("Ana babse6 / Ana banbese6", "أنا ببسط / أنا بنبسط", True)],
-    "2026-09-15": [V("Ana ba8ayyer / Ana bat8ayyar", "أنا بغيّر / أنا بتغيّر"), V("Ana basawwer / Ana batsawwar", "أنا بصوّر / أنا بتصوّر"), V("Ana bazakker / Ana batzakkar", "أنا بذكّر / أنا بتذكّر"), V("Ana bakser / Ana bankeser", "أنا بكسر / أنا بنكسر", True)],
-    "2026-09-16": [V("Ana ba7ammes / Ana bat7ammas", "أنا بحمّس / أنا بتحمّس"), V("Ana bawajje3 / Ana batwajja3", "أنا بوجّع / أنا بتوجّع"), V("Ana badaaye2 / Ana batdaaya2", "أنا بضايق / أنا بتضايق"), V("Ana ba7arrek / Ana bat7arrak", "أنا بحرّك / أنا بتحرّك")],
-    "2026-09-17": [V("Ana bat2assaf (la / min)", "أنا بتأسف (لـ / من)"), V("Ana ba5awwef", "أنا بخوّف"), V("Ana bada77ek", "أنا بضحّك"), V("Ana ba5rab / Ana ba5arreb", "أنا بخرب / أنا بخرّب", True)],
-    "2026-09-18": [V("Ana bazha2 / Ana bazahhe2", "أنا بزهق / أنا بزهّق"), V("Ana bat3ab / Ana bata33eb", "أنا بتعب / أنا بتعّب"), V("Ana baz3al / Ana baza33el", "أنا بزعل / أنا بزعّل"), V("Ana ba5aaf / Ana ba5awwef", "أنا بخاف / أنا بخوّف"), V("Ana bad7ak / Ana bada77ek", "أنا بضحك / أنا بضحّك"), V("Ana ba3asseb", "أنا بعصّب")],
+    "2026-09-15": [V("Ana ba8ayyer / Ana bat8ayyar", "أنا بغيّر / أنا بتغيّر", True), V("Ana basawwer / Ana batsawwar", "أنا بصوّر / أنا بتصوّر", True), V("Ana bazakker / Ana batzakkar", "أنا بذكّر / أنا بتذكّر", True), V("Ana bakser / Ana bankeser", "أنا بكسر / أنا بنكسر", True)],
+    "2026-09-16": [V("Ana ba7ammes / Ana bat7ammas", "أنا بحمّس / أنا بتحمّس", True), V("Ana bawajje3 / Ana batwajja3", "أنا بوجّع / أنا بتوجّع", True), V("Ana badaaye2 / Ana batdaaya2", "أنا بضايق / أنا بتضايق", True), V("Ana ba7arrek / Ana bat7arrak", "أنا بحرّك / أنا بتحرّك", True)],
+    "2026-09-17": [V("Ana bat2assaf (la / min)", "أنا بتأسف (لـ / من)", True), V("Ana ba5awwef", "أنا بخوّف", True), V("Ana bada77ek", "أنا بضحّك", True), V("Ana ba5rab / Ana ba5arreb", "أنا بخرب / أنا بخرّب", True)],
+    "2026-09-18": [V("Ana bazha2 / Ana bazahhe2", "أنا بزهق / أنا بزهّق", True), V("Ana bat3ab / Ana bata33eb", "أنا بتعب / أنا بتعّب", True), V("Ana baz3al / Ana baza33el", "أنا بزعل / أنا بزعّل", True), V("Ana ba5aaf / Ana ba5awwef", "أنا بخاف / أنا بخوّف", True), V("Ana bad7ak / Ana bada77ek", "أنا بضحك / أنا بضحّك", True), V("Ana ba3asseb", "أنا بعصّب", True)],
 }
 DATES = sorted(f[:-5] for f in os.listdir(os.path.join(REPO, "docs", "lessons")) if re.fullmatch(r"20\d\d-\d\d-\d\d\.html", f))  # every published lesson page, so a new lesson flows by itself
 GLUE = 1.2          # s: words closer than this are one turn
@@ -351,10 +354,10 @@ LESSON_TYPES = {
     "2026-09-10": ("new-words", None, "27:00-57:00 teaches the new pair كسر/انكسر in every tense; before that ~25 min of conversation and a review of زعج/انزعج; ends with Amal listing the causative verbs to learn."),
     "2026-09-11": ("new-words", None, "~10:00-1:00:00 drills the new pair خرب/خرّب (past, present, command, 'rots', 'mess up'); the first 10 min is small talk plus a short review of north/darkness/stars words."),
     "2026-09-14": ("review-words", "speaking", "After ~22 min of small talk, Amal gives English sentences and Medi says them in Arabic with the verbs already taught (زعج/انزعج, كسر/انكسر, بسط/انبسط) - 'we're repeating today'; Amal types each answer in chat."),
-    "2026-09-15": ("new-words", None, "28:00-1:05 (~37 min) teaches new T-verbs غيّر/تغيّر, صوّر/تصوّر, ذكّر/تذكّر; 10:00-28:00 (~18 min) reviews كسر/انكسر; first 10 min is small talk."),
-    "2026-09-16": ("new-words", None, "~10:00-1:08 teaches new pairs حمّس/تحمّس, وجّع/توجّع, ضايق/تضايق, حرّك/تحرّك with English-to-Arabic sentences; first ~10 min is small talk (date, clothes)."),
-    "2026-09-17": ("new-words", None, "Mixed: 14:00-32:00 teaches the new verb تأسف (with لـ/من) and 50:00-57:00 introduces the doubled-middle adjectives (خوّف, ضحّك); 32:00-50:00 (~18 min) reviews خرب/خرّب; first 14 min small talk. New material is the larger share."),
-    "2026-09-18": ("new-words", None, "After ~5 min of small talk the whole lesson drills a new group of doubled-middle verb pairs (زهّق/زهق, تعّب/تعب, زعّل/زعل, خوّف/خاف, ضحّك/ضحك, عصّب) across tenses and persons; Amal: 'the best group yet'."),
+    "2026-09-15": ("review-words", "speaking", "Review of the T-verb group (غيّر/تغيّر, صوّر/تصوّر, ذكّر/تذكّر), part of the planned one-group-per-lesson review series; Medi already knew them (29:05 he answers what بغير/بتغير mean; T-verb flashcards existed); first 10 min small talk, 10:00-28:00 reviews كسر/انكسر."),
+    "2026-09-16": ("review-words", "speaking", "Review series continues: حمّس/تحمّس, وجّع/توجّع, ضايق/تضايق, حرّك/تحرّك in English-to-Arabic sentences (10:36 he had studied the flashcards; 33:25 'just wanted to make sure you remember all of these'); first ~10 min small talk."),
+    "2026-09-17": ("review-words", "speaking", "Review: the rest of the T group (تأسف with لـ/من, already used on 08-25), خرب/خرّب (31:57 'we reviewed this a lot') and the doubled-middle verbs (56:02 'I know you know them'); first 14 min small talk."),
+    "2026-09-18": ("review-words", "speaking", "Review of the doubled-middle group (زهّق/زهق, تعّب/تعب, زعّل/زعل, خوّف/خاف, ضحّك/ضحك, عصّب) across tenses and persons - all already in his speech on 08-25 (04:42 'رجعت الـ cards؟'); Amal: 'the best group yet'."),
     "2026-09-19": ("review-words", "listening", "After ~12 min of songs and small talk, Amal wraps up the verb pairs 'by doing some listening': she says a form, Medi says what it means in English; Medi's own Arabic is only ~06:30-10:30 and a few drill lines."),
     "2026-09-21": ("free-speak", None, "Conversation and role plays for the whole hour: stress at work, pizza, ordering at a cafe, complaining about food to a manager, how he cooks rice (tahdig), Iranian food abroad."),
     "2026-09-23": ("free-speak", None, "Conversation and role plays: coffee, stomach ache, then booking a hotel room, breakfast, paying, complaining to the manager, booking tickets and appointments, a weekend drive. Medi's first ~23 min is not transcribed (Amal's side only)."),

@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-26T23:25:20-07:00",
+ "updated": "2026-09-26T23:33:30-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -587,9 +587,9 @@
    "start_local": "2026-09-15T14:34:40-07:00",
    "start_source": "tracks.json (recording start = page-audio 0:00)",
    "duration_min": 67.1,
-   "type": "new-words",
-   "review_mode": null,
-   "type_why": "28:00-1:05 (~37 min) teaches new T-verbs غيّر/تغيّر, صوّر/تصوّر, ذكّر/تذكّر; 10:00-28:00 (~18 min) reviews كسر/انكسر; first 10 min is small talk.",
+   "type": "review-words",
+   "review_mode": "speaking",
+   "type_why": "Review of the T-verb group (غيّر/تغيّر, صوّر/تصوّر, ذكّر/تذكّر), part of the planned one-group-per-lesson review series; Medi already knew them (29:05 he answers what بغير/بتغير mean; T-verb flashcards existed); first 10 min small talk, 10:00-28:00 reviews كسر/انكسر.",
    "type_source": "claude-read",
    "words": {
     "unique": 24,
@@ -661,17 +661,17 @@
     {
      "latin": "Ana ba8ayyer / Ana bat8ayyar",
      "arabic": "أنا بغيّر / أنا بتغيّر",
-     "review": false
+     "review": true
     },
     {
      "latin": "Ana basawwer / Ana batsawwar",
      "arabic": "أنا بصوّر / أنا بتصوّر",
-     "review": false
+     "review": true
     },
     {
      "latin": "Ana bazakker / Ana batzakkar",
      "arabic": "أنا بذكّر / أنا بتذكّر",
-     "review": false
+     "review": true
     },
     {
      "latin": "Ana bakser / Ana bankeser",
@@ -697,9 +697,9 @@
    "start_local": "2026-09-16T14:37:36-07:00",
    "start_source": "tracks.json (recording start = page-audio 0:00)",
    "duration_min": 69.7,
-   "type": "new-words",
-   "review_mode": null,
-   "type_why": "~10:00-1:08 teaches new pairs حمّس/تحمّس, وجّع/توجّع, ضايق/تضايق, حرّك/تحرّك with English-to-Arabic sentences; first ~10 min is small talk (date, clothes).",
+   "type": "review-words",
+   "review_mode": "speaking",
+   "type_why": "Review series continues: حمّس/تحمّس, وجّع/توجّع, ضايق/تضايق, حرّك/تحرّك in English-to-Arabic sentences (10:36 he had studied the flashcards; 33:25 'just wanted to make sure you remember all of these'); first ~10 min small talk.",
    "type_source": "claude-read",
    "words": {
     "unique": 33,
@@ -771,22 +771,22 @@
     {
      "latin": "Ana ba7ammes / Ana bat7ammas",
      "arabic": "أنا بحمّس / أنا بتحمّس",
-     "review": false
+     "review": true
     },
     {
      "latin": "Ana bawajje3 / Ana batwajja3",
      "arabic": "أنا بوجّع / أنا بتوجّع",
-     "review": false
+     "review": true
     },
     {
      "latin": "Ana badaaye2 / Ana batdaaya2",
      "arabic": "أنا بضايق / أنا بتضايق",
-     "review": false
+     "review": true
     },
     {
      "latin": "Ana ba7arrek / Ana bat7arrak",
      "arabic": "أنا بحرّك / أنا بتحرّك",
-     "review": false
+     "review": true
     }
    ],
    "coverage": "Whole file read. Holes: ~33 Medi turns are '[speaking Arabic]'/'[speaking foreign language]' (05:28, 06:13-06:28, 26:46-30:50, 1:02:48-1:09:06) so several fixes there are inferred from Amal's recast only (rows 3,5,21,22,42,43,44 marked low/medium). 18:52-1:01:44 is mostly ASR Latin for both speakers (t- prefixes and 7/3 often dropped, e.g. hamasna 19:19, daya ti 46:42); I did not score those as errors. Pronunciation left out per S4: h for 7 in every 7ammas form (10:44, 12:39, 12:53, 13:22 - Amal recast each), ba7seb for ba3asseb 11:30, 'It's a three' 30:08, long-a in daaya2ni 44:52 and tetdaaya2i 51:16 (F2), shufeta 54:29, بندارة 08:32 (ASR of kundara), akhti 57:26 (ASR of ta5ti). Skipped: chat 21:17 't7ammastu hunaak' (he was reconnecting, no attempt); 1:08:21 he asked about singular after 30 and knew the rule; Medi corrected Amal at 49:59 (kaan drops b-). Chat 39:33 'e7na bnetwajja3 bsur3a' lacks the ma he said - her typo, not his error. / Whole file read. Holes: Medi's Arabic is hidden as [speaking Arabic]/[speaking foreign language] at 03:25, 04:22-04:47, 05:28 (she prompted صـ... صغيرة; his attempt unseen), 06:13-06:28, 26:46-27:45 (she prompted 'Fi eish' twice; chat 'lamma ana biddi ba9eer a7san bi ishi laazem atmarran' - a preposition fix is likely but unprovable), 28:22-28:55, 29:56-30:34 ('It's a three. Wajja'tek' - unclear what he said), 31:27, 1:02:48-1:03:27, 1:04:29-1:04:37, 1:05:13, 1:07:09-1:08:10, 1:09:06 (her 'أو الله يعافيكي ألف مرة' answers a hidden line). Long Latin-transliterated stretch 13:41-1:02:00 (verb drill); Arabic script only at the start and in scattered lines. Not filed as errors (S4 pronunciation): ح→ه in بتهمس/بيهمسوني (10:44, 12:39, 12:44, 12:58, 13:12, 13:22 - she recast بيحمس 5 times), بحسب for بعصب (11:30), بسوار for بصور (09:31-09:48), ستطاش (07:34), دول for ضل (10:21), 'akhti' for ta5ti (57:26), 'ada' for 7ada (39:10), dayani vowel length (44:43-44:52, F2), 7amasna/7ammesna shadda (21:24). Transcript garble left alone: فيسة (07:41, probably tes3a), حمارة (08:53, 10:15), بندارة for kundara (08:32), 'Hamamara' (1:00:49), نوبي تحركي (1:03:07), بتسكر/بتزكر for remind/remember (10:26 - cannot tell ذ from تس). Self-fixes not filed: إلا خلت→إلا ربع (07:53), batham→muthammis (23:59-24:20), ما بنوجع→ما بنتوجع (37:33-37:38), daya una→tedaya u minna (52:48-52:52), baharrak→bit haraki (1:01:33). Medi corrected Amal at 49:59 (kaan + bare verb) and she agreed (كان يضايق). Speaker labels look consistent.",
@@ -808,9 +808,9 @@
    "start_local": "2026-09-17T15:07:40-07:00",
    "start_source": "tracks.json (recording start = page-audio 0:00)",
    "duration_min": 63.8,
-   "type": "new-words",
-   "review_mode": null,
-   "type_why": "Mixed: 14:00-32:00 teaches the new verb تأسف (with لـ/من) and 50:00-57:00 introduces the doubled-middle adjectives (خوّف, ضحّك); 32:00-50:00 (~18 min) reviews خرب/خرّب; first 14 min small talk. New material is the larger share.",
+   "type": "review-words",
+   "review_mode": "speaking",
+   "type_why": "Review: the rest of the T group (تأسف with لـ/من, already used on 08-25), خرب/خرّب (31:57 'we reviewed this a lot') and the doubled-middle verbs (56:02 'I know you know them'); first 14 min small talk.",
    "type_source": "claude-read",
    "words": {
     "unique": 35,
@@ -878,17 +878,17 @@
     {
      "latin": "Ana bat2assaf (la / min)",
      "arabic": "أنا بتأسف (لـ / من)",
-     "review": false
+     "review": true
     },
     {
      "latin": "Ana ba5awwef",
      "arabic": "أنا بخوّف",
-     "review": false
+     "review": true
     },
     {
      "latin": "Ana bada77ek",
      "arabic": "أنا بضحّك",
-     "review": false
+     "review": true
     },
     {
      "latin": "Ana ba5rab / Ana ba5arreb",
@@ -915,9 +915,9 @@
    "start_local": "2026-09-18T14:08:00-07:00",
    "start_source": "source.json (Meet folder time, minute precision)",
    "duration_min": 63.8,
-   "type": "new-words",
-   "review_mode": null,
-   "type_why": "After ~5 min of small talk the whole lesson drills a new group of doubled-middle verb pairs (زهّق/زهق, تعّب/تعب, زعّل/زعل, خوّف/خاف, ضحّك/ضحك, عصّب) across tenses and persons; Amal: 'the best group yet'.",
+   "type": "review-words",
+   "review_mode": "speaking",
+   "type_why": "Review of the doubled-middle group (زهّق/زهق, تعّب/تعب, زعّل/زعل, خوّف/خاف, ضحّك/ضحك, عصّب) across tenses and persons - all already in his speech on 08-25 (04:42 'رجعت الـ cards؟'); Amal: 'the best group yet'.",
    "type_source": "claude-read",
    "words": {
     "unique": 2,
@@ -985,32 +985,32 @@
     {
      "latin": "Ana bazha2 / Ana bazahhe2",
      "arabic": "أنا بزهق / أنا بزهّق",
-     "review": false
+     "review": true
     },
     {
      "latin": "Ana bat3ab / Ana bata33eb",
      "arabic": "أنا بتعب / أنا بتعّب",
-     "review": false
+     "review": true
     },
     {
      "latin": "Ana baz3al / Ana baza33el",
      "arabic": "أنا بزعل / أنا بزعّل",
-     "review": false
+     "review": true
     },
     {
      "latin": "Ana ba5aaf / Ana ba5awwef",
      "arabic": "أنا بخاف / أنا بخوّف",
-     "review": false
+     "review": true
     },
     {
      "latin": "Ana bad7ak / Ana bada77ek",
      "arabic": "أنا بضحك / أنا بضحّك",
-     "review": false
+     "review": true
     },
     {
      "latin": "Ana ba3asseb",
      "arabic": "أنا بعصّب",
-     "review": false
+     "review": true
     }
    ],
    "coverage": "Lines 1-90 are Arabic script; from ~05:00 the transcript is Latin transliteration. 19:20-31:30 has many Medi/Amal Arabic words dropped entirely (blank gaps: 'So can, can', 'Is it or-', 'be as'), so the flight/meetings/parents/'I made him smile' drills could not be checked and rows 20-21 are low confidence. Speaker labels look right; a few Amal echo lines (15:49 'Leesh zehekti', 46:19 'Saw') may be flattened. Not written as errors: pronunciation/vowel repeats (01:52 أتمارنت, 04:27 أزرق, 09:13 kuffet->khuffet, 46:13 sawa->sawwa, 53:44 and 58:42 double-T commands), factual time fixes at 03:41-04:11 (2 o'clock, 26 min), his own self-fix 03:02 مختلفة, listening comprehension 56:07 him/her, and his unfinished 1:00:54 'il film mbare' which she completed in chat at 1:04:26. medi_turns counts every Medi line with an Arabic attempt (script or Latin), excluding pure filler. / Arabic script only for 00:13-04:53; from 05:00 to the end the engine wrote Latin transliteration, and between roughly 19:30 and 31:30 it dropped many of Medi's and Amal's Arabic words entirely (lines like 'So is it ?', 'Is [ ] I am tired'), so several fixes there (show made me laugh, work made me tired, he's funny, he makes me bored, I made him smile, meetings make me bored, my parents made me upset, the flight made me tired) can only be inferred from Amal's English prompts and her later chat lines; those rows are marked low. Speaker labels looked right throughout. Not filed: clock corrections at 03:41 (tlaat -> tentain) and 04:02 (minutes -> sitte u 3eshreen) are fact fixes, not language; pronunciation-only fixes skipped per S4 (02:17 atmaarant -> atmarrant vowel length, 09:13 kuffet -> khuffet, 46:13 sawa vowel length, 53:59/58:57 double-T simplification ma etta3ebhom / ma tta3bina, 04:31 azra2 repeat). Medi's own free sentence at 1:00:54 'il film mbare' was abandoned and only completed in chat (el-filem mbaare7 da77akni). 31:24 'I made them scared / khawafatum' for her prompt 'him' was accepted by Amal and her chat also has -hom, so not filed.",

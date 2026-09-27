@@ -397,6 +397,7 @@ function vocabList(body, x) {
       card.appendChild(rc);
     }
     if (v.why) card.appendChild(el('p', 'ab-mini ls-why', v.why));
+    var cv = convoFold(x, v.t, v.wrong, v.fix || v.arabic); if (cv) card.appendChild(cv);
     var bar = el('div', 'ls-plays');
     if (v.clip) bar.appendChild(playButton('Play clip', function () { play(v.clip, 0, prettyDate(x.date) + ' · ' + v.mmss + ' · ' + (v.arabizi || v.arabic)); }));
     else bar.appendChild(playButton('Play from ' + v.mmss, function () { play(lessonAudio(x.date, 'Medi'), Math.max(0, v.t - 2), prettyDate(x.date) + ' · lesson from ' + v.mmss); }));
@@ -442,6 +443,7 @@ function grammarList(body, x) {
       Array.prototype.forEach.call(pair.querySelectorAll('[dir]'), function (n) { n.setAttribute('dir', 'ltr'); });
       card.appendChild(pair);
     }
+    var cg = convoFold(x, e.t, e.wrong, e.right); if (cg) card.appendChild(cg);
     var bar = el('div', 'ls-plays');
     var clip = grammarClip(x.date, e);
     if (clip) bar.appendChild(playButton('Play clip', function () { play(clip, 0, prettyDate(x.date) + ' · ' + e.mmss + ' · ' + (e.bucket || 'grammar')); }));
@@ -479,17 +481,47 @@ function transcript(body, x) {
   if (L && L.coverage) body.appendChild(el('p', 'ab-mini', 'Coverage: ' + L.coverage));
   var marks = transcriptMarks(x);
   var list = el('div', 'ls-transcript');
-  turns.forEach(function (t, i) {
-    var r = el('div', 'ls-turn ls-turn-' + (t.who === 'Medi' ? 'medi' : t.who === 'chat' ? 'chat' : 'amal'));
-    var h = el('div', 'ls-turnhead');
-    var who_ = el('span', 'ls-who', t.who === 'Medi' ? 'Medi' : t.who === 'chat' ? 'Amal · chat' : t.who === '?' ? 'Unknown' : t.who);
-    h.appendChild(who_);
-    h.appendChild(timeButton(x.date, t.t, t.who));
-    r.appendChild(h);
-    r.appendChild(speech('ls-turntext', markText(t.text, marks[i]), null));
-    list.appendChild(r);
-  });
+  turns.forEach(function (t, i) { list.appendChild(turnRow(x, t, marks[i])); });
   body.appendChild(list);
+}
+function turnRow(x, t, marks) {
+  var r = el('div', 'ls-turn ls-turn-' + (t.who === 'Medi' ? 'medi' : t.who === 'chat' ? 'chat' : 'amal'));
+  var h = el('div', 'ls-turnhead');
+  h.appendChild(el('span', 'ls-who', t.who === 'Medi' ? 'Medi' : t.who === 'chat' ? 'Amal · chat' : t.who === '?' ? 'Unknown' : t.who));
+  h.appendChild(timeButton(x.date, t.t, t.who));
+  r.appendChild(h);
+  r.appendChild(speech('ls-turntext', markText(t.text, marks || []), null));
+  return r;
+}
+// Medi 2026-09-26: "an accordion that shows the full transcript of the error" - both speakers around the moment
+// (20 s before to 40 s after, at least 3 turns each side), his wrong word and her fix marked. Built when opened.
+function convoFold(x, t, wrong, right) {
+  var turns = x.turns || [];
+  if (!num(t) || !turns.length) return null;
+  var first = -1, last = -1;
+  turns.forEach(function (u, i) { if (u.t >= t - 20 && u.t <= t + 40) { if (first < 0) first = i; last = i; } });
+  var at = 0;
+  for (var k = 0; k < turns.length; k++) { if (turns[k].t <= t + 0.5) at = k; else break; }
+  first = Math.max(0, Math.min(first < 0 ? at : first, at - 3));
+  last = Math.min(turns.length - 1, Math.max(last, at + 3));
+  var d = el('details', 'ls-convo');
+  d.appendChild(el('summary', null, 'Full conversation · ' + mmss(turns[first].t) + '–' + mmss(turns[last].t)));
+  d.addEventListener('toggle', function () {
+    if (!d.open || d.children.length > 1) return;
+    var list = el('div', 'ls-transcript');
+    if (!turns.slice(first, last + 1).some(function (u) { return u.who === 'Medi'; }))
+      d.appendChild(el('p', 'ab-mini', 'Your side of this stretch has no transcript (the engine never wrote it). Play the audio to hear both of you.'));
+    for (var i = first; i <= last; i++) {
+      var u = turns[i], m = [];
+      if (u.who === 'Medi' && wrong && u.text.indexOf(wrong) >= 0) m.push([wrong, 'ab-wrong']);
+      if (u.who !== 'Medi' && right && u.text.indexOf(right) >= 0) m.push([right, 'ab-correct']);
+      var row = turnRow(x, u, m);
+      if (i === at) row.classList.add('ls-turn-here');
+      list.appendChild(row);
+    }
+    d.appendChild(list);
+  });
+  return d;
 }
 function newWords(L) {
   var box = el('div', 'ls-newwords');

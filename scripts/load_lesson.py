@@ -277,7 +277,9 @@ def main():
         if info['kind'] == 'mixed':
             page.mix_tracks(info['audio'], mix)            # same file, re-encoded small
         else:
-            page.mix_tracks(info['audio'], mix)
+            # every recording, transcribed or not: an untranscribed one (app reconnect) must still be HEARD on the
+            # page and in the clips (Medi 2026-09-26: "we need the conversation with both of us")
+            page.mix_tracks(info['audio'] + [(raw / 'tracks' / Path(o['file']).name, o['start']['relative']) for o in info['omitted']], mix)
     chat, offset, corr = [], 0.0, None
     if a.meet:
         side = Path(a.meet).parent / (Path(a.meet).name + ' - Chat Transcript')
