@@ -19,8 +19,7 @@ from full_audit_compare import sec, same_moment, same_piece, kind_class, norm  #
 WORK = os.path.join(REPO, "data", "lesson-work", "full-audit")
 OUT_JSON = os.path.join(REPO, "data", "full-audit-2026-09-26.json")
 OUT_MD = os.path.join(REPO, "plan", "FULL-AUDIT-2026-09-26.md")
-DATES = ["2026-08-25", "2026-09-04", "2026-09-05", "2026-09-10", "2026-09-11", "2026-09-14", "2026-09-15",
-         "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-21", "2026-09-23"]
+DATES = sorted(f[:-5] for f in os.listdir(os.path.join(REPO, "docs", "lessons")) if re.fullmatch(r"20\d\d-\d\d-\d\d\.html", f))  # every published lesson page, so a new lesson flows by itself
 NOT_COUNTED = ("rejected_on_hand_check", "pron_from_sweep")
 
 

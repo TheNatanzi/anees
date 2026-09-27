@@ -54,8 +54,7 @@ TAUGHT = {
     "2026-09-17": [V("Ana bat2assaf (la / min)", "أنا بتأسف (لـ / من)"), V("Ana ba5awwef", "أنا بخوّف"), V("Ana bada77ek", "أنا بضحّك"), V("Ana ba5rab / Ana ba5arreb", "أنا بخرب / أنا بخرّب", True)],
     "2026-09-18": [V("Ana bazha2 / Ana bazahhe2", "أنا بزهق / أنا بزهّق"), V("Ana bat3ab / Ana bata33eb", "أنا بتعب / أنا بتعّب"), V("Ana baz3al / Ana baza33el", "أنا بزعل / أنا بزعّل"), V("Ana ba5aaf / Ana ba5awwef", "أنا بخاف / أنا بخوّف"), V("Ana bad7ak / Ana bada77ek", "أنا بضحك / أنا بضحّك"), V("Ana ba3asseb", "أنا بعصّب")],
 }
-DATES = ["2026-08-25", "2026-09-04", "2026-09-05", "2026-09-10", "2026-09-11", "2026-09-14", "2026-09-15",
-         "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-21", "2026-09-23"]
+DATES = sorted(f[:-5] for f in os.listdir(os.path.join(REPO, "docs", "lessons")) if re.fullmatch(r"20\d\d-\d\d-\d\d\.html", f))  # every published lesson page, so a new lesson flows by itself
 GLUE = 1.2          # s: words closer than this are one turn
 LAT_MAX = 15.0      # s: a reply later than this is not a reply
 WORD_MAX = 2.0      # s: one word counts at most this long (the engine sometimes stretches a word over a silence;
@@ -359,6 +358,7 @@ LESSON_TYPES = {
     "2026-09-19": ("review-words", "listening", "After ~12 min of songs and small talk, Amal wraps up the verb pairs 'by doing some listening': she says a form, Medi says what it means in English; Medi's own Arabic is only ~06:30-10:30 and a few drill lines."),
     "2026-09-21": ("free-speak", None, "Conversation and role plays for the whole hour: stress at work, pizza, ordering at a cafe, complaining about food to a manager, how he cooks rice (tahdig), Iranian food abroad."),
     "2026-09-23": ("free-speak", None, "Conversation and role plays: coffee, stomach ache, then booking a hotel room, breakfast, paying, complaining to the manager, booking tickets and appointments, a weekend drive. Medi's first ~23 min is not transcribed (Amal's side only)."),
+    "2026-09-26": ("review-words", "speaking", "Role plays that review words already taught: after small talk (his knee, the app, the date) and a ~2 min drop-out at 18:00, a doctor visit (types of doctor, head ache, medicine, body and face parts, feminine/dual body words, 'my hands' = إيدي) then a clothes shop for a wedding (suit, shirt, shoes, colours, socks, sunglasses). No new verb pair taught. Amal's side is not transcribed before 20:17 (only Medi's)."),
 }
 
 DEFINITIONS = {
@@ -533,7 +533,7 @@ def build():
         grammar = {"uses": uses, "mistakes": mistakes, "pct": gpct}
 
         # ---- new words
-        typ, mode, why = LESSON_TYPES[date]
+        typ, mode, why = LESSON_TYPES.get(date, ("free-speak", None, "Not read yet: default until Claude reads this lesson and adds it to LESSON_TYPES."))
         # HARD RULE (Medi 2026-09-05): "new" = only words Amal (or Medi) marked new for this lesson
         # (amal_rules kind='new') or a Doc diff. Never inferred from "first time on the recording" -
         # that listed words Medi already knew (Medi 2026-09-25).

@@ -8,11 +8,10 @@
 Transcripts come from docs/data/lessons/<date>.json (turns already on the lesson-page clock, chat merged).
 Nothing is re-transcribed. Rule S2: the text is printed as the engine wrote it.
 """
-import json, os, sys
+import json, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 OUT = os.path.join(REPO, "data", "lesson-work", "full-audit")
-DATES = ["2026-08-25", "2026-09-04", "2026-09-05", "2026-09-10", "2026-09-11", "2026-09-14", "2026-09-15",
-         "2026-09-16", "2026-09-17", "2026-09-18", "2026-09-19", "2026-09-21", "2026-09-23"]
+DATES = sorted(f[:-5] for f in os.listdir(os.path.join(REPO, "docs", "lessons")) if re.fullmatch(r"20\d\d-\d\d-\d\d\.html", f))  # every published lesson page, so a new lesson flows by itself
 
 def mmss(t):
     t = int(round(t)); h, m, s = t // 3600, (t % 3600) // 60, t % 60

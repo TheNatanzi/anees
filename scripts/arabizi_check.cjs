@@ -10,7 +10,7 @@ const house = (J(path.join(DOCS, 'data', 'house_spelling.json')).items) || {};
 const words = J(path.join(DOCS, 'data', 'words.json')).items.map(w => { const h = house[w.match_loose]; return h && h.house ? Object.assign({}, w, { house_spelling: h.house }) : w; });
 const render = az.create(words, J(path.join(DOCS, 'data', 'word-bank-catalog.json')), J(path.join(DOCS, 'data', 'arabizi-extra.json')));
 const AR = /[ء-غف-ي]/;
-const DATES = ['2026-08-25', '2026-09-04', '2026-09-05', '2026-09-10', '2026-09-11', '2026-09-14', '2026-09-15', '2026-09-16', '2026-09-17', '2026-09-18', '2026-09-19', '2026-09-21', '2026-09-23'];
+const DATES = fs.readdirSync(path.join(DOCS, 'lessons')).filter(f => /^20\d\d-\d\d-\d\d\.html$/.test(f)).map(f => f.slice(0, 10)).sort();  // every published lesson page
 let lines = [];
 for (const d of DATES) for (const t of J(path.join(DOCS, 'data', 'lessons', d + '.json')).turns) {
   if (t.who === 'chat' || !AR.test(t.text)) continue;
