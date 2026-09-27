@@ -227,7 +227,7 @@ def test_offline_20_answers_then_sync_no_duplicates():
 
 def test_no_attribute_injection_in_cards():
     """Every page escapes quotes too (Codex M7: a Doc topic inside data-s could inject an event handler)."""
-    for page in ('cards.html', 'index.html', 'amal/plan.html', 'amal/after.html'):
+    for page in ('cards.html', 'notes.html', 'amal/plan.html', 'amal/after.html'):
         src = (ROOT / 'docs' / page).read_text(encoding='utf-8')
         line = next(l for l in src.splitlines() if 'esc=s=>' in l)
         assert '&quot;' in line and '&#39;' in line, page

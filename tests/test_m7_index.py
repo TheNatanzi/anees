@@ -53,11 +53,11 @@ def test_no_dead_links():
 
 def test_tabs_dark_light_and_search_speed():
     from playwright.sync_api import sync_playwright
-    url = (DOCS / 'index.html').resolve().as_uri()
+    url = (DOCS / 'notes.html').resolve().as_uri()
     with sync_playwright() as pw:
         b = pw.chromium.launch(args=['--allow-file-access-from-files']); pg = b.new_page(viewport={'width': 375, 'height': 812}); pg.goto(url)
-        pg.wait_for_function('AneesIndex.words.length > 2000', timeout=30000)
-        for tab in ['today', 'lessons', 'words', 'cards', 'amal', 'grammar', 'sys-rules', 'word-rules', 'future']:
+        pg.wait_for_function('AneesIndex.words.length > 2000', timeout=30000)  # notes.html = the old hub, minus Today/Lessons/Flashcards tabs (2026-09-26)
+        for tab in ['amal', 'sys-rules', 'word-rules', 'future']:
             pg.click(f'.tab[data-tab="{tab}"]')                       # 1 tap from anywhere
             assert pg.evaluate(f"document.getElementById('tab-{tab}').classList.contains('on')")
             assert pg.evaluate('document.documentElement.scrollWidth') <= 375
@@ -84,14 +84,14 @@ def test_tabs_dark_light_and_search_speed():
 
 def test_word_history_audio_uses_the_event_offset_and_reliable_player():
     from playwright.sync_api import sync_playwright
-    url = (DOCS / 'index.html').resolve().as_uri()
+    url = (DOCS / 'notes.html').resolve().as_uri()
     with sync_playwright() as pw:
         b = pw.chromium.launch(args=['--allow-file-access-from-files'])
         pg = b.new_page()
         pg.goto(url)
         assert pg.evaluate("Math.abs(AneesIndex.clipOffset({clip:'2026-09-11_002334_002517.mp3',t_start:238.03})-4.63)<0.001")
         b.close()
-    html = (DOCS / 'index.html').read_text(encoding='utf-8')
+    html = (DOCS / 'notes.html').read_text(encoding='utf-8')
     assert 'js/transcript-player.js?v=20260912-history-audio-v1' in html
     assert 'historyPlayer.playFrom(b,Number(b.dataset.off))' in html
     assert 'class="word-history" hidden' in html
@@ -102,7 +102,7 @@ def test_word_history_audio_uses_the_event_offset_and_reliable_player():
 
 def test_listening_counts_only_timed_amal_words():
     from playwright.sync_api import sync_playwright
-    url = (DOCS / 'index.html').resolve().as_uri()
+    url = (DOCS / 'notes.html').resolve().as_uri()
     events = [
         {'word_key': 'x', 'lesson_date': '2026-09-04', 't_start': 2, 'speaker': 'Amal'},
         {'word_key': 'x', 'lesson_date': '2026-09-11', 't_start': 3, 'speaker': 'Amal'},

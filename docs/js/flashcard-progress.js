@@ -214,15 +214,17 @@ function undo(){
 }
 /* ---------- tabs ---------- */
 function show(tab){
+ if(!['overview','vocab','flashcards'].includes(tab))tab='overview';           // Overview is the home tab (Medi 2026-09-26)
  const flash=tab==='flashcards';
  document.querySelectorAll('.vp-tab[data-tab]').forEach(b=>b.setAttribute('aria-current',b.dataset.tab===tab?'page':'false'));
- $('vp-tab-vocab').hidden=flash;$('vp-tab-flash').hidden=!flash;
- const hz=document.querySelector('.vp-horizon');if(hz)hz.hidden=flash;
- const url=new URL(location.href);if(flash)url.searchParams.set('tab','flashcards');else url.searchParams.delete('tab');history.replaceState(null,'',url);
+ const ov=$('vp-tab-overview');if(ov)ov.hidden=tab!=='overview';
+ $('vp-tab-vocab').hidden=tab!=='vocab';$('vp-tab-flash').hidden=!flash;
+ const hz=document.querySelector('.vp-horizon');if(hz)hz.hidden=tab!=='vocab';
+ const url=new URL(location.href);if(tab==='overview')url.searchParams.delete('tab');else url.searchParams.set('tab',tab);history.replaceState(null,'',url);
  if(flash){if(!loaded){render();loading=loading||load().then(render);}else render();}
 }
 document.querySelectorAll('.vp-tab[data-tab]').forEach(b=>b.onclick=()=>show(b.dataset.tab));
 window.addEventListener('online',sync);
 window.AneesFlashcardProgress={show,reload:async()=>{loaded=false;loading=null;await load();render();},build:()=>build(),get lastAnswer(){return lastAnswer;},sync};
-if(new URLSearchParams(location.search).get('tab')==='flashcards')show('flashcards');
+show(new URLSearchParams(location.search).get('tab')||'overview');
 })();

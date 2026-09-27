@@ -42,7 +42,7 @@ console.log(JSON.stringify({
 
 
 def test_all_badges_filters_and_summary_use_display_names():
-    hub = (ROOT / 'docs/index.html').read_text(encoding='utf-8')
+    hub = (ROOT / 'docs/notes.html').read_text(encoding='utf-8')
     cards = (ROOT / 'docs/cards.html').read_text(encoding='utf-8')
     assert 'value="cold">Good</option>' in hub
     assert 'value="ice_cold">Mastered</option>' in hub
@@ -74,7 +74,7 @@ def test_published_report_wording_and_generator():
 
 def test_modified_page_scripts_compile_without_running_them():
     # Syntax validation only: no browser, credentials, network or stored progress.
-    for filename in ('docs/index.html', 'docs/cards.html'):
+    for filename in ('docs/notes.html', 'docs/cards.html'):
         page = (ROOT / filename).read_text(encoding='utf-8')
         scripts = re.findall(r'<script\b[^>]*>(.*?)</script>', page, flags=re.S | re.I)
         assert node('const vm=require("vm"); const scripts=' + json.dumps(scripts) +

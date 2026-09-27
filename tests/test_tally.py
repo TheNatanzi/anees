@@ -41,7 +41,7 @@ def test_preposition_is_a_grammar_kind():
 def test_slips_page_reachable_from_every_menu():
     html = (ROOT / 'docs' / 'slips.html').read_text(encoding='utf-8')
     assert 'data/tally.json' in html and 'js/stale.js' in html
-    for page in ('index.html', 'cards.html'):
+    for page in ('notes.html', 'cards.html'):
         assert 'slips.html' in (ROOT / 'docs' / page).read_text(encoding='utf-8'), page
     rules = json.loads((ROOT / 'docs' / 'data' / 'ai_rules.json').read_text(encoding='utf-8'))
     ids = {r['id'] for g in rules['groups'] for r in g['rules']}

@@ -26,7 +26,7 @@ def main(quick=False):
     except Exception as e:
         step('Supabase', False, str(e)[:80], 'network? open supabase.com; do NOT send the link until this passes')
     # 2 Pages live
-    for p in ('index.html', 'amal/plan.html', 'amal/after.html', 'cards.html', 'lessons/2026-09-04-report.html'):
+    for p in ('notes.html', 'amal/plan.html', 'amal/after.html', 'cards.html', 'lessons/2026-09-04-report.html'):
         try:
             t = time.time(); r = requests.get(PAGES + p, timeout=15); dt = time.time() - t
             step(f'Pages {p}', r.status_code == 200 and dt < 3, f'HTTP {r.status_code} in {dt:.1f}s', 'github.com/TheNatanzi/anees → Settings → Pages; re-push with: git push')

@@ -37,13 +37,17 @@ def test_ai_reports_json_and_pages():
 
 
 def test_tabs_present_everywhere():
-    idx = (DOCS / 'index.html').read_text(encoding='utf-8')
+    notes = (DOCS / 'notes.html').read_text(encoding='utf-8')
     for tab in ('sys-rules', 'word-rules'):
-        assert f'data-tab="{tab}"' in idx and f'id="tab-{tab}"' in idx
-    assert 'href="ai-reports.html"' in idx and "if(name==='ai-reports'){location.replace('ai-reports.html')" in idx   # old #ai-reports links still land
+        assert f'data-tab="{tab}"' in notes and f'id="tab-{tab}"' in notes
+    assert 'data-tab="today"' not in notes and "'ai-reports':'ai-reports.html'" in notes           # Today tab retired 2026-09-26; old #ai-reports links still land
+    idx = (DOCS / 'index.html').read_text(encoding='utf-8')
+    assert "location.replace(to[h]||'progress.html')" in idx and "'ai-reports':'ai-reports.html'" in idx and 'manifest.webmanifest' in idx   # home = Progress & Stats
     page = (DOCS / 'ai-reports.html').read_text(encoding='utf-8')
-    assert 'aria-current="page" href="ai-reports.html"' in page and 'js/ai-reports.js' in page and 'css/ai-reports.css' in page and 'id="ar-series"' in page
-    assert "get('data/lessons.json')" in (DOCS / 'js' / 'ai-reports.js').read_text(encoding='utf-8')   # hourly series is wired in
+    assert 'aria-current="page" href="ai-reports.html"' in page and 'js/ai-reports.js' in page and 'css/ai-reports.css' in page
+    prog = (DOCS / 'progress.html').read_text(encoding='utf-8')
+    assert 'data-tab="overview" aria-current="page"' in prog and 'id="ov-series"' in prog and "'lesson-overview'" in prog   # lesson numbers = Progress › Overview
+    assert "fetch('data/lessons.json'" in (DOCS / 'js' / 'lesson-overview.js').read_text(encoding='utf-8')
     for f in (ROOT / 'scripts' / 'lesson_pipeline.py', ROOT / 'scripts' / 'build_report.py'):
         t = f.read_text(encoding='utf-8')
         assert 'ai-reports.html' in t and 'index.html#sys-rules' in t and 'index.html#word-rules' in t, f.name
