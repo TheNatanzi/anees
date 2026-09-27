@@ -274,7 +274,7 @@ document.querySelectorAll('.play').forEach(b=>b.addEventListener('click',()=>{{
   a.currentTime=off;a.play();b.classList.add('on');cur=b;
 }}));
 a.addEventListener('ended',()=>{{if(cur)cur.classList.remove('on');cur=null}});
-</script><script src="../js/build.js"></script><script src="../js/stale.js"></script></body></html>'''
+</script><script src="../js/build.js"></script><script src="../js/stale.js?v=fresh1"></script></body></html>'''
 
 
 def email_payload(u, rows, bins, ok, link):

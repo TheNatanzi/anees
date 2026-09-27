@@ -28,7 +28,7 @@ def page(title, body_html, source, author='', date=''):
 <article class="ar-doc">
 {body_html}
 </article>
-</main></div></div><script>if(location.hash){{const e=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(e)setTimeout(()=>e.scrollIntoView({{block:"start"}}),50);}}</script><script src="../js/build.js"></script><script src="../js/stale.js"></script></body></html>
+</main></div></div><script>if(location.hash){{const e=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(e)setTimeout(()=>e.scrollIntoView({{block:"start"}}),50);}}</script><script src="../js/build.js"></script><script src="../js/stale.js?v=fresh1"></script></body></html>
 '''
 
 

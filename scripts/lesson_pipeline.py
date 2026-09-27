@@ -279,7 +279,7 @@ main{{max-width:820px;margin:0 auto;padding:14px 12px}} h1{{font-size:24px;margi
 <p class="lead">Transcribed by ElevenLabs Scribe v2. Fillers show as (pause), Amal's confirmations right after Medi's Arabic show as a green check. Lesson window {int(S['lesson_start']//60)}:{int(S['lesson_start']%60):02d} to {int(S['lesson_end']//60)}:{int(S['lesson_end']%60):02d}.</p>
 {script_note}{warn}<div class="stats">{stats}</div>
 {typed}{''.join(rows)}
-</main>{audio_script}<script src="../js/build.js"></script><script src="../js/stale.js"></script></body></html>'''
+</main>{audio_script}<script src="../js/build.js"></script><script src="../js/stale.js?v=fresh1"></script></body></html>'''
 
 
 def email(summary, link):
