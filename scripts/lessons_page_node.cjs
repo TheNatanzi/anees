@@ -92,19 +92,34 @@ for (const r of rows) for (const raw of String(r.search || '').split(' ')) {
   addTok(t, r.key); if (t.length > 3 && t[0] === 'ب') addTok(t.slice(1), r.key);
 }
 // a pronoun ending on a known form is still that word (بتضايقني = بتضايق + ني)
-const ENDS = ['كم', 'هم', 'ها', 'نا', 'ني', 'ك', 'ه', 'ي', 'و'];
+const ENDS = ['كم', 'هم', 'ها', 'نا', 'ني', 'ك', 'ه'];   // not a bare -i / -u: نفسي is 'psychological', not نفس + i (Medi 2026-09-27)
 const tok = t => tok0(t) || ENDS.reduce((hit, e) => hit || (t.length - e.length >= 3 && t.endsWith(e) ? tok0(t.slice(0, -e.length)) : null), null);
 const tok0 = t => tokens.get(t) || (t.length > 3 && t[0] === 'ا' ? tokens.get(t.slice(1)) : null) || (t.length > 3 && t[0] === 'و' ? tokens.get(t.slice(1)) : null);
 const sheet = {};
-for (const s of inp.sheet || []) {
+// A word pair counts only when EACH word is on the list with the meaning used here (Medi 2026-09-27: دكتور عام and
+// دكتور نفسي are new words - his list has عام / نفس with other meanings). Meaning check = the list word's English shares a
+// word with the card's English (تستنى 'I wait' + دقيقة 'Minute' vs 'Can you wait a minute?').
+const enw = t => new Set(String(t || '').toLowerCase().match(/[a-z]{3,}/g) || []);
+const sameMeaning = (key, en) => { const E = enw(en); if (!E.size) return true; const w = byKey.get(key) || rowByKey.get(key) || {};
+  for (const x of enw(w.english)) if (E.has(x) || E.has(x + 's') || E.has(x.replace(/s$/, ''))) return true; return false; };
+// her Latin spellings too: the plural column is Latin only (أصابع = her 'Asaabe3', plural of Osba3 - Medi 2026-09-27)
+const lat = t => String(t || '').toLowerCase().replace(/^ana\s+/, '').replace(/[^a-z0-9]/g, '');
+const latIndex = new Map();
+for (const w of words) for (const x of [w.arabizi, w.plural, w.house_spelling]) { const k = lat(x); if (k.length >= 3 && !latIndex.has(k)) latIndex.set(k, w.key); }
+const renderLat = Az.create(words, catalog, J('arabizi-extra.json'));
+for (const entry of inp.sheet || []) {
+  const [s, en] = String(entry).split('');
   let hit = null, how = null;
   for (const alt of String(s).split(/\s=\s|\s-\s/)[0].replace(/\([^)]*\)/g, ' ').split('/')) {
     const p = noAl(norm(alt)); if (!p) continue;
     if (phrase.has(p)) { hit = phrase.get(p); how = 'word'; break; }
     const ts = p.split(' ').map(tok);
-    if (ts.every(Boolean)) { hit = ts.slice().sort((a, b) => a.len - b.len)[0].key; how = 'part'; break; }
+    if (ts.every(Boolean) && (ts.length === 1 || ts.every(x => sameMeaning(x.key, en)))) { hit = ts.slice().sort((a, b) => a.len - b.len)[0].key; how = 'part'; break; }
   }
-  sheet[s] = { on_sheet: !!hit, key: hit, match: how, rating: hit ? rating(hit) : null };
+  if (!hit) { const r = renderLat(String(s).split('/')[0]); const k = lat(r && r.text); if (k && latIndex.has(k)) { hit = latIndex.get(k); how = 'latin'; } }
+  // a rating belongs to the whole word: never borrow it from one piece of a longer phrase (دكتور نفسي showed 'Good' from دكتور)
+  const one = String(s).split(/\s=\s|\s-\s/)[0].replace(/\([^)]*\)/g, ' ').split('/').some(a => noAl(norm(a)).split(' ').length === 1);
+  sheet[entry] = { on_sheet: !!hit, key: hit, match: how, rating: hit && (how === 'word' || how === 'latin' || one) ? rating(hit) : null };
 }
 const ratings = {}; for (const s of scored) if (s.word_key && !ratings[s.word_key]) ratings[s.word_key] = rating(s.word_key);
 

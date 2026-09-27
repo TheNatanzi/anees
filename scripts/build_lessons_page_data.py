@@ -697,7 +697,7 @@ def build():
         })
 
     # Amal's spelling for the new words and the said-sentences (display only, rule S1)
-    NO = run_node(sorted(x for x in need_ar if x), [e["arabic"] for v in per.values() for e in v["vocab_errors"] if not e.get("word_key")])
+    NO = run_node(sorted(x for x in need_ar if x), [e["arabic"] + "" + (e.get("english") or "") for v in per.values() for e in v["vocab_errors"] if not e.get("word_key")])
     az = NO["arabizi"]
     for L in lessons:
         for x in L["new_words"]:
@@ -715,7 +715,7 @@ def build():
             if e.get("word_key"):
                 e["on_sheet"], e["rating"] = True, NO["ratings"].get(e["word_key"])
             else:
-                sh = NO["sheet"].get(e.get("arabic") or "") or {}
+                sh = NO["sheet"].get((e.get("arabic") or "") + "" + (e.get("english") or "")) or {}
                 e["on_sheet"], e["rating"], e["sheet_key"] = bool(sh.get("on_sheet")), sh.get("rating"), sh.get("key")
     # The rating must count the audit's slips too (Medi 2026-09-26: an error card said "Mastered · 100% right · 0 wrong").
     # Every on-sheet audit slip of a word (all lessons) is added to its Word Bank record: wrong = a miss, asked = partial.
