@@ -84,6 +84,10 @@ const addForm = (a, key) => { const p = noAl(norm(a)); if (!p) return; if (!phra
   for (const t of p.split(' ')) { const cur = tokens.get(t); if (!cur || cur.len > p.split(' ').length) tokens.set(t, { key, len: p.split(' ').length }); } };
 for (const w of words) { addForm(w.arabic, w.key); if (w.plural) addForm(w.plural, w.key); }   // her plural column too
 for (const r of rows) for (const f of r.entries) addForm(f.arabic, r.key);
+// verb pairs Amal taught in lessons count as list words even before her Doc export has them (Medi 2026-09-27:
+// بتضايقني is on his list - she taught Ana badaaye2 / Ana batdaaya2 on Sep 16; the Doc copy is from Sep 23)
+for (const t of inp.taught || []) for (const a of String(t.arabic).split('/')) { addForm(a, 'taught:' + t.latin);
+  for (const x of noAl(norm(a)).split(' ')) if (x.length > 3 && x[0] === 'ب') { const c = tokens.get(x.slice(1)); if (!c) tokens.set(x.slice(1), { key: 'taught:' + t.latin, len: 1 }); } }
 // every conjugated form the Word Bank knows for a word (its search text), and each b- present form without the b-
 // (Medi 2026-09-26: "Testana is the command tense of bastana" - تستنى is بتستنى without b-, both are his list word)
 const addTok = (t, key) => { if (!t) return; const cur = tokens.get(t); if (!cur || cur.len > 1) tokens.set(t, { key, len: 1 }); };
@@ -103,7 +107,7 @@ const enw = t => new Set(String(t || '').toLowerCase().match(/[a-z]{3,}/g) || []
 const sameMeaning = (key, en) => { const E = enw(en); if (!E.size) return true; const w = byKey.get(key) || rowByKey.get(key) || {};
   for (const x of enw(w.english)) if (E.has(x) || E.has(x + 's') || E.has(x.replace(/s$/, ''))) return true; return false; };
 // her Latin spellings too: the plural column is Latin only (أصابع = her 'Asaabe3', plural of Osba3 - Medi 2026-09-27)
-const lat = t => String(t || '').toLowerCase().replace(/^ana\s+/, '').replace(/[^a-z0-9]/g, '').replace(/([aeiou])+/g, '$1');   // Tanaaneer = her Tananeer
+const lat = t => String(t || '').toLowerCase().replace(/^ana\s+/, '').replace(/[^a-z0-9]/g, '').replace(/([aeiou])\1+/g, '$1');   // Tanaaneer = her Tananeer
 const latIndex = new Map();
 for (const w of words) for (const x of [w.arabizi, w.plural, w.house_spelling]) { const k = lat(x); if (k.length >= 3 && !latIndex.has(k)) latIndex.set(k, w.key); }
 const renderLat = Az.create(words, catalog, J('arabizi-extra.json'));

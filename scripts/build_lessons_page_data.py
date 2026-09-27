@@ -392,7 +392,8 @@ def audio_duration(date):
 def run_node(strings, sheet=()):
     os.makedirs(TMP, exist_ok=True)
     i, o = os.path.join(TMP, "node-in.json"), os.path.join(TMP, "node-out.json")
-    json.dump({"arabic": sorted(set(s for s in strings if s)), "sheet": sorted(set(s for s in sheet if s))}, open(i, "w", encoding="utf-8"), ensure_ascii=False)
+    json.dump({"arabic": sorted(set(s for s in strings if s)), "sheet": sorted(set(s for s in sheet if s)),
+               "taught": [x for v in TAUGHT.values() for x in v]}, open(i, "w", encoding="utf-8"), ensure_ascii=False)
     subprocess.run([NODE, os.path.join(HERE, "lessons_page_node.cjs"), i, o], check=True, capture_output=True)
     return J(o)
 

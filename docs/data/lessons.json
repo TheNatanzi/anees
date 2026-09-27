@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-27T00:36:20-07:00",
+ "updated": "2026-09-27T00:38:06-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -42,13 +42,13 @@
    "words": {
     "unique": 53,
     "right": 70,
-    "wrong": 16,
-    "partial": 2,
-    "pct": 80.7,
-    "scored": 88,
-    "audit_wrong": 11,
-    "audit_partial": 1,
-    "not_on_sheet": 13
+    "wrong": 17,
+    "partial": 3,
+    "pct": 79.4,
+    "scored": 90,
+    "audit_wrong": 12,
+    "audit_partial": 2,
+    "not_on_sheet": 11
    },
    "grammar": {
     "uses": 219,
@@ -1116,12 +1116,12 @@
     "unique": 20,
     "right": 21,
     "wrong": 8,
-    "partial": 0,
-    "pct": 72.4,
-    "scored": 29,
+    "partial": 1,
+    "pct": 71.7,
+    "scored": 30,
     "audit_wrong": 6,
-    "audit_partial": 0,
-    "not_on_sheet": 8
+    "audit_partial": 1,
+    "not_on_sheet": 7
    },
    "grammar": {
     "uses": 23,
@@ -1380,13 +1380,13 @@
    "words": {
     "unique": 52,
     "right": 77,
-    "wrong": 13,
-    "partial": 15,
-    "pct": 80.5,
-    "scored": 105,
-    "audit_wrong": 13,
-    "audit_partial": 1,
-    "not_on_sheet": 11
+    "wrong": 14,
+    "partial": 16,
+    "pct": 79.4,
+    "scored": 107,
+    "audit_wrong": 14,
+    "audit_partial": 2,
+    "not_on_sheet": 9
    },
    "grammar": {
     "uses": 192,
