@@ -10,7 +10,7 @@ const LS=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k)|
 const uuid=()=>crypto.randomUUID?crypto.randomUUID():'c'+Date.now().toString(36)+Math.random().toString(36).slice(2);
 const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon,'Content-Type':'application/json'};
 const GOALS={weekly:50,monthly:200};
-let words=[],siblings=null,serverLog=[],loaded=false,loading=null,offline=false;
+let words=[],siblings=null,serverLog=[],loaded=false,loading=null,offline=false,boostList=[];
 let futureRange=30,leechOnly=false,lastAnswer=null,memQueue=[];
 const reveal=new Map(); // word key -> time the English was tapped open
 const pref=()=>{const p=Object.assign({mode:'ar_first',retention:0.9},LS('anees-cards-pref')||{});if(!F.RETENTIONS.includes(p.retention))p.retention=0.9;return p;};
@@ -39,6 +39,7 @@ async function load(){
  if(!words.length){words=LS('anees-words')||[];if(!words.length){try{words=(await (await fetch('data/words.json')).json()).items||[];}catch(e){}}}
  let catalog=null;try{catalog=await (await fetch('data/word-bank-catalog.json')).json();}catch(e){catalog=LS('anees-cards-catalog');}
  siblings=C.siblingMap(words,catalog);
+ try{const r=await fetch('data/sentence-ladder.json');if(r.ok)boostList=(await r.json()).boost||[];}catch(e){}   // listening boost, same as cards.html
  try{serverLog=await fetchLog();LS('anees-card-server-log',serverLog);offline=false;}
  catch(e){serverLog=LS('anees-card-server-log')||[];offline=true;}
  loaded=true;
@@ -99,12 +100,12 @@ function bars(series,{h=220,w=W,label,max,labelEvery=1,valueLabels=true,cls=''})
 /* ---------- sections ---------- */
 function build(){
  const p=pref(),now=new Date(),log=fullLog(),h=S.history(log,{desiredRetention:p.retention}),cards=h.cards;
- const keys=words.map(w=>w.key),byKey=new Map(words.map(w=>[w.key,w]));
+ const keys=words.map(w=>w.key),byKey=new Map(words.map(w=>[w.key,w])),boost=C.boostMap(boostList,log);
  return {p,now,log,h,cards,keys,byKey,
   goals:S.goals(h,now,GOALS),work:S.workload(cards,now,p.retention),tr:S.trueRetention(h),leeches:S.leeches(cards),watch:S.leechWatch(cards),
   curve:S.curve(h,now,30),week:F.forecast([...cards.values()],now,7),seg:S.segmentation(h,keys),today:S.today(h,now),
   heat:S.heatmap(h,now),table:S.retentionTable(h,now),due:S.futureDue(cards,now,futureRange),hist:S.histograms(cards,now),
-  time:S.timing(h),hours:S.hourly(h),queue:C.queue(words,cards,log,now,{newPerDay:F.DEFAULTS.newPerDay,siblings})};
+  time:S.timing(h),hours:S.hourly(h),boost,queue:C.queue(words,cards,log,now,{newPerDay:F.DEFAULTS.newPerDay,siblings,boost})};
 }
 function topRow(d){
  const r=d.p.retention,g=d.goals;
@@ -198,8 +199,9 @@ function queueTable(d){
  const phaseName={new:'New',learning:'Learning',mature:'Mature'};
  const rows=list.map(c=>{const w=d.byKey.get(c.id);if(!w)return '';const ph=F.phase(c),shown=reveal.has(c.id);
   const interval=!c.reps?'—':c.state==='review'?plural(c.interval,'day'):'< 1 day';
-  return `<tr data-key="${esc(c.id)}"><td class="fp-word"><b>${esc(w.arabizi)}</b><span lang="ar" dir="rtl">${esc(w.arabic||'')}</span></td><td class="fp-en">${shown?esc(w.english):`<button class="fp-reveal" data-reveal="${esc(c.id)}">Tap to show</button>`}</td><td><span class="fp-phase fp-phase-${ph}">${phaseName[ph]}</span>${F.isLeech(c)?' <span class="fp-phase fp-phase-leech">Leech</span>':''}</td><td class="fp-num">${interval}</td><td class="fp-num" title="${n(c.lapses)} ${c.lapses===1?'lapse':'lapses'} in review · leech at ${F.DEFAULTS.leechMisses} misses in any phase">${n(c.misses||0)}<span class="fp-mlabel"> ${(c.misses||0)===1?'miss':'misses'}</span></td><td class="fp-grade"><button class="fp-miss" data-grade="missed" aria-label="Don't know ${esc(w.arabizi)}">✗ Don't know</button><button class="fp-got" data-grade="got" aria-label="Know ${esc(w.arabizi)}">✓ Know it</button></td></tr>`;}).join('');
- return head+`<div class="fp-tablewrap"><table class="fp-table fp-queue"><thead><tr><th>Arabic word</th><th>English</th><th>Phase</th><th>Interval</th><th>Misses</th><th><span class="fp-sr">Grade</span></th></tr></thead><tbody>${rows}</tbody></table></div><p class="ab-sub">Same queue and order as Flashcards · ${n(d.queue.counts.due)} due · ${n(d.queue.counts.new)} new · ${n(d.queue.counts.learning)} learning${d.queue.buried?` · ${n(d.queue.buried)} sibling forms held for another day`:''}</p>`;
+  const bo=d.boost.get(c.id),chip=bo?`<div style="margin-top:4px"><span class="fp-phase" style="font:600 11px var(--sabz-font-sans,system-ui);background:color-mix(in srgb,var(--ab-orange) 14%,transparent);color:var(--ab-orange);text-transform:none;letter-spacing:0" title="You missed a sentence with this word in a lesson (${esc(bo.dates.join(', '))})">${esc(C.boostLabel(bo))}</span></div>`:'';
+  return `<tr data-key="${esc(c.id)}"><td class="fp-word"><b>${esc(w.arabizi)}</b><span lang="ar" dir="rtl">${esc(w.arabic||'')}</span>${chip}</td><td class="fp-en">${shown?esc(w.english):`<button class="fp-reveal" data-reveal="${esc(c.id)}">Tap to show</button>`}</td><td><span class="fp-phase fp-phase-${ph}">${phaseName[ph]}</span>${F.isLeech(c)?' <span class="fp-phase fp-phase-leech">Leech</span>':''}</td><td class="fp-num">${interval}</td><td class="fp-num" title="${n(c.lapses)} ${c.lapses===1?'lapse':'lapses'} in review · leech at ${F.DEFAULTS.leechMisses} misses in any phase">${n(c.misses||0)}<span class="fp-mlabel"> ${(c.misses||0)===1?'miss':'misses'}</span></td><td class="fp-grade"><button class="fp-miss" data-grade="missed" aria-label="Don't know ${esc(w.arabizi)}">✗ Don't know</button><button class="fp-got" data-grade="got" aria-label="Know ${esc(w.arabizi)}">✓ Know it</button></td></tr>`;}).join('');
+ return head+`<div class="fp-tablewrap"><table class="fp-table fp-queue"><thead><tr><th>Arabic word</th><th>English</th><th>Phase</th><th>Interval</th><th>Misses</th><th><span class="fp-sr">Grade</span></th></tr></thead><tbody>${rows}</tbody></table></div><p class="ab-sub">Same queue and order as Flashcards · ${n(d.queue.counts.due)} due · ${n(d.queue.counts.new)} new · ${n(d.queue.counts.learning)} learning${d.queue.counts.boosted?` · ${n(d.queue.counts.boosted)} boosted (missed in a lesson: first among due cards and new slots)`:''}${d.queue.buried?` · ${n(d.queue.buried)} sibling forms held for another day`:''}</p>`;
 }
 function render(){
  const host=$('vp-tab-flash');if(!host)return;

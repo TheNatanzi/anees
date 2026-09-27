@@ -9,13 +9,97 @@ a.tile{display:block;text-decoration:none;color:var(--ink);background:var(--bg2)
 a.tile:hover{border-color:var(--teal)} .tile b{font-size:19px;display:block} .tile .what{font-size:15px;color:var(--ink);margin:4px 0 0} .tile .how{font-size:13px;color:var(--mute);margin-top:4px}
 .tile.off{opacity:.55;pointer-events:none} .tile .badge{display:inline-block;font-size:12px;color:#fff;background:var(--teal);border-radius:999px;padding:1px 9px;margin-left:6px;vertical-align:middle}
 .tile .badge.grey{background:var(--mute)} .foot{font-size:13px;color:var(--mute);margin-top:16px} .err{color:var(--red)}
+/* Recipe card (plan/SENTENCE-LADDER-SPEC-2026-09-27.md section 7): read in 10 seconds before a lesson */
+.recipe{background:var(--bg2);border:2px solid var(--teal);border-radius:16px;padding:14px 16px;margin:0 0 16px}
+.recipe .rk{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--teal);margin:0 0 4px}
+.recipe .rbig{font-size:21px;font-weight:700;line-height:1.3;margin:0 0 8px}
+.recipe .rline{font-size:15px;margin:0 0 6px} .recipe .rsmall{font-size:13px;color:var(--mute);margin:6px 0 0}
+.recipe .rdef{display:inline-block;font-size:11px;font-weight:600;color:var(--mute);border:1px solid var(--line);border-radius:999px;padding:0 7px;margin-left:4px;vertical-align:2px}
+.recipe h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin:12px 0 6px;font-weight:700}
+.recipe .ex{border-top:1px solid var(--line);padding:8px 0 6px}
+.recipe .ex .lat{font-size:17px;line-height:1.4;unicode-bidi:plaintext} .recipe .ex .arb{font-size:15px;color:var(--mute);line-height:1.6;text-align:left}
+.recipe .ex .note{font-size:12px;color:var(--mute);margin-top:2px}
+.recipe details{margin-top:10px;font-size:13px} .recipe summary{cursor:pointer;color:var(--teal);font-weight:600;min-height:32px}
+.recipe details ul{margin:6px 0 0;padding-left:18px;color:var(--ink)} .recipe details li{margin:0 0 6px}
 </style></head><body><main>
 <p class="who">Amal's pages · Medi's app</p>
 <h1>Tutor Hub</h1>
 <p class="sug">Everything the app ever asks you, in one place. Each tile says what it is and how long it takes. Nothing is sent to Medi's score until you tap.</p>
+<section class="recipe" id="recipe" aria-label="Recipe for the next lesson">
+ <p class="rk">Before the lesson · Medi's recipe</p>
+ <p class="rbig" id="r-text">Loading…</p>
+ <p class="rline" id="r-listen"></p>
+ <p class="rline" id="r-speak"></p>
+ <p class="rsmall" id="r-basis"></p>
+ <h2>Sentences of yours he understood, at this length</h2>
+ <div id="r-ex"><p class="rsmall">Loading examples…</p></div>
+ <details><summary>Where each part comes from</summary><ul id="r-why"></ul></details>
+</section>
 <div id="tiles"><p class="sug" id="status">Loading your links…</p></div>
 <p class="foot" id="foot">Links are personal. Medi sends you this page; the app never emails you.</p>
 </main>
+<script src="../js/word-bank-arabizi.js"></script>
+<script>
+// Recipe card. Every number is read from data/sentence-ladder.json (recipe, ladder) and the per-lesson files; nothing
+// here writes anything. Arabic is shown the Word Bank way: Amal's own spelling on top, the Arabic under it (rule S1).
+(async()=>{
+  const $=id=>document.getElementById(id), e=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const day=d=>{ const p=String(d||'').split('-').map(Number); return p.length===3?new Date(p[0],p[1]-1,p[2]).toLocaleDateString('en-GB',{day:'numeric',month:'long'}):'—'; };
+  let L;
+  try{ const r=await fetch('../data/sentence-ladder.json'); if(!r.ok) throw new Error('HTTP '+r.status); L=await r.json(); }
+  catch(err){ $('r-text').textContent='—'; $('r-listen').textContent='The recipe could not load ('+err.message+'). Try again in a minute.'; $('r-ex').innerHTML=''; return; }
+  const R=L.recipe||{}, LI=(L.ladder||{}).listen||{}, SP=(L.ladder||{}).speak||{}, eff=Object.fromEntries(((L.effects||{}).listen||[]).map(x=>[x.tag,x]));
+  const rung=(lad,n)=>(lad.rungs||[]).find(x=>x.len===n);
+  const items=R.items||[], defaults=items.filter(i=>/^default/.test(i.basis||'')), fromData=items.filter(i=>i.basis==='data');
+  $('r-text').innerHTML=items.length?items.map(i=>e(i.lever==='length'?`${R.target_len} words`:i.advice)+(/^default/.test(i.basis||'')?'<span class="rdef">default</span>':'')).join(' · '):e(R.text||'—');
+  // Listening: good at N, try N+1
+  const at=rung(LI,LI.target);
+  $('r-listen').innerHTML=LI.N!=null&&LI.target!=null
+    ? `<b>Listening:</b> he follows your ${e(LI.N)}-word sentences well (${e(LI.pct_at_N)}% of the last 20). Try ${e(LI.target)} words: so far he understood ${at?`${e(at.ok)} of the last ${e(at.n_last)}`:'—'} at ${e(LI.target)} (${LI.pct_at_target!=null?e(LI.pct_at_target)+'%':'—'}).`
+    : '<b>Listening:</b> — (the ladder has no listening level yet).';
+  const sat=rung(SP,SP.target);
+  $('r-speak').innerHTML=SP.N!=null&&SP.target!=null
+    ? `<b>His own sentences:</b> solid at ${e(SP.N)} words (${e(SP.pct_at_N)}% without a correction). Nudge him to ${e(SP.target)}: ${sat?`${e(sat.ok)} of his last ${e(sat.n_last)}`:'—'} ${e(SP.target)}-word sentences needed no correction (${SP.pct_at_target!=null?e(SP.pct_at_target)+'%':'—'}).`
+    : '<b>His own sentences:</b> — (the ladder has no speaking level yet).';
+  $('r-basis').textContent=defaults.length
+    ? `The length comes from his results. ${defaults.length===items.length-1?'The other '+defaults.length+' parts are':defaults.length+' parts are'} defaults until the data says otherwise: none of them costs him 5 points of understanding yet.`+(fromData.length?` From his results: ${fromData.map(i=>i.advice).join(', ')}.`:'')
+    : fromData.length?`Every part comes from his results.`:'';
+  // Where each part comes from: honest basis, with the numbers behind it
+  $('r-why').innerHTML=items.map(i=>{
+    if(i.lever==='length') return `<li><b>${e(R.target_len)} words</b>: from his listening ladder (good at ${e(LI.N)}; ${e(i.pct)}% on the last ${e(i.n)} at ${e(R.target_len)}). One word longer than what he already follows.</li>`;
+    const x=eff[i.lever], what=x?x.label:i.lever, rd=i.rd_mh;
+    const cost=rd==null?': not enough sentences to measure yet':rd<0?`costs him ${e(Math.abs(rd))} points so far (${e(i.n_with)} sentences)`:`: no cost seen (+${e(rd)} points, ${e(i.n_with)} sentences)`;
+    return i.basis==='data'
+      ? `<li><b>${e(i.advice)}</b>: from his results. With ${e(what)} he understood ${e(i.pct_with)}% vs ${e(i.pct_without)}% without (${e(rd)} points, ${e(i.n_with)} sentences).</li>`
+      : `<li><b>${e(i.advice)}</b>: default until the data says otherwise. ${e(what[0].toUpperCase()+what.slice(1))}${/^:/.test(cost)?'':' '}${cost}; it becomes a finding at 5 points.</li>`;
+  }).join('')+'<li>"Understood" is the app\'s first guess from what he replied, not a test.</li>';
+  // Examples: her sentences of exactly the target length that he understood, newest lessons first.
+  // Plain Arabic first (no English words), stronger evidence first; stops once 3 are found, at most 5 lesson files.
+  const T=R.target_len, dates=Object.keys(L.files||{}).sort().reverse(), picks=[];
+  for(const d of dates){
+    if(picks.filter(u=>!(u.tags&&u.tags.en_tokens)).length>=3||dates.indexOf(d)>=5) break;
+    try{ const f=await (await fetch('../'+L.files[d])).json();
+      for(const u of f.listen||[]) if(u.n===T&&u.label==='understood'&&u.scored) picks.push(u); }catch(err){}
+  }
+  // The pipeline's evidence labels, said to Amal ("her" in the data is Amal).
+  const EV={'she confirmed':'you confirmed he got it','reused her word':'he reused your word','Arabic answer to her question':'he answered your question in Arabic',
+    "said her word's meaning in English":"he said your word's meaning in English","English meaning for her 'what does it mean'":"he answered your 'what does it mean?' in English",
+    'his guess of the meaning, and she confirmed it':'he guessed the meaning and you confirmed it','content reply only':'he replied on topic'};
+  const rank=u=>((u.tags&&u.tags.en_tokens)?0:2)+(u.evidence&&u.evidence!=='content reply only'?1:0);
+  const shown=picks.sort((a,b)=>rank(b)-rank(a)||(a.date<b.date?1:-1)).slice(0,3);
+  const draw=conv=>{ $('r-ex').innerHTML=shown.length?shown.map(u=>{ const z=conv?conv(u.text):null;
+      return `<div class="ex">${z&&z.generated?`<div class="lat" dir="auto">${e(z.text)}</div><div class="arb" dir="rtl" lang="ar">${e(u.text)}</div>`:`<div class="lat" dir="auto">${e(u.text)}</div>`}<div class="note">${e(day(u.date))} · ${e(u.n)} words · ${e(EV[u.evidence]||u.evidence||'understood')}${z&&z.approximate?' · unverified spelling stays in Arabic':''}</div></div>`; }).join('')
+    : `<p class="rsmall">— No ${e(T)}-word sentence of yours with a clear "understood" in the last lessons yet.</p>`; };
+  draw(null);
+  // Her spellings: words.json (her Doc) with house_spelling.json (her WhatsApp typing) on top, as on the Grammar page.
+  if(window.AneesWordBankArabizi&&shown.length){
+    const opt=u=>fetch(u).then(r=>r.ok?r.json():null).catch(()=>null);
+    const [w,h,c,x]=await Promise.all(['../data/words.json','../data/house_spelling.json','../data/word-bank-catalog.json','../data/arabizi-extra.json'].map(opt));
+    const house=(h&&h.items)||{}, words=((w&&w.items)||[]).map(it=>{ const hs=house[it.match_loose]; return hs&&hs.house?Object.assign({},it,{house_spelling:hs.house}):it; });
+    draw(window.AneesWordBankArabizi.create(words,c||{},x||{}));
+  }
+})();
+</script>
 <script src="../js/config.js"></script>
 <script>
 const qs=new URLSearchParams(location.search), TOKEN=qs.get('t')||'';

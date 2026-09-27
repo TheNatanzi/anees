@@ -1,5 +1,6 @@
-/* Grammar Console. Reads docs/data/grammar-console.json only.
-   Never invents a number: a rule with no recorded use renders as Untested. */
+/* Grammar Console. Reads docs/data/grammar-console.json, plus the "hear it / say it" side from
+   docs/data/sentence-ladder.json -> rules (plan/SENTENCE-LADDER-SPEC-2026-09-27.md section 7).
+   Never invents a number: a rule with no recorded use renders as Untested; missing ladder data renders "—" with why. */
 (function () {
 'use strict';
 
@@ -11,6 +12,7 @@ var COLS = [
   { key: 'rule', label: 'Rule', first: 'asc' },
   { key: 'used', label: 'Times used', first: 'desc' },
   { key: 'mistakes', label: 'Mistakes', first: 'desc' },
+  { key: 'hear', label: 'Hear it', first: 'desc' },
   { key: 'score', label: 'Score', first: 'desc' },
   { key: 'status', label: 'Status', first: 'asc' },
   { key: 'last', label: 'Last used', first: 'desc' }
@@ -26,6 +28,34 @@ var STATUS_ON = Object.create(null);
 var STATUSES = ['Mastered', 'Good', 'Shaky', 'Wrong', 'Unscored', 'Untested'];
 var FAMILY_ORDER = { A: 0, B: 1, C: 2, D: 3, E: 4, F: 5 };
 var SHOW = 5;
+
+/* ---------- hear it / say it (sentence-ladder.json -> rules) ---------- */
+var LADDER = null, LADDER_WHY = 'loading';     // why the hear side is blank, when it is
+var LESSON = Object.create(null);               // date -> per-lesson ladder file ({data} once loaded)
+// Flags. "Understands it" = at least GOOD % understood (the ladder's good bar) on the FLOOR of clear labels.
+// "Say it next": he understands it but says it less than half as often as he hears it (no shown rule sits at zero uses).
+// "Listening gap": he says it on >= FLOOR scored sentences, but understands it GAP points or more below his overall
+// listening rate (the same 5-point bar the recipe card uses for a lever).
+var GOOD = 80, GAP = 5, FLOOR = 30;
+function hearOf(r) { return (LADDER && LADDER.rules && LADDER.rules[r.id]) || null; }
+function overallHear() {
+  var L = LADDER && LADDER.labels && LADDER.labels.listen;
+  return L && (L.understood + L.breakdown) ? 100 * L.understood / (L.understood + L.breakdown) : null;
+}
+function round1(v) { return Math.round(v * 10) / 10; }
+function hearFlag(r) {
+  var x = hearOf(r); if (!x) return null;
+  var h = x.hear, s = x.say, all = overallHear();
+  if (h.show && s.show && all != null && h.pct != null && h.pct <= all - GAP) {
+    return { cls: 'gap', text: 'listening gap', why: 'You say it (' + s.uses + ' sentences, ' + s.pct_ok + '% not corrected) but understand it ' +
+      h.pct + '% by ear: ' + round1(all - h.pct) + ' points below your overall ' + round1(all) + '%.' };
+  }
+  if (h.show && h.pct != null && h.pct >= GOOD && s.uses < h.n / 2) {
+    return { cls: 'say', text: 'say it next', why: 'You understand it (' + h.pct + '%) and heard it ' + h.n + ' times, but said it only ' + s.uses + ' times.' };
+  }
+  return null;
+}
+function hearScored(h) { return h.understood + h.breakdown; }
 
 var $ = function (id) { return document.getElementById(id); };
 function el(tag, cls, text) {
@@ -333,6 +363,7 @@ function sortValue(r) {
   switch (SORT.key) {
     case 'used': return r.uses || 0;
     case 'mistakes': return r.uses ? r.mistakes : null;
+    case 'hear': var x = hearOf(r); return x && x.hear.show ? x.hear.pct : null;
     case 'score': return r.pct;
     case 'status': return STATUS_RANK[r.status];
     case 'last': return r.last_used ? String(r.last_used) + ' ' + ('00000' + mmssToSec(r.last_used_mmss)).slice(-5) : null;
@@ -406,6 +437,111 @@ function useCard(e) {
   return card;
 }
 
+function mmss(t) {
+  if (typeof t !== 'number') return '';
+  var m = Math.floor(t / 60), sec = Math.floor(t % 60);
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+var SIGNAL = {
+  repeat_request: 'asked her to say it again', meaning_question: 'asked what it means',
+  dont_understand: 'said he did not understand', rescue: 'she rescued him after a silence',
+  wrong_answer: 'answered something else', hand_audit: 'lesson audit, read by hand'
+};
+function lessonFile(date) {
+  if (LESSON[date]) return LESSON[date].promise || Promise.resolve(LESSON[date].data);
+  var path = LADDER && LADDER.files && LADDER.files[date];
+  var pr = !path ? Promise.resolve(null) : fetch(path)
+    .then(function (res) { return res.ok ? res.json() : null; })
+    .catch(function () { return null; });
+  LESSON[date] = { promise: pr.then(function (j) { LESSON[date] = { data: j }; return j; }) };
+  return LESSON[date].promise;
+}
+// Up to SHOW of Amal's sentences with this rule that he missed, from the pipeline's example ids (misses first).
+function missedCards(x, box) {
+  var ids = (x.hear.examples || []).slice();
+  var dates = ids.map(function (id) { return id.split(':')[0]; }).filter(function (v, i, a) { return a.indexOf(v) === i; });
+  var pending = dates.filter(function (dt) { return !(LESSON[dt] && 'data' in LESSON[dt]); });
+  if (pending.length) {
+    box.appendChild(el('div', 'gc-empty', 'Loading her sentences…'));
+    Promise.all(pending.map(lessonFile)).then(function () { render(); });
+    return;
+  }
+  var byId = Object.create(null);
+  dates.forEach(function (dt) { var f = LESSON[dt].data; ((f && f.listen) || []).forEach(function (u) { byId[u.id] = u; }); });
+  var missed = ids.map(function (id) { return byId[id]; }).filter(function (u) { return u && u.label === 'breakdown'; }).slice(0, SHOW);
+  if (!missed.length) {
+    box.appendChild(el('div', 'gc-empty', x.hear.breakdown
+      ? '— The missed sentences could not be loaded (lesson files ' + dates.join(', ') + ').'
+      : 'No missed sentence on record for this rule.'));
+    return;
+  }
+  missed.forEach(function (u) {
+    var card = el('div', 'gc-use gc-use-miss');
+    var hd = el('div', 'gc-usehead');
+    var left = el('span');
+    left.appendChild(el('span', 'gc-tag', 'You missed it'));
+    Object.keys(u.signals || {}).forEach(function (k) {
+      var g = u.signals[k] || {};
+      left.appendChild(el('span', 'gc-tag', (SIGNAL[k] || k) + (g.src === 'hand' ? '' : g.guess ? ' · machine guess' : ' · machine')));
+    });
+    hd.appendChild(left);
+    hd.appendChild(el('span', null, pretty(u.date) + ' · ' + mmss(u.t)));
+    card.appendChild(hd);
+    card.appendChild(speech('gc-said', null, u.text));
+    if (u.reply && u.reply.text) {
+      var rp = el('div', 'gc-recast');
+      rp.appendChild(el('span', null, 'You replied: '));
+      rp.appendChild(speech('gc-reply', null, u.reply.text));
+      card.appendChild(rp);
+    }
+    box.appendChild(card);
+  });
+  if (x.hear.breakdown > missed.length) {
+    box.appendChild(el('p', 'ab-mini', 'Showing ' + missed.length + ' of ' + x.hear.breakdown + ' missed sentences.'));
+  }
+}
+// "Hear it / say it": Amal using the rule (did he understand?) next to him using it (was he corrected?). All lessons.
+function hearSay(r) {
+  var sec = el('div', 'gc-hearsay');
+  sec.appendChild(el('h3', 'gc-secttitle', 'Hear it / say it · all lessons'));
+  var x = hearOf(r);
+  if (!x) {
+    sec.appendChild(el('p', 'ab-mini', '— ' + (LADDER_WHY === 'loading' ? 'Loading the sentence ladder…' : 'No hear / say data: ' + LADDER_WHY + '.')));
+    return sec;
+  }
+  var h = x.hear, s = x.say, n = hearScored(h);
+  var pair = el('div', 'gc-hs-pair');
+  var a = el('div', 'gc-hs');
+  a.appendChild(el('div', 'gc-hs-label', 'Hear it · Amal says it'));
+  a.appendChild(el('div', 'gc-hs-num', h.show ? h.pct + '% understood' : 'collecting, ' + n + ' of ' + FLOOR));
+  a.appendChild(el('div', 'ab-mini', h.n
+    ? 'In ' + h.n + ' of her sentences: ' + h.understood + ' understood, ' + h.breakdown + ' missed, ' + h.unknown + ' unclear (unclear is not counted).'
+    : 'She has not used it in a scored listening sentence yet.'));
+  pair.appendChild(a);
+  var b = el('div', 'gc-hs');
+  b.appendChild(el('div', 'gc-hs-label', 'Say it · you say it'));
+  b.appendChild(el('div', 'gc-hs-num', s.show ? s.pct_ok + '% not corrected' : 'collecting, ' + s.uses + ' of ' + FLOOR));
+  b.appendChild(el('div', 'ab-mini', s.uses
+    ? 'In ' + s.uses + ' of your scored sentences: ' + s.corrected_any + ' got a correction of any kind. The console files ' + s.corrections_this_rule + ' corrections under this rule.'
+    : 'No scored sentence of yours uses it yet.'));
+  pair.appendChild(b);
+  sec.appendChild(pair);
+  var f = hearFlag(r);
+  if (f) {
+    var fl = el('p', 'gc-hs-flag');
+    fl.appendChild(el('span', 'gc-flag gc-flag-' + f.cls, f.text));
+    fl.appendChild(document.createTextNode(' ' + f.why));
+    sec.appendChild(fl);
+  }
+  sec.appendChild(el('h3', 'gc-secttitle', 'Her sentences with this rule you missed'));
+  var box = el('div');
+  missedCards(x, box);
+  sec.appendChild(box);
+  sec.appendChild(el('p', 'ab-mini', 'Machine labels from the sentence ladder (a hand check found 16 of 20 "missed" labels right). ' +
+    'A % shows only from ' + FLOOR + ' clear labels. Built ' + String(LADDER.generated || '').slice(0, 10) + '.'));
+  return sec;
+}
+
 function detail(r) {
   var d = el('div', 'gc-detail');
 
@@ -430,6 +566,8 @@ function detail(r) {
     r.more.forEach(function (m) { ul.appendChild(el('li', null, m)); });
     d.appendChild(ul);
   }
+
+  d.appendChild(hearSay(r));
 
   // recorded uses
   var all = eventsInPeriod(r);
@@ -528,6 +666,30 @@ function detail(r) {
 }
 
 
+// Row cell: % of Amal's listening sentences with this rule that he understood, on the FLOOR of clear labels.
+function hearCell(r) {
+  var x = hearOf(r), cell = el('div', 'gc-num gc-hear');
+  if (!x) {
+    cell.appendChild(el('span', 'gc-muted', '—'));
+    cell.appendChild(el('small', null, LADDER_WHY === 'loading' ? 'loading…' : 'no ladder data'));
+    cell.title = LADDER_WHY === 'loading' ? 'Loading the sentence ladder' : 'Hear it: ' + LADDER_WHY;
+    return cell;
+  }
+  var h = x.hear, n = hearScored(h);
+  if (!h.show) {
+    cell.appendChild(el('span', 'gc-muted', '—'));
+    cell.appendChild(el('small', null, 'collecting, ' + n + ' of ' + FLOOR));
+    cell.title = n + ' of her sentences with this rule got a clear understood / missed label; a % shows from ' + FLOOR + '.';
+  } else {
+    cell.appendChild(document.createTextNode(h.pct + '%'));
+    cell.appendChild(el('small', null, 'understood · n ' + n));
+    cell.title = h.understood + ' understood, ' + h.breakdown + ' missed, ' + h.unknown + ' unclear (not counted), all lessons.';
+  }
+  var f = hearFlag(r);
+  if (f) { var p = el('span', 'gc-flag gc-flag-' + f.cls, f.text); p.title = f.why; cell.appendChild(p); }
+  return cell;
+}
+
 function row(r) {
   var wrap = el('div', 'gc-row gc-row-' + r.status);
   var head = el('button', 'gc-grid gc-rowhead');
@@ -550,6 +712,8 @@ function row(r) {
   miss.appendChild(el('small', null, r.verified_slips
     ? r.verified_slips + ' confirmed' : 'corrections'));
   head.appendChild(miss);
+
+  head.appendChild(hearCell(r));
 
   var score = el('div', 'gc-num', r.pct == null ? '—' : r.pct + '%');
   var meter = el('div', 'gc-meter');
@@ -696,9 +860,18 @@ Promise.all([optional('data/words.json'), optional('data/house_spelling.json'), 
     toArabizi = window.AneesWordBankArabizi.create(words, res[2] || {}, res[3] || {});
     renderCheck(res[3]);
   })
-  .then(function () { return fetch('data/grammar-console.json?v=' + Date.now()); })
-  .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-  .then(function (json) {
+  .then(function () {
+    return Promise.all([
+      fetch('data/grammar-console.json?v=' + Date.now()).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }),
+      fetch('data/sentence-ladder.json').then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .catch(function (e) { LADDER_WHY = 'sentence-ladder.json did not load (' + e.message + ')'; return null; })
+    ]);
+  })
+  .then(function (both) {
+    var json = both[0];
+    LADDER = both[1] && both[1].rules ? both[1] : null;
+    if (!LADDER && LADDER_WHY === 'loading') LADDER_WHY = 'sentence-ladder.json has no rules section';
+    else if (LADDER) LADDER_WHY = 'this rule is not in sentence-ladder.json';
     DATA = json;
     var c = DATA.coverage;
     $('gc-source').textContent = c.buckets_scored + ' of ' + c.buckets_total + ' rules scored';

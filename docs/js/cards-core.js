@@ -36,9 +36,10 @@
     return root.AneesBuckets.mergeStats(stats,log);
   }
   // Weighted draw WITHOUT replacement of n distinct words from the pool (each word at most once per round).
-  function draw(words, stats, n, seed) {
+  // boost (optional, from boostMap): a word that sank a sentence he missed in a lesson weighs BOOST.weight times more.
+  function draw(words, stats, n, seed, boost) {
     const rnd = typeof seed === 'number' ? mulberry32(seed) : Math.random;
-    const items = words.map(w => ({ w, wt: weightOf(w, stats[w.key]) }));
+    const items = words.map(w => ({ w, wt: weightOf(w, stats[w.key]) * (boost && boost.has(w.key) ? BOOST.weight : 1) }));
     const out = [];
     while (out.length < n && items.length) {
       const total = items.reduce((a, it) => a + it.wt, 0);
@@ -86,8 +87,42 @@
   }
   function dayStart(t) { const d = new Date(t); return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(); }
   const LEARN_AHEAD = 20 * 60000;   // Anki's default: finish a session by showing learning cards due in the next 20 minutes
+  // ---- Listening boost (plan/SENTENCE-LADDER-SPEC-2026-09-27.md section 7) ----
+  // docs/data/sentence-ladder.json -> boost[]: word keys that sank sentences he missed in a lesson ({key, score, strong,
+  // weak, dates, last, ids}). BOOST is the one place for the boost numbers: weight = how much more a boosted word weighs
+  // in a weighted practice draw (the same 3x as a missed / new card). In the daily queue the boost only changes ORDER:
+  // due boosted cards first, boosted unseen words first into the new-card slots. The daily new cap and sibling burying
+  // are untouched, and a card never becomes due early.
+  const BOOST = Object.freeze({ weight: 3 });
+  const DAY = 86400000;
+  const localDate = s => { const p = String(s || '').split('-').map(Number); return p.length === 3 && p.every(Number.isFinite) ? new Date(p[0], p[1] - 1, p[2]).getTime() : NaN; };
+  // Map key -> boost entry. A word drops out once he has got its card right on a later day than his last miss in a
+  // lesson (the boost did its job); a card miss after the lesson keeps it boosted.
+  function boostMap(list, log) {
+    const lastGot = new Map();
+    for (const r of log || []) {
+      if (!r || !r.word_key || r.undone || r.undone_at || r.kind === 'flag' || r.kind === 'undo' || r.result !== 'got') continue;
+      const ms = Date.parse(r.ts); if (Number.isFinite(ms) && ms > (lastGot.get(r.word_key) || 0)) lastGot.set(r.word_key, ms);
+    }
+    const out = new Map();
+    for (const b of list || []) {
+      if (!b || !b.key || !(b.score > 0) || out.has(b.key)) continue;
+      const missed = localDate(b.last); if (!Number.isFinite(missed)) continue;
+      if ((lastGot.get(b.key) || 0) >= missed + DAY) continue;
+      out.set(b.key, b);
+    }
+    return out;
+  }
+  // The chip text: "boosted: missed in lesson 26 Sep".
+  function boostLabel(b) {
+    const t = b && localDate(b.last); if (!Number.isFinite(t)) return '';
+    const d = new Date(t);
+    return 'boosted: missed in lesson ' + d.getDate() + ' ' + 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' ')[d.getMonth()];
+  }
   // Order: learning cards due now, then reviews due today, then new cards up to the daily limit.
   // A new or review card is buried when a sibling was answered today or is already in today's queue.
+  // opts.boost (a boostMap): due boosted cards lead (highest score first), and boosted unseen words take the new-card
+  // slots first; the cap, the burying and the due times stay exactly as without it.
   function queue(words, cards, log, now, opts) {
     const F = root.AneesFSRS, o = Object.assign({ newPerDay: F.DEFAULTS.newPerDay }, opts || {}), t = +now, today = dayStart(t), end = today + 86400000;
     const group = opts && opts.siblings || siblingMap(words, null), usedGroup = new Set();
@@ -103,17 +138,21 @@
       if (c.state !== 'review') { if (c.due <= t) learning.push(c); else if (c.due < end) later.push(c); }
       else if (c.due < end) reviews.push(c);
     }
-    learning.sort((a, b) => a.due - b.due); later.sort((a, b) => a.due - b.due); reviews.sort((a, b) => a.due - b.due);
+    const boost = o.boost instanceof Map ? o.boost : null, score = k => (boost && boost.has(k) ? boost.get(k).score || 0 : 0);
+    const byBoost = (a, b) => score(b.id) - score(a.id) || a.due - b.due;   // boosted (score > 0) before the rest; ties keep due order
+    learning.sort((a, b) => a.due - b.due); later.sort((a, b) => a.due - b.due); reviews.sort(boost ? byBoost : (a, b) => a.due - b.due);
     let buried = 0;
     const take = (list, key) => list.filter(x => { const g = group.get(key(x)) || 'w:' + key(x); if (usedGroup.has(g)) { buried++; return false; } usedGroup.add(g); return true; });
     const dueReviews = take(reviews, c => c.id);
     const room = Math.max(0, o.newPerDay - newToday);
-    const unseen = words.filter(w => !cards.has(w.key) || !cards.get(w.key).reps).sort((a, b) => (a.doc_order || 0) - (b.doc_order || 0));
+    const unseen = words.filter(w => !cards.has(w.key) || !cards.get(w.key).reps).sort((a, b) => score(b.key) - score(a.key) || (a.doc_order || 0) - (b.doc_order || 0));
     for (const w of unseen) { if (fresh.length >= room) break; const g = group.get(w.key) || 'w:' + w.key; if (usedGroup.has(g)) { buried++; continue; } usedGroup.add(g); fresh.push(F.newCard(w.key)); }
     const ahead = later.filter(c => c.due - t <= LEARN_AHEAD);
-    const items = learning.concat(dueReviews, fresh);
+    const isB = c => score(c.id) > 0;
+    const lead = learning.concat(dueReviews).filter(isB).sort(byBoost);
+    const items = lead.concat(learning.filter(c => !isB(c)), dueReviews.filter(c => !isB(c)), fresh);
     const next = items.length ? items : ahead.slice(0, 1);
-    return { items: next, counts: { due: dueReviews.length, new: fresh.length, learning: learning.length + later.length }, newToday, room, buried, nextLearning: later[0] ? later[0].due : null };
+    return { items: next, counts: { due: dueReviews.length, new: fresh.length, learning: learning.length + later.length, boosted: next.filter(isB).length }, newToday, room, buried, nextLearning: later[0] ? later[0].due : null, boosted: next.filter(isB).map(c => c.id) };
   }
   // ---- the new-card cap, for every path that can show a card for the first time ----
   // Cards first answered today (live rows only): the cap counts introductions, not answers.
@@ -133,5 +172,5 @@
     for (const w of list || []) { if (!w) continue; if (seen.has(w.key)) { cards.push(w); continue; } if (fresh < room) { fresh++; cards.push(w); } else held.push(w); }
     return { cards, held: held.length, fresh, room: room === Infinity ? null : room, newToday: used, cap: o.newPerDay };
   }
-  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, done, replayWrong, summary, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart, newToday, capNew };
+  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, done, replayWrong, summary, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart, newToday, capNew, BOOST, boostMap, boostLabel };
 })(typeof window !== 'undefined' ? window : globalThis);

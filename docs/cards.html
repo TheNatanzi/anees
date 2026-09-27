@@ -104,13 +104,15 @@ h1,h2,.tile b,.fc b,.qtop .count,.num,.big,.en,.donut i,.legend span:last-child{
 h1{font-weight:500;font-size:32px;letter-spacing:-.3px} h2{font-weight:500;font-size:19px} .tile b{font-weight:500} .big,.en{font-weight:500} .donut i{font-weight:500}
 .tile.due b{color:var(--sabz-data-ink)} button.primary{color:var(--sabz-cta-text)} button.sel{border-color:var(--sabz-data-ink);color:var(--sabz-data-ink);background:var(--sabz-state-calm-fill)}
 .stamp{background:var(--sabz-bg)} .donut i{background:var(--sabz-bg)}
+/* listening boost chip: this word sank a sentence he missed in a lesson (data/sentence-ladder.json boost) */
+.face .boost{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);max-width:calc(100% - 32px);font:600 12px var(--sans);padding:3px 10px;border-radius:999px;background:var(--learnbg);color:var(--learn);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 </style></head><body><div id="anees-bank" class="vp-sabz"><div class="ab-shell">
 <aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="progress.html">Progress &amp; Stats</a><a class="ab-nav" href="lessons.html">Lessons &amp; Audio</a><a class="ab-nav" href="word-bank.html">Word Bank</a><a class="ab-nav" href="grammar.html">Grammar Rules</a><a class="ab-nav" aria-current="page" href="cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="tutor.html">Tutor</a><a class="ab-nav" href="ai-reports.html">AI Reports</a><a class="ab-nav" href="big-picture.html">Big Picture</a><a class="ab-nav" href="settings.html">System Settings</a></nav></aside>
 <main>
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main></div></div>
-<script src="js/config.js"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260927-audit-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260923-drills-v2"></script><script src="js/word-bank-review.js?v=20260922-select-v2"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
+<script src="js/config.js"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260927-boost-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260923-drills-v2"></script><script src="js/word-bank-review.js?v=20260922-select-v2"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
 <script>
 const C=window.AneesCards, F=window.AneesFSRS, SEL=window.AneesCardSelection, VD=window.AneesVerbDrills, WB=window.AneesWordBank, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -118,7 +120,7 @@ const uuid=()=> (crypto.randomUUID? crypto.randomUUID() : 'c'+Date.now().toStrin
 const LS=(k,v)=>{ try{ if(v===undefined) return JSON.parse(localStorage.getItem(k)||'null'); localStorage.setItem(k,JSON.stringify(v)); return true; }catch(e){ return v===undefined?null:false; } };
 let memQueue=[];   // used only when localStorage refuses the write: the answer is still sent, and the footer says it is not saved locally
 const readQ=()=>(LS('anees-card-queue')||[]).concat(memQueue);
-let words=[], stats={}, catalog=null, siblings=null, serverLog=[], cards=new Map(), speakEvents=[], quizlet=[], lessonScores='pending';
+let words=[], stats={}, catalog=null, siblings=null, serverLog=[], cards=new Map(), speakEvents=[], quizlet=[], lessonScores='pending', boostList=[];
 let pref=Object.assign({mode:'ar_first',shuffle:true,n:20,subject:'b-new',retention:0.9},LS('anees-cards-pref')||{});
 if(!F.RETENTIONS.includes(pref.retention)) pref.retention=0.9;
 const savePref=()=>LS('anees-cards-pref',pref);
@@ -150,6 +152,7 @@ async function load(){
   if(ev) LS('anees-speaking-evidence-v1',snap.value); else ev=(LS('anees-speaking-evidence-v1')||{}).events||null;
   if(ev){ const rv=window.AneesWordBankReview.apply(ev,review.status==='fulfilled'?review.value:{}); speakEvents=WB.prepareEvidence(rv.events.map(e=>rv.stale.includes(e.id)?{...e,needs_review:true}:e)); lessonScores='ok'; } else lessonScores='offline';
   quizlet=qz.status==='fulfilled'?(qz.value.sets||[]):[];
+  try{ const r=await fetch('data/sentence-ladder.json'); if(r.ok) boostList=(await r.json()).boost||[]; }catch(e){}   // listening boost: words that sank sentences he missed
   try{ const r=await fetch('data/verb-addons.json'); if(r.ok&&window.AneesVerbAddons) window.AneesVerbAddons.useTags((await r.json()).verbs); }catch(e){}
   applyLocalResults(); rebuild();
 }
@@ -188,7 +191,10 @@ window.addEventListener('online',sync); setInterval(()=>{ if((LS('anees-card-que
 function flag(word){ enqueue({id:uuid(), kind:'flag', word_key:word.key, body:{source:'flashcards',kind:'flag',word_key:word.key,payload:{arabizi:word.arabizi,why:'often wrong on flashcards'}}}); }
 const byKey=()=>new Map(words.map(w=>[w.key,w]));
 const fsrsOpts=()=>({desiredRetention:pref.retention});
-function dueQueue(){ return C.queue(words,cards,fullLog(),new Date(),{newPerDay:F.DEFAULTS.newPerDay,siblings}); }
+// Listening boost (AneesCards.BOOST): due boosted cards first, boosted unseen words first into the new slots; cap and burying unchanged.
+const boostNow=()=>C.boostMap(boostList,fullLog());
+const boostChip=key=>{ const b=boostNow().get(key); return b?{text:C.boostLabel(b),title:`You missed a sentence with this word in a lesson (${b.dates.join(', ')}). Score ${b.score} = ${b.strong} time${b.strong===1?'':'s'} you asked about it + ${b.weak} shared with the other words of missed sentences. It comes first until you get it right on a later day.`}:null; };
+function dueQueue(){ return C.queue(words,cards,fullLog(),new Date(),{newPerDay:F.DEFAULTS.newPerDay,siblings,boost:boostNow()}); }
 function wait(msFromNow){ const m=Math.round(msFromNow/60000); if(m<60) return m<1?'<1m':m+'m'; const h=Math.round(m/60); if(h<24) return h+'h'; const d=Math.round(m/1440); return d<60?d+'d':Math.round(d/30)+'mo'; }
 // ---- answer timer: visible time only (a hidden tab does not count) ----
 const timer={start:0,acc:0,flip:null,run:false,
@@ -208,7 +214,7 @@ function cardView(o){
     <div class="prog"><i style="width:${Math.round(o.pct)}%"></i></div>
     <div class="tally"><span class="pill learn"><b>${o.learnN}</b>Still learning</span><span class="pill know"><b>${o.knowN}</b>Know</span></div>
     <div class="scene"><div class="card${o.leech?' leech':''}" id="card" role="button" aria-label="Flip card"><div class="stamp l">Still learning</div><div class="stamp r">Know</div>
-      <div class="inner"><div class="face front"><span class="lab">${fl}</span><span class="tag">${esc(o.tag||'')}</span>${front}</div>
+      <div class="inner"><div class="face front"><span class="lab">${fl}</span><span class="tag">${esc(o.tag||'')}</span>${front}${o.chip?`<span class="boost" title="${esc(o.chip.title)}">${esc(o.chip.text)}</span>`:''}</div>
       <div class="face back"><span class="lab">${bl}</span>${back}${o.w.subtopic?`<div class="sub">${esc(o.w.subtopic)}</div>`:''}</div></div></div></div>
     <div class="ctrls">${o.onUndo?'<button id="undo" class="undo" aria-label="Undo last answer" title="Undo (Ctrl+Z)">↺</button>':'<span style="width:44px"></span>'}
       <button id="miss" class="circle" aria-label="Still learning" title="Still learning (←)" disabled>✕</button><button id="got" class="circle" aria-label="Know" title="Know (→)" disabled>✓</button><span style="width:44px"></span></div>
@@ -262,7 +268,7 @@ function home(){ document.onkeydown=null; rebuild(); tileMap=new Map(); window.s
   const cat=(id,label,words,o={})=>tileHtml(Object.assign({id:'cat:'+id,kind:'cat',cat:id,label,title:label,words},o));
   const group=(title,tiles)=>`<section class="fc-sec sec"><div class="fc-head"><h2>${esc(title)}</h2></div><div class="fc-grid">${tiles.join('')}</div></section>`;
   root.innerHTML=`<header class="ab-header vp-header"><div><div class="vp-eyebrow">Spoken Palestinian Arabic · with Amal</div><h1>Flashcards &amp; Review</h1><p class="ab-sub">Pick a category. Every answer feeds the scheduler; scores match the Word Bank.</p></div></header>
-    ${group('Today',[cat('due','Due for review',q.items,{shown:n.due+n.new+n.learning,unit:'cards',wide:true,note:`${n.due} due · ${n.new} new · ${n.learning} learning`,reason:'All done for today'})])}
+    ${group('Today',[cat('due','Due for review',q.items,{shown:n.due+n.new+n.learning,unit:'cards',wide:true,note:`${n.due} due · ${n.new} new · ${n.learning} learning${n.boosted?` · ${n.boosted} boosted`:''}`,reason:'All done for today'})])}
     ${group('Randomized',[
       tileHtml({id:'drill:random',kind:'drill',mode:'random',label:'Verb drills · 20 random',title:'Verb drills · 20 verbs · random',words:S.drills,shown:Math.min(20,S.drills.length),unit:'verbs',note:'one random person and tense per verb',reason:'No verbs in the catalog'}),
       tileHtml({id:'drill:full',kind:'drill',mode:'full',label:'Verb drills · 5 or 10 full',title:'Verb drills · 5 or 10 verbs · every person',words:S.drills,shown:10,unit:'verbs',note:'every person of the tenses you pick',reason:'No verbs in the catalog'}),
@@ -294,6 +300,7 @@ function catView(id){ document.onkeydown=null; rebuild(); tileMap=new Map(); win
     reason:lane==='speaking'&&lessonScores!=='ok'?'Lesson scores are offline':`No ${st.toLowerCase()} ${t==='All'?'forms':noun(t)} ${where(lane)} yet`})).join('')}</div>`;
   const body={
     due:()=>section(1,'Due for review','FSRS schedule',`<div class="fc-grid three">${[['Due',n.due,'reviews due today'],['New',n.new,'new cards today'],['Learning',n.learning,'coming back soon']].map(([l,v,sub])=>`<div class="vp-card"><div class="vp-card-label"><span>${l}</span></div><div class="vp-card-value"><span class="vp-num">${v}</span></div><div class="vp-card-sub">${sub}</div></div>`).join('')}</div>
+      ${n.boosted?`<p class="mute">${n.boosted} of today's cards are boosted: you missed a sentence with that word in a lesson. Due boosted cards come first, and boosted new words take the new slots first; the ${F.DEFAULTS.newPerDay}-a-day new-card cap still holds.</p>`:''}
       <button id="go" class="primary study" ${q.items.length?'':'disabled'}>${q.items.length?'Study the review queue':'All done for today'}</button>`),
     shaky:()=>section(3,'Shaky','',`<h3>In lessons</h3>${split('Shaky','speaking')}<h3>On cards</h3>${split('Shaky','flashcards')}`),
     wrong:()=>section(4,'Wrong','',`<h3>In lessons</h3>${split('Wrong','speaking')}<h3>On cards</h3>${split('Wrong','flashcards')}`),
@@ -332,14 +339,14 @@ function opts(t,back){ document.onkeydown=null; window.scrollTo(0,0); const n=t.
   document.getElementById('start').onclick=()=>startTile(t,back); }
 function startTile(t,back){ const cap=capRound(t.words), p=cap.cards, k=pref.n?Math.min(pref.n,p.length):p.length;   // the day's new-card room is spent before the draw
   if(!p.length) return capFull(cap,()=>opts(t,back));
-  const cs=pref.shuffle?C.draw(p,stats,k):p.slice(0,k);                         // shuffle off keeps Doc / Quizlet order
+  const cs=pref.shuffle?C.draw(p,stats,k,undefined,boostNow()):p.slice(0,k);                         // shuffle off keeps Doc / Quizlet order
   round=C.newRound(cs,{mode:pref.mode,subject:'sel:'+t.id}); Object.assign(round,{title:t.title||t.label,back:()=>opts(t,back),restart:()=>startTile(t,back),held:cap.held}); sessionMissed={}; roundMs=[]; showCard(); }
 function startReview(){ sess={know:0,learn:0,ms:[]}; lastAnswer=null; sessionMissed={}; review(); }
 function review(){ if(!sess) sess={know:0,learn:0,ms:[]}; rebuild(); const q=dueQueue(); if(!q.items.length) return reviewDone(q);
   const c=q.items[0], w=byKey().get(c.id), left=q.counts.due+q.counts.new+q.counts.learning, doneN=sess.know+sess.learn, total=doneN+Math.max(left,1);
   cardView({w, count:`${doneN+1} / ${total}`, pct:100*doneN/total, learnN:sess.learn, knowN:sess.know, leech:F.isLeech(c),
     tag:F.isLeech(c)?`Leech · ${c.lapses} lapses`:({new:'New',learning:'Learning',mature:'Mature'})[F.phase(c)],
-    onUndo:lastAnswer?undo:null, onAnswer:(r,t)=>grade(c,w,r,t), onClose:home});
+    chip:boostChip(c.id), onUndo:lastAnswer?undo:null, onAnswer:(r,t)=>grade(c,w,r,t), onClose:home});
 }
 // Both grading surfaces (this page and the future stats-tab queue) write this same card_results row.
 function grade(c,w,result,t){ const row={id:uuid(), word_key:w.key, ts:new Date().toISOString(), mode:pref.mode, result, attempt:1, round_id:'fsrs-'+C.dayStart(Date.now()).toString(36), subject:'fsrs', flip_ms:t&&Number.isFinite(t.flip_ms)?t.flip_ms:null, answer_ms:t&&Number.isFinite(t.answer_ms)?t.answer_ms:null, ...tzNow()};
@@ -383,7 +390,7 @@ function picker(){ document.onkeydown=null;
 }
 function start(){ let p=C.pool(words,stats,pref.subject); if(!p.length){ alert('No words in this set yet.'); return; }
   const cap=capRound(p); p=cap.cards; if(!p.length) return capFull(cap,picker);
-  let cs=C.draw(p,stats,pref.n?Math.min(pref.n,p.length):p.length); if(!pref.shuffle) cs=cs.slice().sort((a,b)=>(a.doc_order||0)-(b.doc_order||0));
+  let cs=C.draw(p,stats,pref.n?Math.min(pref.n,p.length):p.length,undefined,boostNow()); if(!pref.shuffle) cs=cs.slice().sort((a,b)=>(a.doc_order||0)-(b.doc_order||0));
   round=C.newRound(cs,{mode:pref.mode,subject:pref.subject}); round.held=cap.held; sessionMissed={}; roundMs=[]; showCard(); }
 // Verb drills: pick mode options, then the same swipe cards / card_results row / FSRS log.
 function drillView(t,back){ back=back||home; document.onkeydown=null; window.scrollTo(0,0); const d=pref.drill=Object.assign({count:10,tense:'All',level:1},pref.drill||{}), full=t.mode==='full';
@@ -404,7 +411,7 @@ function startDrill(t,back){ const d=pref.drill, full=t.mode==='full', all=VD.ro
 function showCard(){ if(C.done(round)) return showSummary();
   const w=round.cards[round.i], s=Object.keys(stats).length?C.cardScore(stats[w.key]):{bucket:'–'};
   cardView({w, count:`${round.attempt>1?'Round '+round.attempt+' · ':''}${round.i+1} / ${round.cards.length}`, pct:100*round.i/round.cards.length, learnN:round.missed, knowN:round.got,
-    tag:w.drill?(w.guessed?'not checked by Amal':w.checked?'Checked by Amal · '+w.tense:w.tense+(w.addon?' · level 2':'')):SEL.isQuizletOnly(w.key)?'Quizlet · '+w.topic:s.bucket==='–'?w.topic:window.AneesBuckets.label(s.bucket), onUndo:null, onAnswer:(r,t)=>answer(r,t), onClose:round.back||picker});
+    tag:w.drill?(w.guessed?'not checked by Amal':w.checked?'Checked by Amal · '+w.tense:w.tense+(w.addon?' · level 2':'')):SEL.isQuizletOnly(w.key)?'Quizlet · '+w.topic:s.bucket==='–'?w.topic:window.AneesBuckets.label(s.bucket), chip:w.drill?null:boostChip(w.key), onUndo:null, onAnswer:(r,t)=>answer(r,t), onClose:round.back||picker});
 }
 function answer(result,t){ const w=round.cards[round.i]; const row=C.answer(round,result,new Date().toISOString(),uuid()); if(!row) return;
   row.flip_ms=t&&Number.isFinite(t.flip_ms)?t.flip_ms:null; row.answer_ms=t&&Number.isFinite(t.answer_ms)?t.answer_ms:null; Object.assign(row,tzNow()); if(row.answer_ms!==null) roundMs.push(row.answer_ms);
