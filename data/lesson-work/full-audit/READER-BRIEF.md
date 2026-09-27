@@ -70,3 +70,7 @@ Before writing, count: how many Medi Arabic turns you read, how many rows. Put b
 Expect roughly 20-45 grammar rows and 10-40 vocab rows in an hour-long lesson; if you have far fewer, re-read.
 Read the WHOLE file - do not stop at the first 300 lines. Use `sed -n` in chunks of ~250 lines with PYTHONIOENCODING=utf-8
 or the Read tool; the file is 600-1400 lines.
+
+
+## The engine can mishear him - trust Amal's echo (Medi 2026-09-26)
+The transcript is speech-to-text, not audio. When Medi asks "what did I say?" (or Amal repeats his form back, often with a laugh or "شو يعني"), HER words show what he really said - use them for `medi_said` and `wrong`, and note "engine wrote X". Example 09-26 31:53: the engine wrote راسي جاب; he asked "What did I say?" and Amal answered دبا - he said daba (بدا with letters swapped), a wrong form, not the word جاب.

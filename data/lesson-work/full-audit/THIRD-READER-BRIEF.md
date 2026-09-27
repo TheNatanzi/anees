@@ -25,3 +25,7 @@ Output: ONE valid JSON (UTF-8, ensure_ascii=False) at the path in your task:
  "added": [ <full rows for errors you noticed that NEITHER reader wrote - only if you are sure; usually empty> ]}
 ```
 Every D-id in the disputes file must appear once in `rulings`. Reply with one line: kept n, dropped n, added n.
+
+
+## The engine can mishear him - trust Amal's echo (Medi 2026-09-26)
+The transcript is speech-to-text, not audio. When Medi asks "what did I say?" (or Amal repeats his form back, often with a laugh or "شو يعني"), HER words show what he really said - use them for `medi_said` and `wrong`, and note "engine wrote X". Example 09-26 31:53: the engine wrote راسي جاب; he asked "What did I say?" and Amal answered دبا - he said daba (بدا with letters swapped), a wrong form, not the word جاب.

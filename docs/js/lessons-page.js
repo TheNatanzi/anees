@@ -119,8 +119,20 @@ function lessonAudio(date, who) {
   return 'lessons/' + date + '/audio/lesson.mp3';
 }
 var audio = null, pendingSeek = null;
+// Medi 2026-09-26: the player opens right where he tapped (under that card's Play button / that transcript line),
+// not floating at the bottom. playAnchor is set by every play/time button just before play() runs.
+var playAnchor = null, playerHome = null;
+function placePlayer() {
+  var pl = $('ls-player');
+  if (!playerHome) playerHome = pl.parentNode;
+  var at = playAnchor && playAnchor.closest ? playAnchor.closest('.ls-plays, .ls-turn, .gc-usehead, .ls-rulehead, .ls-row') : null;
+  playAnchor = null;
+  if (at && at.parentNode) { at.parentNode.insertBefore(pl, at.nextSibling); pl.classList.add('ls-player-inline'); }
+  else { playerHome.appendChild(pl); pl.classList.remove('ls-player-inline'); }
+}
 function play(src, from, label) {
   audio = audio || $('ls-audio');
+  placePlayer();
   $('ls-player').hidden = false;
   $('ls-playerlabel').textContent = label;
   var abs = new URL(src, location.href).href;
@@ -138,14 +150,16 @@ function playButton(label, onClick, title) {
   var b = el('button', 'ls-play', '▶ ' + label);
   b.type = 'button';
   if (title) b.title = title;
-  b.addEventListener('click', function (e) { e.stopPropagation(); onClick(); });
+  b.addEventListener('click', function (e) { e.stopPropagation(); playAnchor = b; onClick(); });
   return b;
 }
 function timeButton(date, t, who) {
   var b = el('button', 'ls-time', mmss(t));
   b.type = 'button';
   b.title = 'Play the lesson from ' + mmss(t);
-  b.addEventListener('click', function () {
+  b.addEventListener('click', function (e) {
+    if (e) e.stopPropagation();
+    playAnchor = b;
     play(lessonAudio(date, who), Math.max(0, t - 1), prettyDate(date) + ' · lesson from ' + mmss(t));
   });
   return b;

@@ -1,4 +1,4 @@
-# Full vocab + grammar audit - 2026-09-26
+# Full vocab + grammar audit - 2026-09-27
 
 Two independent readers per lesson, a third settles disagreements, reconciled with the 2026-09-24 hand sweep. A = Amal fixed it out loud or in chat (scored). B = she let it pass (unscored until she rules on her review page). Tier 0 = she supplied a word he asked for. Nothing the sweep verified was dropped.
 
@@ -9,7 +9,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | Grammar fixes Amal voiced (A) | **560** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 81 |
 | Vocab fixes Amal voiced (A) | **256** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 155, '0': 97, '2': 40, '3': 6} |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 154, '0': 97, '2': 41, '3': 6} |
 | Vocab she let pass (B, to Amal) | **44** by tier {'1': 28, '2': 10, '3': 6} |
 | Listening-drill misreads (kept apart) | 76 |
 | Rows the readers found that the sweep did not have | 538 |
@@ -1302,7 +1302,7 @@ _Amal's audio is missing from 00:00 to 20:17 (only Medi's lines, ~180 turns; the
 | FA-cbaacc83 | 28:01 | vocab-A | tier 0 | Yeah, no, that's it. | دكتور نفسي. | (none) -> دكتور نفسي | He said that was all the doctors; Amal taught دكتور نفسي (psychologist), a word he never attempted. | medium | r1+r2 |
 | FA-6baf0d9e | 28:40 | vocab-A | tier 0 | How would I say, like, general doctor? | دكتور عام. | general doctor -> دكتور عام | He asked; she supplied عام. | high | r1+r2 |
 | FA-07633f9d | 29:46 | grammar | D4 | And uh, waj, uh, waj, uh, rasi. ... sa-rasi biwaj, biwajani. | So my head hurts. ... My head hurts me. | waj, uh, rasi -> راسي بيوجعني | He said 'waj rasi' with no conjugated verb or object ending; Amal prompted 'My head hurts me' until he produced راسي بيوجعني. | medium | r3 |
-| FA-3927df01 | 31:53 | vocab-A | tier 1 | راسي جاب, uh, يوجع | بدأ. | جاب -> بدا | He said جاب (brought) for 'started'; Amal supplied بدأ and he repeated بدا يوجع. | high | r1+r2 |
+| FA-e0d19560 | 31:53 | vocab-A | tier 2 | راسي دبا, uh, يوجع | بدأ. | دبا -> بدا | He said دبا (daba, letters swapped) for بدا 'started' - the engine wrote جاب, but when he asked 'What did I say?' (32:00) Amal answered دبا. She supplied بدأ and he repeated بدا يوجع. (Medi 2026-09-26) | high | r1+r2 |
 | FA-ce75619c | 32:12 | vocab-B | tier 1 | الأسبوع اللي بعده. | What؟ أهلًا. | الأسبوع اللي بعده -> الأسبوع اللي فات | He meant it started last week; اللي بعده is 'the one after'; Amal's 'What?' may be puzzlement, but she gave no fix (B reading). | medium | r1+r2 |
 | FA-1a84a163 | 32:41 | grammar | B5 | أنا ما عملوا إشي. | ما؟ | عملوا -> عملت | He used the 'they' past ending for 'I'; Amal's ما؟ prompt made him say عملت. | high | r1+r2 |
 | FA-90101f73 | 33:58 | grammar | D4 | ما ساعداني. | ما ساعدني. | ما ساعداني -> ما ساعدني | Tylenol (he) + object -ni is ساعدني; Amal recast his ساعداني. | high | r1+r2 |
