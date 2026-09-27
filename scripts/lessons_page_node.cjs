@@ -82,9 +82,19 @@ function rating(key) {
 const phrase = new Map(), tokens = new Map();
 const addForm = (a, key) => { const p = noAl(norm(a)); if (!p) return; if (!phrase.has(p)) phrase.set(p, key);
   for (const t of p.split(' ')) { const cur = tokens.get(t); if (!cur || cur.len > p.split(' ').length) tokens.set(t, { key, len: p.split(' ').length }); } };
-for (const w of words) addForm(w.arabic, w.key);
+for (const w of words) { addForm(w.arabic, w.key); if (w.plural) addForm(w.plural, w.key); }   // her plural column too
 for (const r of rows) for (const f of r.entries) addForm(f.arabic, r.key);
-const tok = t => tokens.get(t) || (t.length > 3 && t[0] === 'ا' ? tokens.get(t.slice(1)) : null);
+// every conjugated form the Word Bank knows for a word (its search text), and each b- present form without the b-
+// (Medi 2026-09-26: "Testana is the command tense of bastana" - تستنى is بتستنى without b-, both are his list word)
+const addTok = (t, key) => { if (!t) return; const cur = tokens.get(t); if (!cur || cur.len > 1) tokens.set(t, { key, len: 1 }); };
+for (const r of rows) for (const raw of String(r.search || '').split(' ')) {
+  const t = norm(raw); if (!t || /\s/.test(t) || t.length < 2) continue;
+  addTok(t, r.key); if (t.length > 3 && t[0] === 'ب') addTok(t.slice(1), r.key);
+}
+// a pronoun ending on a known form is still that word (بتضايقني = بتضايق + ني)
+const ENDS = ['كم', 'هم', 'ها', 'نا', 'ني', 'ك', 'ه', 'ي', 'و'];
+const tok = t => tok0(t) || ENDS.reduce((hit, e) => hit || (t.length - e.length >= 3 && t.endsWith(e) ? tok0(t.slice(0, -e.length)) : null), null);
+const tok0 = t => tokens.get(t) || (t.length > 3 && t[0] === 'ا' ? tokens.get(t.slice(1)) : null) || (t.length > 3 && t[0] === 'و' ? tokens.get(t.slice(1)) : null);
 const sheet = {};
 for (const s of inp.sheet || []) {
   let hit = null, how = null;

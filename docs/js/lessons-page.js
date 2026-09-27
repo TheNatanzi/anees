@@ -127,7 +127,9 @@ function placePlayer() {
   if (!playerHome) playerHome = pl.parentNode;
   var at = playAnchor && playAnchor.closest ? playAnchor.closest('.ls-plays, .ls-turn, .gc-usehead, .ls-rulehead, .ls-row') : null;
   playAnchor = null;
-  if (at && at.parentNode) { at.parentNode.insertBefore(pl, at.nextSibling); pl.classList.add('ls-player-inline'); }
+  // Medi: "the player isn't opening to the right" - inside the card's button bar it sits right of the button
+  if (at && at.classList.contains('ls-plays')) { at.appendChild(pl); pl.classList.add('ls-player-inline'); }
+  else if (at && at.parentNode) { at.parentNode.insertBefore(pl, at.nextSibling); pl.classList.add('ls-player-inline'); }
   else { playerHome.appendChild(pl); pl.classList.remove('ls-player-inline'); }
 }
 function play(src, from, label) {
