@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-26T23:16:19-07:00",
+ "updated": "2026-09-26T23:21:57-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -8,8 +8,8 @@
   "review_mode": "For review lessons only: listening = Amal says Arabic, Medi gives the meaning; speaking = Medi says it in Arabic; both.",
   "words.unique": "How many different Word Bank words Medi was scored on in this lesson.",
   "words.right": "Scored uses marked correct (same rules as the Word Bank page: its own code is run on docs/data/word-bank-evidence.json + word-bank-review.json).",
-  "words.partial": "Scored uses marked partial (he got there with help) - worth half.",
-  "words.wrong": "Scored uses marked incorrect.",
+  "words.partial": "Scored uses marked partial (he got there with help) - worth half. Includes the audit's 'asked Amal for the word' rows.",
+  "words.wrong": "Scored uses marked incorrect, plus the full audit's word slips (wrong word, wrong form, English for a word she taught).",
   "words.pct": "Word score for the lesson: (right + half of partial) / all scored uses, as a percent. The Word Bank's own weighting.",
   "grammar.uses": "Times Medi's Arabic exercised a grammar rule in this lesson, right or wrong (docs/data/grammar-usage.json). Turns the engine wrote in Latin letters are not counted there.",
   "grammar.mistakes": "Grammar slips Amal corrected out loud in this lesson (hand sweep 2026-09-24, speaking rows filed in an approved rule).",
@@ -42,10 +42,12 @@
    "words": {
     "unique": 53,
     "right": 70,
-    "wrong": 5,
-    "partial": 1,
-    "pct": 92.8,
-    "scored": 76
+    "wrong": 22,
+    "partial": 9,
+    "pct": 73.8,
+    "scored": 101,
+    "audit_wrong": 17,
+    "audit_partial": 8
    },
    "grammar": {
     "uses": 219,
@@ -129,10 +131,12 @@
    "words": {
     "unique": 13,
     "right": 13,
-    "wrong": 0,
-    "partial": 0,
-    "pct": 100.0,
-    "scored": 13
+    "wrong": 4,
+    "partial": 9,
+    "pct": 67.3,
+    "scored": 26,
+    "audit_wrong": 4,
+    "audit_partial": 9
    },
    "grammar": {
     "uses": 70,
@@ -238,10 +242,12 @@
    "words": {
     "unique": 28,
     "right": 34,
-    "wrong": 3,
-    "partial": 2,
-    "pct": 89.7,
-    "scored": 39
+    "wrong": 7,
+    "partial": 4,
+    "pct": 80.0,
+    "scored": 45,
+    "audit_wrong": 4,
+    "audit_partial": 2
    },
    "grammar": {
     "uses": 79,
@@ -336,10 +342,12 @@
    "words": {
     "unique": 60,
     "right": 103,
-    "wrong": 2,
-    "partial": 1,
-    "pct": 97.6,
-    "scored": 106
+    "wrong": 15,
+    "partial": 5,
+    "pct": 85.8,
+    "scored": 123,
+    "audit_wrong": 13,
+    "audit_partial": 4
    },
    "grammar": {
     "uses": 232,
@@ -388,10 +396,12 @@
    "words": {
     "unique": 46,
     "right": 58,
-    "wrong": 2,
-    "partial": 1,
-    "pct": 95.9,
-    "scored": 61
+    "wrong": 10,
+    "partial": 4,
+    "pct": 83.3,
+    "scored": 72,
+    "audit_wrong": 8,
+    "audit_partial": 3
    },
    "grammar": {
     "uses": 98,
@@ -481,10 +491,12 @@
    "words": {
     "unique": 42,
     "right": 62,
-    "wrong": 2,
-    "partial": 0,
-    "pct": 96.9,
-    "scored": 64
+    "wrong": 12,
+    "partial": 6,
+    "pct": 81.2,
+    "scored": 80,
+    "audit_wrong": 10,
+    "audit_partial": 6
    },
    "grammar": {
     "uses": 106,
@@ -582,10 +594,12 @@
    "words": {
     "unique": 24,
     "right": 28,
-    "wrong": 0,
-    "partial": 2,
-    "pct": 96.7,
-    "scored": 30
+    "wrong": 9,
+    "partial": 5,
+    "pct": 72.6,
+    "scored": 42,
+    "audit_wrong": 9,
+    "audit_partial": 3
    },
    "grammar": {
     "uses": 92,
@@ -690,10 +704,12 @@
    "words": {
     "unique": 33,
     "right": 35,
-    "wrong": 2,
-    "partial": 0,
-    "pct": 94.6,
-    "scored": 37
+    "wrong": 8,
+    "partial": 5,
+    "pct": 78.1,
+    "scored": 48,
+    "audit_wrong": 6,
+    "audit_partial": 5
    },
    "grammar": {
     "uses": 52,
@@ -799,10 +815,12 @@
    "words": {
     "unique": 35,
     "right": 54,
-    "wrong": 0,
-    "partial": 0,
-    "pct": 100.0,
-    "scored": 54
+    "wrong": 11,
+    "partial": 3,
+    "pct": 81.6,
+    "scored": 68,
+    "audit_wrong": 11,
+    "audit_partial": 3
    },
    "grammar": {
     "uses": 70,
@@ -904,10 +922,12 @@
    "words": {
     "unique": 2,
     "right": 2,
-    "wrong": 0,
-    "partial": 0,
-    "pct": 100.0,
-    "scored": 2
+    "wrong": 7,
+    "partial": 4,
+    "pct": 30.8,
+    "scored": 13,
+    "audit_wrong": 7,
+    "audit_partial": 4
    },
    "grammar": {
     "uses": 23,
@@ -1019,10 +1039,12 @@
    "words": {
     "unique": 20,
     "right": 21,
-    "wrong": 2,
-    "partial": 0,
-    "pct": 91.3,
-    "scored": 23
+    "wrong": 13,
+    "partial": 3,
+    "pct": 60.8,
+    "scored": 37,
+    "audit_wrong": 11,
+    "audit_partial": 3
    },
    "grammar": {
     "uses": 23,
@@ -1096,10 +1118,12 @@
    "words": {
     "unique": 71,
     "right": 144,
-    "wrong": 6,
-    "partial": 0,
-    "pct": 96.0,
-    "scored": 150
+    "wrong": 36,
+    "partial": 9,
+    "pct": 78.6,
+    "scored": 189,
+    "audit_wrong": 30,
+    "audit_partial": 9
    },
    "grammar": {
     "uses": 216,
@@ -1181,10 +1205,12 @@
    "words": {
     "unique": 34,
     "right": 52,
-    "wrong": 0,
-    "partial": 0,
-    "pct": 100.0,
-    "scored": 52
+    "wrong": 26,
+    "partial": 9,
+    "pct": 64.9,
+    "scored": 87,
+    "audit_wrong": 26,
+    "audit_partial": 9
    },
    "grammar": {
     "uses": 105,

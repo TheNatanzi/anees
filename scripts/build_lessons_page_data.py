@@ -368,8 +368,8 @@ DEFINITIONS = {
     "review_mode": "For review lessons only: listening = Amal says Arabic, Medi gives the meaning; speaking = Medi says it in Arabic; both.",
     "words.unique": "How many different Word Bank words Medi was scored on in this lesson.",
     "words.right": "Scored uses marked correct (same rules as the Word Bank page: its own code is run on docs/data/word-bank-evidence.json + word-bank-review.json).",
-    "words.partial": "Scored uses marked partial (he got there with help) - worth half.",
-    "words.wrong": "Scored uses marked incorrect.",
+    "words.partial": "Scored uses marked partial (he got there with help) - worth half. Includes the audit's 'asked Amal for the word' rows.",
+    "words.wrong": "Scored uses marked incorrect, plus the full audit's word slips (wrong word, wrong form, English for a word she taught).",
     "words.pct": "Word score for the lesson: (right + half of partial) / all scored uses, as a percent. The Word Bank's own weighting.",
     "grammar.uses": "Times Medi's Arabic exercised a grammar rule in this lesson, right or wrong (docs/data/grammar-usage.json). Turns the engine wrote in Latin letters are not counted there.",
     "grammar.mistakes": "Grammar slips Amal corrected out loud in this lesson (hand sweep 2026-09-24, speaking rows filed in an approved rule).",
@@ -585,6 +585,14 @@ def build():
                          "tier": v.get("tier"), "signal": v.get("signal"), "confidence": v.get("confidence"), "source": "audit-2026-09-26", "audit_uid": v.get("uid")})
             need_ar.add(v.get("medi_said") or "")
         verr.sort(key=lambda e: e["t"])
+        # The audit's slips count in the word score too (Medi 2026-09-26: "35 errors ... 0 wrong?"). Tiers 1-3 = wrong;
+        # "asked Amal for the word" = partial (he got there with help). Word Bank misses are already in the counts.
+        aw = sum(1 for e in verr if e.get("source") == "audit-2026-09-26" and e["kind"] == "wrong")
+        ap = sum(1 for e in verr if e.get("source") == "audit-2026-09-26" and e["kind"] == "asked")
+        if aw or ap:
+            words["wrong"] += aw; words["partial"] += ap; words["scored"] += aw + ap
+            words["audit_wrong"], words["audit_partial"] = aw, ap
+            words["pct"] = round(100 * (words["right"] + .5 * words["partial"]) / words["scored"], 1)
         gerr = []
         for r in rows:
             b = buckets.get(r["bucket"], {})
