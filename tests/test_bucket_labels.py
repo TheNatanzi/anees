@@ -42,20 +42,12 @@ console.log(JSON.stringify({
 
 
 def test_all_badges_filters_and_summary_use_display_names():
-    hub = (ROOT / 'docs/notes.html').read_text(encoding='utf-8')
+    # the old hub (notes.html) was retired 2026-09-26; its label checks went with it
     cards = (ROOT / 'docs/cards.html').read_text(encoding='utf-8')
-    assert 'value="cold">Good</option>' in hub
-    assert 'value="ice_cold">Mastered</option>' in hub
-    assert 'esc(window.AneesBuckets.label(b))' in hub
-    assert 'window.AneesSpeaking.label(e)' in hub and 'wording reviewed by Amal' in hub
-    assert "['Speaking: Good',n(cold)" in hub
-    assert "['Speaking: Mastered',n(ice)" in hub
-    assert 'Flashcards: Good' in hub and 'Flashcards: Mastered' in hub
     assert cards.count('esc(window.AneesBuckets.label(s.bucket))') == 2
     assert 'esc(round.subject)' not in cards
     assert 'buckets.find(b=>b.id===round.subject)' in cards
     assert "String(s.bucket).replace('_',' ')" not in cards
-    assert 'js/buckets.js?v=20260911-evidence-v1' in hub
     assert 'js/buckets.js?v=20260911-evidence-v1' in cards
 
 
@@ -74,7 +66,7 @@ def test_published_report_wording_and_generator():
 
 def test_modified_page_scripts_compile_without_running_them():
     # Syntax validation only: no browser, credentials, network or stored progress.
-    for filename in ('docs/notes.html', 'docs/cards.html'):
+    for filename in ('docs/cards.html',):
         page = (ROOT / filename).read_text(encoding='utf-8')
         scripts = re.findall(r'<script\b[^>]*>(.*?)</script>', page, flags=re.S | re.I)
         assert node('const vm=require("vm"); const scripts=' + json.dumps(scripts) +

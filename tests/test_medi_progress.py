@@ -143,16 +143,11 @@ def test_local_new_streak_never_double_counts_days_or_bridges_a_miss():
 
 
 def test_ui_uses_versioned_counts_and_durable_card_reads():
-    for f in ('docs/notes.html', 'docs/cards.html'):
+    for f in ('docs/cards.html',):
         text = (ROOT / f).read_text(encoding='utf-8')
         assert "LS('anees-stats'" not in text
         assert 'window.AneesProgress.load(' in text
-        assert ('window.AneesSnapshot.load(' if f=='docs/notes.html' else 'word_stats?select=*&limit=5000') in text
-    hub = (ROOT / 'docs/notes.html').read_text(encoding='utf-8')
-    assert 'Recorded uses <span' in hub and 's.independent_uses' in hub
-    assert 'Last lesson' in hub and 'Last practice' in hub
-    assert 'Speaking' in hub and 'Flashcards' in hub and 'Introduction' in hub
-    assert "window.AneesBuckets.mergeStats(window.AneesProgress.cached(" in hub
+        assert 'word_stats?select=*&limit=5000' in text
     cards = (ROOT / 'docs/cards.html').read_text(encoding='utf-8')
     assert 'window.AneesProgress.requireCurrent(stats)' in cards
     assert cards.index('stats=await window.AneesProgress.load(') < cards.index('LS(window.AneesProgress.CACHE_KEY,stats)')

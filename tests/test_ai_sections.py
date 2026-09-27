@@ -37,10 +37,9 @@ def test_ai_reports_json_and_pages():
 
 
 def test_tabs_present_everywhere():
-    notes = (DOCS / 'notes.html').read_text(encoding='utf-8')
-    for tab in ('sys-rules', 'word-rules'):
-        assert f'data-tab="{tab}"' in notes and f'id="tab-{tab}"' in notes
-    assert 'data-tab="today"' not in notes and "'ai-reports':'ai-reports.html'" in notes           # Today tab retired 2026-09-26; old #ai-reports links still land
+    tutor = (DOCS / 'tutor.html').read_text(encoding='utf-8')                                        # the old hub was retired 2026-09-26
+    assert 'aria-current="page" href="tutor.html">Tutor</a>' in tutor and 'js/tutor.js' in tutor
+    assert "location.replace('tutor.html')" in (DOCS / 'notes.html').read_text(encoding='utf-8')     # old notes links land on Tutor
     idx = (DOCS / 'index.html').read_text(encoding='utf-8')
     assert "location.replace(to[h]||'progress.html')" in idx and "'ai-reports':'ai-reports.html'" in idx and 'manifest.webmanifest' in idx   # home = Progress & Stats
     page = (DOCS / 'ai-reports.html').read_text(encoding='utf-8')
@@ -50,11 +49,14 @@ def test_tabs_present_everywhere():
     assert "fetch('data/lessons.json'" in (DOCS / 'js' / 'lesson-overview.js').read_text(encoding='utf-8')
     for f in (ROOT / 'scripts' / 'lesson_pipeline.py', ROOT / 'scripts' / 'build_report.py'):
         t = f.read_text(encoding='utf-8')
-        assert 'ai-reports.html' in t and 'index.html#sys-rules' in t and 'index.html#word-rules' in t, f.name
+        assert 'ai-reports.html' in t and '../tutor.html' in t, f.name
     assert 'aria-current="page" href="../ai-reports.html"' in (ROOT / 'scripts' / 'build_ai_reports.py').read_text(encoding='utf-8')
     assert 'ai-reports.html' in (DOCS / 'cards.html').read_text(encoding='utf-8'), 'cards.html'
     for f in sorted((DOCS / 'reports').glob('*.html')):                                              # every built report wears the skin
         t = f.read_text(encoding='utf-8')
         assert 'css/ai-reports.css' in t and 'aria-current="page" href="../ai-reports.html"' in t and '<article class="ar-doc">' in t, f.name
-    for f in ('big-picture', 'cards', 'grammar', 'lessons', 'progress', 'settings', 'word-bank'):    # sidebar link everywhere
-        assert '<a class="ab-nav" href="ai-reports.html">AI Reports</a>' in (DOCS / f'{f}.html').read_text(encoding='utf-8'), f
+    for f in ('big-picture', 'cards', 'grammar', 'lessons', 'progress', 'settings', 'word-bank', 'ai-reports', 'tutor'):    # sidebar links everywhere
+        t = (DOCS / f'{f}.html').read_text(encoding='utf-8')
+        assert 'href="ai-reports.html"' in t and 'href="tutor.html"' in t and 'Tutor Notes' not in t, f
+    T = json.loads((DOCS / 'data' / 'tutor.json').read_text(encoding='utf-8'))
+    assert T['open'] and all(x.get('title') and x.get('url') for x in T['open'])

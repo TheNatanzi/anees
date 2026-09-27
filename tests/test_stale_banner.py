@@ -7,7 +7,7 @@ DOCS = ROOT / 'docs'
 
 
 def test_every_page_carries_the_stamp_and_checker():
-    for p in ['notes.html', 'cards.html', 'amal/plan.html', 'amal/after.html', 'lessons/2026-09-04-report.html', 'lessons/2026-09-04.html']:
+    for p in ['tutor.html', 'cards.html', 'amal/plan.html', 'amal/after.html', 'lessons/2026-09-04-report.html', 'lessons/2026-09-04.html']:
         s = (DOCS / p).read_text(encoding='utf-8')
         assert 'js/build.js' in s and 'js/stale.js' in s, p
     b = (DOCS / 'js' / 'build.js').read_text(encoding='utf-8')

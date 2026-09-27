@@ -22,7 +22,7 @@ def test_brand_assets_and_manifest_are_complete():
 
 
 def test_primary_page_and_shared_loader_apply_branding():
-    index = (DOCS / 'notes.html').read_text(encoding='utf-8')
+    index = (DOCS / 'index.html').read_text(encoding='utf-8')
     stale = (DOCS / 'js' / 'stale.js').read_text(encoding='utf-8')
     brand = (DOCS / 'js' / 'brand.js').read_text(encoding='utf-8')
     assert 'manifest.webmanifest' in index

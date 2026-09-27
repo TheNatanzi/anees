@@ -11,7 +11,7 @@ DATA = ROOT / 'docs' / 'data' / 'ai_reports.json'
 OUT = ROOT / 'docs' / 'reports'
 NAV = ('<a class="ab-nav" href="../progress.html">Progress &amp; Stats</a><a class="ab-nav" href="../lessons.html">Lessons &amp; Audio</a>'
        '<a class="ab-nav" href="../word-bank.html">Word Bank</a><a class="ab-nav" href="../grammar.html">Grammar Rules</a>'
-       '<a class="ab-nav" href="../cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="../notes.html#amal">Tutor Notes &amp; Practice</a>'
+       '<a class="ab-nav" href="../cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="../tutor.html">Tutor</a>'
        '<a class="ab-nav" aria-current="page" href="../ai-reports.html">AI Reports</a><a class="ab-nav" href="../big-picture.html">Big Picture</a>'
        '<a class="ab-nav" href="../settings.html">System Settings</a>')
 

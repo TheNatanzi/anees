@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Tutor · Anees</title><script src="js/theme.js"></script><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/word-bank.css"><link rel="stylesheet" href="css/vocabulary-progress.css">
+<style>
+#anees-bank .tu-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+#anees-bank .tu-card{border:1px solid var(--ab-line);background:var(--ab-panel);border-radius:12px;padding:16px 18px 14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+#anees-bank .tu-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+#anees-bank .tu-title{font-family:var(--sabz-font-serif);font-size:20px;font-weight:500;margin:0;line-height:1.25}
+#anees-bank .tu-who{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--ab-muted)}
+#anees-bank .tu-what{font-size:13px;color:var(--ab-muted);margin:0;line-height:1.45}
+#anees-bank .tu-num{display:flex;flex-direction:column;gap:2px;margin-top:4px}
+#anees-bank .tu-num .ab-number{font-size:30px;margin:0}
+#anees-bank .tu-of{font-size:15px;color:var(--ab-muted);font-family:var(--sabz-font-sans)}
+#anees-bank .tu-bar{height:8px;border-radius:999px;background:var(--ab-raised);overflow:hidden}
+#anees-bank .tu-fill{height:100%;border-radius:999px;background:var(--vp-sage)}
+#anees-bank .tu-meta{font-size:12px;color:var(--ab-muted);margin:0;line-height:1.5}
+#anees-bank .tu-meta b{color:var(--ab-text);font-weight:600}
+#anees-bank .tu-warn{font-size:12px;margin:0;padding:6px 10px;border-radius:8px;background:var(--ab-raised);color:var(--ab-text)}
+#anees-bank .tu-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+#anees-bank .tu-btn{border:1px solid var(--ab-line);border-radius:999px;background:var(--ab-bg);color:var(--ab-text);padding:7px 16px;font-size:12.5px;font-weight:600;text-decoration:none;cursor:pointer}
+#anees-bank .tu-btn:hover{background:var(--ab-raised)}
+#anees-bank .tu-primary{background:var(--ab-text);color:var(--ab-bg);border-color:transparent}
+#anees-bank .tu-primary:hover{background:var(--ab-text);opacity:.9}
+#anees-bank .tu-closed{margin:26px 0 0;padding-top:16px;border-top:1px solid var(--ab-line)}
+#anees-bank .tu-closed ul{margin:6px 0 0;padding-left:18px;font-size:12.5px;color:var(--ab-muted);line-height:1.6}
+@media(max-width:680px){#anees-bank .tu-list{grid-template-columns:1fr}}
+</style></head>
+<body><div id="anees-bank" class="vp-sabz" aria-label="Anees tutor"><div class="ab-shell">
+<aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="progress.html">Progress &amp; Stats</a><a class="ab-nav" href="lessons.html">Lessons &amp; Audio</a><a class="ab-nav" href="word-bank.html">Word Bank</a><a class="ab-nav" href="grammar.html">Grammar Rules</a><a class="ab-nav" href="cards.html">Flashcards &amp; Review</a><a class="ab-nav" aria-current="page" href="tutor.html">Tutor</a><a class="ab-nav" href="ai-reports.html">AI Reports</a><a class="ab-nav" href="big-picture.html">Big Picture</a><a class="ab-nav" href="settings.html">System Settings</a></nav></aside>
+<main>
+<header class="ab-header vp-header"><div><div class="vp-eyebrow">Amal · what she needs to check</div><h1>Tutor</h1><p class="ab-sub">Every list waiting on Amal right now. Numbers are read live from her links.</p></div><span class="ab-preview" id="ab-source">Loading…</span></header>
+<section class="ab-metrics" id="ab-metrics" aria-label="Tutor summary"></section>
+<section class="tu-list" id="tu-list" aria-label="Open for Amal"><div class="vp-notice">Loading Amal's lists…</div></section>
+<section class="tu-closed" aria-label="Nothing waiting"><span class="vp-eyebrow">Nothing waiting on these</span><ul id="tu-closed"></ul></section>
+</main></div></div>
+<script src="js/config.js"></script><script src="js/tutor.js?v=20260926-v1"></script><script src="js/build.js"></script><script src="js/stale.js"></script>
+</body></html>
