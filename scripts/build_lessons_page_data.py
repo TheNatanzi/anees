@@ -177,7 +177,59 @@ def words_for(date, P):
             out.append({"s": w["s"], "e": w.get("e") or w["s"], "who": w.get("spk") or "?", "text": txt, "kind": k})
         out.sort(key=lambda w: w["s"])
         return out, "one mixed recording, speakers labelled by the engine's diarization (words_labeled.json)"
+    vad = words_from_voice(date, P)
+    if vad:
+        return vad, "no word timings from the engine: talking time measured from each person's own recording (silence detection), the line's words spread over it"
     return None, "no word-level timings on disk for this lesson (the page has line start times only)"
+
+
+def voiced(path, noise="-35dB", gap=0.3):
+    """[(start, end)] where this one-person recording has sound (ffmpeg silencedetect)."""
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-i", path, "-af", f"silencedetect=noise={noise}:d={gap}", "-f", "null", "-"],
+                       capture_output=True, text=True, encoding="utf-8", errors="replace").stderr
+    ss = [float(x) for x in re.findall(r"silence_start: ([\d.]+)", r)]
+    se = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", r)]
+    dur = re.search(r"Duration: (\d+):(\d+):([\d.]+)", r)
+    total = int(dur.group(1)) * 3600 + int(dur.group(2)) * 60 + float(dur.group(3)) if dur else None
+    out, t = [], 0.0
+    for a, b in zip(ss, se + [total] * (len(ss) - len(se))):
+        if a > t + 0.05:
+            out.append((t, a))
+        t = b or t
+    if total and total > t + 0.05:
+        out.append((t, total))
+    return out
+
+
+def words_from_voice(date, P):
+    """Lessons kept as one recording per person (09-10: docs/lessons/<date>/audio/Amal.mp3 + Medi.mp3, one clock) but with
+    no word timings (Medi 2026-09-27: "why do we still have blanks"). Each page line's words are spread evenly over its
+    speaker's voiced time between that line and the next line; a line with no voiced time gets 0.3 s per word."""
+    adir = os.path.join(DOCS, "lessons", date, "audio")
+    tracks = {w: os.path.join(adir, w + ".mp3") for w in ("Amal", "Medi")}
+    if not all(os.path.exists(f) for f in tracks.values()) or not shutil.which("ffmpeg"):
+        return None
+    V = {w: voiced(f) for w, f in tracks.items()}
+    L = sorted((p for p in P if not p["chat"] and p["who"] in V), key=lambda p: p["t"])
+    out = []
+    for i, p in enumerate(L):
+        end = L[i + 1]["t"] if i + 1 < len(L) else p["t"] + 30
+        segs = [(max(a, p["t"]), min(b, end)) for a, b in V[p["who"]] if b > p["t"] and a < end]
+        toks = [t for t in re.split(r"\s+", p["text"].strip()) if t]
+        if not toks:
+            continue
+        tot = sum(b - a for a, b in segs)
+        if tot <= 0:
+            segs, tot = [(p["t"], p["t"] + 0.3 * len(toks))], 0.3 * len(toks)
+        per, k = tot / len(toks), 0
+        for a, b in segs:
+            x = a
+            while x + per <= b + 1e-6 and k < len(toks):
+                out.append({"s": x, "e": x + per, "who": p["who"], "text": toks[k], "kind": "word"}); x += per; k += 1
+        while k < len(toks):
+            out.append({"s": segs[-1][1], "e": segs[-1][1] + 0.01, "who": p["who"], "text": toks[k], "kind": "word"}); k += 1
+    out.sort(key=lambda w: w["s"])
+    return out or None
 
 
 def capped(W):
@@ -499,6 +551,8 @@ def build():
                 notes.append(f"talk, fillers, latency and flow measured from {mmss(lo)} on: Medi's first recording (0:00-22:37) has no transcript, so only Amal's side exists before that.")
             talk, fillers, latency, flow = metrics(W, lo, hi)
             talk["window"] = [round(lo, 1), round(min(hi, max(w['e'] for w in W)), 1)]
+            if wnote and "silence detection" in wnote:
+                talk["estimate"] = True   # no engine word times: speak %, words/min, fillers, wait are estimates
             if wnote:
                 notes.append("timings: " + wnote)
             holes = sum(1 for w in W if w["kind"] == "speaking" and w["who"] == "Medi" and w["s"] >= lo)
@@ -518,6 +572,7 @@ def build():
         if not n:
             notes.append("no scored word uses for this lesson in the Word Bank evidence (its events are all pending review), so words.pct is null.")
 
+        grammar_est = False
         # ---- grammar
         rt = lambda r: sec(r.get("t")) if r.get("t") else sec(r.get("t_amal"))
         rows = sorted(G.get(date, []), key=lambda r: rt(r) or 0)
@@ -529,11 +584,16 @@ def build():
         elif uses:
             gpct = round(100 * (1 - mistakes / uses), 1)
             if gpct < 0:
-                notes.append(f"grammar: {mistakes} corrected slips but only {uses} detected rule uses (uses skip Latin-script turns), so grammar.pct is null.")
-                gpct = None
+                # Medi 2026-09-27 "why do we still have blanks": every slip Amal fixed is itself a use of the rule, so when the
+                # counter found fewer uses than fixes (it cannot read turns written in Latin letters) the fixes are added to
+                # the uses. Marked as an estimate.
+                gpct = round(100 * uses / (uses + mistakes), 1)
+                notes.append(f"grammar: {mistakes} corrected slips but only {uses} detected rule uses (uses skip Latin-script turns); "
+                             f"grammar.pct is an estimate = uses / (uses + slips) = {gpct}%.")
+                grammar_est = True
             elif mistakes > uses / 2:
                 notes.append(f"grammar.pct is low partly because uses ({uses}) are undercounted: the usage count skips turns written in Latin letters or left blank ('[speaking Arabic]'), while Amal's fixes there are still counted.")
-        grammar = {"uses": uses, "mistakes": mistakes, "pct": gpct}
+        grammar = {"uses": uses, "mistakes": mistakes, "pct": gpct, "estimate": grammar_est}
 
         # ---- new words
         typ, mode, why = LESSON_TYPES.get(date, ("free-speak", None, "Not read yet: default until Claude reads this lesson and adds it to LESSON_TYPES."))

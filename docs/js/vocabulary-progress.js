@@ -49,8 +49,17 @@ function renderTop(){
   card({label:'Lessons',icon:'◷',value:n(t.lessons.count),trendHtml:trend(t.lessons.week,' this week'),sub:t.lessons.count?`<b>${n(t.lessons.loaded)}</b> loaded in total · last week ${n(t.lessons.lastWeek)}${waiting}`:'No recordings loaded yet',href:'index.html#lessons',title:'Open Lessons & Audio'}),
   card({label:'Lesson hours',icon:'◔',value:t.lessons.count?n(t.hours.total):'0',unit:'h',trendHtml:trend(t.hours.week,' h this week'),sub:t.hours.avgMinutes!==null?`<b>${n(t.hours.avgMinutes)} min</b> per lesson on average · from transcript timing`:'No recordings loaded yet',href:'index.html#lessons',title:'Open Lessons & Audio'}),
   card({label:'Words known',icon:'✓',value:n(t.known.count),unit:'forms',trendHtml:trend(t.known.week,' this week'),sub:t.known.total?`<b>${pct(t.known.pct)}</b> of studied forms · Mastered <b>${n(t.known.mastered)}</b>`:'No scored lessons yet',bar:t.known.total?`<div class="vp-card-bar"><span style="width:${t.known.pct}%;background:var(--vp-forest)"></span></div>`:'',href:'word-bank.html?status=Good,Mastered',title:'Open Word Bank · Good + Mastered'}),
-  card({label:'Talk time',icon:'◌',value:'—',sub:'Parked until the lesson recordings are loaded and both voices are separated.',parked:true,title:'Parked with the lesson work'})
+  // Talk time is measured (both voices separate on every lesson, data/lessons.json talk.*) - Medi 2026-09-27 "isn't this done"
+  `<div id="vp-talk">${card({label:'Talk time',icon:'◌',value:'…',sub:'Loading from the lessons…'})}</div>`
  ].join('');
+ json('data/lessons.json').then(d=>{
+  const L=(d.lessons||d).filter(l=>l.talk&&l.talk.medi_s!=null).sort((a,b)=>a.date<b.date?1:-1);
+  if(!L.length)return;
+  const h=L.reduce((a,l)=>a+l.talk.medi_s,0)/3600, last=L[0].talk, avg=Math.round(L.reduce((a,l)=>a+(l.talk.speak_pct||0),0)/L.length*10)/10;
+  const el=document.getElementById('vp-talk');
+  if(el)el.innerHTML=card({label:'Talk time',icon:'◌',value:(Math.round(h*10)/10).toLocaleString(),unit:'h you spoke',
+   sub:`Last lesson you <b>${last.speak_pct}%</b> · Amal ${last.listen_pct}% · average you ${avg}% over ${L.length} lessons`,href:'lessons.html',title:'Measured from each lesson: your talking time vs Amal’s'});
+ }).catch(()=>{});
  return t;
 }
 function renderVocab(){
