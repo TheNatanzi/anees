@@ -6,13 +6,13 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **539** (sweep had 312) |
-| Grammar she let pass (B, to Amal) | 78 |
-| Vocab fixes Amal voiced (A) | **232** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 139, '0': 90, '2': 37, '3': 6} |
-| Vocab she let pass (B, to Amal) | **37** by tier {'1': 25, '2': 6, '3': 6} |
-| Listening-drill misreads (kept apart) | 74 |
-| Rows the readers found that the sweep did not have | 481 |
+| Grammar fixes Amal voiced (A) | **560** (sweep had 312) |
+| Grammar she let pass (B, to Amal) | 81 |
+| Vocab fixes Amal voiced (A) | **256** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 155, '0': 97, '2': 40, '3': 6} |
+| Vocab she let pass (B, to Amal) | **44** by tier {'1': 28, '2': 10, '3': 6} |
+| Listening-drill misreads (kept apart) | 76 |
+| Rows the readers found that the sweep did not have | 538 |
 | Sweep rows the readers did not list (kept) | 116 |
 | Machine audit already had | 104 |
 
@@ -33,6 +33,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-09-19 | 5 | 2 | 14 | 1 | 35 | 25 | 12 | 58.3 % |
 | 2026-09-21 | 71 | 13 | 41 | 7 | 8 | 43 | 32 | 58.7 % |
 | 2026-09-23 | 32 | 2 | 29 | 2 | 12 | 23 | 20 | 64.3 % |
+| 2026-09-26 | 21 | 3 | 24 | 7 | 2 | 0 | 0 | 62.1 % |
 
 ## Reader passes (the loop)
 
@@ -49,34 +50,35 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-09-19**: pass 1: r1 36 r2 48 agreed 28 disputed 20 (58.3 %), r3 kept 16 dropped 4 -> 45 rows; pass 2: r1 45 r2 45 agreed 35 disputed 15 (70.0 %), r3 kept 12 dropped 3 -> 47 rows; pass 1 vs pass 2: 76.9 % of rows in both
 - **2026-09-21**: pass 1: r1 107 r2 106 agreed 71 disputed 50 (58.7 %), r3 kept 44 dropped 6 -> 116 rows; pass 2: r1 112 r2 93 agreed 62 disputed 62 (50.0 %), r3 kept 47 dropped 15 -> 109 rows; pass 1 vs pass 2: 75.8 % of rows in both
 - **2026-09-23**: pass 1: r1 57 r2 64 agreed 45 disputed 25 (64.3 %), r3 kept 19 dropped 6 -> 64 rows; pass 2: r1 61 r2 57 agreed 46 disputed 21 (68.7 %), r3 kept 14 dropped 7 -> 60 rows; pass 1 vs pass 2: 78.6 % of rows in both
+- **2026-09-26**: pass 1: r1 52 r2 58 agreed 41 disputed 25 (62.1 %), r3 kept 16 dropped 9 -> 57 rows
 
 ## Grammar by bucket (A, speaking)
 
 | bucket | name | fixes |
 |---|---|---|
 | B18 | verb matches its subject | 61 |
-| B5 | past tense | 53 |
+| B5 | past tense | 55 |
 | B12 | make-X vs get-X | 51 |
-| D2 | verb + its fixed preposition | 47 |
-| D4 | endings on verbs | 41 |
-| B1 | present with b- | 36 |
+| D2 | verb + its fixed preposition | 48 |
+| D4 | endings on verbs | 44 |
+| B1 | present with b- | 37 |
 | A2 | idafa (possession) | 29 |
-| D1 | prepositions | 22 |
-| A8 | gender on adjectives | 22 |
-| A1 | el- (the) | 19 |
-| A9 | plurals | 18 |
-| D3 | endings on prepositions | 16 |
+| A8 | gender on adjectives | 29 |
+| D1 | prepositions | 24 |
+| A9 | plurals | 21 |
+| A1 | el- (the) | 20 |
+| D3 | endings on prepositions | 17 |
+| A4 | possessive endings | 16 |
 | B15 | participles | 15 |
-| A4 | possessive endings | 15 |
 | B11 | negative commands | 15 |
+| B2 | b-drop after modals | 13 |
 | B3 | b-drop after time words | 12 |
-| B2 | b-drop after modals | 12 |
 | C4 | saying no | 11 |
 | C7 | illi | 10 |
+| B6 | kaan = was / were | 9 |
 | A7 | noun + adjective | 8 |
 | B8 | bakoon / ykoon | 8 |
 | B10 | commands | 8 |
-| B6 | kaan = was / were | 8 |
 | C2 | the pointer rule | 8 |
 | E2 | clock time | 7 |
 | E1 | number + noun | 6 |
@@ -1277,3 +1279,67 @@ _Medi's audio track is MISSING from 00:00 to 23:45 - only Amal's voice and her C
 | FA-ee3e7299 | 59:31 | grammar | E3 | [not on his track - she says 'English.' after his answer] / Uh, is it / [speaking foreign language] | How do I say two years? / English. / What's one year? / Mm. And then when you look at the ye-- yeah. | (answered 'two years' in English) -> سنتين | In the dual drill she opened with 'you've been forgetting the dual' (59:09); asked for 'two years' he answered in English, she prompted 'What's one year?' and he built the dual, typed later as santain. | medium | r1+r2 |
 | FA-f5c1445e | 1:01:53 | vocab-A | tier 1 | It took me two hours to make this table. ... [speaking Arabic] | So now أخلص just أعمل. ... خلصت. ... أعمل or أخلص just one. Which one؟ أي واحدة؟ ... أخلص. | أعمل + أخلص (both) -> أخلص | He stacked أعمل (make) and أخلص (finish) in the same clause for 'to finish this table'; she made him pick one and settled on أخلص; his Arabic is untranscribed. | medium | r1+r2 |
 | FA-c9d5b664 | 1:02:10 | vocab-A | tier 1 | [speaking Arabic] | أعمل or أخلص - just one | [speaking Arabic] -> أعمل or أخلص - just one | use one verb, not both | medium | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
+
+### 2026-09-26
+
+_Amal's audio is missing from 00:00 to 20:17 (only Medi's lines, ~180 turns; the power/internet dropped); several apparent self-fixes there (أبدأك->أبعت, غلطتي->غلطاتي, مساعد->مساعدة, أشوفك->نشوف, واحدة يوم->يوم واحد) may be her corrections but cannot be shown, so they are either vocab-B low or left out. 17:31-17:42 is Farsi to someone else. 25:00-50:00 (doctors / body parts) is mostly Latin-transliterated. Pronunciation-only fixes left out (S4): رقبة Q, شعر, ضلوا, أعود/أقعد, طاقية, حمار->أحمر self-fix. 1:08:08 Amal's line on بيض is garbled. / 00:00-20:17: Amal's voice is missing from the transcript (only Medi lines), so fixes she made there cannot be quoted; those errors are filed as B. 25:00-48:00 is mostly Latin transliteration of Medi's Arabic (body parts drill). 17:31-17:42 Medi speaks Farsi to family (skipped). No CHAT lines in this transcript. Skipped as S4: ركبتك/ركبة, sha'ar/شعر, حواجب, riqaba/رقبة, تاية/طاقية, أعود/أقعد, دلوا/ضلوا, خصلات/كصلات for كلسات, الشاب/الشعب. English 'guidance', 'link', 'app', 'tan', 'transcript' not on her sheet; 'short' = شورت on sheet (same word); 'blouse'/'pantalón' likely the engine rendering بلوزة/بنطلون. Self-fixes skipped: يوم واحدة->يوم واحد, نشوفك->نشوف, غلطتي->غلطاتي, امبارح ملآن->كان ملآن, سكني->سكنية, biwajuna->biwajuha._
+
+| id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
+|---|---|---|---|---|---|---|---|---|---|
+| FA-63902ebc | 04:28 | vocab-B | tier 1 | ال- امبارح ملآن كتير. / كان ملآن كتير. |  | ملآن -> مشغول | He means 'yesterday was very busy'; ملآن = full (sheet 'full (general/object) / Malyaan'), sheet has 'busy / Mash8ool / مشغول' (B reading); Amal is absent from the transcript until 20:17. | low | r3 |
+| FA-2a6dae3d | 08:31 | vocab-B | tier 1 | أنا راح أبدأك um, بعد الـ الـ uh, الـ link. |  | أبدأك -> أبعتلك | He used بدأ (start) for 'send you'; his own 'Oh, بابدأ is to start' then أبعت لك الـ link shows it was the wrong verb; Amal's line is missing (audio gap), so filed B. | medium | r1+r2 |
+| FA-97c9d936 | 10:13 | vocab-B | tier 2 | أ-أكتر uh، ساعد، مساعد. ... مساعد or مساعد؟ ... مساعدة. |  | مساعد -> مساعدة | For the noun 'help' he used مساعد (helper) before ending on مساعدة (sheet 'help / Musaa3ada / مساعدة'); he asked, and Amal's answer is missing (transcript hole: no Amal lines before 20:17). | low | r3 |
+| FA-63219560 | 12:01 | vocab-B | tier 2 | مـ-متأكد إنه ... AI بلاء كل الـ، آآآ، غلطات. |  | متأكد -> نتأكد | He says 'make sure' in English right before, so he wants the verb, but used the participle متأكد 'sure' (sheet 'sure / certain / Mit2akked'); verb form نتأكد / أتأكد is the B reading. | medium | r3 |
+| FA-45ca9b70 | 21:25 | vocab-A (listening) | tier 1 | اليوم بلبس بلوزة so شو؟ | الجو. الجو. | بلبس بلوزة -> الجو | Amal asked كيف الجو عندكم اليوم and he answered about clothes; she repeated الجو twice and he said 'Oh whoops... الجو شوب'. | medium | r3 |
+| FA-958908ea | 21:50 | grammar-B | A8 | الجو شوب ... شوي مغيمة. | جد؟ | مغيمة -> مغيم | الجو is masculine; sheet row 'the weather is cloudy / El-jaw m8ayyem / الجو مغيم'; Amal let it pass. | low | r1+r2 |
+| FA-fe7fb9bb | 23:46 | vocab-A | tier 0 | How do you say percentage? ... بالمية؟ | Be المية، so بالمية. | percentage -> بالمية | He asked how to say percent; she built بالمية for him. | high | r1+r2 |
+| FA-0fedd936 | 24:21 | vocab-B | tier 2 | أنا ذكرت ثمانين بالمية | بالظبط، ممتاز. | ذكرت -> تذكرت | He says 'I remembered eighty percent' but ذكرت = mentioned; sheet 'remember / etzakkar / تذكر'; Amal praised it. | medium | r1+r2 |
+| FA-01b89352 | 25:31 | vocab-A | tier 0 | The sne. ... Doctor of sne. ... Stan, stan, stan. | دكتور الـ... أسنان. | stan -> أسنان | He was groping for 'teeth' (sne / stan) and could not produce it; Amal prompted دكتور الـ... then supplied أسنان - a didn't-know, so tier 0. | medium | r3 |
+| FA-b67a246c | 25:54 | vocab-A | tier 1 | Doctor al ayun, doctor al ajer, doctor ajerain. ... A foot doctor? | We say bones doctor. | doctor al ajer -> دكتور عظام | He coined 'foot doctor' (دكتور الإجر); Amal first laughed at it ('Is there دكتور إزlan?') then said 'We say bones doctor.' | medium | r3 |
+| FA-5ec460a3 | 26:26 | vocab-A | tier 0 | Doctor al-al. Say brain surgeon or brain doctor. | doctor I think we say دماغ. | brain -> دماغ | He did not know brain doctor; she supplied دكتور دماغ. | high | r1+r2 |
+| FA-59e28a06 | 27:32 | vocab-A | tier 1 | Doctor el Tom. | Stomach. | Tom -> بطن (Abaton) | For stomach doctor he said تم (mouth); she said 'Stomach.' and he switched to baton (sheet 'stomach / belly / Bâ6en / بطن'). | medium | r1+r2 |
+| FA-777f2327 | 27:35 | vocab-A | tier 2 | Doctor el Tom. ... Abaton. Doctor el Tomon. Abaton. | This is the دكتور الـ button. we say باطني | Abaton -> باطني | He named the stomach doctor with the noun بطن; about 90 s later Amal laughed 'This is the دكتور الـ button' and said 'we say باطني' (adjective form). | medium | r3 |
+| FA-cbaacc83 | 28:01 | vocab-A | tier 0 | Yeah, no, that's it. | دكتور نفسي. | (none) -> دكتور نفسي | He said that was all the doctors; Amal taught دكتور نفسي (psychologist), a word he never attempted. | medium | r1+r2 |
+| FA-6baf0d9e | 28:40 | vocab-A | tier 0 | How would I say, like, general doctor? | دكتور عام. | general doctor -> دكتور عام | He asked; she supplied عام. | high | r1+r2 |
+| FA-07633f9d | 29:46 | grammar | D4 | And uh, waj, uh, waj, uh, rasi. ... sa-rasi biwaj, biwajani. | So my head hurts. ... My head hurts me. | waj, uh, rasi -> راسي بيوجعني | He said 'waj rasi' with no conjugated verb or object ending; Amal prompted 'My head hurts me' until he produced راسي بيوجعني. | medium | r3 |
+| FA-3927df01 | 31:53 | vocab-A | tier 1 | راسي جاب, uh, يوجع | بدأ. | جاب -> بدا | He said جاب (brought) for 'started'; Amal supplied بدأ and he repeated بدا يوجع. | high | r1+r2 |
+| FA-ce75619c | 32:12 | vocab-B | tier 1 | الأسبوع اللي بعده. | What؟ أهلًا. | الأسبوع اللي بعده -> الأسبوع اللي فات | He meant it started last week; اللي بعده is 'the one after'; Amal's 'What?' may be puzzlement, but she gave no fix (B reading). | medium | r1+r2 |
+| FA-1a84a163 | 32:41 | grammar | B5 | أنا ما عملوا إشي. | ما؟ | عملوا -> عملت | He used the 'they' past ending for 'I'; Amal's ما؟ prompt made him say عملت. | high | r1+r2 |
+| FA-90101f73 | 33:58 | grammar | D4 | ما ساعداني. | ما ساعدني. | ما ساعداني -> ما ساعدني | Tylenol (he) + object -ni is ساعدني; Amal recast his ساعداني. | high | r1+r2 |
+| FA-824f3ab7 | 34:24 | vocab-A | tier 1 | It didn't stop. ما وافى. | وقف. | وافى -> وقف | Amal supplied وقف (sheet 'stop / stand up / Wa2ef'); could be only a dropped ق (S4), hence low. | low | r1+r2 |
+| FA-fb9e849e | 35:57 | vocab-A (listening) | tier 1 | ستة وستين. The doctor that's coming to see you is going to wait? | No. بتقدر تستنى دقيقة؟ This is separate. | ستة وستين -> تستنى دقيقة | He heard her تستنى دقيقة as ستة وستين and misread the sentence; Amal said No, repeated it and he then got 'can you wait a minute'. | medium | r3 |
+| FA-148ab87f | 36:34 | vocab-A | tier 1 | بسيطة. بسيطة or what? | بس it is like it's not a big deal. It's no biggie. | بسيطة -> طبعًا / أكيد | For 'yes, of course' he offered بسيطة; Amal said it means no big deal and led him to طبعًا or أكيد (sheet 'deffinitely / surely / Akeed'). | high | r1+r2 |
+| FA-63834679 | 39:15 | grammar | D3 | So, il wajh fi. | فيو. | fi -> فيو | 'The face has in it' needs the pronoun on the preposition; Amal supplied فيو and he repeated il wajh fiyo. | high | r1+r2 |
+| FA-d520ccef | 41:16 | grammar-B | A9 | Eid, eidan. | mm-hmm. | eidan -> إيدين | In the same list he gave ajrain and janayn with -ain, but for hand said eidan (MSA dual); Amal says إيدين a minute later (42:23); she let it pass here. | low | r3 |
+| FA-844f75ae | 42:01 | grammar | A4 | eedaini. | No. We said for dual things or things that end in ain. ... So إيدين turns into إيدي. | eedaini -> إيدي | Dual + my drops the n; Amal said No and named the rule. | high | r1+r2 |
+| FA-7c5f125b | 44:49 | grammar-B | D1 | wala sheey ... inkassar ... qabl? | In my body. | wala sheey inkassar qabl -> ولا شي انكسر بجسمي قبل | Amal prompted 'In my body' and he produced 'jismi qabl' with no preposition (بـ/في); she let it pass. | low | r1+r2 |
+| FA-eea3da3e | 45:31 | vocab-A | tier 1 | um, husfa aw asabiya. | is weeks. Mhm. | asabiya -> أصابع | For fingers he said أسابيع (weeks), a different word; Amal: 'is weeks', he changed to asabi (sheet 'finger / Osba3'). | medium | r3 |
+| FA-4527f29f | 47:56 | grammar | A8 | ayun bini-- uh, biniyin? | عين is what? ... بالنيات. | biniyin -> بنيات | عيون takes a feminine plural colour; Amal prompted and supplied بنيات, he repeated ayun biniyat. | high | r1+r2 |
+| FA-9713a603 | 48:58 | vocab-A | tier 1 | اجرب كبير. | أجر كبير؟ شو يعني؟ أجر is leg. | اجرب -> جسم | He meant 'I have a big body' but said إجر (leg); Amal questioned it; sheet 'body / Jissem / جسم'. | high | r1+r2 |
+| FA-59cb9727 | 49:39 | vocab-A | tier 1 | اجربين واط-- واطين or واطيات. واطيات? | Low. ... Low legs. | واطين -> قصيرات | واطي = low (sheet 'low / Waati'); Amal glossed it 'Low legs' and he switched to اسيرات = قصيرات (sheet 'short / Qaseer'). | high | r1+r2 |
+| FA-8319a994 | 51:09 | vocab-A | tier 1 | بحتاج، لبسة لـ العروس. | Arus is bride. ... Okay، so wedding is arus. | العروس -> العرس | He wanted 'for a wedding' but said عروس (bride); Amal told him that means bride and gave the wedding word. | high | r1+r2 |
+| FA-0ac3ad7b | 51:17 | vocab-A | tier 2 | Oh, عروسين؟ | Aris. | عروسين -> عريس | After 'Arus is bride' he guessed groom as عروسين; Amal supplied عريس and he repeated it. (His underlying slip, العروس for 'wedding' عرس, is a separate moment at 51:09.) | low | r3 |
+| FA-0ac0bf6a | 52:29 | grammar | A8 | بدلة جديد. | بدلة، بدلة is what. | جديد -> جديدة | بدلة is feminine; Amal prompted and he fixed to بدلة جديدة. | high | r1+r2 |
+| FA-4c53b475 | 53:09 | grammar | B2 | ممكن بشترِي بدلة... | ممكن takes out the be. | ممكن بشترِي -> ممكن أشتري | Amal named the rule: no b- after ممكن. | high | r1+r2 |
+| FA-3f8c78bd | 54:56 | vocab-A | tier 1 | انا بسيرة. ... انا بكندرة | لا. Is like most likely or the be cone one. ... على الأغلب. | بسيرة -> على الأغلب | For 'probably' he produced a non-word; Amal said لا and supplied على الأغلب. | high | r1+r2 |
+| FA-bb38de59 | 56:22 | vocab-B | tier 2 | لازم أشتري إشيات، |  | إشيات -> أشيا | Invented plural of إشي; Amal gave the right plural أشيا a minute later (57:16) for a different line. | medium | r1+r2 |
+| FA-4456ef11 | 56:25 | vocab-A | tier 1 | شيك- شيكي لو، uh, لون، m-- uh، كندرتي. | Like. What's like the color of my... | شيكي لو -> زي | He groped for 'like'; Amal said 'Like' and he produced زي لون كندرتي (sheet 'like / zayy'). | medium | r1+r2 |
+| FA-81acfc6d | 57:05 | grammar | A9 | إشي كتير زي short. | What's plural she? | إشي كتير -> أشيا كتير | 'Many things' needs the plural; Amal prompted and he said أشيا كتير. | high | r1+r2 |
+| FA-8393106b | 57:59 | vocab-A | tier 2 | تنانين، فستان. | فستان، فساتين. What's one skirt? ... فنانير. | تنانين -> تنانير | He said تنانين (dragons) for skirts; Amal laughed and recast the plural تنانير. | medium | r1+r2 |
+| FA-fe29a96e | 58:27 | grammar | B1 | لا أنا أبدًا ما ألبس، | ما بلبس. | ما ألبس -> ما بلبس | Plain present keeps b- after ما; Amal recast and said No when he asked if it drops. | high | r1+r2 |
+| FA-758c3b8e | 58:47 | grammar | D4 | ما بحبه. | لأن ما بحبها then. | بحبه -> بحبها | نضارة is feminine so the object ending is -ha; Amal recast; he still repeated بحبه. | high | r1+r2 |
+| FA-9fc87be2 | 59:53 | grammar | A8 | El شمس، إمني إلنا. | ميييح، شمس is... ميحة. | إمني -> منيحة | شمس is feminine; Amal recast منيحة. | high | r1+r2 |
+| FA-aed03c88 | 1:00:11 | vocab-A | tier 0 | أنا شمس... One, one more time. | أنا الشمس بتضايقني. ... بتضايقني. | irritates me -> بتضايقني | New verb Amal taught (he asked her to repeat and what it means); not an attempt of his, so tier 0. | medium | r3 |
+| FA-9ac542f8 | 1:02:23 | vocab-A | tier 0 | دايمًا بنسى الـ socks. آآآ، كصلات، كصلات، كصلات. أنا كلسات. | Socks. كلسات. You know we say جرابين. We don't say كلسات. | كلسات -> جرابين | His كلسات is her sheet word and she later says 'كلسات is nice'; she offered her own word جرابين as new vocabulary - a didn't-know style item, tier 0. | low | r3 |
+| FA-4c29db72 | 1:03:47 | grammar | D1 | كلسات، لون مختلف. | Where do I put اللون؟ وين بحط اللون؟ | كلسات، لون مختلف -> كلسات في ألوان مختلفة | Amal asked where the colour goes and modelled 'socks in different colours'; he rebuilt it with في. | medium | r1+r2 |
+| FA-410ca1d4 | 1:04:14 | grammar | A9 | أنا عندي كلسات في لون مختلف. | Colors. | لون -> ألوان | Needs the plural ألوان; Amal said 'Colors.' and he said ألوان. | high | r1+r2 |
+| FA-d32809b7 | 1:04:25 | grammar | A8 | لونا، لون، ألوان مختلف. | mm-hmm. مختلف. | ألوان مختلف -> ألوان مختلفين | Plural noun needs the plural adjective; Amal echoed مختلف and he fixed to مختلفين. | high | r1+r2 |
+| FA-93360f8b | 1:04:41 | grammar | A8 | خضرا، آآآ، خض-- do I need to use plural here؟ خضرات؟ | No. ... أخضر بس يعني. | خضرا -> أخضر | Listing colours she wanted the base masculine form أخضر; she said No and gave it. | medium | r1+r2 |
+| FA-6bfdb037 | 1:05:13 | grammar | A1 | أبيض شك-شكلو، رخيص. | الأبيض رخيص؟ ... شكله الأبيض رخيص. | أبيض -> الأبيض | White as a known category needs el-; Amal recast twice with الأبيض. | medium | r1+r2 |
+| FA-d7a48f3c | 1:06:53 | grammar | B6 | لما تكوني ولاد. How would I say this when you were small? | لما، لما when you were. So كنتي | لما تكوني -> لما كنتي | Past 'when you were' needs كان; he asked and Amal supplied كنتي. | high | r1+r2 |
+| FA-21d8c454 | 1:07:09 | vocab-A | tier 1 | لما كنتي ولاد | صغيرة. | ولاد -> صغيرة | ولاد (kids) does not fit 'when you were little'; Amal replaced it with صغيرة (sheet 'small / Z8eer'). | high | r1+r2 |
+| FA-888878bd | 1:07:21 | grammar | B5 | لما كنت صغيرة، آآآ بلبس الـ | You were. | بلبس -> لبستي | Past context but present بلبس; Amal prompted 'You were.' and accepted لبستي. | medium | r1+r2 |
+| FA-2a899ac2 | 1:07:48 | vocab-A | tier 1 | لبستي خصلات، | كلسات. | خصلات -> كلسات | He said 'I forgot the word already' and produced خصلات (locks of hair) for socks; Amal recast كلسات (sheet 'socks (plural) / Kalsaat'). Could partly be a sound slip, hence low. | low | r3 |
+| FA-0c86024b | 1:07:52 | grammar | A8 | خصلات آآآ أبيض. | بيض. | أبيض -> بيض | Plural noun takes the plural colour بيض; Amal recast and confirmed it is plural. | high | r1+r2 |
+| FA-5657e2f7 | 1:09:03 | grammar | D2 | حكينا الكل or الـ كل-كلأن، | كل– عن كل شي. | حكينا الكل -> حكينا عن كل شي | حكى takes عن and 'everything' is كل شي; Amal recast and he repeated عن كل شي. | high | r1+r2 |
+| FA-84878243 | 1:09:03 | vocab-A | tier 1 | حكينا الكل or الـ كل-كلأن، كليا-كليان. | كل– عن كل شي. ... عن كل شي. | الكل -> كل شي | الكل is 'everyone' (sheet 'all / everyone / Elkul'); for 'everything' Amal said عن كل شي twice and he repeated it (sheet 'everything / Kul shee'). | medium | r3 |

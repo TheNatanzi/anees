@@ -1,0 +1,437 @@
+{
+ "date": "2026-09-26",
+ "reader": "r3",
+ "note": "Amal has no lines at all from 00:00 to 20:17 (her audio missing / connection drop at ~18:00), so D1-D3 and D12-D14 cannot be checked against her reaction. Farsi aside at 17:31-17:42 is not Arabic. Latin-transliterated Medi stretches 25:00-50:00 are ASR; letter-level readings there are soft.",
+ "rulings": [
+  {
+   "id": "D1",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-r3-1",
+    "t": "04:28",
+    "t_amal": null,
+    "medi_said": "ال- امبارح ملآن كتير. / كان ملآن كتير.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "ملآن",
+    "right": "مشغول",
+    "kind": "vocab-B",
+    "tier": 1,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "none",
+    "confidence": "low",
+    "why": "He means 'yesterday was very busy'; ملآن = full (sheet 'full (general/object) | Malyaan'), sheet has 'busy | Mash8ool | مشغول' (B reading); Amal is absent from the transcript until 20:17.",
+    "english": "Yesterday was very busy."
+   },
+   "why": "Real but unconfirmed: 'full' for a busy day is at best loose; Amal's audio is missing for the first 20 min, so B with low confidence."
+  },
+  {
+   "id": "D2",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-r3-2",
+    "t": "10:13",
+    "t_amal": null,
+    "medi_said": "أ-أكتر uh، ساعد، مساعد. ... مساعد or مساعد؟ ... مساعدة.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "مساعد",
+    "right": "مساعدة",
+    "kind": "vocab-B",
+    "tier": 2,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "none",
+    "confidence": "low",
+    "why": "For the noun 'help' he used مساعد (helper) before ending on مساعدة (sheet 'help | Musaa3ada | مساعدة'); he asked, and Amal's answer is missing (transcript hole: no Amal lines before 20:17).",
+    "english": "The system needs more help."
+   },
+   "why": "Same slip as D13; one row kept here. His line is present, her answer is not, so low."
+  },
+  {
+   "id": "D3",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-r3-3",
+    "t": "12:01",
+    "t_amal": null,
+    "medi_said": "مـ-متأكد إنه ... AI بلاء كل الـ، آآآ، غلطات.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "متأكد",
+    "right": "نتأكد",
+    "kind": "vocab-B",
+    "tier": 2,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "none",
+    "confidence": "medium",
+    "why": "He says 'make sure' in English right before, so he wants the verb, but used the participle متأكد 'sure' (sheet 'sure / certain | Mit2akked'); verb form نتأكد / أتأكد is the B reading.",
+    "english": "Make sure that the AI catches all the mistakes."
+   },
+   "why": "Real: he glosses it himself as 'make sure'. Same slip as D14; kept once here."
+  },
+  {
+   "id": "D4",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-r3-4",
+    "t": "21:25",
+    "t_amal": "21:27",
+    "medi_said": "اليوم بلبس بلوزة so شو؟",
+    "amal_said": "الجو. الجو.",
+    "chat": null,
+    "wrong": "بلبس بلوزة",
+    "right": "الجو",
+    "kind": "vocab-A",
+    "tier": 1,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "listening",
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "Amal asked كيف الجو عندكم اليوم and he answered about clothes; she repeated الجو twice and he said 'Oh whoops... الجو شوب'.",
+    "english": "(Misheard the question about the weather.)"
+   },
+   "why": "Real listening miss; transcript shows her repeated prompt and his 'Oh whoops'."
+  },
+  {
+   "id": "D5",
+   "verdict": "drop",
+   "why": "Self-fix before help / cannot be verified: خنزارة is an ASR garble he immediately replaced himself with بنطلون ('X or بنطلون'); Amal gave no signal."
+  },
+  {
+   "id": "D6",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-r3-5",
+    "t": "25:31",
+    "t_amal": "25:36",
+    "medi_said": "The sne. ... Doctor of sne. ... Stan, stan, stan.",
+    "amal_said": "دكتور الـ... أسنان.",
+    "chat": null,
+    "wrong": "stan",
+    "right": "أسنان",
+    "kind": "vocab-A",
+    "tier": 0,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "He was groping for 'teeth' (sne / stan) and could not produce it; Amal prompted دكتور الـ... then supplied أسنان - a didn't-know, so tier 0.",
+    "english": "Dentist (doctor of teeth)."
+   },
+   "why": "Both readers saw it; transcript shows searching, not a wrong known word, so tier 0 with her prompt-then-supply signal."
+  },
+  {
+   "id": "D7",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-r3-6",
+    "t": "35:57",
+    "t_amal": "36:06",
+    "medi_said": "ستة وستين. The doctor that's coming to see you is going to wait?",
+    "amal_said": "No. بتقدر تستنى دقيقة؟ This is separate.",
+    "chat": null,
+    "wrong": "ستة وستين",
+    "right": "تستنى دقيقة",
+    "kind": "vocab-A",
+    "tier": 1,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "listening",
+    "signal": "explicit-no",
+    "confidence": "medium",
+    "why": "He heard her تستنى دقيقة as ستة وستين and misread the sentence; Amal said No, repeated it and he then got 'can you wait a minute'.",
+    "english": "Can you wait a minute?"
+   },
+   "why": "Real listening miss with an explicit No; tier 1 (heard a different lexical item)."
+  },
+  {
+   "id": "D8",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-r3-7",
+    "t": "45:31",
+    "t_amal": "45:38",
+    "medi_said": "um, husfa aw asabiya.",
+    "amal_said": "is weeks. Mhm.",
+    "chat": null,
+    "wrong": "asabiya",
+    "right": "أصابع",
+    "kind": "vocab-A",
+    "tier": 1,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "explicit-no",
+    "confidence": "medium",
+    "why": "For fingers he said أسابيع (weeks), a different word; Amal: 'is weeks', he changed to asabi (sheet 'finger | Osba3').",
+    "english": "Fingers."
+   },
+   "why": "Both readers agree it is real; أسابيع is a different lexical item, so tier 1 not 2."
+  },
+  {
+   "id": "D9",
+   "verdict": "drop",
+   "why": "Not an error / S4: زرع is zar'a = زرقا with ق as glottal stop (ASR writes ع); he had just said ازرع (az'ra, masculine) and switched to the feminine after 'these are feminine'. Amal said ممتاز."
+  },
+  {
+   "id": "D10",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-r3-8",
+    "t": "1:02:23",
+    "t_amal": "1:02:34",
+    "medi_said": "دايمًا بنسى الـ socks. آآآ، كصلات، كصلات، كصلات. أنا كلسات.",
+    "amal_said": "Socks. كلسات. You know we say جرابين. We don't say كلسات.",
+    "chat": null,
+    "wrong": "كلسات",
+    "right": "جرابين",
+    "kind": "vocab-A",
+    "tier": 0,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "asked",
+    "confidence": "low",
+    "why": "His كلسات is her sheet word and she later says 'كلسات is nice'; she offered her own word جرابين as new vocabulary - a didn't-know style item, tier 0.",
+    "english": "Socks."
+   },
+   "why": "Keep as tier 0 new-word only; not a real error of his."
+  },
+  {
+   "id": "D11",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-r3-9",
+    "t": "1:07:48",
+    "t_amal": "1:07:49",
+    "medi_said": "لبستي خصلات،",
+    "amal_said": "كلسات.",
+    "chat": null,
+    "wrong": "خصلات",
+    "right": "كلسات",
+    "kind": "vocab-A",
+    "tier": 1,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "recast",
+    "confidence": "low",
+    "why": "He said 'I forgot the word already' and produced خصلات (locks of hair) for socks; Amal recast كلسات (sheet 'socks (plural) | Kalsaat'). Could partly be a sound slip, hence low.",
+    "english": "You wore white socks."
+   },
+   "why": "Recall failure he announced himself ('I forgot the word'), then Amal supplied the word; not a pure pronunciation slip."
+  },
+  {
+   "id": "D12",
+   "verdict": "drop",
+   "why": "Not an error: جرّب + verb ('try to') is normal Levantine (جرب تنام); Amal is also absent from the transcript here."
+  },
+  {
+   "id": "D13",
+   "verdict": "drop",
+   "why": "Duplicate of D2 (same مساعد -> مساعدة slip at 10:13-10:52)."
+  },
+  {
+   "id": "D14",
+   "verdict": "drop",
+   "why": "Duplicate of D3 (same متأكد slip at 12:01-12:09)."
+  },
+  {
+   "id": "D15",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-r3-10",
+    "t": "25:54",
+    "t_amal": "26:12",
+    "medi_said": "Doctor al ayun, doctor al ajer, doctor ajerain. ... A foot doctor?",
+    "amal_said": "We say bones doctor.",
+    "chat": null,
+    "wrong": "doctor al ajer",
+    "right": "دكتور عظام",
+    "kind": "vocab-A",
+    "tier": 1,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "recast",
+    "confidence": "medium",
+    "why": "He coined 'foot doctor' (دكتور الإجر); Amal first laughed at it ('Is there دكتور إزlan?') then said 'We say bones doctor.'",
+    "english": "Foot doctor / podiatrist."
+   },
+   "why": "Real: she questioned the coinage and gave the term used."
+  },
+  {
+   "id": "D16",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-r3-11",
+    "t": "27:35",
+    "t_amal": "29:04",
+    "medi_said": "Doctor el Tom. ... Abaton. Doctor el Tomon. Abaton.",
+    "amal_said": "This is the دكتور الـ button. we say باطني",
+    "chat": null,
+    "wrong": "Abaton",
+    "right": "باطني",
+    "kind": "vocab-A",
+    "tier": 2,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "recast",
+    "confidence": "medium",
+    "why": "He named the stomach doctor with the noun بطن; about 90 s later Amal laughed 'This is the دكتور الـ button' and said 'we say باطني' (adjective form).",
+    "english": "Stomach doctor (internist)."
+   },
+   "why": "Real: her 29:04 line explicitly refers back to his بطن doctor."
+  },
+  {
+   "id": "D17",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-r3-12",
+    "t": "29:46",
+    "t_amal": "30:11",
+    "medi_said": "And uh, waj, uh, waj, uh, rasi. ... sa-rasi biwaj, biwajani.",
+    "amal_said": "So my head hurts. ... My head hurts me.",
+    "chat": null,
+    "wrong": "waj, uh, rasi",
+    "right": "راسي بيوجعني",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "D4",
+    "bucket2": "B1",
+    "mode": "speaking",
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "He said 'waj rasi' with no conjugated verb or object ending; Amal prompted 'My head hurts me' until he produced راسي بيوجعني.",
+    "english": "My head hurts."
+   },
+   "why": "Real: her English prompt and his repaired form are both in the transcript."
+  },
+  {
+   "id": "D18",
+   "verdict": "drop",
+   "why": "Not an error: راسي بدا يوجع ('my head started hurting') is fine without the object ending; the subject is the head."
+  },
+  {
+   "id": "D19",
+   "verdict": "drop",
+   "why": "Not an error: ما بيوجع إشي تاني ('nothing else hurts') is acceptable Levantine; the -ni object ending is optional here and Amal accepted it."
+  },
+  {
+   "id": "D20",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-r3-13",
+    "t": "41:16",
+    "t_amal": null,
+    "medi_said": "Eid, eidan.",
+    "amal_said": "mm-hmm.",
+    "chat": null,
+    "wrong": "eidan",
+    "right": "إيدين",
+    "kind": "grammar-B",
+    "tier": null,
+    "bucket": "A9",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "none",
+    "confidence": "low",
+    "why": "In the same list he gave ajrain and janayn with -ain, but for hand said eidan (MSA dual); Amal says إيدين a minute later (42:23); she let it pass here.",
+    "english": "Hand, two hands."
+   },
+   "why": "Plausible B: the -an vs -ain contrast is kept in the ASR for the neighbouring words; low because it may be ASR."
+  },
+  {
+   "id": "D21",
+   "verdict": "drop",
+   "why": "Not an error: Ajrai = ijrayy, the correct 'my legs' form she had just taught; Amal's أجري echoes/confirms it (initial vowel is S4)."
+  },
+  {
+   "id": "D22",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-r3-14",
+    "t": "51:17",
+    "t_amal": "51:19",
+    "medi_said": "Oh, عروسين؟",
+    "amal_said": "Aris.",
+    "chat": null,
+    "wrong": "عروسين",
+    "right": "عريس",
+    "kind": "vocab-A",
+    "tier": 2,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "recast",
+    "confidence": "low",
+    "why": "After 'Arus is bride' he guessed groom as عروسين; Amal supplied عريس and he repeated it. (His underlying slip, العروس for 'wedding' عرس, is a separate moment at 51:09.)",
+    "english": "Groom."
+   },
+   "why": "Real guess corrected by Amal; low because it is a guess inside the wedding/bride mix-up."
+  },
+  {
+   "id": "D23",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-r3-15",
+    "t": "1:00:11",
+    "t_amal": "1:00:06",
+    "medi_said": "أنا شمس... One, one more time.",
+    "amal_said": "أنا الشمس بتضايقني. ... بتضايقني.",
+    "chat": null,
+    "wrong": "irritates me",
+    "right": "بتضايقني",
+    "kind": "vocab-A",
+    "tier": 0,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "asked",
+    "confidence": "medium",
+    "why": "New verb Amal taught (he asked her to repeat and what it means); not an attempt of his, so tier 0.",
+    "english": "The sun irritates me."
+   },
+   "why": "Real didn't-know item (tier 0)."
+  },
+  {
+   "id": "D24",
+   "verdict": "drop",
+   "why": "Not an error: 'كلسات في ألوان' is acceptable; Amal fixed only لون -> ألوان and the agreement (separate rows), not the preposition."
+  },
+  {
+   "id": "D25",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-r3-16",
+    "t": "1:09:03",
+    "t_amal": "1:09:07",
+    "medi_said": "حكينا الكل or الـ كل-كلأن، كليا-كليان.",
+    "amal_said": "كل– عن كل شي. ... عن كل شي.",
+    "chat": null,
+    "wrong": "الكل",
+    "right": "كل شي",
+    "kind": "vocab-A",
+    "tier": 1,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "recast",
+    "confidence": "medium",
+    "why": "الكل is 'everyone' (sheet 'all / everyone | Elkul'); for 'everything' Amal said عن كل شي twice and he repeated it (sheet 'everything | Kul shee').",
+    "english": "We talked about everything."
+   },
+   "why": "Real: she recast twice and he took it."
+  }
+ ],
+ "added": []
+}
