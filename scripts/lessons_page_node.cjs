@@ -92,7 +92,7 @@ for (const r of rows) for (const raw of String(r.search || '').split(' ')) {
   addTok(t, r.key); if (t.length > 3 && t[0] === 'ب') addTok(t.slice(1), r.key);
 }
 // a pronoun ending on a known form is still that word (بتضايقني = بتضايق + ني)
-const ENDS = ['كم', 'هم', 'ها', 'نا', 'ني', 'ك', 'ه'];   // not a bare -i / -u: نفسي is 'psychological', not نفس + i (Medi 2026-09-27)
+const ENDS = ['كم', 'هم', 'ها', 'نا', 'ني', 'ك', 'ه', 'ات', 'ين', 'ون'];   // + adjective/plural endings: قصيرات = her 2aseer + -aat   // not a bare -i / -u: نفسي is 'psychological', not نفس + i (Medi 2026-09-27)
 const tok = t => tok0(t) || ENDS.reduce((hit, e) => hit || (t.length - e.length >= 3 && t.endsWith(e) ? tok0(t.slice(0, -e.length)) : null), null);
 const tok0 = t => tokens.get(t) || (t.length > 3 && t[0] === 'ا' ? tokens.get(t.slice(1)) : null) || (t.length > 3 && t[0] === 'و' ? tokens.get(t.slice(1)) : null);
 const sheet = {};
@@ -103,7 +103,7 @@ const enw = t => new Set(String(t || '').toLowerCase().match(/[a-z]{3,}/g) || []
 const sameMeaning = (key, en) => { const E = enw(en); if (!E.size) return true; const w = byKey.get(key) || rowByKey.get(key) || {};
   for (const x of enw(w.english)) if (E.has(x) || E.has(x + 's') || E.has(x.replace(/s$/, ''))) return true; return false; };
 // her Latin spellings too: the plural column is Latin only (أصابع = her 'Asaabe3', plural of Osba3 - Medi 2026-09-27)
-const lat = t => String(t || '').toLowerCase().replace(/^ana\s+/, '').replace(/[^a-z0-9]/g, '');
+const lat = t => String(t || '').toLowerCase().replace(/^ana\s+/, '').replace(/[^a-z0-9]/g, '').replace(/([aeiou])+/g, '$1');   // Tanaaneer = her Tananeer
 const latIndex = new Map();
 for (const w of words) for (const x of [w.arabizi, w.plural, w.house_spelling]) { const k = lat(x); if (k.length >= 3 && !latIndex.has(k)) latIndex.set(k, w.key); }
 const renderLat = Az.create(words, catalog, J('arabizi-extra.json'));
