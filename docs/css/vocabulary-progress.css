@@ -198,3 +198,57 @@
 .ov-tbl td a{color:var(--ab-accent);text-decoration:none;font-weight:600}
 .ov-tbl tbody tr:first-child td{background:var(--sabz-state-calm-fill)}
 .pct-a{color:light-dark(#0f6b3a,#3fcf7f)!important}.pct-b{color:light-dark(#4f9a2e,#a8e08a)!important}.pct-c{color:light-dark(#9a7400,#f2c94c)!important}.pct-d{color:light-dark(#b3261e,#ff7a70)!important}
+
+/* Grammar tab (2026-09-27): nine new angles + time of day. docs/js/grammar-progress.js */
+#anees-bank .gp-key{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--sabz-c-burnt-orange,#B9631F);margin-bottom:4px}
+#anees-bank .gp-strip{display:flex;justify-content:space-between;gap:18px;align-items:center;text-decoration:none;color:inherit;background:var(--ab-raised);border:1px solid var(--ab-line);border-radius:12px;padding:14px 18px;margin-bottom:16px}
+#anees-bank .gp-strip:hover{border-color:var(--vp-sage)}
+#anees-bank .gp-open{white-space:nowrap;font-size:12.5px;color:var(--ab-accent);font-weight:600}
+#anees-bank .gp-sub{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ab-muted);font-weight:600;margin-bottom:6px}
+#anees-bank .gp-kv{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:baseline}
+#anees-bank .gp-kv span{color:var(--ab-muted);font-size:12.5px}
+#anees-bank .gp-kv b{font-family:var(--vp-serif);font-weight:500;font-size:22px;color:var(--ab-text);margin-right:5px;font-variant-numeric:tabular-nums}
+#anees-bank .gp-statusbar{display:flex;height:9px;border-radius:5px;overflow:hidden;gap:2px;margin-top:9px;max-width:520px}
+#anees-bank .gp-statusbar i{display:block;height:100%}
+#anees-bank .gp-strip small{display:block;color:var(--ab-muted);font-size:11.5px;margin-top:7px;line-height:1.45}
+#anees-bank .gp-foot{margin:12px 0 0!important;padding-top:10px;border-top:1px solid var(--ab-line);font-size:11.5px;color:var(--ab-muted)}
+#anees-bank .vp-chart .gp-band{fill:var(--vp-sage);opacity:.18}
+#anees-bank .vp-chart .gp-bar{fill:var(--vp-sage)}
+#anees-bank .vp-chart .gp-bar-recent{fill:var(--vp-forest)}
+#anees-bank .vp-chart .gp-bar-peak{fill:var(--sabz-c-burnt-orange,#B9631F)}
+#anees-bank .vp-chart .gp-bar-partial{opacity:.5}
+#anees-bank .vp-chart .gp-trend{fill:none;stroke:var(--sabz-c-burnt-orange,#B9631F);stroke-width:2;stroke-dasharray:3 4;stroke-linejoin:round}
+#anees-bank .vp-chart .gp-worse line{stroke:var(--ab-red);stroke-width:2}#anees-bank .vp-chart .gp-worse circle{fill:var(--ab-red);stroke:var(--ab-panel);stroke-width:2}
+#anees-bank .vp-chart .gp-better line{stroke:var(--ab-green);stroke-width:2}#anees-bank .vp-chart .gp-better circle{fill:var(--ab-green);stroke:var(--ab-panel);stroke-width:2}
+#anees-bank .vp-chart .gp-pt{stroke:var(--ab-panel);stroke-width:2}
+#anees-bank .vp-chart .gp-mover-label{font-size:12.5px}
+#anees-bank .vp-chart .gp-pt-tod{fill:var(--vp-forest)}
+#anees-bank .gp-two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+#anees-bank .gp-row{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;font-size:12.5px;padding:4px 0}
+#anees-bank .gp-row-pair{grid-template-columns:78px 1fr auto}
+#anees-bank .gp-id{font-weight:600;color:var(--ab-text)}
+#anees-bank .gp-track{height:8px;border-radius:4px;background:var(--ab-raised);overflow:hidden}
+#anees-bank .gp-track i{display:block;height:100%;border-radius:4px;background:var(--vp-forest)}
+#anees-bank .gp-track .gp-fill-bad{background:var(--ab-red)}#anees-bank .gp-track .gp-fill-good{background:var(--ab-green)}
+#anees-bank .gp-n{color:var(--ab-muted);font-size:11.5px;white-space:nowrap;max-width:46%;overflow:hidden;text-overflow:ellipsis}
+#anees-bank .gp-stack{height:auto}
+#anees-bank .vp-chart .gp-seg-1{fill:light-dark(#B9CBBE,#33483F)}#anees-bank .vp-chart .gp-seg-2{fill:light-dark(#7FA08C,#4F6F5F)}#anees-bank .vp-chart .gp-seg-3{fill:light-dark(#527463,#7FA08C)}#anees-bank .vp-chart .gp-seg-4{fill:light-dark(#3E5C4B,#B3CDBC)}#anees-bank .vp-chart .gp-seg-5{fill:var(--sabz-c-burnt-orange,#B9631F)}#anees-bank .vp-chart .gp-seg-6{fill:var(--ab-line)}
+#anees-bank .vp-chart .gp-seg-label{fill:var(--ab-text);font-weight:600;font-size:11px}#anees-bank .vp-chart .gp-seg-label-light{fill:var(--ab-panel)}
+#anees-bank .gp-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:var(--ab-muted);margin-top:8px}
+#anees-bank .gp-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+#anees-bank .gp-legend .gp-seg-1{background:light-dark(#B9CBBE,#33483F)}#anees-bank .gp-legend .gp-seg-2{background:light-dark(#7FA08C,#4F6F5F)}#anees-bank .gp-legend .gp-seg-3{background:light-dark(#527463,#7FA08C)}#anees-bank .gp-legend .gp-seg-4{background:light-dark(#3E5C4B,#B3CDBC)}#anees-bank .gp-legend .gp-seg-5{background:var(--sabz-c-burnt-orange,#B9631F)}#anees-bank .gp-legend .gp-seg-6{background:var(--ab-line)}
+#anees-bank .gp-stats{margin-top:14px}
+#anees-bank .gp-big{font-size:11.5px;color:var(--ab-muted)}
+#anees-bank .gp-big b{font-family:var(--vp-serif);font-weight:500;font-size:26px;color:var(--ab-text);margin-right:8px;letter-spacing:-.3px}
+#anees-bank .vp-chart .gp-heat-0{fill:var(--ab-raised)}#anees-bank .vp-chart .gp-heat-1{fill:light-dark(#DCE4D8,#2A3A33)}#anees-bank .vp-chart .gp-heat-2{fill:light-dark(#B9CBBE,#3F5A4E)}#anees-bank .vp-chart .gp-heat-3{fill:light-dark(#7FA08C,#6E9880)}#anees-bank .vp-chart .gp-heat-4{fill:light-dark(#3E5C4B,#B3CDBC)}
+#anees-bank .vp-chart .gp-heat-num{fill:var(--ab-panel);font-weight:600;font-size:10px}
+#anees-bank .gp-focus{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+#anees-bank .gp-fcard{background:var(--ab-raised);border-radius:10px;padding:12px 14px}
+#anees-bank .gp-fid{font-size:11px;font-weight:600;color:var(--ab-muted)}
+#anees-bank .gp-fname{font-family:var(--vp-serif);font-size:16px;font-weight:500;margin:2px 0 6px}
+#anees-bank .gp-fwhy{font-size:12.5px;color:var(--ab-muted);line-height:1.45}
+#anees-bank .gp-pill{display:inline-block;font-size:11px;padding:2px 9px;border-radius:999px;font-weight:600;margin-top:9px}
+#anees-bank .gp-pill-bad{background:color-mix(in srgb,var(--ab-red) 16%,transparent);color:var(--ab-red)}
+#anees-bank .gp-pill-warn{background:color-mix(in srgb,var(--ab-orange) 18%,transparent);color:var(--ab-orange)}
+#anees-bank .gp-pill-good{background:color-mix(in srgb,var(--ab-green) 18%,transparent);color:var(--ab-green)}
+@media(max-width:680px){#anees-bank .gp-two,#anees-bank .gp-focus{grid-template-columns:1fr}#anees-bank .gp-strip{flex-direction:column;align-items:flex-start}#anees-bank .gp-n{max-width:none}}
