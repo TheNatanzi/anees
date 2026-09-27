@@ -23,18 +23,24 @@ test('goals: distinct cards this Mon–Sun week and this month',()=>{
  const g=S.goals(S.history(log,O),NOW,{weekly:50,monthly:200});
  assert.deepEqual(g.week,{n:2,goal:50,pct:4});assert.equal(g.month.n,3);assert.equal(g.month.goal,200);
 });
-test('workload: due by end of today, passes = ceil(needed × retention)',()=>{
+test('workload: due by end of today, unfinished = still on a learning step, passes = ceil(needed × retention)',()=>{
  const cards=new Map([['a',{reps:1,due:+NOW-1000}],['b',{reps:3,due:+new Date(2026,8,23,23,59)}],['c',{reps:2,due:+new Date(2026,8,24,1)}],['d',{reps:0,due:null}]]);
- assert.deepEqual(S.workload(cards,NOW,0.9),{needed:2,passes:2});
+ assert.deepEqual(S.workload(cards,NOW,0.9),{needed:2,passes:2,unfinished:0});
  assert.equal(S.workload(cards,NOW,0.8).passes,2);
+ cards.set('e',{reps:1,due:+NOW-1,state:'learning'});cards.set('f',{reps:4,due:+NOW-1,state:'relearning'});cards.set('g',{reps:4,due:+NOW-1,state:'review'});
+ assert.deepEqual(S.workload(cards,NOW,0.9),{needed:5,passes:5,unfinished:2});
 });
 test('true retention: only answers on cards mature at answer time; null when none',()=>{
  assert.equal(S.trueRetention(S.history([ans('a',at(9,1))],O)).pct,null);
  const h={answers:[{phase:'mature',right:true},{phase:'mature',right:false},{phase:'learning',right:false},{phase:'mature',right:true},{phase:'mature',right:true}]};
  assert.deepEqual(S.trueRetention(h),{n:4,right:3,pct:75});
 });
-test('leeches: 8+ lapses',()=>{
- assert.equal(S.leeches(new Map([['a',{lapses:8}],['b',{lapses:7}]])).length,1);
+test('leeches: 4 misses in any phase or 8 lapses; leechWatch lists the nearest cards',()=>{
+ const cards=new Map([['a',{id:'a',reps:9,lapses:8,misses:8}],['b',{id:'b',reps:5,lapses:0,misses:3}],['c',{id:'c',reps:4,lapses:0,misses:4}],['d',{id:'d',reps:3,lapses:0,misses:1}],['e',{id:'e',reps:3,lapses:0,misses:0}]]);
+ assert.deepEqual(S.leeches(cards).map(c=>c.id),['a','c']);
+ const w=S.leechWatch(cards);assert.deepEqual(w.map(x=>x.key),['b','d']);assert.deepEqual(w[0],{key:'b',misses:3,limit:4,left:1,lapses:0,reps:5});
+ const h=S.history(['missed','got','missed','got','missed'].map((r,i)=>ans('7Ades',at(9,22,10,i),r)),O);   // the 2026-09-27 audit case: 3 of 5 missed while learning
+ assert.equal(S.leeches(h.cards).length,0);assert.equal(S.leechWatch(h.cards)[0].key,'7Ades');assert.equal(S.leechWatch(h.cards)[0].left,1);
 });
 test('curve: from first answer to today + 30, 100% on the review day, then decays; bump markers',()=>{
  const h=S.history([ans('a',at(9,20)),ans('a',at(9,20,10,2)),ans('b',at(9,22),'missed')],O),c=S.curve(h,NOW,30);
@@ -82,13 +88,19 @@ test('histograms: stability, difficulty and retrievability buckets with averages
  assert.equal(x.n,2);assert.equal(x.stability.bins.reduce((s,b)=>s+b.n,0),2);assert.equal(x.difficulty.bins.length,10);
  assert.equal(x.retrievability.avg,100);assert.equal(x.retrievability.bins[9].n,2);
 });
-test('timing: average, median, slowest cards; null without timed answers',()=>{
+test('timing: answer = flip + swipe; average, median, slowest cards; null without timed answers',()=>{
  assert.equal(S.timing(S.history([ans('a',at(9,1))],O)),null);
- const log=[ans('a',at(9,1),'got',{answer_ms:2000}),ans('b',at(9,1,11),'got',{answer_ms:9000}),ans('a',at(9,2),'got',{answer_ms:4000}),ans('c',at(9,2,11),'got',{answer_ms:0})];
+ const log=[ans('a',at(9,1),'got',{answer_ms:2000,flip_ms:1200}),ans('b',at(9,1,11),'got',{answer_ms:9000,flip_ms:8000}),ans('a',at(9,2),'got',{answer_ms:4000}),ans('c',at(9,2,11),'got',{answer_ms:0})];
  const t=S.timing(S.history(log,O));
  assert.equal(t.n,3);assert.equal(t.avg,5000);assert.equal(t.median,4000);assert.deepEqual(t.slowest.map(s=>s.key),['b','a']);assert.equal(t.slowest[1].avg,3000);
+ assert.deepEqual(t.flip,{n:2,avg:4600,median:4600});assert.deepEqual(t.swipe,{n:2,avg:900,median:900});
+ assert.equal(t.slowest[0].flip,8000);assert.equal(t.slowest[1].flip,1200);
+ assert.equal(S.timing(S.history([ans('z',at(9,3),'got',{answer_ms:3000})],O)).flip,null);
 });
-test('hourly: 24 local hours, faded under 100 answers',()=>{
+test('hourly: 24 hours, a stored timezone wins over the browser clock, faded under 100 answers',()=>{
  const x=S.hourly(S.history([ans('a',at(9,1,9)),ans('b',at(9,1,9,30),'missed'),ans('c',at(9,1,21))],O));
- assert.equal(x.hours.length,24);assert.deepEqual([x.hours[9].n,x.hours[9].pct],[2,50]);assert.equal(x.hours[21].pct,100);assert.equal(x.hours[0].pct,null);assert.equal(x.faded,true);
+ assert.equal(x.hours.length,24);assert.deepEqual([x.hours[9].n,x.hours[9].pct],[2,50]);assert.equal(x.hours[21].pct,100);assert.equal(x.hours[0].pct,null);assert.equal(x.faded,true);assert.equal(x.stored,0);
+ const y=S.hourly(S.history([ans('a','2026-09-01T07:30:00Z','got',{tz_offset_min:120}),ans('b','2026-09-01T23:30:00Z','got',{tz_offset_min:120}),ans('c','2026-09-01T02:00:00Z','got',{tz_offset_min:-300})],O));
+ assert.equal(y.stored,3);assert.equal(y.hours[9].n,1);assert.equal(y.hours[1].n,1);assert.equal(y.hours[21].n,1);
+ assert.equal(S.hourOf({t:Date.UTC(2026,8,1,7,30),tz_offset_min:120}),9);assert.equal(S.hourOf({t:Date.UTC(2026,8,1,23,30),tz_offset_min:120}),1);
 });

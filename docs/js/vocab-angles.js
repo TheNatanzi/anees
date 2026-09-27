@@ -217,7 +217,7 @@ function render(){
  const lastDate=d.L.at(-1)?.date;
  const bFirst=B.buckets[0],bLater=B.buckets.slice(1).filter(x=>x.n),laterPass=bLater.length?[Math.min(...bLater.map(x=>x.pass)),Math.max(...bLater.map(x=>x.pass))]:null;
  const topIn=E.inputOnly[0];
- const exercised=G.total-G.rareTotal;
+ const exercised=S.exercised?S.exercised(S.forms(rows)).size:G.total-G.rareTotal; // shared helper (vocabulary-stats.js), same figure as the cards
  const rising=Hh.sections.map(s=>{const top=[...s.cells].sort((x,y)=>y[1]-x[1])[0];return top?{name:s.name,day:top[0],v:top[1],lessons:s.cells.size}:null;}).filter(Boolean);
  const spike=rising.slice().sort((x,y)=>y.v-x.v)[0],rarest=rising.slice().sort((x,y)=>x.lessons-y.lessons)[0];
  el.innerHTML=`

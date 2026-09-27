@@ -17,12 +17,29 @@ const pref=()=>{const p=Object.assign({mode:'ar_first',retention:0.9},LS('anees-
 const setRetention=r=>{const p=Object.assign({},LS('anees-cards-pref')||{},{retention:r});LS('anees-cards-pref',p);};
 /* ---------- data ---------- */
 async function get(url){const r=await fetch(url,{headers:H,cache:'no-store',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('HTTP '+r.status);return r.json();}
+// card_results columns. tz_offset_min / tz arrive with supabase/migrations/017_card_results_timezone.sql; until it is
+// applied the select falls back without them and writes drop them (tzColumn), so nothing breaks either way.
+// A failed probe is remembered on this device for a day (anees-tz-col) so the 400 happens once, not on every load.
+const LOG_COLS='id,word_key,ts,result,attempt,mode,undone_at,flip_ms,answer_ms';let tzColumn=!((LS('anees-tz-col')||{}).off>Date.now()-86400000);
+const noTzColumn=()=>{tzColumn=false;LS('anees-tz-col',{off:Date.now()});};
+async function fetchLog(){
+ const rows=[];
+ for(let off=0;;off+=1000){
+  let p;
+  try{p=await get(ANEES.url+'/rest/v1/card_results?select='+LOG_COLS+(tzColumn?',tz_offset_min':'')+'&order=ts.asc,id.asc&limit=1000&offset='+off);}
+  catch(e){if(!tzColumn||!/HTTP 400/.test(String(e.message)))throw e;noTzColumn();off-=1000;continue;}
+  rows.push(...p);if(p.length<1000)break;
+ }
+ return rows;
+}
+// Timezone the answer was given in (minutes east of UTC + IANA name), for the hourly chart.
+function tzNow(){let tz=null;try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||null;}catch(e){}return {tz_offset_min:-new Date().getTimezoneOffset(),tz};}
 async function load(){
  try{const all=[];for(let off=0;;off+=1000){const p=await get(ANEES.url+'/rest/v1/words?select=key,arabizi,arabic,english,plural,topic,subtopic,doc_order,house_spelling,aliases&active=eq.true&order=doc_order&limit=1000&offset='+off);all.push(...p);if(p.length<1000)break;}if(all.length){words=all;LS('anees-words',all);}}catch(e){}
  if(!words.length){words=LS('anees-words')||[];if(!words.length){try{words=(await (await fetch('data/words.json')).json()).items||[];}catch(e){}}}
  let catalog=null;try{catalog=await (await fetch('data/word-bank-catalog.json')).json();}catch(e){catalog=LS('anees-cards-catalog');}
  siblings=C.siblingMap(words,catalog);
- try{const rows=[];for(let off=0;;off+=1000){const p=await get(ANEES.url+'/rest/v1/card_results?select=id,word_key,ts,result,attempt,mode,undone_at,flip_ms,answer_ms&order=ts.asc,id.asc&limit=1000&offset='+off);rows.push(...p);if(p.length<1000)break;}serverLog=rows;LS('anees-card-server-log',rows);offline=false;}
+ try{serverLog=await fetchLog();LS('anees-card-server-log',serverLog);offline=false;}
  catch(e){serverLog=LS('anees-card-server-log')||[];offline=true;}
  loaded=true;
 }
@@ -35,7 +52,13 @@ function enqueue(row){const q=LS('anees-card-queue')||[];q.push(row);const ok=LS
  if(!ok||!(LS('anees-card-queue')||[]).some(x=>x.id===row.id))memQueue.push(row);sync();}
 function removeSent(ids){const s=new Set(ids);LS('anees-card-queue',(LS('anees-card-queue')||[]).filter(x=>!s.has(x.id)));memQueue=memQueue.filter(x=>!s.has(x.id));}
 function dropRow(row,why){removeSent([row.id]);const d=LS('anees-card-dead')||[];d.push({row,why,t:new Date().toISOString()});LS('anees-card-dead',d.slice(-200));}
-const postRows=rows=>fetch(ANEES.url+'/rest/v1/card_results?on_conflict=id',{method:'POST',headers:{...H,Prefer:'resolution=ignore-duplicates,return=minimal'},body:JSON.stringify(rows.map(({kind,body,undone,...r})=>r))});
+// A 400 that names the timezone columns means migration 017 is not applied yet: resend without them and remember.
+async function postRows(rows){
+ const send=()=>fetch(ANEES.url+'/rest/v1/card_results?on_conflict=id',{method:'POST',headers:{...H,Prefer:'resolution=ignore-duplicates,return=minimal'},body:JSON.stringify(rows.map(({kind,body,undone,tz_offset_min,tz,...r})=>tzColumn?{...r,tz_offset_min,tz}:r))});
+ let r=await send();
+ if(r.status===400&&tzColumn){const txt=await r.text().catch(()=>'');if(/tz_offset_min|'tz'/.test(txt)){noTzColumn();r=await send();}}
+ return r;
+}
 const postUndo=op=>fetch(ANEES.url+'/rest/v1/card_results?id=eq.'+encodeURIComponent(op.target)+'&undone_at=is.null',{method:'PATCH',headers:{...H,Prefer:'return=minimal'},body:JSON.stringify({undone_at:op.at})});
 let syncing=false,again=false;
 async function sync(){if(syncing){again=true;return;}syncing=true;
@@ -78,7 +101,7 @@ function build(){
  const p=pref(),now=new Date(),log=fullLog(),h=S.history(log,{desiredRetention:p.retention}),cards=h.cards;
  const keys=words.map(w=>w.key),byKey=new Map(words.map(w=>[w.key,w]));
  return {p,now,log,h,cards,keys,byKey,
-  goals:S.goals(h,now,GOALS),work:S.workload(cards,now,p.retention),tr:S.trueRetention(h),leeches:S.leeches(cards),
+  goals:S.goals(h,now,GOALS),work:S.workload(cards,now,p.retention),tr:S.trueRetention(h),leeches:S.leeches(cards),watch:S.leechWatch(cards),
   curve:S.curve(h,now,30),week:F.forecast([...cards.values()],now,7),seg:S.segmentation(h,keys),today:S.today(h,now),
   heat:S.heatmap(h,now),table:S.retentionTable(h,now),due:S.futureDue(cards,now,futureRange),hist:S.histograms(cards,now),
   time:S.timing(h),hours:S.hourly(h),queue:C.queue(words,cards,log,now,{newPerDay:F.DEFAULTS.newPerDay,siblings})};
@@ -89,11 +112,19 @@ function topRow(d){
   card({label:'Target retention',icon:'◎',extra:`<div class="fp-seg" role="group" aria-label="Target retention">${F.RETENTIONS.map(x=>`<button data-ret="${x}" aria-pressed="${x===r}">${Math.round(x*100)}%</button>`).join('')}</div>`,sub:'Drives reviews needed, required passes and both forecasts. Shared with Flashcards.'}),
   card({label:'Weekly goal',icon:'▦',value:n(g.week.n),unit:`of ${g.week.goal} words`,sub:`<b>${g.week.pct}%</b> met · distinct cards answered Mon–Sun`,bar:barLine(g.week.pct)}),
   card({label:'Monthly goal',icon:'▤',value:n(g.month.n),unit:`of ${g.month.goal} words`,sub:`<b>${g.month.pct}%</b> met · distinct cards answered this month`,bar:barLine(g.month.pct)}),
-  card({label:'Reviews needed',icon:'↻',value:n(d.work.needed),unit:'today',sub:'Total reviews required today to maintain target curve.'}),
-  card({label:'Required passes',icon:'✓',value:n(d.work.passes),sub:`Cards you must answer correctly to stay ahead of the curve (${Math.round(r*100)}% of ${n(d.work.needed)}).`}),
+  card({label:'Due today',icon:'↻',value:n(d.work.needed),unit:'cards',sub:d.work.needed?`Due by tonight${d.work.unfinished?` · <b>${n(d.work.unfinished)}</b> of them never finished their first day (still on a learning step)`:''}.`:'Nothing is due by tonight.'}),
+  card({label:'Expected right',icon:'✓',value:n(d.work.passes),unit:d.work.needed?`of ${n(d.work.needed)}`:'',sub:d.work.needed?`What your ${Math.round(r*100)}% target predicts for today's ${n(d.work.needed)}. A yardstick, not a quota.`:'Appears once something is due.'}),
   card({label:'True retention',icon:'◑',value:pct(d.tr.pct),sub:d.tr.n?`Actual historical performance on mature cards · <b>${n(d.tr.right)}</b> of ${n(d.tr.n)} answers`:'No answer on a mature card yet (interval of 21+ days).'}),
-  card({label:'Leech words',icon:'⚑',value:n(d.leeches.length),sub:d.leeches.length?'Chronically failed cards requiring intervention. Tap to list them.':'Chronically failed cards requiring intervention. None yet (8+ lapses).',button:!!d.leeches.length,id:'fp-leech',title:'Show leeches in the review table'})
+  card({label:'Leech words',icon:'⚑',value:n(d.leeches.length),sub:leechSub(d),button:!!d.leeches.length,id:'fp-leech',title:'Show leeches in the review table'})
  ].join('');
+}
+// Leech = missed leechMisses times in any phase, learning misses included (wiki 06 rule 12), or leechLapses lapses in review.
+function leechSub(d){
+ const o=F.DEFAULTS,rule=`missed ${o.leechMisses}× in any phase${o.leechLapses?` or ${o.leechLapses} lapses in review`:''}`;
+ if(d.leeches.length)return `Failed ${o.leechMisses}× or more: cull or rework them (wiki 06 rule 12). Tap to list. Rule: ${rule}.`;
+ const w=d.watch[0];if(!w)return `None. Rule: ${rule}. No card has been missed yet.`;
+ const name=d.byKey.get(w.key)?.arabizi||w.key;
+ return `None yet. Rule: ${rule}. Closest: <b>${esc(name)}</b>, missed ${n(w.misses)} of ${n(w.reps)} — ${n(w.left)} more miss${w.left===1?'':'es'} makes it a leech.`;
 }
 function forgetting(d){
  const c=d.curve;if(!c.length)return empty('The curve appears after your first flashcard answer.');
@@ -151,11 +182,14 @@ function histograms(d){
 function timing(d){
  const t=d.time;if(!t)return empty('No timed answers yet.');
  const label=k=>{const w=d.byKey.get(k);return w?`<a href="word-bank.html?word=${encodeURIComponent(k)}">${esc(w.arabizi)}</a> <span lang="ar">${esc(w.arabic||'')}</span>`:esc(/^q:/.test(k)?'Quizlet card '+k.split(':').slice(1).join(' #'):k);};
- return `<div class="vp-foot fp-foot-top"><div>Average<b>${secs(t.avg)}</b></div><div>Median<b>${secs(t.median)}</b></div><div>Timed answers<b>${n(t.n)}</b></div></div><ol class="fp-slow">${t.slowest.map(s=>`<li><span>${label(s.key)}</span><b>${secs(s.avg)}</b><small>${plural(s.n,'answer')}</small></li>`).join('')}</ol><p class="ab-sub">Visible time only. Slow answers are shown, never used to change a grade.</p>`;
+ const f=t.flip,sw=t.swipe;
+ return `<div class="vp-foot fp-foot-top"><div>Time to flip<b>${f?secs(f.median):'—'}</b></div><div>Time to answer<b>${secs(t.median)}</b></div><div>The swipe itself<b>${sw?secs(sw.median):'—'}</b></div><div>Timed answers<b>${n(t.n)}</b></div></div><ol class="fp-slow">${t.slowest.map(s=>`<li><span>${label(s.key)}</span><b>${s.flip!==null?secs(s.flip):secs(s.avg)}</b><small>${s.flip!==null?'to flip':'to answer'} · ${plural(s.n,'answer')}</small></li>`).join('')}</ol><p class="ab-sub">Medians. Two clocks run from the moment a card appears: <b>time to flip</b> (<code>flip_ms</code>) is how long you looked at the front before flipping — the recall time; <b>time to answer</b> (<code>answer_ms</code>) runs until the swipe, so answer − flip is just the swipe. ${f?`${n(f.n)} of ${n(t.n)} timed answers carry a flip time`:'Answers from this table carry no flip time (the English is tapped open, not flipped)'}; average to answer ${secs(t.avg)}. Visible time only. Slow answers are shown, never used to change a grade.</p>`;
 }
 function hourly(d){
  const x=d.hours;if(!x.total)return empty('Needs a few weeks of reviews.');
- return `<div class="${x.faded?'fp-faded':''}">${bars(x.hours.map(h=>({x:String(h.hour),v:h.n,title:`${h.hour}:00–${h.hour}:59 · ${plural(h.n,'answer')} · ${pct(h.pct)} right`,cls:h.n&&h.pct<70?'fp-bar-low':''})),{label:'Answers per hour of day',labelEvery:3,h:170})}</div>${x.faded?`<p class="ab-sub">Needs a few weeks of reviews: ${n(x.total)} of 100 answers so far.</p>`:''}`;
+ const off=x.offset,hh=Math.floor(Math.abs(off)/60),mm=Math.abs(off)%60,utc=`UTC${off<0?'−':'+'}${hh}${mm?':'+String(mm).padStart(2,'0'):''}`,here=`${esc(x.tz||utc)}${x.tz?` (${utc})`:''}`;
+ const tzLine=x.stored===x.total?`Hours in the timezone each answer was given in (stored on all ${n(x.total)} answers).`:x.stored?`${n(x.stored)} of ${n(x.total)} answers carry their own timezone; the rest use this browser's clock, ${here}.`:`Hours in this browser's timezone, ${here}. Answers logged before the timezone column existed carry none of their own.`;
+ return `<div class="${x.faded?'fp-faded':''}">${bars(x.hours.map(h=>({x:String(h.hour),v:h.n,title:`${h.hour}:00–${h.hour}:59 · ${plural(h.n,'answer')} · ${pct(h.pct)} right`,cls:h.n&&h.pct<70?'fp-bar-low':''})),{label:'Answers per hour of day',labelEvery:3,h:170})}</div><p class="ab-sub">${tzLine}${x.faded?` Needs a few weeks of reviews: ${n(x.total)} of 100 answers so far.`:''}</p>`;
 }
 function queueTable(d){
  const list=leechOnly?d.leeches:d.queue.items;
@@ -164,8 +198,8 @@ function queueTable(d){
  const phaseName={new:'New',learning:'Learning',mature:'Mature'};
  const rows=list.map(c=>{const w=d.byKey.get(c.id);if(!w)return '';const ph=F.phase(c),shown=reveal.has(c.id);
   const interval=!c.reps?'—':c.state==='review'?plural(c.interval,'day'):'< 1 day';
-  return `<tr data-key="${esc(c.id)}"><td class="fp-word"><b>${esc(w.arabizi)}</b><span lang="ar" dir="rtl">${esc(w.arabic||'')}</span></td><td class="fp-en">${shown?esc(w.english):`<button class="fp-reveal" data-reveal="${esc(c.id)}">Tap to show</button>`}</td><td><span class="fp-phase fp-phase-${ph}">${phaseName[ph]}</span>${F.isLeech(c)?' <span class="fp-phase fp-phase-leech">Leech</span>':''}</td><td class="fp-num">${interval}</td><td class="fp-num">${n(c.lapses)}<span class="fp-mlabel"> ${c.lapses===1?'lapse':'lapses'}</span></td><td class="fp-grade"><button class="fp-miss" data-grade="missed" aria-label="Don't know ${esc(w.arabizi)}">✗ Don't know</button><button class="fp-got" data-grade="got" aria-label="Know ${esc(w.arabizi)}">✓ Know it</button></td></tr>`;}).join('');
- return head+`<div class="fp-tablewrap"><table class="fp-table fp-queue"><thead><tr><th>Arabic word</th><th>English</th><th>Phase</th><th>Interval</th><th>Lapses</th><th><span class="fp-sr">Grade</span></th></tr></thead><tbody>${rows}</tbody></table></div><p class="ab-sub">Same queue and order as Flashcards · ${n(d.queue.counts.due)} due · ${n(d.queue.counts.new)} new · ${n(d.queue.counts.learning)} learning${d.queue.buried?` · ${n(d.queue.buried)} sibling forms held for another day`:''}</p>`;
+  return `<tr data-key="${esc(c.id)}"><td class="fp-word"><b>${esc(w.arabizi)}</b><span lang="ar" dir="rtl">${esc(w.arabic||'')}</span></td><td class="fp-en">${shown?esc(w.english):`<button class="fp-reveal" data-reveal="${esc(c.id)}">Tap to show</button>`}</td><td><span class="fp-phase fp-phase-${ph}">${phaseName[ph]}</span>${F.isLeech(c)?' <span class="fp-phase fp-phase-leech">Leech</span>':''}</td><td class="fp-num">${interval}</td><td class="fp-num" title="${n(c.lapses)} ${c.lapses===1?'lapse':'lapses'} in review · leech at ${F.DEFAULTS.leechMisses} misses in any phase">${n(c.misses||0)}<span class="fp-mlabel"> ${(c.misses||0)===1?'miss':'misses'}</span></td><td class="fp-grade"><button class="fp-miss" data-grade="missed" aria-label="Don't know ${esc(w.arabizi)}">✗ Don't know</button><button class="fp-got" data-grade="got" aria-label="Know ${esc(w.arabizi)}">✓ Know it</button></td></tr>`;}).join('');
+ return head+`<div class="fp-tablewrap"><table class="fp-table fp-queue"><thead><tr><th>Arabic word</th><th>English</th><th>Phase</th><th>Interval</th><th>Misses</th><th><span class="fp-sr">Grade</span></th></tr></thead><tbody>${rows}</tbody></table></div><p class="ab-sub">Same queue and order as Flashcards · ${n(d.queue.counts.due)} due · ${n(d.queue.counts.new)} new · ${n(d.queue.counts.learning)} learning${d.queue.buried?` · ${n(d.queue.buried)} sibling forms held for another day`:''}</p>`;
 }
 function render(){
  const host=$('vp-tab-flash');if(!host)return;
@@ -205,7 +239,7 @@ function bind(){
 // One card_results row, same shape as cards.html; answer time runs from the English reveal.
 function grade(key,result){
  const opened=reveal.get(key),p=pref();
- const row={id:uuid(),word_key:key,ts:new Date().toISOString(),mode:p.mode,result,attempt:1,round_id:'fsrs-'+C.dayStart(Date.now()).toString(36),subject:'fsrs',flip_ms:null,answer_ms:opened===undefined?null:Math.round(performance.now()-opened)};
+ const row={id:uuid(),word_key:key,ts:new Date().toISOString(),mode:p.mode,result,attempt:1,round_id:'fsrs-'+C.dayStart(Date.now()).toString(36),subject:'fsrs',flip_ms:null,answer_ms:opened===undefined?null:Math.round(performance.now()-opened),...tzNow()};
  reveal.delete(key);enqueue(row);lastAnswer=row;render();
 }
 function undo(){

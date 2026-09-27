@@ -1,38 +1,119 @@
 /* Progress & Stats › Overview (Medi 2026-09-26): the per-lesson numbers the hourly job already computes
-   (docs/data/lessons.json), shown as recorded. Moved here from the AI Reports page the same day. */
+   (docs/data/lessons.json), shown as recorded. Moved here from the AI Reports page the same day.
+   Overview audit 2026-09-27 (Medi: "fix the bugs"): averages are pooled totals, not means of percentages;
+   "≈" marks a number measured over part of the lesson or not comparable across recording set-ups, with the
+   reason in the title (hover). Every number is computed from the file; missing renders "—". */
 (function () {
   const $ = s => document.querySelector(s);
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  const num = (v, d = 0, unit = '') => (v === null || v === undefined || Number.isNaN(Number(v))) ? '—' : Number(v).toFixed(d) + unit;
+  const ok = v => v !== null && v !== undefined && !Number.isNaN(Number(v));
+  const num = (v, d = 0, unit = '') => ok(v) ? Number(v).toFixed(d) + unit : '—';
+  const mmss = s => { s = Math.round(s); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
+  const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const dm = d => { const [, m, dd] = String(d).split('-').map(Number); return `${MON[m - 1]} ${dd}`; };
+  const sum = (a, f) => a.reduce((s, x) => s + f(x), 0);
   const TYPE = { 'free-speak': 'Free speak', 'new-words': 'New words', 'new-grammar': 'New grammar', 'review-words': 'Review words' };
+  const EDGE = 60;   // s: a talk window that starts later or ends earlier than this is "part of the lesson"
+
+  // Same filled-pause test as scripts/build_lessons_page_data.py is_filler(); used only when lessons.json predates
+  // fillers.comparable (the hourly job writes it now), so the mark never waits for the next hourly run.
+  const FL = new Set(['uh', 'um', 'umm', 'uhm', 'uhh', 'er', 'erm', 'eh', 'mm', 'mmm', 'hmm', 'hm', 'mhm', 'ah']);
+  const FA = new Set(['ام', 'امم', 'اممم', 'إم', 'إمم', 'أمم', 'أممم', 'مم', 'ممم', 'آآ', 'آآآ', 'آآآآ', 'أآ', 'أآآ', 'اا', 'ااا', 'آ', 'إه', 'اه', 'آه', 'اهه', 'آهه']);
+  const YES = new Set(['اه', 'آه']);   // also "yes": counted only mid-turn
+  const norm = t => String(t).toLowerCase().replace(/[^\p{L}\p{N}_؀-ۿ]+/gu, '').replace(/ـ/g, '');
+  const isFiller = (tok, pos) => { const n = norm(tok); if (!n) return false; if (FL.has(n)) return true; if (/^(?:[آاأ]{2,}|[آاأ]?م{2,}|ه?م{2,})$/.test(n)) return true; return FA.has(n) && !(YES.has(n) && pos === 0); };
+  const countFillers = txt => String(txt || '').replace(/،/g, ' ').split(/\s+/).filter(Boolean).reduce((s, t, i) => s + (isFiller(t, i) ? 1 : 0), 0);
 
   function row(l) {
     const g = (k, ...path) => path.reduce((o, p) => (o && o[p] !== undefined) ? o[p] : null, l[k]);
+    const dur = ok(l.duration_min) ? l.duration_min * 60 : null;
+    const win = l.talk && Array.isArray(l.talk.window) && l.talk.window.length === 2 ? l.talk.window : null;
+    const partial = !!(win && dur && (win[0] > EDGE || win[1] < dur - EDGE));
+    const winNote = (l.notes || []).find(n => /measured from/.test(n)) || '';
+    const winTitle = partial ? `measured from ${mmss(win[0])} to ${mmss(win[1])} of the ${mmss(dur)} lesson${winNote ? ' · ' + winNote : ''}` : '';
+    const test = !!(l.talk && l.talk.estimate);
+    const testTitle = test ? 'estimate: the engine gave no word times, so talk is measured from each person’s own recording (silence detection)' : '';
+    const fcmp = l.fillers ? l.fillers.comparable : undefined;   // true / false / undefined = not known yet
+    const fTitle = fcmp === false ? `not comparable: this lesson’s page turns carry ${num(g('fillers', 'in_turns'))} of the ${num(g('fillers', 'count'))} filled pauses the engine heard, so the recording or its cleaning differs from the other lessons` : testTitle;
+    const taught = (l.taught || []).filter(x => !x.review), reviewed = (l.taught || []).filter(x => x.review);
+    const verbs = [taught.length ? `New verbs (${taught.length}): ${taught.map(x => x.latin).join(' · ')}` : 'New verbs: none',
+      reviewed.length ? `Reviewed (${reviewed.length}): ${reviewed.map(x => x.latin).join(' · ')}` : ''].filter(Boolean).join('\n');
     return { date: l.date, type: TYPE[l.type] || l.type || '—', min: l.duration_min, speak: g('talk', 'speak_pct'), wpm: g('flow', 'wpm'),
-      vocab: g('words', 'pct'), grammar: g('grammar', 'pct'), gest: !!(l.grammar && l.grammar.estimate), test: !!(l.talk && l.talk.estimate), fillers: g('fillers', 'per_min'), wait: g('latency', 'median_s'),
-      taught: (l.taught || []).filter(x => !x.review).length, reviewed: (l.taught || []).filter(x => x.review).length, page: l.page || ('lessons/' + l.date + '.html') };
+      vocab: g('words', 'pct'), grammar: g('grammar', 'pct'), gest: !!(l.grammar && l.grammar.estimate), test, testTitle, partial, winTitle,
+      fillers: g('fillers', 'per_min'), fcmp, fTitle, wait: g('latency', 'median_s'), verbs, page: l.page || ('lessons/' + l.date + '.html') };
   }
+
   function render(L) {
-    const rows = (L.lessons || []).map(row).sort((a, b) => b.date.localeCompare(a.date));
+    const ls = (L.lessons || []).slice().sort((a, b) => b.date.localeCompare(a.date));
+    const rows = ls.map(row);
     const last = rows[0] || {};
-    const avg = k => { const v = rows.map(r => r[k]).filter(x => x !== null && x !== undefined); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null; };
-    $('#ov-metrics').innerHTML = [
-      ['Lessons tracked', rows.length, 'Every transcript, hourly'],
+    // Pooled averages = totals over the lessons, never a mean of per-lesson percentages (Overview audit 2026-09-27).
+    const W = ls.filter(l => l.words && ok(l.words.scored) && l.words.scored > 0);
+    const wS = sum(W, l => l.words.scored), wR = sum(W, l => (l.words.right || 0) + (l.words.partial || 0) / 2);
+    const vocabAvg = wS ? 100 * wR / wS : null;
+    const G = ls.filter(l => l.grammar && ok(l.grammar.uses) && l.grammar.uses > 0 && !l.grammar.estimate);
+    const gU = sum(G, l => l.grammar.uses), gM = sum(G, l => l.grammar.mistakes || 0);
+    const grammarAvg = gU ? 100 * (gU - gM) / gU : null;
+    const gEst = ls.filter(l => l.grammar && l.grammar.estimate).length;
+    const F = ls.filter(l => l.flow && ok(l.flow.wpm) && l.flow.wpm > 0 && ok(l.flow.arabic_words));
+    const fW = sum(F, l => l.flow.arabic_words), fMin = sum(F, l => l.flow.arabic_words / l.flow.wpm);
+    const wpmAvg = fMin ? fW / fMin : null;
+    const P = ls.filter(l => l.fillers && ok(l.fillers.count) && l.fillers.comparable !== false && l.talk && ok(l.talk.medi_s) && l.talk.medi_s > 0);
+    const fillAvg = P.length ? sum(P, l => l.fillers.count) / (sum(P, l => l.talk.medi_s) / 60) : null;
+    const hours = sum(ls.filter(l => ok(l.duration_min)), l => l.duration_min) / 60;
+    const approx = (r, flag) => flag ? '≈ ' : '';
+    const metrics = [
+      ['Lessons tracked', String(rows.length), `lessons.json · one row per lesson · ${num(hours, 1)} h of audio`, 'The same file feeds the Lessons and Lesson hours cards at the top of the page.'],
       ['Last lesson', last.date || '—', last.type || ''],
-      ['Vocab right', num(last.vocab, 1, '%'), 'Last lesson · avg ' + num(avg('vocab'), 1, '%')],
-      ['Grammar right', num(last.grammar, 1, '%'), 'Last lesson · avg ' + num(avg('grammar'), 1, '%')],
-      ['Medi speaking', num(last.speak, 1, '%'), 'Share of talk time'],
-      ['Fillers / min', num(last.fillers, 1), '"uh", "um", "آآ" per minute']
-    ].map(([l, v, s]) => `<div class="ab-metric"><div class="ab-metric-label">${esc(l)}</div><div class="ab-number">${esc(v)}</div><div class="ab-tiny">${esc(s)}</div></div>`).join('');
+      ['Vocab right', num(last.vocab, 1, '%'), `Last lesson · pooled avg ${num(vocabAvg, 1, '%')} · ${W.length} of ${rows.length} lessons`, `Pooled = Σ right + ½ partial ÷ Σ scored uses (${num(wR, 1)} ÷ ${wS}), the Word Bank's own weighting. A mean of the lesson percentages would let one small lesson pull it.`],
+      ['Grammar right', approx(last, last.gest) + num(last.grammar, 1, '%'), `Last lesson · pooled avg ${num(grammarAvg, 1, '%')} · ${G.length} of ${rows.length} lessons`, `Pooled = Σ (uses − slips) ÷ Σ uses (${gU - gM} ÷ ${gU}). ${gEst ? gEst + ' estimated lesson' + (gEst === 1 ? '' : 's') + ' ("≈") left out.' : 'No estimated lessons.'}`],
+      // Was "Medi speaking" - the Talk time card one row up already shows it. Words per minute is not shown anywhere else.
+      ['Words per minute', approx(last, last.test || last.partial) + num(last.wpm, 0), `Last lesson · pooled avg ${num(wpmAvg, 0)} · ${F.length} of ${rows.length} lessons`, `Arabic words inside your Arabic turns, per minute of those turns. Pooled = Σ Arabic words ÷ Σ minutes (${fW} ÷ ${num(fMin, 1)}).${last.partial ? ' Last lesson: ' + last.winTitle : ''}${last.test ? ' Last lesson: ' + last.testTitle : ''}`],
+      ['Fillers / min', approx(last, last.test || last.fcmp === false) + num(last.fillers, 1), `"uh", "um", "آآ" per minute you spoke · pooled avg ${num(fillAvg, 1)} · ${P.length} comparable lessons`, `Pooled = Σ filled pauses ÷ Σ minutes you spoke, over the lessons whose page turns keep the fillers.${last.fcmp === false ? ' Last lesson: ' + last.fTitle : ''}`]
+    ];
+    $('#ov-metrics').innerHTML = metrics.map(([l, v, s, t]) => `<div class="ab-metric"${t ? ` title="${esc(t)}"` : ''}><div class="ab-metric-label">${esc(l)}</div><div class="ab-number">${esc(v)}</div><div class="ab-tiny">${esc(s)}</div></div>`).join('');
+
     const bandc = p => { p = Math.round(p); return p >= 90 ? 'pct-a' : p >= 80 ? 'pct-b' : p >= 70 ? 'pct-c' : 'pct-d'; };   // Medi 2026-09-27 colours
-  const head = ['Lesson', 'Type', 'Min', 'Speak %', 'Words/min', 'Vocab %', 'Grammar %', 'Fillers/min', 'Wait s', 'New verbs'];
-    $('#ov-series').innerHTML = `<div class="ov-tbl"><table><thead><tr>${head.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(r =>
-      `<tr><td><a href="${esc(r.page)}">${esc(r.date)}</a></td><td>${esc(r.type)}</td><td>${num(r.min, 0)}</td><td>${r.test && r.speak != null ? '≈ ' : ''}${num(r.speak, 1)}</td><td>${r.test && r.wpm != null ? '≈ ' : ''}${num(r.wpm, 0)}</td><td class="${r.vocab != null ? bandc(r.vocab) : ''}">${num(r.vocab, 1)}</td><td class="${r.grammar != null ? bandc(r.grammar) : ''}"${r.gest ? ' title="estimate: every slip Amal fixed counted as a rule use"' : ''}>${r.gest && r.grammar != null ? '≈ ' : ''}${num(r.grammar, 1)}</td><td>${r.test && r.fillers != null ? '≈ ' : ''}${num(r.fillers, 1)}</td><td>${r.test && r.wait != null ? '≈ ' : ''}${num(r.wait, 2)}</td><td title="${r.reviewed ? r.reviewed + ' reviewed from earlier lessons' : ''}">${r.taught || (r.reviewed ? '0 · ' + r.reviewed + ' reviewed' : '0')}</td></tr>`).join('')}</tbody></table></div>`;
-    $('#ov-note').textContent = `Source: data/lessons.json · updated ${String(L.updated || '').replace('T', ' ').slice(0, 16)} · Sep 10 timings come from each person's own recording (the engine gave no word times). "≈" Grammar % = an estimate: the app counted fewer rule uses than Amal fixed slips (it cannot read turns the speech engine wrote in Latin letters), so each fixed slip is counted as a use too. New verbs = verb pairs Amal taught for the first time (Sep 11 was the last); "reviewed" = pairs from earlier lessons. Wait = median seconds before Medi answers.`;
+    const head = ['Lesson', 'Type', 'Min', 'Speak %', 'Words/min', 'Vocab %', 'Grammar %', 'Fillers/min', 'Wait s'];
+    const td = (v, mark, title, cls = '') => `<td${cls ? ` class="${cls}"` : ''}${title && ok(v) ? ` title="${esc(title)}"` : ''}>${mark && ok(v) ? '≈ ' : ''}${v}</td>`;
+    $('#ov-series').innerHTML = `<div class="ov-tbl"><table><thead><tr>${head.map(h => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(r => {
+      const tt = r.partial ? r.winTitle : r.testTitle;   // one reason per talk-timing cell
+      return `<tr title="${esc(r.verbs)}"><td><a href="${esc(r.page)}">${esc(r.date)}</a></td><td>${esc(r.type)}</td><td>${num(r.min, 0)}</td>` +
+        td(num(r.speak, 1), r.test || r.partial, tt) + td(num(r.wpm, 0), r.test || r.partial, tt) +
+        td(num(r.vocab, 1), false, '', ok(r.vocab) ? bandc(r.vocab) : '') +
+        td(num(r.grammar, 1), r.gest, r.gest ? 'estimate: every slip Amal fixed counted as a rule use' : '', ok(r.grammar) ? bandc(r.grammar) : '') +
+        td(num(r.fillers, 1), r.test || r.fcmp === false, r.fTitle) +
+        td(num(r.wait, 1), r.test || r.partial, tt) + '</tr>';
+    }).join('')}</tbody></table></div>`;
+
+    const partialDates = rows.filter(r => r.partial).map(r => dm(r.date)), badFill = rows.filter(r => r.fcmp === false).map(r => dm(r.date));
+    const pending = rows.some(r => r.fcmp === undefined && ok(r.fillers));
+    $('#ov-note').textContent = `Source: data/lessons.json · updated ${String(L.updated || '').replace('T', ' ').slice(0, 16)} · Averages are pooled totals over the lessons, not a mean of the lesson percentages: Vocab = Σ right + ½ partial ÷ Σ scored uses; Grammar = Σ (uses − slips) ÷ Σ uses, estimated lessons left out; Words/min = Σ Arabic words ÷ Σ minutes. ` +
+      `"≈" Grammar % = an estimate: the app counted fewer rule uses than Amal fixed slips (it cannot read turns the speech engine wrote in Latin letters), so each fixed slip is counted as a use too. ` +
+      `"≈" Speak %, Words/min and Wait = measured over part of the lesson (hover for the window)${partialDates.length ? ': ' + partialDates.join(', ') : ''}. Sep 10 timings come from each person's own recording (the engine gave no word times). ` +
+      `"≈" Fillers/min = not comparable: that lesson's page turns carry under half the filled pauses the engine heard, so its recording or cleaning differs${badFill.length ? ' (' + badFill.join(', ') + ')' : ''}${pending ? ' — still checking the turn files' : ''}; read those against each other only. ` +
+      `Wait = median seconds before Medi answers. Hover a row for the verb pairs Amal taught or reviewed that day (Sep 11 was the last new pair).`;
+  }
+
+  // lessons.json written before 2026-09-27 has no fillers.comparable: derive it here from the page turns, same rule.
+  async function fillComparable(L) {
+    const need = (L.lessons || []).filter(l => l.fillers && ok(l.fillers.count) && l.fillers.comparable === undefined);
+    if (!need.length) return false;
+    await Promise.all(need.map(async l => {
+      try {
+        const J = await (await fetch(l.detail || ('data/lessons/' + l.date + '.json'), { cache: 'no-store' })).json();
+        const n = (J.turns || []).filter(t => t.who === 'Medi').reduce((s, t) => s + countFillers(t.text), 0);
+        l.fillers.in_turns = n;
+        l.fillers.comparable = l.fillers.count ? n >= l.fillers.count / 2 : true;
+      } catch (e) { console.warn('lesson-overview: turn file for', l.date, 'did not load; fillers left unmarked', e); }
+    }));
+    return true;
   }
   async function main() {
-    try { render(await (await fetch('data/lessons.json', { cache: 'no-store' })).json()); }
-    catch (e) { $('#ov-series').innerHTML = '<div class="vp-notice">lessons.json could not load. Refresh to retry.</div>'; }
+    let L;
+    try { L = await (await fetch('data/lessons.json', { cache: 'no-store' })).json(); render(L); }
+    catch (e) { $('#ov-series').innerHTML = '<div class="vp-notice">lessons.json could not load. Refresh to retry.</div>'; return; }
+    try { if (await fillComparable(L)) render(L); } catch (e) { console.warn('lesson-overview', e); }
   }
   window.AneesLessonOverview = { main };
   main();

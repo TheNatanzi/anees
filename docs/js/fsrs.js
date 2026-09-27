@@ -9,7 +9,14 @@ const W=Object.freeze([0.212,1.2931,2.3065,8.2956,6.4133,0.8334,3.0194,0.001,1.8
 const DECAY=-W[20],FACTOR=Math.pow(0.9,1/DECAY)-1;
 const DAY=86400000,MIN=60000,S_MIN=0.001;
 const AGAIN=1,GOOD=3;
-const DEFAULTS=Object.freeze({desiredRetention:0.9,learningSteps:[1,10],relearningSteps:[10],maximumInterval:36500,newPerDay:20,matureDays:21,leechLapses:8});
+// Anees departs from the Anki / py-fsrs step defaults ([1,10] / [10]) on purpose (2026-09-27 audit):
+// a session is one 7-minute block (wiki 06 rule 3), so every learning ladder must finish inside it.
+// Miss -> 1 min -> Good -> 4 min -> Good = review: 5 minutes, 2 to spare. Steps change only `due`
+// timing; stability and difficulty replay identically for every logged answer.
+// newPerDay 8 = the new-word cap (wiki 06 rule 2); it is THE one place for that number.
+// leechMisses 4 = "cull any card failed 4x" (wiki 06 rule 12), counted in every phase; leechLapses 8
+// stays as the classic Anki rule for a card that keeps forgetting once it is in review. 0 turns a rule off.
+const DEFAULTS=Object.freeze({desiredRetention:0.9,learningSteps:[1,4],relearningSteps:[4],sessionMinutes:7,maximumInterval:36500,newPerDay:8,matureDays:21,leechLapses:8,leechMisses:4});
 const RETENTIONS=Object.freeze([0.8,0.85,0.9,0.95]);
 const opt=o=>({...DEFAULTS,...(o||{})});
 const ms=t=>t instanceof Date?t.getTime():typeof t==='string'?Date.parse(t):Number(t);
@@ -21,7 +28,8 @@ function rating(grade){
  if(g==='good'||g==='got'||g==='3')return GOOD;
  throw new Error('grade must be again or good');
 }
-function newCard(id){return{id:id??null,state:'learning',step:0,stability:null,difficulty:null,due:null,last_review:null,interval:0,reps:0,lapses:0};}
+// misses = every Again in any phase (the leech rule); lapses = Again on a review card only (FSRS).
+function newCard(id){return{id:id??null,state:'learning',step:0,stability:null,difficulty:null,due:null,last_review:null,interval:0,reps:0,lapses:0,misses:0};}
 const initialStability=r=>clampS(W[r-1]);
 const initialDifficulty=(r,clamp=true)=>{const d=W[4]-Math.exp(W[5]*(r-1))+1;return clamp?clampD(d):d;};
 function nextInterval(s,o){
@@ -75,6 +83,7 @@ function schedule(card,grade,now,options){
   else if(c.step+1===steps.length)toReview();
   else{c.step++;c.interval=0;wait=steps[c.step]*MIN;}
  }
+ if(r===AGAIN)c.misses=(c.misses||0)+1;
  c.last_review=t;c.due=t+wait;c.reps++;
  return c;
 }
@@ -84,7 +93,13 @@ function phase(card,options){
  if(!card||!card.reps)return 'new';
  return card.state==='review'&&card.interval>=o.matureDays?'mature':'learning';
 }
-const isLeech=(card,options)=>!!card&&card.lapses>=opt(options).leechLapses;
+// Leech: failed leechMisses times in any phase (learning misses included), or leechLapses lapses in review.
+function isLeech(card,options){
+ if(!card)return false;const o=opt(options);
+ return (o.leechMisses>0&&(card.misses||0)>=o.leechMisses)||(o.leechLapses>0&&(card.lapses||0)>=o.leechLapses);
+}
+// How far a card is from the leech line: misses so far and the misses still allowed (null when the rule is off).
+function leechDistance(card,options){const o=opt(options),m=(card&&card.misses)||0;return {misses:m,limit:o.leechMisses>0?o.leechMisses:null,left:o.leechMisses>0?Math.max(0,o.leechMisses-m):null};}
 const isDue=(card,now)=>!!card&&card.reps>0&&card.due<=ms(now);
 function localDay(t){const d=new Date(ms(t));return new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime();}
 // Reviews due on each of the next `days` calendar days; day 0 includes anything overdue.
@@ -110,6 +125,6 @@ function replay(rows,options){
  }
  return cards;
 }
-const api={W,DECAY,FACTOR,DEFAULTS,RETENTIONS,AGAIN,GOOD,rating,newCard,schedule,retrievability,nextInterval:(s,o)=>nextInterval(s,opt(o)),phase,isLeech,isDue,forecast,replay,elapsedDays};
+const api={W,DECAY,FACTOR,DEFAULTS,RETENTIONS,AGAIN,GOOD,rating,newCard,schedule,retrievability,nextInterval:(s,o)=>nextInterval(s,opt(o)),phase,isLeech,leechDistance,isDue,forecast,replay,elapsedDays};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;root.AneesFSRS=api;
 })(typeof window!=='undefined'?window:globalThis);

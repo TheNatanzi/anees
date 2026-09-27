@@ -10,7 +10,7 @@ test('matches py-fsrs exactly for every sequence and retention',()=>{
  for(const [name,rows] of Object.entries(golden)){
   const ret=Number(name.split('@')[1]);let c=F.newCard('x');
   rows.forEach((r,i)=>{
-   c=F.schedule(c,r.grade,r.ts,{desiredRetention:ret});
+   c=F.schedule(c,r.grade,r.ts,{desiredRetention:ret,learningSteps:[1,10],relearningSteps:[10]});   // py-fsrs step defaults; Anees ships shorter steps (see below)
    const at=`${name} #${i}`;
    close(c.stability,r.stability,at+' stability');close(c.difficulty,r.difficulty,at+' difficulty');
    assert.equal(c.due,r.due,at+' due');assert.equal(c.state,r.state,at+' state');assert.equal(c.step,r.step,at+' step');
@@ -42,17 +42,37 @@ test('phases: New, Learning under 21 days, Mature at 21',()=>{
  assert.equal(F.phase({reps:5,state:'review',interval:21}),'mature');
  assert.equal(F.phase({reps:9,state:'relearning',interval:0}),'learning');
 });
-test('lapses count only Again on a review card; leech at 8',()=>{
- let c=F.newCard();c=F.schedule(c,'again',T0);c=F.schedule(c,'again',T0+60000);assert.equal(c.lapses,0);
+test('lapses count only Again on a review card; the lapse rule alone fires at 8',()=>{
+ let c=F.newCard();c=F.schedule(c,'again',T0);c=F.schedule(c,'again',T0+60000);assert.equal(c.lapses,0);assert.equal(c.misses,2);
+ const L={leechMisses:0};   // lapse rule in isolation (0 = the miss rule off)
  const rows=golden['many_lapses@0.9'];c=F.newCard();
- rows.forEach((r,i)=>{c=F.schedule(c,r.grade,r.ts);if(i===2+2*7)assert.equal(F.isLeech(c),false);});
- assert.equal(c.lapses,9);assert.equal(F.isLeech(c),true);
- assert.equal(F.isLeech({lapses:8}),true);assert.equal(F.isLeech({lapses:7}),false);
+ rows.forEach((r,i)=>{c=F.schedule(c,r.grade,r.ts,{learningSteps:[1,10],relearningSteps:[10]});if(i===2+2*7)assert.equal(F.isLeech(c,L),false);});
+ assert.equal(c.lapses,9);assert.equal(F.isLeech(c,L),true);
+ assert.equal(F.isLeech({lapses:8},L),true);assert.equal(F.isLeech({lapses:7},L),false);
 });
-test('Again re-shows in 10 minutes on a review card, 1 minute when new',()=>{
+test('leech at 4 misses in any phase (wiki 06 rule 12): learning misses count, 3 of 5 is not yet one',()=>{
+ let c=F.newCard('7Ades');['missed','got','missed','got','missed'].forEach((g,i)=>{c=F.schedule(c,g,T0+i*90000);});   // the 2026-09-27 audit case
+ assert.equal(c.misses,3);assert.equal(c.lapses,0);assert.equal(F.isLeech(c),false);
+ assert.deepEqual(F.leechDistance(c),{misses:3,limit:4,left:1});
+ c=F.schedule(c,'missed',T0+6*90000);assert.equal(c.misses,4);assert.equal(F.isLeech(c),true);
+ assert.equal(F.isLeech({lapses:8,misses:8}),true);assert.equal(F.isLeech({lapses:0,misses:3}),false);assert.equal(F.isLeech({lapses:8,misses:8},{leechMisses:0,leechLapses:0}),false);
+ assert.equal(F.DEFAULTS.leechMisses,4);assert.equal(F.DEFAULTS.leechLapses,8);
+});
+test('learning ladder fits one 7-minute session: Again 1 min, second step 4 min, relearning 4 min',()=>{
+ const o=F.DEFAULTS;assert.deepEqual(o.learningSteps,[1,4]);assert.deepEqual(o.relearningSteps,[4]);assert.equal(o.sessionMinutes,7);
+ assert.ok(o.learningSteps.reduce((a,b)=>a+b,0)<o.sessionMinutes,'a miss plus both steps still ends inside the block');
  let c=F.schedule(F.newCard(),'again',T0);assert.equal(c.due-T0,60000);
- c=F.schedule(F.schedule(F.schedule(F.newCard(),'good',T0),'good',T0+60000),'good',T0+11*60000);
- assert.equal(c.state,'review');const t=c.due;c=F.schedule(c,'again',t);assert.equal(c.due-t,600000);assert.equal(c.state,'relearning');
+ c=F.schedule(c,'good',T0+60000);assert.equal(c.state,'learning');assert.equal(c.due-(T0+60000),4*60000);
+ c=F.schedule(c,'good',T0+5*60000);assert.equal(c.state,'review');
+ const t=c.due;c=F.schedule(c,'again',t);assert.equal(c.due-t,4*60000);assert.equal(c.state,'relearning');
+ c=F.schedule(c,'good',t+4*60000);assert.equal(c.state,'review');
+});
+test('shorter steps change only due: stability, difficulty, state and lapses match the py-fsrs step replay',()=>{
+ for(const name of ['again_then_good@0.9','many_lapses@0.9','late_reviews@0.9']){
+  let a=F.newCard(),b=F.newCard();
+  golden[name].forEach(r=>{a=F.schedule(a,r.grade,r.ts);b=F.schedule(b,r.grade,r.ts,{learningSteps:[1,10],relearningSteps:[10]});});
+  close(a.stability,b.stability,name+' stability');close(a.difficulty,b.difficulty,name+' difficulty');assert.equal(a.state,b.state);assert.equal(a.lapses,b.lapses);assert.equal(a.misses,b.misses);
+ }
 });
 test('schedule never mutates its input',()=>{
  const c=F.newCard('k'),copy=JSON.stringify(c);F.schedule(c,'good',T0);assert.equal(JSON.stringify(c),copy);
@@ -84,6 +104,21 @@ test('new cards respect the daily limit and bury sibling forms',()=>{
  const q=run([]);assert.equal(q.counts.new,20);assert.equal(q.counts.due,0);
  const keys=q.items.map(c=>c.id);assert.ok(keys.includes('w0')&&!keys.includes('w1')&&!keys.includes('w2'));assert.ok(keys.includes('w3')&&!keys.includes('w4'));
  assert.equal(q.buried,3);
+});
+test('the queue defaults to the 8-a-day new-card cap, the one number in AneesFSRS.DEFAULTS.newPerDay',()=>{
+ assert.equal(F.DEFAULTS.newPerDay,8);
+ const q=Q.queue(words,F.replay([]),[],noon,{siblings:Q.siblingMap(words,catalog)});assert.equal(q.counts.new,8);assert.equal(q.room,8);
+});
+test('capNew: every round introduces at most the day\'s room of new cards; seen cards always pass; the rest are held',()=>{
+ const log=[row('a1','w10',noon-3600000),row('a2','w11',noon-3600000),row('a3','w12',noon-3600000),row('old','w20',noon-5*86400000)];
+ const c=Q.capNew(words,log,noon);   // w0..w29: w10-12 seen today, w20 seen days ago, 26 unseen
+ assert.equal(Q.newToday(log,noon),3);assert.equal(c.newToday,3);assert.equal(c.room,5);assert.equal(c.cap,8);
+ assert.equal(c.fresh,5);assert.equal(c.held,21);assert.equal(c.cards.length,9);
+ assert.deepEqual(c.cards.map(w=>w.key),['w0','w1','w2','w3','w4','w10','w11','w12','w20']);
+ const full=Q.capNew(words,Array.from({length:8},(_,i)=>row('n'+i,'w'+(20+i),noon-60000)),noon);
+ assert.equal(full.room,0);assert.deepEqual(full.cards.map(w=>w.key),['w20','w21','w22','w23','w24','w25','w26','w27']);assert.equal(full.held,22);
+ assert.equal(Q.capNew(words,[],noon,{newPerDay:0}).held,0);   // 0 = cap off
+ assert.equal(Q.capNew(words,[{...row('u','w5',noon-60000),undone:true}],noon).newToday,0);   // undone answers never count
 });
 test('new cards answered today use up the limit',()=>{
  const log=Array.from({length:5},(_,i)=>row('a'+i,'w'+(10+i),noon-3600000));

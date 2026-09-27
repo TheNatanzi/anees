@@ -37,8 +37,11 @@ function history(log,options){
   const after=F.schedule(before,r.grade??r.result,t,options);
   cards.set(key,after);
   if(!states.has(key))states.set(key,[]);states.get(key).push(after);
-  const answer_ms=Number(r.answer_ms);
-  answers.push({key,t,right:correct(r),kind:preKind(before),phase:prePhase(before),interval:before.reps?before.interval:null,answer_ms:Number.isFinite(answer_ms)&&answer_ms>0&&r.answer_ms!==null?answer_ms:null});
+  const answer_ms=Number(r.answer_ms),flip_ms=Number(r.flip_ms),tz=Number(r.tz_offset_min);
+  answers.push({key,t,right:correct(r),kind:preKind(before),phase:prePhase(before),interval:before.reps?before.interval:null,
+   answer_ms:Number.isFinite(answer_ms)&&answer_ms>0&&r.answer_ms!==null?answer_ms:null,
+   flip_ms:Number.isFinite(flip_ms)&&flip_ms>0&&r.flip_ms!=null?flip_ms:null,
+   tz_offset_min:r.tz_offset_min!=null&&Number.isFinite(tz)?tz:null});
  }
  return {cards,states,answers};
 }
@@ -48,14 +51,18 @@ function goals(h,now,{weekly=50,monthly=200}={}){
  const one=(n,goal)=>({n,goal,pct:Math.min(100,Math.round(n/goal*100))});
  return {week:one(count(weekStart(now)),weekly),month:one(count(monthStart(now)),monthly)};
 }
-// Reviewed cards (learning included) due by the end of today, and the passes that keeps the target.
+// Reviewed cards (learning included) due by the end of today. `unfinished` = those still on a learning or
+// relearning step, i.e. cards that left a session before their first day was done. `passes` = needed x target
+// retention: what the target predicts you would get right, an expectation to compare against, not a quota.
 function workload(cards,now,retention){
- const end=addDays(now,1);let needed=0;
- for(const c of cards.values())if(c.reps&&c.due<end)needed++;
- return {needed,passes:Math.ceil(needed*retention)};
+ const end=addDays(now,1);let needed=0,unfinished=0;
+ for(const c of cards.values())if(c.reps&&c.due<end){needed++;if(c.state==='learning'||c.state==='relearning')unfinished++;}
+ return {needed,passes:Math.ceil(needed*retention),unfinished};
 }
 const trueRetention=h=>{const m=h.answers.filter(a=>a.phase==='mature'),r=m.filter(a=>a.right).length;return {n:m.length,right:r,pct:rate(r,m.length)};};
-const leeches=cards=>[...cards.values()].filter(c=>F.isLeech(c));
+const leeches=(cards,options)=>[...cards.values()].filter(c=>F.isLeech(c,options));
+// Cards nearest the leech line that are not leeches yet, most misses first (ties: more lapses, then more reps).
+const leechWatch=(cards,options,top=3)=>[...cards.values()].filter(c=>c.reps&&(c.misses||0)>0&&!F.isLeech(c,options)).sort((a,b)=>(b.misses||0)-(a.misses||0)||b.lapses-a.lapses||b.reps-a.reps).slice(0,top).map(c=>({key:c.id,...F.leechDistance(c,options),lapses:c.lapses,reps:c.reps}));
 // Average retrievability of every card answered so far, per day, from the first answer to today + `ahead`.
 function curve(h,now,ahead=30){
  if(!h.answers.length)return [];
@@ -127,21 +134,32 @@ function histograms(cards,now){
   difficulty:{avg:avg(df),bins:Array.from({length:10},(_,i)=>({label:String(i+1),n:df.filter(d=>Math.min(10,Math.floor(d))===i+1).length}))},
   retrievability:{avg:avg(rt),bins:Array.from({length:10},(_,i)=>({label:`${i*10}%`,range:`${i*10}–${i*10+10}%`,n:rt.filter(r=>Math.min(9,Math.floor(r/10))===i).length}))}};
 }
-// Visible answer time only (flip + answer); slow answers never change a grade.
+// Visible time only; slow answers never change a grade. Two clocks per answer, both from card shown:
+//  flip_ms   = until the flip: the time spent looking at the front, i.e. the thinking / recall time;
+//  answer_ms = until the swipe: flip time plus the swipe itself (answer_ms - flip_ms, the 'swipe' median).
+// n / avg / median stay the answer_ms figures (total time); `flip` and `swipe` are the split.
 function timing(h,top=10){
  const t=h.answers.filter(a=>a.answer_ms!==null);
  if(!t.length)return null;
+ const stat=v=>{if(!v.length)return null;const s=v.slice().sort((a,b)=>a-b),m=Math.floor(s.length/2);return {n:s.length,avg:s.reduce((a,x)=>a+x,0)/s.length,median:s.length%2?s[m]:(s[m-1]+s[m])/2};};
  const v=t.map(a=>a.answer_ms).sort((a,b)=>a-b),mid=Math.floor(v.length/2);
- const per=new Map();for(const a of t){const p=per.get(a.key)||{key:a.key,n:0,sum:0,max:0};p.n++;p.sum+=a.answer_ms;p.max=Math.max(p.max,a.answer_ms);per.set(a.key,p);}
+ const per=new Map();for(const a of t){const p=per.get(a.key)||{key:a.key,n:0,sum:0,max:0,flipN:0,flipSum:0};p.n++;p.sum+=a.answer_ms;p.max=Math.max(p.max,a.answer_ms);if(a.flip_ms!==null){p.flipN++;p.flipSum+=a.flip_ms;}per.set(a.key,p);}
+ const both=h.answers.filter(a=>a.answer_ms!==null&&a.flip_ms!==null&&a.answer_ms>=a.flip_ms);
  return {n:t.length,avg:v.reduce((s,x)=>s+x,0)/v.length,median:v.length%2?v[mid]:(v[mid-1]+v[mid])/2,
-  slowest:[...per.values()].map(p=>({key:p.key,n:p.n,avg:p.sum/p.n,max:p.max})).sort((a,b)=>b.avg-a.avg).slice(0,top)};
+  flip:stat(h.answers.filter(a=>a.flip_ms!==null).map(a=>a.flip_ms)),swipe:stat(both.map(a=>a.answer_ms-a.flip_ms)),
+  slowest:[...per.values()].map(p=>({key:p.key,n:p.n,avg:p.sum/p.n,max:p.max,flip:p.flipN?p.flipSum/p.flipN:null})).sort((a,b)=>b.avg-a.avg).slice(0,top)};
 }
+// Hour of day per answer: the timezone stored on the row (tz_offset_min, minutes east of UTC) when it has one,
+// else this browser's local clock. `stored` says how many answers carried their own timezone.
+const hourOf=a=>a.tz_offset_min!==null&&a.tz_offset_min!==undefined?Math.floor((((a.t+a.tz_offset_min*60000)%DAY)+DAY)%DAY/3600000):new Date(a.t).getHours();
 function hourly(h,minimum=100){
  const hours=Array.from({length:24},(_,hour)=>({hour,n:0,right:0,pct:null}));
- for(const a of h.answers){const x=hours[new Date(a.t).getHours()];x.n++;if(a.right)x.right++;}
+ let stored=0;
+ for(const a of h.answers){const x=hours[hourOf(a)];x.n++;if(a.right)x.right++;if(a.tz_offset_min!==null&&a.tz_offset_min!==undefined)stored++;}
  for(const x of hours)x.pct=rate(x.right,x.n);
- return {hours,total:h.answers.length,faded:h.answers.length<minimum};
+ let tz=null;try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||null;}catch(e){}
+ return {hours,total:h.answers.length,faded:h.answers.length<minimum,stored,tz,offset:-new Date(ms(h.answers.length?h.answers[h.answers.length-1].t:Date.now())).getTimezoneOffset()};
 }
-const api={MATURE,clean,history,goals,workload,trueRetention,leeches,curve,segmentation,today,heatmap,retentionTable,futureDue,histograms,timing,hourly,iso,dayStart,weekStart,monthStart,addDays};
+const api={MATURE,clean,history,goals,workload,trueRetention,leeches,leechWatch,curve,segmentation,today,heatmap,retentionTable,futureDue,histograms,timing,hourly,hourOf,iso,dayStart,weekStart,monthStart,addDays};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;root.AneesFlashcardStats=api;
 })(typeof window!=='undefined'?window:globalThis);

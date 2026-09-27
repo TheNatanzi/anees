@@ -437,6 +437,8 @@ DEFINITIONS = {
     "fillers.count": "Medi's filled pauses (the technical name: filled pauses, a kind of disfluency) - uh, um, er, eh, mm, hmm, ah, and Arabic ام / امم / آآ / ممم; آه and اه only when they come mid-sentence (at the start they usually mean 'yes'). The engine drops some, so this is a floor.",
     "fillers.per_min": "Filled pauses per minute of Medi's own talk time.",
     "fillers.top": "The most frequent ones, with counts.",
+    "fillers.in_turns": "How many of those filled pauses the lesson page's own turns (docs/data/lessons/<date>.json) still carry. The early pages (08-25, 09-04, 09-05) were cleaned of fillers, so their turns hold almost none.",
+    "fillers.comparable": "True when in_turns is at least half of count, i.e. the page transcript and the engine words agree on how much hesitation was heard. False = a different recording set-up or cleaning step: read per_min against lessons recorded the same way only (shown with '≈' on the Overview tab).",
     "latency.median_s": "Response latency: seconds from the end of Amal's turn to the start of Medi's reply, middle value. Only replies within 15 s; overlaps (he starts before she stops) are left out. A pause is not an error (rule S5) - this is a speed measure only.",
     "latency.p75_s": "Three quarters of his replies started within this many seconds.",
     "latency.n": "How many replies were measured.",
@@ -613,6 +615,15 @@ def build():
                   **({"typed_by": p["who"]} if p["chat"] else {}), "text": p["text"]} for p in P]
         med = sorted((p for p in P if p["who"] == "Medi" and not p["chat"]), key=lambda p: p["t"])
         mts = [p["t"] for p in med]
+        if fillers is not None:
+            # Overview audit 2026-09-27: fillers.count comes from the engine words, but the early lesson pages were cleaned of
+            # fillers, so their turns carry almost none (08-25: 16 of 167). A lesson whose turns hold under half the count was
+            # recorded or cleaned differently and its per_min is not comparable with the rest.
+            in_turns = sum(1 for p in med for i, tok in enumerate(p["text"].replace("،", " ").split()) if is_filler(tok, i))
+            fillers["in_turns"] = in_turns
+            fillers["comparable"] = (in_turns >= fillers["count"] / 2) if fillers["count"] else True
+            if not fillers["comparable"]:
+                notes.append(f"fillers: the page turns carry {in_turns} of the {fillers['count']} filled pauses the engine words hold, so fillers.per_min is not comparable with lessons whose pages keep them.")
         verr = []
         for s in sorted((s for s in S if s["points"] == 0), key=lambda s: s["t_start"]):  # Medi 2026-09-25: "helped" (Amal said the word first) is not an error
             i = bisect.bisect_right(mts, s["t_start"] + 0.05) - 1

@@ -110,7 +110,7 @@ h1{font-weight:500;font-size:32px;letter-spacing:-.3px} h2{font-weight:500;font-
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main></div></div>
-<script src="js/config.js"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260921-quizlet-v1"></script><script src="js/cards-core.js?v=20260921-quizlet-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260923-drills-v2"></script><script src="js/word-bank-review.js?v=20260922-select-v2"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
+<script src="js/config.js"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260927-audit-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260923-drills-v2"></script><script src="js/word-bank-review.js?v=20260922-select-v2"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
 <script>
 const C=window.AneesCards, F=window.AneesFSRS, SEL=window.AneesCardSelection, VD=window.AneesVerbDrills, WB=window.AneesWordBank, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -124,13 +124,21 @@ if(!F.RETENTIONS.includes(pref.retention)) pref.retention=0.9;
 const savePref=()=>LS('anees-cards-pref',pref);
 const qsub=new URLSearchParams(location.search).get('subject'); if(qsub) pref.subject=qsub;
 const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon,'Content-Type':'application/json'};
+// card_results columns. tz_offset_min / tz arrive with supabase/migrations/017_card_results_timezone.sql; until it is applied
+// reads fall back without them and writes drop them (tzColumn), so the page works either way.
+// A failed probe is remembered on this device for a day (anees-tz-col) so the 400 happens once, not on every load.
+const LOG_COLS='id,word_key,ts,result,attempt,mode,undone_at,flip_ms,answer_ms'; let tzColumn=!((LS('anees-tz-col')||{}).off>Date.now()-86400000);
+const noTzColumn=()=>{ tzColumn=false; LS('anees-tz-col',{off:Date.now()}); };
+function tzNow(){ let tz=null; try{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone||null; }catch(e){} return {tz_offset_min:-new Date().getTimezoneOffset(), tz}; }   // the clock the answer was given in, for the hourly chart
 async function load(){
   try{ let all=[], off=0; while(true){ const r=await fetch(ANEES.url+'/rest/v1/words?select=key,arabizi,arabic,english,plural,topic,subtopic,doc_order,house_spelling,aliases&active=eq.true&order=doc_order&limit=1000&offset='+off,{headers:H}); if(!r.ok) break; const part=await r.json(); all=all.concat(part); if(part.length<1000) break; off+=1000; } if(all.length){ words=all; LS('anees-words',words); } }catch(e){}
   if(!words.length){ words=LS('anees-words')||[]; if(!words.length){ try{ const r=await fetch('data/words.json'); words=(await r.json()).items; }catch(e){} } if(words.length) syncEl.textContent='Offline: using the saved word list.'; }
   try{ const r=await fetch('data/word-bank-catalog.json'); if(r.ok){ catalog=await r.json(); LS('anees-cards-catalog',catalog); } }catch(e){}
   if(!catalog) catalog=LS('anees-cards-catalog');
   siblings=C.siblingMap(words,catalog);
-  try{ const rows=[]; for(let off=0;;off+=1000){ const r=await fetch(ANEES.url+'/rest/v1/card_results?select=id,word_key,ts,result,attempt,mode,undone_at,flip_ms,answer_ms&order=ts.asc,id.asc&limit=1000&offset='+off,{headers:H}); if(!r.ok) throw new Error('log'); const p=await r.json(); rows.push(...p); if(p.length<1000) break; } serverLog=rows; LS('anees-card-server-log',rows); }
+  try{ const rows=[]; for(let off=0;;off+=1000){ const r=await fetch(ANEES.url+'/rest/v1/card_results?select='+LOG_COLS+(tzColumn?',tz_offset_min':'')+'&order=ts.asc,id.asc&limit=1000&offset='+off,{headers:H});
+      if(r.status===400&&tzColumn){ noTzColumn(); off-=1000; continue; }   // migration 017 not applied yet: read without the timezone column
+      if(!r.ok) throw new Error('log'); const p=await r.json(); rows.push(...p); if(p.length<1000) break; } serverLog=rows; LS('anees-card-server-log',rows); }
   catch(e){ serverLog=LS('anees-card-server-log')||[]; syncEl.textContent='Card history is offline: scheduling from this device’s saved answers.'; }
   try{ const r=await fetch(ANEES.url+'/rest/v1/word_stats?select=*&limit=5000',{headers:H}); if(r.ok){ for(const s of await r.json()) stats[s.word_key]=s; window.AneesProgress.requireCurrent(stats); } }catch(e){ stats={}; }
   if(!Object.keys(stats).length) stats=window.AneesProgress.cached(LS(window.AneesProgress.CACHE_KEY));
@@ -156,7 +164,9 @@ function enqueue(row){ const q=LS('anees-card-queue')||[]; q.push(row); const ok
   sync(); }
 function dropRow(row,why){ const q=(LS('anees-card-queue')||[]).filter(x=>x.id!==row.id); LS('anees-card-queue',q); memQueue=memQueue.filter(x=>x.id!==row.id); const d=LS('anees-card-dead')||[]; d.push({row,why,t:new Date().toISOString()}); LS('anees-card-dead',d.slice(-200)); }
 function removeSent(ids){ const set=new Set(ids); LS('anees-card-queue',(LS('anees-card-queue')||[]).filter(x=>!set.has(x.id))); memQueue=memQueue.filter(x=>!set.has(x.id)); }
-async function postRows(rows){ const clean=rows.map(({kind,body,undone,...r})=>r); return fetch(ANEES.url+'/rest/v1/card_results?on_conflict=id',{method:'POST',headers:{...H,Prefer:'resolution=ignore-duplicates,return=minimal'},body:JSON.stringify(clean)}); }
+// A 400 that names the timezone columns means migration 017 is not applied yet: resend without them and remember for this page load.
+async function postRows(rows){ const send=()=>fetch(ANEES.url+'/rest/v1/card_results?on_conflict=id',{method:'POST',headers:{...H,Prefer:'resolution=ignore-duplicates,return=minimal'},body:JSON.stringify(rows.map(({kind,body,undone,tz_offset_min,tz,...r})=>tzColumn?{...r,tz_offset_min,tz}:r))});
+  let r=await send(); if(r.status===400&&tzColumn){ const txt=await r.text().catch(()=>''); if(/tz_offset_min|'tz'/.test(txt)){ noTzColumn(); r=await send(); } } return r; }
 async function postFlag(row){ return fetch(ANEES.url+'/rest/v1/amal_rules',{method:'POST',headers:{...H,Prefer:'return=minimal'},body:JSON.stringify(row.body)}); }
 // Undo marks the stored answer; zero matched rows means it never reached the server, which is also fine.
 async function postUndo(op){ return fetch(ANEES.url+'/rest/v1/card_results?id=eq.'+encodeURIComponent(op.target)+'&undone_at=is.null',{method:'PATCH',headers:{...H,Prefer:'return=minimal'},body:JSON.stringify({undone_at:op.at})}); }
@@ -269,7 +279,7 @@ function home(){ document.onkeydown=null; rebuild(); tileMap=new Map(); window.s
     <h2>Next 7 days</h2><div class="fc">${f.map((d,i)=>`<div><b>${d.due}</b><span>${i===0?'Today':new Date(d.date+'T12:00').toLocaleDateString(undefined,{weekday:'short'})}</span></div>`).join('')}</div>
     <div class="panel"><h2 style="margin-top:0">Front of the card</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English</button></div>
     <h2>Desired retention</h2><div class="toggle">${F.RETENTIONS.map(r=>`<button data-r="${r}" class="${pref.retention===r?'sel':''}">${Math.round(r*100)}%</button>`).join('')}</div>
-    <p class="mute">FSRS scheduler · default parameters, not fitted to you. Higher retention means more reviews.</p></div>`;
+    <p class="mute">FSRS scheduler · default parameters, not fitted to you. Higher retention means more reviews. At most ${F.DEFAULTS.newPerDay} new cards a day, on every path; the rest wait.</p></div>`;
   root.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{pref.retention=Number(b.dataset.r); savePref(); home();});
   document.getElementById('m-ar').onclick=()=>{pref.mode='ar_first'; savePref(); home();};
   document.getElementById('m-en').onclick=()=>{pref.mode='en_first'; savePref(); home();};
@@ -301,9 +311,18 @@ function subList(t,tiles,back){ document.onkeydown=null; tileMap=new Map(); wind
   document.getElementById('back').onclick=back||home; bindTiles(x=>opts(x,()=>subList(t,tiles,back))); }
 function topicView(t,back){ subList(t,[{id:'all:'+t.id,label:'All of '+t.label,title:t.title,words:t.words,wide:true,reason:'No words'},...t.subs.map(s=>({id:t.id+'/'+s.name,label:s.name,title:t.label+' · '+s.name,words:s.words,reason:'No words'}))],back); }
 function groupView(t,back){ subList(t,t.sets.map(({set,words:ws})=>setTile(set,ws)),back); }
+// New-card cap (wiki 06 rule 2, AneesFSRS.DEFAULTS.newPerDay): every round - topic drills, Amal's sets, verb drills, the
+// practice picker - introduces at most that many new cards a day, like the FSRS queue. Extra new cards are held for another
+// day, silently: the round starts without them and nothing about a backlog is shown. Seen cards are always open.
+function capRound(list){ return C.capNew(list,fullLog(),Date.now()); }
+function capNote(list){ const c=capRound(list); if(!c.held) return ''; return `<p class="mute">${fmt(c.fresh+c.held)} of these are new to you and today has room for ${c.room?fmt(c.room)+' more':'no more'} (${c.cap} new a day), so ${fmt(c.held)} wait for another day.</p>`; }
+function capFull(cap,back){ document.onkeydown=null; window.scrollTo(0,0);
+  root.innerHTML=`<button class="fc-back" id="back">‹ Back</button><h1>Today's new cards are in play</h1><p class="mute">Every card here would be new to you, and ${fmt(cap.newToday)} new ${cap.newToday===1?'card has':'cards have'} already started today (the cap is ${cap.cap} a day, so the schedule stays light). They come back another day. Cards you have seen before are always open.</p>
+    <div class="row" style="margin-top:18px"><button id="home" class="primary study">Back to Flashcards</button></div>`;
+  document.getElementById('back').onclick=back; document.getElementById('home').onclick=home; }
 // Options for one tile, then the same swipe cards; answers write the same card_results row.
 function opts(t,back){ document.onkeydown=null; window.scrollTo(0,0); const n=t.words.length, k=pref.n?Math.min(pref.n,n):n;
-  root.innerHTML=`<button class="fc-back" id="back">‹ Back</button><h1>${esc(t.title||t.label)}</h1><p class="mute">${fmt(n)} card${n===1?'':'s'}${t.words.some(w=>SEL.isQuizletOnly(w.key))?' · Quizlet-only cards count on cards, never in lesson scores':''}</p>
+  root.innerHTML=`<button class="fc-back" id="back">‹ Back</button><h1>${esc(t.title||t.label)}</h1><p class="mute">${fmt(n)} card${n===1?'':'s'}${t.words.some(w=>SEL.isQuizletOnly(w.key))?' · Quizlet-only cards count on cards, never in lesson scores':''}</p>${capNote(t.words)}
     <h2>Cards</h2><div class="toggle"><button id="n20" class="${pref.n===20?'sel':''}">20</button><button id="n10" class="${pref.n===10?'sel':''}">10</button><button id="nall" class="${!pref.n?'sel':''}">All</button><button id="sh" class="${pref.shuffle?'sel':''}">Shuffle ${pref.shuffle?'on':'off'}</button></div>
     <h2>Front of the card</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English</button></div>
     <div class="row" style="margin-top:18px"><button id="start" class="primary study">Start ${fmt(k)} card${k===1?'':'s'}</button></div>`;
@@ -311,9 +330,10 @@ function opts(t,back){ document.onkeydown=null; window.scrollTo(0,0); const n=t.
   document.getElementById('back').onclick=back; document.getElementById('n20').onclick=set('n',20); document.getElementById('n10').onclick=set('n',10); document.getElementById('nall').onclick=set('n',0);
   document.getElementById('sh').onclick=()=>set('shuffle',!pref.shuffle)(); document.getElementById('m-ar').onclick=set('mode','ar_first'); document.getElementById('m-en').onclick=set('mode','en_first');
   document.getElementById('start').onclick=()=>startTile(t,back); }
-function startTile(t,back){ const p=t.words, k=pref.n?Math.min(pref.n,p.length):p.length;
+function startTile(t,back){ const cap=capRound(t.words), p=cap.cards, k=pref.n?Math.min(pref.n,p.length):p.length;   // the day's new-card room is spent before the draw
+  if(!p.length) return capFull(cap,()=>opts(t,back));
   const cs=pref.shuffle?C.draw(p,stats,k):p.slice(0,k);                         // shuffle off keeps Doc / Quizlet order
-  round=C.newRound(cs,{mode:pref.mode,subject:'sel:'+t.id}); Object.assign(round,{title:t.title||t.label,back:()=>opts(t,back),restart:()=>startTile(t,back)}); sessionMissed={}; roundMs=[]; showCard(); }
+  round=C.newRound(cs,{mode:pref.mode,subject:'sel:'+t.id}); Object.assign(round,{title:t.title||t.label,back:()=>opts(t,back),restart:()=>startTile(t,back),held:cap.held}); sessionMissed={}; roundMs=[]; showCard(); }
 function startReview(){ sess={know:0,learn:0,ms:[]}; lastAnswer=null; sessionMissed={}; review(); }
 function review(){ if(!sess) sess={know:0,learn:0,ms:[]}; rebuild(); const q=dueQueue(); if(!q.items.length) return reviewDone(q);
   const c=q.items[0], w=byKey().get(c.id), left=q.counts.due+q.counts.new+q.counts.learning, doneN=sess.know+sess.learn, total=doneN+Math.max(left,1);
@@ -322,7 +342,7 @@ function review(){ if(!sess) sess={know:0,learn:0,ms:[]}; rebuild(); const q=due
     onUndo:lastAnswer?undo:null, onAnswer:(r,t)=>grade(c,w,r,t), onClose:home});
 }
 // Both grading surfaces (this page and the future stats-tab queue) write this same card_results row.
-function grade(c,w,result,t){ const row={id:uuid(), word_key:w.key, ts:new Date().toISOString(), mode:pref.mode, result, attempt:1, round_id:'fsrs-'+C.dayStart(Date.now()).toString(36), subject:'fsrs', flip_ms:t&&Number.isFinite(t.flip_ms)?t.flip_ms:null, answer_ms:t&&Number.isFinite(t.answer_ms)?t.answer_ms:null};
+function grade(c,w,result,t){ const row={id:uuid(), word_key:w.key, ts:new Date().toISOString(), mode:pref.mode, result, attempt:1, round_id:'fsrs-'+C.dayStart(Date.now()).toString(36), subject:'fsrs', flip_ms:t&&Number.isFinite(t.flip_ms)?t.flip_ms:null, answer_ms:t&&Number.isFinite(t.answer_ms)?t.answer_ms:null, ...tzNow()};
   enqueue(row); stats=C.mergeLocal(stats,[row]); lastAnswer=row;
   if(result==='got') sess.know++; else sess.learn++; if(row.answer_ms!==null) sess.ms.push(row.answer_ms);
   if(result==='missed'){ sessionMissed[w.key]=(sessionMissed[w.key]||0)+1; if(sessionMissed[w.key]===2&&!SEL.isFormCard(w.key)) flag(w); }   // engine-made drill forms never go to Amal's rules list
@@ -362,8 +382,9 @@ function picker(){ document.onkeydown=null;
   document.getElementById('start').onclick=start;
 }
 function start(){ let p=C.pool(words,stats,pref.subject); if(!p.length){ alert('No words in this set yet.'); return; }
+  const cap=capRound(p); p=cap.cards; if(!p.length) return capFull(cap,picker);
   let cs=C.draw(p,stats,pref.n?Math.min(pref.n,p.length):p.length); if(!pref.shuffle) cs=cs.slice().sort((a,b)=>(a.doc_order||0)-(b.doc_order||0));
-  round=C.newRound(cs,{mode:pref.mode,subject:pref.subject}); sessionMissed={}; roundMs=[]; showCard(); }
+  round=C.newRound(cs,{mode:pref.mode,subject:pref.subject}); round.held=cap.held; sessionMissed={}; roundMs=[]; showCard(); }
 // Verb drills: pick mode options, then the same swipe cards / card_results row / FSRS log.
 function drillView(t,back){ back=back||home; document.onkeydown=null; window.scrollTo(0,0); const d=pref.drill=Object.assign({count:10,tense:'All',level:1},pref.drill||{}), full=t.mode==='full';
   const chip=(key,v,label)=>`<button data-k="${key}" data-v="${v}" class="${String(d[key])===String(v)?'sel':''}">${label}</button>`;
@@ -376,16 +397,17 @@ function drillView(t,back){ back=back||home; document.onkeydown=null; window.scr
   root.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{ d[b.dataset.k]=b.dataset.k==='tense'?b.dataset.v:Number(b.dataset.v); savePref(); drillView(t,back); });
   document.getElementById('back').onclick=back; document.getElementById('m-ar').onclick=()=>{pref.mode='ar_first';savePref();drillView(t,back);}; document.getElementById('m-en').onclick=()=>{pref.mode='en_first';savePref();drillView(t,back);};
   document.getElementById('start').onclick=()=>startDrill(t,back); }
-function startDrill(t,back){ const d=pref.drill, full=t.mode==='full', cs=VD.round(t.words,{mode:t.mode,count:full?d.count:20,tense:d.tense,level:d.level});
-  if(!cs.length){ alert('No verb forms for this choice yet.'); return; }
-  round=C.newRound(cs,{mode:pref.mode,subject:['drill',t.mode,d.tense,'L'+d.level].join(':')}); Object.assign(round,{title:t.title+' · '+d.tense+(d.level===2?' · level 2':''),back:()=>drillView(t,back),restart:()=>startDrill(t,back)}); sessionMissed={}; roundMs=[]; showCard(); }
+function startDrill(t,back){ const d=pref.drill, full=t.mode==='full', all=VD.round(t.words,{mode:t.mode,count:full?d.count:20,tense:d.tense,level:d.level});
+  if(!all.length){ alert('No verb forms for this choice yet.'); return; }
+  const cap=capRound(all), cs=cap.cards; if(!cs.length) return capFull(cap,()=>drillView(t,back));
+  round=C.newRound(cs,{mode:pref.mode,subject:['drill',t.mode,d.tense,'L'+d.level].join(':')}); Object.assign(round,{title:t.title+' · '+d.tense+(d.level===2?' · level 2':''),back:()=>drillView(t,back),restart:()=>startDrill(t,back),held:cap.held}); sessionMissed={}; roundMs=[]; showCard(); }
 function showCard(){ if(C.done(round)) return showSummary();
   const w=round.cards[round.i], s=Object.keys(stats).length?C.cardScore(stats[w.key]):{bucket:'–'};
   cardView({w, count:`${round.attempt>1?'Round '+round.attempt+' · ':''}${round.i+1} / ${round.cards.length}`, pct:100*round.i/round.cards.length, learnN:round.missed, knowN:round.got,
     tag:w.drill?(w.guessed?'not checked by Amal':w.checked?'Checked by Amal · '+w.tense:w.tense+(w.addon?' · level 2':'')):SEL.isQuizletOnly(w.key)?'Quizlet · '+w.topic:s.bucket==='–'?w.topic:window.AneesBuckets.label(s.bucket), onUndo:null, onAnswer:(r,t)=>answer(r,t), onClose:round.back||picker});
 }
 function answer(result,t){ const w=round.cards[round.i]; const row=C.answer(round,result,new Date().toISOString(),uuid()); if(!row) return;
-  row.flip_ms=t&&Number.isFinite(t.flip_ms)?t.flip_ms:null; row.answer_ms=t&&Number.isFinite(t.answer_ms)?t.answer_ms:null; if(row.answer_ms!==null) roundMs.push(row.answer_ms);
+  row.flip_ms=t&&Number.isFinite(t.flip_ms)?t.flip_ms:null; row.answer_ms=t&&Number.isFinite(t.answer_ms)?t.answer_ms:null; Object.assign(row,tzNow()); if(row.answer_ms!==null) roundMs.push(row.answer_ms);
   enqueue(row); stats=C.mergeLocal(stats,[row]);            // bucket AND weight follow the new answer (Codex P0: stale 3× weight)
   if(result==='missed'){ sessionMissed[w.key]=(sessionMissed[w.key]||0)+1; if(sessionMissed[w.key]===2&&!SEL.isFormCard(w.key)) flag(w); }   // engine-made drill forms never go to Amal's rules list
   showCard(); }
@@ -393,7 +415,7 @@ function showSummary(){ const s=C.summary(round); document.onkeydown=null; const
   root.innerHTML=`<div class="qtop"><button id="close" aria-label="Back to sets">✕</button><div class="count">${round.attempt>1?'Review round '+round.attempt:'Round'} done</div><span></span></div><div class="prog"><i style="width:100%"></i></div>
     <h1>${s.wrong.length?'Keep going — you\'re getting there.':'You know every card in this round.'}</h1>
     <div class="done">${donut(s.got,s.missed)}<div class="legend"><div class="k"><span>Know</span><span>${s.got}</span></div><div class="l"><span>Still learning</span><span>${s.missed}</span></div>${timeLines(ms)}</div></div>
-    <p class="mute">${s.n} cards · ${esc(round.title||(C.subjects(words,stats).buckets.find(b=>b.id===round.subject)||{}).name||round.subject)}</p>
+    <p class="mute">${s.n} cards · ${esc(round.title||(C.subjects(words,stats).buckets.find(b=>b.id===round.subject)||{}).name||round.subject)}${round.held?` · ${fmt(round.held)} new ${round.held===1?'card waits':'cards wait'} for another day (${F.DEFAULTS.newPerDay} new a day)`:''}</p>
     ${s.history.map(h=>`<div class="mute">round ${h.attempt}: ${h.got}/${h.n} known</div>`).join('')}
     <div class="row">${s.wrong.length?`<button id="replay" class="primary study">Review the ones I got wrong (${s.wrong.length})</button>`:`<button id="again" class="primary study">Pile empty — new round</button>`}</div>
     <div class="row"><button id="back">‹ Back</button><button id="home">All flashcards</button></div><p class="mute" id="wrongs">${s.wrong.length?'Still learning: '+s.wrong.map(k=>esc((round.cards.find(w=>w.key===k)||words.find(w=>w.key===k)||{}).arabizi||k)).join(', '):''}</p>`;

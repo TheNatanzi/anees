@@ -8,7 +8,9 @@
 (function(){
 'use strict';
 const F=window.AneesFSRS;
-const DAY=86400000,MIN=60000,SESSION_GAP=30*MIN,COLD_DAYS=7,WINDOW_DAYS=28,CULL=4,CAP_NEW=8,CAP_REVIEWS=40,SLOW_FLIP=6000;
+const D=(F&&F.DEFAULTS)||{};
+// The cull line and the new-card cap live in AneesFSRS.DEFAULTS (one place); wiki 06 rules 12 and 2.
+const DAY=86400000,MIN=60000,SESSION_GAP=30*MIN,COLD_DAYS=7,WINDOW_DAYS=28,CULL=D.leechMisses||4,CAP_NEW=D.newPerDay||8,CAP_REVIEWS=40,SLOW_FLIP=6000;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const n=v=>v===null||v===undefined||Number.isNaN(v)?'—':Number(v).toLocaleString();
 const pc=(r,t)=>t?Math.round(r/t*100):null;
@@ -215,15 +217,14 @@ function panelC(x,d){
 }
 /* D */
 function panelD(x){
- const D=x.D,sub=`Cards seen for the first time each study day. Lines = the ${CAP_NEW}-per-lesson cap from the habit design (wiki 06) and the ${F.DEFAULTS.newPerDay}-per-day FSRS default. Topic drills bypass both.`;
+ const D=x.D,sub=`Cards seen for the first time each study day. Line = the ${CAP_NEW}-a-day new-card cap (wiki 06 rule 2). Since 27 Sep every path — the queue, topic drills, verb drills, Amal's sets — holds extra new cards for another day.`;
  if(!D.days.length)return panel('d','New cards per day vs the cap',sub,empty('No card has been seen yet.'));
  const days=D.days.slice(-14),last=D.days[D.days.length-1],times=last.v/CAP_NEW;
- const h=190,L=30,R=10,T=14,B=30,pw=W-L-R,ph=h-T-B,top=roomy(Math.max(F.DEFAULTS.newPerDay,...days.map(o=>o.v))*1.08),y=v=>T+ph-v/top*ph;
+ const h=190,L=30,R=10,T=14,B=30,pw=W-L-R,ph=h-T-B,top=roomy(Math.max(CAP_NEW*1.5,...days.map(o=>o.v))*1.08),y=v=>T+ph-v/top*ph;
  const room=pw-140,gap=days.length>6?8:40,bw=Math.min(110,(room-gap*(days.length-1))/days.length),x0=L+(room-(bw*days.length+gap*(days.length-1)))/2;
  let s=yGrid(y,top,L,R,v=>n(Math.round(v)));
  days.forEach((o,i)=>{const xx=x0+i*(bw+gap);s+=`<rect class="${o.v>CAP_NEW?'fa-miss':'fa-sage'}" x="${xx.toFixed(1)}" y="${y(o.v).toFixed(1)}" width="${bw.toFixed(1)}" height="${(T+ph-y(o.v)).toFixed(1)}" rx="3"><title>${o.date}: ${plural(o.v,'card')} seen for the first time</title></rect><text class="vp-callout" x="${(xx+bw/2).toFixed(1)}" y="${(y(o.v)-6).toFixed(1)}" text-anchor="middle">${n(o.v)}</text>${days.length<=8||i%2===days.length%2?`<text x="${(xx+bw/2).toFixed(1)}" y="${h-10}" text-anchor="middle">${esc(dm(o.date+'T12:00'))}</text>`:''}`;});
- s+=`<line class="fa-cap" x1="${L}" x2="${W-R}" y1="${y(CAP_NEW).toFixed(1)}" y2="${y(CAP_NEW).toFixed(1)}"/><text class="fa-cap-label" x="${W-R}" y="${(y(CAP_NEW)-4).toFixed(1)}" text-anchor="end">cap ${CAP_NEW} per lesson (wiki 06)</text>`;
- s+=`<line class="fa-def" x1="${L}" x2="${W-R}" y1="${y(F.DEFAULTS.newPerDay).toFixed(1)}" y2="${y(F.DEFAULTS.newPerDay).toFixed(1)}"/><text x="${W-R}" y="${(y(F.DEFAULTS.newPerDay)-4).toFixed(1)}" text-anchor="end">FSRS default ${F.DEFAULTS.newPerDay} per day</text>`;
+ s+=`<line class="fa-cap" x1="${L}" x2="${W-R}" y1="${y(CAP_NEW).toFixed(1)}" y2="${y(CAP_NEW).toFixed(1)}"/><text class="fa-cap-label" x="${W-R}" y="${(y(CAP_NEW)-4).toFixed(1)}" text-anchor="end">cap ${CAP_NEW} new a day (wiki 06)</text>`;
  const over=D.dueToday>CAP_REVIEWS;
  const why=`${plural(D.dueToday,'card')} due today${D.overdue?` (${n(D.overdue)} overdue)`:''} against a ${CAP_REVIEWS}-a-day review cap.${over?' This is the backlog spiral the post-mortems warn about.':' Within the cap.'}`;
  return panel('d','New cards per day vs the cap',sub,big(n(last.v),`new cards on ${dm(last.date+'T12:00')} · ${times>1?`${f1(times).replace(/\.0$/,'')}× the cap`:'within the cap'}`)+frame(s,'New cards per study day against the caps',h),
@@ -237,12 +238,13 @@ function panelE(x){
  const rows=E.rungs.map(r=>row(`<span class="fa-rung${r.count?'':' fa-dim'}">${esc(r.label)}</span>`,r.count/max*100,r.cls,`<b>${n(r.count)}</b> ${r.count===1?'card':'cards'}${r.count?` · ${Math.round(r.R)}% recall now`:''}`)).join('');
  const rs=E.restarted,learn=E.rungs.find(r=>r.id==='learning').count;
  const restartedRow=`<div class="fa-rows fa-split">${row('<span class="fa-rung" title="Missed at least once and FSRS stability under a day">Missed, restarted</span>',rs.count/max*100,'bad',`<b>${n(rs.count)}</b> ${rs.count===1?'card':'cards'}${rs.count?` · ${Math.round(rs.R)}% recall now`:''}`)}</div><p class="ab-sub">Top rungs = every answered card by FSRS state. Bottom row = cards missed at least once whose stability is now under a day, drawn from the rungs above.</p>`;
- const why=learn?`${plural(learn,'card')} ${learn===1?'is':'are'} still on a learning step${E.medSession!==null&&E.medSession<10?`: the 10-minute second step is longer than your ${f1(E.medSession)}-minute median session`:': they left the session before the 10-minute step came round'}.`:'No card is stuck on a learning step.';
+ const steps=D.learningSteps||[1,4],last=steps[steps.length-1];
+ const why=learn?`${plural(learn,'card')} ${learn===1?'is':'are'} still on a learning step: they left a session before the second step came round. Until 27 Sep that step was 10 minutes, longer than the 7-minute block${E.medSession!==null?` (your median session: ${f1(E.medSession)} min)`:''}; it is now ${last} minutes, so each one finishes the next time it is answered right.`:'No card is stuck on a learning step.';
  return panel('e','The ladder',sub,`<div class="fa-rows">${rows}</div>${restartedRow}`,{why,note:`${n(E.unseen)} words never seen, not drawn`});
 }
 /* F */
 function panelF(x,d){
- const L=x.F.list,sub=`Misses per card, all time. The tab’s leech counter needs ${x.F.leechLapses} lapses and a lapse only counts once a card is in review, so early misses score zero there.`;
+ const L=x.F.list,sub=`Misses per card, all time. A card is a leech at ${CULL} misses in any phase (wiki 06 rule 12) or ${x.F.leechLapses} lapses in review; the Leech words box above uses the same rule.`;
  if(!L.length)return panel('f','Chronic misses (leech watch)',sub,empty('No card missed yet.'));
  const top=L.filter(o=>o.m>=2).concat(L.filter(o=>o.m<2)).slice(0,8),rest=L.slice(top.length);
  const rows=top.map(o=>row(wordLabel(o.key,d.byKey),o.m/CULL*100,o.m>=3?'bad':o.m===2?'warn':'sage',`${n(o.m)} of ${n(o.answers)} · difficulty ${f1(o.difficulty)}`,`missed ${o.m} of ${o.answers} answers · FSRS difficulty ${f1(o.difficulty)} of 10 · lapses ${o.lapses}`)).join('');

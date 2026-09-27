@@ -59,7 +59,7 @@
 #anees-bank .vp-panel p{margin:0}
 #anees-bank .vp-legend{display:flex;gap:12px;font-size:11px;white-space:nowrap;color:var(--ab-muted);flex-wrap:wrap;justify-content:flex-end}
 #anees-bank .vp-legend button{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer}
-#anees-bank .vp-legend button[aria-pressed="false"]{text-decoration:line-through;opacity:.6}
+#anees-bank .vp-legend button[aria-pressed="false"]{opacity:.7}
 #anees-bank .vp-key-correct{color:var(--ab-green)}#anees-bank .vp-key-hinted{color:var(--ab-orange)}#anees-bank .vp-key-wrong{color:var(--ab-red)}#anees-bank .vp-key-avg{color:var(--ab-muted)}
 #anees-bank .vp-key-mastered{color:var(--vp-forest)}#anees-bank .vp-key-good{color:var(--ab-blue)}#anees-bank .vp-key-weak{color:var(--ab-orange)}#anees-bank .vp-key-unchecked{color:var(--ab-muted)}
 #anees-bank .vp-side{font-size:11px;color:var(--ab-muted);text-align:right;white-space:nowrap}
@@ -72,6 +72,7 @@
 #anees-bank .vp-chart .vp-line{fill:none;stroke:var(--vp-forest);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
 #anees-bank .vp-chart .vp-dot{fill:var(--vp-forest)}
 #anees-bank .vp-chart .vp-dot-peak{fill:var(--ab-green)}
+#anees-bank .vp-chart .vp-dot-faded{opacity:.35}
 #anees-bank .vp-chart .vp-callout{fill:var(--ab-text);font-weight:600}
 #anees-bank .vp-chart .vp-area-mastered{fill:var(--vp-forest);opacity:.9}
 #anees-bank .vp-chart .vp-area-good{fill:var(--ab-blue);opacity:.75}
@@ -198,6 +199,9 @@
 .ov-tbl td a{color:var(--ab-accent);text-decoration:none;font-weight:600}
 .ov-tbl tbody tr:first-child td{background:var(--sabz-state-calm-fill)}
 .pct-a{color:light-dark(#0f6b3a,#3fcf7f)!important}.pct-b{color:light-dark(#4f9a2e,#a8e08a)!important}.pct-c{color:light-dark(#9a7400,#f2c94c)!important}.pct-d{color:light-dark(#b3261e,#ff7a70)!important}
+/* Overview audit 2026-09-27: "≈" = measured over part of the lesson or not comparable; the reason is in the title (hover). */
+.ov-tbl td[title],.ov-tbl tbody tr[title] td:first-child,#ov-metrics .ab-metric[title]{cursor:help}
+.ov-tbl td[title]{text-decoration:underline dotted;text-decoration-color:var(--ab-muted);text-underline-offset:3px}
 
 /* Grammar tab (2026-09-27): nine new angles + time of day. docs/js/grammar-progress.js */
 #anees-bank .gp-key{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--sabz-c-burnt-orange,#B9631F);margin-bottom:4px}

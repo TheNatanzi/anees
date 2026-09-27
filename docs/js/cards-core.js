@@ -89,7 +89,7 @@
   // Order: learning cards due now, then reviews due today, then new cards up to the daily limit.
   // A new or review card is buried when a sibling was answered today or is already in today's queue.
   function queue(words, cards, log, now, opts) {
-    const F = root.AneesFSRS, o = Object.assign({ newPerDay: 20 }, opts || {}), t = +now, today = dayStart(t), end = today + 86400000;
+    const F = root.AneesFSRS, o = Object.assign({ newPerDay: F.DEFAULTS.newPerDay }, opts || {}), t = +now, today = dayStart(t), end = today + 86400000;
     const group = opts && opts.siblings || siblingMap(words, null), usedGroup = new Set();
     const live = (log || []).filter(r => r && !r.undone && !r.undone_at && r.kind !== 'flag' && r.ts);
     for (const r of live) if (Date.parse(r.ts) >= today) usedGroup.add(group.get(r.word_key) || 'w:' + r.word_key);
@@ -115,5 +115,23 @@
     const next = items.length ? items : ahead.slice(0, 1);
     return { items: next, counts: { due: dueReviews.length, new: fresh.length, learning: learning.length + later.length }, newToday, room, buried, nextLearning: later[0] ? later[0].due : null };
   }
-  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, done, replayWrong, summary, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart };
+  // ---- the new-card cap, for every path that can show a card for the first time ----
+  // Cards first answered today (live rows only): the cap counts introductions, not answers.
+  function newToday(log, now) {
+    const today = dayStart(+now), firstSeen = new Map();
+    for (const r of log || []) { if (!r || r.undone || r.undone_at || r.kind === 'flag' || r.kind === 'undo' || !r.ts || !r.word_key) continue; const ms = Date.parse(r.ts); if (!Number.isFinite(ms)) continue; if (!firstSeen.has(r.word_key) || ms < firstSeen.get(r.word_key)) firstSeen.set(r.word_key, ms); }
+    return [...firstSeen.values()].filter(ms => ms >= today).length;
+  }
+  // Apply the daily new-card cap (wiki 06 rule 2, AneesFSRS.DEFAULTS.newPerDay) to a chosen list of word-shaped
+  // cards ({key}). Already-seen cards always pass; unseen cards pass in order until the day's room is used up,
+  // the rest are held (silently rescheduled: they stay unseen and come up another day). Nothing is stored.
+  function capNew(list, log, now, opts) {
+    const F = root.AneesFSRS, o = Object.assign({ newPerDay: F.DEFAULTS.newPerDay }, opts || {});
+    const seen = new Set(); for (const r of log || []) if (r && r.word_key && !r.undone && !r.undone_at && r.kind !== 'flag' && r.kind !== 'undo') seen.add(r.word_key);
+    const used = newToday(log, now), room = o.newPerDay > 0 ? Math.max(0, o.newPerDay - used) : Infinity;
+    const cards = [], held = []; let fresh = 0;
+    for (const w of list || []) { if (!w) continue; if (seen.has(w.key)) { cards.push(w); continue; } if (fresh < room) { fresh++; cards.push(w); } else held.push(w); }
+    return { cards, held: held.length, fresh, room: room === Infinity ? null : room, newToday: used, cap: o.newPerDay };
+  }
+  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, done, replayWrong, summary, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart, newToday, capNew };
 })(typeof window !== 'undefined' ? window : globalThis);

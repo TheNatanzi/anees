@@ -270,8 +270,9 @@ function panelH(ls){
  const title='Filled pauses through the hour';
  if(!TURNS)return panel('h',title,'Your "uh", "um", "آآ" per minute of your own talking, by ten-minute block.',loadingTurns(),{wide:true});
  const meta=new Map(ls.map(l=>[l.date,l])),cnt=p=>{const f=(meta.get(p.date)||{}).fillers;return f&&ok(f.count)?f.count:null;};
- // keep lessons whose turn files carry at least half the fillers the hourly job counted
- const inc=TURNS.filter(p=>{const c=cnt(p);return c&&p.turnFill/c>=.5;}),exc=TURNS.filter(p=>!inc.includes(p)&&cnt(p));
+ // keep lessons whose turn files carry at least half the fillers the hourly job counted: fillers.comparable when the
+ // hourly job wrote it (build_lessons_page_data.py, 2026-09-27), the same ratio computed here otherwise
+ const inc=TURNS.filter(p=>{const c=cnt(p),f=(meta.get(p.date)||{}).fillers;return c&&(typeof f.comparable==='boolean'?f.comparable:p.turnFill/c>=.5);}),exc=TURNS.filter(p=>!inc.includes(p)&&cnt(p));
  const sub=`Your "uh", "um", "آآ" per minute of your own talking, by ten-minute block, over the ${inc.length} lessons${inc.length?` from ${dm(inc[0].date)}`:''} whose turn files keep the fillers.`;
  const perMin=ls.filter(l=>l.fillers&&ok(l.fillers.per_min)),hiL=perMin.length?perMin.reduce((a,l)=>l.fillers.per_min>a.fillers.per_min?l:a):null;
  const notes=[];
