@@ -23,6 +23,18 @@
         const vals = Object.values(a), last = vals.map(v => v.updated_at).filter(Boolean).sort().pop();
         return { ok: !!rows[0], done: vals.length, right: vals.filter(v => v.choice === 'yes').length, fixed: vals.filter(v => v.choice === 'fix').length, last, opened: rows[0] && rows[0].opened_at };
       }
+      if (item.kind === 'after' || item.kind === 'before') {
+        const rows = await rest('amal_links?select=answers,opened_at,done_at&token=eq.' + encodeURIComponent(item.token), item.token);
+        const a = (rows[0] && rows[0].answers) || {};
+        const done = Object.keys(a.q || {}).length + Object.keys(a.h || {}).length + Object.keys(a.p || {}).length + Object.keys(a.s || {}).length;
+        return { ok: !!rows[0], done, right: null, fixed: null, last: a.updated || null, opened: rows[0] && rows[0].opened_at, finished: !!(rows[0] && rows[0].done_at) };
+      }
+      if (item.kind === 'word_review') {
+        const rows = await rest('transcript_review_links?select=answers,opened_at,done_at&token=eq.' + encodeURIComponent(item.token), item.token);
+        const a = (rows[0] && rows[0].answers && rows[0].answers.answers) || {};
+        const vals = Object.values(a), last = vals.map(v => v.updated_at).filter(Boolean).sort().pop();
+        return { ok: !!rows[0], done: vals.length, right: vals.filter(v => v.choice === 'yes').length, fixed: vals.filter(v => v.choice === 'different').length, last };
+      }
       if (item.kind === 'review') {
         const rows = await rest('amal_rules?select=word_key,kind,created_at&source=eq.review&token=eq.' + encodeURIComponent(item.token), item.token);
         const ids = new Set(rows.map(r => r.word_key)), last = rows.map(r => r.created_at).sort().pop();
@@ -48,7 +60,9 @@
     } else {
       const left = Math.max(0, it.total - L.done);
       big = `${fmt(L.done)} <span class="tu-of">of ${fmt(it.total)}</span>`;
-      sub = it.kind === 'review' ? `patterns answered · ${fmt(left)} left · ${fmt(it.moments)} moments inside` : `forms answered · ${fmt(left)} left`;
+      sub = it.kind === 'review' ? `patterns answered · ${fmt(left)} left · ${fmt(it.moments)} moments inside`
+        : it.kind === 'after' || it.kind === 'before' ? `questions answered · ${fmt(left)} left` + (L.finished ? ' · finished' : '')
+        : it.kind === 'word_review' ? `lines answered · ${fmt(left)} left` : `forms answered · ${fmt(left)} left`;
       extra = bar(L.done, it.total);
       const bits = [];
       if (it.kind === 'verb_check' && L.done) bits.push(`${fmt(L.right)} right · ${fmt(L.fixed)} fixed`);
@@ -79,6 +93,7 @@
       ['Open for Amal', T.open.length, 'lists waiting on her'],
       ['Verb forms left', fmt(verbLeft), 'across both verb lists'],
       ['Slip patterns left', rv && byId[rv.id] && byId[rv.id].ok !== false ? fmt(rv.total - byId[rv.id].done) : '—', 'correct him, or a reason'],
+      ['Lesson questions left', fmt(T.open.filter(x => x.kind === 'after' || x.kind === 'before').reduce((n, x) => n + Math.max(0, x.total - ((byId[x.id] && byId[x.id].done) || 0)), 0)), 'after / before lesson links'],
       ['Grammar Doc changes', fmt((T.open.find(x => x.kind === 'doc') || {}).done), 'made in her Doc so far'],
       ['Not in the app yet', fmt(notPulled), 'her verb answers to pull'],
       ['Her last answer', lastAll ? day(lastAll) : '—', 'any list']

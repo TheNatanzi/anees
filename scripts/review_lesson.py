@@ -14,6 +14,7 @@ Steps (each idempotent - an existing output file is reused, so a crash resumes w
   6 pages     build_lessons_page_data.py, build_grammar_console.py, build_amal_grammar_rules.py, arabizi_everywhere.py
   7 Amal      `claude -p` pattern reader for this lesson's B rows (PATTERN-BRIEF.md, appends to patterns.json)
               -> build_amal_review.py -> amal_review_link.py (refreshes her hub payload) -> prints the hub link
+  7c tutor     build_tutor_data.py -> docs/data/tutor.json (the Tutor page = Medi's menu of everything open for Amal)
   7b after     after_from_audit.py -> 3-5 "was he right here?" questions with clips -> amal_links kind after (on her hub)
   8 git       commit + push (unless --no-push / --dry-run)
 Never sends anything to Amal. Never re-transcribes. `claude` = the Claude Code CLI on PATH (2.1+).
@@ -130,6 +131,8 @@ def main():
         r = subprocess.run([sys.executable, os.path.join(HERE, "amal_review_link.py")], cwd=REPO, capture_output=True, text=True, encoding="utf-8")
         link = next((l.split(None, 1)[1] for l in (r.stdout or "").splitlines() if l.startswith("HUB")), None)
         log("hub link", link)
+    # 7c the Tutor page (Medi's menu) lists every open link with its total - rebuilt so the new after link shows up
+    py(os.path.join(HERE, "build_tutor_data.py"), check=False)
     # 8 git
     if not a.dry_run:
         subprocess.run(["git", "add", "-A", "data/full-audit-2026-09-26.json", "plan/FULL-AUDIT-2026-09-26.md", "docs", "data/lesson-work/full-audit"], cwd=REPO)

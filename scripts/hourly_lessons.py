@@ -204,6 +204,31 @@ def refresh_published(dates, raw, work):
             log('review_lesson failed', d, e)
 
 
+def tutor_refresh(no_push=False):
+    """Every hour (2026-09-26): apply Amal's new taps (review page + after links) to the audit and pages, then rebuild the
+    Tutor page data. Commits only when a file changed. Never blocks the lesson pipeline."""
+    try:
+        subprocess.run([sys.executable, str(HERE / 'apply_amal_audit_rulings.py')], cwd=ROOT, check=False, timeout=1800, capture_output=True)
+        subprocess.run([sys.executable, str(HERE / 'build_tutor_data.py')], cwd=ROOT, check=False, timeout=300, capture_output=True)
+        paths = ['docs/data', 'docs/amal/grammar-rules.html', 'data/full-audit-2026-09-26.json']
+        changed = subprocess.run(['git', 'status', '--porcelain', '--', *paths], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+        if not changed:
+            return
+        run = lambda *c: subprocess.run(['git', *c], check=True, cwd=ROOT, capture_output=True, text=True)
+        run('add', *paths)
+        run('commit', '-m', "Amal's answers applied + Tutor page refreshed by the hourly job\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>")
+        if not no_push:
+            try:
+                run('pull', '--rebase', '--autostash', 'origin', 'master')
+            except subprocess.CalledProcessError:
+                subprocess.run(['git', 'rebase', '--abort'], cwd=ROOT, capture_output=True)
+                log('tutor_refresh: pull --rebase failed; commit kept locally'); return
+            run('push', 'origin', 'HEAD:master')
+        log('tutor_refresh: published', changed.count('\n') + 1, 'files')
+    except Exception as e:
+        log('tutor_refresh failed', e)
+
+
 def publish(dates):
     run = lambda *c: subprocess.run(['git', *c], check=True, cwd=ROOT, capture_output=True, text=True)
     # data/budget.json: transcribing writes the cost log; left unstaged it made 'pull --rebase' refuse (exit 128) and the
@@ -244,6 +269,7 @@ def main():
         log('new Recall bot found in the API list', r['date'], r['bot_id'])
     if a.dry_run:
         print(json.dumps({'new_bots': new_rows, 'todo': todo}, indent=1)); return 0
+    tutor_refresh(no_push=a.no_push)                  # Amal's taps -> scores + rules; the Tutor page always current
     if new_rows:
         ledger_path.write_text(json.dumps(sorted(ledger + new_rows, key=lambda e: e['t']), ensure_ascii=False, indent=1), encoding='utf-8')
     done, failures = [], 0

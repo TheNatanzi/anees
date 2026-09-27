@@ -1,6 +1,6 @@
 {
- "updated": "2026-09-26",
- "note": "What Amal needs to check right now (Medi 2026-09-26). Totals are fixed facts about each list; answered counts are read live from Supabase with each link's own token. Medi sends every link himself; the app never contacts Amal.",
+ "updated": "2026-09-26T19:54:52-07:00",
+ "note": "What Amal needs to check right now. Rebuilt by scripts/build_tutor_data.py every hour and after every same-day lesson review; answered counts are read live from Supabase with each link's own token. Medi sends every link himself; the app never contacts Amal.",
  "open": [
   {
    "id": "grammar-doc",
@@ -14,24 +14,24 @@
    "status": "Not pulled into the app yet · the Doc is private to the app's Google login"
   },
   {
-   "id": "verb-check-1",
-   "title": "Verb check · list 1",
-   "what": "Every person of every verb she taught, filled in by the app. She taps right, or fixes the spelling.",
-   "who": "Amal answers · link already with her",
-   "kind": "verb_check",
-   "token": "sTAWVw0CaGfY2QtVvC1Z3n0Ur__X_l4ydl9Mt1U_qhQ",
-   "url": "amal/verb-check.html?t=sTAWVw0CaGfY2QtVvC1Z3n0Ur__X_l4ydl9Mt1U_qhQ",
-   "total": 1605,
-   "pulled": 41,
-   "expires": "2026-10-22"
+   "id": "after-2026-09-23",
+   "title": "After the lesson · Sep 23",
+   "kind": "after",
+   "token": "jEPQUyWLCe1EqW2_TDo_yFey2OyyM2OW",
+   "lesson_date": "2026-09-23",
+   "what": "3-5 moments from this lesson the app was least sure about: was he right here? One tap each, with the clip.",
+   "who": "Amal answers · reached through the hub link",
+   "url": "amal/after.html?t=jEPQUyWLCe1EqW2_TDo_yFey2OyyM2OW",
+   "total": 5,
+   "expires": "2026-10-04"
   },
   {
    "id": "slips-review",
    "title": "Review Medi's slips",
-   "what": "Slips she let pass in 13 lessons, grouped by pattern with the real moments to play. Per pattern she says: correct him, or a reason not to.",
-   "who": "Amal answers · Medi sends the hub link",
    "kind": "review",
    "token": "WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
+   "what": "Slips she let pass, grouped by pattern with the real moments to play. Per pattern she says: correct him, or a reason not to. New lessons add their patterns here the same day.",
+   "who": "Amal answers · Medi sends the hub link",
    "url": "amal/review.html?t=WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
    "hub": "amal/hub.html?t=WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
    "total": 68,
@@ -39,12 +39,24 @@
    "expires": "2026-10-26"
   },
   {
-   "id": "verb-check-2",
-   "title": "Verb check · list 2",
-   "what": "The next batch of verb forms (level 2). Same taps as list 1. It sits in her hub.",
-   "who": "Amal answers · reached through the hub link",
+   "id": "verb_check-1",
+   "title": "Verb check · list 1",
+   "kind": "verb_check",
+   "token": "sTAWVw0CaGfY2QtVvC1Z3n0Ur__X_l4ydl9Mt1U_qhQ",
+   "what": "Every person of every verb she taught, filled in by the app. She taps right, or fixes the spelling.",
+   "who": "Amal answers · link already with her",
+   "url": "amal/verb-check.html?t=sTAWVw0CaGfY2QtVvC1Z3n0Ur__X_l4ydl9Mt1U_qhQ",
+   "total": 1605,
+   "pulled": 41,
+   "expires": "2026-10-22"
+  },
+  {
+   "id": "verb_check-2",
+   "title": "Verb check · list 2 (endings and prepositions)",
    "kind": "verb_check",
    "token": "zzKmq2u99YFBEq_zhVUQccr7C4v9M4rGeT0jrk_dmc0",
+   "what": "The next batch of verb forms (level 2). Same taps as list 1. It sits in her hub.",
+   "who": "Amal answers · reached through the hub link",
    "url": "amal/verb-check.html?t=zzKmq2u99YFBEq_zhVUQccr7C4v9M4rGeT0jrk_dmc0",
    "total": 410,
    "pulled": 0,
@@ -52,7 +64,30 @@
   }
  ],
  "closed": [
-  {"title": "Before / after lesson questions", "why": "last links expired 2026-09-19; none made since"},
-  {"title": "Word review (unsure transcript lines, 09-05)", "why": "expired 2026-09-16 with 4 of 14 answered"}
+  {
+   "id": "after-2026-09-11",
+   "title": "After the lesson · Sep 11",
+   "why": "link expired 2026-09-19"
+  },
+  {
+   "id": "after-2026-09-05",
+   "title": "After the lesson · Sep 5",
+   "why": "link expired 2026-09-12"
+  },
+  {
+   "id": "after-2026-09-04",
+   "title": "After the lesson · Sep 4",
+   "why": "link expired 2026-09-12"
+  },
+  {
+   "id": "before-2026-09-05",
+   "title": "Before the lesson · Sep 5",
+   "why": "link expired 2026-09-12"
+  },
+  {
+   "id": "word_review-zMtbHB",
+   "title": "Word review (Sep 5)",
+   "why": "link expired 2026-09-16"
+  }
  ]
 }
