@@ -88,7 +88,9 @@ def main():
             elif day(r["expires_at"]) >= day((now - datetime.timedelta(days=21)).isoformat()):
                 closed.append({"id": f"{kind}-{r['token'][:6]}", "title": title + (f" ({pretty(p.get('lesson'))})" if p.get("lesson") else ""),
                                "why": "answered" if r.get("done_at") else f"link expired {day(r['expires_at'])}"})
-    out = {"updated": now.astimezone().isoformat(timespec="seconds"),
+    # keep the old stamp when nothing changed, so the hourly job does not commit a new file every hour
+    same = cur.get("open") == kept + open_ and cur.get("closed") == closed
+    out = {"updated": cur.get("updated") if same and cur.get("updated") else now.astimezone().isoformat(timespec="seconds"),
            "note": "What Amal needs to check right now. Rebuilt by scripts/build_tutor_data.py every hour and after every same-day lesson review; "
                    "answered counts are read live from Supabase with each link's own token. Medi sends every link himself; the app never contacts Amal.",
            "open": kept + open_, "closed": closed}
