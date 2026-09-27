@@ -1,0 +1,715 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Engineering review: measure every AI step before adding more · AI Reports · Anees</title><script src="../js/theme.js"></script><link rel="stylesheet" href="../css/sabz-tokens.css"><link rel="stylesheet" href="../css/word-bank.css?v=menu1"><link rel="stylesheet" href="../css/vocabulary-progress.css"><link rel="stylesheet" href="../css/ai-reports.css?v=20260926-v1"></head>
+<body><div id="anees-bank" class="vp-sabz" aria-label="Anees AI report"><div class="ab-shell">
+<aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="../progress.html">Progress &amp; Stats</a><a class="ab-nav" href="../lessons.html">Lessons &amp; Audio</a><a class="ab-nav" href="../word-bank.html">Word Bank</a><a class="ab-nav" href="../grammar.html">Grammar Rules</a><a class="ab-nav" href="../cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="../tutor.html">Tutor</a><a class="ab-nav" aria-current="page" href="../ai-reports.html">AI Reports</a><a class="ab-nav" href="../big-picture.html">Big Picture</a><a class="ab-nav" href="../settings.html">System Settings</a></nav></aside>
+<main>
+<header class="ab-header"><div><div class="vp-eyebrow">AI report · Claude · 2026-09-27</div><h1>Engineering review: measure every AI step before adding more</h1><div class="ab-sub">Built from AI-ENGINEERING-REVIEW-2026-09-27.md</div></div><a class="ab-preview" href="../ai-reports.html">‹ All AI reports</a></header>
+<article class="ar-doc">
+<h1 id="measure-every-ai-step-before-adding-more">Measure every AI step before adding more</h1>
+<p><strong>Bottom line:</strong> the research backs Anees's big bets: <strong>Scribe v2, two separate tracks, FSRS, and the tutor's own Arabizi spelling</strong>. The weak spot is not model choice. It is <strong>measurement</strong>. Today 1 of 9 AI steps has a gold set, 0 AI calls are logged, the Claude readers run on an unpinned model, and the detector's quoted 76% recall is <strong>11% on real lessons</strong>. The literature also flags one design that needs to change. <strong>Free-form LLM "find the slips" readers are the step most likely to be wrong on dialect.</strong> LLMs score <strong>53.8 vs 88.9 F0.5</strong> on dialect grammar correction and drift toward MSA. They should become a narrow, dialect-pinned Yes/No/Unsure judge, checked against a small stream of Amal/Medi verdicts. Build order: <strong>run log → decisions log → frozen gold sets → health panel</strong>. That takes about 4 evenings and 1 weekend, and it makes every later number trustworthy.</p>
+<p><strong>Scale:</strong> S = one evening · M = one weekend · L = several weekends. "Supported / Challenged" = what the evidence says about a current choice.</p>
+<hr />
+<h2 id="where-anees-stands-today-1-of-9-steps-is-measured">Where Anees stands today: 1 of 9 steps is measured</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>What runs</th>
+<th>How it's checked today</th>
+<th>Latest number</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Transcribe</td>
+<td>ElevenLabs <code>scribe_v2</code>, per track</td>
+<td>20 clips blind-voted (Sep 4–5)</td>
+<td>15/20 preferred · <strong>WER/CER never measured</strong></td>
+</tr>
+<tr>
+<td>Speaker split</td>
+<td>channel; mixed audio → Arabic share + pitch</td>
+<td>none</td>
+<td>09-18 came out <strong>swapped</strong></td>
+</tr>
+<tr>
+<td>Grammar detector</td>
+<td>rule code</td>
+<td>134-event gold set (105 tuned, 29 held-out)</td>
+<td><strong>76% tuned → ~40% held-out → 11% real</strong> (104/961) · precision 110/165 ≈ 67% · 34% wrong bucket</td>
+</tr>
+<tr>
+<td>Readers r1/r2/r3</td>
+<td><code>claude -p</code>, <strong>no <code>--model</code></strong></td>
+<td>AI vs AI</td>
+<td><strong>61.5% "agree"</strong> (Jaccard) = <strong>71.4% pairwise F1</strong></td>
+</tr>
+<tr>
+<td>Arabizi fill</td>
+<td><code>claude -p</code></td>
+<td>100 lines once</td>
+<td>96/100, grader not recorded</td>
+</tr>
+<tr>
+<td>Word/sheet check</td>
+<td>string match + agent</td>
+<td>1 hand check</td>
+<td><strong>56 of 98</strong> "new" words were already on the list</td>
+</tr>
+<tr>
+<td>Amal patterns</td>
+<td><code>claude -p</code></td>
+<td>Amal's rulings (edited in place)</td>
+<td>116 open</td>
+</tr>
+<tr>
+<td>Pages/stats</td>
+<td>build scripts</td>
+<td>by eye</td>
+<td>"100% with 35 errors" shipped</td>
+</tr>
+<tr>
+<td>Flashcards</td>
+<td>FSRS-6 in browser</td>
+<td>golden-file test</td>
+<td>stores only got/missed</td>
+</tr>
+</tbody>
+</table></div>
+<p>Sources: <a href="ai-process-review-2026-09-27.html">ai-process-review.html</a>, <a href="https://github.com/TheNatanzi/anees/blob/master/plan/PROCESS-AUDIT-2026-09-26.md">PROCESS-AUDIT-2026-09-26.md</a>, <a href="https://github.com/TheNatanzi/anees/blob/master/scripts/review_lesson.py">review_lesson.py</a>, <a href="https://github.com/TheNatanzi/anees/blob/master/data/lesson-work/full-audit">compare.json files</a></p>
+<p><strong>Four engineering facts that matter most:</strong>
+- <strong>Errors chain.</strong> In 416 of 961 audit rows (43%), Scribe wrote Medi's Arabic in <strong>Latin letters</strong>, and the usage counter skips Latin turns (<a href="https://github.com/TheNatanzi/anees/blob/master/plan/PROCESS-AUDIT-2026-09-26.md">PROCESS-AUDIT G12</a>).
+- <strong>No run records.</strong> Each lesson has up to about 5 <code>claude -p</code> runs, and each keeps only a 200-character stdout tail in a gitignored log. The hourly job's logs sit on another machine (<a href="https://github.com/TheNatanzi/anees/blob/master/scripts/review_lesson.py">review_lesson.py</a>, <a href="https://github.com/TheNatanzi/anees/blob/master/scripts/switch_hourly_job.ps1">switch_hourly_job.ps1</a>).
+- <strong>Classic ML debt.</strong> The pipeline is 98 scripts, dated literal filenames and an unpinned model. These match Sculley's "pipeline jungle", "undeclared consumers" and "reproducibility debt" (<a href="https://proceedings.neurips.cc/paper_files/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf">Sculley et al. 2015</a>).
+- <strong>ML Test Score ≈ 0.</strong> Google's rubric takes the <em>minimum</em> across its sections, and Anees scores 0 on monitoring. That is the "more of a research project" band (<a href="https://research.google/pubs/the-ml-test-score-a-rubric-for-ml-production-readiness-and-technical-debt-reduction/">Breck et al. 2017</a>).</p>
+<p><strong>Keep these good patterns:</strong>
+- sha256 provenance on all 4,809 speaking-evidence events;
+- <code>card_results</code> as an append-only answer log;
+- the overlay rule ("raw transcripts are never edited");
+- budget caps.</p>
+<hr />
+<h2 id="transcription-scribe-v2-leads-code-switching-not-every-dialect">Transcription: Scribe v2 leads code-switching, not every dialect</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Evidence</th>
+<th>Number</th>
+<th>Meaning for Anees</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arabic–English code-switching, 5 APIs</td>
+<td><strong>Scribe v2 13.2% WER</strong>. Next: gpt-4o-transcribe 38.6, Chirp 3 39.4, Azure 43.6 (<a href="https://arxiv.org/pdf/2605.19069">arXiv 2605.19069</a>)</td>
+<td>✅ Supports Scribe. Caveats: vendor-authored, read-aloud speech, <strong>no Levantine pair</strong></td>
+</tr>
+<tr>
+<td>Hardest switching quartile</td>
+<td>Scribe <strong>20.0%</strong> vs Chirp 61.5% (<a href="https://arxiv.org/pdf/2605.19069">same</a>)</td>
+<td>The gap grows exactly where Medi's mixed turns sit</td>
+</tr>
+<tr>
+<td>Syrian (Levantine) YouTube, monolingual</td>
+<td>Deepgram 13.76 · Gemini 3 Flash 14.40 · <strong>Scribe 14.73</strong> · GPT-4o-transcribe 31.67 (<a href="https://arxiv.org/abs/2606.28884">GigaSpeechBench</a>)</td>
+<td>Scribe is mid-pack on pure dialect. Deepgram <strong>doesn't support Arabic code-switching</strong></td>
+</tr>
+<tr>
+<td>Saudi / Egyptian</td>
+<td>Scribe 33.33 / 44.44 vs Deepgram 16.56 / 37.12 (<a href="https://arxiv.org/abs/2606.28884">same</a>)</td>
+<td>Rankings flip by dialect. <strong>Only your own gold set settles it</strong></td>
+</tr>
+<tr>
+<td>English-heavy leaderboard</td>
+<td>MAI-Transcribe-2 2.0% at ~$0.10/h; Scribe 2.2% at ~$0.22/h (<a href="https://artificialanalysis.ai/speech-to-text">Artificial Analysis</a>)</td>
+<td>Cost doesn't separate vendors; code-switching does</td>
+</tr>
+<tr>
+<td>Mixed-audio diarization</td>
+<td>Best open model: <strong>17–20% DER</strong> on meetings (<a href="https://www.pyannote.ai/benchmark">pyannote</a>)</td>
+<td>✅ Strongly supports <strong>separate tracks</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>What learner speech does to ASR:</strong>
+- <strong>ASR "cleans up" learners.</strong> Whisper rewrote "there is the uh stars" as "there are stars". Repetition retention ranged from 22.5% (AssemblyAI) to 80% (RevAI) (<a href="https://arxiv.org/pdf/2503.06924">McGuire 2025</a>). Learner errors are the product, so <strong>verbatim mode is mandatory</strong> (Scribe <code>no_verbatim=false</code>).
+- <strong>Silence triggers hallucination.</strong> About 1% of Whisper transcripts contain invented sentences, and long pauses raise the risk (<a href="https://arxiv.org/abs/2402.08021">Careless Whisper</a>). Lessons have long thinking pauses, so use VAD plus a flag on words that fall in silent spans.
+- <strong>LLM clean-up passes erase evidence.</strong> Prompt-only LLM post-correction "often increas[es] error rates due to over-correction" (<a href="https://arxiv.org/pdf/2508.07285">survey</a>). Keep <strong>3 layers</strong>: raw verbatim (immutable) → logged script/segmentation fixes → a separate "intended form" field. Nothing overwrites layer 1.
+- <strong>Word timestamps:</strong> gpt-4o-transcribe returns none, and Gemini's timestamps drift (<a href="https://developers.openai.com/api/docs/models/gpt-4o-transcribe-diarize">OpenAI docs</a>, <a href="https://arxiv.org/pdf/2505.03054">BLAB</a>). Neither can be the timing source for clips or fluency.</p>
+<hr />
+<h2 id="palestinian-asr-score-cer-not-wer-and-build-your-own-test-set">Palestinian ASR: score CER, not WER, and build your own test set</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Number</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dialect is much harder than MSA (same speakers)</td>
+<td>MSA 13–19% vs dialect <strong>42–77% WER</strong></td>
+<td><a href="https://arxiv.org/abs/2608.21950">BULBUL</a></td>
+</tr>
+<tr>
+<td>WER overstates Arabic errors</td>
+<td>Whisper-v3 on Palestinian: <strong>50.2 WER but 18.4 CER</strong></td>
+<td><a href="https://arxiv.org/html/2410.04527">Casablanca</a></td>
+</tr>
+<tr>
+<td>Best dialect-trained system, Palestinian</td>
+<td>22.27 WER / <strong>8.05 CER</strong></td>
+<td><a href="https://arxiv.org/abs/2509.02038">NADI 2025</a></td>
+</tr>
+<tr>
+<td>Script choice inflates code-switching WER</td>
+<td>about <strong>3×</strong> (English written in Arabic script counts as fully wrong)</td>
+<td><a href="https://arxiv.org/pdf/2605.19069">arXiv 2605.19069</a></td>
+</tr>
+<tr>
+<td>qaf ↔ hamza confusion</td>
+<td>observed directly in dialect errors</td>
+<td><a href="https://arxiv.org/abs/2608.21950">BULBUL</a></td>
+</tr>
+<tr>
+<td>Prompt/context biasing</td>
+<td>"little to no average-WER change"</td>
+<td><a href="https://arxiv.org/abs/2606.28884">GigaSpeechBench</a></td>
+</tr>
+<tr>
+<td>Automatic dialect ID</td>
+<td>79.8% best (wrong about 1 time in 5)</td>
+<td><a href="https://arxiv.org/abs/2509.02038">NADI 2025</a></td>
+</tr>
+<tr>
+<td>Single-speaker (tutor) adaptation</td>
+<td><strong>no published evidence</strong></td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>What to do:</strong>
+- <strong>Metric:</strong> CER after a fixed normaliser as the headline, with WER second. The NADI recipe strips diacritics, unifies hamza/madda and keeps Latin (<a href="https://arxiv.org/abs/2509.02038">NADI 2025</a>). Add one Anees rule: map Latin Arabizi through the existing <code>xscript.skel</code> consonant skeleton, so the script choice is not scored as an error.
+- <strong>Spelling reference:</strong> Maknuune gives 36K Palestinian entries under CC BY 4.0 (<a href="https://arxiv.org/abs/2210.12985">arXiv 2210.12985</a>). Use it plus Amal's spellings as the normaliser's lexicon.
+- <strong>Keyterms</strong> (up to 1,000, +$0.05/h) (<a href="https://elevenlabs.io/docs/overview/capabilities/speech-to-text">ElevenLabs</a>): try them on <strong>Amal's track first</strong>. On Medi's track, biasing toward correct forms could hide his mispronunciations. That risk is inferred, not measured.
+- <strong>Fine-tuning (LoRA tutor adapter): not now.</strong> There is no evidence on hours versus gain, and the real cost is labelling. Revisit only if gold-set CER on Amal's track stays high. Training on her voice needs her explicit consent.</p>
+<hr />
+<h2 id="measuring-what-medi-knows-fsrs-yes-free-form-llm-judging-no">Measuring what Medi knows: FSRS yes, free-form LLM judging no</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Question</th>
+<th>What the research says</th>
+<th>Verdict for Anees</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Best memory model for one learner?</td>
+<td>FSRS-6 log loss <strong>0.346</strong> vs HLR 0.469 (10k users, 350M reviews). Only a cross-user GRU beats it (<a href="https://github.com/open-spaced-repetition/srs-benchmark">srs-benchmark</a>)</td>
+<td>✅ <strong>FSRS supported</strong></td>
+</tr>
+<tr>
+<td>When to fit per-user parameters?</td>
+<td>Fitting beats the defaults after about <strong>16 reviews</strong>. Refit monthly or when reviews double (<a href="https://faqs.ankiweb.net/frequently-asked-questions-about-fsrs.html">Anki FAQ</a>)</td>
+<td>⚠️ Not done. Also, <code>card_results</code> stores got/missed, not the 1–4 grade</td>
+</tr>
+<tr>
+<td>Deep knowledge tracing?</td>
+<td>Logistic/IRT matches or beats deep models unless the data is large (<a href="https://files.eric.ed.gov/fulltext/EJ1273917.pdf">Gervet 2020</a>)</td>
+<td>❌ Don't build DKT for N=1</td>
+</tr>
+<tr>
+<td>Knowledge from lesson dialogue?</td>
+<td>LLM-labelled turns fed into knowledge tracing (LLMKT) beat BKT/DKT (<a href="https://arxiv.org/pdf/2409.16490">Scarlatos, LAK 2025</a>)</td>
+<td>✅ Treat each heard/said word as an extra review event</td>
+</tr>
+<tr>
+<td>Auto-detect non-understanding?</td>
+<td>Gemini found misunderstandings at <strong>77% recall, 47% precision</strong>. Over 40% went unnoticed by the speakers themselves (<a href="https://arxiv.org/abs/2512.20204">InCroMin</a>)</td>
+<td>⚠️ Usable only with human checks</td>
+</tr>
+<tr>
+<td>LLM judging Arabic learner grammar?</td>
+<td>GPT-4o: <strong>53.8 vs 88.9 F0.5</strong> on dialect. LLMs normalise toward MSA (<a href="https://arxiv.org/html/2503.00985">Alhafni &amp; Habash</a>)</td>
+<td>❌ <strong>Challenges the free-form readers</strong></td>
+</tr>
+<tr>
+<td>How many human labels?</td>
+<td>Prediction-powered inference gives valid confidence intervals from a small human sample plus many LLM labels, saving <strong>&gt;25%</strong> of human labels (<a href="https://www.alphaxiv.org/abs/2408.15204">Gligorić 2024</a>)</td>
+<td>✅ Amal/Medi taps become the calibration set</td>
+</tr>
+<tr>
+<td>Which agreement statistic?</td>
+<td>Kappa needs countable negatives. For "did it find the slip", pairwise F1 is the right measure (<a href="https://pubmed.ncbi.nlm.nih.gov/15684123/">Hripcsak 2005</a>)</td>
+<td>⚠️ Relabel 61.5% as Jaccard; report F1</td>
+</tr>
+<tr>
+<td>Automatic fluency?</td>
+<td>Mean length of run ρ <strong>0.749</strong>, pause ratio −0.715; rules + LLM <strong>0.818</strong> vs human raters (<a href="https://arxiv.org/html/2608.26137">arXiv 2608.26137</a>)</td>
+<td>✅ Cheap from Scribe word timestamps</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Reader redesign, based on the evidence:</strong>
+- <strong>Narrow task:</strong> "Is Medi's utterance acceptable Palestinian colloquial? <strong>Yes / No / Unsure</strong>. If No, give the minimal edit and a bucket." Pin the dialect: "dialect forms are correct; never convert to MSA."
+- <strong>2–3 votes with abstain.</strong> Majority voting moves LLM judges closer to humans (<a href="https://arxiv.org/pdf/2408.09235">arXiv 2408.09235</a>). Send "Unsure" and split votes to Amal.
+- <strong>High-recall cues first, LLM second.</strong> Use rules for repair markers (شو؟, ma fhimt, English after a tutor turn) and echo overlap. Give the LLM only the target turn plus the tutor turn before it, because longer context hurt in the word-meaning-negotiation study (<a href="https://lacuna.tiptreesystems.com/work/toward-the-automatic-detection-of-word-meaning-negotiation-indicators-in/wrk_e53d3ef4aafc5067f7b7a228148f01c9">WMN study</a>).
+- <strong>Report agreement against humans, not AI vs AI.</strong> Kappa can sit up to <strong>41 points</strong> below raw agreement (<a href="https://arxiv.org/html/2606.19544v1">arXiv 2606.19544</a>).
+- <strong>Listening labels</strong> (understood / breakdown / unknown, never counting a lone "aywa" as understood) and the difficulty tags are covered in the earlier <em>L2 listening difficulty tags</em> report. This report only adds how to log and score them.</p>
+<p><strong>"Words said cold":</strong> no validated metric exists (<a href="https://link.springer.com/chapter/10.1007/978-3-031-11644-5_71">Ehara, AIED 2022</a>). Define it as a word Medi produced with no tutor use in the last N turns and not in today's cards. Log it as productive evidence per lemma, and label it "new measure" on the dashboard.</p>
+<hr />
+<h2 id="translation-and-arabizi-models-read-dialect-well-but-write-it-badly">Translation and Arabizi: models read dialect well but write it badly</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Evidence</th>
+<th>Use in Anees</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Levantine → English</td>
+<td>about <strong>35 BLEU</strong> (Jais 36.1, AceGPT 35.3). Levantine is the lowest of 3 dialects (<a href="https://arxiv.org/html/2409.11404v3">AraDiCE</a>)</td>
+<td>✅ Glosses and meanings: fine with spot checks</td>
+</tr>
+<tr>
+<td>English → Levantine</td>
+<td><strong>0.2–3.8 BLEU</strong>. Outputs default to MSA (<a href="https://arxiv.org/html/2409.11404v3">AraDiCE</a>, <a href="https://aclanthology.org/2025.findings-acl.1137.pdf">AL-QASIDA</a>)</td>
+<td>❌ Never let a model write "correct Palestinian". Show Amal's sentences</td>
+</tr>
+<tr>
+<td>Arabizi → Arabic script</td>
+<td>best seq2seq <strong>80.6%</strong> word accuracy, from many-to-many spellings (<a href="https://aclanthology.org/2020.wanlp-1.15.pdf">Shazal 2020</a>)</td>
+<td>✅ <strong>Supports tutor-spelling-first</strong> via a per-tutor lexicon</td>
+</tr>
+<tr>
+<td>Arabizi → English (LLMs)</td>
+<td>GPT-4o 14.3 BLEU. Claude 3.5 Sonnet 7.3 BLEU, TER 119 (verbose output) (<a href="https://arxiv.org/html/2502.20973v1">arXiv 2502.20973</a>)</td>
+<td>⚠️ Store in Arabic script; Arabizi is a display layer. Force terse JSON output</td>
+</tr>
+<tr>
+<td>Lemma / gloss</td>
+<td>Camelira Levantine lemma accuracy <strong>85.5%</strong> (<a href="https://aclanthology.org/2022.emnlp-demos.32.pdf">Camelira</a>)</td>
+<td>⚠️ About 1 in 7 lemmas wrong; flag confidence and let Amal fix</td>
+</tr>
+<tr>
+<td>MT evaluation</td>
+<td>COMET-Kiwi mis-ranked systems on dialect; an LLM judge tracked humans (<a href="https://arxiv.org/html/2502.20973v1">arXiv 2502.20973</a>)</td>
+<td>Use an LLM judge plus about 200 tutor-checked lines (≈ ±7 pts)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Arabizi order of trust:</strong>
+1. Amal's own spelling (lexicon)
+2. Deterministic map (3=ع, 7=ح, 2=ء …)
+3. LLM fill, tagged <code>source=generated</code></p>
+<p>Log a flag when Amal corrects a generated form, so her letter preferences are learned rather than guessed.</p>
+<hr />
+<h2 id="target-pipeline-raw-layers-stay-frozen-every-step-logs-a-run">Target pipeline: raw layers stay frozen, every step logs a run</h2>
+<pre><code>Meet ─► Recall bot: 2 tracks ─► VAD ─► Scribe v2 verbatim, per track ─► merge by word time
+                                              │  every call ─► runs.jsonl
+L1 raw ASR (immutable, sha) ─► L2 script layer (Latin Arabizi → skeleton; English → Latin) ─► L3 &quot;intended form&quot; (LLM proposal only)
+      │
+utterances ─► cue rules (high recall) ─► LLM judge (Yes/No/Unsure ×2–3, dialect-pinned) ─► human sample ─► decisions.jsonl
+      │
+learner evidence: card grade 1–4 + heard/said events ─► per-lemma state (FSRS R + transcript evidence) ─► Word Bank · Grammar Console · Progress
+      │
+build_ai_health.py ─► docs/data/ai-health.json ─► AI Reports tab
+</code></pre>
+<hr />
+<h2 id="current-choices-what-the-evidence-supports-and-what-it-challenges">Current choices: what the evidence supports and what it challenges</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Choice</th>
+<th>Verdict</th>
+<th>Why (one line)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ElevenLabs Scribe v2</td>
+<td>✅ <strong>Supported</strong></td>
+<td>Clear code-switching lead (13% vs 39–44%); word timestamps; verbatim flag; $0.22/h</td>
+</tr>
+<tr>
+<td>…as the only engine forever</td>
+<td>⚠️ Challenged</td>
+<td>Mid-pack on monolingual Levantine. Re-test MAI-Transcribe-2 and Gemini 3 Flash <strong>on your gold set</strong></td>
+</tr>
+<tr>
+<td>Separate per-person tracks</td>
+<td>✅ <strong>Strongly supported</strong></td>
+<td>Removes the 17–20% DER of mixed audio; allows per-speaker settings</td>
+</tr>
+<tr>
+<td>Mixed-audio fallback (Arabic share / pitch)</td>
+<td>⚠️ Challenged</td>
+<td>Caused the 09-18 swap. Mark these lessons low-trust on the dashboard</td>
+</tr>
+<tr>
+<td>FSRS-6</td>
+<td>✅ <strong>Supported</strong></td>
+<td>Best per-user evidence at N=1</td>
+</tr>
+<tr>
+<td>Storing only got/missed; no refit; no calibration check</td>
+<td>⚠️ Challenged</td>
+<td>Log the 1–4 grade, scheduler version and state; refit when reviews double</td>
+</tr>
+<tr>
+<td>Tutor-spelling-first Arabizi</td>
+<td>✅ <strong>Supported</strong></td>
+<td>Model ceiling is about 80%; spellings are many-to-many</td>
+</tr>
+<tr>
+<td>Skipping Latin-script turns in counts</td>
+<td>❌ Challenged</td>
+<td>Hides 43% of error rows. Normalise instead of skipping</td>
+</tr>
+<tr>
+<td>Free-form Claude readers, unpinned</td>
+<td>❌ <strong>Challenged</strong></td>
+<td>LLMs weak on dialect grammar (53.8 F0.5); 61.5% AI-vs-AI agreement; nothing reproducible</td>
+</tr>
+<tr>
+<td>"Agree %" shown as Jaccard</td>
+<td>⚠️ Challenged</td>
+<td>Label it, or show pairwise F1 (71.4%)</td>
+</tr>
+<tr>
+<td>Grading the detector on rows it was tuned on</td>
+<td>❌ Challenged</td>
+<td>76% → 11%. Freeze tuned vs held-out splits</td>
+</tr>
+<tr>
+<td>20-clip preference vote as the ASR evaluation</td>
+<td>⚠️ Challenged</td>
+<td>Preference counts, not accuracy. Add CER per channel</td>
+</tr>
+<tr>
+<td>LLM post-correction of transcripts</td>
+<td>⚠️ Keep separate</td>
+<td>Over-correction erases learner errors. Layer 3 only</td>
+</tr>
+<tr>
+<td>Committed JSON as the store (no MLflow/Langfuse)</td>
+<td>✅ Supported</td>
+<td>Lightest option for a static site. Use OTel field names so it can be exported later</td>
+</tr>
+<tr>
+<td>LoRA tutor fine-tune</td>
+<td>⏸ Not yet</td>
+<td>No evidence on gains; labelling is the real cost</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="roadmap-14-items-ordered-by-impact-per-evening">Roadmap: 14 items, ordered by impact per evening</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Build</th>
+<th>Effort</th>
+<th>Metric it moves</th>
+<th>Why now</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>track.py</code> wrapper; <code>claude -p --output-format json --model &lt;pinned&gt; --max-budget-usd</code>; Scribe + scorer write runs</td>
+<td><strong>S</strong></td>
+<td>AI calls logged <strong>0% → 100%</strong>; $/lesson known</td>
+<td>Unblocks every later number (<a href="https://code.claude.com/docs/en/agent-sdk/cost-tracking">CLI cost docs</a>)</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>decisions.jsonl</code>: nightly pull of <code>amal_rules</code> + reviews; stop PATCHing <code>payload.applied</code></td>
+<td><strong>S</strong></td>
+<td>Human-vs-AI agreement computable; age of the oldest open item</td>
+<td>Turns Amal's taps into gold</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Freeze gold sets + <code>gold/manifest.json</code> (sha, split, n)</td>
+<td><strong>S–M</strong></td>
+<td>Steps with a standing gold set <strong>1/9 → 5/9</strong></td>
+<td>Stops tuning on test rows</td>
+</tr>
+<tr>
+<td>4</td>
+<td>GitHub Actions: pytest floors for deterministic evals + page invariants ("100% ⇒ 0 errors")</td>
+<td><strong>S</strong></td>
+<td>Shipped bugs with a regression test <strong>1/7 → 7/7</strong></td>
+<td>Free for public repos</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>build_ai_health.py</code> + health panel on AI Reports</td>
+<td><strong>M</strong></td>
+<td>Monitoring score 0 → ~1; stale steps caught in under 24 h</td>
+<td>Makes the tab a to-do list</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Script layer: Latin Arabizi → skeleton, so Medi's Latin turns are counted</td>
+<td><strong>S–M</strong></td>
+<td>Rows skipped <strong>43% → &lt;5%</strong>; detector real recall</td>
+<td>Cheapest recall win</td>
+</tr>
+<tr>
+<td>7</td>
+<td>ASR gold: 1–2 h verbatim, both channels, in Amal's spelling</td>
+<td><strong>M</strong> (+ about 2–6 h of labelling)</td>
+<td>CER per channel; learner-error retention; hallucinated words</td>
+<td>Needed before any engine or keyterm change</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Reader → narrow judge (Yes/No/Unsure, ×2–3, dialect-pinned) + canary on 2 frozen lessons</td>
+<td><strong>M</strong></td>
+<td>Human-sampled precision; reader F1; % sent to humans</td>
+<td>Replaces AI-vs-AI trust</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>card_results</code>: grade 1–4, <code>scheduler_version</code>, <code>state_before</code>, <code>card_id</code>; calibration chart</td>
+<td><strong>S</strong></td>
+<td>Predicted R vs observed recall gap; log loss</td>
+<td>FSRS evidence assumes this data</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Keyterms A/B on Amal's track; challenger bake-off (MAI-2, Gemini 3 Flash)</td>
+<td><strong>S</strong> each</td>
+<td>CER difference; $/h</td>
+<td>Only after #7</td>
+</tr>
+<tr>
+<td>11</td>
+<td><code>utterance_events</code> + listening labeller + swipe sampling (4 uncertain / 5 random / 1 repeat)</td>
+<td><strong>M</strong></td>
+<td>Labeller accuracy ±7 pts after about 12 lessons</td>
+<td>Ladder needs it</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Fluency trends: mean length of run, pause ratio, speech rate from word timestamps</td>
+<td><strong>S–M</strong></td>
+<td>Per-lesson fluency trend</td>
+<td>Best-validated automatic CAF measures</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Per-lemma evidence model: FSRS + heard/said + "said cold", lemmas via Camelira/Maknuune</td>
+<td><strong>M–L</strong></td>
+<td>Known-lemma count; said-cold count</td>
+<td>Merges transcripts and cards</td>
+</tr>
+<tr>
+<td>14</td>
+<td>LoRA tutor adapter</td>
+<td><strong>L</strong></td>
+<td>Amal-track CER</td>
+<td>Only if #7 shows a need</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Order:</strong> 1 → 2 → 3 → 4 → 5 (≈ 4 evenings + 1 weekend), then 6 → 7 → 8 → 9, then the rest.</p>
+<hr />
+<h2 id="tracking-design-three-append-only-logs-feed-one-dashboard-file">Tracking design: three append-only logs feed one dashboard file</h2>
+<p><strong>Rules:</strong>
+- The repo is <strong>public</strong>, so log hashes and paths only, never transcript or prompt text.
+- Never edit a line; supersede it.
+- Field names follow the OpenTelemetry GenAI conventions, so the logs can move to Langfuse or MLflow later (<a href="https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/gen-ai/gen-ai-spans.md">OTel GenAI</a>).</p>
+<h3 id="1-run-log-datarunsyyyy-mmjsonl-one-line-per-ai-scorer-or-build-call">1 · Run log: <code>data/runs/YYYY-MM.jsonl</code> (one line per AI, scorer or build call)</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Field group</th>
+<th>Fields</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>identity</td>
+<td><code>run_id</code>, <code>parent_id</code>, <code>trace_id</code> (lesson + trigger), <code>kind</code> (inference/eval/build/ingest), <code>step</code>, <code>lesson_date</code>, <code>pass</code>, <code>role</code>, <code>trigger</code>, <code>host</code></td>
+</tr>
+<tr>
+<td>what ran</td>
+<td><code>gen_ai.provider.name</code>, <code>gen_ai.request.model</code>, <code>gen_ai.response.model</code>, <code>tool_version</code>, <code>params</code>, <code>prompt_file</code>, <code>prompt_sha</code>, <code>code_sha</code> (+dirty)</td>
+</tr>
+<tr>
+<td>data</td>
+<td><code>input_refs[{path,sha256}]</code>, <code>output_refs[{path,sha256,rows}]</code></td>
+</tr>
+<tr>
+<td>outcome</td>
+<td><code>status</code> (ok/error/timeout/empty_output/skipped_budget), <code>error_type</code>, <code>retries</code>, <code>started_at</code>, <code>duration_ms</code></td>
+</tr>
+<tr>
+<td>cost</td>
+<td><code>usage{input,output,cache tokens, audio_min}</code>, <code>cost_usd</code>, <code>cost_basis</code> (estimate/list_price)</td>
+</tr>
+<tr>
+<td>quality</td>
+<td><code>metrics{dataset, version, sha, n, recall, precision, f1, cer…}</code>, <code>agreement{vs_run_id, f1_existence, jaccard, kappa_bucket}</code></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="2-decisions-log-datadecisionsyyyy-mmjsonl-one-line-per-human-verdict">2 · Decisions log: <code>data/decisions/YYYY-MM.jsonl</code> (one line per human verdict)</h3>
+<p><code>decision_id, ts, who (Medi|Amal), channel (swipe|tutor_page|chat|commit), about_type (rule|audit_row|pattern|word|arabizi|label), about_id, ai_run_id, ai_value, answer, corrected_value, confidence, reason, latency_ms, sampling (random|uncertain|repeat), supersedes, applied_commit, source_row</code></p>
+<h3 id="3-learner-events-supabase-where-the-browser-already-writes">3 · Learner events (Supabase, where the browser already writes)</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Table</th>
+<th>Add / create</th>
+<th>Mirrors</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>card_results</code></td>
+<td><code>grade</code> 1–4, <code>scheduler_version</code>, <code>state_before{S,D,due,reps,lapses}</code>, <code>card_id</code>, <code>prompt_variant</code>, <code>client_version</code>, <code>session_id</code></td>
+<td>Anki revlog (<a href="https://github.com/ankitects/anki/blob/main/rslib/src/revlog/mod.rs">rslib</a>)</td>
+</tr>
+<tr>
+<td><code>utterance_events</code> (new)</td>
+<td><code>id</code> (hash), <code>lesson_date, speaker, t_start, t_end, script, transcript_run_id, event (said/heard/typed), label, label_run_id, label_version, confidence</code></td>
+<td>Duolingo HLR/SLAM traces (<a href="https://github.com/duolingo/halflife-regression">HLR data</a>)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="4-eval-sets-goldmanifestjson-nameversion-sha-never-edited-only-new-versions">4 · Eval sets: <code>gold/manifest.json</code> (name@version + sha; never edited, only new versions)</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Gold set</th>
+<th>Seed from</th>
+<th>Metrics</th>
+<th>Gate / cadence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>asr@v1</code></td>
+<td>M0 50 lines + 20 clips → grow to 1–2 h</td>
+<td>CER/WER (normalised + raw on learner), script-normalised WER, learner-error retention, hallucinated words</td>
+<td>On engine/param change</td>
+</tr>
+<tr>
+<td><code>speaker@v1</code></td>
+<td>M0 lines + 1 mixed lesson</td>
+<td>speaker accuracy (target ≥ 90%)</td>
+<td>On change; <code>unlabeled_share</code> every lesson</td>
+</tr>
+<tr>
+<td><code>grammar@v1-tuned / v1-heldout / v2-audit</code></td>
+<td>105 / 29 / 1,018 rows</td>
+<td>recall, precision, F1, bucket accuracy</td>
+<td>pytest floor = last − 2 pts</td>
+</tr>
+<tr>
+<td><code>reader@v1</code></td>
+<td>2–3 frozen lessons + human verdicts</td>
+<td>pairwise F1, kappa on labels, human precision</td>
+<td>Canary when model or brief sha changes</td>
+</tr>
+<tr>
+<td><code>arabizi@v1</code></td>
+<td>the 100-line check</td>
+<td>accuracy (target 95)</td>
+<td>On prompt change</td>
+</tr>
+<tr>
+<td><code>sheet@v1</code></td>
+<td>the 98-word check</td>
+<td>"new word" precision</td>
+<td>On code change</td>
+</tr>
+<tr>
+<td><code>gloss@v1</code></td>
+<td>200 tutor lines + Amal's English</td>
+<td>chrF++, judge-vs-Amal agreement</td>
+<td>Quarterly</td>
+</tr>
+<tr>
+<td><code>ladder@v1</code></td>
+<td>logged swipes</td>
+<td>confusion matrix, accuracy + 95% CI</td>
+<td>Weekly</td>
+</tr>
+<tr>
+<td><code>fsrs</code></td>
+<td>the <code>card_results</code> replay</td>
+<td>log loss, calibration</td>
+<td>Monthly refit</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="5-what-the-ai-reports-tab-reads-docsdataai-healthjson-only-built-hourly">5 · What the AI Reports tab reads: <code>docs/data/ai-health.json</code> only (built hourly)</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Panel</th>
+<th>Shows</th>
+<th>Goes red when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Freshness grid</td>
+<td>lessons × steps: done / failed / missing</td>
+<td>a step is missing for a lesson older than 24 h</td>
+</tr>
+<tr>
+<td>Step scorecard</td>
+<td>metric on a named gold version, trend line, model/prompt change markers</td>
+<td>a drop of ≥ 5 pts vs the last accepted run, or model/prompt changed with no canary</td>
+</tr>
+<tr>
+<td>Agreement</td>
+<td>reader F1, human-vs-AI agreement, share sent to humans</td>
+<td>amber after 7 days with no human sample</td>
+</tr>
+<tr>
+<td>Drift proxies</td>
+<td>Latin share, hole rows, unlabeled share, bucket mix vs trailing mean</td>
+<td>a proxy moves more than 2× its trailing spread</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>$/lesson per provider, tokens, audio minutes, budget used</td>
+<td>cost is more than 2× the trailing median</td>
+</tr>
+<tr>
+<td>Human queue</td>
+<td>18 rules, 116 Amal items, age of the oldest</td>
+<td>oldest item older than 14 days</td>
+</tr>
+<tr>
+<td>Incidents → tests</td>
+<td>each shipped bug + whether a test exists</td>
+<td>any bug without a test</td>
+</tr>
+<tr>
+<td>Learner loop</td>
+<td>answers/day, FSRS predicted vs observed recall</td>
+<td>calibration gap over 10 pts</td>
+</tr>
+</tbody>
+</table></div>
+<p>Keep the 7 existing report cards below the panel as a <strong>Research log</strong>, each with <code>method, n, decision, status</code>.</p>
+<hr />
+<h2 id="conclusion">Conclusion</h2>
+<ul>
+<li><strong>The next accuracy gain comes from counting correctly, not from a better model.</strong> The Latin-script skip, the Jaccard label and the tuned-on-test detector all make Anees look worse, or better, than it is.</li>
+<li><strong>Use Amal's taps as the calibration set.</strong> Her verdicts, logged as decisions and sampled on purpose, are the one resource no vendor has. They are what lets any AI number on this tab be trusted.</li>
+<li><strong>Open unknowns:</strong> there is no Palestinian code-switching ASR benchmark, no study of LLM judges on learner Levantine, and no validated "said cold" metric. Once logged, Anees's own data will be the first evidence on all three.</li>
+</ul>
+</article>
+</main></div></div><script>if(location.hash){const e=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(e)setTimeout(()=>e.scrollIntoView({block:"start"}),50);}</script><script src="../js/build.js"></script><script src="../js/stale.js?v=fresh1"></script></body></html>

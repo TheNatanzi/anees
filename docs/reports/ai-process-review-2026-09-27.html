@@ -1,0 +1,449 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Anees AI Process Review · AI Reports · Anees</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap"><style>
+:root{
+  --bg:#F5F2EA; --surface:#ECE8DD; --well:#E3E1D5; --text:#1E2A22; --muted:#6E7A6B; --hair:#CFCABB;
+  --ink:#3E5C4B; --sage:#7FA08C; --wash:rgba(127,160,140,.18); --accent:#B9631F; --accent-wash:rgba(185,99,31,.12);
+  --good:#5B8C6E; --ok:#4E7FA8; --warn:#C98A3E; --bad:#C4573C;
+  --seq1:#E4E8DA; --seq2:#B9CBBE; --seq3:#7FA08C; --seq4:#527463; --seq5:#3E5C4B;
+  --serif:"Fraunces","Iowan Old Style",Georgia,serif; --sans:"IBM Plex Sans",system-ui,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  color-scheme:dark; --bg:#141D1A; --surface:#1C2724; --well:#22302B; --text:#E7E4DA; --muted:#96A394; --hair:#2F3C37;
+  --ink:#9DBBA8; --sage:#7FA08C; --wash:rgba(127,160,140,.16); --accent:#D9895A; --accent-wash:rgba(217,137,90,.14);
+  --good:#7FB08E; --ok:#7AA6CC; --warn:#D9A05C; --bad:#D9785E;
+  --seq1:#22302B; --seq2:#33483F; --seq3:#4F6F5F; --seq4:#7FA08C; --seq5:#B3CDBC; }}
+:root[data-theme="dark"]{
+  color-scheme:dark; --bg:#141D1A; --surface:#1C2724; --well:#22302B; --text:#E7E4DA; --muted:#96A394; --hair:#2F3C37;
+  --ink:#9DBBA8; --sage:#7FA08C; --wash:rgba(127,160,140,.16); --accent:#D9895A; --accent-wash:rgba(217,137,90,.14);
+  --good:#7FB08E; --ok:#7AA6CC; --warn:#D9A05C; --bad:#D9785E;
+  --seq1:#22302B; --seq2:#33483F; --seq3:#4F6F5F; --seq4:#7FA08C; --seq5:#B3CDBC; }
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 var(--sans);font-variant-numeric:tabular-nums}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:28px 56px}
+.eyebrow{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+h1{font:600 34px/1.1 var(--serif);margin:6px 0 6px;text-wrap:balance;letter-spacing:-.01em}
+h2{font:600 17px/1.2 var(--serif);margin:0}
+.lede{color:var(--muted);margin:0 0 22px;max-width:66ch}
+.legendline{display:flex;flex-wrap:wrap;gap:10px 18px;color:var(--muted);font-size:12.5px;margin-bottom:22px}
+.tag{display:inline-block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid var(--hair);color:var(--muted);white-space:nowrap}
+.tag.new{border-color:transparent;background:var(--accent-wash);color:var(--accent)}
+.tag.now{border-color:transparent;background:var(--wash);color:var(--ink)}
+.strip{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;background:var(--well);border-radius:12px;padding:14px 18px;margin-bottom:28px}
+.strip .kv{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:baseline}
+.strip .kv span{color:var(--muted);font-size:12.5px}.strip .kv b{font:500 20px/1 var(--serif);margin-right:4px;color:var(--text)}
+.statusbar{display:flex;height:10px;border-radius:5px;overflow:hidden;gap:2px;min-width:220px;margin-top:8px}
+.statusbar i{display:block;height:100%}
+.strip small{color:var(--muted);font-size:12px;display:block;margin-top:6px}
+.oneline{font:500 17px/1.35 var(--serif);margin:0 0 8px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.panel{background:var(--surface);border-radius:12px;padding:18px 18px 14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.panel.wide{grid-column:1/-1}
+.ph{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.ph .key{font:600 12px/1 var(--sans);color:var(--accent);letter-spacing:.08em;margin-bottom:6px}
+.ph p{margin:4px 0 0;color:var(--muted);font-size:12.5px;max-width:60ch}
+.tags{display:flex;flex-direction:column;gap:5px;align-items:flex-end;flex:none}
+.big{font:500 30px/1 var(--serif);letter-spacing:-.01em}
+.big small{font:12.5px var(--sans);color:var(--muted);margin-left:6px}
+svg{display:block;width:100%;height:auto;overflow:visible}
+svg text{font-family:var(--sans);fill:var(--muted);font-size:11px}
+svg .lbl{fill:var(--text)}
+svg .grid line{stroke:var(--hair);stroke-width:1}
+svg .axis{stroke:var(--hair)}
+.foot{color:var(--muted);font-size:12px;margin-top:auto;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.foot .why{color:var(--text)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.rows{display:grid;gap:7px}
+.row{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;font-size:12.5px}
+.row .id{font-weight:600;color:var(--text)}
+.row .bar{height:8px;border-radius:4px;background:var(--well);overflow:hidden}
+.row .bar i{display:block;height:100%;border-radius:4px;background:var(--ink)}
+.row .n{color:var(--muted);white-space:nowrap}
+.sub{font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;font-weight:600;white-space:nowrap}
+.pill.bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.pill.warn{background:color-mix(in srgb,var(--warn) 20%,transparent);color:var(--warn)}
+.pill.good{background:color-mix(in srgb,var(--good) 20%,transparent);color:var(--good)}
+.pill.ok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.pill.none{background:var(--well);color:var(--muted);font-weight:500}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-weight:500;color:var(--muted);font-size:12px;letter-spacing:.04em;text-transform:uppercase;padding:8px 10px;border-bottom:1px solid var(--hair)}
+td{padding:9px 10px;border-bottom:1px solid var(--hair);vertical-align:top}
+td:first-child{font-weight:600;white-space:nowrap}
+td code,li code,.s code,.ph code{font-size:12px;background:var(--well);padding:1px 5px;border-radius:4px}
+.tblwrap{overflow-x:auto}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.tip{position:fixed;pointer-events:none;background:var(--text);color:var(--bg);font-size:12px;padding:6px 9px;border-radius:6px;opacity:0;transform:translate(-50%,calc(-100% - 10px));transition:opacity .12s;max-width:300px;white-space:normal;z-index:9}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mx td{text-align:center;padding:7px 6px}.mx td:first-child{text-align:left;white-space:normal;font-weight:500}
+.mx th{text-align:center;padding:8px 4px;font-size:11px}.mx th:first-child{text-align:left}
+.cell{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px}
+.cell.y{background:var(--good)}.cell.p{background:var(--warn)}.cell.n{background:var(--bad)}.cell.x{background:var(--well);border:1px dashed var(--hair)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{font-size:12px;background:var(--well);padding:3px 9px;border-radius:999px;color:var(--text)}
+.catches{display:grid;gap:8px}
+.catch{display:grid;grid-template-columns:52px 1fr;gap:10px;font-size:12.5px;align-items:start}
+.catch .d{font-weight:600;color:var(--muted)}
+.catch .w{color:var(--text)}.catch .w em{font-style:normal;color:var(--accent);font-weight:600}
+.rank{display:grid;gap:8px}
+.ri{display:grid;grid-template-columns:26px minmax(0,1fr) 130px;gap:12px;align-items:center;background:var(--well);border-radius:10px;padding:10px 12px}
+.ri .no{font:600 18px/1 var(--serif);color:var(--accent)}
+.ri .t{font-weight:600;font-size:13.5px}.ri .s{font-size:12.5px;color:var(--muted);margin-top:2px}
+.ri .sc{display:flex;flex-direction:column;gap:4px;align-items:flex-end;font-size:11.5px;color:var(--muted)}
+.ri .sc .bar{width:100%;height:7px;border-radius:4px;background:var(--surface);overflow:hidden}
+.ri .sc .bar i{display:block;height:100%;background:var(--ink);border-radius:4px}
+.health td{padding:8px 8px}.health .spark{width:90px;height:22px}
+.muted{color:var(--muted)}
+ul.tight{margin:0;padding-left:18px;font-size:12.5px;display:grid;gap:4px}
+@media (max-width:820px){.grid{grid-template-columns:1fr}.two{grid-template-columns:1fr}.panel.wide{grid-column:auto}h1{font-size:28px}.ph{flex-direction:column}.tags{flex-direction:row;flex-wrap:wrap;align-items:flex-start}.ri{grid-template-columns:22px minmax(0,1fr)}.ri .sc{grid-column:2;align-items:flex-start}.ri .sc .bar{width:120px}}
+@media (prefers-reduced-motion:reduce){.tip{transition:none}}
+</style></head><body><p style="max-width:1180px;margin:16px auto 0;padding-inline:20px;font:13px system-ui"><a href="../ai-reports.html">‹ All AI reports</a></p>
+
+<div class="wrap">
+  <div class="eyebrow">Anees · AI Reports · process review · 27 Sep 2026</div>
+  <h1>The AI gets measured once, then trusted</h1>
+  <p class="lede">An audit of the AI Reports page and of every AI step from recording to pages. Every number comes from the repo's JSON files and git history, as of commit 13:41 on 27 Sep.</p>
+  <div class="legendline"><span><span class="tag new">new data</span> &nbsp;not recorded anywhere today</span><span><span class="tag now">ready today</span> &nbsp;can be computed from files already in the repo</span><span><span class="tag">effort</span> &nbsp;S = an evening, M = a weekend</span></div>
+
+  <div class="strip">
+    <div>
+      <p class="oneline">One step out of nine has a gold set. On that set it scored 76%, but on real lessons it catches 11%.</p>
+      <div class="kv"><span><b>11%</b>detector recall, real (104 of 961)</span><span><b>61.5%</b>AI readers agree (target 95%)</span><span><b>0</b>run logs kept</span><span><b>18</b>rules waiting for your yes/no</span><span><b>116</b>items waiting on Amal</span></div>
+      <div class="statusbar" aria-label="How well each of the nine steps is measured"><i style="width:11.1%;background:var(--good)" title="1 step: standing gold set"></i><i style="width:33.3%;background:var(--ok)" title="3 steps: measured once"></i><i style="width:11.1%;background:var(--warn)" title="1 step: AI checks AI"></i><i style="width:33.3%;background:var(--bad)" title="3 steps: never measured or not stored"></i><i style="width:11.1%;background:var(--hair)" title="1 step: no AI"></i></div>
+      <small>Of the 9 steps: 1 has a standing gold set · 3 were measured once · 1 is only AI checking AI · 3 were never measured or aren't stored · 1 has no AI</small>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <section class="panel wide" aria-labelledby="hA">
+      <div class="ph"><div><div class="key">A</div><h2 id="hA">The pipeline, coloured by how well each step is measured</h2><p>Hover or tap a step for its model, its accuracy check and what gets lost. The colour shows how well a step's accuracy is measured, not how accurate it is.</p></div><div class="tags"><span class="tag now">ready today</span></div></div>
+      <div id="chA"></div>
+      <div class="legend"><span><i style="background:var(--good)"></i>standing gold set + scorer</span><span><i style="background:var(--ok)"></i>measured once, never re-run</span><span><i style="background:var(--warn)"></i>only AI checks AI</span><span><i style="background:var(--bad)"></i>never measured or not stored</span><span><i style="background:var(--hair)"></i>no AI</span></div>
+      <div class="foot"><span class="why">Errors add up along the chain: 43% of the slips found have his Arabic in Latin letters (Scribe), and the detector skips those lines.</span><span>416 of 961 rows · PROCESS-AUDIT §1 G12</span></div>
+    </section>
+
+    <section class="panel" aria-labelledby="hB">
+      <div class="ph"><div><div class="key">B</div><h2 id="hB">Detector recall: the number quoted vs the real one</h2><p>The grammar detector was tuned on the same 79 rows it was graded on. On a lesson it had never seen, recall fell by half. On the full audit it was lower still.</p></div><div class="tags"><span class="tag now">ready today</span></div></div>
+      <div class="big">76% → 11%<small>tuned gold set → all 13 lessons</small></div>
+      <div id="chB"></div>
+      <div class="foot"><span class="why">Scores only survive in commit messages. The scorer's own "last run" file doesn't exist.</span><span>score_grammar_detector.py, rerun today with --no-run</span></div>
+    </section>
+
+    <section class="panel" aria-labelledby="hC">
+      <div class="ph"><div><div class="key">C</div><h2 id="hC">Two AI readers rarely agree</h2><p>The overnight brief said to keep looping until two passes agree on ≥95% of rows. No lesson got there, and the loop stopped after 2 passes anyway.</p></div><div class="tags"><span class="tag now">ready today</span></div></div>
+      <div class="big">61.5%<small>r1 vs r2, both passes · max 80.9%</small></div>
+      <div id="chC"></div>
+      <div class="legend"><span><i style="background:var(--sage);border-radius:50%"></i>pass 1 r1 vs r2</span><span><i style="background:var(--ink);border-radius:50%"></i>pass 2 r1 vs r2</span><span><i style="background:var(--accent)"></i>pass 1 vs pass 2, settled rows</span></div>
+      <div class="foot"><span class="why">72% of disputes are "only one reader saw it", so the answer key itself changes each time it's rebuilt.</span><span>461 of 644 disputes · 24% of rows found in one pass only</span></div>
+    </section>
+
+    <section class="panel" aria-labelledby="hD">
+      <div class="ph"><div><div class="key">D</div><h2 id="hD">What each step records, and what's lost</h2><p>A green square means the fact is saved with the output. Red means it's lost after the run. Dashed means it doesn't apply.</p></div><div class="tags"><span class="tag new">new data</span></div></div>
+      <div class="tblwrap"><table class="mx" id="mx"></table></div>
+      <div class="legend"><span><i style="background:var(--good)"></i>kept</span><span><i style="background:var(--warn)"></i>partly</span><span><i style="background:var(--bad)"></i>lost</span><span><i style="background:var(--well);border:1px dashed var(--hair)"></i>n/a</span></div>
+      <div class="foot"><span class="why">The reader loop saves its disagreements (compare.json), but nothing records who, when, which model or what it cost.</span><span>logs are gitignored or absent</span></div>
+    </section>
+
+    <section class="panel" aria-labelledby="hE">
+      <div class="ph"><div><div class="key">E</div><h2 id="hE">Mistakes you caught after they shipped</h2><p>Each one would have been a regression test. Today they turn into a commit and are forgotten.</p></div><div class="tags"><span class="tag now">ready today</span><span class="tag">source · git log</span></div></div>
+      <div class="catches">
+        <div class="catch"><span class="d">27 Sep</span><span class="w"><em>56 of 98</em> "new" words were already on your list. The string match was wrong more often than right.</span></div>
+        <div class="catch"><span class="d">27 Sep</span><span class="w">The sheet check was patched <em>5 times in one night</em>. One fix did nothing because a typo turned the rule off.</span></div>
+        <div class="catch"><span class="d">26 Sep</span><span class="w">Sep 23 was shown as <em>100% with 35 errors</em> listed.</span></div>
+        <div class="catch"><span class="d">26 Sep</span><span class="w">"why no arabizi again", the second time. A gap guard was added afterwards.</span></div>
+        <div class="catch"><span class="d">26 Sep</span><span class="w">The AI Reports card still says <em>961</em> rows. The audit file now says <em>1,018</em>.</span></div>
+        <div class="catch"><span class="d">23 Sep</span><span class="w">09-18 speakers came out <em>swapped</em>: the "more Arabic = Amal" rule flipped.</span></div>
+        <div class="catch"><span class="d">5 Sep</span><span class="w">The hourly task <em>overwrote</em> the two-track lesson. The E1 guard was added.</span></div>
+      </div>
+      <div class="foot"><span class="why">7 catches, 0 fixtures that would fail if the bug came back (the Arabizi guard is the only one).</span><span>21 commits cite Medi by name</span></div>
+    </section>
+
+    <section class="panel" aria-labelledby="hF">
+      <div class="ph"><div><div class="key">F</div><h2 id="hF">Cost and time: mostly untracked</h2><p>The only cost ledger is data/budget.json. It starts on 5 Sep, logs one 26 Sep run twice, and never records a Claude run.</p></div><div class="tags"><span class="tag new">new data</span></div></div>
+      <div class="two">
+        <div><div class="sub">Recorded spend</div><div class="big">$4.82<small>31 calls</small></div><div class="rows" style="margin-top:10px" id="spend"></div></div>
+        <div><div class="sub">Claude reader runs, never priced or timed</div><div class="big">~90<small>runs</small></div><p class="muted" style="font-size:12.5px;margin:8px 0 0">14 lessons × 2 passes × 3 readers, plus pattern and Arabizi fills. Each run has a 60-minute timeout. Its duration, model and cost are dropped.</p></div>
+      </div>
+      <div class="foot"><span class="why">Scribe costs about $0.44 per two-track lesson. The Claude cost per lesson is unknown.</span><span>$0.22 per audio hour</span></div>
+    </section>
+
+    <section class="panel wide" aria-labelledby="hG">
+      <div class="ph"><div><div class="key">G</div><h2 id="hG">The AI Reports page itself</h2><p>It lists 7 reports and was last touched on 26 Sep. Here is what each card states, and what the page leaves out.</p></div><div class="tags"><span class="tag now">ready today</span></div></div>
+      <div class="tblwrap"><table>
+        <thead><tr><th>Report</th><th>Question</th><th>Method on card</th><th>Accuracy, and against what</th><th>Decision it led to</th><th>Still true?</th></tr></thead>
+        <tbody id="rep"></tbody>
+      </table></div>
+      <div class="two" style="margin-top:4px">
+        <div><div class="sub">Audits since 10 Sep that are missing from the page</div><div class="chips"><span>Grammar gold set + detector, 23 Sep</span><span>Lesson audit, 23 Sep</span><span>Grammar sweep, 24 Sep</span><span>Full audit, 1,018 rows, 26–27 Sep</span><span>Arabizi 96/100, 26 Sep</span><span>Word-card audit, 273 cards, 27 Sep</span></div></div>
+        <div><div class="sub">Stale parts</div><ul class="tight"><li>The summary tiles are hard-coded ("Frozen clips 20", "Engine ElevenLabs").</li><li>ai_rules.json was last updated <b>10 Sep</b>, but RULES.md changed on 22, 23 and 26 Sep.</li><li>No card has a <code>method</code>, <code>n</code>, <code>decision</code> or <code>status</code> field.</li><li>Bake-off follow-up "xAI is the best untested": 0 commits since.</li></ul></div>
+      </div>
+      <div class="foot"><span class="why">Who reads it: you, to see why the app does what it does. At the moment it reads as a history, not a to-do list.</span><span>docs/data/ai_reports.json · 2 commits ever</span></div>
+    </section>
+
+    <section class="panel wide" aria-labelledby="hH">
+      <div class="ph"><div><div class="key">H</div><h2 id="hH">Improvements, ranked by impact ÷ effort</h2><p>Items 1 to 4 fit in one evening and make every later number trustworthy. Each item states the number it would fix.</p></div><div class="tags"><span class="tag new">new data</span><span class="tag">inspo · eval harnesses, run tracking</span></div></div>
+      <div class="rank" id="rank"></div>
+    </section>
+
+    <section class="panel wide" aria-labelledby="hI">
+      <div class="ph"><div><div class="key">I</div><h2 id="hI">Proposed run log: one line per AI call</h2><p>Append-only <code>data/runs/runs.jsonl</code>, written by one wrapper around every <code>claude -p</code>, Scribe and detector call. Human verdicts go in a second file, <code>decisions.jsonl</code>, and link back by <code>run_id</code>.</p></div><div class="tags"><span class="tag new">new data</span></div></div>
+      <div class="tblwrap"><table>
+        <thead><tr><th>Field</th><th>Example</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td>run_id · parent_id</td><td><code>0926-r1-p1</code> · <code>0926-review</code></td><td>Links a reader run to its review, and to later verdicts</td></tr>
+          <tr><td>step · lesson · pass</td><td><code>reader_r1</code> · 2026-09-26 · 1</td><td>Gives a trend per step and per lesson</td></tr>
+          <tr><td>trigger</td><td><code>hourly</code> / <code>manual</code> / <code>overnight:PROMPT-…md</code></td><td>Shows which prompt file started it</td></tr>
+          <tr><td>tool · model</td><td>claude-cli 2.1 · pinned model id; Scribe <code>scribe_v2</code></td><td>Today no <code>--model</code> is passed, so the CLI default is used and never saved</td></tr>
+          <tr><td>prompt_file · prompt_sha</td><td>READER-BRIEF.md · <code>3f9c1a2</code></td><td>Lets you tell a brief change apart from a model change</td></tr>
+          <tr><td>code_sha · input_sha</td><td>git HEAD · sha of <code>&lt;date&gt;.txt</code></td><td>Makes any number reproducible</td></tr>
+          <tr><td>output · rows_out</td><td><code>2026-09-26.r1.json</code> · 52</td><td>Catches runs that silently wrote nothing</td></tr>
+          <tr><td>status · retries · duration_ms</td><td>ok · 0 · 1,412,000</td><td>Time per lesson; spots timeouts</td></tr>
+          <tr><td>cost_usd · tokens · audio_min</td><td>from <code>--output-format json</code>; minutes × $0.22/h</td><td>Cost per lesson, per step</td></tr>
+          <tr><td>eval</td><td><code>{gold:"fa-0927", n:560, recall, precision, bucket_acc}</code></td><td>The trend line in the health panel</td></tr>
+          <tr><td>agreement</td><td><code>{vs:"r2", pct:62.1, existence:18, label:7}</code></td><td>Keeps the reader loop honest</td></tr>
+          <tr><td>human</td><td><code>{checked:10, ok:8, by:"Medi"}</code> (filled in later)</td><td>A precision figure from people, not from the AI</td></tr>
+        </tbody>
+      </table></div>
+      <div class="two" style="margin-top:6px">
+        <div><div class="sub">decisions.jsonl: one line per yes/no</div><ul class="tight"><li><code>id · when · who</code> (Medi / Amal)</li><li><code>about</code>: rule R3, row FA-8519…, pattern, or report</li><li><code>question · answer · reason</code></li><li><code>applied_commit · run_ids</code>, the fix it caused</li><li>Amal's taps are pulled nightly from Supabase <code>amal_rules</code> into this file</li></ul></div>
+        <div><div class="sub">Where each line gets written</div><ul class="tight"><li><code>review_lesson.claude()</code>: one wrapper, 5 call sites</li><li><code>pipeline_ext</code> Scribe call (already prices minutes)</li><li><code>score_grammar_detector.py</code>: fills in <code>eval</code></li><li><code>apply_amal_audit_rulings.py</code> and your yes/no → decisions</li></ul></div>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="hJ">
+      <div class="ph"><div><div class="key">J</div><h2 id="hJ">"AI process health" panel for the AI Reports page</h2><p>One row per step. Below is what it would show today with real values. The grey dashes are exactly the gaps.</p></div><div class="tags"><span class="tag new">new data</span></div></div>
+      <div class="tblwrap"><table class="health">
+        <thead><tr><th>Step</th><th>Accuracy trend</th><th>Humans agree</th><th>$ / lesson</th><th>Open</th></tr></thead>
+        <tbody id="health"></tbody>
+      </table></div>
+      <div class="foot"><span class="why">A row goes red when accuracy drops 5 points against its last run, or when there have been no runs for 7 days.</span><span>mockup · reads runs.jsonl + decisions.jsonl</span></div>
+    </section>
+
+    <section class="panel" aria-labelledby="hK">
+      <div class="ph"><div><div class="key">K</div><h2 id="hK">Next: measuring the sentence-ladder labeller</h2><p>With 10 swipes per lesson, the error bar is wide early on. It narrows only if every swipe is logged against a fixed labeller version.</p></div><div class="tags"><span class="tag new">new data</span><span class="tag">inspo · active-learning sampling</span></div></div>
+      <div id="chK"></div>
+      <ul class="tight">
+        <li><b>Sample on purpose:</b> 4 of the 10 swipes go to the labeller's least-sure sentences, 5 are random, and 1 repeats an old swipe to check your own consistency.</li>
+        <li><b>Log</b> <code>label_version · prompt_sha · label · confidence · your_swipe</code> for each item. Keep a confusion matrix for understood, breakdown and unknown.</li>
+        <li><b>Freeze</b> the labeller for a week. Change it only after scoring the new version on all past swipes, never on new ones alone.</li>
+        <li><b>Gate:</b> if you reject more than 20% of labels in 2 lessons in a row, retune. Amal checks 20 labels a month to calibrate you.</li>
+      </ul>
+      <div class="foot"><span class="why">About 12 lessons (120 swipes) to get within ±7 points.</span><span>95% interval at 80% accuracy</span></div>
+    </section>
+
+  </div>
+
+  <section class="panel" style="margin-top:28px" aria-labelledby="hS">
+    <div class="ph"><div><h2 id="hS">Scorecard</h2><p>One line per AI step. The grade is for how well the step is measured, not how well it works.</p></div></div>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Step</th><th>What the AI does</th><th>How accuracy is checked today</th><th>Latest number</th><th>Trend kept?</th><th>Grade</th></tr></thead>
+      <tbody>
+        <tr><td>Transcribe</td><td>ElevenLabs Scribe v2, full track, no keyterms</td><td>20 blind clips voted by Amal (3–5 Sep); scorer in transcription_first/ built but never used</td><td>15 of 20 preferred · WER never measured · 43% of error rows in Latin</td><td>No</td><td><span class="pill warn">C</span></td></tr>
+        <tr><td>Speaker split</td><td>Recording channel; on mixed audio, Arabic share then pitch</td><td>None. 93% "agreement with ElevenLabs" is not a human check</td><td>Unlabeled share saved for 4 of 14 lessons; 09-18 swapped</td><td>No</td><td><span class="pill bad">D</span></td></tr>
+        <tr><td>Grammar detector</td><td>Rule code: echo, chat and English-cue match</td><td>99-row gold set + held-out lesson + scorer</td><td>Tuned 76% · held-out 40% · real 11%; wrong bucket on 34%</td><td>Commit messages only</td><td><span class="pill ok">B−</span></td></tr>
+        <tr><td>Readers r1 · r2 · r3</td><td>claude -p ×3 per pass, model not pinned</td><td>r1 vs r2 agreement; 20-row "hand check" graded by an AI</td><td>61.5% agree · 17/20 · r3 drops 29% of disputes</td><td>Per lesson, not over time</td><td><span class="pill warn">C</span></td></tr>
+        <tr><td>Word / sheet check</td><td>String match, then an overnight agent judging meaning</td><td>One hand check by meaning (27 Sep)</td><td>56 of 98 "new" were wrong; 273 verdicts with no author field</td><td>No</td><td><span class="pill warn">C−</span></td></tr>
+        <tr><td>Arabizi fill</td><td>claude -p fills arabizi-extra.json</td><td>100 random lines once; gap guard on every lesson</td><td>96/100 (grader not recorded) · gaps 0</td><td>No</td><td><span class="pill ok">B</span></td></tr>
+        <tr><td>Amal patterns</td><td>claude -p groups B rows into patterns</td><td>None: Amal's rulings are the check, but they stay in Supabase</td><td>116 open · 0 applied in repo</td><td>No</td><td><span class="pill bad">D</span></td></tr>
+        <tr><td>Pages &amp; stats</td><td>Build scripts turn outputs into percentages</td><td>None: you spot errors by eye</td><td>"100% with 35 errors"; stale 961 vs 1,018</td><td>No</td><td><span class="pill bad">D</span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+</div>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+(function(){
+  var css=function(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();};
+  var NS='http://www.w3.org/2000/svg';
+  function s(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+  function txt(p,x,y,t,attrs){var e=s('text',Object.assign({x:x,y:y},attrs||{}),p);e.textContent=t;return e;}
+  var tip=document.getElementById('tip');
+  function place(x,y){var w=Math.min(300,window.innerWidth-24);tip.style.maxWidth=w+'px';x=Math.max(w/2+12,Math.min(window.innerWidth-w/2-12,x));tip.style.left=x+'px';tip.style.top=y+'px';}
+  function show(text,x,y){tip.textContent=text;place(x,y);tip.style.opacity=1;}
+  function hover(el,text){
+    el.addEventListener('mousemove',function(ev){show(text,ev.clientX,ev.clientY);});
+    el.addEventListener('mouseleave',function(){tip.style.opacity=0;});
+    el.addEventListener('click',function(ev){show(text,ev.clientX,ev.clientY);});
+    el.addEventListener('focus',function(){var r=el.getBoundingClientRect();show(text,r.left+r.width/2,r.top);});
+    el.addEventListener('blur',function(){tip.style.opacity=0;});
+    el.setAttribute('tabindex','0');var t=s('title',{},el);t.textContent=text;}
+  document.addEventListener('scroll',function(){tip.style.opacity=0;},{passive:true});
+
+  /* A: pipeline */
+  var steps=[
+    ['Record','Recall bot, a track each','--hair','No AI. 10 of 14 lessons have one track per person; the others are mixed Meet audio.'],
+    ['Transcribe','Scribe v2','--ok','Measured once (3–5 Sep): Amal preferred it on 15 of 20 blind clips. WER never measured. 43% of error rows have his Arabic in Latin letters. Model is saved in summary.json.'],
+    ['Speakers','channel, else pitch','--bad','Never checked against a human. 15% unlabeled floor chosen without evidence. 09-18 swapped. Unlabeled share saved for 4 lessons.'],
+    ['Detector','grammar rule code','--good','99-row gold set, scorer and held-out lesson. Tuned 76%, held-out 40%, real 11%. No score history.'],
+    ['Readers','claude -p × 3','--warn','Only AI vs AI: 61.5% agreement. Model not pinned, brief unversioned, cost and time dropped.'],
+    ['Sheet check','match + agent','--ok','One hand check by meaning: 56 of 98 "new" words were on the list. No gold set.'],
+    ['Arabizi','claude -p fill','--ok','96/100 on one random check (grader not recorded). The gap guard runs every lesson.'],
+    ['Amal','review links','--bad','116 items open. Her answers stay in Supabase; 0 are applied to the repo audit file.'],
+    ['Pages','build scripts','--bad','No invariant tests. "Sep 23: 100% with 35 errors" shipped.']
+  ];
+  var measure=['no AI','once','never','gold set','AI vs AI','once','once','not stored','never'];
+  function drawA(){
+    var box=document.getElementById('chA');box.innerHTML='';
+    var narrow=box.clientWidth<640, svg;
+    if(!narrow){
+      var n=steps.length,W=1100,bw=104,gap=(W-n*bw)/(n-1),H=130;
+      svg=s('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':'Pipeline from recording to pages'});
+      steps.forEach(function(st,i){
+        var x=i*(bw+gap),y=18;
+        if(i<n-1){s('path',{d:'M'+(x+bw+3)+' '+(y+32)+' L'+(x+bw+gap-5)+' '+(y+32),stroke:css('--hair'),'stroke-width':2,fill:'none'},svg);s('path',{d:'M'+(x+bw+gap-9)+' '+(y+28)+' L'+(x+bw+gap-4)+' '+(y+32)+' L'+(x+bw+gap-9)+' '+(y+36),stroke:css('--muted'),'stroke-width':1.5,fill:'none'},svg);}
+        var g=s('g',{},svg);
+        s('rect',{x:x,y:y,width:bw,height:64,rx:10,fill:css('--well'),stroke:css(st[2]),'stroke-width':st[2]==='--hair'?1.5:3},g);
+        txt(g,x+bw/2,y+30,st[0],{'text-anchor':'middle',class:'lbl','font-size':'13','font-weight':'600'});
+        txt(g,x+bw/2,y+48,st[1],{'text-anchor':'middle','font-size':'10'});
+        txt(g,x+bw/2,y+92,measure[i],{'text-anchor':'middle','font-size':'11.5','font-weight':'600',fill:st[2]==='--hair'?css('--muted'):css(st[2])});
+        txt(g,x+bw/2,y-6,(i+1),{'text-anchor':'middle','font-size':'10'});
+        hover(g,st[0]+': '+st[3]);
+      });
+      txt(svg,0,H-4,'↑ how accuracy is measured',{'font-size':'10'});
+    } else {
+      var W2=340,rh=50,H2=steps.length*rh;
+      svg=s('svg',{viewBox:'0 0 '+W2+' '+H2,role:'img','aria-label':'Pipeline from recording to pages'});
+      steps.forEach(function(st,i){
+        var y=i*rh+4,g=s('g',{},svg);
+        if(i<steps.length-1)s('path',{d:'M22 '+(y+38)+' L22 '+(y+rh+4),stroke:css('--hair'),'stroke-width':2},svg);
+        s('rect',{x:1,y:y,width:W2-2,height:38,rx:9,fill:css('--well'),stroke:css(st[2]),'stroke-width':st[2]==='--hair'?1.2:2.5},g);
+        txt(g,14,y+17,(i+1)+'  '+st[0],{class:'lbl','font-size':'13','font-weight':'600'});
+        txt(g,14,y+31,st[1],{'font-size':'11'});
+        txt(g,W2-10,y+24,measure[i],{'text-anchor':'end','font-size':'12','font-weight':'600',fill:st[2]==='--hair'?css('--muted'):css(st[2])});
+        hover(g,st[0]+': '+st[3]);
+      });
+    }
+    box.appendChild(svg);
+  }
+  drawA();
+  var lastW=document.getElementById('chA').clientWidth;
+  window.addEventListener('resize',function(){var w=document.getElementById('chA').clientWidth;if((w<640)!==(lastW<640)){drawA();}lastW=w;});
+
+  var NW=function(id){return document.getElementById(id).clientWidth<480?360:520;};
+  /* B: recall ladder */
+  (function(){
+    var rows=[['Start of tuning','gold set, 23 Sep',21,'on the gold set','--hair'],['Gate "passed"','same gold set',81,'64/79','--sage'],['Today, tuned set','the rows it was tuned on',76,'60/79','--sage'],['Today, held-out','lesson 09-11, never tuned',40,'8/20','--warn'],['Real, lessons it ran','full audit, 11 lessons',23,'103/456','--bad'],['Real, all lessons','full audit, 13 lessons',11,'104/961','--bad']];
+    var W=NW('chB'),L=W<400?128:150,R=W<400?40:56,rh=32,T=6,H=rows.length*rh+T+18,pw=W-L-R;
+    var svg=s('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':'Detector recall measured different ways'});
+    [0,50,100].forEach(function(v){var x=L+v/100*pw;s('line',{x1:x,x2:x,y1:T,y2:H-16,class:'axis','stroke-dasharray':v===0?'':'2 3'},svg);txt(svg,x,H-3,v+'%',{'text-anchor':'middle','font-size':'10'});});
+    rows.forEach(function(r,i){
+      var y=T+i*rh;
+      txt(svg,L-10,y+13,r[0],{'text-anchor':'end',class:'lbl','font-size':'11.5'});
+      txt(svg,L-10,y+26,r[1],{'text-anchor':'end','font-size':'9.5'});
+      var b=s('rect',{x:L,y:y+5,width:Math.max(2,r[2]/100*pw),height:17,rx:3,fill:css(r[4])},svg);
+      txt(svg,L+r[2]/100*pw+6,y+18,r[2]+'%',{class:'lbl','font-size':'11.5','font-weight':'600'});
+      hover(b,r[0]+' ('+r[1]+'): '+r[2]+'% · '+r[3]);
+    });
+    s('line',{x1:Math.max(0,L-140),x2:W,y1:T+3*rh-1,y2:T+3*rh-1,stroke:css('--accent'),'stroke-width':1,'stroke-dasharray':'4 3'},svg);
+    txt(svg,W,T+3*rh-5,'unseen data ↓',{'text-anchor':'end','font-size':'9.5',fill:css('--accent')});
+    document.getElementById('chB').appendChild(svg);
+  })();
+
+  /* C: agreement dot plot */
+  (function(){
+    var d=[['08-25',61.8,80.9,78.9],['09-04',63.2,48.5,74.6],['09-05',64.6,61.5,80.0],['09-10',61.8,66.2,77.9],['09-11',58.5,55.0,67.8],['09-14',69.7,61.9,77.3],['09-15',57.9,54.8,76.7],['09-16',50.0,63.3,79.6],['09-17',72.4,62.1,69.2],['09-18',58.7,70.5,80.0],['09-19',58.3,70.0,76.9],['09-21',58.7,50.0,75.8],['09-23',64.3,68.7,78.6],['09-26',62.1,null,null]];
+    var W=NW('chC'),H=W<400?230:210,L=30,R=10,T=14,B=28,pw=W-L-R,ph=H-T-B,lo=40,hi=100;
+    var y=function(v){return T+ph-(v-lo)/(hi-lo)*ph;};
+    var svg=s('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':'Reader agreement per lesson'});
+    var g=s('g',{class:'grid'},svg);
+    [40,60,80,100].forEach(function(v){s('line',{x1:L,x2:W-R,y1:y(v),y2:y(v)},g);txt(svg,L-6,y(v)+4,v,{'text-anchor':'end'});});
+    s('rect',{x:L,y:y(100),width:pw,height:y(95)-y(100),fill:css('--accent-wash')},svg);
+    s('line',{x1:L,x2:W-R,y1:y(95),y2:y(95),stroke:css('--accent'),'stroke-dasharray':'4 3'},svg);
+    txt(svg,W-R,y(95)-4,'target 95% (never met)',{'text-anchor':'end',fill:css('--accent'),'font-size':'10.5'});
+    var step=pw/d.length;
+    d.forEach(function(r,i){
+      var cx=L+step*i+step/2;
+      if(r[2]!==null)s('line',{x1:cx,x2:cx,y1:y(Math.min(r[1],r[2])),y2:y(Math.max(r[1],r[2])),stroke:css('--hair'),'stroke-width':2},svg);
+      var a=s('circle',{cx:cx,cy:y(r[1]),r:5,fill:css('--sage'),stroke:css('--surface'),'stroke-width':1.5},svg);hover(a,r[0]+' pass 1: '+r[1]+'% of rows agreed');
+      if(r[2]!==null){var b=s('circle',{cx:cx,cy:y(r[2]),r:5,fill:css('--ink'),stroke:css('--surface'),'stroke-width':1.5},svg);hover(b,r[0]+' pass 2: '+r[2]+'%');
+        var dm=s('rect',{x:cx-4,y:y(r[3])-4,width:8,height:8,fill:css('--accent'),transform:'rotate(45 '+cx+' '+y(r[3])+')'},svg);hover(dm,r[0]+' pass 1 vs pass 2: '+r[3]+'% of settled rows in both');}
+      if(i%2===0)txt(svg,cx,H-9,r[0],{'text-anchor':'middle','font-size':'10'});
+    });
+    document.getElementById('chC').appendChild(svg);
+  })();
+
+  /* D: recorded vs lost matrix */
+  (function(){
+    var cols=['Scribe','Speak.','Detect.','Readers','Sheet','Arabizi'];
+    var rows=[['Model + version','y','p','x','n','n','n'],['Prompt / brief version','x','x','x','n','n','n'],['Code version (git sha)','n','n','n','n','n','n'],['Input hash','p','n','n','n','n','n'],['Cost','p','x','x','n','n','n'],['Duration, retries','n','n','n','n','n','n'],['Accuracy vs a gold set','p','n','p','n','n','p'],['Disagreements','x','x','x','y','x','x'],['Your / Amal\'s verdicts','x','x','n','n','p','n'],['Which rule made the fix','x','n','p','p','n','p']];
+    var t=document.getElementById('mx');
+    var word={y:'kept',p:'partly',n:'lost',x:'n/a'};
+    var h='<thead><tr><th>Fact</th>'+cols.map(function(c){return '<th>'+c+'</th>';}).join('')+'</tr></thead><tbody>';
+    rows.forEach(function(r){h+='<tr><td>'+r[0]+'</td>'+r.slice(1).map(function(v,i){return '<td><span class="cell '+v+'" title="'+cols[i]+': '+word[v]+'" role="img" aria-label="'+cols[i]+': '+word[v]+'"></span></td>';}).join('')+'</tr>';});
+    t.innerHTML=h+'</tbody>';
+  })();
+
+  /* F: spend */
+  (function(){
+    var sp=[['EL','Scribe, 14 calls, ~712 min',2.61,'--ink'],['OA','OpenAI gpt-5.5, 5 Sep only',2.21,'--sage'],['CL','Claude readers',0,'--bad']];
+    var box=document.getElementById('spend');
+    sp.forEach(function(o){var r=document.createElement('div');r.className='row';r.innerHTML='<span class="id">'+o[0]+'</span><span class="bar"><i style="width:'+(o[2]/2.61*100)+'%;background:var('+o[3]+')"></i></span><span class="n">'+(o[2]?'$'+o[2].toFixed(2):'not logged')+'</span>';r.title=o[1];box.appendChild(r);});
+  })();
+
+  /* G: report table */
+  (function(){
+    var R=[
+      ['Process audit · 26 Sep','Yes','In linked md','11% recall vs full audit (n=961)','18 rules wait for your yes/no; not shown','<span class="pill warn">stale: now 1,018</span>'],
+      ['Claude audit · 5 Sep','Yes','Recount + audio','8/8 slips kept, 20 clips','Rule E2 (full track), not linked','<span class="pill good">yes</span>'],
+      ['Codex bake-off · 5 Sep','Yes','20 frozen clips','14/20 families; counts, not accuracy','Keep ElevenLabs; xAI never tested','<span class="pill warn">open item</span>'],
+      ['Fish Audio · 5 Sep','Yes','API + terms read','none','Not now','<span class="pill good">yes</span>'],
+      ['Deep research · 4 Sep','Yes','Mixed','none','Separate tracks (done), Amal inbox (done), 6 P0s (status unknown)','<span class="pill warn">partly</span>'],
+      ['OpenAI strict test · 4 Sep','Yes','20 clips','counts vs ElevenLabs','Stay on ElevenLabs','<span class="pill good">yes</span>'],
+      ['Engine report · 4 Sep','Yes','Amal blind vote','15/20 preferred; the only human-judged number','ElevenLabs for now','<span class="pill ok">3 wk old</span>']];
+    document.getElementById('rep').innerHTML=R.map(function(r){return '<tr>'+r.map(function(c){return '<td>'+c+'</td>';}).join('')+'</tr>';}).join('');
+  })();
+
+  /* H: ranked improvements */
+  (function(){
+    var I=[
+      ['Run log wrapper around every AI call','One function in review_lesson.py and pipeline_ext. Pin <code>--model</code> and use <code>--output-format json</code> to get cost and time for free. Fixes: ~90 runs with no model, cost or duration.','S',5,1],
+      ['Make the full audit the standing eval set','Point the existing scorer at the 560 grammar-A rows and freeze 3 lessons as held-out. Append every score to eval-history.jsonl. Fixes: 76% quoted vs 11% real.','S',5,1],
+      ['Decisions log fed by your yes/no and Amal\'s taps','Pull amal_rules from Supabase nightly. Each R1–R18 answer is one line with the commit it caused. Fixes: 116 open items and 18 rules with no record.','S',4,1],
+      ['A regression fixture for every catch','56 sheet words, "100% with errors", swapped speakers and stale report numbers each become a test that runs before push. Fixes: 5 sheet patches in one night.','S',4,1],
+      ['Report cards with method, n, decision and status','Add fields to ai_reports.json and index every plan/*AUDIT* automatically. A stale badge shows when a card number differs from its source. Fixes: 6 audits missing, 961 vs 1,018.','S',3,1],
+      ['Transcript health per lesson, computed automatically','Latin-letter share, hole count and unlabeled share on every lesson row. Fixes: 43% Latin rows that nobody tracked.','S',3,1],
+      ['Honest reader loop (R18)','r3 sees the agreed list; the stop rule becomes "pass 1 vs pass 2 ≥ 75%, else a 4th read"; log agreement as existence vs label. Fixes: 61.5% agreement and a 95% target that was never met.','S',3,1],
+      ['10 random spot checks per lesson for you','Same swipe UI as the sentence ladder. Gives a human precision figure with an error bar for readers, sheet check and Arabizi. Fixes: the "hand check" graded by an AI.','M',4,2],
+      ['Standing transcription and speaker set','Run the unused transcription_first scorer on its 20 frozen windows. Add 20 speaker-labelled turns from the mixed lessons. Re-run on any engine or setting change.','M',3,2]];
+    var box=document.getElementById('rank');
+    I.forEach(function(it,i){var sc=it[3]/it[4];var d=document.createElement('div');d.className='ri';d.innerHTML='<span class="no">'+(i+1)+'</span><div><div class="t">'+it[0]+'</div><div class="s">'+it[1]+'</div></div><div class="sc"><span>impact '+it[3]+' · effort '+it[2]+'</span><span class="bar"><i style="width:'+(sc/5*100)+'%"></i></span></div>';box.appendChild(d);});
+  })();
+
+  /* J: health mockup */
+  (function(){
+    var H=[['Transcribe',null,'—','$0.44','0'],['Speakers',null,'—','$0','0'],['Detector',[21,81,76,40,11],'—','$0','18 rules'],['Readers',null,'17/20 (AI)','—','—'],['Sheet check',null,'4 notes','—','—'],['Arabizi',[96],'—','—','0 gaps'],['Amal',null,'—','$0','116']];
+    var tb=document.getElementById('health');
+    H.forEach(function(r){
+      var tr=document.createElement('tr');
+      var td0=document.createElement('td');td0.textContent=r[0];tr.appendChild(td0);
+      var td1=document.createElement('td');
+      if(r[1]&&r[1].length>1){var svg=s('svg',{viewBox:'0 0 90 22',class:'spark',role:'img','aria-label':r[0]+' trend'});var v=r[1],pts=v.map(function(x,i){return [4+i*(82/(v.length-1)),20-x/100*18];});s('path',{d:'M'+pts.map(function(p){return p[0].toFixed(1)+' '+p[1].toFixed(1);}).join(' L'),fill:'none',stroke:css('--ink'),'stroke-width':1.8},svg);var lp=pts[pts.length-1];s('circle',{cx:lp[0],cy:lp[1],r:2.8,fill:css('--bad')},svg);hover(svg,r[0]+': '+v.join('% → ')+'% (start, gate, tuned, held-out, real)');td1.appendChild(svg);}
+      else if(r[1]){td1.innerHTML='<span class="pill ok">'+r[1][0]+'/100 once</span>';}
+      else if(r[0]==='Readers'){td1.innerHTML='<span class="pill warn">61.5% AI vs AI</span>';}
+      else td1.innerHTML='<span class="pill none">not tracked</span>';
+      tr.appendChild(td1);
+      [r[2],r[3],r[4]].forEach(function(c){var td=document.createElement('td');td.textContent=c;if(c==='—')td.className='muted';tr.appendChild(td);});
+      tb.appendChild(tr);
+    });
+  })();
+
+  /* K: CI half-width vs swipes */
+  (function(){
+    var ns=[10,30,60,120,240],W=NW('chK'),H=170,L=34,R=24,T=14,B=30,pw=W-L-R,ph=H-T-B,mx=30;
+    var hw=function(n){return 1.96*Math.sqrt(.16/n)*100;};
+    var svg=s('svg',{viewBox:'0 0 '+W+' '+H,role:'img','aria-label':'Error bar versus number of swipes'});
+    var g=s('g',{class:'grid'},svg);
+    [0,10,20,30].forEach(function(v){var yy=T+ph-v/mx*ph;s('line',{x1:L,x2:W-R,y1:yy,y2:yy},g);txt(svg,L-6,yy+4,'±'+v,{'text-anchor':'end'});});
+    var x=function(n){return L+Math.log(n/10)/Math.log(24)*pw;};
+    var pts=[];for(var n=10;n<=240;n+=2)pts.push([x(n),T+ph-hw(n)/mx*ph]);
+    s('path',{d:'M'+pts.map(function(p){return p[0].toFixed(1)+' '+p[1].toFixed(1);}).join(' L'),fill:'none',stroke:css('--ink'),'stroke-width':2},svg);
+    ns.forEach(function(n){var cx=x(n),cy=T+ph-hw(n)/mx*ph;var c=s('circle',{cx:cx,cy:cy,r:5,fill:n===120?css('--accent'):css('--sage'),stroke:css('--surface'),'stroke-width':2},svg);hover(c,n+' swipes ('+(n/10)+' lessons): ±'+hw(n).toFixed(1)+' points');txt(svg,cx,H-10,W<400?String(n):n+' swipes',{'text-anchor':'middle','font-size':'10'});txt(svg,cx+8,cy-7,'±'+hw(n).toFixed(0),{class:'lbl','font-size':'10.5','font-weight':'600'});});
+    document.getElementById('chK').appendChild(svg);
+  })();
+
+  var mq=window.matchMedia('(prefers-color-scheme: dark)');
+  if(mq.addEventListener)mq.addEventListener('change',function(){location.reload();});
+})();
+</script>
+</body></html>

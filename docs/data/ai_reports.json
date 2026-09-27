@@ -1,6 +1,152 @@
 {
- "updated": "2026-09-26",
+ "updated": "2026-09-27",
  "reports": [
+  {
+   "slug": "ai-engineering-review-2026-09-27",
+   "date": "2026-09-27",
+   "author": "Claude",
+   "title": "Engineering review: measure every AI step before adding more",
+   "question": "From a pure engineering and AI point of view, how should Anees be built and tracked, and what do the research on transcription, learner comprehension, dialect translation and Levantine ASR say it should change?",
+   "verdict": "The big bets hold: Scribe v2, separate tracks, FSRS, and Amal's own Arabizi spelling. The weak spot is measurement: 1 of 9 AI steps has a gold set, 0 AI calls are logged, and the free-form Claude readers are the step most likely to be wrong on dialect (LLMs score 53.8 vs 88.9 on dialect grammar). Build order: run log, decisions log, frozen gold sets, health panel.",
+   "numbers": [
+    {
+     "label": "Scribe v2 on Arabic–English mixing",
+     "value": "13.2%",
+     "note": "WER; next best 38.6% (vendor-authored benchmark)"
+    },
+    {
+     "label": "Whisper on Palestinian",
+     "value": "50 / 18",
+     "note": "WER / CER: score CER, not WER"
+    },
+    {
+     "label": "LLM grammar judging, dialect",
+     "value": "53.8",
+     "note": "F0.5 vs 88.9 for the best system"
+    },
+    {
+     "label": "AI calls logged today",
+     "value": "0",
+     "note": "about 5 Claude runs per lesson"
+    }
+   ],
+   "bars_title": "Roadmap, first five (effort)",
+   "bars": [
+    {
+     "label": "1 Log every AI call, pin the model",
+     "value": 1,
+     "max": 3,
+     "text": "1 evening"
+    },
+    {
+     "label": "2 Log every human verdict",
+     "value": 1,
+     "max": 3,
+     "text": "1 evening"
+    },
+    {
+     "label": "3 Freeze gold sets (1 of 9 to 5 of 9)",
+     "value": 2,
+     "max": 3,
+     "text": "1–2 evenings"
+    },
+    {
+     "label": "4 Tests for bugs that already shipped",
+     "value": 1,
+     "max": 3,
+     "text": "1 evening"
+    },
+    {
+     "label": "5 AI health panel on this tab",
+     "value": 3,
+     "max": 3,
+     "text": "1 weekend"
+    }
+   ],
+   "source_md": "plan/AI-ENGINEERING-REVIEW-2026-09-27.md",
+   "links": [
+    {
+     "label": "Full report",
+     "url": "reports/ai-engineering-review-2026-09-27.html"
+    },
+    {
+     "label": "Roadmap",
+     "url": "reports/ai-engineering-review-2026-09-27.html#roadmap-14-items-ordered-by-impact-per-evening"
+    }
+   ]
+  },
+  {
+   "slug": "ai-process-review-2026-09-27",
+   "date": "2026-09-27",
+   "author": "Claude",
+   "title": "Process review: the AI gets measured once, then trusted",
+   "question": "How is each AI step from recording to pages checked today, what data is lost, and what should be tracked?",
+   "verdict": "The grammar detector scores 76% on the rows it was tuned on and 11% on real lessons. The two AI readers agree on 61.5% of rows (target 95%). No run records model, cost or time. 18 rules wait for Medi's yes/no and 116 items wait on Amal.",
+   "numbers": [
+    {
+     "label": "detector recall, real",
+     "value": "11%",
+     "note": "104 of 961 rows"
+    },
+    {
+     "label": "AI readers agree",
+     "value": "61.5%",
+     "note": "Jaccard; 71.4% as pairwise F1"
+    },
+    {
+     "label": "steps with a gold set",
+     "value": "1 of 9",
+     "note": ""
+    },
+    {
+     "label": "open human decisions",
+     "value": "134",
+     "note": "18 rules + 116 Amal items"
+    }
+   ],
+   "bars_title": "",
+   "bars": [],
+   "links": [
+    {
+     "label": "Full review",
+     "url": "reports/ai-process-review-2026-09-27.html"
+    }
+   ]
+  },
+  {
+   "slug": "listening-difficulty-tags-2026-09-27",
+   "date": "2026-09-27",
+   "author": "Claude",
+   "title": "Listening research: which sentence tags predict what Medi understands",
+   "question": "Beyond length, tense and endings, what does research say makes a spoken sentence hard for an L2 listener, and which planned tags does the evidence support?",
+   "verdict": "Tag the unknown key word first: a rare word merely present barely matters, a rare word needed for the meaning is one of the strongest effects. Then audio trouble, pause structure, repeat count and words known by ear. Tense, endings and noun share have no listening studies: they are Anees's own hypotheses to test. A bare 'aywa' counts as unknown, not understood.",
+   "numbers": [
+    {
+     "label": "comprehension at 90 / 100% known words",
+     "value": "7.4 / 9.6",
+     "note": "out of 10 (van Zeeland & Schmitt 2013)"
+    },
+    {
+     "label": "L2 gap in noise vs quiet",
+     "value": "29 / 11",
+     "note": "points"
+    },
+    {
+     "label": "Levantine sentence-level listening studies",
+     "value": "0",
+     "note": "Anees's data would be the first"
+    }
+   ],
+   "bars_title": "",
+   "bars": [],
+   "source_md": "plan/LISTENING-DIFFICULTY-TAGS-2026-09-27.md",
+   "links": [
+    {
+     "label": "Full report",
+     "url": "reports/listening-difficulty-tags-2026-09-27.html"
+    }
+   ]
+  },
   {
    "slug": "process-audit-2026-09-26",
    "date": "2026-09-26",
