@@ -1,0 +1,124 @@
+/* Verbal Lexicon tab (2026-09-27). docs/js/verb-lexicon.js. Same panel/grid/chart frame as the Grammar and
+   Vocab tabs; colours are the page tokens (--ab-*, --vp-*, --sabz-*) so light and dark follow the theme. */
+#anees-bank .vl-tab{--vl-accent:var(--sabz-c-burnt-orange,#B9631F);--vl-s1:light-dark(#B9CBBE,#33483F);--vl-s2:light-dark(#7FA08C,#4F6F5F);--vl-s3:light-dark(#527463,#7FA08C);--vl-s4:light-dark(#3E5C4B,#B3CDBC);--vl-unscored:light-dark(#CFDACF,#3A4C44)}
+#anees-bank .vl-wide{grid-column:1/-1}
+#anees-bank .vl-key{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--vl-accent);margin-bottom:4px}
+#anees-bank .vl-az{font-weight:600;color:var(--ab-text)}
+#anees-bank .vl-ar{font-family:'Noto Naskh Arabic',serif;font-size:15px;direction:rtl;unicode-bidi:isolate;color:var(--ab-text);font-weight:400}
+#anees-bank .vl-en{color:var(--ab-muted);font-weight:400;font-size:11.5px}
+#anees-bank .vl-bad{color:var(--ab-red)}
+
+/* summary strip */
+#anees-bank .vl-strip{display:flex;justify-content:space-between;gap:18px;align-items:center;text-decoration:none;color:inherit;background:var(--ab-raised);border:1px solid var(--ab-line);border-radius:12px;padding:14px 18px;margin-bottom:16px;min-width:0}
+#anees-bank .vl-strip:hover{border-color:var(--vp-sage)}
+#anees-bank .vl-strip>div{min-width:0}
+#anees-bank .vl-open{white-space:nowrap;font-size:12.5px;color:var(--ab-accent);font-weight:600}
+#anees-bank .vl-sub{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ab-muted);font-weight:600;margin-bottom:6px}
+#anees-bank .vl-kv{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:baseline}
+#anees-bank .vl-kv span{color:var(--ab-muted);font-size:12.5px}
+#anees-bank .vl-kv b{font-family:var(--vp-serif);font-weight:500;font-size:22px;color:var(--ab-text);margin-right:5px;font-variant-numeric:tabular-nums}
+#anees-bank .vl-statusbar{display:flex;height:9px;border-radius:5px;overflow:hidden;gap:2px;margin-top:9px;max-width:520px}
+#anees-bank .vl-statusbar i{display:block;height:100%}
+#anees-bank .vl-strip small{display:block;color:var(--ab-muted);font-size:11.5px;margin-top:7px;line-height:1.45}
+
+/* headline + foot */
+#anees-bank .vl-big{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:-6px 0 14px}
+#anees-bank .vl-big b{font-family:var(--vp-serif);font-weight:500;font-size:30px;line-height:1;color:var(--ab-text);letter-spacing:-.3px;font-variant-numeric:tabular-nums}
+#anees-bank .vl-big span{font-size:12px;color:var(--ab-muted);line-height:1.4}
+#anees-bank .vl-foot{margin:12px 0 0!important;padding-top:10px;border-top:1px solid var(--ab-line);font-size:11.5px;color:var(--ab-muted);display:flex;justify-content:space-between;gap:6px 16px;flex-wrap:wrap;line-height:1.45}
+#anees-bank .vl-foot .vl-why{color:var(--ab-text);flex:1 1 320px}
+#anees-bank .vl-foot .vl-ar{font-size:13.5px}
+#anees-bank .vl-more{margin:8px 0 0!important;font-size:11.5px;color:var(--ab-muted)}
+
+/* status + cell colours (shared by strip, matrix, legends) */
+#anees-bank .vl-st-M{fill:var(--ab-green);background:var(--ab-green)}
+#anees-bank .vl-st-G{fill:var(--ab-blue);background:var(--ab-blue)}
+#anees-bank .vl-st-S{fill:var(--ab-orange);background:var(--ab-orange)}
+#anees-bank .vl-st-W{fill:var(--ab-red);background:var(--ab-red)}
+#anees-bank .vl-st-U{fill:var(--vl-unscored);background:var(--vl-unscored)}
+#anees-bank .vl-cell-doc{fill:var(--ab-raised);stroke:var(--ab-muted);stroke-width:1;background:var(--ab-raised);outline:1px solid var(--ab-muted);outline-offset:-1px}
+#anees-bank .vl-cell-none{fill:none;stroke:var(--ab-line);stroke-dasharray:2 3;background:transparent;outline:1px dashed var(--ab-muted);outline-offset:-1px}
+#anees-bank .vl-cell-heard{background:repeating-linear-gradient(135deg,var(--ab-muted) 0 1px,var(--ab-raised) 1px 4px)}
+#anees-bank .vp-chart .vl-hatch-bg{fill:var(--ab-raised)}
+#anees-bank .vp-chart .vl-hatch-line{stroke:var(--ab-muted);stroke-width:1.2}
+#anees-bank .vp-chart .vl-cell-num{fill:var(--ab-panel);font-weight:600;font-size:10.5px}
+#anees-bank .vp-chart .vl-cell-num-dark{fill:var(--ab-text)}
+#anees-bank .vp-chart .vl-svg-name{fill:var(--ab-text);font-weight:600;font-size:11.5px}
+#anees-bank .vp-chart .vl-svg-ar{fill:var(--ab-text);font-family:'Noto Naskh Arabic',serif;font-size:13px}
+#anees-bank .vl-matrix{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 28px;max-width:860px}
+
+/* legends */
+#anees-bank .vl-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:var(--ab-muted);margin-top:8px}
+#anees-bank .vl-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+#anees-bank .vl-legend i.vl-round{border-radius:50%}
+
+/* A / H / G: label · track · number rows */
+#anees-bank .vl-ladder,#anees-bank .vl-rows-word{display:grid;gap:4px}
+#anees-bank .vl-row{display:grid;grid-template-columns:minmax(0,190px) minmax(40px,1fr) auto;gap:10px;align-items:center;font-size:12.5px;padding:3px 0}
+#anees-bank .vl-rows-word .vl-row{grid-template-columns:minmax(0,230px) minmax(40px,1fr) auto}
+#anees-bank .vl-label{color:var(--ab-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#anees-bank .vl-track{height:10px;border-radius:5px;background:var(--ab-raised);overflow:hidden}
+#anees-bank .vl-track i{display:block;height:100%;border-radius:5px;background:var(--vp-forest);min-width:3px}
+#anees-bank .vl-ladder .vl-track{height:16px;border-radius:4px}#anees-bank .vl-ladder .vl-track i{border-radius:4px}
+#anees-bank .vl-thin .vl-track{height:12px}
+#anees-bank .vl-n{color:var(--ab-muted);font-size:11.5px;white-space:nowrap;text-align:right}
+#anees-bank .vl-n b{color:var(--ab-text);font-weight:600;font-size:12.5px}
+#anees-bank .vl-track .vl-rung-0{background:var(--vl-s1)}#anees-bank .vl-track .vl-rung-1{background:var(--vl-s2)}#anees-bank .vl-track .vl-rung-2{background:var(--vl-s3)}#anees-bank .vl-track .vl-rung-3{background:var(--vl-s4)}#anees-bank .vl-track .vl-rung-4{background:var(--vl-accent)}
+#anees-bank .vl-track .vl-fill-accent{background:var(--vl-accent)}#anees-bank .vl-track .vl-fill-sage{background:var(--vp-sage)}
+
+/* B: stacked bars */
+#anees-bank .vl-stackhead{display:flex;justify-content:space-between;gap:10px;font-size:12px;margin:12px 0 6px;flex-wrap:wrap}
+#anees-bank .vl-stackhead:first-child{margin-top:0}
+#anees-bank .vl-stackhead b{font-weight:600;color:var(--ab-text)}
+#anees-bank .vl-stackhead span{color:var(--ab-muted);font-size:11px}
+#anees-bank .vl-stack{display:flex;gap:2px;height:24px;border-radius:4px;overflow:hidden}
+#anees-bank .vl-stack i{display:block;min-width:3px;font-style:normal;font-size:11px;font-weight:600;line-height:24px;padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:clip;color:var(--ab-text)}
+#anees-bank .vl-seg-1{background:var(--vl-s1)}#anees-bank .vl-seg-2{background:var(--vl-s2)}#anees-bank .vl-seg-3{background:var(--vl-s3)}#anees-bank .vl-seg-4{background:var(--vl-s4)}#anees-bank .vl-seg-5{background:var(--vl-accent)}#anees-bank .vl-seg-6{background:var(--ab-line)}#anees-bank .vl-seg-a{background:var(--vl-accent)}
+#anees-bank .vl-stack .vl-seg-3,#anees-bank .vl-stack .vl-seg-4,#anees-bank .vl-stack .vl-seg-a,#anees-bank .vl-stack .vl-seg-5{color:var(--ab-panel)}
+#anees-bank .vl-stack+.vl-legend{margin-top:5px}
+
+/* D + E charts */
+#anees-bank .vp-chart .vl-bar-new{fill:var(--vl-s4)}#anees-bank .vp-chart .vl-bar-repeat{fill:var(--vl-s2)}
+#anees-bank .vp-chart .vl-dot-amal{fill:var(--vl-accent);stroke:var(--ab-panel);stroke-width:2}
+#anees-bank .vl-legend .vl-bar-new{background:var(--vl-s4)}#anees-bank .vl-legend .vl-bar-repeat{background:var(--vl-s2)}#anees-bank .vl-legend .vl-dot-amal{background:var(--vl-accent)}
+#anees-bank .vp-chart .vl-pt{stroke:var(--ab-panel);stroke-width:2}
+#anees-bank .vl-pt-good{fill:var(--ab-green);background:var(--ab-green)}#anees-bank .vl-pt-ok{fill:var(--ab-blue);background:var(--ab-blue)}#anees-bank .vl-pt-warn{fill:var(--ab-orange);background:var(--ab-orange)}#anees-bank .vl-pt-bad{fill:var(--ab-red);background:var(--ab-red)}
+
+/* F: taught → said timeline (HTML, so it reflows on a phone) */
+#anees-bank .vl-timeline{display:grid;gap:2px}
+#anees-bank .vl-trow{display:grid;grid-template-columns:minmax(0,260px) minmax(120px,1fr) 150px;gap:12px;align-items:center;font-size:12px;min-height:20px}
+#anees-bank .vl-tname{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#anees-bank .vl-tname .vl-ar{font-size:13.5px}
+#anees-bank .vl-ttrack{position:relative;height:16px;margin:0 8px}
+#anees-bank .vl-ttrack u{position:absolute;top:0;bottom:0;border-left:1px dotted var(--ab-line)}
+#anees-bank .vl-ttrack s{position:absolute;top:7px;height:2px;background:var(--ab-green)}
+#anees-bank .vl-ttrack b{position:absolute;top:3px;width:10px;height:10px;margin-left:-5px;border-radius:50%;border:1.5px solid var(--ab-panel)}
+#anees-bank .vl-t-taught{background:var(--vl-s4)}#anees-bank .vl-t-said{background:var(--ab-green)}
+#anees-bank .vl-ttrack .vl-t-never,#anees-bank .vl-legend .vl-t-never{background:transparent;border:1.5px solid var(--ab-red)}
+#anees-bank .vl-legend .vl-t-taught{background:var(--vl-s4)}#anees-bank .vl-legend .vl-t-said{background:var(--ab-green)}
+#anees-bank .vl-tn{color:var(--ab-text);font-size:11.5px;white-space:nowrap}
+#anees-bank .vl-taxis{min-height:16px}
+#anees-bank .vl-taxis em{position:absolute;top:0;transform:translateX(-50%);font-style:normal;font-size:9.5px;color:var(--ab-muted);white-space:nowrap}
+
+/* I: drill cards */
+#anees-bank .vl-focus{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+#anees-bank .vl-fcard{background:var(--ab-raised);border-radius:10px;padding:12px 14px;min-width:0}
+#anees-bank .vl-fid{font-size:11px;font-weight:600;color:var(--ab-muted);text-transform:uppercase;letter-spacing:.08em}
+#anees-bank .vl-fname{font-family:var(--vp-serif);font-size:16px;font-weight:500;margin:4px 0 6px}
+#anees-bank .vl-fwhy{font-size:12.5px;color:var(--ab-muted);line-height:1.45}
+#anees-bank .vl-pill{display:inline-block;font-size:11px;padding:2px 9px;border-radius:999px;font-weight:600;margin-top:9px}
+#anees-bank .vl-pill-bad{background:color-mix(in srgb,var(--ab-red) 16%,transparent);color:var(--ab-red)}
+#anees-bank .vl-pill-warn{background:color-mix(in srgb,var(--ab-orange) 18%,transparent);color:var(--ab-orange)}
+#anees-bank .vl-pill-good{background:color-mix(in srgb,var(--ab-green) 18%,transparent);color:var(--ab-green)}
+
+@media(max-width:680px){
+ #anees-bank .vl-strip{flex-direction:column;align-items:flex-start}
+ #anees-bank .vl-matrix,#anees-bank .vl-focus{grid-template-columns:1fr}
+ #anees-bank .vl-row{grid-template-columns:minmax(0,118px) minmax(30px,1fr) auto;gap:8px}
+ #anees-bank .vl-rows-word .vl-row{grid-template-columns:minmax(0,140px) minmax(30px,1fr) auto}
+ #anees-bank .vl-rows-word .vl-en{display:none}
+ #anees-bank .vl-trow{grid-template-columns:minmax(0,1fr) auto;gap:2px 8px;padding:4px 0;border-bottom:1px solid var(--ab-line)}
+ #anees-bank .vl-trow .vl-ttrack{grid-column:1/-1;grid-row:2}
+ #anees-bank .vl-taxis{border-bottom:0}
+ #anees-bank .vl-tname .vl-en{display:none}
+}

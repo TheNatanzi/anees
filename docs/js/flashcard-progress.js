@@ -249,12 +249,13 @@ function undo(){
 }
 /* ---------- tabs ---------- */
 function show(tab){
- if(!['overview','vocab','flashcards','grammar'].includes(tab))tab='overview';           // Overview is the home tab (Medi 2026-09-26)
+ if(!['overview','vocab','flashcards','grammar','lexicon','fluency'].includes(tab))tab='overview';           // Overview is the home tab (Medi 2026-09-26)
  const flash=tab==='flashcards';
  document.querySelectorAll('.vp-tab[data-tab]').forEach(b=>b.setAttribute('aria-current',b.dataset.tab===tab?'page':'false'));
  const ov=$('vp-tab-overview');if(ov)ov.hidden=tab!=='overview';
  $('vp-tab-vocab').hidden=tab!=='vocab';$('vp-tab-flash').hidden=!flash;
  const gr=$('vp-tab-grammar');if(gr)gr.hidden=tab!=='grammar';if(tab==='grammar'&&window.AneesGrammarProgress)window.AneesGrammarProgress.show();   // Grammar tab (2026-09-27)
+ for(const [id,mod] of [['lexicon','AneesVerbLexicon'],['fluency','AneesFluencyLadder']]){const el=$('vp-tab-'+id);if(el)el.hidden=tab!==id;if(tab===id&&window[mod]&&window[mod].show)window[mod].show();}   // Verbal Lexicon + Fluency tabs (2026-09-27)
  const hz=document.querySelector('.vp-horizon');if(hz)hz.hidden=tab!=='vocab';
  const url=new URL(location.href);if(tab==='overview')url.searchParams.delete('tab');else url.searchParams.set('tab',tab);history.replaceState(null,'',url);
  if(flash){if(!loaded){render();loading=loading||load().then(render);}else render();}
