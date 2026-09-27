@@ -17,7 +17,7 @@ const pref=()=>{const p=Object.assign({mode:'ar_first',retention:0.9},LS('anees-
 const setRetention=r=>{const p=Object.assign({},LS('anees-cards-pref')||{},{retention:r});LS('anees-cards-pref',p);};
 /* ---------- data ---------- */
 async function get(url){const r=await fetch(url,{headers:H,cache:'no-store',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('HTTP '+r.status);return r.json();}
-// card_results columns. tz_offset_min / tz arrive with supabase/migrations/017_card_results_timezone.sql; until it is
+// card_results columns. tz_offset_min / tz arrive with supabase/migrations/019_card_results_timezone.sql; until it is
 // applied the select falls back without them and writes drop them (tzColumn), so nothing breaks either way.
 // A failed probe is remembered on this device for a day (anees-tz-col) so the 400 happens once, not on every load.
 const LOG_COLS='id,word_key,ts,result,attempt,mode,undone_at,flip_ms,answer_ms';let tzColumn=!((LS('anees-tz-col')||{}).off>Date.now()-86400000);
@@ -52,7 +52,7 @@ function enqueue(row){const q=LS('anees-card-queue')||[];q.push(row);const ok=LS
  if(!ok||!(LS('anees-card-queue')||[]).some(x=>x.id===row.id))memQueue.push(row);sync();}
 function removeSent(ids){const s=new Set(ids);LS('anees-card-queue',(LS('anees-card-queue')||[]).filter(x=>!s.has(x.id)));memQueue=memQueue.filter(x=>!s.has(x.id));}
 function dropRow(row,why){removeSent([row.id]);const d=LS('anees-card-dead')||[];d.push({row,why,t:new Date().toISOString()});LS('anees-card-dead',d.slice(-200));}
-// A 400 that names the timezone columns means migration 017 is not applied yet: resend without them and remember.
+// A 400 that names the timezone columns means migration 019 is not applied yet: resend without them and remember.
 async function postRows(rows){
  const send=()=>fetch(ANEES.url+'/rest/v1/card_results?on_conflict=id',{method:'POST',headers:{...H,Prefer:'resolution=ignore-duplicates,return=minimal'},body:JSON.stringify(rows.map(({kind,body,undone,tz_offset_min,tz,...r})=>tzColumn?{...r,tz_offset_min,tz}:r))});
  let r=await send();
