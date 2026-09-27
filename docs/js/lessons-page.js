@@ -266,11 +266,13 @@ function typeTags(L) {
   if (L.review_mode) box.appendChild(el('span', 'ls-mode', L.review_mode.charAt(0).toUpperCase() + L.review_mode.slice(1)));
   return box;
 }
+// Medi 2026-09-27: 90%+ dark green · 80-89 light green · 70-79 yellow · 69 and below red
+function band(p) { p = Math.round(p); return p >= 90 ? 'pct-a' : p >= 80 ? 'pct-b' : p >= 70 ? 'pct-c' : 'pct-d'; }
 function wordsCell(L) {
   var c = el('div', 'ls-cell');
   var w = L.words || {};
   var top = el('div', 'ls-big');
-  if (num(w.pct)) top.textContent = Math.round(w.pct) + '%'; else top.appendChild(dash(L, ['words']));
+  if (num(w.pct)) { top.textContent = Math.round(w.pct) + '%'; top.classList.add(band(w.pct)); } else top.appendChild(dash(L, ['words']));
   c.appendChild(top);
   c.appendChild(el('div', 'ls-small', (num(w.unique) ? w.unique : '—') + ' words'));
   var rw = el('div', 'ls-small');
@@ -282,7 +284,7 @@ function grammarCell(L) {
   var c = el('div', 'ls-cell');
   var g = L.grammar || {};
   var top = el('div', 'ls-big');
-  if (num(g.pct)) top.textContent = Math.round(g.pct) + '%'; else top.appendChild(dash(L, ['grammar']));
+  if (num(g.pct)) { top.textContent = (g.estimate ? '≈' : '') + Math.round(g.pct) + '%'; top.classList.add(band(g.pct)); } else top.appendChild(dash(L, ['grammar']));
   c.appendChild(top);
   c.appendChild(el('div', 'ls-small', (num(g.mistakes) ? g.mistakes : '—') + ' slips / ' + (num(g.uses) ? g.uses : '—') + ' uses'));
   return c;

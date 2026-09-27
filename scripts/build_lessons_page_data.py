@@ -718,6 +718,18 @@ def build():
             else:
                 sh = NO["sheet"].get((e.get("arabic") or "") + "" + (e.get("english") or "")) or {}
                 e["on_sheet"], e["rating"], e["sheet_key"] = bool(sh.get("on_sheet")), sh.get("rating"), sh.get("key")
+    # Hand verdicts win over the automatic sheet check (Medi 2026-09-27 "use context and meanings both ways"): a reader
+    # judged each word against his list by meaning -> data/lesson-work/sheet-verdicts.json [{date, mmss, arabic, verdict}].
+    vp = os.path.join(REPO, "data", "lesson-work", "sheet-verdicts.json")
+    VD = {(x["date"], x["mmss"], x["arabic"]): x for x in (J(vp) if os.path.exists(vp) else [])}
+    for d, v in per.items():
+        for e in v["vocab_errors"]:
+            x = VD.get((d, e.get("mmss"), e.get("arabic")))
+            if x and x.get("verdict") in ("on_list", "new"):
+                e["on_sheet"] = x["verdict"] == "on_list"
+                e["sheet_reason"] = x.get("reason")
+                if x["verdict"] == "new":
+                    e["rating"] = None
     # The rating must count the audit's slips too (Medi 2026-09-26: an error card said "Mastered · 100% right · 0 wrong").
     # Every on-sheet audit slip of a word (all lessons) is added to its Word Bank record: wrong = a miss, asked = partial.
     # Status = the Word Bank's accuracy bands (>=90 Mastered/Good, >=75 Good, >=50 Shaky, else Wrong), never above its own status.
