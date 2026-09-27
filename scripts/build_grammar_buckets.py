@@ -3,7 +3,7 @@
 import json, os
 from collections import Counter
 
-OUT = r"C:\dev\anees-hourly\docs\data\grammar-buckets.json"
+OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs", "data", "grammar-buckets.json")  # this checkout
 b = []
 
 

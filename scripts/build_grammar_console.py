@@ -13,7 +13,7 @@ with uses=0 so the console can show an honest empty row.
 """
 import json, os, re, glob
 
-ROOT = r"C:\dev\anees-hourly"
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # this checkout (was hard-coded to the live repo: a worktree run wrote into it)
 DOCS = os.path.join(ROOT, "docs")
 LESSONS = r"C:\dev\anees\data\lessons"
 OUT = os.path.join(DOCS, "data", "grammar-console.json")

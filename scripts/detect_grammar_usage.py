@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lesson_turns import lesson_turns  # noqa: E402
 
 ANEES = r"C:\dev\anees\data\lessons"
-DOCS = r"C:\dev\anees-hourly\docs"
+DOCS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs")  # this checkout, not the live repo
 OUT = os.path.join(DOCS, "data", "grammar-usage.json")
 
 AR_WORD = re.compile(r"[\u0621-\u063A\u0641-\u064A\u064B-\u0652\u0670]+")
