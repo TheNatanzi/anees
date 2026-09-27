@@ -571,6 +571,19 @@ def build():
                          "said": said, "said_html": mark_html(said, tok, "ab-wrong" if s["points"] == 0 else "ab-partial"),
                          "wrong": tok, "fix": fix, "clip": clip, "why": s["reason"], "event_id": s["id"]})
             need_ar.add(said)
+        # Words he got right (Medi 2026-09-26: a slider "Errors, Correct, All" on the vocab list). Word Bank uses scored
+        # 1 (right) or 0.5 (partial = got there with help), same moment rules as the misses above.
+        vok = []
+        for s_ in sorted((s_ for s_ in S if s_["points"] >= .5), key=lambda s_: s_["t_start"]):
+            said = s_["said"] or s_["text"]
+            wi = info.get(s_["word_key"], {})
+            vok.append({"t": round(s_["t_start"], 2), "mmss": mmss(s_["t_start"]), "kind": "correct" if s_["points"] == 1 else "partial",
+                        "label": "Correct" if s_["points"] == 1 else "Partial · got there with help", "word_key": s_["word_key"],
+                        "arabic": s_["arabic"], "arabizi": wi.get("house") or wi.get("doc_arabizi"), "english": s_["english"],
+                        "said": said, "said_html": mark_html(said, s_["text"], "ab-correct" if s_["points"] == 1 else "ab-partial"),
+                        "clip": s_["sentence_audio_url"] or (f"lessons/{date}/clips/{s_['legacy_clip']}" if s_["legacy_clip"] else None),
+                        "why": s_["reason"], "event_id": s_["id"]})
+            need_ar.add(said)
         # Medi 2026-09-25 (decision A): every vocab fix Amal voiced or typed is an error on his page. The audit's vocab-A
         # rows join the Word Bank's scored misses; a row within 5 s of an existing miss is the same moment and is skipped.
         for v in sorted(vocab_fix.get(date, []), key=lambda v: sec(v.get("t")) or 0):
@@ -610,7 +623,7 @@ def build():
                        [{"t": g["t"], "kind": "grammar", "wrong": g["wrong"], "right": g["right"]} for g in gerr if g["wrong"]],
                        key=lambda m: m["t"])
         per[date] = {"date": date, "clock": "seconds on the lesson page audio (docs/lessons/%s/audio/...)" % date,
-                     "turns": turns, "vocab_errors": verr, "grammar_errors": gerr, "marks": marks}
+                     "turns": turns, "vocab_errors": verr, "vocab_correct": vok, "grammar_errors": gerr, "marks": marks}
 
         lessons.append({
             "date": date, "start_local": start, "start_source": start_src,
@@ -620,7 +633,7 @@ def build():
             "new_words": new_words, "taught": taught, "coverage": per_lesson_cov.get(date), "notes": notes,
             "page": f"lessons/{date}.html", "detail": f"data/lessons/{date}.json",
             "counts": {"turns": sum(1 for p in P if not p["chat"]), "chat_lines": sum(1 for p in P if p["chat"]),
-                       "vocab_errors": len(verr), "grammar_errors": len(gerr)},
+                       "vocab_errors": len(verr), "vocab_correct": len(vok), "grammar_errors": len(gerr)},
         })
 
     # Amal's spelling for the new words and the said-sentences (display only, rule S1)
@@ -632,6 +645,9 @@ def build():
             x["arabizi"] = wi.get("house") or wi.get("doc_arabizi") or (az.get(x["_ar"]) or {}).get("text")
             x.pop("_ar")
     for d, v in per.items():
+        for e in v["vocab_correct"]:
+            e["said_arabizi"] = (az.get(e["said"]) or {}).get("text")
+            e["on_sheet"], e["rating"] = True, NO["ratings"].get(e["word_key"])
         for e in v["vocab_errors"]:
             r = az.get(e["said"]) or {}
             e["said_arabizi"] = r.get("text")
@@ -641,6 +657,31 @@ def build():
             else:
                 sh = NO["sheet"].get(e.get("arabic") or "") or {}
                 e["on_sheet"], e["rating"], e["sheet_key"] = bool(sh.get("on_sheet")), sh.get("rating"), sh.get("key")
+    # The rating must count the audit's slips too (Medi 2026-09-26: an error card said "Mastered · 100% right · 0 wrong").
+    # Every on-sheet audit slip of a word (all lessons) is added to its Word Bank record: wrong = a miss, asked = partial.
+    # Status = the Word Bank's accuracy bands (>=90 Mastered/Good, >=75 Good, >=50 Shaky, else Wrong), never above its own status.
+    ORDER = ["Wrong", "Shaky", "Good", "Mastered"]
+    slips = {}
+    for v in per.values():
+        for e in v["vocab_errors"]:
+            k = e.get("sheet_key") or e.get("word_key")
+            if e.get("source") == "audit-2026-09-26" and e.get("on_sheet") and k:
+                x = slips.setdefault(k, [0, 0]); x[0 if e["kind"] == "wrong" else 1] += 1
+    def merged(k, R):
+        if not k or k not in slips:
+            return R
+        R = dict(R or {"status": "Untested", "n": 0, "right": 0, "partial": 0, "wrong": 0, "pct": None})
+        w_, p_ = slips[k]
+        R.update(n=R["n"] + w_ + p_, wrong=R["wrong"] + w_, partial=R["partial"] + p_, with_audit=w_ + p_)
+        R["pct"] = round(100 * (R["right"] + .5 * R["partial"]) / R["n"])
+        band = "Good" if R["pct"] >= 90 else "Good" if R["pct"] >= 75 else "Shaky" if R["pct"] >= 50 else "Wrong"
+        if R["pct"] >= 90 and R["status"] == "Mastered":
+            band = "Mastered"
+        R["status"] = band if R["status"] == "Untested" else ORDER[min(ORDER.index(band), ORDER.index(R["status"]) if R["status"] in ORDER else 3)]
+        return R
+    for v in per.values():
+        for e in v["vocab_errors"] + v["vocab_correct"]:
+            e["rating"] = merged(e.get("sheet_key") or e.get("word_key"), e.get("rating"))
     # A word not on her sheet is not his miss (Medi 2026-09-26: "a new word that's not on the document") - it is listed,
     # tagged "Not on sheet", sent to Amal's review, and left out of the Words %.
     for L in lessons:

@@ -107,3 +107,8 @@
 #anees-bank .ls-pill-wrong{color:light-dark(#a3302b,#f08a84)}
 #anees-bank .ls-pill-untested{color:var(--ab-muted)}
 #anees-bank .ls-pill-off{color:light-dark(#5b4a8c,#c3b2f0);border-style:dashed}
+#anees-bank .ls-seg{display:inline-flex;margin-left:12px;border:1px solid color-mix(in srgb,currentColor 25%,transparent);border-radius:999px;overflow:hidden;vertical-align:middle}
+#anees-bank .ls-segbtn{font:inherit;font-size:13px;padding:3px 12px;border:0;background:transparent;color:inherit;cursor:pointer}
+#anees-bank .ls-segbtn+.ls-segbtn{border-left:1px solid color-mix(in srgb,currentColor 25%,transparent)}
+#anees-bank .ls-segbtn[aria-pressed="true"]{background:var(--ls-medi);color:light-dark(#fff,#10201a);font-weight:600}
+#anees-bank .ls-use-ok{border-left:4px solid var(--ls-medi)}

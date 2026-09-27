@@ -409,10 +409,43 @@ function headWord(v) {
   if (note) box.appendChild(el('span', 'gc-spellnote', 'Unverified spelling stays in Arabic'));
   return box;
 }
-function vocabList(body, x) {
-  var list = x.vocab_errors || [];
-  if (!list.length) { body.appendChild(el('div', 'gc-empty', 'No word misses scored in this lesson.')); return; }
-  list.forEach(function (v) {
+// Medi 2026-09-26: a switch next to "Vocab" - Errors (default) · Correct · All.
+function vocabAcc(c) {
+  var mode = 'errors', X = null, B = null;
+  var d = acc('Vocab', function (body, x) { X = x; B = body; draw(); });
+  var sum = d.querySelector('summary');
+  sum.textContent = '';
+  sum.appendChild(el('span', null, 'Vocab'));
+  var sw = el('span', 'ls-seg');
+  var opts = [['errors', 'Errors', c.vocab_errors], ['correct', 'Correct', c.vocab_correct], ['all', 'All', num(c.vocab_errors) && num(c.vocab_correct) ? c.vocab_errors + c.vocab_correct : null]];
+  opts.forEach(function (o) {
+    var b = el('button', 'ls-segbtn', o[1] + (num(o[2]) ? ' (' + o[2] + ')' : ''));
+    b.type = 'button'; b.setAttribute('aria-pressed', o[0] === mode);
+    b.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation(); mode = o[0];
+      Array.prototype.forEach.call(sw.children, function (x, i) { x.setAttribute('aria-pressed', opts[i][0] === mode); });
+      if (!d.open) d.open = true; else draw();
+    });
+    sw.appendChild(b);
+  });
+  sum.appendChild(sw);
+  function draw() {
+    if (!B || !X) return;
+    B.textContent = '';
+    vocabList(B, X, mode);
+  }
+  d.addEventListener('toggle', function () { if (d.open && X) draw(); });
+  return d;
+}
+function vocabList(body, x, mode) {
+  mode = mode || 'errors';
+  var errs = (x.vocab_errors || []).map(function (v) { return { v: v, ok: false }; });
+  var oks = (x.vocab_correct || []).map(function (v) { return { v: v, ok: true }; });
+  var list = mode === 'errors' ? errs : mode === 'correct' ? oks : errs.concat(oks).sort(function (a, b) { return a.v.t - b.v.t; });
+  if (!list.length) { body.appendChild(el('div', 'gc-empty', mode === 'correct' ? 'No correct word uses scored in this lesson.' : 'No word misses scored in this lesson.')); return; }
+  list.forEach(function (it) {
+    var v = it.v;
+    if (it.ok) { body.appendChild(okCard(x, v)); return; }
     var card = el('div', 'gc-use ' + (v.kind === 'partial' ? 'ls-use-partial' : 'gc-use-slip'));
     card.appendChild(itemHead(v.label || v.kind, null, x.date, v.t));
     card.appendChild(headWord(v));
@@ -431,6 +464,18 @@ function vocabList(body, x) {
     card.appendChild(bar);
     body.appendChild(card);
   });
+}
+function okCard(x, v) {
+  var card = el('div', 'gc-use ' + (v.kind === 'partial' ? 'ls-use-partial' : 'ls-use-ok'));
+  card.appendChild(itemHead(v.label || 'Correct', 'ls-tag-ok', x.date, v.t));
+  card.appendChild(headWord(v));
+  card.appendChild(speech('gc-said', v.said_html, v.said));
+  var cv = convoFold(x, v.t, null, null); if (cv) card.appendChild(cv);
+  var bar = el('div', 'ls-plays');
+  if (v.clip) bar.appendChild(playButton('Play clip', function () { play(v.clip, 0, prettyDate(x.date) + ' · ' + v.mmss + ' · ' + (v.arabizi || v.arabic)); }));
+  else bar.appendChild(playButton('Play from ' + v.mmss, function () { play(lessonAudio(x.date, 'Medi'), Math.max(0, v.t - 2), prettyDate(x.date) + ' · lesson from ' + v.mmss); }));
+  card.appendChild(bar);
+  return card;
 }
 function grammarClip(date, e) {
   var c = CLIPS[e.id] || CLIPS[date + ' ' + e.mmss];
@@ -585,7 +630,7 @@ function detail(L) {
     d.appendChild(newWords(L));
   } else {
     var c = L.counts || {};
-    d.appendChild(acc('Vocab errors (' + (num(c.vocab_errors) ? c.vocab_errors : '…') + ')', vocabList));
+    d.appendChild(vocabAcc(c));
     d.appendChild(acc('Grammar errors (' + (num(c.grammar_errors) ? c.grammar_errors : '…') + ')', grammarList));
     d.appendChild(acc('Full transcript' + (num(c.turns) ? ' (' + c.turns + ' turns' + (c.chat_lines ? ' + ' + c.chat_lines + ' chat lines' : '') + ')' : ''), transcript));
   }

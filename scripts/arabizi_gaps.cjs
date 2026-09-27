@@ -15,7 +15,7 @@ const gaps = new Map();
 for (const f of fs.readdirSync(path.join(DOCS, 'data', 'lessons')).filter(f => /^20\d\d-\d\d-\d\d\.json$/.test(f))) {
   const L = J(path.join(DOCS, 'data', 'lessons', f)), d = f.slice(0, 10);
   const strs = [];
-  for (const v of L.vocab_errors || []) strs.push(v.arabic, v.fix, v.said);
+  for (const v of (L.vocab_errors || []).concat(L.vocab_correct || [])) strs.push(v.arabic, v.fix, v.said);
   for (const g of L.grammar_errors || []) strs.push(g.said, g.fix, g.wrong, g.right);
   for (const s of strs) {
     if (!s || !AR.test(s)) continue;
