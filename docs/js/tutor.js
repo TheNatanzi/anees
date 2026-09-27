@@ -71,9 +71,12 @@
       bits.push('link open until ' + it.expires);
       extra += `<p class="tu-meta">${bits.join(' · ')}</p>`;
     }
-    const buttons = [`<a class="tu-btn tu-primary" href="${esc(link)}" target="_blank" rel="noopener">Open</a>`];
-    if (it.hub) buttons.push(`<button class="tu-btn" data-copy="${esc(PAGES + it.hub)}">Copy hub link to send</button>`);
-    else if (it.kind !== 'doc') buttons.push(`<button class="tu-btn" data-copy="${esc(link)}">Copy link</button>`);
+    // Menu, not copy links (Medi 2026-09-26): Open goes through the stable address so it keeps working when a token changes
+    const go = { review: 'review', after: 'after', before: 'before', word_review: 'word-review', doc: 'grammar-doc' }[it.kind]
+      || (it.kind === 'verb_check' ? (it.id.endsWith('-2') ? 'verb-check-2' : 'verb-check') : null);
+    const href = go ? 'go.html?to=' + go : link;
+    const buttons = [`<a class="tu-btn tu-primary" href="${esc(href)}"${it.kind === 'doc' ? ' target="_blank" rel="noopener"' : ''}>Open</a>`];
+    if (it.hub) buttons.push(`<a class="tu-btn" href="go.html?to=hub">Amal's hub</a>`);
     return `<article class="tu-card"><div class="tu-top"><h2 class="tu-title">${esc(it.title)}</h2><span class="tu-who">${esc(it.who)}</span></div>
       <p class="tu-what">${esc(it.what)}</p><div class="tu-num"><span class="ab-number">${big}</span><span class="ab-tiny">${esc(sub)}</span></div>${extra}
       <div class="tu-actions">${buttons.join('')}</div></article>`;

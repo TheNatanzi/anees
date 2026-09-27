@@ -1,0 +1,37 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Opening · Anees</title>
+<link rel="stylesheet" href="css/sabz-tokens.css"><script src="js/theme.js"></script>
+<style>body{margin:0;background:var(--bg,#F5F6F2);color:var(--ink,#1D2521);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:520px;margin:12vh auto;padding:0 16px}a{color:var(--teal,#2E6A4E)}p{color:var(--mute,#66716B)}</style></head>
+<body><main><h1 id="h">Opening…</h1><p id="p">Finding the current link.</p><p><a href="tutor.html">← Back to Tutor</a></p></main>
+<script>
+/* Stable menu addresses for Amal's pages (Medi 2026-09-26: "integrate these into the menu, we are going to use these").
+   The sidebar links here with ?to=<kind>; this page looks up the link that is open RIGHT NOW in data/tutor.json
+   (rebuilt every hour by scripts/build_tutor_data.py) and goes there. Tokens change; these addresses never do. */
+(async function () {
+  const to = new URLSearchParams(location.search).get('to') || '';
+  const NAMES = { review: 'Slips to review', after: 'After the lesson', before: 'Before the lesson', 'verb-check': 'Verb check',
+                  'verb-check-2': 'Verb check · list 2', 'word-review': 'Word review', 'grammar-rules': 'Grammar rules', 'grammar-doc': "Amal's grammar Doc", hub: "Amal's hub" };
+  const h = document.getElementById('h'), p = document.getElementById('p');
+  const go = url => location.replace(url + (url.includes('?') ? '&' : '?') + 'from=app');
+  if (to === 'grammar-rules') return go('amal/grammar-rules.html');
+  let T = { open: [] };
+  try { T = await (await fetch('data/tutor.json', { cache: 'no-store' })).json(); } catch (e) {}
+  const open = T.open || [];
+  const byKind = k => open.filter(x => x.kind === k);
+  let it = null;
+  if (to === 'review' || to === 'hub') it = byKind('review')[0];
+  else if (to === 'after' || to === 'before') it = byKind(to).sort((a, b) => String(b.lesson_date).localeCompare(String(a.lesson_date)))[0];
+  else if (to === 'verb-check') it = byKind('verb_check')[0];
+  else if (to === 'verb-check-2') it = byKind('verb_check')[1];
+  else if (to === 'word-review') it = byKind('word_review')[0];
+  else if (to === 'grammar-doc') it = byKind('doc')[0];
+  if (it) {
+    const url = to === 'hub' && it.hub ? it.hub : it.url;
+    if (/^https?:/.test(url)) return location.replace(url);
+    return go(url);
+  }
+  h.textContent = (NAMES[to] || 'This page') + ': nothing open right now';
+  p.textContent = to === 'after' ? 'A new after-lesson link appears here the same day a lesson is recorded.' : 'When there is something for Amal to check, this menu item opens it.';
+})();
+</script></body></html>
