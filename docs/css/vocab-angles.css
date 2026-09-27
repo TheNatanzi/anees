@@ -1,0 +1,50 @@
+/* Vocab tab › New angles (2026-09-27): panels A–I. docs/js/vocab-angles.js.
+   Same look as the Grammar tab block in vocabulary-progress.css; light/dark via the --ab-* / --sabz-* tokens. */
+#anees-bank .va-root{margin-top:26px}
+#anees-bank .va-head{margin:0 0 14px}
+#anees-bank .va-head .vp-eyebrow{display:block;margin-bottom:4px}
+#anees-bank .va-h2{font-family:var(--vp-serif);font-size:24px;font-weight:500;margin:0 0 4px;line-height:1.2;letter-spacing:-.2px}
+#anees-bank .va-wide{grid-column:1/-1}
+#anees-bank .va-key{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--sabz-c-burnt-orange,#B9631F);margin-bottom:4px}
+#anees-bank .va-scope{display:inline-block;margin-top:3px;font-size:10.5px;letter-spacing:.04em;color:var(--ab-muted);opacity:.85;font-style:italic}
+#anees-bank .va-foot{margin:12px 0 0!important;padding-top:10px;border-top:1px solid var(--ab-line);font-size:11.5px;color:var(--ab-text);display:flex;justify-content:space-between;gap:6px 14px;flex-wrap:wrap}
+#anees-bank .va-foot span{color:var(--ab-muted)}
+#anees-bank .va-foot b{font-weight:600;color:var(--ab-text)}
+#anees-bank .va-sub{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ab-muted);font-weight:600;margin-bottom:6px}
+#anees-bank .va-gap{margin-top:14px}
+#anees-bank .va-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+#anees-bank .va-two-e{align-items:start}
+#anees-bank .va-row{display:grid;grid-template-columns:minmax(0,var(--va-name,110px)) minmax(40px,1fr) auto;gap:10px;align-items:center;font-size:12.5px;padding:4px 0}
+#anees-bank .va-id{font-weight:600;color:var(--ab-text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#anees-bank .va-track{height:8px;border-radius:4px;background:var(--ab-raised);overflow:hidden}
+#anees-bank .va-track i{display:block;height:100%;border-radius:4px;background:var(--vp-forest)}
+#anees-bank .va-track .va-fill-good{background:var(--ab-green)}
+#anees-bank .va-track .va-fill-warn{background:var(--ab-orange)}
+#anees-bank .va-track .va-fill-bad{background:var(--ab-red)}
+#anees-bank .va-n{color:var(--ab-muted);font-size:11.5px;white-space:nowrap}
+#anees-bank .va-since{color:var(--ab-blue);font-weight:600}
+#anees-bank .va-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:var(--ab-muted);margin-top:8px}
+#anees-bank .va-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+#anees-bank .va-sw-sage{background:var(--vp-sage)}#anees-bank .va-sw-ink{background:var(--vp-forest)}#anees-bank .va-sw-accent{background:var(--sabz-c-burnt-orange,#B9631F)}
+#anees-bank .va-sw-green{background:var(--ab-green)}#anees-bank .va-sw-blue{background:var(--ab-blue)}#anees-bank .va-sw-orange{background:var(--ab-orange)}#anees-bank .va-sw-red{background:var(--ab-red)}#anees-bank .va-sw-deep{background:color-mix(in srgb,var(--ab-red) 60%,var(--ab-text))}
+/* chart marks */
+#anees-bank .vp-chart .va-band{fill:var(--vp-sage);opacity:.2}
+#anees-bank .vp-chart .va-bar{fill:var(--vp-sage)}
+#anees-bank .vp-chart .va-bar-recent{fill:var(--vp-forest)}
+#anees-bank .vp-chart .va-bar-accent{fill:var(--sabz-c-burnt-orange,#B9631F)}
+#anees-bank .vp-chart .va-bar-ink{fill:var(--vp-forest)}
+#anees-bank .vp-chart .va-bar-accent-fill{fill:var(--sabz-c-burnt-orange,#B9631F)}
+#anees-bank .vp-chart .va-trend{fill:none;stroke:var(--sabz-c-burnt-orange,#B9631F);stroke-width:2;stroke-dasharray:3 4;stroke-linejoin:round}
+#anees-bank .vp-chart .va-seg-green{fill:var(--ab-green)}#anees-bank .vp-chart .va-seg-blue{fill:var(--ab-blue)}#anees-bank .vp-chart .va-seg-orange{fill:var(--ab-orange)}#anees-bank .vp-chart .va-seg-red{fill:var(--ab-red)}#anees-bank .vp-chart .va-seg-deep{fill:color-mix(in srgb,var(--ab-red) 60%,var(--ab-text))}
+#anees-bank .vp-chart .va-seg-label{fill:var(--ab-panel);font-weight:600;font-size:11px}
+#anees-bank .vp-chart .va-heat-0{fill:var(--ab-raised)}
+#anees-bank .vp-chart .va-heat-1{fill:light-dark(#DCE4D8,#2A3A33)}
+#anees-bank .vp-chart .va-heat-2{fill:light-dark(#B9CBBE,#3F5A4E)}
+#anees-bank .vp-chart .va-heat-3{fill:light-dark(#7FA08C,#6E9880)}
+#anees-bank .vp-chart .va-heat-4{fill:light-dark(#3E5C4B,#B3CDBC)}
+#anees-bank .vp-chart .va-heat-num{fill:var(--ab-panel);font-weight:600;font-size:10px}
+@media(max-width:950px){#anees-bank .va-wide{grid-column:auto}}
+@media(max-width:680px){#anees-bank .va-two{grid-template-columns:minmax(0,1fr)}#anees-bank .va-h2{font-size:21px}#anees-bank .va-row{--va-name:96px!important}}
+#anees-bank .va-root .vp-side{white-space:normal;max-width:170px;flex:none;line-height:1.35}
+@media(max-width:680px){#anees-bank .va-root .vp-side{max-width:none}}
+#anees-bank .vp-chart .va-halo{paint-order:stroke;stroke:var(--ab-panel);stroke-width:3px;stroke-linejoin:round}

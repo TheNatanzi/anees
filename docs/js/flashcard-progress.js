@@ -189,6 +189,7 @@ function render(){
  ${panel('hour','Hourly breakdown','Answers per hour of day; hover for % right.',hourly(d),{wide:true})}
  ${panel('queue','Review queue','English stays hidden until you tap it. A grade saves like a flashcard answer.',queueTable(d),{wide:true})}
  </div>`;
+ try{window.AneesFlashcardAngles?.render(host,d);}catch(e){console.error('flashcard angles',e);}   // New angles A–I (2026-09-27)
  bind();window.scrollTo(0,scrollY);
 }
 function bind(){
@@ -226,6 +227,6 @@ function show(tab){
 }
 document.querySelectorAll('.vp-tab[data-tab]').forEach(b=>b.onclick=()=>show(b.dataset.tab));
 window.addEventListener('online',sync);
-window.AneesFlashcardProgress={show,reload:async()=>{loaded=false;loading=null;await load();render();},build:()=>build(),get lastAnswer(){return lastAnswer;},sync};
+window.AneesFlashcardProgress={show,reload:async()=>{loaded=false;loading=null;await load();render();},build:()=>build(),get loaded(){return loaded;},get lastAnswer(){return lastAnswer;},sync};
 show(new URLSearchParams(location.search).get('tab')||'overview');
 })();

@@ -1,0 +1,56 @@
+/* Progress & Stats › Overview › "New angles" panels A–H (Medi 2026-09-27, approved mockup
+   overview-stats-proposal.html). docs/js/overview-angles.js. Same frame as the Grammar tab. */
+#anees-bank .ov2{margin-top:28px}
+#anees-bank .ov2{
+ --ov2-ink:light-dark(#3E5C4B,#9DBBA8);--ov2-sage:#7FA08C;--ov2-seq2:light-dark(#B9CBBE,#4F6F5F);
+ --ov2-wash:light-dark(rgba(127,160,140,.24),rgba(127,160,140,.2));--ov2-well:light-dark(#E3E1D5,#22302B);
+ --ov2-accent:light-dark(#B9631F,#D9895A);--ov2-good:var(--ab-green);--ov2-warn:var(--ab-orange);--ov2-bad:var(--ab-red);--ov2-ok:var(--ab-blue);
+}
+#anees-bank .ov2-head{margin-bottom:14px}
+#anees-bank .ov2-wide{grid-column:1/-1}
+#anees-bank .ov2-key{display:block;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--ov2-accent);margin-bottom:4px}
+#anees-bank .ov2-big{font-family:var(--vp-serif);font-weight:500;font-size:28px;line-height:1.1;color:var(--ab-text);margin:-4px 0 12px;letter-spacing:-.3px;font-variant-numeric:tabular-nums}
+#anees-bank .ov2-big small{font:12.5px var(--sabz-font-sans);color:var(--ab-muted);margin-left:8px;letter-spacing:0}
+#anees-bank .ov2-foot{display:flex;justify-content:space-between;gap:6px 14px;flex-wrap:wrap;margin:12px 0 0!important;padding-top:10px;border-top:1px solid var(--ab-line);font-size:11.5px;color:var(--ab-muted);line-height:1.45}
+#anees-bank .ov2-foot .ov2-why{color:var(--ab-text);flex:1 1 320px}
+#anees-bank .ov2-foot .ov2-src{flex:0 1 auto}
+#anees-bank .ov2-sub{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ab-muted);font-weight:600;margin-bottom:6px}
+#anees-bank .ov2-two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+#anees-bank .ov2-quote{background:var(--ov2-well);border-left:3px solid var(--ov2-accent);border-radius:8px;padding:8px 12px;font-size:12.5px;color:var(--ab-text);line-height:1.45}
+#anees-bank .ov2-quote small{display:block;color:var(--ab-muted);margin-top:3px;font-size:11.5px}
+#anees-bank .ov2-text{font-size:12.5px;line-height:1.5;color:var(--ab-text)}
+#anees-bank .ov2-notes{display:grid;gap:8px;font-size:12.5px;line-height:1.45}
+#anees-bank .ov2-row{display:grid;grid-template-columns:110px 1fr auto;gap:10px;align-items:center;font-size:12.5px;padding:4px 0}
+#anees-bank .ov2-row b{font-weight:600}
+#anees-bank .ov2-track{height:8px;border-radius:4px;background:var(--ov2-well);overflow:hidden}
+#anees-bank .ov2-track i{display:block;height:100%;border-radius:4px;background:var(--ov2-ink)}
+#anees-bank .ov2-n{color:var(--ab-muted);font-size:11.5px;white-space:nowrap}
+#anees-bank .ov2-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:var(--ab-muted);margin-top:8px}
+#anees-bank .ov2-legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+#anees-bank .ov2-legend .ov2-sq{border-radius:2px}
+#anees-bank .ov2-scroll{overflow-x:auto}
+#anees-bank .ov2-scroll .vp-chart{min-width:620px}
+#anees-bank .ov2-source{margin:14px 0 0;font-size:11.5px;color:var(--ab-muted)}
+/* chart marks */
+#anees-bank .vp-chart .ov2-lbl{fill:var(--ab-text);font-weight:600}
+#anees-bank .vp-chart .ov2-inbar{fill:var(--ab-panel);font-weight:600}
+#anees-bank .vp-chart .ov2-bad-txt{fill:var(--ov2-bad);font-weight:600}
+#anees-bank .vp-chart .ov2-cell{fill:var(--ov2-well)}
+#anees-bank .vp-chart .ov2-cell-on{fill:var(--ov2-ink)}
+#anees-bank .vp-chart .ov2-band{fill:var(--ov2-wash)}
+#anees-bank .vp-chart .ov2-base{stroke:var(--ov2-ink);stroke-dasharray:3 4;fill:none}
+#anees-bank .vp-chart .ov2-line{fill:none;stroke:var(--ov2-accent);stroke-width:2;stroke-linejoin:round}
+#anees-bank .vp-chart .ov2-half{stroke:var(--ab-text);stroke-dasharray:2 4;opacity:.5}
+#anees-bank .vp-chart .ov2-target{stroke:var(--ov2-accent);stroke-dasharray:3 4}
+#anees-bank .vp-chart .ov2-pt{stroke:var(--ab-panel);stroke-width:1.5}
+#anees-bank .vp-chart .ov2-f-ink{fill:var(--ov2-ink)}#anees-bank .vp-chart .ov2-f-sage{fill:var(--ov2-sage)}
+#anees-bank .vp-chart .ov2-f-seq2{fill:var(--ov2-seq2)}#anees-bank .vp-chart .ov2-f-accent{fill:var(--ov2-accent)}
+#anees-bank .vp-chart .ov2-f-good{fill:var(--ov2-good)}#anees-bank .vp-chart .ov2-f-warn{fill:var(--ov2-warn)}
+#anees-bank .vp-chart .ov2-f-bad{fill:var(--ov2-bad)}#anees-bank .vp-chart .ov2-f-wash{fill:var(--ov2-wash)}
+#anees-bank .vp-chart .ov2-t-free-speak{fill:var(--ov2-ink)}#anees-bank .vp-chart .ov2-t-new-words{fill:var(--ov2-sage)}
+#anees-bank .vp-chart .ov2-t-new-grammar{fill:var(--ov2-ok)}#anees-bank .vp-chart .ov2-t-review-words{fill:var(--ov2-warn)}
+#anees-bank .vp-chart .ov2-t-other{fill:var(--ab-muted)}
+#anees-bank .ov2-legend .ov2-t-free-speak{background:var(--ov2-ink)}#anees-bank .ov2-legend .ov2-t-new-words{background:var(--ov2-sage)}
+#anees-bank .ov2-legend .ov2-t-new-grammar{background:var(--ov2-ok)}#anees-bank .ov2-legend .ov2-t-review-words{background:var(--ov2-warn)}
+#anees-bank .ov2-legend .ov2-k-ink{background:var(--ov2-ink)}#anees-bank .ov2-legend .ov2-k-seq2{background:var(--ov2-seq2)}#anees-bank .ov2-legend .ov2-k-warn{background:var(--ov2-warn)}
+@media(max-width:680px){#anees-bank .ov2-two{grid-template-columns:1fr}#anees-bank .ov2-row{grid-template-columns:92px 1fr}#anees-bank .ov2-row .ov2-n{grid-column:1/-1;white-space:normal}#anees-bank .ov2-big{font-size:24px}}

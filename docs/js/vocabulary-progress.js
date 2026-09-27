@@ -153,9 +153,10 @@ function render(){
  const p=S.perLesson(rows,events,new Date(),period);
  renderFunnel();renderRetention(p);renderRatio(p);renderUnique(p);renderSections();renderNew();
  $('vp-footer').textContent=t.lessons.loaded?`${n(t.lessons.loaded)} lessons loaded · last lesson ${t.lessons.latest} · ${n(events.filter(e=>e.speaker==='Medi'&&e.needs_review).length)} learner events awaiting review`:'No lessons loaded yet';
+ document.dispatchEvent(new CustomEvent('anees:vocab-rendered')); // vocab-angles.js re-renders on load and on pill change (2026-09-27)
 }
 document.querySelectorAll('.vp-pill').forEach(b=>b.onclick=()=>{period=b.dataset.period;document.querySelectorAll('.vp-pill').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));render();});
 document.querySelectorAll('.vp-minipill').forEach(b=>b.onclick=()=>{newView=b.dataset.newview;renderNew();});
 $('vp-retry').onclick=load;
-window.AneesVocabularyProgress={reload:load,get rows(){return rows;},get period(){return period;}};load();
+window.AneesVocabularyProgress={reload:load,get rows(){return rows;},get events(){return events;},get period(){return period;}};load();
 })();
