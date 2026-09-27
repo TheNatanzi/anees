@@ -65,5 +65,38 @@ for (const s of scored) if (s.points < 1 && s.said && !arabizi[s.said]) { const 
 const wordInfo = {};
 for (const k of new Set([...Object.keys(firstSeen), ...scored.map(s => s.word_key).filter(k => byKey.has(k))])) { const w = byKey.get(k); wordInfo[k] = { arabic: w.arabic, english: w.english, house: w.house_spelling || null, doc_arabizi: w.arabizi, subtopic: w.subtopic }; }
 
-fs.writeFileSync(process.argv[3], JSON.stringify({ scored, firstSeen, wordInfo, arabizi, stale_reviews: reviewed.stale.length }));
+// Sheet lookup + Word Bank rating (Medi 2026-09-26: "label it 'not on sheet'" / "add the rating (shaky, mastered) with my
+// percentage correct"). A phrase is on the sheet when it is a sheet word (or one of its forms), or when every token of it
+// appears in some sheet word. Rating = the Word Bank speaking status of that word + its scored tries.
+const norm = s => String(s || '').replace(/[\u064B-\u0652\u0670\u0640]/g, '').replace(/[أإآ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه')
+  .replace(/[^\u0621-\u064A\s]/g, ' ').replace(/\s+/g, ' ').trim();
+const noAl = s => s.split(' ').map(t => t.length > 3 && t.startsWith('ال') ? t.slice(2) : t).join(' ');
+const rowByKey = new Map(); for (const r of rows) for (const k of (r.keys || [r.key])) rowByKey.set(k, r);
+function rating(key) {
+  const r = rowByKey.get(key); if (!r) return null;
+  let n = 0, right = 0, part = 0, wrong = 0, best = null;
+  for (const f of r.entries) { const sp = f.speaking || {}; for (const a of sp.attempts || []) { const p = C.points(a); if (p === null) continue; n++; if (p === 1) right++; else if (p === .5) part++; else wrong++; }
+    if (!best || (sp.count || 0) > (best.count || 0)) best = sp; }
+  return { status: (best && best.status) || 'Untested', n, right, partial: part, wrong, pct: n ? Math.round(100 * (right + .5 * part) / n) : null };
+}
+const phrase = new Map(), tokens = new Map();
+const addForm = (a, key) => { const p = noAl(norm(a)); if (!p) return; if (!phrase.has(p)) phrase.set(p, key);
+  for (const t of p.split(' ')) { const cur = tokens.get(t); if (!cur || cur.len > p.split(' ').length) tokens.set(t, { key, len: p.split(' ').length }); } };
+for (const w of words) addForm(w.arabic, w.key);
+for (const r of rows) for (const f of r.entries) addForm(f.arabic, r.key);
+const tok = t => tokens.get(t) || (t.length > 3 && t[0] === 'ا' ? tokens.get(t.slice(1)) : null);
+const sheet = {};
+for (const s of inp.sheet || []) {
+  let hit = null, how = null;
+  for (const alt of String(s).split(/\s=\s|\s-\s/)[0].replace(/\([^)]*\)/g, ' ').split('/')) {
+    const p = noAl(norm(alt)); if (!p) continue;
+    if (phrase.has(p)) { hit = phrase.get(p); how = 'word'; break; }
+    const ts = p.split(' ').map(tok);
+    if (ts.every(Boolean)) { hit = ts.slice().sort((a, b) => a.len - b.len)[0].key; how = 'part'; break; }
+  }
+  sheet[s] = { on_sheet: !!hit, key: hit, match: how, rating: hit ? rating(hit) : null };
+}
+const ratings = {}; for (const s of scored) if (s.word_key && !ratings[s.word_key]) ratings[s.word_key] = rating(s.word_key);
+
+fs.writeFileSync(process.argv[3], JSON.stringify({ scored, firstSeen, wordInfo, arabizi, sheet, ratings, stale_reviews: reviewed.stale.length }));
 console.log('scored', scored.length, 'stale reviews', reviewed.stale.length);

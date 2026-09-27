@@ -76,7 +76,23 @@ function card(p){ const a=answers[p.id]; const n=(p.examples||[]).length;
   <button class="alt" data-act="skip" data-id="${esc(p.id)}">Reason not to correct<small style="display:block;font-weight:400;font-size:13px;opacity:.85">type why · the app stops asking about this</small></button>
   <div class="reason" id="r-${esc(p.id)}" hidden><textarea id="tx-${esc(p.id)}" placeholder="e.g. both are fine in Palestinian; or: this is what I say too"></textarea><small>Required. One line is enough.</small><button class="primary" data-act="skip-save" data-id="${esc(p.id)}" style="margin-top:6px">Save reason</button></div></div>
   ${n?`<details><summary>Show ${n} example${n===1?'':'s'}</summary>${(p.examples||[]).map(example).join('')}</details>`:''}</div>`; }
-function render(){ const P=(DATA.patterns||[]).filter(p=>filter==='all'||p.kind===filter);
+// Words from our lessons that are not on her sheet (Medi 2026-09-26). Her tap: sheet_add / sheet_skip.
+function wcard(w){ const a=answers[w.id]; const n=(w.moments||[]).length;
+  return `<div class="card${a?' done':''}" id="c-${esc(w.id)}"><div class="kind">New word · not on the sheet yet</div>
+  <div class="pair"><div class="right"><span class="ar" lang="ar">${esc(w.arabic)}</span>${w.arabizi?`<span class="az">${esc(w.arabizi)}</span>`:''}</div></div>
+  ${w.english?`<p class="en">${esc(w.english)}</p>`:''}<p class="count">Came up ${n} time${n===1?'':'s'} in our lessons</p>
+  ${a?`<div class="verdict">${a.kind==='sheet_add'?'✓ You said: add it to the sheet':'✓ You said: not needed'}</div>`:''}
+  <div class="btns"><button class="primary" data-act="sheet-add" data-id="${esc(w.id)}">Add to my sheet<small style="display:block;font-weight:400;font-size:13px;opacity:.85">Medi learns it as a sheet word</small></button>
+  <button class="alt" data-act="sheet-skip" data-id="${esc(w.id)}">Not needed<small style="display:block;font-weight:400;font-size:13px;opacity:.85">it stays off the sheet</small></button></div>
+  ${n?`<details><summary>Show ${n} moment${n===1?'':'s'}</summary>${(w.moments||[]).map(m=>`<div class="ex"><div class="m">${esc(m.date)} · ${esc(m.mmss||'')} ${playBtn(m.clip,'Play the moment')}</div>
+  <div class="said">Medi: <span class="ar" lang="ar">${esc(m.medi_said||'')}</span></div>${m.amal_gave?`<div class="said amal">You: <span class="ar" lang="ar">${esc(m.amal_gave)}</span></div>`:''}</div>`).join('')}</details>`:''}</div>`; }
+function sheetDecide(id,kind){ const w=(DATA.new_words||[]).find(x=>x.id===id); if(!w) return;
+  answers[id]={kind,at:new Date().toISOString()}; LS(AK,answers);
+  push({token:TOKEN,source:'review',lesson_date:null,kind,word_key:id,payload:{label:w.arabic,arabic:w.arabic,arabizi:w.arabizi||null,english:w.english||null,moments:(w.moments||[]).map(m=>m.date+' '+(m.mmss||'')),audit:DATA.built}});
+  render(); }
+function render(){ if(filter==='new'){ const W=DATA.new_words||[]; root.innerHTML=W.map(wcard).join('')||'<p class="sug">No new words.</p>';
+    const done=W.filter(w=>answers[w.id]).length; prog.textContent=`${done} of ${W.length} new words decided`; meter.style.width=(W.length?100*done/W.length:0)+'%'; return; }
+  const P=(DATA.patterns||[]).filter(p=>filter==='all'||p.kind===filter);
   root.innerHTML=P.map(card).join('')||'<p class="sug">Nothing to review.</p>';
   const all=DATA.patterns||[], done=all.filter(p=>answers[p.id]).length;
   prog.textContent=`${done} of ${all.length} patterns decided${done===all.length&&all.length?' · all saved, shukran Amal':''}`; meter.style.width=(all.length?100*done/all.length:0)+'%'; }
@@ -85,7 +101,9 @@ function decide(id,kind,reason){ const p=(DATA.patterns||[]).find(x=>x.id===id);
   push({token:TOKEN,source:'review',lesson_date:null,kind,word_key:id,payload:{label:p.title,pattern:p.title,reason:reason||null,n:(p.examples||[]).length,rows:(p.examples||[]).map(x=>x.uid),audit:DATA.built}});
   render(); }
 document.addEventListener('click',e=>{ const b=e.target.closest('button[data-act]'); if(!b) return; const id=b.dataset.id;
-  if(b.dataset.act==='confirm') decide(id,'audit_confirm',null);
+  if(b.dataset.act==='sheet-add') sheetDecide(id,'sheet_add');
+  else if(b.dataset.act==='sheet-skip') sheetDecide(id,'sheet_skip');
+  else if(b.dataset.act==='confirm') decide(id,'audit_confirm',null);
   else if(b.dataset.act==='skip'){ const r=document.getElementById('r-'+id); r.hidden=false; document.getElementById('tx-'+id).focus(); }
   else if(b.dataset.act==='skip-save'){ const v=document.getElementById('tx-'+id).value.trim(); if(!v){ document.getElementById('tx-'+id).focus(); return; } decide(id,'audit_skip',v); }
   else if(b.dataset.act==='filter'){ filter=b.dataset.id; document.querySelectorAll('#filters button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.id===filter)); render(); } });
@@ -98,8 +116,8 @@ document.addEventListener('click',e=>{ const b=e.target.closest('button[data-act
   try{ const saved=await (await api('GET','amal_rules?select=kind,word_key,payload,created_at&token=eq.'+encodeURIComponent(TOKEN)+'&source=eq.review&order=created_at.asc')).json();
     (saved||[]).forEach(r=>{ if(!answers[r.word_key]) answers[r.word_key]={kind:r.kind,reason:(r.payload||{}).reason||null,at:r.created_at}; }); LS(AK,answers); }catch(e){}
   if(!link.opened_at){ try{ await api('PATCH','amal_links?token=eq.'+encodeURIComponent(TOKEN),{opened_at:new Date().toISOString()},{Prefer:'return=minimal'}); }catch(e){} }
-  const kinds=[['all','All'],['vocab','Words'],['grammar','Grammar']];
-  document.getElementById('filters').innerHTML=kinds.map(([k,l])=>`<button data-act="filter" data-id="${k}" aria-pressed="${k===filter}">${l} (${(DATA.patterns||[]).filter(p=>k==='all'||p.kind===k).length})</button>`).join('');
+  const kinds=[['all','All'],['vocab','Words'],['grammar','Grammar'],['new','New words (not on sheet)']];
+  document.getElementById('filters').innerHTML=kinds.map(([k,l])=>`<button data-act="filter" data-id="${k}" aria-pressed="${k===filter}">${l} (${k==='new'?(DATA.new_words||[]).length:(DATA.patterns||[]).filter(p=>k==='all'||p.kind===k).length})</button>`).join('');
   foot.innerHTML=`${esc(DATA.note||'')} · Built ${esc((DATA.built||'').slice(0,10))} from ${esc(String(DATA.lessons||''))} lessons.`;
   render(); flush();
 })();

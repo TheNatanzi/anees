@@ -337,10 +337,10 @@ def audio_duration(date):
     return None
 
 
-def run_node(strings):
+def run_node(strings, sheet=()):
     os.makedirs(TMP, exist_ok=True)
     i, o = os.path.join(TMP, "node-in.json"), os.path.join(TMP, "node-out.json")
-    json.dump({"arabic": sorted(set(s for s in strings if s))}, open(i, "w", encoding="utf-8"), ensure_ascii=False)
+    json.dump({"arabic": sorted(set(s for s in strings if s)), "sheet": sorted(set(s for s in sheet if s))}, open(i, "w", encoding="utf-8"), ensure_ascii=False)
     subprocess.run([NODE, os.path.join(HERE, "lessons_page_node.cjs"), i, o], check=True, capture_output=True)
     return J(o)
 
@@ -624,7 +624,8 @@ def build():
         })
 
     # Amal's spelling for the new words and the said-sentences (display only, rule S1)
-    az = run_node(sorted(x for x in need_ar if x))["arabizi"]
+    NO = run_node(sorted(x for x in need_ar if x), [e["arabic"] for v in per.values() for e in v["vocab_errors"] if not e.get("word_key")])
+    az = NO["arabizi"]
     for L in lessons:
         for x in L["new_words"]:
             wi = info.get(x["key"], {})
@@ -634,6 +635,24 @@ def build():
         for e in v["vocab_errors"]:
             r = az.get(e["said"]) or {}
             e["said_arabizi"] = r.get("text")
+            # sheet + rating: a Word Bank miss is a sheet word by definition; an audit row is looked up by the word Amal gave
+            if e.get("word_key"):
+                e["on_sheet"], e["rating"] = True, NO["ratings"].get(e["word_key"])
+            else:
+                sh = NO["sheet"].get(e.get("arabic") or "") or {}
+                e["on_sheet"], e["rating"], e["sheet_key"] = bool(sh.get("on_sheet")), sh.get("rating"), sh.get("key")
+    # A word not on her sheet is not his miss (Medi 2026-09-26: "a new word that's not on the document") - it is listed,
+    # tagged "Not on sheet", sent to Amal's review, and left out of the Words %.
+    for L in lessons:
+        V = per[L["date"]]["vocab_errors"]
+        off = [e for e in V if e.get("source") == "audit-2026-09-26" and e.get("on_sheet") is False]
+        w = L["words"]
+        if off:
+            w["wrong"] -= sum(1 for e in off if e["kind"] == "wrong"); w["partial"] -= sum(1 for e in off if e["kind"] == "asked")
+            w["scored"] -= len(off); w["not_on_sheet"] = len(off)
+            w["audit_wrong"] = w.get("audit_wrong", 0) - sum(1 for e in off if e["kind"] == "wrong")
+            w["audit_partial"] = w.get("audit_partial", 0) - sum(1 for e in off if e["kind"] == "asked")
+            w["pct"] = round(100 * (w["right"] + .5 * w["partial"]) / w["scored"], 1) if w["scored"] else None
 
     os.makedirs(os.path.join(DOCS, "data", "lessons"), exist_ok=True)
     for d, v in per.items():

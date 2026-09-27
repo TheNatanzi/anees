@@ -34,6 +34,11 @@ shown in Arabizi when it is built from her own spellings and fits the sentence. 
 
 Target: 95 of 100 correct on a random hand check. Fragments and unclear words stay in Arabic.
 
+**Extended by Medi 2026-09-26 ("why no arabizi again. How do we stop you from doing this?"):** on the Lessons page
+error cards nothing stays Arabic-only - his own wrong or cut-off forms included, spelled as they sound in her letters
+(method `as-said`). Guard: `scripts/arabizi_gaps.cjs` lists every card word without Arabizi (exit 1 when any);
+`scripts/review_lesson.py` step 6b runs it on every new lesson and fills the gaps before the lesson counts as done.
+
 **Her letters.** `2` ء · `3` ع · `5` خ · `6` ط · `7` ح · `8` غ · `9` ص. Use these, not IPA, not MSA
 transliteration, not another tutor's chart.
 

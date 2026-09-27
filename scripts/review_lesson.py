@@ -12,6 +12,7 @@ Steps (each idempotent - an existing output file is reused, so a crash resumes w
   4 third     one `claude -p` run (THIRD-READER-BRIEF.md) -> <date>.r3.json ; settle -> <date>.settled.json
   5 build     scripts/full_audit_build.py (all lessons) -> data/full-audit-2026-09-26.json + plan/FULL-AUDIT-2026-09-26.md
   6 pages     build_lessons_page_data.py, build_grammar_console.py, build_amal_grammar_rules.py, arabizi_everywhere.py
+  6b arabizi   arabizi_gaps.cjs: any Arabic word on the error cards without Arabizi -> `claude -p` fills arabizi-extra.json
   7 Amal      `claude -p` pattern reader for this lesson's B rows (PATTERN-BRIEF.md, appends to patterns.json)
               -> build_amal_review.py -> amal_review_link.py (refreshes her hub payload) -> prints the hub link
   7c tutor     build_tutor_data.py -> docs/data/tutor.json (the Tutor page = Medi's menu of everything open for Amal)
@@ -24,6 +25,7 @@ HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 WORK = os.path.join(REPO, "data", "lesson-work", "full-audit")
 LOG = os.path.join(WORK, "review_lesson.log")
 CLAUDE = os.environ.get("ANEES_CLAUDE", "claude")
+NODE = r"C:\dev\tools\node-v24.18.0-win-x64\node.exe"
 
 
 def log(*a):
@@ -71,6 +73,14 @@ def pattern_prompt(date):
             f"Reply with one line: n rows placed, n new patterns.")
 
 
+def gaps_prompt():
+    return (f"Repo: {REPO}. Read RULES.md S1 (incl. the 2026-09-26 line: nothing on the error cards stays Arabic-only). "
+            f"data/lesson-work/arabizi-gaps.json lists Arabic tokens the renderer cannot spell. Add every one to "
+            f"docs/data/arabizi-extra.json 'words' ({{latin, method pieces|her-chat|sound|guess|as-said, from, meaning}}), her letters "
+            f"and her spellings first (docs/data/words.json arabizi, house_spelling.json). Only add. Then run "
+            f"`{NODE} scripts/arabizi_gaps.cjs` until it prints 0 words. Reply with one line: added n, gaps left n.")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("date")
@@ -109,6 +119,17 @@ def main():
     py(os.path.join(HERE, "full_audit_build.py"))
     for s in ("build_lessons_page_data.py", "build_grammar_console.py", "build_amal_grammar_rules.py", "arabizi_everywhere.py"):
         py(os.path.join(HERE, s), check=False)
+    # 6b Arabizi guard (Medi 2026-09-26: "why no arabizi again. How do we stop you from doing this?"): every Arabic word on
+    # the error cards must have Arabizi. Gaps -> one claude run fills docs/data/arabizi-extra.json (RULES.md S1), re-check.
+    gap = lambda: subprocess.run([NODE, os.path.join(HERE, "arabizi_gaps.cjs"), "--json", os.path.join(REPO, "data", "lesson-work", "arabizi-gaps.json")],
+                                 cwd=REPO, capture_output=True, text=True, encoding="utf-8")
+    g = gap(); log(g.stdout.strip())
+    if g.returncode and not a.dry_run:
+        claude(gaps_prompt(), f"{d} arabizi gaps"); g = gap(); log("after fill:", g.stdout.strip())
+        if not g.returncode:
+            py(os.path.join(HERE, "build_lessons_page_data.py"), check=False)
+    if g.returncode:
+        log("!! ARABIZI GAPS LEFT on the error cards - fill data/lesson-work/arabizi-gaps.json into arabizi-extra.json before telling Medi it is done")
     # 7 Amal's items: patterns for this lesson's B rows -> review data -> hub link refreshed
     A = json.load(open(os.path.join(REPO, "data", "full-audit-2026-09-26.json"), encoding="utf-8"))
     b_rows = [r["uid"] for r in A["rows"] if r["date"] == d and r.get("kind") in ("vocab-B", "grammar-B")]

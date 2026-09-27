@@ -101,7 +101,12 @@ function markText(text, needles) {
     if (!nd || !nd[0]) return;
     var needle = esc(String(nd[0]).trim());
     if (!needle) return;
-    var i = out.indexOf(needle);
+    // whole words only: a mark inside a word (إيدي inside إيدين) splits it and its Arabizi breaks
+    var AL = /[ء-يً-ْٰ]/, i = -1, from = 0;
+    while ((from = out.indexOf(needle, from)) >= 0) {
+      if (!AL.test(out.charAt(from - 1) || '') && !AL.test(out.charAt(from + needle.length) || '')) { i = from; break; }
+      from += needle.length;
+    }
     if (i < 0) return;
     out = out.slice(0, i) + '<mark class="' + nd[1] + '">' + needle + '</mark>' + out.slice(i + needle.length);
   });
@@ -378,17 +383,39 @@ function itemHead(tagText, tagCls, date, t) {
   head.appendChild(right);
   return head;
 }
+// The word the error is about, loud: Arabizi big (her spelling, rule S1), Arabic under it, English beside.
+// No Arabizi from her pieces -> the Arabic stays big with the "unverified" note (never a guessed spelling).
+function headWord(v) {
+  var box = el('div', 'ls-word ls-head');
+  var lat = v.arabizi, note = false;
+  if (!lat && v.arabic && toArabizi && isArabic(v.arabic)) {
+    var r = toArabizi(v.arabic);
+    if (r && !r.approximate) lat = r.text; else note = true;
+  }
+  var main = el('div', 'ls-headmain');
+  main.appendChild(el('strong', 'ls-headword', lat || v.arabic || '—'));
+  if (lat && v.arabic) { var ar = el('span', 'ls-headar', v.arabic); ar.setAttribute('lang', 'ar'); ar.setAttribute('dir', 'rtl'); main.appendChild(ar); }
+  box.appendChild(main);
+  // Medi 2026-09-26: "label it 'not on sheet'" / "add the rating (shaky, mastered) with my percentage correct"
+  var meta = el('div', 'ls-headmeta');
+  if (v.on_sheet === false) meta.appendChild(el('span', 'ls-pill ls-pill-off', 'Not on sheet · sent to Amal · not scored'));
+  else if (v.rating) {
+    var R = v.rating, st = R.status || 'Untested';
+    meta.appendChild(el('span', 'ls-pill ls-pill-' + st.toLowerCase(), st));
+    meta.appendChild(el('span', 'ls-small', R.n ? R.pct + '% right · ' + R.right + ' right · ' + R.wrong + ' wrong' + (R.partial ? ' · ' + R.partial + ' partial' : '') + ' (' + R.n + ' tries)' : 'no scored tries yet'));
+  }
+  if (meta.children.length) box.appendChild(meta);
+  if (v.english) box.appendChild(el('span', 'ls-en ls-headen', v.english));
+  if (note) box.appendChild(el('span', 'gc-spellnote', 'Unverified spelling stays in Arabic'));
+  return box;
+}
 function vocabList(body, x) {
   var list = x.vocab_errors || [];
   if (!list.length) { body.appendChild(el('div', 'gc-empty', 'No word misses scored in this lesson.')); return; }
   list.forEach(function (v) {
     var card = el('div', 'gc-use ' + (v.kind === 'partial' ? 'ls-use-partial' : 'gc-use-slip'));
     card.appendChild(itemHead(v.label || v.kind, null, x.date, v.t));
-    var word = el('div', 'ls-word');
-    word.appendChild(el('strong', null, v.arabizi || v.arabic));
-    if (v.arabizi) { var ar = el('span', 'ls-ar', v.arabic); ar.setAttribute('lang', 'ar'); word.appendChild(ar); }
-    word.appendChild(el('span', 'ls-en', v.english || ''));
-    card.appendChild(word);
+    card.appendChild(headWord(v));
     card.appendChild(speech('gc-said', v.said_html, v.said));
     if (v.fix) {
       var rc = el('div', 'gc-recast');
