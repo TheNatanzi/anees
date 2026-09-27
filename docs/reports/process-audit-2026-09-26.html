@@ -1,0 +1,806 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Process audit: why the detector missed 857 of 961 slips · AI Reports · Anees</title><script src="../js/theme.js"></script><link rel="stylesheet" href="../css/sabz-tokens.css"><link rel="stylesheet" href="../css/word-bank.css"><link rel="stylesheet" href="../css/vocabulary-progress.css"><link rel="stylesheet" href="../css/ai-reports.css?v=20260926-v1"></head>
+<body><div id="anees-bank" class="vp-sabz" aria-label="Anees AI report"><div class="ab-shell">
+<aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="../progress.html">Progress &amp; Stats</a><a class="ab-nav" href="../lessons.html">Lessons &amp; Audio</a><a class="ab-nav" href="../word-bank.html">Word Bank</a><a class="ab-nav" href="../grammar.html">Grammar Rules</a><a class="ab-nav" href="../cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="../index.html#amal">Tutor Notes &amp; Practice</a><a class="ab-nav" aria-current="page" href="../ai-reports.html">AI Reports</a><a class="ab-nav" href="../big-picture.html">Big Picture</a><a class="ab-nav" href="../settings.html">System Settings</a></nav></aside>
+<main>
+<header class="ab-header"><div><div class="vp-eyebrow">AI report · Claude · 2026-09-26</div><h1>Process audit: why the detector missed 857 of 961 slips</h1><div class="ab-sub">Built from PROCESS-AUDIT-2026-09-26.md</div></div><a class="ab-preview" href="../ai-reports.html">‹ All AI reports</a></header>
+<article class="ar-doc">
+<h1 id="process-audit-2026-09-26-step-7-why-each-miss-was-missed-and-the-rule-that-stops-it">Process audit - 2026-09-26 (step 7): why each miss was missed, and the rule that stops it</h1>
+<p><strong>The machine caught 104 of 961 rows (11 %); 15 gaps explain the other 857 misses, a 16th (wrong bucket) spoils a third of the hits, and 18 rules (below, one at a time) close them - Amal has to touch 7 of the 66 B patterns, the rest settle from her sheet, her own voice fixes, or the bucket text.</strong></p>
+<p>Numbers are counted with Python over <code>data/full-audit-2026-09-26.json</code> (build 05:16, 961 rows), <code>data/lesson-work/full-audit/patterns.json</code> (66 patterns, 115 rows, 0 unplaced), the 26 <code>*.r3.json</code> files, the 26 <code>*.compare.json</code> files and <code>data/grammar-sweep-2026-09-24.json</code>. Nothing here is a guess; where the transcript is a hole I say so.</p>
+<h2 id="0-what-the-detector-does-today-read-from-the-code-not-the-brief">0. What the detector does today (read from the code, not the brief)</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>piece</th>
+<th>where</th>
+<th>what it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>voice window</td>
+<td><code>scripts/audit_grammar_lessons.py</code> <code>WINDOW = 25.0</code></td>
+<td>her re-say must start within 25 s after his line (the brief calls this "the 15-second rule"; the code says 25 s; <code>understand_lesson.py</code> uses 5 s for a recast and 10 s for uptake)</td>
+</tr>
+<tr>
+<td>chat window</td>
+<td><code>CHAT_BACK = 150</code>, <code>CHAT_AHEAD = 90</code></td>
+<td>a typed line looks 150 s back and 90 s ahead for his line</td>
+</tr>
+<tr>
+<td>English cue</td>
+<td><code>ENGLISH_WINDOW = 20</code>, <code>english_cue()</code></td>
+<td>a rule she names in English within 20 s</td>
+</tr>
+<tr>
+<td>echo match</td>
+<td><code>xscript.skel()</code> consonant skeleton, <code>align()</code> anchors</td>
+<td>his word and her word must share a skeleton; a chat line needs anchors on half its words</td>
+</tr>
+<tr>
+<td>self-drops</td>
+<td><code>keep_pair()</code></td>
+<td>drops "she-echoed-a-right-answer", "echoing-her", "chat-question-al"</td>
+</tr>
+<tr>
+<td>what it never does</td>
+<td>-</td>
+<td>no vocab path at all; no tier-0 rows (it logs 232 <code>asks</code> and 270 <code>self_corrections</code> and files none); skips every Medi turn Scribe wrote in Latin (<code>detect_grammar_usage.py</code>: "Turns Scribe wrote in Latin letters are not counted here"); never ran on 09-10 or 09-18 (<code>docs/data/grammar-audit.json</code> has 11 lessons, 09-19 has 2 events)</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Every one of the 104 hits is a speaking-grammar row: vocab 0 of 274, B rows 0 of 115, listening 1 of 74.</li>
+<li>On the 11 lessons it did run on, it caught 103 of 456 speaking-grammar fixes (23 %).</li>
+<li>Its own precision: 165 events, 110 confirmed, 55 rejected (false 21, chat-only 14, self-fix 7, vocab 7, pronunciation 3, echo 3).</li>
+<li>Of the 101 confirmed events with a comparable bucket, 34 are in the wrong bucket (34 %), e.g. 08-25 23:10 C2 -&gt; D4, 09-05 48:15 B10 -&gt; B12, 09-11 05:29 A8 -&gt; A2.</li>
+</ul>
+<h2 id="1-detector-gaps-857-misses-each-in-exactly-one-gap">1. Detector gaps - 857 misses, each in exactly one gap</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>gap</th>
+<th>misses</th>
+<th>what would have been needed</th>
+<th>expected by the brief?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G1 B rows: Amal gave no signal at all</td>
+<td>115</td>
+<td>a pattern list judged from context; no detector can see a signal that is not there</td>
+<td>new</td>
+</tr>
+<tr>
+<td>G2 listening drill: he misread HER sentence</td>
+<td>71</td>
+<td>mode = listening when she says the Arabic first; 09-19 alone is 35 rows</td>
+<td>yes (small as a trap: the machine mis-filed only 1 listening row as speaking; readers disagreed on mode 8 times)</td>
+</tr>
+<tr>
+<td>G3 vocab tier 0: he asked, she supplied</td>
+<td>77</td>
+<td>write the <code>asks</code> the machine already logs (232) as tier-0 rows</td>
+<td>new</td>
+</tr>
+<tr>
+<td>G4 vocab tier 3: English word inside an Arabic sentence</td>
+<td>6 (+6 B rows already in G1)</td>
+<td>English token inside a mostly-Arabic line whose sheet word exists</td>
+<td>yes, but small: 12 rows in all, not the big gap</td>
+</tr>
+<tr>
+<td>G5 vocab tier 2: wrong form of a known word</td>
+<td>37 (+6 B rows already in G1)</td>
+<td>a sheet word said in another shape (plural he invented, verb as noun)</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>G6 vocab tier 1: wrong word / non-word</td>
+<td>112</td>
+<td>a vocab path: his word not on her sheet, her next word on it, same English</td>
+<td>new (the biggest vocab gap)</td>
+</tr>
+<tr>
+<td>G7 lesson never machine-audited (09-10, 09-18)</td>
+<td>84</td>
+<td>run the auditor on every lesson that has a transcript</td>
+<td>new (an operations gap, not an algorithm gap)</td>
+</tr>
+<tr>
+<td>G8 fix only in chat</td>
+<td>37 grammar (+14 vocab counted above)</td>
+<td>chat pairing: 53 chat-fix rows, lag median 66 s (17 under 30 s, 20 in 30-120 s, 15 over 120 s, max 334 s); the 150 s window covers most of them - the pairing fails, not the window; machine caught 1 of 37</td>
+<td>yes, cause is different than expected</td>
+</tr>
+<tr>
+<td>G9 rule named in English</td>
+<td>44</td>
+<td>a bigger cue list ("it's feminine", "which preposition", "past", "with the b"); machine caught 9 of 53</td>
+<td>new</td>
+</tr>
+<tr>
+<td>G11 her fix more than 25 s after his line</td>
+<td>10</td>
+<td>longer window</td>
+<td>yes (small)</td>
+</tr>
+<tr>
+<td>G12 his line is Latin-transliterated by the engine</td>
+<td>127</td>
+<td>skeleton-match Latin turns; 416 of 961 rows (43 %) have his line in Latin: 09-21 59, 09-16 54, 09-18 50, 09-04 46, 09-19 42</td>
+<td>yes, and it is the single biggest grammar gap</td>
+</tr>
+<tr>
+<td>G13 his line is a transcript hole</td>
+<td>24 (55 rows overall sit on a hole marker: 09-23 31, 09-16 11, 09-11 7, 09-17 6)</td>
+<td>anchor the row on her line, confidence low, never drop</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>G14 prompt-then-fix spread over 2+ turns</td>
+<td>45</td>
+<td>pair his FIRST wrong form with her LAST form across her prompts; 91 of 536 speaking-grammar fixes have 3+ voice turns between his line and hers, the machine caught 9 of those (10 %) vs 88 of 394 with 0-1 turns (22 %)</td>
+<td>yes ("3+ turns")</td>
+</tr>
+<tr>
+<td>G15 explicit "no" within 25 s, not matched</td>
+<td>17</td>
+<td>"no / لا / مش" + a re-said word counts even when the echo anchors are weak; machine caught 14 of 63</td>
+<td>new</td>
+</tr>
+<tr>
+<td>G16 recast within 25 s, echo match failed</td>
+<td>51</td>
+<td>looser skeleton (ة/ه, ق/ء, dropped ع), one-word diffs; machine caught 59 of 184 recasts (32 %)</td>
+<td>new</td>
+</tr>
+<tr>
+<td>wrong bucket (a hit, filed wrong - not a miss)</td>
+<td>34 of 101 confirmed hits</td>
+<td>file by the changed piece, always write bucket2</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>
+<p>The 15 miss rows sum to 857; G10 ("no t_amal") came out empty - every miss has her line or a chat line.</p>
+</li>
+<li>
+<p>Verified gaps the brief expected: tier 3 (12 rows, small), tier 2 (43), 3+ turns (91 rows, caught 10 %), chat lag (53 rows, median 66 s), holes (55 rows), Latin (416 rows), listening (74 rows), wrong bucket (34 of 101).</p>
+</li>
+<li>Refuted as <em>detector</em> gaps but real as <em>reader</em> traps (the third reader's 186 drops out of 644 disputes): transcript/unverifiable 80, her "no" aimed at something else 31, pronunciation S4 28, duplicate 17, self-fix 11, Amal's echo taken as a fix 10, listening 5.</li>
+<li>Gaps the brief did not list: never-run lessons (G7, 84), asks not written (G3, 77), no vocab path (G6, 112), the English cue list (G9, 44), and the machine's own 33 % false-event rate.</li>
+<li>Could not verify: any row inside 09-23 00:00-23:45 (Medi's track is missing; 31 rows there rest on her echo alone), 09-18 19:30-31:30 (his words dropped inside his English), 09-11 18:14-22:42 and 30:30-36:36, 09-16 26:46-30:50 and 1:02:48-1:09:06, 09-17 14:11-24:07 ("[speaking Arabic]"), and 09-04 where the diarization swapped Amal/Medi labels inside the verb drill.</li>
+</ul>
+<h2 id="2-a-rule-per-gap-with-its-one-line-test">2. A rule per gap, with its one-line test</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>gap</th>
+<th>rule</th>
+<th>test (how the code or the next reader knows it is applied)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G7</td>
+<td>R1 run on every lesson</td>
+<td><code>grammar-audit.json</code> lists 13 lessons incl. 09-10 and 09-18</td>
+</tr>
+<tr>
+<td>G12</td>
+<td>R2 Latin turns are Arabic</td>
+<td>rerun on 09-16: machine hits &gt; 5 (today 5 of 59)</td>
+</tr>
+<tr>
+<td>G6, G5</td>
+<td>R3 vocab path</td>
+<td>09-21: machine flags &gt;= 20 of its 41 vocab-A rows (today 0)</td>
+</tr>
+<tr>
+<td>G3</td>
+<td>R4 asks become tier-0 rows</td>
+<td>77 tier-0 misses -&gt; machine has &gt;= 60</td>
+</tr>
+<tr>
+<td>G4</td>
+<td>R5 English inside Arabic</td>
+<td>the 12 known tier-3 rows flagged; 09-10 "air conditioning" (both use it) not flagged</td>
+</tr>
+<tr>
+<td>G8</td>
+<td>R6 chat is a fix only when it differs and she did not approve aloud</td>
+<td>09-18 D4/D10/D15 not flagged; 09-14's 14 chat-fix rows flagged</td>
+</tr>
+<tr>
+<td>G9</td>
+<td>R7 cue list</td>
+<td>named-rule rows: machine &gt;= 30 of 61 (today 9)</td>
+</tr>
+<tr>
+<td>G15</td>
+<td>R8 "no" + re-said word</td>
+<td>explicit-no rows: machine &gt;= 40 of 63 (today 14)</td>
+</tr>
+<tr>
+<td>G14, G11</td>
+<td>R9 window runs to his next Arabic line</td>
+<td>3+-turn rows: machine &gt;= 30 of 91 (today 9)</td>
+</tr>
+<tr>
+<td>G13</td>
+<td>R10 holes anchor on her line</td>
+<td>55 hole rows kept, all confidence low, <code>medi_said</code> = the hole marker</td>
+</tr>
+<tr>
+<td>G2</td>
+<td>R11 listening stretch = mode listening</td>
+<td>09-19 11:13-1:00:35 yields 0 speaking rows</td>
+</tr>
+<tr>
+<td>reader trap</td>
+<td>R12 echo is not a fix</td>
+<td>the 10 r3 "echo" drops reproduce as 0 candidates</td>
+</tr>
+<tr>
+<td>reader trap</td>
+<td>R13 S4 is never a row</td>
+<td>the 28 r3 S4 drops produce F1-F3 or nothing</td>
+</tr>
+<tr>
+<td>reader trap</td>
+<td>R14 her "no" needs a target word</td>
+<td>the 31 r3 "not a fix" drops reproduce as 0 candidates</td>
+</tr>
+<tr>
+<td>wrong bucket</td>
+<td>R15 bucket by the changed piece</td>
+<td>wrong-bucket rate on confirmed events &lt; 15 % (today 34 %)</td>
+</tr>
+<tr>
+<td>G1</td>
+<td>R16 B rows go to Amal as patterns</td>
+<td><code>amal-review.json</code> has 66 patterns, 0 unplaced</td>
+</tr>
+<tr>
+<td>G1</td>
+<td>R17 same-lesson evidence (conflicts with the 09-25 decision - see below)</td>
+<td>53 of 78 grammar-B rows carry a same-day A row in the same bucket</td>
+</tr>
+<tr>
+<td>readers</td>
+<td>R18 fourth read only where needed; R19 r3 sees the agreed list</td>
+<td>pass 3 exists for 09-04, 09-11, 09-16, 09-17, 09-18 only; r3 files have non-empty <code>added</code> when warranted</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="3-what-amal-must-rule-on-once-vs-what-the-system-settles-from-her-doc">3. What Amal must rule on once vs what the system settles from her Doc</h2>
+<ul>
+<li>66 patterns hold all 115 B rows: 41 grammar patterns (78 rows), 25 vocab (37 rows); 42 patterns are a single row.</li>
+<li><strong>Amal touches 7 patterns (16 rows).</strong> The other 59 patterns (99 rows) settle from her sheet, her own out-loud fixes of the same rule (A rows), or the bucket text she taught.</li>
+<li>"A rows in bucket" = how many times she fixed that same rule aloud across the 13 lessons; the cited row is one example.</li>
+</ul>
+<h3 id="3a-only-amal-can-settle-7">3a. Only Amal can settle (7)</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>pattern</th>
+<th>rows</th>
+<th>why only she can</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>p-b-kept-after-lamma-iza (B3)</td>
+<td>4</td>
+<td>she herself kept the b- after iza three times (09-05 53:49, 09-10 22:27, 09-11 24:45 - sweep doc item 1); B3 text says drop it</td>
+</tr>
+<tr>
+<td>p-ykoon-in-plain-present (C1)</td>
+<td>3</td>
+<td>only 1 A row in C1; rule M6 (ykun in lamma/iza clauses) is still "planned"; her call</td>
+</tr>
+<tr>
+<td>p-english-word-for-sheet-word (tier 3)</td>
+<td>4</td>
+<td>the words are on her sheet (or / Aw, eat / Kul, rice / Ruz, iranian / Irani) and she fixed English-in-Arabic aloud 6 times (09-15 32:01 flight -&gt; طيارة, 09-23 29:48 paper -&gt; ورقة ...) - what only she can draw is the line "switching to English on purpose"</td>
+</tr>
+<tr>
+<td>p-ya3tik-el-3afye-reply</td>
+<td>2</td>
+<td>the reply Allah y3afiki is not on her sheet (grep 3afye: nothing; sheet has "congrats response</td>
+</tr>
+<tr>
+<td>p-3ashan-for-3an</td>
+<td>1</td>
+<td>3an is a 2-letter key my grep cannot pin on the sheet; she says whether 3ashaan is acceptable for "about"</td>
+</tr>
+<tr>
+<td>p-noa3-kind-of</td>
+<td>1</td>
+<td>"kind of" on the sheet only matches Jawwi (my kind of scene); no row for the adverb</td>
+</tr>
+<tr>
+<td>p-el-arabin-invented-plural (tier 2)</td>
+<td>1</td>
+<td>sheet has 3arabi (arabic / arab) but no plural row</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="3b-settled-without-her-grammar-39-patterns-71-rows">3b. Settled without her - grammar (39 patterns, 71 rows)</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>bucket</th>
+<th>patterns (rows)</th>
+<th>A rows in bucket</th>
+<th>one A row that already settles it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B1</td>
+<td>p-present-no-b (8), p-ma-plus-bare-present (2), p-see-you-reply-clipped (2)</td>
+<td>26</td>
+<td>08-25 50:50 ما تعصب -&gt; ما بتعصب</td>
+</tr>
+<tr>
+<td>A8</td>
+<td>p-fem-noun-masc-adj (6)</td>
+<td>16</td>
+<td>08-25 28:45 معصب -&gt; معصبة</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>p-el-on-first-idafa-word (4)</td>
+<td>25</td>
+<td>08-25 09:12 درجة حرارة -&gt; درجة الحرارة</td>
+</tr>
+<tr>
+<td>B5</td>
+<td>p-i-past-as-bare-he-form (3), p-msa-tum-ending (2), p-you-f-ending-on-i-verb (1)</td>
+<td>51</td>
+<td>08-25 27:24 أعمل غلط -&gt; عملت إشي غلط</td>
+</tr>
+<tr>
+<td>A1</td>
+<td>p-el-missing-known-thing (3)</td>
+<td>16</td>
+<td>08-25 58:22 بغير الجو -&gt; بغير جو</td>
+</tr>
+<tr>
+<td>A9</td>
+<td>p-singular-for-plural (3), p-plural-for-singular (1)</td>
+<td>14</td>
+<td>09-10 20:41 هدول اليوم -&gt; أيام</td>
+</tr>
+<tr>
+<td>E2</td>
+<td>p-clock-time-3ala-number (3)</td>
+<td>4</td>
+<td>sheet row "at 1:00</td>
+</tr>
+<tr>
+<td>B18</td>
+<td>p-masc-you-to-amal (2), p-1sg-for-you-f-question, p-i-form-for-he-form, p-mixed-masc-fem-verb-form, p-we-form-of-inkasar, p-huwwe-for-heyye (1 each)</td>
+<td>55</td>
+<td>08-25 04:22 إحنا بدأ -&gt; بدأنا</td>
+</tr>
+<tr>
+<td>A7</td>
+<td>p-el-missing-on-adjective (2), p-adjective-before-noun (1)</td>
+<td>5</td>
+<td>08-25 15:31 الـ تاني مشكلة -&gt; المشكلة التانية</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>p-fi-for-bi (2), p-wahed-min (1), p-la-for-3ala-on (1)</td>
+<td>18</td>
+<td>sheet row "at night</td>
+</tr>
+<tr>
+<td>D4</td>
+<td>p-object-ending-dropped (2)</td>
+<td>39</td>
+<td>08-25 23:10 يخلصهم -&gt; يخلصوه</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>p-rann-la-for-3ala (1), p-mit7ammes-min (1)</td>
+<td>44</td>
+<td>sheet row "excited</td>
+</tr>
+<tr>
+<td>B12</td>
+<td>p-t-form-dropped (2), p-causative-heard-as-state (1)</td>
+<td>49</td>
+<td>09-04 03:43 بهمس -&gt; بتحمس</td>
+</tr>
+<tr>
+<td>B3</td>
+<td>p-b-dropped-after-enno (1)</td>
+<td>7</td>
+<td>bucket text: "KEEP it after enno"</td>
+</tr>
+<tr>
+<td>A3</td>
+<td>p-fem-t-before-ending (1)</td>
+<td>2</td>
+<td>bucket text A3; 09-04 55:30 Safarhom -&gt; Safartom (weak: 2 A rows)</td>
+</tr>
+<tr>
+<td>A10b</td>
+<td>p-hadol-drops-el (1)</td>
+<td>0</td>
+<td>bucket text A10b "noun after hadol keeps el-"; sheet "these</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>p-la-for-ma (1), p-ma-for-mish-participle (1)</td>
+<td>8</td>
+<td>09-05 1:00:38 أنا انزعجت -&gt; أنا ما انزعجت</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>p-ma-on-pronoun-3and-lost, p-min-hom-separate, p-3andak-for-3andkom (1 each)</td>
+<td>13</td>
+<td>08-25 38:11 Alayhom -&gt; ala binat akhui</td>
+</tr>
+<tr>
+<td>E4</td>
+<td>p-friday-clipped (1)</td>
+<td>3</td>
+<td>09-10 06:47 alfayn -&gt; ألفين ستة وعشرين (sheet row for yoam el-jum3a not checked)</td>
+</tr>
+<tr>
+<td>B15</td>
+<td>p-participle-with-verb-ending (1)</td>
+<td>14</td>
+<td>08-25 25:47 بتضل تعصب -&gt; ما بتضل معصبة</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>p-el-on-comparative (1)</td>
+<td>4</td>
+<td>bucket text "never el- in front"; 09-04 02:15 الأحسن طريقة -&gt; أحسن طريقة</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="3c-settled-without-her-vocab-20-patterns-28-rows">3c. Settled without her - vocab (20 patterns, 28 rows)</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>pattern</th>
+<th>rows</th>
+<th>sheet row (or precedent) that settles it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>p-kam-marra-for-kaman-marra</td>
+<td>5</td>
+<td>"one more time</td>
+</tr>
+<tr>
+<td>p-msa-form-for-her-word (tier 2)</td>
+<td>3</td>
+<td>her sheet is Levantine (mayy, jaaj, halla2) - my script matched the wrong line, grep each before publishing</td>
+</tr>
+<tr>
+<td>p-english-word-amal-also-used (tier 3)</td>
+<td>2</td>
+<td>r3 09-21: "jacket is on her sheet but she used jacket herself, so not filed" -&gt; drop, no ruling</td>
+</tr>
+<tr>
+<td>p-eish-shnu-for-shu</td>
+<td>2</td>
+<td>"what?</td>
+</tr>
+<tr>
+<td>p-7awalein-for-7awali (tier 2)</td>
+<td>1</td>
+<td>"around / approximately</td>
+</tr>
+<tr>
+<td>p-ya2ti-for-jab</td>
+<td>1</td>
+<td>"bring</td>
+</tr>
+<tr>
+<td>p-sot-tawil-for-3ali</td>
+<td>1</td>
+<td>"loud / high volume</td>
+</tr>
+<tr>
+<td>p-mufrad-for-only</td>
+<td>1</td>
+<td>"only / just</td>
+</tr>
+<tr>
+<td>p-far2-for-mukhtalef</td>
+<td>1</td>
+<td>"different (from)</td>
+</tr>
+<tr>
+<td>p-ta3al-for-goodbye</td>
+<td>1</td>
+<td>"bye (peace)</td>
+</tr>
+<tr>
+<td>p-aktar-what-else</td>
+<td>1</td>
+<td>"also / more / too</td>
+</tr>
+<tr>
+<td>p-barid-for-mbare7</td>
+<td>1</td>
+<td>"yesterday</td>
+</tr>
+<tr>
+<td>p-fata7-for-7att</td>
+<td>1</td>
+<td>"put</td>
+</tr>
+<tr>
+<td>p-3uzurti-for-sorry</td>
+<td>1</td>
+<td>"sorry</td>
+</tr>
+<tr>
+<td>p-3ajul-for-mista3jel</td>
+<td>1</td>
+<td>"in a hurry / rushed</td>
+</tr>
+<tr>
+<td>p-bad7ak-glossed-smile</td>
+<td>1</td>
+<td>"i laugh / i smile</td>
+</tr>
+<tr>
+<td>p-days-off-for-meetings</td>
+<td>1</td>
+<td>"meeting</td>
+</tr>
+<tr>
+<td>p-year-2026-said-wrong</td>
+<td>1</td>
+<td>r3 09-21 on the same slip: "not a language error" -&gt; drop</td>
+</tr>
+<tr>
+<td>p-zbayenna-glossed-arab</td>
+<td>1</td>
+<td>"customer</td>
+</tr>
+<tr>
+<td>p-la-sama7ti-for-law (tier 2)</td>
+<td>1</td>
+<td>"please (f)</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>"Settled" here means: the rule is already hers (sheet row, bucket text, or she fixed it aloud); whether a given B <em>instance</em> is scored is still the 09-25 decision (unscored until she confirms) - rule R17 asks whether same-lesson evidence may count.</li>
+</ul>
+<h2 id="4-reader-loop-findings">4. Reader-loop findings</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>lesson</th>
+<th>pass 1 agree %</th>
+<th>pass 2 agree %</th>
+<th>pass 1 vs 2 (rows in both / union)</th>
+<th>sweep rows both passes missed</th>
+<th>Latin rows</th>
+<th>hole rows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>08-25</td>
+<td>61.8</td>
+<td>80.9</td>
+<td>78.9 % (56/71)</td>
+<td>4</td>
+<td>13</td>
+<td>0</td>
+</tr>
+<tr>
+<td>09-04</td>
+<td>63.2</td>
+<td>48.5</td>
+<td>74.6 % (47/63)</td>
+<td>18</td>
+<td>46</td>
+<td>0</td>
+</tr>
+<tr>
+<td>09-05</td>
+<td>64.6</td>
+<td>61.5</td>
+<td>80.0 % (36/45)</td>
+<td>4</td>
+<td>30</td>
+<td>0</td>
+</tr>
+<tr>
+<td>09-10</td>
+<td>61.8</td>
+<td>66.2</td>
+<td>77.9 % (53/68)</td>
+<td>7</td>
+<td>6</td>
+<td>0</td>
+</tr>
+<tr>
+<td>09-11</td>
+<td>58.5</td>
+<td>55.0</td>
+<td>67.8 % (40/59)</td>
+<td>5</td>
+<td>15</td>
+<td>7</td>
+</tr>
+<tr>
+<td>09-14</td>
+<td>69.7</td>
+<td>61.9</td>
+<td>77.3 % (51/66)</td>
+<td>3</td>
+<td>27</td>
+<td>0</td>
+</tr>
+<tr>
+<td>09-15</td>
+<td>57.9</td>
+<td>54.8</td>
+<td>76.7 % (46/60)</td>
+<td>9</td>
+<td>35</td>
+<td>0</td>
+</tr>
+<tr>
+<td>09-16</td>
+<td>50.0</td>
+<td>63.3</td>
+<td>79.6 % (43/54)</td>
+<td>23</td>
+<td>54</td>
+<td>11</td>
+</tr>
+<tr>
+<td>09-17</td>
+<td>72.4</td>
+<td>62.1</td>
+<td>69.2 % (45/65)</td>
+<td>2</td>
+<td>35</td>
+<td>6</td>
+</tr>
+<tr>
+<td>09-18</td>
+<td>58.7</td>
+<td>70.5</td>
+<td>80.0 % (36/45)</td>
+<td>17</td>
+<td>50</td>
+<td>0</td>
+</tr>
+<tr>
+<td>09-19</td>
+<td>58.3</td>
+<td>70.0</td>
+<td>76.9 % (40/52)</td>
+<td>5</td>
+<td>42</td>
+<td>0</td>
+</tr>
+<tr>
+<td>09-21</td>
+<td>58.7</td>
+<td>50.0</td>
+<td>75.8 % (97/128)</td>
+<td>11</td>
+<td>59</td>
+<td>0</td>
+</tr>
+<tr>
+<td>09-23</td>
+<td>64.3</td>
+<td>68.7</td>
+<td>78.6 % (55/70)</td>
+<td>8</td>
+<td>4</td>
+<td>31</td>
+</tr>
+<tr>
+<td>all</td>
+<td>61.5</td>
+<td>61.5</td>
+<td>76.2 % (645/846)</td>
+<td>116</td>
+<td>416</td>
+<td>55</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Two readers agree on 61.5 % of rows in either pass; pass 2 did not raise agreement (same 61.5 %).</li>
+<li>What they disagree on: 461 of 644 disputes (72 %) are existence (only one reader saw it); 170 are label (tier 75, kind 62, bucket 47, A vs B 24, mode 8); 13 are the same moment cut into different pieces.</li>
+<li>The third reader dropped 186 of 644 disputes (29 %): 80 unverifiable transcript, 31 not a fix, 28 pronunciation, 17 duplicate, 11 self-fix, 10 echo, 5 listening, 4 other.</li>
+<li>Each pass alone finds about 87-89 % of the union (735 and 756 of 846); 201 rows (24 %) live in only one pass, so a third pass would still add rows.</li>
+<li>Both passes together still missed 116 of the 480 sweep rows (24 %); the misses sit where the transcript is Latin or holed: 09-16 (23), 09-04 (18), 09-18 (17), 09-21 (11).</li>
+<li>Structural flaw: the third reader cannot see the agreed rows (r3 notes on 08-25, 09-05, 09-11, 09-16, 09-17, 09-23 all say "could not add, cannot see the agreed list"), so duplicates slip in and sure adds are left out (only 2 r3-added rows in 13 lessons).</li>
+<li>Verdict: two passes + a third reader is enough where pass-1-vs-2 is above 75 % and the transcript is clean; a fourth read is needed on 09-04, 09-11, 09-17 (agreement below 75 %) and on 09-16, 09-18 (worst sweep-miss counts) - five lessons, not thirteen.</li>
+</ul>
+<h2 id="5-proposed-rules-one-at-a-time-for-medis-yes-no">5. Proposed rules, one at a time, for Medi's yes / no</h2>
+<ol>
+<li>
+<p><strong>R1 - run the auditor on every lesson that has a transcript.</strong> Why: 09-10 and 09-18 were never audited, 84 grammar misses are just that. Test: <code>grammar-audit.json</code> lists 13 lessons. If yes: <code>audit_grammar_lessons.py</code> runs from the lesson list, not a hard-coded set; the hourly job re-runs it when a transcript lands.</p>
+</li>
+<li>
+<p><strong>R2 - a Medi line Scribe wrote in Latin letters is Arabic, not English, unless every token passes <code>is_english</code>.</strong> Why: 416 rows (43 %) have his line in Latin and the usage counter skips them outright; 127 speaking-grammar misses. Test: rerun on 09-16 gives &gt; 5 hits (today 5 of 59). If yes: <code>detect_grammar_usage.py</code> stops skipping Latin turns; <code>audit_grammar_lessons.py</code> skeleton-matches them (<code>xscript.key</code>).</p>
+</li>
+<li>
+<p><strong>R3 - vocab path: a Medi word not on her sheet, followed within 25 s by her word that is on the sheet with the same English gloss, is a tier-1 candidate; a sheet word said in another shape (plural, verb-as-noun) is tier 2.</strong> Why: 112 + 37 vocab-A misses, the machine has no vocab path. Test: 09-21 flags &gt;= 20 of its 41 vocab-A rows. If yes: new <code>scripts/audit_vocab_lessons.py</code> writing <code>docs/data/vocab-audit.json</code>, verified = false until a human ticks.</p>
+</li>
+<li>
+<p><strong>R4 - every ask the machine logs whose answer is a sheet word becomes a vocab-A tier-0 row.</strong> Why: 77 tier-0 misses while <code>grammar-audit.json</code> already holds 232 asks it files nowhere. Test: machine has &gt;= 60 of the 77. If yes: the <code>asks</code> list is emitted as rows with <code>signal = asked</code>, <code>tier = 0</code>.</p>
+</li>
+<li>
+<p><strong>R5 - an English token inside a Medi line that is at least half Arabic, whose sheet word exists, and which he did not self-fix inside the turn, is a tier-3 candidate; it is skipped when Amal used the same English word within 60 s.</strong> Why: 12 tier-3 rows; r3 ruled 09-21 "jacket" out because she used it herself. Test: the 12 known rows flagged, 09-10 "air conditioning" not flagged. If yes: tier-3 detection lands in the vocab path of R3.</p>
+</li>
+<li>
+<p><strong>R6 - a chat line is a fix only if it differs from his nearest Arabic line (skeleton, 150 s back / 90 s ahead) in at most two words AND her voice did not approve (Perfect / Nice / mm-hmm / صح) in between; in a lesson where she types most target sentences (09-16: 69 chat lines, 09-18: 66, 09-19: 78) a chat line alone is never a signal.</strong> Why: 53 chat-fix rows, the machine caught 1; r3 dropped 09-18 D4/D10/D15 for exactly this. Test: those three not flagged, 09-14's 14 chat-fix rows flagged. If yes: <code>align()</code> keeps the anchor rule and adds the approval check.</p>
+</li>
+<li>
+<p><strong>R7 - widen the English cue list to what she actually says: "it's feminine / masculine", "which preposition", "past / present", "plural", "with the b / without b", "you need", "not X, Y".</strong> Why: 61 named-rule rows, the machine caught 9. Test: &gt;= 30 caught. If yes: <code>english_cue()</code> in <code>audit_grammar_lessons.py</code> and <code>META_EN</code> in <code>understand_lesson.py</code> share one list in <code>docs/data/ai_rules.json</code>.</p>
+</li>
+<li>
+<p><strong>R8 - "no / لا / مش" from Amal followed within 25 s by a re-said word of his counts as a fix even when the echo anchors are weak.</strong> Why: 63 explicit-no speaking-grammar rows, the machine caught 14. Test: &gt;= 40 caught. If yes: <code>keep_pair()</code> lowers the anchor floor when a NEG cue precedes the re-say.</p>
+</li>
+<li>
+<p><strong>R9 - the pairing window runs from his first wrong form to his next Arabic line, across her prompt turns (شو؟ / كمان مرة / a question); pair his FIRST wrong form with her LAST form.</strong> Why: 91 fixes have 3+ voice turns between his line and hers, the machine caught 9 (10 %) against 22 % for 0-1 turns; 10 more sit past 25 s. Test: &gt;= 30 of the 91 caught. If yes: <code>WINDOW</code> becomes turn-based, <code>REPEAT</code> folds the botched immediate repeat into the same event.</p>
+</li>
+<li>
+<p><strong>R10 - a Medi turn that is a hole ("[speaking Arabic]", "[speaking foreign language]", missing track) followed by an Amal fix line becomes a row anchored on her line, confidence low, <code>medi_said</code> = the hole marker; it is never dropped and never scored until the clip is heard.</strong> Why: 55 such rows (09-23 31, 09-16 11, 09-11 7, 09-17 6); 80 of the 186 r3 drops were "cannot be verified". Test: all 55 kept with confidence low. If yes: <code>full_audit_build.py</code> and <code>review_lesson.py</code> carry <code>hole = true</code>; the page shows the clip button instead of his words.</p>
+</li>
+<li>
+<p><strong>R11 - inside a stretch where Amal says the Arabic first and he repeats or translates, every row is mode = listening and never touches the speaking score.</strong> Why: 74 listening rows; 09-19 is a 50-minute listening drill (35 rows); the sweep filed 21 listening misreads. Test: 09-19 11:13-1:00:35 yields 0 speaking rows. If yes: the detector marks a stretch as listening when Amal's Arabic precedes his in &gt; 70 % of the pairs over 2 minutes.</p>
+</li>
+<li>
+<p><strong>R12 - Amal's echo is not a fix: a line equal to his (skeleton) or carrying ✓ / ممتاز / صح / mm-hmm is approval; only a differing re-say is a fix.</strong> Why: the code already drops "she-echoed-a-right-answer"; the readers still filed 10 echoes that r3 dropped. Test: the 10 reproduce as 0 candidates. If yes: the reader brief gets the same line as the code (M1 already says a miss needs a signal).</p>
+</li>
+<li>
+<p><strong>R13 - a wrong -&gt; right pair that differs only in ع/ح/ط/ق/ء/ث/ذ, vowel length or shadda is pronunciation (F1-F3), never a word or grammar row.</strong> Why: 28 r3 drops were S4; the Latin engine cannot even encode a shadda (09-04 basato/basatto). Test: the 28 produce F-bucket rows or nothing. If yes: <code>classify()</code> routes those diffs to F1-F3 before any A-E bucket.</p>
+</li>
+<li>
+<p><strong>R14 - her "no" needs a target: it counts only when the same or next line re-says an Arabic word of his; a "no" answering his English question, a fact (time zone, the year), or content is not a fix.</strong> Why: 31 r3 drops were "not a fix"; 21 of the machine's 165 events were false. Test: the 31 reproduce as 0 candidates. If yes: <code>is_ask()</code> and the NEG cue require a re-said Arabic token.</p>
+</li>
+<li>
+<p><strong>R15 - file the bucket by the changed piece (prefix b- -&gt; B1/B2/B3; verb ending -&gt; B5/B18/D4; el- -&gt; A1/A2/A7; preposition -&gt; D1/D2), always write <code>bucket2</code>, and a reader's bucket beats the machine's.</strong> Why: 34 of 101 confirmed machine events sit in the wrong bucket. Test: wrong-bucket rate under 15 %. If yes: <code>classify()</code> orders its checks by the diff span, and <code>score_grammar_detector.py</code> reports bucket accuracy per run.</p>
+</li>
+<li>
+<p><strong>R16 - B rows never reach Amal as rows: one pattern, one ruling, all examples folded under it; her yes scores every row in the pattern, her reason becomes a rule in <code>ai_rules.json</code> and the pattern is never asked again.</strong> Why: 115 B rows fold into 66 patterns (42 are single rows), decision C of 09-25. Test: <code>amal-review.json</code> shows 66 patterns, 0 unplaced, and each ruling writes one <code>amal_rules</code> row. If yes: the Tutor Hub page and <code>review_lesson.py</code> build from <code>patterns.json</code>, not from rows.</p>
+</li>
+<li>
+<p><strong>R17 - CONFLICTS WITH THE 09-25 DECISION, needs your call: a grammar-B row whose bucket Amal fixed out loud in the same lesson is scored without asking her.</strong> Why: 53 of 78 grammar-B rows carry a same-day A row in the same bucket (e.g. B18: 55 A rows); asking her about a rule she corrected an hour earlier is hand-holding. The 09-25 decision says B is unscored until she confirms. Test: those 53 rows show <code>scored_by = same-lesson A row FA-...</code>. If yes: only 25 grammar-B rows plus the vocab-B rows go to her page. If no: nothing changes.</p>
+</li>
+<li>
+<p><strong>R18 - reader loop: two passes and a third reader by default; a fourth read only when pass-1-vs-pass-2 is under 75 % or the sweep-miss count is over 15; and the third reader sees the agreed list read-only.</strong> Why: agreement is 61.5 % in both passes, 24 % of rows live in one pass only, and r3 could not add or dedupe in 6 lessons because the agreed rows were hidden. Test: pass 3 exists for 09-04, 09-11, 09-16, 09-17, 09-18 only; r3 files carry non-empty <code>added</code> when warranted. If yes: <code>THIRD-READER-BRIEF.md</code> adds the agreed rows (read-only), and <code>review_lesson.py</code> triggers pass 3 from the two numbers.</p>
+</li>
+</ol>
+<h2 id="6-existing-rules-these-touch-no-duplicates-proposed">6. Existing rules these touch (no duplicates proposed)</h2>
+<ul>
+<li>M1 (a miss needs a signal) - R12 and R14 restate it for readers and the NEG cue.</li>
+<li>M4 (keep the stumble) and S5 - R13 draws the S4 line in code.</li>
+<li>M6 (ykun after lamma / iza, planned) - the C1 pattern in 3a waits on it.</li>
+<li>M8 (wrong preposition is its own kind, partly) - R15 keeps D1/D2 by the changed piece.</li>
+<li>S1 (speaker = recording channel, partly) - 09-04 and 09-18 are single mixed recordings with swapped or estimated labels; no new rule, S1 built fully would remove the swap trap.</li>
+<li>H1 (no guessed number) - every count above is from the JSON; the two "not checked" sheet rows in 3b/3c are marked as such.</li>
+</ul>
+<p>16 gaps, 18 rules.</p>
+</article>
+</main></div></div><script>if(location.hash){const e=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(e)setTimeout(()=>e.scrollIntoView({block:"start"}),50);}</script><script src="../js/build.js"></script><script src="../js/stale.js"></script></body></html>

@@ -30,7 +30,7 @@ def test_ai_reports_json_and_pages():
         for b in r.get('bars', []):
             assert b['max'] > 0 and 0 <= b['value'] <= b['max'], b
         for l in r['links']:
-            target = (DOCS / l['url']).resolve()
+            target = (DOCS / l['url'].split('#')[0]).resolve()   # links may point at a heading inside the report
             assert target.exists(), f"dead link {l['url']} on {r['slug']}: run python scripts/build_ai_reports.py"
         slugs.append(r['slug'])
     assert len(slugs) == len(set(slugs))
@@ -42,7 +42,8 @@ def test_tabs_present_everywhere():
         assert f'data-tab="{tab}"' in idx and f'id="tab-{tab}"' in idx
     assert 'href="ai-reports.html"' in idx and "if(name==='ai-reports'){location.replace('ai-reports.html')" in idx   # old #ai-reports links still land
     page = (DOCS / 'ai-reports.html').read_text(encoding='utf-8')
-    assert 'aria-current="page" href="ai-reports.html"' in page and 'js/ai-reports.js' in page and 'css/ai-reports.css' in page
+    assert 'aria-current="page" href="ai-reports.html"' in page and 'js/ai-reports.js' in page and 'css/ai-reports.css' in page and 'id="ar-series"' in page
+    assert "get('data/lessons.json')" in (DOCS / 'js' / 'ai-reports.js').read_text(encoding='utf-8')   # hourly series is wired in
     for f in (ROOT / 'scripts' / 'lesson_pipeline.py', ROOT / 'scripts' / 'build_report.py'):
         t = f.read_text(encoding='utf-8')
         assert 'ai-reports.html' in t and 'index.html#sys-rules' in t and 'index.html#word-rules' in t, f.name

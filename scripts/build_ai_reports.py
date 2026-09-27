@@ -27,7 +27,7 @@ def page(title, body_html, source, author='', date=''):
 <article class="ar-doc">
 {body_html}
 </article>
-</main></div></div><script src="../js/build.js"></script><script src="../js/stale.js"></script></body></html>
+</main></div></div><script>if(location.hash){{const e=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(e)setTimeout(()=>e.scrollIntoView({{block:"start"}}),50);}}</script><script src="../js/build.js"></script><script src="../js/stale.js"></script></body></html>
 '''
 
 
@@ -41,6 +41,8 @@ def build(data_path=DATA, out_dir=OUT, log=print):
         if not src:
             continue
         p = Path(src)
+        if not p.is_absolute():
+            p = ROOT / p
         if not p.exists():
             log('MISSING source', src); continue
         md = io.open(p, encoding='utf-8').read()
