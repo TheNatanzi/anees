@@ -25,7 +25,8 @@ a.tile:hover{border-color:var(--teal)} .tile b{font-size:19px;display:block} .ti
 <p class="who">Amal's pages · Medi's app</p>
 <h1>Tutor Hub</h1>
 <p class="sug">Everything the app ever asks you, in one place. Each tile says what it is and how long it takes. Nothing is sent to Medi's score until you tap.</p>
-<section class="recipe" id="recipe" aria-label="Recipe for the next lesson">
+<!-- Parked 2026-09-27 (Medi: "ladder needs be tracked only, acting on it needs to go to big picture"). The card still builds; remove `hidden` to show it to Amal again. -->
+<section class="recipe" id="recipe" aria-label="Recipe for the next lesson" hidden>
  <p class="rk">Before the lesson · Medi's recipe</p>
  <p class="rbig" id="r-text">Loading…</p>
  <p class="rline" id="r-listen"></p>
@@ -43,6 +44,7 @@ a.tile:hover{border-color:var(--teal)} .tile b{font-size:19px;display:block} .ti
 // Recipe card. Every number is read from data/sentence-ladder.json (recipe, ladder) and the per-lesson files; nothing
 // here writes anything. Arabic is shown the Word Bank way: Amal's own spelling on top, the Arabic under it (rule S1).
 (async()=>{
+  if(document.getElementById('recipe').hidden) return;   // parked: the ladder is tracked only (Big Picture decides when it steers lessons)
   const $=id=>document.getElementById(id), e=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   const day=d=>{ const p=String(d||'').split('-').map(Number); return p.length===3?new Date(p[0],p[1]-1,p[2]).toLocaleDateString('en-GB',{day:'numeric',month:'long'}):'—'; };
   let L;
