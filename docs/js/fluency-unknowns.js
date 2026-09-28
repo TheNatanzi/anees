@@ -17,7 +17,7 @@ const AR=/[؀-ۿ]/;
 const PAGES='https://thenatanzi.github.io/anees/';
 const LS=k=>{try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}};
 const WHY={
- 'one-word remark; his reply does not show he took it in':['Her one-word remark','e.g. ممتاز or طيب, then you moved on. Often not a test at all.'],
+ 'one-word remark; his reply does not show he took it in':['Her one-word remark','e.g. \u2068ممتاز\u2069 or \u2068طيب\u2069, then you moved on. Often not a test at all.'],
  'bare reply (aywa/ok/yes/mm)':['Bare “aywa / ok / mm”','A nod proves nothing, so it sits out.'],
  'he only said her words back (no sign of meaning)':['You only repeated her words','Echoing shows you heard it, not that you got it.'],
  'reply not transcribed':['Your reply is missing','The recording or transcript has a gap.'],
@@ -25,7 +25,7 @@ const WHY={
  'his question was about an earlier sentence':['You asked about an earlier line','The miss moved to that sentence instead.']
 };
 const STRONG=new Set(['she confirmed','reused her word','Arabic answer to her question',"said her word's meaning in English","English meaning for her 'what does it mean'",'his guess of the meaning, and she confirmed it','answered how-are-you']);
-const EV={'she confirmed':'She confirmed (ممتاز, صح…)','reused her word':'You reused her word','Arabic answer to her question':'You answered her question in Arabic',"said her word's meaning in English":'You said the meaning in English',"English meaning for her 'what does it mean'":'You answered her meaning quiz',"his guess of the meaning, and she confirmed it":'She confirmed your guess','answered how-are-you':'You answered how-are-you','content reply only':'You just kept talking (weakest)'};
+const EV={'she confirmed':'She confirmed (\u2068ممتاز\u2069, \u2068صح\u2069…)','reused her word':'You reused her word','Arabic answer to her question':'You answered her question in Arabic',"said her word's meaning in English":'You said the meaning in English',"English meaning for her 'what does it mean'":'You answered her meaning quiz',"his guess of the meaning, and she confirmed it":'She confirmed your guess','answered how-are-you':'You answered how-are-you','content reply only':'You just kept talking (weakest)'};
 
 /* ---------- state ---------- */
 let CTX=null,AZ=null;const GROUPS=new Map();const SHOWN=new Map();
@@ -126,7 +126,7 @@ function actPanel(d){
  const tile=(v,l,s)=>`<div class="fu-tile"><b>${v}</b><span>${esc(l)}</span>${s?`<small>${esc(s)}</small>`:''}</div>`;
  return panel('act','U5','Turning unknowns into answers','What has been settled so far, and the three levers.',
   `<div class="fu-tiles">${tile(n(d.long.length),'unknowns at 3+ words','the ones that could move the ladder')}${tile(n(sw.length),'sentences you have swiped','on this device; your answer replaces the robot’s')}${tile(sw.length?n(res.length)+' of '+n(onUnk.length):'—','unknowns your swipes settled',sw.length?'':'swipe after your next lesson')}${tile(weakSw.length?P(weakWrong,weakSw.length):'—','of “weakest” understood you marked missed',weakSw.length?`${n(weakWrong)} of ${n(weakSw.length)} swipes`:'no swipes on these yet')}</div>
-  <ol class="fu-do"><li><b>You:</b> the 10-card swipe check (Progress › Fluency) aims 3 cards at unknowns. That is the fastest way to shrink this.</li><li><b>Amal:</b> after a bare “aywa”, one quick check question turns an unknown into a real answer. Research on hidden non-understanding suggests exactly this.</li><li><b>The robot:</b> her one-word remarks could be dropped from scoring altogether, since they rarely test you. Decision for Medi.</li></ol>`,'',true);
+  <ol class="fu-do"><li><b>You:</b> the 10-card swipe check at the top of this tab aims 3 cards at unknowns. That is the fastest way to shrink this.</li><li><b>Amal:</b> after a bare “aywa”, one quick check question turns an unknown into a real answer. Research on hidden non-understanding suggests exactly this.</li><li><b>The robot:</b> her one-word remarks could be dropped from scoring altogether, since they rarely test you. Decision for Medi.</li></ol>`,'',true);
 }
 
 /* ---------- entry points ---------- */
@@ -138,7 +138,7 @@ function render(host,ctx){
  const units=ctx.units&&ctx.units.listen;
  if(!units){sec.innerHTML='<div class="vp-notice">Loading every sentence…</div>';return;}
  const d=build(units,ctx.labels||[],ctx.summary.ladder&&ctx.summary.ladder.listen);
- sec.innerHTML=`<p class="ab-sub fu-intro">${n(d.unk.length)} unknown and ${n(d.und.length-d.strong)} weakly-proven sentences behind the listening numbers on Progress › Fluency: why, where, and how to shrink them.</p>
+ sec.innerHTML=`<p class="ab-sub fu-intro">${n(d.unk.length)} unknown and ${n(d.und.length-d.strong)} weakly-proven sentences behind your listening ladder above: why, where, and how to shrink them.</p>
  <div class="vp-grid">${whyPanel(d)}${evPanel(d)}${lenPanel(d)}${lessonPanel(d)}${actPanel(d)}</div>
  <p class="vp-footer">Sentence ladder ${esc(ctx.summary.version||'')} · built ${esc(String(ctx.summary.generated||'').replace('T',' '))} · ${n(d.L.length)} listening sentences · labels are the robot’s first guess; your swipes replace them.</p>`;
  wire(sec);

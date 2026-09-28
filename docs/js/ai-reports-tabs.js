@@ -13,11 +13,10 @@ const notice=(host,t)=>{if(host)host.innerHTML=`<div class="vp-notice">${t}</div
 let mounted=false;
 async function mountUnknowns(){
  if(mounted)return;mounted=true;
- const L=$('air-unknowns-listen'),V=$('air-unknowns-vocab'),G=$('air-unknowns-grammar');
- notice(L,'Loading…');notice(V,'Loading…');notice(G,'Loading…');
+ const V=$('air-unknowns-vocab'),G=$('air-unknowns-grammar');
+ notice(V,'Loading…');notice(G,'Loading…');
  try{await loadScript('js/word-bank-arabizi.js');}catch(e){}   // Amal's spellings (RULES S1); pages fall back to Arabic without it
- // Listening
- chain(['js/fluency-unknowns.js']).then(()=>window.AneesFluencyUnknowns.mount(L)).catch(e=>notice(L,'The listening report could not load ('+e.message+').'));
+ // Listening moved to Progress › Fluency (Medi 2026-09-28: personal progress, not an AI report)
  // Grammar: fetches its own JSON
  chain(['js/grammar-unknowns.js']).then(()=>{if(!window.AneesGrammarUnknowns)throw Error('not built yet');return window.AneesGrammarUnknowns.render(G);})
   .catch(()=>notice(G,'The grammar unknowns report is being built.'));
