@@ -1,0 +1,9464 @@
+{
+ "schema": 2,
+ "kind": "anees-gapfill-layer",
+ "date": "2026-09-23",
+ "side": "Medi",
+ "missing": "medi",
+ "source": "own_track",
+ "status": "machine_transcribed",
+ "about": "Medi's side of 00:00-23:45 (lesson clock), recovered from his/her own untranscribed recording (00:00-22:37) + Google Meet's mixed recording (22:37-23:45). A source layer: the raw per-person transcripts are unchanged (RULES.md S2).",
+ "window": {
+  "from_s": 0.0,
+  "to_s": 1425.0,
+  "from": "00:00",
+  "to": "23:45",
+  "clock": "lesson clock (docs/lessons/<date>/audio)"
+ },
+ "summary": {
+  "lines": 266,
+  "words": 840,
+  "lines_by_source": {
+   "own_track": 266
+  },
+  "primary_source": "own_track",
+  "offset_s": 0.123749233,
+  "residual_s": null,
+  "anchors": null,
+  "diarization_confidence": null,
+  "clip_mode": null,
+  "est_cost_usd": 0.0829
+ },
+ "provenance": {
+  "parts": [
+   {
+    "source": "own_track",
+    "window": {
+     "from_s": 0.123749233,
+     "to_s": 1357.156104166,
+     "from": "00:00",
+     "to": "22:37"
+    },
+    "track_file": "Medi_Natanzi-e3a8d6e67e31e021.mp3",
+    "track_sha256": "f07f9fc41b6a4191b905b4a78d3007223c3b247ef5517727afc78eb28cbc645c",
+    "participant": "Medi Natanzi",
+    "clock_map": "lesson_t = track_t + offset_s (tracks.json start.relative, the placement of the lesson's own tracks)",
+    "offset_s": 0.123749233,
+    "duration_s": 1357.032354933,
+    "scribe_raw": {
+     "path": "<ANEES_RAW>/2026-09-23/gapfill_medi.track.scribe.json",
+     "sha256": "b9efad54b7091cfb4f8be555dc2cb96b81b2667e21f641fdd01968d8e0c43e70",
+     "reused": false,
+     "request": {
+      "model_id": "scribe_v2",
+      "diarize": true,
+      "num_speakers": 2,
+      "timestamps_granularity": "word",
+      "tag_audio_events": true
+     },
+     "language_code": "ara"
+    },
+    "run_id": "c20b6973c2d64020867bc52b94bec71e",
+    "est_cost_usd": 0.0829
+   },
+   {
+    "source": "meet_mixed",
+    "window": {
+     "from_s": 1357.156104166,
+     "to_s": 1425.0,
+     "from": "22:37",
+     "to": "23:45"
+    },
+    "status": "nothing_filled",
+    "why": "alignment failed: only 4 anchor words matched (need 8)"
+   }
+  ],
+  "run_ids": [
+   "c20b6973c2d64020867bc52b94bec71e"
+  ],
+  "built_at": "2026-09-28T08:15:59+00:00"
+ },
+ "lines": [
+  {
+   "t": 54.32,
+   "end": 54.94,
+   "who": "Medi",
+   "text": "ما شاء الله.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.68,
+   "n_words": 3
+  },
+  {
+   "t": 58.1,
+   "end": 59.32,
+   "who": "Medi",
+   "text": "عمان، وينتي؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.57,
+   "n_words": 2
+  },
+  {
+   "t": 113.64,
+   "end": 114.42,
+   "who": "Medi",
+   "text": "وين بيعطلك؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.49,
+   "n_words": 2
+  },
+  {
+   "t": 120.08,
+   "end": 122.36,
+   "who": "Medi",
+   "text": "إذا عم يبي توضّح لي شو كرمش؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.3,
+   "n_words": 7
+  },
+  {
+   "t": 122.84,
+   "end": 140.34,
+   "who": "Medi",
+   "text": "بهذا نفسه، أنا.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.15,
+   "n_words": 3
+  },
+  {
+   "t": 140.38,
+   "end": 142.28,
+   "who": "Medi",
+   "text": "Oh, I didn't start the record.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.98,
+   "n_words": 6
+  },
+  {
+   "t": 146.0,
+   "end": 148.06,
+   "who": "Medi",
+   "text": "Ah, I forgot I walked outside.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.97,
+   "n_words": 6
+  },
+  {
+   "t": 154.7,
+   "end": 155.38,
+   "who": "Medi",
+   "text": "معلش، درهم 12",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.54,
+   "n_words": 3
+  },
+  {
+   "t": 163.5,
+   "end": 194.38,
+   "who": "Medi",
+   "text": "شو هو؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.51,
+   "n_words": 2
+  },
+  {
+   "t": 194.66,
+   "end": 195.46,
+   "who": "Medi",
+   "text": "ما حدا، ربعو جان.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.31,
+   "n_words": 4
+  },
+  {
+   "t": 196.84,
+   "end": 198.24,
+   "who": "Medi",
+   "text": "بلش كن، ميز تو مغازه.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.55,
+   "n_words": 5
+  },
+  {
+   "t": 199.28,
+   "end": 201.14,
+   "who": "Medi",
+   "text": "روشته فففك نكن ديجي ربعو جان.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.65,
+   "n_words": 6
+  },
+  {
+   "t": 206.66,
+   "end": 207.0,
+   "who": "Medi",
+   "text": "شو حس؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.45,
+   "n_words": 2
+  },
+  {
+   "t": 209.7,
+   "end": 210.16,
+   "who": "Medi",
+   "text": "Uh-huh.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.78,
+   "n_words": 1
+  },
+  {
+   "t": 216.24,
+   "end": 216.42,
+   "who": "Medi",
+   "text": "Uh.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.64,
+   "n_words": 1
+  },
+  {
+   "t": 218.96,
+   "end": 219.1,
+   "who": "Medi",
+   "text": "How?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.36,
+   "n_words": 1
+  },
+  {
+   "t": 220.74,
+   "end": 221.16,
+   "who": "Medi",
+   "text": "Should?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.72,
+   "n_words": 1
+  },
+  {
+   "t": 222.66,
+   "end": 223.48,
+   "who": "Medi",
+   "text": "What did you say?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 4
+  },
+  {
+   "t": 232.48,
+   "end": 234.06,
+   "who": "Medi",
+   "text": "Should I light the bike?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.68,
+   "n_words": 5
+  },
+  {
+   "t": 241.46,
+   "end": 242.98,
+   "who": "Medi",
+   "text": "Okay, what was the second part?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 6
+  },
+  {
+   "t": 248.12,
+   "end": 250.46,
+   "who": "Medi",
+   "text": "You said \"dow\", what is it-- were you-- didn't you?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.88,
+   "n_words": 10
+  },
+  {
+   "t": 253.82,
+   "end": 254.66,
+   "who": "Medi",
+   "text": "You said \"dow\".",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.96,
+   "n_words": 3
+  },
+  {
+   "t": 255.6,
+   "end": 256.04,
+   "who": "Medi",
+   "text": "Okay.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 1
+  },
+  {
+   "t": 258.98,
+   "end": 260.86,
+   "who": "Medi",
+   "text": "No, I heard-- okay, I don't know what I heard.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.98,
+   "n_words": 10
+  },
+  {
+   "t": 263.04,
+   "end": 264.32,
+   "who": "Medi",
+   "text": "I know لازم.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.89,
+   "n_words": 3
+  },
+  {
+   "t": 264.9,
+   "end": 265.72,
+   "who": "Medi",
+   "text": "دايما لازم.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.87,
+   "n_words": 2
+  },
+  {
+   "t": 271.1,
+   "end": 272.96,
+   "who": "Medi",
+   "text": "أنا، امم،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.81,
+   "n_words": 2
+  },
+  {
+   "t": 274.48,
+   "end": 275.62,
+   "who": "Medi",
+   "text": "أنا حكيت لي",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.94,
+   "n_words": 3
+  },
+  {
+   "t": 276.9,
+   "end": 280.38,
+   "who": "Medi",
+   "text": "على ختيجي إنه،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.78,
+   "n_words": 3
+  },
+  {
+   "t": 282.2,
+   "end": 282.78,
+   "who": "Medi",
+   "text": "امم،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.94,
+   "n_words": 1
+  },
+  {
+   "t": 284.4,
+   "end": 286.4,
+   "who": "Medi",
+   "text": "أنا بقدر أحكي",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.98,
+   "n_words": 3
+  },
+  {
+   "t": 287.62,
+   "end": 291.92,
+   "who": "Medi",
+   "text": "أحسن لما أشرب، اه،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.96,
+   "n_words": 4
+  },
+  {
+   "t": 293.58,
+   "end": 294.86,
+   "who": "Medi",
+   "text": "أشرب تنين",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.95,
+   "n_words": 2
+  },
+  {
+   "t": 296.8,
+   "end": 297.26,
+   "who": "Medi",
+   "text": "قهوة.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 1
+  },
+  {
+   "t": 304.82,
+   "end": 305.36,
+   "who": "Medi",
+   "text": "قهوين؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.93,
+   "n_words": 1
+  },
+  {
+   "t": 309.46,
+   "end": 310.06,
+   "who": "Medi",
+   "text": "قهوتين؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.9,
+   "n_words": 1
+  },
+  {
+   "t": 311.52,
+   "end": 311.8,
+   "who": "Medi",
+   "text": "Okay.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 1
+  },
+  {
+   "t": 313.32,
+   "end": 314.3,
+   "who": "Medi",
+   "text": "قهوتين.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 316.88,
+   "end": 317.72,
+   "who": "Medi",
+   "text": "امم،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.92,
+   "n_words": 1
+  },
+  {
+   "t": 320.66,
+   "end": 321.98,
+   "who": "Medi",
+   "text": "اه، I-- oh, I didn't tell you.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.96,
+   "n_words": 7
+  },
+  {
+   "t": 322.04,
+   "end": 329.14,
+   "who": "Medi",
+   "text": "أنا، أنا دايمًا، اه، أحكي لك-- أحكي لها إنه هي،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.96,
+   "n_words": 10
+  },
+  {
+   "t": 330.78,
+   "end": 333.12,
+   "who": "Medi",
+   "text": "اه، هي تشربي،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 3
+  },
+  {
+   "t": 334.86,
+   "end": 337.0,
+   "who": "Medi",
+   "text": "اه، too much قهوة.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 4
+  },
+  {
+   "t": 340.34,
+   "end": 341.46,
+   "who": "Medi",
+   "text": "تشرب قهوة كثير.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.95,
+   "n_words": 3
+  },
+  {
+   "t": 347.24,
+   "end": 348.62,
+   "who": "Medi",
+   "text": "وأنا، أنا،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.86,
+   "n_words": 2
+  },
+  {
+   "t": 349.98,
+   "end": 356.2,
+   "who": "Medi",
+   "text": "اه، حكيت لك إنه أنا بقدر أدرس أحسن لما",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 9
+  },
+  {
+   "t": 357.58,
+   "end": 360.7,
+   "who": "Medi",
+   "text": "أشرب قهوين-- قهوتين.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.89,
+   "n_words": 3
+  },
+  {
+   "t": 361.58,
+   "end": 361.96,
+   "who": "Medi",
+   "text": "وهي،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 1
+  },
+  {
+   "t": 363.86,
+   "end": 366.54,
+   "who": "Medi",
+   "text": "اه، she felt justified.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 4
+  },
+  {
+   "t": 366.64,
+   "end": 368.82,
+   "who": "Medi",
+   "text": "She felt vindictive",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.93,
+   "n_words": 3
+  },
+  {
+   "t": 370.35,
+   "end": 370.35,
+   "who": "Medi",
+   "text": "مم.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.57,
+   "n_words": 1
+  },
+  {
+   "t": 370.43,
+   "end": 378.95,
+   "who": "Medi",
+   "text": "إيه؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.61,
+   "n_words": 1
+  },
+  {
+   "t": 382.55,
+   "end": 383.33,
+   "who": "Medi",
+   "text": "I didn't tell her.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.9,
+   "n_words": 4
+  },
+  {
+   "t": 386.95,
+   "end": 388.35,
+   "who": "Medi",
+   "text": "Oh ما ضحكت عليك.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.84,
+   "n_words": 4
+  },
+  {
+   "t": 391.53,
+   "end": 392.49,
+   "who": "Medi",
+   "text": "آآآ هي",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.76,
+   "n_words": 2
+  },
+  {
+   "t": 395.89,
+   "end": 397.23,
+   "who": "Medi",
+   "text": "ضحكت عليك.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.87,
+   "n_words": 2
+  },
+  {
+   "t": 409.23,
+   "end": 409.55,
+   "who": "Medi",
+   "text": "Yeah.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.82,
+   "n_words": 1
+  },
+  {
+   "t": 415.69,
+   "end": 416.11,
+   "who": "Medi",
+   "text": "تمام.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.97,
+   "n_words": 1
+  },
+  {
+   "t": 417.73,
+   "end": 417.97,
+   "who": "Medi",
+   "text": "آآآ",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.97,
+   "n_words": 1
+  },
+  {
+   "t": 419.63,
+   "end": 420.25,
+   "who": "Medi",
+   "text": "اليوم",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 421.65,
+   "end": 422.39,
+   "who": "Medi",
+   "text": "آآآ",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.95,
+   "n_words": 1
+  },
+  {
+   "t": 424.35,
+   "end": 425.39,
+   "who": "Medi",
+   "text": "توني شوي",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.67,
+   "n_words": 2
+  },
+  {
+   "t": 427.29,
+   "end": 427.95,
+   "who": "Medi",
+   "text": "توجع.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.75,
+   "n_words": 1
+  },
+  {
+   "t": 430.95,
+   "end": 431.07,
+   "who": "Medi",
+   "text": "آه.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.81,
+   "n_words": 1
+  },
+  {
+   "t": 434.61,
+   "end": 437.85,
+   "who": "Medi",
+   "text": "آآآ ما بعرف شو أكلت",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.98,
+   "n_words": 5
+  },
+  {
+   "t": 439.07,
+   "end": 440.49,
+   "who": "Medi",
+   "text": "بس آآآ.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.86,
+   "n_words": 2
+  },
+  {
+   "t": 444.15,
+   "end": 444.99,
+   "who": "Medi",
+   "text": "آآآ I",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.96,
+   "n_words": 2
+  },
+  {
+   "t": 448.21,
+   "end": 450.73,
+   "who": "Medi",
+   "text": "don't know how to say I was supposed to, do I?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.98,
+   "n_words": 11
+  },
+  {
+   "t": 455.07,
+   "end": 455.67,
+   "who": "Medi",
+   "text": "I should have, okay.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.86,
+   "n_words": 4
+  },
+  {
+   "t": 455.71,
+   "end": 456.91,
+   "who": "Medi",
+   "text": "أنا كان لازم.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.96,
+   "n_words": 3
+  },
+  {
+   "t": 458.21,
+   "end": 458.47,
+   "who": "Medi",
+   "text": "آآآ",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 1
+  },
+  {
+   "t": 460.37,
+   "end": 462.03,
+   "who": "Medi",
+   "text": "أنا كان لازم",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.96,
+   "n_words": 3
+  },
+  {
+   "t": 464.77,
+   "end": 465.33,
+   "who": "Medi",
+   "text": "أمرنها",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.5,
+   "n_words": 1
+  },
+  {
+   "t": 467.79,
+   "end": 469.17,
+   "who": "Medi",
+   "text": "في الصباح بس",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.85,
+   "n_words": 3
+  },
+  {
+   "t": 470.85,
+   "end": 472.93,
+   "who": "Medi",
+   "text": "ما ما تروحي.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.74,
+   "n_words": 3
+  },
+  {
+   "t": 480.29,
+   "end": 480.79,
+   "who": "Medi",
+   "text": "آآآ ما،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.82,
+   "n_words": 2
+  },
+  {
+   "t": 484.07,
+   "end": 485.61,
+   "who": "Medi",
+   "text": "yeah ما رحت.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.76,
+   "n_words": 3
+  },
+  {
+   "t": 494.37,
+   "end": 496.25,
+   "who": "Medi",
+   "text": "Oh، بطني sorry بطني.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.58,
+   "n_words": 4
+  },
+  {
+   "t": 497.57,
+   "end": 498.21,
+   "who": "Medi",
+   "text": "بطني.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.84,
+   "n_words": 1
+  },
+  {
+   "t": 499.25,
+   "end": 499.45,
+   "who": "Medi",
+   "text": "Yeah.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.97,
+   "n_words": 1
+  },
+  {
+   "t": 500.55,
+   "end": 500.87,
+   "who": "Medi",
+   "text": "Mouth.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.63,
+   "n_words": 1
+  },
+  {
+   "t": 506.73,
+   "end": 509.19,
+   "who": "Medi",
+   "text": "ما بتذكر آآآ",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.98,
+   "n_words": 3
+  },
+  {
+   "t": 511.63,
+   "end": 512.49,
+   "who": "Medi",
+   "text": "أي أيام.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.58,
+   "n_words": 2
+  },
+  {
+   "t": 514.87,
+   "end": 516.43,
+   "who": "Medi",
+   "text": "أنا بأكل",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.94,
+   "n_words": 2
+  },
+  {
+   "t": 518.25,
+   "end": 522.07,
+   "who": "Medi",
+   "text": "نفس إشي أغلب من أيام.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.98,
+   "n_words": 5
+  },
+  {
+   "t": 524.63,
+   "end": 526.63,
+   "who": "Medi",
+   "text": "أنا.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.65,
+   "n_words": 1
+  },
+  {
+   "t": 535.33,
+   "end": 536.61,
+   "who": "Medi",
+   "text": "شوي الجملة إشي.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.82,
+   "n_words": 3
+  },
+  {
+   "t": 540.65,
+   "end": 541.57,
+   "who": "Medi",
+   "text": "آه الأشياء.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.78,
+   "n_words": 2
+  },
+  {
+   "t": 545.49,
+   "end": 550.87,
+   "who": "Medi",
+   "text": "أنا بأكل نفس الأشياء أغلب أيام.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.98,
+   "n_words": 6
+  },
+  {
+   "t": 553.21,
+   "end": 553.71,
+   "who": "Medi",
+   "text": "إلى الآن.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.51,
+   "n_words": 2
+  },
+  {
+   "t": 562.83,
+   "end": 563.03,
+   "who": "Medi",
+   "text": "آه.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.92,
+   "n_words": 1
+  },
+  {
+   "t": 565.71,
+   "end": 566.89,
+   "who": "Medi",
+   "text": "أنا ما أصل.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.86,
+   "n_words": 3
+  },
+  {
+   "t": 568.13,
+   "end": 568.73,
+   "who": "Medi",
+   "text": "أنا،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.5,
+   "n_words": 1
+  },
+  {
+   "t": 570.93,
+   "end": 571.39,
+   "who": "Medi",
+   "text": "أمم،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.47,
+   "n_words": 1
+  },
+  {
+   "t": 574.05,
+   "end": 576.41,
+   "who": "Medi",
+   "text": "أنا، أنا نشف مش طازة.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.8,
+   "n_words": 5
+  },
+  {
+   "t": 585.35,
+   "end": 585.79,
+   "who": "Medi",
+   "text": "ما إله؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.86,
+   "n_words": 2
+  },
+  {
+   "t": 592.21,
+   "end": 593.03,
+   "who": "Medi",
+   "text": "ما إله؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 2
+  },
+  {
+   "t": 593.15,
+   "end": 593.69,
+   "who": "Medi",
+   "text": "ما إله؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 2
+  },
+  {
+   "t": 596.65,
+   "end": 601.65,
+   "who": "Medi",
+   "text": "What is ما إله؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.88,
+   "n_words": 4
+  },
+  {
+   "t": 603.35,
+   "end": 603.53,
+   "who": "Medi",
+   "text": "So...",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.87,
+   "n_words": 1
+  },
+  {
+   "t": 607.95,
+   "end": 608.93,
+   "who": "Medi",
+   "text": "آآآ like with?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.93,
+   "n_words": 3
+  },
+  {
+   "t": 612.33,
+   "end": 612.63,
+   "who": "Medi",
+   "text": "Okay.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 1
+  },
+  {
+   "t": 612.95,
+   "end": 613.71,
+   "who": "Medi",
+   "text": "No, no.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 2
+  },
+  {
+   "t": 616.07,
+   "end": 620.57,
+   "who": "Medi",
+   "text": "Yeah.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 620.63,
+   "end": 622.43,
+   "who": "Medi",
+   "text": "So not what?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 3
+  },
+  {
+   "t": 629.03,
+   "end": 629.49,
+   "who": "Medi",
+   "text": "إله.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 630.55,
+   "end": 632.59,
+   "who": "Medi",
+   "text": "I don't think we've ever conjugated إله before.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.97,
+   "n_words": 8
+  },
+  {
+   "t": 636.43,
+   "end": 638.21,
+   "who": "Medi",
+   "text": "إله means what or that.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 5
+  },
+  {
+   "t": 649.79,
+   "end": 651.01,
+   "who": "Medi",
+   "text": "Oh، to, to me.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.9,
+   "n_words": 4
+  },
+  {
+   "t": 655.05,
+   "end": 655.27,
+   "who": "Medi",
+   "text": "Okay.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.97,
+   "n_words": 1
+  },
+  {
+   "t": 655.33,
+   "end": 657.07,
+   "who": "Medi",
+   "text": "Do you understand why this is so difficult?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 8
+  },
+  {
+   "t": 657.13,
+   "end": 660.83,
+   "who": "Medi",
+   "text": "Because it's either ما or ما، إله or إله.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.96,
+   "n_words": 9
+  },
+  {
+   "t": 661.87,
+   "end": 662.75,
+   "who": "Medi",
+   "text": "What was the middle word?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.98,
+   "n_words": 5
+  },
+  {
+   "t": 664.11,
+   "end": 664.41,
+   "who": "Medi",
+   "text": "Yeah.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 1
+  },
+  {
+   "t": 664.51,
+   "end": 666.51,
+   "who": "Medi",
+   "text": "And then you said the first-- what was between?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.97,
+   "n_words": 9
+  },
+  {
+   "t": 669.25,
+   "end": 669.41,
+   "who": "Medi",
+   "text": "Yeah.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.94,
+   "n_words": 1
+  },
+  {
+   "t": 669.47,
+   "end": 670.83,
+   "who": "Medi",
+   "text": "So ما إله.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.95,
+   "n_words": 3
+  },
+  {
+   "t": 673.33,
+   "end": 673.83,
+   "who": "Medi",
+   "text": "ما إله.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 2
+  },
+  {
+   "t": 674.91,
+   "end": 676.05,
+   "who": "Medi",
+   "text": "ما إله طعم.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 3
+  },
+  {
+   "t": 677.77,
+   "end": 677.97,
+   "who": "Medi",
+   "text": "So,",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.9,
+   "n_words": 1
+  },
+  {
+   "t": 681.23,
+   "end": 681.43,
+   "who": "Medi",
+   "text": "so",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 1
+  },
+  {
+   "t": 682.77,
+   "end": 685.69,
+   "who": "Medi",
+   "text": "not to its taste.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.97,
+   "n_words": 4
+  },
+  {
+   "t": 687.75,
+   "end": 691.57,
+   "who": "Medi",
+   "text": "Not to its taste.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.87,
+   "n_words": 4
+  },
+  {
+   "t": 695.49,
+   "end": 695.79,
+   "who": "Medi",
+   "text": "آآآ",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.88,
+   "n_words": 1
+  },
+  {
+   "t": 697.93,
+   "end": 699.19,
+   "who": "Medi",
+   "text": "it doesn't have a taste.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 5
+  },
+  {
+   "t": 700.65,
+   "end": 701.31,
+   "who": "Medi",
+   "text": "Okay, that's",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 2
+  },
+  {
+   "t": 706.89,
+   "end": 708.11,
+   "who": "Medi",
+   "text": "ما إله taste.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.97,
+   "n_words": 3
+  },
+  {
+   "t": 709.91,
+   "end": 714.71,
+   "who": "Medi",
+   "text": "Okay, so you wouldn't say man-- ما، آآآ ما، ما عنده.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.87,
+   "n_words": 11
+  },
+  {
+   "t": 714.81,
+   "end": 716.91,
+   "who": "Medi",
+   "text": "You would not say ما عنده طعم.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.94,
+   "n_words": 7
+  },
+  {
+   "t": 725.63,
+   "end": 726.69,
+   "who": "Medi",
+   "text": "It doesn't have taste.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.9,
+   "n_words": 4
+  },
+  {
+   "t": 726.73,
+   "end": 727.29,
+   "who": "Medi",
+   "text": "It's weird.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.75,
+   "n_words": 2
+  },
+  {
+   "t": 727.47,
+   "end": 727.71,
+   "who": "Medi",
+   "text": "Okay",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 733.25,
+   "end": 733.53,
+   "who": "Medi",
+   "text": "Okay.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.83,
+   "n_words": 1
+  },
+  {
+   "t": 742.59,
+   "end": 744.05,
+   "who": "Medi",
+   "text": "We're starting our fun today.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.92,
+   "n_words": 5
+  },
+  {
+   "t": 747.41,
+   "end": 748.79,
+   "who": "Medi",
+   "text": "We're starting fun today.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 4
+  },
+  {
+   "t": 753.03,
+   "end": 753.59,
+   "who": "Medi",
+   "text": "No, it wasn't.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.98,
+   "n_words": 3
+  },
+  {
+   "t": 753.81,
+   "end": 756.07,
+   "who": "Medi",
+   "text": "No sarcasm.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.91,
+   "n_words": 2
+  },
+  {
+   "t": 763.25,
+   "end": 763.95,
+   "who": "Medi",
+   "text": "اليوم",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.97,
+   "n_words": 1
+  },
+  {
+   "t": 766.95,
+   "end": 768.47,
+   "who": "Medi",
+   "text": "يوم الأربعاء،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.81,
+   "n_words": 2
+  },
+  {
+   "t": 772.93,
+   "end": 776.19,
+   "who": "Medi",
+   "text": "ثلاث عشرين ألفين ستة وعشرين.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.84,
+   "n_words": 5
+  },
+  {
+   "t": 779.49,
+   "end": 779.67,
+   "who": "Medi",
+   "text": "Okay?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.75,
+   "n_words": 1
+  },
+  {
+   "t": 784.83,
+   "end": 786.99,
+   "who": "Medi",
+   "text": "ثلاث عشرون-- Oh, قصة.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.83,
+   "n_words": 4
+  },
+  {
+   "t": 787.19,
+   "end": 787.43,
+   "who": "Medi",
+   "text": "Oops.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 1
+  },
+  {
+   "t": 794.23,
+   "end": 794.59,
+   "who": "Medi",
+   "text": "قصة،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.96,
+   "n_words": 1
+  },
+  {
+   "t": 797.33,
+   "end": 797.61,
+   "who": "Medi",
+   "text": "اه،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.51,
+   "n_words": 1
+  },
+  {
+   "t": 799.85,
+   "end": 802.53,
+   "who": "Medi",
+   "text": "ثنتين و،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.72,
+   "n_words": 2
+  },
+  {
+   "t": 805.09,
+   "end": 806.23,
+   "who": "Medi",
+   "text": "اه، خمسين.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 2
+  },
+  {
+   "t": 813.03,
+   "end": 813.53,
+   "who": "Medi",
+   "text": "يعني...",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.72,
+   "n_words": 1
+  },
+  {
+   "t": 817.03,
+   "end": 817.79,
+   "who": "Medi",
+   "text": "Would I say like",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.98,
+   "n_words": 4
+  },
+  {
+   "t": 819.39,
+   "end": 825.97,
+   "who": "Medi",
+   "text": "عشر دقائق إلا، إلا، إلا ثنتين-- اه، إلا ثلاث؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.8,
+   "n_words": 9
+  },
+  {
+   "t": 830.89,
+   "end": 831.37,
+   "who": "Medi",
+   "text": "Okay.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 831.75,
+   "end": 832.73,
+   "who": "Medi",
+   "text": "عشر",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.85,
+   "n_words": 1
+  },
+  {
+   "t": 834.31,
+   "end": 837.23,
+   "who": "Medi",
+   "text": "دقائق إلا قلت-- إلا تلات.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.83,
+   "n_words": 5
+  },
+  {
+   "t": 840.59,
+   "end": 843.13,
+   "who": "Medi",
+   "text": "تلات إلا عشرين.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.95,
+   "n_words": 3
+  },
+  {
+   "t": 843.51,
+   "end": 843.87,
+   "who": "Medi",
+   "text": "عشرة.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 1
+  },
+  {
+   "t": 843.91,
+   "end": 844.21,
+   "who": "Medi",
+   "text": "Oops.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.95,
+   "n_words": 1
+  },
+  {
+   "t": 846.47,
+   "end": 847.63,
+   "who": "Medi",
+   "text": "We've never used that before.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 5
+  },
+  {
+   "t": 853.37,
+   "end": 858.61,
+   "who": "Medi",
+   "text": "I, I don't think I've done ten minutes to, or twenty minutes to, or you wouldn't do twenty minutes to.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 20
+  },
+  {
+   "t": 861.57,
+   "end": 861.81,
+   "who": "Medi",
+   "text": "Okay.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 862.71,
+   "end": 866.31,
+   "who": "Medi",
+   "text": "اليوم لبست، اه، بلوزة، اه،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.81,
+   "n_words": 5
+  },
+  {
+   "t": 869.75,
+   "end": 870.25,
+   "who": "Medi",
+   "text": "زرقا",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.98,
+   "n_words": 1
+  },
+  {
+   "t": 871.85,
+   "end": 874.29,
+   "who": "Medi",
+   "text": "وبنطلون سكنى",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.66,
+   "n_words": 2
+  },
+  {
+   "t": 876.21,
+   "end": 879.31,
+   "who": "Medi",
+   "text": "وحذاء سوداء.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.73,
+   "n_words": 2
+  },
+  {
+   "t": 888.13,
+   "end": 891.09,
+   "who": "Medi",
+   "text": "اليوم شوب كتير.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.96,
+   "n_words": 3
+  },
+  {
+   "t": 891.13,
+   "end": 891.55,
+   "who": "Medi",
+   "text": "أنا،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 893.01,
+   "end": 895.71,
+   "who": "Medi",
+   "text": "اه، أنا فكرت،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 3
+  },
+  {
+   "t": 897.97,
+   "end": 899.25,
+   "who": "Medi",
+   "text": "اه، إنه",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 2
+  },
+  {
+   "t": 901.33,
+   "end": 901.75,
+   "who": "Medi",
+   "text": "الـ،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 903.97,
+   "end": 904.29,
+   "who": "Medi",
+   "text": "اه،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 906.99,
+   "end": 907.71,
+   "who": "Medi",
+   "text": "الخفيف،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 910.15,
+   "end": 910.49,
+   "who": "Medi",
+   "text": "اه،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.76,
+   "n_words": 1
+  },
+  {
+   "t": 912.57,
+   "end": 913.07,
+   "who": "Medi",
+   "text": "الخفيف،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 916.99,
+   "end": 917.93,
+   "who": "Medi",
+   "text": "اه، دبا.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.73,
+   "n_words": 2
+  },
+  {
+   "t": 919.67,
+   "end": 923.51,
+   "who": "Medi",
+   "text": "بس أنا كنت غلط.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.92,
+   "n_words": 4
+  },
+  {
+   "t": 923.65,
+   "end": 924.89,
+   "who": "Medi",
+   "text": "بس أنا كنت غلط.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 4
+  },
+  {
+   "t": 930.55,
+   "end": 931.99,
+   "who": "Medi",
+   "text": "اه، دبا.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 2
+  },
+  {
+   "t": 932.59,
+   "end": 939.61,
+   "who": "Medi",
+   "text": "اه، أنا فكرت إنه الخفيف دبا started.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 7
+  },
+  {
+   "t": 941.37,
+   "end": 943.15,
+   "who": "Medi",
+   "text": "I thought that fall had started.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 6
+  },
+  {
+   "t": 945.81,
+   "end": 946.31,
+   "who": "Medi",
+   "text": "خفيف.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.97,
+   "n_words": 1
+  },
+  {
+   "t": 946.71,
+   "end": 947.25,
+   "who": "Medi",
+   "text": "Okay.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 948.71,
+   "end": 950.39,
+   "who": "Medi",
+   "text": "What's kha-- خفيف is blood, right?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.87,
+   "n_words": 6
+  },
+  {
+   "t": 951.77,
+   "end": 952.25,
+   "who": "Medi",
+   "text": "No, light.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 2
+  },
+  {
+   "t": 952.55,
+   "end": 952.89,
+   "who": "Medi",
+   "text": "Light.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 953.21,
+   "end": 953.47,
+   "who": "Medi",
+   "text": "Yeah.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 960.41,
+   "end": 961.85,
+   "who": "Medi",
+   "text": "It's the past tense of start, right?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.95,
+   "n_words": 7
+  },
+  {
+   "t": 962.55,
+   "end": 963.11,
+   "who": "Medi",
+   "text": "It's باب د.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.53,
+   "n_words": 3
+  },
+  {
+   "t": 964.85,
+   "end": 966.31,
+   "who": "Medi",
+   "text": "And it's internal flip-flipping.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 4
+  },
+  {
+   "t": 968.67,
+   "end": 969.13,
+   "who": "Medi",
+   "text": "Oh.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 970.39,
+   "end": 971.11,
+   "who": "Medi",
+   "text": "So this is دبا?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.91,
+   "n_words": 4
+  },
+  {
+   "t": 975.57,
+   "end": 976.25,
+   "who": "Medi",
+   "text": "اه، باب د.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.84,
+   "n_words": 3
+  },
+  {
+   "t": 978.49,
+   "end": 978.67,
+   "who": "Medi",
+   "text": "باب د.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 2
+  },
+  {
+   "t": 988.61,
+   "end": 988.65,
+   "who": "Medi",
+   "text": "اه.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.74,
+   "n_words": 1
+  },
+  {
+   "t": 990.99,
+   "end": 991.07,
+   "who": "Medi",
+   "text": "شو؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.81,
+   "n_words": 1
+  },
+  {
+   "t": 1000.49,
+   "end": 1002.17,
+   "who": "Medi",
+   "text": "اه، بتفهم؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.84,
+   "n_words": 2
+  },
+  {
+   "t": 1004.59,
+   "end": 1004.69,
+   "who": "Medi",
+   "text": "Mm.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.9,
+   "n_words": 1
+  },
+  {
+   "t": 1012.69,
+   "end": 1015.53,
+   "who": "Medi",
+   "text": "So I, uh, little update for you.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 7
+  },
+  {
+   "t": 1016.69,
+   "end": 1018.57,
+   "who": "Medi",
+   "text": "I loaded, I loaded the grammar.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 6
+  },
+  {
+   "t": 1018.71,
+   "end": 1020.31,
+   "who": "Medi",
+   "text": "I need to give you the grammar list.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 8
+  },
+  {
+   "t": 1022.17,
+   "end": 1022.53,
+   "who": "Medi",
+   "text": "Um,",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 1024.05,
+   "end": 1027.15,
+   "who": "Medi",
+   "text": "I make a lot of grammar mistakes, so...",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 8
+  },
+  {
+   "t": 1030.23,
+   "end": 1035.33,
+   "who": "Medi",
+   "text": "So, so I entered the, the rules for the grammar into the AI.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 13
+  },
+  {
+   "t": 1036.75,
+   "end": 1037.03,
+   "who": "Medi",
+   "text": "Yeah.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 1041.29,
+   "end": 1044.71,
+   "who": "Medi",
+   "text": "I, I tried to make a list of all of our grammar rules.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 13
+  },
+  {
+   "t": 1047.43,
+   "end": 1048.55,
+   "who": "Medi",
+   "text": "Yeah, I think I missed the...",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.96,
+   "n_words": 6
+  },
+  {
+   "t": 1050.71,
+   "end": 1051.43,
+   "who": "Medi",
+   "text": "Kind of, yeah.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 3
+  },
+  {
+   "t": 1052.97,
+   "end": 1053.13,
+   "who": "Medi",
+   "text": "And,",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.68,
+   "n_words": 1
+  },
+  {
+   "t": 1054.85,
+   "end": 1063.11,
+   "who": "Medi",
+   "text": "and then I said, \"Okay, go through all the lessons, and every time I make a m-- a grammar mistake, you know, write it down.\" And",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 26
+  },
+  {
+   "t": 1064.41,
+   "end": 1065.95,
+   "who": "Medi",
+   "text": "yeah, it's, uh, it's bad.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 5
+  },
+  {
+   "t": 1068.97,
+   "end": 1069.45,
+   "who": "Medi",
+   "text": "You'll see.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 2
+  },
+  {
+   "t": 1071.83,
+   "end": 1072.15,
+   "who": "Medi",
+   "text": "Huh?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 1
+  },
+  {
+   "t": 1078.07,
+   "end": 1078.97,
+   "who": "Medi",
+   "text": "The verbs listing?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.86,
+   "n_words": 3
+  },
+  {
+   "t": 1079.75,
+   "end": 1080.97,
+   "who": "Medi",
+   "text": "Oh, I thought you finished it.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 6
+  },
+  {
+   "t": 1084.97,
+   "end": 1085.91,
+   "who": "Medi",
+   "text": "I think it's easy, right?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 5
+  },
+  {
+   "t": 1086.05,
+   "end": 1088.21,
+   "who": "Medi",
+   "text": "It, it says like approve all.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.95,
+   "n_words": 6
+  },
+  {
+   "t": 1089.43,
+   "end": 1089.67,
+   "who": "Medi",
+   "text": "Yeah.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 1092.63,
+   "end": 1098.41,
+   "who": "Medi",
+   "text": "Yeah, mo-- it was guessing based on how you write because there's no standard Arabizi, you know?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 17
+  },
+  {
+   "t": 1108.02,
+   "end": 1108.64,
+   "who": "Medi",
+   "text": "Okay.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.88,
+   "n_words": 1
+  },
+  {
+   "t": 1112.96,
+   "end": 1113.16,
+   "who": "Medi",
+   "text": "Yeah.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 1
+  },
+  {
+   "t": 1127.08,
+   "end": 1127.58,
+   "who": "Medi",
+   "text": "I don't know why.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.87,
+   "n_words": 4
+  },
+  {
+   "t": 1128.8,
+   "end": 1130.76,
+   "who": "Medi",
+   "text": "شوية بطيئة الـ platform هذي.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.75,
+   "n_words": 5
+  },
+  {
+   "t": 1131.78,
+   "end": 1132.96,
+   "who": "Medi",
+   "text": "خيار، خيار.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.96,
+   "n_words": 2
+  },
+  {
+   "t": 1133.48,
+   "end": 1134.48,
+   "who": "Medi",
+   "text": "شو يعني خيار؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 3
+  },
+  {
+   "t": 1137.36,
+   "end": 1138.0,
+   "who": "Medi",
+   "text": "خيار.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.92,
+   "n_words": 1
+  },
+  {
+   "t": 1139.6,
+   "end": 1140.2,
+   "who": "Medi",
+   "text": "خيار.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 1141.1,
+   "end": 1142.76,
+   "who": "Medi",
+   "text": "Is this options or mistakes?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 5
+  },
+  {
+   "t": 1143.7,
+   "end": 1143.9,
+   "who": "Medi",
+   "text": "Okay.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 1
+  },
+  {
+   "t": 1144.44,
+   "end": 1144.76,
+   "who": "Medi",
+   "text": "Option.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.96,
+   "n_words": 1
+  },
+  {
+   "t": 1146.52,
+   "end": 1146.68,
+   "who": "Medi",
+   "text": "Yeah.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 1147.48,
+   "end": 1148.22,
+   "who": "Medi",
+   "text": "Options I have it.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 4
+  },
+  {
+   "t": 1160.88,
+   "end": 1162.5,
+   "who": "Medi",
+   "text": "Uh, hotel.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.4,
+   "n_words": 2
+  },
+  {
+   "t": 1179.46,
+   "end": 1182.56,
+   "who": "Medi",
+   "text": "Um, mod, um, hold on.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.96,
+   "n_words": 5
+  },
+  {
+   "t": 1187.54,
+   "end": 1187.74,
+   "who": "Medi",
+   "text": "Oh.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 1193.76,
+   "end": 1194.4,
+   "who": "Medi",
+   "text": "Booking.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.49,
+   "n_words": 1
+  },
+  {
+   "t": 1200.18,
+   "end": 1203.02,
+   "who": "Medi",
+   "text": "أنا بدي أطلب",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 3
+  },
+  {
+   "t": 1205.3,
+   "end": 1206.82,
+   "who": "Medi",
+   "text": "غرفة، شفت؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.71,
+   "n_words": 2
+  },
+  {
+   "t": 1211.14,
+   "end": 1211.62,
+   "who": "Medi",
+   "text": "Booking.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 1
+  },
+  {
+   "t": 1213.02,
+   "end": 1213.82,
+   "who": "Medi",
+   "text": "And this is a verb?",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 5
+  },
+  {
+   "t": 1214.46,
+   "end": 1214.96,
+   "who": "Medi",
+   "text": "All right now.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.65,
+   "n_words": 3
+  },
+  {
+   "t": 1221.26,
+   "end": 1222.54,
+   "who": "Medi",
+   "text": "Is it some طلب؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.83,
+   "n_words": 4
+  },
+  {
+   "t": 1226.68,
+   "end": 1226.9,
+   "who": "Medi",
+   "text": "Okay.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 1230.76,
+   "end": 1231.34,
+   "who": "Medi",
+   "text": "حجز.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.77,
+   "n_words": 1
+  },
+  {
+   "t": 1231.62,
+   "end": 1231.84,
+   "who": "Medi",
+   "text": "Yeah.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 1231.84,
+   "end": 1231.94,
+   "who": "Medi",
+   "text": "أحجز.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.75,
+   "n_words": 1
+  },
+  {
+   "t": 1254.64,
+   "end": 1255.64,
+   "who": "Medi",
+   "text": "Um,",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.91,
+   "n_words": 1
+  },
+  {
+   "t": 1257.14,
+   "end": 1257.76,
+   "who": "Medi",
+   "text": "okay.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 1
+  },
+  {
+   "t": 1258.04,
+   "end": 1258.96,
+   "who": "Medi",
+   "text": "Um,",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.93,
+   "n_words": 1
+  },
+  {
+   "t": 1260.76,
+   "end": 1262.3,
+   "who": "Medi",
+   "text": "مرحبا، كيفك؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.99,
+   "n_words": 2
+  },
+  {
+   "t": 1262.68,
+   "end": 1263.16,
+   "who": "Medi",
+   "text": "كيفك؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 1271.7,
+   "end": 1271.82,
+   "who": "Medi",
+   "text": "Um,",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 1274.38,
+   "end": 1275.82,
+   "who": "Medi",
+   "text": "لازم أقي--",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.65,
+   "n_words": 2
+  },
+  {
+   "t": 1277.8,
+   "end": 1278.36,
+   "who": "Medi",
+   "text": "um,",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.84,
+   "n_words": 1
+  },
+  {
+   "t": 1280.56,
+   "end": 1281.56,
+   "who": "Medi",
+   "text": "أنا لازم--",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 2
+  },
+  {
+   "t": 1283.22,
+   "end": 1283.56,
+   "who": "Medi",
+   "text": "um,",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.97,
+   "n_words": 1
+  },
+  {
+   "t": 1285.84,
+   "end": 1288.4,
+   "who": "Medi",
+   "text": "you would say أنا لازم أطلب أو أنا لازم",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.98,
+   "n_words": 9
+  },
+  {
+   "t": 1289.6,
+   "end": 1292.46,
+   "who": "Medi",
+   "text": "أ-أ-أحجز.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.92,
+   "n_words": 1
+  },
+  {
+   "t": 1294.78,
+   "end": 1297.78,
+   "who": "Medi",
+   "text": "أنا لازم أحجز غرفة.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 4
+  },
+  {
+   "t": 1320.36,
+   "end": 1320.88,
+   "who": "Medi",
+   "text": "أنا،",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.62,
+   "n_words": 1
+  },
+  {
+   "t": 1323.36,
+   "end": 1324.3,
+   "who": "Medi",
+   "text": "أنا بدي",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.97,
+   "n_words": 2
+  },
+  {
+   "t": 1326.32,
+   "end": 1329.1,
+   "who": "Medi",
+   "text": "الغرفة.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.69,
+   "n_words": 1
+  },
+  {
+   "t": 1331.7,
+   "end": 1333.12,
+   "who": "Medi",
+   "text": "Do you say ما منظر؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.94,
+   "n_words": 5
+  },
+  {
+   "t": 1335.76,
+   "end": 1336.02,
+   "who": "Medi",
+   "text": "ما--",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.95,
+   "n_words": 1
+  },
+  {
+   "t": 1337.8,
+   "end": 1338.52,
+   "who": "Medi",
+   "text": "which is منظر؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.83,
+   "n_words": 3
+  },
+  {
+   "t": 1343.5,
+   "end": 1343.74,
+   "who": "Medi",
+   "text": "Okay.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 1.0,
+   "n_words": 1
+  },
+  {
+   "t": 1345.36,
+   "end": 1347.54,
+   "who": "Medi",
+   "text": "ما منظر الشاطئ؟",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.98,
+   "n_words": 3
+  },
+  {
+   "t": 1352.98,
+   "end": 1355.52,
+   "who": "Medi",
+   "text": "Um, I'm so s-- I'm so sorry, one second.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.9,
+   "n_words": 9
+  },
+  {
+   "t": 1356.16,
+   "end": 1356.46,
+   "who": "Medi",
+   "text": "Sorry.",
+   "source": "own_track",
+   "from_meet": false,
+   "confidence": 0.98,
+   "n_words": 1
+  }
+ ],
+ "words": [
+  {
+   "s": 54.324,
+   "e": 54.404,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.334,
+   "source": "own_track"
+  },
+  {
+   "s": 54.464,
+   "e": 54.564,
+   "text": "شاء",
+   "who": "Medi",
+   "conf": 0.76,
+   "source": "own_track"
+  },
+  {
+   "s": 54.584,
+   "e": 54.944,
+   "text": "الله.",
+   "who": "Medi",
+   "conf": 0.943,
+   "source": "own_track"
+  },
+  {
+   "s": 58.104,
+   "e": 58.564,
+   "text": "عمان،",
+   "who": "Medi",
+   "conf": 0.622,
+   "source": "own_track"
+  },
+  {
+   "s": 58.804,
+   "e": 59.324,
+   "text": "وينتي؟",
+   "who": "Medi",
+   "conf": 0.522,
+   "source": "own_track"
+  },
+  {
+   "s": 113.644,
+   "e": 113.804,
+   "text": "وين",
+   "who": "Medi",
+   "conf": 0.479,
+   "source": "own_track"
+  },
+  {
+   "s": 113.844,
+   "e": 114.424,
+   "text": "بيعطلك؟",
+   "who": "Medi",
+   "conf": 0.492,
+   "source": "own_track"
+  },
+  {
+   "s": 120.084,
+   "e": 120.444,
+   "text": "إذا",
+   "who": "Medi",
+   "conf": 0.872,
+   "source": "own_track"
+  },
+  {
+   "s": 120.464,
+   "e": 120.504,
+   "text": "عم",
+   "who": "Medi",
+   "conf": 0.255,
+   "source": "own_track"
+  },
+  {
+   "s": 120.584,
+   "e": 120.704,
+   "text": "يبي",
+   "who": "Medi",
+   "conf": 0.324,
+   "source": "own_track"
+  },
+  {
+   "s": 120.784,
+   "e": 121.064,
+   "text": "توضّح",
+   "who": "Medi",
+   "conf": 0.196,
+   "source": "own_track"
+  },
+  {
+   "s": 121.724,
+   "e": 121.884,
+   "text": "لي",
+   "who": "Medi",
+   "conf": 0.039,
+   "source": "own_track"
+  },
+  {
+   "s": 121.884,
+   "e": 121.884,
+   "text": "شو",
+   "who": "Medi",
+   "conf": 0.134,
+   "source": "own_track"
+  },
+  {
+   "s": 121.964,
+   "e": 122.364,
+   "text": "كرمش؟",
+   "who": "Medi",
+   "conf": 0.282,
+   "source": "own_track"
+  },
+  {
+   "s": 122.844,
+   "e": 123.504,
+   "text": "بهذا",
+   "who": "Medi",
+   "conf": 0.129,
+   "source": "own_track"
+  },
+  {
+   "s": 123.524,
+   "e": 124.124,
+   "text": "نفسه،",
+   "who": "Medi",
+   "conf": 0.19,
+   "source": "own_track"
+  },
+  {
+   "s": 124.304,
+   "e": 140.344,
+   "text": "أنا.",
+   "who": "Medi",
+   "conf": 0.131,
+   "source": "own_track"
+  },
+  {
+   "s": 140.384,
+   "e": 140.544,
+   "text": "Oh,",
+   "who": "Medi",
+   "conf": 0.861,
+   "source": "own_track"
+  },
+  {
+   "s": 140.764,
+   "e": 140.824,
+   "text": "I",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 140.884,
+   "e": 141.124,
+   "text": "didn't",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 141.184,
+   "e": 141.404,
+   "text": "start",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 141.444,
+   "e": 141.524,
+   "text": "the",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 141.564,
+   "e": 142.284,
+   "text": "record.",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 146.004,
+   "e": 146.284,
+   "text": "Ah,",
+   "who": "Medi",
+   "conf": 0.977,
+   "source": "own_track"
+  },
+  {
+   "s": 146.644,
+   "e": 146.704,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 146.824,
+   "e": 147.204,
+   "text": "forgot",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 147.224,
+   "e": 147.304,
+   "text": "I",
+   "who": "Medi",
+   "conf": 0.834,
+   "source": "own_track"
+  },
+  {
+   "s": 147.344,
+   "e": 147.564,
+   "text": "walked",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 147.624,
+   "e": 148.064,
+   "text": "outside.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 154.704,
+   "e": 154.904,
+   "text": "معلش،",
+   "who": "Medi",
+   "conf": 0.218,
+   "source": "own_track"
+  },
+  {
+   "s": 154.984,
+   "e": 155.164,
+   "text": "درهم",
+   "who": "Medi",
+   "conf": 0.504,
+   "source": "own_track"
+  },
+  {
+   "s": 155.224,
+   "e": 155.384,
+   "text": "12",
+   "who": "Medi",
+   "conf": 0.886,
+   "source": "own_track"
+  },
+  {
+   "s": 163.504,
+   "e": 163.584,
+   "text": "شو",
+   "who": "Medi",
+   "conf": 0.373,
+   "source": "own_track"
+  },
+  {
+   "s": 163.604,
+   "e": 194.384,
+   "text": "هو؟",
+   "who": "Medi",
+   "conf": 0.642,
+   "source": "own_track"
+  },
+  {
+   "s": 194.664,
+   "e": 194.744,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.427,
+   "source": "own_track"
+  },
+  {
+   "s": 194.804,
+   "e": 194.904,
+   "text": "حدا،",
+   "who": "Medi",
+   "conf": 0.18,
+   "source": "own_track"
+  },
+  {
+   "s": 194.944,
+   "e": 195.284,
+   "text": "ربعو",
+   "who": "Medi",
+   "conf": 0.313,
+   "source": "own_track"
+  },
+  {
+   "s": 195.344,
+   "e": 195.464,
+   "text": "جان.",
+   "who": "Medi",
+   "conf": 0.301,
+   "source": "own_track"
+  },
+  {
+   "s": 196.844,
+   "e": 197.124,
+   "text": "بلش",
+   "who": "Medi",
+   "conf": 0.812,
+   "source": "own_track"
+  },
+  {
+   "s": 197.204,
+   "e": 197.384,
+   "text": "كن،",
+   "who": "Medi",
+   "conf": 0.245,
+   "source": "own_track"
+  },
+  {
+   "s": 197.444,
+   "e": 197.644,
+   "text": "ميز",
+   "who": "Medi",
+   "conf": 0.488,
+   "source": "own_track"
+  },
+  {
+   "s": 197.684,
+   "e": 197.784,
+   "text": "تو",
+   "who": "Medi",
+   "conf": 0.602,
+   "source": "own_track"
+  },
+  {
+   "s": 197.824,
+   "e": 198.244,
+   "text": "مغازه.",
+   "who": "Medi",
+   "conf": 0.586,
+   "source": "own_track"
+  },
+  {
+   "s": 199.284,
+   "e": 199.724,
+   "text": "روشته",
+   "who": "Medi",
+   "conf": 0.374,
+   "source": "own_track"
+  },
+  {
+   "s": 199.764,
+   "e": 200.284,
+   "text": "فففك",
+   "who": "Medi",
+   "conf": 0.661,
+   "source": "own_track"
+  },
+  {
+   "s": 200.324,
+   "e": 200.624,
+   "text": "نكن",
+   "who": "Medi",
+   "conf": 0.651,
+   "source": "own_track"
+  },
+  {
+   "s": 200.644,
+   "e": 200.784,
+   "text": "ديجي",
+   "who": "Medi",
+   "conf": 0.312,
+   "source": "own_track"
+  },
+  {
+   "s": 200.804,
+   "e": 200.964,
+   "text": "ربعو",
+   "who": "Medi",
+   "conf": 0.922,
+   "source": "own_track"
+  },
+  {
+   "s": 201.004,
+   "e": 201.144,
+   "text": "جان.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 206.664,
+   "e": 206.764,
+   "text": "شو",
+   "who": "Medi",
+   "conf": 0.352,
+   "source": "own_track"
+  },
+  {
+   "s": 206.804,
+   "e": 207.004,
+   "text": "حس؟",
+   "who": "Medi",
+   "conf": 0.544,
+   "source": "own_track"
+  },
+  {
+   "s": 209.704,
+   "e": 210.164,
+   "text": "Uh-huh.",
+   "who": "Medi",
+   "conf": 0.779,
+   "source": "own_track"
+  },
+  {
+   "s": 216.244,
+   "e": 216.424,
+   "text": "Uh.",
+   "who": "Medi",
+   "conf": 0.638,
+   "source": "own_track"
+  },
+  {
+   "s": 218.964,
+   "e": 219.104,
+   "text": "How?",
+   "who": "Medi",
+   "conf": 0.359,
+   "source": "own_track"
+  },
+  {
+   "s": 220.744,
+   "e": 221.164,
+   "text": "Should?",
+   "who": "Medi",
+   "conf": 0.716,
+   "source": "own_track"
+  },
+  {
+   "s": 222.664,
+   "e": 222.864,
+   "text": "What",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 222.884,
+   "e": 223.144,
+   "text": "did",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 223.184,
+   "e": 223.224,
+   "text": "you",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 223.284,
+   "e": 223.484,
+   "text": "say?",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 232.484,
+   "e": 232.644,
+   "text": "Should",
+   "who": "Medi",
+   "conf": 0.996,
+   "source": "own_track"
+  },
+  {
+   "s": 232.884,
+   "e": 232.964,
+   "text": "I",
+   "who": "Medi",
+   "conf": 0.389,
+   "source": "own_track"
+  },
+  {
+   "s": 233.024,
+   "e": 233.344,
+   "text": "light",
+   "who": "Medi",
+   "conf": 0.579,
+   "source": "own_track"
+  },
+  {
+   "s": 233.504,
+   "e": 233.704,
+   "text": "the",
+   "who": "Medi",
+   "conf": 0.431,
+   "source": "own_track"
+  },
+  {
+   "s": 233.744,
+   "e": 234.064,
+   "text": "bike?",
+   "who": "Medi",
+   "conf": 0.991,
+   "source": "own_track"
+  },
+  {
+   "s": 241.464,
+   "e": 241.664,
+   "text": "Okay,",
+   "who": "Medi",
+   "conf": 0.978,
+   "source": "own_track"
+  },
+  {
+   "s": 242.044,
+   "e": 242.184,
+   "text": "what",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 242.204,
+   "e": 242.244,
+   "text": "was",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 242.264,
+   "e": 242.324,
+   "text": "the",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 242.384,
+   "e": 242.624,
+   "text": "second",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 242.684,
+   "e": 242.984,
+   "text": "part?",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 248.124,
+   "e": 248.244,
+   "text": "You",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 248.284,
+   "e": 248.484,
+   "text": "said",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 248.524,
+   "e": 248.744,
+   "text": "\"dow\",",
+   "who": "Medi",
+   "conf": 0.459,
+   "source": "own_track"
+  },
+  {
+   "s": 248.844,
+   "e": 248.944,
+   "text": "what",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 248.944,
+   "e": 248.944,
+   "text": "is",
+   "who": "Medi",
+   "conf": 0.951,
+   "source": "own_track"
+  },
+  {
+   "s": 248.944,
+   "e": 248.944,
+   "text": "it--",
+   "who": "Medi",
+   "conf": 0.755,
+   "source": "own_track"
+  },
+  {
+   "s": 248.944,
+   "e": 248.964,
+   "text": "were",
+   "who": "Medi",
+   "conf": 0.712,
+   "source": "own_track"
+  },
+  {
+   "s": 249.704,
+   "e": 249.844,
+   "text": "you--",
+   "who": "Medi",
+   "conf": 0.961,
+   "source": "own_track"
+  },
+  {
+   "s": 250.004,
+   "e": 250.224,
+   "text": "didn't",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 250.304,
+   "e": 250.464,
+   "text": "you?",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 253.824,
+   "e": 253.944,
+   "text": "You",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 254.044,
+   "e": 254.244,
+   "text": "said",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 254.284,
+   "e": 254.664,
+   "text": "\"dow\".",
+   "who": "Medi",
+   "conf": 0.888,
+   "source": "own_track"
+  },
+  {
+   "s": 255.604,
+   "e": 256.044,
+   "text": "Okay.",
+   "who": "Medi",
+   "conf": 0.991,
+   "source": "own_track"
+  },
+  {
+   "s": 258.984,
+   "e": 259.143,
+   "text": "No,",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 259.304,
+   "e": 259.344,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 259.384,
+   "e": 259.624,
+   "text": "heard--",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 259.703,
+   "e": 259.924,
+   "text": "okay,",
+   "who": "Medi",
+   "conf": 0.835,
+   "source": "own_track"
+  },
+  {
+   "s": 260.004,
+   "e": 260.044,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 260.083,
+   "e": 260.184,
+   "text": "don't",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 260.224,
+   "e": 260.304,
+   "text": "know",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 260.324,
+   "e": 260.424,
+   "text": "what",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 260.523,
+   "e": 260.544,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 260.604,
+   "e": 260.864,
+   "text": "heard.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 263.044,
+   "e": 263.124,
+   "text": "I",
+   "who": "Medi",
+   "conf": 0.979,
+   "source": "own_track"
+  },
+  {
+   "s": 263.184,
+   "e": 263.464,
+   "text": "know",
+   "who": "Medi",
+   "conf": 0.943,
+   "source": "own_track"
+  },
+  {
+   "s": 263.744,
+   "e": 264.324,
+   "text": "لازم.",
+   "who": "Medi",
+   "conf": 0.76,
+   "source": "own_track"
+  },
+  {
+   "s": 264.904,
+   "e": 265.224,
+   "text": "دايما",
+   "who": "Medi",
+   "conf": 0.744,
+   "source": "own_track"
+  },
+  {
+   "s": 265.324,
+   "e": 265.724,
+   "text": "لازم.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 271.104,
+   "e": 271.404,
+   "text": "أنا،",
+   "who": "Medi",
+   "conf": 0.995,
+   "source": "own_track"
+  },
+  {
+   "s": 272.584,
+   "e": 272.964,
+   "text": "امم،",
+   "who": "Medi",
+   "conf": 0.625,
+   "source": "own_track"
+  },
+  {
+   "s": 274.484,
+   "e": 274.664,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 274.704,
+   "e": 275.084,
+   "text": "حكيت",
+   "who": "Medi",
+   "conf": 0.972,
+   "source": "own_track"
+  },
+  {
+   "s": 275.284,
+   "e": 275.624,
+   "text": "لي",
+   "who": "Medi",
+   "conf": 0.864,
+   "source": "own_track"
+  },
+  {
+   "s": 276.904,
+   "e": 277.184,
+   "text": "على",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 277.704,
+   "e": 278.424,
+   "text": "ختيجي",
+   "who": "Medi",
+   "conf": 0.591,
+   "source": "own_track"
+  },
+  {
+   "s": 279.404,
+   "e": 280.384,
+   "text": "إنه،",
+   "who": "Medi",
+   "conf": 0.748,
+   "source": "own_track"
+  },
+  {
+   "s": 282.204,
+   "e": 282.784,
+   "text": "امم،",
+   "who": "Medi",
+   "conf": 0.944,
+   "source": "own_track"
+  },
+  {
+   "s": 284.404,
+   "e": 284.704,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 284.764,
+   "e": 285.324,
+   "text": "بقدر",
+   "who": "Medi",
+   "conf": 0.96,
+   "source": "own_track"
+  },
+  {
+   "s": 285.704,
+   "e": 286.404,
+   "text": "أحكي",
+   "who": "Medi",
+   "conf": 0.992,
+   "source": "own_track"
+  },
+  {
+   "s": 287.624,
+   "e": 288.284,
+   "text": "أحسن",
+   "who": "Medi",
+   "conf": 0.996,
+   "source": "own_track"
+  },
+  {
+   "s": 288.744,
+   "e": 289.324,
+   "text": "لما",
+   "who": "Medi",
+   "conf": 0.979,
+   "source": "own_track"
+  },
+  {
+   "s": 290.064,
+   "e": 290.524,
+   "text": "أشرب،",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 291.584,
+   "e": 291.924,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 0.872,
+   "source": "own_track"
+  },
+  {
+   "s": 293.584,
+   "e": 294.084,
+   "text": "أشرب",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 294.204,
+   "e": 294.864,
+   "text": "تنين",
+   "who": "Medi",
+   "conf": 0.897,
+   "source": "own_track"
+  },
+  {
+   "s": 296.804,
+   "e": 297.264,
+   "text": "قهوة.",
+   "who": "Medi",
+   "conf": 0.989,
+   "source": "own_track"
+  },
+  {
+   "s": 304.824,
+   "e": 305.364,
+   "text": "قهوين؟",
+   "who": "Medi",
+   "conf": 0.931,
+   "source": "own_track"
+  },
+  {
+   "s": 309.464,
+   "e": 310.064,
+   "text": "قهوتين؟",
+   "who": "Medi",
+   "conf": 0.898,
+   "source": "own_track"
+  },
+  {
+   "s": 311.524,
+   "e": 311.804,
+   "text": "Okay.",
+   "who": "Medi",
+   "conf": 0.99,
+   "source": "own_track"
+  },
+  {
+   "s": 313.324,
+   "e": 314.304,
+   "text": "قهوتين.",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 316.884,
+   "e": 317.724,
+   "text": "امم،",
+   "who": "Medi",
+   "conf": 0.923,
+   "source": "own_track"
+  },
+  {
+   "s": 320.664,
+   "e": 321.024,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 0.913,
+   "source": "own_track"
+  },
+  {
+   "s": 321.184,
+   "e": 321.264,
+   "text": "I--",
+   "who": "Medi",
+   "conf": 0.808,
+   "source": "own_track"
+  },
+  {
+   "s": 321.364,
+   "e": 321.484,
+   "text": "oh,",
+   "who": "Medi",
+   "conf": 0.982,
+   "source": "own_track"
+  },
+  {
+   "s": 321.524,
+   "e": 321.564,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 321.604,
+   "e": 321.724,
+   "text": "didn't",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 321.764,
+   "e": 321.864,
+   "text": "tell",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 321.924,
+   "e": 321.984,
+   "text": "you.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 322.044,
+   "e": 322.504,
+   "text": "أنا،",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 323.264,
+   "e": 323.424,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 323.484,
+   "e": 324.144,
+   "text": "دايمًا،",
+   "who": "Medi",
+   "conf": 0.859,
+   "source": "own_track"
+  },
+  {
+   "s": 325.224,
+   "e": 325.464,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 325.824,
+   "e": 326.284,
+   "text": "أحكي",
+   "who": "Medi",
+   "conf": 0.759,
+   "source": "own_track"
+  },
+  {
+   "s": 326.364,
+   "e": 326.644,
+   "text": "لك--",
+   "who": "Medi",
+   "conf": 0.993,
+   "source": "own_track"
+  },
+  {
+   "s": 326.804,
+   "e": 327.164,
+   "text": "أحكي",
+   "who": "Medi",
+   "conf": 0.991,
+   "source": "own_track"
+  },
+  {
+   "s": 327.224,
+   "e": 327.584,
+   "text": "لها",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 328.484,
+   "e": 328.824,
+   "text": "إنه",
+   "who": "Medi",
+   "conf": 0.993,
+   "source": "own_track"
+  },
+  {
+   "s": 328.884,
+   "e": 329.144,
+   "text": "هي،",
+   "who": "Medi",
+   "conf": 0.972,
+   "source": "own_track"
+  },
+  {
+   "s": 330.784,
+   "e": 331.124,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 331.864,
+   "e": 332.044,
+   "text": "هي",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 332.344,
+   "e": 333.124,
+   "text": "تشربي،",
+   "who": "Medi",
+   "conf": 0.975,
+   "source": "own_track"
+  },
+  {
+   "s": 334.864,
+   "e": 335.184,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 335.604,
+   "e": 335.744,
+   "text": "too",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 335.824,
+   "e": 336.184,
+   "text": "much",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 336.564,
+   "e": 337.004,
+   "text": "قهوة.",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 340.344,
+   "e": 340.704,
+   "text": "تشرب",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 340.764,
+   "e": 341.044,
+   "text": "قهوة",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 341.204,
+   "e": 341.464,
+   "text": "كثير.",
+   "who": "Medi",
+   "conf": 0.848,
+   "source": "own_track"
+  },
+  {
+   "s": 347.244,
+   "e": 347.884,
+   "text": "وأنا،",
+   "who": "Medi",
+   "conf": 0.799,
+   "source": "own_track"
+  },
+  {
+   "s": 348.084,
+   "e": 348.624,
+   "text": "أنا،",
+   "who": "Medi",
+   "conf": 0.923,
+   "source": "own_track"
+  },
+  {
+   "s": 349.984,
+   "e": 350.444,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 350.924,
+   "e": 351.264,
+   "text": "حكيت",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 351.284,
+   "e": 351.464,
+   "text": "لك",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 351.544,
+   "e": 351.864,
+   "text": "إنه",
+   "who": "Medi",
+   "conf": 0.937,
+   "source": "own_track"
+  },
+  {
+   "s": 352.764,
+   "e": 353.044,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 353.144,
+   "e": 353.684,
+   "text": "بقدر",
+   "who": "Medi",
+   "conf": 0.996,
+   "source": "own_track"
+  },
+  {
+   "s": 354.144,
+   "e": 354.704,
+   "text": "أدرس",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 355.244,
+   "e": 355.724,
+   "text": "أحسن",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 355.784,
+   "e": 356.204,
+   "text": "لما",
+   "who": "Medi",
+   "conf": 0.99,
+   "source": "own_track"
+  },
+  {
+   "s": 357.584,
+   "e": 358.044,
+   "text": "أشرب",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 359.084,
+   "e": 359.564,
+   "text": "قهوين--",
+   "who": "Medi",
+   "conf": 0.709,
+   "source": "own_track"
+  },
+  {
+   "s": 359.884,
+   "e": 360.704,
+   "text": "قهوتين.",
+   "who": "Medi",
+   "conf": 0.974,
+   "source": "own_track"
+  },
+  {
+   "s": 361.584,
+   "e": 361.964,
+   "text": "وهي،",
+   "who": "Medi",
+   "conf": 0.994,
+   "source": "own_track"
+  },
+  {
+   "s": 363.864,
+   "e": 364.244,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 365.204,
+   "e": 365.404,
+   "text": "she",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 365.524,
+   "e": 365.764,
+   "text": "felt",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 365.804,
+   "e": 366.544,
+   "text": "justified.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 366.644,
+   "e": 366.784,
+   "text": "She",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 366.884,
+   "e": 367.144,
+   "text": "felt",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 368.004,
+   "e": 368.824,
+   "text": "vindictive",
+   "who": "Medi",
+   "conf": 0.802,
+   "source": "own_track"
+  },
+  {
+   "s": 370.354,
+   "e": 370.354,
+   "text": "مم.",
+   "who": "Medi",
+   "conf": 0.575,
+   "source": "own_track"
+  },
+  {
+   "s": 370.434,
+   "e": 378.954,
+   "text": "إيه؟",
+   "who": "Medi",
+   "conf": 0.608,
+   "source": "own_track"
+  },
+  {
+   "s": 382.554,
+   "e": 382.634,
+   "text": "I",
+   "who": "Medi",
+   "conf": 0.695,
+   "source": "own_track"
+  },
+  {
+   "s": 382.654,
+   "e": 382.954,
+   "text": "didn't",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 382.994,
+   "e": 383.154,
+   "text": "tell",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 383.174,
+   "e": 383.334,
+   "text": "her.",
+   "who": "Medi",
+   "conf": 0.905,
+   "source": "own_track"
+  },
+  {
+   "s": 386.954,
+   "e": 387.074,
+   "text": "Oh",
+   "who": "Medi",
+   "conf": 0.953,
+   "source": "own_track"
+  },
+  {
+   "s": 387.134,
+   "e": 387.274,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.802,
+   "source": "own_track"
+  },
+  {
+   "s": 387.334,
+   "e": 387.894,
+   "text": "ضحكت",
+   "who": "Medi",
+   "conf": 0.793,
+   "source": "own_track"
+  },
+  {
+   "s": 387.974,
+   "e": 388.354,
+   "text": "عليك.",
+   "who": "Medi",
+   "conf": 0.807,
+   "source": "own_track"
+  },
+  {
+   "s": 391.534,
+   "e": 392.034,
+   "text": "آآآ",
+   "who": "Medi",
+   "conf": 0.669,
+   "source": "own_track"
+  },
+  {
+   "s": 392.294,
+   "e": 392.494,
+   "text": "هي",
+   "who": "Medi",
+   "conf": 0.841,
+   "source": "own_track"
+  },
+  {
+   "s": 395.894,
+   "e": 396.474,
+   "text": "ضحكت",
+   "who": "Medi",
+   "conf": 0.985,
+   "source": "own_track"
+  },
+  {
+   "s": 396.574,
+   "e": 397.234,
+   "text": "عليك.",
+   "who": "Medi",
+   "conf": 0.752,
+   "source": "own_track"
+  },
+  {
+   "s": 409.234,
+   "e": 409.554,
+   "text": "Yeah.",
+   "who": "Medi",
+   "conf": 0.816,
+   "source": "own_track"
+  },
+  {
+   "s": 415.694,
+   "e": 416.114,
+   "text": "تمام.",
+   "who": "Medi",
+   "conf": 0.971,
+   "source": "own_track"
+  },
+  {
+   "s": 417.734,
+   "e": 417.974,
+   "text": "آآآ",
+   "who": "Medi",
+   "conf": 0.975,
+   "source": "own_track"
+  },
+  {
+   "s": 419.634,
+   "e": 420.254,
+   "text": "اليوم",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 421.654,
+   "e": 422.394,
+   "text": "آآآ",
+   "who": "Medi",
+   "conf": 0.947,
+   "source": "own_track"
+  },
+  {
+   "s": 424.354,
+   "e": 424.954,
+   "text": "توني",
+   "who": "Medi",
+   "conf": 0.47,
+   "source": "own_track"
+  },
+  {
+   "s": 425.094,
+   "e": 425.394,
+   "text": "شوي",
+   "who": "Medi",
+   "conf": 0.878,
+   "source": "own_track"
+  },
+  {
+   "s": 427.294,
+   "e": 427.954,
+   "text": "توجع.",
+   "who": "Medi",
+   "conf": 0.748,
+   "source": "own_track"
+  },
+  {
+   "s": 430.954,
+   "e": 431.074,
+   "text": "آه.",
+   "who": "Medi",
+   "conf": 0.812,
+   "source": "own_track"
+  },
+  {
+   "s": 434.614,
+   "e": 434.954,
+   "text": "آآآ",
+   "who": "Medi",
+   "conf": 0.932,
+   "source": "own_track"
+  },
+  {
+   "s": 435.174,
+   "e": 435.353,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 435.394,
+   "e": 435.874,
+   "text": "بعرف",
+   "who": "Medi",
+   "conf": 0.992,
+   "source": "own_track"
+  },
+  {
+   "s": 436.174,
+   "e": 436.434,
+   "text": "شو",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 437.234,
+   "e": 437.854,
+   "text": "أكلت",
+   "who": "Medi",
+   "conf": 0.994,
+   "source": "own_track"
+  },
+  {
+   "s": 439.074,
+   "e": 439.374,
+   "text": "بس",
+   "who": "Medi",
+   "conf": 0.918,
+   "source": "own_track"
+  },
+  {
+   "s": 439.994,
+   "e": 440.494,
+   "text": "آآآ.",
+   "who": "Medi",
+   "conf": 0.812,
+   "source": "own_track"
+  },
+  {
+   "s": 444.154,
+   "e": 444.494,
+   "text": "آآآ",
+   "who": "Medi",
+   "conf": 0.979,
+   "source": "own_track"
+  },
+  {
+   "s": 444.914,
+   "e": 444.994,
+   "text": "I",
+   "who": "Medi",
+   "conf": 0.931,
+   "source": "own_track"
+  },
+  {
+   "s": 448.214,
+   "e": 448.354,
+   "text": "don't",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 448.394,
+   "e": 448.494,
+   "text": "know",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 448.534,
+   "e": 448.614,
+   "text": "how",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 448.654,
+   "e": 448.734,
+   "text": "to",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 448.794,
+   "e": 448.934,
+   "text": "say",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 448.994,
+   "e": 449.054,
+   "text": "I",
+   "who": "Medi",
+   "conf": 0.932,
+   "source": "own_track"
+  },
+  {
+   "s": 449.094,
+   "e": 449.214,
+   "text": "was",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 449.254,
+   "e": 449.694,
+   "text": "supposed",
+   "who": "Medi",
+   "conf": 0.994,
+   "source": "own_track"
+  },
+  {
+   "s": 449.754,
+   "e": 449.994,
+   "text": "to,",
+   "who": "Medi",
+   "conf": 0.848,
+   "source": "own_track"
+  },
+  {
+   "s": 450.354,
+   "e": 450.474,
+   "text": "do",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 450.574,
+   "e": 450.734,
+   "text": "I?",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 455.074,
+   "e": 455.174,
+   "text": "I",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 455.194,
+   "e": 455.374,
+   "text": "should",
+   "who": "Medi",
+   "conf": 0.988,
+   "source": "own_track"
+  },
+  {
+   "s": 455.394,
+   "e": 455.474,
+   "text": "have,",
+   "who": "Medi",
+   "conf": 0.507,
+   "source": "own_track"
+  },
+  {
+   "s": 455.494,
+   "e": 455.674,
+   "text": "okay.",
+   "who": "Medi",
+   "conf": 0.945,
+   "source": "own_track"
+  },
+  {
+   "s": 455.714,
+   "e": 455.914,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 0.99,
+   "source": "own_track"
+  },
+  {
+   "s": 455.954,
+   "e": 456.174,
+   "text": "كان",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 456.214,
+   "e": 456.914,
+   "text": "لازم.",
+   "who": "Medi",
+   "conf": 0.888,
+   "source": "own_track"
+  },
+  {
+   "s": 458.214,
+   "e": 458.474,
+   "text": "آآآ",
+   "who": "Medi",
+   "conf": 0.991,
+   "source": "own_track"
+  },
+  {
+   "s": 460.374,
+   "e": 460.694,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 0.886,
+   "source": "own_track"
+  },
+  {
+   "s": 460.794,
+   "e": 461.134,
+   "text": "كان",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 461.354,
+   "e": 462.034,
+   "text": "لازم",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 464.774,
+   "e": 465.334,
+   "text": "أمرنها",
+   "who": "Medi",
+   "conf": 0.502,
+   "source": "own_track"
+  },
+  {
+   "s": 467.794,
+   "e": 467.914,
+   "text": "في",
+   "who": "Medi",
+   "conf": 0.6,
+   "source": "own_track"
+  },
+  {
+   "s": 467.954,
+   "e": 468.594,
+   "text": "الصباح",
+   "who": "Medi",
+   "conf": 0.968,
+   "source": "own_track"
+  },
+  {
+   "s": 468.814,
+   "e": 469.174,
+   "text": "بس",
+   "who": "Medi",
+   "conf": 0.995,
+   "source": "own_track"
+  },
+  {
+   "s": 470.854,
+   "e": 470.994,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.988,
+   "source": "own_track"
+  },
+  {
+   "s": 471.514,
+   "e": 471.654,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.303,
+   "source": "own_track"
+  },
+  {
+   "s": 472.414,
+   "e": 472.934,
+   "text": "تروحي.",
+   "who": "Medi",
+   "conf": 0.919,
+   "source": "own_track"
+  },
+  {
+   "s": 480.294,
+   "e": 480.374,
+   "text": "آآآ",
+   "who": "Medi",
+   "conf": 0.844,
+   "source": "own_track"
+  },
+  {
+   "s": 480.494,
+   "e": 480.794,
+   "text": "ما،",
+   "who": "Medi",
+   "conf": 0.801,
+   "source": "own_track"
+  },
+  {
+   "s": 484.074,
+   "e": 484.214,
+   "text": "yeah",
+   "who": "Medi",
+   "conf": 0.46,
+   "source": "own_track"
+  },
+  {
+   "s": 484.274,
+   "e": 484.494,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.994,
+   "source": "own_track"
+  },
+  {
+   "s": 485.194,
+   "e": 485.614,
+   "text": "رحت.",
+   "who": "Medi",
+   "conf": 0.835,
+   "source": "own_track"
+  },
+  {
+   "s": 494.374,
+   "e": 494.454,
+   "text": "Oh،",
+   "who": "Medi",
+   "conf": 0.41,
+   "source": "own_track"
+  },
+  {
+   "s": 494.554,
+   "e": 495.054,
+   "text": "بطني",
+   "who": "Medi",
+   "conf": 0.548,
+   "source": "own_track"
+  },
+  {
+   "s": 495.214,
+   "e": 495.494,
+   "text": "sorry",
+   "who": "Medi",
+   "conf": 0.51,
+   "source": "own_track"
+  },
+  {
+   "s": 495.774,
+   "e": 496.254,
+   "text": "بطني.",
+   "who": "Medi",
+   "conf": 0.846,
+   "source": "own_track"
+  },
+  {
+   "s": 497.574,
+   "e": 498.214,
+   "text": "بطني.",
+   "who": "Medi",
+   "conf": 0.84,
+   "source": "own_track"
+  },
+  {
+   "s": 499.254,
+   "e": 499.453,
+   "text": "Yeah.",
+   "who": "Medi",
+   "conf": 0.967,
+   "source": "own_track"
+  },
+  {
+   "s": 500.554,
+   "e": 500.874,
+   "text": "Mouth.",
+   "who": "Medi",
+   "conf": 0.632,
+   "source": "own_track"
+  },
+  {
+   "s": 506.734,
+   "e": 506.914,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 506.934,
+   "e": 508.054,
+   "text": "بتذكر",
+   "who": "Medi",
+   "conf": 0.995,
+   "source": "own_track"
+  },
+  {
+   "s": 508.794,
+   "e": 509.194,
+   "text": "آآآ",
+   "who": "Medi",
+   "conf": 0.946,
+   "source": "own_track"
+  },
+  {
+   "s": 511.634,
+   "e": 511.794,
+   "text": "أي",
+   "who": "Medi",
+   "conf": 0.926,
+   "source": "own_track"
+  },
+  {
+   "s": 511.874,
+   "e": 512.494,
+   "text": "أيام.",
+   "who": "Medi",
+   "conf": 0.241,
+   "source": "own_track"
+  },
+  {
+   "s": 514.874,
+   "e": 515.594,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 515.634,
+   "e": 516.434,
+   "text": "بأكل",
+   "who": "Medi",
+   "conf": 0.88,
+   "source": "own_track"
+  },
+  {
+   "s": 518.254,
+   "e": 518.554,
+   "text": "نفس",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 518.654,
+   "e": 519.254,
+   "text": "إشي",
+   "who": "Medi",
+   "conf": 0.891,
+   "source": "own_track"
+  },
+  {
+   "s": 520.374,
+   "e": 520.774,
+   "text": "أغلب",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 520.814,
+   "e": 521.054,
+   "text": "من",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 521.534,
+   "e": 522.074,
+   "text": "أيام.",
+   "who": "Medi",
+   "conf": 0.989,
+   "source": "own_track"
+  },
+  {
+   "s": 524.634,
+   "e": 526.634,
+   "text": "أنا.",
+   "who": "Medi",
+   "conf": 0.647,
+   "source": "own_track"
+  },
+  {
+   "s": 535.334,
+   "e": 535.614,
+   "text": "شوي",
+   "who": "Medi",
+   "conf": 0.723,
+   "source": "own_track"
+  },
+  {
+   "s": 535.634,
+   "e": 536.254,
+   "text": "الجملة",
+   "who": "Medi",
+   "conf": 0.987,
+   "source": "own_track"
+  },
+  {
+   "s": 536.274,
+   "e": 536.614,
+   "text": "إشي.",
+   "who": "Medi",
+   "conf": 0.752,
+   "source": "own_track"
+  },
+  {
+   "s": 540.654,
+   "e": 540.754,
+   "text": "آه",
+   "who": "Medi",
+   "conf": 0.947,
+   "source": "own_track"
+  },
+  {
+   "s": 540.814,
+   "e": 541.574,
+   "text": "الأشياء.",
+   "who": "Medi",
+   "conf": 0.62,
+   "source": "own_track"
+  },
+  {
+   "s": 545.494,
+   "e": 545.774,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 545.834,
+   "e": 546.294,
+   "text": "بأكل",
+   "who": "Medi",
+   "conf": 0.969,
+   "source": "own_track"
+  },
+  {
+   "s": 546.354,
+   "e": 546.634,
+   "text": "نفس",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 546.814,
+   "e": 547.594,
+   "text": "الأشياء",
+   "who": "Medi",
+   "conf": 0.964,
+   "source": "own_track"
+  },
+  {
+   "s": 548.754,
+   "e": 549.414,
+   "text": "أغلب",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 550.354,
+   "e": 550.874,
+   "text": "أيام.",
+   "who": "Medi",
+   "conf": 0.939,
+   "source": "own_track"
+  },
+  {
+   "s": 553.214,
+   "e": 553.434,
+   "text": "إلى",
+   "who": "Medi",
+   "conf": 0.598,
+   "source": "own_track"
+  },
+  {
+   "s": 553.454,
+   "e": 553.714,
+   "text": "الآن.",
+   "who": "Medi",
+   "conf": 0.422,
+   "source": "own_track"
+  },
+  {
+   "s": 562.834,
+   "e": 563.034,
+   "text": "آه.",
+   "who": "Medi",
+   "conf": 0.921,
+   "source": "own_track"
+  },
+  {
+   "s": 565.714,
+   "e": 566.114,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 0.979,
+   "source": "own_track"
+  },
+  {
+   "s": 566.174,
+   "e": 566.354,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 566.374,
+   "e": 566.894,
+   "text": "أصل.",
+   "who": "Medi",
+   "conf": 0.609,
+   "source": "own_track"
+  },
+  {
+   "s": 568.134,
+   "e": 568.734,
+   "text": "أنا،",
+   "who": "Medi",
+   "conf": 0.498,
+   "source": "own_track"
+  },
+  {
+   "s": 570.934,
+   "e": 571.394,
+   "text": "أمم،",
+   "who": "Medi",
+   "conf": 0.475,
+   "source": "own_track"
+  },
+  {
+   "s": 574.054,
+   "e": 574.194,
+   "text": "أنا،",
+   "who": "Medi",
+   "conf": 0.746,
+   "source": "own_track"
+  },
+  {
+   "s": 574.214,
+   "e": 574.354,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 0.996,
+   "source": "own_track"
+  },
+  {
+   "s": 574.454,
+   "e": 574.994,
+   "text": "نشف",
+   "who": "Medi",
+   "conf": 0.504,
+   "source": "own_track"
+  },
+  {
+   "s": 575.734,
+   "e": 575.894,
+   "text": "مش",
+   "who": "Medi",
+   "conf": 0.822,
+   "source": "own_track"
+  },
+  {
+   "s": 575.974,
+   "e": 576.414,
+   "text": "طازة.",
+   "who": "Medi",
+   "conf": 0.919,
+   "source": "own_track"
+  },
+  {
+   "s": 585.354,
+   "e": 585.454,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 585.514,
+   "e": 585.794,
+   "text": "إله؟",
+   "who": "Medi",
+   "conf": 0.717,
+   "source": "own_track"
+  },
+  {
+   "s": 592.214,
+   "e": 592.474,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 592.634,
+   "e": 593.034,
+   "text": "إله؟",
+   "who": "Medi",
+   "conf": 0.988,
+   "source": "own_track"
+  },
+  {
+   "s": 593.154,
+   "e": 593.274,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 593.474,
+   "e": 593.694,
+   "text": "إله؟",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 596.654,
+   "e": 600.854,
+   "text": "What",
+   "who": "Medi",
+   "conf": 0.685,
+   "source": "own_track"
+  },
+  {
+   "s": 600.894,
+   "e": 600.974,
+   "text": "is",
+   "who": "Medi",
+   "conf": 0.877,
+   "source": "own_track"
+  },
+  {
+   "s": 601.134,
+   "e": 601.254,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.98,
+   "source": "own_track"
+  },
+  {
+   "s": 601.294,
+   "e": 601.654,
+   "text": "إله؟",
+   "who": "Medi",
+   "conf": 0.996,
+   "source": "own_track"
+  },
+  {
+   "s": 603.354,
+   "e": 603.534,
+   "text": "So...",
+   "who": "Medi",
+   "conf": 0.867,
+   "source": "own_track"
+  },
+  {
+   "s": 607.954,
+   "e": 608.094,
+   "text": "آآآ",
+   "who": "Medi",
+   "conf": 0.902,
+   "source": "own_track"
+  },
+  {
+   "s": 608.474,
+   "e": 608.654,
+   "text": "like",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 608.694,
+   "e": 608.934,
+   "text": "with?",
+   "who": "Medi",
+   "conf": 0.896,
+   "source": "own_track"
+  },
+  {
+   "s": 612.334,
+   "e": 612.634,
+   "text": "Okay.",
+   "who": "Medi",
+   "conf": 0.99,
+   "source": "own_track"
+  },
+  {
+   "s": 612.954,
+   "e": 613.114,
+   "text": "No,",
+   "who": "Medi",
+   "conf": 0.99,
+   "source": "own_track"
+  },
+  {
+   "s": 613.354,
+   "e": 613.714,
+   "text": "no.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 616.074,
+   "e": 620.574,
+   "text": "Yeah.",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 620.634,
+   "e": 620.754,
+   "text": "So",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 621.074,
+   "e": 621.414,
+   "text": "not",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 622.174,
+   "e": 622.434,
+   "text": "what?",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 629.034,
+   "e": 629.493,
+   "text": "إله.",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 630.553,
+   "e": 630.594,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 630.634,
+   "e": 630.734,
+   "text": "don't",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 630.774,
+   "e": 630.873,
+   "text": "think",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 630.914,
+   "e": 631.034,
+   "text": "we've",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 631.074,
+   "e": 631.253,
+   "text": "ever",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 631.294,
+   "e": 631.873,
+   "text": "conjugated",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 631.933,
+   "e": 632.114,
+   "text": "إله",
+   "who": "Medi",
+   "conf": 0.735,
+   "source": "own_track"
+  },
+  {
+   "s": 632.154,
+   "e": 632.594,
+   "text": "before.",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 636.434,
+   "e": 636.634,
+   "text": "إله",
+   "who": "Medi",
+   "conf": 0.991,
+   "source": "own_track"
+  },
+  {
+   "s": 636.674,
+   "e": 636.874,
+   "text": "means",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 637.074,
+   "e": 637.374,
+   "text": "what",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 637.594,
+   "e": 637.714,
+   "text": "or",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 637.774,
+   "e": 638.214,
+   "text": "that.",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 649.794,
+   "e": 649.894,
+   "text": "Oh،",
+   "who": "Medi",
+   "conf": 0.623,
+   "source": "own_track"
+  },
+  {
+   "s": 650.014,
+   "e": 650.294,
+   "text": "to,",
+   "who": "Medi",
+   "conf": 0.99,
+   "source": "own_track"
+  },
+  {
+   "s": 650.654,
+   "e": 650.754,
+   "text": "to",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 650.834,
+   "e": 651.014,
+   "text": "me.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 655.054,
+   "e": 655.274,
+   "text": "Okay.",
+   "who": "Medi",
+   "conf": 0.971,
+   "source": "own_track"
+  },
+  {
+   "s": 655.334,
+   "e": 655.394,
+   "text": "Do",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 655.414,
+   "e": 655.454,
+   "text": "you",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 655.494,
+   "e": 655.834,
+   "text": "understand",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 655.874,
+   "e": 655.954,
+   "text": "why",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 655.994,
+   "e": 656.094,
+   "text": "this",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 656.134,
+   "e": 656.234,
+   "text": "is",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 656.274,
+   "e": 656.394,
+   "text": "so",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 656.714,
+   "e": 657.074,
+   "text": "difficult?",
+   "who": "Medi",
+   "conf": 0.994,
+   "source": "own_track"
+  },
+  {
+   "s": 657.134,
+   "e": 657.254,
+   "text": "Because",
+   "who": "Medi",
+   "conf": 0.976,
+   "source": "own_track"
+  },
+  {
+   "s": 657.294,
+   "e": 657.394,
+   "text": "it's",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 657.434,
+   "e": 657.634,
+   "text": "either",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 657.774,
+   "e": 657.894,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.995,
+   "source": "own_track"
+  },
+  {
+   "s": 658.014,
+   "e": 658.154,
+   "text": "or",
+   "who": "Medi",
+   "conf": 0.974,
+   "source": "own_track"
+  },
+  {
+   "s": 658.214,
+   "e": 658.534,
+   "text": "ما،",
+   "who": "Medi",
+   "conf": 0.921,
+   "source": "own_track"
+  },
+  {
+   "s": 659.634,
+   "e": 660.014,
+   "text": "إله",
+   "who": "Medi",
+   "conf": 0.803,
+   "source": "own_track"
+  },
+  {
+   "s": 660.094,
+   "e": 660.174,
+   "text": "or",
+   "who": "Medi",
+   "conf": 0.987,
+   "source": "own_track"
+  },
+  {
+   "s": 660.334,
+   "e": 660.834,
+   "text": "إله.",
+   "who": "Medi",
+   "conf": 0.994,
+   "source": "own_track"
+  },
+  {
+   "s": 661.874,
+   "e": 661.994,
+   "text": "What",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 662.014,
+   "e": 662.114,
+   "text": "was",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 662.134,
+   "e": 662.214,
+   "text": "the",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 662.274,
+   "e": 662.434,
+   "text": "middle",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 662.494,
+   "e": 662.754,
+   "text": "word?",
+   "who": "Medi",
+   "conf": 0.878,
+   "source": "own_track"
+  },
+  {
+   "s": 664.114,
+   "e": 664.414,
+   "text": "Yeah.",
+   "who": "Medi",
+   "conf": 0.989,
+   "source": "own_track"
+  },
+  {
+   "s": 664.514,
+   "e": 664.614,
+   "text": "And",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 664.634,
+   "e": 664.794,
+   "text": "then",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 665.014,
+   "e": 665.094,
+   "text": "you",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 665.174,
+   "e": 665.374,
+   "text": "said",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 665.414,
+   "e": 665.494,
+   "text": "the",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 665.534,
+   "e": 665.734,
+   "text": "first--",
+   "who": "Medi",
+   "conf": 0.986,
+   "source": "own_track"
+  },
+  {
+   "s": 665.794,
+   "e": 665.894,
+   "text": "what",
+   "who": "Medi",
+   "conf": 0.731,
+   "source": "own_track"
+  },
+  {
+   "s": 665.914,
+   "e": 666.054,
+   "text": "was",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 666.094,
+   "e": 666.514,
+   "text": "between?",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 669.254,
+   "e": 669.414,
+   "text": "Yeah.",
+   "who": "Medi",
+   "conf": 0.935,
+   "source": "own_track"
+  },
+  {
+   "s": 669.474,
+   "e": 669.574,
+   "text": "So",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 669.654,
+   "e": 669.794,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 670.114,
+   "e": 670.834,
+   "text": "إله.",
+   "who": "Medi",
+   "conf": 0.86,
+   "source": "own_track"
+  },
+  {
+   "s": 673.334,
+   "e": 673.414,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.986,
+   "source": "own_track"
+  },
+  {
+   "s": 673.554,
+   "e": 673.834,
+   "text": "إله.",
+   "who": "Medi",
+   "conf": 0.987,
+   "source": "own_track"
+  },
+  {
+   "s": 674.914,
+   "e": 674.994,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 675.174,
+   "e": 675.414,
+   "text": "إله",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 675.534,
+   "e": 676.054,
+   "text": "طعم.",
+   "who": "Medi",
+   "conf": 0.978,
+   "source": "own_track"
+  },
+  {
+   "s": 677.774,
+   "e": 677.974,
+   "text": "So,",
+   "who": "Medi",
+   "conf": 0.896,
+   "source": "own_track"
+  },
+  {
+   "s": 681.234,
+   "e": 681.434,
+   "text": "so",
+   "who": "Medi",
+   "conf": 0.993,
+   "source": "own_track"
+  },
+  {
+   "s": 682.774,
+   "e": 683.074,
+   "text": "not",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 683.214,
+   "e": 683.514,
+   "text": "to",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 683.754,
+   "e": 684.114,
+   "text": "its",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 685.254,
+   "e": 685.694,
+   "text": "taste.",
+   "who": "Medi",
+   "conf": 0.9,
+   "source": "own_track"
+  },
+  {
+   "s": 687.754,
+   "e": 690.494,
+   "text": "Not",
+   "who": "Medi",
+   "conf": 0.5,
+   "source": "own_track"
+  },
+  {
+   "s": 690.534,
+   "e": 690.694,
+   "text": "to",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 690.754,
+   "e": 691.034,
+   "text": "its",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 691.134,
+   "e": 691.574,
+   "text": "taste.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 695.494,
+   "e": 695.794,
+   "text": "آآآ",
+   "who": "Medi",
+   "conf": 0.882,
+   "source": "own_track"
+  },
+  {
+   "s": 697.934,
+   "e": 698.014,
+   "text": "it",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 698.074,
+   "e": 698.374,
+   "text": "doesn't",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 698.414,
+   "e": 698.554,
+   "text": "have",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 698.614,
+   "e": 698.634,
+   "text": "a",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 698.714,
+   "e": 699.194,
+   "text": "taste.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 700.654,
+   "e": 701.054,
+   "text": "Okay,",
+   "who": "Medi",
+   "conf": 0.991,
+   "source": "own_track"
+  },
+  {
+   "s": 701.134,
+   "e": 701.314,
+   "text": "that's",
+   "who": "Medi",
+   "conf": 0.996,
+   "source": "own_track"
+  },
+  {
+   "s": 706.894,
+   "e": 707.034,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.955,
+   "source": "own_track"
+  },
+  {
+   "s": 707.074,
+   "e": 707.274,
+   "text": "إله",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 707.314,
+   "e": 708.114,
+   "text": "taste.",
+   "who": "Medi",
+   "conf": 0.97,
+   "source": "own_track"
+  },
+  {
+   "s": 709.914,
+   "e": 710.074,
+   "text": "Okay,",
+   "who": "Medi",
+   "conf": 0.931,
+   "source": "own_track"
+  },
+  {
+   "s": 710.134,
+   "e": 710.234,
+   "text": "so",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 710.274,
+   "e": 710.334,
+   "text": "you",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 710.354,
+   "e": 710.594,
+   "text": "wouldn't",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 710.654,
+   "e": 710.794,
+   "text": "say",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 710.894,
+   "e": 711.174,
+   "text": "man--",
+   "who": "Medi",
+   "conf": 0.852,
+   "source": "own_track"
+  },
+  {
+   "s": 711.374,
+   "e": 711.694,
+   "text": "ما،",
+   "who": "Medi",
+   "conf": 0.904,
+   "source": "own_track"
+  },
+  {
+   "s": 712.674,
+   "e": 712.954,
+   "text": "آآآ",
+   "who": "Medi",
+   "conf": 0.742,
+   "source": "own_track"
+  },
+  {
+   "s": 713.054,
+   "e": 713.174,
+   "text": "ما،",
+   "who": "Medi",
+   "conf": 0.814,
+   "source": "own_track"
+  },
+  {
+   "s": 714.174,
+   "e": 714.294,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 714.334,
+   "e": 714.714,
+   "text": "عنده.",
+   "who": "Medi",
+   "conf": 0.302,
+   "source": "own_track"
+  },
+  {
+   "s": 714.814,
+   "e": 714.874,
+   "text": "You",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 714.894,
+   "e": 715.034,
+   "text": "would",
+   "who": "Medi",
+   "conf": 0.988,
+   "source": "own_track"
+  },
+  {
+   "s": 715.094,
+   "e": 715.294,
+   "text": "not",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 715.334,
+   "e": 715.474,
+   "text": "say",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 715.534,
+   "e": 715.654,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.613,
+   "source": "own_track"
+  },
+  {
+   "s": 715.674,
+   "e": 715.994,
+   "text": "عنده",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 716.654,
+   "e": 716.914,
+   "text": "طعم.",
+   "who": "Medi",
+   "conf": 0.996,
+   "source": "own_track"
+  },
+  {
+   "s": 725.634,
+   "e": 725.714,
+   "text": "It",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 725.754,
+   "e": 725.994,
+   "text": "doesn't",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 726.014,
+   "e": 726.154,
+   "text": "have",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 726.254,
+   "e": 726.694,
+   "text": "taste.",
+   "who": "Medi",
+   "conf": 0.612,
+   "source": "own_track"
+  },
+  {
+   "s": 726.734,
+   "e": 726.894,
+   "text": "It's",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 727.014,
+   "e": 727.294,
+   "text": "weird.",
+   "who": "Medi",
+   "conf": 0.497,
+   "source": "own_track"
+  },
+  {
+   "s": 727.474,
+   "e": 727.714,
+   "text": "Okay",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 733.246,
+   "e": 733.526,
+   "text": "Okay.",
+   "who": "Medi",
+   "conf": 0.835,
+   "source": "own_track"
+  },
+  {
+   "s": 742.586,
+   "e": 742.746,
+   "text": "We're",
+   "who": "Medi",
+   "conf": 0.62,
+   "source": "own_track"
+  },
+  {
+   "s": 742.846,
+   "e": 743.166,
+   "text": "starting",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 743.226,
+   "e": 743.366,
+   "text": "our",
+   "who": "Medi",
+   "conf": 0.983,
+   "source": "own_track"
+  },
+  {
+   "s": 743.466,
+   "e": 743.626,
+   "text": "fun",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 743.726,
+   "e": 744.046,
+   "text": "today.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 747.406,
+   "e": 747.546,
+   "text": "We're",
+   "who": "Medi",
+   "conf": 0.978,
+   "source": "own_track"
+  },
+  {
+   "s": 747.606,
+   "e": 747.966,
+   "text": "starting",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 748.086,
+   "e": 748.306,
+   "text": "fun",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 748.366,
+   "e": 748.786,
+   "text": "today.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 753.026,
+   "e": 753.106,
+   "text": "No,",
+   "who": "Medi",
+   "conf": 0.988,
+   "source": "own_track"
+  },
+  {
+   "s": 753.186,
+   "e": 753.206,
+   "text": "it",
+   "who": "Medi",
+   "conf": 0.985,
+   "source": "own_track"
+  },
+  {
+   "s": 753.226,
+   "e": 753.586,
+   "text": "wasn't.",
+   "who": "Medi",
+   "conf": 0.955,
+   "source": "own_track"
+  },
+  {
+   "s": 753.806,
+   "e": 753.946,
+   "text": "No",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 754.026,
+   "e": 756.066,
+   "text": "sarcasm.",
+   "who": "Medi",
+   "conf": 0.82,
+   "source": "own_track"
+  },
+  {
+   "s": 763.246,
+   "e": 763.946,
+   "text": "اليوم",
+   "who": "Medi",
+   "conf": 0.971,
+   "source": "own_track"
+  },
+  {
+   "s": 766.946,
+   "e": 767.246,
+   "text": "يوم",
+   "who": "Medi",
+   "conf": 0.87,
+   "source": "own_track"
+  },
+  {
+   "s": 767.386,
+   "e": 768.466,
+   "text": "الأربعاء،",
+   "who": "Medi",
+   "conf": 0.744,
+   "source": "own_track"
+  },
+  {
+   "s": 772.926,
+   "e": 773.246,
+   "text": "ثلاث",
+   "who": "Medi",
+   "conf": 0.754,
+   "source": "own_track"
+  },
+  {
+   "s": 773.286,
+   "e": 773.946,
+   "text": "عشرين",
+   "who": "Medi",
+   "conf": 0.738,
+   "source": "own_track"
+  },
+  {
+   "s": 774.866,
+   "e": 775.286,
+   "text": "ألفين",
+   "who": "Medi",
+   "conf": 0.847,
+   "source": "own_track"
+  },
+  {
+   "s": 775.366,
+   "e": 775.606,
+   "text": "ستة",
+   "who": "Medi",
+   "conf": 0.982,
+   "source": "own_track"
+  },
+  {
+   "s": 775.626,
+   "e": 776.186,
+   "text": "وعشرين.",
+   "who": "Medi",
+   "conf": 0.87,
+   "source": "own_track"
+  },
+  {
+   "s": 779.486,
+   "e": 779.666,
+   "text": "Okay?",
+   "who": "Medi",
+   "conf": 0.754,
+   "source": "own_track"
+  },
+  {
+   "s": 784.826,
+   "e": 785.126,
+   "text": "ثلاث",
+   "who": "Medi",
+   "conf": 0.933,
+   "source": "own_track"
+  },
+  {
+   "s": 785.186,
+   "e": 785.666,
+   "text": "عشرون--",
+   "who": "Medi",
+   "conf": 0.812,
+   "source": "own_track"
+  },
+  {
+   "s": 786.326,
+   "e": 786.426,
+   "text": "Oh,",
+   "who": "Medi",
+   "conf": 0.977,
+   "source": "own_track"
+  },
+  {
+   "s": 786.666,
+   "e": 786.986,
+   "text": "قصة.",
+   "who": "Medi",
+   "conf": 0.591,
+   "source": "own_track"
+  },
+  {
+   "s": 787.186,
+   "e": 787.426,
+   "text": "Oops.",
+   "who": "Medi",
+   "conf": 0.991,
+   "source": "own_track"
+  },
+  {
+   "s": 794.226,
+   "e": 794.586,
+   "text": "قصة،",
+   "who": "Medi",
+   "conf": 0.963,
+   "source": "own_track"
+  },
+  {
+   "s": 797.325,
+   "e": 797.605,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 0.511,
+   "source": "own_track"
+  },
+  {
+   "s": 799.846,
+   "e": 801.566,
+   "text": "ثنتين",
+   "who": "Medi",
+   "conf": 0.796,
+   "source": "own_track"
+  },
+  {
+   "s": 802.426,
+   "e": 802.526,
+   "text": "و،",
+   "who": "Medi",
+   "conf": 0.647,
+   "source": "own_track"
+  },
+  {
+   "s": 805.086,
+   "e": 805.466,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 805.626,
+   "e": 806.226,
+   "text": "خمسين.",
+   "who": "Medi",
+   "conf": 0.978,
+   "source": "own_track"
+  },
+  {
+   "s": 813.026,
+   "e": 813.526,
+   "text": "يعني...",
+   "who": "Medi",
+   "conf": 0.717,
+   "source": "own_track"
+  },
+  {
+   "s": 817.026,
+   "e": 817.166,
+   "text": "Would",
+   "who": "Medi",
+   "conf": 0.93,
+   "source": "own_track"
+  },
+  {
+   "s": 817.226,
+   "e": 817.286,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 817.326,
+   "e": 817.526,
+   "text": "say",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 817.566,
+   "e": 817.786,
+   "text": "like",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 819.386,
+   "e": 819.706,
+   "text": "عشر",
+   "who": "Medi",
+   "conf": 0.464,
+   "source": "own_track"
+  },
+  {
+   "s": 819.766,
+   "e": 820.306,
+   "text": "دقائق",
+   "who": "Medi",
+   "conf": 0.393,
+   "source": "own_track"
+  },
+  {
+   "s": 820.366,
+   "e": 820.706,
+   "text": "إلا،",
+   "who": "Medi",
+   "conf": 0.716,
+   "source": "own_track"
+  },
+  {
+   "s": 821.346,
+   "e": 821.786,
+   "text": "إلا،",
+   "who": "Medi",
+   "conf": 0.981,
+   "source": "own_track"
+  },
+  {
+   "s": 822.706,
+   "e": 822.906,
+   "text": "إلا",
+   "who": "Medi",
+   "conf": 0.99,
+   "source": "own_track"
+  },
+  {
+   "s": 823.026,
+   "e": 823.446,
+   "text": "ثنتين--",
+   "who": "Medi",
+   "conf": 0.973,
+   "source": "own_track"
+  },
+  {
+   "s": 823.566,
+   "e": 823.626,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 0.978,
+   "source": "own_track"
+  },
+  {
+   "s": 824.306,
+   "e": 824.706,
+   "text": "إلا",
+   "who": "Medi",
+   "conf": 0.696,
+   "source": "own_track"
+  },
+  {
+   "s": 825.586,
+   "e": 825.966,
+   "text": "ثلاث؟",
+   "who": "Medi",
+   "conf": 0.976,
+   "source": "own_track"
+  },
+  {
+   "s": 830.886,
+   "e": 831.366,
+   "text": "Okay.",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 831.746,
+   "e": 832.726,
+   "text": "عشر",
+   "who": "Medi",
+   "conf": 0.854,
+   "source": "own_track"
+  },
+  {
+   "s": 834.306,
+   "e": 835.006,
+   "text": "دقائق",
+   "who": "Medi",
+   "conf": 0.717,
+   "source": "own_track"
+  },
+  {
+   "s": 835.066,
+   "e": 835.426,
+   "text": "إلا",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 835.806,
+   "e": 836.086,
+   "text": "قلت--",
+   "who": "Medi",
+   "conf": 0.766,
+   "source": "own_track"
+  },
+  {
+   "s": 836.326,
+   "e": 836.546,
+   "text": "إلا",
+   "who": "Medi",
+   "conf": 0.996,
+   "source": "own_track"
+  },
+  {
+   "s": 836.626,
+   "e": 837.226,
+   "text": "تلات.",
+   "who": "Medi",
+   "conf": 0.663,
+   "source": "own_track"
+  },
+  {
+   "s": 840.586,
+   "e": 840.926,
+   "text": "تلات",
+   "who": "Medi",
+   "conf": 0.971,
+   "source": "own_track"
+  },
+  {
+   "s": 841.106,
+   "e": 841.626,
+   "text": "إلا",
+   "who": "Medi",
+   "conf": 0.992,
+   "source": "own_track"
+  },
+  {
+   "s": 842.486,
+   "e": 843.126,
+   "text": "عشرين.",
+   "who": "Medi",
+   "conf": 0.895,
+   "source": "own_track"
+  },
+  {
+   "s": 843.506,
+   "e": 843.866,
+   "text": "عشرة.",
+   "who": "Medi",
+   "conf": 0.992,
+   "source": "own_track"
+  },
+  {
+   "s": 843.906,
+   "e": 844.206,
+   "text": "Oops.",
+   "who": "Medi",
+   "conf": 0.947,
+   "source": "own_track"
+  },
+  {
+   "s": 846.466,
+   "e": 846.566,
+   "text": "We've",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 846.586,
+   "e": 846.766,
+   "text": "never",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 846.826,
+   "e": 847.006,
+   "text": "used",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 847.066,
+   "e": 847.186,
+   "text": "that",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 847.226,
+   "e": 847.626,
+   "text": "before.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 853.366,
+   "e": 853.446,
+   "text": "I,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 853.566,
+   "e": 853.586,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 853.606,
+   "e": 853.726,
+   "text": "don't",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 853.766,
+   "e": 853.886,
+   "text": "think",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 853.926,
+   "e": 854.046,
+   "text": "I've",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 854.106,
+   "e": 854.306,
+   "text": "done",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 854.526,
+   "e": 854.686,
+   "text": "ten",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 854.726,
+   "e": 855.066,
+   "text": "minutes",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 855.146,
+   "e": 855.386,
+   "text": "to,",
+   "who": "Medi",
+   "conf": 0.854,
+   "source": "own_track"
+  },
+  {
+   "s": 856.046,
+   "e": 856.126,
+   "text": "or",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 856.186,
+   "e": 856.366,
+   "text": "twenty",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 856.446,
+   "e": 856.726,
+   "text": "minutes",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 856.786,
+   "e": 856.946,
+   "text": "to,",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 857.026,
+   "e": 857.126,
+   "text": "or",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 857.406,
+   "e": 857.486,
+   "text": "you",
+   "who": "Medi",
+   "conf": 0.987,
+   "source": "own_track"
+  },
+  {
+   "s": 857.506,
+   "e": 857.706,
+   "text": "wouldn't",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 857.746,
+   "e": 857.826,
+   "text": "do",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 857.886,
+   "e": 858.046,
+   "text": "twenty",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 858.086,
+   "e": 858.346,
+   "text": "minutes",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 858.406,
+   "e": 858.606,
+   "text": "to.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 861.565,
+   "e": 861.806,
+   "text": "Okay.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 862.706,
+   "e": 863.405,
+   "text": "اليوم",
+   "who": "Medi",
+   "conf": 0.817,
+   "source": "own_track"
+  },
+  {
+   "s": 863.926,
+   "e": 864.426,
+   "text": "لبست،",
+   "who": "Medi",
+   "conf": 0.283,
+   "source": "own_track"
+  },
+  {
+   "s": 865.266,
+   "e": 865.366,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 0.995,
+   "source": "own_track"
+  },
+  {
+   "s": 865.546,
+   "e": 866.046,
+   "text": "بلوزة،",
+   "who": "Medi",
+   "conf": 0.996,
+   "source": "own_track"
+  },
+  {
+   "s": 866.226,
+   "e": 866.306,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 0.965,
+   "source": "own_track"
+  },
+  {
+   "s": 869.746,
+   "e": 870.246,
+   "text": "زرقا",
+   "who": "Medi",
+   "conf": 0.976,
+   "source": "own_track"
+  },
+  {
+   "s": 871.846,
+   "e": 873.106,
+   "text": "وبنطلون",
+   "who": "Medi",
+   "conf": 0.96,
+   "source": "own_track"
+  },
+  {
+   "s": 873.886,
+   "e": 874.286,
+   "text": "سكنى",
+   "who": "Medi",
+   "conf": 0.356,
+   "source": "own_track"
+  },
+  {
+   "s": 876.206,
+   "e": 877.786,
+   "text": "وحذاء",
+   "who": "Medi",
+   "conf": 0.667,
+   "source": "own_track"
+  },
+  {
+   "s": 878.886,
+   "e": 879.306,
+   "text": "سوداء.",
+   "who": "Medi",
+   "conf": 0.786,
+   "source": "own_track"
+  },
+  {
+   "s": 888.126,
+   "e": 888.806,
+   "text": "اليوم",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 889.766,
+   "e": 890.186,
+   "text": "شوب",
+   "who": "Medi",
+   "conf": 0.959,
+   "source": "own_track"
+  },
+  {
+   "s": 890.566,
+   "e": 891.086,
+   "text": "كتير.",
+   "who": "Medi",
+   "conf": 0.929,
+   "source": "own_track"
+  },
+  {
+   "s": 891.126,
+   "e": 891.546,
+   "text": "أنا،",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 893.006,
+   "e": 893.466,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 894.366,
+   "e": 894.646,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 0.983,
+   "source": "own_track"
+  },
+  {
+   "s": 895.006,
+   "e": 895.706,
+   "text": "فكرت،",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 897.966,
+   "e": 898.406,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 898.606,
+   "e": 899.246,
+   "text": "إنه",
+   "who": "Medi",
+   "conf": 0.993,
+   "source": "own_track"
+  },
+  {
+   "s": 901.326,
+   "e": 901.746,
+   "text": "الـ،",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 903.966,
+   "e": 904.286,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 906.986,
+   "e": 907.706,
+   "text": "الخفيف،",
+   "who": "Medi",
+   "conf": 0.996,
+   "source": "own_track"
+  },
+  {
+   "s": 910.146,
+   "e": 910.486,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 0.759,
+   "source": "own_track"
+  },
+  {
+   "s": 912.566,
+   "e": 913.066,
+   "text": "الخفيف،",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 916.986,
+   "e": 917.126,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 917.546,
+   "e": 917.926,
+   "text": "دبا.",
+   "who": "Medi",
+   "conf": 0.469,
+   "source": "own_track"
+  },
+  {
+   "s": 919.666,
+   "e": 920.046,
+   "text": "بس",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 920.886,
+   "e": 921.326,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 922.246,
+   "e": 922.706,
+   "text": "كنت",
+   "who": "Medi",
+   "conf": 0.888,
+   "source": "own_track"
+  },
+  {
+   "s": 923.266,
+   "e": 923.506,
+   "text": "غلط.",
+   "who": "Medi",
+   "conf": 0.793,
+   "source": "own_track"
+  },
+  {
+   "s": 923.646,
+   "e": 923.806,
+   "text": "بس",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 923.886,
+   "e": 924.046,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 924.106,
+   "e": 924.386,
+   "text": "كنت",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 924.446,
+   "e": 924.886,
+   "text": "غلط.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 930.546,
+   "e": 930.846,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 931.706,
+   "e": 931.986,
+   "text": "دبا.",
+   "who": "Medi",
+   "conf": 0.984,
+   "source": "own_track"
+  },
+  {
+   "s": 932.586,
+   "e": 932.666,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 933.506,
+   "e": 933.726,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 933.826,
+   "e": 934.646,
+   "text": "فكرت",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 934.766,
+   "e": 935.286,
+   "text": "إنه",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 935.406,
+   "e": 937.106,
+   "text": "الخفيف",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 938.066,
+   "e": 938.486,
+   "text": "دبا",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 939.166,
+   "e": 939.606,
+   "text": "started.",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 941.366,
+   "e": 941.406,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 941.486,
+   "e": 941.686,
+   "text": "thought",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 941.726,
+   "e": 941.926,
+   "text": "that",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 942.306,
+   "e": 942.486,
+   "text": "fall",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 942.526,
+   "e": 942.666,
+   "text": "had",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 942.746,
+   "e": 943.146,
+   "text": "started.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 945.806,
+   "e": 946.306,
+   "text": "خفيف.",
+   "who": "Medi",
+   "conf": 0.97,
+   "source": "own_track"
+  },
+  {
+   "s": 946.706,
+   "e": 947.246,
+   "text": "Okay.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 948.706,
+   "e": 948.846,
+   "text": "What's",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 949.226,
+   "e": 949.306,
+   "text": "kha--",
+   "who": "Medi",
+   "conf": 0.657,
+   "source": "own_track"
+  },
+  {
+   "s": 949.366,
+   "e": 949.546,
+   "text": "خفيف",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 949.606,
+   "e": 949.666,
+   "text": "is",
+   "who": "Medi",
+   "conf": 0.562,
+   "source": "own_track"
+  },
+  {
+   "s": 949.806,
+   "e": 950.066,
+   "text": "blood,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 950.146,
+   "e": 950.386,
+   "text": "right?",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 951.766,
+   "e": 951.846,
+   "text": "No,",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 951.986,
+   "e": 952.246,
+   "text": "light.",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 952.546,
+   "e": 952.886,
+   "text": "Light.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 953.206,
+   "e": 953.466,
+   "text": "Yeah.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 960.406,
+   "e": 960.506,
+   "text": "It's",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 960.546,
+   "e": 960.626,
+   "text": "the",
+   "who": "Medi",
+   "conf": 0.651,
+   "source": "own_track"
+  },
+  {
+   "s": 960.686,
+   "e": 960.886,
+   "text": "past",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 960.946,
+   "e": 961.146,
+   "text": "tense",
+   "who": "Medi",
+   "conf": 0.971,
+   "source": "own_track"
+  },
+  {
+   "s": 961.186,
+   "e": 961.246,
+   "text": "of",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 961.306,
+   "e": 961.566,
+   "text": "start,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 961.646,
+   "e": 961.846,
+   "text": "right?",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 962.546,
+   "e": 962.606,
+   "text": "It's",
+   "who": "Medi",
+   "conf": 0.827,
+   "source": "own_track"
+  },
+  {
+   "s": 962.786,
+   "e": 963.006,
+   "text": "باب",
+   "who": "Medi",
+   "conf": 0.443,
+   "source": "own_track"
+  },
+  {
+   "s": 963.086,
+   "e": 963.106,
+   "text": "د.",
+   "who": "Medi",
+   "conf": 0.317,
+   "source": "own_track"
+  },
+  {
+   "s": 964.846,
+   "e": 964.906,
+   "text": "And",
+   "who": "Medi",
+   "conf": 0.993,
+   "source": "own_track"
+  },
+  {
+   "s": 964.926,
+   "e": 965.046,
+   "text": "it's",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 965.086,
+   "e": 965.466,
+   "text": "internal",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 965.546,
+   "e": 966.306,
+   "text": "flip-flipping.",
+   "who": "Medi",
+   "conf": 0.994,
+   "source": "own_track"
+  },
+  {
+   "s": 968.666,
+   "e": 969.126,
+   "text": "Oh.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 970.386,
+   "e": 970.466,
+   "text": "So",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 970.586,
+   "e": 970.686,
+   "text": "this",
+   "who": "Medi",
+   "conf": 0.656,
+   "source": "own_track"
+  },
+  {
+   "s": 970.686,
+   "e": 970.726,
+   "text": "is",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 970.786,
+   "e": 971.106,
+   "text": "دبا?",
+   "who": "Medi",
+   "conf": 0.971,
+   "source": "own_track"
+  },
+  {
+   "s": 975.566,
+   "e": 975.646,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 0.706,
+   "source": "own_track"
+  },
+  {
+   "s": 975.746,
+   "e": 975.946,
+   "text": "باب",
+   "who": "Medi",
+   "conf": 0.821,
+   "source": "own_track"
+  },
+  {
+   "s": 975.966,
+   "e": 976.246,
+   "text": "د.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 978.486,
+   "e": 978.606,
+   "text": "باب",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 978.666,
+   "e": 978.666,
+   "text": "د.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 988.606,
+   "e": 988.646,
+   "text": "اه.",
+   "who": "Medi",
+   "conf": 0.743,
+   "source": "own_track"
+  },
+  {
+   "s": 990.986,
+   "e": 991.066,
+   "text": "شو؟",
+   "who": "Medi",
+   "conf": 0.814,
+   "source": "own_track"
+  },
+  {
+   "s": 1000.486,
+   "e": 1000.826,
+   "text": "اه،",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 1001.706,
+   "e": 1002.166,
+   "text": "بتفهم؟",
+   "who": "Medi",
+   "conf": 0.679,
+   "source": "own_track"
+  },
+  {
+   "s": 1004.586,
+   "e": 1004.686,
+   "text": "Mm.",
+   "who": "Medi",
+   "conf": 0.897,
+   "source": "own_track"
+  },
+  {
+   "s": 1012.686,
+   "e": 1012.826,
+   "text": "So",
+   "who": "Medi",
+   "conf": 0.987,
+   "source": "own_track"
+  },
+  {
+   "s": 1012.966,
+   "e": 1013.006,
+   "text": "I,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1013.106,
+   "e": 1013.246,
+   "text": "uh,",
+   "who": "Medi",
+   "conf": 0.992,
+   "source": "own_track"
+  },
+  {
+   "s": 1014.386,
+   "e": 1014.606,
+   "text": "little",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1014.686,
+   "e": 1015.026,
+   "text": "update",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1015.086,
+   "e": 1015.206,
+   "text": "for",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1015.326,
+   "e": 1015.526,
+   "text": "you.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1016.686,
+   "e": 1016.766,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1016.846,
+   "e": 1017.186,
+   "text": "loaded,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1017.566,
+   "e": 1017.586,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1017.686,
+   "e": 1017.946,
+   "text": "loaded",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1017.986,
+   "e": 1018.066,
+   "text": "the",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1018.126,
+   "e": 1018.566,
+   "text": "grammar.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1018.706,
+   "e": 1018.746,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1018.786,
+   "e": 1018.906,
+   "text": "need",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1018.946,
+   "e": 1019.066,
+   "text": "to",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1019.106,
+   "e": 1019.226,
+   "text": "give",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1019.286,
+   "e": 1019.366,
+   "text": "you",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1019.406,
+   "e": 1019.466,
+   "text": "the",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1019.526,
+   "e": 1019.826,
+   "text": "grammar",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1019.926,
+   "e": 1020.306,
+   "text": "list.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1022.166,
+   "e": 1022.526,
+   "text": "Um,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1024.046,
+   "e": 1024.086,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1024.126,
+   "e": 1024.246,
+   "text": "make",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1024.286,
+   "e": 1024.326,
+   "text": "a",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1024.386,
+   "e": 1024.566,
+   "text": "lot",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1024.586,
+   "e": 1024.626,
+   "text": "of",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1024.666,
+   "e": 1025.026,
+   "text": "grammar",
+   "who": "Medi",
+   "conf": 0.986,
+   "source": "own_track"
+  },
+  {
+   "s": 1025.086,
+   "e": 1025.766,
+   "text": "mistakes,",
+   "who": "Medi",
+   "conf": 0.956,
+   "source": "own_track"
+  },
+  {
+   "s": 1026.826,
+   "e": 1027.146,
+   "text": "so...",
+   "who": "Medi",
+   "conf": 0.995,
+   "source": "own_track"
+  },
+  {
+   "s": 1030.226,
+   "e": 1030.406,
+   "text": "So,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1031.386,
+   "e": 1031.446,
+   "text": "so",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1031.546,
+   "e": 1031.606,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1031.686,
+   "e": 1032.046,
+   "text": "entered",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1032.106,
+   "e": 1032.326,
+   "text": "the,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1032.466,
+   "e": 1032.546,
+   "text": "the",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1032.626,
+   "e": 1032.966,
+   "text": "rules",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1033.026,
+   "e": 1033.126,
+   "text": "for",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1033.166,
+   "e": 1033.226,
+   "text": "the",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1033.286,
+   "e": 1033.686,
+   "text": "grammar",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1034.486,
+   "e": 1034.706,
+   "text": "into",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1034.746,
+   "e": 1034.806,
+   "text": "the",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1034.886,
+   "e": 1035.326,
+   "text": "AI.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1036.746,
+   "e": 1037.026,
+   "text": "Yeah.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1041.286,
+   "e": 1041.486,
+   "text": "I,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1041.706,
+   "e": 1041.806,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1042.186,
+   "e": 1042.426,
+   "text": "tried",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1042.486,
+   "e": 1042.566,
+   "text": "to",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1042.626,
+   "e": 1042.766,
+   "text": "make",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1042.826,
+   "e": 1042.866,
+   "text": "a",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1042.926,
+   "e": 1043.066,
+   "text": "list",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1043.206,
+   "e": 1043.286,
+   "text": "of",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1043.366,
+   "e": 1043.546,
+   "text": "all",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1043.606,
+   "e": 1043.686,
+   "text": "of",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1043.726,
+   "e": 1043.866,
+   "text": "our",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1043.906,
+   "e": 1044.226,
+   "text": "grammar",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1044.306,
+   "e": 1044.706,
+   "text": "rules.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1047.426,
+   "e": 1047.566,
+   "text": "Yeah,",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1047.666,
+   "e": 1047.686,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1047.766,
+   "e": 1047.906,
+   "text": "think",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1047.966,
+   "e": 1048.026,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1048.066,
+   "e": 1048.306,
+   "text": "missed",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1048.366,
+   "e": 1048.546,
+   "text": "the...",
+   "who": "Medi",
+   "conf": 0.779,
+   "source": "own_track"
+  },
+  {
+   "s": 1050.706,
+   "e": 1050.946,
+   "text": "Kind",
+   "who": "Medi",
+   "conf": 0.991,
+   "source": "own_track"
+  },
+  {
+   "s": 1051.026,
+   "e": 1051.126,
+   "text": "of,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1051.186,
+   "e": 1051.426,
+   "text": "yeah.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1052.966,
+   "e": 1053.126,
+   "text": "And,",
+   "who": "Medi",
+   "conf": 0.675,
+   "source": "own_track"
+  },
+  {
+   "s": 1054.846,
+   "e": 1054.946,
+   "text": "and",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1054.966,
+   "e": 1055.086,
+   "text": "then",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1055.186,
+   "e": 1055.246,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1055.306,
+   "e": 1055.446,
+   "text": "said,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1055.486,
+   "e": 1055.766,
+   "text": "\"Okay,",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1056.226,
+   "e": 1056.326,
+   "text": "go",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1056.406,
+   "e": 1056.586,
+   "text": "through",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1056.646,
+   "e": 1056.746,
+   "text": "all",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1056.786,
+   "e": 1056.846,
+   "text": "the",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1056.886,
+   "e": 1057.406,
+   "text": "lessons,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1057.566,
+   "e": 1057.686,
+   "text": "and",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1057.746,
+   "e": 1057.886,
+   "text": "every",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1057.966,
+   "e": 1058.086,
+   "text": "time",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1058.186,
+   "e": 1058.226,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1058.286,
+   "e": 1058.446,
+   "text": "make",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1058.506,
+   "e": 1058.546,
+   "text": "a",
+   "who": "Medi",
+   "conf": 0.932,
+   "source": "own_track"
+  },
+  {
+   "s": 1058.626,
+   "e": 1058.706,
+   "text": "m--",
+   "who": "Medi",
+   "conf": 0.907,
+   "source": "own_track"
+  },
+  {
+   "s": 1059.426,
+   "e": 1059.466,
+   "text": "a",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1059.526,
+   "e": 1059.846,
+   "text": "grammar",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1059.906,
+   "e": 1060.346,
+   "text": "mistake,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1060.606,
+   "e": 1060.646,
+   "text": "you",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1060.686,
+   "e": 1060.786,
+   "text": "know,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1061.026,
+   "e": 1061.166,
+   "text": "write",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1061.206,
+   "e": 1061.266,
+   "text": "it",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1061.326,
+   "e": 1061.606,
+   "text": "down.\"",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1062.766,
+   "e": 1063.106,
+   "text": "And",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1064.406,
+   "e": 1064.606,
+   "text": "yeah,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1064.946,
+   "e": 1065.126,
+   "text": "it's,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1065.226,
+   "e": 1065.386,
+   "text": "uh,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1065.446,
+   "e": 1065.626,
+   "text": "it's",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1065.666,
+   "e": 1065.946,
+   "text": "bad.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1068.966,
+   "e": 1069.126,
+   "text": "You'll",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1069.226,
+   "e": 1069.446,
+   "text": "see.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1071.826,
+   "e": 1072.146,
+   "text": "Huh?",
+   "who": "Medi",
+   "conf": 0.994,
+   "source": "own_track"
+  },
+  {
+   "s": 1078.066,
+   "e": 1078.126,
+   "text": "The",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1078.166,
+   "e": 1078.426,
+   "text": "verbs",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1078.486,
+   "e": 1078.966,
+   "text": "listing?",
+   "who": "Medi",
+   "conf": 0.593,
+   "source": "own_track"
+  },
+  {
+   "s": 1079.746,
+   "e": 1079.826,
+   "text": "Oh,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1079.906,
+   "e": 1079.946,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1079.966,
+   "e": 1080.106,
+   "text": "thought",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1080.146,
+   "e": 1080.206,
+   "text": "you",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1080.266,
+   "e": 1080.626,
+   "text": "finished",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1080.706,
+   "e": 1080.966,
+   "text": "it.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1084.966,
+   "e": 1085.006,
+   "text": "I",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 1085.046,
+   "e": 1085.186,
+   "text": "think",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1085.226,
+   "e": 1085.346,
+   "text": "it's",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1085.406,
+   "e": 1085.646,
+   "text": "easy,",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1085.726,
+   "e": 1085.906,
+   "text": "right?",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1086.046,
+   "e": 1086.246,
+   "text": "It,",
+   "who": "Medi",
+   "conf": 0.948,
+   "source": "own_track"
+  },
+  {
+   "s": 1086.326,
+   "e": 1086.526,
+   "text": "it",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1086.606,
+   "e": 1087.006,
+   "text": "says",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1087.066,
+   "e": 1087.266,
+   "text": "like",
+   "who": "Medi",
+   "conf": 0.777,
+   "source": "own_track"
+  },
+  {
+   "s": 1087.346,
+   "e": 1087.706,
+   "text": "approve",
+   "who": "Medi",
+   "conf": 0.991,
+   "source": "own_track"
+  },
+  {
+   "s": 1087.806,
+   "e": 1088.206,
+   "text": "all.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1089.426,
+   "e": 1089.666,
+   "text": "Yeah.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1092.626,
+   "e": 1092.726,
+   "text": "Yeah,",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1092.826,
+   "e": 1092.946,
+   "text": "mo--",
+   "who": "Medi",
+   "conf": 0.99,
+   "source": "own_track"
+  },
+  {
+   "s": 1093.266,
+   "e": 1093.326,
+   "text": "it",
+   "who": "Medi",
+   "conf": 0.852,
+   "source": "own_track"
+  },
+  {
+   "s": 1093.366,
+   "e": 1093.566,
+   "text": "was",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1093.626,
+   "e": 1094.046,
+   "text": "guessing",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1094.126,
+   "e": 1094.386,
+   "text": "based",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1094.446,
+   "e": 1094.566,
+   "text": "on",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1094.606,
+   "e": 1094.766,
+   "text": "how",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1094.806,
+   "e": 1094.926,
+   "text": "you",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1094.966,
+   "e": 1095.286,
+   "text": "write",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1095.466,
+   "e": 1095.746,
+   "text": "because",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1095.786,
+   "e": 1095.966,
+   "text": "there's",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1096.026,
+   "e": 1096.186,
+   "text": "no",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1097.026,
+   "e": 1097.446,
+   "text": "standard",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1097.526,
+   "e": 1098.126,
+   "text": "Arabizi,",
+   "who": "Medi",
+   "conf": 0.912,
+   "source": "own_track"
+  },
+  {
+   "s": 1098.206,
+   "e": 1098.226,
+   "text": "you",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1098.286,
+   "e": 1098.406,
+   "text": "know?",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1108.016,
+   "e": 1108.636,
+   "text": "Okay.",
+   "who": "Medi",
+   "conf": 0.878,
+   "source": "own_track"
+  },
+  {
+   "s": 1112.956,
+   "e": 1113.156,
+   "text": "Yeah.",
+   "who": "Medi",
+   "conf": 0.994,
+   "source": "own_track"
+  },
+  {
+   "s": 1127.076,
+   "e": 1127.136,
+   "text": "I",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1127.176,
+   "e": 1127.256,
+   "text": "don't",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1127.296,
+   "e": 1127.396,
+   "text": "know",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1127.416,
+   "e": 1127.576,
+   "text": "why.",
+   "who": "Medi",
+   "conf": 0.462,
+   "source": "own_track"
+  },
+  {
+   "s": 1128.796,
+   "e": 1128.996,
+   "text": "شوية",
+   "who": "Medi",
+   "conf": 0.847,
+   "source": "own_track"
+  },
+  {
+   "s": 1129.036,
+   "e": 1129.496,
+   "text": "بطيئة",
+   "who": "Medi",
+   "conf": 0.886,
+   "source": "own_track"
+  },
+  {
+   "s": 1129.556,
+   "e": 1129.736,
+   "text": "الـ",
+   "who": "Medi",
+   "conf": 0.513,
+   "source": "own_track"
+  },
+  {
+   "s": 1129.916,
+   "e": 1130.316,
+   "text": "platform",
+   "who": "Medi",
+   "conf": 0.826,
+   "source": "own_track"
+  },
+  {
+   "s": 1130.376,
+   "e": 1130.756,
+   "text": "هذي.",
+   "who": "Medi",
+   "conf": 0.686,
+   "source": "own_track"
+  },
+  {
+   "s": 1131.776,
+   "e": 1132.316,
+   "text": "خيار،",
+   "who": "Medi",
+   "conf": 0.974,
+   "source": "own_track"
+  },
+  {
+   "s": 1132.456,
+   "e": 1132.956,
+   "text": "خيار.",
+   "who": "Medi",
+   "conf": 0.948,
+   "source": "own_track"
+  },
+  {
+   "s": 1133.476,
+   "e": 1133.576,
+   "text": "شو",
+   "who": "Medi",
+   "conf": 0.976,
+   "source": "own_track"
+  },
+  {
+   "s": 1133.636,
+   "e": 1133.856,
+   "text": "يعني",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1133.976,
+   "e": 1134.476,
+   "text": "خيار؟",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1137.356,
+   "e": 1137.996,
+   "text": "خيار.",
+   "who": "Medi",
+   "conf": 0.921,
+   "source": "own_track"
+  },
+  {
+   "s": 1139.596,
+   "e": 1140.196,
+   "text": "خيار.",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1141.096,
+   "e": 1141.176,
+   "text": "Is",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1141.216,
+   "e": 1141.376,
+   "text": "this",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1141.536,
+   "e": 1141.976,
+   "text": "options",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1142.016,
+   "e": 1142.116,
+   "text": "or",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1142.176,
+   "e": 1142.756,
+   "text": "mistakes?",
+   "who": "Medi",
+   "conf": 0.957,
+   "source": "own_track"
+  },
+  {
+   "s": 1143.696,
+   "e": 1143.896,
+   "text": "Okay.",
+   "who": "Medi",
+   "conf": 0.991,
+   "source": "own_track"
+  },
+  {
+   "s": 1144.436,
+   "e": 1144.756,
+   "text": "Option.",
+   "who": "Medi",
+   "conf": 0.959,
+   "source": "own_track"
+  },
+  {
+   "s": 1146.516,
+   "e": 1146.676,
+   "text": "Yeah.",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 1147.476,
+   "e": 1147.756,
+   "text": "Options",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1147.836,
+   "e": 1147.856,
+   "text": "I",
+   "who": "Medi",
+   "conf": 0.949,
+   "source": "own_track"
+  },
+  {
+   "s": 1147.916,
+   "e": 1148.096,
+   "text": "have",
+   "who": "Medi",
+   "conf": 0.995,
+   "source": "own_track"
+  },
+  {
+   "s": 1148.116,
+   "e": 1148.216,
+   "text": "it.",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1160.876,
+   "e": 1160.956,
+   "text": "Uh,",
+   "who": "Medi",
+   "conf": 0.377,
+   "source": "own_track"
+  },
+  {
+   "s": 1162.016,
+   "e": 1162.496,
+   "text": "hotel.",
+   "who": "Medi",
+   "conf": 0.414,
+   "source": "own_track"
+  },
+  {
+   "s": 1179.456,
+   "e": 1179.936,
+   "text": "Um,",
+   "who": "Medi",
+   "conf": 0.896,
+   "source": "own_track"
+  },
+  {
+   "s": 1180.296,
+   "e": 1180.596,
+   "text": "mod,",
+   "who": "Medi",
+   "conf": 0.906,
+   "source": "own_track"
+  },
+  {
+   "s": 1180.896,
+   "e": 1181.156,
+   "text": "um,",
+   "who": "Medi",
+   "conf": 0.994,
+   "source": "own_track"
+  },
+  {
+   "s": 1182.156,
+   "e": 1182.296,
+   "text": "hold",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1182.336,
+   "e": 1182.556,
+   "text": "on.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1187.536,
+   "e": 1187.736,
+   "text": "Oh.",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 1193.756,
+   "e": 1194.396,
+   "text": "Booking.",
+   "who": "Medi",
+   "conf": 0.49,
+   "source": "own_track"
+  },
+  {
+   "s": 1200.176,
+   "e": 1200.956,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 0.985,
+   "source": "own_track"
+  },
+  {
+   "s": 1201.336,
+   "e": 1202.056,
+   "text": "بدي",
+   "who": "Medi",
+   "conf": 0.985,
+   "source": "own_track"
+  },
+  {
+   "s": 1202.376,
+   "e": 1203.016,
+   "text": "أطلب",
+   "who": "Medi",
+   "conf": 0.994,
+   "source": "own_track"
+  },
+  {
+   "s": 1205.296,
+   "e": 1205.736,
+   "text": "غرفة،",
+   "who": "Medi",
+   "conf": 0.859,
+   "source": "own_track"
+  },
+  {
+   "s": 1206.236,
+   "e": 1206.816,
+   "text": "شفت؟",
+   "who": "Medi",
+   "conf": 0.565,
+   "source": "own_track"
+  },
+  {
+   "s": 1211.136,
+   "e": 1211.616,
+   "text": "Booking.",
+   "who": "Medi",
+   "conf": 0.989,
+   "source": "own_track"
+  },
+  {
+   "s": 1213.016,
+   "e": 1213.096,
+   "text": "And",
+   "who": "Medi",
+   "conf": 0.987,
+   "source": "own_track"
+  },
+  {
+   "s": 1213.116,
+   "e": 1213.216,
+   "text": "this",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1213.276,
+   "e": 1213.356,
+   "text": "is",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1213.416,
+   "e": 1213.456,
+   "text": "a",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1213.516,
+   "e": 1213.816,
+   "text": "verb?",
+   "who": "Medi",
+   "conf": 0.968,
+   "source": "own_track"
+  },
+  {
+   "s": 1214.456,
+   "e": 1214.516,
+   "text": "All",
+   "who": "Medi",
+   "conf": 0.248,
+   "source": "own_track"
+  },
+  {
+   "s": 1214.556,
+   "e": 1214.616,
+   "text": "right",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1214.656,
+   "e": 1214.956,
+   "text": "now.",
+   "who": "Medi",
+   "conf": 0.712,
+   "source": "own_track"
+  },
+  {
+   "s": 1221.256,
+   "e": 1221.376,
+   "text": "Is",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1221.436,
+   "e": 1221.536,
+   "text": "it",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1221.756,
+   "e": 1221.916,
+   "text": "some",
+   "who": "Medi",
+   "conf": 0.591,
+   "source": "own_track"
+  },
+  {
+   "s": 1222.116,
+   "e": 1222.536,
+   "text": "طلب؟",
+   "who": "Medi",
+   "conf": 0.722,
+   "source": "own_track"
+  },
+  {
+   "s": 1226.676,
+   "e": 1226.896,
+   "text": "Okay.",
+   "who": "Medi",
+   "conf": 0.996,
+   "source": "own_track"
+  },
+  {
+   "s": 1230.755,
+   "e": 1231.336,
+   "text": "حجز.",
+   "who": "Medi",
+   "conf": 0.774,
+   "source": "own_track"
+  },
+  {
+   "s": 1231.616,
+   "e": 1231.836,
+   "text": "Yeah.",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 1231.836,
+   "e": 1231.936,
+   "text": "أحجز.",
+   "who": "Medi",
+   "conf": 0.754,
+   "source": "own_track"
+  },
+  {
+   "s": 1254.636,
+   "e": 1255.636,
+   "text": "Um,",
+   "who": "Medi",
+   "conf": 0.906,
+   "source": "own_track"
+  },
+  {
+   "s": 1257.136,
+   "e": 1257.756,
+   "text": "okay.",
+   "who": "Medi",
+   "conf": 0.995,
+   "source": "own_track"
+  },
+  {
+   "s": 1258.036,
+   "e": 1258.956,
+   "text": "Um,",
+   "who": "Medi",
+   "conf": 0.928,
+   "source": "own_track"
+  },
+  {
+   "s": 1260.756,
+   "e": 1261.276,
+   "text": "مرحبا،",
+   "who": "Medi",
+   "conf": 0.977,
+   "source": "own_track"
+  },
+  {
+   "s": 1261.596,
+   "e": 1262.296,
+   "text": "كيفك؟",
+   "who": "Medi",
+   "conf": 0.996,
+   "source": "own_track"
+  },
+  {
+   "s": 1262.676,
+   "e": 1263.156,
+   "text": "كيفك؟",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1271.696,
+   "e": 1271.816,
+   "text": "Um,",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 1274.376,
+   "e": 1274.856,
+   "text": "لازم",
+   "who": "Medi",
+   "conf": 0.991,
+   "source": "own_track"
+  },
+  {
+   "s": 1275.276,
+   "e": 1275.816,
+   "text": "أقي--",
+   "who": "Medi",
+   "conf": 0.308,
+   "source": "own_track"
+  },
+  {
+   "s": 1277.796,
+   "e": 1278.356,
+   "text": "um,",
+   "who": "Medi",
+   "conf": 0.843,
+   "source": "own_track"
+  },
+  {
+   "s": 1280.556,
+   "e": 1280.796,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 0.997,
+   "source": "own_track"
+  },
+  {
+   "s": 1280.856,
+   "e": 1281.556,
+   "text": "لازم--",
+   "who": "Medi",
+   "conf": 0.994,
+   "source": "own_track"
+  },
+  {
+   "s": 1283.216,
+   "e": 1283.556,
+   "text": "um,",
+   "who": "Medi",
+   "conf": 0.973,
+   "source": "own_track"
+  },
+  {
+   "s": 1285.836,
+   "e": 1285.916,
+   "text": "you",
+   "who": "Medi",
+   "conf": 0.97,
+   "source": "own_track"
+  },
+  {
+   "s": 1285.956,
+   "e": 1286.156,
+   "text": "would",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1286.196,
+   "e": 1286.336,
+   "text": "say",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1286.356,
+   "e": 1286.536,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1286.576,
+   "e": 1286.856,
+   "text": "لازم",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1286.916,
+   "e": 1287.376,
+   "text": "أطلب",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1287.476,
+   "e": 1287.476,
+   "text": "أو",
+   "who": "Medi",
+   "conf": 0.849,
+   "source": "own_track"
+  },
+  {
+   "s": 1287.576,
+   "e": 1287.736,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1287.876,
+   "e": 1288.396,
+   "text": "لازم",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1289.596,
+   "e": 1292.456,
+   "text": "أ-أ-أحجز.",
+   "who": "Medi",
+   "conf": 0.922,
+   "source": "own_track"
+  },
+  {
+   "s": 1294.776,
+   "e": 1294.996,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1295.056,
+   "e": 1295.416,
+   "text": "لازم",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1295.456,
+   "e": 1296.136,
+   "text": "أحجز",
+   "who": "Medi",
+   "conf": 0.998,
+   "source": "own_track"
+  },
+  {
+   "s": 1297.176,
+   "e": 1297.776,
+   "text": "غرفة.",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1320.356,
+   "e": 1320.876,
+   "text": "أنا،",
+   "who": "Medi",
+   "conf": 0.625,
+   "source": "own_track"
+  },
+  {
+   "s": 1323.356,
+   "e": 1323.596,
+   "text": "أنا",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1323.656,
+   "e": 1324.296,
+   "text": "بدي",
+   "who": "Medi",
+   "conf": 0.938,
+   "source": "own_track"
+  },
+  {
+   "s": 1326.316,
+   "e": 1329.096,
+   "text": "الغرفة.",
+   "who": "Medi",
+   "conf": 0.695,
+   "source": "own_track"
+  },
+  {
+   "s": 1331.696,
+   "e": 1331.756,
+   "text": "Do",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1331.816,
+   "e": 1331.856,
+   "text": "you",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1331.936,
+   "e": 1332.076,
+   "text": "say",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1332.236,
+   "e": 1332.476,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.972,
+   "source": "own_track"
+  },
+  {
+   "s": 1332.516,
+   "e": 1333.116,
+   "text": "منظر؟",
+   "who": "Medi",
+   "conf": 0.731,
+   "source": "own_track"
+  },
+  {
+   "s": 1335.756,
+   "e": 1336.016,
+   "text": "ما--",
+   "who": "Medi",
+   "conf": 0.951,
+   "source": "own_track"
+  },
+  {
+   "s": 1337.796,
+   "e": 1337.916,
+   "text": "which",
+   "who": "Medi",
+   "conf": 0.5,
+   "source": "own_track"
+  },
+  {
+   "s": 1337.976,
+   "e": 1338.056,
+   "text": "is",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1338.176,
+   "e": 1338.516,
+   "text": "منظر؟",
+   "who": "Medi",
+   "conf": 0.991,
+   "source": "own_track"
+  },
+  {
+   "s": 1343.496,
+   "e": 1343.736,
+   "text": "Okay.",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1345.356,
+   "e": 1345.536,
+   "text": "ما",
+   "who": "Medi",
+   "conf": 0.999,
+   "source": "own_track"
+  },
+  {
+   "s": 1345.616,
+   "e": 1346.296,
+   "text": "منظر",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1346.856,
+   "e": 1347.536,
+   "text": "الشاطئ؟",
+   "who": "Medi",
+   "conf": 0.939,
+   "source": "own_track"
+  },
+  {
+   "s": 1352.976,
+   "e": 1353.156,
+   "text": "Um,",
+   "who": "Medi",
+   "conf": 0.994,
+   "source": "own_track"
+  },
+  {
+   "s": 1353.356,
+   "e": 1353.496,
+   "text": "I'm",
+   "who": "Medi",
+   "conf": 0.796,
+   "source": "own_track"
+  },
+  {
+   "s": 1353.916,
+   "e": 1354.076,
+   "text": "so",
+   "who": "Medi",
+   "conf": 0.836,
+   "source": "own_track"
+  },
+  {
+   "s": 1354.176,
+   "e": 1354.276,
+   "text": "s--",
+   "who": "Medi",
+   "conf": 0.903,
+   "source": "own_track"
+  },
+  {
+   "s": 1354.436,
+   "e": 1354.536,
+   "text": "I'm",
+   "who": "Medi",
+   "conf": 0.729,
+   "source": "own_track"
+  },
+  {
+   "s": 1354.576,
+   "e": 1354.676,
+   "text": "so",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1354.756,
+   "e": 1354.936,
+   "text": "sorry,",
+   "who": "Medi",
+   "conf": 0.855,
+   "source": "own_track"
+  },
+  {
+   "s": 1355.016,
+   "e": 1355.136,
+   "text": "one",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1355.196,
+   "e": 1355.516,
+   "text": "second.",
+   "who": "Medi",
+   "conf": 1.0,
+   "source": "own_track"
+  },
+  {
+   "s": 1356.156,
+   "e": 1356.456,
+   "text": "Sorry.",
+   "who": "Medi",
+   "conf": 0.979,
+   "source": "own_track"
+  }
+ ]
+}

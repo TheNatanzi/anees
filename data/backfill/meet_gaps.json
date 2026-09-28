@@ -13,11 +13,28 @@
     "clock": "lesson clock (docs/lessons/<date>/audio)"
    },
    "meet_file": "Google Meet/rvn-mpoe-zat - 2026 09 26 14 33 PDT/rvn-mpoe-zat (2026-09-26 14 33 GMT-7)",
-   "status": "pending",
+   "status": "done",
    "attempts": 0,
-   "run_ids": [],
+   "run_ids": [
+    "26670ce9518c4d04bd2e6cf71f44ee83"
+   ],
    "last_error": null,
-   "result": null,
+   "result": {
+    "layer": "data/backfill/gapfill/2026-09-26/gapfill_amal.json",
+    "lines": 149,
+    "words": 506,
+    "lines_by_source": {
+     "meet_mixed": 149
+    },
+    "primary_source": "meet_mixed",
+    "offset_s": -49.203,
+    "residual_s": 0.073,
+    "anchors": 132,
+    "diarization_confidence": 0.992,
+    "clip_mode": "ffmpeg_cut",
+    "est_cost_usd": 0.0854,
+    "done_at": "2026-09-28T08:15:34+00:00"
+   },
    "note": "Amal's track is empty 00:00-20:17 (only Medi's ~180 lines); her Word Bank context there reads 'Tutor recording context unavailable'."
   },
   {
@@ -32,11 +49,28 @@
     "clock": "lesson clock (docs/lessons/<date>/audio)"
    },
    "meet_file": "Google Meet/qxg-xokk-ufg - 2026 09 23 14 35 PDT/qxg-xokk-ufg (2026-09-23 14 35 GMT-7)",
-   "status": "pending",
+   "status": "done",
    "attempts": 0,
-   "run_ids": [],
+   "run_ids": [
+    "c20b6973c2d64020867bc52b94bec71e"
+   ],
    "last_error": null,
-   "result": null,
+   "result": {
+    "layer": "data/backfill/gapfill/2026-09-23/gapfill_medi.json",
+    "lines": 266,
+    "words": 840,
+    "lines_by_source": {
+     "own_track": 266
+    },
+    "primary_source": "own_track",
+    "offset_s": 0.123749233,
+    "residual_s": null,
+    "anchors": null,
+    "diarization_confidence": null,
+    "clip_mode": null,
+    "est_cost_usd": 0.0829,
+    "done_at": "2026-09-28T08:15:59+00:00"
+   },
    "note": "Medi's side is untranscribed 00:00-23:45. Coordinator 2026-09-28: transcribe his OWN first Recall recording (single voice, step track_gap_fill) first; fill whatever it does not cover (22:37-23:45) from the Meet clip (step meet_gap_fill); only if his track file is missing on the hourly machine does the whole window come from Meet.",
    "prefer": "own_track",
    "own_track": {
@@ -45,5 +79,6 @@
     "expected": "his first Recall recording 0:00-22:37 (never transcribed; the page uses his later track from 23:43)"
    }
   }
- ]
+ ],
+ "updated": "2026-09-28T01:15:59-07:00"
 }
