@@ -1,4 +1,4 @@
-# Full vocab + grammar audit - 2026-09-27
+# Full vocab + grammar audit - 2026-09-28
 
 Two independent readers per lesson, a third settles disagreements, reconciled with the 2026-09-24 hand sweep. A = Amal fixed it out loud or in chat (scored). B = she let it pass (unscored until she rules on her review page). Tier 0 = she supplied a word he asked for. Nothing the sweep verified was dropped.
 
@@ -6,13 +6,13 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **560** (sweep had 312) |
-| Grammar she let pass (B, to Amal) | 81 |
-| Vocab fixes Amal voiced (A) | **256** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 154, '0': 97, '2': 41, '3': 6} |
-| Vocab she let pass (B, to Amal) | **44** by tier {'1': 28, '2': 10, '3': 6} |
-| Listening-drill misreads (kept apart) | 76 |
-| Rows the readers found that the sweep did not have | 538 |
+| Grammar fixes Amal voiced (A) | **582** (sweep had 312) |
+| Grammar she let pass (B, to Amal) | 84 |
+| Vocab fixes Amal voiced (A) | **285** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 167, '0': 102, '2': 53, '3': 6} |
+| Vocab she let pass (B, to Amal) | **45** by tier {'1': 28, '2': 11, '3': 6} |
+| Listening-drill misreads (kept apart) | 77 |
+| Rows the readers found that the sweep did not have | 594 |
 | Sweep rows the readers did not list (kept) | 116 |
 | Machine audit already had | 104 |
 
@@ -34,6 +34,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-09-21 | 71 | 13 | 41 | 7 | 8 | 43 | 32 | 58.7 % |
 | 2026-09-23 | 32 | 2 | 29 | 2 | 12 | 23 | 20 | 64.3 % |
 | 2026-09-26 | 21 | 3 | 24 | 7 | 2 | 0 | 0 | 62.1 % |
+| 2026-09-28 | 22 | 3 | 29 | 1 | 1 | 0 | 0 | 61.0 % |
 
 ## Reader passes (the loop)
 
@@ -51,48 +52,50 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-09-21**: pass 1: r1 107 r2 106 agreed 71 disputed 50 (58.7 %), r3 kept 44 dropped 6 -> 116 rows; pass 2: r1 112 r2 93 agreed 62 disputed 62 (50.0 %), r3 kept 47 dropped 15 -> 109 rows; pass 1 vs pass 2: 75.8 % of rows in both
 - **2026-09-23**: pass 1: r1 57 r2 64 agreed 45 disputed 25 (64.3 %), r3 kept 19 dropped 6 -> 64 rows; pass 2: r1 61 r2 57 agreed 46 disputed 21 (68.7 %), r3 kept 14 dropped 7 -> 60 rows; pass 1 vs pass 2: 78.6 % of rows in both
 - **2026-09-26**: pass 1: r1 52 r2 58 agreed 41 disputed 25 (62.1 %), r3 kept 16 dropped 9 -> 57 rows
+- **2026-09-28**: pass 1: r1 53 r2 50 agreed 36 disputed 23 (61.0 %), r3 kept 20 dropped 3 -> 56 rows
 
 ## Grammar by bucket (A, speaking)
 
 | bucket | name | fixes |
 |---|---|---|
-| B18 | verb matches its subject | 61 |
+| B18 | verb matches its subject | 63 |
 | B5 | past tense | 55 |
-| B12 | make-X vs get-X | 51 |
+| B12 | make-X vs get-X | 52 |
 | D2 | verb + its fixed preposition | 48 |
 | D4 | endings on verbs | 44 |
 | B1 | present with b- | 37 |
-| A2 | idafa (possession) | 29 |
-| A8 | gender on adjectives | 29 |
+| A8 | gender on adjectives | 34 |
+| A2 | idafa (possession) | 31 |
 | D1 | prepositions | 24 |
-| A9 | plurals | 21 |
-| A1 | el- (the) | 20 |
+| A9 | plurals | 24 |
+| A1 | el- (the) | 22 |
+| A4 | possessive endings | 17 |
 | D3 | endings on prepositions | 17 |
-| A4 | possessive endings | 16 |
 | B15 | participles | 15 |
 | B11 | negative commands | 15 |
+| B3 | b-drop after time words | 13 |
 | B2 | b-drop after modals | 13 |
-| B3 | b-drop after time words | 12 |
 | C4 | saying no | 11 |
 | C7 | illi | 10 |
+| E1 | number + noun | 10 |
+| B8 | bakoon / ykoon | 9 |
 | B6 | kaan = was / were | 9 |
 | A7 | noun + adjective | 8 |
-| B8 | bakoon / ykoon | 8 |
 | B10 | commands | 8 |
 | C2 | the pointer rule | 8 |
 | E2 | clock time | 7 |
-| E1 | number + noun | 6 |
+| C3 | comparatives | 6 |
 | B16 | kan laazem | 5 |
-| C3 | comparatives | 5 |
+| A3 | feminine -t in idafa | 4 |
 | A10 | hada / hadi | 4 |
 | E4 | calendar | 4 |
 | E5 | kam + singular | 4 |
-| A3 | feminine -t in idafa | 3 |
 | C9 | word order | 3 |
 | A11 | kul: all vs every | 3 |
 | C5 | u / aw / wala | 2 |
 | C1 | no word for 'to be' | 2 |
 | C6 | iza / lamma | 2 |
+| A9b | broken plurals are patterns | 2 |
 | C10 | preposition goes in front | 2 |
 | C4b | words that drag a ma along | 2 |
 | A5 | chain possession | 2 |
@@ -102,7 +105,6 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | B14 | 3am = right now | 1 |
 | A6 | professions | 1 |
 | A10b | demonstrative keeps el- | 1 |
-| A9b | broken plurals are patterns | 1 |
 | B7 | kaan + b-verb = used to | 1 |
 | D5 | preposition keeps el- | 1 |
 | D6 | iyyaa - the second object | 1 |
@@ -1343,3 +1345,66 @@ _Amal's audio is missing from 00:00 to 20:17 (only Medi's lines, ~180 turns; the
 | FA-0c86024b | 1:07:52 | grammar | A8 | خصلات آآآ أبيض. | بيض. | أبيض -> بيض | Plural noun takes the plural colour بيض; Amal recast and confirmed it is plural. | high | r1+r2 |
 | FA-5657e2f7 | 1:09:03 | grammar | D2 | حكينا الكل or الـ كل-كلأن، | كل– عن كل شي. | حكينا الكل -> حكينا عن كل شي | حكى takes عن and 'everything' is كل شي; Amal recast and he repeated عن كل شي. | high | r1+r2 |
 | FA-84878243 | 1:09:03 | vocab-A | tier 1 | حكينا الكل or الـ كل-كلأن، كليا-كليان. | كل– عن كل شي. ... عن كل شي. | الكل -> كل شي | الكل is 'everyone' (sheet 'all / everyone / Elkul'); for 'everything' Amal said عن كل شي twice and he repeated it (sheet 'everything / Kul shee'). | medium | r3 |
+
+### 2026-09-28
+
+_00:00-07:30 is Amal-only small talk (English/MSA engine output). 15:43-18:53 Medi's Arabic is lost as [speaking foreign language] (9 turns); rows there rely on Amal's echo. 28:49-29:06 (beside/not with/في بناته), 35:52-36:04 (شوي/بشوي فواكه), 59:29 شيكمن and 1:03:34 دكتورة تلساند are too garbled to judge. Pronunciation slips skipped per S4: أمتي/أم ماو for عمتي/عم, همس for خمس, مقني for مغني, وأهمي for محامي, فهدين for حفيدين, مماردين for ممرضين. جنين at 1:00:39 is a name / misheard جمع, not flagged. medi_turns counts every Medi line with Arabic script, fillers included. / 00:00-15:40 is English meta talk (no Arabic from Medi). 15:43-18:26 his Arabic is lost as [speaking foreign language]; rows there rely on Amal's replies. Left out as S4 pronunciation: محمد for محامي (29:14, Amal: 'long and not doubled'), أمي/إمي for عمي, سبية for صبية, مقني, همس, فهدين->حفيدين, أهمي, مماردين, كوفار. 1:00:39 'جنين؟' was a listening mix-up of جمع (name, not scored). 53:52 'بين عشرين وسبعطاش' is a content slip, not language. 57:56 he misunderstood 'مين بيشتغل بالشركة' (comprehension). Self-fixes skipped: ما بتشتغل 28:34, مرة واحدة 24:23, بيروح 1:02:25, بنات خال وخالة 44:39. Garbled/unclear: 38:59 كليان, 59:29 شيكمن, 1:03:34 دكتورة تلساند, 1:04:52 على رفيقي._
+
+| id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
+|---|---|---|---|---|---|---|---|---|---|
+| FA-1ec1b615 | 16:04 | grammar | B12 | [speaking foreign language] Um, I was made happy. | هل أسعدتِ أحداً ما؟ ... إنبسطت. | [causative form, engine did not capture] -> إنبسطت | Engine lost his Arabic; Amal's echo 'did you make someone happy?' then إنبسطت shows he used the make-X (causative) form instead of get-X انبسطت. | medium | r1+r2 |
+| FA-bff8de91 | 17:23 | vocab-A | tier 0 | I'm trying to say I lift-- I lifted the most amount ever today. | حملت، ما تعملت. ... حملت. | lifted -> حملت | He did not know 'lifted' and Amal supplied حملت. | high | r1+r2 |
+| FA-9667a233 | 17:39 | vocab-A | tier 0 | But this would be to, like, also works for the, for the gym. | نعم، عادي، حملت. بس، وزن is weight، وزن. | weight -> وزن | Amal supplied وزن for weight while he was building the sentence. | medium | r1+r2 |
+| FA-ed09c985 | 18:04 | grammar | C3 | [speaking foreign language] just big? | بس، لا، we would need biggest. So, would be أكبر، أكبر وزن. ... we can use أكثر ... أكثر وزن. | [big, engine did not capture] -> أكبر وزن / أكتر وزن | He offered plain 'big' for 'the most weight'; Amal said لا and gave the comparative أكبر/أكتر وزن. | medium | r1+r2 |
+| FA-415ba18f | 21:50 | grammar | E1 | Is it مي- uh, مئين؟ مئين؟ مئين؟ | No. ميا. Let's go to ميا first. Is ميا feminine؟ ... So what do we do to dual form؟ | مئين -> ميتين | Two hundred is the dual of مية (ميتين); Amal said No and walked him to the dual, which he then produced. | high | r1+r2 |
+| FA-24b68dea | 22:45 | vocab-A | tier 1 | من الأرض على to, | لا. | على -> فوق | He used على for 'above' (he then asked 'is above على?'); Amal said لا and he reached فوق راسي at 23:31. Sheet: up / above / Foaq / فوق. A different lexical item, not a preposition-choice rule. | high | r3 |
+| FA-043d4093 | 23:55 | vocab-A | tier 0 | Is it محرك or just حركة؟ | حركة. | محرك -> حركة | He asked between محرك (motor) and حركة for 'movement'; Amal picked حركة. | medium | r1+r2 |
+| FA-4b94ea80 | 23:59 | grammar | A8 | حركة. واحد حركة. حركة واحد. | حركة واحدة. | حركة واحد -> حركة واحدة | حركة is feminine so the number-adjective must be واحدة; Amal recast it. | high | r1+r2 |
+| FA-9aeb157f | 24:41 | grammar | B3 | بعد بحمل... | بعد. What do we put after بعد؟ ... ما. | بعد بحمل -> بعد ما أحمل | After بعد the verb needs ما and drops the b-; Amal prompted and he said ما أحمل. | high | r1+r2 |
+| FA-29f610de | 25:26 | vocab-A | tier 1 | I put it past tense. أنا بطيت أريحا. Is that right? بطيت أريحا. No? | No. بـ برجع. | بطيت -> رجّعت | For 'I put it back' he used a put/stop verb (engine بطيت; أريحا is an engine artifact, treated as a name); Amal said No and gave the رجع verb. | low | r1+r2 |
+| FA-fa283f02 | 26:02 | vocab-A | tier 1 | اآآ الـ-الـ حدا | الـ، شو يعني people؟ | حدا -> ناس / أشخاص | حدا means someone, not 'people'; Amal asked 'what is people?' and confirmed ناس، أشخاص. Sheet: people (plural) / Naas / ناس. | medium | r1+r2 |
+| FA-329f1035 | 26:27 | vocab-A | tier 2 | أشتغل، أشتغل. | No. What، شو جمع شغل؟ | أشتغل -> أشغال | He gave the verb 'I work' for the noun 'jobs'; Amal said No and asked for the plural of شغل. | high | r1+r2 |
+| FA-d09e385b | 26:36 | grammar | A9b | فـ شغلين، شغلات. | No. | شغلات -> أشغال | Wrong plural pattern for شغل; Amal said No and accepted أشغال. | high | r1+r2 |
+| FA-adbdbb5e | 28:17 | grammar | A2 | أنااا بشتغل معاا أبوي في المحل السجاد. | في محل السجاد. | المحل السجاد -> محل السجاد | In idafa the first word never takes el-; Amal recast في محل السجاد. | high | r1+r2 |
+| FA-717d690e | 29:14 | vocab-A | tier 2 | أخوي آآ مح-- أخوي محمد، or محمد؟ | محامي. It's long and it's not doubled. | محمد -> محامي | For 'lawyer' he said a short doubled form like the name Muhammad twice; Amal recast محامي and named the difference. Sheet: lawyer / Mu7aami / محامي. | medium | r3 |
+| FA-5ae417b6 | 30:35 | vocab-B | tier 2 | Is it عماوم؟ عماوم؟ عماوم؟ | Mm-hmm. | عماوم -> أعمام | Invented plural of عم; the أفعال hint (باب، ضوء، شال) points to أعمام, and Amal later recast أعمامي (38:32) and gave أعمام (39:41). Here she let it pass with Mm-hmm. | medium | r3 |
+| FA-21841643 | 31:00 | grammar | A8 | Okay مهندس واحدة، | واحد. | مهندس واحدة -> مهندس واحد | مهندس is masculine so واحد; Amal recast twice. | high | r1+r2 |
+| FA-0da26e28 | 31:00 | grammar | A8 | Okay مهندس واحدة، | واحد. | واحدة -> واحد | He was talking about his uncles (masculine) and said واحدة; Amal recast واحد twice (31:03, 31:05). The word order was not wrong: Amal ended with 'You would say واحد مهندس' (31:11) for 'one is an engineer'. | high | r3 |
+| FA-bba4c032 | 31:26 | grammar | A1 | تاني. | The second or the other? | تاني -> التاني | 'The other one' needs el-; Amal prompted with 'the' and he said التاني. | high | r1+r2 |
+| FA-e21422e1 | 31:44 | vocab-A | tier 2 | أستاذ مهندس. أستاذ مهندس؟ Or مهندس الأستاذ؟ No، أستاذ مهندس. | أستاذ هندسة. We would use the noun here. أستاذ هندسة. | مهندس -> هندسة | He used the person noun 'engineer' where the field noun 'engineering' is needed; Amal: 'we would use the noun here. أستاذ هندسة'. | high | r3 |
+| FA-9651b695 | 32:18 | grammar | A1 | آخر واحدة. آخر الواحدة. | Where do I put the ل؟ Actually we never put ل. آخر واحد. | آخر الواحدة -> آخر واحد | 'The last one' takes no el- after آخر; Amal said we never put ل and gave آخر واحد. | high | r1+r2 |
+| FA-a00b7812 | 32:18 | grammar | A8 | آخر واحدة. آخر الواحدة. | Actually we never put ل. آخر واحد. | آخر واحدة -> آخر واحد | He is naming the last uncle (masculine) and said واحدة; Amal's recast is آخر واحد, and he repeated واحدة at 32:51 before fixing it himself. | medium | r3 |
+| FA-2bee2cfc | 34:45 | vocab-A | tier 0 | But scientist. ... مـال، مال-- No. | عالمة. | scientist -> عالمة | He did not know 'scientist'; Amal supplied عالمة. | high | r1+r2 |
+| FA-da0cd012 | 35:00 | vocab-A | tier 2 | عالمة، okay. So is it مـعـالمة؟ ... There's no M? | عالمة. ... No. | مـعـالمة -> عالمة | After first trying مال (34:56) he offered معالمة with an م- prefix; Amal repeated عالمة and said No. | medium | r3 |
+| FA-ac785b7c | 37:24 | vocab-A | tier 1 | بنات وولاد أخوي، er، أخي أمتي-- | أخي that would be شو؟ | أخي -> خالي | He used 'my brother' for the maternal uncle; Amal asked what أخي means and he switched to خالي، خالتي. | high | r1+r2 |
+| FA-a0494e8d | 37:24 | vocab-A | tier 1 | بنات وولاد أخوي | بس we wouldn't say ولد عمي. Would we؟ What's the other word؟ ... ابن. | ولاد -> ابن | For a cousin Amal wants ابن عم, not ولد عم; he acknowledges 'I said ولاد'. | medium | r1+r2 |
+| FA-49175407 | 38:32 | vocab-A | tier 2 | بس أم ماو؟ | بس أعمامي؟ | أم ماو -> أعمامي | Invented plural of عم (also أماو at 38:15; engine writes عم as أم, a dropped ع); Amal recast أعمامي. | high | r3 |
+| FA-074fddc8 | 39:16 | grammar | A4 | همس بنات، أمي. | خلاص بس بس uncle يعني. خمس بنات عم. ... We're not saying my. | بنات، أمي -> بنات عم | He added 'my' (عمي) to the cousin phrase; Amal: we're not saying my - خمس بنات عم. | high | r1+r2 |
+| FA-e6ed5819 | 39:34 | vocab-A | tier 2 | Okay. And then would I say أماو، أم ماو؟ What was the plural for أم، أم مو؟ | أعمام. | أماو -> أعمام | A minute after the 38:32 recast he still offered أماو and asked; Amal gave أعمام. | medium | r3 |
+| FA-9c92be40 | 40:06 | grammar | E1 | ابن أمي، أم، أم مو، أم. | No. What's we don't say ابن. No. We make it plural for ولد. ... We say ولاد عم. | ابن -> ولاد عم | After 'وتسع' (nine, 40:00) he used singular ابن; a 3-10 count needs the plural, and Amal said No, the plural is ولاد عم (one = ابن عم). | high | r3 |
+| FA-d2f96b6a | 41:51 | grammar | A2 | لا، بس الـ، الـ ولاد أمي عندهم ولاد. | وين القلب؟ وين بنحط القلب؟ | الـ ولاد أمي -> ولاد عمي | el- on the first word of an idafa; Amal asked where he puts the ل and he dropped it (ولاد إمي at 42:20). | medium | r1+r2 |
+| FA-39556217 | 43:14 | grammar | A8 | عندي عيلة كبير، | كبيييير. | عيلة كبير -> عيلة كبيرة | عيلة is feminine; Amal echoed كبيير mockingly and he fixed to كبيرة. | high | r1+r2 |
+| FA-f997fd29 | 44:53 | grammar-B | E1 | عندي اثناش بنات. | مم. ... بنات. ... ليش؟ بعد العشرة شو؟ | اثناش بنات -> اتناشر بنت | 11+ takes a singular noun; she let بنات pass here (her later 'بعد العشرة شو؟' targets the same rule). Right form is my reading. | medium | r1+r2 |
+| FA-b44053ed | 45:18 | grammar | E1 | احداش، احداش ولاد. | dash. | احداش ولاد -> احداش ولد | After 11 the noun is singular; Amal cut in and he said احداش ولد, then she asked 'بعد العشرة شو؟'. | high | r1+r2 |
+| FA-8dde7e52 | 45:28 | vocab-A | tier 1 | احداش ولد، | ولد واحد. ... Actually ابن. | ولد -> ابن | For a (male) cousin in the singular Amal wants ابن (عم), not ولد; he agreed 'it's ابن'. | medium | r1+r2 |
+| FA-9ad64b74 | 46:25 | vocab-A | tier 1 | Relatives. عائلة? | No. | عائلة -> قرايب | عائلة is family, not relatives; Amal said No and hinted to قرايب. Sheet: relative / Qareeb / قريب. | high | r1+r2 |
+| FA-07bdf452 | 47:16 | vocab-A | tier 2 | And so is it قريبًا? | No. شو يعني أديبة؟ | قريبًا -> قرايب | Wrong form of قريب for 'relatives'; Amal said No. | high | r1+r2 |
+| FA-49b45872 | 47:20 | vocab-A | tier 2 | قريبة? | No. | قريبة -> قرايب | Asked for 'relatives' he offered قريبًا then قريبة; Amal said No to each (engine writes her echo as أديبة) and he reached قرايب at 47:29. | medium | r3 |
+| FA-170f858f | 48:22 | vocab-A | tier 1 | خوار? No, خوار is... Is it خوار? | No. ... There's أخوات. أخوات is siblings بس female siblings يعني sisters. | خوار -> إخوة | خوار is Farsi (his mnemonic), not Arabic; Amal said No and led him to إخوة. | high | r1+r2 |
+| FA-fa605db6 | 49:53 | grammar | A3 | مرات أخوي or مرات، uh, خالي or مرات, uh, أمي. | مرت خالي. | مرات خالي -> مرت خالي | مرة in idafa becomes مرت; مرات means 'times'. Amal recast. | high | r1+r2 |
+| FA-4d340644 | 50:38 | grammar | A9 | Is it أفحد؟ | أحفاد is plural. What's one? | أفحد -> حفيد | He gave the plural (أحفاد, letters swapped = S4) when 'grandchild' was asked; Amal said that is plural, what's one?, and he said حفيد. | high | r3 |
+| FA-76cdbaac | 52:58 | grammar | A9 | آآآ، إذا بنات، | بنت. | بنات -> بنت | He used the plural where the singular was meant; Amal recast بنت and he continued إذا بنت. | high | r1+r2 |
+| FA-e3de7919 | 53:29 | grammar | B8 | We name them اسم أو اسمها؟ | Or she would be... | اسم أو اسمها -> بتكون | He reached for 'name' to say 'she is (called)'; Amal prompted 'she would be' and he produced بتكون. | medium | r1+r2 |
+| FA-20bc206f | 54:08 | vocab-A | tier 1 | بين عشرين و، وو آآآ سبعطاش، | ليش سبعطعش؟ بين عشرين وتلاتين ممكن. | سبعطاش -> تلاتين | 'Between twenty and seventeen' makes no sense for an age band; Amal questioned it and supplied تلاتين, which he repeated. | medium | r3 |
+| FA-1ebbf399 | 54:11 | vocab-A | tier 1 | آآآ، بتكون سبية. | شو يعني عصبية؟ ... عصبية is an angry woman ... صبايا. | عصبية -> صبية | Amal's echo 'شو يعني عصبية؟' and her joke 'عصبية is an angry woman' suggest he said عصبية (engine wrote سبية) for صبية 'young woman'. Low because the engine also writes her own صبية ambiguously. | low | r3 |
+| FA-d76cb160 | 54:49 | vocab-A | tier 0 | Is it أس-- أس-- is it أسبية or no? ... What is it just for my curiosity? | صبايا. | أسبية -> صبايا | He asked the plural of صبية (after Amal's 54:34 question); Amal gave صبايا. | medium | r3 |
+| FA-678f0d24 | 56:39 | grammar-B | B18 | الولاد بيكون ولاد |  | الولاد بيكون ولاد -> بيكون ولد | Plural subject الولاد with singular بيكون and plural ولاد; parallel to his بتكون بنت and his next بيكون شاب, the singular ولد is meant (my reading). Amal said ممتاز at 57:29 without a fix. | low | r3 |
+| FA-aa694e6b | 59:14 | grammar | A9 | محاسب، محاسب. | يعني محاسبين كمان. | محاسب -> محاسبين | He listed other staff in plural but accountant in singular; Amal recast محاسبين. | high | r1+r2 |
+| FA-6b79877d | 1:00:27 | vocab-A | tier 1 | مـ-مماير؟ مميان؟ | ممرض. | مماير -> ممرض | Non-word for nurse; Amal supplied ممرض. Sheet: nurse / Mummared / ممرض. | high | r1+r2 |
+| FA-f6c9e014 | 1:01:13 | vocab-A | tier 2 | زبـ-- آآآ زبان، زبان أو زباين. | زبون، زباين. | زبان -> زبون | Wrong singular of customer; Amal recast زبون. Sheet: customer / Zboon / زبون. | high | r1+r2 |
+| FA-86d191ab | 1:01:39 | vocab-A (listening) | tier 1 | Who makes the streets? | وين بتعمل شعرك؟ ... شعر، شعرك. | streets -> شعرك (your hair) | Listening miss: he heard شعرك as 'streets'; Amal repeated شعر، شعرك until he asked 'like hair?'. | medium | r3 |
+| FA-491c9ab1 | 1:02:32 | vocab-A | tier 2 | آآآ حلق. | حلاق. | حلق -> حلاق | حلق (shave/earring) for barber; Amal recast حلاق. Sheet: barber / 7alla2 / حلاق. | medium | r1+r2 |
+| FA-63e8085c | 1:02:46 | grammar-B | B18 | بنات بتروح على، |  | بنات بتروح -> البنات بيروحوا | A plural human subject takes a plural verb in Levantine (he had just said الزلمة بيروح for the man); Amal only fixed the place word. My reading. | low | r3 |
+| FA-efb76c4d | 1:02:50 | vocab-A | tier 2 | آآآ، كوفا-كوفار، كوفار. | مـم. وفير. | كوفار -> كوافير | Wrong form of hairdresser; Amal recast it (engine: وفير). Sheet: hairdresser / Kwafair / كوافير. | medium | r3 |
+| FA-8535edbf | 1:03:08 | vocab-A | tier 1 | معلم؟ | مـ-مين بيعلم؟ المعلم، مين بيعلم؟ | معلم -> طالب | Asked who studies, he said teacher; Amal: who teaches? the teacher - and he gave طالب وطلاب. | high | r1+r2 |
+| FA-b6a6cbad | 1:04:25 | vocab-A | tier 2 | جيرار. | جيران. | جيرار -> جيران | Wrong plural of جار after her 'like walls, like teeth' hint (حيطان، سنان); Amal recast جيران. | high | r3 |

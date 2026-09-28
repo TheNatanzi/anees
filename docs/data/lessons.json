@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-28T01:16:10-07:00",
+ "updated": "2026-09-28T16:29:57-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -1561,6 +1561,100 @@
     "vocab_errors": 24,
     "vocab_correct": 113,
     "grammar_errors": 21
+   }
+  },
+  {
+   "date": "2026-09-28",
+   "start_local": "2026-09-28T14:39:50-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "duration_min": 65.8,
+   "type": "free-speak",
+   "review_mode": null,
+   "type_why": "Not read yet: default until Claude reads this lesson and adds it to LESSON_TYPES.",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 40,
+    "right": 82,
+    "wrong": 15,
+    "partial": 14,
+    "pct": 80.2,
+    "scored": 111,
+    "audit_wrong": 15,
+    "audit_partial": 4,
+    "not_on_sheet": 8
+   },
+   "grammar": {
+    "uses": null,
+    "mistakes": 22,
+    "pct": null,
+    "estimate": false
+   },
+   "talk": {
+    "medi_s": 1157.9,
+    "amal_s": 901.8,
+    "speak_pct": 56.2,
+    "listen_pct": 43.8,
+    "window": [
+     0.0,
+     3934.8
+    ]
+   },
+   "fillers": {
+    "count": 184,
+    "per_min": 9.53,
+    "top": [
+     [
+      "آآ",
+      70
+     ],
+     [
+      "uh",
+      62
+     ],
+     [
+      "um",
+      42
+     ],
+     [
+      "hmm",
+      3
+     ],
+     [
+      "امم",
+      3
+     ],
+     [
+      "mm",
+      2
+     ]
+    ],
+    "in_turns": 184,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.41,
+    "p75_s": 2.29,
+    "n": 209
+   },
+   "flow": {
+    "wpm": 61.1,
+    "n_turns": 171,
+    "arabic_words": 492
+   },
+   "new_words": [],
+   "taught": [],
+   "coverage": "00:00-07:30 is Amal-only small talk (English/MSA engine output). 15:43-18:53 Medi's Arabic is lost as [speaking foreign language] (9 turns); rows there rely on Amal's echo. 28:49-29:06 (beside/not with/في بناته), 35:52-36:04 (شوي/بشوي فواكه), 59:29 شيكمن and 1:03:34 دكتورة تلساند are too garbled to judge. Pronunciation slips skipped per S4: أمتي/أم ماو for عمتي/عم, همس for خمس, مقني for مغني, وأهمي for محامي, فهدين for حفيدين, مماردين for ممرضين. جنين at 1:00:39 is a name / misheard جمع, not flagged. medi_turns counts every Medi line with Arabic script, fillers included. / 00:00-15:40 is English meta talk (no Arabic from Medi). 15:43-18:26 his Arabic is lost as [speaking foreign language]; rows there rely on Amal's replies. Left out as S4 pronunciation: محمد for محامي (29:14, Amal: 'long and not doubled'), أمي/إمي for عمي, سبية for صبية, مقني, همس, فهدين->حفيدين, أهمي, مماردين, كوفار. 1:00:39 'جنين؟' was a listening mix-up of جمع (name, not scored). 53:52 'بين عشرين وسبعطاش' is a content slip, not language. 57:56 he misunderstood 'مين بيشتغل بالشركة' (comprehension). Self-fixes skipped: ما بتشتغل 28:34, مرة واحدة 24:23, بيروح 1:02:25, بنات خال وخالة 44:39. Garbled/unclear: 38:59 كليان, 59:29 شيكمن, 1:03:34 دكتورة تلساند, 1:04:52 على رفيقي.",
+   "notes": [
+    "grammar uses not yet in docs/data/grammar-usage.json for this lesson; grammar.pct null until the re-run."
+   ],
+   "page": "lessons/2026-09-28.html",
+   "detail": "data/lessons/2026-09-28.json",
+   "counts": {
+    "turns": 1018,
+    "chat_lines": 0,
+    "vocab_errors": 27,
+    "vocab_correct": 92,
+    "grammar_errors": 22
    }
   }
  ]
