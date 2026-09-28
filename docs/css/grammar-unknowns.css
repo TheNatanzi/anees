@@ -1,0 +1,111 @@
+/* AI Reports › Unknowns › Grammar: "What the robot doesn't know" (docs/js/grammar-unknowns.js, 2026-09-27).
+   Same look as the Fluency unknowns block (fu-*) in fluency-ladder.css, standalone so the AI Reports page needs no
+   Progress-page CSS. Colours are the page tokens (--ab-*, --vp-*, --sabz-*) with light-dark(), so both themes follow.
+   Sentence cards copy the Grammar Console's use cards (grammar.css gc-use / gc-speech). */
+#anees-bank .gu-root{--gu-accent:var(--sabz-c-burnt-orange,#B9631F);--gu-soft:light-dark(#C9C5B4,#4A5A52);min-width:0}
+#anees-bank .gu-head{margin:0 0 12px}
+#anees-bank .gu-head .vp-eyebrow{display:block;margin-bottom:4px}
+#anees-bank .gu-stack{display:grid;gap:16px;min-width:0}
+#anees-bank .gu-panel{min-width:0}
+#anees-bank .gu-key{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--gu-accent);margin-bottom:4px}
+#anees-bank .gu-h{font-family:var(--vp-serif,var(--sabz-font-serif));font-weight:500;font-size:19px;letter-spacing:-.2px;margin:0 0 4px}
+#anees-bank .gu-foot{margin:12px 0 0!important;padding-top:10px;border-top:1px solid var(--ab-line);font-size:11.5px;color:var(--ab-muted);line-height:1.45}
+#anees-bank .gu-src{font-size:11px;color:var(--ab-muted);margin:14px 0 0;line-height:1.5;overflow-wrap:anywhere}
+
+/* headline tiles */
+#anees-bank .gu-tiles{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:0 0 16px}
+#anees-bank .gu-tile{background:var(--ab-panel);border:1px solid var(--ab-line);border-radius:10px;padding:12px;min-width:0}
+#anees-bank .gu-tile b{display:block;font-family:var(--vp-serif,var(--sabz-font-serif));font-weight:500;font-size:26px;line-height:1.1;color:var(--ab-text);font-variant-numeric:tabular-nums}
+#anees-bank .gu-tile span{display:block;font-size:12px;color:var(--ab-text);margin-top:2px}
+#anees-bank .gu-tile small{display:block;font-size:10.5px;color:var(--ab-muted);margin-top:3px;line-height:1.35}
+
+/* split bars + fills */
+#anees-bank .gu-split{display:flex;height:26px;border-radius:7px;overflow:hidden;margin:4px 0 10px;gap:2px;font-size:11.5px;font-weight:600}
+#anees-bank .gu-split i{display:flex;align-items:center;justify-content:center;font-style:normal;color:var(--ab-panel);white-space:nowrap;overflow:hidden;padding:0 6px;min-width:0}
+#anees-bank .gu-okf,#anees-bank .gu-okbar{background:var(--ab-green)}
+#anees-bank .gu-warnf,#anees-bank .gu-warnbar{background:var(--ab-orange)}
+#anees-bank .gu-badbar{background:var(--ab-red)}
+#anees-bank .gu-midf{background:var(--ab-muted)}#anees-bank .gu-mid{background:var(--ab-muted)}
+#anees-bank .gu-mutedf{background:var(--ab-muted)}
+#anees-bank .gu-linef{background:var(--gu-soft)}#anees-bank .gu-split i.gu-linef{color:var(--ab-text)}
+#anees-bank .gu-softbar{background:var(--gu-soft)}
+#anees-bank .gu-accbar{background:var(--gu-accent)}
+#anees-bank .gu-legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:11px;color:var(--ab-muted);margin:-4px 0 10px}
+#anees-bank .gu-legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+#anees-bank .gu-callout{border-left:3px solid var(--ab-green);background:var(--ab-raised);border-radius:0 8px 8px 0;padding:8px 12px;font-size:12.5px;color:var(--ab-text);margin:4px 0 10px;line-height:1.45}
+#anees-bank .gu-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:0}
+#anees-bank .gu-chip{display:inline-block;font-size:11px;padding:2px 7px;border-radius:999px;background:var(--ab-raised);border:1px solid var(--ab-line);color:var(--ab-text);margin:3px 2px 0 0}
+
+/* accordion rows */
+#anees-bank .gu-list{display:grid;gap:0}
+#anees-bank .gu-acc{border-top:1px solid var(--ab-line)}
+#anees-bank .gu-acc:last-child{border-bottom:1px solid var(--ab-line)}
+#anees-bank .gu-acc>summary,#anees-bank .gu-static{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) 76px 16px;gap:10px;align-items:center;padding:8px 2px;font-size:12.5px;cursor:pointer;list-style:none}
+#anees-bank .gu-static{cursor:default;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) 76px 16px;border-bottom:1px solid var(--ab-line)}
+#anees-bank .gu-never{grid-template-columns:1fr}
+#anees-bank .gu-acc>summary::-webkit-details-marker{display:none}
+#anees-bank .gu-acc>summary:hover{background:var(--ab-raised)}
+#anees-bank .gu-acc>summary:focus-visible{outline:2px solid var(--gu-accent);outline-offset:1px;border-radius:4px}
+#anees-bank .gu-sumlab{min-width:0}
+#anees-bank .gu-sumlab b{font-weight:600;color:var(--ab-text)}
+#anees-bank .gu-sumlab small{display:block;color:var(--ab-muted);font-size:11px;line-height:1.4;margin-top:1px}
+#anees-bank .gu-sumlab em{font-style:normal;color:var(--ab-text)}
+#anees-bank .gu-track{height:10px;border-radius:5px;background:var(--ab-raised);overflow:hidden;display:flex;gap:1px}
+#anees-bank .gu-track i{display:block;height:100%}
+#anees-bank .gu-v{text-align:right;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ab-text);white-space:nowrap}
+#anees-bank .gu-v small{font-weight:400;color:var(--ab-muted);margin-left:3px}
+#anees-bank .gu-chev{width:8px;height:8px;border-right:2px solid var(--ab-muted);border-bottom:2px solid var(--ab-muted);transform:rotate(45deg);justify-self:center;transition:transform .15s}
+#anees-bank .gu-acc[open]>summary .gu-chev{transform:rotate(-135deg)}
+#anees-bank .gu-acc-soft>summary .gu-sumlab b{color:var(--ab-muted)}
+#anees-bank .gu-pill{display:inline-block;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;padding:1px 6px;border-radius:999px;background:var(--ab-raised);color:var(--ab-muted);margin-right:3px}
+#anees-bank .gu-pill-nodetector{color:var(--gu-accent)}
+#anees-bank .gu-accbody{padding:4px 0 12px}
+#anees-bank .gu-accnote{font-size:11.5px;color:var(--ab-muted);margin:0 0 8px!important}
+#anees-bank .gu-empty{padding:14px;text-align:center;color:var(--ab-muted);font-size:12px}
+#anees-bank .gu-more{display:block;margin:6px auto 0;border:1px solid var(--ab-line);background:var(--ab-panel);color:var(--ab-text);border-radius:999px;padding:7px 16px;font:600 12px var(--sabz-font-sans);cursor:pointer}
+#anees-bank .gu-more:hover{border-color:var(--vp-sage)}
+
+/* sentence cards (Grammar Console use card) */
+#anees-bank .gu-cards{display:grid;gap:7px}
+#anees-bank .gu-use{border:1px solid var(--ab-line);border-left-width:3px;border-radius:6px;padding:10px 12px;background:var(--ab-panel);min-width:0}
+#anees-bank .gu-use-slip{border-left-color:var(--ab-red)}
+#anees-bank .gu-use-right,#anees-bank .gu-use-hear-understood{border-left-color:var(--ab-green)}
+#anees-bank .gu-use-nosig{border-left-color:var(--ab-orange)}
+#anees-bank .gu-use-hear-breakdown{border-left-color:var(--ab-red)}
+#anees-bank .gu-use-hear-unknown{border-left-color:var(--gu-soft)}
+#anees-bank .gu-usehead{display:flex;gap:6px 9px;justify-content:space-between;flex-wrap:wrap;font-size:10px;color:var(--ab-muted);margin-bottom:7px}
+#anees-bank .gu-tags{display:flex;flex-wrap:wrap;gap:4px}
+#anees-bank .gu-tag{font-size:10px;padding:2px 6px;border-radius:3px;background:var(--ab-raised);color:var(--ab-muted)}
+#anees-bank .gu-tag-bad{color:var(--ab-red)}#anees-bank .gu-tag-ok{color:var(--ab-green)}#anees-bank .gu-tag-warn{color:var(--ab-orange)}
+#anees-bank .gu-when{white-space:nowrap}
+#anees-bank .gu-speech{text-align:left;min-width:0}
+#anees-bank .gu-latin{font-size:14px;line-height:1.55;unicode-bidi:plaintext;text-align:left;overflow-wrap:anywhere;color:var(--ab-text)}
+#anees-bank .gu-arabic{font-size:.8em;color:var(--ab-muted);line-height:1.6;margin-top:2px;text-align:left;overflow-wrap:anywhere}
+#anees-bank .gu-spellnote{font-size:10px;color:var(--ab-muted);margin-top:2px}
+#anees-bank .gu-fixline{font-size:12px;margin:7px 0 0;padding-top:7px;border-top:1px solid var(--ab-line);color:var(--ab-muted)}
+#anees-bank .gu-fixlab{display:block;margin-bottom:2px}
+#anees-bank .gu-fix .gu-latin{color:var(--ab-green);font-weight:500}
+#anees-bank .gu-reply .gu-latin{font-size:13px}
+#anees-bank .gu-rule{font-size:11.5px;color:var(--ab-muted);margin-top:7px;line-height:1.45}
+#anees-bank .gu-rule b{color:var(--ab-text)}
+#anees-bank .gu-use audio{width:100%;margin-top:9px;height:32px}
+
+/* levers */
+#anees-bank .gu-levers{display:grid;gap:12px}
+#anees-bank .gu-lever{min-width:0}
+#anees-bank .gu-lvtop{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ab-text);margin-bottom:4px}
+#anees-bank .gu-lvtop b{font-weight:600}
+#anees-bank .gu-lvbar{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:10px;align-items:center}
+#anees-bank .gu-lever>small{display:block;font-size:11.5px;color:var(--ab-muted);line-height:1.4;margin-top:3px}
+#anees-bank .gu-who{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--ab-raised);color:var(--ab-muted);flex:none}
+#anees-bank .gu-who-robot{color:var(--gu-accent)}#anees-bank .gu-who-amal{color:var(--ab-green)}#anees-bank .gu-who-medi{color:var(--ab-blue)}
+
+@media(max-width:950px){#anees-bank .gu-tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:680px){
+ #anees-bank .gu-tiles{grid-template-columns:1fr 1fr}
+ #anees-bank .gu-acc>summary,#anees-bank .gu-static{grid-template-columns:minmax(0,1fr) auto 14px;row-gap:5px}
+ #anees-bank .gu-acc>summary .gu-track,#anees-bank .gu-static .gu-track{grid-column:1/-1;grid-row:2}
+ #anees-bank .gu-static{grid-template-columns:minmax(0,1fr) auto}
+ #anees-bank .gu-lvbar{grid-template-columns:minmax(0,1fr) auto}
+ #anees-bank .gu-split{font-size:10.5px}
+}
