@@ -429,7 +429,7 @@ function useCard(e) {
     var a = document.createElement('audio');
     a.controls = true;
     a.preload = 'none';
-    a.src = 'lessons/' + e.clip;
+    a.src = 'lessons/' + e.clip; if (e.t != null) a.dataset.t = e.t; else if (e.mmss) a.dataset.mmss = e.mmss;   // clip-fallback.js
     card.appendChild(a);
   } else if (e.audio_note) {
     card.appendChild(el('div', 'gc-noaudio', e.audio_note));
@@ -597,7 +597,7 @@ function detail(r) {
         var ua = document.createElement('audio');
         ua.controls = true;
         ua.preload = 'none';
-        ua.src = 'lessons/' + u.clip;
+        ua.src = 'lessons/' + u.clip; if (u.t != null) ua.dataset.t = u.t; else if (u.mmss) ua.dataset.mmss = u.mmss;
         card.appendChild(ua);
       }
       d.appendChild(card);
@@ -653,7 +653,7 @@ function detail(r) {
         var au = document.createElement('audio');
         au.controls = true;
         au.preload = 'none';
-        au.src = 'lessons/' + c.clip;
+        au.src = 'lessons/' + c.clip; if (c.t != null) au.dataset.t = c.t; else if (c.mmss) au.dataset.mmss = c.mmss;
         card.appendChild(au);
       }
       d.appendChild(card);

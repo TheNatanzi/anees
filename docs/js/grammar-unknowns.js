@@ -129,7 +129,7 @@ function card(kind,tags,when,parts,clip){
  tags.filter(Boolean).forEach(([txt,cl])=>left.appendChild(el('span','gu-tag'+(cl?' gu-tag-'+cl:''),txt)));
  hd.appendChild(left);hd.appendChild(el('span','gu-when',when));c.appendChild(hd);
  parts.forEach(p=>p&&c.appendChild(p));
- if(clip){const a=document.createElement('audio');a.controls=true;a.preload='none';a.src='lessons/'+clip;c.appendChild(a);}
+ if(clip){const a=document.createElement('audio');a.controls=true;a.preload='none';a.src='lessons/'+clip;const mm=/(\d+:\d{2}(?::\d{2})?)\s*$/.exec(String(when||''));if(mm)a.dataset.mmss=mm[1];c.appendChild(a);}   // clip-fallback.js
  return c;
 }
 function labelled(label,node,cls){const w=el('div','gu-fixline '+(cls||''));w.appendChild(el('span','gu-fixlab',label));w.appendChild(node);return w;}

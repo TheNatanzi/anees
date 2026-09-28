@@ -1,7 +1,7 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="referrer" content="no-referrer"><meta name="robots" content="noindex,nofollow">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://yljcbdxvnkfrwvelypfu.supabase.co; media-src 'self' https://thenatanzi.github.io; img-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<title>Amal · Review Medi's slips</title><link rel="stylesheet" href="../css/sabz-tokens.css"><link rel="stylesheet" href="../css/anees-page.css"><script src="../js/theme.js"></script>
+<title>Amal · Review Medi's slips</title><link rel="stylesheet" href="../css/sabz-tokens.css"><link rel="stylesheet" href="../css/anees-page.css"><script src="../js/clip-fallback.js?v=1"></script><script src="../js/theme.js"></script>
 <style>
 *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;overflow-wrap:anywhere}
 main{max-width:620px;margin:0 auto;padding:14px 14px 40px}
@@ -60,13 +60,15 @@ setInterval(()=>{ if((LS(QK)||[]).length) flush(); },3000); window.addEventListe
 function push(body){ const q=LS(QK)||[]; q.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2),body}); LS(QK,q); flush(); }
 
 let DATA=null, answers=LS(AK)||{}, filter='all';
-function playBtn(clip,label){ return clip?`<button class="play" data-clip="${esc(clip)}">▶ ${esc(label||'Play')}</button>`:''; }
+function playBtn(clip,label,mmss){ return clip?`<button class="play" data-clip="${esc(clip)}" data-mmss="${esc(mmss||'')}">▶ ${esc(label||'Play')}</button>`:''; }
 document.addEventListener('click',e=>{ const b=e.target.closest('button.play'); if(!b) return;
   const src='../lessons/'+b.dataset.clip; document.querySelectorAll('button.play.on').forEach(x=>{x.classList.remove('on');});
-  if(!player.src.endsWith(b.dataset.clip)) player.src=src; player.currentTime=0; player.play().catch(()=>{}); b.classList.add('on');
+  // the short clip is often missing on the site (Medi 2026-09-28): fall back to the moment in the full lesson recording
+  player.onerror=()=>{ const f=window.AneesClipFallback&&AneesClipFallback.url(src,AneesClipFallback.secs(b)); if(f&&player.dataset.fb!==f){ player.dataset.fb=f; player.src=f; player.play().catch(()=>{}); b.title='Playing from the full lesson recording'; } else { b.classList.remove('on'); b.textContent='✕ No recording for this moment'; } };
+  if(!player.src.endsWith(b.dataset.clip)){ player.dataset.fb=''; player.src=src; player.currentTime=0; } player.play().catch(()=>{}); b.classList.add('on');
   player.onended=()=>b.classList.remove('on'); });
 function pair(p){ return `<div class="pair"><div class="wrong"><span class="ar" lang="ar">${esc(p.wrong_arabic||p.wrong)}</span>${p.wrong_arabizi?`<span class="az">${esc(p.wrong_arabizi)}</span>`:''}</div><div class="arrow">→</div><div class="right"><span class="ar" lang="ar">${esc(p.right_arabic||p.right)}</span>${p.right_arabizi?`<span class="az">${esc(p.right_arabizi)}</span>`:''}</div></div>`; }
-function example(x){ return `<div class="ex"><div class="m">${esc(x.date)} · ${esc(x.mmss)} ${playBtn(x.clip,'Play the moment')}</div>
+function example(x){ return `<div class="ex"><div class="m">${esc(x.date)} · ${esc(x.mmss)} ${playBtn(x.clip,'Play the moment',x.mmss)}</div>
   <div class="said">Medi: <span class="ar" lang="ar">${esc(x.medi_said)}</span></div>${x.amal_said?`<div class="said amal">You: <span class="ar" lang="ar">${esc(x.amal_said)}</span></div>`:''}${x.chat?`<div class="m">Your chat: ${esc(x.chat)}</div>`:''}${x.english?`<div class="m">${esc(x.english)}</div>`:''}</div>`; }
 function card(p){ const a=answers[p.id]; const n=(p.examples||[]).length;
   return `<div class="card${a?' done':''}" id="c-${esc(p.id)}"><div class="kind">${esc(p.kind_label)}${p.bucket?` · rule ${esc(p.bucket)} ${esc(p.bucket_name||'')}`:''}</div>
@@ -84,7 +86,7 @@ function wcard(w){ const a=answers[w.id]; const n=(w.moments||[]).length;
   ${a?`<div class="verdict">${a.kind==='sheet_add'?'✓ You said: add it to the sheet':'✓ You said: not needed'}</div>`:''}
   <div class="btns"><button class="primary" data-act="sheet-add" data-id="${esc(w.id)}">Add to my sheet<small style="display:block;font-weight:400;font-size:13px;opacity:.85">Medi learns it as a sheet word</small></button>
   <button class="alt" data-act="sheet-skip" data-id="${esc(w.id)}">Not needed<small style="display:block;font-weight:400;font-size:13px;opacity:.85">it stays off the sheet</small></button></div>
-  ${n?`<details><summary>Show ${n} moment${n===1?'':'s'}</summary>${(w.moments||[]).map(m=>`<div class="ex"><div class="m">${esc(m.date)} · ${esc(m.mmss||'')} ${playBtn(m.clip,'Play the moment')}</div>
+  ${n?`<details><summary>Show ${n} moment${n===1?'':'s'}</summary>${(w.moments||[]).map(m=>`<div class="ex"><div class="m">${esc(m.date)} · ${esc(m.mmss||'')} ${playBtn(m.clip,'Play the moment',m.mmss)}</div>
   <div class="said">Medi: <span class="ar" lang="ar">${esc(m.medi_said||'')}</span></div>${m.amal_gave?`<div class="said amal">You: <span class="ar" lang="ar">${esc(m.amal_gave)}</span></div>`:''}</div>`).join('')}</details>`:''}</div>`; }
 function sheetDecide(id,kind){ const w=(DATA.new_words||[]).find(x=>x.id===id); if(!w) return;
   answers[id]={kind,at:new Date().toISOString()}; LS(AK,answers);
