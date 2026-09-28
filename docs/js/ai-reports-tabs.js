@@ -10,7 +10,7 @@
 'use strict';
 const $=id=>document.getElementById(id);
 const TABS=['unknowns','research'];
-const build=()=>encodeURIComponent(window.ANEES_BUILD||'')+'&v=20260928-rb2';   // v: robot/progress split (2026-09-28)
+const build=()=>encodeURIComponent(window.ANEES_BUILD||'')+'&v=20260928-rb3';   // v: robot/progress split + vocab audit bins (2026-09-28)
 function loadScript(src){return new Promise((res,rej)=>{if(document.querySelector('script[data-src="'+src+'"]'))return res();const s=document.createElement('script');s.src=src+'?build='+build();s.dataset.src=src;s.onload=res;s.onerror=()=>rej(Error('missing '+src));document.body.append(s);});}
 async function chain(list){for(const s of list)await loadScript(s);}
 const notice=(host,t)=>{if(host)host.innerHTML=`<div class="vp-notice">${t}</div>`;};

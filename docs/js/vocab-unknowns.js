@@ -69,14 +69,34 @@ const WHY={
  grammar:["Grammar practice, not vocab","The exchange was about tense, person or agreement, so it is no vocab test."],
  repeat:["Repeat in the same exchange","A restart or repeat of one try. That try is counted once."],
  clar:["You asked “what?”","A clarification question, not a missed word."],
- other:["One-off reviewer notes","Cases a reviewer wrote up one by one."]
+ other:["One-off reviewer notes","Cases a reviewer wrote up one by one."],
+ open:["Open question for a person","The audit could not settle it from the recording. Its question is on the card."],
+ nc_echo:["Not counted: echo of Amal","Medi says Amal’s words back right after her. An echo is not a recall."],
+ nc_repeat:["Not counted: repeat or restart","A restart or stutter of one try in the same exchange. That try is counted once."],
+ nc_grammar:["Not counted: grammar practice","The exchange was about tense, person or agreement, so it is scored as grammar."],
+ nc_not_this_word:["Not counted: not this word","A look-alike word or a speech-to-text split, not the listed word."],
+ nc_quote:["Not counted: quoting or reading","Medi quotes, reads out or asks about the word. That is no recall."],
+ nc_filler:["Not counted: filler","“u” / و used as a filler sound, not the word “and”."],
+ nc_clarification:["Not counted: asking what it means","A clarification question, not a try at the word."],
+ nc_form_not_on_list:["Not counted: form not on the list","The form he said is not one of the listed forms for this word."],
+ nc_farsi:["Not Arabic: Farsi side conversation","Medi talking to family in Farsi during the lesson. Not Arabic, so never scored."],
+ nc_other:["Not counted: other","Left out of the score by the audit."],
+ ne_tutor_audio_missing:["No evidence possible: Amal’s audio missing","Her track is missing for that stretch, so no one can tell if she prompted him."],
+ ne_transcript_unclear:["No evidence possible: transcript unclear","The recording is too unclear to know which word was said."],
+ ne_other:["No evidence possible","The recordings cannot show whether he knew it."]
 };
-const FIXABLE=new Set(['hold','isolated','noamal','wording','cue','old','legacy','wrongword','clar','other']); // a human check could change these
+const FIXABLE=new Set(['open','hold','isolated','noamal','wording','cue','old','legacy','wrongword','clar','other']); // a human check could change these
 // The rest (repeat, grammar) are left out of the score on purpose, not unresolved (Medi 2026-09-28: "why is this unresolved?"
 // on an exact echo of Amal). They get their own V1 group and a "Not counted" badge; every count stays the same.
-const BY_DESIGN=new Set(['repeat','grammar']);
+const BY_DESIGN={has:k=>k==='repeat'||k==='grammar'||String(k).startsWith('nc_')};   // left out on purpose
+const NO_EVIDENCE={has:k=>String(k).startsWith('ne_')};                                 // the recordings cannot settle it
+const isOpen=k=>!BY_DESIGN.has(k)&&!NO_EVIDENCE.has(k);
 function bucket(e){
- const r=String(e.reason||'');
+ const r=String(e.reason||''),ab=e.audit_bin,ak=String(e.audit_kind||'other');
+ // The 2026-09-28 audit put every unresolved event in one bin; its bin wins over the reason-text guess.
+ if(ab==='not_counted')return WHY['nc_'+ak]?'nc_'+ak:'nc_other';
+ if(ab==='no_evidence')return WHY['ne_'+ak]?'ne_'+ak:'ne_other';
+ if(ab==='open')return 'open';
  if(e.needs_review&&e.assessment!=='unresolved')return 'hold'; // a scored verdict paused because its recording changed
  if(/^Isolated production/i.test(r))return 'isolated';
  if(/^Tutor cue\/repetition/i.test(r))return 'cue';
@@ -99,7 +119,7 @@ function compute(D){
  const formById=new Map();for(const r of rows)for(const f of r.entries)formById.set(f.id,{r,f});
  const medi=events.filter(e=>e.speaker==='Medi'),prep=medi.filter(e=>C.isGrammar(e)),M=medi.filter(e=>!C.isGrammar(e));
  const unknown=e=>e.assessment==='unresolved'||!!e.needs_review;
- const U=M.filter(unknown).map(e=>({e,b:bucket(e)}));
+ const U=M.filter(unknown).map(e=>({e,b:bucket(e)})),open=U.filter(u=>isOpen(u.b)).length;
  // V1
  const AS=['independent','helped','incorrect','recall_failure','unresolved'];
  const assess=Object.fromEntries(AS.map(a=>[a,M.filter(e=>e.assessment===a).length]));
@@ -118,7 +138,7 @@ function compute(D){
  const types=new Map();for(const x of unchecked){const k=typeOf(x);const v=types.get(k)||{k,all:0,slots:0,list:[]};v.all++;if(!ex.has(x.form)&&!mediUses(x.form).length&&!amalHeard(x.form).length)v.slots++;v.list.push(x);types.set(k,v);}
  const unassigned=rows.filter(r=>!r.grammar_only).reduce((s,r)=>s+r.unassigned.filter(e=>e.speaker==='Medi').length,0);
  // V3
- const byLesson=new Map();for(const e of M){const d=C.date(e);if(!d)continue;const c=byLesson.get(d)||{d,all:0,unk:[],why:new Map()};c.all++;if(unknown(e)){c.unk.push(e);const b=bucket(e);c.why.set(b,(c.why.get(b)||0)+1);}byLesson.set(d,c);}
+ const byLesson=new Map();for(const e of M){const d=C.date(e);if(!d)continue;const c=byLesson.get(d)||{d,all:0,unk:[],why:new Map()};c.all++;if(unknown(e)&&isOpen(bucket(e))){c.unk.push(e);const b=bucket(e);c.why.set(b,(c.why.get(b)||0)+1);}byLesson.set(d,c);}
  const lessons=[...byLesson.values()].sort((a,b)=>a.d.localeCompare(b.d)).map(c=>{const top=[...c.why.entries()].sort((a,b)=>b[1]-a[1])[0]||null;return {...c,top:top?top[0]:null,topN:top?top[1]:0};});
  // V4: Good/Mastered forms, by the evidence under the Word Bank's own status.
  const known=F.filter(x=>['Good','Mastered'].includes(x.form.speaking.status)).map(x=>{
@@ -135,7 +155,7 @@ function compute(D){
  const withheld=patches.filter(p=>SCORED.has(p.expected?.assessment)&&p.changes?.assessment==='unresolved').length;
  const words=new Map();for(const u of U){if(!FIXABLE.has(u.b))continue;const k=u.e.word_key;if(!k)continue;const v=words.get(k)||{k,list:[],days:new Set()};v.list.push(u.e);v.days.add(C.date(u.e));words.set(k,v);}
  const top=[...words.values()].sort((a,b)=>b.list.length-a.list.length||b.days.size-a.days.size||a.k.localeCompare(b.k)).slice(0,3).map(v=>({...v,row:rowByKey.get(v.k)}));
- return {M,prep,U,assess,byWhy,notCounted,unchecked,V2,types:[...types.values()].sort((a,b)=>b.all-a.all),unassigned,lessons,known,BANDS,patches:patches.length,settled,withheld,stale:D.stale,top,fixable:U.filter(u=>FIXABLE.has(u.b)).length,flagged:M.filter(e=>e.needs_review).length,rowByKey,formById,amalHeard,mediUses};
+ return {M,prep,U,open,assess,byWhy,notCounted,unchecked,V2,types:[...types.values()].sort((a,b)=>b.all-a.all),unassigned,lessons,known,BANDS,patches:patches.length,settled,withheld,stale:D.stale,top,fixable:U.filter(u=>FIXABLE.has(u.b)).length,flagged:M.filter(e=>e.needs_review).length,rowByKey,formById,amalHeard,mediUses};
 }
 
 /* ---------- sentences: Arabizi on top (S1), Arabic under, target word marked ---------- */
@@ -163,7 +183,7 @@ function turnsOf(e){
  const own=(e.context||[]).findIndex(r=>r.row_id===e.row_id&&r.speaker===e.speaker);
  return {T:(e.context||[]).map(r=>({speaker:r.speaker,rows:[r]})),i:own};
 }
-function audioOf(e){const p=e.sentence_audio_url||e.audio_url;if(!/^lessons\/\d{4}-\d{2}-\d{2}\/(?:audio\/(?:Medi|Amal)\.mp3|clips\/[A-Za-z0-9_.-]+\.mp3)$/.test(p||''))return null;return {src:p,start:e.sentence_audio_url||p.includes('/clips/')?0:Math.max(0,Number(e.local_start??e.t_start)||0)};}
+function audioOf(e){const p=e.sentence_audio_url||e.audio_url;if(!/^lessons\/\d{4}-\d{2}-\d{2}\/(?:audio\/(?:Medi|Amal)\.mp3|clips\/[A-Za-z0-9_.-]+\.mp3)$/.test(p||''))return null;return {src:p,start:e.sentence_audio_url||p.includes('/clips/')?0:Math.max(0,(Number(e.local_start??e.t_start)||0)-2)};}   // 2 s of lead-in
 // A "repeat in the same exchange" is an echo of Amal when she said the word just before him (or the reviewer says so),
 // otherwise a repeat of his own earlier try.
 const squash=t=>String(t||'').toLowerCase().replace(/[\u064B-\u0652\u0640]/g,'').replace(/[.,،؟?!:;"“”()\-]/g,' ').replace(/\s+/g,' ').trim();
@@ -174,21 +194,24 @@ function echoOfAmal(e){
  for(let k=i-1;k>=0&&i-k<=3;k--)if(T[k].speaker==='Amal')return (' '+squash(T[k].rows.map(rowText).join(' '))+' ').includes(' '+w+' ');
  return false;
 }
-function notCounted(e){if(e.speaker!=='Medi'||e.assessment!=='unresolved')return null;const b=bucket(e);return b==='grammar'?'grammar':b==='repeat'?(echoOfAmal(e)?'echo':'repeat'):null;}
-const NC={echo:['Not counted: echo of Amal','That line says Amal’s words back right after her. An echo is not a recall, so it is left out of the score on purpose.'],repeat:['Not counted: repeat','A restart or repeat of Medi’s own try in the same exchange. That try is counted once, so this one is left out on purpose.'],grammar:['Not counted: grammar practice','The exchange was about tense, person or agreement, so it is no vocab test. Left out on purpose.']};
-function outcome(e){if(e.needs_review)return ['On hold','vu-o-hold'];if(e.speaker!=='Medi')return ['Amal said it','vu-o-amal'];const p=C.points(e);if(p===1)return ['Correct','vu-o-ok'];if(p===.5)return ['Partial','vu-o-part'];if(p===0)return ['Wrong','vu-o-bad'];const nc=notCounted(e);return nc?[NC[nc][0],'vu-o-nc']:e.assessment==='unresolved'?['Unresolved','vu-o-unk']:['Not scored','vu-o-unk'];}
+function notCounted(e){if(e.speaker!=='Medi'||e.assessment!=='unresolved')return null;const b=bucket(e);if(!isOpen(b)&&WHY[b]&&b.includes('_'))return b;return b==='grammar'?'nc_grammar':b==='repeat'?(echoOfAmal(e)?'nc_echo':'nc_repeat'):null;}
+const machine=e=>/^Claude\b/i.test(String(e.reviewer||e.audit_by||''));
+function outcome(e){if(e.audit_bin==='open'&&e.speaker==='Medi')return ['Open question','vu-o-hold'];if(e.needs_review)return ['On hold','vu-o-hold'];if(e.speaker!=='Medi')return ['Amal said it','vu-o-amal'];const p=C.points(e);if(p===1)return ['Correct','vu-o-ok'];if(p===.5)return ['Partial','vu-o-part'];if(p===0)return ['Wrong','vu-o-bad'];const nc=notCounted(e);if(nc)return [NC_BADGE(nc),'vu-o-nc'];if(e.audit_bin==='open')return ['Open question','vu-o-unk'];return e.assessment==='unresolved'?['Unresolved','vu-o-unk']:['Not scored','vu-o-unk'];}
+function NC_BADGE(k){return k.startsWith('ne_')?'No evidence possible':WHY[k][0];}
 function wordName(e,d){const r=d.rowByKey.get(e.word_key);return r?{name:r.name,en:r.english||''}:{name:e.word_key||'?',en:''};}
 function eventItem(e,d){
  const {T,i}=turnsOf(e),own=i>=0?T[i]:null;
  const said=own?own.rows.map(rowText).join(' '):(e.original_text||e.text||'');
  let prev=null;if(e.speaker==='Medi'&&i>0)for(let k=i-1;k>=0;k--){if(T[k].speaker==='Amal'){prev=T[k];break;}if(i-k>3)break;}
  const p=C.points(e),cls=p===1?'ab-correct':p===.5?'ab-partial':p===0?'ab-wrong':'vu-hit';
- const [olab,ocls]=outcome(e),w=wordName(e,d),a=audioOf(e),nc=!e.needs_review&&notCounted(e),b=nc?NC[nc]:e.speaker==='Medi'&&(e.assessment==='unresolved'||e.needs_review)?WHY[bucket(e)]:null;
+ const [olab,ocls]=outcome(e),w=wordName(e,d),a=audioOf(e),nc=!e.needs_review&&notCounted(e),b=nc?WHY[nc]:e.speaker==='Medi'&&(e.assessment==='unresolved'||e.needs_review)?WHY[bucket(e)]:null;
+ const who=machine(e)?`<span class="vu-note">Machine verdict: ${esc(e.reviewer||e.audit_by)}. Not checked by a person yet.</span>`:'';
+ const note=e.reason?`<span class="vu-note">${machine(e)?'Audit note':'Reviewer note'}: ${esc(String(e.reason).replace(/^Claude audit \d{4}-\d{2}-\d{2}:\s*/,''))}</span>`:'';
  return `<li class="vu-ev"><div class="vu-evhead"><span>${esc(pretty(C.date(e)))} · ${mmss(e.t_start)}</span><b>${esc(w.name)}</b>${w.en?`<span class="vu-en">${esc(w.en)}</span>`:''}<span class="vu-o ${ocls}">${esc(olab)}</span></div>`+
   (prev?`<div class="vu-turn vu-amal"><span class="vu-who">Amal, just before</span>${speech(esc(prev.rows.map(rowText).join(' ')))}</div>`:'')+
   `<div class="vu-turn"><span class="vu-who">${e.speaker==='Medi'?'You said':'Amal said'}</span>${speech(markHTML(said,e.text,cls))}</div>`+
-  (b?`<div class="vu-why"><b>${esc(b[0])}.</b> ${esc(b[1])}${e.reason?`<span class="vu-note">Reviewer note: ${esc(e.reason)}</span>`:''}</div>`:'')+
-  (a?`<audio class="vu-audio" controls preload="none" data-start="${a.start}" src="${esc(a.src)}" aria-label="Play this moment"></audio>`:'<div class="vu-note">No recording for this moment.</div>')+`</li>`;
+  (b?`<div class="vu-why"><b>${esc(b[0])}.</b> ${esc(b[1])}${e.audit_question?`<span class="vu-q"><b>Question:</b> ${speech(esc(e.audit_question))}</span>`:''}${note}${who}</div>`:(who?`<div class="vu-why">${who}</div>`:''))+
+  (a?`<audio class="vu-audio" controls preload="metadata" data-start="${a.start}" src="${esc(a.src)}" aria-label="Play this moment"></audio>`:'<div class="vu-note">No recording for this moment.</div>')+`</li>`;
 }
 function formItem(x){const f=x.form,r=x.row,name=r.type==='Adjective'||!f.word?r.name:f.word;return `<li class="vu-fm"><b>${esc(name)}</b>${f.arabic?`<span class="vu-far" lang="ar" dir="auto">${esc(f.arabic)}</span>`:''}<span class="vu-en">${esc(r.english||'')}</span><small>${esc(r.entries.length>1?String(f.label).toLowerCase():r.type||'')} · ${esc(r.topic||'')}</small></li>`;}
 
@@ -213,13 +236,14 @@ function example(list){const e=list.find(x=>AR.test(x.text||''))||list[0];if(!e)
 
 function v1(d){
  const tot=d.M.length,U=d.U.length,rows=[...d.byWhy.entries()].sort((a,b)=>b[1].length-a[1].length),max=rows.length?rows[0][1].length:0;
- const fix=rows.filter(([k])=>!BY_DESIGN.has(k)),design=rows.filter(([k])=>BY_DESIGN.has(k)),designN=design.reduce((s,[,l])=>s+l.length,0);
+ const fix=rows.filter(([k])=>isOpen(k)),design=rows.filter(([k])=>BY_DESIGN.has(k)),designN=design.reduce((s,[,l])=>s+l.length,0),noev=rows.filter(([k])=>NO_EVIDENCE.has(k)),noevN=noev.reduce((s,[,l])=>s+l.length,0),openN=U-designN-noevN;
  const SEG=[['independent','vu-ok','on his own'],['helped','vu-mid','helped'],['incorrect','vu-bad','wrong'],['recall_failure','vu-bad','couldn’t recall'],['unresolved','vu-unk','unresolved or not counted']];
  const split=`<div class="vu-split" role="img" aria-label="${SEG.map(([k,,l])=>`${n(d.assess[k])} ${l}`).join(', ')}">${SEG.filter(([k])=>d.assess[k]).map(([k,c,l])=>`<i class="${c}" style="width:${100*d.assess[k]/Math.max(1,tot)}%" title="${esc(l)}: ${n(d.assess[k])} of ${n(tot)} (${P(d.assess[k],tot)})">${d.assess[k]/tot>.12?`${P(d.assess[k],tot)} ${esc(l)}`:''}</i>`).join('')}</div><div class="vu-legend">${SEG.map(([k,c,l])=>`<span><i class="${c}"></i>${esc(l)} ${n(d.assess[k])}</span>`).join('')}</div>`;
- const row=([k,list])=>{const w=WHY[k];return acc(bar(w[0],w[1],list.length,max,FIXABLE.has(k)?'vu-mid':'vu-soft',`${n(list.length)} <small>${P(list.length,U)}</small>`)+example(list),list.slice().sort(byTime),'event');};
- const body=split+`<div class="vu-sub">Unresolved: a check could settle these · ${n(U-designN)} · tap a row for every sentence</div>`+fix.map(row).join('')+
-  (design.length?`<div class="vu-sub">Not counted by design · ${n(designN)} · echoes, repeats and grammar practice</div>`+design.map(row).join(''):'');
- return panel('why','V1','Why the robot can’t settle these word events',`${n(U)} of Medi’s ${n(tot)} word events (${P(U,tot)}) sit out of every score: never right, never wrong. ${n(U-designN)} are unresolved and a check could settle them; ${n(designN)} are left out on purpose.`,body,`“Not counted by design” rows will never count: an echo of Amal or a repeat of one try is counted once, and grammar practice is scored as grammar.${d.prep.length?` ${n(d.prep.length)} preposition events are left out: they are tracked as grammar.`:''}`);
+ const row=([k,list])=>{const w=WHY[k]||WHY.other;return acc(bar(w[0],w[1],list.length,max,FIXABLE.has(k)?'vu-mid':'vu-soft',`${n(list.length)} <small>${P(list.length,U)}</small>`)+example(list),list.slice().sort(byTime),'event');};
+ const body=split+`<div class="vu-sub">Unresolved: a check could settle these · ${n(openN)} · tap a row for every sentence</div>`+(fix.length?fix.map(row).join(''):'<div class="vu-note">Nothing open.</div>')+
+  (noev.length?`<div class="vu-sub">No evidence possible · ${n(noevN)} · the recordings cannot show it either way</div>`+noev.map(row).join(''):'')+
+  (design.length?`<div class="vu-sub">Not counted by design · ${n(designN)} · echoes, repeats, fillers, grammar practice, Farsi</div>`+design.map(row).join(''):'');
+ return panel('why','V1','Why the robot can’t settle these word events',`${n(U)} of Medi’s ${n(tot)} word events (${P(U,tot)}) sit out of every score: never right, never wrong. Only ${n(openN)} are still unresolved. ${n(designN)} are left out on purpose, and ${n(noevN)} cannot be judged from the recordings.`,body,`“Not counted by design” rows will never count: an echo of Amal or a repeat of one try is counted once, grammar practice is scored as grammar, and Farsi is not Arabic. Every row was checked by the Claude audit of 28 Sep 2026.${d.prep.length?` ${n(d.prep.length)} preposition events are left out: they are tracked as grammar.`:''}`);
 }
 function v2(d){
  const V=d.V2,tot=d.unchecked.length,G=[['never','Never heard or said','No lesson has touched this form yet.',V.never,'vu-soft'],['heard','Heard from Amal only','She used it; you have not said it yet.',V.heard,'vu-mid'],['said','Said, but unresolved','You said it; every try is unresolved or not scored.',V.said,'vu-weak'],['slots','Form slots no lesson uses','Plural, future or command slots lessons almost never exercise.',V.slots,'vu-unk']];
@@ -261,9 +285,9 @@ function v5(d){
 const ROBOT=['V1','V3','V5'],MEDI=['V4','V2'],DRAW={V1:v1,V4:v4,V2:v2,V3:v3,V5:v5},ORDER=['V1','V4','V2','V3','V5'];
 function head(d,keys){
  const thin=d.known.filter(x=>x.band!=='multi').length;
- if(keys.every(k=>MEDI.includes(k)))return `<div class="vu-head"><span class="vp-eyebrow">How sure are these numbers?</span><h2 class="ov-h2">What your vocab numbers rest on</h2><p class="ab-sub">${n(thin)} of your “known” forms rest on thin proof, and ${n(d.unchecked.length)} studied forms have no scored try yet. Tap any row for the exact sentences.</p><p class="rb-link">Why the robot couldn’t settle ${n(d.U.length)} of your word events is a robot issue, so it lives on <a href="ai-reports.html?tab=unknowns#ar-unk-vocab">AI Reports › Robot blind spots</a>.</p></div>`;
- if(keys.every(k=>ROBOT.includes(k)))return `<div class="vu-head"><p class="ab-sub">The robot could not settle ${n(d.U.length)} of Medi’s word events: why, in which lessons, and what would settle them. Tap any row for the exact sentences.</p><p class="rb-link">How sure Medi’s “known” words are and the never-checked words on his list are about him, so they live on <a href="progress.html?tab=vocab#vp-vocab-sure">Progress › Vocab</a>.</p></div>`;
- return `<div class="vu-head"><span class="vp-eyebrow">Reporting on the gaps · vocabulary</span><h2 class="ov-h2">What the robot doesn’t know: vocabulary</h2><p class="ab-sub">${n(d.U.length)} unresolved word events, ${n(d.unchecked.length)} never-checked forms and ${n(thin)} thinly-proven “known” forms behind the vocab numbers. Tap any row for the exact sentences.</p></div>`;
+ if(keys.every(k=>MEDI.includes(k)))return `<div class="vu-head"><span class="vp-eyebrow">How sure are these numbers?</span><h2 class="ov-h2">What your vocab numbers rest on</h2><p class="ab-sub">${n(thin)} of your “known” forms rest on thin proof, and ${n(d.unchecked.length)} studied forms have no scored try yet. Tap any row for the exact sentences.</p><p class="rb-link">Why the robot couldn’t settle ${n(d.open)} of your word events is a robot issue, so it lives on <a href="ai-reports.html?tab=unknowns#ar-unk-vocab">AI Reports › Robot blind spots</a>.</p></div>`;
+ if(keys.every(k=>ROBOT.includes(k)))return `<div class="vu-head"><p class="ab-sub">The robot could not settle ${n(d.open)} of Medi’s word events: why, in which lessons, and what would settle them. Tap any row for the exact sentences.</p><p class="rb-link">How sure Medi’s “known” words are and the never-checked words on his list are about him, so they live on <a href="progress.html?tab=vocab#vp-vocab-sure">Progress › Vocab</a>.</p></div>`;
+ return `<div class="vu-head"><span class="vp-eyebrow">Reporting on the gaps · vocabulary</span><h2 class="ov-h2">What the robot doesn’t know: vocabulary</h2><p class="ab-sub">${n(d.open)} unresolved word events, ${n(d.unchecked.length)} never-checked forms and ${n(thin)} thinly-proven “known” forms behind the vocab numbers. Tap any row for the exact sentences.</p></div>`;
 }
 async function render(host,opts={}){
  if(!host)return;

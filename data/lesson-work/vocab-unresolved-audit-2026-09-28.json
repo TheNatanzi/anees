@@ -1,0 +1,2339 @@
+{
+ "about": "Hand verdicts from the 2026-09-28 machine audit of Medi's unresolved / on-hold word events (reviewer \"Claude audit 2026-09-28\"). Read by scripts/audit_vocab_unresolved.py, which turns them into source-bound patches in docs/data/word-bank-review.json. Bins: settled (kind = independent|helped|incorrect|recall_failure), not_counted (echo|repeat|grammar|clarification|not_this_word|quote|filler|farsi|form_not_on_list), no_evidence (tutor_audio_missing|transcript_unclear), open (question for Medi/Amal). \"set\" = extra overlay fields (word_key for an ambiguous catalog key, tense, attempt_target). Every entry can be overturned by Medi or Amal.",
+ "reviewer": "Claude audit 2026-09-28",
+ "verdicts": {
+  "3ed5710f64d2835451fcb17a7d64aec7ec9dfa5f1637ac5d8fe233aa6abf8c6e": {
+   "bin": "not_counted",
+   "kind": "clarification",
+   "note": "«Tell me كم مرة الجملة؟» asks Amal to say it again (rule 8).",
+   "lesson_date": "2026-08-25",
+   "t": 1142.05,
+   "word_key": "kam",
+   "text": "Tell me كم"
+  },
+  "15a1c242968a77e917cfbfc8207855daacc1ecd7c940deee1cd67da285af11df": {
+   "bin": "not_counted",
+   "kind": "clarification",
+   "note": "«Tell me كم مرة الجملة؟» asks Amal to say the sentence again (he means كمان مرة): a clarification (rule 8).",
+   "lesson_date": "2026-08-25",
+   "t": 1144.15,
+   "word_key": "mara~time",
+   "text": "مرة"
+  },
+  "a94302ffe857236bbfebce78aea5e7d617d93ef16046f40aa467f07881e6ebde": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "«when كم، كم، لما كم يخلصوا»: a false start for when (لما), fixed by himself before help (rule 6).",
+   "lesson_date": "2026-08-25",
+   "t": 1265.75,
+   "word_key": "kam",
+   "text": "كم"
+  },
+  "dd483ad3630d43a8818804a184a67f8d0af1e45681d33dba1f4da26252fdbcdd": {
+   "bin": "not_counted",
+   "kind": "clarification",
+   "note": "«آآآه، كان مرة؟» asks Amal to repeat; she rephrases the prompt (rule 8).",
+   "lesson_date": "2026-08-25",
+   "t": 3018.45,
+   "word_key": "huwe kAn",
+   "text": "كان"
+  },
+  "533d8dc68408b74a6a3d796283e03c1e3644d41dd659edae467624494c7407a9": {
+   "bin": "not_counted",
+   "kind": "echo",
+   "note": "«So لما الجو...» picks up الجو from Amal's «كلمات من الجو؟» and is abandoned.",
+   "lesson_date": "2026-08-25",
+   "t": 3459.79,
+   "word_key": "jaw",
+   "text": "الجو..."
+  },
+  "3b4227bdfcba3ab6ff146c392bac7e3e8b5ba7de932f1c71b75c250943447294": {
+   "bin": "no_evidence",
+   "kind": "transcript_unclear",
+   "note": "«أنا للـ اليوم nerd أن الـ اللغة» is too garbled to tell what he said.",
+   "lesson_date": "2026-09-04",
+   "t": 40.79,
+   "word_key": "alyoum",
+   "text": "اليوم"
+  },
+  "5add293cf05c55276eac7fb4429f9d6dc39d55e2edb11cf2ad1878e216e20792": {
+   "bin": "no_evidence",
+   "kind": "transcript_unclear",
+   "note": "Old Latin transcript «ma khatibti ashan Arabiyi» jumps between speakers; the speaker of ashan is not recoverable.",
+   "lesson_date": "2026-09-04",
+   "t": 1581.78,
+   "word_key": "3ashAn",
+   "text": "ashan"
+  },
+  "1320fff951e097eac7808225b8e478158edffabfd828399b41029c7de84d247e": {
+   "bin": "not_counted",
+   "kind": "clarification",
+   "note": "«Kam marra?» asks Amal to repeat her instruction (rule 8).",
+   "lesson_date": "2026-09-04",
+   "t": 1709.34,
+   "word_key": "mara~time",
+   "text": "marra?"
+  },
+  "70331e3bc12791c4f9be50e7806c67f9b5c58f8a9342a9f119cb5c14b704a4e7": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Asked in English \"Enjoy your party\" he produced «anbisit hafla- haflatik» himself; the correction was the missing في (grammar, rule 7), so حفلة keeps its own credit. The later repeats stay uncounted.",
+   "lesson_date": "2026-09-05",
+   "t": 1123.1,
+   "word_key": "7afle",
+   "text": "حفلة،"
+  },
+  "074ebd83688bd3b1c90dca6321917c78d8cfb3436f82d30792792ea8a3e477a9": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "The lesson transcript has «ليش فرق من WhatsApp» and he glosses it \"Why is it different\"; معلش is an ASR mistake for ليش.",
+   "lesson_date": "2026-09-05",
+   "t": 2761.35,
+   "word_key": "ma3lesh",
+   "text": "معلش"
+  },
+  "8f59dd43602f49129fa1d855c0ee9ad3bb7249146a1e9c9e3e1dd1766cfe5fb6": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "Same «ليش فرق» line said again (\"Why is it different than WhatsApp?\"); معلش is an ASR mistake for ليش.",
+   "lesson_date": "2026-09-05",
+   "t": 2768.39,
+   "word_key": "ma3lesh",
+   "text": "معلش"
+  },
+  "8d900f87cdcdac4233f528fa5810d10dec74160da2de90035b60604ac205ee26": {
+   "bin": "not_counted",
+   "kind": "clarification",
+   "note": "«كم مرة» asks Amal to repeat; she repeats the sentence (rule 8).",
+   "lesson_date": "2026-09-05",
+   "t": 3170.26,
+   "word_key": "kam mara",
+   "text": "كم مرة"
+  },
+  "b6c0bed5d2aac8b35012f475a93fbd0287da5b48c5ecbd332b2a3373dc9dbfc9": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«أتعب ... أتعبها» is the verb tire (her), not the adjective tired.",
+   "lesson_date": "2026-09-05",
+   "t": 3501.12,
+   "word_key": "ta3bAn",
+   "text": "تعبان،"
+  },
+  "549f9395fbe4fee9f7c13d15afe51ca703a5ba17cbc2a6be45dfcfd9e1215d7f": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "The lesson transcript has «لما أتعب، باتعب، باتعب، أتعبها»: بعصّب is an ASR mistake for باتعب while he looks for \"tire her\".",
+   "lesson_date": "2026-09-05",
+   "t": 3573.96,
+   "word_key": "ana ba3aseb",
+   "text": "بعصِّب،"
+  },
+  "28f33e8737dfd608f2a4e6e748df092b37d00b753e1212df0acd3e0ffe403d17": {
+   "bin": "no_evidence",
+   "kind": "transcript_unclear",
+   "note": "«أسبوعي منيح، آه. كان الآن،» breaks off; no statement to judge.",
+   "lesson_date": "2026-09-10",
+   "t": 151.69,
+   "word_key": "huwe kAn",
+   "text": "كان"
+  },
+  "1c4a82cb6d1a9a1050010205d0a4ba452be18448a755c289da24fe344598faea": {
+   "bin": "not_counted",
+   "kind": "clarification",
+   "note": "«كم مرة؟» and Amal repeats «بتحب نشوف الواجب أو الفعل اللي بعده؟» (rule 8).",
+   "lesson_date": "2026-09-10",
+   "t": 999.74,
+   "word_key": "kam mara",
+   "text": "كم مرة؟"
+  },
+  "7ff4232dfffda3ba1ffb160a7209d5e6bd4c54d6ede478cc2cf1a1bf7c59ead3": {
+   "bin": "not_counted",
+   "kind": "quote",
+   "note": "\"it comes from مهم, right? The verb, the root word?\": guessing a root, not using the word.",
+   "lesson_date": "2026-09-10",
+   "t": 1445.93,
+   "word_key": "muhem",
+   "text": "مهم,"
+  },
+  "02ef519c954814bf3187023c64b4e32c6943e46039d8aaf99dfe336403d31f65": {
+   "bin": "not_counted",
+   "kind": "clarification",
+   "note": "«كم مرة؟» and Amal repeats «زي ما حكينا» (rule 8).",
+   "lesson_date": "2026-09-10",
+   "t": 1538.26,
+   "word_key": "kam mara",
+   "text": "كم مرة؟"
+  },
+  "421053c26844e696b7d2a667f84ce5b7c3a36ae4e0714ed99dae7e802ee56387": {
+   "bin": "settled",
+   "kind": "incorrect",
+   "note": "Translating Amal's \"When her age was 12\" he says «كان عمرها إحداعش»; Amal: «12. إتناش». Wrong number word (rule 5).",
+   "lesson_date": "2026-09-10",
+   "t": 2630.24,
+   "word_key": "e7da3sh",
+   "text": "إحداعش.",
+   "set": {
+    "attempt_target": {
+     "word_key": "tna3sh"
+    }
+   }
+  },
+  "b3a4167bd927f5d9c07b0e4514a06ea67559c0cdeb9b55983c82b68f000b81f1": {
+   "bin": "settled",
+   "kind": "incorrect",
+   "note": "Asked \"What's I am annoyed?\" he says «مزعج» (annoying); Amal: «مم، مم، مم. أنا مزعوج» and checks the meaning. Wrong word (rule 5).",
+   "lesson_date": "2026-09-10",
+   "t": 3405.78,
+   "word_key": "muz3ej",
+   "text": "مزعج.",
+   "set": {
+    "attempt_target": {
+     "word_key": "maz3Uj"
+    }
+   }
+  },
+  "7c946ef7161b588b63fe6a42d2301f1cc35aee9da1754e4a688aaa6cbef13ea6": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «الشمال روس بيكون برد كتير»: برد = cold weather, not respond.",
+   "lesson_date": "2026-09-11",
+   "t": 369.16,
+   "word_key": null,
+   "text": "برد",
+   "set": {
+    "word_key": "bard"
+   }
+  },
+  "548f9386950a888c95b997f08adbe6d32704e3a26aae6e95cd6820839785eb2d": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«لازم.» is ASR for عزومة (invitation); Amal answers «العزومة».",
+   "lesson_date": "2026-09-11",
+   "t": 1814.99,
+   "word_key": "lAzem",
+   "text": "لازم."
+  },
+  "0ef253cb18535914f5a83ea3110274bec81eb9444105bace5611a590378b44ab": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«لازم. اه، خرب» is ASR for «العزومة خربت»; Amal then asks if عزومة is feminine.",
+   "lesson_date": "2026-09-11",
+   "t": 1822.09,
+   "word_key": "lAzem",
+   "text": "لازم."
+  },
+  "4fbc323cd58eaeb62a50d9c6f2443f838c4e4d2d28cd67fd238cbedb5517bc51": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "From Amal's English \"break\" he finds «Bakser. Ana bakser» himself (English prompt only; vowels are pronunciation, S4).",
+   "lesson_date": "2026-09-11",
+   "t": 3579.26,
+   "word_key": "ana bakser",
+   "text": "Ana bakser"
+  },
+  "eee04a1a9b08480f7ff8cb247ace617e0bd8ae8db841fcf34d4dbcfc2dc2d2ec": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "First «كيفك؟»; Amal only says «هاه؟» and he says it again at 1:05 (restart across a bare prompt, one attempt).",
+   "lesson_date": "2026-09-14",
+   "t": 61.33,
+   "word_key": null,
+   "text": "كيفك؟"
+  },
+  "2cf1ece4ef5c199717207ea105785935214e6648d44ef89f5e4c84e6a6fb0278": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Greets Amal «كيفك؟» unprompted (after her «هاه؟»); bound to the to-a-woman form keefek. A gender slip would be grammar.",
+   "lesson_date": "2026-09-14",
+   "t": 65.05,
+   "word_key": null,
+   "text": "كيفك؟",
+   "set": {
+    "word_key": "kIfek"
+   }
+  },
+  "d4c65df100be40a0cafee8690f3696de8e0e26f613afb93561599fca7f51f738": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «كان عندي اجتماع ... خلاص متأخر، و أنا»; no Arabic cue.",
+   "lesson_date": "2026-09-14",
+   "t": 168.85,
+   "word_key": "met2a5ar",
+   "text": "متأخر،"
+  },
+  "a3fc44acf0bc97068163db8b1206f0a3b19b274e9991950909a6d9cb7f088e57": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «خلاص متأخر، و أنا ...»; no cue.",
+   "lesson_date": "2026-09-14",
+   "t": 170.17,
+   "word_key": "u",
+   "text": "و"
+  },
+  "fcdfc44b6f3c7ac36e56aa90784a1852139ff418d368cab3950db05b93271a88": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «كيف كانت عطلتك؟»: «أول لعبة football أمريكي»; أول not in her question.",
+   "lesson_date": "2026-09-14",
+   "t": 278.91,
+   "word_key": "awal",
+   "text": "أول،"
+  },
+  "6c81b9721ecbef6af08aa2ef349fc81fd6f7d96742f25fac9d5befacd85c18c1": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Restart «الـ أول، uh، أول لعبة» of the same try (4:38).",
+   "lesson_date": "2026-09-14",
+   "t": 282.33,
+   "word_key": "awal",
+   "text": "أول"
+  },
+  "9de7ce7ab345e91cefb9f071e9dca0d765ebabd00ad41caf49679d3c79bb6693": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «كيف كانت؟ انبسطت؟»: «انبسطت كتير»; كتير is his own addition.",
+   "lesson_date": "2026-09-14",
+   "t": 338.25,
+   "word_key": "ktIr",
+   "text": "كتير."
+  },
+  "dd249134670e19043778befe80eaed8800f4a1c76f99dad77951e9cb3612c231": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «احنا كل الزب-- زلام ...» (all of us guys): كل = all, not the eat command.",
+   "lesson_date": "2026-09-14",
+   "t": 389.76,
+   "word_key": null,
+   "text": "كل",
+   "set": {
+    "word_key": "kul"
+   }
+  },
+  "0c9d957344722f94766acba2e1126f318c27de41b9da35bc627d2953b0dbb227": {
+   "bin": "not_counted",
+   "kind": "echo",
+   "note": "Repeats «اسم» from Amal's «اسم. What's جمع اسم؟» while hunting the plural.",
+   "lesson_date": "2026-09-14",
+   "t": 504.3,
+   "word_key": "esem",
+   "text": "اسم,"
+  },
+  "4292de8b78ea46e84ff6618fe114849df1c764083cfe1f13bd7ea279028ca13e": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "\"the u sounds mean\": he is talking about the English letter u, not the word and.",
+   "lesson_date": "2026-09-14",
+   "t": 777.89,
+   "word_key": "u",
+   "text": "u"
+  },
+  "cdd346728f616a1641ac5496577455646873c58c48b213f59e4a07d5a7a1a020": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own clothes answer «El yam luz azra u zara» to «شو بتلبس؟».",
+   "lesson_date": "2026-09-14",
+   "t": 1397.84,
+   "word_key": "u",
+   "text": "u"
+  },
+  "0ee82367a2f4c670731c4ae79ee601960b033f6c6b9aae55cf4fc928e22843a4": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own clothes list «u bantalon u shirt sikani u bot aswad».",
+   "lesson_date": "2026-09-14",
+   "t": 1407.5,
+   "word_key": "u",
+   "text": "u"
+  },
+  "6515513ffa53d2659be670b4579bc365118698ad67b1d71e3887e3783308c135": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own clothes list «... u bot aswad»; Amal never said aswad.",
+   "lesson_date": "2026-09-14",
+   "t": 1411.32,
+   "word_key": "aswad",
+   "text": "aswad."
+  },
+  "399e182232de274fa971e5c55bb8969ef99bd85ba5142ec40038f681dafc76d1": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own temperature answer «Darajat el hararah, arba'u tamanin».",
+   "lesson_date": "2026-09-14",
+   "t": 1438.8,
+   "word_key": "tamanin",
+   "text": "tamanin."
+  },
+  "086ec6cf447105c7712ea66d5198dfaefa8f729d91ab451baf318174150b37b7": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «بس في كاليفورنيا، عشان عادةً ...»; no cue.",
+   "lesson_date": "2026-09-14",
+   "t": 1469.48,
+   "word_key": "3ashAn",
+   "text": "عشان"
+  },
+  "ed81f69a08f4530ed1fec354f172152d3ff71aaca2f77c61527d6039fd99693b": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «بس في كاليفورنيا، عشان عادةً ...»; no cue.",
+   "lesson_date": "2026-09-14",
+   "t": 1472.12,
+   "word_key": "3Adatan",
+   "text": "عادةً"
+  },
+  "94741532ff917e52e7915a2f5e3e5d7179f8f3b83f5a875e8f11d935921776e3": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Asked which in-verbs he knows, lists from memory «باكسر، بانكسر ... ببسط، بنبسط».",
+   "lesson_date": "2026-09-14",
+   "t": 1547.4,
+   "word_key": "ana babse6",
+   "text": "ببسط،"
+  },
+  "c2ade0193a3f4beaf121b4b2493037d8fb85bc15a272ab58fd5edc88f5b878c8": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Asked which in-verbs he knows, lists «ببسط، بنبسط» from memory. The Doc lists بنبسط twice; bound to the grouped verb row.",
+   "lesson_date": "2026-09-14",
+   "t": 1548.36,
+   "word_key": null,
+   "text": "بنبسط.",
+   "set": {
+    "word_key": "ana banbese6"
+   }
+  },
+  "046d1dd04ae989ffd7721544fc52cc0a18ff642d05834bdb86faf2efe8e0fd1c": {
+   "bin": "no_evidence",
+   "kind": "transcript_unclear",
+   "note": "«أول الـ مفضل لي-- أو just مفضل لي»: the أول is most likely a garbled أو ال; the word cannot be established.",
+   "lesson_date": "2026-09-14",
+   "t": 1570.26,
+   "word_key": "awal",
+   "text": "أول"
+  },
+  "d469ff21e7527f546a4a7723486977184e017a0d36922db0a1acea16f77ab538": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "«المفضل عندي ببسط» names the verb he listed 40 s earlier (25:47); same episode.",
+   "lesson_date": "2026-09-14",
+   "t": 1586.96,
+   "word_key": "ana babse6",
+   "text": "ببسط،"
+  },
+  "d280e8e3b1b0ca5af553363d53d7805f64cff4e2d0744c65a6c50edb5fb26926": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«هو بسط. هي بسطت.»: هي is the pronoun she, not hay (here is).",
+   "lesson_date": "2026-09-14",
+   "t": 1609.1,
+   "word_key": null,
+   "text": "هي"
+  },
+  "534549acfc360eaf7a754b11cd17e4e09755abb2ec856b9f25d907efbe3e3d30": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«Uh, مر into the present tense» is English speech (\"move\"), not murr/bitter.",
+   "lesson_date": "2026-09-14",
+   "t": 2090.92,
+   "word_key": "mur",
+   "text": "مر"
+  },
+  "f1c3c6d8d21070023eece622df10c46162414f083df29d130913698b3e3b7e6f": {
+   "bin": "not_counted",
+   "kind": "echo",
+   "note": "«الكل- Hold on. Is il kul plural?» quotes the الكل Amal just gave him.",
+   "lesson_date": "2026-09-14",
+   "t": 2202.12,
+   "word_key": null,
+   "text": "kul"
+  },
+  "ad37440e414133bd1b7968ed44b69867dc418291d34aed8fc382fc5cae8d4c58": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Translating \"They never get annoyed\": «Umme abadan ma...»; English prompt only (rule 9).",
+   "lesson_date": "2026-09-14",
+   "t": 2259.1,
+   "word_key": "abadan",
+   "text": "abadan"
+  },
+  "8b6d6975cbf9b21eb211837904670b5d3c8a8cd2fdb87ab0362241b6b87e5555": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«هي، بتنبسط»: هي is the pronoun she, not hay (here is).",
+   "lesson_date": "2026-09-14",
+   "t": 3386.32,
+   "word_key": null,
+   "text": "هي،"
+  },
+  "7a1f9491b7ad6f8b48a4484f9d2ab1ea080686c67193c38e97b0e0e8ac6bab1e": {
+   "bin": "not_counted",
+   "kind": "grammar",
+   "note": "«بنبسط. بت--» while hunting the form for \"Did she make you happy?\": a person/tense search, grammar.",
+   "lesson_date": "2026-09-14",
+   "t": 3401.92,
+   "word_key": null,
+   "text": "بنبسط."
+  },
+  "878b88242feb961a1d85cd26083fb4605b622b9d1d5a10e0453e102940e2b7b6": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«هي بسطت»: هي is the pronoun she, not hay (here is).",
+   "lesson_date": "2026-09-14",
+   "t": 3412.08,
+   "word_key": null,
+   "text": "هي"
+  },
+  "d8c1f21b2437d6357d405e0395477aefca22f73c73641fae431d4303e058ac82": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«هي بسطتك»: هي is the pronoun she, not hay (here is).",
+   "lesson_date": "2026-09-14",
+   "t": 3417.02,
+   "word_key": null,
+   "text": "هي"
+  },
+  "22ef7949c4190a13308ee31075c49212b07fefed9e6ada7dfcb6d5aab22bf402": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to \"Did he enjoy the gathering?\": «انبسط بـ Azume?», past he-form; Amal confirms «mm-hmm».",
+   "lesson_date": "2026-09-14",
+   "t": 3610.78,
+   "word_key": "enbese6",
+   "text": "انبسط",
+   "set": {
+    "tense": "past"
+   }
+  },
+  "c91a4d3f1322abe04d4a5b4340dfb9948929bcf2a6b0254beb0d837d6e3917d1": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«إلا Azume. هي إلا Azume» is a garbled fragment; not hay (here is).",
+   "lesson_date": "2026-09-14",
+   "t": 3685.28,
+   "word_key": null,
+   "text": "هي"
+  },
+  "6e539b7652b93ee26fd8789a0772a7315498c3869dd3b6d391c22c3902884ce6": {
+   "bin": "not_counted",
+   "kind": "echo",
+   "note": "«مرحبا.» returns Amal's «مرحبا.» one second earlier.",
+   "lesson_date": "2026-09-15",
+   "t": 37.78,
+   "word_key": "marhaba",
+   "text": "مرحبا."
+  },
+  "842f8234e11e786ddc89f861b9825f8b98c5867ba51ce24c42ec63719462bbcc": {
+   "bin": "not_counted",
+   "kind": "clarification",
+   "note": "«Uh، شو كما ما مرا.» asks Amal to repeat; she repeats «ليش هيك مطفي؟».",
+   "lesson_date": "2026-09-15",
+   "t": 118.02,
+   "word_key": "shu",
+   "text": "شو"
+  },
+  "33f23fa5ee39af340d9fa13dde425915c687f50994ac8b9e64048f8c458e462a": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own answer «قمت إمني ووشربت قهوة كتير و أنا جاهز». Sep 15 now has Amal's track (lesson page); she gave no cue.",
+   "lesson_date": "2026-09-15",
+   "t": 164.88,
+   "word_key": "ahweh",
+   "text": "قهوة"
+  },
+  "439f5cef0953871c1712d72d1cd4c6e3c566a0fa8f9466778615a64b05d83e57": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own answer «... قهوة كتير و أنا جاهز»; no cue.",
+   "lesson_date": "2026-09-15",
+   "t": 165.58,
+   "word_key": "ktIr",
+   "text": "كتير"
+  },
+  "bffce4d125bcdeeb491dd8184dc521617a267df08e975b92c8237601d0c9d1dc": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "«قهوة كتير و أنا جاهز»: و joins two clauses.",
+   "lesson_date": "2026-09-15",
+   "t": 166.46,
+   "word_key": "u",
+   "text": "و"
+  },
+  "b3f108d95f548cb7fda5656dd781c1305f47e9c494c4677f0b921e49db634849": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own answer «... و أنا جاهز»; no cue.",
+   "lesson_date": "2026-09-15",
+   "t": 167.9,
+   "word_key": "jAhez",
+   "text": "جاهز."
+  },
+  "8dfc52e0df174193649ff7988cd8e1464e71b4f1c3d7f26903e502e47efc2a5b": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own answer «شغلي على تسعة ونص» (he answered when, not where; no word error).",
+   "lesson_date": "2026-09-15",
+   "t": 193.58,
+   "word_key": "tes3ah",
+   "text": "تسعة"
+  },
+  "ffe52e85e428cdc746bfd6056914f8bad5cfe3e75660f49fc41054d51710b4c2": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own answer «كان في محل. كنت في محل.»",
+   "lesson_date": "2026-09-15",
+   "t": 203.46,
+   "word_key": "ma7al",
+   "text": "محل."
+  },
+  "8eabc8bb81c69c2f2b5e286df59542e1e4461fae1cb792ae3d7d942a0666b2de": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Self-corrects «كان في محل» to «كنت في محل» before any help: one full-credit try (rule 6).",
+   "lesson_date": "2026-09-15",
+   "t": 204.64,
+   "word_key": "kunet",
+   "text": "كنت"
+  },
+  "db01d26cbd8a080324c380f461d905ec147eec2926d066b2943368ea98020ce7": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own answer «كوري مع رز و لحم، لحم عجل».",
+   "lesson_date": "2026-09-15",
+   "t": 229.46,
+   "word_key": "la7em 3ejel",
+   "text": "لحم عجل."
+  },
+  "89586642d3ae6c5972cda1b64b37eb9ef3db6f86325e77136354ce29f5c47586": {
+   "bin": "settled",
+   "kind": "incorrect",
+   "note": "Looking for \"ground (meat)\" he asks «معروف is ground؟»; Amal supplies «مفروم»: wrong word for the target (rule 5, as in the safra/safar case).",
+   "lesson_date": "2026-09-15",
+   "t": 234.88,
+   "word_key": "ma3rUf",
+   "text": "معروف"
+  },
+  "dc95bcec3620b452c576d32a93f8f20b593d5fda2cdc52511386d8013dc4a5ba": {
+   "bin": "no_evidence",
+   "kind": "transcript_unclear",
+   "note": "«خروف؟ No. خروف is pig» then \"is lamb\"; Amal's reply between («كرفزلام؟») is garbled, so we cannot tell if she corrected him.",
+   "lesson_date": "2026-09-15",
+   "t": 239.83,
+   "word_key": "5arUf",
+   "text": "خروف؟"
+  },
+  "f3f7317ef7a125ce122d8c0701ad7e3e70afbee86bc7a8553264c014782651fd": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own answer «مع رز. خضرا مختلف. مختلفه؟ مختلف.»; the ending wavering is agreement, grammar.",
+   "lesson_date": "2026-09-15",
+   "t": 266.92,
+   "word_key": "mu5talef",
+   "text": "مختلف."
+  },
+  "8f1ab29b4ecefd390588e1c2789b9728128497bf362517c29d12be9905967c8f": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «شو اليوم؟»: «خمسطعش ... تسعة ألفين ستة وعشرين»; Amal: «ممتاز».",
+   "lesson_date": "2026-09-15",
+   "t": 293.96,
+   "word_key": "tes3ah",
+   "text": "تسعة"
+  },
+  "b53f567664fb334d9d7980e3c73e4f8a0a6628461f515c89adf1e050e5e3162c": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «شو اليوم؟»: «... تسعة ألفين ستة وعشرين»; Amal: «ممتاز».",
+   "lesson_date": "2026-09-15",
+   "t": 294.98,
+   "word_key": "alfein",
+   "text": "ألفين"
+  },
+  "fede367425b50272b1b3c5bd0a583f1a17cbfe1c5371683e504cb21dd85d410a": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «شو اليوم؟»: «... ألفين ستة وعشرين»; Amal: «ممتاز».",
+   "lesson_date": "2026-09-15",
+   "t": 295.4,
+   "word_key": "sitah",
+   "text": "ستة"
+  },
+  "d72fd265eb230d1aa92bbd7398b89b62ed265a5506c65ee322f1676a5181b369": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "«درجة الحرارة نفس الـ ...»; Amal: «ممتاز. أول مرة بتحكيها صح». نفس = same.",
+   "lesson_date": "2026-09-15",
+   "t": 326.86,
+   "word_key": null,
+   "text": "نفس",
+   "set": {
+    "word_key": "nafs"
+   }
+  },
+  "73014ff43a355c900a3bf165b1f79d61308e9fa1ee098925da88c2d16f585941": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "«امبارح إبن ... Kevin ... ami» = ibn 3ammi (my cousin); Amal only fixes the ع in «عمي».",
+   "lesson_date": "2026-09-15",
+   "t": 362.46,
+   "word_key": "eben",
+   "text": "إبن"
+  },
+  "090b6fe2884747123c044cafc12099d9bf9cb21adcb17b7f0dab9504b4a53949": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "After Amal's English \"All the windows broke\" he says «كل الشبابيك، كسروا». Sep 15 now has Amal's track (lesson page).",
+   "lesson_date": "2026-09-15",
+   "t": 893.93,
+   "word_key": "kul",
+   "text": "كل"
+  },
+  "2f70b7da1196107458350e7b85e04cfc2f424f2b8a304cfb7acdfdba6e708143": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "«كسروا. No, no. ... انكسروا»: abandoned false start, fixed by himself before help (rule 6).",
+   "lesson_date": "2026-09-15",
+   "t": 897.17,
+   "word_key": "ana bakser",
+   "text": "كسروا."
+  },
+  "dfd3d58406d101fcf31b0d752fb13503f6832ea1457c5da02c34414e01454822": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "After Amal's English \"What broke them?\" he says «شو كسرهم»; the verb form is grammar.",
+   "lesson_date": "2026-09-15",
+   "t": 922.81,
+   "word_key": "shu",
+   "text": "شو"
+  },
+  "5010a8249d14100b50dc239bfe9745c256a05b4f15e63cd7f8ac0b04cabdf139": {
+   "bin": "open",
+   "kind": "question",
+   "note": null,
+   "lesson_date": "2026-09-15",
+   "t": 3926.3,
+   "word_key": "kul",
+   "text": "kul,",
+   "question": "Sep 15 65:26 «bitti atmaran, el kul, kir» then \"You can't just say in general?\": did he mean \"everything\" (fine) or \"in general\" (a wrong use of el kul)? Amal answered «كل الكلمات؟»."
+  },
+  "4261fd296917ee6b918862383e76293612b68f5fb94a8cf06a8ee3277910b1f2": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "\"Let me drink some water. لازم.\" (I have to); Amal answers «سوي» (go ahead).",
+   "lesson_date": "2026-09-17",
+   "t": 163.16,
+   "word_key": "lAzem",
+   "text": "لازم."
+  },
+  "556f69d38eb7598fe9523f6f3adafe35ff8761c77c1b8f2cafc747a09236175b": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«مهم.» answering «خلصت؟» is \"mm-hmm\" transcribed as muhem.",
+   "lesson_date": "2026-09-18",
+   "t": 66.48,
+   "word_key": "muhem",
+   "text": "مهم."
+  },
+  "0187f440c237d433ef09539a4f23a26357573d8bd04813dcf71c5fd84c2b6258": {
+   "bin": "open",
+   "kind": "question",
+   "note": null,
+   "lesson_date": "2026-09-18",
+   "t": 135.72,
+   "word_key": "u",
+   "text": "و",
+   "question": "Sep 18 was recorded as one mixed track and its speakers are machine-estimated (pitch); the standing rule holds every Sep 18 score until a person confirms the speaker. Is this line Medi's? (If yes: independent, «و أتمارنت» translating \"and I exercised\".)"
+  },
+  "89bda37538156722b4c158be9d38c577f3ddfecf127635a39d75d54b6a0962fd": {
+   "bin": "open",
+   "kind": "question",
+   "note": null,
+   "lesson_date": "2026-09-18",
+   "t": 147.96,
+   "word_key": "akel",
+   "text": "أكل",
+   "question": "Sep 18 was recorded as one mixed track and its speakers are machine-estimated (pitch); the standing rule holds every Sep 18 score until a person confirms the speaker. Is this line Medi's? Also: in «اليوم أكل لحمة عجل» (answering «شو أكلت اليوم؟») did he say the noun أكل or the verb أكلت?"
+  },
+  "206221d26037a2889855822d26e261b94f10a15045c95be33a9653133bce9e37": {
+   "bin": "open",
+   "kind": "question",
+   "note": null,
+   "lesson_date": "2026-09-18",
+   "t": 190.02,
+   "word_key": "2ala albak",
+   "text": "على قلبك.",
+   "question": "Sep 18 was recorded as one mixed track and its speakers are machine-estimated (pitch); the standing rule holds every Sep 18 score until a person confirms the speaker. Is this line Medi's? (If yes: independent, «على قلبك» answering her sa7tein.)"
+  },
+  "afdd1aac0863aaea94aca626a9fa8b96524e7567b46e0baf71d41ee447372e90": {
+   "bin": "open",
+   "kind": "question",
+   "note": null,
+   "lesson_date": "2026-09-18",
+   "t": 223.22,
+   "word_key": "talat",
+   "text": "تلات",
+   "question": "Sep 18 was recorded as one mixed track and its speakers are machine-estimated (pitch); the standing rule holds every Sep 18 score until a person confirms the speaker. Is this line Medi's? (If yes: independent, «الساعة تلات» answering «قدي الساعة؟».)"
+  },
+  "bb7b57a2bb366b506e3739bb0eb9a9a00fc3f90fda15bd18f217c297ecf1b8ff": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«Enno.» after Amal's \"Of it.\" is a try at minno (of it), not the connector enno.",
+   "lesson_date": "2026-09-18",
+   "t": 909.08,
+   "word_key": "eno",
+   "text": "Enno."
+  },
+  "16ed816cccb43148449d4bd9c700a9bf6ba5ea53767c8a4855539d269bb129ab": {
+   "bin": "open",
+   "kind": "question",
+   "note": null,
+   "lesson_date": "2026-09-18",
+   "t": 2033.69,
+   "word_key": "aw",
+   "text": "aw",
+   "question": "Sep 18 was recorded as one mixed track and its speakers are machine-estimated (pitch); the standing rule holds every Sep 18 score until a person confirms the speaker. Is this line Medi's? (If yes: independent, «aw lissa» translating \"or yet\".)"
+  },
+  "b65c9326abf89aa5bdfe4b43b25f6bf89f75f25c3907681a417284775d390b26": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«تسعة عشرين» is his try at nineteen (Amal: «19»), not the word nine.",
+   "lesson_date": "2026-09-19",
+   "t": 398.38,
+   "word_key": "tes3ah",
+   "text": "تسعة"
+  },
+  "9d9a0e33eb3d5b9df298673014a9c7cd80d76f52198c4de54acdf4b8aad54167": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«تسعة عشرين» is his try at nineteen (Amal: «19»), not the word twenty.",
+   "lesson_date": "2026-09-19",
+   "t": 398.64,
+   "word_key": "3eshrIn",
+   "text": "عشرين."
+  },
+  "9c9b326fd521799f5309009bca1a436ff812b0ecd5797caa86cb30201cfdb00a": {
+   "bin": "open",
+   "kind": "question",
+   "note": null,
+   "lesson_date": "2026-09-19",
+   "t": 419.5,
+   "word_key": "sitah",
+   "text": "ستة",
+   "question": "Sep 19 6:59: he gave the month as «ستة» and Amal asked «ستة؟ ... تسعطاش تسعة». Did he mean six (wrong number word) or was it a date mix-up?"
+  },
+  "12a363cd86b08468d437877c1c550f2e8e541c84dc0aa21a27f89539fb60d837": {
+   "bin": "no_evidence",
+   "kind": "transcript_unclear",
+   "note": "Answer to «قد الساعة؟» is transcribed «ألفين تنين وتلات»; the ألفين is likely a mis-hearing; Amal accepts the time.",
+   "lesson_date": "2026-09-19",
+   "t": 446.28,
+   "word_key": "alfein",
+   "text": "ألفين"
+  },
+  "81db246e18efaa322b09f4e193752bfae6b2e967b4b7356fb49e32d84f9af01e": {
+   "bin": "no_evidence",
+   "kind": "transcript_unclear",
+   "note": "Answer to «قد الساعة؟» is transcribed «ألفين تنين وتلات»; the numbers cannot be separated.",
+   "lesson_date": "2026-09-19",
+   "t": 450.32,
+   "word_key": "teneinv",
+   "text": "تنين"
+  },
+  "b2e590e9f9a62a54c009a4fa3b394cab41846af73d6177210685e99258dd731d": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Opens the lesson with «مرحبا.»; Amal's track is there (she answers «مرحبًا. كيفك؟» at 0:05).",
+   "lesson_date": "2026-09-21",
+   "t": 1.01,
+   "word_key": "marhaba",
+   "text": "مرحبا."
+  },
+  "4067620c1716170c26ae34f229badb67f41a77c6c44a36cb9e78afc0a14be594": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own answer «شوي متوتر عشان عندي شغل كتير»: شغل = work, not the verb turn on.",
+   "lesson_date": "2026-09-21",
+   "t": 109.29,
+   "word_key": null,
+   "text": "شغل",
+   "set": {
+    "word_key": "shu8ul"
+   }
+  },
+  "8f1fd716328b880477d1ded42d5dcb4ac217a1ea420a1331dbbb5ce5e39944e3": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "«ما بتذكر» restates his own «ما بتذكر» at 2:22 in the same exchange.",
+   "lesson_date": "2026-09-21",
+   "t": 177.25,
+   "word_key": "ana batzakar",
+   "text": "بتذكر."
+  },
+  "c85e0854aa62e6e7b34d424d49a591ace245f818ea9aef08edb5e85b56f54d64": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «شو اليوم؟»: «يوم الاثنين. واحد وعشرين».",
+   "lesson_date": "2026-09-21",
+   "t": 333.25,
+   "word_key": "yoam aletnain",
+   "text": "يوم الاثنين."
+  },
+  "5d2247404d59cea4b8e989ee6b1ea1ed0fe26d5af4a8d9cbf57b9b57ed26f0ac": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «شو اليوم؟»: «يوم الاثنين. واحد وعشرين».",
+   "lesson_date": "2026-09-21",
+   "t": 343.43,
+   "word_key": "wa7ad",
+   "text": "واحد"
+  },
+  "e4f998c72589cee9893ee89c0f8ad6191d06d3f1833df1ba3d96d5a70d69fda7": {
+   "bin": "not_counted",
+   "kind": "echo",
+   "note": "«واحد وعشرين» right after Amal's «طيب، 21.»",
+   "lesson_date": "2026-09-21",
+   "t": 403.91,
+   "word_key": "wa7ad",
+   "text": "واحد"
+  },
+  "5d0c20f75278fe4aa797ba13f3ca931e67a1e3e466eab18c047a2a9393d0d077": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer about his clothes «اليوم بلبس بلوزة سودا». The Doc lists بلبس twice; bound to the grouped verb row.",
+   "lesson_date": "2026-09-21",
+   "t": 443.05,
+   "word_key": null,
+   "text": "بلبس",
+   "set": {
+    "word_key": "ana balbes"
+   }
+  },
+  "072ae84e0420da9bf3d3b210e79fcc0a22b1a507d07ef796a95724c4db611893": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «كيف الجو عندكم اليوم؟»: «شوي الجو هواء».",
+   "lesson_date": "2026-09-21",
+   "t": 511.67,
+   "word_key": "shwai",
+   "text": "شوي،"
+  },
+  "2f1dc052fd54aff46a8c202cfec51bc4af8b920805d71ffcd0d5448a0a969cc9": {
+   "bin": "not_counted",
+   "kind": "echo",
+   "note": "«So a jacket or كم are you guys?» repeats Amal's «jacket أو كم» (sleeve).",
+   "lesson_date": "2026-09-21",
+   "t": 647.73,
+   "word_key": null,
+   "text": "كم"
+  },
+  "1b0626026b5e343600a1a1f215e9179a0ef0bc30b790eaee1c413080b9a34272": {
+   "bin": "not_counted",
+   "kind": "grammar",
+   "note": "\"it changes. «بتغير»\" then Amal \"They change\" and he says «بتغيروا»: a person/number repair, grammar (rule 7).",
+   "lesson_date": "2026-09-21",
+   "t": 684.09,
+   "word_key": "ana bat8aiyar",
+   "text": "بتغير."
+  },
+  "f2c7c481ced4d5079ed9fc5db695b947a0e5de4cf52c2d1af3a85e11422f78e3": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own answer «مرات، مرات وأسبوع، أسبوع شغل ومرات وأسبوع» (sometimes). The Doc lists مرات twice; bound to Sometimes.",
+   "lesson_date": "2026-09-21",
+   "t": 696.57,
+   "word_key": null,
+   "text": "مرات،",
+   "set": {
+    "word_key": "marat"
+   }
+  },
+  "47dc51d5beb7705e71e814f53bf71826711b7331b5b5f7aca2f6a5cfa58f1ebb": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Second «مرات» in the same restarted answer; counted once at 11:36.",
+   "lesson_date": "2026-09-21",
+   "t": 699.61,
+   "word_key": null,
+   "text": "مرات"
+  },
+  "2b63278686e97f80a073af159f646dd8e13dd39d605da98e61ad899ca34f982e": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own answer «أسبوع شغل» (a work week): شغل = work.",
+   "lesson_date": "2026-09-21",
+   "t": 707.39,
+   "word_key": null,
+   "text": "شغل",
+   "set": {
+    "word_key": "shu8ul"
+   }
+  },
+  "c402680a8a571a483159a5a07d529d74b59cee511dfe2e7dfed4346639a657d1": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «بارد في الـ صيف»; no cue.",
+   "lesson_date": "2026-09-21",
+   "t": 716.11,
+   "word_key": "9aif",
+   "text": "صيف."
+  },
+  "1cc8e1cdb7052fb194ae6bbbb5a0f6f9e14981c47fa3258ea10bd35bcf248193": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «عادة مدينتي هادي، بس لما شي بيصير ...».",
+   "lesson_date": "2026-09-21",
+   "t": 840.42,
+   "word_key": "3Adatan",
+   "text": "عادة"
+  },
+  "d42f3ce58bbbf31831a0234fd5ae6bf1c960f51dc1b832e2d1b7ea9e993ed6d4": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «عادة مدينتي هادي»: هادي = calm, not this.",
+   "lesson_date": "2026-09-21",
+   "t": 849.14,
+   "word_key": null,
+   "text": "هادي،",
+   "set": {
+    "word_key": "hAdi"
+   }
+  },
+  "2c6f8a95f6ddc03ec45f9deea7da93c288856d749cd9331c8cfff9e6ddeaf30b": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «عادة مدينتي هادي، بس لما شي بيصير ...».",
+   "lesson_date": "2026-09-21",
+   "t": 849.76,
+   "word_key": "bas",
+   "text": "بس"
+  },
+  "97c01deb0643401ce227053011c3a0b1926a0d5c533f0dbc3735006e09dfea86": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «... بس لما شي بيصير كل الـ fire department ...».",
+   "lesson_date": "2026-09-21",
+   "t": 851.68,
+   "word_key": "lama",
+   "text": "لما"
+  },
+  "0520b382b9231ba8a57b569904037d238280f48fd240917f16c5476df690f771": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «... لما شي بيصير ...» (when something happens).",
+   "lesson_date": "2026-09-21",
+   "t": 856.08,
+   "word_key": "bei9Ir",
+   "text": "بيصير"
+  },
+  "30ae2f52c7836109c628673676125556146cd7753a65f5d65f5ad63f88cd8386": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «كل الـ fire department وambulance آجوا»: كل = all.",
+   "lesson_date": "2026-09-21",
+   "t": 858.88,
+   "word_key": null,
+   "text": "كل",
+   "set": {
+    "word_key": "kul"
+   }
+  },
+  "0c7f3540555d69d2a8170ab96b4a4541f78a6799fa65ad9ab9c19e90ae3b5662": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Restart «كل الـ، كل الـ fire department»; counted once at 14:18.",
+   "lesson_date": "2026-09-21",
+   "t": 860.86,
+   "word_key": null,
+   "text": "كل"
+  },
+  "e0aa5206c7f3d67cefa1b504acf8663bd5bfe557bbfec17aca5d4262d823b141": {
+   "bin": "not_counted",
+   "kind": "clarification",
+   "note": "«كم مرة؟» asks Amal to say it again: a clarification, not a how-many-times question (rule 8).",
+   "lesson_date": "2026-09-21",
+   "t": 954.78,
+   "word_key": "kam mara",
+   "text": "كم مرة؟"
+  },
+  "58f5584587889961570952376bbbd3564c95986b2bbb03f42c825e00a799e84f": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «شو بتحب على الـ pizza؟»: «فطر»; Amal had only offered الفلفل.",
+   "lesson_date": "2026-09-21",
+   "t": 1016.72,
+   "word_key": "fiter",
+   "text": "فطر."
+  },
+  "3acbd6874b684b2e883a116c899cfeaa924d30ed31030a901011e0c86cdb57d4": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own list «الفطر و زيتون و bacon».",
+   "lesson_date": "2026-09-21",
+   "t": 1026.56,
+   "word_key": "zaitun",
+   "text": "زيتون"
+  },
+  "ab27bd55038054384a09b858df56251ab806167a68a155e64d4d07abf2402c96": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own list «الفطر و زيتون و bacon».",
+   "lesson_date": "2026-09-21",
+   "t": 1028.8,
+   "word_key": "u",
+   "text": "و"
+  },
+  "2ad8f7073aee19538f0c6aa67ea255a4b0e9f43e448abd78a1c39642d8880ac4": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Opens the role-play himself: «أنواع قهوة عندك؟».",
+   "lesson_date": "2026-09-21",
+   "t": 1146.15,
+   "word_key": "ahweh",
+   "text": "قهوة"
+  },
+  "de70cf9e0d103520fa21627c064b80d33211b8d03241941a2221d73e7b8019f9": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «شو بتحب تطلب؟»: «أنا بدي أشرب cappuccino».",
+   "lesson_date": "2026-09-21",
+   "t": 1198.63,
+   "word_key": "ana bedi",
+   "text": "أنا بدي،"
+  },
+  "df82dab435a7f2068429b28ee21c39e03d5d70ecd8d711a1efef8cbccd857a52": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own order «cappuccino تازة مع كريمة».",
+   "lesson_date": "2026-09-21",
+   "t": 1216.33,
+   "word_key": "kraima",
+   "text": "كريمة."
+  },
+  "ce604dc83d2441fb545188dd728b148e459d7810c0641c3355ea66e4e0aad076": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "«مع كريمة» restates his own order from 20 s earlier.",
+   "lesson_date": "2026-09-21",
+   "t": 1220.01,
+   "word_key": "kraima",
+   "text": "كريمة."
+  },
+  "cc22016f21872b2583cf857f4c65db3c71ede6e25e047b953b64da9be2a019cd": {
+   "bin": "not_counted",
+   "kind": "clarification",
+   "note": "«Just كعكة؟ شو كعكة؟» asks what كعكة means; the question word is not the target (rule 8).",
+   "lesson_date": "2026-09-21",
+   "t": 1261.15,
+   "word_key": "shu",
+   "text": "شو"
+  },
+  "19b11cd5f6dbeef8276b43d9a29b05e1a19ed1a97faec9d0fa63c4971e34fa63": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Restart «أنا راح، أنا راح أشرب»; the fuller second one is counted.",
+   "lesson_date": "2026-09-21",
+   "t": 1324.21,
+   "word_key": null,
+   "text": "راح،"
+  },
+  "7f8090f6baf44a4daa6fd2f85719d23994e206bf04596ccc2b68c2be1a68b4a5": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Role-play «أنا راح أشرب وأكل هون»: راح + verb = will.",
+   "lesson_date": "2026-09-21",
+   "t": 1326.23,
+   "word_key": null,
+   "text": "راح",
+   "set": {
+    "word_key": "ra7"
+   }
+  },
+  "b6d8ff32b5efae121901b7fcf4898d15ac9ce751b0a797ec009ed5ff89a74805": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own role-play line «أنا راح أستانك»: راح + verb = will.",
+   "lesson_date": "2026-09-21",
+   "t": 1348.47,
+   "word_key": null,
+   "text": "راح",
+   "set": {
+    "word_key": "ra7"
+   }
+  },
+  "43a008ed1da359aa99c7caa7bd5b066adcdf1888abe1a7738cdb1bc0d594c4db": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own role-play line «أنا، بعدين أدفع ...».",
+   "lesson_date": "2026-09-21",
+   "t": 1466.59,
+   "word_key": "ba3dain",
+   "text": "بعدين"
+  },
+  "100f3628b1f50d9949a6a7c4908fbe756474577006680d3e9d4bbed3bec77bc0": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Asked «شو يعني complain؟» he answers «بشكي?»; Amal confirms «mm-hmm» (English prompt only, rule 9).",
+   "lesson_date": "2026-09-21",
+   "t": 1676.17,
+   "word_key": "ana bashki min",
+   "text": "بشكي?"
+  },
+  "acf43914f56b703f1e70e91e45b02f460fbd5a41e8eefbdd850035db2fddd77a": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Complaint role-play «هادي الـ أكلة» (this meal); the هاد/هادي/هذا wavering is gender, grammar.",
+   "lesson_date": "2026-09-21",
+   "t": 1709.91,
+   "word_key": null,
+   "text": "هادي",
+   "set": {
+    "word_key": "hadi"
+   }
+  },
+  "0a054d2d4bde01cb90c02c91c7ce7becc2a3111b11572241cd5c351b3c7c2f6b": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Role-play: thanks the waiter unprompted, «Shukran ana ...».",
+   "lesson_date": "2026-09-21",
+   "t": 2086.42,
+   "word_key": "shukran",
+   "text": "Shukran"
+  },
+  "62512ccf3f654358d5452fbed8df89e0de8d3b4a5228b910c81738c8b5e6ce78": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«zaki katir» is زاكي (tasty) about the food, not ذكي (smart).",
+   "lesson_date": "2026-09-21",
+   "t": 2112.16,
+   "word_key": "zaki",
+   "text": "zaki"
+  },
+  "8203f972d0623b56e87bb7c64f865ebb4386beef7af71cc063b39c317f9c8e8c": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Closes the role-play unprompted: «Okay. Shukran.»",
+   "lesson_date": "2026-09-21",
+   "t": 2162.04,
+   "word_key": "shukran",
+   "text": "Shukran."
+  },
+  "2735d5357a60acb4f554bedf99f1172d06191a258d338437f2e32cc9b05153e2": {
+   "bin": "no_evidence",
+   "kind": "transcript_unclear",
+   "note": "«Eh, mara, uh, mara, yitbukhhu» (Latin ASR): cannot tell if this is مرة (woman) or marra (once/then).",
+   "lesson_date": "2026-09-21",
+   "t": 2498.07,
+   "word_key": "mara",
+   "text": "mara,"
+  },
+  "4dbbfd89978f5766156eee453854f7603e1b9290c8d83afe6ac5664bf67e3046": {
+   "bin": "no_evidence",
+   "kind": "transcript_unclear",
+   "note": "Second «mara» in the same unclear «mara, uh, mara, yitbukhhu».",
+   "lesson_date": "2026-09-21",
+   "t": 2501.21,
+   "word_key": "mara",
+   "text": "mara,"
+  },
+  "5df2718b02db8f169e634fe052215dc55f6e6fbb4faf00fc031abbd24ea7de5f": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own recipe steps «و أول ... بحط الـ rose في الـ طنجرة».",
+   "lesson_date": "2026-09-21",
+   "t": 2641.52,
+   "word_key": "u",
+   "text": "و"
+  },
+  "224d0e1f728cd2b3bba58e7e5c016f40628691b3235f530c96a32ef060865528": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own recipe step «مع مي. و أطبخ».",
+   "lesson_date": "2026-09-21",
+   "t": 2660.32,
+   "word_key": "u",
+   "text": "و"
+  },
+  "c866c3da62d32121316940676bc1001abd89265b3e20d04b68d74d29a795fd87": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own recipe step «برجع الـ rose في الـ طنجرة».",
+   "lesson_date": "2026-09-21",
+   "t": 2719.2,
+   "word_key": "tanjara",
+   "text": "طنجرة."
+  },
+  "5698347fdd68e4e7e27d0ab66ecec15a6900525f4efdd8f43934e3a56636e4d7": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own recipe step «و بزيد، زبداية». The Doc lists بزيد twice; bound to the grouped verb row.",
+   "lesson_date": "2026-09-21",
+   "t": 2780.6,
+   "word_key": null,
+   "text": "بزيد،",
+   "set": {
+    "word_key": "ana bazId"
+   }
+  },
+  "d9b658b5f07994adf77e537778d3c5bf5d2772bbff990f11f76fef1f2d90d5e7": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "«بعدين، بزيد الـ زبداية» restates the same step 25 s later after the salt aside; counted at 46:20.",
+   "lesson_date": "2026-09-21",
+   "t": 2808.66,
+   "word_key": null,
+   "text": "بزيد"
+  },
+  "5d2ea85d86f336428e50780c4b970b7e8372d1a6c1aee09e31f863978cace642": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Retelling the whole recipe, «بزيد، بزيد، زبدة» (new pass, 70 s later).",
+   "lesson_date": "2026-09-21",
+   "t": 2854.8,
+   "word_key": null,
+   "text": "بزيد،",
+   "set": {
+    "word_key": "ana bazId"
+   }
+  },
+  "54566a60565e63afd836e455ed4b470414063c405cd3876535e71e8c307e2d9d": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Second «بزيد» in the same turn; counted at 47:34.",
+   "lesson_date": "2026-09-21",
+   "t": 2857.26,
+   "word_key": null,
+   "text": "بزيد،"
+  },
+  "6c131a8890dd73c847bff733cd6fdd6d622c8a06aaa745f5cb40e402d7d5d913": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own recipe step «بزيد زبدة. و، بعدين ...».",
+   "lesson_date": "2026-09-21",
+   "t": 2860.44,
+   "word_key": "u",
+   "text": "و،"
+  },
+  "066da09fcaf2e82abcc14da8a3ee4be2745d10a79b0c7ea411d408bb033cd4b7": {
+   "bin": "no_evidence",
+   "kind": "transcript_unclear",
+   "note": "A lone trailing «و» before he switches to English; no use to judge.",
+   "lesson_date": "2026-09-21",
+   "t": 2948.82,
+   "word_key": "u",
+   "text": "و"
+  },
+  "6e64cd1f339c19ffa36143aa8e4b68e1d745f89b705b935895d83bce9eba1759": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Correcting \"three hours\": «bas, bas thway» (just a little).",
+   "lesson_date": "2026-09-21",
+   "t": 3002.95,
+   "word_key": "bas",
+   "text": "bas,"
+  },
+  "7eb36fcae2a05006071089687886ff53953b0a3184a50c7032b955726d9357f1": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«hadi nar?» means هادي = calm (low flame), not هادي = this.",
+   "lesson_date": "2026-09-21",
+   "t": 3068.21,
+   "word_key": "hadi",
+   "text": "hadi"
+  },
+  "4a9eb83892ef530b1b170209ce482d085234281673949fd1ed1a75379b79fd90": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«Zaki katheer» repeats Amal's «شكله زاكي» (tasty), not ذكي (smart).",
+   "lesson_date": "2026-09-21",
+   "t": 3252.45,
+   "word_key": "zaki",
+   "text": "Zaki"
+  },
+  "d34ceafca37f0276f91d26efdbfdb1a26e92d10f17bcc2898b6ef3d76105aa48": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «il ta'am mashhoor min Iran».",
+   "lesson_date": "2026-09-21",
+   "t": 3412.07,
+   "word_key": "mashhUr",
+   "text": "mashhoor,"
+  },
+  "a1067d0889fe69c04e420d2058f0d2e31e54652bb08b57c6240f27c425ae9f00": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer «أنا حكيت عن الـ rice كتير» (I talked): past form; Amal's question had the present تحكي.",
+   "lesson_date": "2026-09-21",
+   "t": 3688.9,
+   "word_key": null,
+   "text": "أنا حكيت",
+   "set": {
+    "word_key": "ana 7akait"
+   }
+  },
+  "42bb5eb2e015423461a3eaf7e5ca61bcb772828a6e464d7b7833f48dd803d1e2": {
+   "bin": "not_counted",
+   "kind": "clarification",
+   "note": "«وكم شوية؟ كم مرة؟» and Amal restates her point: read as his usual \"كم مرة؟ = say it again\" (rule 8).",
+   "lesson_date": "2026-09-21",
+   "t": 3706.78,
+   "word_key": null,
+   "text": "كم"
+  },
+  "c39d1b2ce03fb02fca4d3369bc0ae5deda661e19f9ada90772b34124da9bf337": {
+   "bin": "not_counted",
+   "kind": "clarification",
+   "note": "«كم مرة؟» and Amal restates her point: read as his usual \"say it again\" (rule 8).",
+   "lesson_date": "2026-09-21",
+   "t": 3707.0,
+   "word_key": null,
+   "text": "مرة؟"
+  },
+  "63c14f1bdc7a0b311bfe5be14629b44adbbb53f6796e6e27307ef3cad338527f": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «بس صديقتي حكت لي إنه ...».",
+   "lesson_date": "2026-09-21",
+   "t": 3845.2,
+   "word_key": "bas",
+   "text": "بس"
+  },
+  "2336f19eb72e08120bb9a9e963c48b19785aa91429bf1c422921358b356c23ac": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Restart inside «أنكم أكل، أنكم أكل من، أكل من دول»; the first أكل (64:21) is already scored.",
+   "lesson_date": "2026-09-21",
+   "t": 3866.48,
+   "word_key": "akel",
+   "text": "أكل"
+  },
+  "844b01424b946a978d898cf898edf536103189d502be91dcc8b9b553543d0309": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Third أكل in the same restarted sentence; the first (64:21) is already scored.",
+   "lesson_date": "2026-09-21",
+   "t": 3872.02,
+   "word_key": "akel",
+   "text": "أكل"
+  },
+  "7ba631cd15134c2175ca9234ecf1375c30c400634848718d90626531e8c96687": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «قريب عشان في الـ دولة زي دولة عربية»: قريب = close, not relative.",
+   "lesson_date": "2026-09-21",
+   "t": 3911.58,
+   "word_key": null,
+   "text": "قريب",
+   "set": {
+    "word_key": "2arIb"
+   }
+  },
+  "ef971799179e1a9841d39cf587c3740de6115d1df72a1e07aa8d0497e8910950": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own list «زي Qatar و، UAE».",
+   "lesson_date": "2026-09-21",
+   "t": 3927.38,
+   "word_key": "u",
+   "text": "و،"
+  },
+  "dc3ef3becb52ed3a1d0b9f085078cc5b00143eed59319a88a45c25e4b8a8e56e": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «أحسن مطبخ من Iran».",
+   "lesson_date": "2026-09-21",
+   "t": 4043.7,
+   "word_key": "matba5",
+   "text": "مطبخ"
+  },
+  "26df25748723765b63109aca1665ea41e7cfb31fed6e767aac11ff8e04f298d7": {
+   "bin": "no_evidence",
+   "kind": "transcript_unclear",
+   "note": "A lone «و» before he switches to English («و Ooh. Is bafta ...»); no use to judge.",
+   "lesson_date": "2026-09-21",
+   "t": 4052.66,
+   "word_key": "u",
+   "text": "و"
+  },
+  "11b2250078d050946f1f1a44aa0bc729866b604e7491716278e30d11109996b8": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «hakali, enno el akthar, el akil mufaddal ...».",
+   "lesson_date": "2026-09-21",
+   "t": 4192.29,
+   "word_key": "eno",
+   "text": "enno"
+  },
+  "ce74bccbca14969d2d53d7c89a5d2724beab260ee40d9b474dafecff7bb6c0e2": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «el akil mufaddal fee UAE, akil Irani».",
+   "lesson_date": "2026-09-21",
+   "t": 4201.37,
+   "word_key": "mufadal",
+   "text": "mufaddal,"
+  },
+  "1de2b444f12c93253366581af1e50ff7236602e615e89f8bcf13181352e6e8f3": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Third «Shukran» in the same goodbye; the first (71:58) is already scored.",
+   "lesson_date": "2026-09-21",
+   "t": 4323.81,
+   "word_key": "shukran",
+   "text": "Shukran."
+  },
+  "64bb11d1a80601cc0080dc5f3efefc225e7d3fa728e5e0fb0b3e6f305e09e439": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Hotel role-play, his own question «شنو أكل؟ شنو فطور عندك؟».",
+   "lesson_date": "2026-09-23",
+   "t": 1506.39,
+   "word_key": "akel",
+   "text": "أكل؟"
+  },
+  "97ea0e21a9d4aa78af2b6880501115321bdce273e3e18df2ac122ebcd2d809b6": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Asked \"How can I say how many days?\" he answers «كم يوم؟ Or كم أيام؟» (English prompt only; the plural is grammar).",
+   "lesson_date": "2026-09-23",
+   "t": 1614.01,
+   "word_key": null,
+   "text": "كم",
+   "set": {
+    "word_key": "kam"
+   }
+  },
+  "33febee211dbafc222c31414dd926860f221764a80be62dd88e527f8a6194e4b": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Second «كم» in the same «كم يوم؟ Or كم أيام؟» turn.",
+   "lesson_date": "2026-09-23",
+   "t": 1615.49,
+   "word_key": null,
+   "text": "كم"
+  },
+  "9853237138d10d7bbeb8d927829f018351c68a9a55cd0ea9c9f2dfc2b60e7e88": {
+   "bin": "not_counted",
+   "kind": "quote",
+   "note": "«كم يوم that's right it never takes plural»: talking about the rule, not a new use.",
+   "lesson_date": "2026-09-23",
+   "t": 1617.35,
+   "word_key": null,
+   "text": "كم"
+  },
+  "08371f82c56973c6024c4455489d05ffc7ec1e0a3343891b5a3c81206d85bddf": {
+   "bin": "not_counted",
+   "kind": "quote",
+   "note": "«كم never takes plural»: talking about the rule, not a use.",
+   "lesson_date": "2026-09-23",
+   "t": 1620.69,
+   "word_key": null,
+   "text": "كم"
+  },
+  "4c1a0454e285ee55e2bfdd02a50a077b3845fbb2be528ee993a936611d8e2cdc": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "After Amal's English \"I will stay.\" he says «أنا راح بدول» (English prompt only).",
+   "lesson_date": "2026-09-23",
+   "t": 1638.09,
+   "word_key": null,
+   "text": "راح",
+   "set": {
+    "word_key": "ra7"
+   }
+  },
+  "8b6fbd3802f8e0c523050fec4b46ac7f94638003f4c95cffecff5639c821b8b5": {
+   "bin": "not_counted",
+   "kind": "echo",
+   "note": "«أوناس كمان you said؟» quotes Amal's «كمان نص ساعة».",
+   "lesson_date": "2026-09-23",
+   "t": 1692.35,
+   "word_key": null,
+   "text": "كمان"
+  },
+  "afe11f0676d35c07e4a8bc251d61dd03f306cdbf105ce2364ec961702bec93f7": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own line «أنا راح أكتب بعدين»: راح + verb = will.",
+   "lesson_date": "2026-09-23",
+   "t": 1776.83,
+   "word_key": null,
+   "text": "راح",
+   "set": {
+    "word_key": "ra7"
+   }
+  },
+  "805b30b48aa17b8b07f0011fad5c7ab91d6f6105d0cd2c1fc129e9afec246be4": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Asked «شو يعني paper؟ ... One paper.» he answers «ورقة.» (English prompt only, rule 9).",
+   "lesson_date": "2026-09-23",
+   "t": 1792.73,
+   "word_key": "wara2a",
+   "text": "ورقة."
+  },
+  "0a46a2fffd77b05ee641670ec8c8a81af8ce5402b6b95d96e8ce0e51427d9fe7": {
+   "bin": "not_counted",
+   "kind": "clarification",
+   "note": "«أووو شو؟» asks Amal to repeat; not a recall of shu (rule 8).",
+   "lesson_date": "2026-09-23",
+   "t": 1903.65,
+   "word_key": "shu",
+   "text": "شو؟"
+  },
+  "f6e078ced81d8bb2059dc0c6b99deca5b8d99aa4d92b69a09b98a0bf7dfb4b62": {
+   "bin": "not_counted",
+   "kind": "echo",
+   "note": "«بدفع.» repeats the بدفع Amal just offered («بدفع and مش مع. Which one؟»).",
+   "lesson_date": "2026-09-23",
+   "t": 1926.37,
+   "word_key": null,
+   "text": "بدفع."
+  },
+  "322684a2992b3d8e3825b12e91a4a1ff133027b05a2b0b5b9e01073ac20e1dcd": {
+   "bin": "settled",
+   "kind": "helped",
+   "note": "New sentence «أنا بدفع بـ مصاري» right after Amal supplied بدفع: partial credit (rule 6).",
+   "lesson_date": "2026-09-23",
+   "t": 1930.31,
+   "word_key": null,
+   "text": "أنا بدفع",
+   "set": {
+    "word_key": "ana badfa3 la"
+   }
+  },
+  "04d074eb6ce6f9b05ada53e8ba73cfbe06d1c4292b683df8c714ef1cfd8bb6ea": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Opens the complaint role-play himself: «مرحبا.»",
+   "lesson_date": "2026-09-23",
+   "t": 1992.27,
+   "word_key": "marhaba",
+   "text": "مرحبا."
+  },
+  "6db9bbc52b2e2c33aba3d5e87dbb85f4e4a8701fad335f6a03a31e1995a9bc4e": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «بس هو أبدًا يجي»; the missing ما (Amal: «هو أبدًا شو؟») is grammar.",
+   "lesson_date": "2026-09-23",
+   "t": 2156.83,
+   "word_key": null,
+   "text": "أبدًا",
+   "set": {
+    "word_key": "abadan"
+   }
+  },
+  "dfcbb62e9999f2bfb5e19fbb963d5e6a0630b0789578bfa2c8762ac4dace9f36": {
+   "bin": "not_counted",
+   "kind": "grammar",
+   "note": "«ما بحب الفطور» then Amal \"You didn't like\" and he says «أنا ما حبيت»: tense repair, grammar (rule 7).",
+   "lesson_date": "2026-09-23",
+   "t": 2191.96,
+   "word_key": "ana ba7eb",
+   "text": "بحب"
+  },
+  "f22ffedc74d87bd86bbf98767d0c278be061e3c24bee730f57c5b4f3f6b83b4c": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «الفطور عشان الأكل الأمريكي».",
+   "lesson_date": "2026-09-23",
+   "t": 2207.96,
+   "word_key": "3ashAn",
+   "text": "عشان"
+  },
+  "3d022ef4a3206b0e93487767ede17a968fb2a35c9d916ee1f0c75caca5952bb3": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «الأكل الأمريكي، خلص.» (that's it, only American food).",
+   "lesson_date": "2026-09-23",
+   "t": 2225.6,
+   "word_key": null,
+   "text": "خلص.",
+   "set": {
+    "word_key": "5alas"
+   }
+  },
+  "0848894f2c97a841d4d0bb971747dfc0e4fcee965b18469ff9bc2298565d63da": {
+   "bin": "not_counted",
+   "kind": "echo",
+   "note": "Reading Amal's written correction aloud (\"I wrote it. Just read it\"): «... موظف اللي يجي، أو».",
+   "lesson_date": "2026-09-23",
+   "t": 2311.1,
+   "word_key": "aw",
+   "text": "أو"
+  },
+  "2f805ed173e4e1b8d2171af2cabc5cba021718972c95c3e9d8a47f9d757e7cd4": {
+   "bin": "not_counted",
+   "kind": "echo",
+   "note": "Reading Amal's written correction aloud (37:57 \"Just read it\"): «بس هو أبدًا ما آجه».",
+   "lesson_date": "2026-09-23",
+   "t": 2362.4,
+   "word_key": null,
+   "text": "أبدًا"
+  },
+  "ccf1d8e0f2c619cf9b839f1b9c13287b56b43e5f68e18dd03e881fce5b108650": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Asked \"what's book, to book?\" he answers «I book is بحجز» (English prompt only).",
+   "lesson_date": "2026-09-23",
+   "t": 2391.88,
+   "word_key": null,
+   "text": "بحجز.",
+   "set": {
+    "word_key": "ana ba7jez"
+   }
+  },
+  "a7cc51262b405aef30203d53e0d0dc6f7c2d3e54deeb35cc5af189980012d72a": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «مين بيحجزلك تذكرة؟»: «عادةً أول أنا».",
+   "lesson_date": "2026-09-23",
+   "t": 2480.2,
+   "word_key": "3Adatan",
+   "text": "عادةً"
+  },
+  "736cf035220f0a1f3beae23994083d5f65f93b4f301afae3e0a7c7f5a33eca8c": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «مين بيحجزلك تذكرة؟»: «عادةً أول أنا».",
+   "lesson_date": "2026-09-23",
+   "t": 2480.84,
+   "word_key": "awal",
+   "text": "أول"
+  },
+  "b7b8f6b8ebaa1110ddb1c325583fe9231ac67e74575714aa3314b0201262f20b": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own harder sentence «عادةً أنا بتألم أحسن لما ...».",
+   "lesson_date": "2026-09-23",
+   "t": 2896.18,
+   "word_key": "3Adatan",
+   "text": "عادةً"
+  },
+  "7960db153030dca6ff55f7513e83f47ee627a8c648183d227d9e38e061b04184": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «لما الموعد الدرس ... بدري»; Amal only inserts يكون (grammar).",
+   "lesson_date": "2026-09-23",
+   "t": 2926.8,
+   "word_key": "badri",
+   "text": "بدري."
+  },
+  "cefe7c6ba605d7abb322c95c6e75988003245ccf68589982262c51a72ad87bac": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Asked about a «سفرة» he picks the other word himself: «مش سفرة بس، رحلة».",
+   "lesson_date": "2026-09-23",
+   "t": 3149.36,
+   "word_key": "re7le",
+   "text": "رحلة."
+  },
+  "5ddb4058ddbe6049be1ec56b45a0debde3f2e278ca34557a065cfe242de2722a": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Restart «إحنا راح، إحنا راح نسوق»; the fuller second one is counted.",
+   "lesson_date": "2026-09-23",
+   "t": 3173.36,
+   "word_key": null,
+   "text": "راح،"
+  },
+  "aebc4158b9d9872e35b00ee18ff4c6407ded0603103de4b44d5b7ac1de800668": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own answer «إحنا راح نسوق» (we will drive).",
+   "lesson_date": "2026-09-23",
+   "t": 3176.06,
+   "word_key": null,
+   "text": "راح",
+   "set": {
+    "word_key": "ra7"
+   }
+  },
+  "f0fed8c28ac228a28cb234efdafaa8dea478d19460d8daf8cf5b88fb1f4ea6b9": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "His own question to Amal about her knee, «شو، uh، شو ... ركبتك؟»: shu used as the question word. Amal's track is missing here, but a question he starts is not an answer she could have prompted (Medi 2026-09-28: \"a question word used correctly ... not an unknown\"). The first شو at 0:11 is the same attempt.",
+   "lesson_date": "2026-09-26",
+   "t": 14.3,
+   "word_key": "shu",
+   "text": "شو"
+  },
+  "527ad99a5f7e0ec3f4132f172b97c5322522332bf10f4b1fae2a962d3283dc56": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "His own question «Okay. شو، uh، شو عملتي؟» (what did you do?): shu used as the question word; a question he starts is not an answer Amal could have prompted. The first شو at 1:41 is the same attempt.",
+   "lesson_date": "2026-09-26",
+   "t": 106.2,
+   "word_key": "shu",
+   "text": "شو"
+  },
+  "abf2a74c0ae9a1b71c367ab9de9dae700d2ff9d1ff03c47481ac8c1ca44b068f": {
+   "bin": "not_counted",
+   "kind": "echo",
+   "note": "«Q sir?» repeats Amal's «إيش صار؟» back as a question.",
+   "lesson_date": "2026-09-26",
+   "t": 1236.98,
+   "word_key": "sir",
+   "text": "sir?"
+  },
+  "418b0f903fa5141d42cdbc5d2559c17019a0490a9688418d680de38a67b0916c": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «حكينا قد إيش ساعة؟»: «كان ثلاث إلا خمسة»; Amal: «ممتاز».",
+   "lesson_date": "2026-09-26",
+   "t": 1275.72,
+   "word_key": "ila",
+   "text": "إلا"
+  },
+  "56f5e2b5bc4543818c9e4aa3494e49bd9eda57dd49895ecbb930ef315f78f6ce": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «حكينا قد إيش ساعة؟»: «كان ثلاث إلا خمسة»; Amal: «ممتاز».",
+   "lesson_date": "2026-09-26",
+   "t": 1276.38,
+   "word_key": "5amsah",
+   "text": "خمسة."
+  },
+  "d370a91917110752494175f6f77337c6f60bafc2427ed95dcbd4284ea8c56b3a": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «اليوم بلبس بلوزة» (he misheard the weather question; the Arabic itself is right).",
+   "lesson_date": "2026-09-26",
+   "t": 1285.7,
+   "word_key": null,
+   "text": "بلبس",
+   "set": {
+    "word_key": "ana balbes"
+   }
+  },
+  "c08eb0d7f87ce08ed8e6e7ac1d88f64e62a86862e38a8668d33b8d6eb67ee7fe": {
+   "bin": "no_evidence",
+   "kind": "transcript_unclear",
+   "note": "A lone «و» after «الجو شوب»; Amal answers «جد؟»; nothing to judge.",
+   "lesson_date": "2026-09-26",
+   "t": 1296.32,
+   "word_key": "u",
+   "text": "و"
+  },
+  "baf36659cb4514d0947a3e2a77b9b7d6f901a0f727199837b64c28633b34e292": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «كيف الجو عندكم اليوم؟»: «الجو شوب ... شوب و شوي مغيمة» (the 21:30 شوب has no event of its own).",
+   "lesson_date": "2026-09-26",
+   "t": 1304.56,
+   "word_key": "shoab",
+   "text": "شوب"
+  },
+  "7cd8f1769177ba8a7045b3cbbd3e589efb1e7a3a8fed3e37fc0cc165caea1097": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own weather answer «شوب و شوي مغيمة».",
+   "lesson_date": "2026-09-26",
+   "t": 1305.22,
+   "word_key": "u",
+   "text": "و"
+  },
+  "299296e3f4ad00ba7bd25ed88e45b5809f849e218855c616bc89cf4c7d7605a4": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own weather answer «شوب و شوي مغيمة».",
+   "lesson_date": "2026-09-26",
+   "t": 1308.18,
+   "word_key": "shwai",
+   "text": "شوي"
+  },
+  "c20b467b31b825805961a7b62e7bef90e9dc81c1a66471ee7908310ff990e4e2": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own weather answer «شوب و شوي مغيمة»; Amal never said مغيمة.",
+   "lesson_date": "2026-09-26",
+   "t": 1310.06,
+   "word_key": "m8aIme",
+   "text": "مغيمة."
+  },
+  "0bc565d38d595c8d704a1584578d6c0aa6a6d0927509fc0f241c73ffd982ff31": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Second شوي in the same weather turn («شوي مغيمة ... شوي هواء»); counted once at 21:48.",
+   "lesson_date": "2026-09-26",
+   "t": 1320.3,
+   "word_key": "shwai",
+   "text": "شوي"
+  },
+  "0b31d9bde9f3baf71cb8a9ba2effb0caf14234985d63d65600e45185441722bb": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «شو بتلبس اليوم؟»: «بلبس بلوزة سودا و ... بنطلون أزرق فاتح» (tutor use in a question is not help, rule 9).",
+   "lesson_date": "2026-09-26",
+   "t": 1354.7,
+   "word_key": null,
+   "text": "بلبس",
+   "set": {
+    "word_key": "ana balbes"
+   }
+  },
+  "cc527caf47b75c0074c76345a53d86b2e54e62eefbe4be7927df22e568e0d170": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «أنا أخدت Tylenol بس ما ساعد».",
+   "lesson_date": "2026-09-26",
+   "t": 2018.83,
+   "word_key": "bas",
+   "text": "بس"
+  },
+  "6b266792836dcb9be490867c3b81fe026a2bf59cb1c6fc0a9d7c1c058a610452": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own try at \"it didn't stop hurting\": «بس ما ...» (but not ...).",
+   "lesson_date": "2026-09-26",
+   "t": 2058.59,
+   "word_key": "bas",
+   "text": "بس"
+  },
+  "04cb881deb758dd3bd14f451fde694079128408cf305a9046baebb6a7db99716": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«عم أمارة؟» is a garbled fragment while asking Amal to repeat, not عم (uncle).",
+   "lesson_date": "2026-09-26",
+   "t": 2146.81,
+   "word_key": "3am",
+   "text": "عم"
+  },
+  "39881e7514ad2b208b97725f341a78075d50035f5f535bad840248ecede2929c": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«ستة وستين» is his try at Amal's «تستنى» (wait), then \"The doctor ... is going to wait?\"; not the number six.",
+   "lesson_date": "2026-09-26",
+   "t": 2157.01,
+   "word_key": "sitah",
+   "text": "ستة"
+  },
+  "ec626b72da72bb46fe9f72f19f39e572ddf6fbe3cd3841c178dbeb362f9d9fdf": {
+   "bin": "settled",
+   "kind": "incorrect",
+   "note": "Asked \"How do I say yes, of course?\" he offered «بسيطة. بسيطة or what?»; Amal: it means \"no biggie\". Wrong word for the target (rule 5).",
+   "lesson_date": "2026-09-26",
+   "t": 2196.61,
+   "word_key": "basI6a",
+   "text": "بسيطة."
+  },
+  "68de02e6af64e89976154a93b1a1bd41caf2d029c00d120f98e303ce2761ec8f": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Second «بسيطة» in the same «بسيطة. بسيطة or what?» turn; the first carries the verdict.",
+   "lesson_date": "2026-09-26",
+   "t": 2197.61,
+   "word_key": "basI6a",
+   "text": "بسيطة"
+  },
+  "4972396d74113ba1b36df6b1044da38040472516fba632561c997bb39a0864b8": {
+   "bin": "settled",
+   "kind": "helped",
+   "note": "After Amal's extra clue \"It's like surely\" he found «akeed? No. Oh, akeed»: a repair after a hint, half credit (rule 6).",
+   "lesson_date": "2026-09-26",
+   "t": 2232.43,
+   "word_key": "akId",
+   "text": "akeed,"
+  },
+  "8ff82d93fcd32b8fd878f317d3f50f68276edef1706047da087e63e92318d84f": {
+   "bin": "not_counted",
+   "kind": "echo",
+   "note": "«Shu fi... What is there» echoes Amal's «احكي لي شو في بالوجه».",
+   "lesson_date": "2026-09-26",
+   "t": 2313.07,
+   "word_key": "shu",
+   "text": "Shu"
+  },
+  "7dbd5be58ce8a5465dcda9f612a2b637e70f41aa523ed477537518e0c927575c": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«shahar» is his try at شعر (hair), fixed to «sha'ar» after Amal's «شعـ...»; a ع/ه pronunciation slip (S4), not the word month.",
+   "lesson_date": "2026-09-26",
+   "t": 2363.21,
+   "word_key": "shahar",
+   "text": "shahar"
+  },
+  "9c322c6a7ee8ac43581a70d50bdd12f9a210e9faa77ece7bb2741976c95fa13c": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Describing himself: «Ana andi sha'ar bini ... U ayuni ...».",
+   "lesson_date": "2026-09-26",
+   "t": 2866.36,
+   "word_key": "u",
+   "text": "U"
+  },
+  "26c0c97c055f28c1c91181b93ae55896f460666312cb333667c11b9a9c4c323b": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «اجرب كبير» (\"I'm a big guy\"); Amal's query is about أجر, not كبير.",
+   "lesson_date": "2026-09-26",
+   "t": 2940.27,
+   "word_key": "kbIr",
+   "text": "كبير."
+  },
+  "d4be5ecf3ce982c4bc5edf0e25133d3cacef5b16ae232093506d660483194031": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own role-play line «انا بحتاج لبسة لـ العروس».",
+   "lesson_date": "2026-09-26",
+   "t": 3066.95,
+   "word_key": "ana ba7tAj",
+   "text": "بحتاج،"
+  },
+  "189d74fe1ebd371bceba9e264353af4687d7b89966df0458f54641fabe7cda3c": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «بحتاج بدلة جديد» (new request, 80 s after 51:06).",
+   "lesson_date": "2026-09-26",
+   "t": 3147.03,
+   "word_key": "ana ba7tAj",
+   "text": "بحتاج,"
+  },
+  "0912399b1b0a4c5dab112ad76f7c466f0c4525ec32e243141c8775588a8f9a8f": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «بحتاج بدلة جديد»; Amal only fixes the agreement («بدلة جديدة»), grammar.",
+   "lesson_date": "2026-09-26",
+   "t": 3150.73,
+   "word_key": "badle",
+   "text": "بدلة"
+  },
+  "55af3e293e522bbb10b96b439a62b7f347eb58fa6bb9bc1917071631f6fd8997": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own addition «وقميص رسمي»; Amal never said رسمي.",
+   "lesson_date": "2026-09-26",
+   "t": 3161.67,
+   "word_key": "rasmi",
+   "text": "رسمي."
+  },
+  "dde5ea2f3282344dd16172616b235dd0ee138f19634785d03266216f116ff293": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «شو بتحب لون البدلة؟»: «انا بحب لون فاتح»; Amal: «ممتاز».",
+   "lesson_date": "2026-09-26",
+   "t": 3182.25,
+   "word_key": "fAte7",
+   "text": "فاتح."
+  },
+  "0b0e764411cbd47bfca3fb00aaf11bd9070f7737c5905f8e7fe5139f1469f536": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "First «ممكن» of the «ممكن، ممكن بشتري بدلة» try; the episode is already scored once at 53:17 (after Amal's \"ممكن takes out the be\").",
+   "lesson_date": "2026-09-26",
+   "t": 3185.93,
+   "word_key": "mumken",
+   "text": "ممكن،"
+  },
+  "01fc0f320a216935d34bc42fb474e2832deef7d88170cc645413ffd7c696c916": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Restart «ممكن، uh، ممكن بشتري»; this ممكن episode is already scored at 53:17.",
+   "lesson_date": "2026-09-26",
+   "t": 3190.11,
+   "word_key": "mumken",
+   "text": "ممكن"
+  },
+  "1d134dc1cb1c795d748b531255991d8d4de366de90d2771dbaa083375d933eb9": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Second فاتح in the same «بدلة سكني فاتح أو ... فاتح أو زرع» turn; counted at 53:20.",
+   "lesson_date": "2026-09-26",
+   "t": 3213.09,
+   "word_key": "fAte7",
+   "text": "فاتح"
+  },
+  "7490f7c3a9e1e1ef2b595784bc15c371fa18cc9477872df6d37ca9f3838ebfd8": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Second أو in the same turn; counted at 53:21.",
+   "lesson_date": "2026-09-26",
+   "t": 3215.05,
+   "word_key": "aw",
+   "text": "أو"
+  },
+  "f750370cbb3427e4f8eb588d15dad4260b2e079e4faabcc96f4e9888c539d966": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Third أو in the same turn; counted at 53:21.",
+   "lesson_date": "2026-09-26",
+   "t": 3220.61,
+   "word_key": "aw",
+   "text": "أو,"
+  },
+  "65c03124de8a8c6d19351f86f338be5fc4d5f670bd2c4cdc4bbe14d9158c4f8b": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Second لازم in the same turn «مش لازم أشتري ... بس لازم انضف»; counted at 54:16.",
+   "lesson_date": "2026-09-26",
+   "t": 3264.57,
+   "word_key": "lAzem",
+   "text": "لازم"
+  },
+  "7ebcc9b1cb321dfba2a1666f1a377f01af3e260d4b14f7e4c7bf1c198a6d077f": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «أنا بكون راح ألبس بنية» (I will probably wear brown).",
+   "lesson_date": "2026-09-26",
+   "t": 3309.4,
+   "word_key": null,
+   "text": "راح،",
+   "set": {
+    "word_key": "ra7"
+   }
+  },
+  "610395a02401bc4699e10b00d20c51ea56b5143517095148d6cee9bd009da610": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «لازم أشتري إشيات ...».",
+   "lesson_date": "2026-09-26",
+   "t": 3379.86,
+   "word_key": "lAzem",
+   "text": "لازم"
+  },
+  "cecf13398ea7a861fd2c2d6cd27c7f7b7fc90338610a31bc7381cad66b71aff4": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own sentence «لازم أشتري إشيات ...».",
+   "lesson_date": "2026-09-26",
+   "t": 3381.86,
+   "word_key": "eshteri",
+   "text": "أشتري"
+  },
+  "3b10681a2eb588c4500930ff2e3005924dea1559e089b5fb38003db3ef73732e": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "«زي لون كندرتي» restates his own لون from 56:30 (counted).",
+   "lesson_date": "2026-09-26",
+   "t": 3400.34,
+   "word_key": "loan",
+   "text": "لون"
+  },
+  "6608ba2d078a94c4e6e559c47040567cbf1edd05703e6c51db49c1bdee14a18e": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "«أشيا كتير» repeats his own «إشي كتير» (57:12, counted) while fixing the plural.",
+   "lesson_date": "2026-09-26",
+   "t": 3439.54,
+   "word_key": "ktIr",
+   "text": "كتير"
+  },
+  "cbc73ed8f6c1531b0e369d666d60bec0ee114f9a6e6e16badcbdca3b50b66fb4": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Asked in English for one dress he produced «فساتين ... فستان» himself before Amal said it.",
+   "lesson_date": "2026-09-26",
+   "t": 3480.82,
+   "word_key": "fus6An",
+   "text": "فستان."
+  },
+  "75a733e67de926878c393357795ca8cbe3acdac322468df86d4070ce30fe3e02": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Answer to «راح تلبس sunglasses؟»: «لا أنا أبدًا ما ألبس»; Amal's fix is the b-prefix, grammar.",
+   "lesson_date": "2026-09-26",
+   "t": 3504.46,
+   "word_key": null,
+   "text": "أبدًا",
+   "set": {
+    "word_key": "abadan"
+   }
+  },
+  "63dcd0fc133869838251377574485bbd02689391c01101584d25862cff33aef4": {
+   "bin": "not_counted",
+   "kind": "grammar",
+   "note": "«ما ألبس» corrected to «ما بلبس»: b-prefix/tense repair, grammar/null (rule 7).",
+   "lesson_date": "2026-09-26",
+   "t": 3506.84,
+   "word_key": "albis",
+   "text": "ألبس،"
+  },
+  "8f3fcd30e9bf1788f9059290ac7044e83c173e328ed259ee57d68ab55d13b712": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "«أبدًا ما بلبس نضارة شمسية» restarts his 58:24 answer after the b-prefix fix.",
+   "lesson_date": "2026-09-26",
+   "t": 3516.72,
+   "word_key": null,
+   "text": "أبدًا"
+  },
+  "5c0fe9f8f0bac647a51fe8b79515a0098da8585b6b95a63e12d3dd06899abacc": {
+   "bin": "not_counted",
+   "kind": "grammar",
+   "note": "«ما بلبس» right after Amal supplied it: repair of the b-prefix, grammar.",
+   "lesson_date": "2026-09-26",
+   "t": 3517.4,
+   "word_key": null,
+   "text": "بلبس"
+  },
+  "9229cedfc14321a338106bf2fbe032d49dfce4ba7db9b2cecc147af3b503b08b": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "New answer about a hat: «أنا أبدًا ما بلبس تاية كمان».",
+   "lesson_date": "2026-09-26",
+   "t": 3570.18,
+   "word_key": null,
+   "text": "أبدًا",
+   "set": {
+    "word_key": "abadan"
+   }
+  },
+  "5de99eae3feb5695f7b07b01b1e3bbcf3644b038472861d0e6c089542f7788a5": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "New answer about a hat, now with the right form on his own: «أنا أبدًا ما بلبس تاية».",
+   "lesson_date": "2026-09-26",
+   "t": 3570.86,
+   "word_key": null,
+   "text": "بلبس،",
+   "set": {
+    "word_key": "ana balbes"
+   }
+  },
+  "8f29ca5b305854c9ed4864a1eeeb80a7341c7bb755f8a3caaa166f169d8747ac": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "«ما بلبس تاية كمان» (a hat too): كمان = also.",
+   "lesson_date": "2026-09-26",
+   "t": 3575.02,
+   "word_key": null,
+   "text": "كمان.",
+   "set": {
+    "word_key": "kamAn"
+   }
+  },
+  "630dfbf1841a87d727098a35f3e2949e1e7924469842281fba0088e6bda4ed97": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "New sentence of his own «أنا بحب أعود في الشمس»; Amal's earlier «ما بحبها» was her own statement, not a supplied answer.",
+   "lesson_date": "2026-09-26",
+   "t": 3648.26,
+   "word_key": "ana ba7eb",
+   "text": "أنا بحب"
+  },
+  "e5c08f0ad844a6cc7bec255b33d89eaea56a73bf18324f8416073a991d3f3511": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own answer «أنا عندي كل– ... كلسات».",
+   "lesson_date": "2026-09-26",
+   "t": 3816.02,
+   "word_key": "ana 3endi",
+   "text": "أنا عندي"
+  },
+  "3d63fad97b1d573a0a254bf89f77cd87447c9eeecc5536ee74b2bd8d0b314522": {
+   "bin": "not_counted",
+   "kind": "echo",
+   "note": "Quotes «كلسات» from Amal's question «شو بتحب تلبس لون كلسات» 30 s earlier to ask if it is plural.",
+   "lesson_date": "2026-09-26",
+   "t": 3821.04,
+   "word_key": "kalsAt",
+   "text": "كلسات"
+  },
+  "bfaad2368b36bf064877a7409b0400c0cd93a9b5cec3ff678097f4ab08b474ec": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "«مختلف لون؟» reorders his own «لون مختلف» (63:49, counted) after «وين بحط اللون؟».",
+   "lesson_date": "2026-09-26",
+   "t": 3834.96,
+   "word_key": "mu5talef",
+   "text": "مختلف"
+  },
+  "67bfbe8254a12eb5e15304b8d7793fe2c109538b38f1599183c1001d37b7b2e7": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "«مختلف لون؟» reorders his own «لون مختلف» (63:49, counted).",
+   "lesson_date": "2026-09-26",
+   "t": 3835.56,
+   "word_key": "loan",
+   "text": "لون؟"
+  },
+  "0f638e5b09c5eb163d2920885e6afbac4e81c43651e9caa1bd47543c98accaf7": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Restates his own «لون مختلف» (63:47) while Amal fixes the plural; that try is counted once.",
+   "lesson_date": "2026-09-26",
+   "t": 3868.24,
+   "word_key": "mu5talef",
+   "text": "مختلف."
+  },
+  "1710d8b9aeec7deceb6878e0c69a048db27f9b26e85cade5ed410ded52cd1985": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own colour list «أخضر، أحمر، وا أسود».",
+   "lesson_date": "2026-09-26",
+   "t": 3899.24,
+   "word_key": "aswad",
+   "text": "أسود،"
+  },
+  "2d5f29d22a95105819a8e84030a66e8d75f8b65ab7636325ccf7d2b702314207": {
+   "bin": "not_counted",
+   "kind": "grammar",
+   "note": "«لما كنت صغيرة، بلبس الـ» then Amal \"You were.\" and he says «لبستي»: tense/person, grammar.",
+   "lesson_date": "2026-09-26",
+   "t": 4042.01,
+   "word_key": null,
+   "text": "بلبس"
+  },
+  "2d26d7a45f15fa77dd663888e7f13992873160672aceb9fd56d01d9d92eb85cf": {
+   "bin": "not_counted",
+   "kind": "grammar",
+   "note": "«خصلات آآآ أبيض» corrected to the plural «بيض»: agreement, grammar-only (Sep 21 decision).",
+   "lesson_date": "2026-09-26",
+   "t": 4073.63,
+   "word_key": "abyad",
+   "text": "أبيض."
+  },
+  "09f603837237859b2779e1af581891e9990ce25aa809d9180a7d9a1d5f8ae783": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«بيت؟» is his mishearing of Amal's «بيض», not house.",
+   "lesson_date": "2026-09-26",
+   "t": 4078.11,
+   "word_key": "bait",
+   "text": "بيت؟"
+  },
+  "b7fe83b82e5c886b2d3f3f571057a767424a26b97e4fafff881c35cd1f8e00b7": {
+   "bin": "not_counted",
+   "kind": "not_this_word",
+   "note": "«بيت؟ ... Wasn't it بيوت؟» is his mishearing of Amal's «بيض» (white, plural), not house.",
+   "lesson_date": "2026-09-26",
+   "t": 4083.89,
+   "word_key": "bait",
+   "text": "بيت."
+  },
+  "9d5c2188ce026c0fafc3d5da222aa946daff4129fa9b166f12915b941b9168d8": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Own answer «Maybe one. ممكن واحدة», no Arabic cue.",
+   "lesson_date": "2026-09-26",
+   "t": 4113.45,
+   "word_key": "mumken",
+   "text": "ممكن"
+  },
+  "e272592c2bd542ee5254df971af29252c2e5bfff3733c5e15e833a97038200c2": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Unprompted «شكرًا.» as the lesson ends.",
+   "lesson_date": "2026-09-26",
+   "t": 4173.07,
+   "word_key": "shukran",
+   "text": "شكرًا."
+  },
+  "ffefb825b3d2f214b686a6ca270ad3f9ab7fd8f64df1f99d87f828ec939e06a5": {
+   "bin": "not_counted",
+   "kind": "repeat",
+   "note": "Second «شكرًا» 5 s later in the same goodbye.",
+   "lesson_date": "2026-09-26",
+   "t": 4178.13,
+   "word_key": "shukran",
+   "text": "شكرًا."
+  },
+  "1cd39d23639bf033e19575803e31e185a7a964f7dfca35fcad784bb2d3700172": {
+   "bin": "settled",
+   "kind": "independent",
+   "note": "Spontaneous goodbye «شكرًا. سلام. ... مع السلامة» before Amal's «سلام».",
+   "lesson_date": "2026-09-26",
+   "t": 4180.03,
+   "word_key": "salam",
+   "text": "سلام."
+  }
+ }
+}

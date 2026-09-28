@@ -21,10 +21,10 @@ import track  # noqa: E402
 
 FIELDS = ("decision_id", "ts", "who", "channel", "about_type", "about_id", "ai_run_id", "ai_value", "answer",
           "corrected_value", "confidence", "reason", "latency_ms", "sampling", "supersedes", "applied_commit", "source_row")
-WHO = ("Medi", "Amal")
+WHO = ("Medi", "Amal", "Claude audit")   # "Claude audit": a machine verdict (scripts/audit_vocab_unresolved.py), kept apart from Medi's/Amal's
 # the review's lists, plus review_page/app (Medi's own review pages) and homework/plan/change (Amal's after-lesson homework
 # taps, her lesson-plan choices, a yes/no on a whole commit)
-CHANNELS = ("swipe", "tutor_page", "chat", "commit", "review_page", "app")
+CHANNELS = ("swipe", "tutor_page", "chat", "commit", "review_page", "app", "audit")
 ABOUT = ("rule", "audit_row", "pattern", "word", "arabizi", "label", "homework", "plan", "change")
 SAMPLING = (None, "random", "uncertain", "repeat")
 
