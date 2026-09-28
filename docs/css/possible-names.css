@@ -1,0 +1,35 @@
+/* AI Reports › Robot blind spots › "Possible names" (docs/js/possible-names.js, names & places layer 2026-09-28).
+   Same accordion look as the vocab / grammar blind-spot rows (vu-acc), self-contained with the pn- prefix.
+   Needs word-bank.css + vocabulary-progress.css (tokens, .vp-panel). Light/dark via --ab-* tokens. */
+#anees-bank .pn-panel{min-width:0}
+#anees-bank .pn-key{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--sabz-c-burnt-orange,#B9631F);margin-bottom:4px}
+#anees-bank .pn-panel h2{font-size:16px;font-weight:600;margin:0 0 4px}
+#anees-bank .pn-count{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ab-muted);font-weight:600;margin:10px 0 4px}
+#anees-bank .pn-acc{border-bottom:1px dashed var(--ab-line)}
+#anees-bank .pn-acc>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:relative;padding:7px 0 7px 16px;border-radius:6px}
+#anees-bank .pn-acc>summary::-webkit-details-marker{display:none}
+#anees-bank .pn-acc>summary::before{content:"";position:absolute;left:2px;top:50%;width:6px;height:6px;margin-top:-5px;border-right:1.5px solid var(--ab-muted);border-bottom:1.5px solid var(--ab-muted);transform:rotate(-45deg);transition:transform .15s}
+#anees-bank .pn-acc[open]>summary::before{transform:rotate(45deg)}
+#anees-bank .pn-acc>summary:hover{background:var(--ab-raised)}
+#anees-bank .pn-acc>summary:focus-visible{outline:2px solid var(--ab-accent);outline-offset:2px}
+#anees-bank .pn-lab{flex:1 1 180px;min-width:0}
+#anees-bank .pn-lab b{font-weight:600;color:var(--ab-text);font-size:14px}
+#anees-bank .pn-lab small{display:block;color:var(--ab-muted);font-size:11px;line-height:1.35}
+#anees-bank .pn-btns{display:flex;align-items:center;gap:6px;flex:0 0 auto;margin-left:auto}
+#anees-bank .pn-btn{font:inherit;font-size:12.5px;font-weight:600;min-height:32px;padding:4px 12px;border-radius:16px;border:1px solid var(--ab-line);background:var(--ab-panel);color:var(--ab-text);cursor:pointer}
+#anees-bank .pn-btn:hover{background:var(--ab-raised)}
+#anees-bank .pn-btn:focus-visible{outline:2px solid var(--ab-accent);outline-offset:2px}
+#anees-bank .pn-yes[aria-pressed="true"]{background:var(--ab-green);border-color:var(--ab-green);color:var(--ab-panel)}
+#anees-bank .pn-no[aria-pressed="true"]{background:var(--ab-muted);border-color:var(--ab-muted);color:var(--ab-panel)}
+#anees-bank .pn-verdict{font-size:11.5px;color:var(--ab-muted)}
+#anees-bank .pn-done .pn-lab b{color:var(--ab-muted)}
+#anees-bank .pn-items{padding:2px 0 10px 16px}
+#anees-bank .pn-guess{font-size:12px;color:var(--ab-muted);margin:0 0 6px}
+#anees-bank .pn-ex{padding:6px 0;border-top:1px solid var(--ab-line)}
+#anees-bank .pn-when{font-size:11px;color:var(--ab-muted)}
+#anees-bank .pn-sent{font-size:13.5px;line-height:1.5;overflow-wrap:anywhere}
+#anees-bank .pn-mark{background:light-dark(#F3E3B5,#5A4A1E);color:inherit;border-radius:3px;padding:0 2px}
+#anees-bank .pn-foot{margin:12px 0 0!important;padding-top:10px;border-top:1px solid var(--ab-line);font-size:11.5px;color:var(--ab-muted)}
+#anees-bank .pn-sync{display:block;margin-bottom:4px}
+#anees-bank .pn-sync[data-state="missing"],#anees-bank .pn-sync[data-state="offline"]{color:var(--ab-orange)}
+@media (max-width:520px){#anees-bank .pn-btns{margin-left:16px;width:100%}#anees-bank .pn-btn{flex:1}}

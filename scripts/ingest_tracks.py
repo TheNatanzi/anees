@@ -33,7 +33,7 @@ def transcribe_track(d: Path, who: str, mp3: Path) -> dict:
         lp.log('reusing', out.name)
         return json.load(io.open(out, encoding='utf-8'))
     lp.log('transcribing track', who, mp3.name)
-    res = lp.transcribe(mp3)
+    res = lp.transcribe(mp3, who=who)          # who -> names as keyterms for this track (pipeline_ext.KEYTERMS)
     out.write_text(json.dumps(res, ensure_ascii=False), encoding='utf-8')
     return res
 

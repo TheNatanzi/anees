@@ -33,6 +33,8 @@ sys.path.insert(0, HERE)
 from arabizi import loose, fold, arabic_norm  # noqa: E402
 from english_stop import ENGLISH_STOP  # noqa: E402
 import detect_grammar_usage as G  # noqa: E402   (patterns only; its __main__ is not run)
+from farsi import is_farsi  # noqa: E402   Farsi side conversation (2026-09-28) is not the lesson
+import names as NAMES  # noqa: E402   names & places layer (2026-09-28): a name is one word, never an unknown word
 
 VERSION = "2026-09-27"
 
@@ -435,10 +437,22 @@ def tokenize(text, bk=None, hint=None):
     a lone و/ب/ل/الـ or Latin el/il/w/u joined to the next word, cut-off fragments (شك-شكلو, ta-tam) and immediate
     stutter repeats dropped."""
     text = BIDI.sub("", PAUSE.sub(" ", BRACKET.sub(" ", text or "")))
+    text, found = _names_marked(text)
     raw = TOKEN.findall(text)
     out = []
     carry = ""
     for i, tok in enumerate(raw):
+        mk = NAME_MARK.fullmatch(tok)
+        if mk:                                        # a name (رام الله, Bait La7em): ONE word, tagged, never looked up
+            sp = found[int(mk.group(1))]
+            lat = not AR.search(sp["text"])
+            if out and out[-1].get("nm") and out[-1]["w"] == sp["text"]:
+                carry = ""
+                continue                              # stutter: صيني، صيني
+            out.append({"w": (carry + sp["text"]) if carry and not lat else sp["text"], "s": "unk" if lat else "ar", "lat": lat,
+                        "nm": sp["kind"]})
+            carry = ""
+            continue
         cut = bool(re.search(r"(?:-{1,2}|—)$", tok))
         tok = re.sub(r"(?:-{1,2}|—)$", "", tok)
         if not tok:
@@ -488,8 +502,28 @@ def tokenize(text, bk=None, hint=None):
                 x["s"] = "ar" if ar_n >= 1 and ar_n >= en_n else "en"
             else:
                 x["s"] = "ar" if hint is not None and hint >= LATIN_HINT else "en"
-            x["guess"] = True
+            if not x.get("nm"):
+                x["guess"] = True
     return out
+
+
+NAME_MARK = re.compile(r"ZZNM(\d+)ZZ")
+
+
+def _names_marked(text):
+    """Text with every name span replaced by a one-token marker ZZNM<i>ZZ (names matched first, longest first)."""
+    try:
+        spans = NAMES.load().find(text)
+    except (OSError, ValueError):
+        return text, []
+    if not spans:
+        return text, []
+    out, last = [], 0
+    for i, sp in enumerate(spans):
+        out.append(text[last:sp["s"]] + " ZZNM%dZZ " % i)
+        last = sp["e"]
+    out.append(text[last:])
+    return "".join(out), spans
 
 
 def count_words(text, bk=None, hint=None):
@@ -627,7 +661,10 @@ def sentence_tags(toks, text, bk):
     for i, x in enumerate(ar):
         w = x["w"]
         lat = x["lat"]
-        if lat:
+        if x.get("nm"):                               # a name: no Word Bank key, not a function word, no endings
+            keys, via, is_fn, c, n_ar = [], None, False, 0, None
+            letters += len(re.findall(r"\w", w))
+        elif lat:
             base = w.lower().split("-")[-1]
             keys, via = bk.keys_lat(base)
             is_fn = base in LAT_FN
@@ -691,6 +728,8 @@ def sentence_tags(toks, text, bk):
             rec["c"] = c
         if lat:
             rec["lat"] = 1
+        if x.get("nm"):
+            rec["nm"] = x["nm"]
         if x.get("guess"):
             rec["guess"] = 1
         out_tok.append(rec)
@@ -786,6 +825,7 @@ def rules_in(text):
     """The 57-rule detector exactly as scripts/detect_grammar_usage.py runs it on one of Medi's turns."""
     if not G.AR_WORD.search(text or ""):
         return set()
+    text = G.mask_names(text)[0]                      # a name (رام الله, بيت لحم) is never a rule trigger
     txt = re.sub(r"(?:^|\s)الـ(?=\s|$|[،,.])", " ", text)
     txt = re.sub(r"\S+(--|—)", " ", txt)
     words = G.AR_WORD.findall(txt)
@@ -909,6 +949,8 @@ def build_sentences(turns, words=None):
                 s = open_[who] = {"spk": who, "t": a, "end": b, "parts": [], "mid": False, "hole": hole, "noise": noise,
                                   "time_src": src, "wt": [] if wt is not None else None}
             s["parts"].append(ptxt)
+            if tr.get("from_meet"):                   # a line recovered from the Meet recording (fill_meet_gaps.py)
+                s["from_meet"] = True
             s["end"] = max(s["end"], b)
             s["hole"] = s["hole"] or hole
             s["noise"] = s["noise"] or noise
@@ -1110,6 +1152,11 @@ def sentence_has(sent_toks, q):
 # ------------------------------------------------------------------ one lesson
 def lesson_units(date, meta, bk, console, turns_doc, words=None):
     turns = turns_doc["turns"]
+    # Farsi side-conversation turns (his dad, 2026-09-28): every sentence inside one is not the lesson, even a short
+    # piece with no Persian letters of its own (Aug 25 03:38 "يا مهمني." sits in a Farsi turn).
+    fa_spans = [(float(t["t"]) - 0.2, float(t.get("end") or t["t"]) + 0.2) for t in turns
+                if (t.get("who") or t.get("speaker")) == "Medi" and is_farsi(t.get("text"))]
+    in_fa = lambda x: any(a <= x <= b for a, b in fa_spans)  # noqa: E731
     duration = (meta.get("duration_min") or 0) * 60 or max(float(t["t"]) for t in turns) + 5
     window = (meta.get("talk") or {}).get("window")
     miss = missing_windows(turns, duration, window)
@@ -1241,7 +1288,7 @@ def lesson_units(date, meta, bk, console, turns_doc, words=None):
             fn = (not x["lat"] and n in FN_AR) or (x["lat"] and x["w"].lower() in LAT_FN)
             h = [t for t in heard[n] if t < s["t"] - 0.5]
             x["_heard"] = len(h)
-            if not fn:
+            if not fn and not x.get("nm"):           # a name is never a "new word"
                 if not h:
                     first_time += 1
                 else:
@@ -1289,7 +1336,8 @@ def lesson_units(date, meta, bk, console, turns_doc, words=None):
             tags["typed_in_chat"] = bool(ch and ch["overlap"] >= 1)
         tags["en_share"] = round(s["en_n"] / (s["ar_n"] + s["en_n"]), 2) if (s["ar_n"] + s["en_n"]) else None
         return {"id": sid(date, side, s["t"]), "side": side, "t": round(s["t"], 2), "end": round(s["end"], 2),
-                "text": s["text"], "n": s["ar_n"], "tok": tok_out, "tags": tags, "rules": rules}
+                "text": s["text"], "n": s["ar_n"], "tok": tok_out, "tags": tags, "rules": rules,
+                **({"from_meet": True} if s.get("from_meet") else {})}
 
     def wordset(x):
         out = set()
@@ -1393,6 +1441,8 @@ def lesson_units(date, meta, bk, console, turns_doc, words=None):
                                           "kind": "english" if eng else "rephrase", "next": sj["text"][:140]}
         if reply is None:
             continue
+        if any(is_farsi(x["text"]) or in_fa(x["t"]) for x in reply["s"][:3]):
+            continue                            # he answered someone else in Farsi (his dad): no listening test
         cands = [s for s in floor if qualifies(s)]
         if not cands:
             continue
@@ -1541,7 +1591,9 @@ def lesson_units(date, meta, bk, console, turns_doc, words=None):
         u = make_unit(s, "speak")
         u["scored"] = True
         why = None
-        if mostly_english(s["ar_n"], s["en_n"]):
+        if is_farsi(s["text"]) or in_fa(s["t"]):
+            why = "Farsi side conversation (not the lesson)"
+        elif mostly_english(s["ar_n"], s["en_n"]):
             why = "mostly English"
         elif in_missing(s["t"], miss, "Amal"):
             why = "Amal's side missing (no correction could be seen)"

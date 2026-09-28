@@ -12,6 +12,15 @@ LEDGER = ROOT / 'data' / 'budget.json'
 CAPS = {'elevenlabs': 10.0, 'openai': 10.0}      # USD, the plan's hard limits; paid calls stop at 90 %
 STOP_AT = 0.9
 ELEVEN_USD_PER_MIN = 0.22 / 60                  # Scribe v2 list price ($0.22 / hour)
+KEYTERM_USD_PER_MIN = 0.05 / 60                 # keyterm prompting surcharge (+$0.05 / hour, plan/AI-ENGINEERING-REVIEW-2026-09-27.md)
+# Names as Scribe keyterms (Medi 2026-09-28: "the AI understanding that a word is a name"): docs/data/names.json via
+# scripts/names.py keyterms(). NAMES ONLY, never vocabulary (vocab biasing could hide Medi's mistakes). Per track:
+#   'all'    every place, country and nationality name (Amal's track, default)
+#   'places' place names only (Medi's track and a mixed / unknown file, default: a country or nationality word on his
+#            side is too close to vocabulary). People are stored only as fingerprints, so no person keyterm is ever sent.
+#   'off'    no keyterms (today's behaviour).
+# Override per run: ANEES_KEYTERMS_AMAL / ANEES_KEYTERMS_MEDI = all | places | off.
+KEYTERMS = {'amal': 'all', 'medi': 'places', 'mixed': 'places'}
 
 
 def ledger():
@@ -39,20 +48,47 @@ class BudgetStop(RuntimeError):
     pass
 
 
-def transcribe_with_retry(post, mp3_path, key, minutes, tries=3, backoff=(5, 20, 60), sleep=time.sleep):
+def track_of(path, who=None):
+    """'amal' | 'medi' | 'mixed' from the participant name (ingest_tracks passes it) or the file name."""
+    n = (who or Path(str(path)).name).lower()
+    if 'amal' in n:
+        return 'amal'
+    if 'medi' in n or 'mahdi' in n or 'natanzi' in n:
+        return 'medi'
+    return 'mixed'
+
+
+def keyterms_for(track):
+    """(keyterms, mode, names.json sha) for this track. Never raises: no names file -> no keyterms."""
+    import os
+    mode = (os.environ.get('ANEES_KEYTERMS_' + track.upper()) if track in ('amal', 'medi') else None) or KEYTERMS.get(track, 'off')
+    if mode not in ('all', 'places'):
+        return [], 'off', None
+    try:
+        import names
+        return names.load().keyterms('amal' if mode == 'all' else 'medi'), mode, (names.names_sha() or '')[:16]
+    except Exception:
+        return [], 'off', None
+
+
+def transcribe_with_retry(post, mp3_path, key, minutes, tries=3, backoff=(5, 20, 60), sleep=time.sleep, who=None):
     """post(url, headers, data, files, timeout) -> response-like (status_code, text, json()). Retries 429 / 5xx / network errors
     up to `tries` times; refuses to start when the ElevenLabs budget would pass 90 %.
-    Every call writes one line to data/runs (scripts/track.py): audio minutes, list-price cost, retries, status - never text."""
+    Every call writes one line to data/runs (scripts/track.py): audio minutes, list-price cost, retries, status, the keyterm
+    count and the names.json sha they came from - never text (keyterms themselves are not logged)."""
+    trk = track_of(mp3_path, who)
+    terms, mode, nsha = keyterms_for(trk)
     try:
         import track
         ctx = track.run('scribe.transcribe', _lesson_date_of(mp3_path), kind='ingest', provider='elevenlabs',
                         request_model='scribe_v2', inputs=[mp3_path],
-                        params={'diarize': True, 'num_speakers': 2, 'timestamps_granularity': 'word', 'tag_audio_events': True})
+                        params={'diarize': True, 'num_speakers': 2, 'timestamps_granularity': 'word', 'tag_audio_events': True,
+                                'track': trk, 'keyterms': len(terms), 'keyterms_mode': mode, 'names_sha': nsha})
         rec = ctx.__enter__()
     except Exception:
         ctx, rec = None, None
     try:
-        res = _transcribe_with_retry(post, mp3_path, key, minutes, tries, backoff, sleep, rec)
+        res = _transcribe_with_retry(post, mp3_path, key, minutes, tries, backoff, sleep, rec, terms)
     except BaseException as e:
         if ctx is not None:
             try:
@@ -80,8 +116,8 @@ def _lesson_date_of(path):
     return m.group(1) if m else None
 
 
-def _transcribe_with_retry(post, mp3_path, key, minutes, tries, backoff, sleep, rec=None):
-    est = minutes * ELEVEN_USD_PER_MIN
+def _transcribe_with_retry(post, mp3_path, key, minutes, tries, backoff, sleep, rec=None, keyterms=()):
+    est = minutes * (ELEVEN_USD_PER_MIN + (KEYTERM_USD_PER_MIN if keyterms else 0))
     note = (lambda **k: rec.set(**k)) if rec is not None else (lambda **k: None)
     note(usage={'audio_min': round(minutes, 3)})
     if not budget_ok('elevenlabs', est):
@@ -92,8 +128,11 @@ def _transcribe_with_retry(post, mp3_path, key, minutes, tries, backoff, sleep, 
         attempts += 1
         try:
             with open(mp3_path, 'rb') as f:
+                data = {'model_id': 'scribe_v2', 'diarize': 'true', 'num_speakers': '2', 'timestamps_granularity': 'word', 'tag_audio_events': 'true'}
+                if keyterms:
+                    data['keyterms'] = list(keyterms)       # multipart: one 'keyterms' field per name (max 1000, 50 chars each)
                 r = post('https://api.elevenlabs.io/v1/speech-to-text', headers={'xi-api-key': key},
-                         data={'model_id': 'scribe_v2', 'diarize': 'true', 'num_speakers': '2', 'timestamps_granularity': 'word', 'tag_audio_events': 'true'},
+                         data=data,
                          files={'file': (Path(mp3_path).name, f, 'audio/mpeg')}, timeout=1800)
         except Exception as e:                      # network error
             last = f'network: {e}'

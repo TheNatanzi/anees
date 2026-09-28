@@ -30,10 +30,14 @@ const EV={'she confirmed':'She confirmed (\u2068ممتاز\u2069, \u2068صح\u20
 /* ---------- state ---------- */
 let CTX=null,AZ=null;const GROUPS=new Map();const SHOWN=new Map();
 const azText=t=>{if(!AZ||!AR.test(t||''))return null;try{const r=AZ(t);return r&&r.text&&r.text!==t?r.text:null;}catch(e){return null;}};
+// Names & places (2026-09-28, js/names.js): a name keeps its chip on both lines and is never spelled word by word.
+const NM=()=>window.AneesNames&&window.AneesNames.matcher;
+const namesReady=()=>window.AneesNames?window.AneesNames.load().catch(()=>null):new Promise(res=>{const s=document.createElement('script');s.src='js/names.js';s.onload=()=>window.AneesNames.load().then(res,()=>res(null));s.onerror=()=>res(null);document.head.append(s);});
 function speech(text,cls){
  if(!text)return `<div class="fu-said ${cls||''}">—</div>`;
- const az=azText(text);
- return `<div class="fu-said ${cls||''}">${az?`<div class="fu-az" dir="auto">${esc(az)}</div>`:''}<div class="${AR.test(text)?'fu-ar':'fu-plain'}" dir="auto"${AR.test(text)?' lang="ar"':''}>${esc(text)}</div></div>`;
+ const az=azText(text),m=NM(),N=window.AneesNames;
+ const top=az?(m?N.azLine(text,m,azText,esc):esc(az)):'',body=m?N.markup(text,m,esc):esc(text);
+ return `<div class="fu-said ${cls||''}">${az?`<div class="fu-az" dir="auto">${top}</div>`:''}<div class="${AR.test(text)?'fu-ar':'fu-plain'}" dir="auto"${AR.test(text)?' lang="ar"':''}>${body}</div></div>`;
 }
 
 /* ---------- audio: plays the lesson recording from her line to the end of his reply ---------- */
@@ -159,7 +163,7 @@ async function mount(host){
   const got=await Promise.all(dates.map(d=>json(files[d]).catch(()=>null)));
   const listen=[],meta=new Map();got.forEach((f,i)=>{if(!f)return;meta.set(dates[i],{audio:f.audio});listen.push(...(f.listen||[]).map(u=>Object.assign({date:dates[i]},u)));});
   const labels=[].concat(LS('anees-sentence-label-server')||[],LS('anees-sentence-label-log')||[],LS('anees-sentence-label-queue')||[]);
-  const az=await spelling();
+  const [az]=await Promise.all([spelling(),namesReady()]);
   host.innerHTML='';
   render(host,{summary,units:{listen,meta,byId:new Map(listen.map(u=>[u.id,u]))},labels,az});
  }catch(e){host.innerHTML=`<div class="vp-notice">The sentence ladder could not load (${esc(e.message)}). Refresh to retry.</div>`;}

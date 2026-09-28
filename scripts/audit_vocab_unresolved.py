@@ -197,27 +197,7 @@ def merged_turn(e, gap=2.5):
 
 
 # ------------------------------------------------------------------ rule 1: Farsi side conversation
-FA_LETTERS = {'پ': 'pe', 'چ': 'che', 'ژ': 'zhe', 'گ': 'gaf', 'ی': 'fa_ye', 'ک': 'fa_kaf', '‌': 'zwnj'}
-# Persian-only function words and verb forms. Words that are also everyday Levantine/MSA (من ما هم با به تو ده الان خوب مي ...)
-# are deliberately left out so an Arabic line never scores on them.
-FA_WORDS = {fold(w) for w in (
-    'رو', 'است', 'هست', 'نیست', 'این', 'اون', 'بیرون', 'پنجره', 'خیلی', 'چی', 'کجا', 'چرا', 'چطور', 'روشنه', 'خاموش',
-    'دارم', 'داری', 'برو', 'بیا', 'بکن', 'باشه', 'چیه', 'کیه', 'اینجا', 'اونجا', 'دیروز', 'فردا', 'بابا', 'مامان', 'ولی',
-    'چون', 'خوبه', 'رسیده', 'بندی', 'ببند', 'جان', 'جون', 'میرم', 'میری', 'میره', 'میام', 'میاد', 'میخوام', 'میخوای', 'میکنم',
-    'میکنی', 'میکنه', 'میگم', 'میگی', 'میگه', 'میدونم', 'نمیدونم', 'میشه', 'نمیشه', 'بشین', 'بخور', 'بریم', 'کردم', 'کردی',
-    'رفتم', 'اومدم', 'بگو', 'ببین', 'نکن', 'خونه', 'یکی', 'هفتاد')}
-MI_VERB = re.compile(r'(?:^|[\s،,.])ن?مي[\s‌][؀-ۿ]{2,}')
-
-
-def farsi_signals(text):
-    t = str(text or '')
-    sig = {n for ch, n in FA_LETTERS.items() if ch in t}
-    for w in re.findall(r'[؀-ۿ‌]+', t):
-        if fold(w) in FA_WORDS:
-            sig.add('w:' + fold(w))
-    if MI_VERB.search(fold(t)):
-        sig.add('mi+verb')
-    return sig
+from farsi import FA_LETTERS, FA_WORDS, MI_VERB, farsi_signals  # noqa: E402,F401   shared with the ladder and grammar builders
 
 
 def page_turns():

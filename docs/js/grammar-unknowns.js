@@ -109,14 +109,17 @@ let AZ;
 const az=()=>{if(AZ===undefined)AZ=window.AneesWordBankArabizi?window.AneesWordBankArabizi.create():null;return AZ;};
 function el(tag,cls,text){const x=document.createElement(tag);if(cls)x.className=cls;if(text!=null)x.textContent=text;return x;}
 // One spoken line: her Arabizi on top, the Arabic small underneath (S1). html carries the audit's own <mark> spans.
+// Names & places (2026-09-28, js/names.js): each name gets its chip on both lines and is never converted word by word.
+const namesReady=()=>window.AneesNames?window.AneesNames.load().catch(()=>null):new Promise(res=>{const s=document.createElement('script');s.src='js/names.js';s.onload=()=>window.AneesNames.load().then(res,()=>res(null));s.onerror=()=>res(null);document.head.append(s);});
 function speech(cls,html,text){
  const box=el('div','gu-speech '+(cls||'')),src=el('span');
  if(html)src.innerHTML=html;else src.textContent=text||'—';
+ const N=window.AneesNames;if(N&&N.matcher)N.decorate(src,N.matcher);
  const conv=az();
  if(!conv||!isArabic(src.textContent)){const only=el('div','gu-latin');only.setAttribute('dir','auto');only.appendChild(src);box.appendChild(only);return box;}
  const latin=src.cloneNode(true);let approx=false;
  const walk=document.createTreeWalker(latin,NodeFilter.SHOW_TEXT,null),nodes=[];let t;while((t=walk.nextNode()))nodes.push(t);
- nodes.forEach(t=>{if(!isArabic(t.nodeValue))return;const r=conv(t.nodeValue);if(r.approximate)approx=true;t.nodeValue=r.text;});
+ nodes.forEach(t=>{if(!isArabic(t.nodeValue)||(N&&N.inName(t)))return;const r=conv(t.nodeValue);if(r.approximate)approx=true;t.nodeValue=r.text;});
  const top=el('div','gu-latin');top.setAttribute('dir','auto');top.appendChild(latin);box.appendChild(top);
  const ar=el('div','gu-arabic');ar.setAttribute('dir','auto');ar.setAttribute('lang','ar');ar.appendChild(src);box.appendChild(ar);
  if(approx)box.appendChild(el('div','gu-spellnote','Unverified spelling stays in Arabic'));
@@ -303,7 +306,7 @@ function render(host,opts={}){
  host.classList.add('gu-root');
  if(D){paint(host,keys);return;}
  host.innerHTML='<div class="vp-notice">Loading the grammar evidence…</div>';
- loading=loading||load();
+ loading=loading||Promise.all([load(),namesReady()]);
  loading.then(()=>paint(host,keys)).catch(e=>{loading=null;host.innerHTML=`<div class="vp-notice">The grammar evidence could not load (${esc(e.message)}). Refresh to retry.</div>`;});
 }
 window.AneesGrammarUnknowns={render,ROBOT,MEDI,get data(){return D;}};

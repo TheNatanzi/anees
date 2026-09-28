@@ -258,6 +258,42 @@ def decisions_refresh(no_push=False):
         log('decisions_refresh failed', e)
 
 
+def gap_fill_refresh(raw, no_push=False):
+    """Meet gap filler (scripts/fill_meet_gaps.py, Medi 2026-09-28 "do it"): pending entries of data/backfill/meet_gaps.json
+    get the missing speaker's side from the mixed Meet recording (one budget-checked Scribe call per gap, run-logged as
+    meet_gap_fill). When an entry finishes, the lesson data + sentence ladder are rebuilt and committed. Runs after the
+    lesson publish; never raises, never blocks it. Without a key it pays nothing (entries stay pending)."""
+    try:
+        import fill_meet_gaps as F
+        r = F.process_queue(drive=DRIVE, raw=Path(raw))
+        if not r.get('changed'):
+            return r
+        if r.get('done'):
+            subprocess.run([sys.executable, str(HERE / 'build_lessons_page_data.py')], cwd=ROOT, check=False, timeout=1800, capture_output=True)
+            subprocess.run([sys.executable, str(HERE / 'build_sentence_ladder.py')], cwd=ROOT, check=False, timeout=900, capture_output=True)
+        paths = [p for p in ('data/backfill', 'data/budget.json', 'data/runs', 'docs/data/lessons.json', 'docs/data/lessons',
+                             'docs/data/sentence-ladder.json', 'docs/data/sentence-ladder') if (ROOT / p).exists()]
+        changed = subprocess.run(['git', 'status', '--porcelain', '--', *paths], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+        if not changed:
+            return r
+        run = lambda *c: subprocess.run(['git', *c], check=True, cwd=ROOT, capture_output=True, text=True)
+        run('add', *paths)
+        run('commit', '-m', f"Meet gap fill: {', '.join(r.get('done') or []) or 'queue updated'} by the hourly job\n\n"
+                            "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
+        if not no_push:
+            try:
+                run('pull', '--rebase', '--autostash', 'origin', 'master')
+            except subprocess.CalledProcessError:
+                subprocess.run(['git', 'rebase', '--abort'], cwd=ROOT, capture_output=True)
+                log('gap_fill_refresh: pull --rebase failed; commit kept locally'); return r
+            run('push', 'origin', 'HEAD:master')
+        log('gap_fill_refresh: done', r.get('done'), 'failed', r.get('failed'))
+        return r
+    except Exception as e:
+        log('gap_fill_refresh failed', e)
+        return None
+
+
 def publish(dates):
     run = lambda *c: subprocess.run(['git', *c], check=True, cwd=ROOT, capture_output=True, text=True)
     # data/budget.json: transcribing writes the cost log; left unstaged it made 'pull --rebase' refuse (exit 128) and the
@@ -351,6 +387,7 @@ def main():
                 log('FAILED to rebase', ahead, 'unpushed local commit(s); a person merges'); return 1
             subprocess.run(['git', 'push', 'origin', 'HEAD:master'], check=True, cwd=ROOT, capture_output=True)
             log('pushed', ahead, 'local commit(s) left by an earlier run')
+    gap_fill_refresh(raw, no_push=a.no_push)           # after the publish; never raises (fill_meet_gaps.py)
     decisions_refresh(no_push=a.no_push)               # after the publish; never raises
     return 1 if failures else 0
 

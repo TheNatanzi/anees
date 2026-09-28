@@ -200,7 +200,9 @@ def test_scribe_call_logs_minutes_cost_retries(runs, tmp_path, monkeypatch):
     (rec,) = lines(runs)
     assert rec["step"] == "scribe.transcribe" and rec["kind"] == "ingest" and rec["lesson_date"] == "2026-09-23"
     assert rec["gen_ai.provider.name"] == "elevenlabs" and rec["gen_ai.request.model"] == "scribe_v2"
-    assert rec["usage"]["audio_min"] == 30 and abs(rec["cost_usd"] - 0.11) < 1e-6 and rec["cost_basis"] == "list_price"
+    # 0.22 $/h + 0.05 $/h keyterms (Amal's track gets the names list as Scribe keyterms, 2026-09-28)
+    assert rec["usage"]["audio_min"] == 30 and abs(rec["cost_usd"] - 0.135) < 1e-6 and rec["cost_basis"] == "list_price"
+    assert rec["params"]["track"] == "amal" and rec["params"]["keyterms"] > 0 and rec["params"]["names_sha"]
     assert rec["retries"] == 1 and rec["status"] == "ok" and rec["input_refs"][0]["sha256"]
     assert_clean(rec)
 

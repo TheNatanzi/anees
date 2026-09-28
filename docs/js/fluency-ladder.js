@@ -139,7 +139,7 @@ function learnerJoin(){
  for(const it of (COG&&COG.items)||[]){if(it.ar_norm)cogBy.set(it.ar_norm,it.subtype);for(const k of it.word_keys||[])cogKey.set(k,it.subtype);}
  const cogOf=t=>cogBy.get(t.n)||keysOf(t).map(k=>cogKey.get(k)).find(Boolean)||null;
  function tags(u){
-  const content=(u.tok||[]).filter(t=>!t.f);if(!content.length)return {};
+  const content=(u.tok||[]).filter(t=>!t.f&&!t.nm);if(!content.length)return {};   // a name (t.nm) is never an unknown or not-in-bank word
   const date=u.date,t=unitTime(u),o={};
   let notBank=false,unknown=false,keyed=0,drilled=0,lowR=false;
   for(const tk of content){

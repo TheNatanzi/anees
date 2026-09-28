@@ -14,7 +14,7 @@
   var base = src.replace(/js\/transcript-arabizi\.js.*$/, '');          // '../' on docs/lessons/*, '' on docs/*
   var selector = (me && me.getAttribute('data-arabizi-selector')) || '.words';
   var AR = /[ء-غف-يٱ]/;
-  var toArabizi = null, pending = [], approxSeen = false;
+  var toArabizi = null, pending = [], approxSeen = false, NM = null;   // NM: names matcher (js/names.js, 2026-09-28)
 
   var css = '.az-latin{display:block;direction:ltr;unicode-bidi:isolate}' +
             '.az-arabic{display:block;font-size:.82em;opacity:.72;line-height:1.5;margin-top:1px}' +
@@ -30,10 +30,12 @@
     var text = el.textContent;
     if (!AR.test(text)) return;
     var latin = el.cloneNode(true), approx = false;
+    // Names first (رام الله, بيت لحم): kept as a name with its chip, never spelled word by word ("Bait La7em" = house + meat)
+    if (NM) window.AneesNames.decorate(latin, NM);
     var walk = document.createTreeWalker(latin, NodeFilter.SHOW_TEXT, null), n, nodes = [];
     while ((n = walk.nextNode())) nodes.push(n);
     nodes.forEach(function (t) {
-      if (!AR.test(t.nodeValue)) return;
+      if (!AR.test(t.nodeValue) || (NM && window.AneesNames.inName(t))) return;
       var r = toArabizi(t.nodeValue);
       if (r.approximate) approx = true;
       t.nodeValue = r.text;
@@ -64,7 +66,13 @@
 
   function get(p) { return fetch(base + p, { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); }
   var q = '?v=' + (window.ANEES_BUILD || 'az1');
-  Promise.all([get('data/words.json' + q), get('data/house_spelling.json' + q), get('data/word-bank-catalog.json' + q), get('data/arabizi-extra.json' + q)])
+  var names = new Promise(function (res) {           // optional: without it every line renders exactly as before
+    function go() { window.AneesNames.load(base + 'data/names.json' + q).then(function (m) { NM = m; res(); }, function () { res(); }); }
+    if (window.AneesNames) return go();
+    var s = document.createElement('script'); s.src = base + 'js/names.js' + q; s.onload = go; s.onerror = function () { res(); };
+    document.head.appendChild(s);
+  });
+  Promise.all([get('data/words.json' + q), get('data/house_spelling.json' + q), get('data/word-bank-catalog.json' + q), get('data/arabizi-extra.json' + q), names])
     .then(function (res) {
       if (!window.AneesWordBankArabizi) return;
       var house = (res[1] && res[1].items) || {};

@@ -26,6 +26,10 @@ async function mountUnknowns(){
  // Grammar: fetches its own JSON
  chain(['js/grammar-unknowns.js']).then(()=>{if(!window.AneesGrammarUnknowns)throw Error('not built yet');return window.AneesGrammarUnknowns.render(G,{panels:window.AneesGrammarUnknowns.ROBOT});})
   .catch(()=>notice(G,'The grammar unknowns report is being built.'));
+ // Names: possible names, one tap each (names & places layer, 2026-09-28; loads its own data and stylesheet)
+ const PN=$('air-possible-names');notice(PN,'Loading…');
+ chain(['js/names.js','js/possible-names.js']).then(()=>{if(!window.AneesPossibleNames)throw Error('not built yet');return window.AneesPossibleNames.mount(PN);})
+  .catch(()=>notice(PN,'Possible names could not load.'));
  // Vocabulary: needs the Word Bank scoring stack first
  chain(['js/config.js','js/speaking-snapshot.js','js/word-bank-review.js','js/word-bank-core.js','js/word-bank-context.js','js/vocabulary-memory.js','js/vocabulary-stats.js','js/vocab-unknowns.js'])
   .then(()=>{if(!window.AneesVocabUnknowns)throw Error('not built yet');return window.AneesVocabUnknowns.render(V,{panels:window.AneesVocabUnknowns.ROBOT});})

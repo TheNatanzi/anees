@@ -101,17 +101,31 @@ def _src_sha(fn):
         return None
 
 
+def names_note(date):
+    """'Names in this lesson' glossary from the names layer (scripts/names.py: places / countries as canonical + kind +
+    English, people as said). Built in memory and appended to the prompt only - never written to disk (the repo is public).
+    Added 2026-09-28 (names layer): every prompt below changed, so its prompt_arg_sha / prompt_sha in data/runs changes."""
+    if not date:
+        return ""
+    try:
+        import names
+        g = names.glossary(date)
+        return (" " + g) if g else ""
+    except Exception:
+        return ""
+
+
 def reader_prompt(date, reader, tag=""):
     return (f"Repo: {REPO}. Read {WORK}\\READER-BRIEF.md first and follow it exactly. You are reader {reader} for lesson {date}. "
             f"Transcript: data/lesson-work/full-audit/{date}.txt. Read the WHOLE file in order. Write your JSON to "
             f"{WORK}\\{date}{tag}.{reader}.json (reader \"{reader}\"). Do not open any other reader's file, the grammar-sweep JSON, "
-            f"or the sweep plan. Reply with only your counts line.")
+            f"or the sweep plan. Reply with only your counts line." + names_note(date))
 
 
 def third_prompt(date, tag=""):
     return (f"Repo: {REPO}. Read {WORK}\\THIRD-READER-BRIEF.md and follow it exactly. You are the third reader for lesson {date}. "
             f"Disputes: data/lesson-work/full-audit/{date}{tag}.disputes.md. Transcript: data/lesson-work/full-audit/{date}.txt. "
-            f"Write your JSON to {WORK}\\{date}{tag}.r3.json. Reply with one line: kept n, dropped n, added n.")
+            f"Write your JSON to {WORK}\\{date}{tag}.r3.json. Reply with one line: kept n, dropped n, added n." + names_note(date))
 
 
 def pattern_prompt(date):
@@ -119,15 +133,17 @@ def pattern_prompt(date):
             f"(rows in data/full-audit-2026-09-26.json with date {date} and kind vocab-B or grammar-B). First read the existing "
             f"{WORK}\\patterns.json: if a row fits one of its patterns, add the row's uid to that pattern's rows; otherwise add a "
             f"new pattern. Write the whole updated file back to {WORK}\\patterns.json (keep every existing pattern and row). "
-            f"Reply with one line: n rows placed, n new patterns.")
+            f"Reply with one line: n rows placed, n new patterns." + names_note(date))
 
 
-def gaps_prompt():
+def gaps_prompt(date=None):
     return (f"Repo: {REPO}. Read RULES.md S1 (incl. the 2026-09-26 line: nothing on the error cards stays Arabic-only). "
             f"data/lesson-work/arabizi-gaps.json lists Arabic tokens the renderer cannot spell. Add every one to "
             f"docs/data/arabizi-extra.json 'words' ({{latin, method pieces|her-chat|sound|guess|as-said, from, meaning}}), her letters "
             f"and her spellings first (docs/data/words.json arabizi, house_spelling.json). Only add. Then run "
-            f"`{NODE} scripts/arabizi_gaps.cjs` until it prints 0 words. Reply with one line: added n, gaps left n.")
+            f"`{NODE} scripts/arabizi_gaps.cjs` until it prints 0 words. Reply with one line: added n, gaps left n. "
+            f"A proper name (docs/data/names.json: a place, country, nationality or person) is never spelled word by word "
+            f"(بيت لحم is Bethlehem, not house + meat): give it the English name as its meaning." + names_note(date))
 
 
 def main():
@@ -180,7 +196,7 @@ def main():
     g = gap(); log(g.stdout.strip())
     if g.returncode and not a.dry_run:
         extra = os.path.join(REPO, "docs", "data", "arabizi-extra.json")
-        claude(gaps_prompt(), f"{d} arabizi gaps", step="arabizi.fill_gaps", lesson_date=d, role="arabizi",
+        claude(gaps_prompt(d), f"{d} arabizi gaps", step="arabizi.fill_gaps", lesson_date=d, role="arabizi",
                prompt_sha=_src_sha(gaps_prompt), inputs=[os.path.join(REPO, "data", "lesson-work", "arabizi-gaps.json"), extra],
                outputs=[extra]); g = gap(); log("after fill:", g.stdout.strip())
         if not g.returncode:

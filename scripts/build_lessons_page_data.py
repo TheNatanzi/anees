@@ -15,6 +15,9 @@ Sources per lesson (C:/dev/anees/data/lessons/<date>/):
   one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18
   words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05
   nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null
+  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet
+    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged
+    gap_fill + source (+ from_meet for Meet lines), its words join the timings.
 
 Word scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.
 Grammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an
@@ -114,6 +117,72 @@ def page_turns(date):
         t = float(m.group(2)) if m.group(2) else float(sec(m.group(3)))
         out.append({"t": t, "who": who, "text": text, "row": None, "chat": False, "t_whole_second": not m.group(2)})
     return out
+
+
+# ------------------------------------------------------------------ Meet gap-fill layers (scripts/fill_meet_gaps.py)
+GAPFILL = os.path.join(REPO, "data", "backfill", "gapfill")
+
+
+def gapfill_layers(date, root=None):
+    """Finished gap-fill layers of a lesson: a missing speaker's side recovered from the mixed Meet recording
+    (data/backfill/gapfill/<date>/gapfill_<side>.json, a source layer - rule S2, the raw transcripts are untouched)."""
+    d = os.path.join(root or GAPFILL, date)
+    if not os.path.isdir(d):
+        return []
+    return [J(os.path.join(d, f)) for f in sorted(os.listdir(d)) if re.fullmatch(r"gapfill_(amal|medi)\.json", f)]
+
+
+def with_gapfill(P, layers):
+    """The page lines with the layers' lines merged in on the lesson clock (page lines keep their order and content).
+    Every added line carries gap_fill + its source: 'meet_mixed' (from_meet true: speakers split by diarization on the
+    Meet recording) or 'own_track' (the person's own recording, transcribed late)."""
+    import heapq
+    add = sorted(({"t": L["t"], "who": L["who"], "text": L["text"], "row": None, "chat": False, "gap_fill": True,
+                   "from_meet": bool(L.get("from_meet", (L.get("source") or "meet_mixed") == "meet_mixed")),
+                   "source": L.get("source") or "meet_mixed", "confidence": L.get("confidence")}
+                  for g in layers for L in g.get("lines") or []), key=lambda p: p["t"])
+    return list(heapq.merge(P, add, key=lambda p: p["t"])) if add else P
+
+
+def gapfill_words(layers):
+    return [{"s": w["s"], "e": w["e"], "who": w["who"], "text": w["text"], "kind": "word",
+             "from_meet": (w.get("source") or "meet_mixed") == "meet_mixed"}
+            for g in layers for w in g.get("words") or []]
+
+
+GAP_SOURCES = {"meet_mixed": "the Meet recording", "own_track": "own recording (transcribed late)"}
+
+
+def gapfill_summary(layers):
+    out = []
+    for g in layers:
+        pv, sm = g.get("provenance") or {}, g.get("summary") or {}
+        parts = pv.get("parts") or [{"source": "meet_mixed", "window": g["window"]}]
+        out.append({"side": g["side"], "from": g["window"]["from"], "to": g["window"]["to"], "from_s": g["window"]["from_s"],
+                    "to_s": g["window"]["to_s"], "source": g.get("source") or "meet_mixed", "lines": len(g.get("lines") or []),
+                    "parts": [{"source": x["source"], "from": x["window"].get("from"), "to": x["window"].get("to"),
+                               "lines": sum(1 for L in g.get("lines") or [] if (L.get("source") or "meet_mixed") == x["source"]
+                                            and x["window"]["from_s"] <= L["t"] < x["window"]["to_s"]),
+                               **({"status": x["status"]} if x.get("status") else {})} for x in parts],
+                    "offset_s": pv.get("offset_s"), "residual_s": pv.get("residual_s"),
+                    "diarization_confidence": sm.get("diarization_confidence", (pv.get("diarization") or {}).get("confidence")),
+                    "meet_file": pv.get("meet_file_name")})
+    return out
+
+
+def gapfill_note(fills):
+    out = []
+    for f in fills:
+        bits = []
+        for x in f["parts"]:
+            if x.get("status") == "nothing_filled":
+                bits.append(f"{x['from']}-{x['to']}: nothing found in the Meet recording")
+            else:
+                bits.append(f"{x['from']}-{x['to']} filled from {GAP_SOURCES.get(x['source'], x['source'])} ({x['lines']} lines"
+                            + (f"; speakers split by the engine's diarization, confidence {f['diarization_confidence']}; lines tagged from_meet" if x["source"] == "meet_mixed" else "")
+                            + ")")
+        out.append(f"{f['side']}'s side " + ", ".join(bits))
+    return "; ".join(out)
 
 
 # ------------------------------------------------------------------ word streams on the lesson clock
@@ -446,6 +515,7 @@ DEFINITIONS = {
     "flow.n_turns": "How many of his Arabic turns went into wpm.",
     "new_words": "Only words Amal (or Medi) marked new for this lesson (amal_rules kind='new'). Never guessed from the recording (hard rule 2026-09-05).",
     "taught": "New verbs: the verb pairs Amal taught in this lesson (Medi confirmed 2026-09-25). review = first taught in an earlier lesson.",
+    "gap_fill": "Stretches where one person's side was missing and was recovered later (scripts/fill_meet_gaps.py): side, lesson-clock window, parts by source, lines added, clock offset + residual, diarization confidence. Those turns carry gap_fill: true and a source: own_track = the person's own recording transcribed late; meet_mixed = Google Meet's mixed recording, also from_meet: true - speakers there are split by the engine, not by separate microphones.",
 }
 
 
@@ -512,7 +582,8 @@ def build():
     lessons, per = [], {}
     # first lesson each list word shows up in: the earlier of (Word Bank evidence, plain text of any lesson page).
     # Evidence for the early lessons is sparse, so text keeps everyday words (بس, شو) from looking "new" later.
-    pages = {d: page_turns(d) for d in DATES}
+    gap = {d: gapfill_layers(d) for d in DATES}                     # Meet gap fills (fill_meet_gaps.py), merged as lines
+    pages = {d: with_gapfill(page_turns(d), gap[d]) for d in DATES}
     text_all = {d: " " + " ".join(ar_norm(tok_clean(p["text"])) for p in pages[d] if not p["chat"]) + " " for d in DATES}
     text_amal = {d: " " + " ".join(ar_norm(tok_clean(p["text"])) for p in pages[d] if p["who"] == "Amal" and not p["chat"]) + " " for d in DATES}
 
@@ -535,9 +606,14 @@ def build():
     for date in DATES:
         P = pages[date]
         W, wnote = words_for(date, P)
+        fills = gapfill_summary(gap[date])
+        if W is not None and gap[date]:                             # the filled side's words join the word stream
+            W = sorted(W + gapfill_words(gap[date]), key=lambda w: w["s"])
         W = capped(W)
         attach_words(P, W)
         notes = []
+        if fills:
+            notes.append("gap fill: " + gapfill_note(fills) + ".")
         dur = audio_duration(date)
         start, start_src = lesson_start(date)
         if start is None:
@@ -551,7 +627,12 @@ def build():
                 # Medi's first recording (0:00-22:37) was never transcribed; measure only where both sides exist
                 tr = J(os.path.join(RAW, date, "tracks", "tracks.json"))["tracks"]
                 lo = max(t["start"]["relative"] for t in tr if t["participant"].startswith("Medi"))
-                notes.append(f"talk, fillers, latency and flow measured from {mmss(lo)} on: Medi's first recording (0:00-22:37) has no transcript, so only Amal's side exists before that.")
+                mf = [f for f in fills if f["side"] == "Medi" and f["from_s"] <= 1 and f["to_s"] >= lo - 5]
+                if mf:                                              # his side of 0:00-23:45 now comes from the Meet recording
+                    lo = 0.0
+                    notes.append(f"talk, fillers, latency and flow measured over the whole lesson: Medi's side {mf[0]['from']}-{mf[0]['to']} is filled ({gapfill_note(mf)}).")
+                else:
+                    notes.append(f"talk, fillers, latency and flow measured from {mmss(lo)} on: Medi's first recording (0:00-22:37) has no transcript, so only Amal's side exists before that.")
             talk, fillers, latency, flow = metrics(W, lo, hi)
             talk["window"] = [round(lo, 1), round(min(hi, max(w['e'] for w in W)), 1)]
             if wnote and "silence detection" in wnote:
@@ -612,7 +693,9 @@ def build():
         taught = TAUGHT.get(date, [])
         # ---- per-lesson heavy parts
         turns = [{"t": round(p["t"], 2), "end": p["end"], "who": "chat" if p["chat"] else p["who"],
-                  **({"typed_by": p["who"]} if p["chat"] else {}), "text": p["text"]} for p in P]
+                  **({"typed_by": p["who"]} if p["chat"] else {}), "text": p["text"],
+                  **({"gap_fill": True, "source": p["source"], "confidence": p.get("confidence"),
+                      **({"from_meet": True} if p.get("from_meet") else {})} if p.get("gap_fill") else {})} for p in P]
         med = sorted((p for p in P if p["who"] == "Medi" and not p["chat"]), key=lambda p: p["t"])
         mts = [p["t"] for p in med]
         if fillers is not None:
@@ -702,9 +785,11 @@ def build():
             "duration_min": round(dur / 60, 1) if dur else None,
             "type": typ, "review_mode": mode, "type_why": why, "type_source": "claude-read",
             "words": words, "grammar": grammar, "talk": talk, "fillers": fillers, "latency": latency, "flow": flow,
-            "new_words": new_words, "taught": taught, "coverage": per_lesson_cov.get(date), "notes": notes,
+            "new_words": new_words, "taught": taught, "coverage": ((per_lesson_cov.get(date) + " / ") if per_lesson_cov.get(date) and fills else (per_lesson_cov.get(date) or "")) + (gapfill_note(fills) + "." if fills else "") or None,
+            **({"gap_fill": fills} if fills else {}), "notes": notes,
             "page": f"lessons/{date}.html", "detail": f"data/lessons/{date}.json",
             "counts": {"turns": sum(1 for p in P if not p["chat"]), "chat_lines": sum(1 for p in P if p["chat"]),
+                       **({"gap_fill": sum(1 for p in P if p.get("gap_fill")), "from_meet": sum(1 for p in P if p.get("from_meet"))} if fills else {}),
                        "vocab_errors": len(verr), "vocab_correct": len(vok), "grammar_errors": len(gerr)},
         })
 

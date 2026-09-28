@@ -69,14 +69,14 @@ def is_arabic_lesson(mp3, d):
     return share >= MIN_ARABIC_SHARE or res.get('language_code') == 'ara'
 
 
-def transcribe(mp3):
+def transcribe(mp3, who=None):
     """ElevenLabs Scribe v2 with 3 retries on 429/5xx (5 / 20 / 60 s) and the paid-call ledger + 90 % budget stop (pipeline_ext)."""
     import pipeline_ext as px
     key = os.environ.get('ELEVENLABS_API_KEY') or sys.exit('MISSING ELEVENLABS_API_KEY')
     out = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', str(mp3)], capture_output=True, text=True).stdout.strip()
     if not out:
         raise RuntimeError(f'cannot measure {mp3.name} with ffprobe: refusing to transcribe without a real duration (budget rule)')
-    return px.transcribe_with_retry(requests.post, mp3, key, float(out) / 60)
+    return px.transcribe_with_retry(requests.post, mp3, key, float(out) / 60, who=who)   # who: names keyterms per track
 
 
 CHAT_LINE = re.compile(r'^([A-Za-z][\w .-]{0,40}):\s?(.*)$')

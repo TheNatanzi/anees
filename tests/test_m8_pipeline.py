@@ -37,7 +37,8 @@ def test_429_then_success_is_charged_once(tmp_path, ledger):
     seq = [R(429), R(503), R(200, body={'words': [{'type': 'word', 'text': 'x'}]})]
     def post(*a, **k): return seq.pop(0)
     out = px.transcribe_with_retry(post, mp3, 'k', minutes=60, sleep=lambda s: None)
-    assert out['words'] and abs(px.ledger()['elevenlabs'] - 0.22) < 0.001
+    # 0.22 $/h Scribe + 0.05 $/h keyterm surcharge: place names go to Scribe as keyterms by default (names layer, 2026-09-28)
+    assert out['words'] and abs(px.ledger()['elevenlabs'] - 0.27) < 0.001
 
 
 def test_other_4xx_does_not_retry(tmp_path, ledger):
