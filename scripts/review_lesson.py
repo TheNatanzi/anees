@@ -20,12 +20,22 @@ Steps (each idempotent - an existing output file is reused, so a crash resumes w
   8 git       commit + push (unless --no-push / --dry-run)
 Never sends anything to Amal. Never re-transcribes. `claude` = the Claude Code CLI on PATH (2.1+).
 """
-import argparse, datetime, json, os, subprocess, sys, threading
+import argparse, datetime, inspect, json, os, subprocess, sys, threading
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 WORK = os.path.join(REPO, "data", "lesson-work", "full-audit")
 LOG = os.path.join(WORK, "review_lesson.log")
 CLAUDE = os.environ.get("ANEES_CLAUDE", "claude")
 NODE = r"C:\dev\tools\node-v24.18.0-win-x64\node.exe"
+try:                                    # run log (data/runs, scripts/track.py); never blocks a review
+    sys.path.insert(0, HERE)
+    import track
+except Exception:
+    track = None
+
+
+class _NoRun(dict):
+    def set(self, **k): return self
+    def claude(self, parsed): return self
 
 
 def log(*a):
@@ -39,17 +49,56 @@ def py(*args, check=True):
     return subprocess.run([sys.executable, *args], cwd=REPO, check=check, env={**os.environ, "PYTHONIOENCODING": "utf-8"})
 
 
-def claude(prompt, label, timeout=3600):
-    """One headless reader. The prompt says which file to write; we only check that it appeared."""
+def claude(prompt, label, timeout=3600, step="claude", lesson_date=None, role=None, pass_=None, brief=None, prompt_sha=None,
+           inputs=(), outputs=()):
+    """One headless reader. The prompt says which file to write; we only check that it appeared.
+    `--output-format json` so tokens, cost and the model the CLI really used come back; the text logged below is the
+    JSON's `result` (exactly what the old text output printed). One line per call goes to data/runs (scripts/track.py):
+    hashes and paths only, never the prompt. ANEES_CLAUDE_MODEL pins --model (unset = the CLI default, as before)."""
     log("claude start", label)
-    cmd = [CLAUDE, "-p", prompt, "--output-format", "text", "--permission-mode", "bypassPermissions", "--add-dir", REPO]
+    cmd = [CLAUDE, "-p", prompt, "--output-format", "json", "--permission-mode", "bypassPermissions", "--add-dir", REPO]
+    ctx, run = None, _NoRun()
+    try:
+        cmd += track.claude_model_args()
+        ctx = track.run(step, lesson_date, kind="inference", role=role, pass_=pass_, provider="anthropic",
+                        request_model=track.CLAUDE_MODEL, tool=track.tool_version(CLAUDE), prompt_file=brief,
+                        prompt_sha=prompt_sha, inputs=inputs, outputs=outputs,
+                        params={"prompt_arg_sha": track.sha256_text(prompt), "timeout_s": timeout,
+                                "permission_mode": "bypassPermissions", "output_format": "json"})
+        run = ctx.__enter__()
+    except Exception:
+        ctx, run = None, _NoRun()
     try:
         r = subprocess.run(cmd, cwd=REPO, capture_output=True, text=True, encoding="utf-8", timeout=timeout)
-        log("claude done", label, (r.stdout or "").strip()[-200:].replace("\n", " "))
+        try:
+            parsed = track.parse_claude_output(r.stdout)
+        except Exception:
+            parsed = {"text": r.stdout or ""}
+        log("claude done", label, (parsed.get("text") or "").strip()[-200:].replace("\n", " "))
         if r.returncode:
             log("claude stderr", label, (r.stderr or "")[-400:])
+        run.claude(parsed)
+        if r.returncode:
+            run.set(status="error", error_type=f"exit_{r.returncode}")
+        elif parsed.get("is_error"):
+            run.set(status="error", error_type=str(parsed.get("subtype") or "is_error"))
     except Exception as e:
         log("claude failed", label, e)
+        run.set(status="timeout" if isinstance(e, subprocess.TimeoutExpired) else "error", error_type=type(e).__name__)
+    finally:
+        if ctx is not None:
+            try:
+                ctx.__exit__(None, None, None)
+            except Exception:
+                pass
+
+
+def _src_sha(fn):
+    """sha of an inline prompt's template (the function source), so a prompt edit shows up in the run log."""
+    try:
+        return track.sha256_text(inspect.getsource(fn)) if track else None
+    except Exception:
+        return None
 
 
 def reader_prompt(date, reader, tag=""):
@@ -101,7 +150,10 @@ def main():
     jobs = [(r, f(f".{r}.json")) for r in ("r1", "r2") if not os.path.exists(f(f".{r}.json"))]
     if jobs and a.dry_run:
         log("dry-run: reader files missing, stopping:", [j[1] for j in jobs]); return 2
-    ts = [threading.Thread(target=claude, args=(reader_prompt(d, r), f"{d} {r}")) for r, _ in jobs]
+    ts = [threading.Thread(target=claude, args=(reader_prompt(d, r), f"{d} {r}"),
+                           kwargs=dict(step="full_audit.reader", lesson_date=d, role=r, pass_=1,
+                                       brief=os.path.join(WORK, "READER-BRIEF.md"), inputs=[f(".txt")], outputs=[out]))
+          for r, out in jobs]
     [t.start() for t in ts]; [t.join() for t in ts]
     if not all(os.path.exists(f(f".{r}.json")) for r in ("r1", "r2")):
         log("a reader wrote nothing; stopping"); return 1
@@ -111,7 +163,9 @@ def main():
     if not os.path.exists(f(".r3.json")):
         if a.dry_run:
             log("dry-run: r3 missing, stopping"); return 2
-        claude(third_prompt(d), f"{d} r3")
+        claude(third_prompt(d), f"{d} r3", step="full_audit.third_reader", lesson_date=d, role="r3", pass_=2,
+               brief=os.path.join(WORK, "THIRD-READER-BRIEF.md"), inputs=[f(".txt"), f(".disputes.md"), f(".r1.json"), f(".r2.json")],
+               outputs=[f(".r3.json")])
     if not os.path.exists(f(".r3.json")):
         log("third reader wrote nothing; stopping"); return 1
     py(os.path.join(HERE, "full_audit_compare.py"), "settle", d)
@@ -125,7 +179,10 @@ def main():
                                  cwd=REPO, capture_output=True, text=True, encoding="utf-8")
     g = gap(); log(g.stdout.strip())
     if g.returncode and not a.dry_run:
-        claude(gaps_prompt(), f"{d} arabizi gaps"); g = gap(); log("after fill:", g.stdout.strip())
+        extra = os.path.join(REPO, "docs", "data", "arabizi-extra.json")
+        claude(gaps_prompt(), f"{d} arabizi gaps", step="arabizi.fill_gaps", lesson_date=d, role="arabizi",
+               prompt_sha=_src_sha(gaps_prompt), inputs=[os.path.join(REPO, "data", "lesson-work", "arabizi-gaps.json"), extra],
+               outputs=[extra]); g = gap(); log("after fill:", g.stdout.strip())
         if not g.returncode:
             py(os.path.join(HERE, "build_lessons_page_data.py"), check=False)
     if g.returncode:
@@ -139,7 +196,10 @@ def main():
         if a.dry_run:
             log("dry-run: %d B rows of %s not yet in patterns.json; they would be grouped by claude, then shown as one-row patterns until then" % (len([u for u in b_rows if u not in placed]), d))
         else:
-            claude(pattern_prompt(d), f"{d} patterns")
+            claude(pattern_prompt(d), f"{d} patterns", step="amal.patterns", lesson_date=d, role="patterns",
+                   brief=os.path.join(WORK, "PATTERN-BRIEF.md"),
+                   inputs=[os.path.join(REPO, "data", "full-audit-2026-09-26.json"), os.path.join(WORK, "patterns.json")],
+                   outputs=[os.path.join(WORK, "patterns.json")])
     py(os.path.join(HERE, "build_amal_review.py"), check=False)
     # 7b Amal's after-lesson questions for THIS lesson (scripts/after_from_audit.py): 3-5 rows the readers were least
     # sure of, one clip each; her taps come back through apply_amal_audit_rulings.py. Never sent - the hub shows it.

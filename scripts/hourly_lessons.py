@@ -233,11 +233,37 @@ def tutor_refresh(no_push=False):
         log('tutor_refresh failed', e)
 
 
+def decisions_refresh(no_push=False):
+    """After the publish (AI tracking, plan/AI-ENGINEERING-REVIEW-2026-09-27.md item 2): pull Amal's answers and Medi's swipes
+    into data/decisions (read-only, anon key) and commit the decision + run logs, so the clone is clean for the next hour.
+    Append-only JSONL with a union merge driver (data/*/.gitattributes). Never blocks or fails the lesson job."""
+    try:
+        subprocess.run([sys.executable, str(HERE / 'pull_decisions.py')], cwd=ROOT, check=False, timeout=300, capture_output=True)
+        paths = [p for p in ('data/decisions', 'data/runs') if (ROOT / p).exists()]
+        changed = paths and subprocess.run(['git', 'status', '--porcelain', '--', *paths], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+        if not changed:
+            return
+        run = lambda *c: subprocess.run(['git', *c], check=True, cwd=ROOT, capture_output=True, text=True)
+        run('add', *paths)
+        run('commit', '-m', "AI run + decision logs by the hourly job\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
+        if not no_push:
+            try:
+                run('pull', '--rebase', '--autostash', 'origin', 'master')
+            except subprocess.CalledProcessError:
+                subprocess.run(['git', 'rebase', '--abort'], cwd=ROOT, capture_output=True)
+                log('decisions_refresh: pull --rebase failed; commit kept locally'); return
+            run('push', 'origin', 'HEAD:master')
+        log('decisions_refresh: logged', changed.count('\n') + 1, 'files')
+    except Exception as e:
+        log('decisions_refresh failed', e)
+
+
 def publish(dates):
     run = lambda *c: subprocess.run(['git', *c], check=True, cwd=ROOT, capture_output=True, text=True)
     # data/budget.json: transcribing writes the cost log; left unstaged it made 'pull --rebase' refuse (exit 128) and the
     # 2026-09-23 lesson commit never reached master (2026-09-24 fix; --autostash covers any other stray edit).
-    run('add', 'docs/data', 'docs/js/build.js', 'data/lessons/recall_bots.json', 'data/budget.json', *[f'docs/lessons/{d}.html' for d in dates])
+    run('add', 'docs/data', 'docs/js/build.js', 'data/lessons/recall_bots.json', 'data/budget.json', *[f'docs/lessons/{d}.html' for d in dates],
+        *[p for p in ('data/runs', 'data/decisions') if (ROOT / p).exists()])   # AI run + decision logs ride along (append-only)
     run('add', '-f', *[f'docs/lessons/{d}/audio/lesson.mp3' for d in dates],
         *[f'docs/lessons/{d}/clips' for d in dates if (ROOT / 'docs' / 'lessons' / d / 'clips').exists()])
     run('commit', '-m', f'Lessons {", ".join(dates)} loaded by the hourly job\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>')
@@ -257,6 +283,7 @@ def main():
     ap.add_argument('--work', default=str(ROOT / 'data' / 'lesson-work'))
     ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--no-push', action='store_true')
     a = ap.parse_args()
+    os.environ.setdefault('ANEES_TRIGGER', 'hourly')     # run log (scripts/track.py): every child call is tagged hourly
     import db, recall_bot as R
     raw, work = Path(a.raw), Path(a.work)
     R.LESSONS = raw
@@ -324,6 +351,7 @@ def main():
                 log('FAILED to rebase', ahead, 'unpushed local commit(s); a person merges'); return 1
             subprocess.run(['git', 'push', 'origin', 'HEAD:master'], check=True, cwd=ROOT, capture_output=True)
             log('pushed', ahead, 'local commit(s) left by an earlier run')
+    decisions_refresh(no_push=a.no_push)               # after the publish; never raises
     return 1 if failures else 0
 
 

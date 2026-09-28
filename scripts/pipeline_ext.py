@@ -41,8 +41,49 @@ class BudgetStop(RuntimeError):
 
 def transcribe_with_retry(post, mp3_path, key, minutes, tries=3, backoff=(5, 20, 60), sleep=time.sleep):
     """post(url, headers, data, files, timeout) -> response-like (status_code, text, json()). Retries 429 / 5xx / network errors
-    up to `tries` times; refuses to start when the ElevenLabs budget would pass 90 %."""
+    up to `tries` times; refuses to start when the ElevenLabs budget would pass 90 %.
+    Every call writes one line to data/runs (scripts/track.py): audio minutes, list-price cost, retries, status - never text."""
+    try:
+        import track
+        ctx = track.run('scribe.transcribe', _lesson_date_of(mp3_path), kind='ingest', provider='elevenlabs',
+                        request_model='scribe_v2', inputs=[mp3_path],
+                        params={'diarize': True, 'num_speakers': 2, 'timestamps_granularity': 'word', 'tag_audio_events': True})
+        rec = ctx.__enter__()
+    except Exception:
+        ctx, rec = None, None
+    try:
+        res = _transcribe_with_retry(post, mp3_path, key, minutes, tries, backoff, sleep, rec)
+    except BaseException as e:
+        if ctx is not None:
+            try:
+                if isinstance(e, BudgetStop):
+                    rec.set(status='skipped_budget')
+                ctx.__exit__(type(e), e, e.__traceback__)
+            except BaseException:
+                pass
+        raise
+    if ctx is not None:
+        try:
+            rec.set(**{'gen_ai.response.model': (res or {}).get('model_id') if isinstance(res, dict) else None})
+            if isinstance(res, dict) and not any(w.get('type') == 'word' for w in res.get('words') or []):
+                rec.set(status='empty_output')
+            ctx.__exit__(None, None, None)
+        except Exception:
+            pass
+    return res
+
+
+def _lesson_date_of(path):
+    """The lesson date in a raw-archive path (.../data/lessons/<date>/...), else None."""
+    import re
+    m = re.search(r'(20\d\d-\d\d-\d\d)', str(path).replace('\\', '/'))
+    return m.group(1) if m else None
+
+
+def _transcribe_with_retry(post, mp3_path, key, minutes, tries, backoff, sleep, rec=None):
     est = minutes * ELEVEN_USD_PER_MIN
+    note = (lambda **k: rec.set(**k)) if rec is not None else (lambda **k: None)
+    note(usage={'audio_min': round(minutes, 3)})
     if not budget_ok('elevenlabs', est):
         raise BudgetStop(f'ElevenLabs budget: {ledger().get("elevenlabs", 0):.2f} + {est:.2f} USD would pass 90 % of the {CAPS["elevenlabs"]:.0f} USD cap')
     last = None
@@ -56,14 +97,18 @@ def transcribe_with_retry(post, mp3_path, key, minutes, tries=3, backoff=(5, 20,
                          files={'file': (Path(mp3_path).name, f, 'audio/mpeg')}, timeout=1800)
         except Exception as e:                      # network error
             last = f'network: {e}'
+            note(error_type='network_' + type(e).__name__)
             sleep(backoff[min(i, len(backoff) - 1)]); continue
         if r.status_code == 200:
             spend('elevenlabs', est, f'scribe {Path(mp3_path).name} ({minutes:.0f} min)')
+            note(retries=attempts - 1, cost_usd=round(est, 6), cost_basis='list_price')
             return r.json()
         last = f'ElevenLabs {r.status_code}: {str(r.text)[:200]}'
+        note(error_type=f'http_{r.status_code}')
         if r.status_code == 429 or r.status_code >= 500:
             sleep(backoff[min(i, len(backoff) - 1)]); continue
         break                                       # 4xx other than 429: do not retry
+    note(retries=attempts - 1)
     raise RuntimeError(f'ElevenLabs failed after {attempts} tr{"y" if attempts == 1 else "ies"}: {last}')
 
 

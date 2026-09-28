@@ -2087,7 +2087,34 @@ if __name__ == "__main__":
     if a.dump:
         dump(a.dump)
         sys.exit(0)
-    summary, L, S = build(a.dates or None)
+    try:                                         # run log (data/runs, scripts/track.py): kind=build, rows out; never blocks
+        import track
+        _ctx = track.run("sentence_ladder.build", a.dates[-1] if len(a.dates) == 1 else None, kind="build",
+                         tool=f"scripts/build_sentence_ladder.py@{VERSION}", params={"dates": a.dates or "all"},
+                         inputs=[os.path.join(DATA, "lessons.json"), os.path.join(DATA, "grammar-console.json")])
+        _run = _ctx.__enter__()
+    except Exception:
+        _ctx = _run = None
+    try:
+        summary, L, S = build(a.dates or None)
+    except BaseException as _e:
+        if _ctx is not None:
+            try:
+                _ctx.__exit__(type(_e), _e, _e.__traceback__)
+            except BaseException:
+                pass
+        raise
+    if _ctx is not None:
+        try:
+            _run.set(output_refs=[track.ref(OUT_SUMMARY, rows=len(L) + len(S))] +
+                     [track.ref(os.path.join(OUT_DIR, d["date"] + ".json"), rows=d["listen_units"] + d["speak_sentences"])
+                      for d in summary["lessons"]],
+                     metrics={"listen_units": len(L), "speak_sentences": len(S), "labels": summary["labels"],
+                              "ladder_listen_N": summary["ladder"]["listen"].get("N"),
+                              "ladder_speak_N": summary["ladder"]["speak"].get("N")})
+            _ctx.__exit__(None, None, None)
+        except Exception:
+            pass
     lab = summary["labels"]["listen"]
     tot = sum(lab.values()) or 1
     print("listening units:", tot, {k: f"{v} ({100 * v / tot:.0f}%)" for k, v in lab.items()})
