@@ -214,6 +214,7 @@ function render(){
  ${panel('i','Next lesson focus','Three rules picked from C, E and G. One card Amal can read in ten seconds before the call.',focus(d),{wide:true,foot:'Picking rule: the fastest-worsening rule, the rule corrected in the most lessons, the most-improved rule to keep warm.'})}
  </div>
  <p class="vp-footer">Corrections: ${n(d.cands.length)} hand-verified (sweep of 2026-09-24, rule M1) · uses machine-counted · lesson lengths and start times from lessons.json · grammar-console.json updated ${esc(d.gc.updated||'')}</p>`;
+ document.dispatchEvent(new CustomEvent('anees:grammar-rendered'));   // progress-sure.js re-appends "How sure are these numbers?" (2026-09-28)
 }
 function show(){
  if(!loaded){render();loading=loading||load().then(render).catch(e=>{const h=$('vp-tab-grammar');if(h)h.innerHTML=`<div class="vp-notice">The grammar evidence could not load (${esc(e.message)}). Refresh to retry.</div>`;});}

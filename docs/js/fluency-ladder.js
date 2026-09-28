@@ -25,8 +25,6 @@ const AR=/[؀-ۿ]/;
 // The lesson audio is published with the site but not kept in this checkout (docs/lessons/ is excluded locally), so
 // off GitHub Pages the same relative path is read from the live site (same pattern as js/tutor.js).
 const PAGES='https://thenatanzi.github.io/anees/';
-// Spec section 9 hand check. Not in sentence-ladder.json yet; used only while summary.hand_check is absent.
-const HAND_CHECK_SPEC={source:'spec §9 (2026-09-27)',all:{agree:21,n:30,before_fix:19},breakdown_precision:{ok:16,n:20},unknown_in_sample:{k:12,n:30}};
 
 let S=null,U=null,failed=[],AZ=null,WORDS=null,COG=null,FS=null,loading=null,unitsLoading=null,fsrsAsked=false;
 let expanded={listen:false,speak:false};
@@ -326,24 +324,7 @@ function grammar(o){
  ${rs.map(r=>`<div class="fl-grow" role="row"><span class="fl-gid" title="${esc(r.name)}"><b>${esc(r.id)}</b> ${esc(r.name)}</span><span>${bar(r.hear.pct,r.hear.show,r.hear.n,'fl-fill-l')}</span><span>${r.say?bar(r.say.pct_ok,r.say.show,r.say.uses,'fl-fill-s'):'—'}</span><span>${r.say?n(r.say.corrections_this_rule):'—'}</span></div>`).join('')}</div>`;
 }
 
-/* ---------- 6. labeller honesty ---------- */
-function honesty(o){
- const hc=S.hand_check||HAND_CHECK_SPEC,src=S.hand_check?'sentence-ladder.json':HAND_CHECK_SPEC.source;
- const lab=(S.labels||{}).listen||{},tot=(lab.understood||0)+(lab.breakdown||0)+(lab.unknown||0);
- const ev=((S.evidence||{}).understood)||{},evTot=Object.values(ev).reduce((a,b)=>a+b,0),weak=ev['content reply only']||0;
- // agreement with Medi's swipes: only where the machine said understood / breakdown and he did not say "not sure"
- const sw=o.swipes,cmp=sw.filter(r=>(r.machine_label==='understood'||r.machine_label==='breakdown')&&r.label!=='not_sure'),agree=cmp.filter(r=>r.label===r.machine_label).length;
- const unk=sw.filter(r=>r.machine_label==='unknown'),unkU=unk.filter(r=>r.label==='understood').length,unkB=unk.filter(r=>r.label==='breakdown').length;
- const tile=(big,lab2,sub)=>`<div class="fl-tile"><b>${big}</b><span>${lab2}</span>${sub?`<small>${sub}</small>`:''}</div>`;
- return `<div class="fl-tiles">
- ${tile(hc.all?`${n(hc.all.agree)}/${n(hc.all.n)}`:'—','labels right on a blind hand check',`${P(hc.all?share(hc.all.agree,hc.all.n):null)} · ${esc(src)}`)}
- ${tile(hc.breakdown_precision?`${n(hc.breakdown_precision.ok)}/${n(hc.breakdown_precision.n)}`:'—','“breakdown” was a real miss','precision of the misses')}
- ${tile(P(share(lab.unknown||0,tot)),'labelled unknown',`${n(lab.unknown)} of ${n(tot)} · bare aywa / ok = unknown`)}
- ${tile(sw.length?(cmp.length?`${n(agree)}/${n(cmp.length)}`:'—'):'—','agree with your swipes',sw.length?`${n(sw.length)} swiped${unk.length?` · of ${n(unk.length)} “unknown”: ${n(unkU)} you understood, ${n(unkB)} you didn’t`:''}`:'swipe the check above to start')}
- </div>
- <div class="fl-sub2">How strong is each “understood”?</div>
- ${evTot?`<div class="fl-stack" title="${esc(Object.entries(ev).map(([k,v])=>k+': '+v).join(' · '))}"><i class="fl-b-ok" style="width:${(evTot-weak)/evTot*100}%"></i><i class="fl-b-weak" style="width:${weak/evTot*100}%"></i></div><div class="fl-legend"><span><i class="fl-b-ok"></i>direct evidence ${n(evTot-weak)}</span><span><i class="fl-b-weak"></i>content reply only ${n(weak)} (${P(share(weak,evTot))})</span></div>`:empty('No evidence counts in the data.')}`;
-}
+/* ---------- 6. labeller honesty: moved to AI Reports › Robot blind spots › Listening (js/fluency-labeller.js, Medi 2026-09-28) ---------- */
 
 /* ---------- 7. after-lesson swipe check ---------- */
 const player=new Audio();player.preload='none';
@@ -435,8 +416,8 @@ function render(){
  ${panel('costs-l','C','What costs you: hearing','Mantel-Haenszel difference, same lesson and same length. Bar = 95% range; most still cross 0, so read them as hints, not facts.',costs(o,'listen'),{})}
  ${panel('costs-s','C','What costs you: saying','Same model on your own sentences: how much more often Amal corrects you when the tag is present.',costs(o,'speak'),{})}
  ${panel('grammar','D','Grammar rules: hear vs say','The '+n(Math.min(8,Object.keys(S.rules||{}).length))+' rules you hear most. Left: Amal uses it. Right: you use it.',grammar(o),{foot:`Shown from ${n(o.T.effect_floor)} sentences a side. The Grammar Console has the full list.`})}
- ${panel('honesty','E','How far to trust the labeller','The labels are a machine’s first guess. Your swipes are the fix.',honesty(o),{})}
  </div>
+ <p class="rb-link">How far to trust the labeller (its blind hand check and how often it agrees with your swipes) is about the robot, so it lives on <a href="ai-reports.html?tab=unknowns#ar-unk-listen">AI Reports › Robot blind spots › Listening</a>.</p>
  <p class="vp-footer">Sentence ladder ${esc(S.version||'')} · built ${esc(String(S.generated||'').replace('T',' '))} · ${n((S.lessons||[]).length)} lessons, latest ${esc(pretty(lastLesson&&lastLesson.date))}${U?` · ${n(U.listen.length)} listening + ${n(U.speak.length)} speaking sentences`:' · loading sentences'}${failed.length?` · not loaded: ${esc(failed.join(', '))}`:''}${o.ladder.checked?' · ladder re-checked in the browser':''}${o.join&&o.join.fs?` · FSRS from ${esc(o.join.fs.src)} (${n(o.join.fs.answers)} answers)`:''}${COG?` · Farsi cognates: ${esc(COG.status||'')}`:''}</p>`;
  host.querySelectorAll('[data-expand]').forEach(b=>b.onclick=()=>{expanded[b.dataset.expand]=!expanded[b.dataset.expand];render();});
  wireSwipe();syncStatus();

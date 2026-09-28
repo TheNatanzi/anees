@@ -261,6 +261,7 @@ function show(tab){
  const hz=document.querySelector('.vp-horizon');if(hz)hz.hidden=tab!=='vocab';
  const url=new URL(location.href);if(tab==='overview')url.searchParams.delete('tab');else url.searchParams.set('tab',tab);history.replaceState(null,'',url);
  if(flash){if(!loaded){render();loading=loading||load().then(render);}else render();}
+ document.dispatchEvent(new CustomEvent('anees:progress-tab',{detail:{tab}}));   // progress-sure.js mounts "How sure are these numbers?" (2026-09-28)
 }
 document.querySelectorAll('.vp-tab[data-tab]').forEach(b=>b.onclick=()=>show(b.dataset.tab));
 window.addEventListener('online',sync);
