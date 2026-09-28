@@ -76,7 +76,6 @@
       || (it.kind === 'verb_check' ? (it.id.endsWith('-2') ? 'verb-check-2' : 'verb-check') : null);
     const href = go ? 'go.html?to=' + go : link;
     const buttons = [`<a class="tu-btn tu-primary" href="${esc(href)}"${it.kind === 'doc' ? ' target="_blank" rel="noopener"' : ''}>Open</a>`];
-    if (it.hub) buttons.push(`<a class="tu-btn" href="go.html?to=hub">Amal's hub</a>`);
     return `<article class="tu-card"><div class="tu-top"><h2 class="tu-title">${esc(it.title)}</h2><span class="tu-who">${esc(it.who)}</span></div>
       <p class="tu-what">${esc(it.what)}</p><div class="tu-num"><span class="ab-number">${big}</span><span class="ab-tiny">${esc(sub)}</span></div>${extra}
       <div class="tu-actions">${buttons.join('')}</div></article>`;

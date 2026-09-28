@@ -47,7 +47,7 @@ def main():
             seen_review = True
             open_.append({"id": "slips-review", "title": "Review Medi's slips", "kind": "review", "token": r["token"],
                           "what": "Slips she let pass, grouped by pattern with the real moments to play. Per pattern she says: correct him, or a reason not to. New lessons add their patterns here the same day.",
-                          "who": "Amal answers · Medi sends the hub link", "url": f"amal/review.html?t={r['token']}", "hub": f"amal/hub.html?t={r['token']}",
+                          "who": "Amal answers · Medi sends the link", "url": f"amal/review.html?t={r['token']}",
                           "total": (review.get("counts") or {}).get("patterns", 0), "moments": sum(len(x.get("examples", [])) for x in review.get("patterns", [])),
                           "expires": day(r["expires_at"])})
         elif r["kind"] in ("after", "before"):
@@ -59,7 +59,7 @@ def main():
                 open_.append({"id": f"{r['kind']}-{r.get('lesson_date')}", "title": title, "kind": r["kind"], "token": r["token"], "lesson_date": r.get("lesson_date"),
                               "what": ("3-5 moments from this lesson the app was least sure about: was he right here? One tap each, with the clip." if r["kind"] == "after"
                                        else "Words to bring back and sentences to try in this lesson. Keep or drop."),
-                              "who": "Amal answers · reached through the hub link", "url": f"amal/{'after' if r['kind'] == 'after' else 'plan'}.html?t={r['token']}",
+                              "who": "Amal answers · Medi sends the link", "url": f"amal/{'after' if r['kind'] == 'after' else 'plan'}.html?t={r['token']}",
                               "total": n, "expires": day(r["expires_at"])})
             elif day(r["expires_at"]) >= day((now - datetime.timedelta(days=21)).isoformat()) and not any(c.get("id") == f"{r['kind']}-{r.get('lesson_date')}" for c in closed):
                 closed.append({"id": f"{r['kind']}-{r.get('lesson_date')}", "title": title, "why": ("answered" if r.get("done_at") else f"link expired {day(r['expires_at'])}")})
@@ -83,7 +83,7 @@ def main():
                 open_.append({"id": f"{kind}-{n_open}", "title": title + lvl + (f" · {pretty(p.get('lesson'))}" if p.get("lesson") else ""), "kind": kind, "token": r["token"],
                               "what": old.get("what") or ("Every person of every verb she taught, filled in by the app. She taps right, or fixes the spelling." if kind == "verb_check"
                                                             else "Transcript lines where the app is not sure what Medi said. Confirm the wording or type what you heard."),
-                              "who": old.get("who") or "Amal answers · reached through the hub link", "url": f"amal/{page}.html?t={r['token']}",
+                              "who": old.get("who") or "Amal answers · Medi sends the link", "url": f"amal/{page}.html?t={r['token']}",
                               "total": total, "pulled": old.get("pulled", 0), "expires": day(r["expires_at"])})
             elif day(r["expires_at"]) >= day((now - datetime.timedelta(days=21)).isoformat()):
                 closed.append({"id": f"{kind}-{r['token'][:6]}", "title": title + (f" ({pretty(p.get('lesson'))})" if p.get("lesson") else ""),

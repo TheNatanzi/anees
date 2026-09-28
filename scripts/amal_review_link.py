@@ -1,7 +1,7 @@
-"""Amal's Tutor Hub link (never sent by the app - Medi sends it). Creates ONE amal_links row of kind 'review' whose payload
-carries her other open links, and prints the hub URL. Re-running reuses an open, unexpired review link.
+"""Amal's review link (never sent by the app - Medi sends it). Creates ONE amal_links row of kind 'review' whose payload
+carries her other open links, and prints the review URL (the Tutor Hub page was removed 2026-09-28). Re-running reuses an open, unexpired review link.
 
-  python scripts/amal_review_link.py            -> prints hub + review URLs
+  python scripts/amal_review_link.py            -> prints the review URL
   python scripts/amal_review_link.py --new      -> mints a fresh token even if one is open
   python scripts/amal_review_link.py --days 30  -> validity (default 30 days: the backfill review is long)
 """
@@ -50,13 +50,12 @@ def main():
         token = secrets.token_urlsafe(24)
         db.upsert('amal_links', [{'token': token, 'kind': 'review', 'lesson_date': None, 'created_at': now.isoformat(),
                                   'expires_at': (now + datetime.timedelta(days=a.days)).isoformat(), 'payload': {'links': links}}], on='token')
-    hub, review = f'{PAGES}amal/hub.html?t={token}', f'{PAGES}amal/review.html?t={token}'
+    review = f'{PAGES}amal/review.html?t={token}'
     out = ROOT / 'data' / 'amal_links.json'
     hist = json.load(io.open(out, encoding='utf-8')) if out.exists() else []
-    if not any(h.get('url') == hub for h in hist):
-        hist.append({'kind': 'review', 'lesson_date': None, 'created_at': now.isoformat(), 'expires_at': (now + datetime.timedelta(days=a.days)).isoformat(), 'url': hub})
+    if not any(h.get('url') == review for h in hist):
+        hist.append({'kind': 'review', 'lesson_date': None, 'created_at': now.isoformat(), 'expires_at': (now + datetime.timedelta(days=a.days)).isoformat(), 'url': review})
         io.open(out, 'w', encoding='utf-8').write(json.dumps(hist, ensure_ascii=False, indent=1))
-    print('HUB   ', hub)
     print('REVIEW', review)
     for k, v in links.items():
         print(f'{k:14}', v)

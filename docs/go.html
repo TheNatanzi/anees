@@ -11,7 +11,7 @@ main{max-width:520px;margin:12vh auto;padding:0 16px}a{color:var(--teal,#2E6A4E)
 (async function () {
   const to = new URLSearchParams(location.search).get('to') || '';
   const NAMES = { review: 'Slips to review', after: 'After the lesson', before: 'Before the lesson', 'verb-check': 'Verb check',
-                  'verb-check-2': 'Verb check · list 2', 'word-review': 'Word review', 'grammar-rules': 'Grammar rules', 'grammar-doc': "Amal's grammar Doc", hub: "Amal's hub" };
+                  'verb-check-2': 'Verb check · list 2', 'word-review': 'Word review', 'grammar-rules': 'Grammar rules', 'grammar-doc': "Amal's grammar Doc" };
   const h = document.getElementById('h'), p = document.getElementById('p');
   const go = url => location.replace(url + (url.includes('?') ? '&' : '?') + 'from=app');
   if (to === 'grammar-rules') return go('amal/grammar-rules.html');
@@ -27,7 +27,7 @@ main{max-width:520px;margin:12vh auto;padding:0 16px}a{color:var(--teal,#2E6A4E)
   else if (to === 'word-review') it = byKind('word_review')[0];
   else if (to === 'grammar-doc') it = byKind('doc')[0];
   if (it) {
-    const url = to === 'hub' && it.hub ? it.hub : it.url;
+    const url = it.url;   // Amal's hub was removed 2026-09-28; old ?to=hub links open the review page
     if (/^https?:/.test(url)) return location.replace(url);
     return go(url);
   }
