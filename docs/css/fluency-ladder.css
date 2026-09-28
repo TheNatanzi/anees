@@ -172,3 +172,34 @@
  #anees-bank .fl-ans{font-size:13.5px;padding:12px 4px}
  #anees-bank .fl-rung{flex-basis:30px}
 }
+
+/* "What the robot doesn't know" (docs/js/fluency-unknowns.js, 2026-09-27) */
+#anees-bank #fu-section{margin-top:28px}
+#anees-bank .fu-head{margin:0 0 12px}.fu-head .vp-eyebrow{display:block;margin-bottom:4px}
+#anees-bank .fu-foot{margin:12px 0 0!important;padding-top:10px;border-top:1px solid var(--ab-line);font-size:11.5px;color:var(--ab-muted)}
+#anees-bank .fu-row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) 76px;gap:10px;align-items:center;padding:5px 0;font-size:12.5px}
+#anees-bank .fu-row-l{grid-template-columns:64px minmax(0,1fr) 44px}
+#anees-bank .fu-lab b{font-weight:600;color:var(--ab-text)}#anees-bank .fu-lab small{display:block;color:var(--ab-muted);font-size:11px;line-height:1.35}
+#anees-bank .fu-track{height:10px;border-radius:5px;background:var(--ab-raised);overflow:hidden;display:flex}
+#anees-bank .fu-track i{display:block;height:100%}
+#anees-bank .fu-v{text-align:right;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ab-text)}#anees-bank .fu-v small{font-weight:400;color:var(--ab-muted);margin-left:3px}
+#anees-bank .fu-soft{background:light-dark(#C9C5B4,#4A5A52)}#anees-bank .fu-mid{background:var(--ab-muted)}#anees-bank .fu-after{border-left:2px solid var(--ab-panel)}
+#anees-bank .fu-ok,#anees-bank .fu-okbar{background:var(--ab-green)}#anees-bank .fu-bd{background:var(--ab-red)}#anees-bank .fu-unk{background:light-dark(#C9C5B4,#4A5A52)}
+#anees-bank .fu-weak,#anees-bank .fu-weakbar{background:var(--ab-orange)}
+#anees-bank .fu-ex{font-family:'Noto Naskh Arabic',serif;font-size:13.5px;color:var(--ab-muted);margin:-2px 0 6px;padding-right:2px}
+#anees-bank .fu-ex span{font-family:var(--sabz-font-sans);font-size:11.5px}
+#anees-bank .fu-cols{display:flex;align-items:flex-end;gap:6px;height:190px;padding:8px 0 0}
+#anees-bank .fu-col{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;border-radius:8px;padding:0 2px}
+#anees-bank .fu-rung-now{background:color-mix(in srgb,var(--ab-green) 12%,transparent)}#anees-bank .fu-rung-next{background:color-mix(in srgb,var(--ab-orange) 14%,transparent)}
+#anees-bank .fu-stack{flex:1;width:100%;display:flex;flex-direction:column;justify-content:flex-end;gap:2px}
+#anees-bank .fu-stack i{display:block;width:100%;border-radius:3px;min-height:2px}
+#anees-bank .fu-x{font-size:11px;color:var(--ab-text);font-weight:600;margin-top:4px}#anees-bank .fu-pct{font-size:10.5px;color:var(--ab-muted)}
+#anees-bank .fu-legend i.fu-now{background:color-mix(in srgb,var(--ab-green) 25%,transparent)}#anees-bank .fu-legend i.fu-next{background:color-mix(in srgb,var(--ab-orange) 28%,transparent)}
+#anees-bank .fu-split{display:flex;height:26px;border-radius:7px;overflow:hidden;margin:0 0 10px;gap:2px;font-size:11.5px;font-weight:600}
+#anees-bank .fu-split i{display:flex;align-items:center;justify-content:center;font-style:normal;color:var(--ab-panel);white-space:nowrap;overflow:hidden}
+#anees-bank .fu-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+#anees-bank .fu-tile{background:var(--ab-raised);border-radius:10px;padding:12px}
+#anees-bank .fu-tile b{display:block;font-family:var(--vp-serif);font-weight:500;font-size:24px;color:var(--ab-text)}
+#anees-bank .fu-tile span{display:block;font-size:12px;color:var(--ab-text)}#anees-bank .fu-tile small{display:block;font-size:11px;color:var(--ab-muted);margin-top:2px}
+#anees-bank .fu-do{margin:14px 0 0;padding-left:20px;font-size:12.5px;display:grid;gap:5px;color:var(--ab-text)}
+@media(max-width:680px){#anees-bank .fu-tiles{grid-template-columns:1fr 1fr}#anees-bank .fu-row{grid-template-columns:1fr 60px}#anees-bank .fu-row .fu-track{grid-column:1/-1;grid-row:2}#anees-bank .fu-cols{gap:3px}}

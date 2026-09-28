@@ -440,6 +440,7 @@ function render(){
  <p class="vp-footer">Sentence ladder ${esc(S.version||'')} · built ${esc(String(S.generated||'').replace('T',' '))} · ${n((S.lessons||[]).length)} lessons, latest ${esc(pretty(lastLesson&&lastLesson.date))}${U?` · ${n(U.listen.length)} listening + ${n(U.speak.length)} speaking sentences`:' · loading sentences'}${failed.length?` · not loaded: ${esc(failed.join(', '))}`:''}${o.ladder.checked?' · ladder re-checked in the browser':''}${o.join&&o.join.fs?` · FSRS from ${esc(o.join.fs.src)} (${n(o.join.fs.answers)} answers)`:''}${COG?` · Farsi cognates: ${esc(COG.status||'')}`:''}</p>`;
  host.querySelectorAll('[data-expand]').forEach(b=>b.onclick=()=>{expanded[b.dataset.expand]=!expanded[b.dataset.expand];render();});
  wireSwipe();syncStatus();
+ try{window.AneesFluencyUnknowns&&window.AneesFluencyUnknowns.render(host,{summary:S,units:U,labels:allLabels()});}catch(e){console.error('fluency unknowns',e);}   // "What the robot doesn't know" (2026-09-27)
 }
 function show(){
  if(!S){render();loading=loading||loadSummary().then(()=>{render();
