@@ -1,4 +1,5 @@
 // Runs entirely in an ephemeral local PostgreSQL instance. Never connects to Supabase.
+try{require.resolve(process.env.PGLITE_MODULE||'@electric-sql/pglite');}catch(e){console.log('# SKIP test_speaking_database.cjs: needs @electric-sql/pglite (npm i @electric-sql/pglite, or set PGLITE_MODULE) and a work dir argument; not installed on the CI runner');process.exit(0);}
 const {PGlite}=require(process.env.PGLITE_MODULE||'@electric-sql/pglite');
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 require('../docs/js/buckets.js');

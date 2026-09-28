@@ -66,6 +66,7 @@ def test_counts_reconcile_with_supabase(date):
         assert got == n, (kind, got, n)
 
 
+@pytest.mark.skipif(__import__('importlib.util').util.find_spec('playwright') is None, reason='needs the Python playwright package and a browser (pip install playwright; playwright install chromium)')
 @pytest.mark.parametrize('date', DATES)
 def test_mobile_375_no_horizontal_scroll_and_themes(date):
     from playwright.sync_api import sync_playwright

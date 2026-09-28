@@ -59,6 +59,7 @@ def test_every_event_has_a_clip_file(date):
         assert 0 <= e['offset'] <= e['clip_end'] - e['clip_start']
 
 
+@pytest.mark.skipif(__import__('shutil').which('ffprobe') is None, reason='needs ffprobe (ffmpeg) on PATH')
 def test_20_random_clips_match_ffprobe():
     evs = []
     for date in DATES:

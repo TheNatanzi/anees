@@ -1,4 +1,5 @@
 """Out-of-date banner: a page stamped with build A shows a flashing Reload bar once data/build.json says build B."""
+import pytest
 import io, json, re, threading, http.server, functools
 from pathlib import Path
 
@@ -15,6 +16,7 @@ def test_every_page_carries_the_stamp_and_checker():
     assert j['build'] in b
 
 
+@pytest.mark.skipif(__import__('importlib.util').util.find_spec('playwright') is None, reason='needs the Python playwright package and a browser (pip install playwright; playwright install chromium)')
 def test_banner_appears_when_build_changes(tmp_path):
     from playwright.sync_api import sync_playwright
     import shutil

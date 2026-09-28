@@ -1,0 +1,344 @@
+{
+ "about": "Anees eval sets. name@version, never edited; a changed set is a new version. See gold/README.md.",
+ "sha_rule": "sha256 of the frozen file with CRLF folded to LF",
+ "sets": [
+  {
+   "id": "grammar@v1-tuned",
+   "name": "grammar",
+   "version": "v1-tuned",
+   "status": "frozen",
+   "path": "grammar@v1-tuned/events.json",
+   "sha256": "d36cf4d6b245026040b665562d183712caec15370875687187a7f2180f4907a1",
+   "bytes": 38962,
+   "n": 105,
+   "split": "tuned",
+   "created": "2026-09-28",
+   "source": {
+    "path": "docs/data/grammar-goldset.json",
+    "git_commit": "ff9546513b4e9fe23ca7ccedd900e2821eb32d0f",
+    "sha256": "1a3a4b3f330091900ef5abd02c60b24e8422624bf1aa6e57305be10bf000841e"
+   },
+   "labelled_how": "Every Medi turn in three lessons read by hand with the 25 s after it (Amal's voice + her Meet chat). The auditor (scripts/audit_grammar_lessons.py) was TUNED on these rows: an optimistic number.",
+   "labelled_by": "hand read of the transcripts in a Claude session (scripts/build_grammar_goldset.py); not Amal-verified",
+   "metrics": [
+    "recall",
+    "precision",
+    "f1",
+    "bucket_accuracy"
+   ],
+   "gate": "history only (tuned rows overfit)",
+   "scorer": "scripts/score_grammar_detector.py --gold=grammar@v1-tuned",
+   "n_scored": 79,
+   "lessons": [
+    "2026-09-17",
+    "2026-09-21"
+   ]
+  },
+  {
+   "id": "grammar@v1-heldout",
+   "name": "grammar",
+   "version": "v1-heldout",
+   "status": "frozen",
+   "path": "grammar@v1-heldout/events.json",
+   "sha256": "be0bcd3b83965dcf425ae73a04d4f3a988a731644bed833a296d3ab7f446ff83",
+   "bytes": 11360,
+   "n": 29,
+   "split": "heldout",
+   "created": "2026-09-28",
+   "source": {
+    "path": "docs/data/grammar-goldset.json",
+    "git_commit": "ff9546513b4e9fe23ca7ccedd900e2821eb32d0f",
+    "sha256": "1a3a4b3f330091900ef5abd02c60b24e8422624bf1aa6e57305be10bf000841e"
+   },
+   "labelled_how": "Lesson 2026-09-11 labelled by hand AFTER tuning and never tuned on: the honest recall estimate.",
+   "labelled_by": "hand read of the transcripts in a Claude session (scripts/build_grammar_goldset.py); not Amal-verified",
+   "metrics": [
+    "recall",
+    "precision",
+    "f1",
+    "bucket_accuracy"
+   ],
+   "gate": "pytest floor: recall >= last accepted in gold/history.jsonl - 0.02 (tests/test_eval_floors.py)",
+   "scorer": "scripts/score_grammar_detector.py --gold=grammar@v1-heldout",
+   "n_scored": 20,
+   "lessons": [
+    "2026-09-11"
+   ]
+  },
+  {
+   "id": "grammar@v2-audit",
+   "name": "grammar",
+   "version": "v2-audit",
+   "status": "frozen",
+   "path": "grammar@v2-audit/rows.jsonl",
+   "sha256": "f666c366d614eedfb41bb637b0fa1eb871da0acf782f5f33395655ece9c8abc9",
+   "bytes": 842831,
+   "n": 1018,
+   "split": "all",
+   "created": "2026-09-28",
+   "source": {
+    "path": "data/full-audit-2026-09-26.json",
+    "git_commit": "402714c1a687e333164906b8e2577a7f9f323f83",
+    "sha256": "697d913698acc731e4ca957fc8e7d9446ceed43e0281f22413b10d7ad04eece1"
+   },
+   "labelled_how": "Full audit of 14 lessons: two independent AI reader passes (r1, r2) per lesson, a third reader settles disputes, reconciled with the 2026-09-24 hand sweep. AI-labelled (silver, not human gold); B rows (Amal gave no signal) wait for Amal's ruling.",
+   "labelled_by": "Claude readers r1/r2/r3; Medi yes/no on the build; Amal: pending (B rows)",
+   "metrics": [
+    "recall on kind=grammar rows",
+    "precision",
+    "f1"
+   ],
+   "gate": "history only (trend)",
+   "scorer": "scripts/score_grammar_detector.py --gold=grammar@v2-audit",
+   "n_scored": 592,
+   "source_built": "2026-09-27T00:11:37-07:00",
+   "totals": {
+    "rows": 1018,
+    "grammar_A": 560,
+    "grammar_B": 81,
+    "vocab_A": 256,
+    "vocab_A_by_tier": {
+     "1": 154,
+     "0": 97,
+     "2": 41,
+     "3": 6
+    },
+    "vocab_B": 44,
+    "vocab_B_by_tier": {
+     "1": 28,
+     "2": 10,
+     "3": 6
+    },
+    "listening": 76,
+    "from_readers": 902,
+    "readers_also_in_sweep": 364,
+    "readers_new": 538,
+    "sweep_only_kept": 116,
+    "machine_had": 104,
+    "sweep_before": {
+     "grammar": 312,
+     "vocab": 147
+    },
+    "lesson_pages_before": {
+     "vocab_errors_shown": 23
+    }
+   },
+   "lessons": [
+    "2026-08-25",
+    "2026-09-04",
+    "2026-09-05",
+    "2026-09-10",
+    "2026-09-11",
+    "2026-09-14",
+    "2026-09-15",
+    "2026-09-16",
+    "2026-09-17",
+    "2026-09-18",
+    "2026-09-19",
+    "2026-09-21",
+    "2026-09-23",
+    "2026-09-26"
+   ],
+   "format": "jsonl, one audit row per line"
+  },
+  {
+   "id": "arabizi@v1",
+   "name": "arabizi",
+   "version": "v1",
+   "status": "frozen",
+   "path": "arabizi@v1/lines.json",
+   "sha256": "0aa0b31fbf18cfa783b0cac81832cbb72a811f2bea10c135f3247c82d99ce807",
+   "bytes": 33401,
+   "n": 100,
+   "split": null,
+   "created": "2026-09-28",
+   "source": {
+    "path": "data/lesson-work/full-audit/arabizi-check-100.json",
+    "git_commit": "5aed7ff8de8ecaf39e2032900917718752a3ffda",
+    "sha256": "4638e23773c1dd7136c28f3abfaeb49fd4a63c854ec729be68318a20f9032314"
+   },
+   "labelled_how": "100 random transcript lines (seed 20260926, scripts/arabizi_check.cjs) rendered by the shared Arabizi renderer, each graded 1/0 against Amal's spelling (rule S1). 96/100.",
+   "labelled_by": "Claude (hand grade against Amal's Doc + chat); not Amal-verified",
+   "metrics": [
+    "accuracy (target 0.95)"
+   ],
+   "gate": "on renderer / prompt change",
+   "scorer": null,
+   "accuracy": 0.96,
+   "also_from": [
+    {
+     "path": "data/lesson-work/full-audit/arabizi-check-100.graded.json",
+     "sha256": "4d52d91c01a64c6db2cbdfe81495d3f64d79324d194efa5ddca25ef142ec0f1c",
+     "git_commit": "5aed7ff8de8ecaf39e2032900917718752a3ffda"
+    }
+   ]
+  },
+  {
+   "id": "sheet@v1",
+   "name": "sheet",
+   "version": "v1",
+   "status": "frozen",
+   "path": "sheet@v1/verdicts.json",
+   "sha256": "b26c7ee7f4fce4deeb58431ef87a435e20ae5058fce005ad829c622ff1d13b2d",
+   "bytes": 20744,
+   "n": 98,
+   "split": null,
+   "created": "2026-09-28",
+   "source": {
+    "path": "data/lesson-work/sheet-verdicts.json",
+    "git_commit": "aa1e7f8e596812d22967c36200e0fffe21e99008",
+    "sha256": "40b2c65bd91d4bee76c5016427532e5c87535c12a458ddb695ccf4f915411f70"
+   },
+   "labelled_how": "The 98 'not on sheet' words on the Lessons page judged by meaning against Medi's list: 56 were on the list (the string match was wrong), 42 really new. Frozen from git commit aa1e7f8.",
+   "labelled_by": "Claude (hand check by meaning), confirmed by Medi 2026-09-27",
+   "metrics": [
+    "'new word' precision",
+    "on_list never flagged new"
+   ],
+   "gate": "tests/test_invariants.py (on code change)",
+   "scorer": null,
+   "verdict_counts": {
+    "on_list": 56,
+    "new": 42
+   }
+  },
+  {
+   "id": "sheet@v2",
+   "name": "sheet",
+   "version": "v2",
+   "status": "frozen",
+   "path": "sheet@v2/verdicts.json",
+   "sha256": "8ffa59af55264a4e583091955aa0e1411b75e32744a09277995ecc4fabdc90d2",
+   "bytes": 82817,
+   "n": 273,
+   "split": null,
+   "created": "2026-09-28",
+   "source": {
+    "path": "data/lesson-work/sheet-verdicts.json",
+    "git_commit": "92f901736d57092385eb39f4858761b1c3d8379c",
+    "sha256": "fed2a5a3db0bb1572180d96861153854ea92cae4911c2266c9c23341e8151d70"
+   },
+   "labelled_how": "All 273 word cards on the Lessons page judged by meaning both ways (Arabic and English): on_list / new / not_an_error / duplicate. Supersedes v1's 98 rows (same verdicts on the overlap).",
+   "labelled_by": "Claude (overnight audit 2026-09-27), duplicates confirmed by Medi 2026-09-27",
+   "metrics": [
+    "'new word' precision",
+    "verdicts applied on the page"
+   ],
+   "gate": "tests/test_invariants.py",
+   "scorer": null,
+   "verdict_counts": {
+    "on_list": 226,
+    "new": 41,
+    "not_an_error": 4,
+    "duplicate": 2
+   }
+  },
+  {
+   "id": "asr@v1",
+   "name": "asr",
+   "version": "v1",
+   "status": "to-label",
+   "seed": [
+    "data/aug25/gold_selection_v2.json (50 windows of the 2026-08-25 lesson; engine text, NOT a verbatim reference)",
+    "data/aug25/check02_results_amal.json (Amal rated engine outputs on 20 clips; a preference, not a transcript)"
+   ],
+   "recipe": [
+    "Take the 50 windows in data/aug25/gold_selection_v2.json and the 20 check-02 clips.",
+    "Amal (or Medi, then Amal checks) types what was really said, verbatim, both channels, in Amal's own spelling (Arabic script + her Arabizi), keeping Medi's mistakes as said.",
+    "Save gold/asr@v1/lines.jsonl: {lesson, t_start, t_end, speaker, verbatim_ar, verbatim_arabizi, labeller}.",
+    "Grow to 1-2 h across 3+ lessons (two-track lessons first). Freeze each growth step as a new version.",
+    "Score: CER/WER (normalised + raw on learner lines), learner-error retention, hallucinated words."
+   ],
+   "needs": "Amal: about 2-6 h of typing",
+   "gate": "on engine / param / keyterm change",
+   "created": "2026-09-28"
+  },
+  {
+   "id": "speaker@v1",
+   "name": "speaker",
+   "version": "v1",
+   "status": "to-label",
+   "recipe": [
+    "Sample 100 turns (seeded) from the one mixed-audio lesson 2026-09-18 (diarized scribe.json) and 100 from 2026-09-04 (pitch-labelled words_labeled.json).",
+    "Medi listens to each clip and marks Medi / Amal / both / unclear.",
+    "Save gold/speaker@v1/turns.jsonl: {lesson, t_start, t_end, machine_speaker, human_speaker}.",
+    "Metric: speaker accuracy (target >= 0.90); track unlabeled_share every lesson."
+   ],
+   "interim": "tests/test_invariants.py::test_speakers_not_swapped uses grammar@v2-audit rows as a cheap proxy",
+   "needs": "Medi: about 30 min of listening",
+   "gate": "on diarization change",
+   "created": "2026-09-28"
+  },
+  {
+   "id": "reader@v1",
+   "name": "reader",
+   "version": "v1",
+   "status": "to-label",
+   "recipe": [
+    "Freeze 2-3 lessons' reader output (e.g. 2026-09-21 and 2026-09-14 settled rows, from grammar@v2-audit).",
+    "Sample 50 rows per lesson: 20 random, 20 low-confidence, 10 disputed; Amal (grammar) or Medi (vocab) answers Yes / No / Unsure per row; answers go to data/decisions (decisions log).",
+    "Save gold/reader@v1/verdicts.jsonl: {uid, lesson, ai_kind, ai_bucket, human_answer, who}.",
+    "Metrics: human-sampled precision, pairwise F1, kappa on labels. Canary when model or brief sha changes."
+   ],
+   "needs": "Amal: about 1 h per lesson",
+   "gate": "canary on model / brief change",
+   "created": "2026-09-28"
+  },
+  {
+   "id": "gloss@v1",
+   "name": "gloss",
+   "version": "v1",
+   "status": "to-label",
+   "recipe": [
+    "Draw 200 Amal lines (seed 20260927) with >= 3 Arabic words from docs/data/lessons/<date>.json turns (who=Amal).",
+    "Amal writes the English she meant for each line.",
+    "Save gold/gloss@v1/lines.jsonl: {lesson, t, arabic, amal_english}.",
+    "Metrics: chrF++ of the machine gloss vs Amal, judge-vs-Amal agreement."
+   ],
+   "needs": "Amal: about 2 h",
+   "gate": "quarterly",
+   "created": "2026-09-28"
+  },
+  {
+   "id": "ladder@v1",
+   "name": "ladder",
+   "version": "v1",
+   "status": "not-saved",
+   "note": "plan/SENTENCE-LADDER-SPEC-2026-09-27.md section 9: a blind check of 30 random listening units (19/30 -> 21/30 after two rule fixes) and 20 breakdowns (16/20). Only the totals were kept; the 30 per-unit labels were not saved, so there is nothing to freeze.",
+   "recipe": [
+    "Re-draw 30 listening units with a fixed seed from docs/data/sentence-ladder/<date>.json (all lessons).",
+    "Label each blind (understood / unclear / breakdown / unknown) and SAVE the labels: gold/ladder@v1/units.jsonl {lesson, unit_id, machine_label, human_label, labeller_version}.",
+    "Then Medi's logged swipes (sentence_labels) become ladder@v2: confusion matrix, accuracy + 95% CI, weekly."
+   ],
+   "needs": "Medi: swipes after each lesson",
+   "gate": "weekly",
+   "created": "2026-09-28"
+  },
+  {
+   "id": "fsrs@v1",
+   "name": "fsrs",
+   "version": "v1",
+   "status": "to-collect",
+   "note": "Needs card_results with grade 1-4, state_before, scheduler_version (roadmap item 9). tests/fixtures/fsrs-py-golden.json is an implementation-parity golden (JS vs py-fsrs), not a learner eval set.",
+   "recipe": [
+    "Log grade + state_before + scheduler_version on every card answer (roadmap 9).",
+    "Monthly: replay card_results, freeze the replay as fsrs@vN, score log loss + calibration (predicted R vs observed)."
+   ],
+   "needs": "data only (Medi keeps reviewing cards)",
+   "gate": "monthly refit",
+   "created": "2026-09-28"
+  },
+  {
+   "id": "quizlet@2026-09",
+   "name": "quizlet",
+   "version": "2026-09",
+   "status": "pointer",
+   "path": "docs/data/quizlet/amal-quizlet-sets.json",
+   "note": "Amal's own Quizlet sets: the golden answers used by scripts/verb_addons_golden.cjs and scripts/verb_forms_holdout.py. A pointer (sha at freeze time), not a copy: those scorers are not wired to gold/history.jsonl yet.",
+   "labelled_by": "Amal",
+   "sha256": "53e690d196577d9297f78bfa938cdead6f4ebc5b29297fa3902e4f209daa1a2f",
+   "git_commit": "5c3b9414bf55b5e467ed7cf0a28030a03d2d8f07",
+   "created": "2026-09-28"
+  }
+ ]
+}

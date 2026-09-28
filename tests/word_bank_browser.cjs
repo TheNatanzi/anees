@@ -1,3 +1,4 @@
+try{require.resolve(process.env.PLAYWRIGHT_PATH||'playwright');}catch(e){console.log('# SKIP word_bank_browser.cjs: needs the playwright npm package and a browser (npm i playwright; npx playwright install chromium); not installed on the CI runner');process.exit(0);}
 const fs=require('fs'),path=require('path'),http=require('http'),assert=require('node:assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_PATH||'playwright');
 const root=path.resolve(__dirname,'../docs');
