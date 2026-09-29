@@ -20,7 +20,7 @@ Env:
   ANEES_TRIGGER        hourly | manual | overnight:<prompt file>   (default manual; hourly_lessons.py sets hourly)
   ANEES_PARENT_RUN_ID  parent_id for every run of this process
   ANEES_TRACE_ID       trace_id override (default "<lesson_date>|<trigger>")
-  ANEES_CLAUDE_MODEL   pin `claude -p` to this model (unset = the CLI default, today's behaviour). The model the CLI
+  ANEES_CLAUDE_MODEL   pin `claude -p` to this model (unset = DEFAULT_CLAUDE_MODEL; cli-default = unpinned). The model the CLI
                        actually used is always logged from its JSON output (gen_ai.response.model).
 """
 import datetime, hashlib, json, os, platform, re, subprocess, sys, threading, time, uuid
@@ -33,7 +33,20 @@ MAX_TEXT = 200
 ARABIC = re.compile(r"[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]")
 KINDS = ("inference", "eval", "build", "ingest")
 STATUSES = ("ok", "error", "timeout", "empty_output", "skipped_budget")
-CLAUDE_MODEL = os.environ.get("ANEES_CLAUDE_MODEL") or None
+# Pinned 2026-09-29 (eng audit, area 6; AI review 09-27 build #1). Before, `claude -p` ran on whatever the CLI default
+# was (request model null). Every logged run so far was answered by claude-opus-5-5 (data/runs 2026-09: 5 of 5), so the
+# pin keeps today's behaviour and stops a silent CLI-default change. ANEES_CLAUDE_MODEL=<id> overrides it;
+# ANEES_CLAUDE_MODEL=cli-default goes back to the old unpinned behaviour.
+DEFAULT_CLAUDE_MODEL = "claude-opus-5-5"
+
+
+def _claude_model(env):
+    if env is None or not env.strip():
+        return DEFAULT_CLAUDE_MODEL
+    return None if env.strip().lower() in ("cli-default", "none", "unpinned") else env.strip()
+
+
+CLAUDE_MODEL = _claude_model(os.environ.get("ANEES_CLAUDE_MODEL"))
 _lock = threading.Lock()
 _cache = {}
 
@@ -175,7 +188,7 @@ def now_utc():
 # ------------------------------------------------------------------ claude -p --output-format json
 
 def claude_model_args():
-    """['--model', <id>] when ANEES_CLAUDE_MODEL is set, else [] (today's behaviour: the CLI default)."""
+    """['--model', <id>] (DEFAULT_CLAUDE_MODEL unless ANEES_CLAUDE_MODEL says otherwise); [] only for cli-default."""
     return ["--model", CLAUDE_MODEL] if CLAUDE_MODEL else []
 
 
