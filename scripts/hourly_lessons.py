@@ -258,7 +258,8 @@ def _commit(paths, message):
 TUTOR_PATHS = ['docs/data', 'docs/amal/grammar-rules.html', 'data/full-audit-2026-09-26.json', 'data/accuracy']
 # everything a run may build that the site or the guard reads: committed before the run's one push
 BUILT_PATHS = ['docs', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'data/lesson-work/full-audit', 'plan/FULL-AUDIT-2026-09-26.md',
-               'data/budget.json', 'data/lessons/recall_bots.json', 'data/runs', 'data/decisions', 'data/backfill']
+               'data/budget.json', 'data/lessons/recall_bots.json', 'data/runs', 'data/decisions', 'data/backfill',
+               'data/amal-trigger', 'data/vocab']
 
 
 def tutor_refresh(no_push=False, rebuild_all=False):
@@ -365,6 +366,18 @@ def pending_reviews(root=None):
 
 
 def main():
+    """One Anees job at a time: the hourly job waits up to 15 min for the shared lock the 15-minute Amal trigger uses."""
+    import amal_trigger as T
+    if '--dry-run' not in sys.argv and not T.acquire(wait_s=900):
+        log('another Anees job has held the lock for 15 min; skipped this hour'); return 1
+    try:
+        return _main()
+    finally:
+        if '--dry-run' not in sys.argv:
+            T.release()
+
+
+def _main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--raw', default=os.environ.get('ANEES_RAW', str(ROOT / 'data' / 'lessons')))
     ap.add_argument('--work', default=str(ROOT / 'data' / 'lesson-work'))
@@ -396,6 +409,16 @@ def main():
     run_failures = []
     f = tutor_refresh(no_push=a.no_push, rebuild_all='tutor' in open_before)   # Amal's taps -> scores + rules; Tutor page
     G.set_open_failures(ROOT, 'tutor', f); run_failures += f
+    # Amal trigger (Medi M3 2026-09-29): any new/changed answer of hers in any source -> re-pull, rebuild, rescore, log.
+    # Runs here every hour as the fallback for the 15-minute task (scripts/run_amal_trigger.ps1); this run's one guarded
+    # push publishes it. A failed step keeps her old fingerprint, so the next run retries (open failure 'amal').
+    try:
+        import amal_trigger as T
+        tr = T.run(publish=False, log=log)
+        af = (tr.get('firing') or {}).get('failures') or []
+    except Exception as e:
+        af = [f'amal_trigger crashed: {type(e).__name__}: {str(e)[:200]}']
+    G.set_open_failures(ROOT, 'amal', af); run_failures += af
     if new_rows:
         ledger_path.write_text(json.dumps(sorted(ledger + new_rows, key=lambda e: e['t']), ensure_ascii=False, indent=1), encoding='utf-8')
     done, failures = [], 0

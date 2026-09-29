@@ -48,3 +48,20 @@ def _no_env_leak():
             os.environ.pop(k, None)
         else:
             os.environ[k] = v
+
+
+@_pytest.fixture(autouse=True)
+def _amal_trigger_sandbox(tmp_path_factory, monkeypatch, request):
+    """scripts/amal_trigger.py keeps state, a log, a page file and the shared job lock in the repo; hourly_lessons.main()
+    calls it. In tests they live in a temp folder, and the real DB-reading run is replaced by a no-op unless a test uses
+    amal_trigger directly (it then sets its own paths)."""
+    try:
+        import amal_trigger as T
+    except Exception:
+        yield; return
+    d = tmp_path_factory.mktemp("amal-trigger")
+    for k, name in (("STATE_P", "state.json"), ("LOG_P", "log.jsonl"), ("PAGE_P", "amal-trigger.json"), ("LOCK_P", ".lock")):
+        monkeypatch.setattr(T, k, d / name)
+    if "test_amal_trigger" not in str(getattr(request.node, "fspath", "")):
+        monkeypatch.setattr(T, "SOURCES", [])
+    yield
