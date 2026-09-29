@@ -155,41 +155,45 @@ def test_flip_toggle_shuffle_replay_end_to_end(viewport):
     import db
     from playwright.sync_api import sync_playwright
     url = (ROOT / 'docs' / 'cards.html').resolve().as_uri()
-    with sync_playwright() as pw:
-        b = pw.chromium.launch(); ctx = b.new_context(viewport=viewport); pg = ctx.new_page(); pg.goto(url)
-        pg.wait_for_selector('[data-t="cat:topics"]', timeout=20000)   # home is the category menu (Medi 2026-09-22); card front choice lives there too
-        pg.click('#m-en'); pg.wait_for_selector('#m-en.sel'); pg.click('[data-t="cat:topics"]'); pg.click('[data-t="topic:Animals"]')
-        pg.click('[data-t="all:topic:Animals"]'); pg.wait_for_selector('#start')
-        pg.click('#sh'); pg.wait_for_timeout(100); sh1 = pg.text_content('#sh'); pg.click('#sh'); pg.wait_for_timeout(100); sh2 = pg.text_content('#sh')
-        assert sh1 != sh2 and 'Shuffle' in sh1
-        pg.click('#n20'); pg.click('#start'); pg.wait_for_selector('#card')
-        assert pg.evaluate('document.documentElement.scrollWidth') <= viewport['width']
-        assert pg.evaluate("document.querySelector('#got').getBoundingClientRect().height") >= 48
-        rid = pg.evaluate('AneesTest.round.id')
-        first_face = pg.text_content('#card .face:not(.back) .en')
-        assert first_face, 'English-first mode should show English on the front'
-        txt = _run_round(pg, {1, 4, 7, 10, 13, 19})
-        assert 'Review the ones I got wrong (6)' in txt, txt
-        assert '14' in txt and '6' in txt
-        wrong1 = pg.evaluate('AneesTest.round.wrong.map(w=>w.key)')
-        pg.click('#replay'); pg.wait_for_selector('#card')
-        assert pg.evaluate('AneesTest.round.cards.length') == 6 and pg.evaluate('AneesTest.round.cards.map(w=>w.key)') == wrong1
-        txt = _run_round(pg, {0, 2})
-        assert 'Review the ones I got wrong (2)' in txt
-        pg.click('#replay'); pg.wait_for_selector('#card')
-        assert pg.evaluate('AneesTest.round.cards.map(w=>w.key)') == [wrong1[0], wrong1[2]]
-        txt = _run_round(pg, set())
-        assert 'Pile empty' in txt
-        log = pg.evaluate("JSON.parse(localStorage.getItem('anees-card-log'))")
-        mine = [r for r in log if r['round_id'].startswith(rid)]
-        assert len(mine) == 28 and sum(1 for r in mine if r['result'] == 'missed') == 8 and sum(1 for r in mine if r['result'] == 'got') == 20
-        pg.wait_for_timeout(3000)
-        b.close()
-    rows = db.select('card_results', {'round_id': f'like.{rid}%'})
+    rid = None
+    # Cleanup covers the WHOLE run (audit 2026-09-29): before, the delete sat after the browser block, so any failed
+    # in-browser assertion left its answers in Medi's live card_results (81 rows on 2026-09-29, 09:14-09:43 UTC).
     try:
+        with sync_playwright() as pw:
+            b = pw.chromium.launch(); ctx = b.new_context(viewport=viewport); pg = ctx.new_page(); pg.goto(url)
+            pg.wait_for_selector('[data-t="cat:topics"]', timeout=20000)   # home is the category menu (Medi 2026-09-22); card front choice lives there too
+            pg.click('#m-en'); pg.wait_for_selector('#m-en.sel'); pg.click('[data-t="cat:topics"]'); pg.click('[data-t="topic:Animals"]')
+            pg.click('[data-t="all:topic:Animals"]'); pg.wait_for_selector('#start')
+            pg.click('#sh'); pg.wait_for_timeout(100); sh1 = pg.text_content('#sh'); pg.click('#sh'); pg.wait_for_timeout(100); sh2 = pg.text_content('#sh')
+            assert sh1 != sh2 and 'Shuffle' in sh1
+            pg.click('#n20'); pg.click('#start'); pg.wait_for_selector('#card')
+            assert pg.evaluate('document.documentElement.scrollWidth') <= viewport['width']
+            assert pg.evaluate("document.querySelector('#got').getBoundingClientRect().height") >= 48
+            rid = pg.evaluate('AneesTest.round.id')
+            first_face = pg.text_content('#card .face:not(.back) .en')
+            assert first_face, 'English-first mode should show English on the front'
+            txt = _run_round(pg, {1, 4, 7, 10, 13, 19})
+            assert 'Review the ones I got wrong (6)' in txt, txt
+            assert '14' in txt and '6' in txt
+            wrong1 = pg.evaluate('AneesTest.round.wrong.map(w=>w.key)')
+            pg.click('#replay'); pg.wait_for_selector('#card')
+            assert pg.evaluate('AneesTest.round.cards.length') == 6 and pg.evaluate('AneesTest.round.cards.map(w=>w.key)') == wrong1
+            txt = _run_round(pg, {0, 2})
+            assert 'Review the ones I got wrong (2)' in txt
+            pg.click('#replay'); pg.wait_for_selector('#card')
+            assert pg.evaluate('AneesTest.round.cards.map(w=>w.key)') == [wrong1[0], wrong1[2]]
+            txt = _run_round(pg, set())
+            assert 'Pile empty' in txt
+            log = pg.evaluate("JSON.parse(localStorage.getItem('anees-card-log'))")
+            mine = [r for r in log if r['round_id'].startswith(rid)]
+            assert len(mine) == 28 and sum(1 for r in mine if r['result'] == 'missed') == 8 and sum(1 for r in mine if r['result'] == 'got') == 20
+            pg.wait_for_timeout(3000)
+            b.close()
+        rows = db.select('card_results', {'round_id': f'like.{rid}%'})
         assert len(rows) == 28 and len({r['id'] for r in rows}) == 28
     finally:
-        db.sql(f"delete from card_results where round_id like '{rid}%'")
+        if rid:
+            db.sql(f"delete from card_results where round_id like '{rid}%'")
 
 
 @pytest.mark.skipif(not NET, reason='needs Supabase')
@@ -197,32 +201,34 @@ def test_offline_20_answers_then_sync_no_duplicates():
     import db
     from playwright.sync_api import sync_playwright
     url = (ROOT / 'docs' / 'cards.html').resolve().as_uri()
-    with sync_playwright() as pw:
-        b = pw.chromium.launch(); ctx = b.new_context(viewport={'width': 375, 'height': 812}); pg = ctx.new_page(); pg.goto(url)
-        pg.wait_for_selector('[data-t="cat:topics"]', timeout=20000); pg.click('[data-t="cat:topics"]'); pg.click('[data-t="topic:Numbers"]')   # home is the category menu
-        pg.click('[data-t="all:topic:Numbers"]'); pg.wait_for_selector('#start')
-        pg.click('#n20'); pg.click('#start'); pg.wait_for_selector('#card')
-        rid = pg.evaluate('AneesTest.round.id')
-        ctx.set_offline(True)
-        _run_round(pg, {2, 5})
-        pg.wait_for_timeout(1500)
-        q = pg.evaluate("JSON.parse(localStorage.getItem('anees-card-queue')).length")
-        assert q == 20, q
-        assert 'waiting' in pg.text_content('#sync')
-        ctx.set_offline(False)
-        pg.evaluate('AneesTest.sync()'); pg.wait_for_timeout(4000)
-        assert pg.evaluate("JSON.parse(localStorage.getItem('anees-card-queue')).length") == 0
-        # replay the same 20 ids once more: must be ignored server-side
-        ids = [r['id'] for r in pg.evaluate("JSON.parse(localStorage.getItem('anees-card-log'))") if r['round_id'] == rid]
-        pg.evaluate("localStorage.setItem('anees-card-queue', JSON.stringify(JSON.parse(localStorage.getItem('anees-card-log')).filter(r=>r.round_id===arguments[0])))" if False else
-                    f"localStorage.setItem('anees-card-queue', JSON.stringify(JSON.parse(localStorage.getItem('anees-card-log')).filter(r=>r.round_id==='{rid}')))")
-        pg.evaluate('AneesTest.sync()'); pg.wait_for_timeout(4000)
-        b.close()
-    rows = db.select('card_results', {'round_id': f'eq.{rid}'})
-    try:
+    rid = None
+    try:   # cleanup covers the whole run (audit 2026-09-29), see the test above
+        with sync_playwright() as pw:
+            b = pw.chromium.launch(); ctx = b.new_context(viewport={'width': 375, 'height': 812}); pg = ctx.new_page(); pg.goto(url)
+            pg.wait_for_selector('[data-t="cat:topics"]', timeout=20000); pg.click('[data-t="cat:topics"]'); pg.click('[data-t="topic:Numbers"]')   # home is the category menu
+            pg.click('[data-t="all:topic:Numbers"]'); pg.wait_for_selector('#start')
+            pg.click('#n20'); pg.click('#start'); pg.wait_for_selector('#card')
+            rid = pg.evaluate('AneesTest.round.id')
+            ctx.set_offline(True)
+            _run_round(pg, {2, 5})
+            pg.wait_for_timeout(1500)
+            q = pg.evaluate("JSON.parse(localStorage.getItem('anees-card-queue')).length")
+            assert q == 20, q
+            assert 'waiting' in pg.text_content('#sync')
+            ctx.set_offline(False)
+            pg.evaluate('AneesTest.sync()'); pg.wait_for_timeout(4000)
+            assert pg.evaluate("JSON.parse(localStorage.getItem('anees-card-queue')).length") == 0
+            # replay the same 20 ids once more: must be ignored server-side
+            ids = [r['id'] for r in pg.evaluate("JSON.parse(localStorage.getItem('anees-card-log'))") if r['round_id'] == rid]
+            pg.evaluate("localStorage.setItem('anees-card-queue', JSON.stringify(JSON.parse(localStorage.getItem('anees-card-log')).filter(r=>r.round_id===arguments[0])))" if False else
+                        f"localStorage.setItem('anees-card-queue', JSON.stringify(JSON.parse(localStorage.getItem('anees-card-log')).filter(r=>r.round_id==='{rid}')))")
+            pg.evaluate('AneesTest.sync()'); pg.wait_for_timeout(4000)
+            b.close()
+        rows = db.select('card_results', {'round_id': f'eq.{rid}'})
         assert len(rows) == 20 and len({r['id'] for r in rows}) == 20 and set(ids) == {r['id'] for r in rows}
     finally:
-        db.sql(f"delete from card_results where round_id = '{rid}'")
+        if rid:
+            db.sql(f"delete from card_results where round_id = '{rid}'")
 
 
 def test_no_attribute_injection_in_cards():

@@ -16,6 +16,9 @@ PAGES = 'https://thenatanzi.github.io/anees/'
 PAGE = 'amal/verb-check.html'
 DAYS = 30
 CHECKS = ROOT / 'data' / 'vocab' / 'amal_verb_checks.json'
+# Level 2 (endings / prepositions): read by scripts/build_verb_addon_tags.cjs (Amal wins). Before 2026-09-29 pull()
+# built this dict and never wrote it, so her level-2 answers would have been lost.
+ADDON_CHECKS = ROOT / 'data' / 'vocab' / 'amal_addon_checks.json'
 TENSES = ['Present', 'Past', 'Command']
 
 
@@ -86,6 +89,8 @@ def pull():
             merged[item_id] = {'choice': a['choice'], 'word': a['word'].strip(), 'arabic': a['arabic'].strip(),
                                'guess': guess.get('word', ''), 'tense': guess.get('tense', ''), 'updated_at': a['updated_at']}
     CHECKS.write_text(json.dumps({'answers': dict(sorted(merged.items()))}, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+    if addon or ADDON_CHECKS.exists():
+        ADDON_CHECKS.write_text(json.dumps(dict(sorted(addon.items())), ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     return merged
 
 
