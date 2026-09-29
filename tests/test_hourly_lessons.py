@@ -263,3 +263,11 @@ def test_everything_built_this_hour_is_committed_before_the_push(job):
     assert any('data/accuracy' in c for c in adds)
     tutor_paths = H.TUTOR_PATHS
     assert 'data/accuracy' in tutor_paths
+
+
+def test_built_clips_are_force_added(job):
+    """*.mp3 is gitignored: 515 of the 1,240 Grammar console clips linked on master were never committed."""
+    (job.root / 'docs' / 'lessons' / '2026-09-26' / 'clips').mkdir(parents=True)
+    job.guard_ok = True
+    H.main()
+    assert ['git', 'add', '-f', '--', 'docs/lessons/2026-09-26/clips'] in job.git.calls
