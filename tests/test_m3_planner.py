@@ -125,7 +125,7 @@ def test_stand_in_completes_planner_on_phone_under_2_min():
             b = pw.chromium.launch(); pg = b.new_page(viewport={'width': 375, 'height': 812}); pg.goto(local)
             pg.wait_for_selector('h1', timeout=15000)
             assert 'Already done' in pg.text_content('h1'); b.close()
-        io.open(ROOT / 'data' / 'm3_stand_in_timing.json', 'w').write(json.dumps({'elapsed_s': round(elapsed, 1), 'steps': steps, 'token_prefix': token[:6]}))
+        io.open(Path(__import__('tempfile').gettempdir()) / 'm3_stand_in_timing.json', 'w').write(json.dumps({'elapsed_s': round(elapsed, 1), 'steps': steps, 'token_prefix': token[:6]}))   # a test run must not rewrite the tracked data/m3_stand_in_timing.json
         print(f'STAND-IN: {steps} screens in {elapsed:.1f} s')
     finally:
         db.sql(f"delete from amal_rules where token='{token}'; delete from amal_links where token='{token}'")
