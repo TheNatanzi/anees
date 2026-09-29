@@ -19,6 +19,43 @@ const clips = J('word-bank-clips.json').clips || {};
 const review = J('word-bank-review.json');
 let events = J('word-bank-evidence.json').events || [];
 
+// Eng audit 2026-09-29 (Medi's decision 6, one truth): the full audit's word slips that are on his list (decision A:
+// every fix Amal voiced or typed counts) join the Word Bank evidence, so the Lessons page, the Word Bank and Progress
+// score the same attempts. Pass 1 (no inp.slips) is the plain Word Bank; pass 2 gets the slips the builder kept, pins
+// each to its Word Bank form (entry_id), and returns the file every page loads (docs/data/word-bank-audit-slips.json).
+let slipDoc = null;
+if (Array.isArray(inp.slips)) {
+  const rows0 = C.models(words, catalog, C.prepareEvidence(Rv.apply(events, review).events), []);
+  const entriesOf = new Map(), rowOf = new Map();
+  for (const r of rows0) { for (const k of r.keys || [r.key]) if (!rowOf.has(k)) rowOf.set(k, r);
+    for (const f of r.entries) for (const k of f.keys || []) { if (!entriesOf.has(k)) entriesOf.set(k, []); entriesOf.get(k).push(f); } }
+  const MAIN = ['Word', 'Singular', 'Present'];
+  const placed = [], unplaced = [];
+  for (const x of inp.slips) {
+    let f = null, why = null;
+    const byK = entriesOf.get(x.key) || [], row = rowOf.get(x.key);
+    // a preposition is grammar, never a vocabulary attempt (SESSION-DECISIONS 2026-09-21); the Word Bank drops it
+    if (C.isGrammar({ word_key: x.key }) || (row && row.grammar_only)) { unplaced.push({ ...x, grammar: true, why: 'a preposition: grammar, not vocabulary (standing decision 2026-09-21)' }); continue; }
+    // Which list word a slip belongs to must be settled by meaning (memory rule anees-list-by-meaning): a reader's verdict,
+    // or an exact whole-word match. A piece-of-a-phrase or Latin match is only a clue: the slip still counts on the
+    // Lessons page, but no Word Bank word takes it until a reader names the word (09-28: عالمة matched 3Alam 'world').
+    if (x.keyed_by && x.keyed_by !== 'reader' && x.keyed_by !== 'auto-word') { unplaced.push({ ...x, why: 'which list word it is waits for a reader (the automatic match was ' + x.keyed_by.replace('auto-', '') + ')' }); continue; }
+    if (byK.length === 1) f = byK[0];
+    else if (row) { const main = (byK.length ? byK : row.entries).filter(e => MAIN.includes(e.label)); f = main.length === 1 ? main[0] : row.entries.length === 1 ? row.entries[0] : null;
+      if (!f) why = 'the word has several forms and the slip does not say which'; }
+    else why = String(x.key).startsWith('taught:') ? 'a verb Amal taught that is not in the saved copy of her list yet' : 'no Word Bank row for this list word';
+    if (!f) { unplaced.push({ ...x, why }); continue; }
+    placed.push({ id: 'audit:' + x.uid, word_key: x.key, entry_id: f.id, lesson_date: x.date, t_start: x.t, t_end: x.t,
+      speaker: 'Medi', spoken: true, review_locked: true, classification: 'lexical',
+      assessment: x.kind === 'wrong' ? 'incorrect' : 'helped', vocab_points: x.kind === 'wrong' ? 0 : .5,
+      text: x.wrong || x.said || '', said: x.said || null, reason: x.why || null, source: 'audit-2026-09-26', audit_uid: x.uid });
+  }
+  slipDoc = { version: 1, about: 'Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. ' +
+    'Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. ' +
+    'unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.', events: placed, unplaced };
+  events = events.concat(placed);
+}
+
 // Same steps, same order as docs/js/word-bank.js load().
 const reviewed = Rv.apply(events, review);
 events = C.prepareEvidence(reviewed.events.map(e => reviewed.stale.includes(e.id) ? { ...e, needs_review: true } : e));
@@ -127,5 +164,7 @@ for (const entry of inp.sheet || []) {
 }
 const ratings = {}; for (const s of scored) if (s.word_key && !ratings[s.word_key]) ratings[s.word_key] = rating(s.word_key);
 
-fs.writeFileSync(process.argv[3], JSON.stringify({ scored, firstSeen, wordInfo, arabizi, sheet, ratings, stale_reviews: reviewed.stale.length }));
+// every word with a scored use, not only the ones scored here (a slip on a word with no Word Bank use yet)
+if (slipDoc) for (const e of slipDoc.events) if (!ratings[e.word_key]) ratings[e.word_key] = rating(e.word_key);
+fs.writeFileSync(process.argv[3], JSON.stringify({ scored, firstSeen, wordInfo, arabizi, sheet, ratings, slips: slipDoc, stale_reviews: reviewed.stale.length }));
 console.log('scored', scored.length, 'stale reviews', reviewed.stale.length);

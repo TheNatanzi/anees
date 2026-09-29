@@ -207,16 +207,22 @@ function sortList(list) {
 function renderMetrics() {
   var L = lessons();
   var hours = L.reduce(function (a, x) { return a + (num(x.duration_min) ? x.duration_min : 0); }, 0) / 60;
-  var w = avg(L, function (x) { return x.words && x.words.pct; });
-  var g = avg(L, function (x) { return x.grammar && x.grammar.pct; });
+  // Eng audit 2026-09-29: pooled (Σ right + ½ partial ÷ Σ scored; Σ (uses − slips) ÷ Σ uses), the same numbers as
+  // Progress › Overview (docs/js/lesson-math.js). It was a plain mean of the lesson percentages (76 % / 63 %).
+  var LM = window.AneesLessonMath;
+  var pw = LM.pooledWords(L), pg = LM.pooledGrammar(L);
+  var w = pw.n ? { value: pw.pct, n: pw.n, lessons: pw.lessons } : null;
+  var g = pg.n ? { value: pg.pct, n: pg.n, lessons: pg.lessons } : null;
   var sp = avg(L, function (x) { return x.talk && x.talk.speak_pct; });
   var f = avg(L, function (x) { return x.fillers && x.fillers.per_min; });
   var of = function (a) { return a ? 'Average of ' + a.n + ' of ' + L.length + ' lessons' : 'Not measured'; };
+  var pooled = function (a) { return a ? 'All uses pooled · ' + a.n + ' of ' + L.length + ' lessons' : 'Not measured'; };
+  var marked = function (a) { return a ? LM.mark(Math.round(a.value) + '%', a.lessons) : { text: '—', approx: false, title: '' }; };
   var cards = [
     ['Lessons', String(L.length), 'Recorded with Amal'],
     ['Total hours', hours.toFixed(1), 'Of lesson audio'],
-    ['Avg words right', w ? Math.round(w.value) + '%' : '—', of(w)],
-    ['Avg grammar right', g ? Math.round(g.value) + '%' : '—', of(g)],
+    ['Words right', marked(w), pooled(w)],
+    ['Grammar right', marked(g), pooled(g)],
     ['Avg speaking share', sp ? Math.round(sp.value) + '%' : '—', of(sp)],
     ['Avg filled pauses / min', f ? f.value.toFixed(1) : '—', of(f)]
   ];
@@ -225,7 +231,9 @@ function renderMetrics() {
   cards.forEach(function (c) {
     var m = el('div', 'ab-metric');
     m.appendChild(el('div', 'ab-metric-label', c[0]));
-    m.appendChild(el('div', 'ab-number', c[1]));
+    var v = el('div', 'ab-number', typeof c[1] === 'string' ? c[1] : c[1].text);
+    if (typeof c[1] !== 'string' && c[1].approx) { v.classList.add('rel-approx'); v.title = c[1].title; v.setAttribute('data-why', c[1].title); v.tabIndex = 0; }
+    m.appendChild(v);
     m.appendChild(el('div', 'ab-tiny', c[2]));
     box.appendChild(m);
   });
@@ -268,11 +276,18 @@ function typeTags(L) {
 }
 // Medi 2026-09-27: 90%+ dark green · 80-89 light green · 70-79 yellow · 69 and below red
 function band(p) { p = Math.round(p); return p >= 90 ? 'pct-a' : p >= 80 ? 'pct-b' : p >= 70 ? 'pct-c' : 'pct-d'; }
+// Medi's decision 4 (2026-09-29): a score from a lesson that is not verified shows "≈"; hover or tap says why.
+function approxInto(node, text, L, estimate) {
+  var m = window.AneesLessonMath.mark(text, [L]);
+  var title = [m.title, estimate ? 'Estimate: the app counted fewer rule uses than Amal fixed slips.' : ''].filter(Boolean).join(' · ');
+  node.textContent = (m.approx || estimate ? '≈' : '') + text;
+  if (title) { node.classList.add('rel-approx'); node.title = title; node.setAttribute('data-why', title); node.tabIndex = 0; }
+}
 function wordsCell(L) {
   var c = el('div', 'ls-cell');
   var w = L.words || {};
   var top = el('div', 'ls-big');
-  if (num(w.pct)) { top.textContent = Math.round(w.pct) + '%'; top.classList.add(band(w.pct)); } else top.appendChild(dash(L, ['words']));
+  if (num(w.pct)) { approxInto(top, Math.round(w.pct) + '%', L); top.classList.add(band(w.pct)); } else top.appendChild(dash(L, ['words']));
   c.appendChild(top);
   c.appendChild(el('div', 'ls-small', (num(w.unique) ? w.unique : '—') + ' words'));
   var rw = el('div', 'ls-small');
@@ -284,9 +299,12 @@ function grammarCell(L) {
   var c = el('div', 'ls-cell');
   var g = L.grammar || {};
   var top = el('div', 'ls-big');
-  if (num(g.pct)) { top.textContent = (g.estimate ? '≈' : '') + Math.round(g.pct) + '%'; top.classList.add(band(g.pct)); } else top.appendChild(dash(L, ['grammar']));
+  if (num(g.pct)) { approxInto(top, Math.round(g.pct) + '%', L, g.estimate); top.classList.add(band(g.pct)); } else top.appendChild(dash(L, ['grammar']));
   c.appendChild(top);
-  c.appendChild(el('div', 'ls-small', (num(g.mistakes) ? g.mistakes : '—') + ' slips / ' + (num(g.uses) ? g.uses : '—') + ' uses'));
+  // grammar_math (eng audit 2026-09-29): slips in rules no counter can score are listed but kept out of the %
+  var sm = num(g.scored_mistakes) ? g.scored_mistakes : g.mistakes;
+  c.appendChild(el('div', 'ls-small', (num(sm) ? sm : '—') + ' slips / ' + (num(g.uses) ? g.uses : '—') + ' uses' +
+    (num(g.unscored_mistakes) && g.unscored_mistakes ? ' · +' + g.unscored_mistakes + ' in unscored rules' : '')));
   return c;
 }
 function talkCell(L) {
@@ -416,7 +434,8 @@ function headWord(v) {
   box.appendChild(main);
   // Medi 2026-09-26: "label it 'not on sheet'" / "add the rating (shaky, mastered) with my percentage correct"
   var meta = el('div', 'ls-headmeta');
-  if (v.on_sheet === false) meta.appendChild(el('span', 'ls-pill ls-pill-off', 'Not on sheet · sent to Amal · not scored'));
+  if (v.on_sheet === false) meta.appendChild(v.not_vocab ? el('span', 'ls-pill ls-pill-off', 'Preposition · grammar, not a word slip · not in Words %')
+    : el('span', 'ls-pill ls-pill-off', 'Not on sheet · sent to Amal · not scored'));
   else if (v.rating) {
     var R = v.rating, st = R.status || 'Untested';
     meta.appendChild(el('span', 'ls-pill ls-pill-' + st.toLowerCase(), st));
@@ -731,6 +750,7 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
     var L = lessons();
     $('ls-source').textContent = L.length + ' lessons · ' + L[0].date.slice(5) + ' to ' + L[L.length - 1].date.slice(5);
     $('ls-coverage').textContent = 'Source: docs/data/lessons.json · updated ' + DATA.updated + ' · lesson types are Claude’s reading, tell Claude to change any.';
+    window.AneesLessonMath.wireTaps(document);
     renderMetrics();
     renderTabs();
     renderModes();

@@ -1,0 +1,89 @@
+/* One place for the lesson numbers every page shows (eng audit 2026-09-29).
+   - Medi's decision 4: a score from a lesson that is not verified SHOWS with "≈" (e.g. "Words ≈74%"); hover or tap says
+     why (the reasons scripts/accuracy_gates.py writes to lessons.json: lesson.release.status / .reasons). Averages still
+     include it and are also "≈" when any input is "≈". Never hidden, never shown as exact.
+   - Medi's decision 6: one formula per number. Averages over lessons are POOLED (Σ right + ½ partial ÷ Σ scored uses;
+     Σ (uses − scored slips) ÷ Σ uses), never a mean of lesson percentages - the Lessons page used a plain mean (76 % /
+     63 %) while the Overview showed the pooled 80.0 % / 72.0 % for the same thing.
+   Pure functions; works in the browser (window.AneesLessonMath) and in node (module.exports) for tests and
+   scripts/check_numbers.py. */
+(function (root) {
+  'use strict';
+  const ok = v => v !== null && v !== undefined && v !== '' && !Number.isNaN(Number(v));
+  const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const dm = d => { const p = String(d || '').split('-').map(Number); return p.length === 3 ? MON[p[1] - 1] + ' ' + p[2] : String(d); };
+
+  // ---------- decision 4: verified or not ----------
+  function release(L) {
+    const r = L && L.release;
+    if (!r || !r.status) return { verified: false, reasons: ['no accuracy check has run on this lesson yet'] };
+    return { verified: r.status === 'verified', reasons: r.status === 'verified' ? [] : (r.reasons && r.reasons.length ? r.reasons.slice() : ['not verified']) };
+  }
+  // The "why" for one lesson or a set of lessons (an average). Short enough for a title attribute.
+  function why(lessons) {
+    const list = (Array.isArray(lessons) ? lessons : [lessons]).filter(Boolean);
+    const bad = list.filter(L => !release(L).verified);
+    if (!bad.length) return '';
+    if (list.length === 1) return 'Not verified yet, so this is not exact:\n• ' + release(bad[0]).reasons.join('\n• ');
+    const first = release(bad[0]).reasons[0] || 'not verified';
+    return `Not exact: ${bad.length} of ${list.length} lessons behind this number are not verified yet (${bad.slice(0, 6).map(L => dm(L.date)).join(', ')}${bad.length > 6 ? ', …' : ''}). ` +
+      `Most common reason: ${commonReason(bad) || first}. Open a lesson on the Lessons page for its full list.`;
+  }
+  function commonReason(bad) {
+    const n = new Map();
+    for (const L of bad) for (const r of release(L).reasons) { const k = String(r).split(':')[0]; n.set(k, (n.get(k) || 0) + 1); }
+    let best = null; for (const [k, v] of n) if (!best || v > best[1]) best = [k, v];
+    return best ? `${best[0]} (${best[1]} of ${bad.length})` : '';
+  }
+  const approx = lessons => (Array.isArray(lessons) ? lessons : [lessons]).filter(Boolean).some(L => !release(L).verified);
+  // "≈" + value, and the reason. mark(74, lessons) -> {text: '≈74', approx: true, title: '...'}
+  function mark(text, lessons) {
+    const a = approx(lessons);
+    return { text: (a ? '≈' : '') + text, approx: a, title: a ? why(lessons) : '' };
+  }
+  // HTML for a marked number (the title shows on hover; tap shows it too via wireTaps()).
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  function html(text, lessons) {
+    const m = mark(text, lessons);
+    return m.approx ? `<span class="rel-approx" tabindex="0" role="note" title="${esc(m.title)}" data-why="${esc(m.title)}">${esc(m.text)}</span>` : esc(m.text);
+  }
+  // Tap / Enter on a "≈" number shows its reason (title attributes do not show on phones).
+  function wireTaps(doc) {
+    doc = doc || (typeof document !== 'undefined' ? document : null);
+    if (!doc || doc.__relWired) return; doc.__relWired = true;
+    const show = el => {
+      let tip = doc.getElementById('rel-tip');
+      if (!tip) { tip = doc.createElement('div'); tip.id = 'rel-tip'; tip.setAttribute('role', 'status');
+        tip.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;max-width:560px;margin:0 auto;padding:10px 12px;border-radius:8px;background:var(--ab-ink,#222);color:var(--ab-paper,#fff);font:13px/1.4 system-ui,sans-serif;white-space:pre-line;box-shadow:0 4px 18px rgba(0,0,0,.25)';
+        tip.addEventListener('click', () => { tip.hidden = true; }); doc.body.appendChild(tip); }
+      tip.textContent = (el.getAttribute('data-why') || '') + '\n(tap to close)'; tip.hidden = false;
+    };
+    doc.addEventListener('click', e => { const el = e.target && e.target.closest && e.target.closest('.rel-approx'); if (el) show(el); });
+    doc.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target && e.target.classList && e.target.classList.contains('rel-approx')) show(e.target); });
+  }
+
+  // ---------- decision 6: one pooled formula per number ----------
+  // Words: Σ (right + ½ partial) ÷ Σ scored uses, over lessons with scored uses (the Word Bank's own weighting).
+  function pooledWords(lessons) {
+    const W = (lessons || []).filter(L => L && L.words && ok(L.words.scored) && L.words.scored > 0);
+    const scored = W.reduce((s, L) => s + L.words.scored, 0);
+    const points = W.reduce((s, L) => s + (L.words.right || 0) + (L.words.partial || 0) / 2, 0);
+    return { pct: scored ? 100 * points / scored : null, points, scored, lessons: W, n: W.length };
+  }
+  // Grammar: Σ (uses − scored slips) ÷ Σ uses (scripts/grammar_math.py). Older lessons.json without scored_mistakes:
+  // mistakes are used, and a lesson whose slips exceed its uses (the old "estimate") is kept out, as before.
+  function pooledGrammar(lessons) {
+    const sm = L => ok(L.grammar.scored_mistakes) ? L.grammar.scored_mistakes : (L.grammar.mistakes || 0);
+    const G = (lessons || []).filter(L => L && L.grammar && ok(L.grammar.uses) && L.grammar.uses > 0 && !L.grammar.estimate && sm(L) <= L.grammar.uses);
+    const uses = G.reduce((s, L) => s + L.grammar.uses, 0), slips = G.reduce((s, L) => s + sm(L), 0);
+    return { pct: uses ? 100 * (uses - slips) / uses : null, uses, slips, lessons: G, n: G.length };
+  }
+  // Talk / fillers keep their own pooled definitions on the Overview; a plain mean is labelled as such where used.
+  function mean(lessons, pick) {
+    const v = (lessons || []).map(pick).filter(ok).map(Number);
+    return v.length ? { value: v.reduce((a, b) => a + b, 0) / v.length, n: v.length } : null;
+  }
+  const api = { release, why, approx, mark, html, wireTaps, pooledWords, pooledGrammar, mean, dm };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  root.AneesLessonMath = api;
+})(typeof window !== 'undefined' ? window : globalThis);
