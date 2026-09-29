@@ -28,7 +28,7 @@ def test_banner_appears_when_build_changes(tmp_path):
     threading.Thread(target=srv.serve_forever, daemon=True).start()
     with sync_playwright() as pw:
         b = pw.chromium.launch(); pg = b.new_page(viewport={'width': 375, 'height': 812})
-        pg.goto(f'http://127.0.0.1:{port}/cards.html'); pg.wait_for_selector('#start', timeout=20000)
+        pg.goto(f'http://127.0.0.1:{port}/cards.html'); pg.wait_for_selector('[data-t="cat:topics"]', timeout=20000)   # home is the category menu since 4facdef (2026-09-22); #start only appears inside a set
         assert pg.evaluate('AneesStale.check()') is not None and pg.locator('#stale-bar').count() == 0
         (site / 'data' / 'build.json').write_text('{"build": "20991231-000000-newer"}', encoding='utf-8')
         pg.evaluate('AneesStale.check()'); pg.wait_for_selector('#stale-bar', timeout=5000)
