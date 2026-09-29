@@ -112,7 +112,7 @@ h1{font-weight:500;font-size:32px;letter-spacing:-.3px} h2{font-weight:500;font-
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main></div></div>
-<script src="js/config.js"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260927-boost-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260923-drills-v2"></script><script src="js/word-bank-review.js?v=20260922-select-v2"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
+<script src="js/config.js"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260927-boost-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260923-drills-v2"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
 <script>
 const C=window.AneesCards, F=window.AneesFSRS, SEL=window.AneesCardSelection, VD=window.AneesVerbDrills, WB=window.AneesWordBank, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -147,10 +147,10 @@ async function load(){
   try { stats=await window.AneesProgress.load(stats,ANEES.url,H,LS('anees-card-log')||[]); LS(window.AneesProgress.CACHE_KEY,stats); }
   catch(e) { const saved=window.AneesProgress.cached(LS(window.AneesProgress.CACHE_KEY)); if(Object.keys(saved).length) stats=saved; }
   // Selection screen sources: lesson evidence (spoken Shaky / Wrong) and Amal's Quizlet sets.
-  const [snap,review,qz]=await Promise.allSettled([window.AneesSnapshot.load(ANEES.url,H),fetch('data/word-bank-review.json').then(r=>r.ok?r.json():{}),fetch('data/quizlet/amal-quizlet-sets.json').then(r=>r.ok?r.json():Promise.reject(r.status))]);
+  const [snap,review,qz,slips]=await Promise.allSettled([window.AneesSnapshot.load(ANEES.url,H),fetch('data/word-bank-review.json').then(r=>r.ok?r.json():{}),fetch('data/quizlet/amal-quizlet-sets.json').then(r=>r.ok?r.json():Promise.reject(r.status)),fetch('data/word-bank-audit-slips.json').then(r=>r.ok?r.json():null)]);
   let ev=snap.status==='fulfilled'&&Array.isArray(snap.value.events)?snap.value.events:null;
   if(ev) LS('anees-speaking-evidence-v1',snap.value); else ev=(LS('anees-speaking-evidence-v1')||{}).events||null;
-  if(ev){ const rv=window.AneesWordBankReview.apply(ev,review.status==='fulfilled'?review.value:{}); speakEvents=WB.prepareEvidence(rv.events.map(e=>rv.stale.includes(e.id)?{...e,needs_review:true}:e)); lessonScores='ok'; } else lessonScores='offline';
+  if(ev){ const rv=window.AneesWordBankReview.apply(window.AneesWordBankReview.withSlips(ev,slips.status==='fulfilled'?slips.value:null),review.status==='fulfilled'?review.value:{}); speakEvents=WB.prepareEvidence(rv.events.map(e=>rv.stale.includes(e.id)?{...e,needs_review:true}:e)); lessonScores='ok'; } else lessonScores='offline';
   quizlet=qz.status==='fulfilled'?(qz.value.sets||[]):[];
   try{ const r=await fetch('data/sentence-ladder.json'); if(r.ok) boostList=(await r.json()).boost||[]; }catch(e){}   // listening boost: words that sank sentences he missed
   try{ const r=await fetch('data/verb-addons.json'); if(r.ok&&window.AneesVerbAddons) window.AneesVerbAddons.useTags((await r.json()).verbs); }catch(e){}
