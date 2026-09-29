@@ -112,7 +112,7 @@ h1{font-weight:500;font-size:32px;letter-spacing:-.3px} h2{font-weight:500;font-
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main></div></div>
-<script src="js/config.js"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260927-boost-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260923-drills-v2"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
+<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260927-boost-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260923-drills-v2"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
 <script>
 const C=window.AneesCards, F=window.AneesFSRS, SEL=window.AneesCardSelection, VD=window.AneesVerbDrills, WB=window.AneesWordBank, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -152,6 +152,7 @@ async function load(){
   if(ev) LS('anees-speaking-evidence-v1',snap.value); else ev=(LS('anees-speaking-evidence-v1')||{}).events||null;
   if(ev){ const rv=window.AneesWordBankReview.apply(window.AneesWordBankReview.withSlips(ev,slips.status==='fulfilled'?slips.value:null),review.status==='fulfilled'?review.value:{}); speakEvents=WB.prepareEvidence(rv.events.map(e=>rv.stale.includes(e.id)?{...e,needs_review:true}:e)); lessonScores='ok'; } else lessonScores='offline';
   quizlet=qz.status==='fulfilled'?(qz.value.sets||[]):[];
+  try{ const r=await fetch('data/quizlet/amal-newer-spellings.json'); if(r.ok&&window.AneesAmalNewest) quizlet=window.AneesAmalNewest.apply(quizlet,await r.json()); }catch(e){}   // newest Amal wins (Medi M1 2026-09-29)
   try{ const r=await fetch('data/sentence-ladder.json'); if(r.ok) boostList=(await r.json()).boost||[]; }catch(e){}   // listening boost: words that sank sentences he missed
   try{ const r=await fetch('data/verb-addons.json'); if(r.ok&&window.AneesVerbAddons) window.AneesVerbAddons.useTags((await r.json()).verbs); }catch(e){}
   applyLocalResults(); rebuild();

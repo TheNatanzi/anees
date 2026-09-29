@@ -1,6 +1,6 @@
 /* Golden check of the level-2 add-on engine against Amal's Quizlet sets. Usage: node scripts/verb_addons_golden.cjs [--misses] */
 const A=require('../docs/js/verb-addons.js'),D=require('../docs/js/verb-drills.js');
-const cat=require('../docs/data/word-bank-catalog.json'),words=require('../docs/data/words.json').items,sets=require('../docs/data/quizlet/amal-quizlet-sets.json').sets;
+const cat=require('../docs/data/word-bank-catalog.json'),words=require('../docs/data/words.json').items,sets=require('../docs/js/amal-newest.js').apply(require('../docs/data/quizlet/amal-quizlet-sets.json').sets,require('../docs/data/quizlet/amal-newer-spellings.json'));   // newest Amal wins (M1 2026-09-29)
 const V=D.verbs(cat,words);
 const SUBJ={ana:'I',inta:'You (m)',inti:'You (f)',intu:'You (pl)',huwwe:'He',heyye:'She',e7na:'We',i7na:'We',humme:'They'};
 const OBJ=[[/\bme\b/i,'me'],[/you \(m\)/i,'you (m)'],[/you \(f\)/i,'you (f)'],[/you \(g\)/i,'you (pl)'],[/\bhim\b|it \(m\)/i,'him'],[/\bher\b|it \(f\)/i,'her'],[/\bus\b/i,'us'],[/\bthem\b/i,'them']];
