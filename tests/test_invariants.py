@@ -132,8 +132,7 @@ def test_sheet_v2_every_hand_verdict_is_applied():
 AUDIT_FILE = ROOT / "data" / "full-audit-2026-09-26.json"
 # Cards already known to be stale when this test was written (2026-09-27). Fix the card (or give it "as_of"),
 # then delete its slug here: a new stale card fails at once.
-KNOWN_STALE = {"process-audit-2026-09-26": "says 961 rows (audit build 05:16); the audit now has 1,018",
-               "ai-process-review-2026-09-27": "says '104 of 961 rows'; the audit now has 1,018"}
+KNOWN_STALE = {}   # 2026-09-29: both 961-row cards now carry "as_of" (a dated snapshot), so no card is stale
 
 
 def _cards_citing_audit_size():
@@ -158,20 +157,16 @@ def test_ai_report_cards_match_the_audit_file(c, near, rows):
 
 
 def test_audit_size_cards_are_still_found():
-    """The parametrized test above silently ran 0 cases once the audit grew to 1,074 rows: the cards still say 961,
-    which is outside its +-10% window, so no card 'cited the audit size' and nothing was checked. Every card listed in
-    KNOWN_STALE must still be found by the scan; when it is not, the card's number is out of date - say which."""
+    """The parametrized test above silently ran 0 cases once the audit grew past +-10% of the cards' 961. Now: every
+    card that quotes "N rows" must either quote today's audit size or carry an "as_of" note (a dated snapshot)."""
     rows = J(AUDIT_FILE)["totals"]["rows"]
-    found = {p.values[0]["slug"] for p in _cards_citing_audit_size()}
-    reports = {c["slug"]: c for c in J(DOCS / "data" / "ai_reports.json")["reports"]}
-    lost = []
-    for slug in KNOWN_STALE:
-        if slug in found:
-            continue
-        s = json.dumps(reports.get(slug, {}), ensure_ascii=False)
-        said = sorted(set(re.findall(r"(\d,\d{3}|\d{3,4}) (?:audit )?rows", s)))
-        lost.append(f"{slug} says {', '.join(said) or '(card missing)'} rows; {AUDIT_FILE.name} now has {rows:,}")
-    assert not lost, "AI Reports cards quote an out-of-date audit size: " + "; ".join(lost)
+    bad = []
+    for c in J(DOCS / "data" / "ai_reports.json")["reports"]:
+        s = json.dumps({k: v for k, v in c.items() if k not in ("links", "source_md")}, ensure_ascii=False)
+        said = {int(x.replace(",", "")) for x in re.findall(r"(\d,\d{3}|\d{3,4}) (?:audit )?rows", s)}
+        if said and said != {rows} and not c.get("as_of"):
+            bad.append(f"{c['slug']} says {sorted(said)} rows; {AUDIT_FILE.name} now has {rows:,}")
+    assert not bad, "AI Reports cards quote an out-of-date audit size: " + "; ".join(bad)
 
 
 def test_audit_file_totals_match_its_rows():
