@@ -290,3 +290,14 @@ def test_word_bank_headline_carries_pending_and_missing_lessons(tmp_path):
     r = build_repo(tmp_path)
     wj(os.path.join(r, "docs", "data", "word-bank-audit.json"), {"events": [{"date": "2026-09-01", "status": "Correct"}, {"date": "2026-09-01", "status": "Wrong"}]})
     assert any("leaves out lessons ['2026-09-28']" in p for p in G.validate(r))
+
+
+def test_estimated_timings_are_a_reason(tmp_path):
+    """09-10: the engine gave no word timings; line times were spread over silence-detected talk."""
+    r = build_repo(tmp_path)
+    p = os.path.join(r, "docs", "data", "lessons.json")
+    doc = json.load(open(p, encoding="utf-8"))
+    doc["lessons"][0]["source"]["timing"] = "estimated"
+    wj(p, doc)
+    doc2, rel, q = G.run_annotate(r, write=False)
+    assert any("estimated from each person's recording" in x for x in doc2["lessons"][0]["release"]["reasons"])
