@@ -1,0 +1,518 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Engineering audit: do all the numbers add up? · AI Reports · Anees</title><script src="../js/theme.js"></script><link rel="stylesheet" href="../css/sabz-tokens.css"><link rel="stylesheet" href="../css/word-bank.css?v=menu1"><link rel="stylesheet" href="../css/vocabulary-progress.css"><link rel="stylesheet" href="../css/ai-reports.css?v=20260926-v1"></head>
+<body><div id="anees-bank" class="vp-sabz" aria-label="Anees AI report"><div class="ab-shell">
+<aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="../progress.html">Progress &amp; Stats</a><a class="ab-nav" href="../lessons.html">Lessons &amp; Audio</a><a class="ab-nav" href="../word-bank.html">Word Bank</a><a class="ab-nav" href="../grammar.html">Grammar Rules</a><a class="ab-nav" href="../cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="../tutor.html">Tutor</a><a class="ab-nav" aria-current="page" href="../ai-reports.html">AI Reports</a><a class="ab-nav" href="../big-picture.html">Big Picture</a><a class="ab-nav" href="../settings.html">System Settings</a></nav></aside>
+<main>
+<header class="ab-header"><div><div class="vp-eyebrow">AI report · Claude · 2026-09-29</div><h1>Engineering audit: do all the numbers add up?</h1><div class="ab-sub">Built from ENG-AUDIT-CURRICULUM-2026-09-29.md</div></div><a class="ab-preview" href="../ai-reports.html">‹ All AI reports</a></header>
+<article class="ar-doc">
+<h1 id="do-all-the-numbers-add-up-a-7-lesson-walk-through">Do all the numbers add up? A 7-lesson walk-through</h1>
+<p><strong>Bottom line:</strong> they did not. The same slip was counted twice, two pages used two grammar formulas, and nothing checked the math before going live.
+All of that is fixed on the branch <code>eng-audit-2026-09-29</code>. Nothing is live until you say yes.
+Every score still shows, now with a <strong>≈</strong> mark: no lesson is verified yet, because no person has listened to check the transcript.</p>
+<p><strong>Words used below, in plain words</strong></p>
+<ul>
+<li><strong>Transcript:</strong> the text the speech-to-text engine wrote from the recording.</li>
+<li><strong>Reader:</strong> an AI that reads a transcript and lists Medi's slips. Two Claude readers, then a third settles their disagreements.</li>
+<li><strong>Audit row:</strong> one slip one reader found (a word or grammar mistake Amal corrected).</li>
+<li><strong>Verified:</strong> both readers agree 95% of the time, and a person has listened. Today: 0 of 15 lessons.</li>
+<li><strong>≈ mark:</strong> "this number is not verified yet". Hover or tap it to see why.</li>
+<li><strong>Pooled average:</strong> add up all the right answers of all lessons, then divide by all the tries. Big lessons count more.</li>
+<li><strong>Codex:</strong> OpenAI's AI (GPT-5.5). Used as a second judge that is not Claude.</li>
+<li><strong>Publish guard:</strong> a checklist that runs every hour before anything goes live.</li>
+</ul>
+<hr />
+<h2 id="lesson-1-the-big-picture">Lesson 1 · The big picture</h2>
+<ul>
+<li>A lesson travels left to right. Each box hands its output to the next.</li>
+<li>A red ✕ marks where the chain broke.</li>
+</ul>
+<div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><svg viewBox="0 0 980 250" width="100%" role="img" aria-label="How a lesson becomes numbers, and where it broke" style="min-width:680px;max-width:980px;font-family:var(--sabz-font-sans)"><rect x="8" y="40" width="124" height="64" rx="10" fill="var(--sabz-surface)" stroke="var(--sabz-hairline)"/><text x="70.0" y="68" text-anchor="middle" font-size="15" font-weight="600" fill="var(--sabz-text)">Recording</text><text x="70.0" y="89" text-anchor="middle" font-size="11" fill="var(--sabz-text-muted)">each person's own track</text><path d="M134 72 l12 0" stroke="var(--sabz-text-muted)" stroke-width="2" marker-end="url(#ar)"/><rect x="148" y="40" width="124" height="64" rx="10" fill="var(--sabz-surface)" stroke="var(--sabz-hairline)"/><text x="210.0" y="68" text-anchor="middle" font-size="15" font-weight="600" fill="var(--sabz-text)">Transcript</text><text x="210.0" y="89" text-anchor="middle" font-size="11" fill="var(--sabz-text-muted)">speech-to-text</text><path d="M274 72 l12 0" stroke="var(--sabz-text-muted)" stroke-width="2" marker-end="url(#ar)"/><circle cx="210.0" cy="132" r="11" fill="var(--sabz-state-over)"/><text x="210.0" y="137" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">✕</text><text x="210.0" y="162" text-anchor="middle" font-size="11.5" fill="var(--sabz-text)">3 holes: 09-16,</text><text x="210.0" y="177" text-anchor="middle" font-size="11.5" fill="var(--sabz-text)">09-26, 09-28</text><rect x="288" y="40" width="124" height="64" rx="10" fill="var(--sabz-surface)" stroke="var(--sabz-hairline)"/><text x="350.0" y="68" text-anchor="middle" font-size="15" font-weight="600" fill="var(--sabz-text)">Readers</text><text x="350.0" y="89" text-anchor="middle" font-size="11" fill="var(--sabz-text-muted)">2 Claude + a 3rd</text><path d="M414 72 l12 0" stroke="var(--sabz-text-muted)" stroke-width="2" marker-end="url(#ar)"/><circle cx="350.0" cy="132" r="11" fill="var(--sabz-state-over)"/><text x="350.0" y="137" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">✕</text><text x="350.0" y="162" text-anchor="middle" font-size="11.5" fill="var(--sabz-text)">reused old files; 0</text><text x="350.0" y="177" text-anchor="middle" font-size="11.5" fill="var(--sabz-text)">of 15 at 95%</text><rect x="428" y="40" width="124" height="64" rx="10" fill="var(--sabz-surface)" stroke="var(--sabz-hairline)"/><text x="490.0" y="68" text-anchor="middle" font-size="15" font-weight="600" fill="var(--sabz-text)">Audit rows</text><text x="490.0" y="89" text-anchor="middle" font-size="11" fill="var(--sabz-text-muted)">one row per slip</text><path d="M554 72 l12 0" stroke="var(--sabz-text-muted)" stroke-width="2" marker-end="url(#ar)"/><circle cx="490.0" cy="132" r="11" fill="var(--sabz-state-over)"/><text x="490.0" y="137" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">✕</text><text x="490.0" y="162" text-anchor="middle" font-size="11.5" fill="var(--sabz-text)">same slip counted</text><text x="490.0" y="177" text-anchor="middle" font-size="11.5" fill="var(--sabz-text)">twice</text><rect x="568" y="40" width="124" height="64" rx="10" fill="var(--sabz-surface)" stroke="var(--sabz-hairline)"/><text x="630.0" y="68" text-anchor="middle" font-size="15" font-weight="600" fill="var(--sabz-text)">Builders</text><text x="630.0" y="89" text-anchor="middle" font-size="11" fill="var(--sabz-text-muted)">turn rows into numbers</text><path d="M694 72 l12 0" stroke="var(--sabz-text-muted)" stroke-width="2" marker-end="url(#ar)"/><circle cx="630.0" cy="132" r="11" fill="var(--sabz-state-over)"/><text x="630.0" y="137" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">✕</text><text x="630.0" y="162" text-anchor="middle" font-size="11.5" fill="var(--sabz-text)">2 grammar formulas;</text><text x="630.0" y="177" text-anchor="middle" font-size="11.5" fill="var(--sabz-text)">failures ignored</text><rect x="708" y="40" width="124" height="64" rx="10" fill="var(--sabz-surface)" stroke="var(--sabz-hairline)"/><text x="770.0" y="68" text-anchor="middle" font-size="15" font-weight="600" fill="var(--sabz-text)">Pages</text><text x="770.0" y="89" text-anchor="middle" font-size="11" fill="var(--sabz-text-muted)">what you see</text><path d="M834 72 l12 0" stroke="var(--sabz-text-muted)" stroke-width="2" marker-end="url(#ar)"/><circle cx="770.0" cy="132" r="11" fill="var(--sabz-state-over)"/><text x="770.0" y="137" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">✕</text><text x="770.0" y="162" text-anchor="middle" font-size="11.5" fill="var(--sabz-text)">no ≈ mark; pages</text><text x="770.0" y="177" text-anchor="middle" font-size="11.5" fill="var(--sabz-text)">disagreed</text><rect x="848" y="40" width="124" height="64" rx="10" fill="var(--sabz-surface)" stroke="var(--sabz-hairline)"/><text x="910.0" y="68" text-anchor="middle" font-size="15" font-weight="600" fill="var(--sabz-text)">Push</text><text x="910.0" y="89" text-anchor="middle" font-size="11" fill="var(--sabz-text-muted)">goes live</text><circle cx="910.0" cy="132" r="11" fill="var(--sabz-state-over)"/><text x="910.0" y="137" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">✕</text><text x="910.0" y="162" text-anchor="middle" font-size="11.5" fill="var(--sabz-text)">no check before</text><text x="910.0" y="177" text-anchor="middle" font-size="11.5" fill="var(--sabz-text)">going live</text><text x="8" y="22" font-size="12" fill="var(--sabz-text-muted)">Red ✕ = where it broke (found tonight). All are fixed on the branch except the holes and the 95% agreement, which need people.</text><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="var(--sabz-text-muted)"/></marker></defs></svg></div>
+
+<hr />
+<h2 id="lesson-2-scorecard-the-9-areas">Lesson 2 · Scorecard: the 9 areas</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Area</th>
+<th>Grade</th>
+<th>In one line</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Numbers match across pages</td>
+<td>⚠ → fixed</td>
+<td>14 of 25 shared numbers disagreed. After the fix, all 555 checks match.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Score formulas</td>
+<td>⚠ → fixed</td>
+<td>There were 2 grammar formulas and 2 ways to average. Now there is one of each, and the cut-offs are written on the pages.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Audio and transcripts</td>
+<td>⚠</td>
+<td>No speakers are swapped. 3 stretches of speech were never transcribed. Nobody has listened to check the speech-to-text.</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Hourly job</td>
+<td>⚠ → fixed</td>
+<td>Failures were ignored and old reader files were reused. Every failure now stops the publish.</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Rules vs code</td>
+<td>⚠</td>
+<td>35 rules checked. 27 are enforced and 21 are fully obeyed. 9 need your answer.</td>
+</tr>
+<tr>
+<td>6</td>
+<td>AI steps</td>
+<td>⚠</td>
+<td>1 of 12 AI steps is measured against people. Claude is now pinned to one model version.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Flashcards</td>
+<td>⚠</td>
+<td>The scheduler math is right. Test runs wrote 108 fake answers into your history.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Amal's answers</td>
+<td>⚠ → mostly fixed</td>
+<td>688 of her 729 verb answers were never pulled. All 729 are in now.</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Page health</td>
+<td>✅</td>
+<td>19 pages were hard to read in dark or light mode. All fixed. 0 broken links.</td>
+</tr>
+</tbody>
+</table></div>
+<p>✅ good · ⚠ problem found · "→ fixed" = fixed on the branch.</p>
+<hr />
+<h2 id="lesson-3-the-problems-one-at-a-time">Lesson 3 · The problems, one at a time</h2>
+<h3 id="31-the-same-slip-was-counted-twice">3.1 The same slip was counted twice</h3>
+<ul>
+<li><strong>What:</strong> a slip found in reading pass 1 came back in pass 2 as a "new" row. Example: 09-15 at 1:02:41, grammar rule A1, rows FA-950701c8 and FA-950701c8x.</li>
+<li><strong>Why it matters:</strong> each extra copy is one more mistake in your grammar score.</li>
+<li><strong>Fixed:</strong> the builder now merges repeats instead of renaming them. 14 repeats removed. Grammar slips counted: <strong>560 → 551</strong>.</li>
+<li><strong>Still needed:</strong> 2 near-repeats need a person to decide (08-25 مغني; 09-21 دلوا / دل).</li>
+</ul>
+<h3 id="32-two-pages-two-grammar-formulas">3.2 Two pages, two grammar formulas</h3>
+<ul>
+<li><strong>What:</strong> the Lessons page counted only the uses the machine spotted. The Grammar console also counted every slip Amal fixed as a use.</li>
+<li><strong>Why it matters:</strong> the same lesson had two grammar scores. Total uses were 1,712 on one page and 2,178 on the other.</li>
+<li><strong>Fixed:</strong> one shared formula (<code>scripts/grammar_math.py</code>) feeds both pages. Grammar % = right uses ÷ all uses. A fixed slip counts as a use.</li>
+</ul>
+<p><svg viewBox="0 0 760 450" width="100%" role="img" aria-label="Grammar percent per lesson, before and after one formula" style="max-width:760px;font-family:var(--sabz-font-sans)"><rect x="70" y="8" width="12" height="10" fill="var(--sabz-text-muted)"/><text x="86" y="17" font-size="12" fill="var(--sabz-text)">before (live site)</text><rect x="220" y="8" width="12" height="10" fill="var(--sabz-state-calm)"/><text x="236" y="17" font-size="12" fill="var(--sabz-text)">after (one formula, duplicates out)</text><text x="62" y="44" text-anchor="end" font-size="12" fill="var(--sabz-text)">08-25</text><rect x="70" y="30" width="545.6" height="9" fill="var(--sabz-text-muted)"/><text x="619.6" y="38" font-size="10" fill="var(--sabz-text-muted)">86.6</text><rect x="70" y="40" width="567.6" height="9" fill="var(--sabz-state-calm)"/><text x="641.6" y="48" font-size="10" fill="var(--sabz-text)">≈90.1</text><text x="62" y="70" text-anchor="end" font-size="12" fill="var(--sabz-text)">09-04</text><rect x="70" y="56" width="207.3" height="9" fill="var(--sabz-text-muted)"/><text x="281.3" y="64" font-size="10" fill="var(--sabz-text-muted)">32.9</text><rect x="70" y="66" width="420.2" height="9" fill="var(--sabz-state-calm)"/><text x="494.2" y="74" font-size="10" fill="var(--sabz-text)">≈66.7</text><text x="62" y="96" text-anchor="end" font-size="12" fill="var(--sabz-text)">09-05</text><rect x="70" y="82" width="335.2" height="9" fill="var(--sabz-text-muted)"/><text x="409.2" y="90" font-size="10" fill="var(--sabz-text-muted)">53.2</text><rect x="70" y="92" width="451.1" height="9" fill="var(--sabz-state-calm)"/><text x="525.1" y="100" font-size="10" fill="var(--sabz-text)">≈71.6</text><text x="62" y="122" text-anchor="end" font-size="12" fill="var(--sabz-text)">09-10</text><rect x="70" y="108" width="532.4" height="9" fill="var(--sabz-text-muted)"/><text x="606.4" y="116" font-size="10" fill="var(--sabz-text-muted)">84.5</text><rect x="70" y="118" width="560.1" height="9" fill="var(--sabz-state-calm)"/><text x="634.1" y="126" font-size="10" fill="var(--sabz-text)">≈88.9</text><text x="62" y="148" text-anchor="end" font-size="12" fill="var(--sabz-text)">09-11</text><rect x="70" y="134" width="411.4" height="9" fill="var(--sabz-text-muted)"/><text x="485.4" y="142" font-size="10" fill="var(--sabz-text-muted)">65.3</text><rect x="70" y="144" width="482.6" height="9" fill="var(--sabz-state-calm)"/><text x="556.6" y="152" font-size="10" fill="var(--sabz-text)">≈76.6</text><text x="62" y="174" text-anchor="end" font-size="12" fill="var(--sabz-text)">09-14</text><rect x="70" y="160" width="350.9" height="9" fill="var(--sabz-text-muted)"/><text x="424.9" y="168" font-size="10" fill="var(--sabz-text-muted)">55.7</text><rect x="70" y="170" width="442.9" height="9" fill="var(--sabz-state-calm)"/><text x="516.9" y="178" font-size="10" fill="var(--sabz-text)">≈70.3</text><text x="62" y="200" text-anchor="end" font-size="12" fill="var(--sabz-text)">09-15</text><rect x="70" y="186" width="287.9" height="9" fill="var(--sabz-text-muted)"/><text x="361.9" y="194" font-size="10" fill="var(--sabz-text-muted)">45.7</text><rect x="70" y="196" width="430.9" height="9" fill="var(--sabz-state-calm)"/><text x="504.9" y="204" font-size="10" fill="var(--sabz-text)">≈68.4</text><text x="62" y="226" text-anchor="end" font-size="12" fill="var(--sabz-text)">09-16</text><rect x="70" y="212" width="294.8" height="9" fill="var(--sabz-text-muted)"/><text x="368.8" y="220" font-size="10" fill="var(--sabz-text-muted)">46.8</text><rect x="70" y="222" width="315.0" height="9" fill="var(--sabz-state-calm)"/><text x="389.0" y="230" font-size="10" fill="var(--sabz-text)">≈50</text><text x="62" y="252" text-anchor="end" font-size="12" fill="var(--sabz-text)">09-17</text><rect x="70" y="238" width="243.2" height="9" fill="var(--sabz-text-muted)"/><text x="317.2" y="246" font-size="10" fill="var(--sabz-text-muted)">38.6</text><rect x="70" y="248" width="409.5" height="9" fill="var(--sabz-state-calm)"/><text x="483.5" y="256" font-size="10" fill="var(--sabz-text)">≈65</text><text x="62" y="278" text-anchor="end" font-size="12" fill="var(--sabz-text)">09-18</text><rect x="70" y="264" width="204.1" height="9" fill="var(--sabz-text-muted)"/><text x="278.1" y="272" font-size="10" fill="var(--sabz-text-muted)">32.4</text><rect x="70" y="274" width="223.7" height="9" fill="var(--sabz-state-calm)"/><text x="297.6" y="282" font-size="10" fill="var(--sabz-text)">≈35.5</text><text x="62" y="304" text-anchor="end" font-size="12" fill="var(--sabz-text)">09-19</text><rect x="70" y="290" width="493.3" height="9" fill="var(--sabz-text-muted)"/><text x="567.3" y="298" font-size="10" fill="var(--sabz-text-muted)">78.3</text><rect x="70" y="300" width="536.8" height="9" fill="var(--sabz-state-calm)"/><text x="610.8" y="308" font-size="10" fill="var(--sabz-text)">≈85.2</text><text x="62" y="330" text-anchor="end" font-size="12" fill="var(--sabz-text)">09-21</text><rect x="70" y="316" width="425.9" height="9" fill="var(--sabz-text-muted)"/><text x="499.9" y="324" font-size="10" fill="var(--sabz-text-muted)">67.6</text><rect x="70" y="326" width="490.1" height="9" fill="var(--sabz-state-calm)"/><text x="564.1" y="334" font-size="10" fill="var(--sabz-text)">≈77.8</text><text x="62" y="356" text-anchor="end" font-size="12" fill="var(--sabz-text)">09-23</text><rect x="70" y="342" width="437.9" height="9" fill="var(--sabz-text-muted)"/><text x="511.9" y="350" font-size="10" fill="var(--sabz-text-muted)">69.5</text><rect x="70" y="352" width="491.4" height="9" fill="var(--sabz-state-calm)"/><text x="565.4" y="360" font-size="10" fill="var(--sabz-text)">≈78</text><text x="62" y="382" text-anchor="end" font-size="12" fill="var(--sabz-text)">09-26</text><rect x="70" y="368" width="561.3" height="9" fill="var(--sabz-text-muted)"/><text x="635.3" y="376" font-size="10" fill="var(--sabz-text-muted)">89.1</text><rect x="70" y="378" width="566.4" height="9" fill="var(--sabz-state-calm)"/><text x="640.4" y="386" font-size="10" fill="var(--sabz-text)">≈89.9</text><text x="62" y="408" text-anchor="end" font-size="12" fill="var(--sabz-text)">09-28</text><text x="74" y="402" font-size="10" fill="var(--sabz-state-over)">missing on the live site</text><rect x="70" y="404" width="553.8" height="9" fill="var(--sabz-state-calm)"/><text x="627.8" y="412" font-size="10" fill="var(--sabz-text)">≈87.9</text></svg></p>
+<ul>
+<li>09-28 had <strong>no grammar score on the live site</strong>: the hourly job never ran the use counter. It does now.</li>
+<li>These are not real skill changes. It is the same speech with one formula.</li>
+</ul>
+<h3 id="33-the-word-bank-ignored-slips-the-lessons-page-counted">3.3 The Word Bank ignored slips the Lessons page counted</h3>
+<ul>
+<li><strong>What:</strong> 219 word slips from the lesson audit were on the Lessons page but missing from the Word Bank and Progress.</li>
+<li><strong>Why it matters:</strong> the Word Bank looked better than your lessons: 83.7% against about 80%.</li>
+<li><strong>Fixed:</strong> the Word Bank, Progress and Flashcards now read the same slip file. A slip only joins a word when a reader named the word.</li>
+<li><strong>Changed:</strong> Word Bank accuracy <strong>83.7% → ≈71.0%</strong>. Words known <strong>274 → 258</strong>. Mastered <strong>110 → 96</strong>. (Your yes/no is in Lesson 6.)</li>
+</ul>
+<h3 id="34-unverified-numbers-looked-exact">3.4 Unverified numbers looked exact</h3>
+<ul>
+<li><strong>What:</strong> no page said a score was unchecked.</li>
+<li><strong>Fixed:</strong> every lesson-based score now shows <strong>≈</strong> with the reasons on hover or tap: Lessons, Overview, Progress › Vocab, Word Bank, Grammar console.</li>
+<li><strong>Why none is verified:</strong></li>
+<li>the two readers agree only 48–81% of the time, and the bar is 95%;</li>
+<li>nobody has listened to check the speech-to-text.</li>
+<li><strong>Still needed:</strong> ≈ on the Fluency ladder, Progress › Grammar, Tutor and Flashcards.</li>
+</ul>
+<h3 id="35-holes-in-the-transcript">3.5 Holes in the transcript</h3>
+<ul>
+<li><strong>What:</strong> the raw audio was compared with the transcript, second by second, for each person.</li>
+<li><strong>Found:</strong></li>
+<li><strong>09-28:</strong> your first 0:42–6:42 was never transcribed (174 s of your speech).</li>
+<li><strong>09-16:</strong> you, 26:49–28:13 (24 s).</li>
+<li><strong>09-26:</strong> Amal, 0:04–1:06.</li>
+<li>The old 09-23 hole (0:00–22:37) is filled.</li>
+<li><strong>Fixed:</strong> any slip inside a hole is now "unscoreable". It is not counted as right or wrong.</li>
+<li><strong>Speakers:</strong> none swapped. 09-18 (guessed by voice pitch) agrees with Meet's own captions as well as the good lessons do.</li>
+</ul>
+<h3 id="36-uncertain-rows-a-second-different-ai-listened">3.6 Uncertain rows: a second, different AI listened</h3>
+<ul>
+<li><strong>What:</strong> 213 scored rows were ones the Claude readers were unsure of.</li>
+<li><strong>Done:</strong> for each row, a clip was cut from the raw audio and written out by 2 local speech models. Then Codex (not Claude) ruled on it.</li>
+<li>173 agree with the Claude readers.</li>
+<li><strong>40 disagree.</strong> They are on the <strong>Tutor page</strong> for Amal: "Correction is correct" or "Reason not to correct" plus a box.</li>
+<li>Cost: $0.</li>
+<li><strong>Her "yes" makes a row count.</strong> Until then, those 40 rows count nowhere.</li>
+</ul>
+<h3 id="37-the-hourly-job-hid-its-failures">3.7 The hourly job hid its failures</h3>
+<ul>
+<li><strong>What:</strong></li>
+<li>"Never blocks" steps swallowed errors.</li>
+<li>Old reader files were reused just because they existed. 09-23 grew by 266 lines and 09-26 by 149 after the readers ran, so those lines were never read.</li>
+<li>515 Grammar clips were linked but never saved.</li>
+<li><strong>Fixed:</strong></li>
+<li>Any failed step stops the publish and is retried next hour.</li>
+<li>A reader file is re-read when its transcript, briefs or rules change.</li>
+<li>Clips are committed.</li>
+<li>The log is now plain text with an exit code.</li>
+</ul>
+<h3 id="38-amals-answers-were-lost">3.8 Amal's answers were lost</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Her input</th>
+<th>Given</th>
+<th>In the app before</th>
+<th>Now</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Verb check list 1 (09-25)</td>
+<td>729</td>
+<td>41</td>
+<td><strong>729</strong></td>
+</tr>
+<tr>
+<td>Verb check list 2</td>
+<td>0</td>
+<td>0</td>
+<td>0 (the pull would have lost them; fixed)</td>
+</tr>
+<tr>
+<td>Grammar-rule notes (09-27)</td>
+<td>20 rulings</td>
+<td>0</td>
+<td><strong>20</strong></td>
+</tr>
+<tr>
+<td>Quizlet sets she sent</td>
+<td>132</td>
+<td>106</td>
+<td><strong>126</strong> (7 are too big for the public page)</td>
+</tr>
+<tr>
+<td>Word review 09-05</td>
+<td>11</td>
+<td>4</td>
+<td>4 (7 not shown yet)</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Her approved verb form now wins even if the machine's guess changes later.</li>
+</ul>
+<h3 id="39-tests-wrote-fake-answers-into-your-flashcards">3.9 Tests wrote fake answers into your flashcards</h3>
+<ul>
+<li><strong>What:</strong> two end-to-end tests talk to the <strong>live</strong> database. Tonight's test runs, including this audit's own, left <strong>108 fake answers</strong> in your history. That made 2 fake leeches and used up today's new cards.</li>
+<li><strong>Fixed:</strong> those tests now run only when someone turns them on on purpose (<code>ANEES_E2E_LIVE=1</code>).</li>
+<li><strong>Still needed:</strong> your yes to delete the 108 rows (all Animals, today 09:14–09:57 UTC).</li>
+</ul>
+<h3 id="310-rules-the-data-breaks">3.10 Rules the data breaks</h3>
+<ul>
+<li>Glue words (bas, u, shu, lama…) are scored: 158 uses, which lifts Words %.</li>
+<li>22 half-credit scores come only from the machine's "Amal said it within 15 s" flag. No context read.</li>
+<li>7 pairs are scored twice, although their own note says "same episode".</li>
+<li>There are two different "Mastered" definitions (Word Bank vs Flashcards).</li>
+<li><strong>New:</strong> <code>scripts/check_rules.py</code> runs 20 rule checks every hour.</li>
+</ul>
+<h3 id="311-ai-steps-measured-or-not">3.11 AI steps: measured or not</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Model pinned</th>
+<th>Calls logged</th>
+<th>Measured against people</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Transcribe (ElevenLabs Scribe v2)</td>
+<td>name only</td>
+<td>yes</td>
+<td>15/20 blind vote; error rate never measured</td>
+</tr>
+<tr>
+<td>Readers (Claude)</td>
+<td><strong>now yes</strong></td>
+<td>yes</td>
+<td>no; they agree with each other 48–81%</td>
+</tr>
+<tr>
+<td>Grammar detector (code)</td>
+<td>yes</td>
+<td>yes</td>
+<td>yes: catches 40% on held-out rows</td>
+</tr>
+<tr>
+<td>Second judge (Codex GPT-5.5)</td>
+<td>yes</td>
+<td>yes</td>
+<td>no</td>
+</tr>
+<tr>
+<td>Sheet match (by meaning)</td>
+<td>by hand</td>
+<td>no</td>
+<td>42 of 98 right by the old string match</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="lesson-4-before-and-after-every-number-that-changed">Lesson 4 · Before and after: every number that changed</h2>
+<p><strong>Why they changed:</strong> one grammar formula, repeats removed, Word Bank reads the audit slips, 09-28 read by hand. Before = the live site now.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Lesson</th>
+<th>Words % before → after</th>
+<th>Grammar % before → after</th>
+<th>Grammar uses before → after</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>08-25</td>
+<td>76.6 (same)</td>
+<td><strong>86.6 → ≈90.1</strong></td>
+<td><strong>217 → 233</strong></td>
+</tr>
+<tr>
+<td>09-04</td>
+<td>69.6 (same)</td>
+<td><strong>32.9 → ≈66.7</strong></td>
+<td><strong>70 → 105</strong></td>
+</tr>
+<tr>
+<td>09-05</td>
+<td>80.4 (same)</td>
+<td><strong>53.2 → ≈71.6</strong></td>
+<td><strong>79 → 109</strong></td>
+</tr>
+<tr>
+<td>09-10</td>
+<td>85.7 (same)</td>
+<td><strong>84.5 → ≈88.9</strong></td>
+<td><strong>232 → 244</strong></td>
+</tr>
+<tr>
+<td>09-11</td>
+<td>84.5 (same)</td>
+<td><strong>65.3 → ≈76.6</strong></td>
+<td><strong>98 → 124</strong></td>
+</tr>
+<tr>
+<td>09-14</td>
+<td>85.3 (same)</td>
+<td><strong>55.7 → ≈70.3</strong></td>
+<td><strong>106 → 148</strong></td>
+</tr>
+<tr>
+<td>09-15</td>
+<td>79.8 (same)</td>
+<td><strong>45.7 → ≈68.4</strong></td>
+<td><strong>92 → 133</strong></td>
+</tr>
+<tr>
+<td>09-16</td>
+<td>78.7 (same)</td>
+<td><strong>46.8 → ≈50</strong></td>
+<td><strong>52 → 104</strong></td>
+</tr>
+<tr>
+<td>09-17</td>
+<td>82.5 (same)</td>
+<td><strong>38.6 → ≈65</strong></td>
+<td><strong>70 → 103</strong></td>
+</tr>
+<tr>
+<td>09-18</td>
+<td>29.2 (same)</td>
+<td><strong>32.4 → ≈35.5</strong></td>
+<td><strong>23 → 62</strong></td>
+</tr>
+<tr>
+<td>09-19</td>
+<td>62.9 (same)</td>
+<td><strong>78.3 → ≈85.2</strong></td>
+<td><strong>23 → 27</strong></td>
+</tr>
+<tr>
+<td>09-21</td>
+<td>83.1 (same)</td>
+<td><strong>67.6 → ≈77.8</strong></td>
+<td><strong>216 → 266</strong></td>
+</tr>
+<tr>
+<td>09-23</td>
+<td>71.2 (same)</td>
+<td><strong>69.5 → ≈78</strong></td>
+<td><strong>105 → 132</strong></td>
+</tr>
+<tr>
+<td>09-26</td>
+<td><strong>83.3 → ≈86</strong></td>
+<td><strong>89.1 → ≈89.9</strong></td>
+<td><strong>192 → 207</strong></td>
+</tr>
+<tr>
+<td>09-28</td>
+<td><strong>80.2 → ≈83.7</strong></td>
+<td><strong>— → ≈87.9</strong></td>
+<td><strong>— → 173</strong></td>
+</tr>
+</tbody>
+</table></div>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Headline</th>
+<th>Before (live)</th>
+<th>After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Words average (all lessons)</td>
+<td>76% (plain mean) / 80.0% (Overview)</td>
+<td><strong>≈80.8%</strong> (pooled, one number)</td>
+</tr>
+<tr>
+<td>Grammar average</td>
+<td>63% / 72.0%</td>
+<td><strong>≈77.3%</strong></td>
+</tr>
+<tr>
+<td>Grammar slips counted</td>
+<td>560</td>
+<td><strong>551</strong></td>
+</tr>
+<tr>
+<td>Word Bank accuracy</td>
+<td>83.7%</td>
+<td><strong>≈71.0%</strong></td>
+</tr>
+<tr>
+<td>Words known</td>
+<td>274</td>
+<td><strong>258</strong></td>
+</tr>
+<tr>
+<td>Mastered / Good</td>
+<td>110 / 164</td>
+<td><strong>96 / 162</strong></td>
+</tr>
+<tr>
+<td>Verb forms checked by Amal</td>
+<td>41</td>
+<td><strong>729</strong></td>
+</tr>
+<tr>
+<td>Quizlet sets / terms</td>
+<td>107 / 2,406</td>
+<td><strong>126 / 2,841</strong></td>
+</tr>
+<tr>
+<td>Rows waiting for a check</td>
+<td>213</td>
+<td><strong>40</strong> (for Amal)</td>
+</tr>
+<tr>
+<td>Open word events (tonight, before the hand read)</td>
+<td>153</td>
+<td><strong>32</strong></td>
+</tr>
+<tr>
+<td>Lessons verified</td>
+<td>0 of 15</td>
+<td>0 of 15 (honest now)</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Words % moved on only 2 lessons:</strong> 09-26 83.3 → 86.0 and 09-28 80.2 → 83.7. Both come from tonight's hand read of those lessons.</li>
+</ul>
+<hr />
+<h2 id="lesson-5-the-permanent-guard">Lesson 5 · The permanent guard</h2>
+<ul>
+<li>Every hour, before anything goes live, 11 checks run in about 20 seconds.</li>
+<li><strong>If any check fails,</strong> nothing is pushed and yesterday's good version stays live. The reason goes into the hourly log and onto System Settings.</li>
+</ul>
+<div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><svg viewBox="0 0 900 330" width="100%" role="img" aria-label="The publish guard" style="min-width:680px;max-width:900px;font-family:var(--sabz-font-sans)"><defs><marker id="ag" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="var(--sabz-text-muted)"/></marker></defs><rect x="10" y="130" width="130" height="60" rx="10" fill="var(--sabz-surface)" stroke="var(--sabz-hairline)"/><text x="75.0" y="156.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--sabz-text)">Every hour</text><text x="75.0" y="173.0" text-anchor="middle" font-size="11" fill="var(--sabz-text-muted)">new lesson? build</text><path d="M142 160 l30 0" stroke="var(--sabz-text-muted)" stroke-width="2" marker-end="url(#ag)"/><rect x="178" y="10" width="330" height="310" rx="12" fill="var(--sabz-surface)" stroke="var(--sabz-hairline)"/><text x="343" y="34" text-anchor="middle" font-size="15" font-weight="700" fill="var(--sabz-text)">Publish guard: 11 checks</text><text x="196" y="60" font-size="12.5" fill="var(--sabz-text)">✓ build steps all passed</text><text x="196" y="84" font-size="12.5" fill="var(--sabz-text)">✓ nothing half-saved</text><text x="196" y="108" font-size="12.5" fill="var(--sabz-text)">✓ every data file opens</text><text x="196" y="132" font-size="12.5" fill="var(--sabz-text)">✓ new lesson on every page</text><text x="196" y="156" font-size="12.5" fill="var(--sabz-text)">✓ same-day review done</text><text x="196" y="180" font-size="12.5" fill="var(--sabz-text)">✓ accuracy gates (95% rule)</text><text x="196" y="204" font-size="12.5" fill="var(--sabz-text)">✓ numbers match (555 checks)</text><text x="196" y="228" font-size="12.5" fill="var(--sabz-text)">✓ standing rules hold</text><text x="196" y="252" font-size="12.5" fill="var(--sabz-text)">✓ pages: links + clips</text><text x="196" y="276" font-size="12.5" fill="var(--sabz-text)">✓ Arabizi on every card</text><text x="196" y="300" font-size="12.5" fill="var(--sabz-text)">✓ offline tests</text><path d="M510 110 l40 -40" stroke="var(--sabz-state-calm)" stroke-width="2" marker-end="url(#ag)"/><path d="M510 210 l40 40" stroke="var(--sabz-state-over)" stroke-width="2" marker-end="url(#ag)"/><rect x="556" y="30" width="330" height="70" rx="10" fill="var(--sabz-surface)" stroke="var(--sabz-hairline)"/><text x="721.0" y="61.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--sabz-text)">All pass → push</text><text x="721.0" y="78.0" text-anchor="middle" font-size="11" fill="var(--sabz-text-muted)">site updates; Settings shows 'last check OK'</text><rect x="556" y="220" width="330" height="90" rx="10" fill="var(--sabz-surface)" stroke="var(--sabz-hairline)"/><text x="721.0" y="261.0" text-anchor="middle" font-size="14" font-weight="600" fill="var(--sabz-text)">Any fail → no push</text><text x="721.0" y="278.0" text-anchor="middle" font-size="11" fill="var(--sabz-text-muted)">last good version stays live</text><text x="721" y="296" text-anchor="middle" font-size="11" fill="var(--sabz-text-muted)">reason → hourly log + System Settings</text></svg></div>
+
+<ul>
+<li><strong>Every way to go live now goes through the guard.</strong> There were 8 separate push points; a test fails if anyone adds a new one.</li>
+<li><strong>Today it would block on one thing:</strong> a verb test where Amal wrote "they take you" two ways (Decision M1 below).</li>
+</ul>
+<hr />
+<h2 id="lesson-6-decisions">Lesson 6 · Decisions</h2>
+<h3 id="for-medi-answer-these-before-merging">For Medi: answer these before merging</h3>
+<ul>
+<li><strong>M1</strong> Use Amal's newer check-list spelling (byaa5dook) over her older Quizlet card, so the guard stops blocking? yes / no</li>
+<li><strong>M2</strong> Delete the 108 fake flashcard answers the tests left today? yes / no</li>
+<li><strong>M3</strong> Grammar % counts every fixed slip as a use, and leaves out 58 slips in 4 rules the machine can't count (they stay listed)? yes / no</li>
+<li><strong>M4</strong> The Word Bank counts the lesson audit's word slips (accuracy 83.7% → ≈71.0%)? yes / no</li>
+</ul>
+<h3 id="for-medi-can-wait">For Medi: can wait</h3>
+<ul>
+<li><strong>M5</strong> Only a person listening makes a lesson "verified" (so 0 of 15 today)? yes / no</li>
+<li><strong>M6</strong> Keep both 95% checks: within each reading pass, and between the two passes? yes / no</li>
+<li><strong>M7</strong> Re-read 09-23 and 09-26 with the readers (their transcripts grew after reading)? yes / no</li>
+<li><strong>M8</strong> Transcribe your first 09-28 recording (about $0.03)? yes / no</li>
+<li><strong>M9</strong> Should preposition slips (مع, عند, قبل…) count as word slips? (09-21 says prepositions are grammar) yes / no</li>
+<li><strong>M10</strong> Keep counting fixes Amal only typed in chat (39)? yes / no</li>
+<li><strong>M11</strong> Score glue words (bas, u, shu…) in the Word Bank? yes / no</li>
+<li><strong>M12</strong> "Mastered" = 90% of your last 10 tries over 2 lessons, everywhere (not "5 wins on 3 days")? yes / no</li>
+<li><strong>M13</strong> A confirmed wrong pronunciation scores 0 (09-21), even though RULES S4 says pronunciation never lowers a score? yes / no</li>
+<li><strong>M14</strong> Repeating Amal's word right after her counts as nothing (not half credit)? yes / no</li>
+<li><strong>M15</strong> Keep the flashcard settings changed on 09-27: 8 new a day, leech at 4 misses, 1/4-minute steps? yes / no</li>
+<li><strong>M16</strong> Hold all publishing when a new lesson's review fails? (currently yes) yes / no</li>
+<li><strong>M17</strong> When blocked, also push a status line so the live Settings page shows it? yes / no</li>
+<li><strong>M18</strong> Check your manual pushes too (a pre-push hook)? yes / no</li>
+<li><strong>M19</strong> Point the hourly "vocab import" task at the up-to-date copy (C:\dev\anees is 204 commits behind)? yes / no</li>
+<li><strong>M20</strong> Run end-to-end tests only on a test copy of the database? yes / no</li>
+<li><strong>M21</strong> Publish the 676 short audio clips on this PC (40 MB) so they play as real clips? yes / no</li>
+<li><strong>M22</strong> Should ≈ mark percentages only, and not counts? yes / no</li>
+<li><strong>M23</strong> Update the RULES letter chart: Amal writes s for ص (109 of 120), not 9? yes / no</li>
+<li><strong>M24</strong> The Tutor check list asks Amal about grammar. Retire the old "never send her grammar questions" clause? yes / no</li>
+</ul>
+<h3 id="for-amal-on-the-tutor-page-you-send-her-the-link">For Amal (on the Tutor page; you send her the link)</h3>
+<ul>
+<li><strong>A1</strong> 40 moments: is each correction right? (Correction is correct / Reason not to correct)</li>
+<li><strong>A2</strong> "They take you": bya5dook or byaa5dook?</li>
+<li><strong>A3</strong> Your 97 verb fixes changed the Latin letters. Is the Arabic under them right too (e.g. بيسخدم)?</li>
+<li><strong>A4</strong> Is حركة (movement) a form of حرّك on the list, or a new word?</li>
+</ul>
+<hr />
+<h2 id="lesson-7-not-done-yet-honest-list">Lesson 7 · Not done yet (honest list)</h2>
+<ul>
+<li><strong>0 of 15 lessons verified.</strong> Reader agreement is below 95%, and no person has listened.</li>
+<li><strong>40 rows</strong> wait for Amal. 2 of her cards can't play, because 09-10 has no single lesson recording on the site.</li>
+<li><strong>09-23 and 09-26</strong> were not re-read (M7). <strong>09-28's lesson type</strong> is not read yet, and the "taught verbs" list stops at 09-18.</li>
+<li><strong>09-28:</strong> your first 6 minutes are still untranscribed (M8).</li>
+<li><strong>The by-meaning list check is not automatic yet.</strong> 09-28 was done by hand tonight.</li>
+<li><strong>No human answer keys</strong> exist for speech-to-text, speaker labels or the readers.</li>
+<li><strong>≈</strong> is missing on the Fluency ladder, Progress › Grammar, Tutor and Flashcards.</li>
+<li>7 word-review answers from Amal are not shown yet. 7 big Quizlet sets are not imported.</li>
+<li>108 fake flashcard rows are still in the database (M2).</li>
+<li>The rule breaks in 3.10 wait for your answers (M9–M14).</li>
+<li>The guard has not run on the live machine yet. It starts after the merge.</li>
+</ul>
+<p><strong>When you approve</strong> (run once, in <code>C:\dev\anees-hourly</code>):</p>
+<pre><code>git -C C:\dev\anees-hourly fetch origin
+git -C C:\dev\anees-hourly merge --no-ff origin/eng-audit-2026-09-29
+python C:\dev\anees-hourly\scripts\publish_guard.py check
+git -C C:\dev\anees-hourly push origin HEAD:master
+</code></pre>
+<p>Only push if the guard prints <code>OK - publishable</code>.</p>
+</article>
+</main></div></div><script>if(location.hash){const e=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(e)setTimeout(()=>e.scrollIntoView({block:"start"}),50);}</script><script src="../js/build.js"></script><script src="../js/stale.js?v=fresh1"></script></body></html>

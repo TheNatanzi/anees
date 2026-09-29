@@ -1,6 +1,100 @@
 {
- "updated": "2026-09-27",
+ "updated": "2026-09-29",
  "reports": [
+  {
+   "slug": "eng-audit-2026-09-29",
+   "date": "2026-09-29",
+   "author": "Claude",
+   "title": "Engineering audit: do all the numbers add up?",
+   "question": "Is everything engineered correctly: do the formulas add up across every page, and are the reports right?",
+   "verdict": "They did not. The same slip was counted twice, two pages used two grammar formulas, and nothing checked the math before going live. All of that is fixed on a branch, and a guard now checks every hour. Every score shows ≈ until a person verifies it.",
+   "numbers": [
+    {
+     "label": "cross-page numbers that disagreed",
+     "value": "14 of 25",
+     "note": "all 555 checks now match"
+    },
+    {
+     "label": "lessons verified",
+     "value": "0 of 15",
+     "note": "readers agree 48–81%; bar 95%"
+    },
+    {
+     "label": "Amal's verb answers in the app",
+     "value": "41 → 729",
+     "note": "688 were never pulled"
+    },
+    {
+     "label": "uncertain rows left for Amal",
+     "value": "40",
+     "note": "Codex re-judged 213 against the audio"
+    }
+   ],
+   "bars_title": "The 9 areas (1 = fixed or good, 0.5 = open problem)",
+   "bars": [
+    {
+     "label": "1 Numbers match",
+     "value": 1,
+     "max": 1,
+     "text": "fixed"
+    },
+    {
+     "label": "2 Formulas",
+     "value": 1,
+     "max": 1,
+     "text": "fixed"
+    },
+    {
+     "label": "3 Audio + transcripts",
+     "value": 0.5,
+     "max": 1,
+     "text": "holes, no human check"
+    },
+    {
+     "label": "4 Hourly job",
+     "value": 1,
+     "max": 1,
+     "text": "fixed"
+    },
+    {
+     "label": "5 Rules vs code",
+     "value": 0.5,
+     "max": 1,
+     "text": "9 need Medi"
+    },
+    {
+     "label": "6 AI steps",
+     "value": 0.5,
+     "max": 1,
+     "text": "1 of 12 measured"
+    },
+    {
+     "label": "7 Flashcards",
+     "value": 0.5,
+     "max": 1,
+     "text": "108 test rows"
+    },
+    {
+     "label": "8 Amal's answers",
+     "value": 1,
+     "max": 1,
+     "text": "mostly fixed"
+    },
+    {
+     "label": "9 Page health",
+     "value": 1,
+     "max": 1,
+     "text": "good"
+    }
+   ],
+   "source_md": "plan/ENG-AUDIT-CURRICULUM-2026-09-29.md",
+   "links": [
+    {
+     "label": "The curriculum (7 short lessons)",
+     "url": "reports/eng-audit-2026-09-29.html"
+    }
+   ]
+  },
   {
    "slug": "ai-engineering-review-2026-09-27",
    "date": "2026-09-27",
