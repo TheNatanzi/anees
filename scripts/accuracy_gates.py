@@ -202,7 +202,7 @@ def participant_coverage(turns, duration, policy, people=("Medi", "Amal")):
                               "engine heard speech but wrote a marker, not words"])
         miss_s = sum(b - a for a, b, _ in missing)
         hole_s = sum(b - a for a, b, _ in holes)
-        out[p] = {"first_t": mine[0] if mine else None, "last_t": mine[-1] if mine else None, "missing": missing, "holes": holes,
+        out[p] = {"_lesson_s": end_all, "first_t": mine[0] if mine else None, "last_t": mine[-1] if mine else None, "missing": missing, "holes": holes,
                   "missing_s": round(miss_s, 1), "hole_s": round(hole_s, 1),
                   "covered_pct": round(100 * (1 - miss_s / end_all), 1) if end_all else None}
     return out
@@ -275,6 +275,8 @@ def check_reasons(row, n_passes):
         out.append("decided by the third reader alone, in one pass only")
     if n_passes >= 2 and len(passes) == 1:
         out.append(f"found in pass {passes[0]} only (the other pass did not list it)")
+    if row.get("r3_challenge"):
+        out.append("both readers found it but the third reader challenged it")
     if row.get("source") == "sweep-2026-09-24":
         out.append("kept from the 09-24 sweep; neither reader pass listed it")
     if row.get("transcript_note") or "engine wrote" in (row.get("why") or ""):
@@ -289,31 +291,77 @@ def load_ledger(path=LEDGER_P):
 
 
 LEDGER_FIELDS = ("uid", "method", "reviewer", "verdict", "evidence", "confidence", "at")
+LEDGER_VERDICTS = ("confirmed", "rejected", "changed", "unsure")
+ROLES = ("second-judge", "human")
+
+
+def record_role(r):
+    """'human' (Amal / Medi listened) or 'second-judge' (a different AI re-judged against the audio). Old records without a
+    role: method human = human, anything else = second-judge."""
+    return r.get("role") or ("human" if r.get("method") == "human" else "second-judge")
 
 
 def ledger_problems(ledger):
-    """Every record must say who checked, how, on what evidence, with what confidence, and when (item 6)."""
+    """Every record must say who checked, how, on what evidence, with what confidence, and when (item 6). The second judge
+    must not be a Claude model (Medi 2026-09-29: the readers are Claude; the check has to come from a different AI)."""
     probs = []
+    seen = set()
     for i, r in enumerate(ledger.get("records", [])):
         miss = [k for k in LEDGER_FIELDS if not r.get(k)]
         if miss:
             probs.append(f"verification record {i} missing {miss}")
         if r.get("method") not in ("audio", "human"):
             probs.append(f"verification record {i}: method must be audio or human")
-        if r.get("verdict") not in ("confirmed", "rejected", "changed"):
-            probs.append(f"verification record {i}: verdict must be confirmed / rejected / changed")
+        if r.get("verdict") not in LEDGER_VERDICTS:
+            probs.append(f"verification record {i}: verdict must be one of {'/'.join(LEDGER_VERDICTS)}")
+        if record_role(r) not in ROLES:
+            probs.append(f"verification record {i}: role must be second-judge or human")
+        if record_role(r) == "second-judge" and "claude" in str(r.get("reviewer") or "").lower():
+            probs.append(f"verification record {i}: a Claude model cannot be the second judge of Claude readers")
         ev = r.get("evidence") or {}
         if not (ev.get("t_start") is not None and ev.get("t_end") is not None):
             probs.append(f"verification record {i}: evidence needs t_start and t_end")
+        key = (r.get("uid"), r.get("reviewer"), r.get("at"), r.get("verdict"))
+        if key in seen:
+            probs.append(f"verification record {i}: exact duplicate of an earlier record")
+        seen.add(key)
     return probs
 
 
 def ledger_state(ledger):
-    """uid -> latest record (records are append-only; a later record supersedes an earlier one = revision history)."""
+    """uid -> {latest, revisions, human, second_judge}. Records are append-only; a later record of the same role
+    supersedes an earlier one (= revision history). The latest HUMAN record settles a row; without one, the latest
+    second-judge record does."""
     out = {}
     for r in sorted(ledger.get("records", []), key=lambda r: r.get("at") or ""):
         out.setdefault(r["uid"], []).append(r)
-    return {u: {"latest": v[-1], "revisions": len(v)} for u, v in out.items()}
+    st = {}
+    for u, v in out.items():
+        hum = [r for r in v if record_role(r) == "human"]
+        sj = [r for r in v if record_role(r) == "second-judge"]
+        st[u] = {"latest": v[-1], "revisions": len(v), "human": hum[-1] if hum else None, "second_judge": sj[-1] if sj else None}
+    return st
+
+
+def check_outcome(s):
+    """What the ledger says about one row that needed a check: ('eligible'|'excluded'|'pending', why).
+    Human: confirmed/changed = eligible, rejected = excluded, unsure = pending. Second judge alone: confirmed/changed =
+    eligible (two different AIs agree, one of them on the audio); rejected/unsure = pending - the AIs disagree, so the
+    row waits for Amal on the Tutor page and is never counted as right or dropped on one AI's word."""
+    if not s:
+        return None
+    h, c = s.get("human"), s.get("second_judge")
+    if h:
+        if h["verdict"] in ("confirmed", "changed"):
+            return "eligible", None
+        if h["verdict"] == "rejected":
+            return "excluded", f"rejected on a human check by {h['reviewer']}"
+        return "pending", f"{h['reviewer']} could not tell"
+    if c:
+        if c["verdict"] in ("confirmed", "changed"):
+            return "eligible", None
+        return "pending", f"{c['reviewer']} (audio) {'disagrees with' if c['verdict'] == 'rejected' else 'cannot confirm'} the Claude readers; waiting for Amal (Tutor page)"
+    return None
 
 
 # ====================================================================== 7 grammar denominator
@@ -363,13 +411,41 @@ def _eligible_counts(items):
             "pct": round(100 * (right + .5 * part) / n, 1) if n else None}
 
 
-def annotate(lessons_doc, details, audit, usage, policy, ledger, work=WORK, wb_checks=None, evidence_dates=None):
+def apply_source_audit(cov, sa):
+    """Merge the raw-audio source audit (scripts/source_audit.py, data/accuracy/source-audit.json) into the coverage:
+    speech on a person's own track with no transcript line, and recordings that were never saved, become 'missing'
+    intervals (rows there are unscoreable); every flag becomes a release reason. Returns the reasons."""
+    reasons = []
+    if not sa:
+        return ["coverage: no source audit of the raw audio for this lesson (run scripts/source_audit.py)"]
+    for f in sa.get("flags", []):
+        p = f.get("who")
+        if f["kind"] in ("untranscribed", "audio-lost") and p in cov:
+            cov[p]["missing"].append([f["from"], f["to"], f["text"]])
+            # union of the intervals (the transcript check and the audio check can find the same stretch)
+            ivs = sorted((a, b) for a, b, *_ in cov[p]["missing"])
+            tot, cur = 0.0, None
+            for a, b in ivs:
+                if cur and a <= cur[1]:
+                    cur[1] = max(cur[1], b)
+                else:
+                    tot += (cur[1] - cur[0]) if cur else 0
+                    cur = [a, b]
+            tot += (cur[1] - cur[0]) if cur else 0
+            cov[p]["missing_s"] = round(tot, 1)
+            if cov[p].get("_lesson_s"):
+                cov[p]["covered_pct"] = round(100 * (1 - tot / cov[p]["_lesson_s"]), 1)
+        reasons.append("coverage: " + f["text"])
+    return reasons
+
+
+def annotate(lessons_doc, details, audit, usage, policy, ledger, work=WORK, wb_checks=None, evidence_dates=None, source_audit=None):
     """Adds `release`, `coverage`, `source`, words/grammar `eligible|excluded|pending` + `verified_pct` to every lesson.
     The displayed `pct` stays as the builder computed it (standing decisions unchanged); only verified figures and the
     labels are new. Returns (lessons_doc, release_doc, queue)."""
     rows_by_uid = {r["uid"]: r for r in audit.get("rows", [])}
     state = ledger_state(ledger)
-    queue, lessons_out = [], []
+    queue, lessons_out, queued = [], [], set()
     T = float(policy["release_threshold_pct"])
     for L in lessons_doc["lessons"]:
         d = L["date"]
@@ -386,6 +462,10 @@ def annotate(lessons_doc, details, audit, usage, policy, ledger, work=WORK, wb_c
                 reasons.append(f"coverage: {len(cov[p]['holes'])} stretches of {p}'s speech written as '[speaking ...]' markers ({mmss(cov[p]['hole_s'])} in all)")
         if src["attribution"] in ATTRIBUTION_TEXT:
             reasons.append("coverage: " + ATTRIBUTION_TEXT[src["attribution"]])
+        if src.get("timing") in ("estimated", "none"):
+            reasons.append("coverage: " + ("line times estimated from each person's recording by silence detection (no engine word timings)"
+                                           if src["timing"] == "estimated" else "no word timings"))
+        reasons += apply_source_audit(cov, ((source_audit or {}).get("lessons") or {}).get(d))
         asr = asr_review(d, (L.get("duration_min") or 0) * 60, wb_checks, evidence_dates or {})
         if policy.get("asr_review_required_for_verified", True) and not asr["reviewed"]:
             reasons.append(f"speech recognition not reviewed: nobody listened; {asr['model_compared_excerpts']} excerpts "
@@ -399,17 +479,23 @@ def annotate(lessons_doc, details, audit, usage, policy, ledger, work=WORK, wb_c
                 return "excluded", why
             chk = check_reasons(r, n_passes) if r else []
             s = state.get(uid) if uid else None
-            if s and s["latest"]["verdict"] == "rejected":
-                return "excluded", "rejected on " + s["latest"]["method"] + " check by " + s["latest"]["reviewer"]
-            if chk and not (s and s["latest"]["verdict"] in ("confirmed", "changed")):
-                if r:
+            oc = check_outcome(s)
+            if oc and oc[0] == "excluded":
+                return oc
+            if chk and oc and oc[0] == "eligible":
+                return "eligible", None
+            if chk:
+                if r and uid not in queued:
+                    queued.add(uid)
                     queue.append({"uid": uid, "date": d, "t": r.get("t"), "t_amal": r.get("t_amal"), "kind": r.get("kind"),
                                   "tier": r.get("tier"), "bucket": r.get("bucket"), "medi_said": r.get("medi_said"),
                                   "amal_said": r.get("amal_said"), "wrong": r.get("wrong"), "right": r.get("right"),
                                   "why_check": chk, "check": "audio" if any("transcri" in c or "engine" in c for c in chk) else "audio or human",
+                                  "stage": "waiting for Amal (the two AIs disagree)" if oc else "needs the second judge (audio)",
+                                  "second_judge": ({k: (s.get("second_judge") or {}).get(k) for k in ("reviewer", "verdict", "reason")} if oc else None),
                                   "listen_from": mmss(max(0, (sec(r.get("t")) or sec(r.get("t_amal")) or 0) - 10)),
                                   "listen_to": mmss((sec(r.get("t_amal")) or sec(r.get("t")) or 0) + 20)})
-                return "pending", "; ".join(chk)
+                return "pending", (oc[1] if oc else "; ".join(chk))
             return "eligible", None
 
         # ---- words: every scored use on the page (Word Bank + the audit's slips on the sheet)
@@ -450,8 +536,12 @@ def annotate(lessons_doc, details, audit, usage, policy, ledger, work=WORK, wb_c
         rel = {"status": "verified" if released else "not verified", "reasons": reasons + pend_reason,
                "agreement": {k: agr[k] for k in ("status", "passes", "between", "threshold_pct")}, "asr": asr}
         wv["verified_pct"] = vc["pct"] if released else None
-        gv["verified_pct"] = (round(100 * (1 - (len(gitems) - len(g_ex) - len(g_pe)) / den["uses"]), 1)
-                              if released and den["valid"] and den["uses"] else None)
+        # the page's own formula (scripts/grammar_math.py): 1 - scored_mistakes / uses. Verified only when every slip on
+        # the page is eligible (none excluded or pending), so the verified number IS the page number, never a variant
+        g_used = gv.get("uses")
+        g_mis = gv.get("scored_mistakes", gv.get("mistakes"))
+        gv["verified_pct"] = (round(100 * (g_used - g_mis) / g_used, 1)
+                              if released and den["valid"] and g_used and not g_ex and not g_pe else None)
         L["release"], L["coverage_by_person"], L["source"] = rel, cov, src
         lessons_out.append({"date": d, "release": rel["status"], "reasons": rel["reasons"],
                             "words": {k: wv.get(k) for k in ("pct", "eligible_pct", "verified_pct", "scored", "eligible", "excluded", "pending", "excluded_why")},
@@ -460,15 +550,32 @@ def annotate(lessons_doc, details, audit, usage, policy, ledger, work=WORK, wb_c
                             "source": src, "agreement": [p["agreement_pct"] for p in agr["passes"]],
                             "between_passes": [b["agreement_pct"] for b in agr["between"]]})
     ver = [x for x in lessons_out if x["release"] == "verified"]
-    avg = lambda xs: round(sum(xs) / len(xs), 1) if xs else None
+    byd = {L["date"]: L for L in lessons_doc["lessons"]}
+
+    def pooled_words(dates):
+        """Decision 6: one formula - sum of (right + half partial) over sum of scored uses, never a mean of lesson %s."""
+        ws = [byd[d]["words"] for d in dates if byd[d]["words"].get("scored")]
+        n = sum(w["scored"] for w in ws)
+        return round(100 * sum(w["right"] + .5 * w["partial"] for w in ws) / n, 1) if n else None
+
+    def pooled_grammar(dates):
+        """1 - sum(scored_mistakes) / sum(uses) over lessons with counted uses (scripts/grammar_math.py)."""
+        gs = [byd[d]["grammar"] for d in dates if byd[d]["grammar"].get("uses")]
+        u = sum(g["uses"] for g in gs)
+        m = sum(g.get("scored_mistakes", g.get("mistakes") or 0) for g in gs)
+        return round(100 * (u - m) / u, 1) if u else None
+
+    vd = [x["date"] for x in ver]
     totals = {
         "lessons": len(lessons_out), "verified_lessons": len(ver), "threshold_pct": T,
-        "words": {"verified_avg_pct": avg([x["words"]["verified_pct"] for x in ver if x["words"]["verified_pct"] is not None]),
-                  "unverified_avg_pct": avg([x["words"]["pct"] for x in lessons_out if x["words"]["pct"] is not None]),
+        "words": {"verified_avg_pct": pooled_words([x["date"] for x in ver if x["words"]["verified_pct"] is not None]),
+                  "unverified_avg_pct": pooled_words([x["date"] for x in lessons_out]),
+                  "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
                   "eligible": sum(x["words"]["eligible"] for x in lessons_out), "excluded": sum(x["words"]["excluded"] for x in lessons_out),
                   "pending": sum(x["words"]["pending"] for x in lessons_out)},
-        "grammar": {"verified_avg_pct": avg([x["grammar"]["verified_pct"] for x in ver if x["grammar"]["verified_pct"] is not None]),
-                    "unverified_avg_pct": avg([x["grammar"]["pct"] for x in lessons_out if x["grammar"]["pct"] is not None]),
+        "grammar": {"verified_avg_pct": pooled_grammar([x["date"] for x in ver if x["grammar"]["verified_pct"] is not None]),
+                    "unverified_avg_pct": pooled_grammar([x["date"] for x in lessons_out]),
+                    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
                     "denominator_valid_lessons": sum(1 for x in lessons_out if x["grammar"]["denominator_valid"]),
                     "eligible": sum(x["grammar"]["eligible"] for x in lessons_out), "excluded": sum(x["grammar"]["excluded"] for x in lessons_out),
                     "pending": sum(x["grammar"]["pending"] for x in lessons_out)},
@@ -489,6 +596,22 @@ def evidence_date_index(repo=REPO):
     return {e["id"]: e.get("lesson_date") for e in (E.get("events") if isinstance(E, dict) else E)}
 
 
+def word_bank_counts(wb, lesson_dates):
+    """Item 8: the Word Bank headline with its eligible / excluded / pending counts beside it, and which lessons it covers
+    (the 09-27 audit found 09-14 and 09-18 left out and 350 occurrences pending)."""
+    ev = (wb or {}).get("events", [])
+    c = collections.Counter(e.get("status") for e in ev)
+    right, part, wrong = c["Correct"], c["Partial"], c["Wrong"]
+    scored = right + part + wrong
+    dates = sorted({e.get("date") for e in ev})
+    return {"occurrences": len(ev), "eligible": scored, "excluded_not_scored": c["Not scored"], "pending_needs_review": c["Needs review"],
+            "other": len(ev) - scored - c["Not scored"] - c["Needs review"],
+            "pct": round(100 * (right + .5 * part) / scored, 1) if scored else None,
+            "lessons_in_audit": len(dates), "lessons_missing": sorted(set(lesson_dates) - set(dates)),
+            "note": "pct = (Correct + half Partial) / (Correct + Partial + Wrong); 'Needs review' is pending and counts nowhere; "
+                    "'Not scored' is excluded by rule (English, names, glue words...)."}
+
+
 def run_annotate(repo=REPO, write=True):
     policy = load_policy(os.path.join(repo, "docs", "data", "accuracy-policy.json"))
     lessons_p = os.path.join(repo, "docs", "data", "lessons.json")
@@ -500,8 +623,11 @@ def run_annotate(repo=REPO, write=True):
     ledger = load_ledger(os.path.join(repo, "data", "accuracy", "verifications.json"))
     cp = os.path.join(repo, "docs", "data", "word-bank-transcription-checks.json")
     wb_checks = J(cp) if os.path.exists(cp) else None
+    sp = os.path.join(repo, "data", "accuracy", "source-audit.json")
     doc, rel, queue = annotate(doc, details, audit, usage, policy, ledger, os.path.join(repo, "data", "lesson-work", "full-audit"),
-                               wb_checks, evidence_date_index(repo))
+                               wb_checks, evidence_date_index(repo), J(sp) if os.path.exists(sp) else None)
+    wbp = os.path.join(repo, "docs", "data", "word-bank-audit.json")
+    rel["totals"]["word_bank"] = word_bank_counts(J(wbp) if os.path.exists(wbp) else None, [L["date"] for L in doc["lessons"]])
     if write:
         W(lessons_p, doc)
         W(os.path.join(repo, "docs", "data", "accuracy-release.json"), rel)
@@ -588,6 +714,23 @@ def validate(repo=REPO):
         if r.get("kind") == "grammar" and r.get("mode", "speaking") == "speaking" and r.get("bucket") not in buckets \
                 and not str(r.get("new_bucket_group") or "").startswith("NEW-"):
             probs.append(f"audit row {r.get('uid')}: grammar row in unknown bucket {r.get('bucket')!r}")
+    rows_by_uid = {r.get("uid"): r for r in audit["rows"]}
+
+    def gone(r):
+        """Rejected rows and duplicates (full_audit_build.mark_duplicates: kind 'rejected' + duplicate_of) never count."""
+        a = rows_by_uid.get(r.get("uid")) or {}
+        return (r.get("status") == "rejected" or r.get("duplicate_of") or a.get("duplicate_of")
+                or a.get("kind") in ("rejected", "dropped-by-amal"))
+
+    try:
+        sys.path.insert(0, HERE)
+        import amal_grammar_notes as _notes
+
+        def notes_ruling(r):
+            return _notes.ruling(dict(r, bucket=r.get("bucket") or "B18"))
+    except Exception:                                        # no notes module: nothing is ruled out
+        def notes_ruling(r):
+            return None
     for L in lessons:
         d = L["date"]
         for k in ("words", "grammar", "release", "coverage_by_person", "source"):
@@ -646,9 +789,46 @@ def validate(repo=REPO):
         if g["mistakes"] != len(D.get("grammar_errors", [])):
             probs.append(f"{d}: grammar.mistakes {g['mistakes']} != {len(D.get('grammar_errors', []))} grammar cards")
         a_rows = [r for r in audit["sweep_compat"]["rows"] if r["date"] == d and r.get("mode") == "speaking"
-                  and ((r.get("bucket") in buckets) or r.get("new_bucket_group") == "NEW-B18")]
-        if g["mistakes"] != len(a_rows):
-            probs.append(f"{d}: grammar.mistakes {g['mistakes']} != {len(a_rows)} speaking grammar rows in the full audit")
+                  and ((r.get("bucket") in buckets) or r.get("new_bucket_group") == "NEW-B18")
+                  and not gone(r)]
+        # every speaking grammar row of the audit is on the page exactly once: a counted card, or a card Amal's rule notes
+        # set apart (grammar_not_counted: not taught yet / dropped, 2026-09-29) - by uid, not by count
+        # Rows Amal's notes rule out (scripts/amal_grammar_notes.py) must NOT be counted; they may be shown apart.
+        a_uids = {r["uid"] for r in a_rows}
+        ruled = {r["uid"] for r in a_rows if notes_ruling(r)}
+        counted = [x.get("id") for x in D.get("grammar_errors", [])]
+        apart = [x.get("id") for x in D.get("grammar_not_counted", [])]
+        shown = counted + apart
+        dup = sorted({u for u in shown if shown.count(u) > 1})
+        lost = sorted((a_uids - ruled) - set(counted))
+        extra = sorted(set(shown) - a_uids)
+        wrongly = sorted(ruled & set(counted))
+        if dup or lost or extra or wrongly:
+            probs.append(f"{d}: grammar cards do not match the full audit: {len(lost)} audit rows missing {lost[:4]}, "
+                         f"{len(extra)} cards not in the audit {extra[:4]}, {len(dup)} shown twice {dup[:4]}, "
+                         f"{len(wrongly)} counted though Amal's notes rule them out {wrongly[:4]}")
+    # the release layer must be what the gates give TODAY (a new ledger record, source audit or reader pass changes it)
+    try:
+        doc2, rel2, q2 = run_annotate(repo, write=False)
+        fresh = {L["date"]: L for L in doc2["lessons"]}
+        for L in lessons:
+            F = fresh.get(L["date"]) or {}
+            if (L.get("release") or {}).get("status") != (F.get("release") or {}).get("status")                     or (L.get("release") or {}).get("reasons") != (F.get("release") or {}).get("reasons"):
+                probs.append(f"{L['date']}: the release layer in lessons.json is stale (run scripts/accuracy_gates.py annotate)")
+            for k in ("eligible", "excluded", "pending", "verified_pct"):
+                if L["words"].get(k) != F["words"].get(k) or L["grammar"].get(k) != F["grammar"].get(k):
+                    probs.append(f"{L['date']}: {k} counts in lessons.json are stale (run scripts/accuracy_gates.py annotate)")
+                    break
+        qp = os.path.join(repo, "data", "accuracy", "verification-queue.json")
+        if os.path.exists(qp) and J(qp).get("count") != len(q2):
+            probs.append(f"verification queue is stale: file has {J(qp).get('count')} rows, the gates give {len(q2)}")
+    except Exception as e:                                   # fail closed: a gate that cannot run blocks publishing
+        probs.append(f"the release layer could not be recomputed: {type(e).__name__}: {e}")
+    wbt = word_bank_counts(wb, [L["date"] for L in lessons])
+    if wbt["lessons_missing"]:
+        probs.append(f"Word Bank audit leaves out lessons {wbt['lessons_missing']}: its headline % is not for every lesson")
+    if wbt["other"]:
+        probs.append(f"Word Bank audit has {wbt['other']} occurrences with an unknown status")
     rp = os.path.join(repo, "docs", "data", "accuracy-release.json")
     if not os.path.exists(rp):
         probs.append("docs/data/accuracy-release.json missing")
@@ -681,10 +861,14 @@ def main(argv=None):
     if a.cmd == "agreement":
         print(json.dumps(agreement(a.date, load_policy()), ensure_ascii=False, indent=1))
         return 0
-    probs = validate()
+    try:
+        probs = validate()
+    except Exception as e:                                   # fail closed: an exception is a problem, never a pass
+        probs = [f"the accuracy check itself failed: {type(e).__name__}: {e}"]
     for p in probs:
         print("PROBLEM", p)
-    print("accuracy check:", "OK" if not probs else f"{len(probs)} problem(s) - do not publish")
+    # last line = one plain sentence the publish guard can show (hourly log, System Settings)
+    print("accuracy check: OK" if not probs else f"accuracy check: {len(probs)} problem(s) - do not publish. First: {probs[0]}")
     return 1 if probs else 0
 
 

@@ -11,20 +11,33 @@
   "threshold_pct": 95.0,
   "words": {
    "verified_avg_pct": null,
-   "unverified_avg_pct": 75.5,
-   "eligible": 1170,
-   "excluded": 23,
-   "pending": 47
+   "unverified_avg_pct": 80.0,
+   "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
+   "eligible": 1169,
+   "excluded": 24,
+   "pending": 10
   },
   "grammar": {
    "verified_avg_pct": null,
-   "unverified_avg_pct": 63.4,
+   "unverified_avg_pct": 67.3,
+   "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
    "denominator_valid_lessons": 0,
    "eligible": 528,
    "excluded": 32,
-   "pending": 166
+   "pending": 30
   },
-  "verification_queue": 213
+  "verification_queue": 40,
+  "word_bank": {
+   "occurrences": 2255,
+   "eligible": 968,
+   "excluded_not_scored": 1172,
+   "pending_needs_review": 115,
+   "other": 0,
+   "pct": 95.9,
+   "lessons_in_audit": 15,
+   "lessons_missing": [],
+   "note": "pct = (Correct + half Partial) / (Correct + Partial + Wrong); 'Needs review' is pending and counts nowhere; 'Not scored' is excluded by rule (English, names, glue words...)."
+  }
  },
  "lessons": [
   {
@@ -35,8 +48,7 @@
     "reader agreement: pass 2 readers agree on 80.9 % of rows (>= 95 % needed)",
     "reader agreement: pass 1 vs pass 2 settled rows agree on 78.9 % (>= 95 % needed)",
     "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
-    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model",
-    "checks: 8 scored rows need an audio or human check (4 words, 4 grammar)"
+    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model"
    ],
    "words": {
     "pct": 76.6,
@@ -45,7 +57,7 @@
     "scored": 96,
     "eligible": 96,
     "excluded": 0,
-    "pending": 4,
+    "pending": 0,
     "excluded_why": {}
    },
    "grammar": {
@@ -55,7 +67,7 @@
     "uses": 215,
     "eligible": 28,
     "excluded": 0,
-    "pending": 4,
+    "pending": 0,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -96,8 +108,9 @@
     "reader agreement: pass 2 readers agree on 48.5 % of rows (>= 95 % needed)",
     "reader agreement: pass 1 vs pass 2 settled rows agree on 74.6 % (>= 95 % needed)",
     "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
+    "coverage: speaker labels agree with an independent check on only 86.7 % of 875 lines (voice pitch per line (Medi < 155 Hz, Amal > 180 Hz) vs the engine's diarization labels)",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model",
-    "checks: 18 scored rows need an audio or human check (0 words, 18 grammar)"
+    "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
    ],
    "words": {
     "pct": 69.6,
@@ -116,7 +129,7 @@
     "uses": 70,
     "eligible": 42,
     "excluded": 0,
-    "pending": 18,
+    "pending": 1,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -157,8 +170,9 @@
     "reader agreement: pass 2 readers agree on 61.5 % of rows (>= 95 % needed)",
     "reader agreement: pass 1 vs pass 2 settled rows agree on 80.0 % (>= 95 % needed)",
     "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
+    "coverage: speaker labels agree with an independent check on only 89.8 % of 659 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
     "speech recognition not reviewed: nobody listened; 9 excerpts (241 s of 3762 s) compared with a second model",
-    "checks: 13 scored rows need an audio or human check (3 words, 10 grammar)"
+    "checks: 5 scored rows need an audio or human check (1 words, 4 grammar)"
    ],
    "words": {
     "pct": 80.4,
@@ -167,7 +181,7 @@
     "scored": 46,
     "eligible": 46,
     "excluded": 0,
-    "pending": 3,
+    "pending": 1,
     "excluded_why": {}
    },
    "grammar": {
@@ -177,7 +191,7 @@
     "uses": 78,
     "eligible": 36,
     "excluded": 0,
-    "pending": 10,
+    "pending": 4,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -217,8 +231,9 @@
     "reader agreement: pass 1 readers agree on 61.8 % of rows (>= 95 % needed)",
     "reader agreement: pass 2 readers agree on 66.2 % of rows (>= 95 % needed)",
     "reader agreement: pass 1 vs pass 2 settled rows agree on 77.9 % (>= 95 % needed)",
+    "coverage: line times estimated from each person's recording by silence detection (no engine word timings)",
     "speech recognition not reviewed: nobody listened; 21 excerpts (519 s of 3762 s) compared with a second model",
-    "checks: 14 scored rows need an audio or human check (1 words, 13 grammar)"
+    "checks: 2 scored rows need an audio or human check (1 words, 1 grammar)"
    ],
    "words": {
     "pct": 85.7,
@@ -237,7 +252,7 @@
     "uses": 222,
     "eligible": 35,
     "excluded": 0,
-    "pending": 13,
+    "pending": 1,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -280,7 +295,7 @@
     "coverage: 30 stretches of Medi's speech written as '[speaking ...]' markers (04:16 in all)",
     "coverage: 10 stretches of Amal's speech written as '[speaking ...]' markers (00:58 in all)",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model",
-    "checks: 8 scored rows need an audio or human check (0 words, 8 grammar)"
+    "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
    ],
    "words": {
     "pct": 84.5,
@@ -299,7 +314,7 @@
     "uses": 97,
     "eligible": 27,
     "excluded": 7,
-    "pending": 8,
+    "pending": 2,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -340,7 +355,7 @@
     "reader agreement: pass 2 readers agree on 61.9 % of rows (>= 95 % needed)",
     "reader agreement: pass 1 vs pass 2 settled rows agree on 77.3 % (>= 95 % needed)",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3768 s) compared with a second model",
-    "checks: 14 scored rows need an audio or human check (2 words, 12 grammar)"
+    "checks: 5 scored rows need an audio or human check (1 words, 4 grammar)"
    ],
    "words": {
     "pct": 85.3,
@@ -349,7 +364,7 @@
     "scored": 85,
     "eligible": 85,
     "excluded": 0,
-    "pending": 2,
+    "pending": 1,
     "excluded_why": {}
    },
    "grammar": {
@@ -359,7 +374,7 @@
     "uses": 106,
     "eligible": 47,
     "excluded": 0,
-    "pending": 12,
+    "pending": 4,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -400,7 +415,7 @@
     "reader agreement: pass 2 readers agree on 54.8 % of rows (>= 95 % needed)",
     "reader agreement: pass 1 vs pass 2 settled rows agree on 76.7 % (>= 95 % needed)",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4026 s) compared with a second model",
-    "checks: 20 scored rows need an audio or human check (4 words, 16 grammar)"
+    "checks: 4 scored rows need an audio or human check (0 words, 4 grammar)"
    ],
    "words": {
     "pct": 79.8,
@@ -409,7 +424,7 @@
     "scored": 57,
     "eligible": 57,
     "excluded": 0,
-    "pending": 4,
+    "pending": 0,
     "excluded_why": {}
    },
    "grammar": {
@@ -419,7 +434,7 @@
     "uses": 92,
     "eligible": 49,
     "excluded": 0,
-    "pending": 16,
+    "pending": 4,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -460,8 +475,9 @@
     "reader agreement: pass 2 readers agree on 63.3 % of rows (>= 95 % needed)",
     "reader agreement: pass 1 vs pass 2 settled rows agree on 79.6 % (>= 95 % needed)",
     "coverage: 33 stretches of Medi's speech written as '[speaking ...]' markers (04:49 in all)",
+    "coverage: Medi talks 26:49-28:13 (24 s of speech on their own track) with no transcript line",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4182 s) compared with a second model",
-    "checks: 23 scored rows need an audio or human check (1 words, 22 grammar)"
+    "checks: 3 scored rows need an audio or human check (0 words, 3 grammar)"
    ],
    "words": {
     "pct": 78.7,
@@ -470,7 +486,7 @@
     "scored": 47,
     "eligible": 45,
     "excluded": 2,
-    "pending": 1,
+    "pending": 0,
     "excluded_why": {
      "his line": 2
     }
@@ -482,7 +498,7 @@
     "uses": 52,
     "eligible": 48,
     "excluded": 9,
-    "pending": 22,
+    "pending": 3,
     "estimate": true,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -494,8 +510,8 @@
    },
    "coverage": {
     "Medi": {
-     "covered_pct": 100.0,
-     "missing_s": 0,
+     "covered_pct": 98.0,
+     "missing_s": 84.1,
      "hole_s": 289.4
     },
     "Amal": {
@@ -525,7 +541,7 @@
     "reader agreement: pass 1 vs pass 2 settled rows agree on 69.2 % (>= 95 % needed)",
     "coverage: 33 stretches of Medi's speech written as '[speaking ...]' markers (05:24 in all)",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model",
-    "checks: 14 scored rows need an audio or human check (4 words, 10 grammar)"
+    "checks: 2 scored rows need an audio or human check (1 words, 1 grammar)"
    ],
    "words": {
     "pct": 82.5,
@@ -534,7 +550,7 @@
     "scored": 63,
     "eligible": 62,
     "excluded": 1,
-    "pending": 4,
+    "pending": 1,
     "excluded_why": {
      "his line": 1
     }
@@ -546,7 +562,7 @@
     "uses": 70,
     "eligible": 36,
     "excluded": 5,
-    "pending": 10,
+    "pending": 1,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -588,7 +604,7 @@
     "reader agreement: pass 1 vs pass 2 settled rows agree on 80.0 % (>= 95 % needed)",
     "coverage: speakers guessed by voice pitch on one mixed recording",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model",
-    "checks: 26 scored rows need an audio or human check (4 words, 22 grammar)"
+    "checks: 4 scored rows need an audio or human check (0 words, 4 grammar)"
    ],
    "words": {
     "pct": 29.2,
@@ -597,7 +613,7 @@
     "scored": 12,
     "eligible": 12,
     "excluded": 0,
-    "pending": 4,
+    "pending": 0,
     "excluded_why": {}
    },
    "grammar": {
@@ -607,7 +623,7 @@
     "uses": 23,
     "eligible": 45,
     "excluded": 0,
-    "pending": 22,
+    "pending": 4,
     "estimate": true,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -650,8 +666,7 @@
     "reader agreement: pass 1 vs pass 2 settled rows agree on 76.9 % (>= 95 % needed)",
     "coverage: 4 stretches of Medi's speech written as '[speaking ...]' markers (00:19 in all)",
     "coverage: 10 stretches of Amal's speech written as '[speaking ...]' markers (01:08 in all)",
-    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3726 s) compared with a second model",
-    "checks: 1 scored rows need an audio or human check (1 words, 0 grammar)"
+    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3726 s) compared with a second model"
    ],
    "words": {
     "pct": 62.9,
@@ -660,7 +675,7 @@
     "scored": 35,
     "eligible": 35,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "excluded_why": {}
    },
    "grammar": {
@@ -711,7 +726,7 @@
     "reader agreement: pass 2 readers agree on 50.0 % of rows (>= 95 % needed)",
     "reader agreement: pass 1 vs pass 2 settled rows agree on 75.8 % (>= 95 % needed)",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4332 s) compared with a second model",
-    "checks: 28 scored rows need an audio or human check (6 words, 22 grammar)"
+    "checks: 9 scored rows need an audio or human check (3 words, 6 grammar)"
    ],
    "words": {
     "pct": 83.1,
@@ -720,7 +735,7 @@
     "scored": 204,
     "eligible": 204,
     "excluded": 0,
-    "pending": 6,
+    "pending": 3,
     "excluded_why": {}
    },
    "grammar": {
@@ -730,7 +745,7 @@
     "uses": 215,
     "eligible": 68,
     "excluded": 0,
-    "pending": 22,
+    "pending": 6,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -772,7 +787,7 @@
     "reader agreement: pass 1 vs pass 2 settled rows agree on 79.7 % (>= 95 % needed)",
     "coverage: 43 stretches of Medi's speech written as '[speaking ...]' markers (06:04 in all)",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model",
-    "checks: 7 scored rows need an audio or human check (3 words, 4 grammar)"
+    "checks: 1 scored rows need an audio or human check (1 words, 0 grammar)"
    ],
    "words": {
     "pct": 71.2,
@@ -781,7 +796,7 @@
     "scored": 99,
     "eligible": 79,
     "excluded": 20,
-    "pending": 3,
+    "pending": 1,
     "excluded_why": {
      "his line": 20
     }
@@ -793,7 +808,7 @@
     "uses": 105,
     "eligible": 22,
     "excluded": 9,
-    "pending": 4,
+    "pending": 0,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -832,18 +847,22 @@
    "reasons": [
     "reader agreement: pass 1 62.1 %; 2 consecutive passes at >= 95 % are needed",
     "coverage: Amal not transcribed 17:31-20:17 while the other person talks",
+    "coverage: Amal talks 00:04-01:06 (21 s of speech on their own track) with no transcript line",
+    "coverage: Amal 00:00-20:17 comes from the mixed Meet recording, speakers split by diarization (their own track is silent there)",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4188 s) compared with a second model",
-    "checks: 8 scored rows need an audio or human check (7 words, 1 grammar)"
+    "checks: 2 scored rows need an audio or human check (2 words, 0 grammar)"
    ],
    "words": {
     "pct": 83.3,
-    "eligible_pct": 83.3,
+    "eligible_pct": 83.2,
     "verified_pct": null,
     "scored": 129,
-    "eligible": 129,
-    "excluded": 0,
-    "pending": 7,
-    "excluded_why": {}
+    "eligible": 128,
+    "excluded": 1,
+    "pending": 2,
+    "excluded_why": {
+     "Amal not transcribed": 1
+    }
    },
    "grammar": {
     "pct": 88.9,
@@ -852,7 +871,7 @@
     "uses": 190,
     "eligible": 21,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -867,8 +886,8 @@
      "hole_s": 0
     },
     "Amal": {
-     "covered_pct": 96.0,
-     "missing_s": 166.7,
+     "covered_pct": 94.5,
+     "missing_s": 228.5,
      "hole_s": 0
     }
    },
@@ -888,8 +907,8 @@
     "reader agreement: pass 1 61.0 %; 2 consecutive passes at >= 95 % are needed",
     "coverage: Medi not transcribed 00:00-07:30 while the other person talks",
     "coverage: 17 stretches of Medi's speech written as '[speaking ...]' markers (01:32 in all)",
-    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3948 s) compared with a second model",
-    "checks: 11 scored rows need an audio or human check (7 words, 4 grammar)"
+    "coverage: Medi talks 00:42-06:42 (174 s of speech on their own track) with no transcript line",
+    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3948 s) compared with a second model"
    ],
    "words": {
     "pct": 80.2,
@@ -898,7 +917,7 @@
     "scored": 111,
     "eligible": 111,
     "excluded": 0,
-    "pending": 7,
+    "pending": 0,
     "excluded_why": {}
    },
    "grammar": {
@@ -908,7 +927,7 @@
     "uses": 154,
     "eligible": 20,
     "excluded": 2,
-    "pending": 4,
+    "pending": 0,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [

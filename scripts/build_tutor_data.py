@@ -29,6 +29,32 @@ def pretty(d):
         return d
 
 
+def pulled_count(payload, repo=REPO):
+    """How many of this verb link's answers are IN the app (eng audit 2026-09-29: the page kept a hand-typed 41 while 729
+    were pulled). List 1 (verb-forms): answers in data/vocab/amal_verb_checks.json whose form id is one of the link's
+    items. List 2 (verb-addons): answers in data/vocab/amal_addon_checks.json for the link's items."""
+    payload = payload or {}
+    items = set((payload.get("items") or {}).keys())
+    vocab = os.path.join(repo, "data", "vocab")
+    if payload.get("kind") == "verb-addons":
+        p = os.path.join(vocab, "amal_addon_checks.json")
+        if not os.path.exists(p):
+            return 0
+        A = json.load(open(p, encoding="utf-8"))
+        if isinstance(A.get("answers"), dict):
+            return len(items & set(A["answers"]))
+        n = 0
+        for verb, e in A.items():
+            if isinstance(e, dict):
+                keys = (["obj"] if "object" in e else []) + list(e.get("preps_ok") or []) + list(e.get("preps_off") or [])
+                n += sum(1 for k in keys if f"{verb}:addon:{k}" in items)
+        return n
+    p = os.path.join(vocab, "amal_verb_checks.json")
+    if not os.path.exists(p):
+        return 0
+    return len(items & set((json.load(open(p, encoding="utf-8")).get("answers") or {})))
+
+
 def main():
     import db
     now = datetime.datetime.now(datetime.timezone.utc)
@@ -84,7 +110,8 @@ def main():
                               "what": old.get("what") or ("Every person of every verb she taught, filled in by the app. She taps right, or fixes the spelling." if kind == "verb_check"
                                                             else "Transcript lines where the app is not sure what Medi said. Confirm the wording or type what you heard."),
                               "who": old.get("who") or "Amal answers · Medi sends the link", "url": f"amal/{page}.html?t={r['token']}",
-                              "total": total, "pulled": old.get("pulled", 0), "expires": day(r["expires_at"])})
+                              "total": total, "pulled": pulled_count(p) if kind == "verb_check" else old.get("pulled", 0),
+                              "expires": day(r["expires_at"])})
             elif day(r["expires_at"]) >= day((now - datetime.timedelta(days=21)).isoformat()):
                 closed.append({"id": f"{kind}-{r['token'][:6]}", "title": title + (f" ({pretty(p.get('lesson'))})" if p.get("lesson") else ""),
                                "why": "answered" if r.get("done_at") else f"link expired {day(r['expires_at'])}"})

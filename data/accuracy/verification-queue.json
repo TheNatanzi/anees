@@ -1,417 +1,21 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 213,
+ "count": 40,
  "by_date": {
-  "2026-08-25": 8,
-  "2026-09-04": 18,
-  "2026-09-05": 13,
-  "2026-09-10": 14,
-  "2026-09-11": 8,
-  "2026-09-14": 14,
-  "2026-09-15": 20,
-  "2026-09-16": 23,
-  "2026-09-17": 14,
-  "2026-09-18": 26,
-  "2026-09-19": 1,
-  "2026-09-21": 28,
-  "2026-09-23": 7,
-  "2026-09-26": 8,
-  "2026-09-28": 11
+  "2026-09-04": 1,
+  "2026-09-05": 5,
+  "2026-09-10": 2,
+  "2026-09-11": 2,
+  "2026-09-14": 5,
+  "2026-09-15": 4,
+  "2026-09-16": 3,
+  "2026-09-17": 2,
+  "2026-09-18": 4,
+  "2026-09-21": 9,
+  "2026-09-23": 1,
+  "2026-09-26": 2
  },
  "rows": [
-  {
-   "uid": "FA-596bc166",
-   "date": "2026-08-25",
-   "t": "14:44",
-   "t_amal": "14:52",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A1",
-   "medi_said": "يأتينا، الـ ترجمة. الـ-",
-   "amal_said": "ترجمة",
-   "wrong": "الـ ترجمة",
-   "right": "ترجمة",
-   "why_check": [
-    "reader confidence low",
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "14:34",
-   "listen_to": "15:12"
-  },
-  {
-   "uid": "FA-44f20385",
-   "date": "2026-08-25",
-   "t": "26:49",
-   "t_amal": "30:06",
-   "kind": "vocab-A",
-   "tier": 0,
-   "bucket": null,
-   "medi_said": "I don't know how to say apologies.",
-   "amal_said": "بتأسف. Some people say بتأزر as well.",
-   "wrong": "apologize (not known)",
-   "right": "بتأسف / أتأسف",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "26:39",
-   "listen_to": "30:26"
-  },
-  {
-   "uid": "FA-a54545fb",
-   "date": "2026-08-25",
-   "t": "32:27",
-   "t_amal": "32:38",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "و أنا، أنا، بس-- بس بت، أنا بس بتها.",
-   "amal_said": "ببسطها.",
-   "wrong": "بتها",
-   "right": "ببسطها",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "32:17",
-   "listen_to": "32:58"
-  },
-  {
-   "uid": "FA-408d91a2",
-   "date": "2026-08-25",
-   "t": "36:42",
-   "t_amal": "36:51",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B18",
-   "medi_said": "So, is this, this is ‹dibir balak›? No.",
-   "amal_said": "Mm-hmm. ‹Bindir›. ... (36:59) So ‹ana badir bali›. ‹Ahna›. ... (37:17) Oh, ‹balna›.",
-   "wrong": "dibir balak",
-   "right": "bindir balna (بندير بالنا)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "36:32",
-   "listen_to": "37:11"
-  },
-  {
-   "uid": "FA-950c3a50",
-   "date": "2026-08-25",
-   "t": "37:34",
-   "t_amal": "37:36",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A4",
-   "medi_said": "Wouldn't it be ‹balhom› 'cause we're watching the kids?",
-   "amal_said": "No, we are... Still this is part of the verb... ‹bindir balna›",
-   "wrong": "بندير بالهم",
-   "right": "بندير بالنا",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "37:24",
-   "listen_to": "37:56"
-  },
-  {
-   "uid": "FA-bed809ae",
-   "date": "2026-08-25",
-   "t": "39:07",
-   "t_amal": "39:29",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D2",
-   "medi_said": "‹Ahna il tinen›, ‹bin khaf, bin khaf min, is it ‹nakun ahel›?",
-   "amal_said": "Oh, here ‹hala ma btihtaj min›. ‹Bin khaf nakun›.",
-   "wrong": "بنخاف من نكون",
-   "right": "بنخاف نكون",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "38:57",
-   "listen_to": "39:49"
-  },
-  {
-   "uid": "FA-9198480c",
-   "date": "2026-08-25",
-   "t": "41:58",
-   "t_amal": "42:02",
-   "kind": "vocab-A",
-   "tier": 0,
-   "bucket": null,
-   "medi_said": "What was verb again? Sorry. It was-",
-   "amal_said": "‹Fa'il›.",
-   "wrong": "verb",
-   "right": "fa'il (فعل)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "41:48",
-   "listen_to": "42:22"
-  },
-  {
-   "uid": "FA-766bcdbd",
-   "date": "2026-08-25",
-   "t": "47:56",
-   "t_amal": "48:23",
-   "kind": "vocab-A",
-   "tier": 0,
-   "bucket": "B8",
-   "medi_said": "So it has to be, has to be، اه، issue can، اه، can issue- ... So if I wanna say it has to be something really bad.",
-   "amal_said": "ما في can. It's it. ... لازم يكون issue، issue سيء.",
-   "wrong": "it has to be (not known)",
-   "right": "لازم يكون ... سيء",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "47:46",
-   "listen_to": "48:43"
-  },
-  {
-   "uid": "FA-5fa62540",
-   "date": "2026-09-04",
-   "t": "02:15",
-   "t_amal": "02:19",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C3",
-   "medi_said": "الأحسن",
-   "amal_said": "طريقة. شو أحسن ... طريقة",
-   "wrong": "الأحسن",
-   "right": "أحسن طريقة",
-   "why_check": [
-    "reader confidence low",
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "02:05",
-   "listen_to": "02:39"
-  },
-  {
-   "uid": "FA-54aac8bb",
-   "date": "2026-09-04",
-   "t": "12:54",
-   "t_amal": "13:02",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A1",
-   "medi_said": "al-, el",
-   "amal_said": "Not el, just ghayr",
-   "wrong": "الغير",
-   "right": "غير",
-   "why_check": [
-    "reader confidence low",
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "12:44",
-   "listen_to": "13:22"
-  },
-  {
-   "uid": "FA-6e261b58",
-   "date": "2026-09-04",
-   "t": "32:00",
-   "t_amal": "32:14",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B12",
-   "medi_said": "It makes me happy مضارع present tense امmm so this is with an right؟",
-   "amal_said": "Which n لا ليش؟ We're still in this verb we haven't took–we haven't taken any other verbs.",
-   "wrong": "with an",
-   "right": "بيبسطني - same verb, no N",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "31:50",
-   "listen_to": "32:34"
-  },
-  {
-   "uid": "FA-a84e4048",
-   "date": "2026-09-04",
-   "t": "35:58",
-   "t_amal": "36:05",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D4",
-   "medi_said": "Did i make you... اه بسات- بساتِ- بساتِتني أسف بساتِتك.",
-   "amal_said": "بساتِتك. بَسْتَكْ.",
-   "wrong": "بساتِتك",
-   "right": "بَسْتَكْ (basattak)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "35:48",
-   "listen_to": "36:25"
-  },
-  {
-   "uid": "FA-2b0f8543",
-   "date": "2026-09-04",
-   "t": "36:23",
-   "t_amal": "36:37",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "بسطه.",
-   "amal_said": "Basato, basatto. It's double t ... O and te.",
-   "wrong": "بسطه",
-   "right": "بسطتُه",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "36:13",
-   "listen_to": "36:57"
-  },
-  {
-   "uid": "FA-7b665c6a",
-   "date": "2026-09-04",
-   "t": "44:55",
-   "t_amal": "44:59",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B12",
-   "medi_said": "like go have fun with them.",
-   "amal_said": "لسه ... مش بي ببست ... not with this verb. It's with the other version.",
-   "wrong": "ابسطهم (= have fun with them)",
-   "right": "انبسط",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "44:45",
-   "listen_to": "45:19"
-  },
-  {
-   "uid": "FA-fcd8515e",
-   "date": "2026-09-04",
-   "t": "50:43",
-   "t_amal": "50:53",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "is it nabasit or is it, nabasat? Or nabast?",
-   "amal_said": "So now we do need to add something ... So inbasat.",
-   "wrong": "نبسط (past)",
-   "right": "انبسط",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "50:33",
-   "listen_to": "51:13"
-  },
-  {
-   "uid": "FA-cb792d98",
-   "date": "2026-09-04",
-   "t": "51:37",
-   "t_amal": "51:41",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "Huwa. hiya inbas- inbashatat.",
-   "amal_said": "Inbastat.",
-   "wrong": "inbashatat",
-   "right": "Inbastat",
-   "why_check": [
-    "reader confidence low",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "51:27",
-   "listen_to": "52:01"
-  },
-  {
-   "uid": "FA-7fdfc2e7",
-   "date": "2026-09-04",
-   "t": "51:37",
-   "t_amal": "51:41",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "hiya inbas- inbashatat.",
-   "amal_said": "Inbastat.",
-   "wrong": "انبسطتت",
-   "right": "انبسطت",
-   "why_check": [
-    "reader confidence low",
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "51:27",
-   "listen_to": "52:01"
-  },
-  {
-   "uid": "FA-acf45653",
-   "date": "2026-09-04",
-   "t": "52:33",
-   "t_amal": "52:35",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "embasana.",
-   "amal_said": "Embasatna.",
-   "wrong": "embasana",
-   "right": "Embasatna",
-   "why_check": [
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "52:23",
-   "listen_to": "52:55"
-  },
-  {
-   "uid": "FA-9b616771",
-   "date": "2026-09-04",
-   "t": "53:36",
-   "t_amal": "53:39",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D2",
-   "medi_said": "be embasattet, right? Embassatet il hafla.",
-   "amal_said": "EMBASATI. I need a preposition. What was it? ... Bi or fi",
-   "wrong": "انبسطت الحفلة",
-   "right": "انبسطتي بالحفلة / في الحفلة",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "53:26",
-   "listen_to": "53:59"
-  },
-  {
-   "uid": "FA-ce8895c0",
-   "date": "2026-09-04",
-   "t": "55:30",
-   "t_amal": "55:40",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D2",
-   "medi_said": "In basatu Their trip. Safarhom. Safarhom.",
-   "amal_said": "Yeah but fee preposition shoo",
-   "wrong": "انبسطوا سفرهم",
-   "right": "انبسطوا بسفرتهم",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "55:20",
-   "listen_to": "56:00"
-  },
   {
    "uid": "FA-12007447",
    "date": "2026-09-04",
@@ -429,106 +33,14 @@
     "kept from the 09-24 sweep; neither reader pass listed it"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "unsure",
+    "reason": "The decisive audio evidence is too ambiguous: the independent transcriptions render Medi and Amal nearly the same, and do not clearly show an extra past-style «-تي» being corrected."
+   },
    "listen_from": "56:22",
    "listen_to": "56:56"
-  },
-  {
-   "uid": "FA-bfdee341",
-   "date": "2026-09-04",
-   "t": "58:36",
-   "t_amal": "58:52",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B1",
-   "medi_said": "Ana, ana ban biscuit. ashann ihna aa taalam natal ana naataallam",
-   "amal_said": "Ihna bentallaams",
-   "wrong": "عشان احنا نتعلم",
-   "right": "عشان احنا بنتعلم",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "58:26",
-   "listen_to": "59:12"
-  },
-  {
-   "uid": "FA-d588adfd",
-   "date": "2026-09-04",
-   "t": "58:56",
-   "t_amal": "59:04",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A10",
-   "medi_said": "bantalaam bass Hadi al filll",
-   "amal_said": "Hada",
-   "wrong": "هادي الفعل",
-   "right": "هادا الفعل",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "58:46",
-   "listen_to": "59:24"
-  },
-  {
-   "uid": "FA-888a7072",
-   "date": "2026-09-04",
-   "t": "59:45",
-   "t_amal": "59:56",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D2",
-   "medi_said": "Enjoy your day So command tensing Investii yomek",
-   "amal_said": "Bee Yomeek",
-   "wrong": "انبسطي يومك",
-   "right": "انبسطي بيومك",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "59:35",
-   "listen_to": "1:00:16"
-  },
-  {
-   "uid": "FA-8acf9a78",
-   "date": "2026-09-04",
-   "t": "1:01:34",
-   "t_amal": "1:01:45",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D4",
-   "medi_said": "أكتر إشي بيس– بيسبط–",
-   "amal_said": "بيسبتني- بيب... بي and then س",
-   "wrong": "بيسبط",
-   "right": "بيبسطني",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:01:24",
-   "listen_to": "1:02:05"
-  },
-  {
-   "uid": "FA-d0c70580",
-   "date": "2026-09-04",
-   "t": "1:02:23",
-   "t_amal": "1:02:30",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B18",
-   "medi_said": "to make someone happy is آآá بيسبط.",
-   "amal_said": "ببسّط. ... No و and الب goes-- I should make you record just ببسط، ببسط",
-   "wrong": "بيسبط",
-   "right": "ببسّط",
-   "why_check": [
-    "reader confidence low",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:02:13",
-   "listen_to": "1:02:50"
   },
   {
    "uid": "FA-777a8a87",
@@ -547,28 +59,14 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The independent audio mostly has Medi already saying «و صوروا» at the target spot; the remaining difference sounds like pronunciation/hesitation, not a clear grammar mistake signalled by Amal."
+   },
    "listen_from": "08:37",
    "listen_to": "09:17"
-  },
-  {
-   "uid": "FA-0ee87e09",
-   "date": "2026-09-05",
-   "t": "24:40",
-   "t_amal": "24:43",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C1",
-   "medi_said": "So past tense, are you annoyed?",
-   "amal_said": "No, no, no. Are. The are is present. ... It's not do you get. It's just are you.",
-   "wrong": "(past verb)",
-   "right": "إنتي مزعوجة",
-   "why_check": [
-    "reader confidence low",
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "24:30",
-   "listen_to": "25:03"
   },
   {
    "uid": "FA-d3f04bd5",
@@ -586,69 +84,14 @@
     "reader confidence low"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "This looks like Amal supplying/echoing the noun after Medi hesitates, and the only alleged issue is a possibly dropped initial hamza in «الأصوات», which should not be counted as an error here."
+   },
    "listen_from": "25:34",
    "listen_to": "26:15"
-  },
-  {
-   "uid": "FA-055294ad",
-   "date": "2026-09-05",
-   "t": "29:25",
-   "t_amal": "29:32",
-   "kind": "vocab-A",
-   "tier": 2,
-   "bucket": null,
-   "medi_said": "\"Feeya za'ajat-za'ajatek.\"",
-   "amal_said": "أزعجتك. See? It's easier to say أزعجتك.",
-   "wrong": "za'ajatek",
-   "right": "أزعجتك",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "29:15",
-   "listen_to": "29:52"
-  },
-  {
-   "uid": "FA-ba09244e",
-   "date": "2026-09-05",
-   "t": "29:25",
-   "t_amal": "29:31",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B12",
-   "medi_said": "Feeya za'ajat-za'ajatek.",
-   "amal_said": "أزعجتك ... See? It's easier to say ... أزعجتك",
-   "wrong": "زعجتك",
-   "right": "أزعجتك",
-   "why_check": [
-    "reader confidence low",
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "29:15",
-   "listen_to": "29:51"
-  },
-  {
-   "uid": "FA-502c00e9",
-   "date": "2026-09-05",
-   "t": "34:54",
-   "t_amal": "35:09",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B18",
-   "medi_said": "So, hadha al-jaw, annoys me. Baz- baz'ajni. Ana biyaz...",
-   "amal_said": "يعني almost. صح. بيزعجني.",
-   "wrong": "baz'ajni",
-   "right": "بيزعجني",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "34:44",
-   "listen_to": "35:29"
   },
   {
    "uid": "FA-e3d1a8f7",
@@ -668,27 +111,14 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The independent transcriptions mostly hear «ما تزعجني» rather than the claimed extra a-form, and Amal’s later prompting focuses on adding the feminine ending «ـيني»/pronouncing it. This looks like feminine-command formation or articulation practice, not clearly «ما تأزعجيني» corrected to «ما تزعجيني»."
+   },
    "listen_from": "36:21",
    "listen_to": "36:55"
-  },
-  {
-   "uid": "FA-da460c60",
-   "date": "2026-09-05",
-   "t": "39:36",
-   "t_amal": "39:40",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B18",
-   "medi_said": "Okay, so بي-بيزعج-بيزعجوني.",
-   "amal_said": "بزعجني.",
-   "wrong": "بيزعجوني",
-   "right": "بيزعجني",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "39:26",
-   "listen_to": "40:00"
   },
   {
    "uid": "FA-dc9c70f3",
@@ -707,47 +137,14 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi reaches «انزعج» himself as a question before Amal confirms it; her response is confirmation/explanation rather than correcting a settled wrong answer. Under the instructions, a prompted self-reach like this is not enough to confirm the claimed mistake."
+   },
    "listen_from": "40:48",
    "listen_to": "41:27"
-  },
-  {
-   "uid": "FA-98cb2fa8",
-   "date": "2026-09-05",
-   "t": "44:47",
-   "t_amal": "45:27",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B1",
-   "medi_said": "إحنا بنن-بننزعج.",
-   "amal_said": "بننزعج. ... Been catching you saying the [letter inaudible in transcript] instead of the ب.",
-   "wrong": "بنن-بننزعج",
-   "right": "بننزعج (ب- prefix on the we-form)",
-   "why_check": [
-    "reader confidence low"
-   ],
-   "check": "audio or human",
-   "listen_from": "44:37",
-   "listen_to": "45:47"
-  },
-  {
-   "uid": "FA-d40ce954",
-   "date": "2026-09-05",
-   "t": "48:47",
-   "t_amal": "48:57",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B12",
-   "medi_said": "Don't be annoyed. Don't get annoyed by me. So this is without the N.",
-   "amal_said": "ليش؟ ... ليش؟",
-   "wrong": "without the N",
-   "right": "with the N: ما تنزعجي (مني) - the get-annoyed verb انزعج",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "48:37",
-   "listen_to": "49:17"
   },
   {
    "uid": "FA-ab15e48a",
@@ -767,163 +164,14 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The evidence shows a pronunciation problem around \"شبعان\" (transcribed \"شوبان/شبان\"), not a clear wrong vocabulary choice; Amal's \"Full، مش hot\" corrects how it sounded, but this falls under pronunciation/root-sound uncertainty rather than a confirmable lexical error."
+   },
    "listen_from": "55:06",
    "listen_to": "55:43"
-  },
-  {
-   "uid": "FA-5fbc3ea4",
-   "date": "2026-09-05",
-   "t": "57:49",
-   "t_amal": "58:18",
-   "kind": "vocab-A",
-   "tier": 3,
-   "bucket": null,
-   "medi_said": "إيه بتنزع، بتنزعج لما I make retired.",
-   "amal_said": "Her. ... ✓ Yes، أتعبها.",
-   "wrong": "I make retired",
-   "right": "أتعبها",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "57:39",
-   "listen_to": "58:38"
-  },
-  {
-   "uid": "FA-61fce309",
-   "date": "2026-09-10",
-   "t": "06:47",
-   "t_amal": "06:54",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "E4",
-   "medi_said": "Asha tisa alfayn situation.",
-   "amal_said": "I just did it. I just repeated what you said. ألفين ستة وعشرين.",
-   "wrong": "alfayn",
-   "right": "ألفين ستة وعشرين",
-   "why_check": [
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "06:37",
-   "listen_to": "07:14"
-  },
-  {
-   "uid": "FA-a7052438",
-   "date": "2026-09-10",
-   "t": "10:40",
-   "t_amal": "10:51",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D3",
-   "medi_said": "صلاحلي, helps to me, شوي.",
-   "amal_said": "Fixed for me، صلح لي.",
-   "wrong": "صلاحني شوي",
-   "right": "صلح لي",
-   "why_check": [
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "10:30",
-   "listen_to": "11:11"
-  },
-  {
-   "uid": "FA-5b565b4ax",
-   "date": "2026-09-10",
-   "t": "12:06",
-   "t_amal": "12:13",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A8",
-   "medi_said": "بلوزة، um, ورداني",
-   "amal_said": "بدائية.",
-   "wrong": "ورداني",
-   "right": "وردية",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "11:56",
-   "listen_to": "12:33"
-  },
-  {
-   "uid": "FA-0e7c89f7",
-   "date": "2026-09-10",
-   "t": "14:46",
-   "t_amal": "14:50",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "اه، زعجتيك، زاجتك.",
-   "amal_said": "زعجتك or أزعجتك.",
-   "wrong": "زعجتيك",
-   "right": "زعجتك",
-   "why_check": [
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "14:36",
-   "listen_to": "15:10"
-  },
-  {
-   "uid": "FA-e1ae1715",
-   "date": "2026-09-10",
-   "t": "19:58",
-   "t_amal": "20:03",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B18",
-   "medi_said": "بازيجيني هدول اليوم.",
-   "amal_said": "بزعجوني. بزعجوني. ... you could say بتزعجني بس مش بزعجني.",
-   "wrong": "بيزعجني",
-   "right": "بيزعجوني / بتزعجني",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "19:48",
-   "listen_to": "20:23"
-  },
-  {
-   "uid": "FA-345310f8",
-   "date": "2026-09-10",
-   "t": "25:07",
-   "t_amal": "25:13",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B2",
-   "medi_said": "بيتايو، بيتايوك، بيتايوكي.",
-   "amal_said": "مم، يدايقوكي.",
-   "wrong": "بيضايقوكي",
-   "right": "يضايقوكي",
-   "why_check": [
-    "reader confidence low",
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "24:57",
-   "listen_to": "25:33"
-  },
-  {
-   "uid": "FA-9f911f2b",
-   "date": "2026-09-10",
-   "t": "33:22",
-   "t_amal": "33:30",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B18",
-   "medi_said": "زري.",
-   "amal_said": "I didn't hear the \"t\".",
-   "wrong": "زري",
-   "right": "بتكسري",
-   "why_check": [
-    "reader confidence low"
-   ],
-   "check": "audio or human",
-   "listen_from": "33:12",
-   "listen_to": "33:50"
   },
   {
    "uid": "FA-5c400d33",
@@ -942,49 +190,14 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi says «اسكر / اسكرو» and then self-fixes to «اكسر» before Amal's comment. Amal's «the K is before the S» confirms his self-fix/pronunciation ordering, not a separately corrected retained mistake."
+   },
    "listen_from": "34:04",
    "listen_to": "34:41"
-  },
-  {
-   "uid": "FA-dcc998a3",
-   "date": "2026-09-10",
-   "t": "36:58",
-   "t_amal": "37:02",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "Next far. Is it next far?",
-   "amal_said": "So it's either inكسر or انكسر.",
-   "wrong": "Next far",
-   "right": "انكسر",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "36:48",
-   "listen_to": "37:22"
-  },
-  {
-   "uid": "FA-90e20c58",
-   "date": "2026-09-10",
-   "t": "38:29",
-   "t_amal": "38:32",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A4",
-   "medi_said": "كل أشيائي...",
-   "amal_said": "أشياءي نوع الإل.",
-   "wrong": "الأشيائي",
-   "right": "أشيائي",
-   "why_check": [
-    "reader confidence low",
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "38:19",
-   "listen_to": "38:52"
   },
   {
    "uid": "FA-3d89bb7e",
@@ -1002,187 +215,14 @@
     "reader confidence low"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Amal's own mic shows she said/recast «كاستو», not «كاسه», and then accepted the same possessive form in «كاستو انكسرت». The correction she signalled was the verb «انكسرت», not dropping the ت from the noun."
+   },
    "listen_from": "40:20",
    "listen_to": "40:54"
-  },
-  {
-   "uid": "FA-0c57429c",
-   "date": "2026-09-10",
-   "t": "43:35",
-   "t_amal": "43:35",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B6",
-   "medi_said": "or كان عمرها أو عمرها كان؟ كانت. ... كانت، right؟",
-   "amal_said": "Both، بس كان عمر is better. كان عمرها. ... لأ، كان عمرها صح.",
-   "wrong": "كانت عمرها",
-   "right": "كان عمرها",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "43:25",
-   "listen_to": "43:55"
-  },
-  {
-   "uid": "FA-09eba1a4",
-   "date": "2026-09-10",
-   "t": "45:34",
-   "t_amal": "45:38",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B18",
-   "medi_said": "Uh, هي بينكسو-- بينكسر. هو بينكسر.",
-   "amal_said": "هو.",
-   "wrong": "هي بينكسر",
-   "right": "هي بتنكسر",
-   "why_check": [
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "45:24",
-   "listen_to": "45:58"
-  },
-  {
-   "uid": "FA-d42c025b",
-   "date": "2026-09-10",
-   "t": "54:43",
-   "t_amal": "54:51",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A9b",
-   "medi_said": "الف-الفعلات. الفعلات إن.",
-   "amal_said": "أفعال.",
-   "wrong": "الفعلات",
-   "right": "الأفعال",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "54:33",
-   "listen_to": "55:11"
-  },
-  {
-   "uid": "FA-24f8300f",
-   "date": "2026-09-11",
-   "t": "05:33",
-   "t_amal": "05:37",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A2",
-   "medi_said": "الشمال الـ، روس شمال؟ Did you say? رو... شس...",
-   "amal_said": "نويل، بس شمال روسيا.",
-   "wrong": "الشمال الـ، روس",
-   "right": "شمال روسيا",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "05:23",
-   "listen_to": "05:57"
-  },
-  {
-   "uid": "FA-c69abe5b",
-   "date": "2026-09-11",
-   "t": "09:29",
-   "t_amal": "09:32",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A9",
-   "medi_said": "is it أنجم؟ I don't know. أنجم، نجوم،",
-   "amal_said": "نجوم.",
-   "wrong": "أنجم",
-   "right": "نجوم",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "09:19",
-   "listen_to": "09:52"
-  },
-  {
-   "uid": "FA-e087be57",
-   "date": "2026-09-11",
-   "t": "16:18",
-   "t_amal": "16:21",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "خربوا. It's خربات or خربات؟ خربات. خربات. خربوا.",
-   "amal_said": "خربت. خربوا.",
-   "wrong": "خربات",
-   "right": "خربت",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "16:08",
-   "listen_to": "16:41"
-  },
-  {
-   "uid": "FA-a174e546",
-   "date": "2026-09-11",
-   "t": "25:49",
-   "t_amal": "25:57",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C2",
-   "medi_said": "Is it يخربوا؟ Do I need to link it back to the روز؟",
-   "amal_said": "بيخرب. Yes. If you don't-- wait. No. Because the rose is in the beginning. So rose راح يخرب.",
-   "wrong": "يخربوا",
-   "right": "راح يخرب",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)",
-    "the transcript under it is disputed (engine wrote something else)"
-   ],
-   "check": "audio",
-   "listen_from": "25:39",
-   "listen_to": "26:17"
-  },
-  {
-   "uid": "FA-4d350cb5",
-   "date": "2026-09-11",
-   "t": "32:02",
-   "t_amal": "32:08",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B12",
-   "medi_said": "So don't break it. I mean, you could use that as a command, right? ... Well, don't make it stop working, right? Not don't stop working.",
-   "amal_said": "Don't break something would be the other one. ... مم، no, it would be don't stop working.",
-   "wrong": "ما تخرب = don't break it / don't make it stop working",
-   "right": "ما تخرب = don't stop working (don't get ruined); ما تخرّب = don't break it",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "31:52",
-   "listen_to": "32:28"
-  },
-  {
-   "uid": "FA-6575ba27",
-   "date": "2026-09-11",
-   "t": "43:48",
-   "t_amal": "44:03",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A7",
-   "medi_said": "Uh, okay. Il, iljao sh-- Iljao shoub. No, that, that'd be ra again. ... Oh, no, ruins. Iljao shoub, uh,",
-   "amal_said": "الشوب the hot weather.",
-   "wrong": "Iljao shoub",
-   "right": "الجو الشوب",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "43:38",
-   "listen_to": "44:23"
   },
   {
    "uid": "FA-e609b743",
@@ -1200,6 +240,12 @@
     "reader confidence low"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Both Medi and Amal appear to say essentially “يخربوا,” and Amal's “no” is not followed by a clearly different corrected form; the evidence does not show the claimed make-X/get-X form error. This looks more like guidance/clarification than a recoverable correction of “yikharabu.”"
+   },
    "listen_from": "52:53",
    "listen_to": "53:31"
   },
@@ -1219,28 +265,14 @@
     "kept from the 09-24 sweep; neither reader pass listed it"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The independent transcriptions show Medi saying plain «يخربوا», and Amal's echo also appears to be «يخربوا», not a causative «يخرّبوا». Her brief «no» does not prove the claimed make-X/get-X error from this evidence."
+   },
    "listen_from": "52:53",
    "listen_to": "53:31"
-  },
-  {
-   "uid": "FA-774f0c0b",
-   "date": "2026-09-14",
-   "t": "02:06",
-   "t_amal": "03:41",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "تقريبًا دايمًا، uh, أشتري f-- uh، في بي-- uh، في محلي. بس اليوم،",
-   "amal_said": "بس أنا، أنا سألتك إذا بتحب الشغل بالبيت أكتر أو بالمحل.",
-   "wrong": "أشتري",
-   "right": "بشتغل (bashte8el)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "01:56",
-   "listen_to": "04:01"
   },
   {
    "uid": "FA-6bffd145",
@@ -1259,27 +291,14 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Although one dialect transcription catches «بيخلص», Medi immediately self-repairs to «خل- خلاص متأخر» before Amal helps, and the large-v3/mixed versions render the phrase as already «خلص/خلاص متأخر». Under the rules, a restart/self-fix before help is not an error row."
+   },
    "listen_from": "02:32",
    "listen_to": "04:01"
-  },
-  {
-   "uid": "FA-605f507b",
-   "date": "2026-09-14",
-   "t": "08:15",
-   "t_amal": "08:18",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A9",
-   "medi_said": "The es-es-اسمي.",
-   "amal_said": "أسماء.",
-   "wrong": "اسمي",
-   "right": "أسماء",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "08:05",
-   "listen_to": "08:38"
   },
   {
    "uid": "FA-47309157",
@@ -1298,67 +317,14 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi did say «إشي», but Amal only acknowledges with «مم» there and does not correct it until a later full chat recast. The immediately signalled correction is about the broken/fixed clause, not missing «أي»."
+   },
    "listen_from": "13:47",
    "listen_to": "16:01"
-  },
-  {
-   "uid": "FA-5d3e9fc9",
-   "date": "2026-09-14",
-   "t": "14:11",
-   "t_amal": "14:53",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C7",
-   "medi_said": "abel ma tistallehi shu. ... iserti.",
-   "amal_said": "صح. Or how do I use into here? / And what do I add to the verb?",
-   "wrong": "shu kasarti",
-   "right": "illi kasartih",
-   "why_check": [
-    "reader confidence low",
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "14:01",
-   "listen_to": "15:13"
-  },
-  {
-   "uid": "FA-27e2ba45",
-   "date": "2026-09-14",
-   "t": "14:34",
-   "t_amal": "14:38",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B12",
-   "medi_said": "uh, en-enkis-enkistri.",
-   "amal_said": "You broke. You broke the thing that you have to fix. Not you were broken.",
-   "wrong": "انكسرتي",
-   "right": "كسرتي",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "14:24",
-   "listen_to": "14:58"
-  },
-  {
-   "uid": "FA-eb819868",
-   "date": "2026-09-14",
-   "t": "20:42",
-   "t_amal": "20:45",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "inkis- uh, inkisar.",
-   "amal_said": "انكسر، yes. No internal flipping. انكسر.",
-   "wrong": "inkisar",
-   "right": "انكسر (enkasar)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "20:32",
-   "listen_to": "21:05"
   },
   {
    "uid": "FA-404ef0cd",
@@ -1378,67 +344,14 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The independent Medi and mixed transcriptions show he said «بيزعجك» with b-, not bare «يزعجك», and Amal’s follow-up looks like reinforcement after «ممتاز», not a correction."
+   },
    "listen_from": "32:13",
    "listen_to": "32:45"
-  },
-  {
-   "uid": "FA-03b9e825",
-   "date": "2026-09-14",
-   "t": "34:00",
-   "t_amal": "34:05",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "I think it's بنزعج، اه زعج، تزعجنا. No, تزعجنا, okay. ... تزعجنا. Yeah. Yeah.",
-   "amal_said": "It's neither. It's just زعجنا. ... Only the I and you male take the it. The others just t to na.",
-   "wrong": "تزعجنا",
-   "right": "زعجنا (za3ajna)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "33:50",
-   "listen_to": "34:25"
-  },
-  {
-   "uid": "FA-ddba1a2a",
-   "date": "2026-09-14",
-   "t": "36:53",
-   "t_amal": "36:55",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B12",
-   "medi_said": "Okay, so it's just bezaj,",
-   "amal_said": "Gets annoyed.",
-   "wrong": "bezaj",
-   "right": "byenze3ej (بينزعج)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "36:43",
-   "listen_to": "37:15"
-  },
-  {
-   "uid": "FA-ba3ada4e",
-   "date": "2026-09-14",
-   "t": "41:22",
-   "t_amal": "41:23",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "basatik.",
-   "amal_said": "بسطتك.",
-   "wrong": "basatik",
-   "right": "بسطتك (basa6tek)",
-   "why_check": [
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "41:12",
-   "listen_to": "41:43"
   },
   {
    "uid": "FA-5f50b713",
@@ -1456,28 +369,14 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi may have said «بساتو/بساطتو», but Amal immediately accepted it with «mm-hmm» and only corrected «أجيتو» afterward. The provided evidence does not show a correction of the object ending on «بسطه»."
+   },
    "listen_from": "41:56",
    "listen_to": "44:14"
-  },
-  {
-   "uid": "FA-2634ef3a",
-   "date": "2026-09-14",
-   "t": "59:10",
-   "t_amal": "59:16",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D4",
-   "medi_said": "I'm trying not to say انبسط. نبسط.",
-   "amal_said": "صح. him.",
-   "wrong": "نبسط",
-   "right": "نبسطه (nebse6o)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "59:00",
-   "listen_to": "59:36"
   },
   {
    "uid": "FA-62faffe8",
@@ -1497,6 +396,12 @@
     "the transcript under it is disputed (engine wrote something else)"
    ],
    "check": "audio",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi said something like «انبسطت بأزومة», but Amal accepted it with «mm-hmm/أها» and moved on; there is no correction signal in the supplied audio evidence. A later typed model sentence alone is not enough here."
+   },
    "listen_from": "1:00:00",
    "listen_to": "1:02:48"
   },
@@ -1516,28 +421,14 @@
     "reader confidence low"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Amal explicitly approved Medi's «إمتى» with «Perfect», so this was not signalled as an error. The later chat line with «min aimta» is not enough to override the voice approval."
+   },
    "listen_from": "15:51",
    "listen_to": "17:31"
-  },
-  {
-   "uid": "FA-079277cf",
-   "date": "2026-09-15",
-   "t": "17:13",
-   "t_amal": "17:18",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B11",
-   "medi_said": "Is it اكسرو؟ / اكسرو. اكسرو؟ Oh, ما تكسرو.",
-   "amal_said": "مم؟ / شو؟ / Don't break it. / ما تكسره.",
-   "wrong": "اكسرو",
-   "right": "ما تكسره (ma tekserih)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "17:03",
-   "listen_to": "17:38"
   },
   {
    "uid": "FA-7349d122",
@@ -1557,68 +448,14 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The evidence does not clearly show Amal correcting Medi at 17:25; she only says «مم», then moves to a new prompt. Several independent transcripts hear Medi as «ما تكسره», so the alleged missing object ending is not proven."
+   },
    "listen_from": "17:15",
    "listen_to": "18:17"
-  },
-  {
-   "uid": "FA-98c4de79",
-   "date": "2026-09-15",
-   "t": "17:38",
-   "t_amal": "17:40",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "اقرب.",
-   "amal_said": "All him... Do you remember most؟",
-   "wrong": "اقرب",
-   "right": "أغلب (a8lab)",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "17:28",
-   "listen_to": "18:00"
-  },
-  {
-   "uid": "FA-a748e5cc",
-   "date": "2026-09-15",
-   "t": "18:18",
-   "t_amal": "18:20",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "aqlab snenha.",
-   "amal_said": "سنان، ha. What's سنين؟ ... Years.",
-   "wrong": "snenha",
-   "right": "سنانها (snanha)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "18:08",
-   "listen_to": "18:40"
-  },
-  {
-   "uid": "FA-5d641ebe",
-   "date": "2026-09-15",
-   "t": "20:51",
-   "t_amal": "20:54",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A9",
-   "medi_said": "qasarat.",
-   "amal_said": "Kasat.",
-   "wrong": "كاسرات",
-   "right": "كاسات",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "20:41",
-   "listen_to": "21:14"
   },
   {
    "uid": "FA-5b7d285a",
@@ -1636,124 +473,14 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The independent Medi track shows him saying the correct «إحنا لازم» rather than «كان/ان لازم». Amal's comment looks like a clarification against “should have,” but the alleged Arabic error is not shown."
+   },
    "listen_from": "31:11",
    "listen_to": "31:47"
-  },
-  {
-   "uid": "FA-e995b01b",
-   "date": "2026-09-15",
-   "t": "35:33",
-   "t_amal": "35:43",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B18",
-   "medi_said": "Program shift feminine.",
-   "amal_said": "Program is masculine.",
-   "wrong": "برنامج (as feminine)",
-   "right": "برنامج masculine → تغير",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "35:23",
-   "listen_to": "36:03"
-  },
-  {
-   "uid": "FA-9801ea72",
-   "date": "2026-09-15",
-   "t": "38:27",
-   "t_amal": "38:33",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "بوتك?",
-   "amal_said": "Bot, what's the other shoes?",
-   "wrong": "بوتك",
-   "right": "كندرتك",
-   "why_check": [
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "38:17",
-   "listen_to": "38:53"
-  },
-  {
-   "uid": "FA-bda3a2d0",
-   "date": "2026-09-15",
-   "t": "39:52",
-   "t_amal": "39:54",
-   "kind": "vocab-A",
-   "tier": 2,
-   "bucket": null,
-   "medi_said": "هدول ال، uh, الآن",
-   "amal_said": "Very close.",
-   "wrong": "الآن",
-   "right": "ألوان",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "39:42",
-   "listen_to": "40:14"
-  },
-  {
-   "uid": "FA-23a76ac9",
-   "date": "2026-09-15",
-   "t": "43:53",
-   "t_amal": "43:59",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B18",
-   "medi_said": "خيارات.",
-   "amal_said": "you changed.",
-   "wrong": "خيارات",
-   "right": "غيرتي",
-   "why_check": [
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "43:43",
-   "listen_to": "44:19"
-  },
-  {
-   "uid": "FA-835d985c",
-   "date": "2026-09-15",
-   "t": "49:41",
-   "t_amal": "49:42",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "E5",
-   "medi_said": "Kam sawar.",
-   "amal_said": "That's the error I was talking about. So cam takes singular.",
-   "wrong": "كم صور",
-   "right": "كم صورة",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "49:31",
-   "listen_to": "50:02"
-  },
-  {
-   "uid": "FA-bff1dd22",
-   "date": "2026-09-15",
-   "t": "53:42",
-   "t_amal": "57:12",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B1",
-   "medi_said": "fi hada yaref.",
-   "amal_said": "Mm-hmm.",
-   "wrong": "yaref",
-   "right": "bye3raf (بيعرف)",
-   "why_check": [
-    "reader confidence low"
-   ],
-   "check": "audio or human",
-   "listen_from": "53:32",
-   "listen_to": "57:32"
   },
   {
    "uid": "FA-e6550d6d",
@@ -1771,297 +498,14 @@
     "reader confidence low"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The clearest independent transcription has Medi saying «صوار كتير», and Amal only says “Nice”; there is no audible correction of «كتيرين» in the provided evidence."
+   },
    "listen_from": "55:47",
    "listen_to": "59:31"
-  },
-  {
-   "uid": "FA-a2614242",
-   "date": "2026-09-15",
-   "t": "59:14",
-   "t_amal": "59:27",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B18",
-   "medi_said": "Uh, Zakarini sajibi",
-   "amal_said": "To bring, but who's bringing? You are bringing. / I bring.",
-   "wrong": "تجيبي",
-   "right": "أجيب",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "59:04",
-   "listen_to": "59:47"
-  },
-  {
-   "uid": "FA-92001b6c",
-   "date": "2026-09-15",
-   "t": "1:00:01",
-   "t_amal": "1:00:08",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D4",
-   "medi_said": "Zakaretik. ... Zakaretno.",
-   "amal_said": "I reminded him. ... Zakarto.",
-   "wrong": "ذكرتك / ذكرتنو",
-   "right": "ذكّرته",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "59:51",
-   "listen_to": "1:00:28"
-  },
-  {
-   "uid": "FA-e4ebf269",
-   "date": "2026-09-15",
-   "t": "1:00:02",
-   "t_amal": "1:00:08",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D4",
-   "medi_said": "Zakaretik.",
-   "amal_said": "I reminded him. / Zakarto.",
-   "wrong": "Zakaretik",
-   "right": "Zakarto",
-   "why_check": [
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "59:52",
-   "listen_to": "1:00:28"
-  },
-  {
-   "uid": "FA-8d49efd2",
-   "date": "2026-09-15",
-   "t": "1:01:26",
-   "t_amal": "1:01:30",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C4",
-   "medi_said": "it zakara, uh, it zakarooni.",
-   "amal_said": "Didn't. Very, very, very right.",
-   "wrong": "اتذكروني",
-   "right": "ما اتذكروني",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:01:16",
-   "listen_to": "1:01:50"
-  },
-  {
-   "uid": "FA-5f18bab5",
-   "date": "2026-09-15",
-   "t": "1:02:25",
-   "t_amal": "1:02:32",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B1",
-   "medi_said": "ma hazakar. Ma id zakar.",
-   "amal_said": "Ma bietzakar.",
-   "wrong": "ما يتذكر",
-   "right": "ما بيتذكر",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:02:15",
-   "listen_to": "1:02:52"
-  },
-  {
-   "uid": "FA-950701c8x",
-   "date": "2026-09-15",
-   "t": "1:02:41",
-   "t_amal": "1:03:03",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A1",
-   "medi_said": "Uh, Asayam? / General names? / I don't know.",
-   "amal_said": "Asma. As it's general, so what do we say? What do we add? / What do we add to names? / Il asma.",
-   "wrong": "Asayam",
-   "right": "الأسماء (el-asmaa2)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:02:31",
-   "listen_to": "1:03:23"
-  },
-  {
-   "uid": "FA-07dc9b6d",
-   "date": "2026-09-16",
-   "t": "04:40",
-   "t_amal": "04:51",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B16",
-   "medi_said": "La-lazim, um, 'amalitha or, uh, ta'alamitha,",
-   "amal_said": "كان لازم أعلمها كل شي.",
-   "wrong": "لازم تعلمتها",
-   "right": "كان لازم أعلمها",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "04:30",
-   "listen_to": "05:11"
-  },
-  {
-   "uid": "FA-12777dcc",
-   "date": "2026-09-16",
-   "t": "13:41",
-   "t_amal": "13:49",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B18",
-   "medi_said": "to behamasu ki--",
-   "amal_said": "No، it's present، بس it's one، not group of things. / شو بيحمسك؟",
-   "wrong": "بيحمسوك",
-   "right": "بيحمسك",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "13:31",
-   "listen_to": "14:09"
-  },
-  {
-   "uid": "FA-f2dfe645",
-   "date": "2026-09-16",
-   "t": "14:10",
-   "t_amal": "14:20",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "behamsini-- behamsni.",
-   "amal_said": "Made. ... Past. He made me excited.",
-   "wrong": "بيحمسني",
-   "right": "حمّسني",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "14:00",
-   "listen_to": "14:40"
-  },
-  {
-   "uid": "FA-22c24942",
-   "date": "2026-09-16",
-   "t": "15:39",
-   "t_amal": "16:03",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B12",
-   "medi_said": "hamasi. ... tetamasi.",
-   "amal_said": "It's the wrong verb. It's get excited, not excite. ... No T, just one T.",
-   "wrong": "حمسي / تتحمسي",
-   "right": "تحمّسي",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "15:29",
-   "listen_to": "16:23"
-  },
-  {
-   "uid": "FA-5966c098",
-   "date": "2026-09-16",
-   "t": "19:26",
-   "t_amal": "19:29",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D1",
-   "medi_said": "Or ala el shara? No, fi el shara.",
-   "amal_said": "street. What's the road? ... Like the way on the road.",
-   "wrong": "fi el shara",
-   "right": "3ala el-taree2",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "19:16",
-   "listen_to": "19:49"
-  },
-  {
-   "uid": "FA-9c726e88",
-   "date": "2026-09-16",
-   "t": "22:00",
-   "t_amal": "22:03",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D4",
-   "medi_said": "hamasi akthar.",
-   "amal_said": "Me. Excite me.",
-   "wrong": "حمسي",
-   "right": "حمسيني",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "21:50",
-   "listen_to": "22:23"
-  },
-  {
-   "uid": "FA-186f5001",
-   "date": "2026-09-16",
-   "t": "22:34",
-   "t_amal": "22:37",
-   "kind": "vocab-A",
-   "tier": 0,
-   "bucket": null,
-   "medi_said": "Do I know how to say too?",
-   "amal_said": "You know how to say extra، which is what we say.",
-   "wrong": "too",
-   "right": "ziaade (زيادة)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "22:24",
-   "listen_to": "22:57"
-  },
-  {
-   "uid": "FA-ad7f6c4a",
-   "date": "2026-09-16",
-   "t": "22:46",
-   "t_amal": "22:48",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C9",
-   "medi_said": "ziyada.",
-   "amal_said": "Let's put it at the after.",
-   "wrong": "هم زيادة ...",
-   "right": "هم تحمسوا زيادة",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "22:36",
-   "listen_to": "23:08"
-  },
-  {
-   "uid": "FA-0572a8d2",
-   "date": "2026-09-16",
-   "t": "23:44",
-   "t_amal": "23:48",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B6",
-   "medi_said": "ana kan ashtagil.",
-   "amal_said": "قُنت.",
-   "wrong": "كان",
-   "right": "كنت",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "23:34",
-   "listen_to": "24:08"
   },
   {
    "uid": "FA-73e2d0f5",
@@ -2080,27 +524,14 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The independent transcriptions hear Medi saying «في الـ AI», not «bi il AI», and there is no separate spoken correction from Amal for this preposition; her chat matches what he appears to have said."
+   },
    "listen_from": "23:40",
    "listen_to": "24:10"
-  },
-  {
-   "uid": "FA-093974f1",
-   "date": "2026-09-16",
-   "t": "24:30",
-   "t_amal": "24:34",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D4",
-   "medi_said": "Afarjinek.",
-   "amal_said": "أفرجيكي.",
-   "wrong": "أفرجينك",
-   "right": "أفرجيكي",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "24:20",
-   "listen_to": "24:54"
   },
   {
    "uid": "FA-03ebd857",
@@ -2120,123 +551,14 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "This is not clearly a signalled correction of Medi’s «مش بقصد» form: Amal appears to be repeating/modeling variants around «مش بالقصد/مش بقصد», then moves on to “who hurt you,” and the chat looks like a model sentence rather than a correction at that moment."
+   },
    "listen_from": "34:09",
    "listen_to": "36:13"
-  },
-  {
-   "uid": "FA-b6a6d43c",
-   "date": "2026-09-16",
-   "t": "35:49",
-   "t_amal": "35:52",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D2",
-   "medi_said": "Uh, تواجاتيني.",
-   "amal_said": "No, by me. Because of me.",
-   "wrong": "تواجعتيني",
-   "right": "تواجعتي مني",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "35:39",
-   "listen_to": "36:12"
-  },
-  {
-   "uid": "FA-c25785bf",
-   "date": "2026-09-16",
-   "t": "38:29",
-   "t_amal": "38:48",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B12",
-   "medi_said": "Ma titwajaiha. ... Ma wajaiha.",
-   "amal_said": "Don't hurt her. ... Very close.",
-   "wrong": "ما تتوجعيها / ما وجعيها",
-   "right": "ما توجعيها",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "38:19",
-   "listen_to": "39:08"
-  },
-  {
-   "uid": "FA-3b330b66",
-   "date": "2026-09-16",
-   "t": "43:38",
-   "t_amal": "43:45",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D4",
-   "medi_said": "bidayai, bidayi. Is it bidayayi or bidayi?",
-   "amal_said": "So what upsets you? So the what is the he, and then upsets you.",
-   "wrong": "بدايقي",
-   "right": "بيضايقك",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "43:28",
-   "listen_to": "44:05"
-  },
-  {
-   "uid": "FA-a8e153c7",
-   "date": "2026-09-16",
-   "t": "45:38",
-   "t_amal": "45:43",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D4",
-   "medi_said": "daya u-- daya u ni. Daya u ni.",
-   "amal_said": "You. Did they upset you?",
-   "wrong": "ضايقوني",
-   "right": "ضايقوكي",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "45:28",
-   "listen_to": "46:03"
-  },
-  {
-   "uid": "FA-8c7f9a21",
-   "date": "2026-09-16",
-   "t": "48:51",
-   "t_amal": "48:54",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "So ili amalti.",
-   "amal_said": "عملت.",
-   "wrong": "عملتي",
-   "right": "عملت(ي)",
-   "why_check": [
-    "reader confidence low",
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "48:41",
-   "listen_to": "49:14"
-  },
-  {
-   "uid": "FA-57f71525",
-   "date": "2026-09-16",
-   "t": "49:24",
-   "t_amal": "49:46",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B12",
-   "medi_said": "it daya?",
-   "amal_said": "كان بيضايق not ت 'cause it makes people upset. It upsets. (later: كان يضايق)",
-   "wrong": "كان اتضايق",
-   "right": "كان يضايق",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "49:14",
-   "listen_to": "50:06"
   },
   {
    "uid": "FA-bc203430",
@@ -2255,86 +577,14 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The independent Medi transcriptions repeatedly show «ما شفتها/ما شفت ها», and Amal's «شفتها» looks like an echo/recast of what he said rather than a clear correction. At most this is a weak dropped-h pronunciation issue, which the instructions exclude."
+   },
    "listen_from": "54:19",
    "listen_to": "54:55"
-  },
-  {
-   "uid": "FA-fa59cfed",
-   "date": "2026-09-16",
-   "t": "56:29",
-   "t_amal": "56:33",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A4",
-   "medi_said": "Uh, haraki halak. [laughs] Uh, there's an or?",
-   "amal_said": "حرك حالك. And or.",
-   "wrong": "haraki halak",
-   "right": "7arrki 7aalek",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "56:19",
-   "listen_to": "56:53"
-  },
-  {
-   "uid": "FA-92d67ddc",
-   "date": "2026-09-16",
-   "t": "57:29",
-   "t_amal": "57:34",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D1",
-   "medi_said": "ala al-yamin.",
-   "amal_said": "La el yameen. ... Bas ana baharrek something la el yameen.",
-   "wrong": "على اليمين",
-   "right": "لليمين",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "57:19",
-   "listen_to": "57:54"
-  },
-  {
-   "uid": "FA-474daca6",
-   "date": "2026-09-16",
-   "t": "1:03:44",
-   "t_amal": "1:03:47",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C10",
-   "medi_said": "Uh, so is it alawain?",
-   "amal_said": "It's لوين. We added to the question to always. ... From to is la.",
-   "wrong": "على وين / وين",
-   "right": "لوين",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:03:34",
-   "listen_to": "1:04:07"
-  },
-  {
-   "uid": "FA-d682605b",
-   "date": "2026-09-16",
-   "t": "1:07:45",
-   "t_amal": "1:07:50",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D4",
-   "medi_said": "nifarijini or nifarj-? It's nifariji, nifariji.",
-   "amal_said": "فرجيهم.",
-   "wrong": "نفرجيني",
-   "right": "نفرجيهم",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:07:35",
-   "listen_to": "1:08:10"
   },
   {
    "uid": "FA-a2432e7e",
@@ -2354,46 +604,14 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The only clear correction is Amal changing «عندهم» to «عنا/عندنا»; there is no spoken correction of «الصباح», and the chat line alone is not enough to prove this was signalled."
+   },
    "listen_from": "02:09",
    "listen_to": "02:56"
-  },
-  {
-   "uid": "FA-d7a858df",
-   "date": "2026-09-17",
-   "t": "04:41",
-   "t_amal": "04:50",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "كافية الزباين، yeah، كافية. كافية ماي.",
-   "amal_said": "مش كتير.",
-   "wrong": "كافية",
-   "right": "مش كتير / خفيف",
-   "why_check": [
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "04:31",
-   "listen_to": "05:10"
-  },
-  {
-   "uid": "FA-3579f0cf",
-   "date": "2026-09-17",
-   "t": "08:42",
-   "t_amal": "08:58",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "E4",
-   "medi_said": "Yeah، سبعتاش.",
-   "amal_said": "It's Thursday first then seventeenth.",
-   "wrong": "سبعتاش",
-   "right": "el-yoam el-5amees, saba3ta3sh ...",
-   "why_check": [
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "08:32",
-   "listen_to": "09:18"
   },
   {
    "uid": "FA-f18f1f72",
@@ -2411,321 +629,14 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi says «نفس الجو اليوم» but immediately self-fixes to «نفس جو اليوم» before Amal's echo, so this is a self-fix rather than a tutor-signalled mistake."
+   },
    "listen_from": "09:30",
    "listen_to": "10:06"
-  },
-  {
-   "uid": "FA-b666db72",
-   "date": "2026-09-17",
-   "t": "19:46",
-   "t_amal": "19:49",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B11",
-   "medi_said": "Is it asfi or asafi?",
-   "amal_said": "تتأسفي.",
-   "wrong": "asfi",
-   "right": "ma tet2assafi",
-   "why_check": [
-    "reader confidence low",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "19:36",
-   "listen_to": "20:09"
-  },
-  {
-   "uid": "FA-e38d2332",
-   "date": "2026-09-17",
-   "t": "29:45",
-   "t_amal": "29:50",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B1",
-   "medi_said": "ma, ma'aruh, uh, ala...",
-   "amal_said": "ما I won't 'cause I won't go or I won't be able to go.",
-   "wrong": "ma'aruh",
-   "right": "ما بقدر أروح (ma ba2dar aru7)",
-   "why_check": [
-    "reader confidence low"
-   ],
-   "check": "audio or human",
-   "listen_from": "29:35",
-   "listen_to": "30:10"
-  },
-  {
-   "uid": "FA-3efb6fd3",
-   "date": "2026-09-17",
-   "t": "37:51",
-   "t_amal": "37:53",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B6",
-   "medi_said": "Oh, that's right, kharabtihom ili.",
-   "amal_said": "كانوا.",
-   "wrong": "ili",
-   "right": "كانوا إلي",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "37:41",
-   "listen_to": "38:13"
-  },
-  {
-   "uid": "FA-9641739c",
-   "date": "2026-09-17",
-   "t": "38:22",
-   "t_amal": "38:26",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D3",
-   "medi_said": "they were mine. So kanuli?",
-   "amal_said": "كانوا إلي. ... No, no, no, no. No, no, no, no.",
-   "wrong": "kanuli",
-   "right": "kaanu ili",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "38:12",
-   "listen_to": "38:46"
-  },
-  {
-   "uid": "FA-dc15e590",
-   "date": "2026-09-17",
-   "t": "38:22",
-   "t_amal": "38:25",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D3",
-   "medi_said": "they were mine. So kanuli?",
-   "amal_said": "كانوا إلي. / No, no, no, no.",
-   "wrong": "كانولي",
-   "right": "كانوا إلي",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "38:12",
-   "listen_to": "38:45"
-  },
-  {
-   "uid": "FA-8ca970c0",
-   "date": "2026-09-17",
-   "t": "43:02",
-   "t_amal": "43:04",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C2",
-   "medi_said": "هو بيخرب. Is it بيخربه أو بيخرب؟",
-   "amal_said": "Mm. Did you use شو or إلي؟",
-   "wrong": "بيخرب",
-   "right": "بيخربه",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "42:52",
-   "listen_to": "43:24"
-  },
-  {
-   "uid": "FA-8a93585f",
-   "date": "2026-09-17",
-   "t": "53:02",
-   "t_amal": "53:35",
-   "kind": "vocab-A",
-   "tier": 2,
-   "bucket": null,
-   "medi_said": "Al-film kan... I thought the adjective is \"makhaf\"? \"Matkhaf\"?",
-   "amal_said": "So it's bakhaf, bakhawaf. Which one? ... We don't have s- adjective for scary. We ha- we have this bakhawaf. Al film kan bakhawaf.",
-   "wrong": "makhaf",
-   "right": "bey5awwef (el-film kaan bey5awwef)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "52:52",
-   "listen_to": "53:55"
-  },
-  {
-   "uid": "FA-234b660a",
-   "date": "2026-09-17",
-   "t": "55:11",
-   "t_amal": "55:17",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "Uh, can \"bidahik.\" \"Bizahik, bizahik.\" Yeah. That's funny.",
-   "amal_said": "Bizahiq. Shu bidahhaq?",
-   "wrong": "bidahik",
-   "right": "beyzahheq",
-   "why_check": [
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "55:01",
-   "listen_to": "55:37"
-  },
-  {
-   "uid": "FA-ef00324ax",
-   "date": "2026-09-17",
-   "t": "59:56",
-   "t_amal": "59:59",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D2",
-   "medi_said": "Yeah, ma tadaitni. Ma ta- ma tadait.",
-   "amal_said": "Ma tdaya' minni.",
-   "wrong": "ma tadaitni",
-   "right": "ma tdaya2 minni",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "59:46",
-   "listen_to": "1:00:19"
-  },
-  {
-   "uid": "FA-2d91b048",
-   "date": "2026-09-17",
-   "t": "1:00:35",
-   "t_amal": "1:00:41",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B12",
-   "medi_said": "ma tadaitini.",
-   "amal_said": "Ma dday'ini or dday'ini.",
-   "wrong": "ما تضايقتيني",
-   "right": "ما تضايقيني",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:00:25",
-   "listen_to": "1:01:01"
-  },
-  {
-   "uid": "FA-e4939487",
-   "date": "2026-09-18",
-   "t": "03:25",
-   "t_amal": "03:43",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A1",
-   "medi_said": "اليوم. آآآ جمعة.",
-   "amal_said": "(chat only)",
-   "wrong": "جمعة",
-   "right": "el-jum3a (الجمعة)",
-   "why_check": [
-    "reader confidence low"
-   ],
-   "check": "audio or human",
-   "listen_from": "03:15",
-   "listen_to": "04:03"
-  },
-  {
-   "uid": "FA-2493098e",
-   "date": "2026-09-18",
-   "t": "03:41",
-   "t_amal": "03:50",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "الساعة تلات ووو آآ ستة وعشرين.",
-   "amal_said": "تنتين.",
-   "wrong": "تلات",
-   "right": "تنتين",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "03:31",
-   "listen_to": "04:10"
-  },
-  {
-   "uid": "FA-0d375e5e",
-   "date": "2026-09-18",
-   "t": "04:02",
-   "t_amal": "04:11",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "تنتين ووو تسعة و تن-- آآعشرين.",
-   "amal_said": "ستة وعشرين.",
-   "wrong": "تسعة و",
-   "right": "ستة وعشرين",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "03:52",
-   "listen_to": "04:31"
-  },
-  {
-   "uid": "FA-696c7b30",
-   "date": "2026-09-18",
-   "t": "05:37",
-   "t_amal": "05:42",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D4",
-   "medi_said": "زهرت تك.",
-   "amal_said": "Him. Him. / زهرته.",
-   "wrong": "زهّقتك",
-   "right": "زهّقته",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "05:27",
-   "listen_to": "06:02"
-  },
-  {
-   "uid": "FA-94fa58c9",
-   "date": "2026-09-18",
-   "t": "10:29",
-   "t_amal": "10:48",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D2",
-   "medi_said": "khuffetilik?",
-   "amal_said": "What do we use for worried? / You got the verb right, but what's the should preposition?",
-   "wrong": "خفت لك",
-   "right": "خفت عليك",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "10:19",
-   "listen_to": "11:08"
-  },
-  {
-   "uid": "FA-e007181a",
-   "date": "2026-09-18",
-   "t": "11:43",
-   "t_amal": "11:51",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B12",
-   "medi_said": "Khawaf. So, uh, khawaf, khawafit, khawafik",
-   "amal_said": "This is I scared you. I got scared of you",
-   "wrong": "خوّفتك",
-   "right": "خفت منك",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "11:33",
-   "listen_to": "12:11"
   },
   {
    "uid": "FA-7c1d629f",
@@ -2743,46 +654,14 @@
     "reader confidence low"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi offered both options, including the correct «عصبتي», and Amal only selected/confirmed that option; this is more an asked choice than a clear wrong form corrected."
+   },
    "listen_from": "12:06",
    "listen_to": "12:38"
-  },
-  {
-   "uid": "FA-d97eb6a7",
-   "date": "2026-09-18",
-   "t": "13:13",
-   "t_amal": "13:17",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D2",
-   "medi_said": "uh, asabulna?",
-   "amal_said": "They got angry at me. / Alay. / Asabu alay.",
-   "wrong": "عصبولنا",
-   "right": "عصبوا عليّ",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "13:03",
-   "listen_to": "13:37"
-  },
-  {
-   "uid": "FA-2aa4acc3",
-   "date": "2026-09-18",
-   "t": "14:56",
-   "t_amal": "15:01",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D2",
-   "medi_said": "zehekti.",
-   "amal_said": "Why don't you think there's a preposition? Of it.",
-   "wrong": "زهقتي",
-   "right": "زهقتي منه",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "14:46",
-   "listen_to": "15:21"
   },
   {
    "uid": "FA-015b4c8e",
@@ -2801,28 +680,14 @@
     "kept from the 09-24 sweep; neither reader pass listed it"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Amal echoed the same non-causative form «ليش زهقتي» rather than correcting it to «زهّقتيه», so the evidence does not show the claimed correction."
+   },
    "listen_from": "15:36",
    "listen_to": "16:09"
-  },
-  {
-   "uid": "FA-e6ef83c1",
-   "date": "2026-09-18",
-   "t": "16:22",
-   "t_amal": "16:23",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B8",
-   "medi_said": "bakun khaf?",
-   "amal_said": "Ana khayef.",
-   "wrong": "bakun khaf",
-   "right": "Ana khayef (ana 5aayef)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "16:12",
-   "listen_to": "16:43"
   },
   {
    "uid": "FA-be86f21b",
@@ -2841,223 +706,14 @@
     "kept from the 09-24 sweep; neither reader pass listed it"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The decisive evidence shows Amal saying essentially «كان يضحك/يدحك», matching a recast of the attempted verb form, not clearly correcting plain «يضحك» to causative «يضحّك»."
+   },
    "listen_from": "19:53",
    "listen_to": "20:31"
-  },
-  {
-   "uid": "FA-2892100b",
-   "date": "2026-09-18",
-   "t": "21:57",
-   "t_amal": "23:22",
-   "kind": "vocab-A",
-   "tier": 0,
-   "bucket": null,
-   "medi_said": "I don't, I don't know the tiring.",
-   "amal_said": "Either here ... Or, or",
-   "wrong": "tiring (unknown)",
-   "right": "mut3eb",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "21:47",
-   "listen_to": "23:42"
-  },
-  {
-   "uid": "FA-7d3bb460",
-   "date": "2026-09-18",
-   "t": "27:41",
-   "t_amal": "27:41",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D4",
-   "medi_said": "(Medi's Arabic not transcribed)",
-   "amal_said": "Me. Made me tired. / That's right. It's feminine.",
-   "wrong": "(object missing)",
-   "right": "تعّبتني",
-   "why_check": [
-    "reader confidence low",
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "27:31",
-   "listen_to": "28:01"
-  },
-  {
-   "uid": "FA-99e6bbe3",
-   "date": "2026-09-18",
-   "t": "29:08",
-   "t_amal": "29:24",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B18",
-   "medi_said": "be as, be as.",
-   "amal_said": "Try again. / They make me bored.",
-   "wrong": "(singular verb, garbled)",
-   "right": "بيزهقوني",
-   "why_check": [
-    "reader confidence low",
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "28:58",
-   "listen_to": "29:44"
-  },
-  {
-   "uid": "FA-4b596b91",
-   "date": "2026-09-18",
-   "t": "29:09",
-   "t_amal": "29:18",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B18",
-   "medi_said": "be as, be as.",
-   "amal_said": "Try again. ... They make me bored.",
-   "wrong": "be as",
-   "right": "beyzah2uni",
-   "why_check": [
-    "reader confidence low"
-   ],
-   "check": "audio or human",
-   "listen_from": "28:59",
-   "listen_to": "29:38"
-  },
-  {
-   "uid": "FA-d4e9b790",
-   "date": "2026-09-18",
-   "t": "30:12",
-   "t_amal": "30:31",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B12",
-   "medi_said": "They upset me. ... Upset me.",
-   "amal_said": "But I want the other one.",
-   "wrong": "Upset me",
-   "right": "ahli za33aluni",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "30:02",
-   "listen_to": "30:51"
-  },
-  {
-   "uid": "FA-8fe83e7e",
-   "date": "2026-09-18",
-   "t": "37:19",
-   "t_amal": "37:21",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D4",
-   "medi_said": "inti bit'asib bi",
-   "amal_said": "Me.",
-   "wrong": "بتعصبي",
-   "right": "بتعصبيني",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "37:09",
-   "listen_to": "37:41"
-  },
-  {
-   "uid": "FA-d75dee86",
-   "date": "2026-09-18",
-   "t": "40:07",
-   "t_amal": "40:11",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D6",
-   "medi_said": "Uh, ‹haket illi›.",
-   "amal_said": "Mm-hmm. We'll refer back to it.",
-   "wrong": "haket illi",
-   "right": "Haket illi iya (7akaitili iyyah)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "39:57",
-   "listen_to": "40:31"
-  },
-  {
-   "uid": "FA-6abf9688",
-   "date": "2026-09-18",
-   "t": "43:32",
-   "t_amal": "43:34",
-   "kind": "vocab-A",
-   "tier": 2,
-   "bucket": null,
-   "medi_said": "Mudira.",
-   "amal_said": "Mudir. Shu, company's manager.",
-   "wrong": "Mudira",
-   "right": "Mudir (mudeer)",
-   "why_check": [
-    "reader confidence low"
-   ],
-   "check": "audio or human",
-   "listen_from": "43:22",
-   "listen_to": "43:54"
-  },
-  {
-   "uid": "FA-5fb68cc1",
-   "date": "2026-09-18",
-   "t": "44:08",
-   "t_amal": "44:13",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C4b",
-   "medi_said": "daiman ma biasab mina.",
-   "amal_said": "No, why ma?",
-   "wrong": "دايمًا ما بيعصب",
-   "right": "دايمًا بيعصب",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "43:58",
-   "listen_to": "44:33"
-  },
-  {
-   "uid": "FA-3df1365b",
-   "date": "2026-09-18",
-   "t": "44:18",
-   "t_amal": "44:28",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D2",
-   "medi_said": "Daiman biasab mina.",
-   "amal_said": "At us.",
-   "wrong": "بيعصب منا",
-   "right": "بيعصب علينا",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "44:08",
-   "listen_to": "44:48"
-  },
-  {
-   "uid": "FA-38fda431",
-   "date": "2026-09-18",
-   "t": "45:57",
-   "t_amal": "46:00",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C7",
-   "medi_said": "shu huwa-",
-   "amal_said": "Let's use ili better, 'cause shu would sound like a question",
-   "wrong": "شو",
-   "right": "اللي",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "45:47",
-   "listen_to": "46:20"
   },
   {
    "uid": "FA-4d8580f0",
@@ -3076,66 +732,14 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "unsure",
+    "reason": "Medi clearly says «سوى/سوا», and Amal says “It's longer,” but the independent transcriptions do not clearly show she supplied final «ـه» rather than just correcting the length/doubling of «سوّا». The chat has «illi sawwaah», but the audible correction itself is ambiguous."
+   },
    "listen_from": "46:03",
    "listen_to": "46:45"
-  },
-  {
-   "uid": "FA-a13502c6",
-   "date": "2026-09-18",
-   "t": "51:10",
-   "t_amal": "51:44",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B11",
-   "medi_said": "Ma tazahoni?",
-   "amal_said": "You said it right, command, but ... You guys don't bore me. / Ni. ... first for you to just command for a group. / Ma zahni.",
-   "wrong": "ما تزهقوني",
-   "right": "ما تزهقني",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "51:00",
-   "listen_to": "52:04"
-  },
-  {
-   "uid": "FA-ba61f95b",
-   "date": "2026-09-18",
-   "t": "52:30",
-   "t_amal": "52:40",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D2",
-   "medi_said": "id hakni. Id ha- Id hakini.",
-   "amal_said": "Id haki at me. / Ili. Id hakili.",
-   "wrong": "اضحكيني",
-   "right": "اضحكيلي",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "52:20",
-   "listen_to": "53:00"
-  },
-  {
-   "uid": "FA-2d1a4cb5",
-   "date": "2026-09-19",
-   "t": "22:58",
-   "t_amal": "23:03",
-   "kind": "vocab-A",
-   "tier": 0,
-   "bucket": null,
-   "medi_said": "he will not be bored of you. Is that...",
-   "amal_said": "ما راح يكون زهقان منك. He will not be bored of you.",
-   "wrong": "he will not be bored of you",
-   "right": "ما راح يكون زهقان منك (ma ra7 ykoon zah2aan minnak)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "22:48",
-   "listen_to": "23:23"
   },
   {
    "uid": "FA-b47cedad",
@@ -3155,6 +759,12 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The evidence does not show Amal correcting the year; she simply continues with “أول يوم في فصل الخريف,” and the independent transcriptions disagree or are garbled around the date. The later chat line is a full model sentence, not a clear signal that she corrected Medi’s year."
+   },
    "listen_from": "06:37",
    "listen_to": "07:24"
   },
@@ -3175,49 +785,14 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Amal did not signal a missing possessive ending; she only echoed/confirmed “نص كم.” The later chat sentence with “bluzti” is not enough to prove a correction, and one independent transcript even has Medi starting with “بلوزت؟”."
+   },
    "listen_from": "08:40",
    "listen_to": "10:46"
-  },
-  {
-   "uid": "FA-325cf9c6",
-   "date": "2026-09-21",
-   "t": "09:45",
-   "t_amal": "09:57",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D3",
-   "medi_said": "تلاتين أيام ... نحتاج، um, jacket. ... We only have thirty days that we need a jacket that it's cold.",
-   "amal_said": "آه، يعني نحتاج الـ jacket إندم [فيهم]. ... on them، on them، بس يعني إندم in Arabic.",
-   "wrong": "نحتاج jacket",
-   "right": "نحتاجهم فيهم",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "09:35",
-   "listen_to": "10:17"
-  },
-  {
-   "uid": "FA-efa0a7b7",
-   "date": "2026-09-21",
-   "t": "11:39",
-   "t_amal": "12:37",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C5",
-   "medi_said": "مرات وأسبوع، ... أسبوع شغل ومرات وأسبوع، بارد في الـ صيف",
-   "amal_said": null,
-   "wrong": "مرات وأسبوع",
-   "right": "مرات أسبوع (marraat usboo3)",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "11:29",
-   "listen_to": "12:57"
   },
   {
    "uid": "FA-133db45a",
@@ -3235,168 +810,14 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The independent transcriptions hear Medi saying «شوب», not «شغل», and Amal does not correct that word orally. Her chat matches what he was trying to say."
+   },
    "listen_from": "11:36",
    "listen_to": "12:57"
-  },
-  {
-   "uid": "FA-42d4492b",
-   "date": "2026-09-21",
-   "t": "12:56",
-   "t_amal": "13:00",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A2",
-   "medi_said": "أكلت الـ pizza دول آآآ الـ آخر الأسبوع.",
-   "amal_said": "The pizza that remained. That remained from أخر الأسبوع.",
-   "wrong": "الـ آخر الأسبوع",
-   "right": "من آخر الأسبوع",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "12:46",
-   "listen_to": "13:20"
-  },
-  {
-   "uid": "FA-edaf838b",
-   "date": "2026-09-21",
-   "t": "14:46",
-   "t_amal": "14:50",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B18",
-   "medi_said": "الـ pizza اللي دلوا ... آآآ، آآآ دل، دل.",
-   "amal_said": "One piece. Pizza is one. ... Pizza is woman. It's a, it's a, it's a feminine.",
-   "wrong": "دل",
-   "right": "دلت",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "14:36",
-   "listen_to": "15:10"
-  },
-  {
-   "uid": "FA-e9ff4253",
-   "date": "2026-09-21",
-   "t": "19:26",
-   "t_amal": "19:24",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B1",
-   "medi_said": "ما حا-حكينا كتير مع--",
-   "amal_said": "آه. بنحكي.",
-   "wrong": "حكينا",
-   "right": "بنحكي",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "19:16",
-   "listen_to": "19:44"
-  },
-  {
-   "uid": "FA-ed8509a3",
-   "date": "2026-09-21",
-   "t": "23:14",
-   "t_amal": "23:27",
-   "kind": "vocab-A",
-   "tier": 0,
-   "bucket": null,
-   "medi_said": "oh my gosh. What was price?",
-   "amal_said": "It's the same meaning as right. ... No. Right like my right is to learn.",
-   "wrong": "price",
-   "right": "حق",
-   "why_check": [
-    "reader confidence low",
-    "added by the third reader alone",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "23:04",
-   "listen_to": "23:47"
-  },
-  {
-   "uid": "FA-5aa8d5d4",
-   "date": "2026-09-21",
-   "t": "23:59",
-   "t_amal": "24:01",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A4",
-   "medi_said": "أديش حقو؟",
-   "amal_said": "قديش حقها. Cuz it's coffee.",
-   "wrong": "حقو",
-   "right": "حقها",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "23:49",
-   "listen_to": "24:21"
-  },
-  {
-   "uid": "FA-d241312f",
-   "date": "2026-09-21",
-   "t": "32:35",
-   "t_amal": "32:41",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A8",
-   "medi_said": "Hamet, uh, hamha mura oo hamida.",
-   "amal_said": "خلص إنت هلأ you're now describing the taste so it's more.",
-   "wrong": "مرّة، حامضة",
-   "right": "مرّ، حامض",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "32:25",
-   "listen_to": "33:01"
-  },
-  {
-   "uid": "FA-f81324fa",
-   "date": "2026-09-21",
-   "t": "41:21",
-   "t_amal": "41:23",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C2",
-   "medi_said": "bitgassel il-roz.",
-   "amal_said": "أو بتغسله يعني.",
-   "wrong": "bitgassel il-roz",
-   "right": "بتغسله",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "41:11",
-   "listen_to": "41:43"
-  },
-  {
-   "uid": "FA-a47ebc9d",
-   "date": "2026-09-21",
-   "t": "43:03",
-   "t_amal": "43:04",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B1",
-   "medi_said": "أساهم.",
-   "amal_said": "مم، بستعمل.",
-   "wrong": "أساهم",
-   "right": "بستعمل",
-   "why_check": [
-    "reader confidence low",
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "42:53",
-   "listen_to": "43:24"
   },
   {
    "uid": "FA-db41adc6",
@@ -3414,6 +835,12 @@
     "reader confidence low"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The decisive evidence does not show that Medi said English “twenty”; one independent transcription has «لعشرين دقائق», and digit transcriptions are ambiguous. Amal’s «عشرين» could be an echo/supply, not proof of an English-word error."
+   },
    "listen_from": "44:23",
    "listen_to": "44:55"
   },
@@ -3435,6 +862,12 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Amal does not correct this at the time; she only acknowledges with «أها/mm-hmm», and the later chat wording is not an immediate correction signal. This is at most a phrasing issue she accepted aloud."
+   },
    "listen_from": "47:04",
    "listen_to": "53:08"
   },
@@ -3456,28 +889,14 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The evidence does not show Amal correcting «أعمل» to «بستعمل» there; the independent audio is split between «بستعمل» and «بس عامل», and Amal's immediate help is about 'other end/side', not the verb."
+   },
    "listen_from": "47:33",
    "listen_to": "49:09"
-  },
-  {
-   "uid": "FA-63894484",
-   "date": "2026-09-21",
-   "t": "49:27",
-   "t_amal": "52:48",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A2",
-   "medi_said": "al aks, al aks al maghrafah uu fahut holes fi al roz.",
-   "amal_said": "أها.",
-   "wrong": "al aks al maghrafah",
-   "right": "3aks el-ma8rafe / عكس المغرفة",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "49:17",
-   "listen_to": "53:08"
   },
   {
    "uid": "FA-24d9f1db",
@@ -3497,48 +916,14 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi did say «في درجة...», but Amal did not signal the preposition as wrong; she supplied «درجة حرارة» and then corrected/completed the adjective as «واطية». The later chat uses «bidarjet», but the audible correction is not about «في»."
+   },
    "listen_from": "50:19",
    "listen_to": "53:08"
-  },
-  {
-   "uid": "FA-43ffb97d",
-   "date": "2026-09-21",
-   "t": "51:12",
-   "t_amal": "51:12",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A8",
-   "medi_said": "hadi nar? ... Nar hadi? Hadir, okay.",
-   "amal_said": "نار ... هادية.",
-   "wrong": "Nar hadi",
-   "right": "نار هادية",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "51:02",
-   "listen_to": "51:32"
-  },
-  {
-   "uid": "FA-3ddceb3a",
-   "date": "2026-09-21",
-   "t": "52:40",
-   "t_amal": "52:45",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A2",
-   "medi_said": "ihna al-Iraniyin ma'rufin al tahet bi tahet al roz,",
-   "amal_said": "بي-- الرز من تحت. [تضحك] أها. تحت الرز meaning the thing that is below the rice.",
-   "wrong": "tahet bi tahet al roz",
-   "right": "الرز من تحت",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "52:30",
-   "listen_to": "53:05"
   },
   {
    "uid": "FA-9b0781cc",
@@ -3556,48 +941,14 @@
     "kept from the 09-24 sweep; neither reader pass listed it"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "This is mainly the same correction from the prior exchange continuing; Amal's «الرز من تحت» is a recast of the whole phrase/order, not clear evidence that she was correcting only the missing «الـ»."
+   },
    "listen_from": "53:01",
    "listen_to": "53:34"
-  },
-  {
-   "uid": "FA-1b5baeed",
-   "date": "2026-09-21",
-   "t": "57:57",
-   "t_amal": "58:00",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "Sa, uh, sa? Sa min, sa minik?",
-   "amal_said": "حق. معك حق.",
-   "wrong": "sa minik",
-   "right": "معك حق",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "57:47",
-   "listen_to": "58:20"
-  },
-  {
-   "uid": "FA-556b5cf0",
-   "date": "2026-09-21",
-   "t": "1:00:41",
-   "t_amal": "1:00:43",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A2",
-   "medi_said": "il ta'am il samak bihr.",
-   "amal_said": "لا، بس one L. Where do I put the L؟ It's just one.",
-   "wrong": "الطعم السمك",
-   "right": "طعم السمك",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:00:31",
-   "listen_to": "1:01:03"
   },
   {
    "uid": "FA-9e139e6d",
@@ -3616,183 +967,14 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "There is no clear correction of «أنكم/عندكم أكل» here; Amal accepts with «صح», and the later «ما عندكم» responds to his separate «مش عندك إيراني»."
+   },
    "listen_from": "1:04:07",
    "listen_to": "1:07:52"
-  },
-  {
-   "uid": "FA-5de31110x",
-   "date": "2026-09-21",
-   "t": "1:06:01",
-   "t_amal": "1:06:06",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A9",
-   "medi_said": "Okay. أحسن م-مطعم الإيراني،",
-   "amal_said": "Restaurants.",
-   "wrong": "مطعم الإيراني",
-   "right": "مطاعم إيرانيين",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:05:51",
-   "listen_to": "1:06:26"
-  },
-  {
-   "uid": "FA-e8cbd7d9",
-   "date": "2026-09-21",
-   "t": "1:09:18",
-   "t_amal": "1:09:28",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B17",
-   "medi_said": "I've been told sarlik, no? ... Is it sarli?",
-   "amal_said": "بس you can say some people told me. Or there are people that told me.",
-   "wrong": "sarli",
-   "right": "في ناس حكولي",
-   "why_check": [
-    "reader confidence low"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:09:08",
-   "listen_to": "1:09:48"
-  },
-  {
-   "uid": "FA-2e9daa0d",
-   "date": "2026-09-21",
-   "t": "1:09:38",
-   "t_amal": "1:09:40",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C7",
-   "medi_said": "bas fee hada ili, no na ili. Fee hada,",
-   "amal_said": "No.",
-   "wrong": "fee hada ili",
-   "right": "fee hada 7akali",
-   "why_check": [
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:09:28",
-   "listen_to": "1:10:00"
-  },
-  {
-   "uid": "FA-ea9cb60b",
-   "date": "2026-09-21",
-   "t": "1:11:15",
-   "t_amal": "1:11:17",
-   "kind": "vocab-A",
-   "tier": 2,
-   "bucket": null,
-   "medi_said": "Uh, min ikhak?",
-   "amal_said": "معك حق. [تضحك]",
-   "wrong": "min ikhak",
-   "right": "معك حق",
-   "why_check": [
-    "reader confidence low"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:11:05",
-   "listen_to": "1:11:37"
-  },
-  {
-   "uid": "FA-74c66084",
-   "date": "2026-09-23",
-   "t": "23:56",
-   "t_amal": "24:00",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B12",
-   "medi_said": "أمم شووو بتسأل، آآآ بتتسأليني؟",
-   "amal_said": "شو بتسأليني؟",
-   "wrong": "بتتسأليني",
-   "right": "بتسأليني",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "23:46",
-   "listen_to": "24:20"
-  },
-  {
-   "uid": "FA-f5fab9c2",
-   "date": "2026-09-23",
-   "t": "29:48",
-   "t_amal": "29:46",
-   "kind": "vocab-A",
-   "tier": 3,
-   "bucket": null,
-   "medi_said": "أكتب بعدين. I don't know. ... [line with 'paper' in the 29:39-29:46 gap] ... وا ... ورقة.",
-   "amal_said": "ليش؟ ... شو يعني paper؟ ... One paper.",
-   "wrong": "paper",
-   "right": "ورقة",
-   "why_check": [
-    "reader confidence low"
-   ],
-   "check": "audio or human",
-   "listen_from": "29:38",
-   "listen_to": "30:06"
-  },
-  {
-   "uid": "FA-09583fce",
-   "date": "2026-09-23",
-   "t": "32:03",
-   "t_amal": "32:05",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B1",
-   "medi_said": "آآآ أنااا ... أحدا مااا",
-   "amal_said": "بدفع and مش مع. Which one؟",
-   "wrong": "أحدا مااا",
-   "right": "بدفع",
-   "why_check": [
-    "reader confidence low",
-    "the transcript under it is disputed (engine wrote something else)"
-   ],
-   "check": "audio",
-   "listen_from": "31:53",
-   "listen_to": "32:25"
-  },
-  {
-   "uid": "FA-e4a25582",
-   "date": "2026-09-23",
-   "t": "32:03",
-   "t_amal": "32:05",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D2",
-   "medi_said": "أحدا مااا ... بدفع. ... أنا بدفع بييي، آآآ مصاري.",
-   "amal_said": "بدفع and مش مع. Which one؟",
-   "wrong": "مع",
-   "right": "بـ (بدفع بـ...)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "31:53",
-   "listen_to": "32:25"
-  },
-  {
-   "uid": "FA-94a3ae16",
-   "date": "2026-09-23",
-   "t": "36:49",
-   "t_amal": "36:53",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A7",
-   "medi_said": "الأكل الأمريكي.",
-   "amal_said": "الأمريكي. ... The American food. الأكل الأمريكي.",
-   "wrong": "(الأكل) أمريكي",
-   "right": "الأكل الأمريكي",
-   "why_check": [
-    "reader confidence low",
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "listen_from": "36:39",
-   "listen_to": "37:13"
   },
   {
    "uid": "FA-84c23552",
@@ -3812,85 +994,14 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi's own-track and mixed transcriptions mostly show a full form like «التسكرة/التذكرة», and Amal's «قبل كم يوم من السفرة بتحجز التذكرة؟» is a normal follow-up question, not a clear correction. The later chat «tazkara» looks like vocabulary support rather than a signalled fix of this line."
+   },
    "listen_from": "41:39",
    "listen_to": "42:38"
-  },
-  {
-   "uid": "FA-bb61d656",
-   "date": "2026-09-23",
-   "t": "52:50",
-   "t_amal": "55:13",
-   "kind": "vocab-A",
-   "tier": 2,
-   "bucket": null,
-   "medi_said": "Uh, مش لازم تذكر أنا. إحنا راح، ... إحنا راح نسوق.",
-   "amal_said": null,
-   "wrong": "تذكر",
-   "right": "تذكرة",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "listen_from": "52:40",
-   "listen_to": "55:33"
-  },
-  {
-   "uid": "FA-01b89352",
-   "date": "2026-09-26",
-   "t": "25:31",
-   "t_amal": "25:36",
-   "kind": "vocab-A",
-   "tier": 0,
-   "bucket": null,
-   "medi_said": "The sne. ... Doctor of sne. ... Stan, stan, stan.",
-   "amal_said": "دكتور الـ... أسنان.",
-   "wrong": "stan",
-   "right": "أسنان",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "listen_from": "25:21",
-   "listen_to": "25:56"
-  },
-  {
-   "uid": "FA-07633f9d",
-   "date": "2026-09-26",
-   "t": "29:46",
-   "t_amal": "30:11",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D4",
-   "medi_said": "And uh, waj, uh, waj, uh, rasi. ... sa-rasi biwaj, biwajani.",
-   "amal_said": "So my head hurts. ... My head hurts me.",
-   "wrong": "waj, uh, rasi",
-   "right": "راسي بيوجعني",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "listen_from": "29:36",
-   "listen_to": "30:31"
-  },
-  {
-   "uid": "FA-e0d19560",
-   "date": "2026-09-26",
-   "t": "31:53",
-   "t_amal": "31:59",
-   "kind": "vocab-A",
-   "tier": 2,
-   "bucket": null,
-   "medi_said": "راسي دبا, uh, يوجع",
-   "amal_said": "بدأ.",
-   "wrong": "دبا",
-   "right": "بدا",
-   "why_check": [
-    "the transcript under it is disputed (engine wrote something else)"
-   ],
-   "check": "audio",
-   "listen_from": "31:43",
-   "listen_to": "32:19"
   },
   {
    "uid": "FA-824f3ab7",
@@ -3908,46 +1019,14 @@
     "reader confidence low"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "This looks like a pronunciation/root-letter issue around «وقف» with a dropped or weakened ق, which the instructions say not to count as an error. The mixed transcription even hears «ما وقف» while Amal simply supplies/echoes «وقف»."
+   },
    "listen_from": "34:14",
    "listen_to": "34:48"
-  },
-  {
-   "uid": "FA-eea3da3e",
-   "date": "2026-09-26",
-   "t": "45:31",
-   "t_amal": "45:38",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "um, husfa aw asabiya.",
-   "amal_said": "is weeks. Mhm.",
-   "wrong": "asabiya",
-   "right": "أصابع",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "listen_from": "45:21",
-   "listen_to": "45:58"
-  },
-  {
-   "uid": "FA-aed03c88",
-   "date": "2026-09-26",
-   "t": "1:00:11",
-   "t_amal": "1:00:06",
-   "kind": "vocab-A",
-   "tier": 0,
-   "bucket": null,
-   "medi_said": "أنا شمس... One, one more time.",
-   "amal_said": "أنا الشمس بتضايقني. ... بتضايقني.",
-   "wrong": "irritates me",
-   "right": "بتضايقني",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:00:01",
-   "listen_to": "1:00:26"
   },
   {
    "uid": "FA-2a899ac2",
@@ -3966,236 +1045,14 @@
     "decided by the third reader alone, in one pass only"
    ],
    "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "There is a recast to «كلسات», but Medi's form is mostly a shaky pronunciation/recall of the same target word, not a clear different vocabulary item. The evidence shows «كسلات/حلسات» rather than a stable «خصلات» meaning locks of hair."
+   },
    "listen_from": "1:07:38",
    "listen_to": "1:08:09"
-  },
-  {
-   "uid": "FA-84878243",
-   "date": "2026-09-26",
-   "t": "1:09:03",
-   "t_amal": "1:09:07",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "حكينا الكل or الـ كل-كلأن، كليا-كليان.",
-   "amal_said": "كل– عن كل شي. ... عن كل شي.",
-   "wrong": "الكل",
-   "right": "كل شي",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:08:53",
-   "listen_to": "1:09:27"
-  },
-  {
-   "uid": "FA-24b68dea",
-   "date": "2026-09-28",
-   "t": "22:45",
-   "t_amal": "22:49",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "من الأرض على to,",
-   "amal_said": "لا.",
-   "wrong": "على",
-   "right": "فوق",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "listen_from": "22:35",
-   "listen_to": "23:09"
-  },
-  {
-   "uid": "FA-717d690e",
-   "date": "2026-09-28",
-   "t": "29:14",
-   "t_amal": "29:24",
-   "kind": "vocab-A",
-   "tier": 2,
-   "bucket": null,
-   "medi_said": "أخوي آآ مح-- أخوي محمد، or محمد؟",
-   "amal_said": "محامي. It's long and it's not doubled.",
-   "wrong": "محمد",
-   "right": "محامي",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "listen_from": "29:04",
-   "listen_to": "29:44"
-  },
-  {
-   "uid": "FA-0da26e28",
-   "date": "2026-09-28",
-   "t": "31:00",
-   "t_amal": "31:03",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A8",
-   "medi_said": "Okay مهندس واحدة،",
-   "amal_said": "واحد.",
-   "wrong": "واحدة",
-   "right": "واحد",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "listen_from": "30:50",
-   "listen_to": "31:23"
-  },
-  {
-   "uid": "FA-a00b7812",
-   "date": "2026-09-28",
-   "t": "32:18",
-   "t_amal": "32:30",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A8",
-   "medi_said": "آخر واحدة. آخر الواحدة.",
-   "amal_said": "Actually we never put ل. آخر واحد.",
-   "wrong": "آخر واحدة",
-   "right": "آخر واحد",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "listen_from": "32:08",
-   "listen_to": "32:50"
-  },
-  {
-   "uid": "FA-da0cd012",
-   "date": "2026-09-28",
-   "t": "35:00",
-   "t_amal": "35:08",
-   "kind": "vocab-A",
-   "tier": 2,
-   "bucket": null,
-   "medi_said": "عالمة، okay. So is it مـعـالمة؟ ... There's no M?",
-   "amal_said": "عالمة. ... No.",
-   "wrong": "مـعـالمة",
-   "right": "عالمة",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "listen_from": "34:50",
-   "listen_to": "35:28"
-  },
-  {
-   "uid": "FA-9c92be40",
-   "date": "2026-09-28",
-   "t": "40:06",
-   "t_amal": "40:10",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "E1",
-   "medi_said": "ابن أمي، أم، أم مو، أم.",
-   "amal_said": "No. What's we don't say ابن. No. We make it plural for ولد. ... We say ولاد عم.",
-   "wrong": "ابن",
-   "right": "ولاد عم",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "listen_from": "39:56",
-   "listen_to": "40:30"
-  },
-  {
-   "uid": "FA-4d340644",
-   "date": "2026-09-28",
-   "t": "50:38",
-   "t_amal": "50:40",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A9",
-   "medi_said": "Is it أفحد؟",
-   "amal_said": "أحفاد is plural. What's one?",
-   "wrong": "أفحد",
-   "right": "حفيد",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "listen_from": "50:28",
-   "listen_to": "51:00"
-  },
-  {
-   "uid": "FA-20bc206f",
-   "date": "2026-09-28",
-   "t": "54:08",
-   "t_amal": "54:15",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "بين عشرين و، وو آآآ سبعطاش،",
-   "amal_said": "ليش سبعطعش؟ بين عشرين وتلاتين ممكن.",
-   "wrong": "سبعطاش",
-   "right": "تلاتين",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "listen_from": "53:58",
-   "listen_to": "54:35"
-  },
-  {
-   "uid": "FA-d76cb160",
-   "date": "2026-09-28",
-   "t": "54:49",
-   "t_amal": "54:53",
-   "kind": "vocab-A",
-   "tier": 0,
-   "bucket": null,
-   "medi_said": "Is it أس-- أس-- is it أسبية or no? ... What is it just for my curiosity?",
-   "amal_said": "صبايا.",
-   "wrong": "أسبية",
-   "right": "صبايا",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "listen_from": "54:39",
-   "listen_to": "55:13"
-  },
-  {
-   "uid": "FA-efb76c4d",
-   "date": "2026-09-28",
-   "t": "1:02:50",
-   "t_amal": "1:02:54",
-   "kind": "vocab-A",
-   "tier": 2,
-   "bucket": null,
-   "medi_said": "آآآ، كوفا-كوفار، كوفار.",
-   "amal_said": "مـم. وفير.",
-   "wrong": "كوفار",
-   "right": "كوافير",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:02:40",
-   "listen_to": "1:03:14"
-  },
-  {
-   "uid": "FA-b6a6cbad",
-   "date": "2026-09-28",
-   "t": "1:04:25",
-   "t_amal": "1:04:26",
-   "kind": "vocab-A",
-   "tier": 2,
-   "bucket": null,
-   "medi_said": "جيرار.",
-   "amal_said": "جيران.",
-   "wrong": "جيرار",
-   "right": "جيران",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "listen_from": "1:04:15",
-   "listen_to": "1:04:46"
   }
  ]
 }

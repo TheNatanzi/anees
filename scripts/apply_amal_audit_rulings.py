@@ -10,8 +10,8 @@ Her taps land in amal_rules (source 'review'): kind 'audit_confirm' (the correct
   vocab-A / grammar-A with signal 'amal-ruling' (scored: clip, underline, % - same as her voice). Pages are rebuilt.
 - audit_skip    -> the rows are marked dropped (kind 'dropped-by-amal', her reason kept) AND her reason becomes a
   rule in docs/data/ai_rules.json (kind 'amal-ruling') so the same pattern is never asked again.
-Idempotent: a ruling is applied once (payload.applied stamped on the amal_rules row through the service key) and the
-audit JSON carries the ruling on every row it touched; re-running changes nothing.
+Idempotent: a ruling is applied once - its id is listed in the audit JSON's rulings_applied (nothing is written back to
+Supabase any more, 2026-09-29); the audit JSON carries the ruling on every row it touched; re-running changes nothing.
 """
 import datetime, json, os, subprocess, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
@@ -31,6 +31,44 @@ def load_rulings():
     return rows
 
 
+LEDGER = os.path.join(REPO, "data", "accuracy", "verifications.json")
+
+
+def verify_records(rulings, audit_rows, ledger):
+    """Her answers on the Tutor page's "check these moments" list (word_key 'verify:<uid>', Medi's decision 5, 2026-09-29)
+    -> new human records for the verification ledger. 'Correction is correct' = confirmed (the row is scored);
+    'Reason not to correct' = rejected (dropped from every total, her reason kept). One record per tap (rule id), so
+    re-running adds nothing and a later tap on the same row supersedes the earlier one."""
+    have = {r.get("rule_id") for r in ledger.get("records", []) if r.get("rule_id") is not None}
+    out = []
+    for ru in rulings:
+        wk = str(ru.get("word_key") or "")
+        if not wk.startswith("verify:") or ru.get("kind") not in ("audit_confirm", "audit_skip") or ru.get("id") in have:
+            continue
+        uid = wk.split(":", 1)[1]
+        row = audit_rows.get(uid) or {}
+        p = ru.get("payload") or {}
+        t = _sec(row.get("t")) if _sec(row.get("t")) is not None else _sec(row.get("t_amal"))
+        ta = _sec(row.get("t_amal")) if _sec(row.get("t_amal")) is not None else t
+        out.append({"uid": uid, "date": row.get("date") or p.get("date"), "kind": row.get("kind"), "method": "human", "role": "human",
+                    "method_detail": "Amal on the Tutor page (listened to the moment; the two AIs had disagreed)",
+                    "reviewer": "Amal", "verdict": "confirmed" if ru["kind"] == "audit_confirm" else "rejected", "confidence": "high",
+                    "reason": p.get("reason") or ("Correction is correct" if ru["kind"] == "audit_confirm" else None),
+                    "evidence": {"t_start": max(0.0, (t or 0) - 10), "t_end": (ta or t or 0) + 20,
+                                 "quote": p.get("reason") or "Correction is correct"},
+                    "at": ru.get("created_at"), "rule_id": ru.get("id"), "source": "amal_rules review (Tutor page)"})
+    return out
+
+
+def _sec(s):
+    if s in (None, ""):
+        return None
+    try:
+        return float(sum(float(x) * 60 ** i for i, x in enumerate(reversed(str(s).split(":")))))
+    except ValueError:
+        return None
+
+
 def apply(dry=False):
     A = json.load(open(AUDIT, encoding="utf-8"))
     rows = {r["uid"]: r for r in A["rows"]}
@@ -42,11 +80,21 @@ def apply(dry=False):
         R["groups"].append(grp)
     known = {x.get("pattern") for x in grp["rules"]}
     rulings = load_rulings()
+    # which taps are already applied is kept HERE (the audit JSON), not written back into her Supabase rows
+    # (plan/AI-ENGINEERING-REVIEW-2026-09-27.md: stop PATCHing payload.applied). Old rows may still carry payload.applied.
+    done_ids = {i for x in A.get("rulings_applied") or [] for i in x.get("rules") or []}
     changed, flipped, dropped, new_rules = [], 0, 0, 0
     now = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    # Tutor-page checks of single rows go to the verification ledger, not to the pattern logic below
+    L = json.load(open(LEDGER, encoding="utf-8")) if os.path.exists(LEDGER) else {"records": []}
+    vrec = verify_records(rulings, rows, L)
     for ru in rulings:
         p = ru.get("payload") or {}
-        if p.get("applied"):
+        if str(ru.get("word_key") or "").startswith("verify:"):
+            if not p.get("applied") and any(v["rule_id"] == ru.get("id") for v in vrec):
+                changed.append(ru["id"])
+            continue
+        if p.get("applied") or ru.get("id") in done_ids:
             continue
         uids = p.get("rows") or []
         pid = ru.get("word_key")
@@ -92,19 +140,20 @@ def apply(dry=False):
                 known.add(pid)
                 new_rules += 1
         changed.append(ru["id"])
-    print(f"rulings {len(rulings)} new {len(changed)} | rows scored {flipped} dropped {dropped} | new rules {new_rules}")
+    print(f"rulings {len(rulings)} new {len(changed)} | rows scored {flipped} dropped {dropped} | new rules {new_rules} | "
+          f"Tutor-page checks {len(vrec)} ({sum(v['verdict'] == 'confirmed' for v in vrec)} confirmed)")
     if dry or not changed:
         return
+    if vrec:
+        L.setdefault("records", []).extend(vrec)
+        json.dump(L, open(LEDGER, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     A["rulings_applied"] = (A.get("rulings_applied") or []) + [{"at": now, "rules": changed}]
     json.dump(A, open(AUDIT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     json.dump(R, open(RULES, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    import db
-    for rid in changed:
-        ru = next(x for x in rulings if x["id"] == rid)
-        db.rest("PATCH", "amal_rules", params={"id": f"eq.{rid}"}, body={"payload": {**(ru.get("payload") or {}), "applied": now}}, prefer="return=minimal")
     # rebuild everything that reads the audit
-    for cmd in (["build_amal_review.py"], ["build_lessons_page_data.py"], ["build_grammar_console.py"], ["build_amal_grammar_rules.py"]):
-        subprocess.run([sys.executable, os.path.join(HERE, *cmd)], cwd=REPO, check=False)
+    for cmd in (["build_amal_review.py"], ["build_lessons_page_data.py"], ["build_grammar_console.py"], ["build_amal_grammar_rules.py"],
+                ["codex_rejudge.py", "--list"]):
+        subprocess.run([sys.executable, os.path.join(HERE, cmd[0]), *cmd[1:]], cwd=REPO, check=False)
 
 
 if __name__ == "__main__":
