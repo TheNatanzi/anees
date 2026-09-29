@@ -2,55 +2,56 @@
  "reviewer": "Claude audit 2026-09-28",
  "version": "2026-09-28-vocab-unresolved-audit",
  "before": {
-  "medi_events_report": 1778,
-  "unresolved_or_on_hold": 972,
+  "medi_events_report": 1979,
+  "unresolved_or_on_hold": 1076,
   "by_report_group": {
-   "repeat": 423,
-   "wrongword": 120,
-   "wording": 62,
+   "repeat": 441,
+   "wrongword": 123,
+   "wording": 83,
    "grammar": 81,
    "other": 30,
    "clar": 11,
    "noamal": 73,
-   "isolated": 119,
+   "isolated": 167,
    "hold": 39,
-   "cue": 14
+   "cue": 28
   }
  },
  "after": {
-  "still_unresolved_or_on_hold_raw_flag": 891,
-  "genuinely_open": 32,
+  "still_unresolved_or_on_hold_raw_flag": 1006,
+  "genuinely_open": 153,
   "bins": {
    "no_evidence:transcript_unclear": 7,
-   "no_evidence:tutor_audio_missing": 54,
+   "no_evidence:tutor_audio_missing": 1,
    "not_counted:clarification": 22,
    "not_counted:echo": 227,
    "not_counted:farsi": 1,
-   "not_counted:filler": 30,
+   "not_counted:filler": 39,
    "not_counted:form_not_on_list": 13,
    "not_counted:grammar": 104,
-   "not_counted:not_this_word": 115,
+   "not_counted:not_this_word": 118,
    "not_counted:quote": 34,
-   "not_counted:repeat": 252,
-   "open:question": 32,
+   "not_counted:repeat": 287,
+   "open:question": 153,
    "settled:helped": 2,
    "settled:incorrect": 4,
    "settled:independent": 118
   }
  },
- "audited_events": 1015,
+ "audited_events": 1130,
  "sources": {
   "rule:farsi": 1,
-  "rule:filler": 30,
+  "rule:filler": 39,
   "hand": 222,
-  "rule:stutter": 137,
-  "rule:restart": 3,
-  "mech:flagged": 531,
+  "rule:stutter": 171,
+  "rule:restart": 4,
+  "mech:flagged": 534,
   "mech:sep18": 26,
   "mech:form": 11,
-  "mech:noamal": 54
+  "mech:unclassified": 121,
+  "mech:noamal": 1
  },
- "scored_events_now_not_counted": 42,
+ "scored_events_now_not_counted": 52,
  "unscored_events_now_scored": 124,
  "rules": {
   "farsi_turns": [
@@ -63,6 +64,16 @@
      "w:بابا",
      "w:جان",
      "w:ميرم"
+    ]
+   },
+   {
+    "date": "2026-09-23",
+    "t": 199.28,
+    "end": 201.14,
+    "who": "Medi",
+    "signals": [
+     "w:جان",
+     "w:نكن"
     ]
    },
    {
@@ -203,19 +214,30 @@
      "w:رو"
     ],
     "source": "lesson page"
+   },
+   {
+    "date": "2026-09-23",
+    "who": "Medi",
+    "t": 194.66,
+    "end": 195.46,
+    "signals": [
+     "w:جان"
+    ],
+    "source": "lesson page"
    }
   ],
   "farsi_events": 1,
   "and_events": {
-   "located": 64,
-   "real_and": 34,
-   "filler": 30
+   "located": 84,
+   "real_and": 45,
+   "filler": 39,
+   "not_located": 1
   },
-  "and_fillers_that_were_scored": 14,
-  "restart_pairs": 3,
-  "restart_drops_that_were_scored": 2,
-  "stutter_events_collapsed": 137,
-  "stutter_drops_that_were_scored": 30,
+  "and_fillers_that_were_scored": 18,
+  "restart_pairs": 4,
+  "restart_drops_that_were_scored": 3,
+  "stutter_events_collapsed": 171,
+  "stutter_drops_that_were_scored": 35,
   "duplicate_records": 0
  },
  "clips": {
@@ -262,6 +284,9 @@
    },
    "2026-09-26": {
     "clip ok": 258
+   },
+   "2026-09-28": {
+    "clip ok": 246
    }
   },
   "missing": [
@@ -287,13 +312,20 @@
     "2026-08-25:S:2183",
     "2026-08-25:S:2191"
    ],
-   "ladder_listen": [
-    "2026-08-25:L:2164"
+   "ladder_listen": [],
+   "grammar_uses": []
+  },
+  {
+   "date": "2026-09-23",
+   "from": 199.3,
+   "to": 201.1,
+   "who": "Medi",
+   "secs": 1.9,
+   "ladder_speak": [
+    "2026-09-23:S:1993"
    ],
-   "grammar_uses": [
-    "A8@03:38",
-    "D1@03:38"
-   ]
+   "ladder_listen": [],
+   "grammar_uses": []
   },
   {
    "date": "2026-09-26",
@@ -335,6 +367,7 @@
  ],
  "log": {
   "hand_verdict_overridden_by_rule:filler": 7,
+  "unclassified": 144,
   "restart_overrode_hand_settled": 1,
   "stutter_overrode_hand_settled": 5
  },

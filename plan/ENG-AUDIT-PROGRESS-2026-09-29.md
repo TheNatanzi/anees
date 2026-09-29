@@ -47,3 +47,10 @@ If a worker dies: its branch eng-audit-<x> has whatever it committed.
   2 fake leeches, used today's new cards. Nothing deleted (needs Medi's yes). All workers told to deselect them.
 - Relayed: build_tutor_data pulled-count + payload.applied -> B; review_lesson docstring, transcribe run-line, check_rules
   in guard -> C; test_invariants fixes + test side effects -> F.
+- F merged (test_m5_cards took F's copy: sizes rounds from the 8-new-a-day cap + cleanup in finally), C merged (publish
+  guard, fail-closed hourly, reader manifests), A merged (duplicates, one grammar formula, slips into Word Bank, ≈ marks,
+  check_numbers.py). Coordinator fixes: live-DB test gate (conftest, ANEES_E2E_LIVE=1), audit_vocab_unresolved in hourly,
+  AI Reports 961-row cards as_of, Flashcards read audit slips, new-words fallback strict in hourly.
+- Worker G (C:/dev/anees-eng-g) launched 03:37 for the 09-28 hand reads: 121 open vocab events + 0 sheet verdicts.
+- B (gates + Codex) still running; did accuracy_gates pooled averages + duplicate/Amal-ruling filter (44e0e56).
+- Known guard blocker after merge: tests/test_verb_addons.cjs golden (Amal's check-list form vs her Quizlet card).
