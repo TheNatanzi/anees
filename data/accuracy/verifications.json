@@ -9690,6 +9690,106 @@
    },
    "at": "2026-09-29T03:48:22-07:00",
    "run_id": "423940a290fa4bc080cb483b834759cd"
+  },
+  {
+   "uid": "FA-49175407",
+   "date": "2026-09-28",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi appears to offer an invented form for 'my uncles' ('بس إموال/أم ماو'), and Amal immediately recasts it as the target possessive plural. The independent Amal track has the deciding echo/recast: 'بس يا عمامي؟' (i.e. أعمامي).",
+   "evidence": {
+    "t_start": 2302.0,
+    "t_end": 2332.0,
+    "quote": "Medi: «بس إموال؟» / Amal: «بس يا عمامي؟»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-28/FA-49175407_Medi_Medi_Natanzi-66e73a25dcb.mp3",
+      "sha256": "47601d289bc8662379369ae27f0026e5f0274001e6b47ee96d6fee6c236fe9ed",
+      "source": "Medi_Natanzi-66e73a25dcb21a2d.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-28/FA-49175407_Amal_Amal-1b5c2e7c584116ff.mp3",
+      "sha256": "13ad89136c9b80a9c2178a330e5c42650639a1300c276cca9223b79a3bd7cb85",
+      "source": "Amal-1b5c2e7c584116ff.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-28/FA-49175407_mixed_lesson.mp3",
+      "sha256": "1166d7a60e20c5fd5e10f2c6b66377ddce86d79aa713e0adf99cf2d0b43b5896",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "فقط أبنائي؟ هل هو أفضل؟ أفضل أموال؟ حسنا حسنا يا إلهي",
+     "Amal": "بس بس يا مامي آه بعدها نخوال try to you try to make like gender based يعني let me hear you say I have female cousins female male cousins بس نمبر",
+     "mixed": "همممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممممم"
+    }
+   },
+   "claim": {
+    "wrong": "أم ماو",
+    "right": "أعمامي",
+    "bucket": null,
+    "tier": 2
+   },
+   "at": "2026-09-29T04:02:21-07:00",
+   "run_id": "e23b4e4bb23c45a8a3cc5975b7f5919b"
+  },
+  {
+   "uid": "FA-e6ed5819",
+   "date": "2026-09-28",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi explicitly reaches for the plural of عم with forms like 'أم أو/أم والو', and Amal supplies «عمام». This is a supplied-word correction, not just confirmation.",
+   "evidence": {
+    "t_start": 2364.0,
+    "t_end": 2401.0,
+    "quote": "Medi: «what was it plural for أم أمه؟» / Amal: «عمام»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-28/FA-e6ed5819_Medi_Medi_Natanzi-66e73a25dcb.mp3",
+      "sha256": "083d0e8886c3dc5702f3817930e930f9fdb6564e6fb5246d5b2b9abdbfac1a56",
+      "source": "Medi_Natanzi-66e73a25dcb21a2d.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-28/FA-e6ed5819_Amal_Amal-1b5c2e7c584116ff.mp3",
+      "sha256": "080f3ea85f81bac860e23e59257b8864d4394b1bcfec23fcbfd00533732c6161",
+      "source": "Amal-1b5c2e7c584116ff.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-28/FA-e6ed5819_mixed_lesson.mp3",
+      "sha256": "016699f9ae2f9b90d964c4958777f1f47cbb01a51e2d9c40dbcd600b3e25b046",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا انا انا لا يجب ان اقول انا ابي اوه حسنًا ومن ثم ما اقوله انا انا ماو ماذا كانت الفرصة لأنا انا انا حسنًا هذا ما كان هو انا نعم ما اقوله نستخدم الفرصة هنا اشتركوا في القناة",
+     "Amal": "بس بس أنكل يعني خمس بنات عم خمس بنات عم بس خمس بنات عام بنات",
+     "mixed": "بس أنكل خمس بنات عم I don't need to say my uncle We're not saying my We're just saying cousins Okay And then what I say أمو What was the plural for أمو أمام خمس بنات عم Because Yeah what I We're just saying No خمس بنات عم حناس أم تيسا ما كان مهماً كان بنات"
+    }
+   },
+   "claim": {
+    "wrong": "أماو",
+    "right": "أعمام",
+    "bucket": null,
+    "tier": 2
+   },
+   "at": "2026-09-29T04:02:21-07:00",
+   "run_id": "e23b4e4bb23c45a8a3cc5975b7f5919b"
   }
  ]
 }
