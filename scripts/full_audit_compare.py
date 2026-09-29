@@ -272,9 +272,18 @@ def union_rows(date):
                 break
         if a["passes"] == [1] and a.get("confidence") == "high":
             a["confidence"] = "medium"
-    extra = []
+    extra, repeats = [], 0
     for j, b in enumerate(P2["rows"]):
         if j in used:
+            continue
+        # Eng audit 2026-09-29: a pass-2 row that repeats a pass-1 row (same moment, same WRONG piece, same kind,
+        # same rule) is that pass-1 slip seen twice by pass 2, not a slip pass 1 missed. It used to come through as an
+        # "extra" and the slip was counted twice (09-15 1:02:41 A1 FA-950701c8 + FA-950701c8x).
+        if any(same_moment(a, b) and kind_class(a.get("kind")) == kind_class(b.get("kind"))
+               and (a.get("bucket") or None) == (b.get("bucket") or None)
+               and same_piece(a.get("wrong"), b.get("wrong"))
+               for a in P1["rows"]):
+            repeats += 1
             continue
         b = dict(b)
         b["passes"] = [2]
@@ -285,7 +294,7 @@ def union_rows(date):
     rows.sort(key=lambda r: (sec(r.get("t")) if sec(r.get("t")) is not None else 1e9))
     for i, r in enumerate(rows, 1):
         r["fid"] = f"{date[5:7]}{date[8:10]}-{i:03d}"
-    return {**P1, "rows": rows, "counts": {**P1["counts"], "pass2_final": P2["counts"].get("final"), "in_both_passes": len(used), "pass2_only": len(extra)},
+    return {**P1, "rows": rows, "counts": {**P1["counts"], "pass2_final": P2["counts"].get("final"), "in_both_passes": len(used), "pass2_only": len(extra), "pass2_repeats_dropped": repeats},
             "coverage": {**(P1.get("coverage") or {}), "p2": P2.get("coverage")}, "r3_note": (P1.get("r3_note") or "") + (" | p2: " + P2["r3_note"] if P2.get("r3_note") else "")}
 
 

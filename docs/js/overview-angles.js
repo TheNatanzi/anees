@@ -38,7 +38,7 @@ const EN=new Set('the i you it is so yeah okay that what like and to of in a my 
 const FILL=/(?<![\p{L}\p{N}_])(?:uh|um|umm|er|eh|mm|mmm|hmm|ah)(?![\p{L}\p{N}_])|آآ+|امم+|ممم+|ام(?![\p{L}\p{N}_])/giu;
 const words=t=>(String(t).match(/[\p{L}\p{N}_\u0600-\u06FF']+/gu)||[]).filter(w=>!/^\p{Nd}+$/u.test(w));
 const kind=t=>{if(AR.test(t))return 'ar';const ws=words(t).map(w=>w.toLowerCase());if(!ws.length)return 'none';const en=ws.filter(w=>EN.has(w)).length;return en>=1&&en/ws.length>=.15?'en':'lat';};
-const fillers=t=>(String(t).match(FILL)||[]).length;
+const fillers=t=>window.AneesLessonMath?window.AneesLessonMath.countFillers(t):(String(t).match(FILL)||[]).length;   // the builder's own test (docs/js/lesson-math.js), eng audit 2026-09-29
 
 function perLesson(l,J){
  const T=[];
@@ -127,8 +127,9 @@ function panelB(ls){
  s+=tx(L+4,T+ph-4,'bars: grammar slips / 10 min');
  const allP=pooledWords(ls),wl=ls.filter(l=>l.words&&ok(l.words.pct)),mean=wl.length?sum(wl,l=>l.words.pct)/wl.length:null;
  const small=wl.slice().sort((a,b)=>a.words.scored-b.words.scored)[0];
- const why=`Pooled over every scored use: ${f1(allP)}%. The table's average, ${f1(mean)}%, weights every lesson the same${small&&mean!==null&&allP!==null&&mean<allP&&small.words.pct<mean?`, so a small lesson (${dm(small.date)}: ${small.words.scored} uses, ${f1(small.words.pct)}%) pulls it down`:''}.${called?' Progress called: the last three weeks all sit above the band.':''}`;
- return panel('b',title,sub,frame(s,'Weekly pooled words right with baseline',H),{head:big(`${above} of ${after.length}`,`weeks above the ${f1(base)}% baseline so far`),why,src:'words.right, partial, scored by ISO week'});
+ const AX=(window.AneesLessonMath&&window.AneesLessonMath.approx(ls))?'≈':'';   // Medi's decision 4 (2026-09-29): unverified lessons -> "≈"
+ const why=`${AX?'Every number here is "≈": it comes from lessons that are not verified yet (hover a lesson score on the table above for why). ':''}Pooled over every scored use: ${AX}${f1(allP)}%. A plain mean of the lesson percentages, ${f1(mean)}%, would weight every lesson the same${small&&mean!==null&&allP!==null&&mean<allP&&small.words.pct<mean?`, so a small lesson (${dm(small.date)}: ${small.words.scored} uses, ${f1(small.words.pct)}%) pulls it down`:''}.${called?' Progress called: the last three weeks all sit above the band.':''}`;
+ return panel('b',title,sub,frame(s,'Weekly pooled words right with baseline',H),{head:big(`${above} of ${after.length}`,`weeks above the ${AX}${f1(base)}% baseline so far`),why,src:'words.right, partial, scored by ISO week'});
 }
 
 /* ---------- C: time of day ---------- */

@@ -80,6 +80,61 @@ def match_sweep(row, cands, used):
     return None
 
 
+def uid_base(r):
+    """What makes a slip one slip: lesson, second of his line, the wrong piece, vocab vs grammar."""
+    return f"{r['date']}|{int(sec(r.get('t')) or 0)}|{norm(r.get('wrong'))}|{kind_class(r.get('kind'))}"
+
+
+def assign_uids(rows):
+    """uid is STABLE across rebuilds (patterns.json and Amal's rulings key on it): a hash of date + moment + wrong piece,
+    not a position. `n` is the display order. A second row with the same base keeps a suffixed uid (so an old link to it
+    still resolves) but is marked a duplicate by mark_duplicates()."""
+    import hashlib
+    seen_uid = set()
+    for i, r in enumerate(rows, 1):
+        uid = "FA-" + hashlib.sha1(uid_base(r).encode("utf-8")).hexdigest()[:8]
+        while uid in seen_uid:
+            uid += "x"
+        seen_uid.add(uid)
+        r["uid"] = uid
+        r["n"] = i
+    return rows
+
+
+def _drop_as_duplicate(r, keep, why):
+    if r["kind"] == "rejected":
+        return
+    r["kind_before_rejection"] = r["kind"]
+    r["kind"] = "rejected"
+    r["duplicate_of"] = keep["uid"]
+    r["rejected_why"] = why
+    keep["passes"] = sorted(set(keep.get("passes") or []) | set(r.get("passes") or [])) or keep.get("passes")
+    keep.setdefault("duplicates_merged", []).append(r["uid"])
+
+
+def mark_duplicates(rows, hand=()):
+    """Same uid base twice -> the later row is the same slip (kind 'rejected', duplicate_of the kept uid, why).
+    `hand` = [{"date", "keep", "drop", "why"}] pairs a context read judged to be one slip; keep/drop are uids."""
+    first = {}
+    for r in rows:
+        if r["kind"] == "rejected":
+            continue
+        b = uid_base(r)
+        if b in first:
+            _drop_as_duplicate(r, first[b], f"duplicate of {first[b]['uid']}: same lesson, second, wrong piece and kind (eng audit 2026-09-29)")
+        else:
+            first[b] = r
+    by_uid = {r["uid"]: r for r in rows}
+    for h in hand:
+        keep, drop = by_uid.get(h["keep"]), by_uid.get(h["drop"])
+        if keep is None:
+            raise SystemExit(f"duplicates.json: kept row {h['keep']} is not in the audit rows (uids changed?) - fix the file")
+        if drop is None:          # the repeat is already gone (e.g. union_rows no longer lets it through)
+            continue
+        _drop_as_duplicate(drop, keep, f"duplicate of {keep['uid']}: {h['why']}")
+    return rows
+
+
 def build():
     sweep = json.load(open(os.path.join(REPO, "data", "grammar-sweep-2026-09-24.json"), encoding="utf-8"))
     buckets = {b["id"]: b for b in json.load(open(os.path.join(REPO, "docs", "data", "grammar-buckets.json"), encoding="utf-8"))["buckets"]}
@@ -115,6 +170,13 @@ def build():
         for i, s in enumerate(by_date[d]):
             if i in used:
                 continue
+            # Eng audit 2026-09-29: a sweep row that is the same slip as a reader row already paired with another sweep
+            # row (same moment, kind, rule and wrong piece) is not "missed by the readers" - keeping it counted it twice.
+            if any(same_moment(r, s) and kind_class(r.get("kind")) == kind_class(s.get("kind"))
+                   and (r.get("bucket") or None) == (s.get("bucket") or None)
+                   and (same_piece(r.get("wrong"), s.get("wrong")) or same_piece(r.get("right"), s.get("right")))   # match_sweep's own test
+                   for r in rows if r["date"] == d and r.get("source") == "audit-2026-09-26"):
+                continue
             s = dict(s)
             s["source"] = "sweep-2026-09-24"
             s["agreed_by"] = "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)"
@@ -141,18 +203,11 @@ def build():
         if r.get("bucket") in buckets:
             r["bucket_name"] = buckets[r["bucket"]]["name"]
     rows.sort(key=lambda r: (r["date"], sec(r.get("t")) if sec(r.get("t")) is not None else 1e9))
-    # uid is STABLE across rebuilds (patterns.json and Amal's rulings key on it): a hash of date + moment + wrong piece,
-    # not a position. `n` is the display order.
-    import hashlib
-    seen_uid = set()
-    for i, r in enumerate(rows, 1):
-        base = f"{r['date']}|{int(sec(r.get('t')) or 0)}|{norm(r.get('wrong'))}|{kind_class(r.get('kind'))}"
-        uid = "FA-" + hashlib.sha1(base.encode("utf-8")).hexdigest()[:8]
-        while uid in seen_uid:
-            uid += "x"
-        seen_uid.add(uid)
-        r["uid"] = uid
-        r["n"] = i
+    assign_uids(rows)
+    # Eng audit 2026-09-29: one slip is one row. Same uid base = same slip (was renamed "<uid>x" and counted twice);
+    # plus the hand-read repeats in data/lesson-work/full-audit/duplicates.json. Kept in the file, never counted.
+    dup_p = os.path.join(WORK, "duplicates.json")
+    mark_duplicates(rows, json.load(open(dup_p, encoding="utf-8"))["pairs"] if os.path.exists(dup_p) else [])
 
     def cnt(pred):
         return sum(1 for r in rows if pred(r))

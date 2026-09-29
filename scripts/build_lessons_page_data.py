@@ -462,11 +462,12 @@ def audio_duration(date):
     return None
 
 
-def run_node(strings, sheet=()):
+def run_node(strings, sheet=(), slips=None):
     os.makedirs(TMP, exist_ok=True)
     i, o = os.path.join(TMP, "node-in.json"), os.path.join(TMP, "node-out.json")
     json.dump({"arabic": sorted(set(s for s in strings if s)), "sheet": sorted(set(s for s in sheet if s)),
-               "taught": [x for v in TAUGHT.values() for x in v]}, open(i, "w", encoding="utf-8"), ensure_ascii=False)
+               "taught": [x for v in TAUGHT.values() for x in v], **({"slips": slips} if slips is not None else {})},
+              open(i, "w", encoding="utf-8"), ensure_ascii=False)
     subprocess.run([NODE, os.path.join(HERE, "lessons_page_node.cjs"), i, o], check=True, capture_output=True)
     return J(o)
 
@@ -495,14 +496,16 @@ DEFINITIONS = {
     "duration_min": "Length of the lesson audio the page plays, in minutes.",
     "type": "Claude's reading of what the lesson mostly was: free-speak = conversation; review-words = practising words already taught; new-words = Amal teaching new vocabulary (new verb pairs drilled in all tenses count here); new-grammar = Amal teaching a rule. One main type; if mixed, the one with the most minutes, and type_why says so. type_source 'claude-read' = Medi can correct it.",
     "review_mode": "For review lessons only: listening = Amal says Arabic, Medi gives the meaning; speaking = Medi says it in Arabic; both.",
-    "words.unique": "How many different Word Bank words Medi was scored on in this lesson.",
+    "words.unique": "How many different Word Bank forms (a verb tense or a plural counts on its own) Medi was scored on in this lesson, the lesson audit's word slips included - the same count as Progress > Vocab 'Unique words per lesson'. words.unique_rows = the same by Word Bank row.",
     "words.right": "Scored uses marked correct (same rules as the Word Bank page: its own code is run on docs/data/word-bank-evidence.json + word-bank-review.json).",
     "words.partial": "Scored uses marked partial (he got there with help) - worth half. Includes the audit's 'asked Amal for the word' rows.",
     "words.wrong": "Scored uses marked incorrect, plus the full audit's word slips (wrong word, wrong form, English for a word she taught).",
     "words.pct": "Word score for the lesson: (right + half of partial) / all scored uses, as a percent. The Word Bank's own weighting.",
-    "grammar.uses": "Times Medi's Arabic exercised a grammar rule in this lesson, right or wrong (docs/data/grammar-usage.json). Turns the engine wrote in Latin letters are not counted there.",
-    "grammar.mistakes": "Grammar slips Amal corrected out loud in this lesson (hand sweep 2026-09-24, speaking rows filed in an approved rule).",
-    "grammar.pct": "Share of rule uses that were right: 1 - mistakes / uses, as a percent. Null when uses are missing.",
+    "grammar.uses": "Times Medi's Arabic exercised a scored grammar rule in this lesson, right or wrong: the uses docs/data/grammar-usage.json counted, plus every slip Amal fixed that no counted use within 2 s pairs with (he tried the rule; the counter cannot read turns written in Latin letters). Same formula as the Grammar Console (scripts/grammar_math.py).",
+    "grammar.mistakes": "Grammar slips Amal fixed (voiced or typed) in this lesson: full audit 2026-09-26 speaking rows filed in an approved rule, minus the rows Amal's notes take out. Includes slips in rules no counter can score (unscored_mistakes).",
+    "grammar.scored_mistakes": "The slips that are in scored rules (rules with a usage counter, taught, not a sound).",
+    "grammar.unscored_mistakes": "Slips in rules no counter can see his right uses of (e.g. B18): listed and counted as slips, left out of grammar.pct.",
+    "grammar.pct": "Share of rule uses that were right: 1 - scored_mistakes / uses, as a percent. Never an estimate: mistakes <= uses by construction.",
     "talk.medi_s": "Seconds Medi was talking: his words glued into turns (gaps under 1.2 s), turn lengths added up. Stretches the engine marked '[speaking Arabic]' count as talk.",
     "talk.amal_s": "Same for Amal.",
     "talk.speak_pct": "Medi's share of the talking: medi_s / (medi_s + amal_s).",
@@ -577,6 +580,11 @@ def build():
         # Amal's notes 2026-09-27 (scripts/amal_grammar_notes.py): not taught yet, or not a mistake -> shown, not counted
         G.setdefault(r["date"], []).append({**r, "bucket": b, "_ruling": AMAL.ruling({**r, "bucket": b})})
 
+    import grammar_math
+    GT = grammar_math.table((J(usage_p).get("uses", {}) if os.path.exists(usage_p) else {}),
+                            [{"bucket": r["bucket"], "date": r["date"], "t": (sec(r.get("t")) if r.get("t") else sec(r.get("t_amal")))}
+                             for rs in G.values() for r in rs if not r.get("_ruling")],
+                            list(buckets), AMAL.not_taught)
     node = run_node([])
     scored = node["scored"]
     info = node["wordInfo"]
@@ -661,30 +669,25 @@ def build():
         if not n:
             notes.append("no scored word uses for this lesson in the Word Bank evidence (its events are all pending review), so words.pct is null.")
 
-        grammar_est = False
         # ---- grammar
         rt = lambda r: sec(r.get("t")) if r.get("t") else sec(r.get("t_amal"))
         rows = sorted(G.get(date, []), key=lambda r: rt(r) or 0)
-        uses = (usage.get(date) or {}).get("uses")
-        if uses is not None:   # rules Amal has not taught yet (B14, B15) are left out of every total
-            uses -= sum(v for k, v in ((usage.get(date) or {}).get("by_bucket") or {}).items() if AMAL.not_taught(k))
+        # One formula with the Grammar Console (scripts/grammar_math.py, eng audit 2026-09-29): a fix with no counted use
+        # within 2 s is itself a use, rules with no usage counter are shown but kept out of the %, and rules Amal has not
+        # taught yet (B14, B15) are out of every total. Replaces uses = detected only / "estimate" = uses / (uses + slips).
         mistakes = sum(1 for r in rows if not r.get("_ruling"))
         gpct = None
-        if uses is None:
+        if date not in usage:
+            uses = None
             notes.append("grammar uses not yet in docs/data/grammar-usage.json for this lesson; grammar.pct null until the re-run.")
-        elif uses:
-            gpct = round(100 * (1 - mistakes / uses), 1)
-            if gpct < 0:
-                # Medi 2026-09-27 "why do we still have blanks": every slip Amal fixed is itself a use of the rule, so when the
-                # counter found fewer uses than fixes (it cannot read turns written in Latin letters) the fixes are added to
-                # the uses. Marked as an estimate.
-                gpct = round(100 * uses / (uses + mistakes), 1)
-                notes.append(f"grammar: {mistakes} corrected slips but only {uses} detected rule uses (uses skip Latin-script turns); "
-                             f"grammar.pct is an estimate = uses / (uses + slips) = {gpct}%.")
-                grammar_est = True
-            elif mistakes > uses / 2:
-                notes.append(f"grammar.pct is low partly because uses ({uses}) are undercounted: the usage count skips turns written in Latin letters or left blank ('[speaking Arabic]'), while Amal's fixes there are still counted.")
-        grammar = {"uses": uses, "mistakes": mistakes, "pct": gpct, "estimate": grammar_est}
+        else:
+            gl = grammar_math.lesson(GT, date)
+            uses, gpct = gl["uses"], gl["pct"]
+            if gl["unscored_mistakes"]:
+                notes.append(f"grammar: {gl['unscored_mistakes']} of the {mistakes} slips are in rules no counter can see his right uses of "
+                             f"(the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.")
+        grammar = {"uses": uses, "mistakes": mistakes, "pct": gpct, "estimate": False,
+                   **({"scored_mistakes": gl["scored_mistakes"], "unscored_mistakes": gl["unscored_mistakes"]} if uses is not None else {})}
 
         # ---- new words
         typ, mode, why = LESSON_TYPES.get(date, ("free-speak", None, "Not read yet: default until Claude reads this lesson and adds it to LESSON_TYPES."))
@@ -833,6 +836,7 @@ def build():
             else:
                 sh = NO["sheet"].get((e.get("arabic") or "") + "" + (e.get("english") or "")) or {}
                 e["on_sheet"], e["rating"], e["sheet_key"] = bool(sh.get("on_sheet")), sh.get("rating"), sh.get("key")
+                e["keyed_by"] = "auto-" + str(sh.get("match")) if sh.get("key") else None
     # Hand verdicts win over the automatic sheet check (Medi 2026-09-27 "use context and meanings both ways"): a reader
     # judged each word against his list by meaning -> data/lesson-work/sheet-verdicts.json [{date, mmss, arabic, verdict}].
     vp = os.path.join(REPO, "data", "lesson-work", "sheet-verdicts.json")
@@ -855,6 +859,8 @@ def build():
                     e["rating"] = None
                 elif x.get("list_key") and not e.get("word_key") and x["list_key"] != e.get("sheet_key"):
                     e["sheet_key"], e["rating"] = x["list_key"], NO["ratings"].get(x["list_key"])
+                if x["verdict"] == "on_list" and x.get("list_key") and not e.get("word_key"):
+                    e["keyed_by"] = "reader"
             keep.append(e)
         v["vocab_errors"], v["not_errors"] = keep, dropped
         v["marks"] = [m for m in v["marks"] if m["kind"] != "vocab" or any(abs(m["t"] - e["t"]) < .01 for e in keep)]
@@ -875,31 +881,6 @@ def build():
             w["pct"] = round(100 * (w["right"] + .5 * w["partial"]) / w["scored"], 1) if w["scored"] else None
             L["notes"].append(f"{len(dropped)} word card(s) dropped after the 2026-09-27 hand check (he said it right, it was not his slip, or it repeats a slip already counted): "
                               + "; ".join(f"{e['mmss']} {e.get('arabic')}" for e in dropped) + ".")
-    # The rating must count the audit's slips too (Medi 2026-09-26: an error card said "Mastered · 100% right · 0 wrong").
-    # Every on-sheet audit slip of a word (all lessons) is added to its Word Bank record: wrong = a miss, asked = partial.
-    # Status = the Word Bank's accuracy bands (>=90 Mastered/Good, >=75 Good, >=50 Shaky, else Wrong), never above its own status.
-    ORDER = ["Wrong", "Shaky", "Good", "Mastered"]
-    slips = {}
-    for v in per.values():
-        for e in v["vocab_errors"]:
-            k = e.get("sheet_key") or e.get("word_key")
-            if e.get("source") == "audit-2026-09-26" and e.get("on_sheet") and k:
-                x = slips.setdefault(k, [0, 0]); x[0 if e["kind"] == "wrong" else 1] += 1
-    def merged(k, R):
-        if not k or k not in slips:
-            return R
-        R = dict(R or {"status": "Untested", "n": 0, "right": 0, "partial": 0, "wrong": 0, "pct": None})
-        w_, p_ = slips[k]
-        R.update(n=R["n"] + w_ + p_, wrong=R["wrong"] + w_, partial=R["partial"] + p_, with_audit=w_ + p_)
-        R["pct"] = round(100 * (R["right"] + .5 * R["partial"]) / R["n"])
-        band = "Good" if R["pct"] >= 90 else "Good" if R["pct"] >= 75 else "Shaky" if R["pct"] >= 50 else "Wrong"
-        if R["pct"] >= 90 and R["status"] == "Mastered":
-            band = "Mastered"
-        R["status"] = band if R["status"] == "Untested" else ORDER[min(ORDER.index(band), ORDER.index(R["status"]) if R["status"] in ORDER else 3)]
-        return R
-    for v in per.values():
-        for e in v["vocab_errors"] + v["vocab_correct"]:
-            e["rating"] = merged(e.get("sheet_key") or e.get("word_key"), e.get("rating"))
     # A word not on her sheet is not his miss (Medi 2026-09-26: "a new word that's not on the document") - it is listed,
     # tagged "Not on sheet", sent to Amal's review, and left out of the Words %.
     for L in lessons:
@@ -913,6 +894,43 @@ def build():
             w["audit_wrong"] = w.get("audit_wrong", 0) - sum(1 for e in offa if e["kind"] == "wrong")
             w["audit_partial"] = w.get("audit_partial", 0) - sum(1 for e in offa if e["kind"] == "asked")
             w["pct"] = round(100 * (w["right"] + .5 * w["partial"]) / w["scored"], 1) if w["scored"] else None
+
+    # Eng audit 2026-09-29 (Medi's decision 6, one truth). The audit's on-list word slips join the Word Bank evidence as
+    # events (docs/data/word-bank-audit-slips.json, loaded by the Word Bank, Progress and this builder), so every page
+    # scores the same attempts. Ratings on the cards are the Word Bank's own status with those slips in it. This replaces
+    # the builder's private re-rating (merged(): bands without the Word Bank's streak rules), which made 249 words show
+    # one status on the Lessons page and another on the Word Bank (Medi 2026-09-26: the rating must count the slips).
+    slips = []
+    for L in lessons:
+        for e in per[L["date"]]["vocab_errors"]:
+            if e.get("source") == "audit-2026-09-26" and e.get("on_sheet"):
+                slips.append({"uid": e.get("audit_uid"), "date": L["date"], "t": e["t"], "key": e.get("sheet_key") or e.get("word_key"),
+                              "kind": "wrong" if e["kind"] == "wrong" else "asked", "said": e.get("said"), "wrong": e.get("wrong"),
+                              "why": e.get("why"), "keyed_by": e.get("keyed_by")})
+    NO2 = run_node([], slips=slips)
+    SL = NO2["slips"]
+    unplaced = {x["uid"]: x["why"] for x in SL["unplaced"]}
+    # RULE CONFLICT (eng audit 2026-09-29, for Medi): a slip whose list word is a preposition (7: مع, عند, قبل, زي, فوق)
+    # counts in the Lessons Words % (decision A 2026-09-25 + on-list verdicts 2026-09-27: every on-list error card is in
+    # the %), but the Word Bank never scores a preposition (SESSION-DECISIONS 2026-09-21: prepositions are grammar). Not
+    # picked silently: the card stays counted here, the Word Bank leaves it out, and the slips file lists it (counted).
+    for v in per.values():
+        for e in v["vocab_errors"] + v["vocab_correct"]:
+            k = e.get("sheet_key") or e.get("word_key")
+            if e.get("on_sheet") is False:
+                continue
+            e["rating"] = NO2["ratings"].get(k) if k else None
+            if e.get("audit_uid") in unplaced:
+                e["word_bank_note"] = "not in the Word Bank: " + unplaced[e["audit_uid"]]
+    # "N words" on the Lessons page = distinct Word Bank forms he was scored on, slips included: the same count as
+    # Progress › Vocab "Unique words per lesson" (it counted forms, the Lessons page counted rows: 09-10 64 vs 63).
+    for L in lessons:
+        S2 = [x for x in NO2["scored"] if x["date"] == L["date"]]
+        L["words"]["unique"] = len({x["entry"] for x in S2})
+        L["words"]["unique_rows"] = len({x["row"] for x in S2})
+    with open(os.path.join(DOCS, "data", "word-bank-audit-slips.json"), "w", encoding="utf-8") as f:
+        json.dump({"updated": dt.datetime.now().astimezone().isoformat(timespec="seconds"), **SL}, f, ensure_ascii=False, indent=1)
+    print("word slips into the Word Bank:", len(SL["events"]), "| not placed:", len(SL["unplaced"]), [(x["date"], x["uid"], x["why"]) for x in SL["unplaced"]])
 
     os.makedirs(os.path.join(DOCS, "data", "lessons"), exist_ok=True)
     for d, v in per.items():

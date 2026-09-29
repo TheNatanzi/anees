@@ -10,22 +10,22 @@ const headers={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon};
 const cached=key=>{try{return JSON.parse(localStorage.getItem(key)||'null');}catch{return null;}};
 const save=(key,value)=>{try{localStorage.setItem(key,JSON.stringify(value));}catch{}};
 // Funnel: the not-yet-checked band is hidden by default (it swamps the other three); the choice is kept per device.
-let rows=[],events=[],documentRows=null,period='month',newView='weekly',showUnchecked=cached('anees-vp-unchecked')===true,showAllSections=false,loading=false;
+let relLessons=null,rows=[],events=[],documentRows=null,period='month',newView='weekly',showUnchecked=cached('anees-vp-unchecked')===true,showAllSections=false,loading=false;
 async function json(url,options={}){const r=await fetch(url,{...options,cache:'no-store',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('Request failed');return r.json();}
 async function wordsLive(){const all=[];for(let offset=0;;offset+=1000){const p=await json(ANEES.url+'/rest/v1/words?select=key,arabizi,arabic,arabic_plural,english,plural,topic,subtopic,doc_order,aliases,house_spelling,active,first_seen&order=doc_order.asc,key.asc&limit=1000&offset='+offset,{headers});all.push(...p);if(p.length<1000)return all;}}
 async function load(){
  if(loading)return;loading=true;$('vp-retry').hidden=true;
  try{
-  const results=await Promise.allSettled([wordsLive(),window.AneesSnapshot.load(ANEES.url,headers),json('data/words.json'),json('data/word-bank-evidence.json'),json('data/word-bank-catalog.json'),json('data/word-bank-review.json')]);
+  const results=await Promise.allSettled([wordsLive(),window.AneesSnapshot.load(ANEES.url,headers),json('data/words.json'),json('data/word-bank-evidence.json'),json('data/word-bank-catalog.json'),json('data/word-bank-review.json'),json('data/lessons.json'),json('data/word-bank-audit-slips.json')]);
   const get=i=>results[i].status==='fulfilled'?results[i].value:null;
-  const liveWords=get(0),savedWords=get(2),catalog=get(4),review=get(5);let words=liveWords||cached('anees-bank-words-v2')||cached('anees-words')||savedWords?.items;
+  const liveWords=get(0),savedWords=get(2),catalog=get(4),review=get(5);relLessons=(get(6)&&get(6).lessons)||null;let words=liveWords||cached('anees-bank-words-v2')||cached('anees-words')||savedWords?.items;
   // Supabase words has no introduced_at / doc_added_at (REST returns 400 for them); first_seen is the day the sync
   // first saw the word, and word-bank-core reads introduced_at as the add date. Saved words.json has neither.
   if(Array.isArray(words))words=words.map(w=>w.introduced_at||w.doc_added_at||!w.first_seen?w:{...w,introduced_at:w.first_seen});
   const live=get(1),published=get(3),snap=Array.isArray(live?.events)?live:published||cached('anees-speaking-evidence-v1');
   if(!Array.isArray(words)||!Array.isArray(snap?.events)||!catalog||!review)throw Error('Reviewed vocabulary evidence is unavailable.');
   if(liveWords)save('anees-bank-words-v2',liveWords);if(snap===live)save('anees-speaking-evidence-v1',live);
-  const reviewed=window.AneesWordBankReview.apply(snap.events,review),stale=new Set(reviewed.stale);
+  const reviewed=window.AneesWordBankReview.apply(window.AneesWordBankReview.withSlips(snap.events,get(7)),review),stale=new Set(reviewed.stale);
   events=C.prepareEvidence(reviewed.events.map(e=>stale.has(e.id)?{...e,needs_review:true}:e));
   rows=C.models(words,catalog,events,[]);documentRows=words.length;
   const notes=[];if(!liveWords)notes.push('Saved vocabulary.');if(snap!==live)notes.push('Using published lesson evidence.');
@@ -38,6 +38,12 @@ async function load(){
 /* ---------- formatting ---------- */
 const n=v=>v===null||v===undefined||Number.isNaN(v)?'—':Number(v).toLocaleString();
 const pct=v=>v===null||v===undefined?'—':v+'%';
+// Medi's decision 4 (2026-09-29): a score built from lessons that are not verified shows "≈"; hover/tap says why.
+// Unknown release state (lessons.json did not load) counts as not verified: never shown as exact.
+const LM=window.AneesLessonMath;
+const relSet=()=>relLessons&&relLessons.length?relLessons:[{date:'?'}];
+const pctA=v=>v===null||v===undefined?'—':(LM&&LM.approx(relSet())?'≈':'')+v+'%';
+const whyA=()=>LM?LM.why(relSet()):'';
 const short=d=>{const [y,m,dd]=String(d).split('-');return `${Number(m)}/${Number(dd)}`;};
 const periodLabel={week:'this week',month:'this month',all:'all time'}[period]||'';
 const flat=(text,title)=>`<span class="vp-trend vp-trend-flat" title="${esc(title)}">${esc(text)}</span>`;
@@ -72,7 +78,7 @@ function renderTop(){
   // Talk time (kept: hours you spoke + last lesson share). Average share is pooled = Σ your seconds ÷ Σ both, not a mean of percentages.
   const L=all.filter(l=>l.talk&&l.talk.medi_s!=null);
   if(!L.length)return;
-  const h=L.reduce((a,l)=>a+l.talk.medi_s,0)/3600,last=L[0].talk,both=L.reduce((a,l)=>a+l.talk.medi_s+(l.talk.amal_s||0),0),avg=both?r1(100*h*3600/both):null;
+  const PT=LM?LM.pooledTalk(L):null,h=L.reduce((a,l)=>a+l.talk.medi_s,0)/3600,last=L[0].talk,both=L.reduce((a,l)=>a+l.talk.medi_s+(l.talk.amal_s||0),0),avg=PT&&PT.pct!==null?r1(PT.pct):both?r1(100*h*3600/both):null;   // one pooled talk share (lesson-math.js)
   const el=document.getElementById('vp-talk');
   if(el)el.innerHTML=card({label:'Talk time',icon:'◌',value:r1(h).toLocaleString(),unit:'h you spoke',
    sub:`Last lesson you <b>${last.speak_pct}%</b> · Amal ${last.listen_pct}% · pooled average you ${avg===null?'—':avg+'%'} over ${L.length} lessons`,href:'lessons.html',title:'Measured from each lesson: your talking time vs Amal’s. Average = your seconds ÷ everyone’s seconds over all lessons.'});
@@ -93,7 +99,7 @@ function renderVocab(){
   card({label:'Studied forms',icon:'≣',value:n(v.studied.count),trendHtml:addedTrend,sub:v.studied.documentRows?`<b>${n(v.studied.documentRows)}</b> words in Amal's list · verb tenses and plurals counted separately`:'Vocabulary list not synced',href:'word-bank.html',title:'Open Word Bank'}),
   card({label:'Mastered',icon:'★',value:n(v.mastered.count),trendHtml:trend(v.mastered.trend,` ${periodLabel}`),sub:`<b>${pct(v.mastered.pct)}</b> of studied forms · <b>${pct(v.mastered.pctExercised)}</b> of the ${n(v.mastered.exercised)} forms any lesson has used<div class="vp-card-status"><span>Good <b>${n(s.Good)}</b></span><span>Shaky <b>${n(s.Shaky)}</b></span><span>Wrong <b>${n(s.Wrong)}</b></span><span>Not yet checked <b>${n(s.Untested)}</b></span></div>`,href:'word-bank.html?status=Mastered',title:`Open Word Bank · Mastered. The second share leaves out the ${n(v.studied.count-v.mastered.exercised)} slots no lesson has used.`}),
   card({label:'Words per lesson',icon:'∿',value:v.perLesson.avg===null?'—':n(v.perLesson.avg),trendHtml:plTrend,sub:v.perLesson.peak?`Peak <b>${n(v.perLesson.peak.count)}</b> on ${esc(v.perLesson.peak.date)} · distinct forms you said, ${n(v.perLesson.lessons)} lessons`:'No scored lessons in this period',href:'word-bank.html?sort=recent',title:'Open Word Bank · most recent first'}),
-  card({label:'Correct vs slips',icon:'◑',value:pct(v.ratio.rate),trendHtml:rTrend,sub:v.ratio.total?`<b>${n(v.ratio.correct)}</b> correct · <b>${n(v.ratio.hinted)}</b> hinted · <b>${n(v.ratio.wrong)}</b> wrong — of the words you attempted from Amal's list, hints counted as slips<br>Lesson-page score: <b>Vocab %</b> on the Overview tab (adds audit slips, partial = half)`:'No scored attempts in this period',bar:v.ratio.total?`<div class="vp-card-bar"><span style="width:${v.ratio.correct/v.ratio.total*100}%;background:var(--ab-green)"></span><span style="width:${v.ratio.hinted/v.ratio.total*100}%;background:var(--ab-orange)"></span><span style="width:${v.ratio.wrong/v.ratio.total*100}%;background:var(--ab-red)"></span></div>`:'',href:'word-bank.html?status=Shaky,Wrong',title:"Full-credit attempts ÷ all scored attempts on words from Amal's list, hints counted as slips. Not the lesson-page score: the Overview's Vocab % adds audit slips and counts a partial as half. Opens Word Bank · Shaky + Wrong"})
+  card({label:'Correct vs slips',icon:'◑',value:pctA(v.ratio.rate),trendHtml:rTrend,sub:v.ratio.total?`<b>${n(v.ratio.correct)}</b> correct · <b>${n(v.ratio.hinted)}</b> hinted · <b>${n(v.ratio.wrong)}</b> wrong — of the words you attempted from Amal's list, hints counted as slips<br>Same attempts as the Lessons page, audit slips included; its <b>Vocab %</b> counts a hint as half right`:'No scored attempts in this period',bar:v.ratio.total?`<div class="vp-card-bar"><span style="width:${v.ratio.correct/v.ratio.total*100}%;background:var(--ab-green)"></span><span style="width:${v.ratio.hinted/v.ratio.total*100}%;background:var(--ab-orange)"></span><span style="width:${v.ratio.wrong/v.ratio.total*100}%;background:var(--ab-red)"></span></div>`:'',href:'word-bank.html?status=Shaky,Wrong',title:"Full-credit attempts ÷ all scored attempts on words from Amal's list, hints counted as slips. Same attempts as the Lessons page (the lesson audit's word slips are in the Word Bank evidence since 2026-09-29); the Overview's Vocab % counts a hint as half right instead. Opens Word Bank · Shaky + Wrong. "+whyA()})
  ].join('');
 }
 /* ---------- SVG helpers ---------- */
@@ -120,7 +126,7 @@ function renderFunnel(){
 function renderRetention(p){
  // Lessons that tested fewer than MIN known words are drawn faded; "Current" is the latest lesson with enough.
  const MIN=S.MIN_RETENTION_TESTED,s=p.series.filter(l=>l.retention!==null),last=s.at(-1),cur=s.filter(l=>l.tested>=MIN).at(-1)||null;
- $('vp-retention-side').innerHTML=cur?`<b>${pct(cur.retention)}</b>${n(cur.tested)} known words tested on ${esc(cur.date)}${last&&last!==cur?`<br>latest lesson (${esc(last.date)}) tested only ${n(last.tested)}, not used`:''}`:last?`<b>—</b>no lesson has tested ${MIN}+ known words yet (latest: ${n(last.tested)} on ${esc(last.date)})`:'';
+ $('vp-retention-side').innerHTML=cur?`<b title="${esc(whyA())}">${pctA(cur.retention)}</b>${n(cur.tested)} known words tested on ${esc(cur.date)}${last&&last!==cur?`<br>latest lesson (${esc(last.date)}) tested only ${n(last.tested)}, not used`:''}`:last?`<b>—</b>no lesson has tested ${MIN}+ known words yet (latest: ${n(last.tested)} on ${esc(last.date)})`:'';
  if(!s.length){$('vp-retention').innerHTML=empty('Appears once a word you already knew is tested again in a later lesson.');return;}
  const {x,y}=scales(s.length,100);
  const line=s.map((l,i)=>`${i?'L':'M'}${x(i).toFixed(1)},${y(l.retention).toFixed(1)}`).join(' ');
@@ -139,7 +145,7 @@ function renderRatio(p){
  const pooledTitle=`All correct attempts ÷ all attempts across the shown lessons: ${n(p.pooled.correct)} of ${n(p.pooled.total)}. Lessons weigh by their attempts, not equally.`;
  const avg=p.pooledRate===null?'':`<line class="vp-avg" x1="${PAD.l}" x2="${W-PAD.r}" y1="${y(p.pooledRate).toFixed(1)}" y2="${y(p.pooledRate).toFixed(1)}"><title>${esc(pooledTitle)}</title></line><text x="${W-PAD.r}" y="${(y(p.pooledRate)-4).toFixed(1)}" text-anchor="end">pooled avg ${pct(p.pooledRate)}</text>`;
  $('vp-ratio').innerHTML=frame(grid(y,100,v=>v+'%')+bars+avg,`Correct versus slips across ${s.length} lessons`);
- $('vp-ratio-foot').innerHTML=`<div>Baseline (first lesson)<b>${pct(p.baseline)}</b></div><div title="${esc(pooledTitle)}">Average (pooled)<b>${pct(p.pooledRate)}</b></div>${p.best?`<div>Best<b>${pct(p.best.rate)} <i>on ${esc(p.best.date)}</i></b></div>`:''}`;
+ $('vp-ratio-foot').innerHTML=`<div>Baseline (first lesson)<b>${pctA(p.baseline)}</b></div><div title="${esc(pooledTitle+' '+whyA())}">Average (pooled)<b>${pctA(p.pooledRate)}</b></div>${p.best?`<div>Best<b>${pctA(p.best.rate)} <i>on ${esc(p.best.date)}</i></b></div>`:''}`;
 }
 function renderUnique(p){
  const s=p.series;

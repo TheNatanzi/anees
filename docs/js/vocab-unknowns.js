@@ -31,7 +31,7 @@ function load(){
  loading=(async()=>{
   const A=window.ANEES||{},headers={apikey:A.anon,Authorization:'Bearer '+A.anon};
   const wordsLive=async()=>{const all=[];for(let offset=0;;offset+=1000){const p=await json(A.url+'/rest/v1/words?select=key,arabizi,arabic,arabic_plural,english,plural,topic,subtopic,doc_order,aliases,house_spelling,active,first_seen&order=doc_order.asc,key.asc&limit=1000&offset='+offset,{headers});all.push(...p);if(p.length<1000)return all;}};
-  const R=await Promise.allSettled([A.url?wordsLive():Promise.reject(Error('no config')),A.url&&window.AneesSnapshot?window.AneesSnapshot.load(A.url,headers):Promise.reject(Error('no snapshot')),json('data/words.json'),json('data/word-bank-evidence.json'),json('data/word-bank-catalog.json'),json('data/word-bank-review.json'),json('data/word-bank-clips.json'),json('data/house_spelling.json'),json('data/arabizi-extra.json')]);
+  const R=await Promise.allSettled([A.url?wordsLive():Promise.reject(Error('no config')),A.url&&window.AneesSnapshot?window.AneesSnapshot.load(A.url,headers):Promise.reject(Error('no snapshot')),json('data/words.json'),json('data/word-bank-evidence.json'),json('data/word-bank-catalog.json'),json('data/word-bank-review.json'),json('data/word-bank-clips.json'),json('data/house_spelling.json'),json('data/arabizi-extra.json'),json('data/word-bank-audit-slips.json')]);
   const get=i=>R[i].status==='fulfilled'?R[i].value:null;
   const saved=get(2),catalog=get(4),review=get(5),notes=[];
   let words=get(0)||cached('anees-bank-words-v2')||cached('anees-words')||saved?.items;
@@ -40,7 +40,7 @@ function load(){
   const live=get(1),snap=Array.isArray(live?.events)?live:get(3)||cached('anees-speaking-evidence-v1');
   if(snap!==live)notes.push('Using the published lesson evidence.');
   if(!Array.isArray(words)||!Array.isArray(snap?.events)||!catalog||!review)throw Error('Reviewed vocabulary evidence is unavailable.');
-  const reviewed=window.AneesWordBankReview.apply(snap.events,review),stale=new Set(reviewed.stale);
+  const reviewed=window.AneesWordBankReview.apply(window.AneesWordBankReview.withSlips(snap.events,get(9)),review),stale=new Set(reviewed.stale);   // audit word slips (eng audit 2026-09-29)
   let events=C.prepareEvidence(reviewed.events.map(e=>stale.has(e.id)?{...e,needs_review:true}:e));
   // Sentence clips, bound exactly as word-bank.js binds them.
   const clips=get(6)?.clips||{};

@@ -15,5 +15,8 @@ function mark(text,parts=[],partial=[],correct=[],feedback=[]){
  for(const [kind,list] of [["wrong",parts],["partial",partial],["correct",correct],["feedback",feedback]])for(const part of list.filter(Boolean)){const re=new RegExp(String(part).replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'giu');let m;while((m=re.exec(text))){const left=text[m.index-1]||'',right=text[m.index+m[0].length]||'';if(!/[\p{L}\p{N}]/u.test(left)&&!/[\p{L}\p{N}]/u.test(right))ranges.push([m.index,m.index+m[0].length,kind]);}}
  ranges.sort((a,b)=>a[0]-b[0]);let out='',at=0;for(const [a,b,kind] of ranges){if(a<at)continue;out+=escape(text.slice(at,a))+'<mark class="ab-'+kind+'" title="'+(kind==='feedback'?'Tutor correction or confirmation':kind==='correct'?'Correct word':kind==='partial'?'Partial credit':'Incorrect word or pronunciation')+'">'+escape(text.slice(a,b))+'</mark>';at=b;}return out+escape(text.slice(at));
 }
-const api={apply,matches,mark};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.AneesWordBankReview=api;
+// Eng audit 2026-09-29 (Medi's decision 6): the full audit's on-list word slips (docs/data/word-bank-audit-slips.json)
+// join the lesson evidence on every page that scores words, so the Lessons page, Word Bank and Progress count the same.
+function withSlips(events,doc){const ids=new Set((events||[]).map(e=>e.id));return (events||[]).concat(((doc&&doc.events)||[]).filter(e=>e&&e.id&&!ids.has(e.id)&&ids.add(e.id)));}
+const api={apply,matches,mark,withSlips};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.AneesWordBankReview=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

@@ -1,0 +1,28 @@
+== BEFORE (commit 3c2835c: code + data before this branch)
+ERROR tests/test_grammar_math.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.62s
+-- node tests/test_lesson_math.cjs
+Error: Cannot find module 'C:\Users\Mahdi\AppData\Local\Temp\claude\C--Claude\cdd0bacd-1572-45ae-bf2b-f19b15f0017f\scratchpad\ea\wt-before\docs\js\lesson-math.js'
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1122:12)
+-- node tests/test_word_slips.cjs
+  throw new AssertionError(obj);
+AssertionError [ERR_ASSERTION]: word-bank-review.js has no withSlips(): pages cannot load the audit slips
+-- pytest tests/test_check_numbers.py
+E       AssertionError: C:\Users\Mahdi\AppData\Local\Programs\Python\Python312\python.exe: can't open file 'C:\\Users\\Mahdi\\AppData\\Local\\Temp\\claude\\C--Claude\\cdd0bacd-1572-45ae-bf2b-f19b15f0017f\\scratchpad\\ea\\wt-before\\scripts\\check_numbers.py': [Errno 2] No such file or directory
+E         
+E       assert 2 == 1
+E        +  where 2 = CompletedProcess(args=['C:\\Users\\Mahdi\\AppData\\Local\\Programs\\Python\\Python312\\python.exe', 'C:\\Users\\Mahdi\...-f19b15f0017f\\\\scratchpad\\\\ea\\\\wt-before\\\\scripts\\\\check_numbers.py': [Errno 2] No such file or directory\n").returncode
+E       AssertionError: []
+E       assert 0 == 1
+E        +  where 0 = len([])
+FAILED tests/test_check_numbers.py::test_fails_on_the_data_before_the_audit
+-- pytest tests/test_audit_duplicates.py
+E       AssertionError: ['0101-001', '0101-002']
+E       assert 2 == 1
+E        +  where 2 = len([{'bucket': 'A1', 'confidence': 'high', 'fid': '0101-001', 'kind': 'grammar', ...}, {'bucket': 'A1', 'confidence': 'medium', 'fid': '0101-002', 'kind': 'grammar', ...}])
+E       AttributeError: module 'full_audit_build' has no attribute 'assign_uids'
+E           AttributeError: module 'full_audit_build' has no attribute 'uid_base'
+FAILED tests/test_audit_duplicates.py::test_union_rows_does_not_add_a_pass2_repeat_of_a_pass1_row
+FAILED tests/test_audit_duplicates.py::test_same_uid_twice_is_one_slip - Attr...
+FAILED tests/test_audit_duplicates.py::test_published_audit_has_no_double_counted_slip

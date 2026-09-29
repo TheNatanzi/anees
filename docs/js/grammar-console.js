@@ -4,7 +4,14 @@
 (function () {
 'use strict';
 
-var DATA = null, OPEN = Object.create(null), WRONGONLY = Object.create(null);
+var DATA = null, OPEN = Object.create(null), WRONGONLY = Object.create(null), REL = null;
+// The lessons behind a rule's score: every lesson with a counted use or fix of it. Unknown lessons count as not verified.
+function ruleLessons(r) {
+  var d = {};
+  (r.usage || []).forEach(function (u) { d[u.date] = 1; });
+  (r.candidates || []).forEach(function (c) { d[c.date] = 1; });
+  return Object.keys(d).sort().map(function (x) { return (REL && REL[x]) || { date: x }; });
+}
 var PERIOD = 'all', FAMILY = 'all', QUERY = '';
 // Column sort. First click: numbers and dates biggest/newest first, RULE A1->F3,
 // STATUS worst first. Untested rows always sit at the bottom.
@@ -319,7 +326,9 @@ function renderCharts() {
     legend.appendChild(row);
   });
   body.appendChild(legend);
-  $('gc-c4-foot').textContent = 'Status never moves on its own — it needs a recorded use.';
+  // eng audit 2026-09-29: the cut-offs the statuses use (scripts/build_grammar_console.py status()) were not written
+  // anywhere on the page; scripts/check_numbers.py checks every rule against exactly these.
+  $('gc-c4-foot').textContent = 'Score = (uses − mistakes) ÷ uses, rounded. Mastered = 95%+ on 10+ uses · Good = 85%+ · Shaky = 65%+ · Wrong = under 65%. Unscored = no counter for his right uses. Status never moves on its own — it needs a recorded use.';
 }
 
 /* ---------- rule rows ---------- */
@@ -759,7 +768,9 @@ function row(r) {
 
   head.appendChild(hearCell(r));
 
-  var score = el('div', 'gc-num', r.pct == null ? '—' : r.pct + '%');
+  var LMr = window.AneesLessonMath, rl = ruleLessons(r), ax = r.pct != null && LMr && LMr.approx(rl);
+  var score = el('div', 'gc-num', r.pct == null ? '—' : (ax ? '≈' : '') + r.pct + '%');
+  if (ax) { var why = LMr.why(rl); score.classList.add('rel-approx'); score.title = why; score.setAttribute('data-why', why); score.tabIndex = 0; }
   var meter = el('div', 'gc-meter');
   var bar = el('i');
   bar.style.width = (r.pct == null ? 0 : r.pct) + '%';
@@ -908,11 +919,16 @@ Promise.all([optional('data/words.json'), optional('data/house_spelling.json'), 
     return Promise.all([
       fetch('data/grammar-console.json?v=' + Date.now()).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }),
       fetch('data/sentence-ladder.json').then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-        .catch(function (e) { LADDER_WHY = 'sentence-ladder.json did not load (' + e.message + ')'; return null; })
+        .catch(function (e) { LADDER_WHY = 'sentence-ladder.json did not load (' + e.message + ')'; return null; }),
+      // Medi's decision 4 (2026-09-29): which lessons are verified (lessons.json release layer)
+      fetch('data/lessons.json').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
     ]);
   })
   .then(function (both) {
     var json = both[0];
+    REL = {};
+    ((both[2] && both[2].lessons) || []).forEach(function (L) { REL[L.date] = L; });
+    if (window.AneesLessonMath) window.AneesLessonMath.wireTaps(document);
     LADDER = both[1] && both[1].rules ? both[1] : null;
     if (!LADDER && LADDER_WHY === 'loading') LADDER_WHY = 'sentence-ladder.json has no rules section';
     else if (LADDER) LADDER_WHY = 'this rule is not in sentence-ladder.json';

@@ -326,6 +326,9 @@ def status(uses, mistakes):
         return "Shaky"
     return "Wrong"
 
+import grammar_math  # noqa: E402
+GT = grammar_math.table(usage.get("uses", {}), [{"bucket": c["bucket"], "date": c["date"], "t": c["t"]} for v in cands.values() for c in v],
+                        [b["id"] for b in buckets], AMAL.not_taught)
 rows = []
 for b in buckets:
     rid = b.get("tally_rule")
@@ -346,34 +349,17 @@ for b in buckets:
     mine = cands.get(b["id"], [])
     asks = sum(1 for e in events if e["kind"] == "ask")
 
-    # A mistake is a correction Amal said aloud, hand-verified in the sweep.
+    # A mistake is a correction Amal voiced or typed (full audit; Amal's notes take some out). Uses and mistakes come
+    # from scripts/grammar_math.py - the ONE formula the Lessons page uses too (eng audit 2026-09-29): a correction with
+    # no counted use within 2 s is itself a use, so mistakes never exceed uses.
+    T = GT[b["id"]]
     verified_slips = len(mine)
     auto_slips = 0
-    mistakes = verified_slips
-    # A correction is also a use - he tried the rule. The usage pass reads only
-    # Arabic script, so a correction with no counted use within 2 s adds its use.
-    # One use pairs with at most one correction, so mistakes never exceed uses.
-    free = {}
-    for x in u:
-        key_ = (x["date"], int(x["t"]))
-        free[key_] = free.get(key_, 0) + 1
-    extra = 0
-    for c in mine:
-        hit = next(((c["date"], int(c["t"]) + k) for k in (0, -1, 1, -2, 2)
-                    if c["t"] is not None and free.get((c["date"], int(c["t"]) + k))), None)
-        if hit:
-            free[hit] -= 1
-        else:
-            extra += 1
-    uses = len(u) + extra if b["id"] not in NO_USAGE_SCORE else 0
-    if uses and mistakes > uses:
-        mistakes = uses
-    # Amal 2026-09-27: B14 3am and B15 participles are not taught yet -> no score, out of every total.
-    # His uses and her corrections stay visible (usage / not_counted) but uses = mistakes = 0.
-    nt = AMAL.not_taught(b["id"])
-    uses_seen = uses
+    nt = T["not_taught"]
+    uses_seen = T["detected"] + T["extra"] if b["id"] not in NO_USAGE_SCORE else 0
+    uses, mistakes = T["uses"], T["mistakes"]
     if nt:
-        uses = mistakes = verified_slips = 0
+        verified_slips = 0
     nc = uncounted.get(b["id"], [])
     rows.append({
         "id": b["id"], "family": b["family"], "name": b["name"],
@@ -429,7 +415,10 @@ for L in lessons:
     # rules Amal has not taught yet (B14, B15) are left out of every total
     nt_uses = sum(v for k, v in (lu.get("by_bucket") or {}).items() if AMAL.not_taught(k))
     nt_rules = sum(1 for k, v in (lu.get("by_bucket") or {}).items() if v and AMAL.not_taught(k))
-    L["rule_uses"] = lu.get("uses") - nt_uses if lu.get("uses") is not None else None
+    L["detected_uses"] = lu.get("uses") - nt_uses if lu.get("uses") is not None else None
+    # the same lesson numbers the Lessons page shows (scripts/grammar_math.py)
+    _gl = grammar_math.lesson(GT, d)
+    L["rule_uses"], L["scored_slips"], L["unscored_slips"], L["grammar_pct"] = _gl["uses"], _gl["scored_mistakes"], _gl["unscored_mistakes"], _gl["pct"]
     L["unique_rules"] = (lu.get("unique_rules") - nt_rules if lu.get("unique_rules") else None) or len(
         {row["id"] for row in rows for e in row["events"] if e["date"] == d})
     L["not_counted"] = sum(1 for row in rows for c in row["not_counted"] if c["date"] == d)
@@ -454,13 +443,18 @@ payload = {
         "buckets_scored": len(scored),
         "lessons_scored": len(lessons),
         "lessons_recorded": len(lesson_dates),
-        "note": "Corrections are hand-verified: the 2026-09-24 sweep read every lesson and found 312 spoken fixes "
-                "Amal said aloud (a random hand check of 20 found 17 right); the %d filed in an approved rule are "
-                "counted. Uses are machine-counted: every time his Arabic exercises the rule, right or wrong. Asks: his "
-                "own questions about a form (rule M1). Untested = he never used it in any recorded lesson, or it is a "
-                "sound (F). Not taught yet = Amal has not taught the rule (her notes, 2026-09-27): no score, left out "
-                "of every total. %d corrections are shown but not counted (Amal's notes: not taught yet, or not a "
-                "mistake - list in data/amal-grammar-notes-2026-09-29.json)." % (len(sweep_rows), len(ruled_rows)),
+        # eng audit 2026-09-29: the note named the 09-24 sweep (312 fixes) although the counts come from the full audit
+        "note": ("Corrections come from the full audit of 2026-09-26: two independent readers per lesson, a third settling "
+                 "disagreements, reconciled with the 2026-09-24 hand sweep (a hand check of 20 scored rows found 17 right). "
+                 "%d fixes Amal voiced or typed, filed in an approved rule, are counted. Uses are machine-counted: every time "
+                 "his Arabic exercises the rule, right or wrong; a fix with no counted use within 2 s counts as a use too, "
+                 "so a rule never has more mistakes than uses. Unscored = no counter sees his right uses of the rule, so "
+                 "its fixes are listed but no %% is given. Asks: his own questions about a form (rule M1). Untested = he "
+                 "never used it in any recorded lesson, or it is a sound (F). Not taught yet = Amal has not taught the rule "
+                 "(her notes, 2026-09-27): no score, left out of every total. %d corrections are shown but not counted "
+                 "(Amal's notes: not taught yet, or not a mistake - list in data/amal-grammar-notes-2026-09-29.json). "
+                 "A score built from a lesson that is not verified yet is marked with ≈ (hover or tap it for why)."
+                 % (len(sweep_rows), len(ruled_rows))),
         "not_taught": sorted(AMAL.NOT_TAUGHT),
         "not_counted": len(ruled_rows),
         "not_counted_file": "data/amal-grammar-notes-2026-09-29.json",
