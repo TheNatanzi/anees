@@ -461,7 +461,7 @@ def main():
     rest = [p for p in BUILT_PATHS if (ROOT / p).exists()]
     # clips are *.mp3, which .gitignore excludes: without -f the Grammar console's clips never went live (515 of the 1,240
     # it links on master 2026-09-29 are not committed; the page falls back to seeking the lesson audio)
-    clips = sorted(str(p.relative_to(ROOT)).replace('\', '/') for p in (ROOT / 'docs' / 'lessons').glob('20??-??-??/clips') if p.is_dir())
+    clips = sorted(p.relative_to(ROOT).as_posix() for p in (ROOT / 'docs' / 'lessons').glob('20??-??-??/clips') if p.is_dir())
     if clips:
         subprocess.run(['git', 'add', '-f', '--', *clips], cwd=ROOT, capture_output=True, text=True)
     if rest and subprocess.run(['git', 'status', '--porcelain', '--', *rest], cwd=ROOT, capture_output=True, text=True).stdout.strip():
