@@ -560,6 +560,22 @@ def evidence_date_index(repo=REPO):
     return {e["id"]: e.get("lesson_date") for e in (E.get("events") if isinstance(E, dict) else E)}
 
 
+def word_bank_counts(wb, lesson_dates):
+    """Item 8: the Word Bank headline with its eligible / excluded / pending counts beside it, and which lessons it covers
+    (the 09-27 audit found 09-14 and 09-18 left out and 350 occurrences pending)."""
+    ev = (wb or {}).get("events", [])
+    c = collections.Counter(e.get("status") for e in ev)
+    right, part, wrong = c["Correct"], c["Partial"], c["Wrong"]
+    scored = right + part + wrong
+    dates = sorted({e.get("date") for e in ev})
+    return {"occurrences": len(ev), "eligible": scored, "excluded_not_scored": c["Not scored"], "pending_needs_review": c["Needs review"],
+            "other": len(ev) - scored - c["Not scored"] - c["Needs review"],
+            "pct": round(100 * (right + .5 * part) / scored, 1) if scored else None,
+            "lessons_in_audit": len(dates), "lessons_missing": sorted(set(lesson_dates) - set(dates)),
+            "note": "pct = (Correct + half Partial) / (Correct + Partial + Wrong); 'Needs review' is pending and counts nowhere; "
+                    "'Not scored' is excluded by rule (English, names, glue words...)."}
+
+
 def run_annotate(repo=REPO, write=True):
     policy = load_policy(os.path.join(repo, "docs", "data", "accuracy-policy.json"))
     lessons_p = os.path.join(repo, "docs", "data", "lessons.json")
@@ -574,6 +590,8 @@ def run_annotate(repo=REPO, write=True):
     sp = os.path.join(repo, "data", "accuracy", "source-audit.json")
     doc, rel, queue = annotate(doc, details, audit, usage, policy, ledger, os.path.join(repo, "data", "lesson-work", "full-audit"),
                                wb_checks, evidence_date_index(repo), J(sp) if os.path.exists(sp) else None)
+    wbp = os.path.join(repo, "docs", "data", "word-bank-audit.json")
+    rel["totals"]["word_bank"] = word_bank_counts(J(wbp) if os.path.exists(wbp) else None, [L["date"] for L in doc["lessons"]])
     if write:
         W(lessons_p, doc)
         W(os.path.join(repo, "docs", "data", "accuracy-release.json"), rel)
@@ -746,6 +764,11 @@ def validate(repo=REPO):
             probs.append(f"verification queue is stale: file has {J(qp).get('count')} rows, the gates give {len(q2)}")
     except Exception as e:                                   # fail closed: a gate that cannot run blocks publishing
         probs.append(f"the release layer could not be recomputed: {type(e).__name__}: {e}")
+    wbt = word_bank_counts(wb, [L["date"] for L in lessons])
+    if wbt["lessons_missing"]:
+        probs.append(f"Word Bank audit leaves out lessons {wbt['lessons_missing']}: its headline % is not for every lesson")
+    if wbt["other"]:
+        probs.append(f"Word Bank audit has {wbt['other']} occurrences with an unknown status")
     rp = os.path.join(repo, "docs", "data", "accuracy-release.json")
     if not os.path.exists(rp):
         probs.append("docs/data/accuracy-release.json missing")

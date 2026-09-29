@@ -278,3 +278,15 @@ def test_third_reader_sees_agreed_rows_and_can_challenge(tmp_path, monkeypatch):
     assert st["rows"][0]["r3_challenge"] == "Amal was not correcting" and st["counts"]["r3_challenged"] == 1
     row = dict(st["rows"][0], passes=[1, 2], confidence="high")
     assert "both readers found it but the third reader challenged it" in G.check_reasons(row, 2)
+
+
+def test_word_bank_headline_carries_pending_and_missing_lessons(tmp_path):
+    """09-27 item 8: the Word Bank audit left 09-14 and 09-18 out and had pending occurrences beside a headline %."""
+    wb = {"events": [{"date": "2026-09-14", "status": "Correct"}, {"date": "2026-09-14", "status": "Needs review"},
+                     {"date": "2026-09-14", "status": "Not scored"}, {"date": "2026-09-14", "status": "Partial"}]}
+    c = G.word_bank_counts(wb, ["2026-09-14", "2026-09-18"])
+    assert (c["eligible"], c["pending_needs_review"], c["excluded_not_scored"], c["pct"]) == (2, 1, 1, 75.0)
+    assert c["lessons_missing"] == ["2026-09-18"]
+    r = build_repo(tmp_path)
+    wj(os.path.join(r, "docs", "data", "word-bank-audit.json"), {"events": [{"date": "2026-09-01", "status": "Correct"}, {"date": "2026-09-01", "status": "Wrong"}]})
+    assert any("leaves out lessons ['2026-09-28']" in p for p in G.validate(r))
