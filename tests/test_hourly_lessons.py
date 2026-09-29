@@ -68,3 +68,155 @@ def test_half_done_dates_are_republished_not_forgotten(tmp_path):
 
 def test_winter_join_uses_pacific_standard_time():
     assert H.bot_date(bot('w', join='2026-12-01T07:30:00Z')) == '2026-11-30'
+
+
+# ---------------------------------------------------------------- engineering audit 2026-09-29, area 4 + decision 7
+# The hourly job must fail CLOSED: every push goes through scripts/publish_guard.py, a failed build step blocks the push
+# and is retried next hour, and a lesson's review is retried until it finishes.
+import json, subprocess, types
+import pytest
+import publish_guard as G
+
+
+class Git:
+    """Fake subprocess.run: records every command; rc per script name; `check=True` raises like the real one."""
+    def __init__(self, fail=(), ahead='2'):
+        self.calls, self.fail, self.ahead = [], set(fail), ahead
+
+    def __call__(self, cmd, *a, **k):
+        cmd = [str(c) for c in cmd]
+        self.calls.append(cmd)
+        out = self.ahead + '\n' if cmd[:2] == ['git', 'rev-list'] else ' M docs/data/tutor.json\n' if cmd[:2] == ['git', 'status'] else ''
+        rc = 1 if any(Path(c).name in self.fail for c in cmd) else 0
+        if rc and k.get('check'):
+            raise subprocess.CalledProcessError(rc, cmd, '', 'boom')
+        return subprocess.CompletedProcess(cmd, rc, out, 'boom' if rc else '')
+
+    def pushes(self):
+        return [c for c in self.calls if c[:2] == ['git', 'push']]
+
+
+@pytest.fixture
+def job(tmp_path, monkeypatch):
+    root = tmp_path / 'repo'
+    for p in ('docs/lessons', 'docs/data', 'data/lessons', 'data/lesson-work/full-audit'):
+        (root / p).mkdir(parents=True)
+    raw = tmp_path / 'raw'
+    raw.mkdir()
+    monkeypatch.setattr(H, 'ROOT', root)
+    monkeypatch.setenv('ANEES_TRIGGER', 'hourly')      # main() setdefaults it; keep it from leaking into other tests
+    state = types.SimpleNamespace(in_db=set(), guard=[], guard_ok=False, refresh=[], refresh_fail=[], git=Git())
+    fdb = types.ModuleType('db')
+    fdb.select = lambda *a, **k: [{'date': d} for d in state.in_db]
+    fdb.rest = lambda *a, **k: {'events': []}
+    fR = types.ModuleType('recall_bot'); fR.LESSONS = raw; fR.fetch = lambda *a, **k: None
+    monkeypatch.setitem(sys.modules, 'db', fdb)
+    monkeypatch.setitem(sys.modules, 'recall_bot', fR)
+    monkeypatch.setattr(H, 'recall_bots', lambda: [])
+    monkeypatch.setattr(H, 'meet_recordings', lambda drive: [])
+    monkeypatch.setattr(H, 'meet_for', lambda d, recs: None)
+    monkeypatch.setattr(H, 'load', lambda *a, **k: {'events': 3})
+    monkeypatch.setattr(H, 'tutor_refresh', lambda *a, **k: [])
+    monkeypatch.setattr(H, 'gap_fill_refresh', lambda *a, **k: {'failures': []})
+    monkeypatch.setattr(H, 'decisions_refresh', lambda *a, **k: None)
+    monkeypatch.setattr(H, 'pending_reviews', lambda *a, **k: [], raising=False)
+
+    def refresh(dates, raw_, work):
+        state.refresh.append(list(dates))
+        return list(state.refresh_fail)
+    monkeypatch.setattr(H, 'refresh_published', refresh)
+    monkeypatch.setattr(H.subprocess, 'run', state.git)
+
+    def guarded(root_=None, source='?', step_failures=(), **k):
+        state.guard.append({'source': source, 'step_failures': list(step_failures)})
+        ok = state.guard_ok and not list(step_failures) and not G.open_failures(root)
+        return {'pushed': ok, 'outcome': 'pushed' if ok else 'blocked', 'reason': '' if ok else 'test block'}
+    monkeypatch.setattr(G, 'guarded_push', guarded)
+    monkeypatch.setattr(sys, 'argv', ['hourly_lessons.py', '--raw', str(raw), '--work', str(tmp_path / 'work')])
+    state.root, state.raw = root, raw
+    return state
+
+
+def new_lesson(job, d='2026-09-30'):
+    job.in_db = {d}
+    (job.raw / d / 'tracks').mkdir(parents=True)
+    (job.raw / d / 'tracks' / 'tracks.json').write_text('{"tracks": []}', encoding='utf-8')
+    return d
+
+
+def test_stranded_commits_are_pushed_only_through_the_guard(job):
+    job.git.ahead = '2'
+    rc = H.main()
+    assert not job.git.pushes()                        # before: a bare `git push origin HEAD:master`
+    assert len(job.guard) == 1
+    assert rc == 1                                     # blocked = the scheduled task shows a failure
+
+
+def test_a_failed_build_step_blocks_the_lesson_push(job):
+    d = new_lesson(job)
+    job.refresh_fail = ['build_sentence_ladder.py exit 1']
+    job.guard_ok = True
+    rc = H.main()
+    assert job.refresh == [[d]]
+    assert not job.git.pushes()
+    assert job.guard and job.guard[-1]['step_failures'] == ['build_sentence_ladder.py exit 1']
+    assert rc == 1
+
+
+def test_a_failed_step_is_retried_next_hour_and_blocks_until_it_passes(job):
+    d = new_lesson(job)
+    job.refresh_fail = ['review_lesson.py 2026-09-30 exit 1']
+    job.guard_ok = True
+    assert H.main() == 1
+    (job.root / 'docs' / 'lessons' / f'{d}.html').write_text('page', encoding='utf-8')   # loaded + committed locally
+    job.refresh.clear(); job.guard.clear()
+    assert H.main() == 1                                                                 # still failing
+    assert job.refresh == [[d]]                                                          # retried, not forgotten
+    job.refresh.clear(); job.refresh_fail = []
+    assert H.main() == 0                                                                 # passes -> cleared -> pushed
+    assert job.refresh == [[d]] and G.open_failures(job.root) == {}
+
+
+def test_refresh_published_reports_failed_steps(tmp_path, monkeypatch):
+    root = tmp_path / 'repo'
+    (root / 'docs' / 'data').mkdir(parents=True)
+    monkeypatch.setattr(H, 'ROOT', root)
+    fdb = types.ModuleType('db'); fdb.rest = lambda *a, **k: {'events': []}
+    monkeypatch.setitem(sys.modules, 'db', fdb)
+    monkeypatch.setattr(H, 'build_clips', lambda *a, **k: None)
+    monkeypatch.setattr(H.subprocess, 'run', Git(fail={'build_sentence_ladder.py', 'review_lesson.py'}))
+    fails = H.refresh_published(['2026-09-30'], tmp_path / 'raw', tmp_path / 'work')
+    assert fails and any('build_sentence_ladder.py' in f for f in fails)
+    assert any('review_lesson.py' in f and '2026-09-30' in f for f in fails)
+
+
+def test_gap_fill_rebuild_failure_is_reported(tmp_path, monkeypatch):
+    import fill_meet_gaps as F
+    monkeypatch.setattr(H, 'ROOT', tmp_path)
+    monkeypatch.setattr(F, 'process_queue', lambda **k: {'done': ['2026-09-26-amal'], 'failed': [], 'pending': [], 'changed': True})
+    monkeypatch.setattr(H.subprocess, 'run', Git(fail={'build_lessons_page_data.py'}))
+    r = H.gap_fill_refresh(tmp_path, no_push=True)
+    assert r and any('build_lessons_page_data.py' in f for f in r.get('failures', []))
+
+
+def test_tutor_refresh_reports_a_failed_apply(tmp_path, monkeypatch):
+    monkeypatch.setattr(H, 'ROOT', tmp_path)
+    monkeypatch.setattr(H.subprocess, 'run', Git(fail={'apply_amal_audit_rulings.py'}))
+    monkeypatch.setattr(G, 'guarded_push', lambda *a, **k: {'pushed': False, 'outcome': 'blocked', 'reason': 'x'})
+    fails = H.tutor_refresh(no_push=True)
+    assert fails and 'apply_amal_audit_rulings.py' in fails[0]
+
+
+def test_pending_reviews_finds_unfinished_and_outdated_reviews(tmp_path, monkeypatch):
+    import review_lesson as RL
+    work = tmp_path / 'data' / 'lesson-work' / 'full-audit'
+    work.mkdir(parents=True)
+    (tmp_path / 'docs' / 'lessons').mkdir(parents=True)
+    for d in ('2026-09-05', '2026-09-26', '2026-09-28', '2026-09-30'):
+        (tmp_path / 'docs' / 'lessons' / f'{d}.html').write_text('p', encoding='utf-8')
+    for d in ('2026-09-05', '2026-09-26', '2026-09-28'):
+        (work / f'{d}.settled.json').write_text('{}', encoding='utf-8')
+    monkeypatch.setattr(RL, 'readers_read_current', lambda d, repo=None: 'transcript changed after the readers read it' if d == '2026-09-26' else None)
+    got = H.pending_reviews(tmp_path)
+    assert [d for d, _ in got] == ['2026-09-30', '2026-09-26']        # never finished first; 09-05 is before AUTO_START
+    assert 'never finished' in got[0][1] and 'transcript changed' in got[1][1]

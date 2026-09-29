@@ -324,9 +324,16 @@ def git_publish(paths, message, run=subprocess.run):
     paths = list(paths) + [ROOT / 'docs' / 'js' / 'build.js', ROOT / 'docs' / 'data' / 'build.json']
     run(['git', '-C', str(ROOT), 'add', '-f'] + [str(x) for x in paths if Path(x).exists()], check=True)      # -f: clips are *.mp3, which .gitignore excludes (2026-09-05: 103 Sep-5 clips never reached the site)
     run(['git', '-C', str(ROOT), 'commit', '-q', '-m', message + '\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>'], check=False)
-    push = run(['git', '-C', str(ROOT), 'push', '-q'], capture_output=True, text=True)
-    if push.returncode != 0:
-        raise RuntimeError('git push failed: ' + ((push.stderr or push.stdout) or '').strip()[:300])
+    _guarded_push(message, run)
+
+
+def _guarded_push(source, run):
+    """Every push to master publishes the site, so it goes through the publish guard (Medi decision 7, 2026-09-29):
+    rebase, re-check the numbers, push only on a full pass. Anything else raises (never announce an unpushed page)."""
+    import publish_guard
+    res = publish_guard.guarded_push(ROOT, source='lesson_pipeline: ' + source.splitlines()[0][:80], run=run)
+    if not res.get('pushed'):
+        raise RuntimeError(f"git push failed ({res.get('outcome')}): " + str(res.get('reason') or '')[:300])
 
 
 def publish_report(date, run=subprocess.run, get=requests.get, sleep=time.sleep):
@@ -349,9 +356,7 @@ def publish(date, page_html):
     paths = [DOCS / f'{date}.html', STATE, LESSONS / date / 'summary.json', LESSONS / date / 'transcript.txt', ROOT / '.gitignore', ROOT / 'docs' / 'js' / 'build.js', ROOT / 'docs' / 'data' / 'build.json']
     subprocess.run(['git', '-C', str(ROOT), 'add'] + [str(x) for x in paths if x.exists()], check=True)
     subprocess.run(['git', '-C', str(ROOT), 'commit', '-q', '-m', f'Lesson {date}: transcript page\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>'], check=False)
-    push = subprocess.run(['git', '-C', str(ROOT), 'push', '-q'], capture_output=True, text=True)
-    if push.returncode != 0:   # Codex P0: never email a link that was not pushed
-        raise RuntimeError('git push failed: ' + (push.stderr or push.stdout).strip()[:300])
+    _guarded_push(f'Lesson {date}: transcript page', subprocess.run)   # Codex P0: never email a link that was not pushed
     return PAGES + f'{date}.html'
 
 

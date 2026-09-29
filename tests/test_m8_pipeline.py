@@ -161,9 +161,25 @@ def test_publish_report_not_live_raises(monkeypatch, tmp_path):
         status_code = 404
     monkeypatch.setattr(lp, 'DOCS', tmp_path / 'docs'); monkeypatch.setattr(lp, 'LESSONS', tmp_path / 'lessons')
     monkeypatch.setattr(lp, 'LIVE_TRIES', 2)
+    import publish_guard       # the push itself passes the guard (2026-09-29); only the liveness check fails here
+    monkeypatch.setattr(publish_guard, 'guarded_push', lambda *a, **k: {'pushed': True, 'outcome': 'pushed', 'reason': ''})
     with pytest.raises(RuntimeError) as e:
         lp.publish_report('2099-01-01', run=lambda cmd, **k: P(0), get=lambda *a, **k: G(), sleep=lambda s: None)
     assert 'not live' in str(e.value)
+
+
+def test_pipeline_push_goes_through_the_publish_guard(monkeypatch, tmp_path):
+    """2026-09-29 (Medi decision 7): a blocked guard = no bare `git push`, and the page is not announced."""
+    calls = []
+    class P:
+        def __init__(self, rc): self.returncode, self.stderr, self.stdout = rc, '', ''
+    import publish_guard
+    monkeypatch.setattr(publish_guard, 'guarded_push', lambda *a, **k: {'pushed': False, 'outcome': 'blocked', 'reason': 'accuracy_gates: 1 problem'})
+    monkeypatch.setattr(lp, 'DOCS', tmp_path / 'docs'); monkeypatch.setattr(lp, 'LESSONS', tmp_path / 'lessons')
+    with pytest.raises(RuntimeError) as e:
+        lp.publish_report('2099-01-01', run=lambda cmd, **k: calls.append(cmd) or P(0), get=lambda *a, **k: None, sleep=lambda s: None)
+    assert 'blocked' in str(e.value) and 'accuracy_gates' in str(e.value)
+    assert not [c for c in calls if 'push' in c]
 
 
 def test_report_email_only_after_push_and_live(monkeypatch, tmp_path):

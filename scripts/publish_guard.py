@@ -33,7 +33,7 @@ CONFIG = 'scripts/publish_guard_config.json'
 STATE = 'data/publish-guard/state.json'            # local only (.gitignore): what happened on THIS PC, incl. blocks
 PUBLISHED = 'docs/data/publish-guard.json'         # published with each passing push; System Settings reads it
 NODE_DEFAULT = r'C:\dev\tools\node-v24.18.0-win-x64\node.exe'
-BUILTINS = ('step_failures', 'clean_tree', 'json_data', 'lesson_coverage', 'review_freshness', 'lesson_type_read')
+BUILTINS = ('step_failures', 'clean_tree', 'json_data', 'lesson_coverage', 'review_done', 'review_freshness', 'lesson_type_read')
 DATE_RE = re.compile(r'^20\d\d-\d\d-\d\d$')
 OK_ENV = 'ANEES_PUBLISH_GUARD_OK'                  # set on the guard's own `git push` so the pre-push hook does not re-run
 
@@ -68,9 +68,24 @@ def _short(text, n=300):
 # ---------------------------------------------------------------- built-in checks (read the working tree, no network)
 
 def check_step_failures(root, failures, **_):
-    """Steps of THIS run that failed (a builder crashed, a reader wrote nothing): their outputs may be stale."""
-    failures = list(failures or [])
-    return (not failures, '; '.join(str(f) for f in failures)[:600] if failures else 'no step failed in this run')
+    """Steps that failed in THIS run, plus failed steps of earlier hours not yet fixed (data/publish-guard/state.json
+    "open_failures": a lesson whose feeding or review failed stays blocked until a later hour re-runs it cleanly)."""
+    items = list(dict.fromkeys(str(f) for f in (failures or [])))
+    for key, v in sorted(open_failures(root).items()):
+        for f in v.get('failures') or []:
+            s = f'{f} (open since {str(v.get("at"))[:16]}, {key})'
+            if str(f) not in items:
+                items.append(s)
+    return (not items, '; '.join(items)[:800] if items else 'no build step failed (this run or an earlier one)')
+
+
+def check_review_done(root, **_):
+    """Every lesson's same-day review (two readers + third reader) finished: a lesson whose review failed is not published
+    with an audit that silently lacks it."""
+    work = Path(root) / 'data/lesson-work/full-audit'
+    pages, _ = _lesson_dates(root)
+    missing = [d for d in sorted(pages) if not (work / f'{d}.settled.json').exists()]
+    return (not missing, ('no finished review (settled audit) for ' + ', '.join(missing)) if missing else f'all {len(pages)} lessons reviewed')
 
 
 def check_clean_tree(root, config, run, **_):
@@ -239,6 +254,7 @@ def run_checks(root=ROOT, config=None, step_failures=(), run=subprocess.run, clo
                'clean_tree': lambda: check_clean_tree(root, config, run),
                'json_data': lambda: check_json_data(root),
                'lesson_coverage': lambda: check_lesson_coverage(root, run),
+               'review_done': lambda: check_review_done(root),
                'review_freshness': lambda: check_review_freshness(root),
                'lesson_type_read': lambda: check_lesson_type_read(root)}
     if not required:
@@ -269,6 +285,7 @@ def run_checks(root=ROOT, config=None, step_failures=(), run=subprocess.run, clo
 _WHAT = {'step_failures': 'no build step failed in this run', 'clean_tree': 'what is checked is exactly what gets published',
          'json_data': 'every docs/data JSON file parses and has its shape',
          'lesson_coverage': 'every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)',
+         'review_done': 'every lesson has a finished same-day review',
          'review_freshness': 'the two readers read the transcript the pages show now',
          'lesson_type_read': 'no default lesson type shown as a reading'}
 
@@ -306,6 +323,25 @@ def record(root, result, source, outcome, reason=None, waiting=None):
     st['history'] = ((st.get('history') or []) + [entry])[-100:]
     _write_json(Path(root) / STATE, st)
     return st
+
+
+def open_failures(root=ROOT):
+    """{key: {at, failures}} - failed steps of earlier hours (e.g. 'refresh:2026-09-30', 'tutor', 'gapfill', 'review:<date>')."""
+    return dict(read_state(root).get('open_failures') or {})
+
+
+def set_open_failures(root, key, failures):
+    """Record (non-empty) or clear (empty) the failed steps under `key`. Keeps the first time it failed."""
+    st = read_state(root)
+    of = dict(st.get('open_failures') or {})
+    if failures:
+        of[key] = {'at': (of.get(key) or {}).get('at') or now_iso(), 'last': now_iso(), 'failures': [str(f) for f in failures]}
+    elif key in of:
+        of.pop(key)
+    else:
+        return
+    st['open_failures'] = of
+    _write_json(Path(root) / STATE, st)
 
 
 def published_status(result, state, source):

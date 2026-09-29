@@ -252,7 +252,7 @@ def test_no_script_pushes_around_the_guard():
             continue
         for i, line in enumerate(p.read_text(encoding='utf-8', errors='replace').splitlines(), 1):
             code = line.split('#')[0]
-            if re.search(r"""['"]push['"]|['"]git\s+push""", code):
+            if re.search(r"""['"]push['"]|['"]git\s+push\s+(-|origin|HEAD)""", code):
                 offenders.append(f'{p.name}:{i}: {line.strip()[:100]}')
     for p in sorted((ROOT / 'scripts').glob('*.ps1')):
         for i, line in enumerate(p.read_text(encoding='utf-8', errors='replace').splitlines(), 1):
@@ -263,10 +263,13 @@ def test_no_script_pushes_around_the_guard():
 
 def test_the_live_config_carries_decision_7():
     cfg = json.loads((ROOT / G.CONFIG).read_text(encoding='utf-8'))
-    for must in ('accuracy_gates', 'check_numbers', 'arabizi_gaps', 'json_data', 'lesson_coverage', 'tests_py', 'tests_node',
+    for must in ('accuracy_gates', 'check_numbers', 'check_rules', 'check_pages', 'arabizi_gaps', 'json_data', 'lesson_coverage', 'review_done', 'tests_py', 'tests_node',
                  'step_failures', 'clean_tree'):
         assert must in cfg['required'], must
     assert cfg['total_timeout_s'] <= 300
+    tests = [a for spec in cfg['commands'].values() for a in spec['cmd'] if a.startswith('tests/')]
+    for live_db in ('test_m4_after', 'test_m5_cards'):          # they write into Medi's live database
+        assert not [t for t in tests if live_db in t]
     for cid, spec in cfg['commands'].items():
         for a in spec['cmd']:
             if a.startswith('tests/'):

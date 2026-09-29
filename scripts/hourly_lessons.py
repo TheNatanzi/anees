@@ -180,137 +180,167 @@ def build_clips(dates, raw, work):
     subprocess.run([sys.executable, str(HERE / 'build_audit_audio.py'), str(cw)], check=True, cwd=ROOT, capture_output=True)
 
 
+NODE = os.environ.get('ANEES_NODE') or (r'C:\dev\tools\node-v24.18.0-win-x64\node.exe' if os.path.exists(r'C:\dev\tools\node-v24.18.0-win-x64\node.exe') else 'node')
+AUTO_REREVIEW = True     # a lesson whose transcript grew after its readers ran (a Meet gap fill) is re-read, one per hour
+
+
+def run_step(name, cmd, failures, timeout=None, capture=True):
+    """One build step. Fail closed (engineering audit 2026-09-29): a non-zero exit, a crash or a timeout is recorded in
+    `failures` (which blocks the push and is retried next hour), never ignored and never raised."""
+    try:
+        kw = dict(capture_output=True, text=True, encoding='utf-8', errors='replace') if capture else {}
+        r = subprocess.run(cmd, cwd=ROOT, timeout=timeout, **kw)
+    except Exception as e:
+        failures.append(f'{name} failed ({type(e).__name__}: {str(e)[:200]})'); log('FAILED', name, e)
+        return None
+    if r.returncode:
+        tail = ((getattr(r, 'stderr', None) or getattr(r, 'stdout', None) or '').strip().splitlines() or [''])[-1][:200]
+        failures.append(f'{name} exit {r.returncode}' + (f': {tail}' if tail else '')); log('FAILED', name, 'exit', r.returncode, tail)
+    return r
+
+
 def refresh_published(dates, raw, work):
-    """Published fallback + review + audit for the new dates (clips are rebuilt by hand with build_audit_audio.py)."""
-    import db
-    live = db.rest('GET', 'rpc/speaking_snapshot', retries=4)      # 2026-09-23: one call failed transiently under load
-    (ROOT / 'docs/data/word-bank-evidence.json').write_text(
-        json.dumps({'version': datetime.date.today().isoformat(), 'events': live['events']}, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
-    run = lambda *c: subprocess.run([*c], check=True, cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
-    run(sys.executable, str(HERE / 'review_new_lessons.py'), *dates)
-    build_clips(dates, raw, work)
+    """Everything a lesson feeds, for `dates`: Word Bank evidence + review, clips, silent credits, reliability audit,
+    lesson data, sentence ladder, build stamp, then the same-day review (two readers -> third -> pages -> Amal's items).
+    Returns the failed steps (empty = all fed). Before 2026-09-29 the ladder and the review were 'never blocks the
+    publish' (check=False): a failure published a lesson missing from pages and the review was never retried."""
+    failures = []
+    try:
+        import db
+        live = db.rest('GET', 'rpc/speaking_snapshot', retries=4)      # 2026-09-23: one call failed transiently under load
+        (ROOT / 'docs/data/word-bank-evidence.json').write_text(
+            json.dumps({'version': datetime.date.today().isoformat(), 'events': live['events']}, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
+    except Exception as e:
+        failures.append(f'speaking snapshot (Word Bank evidence) failed: {type(e).__name__}: {str(e)[:200]}')
+        log('FAILED speaking snapshot', e)
+        return failures                                                  # nothing below is right without it
+    run_step('review_new_lessons.py', [sys.executable, str(HERE / 'review_new_lessons.py'), *dates], failures)
+    try:
+        build_clips(dates, raw, work)
+    except Exception as e:
+        failures.append(f'build_audit_audio.py (Word Bank clips) failed: {type(e).__name__}: {str(e)[:200]}'); log('FAILED clips', e)
     track_dates = [d for d in dates if (raw / d / 'tracks' / 'tracks.json').exists()]
     if track_dates:
-        run(sys.executable, str(HERE / 'review_silent_credits.py'), '--raw', str(raw), '--work', str(work), *track_dates)
-    run('node', str(HERE / 'audit_word_bank_reliability.cjs'), str(ROOT / 'docs/data/word-bank-evidence.json'))
-    run(sys.executable, str(HERE / 'build_lessons_page_data.py'))          # the transcript on the lesson clock, for the readers
-    try:                                                                     # sentence-length ladder (never blocks the publish)
-        subprocess.run([sys.executable, str(HERE / 'build_sentence_ladder.py')], cwd=ROOT, check=False, timeout=900, capture_output=True)
-    except Exception as e:
-        log('build_sentence_ladder failed', e)
-    run(sys.executable, str(HERE / 'write_build.py'))
+        run_step('review_silent_credits.py', [sys.executable, str(HERE / 'review_silent_credits.py'), '--raw', str(raw), '--work', str(work), *track_dates], failures)
+    run_step('audit_word_bank_reliability.cjs', [NODE, str(HERE / 'audit_word_bank_reliability.cjs'), str(ROOT / 'docs/data/word-bank-evidence.json')], failures)
+    run_step('build_lessons_page_data.py', [sys.executable, str(HERE / 'build_lessons_page_data.py')], failures)   # the transcript on the lesson clock, for the readers
+    run_step('build_sentence_ladder.py', [sys.executable, str(HERE / 'build_sentence_ladder.py')], failures, timeout=900)
+    run_step('write_build.py', [sys.executable, str(HERE / 'write_build.py')], failures)
     # Same-day review (full audit step 8, Medi 2026-09-25): two readers -> third reader -> pages -> Amal's line items.
-    # Runs claude headlessly; a failure here never blocks the publish above (logged, the next hour retries the missing file).
+    # Its own log lines go to this log (not captured). A failure blocks the push and is retried every hour until it passes.
     for d in dates:
-        try:
-            subprocess.run([sys.executable, str(HERE / 'review_lesson.py'), d, '--no-push'], cwd=ROOT, check=False, timeout=3 * 3600)
-        except Exception as e:
-            log('review_lesson failed', d, e)
+        run_step(f'review_lesson.py {d}', [sys.executable, str(HERE / 'review_lesson.py'), d, '--no-push'], failures, timeout=3 * 3600, capture=False)
+    return failures
 
 
-def tutor_refresh(no_push=False):
+def _commit(paths, message):
+    """Stage + commit (never push: the one push of a run goes through scripts/publish_guard.py). Returns True if a commit was made."""
+    run = lambda *c: subprocess.run(['git', *c], cwd=ROOT, capture_output=True, text=True)
+    run('add', *paths)
+    return run('commit', '-m', message + '\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>').returncode == 0
+
+
+def tutor_refresh(no_push=False, rebuild_all=False):
     """Every hour (2026-09-26): apply Amal's new taps (review page + after links) to the audit and pages, then rebuild the
-    Tutor page data. Commits only when a file changed. Never blocks the lesson pipeline."""
+    Tutor page data, commit, and publish through the guard right away (her taps should not wait for a long lesson run).
+    Returns the failed steps (fail closed: they block the push and make the next hour rebuild everything the taps feed)."""
+    failures = []
     try:
-        subprocess.run([sys.executable, str(HERE / 'apply_amal_audit_rulings.py')], cwd=ROOT, check=False, timeout=1800, capture_output=True)
-        subprocess.run([sys.executable, str(HERE / 'build_tutor_data.py')], cwd=ROOT, check=False, timeout=300, capture_output=True)
+        run_step('apply_amal_audit_rulings.py', [sys.executable, str(HERE / 'apply_amal_audit_rulings.py')], failures, timeout=1800)
+        if rebuild_all:           # an earlier hour failed: rebuild everything that reads the audit, not only on new taps
+            for s in ('build_amal_review.py', 'build_lessons_page_data.py', 'build_grammar_console.py', 'build_amal_grammar_rules.py'):
+                run_step(s, [sys.executable, str(HERE / s)], failures, timeout=1800)
+        run_step('build_tutor_data.py', [sys.executable, str(HERE / 'build_tutor_data.py')], failures, timeout=300)
         paths = ['docs/data', 'docs/amal/grammar-rules.html', 'data/full-audit-2026-09-26.json']
         changed = subprocess.run(['git', 'status', '--porcelain', '--', *paths], cwd=ROOT, capture_output=True, text=True).stdout.strip()
         if not changed:
-            return
-        run = lambda *c: subprocess.run(['git', *c], check=True, cwd=ROOT, capture_output=True, text=True)
-        run('add', *paths)
-        run('commit', '-m', "Amal's answers applied + Tutor page refreshed by the hourly job\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>")
+            return failures
+        _commit(paths, "Amal's answers applied + Tutor page refreshed by the hourly job")
         if not no_push:
-            try:
-                run('pull', '--rebase', '--autostash', 'origin', 'master')
-            except subprocess.CalledProcessError:
-                subprocess.run(['git', 'rebase', '--abort'], cwd=ROOT, capture_output=True)
-                log('tutor_refresh: pull --rebase failed; commit kept locally'); return
-            run('push', 'origin', 'HEAD:master')
-        log('tutor_refresh: published', changed.count('\n') + 1, 'files')
+            import publish_guard as G
+            G.guarded_push(ROOT, source='hourly: tutor refresh', step_failures=failures, log=log)
+        log('tutor_refresh:', changed.count('\n') + 1, 'files', ('FAILED ' + '; '.join(failures)) if failures else '')
     except Exception as e:
-        log('tutor_refresh failed', e)
+        failures.append(f'tutor_refresh crashed: {type(e).__name__}: {str(e)[:200]}'); log('tutor_refresh failed', e)
+    return failures
 
 
 def decisions_refresh(no_push=False):
-    """After the publish (AI tracking, plan/AI-ENGINEERING-REVIEW-2026-09-27.md item 2): pull Amal's answers and Medi's swipes
+    """After the lessons (AI tracking, plan/AI-ENGINEERING-REVIEW-2026-09-27.md item 2): pull Amal's answers and Medi's swipes
     into data/decisions (read-only, anon key) and commit the decision + run logs, so the clone is clean for the next hour.
-    Append-only JSONL with a union merge driver (data/*/.gitattributes). Never blocks or fails the lesson job."""
+    Append-only JSONL with a union merge driver (data/*/.gitattributes). Logs only (no page reads them): a failure is
+    logged, never blocks. Pushed with the run's one guarded push."""
     try:
-        subprocess.run([sys.executable, str(HERE / 'pull_decisions.py')], cwd=ROOT, check=False, timeout=300, capture_output=True)
+        r = subprocess.run([sys.executable, str(HERE / 'pull_decisions.py')], cwd=ROOT, timeout=300, capture_output=True, text=True)
+        if r.returncode:
+            log('decisions_refresh: pull_decisions exit', r.returncode, (r.stderr or '').strip()[-200:])
         paths = [p for p in ('data/decisions', 'data/runs') if (ROOT / p).exists()]
         changed = paths and subprocess.run(['git', 'status', '--porcelain', '--', *paths], cwd=ROOT, capture_output=True, text=True).stdout.strip()
-        if not changed:
-            return
-        run = lambda *c: subprocess.run(['git', *c], check=True, cwd=ROOT, capture_output=True, text=True)
-        run('add', *paths)
-        run('commit', '-m', "AI run + decision logs by the hourly job\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
-        if not no_push:
-            try:
-                run('pull', '--rebase', '--autostash', 'origin', 'master')
-            except subprocess.CalledProcessError:
-                subprocess.run(['git', 'rebase', '--abort'], cwd=ROOT, capture_output=True)
-                log('decisions_refresh: pull --rebase failed; commit kept locally'); return
-            run('push', 'origin', 'HEAD:master')
-        log('decisions_refresh: logged', changed.count('\n') + 1, 'files')
+        if changed:
+            _commit(paths, 'AI run + decision logs by the hourly job')
+            log('decisions_refresh: logged', changed.count('\n') + 1, 'files')
     except Exception as e:
         log('decisions_refresh failed', e)
 
 
-def gap_fill_refresh(raw, no_push=False):
+def gap_fill_refresh(raw, no_push=False, rebuild=False):
     """Meet gap filler (scripts/fill_meet_gaps.py, Medi 2026-09-28 "do it"): pending entries of data/backfill/meet_gaps.json
     get the missing speaker's side from the mixed Meet recording (one budget-checked Scribe call per gap, run-logged as
-    meet_gap_fill). When an entry finishes, the lesson data + sentence ladder are rebuilt and committed. Runs after the
-    lesson publish; never raises, never blocks it. Without a key it pays nothing (entries stay pending)."""
+    meet_gap_fill). When an entry finishes (or an earlier rebuild failed: rebuild=True), the lesson data + sentence ladder
+    are rebuilt and committed; r['failures'] lists failed rebuilds (they block the push, retried next hour). A crash of
+    the filler itself changes no page: logged, returns None. Without a key it pays nothing (entries stay pending)."""
     try:
         import fill_meet_gaps as F
-        r = F.process_queue(drive=DRIVE, raw=Path(raw))
-        if not r.get('changed'):
+        r = dict(F.process_queue(drive=DRIVE, raw=Path(raw)) or {})
+        r['failures'] = []
+        if not r.get('changed') and not rebuild:
             return r
-        if r.get('done'):
-            subprocess.run([sys.executable, str(HERE / 'build_lessons_page_data.py')], cwd=ROOT, check=False, timeout=1800, capture_output=True)
-            subprocess.run([sys.executable, str(HERE / 'build_sentence_ladder.py')], cwd=ROOT, check=False, timeout=900, capture_output=True)
+        if r.get('done') or rebuild:
+            run_step('build_lessons_page_data.py (gap fill)', [sys.executable, str(HERE / 'build_lessons_page_data.py')], r['failures'], timeout=1800)
+            run_step('build_sentence_ladder.py (gap fill)', [sys.executable, str(HERE / 'build_sentence_ladder.py')], r['failures'], timeout=900)
         paths = [p for p in ('data/backfill', 'data/budget.json', 'data/runs', 'docs/data/lessons.json', 'docs/data/lessons',
                              'docs/data/sentence-ladder.json', 'docs/data/sentence-ladder') if (ROOT / p).exists()]
         changed = subprocess.run(['git', 'status', '--porcelain', '--', *paths], cwd=ROOT, capture_output=True, text=True).stdout.strip()
-        if not changed:
-            return r
-        run = lambda *c: subprocess.run(['git', *c], check=True, cwd=ROOT, capture_output=True, text=True)
-        run('add', *paths)
-        run('commit', '-m', f"Meet gap fill: {', '.join(r.get('done') or []) or 'queue updated'} by the hourly job\n\n"
-                            "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
-        if not no_push:
-            try:
-                run('pull', '--rebase', '--autostash', 'origin', 'master')
-            except subprocess.CalledProcessError:
-                subprocess.run(['git', 'rebase', '--abort'], cwd=ROOT, capture_output=True)
-                log('gap_fill_refresh: pull --rebase failed; commit kept locally'); return r
-            run('push', 'origin', 'HEAD:master')
-        log('gap_fill_refresh: done', r.get('done'), 'failed', r.get('failed'))
+        if changed:
+            _commit(paths, f"Meet gap fill: {', '.join(r.get('done') or []) or 'queue updated'} by the hourly job")
+        log('gap_fill_refresh: done', r.get('done'), 'failed', r.get('failed'), *(['| rebuild FAILED:', '; '.join(r['failures'])] if r['failures'] else []))
         return r
     except Exception as e:
         log('gap_fill_refresh failed', e)
         return None
 
 
-def publish(dates):
-    run = lambda *c: subprocess.run(['git', *c], check=True, cwd=ROOT, capture_output=True, text=True)
+def commit_lessons(dates):
+    """Commit the loaded lessons (was publish(): it pushed straight to master; the push is now the run's one guarded push)."""
+    run = lambda *c: subprocess.run(['git', *c], cwd=ROOT, capture_output=True, text=True)
     # data/budget.json: transcribing writes the cost log; left unstaged it made 'pull --rebase' refuse (exit 128) and the
     # 2026-09-23 lesson commit never reached master (2026-09-24 fix; --autostash covers any other stray edit).
-    run('add', 'docs/data', 'docs/js/build.js', 'data/lessons/recall_bots.json', 'data/budget.json', *[f'docs/lessons/{d}.html' for d in dates],
+    run('add', 'docs/data', 'docs/js/build.js', 'data/lessons/recall_bots.json', 'data/budget.json',
+        *[f'docs/lessons/{d}.html' for d in dates if (ROOT / 'docs' / 'lessons' / f'{d}.html').exists()],
         *[p for p in ('data/runs', 'data/decisions') if (ROOT / p).exists()])   # AI run + decision logs ride along (append-only)
-    run('add', '-f', *[f'docs/lessons/{d}/audio/lesson.mp3' for d in dates],
+    run('add', '-f', *[f'docs/lessons/{d}/audio/lesson.mp3' for d in dates if (ROOT / 'docs' / 'lessons' / d / 'audio' / 'lesson.mp3').exists()],
         *[f'docs/lessons/{d}/clips' for d in dates if (ROOT / 'docs' / 'lessons' / d / 'clips').exists()])
-    run('commit', '-m', f'Lessons {", ".join(dates)} loaded by the hourly job\n\nCo-Authored-By: Claude Opus 5 <noreply@anthropic.com>')
-    # No automatic conflict side: '-X theirs' in a rebase keeps THIS job's copy and could drop another session's review
-    # patches in docs/data. On any conflict: abort, keep the local commit, fail loudly; a person merges.
-    try:
-        run('pull', '--rebase', '--autostash', 'origin', 'master')
-    except subprocess.CalledProcessError as e:
-        subprocess.run(['git', 'rebase', '--abort'], cwd=ROOT, capture_output=True)
-        raise RuntimeError('pull --rebase failed; lesson commit kept locally, not pushed: ' + (e.stderr or '')[-400:])
-    run('push', 'origin', 'HEAD:master')
+    return run('commit', '-m', f'Lessons {", ".join(dates)} loaded by the hourly job\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>').returncode == 0
+
+
+def pending_reviews(root=None):
+    """Lessons (from AUTO_START) whose same-day review must run (again): never finished (no settled audit) first, then those
+    whose transcript changed after the readers read it. [(date, why)], oldest first within each group."""
+    root = Path(root or ROOT)
+    work = root / 'data' / 'lesson-work' / 'full-audit'
+    dates = sorted(p.stem for p in (root / 'docs' / 'lessons').glob('20??-??-??.html') if p.stem >= AUTO_START)
+    never = [(d, 'the same-day review never finished (no settled audit)') for d in dates if not (work / f'{d}.settled.json').exists()]
+    import review_lesson as RL
+    changed = []
+    for d in dates:
+        if (work / f'{d}.settled.json').exists():
+            try:
+                why = RL.readers_read_current(d, str(root))
+            except Exception as e:
+                why = f'transcript unreadable ({type(e).__name__})'
+            if why:
+                changed.append((d, why))
+    return never + changed
 
 
 def main():
@@ -321,6 +351,7 @@ def main():
     a = ap.parse_args()
     os.environ.setdefault('ANEES_TRIGGER', 'hourly')     # run log (scripts/track.py): every child call is tagged hourly
     import db, recall_bot as R
+    import publish_guard as G
     raw, work = Path(a.raw), Path(a.work)
     R.LESSONS = raw
     ledger_path = ROOT / 'data' / 'lessons' / 'recall_bots.json'
@@ -335,8 +366,14 @@ def main():
     for r in new_rows:
         log('new Recall bot found in the API list', r['date'], r['bot_id'])
     if a.dry_run:
-        print(json.dumps({'new_bots': new_rows, 'todo': todo}, indent=1)); return 0
-    tutor_refresh(no_push=a.no_push)                  # Amal's taps -> scores + rules; the Tutor page always current
+        print(json.dumps({'new_bots': new_rows, 'todo': todo, 'open_failures': G.open_failures(ROOT),
+                          'pending_reviews': pending_reviews(ROOT)}, indent=1)); return 0
+    open_before = G.open_failures(ROOT)          # failed steps of earlier hours: retried below, block every push until fixed
+    if open_before:
+        log('retrying failed steps of an earlier hour:', ', '.join(sorted(open_before)))
+    run_failures = []
+    f = tutor_refresh(no_push=a.no_push, rebuild_all='tutor' in open_before)   # Amal's taps -> scores + rules; Tutor page
+    G.set_open_failures(ROOT, 'tutor', f); run_failures += f
     if new_rows:
         ledger_path.write_text(json.dumps(sorted(ledger + new_rows, key=lambda e: e['t']), ensure_ascii=False, indent=1), encoding='utf-8')
     done, failures = [], 0
@@ -371,25 +408,44 @@ def main():
             done.append(d)
         except Exception as ex:
             failures += 1; log('FAILED', d, str(ex)[:500])
-    if done:
-        refresh_published(done, raw, work)
-        if not a.no_push:
-            publish(done)
-        log('published', done)
+    # every lesson fed this hour: the new ones + any whose feeding failed in an earlier hour (retried until it passes)
+    retry = sorted(k.split(':', 1)[1] for k in open_before if k.startswith('refresh:'))
+    batch = sorted(set(done) | set(retry))
+    if batch:
+        f = refresh_published(batch, raw, work)
+        for d in batch:
+            G.set_open_failures(ROOT, 'refresh:' + d, f)
+        run_failures += f
+        commit_lessons(batch)
+        log('loaded + committed' if done else 'retried', batch, *(['| FAILED:', '; '.join(f)] if f else []))
     else:
         log('nothing new')
-        # A lesson commit a failed push left behind is 'published' locally (its page exists), so no later hour re-plans it:
-        # push it here instead of stranding it (2026-09-23 sat unpushed overnight).
+    # a lesson whose review never finished, or whose transcript grew after its readers ran: one re-review per hour
+    if not batch and AUTO_REREVIEW:
+        pend = pending_reviews(ROOT)
+        pend_dates = {d for d, _ in pend}
+        for k in [k for k in G.open_failures(ROOT) if k.startswith('review:') and k.split(':', 1)[1] not in pend_dates]:
+            G.set_open_failures(ROOT, k, [])     # fixed since (by hand or by a later run)
+        if pend:
+            d, why = pend[0]
+            log('re-review', d, '-', why)
+            f = []
+            run_step(f'review_lesson.py {d}', [sys.executable, str(HERE / 'review_lesson.py'), d, '--no-push'], f, timeout=3 * 3600, capture=False)
+            G.set_open_failures(ROOT, 'review:' + d, f); run_failures += f
+    g = gap_fill_refresh(raw, no_push=a.no_push, rebuild='gapfill' in open_before)     # never raises (fill_meet_gaps.py)
+    if g is not None:
+        G.set_open_failures(ROOT, 'gapfill', g.get('failures') or []); run_failures += g.get('failures') or []
+    decisions_refresh()                                 # logs only; never raises
+    # The run's ONE push (lessons, gap fill, logs, and any commit an earlier blocked hour left behind) goes through the
+    # publish guard: it re-checks the numbers first; on a block nothing is published and the local commits wait.
+    blocked = False
+    if not a.no_push:
         ahead = subprocess.run(['git', 'rev-list', '--count', 'origin/master..HEAD'], cwd=ROOT, capture_output=True, text=True).stdout.strip()
-        if not a.dry_run and not a.no_push and ahead not in ('', '0'):
-            if subprocess.run(['git', 'pull', '--rebase', '--autostash', 'origin', 'master'], cwd=ROOT, capture_output=True).returncode:
-                subprocess.run(['git', 'rebase', '--abort'], cwd=ROOT, capture_output=True)
-                log('FAILED to rebase', ahead, 'unpushed local commit(s); a person merges'); return 1
-            subprocess.run(['git', 'push', 'origin', 'HEAD:master'], check=True, cwd=ROOT, capture_output=True)
-            log('pushed', ahead, 'local commit(s) left by an earlier run')
-    gap_fill_refresh(raw, no_push=a.no_push)           # after the publish; never raises (fill_meet_gaps.py)
-    decisions_refresh(no_push=a.no_push)               # after the publish; never raises
-    return 1 if failures else 0
+        if ahead not in ('', '0'):
+            what = ('lessons ' + ', '.join(done)) if done else 'retry ' + ', '.join(batch) if batch else f'{ahead} local commit(s)'
+            res = G.guarded_push(ROOT, source=f'hourly: {what}', step_failures=run_failures, log=log)
+            blocked = not res.get('pushed')
+    return 1 if (failures or blocked or run_failures or G.open_failures(ROOT)) else 0
 
 
 if __name__ == '__main__':
