@@ -10,8 +10,8 @@ Her taps land in amal_rules (source 'review'): kind 'audit_confirm' (the correct
   vocab-A / grammar-A with signal 'amal-ruling' (scored: clip, underline, % - same as her voice). Pages are rebuilt.
 - audit_skip    -> the rows are marked dropped (kind 'dropped-by-amal', her reason kept) AND her reason becomes a
   rule in docs/data/ai_rules.json (kind 'amal-ruling') so the same pattern is never asked again.
-Idempotent: a ruling is applied once (payload.applied stamped on the amal_rules row through the service key) and the
-audit JSON carries the ruling on every row it touched; re-running changes nothing.
+Idempotent: a ruling is applied once - its id is listed in the audit JSON's rulings_applied (nothing is written back to
+Supabase any more, 2026-09-29); the audit JSON carries the ruling on every row it touched; re-running changes nothing.
 """
 import datetime, json, os, subprocess, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
@@ -80,6 +80,9 @@ def apply(dry=False):
         R["groups"].append(grp)
     known = {x.get("pattern") for x in grp["rules"]}
     rulings = load_rulings()
+    # which taps are already applied is kept HERE (the audit JSON), not written back into her Supabase rows
+    # (plan/AI-ENGINEERING-REVIEW-2026-09-27.md: stop PATCHing payload.applied). Old rows may still carry payload.applied.
+    done_ids = {i for x in A.get("rulings_applied") or [] for i in x.get("rules") or []}
     changed, flipped, dropped, new_rules = [], 0, 0, 0
     now = datetime.datetime.now(datetime.timezone.utc).isoformat()
     # Tutor-page checks of single rows go to the verification ledger, not to the pattern logic below
@@ -91,7 +94,7 @@ def apply(dry=False):
             if not p.get("applied") and any(v["rule_id"] == ru.get("id") for v in vrec):
                 changed.append(ru["id"])
             continue
-        if p.get("applied"):
+        if p.get("applied") or ru.get("id") in done_ids:
             continue
         uids = p.get("rows") or []
         pid = ru.get("word_key")
@@ -147,10 +150,6 @@ def apply(dry=False):
     A["rulings_applied"] = (A.get("rulings_applied") or []) + [{"at": now, "rules": changed}]
     json.dump(A, open(AUDIT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     json.dump(R, open(RULES, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    import db
-    for rid in changed:
-        ru = next(x for x in rulings if x["id"] == rid)
-        db.rest("PATCH", "amal_rules", params={"id": f"eq.{rid}"}, body={"payload": {**(ru.get("payload") or {}), "applied": now}}, prefer="return=minimal")
     # rebuild everything that reads the audit
     for cmd in (["build_amal_review.py"], ["build_lessons_page_data.py"], ["build_grammar_console.py"], ["build_amal_grammar_rules.py"],
                 ["codex_rejudge.py", "--list"]):

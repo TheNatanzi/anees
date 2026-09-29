@@ -111,3 +111,42 @@ def test_tutor_page_has_the_check_list_and_no_hub():
     assert "Correction is correct" in js and "Reason not to correct" in js
     assert "audit_confirm" in js and "audit_skip" in js and "amal_rules" in js
     assert "hub.html" not in html and "Amal's hub" not in html                   # removed 2026-09-28, never back
+
+
+# ---------------------------------------------------------------- Tutor page: verb answers pulled = counted, not hand-kept
+def test_tutor_pulled_counts_come_from_the_pulled_files(tmp_path):
+    import build_tutor_data as T
+    v = tmp_path / "data" / "vocab"
+    v.mkdir(parents=True)
+    (v / "amal_verb_checks.json").write_text(json.dumps({"answers": {"a:present:He": {}, "a:present:She": {}, "z:past:I": {}}}), encoding="utf-8")
+    list1 = {"kind": "verb-forms", "items": {"a:present:He": {}, "a:present:She": {}, "a:present:We": {}}}
+    list2 = {"kind": "verb-addons", "items": {"a:addon:obj": {}, "a:addon:ma3": {}}}
+    assert T.pulled_count(list1, str(tmp_path)) == 2                 # the old code kept whatever number was typed (41)
+    assert T.pulled_count(list2, str(tmp_path)) == 0                 # no list-2 file yet
+    (v / "amal_addon_checks.json").write_text(json.dumps({"a": {"object": True, "preps_ok": ["ma3"]}}), encoding="utf-8")
+    assert T.pulled_count(list2, str(tmp_path)) == 2
+
+
+def test_apply_rulings_writes_nothing_back_to_supabase_and_stays_idempotent(tmp_path, monkeypatch):
+    """plan/AI-ENGINEERING-REVIEW-2026-09-27.md: stop PATCHing payload.applied into Amal's rows; the audit JSON remembers."""
+    import sys, types
+    audit = tmp_path / "audit.json"
+    audit.write_text(json.dumps({"rows": [{"uid": "FA-b1", "kind": "grammar-B"}, {"uid": "FA-a1", "kind": "grammar", "date": "2026-09-28", "t": "05:00"}]}), encoding="utf-8")
+    rules = tmp_path / "ai_rules.json"
+    rules.write_text(json.dumps({"groups": []}), encoding="utf-8")
+    ledger = tmp_path / "verifications.json"
+    monkeypatch.setattr(A, "AUDIT", str(audit)); monkeypatch.setattr(A, "RULES", str(rules)); monkeypatch.setattr(A, "LEDGER", str(ledger))
+    calls = []
+    monkeypatch.setitem(sys.modules, "db", types.SimpleNamespace(rest=lambda *a, **k: calls.append(a), select=lambda *a, **k: []))
+    monkeypatch.setattr(A.subprocess, "run", lambda *a, **k: None)
+    rulings = [{"id": 1, "kind": "audit_confirm", "word_key": "P-x", "payload": {"rows": ["FA-b1"]}},
+               {"id": 2, "kind": "audit_confirm", "word_key": "verify:FA-a1", "created_at": "2026-09-30T10:00:00Z", "payload": {}}]
+    monkeypatch.setattr(A, "load_rulings", lambda: rulings)
+    A.apply()
+    assert calls == []                                                          # nothing written to Supabase
+    a = json.loads(audit.read_text(encoding="utf-8"))
+    assert a["rows"][0]["kind"] == "grammar" and a["rulings_applied"][-1]["rules"] == [1, 2]
+    assert [r["uid"] for r in json.loads(ledger.read_text(encoding="utf-8"))["records"]] == ["FA-a1"]
+    before = audit.read_text(encoding="utf-8"), ledger.read_text(encoding="utf-8")
+    A.apply()                                                                   # second run: nothing new
+    assert (audit.read_text(encoding="utf-8"), ledger.read_text(encoding="utf-8")) == before
