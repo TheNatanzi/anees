@@ -250,6 +250,14 @@ def _commit(paths, message):
     return run('commit', '-m', message + '\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>').returncode == 0
 
 
+# what the Tutor refresh rebuilds (data/accuracy: accuracy_gates annotate rewrites the verification queue on every
+# lesson-data build; left uncommitted it made the guard's clean-tree check block every later hour)
+TUTOR_PATHS = ['docs/data', 'docs/amal/grammar-rules.html', 'data/full-audit-2026-09-26.json', 'data/accuracy']
+# everything a run may build that the site or the guard reads: committed before the run's one push
+BUILT_PATHS = ['docs', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'data/lesson-work/full-audit', 'plan/FULL-AUDIT-2026-09-26.md',
+               'data/budget.json', 'data/lessons/recall_bots.json', 'data/runs', 'data/decisions', 'data/backfill']
+
+
 def tutor_refresh(no_push=False, rebuild_all=False):
     """Every hour (2026-09-26): apply Amal's new taps (review page + after links) to the audit and pages, then rebuild the
     Tutor page data, commit, and publish through the guard right away (her taps should not wait for a long lesson run).
@@ -261,7 +269,7 @@ def tutor_refresh(no_push=False, rebuild_all=False):
             for s in ('build_amal_review.py', 'build_lessons_page_data.py', 'build_grammar_console.py', 'build_amal_grammar_rules.py'):
                 run_step(s, [sys.executable, str(HERE / s)], failures, timeout=1800)
         run_step('build_tutor_data.py', [sys.executable, str(HERE / 'build_tutor_data.py')], failures, timeout=300)
-        paths = ['docs/data', 'docs/amal/grammar-rules.html', 'data/full-audit-2026-09-26.json']
+        paths = [p for p in TUTOR_PATHS if (ROOT / p).exists()]
         changed = subprocess.run(['git', 'status', '--porcelain', '--', *paths], cwd=ROOT, capture_output=True, text=True).stdout.strip()
         if not changed:
             return failures
@@ -448,6 +456,12 @@ def main():
     decisions_refresh()                                 # logs only; never raises
     # The run's ONE push (lessons, gap fill, logs, and any commit an earlier blocked hour left behind) goes through the
     # publish guard: it re-checks the numbers first; on a block nothing is published and the local commits wait.
+    # whatever this hour built and no step committed (e.g. data/accuracy/verification-queue.json) goes in one last commit,
+    # so the guard checks exactly what would be published
+    rest = [p for p in BUILT_PATHS if (ROOT / p).exists()]
+    if rest and subprocess.run(['git', 'status', '--porcelain', '--', *rest], cwd=ROOT, capture_output=True, text=True).stdout.strip():
+        subprocess.run(['git', 'add', '-A', '--', *rest], cwd=ROOT, capture_output=True, text=True)
+        _commit(rest, 'Hourly job: remaining built files')
     blocked = False
     if not a.no_push:
         ahead = subprocess.run(['git', 'rev-list', '--count', 'origin/master..HEAD'], cwd=ROOT, capture_output=True, text=True).stdout.strip()

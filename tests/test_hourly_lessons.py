@@ -99,7 +99,7 @@ class Git:
 @pytest.fixture
 def job(tmp_path, monkeypatch):
     root = tmp_path / 'repo'
-    for p in ('docs/lessons', 'docs/data', 'data/lessons', 'data/lesson-work/full-audit'):
+    for p in ('docs/lessons', 'docs/data', 'data/lessons', 'data/lesson-work/full-audit', 'data/accuracy'):
         (root / p).mkdir(parents=True)
     raw = tmp_path / 'raw'
     raw.mkdir()
@@ -252,3 +252,14 @@ def test_a_new_lesson_gets_its_grammar_uses_counted(tmp_path, monkeypatch):
     order = [Path(x).name for c in git.calls for x in c if str(x).endswith(('.py', '.cjs'))]
     assert 'detect_grammar_usage.py' in order
     assert order.index('detect_grammar_usage.py') < order.index('build_lessons_page_data.py')
+
+
+def test_everything_built_this_hour_is_committed_before_the_push(job):
+    """accuracy_gates annotate rewrites data/accuracy/verification-queue.json on every lesson-data build, and nothing
+    committed it: the guard's clean-tree check would then block every later hour."""
+    job.guard_ok = True
+    H.main()
+    adds = [c for c in job.git.calls if c[:2] == ['git', 'add']]
+    assert any('data/accuracy' in c for c in adds)
+    tutor_paths = H.TUTOR_PATHS
+    assert 'data/accuracy' in tutor_paths
