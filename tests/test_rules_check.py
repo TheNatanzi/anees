@@ -181,6 +181,17 @@ def test_claude_run_must_log_its_model_and_match_the_pin(tmp_path):
     assert cr.check_ai_model(tmp_path, None)["status"] == "fail"
 
 
+def test_paid_call_without_a_run_line_fails(tmp_path):
+    w(tmp_path / "data" / "runs" / "2026-09.jsonl",
+      json.dumps({"started_at": "2026-09-28T23:15:21Z", "cost_usd": 0.262505, "step": "scribe.transcribe"}) + chr(10))
+    w(tmp_path / "data" / "budget.json", {"calls": [
+        {"t": "2026-09-05T16:00:00", "service": "openai", "usd": 0.11},              # before the run log: not judged
+        {"t": "2026-09-28T16:15:54", "service": "elevenlabs", "usd": 0.2625}]})
+    assert cr.check_ai_paid_logged(tmp_path, None)["status"] == "pass"
+    w(tmp_path / "data" / "budget.json", {"calls": [{"t": "2026-09-28T17:00:00", "service": "openai", "usd": 0.15}]})
+    assert cr.check_ai_paid_logged(tmp_path, None)["status"] == "fail"
+
+
 # ---------------------------------------------------------------- the real repo
 def test_live_rules_json_matches_rules_md():
     """Failed before 2026-09-29: docs/data/standing-rules.json was built 09-23 and missed the 09-26 S1 extension."""

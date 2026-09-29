@@ -419,10 +419,42 @@ def check_ai_model(root, raw):
                "AI-ENGINEERING-REVIEW-2026-09-27 #1", bad, total=n)
 
 
+def check_ai_paid_logged(root, raw):
+    """Every paid call in the budget ledger (data/budget.json) since the run log started has its run line (same cost,
+    within 14 h - the ledger clock is local, the run log is UTC)."""
+    import datetime as dt
+    rule, src = "Every paid AI call since 2026-09-28 has a run line", "AI-ENGINEERING-REVIEW-2026-09-27 #1"
+    runs = []
+    for rp in sorted((root / "data" / "runs").glob("*.jsonl")):
+        for line in open(rp, encoding="utf-8"):
+            try:
+                runs.append(json.loads(line))
+            except Exception:
+                pass
+    bp = root / "data" / "budget.json"
+    if not runs or not bp.exists():
+        return res("AI-paid-logged", "block", rule, src, skip="no run log or no budget ledger")
+    ts = lambda s: dt.datetime.fromisoformat(str(s).replace("Z", "")[:19])
+    first = min(ts(r["started_at"]) for r in runs if r.get("started_at"))
+    bad, n = [], 0
+    for c in J(bp).get("calls", []):
+        try:
+            t = ts(c["t"])
+        except Exception:
+            continue
+        if t < first - dt.timedelta(hours=12):
+            continue
+        n += 1
+        if not any(r.get("cost_usd") is not None and abs(float(r["cost_usd"]) - float(c.get("usd") or 0)) < 0.00015
+                   and abs((ts(r["started_at"]) - t).total_seconds()) < 14 * 3600 for r in runs):
+            bad.append(f"{c['t']} {c.get('service')} {c.get('usd')} USD: no run line")
+    return res("AI-paid-logged", "block", rule, src, bad, total=n)
+
+
 CHECKS = [check_s1_guard, check_s1_extra, check_s2_raw, check_s3_signal, check_s4_pronunciation, check_s5_pause,
           check_medi_only, check_one_episode, check_grammar_only, check_15s_clue, check_glue, check_new_signal,
           check_sheet_meaning, check_hub_removed, check_medi_only_email, check_budget, check_rules_json,
-          check_ai_logged, check_ai_model]
+          check_ai_logged, check_ai_model, check_ai_paid_logged]
 
 
 def run_all(root=ROOT, raw=DEFAULT_RAW, only=None):
