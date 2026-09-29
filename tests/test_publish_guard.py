@@ -274,3 +274,40 @@ def test_the_live_config_carries_decision_7():
         for a in spec['cmd']:
             if a.startswith('tests/'):
                 assert (ROOT / a).exists(), f'{cid}: {a} missing'
+
+
+def test_real_git_a_block_leaves_the_remote_untouched_and_a_pass_publishes(tmp_path):
+    """End to end with real git (a local bare repo stands in for GitHub): blocked = master keeps the last good commit and
+    the local commit waits; the next passing run publishes both, with the last block in docs/data/publish-guard.json."""
+    import shutil
+    if not shutil.which('git'):
+        pytest.skip('git not on PATH')
+    g = lambda cwd, *a: subprocess.run(['git', *a], cwd=cwd, capture_output=True, text=True, check=True).stdout.strip()
+    remote, work = tmp_path / 'remote.git', tmp_path / 'work'
+    g(tmp_path, 'init', '-q', '--bare', '-b', 'master', str(remote))
+    g(tmp_path, 'clone', '-q', str(remote), str(work))
+    for k, v in (('user.email', 't@example.com'), ('user.name', 'test'), ('core.hooksPath', 'no-hooks')):
+        g(work, 'config', k, v)
+    write(work / G.CONFIG, {'required': ['json_data', 'numbers'], 'advisory': [], 'total_timeout_s': 60,
+                            'commands': {'numbers': {'cmd': ['{python}', 'scripts/numbers.py'], 'timeout_s': 30}}})
+    write(work / 'scripts' / 'numbers.py', "import pathlib, sys\nok = pathlib.Path('ok.flag').exists()\n"
+                                           "print('numbers add up' if ok else 'Word Bank 312 != Lessons 309')\nsys.exit(0 if ok else 1)\n")
+    write(work / '.gitignore', 'ok.flag\ndata/publish-guard/\n')
+    write(work / 'docs' / 'data' / 'lessons.json', {'lessons': []})
+    g(work, 'add', '-A'); g(work, 'commit', '-q', '-m', 'last good'); g(work, 'push', '-q', 'origin', 'HEAD:master')
+    good = g(remote, 'rev-parse', 'master')
+    write(work / 'docs' / 'data' / 'lessons.json', {'lessons': [{'date': '2026-09-30'}]})
+    g(work, 'add', '-A'); g(work, 'commit', '-q', '-m', 'lesson 2026-09-30')
+    lines = []
+    res = G.guarded_push(work, source='hourly: lessons 2026-09-30', log=lambda *p: lines.append(' '.join(map(str, p))))
+    assert res['outcome'] == 'blocked' and '312 != Lessons 309' in res['reason']
+    assert g(remote, 'rev-parse', 'master') == good                                  # the live site keeps the last good version
+    assert g(work, 'rev-list', '--count', 'origin/master..HEAD') == '1'              # the lesson commit waits, not lost
+    assert any('PUBLISH BLOCKED' in l and '1 local commit(s) wait' in l for l in lines)
+    (work / 'ok.flag').write_text('', encoding='utf-8')
+    res = G.guarded_push(work, source='hourly: 1 local commit(s)', log=lambda *p: None)
+    assert res['pushed']
+    assert g(remote, 'rev-parse', 'master') == g(work, 'rev-parse', 'HEAD')
+    pub = json.loads(g(remote, 'show', 'master:docs/data/publish-guard.json'))
+    assert pub['result'] == 'pass' and '312 != Lessons 309' in pub['last_block']['reason']
+    assert json.loads(g(remote, 'show', 'master:docs/data/lessons.json'))['lessons'] == [{'date': '2026-09-30'}]
