@@ -100,7 +100,7 @@ Nothing to fix in the stats code; the numbers are wrong only because the input h
 | Grammar-rule notes (her Doc, merged tonight) | 20 rulings (+11 rows read and kept) | 20 (data/amal-grammar-notes-2026-09-29.json) | 20 (console 20/20, lesson files 20/20) | 0 | ✅ |
 | After-lesson links (09-23, 09-26, 09-28 open) | 0 | 0 | 0 | 0 | — |
 | Homework verdicts | 1 | 1 | 1 (applied 09-05) | 0 | ✅ |
-| Quizlet sets she sent | 132 | 106 | 106 | **26** | see "Quizlet" below |
+| Quizlet sets she sent | 132 | 106 → **125** | 106 → **125** | 26 → **7** | ✅ 19 imported (see below); 7 over-100-card sets still partial |
 
 Verb check list 1 detail: engine vs Amal (her 729 answers): Present 535/601 = 89.0%, Past 68/84 = 81.0%,
 Command 29/44 = 65.9%, all 632/729 = 86.7%. (The 09-22 hold-out numbers 93/98/95 were measured on her Doc forms, not on
@@ -163,7 +163,19 @@ For Amal (yes/no each):
 - Word review: 7 of 11 answers not shown (needs the Speaking release rebuild with the private snapshot).
 - The 90 test rows are still in the live history (need Medi's yes); test_card_history fails until then.
 - test_verb_addons golden fails (16 → 15) pending Amal's answer; not lowered.
-- Quizlet: see the section below (filled in when the reader finishes).
+- Quizlet: 7 of Amal's sets are still missing because their public page shows only the first 100 cards:
+  Broken Plurals (170), Past Tense Group 1 (507), Past Tense Group 2 (144), Past Tense Group 3 (256), normal verbs that
+  get "a" (374), Normal verbs that take "e" (104), zehe2-beyzahhe2 group (89; two cards fused on the page). They need
+  Medi's Chrome (logged-in Quizlet, the 09-21 __NEXT_DATA__ recipe) or a "See more" click. Not imported partially.
+
+## Quizlet: 19 more of Amal's sets imported (2026-09-29)
+Read with Firecrawl (the 09-26 recipe), complete term counts only: Daily Expressions PT1 13, Irregular Past Tenses 24,
+ba2ul conjugations 37, Past Multifunctional Verbs 21, Travel PT1 14, Travel PT2 25, July 21 words 10, Weather 33,
+Weather complementary phrases 16, July 27 Words 6, Everyday expressions PT2 24, PT3 9, Animals 19, Animals PT2 + Randoms 18,
+babse6-banbese6 group 97, August 11 Words 9, Doubled middle (shadda) Causitive Verbs 15, Grammar Termonology 29,
+T causative Verbs 16. Sets 107 → 126, terms 2,406 → 2,841, cards 2,364 → 2,797 (Doc words 1,191 → 1,427, q: cards
+1,173 → 1,370), set tiles 71 → 87 (3 dated sets hidden: July 21, July 27, August 11). Blank-sided terms still 6.
+Terms kept exactly as she wrote them (typos included).
 
 ## Hand-check of 5 findings
 1. 688 unpulled: the online test printed "688 of 729 answers not pulled" on the pre-pull file ✅
