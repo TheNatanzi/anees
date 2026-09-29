@@ -1,0 +1,38 @@
+{
+ "about": "Publish guard (Medi decision 7, 2026-09-29). Every push to master publishes the live site (GitHub Pages builds master:/docs), so scripts/publish_guard.py runs these checks right before any `git push`. A REQUIRED check that fails, times out or is missing blocks the push; an ADVISORY check only reports. Edit the two lists to change what blocks. Never move a check to advisory to make a push go through without Medi's yes.",
+ "required": ["step_failures", "clean_tree", "json_data", "lesson_coverage", "accuracy_gates", "check_numbers", "arabizi_gaps", "tests_py", "tests_node"],
+ "advisory": ["review_freshness", "lesson_type_read"],
+ "total_timeout_s": 300,
+ "clean_paths": ["docs", "data/full-audit-2026-09-26.json", "data/accuracy"],
+ "commands": {
+  "accuracy_gates": {"cmd": ["{python}", "scripts/accuracy_gates.py", "check"], "timeout_s": 120,
+                     "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar"},
+  "check_numbers": {"cmd": ["{python}", "scripts/check_numbers.py"], "timeout_s": 120,
+                    "what": "every number shown on every page is recomputed from raw and matches"},
+  "arabizi_gaps": {"cmd": ["{node}", "scripts/arabizi_gaps.cjs"], "timeout_s": 60, "stdout_must_match": "\\b0 words\\b",
+                   "what": "no Arabic-only word on the error cards (RULES.md S1)"},
+  "tests_py": {"cmd": ["{python}", "-m", "pytest", "-q", "-p", "no:cacheprovider",
+                       "tests/test_invariants.py", "tests/test_medi_progress.py", "tests/test_tally.py", "tests/test_decisions.py",
+                       "tests/test_hourly_lessons.py", "tests/test_review_lesson.py", "tests/test_publish_guard.py",
+                       "tests/test_eval_floors.py", "tests/test_bucket_labels.py", "tests/test_sentence_ladder.py",
+                       "tests/test_transcript_display.py", "tests/test_review_new_lessons.py", "tests/test_fill_meet_gaps.py",
+                       "tests/test_names.py", "tests/test_track.py", "tests/test_speaking_evidence.py", "tests/test_verb_forms.py",
+                       "tests/test_source_phrase_parsing.py"],
+               "timeout_s": 180, "what": "fast offline tests on the committed data (no network, no paid API)"},
+  "tests_node": {"cmd": ["{node}", "--test",
+                         "tests/test_big_picture.cjs", "tests/test_cards_selection.cjs", "tests/test_context_review.cjs",
+                         "tests/test_flashcard_boost.cjs", "tests/test_flashcard_stats.cjs", "tests/test_fsrs.cjs",
+                         "tests/test_names_parity.cjs", "tests/test_speaking_database.cjs", "tests/test_verb_addons.cjs",
+                         "tests/test_verb_check.cjs", "tests/test_verb_drills.cjs", "tests/test_vocabulary_memory.cjs",
+                         "tests/test_vocabulary_stats.cjs", "tests/test_word_bank.cjs", "tests/test_word_bank_arabizi.cjs",
+                         "tests/test_word_bank_audit.cjs", "tests/test_word_bank_plan.cjs", "tests/test_word_bank_reliability.cjs",
+                         "tests/test_publish_guard_status.cjs"],
+                 "timeout_s": 120, "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)"}
+ },
+ "left_out": {
+  "tests/test_transcript_player.cjs": "broken on master: requires a path that does not exist ('transcript-player.js' at the repo root) - fix the test, then add it",
+  "tests/test_vocab_audit.py": "3 tests fail on master (the rebuilt Word Bank review overlay differs from the committed one) - area 1/2 owner; add back once green",
+  "tests/test_m3_planner.py, test_m5_cards.py, test_stale_banner.py, word_bank_browser.cjs": "need a browser (Playwright)",
+  "tests/test_m4_after.py, test_m0_vocab.py, test_catalog_gloss.py, test_m2_report.py, test_m10_whatsapp.py": "slow (10-90 s each); run in the nightly suite, not every hour"
+ }
+}
