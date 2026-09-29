@@ -63,3 +63,11 @@ If a worker dies: its branch eng-audit-<x> has whatever it committed.
 - Hand check of 20 random findings: 18 held fully, 2 held in part (duplicates are merged away, not marked rejected; fake flashcard rows are 108, not 90/81).
 - Report #8: plan/ENG-AUDIT-CURRICULUM-2026-09-29.md -> docs/reports/eng-audit-2026-09-29.html; copy in C:/Claude/reports.
 - Amal notes branch: merged at 79fde02 at the start; re-checked before the final rebuild: no newer commit.
+
+## Medi's answers applied (2026-09-29, later)
+- M1 "use amals": newest-Amal overlay (docs/data/quizlet/amal-newer-spellings.json + docs/js/amal-newest.js) -> the
+  Flashcards card and the golden show byaa5dook; test_verb_addons green (exact 15 -> 16).
+- M2 "delete": scripts/delete_test_card_rows_2026_09_29.py committed UNRUN (frozen 108 IDs, backup first, verified count).
+- M3 "yes + trigger": formula kept; scripts/amal_trigger.py (+ run_amal_trigger.ps1, Settings panel, hourly fold-in, tests).
+- M4 "yes": Word Bank keeps the audit slips (no change).
+- publish_guard.py check: OK - publishable (2 advisory warnings: 09-23/09-26 re-read, 09-28 type unread).
