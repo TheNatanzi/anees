@@ -61,7 +61,11 @@ def _node():
 
 def _short(text, n=300):
     lines = [l.strip() for l in str(text or '').strip().splitlines() if l.strip()]
-    s = ' | '.join(lines[-3:])
+    # name the failing test when there is one (node: "✖ <name>" / "not ok N - <name>"; pytest: "FAILED <id>"), so the
+    # line Medi reads says WHAT failed, not the tail of an assertion dump (eng audit 2026-09-29)
+    named = list(dict.fromkeys(l for l in lines if l.startswith(('✖ ', 'not ok ', 'FAILED ', 'ERROR '))
+                                and 'failing tests' not in l))
+    s = ' | '.join(named[:3] + [lines[-1]] if named else lines[-3:])
     return s if len(s) <= n else '...' + s[-n:]
 
 

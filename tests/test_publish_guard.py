@@ -311,3 +311,12 @@ def test_real_git_a_block_leaves_the_remote_untouched_and_a_pass_publishes(tmp_p
     pub = json.loads(g(remote, 'show', 'master:docs/data/publish-guard.json'))
     assert pub['result'] == 'pass' and '312 != Lessons 309' in pub['last_block']['reason']
     assert json.loads(g(remote, 'show', 'master:docs/data/lessons.json'))['lessons'] == [{'date': '2026-09-30'}]
+
+
+def test_short_reason_names_the_failing_test():
+    """Eng audit 2026-09-29: a node failure used to read "operator: '==', | diff: 'simple' | }"; it must name the test."""
+    import publish_guard as G
+    out = ("\u2716 golden: Amal's 25 (0.9ms)\n\u2139 fail 1\n\u2716 failing tests:\n\n\u2716 golden: Amal's 25 (0.9ms)\n  AssertionError\n"
+           "      at async startSubtestAfterBootstrap {\n    code: 'ERR_ASSERTION',\n    operator: '==',\n    diff: 'simple'\n  }")
+    r = G._short(out)
+    assert "golden: Amal's 25" in r and "operator" not in r
