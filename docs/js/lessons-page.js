@@ -434,8 +434,8 @@ function headWord(v) {
   box.appendChild(main);
   // Medi 2026-09-26: "label it 'not on sheet'" / "add the rating (shaky, mastered) with my percentage correct"
   var meta = el('div', 'ls-headmeta');
-  if (v.on_sheet === false) meta.appendChild(v.not_vocab ? el('span', 'ls-pill ls-pill-off', 'Preposition · grammar, not a word slip · not in Words %')
-    : el('span', 'ls-pill ls-pill-off', 'Not on sheet · sent to Amal · not scored'));
+  if (v.on_sheet === false) meta.appendChild(el('span', 'ls-pill ls-pill-off', 'Not on sheet · sent to Amal · not scored'));
+  else if (v.word_bank_note) meta.appendChild(el('span', 'ls-pill ls-pill-off', 'Counted here · ' + v.word_bank_note));
   else if (v.rating) {
     var R = v.rating, st = R.status || 'Untested';
     meta.appendChild(el('span', 'ls-pill ls-pill-' + st.toLowerCase(), st));

@@ -83,7 +83,16 @@
     const v = (lessons || []).map(pick).filter(ok).map(Number);
     return v.length ? { value: v.reduce((a, b) => a + b, 0) / v.length, n: v.length } : null;
   }
-  const api = { release, why, approx, mark, html, wireTaps, pooledWords, pooledGrammar, mean, dm };
+  // ---------- one filled-pause test (scripts/build_lessons_page_data.py is_filler(), which writes fillers.count /
+  // in_turns). The Overview card and the "Filled pauses through the hour" panel used two different tests (25 Aug turns:
+  // 16 vs 24), so the panel's note disagreed with lessons.json. Both read this one now.
+  const FL = new Set(['uh', 'um', 'umm', 'uhm', 'uhh', 'er', 'erm', 'eh', 'mm', 'mmm', 'hmm', 'hm', 'mhm', 'ah']);
+  const FA = new Set(['ام', 'امم', 'اممم', 'إم', 'إمم', 'أمم', 'أممم', 'مم', 'ممم', 'آآ', 'آآآ', 'آآآآ', 'أآ', 'أآآ', 'اا', 'ااا', 'آ', 'إه', 'اه', 'آه', 'اهه', 'آهه']);
+  const YES = new Set(['اه', 'آه']);   // also "yes": counted only mid-turn
+  const normTok = t => String(t).toLowerCase().replace(/[^\p{L}\p{N}_؀-ۿ]+/gu, '').replace(/ـ/g, '');
+  const isFiller = (tok, pos) => { const n = normTok(tok); if (!n) return false; if (FL.has(n)) return true; if (/^(?:[آاأ]{2,}|[آاأ]?م{2,}|ه?م{2,})$/.test(n)) return true; return FA.has(n) && !(YES.has(n) && pos === 0); };
+  const countFillers = txt => String(txt || '').replace(/،/g, ' ').split(/\s+/).filter(Boolean).reduce((s, t, i) => s + (isFiller(t, i) ? 1 : 0), 0);
+  const api = { release, why, approx, mark, html, wireTaps, pooledWords, pooledGrammar, mean, dm, isFiller, countFillers };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   root.AneesLessonMath = api;
 })(typeof window !== 'undefined' ? window : globalThis);

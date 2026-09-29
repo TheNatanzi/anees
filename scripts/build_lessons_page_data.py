@@ -910,23 +910,10 @@ def build():
     NO2 = run_node([], slips=slips)
     SL = NO2["slips"]
     unplaced = {x["uid"]: x["why"] for x in SL["unplaced"]}
-    # A slip whose list word is a preposition is grammar, not vocabulary (SESSION-DECISIONS 2026-09-21: "Standalone
-    # prepositions ... are grammar. Exclude them from vocabulary scoring"). The Word Bank already drops them; the Lessons
-    # page counted them in Words % (7 slips). They stay on the page as cards, out of the Words %, with the reason.
-    gram = {x["uid"] for x in SL["unplaced"] if x.get("grammar")}
-    for L in lessons:
-        w = L["words"]
-        for e in per[L["date"]]["vocab_errors"]:
-            if e.get("audit_uid") in gram and e.get("on_sheet"):
-                e["on_sheet"], e["not_vocab"] = False, unplaced[e["audit_uid"]]
-                if e["kind"] == "wrong":
-                    w["wrong"] -= 1; w["audit_wrong"] = w.get("audit_wrong", 0) - 1
-                else:
-                    w["partial"] -= 1; w["audit_partial"] = w.get("audit_partial", 0) - 1
-                w["scored"] -= 1
-                w["preposition_slips"] = w.get("preposition_slips", 0) + 1
-                w["pct"] = round(100 * (w["right"] + .5 * w["partial"]) / w["scored"], 1) if w["scored"] else None
-    SL["unplaced"] = [x for x in SL["unplaced"] if not x.get("grammar")] + [dict(x, counted=False) for x in SL["unplaced"] if x.get("grammar")]
+    # RULE CONFLICT (eng audit 2026-09-29, for Medi): a slip whose list word is a preposition (7: مع, عند, قبل, زي, فوق)
+    # counts in the Lessons Words % (decision A 2026-09-25 + on-list verdicts 2026-09-27: every on-list error card is in
+    # the %), but the Word Bank never scores a preposition (SESSION-DECISIONS 2026-09-21: prepositions are grammar). Not
+    # picked silently: the card stays counted here, the Word Bank leaves it out, and the slips file lists it (counted).
     for v in per.values():
         for e in v["vocab_errors"] + v["vocab_correct"]:
             k = e.get("sheet_key") or e.get("word_key")

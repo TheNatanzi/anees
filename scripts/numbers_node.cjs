@@ -53,6 +53,10 @@ for (const x of F) { const sp = x.form.speaking; if (sp.count >= 10) { const acc
   const want = acc >= 90 ? (days.size >= 2 ? 'Mastered' : 'Good') : acc >= 75 ? 'Good' : acc >= 50 ? 'Shaky' : 'Wrong';
   if (want !== sp.status || Math.abs(acc - sp.accuracy) > 1e-9) bandProblems.push({ form: x.form.id, count: sp.count, accuracy: sp.accuracy, status: sp.status, want }); } }
 const L = J('lessons.json').lessons;
+// filled pauses in each lesson's own turns, by the pages' one test (lesson-math countFillers)
+const fillersInTurns = {};
+if (LM.countFillers) for (const l of L) { try { const D = J(path.join('lessons', l.date + '.json'));
+  fillersInTurns[l.date] = (D.turns || []).filter(t => t.who === 'Medi').reduce((s, t) => s + LM.countFillers(t.text), 0); } catch (e) { fillersInTurns[l.date] = null; } }
 const pw = LM.pooledWords(L), pg = LM.pooledGrammar(L);
 const out = {
   wb_by_date: byDate, vocab_series: series, status, forms: F.length,
@@ -63,6 +67,6 @@ const out = {
   pooled_words: { pct: pw.pct, n: pw.n, points: pw.points, scored: pw.scored },
   pooled_grammar: { pct: pg.pct, n: pg.n, uses: pg.uses, slips: pg.slips },
   approx: L.map(l => ({ date: l.date, approx: LM.approx([l]), why: LM.why([l]) })),
-  stale_reviews: reviewed.stale.length, lesson_math_missing: !!LM.missing,
+  fillers_in_turns: fillersInTurns, stale_reviews: reviewed.stale.length, lesson_math_missing: !!LM.missing,
 };
 fs.writeFileSync(process.argv[3], JSON.stringify(out));

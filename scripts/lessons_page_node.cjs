@@ -35,7 +35,7 @@ if (Array.isArray(inp.slips)) {
     let f = null, why = null;
     const byK = entriesOf.get(x.key) || [], row = rowOf.get(x.key);
     // a preposition is grammar, never a vocabulary attempt (SESSION-DECISIONS 2026-09-21); the Word Bank drops it
-    if (C.isGrammar({ word_key: x.key }) || (row && row.grammar_only)) { unplaced.push({ ...x, grammar: true, why: 'a preposition: grammar, not vocabulary (standing decision 2026-09-21)' }); continue; }
+    if (C.isGrammar({ word_key: x.key }) || (row && row.grammar_only)) { unplaced.push({ ...x, grammar: true, why: 'a preposition: the Word Bank scores prepositions as grammar, not words (2026-09-21) - rule conflict, Medi to decide' }); continue; }
     // Which list word a slip belongs to must be settled by meaning (memory rule anees-list-by-meaning): a reader's verdict,
     // or an exact whole-word match. A piece-of-a-phrase or Latin match is only a clue: the slip still counts on the
     // Lessons page, but no Word Bank word takes it until a reader names the word (09-28: عالمة matched 3Alam 'world').

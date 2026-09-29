@@ -17,6 +17,6 @@ function mark(text,parts=[],partial=[],correct=[],feedback=[]){
 }
 // Eng audit 2026-09-29 (Medi's decision 6): the full audit's on-list word slips (docs/data/word-bank-audit-slips.json)
 // join the lesson evidence on every page that scores words, so the Lessons page, Word Bank and Progress count the same.
-function withSlips(events,doc){const ids=new Set((events||[]).map(e=>e.id));return (events||[]).concat(((doc&&doc.events)||[]).filter(e=>e&&e.id&&!ids.has(e.id)));}
+function withSlips(events,doc){const ids=new Set((events||[]).map(e=>e.id));return (events||[]).concat(((doc&&doc.events)||[]).filter(e=>e&&e.id&&!ids.has(e.id)&&ids.add(e.id)));}
 const api={apply,matches,mark,withSlips};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.AneesWordBankReview=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

@@ -175,8 +175,8 @@ def run(repo=REPO):
     check("word slips file present", slips_doc is not None,
           "docs/data/word-bank-audit-slips.json is missing: the Word Bank and Progress do not count the lesson audit's word slips the Lessons page counts")
     try:
-        out = os.path.join(REPO, "data", "eng-audit", ".numbers-node.json")
-        os.makedirs(os.path.dirname(out), exist_ok=True)
+        import tempfile
+        out = os.path.join(tempfile.mkdtemp(prefix="anees-numbers-"), "numbers-node.json")
         subprocess.run([node_bin(), os.path.join(HERE, "numbers_node.cjs"), os.path.join(REPO, "docs"), out], check=True,
                        capture_output=True, timeout=50)
         N = json.load(open(out, encoding="utf-8"))
@@ -220,6 +220,13 @@ def run(repo=REPO):
             n_cards = sum(1 for x in L for e in D[x["date"]].get("vocab_errors", []) if e.get("source") == "audit-2026-09-26" and e.get("on_sheet"))
             check("every on-list word slip is in the Word Bank or listed", N["slips_in_models"] + len(counted_unplaced) == n_cards,
                   f"{n_cards} on-list word slips on the Lessons page, {N['slips_in_models']} scored in the Word Bank + {len(counted_unplaced)} listed as not placed")
+        # filled pauses: the Overview card / panel note and lessons.json count with one test
+        for x in L:
+            f = x.get("fillers") or {}
+            if f.get("in_turns") is not None:
+                got = (N.get("fillers_in_turns") or {}).get(x["date"])
+                check(f"{x['date']} fillers one test", got == f["in_turns"],
+                      f"{x['date']}: the pages count {got} filled pauses in the lesson's turns, lessons.json says {f['in_turns']}")
         # 6. decision 4
         ax = {a["date"]: a["approx"] for a in N["approx"]}
         for x in L:

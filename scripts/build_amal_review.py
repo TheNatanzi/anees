@@ -108,7 +108,7 @@ def main(clips=True):
         if not re.fullmatch(r"20\d\d-\d\d-\d\d\.json", f):
             continue
         for v in json.load(open(os.path.join(ldir, f), encoding="utf-8")).get("vocab_errors", []):
-            if v.get("on_sheet") is not False or not v.get("arabic") or v.get("not_vocab"):   # a preposition card is grammar, not a new word (eng audit 2026-09-29)
+            if v.get("on_sheet") is not False or not v.get("arabic"):
                 continue
             ar = re.split(r"\s=\s|\s-\s", v["arabic"])[0].strip()
             k = "sheet-" + hashlib.sha1(ar.encode()).hexdigest()[:12]
