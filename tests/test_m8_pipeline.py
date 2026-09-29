@@ -11,6 +11,14 @@ import understand_lesson as ul
 ROOT = Path(__file__).resolve().parent.parent
 
 
+@pytest.fixture(autouse=True)
+def _build_stamp_in_tmp(monkeypatch, tmp_path):
+    """lp.publish / lp.publish_report stamp the site (scripts/write_build.py); in a test that must not rewrite the real
+    docs/js/build.js and docs/data/build.json (a plain pytest run used to leave both modified)."""
+    import write_build
+    monkeypatch.setattr(write_build, 'ROOT', tmp_path)
+
+
 class R:
     def __init__(self, code, text='', body=None): self.status_code, self.text, self._b = code, text, body or {}
     def json(self): return self._b

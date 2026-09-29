@@ -37,7 +37,9 @@ def lesson_detail(date):
 
 
 def node():
-    return os.environ.get("NODE") or shutil.which("node")
+    """NODE env, node on PATH, or the portable node this PC uses (not on PATH here, so the guard used to skip)."""
+    portable = "C:/dev/tools/node-v24.18.0-win-x64/node.exe"
+    return os.environ.get("NODE") or shutil.which("node") or (portable if os.path.exists(portable) else None)
 
 
 # ---------------------------------------------------------------- gold sets are frozen
@@ -155,6 +157,23 @@ def test_ai_report_cards_match_the_audit_file(c, near, rows):
     assert pinned or near == [rows], f"{c['slug']} quotes {near}, {AUDIT_FILE.name} has {rows} rows"
 
 
+def test_audit_size_cards_are_still_found():
+    """The parametrized test above silently ran 0 cases once the audit grew to 1,074 rows: the cards still say 961,
+    which is outside its +-10% window, so no card 'cited the audit size' and nothing was checked. Every card listed in
+    KNOWN_STALE must still be found by the scan; when it is not, the card's number is out of date - say which."""
+    rows = J(AUDIT_FILE)["totals"]["rows"]
+    found = {p.values[0]["slug"] for p in _cards_citing_audit_size()}
+    reports = {c["slug"]: c for c in J(DOCS / "data" / "ai_reports.json")["reports"]}
+    lost = []
+    for slug in KNOWN_STALE:
+        if slug in found:
+            continue
+        s = json.dumps(reports.get(slug, {}), ensure_ascii=False)
+        said = sorted(set(re.findall(r"(\d,\d{3}|\d{3,4}) (?:audit )?rows", s)))
+        lost.append(f"{slug} says {', '.join(said) or '(card missing)'} rows; {AUDIT_FILE.name} now has {rows:,}")
+    assert not lost, "AI Reports cards quote an out-of-date audit size: " + "; ".join(lost)
+
+
 def test_audit_file_totals_match_its_rows():
     a = J(AUDIT_FILE)
     assert a["totals"]["rows"] == len(a["rows"])
@@ -244,13 +263,19 @@ def _sec(s):
     return v
 
 
+def _audit_rows_by_date():
+    """The live full-audit rows (data/full-audit-2026-09-26.json, grown by every new lesson). The frozen gold
+    grammar@v2-audit stops at 2026-09-26, so reading it left every later lesson (09-28: 0 of 56 rows) unchecked."""
+    by = {}
+    for r in J(AUDIT_FILE)["rows"]:
+        by.setdefault(r["date"], []).append(r)
+    return by
+
+
 def _speaker_agreement():
     """Per lesson: of the audit rows whose Medi line / Amal line can be found on the lesson page
     (>= 60% of its Arabic words, within 15 s), how many sit on a turn labelled with the right speaker."""
-    by = {}
-    for line in open(gold_file("grammar@v2-audit"), encoding="utf-8"):
-        r = json.loads(line)
-        by.setdefault(r["date"], []).append(r)
+    by = _audit_rows_by_date()
     out = {}
     for L in lessons():
         T = [t for t in lesson_detail(L["date"])["turns"] if t.get("who") in ("Medi", "Amal")]
@@ -276,9 +301,15 @@ def _speaker_agreement():
 
 def test_speakers_not_swapped():
     """Guards 2026-09-18 ('more Arabic = Amal' flipped the labels). Cheap proxy until speaker@v1 is labelled:
-    audit rows put Amal's fix on Amal's turns. Today every lesson agrees >= 92%; a swap gives ~5%."""
-    low = {}
+    audit rows put Amal's fix on Amal's turns. Measured 2026-09-29: lowest 2026-09-23 at 91.5% (65/71), all others
+    92-100%; a swap gives ~5%. The bar stays 80% (the old docstring's '>= 92%' was wrong for 09-23; not lowered).
+    A lesson with >= 10 audit rows must match >= 10 of them, or the check cannot see it at all."""
+    low, blind = {}, {}
+    rows = _audit_rows_by_date()
     for d, (ok, bad) in _speaker_agreement().items():
+        if len(rows.get(d, [])) >= 10 and ok + bad < 10:
+            blind[d] = f"{ok + bad} of {len(rows[d])} audit rows matched a turn"
         if ok + bad >= 10 and ok / (ok + bad) < 0.8:
             low[d] = f"{ok}/{ok + bad}"
+    assert not blind, f"speaker check cannot see these lessons: {blind}"
     assert not low, f"speaker labels look swapped on: {low}"

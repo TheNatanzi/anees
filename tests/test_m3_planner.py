@@ -75,27 +75,34 @@ def test_stand_in_completes_planner_on_phone_under_2_min():
                 prog = pg.text_content('#prog')
                 if prog == 'Done':
                     break
-                # exactly one question per screen: one h1, buttons <= 4, all >= 48 px, no inner scrolling
+                # exactly one question per screen: one h1, every button >= 48 px, no sideways scroll.
+                # Spec since Medi's 2026-09-05 planner redesign (commits 2db5204, e157aae, 9d930dc): screen 1 is a multi-pick
+                # topic menu (9 topics + Next) and screen 2 a multi-pick word menu (~30 words in 4 groups), so the original
+                # M3 "<= 4 buttons, nothing below the fold" rule now applies to the sentence screens only.
                 assert pg.locator('h1').count() == 1
                 btns = pg.locator('#root button:visible')
                 n = btns.count()
-                assert 1 <= n <= 4, (prog, n)
+                assert n >= 1, prog
+                sentence_screen = prog.startswith('Sentence ')
+                if sentence_screen:
+                    assert n <= 4, (prog, n)
                 for i in range(n):
                     box = btns.nth(i).bounding_box()
                     assert box and box['height'] >= 48, (prog, box)
-                    assert box['y'] + box['height'] <= 812, f'{prog}: button below the fold'
-                assert 'suggest' in pg.text_content('#root').lower()
+                    if sentence_screen:
+                        assert box['y'] + box['height'] <= 812, f'{prog}: button below the fold'
                 assert pg.evaluate('document.documentElement.scrollWidth') <= 375
-                if prog == '1 of 3':
-                    pg.click('#ttype'); typed_fields += 1
-                    pg.fill('#topic', 'past tense practice'); pg.click('#tgo')
-                elif prog == '2 of 3':
-                    pg.click('#nw0')
-                elif prog == '3 of 3':
-                    if pg.locator('#r0').count():
-                        pg.click('#r0')
+                if prog == '1 of 2':
+                    assert "what is today" in pg.text_content('#root').lower()
+                    pg.locator('#root button:has-text("Other topic")').click(); typed_fields += 1
+                    pg.fill('#topic', 'past tense practice'); pg.click('#tnext')
+                elif prog == '2 of 2':
+                    words = pg.locator('#groups button.word')
+                    if words.count():
+                        words.first.click()
                     pg.click('#rgo')
                 else:
+                    assert 'suggestion' in pg.text_content('#root').lower()
                     m = re.match(r'Sentence (\d+) of (\d+)', prog)
                     assert m, prog
                     i = int(m.group(1)) - 1
@@ -118,7 +125,7 @@ def test_stand_in_completes_planner_on_phone_under_2_min():
             b = pw.chromium.launch(); pg = b.new_page(viewport={'width': 375, 'height': 812}); pg.goto(local)
             pg.wait_for_selector('h1', timeout=15000)
             assert 'Already done' in pg.text_content('h1'); b.close()
-        io.open(ROOT / 'data' / 'm3_stand_in_timing.json', 'w').write(json.dumps({'elapsed_s': round(elapsed, 1), 'steps': steps, 'token_prefix': token[:6]}))
+        io.open(Path(__import__('tempfile').gettempdir()) / 'm3_stand_in_timing.json', 'w').write(json.dumps({'elapsed_s': round(elapsed, 1), 'steps': steps, 'token_prefix': token[:6]}))   # a test run must not rewrite the tracked data/m3_stand_in_timing.json
         print(f'STAND-IN: {steps} screens in {elapsed:.1f} s')
     finally:
         db.sql(f"delete from amal_rules where token='{token}'; delete from amal_links where token='{token}'")

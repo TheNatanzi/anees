@@ -2,19 +2,19 @@
 :root{
   --bg:#F5F2EA; --surface:#ECE8DD; --well:#E3E1D5; --text:#1E2A22; --muted:#6E7A6B; --hair:#CFCABB;
   --ink:#3E5C4B; --sage:#7FA08C; --wash:rgba(127,160,140,.18); --accent:#B9631F; --accent-wash:rgba(185,99,31,.12);
-  --good:#5B8C6E; --ok:#4E7FA8; --warn:#C98A3E; --bad:#C4573C;
+  --good:#5B8C6E; --ok:#4E7FA8; --warn:#C98A3E; --warn-ink:#8A5A1E; --bad:#C4573C;
   --seq1:#E4E8DA; --seq2:#B9CBBE; --seq3:#7FA08C; --seq4:#527463; --seq5:#3E5C4B;
   --serif:"Fraunces","Iowan Old Style",Georgia,serif; --sans:"IBM Plex Sans",system-ui,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
   color-scheme:dark; --bg:#141D1A; --surface:#1C2724; --well:#22302B; --text:#E7E4DA; --muted:#96A394; --hair:#2F3C37;
   --ink:#9DBBA8; --sage:#7FA08C; --wash:rgba(127,160,140,.16); --accent:#D9895A; --accent-wash:rgba(217,137,90,.14);
-  --good:#7FB08E; --ok:#7AA6CC; --warn:#D9A05C; --bad:#D9785E;
+  --good:#7FB08E; --ok:#7AA6CC; --warn:#D9A05C; --warn-ink:#D9A05C; --bad:#D9785E;
   --seq1:#22302B; --seq2:#33483F; --seq3:#4F6F5F; --seq4:#7FA08C; --seq5:#B3CDBC; }}
 :root[data-theme="dark"]{
   color-scheme:dark; --bg:#141D1A; --surface:#1C2724; --well:#22302B; --text:#E7E4DA; --muted:#96A394; --hair:#2F3C37;
   --ink:#9DBBA8; --sage:#7FA08C; --wash:rgba(127,160,140,.16); --accent:#D9895A; --accent-wash:rgba(217,137,90,.14);
-  --good:#7FB08E; --ok:#7AA6CC; --warn:#D9A05C; --bad:#D9785E;
+  --good:#7FB08E; --ok:#7AA6CC; --warn:#D9A05C; --warn-ink:#D9A05C; --bad:#D9785E;
   --seq1:#22302B; --seq2:#33483F; --seq3:#4F6F5F; --seq4:#7FA08C; --seq5:#B3CDBC; }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 var(--sans);font-variant-numeric:tabular-nums}
@@ -60,7 +60,7 @@ svg .axis{stroke:var(--hair)}
 .sub{font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
 .pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;font-weight:600;white-space:nowrap}
 .pill.bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
-.pill.warn{background:color-mix(in srgb,var(--warn) 20%,transparent);color:var(--warn)}
+.pill.warn{background:color-mix(in srgb,var(--warn) 20%,transparent);color:var(--warn-ink,var(--warn))}
 .pill.good{background:color-mix(in srgb,var(--good) 20%,transparent);color:var(--good)}
 .pill.ok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
 .pill.none{background:var(--well);color:var(--muted);font-weight:500}

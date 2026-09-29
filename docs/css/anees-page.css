@@ -27,6 +27,9 @@
   --ice: var(--sabz-c-khaki);
   --coral: var(--sabz-state-over);           /* Amal's check pages used this name */
   --sabz-cta-on-fill: var(--sabz-cta-text);
+  /* text on a solid teal / mute / red / amber fill: white in light; in dark those fills turn light (sage, coral),
+     where white measured 2.3-2.9:1, so the text turns ink (engineering audit 2026-09-29) */
+  --on-fill: light-dark(#FFFFFF, #141D1A);
 }
 
 html body { background: var(--bg); color: var(--ink); font-family: var(--sabz-font-sans); }
