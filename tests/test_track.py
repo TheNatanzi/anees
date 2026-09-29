@@ -130,6 +130,15 @@ def test_model_flag_only_when_pinned(monkeypatch):
     assert track.claude_model_args() == ["--model", "claude-pinned-1"]
 
 
+def test_claude_is_pinned_by_default():
+    """Failed before 2026-09-29: with ANEES_CLAUDE_MODEL unset, `claude -p` ran on the CLI default (request model null)."""
+    assert track._claude_model(None) == track.DEFAULT_CLAUDE_MODEL == "claude-opus-5-5"
+    assert track._claude_model("") == track.DEFAULT_CLAUDE_MODEL
+    assert track._claude_model("claude-other-1") == "claude-other-1"
+    assert track._claude_model("cli-default") is None                  # the explicit way back to unpinned
+    assert track.CLAUDE_MODEL == track._claude_model(os.environ.get("ANEES_CLAUDE_MODEL"))
+
+
 def _stub_claude(monkeypatch, rl, stdout, returncode=0, writes=None):
     seen = {}
     real_run = subprocess.run

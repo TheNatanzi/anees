@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-10",
+  "updated": "2026-09-29",
   "legend": {
     "enforced": "code + test do this today",
     "partly": "done in part or by a fallback",
@@ -13,21 +13,21 @@
           "id": "E1",
           "rule": "The engine's raw output is written once and never rewritten.",
           "why": "Every page, count and card is derived from it; if it changes, nothing can be checked later.",
-          "where": "lesson_pipeline.process writes scribe.json once; understanding.json is regenerated from it",
+          "where": "lesson_pipeline.process writes scribe.json once; understanding.json is regenerated from it · Audit 2026-09-29: the live path is hourly_lessons.transcribe_once (lesson_pipeline is retired); raw hashes checked by scripts/check_rules.py S2-raw (36/36 match).",
           "status": "enforced"
         },
         {
           "id": "E2",
           "rule": "Transcribe the whole lesson track, never 25-second chunks.",
           "why": "Same engine on 25-s chunks lost 3 of 8 of Medi's mistakes (audit 2026-09-05).",
-          "where": "lesson_pipeline.transcribe sends the full audio.mp3",
+          "where": "lesson_pipeline.transcribe sends the full audio.mp3 · Audit 2026-09-29: live path hourly_lessons.transcribe_once sends the whole track; only the Meet/track gap filler (fill_meet_gaps.py) sends windows, by design.",
           "status": "enforced"
         },
         {
           "id": "E3",
           "rule": "No vocabulary list in the recognizer's ear on the primary pass.",
           "why": "A prompted engine inserted Buset, Ya3ni and a whole chat sentence that nobody said.",
-          "where": "transcribe(): no keyterms; vocabulary is used only after recognition",
+          "where": "transcribe(): no keyterms; vocabulary is used only after recognition · Audit 2026-09-29: code sends up to 1,000 NAME keyterms (people/places from names.json, no vocabulary) on every track: Amal 'all', Medi and mixed 'places' (pipeline_ext.KEYTERMS). The letter of the rule holds (names are not vocabulary); keeping names on Medi's track is a question for Medi.",
           "status": "enforced"
         },
         {
@@ -41,14 +41,14 @@
           "id": "E5",
           "rule": "Every reported miss or moment carries its audio clip.",
           "why": "Nobody, human or machine, is trusted without the sound.",
-          "where": "understand_lesson.cut_clips; report play buttons",
+          "where": "understand_lesson.cut_clips; report play buttons · Audit 2026-09-29: Lessons page error cards play the lesson audio at the card time; 30 of 858 cards carry their own clip.",
           "status": "enforced"
         },
         {
           "id": "E6",
           "rule": "Hash the audio and the raw transcript and keep a second copy.",
           "why": "Today the raw file lives on one PC only.",
-          "where": "planned: summary.json + Supabase",
+          "where": "planned: summary.json + Supabase · Audit 2026-09-29: 16 raw transcripts have a provenance hash from engine time; the other 17 got a hash baseline in data/runs (raw_transcript.baseline) on 2026-09-29.",
           "status": "planned"
         }
       ],
@@ -102,8 +102,8 @@
           "id": "M3",
           "rule": "Glue words (shu, bas, ya3ni, tamam …) are never graded.",
           "why": "They are conversation moves, not vocabulary.",
-          "where": "understand_lesson.GLUE_KEYS",
-          "status": "enforced"
+          "where": "understand_lesson.GLUE_KEYS · Audit 2026-09-29: the Word Bank (docs/js/word-bank-core.js, speaking_evidence.py) does NOT use GLUE_KEYS: 158 glue-word uses are scored (153 Correct, 5 Partial). Conflict with the Word Bank rules of 2026-09-21, put to Medi; scripts/check_rules.py M3-glue counts it every run.",
+          "status": "partly"
         },
         {
           "id": "M4",
@@ -144,7 +144,7 @@
           "id": "M9",
           "rule": "Every slip is tied to the rule Medi already learned (Amal's Doc unit or the lesson she taught it). The tally (slips.html) shows Amal which learned rules are slipping so she can put a review into her own plans. Anees never writes her a lesson plan and never sends her grammar questions.",
           "why": "Medi 2026-09-05: 'let Amal make her own assessments; your job is to keep a tally of my mistakes … assist her in injecting my mistakes into her already formed lesson plans.'",
-          "where": "data/tally.json (hand-curated from the transcripts, wiki 17 section K) -> scripts/build_tally.py -> docs/slips.html; every moment carries its transcript line and, where the audio exists, a clip",
+          "where": "data/tally.json (hand-curated from the transcripts, wiki 17 section K) -> scripts/build_tally.py -> docs/slips.html; every moment carries its transcript line and, where the audio exists, a clip · Audit 2026-09-29: 'never sends her grammar questions' conflicts with the review list on tutor.html (Medi's 09-25 decisions and 09-29 decision 5 ask her to rule on grammar patterns); question for Medi.",
           "status": "enforced"
         },
         {
@@ -178,7 +178,7 @@
           "id": "N2",
           "rule": "The Google Doc is the only word truth. The app never writes it.",
           "why": "Amal owns the list.",
-          "where": "import_vocab.py is one-way",
+          "where": "import_vocab.py is one-way · Audit 2026-09-29: no code writes the Doc (no Docs API write in scripts/). On 2026-09-23 an agent typed 18 words into her Doc by hand (memory note); question for Medi whether that is allowed.",
           "status": "enforced"
         },
         {
@@ -213,7 +213,7 @@
           "id": "N7",
           "rule": "Mastered needs 5 consecutive successes in the same score across at least 3 dates. Speaking uses independent lesson evidence, at most one success per word/lesson date. Flashcards uses first-try answers only. Help or correction interrupts only its own score's streak; unknown speech is neutral. Successes are never combined between scores.",
           "why": "Repeated mentions in one lesson are not the same as recalling the word independently over time.",
-          "where": "Python and browser progress rules; dashboard and cards replay saved answers by ID",
+          "where": "Python and browser progress rules; dashboard and cards replay saved answers by ID · Audit 2026-09-29: the Word Bank uses a different Mastered (>= 90% of the last 10 over >= 2 lessons, SESSION-DECISIONS 09-21, word-bank-core.js); buckets.js/py use this one. Both are live; question for Medi.",
           "status": "enforced"
         },
         {
@@ -247,7 +247,7 @@
           "id": "A2",
           "rule": "Amal's tap beats any machine label.",
           "why": "She is the ground truth.",
-          "where": "apply_rules.py re-scores the exact event",
+          "where": "apply_rules.py re-scores the exact event · Audit 2026-09-29: tested by tests/test_rules_amal_rulings.py (confirm scores, reason drops + becomes a rule, her tap beats the machine, applied rulings not reapplied).",
           "status": "enforced",
           "tab": "words"
         },
