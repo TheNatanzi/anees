@@ -1,4 +1,4 @@
-# Full vocab + grammar audit - 2026-09-28
+# Full vocab + grammar audit - 2026-09-29
 
 Two independent readers per lesson, a third settles disagreements, reconciled with the 2026-09-24 hand sweep. A = Amal fixed it out loud or in chat (scored). B = she let it pass (unscored until she rules on her review page). Tier 0 = she supplied a word he asked for. Nothing the sweep verified was dropped.
 
@@ -6,14 +6,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **582** (sweep had 312) |
-| Grammar she let pass (B, to Amal) | 84 |
-| Vocab fixes Amal voiced (A) | **285** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 167, '0': 102, '2': 53, '3': 6} |
+| Grammar fixes Amal voiced (A) | **573** (sweep had 312) |
+| Grammar she let pass (B, to Amal) | 82 |
+| Vocab fixes Amal voiced (A) | **282** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 164, '0': 102, '2': 53, '3': 6} |
 | Vocab she let pass (B, to Amal) | **45** by tier {'1': 28, '2': 11, '3': 6} |
 | Listening-drill misreads (kept apart) | 77 |
-| Rows the readers found that the sweep did not have | 594 |
-| Sweep rows the readers did not list (kept) | 116 |
+| Rows the readers found that the sweep did not have | 588 |
+| Sweep rows the readers did not list (kept) | 115 |
 | Machine audit already had | 104 |
 
 ## Per lesson
@@ -21,20 +21,20 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | lesson | grammar A | grammar B | vocab A | vocab B | listening | sweep grammar before | sweep vocab before | reader agreement |
 |---|---|---|---|---|---|---|---|---|
 | 2026-08-25 | 30 | 10 | 22 | 7 | 5 | 24 | 13 | 61.8 % |
-| 2026-09-04 | 47 | 8 | 14 | 3 | 9 | 29 | 11 | 63.2 % |
-| 2026-09-05 | 37 | 2 | 8 | 2 | 0 | 25 | 5 | 64.6 % |
-| 2026-09-10 | 36 | 16 | 21 | 2 | 0 | 20 | 10 | 61.8 % |
+| 2026-09-04 | 46 | 8 | 14 | 3 | 9 | 29 | 11 | 63.2 % |
+| 2026-09-05 | 36 | 2 | 8 | 2 | 0 | 25 | 5 | 64.6 % |
+| 2026-09-10 | 35 | 16 | 20 | 2 | 0 | 20 | 10 | 61.8 % |
 | 2026-09-11 | 34 | 9 | 14 | 6 | 1 | 21 | 10 | 58.5 % |
 | 2026-09-14 | 47 | 3 | 16 | 1 | 1 | 29 | 7 | 69.7 % |
-| 2026-09-15 | 50 | 5 | 12 | 0 | 2 | 29 | 8 | 57.9 % |
+| 2026-09-15 | 49 | 4 | 12 | 0 | 2 | 29 | 8 | 57.9 % |
 | 2026-09-16 | 59 | 1 | 17 | 0 | 0 | 23 | 10 | 50.0 % |
-| 2026-09-17 | 43 | 6 | 14 | 4 | 0 | 28 | 5 | 72.4 % |
+| 2026-09-17 | 42 | 5 | 14 | 4 | 0 | 28 | 5 | 72.4 % |
 | 2026-09-18 | 48 | 1 | 10 | 2 | 1 | 20 | 4 | 58.7 % |
-| 2026-09-19 | 5 | 2 | 14 | 1 | 35 | 25 | 12 | 58.3 % |
-| 2026-09-21 | 71 | 13 | 41 | 7 | 8 | 43 | 32 | 58.7 % |
+| 2026-09-19 | 5 | 2 | 13 | 1 | 35 | 25 | 12 | 58.3 % |
+| 2026-09-21 | 68 | 13 | 40 | 7 | 8 | 43 | 32 | 58.7 % |
 | 2026-09-23 | 32 | 2 | 29 | 2 | 12 | 23 | 20 | 64.3 % |
 | 2026-09-26 | 21 | 3 | 24 | 7 | 2 | 0 | 0 | 62.1 % |
-| 2026-09-28 | 22 | 3 | 29 | 1 | 1 | 0 | 0 | 61.0 % |
+| 2026-09-28 | 21 | 3 | 29 | 1 | 1 | 0 | 0 | 61.0 % |
 
 ## Reader passes (the loop)
 
@@ -58,19 +58,19 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | bucket | name | fixes |
 |---|---|---|
-| B18 | verb matches its subject | 63 |
+| B18 | verb matches its subject | 62 |
 | B5 | past tense | 55 |
 | B12 | make-X vs get-X | 52 |
-| D2 | verb + its fixed preposition | 48 |
+| D2 | verb + its fixed preposition | 47 |
 | D4 | endings on verbs | 44 |
 | B1 | present with b- | 37 |
-| A8 | gender on adjectives | 34 |
 | A2 | idafa (possession) | 31 |
+| A8 | gender on adjectives | 30 |
 | D1 | prepositions | 24 |
-| A9 | plurals | 24 |
-| A1 | el- (the) | 22 |
-| A4 | possessive endings | 17 |
+| A9 | plurals | 23 |
+| A1 | el- (the) | 21 |
 | D3 | endings on prepositions | 17 |
+| A4 | possessive endings | 16 |
 | B15 | participles | 15 |
 | B11 | negative commands | 15 |
 | B3 | b-drop after time words | 13 |
@@ -83,9 +83,9 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | A7 | noun + adjective | 8 |
 | B10 | commands | 8 |
 | C2 | the pointer rule | 8 |
-| E2 | clock time | 7 |
-| C3 | comparatives | 6 |
+| E2 | clock time | 6 |
 | B16 | kan laazem | 5 |
+| C3 | comparatives | 5 |
 | A3 | feminine -t in idafa | 4 |
 | A10 | hada / hadi | 4 |
 | E4 | calendar | 4 |
@@ -105,11 +105,11 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | B14 | 3am = right now | 1 |
 | A6 | professions | 1 |
 | A10b | demonstrative keeps el- | 1 |
-| B7 | kaan + b-verb = used to | 1 |
+| B7 | kaan + verb = used to / was doing | 1 |
 | D5 | preposition keeps el- | 1 |
 | D6 | iyyaa - the second object | 1 |
 | B4b | when the b- comes back | 1 |
-| B17 | saarli | 1 |
+| B17 | sarli | 1 |
 
 ## Sweep rows the readers did not list (kept, not dropped)
 
@@ -117,7 +117,6 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - 2026-08-25 37:34 grammar 0825-12: بندير بالهم -> بندير بالنا
 - 2026-08-25 39:07 grammar 0825-14: بنخاف من نكون -> بنخاف نكون
 - 2026-08-25 31:59 grammar 0825-U3: إنتي -> هي
-- 2026-09-04 02:15 grammar 0904-02: الأحسن -> أحسن طريقة
 - 2026-09-04 12:54 grammar 0904-08: الغير -> غير
 - 2026-09-04 36:23 grammar 0904-11: بسطه -> بسطتُه
 - 2026-09-04 44:55 grammar 0904-13: ابسطهم (= have fun with them) -> انبسط
@@ -137,7 +136,6 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - 2026-09-04 27:46 vocab-A V0904-022: Bansabit? But- -> مبسوط
 - 2026-09-05 24:40 grammar 0905-09: (past verb) -> إنتي مزعوجة
 - 2026-09-05 29:25 grammar 0905-10: زعجتك -> أزعجتك
-- 2026-09-05 39:36 grammar 0905-U3: بيزعجوني -> بيزعجني
 - 2026-09-05 53:16 vocab-A V0905-027: anabanzaj, lama... -> إذا
 - 2026-09-10 25:07 grammar 0910-12: بيضايقوكي -> يضايقوكي
 - 2026-09-10 38:29 grammar 0910-13: الأشيائي -> أشيائي
@@ -159,6 +157,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - 2026-09-15 1:00:01 grammar 0915-25: ذكرتك / ذكرتنو -> ذكّرته
 - 2026-09-15 1:01:26 grammar 0915-26: اتذكروني -> ما اتذكروني
 - 2026-09-15 1:02:25 grammar 0915-27: ما يتذكر -> ما بيتذكر
+- 2026-09-15 1:02:40 grammar 0915-28: أسامي / أسماء -> الأسماء
 - 2026-09-15 35:33 grammar 0915-14: برنامج (as feminine) -> برنامج masculine → تغير
 - 2026-09-15 59:14 grammar 0915-24: تجيبي -> أجيب
 - 2026-09-15 26:46 vocab-A V0915-060: الولاد عطلوا -> قاتلوا بعض
@@ -323,7 +322,6 @@ _Roughly 14:53-20:30 is an all-English planning talk (AI tools, tests); 12:27-13
 | FA-5a4aadcd | 01:34 | vocab-A (listening) | tier 1 | يعني ،شو يعني شو لا-- what... What language? | No بلاقي، إنتا بتلاقي، شو لقيت؟ | What language? -> لقيت = you found | She asked شو لقيت؟ twice (01:24, 01:31) and he decoded it as 'what language?' - he took لقيت for لغة, the word they had just been on at 00:57-01:03; she said 'No' and explained بلاقي / بتلاقي / لقيت (sheet: i found / Ana la2ait / أنا لقيت), so this is a wrong-word listening error, not a didn't-know: he never asked, he answered wrong and she corrected. | medium | r3 |
 | FA-32926ce2 | 01:55 | vocab-A | tier 1 | أنا لقيت الطريق منيح كتير | طريق أو طريقة؟ | الطريق -> طريقة | He meant 'the method' (research on how to learn) and said طريق; her sheet lists them as two separate words, 'road / way / route / 6ariq / طريق' and 'way / method / Tariqa / طريقة', she asked طريق أو طريقة؟ and he fixed to طريقة at 02:03. | high | r3 |
 | FA-c1f626ae | 02:15 | grammar | C3 | الأحسن طريقة | طريقة. شو أحسن طريقة | الأحسن طريقة -> أحسن طريقة | el- in front of a comparative/superlative; she recast without it. | high | r1+r2 |
-| FA-5fa62540 | 02:15 | grammar | C3 | الأحسن | طريقة. شو أحسن ... طريقة | الأحسن -> أحسن طريقة | el- on the superlative in front of the noun | low | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
 | FA-7be9841e | 02:31 | grammar | B18 | To learn would be أتأل-- or يتعلّم or- | لا أتعلم. | يتعلّم -> أتعلم | Building 'the best way (for me) to learn' he offered the he-form يتعلّم; she said لا أتعلم (I-form), he repeated it and only THEN asked 'is that for me or just to learn?' (02:35), so the form was attempted and rejected before any question - the 'or يتعلّم' line is unlabeled ('?:') but sits inside his 'أتأل-- ... or-' turn and cannot be Amal since she answers it with لا. | medium | r3 |
 | FA-c512e890 | 02:31 | vocab-A | tier 0 | To learn would be أتأل-- | أتعلم |  -> أتعلم | to learn | medium | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
 | FA-2ac2dc3d | 02:46 | grammar-B | A8 | أتعلم لغة جديد |  | جديد -> جديدة | لغة is feminine so the adjective needs -a; she moved on without fixing (my reading). | high | r1+r2 |
@@ -433,7 +431,6 @@ _First 6 min are English (app demo). Medi's Arabic is Latin-transliterated throu
 | FA-e3d1a8f7 | 36:31 | grammar | B11 | ma ta'az'ajini. Ma ta'az'ajini. | ما تزعجيني. ... تزعجيني. ... ✓ Yes. ما تزعجيني. | ma ta'az'ajini -> ما تزعجيني | Same extra a-/ع syllable on the feminine negative command right after he had said the masculine correctly [36:22]; she recast ما تزعجيني at 36:35 and 36:44, he repeated it wrong twice [36:36, 36:42] and got it at 36:48. Low because the relapse seconds after a correct masculine form may be articulation (S4) rather than the rule; merger may fold into D13 as a repeat. | low | r3 |
 | FA-f2faff89 | 37:13 | grammar | D4 | So الولاد أزعجووو، أزعجووو، | أزعجوه؟ | أزعجووو -> أزعجوه | 'Did the kids annoy him' needs the him-ending -h on أزعجوا; he stretched the -uu with no ه and she recast أزعجوه؟ (he still said أزعجو after). | medium | r1+r2 |
 | FA-0e40b0e7 | 38:50 | grammar | B18 | هو بيزعج، بيزعجوني. | بيزعج، ... بيزعجني. | بيزعجوني -> بيزعجني | Subject is هو (he) but he put the plural ending -u on the verb (بيزعجوني = they annoy me); she recast بيزعجني and he repeated it. | high | r1+r2 |
-| FA-da460c60 | 39:36 | grammar | B18 | Okay, so بي-بيزعج-بيزعجوني. | بزعجني. | بيزعجوني -> بيزعجني | plural 'they' form again for 'it annoys me' | high | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
 | FA-516aa646 | 39:37 | grammar | B18 | Okay, so بي-بيزعج-بيزعجوني. | بزعجني. | بيزعجوني -> بيزعجني | Same slip a minute later for 'it annoys me': plural -u on a singular subject; she recast بزعجني and he asked 'why do I have the o in there?'. | high | r1+r2 |
 | FA-dc9c70f3 | 40:58 | grammar | B5 | هو منزعج بي... نز-نزعج؟ Or is it انزعج؟ | Just like we did in إنزع. Yes. Just like we did with انبسط. | منزعج بي... نز-نزعج -> انزعج | Asked for the past of بنزعج he first offered the participle منزعج and the bare نزعج before asking whether it is انزعج; she confirmed by pointing to انبسط and he said هو انزعج at 41:12; low because he reached it himself with only a confirmation. | low | r1+r2 |
 | FA-4f2b2108 | 41:47 | grammar-B | B5 | انزعجتم. انزعج، انزعجنا. |  | انزعجتم -> انزعجتو | Levantine you(pl) past ending is -tu (انزعجتو), not the MSA -tum he used; she let it pass while he ran the conjugation. | medium | r1+r2 |
@@ -476,10 +473,9 @@ _Whole file read in order. Long English-only stretches (meta talk about the reco
 | FA-73b7376f | 09:30 | vocab-A | tier 1 | I think is كراجي electrician, and then electrical engineering is... | كهـ، كهربجي. | كراجي -> كهربجي | He turned her كهربجي into كراجي (a different word, garage/mechanic) and repeated it at 09:39 and 09:48; she recast كهربجي. | medium | r1+r2 |
 | FA-b2f03935 | 10:15 | grammar-B | C4 | ما، ما يكون، uh, كهربج-- uh, كهربجي، هو مهندس، uh, مهندس. |  | ما يكون -> مش | Saying who the man he called is - 'he is not a kahrabji, he is an engineer' - is a present noun predicate: Levantine negates it with مش and no 'to be' (C4); ما يكون is neither that nor a licensed ykoon context (B8: only after lamma/iza or for habits). The man's job is a present fact, so ما كان (r2) is not the target either. She said nothing about it; her 10:30 صلح لي moves to his next clause. | medium | r3 |
 | FA-dd93d85e | 10:34 | vocab-A | tier 1 | صلاح، صلاحني شوي. | You said صلح which is fix. You did wha-- did you wanna say he helped me? | صلاحني -> ساعدني | He used صلّح (fix) for 'help'; she asked whether he meant helped and he produced ساعدني (sheet: 'help / Saa3ed / ساعد'), which she confirmed at 11:10. | high | r1+r2 |
-| FA-dd93d85ex | 10:34 | vocab-A | tier 1 | صلاح، صلاحني شوي. | You said صلح which is fix. You did wha-- did you wanna say he helped me? | صلاحني -> ساعدني | He meant 'he helped me a bit' (10:40 'helps to me') but used the verb صلح (fix) - a different word; Amal explained صلحني = he fixed me, then prompted 'did you wanna say he helped me?' and he fixed to ساعدني (11:07, 'Oops'); the D3 reading (صلح لي vs صلحني) is moot because the -ني object is right for his intended verb ساعد. | medium | r3 |
 | FA-a7052438 | 10:40 | grammar | D3 | صلاحلي, helps to me, شوي. | Fixed for me، صلح لي. | صلاحني شوي -> صلح لي | 'For me' rides on the preposition (لي), not as an object ending on the verb (صلحني = he fixed me, 10:44); she separated the two forms. | medium | r1+r2 |
 | FA-5b565b4a | 12:06 | grammar | A8 | بلوزة، um, ورداني | بدائية. | ورداني -> وردية | Masculine colour adjective after the feminine noun بلوزة; her recast is transcribed as بدائية (almost certainly وردية) and she said صح when he repeated the feminine form at 12:14. | medium | r1+r2 |
-| FA-5b565b4ax | 12:06 | grammar | A8 | بلوزة، um, ورداني | بدائية. | ورداني -> وردية | بلوزة is feminine, so 'pink' must be وردية; he said the masculine ورداني. Her 12:13 line (transcribed بدائية, an ASR shape of وردية) is the recast - his 'وردنية that's right' at 12:14 accepts it and her 12:16 صح confirms his echo. The extra ن in his echo وردنية (r2's wrong piece) is S4, so the row is anchored on the real slip ورداني. Her sheet has pink as زهري, but she accepted وردي here. | medium | r3 |
+| FA-5b565b4ax | 12:06 | rejected | A8 | بلوزة، um, ورداني | بدائية. | ورداني -> وردية | بلوزة is feminine, so 'pink' must be وردية; he said the masculine ورداني. Her 12:13 line (transcribed بدائية, an ASR shape of وردية) is the recast - his 'وردنية that's right' at 12:14 accepts it and her 12:16 صح confirms his echo. The extra ن in his echo وردنية (r2's wrong piece) is S4, so the row is anchored on the real slip ورداني. Her sheet has pink as زهري, but she accepted وردي here. | medium | r3 |
 | FA-0fb595e2 | 12:34 | vocab-A | tier 2 | دولت، | what؟ ضليت. | دولت -> ضليت | Wrong form of the verb 'stayed' (sheet: 'i stayed/kept / Ana dallait / أنا ضليت'); she did not understand ('what?') and supplied ضليت. Could also be read as B5 past ending. | medium | r1+r2 |
 | FA-df17d636 | 12:44 | grammar | D1 | اه، this is take Allah بيتي. | بِ أو فِي بيتي؟ | بيتي -> بـ بيتي / في بيتي | He said 'stayed my house' with no preposition; she prompted 'bi or fi?' and he fixed to بي بيتي at 12:50. | high | r1+r2 |
 | FA-5ded86b4 | 12:53 | grammar-B | B8 | عشان يكون air conditioning. |  | عشان يكون -> عشان في / عشان عندي | Explaining why he stayed home today (اليوم ضليت بي بيتي): 'because there is AC' - existence in the plain present is في / عندي, not يكون (B8: ykoon only after lamma/iza or for habits; C1: no 'to be' in the present). She moved on to شو بتتذكر at 13:04 without a fix. 'air conditioning' is not on her sheet, so the English word itself is not an error. B reading. | low | r3 |
@@ -692,7 +688,6 @@ _Large Latin-transliterated stretches with wobbly spelling: 06:05-13:00, 18:14-2
 | id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
 |---|---|---|---|---|---|---|---|---|---|
 | FA-219c3e8b | 03:12 | grammar-B | E2 | على تـ- تسعة ونص. | من وين؟ Not إمتى. | على تسعة ونص -> الساعة تسعة ونص | Clock time given as على تسعة ونص; E2 wants el-saa3a + number. She only corrected the where/when misunderstanding, the time form passed. | medium | r1+r2 |
-| FA-219c3e8bx | 03:12 | grammar-B | E2 | على تـ- تسعة ونص. | من وين؟ Not إمتى. | على تسعة ونص -> الساعة تسعة ونص | Clock time needs el-saa3a + number, not 3ala; Amal only redirected the question (min wain) and let the time phrase pass. | low | r1+r2 |
 | FA-2b51b336 | 04:05 | vocab-A | tier 1 | خروف is lamb. مرفوف؟ What was it؟ What was ground؟ | مـ-مفروم. | معروف -> مفروم | He tried معروف (known) then مرفوف for 'ground' meat and asked; she supplied مفروم (sheet: 'ground beef / La7meh mafrumeh / لحمة مفرومة'). Wrong lexical item then asked. | high | r1+r2 |
 | FA-ba72d079 | 04:15 | grammar | A8 | لحم عجل مفروم. معروف مفرومة. | مفروم إيه. | مفرومة -> مفروم | لحم is masculine; his second try made the adjective feminine (مفرومة) and she recast it to مفروم. | medium | r1+r2 |
 | FA-57edc8bd | 04:25 | grammar-B | A8 | خضرا مختلف. مختلفه؟ مختلف. مختلف. |  | خضرا مختلف -> خضرا مختلفة | خضرا (vegetables) is feminine; he hesitated between مختلف/مختلفة and settled on masculine; she let it pass. | medium | r1+r2 |
@@ -757,8 +752,8 @@ _Large Latin-transliterated stretches with wobbly spelling: 06:05-13:00, 18:14-2
 | FA-5fdf3dfa | 1:01:27 | grammar | C4 | it zakara, uh, it zakarooni. | Didn't. Very, very, very right. | it zakarooni -> ma tzakkaruni | Negative past needs ma before the verb; he left it off; she prompted 'Didn't' and he added ma. | high | r1+r2 |
 | FA-00b45200 | 1:02:25 | grammar | B1 | ma hazakar. Ma id zakar. | Ma bietzakar. | Ma id zakar -> ma byetzakkar | Habitual present 'he doesn't remember' needs b- (ما بيتذكر); he used the bare/past form; she recast and he said 'oh, it's present tense'. | high | r1+r2 |
 | FA-5f18bab5 | 1:02:25 | grammar | B1 | ma hazakar. Ma id zakar. | Ma bietzakar. | ما يتذكر -> ما بيتذكر | dropped b- on a plain present | high | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
+| FA-d819636a | 1:02:40 | rejected | A1 | Uh, Asayam? | Asma. As it's general, so what do we add? ... Il asma. | أسامي / أسماء -> الأسماء | no el- on a general noun | high | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
 | FA-950701c8 | 1:02:41 | grammar | A1 | Uh, Asayam? | Il asma. | Asayam -> el-asmaa2 | Generic 'names' takes el- (الأسماء); he said bare asma; she asked what we add to general nouns, he said I don't know, she supplied il asma. | high | r1+r2 |
-| FA-950701c8x | 1:02:41 | grammar | A1 | Uh, Asayam? / General names? / I don't know. | Asma. As it's general, so what do we say? What do we add? / What do we add to names? / Il asma. | Asayam -> الأسماء (el-asmaa2) | 'He doesn't remember names' - a general plural object takes el-; he offered bare asma, she named the reason ('as it's general, what do we add?'), he said 'I don't know', she supplied il asma and he repeated el asma. One error; the r1/r2 rows are the same moment. | medium | r3 |
 | FA-f9489b1a | 1:05:26 | grammar | A11 | el kul, | كل شي. You could say كل شي. | el kul -> كل شي | 'Practice everything' is كل شي (sheet 'everything / Kul shee / كل شيء'); he said الكل; she queried الكل؟ and gave كل شي. | medium | r1+r2 |
 
 ### 2026-09-16
@@ -869,7 +864,6 @@ _Medi's Arabic is transcribed as [speaking foreign language]/[speaking Arabic] 3
 | FA-8606b0f5 | 10:35 | grammar | B18 | دبات. | بدا. | دبات -> بدا | He gave the feminine past (bada2at) for el-jaw; she said bada and explained jaw is masculine, only ed-dunya would take feminine. | high | r1+r2 |
 | FA-b8a11e6b | 11:02 | grammar | A1 | Okay. دنيا جو. | No, no, no. Either دنيا or جو. One just one. | دنيا جو -> الدنيا or الجو (one of them) | He stacked both subject nouns (dunya + jaw); she said use one or the other. No bucket fits a doubled subject. | high | r1+r2 |
 | FA-d94a33e0 | 11:08 | grammar-B | A8 | Oh, sorry. دنيا بارد. |  | دنيا بارد -> الدنيا باردة | ed-dunya is feminine (she had just said so), so the adjective should be baarda and the noun takes el-; she let it pass. | medium | r1+r2 |
-| FA-d94a33e0x | 11:08 | grammar-B | A8 | Oh, sorry. دنيا بارد. |  | دنيا بارد -> الدنيا باردة (my reading; sheet 'cold (f) / Baarda / باردة') | Feminine دنيا with the masculine adjective بارد and still no el- although she had just said الدنيا at 11:00 and explained the gender at 10:48; she let this line pass (next fix is مغيمة at 11:27). | medium | r3 |
 | FA-01f826d7 | 11:26 | vocab-A | tier 1 | ما قايمة. | مغيمة. | ما قايمة -> مغيمة | Non-word for 'cloudy'; she supplied m8ayyme (sheet: 'it's cloudy / M8ayyme / مغيمة'). | high | r1+r2 |
 | FA-dbd555f6 | 12:12 | grammar-B | A2 | بس، um، في المدينة الأول مطر. |  | الأول مطر -> أول مطر | el- on the first word of the idafa أول مطر, seconds after she said أحلى مطر هو أول مطر; she let it pass. | medium | r1+r2 |
 | FA-9239112e | 12:27 | vocab-A | tier 1 | بتحط في الـ زبال. | آه غبرة. | زبال -> غبرة | He used zbaale (trash; sheet: 'trash / Zbaale / زبالة') for dust; she supplied 8abra and said they had not learned 'dust' yet, so tier 0 is a possible reading. | medium | r1+r2 |
@@ -913,7 +907,6 @@ _Medi's Arabic is transcribed as [speaking foreign language]/[speaking Arabic] 3
 | FA-84b780db | 57:16 | grammar | B15 | inti bitibisti? | Inti mabsuta? [chuckles] But | bitibisti -> مبسوطة (mabsoo6a) | 'Are you happy?' is the participle mabsoo6a; his b-verb betenbes6i means 'do you get happy' (she said so at 57:08) and she recast. | high | r1+r2 |
 | FA-fdf1a832 | 58:26 | grammar | B11 | ma bikun | Ma dun-- bidun be. So ma tkun. | ma bikun -> ما تكون (ma tkun) | Negative command needs the you-form without b-; he used ma bikun; she recast ma tkun. | high | r1+r2 |
 | FA-ef00324a | 59:56 | grammar | D2 | Yeah, ma tadaitni. Ma ta- ma tadait. | Ma tdaya' minni. | ma tadaitni -> ما تضايق مني (ma tdaya2 minni) | 'Get upset WITH me' is tdaya2 + min; he attached -ni to the verb; she recast with minni and he acknowledged 'you have to add min'. | high | r1+r2 |
-| FA-ef00324ax | 59:56 | grammar | D2 | Yeah, ma tadaitni. Ma ta- ma tadait. | Ma tdaya' minni. | ma tadaitni -> ma tdaya2 minni | 'Get upset with me' takes the fixed preposition min (tdaaya2 minni), not an object ending on the verb; she recast and he said 'Oh, that's right. You have to add min' (1:00:03); sheet 'i get upset / Ana batdaaya2'. | medium | r3 |
 | FA-2d91b048 | 1:00:35 | grammar | B12 | ma tadaitini. | Ma dday'ini or dday'ini. | ما تضايقتيني -> ما تضايقيني | reflexive t- form where causative (make me upset) needed | medium | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
 | FA-79b4a6c5 | 1:00:36 | grammar | B12 | ma tadaitini. | Ma dday'ini or dday'ini. | ma tadaitini -> ma dday'ini | For 'don't upset me' (make-X) he kept the get-X form تضايق with an object; she recast to ما ضايقيني (doubled middle) twice. | high | r1+r2 |
 | FA-739af247 | 1:01:26 | grammar | B10 | Taghiri blouzeti, uh, blouzetic. | Yeah. No t bas ghayiri. | Taghiri -> غيّري (ghayyiri) | Positive command has no t- prefix; she said no t, just ghayyiri. | high | r1+r2 |
@@ -999,7 +992,7 @@ _First ~6.5 min is English chat about a song; her Arabic there is redacted as [f
 | FA-f54cbff7 | 06:37 | vocab-A | tier 2 | This is it today. تسعة عشرين. / uh, تسعة عشر. / تسعش ستة. | 19. / تسعطاش تسعة. | تسعة عشرين -> تسعطاش (tese3ta3sh) | For 19 he first built nine-twenty (تسعة عشرين), then MSA تسعة عشر, then a clipped تسعش; Amal prompted '19.' and at 07:12 recast the Levantine form تسعطاش and typed tese3ta3sh - a wrong form of a number he knows (sheet: nineteen / tese3ta3sh / تسعتاش), and no bucket covers the shape of the number itself, so vocab tier 2. | medium | r3 |
 | FA-a25640de | 06:49 | vocab-B | tier 1 | um, ألفين وسبعة عشرين. | 19 شو؟ | ألفين وسبعة عشرين -> ألفين وستة وعشرين (alfein u sitte u 3eshreen) - my reading, the year 2026 | Asked 'إيش من؟' he answered with the year and said seven where 2026 needs six, repeating it at 07:03; the tens compound also lacks the و (sheet pattern: twenty-twenty-five / alfein u 5amsa u 3eshrin); Amal only steered him back to the month (19 شو؟) and her chat omits the year, so no signal; low because the engine may have dropped the و and the year was never asked for. | low | r3 |
 | FA-caf56e28 | 07:03 | vocab-A | tier 1 | ألفين وسبعة عشرين. Uh, or تيش-- uh, تسعش or تسعش. / تسعش ستة. | تسعطاش تسعة. | ستة -> تسعة | Giving the date 19/9 he said the month as ستة (six) twice; she queried 'ستة؟' then recast 'تسعطاش تسعة' and typed tes3a - wrong number word. | high | r1+r2 |
-| FA-88ce4612 | 07:10 | vocab-A | tier 1 | تسعش ستة. / Uh, تسعة عشر ستة. | ستة؟ / تسعطاش تسعة. | ستة -> تسعة (tes3a) - September is month 9 | Giving the date 19/9 he said the month as ستة (six) at 06:59, 07:10 and again after her fix at 07:15; Amal queried 'ستة؟' (07:05), recast 'تسعطاش تسعة' (07:12) and typed 'tese3ta3sh tes3a' - a wrong number word, separate from the 19 form in D1; if an agreed row already covers this moment, drop this one as a duplicate. | medium | r3-added |
+| FA-88ce4612 | 07:10 | rejected | tier 1 | تسعش ستة. / Uh, تسعة عشر ستة. | ستة؟ / تسعطاش تسعة. | ستة -> تسعة (tes3a) - September is month 9 | Giving the date 19/9 he said the month as ستة (six) at 06:59, 07:10 and again after her fix at 07:15; Amal queried 'ستة؟' (07:05), recast 'تسعطاش تسعة' (07:12) and typed 'tese3ta3sh tes3a' - a wrong number word, separate from the 19 form in D1; if an agreed row already covers this moment, drop this one as a duplicate. | medium | r3-added |
 | FA-5ffee7c8 | 07:10 | vocab-A | tier 2 | تسعش or تسعش. ... تسعش ستة. | تسعطاش تسعة. | تسعش -> تسعطاش (tese3ta3sh) | Second attempt at 19: after MSA tes3a 3ashar (06:42, 07:15) he clipped it to tes3ash; she recast the Levantine tese3ta3sh and typed it; a wrong form of a number he knows, sheet 'nineteen / tese3ta3sh / تسعتاش'. | medium | r3 |
 | FA-2c926c84 | 07:26 | grammar | E2 | ألفين تنين وتلات. | سنتين وته. Oh yeah، صح. | تنين وتلات -> tentan u tult (تنتين وتلت) | Asked قد الساعة he gave 2:20 as 'تنين وتلات' - masculine two and 'three' instead of the clock forms feminine تنتين and تلت (a third); she said it back and typed tentan u tult; sheet rows 'two (f) / Tentain / تنتين' and 'third / Tult / تلت'. | high | r1+r2 |
 | FA-b207caa6 | 07:50 | grammar | B5 | اليوم الجو بتغي-- بتغير كتير. No, بتغير كتير. It's masculine. | So تغير، no be. / It changed؟ | بتغير -> تغير | He described the weather change with the present b- form بتغير; she named the rule ('تغير, no be', 'it changed') - past tense needed - and he acknowledged 'past tense, you're right'. | high | r1+r2 |
@@ -1093,7 +1086,7 @@ _Whole file read. 800 Medi turns: 348 with Arabic script, ~130 more in Latin tra
 | FA-ec814975 | 22:59 | vocab-A | tier 1 | شكرًا. سلامتي. | لا، خلص شكرًا. | سلامتي -> شكرًا | He added a Persian-style 'salamat' thank-you; when he asked at 33:41 whether they say it she said no, just شكرًا. | medium | r1+r2 |
 | FA-ed8509a3 | 23:14 | vocab-A | tier 0 | oh my gosh. What was price? | It's the same meaning as right. ... No. Right like my right is to learn. | price -> حق | This is r1's 0921-30 piece from D9, not a new find: he asked for the word 'price', she hinted 'same as right' and he recovered أديش الحق at 23:53 (sheet: right / cost / 7aqq / حق; how much cost / 2addaish 7a22). Low: she hinted rather than supplied, and the word came back to him. | low | r3-added |
 | FA-e7be8a26 | 23:53 | grammar | A4 | uh, أديش الحق؟ | قديش Its price. | الحق -> حقها | 'How much is it' needs the possessive ending on حق (sheet: 2addaish 7a22o / قديش حقو); he said الحق with el-, she prompted 'its price' and he moved to حقو / حقها. | high | r1+r2 |
-| FA-e7be8a26x | 23:53 | grammar | A4 | uh, أديش الحق؟ | قديش Its price. | الحق -> حقها (حقهم) | 'How much is its price' needs the owner ending on حق (sheet: how much does it cost? / 2addaish 7a22o / قديش حقو), not el-; she prompted 'Its price' and he moved to حقو (23:59, then D10); her chat writes 7a22hom. | high | r3 |
+| FA-e7be8a26x | 23:53 | rejected | A4 | uh, أديش الحق؟ | قديش Its price. | الحق -> حقها (حقهم) | 'How much is its price' needs the owner ending on حق (sheet: how much does it cost? / 2addaish 7a22o / قديش حقو), not el-; she prompted 'Its price' and he moved to حقو (23:59, then D10); her chat writes 7a22hom. | high | r3 |
 | FA-5aa8d5d4 | 23:59 | grammar | A4 | أديش حقو؟ | قديش حقها. Cuz it's coffee. | حقو -> حقها | قهوة is feminine so the ending is -ها; she recast حقها and gave the reason ('cuz it's coffee'); he repeated حقها at 24:03. | medium | r3 |
 | FA-cb73ffba | 24:29 | grammar-B | B1 | بعدين أد-أدفع ... أدفع أطفالهم ما credit card | أدفع. You use the credit card to pay. So what do you use? Which preposition? | أدفع -> بدفع | 'Then I pay' in the plain present without b-; she echoed أدفع herself and worked on the preposition instead, and her chat wraps it in بقدر أدفع where the bare form is right. My reading. | low | r3 |
 | FA-a36f7b0e | 24:34 | grammar | D1 | أدفع أطفالهم ما credit card ما... min | أدفع. You use the credit card to pay. So what do you use? Which preposition? ... B. Credit card. | ما credit card / min -> بالـ credit card | Instrument 'with the card' takes بـ; he tried ما / من, she prompted for the preposition, gave 'B', and he said أدفع بالـ credit card (24:59). | high | r1+r2 |
@@ -1140,7 +1133,6 @@ _Whole file read. 800 Medi turns: 348 with Arabic script, ~130 more in Latin tra
 | FA-79f03b2c | 47:14 | grammar | A2 | لازم أحط شوي زيت، uh، في الـ تحت الطنجرة. | mm-hmm. | في الـ تحت الطنجرة -> في الطنجرة / تحت الطنجرة | el- on تحت, the first word of تحت الطنجرة - the same التحت pattern he repeats at 51:59 and 52:40; she accepted aloud and her chat drops the تحت altogether (fi el-tunjara). Low: 'في الـ' could be a restart. | low | r3 |
 | FA-32ec2df1 | 47:43 | vocab-A | tier 1 | بعدين، uh، بس أعمل الـ، الـ، الـ ... Would I say الـ تحت تاني من مقلاة؟ | You could say بستعمل الـ whatever spoon is you're gonna say، آآآ بالعكس | أعمل -> بستعمل | 'Then I use the other end of the ladle' with أعمل (do / make, and without b-); she rebuilt the sentence with بستعمل (sheet: use / Esta3mel / استعمل). Low: 'بس أعمل' could be the ASR splitting a stumbled بستعمل, though his أساهم at 43:03 and 49:00 says he did not have the verb. | low | r3 |
 | FA-522ecc47 | 48:02 | vocab-A | tier 1 | الـ تحت تاني من مقلاة، مقلاة؟ | لا، لا تحت is just under. Below. Under. ... الجهة. جهة is side. ... بالعكس أو عكس الـ | الـ تحت تاني -> عكس الـ / الجهة | تحت (sheet: down / under / bottom / below / Ta7t) used for 'the other end/side'; she said لا and gave جهة / عكس (sheet: opposite / 3aks / عكس). | high | r1+r2 |
-| FA-df8af52e | 48:38 | vocab-A | tier 1 | Oh، الـ آخر تاني؟ | لا. ... what's opposite؟ You know opposite. ... بالعكس أو عكس الـ | الـ آخر تاني -> عكس | For 'the other end (of the spoon)' he calqued آخر تاني (sheet: last / the end of / 2aa5er); she said لا and led him to عكس (sheet: opposite / 3aks), which he then used at 49:00. | medium | r3 |
 | FA-f4819c40 | 49:00 | vocab-A | tier 1 | So أنا أساهم بالعكس المقلاة. ... Oh، عكس المـ- مقلاة. | عكس الملعقة. ... بس ملعقة spoon. أنت بتستخدم spoon؟ ... مغرفة. | المقلاة -> الملعقة / المغرفة | مقلاة is the pan (sheet: pan / Ma2la / مقلى); the spoon is ملعقة (sheet: spoon / Ma3la2a / معلقة) and the ladle مغرفة (sheet: spatula / ladle / Ma8rafa / مغرفة); she recast twice and he said Maghrafah. | high | r1+r2 |
 | FA-bd21df1a | 49:00 | grammar | A2 | أنا أساهم بالعكس المقلاة. | عكس الملعقة. | بالعكس المقلاة -> عكس الملعقة | First word of the idafa took el- (بالعكس ال...); she recast عكس الملعقة without it and her chat writes 3aks ma8rafe. | medium | r1+r2 |
 | FA-795b7290 | 49:00 | vocab-A | tier 1 | So أنا أساهم بالعكس المقلاة. | عكس الملعقة. | أساهم -> بستعمل | أساهم again for 'I use', six minutes after her 43:05 recast بستعمل; aloud she fixed the other piece (عكس الملعقة), her chat writes basta3mel. | medium | r3 |
@@ -1150,7 +1142,6 @@ _Whole file read. 800 Medi turns: 348 with Arabic script, ~130 more in Latin tra
 | FA-24d9f1db | 50:29 | grammar | D1 | fi darajat halala hararah asir | واطية. | fi darajat -> bidarjet 7araara | 'At a low temperature' is بدرجة حرارة واطية (sheet: temperature / Darjet el-7araara); he used في, she only supplied واطية aloud and rewrote the preposition as bi- in chat. Low: في is understandable here and the fix is chat-only. | low | r3 |
 | FA-8fe8f0c2 | 50:56 | vocab-A | tier 1 | Sot tawil or sot asir nar? | مش صوت. Calm. I guess calm fire then. | sot asir -> هادية | He tried صوت (sheet: sound / voice / Soat / صوت) for 'quiet fire'; she said مش صوت, the word is هادي (sheet: calm / Haadi / هادي). | high | r1+r2 |
 | FA-4db8e2d3 | 51:12 | grammar | A8 | Nar hadi? Hadir, okay. | هادية. | hadi -> هادية | نار is feminine so calm is هادية. | high | r1+r2 |
-| FA-43ffb97d | 51:12 | grammar | A8 | hadi nar? ... Nar hadi? Hadir, okay. | نار ... هادية. | Nar hadi -> نار هادية | نار is feminine (sheet: fire / Naar), so the adjective is هادية (sheet: calm / Haadi is the masculine); she recast هادية and typed naar haadye at 53:27. | medium | r3 |
 | FA-beb8285c | 51:45 | vocab-A | tier 1 | U lama yakun mishtihi. | مستوي. شو يعني مستحي؟ | mishtihi -> مستوي | For 'when it's done/cooked' he said مشتهي (craving); the word is مستوي (sheet: cooked/done (m) / Mistwi / مستوي); she recast it and questioned his word. | high | r1+r2 |
 | FA-8021af06 | 51:58 | vocab-A | tier 1 | al tahet al roz | الرز من تحت | al tahet al roz -> الرز من تحت | the bottom rice (vs under the rice) | medium | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
 | FA-fd772b9b | 51:59 | grammar | A2 | uh, al tahet al roz, | الرز من تحت. | al tahet al roz -> الرز من تحت | 'The rice at the bottom' came out as التحت الرز - el- on both halves of an idafa (A2) and تحت used as a noun where the phrase is الرز من تحت (D1, her 52:45 explanation); she recast and he repeated al roz min tahet at 52:06. | medium | r3 |
@@ -1183,7 +1174,6 @@ _Whole file read. 800 Medi turns: 348 with Arabic script, ~130 more in Latin tra
 | FA-c2ac3a65 | 1:05:16 | grammar-B | A9 | قريب عشان في الـ دولة زي دولة عربية زي، uh، عما-- Qatar و، um، UAE، | أم. | دولة زي دولة عربية -> دول زي الدول العربية | Singular دولة for 'countries like the Arab countries' with two examples (Qatar, UAE); she let it pass. My reading; a singular 'in a country like an Arab country' is just possible. | low | r3 |
 | FA-38c1a9c7 | 1:05:38 | grammar-B | A9 | في مطعم إيراني كتير. | أم. | مطعم إيراني كتير -> مطاعم إيرانية كتير | 'Many Iranian restaurants' with singular مطعم; at this moment she only said أم and let it pass - her 'Restaurants' prompt at 1:06:06 answers the next sentence (أحسن مطعم الإيراني, D33), not this one. | medium | r3 |
 | FA-5de31110 | 1:06:01 | grammar | A9 | Okay. أحسن م-مطعم الإيراني، | أم. Restaurants. | مطعم الإيراني -> مطاعم إيرانيين | 'The best Iranian restaurants' - singular مطعم with el- on the adjective only; she prompted 'Restaurants' and he produced مطاعم إيرانيين at 1:06:08; her chat confirms ma6aa3em Iranyeen. The el- placement (A7) rode along uncorrected. | high | r3 |
-| FA-5de31110x | 1:06:01 | grammar | A9 | Okay. أحسن م-مطعم الإيراني، | Restaurants. | مطعم الإيراني -> مطاعم إيرانيين | 'The best Iranian restaurants' needs the plural مطاعم (sheet: restaurant / Ma63am) with a plural adjective and no el- on the adjective alone; she prompted 'Restaurants.' and he produced مطاعم إيرانيين (1:06:08-1:06:12), chat a7san ma6aa3em Iranyeen. | medium | r3 |
 | FA-05897aaa | 1:06:35 | vocab-A (listening) | tier 1 | مين بيدفع؟ Hold on. مين بيدفع؟ ... Who pays? ... Oh yeah. مطبخ. Okay. | Opens، بيفتح. | بيدفع -> بيفتح | He heard her بيفتح (opens) as بيدفع (pays), then answered 'مطبخ' (kitchen); she recast 'opens, بيفتح'. | medium | r1+r2 |
 | FA-3c821e14 | 1:06:59 | grammar | B1 | يفـ-- دفدوا. | بيفتحوا. | دفدوا -> بيفتحوا | For the habitual 'who opens' she recast the b-present بيفتحوا; he then said he meant the past (أخدوا) and moved on, so the fix may not apply. | medium | r1+r2 |
 | FA-27a42e5b | 1:08:15 | vocab-B | tier 3 | Iranian fee UAE bas el akil la, el Arabin. | شيعني؟ | Iranian -> إيرانيين | English 'Iranian(s)' inside the Arabic sentence though the word is on the sheet (iranian / Irani / إيراني) and he had said Iraniyin at 52:26; low because he first asked 'Would I say Iranian?' (meta). | low | r1+r2 |
@@ -1369,7 +1359,7 @@ _00:00-07:30 is Amal-only small talk (English/MSA engine output). 15:43-18:53 Me
 | FA-717d690e | 29:14 | vocab-A | tier 2 | أخوي آآ مح-- أخوي محمد، or محمد؟ | محامي. It's long and it's not doubled. | محمد -> محامي | For 'lawyer' he said a short doubled form like the name Muhammad twice; Amal recast محامي and named the difference. Sheet: lawyer / Mu7aami / محامي. | medium | r3 |
 | FA-5ae417b6 | 30:35 | vocab-B | tier 2 | Is it عماوم؟ عماوم؟ عماوم؟ | Mm-hmm. | عماوم -> أعمام | Invented plural of عم; the أفعال hint (باب، ضوء، شال) points to أعمام, and Amal later recast أعمامي (38:32) and gave أعمام (39:41). Here she let it pass with Mm-hmm. | medium | r3 |
 | FA-21841643 | 31:00 | grammar | A8 | Okay مهندس واحدة، | واحد. | مهندس واحدة -> مهندس واحد | مهندس is masculine so واحد; Amal recast twice. | high | r1+r2 |
-| FA-0da26e28 | 31:00 | grammar | A8 | Okay مهندس واحدة، | واحد. | واحدة -> واحد | He was talking about his uncles (masculine) and said واحدة; Amal recast واحد twice (31:03, 31:05). The word order was not wrong: Amal ended with 'You would say واحد مهندس' (31:11) for 'one is an engineer'. | high | r3 |
+| FA-0da26e28 | 31:00 | rejected | A8 | Okay مهندس واحدة، | واحد. | واحدة -> واحد | He was talking about his uncles (masculine) and said واحدة; Amal recast واحد twice (31:03, 31:05). The word order was not wrong: Amal ended with 'You would say واحد مهندس' (31:11) for 'one is an engineer'. | high | r3 |
 | FA-bba4c032 | 31:26 | grammar | A1 | تاني. | The second or the other? | تاني -> التاني | 'The other one' needs el-; Amal prompted with 'the' and he said التاني. | high | r1+r2 |
 | FA-e21422e1 | 31:44 | vocab-A | tier 2 | أستاذ مهندس. أستاذ مهندس؟ Or مهندس الأستاذ؟ No، أستاذ مهندس. | أستاذ هندسة. We would use the noun here. أستاذ هندسة. | مهندس -> هندسة | He used the person noun 'engineer' where the field noun 'engineering' is needed; Amal: 'we would use the noun here. أستاذ هندسة'. | high | r3 |
 | FA-9651b695 | 32:18 | grammar | A1 | آخر واحدة. آخر الواحدة. | Where do I put the ل؟ Actually we never put ل. آخر واحد. | آخر الواحدة -> آخر واحد | 'The last one' takes no el- after آخر; Amal said we never put ل and gave آخر واحد. | high | r1+r2 |

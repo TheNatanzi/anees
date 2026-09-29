@@ -1,0 +1,41 @@
+{
+ "note": "Hand-read repeats (eng audit 2026-09-29, Claude reading both rows' lines + Amal's reply): each pair is ONE slip that two rows counted. full_audit_build.py marks `drop` kind 'rejected' with duplicate_of = `keep` (kept in the file, never counted). Pairs with a different wrong piece or a different rule were left as two slips; see plan/ENG-AUDIT-AREA-1-2.md for the ones left for a human.",
+ "pairs": [
+  {
+   "date": "2026-09-15",
+   "keep": "FA-950701c8",
+   "drop": "FA-d819636a",
+   "why": "1:02:41 the A1 Asayam/asma slip Medi's audit lead named (was FA-950701c8 + FA-950701c8x): the 09-24 sweep row writes the same line in Arabic (أسامي / أسماء), the readers in Latin (Asayam), so no string test pairs them; one slip"
+  },
+  {
+   "date": "2026-09-04",
+   "keep": "FA-c1f626ae",
+   "drop": "FA-5fa62540",
+   "why": "02:15 same C3 slip (el- on the superlative, الأحسن طريقة); the 09-24 sweep row and the readers' row are one moment, one recast"
+  },
+  {
+   "date": "2026-09-05",
+   "keep": "FA-516aa646",
+   "drop": "FA-da460c60",
+   "why": "39:36 same B18 slip (بيزعجوني for 'it annoys me'); the sweep row and the readers' row quote the same line and the same recast بزعجني"
+  },
+  {
+   "date": "2026-09-21",
+   "keep": "FA-4db8e2d3",
+   "drop": "FA-43ffb97d",
+   "why": "51:12 same A8 slip (نار هادي -> هادية); pass 2 quoted a longer stretch of the same line"
+  },
+  {
+   "date": "2026-09-28",
+   "keep": "FA-21841643",
+   "drop": "FA-0da26e28",
+   "why": "31:00 same A8 slip (مهندس واحدة -> واحد); one row quotes the phrase, the other only the word"
+  },
+  {
+   "date": "2026-09-19",
+   "keep": "FA-caf56e28",
+   "drop": "FA-88ce4612",
+   "why": "07:03-07:15 one episode: the month said as ستة instead of تسعة, queried once and recast once (one retrieval episode, one result - SESSION-DECISIONS 2026-09-21)"
+  }
+ ]
+}
