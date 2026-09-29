@@ -202,7 +202,7 @@ def participant_coverage(turns, duration, policy, people=("Medi", "Amal")):
                               "engine heard speech but wrote a marker, not words"])
         miss_s = sum(b - a for a, b, _ in missing)
         hole_s = sum(b - a for a, b, _ in holes)
-        out[p] = {"first_t": mine[0] if mine else None, "last_t": mine[-1] if mine else None, "missing": missing, "holes": holes,
+        out[p] = {"_lesson_s": end_all, "first_t": mine[0] if mine else None, "last_t": mine[-1] if mine else None, "missing": missing, "holes": holes,
                   "missing_s": round(miss_s, 1), "hole_s": round(hole_s, 1),
                   "covered_pct": round(100 * (1 - miss_s / end_all), 1) if end_all else None}
     return out
@@ -422,7 +422,19 @@ def apply_source_audit(cov, sa):
         p = f.get("who")
         if f["kind"] in ("untranscribed", "audio-lost") and p in cov:
             cov[p]["missing"].append([f["from"], f["to"], f["text"]])
-            cov[p]["missing_s"] = round(cov[p]["missing_s"] + (f["to"] - f["from"]), 1)
+            # union of the intervals (the transcript check and the audio check can find the same stretch)
+            ivs = sorted((a, b) for a, b, *_ in cov[p]["missing"])
+            tot, cur = 0.0, None
+            for a, b in ivs:
+                if cur and a <= cur[1]:
+                    cur[1] = max(cur[1], b)
+                else:
+                    tot += (cur[1] - cur[0]) if cur else 0
+                    cur = [a, b]
+            tot += (cur[1] - cur[0]) if cur else 0
+            cov[p]["missing_s"] = round(tot, 1)
+            if cov[p].get("_lesson_s"):
+                cov[p]["covered_pct"] = round(100 * (1 - tot / cov[p]["_lesson_s"]), 1)
         reasons.append("coverage: " + f["text"])
     return reasons
 

@@ -340,3 +340,10 @@ def test_estimated_timings_are_a_reason(tmp_path):
     wj(p, doc)
     doc2, rel, q = G.run_annotate(r, write=False)
     assert any("estimated from each person's recording" in x for x in doc2["lessons"][0]["release"]["reasons"])
+
+
+def test_covered_pct_counts_the_audio_holes_once(tmp_path):
+    cov = {"Medi": {"missing": [[0.0, 450.0, "no transcript"]], "missing_s": 450.0, "covered_pct": 88.6, "_lesson_s": 3950.0}, "Amal": {"missing": [], "missing_s": 0}}
+    G.apply_source_audit(cov, {"flags": [{"who": "Medi", "kind": "untranscribed", "from": 42.0, "to": 402.0, "text": "x"},
+                                         {"who": "Medi", "kind": "untranscribed", "from": 1600.0, "to": 1700.0, "text": "y"}]})
+    assert cov["Medi"]["missing_s"] == 550.0 and cov["Medi"]["covered_pct"] == round(100 * (1 - 550 / 3950), 1)
