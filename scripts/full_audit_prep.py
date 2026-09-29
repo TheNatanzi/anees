@@ -38,7 +38,10 @@ def main():
     blines = []
     for b in B["buckets"]:
         one = b.get("one_line") or b.get("rule") or b.get("short") or ""
-        blines.append(f"- **{b['id']}** {b.get('name','')} ({fam.get(b['id'][0],'')}): {one}")
+        blines.append(f"- **{b['id']}** {b.get('name','')} ({fam.get(b['id'][0],'')}): {one}"
+                      + (" **NOT TAUGHT YET - file it, it is shown but never counted.**" if b.get("taught") == "not-yet" else ""))
+        # Amal's own notes on the rule (2026-09-27): what is and is not a mistake, so readers file by her rulings
+        blines += [f"  - {m}" for m in b.get("more", []) if "(Amal" in m]
     open(os.path.join(OUT, "buckets.md"), "w", encoding="utf-8").write("# Grammar buckets (docs/data/grammar-buckets.json)\n\n" + "\n".join(blines) + "\n")
     print("wrote", len(DATES), "transcripts,", len(rows), "sheet words,", len(B["buckets"]), "buckets ->", OUT)
 

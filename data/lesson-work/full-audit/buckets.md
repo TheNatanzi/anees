@@ -1,9 +1,21 @@
 # Grammar buckets (docs/data/grammar-buckets.json)
 
 - **A1** el- (the) (The noun phrase): `el-` marks a thing you already know; nothing marks a new one.
+  - "el" is used for general nouns: el-tuffaa7 zaaki = apples are delicious; el-shita baared = winter is cold. (Amal)
+  - Sun and moon letters: no need. Not a priority - do NOT mark it as an error if he doesn't use them correctly. (Amal)
 - **A2** idafa (possession) (The noun phrase): Thing first, owner second - and the first word never takes `el-`.
+  - If a noun ends with a possessive pronoun it's definite and doesn't take "el": bait u5ti = my sister's house; bent u5t jaarti = my neighbor's niece. (Amal)
 - **A3** feminine -t in idafa (The noun phrase): A feminine first word grows a `-t` before the owner.
+  - Same as A2: a noun with a possessive ending is definite and takes no "el": bent u5t jaarti = my neighbor's niece. (Amal)
 - **A4** possessive endings (The noun phrase): Stick the owner on the end of the word.
+  - Biddi and 3indi conjugate with possessive endings (they are not real verbs): biddo = he wants, 3indna = we have. (Amal)
+  - After a vowel: -ak -> -k, -ek -> -ki, -o -> long vowel + h: kursik = your (m) chair, awa3iki = your (f) clothes, abuh = his father. (Amal)
+  - Possessive endings also give object pronouns on verbs, except "me" is -ni: a3tini = give me, a3tih = give him. (Amal)
+  - Dual -ain words: eed -> eedayy, eedaik, eedaiki, eedaikom, eedaih, eedaiha, eedaina, eedaihom. (Amal)
+  - ijer -> ijrayy, ijraik, ijraiki, ijraikom, ijraih, ijraiha, ijraihom, ijraina. (Amal)
+  - daan/denain -> dinayy, dinaik, dinaiki, dinaikom, dinaih, dinaiha, dinahom, dinaina. (Amal)
+  - 7awalain -> 7awalayy, 7awalaik, 7awalaiki, 7awalaikom, 7awalaih, 7awalaiha, 7awalaihom, 7awalaina. (Amal)
+  - Not every dual works like this (no "youmayy"); the list grows as he learns more. (Amal)
 - **A5** chain possession (The noun phrase): Stack three or more nouns; only the last can take `el-`.
 - **A6** professions (The noun phrase): Job titles are idafa too - watch where `el-` lands.
 - **A7** noun + adjective (The noun phrase): Adjective goes AFTER. Where `el-` sits changes sentence vs phrase.
@@ -14,23 +26,45 @@
 - **A9b** broken plurals are patterns (The noun phrase): The irregular plurals repeat the same few shapes - learn the mould, not 200 words.
 - **A11** kul: all vs every (The noun phrase): `kul` + `el-` = all of it. `kul` alone = every.
 - **B1** present with b- (The verb system): Every ordinary present verb starts with b-.
-- **B2** b-drop after modals (The verb system): No b- after want/must/can words.
-- **B3** b-drop after time words (The verb system): No b- after lamma, iza, ra7, 3ashaan - but KEEP it after enno.
+- **B2** b-drop after modals (The verb system): A verb followed by another verb: the second one loses its b-. Same after want/must/can words.
+  - The real rule: if a verb is followed by another verb, the second loses the b. (Amal)
+  - Also after modal words: biddi, laazem, mumken, jaay 3abali. (Amal)
+  - Also after a statement like it's nice / it's important / most likely: muhem te3raf = it's important to know; 3ala el-a8lab niji = we'll most likely come. (Amal)
+- **B3** b-drop after time words (The verb system): No b- after lamma, ra7, ba3ed/2abel ma, la- and 3ashaan - but iza KEEPS it, and so does enno.
+  - Drop after the time words lamma, ra7, ba3ed/2abel ma, and the purpose words la- and 3ashaan. (Amal)
+  - Iza (if) KEEPS the b. (Amal) Keeping it after iza is never a mistake.
+  - After kaan the b- is not scored either way - see B7. (Amal)
 - **B4** the drop carries down a chain (The verb system): Once dropped, it stays dropped across u / aw / wala.
 - **B4b** when the b- comes back (The verb system): The b- returns the moment you leave the want/must clause.
 - **B5** past tense (The verb system): Endings on the back of the verb say who did it.
+  - The "she" ending is -et or -at; we're going with -at: sherbat = she drank. (Amal) Scoring does not change: -et for she is an accent choice, not a mistake.
+  - Refer to the past-tense explanation for the patterns: middle long vowel, end vowel, short verbs, irregulars, internal flipping. (Amal)
 - **B6** kaan = was / were (The verb system): Arabic has no 'was' in the present, but it does in the past.
-- **B7** kaan + b-verb = used to (The verb system): Habitual past - something you did regularly.
-- **B8** bakoon / ykoon (The verb system): No 'to be' in the plain present, but you need it after lamma/iza and for habits.
+- **B7** kaan + verb = used to / was doing (The verb system): kaan + a present verb: something you used to do, or were doing (past continuous).
+  - Also means past continuous: kunet aqra2 = I was reading; kaanat tetbu5 = she was cooking. (Amal)
+  - The b- after kaan: some verbs keep it, some drop it. It is NOT a rule - b- kept or dropped after kaan is never marked wrong. (Amal)
+  - kaan laazem goes with this too: kaan laazem + past = should have; kaan laazem + present = should have OR had to. Amal advises using it with the present. Scored under B16. (Amal)
+- **B8** bakoon / ykoon (The verb system): No 'to be' in the plain present - but bikoon comes in for habits, for biddi/3indi in the past and future, and to mean 'probably'.
+  - Habitual with usually / sometimes / every: 3aadatan bikoon mash8ool 3ala el-wa7de = he's usually busy at 1:00. (Amal)
+  - With biddi / 3indi in the past and future it is REQUIRED: kaan biddi = I wanted; ra7 ykoon 3indi = He will have. (Amal)
+  - With lamma / iza: lamma ykoon biddak = when you want; iza bikoon 3indak = if you have. Here it is NOT strict - leaving it out after lamma / iza is not marked wrong. (Amal)
+  - Bikoon can also mean "probably": bikoon m3asseb halla = he's probably angry now; bitkoon teshte8el = she's probably working. (Amal; her Doc's autocorrect wrote "Bitcoin teshte8el")
 - **B9** person on ykoon (The verb system): The ykoon form must match who you're talking about.
 - **B10** commands (The verb system): Telling someone to do something.
-- **B11** negative commands (The verb system): `ma` or `la` in front of the YOU-form.
+  - Refer to the explanation for all patterns: normal 3+ consonants, middle long vowel, doubled middle and short verbs, irregular ta3aal / ta3aali / ta3aalu. (Amal)
+- **B11** negative commands (The verb system): `ma` in front of the YOU-form. Never `la`.
+  - "la" is fus7a (MSA); spoken uses only "ma". (Amal) So la + verb is a mistake.
 - **B12** make-X vs get-X (The verb system): Doubling the middle letter turns 'I become' into 'I make someone'.
 - **B13** future with ra7 (The verb system): `ra7` plus a bare verb.
-- **B14** 3am = right now (The verb system): `3am` plus a verb means it's happening this second.
-- **B15** participles (The verb system): State words that act like adjectives.
+- **B14** 3am = right now (The verb system): `3am` plus a verb means it's happening this second. **NOT TAUGHT YET - file it, it is shown but never counted.**
+  - Not taught yet: part of the future present-progressive lesson. (Amal) Not scored until she teaches it - corrections stay visible but do not count.
+- **B15** participles (The verb system): State words that act like adjectives. **NOT TAUGHT YET - file it, it is shown but never counted.**
+  - Not taught yet: also part of the present-progressive lesson. (Amal) Not scored until she teaches it - her corrections so far stay visible but do not count (it was scored 2026-09-25 to 2026-09-29).
 - **B16** kan laazem (The verb system): `kaan` stacked on `laazem` = had to / should have.
-- **B17** saarli (The verb system): 'It's been X for me' - duration up to now.
+  - kaan laazem + past = should have; kaan laazem + present = should have OR had to. Amal advises using it with the present. (Amal, under B7)
+- **B17** sarli (The verb system): 'It's been X for me' - duration up to now.
+  - It's preferred and more natural to put the duration right after sarli. (Amal)
+  - Fixed 2026-09-29: the old second example (min saarlha?) was wrong - it is 2adaish sarlak. (Amal)
 - **B18** verb matches its subject (The verb system): The verb's person, gender and number must match who or what is doing it.
 - **C1** no word for 'to be' (Sentence glue): Arabic drops am / is / are in the plain present.
 - **C2** the pointer rule (Sentence glue): Move the object to the front and the verb grows an ending pointing back.
@@ -38,7 +72,9 @@
 - **C4** saying no (Sentence glue): `ma` before verbs, `mish` before nouns and adjectives.
 - **C4b** words that drag a ma along (Sentence glue): `abadan` is not enough on its own - the verb still needs `ma`.
 - **C5** u / aw / wala (Sentence glue): and, either-or, nor/nothing.
-- **C6** iza / lamma (Sentence glue): if, when - and both change the verb after them.
+- **C6** iza / lamma (Sentence glue): if, when - lamma drops the b- on the next verb, iza keeps it.
+  - lamma akoon ta3baan when I'm tired - ykoon here is optional, never marked wrong if left out. (Amal, B8)
+  - Iza (if) KEEPS the b (Amal): iza bteji, never iza teji.
 - **C7** illi (Sentence glue): 'the one that' - never changes shape.
 - **C8** question words (Sentence glue): The basic set.
 - **C9** word order (Sentence glue): Normal is verb then object; front the object and C2 kicks in.

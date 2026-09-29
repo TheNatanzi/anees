@@ -13,7 +13,7 @@ with uses=0 so the console can show an honest empty row.
 """
 import json, os, re, glob
 
-ROOT = r"C:\dev\anees-hourly"
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # this checkout, never the live hourly one (2026-09-29)
 DOCS = os.path.join(ROOT, "docs")
 LESSONS = r"C:\dev\anees\data\lessons"
 OUT = os.path.join(DOCS, "data", "grammar-console.json")
@@ -54,11 +54,21 @@ def secs(v):
     return p[0] * 3600 + p[1] * 60 + p[2] if len(p) == 3 else p[0] * 60 + p[1]
 
 
-sweep_rows, sweep_left_out = [], []
+# Amal's notes (2026-09-27, applied 2026-09-29): some corrections no longer count (her note says it is not a
+# mistake), and B14 / B15 are not taught yet. Those rows stay on the page, marked "not counted" with the reason.
+import sys as _sys
+_sys.path.insert(0, os.path.join(ROOT, "scripts"))
+import amal_grammar_notes as AMAL  # noqa: E402
+
+sweep_rows, sweep_left_out, ruled_rows = [], [], []
 for r in sweep["rows"] + sweep.get("unfiled", []):
     b = r.get("bucket") or APPROVED_NEW.get(r.get("new_bucket_group"))
     if r.get("mode") != "speaking" or r["id"] in _not_counted or b not in BUCKET_IDS:
         sweep_left_out.append(r["id"])
+        continue
+    ru = AMAL.ruling(dict(r, bucket=b))
+    if ru:
+        ruled_rows.append(dict(r, bucket=b, _ruling=ru))
         continue
     sweep_rows.append(dict(r, bucket=b))
 
@@ -147,6 +157,7 @@ def turns_sentences(date):
     (Arabic script or a non-English Latin word), for lessons the auditor never read."""
     if not _AUD:
         src = open(os.path.join(ROOT, "scripts", "audit_grammar_lessons.py"), encoding="utf-8").read()
+        _AUD["__file__"] = os.path.join(ROOT, "scripts", "audit_grammar_lessons.py")
         exec(src.split("# ---------------------------------------------------------------- run")[0], _AUD)
     T, _ = lesson_turns(date)
     return sum(1 for x in T if x["speaker"] == "Medi" and len(_AUD["_ar_words"](x["text"])) >= 2) or None
@@ -173,7 +184,7 @@ _spec = importlib.util.spec_from_file_location(
 
 def _differ():
     src = open(os.path.join(ROOT, "scripts", "audit_grammar_lessons.py"), encoding="utf-8").read()
-    ns = {}
+    ns = {"__file__": os.path.join(ROOT, "scripts", "audit_grammar_lessons.py")}
     exec(src.split("# ---------------------------------------------------------------- run")[0], ns)
     return ns["diff_spans"]
 
@@ -220,8 +231,8 @@ def mark_piece(text, piece, cls):
 
 
 mark_stats = {"said": 0, "recast": 0, "fallback": 0, "none": 0}
-cands = {}
-for r in sweep_rows:
+cands, uncounted = {}, {}
+for r in sweep_rows + ruled_rows:
     said, recast = r.get("medi_said") or "", r.get("amal_said") or ""
     sh, rh = mark_piece(said, r.get("wrong"), "ab-wrong"), mark_piece(recast, r.get("right"), "ab-correct")
     if not (sh and rh) and said and recast:
@@ -266,8 +277,15 @@ for r in sweep_rows:
     }
     clip_at = dict(c) if t is not None else dict(c, t=max(0.0, ta - 6.0))
     c["clip"] = cut_clip(clip_at)
-    cands.setdefault(c["bucket"], []).append(c)
-for v in cands.values():
+    ru = r.get("_ruling")
+    if ru:
+        # shown on the page, never counted: Amal's note says it is not a mistake, or its rule is not taught yet
+        c.update({"counted": False, "not_counted_kind": ru["kind"], "not_counted_rule": ru["rule"],
+                  "not_counted_why": ru["why"]})
+        uncounted.setdefault(c["bucket"], []).append(c)
+    else:
+        cands.setdefault(c["bucket"], []).append(c)
+for v in list(cands.values()) + list(uncounted.values()):
     v.sort(key=lambda e: (e["date"], e["t"] or 0), reverse=True)
 
 
@@ -350,6 +368,13 @@ for b in buckets:
     uses = len(u) + extra if b["id"] not in NO_USAGE_SCORE else 0
     if uses and mistakes > uses:
         mistakes = uses
+    # Amal 2026-09-27: B14 3am and B15 participles are not taught yet -> no score, out of every total.
+    # His uses and her corrections stay visible (usage / not_counted) but uses = mistakes = 0.
+    nt = AMAL.not_taught(b["id"])
+    uses_seen = uses
+    if nt:
+        uses = mistakes = verified_slips = 0
+    nc = uncounted.get(b["id"], [])
     rows.append({
         "id": b["id"], "family": b["family"], "name": b["name"],
         "one_line": b["one_line"], "examples": b["examples"],
@@ -368,8 +393,15 @@ for b in buckets:
         "uses": uses, "mistakes": mistakes, "asks": asks,
         # No detector sees his correct uses of this rule, so every use on record is a fix:
         # a % would read 0 for lack of a counter, not for lack of skill. Show it unscored.
-        "pct": None if (not u and mistakes) else (round(100 * (uses - mistakes) / uses) if uses else None),
-        "status": "Unscored" if (not u and mistakes) else status(uses, mistakes),
+        "pct": None if nt or (not u and mistakes) else (round(100 * (uses - mistakes) / uses) if uses else None),
+        "status": "NotTaught" if nt else "Unscored" if (not u and mistakes) else status(uses, mistakes),
+        "status_label": "Not taught yet" if nt else None,
+        "not_taught": nt,
+        "not_taught_why": AMAL.NOT_TAUGHT.get(b["id"]),
+        "uses_seen": uses_seen,
+        # corrections on the page but not in any count (Amal's notes 2026-09-27): not taught yet, or not a mistake
+        "not_counted": nc,
+        "not_counted_count": len(nc),
         "events": events,
     })
 
@@ -394,9 +426,13 @@ for L in lessons:
         if c["date"] == d)
     L["sound_slips"] = sum(1 for e in sound if e["kind"] == "slip")
     lu = usage.get("lessons", {}).get(d, {})
-    L["rule_uses"] = lu.get("uses")
-    L["unique_rules"] = lu.get("unique_rules") or len(
+    # rules Amal has not taught yet (B14, B15) are left out of every total
+    nt_uses = sum(v for k, v in (lu.get("by_bucket") or {}).items() if AMAL.not_taught(k))
+    nt_rules = sum(1 for k, v in (lu.get("by_bucket") or {}).items() if v and AMAL.not_taught(k))
+    L["rule_uses"] = lu.get("uses") - nt_uses if lu.get("uses") is not None else None
+    L["unique_rules"] = (lu.get("unique_rules") - nt_rules if lu.get("unique_rules") else None) or len(
         {row["id"] for row in rows for e in row["events"] if e["date"] == d})
+    L["not_counted"] = sum(1 for row in rows for c in row["not_counted"] if c["date"] == d)
     L["rights"] = sum(1 for e in ev if e["kind"] == "right")
     L["asks_verified"] = sum(1 for e in ev if e["kind"] == "ask")
     # Asks are still found by the audit pass; a lesson it never read has no ask count,
@@ -411,7 +447,7 @@ for L in lessons:
 
 scored = [r for r in rows if r["uses"]]
 payload = {
-    "updated": "2026-09-25",
+    "updated": "2026-09-29",
     "source": "data/" + SWEEP_NAME + ".json (hand read, rule M1) + transcripts in C:/dev/anees/data/lessons",
     "coverage": {
         "buckets_total": len(rows),
@@ -422,7 +458,12 @@ payload = {
                 "Amal said aloud (a random hand check of 20 found 17 right); the %d filed in an approved rule are "
                 "counted. Uses are machine-counted: every time his Arabic exercises the rule, right or wrong. Asks: his "
                 "own questions about a form (rule M1). Untested = he never used it in any recorded lesson, or it is a "
-                "sound (F)." % len(sweep_rows),
+                "sound (F). Not taught yet = Amal has not taught the rule (her notes, 2026-09-27): no score, left out "
+                "of every total. %d corrections are shown but not counted (Amal's notes: not taught yet, or not a "
+                "mistake - list in data/amal-grammar-notes-2026-09-29.json)." % (len(sweep_rows), len(ruled_rows)),
+        "not_taught": sorted(AMAL.NOT_TAUGHT),
+        "not_counted": len(ruled_rows),
+        "not_counted_file": "data/amal-grammar-notes-2026-09-29.json",
     },
     "lessons": lessons,
     "sweep": {
@@ -447,6 +488,7 @@ json.dump(payload, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=
 
 print("wrote", OUT)
 print("buckets:", len(rows), "scored:", len(scored))
+print("not counted (Amal's notes):", len(ruled_rows))
 print("sweep rows counted:", len(sweep_rows), "left out:", len(sweep_left_out),
       "mistakes on page:", sum(r["mistakes"] for r in rows), "clips:", payload["sweep"]["clips"], "marks:", mark_stats)
 for L in lessons:

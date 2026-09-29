@@ -21,13 +21,13 @@ UNFILED is the honest answer when no rule fits.
 import json, os, re, sys, difflib, html
 from collections import Counter, defaultdict
 
-SCRIPTS = r"C:\dev\anees-hourly\scripts"
+SCRIPTS = os.path.dirname(os.path.abspath(__file__))   # this checkout, never the live hourly one (2026-09-29)
 if SCRIPTS not in sys.path:
     sys.path.insert(0, SCRIPTS)
 from xscript import key, skel, bare, has_al, is_ar, is_english, tokens, arabic_tokens, sim  # noqa: E402
 
 ANEES = r"C:\dev\anees\data\lessons"
-DOCS = r"C:\dev\anees-hourly\docs"
+DOCS = os.path.join(os.path.dirname(SCRIPTS), "docs")
 OUT = os.path.join(DOCS, "data", "grammar-audit.json")
 
 WINDOW = 25.0        # her voice reply within this long after he stops

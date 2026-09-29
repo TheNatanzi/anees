@@ -19,7 +19,7 @@ const pretty=d=>{if(!d)return '';const p=String(d).split('-');return new Date(+p
 const mmss=t=>{if(typeof t!=='number')return '';const h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=Math.floor(t%60);return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(s).padStart(2,'0');};
 const isArabic=s=>/[؀-ۿ]/.test(s||'');
 const PAGE=25,FLOOR_DEFAULT=30;
-const STATUS_COL={Mastered:'var(--ab-green)',Good:'var(--ab-blue)',Shaky:'var(--ab-orange)',Wrong:'var(--ab-red)',Unscored:'var(--ab-muted)',Untested:'var(--ab-line)'};
+const STATUS_COL={Mastered:'var(--ab-green)',Good:'var(--ab-blue)',Shaky:'var(--ab-orange)',Wrong:'var(--ab-red)',Unscored:'var(--ab-muted)',NotTaught:'var(--ab-raised)',Untested:'var(--ab-line)'};
 const SIG={recast:'she re-said it','prompt-then-fix':'she nudged, then fixed','explicit-no':'she said no','named-rule':'she named the rule','chat-fix':'typed in chat only','finished-sentence':'she finished his sentence',asked:'he asked'};
 // Numbers that live only in the process audit (plan/PROCESS-AUDIT-2026-09-26.md, counted over data/full-audit-2026-09-26.json,
 // which is outside docs/ and so not published). Shown with their source, never mixed into live counts.
@@ -47,9 +47,10 @@ function build(gc,usage,audit,review,ladder){
  const hasAudit=auditDates.size>0;
 
  /* G1: rules without a score */
- const noScore=rules.filter(r=>r.status==='Unscored'||r.status==='Untested').map(r=>{
+ const noScore=rules.filter(r=>r.status==='Unscored'||r.status==='Untested'||r.status==='NotTaught').map(r=>{
   let why,cls;
   if(r.family==='F'){why='A sound, never grammar (rule S4). Pronunciation is scored elsewhere.';cls='sound';}
+  else if(r.status==='NotTaught'){why=`${r.not_taught_why||'Not taught yet.'} No score until Amal teaches it; ${n(r.not_counted_count||0)} of her corrections are shown but not counted.`;cls='nottaught';}
   else if(r.status==='Untested'){why='You never used it in a recorded lesson.';cls='unused';}
   else if(!r.usage_total&&(r.uses||0)>=10){why=`No detector counts Medi’s right uses, so the ${n(r.uses)} on record are all Amal’s fixes. A % would read 0 for lack of a counter, not skill.`;cls='nodetector';}
   else {why=`No detector for Medi’s right uses, and only ${n(r.uses)} use${r.uses===1?'':'s'} on record (all fixes).`;cls='few';}
@@ -196,12 +197,12 @@ const track=(parts,max)=>`<span class="gu-track">${parts.map(([v,cls,t])=>v?`<i 
 
 function g1(d){
  const tot=d.rules.length,sc=d.rules.reduce((m,r)=>(m[r.status]=(m[r.status]||0)+1,m),{});
- const scoredN=tot-(sc.Unscored||0)-(sc.Untested||0);
- const strip=`<div class="gu-split" role="img" aria-label="${n(scoredN)} scored, ${n(sc.Unscored||0)} unscored, ${n(sc.Untested||0)} untested"><i class="gu-okf" style="width:${100*scoredN/tot}%">${n(scoredN)} scored</i><i class="gu-mutedf" style="width:${Math.max(12,100*(sc.Unscored||0)/tot)}%">${n(sc.Unscored||0)} unscored</i><i class="gu-linef" style="width:${Math.max(12,100*(sc.Untested||0)/tot)}%">${n(sc.Untested||0)} untested</i></div>`;
+ const scoredN=tot-(sc.Unscored||0)-(sc.Untested||0)-(sc.NotTaught||0);
+ const strip=`<div class="gu-split" role="img" aria-label="${n(scoredN)} scored, ${n(sc.Unscored||0)} unscored, ${n(sc.Untested||0)} untested"><i class="gu-okf" style="width:${100*scoredN/tot}%">${n(scoredN)} scored</i><i class="gu-mutedf" style="width:${Math.max(12,100*(sc.Unscored||0)/tot)}%">${n(sc.Unscored||0)} unscored</i><i class="gu-linef" style="width:${Math.max(12,100*(sc.Untested||0)/tot)}%">${n(sc.Untested||0)} untested</i>${sc.NotTaught?`<i class="gu-linef" style="width:${Math.max(12,100*sc.NotTaught/tot)}%">${n(sc.NotTaught)} not taught</i>`:''}</div>`;
  const robot=d.noScore.filter(x=>x.cls!=='unused'),mine=d.noScore.filter(x=>x.cls==='unused');
  const max=Math.max(1,...d.noScore.map(x=>x.r.uses||0));
  const rows=g1rows(robot,max);
- return panel('G1','Rules the app can’t score',`${n((sc.Unscored||0)+(sc.Untested||0))} of ${n(tot)} rules have no % yet. Open one to see every sentence behind it.`,strip+`<div class="gu-list">${rows}</div>`+(mine.length?`<p class="rb-link">${n(mine.length)} of them ${mine.length===1?'is a rule':'are rules'} Medi never used in a recorded lesson. That is about him, not the robot, so ${mine.length===1?'it lives':'they live'} on <a href="progress.html?tab=grammar#gp-sure-wrap">Progress › Grammar</a>.</p>`:''),
+ return panel('G1','Rules the app can’t score',`${n((sc.Unscored||0)+(sc.Untested||0)+(sc.NotTaught||0))} of ${n(tot)} rules have no % yet${sc.NotTaught?` (${n(sc.NotTaught)} not taught yet)`:''}. Open one to see every sentence behind it.`,strip+`<div class="gu-list">${rows}</div>`+(mine.length?`<p class="rb-link">${n(mine.length)} of them ${mine.length===1?'is a rule':'are rules'} Medi never used in a recorded lesson. That is about him, not the robot, so ${mine.length===1?'it lives':'they live'} on <a href="progress.html?tab=grammar#gp-sure-wrap">Progress › Grammar</a>.</p>`:''),
   `${n(d.unscoredFixes)} hand-verified fixes sit on the unscored rules. They count in Medi’s totals, but the rule itself shows no %.`);
 }
 function g1rows(list,max){

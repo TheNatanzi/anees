@@ -513,18 +513,21 @@ function ruleHead(e, date) {
   var top = el('div', 'ls-ruletop');
   top.appendChild(el('span', 'ls-ruleid', e.bucket || '?'));
   top.appendChild(el('span', 'ls-rulename', r.name || e.bucket_name || 'grammar'));
-  if (r.status) top.appendChild(el('span', 'ls-rulepill ls-rulepill-' + r.status, r.status + (num(r.pct) ? ' · ' + r.pct + '%' : '')));
+  if (r.status) top.appendChild(el('span', 'ls-rulepill ls-rulepill-' + r.status, (r.status_label || r.status) + (num(r.pct) ? ' · ' + r.pct + '%' : '')));
   var t = el('span', 'ls-ruletime'); t.appendChild(timeButton(date, e.t, 'Medi')); top.appendChild(t);
   box.appendChild(top);
   if (r.one_line) box.appendChild(el('div', 'ls-ruleline', r.one_line.replace(/`/g, '')));
   return box;
 }
 function grammarList(body, x) {
-  var list = x.grammar_errors || [];
+  // counted slips first, then the ones Amal's notes (2026-09-27) take out of the count
+  var list = (x.grammar_errors || []).concat(x.grammar_not_counted || []);
   if (!list.length) { body.appendChild(el('div', 'gc-empty', 'No grammar slips Amal corrected in this lesson.')); return; }
   list.forEach(function (e) {
-    var card = el('div', 'gc-use gc-use-slip');
+    var card = el('div', 'gc-use gc-use-slip' + (e.counted === false ? ' gc-uncounted' : ''));
     card.appendChild(ruleHead(e, x.date));
+    // Amal's notes 2026-09-27: shown, but not in any count (rule not taught yet, or not a mistake)
+    if (e.counted === false) card.appendChild(el('div', 'ab-mini ls-note', (e.not_counted_kind === 'not-taught' ? 'Not taught yet: not counted. ' : 'Not a mistake: not counted. ') + (e.not_counted_why || '')));
     if (e.mistake) card.appendChild(el('div', 'ls-mistake', e.mistake));
     card.appendChild(mediSaid(e.t, speech('gc-said', markText(e.said, [[e.wrong, 'ab-wrong']]), null)));
     if (e.fix) {
@@ -656,7 +659,7 @@ function detail(L) {
   } else {
     var c = L.counts || {};
     d.appendChild(vocabAcc(c));
-    d.appendChild(acc('Grammar errors (' + (num(c.grammar_errors) ? c.grammar_errors : '…') + ')', grammarList));
+    d.appendChild(acc('Grammar errors (' + (num(c.grammar_errors) ? c.grammar_errors : '…') + (c.grammar_not_counted ? ' + ' + c.grammar_not_counted + ' not counted' : '') + ')', grammarList));
     d.appendChild(acc('Full transcript' + (num(c.turns) ? ' (' + c.turns + ' turns' + (c.chat_lines ? ' + ' + c.chat_lines + ' chat lines' : '') + ')' : ''), transcript));
   }
   var links = el('p', 'ab-mini');
@@ -713,8 +716,8 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
     }
     // Grammar clips cut from the hand sweep: joined by sweep id, else by date + mm:ss.
     ((res[4] && res[4].rules) || []).forEach(function (r) {
-      RULES[r.id] = { name: r.name, status: r.status, pct: r.pct, one_line: r.one_line };
-      (r.candidates || []).concat(r.events || []).forEach(function (c) {
+      RULES[r.id] = { name: r.name, status: r.status, status_label: r.status_label, pct: r.pct, one_line: r.one_line };
+      (r.candidates || []).concat(r.not_counted || [], r.events || []).forEach(function (c) {
         if (!c.clip) return;
         if (c.id) CLIPS[c.id] = c;
         if (c.date && c.mmss) CLIPS[c.date + ' ' + c.mmss] = c;

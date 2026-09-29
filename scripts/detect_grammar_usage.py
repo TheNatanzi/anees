@@ -21,9 +21,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lesson_turns import lesson_turns  # noqa: E402
 
 ANEES = r"C:\dev\anees\data\lessons"
-DOCS = r"C:\dev\anees-hourly\docs"
-if not os.path.isdir(DOCS):   # 2026-09-27: a machine without the hourly worktree reads this repo's docs (same files)
-    DOCS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs")
+# 2026-09-29: always this checkout's docs, so a worktree never writes into the live hourly checkout (see 278753d)
+DOCS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs")
 OUT = os.path.join(DOCS, "data", "grammar-usage.json")
 
 AR_WORD = re.compile(r"[\u0621-\u063A\u0641-\u064A\u064B-\u0652\u0670]+")
@@ -123,7 +122,11 @@ P = {
  "A10b":[r"(?:^|\s)(?:هاد|هادي|هدول|هذا|هذي|هاي)\s+ال[\u0621-\u064A]{2,}"],
  "A11": [r"(?:^|\s)الكل" + E, r"(?:^|\s)كل\s+(?:حدا|إشي|اشي|شي|يوم|الناس|ال[\u0621-\u064A]{2,})"],
 
- "B2":  [r"(?:^|\s)(?:بدي|بدك|بدها|بدنا|بدهم|لازم|ممكن|بحب|بقدر|بتقدر|بجرب|ببلش|بعرف)\s+" + BARE_IMPERF],
+ "B2":  [r"(?:^|\s)(?:بدي|بدك|بدها|بدنا|بدهم|لازم|ممكن|بحب|بقدر|بتقدر|بجرب|ببلش|بعرف)\s+" + BARE_IMPERF,
+         # Amal's notes 2026-09-27: also after "it's important / most likely / I feel like" statements
+         # (muhem te3raf, 3ala el-a8lab niji, jaay 3abali). إنه / إني after مهم is "that", not a verb.
+         r"(?:^|\s)(?:مهم|على الأغلب|على الاغلب|عالأغلب|عالاغلب|جاي على بالي|جاي عبالي|جاية على بالي|جاية عبالي)\s+"
+         r"(?!(?:انه|انها|اني|انك|انهم|انو)(?:\s|$))" + BARE_IMPERF],
  "B3":  [r"(?:^|\s)(?:لما|عشان|قبل ما|بعد ما|حتى)\s+" + BARE_IMPERF],
  "B4":  [r"(?:^|\s)(?:بدي|لازم|ممكن)\s+" + BARE_IMPERF + r"\s+و\s*" + BARE_IMPERF],
  "B4b": [r"(?:^|\s)(?:لما|إذا|اذا)\s+(?:ما\s+)?ب[\u0621-\u064A]{2,}"],
