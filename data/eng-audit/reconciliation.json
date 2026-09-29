@@ -1,0 +1,592 @@
+{
+ "built": "2026-09-29",
+ "about": "Eng audit areas 1+2 (worker A). Quantity -> every page that shows it -> value before (commit 3c2835c data, rendered offline in Chromium) and after (this branch, rebuilt locally; the coordinator rebuilds) -> match. Machine check: python scripts/check_numbers.py (555 checks).",
+ "rows": [
+  {
+   "quantity": "Lessons loaded",
+   "formula": "count of lessons.json rows",
+   "pages": [
+    {
+     "page": "Progress header",
+     "where": "Lessons card",
+     "before": "15",
+     "after": "15"
+    },
+    {
+     "page": "Progress › Overview",
+     "where": "Lessons tracked",
+     "before": "15",
+     "after": "15"
+    },
+    {
+     "page": "Lessons",
+     "where": "Lessons card",
+     "before": "15",
+     "after": "15"
+    },
+    {
+     "page": "Grammar Console",
+     "where": "Scored from N of N lessons",
+     "before": "15",
+     "after": "15"
+    },
+    {
+     "page": "Progress › Grammar",
+     "where": "lessons",
+     "before": "15",
+     "after": "15"
+    }
+   ],
+   "match_before": true,
+   "match_after": true,
+   "fix": null,
+   "note": "Progress › Vocab cards use the Month pill (14 lessons) - a stated period, not a mismatch"
+  },
+  {
+   "quantity": "Lesson hours",
+   "formula": "Σ duration_min ÷ 60",
+   "pages": [
+    {
+     "page": "Progress header",
+     "where": "Lesson hours",
+     "before": "16.3",
+     "after": "16.3"
+    },
+    {
+     "page": "Progress › Overview",
+     "where": "h of audio",
+     "before": "16.3",
+     "after": "16.3"
+    },
+    {
+     "page": "Lessons",
+     "where": "Total hours",
+     "before": "16.3",
+     "after": "16.3"
+    }
+   ],
+   "match_before": true,
+   "match_after": true,
+   "fix": null,
+   "note": null
+  },
+  {
+   "quantity": "Words right, all lessons",
+   "formula": "pooled: Σ(right + ½ partial) ÷ Σ scored (lesson-math.pooledWords)",
+   "pages": [
+    {
+     "page": "Lessons",
+     "where": "Avg words right / Words right",
+     "before": "76% (plain mean of 15 lesson %)",
+     "after": "≈80%"
+    },
+    {
+     "page": "Progress › Overview",
+     "where": "Vocab right pooled avg",
+     "before": "80.0%",
+     "after": "≈80.0%"
+    }
+   ],
+   "match_before": false,
+   "match_after": true,
+   "fix": "536e46e",
+   "note": "Before: Lessons page showed a plain mean, Overview the pooled total; one function now · same number, rounded to 0 or 1 decimal"
+  },
+  {
+   "quantity": "Grammar right, all lessons",
+   "formula": "pooled: Σ(uses − scored slips) ÷ Σ uses, uses = grammar_math (detected + unpaired fixes)",
+   "pages": [
+    {
+     "page": "Lessons",
+     "where": "Avg grammar right / Grammar right",
+     "before": "63% (plain mean)",
+     "after": "≈77%"
+    },
+    {
+     "page": "Progress › Overview",
+     "where": "Grammar right pooled avg",
+     "before": "72.0% (13 of 15 lessons: the 2 'estimate' lessons left out)",
+     "after": "≈77.3% (15 of 15)"
+    },
+    {
+     "page": "Grammar Console",
+     "where": "Σ over scored rules (not shown as one number)",
+     "before": "75.0% implied (2237 uses)",
+     "after": "77.3% (2170 uses, 493 scored slips)"
+    }
+   ],
+   "match_before": false,
+   "match_after": true,
+   "fix": "536e46e",
+   "note": null
+  },
+  {
+   "quantity": "Grammar uses, all lessons",
+   "formula": "grammar_math.table: detected uses + fixes no detected use pairs with (±2 s), scored rules only",
+   "pages": [
+    {
+     "page": "Lessons (Σ of rows)",
+     "where": "N slips / N uses",
+     "before": "1712",
+     "after": "2170"
+    },
+    {
+     "page": "Grammar Console (Σ scored rules)",
+     "where": "times used",
+     "before": "2178",
+     "after": "2170"
+    }
+   ],
+   "match_before": false,
+   "match_after": true,
+   "fix": "536e46e",
+   "note": null
+  },
+  {
+   "quantity": "Grammar slips counted",
+   "formula": "full audit speaking rows in an approved rule, minus Amal's rulings, minus duplicates",
+   "pages": [
+    {
+     "page": "Lessons (Σ)",
+     "where": "slips",
+     "before": "560",
+     "after": "551"
+    },
+    {
+     "page": "Grammar Console",
+     "where": "mistakes (Σ rules)",
+     "before": "560",
+     "after": "551"
+    },
+    {
+     "page": "Progress › Grammar",
+     "where": "corrections, hand-checked",
+     "before": "560",
+     "after": "551"
+    },
+    {
+     "page": "Grammar Console",
+     "where": "slips in N sentences",
+     "before": "560",
+     "after": "551"
+    }
+   ],
+   "match_before": true,
+   "match_after": true,
+   "fix": "dd4eedc",
+   "note": "9 duplicates removed (see double-count finding) · agreed, but on a double-counted audit"
+  },
+  {
+   "quantity": "Rule A1 mistakes",
+   "formula": "audit rows in bucket A1",
+   "pages": [
+    {
+     "page": "Grammar Console",
+     "where": "A1 mistakes",
+     "before": "19 (09-15 1:02:41 counted twice)",
+     "after": "18"
+    }
+   ],
+   "match_before": false,
+   "match_after": true,
+   "fix": "dd4eedc",
+   "note": "19 included one slip twice"
+  },
+  {
+   "quantity": "Grammar % per lesson (e.g. 09-04)",
+   "formula": "1 − scored slips ÷ uses",
+   "pages": [
+    {
+     "page": "Lessons",
+     "where": "row",
+     "before": "40%",
+     "after": "≈67%"
+    },
+    {
+     "page": "Progress › Overview",
+     "where": "table",
+     "before": "40.0",
+     "after": "≈66.7"
+    },
+    {
+     "page": "Grammar Console formula",
+     "where": "per rule, summed",
+     "before": "66.0",
+     "after": "66.7"
+    }
+   ],
+   "match_before": false,
+   "match_after": true,
+   "fix": "536e46e",
+   "note": null
+  },
+  {
+   "quantity": "Grammar % 09-18 (was an estimate)",
+   "formula": "same",
+   "pages": [
+    {
+     "page": "Lessons",
+     "where": "row",
+     "before": "≈34% (45 slips / 23 uses)",
+     "after": "≈35% (40 slips / 62 uses, +5 in unscored rules)"
+    },
+    {
+     "page": "Progress › Overview",
+     "where": "table",
+     "before": "≈ 33.8 (left out of the average)",
+     "after": "≈35.5 (in the average)"
+    }
+   ],
+   "match_before": false,
+   "match_after": true,
+   "fix": "536e46e",
+   "note": null
+  },
+  {
+   "quantity": "Word uses scored per lesson (09-28)",
+   "formula": "Word Bank evidence + the audit's on-list word slips",
+   "pages": [
+    {
+     "page": "Lessons",
+     "where": "row",
+     "before": "82 right · 14 partial · 15 wrong",
+     "after": "82 · 14 · 15"
+    },
+    {
+     "page": "Word Bank (same day, its own code)",
+     "where": "attempts",
+     "before": "82 · 10 · 0",
+     "after": "82 · 11 · 9 (+9 listed: 8 wait for a reader to name the word, 1 preposition)"
+    },
+    {
+     "page": "Progress › Vocab",
+     "where": "Incorrect vs correct chart",
+     "before": "82 · 10 · 0",
+     "after": "82 · 11 · 9"
+    }
+   ],
+   "match_before": false,
+   "match_after": false,
+   "fix": "536e46e + 3999062",
+   "note": "Residual difference = slips whose list word is not settled (listed in word-bank-audit-slips.json 'unplaced'); check_numbers reconciles them exactly · residual: 9 slips counted on Lessons (8 wait for a reader to name the list word, 1 preposition); listed + reconciled by check_numbers"
+  },
+  {
+   "quantity": "Word uses scored, 09-18",
+   "formula": "same",
+   "pages": [
+    {
+     "page": "Lessons",
+     "where": "row",
+     "before": "2 right · 3 partial · 7 wrong (29%)",
+     "after": "2 · 3 · 7 (≈29%)"
+    },
+    {
+     "page": "Progress › Vocab",
+     "where": "ratio chart",
+     "before": "2 · 0 · 0 (100%)",
+     "after": "2 · 3 · 7"
+    }
+   ],
+   "match_before": false,
+   "match_after": true,
+   "fix": "536e46e",
+   "note": null
+  },
+  {
+   "quantity": "Correct vs slips (Month)",
+   "formula": "full-credit ÷ all scored attempts, hints = slips (approved spec)",
+   "pages": [
+    {
+     "page": "Progress › Vocab",
+     "where": "card",
+     "before": "93.9% (843/30/25)",
+     "after": "≈78.1%"
+    }
+   ],
+   "match_before": false,
+   "match_after": true,
+   "fix": "536e46e",
+   "note": "Same attempts as the Lessons page now; different weighting (hints as slips) is the approved spec, labelled · same attempts as Lessons; hint weighting differs by approved spec (labelled)"
+  },
+  {
+   "quantity": "Different words per lesson (09-10)",
+   "formula": "distinct Word Bank forms scored (incl. slips)",
+   "pages": [
+    {
+     "page": "Lessons",
+     "where": "N words",
+     "before": "63 (rows)",
+     "after": "71"
+    },
+    {
+     "page": "Progress › Vocab",
+     "where": "Unique words per lesson",
+     "before": "64 (forms)",
+     "after": "71"
+    }
+   ],
+   "match_before": false,
+   "match_after": true,
+   "fix": "536e46e",
+   "note": null
+  },
+  {
+   "quantity": "Words known",
+   "formula": "forms at Good or Mastered",
+   "pages": [
+    {
+     "page": "Progress header",
+     "where": "Words known",
+     "before": "274",
+     "after": "246"
+    },
+    {
+     "page": "Word Bank",
+     "where": "Total Words Known",
+     "before": "274",
+     "after": "246"
+    }
+   ],
+   "match_before": true,
+   "match_after": true,
+   "fix": "536e46e",
+   "note": "Agreed before and after; the value drops because the audit's word slips now reach the Word Bank"
+  },
+  {
+   "quantity": "Mastered forms",
+   "formula": "status Mastered",
+   "pages": [
+    {
+     "page": "Progress › Vocab",
+     "where": "Mastered",
+     "before": "110",
+     "after": "88"
+    },
+    {
+     "page": "Word Bank",
+     "where": "filter count",
+     "before": "110",
+     "after": "88"
+    },
+    {
+     "page": "Progress header",
+     "where": "Mastered",
+     "before": "110",
+     "after": "88"
+    }
+   ],
+   "match_before": true,
+   "match_after": true,
+   "fix": "536e46e",
+   "note": null
+  },
+  {
+   "quantity": "Word Bank Overall Accuracy",
+   "formula": "Σ status points ÷ (tested × 10)",
+   "pages": [
+    {
+     "page": "Word Bank",
+     "where": "Overall Accuracy",
+     "before": "83.7%",
+     "after": "≈70.8%"
+    }
+   ],
+   "match_before": null,
+   "match_after": null,
+   "fix": "536e46e",
+   "note": "one page; now ≈ and counts the slips"
+  },
+  {
+   "quantity": "30-Day Memory / Words",
+   "formula": "same, words said in the last 30 days",
+   "pages": [
+    {
+     "page": "Word Bank",
+     "where": "30-Day Memory",
+     "before": "84.2%",
+     "after": "≈71.0%"
+    },
+    {
+     "page": "Word Bank",
+     "where": "30-Day Words",
+     "before": "293",
+     "after": "378"
+    }
+   ],
+   "match_before": null,
+   "match_after": null,
+   "fix": "536e46e",
+   "note": "one page"
+  },
+  {
+   "quantity": "Filled pauses in 25 Aug turns",
+   "formula": "lesson-math.countFillers = build_lessons_page_data.is_filler",
+   "pages": [
+    {
+     "page": "lessons.json / Overview",
+     "where": "fillers.in_turns (title)",
+     "before": "16",
+     "after": "16"
+    },
+    {
+     "page": "Progress › Overview angle H",
+     "where": "note",
+     "before": "24 (a different regex)",
+     "after": "16"
+    }
+   ],
+   "match_before": false,
+   "match_after": true,
+   "fix": "3999062",
+   "note": null
+  },
+  {
+   "quantity": "Filled pauses / min, all lessons",
+   "formula": "Σ count ÷ Σ minutes he spoke, comparable lessons",
+   "pages": [
+    {
+     "page": "Lessons",
+     "where": "Avg filled pauses / min",
+     "before": "9.5 (plain mean, 15 lessons incl. 3 not comparable)",
+     "after": "10.1 (12 comparable)"
+    },
+    {
+     "page": "Progress › Overview",
+     "where": "pooled avg",
+     "before": "10.1",
+     "after": "10.1"
+    }
+   ],
+   "match_before": false,
+   "match_after": true,
+   "fix": "0994fb3",
+   "note": null
+  },
+  {
+   "quantity": "Speaking share, all lessons",
+   "formula": "Σ his seconds ÷ Σ all talk",
+   "pages": [
+    {
+     "page": "Lessons",
+     "where": "Avg speaking share",
+     "before": "57% (plain mean)",
+     "after": "57% (pooled)"
+    },
+    {
+     "page": "Progress header",
+     "where": "pooled average you",
+     "before": "56.9%",
+     "after": "56.9%"
+    }
+   ],
+   "match_before": false,
+   "match_after": true,
+   "fix": "0994fb3",
+   "note": "57 vs 56.9 rounded the same before, but by two formulas"
+  },
+  {
+   "quantity": "Grammar rule statuses",
+   "formula": "console status(): Mastered 95+ on 10+ uses, Good 85+, Shaky 65+",
+   "pages": [
+    {
+     "page": "Grammar Console",
+     "where": "chips",
+     "before": "5/12/16/14",
+     "after": "5/13/15/14"
+    },
+    {
+     "page": "Progress › Grammar",
+     "where": "summary line",
+     "before": "5/12/16/14",
+     "after": "5/13/15/14"
+    }
+   ],
+   "match_before": true,
+   "match_after": true,
+   "fix": "dd4eedc",
+   "note": "A8 Shaky→Good after 3 duplicate A8 slips left"
+  },
+  {
+   "quantity": "Verb corrections",
+   "formula": "Σ B-family mistakes",
+   "pages": [
+    {
+     "page": "Progress › Verbal Lexicon",
+     "where": "verb corrections",
+     "before": "243",
+     "after": "242"
+    },
+    {
+     "page": "Grammar Console",
+     "where": "Σ B rules",
+     "before": "243",
+     "after": "242"
+    }
+   ],
+   "match_before": true,
+   "match_after": true,
+   "fix": "dd4eedc",
+   "note": null
+  },
+  {
+   "quantity": "Verified lessons",
+   "formula": "release.status from scripts/accuracy_gates.py",
+   "pages": [
+    {
+     "page": "docs/data/accuracy-release.json",
+     "where": "verified_lessons",
+     "before": "0",
+     "after": "0"
+    },
+    {
+     "page": "every lesson score on Lessons / Overview / Vocab / Word Bank / Grammar",
+     "where": "≈ mark",
+     "before": "none shown",
+     "after": "≈ on every lesson-derived score (15 of 15 not verified)"
+    }
+   ],
+   "match_before": false,
+   "match_after": true,
+   "fix": "536e46e",
+   "note": "decision 4 · before: 0 verified but every score shown exact (decision 4 not implemented)"
+  },
+  {
+   "quantity": "AI reports count",
+   "formula": "ai_reports.json reports",
+   "pages": [
+    {
+     "page": "System Settings",
+     "where": "AI reports",
+     "before": "10",
+     "after": "10"
+    },
+    {
+     "page": "AI Reports page",
+     "where": "reports",
+     "before": "10",
+     "after": "10"
+    }
+   ],
+   "match_before": true,
+   "match_after": true,
+   "fix": null,
+   "note": null
+  },
+  {
+   "quantity": "Rules total",
+   "formula": "standing + system + word rules",
+   "pages": [
+    {
+     "page": "System Settings",
+     "where": "Rules total",
+     "before": "39 = 29 enforced + 7 partly + 3 planned",
+     "after": "39"
+    }
+   ],
+   "match_before": true,
+   "match_after": true,
+   "fix": null,
+   "note": null
+  }
+ ]
+}
