@@ -8,7 +8,7 @@ evidence was checked equal to `docs/data/word-bank-evidence.json`: 5,336 = 5,336
 `build_lessons_page_data.py`); regenerated data files are NOT committed (coordinator rebuilds).
 
 Machine table: `data/eng-audit/reconciliation.json` (25 quantities). Checker: `python scripts/check_numbers.py` →
-before: `numbers: FAIL … (+104 more)` (105 failed checks, `data/eng-audit/check-numbers-before.json`);
+before: `numbers: FAIL … (+105 more)` (106 of 554 checks failed, `data/eng-audit/check-numbers-before.json`);
 after: `numbers: OK 555 checks` (`data/eng-audit/check-numbers-after.json`).
 
 ## Scorecard
