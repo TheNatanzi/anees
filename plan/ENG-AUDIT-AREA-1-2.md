@@ -114,9 +114,8 @@ System Settings (rule counts), AI Reports (dated report snapshots — see "not d
 | tests/test_check_numbers.py (2) | FAIL | pass (before-data → `numbers: FAIL … counted twice`; this checkout → OK) |
 | tests/test_lesson_math.cjs | FAIL (no lesson-math.js) | ok |
 | tests/test_word_slips.cjs | FAIL (no withSlips: pages cannot load the slips) | ok |
-Whole suite on this branch (`pytest -k "not m5_cards and not m4_after"`): 7 fail, all pre-existing on 3c2835c
-(test_vocab_audit ×3, test_stale_banner, test_m3_planner, + the 2 test_invariants sheet tests that my first preposition
-change broke and the final version passes). All 21 node tests pass.
+Whole suite on this branch with rebuilt data (`pytest -k "not m5_cards and not m4_after"`): 304 pass, 5 fail, all
+pre-existing on 3c2835c (test_vocab_audit ×3, test_stale_banner, test_m3_planner). All 21 node tests pass.
 
 ## Before / after numbers (every number that changed)
 Per lesson (Words % unchanged on every lesson):
