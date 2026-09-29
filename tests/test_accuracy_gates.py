@@ -37,18 +37,19 @@ def build_repo(root, *, not_counted=True, source_audit=True):
               "grammar": {"mistakes": 1, "uses": 10, "pct": 90.0}}
     wj(os.path.join(r, "docs", "data", "lessons.json"), {"lessons": [lesson]})
     g1 = {"id": "FA-1", "t": 300, "t_fix": 305, "said": "أنا بروح", "bucket": "A1"}
-    g2 = {"id": "FA-2", "t": 360, "t_fix": 365, "said": "أنا بتحمس", "bucket": "A1", "counted": False, "not_counted_kind": "not-taught"}
+    # B15 participles: "not taught yet" in Amal's notes (scripts/amal_grammar_notes.py), like 09-04 بتحمس -> متحمس
+    g2 = {"id": "FA-2", "t": 360, "t_fix": 365, "said": "أنا بتحمس", "bucket": "B15", "counted": False, "not_counted_kind": "not-taught"}
     detail = {"date": D, "turns": turns(), "vocab_correct": [{"kind": "correct", "t": 100}],
               "vocab_errors": [{"kind": "wrong", "t": 200, "on_sheet": True, "event_id": "e1"}],
               "grammar_errors": [g1], "grammar_not_counted": [g2] if not_counted else []}
     wj(os.path.join(r, "docs", "data", "lessons", D + ".json"), detail)
     rows = [{"uid": "FA-1", "date": D, "kind": "grammar", "t": "05:00", "t_amal": "05:05", "bucket": "A1", "mode": "speaking",
              "medi_said": "أنا بروح", "confidence": "high", "agreed_by": "r1+r2", "passes": [1, 2]},
-            {"uid": "FA-2", "date": D, "kind": "grammar", "t": "06:00", "t_amal": "06:05", "bucket": "A1", "mode": "speaking",
+            {"uid": "FA-2", "date": D, "kind": "grammar", "t": "06:00", "t_amal": "06:05", "bucket": "B15", "mode": "speaking",
              "medi_said": "أنا بتحمس", "confidence": "high", "agreed_by": "r1+r2", "passes": [1, 2]}]
     wj(os.path.join(r, "data", "full-audit-2026-09-26.json"),
-       {"rows": rows, "sweep_compat": {"rows": [{"uid": x["uid"], "date": D, "mode": "speaking", "bucket": "A1"} for x in rows]}})
-    wj(os.path.join(r, "docs", "data", "grammar-buckets.json"), {"buckets": [{"id": "A1"}]})
+       {"rows": rows, "sweep_compat": {"rows": [{"uid": x["uid"], "date": D, "mode": "speaking", "bucket": x["bucket"]} for x in rows]}})
+    wj(os.path.join(r, "docs", "data", "grammar-buckets.json"), {"buckets": [{"id": "A1"}, {"id": "B15"}]})
     wj(os.path.join(r, "docs", "data", "word-bank-audit.json"), {"events": [{"date": D, "status": "Correct"}, {"date": D, "status": "Wrong"}]})
     os.makedirs(os.path.join(r, "data", "lesson-work", "full-audit"), exist_ok=True)
     if source_audit:
@@ -91,8 +92,46 @@ def test_grammar_cards_set_apart_by_amal_reconcile(tmp_path):
 
 
 def test_grammar_row_missing_from_the_page_is_caught(tmp_path):
-    r = build_repo(tmp_path, not_counted=False)
-    assert any("audit rows missing ['FA-2']" in p for p in G.validate(r))
+    r = build_repo(tmp_path)
+    p = os.path.join(r, "docs", "data", "lessons", D + ".json")
+    det = json.load(open(p, encoding="utf-8"))
+    det["grammar_errors"] = []                                   # FA-1 counts (no ruling) but is not on the page
+    wj(p, det)
+    assert any("audit rows missing ['FA-1']" in x for x in G.validate(r))
+
+
+def test_row_amal_ruled_out_must_not_be_counted_and_duplicates_never_count(tmp_path):
+    r = build_repo(tmp_path)
+    p = os.path.join(r, "docs", "data", "lessons", D + ".json")
+    det = json.load(open(p, encoding="utf-8"))
+    det["grammar_errors"].append(det["grammar_not_counted"].pop())   # the B15 row counted anyway
+    wj(p, det)
+    assert any("counted though Amal's notes rule them out ['FA-2']" in x for x in G.validate(r))
+    r2 = build_repo(tmp_path / "dup")
+    ap = os.path.join(r2, "data", "full-audit-2026-09-26.json")
+    A = json.load(open(ap, encoding="utf-8"))
+    A["rows"].append({"uid": "FA-1x", "date": D, "kind": "rejected", "duplicate_of": "FA-1", "t": "05:00", "mode": "speaking"})
+    A["sweep_compat"]["rows"].append({"uid": "FA-1x", "date": D, "mode": "speaking", "bucket": "A1"})
+    wj(ap, A)
+    assert not [x for x in G.validate(r2) if "grammar cards" in x]   # a duplicate is not a missing card
+
+
+def test_averages_are_pooled_not_a_mean_of_lesson_percents(tmp_path):
+    """Decision 6: 1 lesson 1/2 right + 1 lesson 9/10 right = 10/12 = 83.3 %, not (50 + 90) / 2 = 70 %."""
+    r = build_repo(tmp_path)
+    p = os.path.join(r, "docs", "data", "lessons.json")
+    doc = json.load(open(p, encoding="utf-8"))
+    L2 = copy.deepcopy(doc["lessons"][0])
+    L2["date"] = "2026-09-29"
+    L2["words"] = {"right": 9, "wrong": 1, "partial": 0, "scored": 10, "pct": 90.0}
+    L2["grammar"] = {"mistakes": 1, "scored_mistakes": 1, "uses": 30, "pct": 96.7}
+    doc["lessons"].append(L2)
+    wj(p, doc)
+    det = json.load(open(os.path.join(r, "docs", "data", "lessons", D + ".json"), encoding="utf-8"))
+    wj(os.path.join(r, "docs", "data", "lessons", "2026-09-29.json"), dict(det, date="2026-09-29"))
+    doc2, rel, q = G.run_annotate(r, write=False)
+    assert rel["totals"]["words"]["unverified_avg_pct"] == 83.3
+    assert rel["totals"]["grammar"]["unverified_avg_pct"] == 95.0      # 1 - (1 + 1) / (10 + 30)
 
 
 def test_stale_release_layer_blocks_publishing(tmp_path):

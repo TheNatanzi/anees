@@ -524,8 +524,12 @@ def annotate(lessons_doc, details, audit, usage, policy, ledger, work=WORK, wb_c
         rel = {"status": "verified" if released else "not verified", "reasons": reasons + pend_reason,
                "agreement": {k: agr[k] for k in ("status", "passes", "between", "threshold_pct")}, "asr": asr}
         wv["verified_pct"] = vc["pct"] if released else None
-        gv["verified_pct"] = (round(100 * (1 - (len(gitems) - len(g_ex) - len(g_pe)) / den["uses"]), 1)
-                              if released and den["valid"] and den["uses"] else None)
+        # the page's own formula (scripts/grammar_math.py): 1 - scored_mistakes / uses. Verified only when every slip on
+        # the page is eligible (none excluded or pending), so the verified number IS the page number, never a variant
+        g_used = gv.get("uses")
+        g_mis = gv.get("scored_mistakes", gv.get("mistakes"))
+        gv["verified_pct"] = (round(100 * (g_used - g_mis) / g_used, 1)
+                              if released and den["valid"] and g_used and not g_ex and not g_pe else None)
         L["release"], L["coverage_by_person"], L["source"] = rel, cov, src
         lessons_out.append({"date": d, "release": rel["status"], "reasons": rel["reasons"],
                             "words": {k: wv.get(k) for k in ("pct", "eligible_pct", "verified_pct", "scored", "eligible", "excluded", "pending", "excluded_why")},
@@ -534,15 +538,32 @@ def annotate(lessons_doc, details, audit, usage, policy, ledger, work=WORK, wb_c
                             "source": src, "agreement": [p["agreement_pct"] for p in agr["passes"]],
                             "between_passes": [b["agreement_pct"] for b in agr["between"]]})
     ver = [x for x in lessons_out if x["release"] == "verified"]
-    avg = lambda xs: round(sum(xs) / len(xs), 1) if xs else None
+    byd = {L["date"]: L for L in lessons_doc["lessons"]}
+
+    def pooled_words(dates):
+        """Decision 6: one formula - sum of (right + half partial) over sum of scored uses, never a mean of lesson %s."""
+        ws = [byd[d]["words"] for d in dates if byd[d]["words"].get("scored")]
+        n = sum(w["scored"] for w in ws)
+        return round(100 * sum(w["right"] + .5 * w["partial"] for w in ws) / n, 1) if n else None
+
+    def pooled_grammar(dates):
+        """1 - sum(scored_mistakes) / sum(uses) over lessons with counted uses (scripts/grammar_math.py)."""
+        gs = [byd[d]["grammar"] for d in dates if byd[d]["grammar"].get("uses")]
+        u = sum(g["uses"] for g in gs)
+        m = sum(g.get("scored_mistakes", g.get("mistakes") or 0) for g in gs)
+        return round(100 * (u - m) / u, 1) if u else None
+
+    vd = [x["date"] for x in ver]
     totals = {
         "lessons": len(lessons_out), "verified_lessons": len(ver), "threshold_pct": T,
-        "words": {"verified_avg_pct": avg([x["words"]["verified_pct"] for x in ver if x["words"]["verified_pct"] is not None]),
-                  "unverified_avg_pct": avg([x["words"]["pct"] for x in lessons_out if x["words"]["pct"] is not None]),
+        "words": {"verified_avg_pct": pooled_words([x["date"] for x in ver if x["words"]["verified_pct"] is not None]),
+                  "unverified_avg_pct": pooled_words([x["date"] for x in lessons_out]),
+                  "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
                   "eligible": sum(x["words"]["eligible"] for x in lessons_out), "excluded": sum(x["words"]["excluded"] for x in lessons_out),
                   "pending": sum(x["words"]["pending"] for x in lessons_out)},
-        "grammar": {"verified_avg_pct": avg([x["grammar"]["verified_pct"] for x in ver if x["grammar"]["verified_pct"] is not None]),
-                    "unverified_avg_pct": avg([x["grammar"]["pct"] for x in lessons_out if x["grammar"]["pct"] is not None]),
+        "grammar": {"verified_avg_pct": pooled_grammar([x["date"] for x in ver if x["grammar"]["verified_pct"] is not None]),
+                    "unverified_avg_pct": pooled_grammar([x["date"] for x in lessons_out]),
+                    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
                     "denominator_valid_lessons": sum(1 for x in lessons_out if x["grammar"]["denominator_valid"]),
                     "eligible": sum(x["grammar"]["eligible"] for x in lessons_out), "excluded": sum(x["grammar"]["excluded"] for x in lessons_out),
                     "pending": sum(x["grammar"]["pending"] for x in lessons_out)},
@@ -681,6 +702,23 @@ def validate(repo=REPO):
         if r.get("kind") == "grammar" and r.get("mode", "speaking") == "speaking" and r.get("bucket") not in buckets \
                 and not str(r.get("new_bucket_group") or "").startswith("NEW-"):
             probs.append(f"audit row {r.get('uid')}: grammar row in unknown bucket {r.get('bucket')!r}")
+    rows_by_uid = {r.get("uid"): r for r in audit["rows"]}
+
+    def gone(r):
+        """Rejected rows and duplicates (full_audit_build.mark_duplicates: kind 'rejected' + duplicate_of) never count."""
+        a = rows_by_uid.get(r.get("uid")) or {}
+        return (r.get("status") == "rejected" or r.get("duplicate_of") or a.get("duplicate_of")
+                or a.get("kind") in ("rejected", "dropped-by-amal"))
+
+    try:
+        sys.path.insert(0, HERE)
+        import amal_grammar_notes as _notes
+
+        def notes_ruling(r):
+            return _notes.ruling(dict(r, bucket=r.get("bucket") or "B18"))
+    except Exception:                                        # no notes module: nothing is ruled out
+        def notes_ruling(r):
+            return None
     for L in lessons:
         d = L["date"]
         for k in ("words", "grammar", "release", "coverage_by_person", "source"):
@@ -739,17 +777,24 @@ def validate(repo=REPO):
         if g["mistakes"] != len(D.get("grammar_errors", [])):
             probs.append(f"{d}: grammar.mistakes {g['mistakes']} != {len(D.get('grammar_errors', []))} grammar cards")
         a_rows = [r for r in audit["sweep_compat"]["rows"] if r["date"] == d and r.get("mode") == "speaking"
-                  and ((r.get("bucket") in buckets) or r.get("new_bucket_group") == "NEW-B18")]
+                  and ((r.get("bucket") in buckets) or r.get("new_bucket_group") == "NEW-B18")
+                  and not gone(r)]
         # every speaking grammar row of the audit is on the page exactly once: a counted card, or a card Amal's rule notes
         # set apart (grammar_not_counted: not taught yet / dropped, 2026-09-29) - by uid, not by count
+        # Rows Amal's notes rule out (scripts/amal_grammar_notes.py) must NOT be counted; they may be shown apart.
         a_uids = {r["uid"] for r in a_rows}
-        shown = [x.get("id") for x in D.get("grammar_errors", [])] + [x.get("id") for x in D.get("grammar_not_counted", [])]
+        ruled = {r["uid"] for r in a_rows if notes_ruling(r)}
+        counted = [x.get("id") for x in D.get("grammar_errors", [])]
+        apart = [x.get("id") for x in D.get("grammar_not_counted", [])]
+        shown = counted + apart
         dup = sorted({u for u in shown if shown.count(u) > 1})
-        lost = sorted(a_uids - set(shown))
+        lost = sorted((a_uids - ruled) - set(counted))
         extra = sorted(set(shown) - a_uids)
-        if dup or lost or extra:
+        wrongly = sorted(ruled & set(counted))
+        if dup or lost or extra or wrongly:
             probs.append(f"{d}: grammar cards do not match the full audit: {len(lost)} audit rows missing {lost[:4]}, "
-                         f"{len(extra)} cards not in the audit {extra[:4]}, {len(dup)} shown twice {dup[:4]}")
+                         f"{len(extra)} cards not in the audit {extra[:4]}, {len(dup)} shown twice {dup[:4]}, "
+                         f"{len(wrongly)} counted though Amal's notes rule them out {wrongly[:4]}")
     # the release layer must be what the gates give TODAY (a new ledger record, source audit or reader pass changes it)
     try:
         doc2, rel2, q2 = run_annotate(repo, write=False)
