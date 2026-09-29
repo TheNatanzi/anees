@@ -213,8 +213,9 @@ function renderMetrics() {
   var pw = LM.pooledWords(L), pg = LM.pooledGrammar(L);
   var w = pw.n ? { value: pw.pct, n: pw.n, lessons: pw.lessons } : null;
   var g = pg.n ? { value: pg.pct, n: pg.n, lessons: pg.lessons } : null;
-  var sp = avg(L, function (x) { return x.talk && x.talk.speak_pct; });
-  var f = avg(L, function (x) { return x.fillers && x.fillers.per_min; });
+  var pt = LM.pooledTalk(L), pf = LM.pooledFillers(L);
+  var sp = pt.n ? { value: pt.pct, n: pt.n } : null;
+  var f = pf.n ? { value: pf.perMin, n: pf.n } : null;
   var of = function (a) { return a ? 'Average of ' + a.n + ' of ' + L.length + ' lessons' : 'Not measured'; };
   var pooled = function (a) { return a ? 'All uses pooled · ' + a.n + ' of ' + L.length + ' lessons' : 'Not measured'; };
   var marked = function (a) { return a ? LM.mark(Math.round(a.value) + '%', a.lessons) : { text: '—', approx: false, title: '' }; };
@@ -223,8 +224,8 @@ function renderMetrics() {
     ['Total hours', hours.toFixed(1), 'Of lesson audio'],
     ['Words right', marked(w), pooled(w)],
     ['Grammar right', marked(g), pooled(g)],
-    ['Avg speaking share', sp ? Math.round(sp.value) + '%' : '—', of(sp)],
-    ['Avg filled pauses / min', f ? f.value.toFixed(1) : '—', of(f)]
+    ['Speaking share', sp ? Math.round(sp.value) + '%' : '—', sp ? 'Your seconds ÷ all talk · ' + sp.n + ' of ' + L.length + ' lessons' : 'Not measured'],
+    ['Filled pauses / min', f ? f.value.toFixed(1) : '—', f ? 'Pooled · ' + f.n + ' comparable of ' + L.length + ' lessons' : 'Not measured']
   ];
   var box = $('ls-metrics');
   box.textContent = '';

@@ -326,7 +326,9 @@ function renderCharts() {
     legend.appendChild(row);
   });
   body.appendChild(legend);
-  $('gc-c4-foot').textContent = 'Status never moves on its own — it needs a recorded use.';
+  // eng audit 2026-09-29: the cut-offs the statuses use (scripts/build_grammar_console.py status()) were not written
+  // anywhere on the page; scripts/check_numbers.py checks every rule against exactly these.
+  $('gc-c4-foot').textContent = 'Score = (uses − mistakes) ÷ uses, rounded. Mastered = 95%+ on 10+ uses · Good = 85%+ · Shaky = 65%+ · Wrong = under 65%. Unscored = no counter for his right uses. Status never moves on its own — it needs a recorded use.';
 }
 
 /* ---------- rule rows ---------- */

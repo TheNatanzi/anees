@@ -78,7 +78,7 @@ function renderTop(){
   // Talk time (kept: hours you spoke + last lesson share). Average share is pooled = Σ your seconds ÷ Σ both, not a mean of percentages.
   const L=all.filter(l=>l.talk&&l.talk.medi_s!=null);
   if(!L.length)return;
-  const h=L.reduce((a,l)=>a+l.talk.medi_s,0)/3600,last=L[0].talk,both=L.reduce((a,l)=>a+l.talk.medi_s+(l.talk.amal_s||0),0),avg=both?r1(100*h*3600/both):null;
+  const PT=LM?LM.pooledTalk(L):null,h=L.reduce((a,l)=>a+l.talk.medi_s,0)/3600,last=L[0].talk,both=L.reduce((a,l)=>a+l.talk.medi_s+(l.talk.amal_s||0),0),avg=PT&&PT.pct!==null?r1(PT.pct):both?r1(100*h*3600/both):null;   // one pooled talk share (lesson-math.js)
   const el=document.getElementById('vp-talk');
   if(el)el.innerHTML=card({label:'Talk time',icon:'◌',value:r1(h).toLocaleString(),unit:'h you spoke',
    sub:`Last lesson you <b>${last.speak_pct}%</b> · Amal ${last.listen_pct}% · pooled average you ${avg===null?'—':avg+'%'} over ${L.length} lessons`,href:'lessons.html',title:'Measured from each lesson: your talking time vs Amal’s. Average = your seconds ÷ everyone’s seconds over all lessons.'});

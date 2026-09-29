@@ -57,7 +57,7 @@ const L = J('lessons.json').lessons;
 const fillersInTurns = {};
 if (LM.countFillers) for (const l of L) { try { const D = J(path.join('lessons', l.date + '.json'));
   fillersInTurns[l.date] = (D.turns || []).filter(t => t.who === 'Medi').reduce((s, t) => s + LM.countFillers(t.text), 0); } catch (e) { fillersInTurns[l.date] = null; } }
-const pw = LM.pooledWords(L), pg = LM.pooledGrammar(L);
+const pw = LM.pooledWords(L), pg = LM.pooledGrammar(L), ptk = LM.pooledTalk ? LM.pooledTalk(L) : { pct: null, n: 0 }, pfl = LM.pooledFillers ? LM.pooledFillers(L) : { perMin: null, n: 0 };
 const out = {
   wb_by_date: byDate, vocab_series: series, status, forms: F.length,
   wb_accuracy: m.accuracy, wb_known: m.known, wb_points_accuracy: tested.length ? pts * 10 / tested.length : null,
@@ -66,6 +66,7 @@ const out = {
   slips_in_models: F.reduce((n, x) => n + x.form.speaking.attempts.filter(a => a.source === 'audit-2026-09-26').length, 0),
   pooled_words: { pct: pw.pct, n: pw.n, points: pw.points, scored: pw.scored },
   pooled_grammar: { pct: pg.pct, n: pg.n, uses: pg.uses, slips: pg.slips },
+  pooled_talk: { pct: ptk.pct, n: ptk.n }, pooled_fillers: { perMin: pfl.perMin, n: pfl.n },
   approx: L.map(l => ({ date: l.date, approx: LM.approx([l]), why: LM.why([l]) })),
   fillers_in_turns: fillersInTurns, stale_reviews: reviewed.stale.length, lesson_math_missing: !!LM.missing,
 };

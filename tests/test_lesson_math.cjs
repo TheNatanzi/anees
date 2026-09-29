@@ -25,10 +25,16 @@ assert.equal(g.uses, 162); assert.equal(g.slips, 50); assert.equal(g.n, 2, 'no l
 // both pages use this one function (the check scripts/check_numbers.py also runs)
 for (const f of ['lessons-page.js', 'lesson-overview.js']) {
   const src = fs.readFileSync(path.join(__dirname, '..', 'docs', 'js', f), 'utf8');
-  assert.ok(src.includes('pooledWords(') && src.includes('pooledGrammar('), f + ' must use docs/js/lesson-math.js');
+  assert.ok(src.includes('pooledWords(') && src.includes('pooledGrammar(') && src.includes('pooledFillers('), f + ' must use docs/js/lesson-math.js');
 }
 // every page that shows a lesson-derived score loads lesson-math.js
 for (const [page, needle] of [['lessons.html', "'lesson-math'"], ['progress.html', "'lesson-math'"], ['word-bank.html', "'lesson-math'"], ['grammar.html', 'js/lesson-math.js']]) {
   assert.ok(fs.readFileSync(path.join(__dirname, '..', 'docs', page), 'utf8').includes(needle), page + ' does not load lesson-math.js');
 }
+// talk share and filled pauses pooled the same way on every page (Lessons showed plain means: 57 % / 9.5 vs 56.9 % / 10.1)
+const T1 = { talk: { medi_s: 600, amal_s: 400 }, fillers: { count: 100, comparable: true } }, T2 = { talk: { medi_s: 60, amal_s: 540 }, fillers: { count: 50, comparable: false } };
+assert.equal(LM.pooledTalk([T1, T2]).pct, 100 * 660 / 1600);
+assert.equal(LM.pooledFillers([T1, T2]).perMin, 10, 'a lesson whose turns lost the fillers is left out');
+// the one filled-pause test = scripts/build_lessons_page_data.py is_filler(): آه at the start of a turn is "yes"
+assert.equal(LM.countFillers('آه uh امم كتير آه'), 3);
 console.log('lesson-math: ok');

@@ -78,7 +78,19 @@
     const uses = G.reduce((s, L) => s + L.grammar.uses, 0), slips = G.reduce((s, L) => s + sm(L), 0);
     return { pct: uses ? 100 * (uses - slips) / uses : null, uses, slips, lessons: G, n: G.length };
   }
-  // Talk / fillers keep their own pooled definitions on the Overview; a plain mean is labelled as such where used.
+  // Talk share: Σ his seconds ÷ Σ (his + her seconds). Fillers: Σ filled pauses ÷ Σ minutes he spoke, over the lessons
+  // whose page turns keep the fillers (fillers.comparable). The Lessons page showed plain means (57 %, 9.5 / min) while
+  // the Overview / Progress showed these pooled numbers (56.9 %, 10.1 / min).
+  function pooledTalk(lessons) {
+    const T = (lessons || []).filter(L => L && L.talk && ok(L.talk.medi_s) && L.talk.medi_s > 0);
+    const me = T.reduce((s, L) => s + L.talk.medi_s, 0), all = T.reduce((s, L) => s + L.talk.medi_s + (L.talk.amal_s || 0), 0);
+    return { pct: all ? 100 * me / all : null, medi_s: me, all_s: all, lessons: T, n: T.length };
+  }
+  function pooledFillers(lessons) {
+    const P = (lessons || []).filter(L => L && L.fillers && ok(L.fillers.count) && L.fillers.comparable !== false && L.talk && ok(L.talk.medi_s) && L.talk.medi_s > 0);
+    const n = P.reduce((s, L) => s + L.fillers.count, 0), min = P.reduce((s, L) => s + L.talk.medi_s, 0) / 60;
+    return { perMin: min ? n / min : null, count: n, minutes: min, lessons: P, n: P.length };
+  }
   function mean(lessons, pick) {
     const v = (lessons || []).map(pick).filter(ok).map(Number);
     return v.length ? { value: v.reduce((a, b) => a + b, 0) / v.length, n: v.length } : null;
@@ -92,7 +104,7 @@
   const normTok = t => String(t).toLowerCase().replace(/[^\p{L}\p{N}_؀-ۿ]+/gu, '').replace(/ـ/g, '');
   const isFiller = (tok, pos) => { const n = normTok(tok); if (!n) return false; if (FL.has(n)) return true; if (/^(?:[آاأ]{2,}|[آاأ]?م{2,}|ه?م{2,})$/.test(n)) return true; return FA.has(n) && !(YES.has(n) && pos === 0); };
   const countFillers = txt => String(txt || '').replace(/،/g, ' ').split(/\s+/).filter(Boolean).reduce((s, t, i) => s + (isFiller(t, i) ? 1 : 0), 0);
-  const api = { release, why, approx, mark, html, wireTaps, pooledWords, pooledGrammar, mean, dm, isFiller, countFillers };
+  const api = { release, why, approx, mark, html, wireTaps, pooledWords, pooledGrammar, pooledTalk, pooledFillers, mean, dm, isFiller, countFillers };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   root.AneesLessonMath = api;
 })(typeof window !== 'undefined' ? window : globalThis);

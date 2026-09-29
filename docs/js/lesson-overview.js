@@ -60,8 +60,7 @@
     const F = ls.filter(l => l.flow && ok(l.flow.wpm) && l.flow.wpm > 0 && ok(l.flow.arabic_words));
     const fW = sum(F, l => l.flow.arabic_words), fMin = sum(F, l => l.flow.arabic_words / l.flow.wpm);
     const wpmAvg = fMin ? fW / fMin : null;
-    const P = ls.filter(l => l.fillers && ok(l.fillers.count) && l.fillers.comparable !== false && l.talk && ok(l.talk.medi_s) && l.talk.medi_s > 0);
-    const fillAvg = P.length ? sum(P, l => l.fillers.count) / (sum(P, l => l.talk.medi_s) / 60) : null;
+    const PF = LM.pooledFillers(ls), P = PF.lessons, fillAvg = PF.perMin;
     const hours = sum(ls.filter(l => ok(l.duration_min)), l => l.duration_min) / 60;
     const approx = (r, flag) => flag ? '≈ ' : '';
     const metrics = [

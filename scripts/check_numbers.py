@@ -209,6 +209,14 @@ def run(repo=REPO):
         check("pooled grammar average", gp is not None and abs((N["pooled_grammar"]["pct"] or 0) - gp) < 1e-9, f"pooled Grammar % {N['pooled_grammar']['pct']} vs recompute {gp}")
         check("pooled grammar covers every lesson", N["pooled_grammar"]["n"] == sum(1 for x in L if (x["grammar"].get("uses") or 0) > 0),
               f"the pooled Grammar average leaves out {sum(1 for x in L if (x['grammar'].get('uses') or 0) > 0) - N['pooled_grammar']['n']} lesson(s)")
+        T_ = [x for x in L if (x.get("talk") or {}).get("medi_s")]
+        tk = 100 * sum(x["talk"]["medi_s"] for x in T_) / sum(x["talk"]["medi_s"] + (x["talk"].get("amal_s") or 0) for x in T_) if T_ else None
+        check("pooled talk share", tk is not None and N["pooled_talk"]["pct"] is not None and abs(N["pooled_talk"]["pct"] - tk) < 1e-9,
+              f"pooled talk share {N['pooled_talk']['pct']} vs recompute {tk}")
+        F_ = [x for x in L if (x.get("fillers") or {}).get("count") is not None and (x["fillers"].get("comparable") is not False) and (x.get("talk") or {}).get("medi_s")]
+        fl = sum(x["fillers"]["count"] for x in F_) / (sum(x["talk"]["medi_s"] for x in F_) / 60) if F_ else None
+        check("pooled fillers / min", fl is not None and N["pooled_fillers"]["perMin"] is not None and abs(N["pooled_fillers"]["perMin"] - fl) < 1e-9,
+              f"pooled filled pauses / min {N['pooled_fillers']['perMin']} vs recompute {fl}")
         # 5. Word Bank headline + bands
         tested = sum(v for k, v in N["status"].items() if k != "Untested")
         check("Word Bank accuracy = status points", N["wb_accuracy"] is None or abs(N["wb_accuracy"] - N["wb_points_accuracy"]) < 1e-9,
@@ -241,7 +249,7 @@ def run(repo=REPO):
     # both pages use the one averaging function
     for f in ("lessons-page.js", "lesson-overview.js"):
         src = open(os.path.join(REPO, "docs", "js", f), encoding="utf-8").read()
-        check(f"{f} uses lesson-math", "pooledWords(" in src and "pooledGrammar(" in src,
+        check(f"{f} uses lesson-math", "pooledWords(" in src and "pooledGrammar(" in src and "pooledFillers(" in src,
               f"docs/js/{f} computes its own lesson averages instead of docs/js/lesson-math.js")
     return CHECKS
 
