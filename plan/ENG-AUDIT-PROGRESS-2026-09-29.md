@@ -24,12 +24,15 @@ Base = origin/master 39aecc0 ("before" numbers = that commit; a clean copy sits 
 ## Areas
 | # | Area | Owner | State |
 |---|---|---|---|
-| 1 | Numbers add up across pages | | |
-| 2 | Score formulas | | |
-| 3 | Source audio + transcripts | | |
-| 4 | Hourly job end to end | | |
-| 5 | Rules vs code | | |
-| 6 | AI steps | | |
-| 7 | Flashcards | | |
-| 8 | Amal's inputs | | |
-| 9 | Page health | | |
+| 1 | Numbers add up across pages | worker A, C:\devnees-eng-a, branch eng-audit-a (+ ≈ marks, one truth, check_numbers.py) | running |
+| 2 | Score formulas | worker A | running |
+| 3 | Source audio + transcripts | worker B, C:\devnees-eng-b, eng-audit-b (+ accuracy gates 8 items, Codex re-judge, Tutor list) | running |
+| 4 | Hourly job end to end | worker C, C:\devnees-eng-c, eng-audit-c (+ publish guard) | running |
+| 5 | Rules vs code | worker D, C:\devnees-eng-d, eng-audit-d | running |
+| 6 | AI steps | worker D | running |
+| 7 | Flashcards | worker E, C:\devnees-eng-e, eng-audit-e | running |
+| 8 | Amal's inputs | worker E | running |
+| 9 | Page health | worker F, C:\devnees-eng-f, eng-audit-f (+ failing tests, check_pages.py) | running |
+
+Workers launched ~02:40 from 8328f80 (after rebuild commit 3c2835c). Each keeps plan/ENG-AUDIT-AREA-*.md in its worktree.
+If a worker dies: its branch eng-audit-<x> has whatever it committed.
