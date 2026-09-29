@@ -1,0 +1,23 @@
+{
+ "about": "Release rules for Anees scores (Medi 2026-09-27: 'Enforce the agreed release threshold in code'). Read by scripts/accuracy_gates.py and the pages. Lowering release_threshold_pct is a rule change: only Medi, in writing, in RULES.md. tests/test_accuracy_gates.py fails if it drops below 95.",
+ "release_threshold_pct": 95.0,
+ "consecutive_passes_required": 2,
+ "agreement_readings": {
+  "within_pass": "in each of the two latest consecutive passes, reader 1 and reader 2 agree on >= threshold % of rows (agreed / (agreed + disputed), scripts/full_audit_compare.py compare)",
+  "between_passes": "the settled rows of those two passes agree on >= threshold % (rows in both / union, scripts/full_audit_compare.py passes)",
+  "applied": "both",
+  "open_question": "plan/PROMPT-OVERNIGHT-FULL-AUDIT-2026-09-26.md says 'until two consecutive passes agree on >=95% of rows' - either reading fits; both are enforced until Medi picks one (plan/ACCURACY-AUDIT-2026-09-27.md, decisions)"
+ },
+ "max_reader_passes": 2,
+ "missing_interval_min_s": 120,
+ "hole_markers": "\\[[^\\]]*(?:speaking|speaks|foreign language|inaudible|unintelligible|track missing|not transcribed)[^\\]]*\\]",
+ "asr_review_required_for_verified": true,
+ "check_required_when": [
+  "reader confidence is low",
+  "only a single reviewer decided it (third reader alone, or a row the third reader added)",
+  "the two reader passes disagree on whether it exists (found in one pass only)",
+  "it is kept only from the 09-24 sweep (neither reader pass listed it)",
+  "the transcript under it is disputed (a hand note says the engine wrote something else)"
+ ],
+ "verification_ledger": "data/accuracy/verifications.json"
+}
