@@ -36,3 +36,14 @@ Base = origin/master 39aecc0 ("before" numbers = that commit; a clean copy sits 
 
 Workers launched ~02:40 from 8328f80 (after rebuild commit 3c2835c). Each keeps plan/ENG-AUDIT-AREA-*.md in its worktree.
 If a worker dies: its branch eng-audit-<x> has whatever it committed.
+
+## Merged so far
+- D (areas 5+6) merged 64467f3: check_rules.py (20 checks: 14 pass, 6 open report-only), Claude pinned to claude-opus-5-5,
+  standing-rules.json rebuilt, 36/36 raw transcript hashes, 9 rule conflicts for Medi (C1-C9). Findings plan/ENG-AUDIT-AREA-5-6.md.
+- E (areas 7+8) merged cb0364d: 688 verb answers pulled (41 -> 729), list-2 pull saved, Amal's approved form wins,
+  fsrs.replay ignores undone rows, 19 Quizlet sets (107 -> 126 sets, 2,406 -> 2,841 terms). Findings plan/ENG-AUDIT-AREA-7-8.md.
+- INCIDENT: tests/test_m5_cards.py + test_m4_after.py run against the LIVE Supabase DB. Tonight's full-suite runs (the
+  coordinator's baseline at ~02:17 PDT and workers' runs) left 90 fake rows in card_results (Animals, 09:14-09:55 UTC),
+  2 fake leeches, used today's new cards. Nothing deleted (needs Medi's yes). All workers told to deselect them.
+- Relayed: build_tutor_data pulled-count + payload.applied -> B; review_lesson docstring, transcribe run-line, check_rules
+  in guard -> C; test_invariants fixes + test side effects -> F.
