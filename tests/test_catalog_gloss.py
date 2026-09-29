@@ -22,7 +22,9 @@ def test_documented_alternatives_irregulars_and_prose_fill_only_supported_forms(
     # Only one person is documented; the rest are guesses tagged for Amal (verb drills ruling 1).
     persons=entries['ana basta5dem:command']['persons']
     assert [p['provenance'] for p in persons]==['document','inferred','inferred']
-    assert all(p['checked'] is False for p in persons[1:])
+    # Checked only where Amal answered (list 1, pulled in full 2026-09-29); otherwise still an unchecked guess.
+    amal1=json.loads((root/'data/vocab/amal_verb_checks.json').read_text(encoding='utf-8'))['answers']
+    assert all(p['checked'] is (amal1.get(p['id'],{}).get('choice') in ('yes','fix')) for p in persons[1:])
     assert 'source_note' in entries['ana basA3ed:past']['persons'][0]
     assert 'akalet' in entries['ana bakul:past']['keys']
     assert 'shrebet' in entries['ana bashrab:past']['keys']

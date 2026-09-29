@@ -59,7 +59,10 @@ def fill_verb_forms(groups,checks):
                 item={'id':f['id']+':'+person,'person':person,'word':word,'arabic':arabic,'provenance':'inferred','checked':False}
                 answer=checks.get(item['id'])
                 if answer and answer.get('choice')=='yes' and answer.get('word')==word:item['checked']=True
-                elif answer and answer.get('choice')=='fix' and (answer.get('word') or '').strip():
+                # 'fix' = her typed form. A 'yes' whose form differs from today's guess = she approved an older guess
+                # and the engine changed since: her approved form still wins (S1); it never falls back to an
+                # unchecked guess silently (engineering audit 2026-09-29).
+                elif answer and answer.get('choice') in ('fix','yes') and (answer.get('word') or '').strip():
                     fixed,fixed_ar=answer['word'].strip(),(answer.get('arabic') or '').strip()
                     if f['label']!='Command':fixed,fixed_ar=vf.with_pronoun(person,vf.strip_pronoun(fixed),vf.strip_ar_pronoun(fixed_ar))
                     item.update(word=fixed,arabic=fixed_ar,checked=True,guess=word)

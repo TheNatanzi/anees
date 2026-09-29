@@ -100,6 +100,13 @@ function isLeech(card,options){
 }
 // How far a card is from the leech line: misses so far and the misses still allowed (null when the rule is off).
 function leechDistance(card,options){const o=opt(options),m=(card&&card.misses)||0;return {misses:m,limit:o.leechMisses>0?o.leechMisses:null,left:o.leechMisses>0?Math.max(0,o.leechMisses-m):null};}
+// The card-face tag for a leech. It names the count that made it a leech: since the 09-27 rule a card can be a leech
+// on learning misses alone with 0 review lapses, and "Leech · 0 lapses" read as a contradiction (audit 2026-09-29).
+function leechLabel(card,options){
+ if(!isLeech(card,options))return '';const o=opt(options),m=(card.misses||0),l=(card.lapses||0);
+ const byMiss=o.leechMisses>0&&m>=o.leechMisses;
+ return byMiss?`Leech · ${m} ${m===1?'miss':'misses'}`:`Leech · ${l} ${l===1?'lapse':'lapses'}`;
+}
 const isDue=(card,now)=>!!card&&card.reps>0&&card.due<=ms(now);
 function localDay(t){const d=new Date(ms(t));return new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime();}
 // Reviews due on each of the next `days` calendar days; day 0 includes anything overdue.
@@ -116,7 +123,8 @@ function forecast(cards,now,days=7){
 // Replay an answer log in time order. Rows: {word_key|key, card?, ts, result|grade, undone?}.
 function replay(rows,options){
  const cards=new Map(),seen=new Set();
- const list=(rows||[]).filter(e=>e&&!e.undone&&e.kind!=='flag'&&Number.isFinite(ms(e.ts))).slice().sort((a,b)=>ms(a.ts)-ms(b.ts));
+ // Undone answers (client flag or the server's undone_at) and flag / undo marker rows never schedule (audit 2026-09-29).
+ const list=(rows||[]).filter(e=>e&&!e.undone&&!e.undone_at&&e.kind!=='flag'&&e.kind!=='undo'&&Number.isFinite(ms(e.ts))).slice().sort((a,b)=>ms(a.ts)-ms(b.ts));
  for(const e of list){
   if(e.id!=null){if(seen.has(e.id))continue;seen.add(e.id);}
   const key=e.card||e.word_key||e.key;if(!key)continue;
@@ -125,6 +133,6 @@ function replay(rows,options){
  }
  return cards;
 }
-const api={W,DECAY,FACTOR,DEFAULTS,RETENTIONS,AGAIN,GOOD,rating,newCard,schedule,retrievability,nextInterval:(s,o)=>nextInterval(s,opt(o)),phase,isLeech,leechDistance,isDue,forecast,replay,elapsedDays};
+const api={W,DECAY,FACTOR,DEFAULTS,RETENTIONS,AGAIN,GOOD,rating,newCard,schedule,retrievability,nextInterval:(s,o)=>nextInterval(s,opt(o)),phase,isLeech,leechDistance,leechLabel,isDue,forecast,replay,elapsedDays};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;root.AneesFSRS=api;
 })(typeof window!=='undefined'?window:globalThis);

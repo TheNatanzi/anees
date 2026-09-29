@@ -22,10 +22,10 @@ One JSON line per AI, scorer or build call. Written by `scripts/track.py`. Desig
 | group | fields |
 |---|---|
 | identity | `schema`, `run_id`, `parent_id`, `trace_id` (`<lesson_date>\|<trigger>`), `kind` (inference/eval/build/ingest), `step`, `lesson_date`, `pass`, `role`, `trigger` (hourly/manual/overnight:<prompt file>), `host` (hash of the machine name) |
-| what ran | `gen_ai.provider.name`, `gen_ai.request.model` (null = the CLI default), `gen_ai.response.model` (what the CLI reported), `tool_version`, `params`, `prompt_file`, `prompt_sha`, `code_sha`, `code_dirty` |
+| what ran | `gen_ai.provider.name`, `gen_ai.request.model` (the pinned model; null = unpinned, every line before 2026-09-29), `gen_ai.response.model` (what the CLI reported), `tool_version`, `params`, `prompt_file`, `prompt_sha`, `code_sha`, `code_dirty` |
 | data | `input_refs[{path,sha256}]`, `output_refs[{path,sha256,rows}]` |
 | outcome | `status` (ok/error/timeout/empty_output/skipped_budget), `error_type`, `retries`, `started_at` (UTC), `duration_ms` |
 | cost | `usage{input_tokens, output_tokens, cache_read_input_tokens, cache_creation_input_tokens, audio_min, models{}}`, `cost_usd`, `cost_basis` (estimate = the CLI's own figure / list_price) |
 | quality | `metrics{dataset, version, sha, n, recall, precision, f1, ...}`, `agreement{...}` |
 
-**Env**: `ANEES_CLAUDE_MODEL` pins `claude -p --model` (unset = today's behaviour). `ANEES_TRIGGER`, `ANEES_PARENT_RUN_ID`, `ANEES_TRACE_ID`, `ANEES_HOST`. `ANEES_RUNS_DIR` redirects the log (tests; under pytest nothing is written without it).
+**Env**: `claude -p` runs pinned to `track.DEFAULT_CLAUDE_MODEL` (claude-opus-5-5, since 2026-09-29); `ANEES_CLAUDE_MODEL=<id>` overrides, `ANEES_CLAUDE_MODEL=cli-default` unpins. `ANEES_TRIGGER`, `ANEES_PARENT_RUN_ID`, `ANEES_TRACE_ID`, `ANEES_HOST`. `ANEES_RUNS_DIR` redirects the log (tests; under pytest nothing is written without it).

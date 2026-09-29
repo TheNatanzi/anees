@@ -345,7 +345,7 @@ function startReview(){ sess={know:0,learn:0,ms:[]}; lastAnswer=null; sessionMis
 function review(){ if(!sess) sess={know:0,learn:0,ms:[]}; rebuild(); const q=dueQueue(); if(!q.items.length) return reviewDone(q);
   const c=q.items[0], w=byKey().get(c.id), left=q.counts.due+q.counts.new+q.counts.learning, doneN=sess.know+sess.learn, total=doneN+Math.max(left,1);
   cardView({w, count:`${doneN+1} / ${total}`, pct:100*doneN/total, learnN:sess.learn, knowN:sess.know, leech:F.isLeech(c),
-    tag:F.isLeech(c)?`Leech · ${c.lapses} lapses`:({new:'New',learning:'Learning',mature:'Mature'})[F.phase(c)],
+    tag:F.isLeech(c)?F.leechLabel(c):({new:'New',learning:'Learning',mature:'Mature'})[F.phase(c)],
     chip:boostChip(c.id), onUndo:lastAnswer?undo:null, onAnswer:(r,t)=>grade(c,w,r,t), onClose:home});
 }
 // Both grading surfaces (this page and the future stats-tab queue) write this same card_results row.

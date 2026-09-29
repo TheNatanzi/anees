@@ -5,6 +5,7 @@ const catalog=require('../docs/data/word-bank-catalog.json');
 const words=require('../docs/data/words.json').items;
 const V=D.verbs(catalog,words);
 const all=V.flatMap(v=>Object.values(v.tenses).flat());
+const amal=require('../data/vocab/amal_verb_checks.json').answers;   // her check-list answers (list 1 pulled in full 2026-09-29)
 
 test('English cues: Amal\'s own past gloss, 3rd person -s, commands, be-phrases',()=>{
  const know=V.find(v=>v.verb==='ana ba3raf');
@@ -20,7 +21,9 @@ test('card keys: Doc word key when the person form is in the Doc, else form:<ent
  const know=V.find(v=>v.verb==='ana ba3raf');
  assert.equal(know.tenses.Past.find(c=>c.person==='I').key,'ana 3refet');
  const guess=know.tenses.Present.find(c=>c.person==='You (m)');
- assert.equal(guess.key,'form:ana ba3raf:present:You (m)');assert.equal(guess.guessed,true);
+ // Amal checked this form on 2026-09-23 (list 1): the key stays form:<entry>:<person>, it is no longer a guess.
+ assert.equal(guess.key,'form:ana ba3raf:present:You (m)');assert.equal(guess.guessed,!amal['ana ba3raf:present:You (m)']);
+ const guessed=all.filter(c=>c.guessed);assert.ok(guessed.length>0&&guessed.every(c=>!amal[c.key.replace(/^form:/,'')]),'guesses = engine forms Amal has not answered');
  assert.equal(know.tenses.Command.find(c=>c.person==='You (f)').guessed,false);
  assert.equal(new Set(all.map(c=>c.key)).size,all.length,'no two drill cards share a key');
 });
@@ -30,7 +33,7 @@ test('Amal checked forms: not a guess any more, tagged checked (check list 1, 20
  const she=learn.tenses.Present.find(c=>c.person==='She');
  assert.equal(she.arabizi,'heyye bte7faz');assert.equal(she.guessed,false);assert.equal(she.checked,true);
  assert.equal(learn.tenses.Command.find(c=>c.person==='You (pl)').checked,true);
- assert.equal(all.filter(c=>c.checked).length,41);
+ assert.equal(all.filter(c=>c.checked).length,Object.keys(amal).length);   // 41 on 2026-09-22 -> 729 after the full pull
  assert.ok(all.every(c=>!(c.checked&&c.guessed)));
 });
 

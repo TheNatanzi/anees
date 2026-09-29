@@ -33,10 +33,10 @@ test('ambiguous Arabic never matches a Doc word',()=>{
  assert.equal(S.matcher(two)({arabic:'هو',arabizi:''}),null);
  assert.equal(S.matcher(two)({arabic:'هو',arabizi:'huwwe'}).key,'a');
 });
-test('all 107 imported sets parse (106 Amal WhatsApp + Body Parts & Clothing 2026-09-26); every blank-sided term (6) is skipped',()=>{
+test('all 126 imported sets parse (106 Amal WhatsApp + Body Parts & Clothing 2026-09-26 + 19 more of her WhatsApp sets 2026-09-29); every blank-sided term (6) is skipped',()=>{
  const match=S.matcher([]);let terms=0,cards=0;
  for(const set of sets){terms+=set.terms.length;cards+=S.quizletCards(set,match).length;}
- assert.equal(sets.length,107);assert.equal(terms,2406);
+ assert.equal(sets.length,126);assert.equal(terms,2841);   // 107/2,406 -> 126/2,841: 19 complete sets added 2026-09-29 (7 over-100-card sets still missing)
  const bpc=sets.find(x=>x.id==='1155772050');assert.equal(bpc.title,'Body Parts & Clothing');assert.equal(bpc.terms.length,76);assert.equal(S.quizletCards(bpc,match).length,76);
  const blanks=sets.flatMap(s=>s.terms).filter(([a,b])=>!String(a||'').trim()||!String(b||'').trim()).length;
  assert.equal(blanks,6);assert.ok(cards<=terms-blanks);
@@ -45,7 +45,7 @@ test('Quizlet groups: named sets once each, dated sets hidden (Medi 2026-09-22);
  const g=S.quizletGroups(sets);
  assert.deepEqual(g.map(x=>x.name),['Plurals','Possession & pronouns','Verbs','Topics']);
  const dated=sets.filter(s=>S.isDated(s.title));
- assert.equal(g.reduce((n,x)=>n+x.sets.length,0),107-dated.length);
+ assert.equal(g.reduce((n,x)=>n+x.sets.length,0),sets.length-dated.length);
  const shown=g.flatMap(x=>x.sets.map(s=>s.title));
  for(const t of ['December 12 Verbs','March 15 Audio Homework','Friday December 5, 2025','Feb 12 Emotions','May 2 Audio Homework','January 2 verbs']){assert.ok(S.isDated(t),t);assert.ok(!shown.includes(t),t);}
  for(const t of ['Colors','Command','Audio Homework','Mishwaar-Mashaweer Plural List','Pleasantries PT1','Adjectives (PT2)']) assert.ok(!S.isDated(t),t);
