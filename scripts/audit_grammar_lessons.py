@@ -21,7 +21,7 @@ UNFILED is the honest answer when no rule fits.
 import json, os, re, sys, difflib, html
 from collections import Counter, defaultdict
 
-SCRIPTS = os.path.dirname(os.path.abspath(__file__))  # this checkout, not the live repo
+SCRIPTS = os.path.dirname(os.path.abspath(__file__))   # this checkout, never the live hourly one (2026-09-29)
 if SCRIPTS not in sys.path:
     sys.path.insert(0, SCRIPTS)
 from xscript import key, skel, bare, has_al, is_ar, is_english, tokens, arabic_tokens, sim  # noqa: E402

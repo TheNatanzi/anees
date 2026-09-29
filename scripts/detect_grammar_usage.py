@@ -21,7 +21,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lesson_turns import lesson_turns  # noqa: E402
 
 ANEES = r"C:\dev\anees\data\lessons"
-DOCS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs")  # this checkout, not the live repo
+# 2026-09-29: always this checkout's docs, so a worktree never writes into the live hourly checkout (see 278753d)
+DOCS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs")
 OUT = os.path.join(DOCS, "data", "grammar-usage.json")
 
 AR_WORD = re.compile(r"[\u0621-\u063A\u0641-\u064A\u064B-\u0652\u0670]+")
@@ -121,7 +122,11 @@ P = {
  "A10b":[r"(?:^|\s)(?:هاد|هادي|هدول|هذا|هذي|هاي)\s+ال[\u0621-\u064A]{2,}"],
  "A11": [r"(?:^|\s)الكل" + E, r"(?:^|\s)كل\s+(?:حدا|إشي|اشي|شي|يوم|الناس|ال[\u0621-\u064A]{2,})"],
 
- "B2":  [r"(?:^|\s)(?:بدي|بدك|بدها|بدنا|بدهم|لازم|ممكن|بحب|بقدر|بتقدر|بجرب|ببلش|بعرف)\s+" + BARE_IMPERF],
+ "B2":  [r"(?:^|\s)(?:بدي|بدك|بدها|بدنا|بدهم|لازم|ممكن|بحب|بقدر|بتقدر|بجرب|ببلش|بعرف)\s+" + BARE_IMPERF,
+         # Amal's notes 2026-09-27: also after "it's important / most likely / I feel like" statements
+         # (muhem te3raf, 3ala el-a8lab niji, jaay 3abali). إنه / إني after مهم is "that", not a verb.
+         r"(?:^|\s)(?:مهم|على الأغلب|على الاغلب|عالأغلب|عالاغلب|جاي على بالي|جاي عبالي|جاية على بالي|جاية عبالي)\s+"
+         r"(?!(?:انه|انها|اني|انك|انهم|انو)(?:\s|$))" + BARE_IMPERF],
  "B3":  [r"(?:^|\s)(?:لما|عشان|قبل ما|بعد ما|حتى)\s+" + BARE_IMPERF],
  "B4":  [r"(?:^|\s)(?:بدي|لازم|ممكن)\s+" + BARE_IMPERF + r"\s+و\s*" + BARE_IMPERF],
  "B4b": [r"(?:^|\s)(?:لما|إذا|اذا)\s+(?:ما\s+)?ب[\u0621-\u064A]{2,}"],
@@ -165,6 +170,38 @@ P = {
          r"(?:^|\s)(?:يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|أغسطس|سبتمبر|أكتوبر|نوفمبر|ديسمبر|أيلول|تشرين|آب|تموز)" + E,
          r"(?:^|\s)(?:ألفين|الفين)" + E],
 }
+
+# Names & places (2026-09-28, scripts/names.py): a name is never a rule trigger. Each Arabic-script name (رام الله,
+# بيت لحم, القدس) is swapped for the neutral noun فلان before any rule runs, so "في رام الله" still counts as a
+# preposition + noun but "الله" / "بيت" inside a name never fire A1 / A2 / A7 / C9. Text without a name is untouched.
+NAME_STANDIN = "فلان"
+
+
+def _is_farsi(text):
+    try:
+        from farsi import is_farsi
+    except ImportError:
+        return False
+    return is_farsi(text)
+
+
+def mask_names(text):
+    """(text with each Arabic-script name replaced by NAME_STANDIN, [original names in order]). No names file -> unchanged."""
+    try:
+        import names
+        return names.load().mask(text or "", NAME_STANDIN)
+    except Exception:
+        return text, []
+
+
+def unmask(hit, back):
+    """Put the real name back into a hit string (hits are shown as 'where?' on the page)."""
+    for name in back:
+        if NAME_STANDIN not in hit:
+            break
+        hit = hit.replace(NAME_STANDIN, name, 1)
+    return hit
+
 
 # El- (A1): any real word with the article - not "الله", not "اللي", not a
 # dangling "الـ".
@@ -221,7 +258,10 @@ if __name__ == "__main__":
         medi = [t for t in T if t["speaker"] == "Medi" and AR_WORD.search(t["text"])]
         seen_here = Counter()
         for t in medi:
-            txt = re.sub(r"(?:^|\s)الـ(?=\s|$|[،,.])", " ", t["text"])
+            if _is_farsi(t["text"]):
+                continue                                     # Farsi side conversation (2026-09-28) is no grammar evidence
+            txt, back = mask_names(t["text"])                # names are never rule triggers (see mask_names)
+            txt = re.sub(r"(?:^|\s)الـ(?=\s|$|[،,.])", " ", txt)
             txt = re.sub(r"\S+(--|—)", " ", txt)  # a word he broke off
             words = AR_WORD.findall(txt)
             found = word_rules(words)
@@ -233,6 +273,8 @@ if __name__ == "__main__":
                     if mt:
                         found[bid] = mt.group(0).strip()
                         break
+            if back:
+                found = {k: unmask(v, back) for k, v in found.items()}
             for bid, hit in found.items():
                 seen_here[bid] += 1
                 uses[bid].append({

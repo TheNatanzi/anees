@@ -1,34 +1,48 @@
 # -*- coding: utf-8 -*-
-"""Generate docs/data/grammar-buckets.json - the 49 grammar buckets."""
+"""Generate docs/data/grammar-buckets.json - the 57 grammar buckets (source of truth: edit here, then run)."""
 import json, os
 from collections import Counter
 
-OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs", "data", "grammar-buckets.json")  # this checkout
+# 2026-09-29: relative to this script's repo, so a worktree never writes into the live hourly checkout (see 278753d)
+OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs", "data", "grammar-buckets.json")
 b = []
 
 
-def A(id, fam, name, one, ex, why, more, rule=None):
-    b.append({"id": id, "family": fam, "name": name, "one_line": one,
-              "examples": ex, "why": why, "more": more, "tally_rule": rule})
+def A(id, fam, name, one, ex, why, more, rule=None, taught=None):
+    """taught: None (her Docs / lessons), "lesson" (Amal corrects it in lessons, scored since 2026-09-25),
+    "gap" (in no Doc or lesson yet), "not-yet" (Amal 2026-09-27: not taught yet -> never scored, shown as
+    "Not taught yet")."""
+    row = {"id": id, "family": fam, "name": name, "one_line": one,
+           "examples": ex, "why": why, "more": more, "tally_rule": rule}
+    if taught:
+        row["taught"] = taught
+    b.append(row)
+
+
+# Amal's written notes on the rules ("Mahdi's Grammar Rules notes", her Google Doc, edited 2026-09-27; Medi said
+# "apply" 2026-09-29). Her words and spellings are the rule (RULES.md S1). Lines from her notes end in "(Amal)".
+TAUGHT_NOTE = "Taught in lessons: Amal corrected this %d time(s) out loud (09-24 sweep). No longer a gap rule - scored (Medi 2026-09-25)."
 
 
 # ---------------- Family A - the noun phrase ----------------
 A("A1", "A", "el- (the)",
   "`el-` marks a thing you already know; nothing marks a new one.",
-  [["bait", "a house"], ["el-bait", "the house"], ["el-shams -> esh-shams", "the sun (sun letters)"]],
+  [["bait", "a house"], ["el-bait", "the house"], ["el-tuffaa7 zaaki", "apples are delicious (general)"],
+   ["el-shita baared", "winter is cold (general)"]],
   "English has 'a' and 'the'. Arabic only has 'the' - leaving it off is how you say 'a'.",
-  ["The sun-letter half: before s, sh, t, d, r, n, z, l the l disappears and the next letter doubles.",
-   "el-shams is written with an l but said esh-shams.",
-   "el-dar -> ed-dar.  el-nas -> en-nas.  el-rajol -> er-rajol.",
-   "Moon letters keep the l: el-bait, el-kalb, el-walad."])
+  ["\"el\" is used for general nouns: el-tuffaa7 zaaki = apples are delicious; el-shita baared = winter is cold. (Amal)",
+   "Sun and moon letters: no need. Not a priority - do NOT mark it as an error if he doesn't use them correctly. (Amal)",
+   "So a sun/moon-letter slip (el-shams vs esh-shams) is never scored. Only el- there / not there counts."])
 
 A("A2", "A", "idafa (possession)",
   "Thing first, owner second - and the first word never takes `el-`.",
-  [["bait Medi", "Medi's house"], ["bab el-bait", "the door of the house"]],
+  [["bait Medi", "Medi's house"], ["bab el-bait", "the door of the house"], ["bait u5ti", "my sister's house"]],
   "There is no word for 'of'. You just put the two nouns next to each other.",
   ["el-bait Medi is always wrong - the first noun drops el-.",
    "The LAST noun decides whether the whole phrase is definite.",
-   "bait m3allem = a teacher's house.  bait el-m3allem = the teacher's house."])
+   "bait m3allem = a teacher's house.  bait el-m3allem = the teacher's house.",
+   "If a noun ends with a possessive pronoun it's definite and doesn't take \"el\": bait u5ti = my sister's house; "
+   "bent u5t jaarti = my neighbor's niece. (Amal)"])
 
 A("A3", "A", "feminine -t in idafa",
   "A feminine first word grows a `-t` before the owner.",
@@ -36,14 +50,25 @@ A("A3", "A", "feminine -t in idafa",
   "The hidden -a ending on feminine nouns wakes up as -t when something follows it.",
   ["8urfe room -> 8urfet el-noam the bedroom.",
    "madrase school -> madraset el-walad the boy's school.",
-   "Only feminine nouns do this. bait Medi stays plain."])
+   "Only feminine nouns do this. bait Medi stays plain.",
+   "Same as A2: a noun with a possessive ending is definite and takes no \"el\": bent u5t jaarti = my neighbor's niece. (Amal)"])
 
 A("A4", "A", "possessive endings",
   "Stick the owner on the end of the word.",
-  [["ismi", "my name"], ["ismak", "your name (m)"], ["ismek", "your name (f)"]],
+  [["ismi", "my name"], ["ismak", "your name (m)"], ["ismek", "your name (f)"], ["biddo", "he wants"],
+   ["3indna", "we have"]],
   "Instead of 'my name', Arabic says 'name-my' as one word.",
   ["The set: -i my, -ak your (m), -ek your (f), -o his, -ha her, -na our, -kom your (pl), -hom their.",
-   "baiti my house, baitha her house, baithom their house."])
+   "baiti my house, baitha her house, baithom their house.",
+   "Biddi and 3indi conjugate with possessive endings (they are not real verbs): biddo = he wants, 3indna = we have. (Amal)",
+   "After a vowel: -ak -> -k, -ek -> -ki, -o -> long vowel + h: kursik = your (m) chair, awa3iki = your (f) clothes, "
+   "abuh = his father. (Amal)",
+   "Possessive endings also give object pronouns on verbs, except \"me\" is -ni: a3tini = give me, a3tih = give him. (Amal)",
+   "Dual -ain words: eed -> eedayy, eedaik, eedaiki, eedaikom, eedaih, eedaiha, eedaina, eedaihom. (Amal)",
+   "ijer -> ijrayy, ijraik, ijraiki, ijraikom, ijraih, ijraiha, ijraihom, ijraina. (Amal)",
+   "daan/denain -> dinayy, dinaik, dinaiki, dinaikom, dinaih, dinaiha, dinahom, dinaina. (Amal)",
+   "7awalain -> 7awalayy, 7awalaik, 7awalaiki, 7awalaikom, 7awalaih, 7awalaiha, 7awalaihom, 7awalaina. (Amal)",
+   "Not every dual works like this (no \"youmayy\"); the list grows as he learns more. (Amal)"])
 
 A("A5", "A", "chain possession",
   "Stack three or more nouns; only the last can take `el-`.",
@@ -105,7 +130,8 @@ A("A9b", "A", "broken plurals are patterns",
   ["byoot / swaa2 / 3yoon all share one mould.",
    "bwaab / twaab share another.",
    "shababeek / masaajed / makaateb share a third.",
-   "Not in her Docs as a lesson - this is a gap."])
+   "Not in her Docs as a lesson - this is a gap.",
+   TAUGHT_NOTE % 1], taught="lesson")
 
 A("A11", "A", "kul: all vs every",
   "`kul` + `el-` = all of it. `kul` alone = every.",
@@ -124,27 +150,36 @@ A("B1", "B", "present with b-",
    "Drop the b- only in the cases listed in B2, B3 and B4."])
 
 A("B2", "B", "b-drop after modals",
-  "No b- after want/must/can words.",
-  [["biddi ashrab", "I want to drink - right"], ["biddi bashrab", "wrong"]],
+  "A verb followed by another verb: the second one loses its b-. Same after want/must/can words.",
+  [["biddi ashrab", "I want to drink - right"], ["biddi bashrab", "wrong"], ["muhem te3raf", "it's important to know"],
+   ["3ala el-a8lab niji", "we'll most likely come"]],
   "The first word already carries the tense, so the second verb goes bare.",
-  ["Trigger words: biddi, laazem, mumkin, ba7eb, ba2dar, baballesh, bajarreb.",
+  ["The real rule: if a verb is followed by another verb, the second loses the b. (Amal)",
+   "Also after modal words: biddi, laazem, mumken, jaay 3abali. (Amal)",
+   "Also after a statement like it's nice / it's important / most likely: muhem te3raf = it's important to know; "
+   "3ala el-a8lab niji = we'll most likely come. (Amal)",
+   "Verb + verb: ba7eb, ba2dar, baballesh, bajarreb + a bare verb.",
    "laazem aru7 I have to go - never laazem baru7.",
    "This is your single most recorded slip."], rule="R1")
 
 A("B3", "B", "b-drop after time words",
-  "No b- after lamma, iza, ra7, 3ashaan - but KEEP it after enno.",
-  [["lamma azha2", "when I get bored - right"], ["enno bashrab", "that I drink - right"]],
+  "No b- after lamma, ra7, ba3ed/2abel ma, la- and 3ashaan - but iza KEEPS it, and so does enno.",
+  [["lamma azha2", "when I get bored - right"], ["iza bikoon 3indak", "if you have - b kept after iza"],
+   ["enno bashrab", "that I drink - right"]],
   "Same logic as B2 - the linking word carries the tense.",
-  ["Drop after: lamma, iza, abel-ma, ba3ed-ma, ra7, la-, 3ashaan.",
-   "KEEP after enno - this is the one exception that catches people.",
-   "3ashaan aru7 so that I go, enno baru7 that I go."], rule="R1")
+  ["Drop after the time words lamma, ra7, ba3ed/2abel ma, and the purpose words la- and 3ashaan. (Amal)",
+   "Iza (if) KEEPS the b. (Amal) Keeping it after iza is never a mistake.",
+   "KEEP after enno too.",
+   "3ashaan aru7 so that I go, enno baru7 that I go.",
+   "After kaan the b- is not scored either way - see B7. (Amal)"], rule="R1")
 
 A("B4", "B", "the drop carries down a chain",
   "Once dropped, it stays dropped across u / aw / wala.",
   [["biddi ashrab u akol", "I want to drink and eat"]],
   "The second and third verbs stay bare as long as the person doing them hasn't changed.",
   ["laazem aru7 u ashuf u arja3 - all three bare.",
-   "A new subject ends the chain: laazem aru7 u huwwe biji - biji gets its b- back."])
+   "A new subject ends the chain: laazem aru7 u huwwe biji - biji gets its b- back.",
+   "Amal's rule behind B2-B4: a verb followed by another verb - the second loses the b."])
 
 A("B4b", "B", "when the b- comes back",
   "The b- returns the moment you leave the want/must clause.",
@@ -157,9 +192,13 @@ A("B4b", "B", "when the b- comes back",
 
 A("B5", "B", "past tense",
   "Endings on the back of the verb say who did it.",
-  [["ana shribet", "I drank"], ["huwwe shirib", "he drank"]],
+  [["ana shribet", "I drank"], ["huwwe shirib", "he drank"], ["sherbat", "she drank"]],
   "No b-, no prefix - the past is all endings.",
-  ["-et I, -et you (m), -ti you (f), nothing for he, -et she, -na we, -tu you (pl), -u they.",
+  ["-et I, -et you (m), -ti you (f), nothing for he, -at she, -na we, -tu you (pl), -u they.",
+   "The \"she\" ending is -et or -at; we're going with -at: sherbat = she drank. (Amal) "
+   "Scoring does not change: -et for she is an accent choice, not a mistake.",
+   "Refer to the past-tense explanation for the patterns: middle long vowel, end vowel, short verbs, irregulars, "
+   "internal flipping. (Amal)",
    "Amal's Doc has all 8 persons for each verb - 825 rows."])
 
 A("B6", "B", "kaan = was / were",
@@ -169,20 +208,33 @@ A("B6", "B", "kaan = was / were",
   ["ana ta3baan I am tired -> kunt ta3baan I was tired.",
    "kunt I, kaan he, kaanat she, kunna we, kaanu they."])
 
-A("B7", "B", "kaan + b-verb = used to",
-  "Habitual past - something you did regularly.",
-  [["kunt bashte8el hon", "I used to work here"]],
-  "kaan plus a normal b-verb means it happened over and over back then.",
-  ["Note the b- STAYS here - this is not a drop case.",
-   "kaan bishrab ahwe kul yom he used to drink coffee every day."])
+A("B7", "B", "kaan + verb = used to / was doing",
+  "kaan + a present verb: something you used to do, or were doing (past continuous).",
+  [["kunt bashte8el hon", "I used to work here"], ["kunet aqra2", "I was reading"],
+   ["kaanat tetbu5", "she was cooking"]],
+  "kaan plus a present verb puts it in the past: over and over back then, or going on at that moment.",
+  ["Also means past continuous: kunet aqra2 = I was reading; kaanat tetbu5 = she was cooking. (Amal)",
+   "The b- after kaan: some verbs keep it, some drop it. It is NOT a rule - b- kept or dropped after kaan is never "
+   "marked wrong. (Amal)",
+   "kaan bishrab ahwe kul yom he used to drink coffee every day.",
+   "kaan laazem goes with this too: kaan laazem + past = should have; kaan laazem + present = should have OR had to. "
+   "Amal advises using it with the present. Scored under B16. (Amal)",
+   TAUGHT_NOTE % 1], taught="lesson")
 
 A("B8", "B", "bakoon / ykoon",
-  "No 'to be' in the plain present, but you need it after lamma/iza and for habits.",
-  [["ana ta3baan", "I am tired (now)"], ["lamma akoon ta3baan", "when I'm tired"]],
+  "No 'to be' in the plain present - but bikoon comes in for habits, for biddi/3indi in the past and future, "
+  "and to mean 'probably'.",
+  [["ana ta3baan", "I am tired (now)"], ["3aadatan bikoon mash8ool 3ala el-wa7de", "he's usually busy at 1:00"],
+   ["kaan biddi", "I wanted"], ["bikoon m3asseb halla", "he's probably angry now"]],
   "This is the 'being' verb that appears only in certain slots.",
   ["Plain now: drop it - ana ta3baan.",
-   "After lamma / iza: you must use it - lamma akoon, iza bikoon.",
-   "For habits and the future: bakoon ta3baan ba3ed el-shu8el."], rule="R2")
+   "Habitual with usually / sometimes / every: 3aadatan bikoon mash8ool 3ala el-wa7de = he's usually busy at 1:00. (Amal)",
+   "With biddi / 3indi in the past and future it is REQUIRED: kaan biddi = I wanted; ra7 ykoon 3indi = He will have. (Amal)",
+   "With lamma / iza: lamma ykoon biddak = when you want; iza bikoon 3indak = if you have. Here it is NOT strict - "
+   "leaving it out after lamma / iza is not marked wrong. (Amal)",
+   "Bikoon can also mean \"probably\": bikoon m3asseb halla = he's probably angry now; bitkoon teshte8el = she's "
+   "probably working. (Amal; her Doc's autocorrect wrote \"Bitcoin teshte8el\")",
+   "To check with Amal: she glossed ra7 ykoon 3indi as \"He will have\"; ykoon 3indi reads as \"I will have\"."], rule="R2")
 
 A("B9", "B", "person on ykoon",
   "The ykoon form must match who you're talking about.",
@@ -197,15 +249,19 @@ A("B10", "B", "commands",
   "Strip the present prefix and you're usually most of the way there.",
   ["btishrab you drink -> ishrab drink!",
    "Feminine adds -i: ishrabi. Plural adds -u: ishrabu.",
+   "Refer to the explanation for all patterns: normal 3+ consonants, middle long vowel, doubled middle and short "
+   "verbs, irregular ta3aal / ta3aali / ta3aalu. (Amal)",
    "Amal's Doc has 107 rows of these."])
 
 A("B11", "B", "negative commands",
-  "`ma` or `la` in front of the YOU-form.",
+  "`ma` in front of the YOU-form. Never `la`.",
   [["ma tishrab", "don't drink"], ["ma tez3ejini", "don't annoy me"]],
   "You don't negate the command form - you negate the 'you do' form.",
-  ["Not ma ishrab - you need ma tishrab.",
+  ["\"la\" is fus7a (MSA); spoken uses only \"ma\". (Amal) So la + verb is a mistake.",
+   "Not ma ishrab - you need ma tishrab.",
    "Feminine: ma tishrabi. Plural: ma tishrabu.",
-   "Amal drills this heavily - 202 hits across 9 of your lessons."])
+   "Amal drills this heavily - 202 hits across 9 of your lessons.",
+   TAUGHT_NOTE % 9], taught="lesson")
 
 A("B12", "B", "make-X vs get-X",
   "Doubling the middle letter turns 'I become' into 'I make someone'.",
@@ -229,7 +285,9 @@ A("B14", "B", "3am = right now",
   "English uses -ing for both habits and right-now. Arabic splits them.",
   ["bashrab ahwe = I drink coffee (generally).",
    "3am bashrab ahwe = I'm drinking coffee right now.",
-   "Amal has said this only 3 times in your recorded lessons."])
+   "Amal has said this only 3 times in your recorded lessons.",
+   "Not taught yet: part of the future present-progressive lesson. (Amal) Not scored until she teaches it - "
+   "corrections stay visible but do not count."], taught="not-yet")
 
 A("B15", "B", "participles",
   "State words that act like adjectives.",
@@ -237,23 +295,40 @@ A("B15", "B", "participles",
   "Not really a verb - it describes the state you're in.",
   ["raaye7 going, naasi having forgotten, 3aaref knowing, saaken living.",
    "They take gender: raaye7 (m) / raay7a (f).",
-   "Only 1 hit in all your lessons - this is your thinnest bucket."])
+   "Only 1 hit in all your lessons - this is your thinnest bucket.",
+   "Not taught yet: also part of the present-progressive lesson. (Amal) Not scored until she teaches it - her "
+   "corrections so far stay visible but do not count (it was scored 2026-09-25 to 2026-09-29)."], taught="not-yet")
 
 A("B16", "B", "kan laazem",
   "`kaan` stacked on `laazem` = had to / should have.",
   [["kaan laazem ashte8el", "I had to work"], ["ma kaan laazem", "I shouldn't have"]],
   "B6 kaan plus B2 laazem, together - and the b- still drops.",
   ["kaan laazem aru7 I had to go - never kaan laazem baru7.",
+   "kaan laazem + past = should have; kaan laazem + present = should have OR had to. Amal advises using it with the "
+   "present. (Amal, under B7)",
    "Negative flips the meaning to regret: ma kaan laazem a7ki I shouldn't have spoken.",
    "Amal corrected you on this live on Aug 25."])
 
-A("B17", "B", "saarli",
+A("B17", "B", "sarli",
   "'It's been X for me' - duration up to now.",
-  [["saarli saa3a hon", "I've been here an hour"], ["min saarlha?", "how long has it been?"]],
+  [["sarli saa3a hon", "I've been here an hour"], ["2adaish sarlak?", "how long have you been...?"]],
   "Takes the PERSON ending, not a separate subject word.",
-  ["saarli me, saarlak you (m), saarlek you (f), saarlo him, saarlha her.",
-   "saarli sitt shhoor bat3allam 3arabi - I've been learning Arabic for six months.",
-   "From your Sep 21 lesson: min saarlha inta akaltha?"])
+  ["sarli me, sarlak you (m), sarlek you (f), sarlo him, sarlha her.",
+   "It's preferred and more natural to put the duration right after sarli. (Amal)",
+   "sarli sitt shhoor bat3allam 3arabi - I've been learning Arabic for six months.",
+   "Fixed 2026-09-29: the old second example (min saarlha?) was wrong - it is 2adaish sarlak. (Amal)"])
+
+A("B18", "B", "verb matches its subject",
+  "The verb's person, gender and number must match who or what is doing it.",
+  [["el-sharika illi betbi3o bet8asselo", "the company that sells it washes it (sharika is feminine -> bet-)"],
+   ["shu bey7ammsek?", "what excites you? (one thing -> singular verb)"], ["huwwe byenbese6", "he gets happy (he -> bye-)"]],
+  "English verbs barely change ('I/you/they sell'). Arabic verbs change for every person: a feminine noun takes "
+  "the she-form, a plural takes -u, 'I' takes a-/ba-.",
+  ["Present tense: the prefix/ending must be the right person - bey3asseb-ni (it annoys me), not ba3asseb-ni; "
+   "testa3mel (she uses), not testa3meli.",
+   "A noun subject decides the form: the cup enkasarat (feminine), meetings bey-zah2u-ni (plural).",
+   "Past-tense endings for ana/inta/hiyye stay in B5; adjectives stay in A8.",
+   "Found 26 times in the 2026-09-24 sweep of all 13 lessons. Added by Medi 2026-09-25."])
 
 # ---------------- Family C - sentence glue ----------------
 A("C1", "C", "no word for 'to be'",
@@ -284,7 +359,8 @@ A("C4", "C", "saying no",
   "Two different 'not' words, picked by what comes after.",
   ["Verb -> ma: ma baru7 I don't go.",
    "Adjective or noun -> mish: mish zaaki not tasty.",
-   "Never: abadan ma baru7 I never go."])
+   "Never: abadan ma baru7 I never go.",
+   TAUGHT_NOTE % 6], taught="lesson")
 
 A("C4b", "C", "words that drag a ma along",
   "`abadan` is not enough on its own - the verb still needs `ma`.",
@@ -303,12 +379,13 @@ A("C5", "C", "u / aw / wala",
    "Mixing up aw and wala is a recorded slip."], rule="R8")
 
 A("C6", "C", "iza / lamma",
-  "if, when - and both change the verb after them.",
+  "if, when - lamma drops the b- on the next verb, iza keeps it.",
   [["iza bteji, bansu6", "if you come, I'm happy"]],
-  "They trigger the b-drop (B3) and often need ykoon (B8).",
+  "lamma drops the b- (B3); iza keeps it. Either can take ykoon (B8), but there it is not strict.",
   ["lamma = when (it will happen).  iza = if (it might).",
    "lamma aru7 when I go - bare verb.",
-   "lamma akoon ta3baan when I'm tired - needs ykoon."])
+   "lamma akoon ta3baan when I'm tired - ykoon here is optional, never marked wrong if left out. (Amal, B8)",
+   "Iza (if) KEEPS the b (Amal): iza bteji, never iza teji."])
 
 A("C7", "C", "illi",
   "'the one that' - never changes shape.",
@@ -328,7 +405,8 @@ A("C9", "C", "word order",
   [["basawwi el-akel", "I make the food"], ["el-akel basawwih", "the food, I make it"]],
   "Moving something to the front is allowed - but then you owe a pointer ending.",
   ["Plain: verb, then what it acts on.",
-   "Fronted: the thing first, then the verb WITH its ending."])
+   "Fronted: the thing first, then the verb WITH its ending.",
+   TAUGHT_NOTE % 2], taught="lesson")
 
 A("C10", "C", "preposition goes in front",
   "English leaves it dangling; Arabic never does.",
@@ -385,7 +463,7 @@ A("D6", "D", "iyyaa - the second object",
   "You cannot stack two object endings on one verb, so the second gets its own word.",
   ["ba36ii-k = I give you. ba36ii-k iyyaa = I give it to you.",
    "jeeb-li = bring me. jeeb-li iyyaa = bring it to me.",
-   "Absent from both her Docs - confirmed against the live Doc 2026-09-22."])
+   "Absent from both her Docs - confirmed against the live Doc 2026-09-22."], taught="gap")
 
 # ---------------- Family E - numbers and time ----------------
 A("E1", "E", "number + noun",
@@ -394,7 +472,8 @@ A("E1", "E", "number + noun",
   "The rule flips twice as the number gets bigger - this is the part English never prepares you for.",
   ["Exactly 2: no number word, just the -ein ending - yomein, saa3tain.",
    "3 to 10: number + plural noun - talat iyyaam, 5ams saa3aat.",
-   "11 and up: number + SINGULAR noun - 7da3sh yom, 3ishreen saa3a."])
+   "11 and up: number + SINGULAR noun - 7da3sh yom, 3ishreen saa3a.",
+   TAUGHT_NOTE % 3], taught="lesson")
 
 A("E2", "E", "clock time",
   "`el-saa3a` + the feminine number.",
@@ -417,6 +496,14 @@ A("E4", "E", "calendar",
   "Days are just 'day the-second', 'day the-third' and so on.",
   ["el-itnein Monday (day 2), el-talaata Tuesday, el-arb3a Wednesday.",
    "el-jum3a Friday, el-sabet Saturday, el-a7ad Sunday."])
+
+A("E5", "E", "kam + singular",
+  "After `kam` (how many) the noun is always singular - never plural.",
+  [["kam soora?", "how many pictures?"], ["kam yoam?", "how many days?"], ["kam kelme?", "how many words?"]],
+  "English asks 'how many' with a plural noun. Levantine keeps the noun singular after kam, even though the answer is many.",
+  ["kam soora sawwarti? = how many pictures did you take? (not kam suwar)",
+   "The answer then follows E1: talat suwar (3-10 plural), 12 soora (11+ singular).",
+   "Added by Medi 2026-09-24."])
 
 # ---------------- Family F - sound ----------------
 A("F1", "F", "the seven hard letters",
@@ -441,8 +528,8 @@ A("F3", "F", "shadda (doubled letter)",
    "In B12 the doubling IS the grammar: bad7ak vs bada77ek."])
 
 payload = {
-    "updated": "2026-09-22",
-    "source": "wiki/18-grammar-buckets.md + Medi additions B16/B17/C10 (2026-09-22)",
+    "updated": "2026-09-29",
+    "source": "wiki/18-grammar-buckets.md + Medi additions B16/B17/C10 (2026-09-22) + Amal's written notes (2026-09-27, applied 2026-09-29)",
     "families": {"A": "The noun phrase", "B": "The verb system", "C": "Sentence glue",
                  "D": "Words that pick their partner", "E": "Numbers and time",
                  "F": "Sound shape (pronunciation, not grammar)"},

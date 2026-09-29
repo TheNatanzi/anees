@@ -17,7 +17,10 @@ var COLS = [
   { key: 'status', label: 'Status', first: 'asc' },
   { key: 'last', label: 'Last used', first: 'desc' }
 ];
-var STATUS_RANK = { Wrong: 0, Shaky: 1, Good: 2, Mastered: 3, Unscored: 4, Untested: 5 };
+var STATUS_RANK = { Wrong: 0, Shaky: 1, Good: 2, Mastered: 3, Unscored: 4, NotTaught: 5, Untested: 6 };
+// Amal's notes 2026-09-27: a rule she has not taught yet (B14, B15) has no score and sits out of every total.
+var STATUS_LABEL = { NotTaught: 'Not taught yet' };
+function statusLabel(s) { return STATUS_LABEL[s] || s; }
 var SORT = { key: 'rule', dir: 'asc' };
 var SORT_KEY = 'anees.grammar.sort';
 try {
@@ -25,7 +28,7 @@ try {
   if (saved && COLS.some(function (c) { return c.key === saved.key; }) && /^(asc|desc)$/.test(saved.dir)) SORT = saved;
 } catch (e) { /* storage blocked: default sort */ }
 var STATUS_ON = Object.create(null);
-var STATUSES = ['Mastered', 'Good', 'Shaky', 'Wrong', 'Unscored', 'Untested'];
+var STATUSES = ['Mastered', 'Good', 'Shaky', 'Wrong', 'Unscored', 'NotTaught', 'Untested'];
 var FAMILY_ORDER = { A: 0, B: 1, C: 2, D: 3, E: 4, F: 5 };
 var SHOW = 5;
 
@@ -299,9 +302,10 @@ function renderCharts() {
     Mastered: css('--ab-green', '#5B8C6E'), Good: css('--ab-blue', '#4E7FA8'),
     Shaky: css('--ab-orange', '#C98A3E'), Wrong: css('--ab-red', '#C4573C'),
     Unscored: css('--ab-muted', '#8A8578'),
+    NotTaught: css('--ab-raised', '#E6E1D6'),
     Untested: css('--ab-line', '#CFC9BC')
   };
-  var slices = STATUSES.map(function (s) { return { label: s, value: counts[s], color: colors[s] }; });
+  var slices = STATUSES.map(function (s) { return { label: statusLabel(s), value: counts[s], color: colors[s] }; });
   var body = $('gc-c4-body');
   body.textContent = '';
   var d = donut(slices);
@@ -349,7 +353,7 @@ function mmssToSec(t) {
   var p = String(t || '').split(':');
   return p.length === 2 ? (+p[0] || 0) * 60 + (+p[1] || 0) : 0;
 }
-function isUntested(r) { return r.status === 'Untested' || (r.pct == null && !r.last_used); }
+function isUntested(r) { return r.status === 'Untested' || r.status === 'NotTaught' || (r.pct == null && !r.last_used); }
 // A1 < A2 < ... < A9 < A9b < A10 < A10b < A11 < B1 ... F3
 function idKey(r) {
   var m = /^([A-Z])(\d+)([a-z]*)$/.exec(r.id) || [null, r.id, 0, ''];
@@ -545,6 +549,11 @@ function hearSay(r) {
 function detail(r) {
   var d = el('div', 'gc-detail');
 
+  if (r.not_taught) {
+    d.appendChild(el('p', 'gc-nottaught', (r.not_taught_why || 'Not taught yet.') +
+      ' No score, and it is left out of every grammar total until Amal teaches it.' +
+      (r.uses_seen ? ' You used it ' + r.uses_seen + ' time' + (r.uses_seen === 1 ? '' : 's') + ' anyway (shown below, not counted).' : '')));
+  }
   d.appendChild(el('h3', 'gc-secttitle', 'What the rule is'));
   d.appendChild(el('p', 'gc-why', r.why));
 
@@ -662,6 +671,40 @@ function detail(r) {
       d.appendChild(el('p', 'ab-mini', 'Showing ' + SHOW + ' of ' + cand.length + ' candidates.'));
     }
   }
+
+  // Corrections Amal's notes (2026-09-27) take out of the count: shown, never counted.
+  var nc = r.not_counted || [];
+  if (nc.length) {
+    var nh = el('div', 'gc-useshead');
+    nh.appendChild(el('h3', 'gc-secttitle', 'Not counted — Amal\u2019s notes (' + nc.length + ')'));
+    d.appendChild(nh);
+    d.appendChild(el('p', 'ab-mini gc-candnote', 'Amal corrected these, but her notes of Sep 27 say they do not count: ' +
+      'the rule is not taught yet, or what you said is not a mistake. They are not in any number on this page.'));
+    nc.forEach(function (c) {
+      var card = el('div', 'gc-use gc-cand gc-uncounted');
+      var head = el('div', 'gc-usehead');
+      var left = el('span');
+      left.appendChild(el('span', 'gc-tag gc-tag-uncounted', c.not_counted_kind === 'not-taught' ? 'Not taught yet' : 'Not a mistake'));
+      left.appendChild(el('span', 'gc-tag', c.not_counted_why || ''));
+      head.appendChild(left);
+      head.appendChild(el('span', null, pretty(c.date) + ' · ' + c.mmss));
+      card.appendChild(head);
+      card.appendChild(speech('gc-said', c.said_html, c.said));
+      var a = el('div', 'gc-recast');
+      a.appendChild(el('span', null, 'Amal: '));
+      a.appendChild(speech('gc-fix', c.recast_html, c.recast));
+      card.appendChild(a);
+      card.appendChild(speech('gc-pairline', null, c.pair_wrong + '  →  ' + c.pair_fixed));
+      if (c.clip) {
+        var au = document.createElement('audio');
+        au.controls = true;
+        au.preload = 'none';
+        au.src = 'lessons/' + c.clip; if (c.t != null) au.dataset.t = c.t; else if (c.mmss) au.dataset.mmss = c.mmss;
+        card.appendChild(au);
+      }
+      d.appendChild(card);
+    });
+  }
   return d;
 }
 
@@ -705,11 +748,12 @@ function row(r) {
   head.appendChild(c1);
 
   var used = el('div', 'gc-num', r.uses ? String(r.uses) : '—');
-  used.appendChild(el('small', null, r.uses ? 'times used' : 'never used'));
+  used.appendChild(el('small', null, r.not_taught ? 'not counted' : r.uses ? 'times used' : 'never used'));
   head.appendChild(used);
 
   var miss = el('div', 'gc-num', r.uses ? String(r.mistakes) : '—');
-  miss.appendChild(el('small', null, r.verified_slips
+  miss.appendChild(el('small', null, r.not_taught
+    ? (r.not_counted_count || 0) + ' not counted' : r.verified_slips
     ? r.verified_slips + ' confirmed' : 'corrections'));
   head.appendChild(miss);
 
@@ -725,7 +769,7 @@ function row(r) {
   head.appendChild(score);
 
   var st = el('div');
-  st.appendChild(el('div', 'gc-pill gc-pill-' + r.status, r.status));
+  st.appendChild(el('div', 'gc-pill gc-pill-' + r.status, statusLabel(r.status)));
   head.appendChild(st);
 
   var last = el('div', 'gc-last');
@@ -765,7 +809,7 @@ function buildStatusChips() {
   var counts = {};
   DATA.rules.forEach(function (r) { counts[r.status] = (counts[r.status] || 0) + 1; });
   STATUSES.forEach(function (s) {
-    var b = el('button', 'ab-chip', s + ' ' + (counts[s] || 0));
+    var b = el('button', 'ab-chip', statusLabel(s) + ' ' + (counts[s] || 0));
     b.type = 'button';
     b.setAttribute('aria-pressed', 'false');
     b.addEventListener('click', function () {

@@ -16,7 +16,7 @@ const dayDiff=(a,b)=>{const p=a.split('-').map(Number),q=b.split('-').map(Number
 const median=a=>{if(!a.length)return null;const s=a.slice().sort((x,y)=>x-y),m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2;};
 const quant=(a,q)=>{if(!a.length)return null;const s=a.slice().sort((x,y)=>x-y);return s[Math.min(s.length-1,Math.floor(q*(s.length-1)))];};
 const FAM={A:'Noun phrase',B:'Verb system',C:'Sentence glue',D:'Partner words',E:'Numbers, time'};
-const STATUS_COL={Mastered:'var(--ab-green)',Good:'var(--ab-blue)',Shaky:'var(--ab-orange)',Wrong:'var(--ab-red)',Unscored:'var(--ab-muted)',Untested:'var(--ab-line)'};
+const STATUS_COL={Mastered:'var(--ab-green)',Good:'var(--ab-blue)',Shaky:'var(--ab-orange)',Wrong:'var(--ab-red)',Unscored:'var(--ab-muted)',NotTaught:'var(--ab-raised)',Untested:'var(--ab-line)'};
 let D=null,loaded=false,loading=null;
 
 /* ---------- data ---------- */
@@ -193,13 +193,13 @@ function render(){
  const host=$('vp-tab-grammar');if(!host)return;
  if(!loaded){host.innerHTML='<div class="vp-notice">Loading the grammar evidence…</div>';return;}
  const d=D,c=d.coverage,sc=d.statusCounts,total=d.rules.length;
- const strip=['Mastered','Good','Shaky','Wrong'].map(k=>`<i style="width:${(sc[k]||0)/total*100}%;background:${STATUS_COL[k]}" title="${n(sc[k]||0)} ${k}"></i>`).join('')+`<i style="width:${((sc.Unscored||0)+(sc.Untested||0))/total*100}%;background:var(--ab-line)" title="${n((sc.Unscored||0)+(sc.Untested||0))} unscored or untested"></i>`;
+ const strip=['Mastered','Good','Shaky','Wrong'].map(k=>`<i style="width:${(sc[k]||0)/total*100}%;background:${STATUS_COL[k]}" title="${n(sc[k]||0)} ${k}"></i>`).join('')+`<i style="width:${((sc.Unscored||0)+(sc.Untested||0))/total*100}%;background:var(--ab-line)" title="${n((sc.Unscored||0)+(sc.Untested||0))} unscored or untested"></i>`+`<i style="width:${(sc.NotTaught||0)/total*100}%;background:var(--ab-raised)" title="${n(sc.NotTaught||0)} not taught yet (Amal)"></i>`;
  const sentences=d.lessons.reduce((s,l)=>s+(l.medi_sentences||0),0),slips=d.lessons.reduce((s,l)=>s+(l.slips_counted||0),0);
  const tail4=d.per10.filter(p=>p.rate!==null).slice(-4).length;
  const tod=d.tod,todNote=tod.length?(()=>{const hs=tod.map(t=>t.clock).sort();const spanH=(Math.max(...tod.map(t=>t.hour))-Math.min(...tod.map(t=>t.hour)));return spanH<2?`All ${n(tod.length)} lessons started between ${hs[0]} and ${hs[hs.length-1]}. That window is too narrow to test the "earlier is better" theory; book one morning lesson and this chart will answer it.`:d.todSplit?`Earliest third (up to ${d.todSplit.earlyTo}): ${d.todSplit.early.toFixed(3)} mistakes per sentence · latest third (from ${d.todSplit.lateFrom}): ${d.todSplit.late.toFixed(3)}.`:'';})():'';
  host.innerHTML=`
  <a class="gp-strip" href="grammar.html" title="Open the Grammar Console">
-  <div><div class="gp-sub">Grammar Console · one-line summary</div><div class="gp-kv"><span><b>${n(total)}</b>rules</span><span><b>${n(d.cands.length)}</b>corrections, hand-checked</span><span><b>${n(d.lessons.length)}</b>lessons</span><span><b>${sentences?'1 in '+Math.round(sentences/Math.max(1,slips)):'—'}</b>sentences corrected</span></div><div class="gp-statusbar" aria-label="Rule status mix">${strip}</div><small>${n(sc.Mastered||0)} mastered · ${n(sc.Good||0)} good · ${n(sc.Shaky||0)} shaky · ${n(sc.Wrong||0)} wrong · ${n((sc.Unscored||0)+(sc.Untested||0))} unscored or untested. Mistakes per sentence, self-correction, unique rules and the rule table live on the Grammar Console.</small></div>
+  <div><div class="gp-sub">Grammar Console · one-line summary</div><div class="gp-kv"><span><b>${n(total)}</b>rules</span><span><b>${n(d.cands.length)}</b>corrections, hand-checked</span><span><b>${n(d.lessons.length)}</b>lessons</span><span><b>${sentences?'1 in '+Math.round(sentences/Math.max(1,slips)):'—'}</b>sentences corrected</span></div><div class="gp-statusbar" aria-label="Rule status mix">${strip}</div><small>${n(sc.Mastered||0)} mastered · ${n(sc.Good||0)} good · ${n(sc.Shaky||0)} shaky · ${n(sc.Wrong||0)} wrong · ${n((sc.Unscored||0)+(sc.Untested||0))} unscored or untested${sc.NotTaught?` · ${n(sc.NotTaught)} not taught yet (${d.rules.filter(r=>r.status==='NotTaught').map(r=>r.id).join(', ')}, no score, out of every total)`:''}. Mistakes per sentence, self-correction, unique rules and the rule table live on the Grammar Console.</small></div>
   <span class="gp-open">Open →</span></a>
  <div class="vp-grid">
  ${panel('a','Corrections per 10 minutes','Same corrections, measured against the clock instead of sentence count. Band = your first two weeks. Dotted line = trailing four lessons.',perTen(d),{side:`<div class="vp-side"><b>${f1(d.tailRate)}</b>last ${n(tail4)} lessons · baseline ${f1(d.baseRate)}</div>`,foot:'Progress is called only when three weekly points sit under the band.'})}

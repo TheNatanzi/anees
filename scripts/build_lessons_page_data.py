@@ -35,6 +35,10 @@ DOCS = os.path.join(REPO, "docs")
 RAW = r"C:\dev\anees\data\lessons"
 NODE = r"C:\dev\tools\node-v24.18.0-win-x64\node.exe"
 TMP = os.path.join(__import__("tempfile").gettempdir(), "anees-lessons-page")
+sys.path.insert(0, HERE)
+import amal_grammar_notes as AMAL  # noqa: E402  Amal's notes 2026-09-27: which grammar corrections do not count
+
+
 def _confirmed_new():
     try:
         import db
@@ -570,7 +574,8 @@ def build():
         b = r.get("bucket") or ("B18" if r.get("new_bucket_group") == "NEW-B18" else None)
         if b not in buckets:
             continue
-        G.setdefault(r["date"], []).append({**r, "bucket": b})
+        # Amal's notes 2026-09-27 (scripts/amal_grammar_notes.py): not taught yet, or not a mistake -> shown, not counted
+        G.setdefault(r["date"], []).append({**r, "bucket": b, "_ruling": AMAL.ruling({**r, "bucket": b})})
 
     node = run_node([])
     scored = node["scored"]
@@ -661,7 +666,9 @@ def build():
         rt = lambda r: sec(r.get("t")) if r.get("t") else sec(r.get("t_amal"))
         rows = sorted(G.get(date, []), key=lambda r: rt(r) or 0)
         uses = (usage.get(date) or {}).get("uses")
-        mistakes = len(rows)
+        if uses is not None:   # rules Amal has not taught yet (B14, B15) are left out of every total
+            uses -= sum(v for k, v in ((usage.get(date) or {}).get("by_bucket") or {}).items() if AMAL.not_taught(k))
+        mistakes = sum(1 for r in rows if not r.get("_ruling"))
         gpct = None
         if uses is None:
             notes.append("grammar uses not yet in docs/data/grammar-usage.json for this lesson; grammar.pct null until the re-run.")
@@ -773,12 +780,18 @@ def build():
                          "fix": r.get("amal_said"), "fix_arabizi": r.get("amal_said_arabizi"),
                          "chat": r.get("chat"), "wrong": r.get("wrong"), "wrong_arabizi": r.get("wrong_arabizi"),
                          "right": r.get("right"), "right_arabizi": r.get("right_arabizi"),
-                         "confidence": r.get("confidence"), "signal": r.get("signal"), "id": r.get("id")})
+                         "confidence": r.get("confidence"), "signal": r.get("signal"), "id": r.get("id"),
+                         **({"counted": False, "not_counted_kind": r["_ruling"]["kind"],
+                             "not_counted_why": r["_ruling"]["why"]} if r.get("_ruling") else {})})
+        # Amal's notes 2026-09-27: rows her notes take out of the count get their own list (shown, never counted)
+        gnc = [g for g in gerr if g.get("counted") is False]
+        gerr = [g for g in gerr if g.get("counted") is not False]
         marks = sorted([{"t": v["t"], "kind": "vocab", "wrong": v["wrong"], "right": v["fix"] or v["arabic"]} for v in verr if v["kind"] == "wrong" and v.get("wrong")] +
                        [{"t": g["t"], "kind": "grammar", "wrong": g["wrong"], "right": g["right"]} for g in gerr if g["wrong"]],
                        key=lambda m: m["t"])
         per[date] = {"date": date, "clock": "seconds on the lesson page audio (docs/lessons/%s/audio/...)" % date,
-                     "turns": turns, "vocab_errors": verr, "vocab_correct": vok, "grammar_errors": gerr, "marks": marks}
+                     "turns": turns, "vocab_errors": verr, "vocab_correct": vok, "grammar_errors": gerr,
+                     "grammar_not_counted": gnc, "marks": marks}
 
         # how the speakers and word times were obtained (scripts/accuracy_gates.py: pitch-guessed or diarized speakers
         # and estimated timings keep a lesson out of the verified totals)
@@ -795,7 +808,8 @@ def build():
             "page": f"lessons/{date}.html", "detail": f"data/lessons/{date}.json",
             "counts": {"turns": sum(1 for p in P if not p["chat"]), "chat_lines": sum(1 for p in P if p["chat"]),
                        **({"gap_fill": sum(1 for p in P if p.get("gap_fill")), "from_meet": sum(1 for p in P if p.get("from_meet"))} if fills else {}),
-                       "vocab_errors": len(verr), "vocab_correct": len(vok), "grammar_errors": len(gerr)},
+                       "vocab_errors": len(verr), "vocab_correct": len(vok),
+                       "grammar_errors": len(gerr), "grammar_not_counted": len(gnc)},
         })
 
     # Amal's spelling for the new words and the said-sentences (display only, rule S1)

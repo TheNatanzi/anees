@@ -16,10 +16,10 @@ Ordering note: Amal front-loads the verb system and teaches the small grammar as
 
 | # | Bucket | The rule in one line | Amal | Medi | Order |
 |---|---|---|---|---|---|
-| A1 | Definite vs indefinite (el-) | `el-` marks a known thing, nothing marks an unknown one; it assimilates before sun letters (el-shams → esh-shams) | Doc | rank 3 | 4 |
-| A2 | Idafa (possession, no "of") | thing + owner; the **first** noun never takes `el-`; the **last** noun decides whether the whole phrase is definite | Doc | rank 3 | 4 |
+| A1 | Definite vs indefinite (el-) | `el-` marks a known thing, nothing marks an unknown one; "el" is also used for general nouns (*el-tuffaa7 zaaki* = apples are delicious, *el-shita baared* = winter is cold). **Amal 2026-09-27:** no need for sun and moon letters, not a priority — never marked as an error | Doc | rank 3 | 4 |
+| A2 | Idafa (possession, no "of") | thing + owner; the **first** noun never takes `el-`; the **last** noun decides whether the whole phrase is definite. **Amal:** a noun ending with a possessive pronoun is definite and doesn't take "el": *bait u5ti* = my sister's house, *bent u5t jaarti* = my neighbor's niece | Doc | rank 3 | 4 |
 | A3 | Feminine -t in idafa | a feminine first noun adds `-t/-et` before the owner (sayyaara → sayyaaret Medi) | Doc | untested | 4 |
-| A4 | Possessive suffixes | `-i / -ak / -ek / -o / -ha / -na / -kom / -hom` on the noun (bait-i, ism-ak) | Doc | untested | 4 |
+| A4 | Possessive suffixes | `-i / -ak / -ek / -o / -ha / -na / -kom / -hom` on the noun (bait-i, ism-ak). **Amal:** biddi / 3indi conjugate with them (*biddo* = he wants, *3indna* = we have); after a vowel -ak → -k, -ek → -ki, -o → long vowel + h (*kursik*, *awa3iki*, *abuh*); on verbs they are object pronouns except "me" = -ni (*a3tini*, *a3tih*); dual -ain words: *eedayy, eedaik…*, *ijrayy, ijraik…*, *dinayy, dinaik…*, *7awalayy, 7awalaik…* — not every dual (no *youmayy*) | Doc | untested | 4 |
 | A5 | Chain possession | three or more nouns stacked; only the last one can carry `el-` | Doc | untested | 4 |
 | A6 | Professions idafa | Doktoar snaan, M3allem el-3arabi, Ustaaz-o el-farsi — where `el-` lands in a job title | Doc | untested | 4 |
 | A7 | Noun + adjective, and where el- goes | adjective **after** the noun; `el-` on the noun only = a sentence ("the house is pretty"); `el-` on both = a phrase ("the pretty house") | Doc | rank 3 | 3 |
@@ -35,21 +35,23 @@ Ordering note: Amal front-loads the verb system and teaches the small grammar as
 | # | Bucket | The rule in one line | Amal | Medi | Order |
 |---|---|---|---|---|---|
 | B1 | Present with b- | the b- marks the **real** present: happening, habitual, true. *ba7ki, bitshoof, biroou7* | Doc (145 rows) | clean | 7 |
-| B2 | b-drop after modals | no `b-` after biddi, laazem, mumkin, ba7eb, ba2dar, baballesh, bajarreb | Doc | **rank 1** | 8 |
-| B3 | b-drop after time / purpose words | no `b-` after lamma, iza, abel-ma, ba3ed-ma, ra7, la-, 3ashaan — but **keep** it after enno | Doc | **rank 1** | 8 |
+| B2 | b-drop after modals | **Amal's real rule:** a verb followed by another verb — the second loses the b. Also after biddi, laazem, mumken, jaay 3abali, and after a statement like it's nice / it's important / most likely (*muhem te3raf*, *3ala el-a8lab niji*) | Doc | **rank 1** | 8 |
+| B3 | b-drop after time / purpose words | no `b-` after lamma, ra7, ba3ed/2abel ma, purpose la- and 3ashaan — but **iza keeps the b** (Amal 2026-09-27), and so does enno | Doc | **rank 1** | 8 |
 | B4 | b-drop through chains | after a gatekeeper (biddi, ba7eb, ra7, laazem) everything joined by `u / wala / aw` stays bare: *Ma ba3ref a7ki 3arabi wala aktubo*. Whether a **new subject** ends the chain is open — her own line *Beddak tiji 3alinna aw e7na niji 3alaik* keeps it bare across a subject change (needs Amal's ruling) | Doc | rank 1 | 8 |
 | B4b | **When the b- comes back** | the b- returns the moment you leave the gatekeeper's clause. Three signals: **enno** starts a new real sentence (*Ana bazonn enno ma **b**ey7ebna*), a **full stop / new sentence** restarts it, and any clause stating a **real fact** rather than a wanted or uncertain one (*3endo tilfizion ma **b**yista5demo*). Inside the gatekeeper's reach even a pointer verb stays bare (*Laazem tlaa2u eshi te3maluh*) | Doc | **rank 1** | 8 |
-| B5 | Past tense | the full 8-person past of each verb; her Doc has 825 rows | Doc | clean | 9 |
+| B5 | Past tense | the full 8-person past of each verb; her Doc has 825 rows. **Amal:** the "she" ending is -et or -at, we go with -at (*sherbat*); -et is not re-scored | Doc | clean | 9 |
 | B6 | kaan — was / were | `kaan` supplies the missing "was" in past states and before laazem | lesson | rank 2 | 9 |
-| B7 | kaan + b-verb = used to | habitual past ("I used to work") | lesson (was gap; 1 fixes in 09-24 sweep) | untested | 9 |
-| B8 | bakoon / ykoon for states | no "to be" in the plain present, but `akoon/ykoon` is required after lamma / iza, and for habit and future | Doc | **rank 2** | 13 |
+| B7 | kaan + verb = used to / was doing | habitual past ("I used to work") and, **Amal**, past continuous (*kunet aqra2* = I was reading, *kaanat tetbu5* = she was cooking). b- kept or dropped after kaan is **not** a rule and never marked wrong. kaan laazem sits here too (scored as B16) | lesson (was gap; 1 fixes in 09-24 sweep) | untested | 9 |
+| B8 | bakoon / ykoon for states | no "to be" in the plain present. **Amal:** bikoon for habits (*3aadatan bikoon mash8ool 3ala el-wa7de*); with biddi / 3indi in the past and future it is **required** (*kaan biddi*, *ra7 ykoon 3indi*); after lamma / iza it is **not strict** (never marked wrong); bikoon can mean "probably" (*bikoon m3asseb halla*, *bitkoon teshte8el*) | Doc | **rank 2** | 13 |
 | B9 | Person on ykoon | the ykoon form must match the subject (i7na → nkoon, not ykoonu) | lesson | rank 2 | 13 |
-| B10 | Commands | 107 Doc rows; the command form per person | Doc | clean | 11 |
-| B11 | Negative commands | `ma tsakker` / `la tsakker` — telling someone *not* to | lesson (was gap; 9 fixes in 09-24 sweep) | untested | 11 |
+| B10 | Commands | 107 Doc rows; the command form per person. **Amal:** see her explanation for the patterns — normal 3+ consonants, middle long vowel, doubled middle and short verbs, irregular *ta3aal / ta3aali / ta3aalu* | Doc | clean | 11 |
+| B11 | Negative commands | `ma tsakker` — telling someone *not* to. **Amal:** "la" is fus7a, spoken uses only "ma" | lesson (was gap; 9 fixes in 09-24 sweep) | untested | 11 |
 | B12 | Causative vs reflexive pairs | babse6 (I make happy) vs banbese6 (I become happy); 7 pairs in her Doc plus ba3asseb | Doc | rank 6 | — |
 | B13 | Future with ra7 | `ra7 + bare verb` | Doc | untested | 8 |
-| B14 | Progressive 3am | `3am + bare verb` = happening right now | gap | untested | 13 |
-| B15 | Active participles | raaye7, naasi, 3aaref — state-now forms that behave like adjectives | lesson (was gap; 9 fixes in 09-24 sweep) | untested | — |
+| B14 | Progressive 3am | `3am + bare verb` = happening right now | **not taught yet** (Amal 2026-09-27: part of the present-progressive lesson) | not scored | 13 |
+| B15 | Active participles | raaye7, naasi, 3aaref — state-now forms that behave like adjectives | **not taught yet** (Amal 2026-09-27: part of the present-progressive lesson; scored 09-25 to 09-29, now not) | not scored | — |
+| B16 | kaan laazem | had to / should have. **Amal:** kaan laazem + past = should have; + present = should have OR had to — she advises the present | lesson | rank 2 | 9 |
+| B17 | sarli | duration up to now: *sarli saa3a hon*, *2adaish sarlak?* = how long have you been… (the old second example was wrong). **Amal:** put the duration right after sarli | lesson | untested | — |
 | B18 | **Verb matches its subject** | the verb's person / gender / number matches who does it: *el-sharika illi betbi3o bet8asselo*, *shu bey7ammsek?* — present prefixes and noun subjects; past endings stay B5, adjectives A8. Added by Medi 2026-09-25 from the 09-24 sweep (26 fixes) | lesson | 26 fixes | 7 |
 
 ## Family C — Sentence glue
@@ -62,7 +64,7 @@ Ordering note: Amal front-loads the verb system and teaches the small grammar as
 | C4 | Negation system | `ma` before verbs, `mish` before nouns and adjectives, `abadan` for never; the Palestinian `-sh` ending needs Amal's ruling | lesson (was gap; 6 fixes in 09-24 sweep) | rank 10 | 7 |
 | C4b | **Words that drag a `ma` along** | `abadan` is not enough on its own — the verb still needs the negator: *Ana abadan **ma** baru7* = I never go. Compare the `-ma` glued onto a time word, which is **not** negation at all but part of the conjunction: *abel-**ma** yiju* (before they come), *ba3ed-**ma** teshra7i* (after you explain), *lamma*. The two pull opposite ways on the b-: `abadan ma **b**aru7` keeps it, `abel-ma yiju` drops it (B3) | Doc | untested | 7 |
 | C5 | u / wala / aw | `u` = and, `aw` = either-or, `wala` = options / nor | lesson | rank 10 | — |
-| C6 | Conditionals iza / lamma | when / if clauses — and what they do to the verb (B3) and to ykoon (B8) | Doc | rank 2 | 13 |
+| C6 | Conditionals iza / lamma | when / if clauses — lamma drops the b-, iza keeps it (B3); ykoon after them is optional (B8) | Doc | rank 2 | 13 |
 | C7 | Relative clauses with illi | `illi` never changes form; the clause after it often needs the pointer suffix (C2) | Doc (examples only) | untested | 13 |
 | C8 | Question words | shu, wein, keef, 2addesh, kam, lesh, meen, aymta | Doc | clean | 5 |
 | C9 | Word order | subject–verb–object is normal; fronting an object triggers C2 | lesson (was gap; 2 fixes in 09-24 sweep) | untested | — |
@@ -101,7 +103,7 @@ Kept here because these slips look like grammar in the transcript but are not. R
 
 ## Gap buckets — Amal has not taught these yet
 
-**Updated by Medi 2026-09-25:** the 09-24 sweep found Amal correcting 7 of the gap rules out loud in lessons (A9b 1, B7 1, B11 9, B15 9, C4 6, C9 2, E1 3). Per the rule below they are now taught and scored. Two gaps remain: B14 and D6.
+**Updated by Medi 2026-09-25:** the 09-24 sweep found Amal correcting 7 of the gap rules out loud in lessons (A9b 1, B7 1, B11 9, B15 9, C4 6, C9 2, E1 3). Per the rule below they are now taught and scored. Two gaps remain: B14 and D6. **2026-09-29, Amal's notes:** B14 and B15 are *not taught yet* (part of the present-progressive lesson), so neither is scored.
 
 **Scoring rule:** a gap bucket is never scored against Medi. He cannot be wrong about a rule his
 tutor has not given him. They sit in the list so the hole is visible, and so Anees knows what to put
@@ -115,6 +117,19 @@ on Amal's request list. A gap flips to a normal bucket the day she teaches it.
 | F2 | Long vs short vowels | not taught | Amal, or Anees drills |
 
 Both remaining gaps (B14, D6) need Amal.
+
+## Amal's notes (2026-09-27, applied 2026-09-29)
+
+Amal wrote notes on every rule in her Google Doc "Mahdi's Grammar Rules notes". Medi said "apply" on 2026-09-29. What changed in the scoring:
+
+- **A1** sun / moon letters are never an error (none of the A1 corrections on record were sun/moon slips).
+- **B7 / B2 / B3** b- kept or dropped right after kaan is never an error.
+- **B8** a missing bikoon after lamma / iza is not an error; missing it with biddi / 3indi in the past or future still is.
+- **B3** iza keeps the b-; keeping it is correct.
+- **B14, B15** are *Not taught yet*: never scored, left out of every grammar total; their corrections stay visible, uncounted.
+- **B5** -et vs -at for "she" is not re-scored (accent choice).
+
+Every correction taken out of the count is listed with its reason in `data/amal-grammar-notes-2026-09-29.json` (rulings in `scripts/amal_grammar_notes.py`).
 
 ## Counts
 
