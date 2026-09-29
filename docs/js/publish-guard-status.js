@@ -24,8 +24,9 @@ function guardLine(g) {
                     passed + ' of ' + req.length + ' checks passed).' };
   if (g.last_block) {
     var n = g.blocks_before_this_pass || 0;
-    out.details.push('Last block: ' + when(g.last_block.at) + ' (' + (g.last_block.source || 'hourly job') + ') - ' +
+    out.alert = ('Last block: ' + when(g.last_block.at) + ' (' + (g.last_block.source || 'hourly job') + ') - ' +
                      (g.last_block.reason || 'no reason recorded') + (n > 1 ? ' (' + n + ' blocked runs before this pass)' : ''));
+    out.details.push(out.alert);
   }
   (g.warnings || []).forEach(function (w) { out.details.push('Warning (does not block): ' + w); });
   out.details.push('If a check fails, nothing is published and this line keeps the last pass; the reason is in hourly.log on the PC.');
@@ -44,11 +45,14 @@ function render(g) {
   box.textContent = '';
   box.className = 'ab-sub st-guard st-guard-' + line.state;
   var p = document.createElement('span'); p.textContent = line.text; box.appendChild(p);
+  if (line.alert) {           // a block Medi could not see at the time is shown, not folded away
+    var al = document.createElement('div'); al.className = 'st-guard-alert'; al.textContent = line.alert; box.appendChild(al);
+  }
   if (line.details.length || (line.checks || []).length) {
     var det = document.createElement('details'), sum = document.createElement('summary');
     sum.textContent = 'What it checks'; det.appendChild(sum);
     var ul = document.createElement('ul');
-    line.details.concat(line.checks || []).forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+    line.details.filter(function (t) { return t !== line.alert; }).concat(line.checks || []).forEach(function (t) { var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
     det.appendChild(ul); box.appendChild(det);
   }
 }
