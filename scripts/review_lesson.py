@@ -5,7 +5,9 @@
     python scripts/review_lesson.py 2026-09-23 --dry-run    # reuse reader files that already exist, run no claude, no git
     python scripts/review_lesson.py 2026-09-23 --no-push    # everything but the push
 
-Steps (each idempotent - an existing output file is reused, so a crash resumes where it stopped):
+Steps (a reader file is reused only while its inputs are unchanged - transcript, brief, rules, vocabulary, names, prompt;
+hashes in <file>.inputs.json - so a crash resumes where it stopped, and a grown transcript is re-read. Fail closed: a
+builder that fails, a broken reader file or Arabizi gaps left = exit 1 and no push):
   1 prep      docs/data/lessons/<date>.json -> data/lesson-work/full-audit/<date>.txt (needs build_lessons_page_data first)
   2 readers   two independent `claude -p` runs (READER-BRIEF.md) -> <date>.r1.json / <date>.r2.json   (parallel)
   3 compare   scripts/full_audit_compare.py compare -> <date>.compare.json + <date>.disputes.md
@@ -17,7 +19,7 @@ Steps (each idempotent - an existing output file is reused, so a crash resumes w
               -> build_amal_review.py -> amal_review_link.py (refreshes her hub payload) -> prints the hub link
   7c tutor     build_tutor_data.py -> docs/data/tutor.json (the Tutor page = Medi's menu of everything open for Amal)
   7b after     after_from_audit.py -> 3-5 "was he right here?" questions with clips -> amal_links kind after (on her hub)
-  8 git       commit + push (unless --no-push / --dry-run)
+  8 git       commit; push through scripts/publish_guard.py (unless --no-push / --dry-run / a failure above)
 Never sends anything to Amal. Never re-transcribes. `claude` = the Claude Code CLI on PATH (2.1+).
 """
 import argparse, datetime, inspect, json, os, subprocess, sys, threading
@@ -146,6 +148,98 @@ def gaps_prompt(date=None):
             f"(بيت لحم is Bethlehem, not house + meat): give it the English name as its meaning." + names_note(date))
 
 
+# ---------------------------------------------------------------- reader-file cache (engineering audit 2026-09-29, area 4)
+# A reader file is reused only while everything it read is unchanged: the transcript (a Meet gap fill grew 09-23 by 266
+# lines and 09-26 by 149 lines AFTER their readers ran - reuse-by-existence kept the old reading), its brief, the rules
+# (RULES.md, buckets.md), the vocabulary (amal-sheet.txt), the names glossary and the prompt. Hashes sit next to the file
+# in <file>.inputs.json (scripts/accuracy_gates.py write_manifest / cache_state).
+
+def _sha_text(t):
+    import hashlib
+    return hashlib.sha256(t.encode("utf-8")).hexdigest()
+
+
+def transcript_text(date, repo=None):
+    """Exactly what full_audit_prep writes to <date>.txt for the readers (tested against it)."""
+    repo = repo or REPO
+    L = json.load(open(os.path.join(repo, "docs", "data", "lessons", date + ".json"), encoding="utf-8"))
+    sys.path.insert(0, HERE)
+    import full_audit_prep as P
+    lines = [f"# Lesson {date} - {len(L['turns'])} turns on the lesson clock (mm:ss = seconds on the page audio)", ""]
+    for t in L["turns"]:
+        who = t["who"]
+        tag = f"CHAT {t.get('typed_by','')}".strip() if who == "chat" else who
+        lines.append(f"[{P.mmss(t['t'])}] {tag}: {t['text']}")
+    return "\n".join(lines) + "\n"
+
+
+def readers_read_current(date, repo=None):
+    """None when the lesson's readers read the transcript the pages show now, else why not (for scripts/publish_guard.py
+    and the hourly re-review). Uses the r1 manifest when there is one, else the .txt the readers were given."""
+    repo = repo or REPO
+    work = os.path.join(repo, "data", "lesson-work", "full-audit")
+    fresh = transcript_text(date, repo)
+    man = os.path.join(work, f"{date}.r1.json.inputs.json")
+    if os.path.exists(man):
+        read = json.load(open(man, encoding="utf-8")).get("inputs", {}).get(f"data/lesson-work/full-audit/{date}.txt")
+        return None if read == _sha_text(fresh) else "transcript changed after the readers read it"
+    txt = os.path.join(work, date + ".txt")
+    if not os.path.exists(txt):
+        return "no record of what the readers read"
+    old = open(txt, encoding="utf-8").read()
+    return None if old == fresh else f"transcript changed after the readers read it ({len(old.splitlines())} -> {len(fresh.splitlines())} lines)"
+
+
+def _gates():
+    sys.path.insert(0, HERE)
+    import accuracy_gates as G
+    return G
+
+
+def _prompt_sha(prompt):
+    return _sha_text(prompt.replace(REPO, "<REPO>"))
+
+
+LEGACY = "stale: no input manifest (written before 2026-09-27 or by hand)"
+
+
+def cache_decision(out, inputs, prompt, legacy_ok):
+    """'fresh' | 'missing' | 'adopt' | 'stale: <why>'. 'adopt' = a file written before manifests existed whose transcript is
+    unchanged: kept, and pinned by a manifest from now on."""
+    G = _gates()
+    st = G.cache_state(out, inputs, repo=REPO)
+    if st == LEGACY and legacy_ok:
+        return "adopt"
+    if st == "fresh":
+        man = json.load(open(G.manifest_path(out), encoding="utf-8"))
+        if man.get("prompt_sha") not in (None, _prompt_sha(prompt)):
+            return "stale: the prompt changed"
+    return st
+
+
+def pin(out, inputs, prompt, adopted=False):
+    extra = {"prompt_sha": _prompt_sha(prompt)}
+    if adopted:
+        extra["adopted"] = "written before input manifests; its transcript was unchanged when pinned"
+    _gates().write_manifest(out, inputs, repo=REPO, extra=extra)
+
+
+def valid_reader_file(out, date):
+    """A reader file must be whole JSON for this lesson with a rows list; a cut-off or wrong file fails the run."""
+    try:
+        d = json.load(open(out, encoding="utf-8"))
+        return isinstance(d, dict) and isinstance(d.get("rows"), list) and d.get("date") in (None, date)
+    except Exception:
+        return False
+
+
+def drop(out, why):
+    log("stale, re-reading:", os.path.basename(out), "-", why)
+    for p in (out, out + ".inputs.json"):
+        if os.path.exists(p):
+            os.remove(p)                 # the old file stays in git history
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("date")
@@ -155,40 +249,72 @@ def main():
     d = a.date
     os.makedirs(WORK, exist_ok=True)
     f = lambda name: os.path.join(WORK, f"{d}{name}")
+    failures = []                        # fail closed: any entry = exit 1 and no push
     log("=== review_lesson", d, "dry-run" if a.dry_run else "")
-    # 1 prep (one lesson): reuse full_audit_prep's dump for this date only
-    if not os.path.exists(f(".txt")):
-        sys.path.insert(0, HERE)
-        import full_audit_prep as P
-        P.DATES = [d]
-        P.main()
+    # 1 prep (one lesson): ALWAYS rewrite the transcript dump, Amal's sheet and the buckets from today's data (it used to
+    # run only when <date>.txt was missing, so a grown transcript or a new rule never reached the readers)
+    old_txt = open(f(".txt"), encoding="utf-8").read() if os.path.exists(f(".txt")) else None
+    sys.path.insert(0, HERE)
+    import full_audit_prep as P
+    P.REPO, P.OUT, P.DATES = REPO, WORK, [d]
+    P.main()
+    same_txt = old_txt is not None and old_txt == open(f(".txt"), encoding="utf-8").read()
+    common = [os.path.join(WORK, "buckets.md"), os.path.join(REPO, "RULES.md"), os.path.join(REPO, "docs", "data", "names.json")]
+    reader_in = [f(".txt"), os.path.join(WORK, "READER-BRIEF.md"), os.path.join(WORK, "amal-sheet.txt")] + common
     # 2 readers
-    jobs = [(r, f(f".{r}.json")) for r in ("r1", "r2") if not os.path.exists(f(f".{r}.json"))]
+    jobs, rerun = [], set()
+    for r in ("r1", "r2"):
+        out, prompt = f(f".{r}.json"), reader_prompt(d, r)
+        st = cache_decision(out, reader_in, prompt, legacy_ok=same_txt)
+        if st == "adopt":
+            pin(out, reader_in, prompt, adopted=True); log("pinned", os.path.basename(out), "(transcript unchanged)")
+        elif st != "fresh":
+            if st.startswith("stale"):
+                if a.dry_run:
+                    log("dry-run:", os.path.basename(out), st, "- stopping"); return 2
+                drop(out, st)
+            jobs.append((r, out, prompt)); rerun.add(r)
     if jobs and a.dry_run:
         log("dry-run: reader files missing, stopping:", [j[1] for j in jobs]); return 2
-    ts = [threading.Thread(target=claude, args=(reader_prompt(d, r), f"{d} {r}"),
+    ts = [threading.Thread(target=claude, args=(prompt, f"{d} {r}"),
                            kwargs=dict(step="full_audit.reader", lesson_date=d, role=r, pass_=1,
                                        brief=os.path.join(WORK, "READER-BRIEF.md"), inputs=[f(".txt")], outputs=[out]))
-          for r, out in jobs]
+          for r, out, prompt in jobs]
     [t.start() for t in ts]; [t.join() for t in ts]
-    if not all(os.path.exists(f(f".{r}.json")) for r in ("r1", "r2")):
-        log("a reader wrote nothing; stopping"); return 1
+    for r, out, prompt in jobs:
+        if not os.path.exists(out):
+            log("a reader wrote nothing; stopping:", r); return 1
+        if not valid_reader_file(out, d):
+            os.replace(out, out[:-5] + ".invalid.json"); log("a reader wrote a broken file; stopping:", r); return 1
+        pin(out, reader_in, prompt)
     # 3 compare
     py(os.path.join(HERE, "full_audit_compare.py"), "compare", d)
     # 4 third reader + settle
-    if not os.path.exists(f(".r3.json")):
+    third_in = [f(".txt"), f(".disputes.md"), f(".r1.json"), f(".r2.json"), os.path.join(WORK, "THIRD-READER-BRIEF.md")] + common
+    out3, prompt3 = f(".r3.json"), third_prompt(d)
+    st = cache_decision(out3, third_in, prompt3, legacy_ok=same_txt and not rerun)
+    if st == "adopt":
+        pin(out3, third_in, prompt3, adopted=True)
+    elif st != "fresh":
         if a.dry_run:
-            log("dry-run: r3 missing, stopping"); return 2
-        claude(third_prompt(d), f"{d} r3", step="full_audit.third_reader", lesson_date=d, role="r3", pass_=2,
+            log("dry-run: r3", st, "- stopping"); return 2
+        if st.startswith("stale"):
+            drop(out3, st)
+        claude(prompt3, f"{d} r3", step="full_audit.third_reader", lesson_date=d, role="r3", pass_=2,
                brief=os.path.join(WORK, "THIRD-READER-BRIEF.md"), inputs=[f(".txt"), f(".disputes.md"), f(".r1.json"), f(".r2.json")],
-               outputs=[f(".r3.json")])
-    if not os.path.exists(f(".r3.json")):
-        log("third reader wrote nothing; stopping"); return 1
+               outputs=[out3])
+        if not os.path.exists(out3):
+            log("third reader wrote nothing; stopping"); return 1
+        if not valid_reader_file(out3, d):
+            os.replace(out3, out3[:-5] + ".invalid.json"); log("third reader wrote a broken file; stopping"); return 1
+        pin(out3, third_in, prompt3)
     py(os.path.join(HERE, "full_audit_compare.py"), "settle", d)
-    # 5 build the audit (all lessons) + 6 pages
+    # 5 build the audit (all lessons) + 6 pages. A builder that fails leaves its page stale: recorded, the run fails, no push.
     py(os.path.join(HERE, "full_audit_build.py"))
     for s in ("build_lessons_page_data.py", "build_grammar_console.py", "build_amal_grammar_rules.py", "arabizi_everywhere.py"):
-        py(os.path.join(HERE, s), check=False)
+        rc = py(os.path.join(HERE, s), check=False).returncode
+        if rc:
+            failures.append(f"{s} exit {rc}"); log("FAILED", s, "exit", rc)
     # 6b Arabizi guard (Medi 2026-09-26: "why no arabizi again. How do we stop you from doing this?"): every Arabic word on
     # the error cards must have Arabizi. Gaps -> one claude run fills docs/data/arabizi-extra.json (RULES.md S1), re-check.
     gap = lambda: subprocess.run([NODE, os.path.join(HERE, "arabizi_gaps.cjs"), "--json", os.path.join(REPO, "data", "lesson-work", "arabizi-gaps.json")],
@@ -200,10 +326,13 @@ def main():
                prompt_sha=_src_sha(gaps_prompt), inputs=[os.path.join(REPO, "data", "lesson-work", "arabizi-gaps.json"), extra],
                outputs=[extra]); g = gap(); log("after fill:", g.stdout.strip())
         if not g.returncode:
-            py(os.path.join(HERE, "build_lessons_page_data.py"), check=False)
+            rc = py(os.path.join(HERE, "build_lessons_page_data.py"), check=False).returncode
+            if rc:
+                failures.append(f"build_lessons_page_data.py (after the Arabizi fill) exit {rc}")
     if g.returncode:
+        failures.append("Arabizi gaps left on the error cards: " + g.stdout.strip()[:120])
         log("!! ARABIZI GAPS LEFT on the error cards - fill data/lesson-work/arabizi-gaps.json into arabizi-extra.json before telling Medi it is done")
-    # 7 Amal's items: patterns for this lesson's B rows -> review data -> hub link refreshed
+    # 7 Amal's items: patterns for this lesson's B rows -> review data
     A = json.load(open(os.path.join(REPO, "data", "full-audit-2026-09-26.json"), encoding="utf-8"))
     b_rows = [r["uid"] for r in A["rows"] if r["date"] == d and r.get("kind") in ("vocab-B", "grammar-B")]
     pats = json.load(open(os.path.join(WORK, "patterns.json"), encoding="utf-8")) if os.path.exists(os.path.join(WORK, "patterns.json")) else {"patterns": []}
@@ -216,29 +345,38 @@ def main():
                    brief=os.path.join(WORK, "PATTERN-BRIEF.md"),
                    inputs=[os.path.join(REPO, "data", "full-audit-2026-09-26.json"), os.path.join(WORK, "patterns.json")],
                    outputs=[os.path.join(WORK, "patterns.json")])
-    py(os.path.join(HERE, "build_amal_review.py"), check=False)
     # 7b Amal's after-lesson questions for THIS lesson (scripts/after_from_audit.py): 3-5 rows the readers were least
-    # sure of, one clip each; her taps come back through apply_amal_audit_rulings.py. Never sent - the hub shows it.
-    if a.dry_run:
-        py(os.path.join(HERE, "after_from_audit.py"), d, "--dry-run", check=False)
-    else:
-        py(os.path.join(HERE, "after_from_audit.py"), d, check=False)
+    # sure of, one clip each; her taps come back through apply_amal_audit_rulings.py. Never sent.
+    for s in (("build_amal_review.py",), ("after_from_audit.py", d, "--dry-run") if a.dry_run else ("after_from_audit.py", d)):
+        rc = py(os.path.join(HERE, s[0]), *s[1:], check=False).returncode
+        if rc:
+            failures.append(f"{s[0]} exit {rc}"); log("FAILED", s[0], "exit", rc)
     link = None
     if not a.dry_run:
         r = subprocess.run([sys.executable, os.path.join(HERE, "amal_review_link.py")], cwd=REPO, capture_output=True, text=True, encoding="utf-8")
-        link = next((l.split(None, 1)[1] for l in (r.stdout or "").splitlines() if l.startswith("HUB")), None)
-        log("hub link", link)
+        # it prints "REVIEW <url>" since the Tutor Hub page was removed (2026-09-28); the old "HUB" parse always gave None
+        link = next((l.split(None, 1)[1] for l in (r.stdout or "").splitlines() if l.startswith(("REVIEW", "HUB")) and len(l.split(None, 1)) > 1), None)
+        log("review link", link, "" if not r.returncode else f"(amal_review_link exit {r.returncode}: database only, pages unaffected)")
     # 7c the Tutor page (Medi's menu) lists every open link with its total - rebuilt so the new after link shows up
-    py(os.path.join(HERE, "build_tutor_data.py"), check=False)
-    # 8 git
+    rc = py(os.path.join(HERE, "build_tutor_data.py"), check=False).returncode
+    if rc:
+        failures.append(f"build_tutor_data.py exit {rc}"); log("FAILED build_tutor_data.py exit", rc)
+    # 8 git: the local commit is kept either way (nothing lost); the push goes through the publish guard, and only when
+    # nothing above failed (scripts/publish_guard.py; Medi decision 7, 2026-09-29)
     if not a.dry_run:
         subprocess.run(["git", "add", "-A", "data/full-audit-2026-09-26.json", "plan/FULL-AUDIT-2026-09-26.md", "docs", "data/lesson-work/full-audit"], cwd=REPO)
         subprocess.run(["git", "commit", "-q", "-m", f"Same-day review {d}: two readers + third reader, pages fed, Amal's items\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"], cwd=REPO)
-        if not a.no_push:
-            subprocess.run(["git", "push", "-q", "origin", "HEAD:master"], cwd=REPO)
+        if failures:
+            log("NOT PUSHED:", "; ".join(failures))
+        elif not a.no_push:
+            import publish_guard
+            res = publish_guard.guarded_push(REPO, source=f"review_lesson {d}", log=log)
+            if not res.get("pushed"):
+                failures.append("publish guard: " + str(res.get("reason"))[:300])
     S = json.load(open(f(".settled.json"), encoding="utf-8"))["counts"]
-    log("DONE", d, "rows", S.get("final"), "agreement", S.get("agreement_pct"), "B rows for Amal", len(b_rows), "hub", link or "(dry-run: not minted)")
-    return 0
+    log("DONE" if not failures else "FAILED", d, "rows", S.get("final"), "agreement", S.get("agreement_pct"), "B rows for Amal", len(b_rows),
+        "review link", link or ("(dry-run: not minted)" if a.dry_run else "none"), *(["|", "; ".join(failures)] if failures else []))
+    return 1 if failures else 0
 
 
 if __name__ == "__main__":
