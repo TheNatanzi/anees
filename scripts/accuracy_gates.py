@@ -275,6 +275,8 @@ def check_reasons(row, n_passes):
         out.append("decided by the third reader alone, in one pass only")
     if n_passes >= 2 and len(passes) == 1:
         out.append(f"found in pass {passes[0]} only (the other pass did not list it)")
+    if row.get("r3_challenge"):
+        out.append("both readers found it but the third reader challenged it")
     if row.get("source") == "sweep-2026-09-24":
         out.append("kept from the 09-24 sweep; neither reader pass listed it")
     if row.get("transcript_note") or "engine wrote" in (row.get("why") or ""):

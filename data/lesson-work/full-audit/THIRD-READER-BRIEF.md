@@ -1,8 +1,11 @@
 # Third reader brief - settle the disputes of one lesson
 
-Two independent readers read the lesson. Rows they both found (same moment, same wrong piece, same kind) are agreed
-and are NOT your job. Your job is `data/lesson-work/full-audit/<date>.disputes.md`: rows only one reader found, rows
+Two independent readers read the lesson. Rows they both found (same moment, same wrong piece, same kind) are agreed.
+Your main job is the D-rows in `data/lesson-work/full-audit/<date>.disputes.md`: rows only one reader found, rows
 they described differently, rows where they disagree on kind (vocab / grammar), A vs B, tier, bucket or mode.
+The same file also lists the agreed rows (A1..An) at the end: two readers of one transcript can share a mistake. Read
+them too; when the transcript does not support one, CHALLENGE it in `challenges` (it stays in and goes to an audio /
+human check - you never drop an agreed row).
 
 Read first: `data/lesson-work/full-audit/READER-BRIEF.md` (the definitions: vocab-A / vocab-B / grammar / grammar-B,
 tiers 0-3, what is NOT an error, S3/S4/S5). Then open the transcript `data/lesson-work/full-audit/<date>.txt` and,
@@ -22,7 +25,8 @@ Output: ONE valid JSON (UTF-8, ensure_ascii=False) at the path in your task:
 {"date": "...", "reader": "r3", "note": "anything about the lesson the merger should know",
  "rulings": [{"id": "D1", "verdict": "keep", "row": {<full row, same fields as READER-BRIEF>}, "why": "..."},
              {"id": "D2", "verdict": "drop", "why": "..."}],
- "added": [ <full rows for errors you noticed that NEITHER reader wrote - only if you are sure; usually empty> ]}
+ "added": [ <full rows for errors you noticed that NEITHER reader wrote - only if you are sure; usually empty> ],
+ "challenges": [{"id": "A3", "why": "..."}]}
 ```
 Every D-id in the disputes file must appear once in `rulings`. Reply with one line: kept n, dropped n, added n.
 

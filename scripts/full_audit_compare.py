@@ -176,6 +176,16 @@ def write_disputes_md(date, out, tag=""):
             L.append(f"  - wrong -> right: {r.get('wrong')} -> {r.get('right')}")
             L.append(f"  - why: {r.get('why')}")
         L.append("")
+    # the third reader also SEES the agreed rows (accuracy audit 2026-09-27 item 3): two readers of the same transcript can
+    # share a mistake. It may challenge any of them; a challenged row stays in, flagged for an audio or human check.
+    L += ["# Agreed rows (both readers found these) - check them too", "",
+          "They are kept unless you challenge one: add {\"id\": \"A3\", \"why\": \"...\"} to `challenges` when the transcript "
+          "does not support it (not an error, not Medi, pronunciation only, self-fix, wrong label). A challenge does not drop "
+          "the row; it sends it to an audio / human check.", ""]
+    for i, a in enumerate(out.get("agreed", []), 1):
+        a["id"] = f"A{i}"
+        L.append(f"- A{i} t={a.get('t')} t_amal={a.get('t_amal')} kind={a.get('kind')} tier={a.get('tier')} bucket={a.get('bucket')} "
+                 f"| Medi: {a.get('medi_said')} | Amal: {a.get('amal_said')} | {a.get('wrong')} -> {a.get('right')}")
     open(os.path.join(WORK, f"{date}{tag}.disputes.md"), "w", encoding="utf-8").write("\n".join(L) + "\n")
 
 
@@ -184,7 +194,13 @@ def settle(date, pas=1):
     C = json.load(open(os.path.join(WORK, f"{date}{tag}.compare.json"), encoding="utf-8"))
     R = json.load(open(os.path.join(WORK, f"{date}{tag}.r3.json"), encoding="utf-8"))
     rulings = {x["id"]: x for x in R.get("rulings", [])}
-    rows = list(C["agreed"])
+    challenges = {x.get("id"): x.get("why") for x in R.get("challenges", []) if str(x.get("id", "")).startswith("A")}
+    rows = []
+    for a in C["agreed"]:
+        a = dict(a)
+        if a.get("id") in challenges:
+            a["r3_challenge"] = challenges[a["id"]] or "challenged by the third reader"
+        rows.append(a)
     kept = dropped = missing = 0
     for d in C["disputes"]:
         v = rulings.get(d["id"])
@@ -217,7 +233,7 @@ def settle(date, pas=1):
         r["fid"] = f"{date[5:7]}{date[8:10]}-{i:03d}"
     out = {"date": date, "pass": pas,
            "counts": {**C["counts"], "r3_kept": kept, "r3_dropped": dropped, "r3_unruled": missing,
-                      "r3_added": len(R.get("added", [])), "final": len(rows)},
+                      "r3_added": len(R.get("added", [])), "r3_challenged": len(challenges), "final": len(rows)},
            "coverage": C["coverage"], "r3_note": R.get("note"), "rows": rows}
     json.dump(out, open(os.path.join(WORK, f"{date}{tag}.settled.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(date, "pass", pas, "settled", out["counts"])

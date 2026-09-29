@@ -259,3 +259,22 @@ def test_release_totals_carry_eligible_excluded_pending(tmp_path):
         assert k in rel["totals"]["words"] and k in rel["totals"]["grammar"]
     w = doc["lessons"][0]["words"]
     assert w["eligible"] + w["excluded"] == w["scored"]
+
+
+# ---------------------------------------------------------------- item 3: the third reader sees the agreed rows too
+def test_third_reader_sees_agreed_rows_and_can_challenge(tmp_path, monkeypatch):
+    import full_audit_compare as F
+    monkeypatch.setattr(F, "WORK", str(tmp_path))
+    agreed = [{"t": "05:00", "t_amal": "05:05", "kind": "grammar", "bucket": "A1", "medi_said": "أنا بروح", "amal_said": "بروح",
+               "wrong": "بروح", "right": "روح", "agreed_by": "r1+r2"}]
+    out = {"date": D, "pass": 1, "counts": {"r1": 1, "r2": 1, "agreed": 1, "disputed": 0, "agreement_pct": 100.0},
+           "coverage": {}, "agreed": agreed, "disputes": []}
+    F.write_disputes_md(D, out)
+    md = open(os.path.join(str(tmp_path), f"{D}.disputes.md"), encoding="utf-8").read()
+    assert "A1 t=05:00" in md and "challenges" in md                               # before: agreed rows were never shown
+    wj(os.path.join(str(tmp_path), f"{D}.compare.json"), out)
+    wj(os.path.join(str(tmp_path), f"{D}.r3.json"), {"rulings": [], "added": [], "challenges": [{"id": "A1", "why": "Amal was not correcting"}]})
+    st = F.settle(D)
+    assert st["rows"][0]["r3_challenge"] == "Amal was not correcting" and st["counts"]["r3_challenged"] == 1
+    row = dict(st["rows"][0], passes=[1, 2], confidence="high")
+    assert "both readers found it but the third reader challenged it" in G.check_reasons(row, 2)
