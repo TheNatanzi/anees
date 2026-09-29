@@ -199,3 +199,15 @@ def test_a_run_that_stops_early_keeps_the_evidence_that_the_readers_are_stale(re
     assert _run_main(monkeypatch, [D, '--dry-run']) == 2
     assert RL.readers_read_current(D) is not None
     assert _run_main(monkeypatch, [D, '--dry-run']) == 2          # still stale on the second try
+
+
+def test_source_audit_and_second_judge_run_for_every_new_lesson():
+    """Eng audit 2026-09-29 (decisions 3 + 5): the same-day review must run the raw-audio source audit and the Codex
+    re-judge for the new lesson, and rebuild Amal's check list, before the pages are committed."""
+    import re
+    src = (Path(__file__).resolve().parents[1] / "scripts" / "review_lesson.py").read_text(encoding="utf-8")
+    body = src[src.index("def main"):]
+    i_src, i_codex, i_list, i_git = (body.index('"source_audit.py"'), body.index('"codex_rejudge.py"), check'),
+                                     body.index('"--list"'), body.index("# 8 git"))
+    assert i_src < i_codex < i_list < i_git
+    assert re.search(r'failures\.append\(f"source_audit\.py', body)

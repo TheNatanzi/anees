@@ -14,6 +14,8 @@ builder that fails, a broken reader file or Arabizi gaps left = exit 1 and no pu
   4 third     one `claude -p` run (THIRD-READER-BRIEF.md) -> <date>.r3.json ; settle -> <date>.settled.json
   5 build     scripts/full_audit_build.py (all lessons) -> data/full-audit-2026-09-26.json + plan/FULL-AUDIT-2026-09-26.md
   6 pages     build_lessons_page_data.py, build_grammar_console.py, build_amal_grammar_rules.py, arabizi_everywhere.py
+  6c source   source_audit.py <date> (raw audio: holes, labels) -> annotate -> codex_rejudge.py (Codex judges
+              uncertain rows vs the audio; failure = rows stay pending) -> Amal's check list on the Tutor page
   6b arabizi   arabizi_gaps.cjs: any Arabic word on the error cards without Arabizi -> `claude -p` fills arabizi-extra.json
   7 Amal      `claude -p` pattern reader for this lesson's B rows (PATTERN-BRIEF.md, appends to patterns.json)
               -> build_amal_review.py -> amal_review_link.py (refreshes her hub payload) -> prints the hub link
@@ -324,6 +326,22 @@ def main():
         rc = py(os.path.join(HERE, s), check=False).returncode
         if rc:
             failures.append(f"{s} exit {rc}"); log("FAILED", s, "exit", rc)
+    # 6c source audit + second judge (eng audit 2026-09-29, decisions 3 and 5): the raw audio decides which stretches are
+    # transcribed (holes -> unscoreable rows, release reasons); then Codex (never Claude) re-judges every uncertain row
+    # against the audio. The source audit is offline and must work (a failure blocks). A Codex failure does NOT block:
+    # its rows simply stay "pending" (not verified, on nobody's list as settled), and the next run resumes them.
+    rc = py(os.path.join(HERE, "source_audit.py"), d, check=False).returncode
+    if rc:
+        failures.append(f"source_audit.py {d} exit {rc}"); log("FAILED source_audit.py exit", rc)
+    rc = py(os.path.join(HERE, "accuracy_gates.py"), "annotate", check=False).returncode
+    if rc:
+        failures.append(f"accuracy_gates.py annotate exit {rc}"); log("FAILED accuracy_gates annotate exit", rc)
+    if not a.dry_run:
+        rc = py(os.path.join(HERE, "codex_rejudge.py"), check=False).returncode
+        log("codex_rejudge.py", "ok" if not rc else f"exit {rc}: unjudged rows stay pending (not verified); the next run resumes")
+    rc = py(os.path.join(HERE, "codex_rejudge.py"), "--list", check=False).returncode or         py(os.path.join(HERE, "accuracy_gates.py"), "annotate", check=False).returncode
+    if rc:
+        failures.append(f"Amal's check list / release layer rebuild exit {rc}"); log("FAILED amal-verify / annotate exit", rc)
     # 6b Arabizi guard (Medi 2026-09-26: "why no arabizi again. How do we stop you from doing this?"): every Arabic word on
     # the error cards must have Arabizi. Gaps -> one claude run fills docs/data/arabizi-extra.json (RULES.md S1), re-check.
     gap = lambda: subprocess.run([NODE, os.path.join(HERE, "arabizi_gaps.cjs"), "--json", os.path.join(REPO, "data", "lesson-work", "arabizi-gaps.json")],
