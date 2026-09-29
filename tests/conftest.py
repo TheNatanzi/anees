@@ -35,3 +35,16 @@ def pytest_collection_modifyitems(config, items):
         fn = getattr(it, "function", None)
         if fn is not None and live_writer(fn):
             it.add_marker(skip)
+
+
+@_pytest.fixture(autouse=True)
+def _no_env_leak():
+    """hourly_lessons.main() sets ANEES_STRICT / ANEES_TRIGGER with os.environ.setdefault in-process; restore them after
+    every test so one test's hourly run cannot switch a later test into strict mode (eng audit 2026-09-29)."""
+    keep = {k: os.environ.get(k) for k in ("ANEES_STRICT", "ANEES_TRIGGER")}
+    yield
+    for k, v in keep.items():
+        if v is None:
+            os.environ.pop(k, None)
+        else:
+            os.environ[k] = v

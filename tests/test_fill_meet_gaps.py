@@ -366,6 +366,7 @@ def test_own_track_is_never_paid_twice(world23):
 
 @pytest.fixture
 def page_builder(monkeypatch):
+    monkeypatch.delenv('ANEES_STRICT', raising=False)   # an in-process hourly main() test may have set it (strict = no offline fallback)
     fake_db = types.ModuleType('db')
     fake_db.select = lambda *a, **k: (_ for _ in ()).throw(RuntimeError('offline test'))
     monkeypatch.setitem(sys.modules, 'db', fake_db)
