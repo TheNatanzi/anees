@@ -68,7 +68,9 @@ def test_her_tap_beats_the_machine_label(env):
 def test_applied_rulings_are_not_reapplied(env):
     audit, _, patched = env
     aar.apply()
-    assert {p["id"] for p in patched} == {"eq.1", "eq.2", "eq.3", "eq.4"}   # #5 already carried payload.applied
+    # 2026-09-29 (AI review 09-27): no write-back to Supabase any more; idempotency lives in the audit JSON
+    assert patched == []
+    assert json.loads(audit.read_text(encoding="utf-8"))["rulings_applied"][-1]["rules"] == [1, 2, 3, 4]
     assert rows(audit)["FA-a1"].get("amal_ruling", {}).get("pattern") != "P-old"
 
 
