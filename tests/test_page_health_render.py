@@ -80,3 +80,24 @@ def test_page_readable_at_phone_width(site, page, mode):
     ctx.close()
     assert r['sw'] <= 375, f'{page} [{mode}] scrolls sideways at 375 px (content is {r["sw"]} px wide)'
     assert not r['bad'], f'{page} [{mode}] {len(r["bad"])} hard-to-read text: ' + ' | '.join(r['bad'][:4])
+
+
+@pytest.mark.parametrize('date', ['2026-09-10', '2026-09-26'])
+def test_missing_clip_really_plays_from_a_recording_in_the_browser(site, date):
+    """Real Chromium: an <audio> whose short clip is not published must end up with a loadable recording
+    (2026-09-10 = two-channel lesson, only Medi.mp3/Amal.mp3; 2026-09-26 = lesson.mp3)."""
+    port, b = site
+    pg = b.new_page()
+    pg.goto(f'http://127.0.0.1:{port}/grammar.html', wait_until='load')
+    r = pg.evaluate("""async (date) => {
+      const a = document.createElement('audio'); a.preload = 'metadata'; a.dataset.t = '120';
+      document.body.appendChild(a); a.src = 'lessons/' + date + '/clips/gc-0000000000000000.mp3';
+      const t0 = Date.now();
+      while (Date.now() - t0 < 8000 && a.readyState < 1) await new Promise(r => setTimeout(r, 100));
+      const note = a.nextElementSibling && a.nextElementSibling.textContent;
+      return {src: a.getAttribute('src'), ready: a.readyState, note};
+    }""", date)
+    pg.close()
+    assert r['ready'] >= 1, r
+    assert '/audio/' in r['src'] and '#t=117,132' in r['src'], r
+    assert 'short clip is missing' in (r['note'] or ''), r
