@@ -54,3 +54,12 @@ If a worker dies: its branch eng-audit-<x> has whatever it committed.
 - Worker G (C:/dev/anees-eng-g) launched 03:37 for the 09-28 hand reads: 121 open vocab events + 0 sheet verdicts.
 - B (gates + Codex) still running; did accuracy_gates pooled averages + duplicate/Amal-ruling filter (44e0e56).
 - Known guard blocker after merge: tests/test_verb_addons.cjs golden (Amal's check-list form vs her Quizlet card).
+
+## Final state (04:20)
+- B + G merged; source audit + Codex re-judge wired into review_lesson; 6 Arabizi gaps filled; final rebuild committed.
+- Checks: check_numbers OK 555 · accuracy_gates OK · check_rules OK (15 pass, 5 open report-only) · check_pages OK (57 pages) · arabizi 0.
+- Tests: pytest 506 passed, 12 skipped (live-DB gated), 0 failed · node 23/24 (test_verb_addons golden red on purpose: Amal's two spellings).
+- Publish guard: BLOCKED only by that golden (decision M1 / Amal A2). Advisory: 09-23 + 09-26 transcripts grew after reading; 09-28 type unread.
+- Hand check of 20 random findings: 18 held fully, 2 held in part (duplicates are merged away, not marked rejected; fake flashcard rows are 108, not 90/81).
+- Report #8: plan/ENG-AUDIT-CURRICULUM-2026-09-29.md -> docs/reports/eng-audit-2026-09-29.html; copy in C:/Claude/reports.
+- Amal notes branch: merged at 79fde02 at the start; re-checked before the final rebuild: no newer commit.
