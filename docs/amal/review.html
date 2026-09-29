@@ -64,7 +64,7 @@ function playBtn(clip,label,mmss){ return clip?`<button class="play" data-clip="
 document.addEventListener('click',e=>{ const b=e.target.closest('button.play'); if(!b) return;
   const src='../lessons/'+b.dataset.clip; document.querySelectorAll('button.play.on').forEach(x=>{x.classList.remove('on');});
   // the short clip is often missing on the site (Medi 2026-09-28): fall back to the moment in the full lesson recording
-  player.onerror=()=>{ const f=window.AneesClipFallback&&AneesClipFallback.url(src,AneesClipFallback.secs(b)); if(f&&player.dataset.fb!==f){ player.dataset.fb=f; player.src=f; player.play().catch(()=>{}); b.title='Playing from the full lesson recording'; } else { b.classList.remove('on'); b.textContent='✕ No recording for this moment'; } };
+  player.onerror=()=>{ const f=window.AneesClipFallback&&AneesClipFallback.url(src,AneesClipFallback.secs(b),player.dataset.fb||null); if(f&&player.dataset.fb!==f){ player.dataset.fb=f; player.src=f; player.play().catch(()=>{}); b.title='Playing from the full lesson recording'; } else { b.classList.remove('on'); b.textContent='✕ No recording for this moment'; } };
   if(!player.src.endsWith(b.dataset.clip)){ player.dataset.fb=''; player.src=src; player.currentTime=0; } player.play().catch(()=>{}); b.classList.add('on');
   player.onended=()=>b.classList.remove('on'); });
 function pair(p){ return `<div class="pair"><div class="wrong"><span class="ar" lang="ar">${esc(p.wrong_arabic||p.wrong)}</span>${p.wrong_arabizi?`<span class="az">${esc(p.wrong_arabizi)}</span>`:''}</div><div class="arrow">→</div><div class="right"><span class="ar" lang="ar">${esc(p.right_arabic||p.right)}</span>${p.right_arabizi?`<span class="az">${esc(p.right_arabizi)}</span>`:''}</div></div>`; }
