@@ -2,7 +2,7 @@
 const assert = require('node:assert/strict');
 const {webcrypto} = require('node:crypto');
 const path = require('node:path');
-const {createPlayer, verifyFile, mount} = require(path.resolve(process.argv[2] || './transcript-player.js'));
+const {createPlayer, verifyFile, mount} = require(process.argv[2] ? path.resolve(process.argv[2]) : path.join(__dirname, '..', 'docs', 'js', 'transcript-player.js'));
 class Element {
   constructor() { this.events = {}; this.attrs = {}; this.dataset = {}; this.textContent = ''; this.classList = {toggle() {}}; }
   addEventListener(name, fn) { (this.events[name] ||= new Set()).add(fn); }
