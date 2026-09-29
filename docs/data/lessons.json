@@ -48,13 +48,40 @@
     "scored": 96,
     "audit_wrong": 14,
     "audit_partial": 6,
-    "not_on_sheet": 5
+    "not_on_sheet": 5,
+    "eligible": 96,
+    "excluded": 0,
+    "pending": 4,
+    "eligible_pct": 76.6,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 219,
     "mistakes": 29,
     "pct": 86.8,
-    "estimate": false
+    "estimate": false,
+    "eligible": 29,
+    "excluded": 0,
+    "pending": 4,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "7 of 29 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
+      "5 slips are in rules the counter found 0 uses of in this lesson",
+      "3 rules have more slips than counted uses (A4, B18, D2)"
+     ],
+     "uses": 219,
+     "slips": 29,
+     "slips_latin": 7,
+     "slips_in_zero_use_rules": 5,
+     "rules_slips_over_uses": [
+      "A4",
+      "B18",
+      "D2"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1054.9,
@@ -120,6 +147,79 @@
     "vocab_errors": 30,
     "vocab_correct": 71,
     "grammar_errors": 29
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 readers agree on 61.8 % of rows (>= 95 % needed)",
+     "reader agreement: pass 2 readers agree on 80.9 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 78.9 % (>= 95 % needed)",
+     "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model",
+     "checks: 8 scored rows need an audio or human check (4 words, 4 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 62,
+       "r2": 56,
+       "agreed": 42,
+       "disputed": 26,
+       "agreement_pct": 61.8
+      },
+      {
+       "pass": 2,
+       "r1": 60,
+       "r2": 64,
+       "agreed": 55,
+       "disputed": 13,
+       "agreement_pct": 80.9
+      }
+     ],
+     "between": [
+      {
+       "passes": [
+        1,
+        2
+       ],
+       "agreement_pct": 78.9
+      }
+     ],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3756.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "first_t": 174.0,
+     "last_t": 3594.0,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "first_t": 174.0,
+     "last_t": 3595.0,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   },
+   "source": {
+    "attribution": "diarized-mixed",
+    "timing": "engine"
    }
   },
   {
@@ -140,13 +240,45 @@
     "scored": 23,
     "audit_wrong": 4,
     "audit_partial": 6,
-    "not_on_sheet": 3
+    "not_on_sheet": 3,
+    "eligible": 23,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 69.6,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 70,
     "mistakes": 47,
     "pct": 32.9,
-    "estimate": false
+    "estimate": false,
+    "eligible": 47,
+    "excluded": 0,
+    "pending": 18,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "27 of 47 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
+      "19 slips are in rules the counter found 0 uses of in this lesson",
+      "8 rules have more slips than counted uses (A10, A2, A3, B14, B15, B18, B5, D2)"
+     ],
+     "uses": 70,
+     "slips": 47,
+     "slips_latin": 27,
+     "slips_in_zero_use_rules": 19,
+     "rules_slips_over_uses": [
+      "A10",
+      "A2",
+      "A3",
+      "B14",
+      "B15",
+      "B18",
+      "B5",
+      "D2"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1080.8,
@@ -234,6 +366,79 @@
     "vocab_errors": 13,
     "vocab_correct": 13,
     "grammar_errors": 47
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 readers agree on 63.2 % of rows (>= 95 % needed)",
+     "reader agreement: pass 2 readers agree on 48.5 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 74.6 % (>= 95 % needed)",
+     "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model",
+     "checks: 18 scored rows need an audio or human check (0 words, 18 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 48,
+       "r2": 52,
+       "agreed": 36,
+       "disputed": 21,
+       "agreement_pct": 63.2
+      },
+      {
+       "pass": 2,
+       "r1": 50,
+       "r2": 63,
+       "agreed": 33,
+       "disputed": 35,
+       "agreement_pct": 48.5
+      }
+     ],
+     "between": [
+      {
+       "passes": [
+        1,
+        2
+       ],
+       "agreement_pct": 74.6
+      }
+     ],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3876.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "first_t": 8.0,
+     "last_t": 3789.0,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "first_t": 4.0,
+     "last_t": 3791.0,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   },
+   "source": {
+    "attribution": "diarized-mixed",
+    "timing": "engine"
    }
   },
   {
@@ -253,13 +458,45 @@
     "pct": 80.0,
     "scored": 45,
     "audit_wrong": 4,
-    "audit_partial": 2
+    "audit_partial": 2,
+    "eligible": 45,
+    "excluded": 0,
+    "pending": 3,
+    "eligible_pct": 80.0,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 79,
     "mistakes": 37,
     "pct": 53.2,
-    "estimate": false
+    "estimate": false,
+    "eligible": 37,
+    "excluded": 0,
+    "pending": 10,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "25 of 37 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
+      "15 slips are in rules the counter found 0 uses of in this lesson",
+      "8 rules have more slips than counted uses (A2, A9, B18, B5, B6, C1, C4, D2)"
+     ],
+     "uses": 79,
+     "slips": 37,
+     "slips_latin": 25,
+     "slips_in_zero_use_rules": 15,
+     "rules_slips_over_uses": [
+      "A2",
+      "A9",
+      "B18",
+      "B5",
+      "B6",
+      "C1",
+      "C4",
+      "D2"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1381.9,
@@ -336,6 +573,79 @@
     "vocab_errors": 9,
     "vocab_correct": 36,
     "grammar_errors": 37
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 readers agree on 64.6 % of rows (>= 95 % needed)",
+     "reader agreement: pass 2 readers agree on 61.5 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 80.0 % (>= 95 % needed)",
+     "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
+     "speech recognition not reviewed: nobody listened; 9 excerpts (241 s of 3762 s) compared with a second model",
+     "checks: 13 scored rows need an audio or human check (3 words, 10 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 38,
+       "r2": 44,
+       "agreed": 31,
+       "disputed": 17,
+       "agreement_pct": 64.6
+      },
+      {
+       "pass": 2,
+       "r1": 43,
+       "r2": 47,
+       "agreed": 32,
+       "disputed": 20,
+       "agreement_pct": 61.5
+      }
+     ],
+     "between": [
+      {
+       "passes": [
+        1,
+        2
+       ],
+       "agreement_pct": 80.0
+      }
+     ],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 9,
+     "model_compared_s": 240.8,
+     "lesson_s": 3762.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "first_t": 29.93,
+     "last_t": 3733.58,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "first_t": 26.01,
+     "last_t": 3734.5,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   },
+   "source": {
+    "attribution": "diarized-mixed",
+    "timing": "engine"
    }
   },
   {
@@ -356,13 +666,44 @@
     "scored": 118,
     "audit_wrong": 10,
     "audit_partial": 2,
-    "not_on_sheet": 5
+    "not_on_sheet": 5,
+    "eligible": 118,
+    "excluded": 0,
+    "pending": 1,
+    "eligible_pct": 88.6,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 232,
     "mistakes": 36,
     "pct": 84.5,
-    "estimate": false
+    "estimate": false,
+    "eligible": 36,
+    "excluded": 0,
+    "pending": 13,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "3 of 36 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
+      "14 slips are in rules the counter found 0 uses of in this lesson",
+      "7 rules have more slips than counted uses (A7, B18, B2, C7, D2, E1, E2)"
+     ],
+     "uses": 232,
+     "slips": 36,
+     "slips_latin": 3,
+     "slips_in_zero_use_rules": 14,
+     "rules_slips_over_uses": [
+      "A7",
+      "B18",
+      "B2",
+      "C7",
+      "D2",
+      "E1",
+      "E2"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 873.2,
@@ -440,6 +781,78 @@
     "vocab_errors": 19,
     "vocab_correct": 104,
     "grammar_errors": 36
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 readers agree on 61.8 % of rows (>= 95 % needed)",
+     "reader agreement: pass 2 readers agree on 66.2 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 77.9 % (>= 95 % needed)",
+     "speech recognition not reviewed: nobody listened; 21 excerpts (519 s of 3762 s) compared with a second model",
+     "checks: 14 scored rows need an audio or human check (1 words, 13 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 62,
+       "r2": 55,
+       "agreed": 42,
+       "disputed": 26,
+       "agreement_pct": 61.8
+      },
+      {
+       "pass": 2,
+       "r1": 63,
+       "r2": 61,
+       "agreed": 47,
+       "disputed": 24,
+       "agreement_pct": 66.2
+      }
+     ],
+     "between": [
+      {
+       "passes": [
+        1,
+        2
+       ],
+       "agreement_pct": 77.9
+      }
+     ],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 21,
+     "model_compared_s": 518.8,
+     "lesson_s": 3762.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "first_t": 11.92,
+     "last_t": 3758.14,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "first_t": 3.94,
+     "last_t": 3760.18,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   },
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "estimated"
    }
   },
   {
@@ -460,13 +873,48 @@
     "scored": 71,
     "audit_wrong": 7,
     "audit_partial": 3,
-    "not_on_sheet": 1
+    "not_on_sheet": 1,
+    "eligible": 71,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 84.5,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 98,
     "mistakes": 34,
     "pct": 65.3,
-    "estimate": false
+    "estimate": false,
+    "eligible": 27,
+    "excluded": 7,
+    "pending": 8,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "20 of 34 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
+      "14 slips are in rules the counter found 0 uses of in this lesson",
+      "11 rules have more slips than counted uses (A11, A2, A3, A7, A9, B10, B12, B18)"
+     ],
+     "uses": 98,
+     "slips": 34,
+     "slips_latin": 20,
+     "slips_in_zero_use_rules": 14,
+     "rules_slips_over_uses": [
+      "A11",
+      "A2",
+      "A3",
+      "A7",
+      "A9",
+      "B10",
+      "B12",
+      "B18",
+      "B5",
+      "C2",
+      "D4"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1366.5,
@@ -538,6 +986,282 @@
     "vocab_errors": 13,
     "vocab_correct": 59,
     "grammar_errors": 34
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 readers agree on 58.5 % of rows (>= 95 % needed)",
+     "reader agreement: pass 2 readers agree on 55.0 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 67.8 % (>= 95 % needed)",
+     "coverage: 30 stretches of Medi's speech written as '[speaking ...]' markers (04:16 in all)",
+     "coverage: 10 stretches of Amal's speech written as '[speaking ...]' markers (00:58 in all)",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model",
+     "checks: 8 scored rows need an audio or human check (0 words, 8 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 44,
+       "r2": 44,
+       "agreed": 31,
+       "disputed": 22,
+       "agreement_pct": 58.5
+      },
+      {
+       "pass": 2,
+       "r1": 51,
+       "r2": 47,
+       "agreed": 33,
+       "disputed": 27,
+       "agreement_pct": 55.0
+      }
+     ],
+     "between": [
+      {
+       "passes": [
+        1,
+        2
+       ],
+       "agreement_pct": 67.8
+      }
+     ],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3756.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "first_t": 55.03,
+     "last_t": 3746.64,
+     "missing": [],
+     "holes": [
+      [
+       1093.56,
+       1102.56,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1104.6,
+       1115.41,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1131.64,
+       1135.92,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1137.72,
+       1148.92,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1248.56,
+       1258.07,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1267.72,
+       1273.2,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1279.1,
+       1290.92,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1299.78,
+       1302.12,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1303.48,
+       1311.16,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1336.96,
+       1343.68,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1362.1,
+       1375.92,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1830.31,
+       1831.58,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1833.33,
+       1838.2,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1838.21,
+       1915.0,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1929.87,
+       1936.67,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1966.55,
+       1970.47,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1994.19,
+       2000.91,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2023.17,
+       2034.77,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2041.33,
+       2044.75,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2047.91,
+       2058.63,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2095.95,
+       2099.97,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2111.43,
+       2115.33,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2136.06,
+       2137.44,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2146.87,
+       2150.76,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2156.21,
+       2157.3,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2159.53,
+       2169.03,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2172.37,
+       2176.5,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2178.61,
+       2179.94,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2181.29,
+       2185.91,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2188.93,
+       2192.52,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 256.2,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "first_t": 41.13,
+     "last_t": 3746.37,
+     "missing": [],
+     "holes": [
+      [
+       2984.65,
+       2990.09,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2992.35,
+       2993.35,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3003.93,
+       3014.46,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3043.33,
+       3049.45,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3191.12,
+       3194.67,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3230.09,
+       3239.57,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3243.15,
+       3247.19,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3271.01,
+       3279.35,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3282.83,
+       3290.83,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3306.15,
+       3307.15,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 57.5,
+     "covered_pct": 100.0
+    }
+   },
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
    }
   },
   {
@@ -558,13 +1282,46 @@
     "scored": 75,
     "audit_wrong": 10,
     "audit_partial": 1,
-    "not_on_sheet": 5
+    "not_on_sheet": 5,
+    "eligible": 75,
+    "excluded": 0,
+    "pending": 2,
+    "eligible_pct": 83.3,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 106,
     "mistakes": 47,
     "pct": 55.7,
-    "estimate": false
+    "estimate": false,
+    "eligible": 47,
+    "excluded": 0,
+    "pending": 12,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "21 of 47 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
+      "12 slips are in rules the counter found 0 uses of in this lesson",
+      "9 rules have more slips than counted uses (A2, A9, B12, B18, B2, B5, B7, C7)"
+     ],
+     "uses": 106,
+     "slips": 47,
+     "slips_latin": 21,
+     "slips_in_zero_use_rules": 12,
+     "rules_slips_over_uses": [
+      "A2",
+      "A9",
+      "B12",
+      "B18",
+      "B2",
+      "B5",
+      "B7",
+      "C7",
+      "E2"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1070.8,
@@ -644,6 +1401,78 @@
     "vocab_errors": 18,
     "vocab_correct": 62,
     "grammar_errors": 47
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 readers agree on 69.7 % of rows (>= 95 % needed)",
+     "reader agreement: pass 2 readers agree on 61.9 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 77.3 % (>= 95 % needed)",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3768 s) compared with a second model",
+     "checks: 14 scored rows need an audio or human check (2 words, 12 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 55,
+       "r2": 62,
+       "agreed": 46,
+       "disputed": 20,
+       "agreement_pct": 69.7
+      },
+      {
+       "pass": 2,
+       "r1": 51,
+       "r2": 58,
+       "agreed": 39,
+       "disputed": 24,
+       "agreement_pct": 61.9
+      }
+     ],
+     "between": [
+      {
+       "passes": [
+        1,
+        2
+       ],
+       "agreement_pct": 77.3
+      }
+     ],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3768.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "first_t": 2.01,
+     "last_t": 3757.72,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "first_t": 7.45,
+     "last_t": 3760.16,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   },
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
    }
   },
   {
@@ -664,13 +1493,48 @@
     "scored": 41,
     "audit_wrong": 8,
     "audit_partial": 3,
-    "not_an_error": 1
+    "not_an_error": 1,
+    "eligible": 41,
+    "excluded": 0,
+    "pending": 4,
+    "eligible_pct": 74.4,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 92,
     "mistakes": 50,
     "pct": 45.7,
-    "estimate": false
+    "estimate": false,
+    "eligible": 50,
+    "excluded": 0,
+    "pending": 17,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "26 of 50 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
+      "20 slips are in rules the counter found 0 uses of in this lesson",
+      "11 rules have more slips than counted uses (A11, A2, B10, B12, B15, B16, B18, B2)"
+     ],
+     "uses": 92,
+     "slips": 50,
+     "slips_latin": 26,
+     "slips_in_zero_use_rules": 20,
+     "rules_slips_over_uses": [
+      "A11",
+      "A2",
+      "B10",
+      "B12",
+      "B15",
+      "B16",
+      "B18",
+      "B2",
+      "D2",
+      "D4",
+      "E5"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1193.7,
@@ -758,6 +1622,78 @@
     "vocab_errors": 11,
     "vocab_correct": 30,
     "grammar_errors": 50
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 readers agree on 57.9 % of rows (>= 95 % needed)",
+     "reader agreement: pass 2 readers agree on 54.8 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 76.7 % (>= 95 % needed)",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4026 s) compared with a second model",
+     "checks: 21 scored rows need an audio or human check (4 words, 17 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 51,
+       "r2": 47,
+       "agreed": 33,
+       "disputed": 24,
+       "agreement_pct": 57.9
+      },
+      {
+       "pass": 2,
+       "r1": 51,
+       "r2": 52,
+       "agreed": 34,
+       "disputed": 28,
+       "agreement_pct": 54.8
+      }
+     ],
+     "between": [
+      {
+       "passes": [
+        1,
+        2
+       ],
+       "agreement_pct": 76.7
+      }
+     ],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 4026.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "first_t": 37.78,
+     "last_t": 4020.6,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "first_t": 36.75,
+     "last_t": 4023.06,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   },
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
    }
   },
   {
@@ -778,13 +1714,54 @@
     "scored": 47,
     "audit_wrong": 6,
     "audit_partial": 4,
-    "not_on_sheet": 1
+    "not_on_sheet": 1,
+    "eligible": 45,
+    "excluded": 2,
+    "pending": 1,
+    "eligible_pct": 81.1,
+    "excluded_why": {
+     "his line": 2
+    },
+    "verified_pct": null
    },
    "grammar": {
     "uses": 52,
     "mistakes": 59,
     "pct": 46.8,
-    "estimate": true
+    "estimate": true,
+    "eligible": 50,
+    "excluded": 9,
+    "pending": 23,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "fewer counted uses (52) than corrected slips (59)",
+      "51 of 59 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
+      "28 slips are in rules the counter found 0 uses of in this lesson",
+      "14 rules have more slips than counted uses (A4, B10, B11, B12, B15, B16, B18, B3)"
+     ],
+     "uses": 52,
+     "slips": 59,
+     "slips_latin": 51,
+     "slips_in_zero_use_rules": 28,
+     "rules_slips_over_uses": [
+      "A4",
+      "B10",
+      "B11",
+      "B12",
+      "B15",
+      "B16",
+      "B18",
+      "B3",
+      "B6",
+      "C10",
+      "C9",
+      "D1",
+      "D2",
+      "D4"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1054.1,
@@ -872,6 +1849,245 @@
     "vocab_errors": 13,
     "vocab_correct": 35,
     "grammar_errors": 59
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 readers agree on 50.0 % of rows (>= 95 % needed)",
+     "reader agreement: pass 2 readers agree on 63.3 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 79.6 % (>= 95 % needed)",
+     "coverage: 33 stretches of Medi's speech written as '[speaking ...]' markers (04:49 in all)",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4182 s) compared with a second model",
+     "checks: 24 scored rows need an audio or human check (1 words, 23 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 45,
+       "r2": 48,
+       "agreed": 29,
+       "disputed": 29,
+       "agreement_pct": 50.0
+      },
+      {
+       "pass": 2,
+       "r1": 54,
+       "r2": 51,
+       "agreed": 38,
+       "disputed": 22,
+       "agreement_pct": 63.3
+      }
+     ],
+     "between": [
+      {
+       "passes": [
+        1,
+        2
+       ],
+       "agreement_pct": 79.6
+      }
+     ],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 4182.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "first_t": 77.1,
+     "last_t": 4155.52,
+     "missing": [],
+     "holes": [
+      [
+       204.94,
+       212.18,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       261.68,
+       269.32,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       287.16,
+       294.48,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       328.3,
+       373.16,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       373.22,
+       382.28,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       387.84,
+       394.5,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1605.69,
+       1606.69,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1640.57,
+       1641.57,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1665.45,
+       1677.35,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1705.55,
+       1710.57,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1712.43,
+       1713.43,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1735.03,
+       1746.63,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1795.95,
+       1807.03,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1807.11,
+       1812.87,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1820.45,
+       1829.89,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1833.79,
+       1839.51,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1849.67,
+       1850.67,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1886.63,
+       1887.63,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3767.7,
+       3775.19,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3793.7,
+       3800.75,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3801.08,
+       3807.39,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3807.4,
+       3817.73,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3869.48,
+       3877.19,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3877.2,
+       3882.99,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3913.44,
+       3933.35,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3946.98,
+       3954.43,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       4028.68,
+       4045.41,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       4049.1,
+       4050.1,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       4070.8,
+       4089.85,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       4090.04,
+       4096.45,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       4100.88,
+       4112.59,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       4146.3,
+       4153.25,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       4155.52,
+       4162.69,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 289.4,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "first_t": 108.59,
+     "last_t": 4152.92,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   },
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
    }
   },
   {
@@ -892,13 +2108,51 @@
     "scored": 66,
     "audit_wrong": 10,
     "audit_partial": 2,
-    "not_on_sheet": 2
+    "not_on_sheet": 2,
+    "eligible": 65,
+    "excluded": 1,
+    "pending": 4,
+    "eligible_pct": 83.8,
+    "excluded_why": {
+     "his line": 1
+    },
+    "verified_pct": null
    },
    "grammar": {
     "uses": 70,
     "mistakes": 43,
     "pct": 38.6,
-    "estimate": false
+    "estimate": false,
+    "eligible": 38,
+    "excluded": 5,
+    "pending": 10,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "31 of 43 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
+      "10 slips are in rules the counter found 0 uses of in this lesson",
+      "12 rules have more slips than counted uses (B10, B11, B12, B15, B18, B2, B5, B8)"
+     ],
+     "uses": 70,
+     "slips": 43,
+     "slips_latin": 31,
+     "slips_in_zero_use_rules": 10,
+     "rules_slips_over_uses": [
+      "B10",
+      "B11",
+      "B12",
+      "B15",
+      "B18",
+      "B2",
+      "B5",
+      "B8",
+      "C2",
+      "D1",
+      "D2",
+      "D3"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1112.9,
@@ -982,6 +2236,245 @@
     "vocab_errors": 14,
     "vocab_correct": 54,
     "grammar_errors": 43
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 readers agree on 72.4 % of rows (>= 95 % needed)",
+     "reader agreement: pass 2 readers agree on 62.1 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 69.2 % (>= 95 % needed)",
+     "coverage: 33 stretches of Medi's speech written as '[speaking ...]' markers (05:24 in all)",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model",
+     "checks: 14 scored rows need an audio or human check (4 words, 10 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 51,
+       "r2": 52,
+       "agreed": 42,
+       "disputed": 16,
+       "agreement_pct": 72.4
+      },
+      {
+       "pass": 2,
+       "r1": 58,
+       "r2": 56,
+       "agreed": 41,
+       "disputed": 25,
+       "agreement_pct": 62.1
+      }
+     ],
+     "between": [
+      {
+       "passes": [
+        1,
+        2
+       ],
+       "agreement_pct": 69.2
+      }
+     ],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3828.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "first_t": 119.58,
+     "last_t": 3824.03,
+     "missing": [],
+     "holes": [
+      [
+       851.24,
+       859.02,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       859.04,
+       860.04,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       886.66,
+       887.66,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       953.08,
+       958.88,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       980.8,
+       985.52,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       990.58,
+       1002.12,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1063.72,
+       1064.72,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1085.24,
+       1096.32,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1124.42,
+       1125.42,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1147.66,
+       1154.62,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1160.28,
+       1161.28,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1173.62,
+       1174.62,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1231.36,
+       1266.42,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1266.8,
+       1304.68,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1304.84,
+       1306.06,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1306.06,
+       1326.3,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1326.3,
+       1330.26,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1333.7,
+       1385.26,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1385.46,
+       1393.68,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1410.12,
+       1426.04,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1430.4,
+       1443.66,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1446.68,
+       1457.8,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1458.68,
+       1469.36,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1550.3,
+       1553.46,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1555.8,
+       1561.18,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1953.65,
+       1958.93,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1967.81,
+       1972.19,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1983.23,
+       1993.61,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       1995.99,
+       2002.57,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2018.33,
+       2028.95,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2041.23,
+       2042.23,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2166.37,
+       2173.63,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2250.77,
+       2257.71,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 324.0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "first_t": 30.67,
+     "last_t": 3825.87,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   },
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
    }
   },
   {
@@ -1002,13 +2495,53 @@
     "scored": 12,
     "audit_wrong": 7,
     "audit_partial": 3,
-    "not_on_sheet": 1
+    "not_on_sheet": 1,
+    "eligible": 12,
+    "excluded": 0,
+    "pending": 4,
+    "eligible_pct": 29.2,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 23,
     "mistakes": 48,
     "pct": 32.4,
-    "estimate": true
+    "estimate": true,
+    "eligible": 48,
+    "excluded": 0,
+    "pending": 24,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "fewer counted uses (23) than corrected slips (48)",
+      "42 of 48 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
+      "43 slips are in rules the counter found 0 uses of in this lesson",
+      "15 rules have more slips than counted uses (B1, B11, B12, B15, B18, B3, B5, B8)"
+     ],
+     "uses": 23,
+     "slips": 48,
+     "slips_latin": 42,
+     "slips_in_zero_use_rules": 43,
+     "rules_slips_over_uses": [
+      "B1",
+      "B11",
+      "B12",
+      "B15",
+      "B18",
+      "B3",
+      "B5",
+      "B8",
+      "C2",
+      "C4",
+      "C4b",
+      "C7",
+      "D2",
+      "D4",
+      "D6"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 884.0,
@@ -1102,6 +2635,79 @@
     "vocab_errors": 11,
     "vocab_correct": 2,
     "grammar_errors": 48
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 readers agree on 58.7 % of rows (>= 95 % needed)",
+     "reader agreement: pass 2 readers agree on 70.5 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 80.0 % (>= 95 % needed)",
+     "coverage: speakers guessed by voice pitch on one mixed recording",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model",
+     "checks: 28 scored rows need an audio or human check (4 words, 24 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 37,
+       "r2": 42,
+       "agreed": 27,
+       "disputed": 19,
+       "agreement_pct": 58.7
+      },
+      {
+       "pass": 2,
+       "r1": 42,
+       "r2": 37,
+       "agreed": 31,
+       "disputed": 13,
+       "agreement_pct": 70.5
+      }
+     ],
+     "between": [
+      {
+       "passes": [
+        1,
+        2
+       ],
+       "agreement_pct": 80.0
+      }
+     ],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3828.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "first_t": 16.58,
+     "last_t": 3788.87,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "first_t": 12.72,
+     "last_t": 3787.77,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   },
+   "source": {
+    "attribution": "pitch-guess",
+    "timing": "engine"
    }
   },
   {
@@ -1123,13 +2729,40 @@
     "audit_wrong": 10,
     "audit_partial": 2,
     "not_an_error": 1,
-    "not_on_sheet": 1
+    "not_on_sheet": 1,
+    "eligible": 35,
+    "excluded": 0,
+    "pending": 1,
+    "eligible_pct": 62.9,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 23,
     "mistakes": 5,
     "pct": 78.3,
-    "estimate": false
+    "estimate": false,
+    "eligible": 5,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "2 of 5 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
+      "3 slips are in rules the counter found 0 uses of in this lesson",
+      "3 rules have more slips than counted uses (B11, B15, E2)"
+     ],
+     "uses": 23,
+     "slips": 5,
+     "slips_latin": 2,
+     "slips_in_zero_use_rules": 3,
+     "rules_slips_over_uses": [
+      "B11",
+      "B15",
+      "E2"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 782.9,
@@ -1187,6 +2820,152 @@
     "vocab_errors": 15,
     "vocab_correct": 21,
     "grammar_errors": 5
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 readers agree on 58.3 % of rows (>= 95 % needed)",
+     "reader agreement: pass 2 readers agree on 70.0 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 76.9 % (>= 95 % needed)",
+     "coverage: 4 stretches of Medi's speech written as '[speaking ...]' markers (00:19 in all)",
+     "coverage: 10 stretches of Amal's speech written as '[speaking ...]' markers (01:08 in all)",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3726 s) compared with a second model",
+     "checks: 1 scored rows need an audio or human check (1 words, 0 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 36,
+       "r2": 48,
+       "agreed": 28,
+       "disputed": 20,
+       "agreement_pct": 58.3
+      },
+      {
+       "pass": 2,
+       "r1": 45,
+       "r2": 45,
+       "agreed": 35,
+       "disputed": 15,
+       "agreement_pct": 70.0
+      }
+     ],
+     "between": [
+      {
+       "passes": [
+        1,
+        2
+       ],
+       "agreement_pct": 76.9
+      }
+     ],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3726.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "first_t": 0.15,
+     "last_t": 3721.8,
+     "missing": [],
+     "holes": [
+      [
+       70.45,
+       82.11,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3054.71,
+       3055.71,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3067.99,
+       3068.99,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3308.71,
+       3314.29,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 19.2,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "first_t": 0.27,
+     "last_t": 3723.08,
+     "missing": [],
+     "holes": [
+      [
+       53.17,
+       64.25,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       64.29,
+       65.29,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       125.49,
+       137.47,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       137.51,
+       147.79,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       147.79,
+       159.49,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       174.65,
+       175.65,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       197.53,
+       198.53,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       202.45,
+       210.93,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       226.85,
+       230.47,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       236.55,
+       244.85,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 68.4,
+     "covered_pct": 100.0
+    }
+   },
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
    }
   },
   {
@@ -1208,13 +2987,47 @@
     "audit_wrong": 26,
     "audit_partial": 5,
     "not_an_error": 2,
-    "not_on_sheet": 6
+    "not_on_sheet": 6,
+    "eligible": 181,
+    "excluded": 0,
+    "pending": 6,
+    "eligible_pct": 80.9,
+    "excluded_why": {},
+    "verified_pct": null
    },
    "grammar": {
     "uses": 216,
     "mistakes": 70,
     "pct": 67.6,
-    "estimate": false
+    "estimate": false,
+    "eligible": 70,
+    "excluded": 0,
+    "pending": 23,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "30 of 70 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
+      "14 slips are in rules the counter found 0 uses of in this lesson",
+      "10 rules have more slips than counted uses (A2, A4, B10, B12, B16, B17, B18, B4b)"
+     ],
+     "uses": 216,
+     "slips": 70,
+     "slips_latin": 30,
+     "slips_in_zero_use_rules": 14,
+     "rules_slips_over_uses": [
+      "A2",
+      "A4",
+      "B10",
+      "B12",
+      "B16",
+      "B17",
+      "B18",
+      "B4b",
+      "B8",
+      "D2"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1397.9,
@@ -1280,6 +3093,78 @@
     "vocab_errors": 43,
     "vocab_correct": 144,
     "grammar_errors": 70
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 readers agree on 58.7 % of rows (>= 95 % needed)",
+     "reader agreement: pass 2 readers agree on 50.0 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 75.8 % (>= 95 % needed)",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4332 s) compared with a second model",
+     "checks: 29 scored rows need an audio or human check (6 words, 23 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 107,
+       "r2": 106,
+       "agreed": 71,
+       "disputed": 50,
+       "agreement_pct": 58.7
+      },
+      {
+       "pass": 2,
+       "r1": 112,
+       "r2": 93,
+       "agreed": 62,
+       "disputed": 62,
+       "agreement_pct": 50.0
+      }
+     ],
+     "between": [
+      {
+       "passes": [
+        1,
+        2
+       ],
+       "agreement_pct": 75.8
+      }
+     ],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 4332.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "first_t": 1.01,
+     "last_t": 4323.81,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "first_t": 5.86,
+     "last_t": 4324.86,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   },
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
    }
   },
   {
@@ -1301,13 +3186,47 @@
     "audit_wrong": 25,
     "audit_partial": 6,
     "not_an_error": 1,
-    "not_on_sheet": 3
+    "not_on_sheet": 3,
+    "eligible": 63,
+    "excluded": 20,
+    "pending": 3,
+    "eligible_pct": 83.3,
+    "excluded_why": {
+     "his line": 20
+    },
+    "verified_pct": null
    },
    "grammar": {
     "uses": 105,
     "mistakes": 32,
     "pct": 69.5,
-    "estimate": false
+    "estimate": false,
+    "eligible": 23,
+    "excluded": 9,
+    "pending": 4,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "7 of 32 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
+      "9 slips are in rules the counter found 0 uses of in this lesson",
+      "8 rules have more slips than counted uses (A2, A5, B12, B3, B8, D2, E1, E2)"
+     ],
+     "uses": 105,
+     "slips": 32,
+     "slips_latin": 7,
+     "slips_in_zero_use_rules": 9,
+     "rules_slips_over_uses": [
+      "A2",
+      "A5",
+      "B12",
+      "B3",
+      "B8",
+      "D2",
+      "E1",
+      "E2"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 864.2,
@@ -1375,6 +3294,302 @@
     "vocab_errors": 34,
     "vocab_correct": 52,
     "grammar_errors": 32
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 readers agree on 64.3 % of rows (>= 95 % needed)",
+     "reader agreement: pass 2 readers agree on 68.7 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 79.7 % (>= 95 % needed)",
+     "coverage: Medi not transcribed 00:00-23:45 while the other person talks",
+     "coverage: 43 stretches of Medi's speech written as '[speaking ...]' markers (06:04 in all)",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model",
+     "checks: 7 scored rows need an audio or human check (3 words, 4 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 57,
+       "r2": 64,
+       "agreed": 45,
+       "disputed": 25,
+       "agreement_pct": 64.3
+      },
+      {
+       "pass": 2,
+       "r1": 61,
+       "r2": 57,
+       "agreed": 46,
+       "disputed": 21,
+       "agreement_pct": 68.7
+      }
+     ],
+     "between": [
+      {
+       "passes": [
+        1,
+        2
+       ],
+       "agreement_pct": 79.7
+      }
+     ],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3876.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "first_t": 1424.91,
+     "last_t": 3872.88,
+     "missing": [
+      [
+       0.0,
+       1424.91,
+       "no transcript for Medi while the other person talks"
+      ]
+     ],
+     "holes": [
+      [
+       2533.11,
+       2540.11,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2542.59,
+       2555.51,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2555.59,
+       2560.37,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2567.07,
+       2569.11,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2570.41,
+       2575.67,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2584.75,
+       2593.57,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2593.57,
+       2598.97,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2603.97,
+       2608.77,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2608.77,
+       2630.45,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2636.77,
+       2644.53,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2649.45,
+       2665.55,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2675.53,
+       2678.35,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2704.81,
+       2709.45,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2719.41,
+       2727.87,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2727.99,
+       2753.21,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2788.79,
+       2799.03,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2799.03,
+       2828.09,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2847.33,
+       2864.71,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       2869.25,
+       2879.93,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3268.73,
+       3276.99,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3311.09,
+       3318.29,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3319.53,
+       3327.65,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3341.91,
+       3351.71,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3397.25,
+       3403.65,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3415.45,
+       3420.65,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3420.73,
+       3428.89,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3433.81,
+       3441.17,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3445.77,
+       3447.89,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3472.79,
+       3475.35,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3475.75,
+       3476.75,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3513.69,
+       3514.69,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3527.71,
+       3528.71,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3567.53,
+       3568.53,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3589.71,
+       3590.71,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3601.89,
+       3602.89,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3623.35,
+       3625.99,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3656.44,
+       3673.52,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3673.6,
+       3681.24,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3683.72,
+       3686.1,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3699.06,
+       3713.16,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3725.98,
+       3732.1,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3732.2,
+       3760.18,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3859.8,
+       3869.54,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 1424.9,
+     "hole_s": 363.9,
+     "covered_pct": 63.2
+    },
+    "Amal": {
+     "first_t": 52.52,
+     "last_t": 3871.63,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   },
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
    }
   },
   {
@@ -1396,13 +3611,39 @@
     "audit_wrong": 14,
     "audit_partial": 2,
     "not_an_error": 1,
-    "not_on_sheet": 8
+    "not_on_sheet": 8,
+    "eligible": 106,
+    "excluded": 1,
+    "pending": 7,
+    "eligible_pct": 79.2,
+    "excluded_why": {
+     "Amal not transcribed": 1
+    },
+    "verified_pct": null
    },
    "grammar": {
     "uses": 192,
     "mistakes": 21,
     "pct": 89.1,
-    "estimate": false
+    "estimate": false,
+    "eligible": 21,
+    "excluded": 0,
+    "pending": 1,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "4 of 21 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
+      "1 rules have more slips than counted uses (D4)"
+     ],
+     "uses": 192,
+     "slips": 21,
+     "slips_latin": 4,
+     "slips_in_zero_use_rules": 0,
+     "rules_slips_over_uses": [
+      "D4"
+     ]
+    },
+    "verified_pct": null
    },
    "talk": {
     "medi_s": 1221.5,
@@ -1468,6 +3709,67 @@
     "vocab_errors": 24,
     "vocab_correct": 91,
     "grammar_errors": 21
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 62.1 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: Amal not transcribed 00:00-20:17 while the other person talks",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4188 s) compared with a second model",
+     "checks: 8 scored rows need an audio or human check (7 words, 1 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 52,
+       "r2": 58,
+       "agreed": 41,
+       "disputed": 25,
+       "agreement_pct": 62.1
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 4188.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "first_t": 1.8,
+     "last_t": 4180.03,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "first_t": 1217.25,
+     "last_t": 4185.03,
+     "missing": [
+      [
+       0.0,
+       1217.25,
+       "no transcript for Amal while the other person talks"
+      ]
+     ],
+     "holes": [],
+     "missing_s": 1217.2,
+     "hole_s": 0,
+     "covered_pct": 70.9
+    }
+   },
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
    }
   }
  ]

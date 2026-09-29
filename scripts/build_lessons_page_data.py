@@ -686,8 +686,13 @@ def build():
         per[date] = {"date": date, "clock": "seconds on the lesson page audio (docs/lessons/%s/audio/...)" % date,
                      "turns": turns, "vocab_errors": verr, "vocab_correct": vok, "grammar_errors": gerr, "marks": marks}
 
+        # how the speakers and word times were obtained (scripts/accuracy_gates.py: pitch-guessed or diarized speakers
+        # and estimated timings keep a lesson out of the verified totals)
+        wn = wnote or ""
+        source = {"attribution": "pitch-guess" if "voice pitch" in wn else "diarized-mixed" if "diarization" in wn else "per-speaker-tracks",
+                  "timing": "estimated" if "silence detection" in wn else "none" if not W else "engine"}
         lessons.append({
-            "date": date, "start_local": start, "start_source": start_src,
+            "date": date, "start_local": start, "start_source": start_src, "source": source,
             "duration_min": round(dur / 60, 1) if dur else None,
             "type": typ, "review_mode": mode, "type_why": why, "type_source": "claude-read",
             "words": words, "grammar": grammar, "talk": talk, "fillers": fillers, "latency": latency, "flow": flow,
@@ -808,6 +813,11 @@ def build():
            "definitions": DEFINITIONS, "lessons": lessons}
     with open(os.path.join(DOCS, "data", "lessons.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
+    # release layer (Medi 2026-09-27): reader agreement, source coverage, checks, grammar denominator -> verified or not,
+    # with the reasons; lessons.json gains release / coverage_by_person / eligible-excluded-pending (scripts/accuracy_gates.py)
+    sys.path.insert(0, HERE)
+    import accuracy_gates
+    accuracy_gates.run_annotate(REPO)
     for L in lessons:
         print(L["date"], L["type"], L["words"]["pct"], L["grammar"]["pct"],
               (L["talk"] or {}).get("speak_pct"), (L["fillers"] or {}).get("per_min"),
