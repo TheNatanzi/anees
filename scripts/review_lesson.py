@@ -56,7 +56,8 @@ def claude(prompt, label, timeout=3600, step="claude", lesson_date=None, role=No
     """One headless reader. The prompt says which file to write; we only check that it appeared.
     `--output-format json` so tokens, cost and the model the CLI really used come back; the text logged below is the
     JSON's `result` (exactly what the old text output printed). One line per call goes to data/runs (scripts/track.py):
-    hashes and paths only, never the prompt. ANEES_CLAUDE_MODEL pins --model (unset = the CLI default, as before)."""
+    hashes and paths only, never the prompt. --model is pinned by scripts/track.py
+    (DEFAULT_CLAUDE_MODEL = claude-opus-5-5 since 2026-09-29; ANEES_CLAUDE_MODEL=<id> overrides, =cli-default unpins)."""
     log("claude start", label)
     cmd = [CLAUDE, "-p", prompt, "--output-format", "json", "--permission-mode", "bypassPermissions", "--add-dir", REPO]
     ctx, run = None, _NoRun()

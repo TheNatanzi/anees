@@ -220,3 +220,18 @@ def test_pending_reviews_finds_unfinished_and_outdated_reviews(tmp_path, monkeyp
     got = H.pending_reviews(tmp_path)
     assert [d for d, _ in got] == ['2026-09-30', '2026-09-26']        # never finished first; 09-05 is before AUTO_START
     assert 'never finished' in got[0][1] and 'transcript changed' in got[1][1]
+
+
+def test_a_new_transcript_is_logged_with_its_hash_and_model(tmp_path, monkeypatch):
+    """AI review 09-27 / worker D: the saved Scribe JSON (path + sha256) and the model that answered go in the run log."""
+    import lesson_pipeline as lp, track
+    monkeypatch.setattr(lp, 'transcribe', lambda mp3: {'words': [{'type': 'word', 'text': 'marhaba'}], 'language_code': 'ara'})
+    lines = []
+    monkeypatch.setattr(track, 'log_run', lambda step, date=None, **k: lines.append((step, date, k)))
+    mp3 = tmp_path / '2026-09-30' / 'tracks' / 'Amal.mp3'
+    mp3.parent.mkdir(parents=True); mp3.write_bytes(b'audio')
+    out = tmp_path / '2026-09-30' / 'scribe_Amal.json'
+    H.transcribe_once(out, mp3, 'Amal')
+    step, date, k = lines[-1]
+    assert step == 'scribe.saved' and date == '2026-09-30'
+    assert k['outputs'] == [out] and k['response_model'] == 'scribe_v2' and k['inputs'] == [mp3]

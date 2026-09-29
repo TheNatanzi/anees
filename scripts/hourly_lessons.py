@@ -128,6 +128,14 @@ def transcribe_once(out, mp3, label):
         'source_file': str(mp3), 'source_sha256': sha(mp3), 'provider': 'ElevenLabs Scribe v2', 'response_sha256': sha(out),
         'audio_duration_secs': res.get('audio_duration_secs'), 'language_code': res.get('language_code'),
         'words': sum(1 for w in res.get('words', []) if w.get('type') == 'word')}, indent=2), encoding='utf-8')
+    try:     # run log (scripts/track.py): the saved transcript's path + sha256 and the model that answered (AI review 09-27)
+        import track
+        date = next((p for p in (out.parent.name, out.parent.parent.name) if re.fullmatch(r'20\d\d-\d\d-\d\d', p)), None)
+        track.log_run('scribe.saved', date, kind='ingest', provider='elevenlabs', request_model='scribe_v2',
+                      response_model=res.get('model_id') or 'scribe_v2', inputs=[mp3], outputs=[out],
+                      params={'label': label, 'language_code': res.get('language_code')})
+    except Exception as e:
+        log('run log line not written:', e)
 
 
 def meet_for(date, recordings):
