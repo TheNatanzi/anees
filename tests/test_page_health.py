@@ -156,3 +156,29 @@ def test_old_reports_may_mention_the_hub_in_text_but_pages_may_not(tmp_path, mon
     assert CP.check()['problems'] == []
     _site(tmp_path, monkeypatch, {**GOOD, 'tutor.html': "<p>Open Amal's Tutor Hub</p>"})
     assert [p['kind'] for p in CP.check()['problems']] == ['hub']
+
+
+# ---- contrast of fixed CSS (measured with the WCAG formula; >= 4.5 for small text) ----
+
+def _lum(h):
+    h = h.lstrip('#')
+    c = [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+    f = lambda x: x / 12.92 if x <= 0.03928 else ((x + 0.055) / 1.055) ** 2.4
+    return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2])
+
+
+def contrast(a, b):
+    x, y = _lum(a), _lum(b)
+    return (max(x, y) + 0.05) / (min(x, y) + 0.05)
+
+
+def test_flashcard_set_counts_are_readable_in_light_and_dark():
+    """The coloured counts under each set (Mastered / Good / Shaky / Wrong / Untested) measured 1.5:1 in light mode
+    (green 144, yellow 21, grey 1,501 on the beige tile) and 2.05:1 for Untested in dark mode."""
+    s = (DOCS / 'cards.html').read_text(encoding='utf-8')
+    tile = {'light': '#e3e1d5', 'dark': '#26363b'}          # the tile backgrounds as rendered (headless sweep 2026-09-29)
+    for band in ('mastered', 'good', 'shaky', 'wrong', 'untested'):
+        var = re.search(r'\.fc-mixn \.mx-' + band + r'\{color:var\((--[\w-]+)\)\}', s).group(1)
+        light, dark = re.search(re.escape(var) + r':light-dark\((#[0-9a-fA-F]{6}),(#[0-9a-fA-F]{6})\)', s).groups()
+        assert contrast(light, tile['light']) >= 4.5, (band, light, round(contrast(light, tile['light']), 2))
+        assert contrast(dark, tile['dark']) >= 4.5, (band, dark, round(contrast(dark, tile['dark']), 2))
