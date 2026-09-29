@@ -188,3 +188,14 @@ def test_transcript_text_matches_full_audit_prep(repo, monkeypatch):
 def _run_main(monkeypatch, argv):
     monkeypatch.setattr(sys, 'argv', ['review_lesson.py', *argv])
     return RL.main()
+
+
+def test_a_run_that_stops_early_keeps_the_evidence_that_the_readers_are_stale(repo, monkeypatch):
+    """A dry-run rewrites the transcript dump; the old readers must still count as stale afterwards."""
+    work = Path(RL.WORK)
+    old_readers(work, fresh_text(8))
+    fake, pushes = Fake(), []
+    install(monkeypatch, fake, pushes)
+    assert _run_main(monkeypatch, [D, '--dry-run']) == 2
+    assert RL.readers_read_current(D) is not None
+    assert _run_main(monkeypatch, [D, '--dry-run']) == 2          # still stale on the second try

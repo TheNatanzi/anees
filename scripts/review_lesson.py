@@ -255,6 +255,14 @@ def main():
     # 1 prep (one lesson): ALWAYS rewrite the transcript dump, Amal's sheet and the buckets from today's data (it used to
     # run only when <date>.txt was missing, so a grown transcript or a new rule never reached the readers)
     old_txt = open(f(".txt"), encoding="utf-8").read() if os.path.exists(f(".txt")) else None
+    if old_txt is not None and old_txt != transcript_text(d):
+        # legacy reader files (no manifest) read the OLD transcript: pin that fact before the dump is rewritten, so the
+        # evidence survives a run that stops early (dry-run, a failed reader) and the freshness check stays right
+        for r in ("r1", "r2", "r3"):
+            out = f(f".{r}.json")
+            if os.path.exists(out) and not os.path.exists(out + ".inputs.json"):
+                _gates().write_manifest(out, [f(".txt")], repo=REPO, extra={
+                    "legacy": "written before input manifests; this is the transcript it read, which has changed since"})
     sys.path.insert(0, HERE)
     import full_audit_prep as P
     P.REPO, P.OUT, P.DATES = REPO, WORK, [d]
