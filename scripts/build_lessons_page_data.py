@@ -43,7 +43,12 @@ def _confirmed_new():
     try:
         import db
         return sorted({(str(r["lesson_date"]), r["word_key"]) for r in db.select("amal_rules", {"select": "lesson_date,word_key,kind", "kind": "eq.new"}) if r.get("word_key")})
-    except Exception:
+    except Exception as e:
+        # eng audit 2026-09-29: this fallback used to be silent, so a database hiccup quietly froze "new words" at the
+        # 09-25 list. It stays (offline builds need it) but now says so; ANEES_STRICT=1 (the hourly job) fails closed.
+        if os.environ.get("ANEES_STRICT") == "1":
+            raise
+        print("WARNING new words: database unreachable (%s); using the list last read 2026-09-25" % type(e).__name__, file=sys.stderr)
         return [("2026-09-04", "ana babse6"), ("2026-09-04", "banbese6")]   # last read 2026-09-25
 CONFIRMED_NEW = _confirmed_new()
 # New verbs per lesson: the verb pairs Amal taught that lesson. Medi confirmed 2026-09-25 ("you don't see bat3eb and

@@ -370,6 +370,7 @@ def main():
     ap.add_argument('--work', default=str(ROOT / 'data' / 'lesson-work'))
     ap.add_argument('--dry-run', action='store_true'); ap.add_argument('--no-push', action='store_true')
     a = ap.parse_args()
+    os.environ.setdefault('ANEES_STRICT', '1')        # builders fail closed instead of using silent offline fallbacks (eng audit 09-29)
     os.environ.setdefault('ANEES_TRIGGER', 'hourly')     # run log (scripts/track.py): every child call is tagged hourly
     import db, recall_bot as R
     import publish_guard as G
