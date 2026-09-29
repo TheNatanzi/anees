@@ -231,6 +231,8 @@ def refresh_published(dates, raw, work):
     if track_dates:
         run_step('review_silent_credits.py', [sys.executable, str(HERE / 'review_silent_credits.py'), '--raw', str(raw), '--work', str(work), *track_dates], failures)
     run_step('audit_word_bank_reliability.cjs', [NODE, str(HERE / 'audit_word_bank_reliability.cjs'), str(ROOT / 'docs/data/word-bank-evidence.json')], failures)
+    # grammar uses (the Grammar % denominator): was never run by the hourly job - 09-28 went live with uses/pct = None
+    run_step('detect_grammar_usage.py', [sys.executable, str(HERE / 'detect_grammar_usage.py')], failures)
     run_step('build_lessons_page_data.py', [sys.executable, str(HERE / 'build_lessons_page_data.py')], failures)   # the transcript on the lesson clock, for the readers
     run_step('build_sentence_ladder.py', [sys.executable, str(HERE / 'build_sentence_ladder.py')], failures, timeout=900)
     run_step('write_build.py', [sys.executable, str(HERE / 'write_build.py')], failures)

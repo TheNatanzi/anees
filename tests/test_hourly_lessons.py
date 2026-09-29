@@ -235,3 +235,20 @@ def test_a_new_transcript_is_logged_with_its_hash_and_model(tmp_path, monkeypatc
     step, date, k = lines[-1]
     assert step == 'scribe.saved' and date == '2026-09-30'
     assert k['outputs'] == [out] and k['response_model'] == 'scribe_v2' and k['inputs'] == [mp3]
+
+
+def test_a_new_lesson_gets_its_grammar_uses_counted(tmp_path, monkeypatch):
+    """09-28 was loaded by the hourly job on live master with grammar uses = None and pct = None: detect_grammar_usage.py
+    (the Grammar % denominator, docs/data/grammar-usage.json) was never in the hourly path (09-26 was counted by hand)."""
+    root = tmp_path / 'repo'
+    (root / 'docs' / 'data').mkdir(parents=True)
+    monkeypatch.setattr(H, 'ROOT', root)
+    fdb = types.ModuleType('db'); fdb.rest = lambda *a, **k: {'events': []}
+    monkeypatch.setitem(sys.modules, 'db', fdb)
+    monkeypatch.setattr(H, 'build_clips', lambda *a, **k: None)
+    git = Git()
+    monkeypatch.setattr(H.subprocess, 'run', git)
+    assert H.refresh_published(['2026-09-30'], tmp_path / 'raw', tmp_path / 'work') == []
+    order = [Path(x).name for c in git.calls for x in c if str(x).endswith(('.py', '.cjs'))]
+    assert 'detect_grammar_usage.py' in order
+    assert order.index('detect_grammar_usage.py') < order.index('build_lessons_page_data.py')
