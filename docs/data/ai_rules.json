@@ -1,330 +1,601 @@
 {
-  "updated": "2026-09-10",
-  "legend": {
-    "enforced": "code + test do this today",
-    "partly": "done in part or by a fallback",
-    "planned": "agreed, not built yet"
-  },
-  "groups": [
+ "updated": "2026-09-10",
+ "legend": {
+  "enforced": "code + test do this today",
+  "partly": "done in part or by a fallback",
+  "planned": "agreed, not built yet"
+ },
+ "groups": [
+  {
+   "title": "Evidence",
+   "rules": [
     {
-      "title": "Evidence",
-      "rules": [
-        {
-          "id": "E1",
-          "rule": "The engine's raw output is written once and never rewritten.",
-          "why": "Every page, count and card is derived from it; if it changes, nothing can be checked later.",
-          "where": "lesson_pipeline.process writes scribe.json once; understanding.json is regenerated from it",
-          "status": "enforced"
-        },
-        {
-          "id": "E2",
-          "rule": "Transcribe the whole lesson track, never 25-second chunks.",
-          "why": "Same engine on 25-s chunks lost 3 of 8 of Medi's mistakes (audit 2026-09-05).",
-          "where": "lesson_pipeline.transcribe sends the full audio.mp3",
-          "status": "enforced"
-        },
-        {
-          "id": "E3",
-          "rule": "No vocabulary list in the recognizer's ear on the primary pass.",
-          "why": "A prompted engine inserted Buset, Ya3ni and a whole chat sentence that nobody said.",
-          "where": "transcribe(): no keyterms; vocabulary is used only after recognition",
-          "status": "enforced"
-        },
-        {
-          "id": "E4",
-          "rule": "An unknown form stays unknown and flagged; it is never replaced by the nearest Doc word.",
-          "why": "Medi's 'sameeh' for 'mneeh' is the lesson; a silent fix erases it.",
-          "where": "arabizi.Matcher tiers exact > loose > skeleton; fuzzy only for chat-anchored words",
-          "status": "partly"
-        },
-        {
-          "id": "E5",
-          "rule": "Every reported miss or moment carries its audio clip.",
-          "why": "Nobody, human or machine, is trusted without the sound.",
-          "where": "understand_lesson.cut_clips; report play buttons",
-          "status": "enforced"
-        },
-        {
-          "id": "E6",
-          "rule": "Hash the audio and the raw transcript and keep a second copy.",
-          "why": "Today the raw file lives on one PC only.",
-          "where": "planned: summary.json + Supabase",
-          "status": "planned"
-        }
-      ],
-      "tab": "system"
+     "id": "E1",
+     "rule": "The engine's raw output is written once and never rewritten.",
+     "why": "Every page, count and card is derived from it; if it changes, nothing can be checked later.",
+     "where": "lesson_pipeline.process writes scribe.json once; understanding.json is regenerated from it",
+     "status": "enforced"
     },
     {
-      "title": "Who spoke",
-      "rules": [
-        {
-          "id": "S1",
-          "rule": "Speaker = recording channel, never a guess.",
-          "why": "On the mixed Meet audio the engine put nearly every word on one speaker.",
-          "where": "planned: two named tracks (Ennuicastr / Craig); today: pitch fallback with a 15 % unlabeled floor, shown on the page",
-          "status": "partly"
-        },
-        {
-          "id": "S2",
-          "rule": "'More Arabic = Amal' is a hint, never a fact.",
-          "why": "Medi's Arabic share grows every lesson; the rule flips.",
-          "where": "lesson_pipeline.label_speakers is only used when the engine already split two voices",
-          "status": "partly"
-        },
-        {
-          "id": "S3",
-          "rule": "When speakers are unclear, per-speaker numbers show '–' with the reason.",
-          "why": "A wrong number is worse than no number.",
-          "where": "understand_lesson.apply_floor; build_report shows the dash",
-          "status": "enforced"
-        }
-      ],
-      "tab": "system"
+     "id": "E2",
+     "rule": "Transcribe the whole lesson track, never 25-second chunks.",
+     "why": "Same engine on 25-s chunks lost 3 of 8 of Medi's mistakes (audit 2026-09-05).",
+     "where": "lesson_pipeline.transcribe sends the full audio.mp3",
+     "status": "enforced"
     },
     {
-      "title": "What counts as a mistake",
-      "rules": [
-        {
-          "id": "M1",
-          "rule": "A miss needs a signal: Amal corrects or recasts, or Medi asks or says he forgot. Medi's spelling alone is never a miss.",
-          "why": "ASR auto-corrects learners (LearnerVoice finding, confirmed on our audio).",
-          "where": "understand_lesson.annotate: correction / asked / elicited flags",
-          "status": "enforced"
-        },
-        {
-          "id": "M2",
-          "rule": "A grammar slip (article, gender, tense, plural) keeps the word out of 'missed'.",
-          "why": "The word is known; the slip is scored separately.",
-          "where": "miss_kind.classify_all; buckets._signal_from_event",
-          "status": "enforced"
-        },
-        {
-          "id": "M3",
-          "rule": "Glue words (shu, bas, ya3ni, tamam …) are never graded.",
-          "why": "They are conversation moves, not vocabulary.",
-          "where": "understand_lesson.GLUE_KEYS",
-          "status": "enforced"
-        },
-        {
-          "id": "M4",
-          "rule": "Keep the stumble: false starts, repeats, 'nitla' for ne6la3. Never clean them.",
-          "why": "They are the evidence Anees exists for.",
-          "where": "engine choice (Scribe full track); planned: golden clips 9, 17, 18, 19 fail the build if a new engine version cleans them",
-          "status": "partly"
-        },
-        {
-          "id": "M5",
-          "rule": "'Possible miss' stays labelled possible until Amal taps.",
-          "why": "The reaction detector is about 50 % precise.",
-          "where": "report wording; after-link verdicts re-score the event",
-          "status": "enforced"
-        },
-        {
-          "id": "M6",
-          "rule": "Known hard grammar for Medi: the linking verb ykun / akun / tkun. An adjective inside a condition or time clause needs it ('lamma akun za3lan' = when I am sad), a plain statement does not ('ana za3lan' = I am sad). Dropping or adding it wrongly is a grammar slip (kind: tense), never a missed word.",
-          "why": "Medi 2026-09-05.",
-          "where": "planned: miss_kind pattern for ykun/akun/tkun next to an adjective after lamma / iza / bas; Amal's after-link verdict decides",
-          "status": "planned"
-        },
-        {
-          "id": "M7",
-          "rule": "A pause is never a mistake. Medi often pauses to build the whole sentence in his head. Pauses are shown on the transcript and may later rank a moment, but never score a word.",
-          "why": "Medi 2026-09-05.",
-          "where": "transcript pages show '(pause)'; buckets ignore pauses; pause analysis waits for two-track audio",
-          "status": "enforced"
-        },
-        {
-          "id": "M8",
-          "rule": "A wrong preposition after a verb or adjective (a6lub-hom for a6lub minhom; 5aayef min, mishtaa2 la, 2al2aan 3ala) is its own kind: 'preposition'. The verb is known; the slip is scored apart, never as a missed word.",
-          "why": "Medi 2026-09-05: 'ba6lub min is a preposition error. I make a lot of these.'",
-          "where": "miss_kind.KINDS + GRAMMAR_KINDS include 'preposition'; the Slips page (slips.html, data/tally.json) counts it as its own bar; detector pattern G12 in wiki 17 is planned",
-          "status": "partly"
-        },
-        {
-          "id": "M9",
-          "rule": "Every slip is tied to the rule Medi already learned (Amal's Doc unit or the lesson she taught it). The tally (slips.html) shows Amal which learned rules are slipping so she can put a review into her own plans. Anees never writes her a lesson plan and never sends her grammar questions.",
-          "why": "Medi 2026-09-05: 'let Amal make her own assessments; your job is to keep a tally of my mistakes … assist her in injecting my mistakes into her already formed lesson plans.'",
-          "where": "data/tally.json (hand-curated from the transcripts, wiki 17 section K) -> scripts/build_tally.py -> docs/slips.html; every moment carries its transcript line and, where the audio exists, a clip",
-          "status": "enforced"
-        },
-        {
-          "id": "M10",
-          "rule": "A cut-off token is a false start of the next word, never a Doc word of its own: a token ending in a dash or '…', or a short token the same speaker immediately continues into a longer word. Two-consonant look-alikes (za'aj → Joaz, biz- → Besse) never match unless Amal typed the word. Pronoun shapes (heyye / huwwe, even spelled 7ayye by the engine) are never graded.",
-          "why": "Medi 2026-09-05 on the Sep 5 report: 'موز-' shown as Moz (banana) while he reached for maz3ooj; 'biz'a-' as Besse (cat); 'za'aj' as Joaz (husband); 'heyye' as 7ayye (snake).",
-          "where": "understand_lesson.is_false_start (single tokens and inside 2-3 word spans); arabizi.Matcher skeleton tier needs 3+ consonants; miss_kind.choice_check never 'wants' a glue word",
-          "status": "enforced"
-        },
-        {
-          "id": "M11",
-          "rule": "Only Medi's recorded speech counts toward Speaking. Words only Amal said or typed do not earn learner progress. Flashcards has its own independent score from card answers. Explicit New marking is vocabulary metadata, not proof of use.",
-          "why": "Medi 2026-09-05: 'we only want to count the words I say; it can only be demonstrated that I know a word, or make an error, if I say the word or phrase.' Sep 5 report had 40 Amal-only rows inside new / reused.",
-          "where": "build_report.classify: new / reused from Medi events only, Amal-only keys -> kind 'heard'; buckets already Medi-only; tally = Medi's moments only",
-          "status": "enforced"
-        }
-      ],
-      "tab": "words"
+     "id": "E3",
+     "rule": "No vocabulary list in the recognizer's ear on the primary pass.",
+     "why": "A prompted engine inserted Buset, Ya3ni and a whole chat sentence that nobody said.",
+     "where": "transcribe(): no keyterms; vocabulary is used only after recognition",
+     "status": "enforced"
     },
     {
-      "title": "New words and buckets",
-      "rules": [
-        {
-          "id": "N1",
-          "rule": "'New' requires an explicit mark by Amal/Medi or a known Doc introduction. Speaking introduction ends after 5 Medi spoken uses since that introduction, even in one lesson; helped uses count as practice, not mastery. Then the underlying Speaking score applies. Flashcards keeps its own drill: 5 consecutive first-try successes across 2 dates. Neither finishes the other's target.",
-          "why": "Medi 2026-09-05: 'we don't have any more context for what words are new'; Sep 4 = babse6 and banbese6 only.",
-          "where": "buckets.compute(confirmed_new=, doc_before=); marks live in amal_rules kind 'new'; chat/asked inference only fills 'new candidate' for Amal's after-link",
-          "status": "enforced"
-        },
-        {
-          "id": "N2",
-          "rule": "The Google Doc is the only word truth. The app never writes it.",
-          "why": "Amal owns the list.",
-          "where": "import_vocab.py is one-way",
-          "status": "enforced"
-        },
-        {
-          "id": "N3",
-          "rule": "A Doc lemma covers its conjugations: Basa6tek belongs to babse6's family.",
-          "why": "16 of Amal's 21 typed Sep-4 forms are conjugations the Doc does not list.",
-          "where": "understand_lesson.family_key (consonant skeleton); planned: first-tier, and split multi-word entries so ne6la3 is a target",
-          "status": "partly"
-        },
-        {
-          "id": "N4",
-          "rule": "Flashcards offers separate New and Missed sets; New words retain their strict drill. Speaking introductions are tracked separately as five-use conversation targets.",
-          "why": "Different loops.",
-          "where": "buckets.py; cards default set",
-          "status": "enforced"
-        },
-        {
-          "id": "N5",
-          "rule": "Amal's topic pick decides whether new words are expected: any 'New …' topic = yes; review-only topics (Last week's lessons, Grammar, Review listening, Review conversation) = no. Nobody is asked twice.",
-          "why": "Medi 2026-09-05: 'if it's New we can assume there will be new words; if it's review, assume not'.",
-          "where": "amal/plan.html topic screen writes rule new_words {expected}; the after-link's 'new word?' question is planned to show only when expected",
-          "status": "enforced"
-        },
-        {
-          "id": "N6",
-          "rule": "Speaking 'You used it' counts only timed recorded Medi uses, including prompted attempts. Typed homework, untimed evidence and Amal's words are excluded. 'Without help' requires explicit unprompted, uncorrected and no-help-request labels, with no unclear/choice marker. Flashcards never changes these counts or Speaking dates.",
-          "why": "A tutor saying a word is not evidence that Medi can use it. These counts come from transcript labels, not verified pronunciation.",
-          "where": "scripts/buckets.py; docs/js/buckets.js; Medi-only word_stats backfill",
-          "status": "enforced"
-        },
-        {
-          "id": "N7",
-          "rule": "Mastered needs 5 consecutive successes in the same score across at least 3 dates. Speaking uses independent lesson evidence, at most one success per word/lesson date. Flashcards uses first-try answers only. Help or correction interrupts only its own score's streak; unknown speech is neutral. Successes are never combined between scores.",
-          "why": "Repeated mentions in one lesson are not the same as recalling the word independently over time.",
-          "where": "Python and browser progress rules; dashboard and cards replay saved answers by ID",
-          "status": "enforced"
-        },
-        {
-          "id": "N8",
-          "rule": "Recover from Missed with two consecutive independent successes in that same score: first to Shaky, second to Good. Help/error interrupts that lane's recovery; unclear speech is neutral. Both successes also count toward its Mastered streak. Ordinary Shaky needs one independent success. The other score remains unchanged.",
-          "why": "Medi 2026-09-10: one successful recall after a miss should show progress, not immediately count as Good.",
-          "where": "scripts/buckets.py and docs/js/buckets.js replay separate evidence lanes; at most one Speaking success per word/lesson date",
-          "status": "enforced"
-        },
-        {
-          "id": "N9",
-          "rule": "Each word has separate Speaking and Flashcards scores, including its bucket, mistakes, last-practice date, recovery and mastery. Flashcard sets and weighting use only the Flashcards score. The Amal tab shows Speaking introduction uses out of 5 and how many more to practise; it sends nothing automatically.",
-          "why": "Medi 2026-09-10: keep flashcard practice separate from verbal lessons and help Amal bring new words to five spoken uses quickly.",
-          "where": "progress_scores v1; provenance context v3; Words, Today, Amal and Flashcards pages; old combined caches rejected",
-          "status": "enforced"
-        }
-      ],
-      "tab": "words"
+     "id": "E4",
+     "rule": "An unknown form stays unknown and flagged; it is never replaced by the nearest Doc word.",
+     "why": "Medi's 'sameeh' for 'mneeh' is the lesson; a silent fix erases it.",
+     "where": "arabizi.Matcher tiers exact > loose > skeleton; fuzzy only for chat-anchored words",
+     "status": "partly"
     },
     {
-      "title": "Amal",
-      "rules": [
-        {
-          "id": "A1",
-          "rule": "Code never contacts Amal. Links are minted; Medi sends them.",
-          "why": "Her time and trust.",
-          "where": "amal_links.py; send_lesson_email.mjs hard-codes Medi",
-          "status": "enforced"
-        },
-        {
-          "id": "A2",
-          "rule": "Amal's tap beats any machine label.",
-          "why": "She is the ground truth.",
-          "where": "apply_rules.py re-scores the exact event",
-          "status": "enforced",
-          "tab": "words"
-        },
-        {
-          "id": "A3",
-          "rule": "At most 5 questions, clips of at most 15 s, one tap each; target 3 to 5 minutes; measure it.",
-          "why": "Her budget is minutes.",
-          "where": "after_questions.py; timing measured only on stand-ins so far",
-          "status": "partly"
-        },
-        {
-          "id": "A4",
-          "rule": "Lessons are public by choice: audio, clips and transcripts stay on the open site; any transcription provider may receive the audio.",
-          "why": "Medi 2026-09-05: nothing sensitive is said. Amal said yes to all of it the same day (relayed by Medi).",
-          "where": "docs/ pages are public; no consent gate in code",
-          "status": "enforced"
-        }
-      ],
-      "tab": "system"
+     "id": "E5",
+     "rule": "Every reported miss or moment carries its audio clip.",
+     "why": "Nobody, human or machine, is trusted without the sound.",
+     "where": "understand_lesson.cut_clips; report play buttons",
+     "status": "enforced"
     },
     {
-      "title": "Numbers and publishing",
-      "rules": [
-        {
-          "id": "H1",
-          "rule": "No guessed number. Unknown shows '–' and why.",
-          "why": "Medi's standing rule.",
-          "where": "every page and email",
-          "status": "enforced"
-        },
-        {
-          "id": "H2",
-          "rule": "Counts are counts. 'Better' or 'accurate' only with a named metric and human labels.",
-          "why": "No word-perfect transcript exists yet.",
-          "where": "engine report wording; AI reports cards",
-          "status": "enforced"
-        },
-        {
-          "id": "H3",
-          "rule": "Nothing is emailed before the page is pushed and answers 200.",
-          "why": "A link to a 404 is a lie.",
-          "where": "lesson_pipeline.publish + publish_report (2026-09-05)",
-          "status": "enforced"
-        },
-        {
-          "id": "H4",
-          "rule": "Paid calls stop at 90 % of the budget.",
-          "why": "Ceiling prices, no surprises.",
-          "where": "pipeline_ext ledger",
-          "status": "enforced"
-        }
-      ],
-      "tab": "system"
-    },
-    {
-      "title": "Research method",
-      "rules": [
-        {
-          "id": "R1",
-          "rule": "Freeze clips, hashes and test arms before any output is seen.",
-          "why": "So a result cannot be steered.",
-          "where": "Codex bake-offs; Claude audit reproduced 65/65 hashes",
-          "status": "enforced"
-        },
-        {
-          "id": "R2",
-          "rule": "An engine is replaced only on held-out, Amal-labelled events, tested on full tracks.",
-          "why": "20 clips of one verb from one lesson prove direction, not superiority.",
-          "where": "planned: 5 lessons × 20 events gold set",
-          "status": "planned"
-        }
-      ],
-      "tab": "system"
+     "id": "E6",
+     "rule": "Hash the audio and the raw transcript and keep a second copy.",
+     "why": "Today the raw file lives on one PC only.",
+     "where": "planned: summary.json + Supabase",
+     "status": "planned"
     }
-  ],
-  "tabs": {
-    "system": "System rules: the mechanics (recording, transcribing, who spoke, publishing, numbers, research method)",
-    "words": "Word and grammar rules: what counts as a mistake, what is new, what Amal decides"
+   ],
+   "tab": "system"
+  },
+  {
+   "title": "Who spoke",
+   "rules": [
+    {
+     "id": "S1",
+     "rule": "Speaker = recording channel, never a guess.",
+     "why": "On the mixed Meet audio the engine put nearly every word on one speaker.",
+     "where": "planned: two named tracks (Ennuicastr / Craig); today: pitch fallback with a 15 % unlabeled floor, shown on the page",
+     "status": "partly"
+    },
+    {
+     "id": "S2",
+     "rule": "'More Arabic = Amal' is a hint, never a fact.",
+     "why": "Medi's Arabic share grows every lesson; the rule flips.",
+     "where": "lesson_pipeline.label_speakers is only used when the engine already split two voices",
+     "status": "partly"
+    },
+    {
+     "id": "S3",
+     "rule": "When speakers are unclear, per-speaker numbers show '–' with the reason.",
+     "why": "A wrong number is worse than no number.",
+     "where": "understand_lesson.apply_floor; build_report shows the dash",
+     "status": "enforced"
+    }
+   ],
+   "tab": "system"
+  },
+  {
+   "title": "What counts as a mistake",
+   "rules": [
+    {
+     "id": "M1",
+     "rule": "A miss needs a signal: Amal corrects or recasts, or Medi asks or says he forgot. Medi's spelling alone is never a miss.",
+     "why": "ASR auto-corrects learners (LearnerVoice finding, confirmed on our audio).",
+     "where": "understand_lesson.annotate: correction / asked / elicited flags",
+     "status": "enforced"
+    },
+    {
+     "id": "M2",
+     "rule": "A grammar slip (article, gender, tense, plural) keeps the word out of 'missed'.",
+     "why": "The word is known; the slip is scored separately.",
+     "where": "miss_kind.classify_all; buckets._signal_from_event",
+     "status": "enforced"
+    },
+    {
+     "id": "M3",
+     "rule": "Glue words (shu, bas, ya3ni, tamam …) are never graded.",
+     "why": "They are conversation moves, not vocabulary.",
+     "where": "understand_lesson.GLUE_KEYS",
+     "status": "enforced"
+    },
+    {
+     "id": "M4",
+     "rule": "Keep the stumble: false starts, repeats, 'nitla' for ne6la3. Never clean them.",
+     "why": "They are the evidence Anees exists for.",
+     "where": "engine choice (Scribe full track); planned: golden clips 9, 17, 18, 19 fail the build if a new engine version cleans them",
+     "status": "partly"
+    },
+    {
+     "id": "M5",
+     "rule": "'Possible miss' stays labelled possible until Amal taps.",
+     "why": "The reaction detector is about 50 % precise.",
+     "where": "report wording; after-link verdicts re-score the event",
+     "status": "enforced"
+    },
+    {
+     "id": "M6",
+     "rule": "Known hard grammar for Medi: the linking verb ykun / akun / tkun. An adjective inside a condition or time clause needs it ('lamma akun za3lan' = when I am sad), a plain statement does not ('ana za3lan' = I am sad). Dropping or adding it wrongly is a grammar slip (kind: tense), never a missed word.",
+     "why": "Medi 2026-09-05.",
+     "where": "planned: miss_kind pattern for ykun/akun/tkun next to an adjective after lamma / iza / bas; Amal's after-link verdict decides",
+     "status": "planned"
+    },
+    {
+     "id": "M7",
+     "rule": "A pause is never a mistake. Medi often pauses to build the whole sentence in his head. Pauses are shown on the transcript and may later rank a moment, but never score a word.",
+     "why": "Medi 2026-09-05.",
+     "where": "transcript pages show '(pause)'; buckets ignore pauses; pause analysis waits for two-track audio",
+     "status": "enforced"
+    },
+    {
+     "id": "M8",
+     "rule": "A wrong preposition after a verb or adjective (a6lub-hom for a6lub minhom; 5aayef min, mishtaa2 la, 2al2aan 3ala) is its own kind: 'preposition'. The verb is known; the slip is scored apart, never as a missed word.",
+     "why": "Medi 2026-09-05: 'ba6lub min is a preposition error. I make a lot of these.'",
+     "where": "miss_kind.KINDS + GRAMMAR_KINDS include 'preposition'; the Slips page (slips.html, data/tally.json) counts it as its own bar; detector pattern G12 in wiki 17 is planned",
+     "status": "partly"
+    },
+    {
+     "id": "M9",
+     "rule": "Every slip is tied to the rule Medi already learned (Amal's Doc unit or the lesson she taught it). The tally (slips.html) shows Amal which learned rules are slipping so she can put a review into her own plans. Anees never writes her a lesson plan and never sends her grammar questions.",
+     "why": "Medi 2026-09-05: 'let Amal make her own assessments; your job is to keep a tally of my mistakes … assist her in injecting my mistakes into her already formed lesson plans.'",
+     "where": "data/tally.json (hand-curated from the transcripts, wiki 17 section K) -> scripts/build_tally.py -> docs/slips.html; every moment carries its transcript line and, where the audio exists, a clip",
+     "status": "enforced"
+    },
+    {
+     "id": "M10",
+     "rule": "A cut-off token is a false start of the next word, never a Doc word of its own: a token ending in a dash or '…', or a short token the same speaker immediately continues into a longer word. Two-consonant look-alikes (za'aj → Joaz, biz- → Besse) never match unless Amal typed the word. Pronoun shapes (heyye / huwwe, even spelled 7ayye by the engine) are never graded.",
+     "why": "Medi 2026-09-05 on the Sep 5 report: 'موز-' shown as Moz (banana) while he reached for maz3ooj; 'biz'a-' as Besse (cat); 'za'aj' as Joaz (husband); 'heyye' as 7ayye (snake).",
+     "where": "understand_lesson.is_false_start (single tokens and inside 2-3 word spans); arabizi.Matcher skeleton tier needs 3+ consonants; miss_kind.choice_check never 'wants' a glue word",
+     "status": "enforced"
+    },
+    {
+     "id": "M11",
+     "rule": "Only Medi's recorded speech counts toward Speaking. Words only Amal said or typed do not earn learner progress. Flashcards has its own independent score from card answers. Explicit New marking is vocabulary metadata, not proof of use.",
+     "why": "Medi 2026-09-05: 'we only want to count the words I say; it can only be demonstrated that I know a word, or make an error, if I say the word or phrase.' Sep 5 report had 40 Amal-only rows inside new / reused.",
+     "where": "build_report.classify: new / reused from Medi events only, Amal-only keys -> kind 'heard'; buckets already Medi-only; tally = Medi's moments only",
+     "status": "enforced"
+    }
+   ],
+   "tab": "words"
+  },
+  {
+   "title": "New words and buckets",
+   "rules": [
+    {
+     "id": "N1",
+     "rule": "'New' requires an explicit mark by Amal/Medi or a known Doc introduction. Speaking introduction ends after 5 Medi spoken uses since that introduction, even in one lesson; helped uses count as practice, not mastery. Then the underlying Speaking score applies. Flashcards keeps its own drill: 5 consecutive first-try successes across 2 dates. Neither finishes the other's target.",
+     "why": "Medi 2026-09-05: 'we don't have any more context for what words are new'; Sep 4 = babse6 and banbese6 only.",
+     "where": "buckets.compute(confirmed_new=, doc_before=); marks live in amal_rules kind 'new'; chat/asked inference only fills 'new candidate' for Amal's after-link",
+     "status": "enforced"
+    },
+    {
+     "id": "N2",
+     "rule": "The Google Doc is the only word truth. The app never writes it.",
+     "why": "Amal owns the list.",
+     "where": "import_vocab.py is one-way",
+     "status": "enforced"
+    },
+    {
+     "id": "N3",
+     "rule": "A Doc lemma covers its conjugations: Basa6tek belongs to babse6's family.",
+     "why": "16 of Amal's 21 typed Sep-4 forms are conjugations the Doc does not list.",
+     "where": "understand_lesson.family_key (consonant skeleton); planned: first-tier, and split multi-word entries so ne6la3 is a target",
+     "status": "partly"
+    },
+    {
+     "id": "N4",
+     "rule": "Flashcards offers separate New and Missed sets; New words retain their strict drill. Speaking introductions are tracked separately as five-use conversation targets.",
+     "why": "Different loops.",
+     "where": "buckets.py; cards default set",
+     "status": "enforced"
+    },
+    {
+     "id": "N5",
+     "rule": "Amal's topic pick decides whether new words are expected: any 'New …' topic = yes; review-only topics (Last week's lessons, Grammar, Review listening, Review conversation) = no. Nobody is asked twice.",
+     "why": "Medi 2026-09-05: 'if it's New we can assume there will be new words; if it's review, assume not'.",
+     "where": "amal/plan.html topic screen writes rule new_words {expected}; the after-link's 'new word?' question is planned to show only when expected",
+     "status": "enforced"
+    },
+    {
+     "id": "N6",
+     "rule": "Speaking 'You used it' counts only timed recorded Medi uses, including prompted attempts. Typed homework, untimed evidence and Amal's words are excluded. 'Without help' requires explicit unprompted, uncorrected and no-help-request labels, with no unclear/choice marker. Flashcards never changes these counts or Speaking dates.",
+     "why": "A tutor saying a word is not evidence that Medi can use it. These counts come from transcript labels, not verified pronunciation.",
+     "where": "scripts/buckets.py; docs/js/buckets.js; Medi-only word_stats backfill",
+     "status": "enforced"
+    },
+    {
+     "id": "N7",
+     "rule": "Mastered needs 5 consecutive successes in the same score across at least 3 dates. Speaking uses independent lesson evidence, at most one success per word/lesson date. Flashcards uses first-try answers only. Help or correction interrupts only its own score's streak; unknown speech is neutral. Successes are never combined between scores.",
+     "why": "Repeated mentions in one lesson are not the same as recalling the word independently over time.",
+     "where": "Python and browser progress rules; dashboard and cards replay saved answers by ID",
+     "status": "enforced"
+    },
+    {
+     "id": "N8",
+     "rule": "Recover from Missed with two consecutive independent successes in that same score: first to Shaky, second to Good. Help/error interrupts that lane's recovery; unclear speech is neutral. Both successes also count toward its Mastered streak. Ordinary Shaky needs one independent success. The other score remains unchanged.",
+     "why": "Medi 2026-09-10: one successful recall after a miss should show progress, not immediately count as Good.",
+     "where": "scripts/buckets.py and docs/js/buckets.js replay separate evidence lanes; at most one Speaking success per word/lesson date",
+     "status": "enforced"
+    },
+    {
+     "id": "N9",
+     "rule": "Each word has separate Speaking and Flashcards scores, including its bucket, mistakes, last-practice date, recovery and mastery. Flashcard sets and weighting use only the Flashcards score. The Amal tab shows Speaking introduction uses out of 5 and how many more to practise; it sends nothing automatically.",
+     "why": "Medi 2026-09-10: keep flashcard practice separate from verbal lessons and help Amal bring new words to five spoken uses quickly.",
+     "where": "progress_scores v1; provenance context v3; Words, Today, Amal and Flashcards pages; old combined caches rejected",
+     "status": "enforced"
+    }
+   ],
+   "tab": "words"
+  },
+  {
+   "title": "Amal",
+   "rules": [
+    {
+     "id": "A1",
+     "rule": "Code never contacts Amal. Links are minted; Medi sends them.",
+     "why": "Her time and trust.",
+     "where": "amal_links.py; send_lesson_email.mjs hard-codes Medi",
+     "status": "enforced"
+    },
+    {
+     "id": "A2",
+     "rule": "Amal's tap beats any machine label.",
+     "why": "She is the ground truth.",
+     "where": "apply_rules.py re-scores the exact event",
+     "status": "enforced",
+     "tab": "words"
+    },
+    {
+     "id": "A3",
+     "rule": "At most 5 questions, clips of at most 15 s, one tap each; target 3 to 5 minutes; measure it.",
+     "why": "Her budget is minutes.",
+     "where": "after_questions.py; timing measured only on stand-ins so far",
+     "status": "partly"
+    },
+    {
+     "id": "A4",
+     "rule": "Lessons are public by choice: audio, clips and transcripts stay on the open site; any transcription provider may receive the audio.",
+     "why": "Medi 2026-09-05: nothing sensitive is said. Amal said yes to all of it the same day (relayed by Medi).",
+     "where": "docs/ pages are public; no consent gate in code",
+     "status": "enforced"
+    }
+   ],
+   "tab": "system"
+  },
+  {
+   "title": "Numbers and publishing",
+   "rules": [
+    {
+     "id": "H1",
+     "rule": "No guessed number. Unknown shows '–' and why.",
+     "why": "Medi's standing rule.",
+     "where": "every page and email",
+     "status": "enforced"
+    },
+    {
+     "id": "H2",
+     "rule": "Counts are counts. 'Better' or 'accurate' only with a named metric and human labels.",
+     "why": "No word-perfect transcript exists yet.",
+     "where": "engine report wording; AI reports cards",
+     "status": "enforced"
+    },
+    {
+     "id": "H3",
+     "rule": "Nothing is emailed before the page is pushed and answers 200.",
+     "why": "A link to a 404 is a lie.",
+     "where": "lesson_pipeline.publish + publish_report (2026-09-05)",
+     "status": "enforced"
+    },
+    {
+     "id": "H4",
+     "rule": "Paid calls stop at 90 % of the budget.",
+     "why": "Ceiling prices, no surprises.",
+     "where": "pipeline_ext ledger",
+     "status": "enforced"
+    }
+   ],
+   "tab": "system"
+  },
+  {
+   "title": "Research method",
+   "rules": [
+    {
+     "id": "R1",
+     "rule": "Freeze clips, hashes and test arms before any output is seen.",
+     "why": "So a result cannot be steered.",
+     "where": "Codex bake-offs; Claude audit reproduced 65/65 hashes",
+     "status": "enforced"
+    },
+    {
+     "id": "R2",
+     "rule": "An engine is replaced only on held-out, Amal-labelled events, tested on full tracks.",
+     "why": "20 clips of one verb from one lesson prove direction, not superiority.",
+     "where": "planned: 5 lessons × 20 events gold set",
+     "status": "planned"
+    }
+   ],
+   "tab": "system"
+  },
+  {
+   "title": "Amal's rulings",
+   "rules": [
+    {
+     "id": "AR-1930",
+     "kind": "amal-ruling",
+     "pattern": "p-kam-marra-for-kaman-marra",
+     "rule": "Do not correct: kam marra used for 'one more time' (Kam marra -> Kaman marra)",
+     "why": "this is not a commmon error. Medi doesn't use kammen for kam. he either says kam or kaman. it doesn't apply",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-25d8058a",
+      "FA-1ab94c39",
+      "FA-9a6ffc95",
+      "FA-838ef137",
+      "FA-7a3e67b3"
+     ]
+    },
+    {
+     "id": "AR-1931",
+     "kind": "amal-ruling",
+     "pattern": "p-b-kept-after-lamma-iza",
+     "rule": "Do not correct: b- kept on the verb after lamma / iza (lamma ba3mel -> lamma a3mel, iza ba2dar -> iza a2dar)",
+     "why": "lamma doesn't take a \"b\" but iza does.",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-1e764d1d",
+      "FA-c327abb3",
+      "FA-27cfce95",
+      "FA-9d8a4295"
+     ]
+    },
+    {
+     "id": "AR-1933",
+     "kind": "amal-ruling",
+     "pattern": "p-english-word-for-sheet-word",
+     "rule": "Do not correct: English word dropped into an Arabic sentence though the word is on her sheet (or, eat, rice, Iranian)",
+     "why": "it's ok to switch sometimes. your example isn't sufficient",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-a7b59b58",
+      "FA-14654f82",
+      "FA-0cabc117",
+      "FA-27a42e5b"
+     ]
+    },
+    {
+     "id": "AR-1939",
+     "kind": "amal-ruling",
+     "pattern": "p-msa-form-for-her-word",
+     "rule": "Do not correct: MSA form where her sheet has the Levantine word (maa2 -> mayy, dajaaj -> jaaj, al-aan -> halla)",
+     "why": "not sure what you mean. maybe incorrect transcription. Medi doesn't use MSA",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-34b52cb9",
+      "FA-bd4865ad",
+      "FA-4c7ea778"
+     ]
+    },
+    {
+     "id": "AR-1941",
+     "kind": "amal-ruling",
+     "pattern": "p-fi-for-bi",
+     "rule": "Do not correct: fi where Levantine uses bi- (niktub fi -> niktub bi-, fi el-lail -> bil-lail)",
+     "why": "BI or fi work. not necessarily bi.",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-43265fca",
+      "FA-45ad5e80"
+     ]
+    },
+    {
+     "id": "AR-1947",
+     "kind": "amal-ruling",
+     "pattern": "p-rann-la-for-3ala",
+     "rule": "Do not correct: rann + la- instead of 3ala (I called an engineer)",
+     "why": "barenn (to call) takes bothe 3ala and la-",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-56b8de34",
+      "FA-18c61db3"
+     ]
+    },
+    {
+     "id": "AR-1948",
+     "kind": "amal-ruling",
+     "pattern": "p-see-you-reply-clipped",
+     "rule": "Do not correct: 'See you' reply comes out without its prefix (shufik / ma shuftak -> bashufek / mnshufek)",
+     "why": "possibly transcription error",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-83ca43af",
+      "FA-ab1497b9"
+     ]
+    },
+    {
+     "id": "AR-1949",
+     "kind": "amal-ruling",
+     "pattern": "p-t-form-dropped",
+     "rule": "Do not correct: Get-form (t-) dropped: tsawwari for tetsawwari, daaya2ti for etdaaya2ti",
+     "why": "wrong transcription",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-da870913",
+      "FA-65623974"
+     ]
+    },
+    {
+     "id": "AR-1950",
+     "kind": "amal-ruling",
+     "pattern": "p-eish-shnu-for-shu",
+     "rule": "Do not correct: eish / shnu for 'what' instead of her shu",
+     "why": "aish is fine. it's a another way to say what in Palestine. HE never said shenu. he doesn't even know it.",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-850f6234",
+      "FA-b8b164dd"
+     ]
+    },
+    {
+     "id": "AR-1951",
+     "kind": "amal-ruling",
+     "pattern": "p-english-word-amal-also-used",
+     "rule": "Do not correct: English word he used that Amal also used in the same stretch (issue, jacket)",
+     "why": "irrelevant",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-975b4e60",
+      "FA-902cc6ce"
+     ]
+    },
+    {
+     "id": "AR-1952",
+     "kind": "amal-ruling",
+     "pattern": "p-ya3tik-el-3afye-reply",
+     "rule": "Do not correct: Wrong reply to ya3tiki el-3afye (Allah ywaffqek / 3afya fiki -> Allah y3afiki)",
+     "why": "not necessary. it's not part of the lesson. slips like this are ok at the end.",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-efe70b9a",
+      "FA-cd7583e1"
+     ]
+    },
+    {
+     "id": "AR-1955",
+     "kind": "amal-ruling",
+     "pattern": "p-3andak-for-3andkom",
+     "rule": "Do not correct: Singular 3andak for plural 3andkom (do you [all] have)",
+     "why": "wrong transcription",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-e0c1e94c"
+     ]
+    },
+    {
+     "id": "AR-1959",
+     "kind": "amal-ruling",
+     "pattern": "p-causative-heard-as-state",
+     "rule": "Do not correct: Listening: bey3asseb (makes angry) understood as 'is angry'",
+     "why": "ba3asseb is for both getting angry and causing anger",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-f19b71e9"
+     ]
+    },
+    {
+     "id": "AR-1961",
+     "kind": "amal-ruling",
+     "pattern": "p-fem-adj-masc-noun",
+     "rule": "Do not correct: Feminine adjective on a masculine noun (el-jaw ... m8ayyme -> el-jaw m8ayyem)",
+     "why": "it's ok. m8ayme is short for el-denya m8ayme",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-958908ea"
+     ]
+    },
+    {
+     "id": "AR-1963",
+     "kind": "amal-ruling",
+     "pattern": "p-friday-clipped",
+     "rule": "Do not correct: Friday said as yoam el-jam3 (-> yoam el-jum3a)",
+     "why": "wrong transcription",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-a85abea0"
+     ]
+    },
+    {
+     "id": "AR-1966",
+     "kind": "amal-ruling",
+     "pattern": "p-i-form-for-he-form",
+     "rule": "Do not correct: I-form for the he/it-form (bkhawwefna -> bikhawwefna)",
+     "why": "the ey part of the he form doesn't have to be very promenant. some people just pronounce it as bi5awwefna",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-a01900ca"
+     ]
+    },
+    {
+     "id": "AR-1970",
+     "kind": "amal-ruling",
+     "pattern": "p-ma-on-pronoun-3and-lost",
+     "rule": "Do not correct: ma + pronoun for 'you don't have' (ma intum irani -> ma 3andkom irani)",
+     "why": "irrelevant / wrong transcription",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-eaff41c4"
+     ]
+    },
+    {
+     "id": "AR-1971",
+     "kind": "amal-ruling",
+     "pattern": "p-min-hom-separate",
+     "rule": "Do not correct: Pronoun said separately after the preposition (min hom -> minhom)",
+     "why": "it's ok",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-0e13917c"
+     ]
+    },
+    {
+     "id": "AR-1975",
+     "kind": "amal-ruling",
+     "pattern": "p-participle-with-verb-ending",
+     "rule": "Do not correct: Participle given a verb ending: inti mit2akti for inti mit2akkde (are you sure)",
+     "why": "maybe wrong transcription",
+     "where": "scripts/apply_amal_audit_rulings.py marks the pattern's rows dropped; the review page never lists it again",
+     "status": "enforced",
+     "created": "2026-09-30",
+     "rows": [
+      "FA-20ce3301"
+     ]
+    }
+   ]
   }
+ ],
+ "tabs": {
+  "system": "System rules: the mechanics (recording, transcribing, who spoke, publishing, numbers, research method)",
+  "words": "Word and grammar rules: what counts as a mistake, what is new, what Amal decides"
+ }
 }
