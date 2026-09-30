@@ -79,3 +79,22 @@ def test_dry_run_writes_nothing(env):
     before = audit.read_text(encoding="utf-8"), rules.read_text(encoding="utf-8")
     aar.apply(dry=True)
     assert (audit.read_text(encoding="utf-8"), rules.read_text(encoding="utf-8")) == before and not patched
+
+
+def test_rulings_wiped_by_a_rebuild_come_back(env):
+    """2026-09-30: full_audit_build rewrote the audit JSON without her rulings and the 'applied' flag kept all 134 from
+    coming back. A rebuild must never erase her answers: an applied ruling whose rows lost it is applied again."""
+    audit, _, _ = env
+    aar.apply()
+    # simulate full_audit_build: same rows, back to machine labels, no rulings_applied, no amal_ruling
+    audit.write_text(json.dumps({"rows": [
+        {"uid": "FA-b1", "kind": "grammar-B", "signal": "none", "confidence": "low"},
+        {"uid": "FA-b2", "kind": "vocab-B", "signal": "none", "confidence": "medium"},
+        {"uid": "FA-b3", "kind": "grammar-B", "signal": "none", "confidence": "low"},
+        {"uid": "FA-a1", "kind": "grammar", "signal": "recast", "confidence": "high"},
+        {"uid": "FA-a2", "kind": "vocab-A", "signal": "recast", "confidence": "low"}]}), encoding="utf-8")
+    aar.load_rulings()[0]["payload"]["applied"] = "2026-09-30"
+    aar.apply()
+    r = rows(audit)
+    assert r["FA-b1"]["amal_ruling"]["kind"] == "confirm" and r["FA-b1"]["kind"] == "grammar"
+    assert r["FA-b3"]["kind"] == "dropped-by-amal"

@@ -78,6 +78,7 @@ def apply(dry=False):
     if not grp:
         grp = {"title": "Amal's rulings", "rules": []}
         R["groups"].append(grp)
+    grp["tab"] = "words"   # her rulings say what counts as a mistake (the AI Rules page only shows System / Word groups)
     known = {x.get("pattern") for x in grp["rules"]}
     rulings = load_rulings()
     # which taps are already applied is kept HERE (the audit JSON), not written back into her Supabase rows
@@ -98,7 +99,10 @@ def apply(dry=False):
         # "applied" (old Supabase flag) / rulings_applied only mean it was applied ONCE; full_audit_build rewrites the
         # audit JSON without her rulings, so skip only when every row she ruled on still carries this ruling (2026-09-30)
         live = [rows[u] for u in uids if u in rows]
-        if (p.get("applied") or ru.get("id") in done_ids) and all((r.get("amal_ruling") or {}).get("rule_id") == ru.get("id") for r in live):
+        # re-apply only when the build wiped it (no ruling of hers on any of its rows, none later rejected) - a newer
+        # decision on a row (another ruling, a Tutor-page "right") always wins over an old one
+        wiped = bool(live) and all(not r.get("amal_ruling") and r.get("kind") != "rejected" for r in live)
+        if (p.get("applied") or ru.get("id") in done_ids) and not wiped:
             continue
         pid = ru.get("word_key")
         if p.get("audit_uid"):                                   # one after-lesson question = one row
