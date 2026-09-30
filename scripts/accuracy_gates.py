@@ -699,11 +699,14 @@ def validate(repo=REPO):
     ledger = load_ledger(os.path.join(repo, "data", "accuracy", "verifications.json"))
     probs += ledger_problems(ledger)
     # schema: full-audit rows
-    kinds = {"grammar", "grammar-B", "vocab-A", "vocab-B", "rejected"}
+    # dropped-by-amal: Amal said "not an error" on her pattern review (apply_amal_audit_rulings.py) - never scored
+    kinds = {"grammar", "grammar-B", "vocab-A", "vocab-B", "rejected", "dropped-by-amal"}
     uids = set()
     for r in audit["rows"]:
         if r.get("kind") not in kinds:
             probs.append(f"audit row {r.get('uid')}: kind {r.get('kind')!r} unknown")
+        elif r.get("kind") == "dropped-by-amal" and not isinstance(r.get("amal_ruling"), dict):
+            probs.append(f"audit row {r.get('uid')}: dropped-by-amal without her ruling")
         if not r.get("uid") or r["uid"] in uids:
             probs.append(f"audit row {r.get('uid')}: missing or duplicate uid")
         uids.add(r.get("uid"))
