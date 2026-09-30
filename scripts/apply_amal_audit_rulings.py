@@ -94,9 +94,12 @@ def apply(dry=False):
             if not p.get("applied") and any(v["rule_id"] == ru.get("id") for v in vrec):
                 changed.append(ru["id"])
             continue
-        if p.get("applied") or ru.get("id") in done_ids:
-            continue
         uids = p.get("rows") or []
+        # "applied" (old Supabase flag) / rulings_applied only mean it was applied ONCE; full_audit_build rewrites the
+        # audit JSON without her rulings, so skip only when every row she ruled on still carries this ruling (2026-09-30)
+        live = [rows[u] for u in uids if u in rows]
+        if (p.get("applied") or ru.get("id") in done_ids) and all((r.get("amal_ruling") or {}).get("rule_id") == ru.get("id") for r in live):
+            continue
         pid = ru.get("word_key")
         if p.get("audit_uid"):                                   # one after-lesson question = one row
             r = rows.get(p["audit_uid"])

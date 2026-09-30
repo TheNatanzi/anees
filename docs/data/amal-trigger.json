@@ -1,87 +1,128 @@
 {
- "firings": [],
+ "firings": [
+  {
+   "at": "2026-09-30T15:21:14-07:00",
+   "changed": [
+    {
+     "source": "pattern_review",
+     "label": "Slips-by-pattern review",
+     "n": 81,
+     "newest": "2026-09-30T18:30:22.935673+00:00"
+    },
+    {
+     "source": "after_links",
+     "label": "After-lesson questions",
+     "n": 14,
+     "newest": "2026-09-30T18:35:47.565087+00:00"
+    },
+    {
+     "source": "verb_checks",
+     "label": "Verb check lists 1 and 2",
+     "n": 2,
+     "newest": "2026-09-22T09:19:45.657069+00:00"
+    }
+   ],
+   "steps": [
+    "pull_verb_checks",
+    "apply_amal_audit_rulings",
+    "build_word_bank_catalog",
+    "build_verb_addon_tags",
+    "full_audit_build",
+    "amal_grammar_notes",
+    "build_grammar_console",
+    "build_amal_grammar_rules",
+    "build_amal_review",
+    "build_lessons_page_data",
+    "codex_list",
+    "accuracy_annotate",
+    "build_sentence_ladder",
+    "build_tutor_data"
+   ],
+   "failures": [],
+   "numbers_moved": [
+    {
+     "what": "verb forms checked by Amal",
+     "from": 729,
+     "to": 1605
+    }
+   ],
+   "published": null
+  }
+ ],
  "about": "Anything Amal does is detected (hash of her answers per source), re-pulled, recalculated, and published only if the publish guard passes (scripts/amal_trigger.py; Medi 2026-09-29).",
- "checked": "2026-09-29T09:41:33-07:00",
+ "checked": "2026-09-30T15:21:14-07:00",
  "sources": [
   {
    "id": "tutor_verify",
    "label": "Tutor page: check these moments",
    "readable": true,
-   "checked": "2026-09-29T09:41:28-07:00",
+   "checked": "2026-09-30T15:19:07-07:00",
    "n": 0,
    "newest": null,
-   "baseline": true,
    "last_change": "2026-09-29T09:41:28-07:00"
   },
   {
    "id": "pattern_review",
    "label": "Slips-by-pattern review",
    "readable": true,
-   "checked": "2026-09-29T09:41:29-07:00",
-   "n": 0,
-   "newest": null,
-   "baseline": true,
-   "last_change": "2026-09-29T09:41:29-07:00"
+   "checked": "2026-09-30T15:19:07-07:00",
+   "n": 81,
+   "newest": "2026-09-30T18:30:22.935673+00:00",
+   "last_change": "2026-09-30T15:21:14-07:00"
   },
   {
    "id": "after_links",
    "label": "After-lesson questions",
    "readable": true,
-   "checked": "2026-09-29T09:41:29-07:00",
-   "n": 9,
-   "newest": "2026-09-05T21:32:09.43189+00:00",
-   "baseline": true,
-   "last_change": "2026-09-29T09:41:29-07:00"
+   "checked": "2026-09-30T15:19:08-07:00",
+   "n": 14,
+   "newest": "2026-09-30T18:35:47.565087+00:00",
+   "last_change": "2026-09-30T15:21:14-07:00"
   },
   {
    "id": "plan_links",
    "label": "Before-lesson planner",
    "readable": true,
-   "checked": "2026-09-29T09:41:30-07:00",
+   "checked": "2026-09-30T15:19:08-07:00",
    "n": 4,
    "newest": "2026-09-05T20:45:51.461908+00:00",
-   "baseline": true,
    "last_change": "2026-09-29T09:41:30-07:00"
   },
   {
    "id": "amal_rules_other",
    "label": "Any other answer she gives in the app",
    "readable": true,
-   "checked": "2026-09-29T09:41:30-07:00",
+   "checked": "2026-09-30T15:19:09-07:00",
    "n": 0,
    "newest": null,
-   "baseline": true,
    "last_change": "2026-09-29T09:41:30-07:00"
   },
   {
    "id": "verb_checks",
    "label": "Verb check lists 1 and 2",
    "readable": true,
-   "checked": "2026-09-29T09:41:31-07:00",
+   "checked": "2026-09-30T15:19:10-07:00",
    "n": 2,
    "newest": "2026-09-22T09:19:45.657069+00:00",
-   "baseline": true,
-   "last_change": "2026-09-29T09:41:31-07:00"
+   "last_change": "2026-09-30T15:21:14-07:00"
   },
   {
    "id": "word_review",
    "label": "Word review",
    "readable": true,
-   "checked": "2026-09-29T09:41:32-07:00",
+   "checked": "2026-09-30T15:19:10-07:00",
    "n": 1,
    "newest": "2026-09-09T19:39:04.959412+00:00",
    "note": "her answers are detected and logged; showing them in the Word Bank still needs the Speaking release rebuild (not automated)",
-   "baseline": true,
    "last_change": "2026-09-29T09:41:32-07:00"
   },
   {
    "id": "homework",
    "label": "Homework verdicts",
    "readable": true,
-   "checked": "2026-09-29T09:41:33-07:00",
+   "checked": "2026-09-30T15:19:11-07:00",
    "n": 1,
    "newest": "2026-09-05T21:32:06.328+00:00",
-   "baseline": true,
    "last_change": "2026-09-29T09:41:33-07:00"
   },
   {
@@ -89,18 +130,17 @@
    "label": "Her grammar-rules Google Doc",
    "readable": false,
    "why": "her grammar Doc is private (the export URL answers HTTP 401 without a Google sign-in) and this PC has no Google API credentials; publish the Doc to the web and set ANEES_GRAMMAR_DOC_URL",
-   "checked": "2026-09-29T09:41:33-07:00",
+   "checked": "2026-09-30T15:19:11-07:00",
    "last_change": null
   },
   {
    "id": "quizlet",
    "label": "Her Quizlet sets",
    "readable": true,
-   "checked": "2026-09-29T09:41:33-07:00",
+   "checked": "2026-09-30T15:19:11-07:00",
    "n": 126,
    "newest": null,
    "remote": "not read: quizlet.com answers HTTP 403 to scripts and FIRECRAWL_API_KEY is not set",
-   "baseline": true,
    "last_change": "2026-09-29T09:41:33-07:00"
   }
  ]

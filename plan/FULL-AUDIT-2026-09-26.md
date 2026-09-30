@@ -1,4 +1,4 @@
-# Full vocab + grammar audit - 2026-09-29
+# Full vocab + grammar audit - 2026-09-30
 
 Two independent readers per lesson, a third settles disagreements, reconciled with the 2026-09-24 hand sweep. A = Amal fixed it out loud or in chat (scored). B = she let it pass (unscored until she rules on her review page). Tier 0 = she supplied a word he asked for. Nothing the sweep verified was dropped.
 

@@ -23,7 +23,8 @@ test('card keys: Doc word key when the person form is in the Doc, else form:<ent
  const guess=know.tenses.Present.find(c=>c.person==='You (m)');
  // Amal checked this form on 2026-09-23 (list 1): the key stays form:<entry>:<person>, it is no longer a guess.
  assert.equal(guess.key,'form:ana ba3raf:present:You (m)');assert.equal(guess.guessed,!amal['ana ba3raf:present:You (m)']);
- const guessed=all.filter(c=>c.guessed);assert.ok(guessed.length>0&&guessed.every(c=>!amal[c.key.replace(/^form:/,'')]),'guesses = engine forms Amal has not answered');
+ const guessed=all.filter(c=>c.guessed);// Amal answered every form of list 1 on 2026-09-30, so there may be no guesses left
+ assert.ok(guessed.every(c=>!amal[c.key.replace(/^form:/,'')]),'guesses = engine forms Amal has not answered');
  assert.equal(know.tenses.Command.find(c=>c.person==='You (f)').guessed,false);
  assert.equal(new Set(all.map(c=>c.key)).size,all.length,'no two drill cards share a key');
 });

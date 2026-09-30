@@ -322,6 +322,8 @@ def main():
     py(os.path.join(HERE, "full_audit_compare.py"), "settle", d)
     # 5 build the audit (all lessons) + 6 pages. A builder that fails leaves its page stale: recorded, the run fails, no push.
     py(os.path.join(HERE, "full_audit_build.py"))
+    # the build rewrites the audit JSON without Amal's rulings: re-apply them before any page is built (2026-09-30)
+    py(os.path.join(HERE, "apply_amal_audit_rulings.py"))
     for s in ("build_lessons_page_data.py", "build_grammar_console.py", "build_amal_grammar_rules.py", "arabizi_everywhere.py"):
         rc = py(os.path.join(HERE, s), check=False).returncode
         if rc:

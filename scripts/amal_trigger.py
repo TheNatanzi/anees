@@ -69,7 +69,14 @@ def sha(obj):
 def fp_rows(rows, keys, stamp_keys=("created_at", "updated_at", "done_at")):
     """Fingerprint of a set of answer rows: content hash of the fields that carry her answer + count + newest stamp."""
     body = sorted((sha({k: r.get(k) for k in keys}) for r in rows))
-    newest = max((str(r.get(k)) for r in rows for k in stamp_keys if r.get(k)), default=None)
+    stamps = [str(r.get(k)) for r in rows for k in stamp_keys if r.get(k)]
+    # her per-answer times (verb check lists keep one updated_at per answer inside "answers"): the row stamps alone said
+    # 09-22 while she answered 876 forms on 2026-09-30
+    for r in rows:
+        a = r.get("answers")
+        if isinstance(a, dict):
+            stamps += [str(v.get("updated_at")) for v in a.values() if isinstance(v, dict) and v.get("updated_at")]
+    newest = max(stamps, default=None)
     return {"hash": sha(body), "n": len(rows), "newest": newest}
 
 
@@ -167,10 +174,11 @@ def fetch_quizlet(state_entry=None):
 # steps: run in THIS order whatever fired (a builder must see what the ones before it wrote)
 STEPS = [
     ("pull_verb_checks", [sys.executable, "scripts/verb_check_links.py", "pull"]),
-    ("apply_amal_audit_rulings", [sys.executable, "scripts/apply_amal_audit_rulings.py"]),
     ("build_word_bank_catalog", [sys.executable, "scripts/build_word_bank_catalog.py"]),
     ("build_verb_addon_tags", [NODE, "scripts/build_verb_addon_tags.cjs"]),
     ("full_audit_build", [sys.executable, "scripts/full_audit_build.py"]),
+    # AFTER full_audit_build: the build rewrites the audit JSON without her rulings (2026-09-30 bug: 134 answers wiped)
+    ("apply_amal_audit_rulings", [sys.executable, "scripts/apply_amal_audit_rulings.py"]),
     ("amal_grammar_notes", [sys.executable, "scripts/amal_grammar_notes.py"]),
     ("build_grammar_console", [sys.executable, "scripts/build_grammar_console.py"]),
     ("build_amal_grammar_rules", [sys.executable, "scripts/build_amal_grammar_rules.py"]),
@@ -182,7 +190,7 @@ STEPS = [
     ("build_tutor_data", [sys.executable, "scripts/build_tutor_data.py"]),
     ("write_build", [sys.executable, "scripts/write_build.py"]),
 ]
-AUDIT_CHAIN = ["apply_amal_audit_rulings", "full_audit_build", "amal_grammar_notes", "build_grammar_console", "build_amal_grammar_rules",
+AUDIT_CHAIN = ["full_audit_build", "apply_amal_audit_rulings", "amal_grammar_notes", "build_grammar_console", "build_amal_grammar_rules",
                "build_amal_review", "build_lessons_page_data", "codex_list", "accuracy_annotate", "build_sentence_ladder", "build_tutor_data"]
 
 SOURCES = [
