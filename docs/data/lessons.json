@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-30T12:15:36-07:00",
+ "updated": "2026-09-30T15:28:42-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -1655,6 +1655,100 @@
     "vocab_errors": 27,
     "vocab_correct": 92,
     "grammar_errors": 22
+   }
+  },
+  {
+   "date": "2026-09-30",
+   "start_local": "2026-09-30T13:34:46-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "duration_min": 65.7,
+   "type": "free-speak",
+   "review_mode": null,
+   "type_why": "Not read yet: default until Claude reads this lesson and adds it to LESSON_TYPES.",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 39,
+    "right": 52,
+    "wrong": 9,
+    "partial": 7,
+    "pct": 81.6,
+    "scored": 68,
+    "audit_wrong": 9,
+    "audit_partial": 1,
+    "not_on_sheet": 4
+   },
+   "grammar": {
+    "uses": null,
+    "mistakes": 27,
+    "pct": null,
+    "estimate": false
+   },
+   "talk": {
+    "medi_s": 1194.3,
+    "amal_s": 938.3,
+    "speak_pct": 56.0,
+    "listen_pct": 44.0,
+    "window": [
+     0.0,
+     3943.4
+    ]
+   },
+   "fillers": {
+    "count": 189,
+    "per_min": 9.49,
+    "top": [
+     [
+      "uh",
+      123
+     ],
+     [
+      "um",
+      44
+     ],
+     [
+      "آآ",
+      14
+     ],
+     [
+      "mm",
+      2
+     ],
+     [
+      "umm",
+      2
+     ],
+     [
+      "ah",
+      1
+     ]
+    ],
+    "in_turns": 189,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.45,
+    "p75_s": 2.58,
+    "n": 262
+   },
+   "flow": {
+    "wpm": 59.8,
+    "n_turns": 96,
+    "arabic_words": 283
+   },
+   "new_words": [],
+   "taught": [],
+   "coverage": "Long Latin-transliterated stretch ~23:58-1:00:30 (engine wrote Arabic as Latin). Many opaque engine forms (سوالونا, شطار, Halloween=الحلوين?, Gromela, Zahadi, عذرا=زرقا, علي فيكي) read via Amal's echo. Unclear/skipped: 07:21-07:34 سويت with Amal's صرت/سألت guesses (target verb unclear); 15:39 weather 'رجعوا شوفت كتير'; 15:05 date; 32:36 'ما بتجنن'. بسول at 33:08 is the verb بوصل, not the name سول (Seoul). English prompt echoes ('is tiring', 'visited us') are him repeating her cue, not tier 3. 01:46 confusion over who did homework is comprehension, not written. / Lesson is mostly English meta-talk about the el- rule from ~17:00; long stretches (19:00-36:00, 37:00-60:00) are Arabizi in Latin script. 22:15 'Halloween' is almost certainly the engine for الحلوين (beautiful) - not flagged. 15:39 رجعوا شوفت كتير (weather reply) is garbled - not judged. 10:47 ثلاث->تلات, 30:04 mata'ib->متعب, 08:26 متهمس, 43:24 يدل=يضل are S4 pronunciation, not counted. 31:32 واطي (low) for short was self-fixed to قصيرة before Amal commented - left out. 24:15 قادين/قاديات: Amal gave both as fine. 17:52 'Uh, no. How about food is important' reads as a redirect, not a fix. 07:12 'It takes لا' unclear.",
+   "notes": [
+    "grammar uses not yet in docs/data/grammar-usage.json for this lesson; grammar.pct null until the re-run."
+   ],
+   "page": "lessons/2026-09-30.html",
+   "detail": "data/lessons/2026-09-30.json",
+   "counts": {
+    "turns": 1067,
+    "chat_lines": 0,
+    "vocab_errors": 14,
+    "vocab_correct": 58,
+    "grammar_errors": 27
    }
   }
  ]
