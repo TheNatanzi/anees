@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-30T15:24:35-07:00",
+ "updated": "2026-09-30T15:40:56-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -1348,12 +1348,12 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 148,
+    "uses": 149,
     "mistakes": 47,
-    "pct": 70.3,
+    "pct": 69.8,
     "estimate": false,
-    "scored_mistakes": 44,
-    "unscored_mistakes": 3,
+    "scored_mistakes": 45,
+    "unscored_mistakes": 2,
     "eligible": 47,
     "excluded": 0,
     "pending": 4,
@@ -1454,7 +1454,7 @@
    ],
    "coverage": "Whole file read. Two long Latin-transliterated stretches: homework sentences ~12:00-24:00 and N-verb drill ~36:50-54:40 (his Arabic is in ad-hoc Latin there; `wrong` copied as printed). Engine garbles: Amal 03:09 'اشتريت. ما فتاك' is her اخترت/no-alef fix; Amal 04:12 'بيعطوني' = bey2aat3uni per chat; 28:22 'أزعجني' = زعجني. Left out as S4 pronunciation (she did react to some): 28:18 زاجني/28:38 زاجتها (dropped ع), 30:06 تنزلي, 19:03 nitlab, 16:10 Wahta, 04:33 أطلستي, 20:42 inkisar→انكسر ('no internal flipping'), 26:43 بساط→بسّط, 59:26 نبسطه→نبسّته (shadda), 53:16 enbasena→enbasa6na (she said 'you missed a letter' - root ط, S4). Left out as self-fixes: 11:27 هون→هلق (she then said هلا), 13:53 tistamel→tistameli, 42:16 aju→ajitu, 36:53 bezaj→bienzaj. Not on her sheet so not tier 3: football, fantasy football, players, team (the last two filed as didn't-know tier 0). Amal chat lines at 09:48, 13:32, 15:41, 19:40, 21:24, 23:18, 23:39, 24:13, 24:48 lag 60-120 s and were matched to the voice turns above. Amal dropped from the Meet ~27:40-28:10. / Whole lesson read. Latin-transliterated stretches: ~12:00-24:00 and ~36:30-54:40 (Medi and some Amal lines in Latin). Amal's spoken echoes are sometimes garbled by the engine (03:09 'اشتريت' = اخترت; 04:12 'بيعطوني' = بيقاطعوني; 28:22 'أزعجني' = زعجني; 50:33 'تنبسطي' = بتنبسطي); chat lines used to confirm. Dropped-out stretch 43:57-45:38 (Medi away from mic). S4 pronunciation left out: 04:33 أطلستي (عطلتي), 05:17 هدرت (حضرت), 06:34 ما (مع), 12:59 mazuruj, 16:10 Wahta, 19:03 nitlab (نلعب), 19:09 mabad (مع بعض), 28:20 زاجني / 28:38 زاجتها (dropped ع), 30:10 تنزلي (تنزعجي), 1:02:34 علي فيك (الله يعافيك). Self-fixes not written: 12:19 eskir→kasar, 30:06 تنزلش→تنزلي, 37:52 bienzaj→bienzaju, 42:16 aju→ajitu, 42:55 انبسطتي→انبسطت. English 'football' (04:45), 'fantasy football' (05:55) not on her sheet so no tier-3 rows.",
    "notes": [
-    "grammar: 3 of the 47 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
+    "grammar: 2 of the 47 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
    ],
    "page": "lessons/2026-09-14.html",
    "detail": "data/lessons/2026-09-14.json",
@@ -4229,6 +4229,191 @@
      "_lesson_s": 3948.0,
      "first_t": 2.87,
      "last_t": 3933.31,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   }
+  },
+  {
+   "date": "2026-09-30",
+   "start_local": "2026-09-30T13:34:46-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "duration_min": 65.7,
+   "type": "free-speak",
+   "review_mode": null,
+   "type_why": "Not read yet: default until Claude reads this lesson and adds it to LESSON_TYPES.",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 44,
+    "right": 52,
+    "wrong": 9,
+    "partial": 7,
+    "pct": 81.6,
+    "scored": 68,
+    "audit_wrong": 9,
+    "audit_partial": 1,
+    "not_on_sheet": 4,
+    "unique_rows": 44,
+    "eligible": 68,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 81.6,
+    "excluded_why": {},
+    "verified_pct": null
+   },
+   "grammar": {
+    "uses": 134,
+    "mistakes": 26,
+    "pct": 82.8,
+    "estimate": false,
+    "scored_mistakes": 23,
+    "unscored_mistakes": 3,
+    "eligible": 26,
+    "excluded": 0,
+    "pending": 5,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "8 of 26 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
+      "10 slips are in rules the counter found 0 uses of in this lesson",
+      "7 rules have more slips than counted uses (A2, A3, A5, B18, C1, D2, D4)"
+     ],
+     "uses": 113,
+     "slips": 26,
+     "slips_latin": 8,
+     "slips_in_zero_use_rules": 10,
+     "rules_slips_over_uses": [
+      "A2",
+      "A3",
+      "A5",
+      "B18",
+      "C1",
+      "D2",
+      "D4"
+     ]
+    },
+    "verified_pct": null
+   },
+   "talk": {
+    "medi_s": 1194.3,
+    "amal_s": 938.3,
+    "speak_pct": 56.0,
+    "listen_pct": 44.0,
+    "window": [
+     0.0,
+     3943.4
+    ]
+   },
+   "fillers": {
+    "count": 189,
+    "per_min": 9.49,
+    "top": [
+     [
+      "uh",
+      123
+     ],
+     [
+      "um",
+      44
+     ],
+     [
+      "آآ",
+      14
+     ],
+     [
+      "mm",
+      2
+     ],
+     [
+      "umm",
+      2
+     ],
+     [
+      "ah",
+      1
+     ]
+    ],
+    "in_turns": 189,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.45,
+    "p75_s": 2.58,
+    "n": 262
+   },
+   "flow": {
+    "wpm": 59.8,
+    "n_turns": 96,
+    "arabic_words": 283
+   },
+   "new_words": [],
+   "taught": [],
+   "coverage": "Long Latin-transliterated stretch ~23:58-1:00:30 (engine wrote Arabic as Latin). Many opaque engine forms (سوالونا, شطار, Halloween=الحلوين?, Gromela, Zahadi, عذرا=زرقا, علي فيكي) read via Amal's echo. Unclear/skipped: 07:21-07:34 سويت with Amal's صرت/سألت guesses (target verb unclear); 15:39 weather 'رجعوا شوفت كتير'; 15:05 date; 32:36 'ما بتجنن'. بسول at 33:08 is the verb بوصل, not the name سول (Seoul). English prompt echoes ('is tiring', 'visited us') are him repeating her cue, not tier 3. 01:46 confusion over who did homework is comprehension, not written. / Lesson is mostly English meta-talk about the el- rule from ~17:00; long stretches (19:00-36:00, 37:00-60:00) are Arabizi in Latin script. 22:15 'Halloween' is almost certainly the engine for الحلوين (beautiful) - not flagged. 15:39 رجعوا شوفت كتير (weather reply) is garbled - not judged. 10:47 ثلاث->تلات, 30:04 mata'ib->متعب, 08:26 متهمس, 43:24 يدل=يضل are S4 pronunciation, not counted. 31:32 واطي (low) for short was self-fixed to قصيرة before Amal commented - left out. 24:15 قادين/قاديات: Amal gave both as fine. 17:52 'Uh, no. How about food is important' reads as a redirect, not a fix. 07:12 'It takes لا' unclear.",
+   "notes": [
+    "grammar: 3 of the 26 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
+   ],
+   "page": "lessons/2026-09-30.html",
+   "detail": "data/lessons/2026-09-30.json",
+   "counts": {
+    "turns": 1067,
+    "chat_lines": 0,
+    "vocab_errors": 14,
+    "vocab_correct": 58,
+    "grammar_errors": 26,
+    "grammar_not_counted": 1
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 62.1 %; 2 consecutive passes at >= 95 % are needed",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3942 s) compared with a second model",
+     "checks: 5 scored rows need an audio or human check (0 words, 5 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 47,
+       "r2": 51,
+       "agreed": 36,
+       "disputed": 22,
+       "agreement_pct": 62.1
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3942.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3943.43,
+     "first_t": 0.28,
+     "last_t": 3939.93,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3943.43,
+     "first_t": 47.21,
+     "last_t": 3942.35,
      "missing": [],
      "holes": [],
      "missing_s": 0,
