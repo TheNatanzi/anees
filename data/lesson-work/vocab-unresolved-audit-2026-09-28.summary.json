@@ -2,55 +2,56 @@
  "reviewer": "Claude audit 2026-09-28",
  "version": "2026-09-28-vocab-unresolved-audit",
  "before": {
-  "medi_events_report": 1979,
-  "unresolved_or_on_hold": 1076,
+  "medi_events_report": 2099,
+  "unresolved_or_on_hold": 1135,
   "by_report_group": {
-   "repeat": 441,
+   "repeat": 448,
    "wrongword": 123,
-   "wording": 83,
+   "wording": 92,
    "grammar": 81,
    "other": 30,
    "clar": 11,
-   "noamal": 73,
-   "isolated": 167,
-   "hold": 39,
-   "cue": 28
+   "noamal": 74,
+   "isolated": 186,
+   "hold": 40,
+   "cue": 50
   }
  },
  "after": {
-  "still_unresolved_or_on_hold_raw_flag": 937,
-  "genuinely_open": 32,
+  "still_unresolved_or_on_hold_raw_flag": 999,
+  "genuinely_open": 73,
   "bins": {
    "no_evidence:transcript_unclear": 14,
-   "no_evidence:tutor_audio_missing": 1,
+   "no_evidence:tutor_audio_missing": 2,
    "not_counted:clarification": 23,
    "not_counted:echo": 240,
    "not_counted:farsi": 1,
-   "not_counted:filler": 40,
-   "not_counted:form_not_on_list": 13,
+   "not_counted:filler": 43,
+   "not_counted:form_not_on_list": 14,
    "not_counted:grammar": 106,
    "not_counted:not_this_word": 127,
    "not_counted:quote": 35,
-   "not_counted:repeat": 305,
-   "open:question": 32,
+   "not_counted:repeat": 321,
+   "open:question": 73,
    "settled:helped": 4,
    "settled:incorrect": 5,
    "settled:independent": 185
   }
  },
- "audited_events": 1131,
+ "audited_events": 1193,
  "sources": {
   "rule:farsi": 1,
-  "rule:filler": 39,
+  "rule:filler": 42,
   "hand": 343,
-  "rule:stutter": 171,
+  "rule:stutter": 187,
   "rule:restart": 5,
   "mech:flagged": 534,
   "mech:sep18": 26,
-  "mech:form": 11,
-  "mech:noamal": 1
+  "mech:form": 12,
+  "mech:noamal": 2,
+  "mech:unclassified": 41
  },
- "scored_events_now_not_counted": 53,
+ "scored_events_now_not_counted": 56,
  "unscored_events_now_scored": 194,
  "rules": {
   "farsi_turns": [
@@ -227,16 +228,16 @@
   ],
   "farsi_events": 1,
   "and_events": {
-   "located": 84,
-   "real_and": 45,
-   "filler": 39,
+   "located": 88,
+   "real_and": 46,
+   "filler": 42,
    "not_located": 1
   },
-  "and_fillers_that_were_scored": 18,
+  "and_fillers_that_were_scored": 19,
   "restart_pairs": 5,
   "restart_drops_that_were_scored": 3,
-  "stutter_events_collapsed": 171,
-  "stutter_drops_that_were_scored": 35,
+  "stutter_events_collapsed": 187,
+  "stutter_drops_that_were_scored": 37,
   "duplicate_records": 0
  },
  "clips": {
@@ -286,6 +287,9 @@
    },
    "2026-09-28": {
     "clip ok": 246
+   },
+   "2026-09-30": {
+    "clip ok": 137
    }
   },
   "missing": [
@@ -366,12 +370,12 @@
  ],
  "log": {
   "hand_verdict_overridden_by_rule:filler": 7,
-  "unclassified": 23,
+  "unclassified": 71,
   "restart_overrode_hand_settled": 2,
   "stutter_overrode_hand_settled": 5
  },
  "reset": {
-  "removed": 410,
-  "restored": 721
+  "removed": 464,
+  "restored": 729
  }
 }
