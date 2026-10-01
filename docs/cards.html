@@ -211,8 +211,19 @@ const secs=ms=>{ if(!Number.isFinite(ms)) return '—'; const s=ms/1000; if(s<60
 let ALT=null; const enKey=e=>String(e||'').toLowerCase().replace(/\s+/g,' ').trim();
 function alts(w){ if(!ALT){ ALT=new Map(); for(const x of words){ const k=enKey(x.english); if(!k) continue; if(!ALT.has(k)) ALT.set(k,[]); ALT.get(k).push(x); } }
   return (ALT.get(enKey(w.english))||[]).filter(x=>x.key!==w.key&&x.arabizi!==w.arabizi); }
+// English plural to match the Arabic one (Medi 2026-09-30: "Customer" needs to be "customer / customers").
+const EN_IRR={man:'men',woman:'women',child:'children',person:'people',foot:'feet',tooth:'teeth',mouse:'mice',knife:'knives',wife:'wives',life:'lives',leaf:'leaves',shelf:'shelves',half:'halves',fish:'fish',sheep:'sheep',deer:'deer'};
+// pluralize the head noun: the word before " of " or before a "(...)" note, else the last word; words already ending in -s
+// (pants, glasses) and questions / long phrases get no English plural.
+function enPlural(e){ e=String(e).trim(); if(/\?/.test(e)||e.split(/\s+/).length>4) return '';
+  const note=(e.match(/\s*\([^)]*\)\s*$/)||[''])[0], body=e.slice(0,e.length-note.length), of=body.search(/\s+of\s+/i);
+  const head=of>0?body.slice(0,of):body, rest=of>0?body.slice(of):'', m=head.match(/^(.*?)([A-Za-z]+)$/); if(!m) return '';
+  const [,pre,last]=m, low=last.toLowerCase(); if(!EN_IRR[low]&&/[^s]s$/i.test(last)) return '';
+  const pl=EN_IRR[low]?(last===last.toUpperCase()&&last.length>1?EN_IRR[low].toUpperCase():EN_IRR[low]):/^[A-Z]{2,}$/.test(last)?last+'s':/[^aeiou]y$/i.test(last)?last.slice(0,-1)+'ies':/(s|x|z|ch|sh)$/i.test(last)?last+'es':last+'s';
+  let out=(pre+pl+rest+note).replace(/^(A|An|The) /,''); if(/^[A-Z][a-z]/.test(out)) out=out[0].toLowerCase()+out.slice(1); return out; }
+const enFull=w=>w.plural&&!['—','-','–'].includes(String(w.plural).trim())&&!/[–\/]| - /.test(w.english||'')&&enPlural(w.english)?`${w.english} / ${enPlural(w.english)}`:w.english;
 function faces(w){ const al=w.drill?[]:alts(w), arFace=`<div class="big">${esc(w.arabizi)}${w.plural?` / ${esc(w.plural)}`:''}</div><div class="ar">${esc(w.arabic)}</div>${al.length?`<div class="pl">also: <b>${al.map(x=>esc(x.arabizi)).join(' · ')}</b></div>`:''}`,
-  enFace=`<div class="en">${esc(w.english)}</div>${al.length?`<div class="pl">${al.length+1} ways to say it · any is right</div>`:''}`; return pref.mode==='ar_first'?[arFace,enFace]:[enFace,arFace]; }
+  enFace=`<div class="en">${esc(enFull(w))}</div>${al.length?`<div class="pl">${al.length+1} ways to say it · any is right</div>`:''}`; return pref.mode==='ar_first'?[arFace,enFace]:[enFace,arFace]; }
 const LABELS=()=>pref.mode==='ar_first'?['Arabic','English']:['English','Arabic'];
 // ---- one Quizlet-style card: tap to flip, then swipe right = Know, left = Still learning ----
 let revealed=false;
