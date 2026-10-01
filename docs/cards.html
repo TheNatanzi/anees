@@ -222,8 +222,10 @@ function enPlural(e){ e=String(e).trim(); if(/\?/.test(e)||e.split(/\s+/).length
   const pl=EN_IRR[low]?(last===last.toUpperCase()&&last.length>1?EN_IRR[low].toUpperCase():EN_IRR[low]):/^[A-Z]{2,}$/.test(last)?last+'s':/[^aeiou]y$/i.test(last)?last.slice(0,-1)+'ies':/(s|x|z|ch|sh)$/i.test(last)?last+'es':last+'s';
   let out=(pre+pl+rest+note).replace(/^(A|An|The) /,''); if(/^[A-Z][a-z]/.test(out)) out=out[0].toLowerCase()+out.slice(1); return out; }
 const enFull=w=>w.plural&&!['—','-','–'].includes(String(w.plural).trim())&&!/[–\/]| - /.test(w.english||'')&&enPlural(w.english)?`${w.english} / ${enPlural(w.english)}`:w.english;
+// Command-tense words read as orders on the English side (Medi 2026-10-01: "Scratch" alone is confusing).
+const isCmd=w=>!w.drill&&(w.topic==='Command Tense'||w.subtopic==='Command Tense');
 function faces(w){ const al=w.drill?[]:alts(w), arFace=`<div class="big${al.length?' two':''}">${[w.arabizi,...al.map(x=>x.arabizi),...(w.plural?[w.plural]:[])].map(x=>`<span class="w">${esc(x)}</span>`).join(' / ')}</div><div class="ar">${[w.arabic,...al.map(x=>x.arabic)].filter(Boolean).map(x=>`<span class="w">${esc(x)}</span>`).join(' / ')}</div>`,
-  enFace=`<div class="en">${esc(enFull(w))}</div>${al.length?`<div class="pl">${al.length+1} ways to say it · any is right</div>`:''}`; return pref.mode==='ar_first'?[arFace,enFace]:[enFace,arFace]; }
+  enFace=`<div class="en">${esc(enFull(w))}${isCmd(w)&&!/[!?]$/.test(enFull(w))?'!':''}</div>${isCmd(w)?'<div class="pl">command · telling someone to do it</div>':''}${al.length?`<div class="pl">${al.length+1} ways to say it · any is right</div>`:''}`; return pref.mode==='ar_first'?[arFace,enFace]:[enFace,arFace]; }
 const LABELS=()=>pref.mode==='ar_first'?['Arabic','English']:['English','Arabic'];
 // ---- one Quizlet-style card: tap to flip, then swipe right = Know, left = Still learning ----
 let revealed=false;
