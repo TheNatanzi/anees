@@ -76,6 +76,16 @@
     next.attempt = round.attempt + 1; next.history = round.history.concat([{ attempt: round.attempt, got: round.got, missed: round.missed, n: round.cards.length }]);
     return next;
   }
+  // Known cards go to the back of the set (Medi 2026-09-30): a card whose latest (not undone) swipe was Know is dealt
+  // after every card that is not known yet. Order inside each half is kept. log = card_results rows (any order).
+  function splitKnown(words, log) {
+    const last = new Map();
+    for (const r of log || []) { if (!r || !r.word_key || r.undone || r.kind) continue;
+      const t = Date.parse(r.ts) || 0, p = last.get(r.word_key); if (!p || t >= p.t) last.set(r.word_key, { t, result: r.result }); }
+    const known = [], rest = [];
+    for (const w of words) ((last.get(w.key) || {}).result === 'got' ? known : rest).push(w);
+    return { rest, known };
+  }
   // Keep going (Medi 2026-09-30): after a round of `size` cards from a bigger set, what the next round offers.
   // left >= 2 batches -> the next batch; left between 1 and 2 batches -> ask: split in two halves, or all of them;
   // left <= 1 batch -> the last ones. 67 cards in 20s: 20, 20, then 27 left -> "13 + 14" or "all 27".
@@ -181,5 +191,5 @@
     for (const w of list || []) { if (!w) continue; if (seen.has(w.key)) { cards.push(w); continue; } if (fresh < room) { fresh++; cards.push(w); } else held.push(w); }
     return { cards, held: held.length, fresh, room: room === Infinity ? null : room, newToday: used, cap: o.newPerDay };
   }
-  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, done, replayWrong, summary, nextChunk, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart, newToday, capNew, BOOST, boostMap, boostLabel };
+  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, done, replayWrong, summary, nextChunk, splitKnown, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart, newToday, capNew, BOOST, boostMap, boostLabel };
 })(typeof window !== 'undefined' ? window : globalThis);

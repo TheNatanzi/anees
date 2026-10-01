@@ -112,7 +112,7 @@ h1{font-weight:500;font-size:32px;letter-spacing:-.3px} h2{font-weight:500;font-
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main></div></div>
-<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260930-keepgoing-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260923-drills-v2"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
+<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260930-knownlast-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260923-drills-v2"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
 <script>
 const C=window.AneesCards, F=window.AneesFSRS, SEL=window.AneesCardSelection, VD=window.AneesVerbDrills, WB=window.AneesWordBank, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -340,13 +340,16 @@ function opts(t,back){ document.onkeydown=null; window.scrollTo(0,0); const n=t.
   document.getElementById('start').onclick=()=>startTile(t,back); }
 function startTile(t,back){ const cap=capRound(t.words), p=cap.cards, k=pref.n?Math.min(pref.n,p.length):p.length;   // the day's new-card room is spent before the draw
   if(!p.length) return capFull(cap,()=>opts(t,back));
-  const cs=pref.shuffle?C.draw(p,stats,k,undefined,boostNow()):p.slice(0,k);                         // shuffle off keeps Doc / Quizlet order
+  const cs=deal(p,k,pref.shuffle);                         // shuffle off keeps Doc / Quizlet order; known cards last
   round=C.newRound(cs,{mode:pref.mode,subject:'sel:'+t.id}); Object.assign(round,{title:t.title||t.label,back:()=>opts(t,back),restart:()=>startTile(t,back),held:cap.held,chunk:chunkOf(p,k,cs)}); sessionMissed={}; roundMs=[]; showCard(); }
 // Keep going (Medi 2026-09-30): a round of k cards from a bigger set remembers the set, so the summary can deal the next
 // batch; when 1-2 batches are left it asks "split in two" or "all of them" (C.nextChunk).
+// Known cards go to the back (Medi 2026-09-30): deal from the not-known half first, the known half only to fill.
+function deal(pool,k,shuffle){ const {rest,known}=C.splitKnown(pool,fullLog()), pick=(L,n)=>n<=0?[]:shuffle?C.draw(L,stats,Math.min(n,L.length),undefined,boostNow()):L.slice(0,n);
+  const a=pick(rest,k); return a.concat(pick(known,k-a.length)); }
 function chunkOf(pool,k,cs){ return pref.n&&pool.length>k?{pool,size:k,shuffle:pref.shuffle,seen:new Set(cs.map(w=>w.key))}:null; }
 function chunkLeft(ch){ return ch.pool.filter(w=>!ch.seen.has(w.key)); }
-function keepGoing(n){ const ch=round.chunk, rest=chunkLeft(ch), cs=ch.shuffle?C.draw(rest,stats,Math.min(n,rest.length),undefined,boostNow()):rest.slice(0,n);
+function keepGoing(n){ const ch=round.chunk, cs=deal(chunkLeft(ch),n,ch.shuffle);
   cs.forEach(w=>ch.seen.add(w.key)); const {title,back,restart,held,subject}=round;
   round=Object.assign(C.newRound(cs,{mode:pref.mode,subject}),{title,back,restart,held,chunk:ch}); sessionMissed={}; roundMs=[]; showCard(); }
 function startReview(){ sess={know:0,learn:0,ms:[]}; lastAnswer=null; sessionMissed={}; review(); }
@@ -398,8 +401,8 @@ function picker(){ document.onkeydown=null;
 }
 function start(){ let p=C.pool(words,stats,pref.subject); if(!p.length){ alert('No words in this set yet.'); return; }
   const cap=capRound(p); p=cap.cards; if(!p.length) return capFull(cap,picker);
-  const k=pref.n?Math.min(pref.n,p.length):p.length; let cs=C.draw(p,stats,k,undefined,boostNow()); if(!pref.shuffle) cs=cs.slice().sort((a,b)=>(a.doc_order||0)-(b.doc_order||0));
-  round=C.newRound(cs,{mode:pref.mode,subject:pref.subject}); round.held=cap.held; round.chunk=chunkOf(pref.shuffle?p:p.slice().sort((a,b)=>(a.doc_order||0)-(b.doc_order||0)),k,cs); sessionMissed={}; roundMs=[]; showCard(); }
+  const k=pref.n?Math.min(pref.n,p.length):p.length; if(!pref.shuffle) p=p.slice().sort((a,b)=>(a.doc_order||0)-(b.doc_order||0)); const cs=deal(p,k,pref.shuffle);
+  round=C.newRound(cs,{mode:pref.mode,subject:pref.subject}); round.held=cap.held; round.chunk=chunkOf(p,k,cs); sessionMissed={}; roundMs=[]; showCard(); }
 // Verb drills: pick mode options, then the same swipe cards / card_results row / FSRS log.
 function drillView(t,back){ back=back||home; document.onkeydown=null; window.scrollTo(0,0); const d=pref.drill=Object.assign({count:10,tense:'All',level:1},pref.drill||{}), full=t.mode==='full';
   const chip=(key,v,label)=>`<button data-k="${key}" data-v="${v}" class="${String(d[key])===String(v)?'sel':''}">${label}</button>`;
