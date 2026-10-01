@@ -112,7 +112,7 @@ h1{font-weight:500;font-size:32px;letter-spacing:-.3px} h2{font-weight:500;font-
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main></div></div>
-<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260927-boost-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260923-drills-v2"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
+<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260930-keepgoing-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260923-drills-v2"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
 <script>
 const C=window.AneesCards, F=window.AneesFSRS, SEL=window.AneesCardSelection, VD=window.AneesVerbDrills, WB=window.AneesWordBank, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -341,7 +341,14 @@ function opts(t,back){ document.onkeydown=null; window.scrollTo(0,0); const n=t.
 function startTile(t,back){ const cap=capRound(t.words), p=cap.cards, k=pref.n?Math.min(pref.n,p.length):p.length;   // the day's new-card room is spent before the draw
   if(!p.length) return capFull(cap,()=>opts(t,back));
   const cs=pref.shuffle?C.draw(p,stats,k,undefined,boostNow()):p.slice(0,k);                         // shuffle off keeps Doc / Quizlet order
-  round=C.newRound(cs,{mode:pref.mode,subject:'sel:'+t.id}); Object.assign(round,{title:t.title||t.label,back:()=>opts(t,back),restart:()=>startTile(t,back),held:cap.held}); sessionMissed={}; roundMs=[]; showCard(); }
+  round=C.newRound(cs,{mode:pref.mode,subject:'sel:'+t.id}); Object.assign(round,{title:t.title||t.label,back:()=>opts(t,back),restart:()=>startTile(t,back),held:cap.held,chunk:chunkOf(p,k,cs)}); sessionMissed={}; roundMs=[]; showCard(); }
+// Keep going (Medi 2026-09-30): a round of k cards from a bigger set remembers the set, so the summary can deal the next
+// batch; when 1-2 batches are left it asks "split in two" or "all of them" (C.nextChunk).
+function chunkOf(pool,k,cs){ return pref.n&&pool.length>k?{pool,size:k,shuffle:pref.shuffle,seen:new Set(cs.map(w=>w.key))}:null; }
+function chunkLeft(ch){ return ch.pool.filter(w=>!ch.seen.has(w.key)); }
+function keepGoing(n){ const ch=round.chunk, rest=chunkLeft(ch), cs=ch.shuffle?C.draw(rest,stats,Math.min(n,rest.length),undefined,boostNow()):rest.slice(0,n);
+  cs.forEach(w=>ch.seen.add(w.key)); const {title,back,restart,held,subject}=round;
+  round=Object.assign(C.newRound(cs,{mode:pref.mode,subject}),{title,back,restart,held,chunk:ch}); sessionMissed={}; roundMs=[]; showCard(); }
 function startReview(){ sess={know:0,learn:0,ms:[]}; lastAnswer=null; sessionMissed={}; review(); }
 function review(){ if(!sess) sess={know:0,learn:0,ms:[]}; rebuild(); const q=dueQueue(); if(!q.items.length) return reviewDone(q);
   const c=q.items[0], w=byKey().get(c.id), left=q.counts.due+q.counts.new+q.counts.learning, doneN=sess.know+sess.learn, total=doneN+Math.max(left,1);
@@ -391,8 +398,8 @@ function picker(){ document.onkeydown=null;
 }
 function start(){ let p=C.pool(words,stats,pref.subject); if(!p.length){ alert('No words in this set yet.'); return; }
   const cap=capRound(p); p=cap.cards; if(!p.length) return capFull(cap,picker);
-  let cs=C.draw(p,stats,pref.n?Math.min(pref.n,p.length):p.length,undefined,boostNow()); if(!pref.shuffle) cs=cs.slice().sort((a,b)=>(a.doc_order||0)-(b.doc_order||0));
-  round=C.newRound(cs,{mode:pref.mode,subject:pref.subject}); round.held=cap.held; sessionMissed={}; roundMs=[]; showCard(); }
+  const k=pref.n?Math.min(pref.n,p.length):p.length; let cs=C.draw(p,stats,k,undefined,boostNow()); if(!pref.shuffle) cs=cs.slice().sort((a,b)=>(a.doc_order||0)-(b.doc_order||0));
+  round=C.newRound(cs,{mode:pref.mode,subject:pref.subject}); round.held=cap.held; round.chunk=chunkOf(pref.shuffle?p:p.slice().sort((a,b)=>(a.doc_order||0)-(b.doc_order||0)),k,cs); sessionMissed={}; roundMs=[]; showCard(); }
 // Verb drills: pick mode options, then the same swipe cards / card_results row / FSRS log.
 function drillView(t,back){ back=back||home; document.onkeydown=null; window.scrollTo(0,0); const d=pref.drill=Object.assign({count:10,tense:'All',level:1},pref.drill||{}), full=t.mode==='full';
   const chip=(key,v,label)=>`<button data-k="${key}" data-v="${v}" class="${String(d[key])===String(v)?'sel':''}">${label}</button>`;
@@ -419,15 +426,22 @@ function answer(result,t){ const w=round.cards[round.i]; const row=C.answer(roun
   enqueue(row); stats=C.mergeLocal(stats,[row]);            // bucket AND weight follow the new answer (Codex P0: stale 3× weight)
   if(result==='missed'){ sessionMissed[w.key]=(sessionMissed[w.key]||0)+1; if(sessionMissed[w.key]===2&&!SEL.isFormCard(w.key)) flag(w); }   // engine-made drill forms never go to Amal's rules list
   showCard(); }
+function keepRow(){ const ch=round.chunk; if(!ch) return ''; const left=chunkLeft(ch).length, nc=C.nextChunk(left,ch.size), b=(n,label)=>`<button data-keep="${n}" class="primary study">${label}</button>`;
+  if(nc.kind==='next') return `<h2>Keep going · ${fmt(left)} left in this set</h2><div class="row">${b(nc.n,'Next '+nc.n+' cards')}</div>`;
+  if(nc.kind==='last') return `<h2>Keep going · ${fmt(left)} left in this set</h2><div class="row">${b(nc.n,'Last '+nc.n+' cards')}</div>`;
+  if(nc.kind==='ask') return `<h2>${fmt(left)} left in this set. Split them or do them all?</h2><div class="row">${b(nc.a,'Split: '+nc.a+' + '+nc.b)}${b(nc.all,'All '+nc.all)}</div>`;
+  return ''; }
 function showSummary(){ const s=C.summary(round); document.onkeydown=null; const ms=roundMs; roundMs=[];
   root.innerHTML=`<div class="qtop"><button id="close" aria-label="Back to sets">✕</button><div class="count">${round.attempt>1?'Review round '+round.attempt:'Round'} done</div><span></span></div><div class="prog"><i style="width:100%"></i></div>
     <h1>${s.wrong.length?'Keep going — you\'re getting there.':'You know every card in this round.'}</h1>
     <div class="done">${donut(s.got,s.missed)}<div class="legend"><div class="k"><span>Know</span><span>${s.got}</span></div><div class="l"><span>Still learning</span><span>${s.missed}</span></div>${timeLines(ms)}</div></div>
     <p class="mute">${s.n} cards · ${esc(round.title||(C.subjects(words,stats).buckets.find(b=>b.id===round.subject)||{}).name||round.subject)}${round.held?` · ${fmt(round.held)} new ${round.held===1?'card waits':'cards wait'} for another day (${F.DEFAULTS.newPerDay} new a day)`:''}</p>
     ${s.history.map(h=>`<div class="mute">round ${h.attempt}: ${h.got}/${h.n} known</div>`).join('')}
-    <div class="row">${s.wrong.length?`<button id="replay" class="primary study">Review the ones I got wrong (${s.wrong.length})</button>`:`<button id="again" class="primary study">Pile empty — new round</button>`}</div>
+    ${keepRow()}
+    <div class="row">${s.wrong.length?`<button id="replay" class="primary study">Review the ones I got wrong (${s.wrong.length})</button>`:(round.chunk&&chunkLeft(round.chunk).length?`<button id="again">Start the set over</button>`:`<button id="again" class="primary study">Pile empty — new round</button>`)}</div>
     <div class="row"><button id="back">‹ Back</button><button id="home">All flashcards</button></div><p class="mute" id="wrongs">${s.wrong.length?'Still learning: '+s.wrong.map(k=>esc((round.cards.find(w=>w.key===k)||words.find(w=>w.key===k)||{}).arabizi||k)).join(', '):''}</p>`;
-  const rp=document.getElementById('replay'); if(rp) rp.onclick=()=>{ const {title,back,restart}=round; round=Object.assign(C.replayWrong(round),{title,back,restart}); showCard(); };
+  const rp=document.getElementById('replay'); if(rp) rp.onclick=()=>{ const {title,back,restart,held,chunk}=round; round=Object.assign(C.replayWrong(round),{title,back,restart,held,chunk}); showCard(); };
+  root.querySelectorAll('[data-keep]').forEach(b=>b.onclick=()=>keepGoing(Number(b.dataset.keep)));
   const ag=document.getElementById('again'); if(ag) ag.onclick=round.restart||start; const bk=round.back||picker; document.getElementById('back').onclick=bk; document.getElementById('close').onclick=bk; document.getElementById('home').onclick=home; }
 window.AneesTest={ drillView, startDrill, get round(){return round;}, get stats(){return stats;}, get words(){return words;}, get cards(){return cards;}, answer:r=>{revealed=true;answer(r,{});}, grade:r=>{if(!sess)sess={know:0,learn:0,ms:[]};const q=dueQueue();const c=q.items[0];if(!c)return false;grade(c,byKey().get(c.id),r,{});return true;}, undo, queue:dueQueue, start, picker, home, selection, get tiles(){return tileMap;}, startTile, opts, startReview, sync, pref };
 if(window.self!==window.top){ const t=document.querySelector('#anees-bank aside'); if(t) t.style.display='none'; }   // inside the Flashcards tab the site menu is already there

@@ -76,6 +76,15 @@
     next.attempt = round.attempt + 1; next.history = round.history.concat([{ attempt: round.attempt, got: round.got, missed: round.missed, n: round.cards.length }]);
     return next;
   }
+  // Keep going (Medi 2026-09-30): after a round of `size` cards from a bigger set, what the next round offers.
+  // left >= 2 batches -> the next batch; left between 1 and 2 batches -> ask: split in two halves, or all of them;
+  // left <= 1 batch -> the last ones. 67 cards in 20s: 20, 20, then 27 left -> "13 + 14" or "all 27".
+  function nextChunk(left, size) {
+    if (!size || left <= 0) return { kind: 'none' };
+    if (left <= size) return { kind: 'last', n: left };
+    if (left < 2 * size) { const a = Math.floor(left / 2); return { kind: 'ask', all: left, a, b: left - a }; }
+    return { kind: 'next', n: size, left };
+  }
   function summary(round) { return { n: round.cards.length, got: round.got, missed: round.missed, wrong: round.wrong.map(w => w.key), attempt: round.attempt, history: round.history }; }
   // ---- FSRS daily queue (scheduling only; card grade stays in word-bank-core) ----
   // Siblings = the forms of one word (tenses, persons, plural) from the Word Bank catalog.
@@ -172,5 +181,5 @@
     for (const w of list || []) { if (!w) continue; if (seen.has(w.key)) { cards.push(w); continue; } if (fresh < room) { fresh++; cards.push(w); } else held.push(w); }
     return { cards, held: held.length, fresh, room: room === Infinity ? null : room, newToday: used, cap: o.newPerDay };
   }
-  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, done, replayWrong, summary, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart, newToday, capNew, BOOST, boostMap, boostLabel };
+  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, done, replayWrong, summary, nextChunk, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart, newToday, capNew, BOOST, boostMap, boostLabel };
 })(typeof window !== 'undefined' ? window : globalThis);
