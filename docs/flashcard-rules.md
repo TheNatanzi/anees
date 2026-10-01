@@ -40,6 +40,7 @@ Quizlet data are never edited by the page (her wording and spelling are the rule
 |---|---|
 | N1 | NEW = only words Amal adds to the Doc after 2026-09-30. Everything already in the Doc is an old word to retest |
 | N2 | Old untested words: no daily limit. New words: per day = the size of Amal's latest batch (none yet) |
+| N5 | Old untested verbs: 1 present + 1 past + 1 command form per verb is enough. Only one untested form per verb and tense counts (none once any form of it is answered). 2,017 → 1,370 on 2026-10-01 |
 | N3 | No button may lead nowhere: a Start button says how many cards open today or why none can; tiles with no cards are hidden |
 | N4 | Mastered (Word Bank flashcard column) = right on 3 different days |
 
