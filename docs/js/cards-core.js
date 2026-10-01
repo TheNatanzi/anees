@@ -214,10 +214,13 @@
   // "New untested words" (Medi 2026-09-30): only words Amal ADDED to the Doc after the first import are new; the daily
   // amount follows how many she adds (her latest batch), not a fixed number. words[].first_seen = when the word first
   // came from the Doc. The earliest day is the bulk import (old words: never limited).
-  function curriculum(words) {
+  // Medi 2026-09-30: "New words will be ONLY words Amal adds to the document. As of right now." Every word already in the
+  // Doc on 2026-09-30 is old (to be retested, never limited); only days after NEW_SINCE count as new.
+  const NEW_SINCE = '2026-09-30';
+  function curriculum(words, since) {
     const day = w => String(w && w.first_seen || '').slice(0, 10), days = {};
     for (const w of words || []) { const d = day(w); if (d) days[d] = (days[d] || 0) + 1; }
-    const list = Object.keys(days).sort(), importDay = list[0] || null, added = list.slice(1);
+    const all = Object.keys(days).sort(), cut = since === undefined ? NEW_SINCE : since, importDay = all.length ? (cut && cut > all[0] ? cut : all[0]) : null, list = all.filter(d => d > importDay), added = list;
     const newKeys = new Set((words || []).filter(w => importDay && day(w) > importDay).map(w => w.key));
     return { importDay, newKeys, batch: added.length ? days[added[added.length - 1]] : 0, batches: added.map(d => [d, days[d]]) };
   }
@@ -237,5 +240,5 @@
     for (const w of list || []) { if (!w) continue; if (seen.has(w.key) || (o.isNew && !o.isNew(w.key))) { cards.push(w); continue; } if (fresh < room) { fresh++; cards.push(w); } else held.push(w); }
     return { cards, held: held.length, fresh, room: room === Infinity ? null : room, newToday: used, cap: o.newPerDay };
   }
-  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, undo, unique, REDO_GAP, done, replayWrong, summary, nextChunk, splitKnown, partRows, schedLog, PL, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart, newToday, capNew, curriculum, BOOST, boostMap, boostLabel };
+  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, undo, unique, REDO_GAP, done, replayWrong, summary, nextChunk, splitKnown, partRows, schedLog, PL, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart, newToday, capNew, curriculum, NEW_SINCE, BOOST, boostMap, boostLabel };
 })(typeof window !== 'undefined' ? window : globalThis);
