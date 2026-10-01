@@ -118,7 +118,12 @@
       const target = aIsTarget ? a : b, english = String(aIsTarget ? b : a).trim();
       const t = splitTerm(target); if (!t.arabizi && !t.arabic) t.arabizi = String(target).trim();
       const w = match(t);
-      const card = w || { key: 'q:' + set.id + ':' + (i + 1), arabizi: t.arabizi || t.arabic, arabic: t.arabizi ? t.arabic : '', english, topic: set.title, quizlet: set.id };
+      const card = w || { key: 'q:' + set.id + ':' + (i + 1), arabizi: t.arabizi || t.arabic, arabic: t.arabizi ? t.arabic : '', english, topic: set.title, quizlet: set.id,
+        // Rule F8 (Medi 2026-10-01): in Amal's plural sets the back is the Arabic PLURAL, not English -> label Singular / Plural
+        ...(/plural/i.test(set.title || '') && !/\s(the|a|an|to|of|is|i|you)\s/i.test(' ' + english + ' ') ? { _pl: true } : {}) };
+      // Rule F2: Quizlet writes a plural as "Daif (dyoof) = Guest - Guests"; show it like the Doc: Daif · dyoof / Guest · guests
+      const pm = !w && !card.plural && String(card.arabizi).match(/^(.+?)\s*\(([^()]+)\)\s*$/);
+      if (pm && /\s[-–]\s/.test(card.english) && !/\d/.test(card.english)) { card.arabizi = pm[1].trim(); card.plural = pm[2].trim(); }
       if (seen.has(card.key)) return; seen.add(card.key); out.push(card);
     });
     return out;

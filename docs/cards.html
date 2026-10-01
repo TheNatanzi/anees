@@ -112,7 +112,7 @@ h1{font-weight:500;font-size:32px;letter-spacing:-.3px} h2{font-weight:500;font-
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main></div></div>
-<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260930-newfromnow-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260930-mastered3"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
+<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260930-newfromnow-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260930-mastered3"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20261001-audit-v1"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
 <script>
 const C=window.AneesCards, F=window.AneesFSRS, SEL=window.AneesCardSelection, VD=window.AneesVerbDrills, WB=window.AneesWordBank, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -152,6 +152,7 @@ async function load(){
   if(ev) LS('anees-speaking-evidence-v1',snap.value); else ev=(LS('anees-speaking-evidence-v1')||{}).events||null;
   if(ev){ const rv=window.AneesWordBankReview.apply(window.AneesWordBankReview.withSlips(ev,slips.status==='fulfilled'?slips.value:null),review.status==='fulfilled'?review.value:{}); speakEvents=WB.prepareEvidence(rv.events.map(e=>rv.stale.includes(e.id)?{...e,needs_review:true}:e)); lessonScores='ok'; } else lessonScores='offline';
   quizlet=qz.status==='fulfilled'?(qz.value.sets||[]):[];
+  quizlet=quizlet.filter(s=>!/audio homework/i.test(s.title||s.name||''));   // Rule F9: number-only fronts (audio exercises) are not flashcards
   try{ const r=await fetch('data/quizlet/amal-newer-spellings.json'); if(r.ok&&window.AneesAmalNewest) quizlet=window.AneesAmalNewest.apply(quizlet,await r.json()); }catch(e){}   // newest Amal wins (Medi M1 2026-09-29)
   try{ const r=await fetch('data/sentence-ladder.json'); if(r.ok) boostList=(await r.json()).boost||[]; }catch(e){}   // listening boost: words that sank sentences he missed
   try{ const r=await fetch('data/verb-addons.json'); if(r.ok&&window.AneesVerbAddons) window.AneesVerbAddons.useTags((await r.json()).verbs); }catch(e){}
@@ -212,23 +213,25 @@ let ALT=null; const enKey=e=>String(e||'').toLowerCase().replace(/\s+/g,' ').tri
 function alts(w){ if(!ALT){ ALT=new Map(); for(const x of words){ const k=enKey(x.english); if(!k) continue; if(!ALT.has(k)) ALT.set(k,[]); ALT.get(k).push(x); } }
   return (ALT.get(enKey(w.english))||[]).filter(x=>x.key!==w.key&&x.arabizi!==w.arabizi); }
 // English plural to match the Arabic one (Medi 2026-09-30: "Customer" needs to be "customer / customers").
-const EN_IRR={man:'men',woman:'women',child:'children',person:'people',foot:'feet',tooth:'teeth',mouse:'mice',knife:'knives',wife:'wives',life:'lives',leaf:'leaves',shelf:'shelves',half:'halves',fish:'fish',sheep:'sheep',deer:'deer'};
-// pluralize the head noun: the word before " of " or before a "(...)" note, else the last word; words already ending in -s
-// (pants, glasses) and questions / long phrases get no English plural.
-function enPlural(e){ e=String(e).trim(); if(/\?/.test(e)||e.split(/\s+/).length>4) return '';
+const EN_IRR={man:'men',woman:'women',child:'children',person:'people',foot:'feet',tooth:'teeth',mouse:'mice',knife:'knives',wife:'wives',life:'lives',leaf:'leaves',shelf:'shelves',half:'halves',fish:'fish',sheep:'sheep',deer:'deer',stomach:'stomachs'};
+const EN_SAME=new Set(['homework','weather','help','work','sand','motivation','advice','information','money','furniture','music','news','luggage','water','rice','milk','bread','hair','traffic','practice','review','conversation practice','atmosphere','vibe']);   // no English plural: stays as is
+const EN_SKIP=/^(something|only|lonely|formal)$|\((progressive|command)\)/i;   // adjectives / -ing / commands: the English plural is left out
+function enPlural(e){ e=String(e).trim().replace(/^(a|an|the) /i,''); if(/\?/.test(e)||e.split(/\s+/).length>4||EN_SKIP.test(e)) return ''; if(EN_SAME.has(e.toLowerCase())) return e.toLowerCase();
+  if(/^day off$/i.test(e)) return 'days off';
   const note=(e.match(/\s*\([^)]*\)\s*$/)||[''])[0], body=e.slice(0,e.length-note.length), of=body.search(/\s+of\s+/i);
   const head=of>0?body.slice(0,of):body, rest=of>0?body.slice(of):'', m=head.match(/^(.*?)([A-Za-z]+)$/); if(!m) return '';
   const [,pre,last]=m, low=last.toLowerCase(); if(!EN_IRR[low]&&/[^s]s$/i.test(last)) return '';
-  const pl=EN_IRR[low]?(last===last.toUpperCase()&&last.length>1?EN_IRR[low].toUpperCase():EN_IRR[low]):/^[A-Z]{2,}$/.test(last)?last+'s':/[^aeiou]y$/i.test(last)?last.slice(0,-1)+'ies':/(s|x|z|ch|sh)$/i.test(last)?last+'es':last+'s';
-  let out=(pre+pl+rest+note).replace(/^(A|An|The) /,''); if(/^[A-Z][a-z]/.test(out)) out=out[0].toLowerCase()+out.slice(1); return out; }
-// Hand-picked English clarifications for look-alike words (Medi 2026-10-01: Tair = bird in general vs 3asfoor = small
-// bird / sparrow). Display only; Amal's Doc wording is unchanged. Add a line when Medi flags another confusing pair.
+  const pl=EN_IRR[low]||(/^[A-Z]{2,}$/.test(last)?last+'s':/[^aeiou]y$/i.test(last)?last.slice(0,-1)+'ies':/(s|x|z|ch|sh)$/i.test(last)?last+'es':last+'s');
+  return (pre+pl+rest+note).split(' ').map(t=>/^[A-Z]{2,}s?$/.test(t)?t:t.toLowerCase()).join(' '); }
+// Hand-picked English notes for look-alike words (Rule F7; Medi 2026-10-01: Tair = bird in general vs 3asfoor = small bird).
 const EN_NOTE={tair:'general'};
-const enBase=w=>w.english;
-const hasPl=w=>w.plural&&!['—','-','–'].includes(String(w.plural).trim());
+const enBase=w=>w.drill?String(w.english||'').replace(/^(.+?) · (.+!)$/,'$1, $2').replace(/ · /,' '):w.english;
+const hasPl=w=>!w.drill&&w.plural&&!['—','-','–'].includes(String(w.plural).trim());
 // "/" joins words of the same kind (two meanings, two spellings); " · " separates singular from plural - same on both sides.
-const enFull0=w=>{ const e=enBase(w)||''; if(!hasPl(w)||/–| - /.test(e)) return e; const ps=e.split('/').map(x=>enPlural(x.trim()));
-  return ps.every(Boolean)?`${e} · ${ps.join(' / ')}`:e; };
+const enFull0=w=>{ const e=enBase(w)||''; const dash=e.match(/^([\s\S]+?)\s+[–-]\s+([\s\S]+)$/);
+  if(hasPl(w)&&dash&&!/\d/.test(e)) return `${dash[1]} · ${dash[2]}`;
+  if(!hasPl(w)||isCmd(w)) return e; const parts=[...new Map(e.split('/').map(x=>x.trim()).filter(Boolean).map(x=>[x.toLowerCase().replace(/^(a|an|the) /,''),x])).values()];
+  const ps=parts.map(enPlural); if(!ps.every(Boolean)) return e; const pu=[...new Set(ps)]; if(pu.join('/')===parts.map(x=>x.toLowerCase().replace(/^(a|an|the) /,'')).join('/')) return e; return `${e} · ${pu.join(' / ')}`; };   // plural same as singular (weather) -> say it once
 const enFull=w=>enFull0(w)+(EN_NOTE[w.key]?` (${EN_NOTE[w.key]})`:'');
 // Command-tense words read as orders on the English side (Medi 2026-10-01: "Scratch" alone is confusing).
 const isCmd=w=>!w.drill&&(w.topic==='Command Tense'||w.subtopic==='Command Tense');
@@ -238,7 +241,7 @@ const LABELS=()=>pref.mode==='ar_first'?['Arabic','English']:['English','Arabic'
 // ---- one Quizlet-style card: tap to flip, then swipe right = Know, left = Still learning ----
 let revealed=false;
 function cardView(o){
-  const [front,back]=faces(o.w), [fl,bl]=LABELS(); revealed=false; timer.begin(); let answered=false;
+  const [front,back]=faces(o.w), [fl,bl]=o.w._pl?(pref.mode==='ar_first'?['Singular','Plural']:['Plural','Singular']):LABELS(); revealed=false; timer.begin(); let answered=false;
   root.innerHTML=`<div class="qtop"><button id="close" aria-label="Close">✕</button><div class="count">${esc(o.count)}</div><span></span></div>
     <div class="prog"><i style="width:${Math.round(o.pct)}%"></i></div>
     <div class="tally"><span class="pill learn"><b>${o.learnN}</b>Still learning</span><span class="pill know"><b>${o.knowN}</b>Know</span></div>
@@ -389,7 +392,9 @@ function nextLabel(key){ const now=Date.now(), o={desiredRetention:pref.retentio
 function spread(list){ const g=k=>(siblings&&siblings.get(k))||'w:'+k, t0=C.dayStart(Date.now()), today=new Set(fullLog().filter(r=>!r.undone&&r.word_key&&Date.parse(r.ts)>=t0).map(r=>g(r.word_key)));
   const used=new Set(), a=[], b=[], c=[]; for(const w of list){ const k=g(w.key); if(used.has(k)) c.push(w); else { used.add(k); (today.has(k)?b:a).push(w); } } return a.concat(b,c); }
 // Known cards go to the back (Medi 2026-09-30): deal from the not-known half first, the known half only to fill.
-function deal(pool,k,shuffle){ const {rest,known}=C.splitKnown(pool,fullLog()), pick=(L,n)=>n<=0?[]:spread(shuffle?C.draw(L,stats,L.length,undefined,boostNow()):L).slice(0,n);
+const cardId=w=>(String(w.arabizi||'')+'|'+String(w.english||'')).toLowerCase().replace(/\s+/g,' ').trim();
+function dedupe(list){ const seen=new Set(); return list.filter(w=>{ const k=cardId(w); if(seen.has(k)) return false; seen.add(k); return true; }); }   // Rule F10
+function deal(pool,k,shuffle){ pool=dedupe(pool); const {rest,known}=C.splitKnown(pool,fullLog()), pick=(L,n)=>n<=0?[]:spread(shuffle?C.draw(L,stats,L.length,undefined,boostNow()):L).slice(0,n);
   const a=pick(rest,k); return a.concat(pick(known,k-a.length)); }
 function chunkOf(pool,k,cs){ return pref.n&&pool.length>k?{pool,size:k,shuffle:pref.shuffle,seen:new Set(cs.map(w=>w.key))}:null; }
 function chunkLeft(ch){ return ch.pool.filter(w=>!ch.seen.has(w.key)); }
