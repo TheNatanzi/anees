@@ -62,20 +62,20 @@ Ordering note: Amal front-loads the verb system and teaches the small grammar as
 | C2 | Pointer rule (resumptive pronoun) | object fronted → the verb needs `-o / -h / -ha / -hom`: aktar eshi basawwi**h** | Doc | **rank 5** | 10 |
 | C3 | Comparatives and superlatives | aktar / a7san / aswa2 / a2al — and **never** `el-` in front of them | Doc | rank 3 | 12 |
 | C4 | Negation system | `ma` before verbs, `mish` before nouns and adjectives, `abadan` for never; the Palestinian `-sh` ending needs Amal's ruling | lesson (was gap; 6 fixes in 09-24 sweep) | rank 10 | 7 |
-| C4b | **Words that drag a `ma` along** | `abadan` is not enough on its own — the verb still needs the negator: *Ana abadan **ma** baru7* = I never go. Compare the `-ma` glued onto a time word, which is **not** negation at all but part of the conjunction: *abel-**ma** yiju* (before they come), *ba3ed-**ma** teshra7i* (after you explain), *lamma*. The two pull opposite ways on the b-: `abadan ma **b**aru7` keeps it, `abel-ma yiju` drops it (B3) | Doc | untested | 7 |
-| C5 | u / wala / aw | `u` = and, `aw` = either-or, `wala` = options / nor | lesson | rank 10 | — |
-| C6 | Conditionals iza / lamma | when / if clauses — lamma drops the b-, iza keeps it (B3); ykoon after them is optional (B8) | Doc | rank 2 | 13 |
-| C7 | Relative clauses with illi | `illi` never changes form; the clause after it often needs the pointer suffix (C2) | Doc (examples only) | untested | 13 |
-| C8 | Question words | shu, wein, keef, 2addesh, kam, lesh, meen, aymta | Doc | clean | 5 |
+| C4b | **Words that drag a `ma` along** | `abadan` is not enough on its own — the verb still needs the negator: *Ana abadan **ma** baru7* = I never go. Compare the `-ma` glued onto a time word, which is **not** negation at all but part of the conjunction: *abel-**ma** yiju* (before they come), *ba3ed-**ma** teshra7i* (after you explain), *lamma*. The two pull opposite ways on the b-: `abadan ma **b**aru7` keeps it, `abel-ma yiju` drops it (B3). **Amal 09-30:** after `abel` it is always `abel ma` + present with no b-, even for a past meaning (*abel ma aaji* = before I came); more ma-words come later | Doc | untested | 7 |
+| C5 | u / aw / willa / wala | `u` = and, `aw` / `willa` = or, `wala` = nor (*wala ana* = neither do I). Amal 09-30: the recorded slip is aw vs **willa** | lesson | rank 10 | — |
+| C6 | Conditionals iza / lamma | when / if clauses — lamma drops the b-, iza keeps it (B3). Amal 09-30: they need bikoon before an adjective or biddi / 3indi; her B8 note says this is not strict, so leaving it out stays uncounted (asked Medi) | Doc | rank 2 | 13 |
+| C7 | Relative clauses with illi | `illi` never changes form; the clause after it often needs the pointer suffix (C2). **No el, no illi** (Amal 09-30): *aktar ishi ba7ebbo*, *seyyarti illi basoo2ha*, *fi u8niyye ba3rafha* | Doc (examples only) | untested | 13 |
+| C8 | Question words | shu, wein, keef, 2adaish, kam, lesh, meen, aymta. Amal 09-30: addaish and kam both = how much / many; kam always takes the singular (*kam dars*); kam also = few | Doc | clean | 5 |
 | C9 | Word order | subject–verb–object is normal; fronting an object triggers C2 | lesson (was gap; 2 fixes in 09-24 sweep) | untested | — |
 
 ## Family D — Words that pick their partner
 
 | # | Bucket | The rule in one line | Amal | Medi | Order |
 |---|---|---|---|---|---|
-| D1 | Prepositions: core functions | min, 3ala, fi, ma3, bi, la — each with 2–4 jobs | Doc | rank 9 | — |
+| D1 | Prepositions: core functions | min, 3ala, fi, ma3, bi, la — each with 2–4 jobs. More in Amal's Doc "Arabic Materials" (1gStzPV90qvCFYzysgrMT6KOoOU4R4d0v4G8R648w8O0) | Doc | rank 9 | — |
 | D2 | Verb + preposition pairs | the verb picks it: a6lub **min**, 5aayef **min**, mishtaa2 **la**, 2al2aan **3ala**, mu5talef **3an** | Doc | **rank 9** | — |
-| D3 | Suffixes on prepositions | ma3i, minnak, minno, 3alayha, ilhom | Doc | untested | 10 |
+| D3 | Suffixes on prepositions | ma3i, minnak, minno, 3alayha, ilhom. Amal 09-30: all take endings except `bi`; la-: ili, ilak, ilek, ilkom, ilo, ilha, ilhom, ilna; fi: fiyy, fik, fiki, fikom, fiyyo, fiha, fihom, fina | Doc | untested | 10 |
 | D4 | Object suffixes on verbs | shuf-o, basawwi-h, bi7ki-lak — separate from D3 | Doc | rank 5 | 10 |
 | D5 | Preposition + el- | where English drops "the", Levantine keeps it: **bi-lseyyara** = by car, **min el-bait** = from home, **3ala el-6aawle** = on the table. `bi` / `la` / `fi` fuse with it (bi-l…, la-l…, fi-l…); min / 3ala / ma3 keep it separate. No `el-` on a proper noun (la-Mehdi, fi America), on a noun already owned (ma3i, ma3 sadiqi), or when it really is indefinite (ma3 3aseer) | Doc (in every example) | untested | 4 |
 | D6 | **iyyaa — the second object** | a verb can carry only one pronoun; a second one rides on `iyyaa`: *ba36ii-k **iyyaa*** = I give it to you, *jeeb-li **iyyaa*** = bring it to me | **gap** | untested | 10 |
@@ -84,8 +84,8 @@ Ordering note: Amal front-loads the verb system and teaches the small grammar as
 
 | # | Bucket | The rule in one line | Amal | Medi | Order |
 |---|---|---|---|---|---|
-| E1 | Number + noun agreement | 2 = dual `-ein`; 3–10 + plural noun; 11+ + **singular** noun | lesson (was gap; 3 fixes in 09-24 sweep) | rank 8 | 6 |
-| E2 | Clock time | `el-saa3a` + the feminine number; `u` + minutes; rube3 / noss / ella rube3 | Doc | untested | 6 |
+| E1 | Number + noun agreement | 2 = dual `-ein`; 3–10 (without its -e/-a ending) + plural noun, *5ames da2aaye2*; 11+ + **singular** noun | lesson (was gap; 3 fixes in 09-24 sweep) | rank 8 | 6 |
+| E2 | Clock time | `el-saa3a` + the feminine number; `u` + minutes; rube3 / noss / tult (*talaat u tult* = 3:20) / illa rube3; illa also = except | Doc | untested | 6 |
 | E3 | Dual / plural of time units | d2ee2a → d2ee2tain → d2aaye2; saa3a → saa3tain → saa3aat | Doc | untested | 6 |
 | E4 | Dates and the calendar | days, months, "on Monday", last / next week | Doc (vocab) | untested | 6 |
 
@@ -97,7 +97,7 @@ Kept here because these slips look like grammar in the transcript but are not. R
 |---|---|---|---|---|---|
 | F1 | The seven hard letters | ء 2, ع 3, ح 7, خ 5, ط 6, غ 8, ص 9 | never drilled as a unit | **rank 7** | 1 |
 | F2 | Long vs short vowels | saam vs sam changes the word | gap | rank 7 | 1 |
-| F3 | Shadda (doubled consonants) | sakker, 5a66et, bazahhe2 — audio only, never judged from text | Doc spellings | rank 7 | 1 |
+| F3 | Causative verbs: 3 forms (was: shadda) | Amal 09-30: doubled middle, n- or t-: ba3allem / bat3allam, baz3ej / banze3ej, ba8ayyer / bat8ayyar. Not scored on its own; make/get slips score under B12 | Amal's notes | rank 7 | 1 |
 
 ---
 
@@ -130,6 +130,12 @@ Amal wrote notes on every rule in her Google Doc "Mahdi's Grammar Rules notes". 
 - **B5** -et vs -at for "she" is not re-scored (accent choice).
 
 Every correction taken out of the count is listed with its reason in `data/amal-grammar-notes-2026-09-29.json` (rulings in `scripts/amal_grammar_notes.py`).
+
+## Amal's notes (2026-09-30, applied 2026-09-30)
+
+She added 11 notes to the same Doc: C4b, C5, C6, C7, C8, D1, D3, E1, E2, E5, F3. The wording is applied to every rule card (her spellings). **Scoring: no correction is added or dropped.** Every recorded correction under those rules was read against her note; all of them already agree with it (list: `data/amal-grammar-notes-2026-09-30.json`). F3 is now the causative-verbs card instead of shadda; it stays unscored (family F).
+
+One open call for Medi: C6 says conditionals *require* bikoon, but her B8 note says it is *not strict* after lamma / iza. The 4 lamma rows dropped on 09-29 stay dropped until Medi decides.
 
 ## Counts
 

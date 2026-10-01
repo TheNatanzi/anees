@@ -75,6 +75,80 @@ KEPT = {
 }
 
 
+# Her second set of notes (same Doc, edited 2026-09-30): C4b, C5, C6, C7, C8, D1, D3, E1, E2, E5, F3. They change
+# rule WORDING only (build_grammar_buckets.py). Every recorded correction under those rules was read against her note;
+# none is dropped and none is added. Listed here so a reader can see each was looked at.
+OUT_0930 = os.path.join(REPO, "data", "amal-grammar-notes-2026-09-30.json")
+SOURCE_0930 = "Amal's notes, Google Doc \"Mahdi's Grammar Rules notes\" (edited 2026-09-30), applied 2026-09-30"
+NOTES_0930 = {
+    "C4b": "after abel it is always abel ma + present, no b-, even for a past meaning (abel ma aaji = before I came)",
+    "C5": "willa is another 'or'; the recorded slip is aw vs willa; wala ana = neither do I",
+    "C6": "conditionals need bikoon before an adjective or biddi / 3indi; lamma drops the b-, iza keeps it",
+    "C7": "no el, no illi: an indefinite word takes no illi (aktar ishi ba7ebbo, fi u8niyye ba3rafha)",
+    "C8": "addaish and kam both = how much / many; kam always takes the singular; kam also = few",
+    "D1": "see her Doc 'Arabic Materials' for more",
+    "D3": "all prepositions take endings except bi; la-: ili, ilak...; fi: fiyy, fik...",
+    "E1": "3-10: the number without its -e/-a ending + the plural noun (5ames da2aaye2)",
+    "E2": "tult = 20 past (talaat u tult = 3:20); illa also = except",
+    "E5": "kam also means few",
+    "F3": "the card explains causative verbs (doubled middle, n-, t-) instead of shadda",
+}
+KEPT_0930 = {
+    "FA-a72c3b35": ("C4b", "abadan + past: the slip is present for a past meaning after abadan, not abel ma - kept."),
+    "FA-5fb68cc1": ("C4b", "ma added after daayman (only abadan drags ma) - not about abel ma, kept."),
+    "FA-1f2f0f3f": ("C4b", "same moment as 44:08, filed C4 - kept."),
+    "FA-dfad5b40": ("C4b", "abadan without ma - kept."),
+    "FA-fe29a96e": ("C4b", "abadan ma + present keeps the b- - not abel ma, kept."),
+    "FA-95587f34": ("C5", "he reached for willa (ولا) where aw fit; her note names this as THE recorded slip (aw vs "
+                          "willa) - kept, wording fixed from 'wala' to 'willa'."),
+    "FA-efa0a7b7": ("C5", "extra u between marraat and usboo3 - not about or-words, kept."),
+    "FA-8587adb4": ("C6", "lamma used where iza (if) was meant - agrees with her note, kept."),
+    "FA-d7a48f3c": ("C6", "lamma + past needs kaan (lamma kunti) - kept."),
+    "FA-bb1ccb9b": ("C7", "he wanted illi after aktar ishi; she said no illi - exactly her 'no el, no illi' example, kept."),
+    "FA-2e9daa0d": ("C7", "fee hada ili: indefinite hada, she said no illi - agrees with 'no el, no illi', kept."),
+    "FA-abcba6ae": ("C7", "question word meen where illi was needed - kept."),
+    "FA-93db2190": ("C7", "illi where enno was needed - kept."),
+    "FA-1e934159": ("C7", "illi where enno was needed - kept."),
+    "FA-aaec4e5a": ("C8", "ayy + plural: singular after ayy, same logic as kam + singular - kept."),
+    "FA-9641739c": ("D3", "kaanu ili: la- ending ili as its own word - matches her la- list, kept."),
+    "FA-5060cbb4": ("D3", "la- ending: she gave lek - matches her la- list, kept."),
+    "FA-63834679": ("D3", "fi + ending (fiyo / fiyyo) - matches her fi list, kept."),
+    "FA-5b9ef3b3": ("D3", "he tried bi + el- where fiha was needed; bi takes no ending, fi does - kept."),
+    "FA-595c3f41": ("E1", "3-10 + singular saa3a: plural needed - kept."),
+    "FA-9c92be40": ("E1", "9 + singular ibn: plural needed - kept."),
+    "FA-2c926c84": ("E2", "2:20 said with 'three' instead of tult - she supplied tentain u tult, matches her note, kept."),
+    "FA-43fd066c": ("E2", "wrong hour before illa tult - kept."),
+    "FA-50c3b4ac": ("E5", "kam + plural - kept (kam = few changes nothing here)."),
+    "FA-e8a77db7": ("E5", "kam + plural - kept."),
+    "FA-83496534": ("E5", "kam + plural - kept."),
+    "FA-9c59e378": ("F3", "zakkerni: extra vowel in a doubled-middle command; filed B10, F3 second - unchanged (F is never "
+                          "scored as grammar)."),
+}
+
+
+def write_0930(rows):
+    by_uid = {(r.get("uid") or r.get("id")): r for r in rows}
+    missing = sorted(set(KEPT_0930) - set(by_uid))
+    assert not missing, "09-30 rows not in the full audit: %s" % missing
+    touched = {b: [u for u, r in by_uid.items() if b in (r.get("bucket"), r.get("bucket2"))] for b in NOTES_0930}
+    out = {
+        "built": "2026-09-30",
+        "source": SOURCE_0930,
+        "what": "Amal's 11 new notes change rule wording only. Every recorded correction under those rules was read "
+                "against her note: 0 dropped, 0 added. Rows not listed in read_and_kept were read too and are untouched "
+                "by the notes (e.g. D1 preposition choices, E1 duals).",
+        "dropped": [], "added": [],
+        "notes": NOTES_0930,
+        "corrections_per_rule": {b: len(u) for b, u in touched.items()},
+        "read_and_kept": [_line(by_uid[u], {"kind": "kept", "why": why}) for u, (_b, why) in KEPT_0930.items()],
+        "open_for_medi": "C6 says conditionals REQUIRE bikoon; her B8 note says it is NOT strict after lamma / iza. The 4 "
+                         "lamma rows dropped on 09-29 (FA-08b564c1, FA-d2009048, FA-5d2bf797, FA-7d9cfb2c) stay dropped "
+                         "until Medi decides.",
+    }
+    json.dump(out, open(OUT_0930, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print("wrote", OUT_0930, "- 0 dropped, 0 added;", len(KEPT_0930), "rows read and kept")
+
+
 def ruling(row):
     """None if the row counts as before; else {"kind": "not-taught"|"dropped", "rule", "why", "source"}."""
     uid = row.get("uid") or row.get("id")
@@ -153,6 +227,7 @@ def main():
     print("wrote", OUT)
     print("not counted:", len(ruled), per_rule)
     print("A1:", len(a1), "corrections,", len(sun), "sun/moon")
+    write_0930(rows)
 
 
 if __name__ == "__main__":

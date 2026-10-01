@@ -96,7 +96,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | C1 | no word for 'to be' | 3 |
 | A11 | kul: all vs every | 3 |
 | A5 | chain possession | 3 |
-| C5 | u / aw / wala | 2 |
+| C5 | u / aw / willa / wala | 2 |
 | C6 | iza / lamma | 2 |
 | A10b | demonstrative keeps el- | 2 |
 | A9b | broken plurals are patterns | 2 |

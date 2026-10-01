@@ -363,42 +363,55 @@ A("C4", "C", "saying no",
    TAUGHT_NOTE % 6], taught="lesson")
 
 A("C4b", "C", "words that drag a ma along",
-  "`abadan` is not enough on its own - the verb still needs `ma`.",
-  [["ana abadan ma baru7", "I never go"]],
+  "`abadan` is not enough on its own - the verb still needs `ma`. And after `abel` it is always `abel ma` + a bare present verb.",
+  [["ana abadan ma baru7", "I never go"], ["abel ma aaji", "before I came"]],
   "Two different -ma's that pull opposite ways on the b-.",
   ["abadan ma baru7 - keeps the b-, because abadan is real negation.",
-   "abel-ma yiju (before they come) - that -ma is part of the conjunction, not negation.",
-   "ba3ed-ma teshra7i (after you explain) - same, and the b- drops."])
+   "After abel it's always ma + the present verb with no b-, even when the English is past: abel ma aaji = before I came. (Amal)",
+   "abel ma yiju (before they come) - that -ma is part of the conjunction, not negation.",
+   "ba3ed-ma teshra7i (after you explain) - same, and the b- drops.",
+   "Other words / prepositions take ma as well; Amal will explain them later. (Amal)"])
 
-A("C5", "C", "u / aw / wala",
-  "and, either-or, nor/nothing.",
-  [["ahwe u shay", "coffee and tea"], ["wala shi", "nothing"]],
-  "Three small joining words that don't overlap the way English 'or' does.",
-  ["u = and.  aw = or (a real choice).  wala = nor / not even / none.",
-   "wala 7ada nobody, wala ishi nothing.",
-   "Mixing up aw and wala is a recorded slip."], rule="R8")
+A("C5", "C", "u / aw / willa / wala",
+  "and, or, or, nor/nothing.",
+  [["ahwe u shay", "coffee and tea"], ["ahwe willa shay?", "coffee or tea?"], ["wala shi", "nothing"],
+   ["wala ana", "neither do I"]],
+  "Small joining words that don't overlap the way English 'or' does.",
+  ["u = and.  aw = or.  willa = another way to say or. (Amal)  wala = nor / not even / none.",
+   "wala 7ada nobody, wala ishi nothing, wala ana neither do I. (Amal)",
+   "The recorded slip is aw vs willa, not aw vs wala. (Amal)"], rule="R8")
 
 A("C6", "C", "iza / lamma",
-  "if, when - lamma drops the b- on the next verb, iza keeps it.",
-  [["iza bteji, bansu6", "if you come, I'm happy"]],
-  "lamma drops the b- (B3); iza keeps it. Either can take ykoon (B8), but there it is not strict.",
+  "if, when - conditional words. lamma drops the b- on the next verb, iza keeps it.",
+  [["iza bteji, bansu6", "if you come, I'm happy"], ["iza bikoon 3indak", "if you have"],
+   ["lamma ykoon biddak", "when you want"]],
+  "lamma drops the b- (B3); iza keeps it. Both bring in bikoon before an adjective or biddi / 3indi (B8).",
   ["lamma = when (it will happen).  iza = if (it might).",
-   "lamma aru7 when I go - bare verb.",
-   "lamma akoon ta3baan when I'm tired - ykoon here is optional, never marked wrong if left out. (Amal, B8)",
-   "Iza (if) KEEPS the b (Amal): iza bteji, never iza teji."])
+   "These are conditional words: they need bikoon before the adjective, or before biddi and 3indi, in their sentence. (Amal)",
+   "lamma drops the present marker b-; iza does not. (Amal) lamma aru7 when I go - bare verb.",
+   "Iza (if) KEEPS the b (Amal): iza bteji, never iza teji.",
+   "Scoring: under B8 Amal wrote that bikoon after lamma / iza is not strict, so leaving it out is not counted "
+   "(asked Medi 2026-09-30, since this note says 'require')."])
 
 A("C7", "C", "illi",
-  "'the one that' - never changes shape.",
-  [["el-bait illi ishtareto", "the house that I bought"]],
-  "One word covers that / which / who, for everything.",
-  ["It never changes for gender or number.",
+  "'the one that' - never changes shape. No el-, no illi.",
+  [["el-bait illi ishtareto", "the house that I bought"], ["seyyarti illi basoo2ha", "my car that I drive"],
+   ["aktar ishi ba7ebbo", "the thing I like the most"], ["fi u8niyye ba3rafha", "there is a song that I know"]],
+  "One word covers that / which / who, for everything - but only after a definite word.",
+  ["No el, no illi: if the word before illi is not definite (no el- and no possessive ending), don't add illi. (Amal)",
+   "aktar ishi ba7ebbo = the thing I like the most; seyyarti illi basoo2ha = my car that I drive; "
+   "fi u8niyye ba3rafha = there is a song that I know. (Amal)",
+   "It never changes for gender or number.",
    "The clause after it usually needs the C2 pointer ending - ishtareto not ishtarait."])
 
 A("C8", "C", "question words",
   "The basic set.",
-  [["wein raaye7?", "where are you going?"], ["shu hada?", "what's this?"]],
+  [["wein raaye7?", "where are you going?"], ["shu hada?", "what's this?"], ["kam dars?", "how many lessons?"]],
   "Arabic doesn't need a 'do' helper - the question word just goes first.",
-  ["shu what, wein where, keef how, 2addesh how much, kam how many, lesh why, meen who, aymta when."])
+  ["shu what, wein where, keef how, 2adaish how much, kam how many, lesh why, meen who, aymta when.",
+   "Addaish and kam both mean how much / how many; they're used differently and build the sentence differently. (Amal)",
+   "kam always takes the singular: kam dars = how many lessons. (Amal) See E5.",
+   "kam also means few: 3indi kam ishi = I have a few things. (Amal)"])
 
 A("C9", "C", "word order",
   "Normal is verb then object; front the object and C2 kicks in.",
@@ -422,7 +435,8 @@ A("D1", "D", "prepositions",
   [["min el-bait", "from the house"], ["3ala el-6aawle", "on the table"]],
   "Each one covers 2-4 English prepositions, so you learn them by use, not translation.",
   ["min from, 3ala on/about, fi in, ma3 with, bi by/with, la to/for.",
-   "3ala alone covers on, about, against and owing."])
+   "3ala alone covers on, about, against and owing.",
+   "For the fuller explanation, see Amal's Doc \"Arabic Materials\". (Amal)"])
 
 A("D2", "D", "verb + its fixed preposition",
   "The verb chooses it. You can't guess from English.",
@@ -442,12 +456,15 @@ A("D5", "D", "preposition keeps el-",
    "No el- on a name (la-Mehdi, fi America), on something already owned (ma3i, ma3 sadiqi), or when it really is indefinite (ma3 3aseer)."])
 
 A("D3", "D", "endings on prepositions",
-  "Stick the person on the end of the preposition.",
-  [["ma3i", "with me"], ["minnak", "from you"]],
+  "Stick the person on the end of the preposition. All take endings except bi.",
+  [["ma3i", "with me"], ["minnak", "from you"], ["ili", "to me / mine"], ["fiyy", "in me"]],
   "Same idea as A4, but on prepositions instead of nouns.",
-  ["ma3i with me, ma3ak with you, ma3o with him.",
+  ["All prepositions take endings except \"bi\". (Amal)",
+   "ma3i with me, ma3ak with you, ma3o with him.",
    "minni from me, minnak from you, minno from him.",
-   "Some double their letter: min -> minno, not mino."])
+   "Some double their letter: min -> minno, not mino.",
+   "la- has its own endings: ili, ilak, ilek, ilkom, ilo, ilha, ilhom, ilna. (Amal)",
+   "fi is like the others with small changes: fiyy, fik, fiki, fikom, fiyyo, fiha, fihom, fina. (Amal)"])
 
 A("D4", "D", "endings on verbs",
   "The object rides on the back of the verb.",
@@ -468,18 +485,21 @@ A("D6", "D", "iyyaa - the second object",
 # ---------------- Family E - numbers and time ----------------
 A("E1", "E", "number + noun",
   "2 has its own form; 3-10 take a plural; 11+ take a SINGULAR.",
-  [["yomein", "2 days"], ["talat iyyaam", "3 days"], ["7da3sh yom", "11 day"]],
+  [["yomein", "2 days"], ["talat iyyaam", "3 days"], ["5ames da2aaye2", "5 minutes"], ["7da3sh yom", "11 day"]],
   "The rule flips twice as the number gets bigger - this is the part English never prepares you for.",
   ["Exactly 2: no number word, just the -ein ending - yomein, saa3tain.",
-   "3 to 10: number + plural noun - talat iyyaam, 5ams saa3aat.",
+   "3 to 10: the number without its -e / -a ending + the plural noun: 5ames da2aaye2 = 5 minutes. (Amal)",
+   "talat iyyaam, 5ams saa3aat.",
    "11 and up: number + SINGULAR noun - 7da3sh yom, 3ishreen saa3a.",
    TAUGHT_NOTE % 3], taught="lesson")
 
 A("E2", "E", "clock time",
   "`el-saa3a` + the feminine number.",
-  [["el-saa3a tlaate u noss", "3:30"], ["el-saa3a talaat illa rube3", "2:45"]],
+  [["el-saa3a tlaate u noss", "3:30"], ["talaat u tult", "3:20"], ["el-saa3a talaat illa rube3", "2:45"]],
   "You say 'the hour three and a half', not 'three thirty'.",
-  ["u noss and a half, u rube3 and a quarter, illa rube3 quarter to.",
+  ["u noss and a half, u rube3 and a quarter, u tult twenty past, illa rube3 quarter to.",
+   "tult = the twenty-minute mark: talaat u tult = 3:20. (Amal)",
+   "illa also means except. (Amal)",
    "u talateen and thirty, for exact minutes."])
 
 A("E3", "E", "time units, two-of and many-of",
@@ -499,10 +519,12 @@ A("E4", "E", "calendar",
 
 A("E5", "E", "kam + singular",
   "After `kam` (how many) the noun is always singular - never plural.",
-  [["kam soora?", "how many pictures?"], ["kam yoam?", "how many days?"], ["kam kelme?", "how many words?"]],
+  [["kam soora?", "how many pictures?"], ["kam yoam?", "how many days?"], ["kam dars?", "how many lessons?"],
+   ["3indi kam ishi", "I have a few things"]],
   "English asks 'how many' with a plural noun. Levantine keeps the noun singular after kam, even though the answer is many.",
   ["kam soora sawwarti? = how many pictures did you take? (not kam suwar)",
    "The answer then follows E1: talat suwar (3-10 plural), 12 soora (11+ singular).",
+   "kam also means few: 3indi kam ishi = I have a few things. (Amal)",
    "Added by Medi 2026-09-24."])
 
 # ---------------- Family F - sound ----------------
@@ -520,16 +542,20 @@ A("F2", "F", "vowel length",
   ["Written Arabic doesn't mark short vowels, so this can only be judged by ear.",
    "In Arabizi a doubled letter means hold it: saam vs sam."])
 
-A("F3", "F", "shadda (doubled letter)",
-  "Hold the consonant twice as long.",
-  [["sakker", "he closed"], ["bazahhe2", "I bore people"]],
-  "It's the difference between B12's two verb types - audio only, never judged from spelling.",
-  ["sakar sugar vs sakkar he closed.",
-   "In B12 the doubling IS the grammar: bad7ak vs bada77ek."])
+A("F3", "F", "causative verbs: 3 forms",
+  "One root, two sides - doing it to someone vs it happening to you - made 3 ways: doubled middle, n-, or t-.",
+  [["ba3allem / bat3allam", "I teach / I learn"], ["baz3ej / banze3ej", "I annoy / I get annoyed"],
+   ["ba8ayyer / bat8ayyar", "I change (something) / I change"]],
+  "Amal: this card explains causative verbs instead of shadda. The doubled middle letter is one of the three forms.",
+  ["Doubled middle, then t- for the 'it happens to me' side: ba3allem teach -> bat3allam learn; "
+   "ba8ayyer change -> bat8ayyar be changed. (Amal)",
+   "n- for the 'it happens to me' side: baz3ej annoy -> banze3ej be annoyed. (Amal)",
+   "Replaces the old shadda card (Amal 2026-09-30). make-X / get-X slips are scored under B12; this card is "
+   "still not scored on its own (family F)."])
 
 payload = {
-    "updated": "2026-09-29",
-    "source": "wiki/18-grammar-buckets.md + Medi additions B16/B17/C10 (2026-09-22) + Amal's written notes (2026-09-27, applied 2026-09-29)",
+    "updated": "2026-09-30",
+    "source": "wiki/18-grammar-buckets.md + Medi additions B16/B17/C10 (2026-09-22) + Amal's written notes (2026-09-27, applied 2026-09-29; her 2026-09-30 notes C4b-F3 applied 2026-09-30)",
     "families": {"A": "The noun phrase", "B": "The verb system", "C": "Sentence glue",
                  "D": "Words that pick their partner", "E": "Numbers and time",
                  "F": "Sound shape (pronunciation, not grammar)"},
