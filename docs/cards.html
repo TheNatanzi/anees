@@ -253,7 +253,7 @@ function selection(){ const log=fullLog(), match=SEL.matcher(words), qcards=new 
     tenses:SEL.tenses(words,catalog), drills:VD.verbs(catalog,words), topics:SEL.topics(words), colloc:SEL.collocationSets(quizlet), groups:SEL.quizletGroups(quizlet), qcards }; }
 const union=lists=>{ const m=new Map(); for(const l of lists) for(const w of l) if(!m.has(w.key)) m.set(w.key,w); return [...m.values()]; };
 // Every tile shows its count; an empty tile shows "—" and why, never a bare 0.
-function tileHtml(t){ const n=t.words.length, empty=!n; tileMap.set(t.id,t);
+function tileHtml(t){ const n=t.words.length, empty=!n; tileMap.set(t.id,t); if(empty&&!t.keepEmpty) return '';   // Medi 2026-09-30: hide tiles with no cards
   return `<button class="vp-card stile${empty?' empty':''}${t.wide?' wide':''}" data-t="${esc(t.id)}"${empty?' aria-disabled="true"':''}><div class="vp-card-label"><span${t.tone?` class="fc-${t.tone}"`:''}>${esc(t.label)}</span></div><div class="vp-card-value"><span class="vp-num">${empty?'—':fmt(t.shown??n)}</span>${!empty&&t.unit?`<span class="vp-card-unit">${esc(t.unit)}</span>`:''}</div><div class="vp-card-sub">${esc(empty?t.reason:(t.note||''))}</div>${!empty&&t.mix?mixHtml(t.mix):''}</button>`; }
 // Section heading in the Progress & Stats style: serif title, small-caps eyebrow note.
 const section=(n,title,note,body)=>`<section class="fc-sec sec" data-sec="${n}"><div class="fc-head"><h2>${esc(title)}</h2>${note?`<span class="vp-eyebrow">${esc(note)}</span>`:''}</div>${body}</section>`;
@@ -271,13 +271,13 @@ function home(){ document.onkeydown=null; rebuild(); tileMap=new Map(); window.s
   const f=F.forecast([...cards.values()],new Date(),7), qs=set=>S.qcards.get(set.id)||[];
   const both=st=>union([S.split[st+'|speaking|All'],S.split[st+'|flashcards|All']]), named=S.groups.flatMap(g=>g.sets), namedWords=union(named.map(qs)), collocWords=union(S.colloc.map(qs));
   const cat=(id,label,words,o={})=>tileHtml(Object.assign({id:'cat:'+id,kind:'cat',cat:id,label,title:label,words},o));
-  const group=(title,tiles)=>`<section class="fc-sec sec"><div class="fc-head"><h2>${esc(title)}</h2></div><div class="fc-grid">${tiles.join('')}</div></section>`;
+  const group=(title,tiles)=>!tiles.join('')?'':`<section class="fc-sec sec"><div class="fc-head"><h2>${esc(title)}</h2></div><div class="fc-grid">${tiles.join('')}</div></section>`;
   root.innerHTML=`<header class="ab-header vp-header"><div><div class="vp-eyebrow">Spoken Palestinian Arabic · with Amal</div><h1>Flashcards &amp; Review</h1><p class="ab-sub">Pick a category. Every answer feeds the scheduler; scores match the Word Bank.</p></div></header>
-    ${group('Today',[cat('due','Due for review',q.items,{shown:n.due+n.new+n.learning,unit:'cards',wide:true,note:`${n.due} due · ${n.new} new · ${n.learning} learning${n.boosted?` · ${n.boosted} boosted`:''}`,reason:'All done for today'})])}
+    ${group('Today',[cat('due','Due for review',q.items,{keepEmpty:true,shown:n.due+n.new+n.learning,unit:'cards',wide:true,note:`${n.due} due · ${n.new} new · ${n.learning} learning${n.boosted?` · ${n.boosted} boosted`:''}`,reason:'All done for today'})])}
     ${group('Randomized',[
       tileHtml({id:'drill:random',kind:'drill',mode:'random',label:'Verb drills · 20 random',title:'Verb drills · 20 verbs · random',words:S.drills,shown:Math.min(20,S.drills.length),unit:'verbs',note:'one random person and tense per verb',reason:'No verbs in the catalog'}),
       tileHtml({id:'drill:full',kind:'drill',mode:'full',label:'Verb drills · 5 or 10 full',title:'Verb drills · 5 or 10 verbs · every person',words:S.drills,shown:10,unit:'verbs',note:'every person of the tenses you pick',reason:'No verbs in the catalog'}),
-      tileHtml({id:'never',label:'Never tested',title:'Never tested',words:S.never,shown:Math.min(20,S.never.length),note:`20 at random from ${fmt(S.never.length)}`,reason:'Every word has been answered on cards'})])}
+      tileHtml({id:'never',label:'Never tested',title:'Never tested',words:S.never,shown:Math.min(20,capRound(S.never).cards.length),note:capRound(S.never).cards.length?`at random from ${fmt(S.never.length)} · ${capRound(S.never).cards.length} new left today`:`${fmt(S.never.length)} waiting · today's ${F.DEFAULTS.newPerDay} new cards are used`,reason:'Every word has been answered on cards'})])}
     ${group('Weak spots',[
       tileHtml({id:'leech',label:'Words I keep missing',title:'Words I keep missing',unit:'words',words:words.filter(w=>F.isLeech(cards.get(w.key))),note:`missed ${F.DEFAULTS.leechMisses}+ times on cards`,reason:`No word missed ${F.DEFAULTS.leechMisses}+ times yet`}),
       tileHtml({id:'amal',label:'New from Amal',title:'New from Amal',unit:'words',words:S.amal,reason:'Amal has not marked any new words yet'}),
@@ -334,11 +334,11 @@ function capFull(cap,back){ document.onkeydown=null; window.scrollTo(0,0);
     <div class="row" style="margin-top:18px"><button id="home" class="primary study">Back to Flashcards</button></div>`;
   document.getElementById('back').onclick=back; document.getElementById('home').onclick=home; }
 // Options for one tile, then the same swipe cards; answers write the same card_results row.
-function opts(t,back){ document.onkeydown=null; window.scrollTo(0,0); const n=t.words.length, k=pref.n?Math.min(pref.n,n):n;
+function opts(t,back){ document.onkeydown=null; window.scrollTo(0,0); const n=t.words.length, open=capRound(t.words).cards.length, k=pref.n?Math.min(pref.n,open):open;   // Medi 2026-09-30: never a Start button that leads nowhere
   root.innerHTML=`<button class="fc-back" id="back">‹ Back</button><h1>${esc(t.title||t.label)}</h1><p class="mute">${fmt(n)} card${n===1?'':'s'}${t.words.some(w=>SEL.isQuizletOnly(w.key))?' · Quizlet-only cards count on cards, never in lesson scores':''}</p>${capNote(t.words)}
     <h2>Cards</h2><div class="toggle"><button id="n20" class="${pref.n===20?'sel':''}">20</button><button id="n10" class="${pref.n===10?'sel':''}">10</button><button id="nall" class="${!pref.n?'sel':''}">All</button><button id="sh" class="${pref.shuffle?'sel':''}">Shuffle ${pref.shuffle?'on':'off'}</button></div>
     <h2>Front of the card</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English</button></div>
-    <div class="row" style="margin-top:18px"><button id="start" class="primary study">Start ${fmt(k)} card${k===1?'':'s'}</button></div>`;
+    <div class="row" style="margin-top:18px">${k?`<button id="start" class="primary study">Start ${fmt(k)} card${k===1?'':'s'}</button>`:`<button id="start" class="study" disabled>Nothing opens today · today's ${F.DEFAULTS.newPerDay} new cards are used</button>`}</div>`;
   const set=(key,v)=>()=>{pref[key]=v; savePref(); opts(t,back);};
   document.getElementById('back').onclick=back; document.getElementById('n20').onclick=set('n',20); document.getElementById('n10').onclick=set('n',10); document.getElementById('nall').onclick=set('n',0);
   document.getElementById('sh').onclick=()=>set('shuffle',!pref.shuffle)(); document.getElementById('m-ar').onclick=set('mode','ar_first'); document.getElementById('m-en').onclick=set('mode','en_first');
@@ -431,6 +431,8 @@ function drillView(t,back){ back=back||home; document.onkeydown=null; window.scr
     <div class="row" style="margin-top:18px"><button id="start" class="primary study">Start</button></div>`;
   root.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{ d[b.dataset.k]=b.dataset.k==='tense'?b.dataset.v:Number(b.dataset.v); savePref(); drillView(t,back); });
   document.getElementById('back').onclick=back; document.getElementById('m-ar').onclick=()=>{pref.mode='ar_first';savePref();drillView(t,back);}; document.getElementById('m-en').onclick=()=>{pref.mode='en_first';savePref();drillView(t,back);};
+  { const all=VD.round(t.words,{mode:t.mode,count:full?d.count:20,tense:d.tense,level:d.level}), open=capRound(all).cards.length, st=document.getElementById('start');
+    if(!open){ st.disabled=true; st.classList.remove('primary'); st.textContent=`Nothing opens today · today's ${F.DEFAULTS.newPerDay} new cards are used`; } }
   document.getElementById('start').onclick=()=>startDrill(t,back); }
 function startDrill(t,back){ const d=pref.drill, full=t.mode==='full', all=VD.round(t.words,{mode:t.mode,count:full?d.count:20,tense:d.tense,level:d.level});
   if(!all.length){ alert('No verb forms for this choice yet.'); return; }
