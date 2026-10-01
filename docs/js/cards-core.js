@@ -107,6 +107,21 @@
     for (const w of words) ((last.get(w.key) || {}).result === 'got' ? known : rest).push(w);
     return { rest, known };
   }
+  // Singular / plural cards (Medi 2026-09-30: "mark which one I got wrong"). One swipe writes two rows: the card's own key
+  // carries the SINGULAR result, "<id>-pl" with word_key "form:<key>:plural" carries the PLURAL result, so the Word Bank
+  // scores each form. For scheduling the pair is one answer: the card is missed if either part was missed (schedLog).
+  const PL = '-pl';
+  function partRows(row, key, part) {
+    const sing = part === 'plural' ? 'got' : row.result, plur = row.result === 'got' || part === 'singular' ? 'got' : 'missed';
+    return [{ ...row, result: sing }, { ...row, id: row.id + PL, word_key: 'form:' + key + ':plural', result: plur }];
+  }
+  function schedLog(log) {
+    const list = log || [], miss = new Set(), pair = new Set();
+    for (const r of list) if (r && typeof r.id === 'string' && r.id.endsWith(PL)) { pair.add(r.id.slice(0, -PL.length)); if (r.result === 'missed' && !r.undone && !r.undone_at) miss.add(r.id.slice(0, -PL.length)); }
+    const out = [];
+    for (const r of list) { if (r && typeof r.id === 'string' && r.id.endsWith(PL) && pair.has(r.id.slice(0, -PL.length))) continue; out.push(miss.has(r && r.id) ? { ...r, result: 'missed' } : r); }
+    return out;
+  }
   // Keep going (Medi 2026-09-30): after a round of `size` cards from a bigger set, what the next round offers.
   // left >= 2 batches -> the next batch; left between 1 and 2 batches -> ask: split in two halves, or all of them;
   // left <= 1 batch -> the last ones. 67 cards in 20s: 20, 20, then 27 left -> "13 + 14" or "all 27".
@@ -212,5 +227,5 @@
     for (const w of list || []) { if (!w) continue; if (seen.has(w.key)) { cards.push(w); continue; } if (fresh < room) { fresh++; cards.push(w); } else held.push(w); }
     return { cards, held: held.length, fresh, room: room === Infinity ? null : room, newToday: used, cap: o.newPerDay };
   }
-  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, undo, unique, REDO_GAP, done, replayWrong, summary, nextChunk, splitKnown, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart, newToday, capNew, BOOST, boostMap, boostLabel };
+  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, undo, unique, REDO_GAP, done, replayWrong, summary, nextChunk, splitKnown, partRows, schedLog, PL, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart, newToday, capNew, BOOST, boostMap, boostLabel };
 })(typeof window !== 'undefined' ? window : globalThis);

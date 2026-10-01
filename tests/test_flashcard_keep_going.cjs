@@ -42,3 +42,16 @@ test('a card missed near the end comes back at the end',()=>{
  const r=Q.newRound([{key:'a'},{key:'b'}],{}); Q.answer(r,'got','t','1'); Q.answer(r,'missed','t','2');
  assert.deepEqual(r.cards.map(w=>w.key),['a','b','b']); assert.ok(!Q.done(r));
 });
+
+// Singular / plural: which one was missed (Medi 2026-09-30)
+test('one swipe on a two-form card writes the singular and the plural row; scheduling sees one answer, missed if either is',()=>{
+ const row={id:'r1',word_key:'jumle',ts:'2026-09-30T10:00:00Z',result:'missed'};
+ const pl=Q.partRows(row,'jumle','plural');
+ assert.deepEqual(pl.map(r=>[r.id,r.word_key,r.result]),[['r1','jumle','got'],['r1-pl','form:jumle:plural','missed']]);
+ assert.deepEqual(Q.partRows(row,'jumle','singular').map(r=>r.result),['missed','got']);
+ assert.deepEqual(Q.partRows(row,'jumle','both').map(r=>r.result),['missed','missed']);
+ assert.deepEqual(Q.partRows({...row,result:'got'},'jumle',null).map(r=>r.result),['got','got']);
+ const s=Q.schedLog(pl); assert.equal(s.length,1); assert.equal(s[0].word_key,'jumle'); assert.equal(s[0].result,'missed');
+ const knew=Q.schedLog(Q.partRows({...row,result:'got'},'jumle',null)); assert.deepEqual(knew.map(r=>r.result),['got']);
+ const undone=Q.schedLog([pl[0],{...pl[1],undone:true}]); assert.equal(undone[0].result,'got');
+});

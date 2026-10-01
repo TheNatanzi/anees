@@ -44,12 +44,12 @@ button.sel{border-color:var(--blue);color:var(--blue)} button.bad{background:var
 .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--bg2);border-radius:16px;box-shadow:var(--shadow);border:3px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;text-align:center;transition:border-color .12s}
 .face.back{transform:rotateY(180deg)}
 .face .lab{position:absolute;top:16px;left:20px;font-size:14px;font-weight:600;color:var(--mute)} .face .tag{position:absolute;top:16px;right:20px;font-size:13px;font-weight:600;color:var(--mute)}
-.big{font-size:40px;font-weight:600;line-height:1.2} .ar{font:700 34px/1.5 "Noto Naskh Arabic",serif;direction:rtl;margin-top:10px} .en{font-size:30px;font-weight:600;line-height:1.3} .sub{font-size:14px;color:var(--mute);margin-top:12px} .nexts{display:flex;justify-content:center;gap:28px;margin:4px 0 0;font-size:14px;color:var(--mute)} .nexts .l{color:var(--learn)} .nexts .k{color:var(--know)} .pl{font-size:20px;color:var(--mute);margin-top:8px} .pl b{color:var(--ink,inherit);font-weight:600}
+.big{font-size:40px;font-weight:600;line-height:1.2} .ar{font:700 34px/1.5 "Noto Naskh Arabic",serif;direction:rtl;margin-top:10px} .en{font-size:30px;font-weight:600;line-height:1.3} .sub{font-size:14px;color:var(--mute);margin-top:12px} .which{text-align:center;margin:12px 0 0;color:var(--mute);font-size:15px} .which .row{margin:8px 0 0} .which button{min-height:48px;font-weight:700} .nexts{display:flex;justify-content:center;gap:28px;margin:4px 0 0;font-size:14px;color:var(--mute)} .nexts .l{color:var(--learn)} .nexts .k{color:var(--know)} .pl{font-size:20px;color:var(--mute);margin-top:8px} .pl b{color:var(--ink,inherit);font-weight:600}
 .stamp{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-weight:800;font-size:26px;opacity:0;pointer-events:none;z-index:3;padding:6px 16px;border-radius:10px;border:3px solid currentColor;background:var(--bg2)}
 .card.dragL .face{border-color:var(--learn)} .card.dragR .face{border-color:var(--know)}
 .card.dragL .stamp.l{opacity:1;color:var(--learn)} .card.dragR .stamp.r{opacity:1;color:var(--know)}
 .card.gone{transition:transform .28s ease-in,opacity .28s} .card.leech .face.front{border-color:var(--red)}
-.ctrls{display:flex;justify-content:center;align-items:center;gap:22px;margin:16px 0 4px}
+.ctrls{display:flex;justify-content:center;align-items:center;gap:22px;margin:16px 0 4px} [hidden]{display:none!important}   /* .ctrls / .nexts are flex: without this, hidden does nothing */
 .ctrls .circle{width:64px;height:64px;min-height:64px;border-radius:999px;padding:0;font-size:26px;font-weight:700;background:var(--bg2);box-shadow:var(--shadow)}
 #miss.circle{color:var(--learn);border-color:var(--learn)} #got.circle{color:var(--know);border-color:var(--know)}
 #miss.circle:not(:disabled):hover{background:var(--learnbg)} #got.circle:not(:disabled):hover{background:var(--knowbg)}
@@ -112,7 +112,7 @@ h1{font-weight:500;font-size:32px;letter-spacing:-.3px} h2{font-weight:500;font-
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main></div></div>
-<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260930-borrow6-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260930-mastered3"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
+<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260930-parts-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260930-mastered3"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
 <script>
 const C=window.AneesCards, F=window.AneesFSRS, SEL=window.AneesCardSelection, VD=window.AneesVerbDrills, WB=window.AneesWordBank, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -160,7 +160,7 @@ async function load(){
 // One answer log: durable rows plus this device's unsynced rows, by id; an undo on either copy wins.
 function fullLog(){ const m=new Map(), undone=new Set(); for(const r of serverLog.concat(LS('anees-card-log')||[])){ if(!r||!r.id) continue; m.set(r.id,{...(m.get(r.id)||{}),...r}); if(r.undone||r.undone_at) undone.add(r.id); } return [...m.values()].map(r=>undone.has(r.id)?{...r,undone:true}:r); }
 // FSRS state is never stored: it is replayed from the whole answer log, so history is always kept.
-function rebuild(){ cards=F.replay(fullLog(),{desiredRetention:pref.retention}); }
+function rebuild(){ cards=F.replay(C.schedLog(fullLog()),{desiredRetention:pref.retention}); }
 function applyLocalResults(){ stats=C.mergeLocal(stats, LS('anees-card-log')||[]); }
 // ---- offline queue -> Supabase (id = idempotency key; duplicates ignored server-side) ----
 function enqueue(row){ const q=LS('anees-card-queue')||[]; q.push(row); const okQ=LS('anees-card-queue',q); if(row.kind!=='flag'&&row.kind!=='undo'){ const log=LS('anees-card-log')||[]; log.push(row); LS('anees-card-log',log.slice(-2000)); }
@@ -195,7 +195,7 @@ const fsrsOpts=()=>({desiredRetention:pref.retention});
 // Listening boost (AneesCards.BOOST): due boosted cards first, boosted unseen words first into the new slots; cap and burying unchanged.
 const boostNow=()=>C.boostMap(boostList,fullLog());
 const boostChip=key=>{ const b=boostNow().get(key); return b?{text:C.boostLabel(b),title:`You missed a sentence with this word in a lesson (${b.dates.join(', ')}). Score ${b.score} = ${b.strong} time${b.strong===1?'':'s'} you asked about it + ${b.weak} shared with the other words of missed sentences. It comes first until you get it right on a later day.`}:null; };
-function dueQueue(){ return C.queue(words,cards,fullLog(),new Date(),{newPerDay:F.DEFAULTS.newPerDay,siblings,boost:boostNow()}); }
+function dueQueue(){ return C.queue(words,cards,C.schedLog(fullLog()),new Date(),{newPerDay:F.DEFAULTS.newPerDay,siblings,boost:boostNow()}); }
 function wait(msFromNow){ const m=Math.round(msFromNow/60000); if(m<60) return m<1?'<1m':m+'m'; const h=Math.round(m/60); if(h<24) return h+'h'; const d=Math.round(m/1440); return d<60?d+'d':Math.round(d/30)+'mo'; }
 // ---- answer timer: visible time only (a hidden tab does not count) ----
 const timer={start:0,acc:0,flip:null,run:false,
@@ -218,12 +218,15 @@ function cardView(o){
     <div class="scene"><div class="card${o.leech?' leech':''}" id="card" role="button" aria-label="Flip card"><div class="stamp l">Still learning</div><div class="stamp r">Know</div>
       <div class="inner"><div class="face front"><span class="lab">${fl}</span><span class="tag">${esc(o.tag||'')}</span>${front}${o.chip?`<span class="boost" title="${esc(o.chip.title)}">${esc(o.chip.text)}</span>`:''}</div>
       <div class="face back"><span class="lab">${bl}</span>${back}${o.w.subtopic?`<div class="sub">${esc(o.w.subtopic)}</div>`:''}</div></div></div></div>
-    <div class="ctrls">${o.onUndo?'<button id="undo" class="undo" aria-label="Undo last answer" title="Undo (Ctrl+Z)">↺</button>':'<span style="width:44px"></span>'}
+    ${o.parts?`<div class="which" id="which" hidden><span>Which one did you miss?</span><div class="row"><button data-p="singular">${esc(o.parts[0])}</button><button data-p="plural">${esc(o.parts[1])}</button><button data-p="both">Both</button></div></div>`:''}<div class="ctrls" id="ctrls">${o.onUndo?'<button id="undo" class="undo" aria-label="Undo last answer" title="Undo (Ctrl+Z)">↺</button>':'<span style="width:44px"></span>'}
       <button id="miss" class="circle" aria-label="Still learning" title="Still learning (←)" disabled>✕</button><button id="got" class="circle" aria-label="Know" title="Know (→)" disabled>✓</button><span style="width:44px"></span></div>
     ${o.next?`<p class="nexts" id="nexts" hidden><span class="l">✕ back in ${esc(o.next.missed)}</span><span class="k">✓ back in ${esc(o.next.got)}</span></p>`:''}<p class="hint" id="hint">Tap the card to flip · Space</p>`;
   const card=document.getElementById('card'), hint=document.getElementById('hint'), miss=document.getElementById('miss'), got=document.getElementById('got');
   const flip=()=>{ card.classList.toggle('flip'); if(!revealed){ revealed=true; timer.flip=timer.now(); miss.disabled=got.disabled=false; hint.textContent='Swipe or press → Know · ← Still learning'; const nx=document.getElementById('nexts'); if(nx) nx.hidden=false; } };
-  const fly=result=>{ if(!revealed||answered) return; answered=true; const t={flip_ms:timer.flip, answer_ms:timer.now()}, s=result==='got'?1:-1;
+  // two-form card: Still learning first asks which form was missed (singular / plural / both)
+  const which=document.getElementById('which'), ask=()=>{ if(!revealed||answered) return; if(!which) return fly('missed'); card.style.transform=''; card.classList.remove('dragL','dragR'); which.hidden=false; for(const id of ['ctrls','nexts','hint']){ const el=document.getElementById(id); if(el) el.hidden=true; } };
+  if(which) which.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>fly('missed',b.dataset.p));
+  const fly=(result,part)=>{ if(!revealed||answered) return; answered=true; if(which) which.hidden=true; const t={flip_ms:timer.flip, answer_ms:timer.now(), part:part||null}, s=result==='got'?1:-1;
     card.classList.add('gone',s>0?'dragR':'dragL'); card.style.transform=`translateX(${s*130}%) rotate(${s*16}deg)`; card.style.opacity='0';
     setTimeout(()=>o.onAnswer(result,t),matchMedia('(prefers-reduced-motion: reduce)').matches?0:230); };
   let x0=null,y0=0,dx=0,drag=false;
@@ -232,14 +235,14 @@ function cardView(o){
     if(!drag) return; card.style.transform=`translateX(${dx}px) rotate(${dx/18}deg)`; card.classList.toggle('dragR',revealed&&dx>40); card.classList.toggle('dragL',revealed&&dx<-40); });
   const end=()=>{ if(x0===null) return; x0=null; card.style.transition='';
     if(!drag){ flip(); return; }
-    if(revealed&&Math.abs(dx)>110){ fly(dx>0?'got':'missed'); return; }
+    if(revealed&&Math.abs(dx)>110){ if(dx>0) fly('got'); else ask(); return; }
     card.style.transform=''; card.classList.remove('dragL','dragR'); if(!revealed&&Math.abs(dx)>60) hint.textContent='Flip the card first'; };
   card.addEventListener('pointerup',end); card.addEventListener('pointercancel',()=>{ x0=null; card.style.transition=''; card.style.transform=''; card.classList.remove('dragL','dragR'); });
-  miss.onclick=()=>fly('missed'); got.onclick=()=>fly('got'); document.getElementById('close').onclick=o.onClose;
+  miss.onclick=ask; got.onclick=()=>fly('got'); document.getElementById('close').onclick=o.onClose;
   const u=document.getElementById('undo'); if(u) u.onclick=o.onUndo;
   document.onkeydown=e=>{ if(e.target.closest&&e.target.closest('button')&&(e.key===' '||e.key==='Enter')&&e.target.id!=='card') return;
     if([' ','Enter','ArrowUp','ArrowDown'].includes(e.key)){ e.preventDefault(); flip(); }
-    else if(e.key==='ArrowRight'||e.key==='2'||e.key==='3') fly('got'); else if(e.key==='ArrowLeft'||e.key==='1') fly('missed');
+    else if(e.key==='ArrowRight'||e.key==='2'||e.key==='3') fly('got'); else if(e.key==='ArrowLeft'||e.key==='1') ask();
     else if(o.onUndo&&((e.key==='z'&&(e.ctrlKey||e.metaKey))||e.key==='u')) o.onUndo(); };
 }
 // ---- Home = the selection screen (plan/FLASHCARDS-SELECTION-SPEC-2026-09-21.md): labelled sections, top to bottom ----
@@ -324,7 +327,7 @@ function groupView(t,back){ subList(t,t.sets.map(({set,words:ws})=>setTile(set,w
 // New-card cap (wiki 06 rule 2, AneesFSRS.DEFAULTS.newPerDay): every round - topic drills, Amal's sets, verb drills, the
 // practice picker - introduces at most that many new cards a day, like the FSRS queue. Extra new cards are held for another
 // day, silently: the round starts without them and nothing about a backlog is shown. Seen cards are always open.
-function capRound(list){ return C.capNew(list,fullLog(),Date.now()); }
+function capRound(list){ return C.capNew(list,C.schedLog(fullLog()),Date.now()); }
 function capNote(list){ const c=capRound(list); if(!c.held) return ''; return `<p class="mute">${fmt(c.fresh+c.held)} of these are new to you and today has room for ${c.room?fmt(c.room)+' more':'no more'} (${c.cap} new a day), so ${fmt(c.held)} wait for another day.</p>`; }
 function capFull(cap,back){ document.onkeydown=null; window.scrollTo(0,0);
   root.innerHTML=`<button class="fc-back" id="back">‹ Back</button><h1>Today's new cards are in play</h1><p class="mute">Every card here would be new to you, and ${fmt(cap.newToday)} new ${cap.newToday===1?'card has':'cards have'} already started today (the cap is ${cap.cap} a day, so the schedule stays light). They come back another day. Cards you have seen before are always open.</p>
@@ -347,6 +350,7 @@ function startTile(t,back){ const cap=capRound(t.words), p=cap.cards, k=pref.n?M
 // Keep going (Medi 2026-09-30): a round of k cards from a bigger set remembers the set, so the summary can deal the next
 // batch; when 1-2 batches are left it asks "split in two" or "all of them" (C.nextChunk).
 // "back in ..." under the buttons (Medi 2026-09-30, from Anki's interval labels): what each answer does to this card.
+const partsOf=w=>w&&!w.drill&&w.plural&&!['—','-','–'].includes(String(w.plural).trim())?[w.arabizi,w.plural]:null;
 function nextLabel(key){ const now=Date.now(), o={desiredRetention:pref.retention}, cur=cards.get(key)||F.newCard(key), f=r=>{ const m=(F.schedule(cur,r,now,o).due-now)/60000;
   return m<60?Math.max(1,Math.round(m))+' min':m<1440?Math.round(m/60)+' h':m<1440*45?Math.round(m/1440)+(Math.round(m/1440)===1?' day':' days'):Math.round(m/43200)+' months'; };
   try{ return {missed:f('missed'),got:f('got')}; }catch(e){ return null; } }
@@ -367,17 +371,20 @@ function review(){ if(!sess) sess={know:0,learn:0,ms:[]}; rebuild(); const q=due
   const c=q.items[0], w=byKey().get(c.id), left=q.counts.due+q.counts.new+q.counts.learning, doneN=sess.know+sess.learn, total=doneN+Math.max(left,1);
   cardView({w, count:`${doneN+1} / ${total}`, pct:100*doneN/total, learnN:sess.learn, knowN:sess.know, leech:F.isLeech(c),
     tag:F.isLeech(c)?F.leechLabel(c):({new:'New',learning:'Learning',mature:'Mature'})[F.phase(c)],
-    chip:boostChip(c.id), next:nextLabel(c.id), onUndo:lastAnswer?undo:null, onAnswer:(r,t)=>grade(c,w,r,t), onClose:home});
+    chip:boostChip(c.id), next:nextLabel(c.id), parts:partsOf(w), onUndo:lastAnswer?undo:null, onAnswer:(r,t)=>grade(c,w,r,t), onClose:home});
 }
 // Both grading surfaces (this page and the future stats-tab queue) write this same card_results row.
 function grade(c,w,result,t){ const row={id:uuid(), word_key:w.key, ts:new Date().toISOString(), mode:pref.mode, result, attempt:1, round_id:'fsrs-'+C.dayStart(Date.now()).toString(36), subject:'fsrs', flip_ms:t&&Number.isFinite(t.flip_ms)?t.flip_ms:null, answer_ms:t&&Number.isFinite(t.answer_ms)?t.answer_ms:null, ...tzNow()};
-  enqueue(row); stats=C.mergeLocal(stats,[row]); lastAnswer=row;
+  const rows=partsOf(w)?C.partRows(row,w.key,t&&t.part):[row]; rows.forEach(enqueue); stats=C.mergeLocal(stats,rows); lastAnswer=row;
   if(result==='got') sess.know++; else sess.learn++; if(row.answer_ms!==null) sess.ms.push(row.answer_ms);
   if(result==='missed'){ sessionMissed[w.key]=(sessionMissed[w.key]||0)+1; if(sessionMissed[w.key]===2&&!SEL.isFormCard(w.key)) flag(w); }   // engine-made drill forms never go to Amal's rules list
   review(); }
+// Undo one swipe: its row and, on a singular / plural card, the paired plural row (C.PL).
+function undoRows(id){ const log=LS('anees-card-log')||[], ids=[id,id+C.PL];   // an undo for a plural row that never existed matches nothing
+  LS('anees-card-log',log.map(r=>ids.includes(r.id)?{...r,undone:true}:r)); removeSent(ids);
+  ids.forEach(x=>enqueue({id:'undo-'+x, kind:'undo', target:x, at:new Date().toISOString()})); }
 function undo(){ if(!lastAnswer) return; const row=lastAnswer; lastAnswer=null;
-  LS('anees-card-log',(LS('anees-card-log')||[]).map(r=>r.id===row.id?{...r,undone:true}:r));
-  removeSent([row.id]); enqueue({id:'undo-'+row.id, kind:'undo', target:row.id, at:new Date().toISOString()});
+  undoRows(row.id);
   if(row.result==='got') sess.know--; else { sess.learn--; if(sessionMissed[row.word_key]) sessionMissed[row.word_key]--; }
   if(row.answer_ms!==null){ const i=sess.ms.lastIndexOf(row.answer_ms); if(i>=0) sess.ms.splice(i,1); }
   stats=C.mergeLocal(stats,[]); review(); }
@@ -432,11 +439,11 @@ function startDrill(t,back){ const d=pref.drill, full=t.mode==='full', all=VD.ro
 function showCard(){ if(C.done(round)) return showSummary();
   const w=round.cards[round.i], s=Object.keys(stats).length?C.cardScore(stats[w.key]):{bucket:'–'};
   cardView({w, count:`${round.attempt>1?'Round '+round.attempt+' · ':''}${round.i+1} / ${round.cards.length}`, pct:100*round.i/round.cards.length, learnN:round.missed, knowN:round.got,
-    tag:round.results.some(r=>r.word_key===w.key)?'Again · missed earlier':w.drill?(w.guessed?'not checked by Amal':w.checked?'Checked by Amal · '+w.tense:w.tense+(w.addon?' · level 2':'')):SEL.isQuizletOnly(w.key)?'Quizlet · '+w.topic:s.bucket==='–'?w.topic:window.AneesBuckets.label(s.bucket), chip:w.drill?null:boostChip(w.key), next:nextLabel(w.key), onUndo:round.results.length?undoRound:null, onAnswer:(r,t)=>answer(r,t), onClose:round.back||picker});
+    tag:round.results.some(r=>r.word_key===w.key)?'Again · missed earlier':w.drill?(w.guessed?'not checked by Amal':w.checked?'Checked by Amal · '+w.tense:w.tense+(w.addon?' · level 2':'')):SEL.isQuizletOnly(w.key)?'Quizlet · '+w.topic:s.bucket==='–'?w.topic:window.AneesBuckets.label(s.bucket), chip:w.drill?null:boostChip(w.key), next:nextLabel(w.key), parts:partsOf(w), onUndo:round.results.length?undoRound:null, onAnswer:(r,t)=>answer(r,t), onClose:round.back||picker});
 }
 function answer(result,t){ const w=round.cards[round.i]; const row=C.answer(round,result,new Date().toISOString(),uuid()); if(!row) return;
   row.flip_ms=t&&Number.isFinite(t.flip_ms)?t.flip_ms:null; row.answer_ms=t&&Number.isFinite(t.answer_ms)?t.answer_ms:null; Object.assign(row,tzNow()); if(row.answer_ms!==null) roundMs.push(row.answer_ms);
-  enqueue(row); stats=C.mergeLocal(stats,[row]);            // bucket AND weight follow the new answer (Codex P0: stale 3× weight)
+  const rows=partsOf(w)?C.partRows(row,w.key,t&&t.part):[row]; rows.forEach(enqueue); stats=C.mergeLocal(stats,rows);            // bucket AND weight follow the new answer (Codex P0: stale 3× weight)
   try{ cards.set(w.key,F.schedule(cards.get(w.key)||F.newCard(w.key),result,row.ts,{desiredRetention:pref.retention})); }catch(e){}
   if(result==='missed'){ sessionMissed[w.key]=(sessionMissed[w.key]||0)+1; if(sessionMissed[w.key]===2&&!SEL.isFormCard(w.key)) flag(w); }   // engine-made drill forms never go to Amal's rules list
   showCard(); }
@@ -446,8 +453,7 @@ function keepRow(){ const ch=round.chunk; if(!ch) return ''; const left=chunkLef
   if(nc.kind==='ask') return `<h2>${fmt(left)} left in this set. Split them or do them all?</h2><div class="row">${b(nc.a,'Split: '+nc.a+' + '+nc.b)}${b(nc.all,'All '+nc.all)}</div>`;
   return ''; }
 function undoRound(){ const row=C.undo(round); if(!row) return;
-  LS('anees-card-log',(LS('anees-card-log')||[]).map(r=>r.id===row.id?{...r,undone:true}:r));
-  removeSent([row.id]); enqueue({id:'undo-'+row.id, kind:'undo', target:row.id, at:new Date().toISOString()});
+  undoRows(row.id);
   if(row.result!=='got'&&sessionMissed[row.word_key]) sessionMissed[row.word_key]--; roundMs.pop();
   rebuild(); stats=C.mergeLocal(stats,[]); showCard(); }
 function showSummary(){ const s=C.summary(round); document.onkeydown=null; const ms=roundMs; roundMs=[];
