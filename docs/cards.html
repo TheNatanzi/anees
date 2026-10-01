@@ -27,7 +27,7 @@ button.sel{border-color:var(--blue);color:var(--blue)} button.bad{background:var
 .tile{background:var(--bg2);border-radius:12px;box-shadow:var(--shadow);padding:14px 12px;text-align:center}
 .tile b{display:block;font-size:30px;font-weight:800;line-height:1.1} .tile span{font-size:13px;color:var(--mute);font-weight:600}
 .tile.due b{color:var(--blue)} .tile.new b{color:var(--know)} .tile.lrn b{color:var(--learn)}
-.study{width:100%;min-height:56px;font-size:18px;font-weight:800;border-radius:12px}
+.study{width:100%;min-height:56px;font-size:18px;font-weight:800;border-radius:12px} :not(.row)>button.study{margin-top:18px}   /* Medi 2026-09-30: a big button never touches the boxes above it */
 .fc{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.fc div{background:var(--bg2);border-radius:10px;box-shadow:var(--shadow);padding:8px 2px;text-align:center}.fc b{display:block;font-size:18px}.fc span{font-size:11px;color:var(--mute)}
 .panel{background:var(--bg2);border-radius:12px;box-shadow:var(--shadow);padding:14px;margin:10px 0}
 /* study screen */
