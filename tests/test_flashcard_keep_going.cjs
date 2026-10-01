@@ -55,3 +55,13 @@ test('one swipe on a two-form card writes the singular and the plural row; sched
  const knew=Q.schedLog(Q.partRows({...row,result:'got'},'jumle',null)); assert.deepEqual(knew.map(r=>r.result),['got']);
  const undone=Q.schedLog([pl[0],{...pl[1],undone:true}]); assert.equal(undone[0].result,'got');
 });
+
+// New untested words = added to the Doc after the first import; the day's amount = Amal's latest batch (Medi 2026-09-30)
+test('curriculum: import day is old, later days are new, batch = the latest day; old words pass the cap',()=>{
+ const W=[...Array(5)].map((_,i)=>({key:'old'+i,first_seen:'2026-09-05T10:00:00Z'})).concat(
+   [...Array(3)].map((_,i)=>({key:'a'+i,first_seen:'2026-09-18T10:00:00Z'})),[...Array(2)].map((_,i)=>({key:'b'+i,first_seen:'2026-09-23T10:00:00Z'})));
+ const c=Q.curriculum(W); assert.equal(c.importDay,'2026-09-05'); assert.equal(c.newKeys.size,5); assert.equal(c.batch,2);
+ const cap=Q.capNew(W,[],Date.parse('2026-09-30T12:00:00Z'),{newPerDay:c.batch,isNew:k=>c.newKeys.has(k)});
+ assert.equal(cap.cards.length,7); assert.equal(cap.held,3);                 // 5 old + 2 new open, 3 new wait
+ assert.equal(Q.curriculum(W.map(w=>({key:w.key}))).newKeys.size,0);        // no dates -> nothing limited
+});

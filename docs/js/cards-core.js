@@ -185,7 +185,7 @@
     for (const r of live) if (Date.parse(r.ts) >= today) usedGroup.add(group.get(r.word_key) || 'w:' + r.word_key);
     const firstSeen = new Map();
     for (const r of live) { const ms = Date.parse(r.ts); if (!firstSeen.has(r.word_key) || ms < firstSeen.get(r.word_key)) firstSeen.set(r.word_key, ms); }
-    const newToday = [...firstSeen.values()].filter(ms => ms >= today).length;
+    const newToday = [...firstSeen.entries()].filter(([k, ms]) => ms >= today && (!o.isNew || o.isNew(k))).length;   // only Amal's new words use up the day's room
     const byKey = new Map(words.map(w => [w.key, w]));
     const learning = [], reviews = [], fresh = [], later = [];
     for (const [key, c] of cards) {
@@ -200,7 +200,7 @@
     const take = (list, key) => list.filter(x => { const g = group.get(key(x)) || 'w:' + key(x); if (usedGroup.has(g)) { buried++; return false; } usedGroup.add(g); return true; });
     const dueReviews = take(reviews, c => c.id);
     const room = Math.max(0, o.newPerDay - newToday);
-    const unseen = words.filter(w => !cards.has(w.key) || !cards.get(w.key).reps).sort((a, b) => score(b.key) - score(a.key) || (a.doc_order || 0) - (b.doc_order || 0));
+    const unseen = words.filter(w => (!o.isNew || o.isNew(w.key)) && (!cards.has(w.key) || !cards.get(w.key).reps)).sort((a, b) => score(b.key) - score(a.key) || (a.doc_order || 0) - (b.doc_order || 0));
     for (const w of unseen) { if (fresh.length >= room) break; const g = group.get(w.key) || 'w:' + w.key; if (usedGroup.has(g)) { buried++; continue; } usedGroup.add(g); fresh.push(F.newCard(w.key)); }
     const ahead = later.filter(c => c.due - t <= LEARN_AHEAD);
     const isB = c => score(c.id) > 0;
@@ -211,9 +211,19 @@
   }
   // ---- the new-card cap, for every path that can show a card for the first time ----
   // Cards first answered today (live rows only): the cap counts introductions, not answers.
-  function newToday(log, now) {
+  // "New untested words" (Medi 2026-09-30): only words Amal ADDED to the Doc after the first import are new; the daily
+  // amount follows how many she adds (her latest batch), not a fixed number. words[].first_seen = when the word first
+  // came from the Doc. The earliest day is the bulk import (old words: never limited).
+  function curriculum(words) {
+    const day = w => String(w && w.first_seen || '').slice(0, 10), days = {};
+    for (const w of words || []) { const d = day(w); if (d) days[d] = (days[d] || 0) + 1; }
+    const list = Object.keys(days).sort(), importDay = list[0] || null, added = list.slice(1);
+    const newKeys = new Set((words || []).filter(w => importDay && day(w) > importDay).map(w => w.key));
+    return { importDay, newKeys, batch: added.length ? days[added[added.length - 1]] : 0, batches: added.map(d => [d, days[d]]) };
+  }
+  function newToday(log, now, isNew) {
     const today = dayStart(+now), firstSeen = new Map();
-    for (const r of log || []) { if (!r || r.undone || r.undone_at || r.kind === 'flag' || r.kind === 'undo' || !r.ts || !r.word_key) continue; const ms = Date.parse(r.ts); if (!Number.isFinite(ms)) continue; if (!firstSeen.has(r.word_key) || ms < firstSeen.get(r.word_key)) firstSeen.set(r.word_key, ms); }
+    for (const r of log || []) { if (!r || (isNew && !isNew(r.word_key)) || r.undone || r.undone_at || r.kind === 'flag' || r.kind === 'undo' || !r.ts || !r.word_key) continue; const ms = Date.parse(r.ts); if (!Number.isFinite(ms)) continue; if (!firstSeen.has(r.word_key) || ms < firstSeen.get(r.word_key)) firstSeen.set(r.word_key, ms); }
     return [...firstSeen.values()].filter(ms => ms >= today).length;
   }
   // Apply the daily new-card cap (wiki 06 rule 2, AneesFSRS.DEFAULTS.newPerDay) to a chosen list of word-shaped
@@ -222,10 +232,10 @@
   function capNew(list, log, now, opts) {
     const F = root.AneesFSRS, o = Object.assign({ newPerDay: F.DEFAULTS.newPerDay }, opts || {});
     const seen = new Set(); for (const r of log || []) if (r && r.word_key && !r.undone && !r.undone_at && r.kind !== 'flag' && r.kind !== 'undo') seen.add(r.word_key);
-    const used = newToday(log, now), room = o.newPerDay > 0 ? Math.max(0, o.newPerDay - used) : Infinity;
+    const used = newToday(log, now, o.isNew), room = o.newPerDay > 0 ? Math.max(0, o.newPerDay - used) : Infinity;
     const cards = [], held = []; let fresh = 0;
-    for (const w of list || []) { if (!w) continue; if (seen.has(w.key)) { cards.push(w); continue; } if (fresh < room) { fresh++; cards.push(w); } else held.push(w); }
+    for (const w of list || []) { if (!w) continue; if (seen.has(w.key) || (o.isNew && !o.isNew(w.key))) { cards.push(w); continue; } if (fresh < room) { fresh++; cards.push(w); } else held.push(w); }
     return { cards, held: held.length, fresh, room: room === Infinity ? null : room, newToday: used, cap: o.newPerDay };
   }
-  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, undo, unique, REDO_GAP, done, replayWrong, summary, nextChunk, splitKnown, partRows, schedLog, PL, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart, newToday, capNew, BOOST, boostMap, boostLabel };
+  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, undo, unique, REDO_GAP, done, replayWrong, summary, nextChunk, splitKnown, partRows, schedLog, PL, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart, newToday, capNew, curriculum, BOOST, boostMap, boostLabel };
 })(typeof window !== 'undefined' ? window : globalThis);

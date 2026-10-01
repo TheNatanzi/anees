@@ -112,7 +112,7 @@ h1{font-weight:500;font-size:32px;letter-spacing:-.3px} h2{font-weight:500;font-
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main></div></div>
-<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260930-parts-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260930-mastered3"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
+<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260930-curriculum-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260930-mastered3"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20260922-select-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
 <script>
 const C=window.AneesCards, F=window.AneesFSRS, SEL=window.AneesCardSelection, VD=window.AneesVerbDrills, WB=window.AneesWordBank, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -120,7 +120,7 @@ const uuid=()=> (crypto.randomUUID? crypto.randomUUID() : 'c'+Date.now().toStrin
 const LS=(k,v)=>{ try{ if(v===undefined) return JSON.parse(localStorage.getItem(k)||'null'); localStorage.setItem(k,JSON.stringify(v)); return true; }catch(e){ return v===undefined?null:false; } };
 let memQueue=[];   // used only when localStorage refuses the write: the answer is still sent, and the footer says it is not saved locally
 const readQ=()=>(LS('anees-card-queue')||[]).concat(memQueue);
-let words=[], stats={}, catalog=null, siblings=null, serverLog=[], cards=new Map(), speakEvents=[], quizlet=[], lessonScores='pending', boostList=[];
+let CUR={newKeys:new Set(),batch:0,batches:[]}, words=[], stats={}, catalog=null, siblings=null, serverLog=[], cards=new Map(), speakEvents=[], quizlet=[], lessonScores='pending', boostList=[];
 let pref=Object.assign({mode:'ar_first',shuffle:true,n:20,subject:'b-new',retention:0.9},LS('anees-cards-pref')||{});
 if(!F.RETENTIONS.includes(pref.retention)) pref.retention=0.9;
 const savePref=()=>LS('anees-cards-pref',pref);
@@ -133,11 +133,11 @@ const LOG_COLS='id,word_key,ts,result,attempt,mode,undone_at,flip_ms,answer_ms';
 const noTzColumn=()=>{ tzColumn=false; LS('anees-tz-col',{off:Date.now()}); };
 function tzNow(){ let tz=null; try{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone||null; }catch(e){} return {tz_offset_min:-new Date().getTimezoneOffset(), tz}; }   // the clock the answer was given in, for the hourly chart
 async function load(){
-  try{ let all=[], off=0; while(true){ const r=await fetch(ANEES.url+'/rest/v1/words?select=key,arabizi,arabic,english,plural,topic,subtopic,doc_order,house_spelling,aliases&active=eq.true&order=doc_order&limit=1000&offset='+off,{headers:H}); if(!r.ok) break; const part=await r.json(); all=all.concat(part); if(part.length<1000) break; off+=1000; } if(all.length){ words=all; LS('anees-words',words); } }catch(e){}
+  try{ let all=[], off=0; while(true){ const r=await fetch(ANEES.url+'/rest/v1/words?select=key,arabizi,arabic,english,plural,first_seen,topic,subtopic,doc_order,house_spelling,aliases&active=eq.true&order=doc_order&limit=1000&offset='+off,{headers:H}); if(!r.ok) break; const part=await r.json(); all=all.concat(part); if(part.length<1000) break; off+=1000; } if(all.length){ words=all; LS('anees-words',words); } }catch(e){}
   if(!words.length){ words=LS('anees-words')||[]; if(!words.length){ try{ const r=await fetch('data/words.json'); words=(await r.json()).items; }catch(e){} } if(words.length) syncEl.textContent='Offline: using the saved word list.'; }
   try{ const r=await fetch('data/word-bank-catalog.json'); if(r.ok){ catalog=await r.json(); LS('anees-cards-catalog',catalog); } }catch(e){}
   if(!catalog) catalog=LS('anees-cards-catalog');
-  siblings=C.siblingMap(words,catalog);
+  siblings=C.siblingMap(words,catalog); CUR=C.curriculum(words);
   try{ const rows=[]; for(let off=0;;off+=1000){ const r=await fetch(ANEES.url+'/rest/v1/card_results?select='+LOG_COLS+(tzColumn?',tz_offset_min':'')+'&order=ts.asc,id.asc&limit=1000&offset='+off,{headers:H});
       if(r.status===400&&tzColumn){ noTzColumn(); off-=1000; continue; }   // migration 019 not applied yet: read without the timezone column
       if(!r.ok) throw new Error('log'); const p=await r.json(); rows.push(...p); if(p.length<1000) break; } serverLog=rows; LS('anees-card-server-log',rows); }
@@ -195,7 +195,7 @@ const fsrsOpts=()=>({desiredRetention:pref.retention});
 // Listening boost (AneesCards.BOOST): due boosted cards first, boosted unseen words first into the new slots; cap and burying unchanged.
 const boostNow=()=>C.boostMap(boostList,fullLog());
 const boostChip=key=>{ const b=boostNow().get(key); return b?{text:C.boostLabel(b),title:`You missed a sentence with this word in a lesson (${b.dates.join(', ')}). Score ${b.score} = ${b.strong} time${b.strong===1?'':'s'} you asked about it + ${b.weak} shared with the other words of missed sentences. It comes first until you get it right on a later day.`}:null; };
-function dueQueue(){ return C.queue(words,cards,C.schedLog(fullLog()),new Date(),{newPerDay:F.DEFAULTS.newPerDay,siblings,boost:boostNow()}); }
+function dueQueue(){ return C.queue(words,cards,C.schedLog(fullLog()),new Date(),{...NEW(),siblings,boost:boostNow()}); }
 function wait(msFromNow){ const m=Math.round(msFromNow/60000); if(m<60) return m<1?'<1m':m+'m'; const h=Math.round(m/60); if(h<24) return h+'h'; const d=Math.round(m/1440); return d<60?d+'d':Math.round(d/30)+'mo'; }
 // ---- answer timer: visible time only (a hidden tab does not count) ----
 const timer={start:0,acc:0,flip:null,run:false,
@@ -277,7 +277,8 @@ function home(){ document.onkeydown=null; rebuild(); tileMap=new Map(); window.s
     ${group('Randomized',[
       tileHtml({id:'drill:random',kind:'drill',mode:'random',label:'Verb drills · 20 random',title:'Verb drills · 20 verbs · random',words:S.drills,shown:Math.min(20,S.drills.length),unit:'verbs',note:'one random person and tense per verb',reason:'No verbs in the catalog'}),
       tileHtml({id:'drill:full',kind:'drill',mode:'full',label:'Verb drills · 5 or 10 full',title:'Verb drills · 5 or 10 verbs · every person',words:S.drills,shown:10,unit:'verbs',note:'every person of the tenses you pick',reason:'No verbs in the catalog'}),
-      tileHtml({id:'never',label:'Never tested',title:'Never tested',words:S.never,shown:Math.min(20,capRound(S.never).cards.length),note:capRound(S.never).cards.length?`at random from ${fmt(S.never.length)} · ${capRound(S.never).cards.length} new left today`:`${fmt(S.never.length)} waiting · today's ${F.DEFAULTS.newPerDay} new cards are used`,reason:'Every word has been answered on cards'})])}
+      tileHtml({id:'never-new',label:'New untested words',title:'New untested words',words:S.never.filter(w=>CUR.newKeys.has(w.key)),unit:'words',note:capRound(S.never.filter(w=>CUR.newKeys.has(w.key))).cards.length?`added by Amal · ${capRound(S.never.filter(w=>CUR.newKeys.has(w.key))).cards.length} open today`:`added by Amal · today's ${NEWDAY()} are started`,reason:'No new words from Amal waiting'}),
+      tileHtml({id:'never',label:'Old untested words',title:'Old untested words',words:S.never.filter(w=>!CUR.newKeys.has(w.key)),shown:Math.min(20,S.never.filter(w=>!CUR.newKeys.has(w.key)).length),note:`20 at random from ${fmt(S.never.filter(w=>!CUR.newKeys.has(w.key)).length)} · no daily limit`,reason:'Every old word has been answered on cards'})])}
     ${group('Weak spots',[
       tileHtml({id:'leech',label:'Words I keep missing',title:'Words I keep missing',unit:'words',words:words.filter(w=>F.isLeech(cards.get(w.key))),note:`missed ${F.DEFAULTS.leechMisses}+ times on cards`,reason:`No word missed ${F.DEFAULTS.leechMisses}+ times yet`}),
       tileHtml({id:'amal',label:'New from Amal',title:'New from Amal',unit:'words',words:S.amal,reason:'Amal has not marked any new words yet'}),
@@ -291,7 +292,7 @@ function home(){ document.onkeydown=null; rebuild(); tileMap=new Map(); window.s
     <h2>Next 7 days</h2><div class="fc">${f.map((d,i)=>`<div><b>${d.due}</b><span>${i===0?'Today':new Date(d.date+'T12:00').toLocaleDateString(undefined,{weekday:'short'})}</span></div>`).join('')}</div>
     <div class="panel"><h2 style="margin-top:0">Front of the card</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English</button></div>
     <h2>Desired retention</h2><div class="toggle">${F.RETENTIONS.map(r=>`<button data-r="${r}" class="${pref.retention===r?'sel':''}">${Math.round(r*100)}%</button>`).join('')}</div>
-    <p class="mute">FSRS scheduler · default parameters, not fitted to you. Higher retention means more reviews. At most ${F.DEFAULTS.newPerDay} new cards a day, on every path; the rest wait.</p></div>`;
+    <p class="mute">FSRS scheduler · default parameters, not fitted to you. Higher retention means more reviews. New untested words (the ones Amal adds to the Doc) open ${NEWDAY()} a day, the size of her latest batch${CUR.batches.length?` (${CUR.batches.map(([d,c])=>c+' on '+new Date(d+'T12:00').toLocaleDateString(undefined,{month:'short',day:'numeric'})).join(', ')})`:''}. Old untested words have no limit.</p></div>`;
   root.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{pref.retention=Number(b.dataset.r); savePref(); home();});
   document.getElementById('m-ar').onclick=()=>{pref.mode='ar_first'; savePref(); home();};
   document.getElementById('m-en').onclick=()=>{pref.mode='en_first'; savePref(); home();};
@@ -306,7 +307,7 @@ function catView(id){ document.onkeydown=null; rebuild(); tileMap=new Map(); win
     reason:lane==='speaking'&&lessonScores!=='ok'?'Lesson scores are offline':`No ${st.toLowerCase()} ${t==='All'?'forms':noun(t)} ${where(lane)} yet`})).join('')}</div>`;
   const body={
     due:()=>section(1,'Due for review','FSRS schedule',`<div class="fc-grid three">${[['Due',n.due,'reviews due today'],['New',n.new,'new cards today'],['Learning',n.learning,'coming back soon']].map(([l,v,sub])=>`<div class="vp-card"><div class="vp-card-label"><span>${l}</span></div><div class="vp-card-value"><span class="vp-num">${v}</span></div><div class="vp-card-sub">${sub}</div></div>`).join('')}</div>
-      ${n.boosted?`<p class="mute">${n.boosted} of today's cards are boosted: you missed a sentence with that word in a lesson. Due boosted cards come first, and boosted new words take the new slots first; the ${F.DEFAULTS.newPerDay}-a-day new-card cap still holds.</p>`:''}
+      ${n.boosted?`<p class="mute">${n.boosted} of today's cards are boosted: you missed a sentence with that word in a lesson. Due boosted cards come first, and boosted new words take the new slots first; the ${NEWDAY()}-a-day limit on new untested words still holds.</p>`:''}
       <button id="go" class="primary study" ${q.items.length?'':'disabled'}>${q.items.length?'Study the review queue':'All done for today'}</button>`),
     shaky:()=>section(3,'Shaky','',`<h3>In lessons</h3>${split('Shaky','speaking')}<h3>On cards</h3>${split('Shaky','flashcards')}`),
     wrong:()=>section(4,'Wrong','',`<h3>In lessons</h3>${split('Wrong','speaking')}<h3>On cards</h3>${split('Wrong','flashcards')}`),
@@ -327,10 +328,12 @@ function groupView(t,back){ subList(t,t.sets.map(({set,words:ws})=>setTile(set,w
 // New-card cap (wiki 06 rule 2, AneesFSRS.DEFAULTS.newPerDay): every round - topic drills, Amal's sets, verb drills, the
 // practice picker - introduces at most that many new cards a day, like the FSRS queue. Extra new cards are held for another
 // day, silently: the round starts without them and nothing about a backlog is shown. Seen cards are always open.
-function capRound(list){ return C.capNew(list,C.schedLog(fullLog()),Date.now()); }
-function capNote(list){ const c=capRound(list); if(!c.held) return ''; return `<p class="mute">${fmt(c.fresh+c.held)} of these are new to you and today has room for ${c.room?fmt(c.room)+' more':'no more'} (${c.cap} new a day), so ${fmt(c.held)} wait for another day.</p>`; }
+// New untested words = words Amal added after the first Doc import; a day opens as many as her latest batch (Medi 2026-09-30).
+const NEW=()=>({newPerDay:CUR.batch||0, isNew:k=>CUR.newKeys.has(k)}), NEWDAY=()=>CUR.batch||0;
+function capRound(list){ return C.capNew(list,C.schedLog(fullLog()),Date.now(),NEW()); }
+function capNote(list){ const c=capRound(list); if(!c.held) return ''; return `<p class="mute">${fmt(c.fresh+c.held)} of these are new untested words from Amal; today has room for ${c.room?fmt(c.room)+' more':'no more'} (${c.cap} a day, her latest batch), so ${fmt(c.held)} wait for another day.</p>`; }
 function capFull(cap,back){ document.onkeydown=null; window.scrollTo(0,0);
-  root.innerHTML=`<button class="fc-back" id="back">‹ Back</button><h1>Today's new cards are in play</h1><p class="mute">Every card here would be new to you, and ${fmt(cap.newToday)} new ${cap.newToday===1?'card has':'cards have'} already started today (the cap is ${cap.cap} a day, so the schedule stays light). They come back another day. Cards you have seen before are always open.</p>
+  root.innerHTML=`<button class="fc-back" id="back">‹ Back</button><h1>Today's new untested words are started</h1><p class="mute">Every card here is a new word from Amal, and ${fmt(cap.newToday)} ${cap.newToday===1?'has':'have'} already started today (${cap.cap} a day = her latest batch, so reviews stay light). They come back another day. Cards you have seen before are always open.</p>
     <div class="row" style="margin-top:18px"><button id="home" class="primary study">Back to Flashcards</button></div>`;
   document.getElementById('back').onclick=back; document.getElementById('home').onclick=home; }
 // Options for one tile, then the same swipe cards; answers write the same card_results row.
@@ -338,7 +341,7 @@ function opts(t,back){ document.onkeydown=null; window.scrollTo(0,0); const n=t.
   root.innerHTML=`<button class="fc-back" id="back">‹ Back</button><h1>${esc(t.title||t.label)}</h1><p class="mute">${fmt(n)} card${n===1?'':'s'}${t.words.some(w=>SEL.isQuizletOnly(w.key))?' · Quizlet-only cards count on cards, never in lesson scores':''}</p>${capNote(t.words)}
     <h2>Cards</h2><div class="toggle"><button id="n20" class="${pref.n===20?'sel':''}">20</button><button id="n10" class="${pref.n===10?'sel':''}">10</button><button id="nall" class="${!pref.n?'sel':''}">All</button><button id="sh" class="${pref.shuffle?'sel':''}">Shuffle ${pref.shuffle?'on':'off'}</button></div>
     <h2>Front of the card</h2><div class="toggle"><button id="m-ar" class="${pref.mode==='ar_first'?'sel':''}">Arabic</button><button id="m-en" class="${pref.mode==='en_first'?'sel':''}">English</button></div>
-    <div class="row" style="margin-top:18px">${k?`<button id="start" class="primary study">Start ${fmt(k)} card${k===1?'':'s'}</button>`:`<button id="start" class="study" disabled>Nothing opens today · today's ${F.DEFAULTS.newPerDay} new cards are used</button>`}</div>`;
+    <div class="row" style="margin-top:18px">${k?`<button id="start" class="primary study">Start ${fmt(k)} card${k===1?'':'s'}</button>`:`<button id="start" class="study" disabled>Nothing opens today · today's ${NEWDAY()} new untested words are started</button>`}</div>`;
   const set=(key,v)=>()=>{pref[key]=v; savePref(); opts(t,back);};
   document.getElementById('back').onclick=back; document.getElementById('n20').onclick=set('n',20); document.getElementById('n10').onclick=set('n',10); document.getElementById('nall').onclick=set('n',0);
   document.getElementById('sh').onclick=()=>set('shuffle',!pref.shuffle)(); document.getElementById('m-ar').onclick=set('mode','ar_first'); document.getElementById('m-en').onclick=set('mode','en_first');
@@ -432,7 +435,7 @@ function drillView(t,back){ back=back||home; document.onkeydown=null; window.scr
   root.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{ d[b.dataset.k]=b.dataset.k==='tense'?b.dataset.v:Number(b.dataset.v); savePref(); drillView(t,back); });
   document.getElementById('back').onclick=back; document.getElementById('m-ar').onclick=()=>{pref.mode='ar_first';savePref();drillView(t,back);}; document.getElementById('m-en').onclick=()=>{pref.mode='en_first';savePref();drillView(t,back);};
   { const all=VD.round(t.words,{mode:t.mode,count:full?d.count:20,tense:d.tense,level:d.level}), open=capRound(all).cards.length, st=document.getElementById('start');
-    if(!open){ st.disabled=true; st.classList.remove('primary'); st.textContent=`Nothing opens today · today's ${F.DEFAULTS.newPerDay} new cards are used`; } }
+    if(!open){ st.disabled=true; st.classList.remove('primary'); st.textContent=`Nothing opens today · today's ${NEWDAY()} new untested words are started`; } }
   document.getElementById('start').onclick=()=>startDrill(t,back); }
 function startDrill(t,back){ const d=pref.drill, full=t.mode==='full', all=VD.round(t.words,{mode:t.mode,count:full?d.count:20,tense:d.tense,level:d.level});
   if(!all.length){ alert('No verb forms for this choice yet.'); return; }
@@ -462,7 +465,7 @@ function showSummary(){ const s=C.summary(round); document.onkeydown=null; const
   root.innerHTML=`<div class="qtop"><button id="close" aria-label="Back to sets">✕</button><div class="count">${round.attempt>1?'Review round '+round.attempt:'Round'} done</div><span></span></div><div class="prog"><i style="width:100%"></i></div>
     <h1>${s.wrong.length?'Keep going — you\'re getting there.':'You know every card in this round.'}</h1>
     <div class="done">${donut(s.firstTry,s.n-s.firstTry)}<div class="legend"><div class="k"><span>Knew first try</span><span>${s.firstTry}</span></div><div class="l"><span>Needed another go</span><span>${s.n-s.firstTry}</span></div>${timeLines(ms)}</div></div>
-    <p class="mute">${s.n} cards · ${esc(round.title||(C.subjects(words,stats).buckets.find(b=>b.id===round.subject)||{}).name||round.subject)}${round.held?` · ${fmt(round.held)} new ${round.held===1?'card waits':'cards wait'} for another day (${F.DEFAULTS.newPerDay} new a day)`:''}</p>
+    <p class="mute">${s.n} cards · ${esc(round.title||(C.subjects(words,stats).buckets.find(b=>b.id===round.subject)||{}).name||round.subject)}${round.held?` · ${fmt(round.held)} new untested ${round.held===1?'word waits':'words wait'} for another day (${NEWDAY()} a day, Amal's latest batch)`:''}</p>
     ${s.history.map(h=>`<div class="mute">round ${h.attempt}: ${h.got}/${h.n} known</div>`).join('')}
     ${keepRow()}
     <div class="row">${s.wrong.length?`<button id="replay" class="primary study">Review the ones I got wrong (${s.wrong.length})</button>`:(round.chunk&&chunkLeft(round.chunk).length?`<button id="again">Start the set over</button>`:`<button id="again" class="primary study">Pile empty — new round</button>`)}</div>

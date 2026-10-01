@@ -13,7 +13,8 @@ const AGAIN=1,GOOD=3;
 // a session is one 7-minute block (wiki 06 rule 3), so every learning ladder must finish inside it.
 // Miss -> 1 min -> Good -> 4 min -> Good = review: 5 minutes, 2 to spare. Steps change only `due`
 // timing; stability and difficulty replay identically for every logged answer.
-// newPerDay 8 = the new-word cap (wiki 06 rule 2); it is THE one place for that number.
+// newPerDay 8 = the OLD new-word cap (wiki 06 rule 2). Since 2026-09-30 (Medi) the Flashcards page limits only words Amal
+// ADDED to the Doc after the first import, at her latest batch size per day (AneesCards.curriculum); 8 is a fallback.
 // leechMisses 4 = "cull any card failed 4x" (wiki 06 rule 12), counted in every phase; leechLapses 8
 // stays as the classic Anki rule for a card that keeps forgetting once it is in review. 0 turns a rule off.
 const DEFAULTS=Object.freeze({desiredRetention:0.9,learningSteps:[1,4],relearningSteps:[4],sessionMinutes:7,maximumInterval:36500,newPerDay:8,matureDays:21,leechLapses:8,leechMisses:4});
