@@ -62,18 +62,39 @@
     return { id: (opts && opts.id) || ('r' + Date.now().toString(36)), cards: cards.slice(), i: 0, mode: (opts && opts.mode) || 'ar_first', subject: (opts && opts.subject) || '',
       attempt: 1, results: [], wrong: [], got: 0, missed: 0, history: [] };
   }
+  // A missed card comes back later in the SAME round (Medi 2026-09-30, from Mochi / RemNote / Quizlet Learn): it is put
+  // REDO_GAP cards further on (or at the end) until it is answered Know once. The round's Know / Still learning counts
+  // are per card (its latest answer), so a card missed then known counts once, as Know.
+  const REDO_GAP = 3;
   function answer(round, result, nowIso, uuid) {
     const w = round.cards[round.i]; if (!w) return null;
     const row = { id: uuid, word_key: w.key, ts: nowIso, mode: round.mode, result, attempt: round.attempt, round_id: round.id, subject: round.subject };
-    round.results.push(row);
-    if (result === 'got') round.got++; else { round.missed++; if (!round.wrong.find(x => x.key === w.key)) round.wrong.push(w); }
-    round.i++;
+    let inserted = null;
+    if (result !== 'got' && round.redo !== false) { inserted = Math.min(round.i + 1 + REDO_GAP, round.cards.length); round.cards.splice(inserted, 0, w); }
+    round.results.push(row); round.inserted = (round.inserted || []).concat([inserted]);
+    if (result !== 'got' && !round.wrong.find(x => x.key === w.key)) round.wrong.push(w);
+    round.i++; tally(round);
     return row;
   }
+  // Take back the last answer of the round (Anki / Quizlet undo): the card is shown again and any comeback copy is removed.
+  function undo(round) {
+    if (!round.results.length) return null;
+    const row = round.results.pop(), ins = (round.inserted || []).pop();
+    if (ins !== null && ins !== undefined) round.cards.splice(ins, 1);
+    round.i--;
+    if (!round.results.some(r => r.word_key === row.word_key && r.result !== 'got')) round.wrong = round.wrong.filter(x => x.key !== row.word_key);
+    tally(round); return row;
+  }
+  function tally(round) {
+    const last = new Map(); for (const r of round.results) last.set(r.word_key, r.result);
+    round.got = [...last.values()].filter(v => v === 'got').length; round.missed = last.size - round.got;
+    round.firstTry = round.results.filter((r, i) => round.results.findIndex(x => x.word_key === r.word_key) === i && r.result === 'got').length;
+  }
+  function unique(round) { return new Set(round.cards.map(w => w.key)).size; }
   function done(round) { return round.i >= round.cards.length; }
   function replayWrong(round) {
     const next = newRound(round.wrong, { mode: round.mode, subject: round.subject, id: round.id + '-' + (round.attempt + 1) });
-    next.attempt = round.attempt + 1; next.history = round.history.concat([{ attempt: round.attempt, got: round.got, missed: round.missed, n: round.cards.length }]);
+    next.attempt = round.attempt + 1; next.history = round.history.concat([{ attempt: round.attempt, got: round.got, missed: round.missed, n: unique(round) }]);
     return next;
   }
   // Known cards go to the back of the set (Medi 2026-09-30): a card whose latest (not undone) swipe was Know is dealt
@@ -95,7 +116,7 @@
     if (left < 2 * size) { const a = Math.floor(left / 2); return { kind: 'ask', all: left, a, b: left - a }; }
     return { kind: 'next', n: size, left };
   }
-  function summary(round) { return { n: round.cards.length, got: round.got, missed: round.missed, wrong: round.wrong.map(w => w.key), attempt: round.attempt, history: round.history }; }
+  function summary(round) { return { n: unique(round), shown: round.results.length, firstTry: round.firstTry || 0, got: round.got, missed: round.missed, wrong: round.wrong.map(w => w.key), attempt: round.attempt, history: round.history }; }
   // ---- FSRS daily queue (scheduling only; card grade stays in word-bank-core) ----
   // Siblings = the forms of one word (tenses, persons, plural) from the Word Bank catalog.
   function siblingMap(words, catalog) {
@@ -191,5 +212,5 @@
     for (const w of list || []) { if (!w) continue; if (seen.has(w.key)) { cards.push(w); continue; } if (fresh < room) { fresh++; cards.push(w); } else held.push(w); }
     return { cards, held: held.length, fresh, room: room === Infinity ? null : room, newToday: used, cap: o.newPerDay };
   }
-  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, done, replayWrong, summary, nextChunk, splitKnown, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart, newToday, capNew, BOOST, boostMap, boostLabel };
+  root.AneesCards = { subjects, pool, draw, drawOne, shuffle, newRound, answer, undo, unique, REDO_GAP, done, replayWrong, summary, nextChunk, splitKnown, weightOf, weightFromBucket, cardScore, mergeLocal, mulberry32, siblingMap, queue, dayStart, newToday, capNew, BOOST, boostMap, boostLabel };
 })(typeof window !== 'undefined' ? window : globalThis);

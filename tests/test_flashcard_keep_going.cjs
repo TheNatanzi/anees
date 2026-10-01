@@ -26,3 +26,19 @@ test('a card whose latest swipe was Know goes to the back; order kept in each ha
  assert.deepEqual(rest.map(w=>w.key),['b','c','d']);
  assert.deepEqual(known.map(w=>w.key),['a','e']);
 });
+
+// A missed card comes back in the same round, 3 cards later, until known once; undo takes it all back (Medi 2026-09-30)
+test('missed card comes back 3 cards later; counts are per card; undo removes the comeback',()=>{
+ const r=Q.newRound(['a','b','c','d','e'].map(key=>({key})),{});
+ Q.answer(r,'missed','2026-09-30T10:00:00Z','1');
+ assert.deepEqual(r.cards.map(w=>w.key),['a','b','c','d','a','e']);
+ assert.equal(r.missed,1);
+ Q.undo(r); assert.deepEqual(r.cards.map(w=>w.key),['a','b','c','d','e']); assert.equal(r.i,0); assert.equal(r.wrong.length,0);
+ Q.answer(r,'missed','t','1'); for(let i=0;i<5;i++) Q.answer(r,'got','t','x'+i);
+ assert.ok(Q.done(r)); const s=Q.summary(r);
+ assert.equal(s.n,5); assert.equal(s.got,5); assert.equal(s.missed,0); assert.equal(s.firstTry,4); assert.deepEqual(s.wrong,['a']);
+});
+test('a card missed near the end comes back at the end',()=>{
+ const r=Q.newRound([{key:'a'},{key:'b'}],{}); Q.answer(r,'got','t','1'); Q.answer(r,'missed','t','2');
+ assert.deepEqual(r.cards.map(w=>w.key),['a','b','b']); assert.ok(!Q.done(r));
+});

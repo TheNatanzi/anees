@@ -52,12 +52,15 @@ function points(e,lane='speaking'){
 }
 function score(events,lane='speaking'){
  const session=e=>lane==='flashcards'?date(e):String(e.lesson_id||date(e));
+ // Mastered needs right answers on this many different days / lessons. Flashcards: 3 (Medi 2026-09-30: "right on 3
+ // different days" - the same as the Flashcards page's own Mastered, buckets.js); Speaking keeps 2 lessons.
+ const need=lane==='flashcards'?3:2;
  const attempts=unique(events).map(e=>({...e,p:points(e,lane)})).filter(e=>e.p!==null);
  const n=attempts.length;
  if(!n)return {status:'Untested',count:0,accuracy:null,attempts,latest:[]};
  if(n>=10){const latest=attempts.slice(-10),accuracy=latest.reduce((s,e)=>s+e.p,0)*10;
  const days=new Set(latest.filter(e=>e.p===1).map(session));
- const status=accuracy>=90?(days.size>=2?'Mastered':'Good'):accuracy>=75?'Good':accuracy>=50?'Shaky':'Wrong';
+ const status=accuracy>=90?(days.size>=need?'Mastered':'Good'):accuracy>=75?'Good':accuracy>=50?'Shaky':'Wrong';
  return {status,count:n,accuracy,attempts,latest};}
  let status='Untested',right=[],wrong=0;
  attempts.forEach((e,i)=>{
@@ -65,7 +68,7 @@ function score(events,lane='speaking'){
    if(i===0){status=p===1?'Good':'Shaky';right=p===1?[session(e)]:[];wrong=p===0?1:0;return;}
    if(i===1&&attempts[0].p===1&&p!==1){status='Shaky';right=[];wrong=0;return;}
    if(p===.5){right=[];wrong=0;return;}
-   if(p===1){wrong=0;right.push(session(e));if(right.length>=2){if(status==='Wrong')status='Shaky';else if(status==='Shaky')status='Good';else if(status==='Good'&&new Set(right.slice(-2)).size>=2)status='Mastered';}}
+   if(p===1){wrong=0;right.push(session(e));if(status==='Good'){if(right.length>=need&&new Set(right.slice(-need)).size>=need)status='Mastered';}else if(right.length>=2){if(status==='Wrong')status='Shaky';else if(status==='Shaky')status='Good';}}
    else {right=[];wrong++;if(status==='Mastered')status='Good';else if(wrong>=2){if(status==='Good')status='Shaky';else if(status==='Shaky')status='Wrong';}}
    if(status!==prev){right=[];wrong=0;}
  });
