@@ -205,8 +205,8 @@ const timer={start:0,acc:0,flip:null,run:false,
   resume(){ if(!this.run){ this.start=performance.now(); this.run=true; } } };
 document.addEventListener('visibilitychange',()=>document.hidden?timer.pause():timer.resume());
 const secs=ms=>{ if(!Number.isFinite(ms)) return '—'; const s=ms/1000; if(s<60) return s.toFixed(1)+'s'; const m=Math.floor(s/60); return m+'m '+Math.round(s-m*60)+'s'; };
-// the plural (Amal's Doc) shows under the Arabic - it was loaded but never shown (Medi 2026-09-30)
-function faces(w){ const arFace=`<div class="big">${esc(w.arabizi)}</div><div class="ar">${esc(w.arabic)}</div>${w.plural?`<div class="pl">plural: <b>${esc(w.plural)}</b></div>`:''}`, enFace=`<div class="en">${esc(w.english)}</div>`; return pref.mode==='ar_first'?[arFace,enFace]:[enFace,arFace]; }
+// singular / plural on one line, like the English "Sentence – sentences" (Medi 2026-09-30: "Jumle / jumal")
+function faces(w){ const arFace=`<div class="big">${esc(w.arabizi)}${w.plural?` / ${esc(w.plural)}`:''}</div><div class="ar">${esc(w.arabic)}</div>`, enFace=`<div class="en">${esc(w.english)}</div>`; return pref.mode==='ar_first'?[arFace,enFace]:[enFace,arFace]; }
 const LABELS=()=>pref.mode==='ar_first'?['Arabic','English']:['English','Arabic'];
 // ---- one Quizlet-style card: tap to flip, then swipe right = Know, left = Still learning ----
 let revealed=false;
