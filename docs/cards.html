@@ -206,7 +206,13 @@ const timer={start:0,acc:0,flip:null,run:false,
 document.addEventListener('visibilitychange',()=>document.hidden?timer.pause():timer.resume());
 const secs=ms=>{ if(!Number.isFinite(ms)) return '—'; const s=ms/1000; if(s<60) return s.toFixed(1)+'s'; const m=Math.floor(s/60); return m+'m '+Math.round(s-m*60)+'s'; };
 // singular / plural on one line, like the English "Sentence – sentences" (Medi 2026-09-30: "Jumle / jumal")
-function faces(w){ const arFace=`<div class="big">${esc(w.arabizi)}${w.plural?` / ${esc(w.plural)}`:''}</div><div class="ar">${esc(w.arabic)}</div>`, enFace=`<div class="en">${esc(w.english)}</div>`; return pref.mode==='ar_first'?[arFace,enFace]:[enFace,arFace]; }
+// Same English, more than one Arabic word (Medi 2026-09-30: "I start" = Ana babda AND Ana baballesh): the English side says
+// how many ways there are, the Arabic side shows the others, so either answer is right.
+let ALT=null; const enKey=e=>String(e||'').toLowerCase().replace(/\s+/g,' ').trim();
+function alts(w){ if(!ALT){ ALT=new Map(); for(const x of words){ const k=enKey(x.english); if(!k) continue; if(!ALT.has(k)) ALT.set(k,[]); ALT.get(k).push(x); } }
+  return (ALT.get(enKey(w.english))||[]).filter(x=>x.key!==w.key&&x.arabizi!==w.arabizi); }
+function faces(w){ const al=w.drill?[]:alts(w), arFace=`<div class="big">${esc(w.arabizi)}${w.plural?` / ${esc(w.plural)}`:''}</div><div class="ar">${esc(w.arabic)}</div>${al.length?`<div class="pl">also: <b>${al.map(x=>esc(x.arabizi)).join(' · ')}</b></div>`:''}`,
+  enFace=`<div class="en">${esc(w.english)}</div>${al.length?`<div class="pl">${al.length+1} ways to say it · any is right</div>`:''}`; return pref.mode==='ar_first'?[arFace,enFace]:[enFace,arFace]; }
 const LABELS=()=>pref.mode==='ar_first'?['Arabic','English']:['English','Arabic'];
 // ---- one Quizlet-style card: tap to flip, then swipe right = Know, left = Still learning ----
 let revealed=false;
