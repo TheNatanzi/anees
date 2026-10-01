@@ -44,7 +44,7 @@ button.sel{border-color:var(--blue);color:var(--blue)} button.bad{background:var
 .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--bg2);border-radius:16px;box-shadow:var(--shadow);border:3px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;text-align:center;transition:border-color .12s}
 .face.back{transform:rotateY(180deg)}
 .face .lab{position:absolute;top:16px;left:20px;font-size:14px;font-weight:600;color:var(--mute)} .face .tag{position:absolute;top:16px;right:20px;font-size:13px;font-weight:600;color:var(--mute)}
-.big{font-size:40px;font-weight:600;line-height:1.2} .big.two{font-size:30px} .big .w,.ar .w{white-space:nowrap}   /* each word stays whole; the line breaks at the slash */   /* two equal words share the line at one size (Medi 2026-09-30) */ .ar{font:700 34px/1.5 "Noto Naskh Arabic",serif;direction:rtl;margin-top:10px} .en{font-size:30px;font-weight:600;line-height:1.3} .sub{font-size:14px;color:var(--mute);margin-top:12px} .ctrls.parts{gap:8px} .ctrls.parts>span{display:none} .ctrls .part{flex:1;max-width:96px;min-height:48px;padding:4px 6px;font-weight:700;font-size:15px;border-radius:12px;color:var(--learn);border-color:var(--learn);overflow:hidden;text-overflow:ellipsis;white-space:nowrap} .ctrls .part:disabled{opacity:.35} .qtop .undo{width:44px;height:44px;min-height:44px;padding:0;border:none;background:none;font-size:22px;color:var(--mute);justify-self:end} .nexts{display:flex;justify-content:center;gap:28px;margin:4px 0 0;font-size:14px;color:var(--mute)} .nexts .l{color:var(--learn)} .nexts .k{color:var(--know)} .pl{font-size:20px;color:var(--mute);margin-top:8px} .pl b{color:var(--ink,inherit);font-weight:600}
+.big{font-size:40px;font-weight:600;line-height:1.2} .big.two{font-size:30px} .big .w,.ar .w{white-space:nowrap}   /* each word stays whole; the line breaks at the slash */   /* two equal words share the line at one size (Medi 2026-09-30) */ .ar{font:700 34px/1.5 "Noto Naskh Arabic",serif;direction:rtl;margin-top:10px} .en{font-size:30px;font-weight:600;line-height:1.3} .sub{font-size:14px;color:var(--mute);margin-top:12px} .ctrls.parts{gap:8px} .ctrls.parts>span{display:none} .ctrls .part{flex:1;max-width:96px;min-height:48px;padding:4px 6px;font-weight:700;font-size:15px;border-radius:12px;color:var(--learn);border-color:var(--learn);font-size:14px;line-height:1.15;overflow-wrap:anywhere;white-space:normal} .ctrls .part:disabled{opacity:.35} .qtop .undo{width:44px;height:44px;min-height:44px;padding:0;border:none;background:none;font-size:22px;color:var(--mute);justify-self:end} .nexts{display:flex;justify-content:center;gap:28px;margin:4px 0 0;font-size:14px;color:var(--mute)} .nexts .l{color:var(--learn)} .nexts .k{color:var(--know)} .pl{font-size:20px;color:var(--mute);margin-top:8px} .pl b{color:var(--ink,inherit);font-weight:600}
 .stamp{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-weight:800;font-size:26px;opacity:0;pointer-events:none;z-index:3;padding:6px 16px;border-radius:10px;border:3px solid currentColor;background:var(--bg2)}
 .card.dragL .face{border-color:var(--learn)} .card.dragR .face{border-color:var(--know)}
 .card.dragL .stamp.l{opacity:1;color:var(--learn)} .card.dragR .stamp.r{opacity:1;color:var(--know)}
@@ -225,11 +225,14 @@ function enPlural(e){ e=String(e).trim(); if(/\?/.test(e)||e.split(/\s+/).length
 // bird / sparrow). Display only; Amal's Doc wording is unchanged. Add a line when Medi flags another confusing pair.
 const EN_NOTE={tair:'general'};
 const enBase=w=>w.english;
-const enFull0=w=>w.plural&&!['—','-','–'].includes(String(w.plural).trim())&&!/[–\/]| - /.test(enBase(w)||'')&&enPlural(enBase(w))?`${enBase(w)} / ${enPlural(enBase(w))}`:enBase(w);
+const hasPl=w=>w.plural&&!['—','-','–'].includes(String(w.plural).trim());
+// "/" joins words of the same kind (two meanings, two spellings); " · " separates singular from plural - same on both sides.
+const enFull0=w=>{ const e=enBase(w)||''; if(!hasPl(w)||/–| - /.test(e)) return e; const ps=e.split('/').map(x=>enPlural(x.trim()));
+  return ps.every(Boolean)?`${e} · ${ps.join(' / ')}`:e; };
 const enFull=w=>enFull0(w)+(EN_NOTE[w.key]?` (${EN_NOTE[w.key]})`:'');
 // Command-tense words read as orders on the English side (Medi 2026-10-01: "Scratch" alone is confusing).
 const isCmd=w=>!w.drill&&(w.topic==='Command Tense'||w.subtopic==='Command Tense');
-function faces(w){ const al=w.drill?[]:alts(w), arFace=`<div class="big${al.length?' two':''}">${[w.arabizi,...al.map(x=>x.arabizi),...(w.plural?[w.plural]:[])].map(x=>`<span class="w">${esc(x)}</span>`).join(' / ')}</div><div class="ar">${[w.arabic,...al.map(x=>x.arabic)].filter(Boolean).map(x=>`<span class="w">${esc(x)}</span>`).join(' / ')}</div>`,
+function faces(w){ const al=w.drill?[]:alts(w), arFace=`<div class="big${al.length||String(w.plural||'').includes('/')?' two':''}">${[w.arabizi,...al.map(x=>x.arabizi)].map(x=>`<span class="w">${esc(x)}</span>`).join(' / ')}${hasPl(w)?' · '+String(w.plural).split('/').map(x=>`<span class="w">${esc(x.trim())}</span>`).join(' / '):''}</div><div class="ar">${[w.arabic,...al.map(x=>x.arabic)].filter(Boolean).map(x=>`<span class="w">${esc(x)}</span>`).join(' / ')}</div>`,
   enFace=`<div class="en">${esc(enFull(w))}${isCmd(w)&&!/[!?]$/.test(enFull(w))?'!':''}</div>${isCmd(w)?'<div class="pl">command · telling someone to do it</div>':''}${al.length?`<div class="pl">${al.length+1} ways to say it · any is right</div>`:''}`; return pref.mode==='ar_first'?[arFace,enFace]:[enFace,arFace]; }
 const LABELS=()=>pref.mode==='ar_first'?['Arabic','English']:['English','Arabic'];
 // ---- one Quizlet-style card: tap to flip, then swipe right = Know, left = Still learning ----
@@ -377,7 +380,7 @@ function startTile(t,back){ const cap=capRound(t.words), p=cap.cards, k=pref.n?M
 // Keep going (Medi 2026-09-30): a round of k cards from a bigger set remembers the set, so the summary can deal the next
 // batch; when 1-2 batches are left it asks "split in two" or "all of them" (C.nextChunk).
 // "back in ..." under the buttons (Medi 2026-09-30, from Anki's interval labels): what each answer does to this card.
-const partsOf=w=>w&&!w.drill&&w.plural&&!['—','-','–'].includes(String(w.plural).trim())?[w.arabizi,w.plural]:null;
+const partsOf=w=>w&&!w.drill&&hasPl(w)?[w.arabizi,String(w.plural).split('/')[0].trim()]:null;
 function nextLabel(key){ const now=Date.now(), o={desiredRetention:pref.retention}, cur=cards.get(key)||F.newCard(key), f=r=>{ const m=(F.schedule(cur,r,now,o).due-now)/60000;
   return m<60?Math.max(1,Math.round(m))+' min':m<1440?Math.round(m/60)+' h':m<1440*45?Math.round(m/1440)+(Math.round(m/1440)===1?' day':' days'):Math.round(m/43200)+' months'; };
   try{ return {missed:f('missed'),got:f('got')}; }catch(e){ return null; } }
