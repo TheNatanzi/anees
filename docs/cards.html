@@ -31,7 +31,7 @@ button.sel{border-color:var(--blue);color:var(--blue)} button.bad{background:var
 .fc{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.fc div{background:var(--bg2);border-radius:10px;box-shadow:var(--shadow);padding:8px 2px;text-align:center}.fc b{display:block;font-size:18px}.fc span{font-size:11px;color:var(--mute)}
 .panel{background:var(--bg2);border-radius:12px;box-shadow:var(--shadow);padding:14px;margin:10px 0}
 /* study screen */
-.qtop{display:grid;grid-template-columns:48px 1fr 48px;align-items:center;margin:2px 0 6px}
+.qtop .ask{justify-self:end;min-height:36px;padding:4px 10px;border-radius:999px;font-size:13px;font-weight:700;white-space:nowrap;color:var(--mute);background:none} .qtop .ask.on{color:var(--learn);border-color:var(--learn)} .qtop{display:grid;grid-template-columns:48px 1fr auto;align-items:center;margin:2px 0 6px}
 .qtop button{min-height:44px;width:44px;padding:0;border:none;background:none;font-size:22px;color:var(--mute)} .qtop .count{text-align:center;font-weight:700;font-size:16px}
 .prog{height:4px;background:var(--line);border-radius:2px;overflow:hidden} .prog i{display:block;height:100%;background:var(--blue);transition:width .25s}
 .tally{display:flex;justify-content:space-between;align-items:center;margin:14px 2px 10px;font-weight:700;font-size:14px}
@@ -72,7 +72,7 @@ button.sel{border-color:var(--blue);color:var(--blue)} button.bad{background:var
 #anees-bank #root button{font:600 16px var(--sans);color:var(--ink)} #anees-bank #root .toggle button,#anees-bank #root .chips button{font-size:15px}
 #anees-bank #root button.study{font-size:18px;font-weight:800} #anees-bank #root button.primary{color:var(--sabz-cta-text)}
 #anees-bank #root button.sel{color:var(--sabz-data-ink)} #anees-bank #root button.bad{color:#fff}
-#anees-bank #root .qtop button,#anees-bank #root .ctrls .undo{font-size:22px;color:var(--mute)} #anees-bank #root .ctrls .circle{font-size:26px;font-weight:700}
+#anees-bank #root .qtop button,#anees-bank #root .ctrls .undo{font-size:22px;color:var(--mute)} #anees-bank #root .qtop .ask{font-size:13px;font-family:var(--sans)} #anees-bank #root .qtop .ask.on{color:var(--learn)} #anees-bank #root .ctrls .circle{font-size:26px;font-weight:700}
 #anees-bank #root #miss.circle{color:var(--learn)} #anees-bank #root #got.circle{color:var(--know)}
 #anees-bank #root button.fc-back{font:600 13px var(--sans);color:var(--ab-muted)}
 #anees-bank #root button.vp-card{font:inherit;color:var(--ab-text)}
@@ -242,7 +242,7 @@ const LABELS=()=>pref.mode==='ar_first'?['Arabic','English']:['English','Arabic'
 let revealed=false;
 function cardView(o){
   const [front,back]=faces(o.w), [fl,bl]=o.w._pl?(pref.mode==='ar_first'?['Singular','Plural']:['Plural','Singular']):LABELS(); revealed=false; timer.begin(); let answered=false;
-  root.innerHTML=`<div class="qtop"><button id="close" aria-label="Close">✕</button><div class="count">${esc(o.count)}</div><span></span></div>
+  root.innerHTML=`<div class="qtop"><button id="close" aria-label="Close">✕</button><div class="count">${esc(o.count)}</div><button id="ask" class="ask${askHas(o.w)?' on':''}" aria-pressed="${askHas(o.w)}" title="Add this card to your questions for Amal">? Ask Amal</button></div>
     <div class="prog"><i style="width:${Math.round(o.pct)}%"></i></div>
     <div class="tally"><span class="pill learn"><b>${o.learnN}</b>Still learning</span><span class="pill know"><b>${o.knowN}</b>Know</span></div>
     <div class="scene"><div class="card${o.leech?' leech':''}" id="card" role="button" aria-label="Flip card"><div class="stamp l">Still learning</div><div class="stamp r">Know</div>
@@ -270,6 +270,8 @@ function cardView(o){
   card.addEventListener('pointerup',end); card.addEventListener('pointercancel',()=>{ x0=null; card.style.transition=''; card.style.transform=''; card.classList.remove('dragL','dragR'); });
   miss.onclick=ask; got.onclick=()=>fly('got'); document.getElementById('close').onclick=o.onClose;
   const u=document.getElementById('undo'); if(u) u.onclick=o.onUndo;
+  const ak=document.getElementById('ask'); ak.onclick=e=>{ e.stopPropagation(); const on=askToggle(o.w); ak.classList.toggle('on',on); ak.setAttribute('aria-pressed',on); ak.textContent=on?'✓ On Amal list':'? Ask Amal'; };
+  if(askHas(o.w)) ak.textContent='✓ On Amal list';
   document.onkeydown=e=>{ if(e.target.closest&&e.target.closest('button')&&(e.key===' '||e.key==='Enter')&&e.target.id!=='card') return;
     if([' ','Enter','ArrowUp','ArrowDown'].includes(e.key)){ e.preventDefault(); flip(); }
     else if(e.key==='ArrowRight'||e.key==='2'||e.key==='3') fly('got'); else if(e.key==='ArrowLeft'||e.key==='1') ask();
@@ -283,6 +285,23 @@ function selection(){ const log=fullLog(), match=SEL.matcher(words), qcards=new 
     tenses:SEL.tenses(words,catalog), drills:VD.verbs(catalog,words), topics:SEL.topics(words), colloc:SEL.collocationSets(quizlet), groups:SEL.quizletGroups(quizlet), qcards }; }
 const union=lists=>{ const m=new Map(); for(const l of lists) for(const w of l) if(!m.has(w.key)) m.set(w.key,w); return [...m.values()]; };
 // Every tile shows its count; an empty tile shows "—" and why, never a bare 0.
+// Questions for Amal (Medi 2026-10-01): "? Ask Amal" on a card puts it on this list; Send opens the phone's share menu
+// (WhatsApp ...) with the list as text - Medi picks Amal and sends it himself. Kept on this device.
+const ASK='anees-amal-questions', NL=String.fromCharCode(10);
+const askList=()=>LS(ASK)||[], askHas=w=>!!w&&askList().some(x=>x.key===w.key);
+function askToggle(w){ const l=askList(), i=l.findIndex(x=>x.key===w.key); if(i>=0) l.splice(i,1); else l.push({key:w.key,arabizi:w.arabizi,plural:hasPl(w)?w.plural:'',arabic:w.arabic||'',english:w.english,at:new Date().toISOString()}); LS(ASK,l); return i<0; }
+function askText(){ return 'Hi Amal, can you help me with these?'+NL+askList().map((x,i)=>`${i+1}. ${x.arabizi}${x.plural?' · '+x.plural:''}${x.arabic?' ('+x.arabic+')':''} = ${x.english}`).join(NL); }
+function askView(){ document.onkeydown=null; window.scrollTo(0,0); const l=askList();
+  root.innerHTML=`<button class="fc-back" id="back">‹ Flashcards</button><h1>Questions for Amal</h1><p class="mute">${l.length} card${l.length===1?'':'s'} you want her to explain. Tap ✕ to take one off.</p>
+    ${l.map((x,i)=>`<div class="row" style="justify-content:space-between"><span>${i+1}. <b>${esc(x.arabizi)}${x.plural?' · '+esc(x.plural):''}</b> ${x.arabic?`<span dir="auto">${esc(x.arabic)}</span>`:''} = ${esc(x.english)}</span><button data-rm="${esc(x.key)}" aria-label="Remove" style="flex:0 0 44px">✕</button></div>`).join('')}
+    <div class="row" style="margin-top:18px"><button id="send" class="primary study">Send to Amal</button></div>
+    <div class="row"><button id="copy">Copy the list</button><button id="clear">Clear the list</button></div><p class="mute" id="askmsg"></p>`;
+  const msg=t=>document.getElementById('askmsg').textContent=t;
+  document.getElementById('back').onclick=home;
+  root.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{ LS(ASK,askList().filter(x=>x.key!==b.dataset.rm)); askList().length?askView():home(); });
+  document.getElementById('copy').onclick=async()=>{ try{ await navigator.clipboard.writeText(askText()); msg('Copied. Paste it into WhatsApp.'); }catch(e){ msg('Could not copy on this browser.'); } };
+  document.getElementById('send').onclick=async()=>{ const text=askText(); if(navigator.share){ try{ await navigator.share({text}); msg('Sent from the share menu. Clear the list once Amal answers.'); }catch(e){} } else { try{ await navigator.clipboard.writeText(text); msg('Copied (no share menu here). Paste it into WhatsApp.'); }catch(e){ msg('Could not share on this browser.'); } } };
+  document.getElementById('clear').onclick=()=>{ if(confirm('Clear all '+askList().length+' questions?')){ LS(ASK,[]); home(); } }; }
 function tileHtml(t){ const n=t.words.length, empty=!n; tileMap.set(t.id,t); if(empty&&!t.keepEmpty) return '';   // Medi 2026-09-30: hide tiles with no cards
   return `<button class="vp-card stile${empty?' empty':''}${t.wide?' wide':''}" data-t="${esc(t.id)}"${empty?' aria-disabled="true"':''}><div class="vp-card-label"><span${t.tone?` class="fc-${t.tone}"`:''}>${esc(t.label)}</span></div><div class="vp-card-value"><span class="vp-num">${empty?'—':fmt(t.shown??n)}</span>${!empty&&t.unit?`<span class="vp-card-unit">${esc(t.unit)}</span>`:''}</div><div class="vp-card-sub">${esc(empty?t.reason:(t.note||''))}</div>${!empty&&t.mix?mixHtml(t.mix):''}</button>`; }
 // Section heading in the Progress & Stats style: serif title, small-caps eyebrow note.
@@ -309,6 +328,7 @@ function home(){ document.onkeydown=null; rebuild(); tileMap=new Map(); window.s
       tileHtml({id:'drill:full',kind:'drill',mode:'full',label:'Verb drills · 5 or 10 full',title:'Verb drills · 5 or 10 verbs · every person',words:S.drills,shown:10,unit:'verbs',note:'every person of the tenses you pick',reason:'No verbs in the catalog'}),
       tileHtml({id:'never-new',label:'New untested words',title:'New untested words',words:S.never.filter(w=>CUR.newKeys.has(w.key)),unit:'words',note:capRound(S.never.filter(w=>CUR.newKeys.has(w.key))).cards.length?`added by Amal · ${capRound(S.never.filter(w=>CUR.newKeys.has(w.key))).cards.length} open today`:`added by Amal · today's ${NEWDAY()} are started`,reason:'No new words from Amal waiting'}),
       tileHtml({id:'never',label:'Old untested words',title:'Old untested words',words:S.never.filter(w=>!CUR.newKeys.has(w.key)),shown:Math.min(20,S.never.filter(w=>!CUR.newKeys.has(w.key)).length),note:`retest: 20 at random from ${fmt(S.never.filter(w=>!CUR.newKeys.has(w.key)).length)} · no daily limit`,reason:'Every old word has been answered on cards'})])}
+    ${askList().length?`<section class="fc-sec sec"><div class="fc-grid"><button class="vp-card stile wide" id="asktile"><div class="vp-card-label"><span class="fc-shaky">Questions for Amal</span></div><div class="vp-card-value"><span class="vp-num">${askList().length}</span><span class="vp-card-unit">cards</span></div><div class="vp-card-sub">tap to see the list and send it to her</div></button></div></section>`:''}
     ${group('Weak spots',[
       tileHtml({id:'leech',label:'Words I keep missing',title:'Words I keep missing',unit:'words',words:words.filter(w=>F.isLeech(cards.get(w.key))),note:`missed ${F.DEFAULTS.leechMisses}+ times on cards`,reason:`No word missed ${F.DEFAULTS.leechMisses}+ times yet`}),
       tileHtml({id:'amal',label:'New from Amal',title:'New from Amal',unit:'words',words:S.amal,reason:'Amal has not marked any new words yet'}),
@@ -326,7 +346,7 @@ function home(){ document.onkeydown=null; rebuild(); tileMap=new Map(); window.s
   root.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{pref.retention=Number(b.dataset.r); savePref(); home();});
   document.getElementById('m-ar').onclick=()=>{pref.mode='ar_first'; savePref(); home();};
   document.getElementById('m-en').onclick=()=>{pref.mode='en_first'; savePref(); home();};
-  bindTiles(t=>openTile(t,home));
+  bindTiles(t=>openTile(t,home)); const at=document.getElementById('asktile'); if(at) at.onclick=askView;
 }
 // One category screen; its tiles come back here, and ‹ Flashcards returns to the menu.
 function catView(id){ document.onkeydown=null; rebuild(); tileMap=new Map(); window.scrollTo(0,0); const S=lastSel||selection(), q=dueQueue(), n=q.counts, qs=set=>S.qcards.get(set.id)||[], back=()=>catView(id);

@@ -31,6 +31,7 @@ Quizlet data are never edited by the page (her wording and spelling are the rule
 | A4 | A missed card comes back 3 cards later in the same round until known once; it is tagged "Again · missed earlier" |
 | A5 | "back in N" under ✕ / ✓ once the card is flipped (what each answer does to its schedule) |
 | A6 | Round end: "Knew first try" vs "Needed another go"; Keep going deals the next batch; between 1 and 2 batches left it asks split (e.g. 13 + 14) or all |
+| A8 | "? Ask Amal" (card top-right) puts the card on a list on this phone; home tile "Questions for Amal" shows it; Send opens the share menu (Medi picks Amal and sends) |
 | A7 | Every set round deals cards you don't know yet first; cards you last marked Know come last; forms of one word are spread out (one per round, a word answered today goes to the back) |
 
 ## What is new, and limits
