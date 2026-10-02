@@ -190,6 +190,7 @@ def materials(meta):
             # her writing link carries a token: keep it on the way back to the rules page
             '<script>(function(){var t=new URLSearchParams(location.search).get("t");if(!t)return;'
             'document.querySelectorAll(\'a[href="grammar-rules.html"]\').forEach(function(a){a.href="grammar-rules.html?t="+encodeURIComponent(t);});})();</script>'
+            '<script src="../js/rule-names.js?v=20261002-1" defer></script>'   # rule ids explain themselves on hover/tap
             '</body></html>\n'
             % (CSS, meta["edited"], "".join(toc), "".join(body), html.escape(meta["title"]), meta["read"]))
     open(os.path.join(DOCS, "amal", "materials.html"), "w", encoding="utf-8", newline="").write(page)

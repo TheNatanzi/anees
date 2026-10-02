@@ -1,10 +1,11 @@
-/* Progress & Stats › Flashcards tab › New angles (Medi 2026-09-27: "all of these").
-   Nine panels A–I from the flashcard stats mockup, drawn under the Review queue.
+/* Progress & Stats › Flashcards tab: the panels added 2026-09-27 (Medi: "all of these"), merged 2026-10-02 into the
+   tab's one grid (Medi: "get rid of these, fully combine the old and the new"): no separate header, no letters, no
+   per-word lists (words live on Flashcards). Dropped as duplicates: chronic misses (= the Leech words card).
    Same answer log as the tab (card_results + this device's unsynced rows, the
    fullLog() merge, handed over in d.log) replayed through AneesFSRS, keeping
    the card state BEFORE each answer so every answer knows its gap, predicted
    recall and kind. Nothing is hardcoded: missing data renders "—" with a reason.
-   Called by flashcard-progress.js at the end of render(), so it redraws after a grade or undo. */
+   flashcard-progress.js render() inserts panels(d) into its grid, so they redraw with the live answer log. */
 (function(){
 'use strict';
 const F=window.AneesFSRS;
@@ -113,9 +114,6 @@ function compute(d){
  const E={rungs,total:[...cards.values()].filter(c=>c.reps).length,unseen:[...byKey.keys()].filter(k=>!cards.has(k)).length,
   restarted:{count:restarted.length,R:restarted.length?restarted.reduce((s,c)=>s+Rnow(c),0)/restarted.length*100:null},medSession:median(ses.map(s=>s.min))};
 
- // F: chronic misses vs the 4-miss cull line
- const Fm={list:[...missCount].map(([key,m])=>{const c=cards.get(key);return {key,m,answers:answerCount.get(key)||0,difficulty:c?c.difficulty:null,lapses:c?c.lapses:0};}).sort((x,y)=>y.m-x.m||y.answers-x.answers||(y.difficulty||0)-(x.difficulty||0)),leechLapses:F.DEFAULTS.leechLapses};
-
  // G: retention by gap since the last answer
  const GB=[['first sight',a=>a.gap===null],['same day',a=>a.gap!==null&&a.gap<1],['1–2 d',a=>a.gap>=1&&a.gap<3],['3–6 d',a=>a.gap>=3&&a.gap<7],['7–13 d',a=>a.gap>=7&&a.gap<14],['14 d+',a=>a.gap>=14]];
  const G={bins:GB.map(([label,test])=>{const l=answers.filter(a=>test(a));return {label,n:l.length,right:l.filter(a=>a.right).length};})};
@@ -132,19 +130,14 @@ function compute(d){
  I.pool={all:[0,0],new:[0,0],back:[0,0],old:[0,0]};for(const s of I.ses){I.pool.all[0]+=s.n;I.pool.all[1]+=s.right;for(const k of ['new','back','old']){I.pool[k][0]+=s.parts[k][0];I.pool[k][1]+=s.parts[k][1];}}
  I.oldGap=median(I.ses.flatMap(s=>s.oldGaps));
 
- return {now,answers,cards,A,B,C,D,E,F:Fm,G,H,I};
+ return {now,answers,cards,A,B,C,D,E,G,H,I};
 }
 
 /* ---------- drawing ---------- */
 const W=520;
 const frame=(inner,label,h,w=W)=>`<svg class="vp-chart fa-chart" viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(label)}">${inner}</svg>`;
 const empty=t=>`<div class="vp-empty">— ${esc(t)}</div>`;
-const panel=(key,title,sub,body,{wide=false,why='',note=''}={})=>`<section class="vp-panel fa-panel ${wide?'fp-wide':''}" aria-labelledby="fa-h-${key}"><div class="vp-panelhead"><div><span class="fa-key">${key.toUpperCase()}</span><h2 id="fa-h-${key}">${esc(title)}</h2>${sub?`<p class="ab-sub">${sub}</p>`:''}</div></div>${body}${why||note?`<div class="fa-foot">${why?`<span class="fa-why">${why}</span>`:''}${note?`<span>${note}</span>`:''}</div>`:''}</section>`;
-function wordLabel(k,byKey){
- const w=byKey.get(k);
- if(!w)return `<span class="fa-w"><b>${esc(/^q:/.test(k)?'Quizlet card '+k.split(':').slice(1).join(' #'):k)}</b></span>`;
- return `<a class="fa-w" href="word-bank.html?word=${encodeURIComponent(k)}"><b>${esc(w.arabizi||'')}</b>${w.arabic?`<span lang="ar" dir="rtl">${esc(w.arabic)}</span>`:''}${w.english?`<small>${esc(w.english)}</small>`:''}</a>`;
-}
+const panel=(key,title,sub,body,{wide=false,why='',note=''}={})=>`<section class="vp-panel fa-panel ${wide?'fp-wide':''}" aria-labelledby="fa-h-${key}"><div class="vp-panelhead"><div><h2 id="fa-h-${key}">${esc(title)}</h2>${sub?`<p class="ab-sub">${sub}</p>`:''}</div></div>${body}${why||note?`<div class="fa-foot">${why?`<span class="fa-why">${why}</span>`:''}${note?`<span>${note}</span>`:''}</div>`:''}</section>`;
 const row=(label,width,cls,right,title='')=>`<div class="fa-row"${title?` title="${esc(title)}"`:''}><span class="fa-id">${label}</span><span class="fa-track"><i class="fa-fill-${cls}" style="width:${Math.max(width>0?2:0,Math.min(100,width)).toFixed(1)}%"></i></span><span class="fa-n">${right}</span></div>`;
 const big=(v,sub)=>`<div class="fa-big"><b>${v}</b><small>${sub}</small></div>`;
 const isNice=v=>{const p=Math.pow(10,Math.floor(Math.log10(v))),r=Math.round(v/p*100)/100;return [1,2,2.5,5].includes(r);};
@@ -152,23 +145,22 @@ const niceSteps=top=>[4,5,3,2].find(k=>isNice(top/k))||4;
 const roomy=v=>{const top=niceMax(v);for(const t of [top*.6,top*.7,top*.8])if(t>=v&&isNice(t/niceSteps(t)))return t;return top;};
 function yGrid(y,top,L,R,fmt,steps=niceSteps(top)){let s='';for(let i=0;i<=steps;i++){const v=top*i/steps;s+=`<line class="vp-gridline" x1="${L}" x2="${W-R}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}"/><text x="${L-6}" y="${(y(v)+3.5).toFixed(1)}" text-anchor="end">${fmt(v)}</text>`;}return s;}
 
-/* A */
-function panelA(x,d){
+/* A: the count only (Medi 2026-10-02: no per-word rows on Progress; the words are on Flashcards) */
+function panelA(x){
  const A=x.A;
- const sub='A word counts when its first answer of the day, at least 7 days after you last saw it, passes. Trailing 28 days. Bar = what FSRS predicted before you answered.';
+ const sub='A word counts when its first answer of the day, at least 7 days after you last saw it, passes. Trailing 28 days.';
+ const link='<p class="ab-sub"><a href="cards.html">The words are in Flashcards →</a></p>';
  if(!A.all.length)return panel('a','Words I can say cold',sub,empty('No card has come back after a gap of 7+ days yet. The first one to do so starts this count.'));
- if(!A.list.length)return panel('a','Words I can say cold',sub,big('—',`none tested cold in the last 28 days · last cold test ${dm(A.all[A.all.length-1].t)}`)+empty('Nothing came back after 7+ days in the last four weeks.'));
- const k=A.list.length,shown=A.list.slice(-10);
- const on=A.days.length===1?`on ${dm(A.list[0].t)}`:`in the last 28 days`;
- const rows=shown.map(a=>{const p=Math.round((a.R||0)*100);return row(wordLabel(a.key,d.byKey),p,'sage',`<span class="${a.right?'fa-ok':'fa-bad'}">${a.right?'✓ said cold':'✗ missed'}</span> · ${p}% predicted`,`${dm(a.t)} · ${f1(a.gap)} days since last seen · FSRS predicted ${p}%`);}).join('');
+ if(!A.list.length)return panel('a','Words I can say cold',sub,big('—',`none tested cold in the last 28 days · last cold test ${dm(A.all[A.all.length-1].t)}`)+link);
+ const k=A.list.length,on=A.days.length===1?`on ${dm(A.list[0].t)}`:`in the last 28 days`;
  const diff=A.right-A.expected,verdict=diff>=.5?'The defaults underrate you so far':diff<=-.5?'The defaults overrate you so far':'Right on the prediction so far';
- return panel('a','Words I can say cold',sub,big(n(A.right),`of ${n(k)} tested cold ${on} · median gap ${f1(A.gap)} days`)+`<div class="fa-rows">${rows}</div>${k>shown.length?`<p class="ab-sub">Showing the latest 10 of ${n(k)}.</p>`:''}`,
-  {why:`FSRS expected ${f1(A.expected)} of ${n(k)}. You got ${n(A.right)}. ${verdict} (n=${n(k)}).`,note:'Predicted = retrievability at answer time'});
+ return panel('a','Words I can say cold',sub,big(n(A.right),`of ${n(k)} tested cold ${on} · median gap ${f1(A.gap)} days`)+link,
+  {why:`FSRS expected ${f1(A.expected)} of ${n(k)}. You got ${n(A.right)}. ${verdict} (n=${n(k)}).`,note:'Expected = retrievability at answer time, summed'});
 }
 /* B */
-function panelB(x){
- const B=x.B,sub='Seconds you looked at the card before flipping, split by whether you then knew it. <code>flip_ms</code> is stored on every timed answer and shown nowhere else.';
- if(!B.n)return panel('b','Hesitation before the flip',sub,empty('No flip times yet: answers from the review queue on this page carry none.'));
+function panelB(x,d){
+ const B=x.B,TM=d&&d.time,sub='Seconds you looked at the card before flipping, split by whether you then knew it. <code>flip_ms</code> is stored on every timed answer and shown nowhere else.';
+ if(!B.n)return panel('b','Hesitation before the flip',sub,empty('No flip times yet.'));
  const h=190,L=30,R=10,T=14,Bt=30,pw=W-L-R,ph=h-T-Bt,top=niceMax(Math.max(1,...B.bins.map(b=>Math.max(b.got,b.miss)))),y=v=>T+ph-v/top*ph;
  const gap=6,slot=(pw-gap*15)/16,bw=(slot-2)/2;
  let s=yGrid(y,top,L,R,v=>n(Math.round(v)),top>=4?undefined:top);
@@ -178,7 +170,7 @@ function panelB(x){
   if(b.i%2===1||b.i===15)s+=`<text x="${(x0+slot/2).toFixed(1)}" y="${h-10}" text-anchor="middle">${lab}</text>`;}
  s+=`<text x="${W-R}" y="${T-4}" text-anchor="end">seconds before the flip →</text>`;
  return panel('b','Hesitation before the flip',sub,`<div class="fa-big"><b>${secs(B.medR)}</b><small>median when right</small><span class="fa-vs">vs</span><b>${secs(B.medW)}</b><small>when wrong${B.nW?'':' · no timed miss yet'}</small></div>`+frame(s,'Seconds before flipping, knew versus missed',h)+`<div class="fa-legend"><span><i class="fa-got"></i>knew it ${n(B.nR)}</span><span><i class="fa-miss"></i>missed ${n(B.nW)}</span></div>`,
-  {why:B.slowRight?`${plural(B.slowRight,'“Know it” answer')} took 6 s or more: shaky, but FSRS files ${B.slowRight===1?'it as a clean pass':'them as clean passes'}.`:'No “Know it” answer took 6 s or more.',note:`${plural(B.n,'timed answer')}${B.untimed?` · ${n(B.untimed)} without a flip time`:''}`});
+  {why:(B.slowRight?`${plural(B.slowRight,'“Know it” answer')} took 6 s or more: shaky, but FSRS files ${B.slowRight===1?'it as a clean pass':'them as clean passes'}.`:'No “Know it” answer took 6 s or more.')+(TM?` Median time to answer (card shown to swipe): ${secs(TM.median)}${TM.swipe?`, of which the swipe itself ${secs(TM.swipe.median)}`:''}.`:''),note:`${plural(B.n,'timed answer')}${B.untimed?` · ${n(B.untimed)} without a flip time`:''}`});
 }
 /* C */
 function panelC(x,d){
@@ -242,18 +234,6 @@ function panelE(x){
  const why=learn?`${plural(learn,'card')} ${learn===1?'is':'are'} still on a learning step: they left a session before the second step came round. Until 27 Sep that step was 10 minutes, longer than the 7-minute block${E.medSession!==null?` (your median session: ${f1(E.medSession)} min)`:''}; it is now ${last} minutes, so each one finishes the next time it is answered right.`:'No card is stuck on a learning step.';
  return panel('e','The ladder',sub,`<div class="fa-rows">${rows}</div>${restartedRow}`,{why,note:`${n(E.unseen)} words never seen, not drawn`});
 }
-/* F */
-function panelF(x,d){
- const L=x.F.list,sub=`Misses per card, all time. A card is a leech at ${CULL} misses in any phase (wiki 06 rule 12) or ${x.F.leechLapses} lapses in review; the Leech words box above uses the same rule.`;
- if(!L.length)return panel('f','Chronic misses (leech watch)',sub,empty('No card missed yet.'));
- const top=L.filter(o=>o.m>=2).concat(L.filter(o=>o.m<2)).slice(0,8),rest=L.slice(top.length);
- const rows=top.map(o=>row(wordLabel(o.key,d.byKey),o.m/CULL*100,o.m>=3?'bad':o.m===2?'warn':'sage',`${n(o.m)} of ${n(o.answers)} · difficulty ${f1(o.difficulty)}`,`missed ${o.m} of ${o.answers} answers · FSRS difficulty ${f1(o.difficulty)} of 10 · lapses ${o.lapses}`)).join('');
- const restNames=rest.map(o=>{const w=d.byKey.get(o.key);return w?w.arabizi:o.key;});
- const worst=L[0],ww=d.byKey.get(worst.key),name=esc(ww?ww.arabizi:worst.key);
- const why=worst.m>=CULL?`${name} has reached the “failed ${CULL}×, cull it” line (${n(worst.m)} misses, difficulty ${f1(worst.difficulty)} / 10).`:worst.m===CULL-1?`${name} is one miss from the “failed ${CULL}×, cull it” rule and FSRS already rates it ${f1(worst.difficulty)} / 10 difficulty.`:`No card is near the ${CULL}-miss cull line yet; the worst has ${n(worst.m)}.`;
- return panel('f','Chronic misses (leech watch)',sub,`<div class="fa-rows">${rows}</div><p class="ab-sub">${rest.length?`Also missed: ${esc(restNames.slice(0,12).join(', '))}${rest.length>12?` and ${n(rest.length-12)} more`:''}. `:''}Bar = misses against the ${CULL}-miss cull line.</p>`,
-  {why,note:`${plural(L.length,'card')} missed at least once`});
-}
 /* G */
 function panelG(x){
  const G=x.G,sub='% right grouped by how long since you last saw the card. The tab’s retention table only counts cards in FSRS “review” state.';
@@ -292,23 +272,17 @@ function panelI(x){
  const pl=I.pool,pA=pc(pl.all[1],pl.all[0]),pN=pc(pl.new[1],pl.new[0]),pB=pc(pl.back[1],pl.back[0]),pO=pc(pl.old[1],pl.old[0]);
  const why=`${I.ses.length>1?`Across these ${n(I.ses.length)} sessions, the`:'The'} ${pA}% headline ${pl.new[0]?`hides a ${pN}% first-sight rate.`:'has no first-sight answers in it.'}${pl.back[0]?` Same-session re-steps run at ${pB}%; they are rehearsal, not retention.`:''}${pl.old[0]?` Cards from earlier sessions: ${pO}%.`:''}`;
  return panel('i','What is inside a session score',sub,`<div class="fa-sessions">${rows}<div class="fa-scale"><span>0</span><span>${n(max)} answers</span></div></div><div class="fa-legend"><span><i class="fa-accent"></i>first sight</span><span><i class="fa-seq3"></i>back within the session</span><span><i class="fa-seq5"></i>seen in an earlier session${I.oldGap!==null?` (median ${f1(I.oldGap)} d before)`:''}</span></div>`,
-  {wide:true,why,note:'Today block and hourly bars mix all three'});
+  {wide:true,why,note:'The Today block mixes all three'});
 }
 
-/* ---------- render ---------- */
-function render(host,d){
- if(!host||!d||!F)return;
- const old=host.querySelector('#fa-angles');if(old)old.remove();
- const sec=document.createElement('section');sec.id='fa-angles';sec.className='fa-angles';sec.setAttribute('aria-labelledby','fa-title');
- try{
-  const x=compute(d);
-  sec.innerHTML=`<div class="fa-head"><span class="vp-eyebrow">Flashcards · nine more angles</span><h2 class="fp-h" id="fa-title">New angles</h2><p class="ab-sub">Same ${plural(x.answers.length,'answer')} as above, replayed through the same FSRS scheduler. Each panel says what it can and cannot claim yet.</p></div>
-  <div class="vp-grid">${panelA(x,d)}${panelB(x)}${panelC(x,d)}${panelD(x)}${panelE(x)}${panelF(x,d)}${panelG(x)}${panelH(x)}${panelI(x)}</div>`;
- }catch(e){console.error('flashcard angles',e);sec.innerHTML=`<div class="vp-notice">New angles could not be drawn (${esc(e.message)}).</div>`;}
- host.append(sec);
+/* ---------- panels (inserted into flashcard-progress.js's grid) ---------- */
+function panels(d){
+ if(!d||!F)return '';
+ const x=compute(d);
+ return panelA(x)+panelB(x,d)+panelC(x,d)+panelD(x)+panelE(x)+panelG(x)+panelH(x)+panelI(x);
 }
-window.AneesFlashcardAngles={render,compute};
-// This file loads after flashcard-progress.js; if the answers are already in, draw now.
+window.AneesFlashcardAngles={panels,compute};
+// This file loads after flashcard-progress.js; if the tab is already drawn, redraw so these panels join it.
 const FP=window.AneesFlashcardProgress,host=document.getElementById('vp-tab-flash');
-if(FP&&FP.loaded&&host&&!host.hidden&&!host.querySelector('#fa-angles'))render(host,FP.build());
+if(FP&&FP.loaded&&host&&!host.hidden&&!host.querySelector('#fa-h-a'))FP.show('flashcards');
 })();

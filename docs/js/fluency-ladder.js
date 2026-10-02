@@ -279,17 +279,22 @@ function curve(o){
 
 /* ---------- 3. miss signals ---------- */
 const SIG_LABEL={repeat_request:'asked her to repeat',meaning_question:'asked what it means',dont_understand:'said “I’m lost”',rescue:'she rescued (guess)',wrong_answer:'wrong answer (guess)',hand_audit:'audit, read by hand'};
+// Axis fitted to the data (Medi 2026-10-02: "why is this so shrunk?"): a step of 1/2/5×10^k giving 4–6 gridlines,
+// top = the first step at or above the tallest bar; full card width, every lesson date on the x-axis.
+const fitAxis=v=>{v=Math.max(1,v);let step=1;for(const s of [1,2,5,10,20,25,50,100,200,250,500,1000])if(Math.ceil(v/s)<=6){step=s;break;}return {top:Math.ceil(v/step)*step,step};};
 function signals(o){
  if(!o.sig)return empty(U?'No lessons.':'Loading every sentence…');
- const H=240,L=34,R=14,Tp=24,B=30,rows=o.sig,max=niceMax(Math.max(1,...rows.map(r=>o.sigKeys.reduce((a,k)=>a+r.c[k],0)))),slot=(W-L-R)/rows.length,bw=Math.min(34,slot*.64),y=v=>Tp+(H-Tp-B)*(1-v/max);
- let s='';for(const f of [0,.5,1])s+=`<line class="vp-gridline" x1="${L}" x2="${W-R}" y1="${y(max*f)}" y2="${y(max*f)}"/><text x="${L-6}" y="${y(max*f)+3.5}" text-anchor="end">${n(max*f)}</text>`;
+ const rows=o.sig,SW=960,H=320,L=34,R=10,Tp=26,tall=rows.length>16,B=tall?52:32;
+ const ax=fitAxis(Math.max(...rows.map(r=>o.sigKeys.reduce((a,k)=>a+r.c[k],0)))),max=ax.top;
+ const slot=(SW-L-R)/rows.length,bw=Math.max(6,Math.min(44,slot*.68)),y=v=>Tp+(H-Tp-B)*(1-v/max);
+ let s='';for(let v=0;v<=max;v+=ax.step)s+=`<line class="vp-gridline" x1="${L}" x2="${SW-R}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}"/><text x="${L-6}" y="${(y(v)+3.5).toFixed(1)}" text-anchor="end">${n(v)}</text>`;
  rows.forEach((r,i)=>{const cx=L+slot*i+slot/2;let acc=0;
-  o.sigKeys.forEach((k,j)=>{const v=r.c[k];if(!v)return;s+=`<rect class="fl-sig fl-sig-${j+1}" x="${(cx-bw/2).toFixed(1)}" y="${y(acc+v).toFixed(1)}" width="${bw.toFixed(1)}" height="${(y(acc)-y(acc+v)).toFixed(1)}"><title>${r.date} · ${SIG_LABEL[k]}: ${n(v)}</title></rect>`;acc+=v;});
+  o.sigKeys.forEach((k,j)=>{const v=r.c[k];if(!v)return;const top=y(acc+v),hgt=y(acc)-top;s+=`<rect class="fl-sig fl-sig-${j+1}" x="${(cx-bw/2).toFixed(1)}" y="${top.toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(1,hgt-(acc?2:0)).toFixed(1)}" rx="2"><title>${r.date} · ${SIG_LABEL[k]}: ${n(v)}</title></rect>`;acc+=v;});
   if(!r.loaded)s+=`<text class="fl-n" x="${cx}" y="${y(0)-4}" text-anchor="middle">—</text>`;
   else s+=`<text class="vp-callout" x="${cx}" y="${(y(acc)-5).toFixed(1)}" text-anchor="middle"><title>${r.date}: ${n(r.bd)} breakdowns of ${n(r.sc)} scored listening sentences</title>${r.sc?P(r.bd/r.sc*100):'—'}</text>`;
-  if(i%Math.ceil(rows.length/10)===0||i===rows.length-1)s+=`<text class="vp-lesson-label" x="${cx}" y="${H-10}" text-anchor="middle">${short(r.date)}</text>`;});
+  s+=tall?`<text class="vp-lesson-label" x="${cx.toFixed(1)}" y="${H-B+12}" text-anchor="end" transform="rotate(-45 ${cx.toFixed(1)} ${H-B+12})">${short(r.date)}</text>`:`<text class="vp-lesson-label" x="${cx.toFixed(1)}" y="${H-12}" text-anchor="middle">${short(r.date)}</text>`;});
  const tot=k=>rows.reduce((a,r)=>a+r.c[k],0);
- return `<svg class="vp-chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Non-understanding signals per lesson">${s}</svg>
+ return `<svg class="vp-chart" viewBox="0 0 ${SW} ${H}" role="img" aria-label="Non-understanding signals per lesson">${s}</svg>
  <div class="fl-legend">${o.sigKeys.map((k,j)=>`<span><i class="fl-sig fl-sig-${j+1}"></i>${esc(SIG_LABEL[k])} <b>${n(tot(k))}</b></span>`).join('')}</div>`;
 }
 
@@ -334,11 +339,16 @@ player.addEventListener('error',()=>{audioErr=player.currentSrc||player.src;cons
 const SW={i:null,date:null,shownAt:0,hiddenMs:0,hiddenAt:null,played:false,x0:null};
 document.addEventListener('visibilitychange',()=>{if(document.hidden)SW.hiddenAt=performance.now();else if(SW.hiddenAt!==null){SW.hiddenMs+=performance.now()-SW.hiddenAt;SW.hiddenAt=null;}});
 const audioUrl=p=>{const rel=p&&p.audio&&p.audio[0];if(!rel)return null;if(/^https?:/.test(rel))return rel;return /github\.io$/.test(location.hostname)?new URL(rel,location.href).href:PAGES+rel;};
+// Listening window around her line and his reply (Medi 2026-10-02: "for these I need more seconds before and after").
+// The one place to change it: seconds added before her line and after his reply, on top of the builder's tight
+// sentence bounds (build_sentence_ladder.py: line start −0.4 s, reply end +0.5 s). The page plays the full recording.
+const CLIP_PAD={before:4,after:3};
+const win=p=>{const a=Number.isFinite(p.play_from)?p.play_from:(p.t||0),b=Number.isFinite(p.play_to)?p.play_to:p.end;return {from:Math.max(0,a-CLIP_PAD.before),to:Number.isFinite(b)?b+CLIP_PAD.after:null};};
 function play(p){
- const url=audioUrl(p);if(!url)return;audioErr=null;SW.played=true;
- const go=()=>{try{player.currentTime=p.play_from||p.t||0;}catch(e){}stopAt=p.play_to||p.end||null;const r=player.play();if(r&&r.catch)r.catch(()=>{});};
+ const url=audioUrl(p);if(!url)return;audioErr=null;SW.played=true;const w=win(p);
+ const go=()=>{try{player.currentTime=w.from;}catch(e){}stopAt=w.to;const r=player.play();if(r&&r.catch)r.catch(()=>{});};
  if(player.src!==url){player.src=url;player.addEventListener('loadedmetadata',go,{once:true});player.load();}else go();
- const el=$('fl-audio-msg');if(el)el.textContent='Playing '+fmtT(p.play_from)+'–'+fmtT(p.play_to)+' of the lesson recording.';
+ const el=$('fl-audio-msg');if(el)el.textContent='Playing '+fmtT(w.from)+'–'+fmtT(w.to)+' of the lesson recording.';
 }
 const fmtT=s=>{if(!Number.isFinite(s))return '—';s=Math.round(s);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');};
 const MACHINE={understood:['fl-pill-ok','understood'],breakdown:['fl-pill-bad','breakdown'],unknown:['fl-pill-unk','unknown']};
@@ -365,7 +375,7 @@ function swipeCard(){
   <div class="fl-who">You replied</div>
   <div class="fl-reply">${p.reply_text?(raz?`${esc(raz)}<div class="fl-ar fl-ar-s" lang="ar" dir="rtl">${esc(p.reply_text)}</div>`:esc(p.reply_text)):'— (no reply transcribed)'}</div>
   <div class="fl-mach">Machine says <span class="fl-pill ${mc}">${esc(ml)}</span>${sigs?` <small>${esc(sigs)}</small>`:''}${prev?` · <small>you said ${esc(prev.label)} before</small>`:''}</div>
-  <div class="fl-play-row"><button class="fl-btn fl-play" data-sw="play" ${audioUrl(p)?'':'disabled'}>▶ Play ${fmtT(p.play_from)}–${fmtT(p.play_to)}</button><span id="fl-audio-msg" class="fl-muted">${audioUrl(p)?'Space plays it. Her line, then your reply.':'No recording for this lesson.'}</span></div>
+  <div class="fl-play-row"><button class="fl-btn fl-play" data-sw="play" ${audioUrl(p)?'':'disabled'}>▶ Play ${fmtT(win(p).from)}–${fmtT(win(p).to)}</button><span id="fl-audio-msg" class="fl-muted">${audioUrl(p)?'Space plays it. Her line, then your reply.':'No recording for this lesson.'}</span></div>
  </div>
  <div class="fl-answers"><button class="fl-ans fl-ans-bad" data-sw="breakdown"><span>←</span>Didn’t</button><button class="fl-ans fl-ans-unk" data-sw="not_sure"><span>↓</span>Not sure</button><button class="fl-ans fl-ans-ok" data-sw="understood"><span>→</span>Understood</button></div>
  <div class="fl-sw-nav">${SW.i>0?'<button class="fl-link" data-sw="back">‹ back</button>':''}<span id="fl-sync" class="fl-sync" data-state="${table}">${esc(syncText())}</span></div>`;
@@ -412,7 +422,7 @@ function render(){
  <div class="vp-grid">
  <section class="vp-panel fl-wide fl-swipe-panel" aria-labelledby="fl-h-swipe"><div class="vp-panelhead"><div><span class="fl-key">CHECK</span><h2 id="fl-h-swipe">After-lesson swipe check</h2><p class="ab-sub">Did you understand her? Your answer beats the machine’s label everywhere on this tab. ← didn’t · ↓ not sure · → understood.</p></div></div><div id="fl-swipe">${swipeCard()}</div></section>
  ${panel('curve','A','Comprehension by sentence length','% understood of scored sentences at each length. Faded dots: under '+n(o.T.ladder_last)+' sentences. Strips below: every sentence, unknowns in their own band.',curve(o),{side:`<div class="vp-side"><b>${P(share(L.understood,(L.understood||0)+(L.breakdown||0)))}</b>heard · ${P(share(Sp.success,(Sp.success||0)+(Sp.corrected||0)))} said</div>`,foot:`Listening: ${n(L.understood)} understood, ${n(L.breakdown)} breakdowns, ${n(L.unknown)} unknown. Speaking: ${n(Sp.success)} ok, ${n(Sp.corrected)} corrected.${o.ov.size?' Includes your swipes.':''}`})}
- ${panel('signals','B','Miss signals, lesson by lesson','Each bar: the ways you showed you did not follow. Number on top: breakdowns per scored listening sentence.',signals(o),{foot:'Rescue and wrong-answer are machine guesses (striped). A bare “aywa” is never a signal: it is unknown.'})}
+ ${panel('signals','B','Miss signals, lesson by lesson','Each bar: the ways you showed you did not follow. Number on top: breakdowns per scored listening sentence.',signals(o),{wide:true,foot:'Rescue and wrong-answer are machine guesses (striped). A bare “aywa” is never a signal: it is unknown.'})}
  ${panel('costs-l','C','What costs you: hearing','Mantel-Haenszel difference, same lesson and same length. Bar = 95% range; most still cross 0, so read them as hints, not facts.',costs(o,'listen'),{})}
  ${panel('costs-s','C','What costs you: saying','Same model on your own sentences: how much more often Amal corrects you when the tag is present.',costs(o,'speak'),{})}
  ${panel('grammar','D','Grammar rules: hear vs say','The '+n(Math.min(8,Object.keys(S.rules||{}).length))+' rules you hear most. Left: Amal uses it. Right: you use it.',grammar(o),{foot:`Shown from ${n(o.T.effect_floor)} sentences a side. The Grammar Console has the full list.`})}
