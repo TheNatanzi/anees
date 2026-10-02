@@ -14,7 +14,7 @@ These rules preserve Medi’s corrections and apply to every occurrence, not jus
 10. Distinguish homographs and false ASR matches: he versus air, white versus eggs, a verb suffix versus and, and break fragments versus unrelated nouns.
 11. Pending means a specific unresolved question, not a blanket provisional label. State what evidence is missing. Missing tutor audio cannot establish whether an answer was prompted.
 12. Render consecutive speech as readable speaker turns while preserving source rows/times. Mark assessed learner words green, partial orange and wrong red; mark supported tutor corrections/confirmations blue. Keep ordinary transcript text neutral.
-13. Every available excerpt uses native seekable audio controls. Do not reset paused playback or collapse context on an automatic data timer. Load code and styles with the current build version.
+13. Every available excerpt plays in the one Anees player (`docs/js/play-bar.js`): play, pause, stop that resets, a progress bar, volume and a ⋯ menu, opened next to the button that was tapped (Medi 2026-10-01/02; this replaces the 2026-09-21 "native seekable audio controls" wording, registry AU-03). Do not reset paused playback or collapse context on an automatic data timer. Load code and styles with the current build version.
 
 ## Regression and audit
 

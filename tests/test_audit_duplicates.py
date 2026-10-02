@@ -71,3 +71,15 @@ def test_published_audit_has_no_double_counted_slip():
         seen[k] = r["uid"]
     assert not dups, dups
     assert not [r["uid"] for r in counted if r["uid"].endswith("x")]
+
+
+def test_same_wrong_phrase_repeated_within_30_s_is_one_slip():
+    """Medi 2026-10-01 (registry GR-16): عشرين سجاد at 09:49 and again 16 s later is ONE slip; at 31 s apart it is two."""
+    rows = [dict(date="2026-09-30", t="09:49", wrong="عشرين سجاد", kind="grammar", bucket="E1", passes=[1]),
+            dict(date="2026-09-30", t="10:05", wrong="عشرين سجاد", kind="grammar", bucket="E1", passes=[1]),
+            dict(date="2026-09-30", t="10:37", wrong="عشرين سجاد", kind="grammar", bucket="E1", passes=[1])]
+    FB.assign_uids(rows)
+    FB.mark_duplicates(rows, hand=[])
+    assert FB.REPEAT_S == 30
+    assert [r["kind"] for r in rows] == ["grammar", "rejected", "grammar"]
+    assert rows[1]["duplicate_of"] == rows[0]["uid"]

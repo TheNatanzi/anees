@@ -32,3 +32,8 @@ test('unlisted Arabic stays in Arabic with an uncertainty label; source evidence
  assert.equal(value.text,event.text,'Do not invent vowels or an Arabizi consonant string');
  assert.equal(JSON.stringify(event),before);
 });
+test('كم shows as Amal\'s Kam (how many), never Kum (sleeve) - Medi 2026-10-02, registry AZ-08',()=>{
+ const render=A.create();
+ assert.equal(render('كم').text,'Kam');
+ assert.notEqual(render('كم').text.toLowerCase(),'kum');
+});

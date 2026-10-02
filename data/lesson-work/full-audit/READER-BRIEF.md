@@ -9,7 +9,7 @@ Be complete: a miss is worse than a low-confidence row (confidence is a field). 
   chat lines lag the voice by 30-120 s, they usually spell out a fix she just said or that he just said wrong).
 - `data/lesson-work/full-audit/buckets.md` - the 57 grammar rules with their ids.
 - `data/lesson-work/full-audit/amal-sheet.txt` - her vocabulary Doc (english | arabizi | arabic | key). grep it.
-- `RULES.md` - S1..S5.
+- `RULES.md` - S1..S6.
 Do NOT open: `data/grammar-sweep-*.json`, `plan/GRAMMAR-CORRECTION-SWEEP-*.md`, `docs/data/lessons/*.json`,
 any other reader's `.r1.json` / `.r2.json` / `.r3.json`. Independence is the point.
 
@@ -32,6 +32,9 @@ Vocab error tiers (field `tier`, vocab kinds only):
 - **3** an English word dropped INTO an Arabic sentence when the Arabic word is on her sheet (grep amal-sheet.txt;
   quote the sheet row in `why`). NOT tier 3: he is plainly switching to English to make a point, ask a meta question,
   or the whole clause is English. NOT tier 3: the word is not on her sheet (then it is not an error at all - skip it).
+  Amal already ruled on tier 3 she LET PASS (AR-1933, 2026-09-30: "it's ok to switch sometimes"): write such a row
+  as vocab-B tier 3 if you see it, but know it is pre-ruled "do not correct" and never scored or sent to her again.
+  A tier-3 fix she VOICED (vocab-A) still counts.
 
 NOT errors (leave out, or note in `coverage_note` if it matters):
 - S4 pronunciation: a dropped ع/ط/ق, a root letter slip (بنسبت for بنبسط) - never vocab, never grammar.

@@ -130,6 +130,19 @@ def test_hub_page_or_button_coming_back_fails(tmp_path):
     assert cr.check_hub_removed(tmp_path, None)["status"] == "fail"
 
 
+# ---------------------------------------------------------------- Amal's pages stay on Anees (registry AM-13)
+def test_amal_page_linking_off_site_fails(tmp_path):
+    """Medi 2026-10-01/02: nothing Amal opens is off-site or behind a login (she has no Claude account)."""
+    w(tmp_path / "docs" / "amal" / "review.html", "<a href='https://thenatanzi.github.io/anees/amal/review.html'>x</a>"
+      "<link href='https://fonts.googleapis.com/css2'>")
+    assert cr.check_amal_onsite(tmp_path, None)["status"] == "pass"
+    w(tmp_path / "docs" / "amal" / "materials.html", "<a href='https://claude.ai/public/artifacts/abc'>notes</a>")
+    assert cr.check_amal_onsite(tmp_path, None)["status"] == "fail"
+    w(tmp_path / "docs" / "amal" / "materials.html", "ok")
+    w(tmp_path / "docs" / "data" / "tutor.json", {"link": "https://docs.google.com/document/d/xyz/edit"})
+    assert cr.check_amal_onsite(tmp_path, None)["status"] == "fail"
+
+
 # ---------------------------------------------------------------- A1 never contacts Amal
 def test_mail_only_to_medi(tmp_path):
     w(tmp_path / "scripts" / "send_lesson_email.mjs", "const TO = 'thenatanzi@gmail.com';   // only Medi\nnodemailer")
@@ -205,7 +218,8 @@ def test_live_repo_breaks_no_block_rule():
     fails = [(r["id"], r["examples"][:2]) for r in results if r["status"] == "fail"]
     assert not fails, fails
     assert {r["id"] for r in results} >= {"S1-extra", "S3-signal", "S5-pause", "M11-medi-only", "NEW-amal-signal",
-                                          "HUB-removed", "A1-medi-only", "H4-budget", "RULES-json-sync", "AI-logged", "AI-model"}
+                                          "HUB-removed", "A1-medi-only", "H4-budget", "RULES-json-sync", "AI-logged", "AI-model",
+                                          "AMAL-onsite"}
 
 
 def test_cli_first_line_is_the_reason(tmp_path, capsys):

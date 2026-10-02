@@ -451,10 +451,29 @@ def check_ai_paid_logged(root, raw):
     return res("AI-paid-logged", "block", rule, src, bad, total=n)
 
 
+AMAL_FILES = ("docs/amal/*.html", "docs/tutor.html", "docs/data/tutor.json", "docs/js/tutor*.js", "docs/js/hub/*.js",
+              "docs/js/amal-*.js")
+OFFSITE = re.compile(r"https?://(?:[\w-]+\.)*(?:claude\.ai|anthropic\.com|chatgpt\.com|openai\.com|"
+                     r"docs\.google\.com|drive\.google\.com|notion\.so)\b[^\s\"'<>)]*", re.I)
+
+
+def check_amal_onsite(root, raw):
+    """Nothing Amal opens leaves Anees: no claude.ai / Google Docs / Drive / login-only link on her pages (Medi 2026-10-01/02)."""
+    rule = "Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
+    src = "Medi 2026-10-01 'DOnt make it a different workflow or off site'; registry AM-13"
+    bad = []
+    for pat in AMAL_FILES:
+        for f in sorted(glob.glob(str(root / pat))):
+            text = Path(f).read_text(encoding="utf-8", errors="replace")
+            for m in OFFSITE.finditer(text):
+                bad.append(f"{Path(f).relative_to(root).as_posix()}: {m.group(0)[:80]}")
+    return res("AMAL-onsite", "block", rule, src, bad)
+
+
 CHECKS = [check_s1_guard, check_s1_extra, check_s2_raw, check_s3_signal, check_s4_pronunciation, check_s5_pause,
           check_medi_only, check_one_episode, check_grammar_only, check_15s_clue, check_glue, check_new_signal,
           check_sheet_meaning, check_hub_removed, check_medi_only_email, check_budget, check_rules_json,
-          check_ai_logged, check_ai_model, check_ai_paid_logged]
+          check_ai_logged, check_ai_model, check_ai_paid_logged, check_amal_onsite]
 
 
 def run_all(root=ROOT, raw=DEFAULT_RAW, only=None):
