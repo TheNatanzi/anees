@@ -6,14 +6,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **575** (sweep had 312) |
-| Grammar she let pass (B, to Amal) | 93 |
-| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 0 |
-| Vocab fixes Amal voiced (A) | **281** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 164, '0': 106, '2': 50, '3': 6} |
-| Vocab she let pass (B, to Amal) | **47** by tier {'1': 29, '2': 12, '3': 6} |
-| Listening-drill misreads (kept apart) | 82 |
-| Rows the readers found that the sweep did not have | 665 |
+| Grammar fixes Amal voiced (A) | **576** (sweep had 312) |
+| Grammar she let pass (B, to Amal) | 92 |
+| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 2 |
+| Vocab fixes Amal voiced (A) | **283** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 166, '0': 107, '2': 50, '3': 6} |
+| Vocab she let pass (B, to Amal) | **48** by tier {'1': 29, '2': 13, '3': 6} |
+| Listening-drill misreads (kept apart) | 81 |
+| Rows the readers found that the sweep did not have | 667 |
 | Sweep rows the readers did not list (kept) | 115 |
 | Machine audit already had | 104 |
 
@@ -37,7 +37,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-09-26 | 21 | 3 | 24 | 7 | 2 | 0 | 0 | 62.1 % |
 | 2026-09-28 | 21 | 3 | 29 | 1 | 1 | 0 | 0 | 61.0 % |
 | 2026-09-30 | 23 | 8 | 12 | 0 | 2 | 0 | 0 | 62.1 % |
-| 2026-10-01 | 15 | 3 | 2 | 2 | 3 | 0 | 0 | 58.1 % |
+| 2026-10-01 | 16 | 2 | 4 | 3 | 2 | 0 | 0 | 78.8 % |
 
 ## Reader passes (the loop)
 
@@ -57,7 +57,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-09-26**: pass 1: r1 52 r2 58 agreed 41 disputed 25 (62.1 %), r3 kept 16 dropped 9 -> 57 rows
 - **2026-09-28**: pass 1: r1 53 r2 50 agreed 36 disputed 23 (61.0 %), r3 kept 20 dropped 3 -> 56 rows
 - **2026-09-30**: pass 1: r1 47 r2 51 agreed 36 disputed 22 (62.1 %), r3 kept 13 dropped 9 -> 49 rows
-- **2026-10-01**: pass 1: r1 29 r2 26 agreed 18 disputed 13 (58.1 %), r3 kept 10 dropped 3 -> 28 rows
+- **2026-10-01**: pass 1: r1 29 r2 30 agreed 26 disputed 7 (78.8 %), r3 kept 4 dropped 3 -> 30 rows
 
 ## Grammar by bucket (A, speaking)
 
@@ -69,8 +69,8 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | D2 | verb + its fixed preposition | 47 |
 | D4 | endings on verbs | 43 |
 | B1 | present with b- | 34 |
-| A2 | idafa (possession) | 33 |
 | A8 | gender on adjectives | 32 |
+| A2 | idafa (possession) | 31 |
 | A9 | plurals | 26 |
 | D1 | prepositions | 23 |
 | A1 | el- (the) | 17 |
@@ -85,18 +85,18 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | E1 | number + noun | 12 |
 | C7 | illi | 10 |
 | B6 | kaan = was / were | 10 |
+| C2 | the pointer rule | 10 |
 | B8 | bakoon / ykoon | 9 |
-| C2 | the pointer rule | 9 |
 | B10 | commands | 8 |
-| C3 | comparatives | 7 |
 | A3 | feminine -t in idafa | 7 |
 | A10 | hada / hadi | 7 |
+| E2 | clock time | 6 |
+| C3 | comparatives | 6 |
 | B16 | kan laazem | 5 |
-| E2 | clock time | 5 |
+| E4 | calendar | 4 |
 | E5 | kam + singular | 4 |
 | C9 | word order | 3 |
 | C1 | no word for 'to be' | 3 |
-| E4 | calendar | 3 |
 | A11 | kul: all vs every | 3 |
 | A12 | pronoun matches who you mean | 2 |
 | C6 | iza / lamma | 2 |
@@ -106,6 +106,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | C4b | words that drag a ma along | 2 |
 | A5 | chain possession | 2 |
 | E3 | time units, two-of and many-of | 2 |
+| PROPOSE | ? | 2 |
 | B9 | person on ykoon | 1 |
 | C5 | u / aw / willa / wala | 1 |
 | C12 | a doing verb says what was done | 1 |
@@ -1464,35 +1465,37 @@ _Long Latin-transliterated stretch ~23:58-1:00:30 (engine wrote Arabic as Latin)
 
 ### 2026-10-01
 
-_Amal's voice is missing from 00:00 to 23:14 (only her CHAT lines survive) and 19:58-23:14 is a dropout; first 23 min judged from chat and Medi's reactions only (01:33 'لسه الـ divine يروحوا' garbled, likely zbayin; 04:14 air conditioning not on sheet; 07:04-07:28 بحسب question with no answer visible). 09:49-14:51 mostly an English phone call. 46:00-46:45 'هذا' in 'أكتر هذا' is very likely 7ada with a dropped ح (S4) - not written as vocab. 45:11 'اللي بحب' self-fixed to بحبه at 45:37 - folded into the 46:45 pointer row. 53:00-1:01:00 largely Latin-transliterated by the engine (awal, laffe, nafs, tani). Questions about the rule (awal/al-awal, ghair, هذا ال rule) left out per brief. / Amal's voice is missing 00:00-23:14 (only her CHAT lines), so early fixes are judged from chat and Medi's echoes; 02:49 الساعة واحد was self-fixed at 02:55 before any chat, not written. 09:46-14:13 is an English phone call. 49:00-1:01:00 is in Latin letters (awal/oola/nafs drill). Much of 29:00-1:04:00 is rule discussion and questions, not counted. شيء is on her sheet (Kul shee, Wala shee) so not flagged. 04:02 شوك = engine for شوب (sheet: El-jaw shoab), not flagged. Names: Amal, Male (place)._
+_10:00-14:02 Medi on a work phone call (English); 19:58-23:14 Amal disconnected. 18:29-24:12 and 47:00-1:02:00 his Arabic is in Latin transliteration (Shanteti, awal, laffe, nafs). 47-64 min is mostly English rule discussion (awal/aa5er/nafs/8air), few Arabic production turns. 26:58 'بيليت صديقي' looks like an engine mishearing of 3ailet (Amal said Nice) - not filed. 03:43 'بالنيلة' vs chat binniyye likely engine - not filed. 46:45 أكتر هذا repeat of the 46:18 هذا-for-حدا slip - one row (46:18). Tier-3 checks: 'air conditioning', 'grammar', 'Wi-Fi' not on her sheet - not errors. / 10:00-14:02 Medi on a work phone call (English); 19:58-23:14 disconnect gap; 50:00-1:00:00 awal/oola/tani/nafs lesson mostly in Latin transliteration and English meta-talk; 04:14 'air conditioning' not on sheet (skipped); 04:02 شوك for شوب treated as S4; 03:06 صباح unclear, skipped; 1:01:44 غير ال شيء is a question, skipped._
 
 | id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
 |---|---|---|---|---|---|---|---|---|---|
-| FA-7d218bec | 03:06 | vocab-B | tier 2 | الساعة واحدة و، uh، صباح. |  | صباح -> el-sube7 (الصبح) - or drop it, as her chat did | He used صباح (the form from صباح الخير) for 'in the morning'; her sheet has morning / el-sube7 / الصبح, and her chat silently dropped the word. Her voice is missing here (my reading). | low | r3 |
-| FA-88a9af3d | 06:36 | rejected | B12 | مشجع. |  | مشجع -> mitshajje3 (متشجع) | He said مشجع (the make-someone / encouraging side) for 'motivated'; she typed mitshajje3 = motivated, the t- 'it happens to me' form of the same root - a make-X vs get-X form slip (brief: بسط for انبسط is grammar B12), not a new word. Her voice is missing here. | medium | r3 |
-| FA-c9e3a2db | 07:36 | grammar-B | D2 | أنا، أنا مشجع الدرس. |  | مشجع الدرس -> متشجع للدرس (reader's reading) | 'Motivated for the lesson' needs la- before الدرس (the word picks its preposition); he put the noun straight after. The مشجع form itself is the D2 row (same slip repeated, counted once). Her voice is missing so whether she let it pass cannot be seen - my reading. | low | r3 |
-| FA-a5624362 | 14:21 | grammar | D1 | أنا في الـ Wi-Fi? Is that how you say it? |  | أنا في الـ Wi-Fi -> أنا على الـ Wi-Fi | He tried في and asked; his following lines (على؟ / أنا على الـ...) show she gave على - her voice is missing here. | medium | r1+r2 |
-| FA-3e22f09c | 15:34 | rejected | A2 | Oh, الـ سيارة، uh, or سيارة الـ B... No, it's double noun. Oh, سيارة الـ BMW. |  | الـ سيارة -> sayyaaret el-BM | First word of an idafa never takes el- and grows -t (sayyaaret el-BM); he put الـ on سيارة while working it out after her (inaudible) correction of his 09:49 'الBMW', she typed sayyaaret el-BM illi. | medium | r1+r2 |
-| FA-1d80ca09 | 19:07 | grammar | A2 | So Shanteti, | Yes, but what's work bag without any my or yours? | Shanteti -> Shantet Shogoli | In idafa the owner ending goes on the last word, not the first: he started Shanteti, she prompted 'work bag without any my', he then said 'Shantet Shogoli, not Shanteti Shogoli'. | high | r1+r2 |
-| FA-2ade22ea | 24:12 | grammar | A7 | uh, Amra. | That would mean is red. | Amra -> الحمرا | Shantet shu8li is definite, so the adjective after it needs el-; without it it means 'is red', as Amal explained. | high | r1+r2 |
-| FA-0b1221a7 | 25:01 | grammar | A8 | So would it be شنتت، شنتت شغلي الأحمر، الأحمر، | الحمرا. | الأحمر -> الحمرا | شنتة is feminine so the adjective must be el-7amra; she recast الحمرا and typed shantet shu8li el-7amra. | high | r1+r2 |
-| FA-7405fac8 | 25:30 | grammar | C4 | اه، ما فيهون. | Not here. ... ما فيهن means there aren't here | ما فيهون -> مش هون | ma fihon means 'there aren't here'; 'not here' uses mish before the adverb: mish hon (she said مشون and typed mish hon). | high | r1+r2 |
-| FA-7eab2a6c | 27:55 | grammar | A3 | اسميت. | ليش؟ لا، ليش. | اسميت -> اسم | He added the feminine -t to اسم (a masculine noun); Amal said no, it's just اسم, it can't be feminine. | high | r1+r2 |
-| FA-8b1d78b4 | 29:05 | grammar-B | A2 | الـ مدرسته الـ قديمة. | Mm-hmm. | الـ مدرسته -> مدرسته | A noun with a possessive ending is definite and takes no el-; her chat esem madrasto shows no el-, but she only said Mm-hmm (could be a hesitation الـ). | low | r1+r2 |
-| FA-8bd77be0 | 29:54 | grammar | A2 | uh, الـ، الـ اسم، | لا. | الـ اسم -> اسم | The first word of an idafa never takes el-; she said لا twice (29:57, 30:21) to الـ اسم. | high | r1+r2 |
-| FA-963a6f53 | 30:29 | grammar | A8 | So الـ اسم قديم. No, it's like اسم القديمة. Okay, I don't know. | لا. لا. You just change the gender of Adeem. | اسم القديمة -> esem madrasto el-2adeem | To make 'old' describe the name the adjective must be masculine (el-2adeem) after esem madrasto; she said only the gender of 2adeem changes. | medium | r1+r2 |
-| FA-3b30ae8f | 34:48 | grammar | A4 | محل الأواى المفضل. | But her. Her favorite store. | محل الأواى المفضل -> محل أواعيها المفضل | He left out 'her'; she prompted 'But her', and the fix is the -ha ending on the last noun (awa3iha) or 3indha after the adjective. | medium | r1+r2 |
-| FA-5e612f27 | 39:54 | grammar | A8 | المتأخر؟ | صح. متأخر أو متأخرة. | المتأخر -> المتأخرة | طيارة is feminine; she prompted 'متأخر أو متأخرة', he switched to المتأخرة at 39:59, she asked ليش and he answered طيارة; chat el-mit2a55ra. | medium | r3 |
-| FA-735f75d8 | 41:18 | grammar | C3 | So أحسن المحل. | No. Even though in English we ... say the, in Arabic we don't. | أحسن المحل -> أحسن محل | Superlative a7san takes no el- on the noun; Amal said No and explained, he fixed to أحسن محل. | high | r1+r2 |
-| FA-e0fdc1b8 | 42:12 | grammar | A10 | هذي المحل أحسن إشي. | Mm, it works, yeah. هذا أحسن محل is like, like more efficient | هذي المحل -> هذا المحل | محل is masculine so it takes هذا; she accepted the word order but recast with هذا (42:20 and again 42:40), and he then used هذا أحسن محل. | medium | r3 |
-| FA-b2ed4beb | 43:27 | rejected | C3 | No, not-- أس-- أس-- أسوأ الزبون. | The worst. | أسوأ الزبون -> aswa2 zboon | After the superlative aswa2 the noun takes no el- (same rule she had just taught for a7san); he said أسوأ الزبون twice and her chat writes aswa2 zboon. | medium | r1+r2 |
-| FA-67dfd12c | 43:55 | vocab-B | tier 1 | Okay. So أحسن الزبون ما، ما تشتري إشي. |  | أحسن -> أسوأ | The sentence was 'the worst customer is the one who doesn't buy' and he had just said أسوأ twice (43:27, 43:44), then said أحسن (best); Amal voiced only the ما بيشتري fix, and her chat is the model answer for the whole sentence, so the word swap was not voiced (likely a slip of the tongue - my reading). | low | r3 |
-| FA-e65da2fe | 44:08 | grammar | B18 | ما بتشتري. ما بتشتري. | It's ما بي، ما بيشتري because it's زبون. | ما بتشتري -> ما بيشتري | زبون is masculine so the verb takes the he-form beyshteri; Amal named the reason. | high | r1+r2 |
-| FA-0c9ac7a5 | 46:18 | vocab-A | tier 1 | أكتر هذا إشي? ... أكتر هذا. | أكثر حدا بحبه. | أكتر هذا -> أكثر حدا | He used هذا (this) for 'person/someone'; Amal recast أكثر حدا at 46:11, 46:20 and 46:43, chat aktar 7ada ba7ebbo; sheet: first person / Awal 7ada. | high | r3 |
-| FA-54b6874c | 46:45 | grammar | C2 | هذا. أكتر هذا بحب. | بحبه. | بحب -> بحبه | The fronted object needs a pointer ending on the verb (ba7ebbo); she recast بحبه and he said 'There's a pointer'. | high | r1+r2 |
-| FA-b75aad06 | 53:19 | grammar (listening) | A7 | The week's beginning. | Why? ... if you say the week's beginning, now you'd have to be إضافة | الأسبوع الأول = The week's beginning -> el-usboo3 el-awal = the first week | He read el-usboo3 el-awal (noun + adjective) as an idafa 'the week's beginning'; she asked why and explained idafa would need awal first; he then said 'the first week'. | medium | r1+r2 |
-| FA-29c06b78 | 55:26 | vocab-A | tier 0 | Okay. [unintelligible] Okay. | And the feminine for awal, we never said it before, we never used it, it's oola. | (new word) -> oola | Amal taught the feminine of awal (oola) as a word he had never used - a didn't-know (tier 0), per the reader brief. | medium | r3 |
-| FA-a0e94e92 | 56:00 | grammar-B | C3 | Il awal il tamreen or il tamreen il awal | Mm-hmm. | Il awal il tamreen -> awal tamreen | Amal had just taught that awal before the noun never takes el-; 'il awal il tamreen' breaks it, she only said Mm-hmm (the second option is right). | medium | r1+r2 |
-| FA-1d821d81 | 58:07 | grammar (listening) | A7 | Laffe ul-- Laffe il aula? | Al laffa al oola. | Laffe il aula -> Al laffa al oola | Repeating her al laffa al oola he dropped the el- on laffe and could not parse it; she repeated and asked what al laffa and al oola mean until he got 'the first drive'. | medium | r1+r2 |
-| FA-02c1c2db | 59:16 | grammar (listening) | A7 | Uh, something else. ... Something else? | Tani ishi. ... The second thing. | Tani ishi = something else -> tani ishi = the second thing (ishi tani = something else) | He read tani ishi as 'something else'; she repeated 'Tani ishi... The second thing' and he got it ('ishi tani is something else'). The meaning turns on position (before the noun = tool word 'second', after = adjective 'other'), the rule drilled this lesson; sheet: something else / Eshi taani. | medium | r3 |
-| FA-180b27bf | 1:00:03 | grammar | A2 | So nafs ishi. | Nafs al ishi. ... نفس إشي doesn't mean anything. | nafs ishi -> nafs el-ishi (نفس الإشي) | 'The same thing' is nafs + a definite noun (idafa-like: the tool word stays bare, the noun after it takes el-); she recast at once and at 1:01:01 said نفس إشي doesn't mean anything. | high | r3 |
+| FA-736711de | 01:33 | vocab-A | tier 1 | لسه الـ divine يروحوا. | شو يعني لسه الزباين يروحوا؟ ... لا، لا الزباين يروحوا. ... There are other words, but the one we know is لا. | لسه -> لـ (la) الزباين يروحوا | He used لسه (still/yet; sheet: 'still / yet / Lissa / لسه') for 'until'; Amal asked what he meant and gave la- as the word for until. Engine wrote 'divine' for الزباين (she echoed الزباين). | high | r1+r2 |
+| FA-2d8205d4 | 02:21 | grammar | E4 | Uh, واحدة وواحد و... | واحد. | واحدة -> واحد | For the date he opened with the feminine واحدة; Amal recast واحد and he then said اليوم الخميس واحد. At 02:55 he says 'So dates are واحد, times are واحدة', so he had not known the date form. Confidence is low because he also said واحد in the same turn, which may be a self-fix. | low | r3 |
+| FA-521a2a9e | 02:49 | grammar | E2 | الساعة، uh، واح-واحد. | واحد. ... هيك الساعة واحدة. | واحد -> واحدة | Clock time takes the feminine number; Amal echoed واحد back, he fixed it ('times are واحدة') and she confirmed الساعة واحدة. | high | r1+r2 |
+| FA-7d218bec | 03:06 | vocab-B | tier 2 | الساعة واحدة و، uh، صباح. |  | صباح -> الصبح | The sheet has 'morning / el-sube7 / الصبح'. صباح is the greeting/MSA form, and Amal's 'أووه' is not a fix. This is my reading, and it is unclear whether he meant a.m. at all. | low | r3 |
+| FA-bf13a87e | 03:33 | grammar | A8 | اليوم بلبس بلوزة، uh، أخ-أخ-أخضر أو، | بلوزة شو؟ | أخضر -> خضرا | بلوزة is feminine; Amal's 'بلوزة شو؟' prompted him and he fixed it to خضرا ('it's feminine'). | high | r1+r2 |
+| FA-c24ef29e | 06:15 | vocab-A | tier 0 | Uh, uh, حافظ، حافظ. ... لا، أنا نسيت، نسيت، نسيت. | Hafiz is a motivation، بس what's about motivated؟ ... متشـ... متشجع. | حافظ -> متشجع | He could not recall 'motivated' (offered حافظ = motivation, then 'I forgot'); Amal supplied متشجع - a didn't-know. | high | r1+r2 |
+| FA-9c0751bc | 07:04 | vocab-A | tier 0 | Is it-- Is there a verb for حساب? Do you guys use it? | بحسب. |  -> بحسب | He asked for the verb 'to consider' and Amal supplied بحسب - a didn't-know. | high | r1+r2 |
+| FA-f4ae1cc9 | 07:36 | vocab-B | tier 2 | أنا، أنا مشجع الدرس. | هاي، هاي، برا، برا. برا. | مشجع -> متشجع | He dropped the ت of متشجع (motivated) - مشجع is 'encourager / fan', a different form; Amal had just said متشجع and let it pass. | medium | r1+r2 |
+| FA-c9e3a2db | 07:36 | grammar-B | D2 | أنا، أنا مشجع الدرس. | هاي، هاي، برا، برا. برا. | مشجع الدرس -> متشجع للدرس | Amal's own frame was 'متشجع لـ العربي' / 'متشجع إله' - the adjective takes la-; he left the preposition out. | medium | r1+r2 |
+| FA-ede803fb | 14:21 | grammar | D1 | أنا في الـ Wi-Fi? Is that how you say it? | Yeah I'm on the wifi أنا عالـ wifi. | في الـ -> عالـ | 'On the wifi' takes 3ala, not fi; Amal recast أنا عالـ wifi. | high | r1+r2 |
+| FA-1d80ca09 | 19:07 | grammar | A2 | So Shanteti, uh... Would it be El Shogol? | Yes, but what's work bag without any my or yours? | Shanteti -> Shantet Shogoli | In idafa the first word takes no possessive ending; Amal prompted and he fixed it to 'Shantet Shogoli, not Shanteti Shogoli'; she said صح. | high | r1+r2 |
+| FA-95825b04 | 24:03 | grammar | A7 | So Shantet Shogoli, uh, Amra. | That would mean is red. ... the adjective after it should be definitive as well. | Amra -> الحمرا (el-7amra) | A possessed noun is definite so its adjective takes el-; Amal said 'Amra' makes it a sentence ('is red') and explained the rule. | high | r1+r2 |
+| FA-0b1221a7 | 25:01 | grammar | A8 | So would it be شنتت، شنتت شغلي الأحمر، الأحمر، | الحمرا. | الأحمر -> الحمرا | شنتة is feminine so the adjective must be الحمرا; Amal recast it immediately. | high | r1+r2 |
+| FA-7405fac8 | 25:30 | grammar | C4 | اه، ما فيهون. ... ما فيهون. | ما فيهن means there aren't here or there isn't here. ... Yeah, مشون. | ما فيهون -> مش هون | 'Not here' is مش + adverb; Amal explained ما فيهن means 'there aren't (in them)' and confirmed مش هون. | high | r1+r2 |
+| FA-a5baa9b2 | 27:53 | grammar | A3 | اسمى. ... اسميت. | ليش؟ لا، ليش. ... It's just اسم. Why would it be feminine? | اسميت -> اسم | He added the feminine idafa -t to اسم, which is masculine; Amal said لا and that اسم takes nothing. | high | r1+r2 |
+| FA-8bd77be0 | 29:54 | grammar | A2 | uh, الـ، الـ اسم، | لا. | الـ اسم -> اسم | The first word of an idafa never takes el-; Amal said لا, and again at 30:21 when he asked 'So it's not الـ اسم'. | high | r1+r2 |
+| FA-963a6f53 | 30:29 | grammar | A8 | So الـ اسم قديم. No, it's like اسم القديمة. Okay, I don't know. | لا. [تضحك] لا. ... You just change the gender of Adeem. | اسم القديمة -> اسم مدرسته القديم | To make 'old' describe the name, the adjective goes masculine to agree with اسم; Amal said لا and told him to change the gender of قديم. | high | r1+r2 |
+| FA-3b30ae8f | 34:48 | grammar | A4 | محل الأواى المفضل. | But her. Her favorite store. | محل الأواى المفضل -> محل أواعيها المفضل | He left out 'her'; Amal prompted 'But her' and gave محل أواعيها المفضل (owner ending on the last noun), and he then said محل أواعيها المفضل. | high | r1+r2 |
+| FA-735f75d8 | 41:18 | grammar | C3 | So أحسن المحل. | No. Even though in English we don't-- we say the, in Arabic we don't. | أحسن المحل -> أحسن محل | Superlative أحسن + noun never takes el-; Amal said No and named the rule. | high | r1+r2 |
+| FA-c7e97527 | 42:12 | grammar-B | A10 | هذي المحل أحسن إشي. | Mm, it works, yeah. هذا أحسن محل is like more efficient. | هذي -> هذا | محل is masculine so it takes هذا; he said هذي, Amal said 'it works' but her own versions use هذا. | medium | r1+r2 |
+| FA-b2ed4beb | 43:27 | rejected | C3 | No, not-- أس-- أس-- أسوأ الزبون. | The worst. | أسوأ الزبون -> أسوأ زبون | Superlative + noun takes no el- (the rule she had just named at 41:26 and 42:49); he said أسوأ الزبون twice and she did not voice the fix; chat has aswa2 zboon. | high | r1+r2 |
+| FA-67dfd12c | 43:55 | vocab-B | tier 1 | Okay. So أحسن الزبون ما، ما تشتري إشي. | ممتاز. | أحسن -> أسوأ | The task was 'the worst customer' and he had just said أسوأ; here he said أحسن (best), a different word, and Amal let it pass. | medium | r1+r2 |
+| FA-667cacda | 44:03 | grammar | B18 | ما تشتري إشي. ما بتشتري. ما بتشتري. | It's ما بي، ما بيشتري because it's زبون. | ما بتشتري -> ما بيشتري | زبون is masculine so the verb is the he-form بيشتري; Amal corrected and gave the reason. | high | r1+r2 |
+| FA-96d64e4f | 45:11 | grammar | C2 | اللي بحب أكتر إشي. | No, no. First you have to say the one ... | بحب -> بحبه | After illi the verb needs the pointer ending; after Amal's 'No, no' he restarted and said اللي بحبه أكتر إشي, matching her chat illi ba7ebbo. | medium | r1+r2 |
+| FA-033b326f | 46:18 | vocab-A | tier 1 | أكتر هذا إشي? | أكثر حدا بحبه. | هذا -> حدا | He used هذا (this) for 'person / someone'; Amal recast أكثر حدا (sheet: 'someone / 7ada / حدا') at 46:20 and 46:43. | high | r1+r2 |
+| FA-54b6874c | 46:45 | grammar | C2 | هذا. أكتر هذا بحب. | بحبه. | بحب -> بحبه | The verb needs the pointer ending back to the person; Amal recast بحبه and he said 'There's a pointer.' | high | r1+r2 |
+| FA-e744b22b | 53:19 | grammar (listening) | A7 | The week's beginning. | Why? ... بس if you say the week's beginning, now you'd have to be إضافة which is two nouns, so أول has to be, like already has to be before أسبوع. | The week's beginning -> the first week | He read Amal's الأسبوع الأول (noun + adjective) as an idafa, 'the week's beginning'. Amal asked why and explained that it means the first week, and at 53:51 she said 'صح. It would be the first week.' | high | r3 |
+| FA-a0e94e92 | 56:00 | grammar-propose | PROPOSE | Il awal il tamreen or il tamreen il awal is the first exercise. | Mm-hmm. ... Of course. | Il awal il tamreen -> awal tamreen / il tamreen il awal | Amal's rule this lesson: awal before the noun never takes el- (il awal il tamreen is not a form); she let it pass. | medium | r1+r2 |
+| FA-a641de6d | 59:16 | vocab-A (listening) | tier 1 | Uh, something else. ... Something else? | Tani ishi. ... The second thing. | something else (for تاني إشي) -> the second thing | He glossed tani ishi as 'something else'. Amal repeated it and said 'The second thing', and he then saw that ishi tani is 'something else' (sheet: 'something else / Eshi taani'). | medium | r3 |
+| FA-180b27bf | 1:00:03 | grammar-propose | PROPOSE | So nafs ishi. | Nafs al ishi. ... نفس الـ إشي the same thing. نفس إشي doesn't mean anything. | nafs ishi -> nafs el-ishi | Amal recast نفس الـ إشي and said نفس إشي means nothing. | high | r1+r2 |

@@ -11,10 +11,10 @@
   "threshold_pct": 95.0,
   "words": {
    "verified_avg_pct": null,
-   "unverified_avg_pct": 82.5,
+   "unverified_avg_pct": 82.7,
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
-   "eligible": 1380,
-   "excluded": 27,
+   "eligible": 1408,
+   "excluded": 23,
    "pending": 1
   },
   "grammar": {
@@ -22,16 +22,16 @@
    "unverified_avg_pct": 81.5,
    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
    "denominator_valid_lessons": 0,
-   "eligible": 571,
+   "eligible": 573,
    "excluded": 42,
-   "pending": 22
+   "pending": 21
   },
-  "verification_queue": 23,
+  "verification_queue": 22,
   "word_bank": {
    "occurrences": 2596,
-   "eligible": 1187,
-   "excluded_not_scored": 1375,
-   "pending_needs_review": 34,
+   "eligible": 1211,
+   "excluded_not_scored": 1339,
+   "pending_needs_review": 46,
    "other": 0,
    "pct": 95.7,
    "lessons_in_audit": 17,
@@ -49,7 +49,7 @@
     "reader agreement: pass 1 vs pass 2 settled rows agree on 78.9 % (>= 95 % needed)",
     "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model",
-    "checks: 3 scored rows need an audio or human check (0 words, 3 grammar)"
+    "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
    ],
    "words": {
     "pct": 76.6,
@@ -68,7 +68,7 @@
     "uses": 248,
     "eligible": 35,
     "excluded": 0,
-    "pending": 3,
+    "pending": 1,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -998,38 +998,37 @@
    "date": "2026-10-01",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 58.1 %; 2 consecutive passes at >= 95 % are needed",
+    "reader agreement: pass 1 78.8 %; 2 consecutive passes at >= 95 % are needed",
     "coverage: 4 stretches of Medi's speech written as '[speaking ...]' markers (00:16 in all)",
-    "coverage: Amal not transcribed 00:00-23:14 while the other person talks",
-    "coverage: Amal talks 01:40-09:59 (129 s of speech on their own track) with no transcript line",
-    "coverage: Amal talks 14:35-16:28 (23 s of speech on their own track) with no transcript line",
-    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3966 s) compared with a second model"
+    "coverage: Amal not transcribed 09:57-14:05 while the other person talks",
+    "coverage: Amal not transcribed 18:46-23:14 while the other person talks",
+    "coverage: speaker labels agree with an independent check on only 88.3 % of 792 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
+    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3966 s) compared with a second model",
+    "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
    ],
    "words": {
-    "pct": 90.6,
-    "eligible_pct": 90.0,
+    "pct": 91.9,
+    "eligible_pct": 91.9,
     "verified_pct": null,
-    "scored": 69,
-    "eligible": 65,
-    "excluded": 4,
-    "pending": 0,
-    "excluded_why": {
-     "Amal not transcribed": 4
-    }
-   },
-   "grammar": {
-    "pct": 93.4,
-    "verified_pct": null,
-    "mistakes": 13,
-    "uses": 183,
-    "eligible": 13,
+    "scored": 93,
+    "eligible": 93,
     "excluded": 0,
     "pending": 0,
+    "excluded_why": {}
+   },
+   "grammar": {
+    "pct": 92.4,
+    "verified_pct": null,
+    "mistakes": 15,
+    "uses": 184,
+    "eligible": 15,
+    "excluded": 0,
+    "pending": 1,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
-     "2 slips are in rules the counter found 0 uses of in this lesson",
-     "2 rules have more slips than counted uses (A3, B18)"
+     "3 slips are in rules the counter found 0 uses of in this lesson",
+     "3 rules have more slips than counted uses (A3, B18, D1)"
     ]
    },
    "coverage": {
@@ -1039,8 +1038,8 @@
      "hole_s": 16.2
     },
     "Amal": {
-     "covered_pct": 64.9,
-     "missing_s": 1393.7,
+     "covered_pct": 87.0,
+     "missing_s": 515.1,
      "hole_s": 0
     }
    },
@@ -1049,7 +1048,7 @@
     "timing": "engine"
    },
    "agreement": [
-    58.1
+    78.8
    ],
    "between_passes": []
   }
