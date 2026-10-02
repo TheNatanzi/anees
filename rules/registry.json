@@ -2895,7 +2895,7 @@
    "id": "AM-11",
    "kind": "data",
    "scope": "amal-data",
-   "status": "moment-only",
+   "status": "enforced",
    "change": "new",
    "statement": "For each new lesson, every word Amal used that is not on her sheet goes on the Tutor hub with 3 choices: add to Doc / save for later / forget.",
    "source": [
@@ -2906,12 +2906,41 @@
      "session": "65d34512"
     }
    ],
-   "enforcement": [],
-   "test": [],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/review_lesson.py",
+     "contains": "def new_words_step(d, dry_run, failures"
+    },
+    {
+     "type": "code",
+     "path": "scripts/amal_new_words.py",
+     "contains": "def build(verdicts=None, taps=None"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/hub/new-words-task.js",
+     "contains": "['newword_later', 'Save it for a future lesson'"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_amal_word_lists.py",
+     "contains": "def test_AM_11_the_hourly_job_reviews_every_new_lesson_and_the_review_runs_the_step"
+    },
+    {
+     "path": "tests/test_amal_word_lists.py",
+     "contains": "def test_AM_11_a_reader_that_leaves_words_unjudged_fails_the_lesson"
+    },
+    {
+     "path": "tests/test_amal_word_lists.py",
+     "contains": "def test_AM_11_every_candidate_judged_passes_and_new_ones_reach_the_tutor_card"
+    }
+   ],
    "aliases": [
     "report:M2"
    ],
-   "next_step": "a new Tutor list + table (build_tutor_data.py + tutor.js); not small"
+   "note": "2026-10-02: automatic since 06be5df (hourly_lessons -> review_lesson step 7d -> amal_new_words -> Tutor hub task); now fail-closed: a candidate left unjudged by the reader fails the lesson (no push, retried hourly). Lessons before 2026-10-01 are never asked."
   },
   {
    "id": "AM-12",

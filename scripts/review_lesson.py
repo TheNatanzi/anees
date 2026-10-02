@@ -277,6 +277,42 @@ def drop(out, why):
             os.remove(p)                 # the old file stays in git history
 
 
+def new_words_step(d, dry_run, failures, repo=None, reader=None, run=None):
+    """Step 7d for ONE lesson (AM-11, Medi 2026-10-02: "we should be doing this for all new lessons"): string candidates
+    -> one by-meaning reader for the candidates not judged yet -> docs/data/amal-new-words.json (the Tutor hub 'New
+    words' task: add to the Doc / save for later / forget). Fail closed: a candidate still unjudged after the reader is a
+    failure (no push; the hourly job retries), so a lesson can never silently skip Amal's new words.
+    `repo` / `reader` / `run` are injectable for tests/test_amal_word_lists.py."""
+    import amal_new_words
+    if d < amal_new_words.START:          # Medi 2026-10-02: from the 10-01 lesson on (older lessons were never asked)
+        return []
+    repo = repo or REPO
+    reader = reader or claude
+    run = run or (lambda *args: py(*args, check=False))
+    run(os.path.join(HERE, "amal_new_words.py"), "--candidates", d)
+    vp = os.path.join(repo, "data", "lesson-work", "amal-new-words-verdicts.json")
+    cand = os.path.join(repo, "data", "lesson-work", "amal-new-words", d + ".candidates.json")
+
+    def unjudged():
+        judged = {v.get("key") for v in (json.load(open(vp, encoding="utf-8")) if os.path.exists(vp) else []) if v.get("date") == d}
+        return [c for c in (json.load(open(cand, encoding="utf-8"))["candidates"] if os.path.exists(cand) else []) if c["key"] not in judged]
+
+    if not os.path.exists(cand):
+        failures.append(f"new words: no candidate file for {d}"); log("FAILED new-word candidates for", d)
+    todo = unjudged()
+    if todo and not dry_run:
+        reader(new_words_prompt(d), f"{d} new words", step="amal.new_words", lesson_date=d, role="new_words",
+               prompt_sha=_src_sha(new_words_prompt), inputs=[cand, os.path.join(repo, "docs", "data", "words.json")], outputs=[vp])
+        todo = unjudged()
+        if todo:
+            failures.append(f"new words: {len(todo)} candidate(s) of {d} not judged by the reader")
+            log("FAILED new-word reader left", len(todo), "unjudged for", d)
+    rc = run(os.path.join(HERE, "amal_new_words.py")).returncode
+    if rc:
+        failures.append(f"amal_new_words.py exit {rc}"); log("FAILED amal_new_words.py exit", rc)
+    return todo
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("date")
@@ -440,17 +476,7 @@ def main():
     # 7d new words Amal used that are not on her Doc (Medi 2026-10-02 "we should be doing this for all new lessons"): string
     # candidates -> one by-meaning reader -> docs/data/amal-new-words.json (Tutor hub item: add to the Doc / later / forget).
     # Unjudged candidates are never shown to Amal; a reader that fails leaves them unjudged (counted) and fails the run.
-    py(os.path.join(HERE, "amal_new_words.py"), "--candidates", d, check=False)
-    vp = os.path.join(REPO, "data", "lesson-work", "amal-new-words-verdicts.json")
-    cand = os.path.join(REPO, "data", "lesson-work", "amal-new-words", d + ".candidates.json")
-    judged = {v.get("key") for v in (json.load(open(vp, encoding="utf-8")) if os.path.exists(vp) else []) if v.get("date") == d}
-    todo = [c for c in (json.load(open(cand, encoding="utf-8"))["candidates"] if os.path.exists(cand) else []) if c["key"] not in judged]
-    if todo and not a.dry_run:
-        claude(new_words_prompt(d), f"{d} new words", step="amal.new_words", lesson_date=d, role="new_words",
-               prompt_sha=_src_sha(new_words_prompt), inputs=[cand, os.path.join(REPO, "docs", "data", "words.json")], outputs=[vp])
-    rc = py(os.path.join(HERE, "amal_new_words.py"), check=False).returncode
-    if rc:
-        failures.append(f"amal_new_words.py exit {rc}"); log("FAILED amal_new_words.py exit", rc)
+    new_words_step(d, a.dry_run, failures)
     # 7c the Tutor page (Medi's menu) lists every open link with its total - rebuilt so the new after link shows up
     rc = py(os.path.join(HERE, "build_tutor_data.py"), check=False).returncode
     if rc:
