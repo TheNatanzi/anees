@@ -19,12 +19,19 @@
   // Medi 2026-09-22: dated sets are hidden; only sets with a real name are shown.
   const DATED = /\b(jan(uary)?|feb(ruary)?|mar(ch)?|apr(il)?|may|june?|july?|aug(ust)?|sep(tember)?|oct(ober)?|nov(ember)?|dec(ember)?)\b\.?\s*\d/i;
   function isDated(title) { return DATED.test(String(title || '')); }
+  // Sections follow what the cards drill (Rule FC-11, Medi 2026-10-02 "isnt ba2ul a verb?", "why are there 2 adverbs of
+  // time?"): a verb's conjugations go to Verbs, even with pronouns on it ("ba2ul conjugations", "Beddi + 3endi Conjugation",
+  // "Pronoun Objects With Verbs", "Irregular Past Tenses"). "verb" must be a whole word: "Adverbs of time" is not a verb set.
+  // Matching order = `rank` (Plurals, Verbs, Possession, Topics); the screen keeps the array order below.
+  // VERB_SET_IDS: verb sets whose title does not say so ("babse6 - banbese6 group" = Basa6 / Basa6et / Basa6ni ...).
+  const VERB_SET_IDS = new Set(['1198181254']);
   const SET_GROUPS = [
-    { id: 'plurals', name: 'Plurals', test: t => /plur/i.test(t) },
-    { id: 'possession', name: 'Possession & pronouns', test: t => /pronoun|possess|conjugation/i.test(t) },
-    { id: 'verbs', name: 'Verbs', test: t => /verb|command/i.test(t) },
-    { id: 'topics', name: 'Topics', test: () => true },
+    { id: 'plurals', name: 'Plurals', rank: 0, test: t => /plur/i.test(t) },
+    { id: 'possession', name: 'Possession & pronouns', rank: 2, test: t => /pronoun|possess/i.test(t) },
+    { id: 'verbs', name: 'Verbs', rank: 1, test: (t, s) => /\bverbs?\b|command|conjugation|past tense/i.test(t) || VERB_SET_IDS.has(String(s && s.id)) },
+    { id: 'topics', name: 'Topics', rank: 3, test: () => true },
   ];
+  function sectionOf(set) { const t = (set && set.title) || ''; return SET_GROUPS.slice().sort((a, b) => a.rank - b.rank).find(g => g.test(t, set)).id; }
   const norm = s => (root.AneesWordBank ? root.AneesWordBank.normalize(s) : String(s || '').toLowerCase().trim());
   const live = log => (log || []).filter(r => r && r.word_key && !r.undone && !r.undone_at && r.kind !== 'flag' && r.kind !== 'undo');
 
@@ -118,7 +125,7 @@
     const m = String(arabizi || '').match(/^([^()]+?)\s*\(([^()]+)[()]?\s*$/); if (!m) return null;
     const singular = m[1].trim(), plural = m[2].trim(), en = String(english || '').trim(), key = x => String(x).toLowerCase().replace(/[^a-z0-9]/g, '');
     if (!singular || !plural || /\+/.test(arabizi) || /\d/.test(en) || PREP.test(plural.replace(/-$/, '')) || key(plural) === key(singular)) return null;
-    if (/^(I|you|he|she|it|we|they)/i.test(en) || /\((command|progressive)\)/i.test(en)) return null;
+    if (/^(I|you|he|she|it|we|they)b/i.test(en) || /\((command|progressive)\)/i.test(en)) return null;
     return { singular, plural };
   }
   // The back of a plural-set card is English when every word of it is an English word Amal uses in the Doc (and not Arabizi).
@@ -135,16 +142,24 @@
     englishWords = { english: e, arabizi: a };
   }
 
+  // One Quizlet term as {t, english, target}; null when a side is blank.
+  function termParts(pair) {
+    const [a, b] = pair || [];
+    if (!String(a || '').trim() || !String(b || '').trim()) return null;
+    const aIsTarget = AR.test(a) || /\|/.test(a) || !(AR.test(b) || /\|/.test(b));
+    const target = aIsTarget ? a : b, english = String(aIsTarget ? b : a).trim();
+    const t = splitTerm(target); if (!t.arabizi && !t.arabic) t.arabizi = String(target).trim();
+    return { t, english, target };
+  }
+  // A term's own card key: q:<set id>:<rank>; a merged set (mergeSameTitle) keeps each older term's original key in set.src.
+  const termKey = (set, i) => 'q:' + ((set.src && set.src[i]) || set.id + ':' + (i + 1));
   function quizletCards(set, match) {
     const out = [], seen = new Set();
     (set.terms || []).forEach((pair, i) => {
-      const [a, b] = pair || [];
-      if (!String(a || '').trim() || !String(b || '').trim()) return;
-      const aIsTarget = AR.test(a) || /\|/.test(a) || !(AR.test(b) || /\|/.test(b));
-      const target = aIsTarget ? a : b, english = String(aIsTarget ? b : a).trim();
-      const t = splitTerm(target); if (!t.arabizi && !t.arabic) t.arabizi = String(target).trim();
+      const p = termParts(pair); if (!p) return;
+      const { t, english, target } = p;
       const w = match(t);
-      const card = w || { key: 'q:' + set.id + ':' + (i + 1), arabizi: t.arabizi || t.arabic, arabic: t.arabizi ? t.arabic : '', english, topic: set.title, quizlet: set.id,
+      const card = w || { key: termKey(set, i), arabizi: t.arabizi || t.arabic, arabic: t.arabizi ? t.arabic : '', english, topic: set.title, quizlet: set.id,
         // Rule F8b (Medi 2026-10-01): in Amal's plural sets the back is the Arabic PLURAL, not English -> label Singular / Plural.
         // A back that is English (Parents, Siblings, Country, "my uncles's (F) sons/kids") stays an Arabic / English card: the
         // front has Arabic letters ("E5we | أخوة = Siblings") or every back word is English Amal uses in the Doc.
@@ -160,8 +175,48 @@
 
   function quizletGroups(sets) {
     const groups = SET_GROUPS.map(g => ({ id: g.id, name: g.name, sets: [] }));
-    for (const s of sets || []) if (!isDated(s.title)) groups[SET_GROUPS.findIndex(g => g.test(s.title || ''))].sets.push(s);
+    for (const s of sets || []) if (!isDated(s.title)) groups.find(g => g.id === sectionOf(s)).sets.push(s);
     return groups.filter(g => g.sets.length);
+  }
+  // Rule FC-10 (Medi 2026-10-02 "why are there 2 adverbs of time?"): Amal's sets with the same title (case / spaces ignored)
+  // are ONE set. The newest set (highest Quizlet id) is the base, with its spelling and order; an older set's term is dropped
+  // when the same card is already there (same Arabic, or same Arabizi + same English), else appended with its own old key
+  // (set.src) so its history stays. dropped = [{set: older set, i: its term index, to: kept term index}] (mergeAliases).
+  const titleKey = t => String(t || '').toLowerCase().replace(/\s+/g, ' ').trim();
+  const cmp = s => String(s || '').toLowerCase().replace(/[\sً-ْ]+/g, ' ').trim();
+  function sameCard(p, q) {
+    if (!p || !q) return false;
+    if (p.t.arabic && cmp(p.t.arabic) === cmp(q.t.arabic)) return true;
+    return !!p.t.arabizi && cmp(p.t.arabizi) === cmp(q.t.arabizi) && cmp(p.english) === cmp(q.english);
+  }
+  function mergeSameTitle(sets) {
+    const by = new Map(), order = [];
+    for (const s of sets || []) { const k = titleKey(s.title); if (!by.has(k)) { by.set(k, []); order.push(k); } by.get(k).push(s); }
+    const out = [], dropped = [];
+    for (const k of order) {
+      const g = by.get(k); if (g.length === 1) { out.push(g[0]); continue; }
+      const sorted = g.slice().sort((a, b) => Number(b.id) - Number(a.id)), base = sorted[0];
+      const terms = (base.terms || []).slice(), src = terms.map((_, i) => base.id + ':' + (i + 1)), parts = terms.map(termParts);
+      for (const old of sorted.slice(1)) (old.terms || []).forEach((pair, i) => {
+        const p = termParts(pair); if (!p) return;
+        const j = parts.findIndex(q => sameCard(p, q));
+        if (j >= 0) dropped.push({ set: old, i, to: j }); else { terms.push(pair); src.push(old.id + ':' + (i + 1)); parts.push(p); }
+      });
+      out.push(Object.assign({}, base, { terms, n: terms.length, src, merged_from: sorted.slice(1).map(s => s.id) }));
+    }
+    return { sets: out, dropped, merged: out.filter(s => s.merged_from) };
+  }
+  // Old card key -> kept card key for every dropped duplicate (a Doc word match on either side uses the Doc key).
+  // The page reads Medi's answers through this map; no stored row is changed.
+  function mergeAliases(m, match) {
+    const alias = new Map();
+    for (const d of m.dropped) {
+      const kept = m.sets.find(s => (s.merged_from || []).includes(d.set.id)); if (!kept) continue;
+      const keyOf = (set, i, pair) => { const p = termParts(pair); const w = p && match ? match(p.t) : null; return w ? w.key : termKey(set, i); };
+      const from = keyOf(d.set, d.i, d.set.terms[d.i]), to = keyOf(kept, d.to, kept.terms[d.to]);
+      if (from !== to) alias.set(from, to);
+    }
+    return alias;
   }
   // Colour counts for a set: mastered, good, shaky, wrong, untested. bucketOf may return a Word Bank
   // status (Mastered / Good / Shaky / Wrong) or a flashcard bucket (ice_cold / cold / shaky / missed).
@@ -188,6 +243,6 @@
   function isQuizletOnly(key) { return /^q:/.test(String(key || '')); }
   function isFormCard(key) { return /^form:/.test(String(key || '')); }
 
-  root.AneesCardSelection = { TYPES, TYPE_LABEL, TENSES, statusSplit, newFromAmal, neverTested, answeredKeys, tenses, topics, splitTerm, matcher, quizletCards, quizletGroups, collocationSets, isDated, MIX, scoreMix, statusByKey, isQuizletOnly, isFormCard, formCard, typeOf, quizletPlural, looksEnglish, useWords };
+  root.AneesCardSelection = { TYPES, TYPE_LABEL, TENSES, statusSplit, newFromAmal, neverTested, answeredKeys, tenses, topics, splitTerm, matcher, quizletCards, quizletGroups, sectionOf, mergeSameTitle, mergeAliases, collocationSets, isDated, MIX, scoreMix, statusByKey, isQuizletOnly, isFormCard, formCard, typeOf, quizletPlural, looksEnglish, useWords };
   if (typeof module !== 'undefined' && module.exports) module.exports = root.AneesCardSelection;
 })(typeof window !== 'undefined' ? window : globalThis);

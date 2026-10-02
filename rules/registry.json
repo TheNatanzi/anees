@@ -4519,6 +4519,91 @@
    "superseded_by": "FC-07"
   },
   {
+   "id": "FC-10",
+   "kind": "data",
+   "scope": "flashcards",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Amal's Quizlet sets with the same title (case and spaces ignored) show as ONE tile. The newest set (highest Quizlet id) is the base with its spelling and order; an older set's term is dropped when the same card is already there (same Arabic, or same Arabizi + same English), else added with its own old key. A dropped card's answers are read as the kept card's (page read logic only; stored rows are never rewritten).",
+   "plain": "Two of Amal's card sets with the same name show as one tile; the newer set's spelling wins, repeated cards show once, and your answers on a dropped copy count for the kept card.",
+   "plain_for": "eb829eef",
+   "topic": "card sets",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "why are there 2 adverbs of time?"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/cards-selection.js",
+     "contains": "function mergeSameTitle(sets) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/cards.html",
+     "contains": "ALIAS=SEL.mergeAliases(mg,SEL.matcher(words));"
+    },
+    {
+     "type": "doc",
+     "path": "docs/flashcard-rules.md",
+     "contains": "| F12 | Amal's Quizlet sets with the same title"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_cards_selection.cjs",
+     "contains": "test('FC-10 same-title sets are one tile"
+    }
+   ],
+   "aliases": [],
+   "note": "2026-10-02: only live duplicate = Adverbs of Time 1112099984 (3: El-Youm/Mbare7/Bukra) + Adverbs of time 1128927446 (29, already has all 3) -> one tile, 29 cards. Audio Homework 1155010913 + 1163588883 also share a title but are hidden by F9."
+  },
+  {
+   "id": "FC-11",
+   "kind": "data",
+   "scope": "flashcards",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Each of Amal's Quizlet sets sits in the Flashcards section of what its cards drill: a verb's conjugations are Verbs, even with pronouns on it (ba2ul conjugations, Beddi + 3endi Conjugation, Pronoun Objects With Verbs, Irregular Past Tenses, babse6 - banbese6 group). 'verb' must be a whole word, so Adverbs of time is Topics. Possession & pronouns = possessive endings and prepositions + pronouns only.",
+   "plain": "Each card set sits in the section of what it drills: a verb's conjugations (like ba2ul) go under Verbs; adverbs of time are not verbs.",
+   "plain_for": "c8e788c0",
+   "topic": "card sets",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "isnt ba2ul a verb?"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "why are there 2 adverbs of time?"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/cards-selection.js",
+     "contains": "function sectionOf(set) {"
+    },
+    {
+     "type": "doc",
+     "path": "docs/flashcard-rules.md",
+     "contains": "| F13 | A set sits in the section of what its cards drill"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_cards_selection.cjs",
+     "contains": "test('FC-11 set sections follow what the cards drill"
+    }
+   ],
+   "aliases": []
+  },
+  {
    "id": "PR-01",
    "kind": "process",
    "scope": "process",

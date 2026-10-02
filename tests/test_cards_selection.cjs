@@ -113,3 +113,31 @@ test('Quizlet plurals in brackets are read; prepositions, gender notes and spell
  assert.equal(cards.find(c=>c.arabizi==='sadiq')._pl,true);
  for(const a of ['E5we','wlaad 3ammi']) assert.ok(!cards.find(c=>c.arabizi===a)._pl,a);
 });
+test('FC-10 same-title sets are one tile: Adverbs of Time (3) + Adverbs of time (29) -> one set of 29, newest spelling, history carried',()=>{
+ const shown=sets.filter(s=>!/audio homework/i.test(s.title)), m=S.mergeSameTitle(shown);
+ const key=t=>t.toLowerCase().replace(/\s+/g,' ').trim(), titles=m.sets.map(s=>key(s.title));
+ assert.equal(new Set(titles).size,titles.length,'no two tiles share a title');
+ const adv=m.sets.filter(s=>key(s.title)==='adverbs of time');
+ assert.equal(adv.length,1);assert.equal(adv[0].id,'1128927446');assert.equal(adv[0].title,'Adverbs of time');assert.equal(adv[0].terms.length,29);
+ assert.deepEqual(adv[0].merged_from,['1112099984']);
+ const cards=S.quizletCards(adv[0],()=>null);assert.equal(cards.length,29);
+ assert.ok(cards.some(c=>c.arabizi==='Mbaare7')&&!cards.some(c=>c.arabizi==='Mbare7'),'Amal newer spelling wins');
+ const alias=S.mergeAliases(m,()=>null);
+ assert.deepEqual([...alias],[['q:1112099984:1','q:1128927446:27'],['q:1112099984:2','q:1128927446:28'],['q:1112099984:3','q:1128927446:29']]);
+ // an older-only term is kept with its own old key (its history stays); a same-Arabizi term with another meaning is not dropped
+ const old={id:'10',title:'X Set',terms:[['Bukra | بكرة','Tomorrow'],['Jadid | جديد','New'],['Halla','Sweet']]}, neu={id:'20',title:'x  set',terms:[['Bukra | بكرا','Tomorrow'],['Halla | هلا','Now']]};
+ const m2=S.mergeSameTitle([old,neu]);assert.equal(m2.sets.length,1);assert.equal(m2.sets[0].terms.length,4);
+ assert.deepEqual(S.quizletCards(m2.sets[0],()=>null).map(c=>c.key),['q:20:1','q:20:2','q:10:2','q:10:3']);
+ assert.deepEqual([...S.mergeAliases(m2,()=>null)],[['q:10:1','q:20:1']]);
+ // a Doc word match on both sides needs no alias (same key already)
+ assert.equal(S.mergeAliases(m2,()=>({key:'doc'})).size,0);
+});
+test('FC-11 set sections follow what the cards drill: a verb\'s conjugations are Verbs ("isnt ba2ul a verb?")',()=>{
+ const shown=S.mergeSameTitle(sets.filter(s=>!/audio homework/i.test(s.title))).sets;
+ const by=Object.fromEntries(S.quizletGroups(shown).map(x=>[x.id,x.sets.map(s=>s.title)]));
+ for(const t of ['ba2ul conjugations','Beddi + 3endi Conjugation','Pronoun Objects With Verbs','Irregular Past Tenses','babse6 - banbese6 group','Verbs List','Verbs (Present tense)','Command','verb + preposition collocations','T causative Verbs']) assert.ok(by.verbs.includes(t),t);
+ assert.ok(!by.verbs.includes('Adverbs of time'),'adverbs are not verbs');assert.ok(by.topics.includes('Adverbs of time'));
+ assert.deepEqual(by.possession,['Possessive Forms','Ma3 + pronouns','La + Pronouns','Other Prepositions + Pronouns']);
+ assert.ok(by.plurals.includes('Irregular Plural Adjectives'));
+ assert.equal(S.sectionOf({id:'1',title:'Adverbs of place'}),'topics');assert.equal(S.sectionOf({id:'1',title:'Ba7ki conjugations'}),'verbs');
+});
