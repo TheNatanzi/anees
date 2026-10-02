@@ -440,3 +440,29 @@ def test_data_freshness_passes_when_current_and_is_advisory(repo, tmp_path):
     assert G.check_data_freshness(repo, raw=tmp_path / 'none', now=now)[0]
     cfg = json.loads((ROOT / G.CONFIG).read_text(encoding='utf-8'))
     assert 'data_freshness' in cfg['advisory'] and 'data_freshness' not in cfg['required']   # a stale source never blocks a fresh publish
+
+
+def test_ls_01_lesson_type_read_is_required_and_blocks_a_default_type(repo):
+    """LS-01 (Medi 2026-10-02 "This was clearly a grammar review for 'el' im shocked you didnt detect that"): the live
+    config makes lesson_type_read REQUIRED, and a lesson still showing the builder's default type blocks the push."""
+    live = json.loads((ROOT / G.CONFIG).read_text(encoding='utf-8'))
+    assert 'lesson_type_read' in live['required'] and 'lesson_type_read' not in live.get('advisory', [])
+    cfg = json.loads((repo / G.CONFIG).read_text(encoding='utf-8'))
+    cfg['required'].append('lesson_type_read')
+    cfg['advisory'] = []
+    write(repo / G.CONFIG, cfg)
+    lj = json.loads((repo / 'docs/data/lessons.json').read_text(encoding='utf-8'))
+    for x in lj['lessons']:
+        x['type'] = 'review-grammar'
+    lj['lessons'][1].update(type='free-speak', type_why='Not read yet: default until the same-day reader reads this lesson.')
+    write(repo / 'docs/data/lessons.json', lj)
+    run = FakeRun(PASSING)
+    res, _ = push(repo, run)
+    assert res['pushed'] is False and 'lesson_type_read' in res['reason'] and '2026-09-28' in res['reason']
+    assert not run.pushes()
+    lj['lessons'][1].update(type='grammar', type_why='16:52 she says we review el')     # not one of the five types
+    write(repo / 'docs/data/lessons.json', lj)
+    assert G.check_lesson_type_read(repo)[0] is False
+    lj['lessons'][1].update(type='review-grammar')
+    write(repo / 'docs/data/lessons.json', lj)
+    assert G.check_lesson_type_read(repo)[0] is True

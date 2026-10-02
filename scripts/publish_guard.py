@@ -203,14 +203,20 @@ def check_review_freshness(root, **_):
     return (not probs, '; '.join(probs) if probs else f'{len(pages)} lessons audited on their current transcript')
 
 
+LESSON_TYPES_OK = ('free-speak', 'review-words', 'new-words', 'new-grammar', 'review-grammar')   # scripts/lesson_type_read.py TYPES
+
+
 def check_lesson_type_read(root, **_):
-    """A lesson type that is only the builder's default ("Not read yet") must not be shown as Claude's reading."""
+    """LS-01 (required since 2026-10-02): every lesson's type and taught words were read from context. A type that is only
+    the builder's default ("Not read yet"), has no reason, or is not one of the five types is not a reading."""
     try:
         L = J(Path(root) / 'docs/data/lessons.json')['lessons']
     except Exception as e:
         return False, f'lessons.json unreadable ({type(e).__name__})'
-    unread = [x['date'] for x in L if str(x.get('type_why') or '').startswith('Not read yet')]
-    return (not unread, ('type not read yet (default "free-speak" shown as Claude\'s reading): ' + ', '.join(unread)) if unread else 'every lesson type was read')
+    unread = [str(x.get('date')) for x in L if str(x.get('type_why') or '').startswith('Not read yet')
+              or not str(x.get('type_why') or '').strip() or x.get('type') not in LESSON_TYPES_OK]
+    return (not unread, ('type not read yet (LS-01: the same-day reader, review_lesson.py step 2b, writes '
+                         'data/lesson-work/lesson-types/<date>.json): ' + ', '.join(unread)) if unread else f'every lesson type was read ({len(L)} lessons)')
 
 
 FRESH_RAW_DEFAULT = r'C:\dev\anees\data\lessons'

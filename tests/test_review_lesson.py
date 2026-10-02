@@ -15,6 +15,9 @@ import review_lesson as RL
 import full_audit_prep as P
 
 D = '2026-09-30'
+TYPE_READ = {'date': D, 'type': 'review-grammar', 'review_mode': 'speaking',
+             'why': '16:00-65:30 is the planned el- review (16:52 she says they will review el; 58:02 nothing new, just testing).',
+             'taught': [], 'taught_words': [], 'read_by': 'fake reader', 'at': '2026-10-02T10:00:00-07:00'}
 
 
 def turns(n):
@@ -40,6 +43,8 @@ class Fake:
                 Path(out).write_text(json.dumps({'date': D, 'reader': label.split()[-1], 'rows': []}), encoding='utf-8')
             elif out.endswith('.r3.json'):          # the third reader's REAL shape (what settle reads), not "rows"
                 Path(out).write_text(json.dumps({'date': D, 'reader': 'r3', 'note': '', 'rulings': [], 'added': []}), encoding='utf-8')
+            elif 'lesson-types' in out:            # LS-01 type reader (step 2b)
+                Path(out).write_text(json.dumps(TYPE_READ), encoding='utf-8')
 
     def py(self, *args, check=True):
         name = os.path.basename(args[0])
@@ -108,7 +113,7 @@ def test_readers_rerun_when_the_transcript_grew_after_they_read_it(repo, monkeyp
     fake, pushes = Fake(), []
     install(monkeypatch, fake, pushes)
     rc = _run_main(monkeypatch, [D, '--no-push'])
-    assert sorted(fake.claude_calls)[:3] == sorted([f'{D} r1', f'{D} r2', f'{D} r3'])
+    assert sorted(c for c in fake.claude_calls if c.split()[-1] in ('r1', 'r2', 'r3')) == sorted([f'{D} r1', f'{D} r2', f'{D} r3'])
     assert rc == 0
 
 
@@ -235,3 +240,71 @@ def test_source_audit_and_second_judge_run_for_every_new_lesson():
                                      body.index('"--list"'), body.index("# 8 git"))
     assert i_src < i_codex < i_list < i_git
     assert re.search(r'failures\.append\(f"source_audit\.py', body)
+
+
+# ---------------------------------------------------------------- LS-01: the lesson type is read the same day
+def test_ls_01_the_same_day_review_reads_the_lesson_type_and_taught_words(repo, monkeypatch):
+    """LS-01 (Medi 2026-10-02 "You need to tell from context when shes teaching me new words"): step 2b runs the type
+    reader and its file is what the page builder reads."""
+    (Path(RL.WORK) / f'{D}.txt').write_text(fresh_text(12), encoding='utf-8')
+    fake, pushes = Fake(), []
+    install(monkeypatch, fake, pushes)
+    assert _run_main(monkeypatch, [D, '--no-push']) == 0
+    assert f'{D} lesson type' in fake.claude_calls
+    import lesson_type_read as LTR
+    read, why = LTR.load(D, str(repo))
+    assert read and read['type'] == 'review-grammar' and not why
+    assert D in LTR.load_all(str(repo))
+
+
+def test_ls_01_a_type_reader_that_writes_nothing_or_the_default_fails_the_run(repo, monkeypatch):
+    """LS-01 planted mistakes: no file, then the builder's 'free-speak, Not read yet' default written as a read. Both fail
+    the run loudly (exit 1, no push) instead of silently publishing the default."""
+    (Path(RL.WORK) / f'{D}.txt').write_text(fresh_text(12), encoding='utf-8')
+    fake, pushes = Fake(), []
+    install(monkeypatch, fake, pushes)
+    real = fake.claude
+
+    def no_type(prompt, label, **kw):
+        if 'lesson type' in label:
+            fake.claude_calls.append(label)
+            return
+        real(prompt, label, **kw)
+    monkeypatch.setattr(RL, 'claude', no_type)
+    assert _run_main(monkeypatch, [D]) == 1
+    assert not pushes and not git_pushes(fake)
+
+    def default_type(prompt, label, **kw):
+        if 'lesson type' in label:
+            Path(kw['outputs'][0]).write_text(json.dumps({**TYPE_READ, 'type': 'free-speak', 'review_mode': None,
+                                                          'why': 'Not read yet: default until Claude reads this lesson.'}), encoding='utf-8')
+            return
+        real(prompt, label, **kw)
+    monkeypatch.setattr(RL, 'claude', default_type)
+    assert _run_main(monkeypatch, [D]) == 1
+    assert not pushes
+
+
+def test_ls_01_a_type_read_must_be_a_real_reading():
+    """LS-01: the file shape is checked - a known type, a review mode for reviews, a reason that cites transcript times."""
+    import lesson_type_read as LTR
+    assert LTR.problems(TYPE_READ, D) == []
+    assert LTR.problems({**TYPE_READ, 'type': 'grammar'}, D)                       # not one of the five types
+    assert LTR.problems({**TYPE_READ, 'review_mode': None}, D)                     # a review needs speaking/listening
+    assert LTR.problems({**TYPE_READ, 'why': 'It was a grammar review of el, clearly, the whole lesson.'}, D)   # no mm:ss
+    assert LTR.problems({**TYPE_READ, 'date': '2026-10-01'}, D)                    # another lesson
+    assert LTR.problems({**TYPE_READ, 'taught': [{'latin': 'Ana bakser'}]}, D)     # no arabic / review flag
+    assert LTR.problems({**TYPE_READ, 'taught_words': None}, D)                    # [] when none, never missing
+
+
+def test_ls_01_every_published_lesson_has_a_type_read():
+    """LS-01 on the committed data: every lesson on the Lessons page carries a reading (hand dict or reader file), and
+    10-01 (the first reader file) is the el- review, not the default free-speak."""
+    root = Path(__file__).resolve().parents[1]
+    L = json.loads((root / 'docs' / 'data' / 'lessons.json').read_text(encoding='utf-8'))['lessons']
+    import publish_guard as G
+    ok, detail = G.check_lesson_type_read(root)
+    assert ok, detail
+    one = next((x for x in L if x['date'] == '2026-10-01'), None)
+    if one:
+        assert one['type'] == 'review-grammar' and one['type_read_by']

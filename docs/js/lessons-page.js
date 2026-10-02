@@ -661,6 +661,8 @@ function newWords(L) {
   }
   if (verbs.length) grid('New verbs you learned', verbs);
   if ((L.new_words || []).length) grid('New words Amal marked', L.new_words);
+  // LS-01: words Amal introduced in this lesson, read from context the same day (never scored)
+  if ((L.taught_words || []).length) grid('Words Amal introduced (read from the lesson)', L.taught_words);
   if (review.length) grid('Reviewed from earlier lessons', review);
   if (!box.childNodes.length) box.appendChild(el('div', 'gc-empty', 'No new words or verbs recorded for this lesson.'));
   return box;

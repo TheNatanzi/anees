@@ -23,7 +23,8 @@ Word scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so t
 Grammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an
 approved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).
 Grammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).
-Lesson types are Claude's reading of each lesson (LESSON_TYPES), marked type_source 'claude-read'.
+Lesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's
+data/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.
 No paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.
 """
 import argparse, bisect, datetime as dt, hashlib, html, json, os, re, shutil, subprocess, sys
@@ -69,6 +70,13 @@ TAUGHT = {
     "2026-09-17": [V("Ana bat2assaf (la / min)", "أنا بتأسف (لـ / من)", True), V("Ana ba5awwef", "أنا بخوّف", True), V("Ana bada77ek", "أنا بضحّك", True), V("Ana ba5rab / Ana ba5arreb", "أنا بخرب / أنا بخرّب", True)],
     "2026-09-18": [V("Ana bazha2 / Ana bazahhe2", "أنا بزهق / أنا بزهّق", True), V("Ana bat3ab / Ana bata33eb", "أنا بتعب / أنا بتعّب", True), V("Ana baz3al / Ana baza33el", "أنا بزعل / أنا بزعّل", True), V("Ana ba5aaf / Ana ba5awwef", "أنا بخاف / أنا بخوّف", True), V("Ana bad7ak / Ana bada77ek", "أنا بضحك / أنا بضحّك", True), V("Ana ba3asseb", "أنا بعصّب", True)],
 }
+# LS-01 (Medi 2026-10-02 "You need to tell from context when shes teaching me new words"): a new lesson's type and taught
+# words come from the same-day reader (scripts/lesson_type_read.py -> data/lesson-work/lesson-types/<date>.json). The hand
+# dicts below stay as overrides: a date in LESSON_TYPES / TAUGHT wins over the reader's file.
+import lesson_type_read as LTR  # noqa: E402
+TYPE_READS = LTR.load_all(REPO)
+for _d, _r in TYPE_READS.items():
+    TAUGHT.setdefault(_d, [V(x["latin"], x["arabic"], bool(x.get("review"))) for x in _r.get("taught") or []])
 DATES = sorted(f[:-5] for f in os.listdir(os.path.join(REPO, "docs", "lessons")) if re.fullmatch(r"20\d\d-\d\d-\d\d\.html", f))  # every published lesson page, so a new lesson flows by itself
 GLUE = 1.2          # s: words closer than this are one turn
 LAT_MAX = 15.0      # s: a reply later than this is not a reply
@@ -528,7 +536,9 @@ DEFINITIONS = {
     "flow.wpm": "Speaking flow: Arabic words per minute inside Medi's Arabic turns (a turn = words with gaps under 1.2 s; only turns with at least 2 Arabic-script words; filled pauses not counted as words). English-only turns and Latin-script transliterations are left out.",
     "flow.n_turns": "How many of his Arabic turns went into wpm.",
     "new_words": "Only words Amal (or Medi) marked new for this lesson (amal_rules kind='new'). Never guessed from the recording (hard rule 2026-09-05).",
-    "taught": "New verbs: the verb pairs Amal taught in this lesson (Medi confirmed 2026-09-25). review = first taught in an earlier lesson.",
+    "taught": "New verbs: the verb pairs Amal taught in this lesson (Medi confirmed 2026-09-25). review = first taught in an earlier lesson. From the hand list TAUGHT, else the same-day reader (LS-01, data/lesson-work/lesson-types/<date>.json).",
+    "taught_words": "Other words Amal introduced as new in this lesson, read from context by the same-day reader (LS-01): shown on the lesson page, never fed to any score.",
+    "type_read_by": "Who read the type: hand (LESSON_TYPES in the builder) or the same-day reader (claude -p in review_lesson.py, or an agent by hand). null = not read; the publish guard blocks.",
     "gap_fill": "Stretches where one person's side was missing and was recovered later (scripts/fill_meet_gaps.py): side, lesson-clock window, parts by source, lines added, clock offset + residual, diarization confidence. Those turns carry gap_fill: true and a source: own_track = the person's own recording transcribed late; meet_mixed = Google Meet's mixed recording, also from_meet: true - speakers there are split by the engine, not by separate microphones.",
 }
 
@@ -697,7 +707,11 @@ def build():
                    **({"scored_mistakes": gl["scored_mistakes"], "unscored_mistakes": gl["unscored_mistakes"]} if uses is not None else {})}
 
         # ---- new words
-        typ, mode, why = LESSON_TYPES.get(date, ("free-speak", None, "Not read yet: default until Claude reads this lesson and adds it to LESSON_TYPES."))
+        rd = TYPE_READS.get(date)
+        typ, mode, why = LESSON_TYPES.get(date) or ((rd["type"], rd.get("review_mode"), rd["why"]) if rd else
+                                                     ("free-speak", None, "Not read yet: default until the same-day reader (review_lesson.py, scripts/lesson_type_read.py) reads this lesson. The publish guard blocks while this shows."))
+        type_read_by = "hand (LESSON_TYPES)" if date in LESSON_TYPES else (rd.get("read_by") or "reader") if rd else None
+        taught_words = [] if date in LESSON_TYPES or not rd else list(rd.get("taught_words") or [])
         # HARD RULE (Medi 2026-09-05): "new" = only words Amal (or Medi) marked new for this lesson
         # (amal_rules kind='new') or a Doc diff. Never inferred from "first time on the recording" -
         # that listed words Medi already knew (Medi 2026-09-25).
@@ -811,9 +825,9 @@ def build():
         lessons.append({
             "date": date, "start_local": start, "start_source": start_src, "source": source,
             "duration_min": round(dur / 60, 1) if dur else None,
-            "type": typ, "review_mode": mode, "type_why": why, "type_source": "claude-read",
+            "type": typ, "review_mode": mode, "type_why": why, "type_source": "claude-read", "type_read_by": type_read_by,
             "words": words, "grammar": grammar, "talk": talk, "fillers": fillers, "latency": latency, "flow": flow,
-            "new_words": new_words, "taught": taught, "coverage": ((per_lesson_cov.get(date) + " / ") if per_lesson_cov.get(date) and fills else (per_lesson_cov.get(date) or "")) + (gapfill_note(fills) + "." if fills else "") or None,
+            "new_words": new_words, "taught": taught, "taught_words": taught_words, "coverage": ((per_lesson_cov.get(date) + " / ") if per_lesson_cov.get(date) and fills else (per_lesson_cov.get(date) or "")) + (gapfill_note(fills) + "." if fills else "") or None,
             **({"gap_fill": fills} if fills else {}), "notes": notes,
             "page": f"lessons/{date}.html", "detail": f"data/lessons/{date}.json",
             "counts": {"turns": sum(1 for p in P if not p["chat"]), "chat_lines": sum(1 for p in P if p["chat"]),

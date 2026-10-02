@@ -10,6 +10,8 @@ hashes in <file>.inputs.json - so a crash resumes where it stopped, and a grown 
 builder that fails, a broken reader file or Arabizi gaps left = exit 1 and no push):
   1 prep      docs/data/lessons/<date>.json -> data/lesson-work/full-audit/<date>.txt (needs build_lessons_page_data first)
   2 readers   two independent `claude -p` runs (READER-BRIEF.md) -> <date>.r1.json / <date>.r2.json   (parallel)
+  2b type     one `claude -p` run (scripts/lesson_type_read.py prompt) -> data/lesson-work/lesson-types/<date>.json: the
+              lesson's type + taught words read from context (LS-01); none valid = the run fails, no push
   3 compare   scripts/full_audit_compare.py compare -> <date>.compare.json + <date>.disputes.md
   4 third     one `claude -p` run (THIRD-READER-BRIEF.md) -> <date>.r3.json ; settle -> <date>.settled.json
   5 build     scripts/full_audit_build.py (all lessons) -> data/full-audit-2026-09-26.json + plan/FULL-AUDIT-2026-09-26.md
@@ -330,6 +332,23 @@ def main():
         if not valid_reader_file(out, d):
             os.replace(out, out[:-5] + ".invalid.json"); log("a reader wrote a broken file; stopping:", r); return 1
         pin(out, reader_in, prompt)
+    # 2b LS-01 (Medi 2026-10-02 "This was clearly a grammar review for 'el' im shocked you didnt detect that"): the lesson's
+    # TYPE and TAUGHT words are read from context the same day -> data/lesson-work/lesson-types/<date>.json, which
+    # build_lessons_page_data.py reads (its hand dicts stay as overrides). No valid read = the run fails (no push) and the
+    # publish guard's required lesson_type_read check blocks: the "free-speak, Not read yet" default is never published.
+    import lesson_type_read as LTR
+    type_read, type_why = LTR.load(d, REPO)
+    if not type_read and not a.dry_run:
+        os.makedirs(os.path.dirname(LTR.path(d, REPO)), exist_ok=True)
+        claude(LTR.prompt(d, REPO), f"{d} lesson type", step="lesson.type_read", lesson_date=d, role="type",
+               prompt_sha=_src_sha(LTR.prompt), inputs=[f(".txt")], outputs=[LTR.path(d, REPO)])
+        type_read, type_why = LTR.load(d, REPO)
+    if type_read:
+        log("lesson type", d, type_read["type"], type_read.get("review_mode") or "", "| taught", len(type_read["taught"]),
+            "| taught_words", len(type_read["taught_words"]))
+    else:
+        failures.append("lesson type not read (LS-01): " + "; ".join(type_why)[:200])
+        log("!! LESSON TYPE NOT READ (LS-01):", "; ".join(type_why), "- the page would show the default; not pushed")
     # 3 compare
     py(os.path.join(HERE, "full_audit_compare.py"), "compare", d)
     # 4 third reader + settle
@@ -440,7 +459,7 @@ def main():
     # nothing above failed (scripts/publish_guard.py; Medi decision 7, 2026-09-29)
     if not a.dry_run:
         subprocess.run(["git", "add", "-A", "data/full-audit-2026-09-26.json", "plan/FULL-AUDIT-2026-09-26.md", "docs", "data/lesson-work/full-audit",
-                        "data/lesson-work/amal-new-words", "data/lesson-work/amal-new-words-verdicts.json"], cwd=REPO)
+                        "data/lesson-work/amal-new-words", "data/lesson-work/amal-new-words-verdicts.json", "data/lesson-work/lesson-types"], cwd=REPO)
         subprocess.run(["git", "commit", "-q", "-m", f"Same-day review {d}: two readers + third reader, pages fed, Amal's items\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"], cwd=REPO)
         if failures:
             log("NOT PUSHED:", "; ".join(failures))

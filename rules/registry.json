@@ -2394,7 +2394,7 @@
    "id": "LS-01",
    "kind": "data",
    "scope": "lessons",
-   "status": "moment-only",
+   "status": "enforced",
    "change": "new",
    "statement": "Each new lesson's type (free speak, review, new words, grammar review) and its taught words are read from context the same day.",
    "source": [
@@ -2410,13 +2410,41 @@
      "type": "code",
      "path": "scripts/publish_guard.py",
      "contains": "def check_lesson_type_read(root, **_):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/lesson_type_read.py",
+     "contains": "def prompt(date, repo=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_lesson.py",
+     "contains": "claude(LTR.prompt(d, REPO), f\"{d} lesson type\""
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_lessons_page_data.py",
+     "contains": "TYPE_READS = LTR.load_all(REPO)"
     }
    ],
-   "test": [],
+   "test": [
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_ls_01_lesson_type_read_is_required_and_blocks_a_default_type"
+    },
+    {
+     "path": "tests/test_review_lesson.py",
+     "contains": "def test_ls_01_a_type_reader_that_writes_nothing_or_the_default_fails_the_run"
+    }
+   ],
    "aliases": [
     "report:M4"
    ],
-   "next_step": "a reader step in review_lesson.py fills LESSON_TYPES/TAUGHT; then make publish_guard lesson_type_read required (needs the hourly claude -p login working)"
+   "example": {
+    "date": "2026-10-01",
+    "t": "55:26",
+    "note": "10-01 showed 'free-speak, Not read yet'; read from context it is the el- review (review-grammar, speaking) with oola (first, feminine) introduced at 55:26 - data/lesson-work/lesson-types/2026-10-01.json"
+   }
   },
   {
    "id": "LS-02",
