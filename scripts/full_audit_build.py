@@ -221,7 +221,7 @@ def apply_proposals(rows, hand, buckets):
 
 def compat_entry(r):
     """The sweep-shaped copy of one scored audit row (what build_lessons_page_data / build_grammar_console read), or None."""
-    base = {"id": r["uid"], "date": r["date"], "t": r.get("t"), "t_amal": r.get("t_amal"), "medi_said": r.get("medi_said"),
+    base = {"id": r["uid"], "date": r.get("date"), "t": r.get("t"), "t_amal": r.get("t_amal"), "medi_said": r.get("medi_said"),
             "amal_said": r.get("amal_said"), "chat": r.get("chat"), "wrong": r.get("wrong"), "right": r.get("right"),
             "confidence": r.get("confidence") or "medium", "confidence_why": r.get("r3_why") or r.get("agreed_by"),
             "signal": r.get("signal"), "machine_audit": bool(r.get("machine_had")), "mode": r.get("mode", "speaking"),
@@ -250,20 +250,20 @@ def sync_compat(A):
     removed = len(before - have)
     added, same = 0, []
     for key, kd in (("rows", "grammar"), ("vocab", "vocab-A")):
-        at = {(x["date"], x.get("t")): (x.get("uid") or x.get("id")) for x in sc[key] if x.get("t")}
+        at = {(x.get("date"), x.get("t")): (x.get("uid") or x.get("id")) for x in sc[key] if x.get("t")}
         for r in A["rows"]:
             if r["kind"] != kd or r["uid"] in have:
                 continue
-            twin = at.get((r["date"], r.get("t"))) if r.get("t") else None
+            twin = at.get((r.get("date"), r.get("t"))) if r.get("t") else None
             if twin:
                 r["compat_same_moment_as"] = twin
                 same.append(r["uid"])
                 continue
             r.pop("compat_same_moment_as", None)
             sc[key].append(compat_entry(r))
-            at.setdefault((r["date"], r.get("t")), r["uid"])
+            at.setdefault((r.get("date"), r.get("t")), r["uid"])
             added += 1
-        sc[key].sort(key=lambda x: (x["date"], sec(x.get("t")) if sec(x.get("t")) is not None else 1e9))
+        sc[key].sort(key=lambda x: (x.get("date") or "", sec(x.get("t")) if sec(x.get("t")) is not None else 1e9))
     return added, removed, same
 
 
