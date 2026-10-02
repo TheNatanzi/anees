@@ -85,3 +85,11 @@ def test_step_runs_for_every_lesson():
     assert "{date}" not in R.new_words_prompt("2026-10-01") and "2026-10-01" in R.new_words_prompt("2026-10-01")
 
 
+def test_readers_read_current_accepts_a_crlf_manifest(tmp_path, monkeypatch):
+    import review_lesson as R
+    work = tmp_path / "data" / "lesson-work" / "full-audit"; work.mkdir(parents=True)
+    fresh = "# Lesson x\n\n[00:01] Medi: hi\n"
+    monkeypatch.setattr(R, "transcript_text", lambda d, repo=None: fresh)
+    for text, ok in ((fresh.replace("\n", "\r\n"), True), (fresh, True), ("other\r\n", False)):
+        (work / "2026-10-01.r1.json.inputs.json").write_text(json.dumps({"inputs": {"data/lesson-work/full-audit/2026-10-01.txt": R._sha_text(text)}}), encoding="utf-8")
+        assert (R.readers_read_current("2026-10-01", str(tmp_path)) is None) == ok

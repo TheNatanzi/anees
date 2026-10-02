@@ -204,7 +204,9 @@ def readers_read_current(date, repo=None):
     man = os.path.join(work, f"{date}.r1.json.inputs.json")
     if os.path.exists(man):
         read = json.load(open(man, encoding="utf-8")).get("inputs", {}).get(f"data/lesson-work/full-audit/{date}.txt")
-        return None if read == _sha_text(fresh) else "transcript changed after the readers read it"
+        # the manifest hashes the file's bytes; full_audit_prep writes it in text mode, so on Windows it holds CRLF
+        # (2026-10-02: every manifest-pinned lesson read as 'changed' on this PC)
+        return None if read in (_sha_text(fresh), _sha_text(fresh.replace(chr(10), chr(13) + chr(10)))) else "transcript changed after the readers read it"
     txt = os.path.join(work, date + ".txt")
     if not os.path.exists(txt):
         return "no record of what the readers read"
