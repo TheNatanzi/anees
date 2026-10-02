@@ -70,7 +70,7 @@
   document.addEventListener('click', e => {
     const p = e.target.closest('button.tv-play');
     if (p) { const [src, frag] = p.dataset.src.split('#t='); const [a, b] = (frag || '0').split(',').map(Number);
-      if (!player.src.endsWith(src)) player.src = src; player.currentTime = a || 0; player.play().catch(() => {});
+      if (!player.src.endsWith(src)) player.src = src; player.dataset.clipStart = a || 0; if (b) player.dataset.clipEnd = b; else delete player.dataset.clipEnd; player.currentTime = a || 0; player.play().catch(() => {});
       player.ontimeupdate = () => { if (b && player.currentTime >= b) player.pause(); };
       player.onerror = () => { p.textContent = '✕ No recording for this moment'; }; return; }
     const b = e.target.closest('button[data-tv]'); if (!b) return; const id = b.dataset.id;
