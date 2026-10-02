@@ -1,0 +1,160 @@
+{
+ "updated": "2026-10-02T16:06:39-07:00",
+ "result": "pass",
+ "source": "unblock-2026-10-02",
+ "checked_commit": "fbe61c7b1a43",
+ "secs": 59.0,
+ "checks": [
+  {
+   "id": "step_failures",
+   "required": true,
+   "ok": true,
+   "secs": 0.0,
+   "what": "no build step failed in this run",
+   "detail": "no build step failed (this run or an earlier one)"
+  },
+  {
+   "id": "clean_tree",
+   "required": true,
+   "ok": true,
+   "secs": 0.1,
+   "what": "what is checked is exactly what gets published",
+   "detail": "nothing uncommitted under docs, data/full-audit-2026-09-26.json, data/accuracy, RULE-BOOK.md"
+  },
+  {
+   "id": "json_data",
+   "required": true,
+   "ok": true,
+   "secs": 0.8,
+   "what": "every docs/data JSON file parses and has its shape",
+   "detail": "92 JSON files parse"
+  },
+  {
+   "id": "rule_registry",
+   "required": true,
+   "ok": true,
+   "secs": 0.3,
+   "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
+   "detail": "rule_registry: OK - 152 rules: enforced 65 (code 56, brief 9), written 67, moment-only 12, needs Medi 0, superseded 8"
+  },
+  {
+   "id": "lesson_coverage",
+   "required": true,
+   "ok": true,
+   "secs": 0.5,
+   "what": "every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)",
+   "detail": "all 17 lessons reach every page"
+  },
+  {
+   "id": "review_done",
+   "required": true,
+   "ok": true,
+   "secs": 0.0,
+   "what": "every lesson has a finished same-day review",
+   "detail": "all 17 lessons reviewed"
+  },
+  {
+   "id": "lesson_type_read",
+   "required": true,
+   "ok": true,
+   "secs": 0.0,
+   "what": "no default lesson type shown as a reading",
+   "detail": "every lesson type was read (17 lessons)"
+  },
+  {
+   "id": "taught_words_cross_check",
+   "required": true,
+   "ok": true,
+   "secs": 0.0,
+   "what": "every Tutor new word of a lesson is in its taught words (or says why not); no off-lesson window hides Amal teaching",
+   "detail": "1 lesson type read(s) cover their Tutor new words; no off-lesson window has Amal teaching"
+  },
+  {
+   "id": "accuracy_gates",
+   "required": true,
+   "ok": true,
+   "secs": 1.1,
+   "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
+   "detail": "accuracy check: OK"
+  },
+  {
+   "id": "check_numbers",
+   "required": true,
+   "ok": true,
+   "secs": 1.2,
+   "what": "every number shown on every page is recomputed from raw and matches",
+   "detail": "numbers: OK 609 checks"
+  },
+  {
+   "id": "check_rules",
+   "required": true,
+   "ok": true,
+   "secs": 1.7,
+   "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
+   "detail": "...8 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
+  },
+  {
+   "id": "check_pages",
+   "required": true,
+   "ok": true,
+   "secs": 4.4,
+   "what": "page health: links, audio clips, no blank numbers (worker F)",
+   "detail": "pages OK: 62 pages, every link, data file and clip resolves (1150 references to unpublished clips play from the full lesson recording)"
+  },
+  {
+   "id": "arabizi_gaps",
+   "required": true,
+   "ok": true,
+   "secs": 0.2,
+   "what": "no Arabic-only word on the error cards (RULES.md S1)",
+   "detail": "arabizi gaps on error cards: 0 words, 0 uses"
+  },
+  {
+   "id": "tests_py",
+   "required": true,
+   "ok": true,
+   "secs": 47.5,
+   "what": "fast offline tests on the committed data (no network, no paid API)",
+   "detail": "............................. [ 91%] | .................................                                        [100%] | 389 passed, 1 skipped, 3 xfailed in 40.66s"
+  },
+  {
+   "id": "tests_node",
+   "required": true,
+   "ok": true,
+   "secs": 1.1,
+   "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 999.9536"
+  },
+  {
+   "id": "review_freshness",
+   "required": false,
+   "ok": false,
+   "secs": 0.2,
+   "what": "the two readers read the transcript the pages show now",
+   "detail": "2026-09-23: transcript changed after the readers read it (849 -> 1115 lines); 2026-09-26: transcript changed after the readers read it (1096 -> 1245 lines)"
+  },
+  {
+   "id": "data_freshness",
+   "required": false,
+   "ok": false,
+   "secs": 0.0,
+   "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
+   "detail": "Amal's answers last checked 49 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
+  }
+ ],
+ "warnings": [
+  "review_freshness: 2026-09-23: transcript changed after the readers read it (849 -> 1115 lines); 2026-09-26: transcript changed after the readers read it (1096 -> 1245 lines)",
+  "data_freshness: Amal's answers last checked 49 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
+ ],
+ "last_block": {
+  "at": "2026-10-02T16:02:23-07:00",
+  "source": "lesson_pipeline: Lesson 2099-01-01: report page + clips",
+  "outcome": "blocked",
+  "sha": null,
+  "reason": "lesson_coverage: 17 gap(s): 2026-08-25 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-04 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-05 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-10 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-11 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-14 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/) (+11 more); arabizi_gaps: output does not show /\\b0 words\\b/: ",
+  "secs": 1.5,
+  "commits_waiting": ""
+ },
+ "blocks_before_this_pass": 4,
+ "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
+}
