@@ -17,7 +17,7 @@ any other reader's `.r1.json` / `.r2.json` / `.r3.json`. Independence is the poi
 Walk every turn in order. For EVERY Amal turn that follows a Medi turn, ask: is she fixing something he said?
 For EVERY Medi turn with Arabic in it, ask: is there a wrong word / wrong form / English filler she let pass?
 
-**kind = vocab-A** - a VOCAB fix Amal said out loud (or typed in chat) - she supplied the word / form / told him it was wrong.
+**kind = vocab-A** - a VOCAB fix Amal said out loud - she supplied the word / form / told him it was wrong.
 **kind = vocab-B** - a vocab error he made that Amal LET PASS (no signal from her). Judge from context. These are NOT
 scored until Amal confirms; they go to her review page. Still write them - all of them.
 **kind = grammar** - a grammar fix Amal said out loud (recast, named the rule, explicit "no", finished his sentence,
@@ -44,7 +44,13 @@ Vocab error tiers (field `tier`, vocab kinds only):
 NOT errors (leave out, or note in `coverage_note` if it matters):
 - S4 pronunciation: a dropped ع/ط/ق, a root letter slip (بنسبت for بنبسط) - never vocab, never grammar.
 - S5 pauses, restarts, stutters, "umm".
-- His own self-fix before she helps (write it only if she THEN corrected the fixed version).
+- His own self-fix before she helps (write it only if she THEN corrected the fixed version) - grammar exactly like vocab
+  (GR-22, Medi 2026-10-02 "looks like I corrected myself": 09-14 02:42 he said بيخلص then خل-- خلاص in the same turn).
+- (GR-19, Medi 2026-10-02: "I think if she didnt correct me on voice dont factor it as a correction, she might just be
+  cleaning up what I said") Amal's typed chat line alone is not a correction - she may be cleaning up what he said; a slip
+  needs a voiced signal. Example 09-14 02:42: he said بيخلص, she said nothing about it, her chat line wrote "u 5allas
+  mit2a55er" - not a slip. The chat only gives context (what he meant, her spelling). When she voiced the fix AND typed it,
+  use the voiced signal (recast / prompt-then-fix ...).
 - Amal teaching a new word he never attempted, or answering "how do you say X?" - that is a **didn't-know**, not an error:
   write it as kind = vocab-A with `signal = "asked"` and `tier = 0`.  (Medi's rule A counts every fix she voiced; a
   didn't-know is still "Amal supplied the word", so it goes on his page, but its tier 0 keeps it apart.)
@@ -69,7 +75,7 @@ Medi line and the actual Amal line that prove it.
  "wrong": "the wrong piece", "right": "the right piece (her words; for B your best reading, marked in why)",
  "kind": "vocab-A|vocab-B|grammar|grammar-B", "tier": 0|1|2|3|null, "bucket": "A1..F3, PROPOSE, or null", "bucket2": null,
  "proposed_rule": "only when bucket is PROPOSE: the new rule in one line",
- "mode": "speaking|listening", "signal": "recast|named-rule|prompt-then-fix|explicit-no|finished-sentence|chat-fix|asked|none",
+ "mode": "speaking|listening", "signal": "recast|named-rule|prompt-then-fix|explicit-no|finished-sentence|asked|none",
  "confidence": "high|medium|low", "why": "one sentence: what is wrong and how you know (quote the sheet row for tier 3)",
  "english": "what he meant, in English"}
 ```

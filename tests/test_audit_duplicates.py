@@ -153,3 +153,30 @@ def test_gr_21_every_confirmed_row_on_master_is_counted():
     have = {x["uid"] for x in A["sweep_compat"]["rows"] + A["sweep_compat"]["vocab"]}
     lost = [r["uid"] for r in A["rows"] if r["kind"] in ("grammar", "vocab-A") and r["uid"] not in have and not r.get("compat_same_moment_as")]
     assert not lost, lost
+
+
+# ---------------------------------------------------------------- GR-19: a fix she only typed in the chat is not a slip
+def test_gr_19_a_typed_only_fix_is_not_a_slip_but_a_voiced_and_typed_one_is():
+    """GR-19 (Medi 2026-10-02 "I think if she didnt correct me on voice dont factor it as a correction, she might just be
+    cleaning up what I said"). Planted: 09-14 02:42 بيخلص with only her chat line (u 5allas mit2a55er) -> rejected, kept
+    with the reason; 09-21 22:28 أستانك that she ALSO said aloud (استناك) -> re-signalled recast, still counted."""
+    rows = [{"date": "2026-09-14", "t": "02:42", "kind": "grammar", "signal": "chat-fix", "wrong": "بيخلص", "right": "خلّص",
+             "amal_said": "", "chat": "u 5allas mit2a55er"},
+            {"date": "2026-09-21", "t": "22:28", "kind": "grammar", "signal": "chat-fix", "wrong": "أستانك", "right": "أستناكي",
+             "amal_said": "استناك.", "chat": "shukran ana ra7 astannaaki"},
+            {"date": "2026-09-21", "t": "11:46", "kind": "vocab-A", "signal": "chat-fix", "wrong": "شغل", "right": "shoab"},
+            {"date": "2026-09-21", "t": "30:00", "kind": "grammar", "signal": "recast", "wrong": "x", "right": "y"}]
+    voiced = [{"date": "2026-09-21", "t": "22:28", "wrong": "أستانك", "kind": "grammar", "signal": "recast", "why": "she said استناك", "rule": "GR-19"}]
+    assert FB.apply_chat_rule(rows, voiced) == (1, 2)
+    assert [r["kind"] for r in rows] == ["rejected", "grammar", "rejected", "grammar"]
+    assert rows[0]["rejected_rule"] == "GR-19" and "cleaning up" in rows[0]["rejected_why"]
+    assert rows[1]["signal"] == "recast" and rows[1]["signal_before"] == "chat-fix"
+
+
+def test_gr_19_no_scored_row_on_master_rests_on_the_chat_alone():
+    """GR-19 on the committed data: nothing the pages count carries signal chat-fix, and the reader brief no longer offers it."""
+    A = json.loads((ROOT / "data" / "full-audit-2026-09-26.json").read_text(encoding="utf-8"))
+    scored = [x["uid"] for x in A["sweep_compat"]["rows"] + A["sweep_compat"]["vocab"] if x.get("signal") == "chat-fix"]
+    assert not scored, scored
+    brief = (ROOT / "data" / "lesson-work" / "full-audit" / "READER-BRIEF.md").read_text(encoding="utf-8")
+    assert "chat-fix" not in brief and "(or typed in chat)" not in brief

@@ -1,0 +1,45 @@
+{
+ "note": "GR-19 (Medi 2026-10-02): a fix Amal only typed in the chat is not a correction. These rows carried signal chat-fix but she ALSO voiced the fix, so they keep counting with her voiced signal. Matched by date + moment + wrong piece (+ kind) in full_audit_build.apply_chat_rule. Never delete a row.",
+ "rows": [
+  {
+   "date": "2026-09-16",
+   "t": "48:52",
+   "wrong": "ili amalti",
+   "kind": "grammar",
+   "uid_at_time": "FA-311451ee",
+   "signal": "recast",
+   "why": "GR-19 check 2026-10-02: she ALSO voiced the fix - 48:55 Amal said عملت aloud (his ili amalti -> illi 3meltih), then typed it",
+   "rule": "GR-19"
+  },
+  {
+   "date": "2026-09-19",
+   "t": "07:26",
+   "wrong": "تنين وتلات",
+   "kind": "grammar",
+   "uid_at_time": "FA-2c926c84",
+   "signal": "recast",
+   "why": "GR-19 check 2026-10-02: she ALSO voiced the fix - 07:38 Amal said the year aloud (engine: سنتين وته = tentan u tult) before typing tentan u tult",
+   "rule": "GR-19"
+  },
+  {
+   "date": "2026-09-21",
+   "t": "22:28",
+   "wrong": "أستانك",
+   "kind": "grammar",
+   "uid_at_time": "FA-10ca1179",
+   "signal": "recast",
+   "why": "GR-19 check 2026-10-02: she ALSO voiced the fix - 22:34 Amal said استناك aloud right after his أستانك",
+   "rule": "GR-19"
+  },
+  {
+   "date": "2026-09-21",
+   "t": "52:31",
+   "wrong": "ma'rufin al tahet",
+   "kind": "grammar",
+   "uid_at_time": "FA-bac200ef",
+   "signal": "prompt-then-fix",
+   "why": "GR-19 check 2026-10-02: she ALSO voiced the fix - 52:41 Amal voiced بي-- to prompt ma3roofeen bi- (bel-ruz), then typed it",
+   "rule": "GR-19"
+  }
+ ]
+}

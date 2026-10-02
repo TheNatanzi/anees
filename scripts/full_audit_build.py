@@ -149,6 +149,35 @@ def mark_duplicates(rows, hand=()):
     return rows
 
 
+SIGNAL_P = os.path.join(WORK, "signal-rulings.json")
+CHAT_ONLY_WHY = ("GR-19 (Medi 2026-10-02): typed in the Meet chat only, never voiced - 'if she didnt correct me on voice dont "
+                 "factor it as a correction, she might just be cleaning up what I said'")
+
+
+def apply_chat_rule(rows, signal_rulings=()):
+    """GR-19: a fix Amal only TYPED in the chat is not a correction. First the hand re-signals (signal-rulings.json: she
+    ALSO voiced the fix, so the row keeps counting with her voiced signal), then every scored row still carrying signal
+    'chat-fix' is rejected (kept in the file with the reason, never counted). Returns (resignalled, rejected)."""
+    re_n = 0
+    for x in signal_rulings:
+        for r in rows:
+            if r["date"] == x["date"] and same_moment(r, x) and same_piece(r.get("wrong"), x.get("wrong")) and r.get("signal") == "chat-fix"                     and (not x.get("kind") or kind_class(x["kind"]) == kind_class(r["kind"])):
+                r["signal_before"] = r["signal"]
+                r["signal"] = x["signal"]
+                r["signal_why"] = x["why"]
+                re_n += 1
+                break
+    rej = 0
+    for r in rows:
+        if r.get("signal") == "chat-fix" and r["kind"] in ("grammar", "vocab-A", "grammar-B", "vocab-B"):
+            r["kind_before_rejection"] = r["kind"]
+            r["kind"] = "rejected"
+            r["rejected_why"] = CHAT_ONLY_WHY
+            r["rejected_rule"] = "GR-19"
+            rej += 1
+    return re_n, rej
+
+
 PROPOSE = "PROPOSE"
 PROPOSALS_OUT = os.path.join(REPO, "docs", "data", "grammar-proposals.json")
 
@@ -325,11 +354,14 @@ def build():
     if os.path.exists(rej_p):
         for x in json.load(open(rej_p, encoding="utf-8"))["rows"]:
             for r in rows:
-                if r["date"] == x["date"] and same_moment(r, x) and same_piece(r.get("wrong"), x.get("wrong")) and r["kind"] != "rejected":
+                if r["date"] == x["date"] and same_moment(r, x) and same_piece(r.get("wrong"), x.get("wrong")) and r["kind"] != "rejected"                         and (not x.get("kind") or kind_class(x["kind"]) == kind_class(r["kind"])):
                     r["kind_before_rejection"] = r["kind"]
                     r["kind"] = "rejected"
                     r["rejected_why"] = x["why"]
+                    if x.get("rule"):
+                        r["rejected_rule"] = x["rule"]
                     break
+    apply_chat_rule(rows, json.load(open(SIGNAL_P, encoding="utf-8"))["rows"] if os.path.exists(SIGNAL_P) else [])
     # per-row bucket names + a stable order
     for r in rows:
         if r.get("bucket") in buckets:
@@ -390,7 +422,7 @@ def build():
                     "totals": {"speaking_grammar": totals["grammar_A"], "vocab": totals["vocab_A"], "machine_caught_speaking": totals["machine_had"]}}
     out = {"built": dt.datetime.now().astimezone().isoformat(timespec="seconds"),
            "method": __doc__.strip(), "sweep_compat": sweep_compat,
-           "decisions": "A counts (every fix Amal voiced or typed); B (she let it pass) is unscored until she rules on Amal's review page; "
+           "decisions": "A counts (every fix Amal voiced; a chat-only fix never counts - GR-19, Medi 2026-10-02); B (she let it pass) is unscored until she rules on Amal's review page; "
                         "tiers 1-3 vocab, tier 0 = she supplied a word he asked for; grammar filed by bucket; listening rows kept apart.",
            "lessons_missing": missing, "totals": totals, "by_bucket": dict(by_bucket.most_common()), "by_lesson": by_lesson,
            "per_lesson": per_lesson, "sweep_rows_readers_missed": sweep_missed_by_readers, "proposals": proposals, "rows": rows}
@@ -415,7 +447,7 @@ def write_md(out, buckets):
     T = out["totals"]
     L = [f"# Full vocab + grammar audit - {out['built'][:10]}", "",
          "Two independent readers per lesson, a third settles disagreements, reconciled with the 2026-09-24 hand sweep. "
-         "A = Amal fixed it out loud or in chat (scored). B = she let it pass (unscored until she rules on her review page). "
+         "A = Amal fixed it out loud (scored; a fix she only typed in the chat is not a correction - GR-19). B = she let it pass (unscored until she rules on her review page). "
          "Tier 0 = she supplied a word he asked for. Nothing the sweep verified was dropped.", "",
          "## Totals", "", "| | count |", "|---|---|",
          f"| Grammar fixes Amal voiced (A) | **{T['grammar_A']}** (sweep had {T['sweep_before']['grammar']}) |",

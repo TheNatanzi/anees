@@ -2386,10 +2386,15 @@
    "id": "GR-19",
    "kind": "error",
    "scope": "grammar-scoring",
-   "status": "needs-medi",
+   "status": "enforced",
    "change": "new",
-   "statement": "A fix Amal only TYPED in the Meet chat: today the reader brief scores it (signal chat-fix), but Medi said chat only gives context.",
+   "statement": "A fix Amal only TYPED in the Meet chat is not a correction (she may be cleaning up what he said): a slip needs a voiced signal; when she voiced it and typed it, the voiced signal counts. The chat only gives context.",
    "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "I think if she didnt correct me on voice dont factor it as a correction, she might just be cleaning up what I said"
+    },
     {
      "by": "medi",
      "date": "2026-09-23",
@@ -2399,28 +2404,52 @@
     {
      "by": "claude",
      "date": "2026-09-26",
-     "quote": "READER-BRIEF: '(or typed in chat)' + signal chat-fix"
+     "quote": "READER-BRIEF: '(or typed in chat)' + signal chat-fix (removed 2026-10-02)"
     }
    ],
    "enforcement": [
     {
+     "type": "code",
+     "path": "scripts/full_audit_build.py",
+     "contains": "def apply_chat_rule(rows, signal_rulings=()):"
+    },
+    {
      "type": "brief",
      "path": "data/lesson-work/full-audit/READER-BRIEF.md",
-     "contains": "(or typed in chat)"
+     "contains": "Amal's typed chat line alone is not a correction"
     }
    ],
-   "test": [],
+   "test": [
+    {
+     "path": "tests/test_audit_duplicates.py",
+     "contains": "def test_gr_19_a_typed_only_fix_is_not_a_slip_but_a_voiced_and_typed_one_is"
+    },
+    {
+     "path": "tests/test_audit_duplicates.py",
+     "contains": "def test_gr_19_no_scored_row_on_master_rests_on_the_chat_alone"
+    }
+   ],
    "aliases": [
     "report:M6",
     "report:C4"
    ],
-   "question": {
-    "ask": "A fix Amal only TYPED in chat (never said) - count it as a slip, or context only?",
-    "options": [
-     "count",
-     "context"
-    ]
-   }
+   "example": {
+    "date": "2026-09-14",
+    "t": "02:42",
+    "note": "he said بيخلص; Amal only typed 'u 5allas mit2a55er' at 03:41 - not a slip (Medi: 'looks like I corrected myself')"
+   },
+   "moments": [
+    {
+     "type": "data",
+     "path": "data/lesson-work/full-audit/rejected.json",
+     "contains": "\"uid_at_time\": \"FA-6bffd145\""
+    },
+    {
+     "type": "data",
+     "path": "data/lesson-work/full-audit/signal-rulings.json",
+     "contains": "\"uid_at_time\": \"FA-10ca1179\""
+    }
+   ]
   },
   {
    "id": "GR-20",
@@ -2497,6 +2526,34 @@
    "example": {
     "date": "2026-09-10",
     "note": "11 grammar rows Amal confirmed (signal amal-ruling) were never in sweep_compat, so 09-10 showed 88.7% instead of the confirmed slips"
+   }
+  },
+  {
+   "id": "GR-22",
+   "kind": "not-error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A grammar slip he fixes himself in the same turn, before Amal helps, is not a slip (same as vocab); it counts only if she then corrects the fixed version.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "looks like I corrected myself"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "grammar exactly like vocab"
+    }
+   ],
+   "test": [],
+   "example": {
+    "date": "2026-09-14",
+    "t": "02:42",
+    "note": "يـ-بيخلص، I don't know، خل-- خلاص: he fixed it himself in the same turn"
    }
   },
   {
