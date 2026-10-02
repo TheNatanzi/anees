@@ -114,3 +114,28 @@ def test_AM_11_the_hourly_job_reviews_every_new_lesson_and_the_review_runs_the_s
     main_src = src[src.index("def main():"):]
     assert "new_words_step(d, a.dry_run, failures)" in main_src
     assert main_src.index("new_words_step(") < main_src.index('"build_tutor_data.py"')
+
+
+# WS-19 (Medi 2026-10-02: "the glue words should be added to the doc, bring to her attention" + "the glue words are likely
+# going to be old words she forgot to add"): every glue word not on her Doc is a card on her New words task with the hint,
+# nothing pre-selected, and Anees marks it old (by Medi) so it never counts as NEW on Flashcards once she adds it.
+def test_WS_19_glue_words_not_on_her_doc_go_on_her_card_marked_old_by_medi():
+    import glue_words as G, word_marks as WM, check_rules as CR
+    assert set(G.GLUE_WORDS) == CR.GLUE
+    doc = {"items": [{"key": "bas", "arabizi": "Bas", "arabic": "بس"}, {"key": "la", "arabizi": "la", "arabic": "لَ"},
+                     {"key": "mAshi", "arabizi": "Maashi", "arabic": "ماشي"}]}
+    missing = {k for k, _, _ in G.not_on_doc(doc)}
+    assert "bas" not in missing and "mashi" not in missing                   # on her Doc (by meaning: Maashi)
+    assert {"la", "tamam", "tayeb", "shu"} <= missing                        # لا 'no' is not her لَ 'for/to'
+    marks = WM.load()
+    out = N.build([], taps={}, today="x", marks=marks, doc=doc, glue=True)
+    cards = {i["key"]: i for i in out["items"] if i.get("source") == "glue"}
+    assert set(cards) == {"glue:" + k for k in missing}
+    t = cards["glue:tamam"]
+    assert t["status"] == "open" and t["tap"] is None and t["hint"] == G.HINT and t["arabizi"] is None
+    # every glue word missing from her REAL Doc today carries Medi's old mark in data/word-marks.json
+    real_missing = {k for k, _, _ in G.not_on_doc()}
+    marked = {m.get("glue") for m in marks["marks"] if m.get("mark") == "old" and m.get("by") == "medi"}
+    assert real_missing <= marked
+    ages = WM.resolved_ages(marks, {"items": []})
+    assert WM.old_doc_words([{"key": "tamAm", "arabizi": "Tamaam", "arabic": "تمام"}], ages)    # old when it reaches her Doc

@@ -37,6 +37,7 @@ LESSONS = os.path.join(REPO, "docs", "data", "lessons")
 WORK = os.path.join(REPO, "data", "lesson-work", "amal-new-words")
 VERDICTS = os.path.join(REPO, "data", "lesson-work", "amal-new-words-verdicts.json")
 OUT = os.path.join(REPO, "docs", "data", "amal-new-words.json")
+GLUE_DATE = "2026-10-02"     # the day Medi asked for the glue words (WS-19); their cards carry this date
 START = "2026-10-01"           # Medi 2026-10-02: from today's lesson on (older lessons were never asked)
 KINDS = {"newword_add": "add", "newword_add_new": "add", "newword_add_old": "add", "newword_later": "later", "newword_forget": "forget"}
 # newword_add (before 2026-10-02) = add, age not said; newword_add_new / newword_add_old = AM-16 (Medi 2026-10-02: "We need a
@@ -234,7 +235,7 @@ def load_taps():
     return out
 
 
-def build(verdicts=None, taps=None, previous=None, lesson_audio=None, today=None, marks=None, doc=None):
+def build(verdicts=None, taps=None, previous=None, lesson_audio=None, today=None, marks=None, doc=None, glue=False):
     """Pure: verdict rows + taps -> the page data. `previous` = the last built file (statuses kept when taps is None).
     `marks` = data/word-marks.json (Medi's old/new marks, AM-16), `doc` = docs/data/words.json (her Doc: a promised word
     moves Waiting -> In the Doc when it appears there)."""
@@ -280,7 +281,23 @@ def build(verdicts=None, taps=None, previous=None, lesson_audio=None, today=None
         it["tap"] = k[0] if k and k[0] in KINDS else None
         mk = word_marks.mark_for(it, M)                    # AM-16: Medi's mark is a hint on her card, never pre-selected
         it["medi_mark"] = mk.get("mark") if mk else None
-        it["hint"] = word_marks.HINT_OLD if it["medi_mark"] == "old" else None
+        it["hint"] = (mk.get("hint") or word_marks.HINT_OLD) if it["medi_mark"] == "old" else None
+        it["age"], it["age_by"] = word_marks.resolve(it["medi_mark"], it["tap"])
+        items.append(it)
+    # WS-19 (Medi 2026-10-02: "the glue words should be added to the doc, bring to her attention"): every glue word not on
+    # her Doc is one card here too, with Medi's old-word hint; nothing pre-selected, her tap decides (same choices).
+    import glue_words
+    for gk, gar, gen in (glue_words.not_on_doc(W) if glue else []):
+        iid = item_id(GLUE_DATE, "glue:" + gk)
+        it = {"id": iid, "date": GLUE_DATE, "key": "glue:" + gk, "arabic": gar, "arabizi": None, "english": gen, "t": None,
+              "mmss": None, "line": None, "typed": False, "source": "glue", "reason": "glue word Medi uses a lot; not on the Doc",
+              "clip": None}
+        k = taps.get(iid) if taps is not None else ((lambda p: (p.get("tap"), p.get("answered_at")) if p.get("status") not in (None, "open") else None)(prev.get(iid) or {}))
+        it["status"], it["answered_at"] = (KINDS[k[0]], k[1]) if k and k[0] in KINDS else ("open", None)
+        it["tap"] = k[0] if k and k[0] in KINDS else None
+        mk = word_marks.mark_for(it, M)
+        it["medi_mark"] = mk.get("mark") if mk else None
+        it["hint"] = (mk.get("hint") or word_marks.HINT_OLD) if mk and mk.get("mark") == "old" else glue_words.HINT
         it["age"], it["age_by"] = word_marks.resolve(it["medi_mark"], it["tap"])
         items.append(it)
     items.sort(key=lambda x: (x["date"], x["t"] or 0), reverse=False)
@@ -358,7 +375,7 @@ def main():
     taps = None if a.offline else load_taps()
     if taps is None and os.environ.get("ANEES_STRICT") == "1" and not a.offline:
         print("FAILED: Amal's taps could not be read (ANEES_STRICT)"); return 1
-    out = build(V, taps, prev)
+    out = build(V, taps, prev, glue=True)
     out["unjudged"] = unjudged(V)
     json.dump(out, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print("amal-new-words", out["counts"], "excluded", out["excluded"], "unjudged", out["unjudged"])

@@ -102,7 +102,7 @@ def test_report_checks_count_without_failing(tmp_path):
     wordbank(tmp_path, [ev("a", "wa7ad", 100, "Correct"), ev("b", "wa7ad", 105, "Correct", "same episode, count once"),
                         ev("c", "shu", 200, "Correct"), ev("d", "akId", 300, "Partial", "Same vocabulary supplied by Amal within 15 seconds; x")],
              [{"id": x, "speaker": "Medi", "grammar_only": x == "a"} for x in "abcd"])
-    for fn, n in ((cr.check_s4_pronunciation, 1), (cr.check_one_episode, 1), (cr.check_glue, 1), (cr.check_15s_clue, 1),
+    for fn, n in ((cr.check_s4_pronunciation, 1), (cr.check_one_episode, 1), (cr.check_15s_clue, 1),
                   (cr.check_grammar_only, 1)):
         r = fn(tmp_path, None)
         assert (r["status"], r["level"], r["count"]) == ("open", "report", n), (fn.__name__, r)
@@ -228,3 +228,15 @@ def test_cli_first_line_is_the_reason(tmp_path, capsys):
     rc = cr.main(["--root", str(tmp_path), "--raw", str(tmp_path / "raw"), "--only", "RULES-json-sync"])
     first = capsys.readouterr().out.splitlines()[0]
     assert rc == 1 and first.startswith("check_rules: FAIL RULES-json-sync: 1 violation(s) - S1")
+
+
+# ---------------------------------------------------------------- WS-19 glue words (Medi 2026-10-02, amends ai_rules M3)
+def test_WS_19_a_glue_word_is_graded_only_once_it_is_on_amals_doc(tmp_path):
+    w(tmp_path / "docs" / "data" / "words.json", {"items": [{"key": "bas", "arabizi": "Bas", "arabic": "بس", "aliases": []}]})
+    wordbank(tmp_path, [ev("a", "bas", 100, "Correct"), ev("b", "tamam", 200, "Correct"), ev("c", "tamam", 300, "Unresolved")],
+             [{"id": x, "speaker": "Medi"} for x in "abc"])
+    r = cr.check_glue(tmp_path, None)
+    assert (r["id"], r["level"], r["status"], r["count"]) == ("WS19-glue", "block", "fail", 1)     # planted: tamam graded, not on her Doc
+    assert "tamam" in r["examples"][0]
+    wordbank(tmp_path, [ev("a", "bas", 100, "Correct"), ev("c", "tamam", 300, "Unresolved")], [{"id": x, "speaker": "Medi"} for x in "ac"])
+    assert cr.check_glue(tmp_path, None)["status"] == "pass"                                     # bas on her Doc keeps counting

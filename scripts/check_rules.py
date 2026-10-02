@@ -283,11 +283,19 @@ def check_15s_clue(root, raw):
 
 
 def check_glue(root, raw):
-    """ai_rules M3: glue words are never graded. REPORT: the Word Bank grades them - conflict for Medi."""
-    bad = [f"{e.get('date')} {mmss(e.get('time'))} {e.get('word')}: {e.get('status')}"
-           for e in wb_audit(root) if e.get("status") in SCORED and (e.get("word") or "").lower() in GLUE]
-    return res("M3-glue", "report", "Glue words (shu, bas, u, aw, iza, lama ...) are never graded", "ai_rules M3 (2026-09-05)",
-               bad, note="open: conflicts with the Word Bank (09-21) scoring them; Medi decides")
+    """WS-19 (Medi 2026-10-02: "the glue words should be added to the doc, bring to her attention"; amends ai_rules M3
+    "never graded"): a glue word is graded only once it is on Amal's Doc. BLOCK: a graded Word Bank use of a glue word
+    that is not on her Doc (docs/data/words.json keys / Arabizi / aliases). Glue words on her Doc keep being graded."""
+    import glue_words
+    p = root / "docs" / "data" / "words.json"
+    keys = glue_words.doc_keys(J(p)) if p.exists() else set()
+    graded = [e for e in wb_audit(root) if e.get("status") in SCORED and (e.get("word") or "").lower() in GLUE]
+    bad = [f"{e.get('date')} {mmss(e.get('time'))} {e.get('word')}: {e.get('status')} but not on Amal's Doc"
+           for e in graded if (e.get("word") or "").lower() not in keys]
+    return res("WS19-glue", "block", "A glue word (shu, bas, tamam ...) is graded only once it is on Amal's Doc",
+               "WS-19, Medi 2026-10-02 (amends ai_rules M3)", bad,
+               note=f"{len(graded) - len(bad)} graded uses of glue words that are on her Doc keep counting; glue words not on her "
+                    f"Doc go on her Tutor hub New words card (scripts/glue_words.py)")
 
 
 def check_new_signal(root, raw):

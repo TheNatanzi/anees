@@ -67,7 +67,7 @@
       const big = it.arabizi ? `<div class="hb-big">${esc(it.arabizi)}</div>${it.arabic ? `<div class="hb-ar" lang="ar">${esc(it.arabic)}</div>` : ''}`
                              : `<div class="hb-big hb-ar" lang="ar" style="color:var(--ab-text);font-size:24px">${esc(it.arabic)}</div>`;
       return `<div class="hb-moment" data-nw="${esc(it.id)}">
-        <p class="hb-prog">${esc(pretty(it.date))} lesson · ${esc(it.mmss || '')}</p>${big}
+        <p class="hb-prog">${it.source === 'glue' ? 'Small linking word Medi uses a lot (WS-19)' : `${esc(pretty(it.date))} lesson · ${esc(it.mmss || '')}`}</p>${big}
         ${it.english ? `<div class="hb-en">${esc(it.english)}</div>` : ''}
         ${it.hint ? `<div class="hb-why" data-hint="old"><b>Note from Medi:</b> ${esc(it.hint)}</div>` : ''}
         ${it.line ? `<div class="hb-why">You ${it.typed ? 'typed' : 'said'}: <span lang="${it.typed ? 'en' : 'ar'}">${esc(it.line)}</span></div>` : ''}

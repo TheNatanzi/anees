@@ -1479,41 +1479,73 @@
    "id": "WS-19",
    "kind": "error",
    "scope": "word-scoring",
-   "status": "needs-medi",
-   "change": "new",
-   "statement": "Glue words (shu, bas, ya3ni, tamam...) in the Word Bank: ai_rules M3 says never graded, but 168 glue uses are scored today.",
+   "status": "enforced",
+   "change": "amend",
+   "statement": "Glue words (shu, bas, ya3ni, tamam ...) are graded only once they are on Amal's Doc; every glue word not on her Doc goes on her Tutor hub New words card (nothing pre-selected, hint: probably an old word she forgot to add) and is marked old by Medi on Anees' side, so it never counts as NEW on Flashcards when she adds it.",
    "source": [
     {
      "by": "claude",
      "date": "2026-09-29",
      "quote": "put to Medi, no answer"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "the glue words should be added to the doc, bring to her attention",
+     "session": "65d34512"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "the glue words are likely going to be old words she forgot to add",
+     "session": "65d34512"
     }
    ],
    "enforcement": [
     {
-     "type": "doc",
-     "path": "docs/data/ai_rules.json",
-     "contains": "Glue words (shu, bas, ya3ni, tamam …) are nev"
-    },
-    {
      "type": "check",
      "path": "scripts/check_rules.py",
-     "contains": "res(\"M3-glue\", \"report\""
+     "contains": "res(\"WS19-glue\", \"block\""
+    },
+    {
+     "type": "code",
+     "path": "scripts/glue_words.py",
+     "contains": "def not_on_doc(doc=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/amal_new_words.py",
+     "contains": "for gk, gar, gen in (glue_words.not_on_doc(W) if glue else []):"
+    },
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "are graded only once they are on Amal's Doc"
     }
    ],
-   "test": [],
+   "test": [
+    {
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"WS19-glue\", \"block\""
+    },
+    {
+     "path": "tests/test_rules_check.py",
+     "contains": "def test_WS_19_a_glue_word_is_graded_only_once_it_is_on_amals_doc"
+    },
+    {
+     "path": "tests/test_amal_word_lists.py",
+     "contains": "def test_WS_19_glue_words_not_on_her_doc_go_on_her_card_marked_old_by_medi"
+    }
+   ],
    "aliases": [
     "ai_rules:M3",
     "report:M7",
     "report:C10"
    ],
-   "question": {
-    "ask": "Glue words (shu, bas, ya3ni...) in the Word Bank - score them, or never grade them?",
-    "options": [
-     "score",
-     "never"
-    ]
-   }
+   "supersedes": [
+    "WS-27"
+   ],
+   "note": "2026-10-02: 171 graded glue uses today, all of words on her Doc (bas, u, aw, shu, lama, em, iza, sa7, ya3ni, ai, 5alas) - 0 stop counting. 6 glue words not on her Doc go on her card: ah, aha, tayeb, tamam, ma, la (mashi = her Maashi, wala = her Wla). Watch: the graded 'em' uses are keyed to her em = mother (أم)."
   },
   {
    "id": "WS-20",
@@ -4449,6 +4481,28 @@
     "report:task4-old-new-2026-10-02"
    ],
    "note": "Taps reuse amal_rules (source review, word_key newword:*), new kinds newword_add_new / newword_add_old - no schema change. Flashcards: the import sets first_seen to the NEW_SINCE day for an OLD word (recorded in data/word-marks.json doc_events). 2026-10-02: Amal had already tapped plain Add on ممتاز (before the OLD choice existed) -> Waiting, old by Medi's mark."
+  },
+  {
+   "id": "WS-27",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "superseded",
+   "change": "new",
+   "statement": "Glue words (shu, bas, ya3ni, tamam ...) are never graded (ai_rules M3 as written 2026-09-05).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "Glue words (shu, bas, ya3ni, tamam …) are never graded."
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:M3-glue-0905"
+   ],
+   "superseded_by": "WS-19",
+   "note": "the ai_rules M3 wording before Medi's 2026-10-02 amendment; kept as history (nothing is deleted)"
   }
  ]
 }

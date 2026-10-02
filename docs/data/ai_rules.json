@@ -100,10 +100,10 @@
     },
     {
      "id": "M3",
-     "rule": "Glue words (shu, bas, ya3ni, tamam …) are never graded.",
-     "why": "They are conversation moves, not vocabulary.",
-     "where": "understand_lesson.GLUE_KEYS · Audit 2026-09-29: the Word Bank (docs/js/word-bank-core.js, speaking_evidence.py) does NOT use GLUE_KEYS: 158 glue-word uses are scored (153 Correct, 5 Partial). Conflict with the Word Bank rules of 2026-09-21, put to Medi; scripts/check_rules.py M3-glue counts it every run.",
-     "status": "partly"
+     "rule": "Glue words (shu, bas, ya3ni, tamam ...) are graded only once they are on Amal's Doc; the ones not on her Doc go on her Tutor hub New words card, marked old by Medi (amended by Medi 2026-10-02; until then: never graded).",
+     "why": "Medi 2026-10-02: \"the glue words should be added to the doc, bring to her attention\" + \"the glue words are likely going to be old words she forgot to add\". The Doc is the word truth (N2).",
+     "where": "scripts/glue_words.py (list + 'on her Doc' by meaning) · scripts/check_rules.py WS19-glue (BLOCK: a graded glue word not on her Doc) · scripts/amal_new_words.py (her cards) · data/word-marks.json (old marks) · registry WS-19 (amend; WS-27 = the 09-05 'never graded' text, superseded).",
+     "status": "enforced"
     },
     {
      "id": "M4",
