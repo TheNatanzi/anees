@@ -91,6 +91,19 @@ def mmss(t):
 SCORED = ("grammar", "vocab-A")
 
 
+def clip_for(date, clip, t):
+    """A recording that is on the site: the short clip, else the moment in the full lesson (each channel), else None
+    (check_pages: no dead play button)."""
+    if clip and os.path.exists(os.path.join(DOCS, "lessons", clip)):
+        return "lessons/" + clip
+    if t is None:
+        return None
+    for n in ("lesson.mp3", "Medi.mp3", "Amal.mp3"):
+        if os.path.exists(os.path.join(DOCS, "lessons", str(date), "audio", n)):
+            return f"lessons/{date}/audio/{n}#t={max(0, int(float(t)) - 3)},{int(float(t)) + 12}"
+    return None
+
+
 def effect_after(label, row):
     """What her answer changed (PG-18 'the result'): the audit row's state now when the row is known, else what the tap does."""
     k = (row or {}).get("kind")
@@ -122,7 +135,7 @@ def link_detail(r, dates):
             row = rows.get(q.get("audit_uid")) or {}
             t = q.get("t")
             asked.append({"ask": q.get("ask"), "word": q.get("arabizi") or q.get("arabic"), "arabic": q.get("arabic"), "english": q.get("english"),
-                          "t": mmss(t), "clip": ("lessons/" + q["clip"]) if q.get("clip") else (f"lessons/{r.get('lesson_date')}/audio/lesson.mp3#t={max(0, int(t) - 3)},{int(t) + 12}" if t is not None else None),
+                          "t": mmss(t), "clip": clip_for(r.get("lesson_date"), q.get("clip"), t),
                           "medi": row.get("medi_said"), "amal": row.get("amal_said"),
                           "answer": ans, "at": (when(q.get("audit_uid") or q.get("word_key")) or (a.get("updated") or r.get("done_at") or "")[:10] or None) if ans else None,
                           "result": effect_after(ans, row) if ans else ((a.get("not_asked") or {}).get(str(i)) or None),
