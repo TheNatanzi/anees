@@ -1,0 +1,4056 @@
+{
+ "about": "The rule registry (RULES.md S6, Medi 2026-10-02): every correction Medi or Amal made, one entry each. RULES.md stays the human top layer; this file points at where each rule is applied. Check: python scripts/rule_registry.py check. Read before building: python scripts/rule_registry.py show <scope>. Design: C:/Claude/reports/anees-universal-rules-design-2026-10-02.md. Never delete an entry: mark it superseded.",
+ "scopes": {
+  "TR": "transcription",
+  "AZ": "arabizi",
+  "WS": "word-scoring",
+  "GR": "grammar-scoring",
+  "LS": "lessons",
+  "AM": "amal-data",
+  "PG": "pages",
+  "AU": "audio",
+  "FC": "flashcards",
+  "PR": "process"
+ },
+ "statuses": {
+  "enforced": "code + a guard-run test, or the readers' brief + a real example moment",
+  "written": "written where the next agent reads it; no automatic check yet",
+  "moment-only": "only the one moment was fixed; next_step says what would enforce it",
+  "needs-medi": "Medi's call; question has the one-word options",
+  "superseded": "overturned; kept forever"
+ },
+ "moment_baseline": {
+  "data/lesson-work/full-audit/rejected.json": [
+   "0e1d1da95a3c93c2",
+   "1fb3222fcc070e9a",
+   "32d47c8fa6619f62",
+   "b1473b63e7e5c3fc",
+   "bef2c79079a6bae1",
+   "e27974a88643831c"
+  ],
+  "data/lesson-work/full-audit/duplicates.json": [
+   "4fe95d357262009c",
+   "648334cb699658fa",
+   "7c1285a202b3b4e1",
+   "bcb4ab94890134f6",
+   "cbcea1e09b43f32a",
+   "d2020a0eded991d4",
+   "f9127d0bb20336d3"
+  ],
+  "data/grammar-usage-rulings.json": [
+   "15dbcb9238301401",
+   "182b5afd06245ecc",
+   "1f0081997b8f519f",
+   "654928e728c7fc7d",
+   "867489e3df94b1c3",
+   "90b6384c3aa35333",
+   "94740bf84e973e38",
+   "a3ffe2d68244940d"
+  ]
+ },
+ "rules": [
+  {
+   "id": "TR-01",
+   "kind": "data",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Raw transcripts are never edited; the engine's output is written once and corrections live in an overlay.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-04",
+     "quote": "its automatically fixing my errors",
+     "session": "b4922477"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "RULES.md",
+     "contains": "## S2 — Raw transcripts are never edited"
+    },
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "The engine's raw output is written once and n"
+    },
+    {
+     "type": "check",
+     "path": "scripts/check_rules.py",
+     "contains": "def check_s2_raw(root, raw):"
+    }
+   ],
+   "test": [
+    {
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"S2-raw\", \"block\""
+    },
+    {
+     "path": "tests/test_invariants.py",
+     "contains": "def test_pipeline_never_retranscribes_an_existing_scribe_json"
+    }
+   ],
+   "aliases": [
+    "RULES:S2",
+    "ai_rules:E1"
+   ]
+  },
+  {
+   "id": "TR-02",
+   "kind": "not-error",
+   "scope": "transcription",
+   "status": "written",
+   "change": "new",
+   "statement": "Keep Medi's wrong forms, false starts and stumbles verbatim; never auto-correct them, never replace an unknown form with the nearest Doc word.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-04",
+     "quote": "its automatically fixing my errors",
+     "session": "b4922477"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "An unknown form stays unknown and flagged; it"
+    },
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Keep the stumble: false starts, repeats, 'nit"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:E4",
+    "ai_rules:M4",
+    "report:cov-01"
+   ],
+   "note": "ai_rules E4/M4 are 'partly' (golden clips planned)"
+  },
+  {
+   "id": "TR-03",
+   "kind": "process",
+   "scope": "transcription",
+   "status": "written",
+   "change": "new",
+   "statement": "No vocabulary list in the recognizer's ear on the primary pass (names only).",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-05",
+     "quote": "A prompted engine inserted Buset, Ya3ni and a whole chat sentence that nobody said (audit)"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/pipeline_ext.py",
+     "contains": "KEYTERMS = {'amal': 'all', 'medi': 'places', 'mixed': 'places'}"
+    },
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "No vocabulary list in the recognizer's ear on"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_names.py",
+     "contains": "def test_keyterms_are_names_only_within_limits"
+    }
+   ],
+   "aliases": [
+    "ai_rules:E3"
+   ],
+   "note": "engine-audit rule, not a Medi correction; Claude source is allowed because it is not the only authority: ai_rules E3 is Medi-approved (09-05 plan)"
+  },
+  {
+   "id": "TR-04",
+   "kind": "not-error",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Off-call Farsi (Medi speaking Farsi to his dad) is not the lesson: never scored, never a grammar use.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-04",
+     "quote": "me speaking farsi to my dad just remove",
+     "session": "abd0ba78"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/farsi.py",
+     "contains": "MIN_SIGNALS = 2"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_farsi.py",
+     "contains": "def test_ladder_does_not_score_farsi_turns"
+    },
+    {
+     "path": "tests/test_farsi.py",
+     "contains": "def test_grammar_uses_have_no_farsi"
+    }
+   ],
+   "aliases": [
+    "report:cov-02"
+   ]
+  },
+  {
+   "id": "TR-05",
+   "kind": "process",
+   "scope": "transcription",
+   "status": "written",
+   "change": "new",
+   "statement": "The lesson window runs from Amal's first word to her last; off-lesson talk is not scored.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-04",
+     "quote": "recognize when the class starts",
+     "session": "abd0ba78"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "AGENTS.md",
+     "contains": "TR-05 lesson window"
+    },
+    {
+     "type": "memory",
+     "path": "anees-arabic-tracker-state.md",
+     "contains": "name: anees-arabic-tracker-state"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-03"
+   ]
+  },
+  {
+   "id": "TR-06",
+   "kind": "process",
+   "scope": "transcription",
+   "status": "written",
+   "change": "new",
+   "statement": "Never make Medi judge silent or empty clips.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-04",
+     "quote": "why are we testing when nothing is recorded",
+     "session": "abd0ba78"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "AGENTS.md",
+     "contains": "TR-06 no silent clips"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-04"
+   ]
+  },
+  {
+   "id": "TR-07",
+   "kind": "not-error",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Fillers ('um', 'uh') are pauses, not words and not errors.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-04",
+     "quote": "recognize 'um's as pauses",
+     "session": "abd0ba78"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/lesson_text.py",
+     "contains": "def is_filler(w):"
+    },
+    {
+     "type": "doc",
+     "path": "RULES.md",
+     "contains": "## S5 — Pauses are not errors"
+    }
+   ],
+   "test": [
+    {
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"S5-pause\", \"block\""
+    }
+   ],
+   "aliases": [
+    "report:cov-05"
+   ]
+  },
+  {
+   "id": "TR-08",
+   "kind": "not-error",
+   "scope": "transcription",
+   "status": "written",
+   "change": "new",
+   "statement": "Only strong confirmations (mhm, aha, yes, ممتاز...) count as Amal approving; khalas / tamam are not approval.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-04",
+     "quote": "mhm or aha as confirmations / why khalas?",
+     "session": "abd0ba78"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/lesson_text.py",
+     "contains": "CONFIRM = re.compile("
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-06"
+   ]
+  },
+  {
+   "id": "TR-09",
+   "kind": "not-error",
+   "scope": "transcription",
+   "status": "written",
+   "change": "new",
+   "statement": "A cut-off stumble before a pause never matches a Doc word; h is not 7.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "Moz... trying to say maz3ooj / Besse... a pause / heyye",
+     "session": "ff540fd5"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "A cut-off token is a false start of the next "
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:M10",
+    "report:cov-07"
+   ]
+  },
+  {
+   "id": "TR-10",
+   "kind": "not-error",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "When the engine mishears Medi, trust Amal's echo of what he said, and note what the engine wrote.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-27",
+     "quote": "I said Daba instead of Bada... you heard Jaab?",
+     "session": "017ade5d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "## The engine can mishear him - trust Amal's echo"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/THIRD-READER-BRIEF.md",
+     "contains": "## The engine can mishear him - trust Amal's echo"
+    }
+   ],
+   "test": [],
+   "example": {
+    "date": "2026-09-26",
+    "t": "31:53",
+    "note": "engine wrote راسي جاب; Amal answered دبا - he said daba"
+   },
+   "aliases": [
+    "report:cov-08"
+   ]
+  },
+  {
+   "id": "TR-11",
+   "kind": "display",
+   "scope": "transcription",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "Every transcript view labels both speakers, each in their own colour.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-27",
+     "quote": "show 'Medi' like how we show 'Amal'",
+     "session": "017ade5d"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:O7"
+   ],
+   "next_step": "old docs/lessons/*.html template labels both speakers but has no per-speaker colour: add a CSS class per speaker in the template + a check_pages assertion"
+  },
+  {
+   "id": "TR-12",
+   "kind": "process",
+   "scope": "transcription",
+   "status": "written",
+   "change": "new",
+   "statement": "Transcribe the whole lesson track, never 25-second chunks.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-05",
+     "quote": "Same engine on 25-s chunks lost 3 of 8 of Medi's mistakes (audit)"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Transcribe the whole lesson track, never 25-s"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:E2"
+   ]
+  },
+  {
+   "id": "TR-13",
+   "kind": "data",
+   "scope": "transcription",
+   "status": "written",
+   "change": "new",
+   "statement": "Hash the audio and the raw transcript and keep a second copy (planned).",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-05",
+     "quote": "engine audit plan"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Hash the audio and the raw transcript and kee"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:E6"
+   ]
+  },
+  {
+   "id": "TR-14",
+   "kind": "data",
+   "scope": "transcription",
+   "status": "written",
+   "change": "new",
+   "statement": "Speaker = recording channel, never a guess; two-track lessons keep their per-speaker source.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-05",
+     "quote": "engine audit plan"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Speaker = recording channel, never a guess.\""
+    },
+    {
+     "type": "check",
+     "path": "tests/test_invariants.py",
+     "contains": "def test_speakers_not_swapped"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_invariants.py",
+     "contains": "def test_two_track_lessons_keep_their_per_speaker_source"
+    },
+    {
+     "path": "tests/test_invariants.py",
+     "contains": "def test_speakers_not_swapped"
+    }
+   ],
+   "aliases": [
+    "ai_rules:S1"
+   ],
+   "note": "Claude-only source but ai_rules S1 is Medi-approved; kept enforced because the tests prove it"
+  },
+  {
+   "id": "TR-15",
+   "kind": "data",
+   "scope": "transcription",
+   "status": "written",
+   "change": "new",
+   "statement": "'More Arabic = Amal' is a hint, never a fact.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-05",
+     "quote": "engine audit plan"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "'More Arabic = Amal' is a hint, never a fact."
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:S2"
+   ]
+  },
+  {
+   "id": "TR-16",
+   "kind": "display",
+   "scope": "transcription",
+   "status": "written",
+   "change": "new",
+   "statement": "When speakers are unclear, per-speaker numbers show '–' with the reason.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-05",
+     "quote": "engine audit plan"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "When speakers are unclear, per-speaker number"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:S3"
+   ]
+  },
+  {
+   "id": "AZ-01",
+   "kind": "display",
+   "scope": "arabizi",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Amal's spelling is the only spelling: her house spelling, then her Doc Arabizi, then her Arabic; never an invented Latin spelling.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "her arabizi should be the rule but lets be lenient on my spelling",
+     "session": "ef06f330"
+    },
+    {
+     "by": "medi",
+     "date": "2026-09-23",
+     "quote": "we are using amals spelling always right? create the rule",
+     "session": "5f2fdcc0"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "RULES.md",
+     "contains": "## S1 — Amal's spelling is the only spelling"
+    },
+    {
+     "type": "code",
+     "path": "scripts/house_spelling.py",
+     "contains": "house_spelling"
+    }
+   ],
+   "test": [
+    {
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"S1-extra\", \"block\""
+    },
+    {
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"S1-guard\", \"block\""
+    }
+   ],
+   "aliases": [
+    "RULES:S1",
+    "report:cov-10",
+    "report:cov-12"
+   ]
+  },
+  {
+   "id": "AZ-02",
+   "kind": "process",
+   "scope": "arabizi",
+   "status": "written",
+   "change": "new",
+   "statement": "Medi never reviews Arabizi spellings: best guess ships, Amal corrects.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "I dont want to spend too much time on spelling",
+     "session": "88b792ae"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "RULES.md",
+     "contains": "**Medi never reviews Arabizi spellings.**"
+    },
+    {
+     "type": "memory",
+     "path": "anees-spelling-not-a-focus.md",
+     "contains": "name: anees-spelling-not-a-focus"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-11"
+   ]
+  },
+  {
+   "id": "AZ-03",
+   "kind": "display",
+   "scope": "arabizi",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A word not on her list may show in Arabizi when built from her own pieces or a similar-sound letter and it fits the sentence; each built row carries method + source.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-23",
+     "quote": "see if the word fits contextually / these are all no brainers",
+     "session": "9bce4014"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "RULES.md",
+     "contains": "**Amended by Medi 2026-09-23"
+    },
+    {
+     "type": "check",
+     "path": "scripts/check_rules.py",
+     "contains": "EXTRA_METHODS = {\"sound\", \"pieces\""
+    }
+   ],
+   "test": [
+    {
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"S1-extra\", \"block\""
+    }
+   ],
+   "aliases": [
+    "report:cov-13"
+   ]
+  },
+  {
+   "id": "AZ-04",
+   "kind": "display",
+   "scope": "arabizi",
+   "status": "written",
+   "change": "new",
+   "statement": "Fragments and truly unclear words stay in Arabic and go on a 'Words to check' list (outside the Lessons error cards).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-23",
+     "quote": "some that are truly question marks... keep for manual review",
+     "session": "9bce4014"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "RULES.md",
+     "contains": "Fragments and unclear words stay in Arabic."
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-14",
+    "report:C3"
+   ],
+   "note": "C3: on the Lessons error cards AZ-05 is more specific and wins"
+  },
+  {
+   "id": "AZ-05",
+   "kind": "display",
+   "scope": "arabizi",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Nothing on the Lessons error cards stays Arabic-only - his own wrong or cut-off forms are spelled as they sound in her letters (as-said).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-26",
+     "quote": "why no arabizi again. How do we stop you",
+     "session": "017ade5d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "RULES.md",
+     "contains": "**Extended by Medi 2026-09-26"
+    },
+    {
+     "type": "code",
+     "path": "scripts/arabizi_gaps.cjs",
+     "contains": "Guard for rule S1 on Medi-facing error cards"
+    }
+   ],
+   "test": [
+    {
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"S1-guard\", \"block\""
+    },
+    {
+     "path": "tests/test_invariants.py",
+     "contains": "def test_every_error_card_word_has_arabizi"
+    }
+   ],
+   "aliases": [
+    "report:cov-15"
+   ]
+  },
+  {
+   "id": "AZ-06",
+   "kind": "display",
+   "scope": "arabizi",
+   "status": "written",
+   "change": "amend",
+   "statement": "Arabizi big, Arabic small under it.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-23",
+     "quote": "convert everything to amals arabizi spelling and have the arabic under it in smaller writing",
+     "session": "9bce4014"
+    },
+    {
+     "by": "medi",
+     "date": "2026-09-26",
+     "quote": "(grill Q3 'b')",
+     "session": "9ad0ae1d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "Her Arabizi on top, the Arabic small underneath."
+    },
+    {
+     "type": "memory",
+     "path": "anees-full-audit-decisions-2026-09-26.md",
+     "contains": "name: anees-full-audit-decisions-2026-09-26"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-16"
+   ],
+   "supersedes": [
+    "AZ-07"
+   ]
+  },
+  {
+   "id": "AZ-07",
+   "kind": "display",
+   "scope": "arabizi",
+   "status": "superseded",
+   "change": "new",
+   "statement": "Arabic script left-aligned beside the Arabizi (09-21 handoff rule 20).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-21",
+     "quote": "handoff rule 20",
+     "session": "7acdbc4c"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:C2"
+   ],
+   "superseded_by": "AZ-06"
+  },
+  {
+   "id": "AZ-08",
+   "kind": "display",
+   "scope": "arabizi",
+   "status": "enforced",
+   "change": "new",
+   "statement": "كم always shows as Kam (her 'how many' row), never Kum (sleeve).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "what are we using Kum, doesnt amal use Kam?",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/word-bank-arabizi.js",
+     "contains": "['كم','Kam']"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_word_bank_arabizi.cjs",
+     "contains": "test('كم shows as Amal"
+    }
+   ],
+   "aliases": [
+    "report:O1"
+   ]
+  },
+  {
+   "id": "AZ-09",
+   "kind": "display",
+   "scope": "arabizi",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "Arabizi big with Arabic small under it on every page, not only the Lessons error cards (Grammar and Word Bank unguarded).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-23",
+     "quote": "convert everything to amals arabizi spelling",
+     "session": "9bce4014"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:O8"
+   ],
+   "next_step": "extend scripts/arabizi_gaps.cjs to the grammar console and Word Bank catalog (display only), then add it to check_rules"
+  },
+  {
+   "id": "WS-01",
+   "kind": "not-error",
+   "scope": "word-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "Pronunciation is never a missed word: a dropped ع or ط is logged as pronunciation and never lowers a word's score.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "pronunciation (S4)",
+     "session": "ff540fd5"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "RULES.md",
+     "contains": "## S4 — Pronunciation is never a missed word"
+    },
+    {
+     "type": "check",
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"S4-pron\", \"report\""
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "S4 pronunciation: a dropped"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "RULES:S4"
+   ],
+   "note": "check_rules S4-pron is REPORT level: 4 open items wait on Medi (S4 vs 09-21 '8amee2 = 0')"
+  },
+  {
+   "id": "WS-02",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Only Medi's own recorded speech is scored.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "we only want to count the words I say",
+     "session": "ff540fd5"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Only Medi's recorded speech counts toward Spe"
+    },
+    {
+     "type": "check",
+     "path": "scripts/check_rules.py",
+     "contains": "def check_medi_only(root, raw):"
+    },
+    {
+     "type": "memory",
+     "path": "anees-only-medi-words-count.md",
+     "contains": "name: anees-only-medi-words-count"
+    }
+   ],
+   "test": [
+    {
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"M11-medi-only\", \"block\""
+    }
+   ],
+   "aliases": [
+    "ai_rules:M11",
+    "report:cov-17"
+   ]
+  },
+  {
+   "id": "WS-03",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "'New' words come only from an explicit Amal / Medi mark, never inferred.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "ONLY WORDS... BABSET AND BANBESET",
+     "session": "072237ad"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "'New' requires an explicit mark by Amal/Medi "
+    },
+    {
+     "type": "check",
+     "path": "scripts/check_rules.py",
+     "contains": "def check_new_signal(root, raw):"
+    }
+   ],
+   "test": [
+    {
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"NEW-amal-signal\", \"block\""
+    }
+   ],
+   "aliases": [
+    "ai_rules:N1",
+    "report:cov-18"
+   ]
+  },
+  {
+   "id": "WS-04",
+   "kind": "data",
+   "scope": "word-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "New words get their own strict lane, apart from missed words.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "lets not mix up the new words with the missed words",
+     "session": "9aee21d1"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Flashcards offers separate New and Missed set"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:N4",
+    "report:cov-19"
+   ]
+  },
+  {
+   "id": "WS-05",
+   "kind": "data",
+   "scope": "word-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "A word's last-said date comes only from Medi's spoken events.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "7ashara is marked as being reviewed yesterday",
+     "session": "9aee21d1"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Speaking 'You used it' counts only timed reco"
+    },
+    {
+     "type": "doc",
+     "path": "docs/word-bank-review-rules.md",
+     "contains": "Only the actually spoken word affects last-said dates."
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:N6",
+    "report:cov-20"
+   ]
+  },
+  {
+   "id": "WS-06",
+   "kind": "not-error",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A grammar slip never counts as a missed word.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "Aktar... this is a grammar mistake / it was an el issue",
+     "session": "9aee21d1"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "A grammar slip (article, gender, tense, plura"
+    },
+    {
+     "type": "code",
+     "path": "scripts/buckets.py",
+     "contains": "e.get('miss_kind') in GRAMMAR_KINDS"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "it is grammar, not tier 2"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_speaking_evidence.py",
+     "contains": "def test_grammar_and_unresolved_are_not_lexical_misses"
+    }
+   ],
+   "aliases": [
+    "ai_rules:M2",
+    "report:cov-21"
+   ]
+  },
+  {
+   "id": "WS-07",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "Word Bank scoring rules 1-12 (attempt values, self-correction, wrong-word pairs, shu ya3ni, homework, confirmations, pending = specific).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-21",
+     "quote": "Codex handoff scoring rules",
+     "session": "7acdbc4c"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/word-bank-review-rules.md",
+     "contains": "1. Assess the complete exchange and intended vocabulary target."
+    },
+    {
+     "type": "check",
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"EP-one-episode\", \"report\""
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-22"
+   ],
+   "note": "EP-one-episode (rule 4) is REPORT level with open pairs"
+  },
+  {
+   "id": "WS-08",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "A repair after a hint earns partial credit (hints count as slips).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-22",
+     "quote": "yes (hints as slips)",
+     "session": "7acdbc4c"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "plan/SESSION-DECISIONS-2026-09-21.md",
+     "contains": "A repair after a tutor hint receives partial credit."
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-23"
+   ]
+  },
+  {
+   "id": "WS-09",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Classify a miss by what was actually wrong: a different word is vocab, an ending/prefix rule is grammar.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-23",
+     "quote": "this is a vocab miss... Ustaaz should be marked as wrong",
+     "session": "9bce4014"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "Vocab error tiers (field `tier`, vocab kinds only):"
+    },
+    {
+     "type": "doc",
+     "path": "docs/word-bank-review-rules.md",
+     "contains": "7. Grammar corrections—prepositions"
+    }
+   ],
+   "test": [],
+   "example": {
+    "date": "2026-09-23",
+    "note": "Ustaaz: a different word - vocab, marked wrong"
+   },
+   "aliases": [
+    "report:cov-24"
+   ]
+  },
+  {
+   "id": "WS-10",
+   "kind": "data",
+   "scope": "word-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "Words that are not on Amal's sheet go to her list, unscored, labelled 'Not on sheet'.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-23",
+     "quote": "words that dont appear on the list... send it to amal",
+     "session": "9bce4014"
+    },
+    {
+     "by": "medi",
+     "date": "2026-09-27",
+     "quote": "label it 'not on sheet'",
+     "session": "017ade5d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_lessons_page_data.py",
+     "contains": "tagged \"Not on sheet\", sent to Amal's review"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "Not on sheet · sent to Amal · not scored"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-25"
+   ]
+  },
+  {
+   "id": "WS-11",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Fixes Amal voiced (A) are scored; errors she let pass (B) go to her review page, unscored until she confirms; tiers 0-3.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-26",
+     "quote": "do A for sure, make a list of B for her",
+     "session": "9ad0ae1d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "**kind = vocab-B** - a vocab error he made that Amal LET PASS"
+    }
+   ],
+   "test": [],
+   "example": {
+    "date": "2026-09-25",
+    "note": "tiers 1+2+3 agreed; A scored, B to Amal"
+   },
+   "aliases": [
+    "report:cov-26"
+   ]
+  },
+  {
+   "id": "WS-12",
+   "kind": "data",
+   "scope": "word-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "On the Lessons page, new verbs are the pairs Amal taught in that lesson, read from context (bat3eb / bata33eb).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-26",
+     "quote": "you dont see bat3eb and bata33eb as new verbs",
+     "session": "9ad0ae1d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_lessons_page_data.py",
+     "contains": "\nTAUGHT = {\n"
+    },
+    {
+     "type": "memory",
+     "path": "anees-new-verbs-are-new-words.md",
+     "contains": "name: anees-new-verbs-are-new-words"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-27",
+    "report:C6"
+   ],
+   "note": "C6: Flashcards 'new' (FC-05) is a different meaning - Doc additions after 2026-09-30; both stand"
+  },
+  {
+   "id": "WS-13",
+   "kind": "display",
+   "scope": "word-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "Percent colours: 90%+ dark green, 80-90% light green.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-27",
+     "quote": "80-90% light green, 90%+ dark green",
+     "session": "017ade5d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "function band(p) { p = Math.round(p); return p >= 90 ? 'pct-a'"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-28"
+   ]
+  },
+  {
+   "id": "WS-14",
+   "kind": "display",
+   "scope": "word-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "The error list shows only errors; switch Errors · Correct · All, default Errors.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-27",
+     "quote": "these are supposed to be errors why is it showing words I said right",
+     "session": "017ade5d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "a switch next to \"Vocab\" - Errors (default)"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-29"
+   ]
+  },
+  {
+   "id": "WS-15",
+   "kind": "data",
+   "scope": "word-scoring",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "Dish names, foods, brands and loan words (kabab, ma2loobe, cake, countries) never go on Amal's 'not on sheet' list.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-23",
+     "quote": "we dont need to add proper nouns like kabaab and ma2loobe and cake and countries",
+     "session": "9bce4014"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:M3"
+   ],
+   "next_step": "add a DISHES/LOANWORDS set to scripts/names.py (or build_amal_review) that skips these words + a test; changes Amal's list, not scores"
+  },
+  {
+   "id": "WS-16",
+   "kind": "data",
+   "scope": "word-scoring",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "Whether a word is on the sheet is judged by meaning (any tense, plural, one-letter slip, both directions) for EVERY new lesson.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-27",
+     "quote": "use context and meanings both ways arabic and english",
+     "session": "017ade5d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "check",
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"SHEET-meaning\", \"report\""
+    },
+    {
+     "type": "memory",
+     "path": "anees-list-by-meaning.md",
+     "contains": "name: anees-list-by-meaning"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:O5"
+   ],
+   "next_step": "add a sheet-by-meaning reader step to scripts/review_lesson.py that writes data/lesson-work/sheet-verdicts.json; then make SHEET-meaning BLOCK (can change vocab rows)"
+  },
+  {
+   "id": "WS-17",
+   "kind": "not-error",
+   "scope": "word-scoring",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "A machine flag (the 15-second rule) never makes a word 'helped' without a context read.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-25",
+     "quote": "The amal 15s rule is only a clue, not final",
+     "session": "9ad0ae1d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "check",
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"15S-clue\", \"report\""
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "Machine flags (echo match, cue words like \"no\", 15-second rule) are CLUES only."
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:O6"
+   ],
+   "next_step": "scripts/speaking_evidence.py still sets assessment='helped' automatically: set it to 'unresolved' pending a context read (score-changing - show Medi the count first)"
+  },
+  {
+   "id": "WS-18",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "A word first taught in a lesson is shown as new and is not rated Good from that lesson.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-27",
+     "quote": "this shouldnt be marked as good, its a new word",
+     "session": "017ade5d"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:O17"
+   ],
+   "next_step": "in scripts/build_lessons_page_data.py, a TAUGHT word in its teaching lesson gets status New, never Good (score-changing - show Medi the count first)"
+  },
+  {
+   "id": "WS-19",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "needs-medi",
+   "change": "new",
+   "statement": "Glue words (shu, bas, ya3ni, tamam...) in the Word Bank: ai_rules M3 says never graded, but 168 glue uses are scored today.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-29",
+     "quote": "put to Medi, no answer"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Glue words (shu, bas, ya3ni, tamam …) are nev"
+    },
+    {
+     "type": "check",
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"M3-glue\", \"report\""
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:M3",
+    "report:M7",
+    "report:C10"
+   ],
+   "question": {
+    "ask": "Glue words (shu, bas, ya3ni...) in the Word Bank - score them, or never grade them?",
+    "options": [
+     "score",
+     "never"
+    ]
+   }
+  },
+  {
+   "id": "WS-20",
+   "kind": "data",
+   "scope": "word-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "A Doc lemma covers its conjugations (Basa6tek belongs to babse6).",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-21",
+     "quote": "plan"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "A Doc lemma covers its conjugations: Basa6tek"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:N3"
+   ]
+  },
+  {
+   "id": "WS-21",
+   "kind": "data",
+   "scope": "word-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "'Possible miss' stays labelled possible until Amal taps.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-05",
+     "quote": "plan"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "'Possible miss' stays labelled possible until"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:M5"
+   ]
+  },
+  {
+   "id": "WS-22",
+   "kind": "data",
+   "scope": "word-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "Mastered needs 5 consecutive successes across at least 3 dates.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-21",
+     "quote": "plan"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Mastered needs 5 consecutive successes in the"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:N7"
+   ]
+  },
+  {
+   "id": "WS-23",
+   "kind": "data",
+   "scope": "word-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "Recover from Missed with two consecutive independent successes.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-21",
+     "quote": "plan"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Recover from Missed with two consecutive inde"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:N8"
+   ]
+  },
+  {
+   "id": "WS-24",
+   "kind": "data",
+   "scope": "word-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "Each word has separate Speaking and Flashcards scores.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-21",
+     "quote": "plan"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Each word has separate Speaking and Flashcard"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:N9"
+   ]
+  },
+  {
+   "id": "WS-25",
+   "kind": "display",
+   "scope": "word-scoring",
+   "status": "written",
+   "change": "amend",
+   "statement": "Word statuses are Mastered / Good / Shaky / Wrong (Untested), replacing Ice cold / Cold / Shaky / Missed.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-21",
+     "quote": "Mastered / Good / Shaky / Wrong",
+     "session": "7acdbc4c"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/css/word-bank.css",
+     "contains": ".ab-status-Mastered{color:var(--ab-green)}"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:C8"
+   ],
+   "supersedes": [
+    "WS-26"
+   ]
+  },
+  {
+   "id": "WS-26",
+   "kind": "display",
+   "scope": "word-scoring",
+   "status": "superseded",
+   "change": "new",
+   "statement": "Ice cold / Cold / Shaky / Missed buckets (09-05).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "Ice cold / Cold / Shaky / Missed",
+     "session": "072237ad"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:C8-old"
+   ],
+   "superseded_by": "WS-25"
+  },
+  {
+   "id": "GR-01",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A slip is only a slip when there is a signal: Amal recasts / corrects, or Medi asks.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "RULES.md S3",
+     "session": "ff540fd5"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "RULES.md",
+     "contains": "## S3 — A slip is only a slip when there is a signal"
+    },
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "A miss needs a signal: Amal corrects or recas"
+    },
+    {
+     "type": "check",
+     "path": "scripts/check_rules.py",
+     "contains": "def check_s3_signal(root, raw):"
+    }
+   ],
+   "test": [
+    {
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"S3-signal\", \"block\""
+    }
+   ],
+   "aliases": [
+    "RULES:S3",
+    "ai_rules:M1"
+   ]
+  },
+  {
+   "id": "GR-02",
+   "kind": "not-error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Pauses are not errors: a long pause before a right answer is a right answer.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "pauses can mean just that I am thinking",
+     "session": "072237ad"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "RULES.md",
+     "contains": "## S5 — Pauses are not errors"
+    },
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "A pause is never a mistake. Medi often pauses"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "S5 pauses, restarts, stutters"
+    },
+    {
+     "type": "check",
+     "path": "scripts/check_rules.py",
+     "contains": "def check_s5_pause(root, raw):"
+    }
+   ],
+   "test": [
+    {
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"S5-pause\", \"block\""
+    }
+   ],
+   "aliases": [
+    "RULES:S5",
+    "ai_rules:M7",
+    "report:cov-32"
+   ]
+  },
+  {
+   "id": "GR-03",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "A wrong preposition after a verb or adjective is its own kind of slip.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "ba6lub min is a preposition error",
+     "session": "ff540fd5"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "A wrong preposition after a verb or adjective"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:M8",
+    "report:cov-30"
+   ]
+  },
+  {
+   "id": "GR-04",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "Missing or wrong ykun / akun in lamma/iza clauses is a tense slip (bucket B8).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "ykun is also a difficult grammar for me",
+     "session": "072237ad"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Known hard grammar for Medi: the linking verb"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:M6",
+    "report:cov-31"
+   ]
+  },
+  {
+   "id": "GR-05",
+   "kind": "process",
+   "scope": "grammar-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "Tally slips on rules Medi already learned; never write Amal's lesson plans.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "We dont want to give her lesson plans... keep a tally",
+     "session": "ff540fd5"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Every slip is tied to the rule Medi already l"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:M9",
+    "report:cov-33"
+   ]
+  },
+  {
+   "id": "GR-06",
+   "kind": "data",
+   "scope": "grammar-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "Grammar buckets come from Medi's named patterns (hadi/hadol + el, b- returns, abadan, iyya, saarli, kaan laazem, min wein, kam + singular, hadeek...).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-24",
+     "quote": "kam... always singular",
+     "session": "9bce4014"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "data",
+     "path": "data/lesson-work/full-audit/buckets.md",
+     "contains": "**A10b** demonstrative keeps el-"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-34"
+   ]
+  },
+  {
+   "id": "GR-07",
+   "kind": "data",
+   "scope": "grammar-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "Grammar usage comes from the lesson transcripts, not from Amal's Docs.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-23",
+     "quote": "the only one i dont use is the shams one",
+     "session": "bdecb2e1"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "RULINGS_FILE = os.path.join("
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-35"
+   ]
+  },
+  {
+   "id": "GR-08",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Readers must find about 20-45 grammar rows in an hour-long lesson; far fewer means re-read.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-23",
+     "quote": "She corrects me on grammar at least 20-30 times a lesson",
+     "session": "bdecb2e1"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "Expect roughly 20-45 grammar rows and 10-40 vocab rows"
+    }
+   ],
+   "test": [],
+   "example": {
+    "date": "2026-09-23",
+    "note": "Medi: 20-30 corrections a lesson; readers had found far fewer"
+   },
+   "aliases": [
+    "report:cov-36"
+   ]
+  },
+  {
+   "id": "GR-09",
+   "kind": "process",
+   "scope": "grammar-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "Amal rules once per pattern, examples folded under it; new lessons' B rows join existing patterns so she is never asked twice.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-26",
+     "quote": "we dont keep asking her the same correction rules",
+     "session": "9ad0ae1d"
+    },
+    {
+     "by": "medi",
+     "date": "2026-09-26",
+     "quote": "ALways examples even on the new immediate lesson reviews",
+     "session": "9ad0ae1d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/PATTERN-BRIEF.md",
+     "contains": "Amal rules ONCE per pattern, all examples folded under it."
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-38",
+    "report:cov-39"
+   ]
+  },
+  {
+   "id": "GR-10",
+   "kind": "not-error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A question about a rule ('when is it X?', 'is it X or Y?') is neither a slip nor a use.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-01",
+     "quote": "the 09-28 / 09-30 doubtful slips list",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "def asks_about_rule(text):"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "A QUESTION about the rule"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_arabizi_reader.py",
+     "contains": "def test_question_about_rule_is_not_a_use"
+    }
+   ],
+   "example": {
+    "date": "2026-09-30",
+    "t": "34:49",
+    "note": "his question about the A1 rule, ruled not a use"
+   },
+   "aliases": [
+    "report:O2-question"
+   ]
+  },
+  {
+   "id": "GR-11",
+   "kind": "not-error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "'كم مرة؟' alone right after Amal spoke, answered by her repeating herself, is 'kaman marra?' (again?) - not كم + noun, not a slip.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "Medi: yes, check the other kam marra moments",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "def asks_again(T, i, txt):"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "\"كم مرة؟\" alone, right after Amal spoke"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_arabizi_reader.py",
+     "contains": "def test_kaman_marra_when_amal_repeats"
+    }
+   ],
+   "example": {
+    "date": "2026-09-21",
+    "t": "61:44",
+    "note": "'وكم شوية؟ كم مرة؟' - she repeats, he asked her to say it again"
+   },
+   "moments": [
+    {
+     "type": "data",
+     "path": "data/grammar-usage-rulings.json",
+     "contains": "he asked her to say it again"
+    }
+   ],
+   "aliases": [
+    "report:O2-kaman"
+   ]
+  },
+  {
+   "id": "GR-12",
+   "kind": "not-error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "He repeats the same wrong phrase and Amal fixes it once: within 30 s it is ONE slip, the first.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-01",
+     "quote": "عشرين سجاد at 09:49 and 10:05 is one",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/full_audit_build.py",
+     "contains": "REPEAT_S = 30"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "He repeats the same wrong phrase and Amal fixes it once"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_audit_duplicates.py",
+     "contains": "def test_same_wrong_phrase_repeated_within_30_s_is_one_slip"
+    }
+   ],
+   "example": {
+    "date": "2026-09-30",
+    "t": "09:49",
+    "note": "عشرين سجاد at 09:49 and 10:05, Amal recast once"
+   },
+   "moments": [
+    {
+     "type": "data",
+     "path": "data/lesson-work/full-audit/duplicates.json",
+     "contains": "09:49 and 10:05 one E1 slip"
+    }
+   ],
+   "aliases": [
+    "report:O2-repeat"
+   ]
+  },
+  {
+   "id": "GR-13",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Latin-letter (Arabizi) turns are read as Arabic and count as grammar uses.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-01",
+     "quote": "the 09-28 / 09-30 doubtful slips list",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/arabizi_reader.py",
+     "contains": "def to_arabic(text):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_arabizi_reader.py",
+     "contains": "def test_latin_idafa_read_as_arabic"
+    }
+   ],
+   "aliases": [
+    "report:O2-latin"
+   ]
+  },
+  {
+   "id": "GR-14",
+   "kind": "not-error",
+   "scope": "grammar-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "One turn is never both a use and a slip.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-01",
+     "quote": "the 09-28 / 09-30 doubtful slips list",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_grammar_console.py",
+     "contains": "def use_verdict(u, slips):"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:O2-oneturn"
+   ]
+  },
+  {
+   "id": "GR-15",
+   "kind": "not-error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "He is mid-sentence and Amal supplies the next word, then ممتاز: help on the way to a right answer, not a slip.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-01",
+     "quote": "from the 09-30 review",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "He is mid-sentence and Amal supplies the next word"
+    }
+   ],
+   "test": [],
+   "example": {
+    "date": "2026-09-30",
+    "note": "صديقة -> she said 'House' -> بيت صديقة خطيبتي -> ممتاز"
+   },
+   "aliases": [
+    "report:O2-supplied"
+   ]
+  },
+  {
+   "id": "GR-16",
+   "kind": "not-error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Amal says both forms are fine: not a slip.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-01",
+     "quote": "from the 09-30 review",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "Amal says both forms are fine"
+    }
+   ],
+   "test": [],
+   "example": {
+    "date": "2026-09-30",
+    "note": "الدرس العربي vs درس العربي - both valid"
+   },
+   "aliases": [
+    "report:O2-both"
+   ]
+  },
+  {
+   "id": "GR-17",
+   "kind": "not-error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "He applies the rule just drilled and Amal only re-phrases it a nicer way: not a slip.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-01",
+     "quote": "from the 09-30 review",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "He applies the rule just drilled and Amal only re-phrases it"
+    }
+   ],
+   "test": [],
+   "example": {
+    "date": "2026-09-30",
+    "t": "59:28",
+    "note": "Hadi el-shanta -> شنتة السفر هذه"
+   },
+   "moments": [
+    {
+     "type": "data",
+     "path": "data/lesson-work/full-audit/rejected.json",
+     "contains": "applies the hadi + el rule (A10b) just drilled"
+    }
+   ],
+   "aliases": [
+    "report:O2-drilled"
+   ]
+  },
+  {
+   "id": "GR-18",
+   "kind": "data",
+   "scope": "grammar-scoring",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "A real grammar correction that fits no bucket becomes a proposed new bucket for Medi's yes/no; it is never dropped.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-25",
+     "quote": "if it doesnt fall into a bucket lets figure out to make one",
+     "session": "9bce4014"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:M5"
+   ],
+   "next_step": "READER-BRIEF: allow bucket 'PROPOSE' + proposed_rule; full_audit_build lists PROPOSE rows for Medi instead of rejecting them (FA-0075 was rejected 'no bucket fits'); unscored until his yes"
+  },
+  {
+   "id": "GR-19",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "needs-medi",
+   "change": "new",
+   "statement": "A fix Amal only TYPED in the Meet chat: today the reader brief scores it (signal chat-fix), but Medi said chat only gives context.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-23",
+     "quote": "the chat should only be used to help give context and audio to whats being said in the voice lesson",
+     "session": "9bce4014"
+    },
+    {
+     "by": "claude",
+     "date": "2026-09-26",
+     "quote": "READER-BRIEF: '(or typed in chat)' + signal chat-fix"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "(or typed in chat)"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:M6",
+    "report:C4"
+   ],
+   "question": {
+    "ask": "A fix Amal only TYPED in chat (never said) - count it as a slip, or context only?",
+    "options": [
+     "count",
+     "context"
+    ]
+   }
+  },
+  {
+   "id": "GR-20",
+   "kind": "not-error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Tier 3 (an English word dropped into an Arabic sentence though the word is on her sheet) that Amal let pass is pre-ruled 'do not correct' (her AR-1933); a tier-3 fix she voiced still counts.",
+   "source": [
+    {
+     "by": "amal",
+     "date": "2026-09-30",
+     "quote": "it's ok to switch sometimes. your example isn't sufficient"
+    },
+    {
+     "by": "medi",
+     "date": "2026-09-25",
+     "quote": "tier 3 counts",
+     "session": "9ad0ae1d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "Amal already ruled on tier 3 she LET PASS (AR-1933"
+    }
+   ],
+   "test": [],
+   "example": {
+    "date": "2026-09-30",
+    "note": "AR-1933: 4 rows (or, eat, rice, Iranian) dropped by Amal's ruling"
+   },
+   "aliases": [
+    "report:C5"
+   ]
+  },
+  {
+   "id": "LS-01",
+   "kind": "data",
+   "scope": "lessons",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "Each new lesson's type (free speak, review, new words, grammar review) and its taught words are read from context the same day.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "This was clearly a grammar review for 'el' im shocked you didnt detect that",
+     "session": "72396edc"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/publish_guard.py",
+     "contains": "def check_lesson_type_read(root, **_):"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:M4"
+   ],
+   "next_step": "a reader step in review_lesson.py fills LESSON_TYPES/TAUGHT; then make publish_guard lesson_type_read required (needs the hourly claude -p login working)"
+  },
+  {
+   "id": "LS-02",
+   "kind": "process",
+   "scope": "lessons",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every lesson gets a finished same-day review before it is published.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-26",
+     "quote": "review every lesson immediately",
+     "session": "9ad0ae1d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/publish_guard.py",
+     "contains": "def check_review_done(root, **_):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_review_lesson.py",
+     "contains": "def test_source_audit_and_second_judge_run_for_every_new_lesson"
+    }
+   ],
+   "aliases": [
+    "report:cov-proc-7"
+   ]
+  },
+  {
+   "id": "LS-03",
+   "kind": "process",
+   "scope": "lessons",
+   "status": "written",
+   "change": "new",
+   "statement": "Every recording is ingested hourly, not only the bots' recordings.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-22",
+     "quote": "every lesson gets added... not just the bots",
+     "session": "3d55d61b"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/hourly_lessons.py",
+     "contains": "def plan(ledger, bots, recordings, loaded_dates"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-proc-6"
+   ]
+  },
+  {
+   "id": "LS-04",
+   "kind": "process",
+   "scope": "lessons",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "If the hourly job cannot load a lesson (credits gone, missing track), Medi is alerted the same hour.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "I thought we load lessons automatically now? Why didn't today's get loaded",
+     "session": "72396edc"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:M9"
+   ],
+   "next_step": "publish data/publish-guard open_failures to a docs/data status file and show it through stale.js as a banner (an email/ntfy alert needs Medi)"
+  },
+  {
+   "id": "LS-05",
+   "kind": "data",
+   "scope": "lessons",
+   "status": "written",
+   "change": "new",
+   "statement": "Amal's topic pick decides whether new words are expected.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-21",
+     "quote": "plan"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Amal's topic pick decides whether new words a"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:N5"
+   ]
+  },
+  {
+   "id": "LS-06",
+   "kind": "display",
+   "scope": "lessons",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "Every page's numbers refresh after each lesson and each card set, with a check that fails when a page is stale.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "this should update immediately after a card set is done",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/publish_guard.py",
+     "contains": "def check_review_freshness(root, **_):"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:O14"
+   ],
+   "next_step": "a per-page freshness check after each lesson (review_freshness is advisory today; making it required is Medi's call)"
+  },
+  {
+   "id": "AM-01",
+   "kind": "process",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Code never contacts Amal; links are minted, Medi sends them.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-04",
+     "quote": "lets not include amal until absolutely needed",
+     "session": "b4922477"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Code never contacts Amal. Links are minted; M"
+    },
+    {
+     "type": "check",
+     "path": "scripts/check_rules.py",
+     "contains": "def check_medi_only_email(root, raw):"
+    }
+   ],
+   "test": [
+    {
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"A1-medi-only\", \"block\""
+    }
+   ],
+   "aliases": [
+    "ai_rules:A1",
+    "report:cov-42"
+   ]
+  },
+  {
+   "id": "AM-02",
+   "kind": "process",
+   "scope": "amal-data",
+   "status": "written",
+   "change": "new",
+   "statement": "Amal's pages are public Anees pages (she has no Claude login).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-04",
+     "quote": "she doesnt have a claude login, you need to host it somewhere",
+     "session": "abd0ba78"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Lessons are public by choice: audio, clips an"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:A4",
+    "report:cov-43"
+   ]
+  },
+  {
+   "id": "AM-03",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "written",
+   "change": "new",
+   "statement": "The vocabulary Google Doc is the only word truth; the app never writes it (one exception: 18 words Claude typed by hand with Medi's OK on 09-23).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "the word document is the master",
+     "session": "ef06f330"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "The Google Doc is the only word truth. The ap"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:N2",
+    "report:cov-44"
+   ]
+  },
+  {
+   "id": "AM-04",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "written",
+   "change": "new",
+   "statement": "Amal's tap beats any machine label.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "ultimately she dictates what goes in",
+     "session": "88b792ae"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Amal's tap beats any machine label.\""
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:A2",
+    "report:cov-45"
+   ]
+  },
+  {
+   "id": "AM-05",
+   "kind": "process",
+   "scope": "amal-data",
+   "status": "written",
+   "change": "new",
+   "statement": "Keep Amal's review under 10 minutes: short, one tap each, measured.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "keep under 10 minutes for her",
+     "session": "ef06f330"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "At most 5 questions, clips of at most 15 s, o"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:A3",
+    "report:cov-46"
+   ]
+  },
+  {
+   "id": "AM-06",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Amal's verb answer beats any guess; the engine rule is fixed, never one form by hand.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-22",
+     "quote": "(verb answers)",
+     "session": "3d55d61b"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/verb_forms.py",
+     "contains": "def past_from_present(v):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_verb_forms.py",
+     "contains": "def test_amal_checked_forms_are_golden"
+    }
+   ],
+   "aliases": [
+    "report:cov-47"
+   ]
+  },
+  {
+   "id": "AM-07",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Only Amal's named Quizlet sets are card sets; dated sets and other students' sets are excluded.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-22",
+     "quote": "remove the dated ones / JD/janna?",
+     "session": "3d55d61b"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/cards-selection.js",
+     "contains": "A dated set is named after a lesson day"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_cards_selection.cjs",
+     "contains": "test('Quizlet groups: named sets once each, dated sets hidden"
+    }
+   ],
+   "aliases": [
+    "report:cov-48"
+   ]
+  },
+  {
+   "id": "AM-08",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Amal's AR-* rulings apply to every lesson's rows of that pattern automatically: her reason drops the rows and is never asked again; her yes scores them.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-26",
+     "quote": "(correction is correct) or (reason not to correct) with a fillable box",
+     "session": "9ad0ae1d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/apply_amal_audit_rulings.py",
+     "contains": "def apply(dry=False):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_rules_amal_rulings.py",
+     "contains": "def test_her_reason_drops_the_rows_and_becomes_a_rule_asked_once"
+    },
+    {
+     "path": "tests/test_rules_amal_rulings.py",
+     "contains": "def test_her_tap_beats_the_machine_label"
+    }
+   ],
+   "aliases": [
+    "report:cov-37"
+   ],
+   "note": "indexes all 34 AR-* ids in docs/data/ai_rules.json (Amal's data, never edited here)"
+  },
+  {
+   "id": "AM-09",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Amal's newer spelling wins, and any Amal action triggers a rebuild.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-29",
+     "quote": "use amals / trigger... with anything amal does there should be a trigger to recalc",
+     "session": "cdd0bacd"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/amal_trigger.py",
+     "contains": "def fetch_tutor_verify():"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_amal_trigger.py",
+     "contains": "def test_a_new_answer_fires_reruns_builders_in_order_and_logs_numbers"
+    }
+   ],
+   "aliases": [
+    "report:cov-40"
+   ]
+  },
+  {
+   "id": "AM-10",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "written",
+   "change": "new",
+   "statement": "Amal's 09-29 grammar notes (B7/B8 kept/dropped, B14/B15 not taught) apply.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-29",
+     "quote": "apply",
+     "session": "cdd0bacd"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/amal_grammar_notes.py",
+     "contains": "NOT_TAUGHT = {"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-41"
+   ]
+  },
+  {
+   "id": "AM-11",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "For each new lesson, every word Amal used that is not on her sheet goes on the Tutor hub with 3 choices: add to Doc / save for later / forget.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "bring it to her attention if she wants to add it to the document, save it for a future lesson, or forget it",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:M2"
+   ],
+   "next_step": "a new Tutor list + table (build_tutor_data.py + tutor.js); not small"
+  },
+  {
+   "id": "AM-12",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "written",
+   "change": "new",
+   "statement": "Every Doc sync archives words Amal removed (history kept, active:false).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-30",
+     "quote": "She took a few verbs off the list that was added by mistake",
+     "session": "cdd0bacd"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/import_vocab.py",
+     "contains": "body={'active': False"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:M11"
+   ],
+   "note": "gap: removed words are not shown to Medi; the sync runs by hand (run_import_vocab.ps1)"
+  },
+  {
+   "id": "AM-13",
+   "kind": "process",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Nothing Amal opens is off-site, behind a login, or off-brand.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-01",
+     "quote": "DOnt make it a different workflow or off site",
+     "session": "4a6cf501"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "These links are leaving our brandign and interface",
+     "session": "72396edc"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "check",
+     "path": "scripts/check_rules.py",
+     "contains": "def check_amal_onsite(root, raw):"
+    }
+   ],
+   "test": [
+    {
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"AMAL-onsite\", \"block\""
+    },
+    {
+     "path": "tests/test_rules_check.py",
+     "contains": "def test_amal_page_linking_off_site_fails"
+    }
+   ],
+   "aliases": [
+    "report:O15"
+   ]
+  },
+  {
+   "id": "AM-14",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "written",
+   "change": "amend",
+   "statement": "Amal's Quizlet sets are card sets only; the Doc stays the word truth.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-22",
+     "quote": "Amal's Quizlet sets imported as card sets",
+     "session": "4f77306f"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/cards-selection.js",
+     "contains": "A dated set is named after a lesson day"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:C11"
+   ],
+   "supersedes": [
+    "AM-15"
+   ]
+  },
+  {
+   "id": "AM-15",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "superseded",
+   "change": "new",
+   "statement": "All the vocab is on the Doc, no need to open Quizlets (09-05).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "all the vocab is on my list no need to open quizlets",
+     "session": "ef06f330"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:C11-old"
+   ],
+   "superseded_by": "AM-14"
+  },
+  {
+   "id": "PG-01",
+   "kind": "display",
+   "scope": "pages",
+   "status": "written",
+   "change": "new",
+   "statement": "A stale page shows a flashing out-of-date banner.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "a thing that flashes... page is out of date",
+     "session": "9aee21d1"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/stale.js",
+     "contains": "// Out-of-date banner."
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-49"
+   ]
+  },
+  {
+   "id": "PG-02",
+   "kind": "display",
+   "scope": "pages",
+   "status": "written",
+   "change": "new",
+   "statement": "The Sabz brand book skins every page; red stays for Wrong.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-22",
+     "quote": "entire interface... to the sabz brand book",
+     "session": "3d55d61b"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/css/anees-page.css",
+     "contains": "--bg: var(--sabz-bg);"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-50"
+   ]
+  },
+  {
+   "id": "PG-03",
+   "kind": "display",
+   "scope": "pages",
+   "status": "written",
+   "change": "amend",
+   "statement": "New pages copy the Anees shell and follow the same pattern (not the Stitch mockups).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-25",
+     "quote": "dont use the stitch as a guide... follow the same pattern",
+     "session": "9ad0ae1d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "AGENTS.md",
+     "contains": "PG-03 new pages copy the Anees shell"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-51"
+   ],
+   "supersedes": [
+    "PG-04"
+   ]
+  },
+  {
+   "id": "PG-04",
+   "kind": "display",
+   "scope": "pages",
+   "status": "superseded",
+   "change": "new",
+   "statement": "Only use the starred Stitch items (09-21).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-21",
+     "quote": "only use the starred items",
+     "session": "7acdbc4c"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:cov-51-old"
+   ],
+   "superseded_by": "PG-03"
+  },
+  {
+   "id": "PG-05",
+   "kind": "display",
+   "scope": "pages",
+   "status": "written",
+   "change": "new",
+   "statement": "No guessed number or target: unknown shows '–' and why.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-21",
+     "quote": "(1,428 target 'fake')",
+     "session": "7acdbc4c"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "No guessed number. Unknown shows '–' and why."
+    },
+    {
+     "type": "check",
+     "path": "scripts/publish_guard_config.json",
+     "contains": "every number shown on every page is recomputed from raw and matches"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:H1",
+    "report:cov-52"
+   ]
+  },
+  {
+   "id": "PG-06",
+   "kind": "display",
+   "scope": "pages",
+   "status": "written",
+   "change": "new",
+   "statement": "Counts are counts; 'better' or 'accurate' only with a named metric and human labels.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-05",
+     "quote": "plan"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Counts are counts. 'Better' or 'accurate' onl"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:H2"
+   ]
+  },
+  {
+   "id": "PG-07",
+   "kind": "display",
+   "scope": "pages",
+   "status": "written",
+   "change": "new",
+   "statement": "Home = Progress Overview; everything for Amal is on one Tutor page.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-27",
+     "quote": "get rid of the today tab / just put it all on the main tutor page",
+     "session": "017ade5d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "check",
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"HUB-removed\", \"block\""
+    },
+    {
+     "type": "memory",
+     "path": "anees-home-progress-overview.md",
+     "contains": "name: anees-home-progress-overview"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-53"
+   ]
+  },
+  {
+   "id": "PG-08",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Rule ids (B5...) show a tooltip with the rule's name everywhere.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "reference to a Letter# (B5)... hover",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/rule-names.js",
+     "contains": "span with a tooltip"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_rule_names.cjs",
+     "contains": "test('finds only real rule ids, as whole tokens'"
+    }
+   ],
+   "aliases": [
+    "report:cov-54"
+   ]
+  },
+  {
+   "id": "PG-09",
+   "kind": "display",
+   "scope": "pages",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "No page repeats another page's lists; Progress & Stats shows summaries plus new data only.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "none of the progress and stats overlaps with the pages they referrence",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:O9"
+   ],
+   "next_step": "write the rule into a pages rules doc and add a check_pages assertion that progress.html holds no word/grammar list"
+  },
+  {
+   "id": "PG-10",
+   "kind": "display",
+   "scope": "pages",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "Grammar and Lessons mirror the Word Bank: search, last seen, status colours, left indent, sort arrows on every column, full detail card for every entry.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-23",
+     "quote": "add the same search and last seen from the word bank / I want every entry to look like this",
+     "session": "bdecb2e1"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:O10"
+   ],
+   "next_step": "a page-parity browser check (search box, last-seen column, sort arrows) per page"
+  },
+  {
+   "id": "PG-11",
+   "kind": "display",
+   "scope": "pages",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "One status palette app-wide: Mastered dark green, Good light green, Shaky yellow, Wrong red, Untested gray.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-22",
+     "quote": "Dark green, light green, yellow, red, gray",
+     "session": "3d55d61b"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/css/word-bank.css",
+     "contains": ".ab-status-Shaky{color:var(--ab-orange)}"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:O11"
+   ],
+   "next_step": "Good's token is named --ab-blue but is sage green #6B8C77; check on screen whether Shaky (--sabz-state-drifting) reads yellow, then align tokens app-wide"
+  },
+  {
+   "id": "PG-12",
+   "kind": "display",
+   "scope": "pages",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "Every row says Wrong or Correct in words, under any filter.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "I want clear labels for Wrong or Correct even if we are filtering for wrong only",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/grammar-console.js",
+     "contains": "Amal corrected you"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:O12"
+   ],
+   "next_step": "done on the grammar console (60ccfcb); extend to Lessons and Word Bank rows + a check"
+  },
+  {
+   "id": "PG-13",
+   "kind": "display",
+   "scope": "pages",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "Time charts start at the first month with data and run forward.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "lets show this month and the forward months",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:O13"
+   ],
+   "next_step": "apply to every time chart + a node test on the chart range helper"
+  },
+  {
+   "id": "AU-01",
+   "kind": "data",
+   "scope": "audio",
+   "status": "written",
+   "change": "new",
+   "statement": "Every reported miss or moment carries its audio clip.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-05",
+     "quote": "plan"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Every reported miss or moment carries its aud"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:E5"
+   ]
+  },
+  {
+   "id": "AU-02",
+   "kind": "display",
+   "scope": "audio",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "Every error clip is its own cut, starts a few seconds before Medi's line, runs through Amal's fix, and has both voices.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "I need more seconds before and after",
+     "session": "65d34512"
+    },
+    {
+     "by": "medi",
+     "date": "2026-09-27",
+     "quote": "we need the conversation with both of us",
+     "session": "017ade5d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_audit_audio.py",
+     "contains": "def clip(job):"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:O3"
+   ],
+   "next_step": "a PAD constant in build_audit_audio.py and lessons-page.js (today t-1 s / +1 s) + a test; needs the number of seconds"
+  },
+  {
+   "id": "AU-03",
+   "kind": "display",
+   "scope": "audio",
+   "status": "written",
+   "change": "amend",
+   "statement": "One player everywhere: play, pause, stop that resets, progress bar, volume, ⋯ menu, opened next to the button tapped.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-01",
+     "quote": "unify the Play bar for EVERYTHING. PLAY, PAUSE, STOP, BAR FOR PROGRESS, VOLUME, THREE DOT MENU",
+     "session": "72396edc"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/play-bar.js",
+     "contains": "One player for every sound on the site"
+    },
+    {
+     "type": "doc",
+     "path": "docs/word-bank-review-rules.md",
+     "contains": "13. Every available excerpt plays in the one Anees player"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:O4",
+    "report:C1"
+   ],
+   "supersedes": [
+    "AU-04"
+   ]
+  },
+  {
+   "id": "AU-04",
+   "kind": "display",
+   "scope": "audio",
+   "status": "superseded",
+   "change": "new",
+   "statement": "Native seekable audio controls; no custom play/pause/stop control (09-21 handoff rule 13).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-21",
+     "quote": "handoff rule 13",
+     "session": "7acdbc4c"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:C1-old"
+   ],
+   "superseded_by": "AU-03"
+  },
+  {
+   "id": "FC-01",
+   "kind": "display",
+   "scope": "flashcards",
+   "status": "written",
+   "change": "new",
+   "statement": "Cards work like Quizlet in both directions, retry wrong ones; swipe time is recorded but never changes the grade.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "work exactly like quizlet",
+     "session": "ef06f330"
+    },
+    {
+     "by": "medi",
+     "date": "2026-09-22",
+     "quote": "no, just record it",
+     "session": "4f77306f"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "memory",
+     "path": "anees-fsrs-flashcards.md",
+     "contains": "name: anees-fsrs-flashcards"
+    },
+    {
+     "type": "code",
+     "path": "docs/cards.html",
+     "contains": "undone_at,flip_ms,answer_ms"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-55"
+   ]
+  },
+  {
+   "id": "FC-02",
+   "kind": "display",
+   "scope": "flashcards",
+   "status": "written",
+   "change": "new",
+   "statement": "FSRS: Again/Good only, no English before grading, no root tags, labelled categories, verb drills.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-22",
+     "quote": "remove the root tags",
+     "session": "bf660265"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "plan/SESSION-DECISIONS-2026-09-21.md",
+     "contains": "Scheduler: FSRS-6 default parameters, Again / Good only"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-56"
+   ]
+  },
+  {
+   "id": "FC-03",
+   "kind": "display",
+   "scope": "flashcards",
+   "status": "written",
+   "change": "new",
+   "statement": "What a card shows: flashcard rules F1-F11.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-01",
+     "quote": "two of the same word... same size",
+     "session": "4a6cf501"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/flashcard-rules.md",
+     "contains": "| F1 | Singular and plural sit on one line"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-57a"
+   ]
+  },
+  {
+   "id": "FC-04",
+   "kind": "display",
+   "scope": "flashcards",
+   "status": "written",
+   "change": "new",
+   "statement": "How answering works: flashcard rules A1-A8.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-01",
+     "quote": "undo / word buttons / keep going",
+     "session": "4a6cf501"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/flashcard-rules.md",
+     "contains": "| A1 | Swipe left / ✕ = the whole card missed."
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-57b"
+   ]
+  },
+  {
+   "id": "FC-05",
+   "kind": "data",
+   "scope": "flashcards",
+   "status": "written",
+   "change": "amend",
+   "statement": "NEW = only words Amal adds to the Doc after 2026-09-30; new-word pace = her batch size; old words have no limit (N1-N5).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-01",
+     "quote": "NEW = Doc adds",
+     "session": "4a6cf501"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/flashcard-rules.md",
+     "contains": "| N1 | NEW = only words Amal adds to the Doc after 2026-09-30."
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-57c",
+    "report:C7"
+   ],
+   "supersedes": [
+    "FC-06"
+   ],
+   "note": "C6: the Lessons page 'new verbs' (WS-12) is a different meaning; both stand"
+  },
+  {
+   "id": "FC-06",
+   "kind": "data",
+   "scope": "flashcards",
+   "status": "superseded",
+   "change": "new",
+   "statement": "Daily new-card limit 20, later 8 a day (09-21).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-21",
+     "quote": "daily new limit 20 -> 8/day",
+     "session": "7acdbc4c"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:C7-old"
+   ],
+   "superseded_by": "FC-05"
+  },
+  {
+   "id": "FC-07",
+   "kind": "data",
+   "scope": "flashcards",
+   "status": "needs-medi",
+   "change": "new",
+   "statement": "One written leech threshold: today fsrs.js uses 4 misses OR 8 lapses; the 09-21 decision said 8 lapses; Medi doubted '3'.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "I feel like I've had more than 3 leech words",
+     "session": "72396edc"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/fsrs.js",
+     "contains": "leechLapses:8,leechMisses:4"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:M8",
+    "report:C9"
+   ],
+   "question": {
+    "ask": "A leech is a card you missed how many times? (now 4 misses or 8 lapses)",
+    "options": [
+     "3",
+     "4",
+     "8"
+    ]
+   }
+  },
+  {
+   "id": "FC-08",
+   "kind": "process",
+   "scope": "flashcards",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Test runs never write to Medi's card history: live-database tests run only with ANEES_E2E_LIVE=1.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-29",
+     "quote": "delete (108 fake test answers)",
+     "session": "cdd0bacd"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "tests/conftest.py",
+     "contains": "def pytest_collection_modifyitems(config, items):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_live_db_gate.py",
+     "contains": "def test_known_live_writers_are_gated"
+    }
+   ],
+   "aliases": [
+    "report:O16"
+   ],
+   "note": "gap: browser .cjs audits (flashcard_audit_browser.js) have no stub"
+  },
+  {
+   "id": "PR-01",
+   "kind": "process",
+   "scope": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every correction becomes a rule: fix the moment through the ruling files AND write the general rule where the next lesson meets it; registered in rules/registry.json.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "make a permanent rule in the md file that you should be creating some universal rules system",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "RULES.md",
+     "contains": "## S6 — Every correction becomes a rule"
+    },
+    {
+     "type": "code",
+     "path": "scripts/rule_registry.py",
+     "contains": "def check(root=ROOT, data=None"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_rule_registry.py",
+     "contains": "def test_live_registry_passes"
+    }
+   ],
+   "aliases": [
+    "RULES:S6",
+    "report:M1"
+   ]
+  },
+  {
+   "id": "PR-02",
+   "kind": "process",
+   "scope": "process",
+   "status": "written",
+   "change": "new",
+   "statement": "Low security posture: no passwords or security friction on Anees.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "remove all passwords and security",
+     "session": "072237ad"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "AGENTS.md",
+     "contains": "PR-02 low security"
+    },
+    {
+     "type": "memory",
+     "path": "anees-low-security-posture.md",
+     "contains": "name: anees-low-security-posture"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-proc-1"
+   ]
+  },
+  {
+   "id": "PR-03",
+   "kind": "process",
+   "scope": "process",
+   "status": "written",
+   "change": "new",
+   "statement": "Grill Medi with questions before a big task.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-05",
+     "quote": "grill me",
+     "session": "072237ad"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "AGENTS.md",
+     "contains": "PR-03 grill Medi"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-proc-2"
+   ]
+  },
+  {
+   "id": "PR-04",
+   "kind": "process",
+   "scope": "process",
+   "status": "written",
+   "change": "new",
+   "statement": "Never review or recap the rules with Medi.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-21",
+     "quote": "dont review the rules with me",
+     "session": "7acdbc4c"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "AGENTS.md",
+     "contains": "PR-04 never recap rules"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-proc-3"
+   ]
+  },
+  {
+   "id": "PR-05",
+   "kind": "process",
+   "scope": "process",
+   "status": "written",
+   "change": "new",
+   "statement": "When an ask conflicts with what exists, ask ONE question before building.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-23",
+     "quote": "tell me when... theres a conflict",
+     "session": "9bce4014"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "AGENTS.md",
+     "contains": "PR-05 flag conflicts first"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-proc-4"
+   ]
+  },
+  {
+   "id": "PR-06",
+   "kind": "process",
+   "scope": "process",
+   "status": "written",
+   "change": "new",
+   "statement": "Push master yourself when the publish guard is OK and the push is a fast-forward; never force.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-30",
+     "quote": "Push it yourself",
+     "session": "cdd0bacd"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "AGENTS.md",
+     "contains": "PR-06 push guarded master"
+    },
+    {
+     "type": "memory",
+     "path": "anees-push-master-ok.md",
+     "contains": "name: anees-push-master-ok"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-proc-5"
+   ]
+  },
+  {
+   "id": "PR-07",
+   "kind": "process",
+   "scope": "process",
+   "status": "written",
+   "change": "new",
+   "statement": "Produce a trustworthy transcript first, then everything else.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-09-07",
+     "quote": "first produce a trustworthy transcript",
+     "session": "ff540fd5"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "AGENTS.md",
+     "contains": "PR-07 transcript first"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:cov-09"
+   ]
+  },
+  {
+   "id": "PR-08",
+   "kind": "process",
+   "scope": "process",
+   "status": "moment-only",
+   "change": "new",
+   "statement": "Keep a checklist of every ask in a session (including messages typed mid-run) and tick each one before reporting done.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-01",
+     "quote": "please dont cut any stepts",
+     "session": "4a6cf501"
+    },
+    {
+     "by": "medi",
+     "date": "2026-09-27",
+     "quote": "you didnt do all the tasks I just asked you",
+     "session": "017ade5d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "AGENTS.md",
+     "contains": "PR-08 every ask ticked"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "report:M10"
+   ],
+   "next_step": "written in AGENTS.md tonight; no automatic check is possible - stays moment-only until a session-end checklist tool exists"
+  },
+  {
+   "id": "PR-09",
+   "kind": "process",
+   "scope": "process",
+   "status": "written",
+   "change": "new",
+   "statement": "Nothing is emailed before the page is pushed and answers 200.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-05",
+     "quote": "plan"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Nothing is emailed before the page is pushed "
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:H3"
+   ]
+  },
+  {
+   "id": "PR-10",
+   "kind": "process",
+   "scope": "process",
+   "status": "written",
+   "change": "new",
+   "statement": "Paid AI calls stop at 90% of the budget.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-05",
+     "quote": "plan"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Paid calls stop at 90 % of the budget.\""
+    },
+    {
+     "type": "check",
+     "path": "scripts/check_rules.py",
+     "contains": "def check_budget(root, raw):"
+    }
+   ],
+   "test": [
+    {
+     "path": "scripts/check_rules.py",
+     "contains": "res(\"H4-budget\", \"block\""
+    }
+   ],
+   "aliases": [
+    "ai_rules:H4"
+   ],
+   "note": "Claude-authored plan rule approved by Medi in ai_rules"
+  },
+  {
+   "id": "PR-11",
+   "kind": "process",
+   "scope": "process",
+   "status": "written",
+   "change": "new",
+   "statement": "Freeze clips, hashes and test arms before any output is seen.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-05",
+     "quote": "plan"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "Freeze clips, hashes and test arms before any"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:R1"
+   ]
+  },
+  {
+   "id": "PR-12",
+   "kind": "process",
+   "scope": "process",
+   "status": "written",
+   "change": "new",
+   "statement": "An engine is replaced only on held-out, Amal-labelled events, tested on full tracks.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-05",
+     "quote": "plan"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "docs/data/ai_rules.json",
+     "contains": "An engine is replaced only on held-out, Amal-"
+    }
+   ],
+   "test": [],
+   "aliases": [
+    "ai_rules:R2"
+   ]
+  }
+ ]
+}

@@ -4,6 +4,7 @@
   "step_failures",
   "clean_tree",
   "json_data",
+  "rule_registry",
   "lesson_coverage",
   "review_done",
   "accuracy_gates",
@@ -25,6 +26,15 @@
   "data/accuracy"
  ],
  "commands": {
+  "rule_registry": {
+   "cmd": [
+    "{python}",
+    "scripts/rule_registry.py",
+    "check"
+   ],
+   "timeout_s": 60,
+   "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)"
+  },
   "accuracy_gates": {
    "cmd": [
     "{python}",
@@ -100,7 +110,8 @@
     "tests/test_audit_duplicates.py",
     "tests/test_rules_check.py",
     "tests/test_farsi.py",
-    "tests/test_rules_amal_rulings.py"
+    "tests/test_rules_amal_rulings.py",
+    "tests/test_rule_registry.py"
    ],
    "timeout_s": 180,
    "what": "fast offline tests on the committed data (no network, no paid API)"
@@ -129,7 +140,8 @@
     "tests/test_word_bank_reliability.cjs",
     "tests/test_amal_newest.cjs",
     "tests/test_amal_trigger_status.cjs",
-    "tests/test_publish_guard_status.cjs"
+    "tests/test_publish_guard_status.cjs",
+    "tests/test_rule_names.cjs"
    ],
    "timeout_s": 120,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)"

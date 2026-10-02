@@ -1,0 +1,197 @@
+# -*- coding: utf-8 -*-
+"""The rule registry check (scripts/rule_registry.py, RULES.md S6, Medi 2026-10-02).
+
+Each failure the check promises gets a planted fixture (must fail) next to its clean twin (must pass) - the ESLint
+"Missing tests for rule X" pattern. The last test runs the check on the real repo (registry id PR-01)."""
+import copy, json
+from pathlib import Path
+
+import rule_registry as RR
+
+ROOT = Path(__file__).resolve().parent.parent
+
+
+def w(p, obj):
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(obj if isinstance(obj, str) else json.dumps(obj, ensure_ascii=False), encoding="utf-8")
+    return p
+
+
+def world(tmp_path):
+    w(tmp_path / "RULES.md", "# Rules\n\n---\n\n## S1 — One\n\nbody\n")
+    w(tmp_path / "docs" / "data" / "ai_rules.json", {"groups": [{"rules": [{"id": "M1"}, {"id": "AR-1"}]}]})
+    w(tmp_path / "scripts" / "publish_guard_config.json",
+      {"required": ["tests_py", "check_rules"], "commands": {"tests_py": {"cmd": ["{python}", "-m", "pytest", "tests/test_x.py"]}}})
+    w(tmp_path / "scripts" / "thing.py", "def does_the_thing(x):\n    return x  # GR-01\n")
+    w(tmp_path / "scripts" / "check_rules.py", 'return res("S3-signal", "block", rule)\n')
+    w(tmp_path / "tests" / "test_x.py", "def test_the_thing_is_done():\n    pass  # GR-01\n")
+    w(tmp_path / "tests" / "test_not_in_guard.py", "def test_elsewhere_and_unrun():\n    pass\n")
+    w(tmp_path / "data" / "lesson-work" / "full-audit" / "READER-BRIEF.md", "NOT errors: a question about the rule is not a slip\n")
+    w(tmp_path / "data" / "grammar-usage-rulings.json", {"rows": [{"date": "2026-09-30", "t": "01:00", "bucket": "A1", "why": "old"}]})
+    old_row = {"date": "2026-09-30", "t": "01:00", "bucket": "A1", "why": "old"}
+    return {"moment_baseline": {"data/grammar-usage-rulings.json": [RR.moment_hash(old_row)]}, "rules": [
+        {"id": "GR-01", "kind": "error", "scope": "grammar-scoring", "status": "enforced", "change": "new",
+         "statement": "a thing", "source": [{"by": "medi", "date": "2026-10-02", "quote": "do the thing"}],
+         "enforcement": [{"type": "code", "path": "scripts/thing.py", "contains": "def does_the_thing(x):"}],
+         "test": [{"path": "tests/test_x.py", "contains": "def test_the_thing_is_done"}],
+         "aliases": ["RULES:S1", "ai_rules:M1"]},
+        {"id": "GR-02", "kind": "not-error", "scope": "grammar-scoring", "status": "enforced", "change": "new",
+         "statement": "a question is not a slip", "source": [{"by": "medi", "date": "2026-10-02", "quote": "q"}],
+         "enforcement": [{"type": "brief", "path": "data/lesson-work/full-audit/READER-BRIEF.md", "contains": "a question about the rule"}],
+         "example": {"date": "2026-09-30", "note": "his question"}},
+        {"id": "FC-01", "kind": "data", "scope": "flashcards", "status": "needs-medi", "change": "new", "statement": "leech",
+         "source": [{"by": "medi", "date": "2026-10-02", "quote": "more than 3"}],
+         "question": {"ask": "Leech after how many misses?", "options": ["3", "4"]}},
+    ]}
+
+
+def problems(tmp_path, data, origin=None):
+    return RR.check(tmp_path, data, origin=origin, use_origin=False)
+
+
+def test_clean_world_passes(tmp_path):
+    assert problems(tmp_path, world(tmp_path)) == []
+
+
+def test_enforced_without_a_guard_test_fails(tmp_path):
+    d = world(tmp_path)
+    d["rules"][0]["test"] = []
+    assert any("no test the guard runs" in p for p in problems(tmp_path, d))
+    d["rules"][0]["test"] = [{"path": "tests/test_not_in_guard.py", "contains": "def test_elsewhere_and_unrun"}]
+    assert any("not run by the publish guard" in p for p in problems(tmp_path, d))
+    d["rules"][0]["test"] = [{"path": "tests/test_x.py", "contains": "pass  # GR-01 is here"}]
+    assert any("test function" in p for p in problems(tmp_path, d))
+
+
+def test_a_report_check_is_not_a_test(tmp_path):
+    d = world(tmp_path)
+    d["rules"][0]["test"] = [{"path": "scripts/check_rules.py", "contains": 'res("S3-signal", "report"'}]
+    assert any("BLOCK check" in p for p in problems(tmp_path, d))
+    d["rules"][0]["test"] = [{"path": "scripts/check_rules.py", "contains": 'res("S3-signal", "block"'}]
+    assert problems(tmp_path, d) == []
+
+
+def test_anchor_that_moved_fails_with_a_plain_reason(tmp_path):
+    d = world(tmp_path)
+    w(tmp_path / "scripts" / "thing.py", "def renamed_thing(x):\n    return x\n")
+    assert any("anchor moved" in p and "update the entry" in p for p in problems(tmp_path, d))
+
+
+def test_short_or_regenerated_anchors_fail(tmp_path):
+    d = world(tmp_path)
+    d["rules"][0]["enforcement"][0]["contains"] = "def does"
+    assert any("shorter than" in p for p in problems(tmp_path, d))
+    w(tmp_path / "docs" / "data" / "lessons" / "x.json", "a long enough anchor string")
+    d["rules"][0]["enforcement"][0] = {"type": "code", "path": "docs/data/lessons/x.json", "contains": "a long enough anchor string"}
+    assert any("regenerated by the hourly job" in p for p in problems(tmp_path, d))
+
+
+def test_brief_rule_needs_a_real_moment_and_not_error_needs_the_brief(tmp_path):
+    d = world(tmp_path)
+    del d["rules"][1]["example"]
+    assert any("no example moment" in p for p in problems(tmp_path, d))
+    d = world(tmp_path)
+    d["rules"][0]["kind"] = "not-error"                     # code-only not-error rule: the readers never see it
+    assert any("readers' brief" in p for p in problems(tmp_path, d))
+
+
+def test_claude_alone_cannot_make_an_enforced_rule(tmp_path):
+    d = world(tmp_path)
+    d["rules"][0]["source"] = [{"by": "claude", "date": "2026-10-02", "quote": "I think"}]
+    assert any("no authority" in p for p in problems(tmp_path, d))
+
+
+def test_supersede_links_must_agree_and_superseded_anchors_are_not_opened(tmp_path):
+    d = world(tmp_path)
+    old = {"id": "GR-03", "kind": "error", "scope": "grammar-scoring", "status": "superseded", "change": "new",
+           "statement": "old way", "source": [{"by": "medi", "date": "2026-09-01", "quote": "old"}],
+           "enforcement": [{"type": "code", "path": "scripts/gone.py", "contains": "def long_gone_function():"}],
+           "superseded_by": "GR-01", "aliases": ["RULES:S1"]}
+    d["rules"].append(old)
+    assert any("GR-01.supersedes does not list GR-03" in p for p in problems(tmp_path, d))
+    d["rules"][0]["supersedes"], d["rules"][0]["change"] = ["GR-03"], "amend"
+    assert problems(tmp_path, d) == []                      # gone.py is never opened; the alias is not double-counted
+
+
+def test_amend_needs_supersedes_and_live_conflicts_need_medi(tmp_path):
+    d = world(tmp_path)
+    d["rules"][0]["change"] = "amend"
+    assert any("must name what it overturns" in p for p in problems(tmp_path, d))
+    d = world(tmp_path)
+    d["rules"][0]["conflicts_with"] = ["GR-02"]
+    assert any("neither is needs-medi" in p for p in problems(tmp_path, d))
+    d["rules"][0]["conflicts_with"] = ["FC-01"]
+    assert problems(tmp_path, d) == []
+
+
+def test_moment_only_and_needs_medi_say_what_is_next(tmp_path):
+    d = world(tmp_path)
+    d["rules"][1]["status"] = "moment-only"
+    assert any("next_step" in p for p in problems(tmp_path, d))
+    d = world(tmp_path)
+    del d["rules"][2]["question"]
+    assert any("question.ask" in p for p in problems(tmp_path, d))
+
+
+def test_every_standing_rule_and_ai_rule_has_an_entry(tmp_path):
+    d = world(tmp_path)
+    d["rules"][0]["aliases"] = ["ai_rules:M1"]
+    assert any("RULES.md S1" in p for p in problems(tmp_path, d))
+    d["rules"][0]["aliases"] = ["RULES:S1"]
+    assert any("ai_rules.json M1" in p for p in problems(tmp_path, d))   # AR-* ids are Amal's data: not required
+    w(tmp_path / "RULES.md", "# Rules\n\nno headings any more\n")
+    d["rules"][0]["aliases"] = ["RULES:S1", "ai_rules:M1"]
+    assert any("no '## Sn' headings" in p for p in problems(tmp_path, d))
+
+
+def test_a_new_moment_ruling_must_name_its_rule(tmp_path):
+    d = world(tmp_path)
+    rows = [{"date": "2026-09-30", "t": "01:00", "bucket": "A1", "why": "old"},
+            {"date": "2026-10-03", "t": "02:00", "bucket": "A1", "why": "a question"}]
+    w(tmp_path / "data" / "grammar-usage-rulings.json", {"rows": rows})
+    assert any("has no \"rule\"" in p for p in problems(tmp_path, d))
+    rows[1]["rule"] = "GR-99"
+    w(tmp_path / "data" / "grammar-usage-rulings.json", {"rows": rows})
+    assert any("not in the registry" in p for p in problems(tmp_path, d))
+    rows[1]["rule"] = "GR-02"
+    w(tmp_path / "data" / "grammar-usage-rulings.json", {"rows": rows})
+    assert problems(tmp_path, d) == []
+    rows[0]["why"] = "old, quietly edited"                  # an edited old ruling is a new ruling
+    w(tmp_path / "data" / "grammar-usage-rulings.json", {"rows": rows})
+    assert any("has no \"rule\"" in p for p in problems(tmp_path, d))
+
+
+def test_ratchet_no_entry_disappears_and_no_status_goes_down(tmp_path):
+    d = world(tmp_path)
+    origin = copy.deepcopy(d)
+    gone = copy.deepcopy(d)
+    gone["rules"] = gone["rules"][1:]
+    assert any("entry removed" in p for p in problems(tmp_path, gone, origin))
+    down = copy.deepcopy(d)
+    down["rules"][0]["status"] = "written"
+    assert any("status went down" in p for p in problems(tmp_path, down, origin))
+    medi = copy.deepcopy(d)
+    medi["rules"][0]["status"], medi["rules"][0]["question"] = "needs-medi", {"ask": "?", "options": ["a", "b"]}
+    assert not any("status went down" in p for p in problems(tmp_path, medi, origin))
+
+
+def test_a_new_rule_cannot_borrow_an_unrelated_test(tmp_path):
+    d = world(tmp_path)
+    origin = {"rules": [r for r in copy.deepcopy(d)["rules"] if r["id"] != "GR-01"]}
+    assert problems(tmp_path, d, origin) == []              # test_x.py mentions GR-01
+    w(tmp_path / "tests" / "test_x.py", "def test_the_thing_is_done():\n    pass\n")
+    assert any("must mention GR-01" in p for p in problems(tmp_path, d, origin))
+
+
+def test_bad_input_is_a_problem_line_not_a_crash(tmp_path):
+    d = world(tmp_path)
+    d["rules"][0]["source"] = "Medi said so"
+    d["rules"][0]["enforcement"] = ["scripts/thing.py"]
+    out = problems(tmp_path, d)
+    assert any("source must be a list" in p for p in out) and any("pointer must be an object" in p for p in out)
+
+
+def test_live_registry_passes():
+    """PR-01: the real rules/registry.json - every pointer resolves, every enforced rule is proven (offline: no ratchet)."""
+    out = RR.check(ROOT, use_origin=False)
+    assert out == [], out[:10]
