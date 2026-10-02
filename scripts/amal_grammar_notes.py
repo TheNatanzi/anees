@@ -129,6 +129,8 @@ KEPT_0930 = {
 def write_0930(rows):
     by_uid = {(r.get("uid") or r.get("id")): r for r in rows}
     missing = sorted(set(KEPT_0930) - set(by_uid))
+    left = rows_left_after_reread(missing, out_path=OUT_0930, since="2026-09-30", rulings=KEPT_0930)
+    missing = [u for u in missing if u not in left]
     assert not missing, "09-30 rows not in the full audit: %s" % missing
     touched = {b: [u for u, r in by_uid.items() if b in (r.get("bucket"), r.get("bucket2"))] for b in NOTES_0930}
     out = {
@@ -140,7 +142,8 @@ def write_0930(rows):
         "dropped": [], "added": [],
         "notes": NOTES_0930,
         "corrections_per_rule": {b: len(u) for b, u in touched.items()},
-        "read_and_kept": [_line(by_uid[u], {"kind": "kept", "why": why}) for u, (_b, why) in KEPT_0930.items()],
+        "read_and_kept": [_line(by_uid[u], {"kind": "kept", "why": why}) for u, (_b, why) in KEPT_0930.items() if u in by_uid],
+        "left_after_reread": [left[u] for u in sorted(left)],
         "open_for_medi": "C6 says conditionals REQUIRE bikoon; her B8 note says it is NOT strict after lamma / iza. The 4 "
                          "lamma rows dropped on 09-29 (FA-08b564c1, FA-d2009048, FA-5d2bf797, FA-7d9cfb2c) stay dropped "
                          "until Medi decides.",
@@ -173,11 +176,53 @@ def _line(r, ru=None):
             **({"kind": ru["kind"], "reason": ru["why"]} if ru else {})}
 
 
+def rows_left_after_reread(uids, out_path=None, work=None, since="2026-09-29", rulings=None):
+    """{uid: line} for ruled rows that left the full audit for a recorded reason since this list was built:
+    - the row was rejected under a rule (data/lesson-work/full-audit/rejected.json, uid_at_time; e.g. GR-19 took out the
+      fixes Amal only typed in the chat on 2026-10-02: 09-21 11:39 FA-efa0a7b7), or
+    - its lesson's readers re-read it after `since` (new tracks / longer transcript) and no longer flag it (date from the
+      last written list; 2026-10-02: 09-23 48:45 FA-7d9cfb2c).
+    A uid with neither reason is not here: the caller's assert still catches a typo or a lost row."""
+    out_path = out_path or OUT
+    work = work or os.path.join(REPO, "data", "lesson-work", "full-audit")
+    rulings = rulings if rulings is not None else {**KEPT, **DROPPED}
+    try:
+        prev = json.load(open(out_path, encoding="utf-8"))
+    except Exception:
+        prev = {}
+    known = {x["uid"]: x for k in ("not_counted", "read_and_kept", "left_after_reread") for x in prev.get(k) or [] if x.get("uid")}
+    try:
+        rejected = {r.get("uid_at_time"): r for r in json.load(open(os.path.join(work, "rejected.json"), encoding="utf-8"))["rows"]}
+    except Exception:
+        rejected = {}
+    left = {}
+    for u in uids:
+        ruling = rulings.get(u) or ("", "")
+        line = {"uid": u, "bucket": ruling[0], "ruling": ruling[1], "kind": "dropped" if u in DROPPED else "kept"}
+        if u in rejected:
+            r = rejected[u]
+            left[u] = {**line, "date": r.get("date"), "t": r.get("t"), "left": "rejected under %s: %s" % (r.get("rule"), r.get("why"))}
+            continue
+        x = known.get(u)
+        if not x or not x.get("date"):
+            continue
+        man = os.path.join(work, "%s.r1.json.inputs.json" % x["date"])
+        try:
+            written = str(json.load(open(man, encoding="utf-8")).get("written") or "")[:10]
+        except Exception:
+            continue
+        if written > since:
+            left[u] = {**line, "date": x["date"], "t": x.get("t"), "left": "row left the audit when %s was re-read on %s" % (x["date"], written)}
+    return left
+
+
 def main():
     A = json.load(open(AUDIT, encoding="utf-8"))
     rows = [r for r in A["sweep_compat"]["rows"] + A["sweep_compat"].get("unfiled", []) if r.get("mode") == "speaking"]
     uids = {r.get("uid") or r.get("id") for r in rows}
     missing = sorted((set(DROPPED) | set(KEPT)) - uids)
+    left = rows_left_after_reread(missing)
+    missing = [u for u in missing if u not in left]
     assert not missing, "rulings name rows that are not in the full audit: %s" % missing
 
     ruled = [(_line(r, ruling(r))) for r in rows if ruling(r)]
@@ -207,7 +252,10 @@ def main():
         "counts": dict(sorted(per_rule.items())),
         "total_not_counted": len(ruled),
         "not_counted": sorted(ruled, key=lambda x: (x["bucket"] or "", x["date"], x["t"] or "")),
-        "read_and_kept": [_line(by_uid[u], {"kind": "kept", "why": why}) for u, (_b, why) in KEPT.items()],
+        "read_and_kept": [_line(by_uid[u], {"kind": "kept", "why": why}) for u, (_b, why) in KEPT.items() if u in by_uid],
+        # a ruled row the same-day readers no longer flag after its lesson was re-read (new tracks / longer transcript):
+        # nothing left to rule on; kept here with its date so the next run still knows it (2026-10-02: 09-23 48:45)
+        "left_after_reread": [left[u] for u in sorted(left)],
         "checks": {
             "A1_corrections": len(a1),
             "A1_sun_moon": len(sun),
