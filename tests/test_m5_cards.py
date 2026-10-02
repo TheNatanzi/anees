@@ -37,19 +37,25 @@ console.log(JSON.stringify({r300:run(20260905,300), r3000:run(7,3000), mean200:s
 
 
 def test_round_of_20_with_6_misses_replays_exactly_those():
+    """Since Medi 2026-09-30 (086d3b2) a missed card comes back REDO_GAP cards later in the same round until it is known;
+    Know / Still learning count each card once (its latest answer). The wrong pile still holds every card missed once."""
     out = node(PRELUDE + """
 const C=globalThis.AneesCards; const words=Array.from({length:20},(_,i)=>({key:'w'+i}));
-let r=C.newRound(words,{mode:'ar_first',subject:'test',id:'R'}); const missIdx=new Set([1,4,7,10,13,19]); const rows=[];
-for(let i=0;i<20;i++){ rows.push(C.answer(r, missIdx.has(i)?'missed':'got', '2026-09-05T10:00:00Z', 'id'+i)); }
+function play(r, miss, tag){ const seen=new Set(), rows=[]; let k=0;
+  while(!C.done(r)){ const w=r.cards[r.i]; const m=miss.has(w.key)&&!seen.has(w.key); if(m) seen.add(w.key); rows.push(C.answer(r, m?'missed':'got', '2026-09-05T10:00:00Z', tag+(k++))); }
+  return rows; }
+let r=C.newRound(words,{mode:'ar_first',subject:'test',id:'R'});
+const rows=play(r, new Set(['w1','w4','w7','w10','w13','w19']), 'id');
 const s1=C.summary(r); let r2=C.replayWrong(r); const keys2=r2.cards.map(w=>w.key);
-for(let i=0;i<6;i++){ rows.push(C.answer(r2, i<2?'missed':'got', '2026-09-05T10:05:00Z', 'rid'+i)); }
+rows.push(...play(r2, new Set(['w1','w4']), 'rid'));
 const s2=C.summary(r2); const r3=C.replayWrong(r2);
-console.log(JSON.stringify({s1, keys2, s2, keys3:r3.cards.map(w=>w.key), rows:rows.length, got:rows.filter(x=>x.result==='got').length, attempts:[...new Set(rows.map(x=>x.attempt))]}));
+console.log(JSON.stringify({s1, keys2, s2, keys3:r3.cards.map(w=>w.key), rows:rows.length, missed:rows.filter(x=>x.result==='missed').length, attempts:[...new Set(rows.map(x=>x.attempt))]}));
 """)
-    assert out['s1']['n'] == 20 and out['s1']['got'] == 14 and out['s1']['missed'] == 6
+    assert out['s1']['n'] == 20 and out['s1']['shown'] == 26 and out['s1']['firstTry'] == 14
+    assert out['s1']['got'] == 20 and out['s1']['missed'] == 0            # every missed card was known when it came back
     assert out['keys2'] == ['w1', 'w4', 'w7', 'w10', 'w13', 'w19']
-    assert out['s2']['n'] == 6 and out['s2']['missed'] == 2 and out['keys3'] == ['w1', 'w4']
-    assert out['rows'] == 26 and out['got'] == 14 + 4 and out['attempts'] == [1, 2]
+    assert out['s2']['n'] == 6 and out['s2']['shown'] == 8 and out['s2']['firstTry'] == 4 and out['keys3'] == ['w1', 'w4']
+    assert out['rows'] == 34 and out['missed'] == 8 and out['attempts'] == [1, 2]
 
 
 CASES = {
@@ -134,113 +140,121 @@ console.log(JSON.stringify({speaking:['a','b','c'].map(k=>m[k].bucket),cards:['a
     assert out == {'speaking': ['missed', 'cold', 'cold'], 'cards': ['cold', 'cold', 'missed'], 'weights': [1, 1, 3], 'unchanged': True}
 
 
-def _run_round(pg, n_miss_idx):
-    """Answer the current round: miss the cards at the given indexes. Returns the summary text."""
-    i = 0
+def _run_round(pg, miss_keys):
+    """Answer the current round. A card in miss_keys is missed the first time it shows; since Medi 2026-09-30 (086d3b2) a
+    missed card comes back later in the same round, and is then known. Returns (swipes, summary text)."""
+    i, missed = 0, set()
     while pg.locator('#got').count():
         # grading unlocks only after the card is flipped (Quizlet-style tap to flip)
         assert pg.locator('#got:disabled').count() == 1
+        k = pg.evaluate('AneesTest.round.cards[AneesTest.round.i].key')
         pg.click('#card'); pg.wait_for_timeout(500 if i == 0 else 80)
         if i == 0:
             assert 'flip' in pg.get_attribute('#card', 'class')
-        pg.click('#miss' if i in n_miss_idx else '#got')
+        m = k in miss_keys and k not in missed
+        if m:
+            missed.add(k)
+        pg.click('#miss' if m else '#got')
         i += 1
         pg.wait_for_timeout(320)   # the card flies off before the next one renders
-    return pg.text_content('#root')
+    return i, pg.text_content('#root')
+
+
+def _answers(rows):
+    """One row per swipe: a singular/plural card also writes a 'form:<key>:plural' row (Medi 2026-09-30, 9f157bb)."""
+    return [r for r in rows if not str(r.get('word_key', '')).startswith('form:')]
 
 
 @pytest.mark.skipif(not NET, reason='needs Supabase')
 @pytest.mark.parametrize('viewport', [{'width': 375, 'height': 812}, {'width': 1280, 'height': 800}])
-def test_flip_toggle_shuffle_replay_end_to_end(viewport):
-    import db
+def test_flip_toggle_shuffle_replay_end_to_end(viewport, rest_stub):
+    """FC-08: the page reads Medi's live words/history (GET) but every answer it sends lands in rest_stub, never in
+    his card_results (2026-09-29 runs of this test left 108 fake answers there)."""
     from playwright.sync_api import sync_playwright
     url = (ROOT / 'docs' / 'cards.html').resolve().as_uri()
-    rid = None
-    try:
-        with sync_playwright() as pw:
-            b = pw.chromium.launch(); ctx = b.new_context(viewport=viewport); pg = ctx.new_page(); pg.goto(url)
-            pg.wait_for_selector('[data-t="cat:topics"]', timeout=20000)   # home is the category menu (Medi 2026-09-22); card front choice lives there too
-            pg.click('#m-en'); pg.wait_for_selector('#m-en.sel'); pg.click('[data-t="cat:topics"]'); pg.click('[data-t="topic:Animals"]')
-            pg.click('[data-t="all:topic:Animals"]'); pg.wait_for_selector('#start')
-            pg.click('#sh'); pg.wait_for_timeout(100); sh1 = pg.text_content('#sh'); pg.click('#sh'); pg.wait_for_timeout(100); sh2 = pg.text_content('#sh')
-            assert sh1 != sh2 and 'Shuffle' in sh1
-            pg.click('#n20'); pg.click('#start'); pg.wait_for_selector('#card')
-            assert pg.evaluate('document.documentElement.scrollWidth') <= viewport['width']
-            assert pg.evaluate("document.querySelector('#got').getBoundingClientRect().height") >= 48
-            rid = pg.evaluate('AneesTest.round.id')
-            first_face = pg.text_content('#card .face:not(.back) .en')
-            assert first_face, 'English-first mode should show English on the front'
-            # Since Medi's 2026-09-27 "fix the bugs" (af4d629) a round holds at most 8 NEW cards a day on every path
-            # (fsrs.js DEFAULTS.newPerDay), so the 20-card round is 20 only when enough Animals cards were seen before.
-            # The round is sized from what the page actually dealt.
-            n = pg.evaluate('AneesTest.round.cards.length')
-            if n < 4:
-                b.close(); pytest.skip(f'only {n} Animals cards have room today (8 new a day); need 4')
-            miss1 = set(range(1, n, 3))
-            txt = _run_round(pg, miss1)
-            assert f'Review the ones I got wrong ({len(miss1)})' in txt, txt
-            assert str(n - len(miss1)) in txt and str(len(miss1)) in txt
-            wrong1 = pg.evaluate('AneesTest.round.wrong.map(w=>w.key)')
-            pg.click('#replay'); pg.wait_for_selector('#card')
-            assert pg.evaluate('AneesTest.round.cards.length') == len(miss1) and pg.evaluate('AneesTest.round.cards.map(w=>w.key)') == wrong1
-            miss2 = {0, 2} if len(miss1) >= 3 else {0}
-            txt = _run_round(pg, miss2)
-            assert f'Review the ones I got wrong ({len(miss2)})' in txt
-            pg.click('#replay'); pg.wait_for_selector('#card')
-            assert pg.evaluate('AneesTest.round.cards.map(w=>w.key)') == [wrong1[i] for i in sorted(miss2)]
-            txt = _run_round(pg, set())
-            assert 'Pile empty' in txt
-            total = n + len(miss1) + len(miss2)
-            log = pg.evaluate("JSON.parse(localStorage.getItem('anees-card-log'))")
-            mine = [r for r in log if r['round_id'].startswith(rid)]
-            assert len(mine) == total and sum(1 for r in mine if r['result'] == 'missed') == len(miss1) + len(miss2) and sum(1 for r in mine if r['result'] == 'got') == total - len(miss1) - len(miss2)
-            pg.wait_for_timeout(3000)
-            b.close()
-        rows = db.select('card_results', {'round_id': f'like.{rid}%'})
-        assert len(rows) == total and len({r['id'] for r in rows}) == total
-    finally:
-        if rid:   # also when the browser part fails: a failed run used to leave its rows in the live card_results table
-            db.sql(f"delete from card_results where round_id like '{rid}%'")
+    with sync_playwright() as pw:
+        b = pw.chromium.launch(); ctx = b.new_context(viewport=viewport); rest_stub.attach(ctx); pg = ctx.new_page(); pg.goto(url)
+        pg.wait_for_selector('[data-t="cat:topics"]', timeout=20000)   # home is the category menu (Medi 2026-09-22); card front choice lives there too
+        pg.click('#m-en'); pg.wait_for_selector('#m-en.sel'); pg.click('[data-t="cat:topics"]'); pg.click('[data-t="topic:Animals"]')
+        pg.click('[data-t="all:topic:Animals"]'); pg.wait_for_selector('#start')
+        pg.click('#sh'); pg.wait_for_timeout(100); sh1 = pg.text_content('#sh'); pg.click('#sh'); pg.wait_for_timeout(100); sh2 = pg.text_content('#sh')
+        assert sh1 != sh2 and 'Shuffle' in sh1
+        pg.click('#n20'); pg.click('#start'); pg.wait_for_selector('#card')
+        assert pg.evaluate('document.documentElement.scrollWidth') <= viewport['width']
+        assert pg.evaluate("document.querySelector('#got').getBoundingClientRect().height") >= 48
+        rid = pg.evaluate('AneesTest.round.id')
+        first_face = pg.text_content('#card .face:not(.back) .en')
+        assert first_face, 'English-first mode should show English on the front'
+        # The round is sized from what the page actually dealt (the daily new-card room follows Amal's curriculum).
+        keys = pg.evaluate('AneesTest.round.cards.map(w=>w.key)')
+        n = len(keys)
+        if n < 4:
+            b.close(); pytest.skip(f'only {n} Animals cards have room today; need 4')
+        miss1 = {keys[j] for j in range(1, n, 3)}
+        swipes1, txt = _run_round(pg, miss1)
+        assert swipes1 == n + len(miss1), (swipes1, n, miss1)          # each missed card came back once in the round
+        assert f'Review the ones I got wrong ({len(miss1)})' in txt, txt
+        wrong1 = pg.evaluate('AneesTest.round.wrong.map(w=>w.key)')
+        assert set(wrong1) == miss1
+        pg.click('#replay'); pg.wait_for_selector('#card')
+        assert pg.evaluate('AneesTest.round.cards.map(w=>w.key)') == wrong1
+        miss2 = {wrong1[0], wrong1[2]} if len(wrong1) >= 3 else {wrong1[0]}
+        swipes2, txt = _run_round(pg, miss2)
+        assert swipes2 == len(wrong1) + len(miss2)
+        assert f'Review the ones I got wrong ({len(miss2)})' in txt
+        pg.click('#replay'); pg.wait_for_selector('#card')
+        assert pg.evaluate('AneesTest.round.cards.map(w=>w.key)') == [k for k in wrong1 if k in miss2]
+        swipes3, txt = _run_round(pg, set())
+        assert swipes3 == len(miss2) and pg.locator('#replay').count() == 0, txt   # the wrong pile is empty
+        total = swipes1 + swipes2 + swipes3
+        log = pg.evaluate("JSON.parse(localStorage.getItem('anees-card-log'))")
+        mine = _answers([r for r in log if r['round_id'].startswith(rid)])
+        assert len(mine) == total and sum(1 for r in mine if r['result'] == 'missed') == len(miss1) + len(miss2)
+        pg.wait_for_timeout(3000)
+        b.close()
+    sent = [r for r in rest_stub.rows('card_results') if str(r.get('round_id', '')).startswith(rid)]
+    assert len(_answers(sent)) == total and len({r['id'] for r in sent}) == len(sent)
+    assert {r['id'] for r in sent} == {r['id'] for r in log if r['round_id'].startswith(rid)}
 
 
 @pytest.mark.skipif(not NET, reason='needs Supabase')
-def test_offline_20_answers_then_sync_no_duplicates():
-    import db
+def test_offline_20_answers_then_sync_no_duplicates(rest_stub):
+    """FC-08: answers go to rest_stub (de-duplicated by id like on_conflict=id ignore-duplicates), never to Medi's table."""
     from playwright.sync_api import sync_playwright
     url = (ROOT / 'docs' / 'cards.html').resolve().as_uri()
-    rid = None
-    try:
-        with sync_playwright() as pw:
-            b = pw.chromium.launch(); ctx = b.new_context(viewport={'width': 375, 'height': 812}); pg = ctx.new_page(); pg.goto(url)
-            pg.wait_for_selector('[data-t="cat:topics"]', timeout=20000); pg.click('[data-t="cat:topics"]'); pg.click('[data-t="topic:Numbers"]')   # home is the category menu
-            pg.click('[data-t="all:topic:Numbers"]'); pg.wait_for_selector('#start')
-            pg.click('#n20'); pg.click('#start'); pg.wait_for_function("document.querySelector('#card') || /new cards are in play/.test(document.body.innerText)")
-            if not pg.locator('#card').count():
-                b.close(); pytest.skip('every Numbers card would be new and today already used the 8-new-a-day cap')
-            rid = pg.evaluate('AneesTest.round.id')
-            n = pg.evaluate('AneesTest.round.cards.length')   # <= 20: at most 8 new cards a day since af4d629 (Medi 2026-09-27)
-            if n < 3:
-                b.close(); pytest.skip(f'only {n} Numbers cards have room today (8 new a day)')
-            ctx.set_offline(True)
-            _run_round(pg, {2, 5})
-            pg.wait_for_timeout(1500)
-            q = pg.evaluate("JSON.parse(localStorage.getItem('anees-card-queue')).length")
-            assert q == n, (q, n)
-            assert 'waiting' in pg.text_content('#sync')
-            ctx.set_offline(False)
-            pg.evaluate('AneesTest.sync()'); pg.wait_for_timeout(4000)
-            assert pg.evaluate("JSON.parse(localStorage.getItem('anees-card-queue')).length") == 0
-            # replay the same 20 ids once more: must be ignored server-side
-            ids = [r['id'] for r in pg.evaluate("JSON.parse(localStorage.getItem('anees-card-log'))") if r['round_id'] == rid]
-            pg.evaluate("localStorage.setItem('anees-card-queue', JSON.stringify(JSON.parse(localStorage.getItem('anees-card-log')).filter(r=>r.round_id===arguments[0])))" if False else
-                        f"localStorage.setItem('anees-card-queue', JSON.stringify(JSON.parse(localStorage.getItem('anees-card-log')).filter(r=>r.round_id==='{rid}')))")
-            pg.evaluate('AneesTest.sync()'); pg.wait_for_timeout(4000)
-            b.close()
-        rows = db.select('card_results', {'round_id': f'eq.{rid}'})
-        assert len(rows) == n and len({r['id'] for r in rows}) == n and set(ids) == {r['id'] for r in rows}
-    finally:
-        if rid:   # also when the browser part fails: a failed run used to leave its rows in the live card_results table
-            db.sql(f"delete from card_results where round_id = '{rid}'")
+    with sync_playwright() as pw:
+        b = pw.chromium.launch(); ctx = b.new_context(viewport={'width': 375, 'height': 812}); rest_stub.attach(ctx); pg = ctx.new_page(); pg.goto(url)
+        pg.wait_for_selector('[data-t="cat:topics"]', timeout=20000); pg.click('[data-t="cat:topics"]'); pg.click('[data-t="topic:Numbers"]')   # home is the category menu
+        pg.click('[data-t="all:topic:Numbers"]'); pg.wait_for_selector('#start')
+        pg.click('#n20'); pg.click('#start'); pg.wait_for_function("document.querySelector('#card') || /new cards are in play/.test(document.body.innerText)")
+        if not pg.locator('#card').count():
+            b.close(); pytest.skip('every Numbers card would be new and today has no new-card room left')
+        rid = pg.evaluate('AneesTest.round.id')
+        keys = pg.evaluate('AneesTest.round.cards.map(w=>w.key)')
+        n = len(keys)
+        if n < 3:
+            b.close(); pytest.skip(f'only {n} Numbers cards have room today')
+        ctx.set_offline(True); rest_stub.offline = True
+        swipes, _ = _run_round(pg, {keys[j] for j in (2, 5) if j < n})
+        pg.wait_for_timeout(1500)
+        log = [r for r in pg.evaluate("JSON.parse(localStorage.getItem('anees-card-log'))") if r['round_id'] == rid]
+        assert len(_answers(log)) == swipes
+        q = pg.evaluate("JSON.parse(localStorage.getItem('anees-card-queue')).length")
+        assert q == len(log), (q, len(log))                              # nothing left the page while offline
+        assert 'waiting' in pg.text_content('#sync')
+        assert not rest_stub.rows('card_results')
+        ctx.set_offline(False); rest_stub.offline = False
+        pg.evaluate('AneesTest.sync()'); pg.wait_for_timeout(4000)
+        assert pg.evaluate("JSON.parse(localStorage.getItem('anees-card-queue')).length") == 0
+        # replay the same ids once more: must be ignored server-side
+        ids = [r['id'] for r in log]
+        pg.evaluate(f"localStorage.setItem('anees-card-queue', JSON.stringify(JSON.parse(localStorage.getItem('anees-card-log')).filter(r=>r.round_id==='{rid}')))")
+        pg.evaluate('AneesTest.sync()'); pg.wait_for_timeout(4000)
+        b.close()
+    posts = [c for c in rest_stub.calls if c['method'] == 'POST' and '/rest/v1/card_results' in c['url']]
+    assert len(posts) >= 2 and all('on_conflict=id' in c['url'] and 'ignore-duplicates' in c['prefer'] for c in posts)   # the server-side de-dup contract
+    rows = [r for r in rest_stub.rows('card_results') if r.get('round_id') == rid]
+    assert len(rows) == len(ids) and set(ids) == {r['id'] for r in rows}
 
 
 def test_no_attribute_injection_in_cards():

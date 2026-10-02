@@ -4324,9 +4324,9 @@
    "scope": "flashcards",
    "status": "enforced",
    "change": "new",
-   "statement": "Test runs never write to Medi's card history: live-database tests run only with ANEES_E2E_LIVE=1.",
+   "statement": "Test runs never write to Medi's card history: no test writes to his project (Python writes raise, browser writes are answered by a local stub); a live-database test runs only with ANEES_E2E_LIVE=1 and a non-Medi ANEES_SUPABASE_URL.",
    "plain": "Test runs never write into your real flashcard history.",
-   "plain_for": "355d2f45",
+   "plain_for": "754d85a1",
    "topic": "tests",
    "source": [
     {
@@ -4341,9 +4341,26 @@
      "type": "code",
      "path": "tests/conftest.py",
      "contains": "def pytest_collection_modifyitems(config, items):"
+    },
+    {
+     "type": "code",
+     "path": "tests/conftest.py",
+     "contains": "def _fc08_no_live_writes(monkeypatch):"
     }
    ],
    "test": [
+    {
+     "path": "tests/test_live_db_gate.py",
+     "contains": "def test_fc_08_every_card_grading_browser_test_uses_the_stub"
+    },
+    {
+     "path": "tests/test_live_db_gate.py",
+     "contains": "def test_fc_08_python_write_to_medi_project_is_blocked"
+    },
+    {
+     "path": "tests/test_live_db_gate.py",
+     "contains": "def test_fc_08_browser_write_never_leaves_the_page"
+    },
     {
      "path": "tests/test_live_db_gate.py",
      "contains": "def test_known_live_writers_are_gated"
@@ -4352,7 +4369,7 @@
    "aliases": [
     "report:O16"
    ],
-   "note": "gap: browser .cjs audits (flashcard_audit_browser.js) have no stub"
+   "note": "2026-10-02: 90 of the 09-29 fake answers were still frozen in word_stats.progress_context.cards (a test's recompute_and_store at 09:57 UTC); scripts/delete_fake_card_answers_2026_10_02.py removes them (Medi runs it). test_m5_cards now sends answers to the rest_stub fixture; test_m4_after needs a non-Medi project. flashcard_audit_browser.js only reads (console script, no grading)."
   },
   {
    "id": "FC-09",

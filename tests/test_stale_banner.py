@@ -17,7 +17,7 @@ def test_every_page_carries_the_stamp_and_checker():
 
 
 @pytest.mark.skipif(__import__('importlib.util').util.find_spec('playwright') is None, reason='needs the Python playwright package and a browser (pip install playwright; playwright install chromium)')
-def test_banner_appears_when_build_changes(tmp_path):
+def test_banner_appears_when_build_changes(tmp_path, rest_stub):
     from playwright.sync_api import sync_playwright
     import shutil
     site = tmp_path / 'docs'
@@ -27,7 +27,7 @@ def test_banner_appears_when_build_changes(tmp_path):
     srv = http.server.ThreadingHTTPServer(('127.0.0.1', 0), h); port = srv.server_address[1]
     threading.Thread(target=srv.serve_forever, daemon=True).start()
     with sync_playwright() as pw:
-        b = pw.chromium.launch(); pg = b.new_page(viewport={'width': 375, 'height': 812})
+        b = pw.chromium.launch(); pg = b.new_page(viewport={'width': 375, 'height': 812}); rest_stub.attach(pg.context)   # FC-08
         pg.goto(f'http://127.0.0.1:{port}/cards.html'); pg.wait_for_selector('[data-t="cat:topics"]', timeout=20000)   # home is the category menu since 4facdef (2026-09-22); #start only appears inside a set
         assert pg.evaluate('AneesStale.check()') is not None and pg.locator('#stale-bar').count() == 0
         (site / 'data' / 'build.json').write_text('{"build": "20991231-000000-newer"}', encoding='utf-8')
@@ -36,3 +36,4 @@ def test_banner_appears_when_build_changes(tmp_path):
         assert 'out of date' in txt and pg.locator('#stale-reload').count() == 1
         assert pg.evaluate("document.querySelector('#stale-reload').getBoundingClientRect().height") >= 44
         b.close()
+    assert not rest_stub.calls, rest_stub.calls      # opening the Flashcards page writes nothing

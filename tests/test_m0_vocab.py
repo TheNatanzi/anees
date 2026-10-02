@@ -77,6 +77,7 @@ def test_loose_matcher_fixture(parsed):
     assert right >= 0.9 * n, f'{right}/{n}'
 
 
+@pytest.mark.live_db      # FC-08: iv.sync writes (and can archive) rows in the live words table
 @pytest.mark.skipif(not NET, reason='needs Supabase keys')
 def test_sync_is_idempotent(parsed):
     text, rows, words, merged = parsed

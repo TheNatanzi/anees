@@ -13,6 +13,10 @@ from arabizi import Matcher
 ROOT = Path(__file__).resolve().parent.parent
 NET = bool(E.ACCESS_TOKEN and E.SERVICE_KEY and E.ANON_KEY)
 PAY = ROOT / 'data' / 'lessons' / '2026-09-04' / 'after_payload.json'
+# FC-08: the two stand-in tests below create links, verdicts, homework rows and re-score words. They never run against
+# Medi's project: only with ANEES_E2E_LIVE=1 and ANEES_SUPABASE_URL set to a separate test project (tests/conftest.py).
+LIVE_TARGET = pytest.mark.skipif(not __import__('conftest').live_target_ok(),
+                                 reason="FC-08: needs ANEES_E2E_LIVE=1 and a non-Medi ANEES_SUPABASE_URL")
 
 
 def payload():
@@ -51,6 +55,7 @@ def test_homework_uses_only_doc_words():
             assert not v['bad_tokens'], (h['arabizi'], v['bad_tokens'])
 
 
+@LIVE_TARGET
 @pytest.mark.skipif(not NET, reason='needs Supabase')
 def test_stand_in_answers_5_questions_and_homework_under_5_min():
     import db, amal_links, apply_rules
@@ -133,6 +138,7 @@ def test_stand_in_answers_5_questions_and_homework_under_5_min():
         import buckets; buckets.recompute_and_store()
 
 
+@LIVE_TARGET
 @pytest.mark.skipif(not NET, reason='needs Supabase')
 def test_link_expires_after_7_days():
     import db, amal_links
