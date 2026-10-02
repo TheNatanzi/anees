@@ -5259,6 +5259,74 @@
    "note": "Taps reuse amal_rules (source review, word_key newword:*), new kinds newword_add_new / newword_add_old - no schema change. Flashcards: the import sets first_seen to the NEW_SINCE day for an OLD word (recorded in data/word-marks.json doc_events). 2026-10-02: Amal had already tapped plain Add on ممتاز (before the OLD choice existed) -> Waiting, old by Medi's mark."
   },
   {
+   "id": "AM-17",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every answer Amal gives on the Tutor hub and every page it opens has the same Undo next to it (one shared helper, docs/js/amal-undo.js); the item is unanswered again at once. Undo never deletes: it is a new amal_rules row of kind 'undo' (or, for answers kept inside a link row, the key leaves the map and is logged in answers.undone), and the latest action per item wins (tap, undo, tap again counts). Every consumer honours it: scripts/db.py leaves undone taps out of every amal_rules read, her slip rulings and Tutor-page checks are taken back (the pages' copy too), an undone Add leaves the promised list (Medi's own marks stay), verb checks and grammar notes drop the answer, and an undo fires the rebuild like any tap. A page shows this browser's saved answer only while it is still waiting to be sent; once sent, the live answers win.",
+   "plain": "Every answer Amal gives on the Tutor page (and the pages it opens) has the same Undo button; tapping it makes the item unanswered again right away. Nothing is deleted - the undo is saved as a new record, and her latest action counts, so she can answer again. Everything that reads her answers respects the undo, and the page trusts the saved answers over an old copy in the browser.",
+   "plain_for": "e7b83a65",
+   "topic": "her answers",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "can you add an undo button to all these tutor hub stuff"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/amal-undo.js",
+     "contains": "return { LABEL, button, answered, row, latest, isAnswer, reconcile, unqueue, log };"
+    },
+    {
+     "type": "code",
+     "path": "scripts/amal_undo.py",
+     "contains": "def resolve(rows):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/db.py",
+     "contains": "def _select_honouring_undo(table, params, **kw):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/apply_amal_audit_rulings.py",
+     "contains": "def revert_row(r, undo_row, now):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/amal_trigger.py",
+     "contains": "undo=False)   # AM-17: every row, undo rows too"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_amal_undo.py",
+     "contains": "def test_AM_17_undone_confirm_removes_the_slip_and_a_re_tap_counts_again"
+    },
+    {
+     "path": "tests/test_amal_undo.py",
+     "contains": "def test_AM_17_undone_add_removes_the_promised_entry_and_medi_marks_stay"
+    },
+    {
+     "path": "tests/test_amal_undo.py",
+     "contains": "def test_AM_17_undo_is_a_new_row_and_the_latest_action_wins_tap_undo_tap"
+    },
+    {
+     "path": "tests/test_amal_undo.py",
+     "contains": "def test_AM_17_every_tutor_page_with_a_choice_renders_undo"
+    },
+    {
+     "path": "tests/test_amal_undo.cjs",
+     "contains": "test('AM-17 stale local answer yields to the server once it was sent"
+    }
+   ],
+   "note": "No schema change: undo rows reuse amal_rules (kind 'undo', payload {undoes, match}); verb checks / word review / after-lesson steps keep an answers.undone log in their link row. Homework lines go back to 'suggested' server-side (scripts/apply_rules.py revert_undone; anon may not). After-lesson taps applied to word_events before 2026-10-02 have no stored before-values: an undo marks them and reports it. 2026-10-02: Medi's accidental Forget on آها (row 2097) was removed by hand; the page now prefers the live read."
+  },
+  {
    "id": "WS-27",
    "kind": "error",
    "scope": "word-scoring",

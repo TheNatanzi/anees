@@ -220,10 +220,11 @@ def item_id(date, key):
 
 
 def load_taps():
-    """{word_key: (kind, created_at)} - the latest tap per item from Supabase amal_rules. None when it cannot be read."""
+    """{word_key: (kind, created_at, token)} - the latest tap per item from Supabase amal_rules. None when it cannot be read.
+    AM-17: db.select leaves out a tap Amal undid (scripts/amal_undo.py), so an undone item is open again."""
     try:
         import db
-        rows = db.select("amal_rules", {"select": "kind,word_key,created_at", "source": "eq.review",
+        rows = db.select("amal_rules", {"select": "kind,word_key,created_at,token", "source": "eq.review",
                                         "word_key": "like.newword:*", "order": "created_at.asc"}, retries=3)
     except Exception as e:
         print("amal_rules not readable:", type(e).__name__, str(e)[:120])
@@ -231,7 +232,7 @@ def load_taps():
     out = {}
     for r in rows:
         if r.get("kind") in KINDS:
-            out[r["word_key"]] = (r["kind"], r.get("created_at"))
+            out[r["word_key"]] = (r["kind"], r.get("created_at"), r.get("token"))
     return out
 
 
@@ -276,9 +277,12 @@ def build(verdicts=None, taps=None, previous=None, lesson_audio=None, today=None
         else:
             p = prev.get(iid) or {}
             kk = p.get("tap") or next((kk for kk, vv in KINDS.items() if vv == p.get("status")), None)
-            k = (kk, p.get("answered_at")) if p.get("status") not in (None, "open") else None
+            k = (kk, p.get("answered_at"), p.get("tap_token")) if p.get("status") not in (None, "open") else None
         it["status"], it["answered_at"] = (KINDS[k[0]], k[1]) if k and k[0] in KINDS else ("open", None)
         it["tap"] = k[0] if k and k[0] in KINDS else None
+        # AM-17: the link the tap came from - the hub trusts a live read of that link over this build (a tap removed or
+        # undone since the build shows open at once)
+        it["tap_token"] = (k[2] if len(k) > 2 else None) if it["tap"] else None
         mk = word_marks.mark_for(it, M)                    # AM-16: Medi's mark is a hint on her card, never pre-selected
         it["medi_mark"] = mk.get("mark") if mk else None
         it["hint"] = (mk.get("hint") or word_marks.HINT_OLD) if it["medi_mark"] == "old" else None
@@ -292,9 +296,10 @@ def build(verdicts=None, taps=None, previous=None, lesson_audio=None, today=None
         it = {"id": iid, "date": GLUE_DATE, "key": "glue:" + gk, "arabic": gar, "arabizi": None, "english": gen, "t": None,
               "mmss": None, "line": None, "typed": False, "source": "glue", "reason": "glue word Medi uses a lot; not on the Doc",
               "clip": None}
-        k = taps.get(iid) if taps is not None else ((lambda p: (p.get("tap"), p.get("answered_at")) if p.get("status") not in (None, "open") else None)(prev.get(iid) or {}))
+        k = taps.get(iid) if taps is not None else ((lambda p: (p.get("tap"), p.get("answered_at"), p.get("tap_token")) if p.get("status") not in (None, "open") else None)(prev.get(iid) or {}))
         it["status"], it["answered_at"] = (KINDS[k[0]], k[1]) if k and k[0] in KINDS else ("open", None)
         it["tap"] = k[0] if k and k[0] in KINDS else None
+        it["tap_token"] = (k[2] if len(k) > 2 else None) if it["tap"] else None
         mk = word_marks.mark_for(it, M)
         it["medi_mark"] = mk.get("mark") if mk else None
         it["hint"] = (mk.get("hint") or word_marks.HINT_OLD) if mk and mk.get("mark") == "old" else glue_words.HINT

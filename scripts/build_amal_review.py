@@ -122,11 +122,37 @@ def main(clips=True):
                          "bucket_name": buckets.get(r.get("bucket"), {}).get("name") if r.get("bucket") else None, "tier": r.get("tier"),
                          "count": 1, "lessons": [r["date"]], "lessons_label": r["date"], "examples": [example(r)]})
     patterns.sort(key=lambda p: (-p["count"], p["kind"], p["id"]))
+    # AM-17 (Medi 2026-10-02 "can you add an undo button to all these tutor hub stuff"): a pattern Amal already ruled on
+    # stays on her list as answered (her answer + Undo) - its rows left the B list when her ruling applied
+    ruled = {}
+    for r in A["rows"]:
+        ar = r.get("amal_ruling") or {}
+        if ar.get("pattern") and ar.get("kind") in ("confirm", "skip"):
+            ruled.setdefault(ar["pattern"], []).append(r)
+    meta = {p["id"]: p for p in P}
+    answered = []
+    for pid, rows in ruled.items():
+        if any(x["id"] == pid for x in patterns):
+            continue
+        p, ar, r0 = meta.get(pid, {}), rows[0]["amal_ruling"], rows[0]
+        kind = "vocab" if str((ar.get("before") or {}).get("kind") or r0.get("kind_before_rejection") or r0["kind"]).startswith("vocab") else "grammar"
+        dates = sorted({r["date"] for r in rows})
+        answered.append({"id": pid, "kind": kind, "kind_label": "Word" if kind == "vocab" else "Grammar",
+                         "title": p.get("title") or f"{r0.get('wrong')} -> {r0.get('right')}", "wrong": p.get("wrong") or r0.get("wrong"),
+                         "right": p.get("right") or r0.get("right"), "wrong_arabic": p.get("wrong_arabic"), "right_arabic": p.get("right_arabic"),
+                         "wrong_arabizi": p.get("wrong_arabizi"), "right_arabizi": p.get("right_arabizi"), "why": p.get("why") or r0.get("why"),
+                         "english": p.get("english") or r0.get("english"), "bucket": r0.get("bucket") if kind == "grammar" else None,
+                         "bucket_name": buckets.get(r0.get("bucket"), {}).get("name") if r0.get("bucket") else None,
+                         "count": len(rows), "lessons": dates, "lessons_label": (f"{len(dates)} lessons" if len(dates) > 1 else dates[0]),
+                         "examples": [example(r) for r in sorted(rows, key=lambda r: (r["date"], sec(r.get("t")) or 0))],
+                         "answered": {"kind": "audit_confirm" if ar["kind"] == "confirm" else "audit_skip", "reason": ar.get("reason"),
+                                      "at": ar.get("at"), "rule_id": ar.get("rule_id")}})
+    answered.sort(key=lambda p: (p["answered"].get("at") or "", p["id"]))
     # Words that came up in a lesson but are not on her sheet (Medi 2026-09-26: "should be sent to Amal's review as a word
     # that appeared in our lesson and not on our sheet"). One card per word, every moment under it. Her tap: sheet_add /
     # sheet_skip in amal_rules (source 'review'). Read from the Lessons page data (on_sheet False).
     new_words, skipped_loan = sheet_new_words(os.path.join(DOCS, "data", "lessons"), clips)
-    out = {"built": A["built"], "lessons": len({r["date"] for r in A["rows"]}), "patterns": patterns, "new_words": new_words,
+    out = {"built": A["built"], "lessons": len({r["date"] for r in A["rows"]}), "patterns": patterns, "answered": answered, "new_words": new_words,
            "note": "Slips the app thinks Amal let pass (B rows of the 2026-09-26 audit). Nothing is scored until she taps.",
            "counts": {"patterns": len(patterns), "rows": len(B), "vocab": sum(1 for p in patterns if p["kind"] == "vocab"), "grammar": sum(1 for p in patterns if p["kind"] == "grammar"), "new_words": len(new_words),
                       "loanwords_skipped": len(skipped_loan)}}

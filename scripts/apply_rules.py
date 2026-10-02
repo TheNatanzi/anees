@@ -13,10 +13,56 @@ ROOT = Path(__file__).resolve().parent.parent
 VERDICT = {'right': {'correction': False, 'asked': False}, 'wrong': {'correction': True}, 'not_medi': {'speaker': 'Amal', 'correction': False, 'prompted': False, 'asked': False}}
 
 
+def revert_undone(now, changed):
+    """AM-17 (Medi 2026-10-02 "can you add an undo button to all these tutor hub stuff"): a tap Amal undid stops counting.
+    db.select already leaves undone taps out; a tap that was APPLIED before her undo is put back here: word_events get the
+    values stored in payload.before when it was applied, an alias she typed leaves the word, a homework line goes back to
+    'suggested'. A tap applied before AM-17 has no stored values: it is marked, reported, and left as it is."""
+    import amal_undo
+    raw = db.select('amal_rules', {'select': '*', 'order': 'id.asc'}, undo=False)
+    res = amal_undo.resolve(raw)
+    for r in raw:
+        if r.get('kind') == amal_undo.UNDO or r.get('id') not in res.undone:
+            continue
+        p = r.get('payload') or {}
+        if p.get('reverted'):
+            continue
+        note, rows = None, 0
+        if p.get('source') == 'homework_prompt' and p.get('item_id'):
+            hit = db.rest('PATCH', 'homework_items', params={'id': f"eq.{p['item_id']}", 'status': 'in.(keep,drop,edit)'},
+                          body={'status': 'suggested', 'decided_at': None, 'edited_english': None}, prefer='return=representation') or []
+            rows = len(hit)
+        elif p.get('applied') and r['kind'] in VERDICT:
+            if p.get('before') and p.get('before_params'):
+                for b in p['before']:
+                    hit = db.rest('PATCH', 'word_events', params={'id': f"eq.{b['id']}"}, body={k: v for k, v in b.items() if k != 'id'}, prefer='return=representation') or []
+                    rows += len(hit)
+            else:
+                note = 'applied before Undo existed (AM-17): the old values were not stored, the word event stays as Amal first ruled'
+        elif p.get('applied') and r['kind'] == 'alias' and p.get('alias') and (r.get('word_key') or p.get('word_key')):
+            key = r.get('word_key') or p.get('word_key')
+            w = db.select('words', {'key': f'eq.{key}', 'select': 'key,aliases'})
+            if w and p['alias'] in (w[0].get('aliases') or []):
+                db.rest('PATCH', 'words', params={'key': f'eq.{key}'}, body={'aliases': [a for a in w[0]['aliases'] if a != p['alias']], 'updated_at': now}, prefer='return=minimal')
+                rows = 1
+        if not p.get('applied') and not (p.get('source') == 'homework_prompt' and p.get('item_id')):
+            continue                                   # never applied: leaving it out (db.select) is the whole undo
+        db.rest('PATCH', 'amal_rules', params={'id': f"eq.{r['id']}"}, body={'payload': {**p, 'reverted': now, **({'revert_note': note} if note else {})}}, prefer='return=minimal')
+        changed.append({'rule': r['id'], 'kind': 'undo:' + r['kind'], 'word_key': r.get('word_key'), 'rows': rows, **({'note': note} if note else {})})
+    # Medi's typed answer whose verdict she undid on the after-lesson list (amal_verdict cleared): its homework word events go
+    for a in db.select('homework_answers', {'amal_verdict': 'is.null', 'applied': 'not.is.null', 'select': 'id,answer,lesson_date,item_id'}):
+        it = db.select('homework_items', {'id': f"eq.{a['item_id']}", 'select': 'lesson_date'})
+        if it:
+            db.rest('DELETE', 'word_events', params={'lesson_date': f"eq.{it[0]['lesson_date']}", 'text': f"eq.homework: {a['answer'][:160]}"}, prefer='return=minimal')
+        db.rest('PATCH', 'homework_answers', params={'id': f"eq.{a['id']}"}, body={'applied': None}, prefer='return=minimal')
+        changed.append({'rule': None, 'kind': 'undo:homework_verdict', 'word_key': None, 'rows': 1})
+
+
 def apply(limit=500):
     rules = db.select('amal_rules', {'select': '*', 'order': 'created_at.asc', 'limit': limit})
     changed = []
     now = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    revert_undone(now, changed)
     for r in rules:
         p = r.get('payload') or {}
         if p.get('applied'):
@@ -43,10 +89,14 @@ def apply(limit=500):
                     params = {'id': f"eq.{q['event_id']}"}
                 else:
                     params = {'lesson_date': f"eq.{r['lesson_date']}", 'word_key': f'eq.{key}', 't_start': f"eq.{q['t']}"}
-                hit = db.rest('PATCH', 'word_events', params=params, body=patch, prefer='return=representation') or []
-                if not hit and q.get('event_id'):        # the lesson was rebuilt after the link was minted: fall back to the exact word + time
+                # AM-17: keep what the rows said before her tap, so an Undo can put them back
+                cols = 'id,' + ','.join(patch)
+                prior = db.select('word_events', {**params, 'select': cols})
+                if not prior and q.get('event_id'):     # the lesson was rebuilt after the link was minted: fall back to the exact word + time
                     params = {'lesson_date': f"eq.{r['lesson_date']}", 'word_key': f'eq.{key}', 't_start': f"eq.{q['t']}"}
-                    hit = db.rest('PATCH', 'word_events', params=params, body=patch, prefer='return=representation') or []
+                    prior = db.select('word_events', {**params, 'select': cols})
+                hit = db.rest('PATCH', 'word_events', params=params, body=patch, prefer='return=representation') or []
+                p = {**p, 'before': prior, 'before_params': params}
                 changed.append({'rule': r['id'], 'kind': k, 'word_key': key, 'patched': patch, 'rows': len(hit)})
         elif k == 'alias' and p.get('alias'):
             key = key or p.get('word_key')

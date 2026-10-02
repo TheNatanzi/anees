@@ -87,7 +87,7 @@ def _db():
 
 
 def _amal_rules(pred):
-    rows = _db().select("amal_rules", {"select": "id,token,source,kind,word_key,payload,created_at,lesson_date", "order": "id.asc"})
+    rows = _db().select("amal_rules", {"select": "id,token,source,kind,word_key,payload,created_at,lesson_date", "order": "id.asc"}, undo=False)   # AM-17: every row, undo rows too - an undo is a change that fires a rebuild
     return [r for r in rows if pred(r) and not str(r.get("source") or "").startswith("test")]
 
 
@@ -129,8 +129,9 @@ def fetch_verb_checks():
 
 
 def fetch_word_review():
-    rows = _db().select("transcript_review_links", {"select": "token,payload,done_at,opened_at,created_at", "order": "created_at.asc"})
-    return fp_rows([{**r, "answers": (r.get("payload") or {}).get("answers")} for r in rows], ("token", "answers", "done_at"))
+    # her answers live in the answers column (an Undo changes it too, AM-17); older rows kept them in payload
+    rows = _db().select("transcript_review_links", {"select": "token,payload,answers,done_at,opened_at,created_at", "order": "created_at.asc"})
+    return fp_rows([{**r, "answers": r.get("answers") or (r.get("payload") or {}).get("answers")} for r in rows], ("token", "answers", "done_at"))
 
 
 def fetch_homework():

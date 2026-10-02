@@ -5,7 +5,10 @@
    Her taps go to Supabase amal_rules (source 'review', kind audit_confirm / audit_skip, word_key 'verify:<uid>') with the
    open review link's token from data/tutor.json; scripts/apply_amal_audit_rulings.py turns them into ledger records
    (data/accuracy/verifications.json, reviewer Amal) every hour. Taps are queued in localStorage first, so nothing is lost
-   offline. Nothing here sends anything to anyone. */
+   offline. Nothing here sends anything to anyone.
+   AM-17 (Medi 2026-10-02 "can you add an undo button to all these tutor hub stuff"): every answered moment shows her
+   answer with the shared Undo (docs/js/amal-undo.js) - a new amal_rules row of kind 'undo', never a delete - and the
+   card is open again at once. Moments she answered before the last build stay listed (data/amal-verify.json 'answered'). */
 (function () {
   const $ = s => document.querySelector(s);
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -29,8 +32,9 @@
   }
   function push(body) { const q = LS(QK()) || []; q.push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2), body }); LS(QK(), q); flush(); }
 
+  const answerOf = x => { const a = answers[x.id]; if (a) return AneesUndo.isAnswer(a) ? a : null; return x.answered ? { kind: x.answered.kind, reason: x.answered.reason } : null; };
   function card(x) {
-    const a = answers[x.id], pending = (LS(QK()) || []).some(j => j.body.word_key === x.id);
+    const a = answerOf(x), pending = (LS(QK()) || []).some(j => j.body.word_key === x.id);
     const what = x.kind === 'grammar' ? `Grammar${x.bucket ? ' · rule ' + esc(x.bucket) : ''}` : `Word${x.tier === 0 ? ' he did not know' : ''}`;
     const play = x.audio ? `<button class="tu-btn tv-play" data-src="${esc(x.audio)}">▶ Play the moment</button>` : '<span class="tu-meta">No recording on the site for this lesson.</span>';
     return `<article class="tu-card tv-card${a ? ' tv-done' : ''}" id="tv-${esc(x.id)}">
@@ -42,7 +46,7 @@
       <p class="tu-meta"><b>Reader AI says:</b> ${esc(x.readers_say)}</p>
       <p class="tu-meta"><b>Listening AI says:</b> ${esc(x.codex_says)}</p>
       <div>${play}</div>
-      ${a ? `<p class="tv-verdict">✓ ${a.kind === 'audit_confirm' ? 'Amal said: the correction is correct' : 'Amal said: no correction — ' + esc(a.reason || '')}${pending ? ' · saving…' : ''}</p>` : ''}
+      ${a ? AneesUndo.answered(`${a.kind === 'audit_confirm' ? 'Amal said: the correction is correct' : 'Amal said: no correction — ' + (a.reason || '')}${pending ? ' · saving…' : ''}`, { 'data-tv': 'undo', 'data-id': x.id }) : ''}
       <div class="tv-btns"><button class="tu-btn tu-primary" data-tv="confirm" data-id="${esc(x.id)}">Correction is correct<small>counts as a mistake for Medi</small></button>
       <button class="tu-btn" data-tv="skip" data-id="${esc(x.id)}">Reason not to correct<small>type why · it is dropped</small></button>
       <div class="tv-reason" id="tvr-${esc(x.id)}" hidden><textarea id="tvx-${esc(x.id)}" placeholder="e.g. he said it right; or: I was not correcting him here"></textarea>
@@ -51,18 +55,25 @@
 
   function render() {
     if (!DATA) return;
-    const items = DATA.items || [];
-    const done = items.filter(x => answers[x.id]).length;
+    const items = DATA.all || DATA.items || [];
+    const done = items.filter(answerOf).length;
     $('#tv-count').textContent = items.length ? `${done} of ${items.length} answered` : 'Nothing to check right now.';
     $('#tv-list').innerHTML = items.map(card).join('');
   }
 
   function decide(id, kind, reason) {
-    const x = (DATA.items || []).find(i => i.id === id); if (!x) return;
+    const x = (DATA.all || DATA.items || []).find(i => i.id === id); if (!x) return;
     answers[id] = { kind, reason, at: new Date().toISOString() }; LS(AK(), answers);
     push({ token: TOKEN, source: 'review', lesson_date: null, kind, word_key: id,
            payload: { label: `${x.wrong} → ${x.right}`, verify: true, uid: x.uid, date: x.date, t: x.t, reason: reason || null,
                       rows: [x.uid], codex_verdict: x.codex_verdict, list_built: DATA.built } });
+    render();
+  }
+  function undo(id) {   // AM-17: a new 'undo' row; a tap not sent yet leaves the queue
+    const x = (DATA.all || DATA.items || []).find(i => i.id === id), was = x && answerOf(x); if (!was) return;
+    LS(QK(), AneesUndo.unqueue(LS(QK()) || [], j => j.body.word_key === id && j.body.kind !== 'undo'));
+    answers[id] = { kind: 'undo', at: new Date().toISOString() }; LS(AK(), answers);
+    push(AneesUndo.row({ token: TOKEN, source: 'review', lesson_date: null, kind: was.kind, word_key: id, payload: { label: `${x.wrong} → ${x.right}` } }));
     render();
   }
 
@@ -74,7 +85,8 @@
       player.ontimeupdate = () => { if (b && player.currentTime >= b) player.pause(); };
       player.onerror = () => { p.textContent = '✕ No recording for this moment'; }; return; }
     const b = e.target.closest('button[data-tv]'); if (!b) return; const id = b.dataset.id;
-    if (b.dataset.tv === 'confirm') decide(id, 'audit_confirm', null);
+    if (b.dataset.tv === 'undo') undo(id);
+    else if (b.dataset.tv === 'confirm') decide(id, 'audit_confirm', null);
     else if (b.dataset.tv === 'skip') { const r = document.getElementById('tvr-' + id); r.hidden = false; document.getElementById('tvx-' + id).focus(); }
     else if (b.dataset.tv === 'skip-save') { const t = document.getElementById('tvx-' + id), v = t.value.trim(); if (!v) { t.focus(); return; } decide(id, 'audit_skip', v); }
   });
@@ -86,11 +98,15 @@
     const rv = (T.open || []).find(x => x.kind === 'review');
     TOKEN = rv ? rv.token : '';
     if (!TOKEN) { $('#tv-count').textContent = 'No open review link, so answers cannot be saved right now.'; }
+    { const seen = new Set(); DATA.all = (DATA.items || []).concat(DATA.answered || []).filter(x => !seen.has(x.id) && seen.add(x.id)); }
     answers = LS(AK()) || {};
     if (TOKEN) {
-      try {
+      try {   // AM-17: live answers win once this browser's copy is sent (latest row per moment; an undo = open)
         const saved = await (await api('GET', 'amal_rules?select=kind,word_key,payload,created_at&source=eq.review&word_key=like.verify:*&order=created_at.asc&token=eq.' + encodeURIComponent(TOKEN))).json();
-        (saved || []).forEach(r => { answers[r.word_key] = { kind: r.kind, reason: (r.payload || {}).reason || null, at: r.created_at }; });
+        if (!Array.isArray(saved)) throw new Error('read');
+        const server = {};
+        saved.forEach(r => { server[r.word_key] = { kind: r.kind, reason: (r.payload || {}).reason || null, at: r.created_at }; });
+        answers = AneesUndo.reconcile(answers, server, (LS(QK()) || []).map(j => j.body.word_key), true);
         LS(AK(), answers);
       } catch (e) {}
     }

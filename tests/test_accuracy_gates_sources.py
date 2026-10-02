@@ -142,6 +142,7 @@ def test_apply_rulings_writes_nothing_back_to_supabase_and_stays_idempotent(tmp_
     rulings = [{"id": 1, "kind": "audit_confirm", "word_key": "P-x", "payload": {"rows": ["FA-b1"]}},
                {"id": 2, "kind": "audit_confirm", "word_key": "verify:FA-a1", "created_at": "2026-09-30T10:00:00Z", "payload": {}}]
     monkeypatch.setattr(A, "load_rulings", lambda: rulings)
+    monkeypatch.setattr(A, "load_all", lambda: (rulings, []))   # AM-17: nothing undone here
     A.apply()
     assert calls == []                                                          # nothing written to Supabase
     a = json.loads(audit.read_text(encoding="utf-8"))

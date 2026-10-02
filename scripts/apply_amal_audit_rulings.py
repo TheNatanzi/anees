@@ -21,14 +21,56 @@ RULES = os.path.join(REPO, "docs", "data", "ai_rules.json")
 REVIEW = os.path.join(REPO, "docs", "data", "amal-review.json")
 
 
-def load_rulings():
-    import db
-    rows = [r for r in db.select("amal_rules", {"select": "*", "source": "eq.review", "order": "created_at.asc"})
-            if r.get("kind") in ("audit_confirm", "audit_skip")]
+def _ruling(r):
+    if r.get("source") == "review":
+        return r.get("kind") in ("audit_confirm", "audit_skip")
     # after-lesson taps on audit rows (scripts/after_from_audit.py): Right = not an error, Wrong = confirmed, Not Medi = drop
-    rows += [r for r in db.select("amal_rules", {"select": "*", "source": "eq.after", "order": "created_at.asc"})
-             if (r.get("payload") or {}).get("audit_uid") and r.get("kind") in ("right", "wrong", "not_medi")]
-    return rows
+    return r.get("source") == "after" and bool((r.get("payload") or {}).get("audit_uid")) and r.get("kind") in ("right", "wrong", "not_medi")
+
+
+def load_all():
+    """-> (rulings that count, [(undone tap, its undo row)]). AM-17: the raw history is read (undo rows included) and the
+    latest action per item wins (scripts/amal_undo.py), so a confirmed-then-undone slip stops counting."""
+    import db, amal_undo
+    raw = [dict(r, source=r.get("source") or "review") for r in db.select("amal_rules", {"select": "*", "source": "eq.review", "order": "created_at.asc"}, undo=False)]
+    raw += [dict(r, source=r.get("source") or "after") for r in db.select("amal_rules", {"select": "*", "source": "eq.after", "order": "created_at.asc"}, undo=False)]
+    res = amal_undo.resolve(raw)
+    kept = [r for r in res.kept if r.get("kind") != amal_undo.UNDO and _ruling(r)]
+    undone = [(r, res.undone[r.get("id")]) for r in raw if r.get("kind") != amal_undo.UNDO and r.get("id") in res.undone and _ruling(r)]
+    return kept, undone
+
+
+def load_rulings():
+    return load_all()[0]
+
+
+def revert_row(r, undo_row, now):
+    """AM-17: put one audit row back to how it was before an undone ruling (the ruling moves to amal_ruling_undone, kept)."""
+    ar = r.pop("amal_ruling", None) or {}
+    before = ar.get("before") or {}
+    if before:
+        for k in ("kind", "signal", "confidence"):
+            if before.get(k) is None:
+                r.pop(k, None)
+            else:
+                r[k] = before[k]
+    elif r.get("kind") == "rejected" and r.get("kind_before_rejection"):
+        r["kind"] = r.pop("kind_before_rejection")
+    elif r.get("kind") == "dropped-by-amal":
+        r["kind"] = "grammar-B" if r.get("bucket") else "vocab-B"
+    elif ar.get("kind") == "confirm" and ar.get("pattern"):
+        r["kind"] = {"vocab-A": "vocab-B", "grammar": "grammar-B"}.get(r.get("kind"), r.get("kind"))
+        if r.get("signal") == "amal-ruling":
+            r.pop("signal", None)
+    if ar.get("kind") in ("drop", "skip"):
+        r.pop("rejected_why", None)
+        if before:
+            r.pop("kind_before_rejection", None)
+    r.setdefault("amal_ruling_undone", []).append({**ar, "undone_at": undo_row.get("created_at") or now, "undo_rule_id": undo_row.get("id")})
+
+
+def _before(r):
+    return {"kind": r.get("kind"), "signal": r.get("signal"), "confidence": r.get("confidence")}
 
 
 LEDGER = os.path.join(REPO, "data", "accuracy", "verifications.json")
@@ -60,6 +102,26 @@ def verify_records(rulings, audit_rows, ledger):
     return out
 
 
+def withdrawn_records(undone, ledger):
+    """AM-17: an undone "check these moments" tap -> one 'withdrawn' human record (append-only). accuracy_gates.ledger_state
+    lets the latest human record settle a row, and a withdrawn one settles nothing: the row waits for Amal again."""
+    recs = ledger.get("records", [])
+    done = {r.get("undo_rule_id") for r in recs if r.get("verdict") == "withdrawn"}
+    out = []
+    for tap, u in undone:
+        wk = str(tap.get("word_key") or "")
+        prev = next((r for r in recs if r.get("rule_id") == tap.get("id")), None)
+        if not wk.startswith("verify:") or u.get("id") in done or prev is None:
+            continue
+        out.append({"uid": wk.split(":", 1)[1], "date": prev.get("date"), "kind": prev.get("kind"), "method": "human", "role": "human",
+                    "method_detail": "Amal tapped Undo on the Tutor page", "reviewer": "Amal", "verdict": "withdrawn",
+                    "confidence": "high", "reason": "Amal undid her answer", "evidence": prev.get("evidence"),
+                    "at": u.get("created_at"), "rule_id": u.get("id"), "undo_rule_id": u.get("id"), "undoes_rule_id": tap.get("id"),
+                    "source": "amal_rules review (Tutor page, undo)"})
+        done.add(u.get("id"))
+    return out
+
+
 def _sec(s):
     if s in (None, ""):
         return None
@@ -79,16 +141,31 @@ def apply(dry=False):
         grp = {"title": "Amal's rulings", "rules": []}
         R["groups"].append(grp)
     grp["tab"] = "words"   # her rulings say what counts as a mistake (the AI Rules page only shows System / Word groups)
-    known = {x.get("pattern") for x in grp["rules"]}
-    rulings = load_rulings()
+    rulings, undone = load_all()
+    now = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    # AM-17 undo: every audit row an undone ruling touched goes back (history kept on the row), her AR rule is marked
+    # undone (kept), and an undone Tutor-page check gets a 'withdrawn' ledger record (the latest human record wins)
+    undone_ids = {t.get("id"): u for t, u in undone}
+    reverted = 0
+    for r in rows.values():
+        ar = r.get("amal_ruling") or {}
+        if ar.get("rule_id") in undone_ids:
+            revert_row(r, undone_ids[ar["rule_id"]], now)
+            reverted += 1
+    for x in grp["rules"]:
+        rid = str(x.get("id") or "")
+        if rid.startswith("AR-") and rid[3:].isdigit() and int(rid[3:]) in undone_ids and x.get("status") != "undone":
+            x["status_before_undo"], x["status"] = x.get("status"), "undone"
+            x["undone_at"] = undone_ids[int(rid[3:])].get("created_at") or now
+            reverted += 1
+    known = {x.get("pattern") for x in grp["rules"] if x.get("status") != "undone"}
     # which taps are already applied is kept HERE (the audit JSON), not written back into her Supabase rows
     # (plan/AI-ENGINEERING-REVIEW-2026-09-27.md: stop PATCHing payload.applied). Old rows may still carry payload.applied.
     done_ids = {i for x in A.get("rulings_applied") or [] for i in x.get("rules") or []}
     changed, flipped, dropped, new_rules = [], 0, 0, 0
-    now = datetime.datetime.now(datetime.timezone.utc).isoformat()
     # Tutor-page checks of single rows go to the verification ledger, not to the pattern logic below
     L = json.load(open(LEDGER, encoding="utf-8")) if os.path.exists(LEDGER) else {"records": []}
-    vrec = verify_records(rulings, rows, L)
+    vrec = verify_records(rulings, rows, L) + withdrawn_records(undone, L)
     for ru in rulings:
         p = ru.get("payload") or {}
         if str(ru.get("word_key") or "").startswith("verify:"):
@@ -108,16 +185,17 @@ def apply(dry=False):
         if p.get("audit_uid"):                                   # one after-lesson question = one row
             r = rows.get(p["audit_uid"])
             if r:
+                b = _before(r)
                 if ru["kind"] == "wrong":
                     r["confidence"] = "high"
                     r["signal"] = r.get("signal") or "amal-ruling"
-                    r["amal_ruling"] = {"kind": "confirm", "at": ru.get("created_at"), "rule_id": ru.get("id"), "label": p.get("label"), "alias": p.get("alias")}
+                    r["amal_ruling"] = {"kind": "confirm", "at": ru.get("created_at"), "rule_id": ru.get("id"), "label": p.get("label"), "alias": p.get("alias"), "before": b}
                     flipped += 1
                 else:
                     r["kind_before_rejection"] = r["kind"]
                     r["kind"] = "rejected"
                     r["rejected_why"] = "Amal tapped " + str(p.get("label")) + " on the after-lesson link " + str(ru.get("created_at"))[:10]
-                    r["amal_ruling"] = {"kind": "drop", "at": ru.get("created_at"), "rule_id": ru.get("id"), "label": p.get("label")}
+                    r["amal_ruling"] = {"kind": "drop", "at": ru.get("created_at"), "rule_id": ru.get("id"), "label": p.get("label"), "before": b}
                     dropped += 1
             changed.append(ru["id"])
             continue
@@ -126,18 +204,20 @@ def apply(dry=False):
                 r = rows.get(u)
                 if not r or r.get("kind") not in ("vocab-B", "grammar-B"):
                     continue
+                b = _before(r)
                 r["kind"] = "vocab-A" if r["kind"] == "vocab-B" else "grammar"
                 r["signal"] = "amal-ruling"
                 r["confidence"] = "high"
-                r["amal_ruling"] = {"kind": "confirm", "pattern": pid, "at": ru.get("created_at"), "rule_id": ru.get("id")}
+                r["amal_ruling"] = {"kind": "confirm", "pattern": pid, "at": ru.get("created_at"), "rule_id": ru.get("id"), "before": b}
                 flipped += 1
         else:
             for u in uids:
                 r = rows.get(u)
                 if not r or r.get("kind") not in ("vocab-B", "grammar-B"):
                     continue
+                b = _before(r)
                 r["kind"] = "dropped-by-amal"
-                r["amal_ruling"] = {"kind": "skip", "pattern": pid, "reason": p.get("reason"), "at": ru.get("created_at"), "rule_id": ru.get("id")}
+                r["amal_ruling"] = {"kind": "skip", "pattern": pid, "reason": p.get("reason"), "at": ru.get("created_at"), "rule_id": ru.get("id"), "before": b}
                 dropped += 1
             if pid not in known:
                 grp["rules"].append({"id": f"AR-{ru.get('id')}", "kind": "amal-ruling", "pattern": pid,
@@ -147,7 +227,7 @@ def apply(dry=False):
                 known.add(pid)
                 new_rules += 1
         changed.append(ru["id"])
-    print(f"rulings {len(rulings)} new {len(changed)} | rows scored {flipped} dropped {dropped} | new rules {new_rules} | "
+    print(f"rulings {len(rulings)} new {len(changed)} | undone {len(undone)} (put back {reverted}) | rows scored {flipped} dropped {dropped} | new rules {new_rules} | "
           f"Tutor-page checks {len(vrec)} ({sum(v['verdict'] == 'confirmed' for v in vrec)} confirmed)")
     # GR-21: a confirm must reach the copy the pages read (sweep_compat), every run - not only when a ruling is new
     import full_audit_build as FAB
@@ -155,7 +235,7 @@ def apply(dry=False):
         return
     added, removed, same = FAB.sync_compat(A)
     print(f"sweep_compat: +{added} confirmed rows, -{removed} ruled-out rows, {len(same)} same-moment twins left out {same}")
-    if not changed and not added and not removed:
+    if not changed and not added and not removed and not reverted and not vrec:
         return
     if vrec:
         L.setdefault("records", []).extend(vrec)

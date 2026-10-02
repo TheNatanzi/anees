@@ -295,9 +295,13 @@ def amal_list(queue_rows=None, ledger=None, audit=None, repo=REPO):
     audit = audit if audit is not None else J(os.path.join(repo, "data", "full-audit-2026-09-26.json"))
     rows = {r["uid"]: r for r in audit.get("rows", [])}
     st = G.ledger_state(ledger)
-    items = []
+    items, answered = [], []
     for uid, s in st.items():
-        if s.get("human"):
+        h = s.get("human")
+        # AM-17: a moment Amal answered on the Tutor page stays listed as answered (with her answer and Undo); any other
+        # human ruling takes it off her list
+        mine = bool(h) and h.get("reviewer") == "Amal" and "Tutor page" in str(h.get("source") or "")
+        if h and not mine:
             continue
         c = s.get("second_judge")
         if not c or c["verdict"] not in ("rejected", "unsure"):
@@ -306,19 +310,23 @@ def amal_list(queue_rows=None, ledger=None, audit=None, repo=REPO):
         if r.get("kind") not in G.SCORED_KINDS:
             continue
         t = G.sec(r.get("t")) or G.sec(r.get("t_amal")) or c["evidence"]["t_start"]
-        items.append({"id": "verify:" + uid, "uid": uid, "date": c.get("date") or r.get("date"), "t": r.get("t"), "t_amal": r.get("t_amal"),
+        (answered if mine else items).append({"id": "verify:" + uid, "uid": uid, "date": c.get("date") or r.get("date"), "t": r.get("t"), "t_amal": r.get("t_amal"),
                       "kind": r.get("kind"), "bucket": r.get("bucket"), "tier": r.get("tier"),
                       "medi_said": r.get("medi_said"), "amal_said": r.get("amal_said"), "chat": r.get("chat"),
                       "wrong": r.get("wrong"), "right": r.get("right"), "english": r.get("english"),
                       "readers_say": r.get("why") or r.get("mistake"), "codex_says": c.get("reason"), "codex_verdict": c["verdict"],
                       "audio": (f"lessons/{c.get('date') or r.get('date')}/audio/lesson.mp3#t={max(0, int(c['evidence']['t_start']))},{int(c['evidence']['t_end']) + 1}"
                                 if os.path.exists(os.path.join(repo, "docs", "lessons", c.get("date") or r.get("date") or "-", "audio", "lesson.mp3")) else None),
-                      "sec": t})
+                      "sec": t, **({"answered": {"kind": "audit_confirm" if h["verdict"] == "confirmed" else "audit_skip",
+                                                 "reason": None if h["verdict"] == "confirmed" else h.get("reason"), "at": h.get("at")}}
+                                   if mine else {})})
     items.sort(key=lambda x: (x["date"] or "", x["sec"] or 0))
+    answered.sort(key=lambda x: (x["date"] or "", x["sec"] or 0))
     return {"about": "Rows two AIs disagree on (Claude readers: a mistake Amal signalled; Codex, listening to an independent transcription "
                      "of the audio: not so, or cannot tell). Built by scripts/codex_rejudge.py. Amal answers on the Tutor page; her "
                      "'Correction is correct' makes the row a scored mistake, her reason drops it (scripts/apply_amal_audit_rulings.py).",
-            "built": dt.datetime.now().astimezone().isoformat(timespec="seconds"), "count": len(items), "items": items}
+            "built": dt.datetime.now().astimezone().isoformat(timespec="seconds"), "count": len(items), "items": items,
+            "answered": answered}
 
 
 # ------------------------------------------------------------------------------------------------ main

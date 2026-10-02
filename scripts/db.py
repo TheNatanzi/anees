@@ -50,8 +50,38 @@ def rest(method, table, *, params=None, body=None, key=None, token=None, prefer=
     raise DbError(f'{method} {table} failed after {retries} tries')
 
 
-def select(table, params=None, **kw):
-    """Paged select (PostgREST caps at 1000 rows per call)."""
+UNDO_TABLES = ('amal_rules', 'amal_rules_public')
+
+
+def select(table, params=None, undo=True, **kw):
+    """Paged select (PostgREST caps at 1000 rows per call).
+    AM-17: on Amal's answer tables an undone tap is left out (scripts/amal_undo.py: latest action per item wins) and the
+    undo rows themselves are not returned; undo=False gives the raw history."""
+    if table in UNDO_TABLES and undo:
+        return _select_honouring_undo(table, params, **kw)
+    return _select(table, params, **kw)
+
+
+def _select_honouring_undo(table, params, **kw):
+    import amal_undo
+    p = dict(params or {})
+    want = [c.strip() for c in str(p.get('select', '*')).split(',') if c.strip()]
+    full = '*'
+    rows = _select(table, {**p, 'select': full}, **kw)
+    # the undo rows of the same items: every filter but the kind (an undo row has kind 'undo')
+    q = {k: v for k, v in p.items() if k not in ('select', 'kind', 'order', 'limit', 'offset')}
+    q.update({'select': full, 'kind': 'eq.undo', 'order': 'id.asc'})
+    undos = _select(table, q, **kw) if str(p.get('kind', '')) != 'eq.undo' else []
+    have = {r.get('id') for r in rows}
+    res = amal_undo.resolve(rows + [u for u in undos if u.get('id') not in have])
+    kept = {id(r) for r in res.kept}
+    out = [r for r in rows if id(r) in kept and r.get('kind') != amal_undo.UNDO]
+    if want != ['*']:
+        out = [{c: r.get(c) for c in want} for r in out]
+    return out
+
+
+def _select(table, params=None, **kw):
     out, off = [], 0
     while True:
         p = dict(params or {}); p.setdefault('select', '*'); p['offset'] = off; p['limit'] = 1000

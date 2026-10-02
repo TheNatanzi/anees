@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-02",
- "total": 136,
+ "total": 137,
  "replaced": 8,
  "counts": {
-  "Automatic": 57,
+  "Automatic": 58,
   "Written down": 67,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -1283,12 +1283,26 @@
    "key": "amal",
    "title": "Amal's say",
    "intro": "What Amal decides: her Doc, her pages, her rulings, and the words she promised to add.",
-   "count": 15,
+   "count": 16,
    "sections": [
     {
      "kind": "data",
      "heading": "Facts and records",
      "rules": [
+      {
+       "id": "AM-17",
+       "text": "Every answer Amal gives on the Tutor page (and the pages it opens) has the same Undo button; tapping it makes the item unanswered again right away. Nothing is deleted - the undo is saved as a new record, and her latest action counts, so she can answer again. Everything that reads her answers respects the undo, and the page trusts the saved answers over an old copy in the browser.",
+       "status": "enforced",
+       "topic": "her answers",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "can you add an undo button to all these tutor hub stuff"
+        }
+       ]
+      },
       {
        "id": "AM-08",
        "text": "Amal's ruling on a pattern applies to that pattern in every lesson automatically: if she gave a reason it is fine, those cases drop and she is never asked again; if she said yes, they are scored.",

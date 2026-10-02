@@ -291,7 +291,7 @@ def load_ledger(path=LEDGER_P):
 
 
 LEDGER_FIELDS = ("uid", "method", "reviewer", "verdict", "evidence", "confidence", "at")
-LEDGER_VERDICTS = ("confirmed", "rejected", "changed", "unsure")
+LEDGER_VERDICTS = ("confirmed", "rejected", "changed", "unsure", "withdrawn")   # withdrawn = Amal tapped Undo (AM-17)
 ROLES = ("second-judge", "human")
 
 
@@ -339,7 +339,12 @@ def ledger_state(ledger):
     for u, v in out.items():
         hum = [r for r in v if record_role(r) == "human"]
         sj = [r for r in v if record_role(r) == "second-judge"]
-        st[u] = {"latest": v[-1], "revisions": len(v), "human": hum[-1] if hum else None, "second_judge": sj[-1] if sj else None}
+        # AM-17: a 'withdrawn' record (Amal tapped Undo) cancels the one tap it undoes (undoes_rule_id) and settles nothing;
+        # an earlier human word on the row stands again, a later tap (re-tap after the undo) counts
+        gone = {r.get("undoes_rule_id") for r in hum if r.get("verdict") == "withdrawn"}
+        hum = [r for r in hum if r.get("verdict") != "withdrawn" and not (r.get("rule_id") is not None and r.get("rule_id") in gone)]
+        h = hum[-1] if hum else None
+        st[u] = {"latest": v[-1], "revisions": len(v), "human": h, "second_judge": sj[-1] if sj else None}
     return st
 
 

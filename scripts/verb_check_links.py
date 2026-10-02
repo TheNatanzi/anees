@@ -88,6 +88,12 @@ def pull():
                 continue
             merged[item_id] = {'choice': a['choice'], 'word': a['word'].strip(), 'arabic': a['arabic'].strip(),
                                'guess': guess.get('word', ''), 'tense': guess.get('tense', ''), 'updated_at': a['updated_at']}
+        # AM-17: an Undo she tapped drops the form from the link's answers and logs it in answers.undone; an answer kept
+        # in the merged file from an earlier pull leaves too unless she answered it again after the undo
+        for u in (r['answers'] or {}).get('undone', []) or []:
+            k = str(u.get('key') or '')
+            if k in merged and merged[k].get('updated_at', '') <= str(u.get('at') or '') and k not in (r['answers'] or {}).get('answers', {}):
+                del merged[k]
     CHECKS.write_text(json.dumps({'answers': dict(sorted(merged.items()))}, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     if addon or ADDON_CHECKS.exists():
         ADDON_CHECKS.write_text(json.dumps(dict(sorted(addon.items())), ensure_ascii=False, indent=1) + '\n', encoding='utf-8')

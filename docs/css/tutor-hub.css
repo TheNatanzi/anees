@@ -49,3 +49,35 @@
 #anees-bank .hb-done li{border:1px solid var(--ab-line);border-radius:12px;padding:10px 14px;background:var(--ab-panel);font-size:14px}
 #anees-bank .hb-done li span{color:var(--ab-muted)}
 #anees-bank .hb-empty{font-size:15px;color:var(--ab-muted);padding:20px 0}
+/* the old addresses of Amal's lists draw the same module in this shell (docs/js/hub/solo.js) */
+#anees-bank.hb-solo{border:0;border-radius:0;min-height:100vh}
+#anees-bank.hb-solo main{max-width:720px;margin:0 auto;padding:18px 16px 40px}
+#anees-bank.hb-solo .hb-panel{padding:16px}
+#anees-bank .hb-solo-back{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--ab-muted);margin:0 0 10px}
+#anees-bank .hb-solo-back a{color:var(--ab-text);font-weight:600}
+/* shared by every list module (review, verb forms, before / after, grammar notes, materials) */
+#anees-bank .hb-chips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+#anees-bank .hb-chip{border:1px solid var(--ab-line);background:var(--ab-panel);color:var(--ab-text);border-radius:999px;padding:6px 12px;font:600 13px var(--sabz-font-sans);min-height:36px;cursor:pointer}
+#anees-bank .hb-chip[aria-pressed="true"]{background:var(--ab-text);color:var(--ab-bg);border-color:transparent}
+#anees-bank .hb-card details summary{cursor:pointer;color:var(--vp-sage,#2E6A4E);font-weight:600;font-size:14px;padding:6px 0;min-height:32px}
+#anees-bank .hb-ex{border-top:1px solid var(--ab-line);padding:6px 0;font-size:15px}
+#anees-bank .tv-pair{display:flex;gap:10px;align-items:center;flex-wrap:wrap;direction:rtl;justify-content:flex-end}
+#anees-bank .tv-ar{font-size:21px;line-height:1.4}#anees-bank .tv-wrong{color:var(--sabz-danger,#B3261E)}#anees-bank .tv-right{color:var(--vp-sage,#2E6A4E)}#anees-bank .tv-arrow{color:var(--ab-muted);transform:scaleX(-1)}
+#anees-bank textarea.hb-input{min-height:70px;resize:vertical}
+#anees-bank .hb-search{width:100%;box-sizing:border-box;font:16px var(--sabz-font-sans);padding:10px 12px;border:1px solid var(--ab-line);border-radius:12px;background:var(--ab-bg);color:var(--ab-text);margin:0 0 10px}
+/* word review (docs/js/hub/word-review-task.js) */
+#anees-bank .wr .turn{border:1px solid var(--ab-line);background:var(--ab-bg);border-radius:12px;padding:12px 14px;margin:0 0 12px}
+#anees-bank .wr .turn.playing{outline:2px solid var(--vp-sage,#2E6A4E)}
+#anees-bank .wr .turn-head{display:flex;align-items:center;gap:10px}#anees-bank .wr .turn-head span{margin-left:auto;font-size:13px;color:var(--ab-muted)}
+#anees-bank .wr .line-play{width:44px;height:44px;border-radius:50%;border:1px solid var(--ab-line);background:var(--vp-sage,#2E6A4E);color:#fff}
+#anees-bank .wr .context{font-size:16px;white-space:pre-wrap;margin:8px 0}
+#anees-bank .wr .word-review{border-top:1px solid var(--ab-line);padding:10px 0 4px;margin-top:8px}
+#anees-bank .wr .review-question{font-weight:600;margin:0}#anees-bank .wr .review-proposal{font-size:22px;margin:4px 0 10px}
+#anees-bank .wr .review-options{display:grid;gap:8px}
+#anees-bank .wr .review-options button{min-height:46px;text-align:left;border:1px solid var(--ab-line);background:var(--ab-panel);color:var(--ab-text);border-radius:12px;padding:8px 14px;font-weight:600}
+#anees-bank .wr .review-options button[aria-pressed=true]{background:var(--vp-sage,#2E6A4E);color:#fff;border-color:transparent}
+#anees-bank .wr .custom-answer{display:block;margin-top:10px}#anees-bank .wr .custom-answer textarea{display:block;width:100%;font-size:18px;padding:8px;margin-top:6px;border:1px solid var(--ab-line);border-radius:10px;background:var(--ab-bg);color:var(--ab-text)}
+#anees-bank .wr .answer-note{font-size:13px;color:var(--ab-muted);margin:6px 0 0}#anees-bank .wr .answer-note:empty{display:none}
+#anees-bank .wr .audio-sr-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}#anees-bank .wr .inline-audio-status{color:var(--sabz-danger,#B3261E)}
+#anees-bank .hb-moment{grid-template-columns:minmax(0,1fr);min-width:0}#anees-bank .hb-moment>*{min-width:0;max-width:100%}
+#anees-bank .hb-moment .apb{max-width:100%;box-sizing:border-box}

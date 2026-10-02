@@ -259,7 +259,8 @@ def test_offline_20_answers_then_sync_no_duplicates(rest_stub):
 
 def test_no_attribute_injection_in_cards():
     """Every page escapes quotes too (Codex M7: a Doc topic inside data-s could inject an event handler)."""
-    for page in ('cards.html', 'amal/plan.html', 'amal/after.html'):
+    # amal/plan.html and amal/after.html draw the shared hub modules since 2026-10-02 (AM-17): check those
+    for page in ('cards.html', 'js/hub/plan-task.js', 'js/hub/after-task.js', 'js/hub/review-task.js', 'js/hub/verb-check-task.js'):
         src = (ROOT / 'docs' / page).read_text(encoding='utf-8')
-        line = next(l for l in src.splitlines() if 'esc=s=>' in l)
+        line = next(l for l in src.splitlines() if 'esc=s=>' in l.replace(' ', ''))
         assert '&quot;' in line and '&#39;' in line, page

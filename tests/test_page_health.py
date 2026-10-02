@@ -87,9 +87,14 @@ def test_fallback_gives_up_with_a_plain_note_when_nothing_is_published(tmp_path)
 
 
 def test_review_page_chains_the_fallback():
-    """amal/review.html drives one shared player: on a second error it must ask for the next recording, not give up."""
-    s = (DOCS / 'amal' / 'review.html').read_text(encoding='utf-8')
-    assert re.search(r'AneesClipFallback\.url\(src,\s*AneesClipFallback\.secs\(b\),\s*player\.dataset\.fb', s), 'review.html does not chain'
+    """amal/review.html (= docs/js/hub/review-task.js since 2026-10-02) must ask for the NEXT recording after one that
+    failed, not give up: its audio bars carry the lesson.mp3 -> Medi.mp3 -> Amal.mp3 chain and the bar walks it."""
+    page = (DOCS / 'amal' / 'review.html').read_text(encoding='utf-8')
+    assert 'js/hub/review-task.js' in page
+    s = (DOCS / 'js' / 'hub' / 'review-task.js').read_text(encoding='utf-8')
+    assert "['lesson.mp3', 'Medi.mp3', 'Amal.mp3']" in s and 'fallback: x.clip ? chain : chain.slice(1)' in s, 'review does not chain'
+    c = (DOCS / 'js' / 'hub' / 'clip-player.js').read_text(encoding='utf-8')
+    assert 'const f = chain[fellBack];' in c and 'fellBack++' in c, 'the audio bar does not walk the chain'
 
 
 # ---- scripts/check_pages.py: the page check the publish guard runs ----

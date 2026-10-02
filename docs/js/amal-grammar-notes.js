@@ -4,8 +4,13 @@
    2. With her Tutor link's token (?t= or #t=) she writes new notes right here, under any rule. Each Save is one row in
       Supabase amal_rules (source grammar_notes, kind note, word_key rule:<id>), sent with the same X-Anees-Token header
       as her review page; offline saves wait in this browser and go out when the page is back online.
-   Without a token the notes are read-only and the page says how to get a writing link. */
+   Without a token the notes are read-only and the page says how to get a writing link.
+   AM-17 (Medi 2026-10-02 "can you add an undo button to all these tutor hub stuff"): every note she saved here has the
+   shared Undo (js/amal-undo.js): a note still waiting to send leaves the queue; a sent one gets an amal_rules row of kind
+   'undo' (same token / source / word_key, payload.match {text}) - never a delete. scripts/amal_undo.py makes every reader
+   (scripts/build_amal_docs.py written_notes) leave it out; this page hides it at once. */
 (function () {
+  const root = window;
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const p = new URLSearchParams(location.search), h = new URLSearchParams(location.hash.slice(1));
   const TOKEN = (p.get('t') || h.get('t') || '').trim();
@@ -28,7 +33,8 @@
 
   function savedHtml(id) {
     const l = rows[id] || [];
-    return l.length ? `<ul class="an-saved">${l.map(x => `<li><span class="when">${x.waiting ? 'waiting to send' : day(x.at)}</span>${esc(x.text)}</li>`).join('')}</ul>` : '';
+    const undo = (x, i) => canWrite && root.AneesUndo ? AneesUndo.button({ 'data-note-undo': id, 'data-i': i }) : '';
+    return l.length ? `<ul class="an-saved">${l.map((x, i) => `<li data-answered="note"><span><span class="when">${x.waiting ? 'waiting to send' : day(x.at)}</span>${esc(x.text)}</span>${undo(x, i)}</li>`).join('')}</ul>` : '';
   }
   function writer(id, label) {
     return `<details class="an-write" data-rule="${esc(id)}"${(rows[id] || []).length ? ' open' : ''}><summary>✎ ${esc(label)}</summary>
@@ -46,8 +52,18 @@
     const left = [];
     for (const row of q) { try { await post(row); } catch (e) { left.push(row); } }
     LS(Q, left);
-    for (const row of q) if (!left.includes(row)) { const l = rows[row.payload.rule] || []; const x = l.find(y => y.waiting && y.text === row.payload.text); if (x) x.waiting = false; refresh(row.payload.rule); }
+    for (const row of q) if (!left.includes(row) && row.kind === 'note') { const l = rows[row.payload.rule] || []; const x = l.find(y => y.waiting && y.text === row.payload.text); if (x) x.waiting = false; refresh(row.payload.rule); }
   }
+  // AM-17: Undo one saved note
+  function undoNote(id, i) {
+    const l = rows[id] || [], x = l[i]; if (!x) return;
+    l.splice(i, 1); refresh(id);
+    const q = LS(Q) || [], j = q.findIndex(r => r.payload.rule === id && r.payload.text === x.text && r.kind === 'note');
+    if (j >= 0 && x.waiting) { q.splice(j, 1); LS(Q, q); return; }
+    const row = AneesUndo.row({ token: TOKEN, source: 'grammar_notes', lesson_date: null, kind: 'note', word_key: 'rule:' + id, payload: { rule: id, text: x.text } }, { text: x.text });
+    post(row).catch(() => { const q2 = LS(Q) || []; q2.push(row); LS(Q, q2); });
+  }
+  document.addEventListener('click', e => { const b = e.target.closest('[data-note-undo]'); if (b) undoNote(b.dataset.noteUndo, +b.dataset.i); });
   function bind() {
     document.querySelectorAll('.an-write button').forEach(b => b.onclick = async () => {
       const box = b.closest('.an-write'), id = box.dataset.rule, ta = box.querySelector('textarea'), st = box.querySelector('.an-st'), text = ta.value.trim();
@@ -73,10 +89,14 @@
       } catch (e) { canWrite = !!(LS(Q) || []).length; }
       if (canWrite) {
         try {
-          const r = await fetch(ANEES.url + '/rest/v1/amal_rules?select=word_key,payload,created_at&source=eq.grammar_notes&token=eq.' + encodeURIComponent(TOKEN) + '&order=id.asc', { headers: H, cache: 'no-store' });
-          if (r.ok) for (const x of await r.json()) add((x.payload && x.payload.rule) || String(x.word_key).replace(/^rule:/, ''), { text: (x.payload || {}).text || '', at: x.created_at });
+          const r = await fetch(ANEES.url + '/rest/v1/amal_rules?select=kind,word_key,payload,created_at&source=eq.grammar_notes&token=eq.' + encodeURIComponent(TOKEN) + '&order=id.asc', { headers: H, cache: 'no-store' });
+          if (r.ok) for (const x of await r.json()) {
+            const rid = (x.payload && x.payload.rule) || String(x.word_key).replace(/^rule:/, ''), text = (x.payload || {}).text || ((x.payload || {}).match || {}).text || '';
+            if (x.kind === 'undo') { rows[rid] = (rows[rid] || []).filter(y => y.text !== text); continue; }   // AM-17: an undone note leaves
+            add(rid, { text, at: x.created_at });
+          }
         } catch (e) {}
-        for (const row of LS(Q) || []) (rows[row.payload.rule] = rows[row.payload.rule] || []).push({ text: row.payload.text, at: new Date().toISOString(), waiting: true });
+        for (const row of LS(Q) || []) if (row.kind === 'note') (rows[row.payload.rule] = rows[row.payload.rule] || []).push({ text: row.payload.text, at: new Date().toISOString(), waiting: true });
       }
     }
     // her Doc notes under each rule

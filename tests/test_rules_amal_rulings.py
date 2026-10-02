@@ -33,6 +33,7 @@ def env(tmp_path, monkeypatch):
         {"id": 4, "kind": "wrong", "word_key": None, "payload": {"audit_uid": "FA-a2"}, "created_at": "2026-09-27T10:00:00Z"},
         {"id": 5, "kind": "audit_confirm", "word_key": "P-old", "payload": {"rows": ["FA-a1"], "applied": "2026-09-20"}}]
     monkeypatch.setattr(aar, "load_rulings", lambda: rulings)
+    monkeypatch.setattr(aar, "load_all", lambda: (rulings, []))
     return audit, rules, patched
 
 

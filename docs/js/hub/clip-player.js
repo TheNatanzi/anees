@@ -13,13 +13,16 @@
   function bar(o) {
     const a = new Audio(); a.preload = 'none'; a.dataset.ownBar = '1';
     a.src = o.src; setRange(a, o.start, o.end);
-    let fellBack = false, want = false;
+    // fallback: one {src,start,end} or a chain of them (lesson.mp3 -> Medi.mp3 -> Amal.mp3), tried in order
+    const chain = [].concat(o.fallback || []).filter(Boolean);
+    let fellBack = 0, want = false;
     a.addEventListener('play', () => { want = true; });
     a.addEventListener('pause', () => { want = false; });
     a.addEventListener('error', () => {
-      if (o.fallback && !fellBack) {
-        fellBack = true; a.src = o.fallback.src; setRange(a, o.fallback.start, o.fallback.end); a.load();
-        a.addEventListener('loadedmetadata', () => { a.currentTime = o.fallback.start || 0; if (want) a.play().catch(() => {}); }, { once: true });
+      const f = chain[fellBack];
+      if (f) {
+        fellBack++; a.src = f.src; setRange(a, f.start, f.end); a.load();
+        a.addEventListener('loadedmetadata', () => { a.currentTime = f.start || 0; if (want) a.play().catch(() => {}); }, { once: true });
       } else { a.__apbFailed = true; want = false; }
     });
     const el = root.AneesPlayer.make(a);

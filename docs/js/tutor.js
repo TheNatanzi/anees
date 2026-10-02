@@ -33,9 +33,10 @@
         const rows = await rest('transcript_review_links?select=answers&token=eq.' + encodeURIComponent(item.token), item.token);
         return { ok: !!rows[0], done: Object.keys((rows[0] && rows[0].answers && rows[0].answers.answers) || {}).length };
       }
-      if (item.kind === 'review') {
-        const rows = (await rest('amal_rules?select=word_key&source=eq.review&token=eq.' + encodeURIComponent(item.token), item.token)).filter(r => !String(r.word_key || '').startsWith('verify:'));
-        return { ok: true, done: new Set(rows.map(r => r.word_key)).size };
+      if (item.kind === 'review') {   // AM-17: the latest action per pattern counts (an undo puts it back)
+        const rows = (await rest('amal_rules?select=kind,word_key&source=eq.review&order=created_at.asc&token=eq.' + encodeURIComponent(item.token), item.token))
+          .filter(r => !/^(verify|newword):/.test(String(r.word_key || '')));
+        return { ok: true, done: Object.values(AneesUndo.latest(rows)).filter(AneesUndo.isAnswer).length };
       }
     } catch (e) { return { ok: false, done: 0 }; }
     return { ok: true, done: 0 };
@@ -127,18 +128,21 @@
     tasks = work.map((it, i) => taskOf(it, lives[i]));
     try {   // the moments to check (tutor-verify): answers are amal_rules rows word_key verify:<uid> on the review token
       const V = await (await fetch('data/amal-verify.json', { cache: 'no-store' })).json(), rv = T.open.find(x => x.kind === 'review');
-      const items = V.rows || V.items || [], ans = rv ? await rest('amal_rules?select=word_key&source=eq.review&token=eq.' + encodeURIComponent(rv.token), rv.token) : [];
-      const got = new Set(ans.map(r => String(r.word_key)).filter(k => k.startsWith('verify:')));
-      verifyN = { total: items.length, done: items.filter(r => got.has('verify:' + (r.uid || r.id))).length };
+      const ans = rv ? await rest('amal_rules?select=kind,word_key&source=eq.review&word_key=like.verify:*&order=created_at.asc&token=eq.' + encodeURIComponent(rv.token), rv.token) : [];
+      // AM-17: the moments she already answered stay listed (with Undo); latest action per moment wins
+      const lat = AneesUndo.latest(ans), seen = new Set(), items = (V.rows || V.items || []).concat(V.answered || []).filter(r => !seen.has(r.id) && seen.add(r.id));
+      const isDone = r => { const a = lat[r.id]; return a ? AneesUndo.isAnswer(a) : !!r.answered; };
+      verifyN = { total: items.length, done: items.filter(isDone).length };
       if (items.length) tasks.push({ id: 'verify', kind: 'verify', title: 'Check these moments', total: verifyN.total, done: verifyN.done, left: verifyN.total - verifyN.done, unit: 'moments', rank: 2, date: '', finished: verifyN.done >= verifyN.total });
     } catch (e) {}
     try {   // new words Amal used that are not on her Doc (Medi 2026-10-02): taps = amal_rules word_key newword:* on the review token
       const N = await (await fetch('data/amal-new-words.json', { cache: 'no-store' })).json(), rv = T.open.find(x => x.kind === 'review');
       const ans = {};
-      if (rv) (await rest('amal_rules?select=kind,word_key,created_at&source=eq.review&word_key=like.newword:*&order=created_at.asc&token=eq.' + encodeURIComponent(rv.token), rv.token))
-        .forEach(r => { ans[r.word_key] = { kind: r.kind, at: r.created_at }; });
-      NW = { token: rv ? rv.token : '', data: N, answers: ans };
-      const c = AneesNewWordsTask.count(N, ans);
+      let live = false;   // AM-17: the latest row per word wins (an undo row = open again); live = the read worked
+      if (rv) { (await rest('amal_rules?select=kind,word_key,created_at&source=eq.review&word_key=like.newword:*&order=created_at.asc&token=eq.' + encodeURIComponent(rv.token), rv.token))
+        .forEach(r => { ans[r.word_key] = { kind: r.kind, at: r.created_at }; }); live = true; }
+      NW = { token: rv ? rv.token : '', data: N, answers: ans, live };
+      const c = AneesNewWordsTask.count(N, AneesNewWordsTask.liveView(N, ans, NW.token, live));
       if (c.total) tasks.push({ id: 'newwords', kind: 'newwords', title: 'New words from our lessons', total: c.total, done: c.done, left: c.left, unit: 'words', rank: 1.5, date: c.newest, finished: c.left === 0 });
     } catch (e) {}
     rankAll(tasks); count();
