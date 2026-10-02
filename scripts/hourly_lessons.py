@@ -21,6 +21,7 @@ DRIVE = Path(os.environ.get('ANEES_DRIVE', 'G:/My Drive'))
 MEET_NAME = re.compile(r'^([a-z]{3}-[a-z]{4}-[a-z]{3}) \((\d{4}-\d{2}-\d{2}) (\d{2})[ :](\d{2}) GMT[-+]\d+\)( \(\d+\))?$')
 MIN_BYTES = 20_000_000
 AUTO_START = '2026-09-10'          # earlier recordings were all decided by hand (see plan/LESSON-INVENTORY-2026-09-23.md)
+CHAT_LATE_START = '2026-09-29'     # late-chat merge: lessons the hourly job loaded (Medi decision 7); 09-30's chat never reached its page
 
 
 def log(*parts):
@@ -76,11 +77,21 @@ def chat_has_tutor(recording):
     return side.exists() and any(c['who'] == 'Amal' for c in P.parse_chat(side.read_text(encoding='utf-8', errors='replace')))
 
 
-def plan(ledger, bots, recordings, loaded_dates, raw, decided=(), half_done=()):
-    """What this hour should do. Tracks win over a Meet file; a loaded date is never touched again.
-    half_done = dates with a database row but no published page (a run that failed after loading): republish them."""
+def plan(ledger, bots, recordings, loaded_dates, raw, decided=(), half_done=(), has_chat=None):
+    """What this hour should do. Tracks win over a Meet file; a loaded date is never re-transcribed.
+    half_done = dates with a database row but no published page (a run that failed after loading): republish them.
+    chat = a Recall-tracks lesson loaded before the host Meet recording reached Drive (Meet uploads it ~1 h after the call,
+    the Recall tracks are ready sooner): once its '- Chat Transcript' with Amal's lines lands, the page is re-made with
+    her typed lines (load_lesson --page-only, events untouched) and the lesson is re-fed + re-read. Marker: the raw
+    folder's meet-chat-transcript.txt, which load_lesson writes when it merges a chat."""
+    has_chat = has_chat or chat_has_tutor
     todo, new_rows = [{'kind': 'republish', 'date': d} for d in sorted(half_done)], merge_bots(ledger, bots)
     loaded_dates = set(loaded_dates) | set(half_done)
+    for d in sorted({r[2] for r in recordings}):
+        if (d >= CHAT_LATE_START and d in loaded_dates and d not in half_done and (Path(raw) / d / 'tracks' / 'tracks.json').exists()
+                and not (Path(raw) / d / 'meet-chat-transcript.txt').exists()
+                and any(r[2] == d and has_chat(r[0]) for r in recordings)):
+            todo.append({'kind': 'chat', 'date': d})
     by_bot = {b['id']: b for b in bots}
     track_dates = set()
     for e in ledger + new_rows:
@@ -183,12 +194,14 @@ def track_transcripts(lesson_dir, tracks, min_extra_s=MIN_EXTRA_S):
     return out
 
 
-def load(date, lesson_dir, work, meet, apply):
+def load(date, lesson_dir, work, meet, apply, page_only=False):
     cmd = [sys.executable, str(HERE / 'load_lesson.py'), date, '--raw', str(lesson_dir), '--work', str(work)]
     if meet:
         cmd += ['--meet', str(meet)]
     if apply:
         cmd += ['--apply']
+    if page_only:
+        cmd += ['--page-only']
     out = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', cwd=ROOT)
     if out.returncode:
         raise RuntimeError(out.stderr[-800:])
@@ -476,6 +489,12 @@ def _main():
         d = t['date']
         try:
             lesson_dir, meet = raw / d, meet_for(d, recordings)
+            if t['kind'] == 'chat':
+                # the host chat arrived after the lesson was loaded from its Recall tracks: page re-made with her lines
+                receipt = load(d, lesson_dir, work, meet, apply=False, page_only=True)
+                log('chat merged', d, receipt.get('chat_lines'), 'chat lines (host Meet recording landed after the load)')
+                done.append(d)
+                continue
             if t['kind'] == 'republish':
                 if not (lesson_dir / 'tracks' / 'tracks.json').exists():
                     found = sorted(p.parent for p in lesson_dir.glob('meet-*/scribe.json'))

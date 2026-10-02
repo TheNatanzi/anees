@@ -366,3 +366,20 @@ def test_LS04_causes_credits_and_quiet_hours(tmp_path):
     _, changed, new = A.update(tmp_path, prob, now='2026-10-01T16:15:26-07:00')
     assert not changed and not new
     assert A.read(tmp_path)['problems'][0]['since'] == '2026-10-01T15:15:23-07:00'
+
+
+def test_chat_that_lands_after_a_tracks_load_is_merged(tmp_path):
+    """2026-10-02: the Recall tracks were ready at 15:15, the host Meet recording + chat reached Drive at 16:04. A loaded
+    tracks lesson without its chat gets a 'chat' step once Amal's chat lands; never again once merged."""
+    d = '2026-10-02'
+    (tmp_path / d / 'tracks').mkdir(parents=True)
+    (tmp_path / d / 'tracks' / 'tracks.json').write_text('{}', encoding='utf-8')
+    rec = [(tmp_path / f'whs-xxfb-nvz ({d} 14 04 GMT-7)', 'whs-xxfb-nvz', d, '1404')]
+    ledger = [{'bot_id': 'b', 'date': d, 't': 'x'}]
+    _, todo = H.plan(ledger, [bot('b', d)], rec, loaded_dates={d}, raw=tmp_path, has_chat=lambda p: True)
+    assert todo == [{'kind': 'chat', 'date': d}]
+    _, todo = H.plan(ledger, [bot('b', d)], rec, loaded_dates={d}, raw=tmp_path, has_chat=lambda p: False)
+    assert todo == []                     # no tutor line in the chat (or no chat yet): nothing to merge
+    (tmp_path / d / 'meet-chat-transcript.txt').write_text('x', encoding='utf-8')
+    _, todo = H.plan(ledger, [bot('b', d)], rec, loaded_dates={d}, raw=tmp_path, has_chat=lambda p: True)
+    assert todo == []                     # merged once: never again
