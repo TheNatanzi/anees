@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-02",
- "total": 141,
+ "total": 143,
  "replaced": 8,
  "counts": {
-  "Automatic": 62,
+  "Automatic": 64,
   "Written down": 67,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -1595,12 +1595,45 @@
    "key": "flashcards",
    "title": "Flashcards",
    "intro": "How the review cards work.",
-   "count": 7,
+   "count": 9,
    "sections": [
     {
      "kind": "data",
      "heading": "Facts and records",
      "rules": [
+      {
+       "id": "FC-10",
+       "text": "Two of Amal's card sets with the same name show as one tile; the newer set's spelling wins, repeated cards show once, and your answers on a dropped copy count for the kept card.",
+       "status": "enforced",
+       "topic": "card sets",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "why are there 2 adverbs of time?"
+        }
+       ]
+      },
+      {
+       "id": "FC-11",
+       "text": "Each card set sits in the section of what it drills: a verb's conjugations (like ba2ul) go under Verbs; adverbs of time are not verbs.",
+       "status": "enforced",
+       "topic": "card sets",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "isnt ba2ul a verb?"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "why are there 2 adverbs of time?"
+        }
+       ]
+      },
       {
        "id": "FC-07",
        "text": "A card becomes a leech (a word you keep missing) after 3 misses at any stage; this is the only leech rule.",
