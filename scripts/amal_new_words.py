@@ -14,7 +14,8 @@ flag is a clue, a by-meaning read decides):
                 plain function words and plain English. -> data/lesson-work/amal-new-words/<date>.candidates.json
   2 verdicts    a reader (review_lesson.py step 7d, or by hand) judges each candidate BY MEANING and writes
                 data/lesson-work/amal-new-words-verdicts.json [{date, key, verdict, arabic, arabizi, english, t, reason}]
-                verdict: new | on_doc | name | english | function | garble.  Only 'new' ever reaches Amal; other forms
+                verdict: new | on_doc | name | english | function | garble | loanword (WS-15: dish names, foods,
+                brands, loan words, countries - never asked; scripts/loanwords.py also drops them at both stages).  Only 'new' ever reaches Amal; other forms
                 of the same new word carry dup_of=<first key> and are not shown twice.
   3 build       python scripts/amal_new_words.py            (in amal_trigger.AUDIT_CHAIN, before build_tutor_data)
                 -> docs/data/amal-new-words.json: one item per 'new' word (Arabic, her spelling when she typed it -
@@ -29,6 +30,7 @@ Unjudged candidates are never shown to Amal (no flooding); the build counts them
 import argparse, datetime, hashlib, json, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
+import loanwords  # noqa: E402  (WS-15)
 WORDS = os.path.join(REPO, "docs", "data", "words.json")
 LESSONS = os.path.join(REPO, "docs", "data", "lessons")
 WORK = os.path.join(REPO, "data", "lesson-work", "amal-new-words")
@@ -36,7 +38,7 @@ VERDICTS = os.path.join(REPO, "data", "lesson-work", "amal-new-words-verdicts.js
 OUT = os.path.join(REPO, "docs", "data", "amal-new-words.json")
 START = "2026-10-01"           # Medi 2026-10-02: from today's lesson on (older lessons were never asked)
 KINDS = {"newword_add": "add", "newword_later": "later", "newword_forget": "forget"}
-VERDICT_KINDS = ("new", "on_doc", "name", "english", "function", "garble")
+VERDICT_KINDS = ("new", "on_doc", "name", "english", "function", "garble", "loanword")
 
 AR_TOKEN = re.compile("[ء-غف-يٱ-ۓً-ٰٟ]+")
 LAT_TOKEN = re.compile("[A-Za-z0-9'’]+")
@@ -159,7 +161,7 @@ def candidates(date, lesson=None, index=None, spans=None):
     L = lesson if lesson is not None else json.load(open(os.path.join(LESSONS, date + ".json"), encoding="utf-8"))
     idx = index if index is not None else doc_index()
     spans = name_spans(date) if spans is None else spans
-    found, excluded = {}, {"on_doc": 0, "name": 0, "function": 0, "english": 0}
+    found, excluded = {}, {"on_doc": 0, "name": 0, "function": 0, "english": 0, "loanword": 0}
     for i, turn in enumerate(L.get("turns") or []):
         who = turn.get("who")
         typed = who == "chat" and (turn.get("typed_by") or "Amal") == "Amal"
@@ -172,6 +174,8 @@ def candidates(date, lesson=None, index=None, spans=None):
         for s, e, raw, sc in toks:
             if in_name(spans, i, s, e):
                 excluded["name"] += 1; continue
+            if loanwords.loan_token(raw):          # WS-15: dishes, foods, brands, loan words never reach Amal's list
+                excluded["loanword"] += 1; continue
             if sc == "ar":
                 n = ar_norm(raw)
                 if len(n) < 2 or n in FUNCTION_AR_N:
@@ -238,6 +242,9 @@ def build(verdicts=None, taps=None, previous=None, lesson_audio=None, today=None
             continue
         e = excl.setdefault(d, {k: 0 for k in VERDICT_KINDS if k != "new"})
         verdict = v.get("verdict")
+        if verdict == "new" and any(loanwords.loan_entry(x) for x in (v.get("arabic"), v.get("arabizi"), v.get("key")) if x):
+            e["loanword"] = e.get("loanword", 0) + 1     # WS-15: a reader's 'new' on a dish / loan word / country is overruled
+            continue
         if verdict == "new" and v.get("dup_of"):          # another form of a word already listed (the first key is shown)
             e["duplicate"] = e.get("duplicate", 0) + 1
             continue

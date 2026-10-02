@@ -13,6 +13,7 @@ import hashlib, json, os, re, shutil, subprocess, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE); DOCS = os.path.join(REPO, "docs")
 sys.path.insert(0, HERE)
 from full_audit_compare import sec  # noqa: E402
+import loanwords  # noqa: E402
 AUDIT = os.path.join(REPO, "data", "full-audit-2026-09-26.json")
 PATTERNS = os.path.join(REPO, "data", "lesson-work", "full-audit", "patterns.json")
 OUT = os.path.join(DOCS, "data", "amal-review.json")
@@ -59,6 +60,28 @@ def mmss(t):
     return f"{t // 60:02d}:{t % 60:02d}"
 
 
+def sheet_new_words(ldir, clips=False):
+    """Not-on-sheet cards for Amal from the Lessons page data -> (cards newest first, set of skipped loan entries).
+    WS-15: dish names, foods, brands, loan words and countries are never put on her list (scripts/loanwords.py)."""
+    new_words, skipped_loan = {}, set()
+    for f in sorted(os.listdir(ldir)):
+        if not re.fullmatch(r"20\d\d-\d\d-\d\d\.json", f):
+            continue
+        for v in json.load(open(os.path.join(ldir, f), encoding="utf-8")).get("vocab_errors", []):
+            if v.get("on_sheet") is not False or not v.get("arabic"):
+                continue
+            ar = re.split(r"\s=\s|\s-\s", v["arabic"])[0].strip()
+            if loanwords.loan_entry(ar):        # WS-15: dishes, foods, brands, loan words, countries are never asked
+                skipped_loan.add(ar)
+                continue
+            k = "sheet-" + hashlib.sha1(ar.encode()).hexdigest()[:12]
+            w = new_words.setdefault(k, {"id": k, "arabic": ar, "arabizi": v.get("arabizi"), "english": v.get("english"), "moments": []})
+            w["moments"].append({"date": f[:10], "mmss": v.get("mmss"), "medi_said": v.get("said"), "amal_gave": v.get("fix"),
+                                 "clip": cut_clip(f[:10], v.get("t"), None) if clips and v.get("t") is not None else None})
+    new_words = sorted(new_words.values(), key=lambda w: max(m["date"] for m in w["moments"]), reverse=True)
+    return new_words, skipped_loan
+
+
 def main(clips=True):
     A = json.load(open(AUDIT, encoding="utf-8"))
     B = {r["uid"]: r for r in A["rows"] if r.get("kind") in ("vocab-B", "grammar-B")}
@@ -102,23 +125,11 @@ def main(clips=True):
     # Words that came up in a lesson but are not on her sheet (Medi 2026-09-26: "should be sent to Amal's review as a word
     # that appeared in our lesson and not on our sheet"). One card per word, every moment under it. Her tap: sheet_add /
     # sheet_skip in amal_rules (source 'review'). Read from the Lessons page data (on_sheet False).
-    new_words = {}
-    ldir = os.path.join(DOCS, "data", "lessons")
-    for f in sorted(os.listdir(ldir)):
-        if not re.fullmatch(r"20\d\d-\d\d-\d\d\.json", f):
-            continue
-        for v in json.load(open(os.path.join(ldir, f), encoding="utf-8")).get("vocab_errors", []):
-            if v.get("on_sheet") is not False or not v.get("arabic"):
-                continue
-            ar = re.split(r"\s=\s|\s-\s", v["arabic"])[0].strip()
-            k = "sheet-" + hashlib.sha1(ar.encode()).hexdigest()[:12]
-            w = new_words.setdefault(k, {"id": k, "arabic": ar, "arabizi": v.get("arabizi"), "english": v.get("english"), "moments": []})
-            w["moments"].append({"date": f[:10], "mmss": v.get("mmss"), "medi_said": v.get("said"), "amal_gave": v.get("fix"),
-                                 "clip": cut_clip(f[:10], v.get("t"), None) if clips and v.get("t") is not None else None})
-    new_words = sorted(new_words.values(), key=lambda w: max(m["date"] for m in w["moments"]), reverse=True)
+    new_words, skipped_loan = sheet_new_words(os.path.join(DOCS, "data", "lessons"), clips)
     out = {"built": A["built"], "lessons": len({r["date"] for r in A["rows"]}), "patterns": patterns, "new_words": new_words,
            "note": "Slips the app thinks Amal let pass (B rows of the 2026-09-26 audit). Nothing is scored until she taps.",
-           "counts": {"patterns": len(patterns), "rows": len(B), "vocab": sum(1 for p in patterns if p["kind"] == "vocab"), "grammar": sum(1 for p in patterns if p["kind"] == "grammar"), "new_words": len(new_words)}}
+           "counts": {"patterns": len(patterns), "rows": len(B), "vocab": sum(1 for p in patterns if p["kind"] == "vocab"), "grammar": sum(1 for p in patterns if p["kind"] == "grammar"), "new_words": len(new_words),
+                      "loanwords_skipped": len(skipped_loan)}}
     json.dump(out, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print("patterns", out["counts"], "clips", sum(1 for p in patterns for e in p["examples"] if e.get("clip")))
 

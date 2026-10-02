@@ -1344,7 +1344,7 @@
    "id": "WS-15",
    "kind": "data",
    "scope": "word-scoring",
-   "status": "moment-only",
+   "status": "enforced",
    "change": "new",
    "statement": "Dish names, foods, brands and loan words (kabab, ma2loobe, cake, countries) never go on Amal's 'not on sheet' list.",
    "source": [
@@ -1355,12 +1355,37 @@
      "session": "9bce4014"
     }
    ],
-   "enforcement": [],
-   "test": [],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/loanwords.py",
+     "contains": "def loan_entry(text):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_amal_review.py",
+     "contains": "if loanwords.loan_entry(ar):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/amal_new_words.py",
+     "contains": "if loanwords.loan_token(raw):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_amal_word_lists.py",
+     "contains": "def test_WS_15_dishes_foods_loanwords_countries_never_on_amals_not_on_sheet_list"
+    },
+    {
+     "path": "tests/test_amal_word_lists.py",
+     "contains": "def test_WS_15_new_words_task_drops_loanwords_at_both_stages"
+    }
+   ],
    "aliases": [
     "report:M3"
    ],
-   "next_step": "add a DISHES/LOANWORDS set to scripts/names.py (or build_amal_review) that skips these words + a test; changes Amal's list, not scores"
+   "note": "2026-10-02: removed 7 of 47 items from Amal's not-on-sheet list (مقلوبة, كعكة / بسكوتة, cash, أمريكا, الزعفران, ماكينة الرز, air conditioning); 0 of 4 on the Tutor new-words task. Lessons page cards stay unscored either way (no score change)."
   },
   {
    "id": "WS-16",

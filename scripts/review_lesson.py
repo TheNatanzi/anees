@@ -151,12 +151,12 @@ def new_words_prompt(date):
             f"Judge EVERY candidate BY MEANING (any tense, plural, gender, pronoun ending, article, one-letter transcription "
             f"difference, Arabic or English meaning) using the lesson transcript data/lesson-work/full-audit/{date}.txt for context. "
             f"Append one row per candidate to data/lesson-work/amal-new-words-verdicts.json (a JSON list; keep every existing row): "
-            f'{{"date":"{date}","key":<candidate key exactly>,"verdict":"new|on_doc|name|english|function|garble","arabic":<Arabic script or null>,'
+            f'{{"date":"{date}","key":<candidate key exactly>,"verdict":"new|on_doc|name|english|function|garble|loanword","arabic":<Arabic script or null>,'
             f'"arabizi":<only the exact form SHE typed in chat, else null - never invent a spelling>,"english":<short meaning>,"t":<candidate t>,'
             f'"line":<her line>,"typed":<true if from chat>,"doc_match":<the Doc entry for on_doc, else null>,"dup_of":<for another form of a '
             f'new word already listed in this lesson: the first key, else null>,"reason":<one short sentence>}}. '
             f"new = a real content word she used that is NOT on the Doc by meaning; function = particles, pronouns, question words, "
-            f"fillers; garble = speech-engine error or cut-off. Be strict: only genuinely new vocabulary is 'new'. Edit no other file. "
+            f"fillers; garble = speech-engine error or cut-off; loanword = a dish name, food, brand, loan word or country (rule WS-15, Medi: 'we dont need to add proper nouns like kabaab and ma2loobe and cake and countries'). Be strict: only genuinely new vocabulary is 'new'. Edit no other file. "
             f"Reply with one line: new n, on_doc n, other n." + names_note(date))
 
 
