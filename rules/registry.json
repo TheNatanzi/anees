@@ -5697,6 +5697,61 @@
     }
    ],
    "note": "The double 'After the lesson · Oct 1' was real: two links for the Oct 1 lesson (the first expired 2026-10-02 with 0 of 5 answered, a newer one replaced it). Same for Sep 26 / Sep 23 after new links were minted on 2026-10-02."
+  },
+  {
+   "id": "PG-19",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A % that has not reached the 30-sentence floor (effect_floor in docs/data/sentence-ladder.json) is never blanked: it shows in grey (muted text, grey bar where there is a bar) with 'early · n 13' under it; at or above the floor it is unchanged. This covers the Grammar page's Hear it column and its hear it / say it pair, and Progress › Fluency's grammar hear-vs-say table and under-floor tag chips. Sorting by Hear it puts settled %s first, then early ones, then rules with no clear sentence, by value inside each group (docs/js/early-value.js).",
+   "plain": "On the Grammar page and Progress › Fluency, a % with fewer than 30 sentences behind it shows in grey with 'early · n 13' under it instead of a blank; from 30 it shows as normal. Sorting by Hear it lists settled ones first, then the early grey ones.",
+   "plain_for": "b80cf1fc",
+   "topic": "grammar page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "why is there blanks on grammar list"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "show gray"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/early-value.js",
+     "contains": "function compare(a, b, dir) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/grammar-console.js",
+     "contains": "function hearCompare(a, b) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/fluency-ladder.js",
+     "contains": "fl-gbar-early"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_early_values.cjs",
+     "contains": "test('PG-19 under the floor a value is early, not blank"
+    },
+    {
+     "path": "tests/test_early_values.cjs",
+     "contains": "test('PG-19 Hear it sort: settled first, then early, then none"
+    },
+    {
+     "path": "tests/test_early_values.cjs",
+     "contains": "test('PG-19 the Grammar page and Progress › Fluency use it instead of a blank"
+    }
+   ],
+   "note": "Before: the Hear it cell read '— collecting, 29 of 30' for 35 of 47 rules even though the ladder had their %."
   }
  ]
 }

@@ -349,6 +349,7 @@ function visibleRules() {
   out.sort(function (a, b) {
     var ua = isUntested(a), ub = isUntested(b);
     if (ua !== ub) return ua ? 1 : -1;
+    if (SORT.key === 'hear') return hearCompare(a, b) || idOrder(a, b);
     var va = sortValue(a), vb = sortValue(b);
     if (va == null && vb != null) return 1;
     if (vb == null && va != null) return -1;
@@ -372,11 +373,17 @@ function idOrder(a, b) {
   var x = idKey(a), y = idKey(b);
   return x[0] - y[0] || x[1] - y[1] || (x[2] < y[2] ? -1 : x[2] > y[2] ? 1 : 0);
 }
+// PG-19: Hear it sorts settled %s first, then early (grey) ones, then rules with no % at all.
+function hearCompare(a, b) {
+  var x = hearOf(a), y = hearOf(b);
+  return window.AneesEarly.compare({ show: !!(x && x.hear.show), v: x ? x.hear.pct : null },
+    { show: !!(y && y.hear.show), v: y ? y.hear.pct : null }, SORT.dir);
+}
 function sortValue(r) {
   switch (SORT.key) {
     case 'used': return r.uses || 0;
     case 'mistakes': return r.uses ? r.mistakes : null;
-    case 'hear': var x = hearOf(r); return x && x.hear.show ? x.hear.pct : null;
+    case 'hear': var x = hearOf(r); return x ? x.hear.pct : null;
     case 'score': return r.pct;
     case 'status': return STATUS_RANK[r.status];
     case 'last': return r.last_used ? String(r.last_used) + ' ' + ('00000' + mmssToSec(r.last_used_mmss)).slice(-5) : null;
@@ -513,6 +520,18 @@ function missedCards(x, box) {
     box.appendChild(el('p', 'ab-mini', 'Showing ' + missed.length + ' of ' + x.hear.breakdown + ' missed sentences.'));
   }
 }
+// PG-19 (Medi 2026-10-02 "show gray"): under the FLOOR the % is shown grey with "early · n 13", never blanked.
+function hsNum(show, pct, n, unit) {
+  var d = el('div', 'gc-hs-num');
+  var st = window.AneesEarly.state(show, pct);
+  if (st === 'settled') { d.textContent = pct + unit; return d; }
+  if (st === 'none') { d.className += ' gc-muted'; d.textContent = 'no clear sentence yet'; return d; }
+  d.className += ' gc-early';
+  d.appendChild(document.createTextNode(pct + unit));
+  d.appendChild(el('small', null, window.AneesEarly.label(n)));
+  d.title = window.AneesEarly.title(n, FLOOR);
+  return d;
+}
 // "Hear it / say it": Amal using the rule (did he understand?) next to him using it (was he corrected?). All lessons.
 function hearSay(r) {
   var sec = el('div', 'gc-hearsay');
@@ -526,14 +545,14 @@ function hearSay(r) {
   var pair = el('div', 'gc-hs-pair');
   var a = el('div', 'gc-hs');
   a.appendChild(el('div', 'gc-hs-label', 'Hear it · Amal says it'));
-  a.appendChild(el('div', 'gc-hs-num', h.show ? h.pct + '% understood' : 'collecting, ' + n + ' of ' + FLOOR));
+  a.appendChild(hsNum(h.show, h.pct, n, '% understood'));
   a.appendChild(el('div', 'ab-mini', h.n
     ? 'In ' + h.n + ' of her sentences: ' + h.understood + ' understood, ' + h.breakdown + ' missed, ' + h.unknown + ' unclear (unclear is not counted).'
     : 'She has not used it in a scored listening sentence yet.'));
   pair.appendChild(a);
   var b = el('div', 'gc-hs');
   b.appendChild(el('div', 'gc-hs-label', 'Say it · you say it'));
-  b.appendChild(el('div', 'gc-hs-num', s.show ? s.pct_ok + '% not corrected' : 'collecting, ' + s.uses + ' of ' + FLOOR));
+  b.appendChild(hsNum(s.show, s.pct_ok, s.uses, '% not corrected'));
   b.appendChild(el('div', 'ab-mini', s.uses
     ? 'In ' + s.uses + ' of your scored sentences: ' + s.corrected_any + ' got a correction of any kind. The console files ' + s.corrections_this_rule + ' corrections under this rule.'
     : 'No scored sentence of yours uses it yet.'));
@@ -551,7 +570,7 @@ function hearSay(r) {
   missedCards(x, box);
   sec.appendChild(box);
   sec.appendChild(el('p', 'ab-mini', 'Machine labels from the sentence ladder (a hand check found 16 of 20 "missed" labels right). ' +
-    'A % shows only from ' + FLOOR + ' clear labels. Built ' + String(LADDER.generated || '').slice(0, 10) + '.'));
+    'Under ' + FLOOR + ' clear labels the % is grey and marked early. Built ' + String(LADDER.generated || '').slice(0, 10) + '.'));
   return sec;
 }
 
@@ -731,10 +750,17 @@ function hearCell(r) {
     return cell;
   }
   var h = x.hear, n = hearScored(h);
-  if (!h.show) {
+  var st = window.AneesEarly.state(h.show, h.pct);
+  if (st === 'none') {
     cell.appendChild(el('span', 'gc-muted', '—'));
-    cell.appendChild(el('small', null, 'collecting, ' + n + ' of ' + FLOOR));
-    cell.title = n + ' of her sentences with this rule got a clear understood / missed label; a % shows from ' + FLOOR + '.';
+    cell.appendChild(el('small', null, 'no clear sentence yet'));
+    cell.title = 'None of her sentences with this rule got a clear understood / missed label yet.';
+  } else if (st === 'early') {
+    // PG-19: under the FLOOR the % shows grey with "early · n 13" under it (was a blank "collecting").
+    cell.className += ' gc-early';
+    cell.appendChild(document.createTextNode(h.pct + '%'));
+    cell.appendChild(el('small', null, window.AneesEarly.label(n)));
+    cell.title = window.AneesEarly.title(n, FLOOR) + ' ' + h.understood + ' understood, ' + h.breakdown + ' missed, ' + h.unknown + ' unclear (not counted).';
   } else {
     cell.appendChild(document.createTextNode(h.pct + '%'));
     cell.appendChild(el('small', null, 'understood · n ' + n));

@@ -310,7 +310,9 @@ function costs(o,side){
  const live=(o.live&&o.live[side])||[],liveShown=live.filter(e=>e.show),liveUnder=live.filter(e=>!e.show);
  const K=8,list=expanded[side]?shown:shown.slice(0,K);
  const dom=(()=>{const v=list.concat(liveShown).flatMap(e=>e.ci95||[e.rd_mh]).filter(Number.isFinite);return [Math.min(-5,...v)-2,Math.max(5,...v)+2];})();
- const collecting=arr=>arr.map(e=>`<span class="fl-chip" title="${esc(`${e.label}: ${n(e.n_with)} with, ${n(e.n_without)} without`)}">${esc(e.label)} · collecting, ${n(Math.min(e.n_with,e.n_without))} of ${n(floor)}</span>`).join('');
+ // PG-19 (Medi 2026-10-02 "show gray"): an under-floor tag shows its points grey with "early · n 13", never blanked.
+ const collecting=arr=>arr.map(e=>{const k=Math.min(e.n_with,e.n_without),early=window.AneesEarly.state(false,e.rd_mh)==='early';
+  return `<span class="fl-chip${early?' fl-early':''}" title="${esc(`${e.label}: ${n(e.n_with)} with, ${n(e.n_without)} without${early?` · ${window.AneesEarly.title(k,floor)}`:''}`)}"><bdi>${esc(e.label)}</bdi> · ${early?`${pts(e.rd_mh)} pts · ${window.AneesEarly.label(n(k))}`:`collecting, ${n(k)} of ${n(floor)}`}</span>`;}).join('');
  const joinNote=!U?'Loading sentences…':!o.join?'Waiting for the Word Bank rows (Vocab data) to join word knowledge.':'';
  return `<div class="fl-side-h">${side==='listen'?'Hearing: % understood':'Saying: % not corrected'} <small>points vs sentences without the tag, same lesson and length</small></div>
  ${list.length?`<div class="fl-scale"><span></span><span class="fl-scale-ax"><em>${pts(dom[0])}</em><em style="left:${(0-dom[0])/(dom[1]-dom[0])*100}%">0</em><em>${pts(dom[1])}</em></span><span></span></div>${forest(list,dom)}`:empty('No tag clears the floor yet.')}
@@ -324,9 +326,14 @@ function costs(o,side){
 function grammar(o){
  const rs=Object.entries(S.rules||{}).map(([id,r])=>Object.assign({id},r)).filter(r=>r.hear&&r.hear.n).sort((a,b)=>b.hear.n-a.hear.n).slice(0,8);
  if(!rs.length)return empty('No rule counts in the data yet.');
- const floor=o.T.effect_floor||30,bar=(p,show,k,cls)=>show&&p!=null?`<span class="fl-gbar"><i class="${cls}" style="width:${p}%"></i></span><b>${P(p)}</b><small>n ${n(k)}</small>`:`<span class="fl-coll">collecting, ${n(k)} of ${n(floor)}</span>`;
+ const floor=o.T.effect_floor||30,E=window.AneesEarly;
+ // PG-19: under the floor the % shows grey (grey bar) with "early · n 13" under it; ke = clear sentences (understood + missed).
+ const bar=(p,show,k,cls,ke=k)=>{const st=E.state(show,p);return st==='settled'?`<span class="fl-gbar"><i class="${cls}" style="width:${p}%"></i></span><b>${P(p)}</b><small>n ${n(k)}</small>`
+  :st==='early'?`<span class="fl-gbar fl-gbar-early" title="${esc(E.title(ke,floor))}"><i style="width:${p}%"></i></span><b class="fl-early">${P(p)}</b><small class="fl-early">${E.label(n(ke))}</small>`
+  :`<span class="fl-coll">no clear sentence yet</span>`;};
+ const heard=h=>(h.understood||0)+(h.breakdown||0);
  return `<div class="fl-gtable" role="table"><div class="fl-grow fl-ghead" role="row"><span>Rule</span><span>When Amal uses it: understood</span><span>When you use it: not corrected</span><span title="Corrections filed under this rule on the Grammar Console">fixes</span></div>
- ${rs.map(r=>`<div class="fl-grow" role="row"><span class="fl-gid" title="${esc(r.name)}"><b>${esc(r.id)}</b> ${esc(r.name)}</span><span>${bar(r.hear.pct,r.hear.show,r.hear.n,'fl-fill-l')}</span><span>${r.say?bar(r.say.pct_ok,r.say.show,r.say.uses,'fl-fill-s'):'—'}</span><span>${r.say?n(r.say.corrections_this_rule):'—'}</span></div>`).join('')}</div>`;
+ ${rs.map(r=>`<div class="fl-grow" role="row"><span class="fl-gid" title="${esc(r.name)}"><b>${esc(r.id)}</b> ${esc(r.name)}</span><span>${bar(r.hear.pct,r.hear.show,r.hear.n,'fl-fill-l',heard(r.hear))}</span><span>${r.say?bar(r.say.pct_ok,r.say.show,r.say.uses,'fl-fill-s'):'—'}</span><span>${r.say?n(r.say.corrections_this_rule):'—'}</span></div>`).join('')}</div>`;
 }
 
 /* ---------- 6. labeller honesty: moved to AI Reports › Robot blind spots › Listening (js/fluency-labeller.js, Medi 2026-09-28) ---------- */
@@ -425,7 +432,7 @@ function render(){
  ${panel('signals','B','Miss signals, lesson by lesson','Each bar: the ways you showed you did not follow. Number on top: breakdowns per scored listening sentence.',signals(o),{wide:true,foot:'Rescue and wrong-answer are machine guesses (striped). A bare “aywa” is never a signal: it is unknown.'})}
  ${panel('costs-l','C','What costs you: hearing','Mantel-Haenszel difference, same lesson and same length. Bar = 95% range; most still cross 0, so read them as hints, not facts.',costs(o,'listen'),{})}
  ${panel('costs-s','C','What costs you: saying','Same model on your own sentences: how much more often Amal corrects you when the tag is present.',costs(o,'speak'),{})}
- ${panel('grammar','D','Grammar rules: hear vs say','The '+n(Math.min(8,Object.keys(S.rules||{}).length))+' rules you hear most. Left: Amal uses it. Right: you use it.',grammar(o),{foot:`Shown from ${n(o.T.effect_floor)} sentences a side. The Grammar Console has the full list.`})}
+ ${panel('grammar','D','Grammar rules: hear vs say','The '+n(Math.min(8,Object.keys(S.rules||{}).length))+' rules you hear most. Left: Amal uses it. Right: you use it.',grammar(o),{foot:`Under ${n(o.T.effect_floor)} sentences a side the % is grey and marked early. The Grammar Console has the full list.`})}
  </div>
  <p class="rb-link">How far to trust the labeller (its blind hand check and how often it agrees with your swipes) is about the robot, so it lives on <a href="ai-reports.html?tab=unknowns#ar-unk-listen">AI Reports › Robot blind spots › Listening</a>.</p>
  <p class="vp-footer">Sentence ladder ${esc(S.version||'')} · built ${esc(String(S.generated||'').replace('T',' '))} · ${n((S.lessons||[]).length)} lessons, latest ${esc(pretty(lastLesson&&lastLesson.date))}${U?` · ${n(U.listen.length)} listening + ${n(U.speak.length)} speaking sentences`:' · loading sentences'}${failed.length?` · not loaded: ${esc(failed.join(', '))}`:''}${o.ladder.checked?' · ladder re-checked in the browser':''}${o.join&&o.join.fs?` · FSRS from ${esc(o.join.fs.src)} (${n(o.join.fs.answers)} answers)`:''}${COG?` · Farsi cognates: ${esc(COG.status||'')}`:''}</p>`;

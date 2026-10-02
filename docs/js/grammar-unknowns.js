@@ -249,7 +249,7 @@ function g4(d){
   ()=>examples(x.h.examples||[]),hearCard,{bar:track([[x.h.understood||0,'gu-okbar','understood'],[x.h.breakdown||0,'gu-badbar','missed'],[x.h.unknown||0,'gu-softbar','unknown']],F),
    note:`Up to 6 of Amal’s ${n(x.h.n)} sentences with this rule, misses first (the ladder keeps 6 examples per rule).`,empty:'The example sentences could not be found in the lesson files.'})).join('');
  const neverRow=d.never.length?`<div class="gu-static gu-never"><span class="gu-sumlab"><b>Amal never used these in a scored sentence</b><small>${d.never.map(x=>`<span class="gu-chip" title="${esc(x.name)}">${esc(x.id)} ${esc(x.name)}</span>`).join(' ')}</small></span></div>`:'';
- return panel('G4','Listening side: when Amal uses the rule',`“Hear it” shows a % only from ${n(F)} scored sentences (understood or missed). Unknowns sit out.`,split+`<div class="gu-list">${rows}</div>`+neverRow,
+ return panel('G4','Listening side: when Amal uses the rule',`“Hear it” settles at ${n(F)} scored sentences (understood or missed); below that its % is grey and marked early. Unknowns sit out.`,split+`<div class="gu-list">${rows}</div>`+neverRow,
   `${n(d.hearUnknown)} of ${n(d.hearAll)} rule-tagged sentences (${P(d.hearUnknown,d.hearAll)}) are unknown. Why: <a href="progress.html?tab=fluency">Progress › Fluency</a>, “What the ladder can’t tell yet”. Sounds (F) are left out.`);
 }
 async function examples(ids){
@@ -267,7 +267,7 @@ function g5(d){
   {n:d.noSignal.length,unit:'rows',what:'Amal answers the pattern cards',how:`${n(d.reviewPatterns)} grammar patterns wait for her tap. Her yes scores every row in a pattern. The audit says she must rule on only ${n(AUDIT.amalPatterns)} (${n(AUDIT.amalRows)} rows); the rest settle from her sheet.`,who:'Amal'},
   {n:b18.reduce((s,x)=>s+(x.r.mistakes||0),0)+few.reduce((s,x)=>s+(x.r.mistakes||0),0),unit:'fixes get a %',what:`A detector for ${b18.map(x=>x.r.id).join(', ')||'B18'}${few.length?' (and '+few.map(x=>x.r.id).join(', ')+')':''}`,how:`Count Medi’s right uses, so ${n(b18.length+few.length)} unscored rules can show a %. ${b18.map(x=>x.r.id+' alone has '+n(x.r.mistakes)+' fixes').join('; ')}.`,who:'Robot'},
   {n:AUDIT.rules,unit:'decisions',what:'Medi’s yes / no on the 18 audit rules',how:`R1–R18 in ${AUDIT.src}: each closes one gap (Latin lines, chat pairing, cue list, “no” matching, wrong bucket…).`,who:'Medi'},
-  {n:d.collecting.length,unit:'listening rules',what:'More lessons where Amal uses the rule',how:`Each needs ${n(d.floor)} scored sentences before “hear it” shows a %. Nothing to build; it fills as you talk.`,who:'Time'}
+  {n:d.collecting.length,unit:'listening rules',what:'More lessons where Amal uses the rule',how:`Each needs ${n(d.floor)} scored sentences before its grey early “hear it” % settles. Nothing to build; it fills as you talk.`,who:'Time'}
  ].sort((a,b)=>b.n-a.n);
  const max=Math.max(1,...L.map(x=>x.n));
  return panel('G5','What would shrink the unknowns','Each lever and how much it would unlock. Longest bar first.',
@@ -285,14 +285,14 @@ function paint(host,keys){
  const d=D,B=d.bands,mN=d.missed.length,latin=d.GAPS.find(g=>g.key==='latin'),has=k=>keys.includes(k);
  const tile=(v,l,s)=>`<div class="gu-tile"><b>${v}</b><span>${esc(l)}</span>${s?`<small>${esc(s)}</small>`:''}</div>`;
  const mine=keys.every(k=>MEDI.includes(k)),robot=keys.every(k=>ROBOT.includes(k));
- const intro=mine?`<div class="gu-head"><span class="vp-eyebrow">How sure are these numbers?</span><h2 class="ov-h2">What your grammar numbers rest on</h2><p class="ab-sub">Rules you haven’t used yet, rules whose % rests on thin evidence, and rules still collecting a “hear it” %. Open any row for the exact sentences.</p><p class="rb-link">Rules the robot has no detector for, and the slips its slip finder can’t see, are robot issues, so they live on <a href="ai-reports.html?tab=unknowns#ar-unk-grammar">AI Reports › Robot blind spots</a>.</p></div>`
-  :robot?`<div class="gu-head"><p class="ab-sub">Where the grammar numbers stop because of the robot: rules it has no detector for, slips its slip finder can’t see, and what would fix them. Open any row for the exact sentences.</p><p class="rb-link">Rules Medi hasn’t used yet, thin evidence per rule and rules still collecting a “hear it” % are about him, so they live on <a href="progress.html?tab=grammar#gp-sure-wrap">Progress › Grammar</a>.</p></div>`
+ const intro=mine?`<div class="gu-head"><span class="vp-eyebrow">How sure are these numbers?</span><h2 class="ov-h2">What your grammar numbers rest on</h2><p class="ab-sub">Rules you haven’t used yet, rules whose % rests on thin evidence, and rules whose “hear it” % is still early (grey). Open any row for the exact sentences.</p><p class="rb-link">Rules the robot has no detector for, and the slips its slip finder can’t see, are robot issues, so they live on <a href="ai-reports.html?tab=unknowns#ar-unk-grammar">AI Reports › Robot blind spots</a>.</p></div>`
+  :robot?`<div class="gu-head"><p class="ab-sub">Where the grammar numbers stop because of the robot: rules it has no detector for, slips its slip finder can’t see, and what would fix them. Open any row for the exact sentences.</p><p class="rb-link">Rules Medi hasn’t used yet, thin evidence per rule and rules whose “hear it” % is still early are about him, so they live on <a href="progress.html?tab=grammar#gp-sure-wrap">Progress › Grammar</a>.</p></div>`
   :`<div class="gu-head"><span class="vp-eyebrow">What the robot doesn’t know</span><p class="ab-sub">Where the grammar numbers stop: rules with no %, slips the robot can’t see, thin evidence, and the listening side. Open any row for the exact sentences.</p></div>`;
  const tiles=[has('G1')&&tile(n(d.noScore.length),'rules with no %','G1 · of '+n(d.rules.length)),
   has('G1b')&&tile(n(d.noScore.filter(x=>x.cls==='unused').length),d.noScore.filter(x=>x.cls==='unused').length===1?'rule you haven’t used yet':'rules you haven’t used yet','G1b · of '+n(d.rules.length)),
   has('G2')&&tile(P(mN,d.cands.length),'hand-found slips the robot missed','G2 · '+n(mN)+' of '+n(d.cands.length)),
   has('G3')&&tile(n(B.thin.length),'rules on thin evidence','G3 · under 10 uses or 1–2 lessons'),
-  has('G4')&&tile(n(d.collecting.length+d.never.length),'rules with no “hear it” %','G4 · of '+n(d.hear.length)),
+  has('G4')&&tile(n(d.collecting.length+d.never.length),'rules with no settled “hear it” %','G4 · of '+n(d.hear.length)),
   has('G5')&&tile(latin?n(latin.items.length):'—','slips the biggest robot fix unlocks','G5 · Latin-letter lines')].filter(Boolean).join('');
  ACC.clear();
  host.innerHTML=`${intro}
