@@ -14,7 +14,9 @@ import datetime, json, os, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE); DOCS = os.path.join(REPO, "docs")
 sys.path.insert(0, HERE)
 OUT = os.path.join(DOCS, "data", "tutor.json")
-KEEP_KINDS = {"doc"}
+# Hand-kept cards: none since 2026-10-01 (her grammar Google Doc card became the Anees grammar-notes card below).
+KEEP_KINDS = set()
+NOTES = os.path.join(DOCS, "data", "amal-grammar-notes.json")
 
 
 def day(s):
@@ -76,6 +78,17 @@ def main():
                           "who": "Amal answers · Medi sends the link", "url": f"amal/review.html?t={r['token']}",
                           "total": (review.get("counts") or {}).get("patterns", 0), "moments": sum(len(x.get("examples", [])) for x in review.get("patterns", [])),
                           "expires": day(r["expires_at"])})
+            # Her grammar notes live on the Anees rules page now, written with this same link's token (Medi 2026-10-01:
+            # nothing Amal uses stays in a Google Doc or behind a login). Her Doc notes are shown under each rule.
+            notes = json.load(open(NOTES, encoding="utf-8")) if os.path.exists(NOTES) else {"sections": []}
+            open_.append({"id": "grammar-notes", "title": "Grammar rules · her notes", "kind": "grammar_notes", "token": r["token"],
+                          "what": "Medi's 57 grammar rules. Under each rule: her notes from her Doc (" + str(len(notes.get("sections", [])))
+                                  + " notes) and a box to write a new one - no Google Doc needed. Each note she saves reaches the app.",
+                          "who": "Amal writes · Medi sends the link", "url": f"amal/grammar-rules.html?t={r['token']}",
+                          "doc_notes": len(notes.get("sections", [])), "expires": day(r["expires_at"])})
+            open_.append({"id": "materials", "title": "Arabic Materials", "kind": "materials", "token": None,
+                          "what": "Her explanations: prepositions, possession, adjectives, time, kul, the b- prefix and the pointer rule, copied word for word from her Doc.",
+                          "who": "To read · no answers needed", "url": "amal/materials.html"})
         elif r["kind"] in ("after", "before"):
             title = ("After the lesson · " if r["kind"] == "after" else "Before the lesson · ") + pretty(r.get("lesson_date") or "")
             n = len(p.get("questions") or []) + len(p.get("homework") or []) + len(p.get("prompts") or []) if r["kind"] == "after" else len(p.get("suggestions") or p.get("items") or [])

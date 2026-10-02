@@ -109,9 +109,14 @@ def fetch_plan():
     return fp_rows(_amal_rules(lambda r: r.get("source") in ("before", "plan", "planner")), ("id", "kind", "word_key", "payload"))
 
 
-KNOWN_RULE_SOURCES = ("review", "after", "before", "plan", "planner")
+KNOWN_RULE_SOURCES = ("review", "after", "before", "plan", "planner", "grammar_notes")
 # not Amal: machine flags from flashcard answers, and Medi's own marks
 NOT_AMAL_SOURCES = ("flashcards", "medi")
+
+
+def fetch_grammar_notes():
+    """Notes Amal writes under the rules on amal/grammar-rules.html (replaces writing in her Google Doc, 2026-10-01)."""
+    return fp_rows(_amal_rules(lambda r: r.get("source") == "grammar_notes"), ("id", "kind", "word_key", "payload"))
 
 
 def fetch_rules_other():
@@ -181,6 +186,7 @@ STEPS = [
     ("apply_amal_audit_rulings", [sys.executable, "scripts/apply_amal_audit_rulings.py"]),
     ("amal_grammar_notes", [sys.executable, "scripts/amal_grammar_notes.py"]),
     ("build_grammar_console", [sys.executable, "scripts/build_grammar_console.py"]),
+    ("build_amal_docs", [sys.executable, "scripts/build_amal_docs.py"]),   # her two Google Docs as Anees pages (2026-10-01)
     ("build_amal_grammar_rules", [sys.executable, "scripts/build_amal_grammar_rules.py"]),
     ("build_amal_review", [sys.executable, "scripts/build_amal_review.py"]),
     ("build_lessons_page_data", [sys.executable, "scripts/build_lessons_page_data.py"]),
@@ -190,8 +196,8 @@ STEPS = [
     ("build_tutor_data", [sys.executable, "scripts/build_tutor_data.py"]),
     ("write_build", [sys.executable, "scripts/write_build.py"]),
 ]
-AUDIT_CHAIN = ["full_audit_build", "apply_amal_audit_rulings", "amal_grammar_notes", "build_grammar_console", "build_amal_grammar_rules",
-               "build_amal_review", "build_lessons_page_data", "codex_list", "accuracy_annotate", "build_sentence_ladder", "build_tutor_data"]
+AUDIT_CHAIN = ["full_audit_build", "apply_amal_audit_rulings", "amal_grammar_notes", "build_grammar_console", "build_amal_docs",
+               "build_amal_grammar_rules", "build_amal_review", "build_lessons_page_data", "codex_list", "accuracy_annotate", "build_sentence_ladder", "build_tutor_data"]
 
 SOURCES = [
     {"id": "tutor_verify", "label": "Tutor page: check these moments", "fetch": fetch_tutor_verify, "steps": AUDIT_CHAIN},
@@ -204,8 +210,11 @@ SOURCES = [
     {"id": "word_review", "label": "Word review", "fetch": fetch_word_review, "steps": ["build_tutor_data"],
      "note": "her answers are detected and logged; showing them in the Word Bank still needs the Speaking release rebuild (not automated)"},
     {"id": "homework", "label": "Homework verdicts", "fetch": fetch_homework, "steps": ["build_tutor_data"]},
+    {"id": "grammar_notes", "label": "Grammar notes she writes on the rules page", "fetch": fetch_grammar_notes,
+     "steps": ["build_amal_docs", "build_tutor_data"],
+     "note": "like her Doc notes, a note becomes a scoring ruling only after a row-by-row read (amal_grammar_notes.py)"},
     {"id": "grammar_doc", "label": "Her grammar-rules Google Doc", "fetch": fetch_grammar_doc, "steps": [],
-     "note": "a change is logged as 'needs a read': her notes become scoring rulings only after a row-by-row read"},
+     "note": "a change is logged as 'needs a read': Claude re-reads the Doc into data/amal-docs/ with Medi's Drive connector (build_amal_docs.py shows it on the Anees rules page); her notes become scoring rulings only after a row-by-row read"},
     {"id": "quizlet", "label": "Her Quizlet sets", "fetch": fetch_quizlet, "steps": ["write_build"], "pass_state": True},
 ]
 

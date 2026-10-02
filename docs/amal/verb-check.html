@@ -34,7 +34,7 @@ details.verb>summary::-webkit-details-marker{display:none}.vname{font-weight:700
  const VC=win.AneesVerbCheck,$=id=>doc.getElementById(id),pageStatus=$('page-status');
  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  try{
-  const token=new URLSearchParams(win.location.hash.slice(1)).get('t');
+  const token=new URLSearchParams(win.location.hash.slice(1)).get('t')||new URLSearchParams(win.location.search).get('t');   // #t= (sent links) or ?t= (Tutor page, 2026-10-01)
   if(!token||!/^[A-Za-z0-9_-]{43}$/.test(token))throw Error('missing-link');
   const config=win.ANEES;if(!config||!config.anon||!VC)throw Error('configuration');
   const endpoint=config.url+'/rest/v1/verb_check_links?token=eq.'+encodeURIComponent(token);

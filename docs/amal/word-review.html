@@ -345,7 +345,7 @@ function mountWordReview(doc, win, payload, options = {}) {
 async function openSharedReview(doc, win) {
   const pageStatus = doc.getElementById('page-status');
   try {
-    const token = new URLSearchParams(win.location.hash.slice(1)).get('t');
+    const token = new URLSearchParams(win.location.hash.slice(1)).get('t') || new URLSearchParams(win.location.search).get('t');   // #t= or ?t= (Tutor page, 2026-10-01)
     if (!token || !/^[A-Za-z0-9_-]{43}$/.test(token)) throw Error('missing-link');
     const config = win.ANEES;
     if (!config || config.url !== 'https://yljcbdxvnkfrwvelypfu.supabase.co' || !config.anon) throw Error('configuration');

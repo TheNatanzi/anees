@@ -61,6 +61,8 @@ foot = ("Scores from %d recorded lessons (%s &ndash; %s). Corrections are the on
            sum(r["mistakes"] for r in g["rules"])))
 s, n = re.subn(r"<footer>.*?</footer>", "<footer>" + foot + "</footer>", s, count=1, flags=re.S)
 assert n == 1, "footer not found"
+# Amal writes her grammar notes on this page (scripts/build_amal_docs.py, js/amal-grammar-notes.js; Medi 2026-10-01)
+assert "js/amal-grammar-notes.js" in s, "the notes script tag is missing from the page"
 
 open(PAGE, "w", encoding="utf-8", newline="").write(s)
 print("updated", len(seen), "rules on", PAGE)

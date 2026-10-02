@@ -1,30 +1,7 @@
 {
- "updated": "2026-09-30T15:40:42-07:00",
+ "updated": "2026-10-01T17:16:46-07:00",
  "note": "What Amal needs to check right now. Rebuilt by scripts/build_tutor_data.py every hour and after every same-day lesson review; answered counts are read live from Supabase with each link's own token. Medi sends every link himself; the app never contacts Amal.",
  "open": [
-  {
-   "id": "grammar-doc",
-   "title": "Grammar rules · her Google Doc",
-   "what": "Amal now makes her grammar changes straight in this Doc. Each change she makes becomes a rule the app scores Medi on.",
-   "who": "Amal edits · Claude pulls her changes into the app",
-   "kind": "doc",
-   "url": "https://docs.google.com/document/d/1SCYeIEu-N-wxqGe7Y_M4dKTwAPICQKM-_3SgbF4whME/edit?tab=t.0#heading=h.chmu3foy84kv",
-   "done": 2,
-   "done_label": "changes made so far (Medi, 2026-09-26)",
-   "status": "Her notes (\"Mahdi's Grammar Rules notes\", edited 09-27) were applied on 2026-09-29: 20 corrections no longer counted, 11 read and kept (data/amal-grammar-notes-2026-09-29.json). Edits after 09-27 are not pulled automatically."
-  },
-  {
-   "id": "after-2026-09-30",
-   "title": "After the lesson · Sep 30",
-   "kind": "after",
-   "token": "oHh4H4N3vvjjPtyI7_hozk8vWW-3CT14",
-   "lesson_date": "2026-09-30",
-   "what": "3-5 moments from this lesson the app was least sure about: was he right here? One tap each, with the clip.",
-   "who": "Amal answers · Medi sends the link",
-   "url": "amal/after.html?t=oHh4H4N3vvjjPtyI7_hozk8vWW-3CT14",
-   "total": 5,
-   "expires": "2026-10-07"
-  },
   {
    "id": "after-2026-09-26",
    "title": "After the lesson · Sep 26",
@@ -62,6 +39,26 @@
    "expires": "2026-10-26"
   },
   {
+   "id": "grammar-notes",
+   "title": "Grammar rules · her notes",
+   "kind": "grammar_notes",
+   "token": "WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
+   "what": "Medi's 57 grammar rules. Under each rule: her notes from her Doc (23 notes) and a box to write a new one - no Google Doc needed. Each note she saves reaches the app.",
+   "who": "Amal writes · Medi sends the link",
+   "url": "amal/grammar-rules.html?t=WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
+   "doc_notes": 23,
+   "expires": "2026-10-26"
+  },
+  {
+   "id": "materials",
+   "title": "Arabic Materials",
+   "kind": "materials",
+   "token": null,
+   "what": "Her explanations: prepositions, possession, adjectives, time, kul, the b- prefix and the pointer rule, copied word for word from her Doc.",
+   "who": "To read · no answers needed",
+   "url": "amal/materials.html"
+  },
+  {
    "id": "verb_check-1",
    "title": "Verb check · list 1",
    "kind": "verb_check",
@@ -87,6 +84,11 @@
   }
  ],
  "closed": [
+  {
+   "id": "after-2026-09-30",
+   "title": "After the lesson · Sep 30",
+   "why": "answered"
+  },
   {
    "id": "after-2026-09-28",
    "title": "After the lesson · Sep 28",

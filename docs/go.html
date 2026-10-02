@@ -11,10 +11,10 @@ main{max-width:520px;margin:12vh auto;padding:0 16px}a{color:var(--teal,#2E6A4E)
 (async function () {
   const to = new URLSearchParams(location.search).get('to') || '';
   const NAMES = { review: 'Slips to review', after: 'After the lesson', before: 'Before the lesson', 'verb-check': 'Verb check',
-                  'verb-check-2': 'Verb check · list 2', 'word-review': 'Word review', 'grammar-rules': 'Grammar rules', 'grammar-doc': "Amal's grammar Doc" };
+                  'verb-check-2': 'Verb check · list 2', 'word-review': 'Word review', 'grammar-rules': 'Grammar rules', 'grammar-doc': 'Grammar rules · her notes', 'grammar-notes': 'Grammar rules · her notes', materials: 'Arabic Materials' };
   const h = document.getElementById('h'), p = document.getElementById('p');
   const go = url => location.replace(url + (url.includes('?') ? '&' : '?') + 'from=app');
-  if (to === 'grammar-rules') return go('amal/grammar-rules.html');
+  if (to === 'materials') return go('amal/materials.html');
   let T = { open: [] };
   try { T = await (await fetch('data/tutor.json', { cache: 'no-store' })).json(); } catch (e) {}
   const open = T.open || [];
@@ -25,7 +25,8 @@ main{max-width:520px;margin:12vh auto;padding:0 16px}a{color:var(--teal,#2E6A4E)
   else if (to === 'verb-check') it = byKind('verb_check')[0];
   else if (to === 'verb-check-2') it = byKind('verb_check')[1];
   else if (to === 'word-review') it = byKind('word_review')[0];
-  else if (to === 'grammar-doc') it = byKind('doc')[0];
+  // her grammar Google Doc moved into Anees 2026-10-01: old ?to=grammar-doc links open the rules page with her notes
+  else if (to === 'grammar-doc' || to === 'grammar-notes' || to === 'grammar-rules') it = byKind('grammar_notes')[0] || { url: 'amal/grammar-rules.html' };
   if (it) {
     const url = it.url;   // Amal's hub was removed 2026-09-28; old ?to=hub links open the review page
     if (/^https?:/.test(url)) return location.replace(url);
