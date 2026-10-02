@@ -499,7 +499,7 @@ LESSON_TYPES = {
 DEFINITIONS = {
     "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
     "duration_min": "Length of the lesson audio the page plays, in minutes.",
-    "type": "Claude's reading of what the lesson mostly was: free-speak = conversation; review-words = practising words already taught; new-words = Amal teaching new vocabulary (new verb pairs drilled in all tenses count here); new-grammar = Amal teaching a rule. One main type; if mixed, the one with the most minutes, and type_why says so. type_source 'claude-read' = Medi can correct it.",
+    "type": "Claude's reading of what the lesson mostly was: free-speak = conversation; review-words = practising words already taught; new-words = Amal teaching new vocabulary (new verb pairs drilled in all tenses count here); new-grammar = Amal teaching a rule; review-grammar = Amal drilling rules already taught (Medi 2026-10-01: Sep 30 was an el- review). One main type; if mixed, the one with the most minutes, and type_why says so. type_source 'claude-read' = Medi can correct it.",
     "review_mode": "For review lessons only: listening = Amal says Arabic, Medi gives the meaning; speaking = Medi says it in Arabic; both.",
     "words.unique": "How many different Word Bank forms (a verb tense or a plural counts on its own) Medi was scored on in this lesson, the lesson audit's word slips included - the same count as Progress > Vocab 'Unique words per lesson'. words.unique_rows = the same by Word Bank row.",
     "words.right": "Scored uses marked correct (same rules as the Word Bank page: its own code is run on docs/data/word-bank-evidence.json + word-bank-review.json).",

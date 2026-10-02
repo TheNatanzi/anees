@@ -12,7 +12,7 @@
   const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const dm = d => { const [, m, dd] = String(d).split('-').map(Number); return `${MON[m - 1]} ${dd}`; };
   const sum = (a, f) => a.reduce((s, x) => s + f(x), 0);
-  const TYPE = { 'free-speak': 'Free speak', 'new-words': 'New words', 'new-grammar': 'New grammar', 'review-words': 'Review words' };
+  const TYPE = { 'free-speak': 'Free speak', 'new-words': 'New words', 'new-grammar': 'New grammar', 'review-grammar': 'Grammar review', 'review-words': 'Review words' };
   const EDGE = 60;   // s: a talk window that starts later or ends earlier than this is "part of the lesson"
 
   // Same filled-pause test as scripts/build_lessons_page_data.py is_filler(); used only when lessons.json predates

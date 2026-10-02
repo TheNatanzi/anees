@@ -23,7 +23,7 @@ const median=a=>{if(!a.length)return null;const s=a.slice().sort((x,y)=>x-y),m=s
 const sum=(a,f)=>a.reduce((s,x)=>s+(f?f(x):x),0);
 const trim0=s=>String(s).replace(/\.0$/,'');
 const niceMax=v=>{if(v<=0)return 1;const p=Math.pow(10,Math.floor(Math.log10(v)));const r=v/p;return (r<=1?1:r<=2?2:r<=2.5?2.5:r<=5?5:10)*p;};
-const TYPE={'free-speak':'free speak','new-words':'new words','new-grammar':'new grammar','review-words':'review'};
+const TYPE={'free-speak':'free speak','new-words':'new words','new-grammar':'new grammar','review-grammar':'grammar review','review-words':'review'};
 const tcls=t=>TYPE[t]?'ov2-t-'+t:'ov2-t-other';
 const plural=(n,w)=>`${n} ${w}${n===1?'':'s'}`;
 const pooledWords=ls=>{const s=sum(ls,l=>(l.words&&l.words.scored)||0);return s?sum(ls,l=>((l.words&&l.words.right)||0)+((l.words&&l.words.partial)||0)/2)/s*100:null;};

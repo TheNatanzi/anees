@@ -10,9 +10,9 @@ var OPEN = Object.create(null);
 var TAB = 'all', QUERY = '', SORT = 'new', MODE_ON = Object.create(null);
 var TYPES = [
   ['all', 'All'], ['free-speak', 'Free Speak'], ['review-words', 'Review of words'],
-  ['new-words', 'New words'], ['new-grammar', 'New grammar']
+  ['new-words', 'New words'], ['new-grammar', 'New grammar'], ['review-grammar', 'Grammar review']
 ];
-var TYPE_LABEL = { 'free-speak': 'Free Speak', 'review-words': 'Review of words', 'new-words': 'New words', 'new-grammar': 'New grammar' };
+var TYPE_LABEL = { 'free-speak': 'Free Speak', 'review-words': 'Review of words', 'new-words': 'New words', 'new-grammar': 'New grammar', 'review-grammar': 'Grammar review' };
 var MODES = [['listening', 'Listening'], ['speaking', 'Speaking'], ['both', 'Both']];
 var SORT_KEY = 'anees.lessons.sort';
 try { var s = localStorage.getItem(SORT_KEY); if (/^(new|old|grammar|words|fillers)$/.test(s || '')) SORT = s; } catch (e) { /* default */ }
