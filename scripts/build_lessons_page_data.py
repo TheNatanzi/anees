@@ -40,6 +40,63 @@ sys.path.insert(0, HERE)
 import amal_grammar_notes as AMAL  # noqa: E402  Amal's notes 2026-09-27: which grammar corrections do not count
 
 
+
+def _secs(mmss):
+    try:
+        parts = [int(x) for x in str(mmss).split(":")]
+    except ValueError:
+        return None
+    n = 0
+    for x in parts:
+        n = n * 60 + x
+    return n
+
+
+VERDICT_DRIFT_S = 120   # a re-read lesson (new tracks, a grown transcript) re-times its cards by up to ~1.5 min (09-23: 11:17 -> 09:45)
+
+
+def word_core(arabic):
+    """The word itself, without the reader's gloss: 'كمان نص ساعة = in half an hour (after half an hour)' and
+    'كمان نص ساعة = in half an hour' -> 'كمان نص ساعة'; 'قريب من السفر (قبل السفر بشوي)' -> 'قريب من السفر'."""
+    a = str(arabic or "").split(" = ")[0]
+    a = re.sub(r"\([^)]*\)", " ", a)
+    a = re.sub(r"[^؀-ۿ ]", " ", a)
+    return " ".join(a.split())
+
+
+def hand_verdicts(rows):
+    """Lookup for data/lesson-work/sheet-verdicts.json: (date, mmss, arabic) -> verdict. Exact key first; else the verdict
+    for the SAME word (word_core: the reader's gloss may be re-worded) on the same date whose time is nearest within
+    VERDICT_DRIFT_S, each such verdict used once. Before 2026-10-02 only the exact key matched, so a same-day re-review
+    that re-timed or re-glossed a card (09-23 re-read after Amal's track was added: 07:09 -> 07:04, 'كمان نص ساعة = in half
+    an hour (after half an hour)' -> '... = in half an hour') silently lost the reader's on-list verdict and the string
+    match flagged known list words 'Not on sheet' (the hourly job's test_sheet_v1 block, 2026-10-02)."""
+    exact, by_word, used = {}, {}, set()
+    for x in rows:
+        exact[(x["date"], x["mmss"], x["arabic"])] = x
+        core = word_core(x["arabic"])
+        if core:
+            by_word.setdefault((x["date"], core), []).append(x)
+
+    def get(date, mmss, arabic):
+        x = exact.get((date, mmss, arabic))
+        if x is not None:
+            used.add(id(x))
+            return x
+        t, core = _secs(mmss), word_core(arabic)
+        if t is None or not core:
+            return None
+        near = [(abs(_secs(y["mmss"]) - t), y) for y in by_word.get((date, core), [])
+                if id(y) not in used and _secs(y["mmss"]) is not None]
+        near = [(gap, y) for gap, y in near if gap <= VERDICT_DRIFT_S]
+        if not near:
+            return None
+        y = min(near, key=lambda p: p[0])[1]
+        used.add(id(y))
+        return y
+    return get
+
+
 def _confirmed_new():
     try:
         import db
@@ -861,14 +918,14 @@ def build():
     # Hand verdicts win over the automatic sheet check (Medi 2026-09-27 "use context and meanings both ways"): a reader
     # judged each word against his list by meaning -> data/lesson-work/sheet-verdicts.json [{date, mmss, arabic, verdict}].
     vp = os.path.join(REPO, "data", "lesson-work", "sheet-verdicts.json")
-    VD = {(x["date"], x["mmss"], x["arabic"]): x for x in (J(vp) if os.path.exists(vp) else [])}
+    VD = hand_verdicts(J(vp) if os.path.exists(vp) else [])
     # 2026-09-27 overnight audit: every card judged (on_list / new / not_an_error). on_list carries the list word's key,
     # which the rating uses. not_an_error = the transcript shows he said it right (or it was not his slip): the card leaves
     # vocab_errors and the Words %, and is kept under "not_errors" with the reason.
     for d, v in per.items():
         keep, dropped = [], []
         for e in v["vocab_errors"]:
-            x = VD.get((d, e.get("mmss"), e.get("arabic")))
+            x = VD(d, e.get("mmss"), e.get("arabic"))
             if x and x.get("verdict") in ("not_an_error", "duplicate"):   # duplicate = the same slip already counted once
                 e["verdict_reason"] = x.get("reason")
                 dropped.append(e)

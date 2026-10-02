@@ -96,23 +96,65 @@ def _cards():
     return out
 
 
+def _secs(mmss):
+    try:
+        a = [int(x) for x in str(mmss).split(":")]
+    except ValueError:
+        return None
+    return a[0] * 60 + a[1] if len(a) == 2 else a[0] * 3600 + a[1] * 60 + a[2] if len(a) == 3 else None
+
+
+def _reread_after(date, day):
+    """True when the lesson's readers re-read it after `day` (a grown transcript or new tracks re-times its cards)."""
+    m = ROOT / "data" / "lesson-work" / "full-audit" / f"{date}.r1.json.inputs.json"
+    return m.exists() and str(J(m).get("written") or "")[:10] > day
+
+
 def test_sheet_v1_known_list_words_never_flagged_new():
-    """Guards aa1e7f8: the string match called 56 of 98 words 'not on sheet' that were on Medi's list."""
-    cards, bad, seen = _cards(), [], 0
+    """Guards aa1e7f8: the string match called 56 of 98 words 'not on sheet' that were on Medi's list.
+    A card is followed when a re-read re-timed it (same word, same lesson, within the builder's drift window, as
+    build_lessons_page_data.hand_verdicts does). A card counts as accounted for only when its lesson was re-read after the
+    gold set was frozen AND the audit has no word row for that word near that moment any more (the readers moved it to a
+    grammar row or dropped it) - a moved key still has its word row, so it still fails here."""
+    import build_lessons_page_data as B
+    cards, bad, seen, gone = _cards(), [], 0, []
+    by_word = {}
+    for (d, mm), xs in cards.items():
+        for where, e in xs:
+            by_word.setdefault((d, B.word_core(e.get("arabic"))), []).append((mm, where, e))
     # GR-19 (Medi 2026-10-02): a fix Amal only typed in the chat is not a slip, so its card left the page on purpose
     audit = J(os.path.join(ROOT, "data", "full-audit-2026-09-26.json")) if os.path.exists(os.path.join(ROOT, "data", "full-audit-2026-09-26.json")) else {"rows": []}
     chat_only = {(r["date"], r.get("t")) for r in audit["rows"] if r.get("rejected_rule") == "GR-19"}
+    word_rows = {}
+    for r in audit["rows"]:
+        if not r.get("bucket"):
+            word_rows.setdefault((r["date"], B.word_core(r.get("right"))), []).append(_secs(r.get("t")))
+    frozen = next(x for x in J(GOLD / "manifest.json")["sets"] if x["id"] == "sheet@v1")["created"]
     for v in J(gold_file("sheet@v1"))["verdicts"]:
         if v["verdict"] != "on_list":
             continue
-        if not cards.get((v["date"], v["mmss"])) and (v["date"], v["mmss"]) in chat_only:
+        k = (v["date"], v["mmss"])
+        hits = cards.get(k, [])
+        if not hits:
+            t = _secs(v["mmss"])
+            near = [(abs(_secs(mm) - t), w, e) for mm, w, e in by_word.get((v["date"], B.word_core(v["arabic"])), [])
+                    if t is not None and _secs(mm) is not None and abs(_secs(mm) - t) <= B.VERDICT_DRIFT_S]
+            hits = [(w, e) for _, w, e in sorted(near, key=lambda x: x[0])[:1]]
+        if not hits and k in chat_only:
             seen += 1                       # accounted for: dropped by GR-19, not lost
             continue
-        for where, e in cards.get((v["date"], v["mmss"]), []):
+        if not hits:
+            t = _secs(v["mmss"])
+            still = any(s is not None and t is not None and abs(s - t) <= B.VERDICT_DRIFT_S for s in word_rows.get((v["date"], B.word_core(v["arabic"])), []))
+            if _reread_after(v["date"], frozen) and not still:
+                gone.append(k)              # accounted for: a later re-read no longer counts it as a word slip
+                continue
+        for where, e in hits:
             seen += 1
             if where == "shown" and e.get("on_sheet") is False:
                 bad.append(f"{v['date']} {v['mmss']} {v['arabic']}")
-    assert seen >= 56, f"only {seen} of the 56 known on-list cards are still on the page (card keys moved?)"
+    assert seen + len(gone) >= 56, f"only {seen} of the 56 known on-list cards are still on the page (card keys moved?)"
+    assert len(gone) <= 10, f"{len(gone)} known on-list cards left the page after re-reads - check the readers: {gone}"
     assert not bad, "known on-list words flagged 'Not on sheet': " + "; ".join(bad)
 
 

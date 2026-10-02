@@ -27,6 +27,10 @@ CLAUDE_JSON = {"type": "result", "subtype": "success", "is_error": False, "durat
 def runs(tmp_path, monkeypatch):
     d = tmp_path / "runs"
     monkeypatch.setenv("ANEES_RUNS_DIR", str(d))
+    # The hourly job runs these tests with ANEES_TRIGGER=hourly in its environment (hourly_lessons.py); a run line's
+    # trace_id is "<date>|<trigger>", so the tests pin the defaults instead of reading whoever called pytest.
+    for k in ("ANEES_TRIGGER", "ANEES_TRACE_ID", "ANEES_PARENT_RUN_ID", "ANEES_HOST"):
+        monkeypatch.delenv(k, raising=False)
     return d
 
 

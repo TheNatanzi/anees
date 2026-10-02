@@ -83,3 +83,16 @@ def test_AM_12_only_a_live_doc_read_syncs_never_the_old_snapshot():
     assert IV.live_source("https://docs.google.com/document/d/e/xyz/pub", None)
     src = open(os.path.join(REPO, "scripts", "import_vocab.py"), encoding="utf-8").read()
     assert "if not live_source(label, a.file):" in src
+
+
+def test_snapshot_fallback_writes_nothing(monkeypatch, tmp_path):
+    """2026-10-02: the hourly import with no live source rebuilt the word list from the 09-04 snapshot every hour and wiped
+    the 09-23 'Added from lessons' words (accuracy_gates off-by-ones on 09-23 / 09-30). Without a live read nothing is written."""
+    snap = tmp_path / "doc_markdown_2026-09-04.md"
+    snap.write_text("# x\n", encoding="utf-8")
+    monkeypatch.setattr(IV, "VOCAB", tmp_path)
+    monkeypatch.setattr(IV, "DOCS_DATA", tmp_path / "docs")
+    monkeypatch.setattr(IV.E, "env", lambda k, *a, **kw: None)
+    monkeypatch.setattr(sys, "argv", ["import_vocab.py"])
+    IV.main()
+    assert sorted(p.name for p in tmp_path.iterdir()) == ["doc_markdown_2026-09-04.md"]

@@ -396,7 +396,10 @@ def main():
     type_read, type_why = LTR.load(d, REPO)
     if not type_read and not a.dry_run:
         os.makedirs(os.path.dirname(LTR.path(d, REPO)), exist_ok=True)
-        claude(LTR.prompt(d, REPO), f"{d} lesson type", step="lesson.type_read", lesson_date=d, role="type",
+        # An existing read that fails the checks (e.g. 09-26, written 2026-10-02 13:25 before the LS-10 check existed: its why
+        # called 13:00-17:02 off-lesson with no off_lesson entry) is re-read with its own problems in the prompt.
+        redo = ("\nThe current file fails these checks - fix them:\n- " + "\n- ".join(type_why)) if os.path.exists(LTR.path(d, REPO)) else ""
+        claude(LTR.prompt(d, REPO) + redo, f"{d} lesson type", step="lesson.type_read", lesson_date=d, role="type",
                prompt_sha=_src_sha(LTR.prompt), inputs=[f(".txt")], outputs=[LTR.path(d, REPO)])
         type_read, type_why = LTR.load(d, REPO)
     if type_read:

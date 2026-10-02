@@ -3,7 +3,8 @@
 Sources, in order of preference:
   --file X          a saved export: markdown (Drive connector read_file_content) or Google-Docs HTML (export / publish-to-web)
   ANEES_DOC_PUBLISHED_URL   env var with the Doc's "publish to web" URL -> fetched unattended (hourly Task Scheduler job)
-  otherwise         the newest data/vocab/doc_*.md snapshot (no network; logs that no live source exists)
+  otherwise         nothing is written (logs that no live source exists); --from-snapshot rebuilds the JSON from the
+                    newest data/vocab/doc_*.md snapshot on purpose
 
 Idempotent: rows are keyed by Amal's Arabizi (loose form); unchanged rows are not rewritten, missing rows are archived
 (active:false, history kept - AM-12). The snapshot fallback only rebuilds the JSON files; it never writes Supabase.
@@ -378,8 +379,18 @@ def live_source(label, from_file):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--file'); ap.add_argument('--dry', action='store_true'); ap.add_argument('--json-only', action='store_true')
+    ap.add_argument('--from-snapshot', action='store_true', help='rebuild the JSON files from the newest saved snapshot (never syncs Supabase)')
     a = ap.parse_args()
     text, kind, label = load_source(a.file)
+    if not live_source(label, a.file) and not a.from_snapshot:
+        # 2026-10-02: the hourly "Anees vocab import" task has no live source, so every hour it rebuilt words.json,
+        # docs/data/words.json, word_bank_source.md and the catalog from the 09-04 snapshot - wiping the 09-23 "Added from
+        # lessons" words in the hourly checkout. The Word Bank audit (old list) and the Lessons page (new list) then
+        # disagreed (accuracy_gates: 09-23 words.right 71 vs 73, 09-30 66 vs 67: 3arabi, amriki) and the stuck hourly
+        # commits carried the regression. An old snapshot never overwrites the committed list.
+        print(f'source: {label}\nnothing written: no live Doc read (an old snapshot never overwrites the committed word '
+              'list; pass --file <fresh export>, set ANEES_DOC_PUBLISHED_URL, or --from-snapshot to rebuild from it on purpose)')
+        return
     rows = parse_html(text) if kind == 'html' else parse_markdown(text)
     words, merged = to_words(rows)
     VOCAB.mkdir(parents=True, exist_ok=True); DOCS_DATA.mkdir(parents=True, exist_ok=True)
