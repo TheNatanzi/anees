@@ -359,8 +359,11 @@ def envelope(path, seconds=900, rate=20):
     return (env - env.mean()) / (env.std() + 1e-9)
 
 
-def estimate_offset(meet_media, lesson_mix, max_lag=240, rate=20):
-    """Seconds to ADD to a Meet-recording time to get the lesson-timeline time (cross-correlation of loudness envelopes)."""
+def estimate_offset(meet_media, lesson_mix, max_lag=900, rate=20):
+    """Seconds to ADD to a Meet-recording time to get the lesson-timeline time (cross-correlation of loudness envelopes).
+    max_lag was 240 s until 2026-10-02: that day the host pressed record ~6.5 min after the Recall bot joined (true offset
+    +389.2 s, peak 0.73), so the search could not reach it and returned -231.5 s (peak 0.10) - all 44 of Amal's chat lines
+    landed ~10 min early on the page and in the readers' transcript."""
     import numpy as np
     a = envelope(meet_media, rate=rate); b = envelope(lesson_mix, rate=rate)
     n = min(len(a), len(b))
