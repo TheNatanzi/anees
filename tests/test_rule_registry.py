@@ -183,6 +183,19 @@ def test_a_new_rule_cannot_borrow_an_unrelated_test(tmp_path):
     assert any("must mention GR-01" in p for p in problems(tmp_path, d, origin))
 
 
+def test_rule_id_must_match_as_a_whole_id(tmp_path):
+    d = world(tmp_path)
+    origin = {"rules": [r for r in copy.deepcopy(d)["rules"] if r["id"] != "GR-01"]}
+    w(tmp_path / "tests" / "test_x.py", "def test_the_thing_is_done():\n    pass  # GR-010 is another rule\n")
+    assert any("must mention GR-01" in p for p in problems(tmp_path, d, origin))
+
+
+def test_unreadable_origin_fails_closed(tmp_path):
+    """Not a git repo / git error: the ratchet cannot run, so the check fails instead of passing silently."""
+    out = RR.check(tmp_path, world(tmp_path), use_origin=True)
+    assert any(p.startswith("ratchet: cannot read origin/master") for p in out), out
+
+
 def test_bad_input_is_a_problem_line_not_a_crash(tmp_path):
     d = world(tmp_path)
     d["rules"][0]["source"] = "Medi said so"

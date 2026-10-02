@@ -243,7 +243,8 @@ def check_entry(root, r, by_id, cache, tests_run, check_rules_required, origin_i
             if not tests:
                 bad.append(f"{rid}: enforced in code but no test the guard runs (planted-mistake test or BLOCK check)")
             elif origin_ids is not None and rid not in origin_ids and not any(
-                    isinstance(a, dict) and rid in (_read(root, a.get("path") or "", cache) or "") for a in tests):
+                    isinstance(a, dict) and re.search(rf"(?<![\w-]){re.escape(rid)}(?!\d)", _read(root, a.get("path") or "", cache) or "")
+                    for a in tests):
                 # Codex audit 2026-10-02: a new rule must not borrow an unrelated test - its test names the rule id
                 bad.append(f"{rid}: new rule - its test (or BLOCK check) must mention {rid} so it is provably this rule's test")
         elif "brief" in types:
