@@ -126,3 +126,30 @@ def test_gr_18_the_live_audit_drops_no_correction_for_no_bucket():
     assert not prop & {x["uid"] for x in A["sweep_compat"]["rows"]}
     pub = json.loads((ROOT / "docs" / "data" / "grammar-proposals.json").read_text(encoding="utf-8"))
     assert prop <= {m["uid"] for p in pub["proposals"] for m in p["moments"]}
+
+
+# ---------------------------------------------------------------- GR-21: Amal's confirmed corrections are counted
+def test_gr_21_a_correction_amal_confirmed_reaches_the_pages_copy():
+    """GR-21 (Medi 2026-10-02 "amals corrections should be counted"). Planted: a grammar-B row Amal confirmed (flipped to
+    grammar by apply_amal_audit_rulings.py after the build wrote sweep_compat), a confirmed vocab row, a confirmed row at
+    the same second as a row already counted (same moment: left out, not counted twice) and a row she ruled out."""
+    def row(uid, kind, t, **k):
+        return {"uid": uid, "date": "2026-09-10", "t": t, "kind": kind, "wrong": uid, "right": "x", "bucket": "A1", **k}
+    A = {"rows": [row("FA-old", "grammar", "01:00"), row("FA-conf", "grammar", "02:00", signal="amal-ruling", amal_ruling={"kind": "confirm"}),
+                  row("FA-twin", "grammar", "01:00", amal_ruling={"kind": "confirm"}), row("FA-voc", "vocab-A", "03:00", tier=1, amal_ruling={"kind": "confirm"}),
+                  row("FA-out", "dropped-by-amal", "04:00")]}
+    A["sweep_compat"] = {"rows": [FB.compat_entry(A["rows"][0]), FB.compat_entry(dict(A["rows"][4], kind="grammar"))], "vocab": []}
+    added, removed, same = FB.sync_compat(A)
+    sc = A["sweep_compat"]
+    assert [x["uid"] for x in sc["rows"]] == ["FA-old", "FA-conf"] and [x["uid"] for x in sc["vocab"]] == ["FA-voc"]
+    assert (added, removed, same) == (2, 1, ["FA-twin"]) and A["rows"][2]["compat_same_moment_as"] == "FA-old"
+    assert FB.sync_compat(A) == (0, 0, ["FA-twin"])          # idempotent
+
+
+def test_gr_21_every_confirmed_row_on_master_is_counted():
+    """GR-21 on the committed data: every scored audit row (grammar / vocab-A) is in sweep_compat, unless it is the same
+    moment as a row already there."""
+    A = json.loads((ROOT / "data" / "full-audit-2026-09-26.json").read_text(encoding="utf-8"))
+    have = {x["uid"] for x in A["sweep_compat"]["rows"] + A["sweep_compat"]["vocab"]}
+    lost = [r["uid"] for r in A["rows"] if r["kind"] in ("grammar", "vocab-A") and r["uid"] not in have and not r.get("compat_same_moment_as")]
+    assert not lost, lost

@@ -219,6 +219,54 @@ def apply_proposals(rows, hand, buckets):
     return out
 
 
+def compat_entry(r):
+    """The sweep-shaped copy of one scored audit row (what build_lessons_page_data / build_grammar_console read), or None."""
+    base = {"id": r["uid"], "date": r["date"], "t": r.get("t"), "t_amal": r.get("t_amal"), "medi_said": r.get("medi_said"),
+            "amal_said": r.get("amal_said"), "chat": r.get("chat"), "wrong": r.get("wrong"), "right": r.get("right"),
+            "confidence": r.get("confidence") or "medium", "confidence_why": r.get("r3_why") or r.get("agreed_by"),
+            "signal": r.get("signal"), "machine_audit": bool(r.get("machine_had")), "mode": r.get("mode", "speaking"),
+            "source": r.get("source"), "uid": r["uid"], "sweep_id": r.get("sweep_id")}
+    if r["kind"] == "grammar":
+        return {**base, "mistake": r.get("why"), "bucket": r.get("bucket"), "bucket2": r.get("bucket2"), "new_bucket_group": r.get("new_bucket_group")}
+    if r["kind"] == "vocab-A":
+        return {**base, "amal_gave": r.get("right"), "english": r.get("english") or r.get("why"), "why": r.get("why"),
+                "kind": "didn't-know" if r.get("tier") == 0 else "wrong-word", "tier": r.get("tier"),
+                "amal_gave_arabizi": r.get("right_arabizi")}
+    return None
+
+
+def sync_compat(A):
+    """GR-21 (Medi 2026-10-02 "amals corrections should be counted"): after Amal's rulings flip rows (scripts/
+    apply_amal_audit_rulings.py runs AFTER this build), sweep_compat must hold exactly the scored rows: a row she ruled out
+    leaves it, a row she CONFIRMED (B -> A) joins it. Before this, a confirm never reached the pages (65 grammar + 12 vocab
+    rows on 2026-10-02). A confirmed row at the same lesson second (date + t) as a row already in the copy is the same
+    moment, not a second slip: it is marked compat_same_moment_as and left out. Returns (added, removed, same_moment)."""
+    sc = A.setdefault("sweep_compat", {})
+    kind = {r["uid"]: r["kind"] for r in A["rows"]}
+    before = {x.get("uid") or x.get("id") for x in sc.get("rows", []) + sc.get("vocab", [])}
+    sc["rows"] = [x for x in sc.get("rows", []) if kind.get(x.get("uid") or x.get("id"), "grammar") == "grammar"]
+    sc["vocab"] = [x for x in sc.get("vocab", []) if kind.get(x.get("uid") or x.get("id"), "vocab-A") == "vocab-A"]
+    have = {x.get("uid") or x.get("id") for x in sc["rows"] + sc["vocab"]}
+    removed = len(before - have)
+    added, same = 0, []
+    for key, kd in (("rows", "grammar"), ("vocab", "vocab-A")):
+        at = {(x["date"], x.get("t")): (x.get("uid") or x.get("id")) for x in sc[key] if x.get("t")}
+        for r in A["rows"]:
+            if r["kind"] != kd or r["uid"] in have:
+                continue
+            twin = at.get((r["date"], r.get("t"))) if r.get("t") else None
+            if twin:
+                r["compat_same_moment_as"] = twin
+                same.append(r["uid"])
+                continue
+            r.pop("compat_same_moment_as", None)
+            sc[key].append(compat_entry(r))
+            at.setdefault((r["date"], r.get("t")), r["uid"])
+            added += 1
+        sc[key].sort(key=lambda x: (x["date"], sec(x.get("t")) if sec(x.get("t")) is not None else 1e9))
+    return added, removed, same
+
+
 def build():
     sweep = json.load(open(os.path.join(REPO, "data", "grammar-sweep-2026-09-24.json"), encoding="utf-8"))
     buckets = {b["id"]: b for b in json.load(open(os.path.join(REPO, "docs", "data", "grammar-buckets.json"), encoding="utf-8"))["buckets"]}
@@ -332,17 +380,9 @@ def build():
     # are here; B rows wait for Amal's ruling (scripts/apply_amal_audit_rulings.py flips them).
     compat_rows, compat_vocab = [], []
     for r in rows:
-        base = {"id": r["uid"], "date": r["date"], "t": r.get("t"), "t_amal": r.get("t_amal"), "medi_said": r.get("medi_said"),
-                "amal_said": r.get("amal_said"), "chat": r.get("chat"), "wrong": r.get("wrong"), "right": r.get("right"),
-                "confidence": r.get("confidence") or "medium", "confidence_why": r.get("r3_why") or r.get("agreed_by"),
-                "signal": r.get("signal"), "machine_audit": bool(r.get("machine_had")), "mode": r.get("mode", "speaking"),
-                "source": r.get("source"), "uid": r["uid"], "sweep_id": r.get("sweep_id")}
-        if r["kind"] == "grammar":
-            compat_rows.append({**base, "mistake": r.get("why"), "bucket": r.get("bucket"), "bucket2": r.get("bucket2"), "new_bucket_group": r.get("new_bucket_group")})
-        elif r["kind"] == "vocab-A":
-            compat_vocab.append({**base, "amal_gave": r.get("right"), "english": r.get("english") or r.get("why"), "why": r.get("why"),
-                                 "kind": "didn't-know" if r.get("tier") == 0 else "wrong-word", "tier": r.get("tier"),
-                                 "amal_gave_arabizi": r.get("right_arabizi")})
+        e = compat_entry(r)
+        if e:
+            (compat_rows if r["kind"] == "grammar" else compat_vocab).append(e)
     sweep_compat = {"built": "2026-09-26", "method": "full audit 2026-09-26 (two readers + third reader per lesson, reconciled with the 09-24 sweep)",
                     "rows": compat_rows, "unfiled": [], "vocab": compat_vocab,
                     "per_lesson": [{"date": p["date"], "coverage": " / ".join(x for x in [(p.get("coverage") or {}).get("r1"), (p.get("coverage") or {}).get("r2")] if x)} for p in per_lesson],

@@ -2459,6 +2459,47 @@
    ]
   },
   {
+   "id": "GR-21",
+   "kind": "data",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A correction Amal confirmed on her review page counts like one she voiced: every confirmed row reaches the copy the pages read (sweep_compat), every run; a confirmed row at the same lesson second as a counted row is the same moment, not a second slip.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "amals corrections should be counted"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/full_audit_build.py",
+     "contains": "def sync_compat(A):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/apply_amal_audit_rulings.py",
+     "contains": "added, removed, same = FAB.sync_compat(A)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_audit_duplicates.py",
+     "contains": "def test_gr_21_a_correction_amal_confirmed_reaches_the_pages_copy"
+    },
+    {
+     "path": "tests/test_audit_duplicates.py",
+     "contains": "def test_gr_21_every_confirmed_row_on_master_is_counted"
+    }
+   ],
+   "example": {
+    "date": "2026-09-10",
+    "note": "11 grammar rows Amal confirmed (signal amal-ruling) were never in sweep_compat, so 09-10 showed 88.7% instead of the confirmed slips"
+   }
+  },
+  {
    "id": "LS-01",
    "kind": "data",
    "scope": "lessons",
