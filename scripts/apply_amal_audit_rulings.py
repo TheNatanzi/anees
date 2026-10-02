@@ -155,6 +155,13 @@ def apply(dry=False):
         L.setdefault("records", []).extend(vrec)
         json.dump(L, open(LEDGER, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     A["rulings_applied"] = (A.get("rulings_applied") or []) + [{"at": now, "rules": changed}]
+    # the pages read sweep_compat (built by full_audit_build.py BEFORE her rulings): a row she ruled out (Right / Not Medi /
+    # a reason not to correct) must leave it too, or the lesson page keeps a card the audit no longer counts (2026-10-02,
+    # 09-30 09:07 D2 FA-a0a76d00 - the publish guard caught it)
+    kind = {r["uid"]: r["kind"] for r in A["rows"]}
+    sc = A.get("sweep_compat") or {}
+    sc["rows"] = [x for x in sc.get("rows", []) if kind.get(x.get("uid") or x.get("id"), "grammar") == "grammar"]
+    sc["vocab"] = [x for x in sc.get("vocab", []) if kind.get(x.get("uid") or x.get("id"), "vocab-A") == "vocab-A"]
     json.dump(A, open(AUDIT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     json.dump(R, open(RULES, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     # rebuild everything that reads the audit

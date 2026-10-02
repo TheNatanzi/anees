@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T01:09:45-07:00",
+ "updated": "2026-10-02T01:13:14-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -4219,47 +4219,46 @@
    "type_why": "16:00-65:30 (~50 of 66 min) is the planned el- review (16:52 'حكينا بدنا نراجع ال'; 58:02 'I'm not introducing anything new... just testing'): general nouns (A1), noun + adjective (A7), hada/hadol + el (A10/A10b), idafa with feminine -t and chains (A2/A3/A5), ending with Medi explaining the rule back; first 5 min app talk, 05:35-15:50 small talk about yesterday's rug customers.",
    "type_source": "claude-read",
    "words": {
-    "unique": 56,
+    "unique": 55,
     "right": 64,
-    "wrong": 9,
+    "wrong": 7,
     "partial": 8,
-    "pct": 84.0,
-    "scored": 81,
-    "audit_wrong": 9,
+    "pct": 86.1,
+    "scored": 79,
+    "audit_wrong": 7,
     "audit_partial": 1,
     "not_on_sheet": 4,
-    "unique_rows": 56,
-    "eligible": 81,
+    "unique_rows": 55,
+    "eligible": 79,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 84.0,
+    "eligible_pct": 86.1,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 204,
-    "mistakes": 22,
-    "pct": 90.2,
+    "uses": 203,
+    "mistakes": 21,
+    "pct": 90.6,
     "estimate": false,
-    "scored_mistakes": 20,
+    "scored_mistakes": 19,
     "unscored_mistakes": 2,
-    "eligible": 22,
+    "eligible": 21,
     "excluded": 0,
     "pending": 2,
     "denominator": {
      "valid": false,
      "reasons": [
-      "5 slips are in rules the counter found 0 uses of in this lesson",
-      "4 rules have more slips than counted uses (B18, C1, D2, D4)"
+      "4 slips are in rules the counter found 0 uses of in this lesson",
+      "3 rules have more slips than counted uses (B18, C1, D4)"
      ],
      "uses": 188,
-     "slips": 22,
+     "slips": 21,
      "slips_latin": 6,
-     "slips_in_zero_use_rules": 5,
+     "slips_in_zero_use_rules": 4,
      "rules_slips_over_uses": [
       "B18",
       "C1",
-      "D2",
       "D4"
      ]
     },
@@ -4321,16 +4320,16 @@
    "taught": [],
    "coverage": "Long Latin-transliterated stretch ~23:58-1:00:30 (engine wrote Arabic as Latin). Many opaque engine forms (سوالونا, شطار, Halloween=الحلوين?, Gromela, Zahadi, عذرا=زرقا, علي فيكي) read via Amal's echo. Unclear/skipped: 07:21-07:34 سويت with Amal's صرت/سألت guesses (target verb unclear); 15:39 weather 'رجعوا شوفت كتير'; 15:05 date; 32:36 'ما بتجنن'. بسول at 33:08 is the verb بوصل, not the name سول (Seoul). English prompt echoes ('is tiring', 'visited us') are him repeating her cue, not tier 3. 01:46 confusion over who did homework is comprehension, not written. / Lesson is mostly English meta-talk about the el- rule from ~17:00; long stretches (19:00-36:00, 37:00-60:00) are Arabizi in Latin script. 22:15 'Halloween' is almost certainly the engine for الحلوين (beautiful) - not flagged. 15:39 رجعوا شوفت كتير (weather reply) is garbled - not judged. 10:47 ثلاث->تلات, 30:04 mata'ib->متعب, 08:26 متهمس, 43:24 يدل=يضل are S4 pronunciation, not counted. 31:32 واطي (low) for short was self-fixed to قصيرة before Amal commented - left out. 24:15 قادين/قاديات: Amal gave both as fine. 17:52 'Uh, no. How about food is important' reads as a redirect, not a fix. 07:12 'It takes لا' unclear.",
    "notes": [
-    "grammar: 2 of the 22 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
+    "grammar: 2 of the 21 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
    ],
    "page": "lessons/2026-09-30.html",
    "detail": "data/lessons/2026-09-30.json",
    "counts": {
     "turns": 1067,
     "chat_lines": 0,
-    "vocab_errors": 14,
+    "vocab_errors": 12,
     "vocab_correct": 71,
-    "grammar_errors": 22,
+    "grammar_errors": 21,
     "grammar_not_counted": 1
    },
    "release": {
