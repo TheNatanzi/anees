@@ -99,8 +99,14 @@ def _cards():
 def test_sheet_v1_known_list_words_never_flagged_new():
     """Guards aa1e7f8: the string match called 56 of 98 words 'not on sheet' that were on Medi's list."""
     cards, bad, seen = _cards(), [], 0
+    # GR-19 (Medi 2026-10-02): a fix Amal only typed in the chat is not a slip, so its card left the page on purpose
+    audit = J(os.path.join(ROOT, "data", "full-audit-2026-09-26.json")) if os.path.exists(os.path.join(ROOT, "data", "full-audit-2026-09-26.json")) else {"rows": []}
+    chat_only = {(r["date"], r.get("t")) for r in audit["rows"] if r.get("rejected_rule") == "GR-19"}
     for v in J(gold_file("sheet@v1"))["verdicts"]:
         if v["verdict"] != "on_list":
+            continue
+        if not cards.get((v["date"], v["mmss"])) and (v["date"], v["mmss"]) in chat_only:
+            seen += 1                       # accounted for: dropped by GR-19, not lost
             continue
         for where, e in cards.get((v["date"], v["mmss"]), []):
             seen += 1
