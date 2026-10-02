@@ -92,7 +92,7 @@ def test_AM_11_every_candidate_judged_passes_and_new_ones_reach_the_tutor_card(t
     out = N.build(rows, taps={}, today="x")
     assert [(i["key"], i["status"]) for i in out["items"]] == [("bajarreb", "open")]
     js = open(os.path.join(REPO, "docs", "js", "hub", "new-words-task.js"), encoding="utf-8").read()
-    for kind in ("newword_add", "newword_later", "newword_forget"):
+    for kind in ("newword_add_new", "newword_add_old", "newword_later", "newword_forget"):
         assert f"['{kind}'," in js
     # lessons before the start date are never asked (and never cost a reader)
     assert RL.new_words_step("2026-09-30", False, failures, repo=str(repo), reader=lambda *a, **k: 1 / 0, run=_run) == []

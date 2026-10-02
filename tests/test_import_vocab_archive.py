@@ -52,24 +52,24 @@ def test_AM_12_a_word_amal_removed_is_archived_with_its_history_kept():
     fake = FakeDb([{**w, "active": True, "first_seen": "2026-09-05", "history": ["said 09-11"]} for w in first])
     removed_key = next(k for k, w in keys.items() if w["arabic"] == "أهل")
     after = _words(DOC.replace("| Ahel | — | أهل | Family |\n", ""))          # Amal took Ahel off her Doc
-    res = IV.sync(after, db=fake, min_words=1)
+    res = IV.sync(after, db=fake, min_words=1, ages=[])
     assert res["archived"] == [removed_key] and res["deactivated"] == 1 and res["inserted"] == 0
     row = fake.rows[removed_key]
     assert row["active"] is False and row["history"] == ["said 09-11"] and row["first_seen"] == "2026-09-05"
     assert not any(c[0] == "DELETE" for c in fake.calls)
     assert all(fake.rows[k]["active"] for k in keys if k != removed_key)
     # she puts it back: the same row comes back active (same key, same history)
-    res2 = IV.sync(_words(), db=fake, min_words=1)
+    res2 = IV.sync(_words(), db=fake, min_words=1, ages=[])
     assert res2["reactivated"] == [removed_key] and res2["archived"] == []
     assert fake.rows[removed_key]["active"] is True and fake.rows[removed_key]["history"] == ["said 09-11"]
 
 
 def test_AM_12_dry_run_and_broken_fetch_write_nothing():
     fake = FakeDb([{**w, "active": True} for w in _words()])
-    res = IV.sync(_words(DOC.replace("| Ahel | — | أهل | Family |\n", "")), db=fake, dry=True, min_words=1)
+    res = IV.sync(_words(DOC.replace("| Ahel | — | أهل | Family |\n", "")), db=fake, dry=True, min_words=1, ages=[])
     assert res["archived"] and all(c[0] == "GET" for c in fake.calls)
     try:
-        IV.sync([], db=fake, min_words=1)
+        IV.sync([], db=fake, min_words=1, ages=[])
         assert False, "an empty fetch must refuse"
     except RuntimeError:
         pass

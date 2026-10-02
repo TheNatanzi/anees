@@ -4358,6 +4358,87 @@
    "aliases": [
     "S7:L1"
    ]
+  },
+  {
+   "id": "AM-16",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Old/new marks: Amal's New words card offers Add to the Doc as NEW / as OLD (nothing pre-selected; Medi's own old mark shows only as a hint); Anees keeps Medi's marks in data/word-marks.json (never the Doc; not on the word list until it is in her Doc); every word she said she will add is on a promised list (Tutor hub + Word Bank) as Waiting until the Doc import sees it (In the Doc since <date>); a word marked OLD never counts as NEW on Flashcards.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "We need a way for her to indicate old and new words. We know mumtaz but need to add it to the sheet as an old word.",
+     "session": "65d34512"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "keep it on your system that mumtaz is an old word and wait for her to add it to the doc. Keep a tab of what she said shes going to add",
+     "session": "65d34512"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "yes have her tap that its old",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/word_marks.py",
+     "contains": "def resolve(medi_mark, amal_tap):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/amal_new_words.py",
+     "contains": "out[\"promised\"] = promised"
+    },
+    {
+     "type": "code",
+     "path": "scripts/import_vocab.py",
+     "contains": "body={'first_seen': word_marks.OLD_FIRST_SEEN}"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/hub/new-words-task.js",
+     "contains": "['newword_add_old', 'Add to the Doc as OLD'"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/promised-words.js",
+     "contains": "root.AneesPromised = { html, label, mount };"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_word_marks.py",
+     "contains": "def test_AM_16_mumtaz_marked_old_arriving_in_the_doc_is_not_new_on_flashcards"
+    },
+    {
+     "path": "tests/test_word_marks.py",
+     "contains": "def test_AM_16_her_old_tap_puts_it_on_the_promised_list_and_the_doc_import_moves_it_to_in_the_doc"
+    },
+    {
+     "path": "tests/test_word_marks.py",
+     "contains": "def test_AM_16_the_tutor_card_offers_add_as_old_and_medi_sees_the_promised_list"
+    },
+    {
+     "path": "tests/test_word_marks.py",
+     "contains": "def test_AM_16_mumtaz_marked_old_by_medi_is_a_hint_not_a_choice_for_amal"
+    },
+    {
+     "path": "tests/test_promised_words.cjs",
+     "contains": "test('AM-16 promised list labels"
+    }
+   ],
+   "aliases": [
+    "report:task4-old-new-2026-10-02"
+   ],
+   "note": "Taps reuse amal_rules (source review, word_key newword:*), new kinds newword_add_new / newword_add_old - no schema change. Flashcards: the import sets first_seen to the NEW_SINCE day for an OLD word (recorded in data/word-marks.json doc_events). 2026-10-02: Amal had already tapped plain Add on ممتاز (before the OLD choice existed) -> Waiting, old by Medi's mark."
   }
  ]
 }

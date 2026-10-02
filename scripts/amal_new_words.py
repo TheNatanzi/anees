@@ -31,13 +31,16 @@ import argparse, datetime, hashlib, json, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 import loanwords  # noqa: E402  (WS-15)
+import word_marks  # noqa: E402  (AM-16)
 WORDS = os.path.join(REPO, "docs", "data", "words.json")
 LESSONS = os.path.join(REPO, "docs", "data", "lessons")
 WORK = os.path.join(REPO, "data", "lesson-work", "amal-new-words")
 VERDICTS = os.path.join(REPO, "data", "lesson-work", "amal-new-words-verdicts.json")
 OUT = os.path.join(REPO, "docs", "data", "amal-new-words.json")
 START = "2026-10-01"           # Medi 2026-10-02: from today's lesson on (older lessons were never asked)
-KINDS = {"newword_add": "add", "newword_later": "later", "newword_forget": "forget"}
+KINDS = {"newword_add": "add", "newword_add_new": "add", "newword_add_old": "add", "newword_later": "later", "newword_forget": "forget"}
+# newword_add (before 2026-10-02) = add, age not said; newword_add_new / newword_add_old = AM-16 (Medi 2026-10-02: "We need a
+# way for her to indicate old and new words")
 VERDICT_KINDS = ("new", "on_doc", "name", "english", "function", "garble", "loanword")
 
 AR_TOKEN = re.compile("[ء-غف-يٱ-ۓً-ٰٟ]+")
@@ -231,8 +234,14 @@ def load_taps():
     return out
 
 
-def build(verdicts=None, taps=None, previous=None, lesson_audio=None, today=None):
-    """Pure: verdict rows + taps -> the page data. `previous` = the last built file (statuses kept when taps is None)."""
+def build(verdicts=None, taps=None, previous=None, lesson_audio=None, today=None, marks=None, doc=None):
+    """Pure: verdict rows + taps -> the page data. `previous` = the last built file (statuses kept when taps is None).
+    `marks` = data/word-marks.json (Medi's old/new marks, AM-16), `doc` = docs/data/words.json (her Doc: a promised word
+    moves Waiting -> In the Doc when it appears there)."""
+    M = marks if marks is not None else word_marks.load()
+    W = doc if doc is not None else (json.load(open(WORDS, encoding="utf-8")) if os.path.exists(WORDS) else {"items": []})
+    prev_promised = {x["id"]: x for x in ((previous or {}).get("promised") or [])}
+    day = (today or datetime.date.today().isoformat())[:10]
     V = verdicts if verdicts is not None else (json.load(open(VERDICTS, encoding="utf-8")) if os.path.exists(VERDICTS) else [])
     prev = {x["id"]: x for x in ((previous or {}).get("items") or [])}
     items, excl = [], {}
@@ -265,8 +274,14 @@ def build(verdicts=None, taps=None, previous=None, lesson_audio=None, today=None
             k = taps.get(iid)
         else:
             p = prev.get(iid) or {}
-            k = (next((kk for kk, vv in KINDS.items() if vv == p.get("status")), None), p.get("answered_at")) if p.get("status") not in (None, "open") else None
-        it["status"], it["answered_at"] = (KINDS[k[0]], k[1]) if k and k[0] else ("open", None)
+            kk = p.get("tap") or next((kk for kk, vv in KINDS.items() if vv == p.get("status")), None)
+            k = (kk, p.get("answered_at")) if p.get("status") not in (None, "open") else None
+        it["status"], it["answered_at"] = (KINDS[k[0]], k[1]) if k and k[0] in KINDS else ("open", None)
+        it["tap"] = k[0] if k and k[0] in KINDS else None
+        mk = word_marks.mark_for(it, M)                    # AM-16: Medi's mark is a hint on her card, never pre-selected
+        it["medi_mark"] = mk.get("mark") if mk else None
+        it["hint"] = word_marks.HINT_OLD if it["medi_mark"] == "old" else None
+        it["age"], it["age_by"] = word_marks.resolve(it["medi_mark"], it["tap"])
         items.append(it)
     items.sort(key=lambda x: (x["date"], x["t"] or 0), reverse=False)
     items.sort(key=lambda x: x["date"], reverse=True)
@@ -280,6 +295,27 @@ def build(verdicts=None, taps=None, previous=None, lesson_audio=None, today=None
            "excluded": excl, "items": items,
            "pending_doc_additions": [{"id": x["id"], "date": x["date"], "arabic": x["arabic"], "arabizi": x["arabizi"], "english": x["english"]}
                                      for x in items if x["status"] == "add"]}
+    # AM-16 "Keep a tab of what she said shes going to add": every word Amal tapped Add (new or old) -> Waiting, then
+    # In the Doc since <date> once the Doc import shows it in her Doc. Medi's marks she has not answered yet are listed
+    # as awaiting_amal ("Medi marked old - waiting for Amal").
+    promised = []
+    for x in items:
+        if x["status"] == "add":
+            pid = x["id"]
+        elif x["medi_mark"] and x["status"] == "open":
+            pid = x["id"]
+        else:
+            continue
+        in_doc = word_marks.doc_has(x, W)
+        was = prev_promised.get(pid) or {}
+        state = ("in_doc" if in_doc else "waiting") if x["status"] == "add" else "awaiting_amal"
+        promised.append({"id": pid, "date": x["date"], "arabic": x["arabic"], "arabizi": x["arabizi"], "english": x["english"],
+                         "age": x["age"], "age_by": x["age_by"], "marks": {"medi": x["medi_mark"], "amal": word_marks.AGE_OF_TAP.get(x["tap"])},
+                         "tapped_at": x["answered_at"], "state": state,
+                         "in_doc_since": (was.get("in_doc_since") or day) if state == "in_doc" else None})
+    out["promised"] = promised
+    out["counts"]["promised_waiting"] = sum(1 for p in promised if p["state"] == "waiting")
+    out["counts"]["promised_in_doc"] = sum(1 for p in promised if p["state"] == "in_doc")
     return out
 
 

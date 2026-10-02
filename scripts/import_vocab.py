@@ -331,14 +331,14 @@ def load_source(path=None):
     return io.open(snaps[-1], encoding='utf-8').read(), 'md', f'{snaps[-1]} (snapshot; no live source configured)'
 
 
-def sync(words, dry=False, db=None, min_words=MIN_WORDS):
+def sync(words, dry=False, db=None, min_words=MIN_WORDS, ages=None):
     """Upsert changed rows only; ARCHIVE rows that left the Doc (AM-12, Medi 2026-09-30: "She took a few verbs off the
     list that was added by mistake"): a word Amal removed gets active:false - never a DELETE, so its history (speaking
     events, card results, first_seen) stays; a word she puts back is re-activated with the same key. Returns counts plus
     the archived keys (so the run log shows Medi which words left). `db` is injectable for the offline test."""
     if db is None:
         import db
-    existing = {r['key']: r for r in db.select('words', {'select': 'key,row_hash,active'})}
+    existing = {r['key']: r for r in db.select('words', {'select': 'key,row_hash,active,first_seen'})}
     active_n = sum(1 for r in existing.values() if r['active'])
     if len(words) < min_words or (active_n and len(words) < 0.8 * active_n):
         # a broken/empty fetch must never wipe the table (mass-deactivate). Fail loudly instead.
@@ -352,10 +352,20 @@ def sync(words, dry=False, db=None, min_words=MIN_WORDS):
         db.upsert('words', payload, on='key')
         for k in gone:
             db.rest('PATCH', 'words', params={'key': f'eq.{k}'}, body={'active': False, 'updated_at': now}, prefer='return=minimal')
+    # AM-16: a word marked OLD (Amal's Add-as-OLD tap, or Medi's mark she did not overrule) is never NEW on Flashcards
+    # (docs/js/cards-core.js: NEW = first_seen after NEW_SINCE). When the import sees it, its first_seen is set to the
+    # NEW_SINCE day - only that word, only when it would otherwise count as new.
+    import word_marks
+    olds = word_marks.old_doc_words(words, word_marks.resolved_ages() if ages is None else ages)
+    backdate = sorted(k for k in olds if k not in existing or str(existing[k].get('first_seen') or '9')[:10] > word_marks.NEW_SINCE)
+    if not dry:
+        for k in backdate:
+            db.rest('PATCH', 'words', params={'key': f'eq.{k}'}, body={'first_seen': word_marks.OLD_FIRST_SEEN}, prefer='return=minimal')
     return {'total': len(words), 'inserted': sum(1 for w in changed if w['key'] not in existing),
             'updated': sum(1 for w in changed if w['key'] in existing and existing[w['key']].get('active', True)),
             'reactivated': sorted(w['key'] for w in changed if w['key'] in existing and not existing[w['key']].get('active', True)),
-            'deactivated': len(gone), 'archived': gone, 'unchanged': len(words) - len(changed)}
+            'deactivated': len(gone), 'archived': gone, 'unchanged': len(words) - len(changed),
+            'old_marked': [{'key': k, 'by': olds[k]['by']} for k in backdate]}
 
 
 def live_source(label, from_file):
@@ -392,6 +402,24 @@ def main():
         return
     res = sync(words, dry=a.dry)
     print('supabase:', json.dumps(res, ensure_ascii=False))
+    if res.get('old_marked') and not a.dry:
+        record_old(words, res['old_marked'])
+
+
+def record_old(words, rows, path=None):
+    """Write each OLD word the import just placed on the NEW_SINCE day into data/word-marks.json doc_events (append-only)."""
+    import word_marks
+    path = path or word_marks.MARKS
+    M = word_marks.load(path)
+    by_key = {w['key']: w for w in words}
+    ev = M.setdefault('doc_events', [])
+    today = datetime.date.today().isoformat()
+    for r in rows:
+        w = by_key.get(r['key'], {})
+        ev.append({'key': r['key'], 'arabic': w.get('arabic'), 'arabizi': w.get('arabizi'), 'age': 'old', 'by': r['by'],
+                   'doc_seen': today, 'first_seen_set_to': word_marks.OLD_FIRST_SEEN,
+                   'reason': 'marked old (AM-16): not NEW on Flashcards'})
+    word_marks.save(M, path)
 
 
 if __name__ == '__main__':

@@ -1,14 +1,16 @@
 {
- "built": "2026-10-02T10:32:10-07:00",
+ "built": "2026-10-02T10:53:47-07:00",
  "about": "Words Amal used in a lesson that are not on her vocabulary Doc (judged by meaning). Her choice: add to the Doc / save for a future lesson / forget it. 'Add' = waiting for her to add it to the Doc; nothing edits the Doc.",
  "since": "2026-10-01",
- "taps_read": false,
+ "taps_read": true,
  "counts": {
   "items": 4,
-  "open": 4,
-  "add": 0,
+  "open": 0,
+  "add": 3,
   "later": 0,
-  "forget": 0
+  "forget": 1,
+  "promised_waiting": 3,
+  "promised_in_doc": 0
  },
  "excluded": {
   "2026-10-01": {
@@ -39,8 +41,13 @@
     "start": 377.3,
     "end": 387.3
    },
-   "status": "open",
-   "answered_at": null
+   "status": "forget",
+   "answered_at": "2026-10-02T12:17:52.246515+00:00",
+   "tap": "newword_forget",
+   "medi_mark": null,
+   "hint": null,
+   "age": null,
+   "age_by": null
   },
   {
    "id": "newword:2026-10-01:f4efd29fc6",
@@ -59,8 +66,13 @@
     "start": 410.3,
     "end": 420.3
    },
-   "status": "open",
-   "answered_at": null
+   "status": "add",
+   "answered_at": "2026-10-02T12:18:09.234575+00:00",
+   "tap": "newword_add",
+   "medi_mark": null,
+   "hint": null,
+   "age": null,
+   "age_by": null
   },
   {
    "id": "newword:2026-10-01:ab5f38a7ec",
@@ -79,8 +91,13 @@
     "start": 2630.94,
     "end": 2640.94
    },
-   "status": "open",
-   "answered_at": null
+   "status": "add",
+   "answered_at": "2026-10-02T12:18:33.252439+00:00",
+   "tap": "newword_add",
+   "medi_mark": "old",
+   "hint": "Medi already knows this — old word",
+   "age": "old",
+   "age_by": "medi"
   },
   {
    "id": "newword:2026-10-01:4c2f7e2116",
@@ -99,10 +116,87 @@
     "start": 3578.3,
     "end": 3588.3
    },
-   "status": "open",
-   "answered_at": null
+   "status": "add",
+   "answered_at": "2026-10-02T12:18:53.076169+00:00",
+   "tap": "newword_add",
+   "medi_mark": null,
+   "hint": null,
+   "age": null,
+   "age_by": null
   }
  ],
- "pending_doc_additions": [],
+ "pending_doc_additions": [
+  {
+   "id": "newword:2026-10-01:f4efd29fc6",
+   "date": "2026-10-01",
+   "arabic": "متشجع",
+   "arabizi": "mitshajje3",
+   "english": "motivated / encouraged"
+  },
+  {
+   "id": "newword:2026-10-01:ab5f38a7ec",
+   "date": "2026-10-01",
+   "arabic": "ممتاز",
+   "arabizi": null,
+   "english": "excellent"
+  },
+  {
+   "id": "newword:2026-10-01:4c2f7e2116",
+   "date": "2026-10-01",
+   "arabic": "لفة",
+   "arabizi": "laffe",
+   "english": "a drive / a ride around"
+  }
+ ],
+ "promised": [
+  {
+   "id": "newword:2026-10-01:f4efd29fc6",
+   "date": "2026-10-01",
+   "arabic": "متشجع",
+   "arabizi": "mitshajje3",
+   "english": "motivated / encouraged",
+   "age": null,
+   "age_by": null,
+   "marks": {
+    "medi": null,
+    "amal": null
+   },
+   "tapped_at": "2026-10-02T12:18:09.234575+00:00",
+   "state": "waiting",
+   "in_doc_since": null
+  },
+  {
+   "id": "newword:2026-10-01:ab5f38a7ec",
+   "date": "2026-10-01",
+   "arabic": "ممتاز",
+   "arabizi": null,
+   "english": "excellent",
+   "age": "old",
+   "age_by": "medi",
+   "marks": {
+    "medi": "old",
+    "amal": null
+   },
+   "tapped_at": "2026-10-02T12:18:33.252439+00:00",
+   "state": "waiting",
+   "in_doc_since": null
+  },
+  {
+   "id": "newword:2026-10-01:4c2f7e2116",
+   "date": "2026-10-01",
+   "arabic": "لفة",
+   "arabizi": "laffe",
+   "english": "a drive / a ride around",
+   "age": null,
+   "age_by": null,
+   "marks": {
+    "medi": null,
+    "amal": null
+   },
+   "tapped_at": "2026-10-02T12:18:53.076169+00:00",
+   "state": "waiting",
+   "in_doc_since": null
+  }
+ ],
  "unjudged": {}
 }
