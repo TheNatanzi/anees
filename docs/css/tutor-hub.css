@@ -1,0 +1,51 @@
+/* Tutor hub (Medi 2026-10-01): one page for Amal and Medi - To do · Grammar · Materials · Done. Every task opens
+   inside the hub. Phone: one column (the open task replaces the list, "‹ To do" goes back). Laptop: list left, task right. */
+#anees-bank .hb-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 18px}
+#anees-bank .hb-tab{border:1px solid var(--ab-line);background:var(--ab-panel);color:var(--ab-text);border-radius:999px;padding:8px 16px;font:600 14px var(--sabz-font-sans);cursor:pointer;min-height:40px;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+#anees-bank .hb-tab[aria-selected="true"]{background:var(--ab-text);color:var(--ab-bg);border-color:transparent}
+#anees-bank .hb-tab .hb-n{font-weight:500;opacity:.75}
+#anees-bank .hb-wrap{display:grid;gap:16px;align-items:start}
+@media(min-width:960px){#anees-bank .hb-wrap{grid-template-columns:340px minmax(0,1fr)}#anees-bank .hb-back{display:none}}
+@media(max-width:959px){#anees-bank .hb-wrap.hb-open .hb-list{display:none}#anees-bank .hb-wrap:not(.hb-open) .hb-panel{display:none}}
+#anees-bank .hb-list{display:grid;gap:10px}
+#anees-bank .hb-row{display:block;width:100%;text-align:left;border:1px solid var(--ab-line);background:var(--ab-panel);color:var(--ab-text);border-radius:12px;padding:12px 14px;cursor:pointer;font:inherit}
+#anees-bank .hb-row:hover{border-color:var(--ab-muted)}
+#anees-bank .hb-row[aria-current="true"]{border:2px solid var(--vp-sage,#2E6A4E);padding:11px 13px}
+#anees-bank .hb-row-t{font-family:var(--sabz-font-serif);font-size:17px;font-weight:500;line-height:1.3;margin:0}
+#anees-bank .hb-row-s{font-size:12.5px;color:var(--ab-muted);margin:3px 0 8px}
+#anees-bank .hb-bar{height:6px;border-radius:999px;background:var(--ab-raised);overflow:hidden}
+#anees-bank .hb-bar i{display:block;height:100%;border-radius:999px;background:var(--vp-sage,#2E6A4E)}
+#anees-bank .hb-panel{border:1px solid var(--ab-line);background:var(--ab-panel);border-radius:14px;padding:18px 20px;min-width:0}
+#anees-bank .hb-back{border:0;background:none;color:var(--ab-text);font:600 14px var(--sabz-font-sans);padding:6px 0 10px;cursor:pointer;min-height:40px}
+#anees-bank .hb-ptitle{font-family:var(--sabz-font-serif);font-size:22px;font-weight:500;margin:0 0 2px}
+#anees-bank .hb-pnote{font-size:13px;color:var(--ab-muted);margin:0 0 14px}
+#anees-bank .hb-task{max-width:620px}
+#anees-bank .hb-prog{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--vp-sage,#2E6A4E);margin:0 0 4px}
+#anees-bank .hb-q{font-family:var(--sabz-font-serif);font-size:21px;font-weight:500;margin:0 0 6px;line-height:1.3}
+#anees-bank .hb-sub{font-size:14px;color:var(--ab-muted);margin:0 0 12px;line-height:1.45}
+#anees-bank .hb-moment{border:1px solid var(--ab-line);background:var(--ab-bg);border-radius:12px;padding:12px 14px;margin:0 0 12px;display:grid;gap:4px}
+#anees-bank .hb-big{font-size:21px;font-weight:600}
+#anees-bank .hb-ar{font-size:19px;color:var(--ab-muted);text-align:right;direction:rtl}
+#anees-bank .hb-en{font-size:15px;color:var(--ab-muted)}
+#anees-bank .hb-why{font-size:13px;color:var(--ab-text);margin-top:4px}
+#anees-bank .hb-btns{display:grid;gap:8px;margin:4px 0 0}
+#anees-bank .hb-ans{width:100%;min-height:50px;text-align:left;border:1px solid var(--ab-line);background:var(--ab-bg);color:var(--ab-text);border-radius:12px;padding:10px 14px;font:600 16px var(--sabz-font-sans);cursor:pointer}
+#anees-bank .hb-ans:hover{border-color:var(--ab-muted)}
+#anees-bank .hb-ans.primary{background:var(--vp-sage,#2E6A4E);color:#fff;border-color:transparent}
+#anees-bank .hb-ans.drop{color:var(--sabz-danger,#B3261E)}
+#anees-bank .hb-ans small{display:block;font-weight:400;font-size:12.5px;opacity:.8}
+#anees-bank .hb-input{width:100%;box-sizing:border-box;font:16px var(--sabz-font-sans);padding:12px;border:1px solid var(--ab-line);border-radius:12px;background:var(--ab-bg);color:var(--ab-text);margin:0 0 10px}
+#anees-bank .hb-skip,#anees-bank .hb-foot a{display:inline-block;color:var(--ab-muted);font-size:14px;padding:12px 2px;min-height:44px}
+#anees-bank .hb-skip{display:block;text-align:center}
+#anees-bank .hb-foot{font-size:13px;color:var(--ab-muted);margin:10px 0 0;border-top:1px solid var(--ab-line)}
+/* the audio bar every moment gets */
+#anees-bank .hb-player{display:flex;align-items:center;gap:8px;margin-top:8px;padding:6px 8px;border:1px solid var(--ab-line);border-radius:12px;background:var(--ab-panel)}
+#anees-bank .hb-player button{flex:0 0 44px;width:44px;height:44px;border-radius:50%;border:1px solid var(--ab-line);background:var(--ab-bg);color:var(--ab-text);font-size:15px;cursor:pointer;display:grid;place-items:center;padding:0}
+#anees-bank .hb-player .hb-pp{background:var(--vp-sage,#2E6A4E);color:#fff;border-color:transparent}
+#anees-bank .hb-player input[type=range]{flex:1;min-width:0;accent-color:var(--vp-sage,#2E6A4E);margin:0}
+#anees-bank .hb-time{flex:0 0 auto;font-size:12.5px;color:var(--ab-muted);font-variant-numeric:tabular-nums;min-width:74px;text-align:right}
+#anees-bank .hb-frame{width:100%;border:0;border-radius:12px;background:var(--ab-panel);min-height:70vh;display:block}
+#anees-bank .hb-done{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+#anees-bank .hb-done li{border:1px solid var(--ab-line);border-radius:12px;padding:10px 14px;background:var(--ab-panel);font-size:14px}
+#anees-bank .hb-done li span{color:var(--ab-muted)}
+#anees-bank .hb-empty{font-size:15px;color:var(--ab-muted);padding:20px 0}

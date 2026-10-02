@@ -66,7 +66,7 @@
     paint(); if (!el.paused) raf = requestAnimationFrame(tick); }; raf = requestAnimationFrame(tick); }
   function hide() { if (bar) bar.hidden = true; document.body.classList.remove('apb-on'); el = null; }
   function watch(a) {
-    if (!a || a.controls || !document.body) return;
+    if (!a || a.controls || (a.dataset && a.dataset.ownBar) || !document.body) return;   // hub moments draw their own bar
     build();
     if (el !== a) {
       el = a;

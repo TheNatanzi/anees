@@ -1,12 +1,14 @@
-/* Tutor page (Medi 2026-09-26): everything Amal needs to check right now, one card each.
-   List facts come from data/tutor.json; answered counts are read live from Supabase with each link's own token
-   (the same header Amal's pages send). Nothing here writes anything. */
+/* Tutor hub (Medi 2026-10-01): one page for Amal and Medi. Tabs: To do · Grammar · Materials · Done.
+   To do = every list waiting on Amal, ranked (what holds up Medi's scores first: newest lesson, older lessons, the
+   moments to check, slip patterns, then the long verb list). A task opens INSIDE the hub (laptop: list left, task right;
+   phone: the task replaces the list). Facts come from data/tutor.json (scripts/build_tutor_data.py); done counts are
+   read live from Supabase with each list's own token. Address: tutor.html#todo/<task id>, #grammar, #materials, #done. */
 (function () {
   const $ = s => document.querySelector(s);
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const fmt = n => (n === null || n === undefined) ? '—' : Number(n).toLocaleString('en-US');
-  const day = s => s ? String(s).slice(0, 10) : '—';
-  const PAGES = 'https://thenatanzi.github.io/anees/';
+  const pretty = d => d ? new Date(String(d).slice(0, 10) + 'T12:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+  let T = { open: [], closed: [] }, tasks = [], verifyN = null;
 
   async function rest(path, token) {
     const H = { apikey: ANEES.anon, Authorization: 'Bearer ' + ANEES.anon, 'X-Anees-Token': token };
@@ -14,107 +16,124 @@
     if (!r.ok) throw new Error(r.status);
     return r.json();
   }
-
   async function live(item) {
     try {
       if (item.kind === 'verb_check') {
-        const rows = await rest('verb_check_links?select=answers,opened_at&token=eq.' + encodeURIComponent(item.token), item.token);
+        const rows = await rest('verb_check_links?select=answers&token=eq.' + encodeURIComponent(item.token), item.token);
         const a = (rows[0] && rows[0].answers && rows[0].answers.answers) || {};
-        const vals = Object.values(a), last = vals.map(v => v.updated_at).filter(Boolean).sort().pop();
-        return { ok: !!rows[0], done: vals.length, right: vals.filter(v => v.choice === 'yes').length, fixed: vals.filter(v => v.choice === 'fix').length, last, opened: rows[0] && rows[0].opened_at };
+        return { ok: !!rows[0], done: Object.keys(a).length };
       }
       if (item.kind === 'after' || item.kind === 'before') {
-        const rows = await rest('amal_links?select=answers,opened_at,done_at&token=eq.' + encodeURIComponent(item.token), item.token);
+        const rows = await rest('amal_links?select=answers,done_at&token=eq.' + encodeURIComponent(item.token), item.token);
         const a = (rows[0] && rows[0].answers) || {};
-        const done = Object.keys(a.q || {}).length + Object.keys(a.h || {}).length + Object.keys(a.p || {}).length + Object.keys(a.s || {}).length;
-        return { ok: !!rows[0], done, right: null, fixed: null, last: a.updated || null, opened: rows[0] && rows[0].opened_at, finished: !!(rows[0] && rows[0].done_at) };
+        const n = Object.keys(a.q || {}).length + Object.keys(a.hw || {}).length + Object.keys(a.v || {}).length + Object.keys(a.pr || {}).length;
+        return { ok: !!rows[0], done: n, finished: !!(rows[0] && rows[0].done_at) || !!a.done };
       }
       if (item.kind === 'word_review') {
-        const rows = await rest('transcript_review_links?select=answers,opened_at,done_at&token=eq.' + encodeURIComponent(item.token), item.token);
-        const a = (rows[0] && rows[0].answers && rows[0].answers.answers) || {};
-        const vals = Object.values(a), last = vals.map(v => v.updated_at).filter(Boolean).sort().pop();
-        return { ok: !!rows[0], done: vals.length, right: vals.filter(v => v.choice === 'yes').length, fixed: vals.filter(v => v.choice === 'different').length, last };
+        const rows = await rest('transcript_review_links?select=answers&token=eq.' + encodeURIComponent(item.token), item.token);
+        return { ok: !!rows[0], done: Object.keys((rows[0] && rows[0].answers && rows[0].answers.answers) || {}).length };
       }
-      if (item.kind === 'grammar_notes') {
-        const rows = await rest('amal_rules?select=word_key,created_at&source=eq.grammar_notes&token=eq.' + encodeURIComponent(item.token), item.token);
-        return { ok: true, done: rows.length, rules: new Set(rows.map(r => r.word_key)).size, last: rows.map(r => r.created_at).sort().pop() };
-      }
-      if (item.kind === 'materials') return { ok: true };
       if (item.kind === 'review') {
-        const rows = (await rest('amal_rules?select=word_key,kind,created_at&source=eq.review&token=eq.' + encodeURIComponent(item.token), item.token))
-          .filter(r => !String(r.word_key || '').startsWith('verify:'));   // "check these moments" answers share the token; they are not patterns
-        const ids = new Set(rows.map(r => r.word_key)), last = rows.map(r => r.created_at).sort().pop();
-        return { ok: true, done: ids.size, right: rows.filter(r => /correct/i.test(r.kind || '')).length, fixed: null, last };
+        const rows = (await rest('amal_rules?select=word_key&source=eq.review&token=eq.' + encodeURIComponent(item.token), item.token)).filter(r => !String(r.word_key || '').startsWith('verify:'));
+        return { ok: true, done: new Set(rows.map(r => r.word_key)).size };
       }
-    } catch (e) { return { ok: false }; }
-    return { ok: true };
+    } catch (e) { return { ok: false, done: 0 }; }
+    return { ok: true, done: 0 };
   }
 
-  function bar(done, total) {
-    const pct = total ? Math.round(100 * done / total) : 0;
-    return `<div class="tu-bar" role="img" aria-label="${pct}% done"><div class="tu-fill" style="width:${Math.max(done ? 2 : 0, pct)}%"></div></div>`;
+  // ---- the task list -------------------------------------------------------------------------------------------
+  const MIN_EACH = { after: 0.7, before: 0.7, verify: 0.4, review: 1.2, verb_check: 0.1, word_review: 0.3 };
+  function taskOf(it, L) {
+    const total = it.total || 0, d = Math.min(total, (L && L.done) || 0), left = Math.max(0, total - d);
+    const unit = { after: 'moments', before: 'questions', review: 'slip patterns', verb_check: 'verb forms', word_review: 'lines' }[it.kind] || 'items';
+    const title = it.kind === 'after' ? 'After the lesson · ' + pretty(it.lesson_date)
+      : it.kind === 'review' ? 'Slips to review' : it.kind === 'verb_check' ? it.title.replace('Verb check', 'Verb forms') : it.title;
+    const rank = it.kind === 'before' ? 0 : it.kind === 'after' ? 1 : it.kind === 'review' ? 3 : it.kind === 'word_review' ? 4 : 5;
+    return { id: it.id, kind: it.kind, item: it, title, total, done: d, left, unit, rank, date: it.lesson_date || '', finished: (L && L.finished) || (total > 0 && left === 0) };
   }
+  function rankAll(list) { return list.sort((a, b) => a.rank - b.rank || String(b.date).localeCompare(String(a.date))); }
+  const sub = t => t.finished ? 'Done · thank you' : `${fmt(t.left)} ${t.unit} left · about ${Math.max(1, Math.round(t.left * (MIN_EACH[t.kind] || 0.5)))} min`;
+  const bar = t => `<div class="hb-bar" aria-hidden="true"><i style="width:${t.total ? Math.round(100 * t.done / t.total) : 0}%"></i></div>`;
+  const rowHtml = (t, cur) => `<button type="button" class="hb-row" data-task="${esc(t.id)}"${cur ? ' aria-current="true"' : ''}><p class="hb-row-t">${esc(t.title)}</p><p class="hb-row-s">${esc(sub(t))}</p>${bar(t)}</button>`;
 
-  function card(it, L) {
-    const link = /^https?:/.test(it.url) ? it.url : PAGES + it.url;
-    let big, sub, extra = '';
-    if (it.kind === 'materials') {
-      big = '8'; sub = 'topics · her explanations, inside Anees';
-    } else if (it.kind === 'grammar_notes') {
-      big = L && L.ok !== false ? fmt(L.done) : '—';
-      sub = `new notes written here · ${fmt(it.doc_notes)} notes from her Doc shown under the rules`;
-      extra = `<p class="tu-meta">last note ${L && L.last ? day(L.last) : 'none yet'} · link open until ${esc(it.expires)}</p>`;
-    } else if (!L || L.ok === false) {
-      big = '—'; sub = 'could not read her answers right now';
+  // ---- views ---------------------------------------------------------------------------------------------------
+  function setTab(tab) { document.querySelectorAll('.hb-tab').forEach(a => a.setAttribute('aria-selected', String(a.dataset.tab === tab))); }
+  function todo(openId) {
+    setTab('todo');
+    const open = tasks.filter(t => !t.finished);
+    if (!open.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing to check right now. Shukran!</p>'; return; }
+    const wide = window.matchMedia('(min-width:960px)').matches, sel = open.find(t => t.id === openId) || (wide ? open[0] : null);
+    $('#hb-view').innerHTML = `<div class="hb-wrap${openId && sel ? ' hb-open' : ''}"><div class="hb-list" role="list">${open.map(t => rowHtml(t, sel && t.id === sel.id)).join('')}</div>
+      <div class="hb-panel" id="hb-panel"></div></div>`;
+    document.querySelectorAll('.hb-row').forEach(b => b.onclick = () => { location.hash = 'todo/' + b.dataset.task; });
+    if (sel) panel(sel);
+  }
+  function panel(t) {
+    const p = $('#hb-panel');
+    p.innerHTML = `<button type="button" class="hb-back">‹ To do</button><h2 class="hb-ptitle">${esc(t.title)}</h2><p class="hb-pnote">${esc(sub(t))}</p><div id="hb-body"></div>`;
+    p.querySelector('.hb-back').onclick = () => { location.hash = 'todo'; };
+    const body = $('#hb-body');
+    const update = () => {
+      const row = document.querySelector(`.hb-row[data-task="${CSS.escape(t.id)}"]`);
+      if (row) { row.querySelector('.hb-row-s').textContent = sub(t); row.querySelector('.hb-bar i').style.width = (t.total ? Math.round(100 * t.done / t.total) : 0) + '%'; }
+      p.querySelector('.hb-pnote').textContent = sub(t); count();
+    };
+    if (t.kind === 'after') {
+      AneesAfterTask.mount(body, t.item, { onChange: s => { t.total = s.total; t.done = Math.min(s.done, s.total); t.left = s.total - t.done; t.finished = s.finished; update(); } });
+    } else if (t.kind === 'verify') {
+      body.appendChild($('#tv'));
     } else {
-      const left = Math.max(0, it.total - L.done);
-      big = `${fmt(L.done)} <span class="tu-of">of ${fmt(it.total)}</span>`;
-      sub = it.kind === 'review' ? `patterns answered · ${fmt(left)} left · ${fmt(it.moments)} moments inside`
-        : it.kind === 'after' || it.kind === 'before' ? `questions answered · ${fmt(left)} left` + (L.finished ? ' · finished' : '')
-        : it.kind === 'word_review' ? `lines answered · ${fmt(left)} left` : `forms answered · ${fmt(left)} left`;
-      extra = bar(L.done, it.total);
-      const bits = [];
-      if (it.kind === 'verb_check' && L.done) bits.push(`${fmt(L.right)} right · ${fmt(L.fixed)} fixed`);
-      bits.push('last answer ' + (L.last ? day(L.last) : 'none yet'));
-      if (it.kind === 'verb_check' && L.done > (it.pulled || 0)) bits.push(`<b>${fmt(L.done - (it.pulled || 0))} answers not in the app yet</b>`);
-      bits.push('link open until ' + it.expires);
-      extra += `<p class="tu-meta">${bits.join(' · ')}</p>`;
+      // Not rebuilt inside the hub yet (Medi 2026-10-01 plan: one task at a time, shown before the next).
+      body.innerHTML = `<p class="hb-sub">${esc(t.item.what || '')}</p><a class="hb-ans primary" style="display:block;text-decoration:none;text-align:center" href="go.html?to=${
+        t.kind === 'review' ? 'review' : t.kind === 'word_review' ? 'word-review' : t.kind === 'before' ? 'before' : (t.id.endsWith('-2') ? 'verb-check-2' : 'verb-check')}">Open this list</a>`;
     }
-    // Menu, not copy links (Medi 2026-09-26): Open goes through the stable address so it keeps working when a token changes
-    const go = { review: 'review', after: 'after', before: 'before', word_review: 'word-review', grammar_notes: 'grammar-notes', materials: 'materials' }[it.kind]
-      || (it.kind === 'verb_check' ? (it.id.endsWith('-2') ? 'verb-check-2' : 'verb-check') : null);
-    const href = go ? 'go.html?to=' + go : link;
-    const buttons = [`<a class="tu-btn tu-primary" href="${esc(href)}">Open</a>`];
-    return `<article class="tu-card"><div class="tu-top"><h2 class="tu-title">${esc(it.title)}</h2><span class="tu-who">${esc(it.who)}</span></div>
-      <p class="tu-what">${esc(it.what)}</p><div class="tu-num"><span class="ab-number">${big}</span><span class="ab-tiny">${esc(sub)}</span></div>${extra}
-      <div class="tu-actions">${buttons.join('')}</div></article>`;
+  }
+  function hold() { const tv = $('#tv'); if (tv && tv.parentElement.id !== 'hb-hold') $('#hb-hold').appendChild(tv); }
+  function frame(tab, url) {
+    setTab(tab);
+    $('#hb-view').innerHTML = `<iframe class="hb-frame" title="${tab === 'grammar' ? 'Grammar rules' : 'Arabic Materials'}" src="${esc(url)}"></iframe>`;
+    const f = $('.hb-frame');
+    f.onload = () => { try { const d = f.contentDocument; d.documentElement.style.overflow = 'hidden'; const fit = () => { f.style.height = d.documentElement.scrollHeight + 'px'; }; fit(); new ResizeObserver(fit).observe(d.body); } catch (e) {} };
+  }
+  function doneView() {
+    setTab('done');
+    const fin = tasks.filter(t => t.finished);
+    $('#hb-view').innerHTML = (fin.length || (T.closed || []).length)
+      ? `<ul class="hb-done">${fin.map(t => `<li><b>${esc(t.title)}</b> <span>· ${fmt(t.total)} ${esc(t.unit)} answered</span></li>`).join('')}${(T.closed || []).map(c => `<li><b>${esc(c.title)}</b> <span>· ${esc(c.why)}</span></li>`).join('')}</ul>`
+      : '<p class="hb-empty">Nothing finished yet.</p>';
+  }
+  function count() {
+    $('#hb-n-todo').textContent = tasks.filter(t => !t.finished).length || '';
+    $('#hb-n-done').textContent = (tasks.filter(t => t.finished).length + (T.closed || []).length) || '';
+  }
+  function route() {
+    hold(); window.AneesClip && AneesClip.stopAll();
+    const [tab, id] = (decodeURIComponent(location.hash.slice(1)) || 'todo').split('/');
+    const g = T.open.find(x => x.kind === 'grammar_notes'), m = T.open.find(x => x.kind === 'materials');
+    if (tab === 'grammar') return frame('grammar', (g ? g.url + '&' : 'amal/grammar-rules.html?') + 'in=hub');
+    if (tab === 'materials') return frame('materials', (m ? m.url : 'amal/materials.html') + '?in=hub');
+    if (tab === 'done') return doneView();
+    todo(id);
   }
 
   async function main() {
-    let T;
     try { T = await (await fetch('data/tutor.json', { cache: 'no-store' })).json(); }
-    catch (e) { $('#tu-list').innerHTML = '<div class="vp-notice">tutor.json could not load. Refresh to retry.</div>'; return; }
-    const lives = await Promise.all(T.open.map(live));
-    const byId = Object.fromEntries(T.open.map((it, i) => [it.id, lives[i]]));
-    const verbs = T.open.filter(x => x.kind === 'verb_check'), rv = T.open.find(x => x.kind === 'review');
-    const verbLeft = verbs.reduce((n, x) => n + Math.max(0, x.total - ((byId[x.id] && byId[x.id].done) || 0)), 0);
-    const notPulled = verbs.reduce((n, x) => n + Math.max(0, ((byId[x.id] && byId[x.id].done) || 0) - (x.pulled || 0)), 0);
-    const lastAll = lives.map(l => l && l.last).filter(Boolean).sort().pop();
-    $('#ab-metrics').innerHTML = [
-      ['Open for Amal', T.open.length, 'lists waiting on her'],
-      ['Verb forms left', fmt(verbLeft), 'across both verb lists'],
-      ['Slip patterns left', rv && byId[rv.id] && byId[rv.id].ok !== false ? fmt(rv.total - byId[rv.id].done) : '—', 'correct him, or a reason'],
-      ['Lesson questions left', fmt(T.open.filter(x => x.kind === 'after' || x.kind === 'before').reduce((n, x) => n + Math.max(0, x.total - ((byId[x.id] && byId[x.id].done) || 0)), 0)), 'after / before lesson links'],
-      ['Grammar notes', (() => { const g = T.open.find(x => x.kind === 'grammar_notes'); const l = g && byId[g.id]; return l && l.ok !== false ? fmt(l.done) : '—'; })(), 'written on the rules page'],
-      ['Not in the app yet', fmt(notPulled), 'her verb answers to pull'],
-      ['Her last answer', lastAll ? day(lastAll) : '—', 'any list']
-    ].map(([l, v, n]) => `<div class="ab-metric"><div class="ab-metric-label">${esc(l)}</div><div class="ab-number">${esc(v)}</div><div class="ab-tiny">${esc(n)}</div></div>`).join('');
-    $('#tu-list').innerHTML = T.open.map((it, i) => card(it, lives[i])).join('');
-    $('#tu-closed').innerHTML = (T.closed || []).map(c => `<li><b>${esc(c.title)}</b> · ${esc(c.why)}</li>`).join('');
-    $('#ab-source').textContent = 'Live from her links · ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-    document.querySelectorAll('[data-copy]').forEach(b => b.onclick = async () => {
-      try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = 'Copied'; } catch (e) { b.textContent = b.dataset.copy; }
-    });
+    catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The Tutor list could not load. Refresh to try again.</div>'; return; }
+    const work = T.open.filter(x => ['after', 'before', 'review', 'verb_check', 'word_review'].includes(x.kind));
+    const lives = await Promise.all(work.map(live));
+    tasks = work.map((it, i) => taskOf(it, lives[i]));
+    try {   // the moments to check (tutor-verify): answers are amal_rules rows word_key verify:<uid> on the review token
+      const V = await (await fetch('data/amal-verify.json', { cache: 'no-store' })).json(), rv = T.open.find(x => x.kind === 'review');
+      const items = V.rows || V.items || [], ans = rv ? await rest('amal_rules?select=word_key&source=eq.review&token=eq.' + encodeURIComponent(rv.token), rv.token) : [];
+      const got = new Set(ans.map(r => String(r.word_key)).filter(k => k.startsWith('verify:')));
+      verifyN = { total: items.length, done: items.filter(r => got.has('verify:' + (r.uid || r.id))).length };
+      if (items.length) tasks.push({ id: 'verify', kind: 'verify', title: 'Check these moments', total: verifyN.total, done: verifyN.done, left: verifyN.total - verifyN.done, unit: 'moments', rank: 2, date: '', finished: verifyN.done >= verifyN.total });
+    } catch (e) {}
+    rankAll(tasks); count();
+    const open = tasks.filter(t => !t.finished), mins = Math.max(1, Math.round(open.reduce((s, t) => s + t.left * (MIN_EACH[t.kind] || 0.5), 0)));
+    $('#hb-hello').textContent = open.length ? `Marhaba Amal · ${open.length} thing${open.length === 1 ? '' : 's'} to check, about ${mins} min` : 'Marhaba Amal · nothing to check right now';
+    $('#ab-source').textContent = 'Live · ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    window.addEventListener('hashchange', route); route();
   }
   main();
 })();

@@ -1,10 +1,10 @@
 {
- "updated": "2026-09-30T17:44:35-07:00",
+ "updated": "2026-10-01T20:15:57-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
   "duration_min": "Length of the lesson audio the page plays, in minutes.",
-  "type": "Claude's reading of what the lesson mostly was: free-speak = conversation; review-words = practising words already taught; new-words = Amal teaching new vocabulary (new verb pairs drilled in all tenses count here); new-grammar = Amal teaching a rule. One main type; if mixed, the one with the most minutes, and type_why says so. type_source 'claude-read' = Medi can correct it.",
+  "type": "Claude's reading of what the lesson mostly was: free-speak = conversation; review-words = practising words already taught; new-words = Amal teaching new vocabulary (new verb pairs drilled in all tenses count here); new-grammar = Amal teaching a rule; review-grammar = Amal drilling rules already taught (Medi 2026-10-01: Sep 30 was an el- review). One main type; if mixed, the one with the most minutes, and type_why says so. type_source 'claude-read' = Medi can correct it.",
   "review_mode": "For review lessons only: listening = Amal says Arabic, Medi gives the meaning; speaking = Medi says it in Arabic; both.",
   "words.unique": "How many different Word Bank forms (a verb tense or a plural counts on its own) Medi was scored on in this lesson, the lesson audit's word slips included - the same count as Progress > Vocab 'Unique words per lesson'. words.unique_rows = the same by Word Bank row.",
   "words.right": "Scored uses marked correct (same rules as the Word Bank page: its own code is run on docs/data/word-bank-evidence.json + word-bank-review.json).",
@@ -3964,9 +3964,9 @@
     "timing": "engine"
    },
    "duration_min": 65.8,
-   "type": "free-speak",
-   "review_mode": null,
-   "type_why": "Not read yet: default until Claude reads this lesson and adds it to LESSON_TYPES.",
+   "type": "review-words",
+   "review_mode": "speaking",
+   "type_why": "After ~15 min of app/flashcard talk and a gym story (15:40-25:50), Amal reviews the people/family/professions cards she gave him (25:55 'شو الـ cards اللي أعطيتك إياهم؟'): family members and their jobs, cousins, relatives, siblings, ages (بنت/صبية/مرة/ختيارة), who works in a company, hospital, salon, school; at 64:57 she plans a grammar review next time and Medi asks for 'the L again'.",
    "type_source": "claude-read",
    "words": {
     "unique": 68,
@@ -4246,9 +4246,9 @@
     "timing": "engine"
    },
    "duration_min": 65.7,
-   "type": "free-speak",
-   "review_mode": null,
-   "type_why": "Not read yet: default until Claude reads this lesson and adds it to LESSON_TYPES.",
+   "type": "review-grammar",
+   "review_mode": "speaking",
+   "type_why": "16:00-65:30 (~50 of 66 min) is the planned el- review (16:52 'حكينا بدنا نراجع ال'; 58:02 'I'm not introducing anything new... just testing'): general nouns (A1), noun + adjective (A7), hada/hadol + el (A10/A10b), idafa with feminine -t and chains (A2/A3/A5), ending with Medi explaining the rule back; first 5 min app talk, 05:35-15:50 small talk about yesterday's rug customers.",
    "type_source": "claude-read",
    "words": {
     "unique": 56,
