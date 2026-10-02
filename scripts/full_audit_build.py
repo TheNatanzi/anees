@@ -220,11 +220,52 @@ def apply_proposals(rows, hand, buckets):
                 "kind": r["kind"], "bucket": r.get("bucket"), "confidence": r.get("confidence"), "why": (extra or {}).get("why") or r.get("why"),
                 "also_counted_as": also(r)}
 
+    def approve(p, x, cands):
+        """Medi said yes (GR-18 -> a real bucket): the moment is scored once, under the new bucket. A grammar twin already
+        counted at the moment is refiled to the new bucket and the proposal row becomes its duplicate; otherwise the
+        proposal row is scored and a vocab twin counted at the moment becomes its duplicate."""
+        new_b = p["bucket"]
+        pool = [r for r in rows if r["date"] == x["date"] and same_moment(r, x)]
+        live = [r for r in cands if (kind_class(r["kind"]) == "grammar" and r.get("bucket") not in buckets)
+                or (r["kind"] == "rejected" and not r.get("duplicate_of") and kind_class(r.get("kind_before_rejection")) == "grammar")]
+        ref = live[0] if live else (cands[0] if cands else None)
+        if ref is None:
+            raise SystemExit(f"proposed-buckets.json {p['id']}: no audit row at {x['date']} {x['t']} {x.get('wrong')} - fix the file")
+        near = lambda o: same_piece(o.get("wrong"), ref.get("wrong")) or sec(o.get("t")) == sec(ref.get("t"))
+        gtwin = next((o for o in pool if o is not ref and o["kind"] == "grammar" and o.get("bucket") in buckets and near(o)), None)
+        if ref["kind"] == "grammar" and ref.get("bucket") in buckets:
+            gtwin, ref = ref, None
+        if gtwin:
+            if gtwin.get("bucket") != new_b:
+                gtwin["bucket_before_refile"] = gtwin.get("bucket")
+                gtwin["bucket"] = new_b
+                gtwin["refiled_by"] = f"{p['id']} approved by Medi (GR-18)"
+            if ref is not None:
+                _drop_as_duplicate(ref, gtwin, f"same moment as {gtwin['uid']}, filed under {new_b} when Medi approved {p['id']} (GR-18): one slip")
+            scored = gtwin
+        else:
+            r = ref
+            if r["kind"] == "rejected":
+                r["kind"] = r.pop("kind_before_rejection")
+                r["was_rejected_why"] = r.pop("rejected_why", None)
+            r["bucket_before_proposal"] = r.get("bucket")
+            r["bucket"] = new_b
+            r["approved_proposal"] = p["id"]
+            for o in pool:
+                if o is not r and o["kind"] == "vocab-A" and near(o):
+                    _drop_as_duplicate(o, r, f"same moment as {r['uid']}, a grammar slip under {new_b} since Medi approved {p['id']} (GR-18): one slip")
+            scored = r
+        taken.add(scored["uid"])
+        return {**moment(scored, x), "scored_under": new_b}
+
     for p in hand:
-        P = {k: p.get(k) for k in ("id", "name", "proposed_rule", "family", "from", "medi")}
+        P = {k: p.get(k) for k in ("id", "name", "proposed_rule", "family", "from", "medi", "bucket")}
         P["moments"] = []
         for x in p.get("rows", []):
             cands = [r for r in rows if r["date"] == x["date"] and same_moment(r, x) and same_piece(r.get("wrong"), x.get("wrong"))]
+            if p.get("medi") == "yes" and p.get("bucket") in buckets:
+                P["moments"].append(approve(p, x, cands))
+                continue
             live = [r for r in cands if (kind_class(r["kind"]) == "grammar" and r.get("bucket") not in buckets)
                     or (r["kind"] == "rejected" and not r.get("duplicate_of") and kind_class(r.get("kind_before_rejection")) == "grammar")]
             if live:

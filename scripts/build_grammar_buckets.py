@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Generate docs/data/grammar-buckets.json - the 57 grammar buckets (source of truth: edit here, then run)."""
+"""Generate docs/data/grammar-buckets.json - the grammar buckets (60 since 2026-10-02: A12, C11, C12 added) (source of truth: edit here, then run)."""
 import json, os
 from collections import Counter
 
@@ -330,6 +330,14 @@ A("B18", "B", "verb matches its subject",
    "Past-tense endings for ana/inta/hiyye stay in B5; adjectives stay in A8.",
    "Found 26 times in the 2026-09-24 sweep of all 13 lessons. Added by Medi 2026-09-25."])
 
+# GR-18 proposals Medi approved 2026-10-02 ("yes yes all yes"): A12, C11, C12 (data/lesson-work/full-audit/proposed-buckets.json)
+A("A12", "A", "pronoun matches who you mean",
+  "Pick the pronoun for the real person: humma for 'they', heyye for 'she'.",
+  [["humma ma byi5alsu", "they don't finish (his family -> humma, not huwwe)"], ["heyye", "she (his fiancee -> heyye, not inti)"]],
+  "In a long sentence the pronoun drifts to the last one used.",
+  ["Proposed by the 09-24 sweep (NEW-A12) from 08-25 22:13 and 31:59; approved by Medi 2026-10-02 (GR-18).",
+   "A verb ending that does not match its subject stays in B18; this rule is the pronoun word itself."])
+
 # ---------------- Family C - sentence glue ----------------
 A("C1", "C", "no word for 'to be'",
   "Arabic drops am / is / are in the plain present.",
@@ -428,6 +436,20 @@ A("C10", "C", "preposition goes in front",
   ["min wein from where, lawein to where, 3an shu about what.",
    "ma3 meen with who, min emta since when, min shu from what.",
    "Amal taught this out loud on Sep 16: lawein - we add it to the question, always."])
+
+A("C11", "C", "noun, not verb, after a preposition",
+  "After bi / fi / min use the noun of the action, not a verb.",
+  [["ana ma3roof bi el-tabe5 el-kabab", "I'm known for cooking kebab (bi + el-tabe5, not bi + a6bo5)"]],
+  "English uses '-ing' after 'for/at'. Arabic uses the action's noun: tabe5 = cooking.",
+  ["Amal 09-21 38:15: 'the noun. Noun is طبخ' (her chat: ana ma3roof bi el-tabe5 el-kabab).",
+   "Proposed by the 09-24 sweep (NEW-C11); approved by Medi 2026-10-02 (GR-18). Which preposition a word takes stays in D2."])
+
+A("C12", "C", "a doing verb says what was done",
+  "A verb like 3amal (do / make) names what was done.",
+  [["3amalna tamreen kteer", "we did a lot of exercise (not just 3amalna kteer)"]],
+  "English 'we did a lot' is fine; Amal kept asking 'shu 3amalna?' until the thing done was named.",
+  ["08-25 59:04: he said 3amalna kteer, Amal asked shu 3amalna? twice, he said 3amalna tamreen kteer.",
+   "Proposed 2026-10-02 from a row once rejected as 'no bucket fits' (FA-0075); approved by Medi 2026-10-02 (GR-18)."])
 
 # ---------------- Family D - partners ----------------
 A("D1", "D", "prepositions",
@@ -554,8 +576,8 @@ A("F3", "F", "causative verbs: 3 forms",
    "still not scored on its own (family F)."])
 
 payload = {
-    "updated": "2026-09-30",
-    "source": "wiki/18-grammar-buckets.md + Medi additions B16/B17/C10 (2026-09-22) + Amal's written notes (2026-09-27, applied 2026-09-29; her 2026-09-30 notes C4b-F3 applied 2026-09-30)",
+    "updated": "2026-10-02",
+    "source": "wiki/18-grammar-buckets.md + Medi additions B16/B17/C10 (2026-09-22) + Amal's written notes (2026-09-27, applied 2026-09-29; her 2026-09-30 notes C4b-F3 applied 2026-09-30) + Medi-approved GR-18 proposals A12/C11/C12 (2026-10-02)",
     "families": {"A": "The noun phrase", "B": "The verb system", "C": "Sentence glue",
                  "D": "Words that pick their partner", "E": "Numbers and time",
                  "F": "Sound shape (pronunciation, not grammar)"},

@@ -1,5 +1,5 @@
 {
- "note": "GR-18 (Medi 2026-09-25: \"Make sure all of her corrections are accounted for and if it doesnt fall into a bucket lets figure out to make one\"). A real grammar correction that fits no bucket is a PROPOSED new bucket for Medi's yes/no, never dropped. full_audit_build.py matches each row here by date + moment (5 s) + wrong piece and turns the matched grammar row (or a row rejected only because no bucket fits) into kind 'grammar-propose': listed on the Grammar Console, unscored until Medi's yes. A row the readers already counted under another bucket stays counted there (shown as also_counted_as). medi: null = waiting; 'yes' = add the bucket (scripts/build_grammar_buckets.py) and file the rows; 'no' = the rows stay unscored with his reason. Never delete a row: mark it.",
+ "note": "GR-18 (Medi 2026-09-25: \"Make sure all of her corrections are accounted for and if it doesnt fall into a bucket lets figure out to make one\"). A real grammar correction that fits no bucket is a PROPOSED new bucket for Medi's yes/no, never dropped. full_audit_build.py matches each row here by date + moment (5 s) + wrong piece and turns the matched grammar row (or a row rejected only because no bucket fits) into kind 'grammar-propose': listed on the Grammar Console, unscored until Medi's yes. A row the readers already counted under another bucket stays counted there (shown as also_counted_as). medi: null = waiting; 'yes' = add the bucket (scripts/build_grammar_buckets.py) and file the rows; 'no' = the rows stay unscored with his reason. Never delete a row: mark it. On 'yes' with a bucket id, full_audit_build files the moment under that bucket and scores it; a twin already counted at the same moment is refiled (grammar) or marked a duplicate (vocab), so it stays one slip.",
  "proposals": [
   {
    "id": "P-A12",
@@ -7,12 +7,31 @@
    "proposed_rule": "Pick the pronoun for the real person: humma for 'they' (his family), heyye for 'she' (his fiancee), not the last pronoun used.",
    "family": "A",
    "from": "09-24 sweep group NEW-A12 (proposed then, never shown to Medi)",
-   "medi": null,
+   "medi": "yes",
    "rule": "GR-18",
    "rows": [
-    {"date": "2026-08-25", "t": "31:59", "wrong": "إنتي", "right": "هي", "rule": "GR-18", "why": "sweep row 0825-U3: Amal recast هي for his إنتي about his fiancee; the readers filed the same moment as a vocab word swap (FA-2c9e0146)"},
-    {"date": "2026-08-25", "t": "22:13", "wrong": "هو", "right": "هما", "rule": "GR-18", "why": "sweep row 0825-U2: هو for his family members, Amal said هما; the readers filed it under B18"}
-   ]
+    {
+     "date": "2026-08-25",
+     "t": "31:59",
+     "wrong": "إنتي",
+     "right": "هي",
+     "rule": "GR-18",
+     "why": "sweep row 0825-U3: Amal recast هي for his إنتي about his fiancee; the readers filed the same moment as a vocab word swap (FA-2c9e0146)"
+    },
+    {
+     "date": "2026-08-25",
+     "t": "22:13",
+     "wrong": "هو",
+     "right": "هما",
+     "rule": "GR-18",
+     "why": "sweep row 0825-U2: هو for his family members, Amal said هما; the readers filed it under B18"
+    }
+   ],
+   "bucket": "A12",
+   "medi_said": {
+    "date": "2026-10-02",
+    "quote": "yes yes all yes"
+   }
   },
   {
    "id": "P-C11",
@@ -20,11 +39,23 @@
    "proposed_rule": "After bi / fi / min use the noun of the action, not a verb: ana ma3roof bi el-tabe5 (her chat 09-21), not bi a6bo5.",
    "family": "C",
    "from": "09-24 sweep group NEW-C11 (proposed then, never shown to Medi)",
-   "medi": null,
+   "medi": "yes",
    "rule": "GR-18",
    "rows": [
-    {"date": "2026-09-21", "t": "38:10", "wrong": "بـ أطبخ", "right": "بالطبخ", "rule": "GR-18", "why": "sweep row 0921-U1: Medi asked, Amal: 'the noun. Noun is طبخ'; the readers filed the same moment under D2 (FA-0d4e7fff)"}
-   ]
+    {
+     "date": "2026-09-21",
+     "t": "38:10",
+     "wrong": "بـ أطبخ",
+     "right": "بالطبخ",
+     "rule": "GR-18",
+     "why": "sweep row 0921-U1: Medi asked, Amal: 'the noun. Noun is طبخ'; the readers filed the same moment under D2 (FA-0d4e7fff)"
+    }
+   ],
+   "bucket": "C11",
+   "medi_said": {
+    "date": "2026-10-02",
+    "quote": "yes yes all yes"
+   }
   },
   {
    "id": "P-OBJ",
@@ -32,11 +63,23 @@
    "proposed_rule": "A verb like 3amal (do / make) names what was done: 3amalna tamreen kteer, not just 3amalna kteer (Amal kept asking 'shu 3amalna?' until he added it).",
    "family": "C",
    "from": "rejected.json FA-0075 (hand check 2026-09-26: 'plain conversation, no correction and no bucket fits') - re-checked 2026-10-02 under GR-18: 'no bucket fits' is never a reason to drop; low confidence, the hand check read it as conversation",
-   "medi": null,
+   "medi": "yes",
    "rule": "GR-18",
    "rows": [
-    {"date": "2026-08-25", "t": "59:04", "wrong": "عملنا كتير", "right": "عملنا تمرين كتير", "rule": "GR-18", "why": "59:04 he said عملنا كتير; Amal asked شو عملنا؟ at 59:06 and 59:12 until he said عملنا تمرين كتير (59:15). Low: the hand check read her question as conversation"}
-   ]
+    {
+     "date": "2026-08-25",
+     "t": "59:04",
+     "wrong": "عملنا كتير",
+     "right": "عملنا تمرين كتير",
+     "rule": "GR-18",
+     "why": "59:04 he said عملنا كتير; Amal asked شو عملنا؟ at 59:06 and 59:12 until he said عملنا تمرين كتير (59:15). Low: the hand check read her question as conversation"
+    }
+   ],
+   "bucket": "C12",
+   "medi_said": {
+    "date": "2026-10-02",
+    "quote": "yes yes all yes"
+   }
   }
  ]
 }

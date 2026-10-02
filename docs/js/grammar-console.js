@@ -913,7 +913,7 @@ function renderProposals(doc) {
   $('gc-propose-sum').textContent = 'Proposed new rules (' + P.length + ') · fixes Amal made that fit no rule yet · not scored until you say yes';
   body.textContent = '';
   P.forEach(function (p) {
-    body.appendChild(el('div', 'gc-doc-head', (p.name || 'New rule') + (p.medi ? ' · your answer: ' + p.medi : ' · waiting for your yes or no')));
+    body.appendChild(el('div', 'gc-doc-head', (p.name || 'New rule') + (p.medi === 'yes' && p.bucket ? ' · you said yes: now rule ' + p.bucket + ', scored' : p.medi ? ' · your answer: ' + p.medi : ' · waiting for your yes or no')));
     if (p.proposed_rule) body.appendChild(el('p', 'ab-mini', p.proposed_rule));
     var ul = el('ul', 'gc-doc-list');
     (p.moments || []).forEach(function (m) {

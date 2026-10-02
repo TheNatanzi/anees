@@ -180,3 +180,29 @@ def test_gr_19_no_scored_row_on_master_rests_on_the_chat_alone():
     assert not scored, scored
     brief = (ROOT / "data" / "lesson-work" / "full-audit" / "READER-BRIEF.md").read_text(encoding="utf-8")
     assert "chat-fix" not in brief and "(or typed in chat)" not in brief
+
+
+def test_gr_23_a_proposal_medi_approved_is_scored_once_under_its_new_bucket():
+    """GR-23 (Medi 2026-10-02 "yes yes all yes" to the GR-18 proposals A12 / C11 / C12). Planted: an uncounted sweep row
+    whose moment the readers counted under D2 (-> the D2 row is refiled to C11, the sweep row is its duplicate), a grammar
+    row whose moment the readers counted as a vocab slip (-> scored under A12, the vocab row is its duplicate), and a row
+    once rejected 'no bucket fits' (-> scored under C12). Each moment stays one slip."""
+    buckets = {"A12": {}, "C11": {}, "C12": {}, "D2": {}}
+    rows = [
+        {"uid": "FA-s", "date": "2026-09-21", "t": "38:10", "kind": "grammar", "bucket": None, "wrong": "بـ أطبخ", "right": "بالطبخ", "mode": "speaking"},
+        {"uid": "FA-d2", "date": "2026-09-21", "t": "38:10", "kind": "grammar", "bucket": "D2", "wrong": "bi atbuk", "right": "bi el-tabe5", "mode": "speaking"},
+        {"uid": "FA-g", "date": "2026-08-25", "t": "31:59", "kind": "grammar", "bucket": None, "wrong": "إنتي", "right": "هي", "mode": "speaking"},
+        {"uid": "FA-v", "date": "2026-08-25", "t": "31:59", "kind": "vocab-A", "bucket": None, "wrong": "إنتي", "right": "هي", "tier": 1},
+        {"uid": "FA-r", "date": "2026-08-25", "t": "59:04", "kind": "rejected", "kind_before_rejection": "grammar", "bucket": "C9",
+         "wrong": "عملنا كتير", "right": "عملنا تمرين كتير", "rejected_why": "no bucket fits"},
+    ]
+    hand = [{"id": "P-C11", "medi": "yes", "bucket": "C11", "proposed_rule": "noun after a preposition", "rows": [{"date": "2026-09-21", "t": "38:10", "wrong": "بـ أطبخ"}]},
+            {"id": "P-A12", "medi": "yes", "bucket": "A12", "proposed_rule": "pronoun", "rows": [{"date": "2026-08-25", "t": "31:59", "wrong": "إنتي"}]},
+            {"id": "P-OBJ", "medi": "yes", "bucket": "C12", "proposed_rule": "object", "rows": [{"date": "2026-08-25", "t": "59:04", "wrong": "عملنا كتير"}]}]
+    FB.apply_proposals(rows, hand, buckets)
+    by = {r["uid"]: r for r in rows}
+    assert (by["FA-d2"]["kind"], by["FA-d2"]["bucket"], by["FA-d2"]["bucket_before_refile"]) == ("grammar", "C11", "D2")
+    assert by["FA-s"]["kind"] == "rejected" and by["FA-s"]["duplicate_of"] == "FA-d2"
+    assert (by["FA-g"]["kind"], by["FA-g"]["bucket"]) == ("grammar", "A12") and by["FA-v"]["duplicate_of"] == "FA-g"
+    assert (by["FA-r"]["kind"], by["FA-r"]["bucket"]) == ("grammar", "C12")
+    assert sum(1 for r in rows if r["kind"] in ("grammar", "vocab-A")) == 3        # three moments, three slips

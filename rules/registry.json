@@ -2776,6 +2776,51 @@
    }
   },
   {
+   "id": "GR-23",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Medi approved the three GR-18 proposals: A12 pronoun matches who you mean, C11 noun (not verb) after a preposition, C12 a doing verb says what was done. Their moments are scored under the new buckets, each moment once (a twin already counted is refiled or marked its duplicate).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "yes yes all yes"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/full_audit_build.py",
+     "contains": "def approve(p, x, cands):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_grammar_buckets.py",
+     "contains": "A(\"C12\", \"C\", \"a doing verb says what was done\","
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "A12 pronoun matches who you mean"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_audit_duplicates.py",
+     "contains": "def test_gr_23_a_proposal_medi_approved_is_scored_once_under_its_new_bucket"
+    }
+   ],
+   "moments": [
+    {
+     "type": "data",
+     "path": "data/lesson-work/full-audit/proposed-buckets.json",
+     "contains": "\"quote\": \"yes yes all yes\""
+    }
+   ]
+  },
+  {
    "id": "LS-01",
    "kind": "data",
    "scope": "lessons",

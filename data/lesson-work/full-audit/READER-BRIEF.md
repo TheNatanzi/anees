@@ -7,7 +7,9 @@ Be complete: a miss is worse than a low-confidence row (confidence is a field). 
 ## Read ONLY these files
 - `data/lesson-work/full-audit/<date>.txt` - the transcript. `[mm:ss] Medi:` / `Amal:` / `CHAT Amal:` (typed in Meet chat;
   chat lines lag the voice by 30-120 s, they usually spell out a fix she just said or that he just said wrong).
-- `data/lesson-work/full-audit/buckets.md` - the 57 grammar rules with their ids.
+- `data/lesson-work/full-audit/buckets.md` - the 60 grammar rules with their ids (A12, C11, C12 added 2026-10-02: Medi approved
+  GR-18 proposals - A12 pronoun matches who you mean (humma / heyye for the real person), C11 noun not verb after a
+  preposition (bi el-tabe5), C12 a doing verb says what was done (3amalna tamreen kteer). File such fixes there, not PROPOSE).
 - `data/lesson-work/full-audit/amal-sheet.txt` - her vocabulary Doc (english | arabizi | arabic | key). grep it.
 - `RULES.md` - S1..S6.
 Do NOT open: `data/grammar-sweep-*.json`, `plan/GRAMMAR-CORRECTION-SWEEP-*.md`, `docs/data/lessons/*.json`,

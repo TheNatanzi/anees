@@ -66,6 +66,7 @@
   - It's preferred and more natural to put the duration right after sarli. (Amal)
   - Fixed 2026-09-29: the old second example (min saarlha?) was wrong - it is 2adaish sarlak. (Amal)
 - **B18** verb matches its subject (The verb system): The verb's person, gender and number must match who or what is doing it.
+- **A12** pronoun matches who you mean (The noun phrase): Pick the pronoun for the real person: humma for 'they', heyye for 'she'.
 - **C1** no word for 'to be' (Sentence glue): Arabic drops am / is / are in the plain present.
 - **C2** the pointer rule (Sentence glue): Move the object to the front and the verb grows an ending pointing back.
 - **C3** comparatives (Sentence glue): `a7san`, `aktar`, `a2al` - and never `el-` in front.
@@ -90,6 +91,8 @@
   - kam also means few: 3indi kam ishi = I have a few things. (Amal)
 - **C9** word order (Sentence glue): Normal is verb then object; front the object and C2 kicks in.
 - **C10** preposition goes in front (Sentence glue): English leaves it dangling; Arabic never does.
+- **C11** noun, not verb, after a preposition (Sentence glue): After bi / fi / min use the noun of the action, not a verb.
+- **C12** a doing verb says what was done (Sentence glue): A verb like 3amal (do / make) names what was done.
 - **D1** prepositions (Words that pick their partner): Small words with several jobs each.
   - For the fuller explanation, see Amal's Doc "Arabic Materials". (Amal)
 - **D2** verb + its fixed preposition (Words that pick their partner): The verb chooses it. You can't guess from English.
