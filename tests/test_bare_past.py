@@ -29,3 +29,13 @@ def test_guards():
     assert len(scratch.match('حكيت')) > 1                                  # a different sense stays ambiguous
     no_topic = se.StrictMatcher([{k: v for k, v in w.items() if k != 'topic'} for w in W])
     assert no_topic.match('قدرت') == {}
+
+
+def test_latin_bare_past_exact_spelling_only():
+    m = se.StrictMatcher([{'key': 'ana 7akait', 'arabic': 'أنا حكيت', 'arabizi': 'Ana 7akait', 'topic': 'Past Tense'},
+                          {'key': 'ana nsIt', 'arabic': 'أنا نسيت', 'arabizi': 'Ana nsIt', 'topic': 'Past Tense'},
+                          {'key': 'ana sakeret', 'arabic': 'أنا سكرت', 'arabizi': 'Ana sakeret', 'topic': 'Past Tense'}])
+    assert m.match('7akait') == {'ana 7akait': 'pronoun_omission'}
+    assert m.match('sakeret') == {'ana sakeret': 'pronoun_omission'}
+    assert m.match('nsit') == {}                                           # too short without a digit: not trusted bare
+    assert m.match('7akeet') == {}                                         # no phoneme folding
