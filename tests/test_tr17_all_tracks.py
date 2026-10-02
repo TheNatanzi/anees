@@ -154,3 +154,16 @@ def test_tr_17_same_day_rules_stack_on_the_re_read_event_and_undo_cleanly():
     assert c['auto_rule'] == 'TR-17' and c['scored_in_event'] is True and c['needs_review'] is True
     R.unlayer(review, ['a'])                                   # a re-run starts from the TR-17 patch alone
     assert review['patches']['a']['changes'] == {'auto_rule': 'TR-17', 'assessment': 'independent', 'needs_review': False}
+
+
+def test_tr_17_backfill_survives_the_unresolved_word_audit_reset():
+    import audit_vocab_unresolved as A
+    assert L.AUDIT_REVIEWER == A.REVIEWER
+    current = {'a': _ev('a')}
+    rebuilt = [_ev('a', reason='heard', assessment='independent', needs_review=False, spoken=True)]
+    review = {'patches': {'a': {'expected': {}, 'changes': {'audit_created': True, 'audit_kind': 'repeat',
+                                                             'audit_by': A.REVIEWER, 'immediate_repeat': True}}}}
+    L.reconcile_tracks(rebuilt, current, review)
+    A.reset(review)                                         # the audit's re-run starts by removing its own patches
+    assert review['patches']['a']['changes']['auto_rule'] == 'TR-17'
+    assert review['patches']['a']['changes']['assessment'] == 'independent'

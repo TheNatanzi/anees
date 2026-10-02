@@ -293,6 +293,7 @@ WITHHELD = 'Tutor recording context unavailable for this interval; vocabulary as
 EVENT_KEYS = ['source_sha256', 'row_id', 'word_key', 'text', 't_start', 't_end']
 REVIEW = ROOT / 'docs' / 'data' / 'word-bank-review.json'
 TR17_TAG = 'TR-17'
+AUDIT_REVIEWER = 'Claude audit 2026-09-28'      # scripts/audit_vocab_unresolved.py REVIEWER
 
 
 def reconcile_tracks(events, current, review):
@@ -320,18 +321,28 @@ def reconcile_tracks(events, current, review):
                    'now covers this moment.')
         p = review['patches'].get(e['id'])
         exp = {k: old.get(k) for k in EVENT_KEYS + ['assessment', 'reason']}
-        if p is None or (p['changes'].get('audit_created') and p['changes'].get('audit_kind') == 'tutor_audio_missing'):
-            review['patches'][e['id']] = {'expected': exp, 'changes': fix}
-        else:
-            c = p['changes']
-            prior = c.pop('audit_prior', None) if c.get('audit_kind') == 'tutor_audio_missing' else None
-            if prior is not None:                     # undo the missing-audio bin, keep what it had overwritten
-                for k in [k for k in c if k.startswith('audit_')] + ['review_locked', 'reviewer']:
+        if p is not None and p['changes'].get('auto_rule') == TR17_TAG:
+            fixes[e['id']] = fix                      # already reconciled (a re-run): its stacked fields stay
+            continue
+        if p is not None and p['changes'].get('audit_by') == AUDIT_REVIEWER:
+            # the unresolved-word audit's bin was made on the withheld event: take it out (its re-run re-bins the
+            # re-read event on top of this patch). A bin it created is dropped; a bin on another patch is undone.
+            if p['changes'].get('audit_created'):
+                p = None
+            else:
+                c = p['changes']
+                prior = c.get('audit_prior') or {}
+                for k in [k for k in c if k.startswith('audit_')]:
                     c.pop(k, None)
                 for k, v in prior.items():
-                    if v != '__absent__':
+                    if v == '__absent__':
+                        c.pop(k, None)
+                    else:
                         c[k] = v
-            c.update(fix)
+        if p is None:
+            review['patches'][e['id']] = {'expected': exp, 'changes': fix}
+        else:
+            p['changes'].update(fix)
         fixes[e['id']] = fix
     return new, fixes
 
