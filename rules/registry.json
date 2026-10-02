@@ -608,6 +608,65 @@
    ]
   },
   {
+   "id": "TR-17",
+   "kind": "data",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every recording of each person is transcribed (a reconnect makes a second track), placed on the lesson clock by its own start offset and merged per speaker, with overlapping speech counted once; never only the longest recording.",
+   "plain": "Every recording of each person is turned into text and put at its own time in the lesson, so a reconnect never loses part of the lesson; speech heard on two recordings counts once.",
+   "plain_for": "d5fbcba5",
+   "topic": "speakers",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "fix"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "there was a new word from the lesson yesterday... you didnt catch it it was like sheja3a or something for \"motivation\". why didnt you catch this"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/hourly_lessons.py",
+     "contains": "def track_transcripts("
+    },
+    {
+     "type": "code",
+     "path": "scripts/load_lesson.py",
+     "contains": "def dedupe_rows("
+    },
+    {
+     "type": "code",
+     "path": "scripts/fill_meet_gaps.py",
+     "contains": "the lesson load already has it as a segment (rule TR-17)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tr17_all_tracks.py",
+     "contains": "def test_tr_17_every_recording_of_each_person_is_transcribed_not_only_the_longest"
+    },
+    {
+     "path": "tests/test_tr17_all_tracks.py",
+     "contains": "def test_tr_17_reconnect_recording_is_placed_on_the_lesson_clock_by_its_own_start"
+    },
+    {
+     "path": "tests/test_tr17_all_tracks.py",
+     "contains": "def test_tr_17_overlapping_recordings_of_one_person_are_counted_once"
+    }
+   ],
+   "example": {
+    "date": "2026-10-01",
+    "t": "06:29",
+    "note": "Amal reconnected, so she has two recordings (00:01-20:38 and 23:12-1:06:03). Only the longest was transcribed: her first 20.5 min never reached the transcript, so readers saw only Medi's side when she taught mitshajje3 (06:29, typed 'mitshajje3 = motivated' at 06:52)."
+   }
+  },
+  {
    "id": "AZ-01",
    "kind": "display",
    "scope": "arabizi",

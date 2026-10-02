@@ -489,6 +489,8 @@ def find_own_track(entry, raw=RAW):
         path = f if f.exists() else Path(raw) / entry['date'] / 'tracks' / f.name
         if used and path.name == used:
             continue                                     # that one is already transcribed: not the gap's cause
+        if (Path(raw) / entry['date'] / f'scribe_{side}_seg{int(rel0)}.json').exists():
+            continue                                     # the lesson load already has it as a segment (rule TR-17)
         cands.append({**t, 'path': str(path), 'offset_s': rel0, 'duration_s': dur})
     if not cands:
         return None, f'no untranscribed {side} track covering {win["from"]} in tracks.json'

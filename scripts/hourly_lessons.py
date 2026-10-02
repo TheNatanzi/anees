@@ -147,13 +147,40 @@ def meet_for(date, recordings):
 
 def longest_tracks(tracks):
     """{'Amal': track, 'Medi': track}: each person's longest recording (the host's silent track is skipped)."""
+    return {who: trks[0] for who, trks in person_tracks(tracks).items()}
+
+
+MIN_EXTRA_S = 3.0      # a reconnect recording shorter than this holds no speech worth a paid call
+
+
+def person_tracks(tracks):
+    """{'Amal': [longest, other...], 'Medi': [...]}: EVERY recording of each person (rule TR-17). A reconnect to the Meet
+    makes a new track per person; before 2026-10-02 only the longest was transcribed, so Amal's first 20 min of 10-01
+    (00:00-20:37, where she taught mitshajje3) never reached the transcript. The host's silent track is skipped."""
     import load_lesson as L
-    best = {}
+    out = {}
     for trk in tracks:
         who = L._person(trk['participant'])
-        if who and (who not in best or (trk.get('duration_s') or 0) > (best[who].get('duration_s') or 0)):
-            best[who] = trk
-    return best
+        if who:
+            out.setdefault(who, []).append(trk)
+    for trks in out.values():
+        trks.sort(key=lambda t: -(t.get('duration_s') or 0))
+    return out
+
+
+def track_transcripts(lesson_dir, tracks, min_extra_s=MIN_EXTRA_S):
+    """[(out_json, track, who)] for every recording of each person (rule TR-17): the longest -> scribe_<who>.json (as
+    before), every other one -> scribe_<who>_seg<start>.json, which load_lesson.add_segments places on the lesson clock
+    by its own start offset. transcribe_once never pays twice for one file."""
+    out = []
+    for who, trks in person_tracks(tracks).items():
+        out.append((Path(lesson_dir) / f'scribe_{who}.json', trks[0], who))
+        for t in trks[1:]:
+            if (t.get('duration_s') or 0) < min_extra_s:
+                continue
+            start = int(float((t.get('start') or {}).get('relative') or 0))
+            out.append((Path(lesson_dir) / f'scribe_{who}_seg{start}.json', t, who))
+    return out
 
 
 def load(date, lesson_dir, work, meet, apply):
@@ -456,8 +483,10 @@ def _main():
             elif t['kind'] == 'tracks':
                 if not (lesson_dir / 'tracks' / 'tracks.json').exists():
                     R.fetch(t['bot_id'], date=d, wait_minutes=0)
-                for who, trk in longest_tracks(json.loads((lesson_dir / 'tracks' / 'tracks.json').read_text(encoding='utf-8'))['tracks']).items():
-                    transcribe_once(lesson_dir / f'scribe_{who}.json', Path(trk['file']), who)
+                # every recording of each person, not only the longest (rule TR-17, Medi 2026-10-02 "fix")
+                for out_json, trk, who in track_transcripts(lesson_dir, json.loads((lesson_dir / 'tracks' / 'tracks.json').read_text(encoding='utf-8'))['tracks']):
+                    f = Path(trk['file'])
+                    transcribe_once(out_json, f if f.exists() else lesson_dir / 'tracks' / f.name, who)
             else:
                 import lesson_pipeline as lp
                 src = Path(t['path'])

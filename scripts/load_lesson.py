@@ -92,31 +92,96 @@ def build_tracks(date, raw, work):
     return data, {'kind': 'tracks', 'ranges': ranges, 'omitted': omitted, 'audio': audio, 'chosen': chosen, 'extra_segments': extra}
 
 
-def add_segments(date, raw, data, omitted):
-    """Reconnect segments saved under tracks/recovered/ and transcribed as scribe_<who>_seg<start>.json join the transcript
-    as their own source (page + events). Returns the segment track entries used."""
+OVERLAP_TOL_S = 0.8     # a segment word with the same text as the same person's word this close = one spoken word
+DUP_SHARE = 0.5         # a segment row whose words are at least this share duplicates is the same speech, heard twice
+
+
+def _norm_word(t):
+    import re
+    return re.sub(r'[^\w]', '', str(t or '').lower())
+
+
+def dedupe_rows(rows, existing):
+    """Rule TR-17: two recordings of one person can overlap for a moment (the old connection still open while the new
+    one starts). A segment row whose words are mostly the same words at the same lesson time as that person's rows
+    already in the transcript is the same speech heard twice: it is dropped (returned second). Rows are kept whole, so
+    every item id still points at its raw response index (RULES.md S2)."""
+    import bisect, collections
+    have = collections.defaultdict(list)
+    for r in existing:
+        for i in r['items']:
+            if i.get('type') == 'word' and i.get('timeline_start') is not None:
+                have[(r['speaker_label'], _norm_word(i['text']))].append(i['timeline_start'])
+    for v in have.values():
+        v.sort()
+
+    def dup(r, i):
+        ts = have.get((r['speaker_label'], _norm_word(i['text'])))
+        if not ts:
+            return False
+        k = bisect.bisect_left(ts, i['timeline_start'] - OVERLAP_TOL_S)
+        return k < len(ts) and ts[k] <= i['timeline_start'] + OVERLAP_TOL_S
+
+    keep, dropped = [], []
+    for r in rows:
+        words = [i for i in r['items'] if i.get('type') == 'word' and i.get('timeline_start') is not None]
+        n = sum(dup(r, i) for i in words)
+        (dropped if words and n / len(words) >= DUP_SHARE else keep).append(r)
+    return keep, dropped
+
+
+def segment_tracks(raw, manifest=None):
+    """{file name: track entry} of every recording a segment transcript may come from: the reconnect recordings recovered
+    by hand (tracks/recovered/recovery.json, 09-15..09-17) and every recording in tracks/tracks.json (rule TR-17: the
+    hourly job transcribes each person's other recordings as scribe_<who>_seg<start>.json)."""
     import sync_speaking_lesson as S
+    out = {}
+    tj = raw / 'tracks' / 'tracks.json'
+    for t in (manifest or (S.read(tj) if tj.exists() else {})).get('tracks') or []:
+        f = raw / 'tracks' / Path(t['file']).name
+        out[f.name] = {**t, 'file': str(f)}
     rec = raw / 'tracks' / 'recovered' / 'recovery.json'
-    recovered = S.read(rec)['recovered'] if rec.exists() else []
+    for t in (S.read(rec)['recovered'] if rec.exists() else []):
+        f = raw / 'tracks' / 'recovered' / Path(t['file']).name
+        out[f.name] = {**t, 'file': str(f)}
+    return out
+
+
+def add_segments(date, raw, data, omitted):
+    """Every other recording of a person (a reconnect: rule TR-17), transcribed as scribe_<who>_seg<start>.json, joins the
+    transcript as its own source (page + events), placed on the lesson clock by its OWN start offset (tracks.json
+    start.relative). Rows that repeat speech already in the transcript (overlapping recordings) are dropped
+    (dedupe_rows). Returns the segment track entries used."""
+    import sync_speaking_lesson as S
+    tracks = segment_tracks(raw)
     used = []
     for resp_path in sorted(raw.glob('scribe_*_seg*.json')):
         if resp_path.name.endswith('.provenance.json'):
             continue
         prov = S.read(resp_path.with_name(resp_path.stem + '.provenance.json'))
-        seg = next(s for s in recovered if Path(s['file']).name == Path(prov['source_file']).name)
-        seg = {**seg, 'file': str(raw / 'tracks' / 'recovered' / Path(seg['file']).name)}
-        assert S.filehash(seg['file']) == prov['source_sha256'] == seg['sha256']
+        seg = tracks.get(Path(prov['source_file']).name)
+        if seg is None:
+            raise ValueError(f'{resp_path.name}: its recording {Path(prov["source_file"]).name} is in neither tracks.json nor recovery.json')
+        sha = S.filehash(seg['file'])
+        assert sha == prov['source_sha256'] and seg.get('sha256', sha) == sha, f'{resp_path.name}: recording changed since it was transcribed'
+        seg = {**seg, 'sha256': sha}
         who = _person(seg['participant'])
         sid = f'anees-{date.replace("-", "")}-recall-{who.lower()}-seg{int(seg["start"]["relative"])}'
         response = S.read(resp_path)
         offset = seg['start']['relative']
+        if not any(w.get('type') == 'word' for w in response.get('words') or []):
+            used.append(seg)                 # transcribed, silent: nothing to add, but no longer "not transcribed"
+            continue
         data['sources'][sid] = {'id': sid, 'speaker_label': who, 'speaker_basis': 'participant_track_not_voice_verified',
-                                'source_sha256': seg['sha256'], 'response_sha256': S.filehash(resp_path), 'input_path': seg['file'],
+                                'source_sha256': sha, 'response_sha256': S.filehash(resp_path), 'input_path': seg['file'],
                                 'file_uri': Path(seg['file']).as_uri(), 'bytes': Path(seg['file']).stat().st_size,
                                 'track_offset_s': offset, 'duration_s': response.get('audio_duration_secs'),
                                 'language_code': response.get('language_code'), 'response_path': str(resp_path),
                                 'asr_mode': {'model': 'scribe_v2', 'requested_language': response.get('language_code') or 'auto', 'keyterms_count': 0}}
-        data['rows'].extend(S.source_rows(sid, who, offset, response))
+        keep, dropped = dedupe_rows(S.source_rows(sid, who, offset, response), data['rows'])
+        if dropped:
+            data['sources'][sid]['overlap_rows_dropped'] = [r['id'] for r in dropped]
+        data['rows'].extend(keep)
         used.append(seg)
     data['rows'].sort(key=lambda r: (r['timeline_start'] is None, r['timeline_start'] or 0, r['source_id'], r['items'][0]['index']))
     return used
