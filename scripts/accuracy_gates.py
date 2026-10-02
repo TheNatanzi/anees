@@ -381,8 +381,8 @@ def grammar_denominator(slips, usage_lesson):
     else:
         if uses < len(slips):
             reasons.append(f"fewer counted uses ({uses}) than corrected slips ({len(slips)})")
-        if latin:
-            reasons.append(f"{len(latin)} of {len(slips)} slips are in turns the engine wrote in Latin letters, which the usage counter skips")
+        # 2026-10-01: the usage counter reads Latin-letter (Arabizi) turns too (scripts/arabizi_reader.py), so a slip in a
+        # Latin turn no longer makes the denominator invalid by itself; slips_latin stays as a number for the record.
         if zero:
             reasons.append(f"{len(zero)} slips are in rules the counter found 0 uses of in this lesson")
         if over:

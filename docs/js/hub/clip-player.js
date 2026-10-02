@@ -1,52 +1,32 @@
 /* One audio bar for every moment in the Tutor hub (Medi 2026-10-01: "every single media play button has a bar with
-   start, stop and progress"). AneesClip.bar({src, start, end, fallback}) returns the bar element: play / pause, stop
-   (back to the start of the moment), a slider over the moment, and the time. Only one moment plays at a time.
+   start, stop and progress"; 2026-10-02: the same player as every other page - js/play-bar.js AneesPlayer).
+   AneesClip.bar({src, start, end, fallback}) returns the bar element (play / pause, stop, progress, volume, ⋯ menu),
+   with .play() / .pause(). Only one moment plays at a time (AneesPlayer does that for the whole site).
    If the clip file is missing, the bar plays the same moment from the full lesson recording (fallback {src,start,end}),
    so a Play button never does nothing. Times are seconds; end null = to the end of the file. */
 (function (root) {
   'use strict';
-  let current = null;
-  const fmt = s => { s = Math.max(0, s || 0); const m = Math.floor(s / 60), x = Math.floor(s % 60); return m + ':' + (x < 10 ? '0' : '') + x; };
+  function setRange(a, s, e) {
+    a.dataset.clipStart = String(s || 0);
+    if (e == null) delete a.dataset.clipEnd; else a.dataset.clipEnd = String(e);
+  }
   function bar(o) {
-    const el = document.createElement('div');
-    el.className = 'hb-player';
-    el.innerHTML = '<button type="button" class="hb-pp" aria-label="Play">▶</button><button type="button" class="hb-stop" aria-label="Stop">■</button>' +
-      '<input type="range" min="0" max="1000" step="1" value="0" aria-label="Position in the moment"><span class="hb-time">0:00</span>';
-    const pp = el.querySelector('.hb-pp'), st = el.querySelector('.hb-stop'), sl = el.querySelector('input'), tm = el.querySelector('.hb-time');
     const a = new Audio(); a.preload = 'none'; a.dataset.ownBar = '1';
-    let src = o.src, s = o.start || 0, e = o.end == null ? null : o.end, fellBack = false, want = false, raf = 0, failed = false;
-    const end = () => (e != null ? e : (isFinite(a.duration) ? a.duration : s));
-    const me = { pause: () => { want = false; a.pause(); paint(); }, el };
-    function paint() {
-      const len = Math.max(0, end() - s), pos = Math.min(len, Math.max(0, a.currentTime - s));
-      pp.textContent = a.paused ? '▶' : '❚❚'; pp.setAttribute('aria-label', a.paused ? 'Play' : 'Pause');
-      sl.value = len ? Math.round(1000 * pos / len) : 0;
-      tm.textContent = failed ? 'Audio not found' : (len ? fmt(pos) + ' / ' + fmt(len) : fmt(pos));
-      el.classList.toggle('on', !a.paused);
-    }
-    function loop() { cancelAnimationFrame(raf); const t = () => { if (!a.paused && a.currentTime >= end() - 0.02 && end() > s) { a.pause(); want = false; } paint(); if (!a.paused) raf = requestAnimationFrame(t); }; raf = requestAnimationFrame(t); }
-    function load() { if (!a.src || !a.src.endsWith(src)) { a.src = src; a.load(); } }
-    function seek(t) { if (a.readyState >= 1) a.currentTime = t; else a.addEventListener('loadedmetadata', () => { a.currentTime = t; }, { once: true }); }
-    function play() {
-      if (current && current !== me) current.pause();
-      current = me; want = true; load();
-      if (a.readyState >= 1 && (a.currentTime < s || a.currentTime >= end() - 0.05)) a.currentTime = s;
-      else if (a.readyState < 1) seek(s);
-      const p = a.play(); if (p && p.catch) p.catch(() => {});
-      loop();
-    }
+    a.src = o.src; setRange(a, o.start, o.end);
+    let fellBack = false, want = false;
+    a.addEventListener('play', () => { want = true; });
+    a.addEventListener('pause', () => { want = false; });
     a.addEventListener('error', () => {
-      if (o.fallback && !fellBack) { fellBack = true; src = o.fallback.src; s = o.fallback.start || 0; e = o.fallback.end == null ? null : o.fallback.end; a.src = src; a.load(); if (want) play(); }
-      else { failed = true; want = false; paint(); }
+      if (o.fallback && !fellBack) {
+        fellBack = true; a.src = o.fallback.src; setRange(a, o.fallback.start, o.fallback.end); a.load();
+        a.addEventListener('loadedmetadata', () => { a.currentTime = o.fallback.start || 0; if (want) a.play().catch(() => {}); }, { once: true });
+      } else { a.__apbFailed = true; want = false; }
     });
-    ['play', 'pause', 'ended', 'loadedmetadata', 'seeked'].forEach(t => a.addEventListener(t, () => { if (t === 'play') loop(); paint(); }));
-    pp.onclick = () => (a.paused ? play() : me.pause());
-    st.onclick = () => { want = false; a.pause(); if (a.readyState >= 1) a.currentTime = s; paint(); };
-    sl.oninput = () => { load(); const t = s + (end() - s) * sl.value / 1000; seek(t); paint(); };
-    el.play = play; el.pause = me.pause;
-    paint();
+    const el = root.AneesPlayer.make(a);
+    el.play = () => { want = true; if (a.paused) el.querySelector('.apb-main').click(); };
+    el.pause = () => { want = false; a.pause(); };
     return el;
   }
-  function stopAll() { if (current) current.pause(); }
+  function stopAll() { document.querySelectorAll('.apb').forEach(b => b.audio && b.audio.pause()); }
   root.AneesClip = { bar, stopAll };
 })(window);

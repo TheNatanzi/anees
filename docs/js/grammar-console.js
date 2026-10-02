@@ -420,7 +420,7 @@ function useCard(e) {
   var card = el('div', 'gc-use gc-use-' + e.kind);
   var head = el('div', 'gc-usehead');
   var left = el('span');
-  var tag = el('span', 'gc-tag', e.kind === 'slip' ? 'Amal corrected you' : e.kind === 'right' ? 'Correct' : 'You asked');
+  var tag = el('span', 'gc-tag gc-verdict-' + e.kind, e.kind === 'slip' ? '✗ Wrong · Amal corrected you' : e.kind === 'right' ? '✓ Correct' : 'You asked');
   left.appendChild(tag);
   head.appendChild(left);
   head.appendChild(el('span', null, pretty(e.date) + (e.mmss ? ' · ' + e.mmss : '')));
@@ -602,12 +602,15 @@ function detail(r) {
   d.appendChild(head);
 
   var list = WRONGONLY[r.id] ? all.filter(function (e) { return e.kind === 'slip'; }) : all;
-  if (!list.length && !WRONGONLY[r.id] && r.usage && r.usage.length) {
+  // every use carries a clear verdict (Medi 2026-10-02): Wrong = Amal corrected it (same moment), Correct = she did not
+  var usage = (r.usage || []).filter(function (u) { return !WRONGONLY[r.id] || u.verdict === 'wrong'; });
+  if (!list.length && usage.length) {
     // no hand-checked uses: show where the usage pass saw him use the rule
-    r.usage.slice(0, SHOW).forEach(function (u) {
-      var card = el('div', 'gc-use gc-use-right');
+    usage.slice(0, SHOW).forEach(function (u) {
+      var wrong = u.verdict === 'wrong';
+      var card = el('div', 'gc-use ' + (wrong ? 'gc-use-slip' : 'gc-use-right'));
       var hd = el('div', 'gc-usehead');
-      hd.appendChild(el('span', 'gc-tag', 'You used it'));
+      hd.appendChild(el('span', 'gc-tag gc-verdict-' + (wrong ? 'slip' : 'right'), wrong ? '✗ Wrong · Amal corrected you' : '✓ Correct · Amal did not correct it'));
       hd.appendChild(el('span', null, pretty(u.date) + ' · ' + u.mmss));
       card.appendChild(hd);
       card.appendChild(speech('gc-said', u.said_html, u.said || ''));
@@ -620,7 +623,7 @@ function detail(r) {
       }
       d.appendChild(card);
     });
-    if (r.usage_total > SHOW) d.appendChild(el('p', 'ab-mini', 'Showing ' + SHOW + ' of ' + r.usage_total + ' uses.'));
+    if (!WRONGONLY[r.id] && r.usage_total > SHOW) d.appendChild(el('p', 'ab-mini', 'Showing ' + SHOW + ' of ' + r.usage_total + ' uses.'));
   } else if (!list.length) {
     d.appendChild(el('div', 'gc-empty', all.length
       ? 'No wrong uses on record for this rule in this range.'

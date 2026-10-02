@@ -112,6 +112,9 @@ def _drop_as_duplicate(r, keep, why):
     keep.setdefault("duplicates_merged", []).append(r["uid"])
 
 
+REPEAT_S = 30
+
+
 def mark_duplicates(rows, hand=()):
     """Same uid base twice -> the later row is the same slip (kind 'rejected', duplicate_of the kept uid, why).
     `hand` = [{"date", "keep", "drop", "why"}] pairs a context read judged to be one slip; keep/drop are uids."""
@@ -124,6 +127,17 @@ def mark_duplicates(rows, hand=()):
             _drop_as_duplicate(r, first[b], f"duplicate of {first[b]['uid']}: same lesson, second, wrong piece and kind (eng audit 2026-09-29)")
         else:
             first[b] = r
+    # He repeats the same wrong phrase and Amal fixes it once (Medi 2026-10-01: عشرين سجاد at 09-30 09:49 and 10:05 is one
+    # slip): same lesson, rule, kind and wrong piece within REPEAT_S seconds -> the later row is the same slip.
+    last = {}
+    for r in sorted(rows, key=lambda x: (x["date"], sec(x.get("t")) if sec(x.get("t")) is not None else 1e9)):
+        if r["kind"] == "rejected" or sec(r.get("t")) is None or not norm(r.get("wrong")):
+            continue
+        k = (r["date"], r.get("bucket"), r["kind"], norm(r.get("wrong")))
+        if k in last and sec(r["t"]) - sec(last[k]["t"]) <= REPEAT_S:
+            _drop_as_duplicate(r, last[k], f"duplicate of {last[k]['uid']}: he repeated the same wrong phrase within {REPEAT_S} s, one slip (Medi 2026-10-01)")
+        else:
+            last[k] = r
     by_uid = {r["uid"]: r for r in rows}
     for h in hand:
         keep, drop = by_uid.get(h["keep"]), by_uid.get(h["drop"])

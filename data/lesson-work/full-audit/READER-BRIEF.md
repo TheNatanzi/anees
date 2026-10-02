@@ -42,6 +42,14 @@ NOT errors (leave out, or note in `coverage_note` if it matters):
   didn't-know is still "Amal supplied the word", so it goes on his page, but its tier 0 keeps it apart.)
 - Listening drills where he MISREAD her Arabic aloud: write them with `mode = "listening"` (kept apart, still written).
 - Chat lines that simply transcribe what he said right.
+- (Medi 2026-10-01, from the 09-30 review) He is mid-sentence and Amal supplies the next word (he started with صديقة,
+  she said "House", he built بيت صديقة خطيبتي, she said ممتاز): that is help on the way to a right answer, not a slip.
+- (same) Amal says both forms are fine / explains that his version is also valid (الدرس العربي vs درس العربي): not a slip.
+- (same) He applies the rule just drilled and Amal only re-phrases it a nicer way (Hadi el-shanta -> شنتة السفر هذه): not a slip.
+- (same) A QUESTION about the rule ("when is it طاولة الكبير?", "is it X or Y?") is neither a slip nor a use.
+- (same) He repeats the same wrong phrase and Amal fixes it once (عشرين سجاد at 09:49 and 10:05): ONE row, the first.
+- (Medi 2026-10-02) "كم مرة؟" alone, right after Amal spoke, that she answers by repeating herself = he asked
+  "kaman marra?" (again?), Scribe dropped "-an". Not كم + noun, not a slip.
 
 Machine flags (echo match, cue words like "no", 15-second rule) are CLUES only. Your row must quote the actual
 Medi line and the actual Amal line that prove it.

@@ -19,6 +19,7 @@ from collections import Counter, defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from lesson_turns import lesson_turns  # noqa: E402
+from arabizi_reader import to_arabic  # noqa: E402  (2026-10-01: Latin-letter turns are read too)
 
 ANEES = r"C:\dev\anees\data\lessons"
 # 2026-09-29: always this checkout's docs, so a worktree never writes into the live hourly checkout (see 278753d)
@@ -85,6 +86,17 @@ for x in _items:
     for w in AR_WORD.findall(x.get("arabic") or ""):
         if w.endswith("ة") and len(w) >= 3:
             FEM_NOUNS.add(nrm(w))
+# Nouns from Amal's Doc (one-word entries of her noun topics), for possession: a noun + an owner (2026-10-01, the 09-30
+# idafa drill: dars el-3arabi, bab el-8urfa, bent jaari, kundret el-Chanel were not on the old fixed head-word list).
+NOUN_TOPICS = {"Food and Drink", "Travel and Weather", "Time and Calendar", "Nature and Places", "Household Items",
+               "People, Family, and Professions", "Body Parts and Clothing", "Random Nouns", "Animals"}
+NOUNS = set()
+for x in _items:
+    ws = AR_WORD.findall(re.split(r"\s*/\s*", x.get("arabic") or "")[0])
+    if x.get("topic") in NOUN_TOPICS and len(ws) == 1 and len(nrm(ws[0])) >= 2 and not ws[0].startswith("ال"):
+        NOUNS.add(nrm(ws[0]))
+NOUNS -= ADJ | PAST | COMMAND | PRONOUN_WORDS | {nrm(w) for w in ("هادي", "نفس", "مرة", "يوم", "شي", "إشي")}
+POSS = ("ي", "ك", "ه", "ها", "نا", "هم", "كم")
 
 
 def is_past(w):
@@ -109,7 +121,8 @@ P = {
  "A2":  [r"(?:^|\s)(?:بيت|اسم|باب|سيارة|شغل|أخو|بنت|ابن|نفس|آخر|أول|عكس|درجة|شمال|جنوب)\s+ال[\u0621-\u064A]{2,}"],
  "A3":  [r"(?:^|\s)(?!ال|مرة)[ء-ي]{2,}ة\s+ال[ء-ي]{2,}"],  # a feminine noun before its owner
  "A4":  [r"(?:^|\s)(?:اسمي|اسمك|اسمها|بيتي|بيتك|بيتها|شغلي|شغلك|عمري|عمرك|حالي|حالك|إلي|إلك|صاحبي|صاحبتي|بلوزتي|أواعي|أهلي|عيلتي)" + E],
- "A5":  [r"(?:^|\s)(?:باب|مفتاح|صاحب)\s+[\u0621-\u064A]{3,}\s+ال[\u0621-\u064A]{3,}"],
+ # the middle noun is bare: bab el-8urfa el-maftoo7 (noun + owner + adjective) is not a chain (2026-10-01)
+ "A5":  [r"(?:^|\s)(?:باب|مفتاح|صاحب)\s+(?!ال)[\u0621-\u064A]{3,}\s+ال[\u0621-\u064A]{3,}"],
  # A job made of TWO words (doktoar snaan, m3allem el-3arabi). A lone job word is vocabulary, not this rule.
  "A6":  [r"(?:^|\s)(?:دكتور|دكتورة|معلم|معلمة|أستاذ|أستاذة|مهندس|مهندسة|محامي|محامية|طبيب|طبيبة)"
          r"\s+(?!(?:و|في|من|مع|على|عن|يعني|شو|مش|هو|هي|كمان|بس)(?:\s|$))[ء-ي]{2,}"],
@@ -119,7 +132,7 @@ P = {
  "A9":  [r"(?:^|\s)(?:بيوت|أيام|ايام|ساعات|ولاد|بنات|شبابيك|أبواب|كتب|ألوان|أشياء|ناس|زلام|نسوان|مطاعم|صور|خطط|دول|مرات)" + E],
  "A9b": [r"(?:^|\s)(?:بيوت|بواب|شبابيك|سيوف|عيون|مكاتب|مساجد|مطاعم|أولاد|ولاد)" + E],
  "A10": [r"(?:^|\s)(?:هاد|هادي|هدول|هذا|هذي|هداك|هديك|هاي)" + E],
- "A10b":[r"(?:^|\s)(?:هاد|هادي|هدول|هذا|هذي|هاي)\s+ال[\u0621-\u064A]{2,}"],
+ "A10b":[r"(?:^|\s)(?:هاد|هادي|هدول|هذا|هذي|هاي|هداك|هديك|هدولاك)\s+ال[\u0621-\u064A]{2,}"],
  "A11": [r"(?:^|\s)الكل" + E, r"(?:^|\s)كل\s+(?:حدا|إشي|اشي|شي|يوم|الناس|ال[\u0621-\u064A]{2,})"],
 
  "B2":  [r"(?:^|\s)(?:بدي|بدك|بدها|بدنا|بدهم|لازم|ممكن|بحب|بقدر|بتقدر|بجرب|ببلش|بعرف)\s+" + BARE_IMPERF,
@@ -208,6 +221,47 @@ def unmask(hit, back):
 A1_SKIP = {nrm(w) for w in ("الله", "اللي", "اللهم")}
 
 
+def _noun(w):
+    """A bare noun of Amal's (also its feminine -t form before an owner: صديقت, شنتت)."""
+    n = nrm(w)
+    if w.startswith("ال") or n in ADJ or "ً" in w:      # tanween (عادةً) is an adverb, not a noun
+        return False
+    return n in NOUNS or (n.endswith("ت") and n[:-1] + "ه" in FEM_NOUNS)
+
+
+def _owner(w):
+    """The owner in a possession: an el- noun that is not an adjective, a noun with a possessive ending, or a name."""
+    n = nrm(w)
+    if w == NAME_STANDIN:
+        return True
+    if w.startswith("ال") and len(n) >= 4 and n not in A1_SKIP:
+        return n[2:] not in ADJ
+    for s_ in POSS:
+        if n.endswith(s_) and len(n) - len(s_) >= 2:
+            b = n[: -len(s_)]
+            if b in NOUNS or (b.endswith("ت") and b[:-1] + "ه" in FEM_NOUNS):
+                return True
+    # a feminine noun with "my / your / her" not on her list (خطيبتي, 09-30 63:07); never a verb (حكيتي, شفتي)
+    if re.search(r"ت(?:ي|ك|ها)$", n) and len(n) >= 5 and not is_past(n) and not is_b_present(n):
+        return True
+    return False
+
+
+def possession(txt):
+    """A2 / A5 from Amal's nouns. Commas are pauses; anything else that is not an Arabic word ends the phrase."""
+    ws = [w if AR_WORD.fullmatch(w) else "." for w in re.findall(AR_WORD.pattern + r"|[^\s،,]+", txt)]
+    # a restart is one word: "صديق، uh, صديقة" -> صديقة, "benet, uh, benet" -> benet
+    ws = [w for k, w in enumerate(ws) if not (w != "." and k + 1 < len(ws) and ws[k + 1].startswith(w))]
+    hits = {}
+    for i in range(len(ws) - 1):
+        a, b = ws[i], ws[i + 1]
+        if "A5" not in hits and i + 2 < len(ws) and _noun(a) and _noun(b) and _owner(ws[i + 2]):
+            hits["A5"] = " ".join(ws[i:i + 3])
+        if "A2" not in hits and _noun(a) and _owner(b):
+            hits["A2"] = a + " " + b
+    return hits
+
+
 def word_rules(words):
     """Buckets that come from single words (Doc lexicons), with the word."""
     hits = {}
@@ -217,7 +271,7 @@ def word_rules(words):
             hits["A1"] = w
         if is_b_present(n) and "B1" not in hits:
             hits["B1"] = w
-        if is_past(n) and "B5" not in hits:
+        if is_past(n) and n not in NOUNS and "B5" not in hits:   # درس is "a lesson" far more than "he studied"
             hits["B5"] = w
         if n in COMMAND and not w.startswith("أ") and "B10" not in hits:
             hits["B10"] = w
@@ -243,11 +297,128 @@ names = {b["id"]: b["name"] for b in buckets}
 # F1/F2/F3 are sounds (rule M4) - not counted as grammar uses.
 NOT_COUNTED = {"F1", "F2", "F3"}
 
+def detect(txt, only=None):
+    """{bucket: hit} for one line already in Arabic script (names masked). `only` limits the buckets."""
+    txt = re.sub(r"(?:^|\s)الـ(?=\s|$|[،,.])", " ", txt)
+    txt = re.sub(r"\S+(--|—)", " ", txt)  # a word he broke off
+    words = AR_WORD.findall(txt)
+    found = word_rules(words)
+    for bid, hit in possession(txt).items():
+        found.setdefault(bid, hit)
+    for bid in ids:
+        if bid in NOT_COUNTED or bid in found:
+            continue
+        for pat in P.get(bid, []):
+            mt = re.search(pat, txt)
+            if mt:
+                found[bid] = mt.group(0).strip()
+                break
+    return {k: v for k, v in found.items() if only is None or k in only}
+
+
+# A phrase he spreads over two or three turns ("so بيت" / "صديقة،" / "خطيبتي،" at 09-30 63:00, or "Hadi el," / "uh,
+# shanta" at 59:28) is one phrase: consecutive Medi turns <= JOIN_GAP s apart, with at most a one-word "yes / mm" from
+# Amal between them, are read together for the phrase rules below. A hit counts only when it crosses a turn boundary
+# (a hit inside one turn was already counted there), once per bucket per joined stretch.
+JOIN_GAP = 4.0
+OPEN_END = re.compile(r"(?:b(?:el|al|il)|الـ|ال)\s*[,،]?\s*$", re.I)   # "Hadi el," - the noun is still coming
+OPEN_GAP = 8.0
+JOIN_RULES = {"A2", "A3", "A5", "A6", "A7", "A10b"}
+BACKCHANNEL = {nrm(w) for w in ("إيه", "ايه", "اه", "آه", "مم", "ممم", "اي", "أيوه", "ايوه", "نعم", "صح", "اوكي", "أوكي")} | \
+    {"mm", "mhm", "mm-hmm", "uh-huh", "yes", "yeah", "okay", "ok", "right"}
+
+# Hand rulings on USES (2026-10-01, Medi's read of the 09-30 lesson): a moment the counter took for a use that is not one
+# (a question about the rule, or one slip the counter also counted as a right use). Matched by date + bucket + time
+# (+-3 s). Never deleted: each lands in grammar-usage.json "ruled_out" with its reason and is left out of every count.
+RULINGS_FILE = os.path.join(os.path.dirname(DOCS), "data", "grammar-usage-rulings.json")
+
+
+def _secs(v):
+    p = [float(x) for x in str(v).split(":")]
+    return p[0] * 3600 + p[1] * 60 + p[2] if len(p) == 3 else p[0] * 60 + p[1]
+
+
+def load_rulings():
+    if not os.path.exists(RULINGS_FILE):
+        return []
+    return [dict(r, _t=_secs(r["t"])) for r in json.load(open(RULINGS_FILE, encoding="utf-8"))["rows"]]
+
+
+def ruled(rulings, date, bucket, t):
+    return next((r for r in rulings if r["date"] == date and r["bucket"] == bucket and abs(r["_t"] - t) <= 3.0), None)
+
+
+def _is_backchannel(text):
+    w = re.sub(r"[^\wء-ي-]+", " ", (text or "").lower()).split()
+    return len(w) <= 1 and (not w or nrm(w[0]) in BACKCHANNEL)
+
+
+def stretches(T):
+    """Runs of consecutive Medi turns (indexes into T) that read as one phrase (see JOIN_GAP)."""
+    runs, cur, last_end = [], [], None
+    for i, t in enumerate(T):
+        if t["speaker"] != "Medi":
+            if cur and t["start"] < last_end:
+                continue                                    # said while he still held the floor (his turn spans it)
+            if cur and not _is_backchannel(t["text"]):
+                runs.append(cur)
+                cur = []
+            continue
+        gap = OPEN_GAP if cur and OPEN_END.search(T[cur[-1]]["text"]) else JOIN_GAP
+        if cur and t["start"] - last_end > gap:
+            runs.append(cur)
+            cur = []
+        cur.append(i)
+        last_end = t.get("end", t["start"])
+    if cur:
+        runs.append(cur)
+    return [r for r in runs if len(r) > 1]
+
+
+def read_turn(t):
+    """(text in Arabic script with names masked, names, read_as or None). read_as = the line as the counter read it
+    when it had Latin letters (Arabizi), so the page can show what was counted."""
+    if _is_farsi(t["text"]):
+        return None, [], None                       # Farsi side conversation (2026-09-28) is no grammar evidence
+    txt, back = mask_names(t["text"])               # names are never rule triggers (see mask_names)
+    ar = to_arabic(txt)
+    if not AR_WORD.search(ar):
+        return None, back, None
+    return ar, back, (unmask(ar, back) if ar != txt else None)
+
+
+# Automatic "not a use" rules (Medi 2026-10-02: "you are creating rules for yourself for future lessons right"). Each
+# came from a hand ruling; every moment they skip is listed in grammar-usage.json "not_uses_auto" with the reason.
+# 1. A question ABOUT the rule: English "when is it / is it / do I say / how do you say / what's" right before the Arabic
+#    (09-30 34:49 "but when is it طاولة الكبير?") - he is asking, not using.
+ASK_FRAME = re.compile(r"\b(?:when is it|when do (?:i|you|we)|is it|do (?:i|you|we) say|how do (?:i|you|we) say|"
+                       r"what(?: i|')s|what does)\W*(?:\w+\W+){0,2}$", re.I)
+
+
+def asks_about_rule(text):
+    m = re.search(r"[ء-ي]", text or "")
+    return bool(m and ASK_FRAME.search(text[:m.start()]))
+
+
+# 2. "كم مرة؟" alone right after Amal spoke, and her next line repeats hers: he asked "kaman marra?" (again?) and Scribe
+#    dropped the -an (five moments, 09-10 .. 09-26). A real "how many times?" gets a number, not her sentence again.
+def asks_again(T, i, txt):
+    if re.sub(r"[^ء-ي ]|آآآ|اه|امم", " ", txt).split()[-2:] != ["كم", "مرة"]:
+        return False
+    before = next((T[j]["text"] for j in range(i - 1, max(-1, i - 4), -1) if T[j]["speaker"] != "Medi"), "")
+    after = next((T[j]["text"] for j in range(i + 1, min(len(T), i + 4)) if T[j]["speaker"] != "Medi"), "")
+    w = lambda x: {nrm(y) for y in AR_WORD.findall(x or "") if len(y) >= 3}
+    return len(w(before) & w(after)) >= 2
+
+
 if __name__ == "__main__":
     dates = sorted(d for d in os.listdir(ANEES) if re.fullmatch(r"\d{4}-\d{2}-\d{2}", d))
     NOT_ARABIC = {"2026-08-22", "2026-08-23", "2026-09-01"}
+    RULINGS = load_rulings()
 
     uses = defaultdict(list)
+    ruled_out = []
+    not_uses = []
     per_lesson = {}
     for date in dates:
         if date in NOT_ARABIC:
@@ -255,60 +426,96 @@ if __name__ == "__main__":
         T, src = lesson_turns(date)
         if not T:
             continue
-        medi = [t for t in T if t["speaker"] == "Medi" and AR_WORD.search(t["text"])]
         seen_here = Counter()
-        for t in medi:
-            if _is_farsi(t["text"]):
-                continue                                     # Farsi side conversation (2026-09-28) is no grammar evidence
-            txt, back = mask_names(t["text"])                # names are never rule triggers (see mask_names)
-            txt = re.sub(r"(?:^|\s)الـ(?=\s|$|[،,.])", " ", txt)
-            txt = re.sub(r"\S+(--|—)", " ", txt)  # a word he broke off
-            words = AR_WORD.findall(txt)
-            found = word_rules(words)
-            for bid in ids:
-                if bid in NOT_COUNTED or bid in found:
-                    continue
-                for pat in P.get(bid, []):
-                    mt = re.search(pat, txt)
-                    if mt:
-                        found[bid] = mt.group(0).strip()
-                        break
+        n_turns = n_latin = 0
+        read = {}
+
+        def add(t, bid, hit, read_as, back, joined=None):
             if back:
-                found = {k: unmask(v, back) for k, v in found.items()}
+                hit = unmask(hit, back)
+            u = {"date": date, "t": round(t["start"], 1),
+                 "mmss": "%02d:%02d" % (int(t["start"]) // 60, int(t["start"]) % 60), "hit": hit, "said": t["text"][:300]}
+            if read_as:
+                u["read_as"] = read_as[:300]
+            if joined:
+                u["joined"] = joined
+            r = ruled(RULINGS, date, bid, t["start"])
+            if r:
+                ruled_out.append(dict(u, bucket=bid, why=r["why"], ruling_by=r.get("by")))
+                return
+            seen_here[bid] += 1
+            uses[bid].append(u)
+
+        for i, t in enumerate(T):
+            if t["speaker"] != "Medi":
+                continue
+            txt, back, read_as = read_turn(t)
+            if txt is None:
+                continue
+            read[i] = (txt, back, read_as)
+            n_turns += 1
+            n_latin += bool(read_as and not AR_WORD.search(t["text"]))
+            if asks_about_rule(t["text"]):
+                not_uses.append({"date": date, "t": round(t["start"], 1), "said": t["text"][:300],
+                                 "why": "a question about the rule, not a use (automatic rule, Medi 2026-10-01)"})
+                continue
+            found = detect(txt)
+            if "E5" in found and asks_again(T, i, txt):
+                not_uses.append({"date": date, "t": round(t["start"], 1), "said": t["text"][:300], "bucket": "E5",
+                                 "why": "'كم مرة؟' and Amal repeats herself: he asked 'kaman marra' (again?) "
+                                        "(automatic rule, Medi 2026-10-02)"})
+                del found["E5"]
             for bid, hit in found.items():
-                seen_here[bid] += 1
-                uses[bid].append({
-                    "date": date,
-                    "t": round(t["start"], 1),
-                    "mmss": "%02d:%02d" % (int(t["start"]) // 60, int(t["start"]) % 60),
-                    "hit": hit,
-                    "said": t["text"][:300],
-                })
+                add(t, bid, hit, read_as, back)
+        for run in stretches(T):
+            run = [i for i in run if not _is_farsi(T[i]["text"])]
+            if len(run) < 2 or not any(i in read for i in run):
+                continue
+            # the raw lines are joined BEFORE the Arabizi read, so an el- at the end of one turn meets its noun in
+            # the next ("Hadi el," / "uh, shanta")
+            raw, back = mask_names(" , ".join(T[i]["text"] for i in run))
+            joined_txt = to_arabic(raw)
+            singles = [read[i][0] for i in run if i in read]
+            for bid, hit in detect(joined_txt, only=JOIN_RULES).items():
+                if any(hit in s_ for s_ in singles):
+                    continue                        # inside one turn: already counted there
+                first = hit.split()[0]
+                at = next((i for i in run if i in read and first in read[i][0]), run[0])
+                add(T[at], bid, hit, unmask(joined_txt, back), back, joined=[round(T[i]["start"], 1) for i in run])
         per_lesson[date] = {
             "source": src,
-            "medi_arabic_turns": len(medi),
+            "medi_arabic_turns": n_turns,
+            "medi_latin_turns_read": n_latin,
             "uses": sum(seen_here.values()),
             "unique_rules": len(seen_here),
             "by_bucket": dict(seen_here),
         }
-        print("%s  Medi Arabic turns=%4d  rule uses=%5d  unique rules=%2d"
-              % (date, len(medi), sum(seen_here.values()), len(seen_here)))
+        print("%s  Medi Arabic turns=%4d (Latin %3d)  rule uses=%5d  unique rules=%2d"
+              % (date, n_turns, n_latin, sum(seen_here.values()), len(seen_here)))
 
     totals = {bid: len(v) for bid, v in uses.items()}
     json.dump({
-        "updated": "2026-09-23",
-        "method": ("Every Medi turn in Arabic script is checked once per bucket. Verbs (B1 present, B5 past, "
-                   "B10 command) and adjectives (A8) are recognised from Amal's vocabulary Doc; the rest by "
-                   "pattern. Each use keeps the word that triggered it ('hit'). A use is the rule being "
-                   "exercised, right or wrong - it is not a mistake. Turns Scribe wrote in Latin letters "
-                   "are not counted here."),
+        "updated": "2026-10-01",
+        "method": ("Every Medi turn with Arabic in it is checked once per bucket - in Arabic script, or in Latin letters "
+                   "(Arabizi), which scripts/arabizi_reader.py reads as Arabic first (Amal's spelling of her own words; "
+                   "English and unknown words are breaks, never guessed); such a use keeps 'read_as'. Verbs (B1 present, "
+                   "B5 past, B10 command) and adjectives (A8) are recognised from Amal's vocabulary Doc; possession "
+                   "(A2 / A5) from her nouns; the rest by pattern. A phrase spread over consecutive turns is read "
+                   "together for the phrase rules (A2 A3 A5 A6 A7 A10b; 'joined' = the turns). Each use keeps the word "
+                   "that triggered it ('hit'). A use is the rule being exercised, right or wrong - it is not a mistake. "
+                   "Hand rulings (data/grammar-usage-rulings.json) move a moment that is not a use to 'ruled_out', "
+                   "with the reason; it is never deleted."),
         "lessons": per_lesson,
         "totals": totals,
         "uses": {k: v for k, v in uses.items()},
+        "ruled_out": ruled_out,
+        "not_uses_auto": not_uses,
     }, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
     print("\nwrote", OUT)
-    print("lexicons: past %d, command %d, present stems %d, adjectives %d" % (len(PAST), len(COMMAND), len(PRESENT_STEMS), len(ADJ)))
+    print("ruled out by hand:", len(ruled_out), "| skipped by the automatic rules:", len(not_uses))
+    print("lexicons: past %d, command %d, present stems %d, adjectives %d, nouns %d"
+          % (len(PAST), len(COMMAND), len(PRESENT_STEMS), len(ADJ), len(NOUNS)))
     print("rules with at least one use:", len(totals), "of", len(ids))
     for bid, n in sorted(totals.items(), key=lambda x: -x[1]):
         print("  %-5s %-34s %4d" % (bid, names[bid], n))

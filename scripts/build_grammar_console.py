@@ -329,6 +329,15 @@ def status(uses, mistakes):
 import grammar_math  # noqa: E402
 GT = grammar_math.table(usage.get("uses", {}), [{"bucket": c["bucket"], "date": c["date"], "t": c["t"]} for v in cands.values() for c in v],
                         [b["id"] for b in buckets], AMAL.not_taught)
+def use_verdict(u, slips):
+    """'wrong' when one of Amal's counted corrections for this rule pairs with the use (same lesson, within 2 s - the
+    grammar_math pairing), else 'right' (she did not correct it). Medi 2026-10-02: a clear Wrong / Correct on every use."""
+    for c in slips:
+        if c.get("date") == u["date"] and c.get("t") is not None and abs(int(c["t"]) - int(u["t"])) <= 2:
+            return "wrong"
+    return "right"
+
+
 rows = []
 for b in buckets:
     rid = b.get("tally_rule")
@@ -370,7 +379,7 @@ for b in buckets:
         "kind": r.get("kind") if r else None,
         "candidates": mine,
         "candidate_count": len(mine),
-        "usage": [dress_use(x) for x in u[:40]],
+        "usage": [dress_use(dict(x, verdict=use_verdict(x, mine))) for x in u[:40]],
         "usage_total": len(u),
         "last_used": u[0]["date"] if u else None,
         "last_used_mmss": u[0]["mmss"] if u else None,

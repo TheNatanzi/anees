@@ -51,4 +51,4 @@
 })(typeof window !== 'undefined' ? window : globalThis);
 
 /* Play / pause / stop bar on every page that plays sound (Medi 2026-10-01): js/play-bar.js, loaded once. */
-(function(){try{if(typeof document==='undefined'||window.AneesPlayBar||document.querySelector('script[data-apb]'))return;var me=document.currentScript||{};var src=(me.src||'').replace(/[^/]*$/,'');if(!src)return;var s=document.createElement('script');s.src=src+'play-bar.js?v=20261001-2';s.setAttribute('data-apb','');(document.head||document.documentElement).appendChild(s);}catch(e){}})();
+(function(){try{if(typeof document==='undefined'||window.AneesPlayBar||document.querySelector('script[data-apb]'))return;var me=document.currentScript||{};var src=(me.src||'').replace(/[^/]*$/,'');if(!src)return;var s=document.createElement('script');s.src=src+'play-bar.js?v=20261002-1';s.setAttribute('data-apb','');(document.head||document.documentElement).appendChild(s);}catch(e){}})();

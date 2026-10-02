@@ -88,3 +88,20 @@ and never counts as "did not say it". (Rule M4.)
 
 Medi builds a sentence before he says it. A long pause before a right answer is a right answer.
 (Rule M7.)
+
+---
+
+## S6 — Every correction becomes a rule (Medi 2026-10-02)
+
+When Medi (or Amal) finds an error, fixing that one moment is not enough. Two things happen, every time:
+
+1. **The moment** is fixed through the existing ruling files — never by deleting a row; the ruling stays visible with
+   its reason (`data/lesson-work/full-audit/rejected.json`, `duplicates.json`, `data/grammar-usage-rulings.json`,
+   Amal's notes in `scripts/amal_grammar_notes.py`).
+2. **The general rule** is written where the next lesson will meet it, so the same correction is never needed twice:
+   code (e.g. the automatic not-a-use rules in `scripts/detect_grammar_usage.py`, the repeat-slip rule in
+   `scripts/full_audit_build.py`, the homograph list in `docs/js/word-bank-arabizi.js`), the AI readers' brief
+   (`data/lesson-work/full-audit/READER-BRIEF.md`), or this file.
+
+The agent tells Medi which rule it added and how many past moments the rule changed. If a correction cannot be made
+general (a true one-off), the agent says so instead of staying silent.
