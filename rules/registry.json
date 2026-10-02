@@ -4028,7 +4028,7 @@
    "id": "PR-08",
    "kind": "process",
    "scope": "process",
-   "status": "moment-only",
+   "status": "enforced",
    "change": "new",
    "statement": "Keep a checklist of every ask in a session (including messages typed mid-run) and tick each one before reporting done.",
    "source": [
@@ -4050,13 +4050,23 @@
      "type": "doc",
      "path": "AGENTS.md",
      "contains": "PR-08 every ask ticked"
+    },
+    {
+     "type": "code",
+     "path": "scripts/session_asks.py",
+     "contains": "def asks(lines)"
     }
    ],
-   "test": [],
+   "test": [
+    {
+     "path": "tests/test_session_asks.py",
+     "contains": "def test_PR08_check_fails_while_a_mid_run_ask_is_unticked"
+    }
+   ],
    "aliases": [
     "report:M10"
    ],
-   "next_step": "written in AGENTS.md tonight; no automatic check is possible - stays moment-only until a session-end checklist tool exists"
+   "next_step": "the check reads the real transcript (Claude Code sessions; Codex not yet) but runs when the agent calls it before reporting - no harness hook (would live outside the repo)"
   },
   {
    "id": "PR-09",

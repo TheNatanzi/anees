@@ -25,3 +25,6 @@
   never force; rebase and re-run generated builders instead of hand-merging generated JSON.
 - PR-08 every ask ticked: keep a checklist of every ask in the session (including messages typed mid-run) and tick
   each one before reporting done; at the end, map each of Medi's corrections to a registry id or a one-off reason.
+  The list comes from the transcript, not memory: `python scripts/session_asks.py list --session <id>` shows every
+  message Medi typed (mid-run ones included), `tick <n> --note "..."` / `--not-done "why"` closes each, and
+  `check --session <id>` must print OK before the final report (name every NOT DONE line in it).
