@@ -11,6 +11,8 @@ Read first: `data/lesson-work/full-audit/READER-BRIEF.md` (the definitions: voca
 tiers 0-3, what is NOT an error, S3/S4/S5). Then open the transcript `data/lesson-work/full-audit/<date>.txt` and,
 for EVERY D-row, read the lines around its time (about 40 s before to 60 s after; chat lines lag 30-120 s) before ruling.
 Use `data/lesson-work/full-audit/buckets.md` for bucket ids and `amal-sheet.txt` (grep) for tier-3 checks.
+A real grammar correction that fits no bucket is kept with `"bucket": "PROPOSE"` + `proposed_rule` (GR-18, see the
+reader brief) - never dropped and never forced into the nearest bucket because no bucket fits.
 Do NOT open the other readers' JSON files, `data/grammar-sweep-*.json` or the sweep plan.
 
 Rule with the transcript, not with the readers' prose. When both readers saw the same slip and only the label differs,

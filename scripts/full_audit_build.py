@@ -149,6 +149,76 @@ def mark_duplicates(rows, hand=()):
     return rows
 
 
+PROPOSE = "PROPOSE"
+PROPOSALS_OUT = os.path.join(REPO, "docs", "data", "grammar-proposals.json")
+
+
+def _counted(r, buckets):
+    return (r["kind"] == "grammar" and r.get("bucket") in buckets) or r["kind"] in ("vocab-A", "grammar-B", "vocab-B")
+
+
+def apply_proposals(rows, hand, buckets):
+    """GR-18 (Medi 2026-09-25 "if it doesnt fall into a bucket lets figure out to make one"): a real grammar correction that
+    fits no bucket becomes a PROPOSED new bucket for Medi's yes/no - never dropped, never scored until his yes.
+      1. hand proposals (data/lesson-work/full-audit/proposed-buckets.json): each row matched by date + moment + wrong
+         piece. A matched grammar row with no approved bucket, or a row rejected only because no bucket fits, turns into
+         kind 'grammar-propose'; a row already counted under a bucket stays counted (listed as also_counted_as).
+      2. every other live grammar / grammar-B row whose bucket is PROPOSE (the readers' brief) or not an approved bucket
+         becomes its own proposal (id P-<uid>) with the reader's proposed_rule.
+    Returns the proposals for the Grammar Console (docs/data/grammar-proposals.json)."""
+    out = []
+    taken = set()
+
+    def convert(r, pid, rule):
+        r["kind_before_proposal"] = r["kind_before_rejection"] if r["kind"] == "rejected" else r["kind"]
+        if r["kind"] == "rejected":
+            r["was_rejected_why"] = r.pop("rejected_why", None)
+        r["kind"] = "grammar-propose"
+        r["bucket_before_proposal"] = r.get("bucket")
+        r["bucket"] = PROPOSE
+        r["proposal"] = pid
+        r["proposed_rule"] = r.get("proposed_rule") or rule
+        taken.add(r["uid"])
+
+    def also(r):
+        return [{"uid": o["uid"], "kind": o["kind"], "bucket": o.get("bucket")} for o in rows
+                if o is not r and o["date"] == r["date"] and _counted(o, buckets) and same_moment(o, r)
+                and (same_piece(o.get("wrong"), r.get("wrong")) or sec(o.get("t")) == sec(r.get("t")))]
+
+    def moment(r, extra=None):
+        return {"uid": r["uid"], "date": r["date"], "t": r.get("t"), "t_amal": r.get("t_amal"), "medi_said": r.get("medi_said"),
+                "amal_said": r.get("amal_said"), "chat": r.get("chat"), "wrong": r.get("wrong"), "right": r.get("right"),
+                "kind": r["kind"], "bucket": r.get("bucket"), "confidence": r.get("confidence"), "why": (extra or {}).get("why") or r.get("why"),
+                "also_counted_as": also(r)}
+
+    for p in hand:
+        P = {k: p.get(k) for k in ("id", "name", "proposed_rule", "family", "from", "medi")}
+        P["moments"] = []
+        for x in p.get("rows", []):
+            cands = [r for r in rows if r["date"] == x["date"] and same_moment(r, x) and same_piece(r.get("wrong"), x.get("wrong"))]
+            live = [r for r in cands if (kind_class(r["kind"]) == "grammar" and r.get("bucket") not in buckets)
+                    or (r["kind"] == "rejected" and not r.get("duplicate_of") and kind_class(r.get("kind_before_rejection")) == "grammar")]
+            if live:
+                r = live[0]
+                convert(r, p["id"], p["proposed_rule"])
+                P["moments"].append(moment(r, x))
+            elif cands:                                       # already counted elsewhere: shown, stays counted there
+                r = next((c for c in cands if _counted(c, buckets)), cands[0])
+                P["moments"].append({**moment(r, x), "already_counted": True})
+            else:
+                raise SystemExit(f"proposed-buckets.json {p['id']}: no audit row at {x['date']} {x['t']} {x.get('wrong')} - fix the file")
+        out.append(P)
+    for r in rows:
+        if r["uid"] in taken or r["kind"] not in ("grammar", "grammar-B") or r.get("mode", "speaking") != "speaking":
+            continue
+        if r.get("bucket") == PROPOSE or (r.get("bucket") not in buckets and r.get("new_bucket_group") != "NEW-B18"):
+            pid = "P-" + r["uid"]
+            convert(r, pid, r.get("why") or "")
+            out.append({"id": pid, "name": None, "proposed_rule": r["proposed_rule"], "family": None,
+                        "from": f"{r.get('source')} row {r['uid']} (no bucket fits)", "medi": None, "moments": [moment(r)]})
+    return out
+
+
 def build():
     sweep = json.load(open(os.path.join(REPO, "data", "grammar-sweep-2026-09-24.json"), encoding="utf-8"))
     buckets = {b["id"]: b for b in json.load(open(os.path.join(REPO, "docs", "data", "grammar-buckets.json"), encoding="utf-8"))["buckets"]}
@@ -222,6 +292,8 @@ def build():
     # plus the hand-read repeats in data/lesson-work/full-audit/duplicates.json. Kept in the file, never counted.
     dup_p = os.path.join(WORK, "duplicates.json")
     mark_duplicates(rows, json.load(open(dup_p, encoding="utf-8"))["pairs"] if os.path.exists(dup_p) else [])
+    prop_p = os.path.join(WORK, "proposed-buckets.json")
+    proposals = apply_proposals(rows, json.load(open(prop_p, encoding="utf-8"))["proposals"] if os.path.exists(prop_p) else [], buckets)
 
     def cnt(pred):
         return sum(1 for r in rows if pred(r))
@@ -230,6 +302,7 @@ def build():
         "rows": len(rows),
         "grammar_A": cnt(lambda r: r["kind"] == "grammar" and r.get("mode", "speaking") == "speaking"),
         "grammar_B": cnt(lambda r: r["kind"] == "grammar-B"),
+        "grammar_proposed": cnt(lambda r: r["kind"] == "grammar-propose"),
         "vocab_A": cnt(lambda r: r["kind"] == "vocab-A" and r.get("mode", "speaking") == "speaking"),
         "vocab_A_by_tier": dict(collections.Counter(str(r.get("tier")) for r in rows if r["kind"] == "vocab-A")),
         "vocab_B": cnt(lambda r: r["kind"] == "vocab-B"),
@@ -280,11 +353,17 @@ def build():
            "decisions": "A counts (every fix Amal voiced or typed); B (she let it pass) is unscored until she rules on Amal's review page; "
                         "tiers 1-3 vocab, tier 0 = she supplied a word he asked for; grammar filed by bucket; listening rows kept apart.",
            "lessons_missing": missing, "totals": totals, "by_bucket": dict(by_bucket.most_common()), "by_lesson": by_lesson,
-           "per_lesson": per_lesson, "sweep_rows_readers_missed": sweep_missed_by_readers, "rows": rows}
+           "per_lesson": per_lesson, "sweep_rows_readers_missed": sweep_missed_by_readers, "proposals": proposals, "rows": rows}
     json.dump(out, open(OUT_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    # GR-18: the one place Medi sees proposed buckets (Grammar Console); unscored until his yes
+    json.dump({"updated": out["built"], "rule": "GR-18",
+               "about": "Grammar corrections Amal made that fit no existing rule. Each is a proposed new rule for Medi's yes or no; "
+                        "nothing here is scored until he says yes. Built by scripts/full_audit_build.py from the audit rows and "
+                        "data/lesson-work/full-audit/proposed-buckets.json.",
+               "proposals": proposals}, open(PROPOSALS_OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     write_md(out, buckets)
     print("rows", len(rows), "| grammar A", totals["grammar_A"], "B", totals["grammar_B"], "| vocab A", totals["vocab_A"], "B", totals["vocab_B"],
-          "| readers new vs sweep", totals["readers_new"], "| sweep-only kept", totals["sweep_only_kept"], "| missing lessons", missing)
+          "| proposed (GR-18)", totals["grammar_proposed"], "| readers new vs sweep", totals["readers_new"], "| sweep-only kept", totals["sweep_only_kept"], "| missing lessons", missing)
     return out
 
 
@@ -301,6 +380,7 @@ def write_md(out, buckets):
          "## Totals", "", "| | count |", "|---|---|",
          f"| Grammar fixes Amal voiced (A) | **{T['grammar_A']}** (sweep had {T['sweep_before']['grammar']}) |",
          f"| Grammar she let pass (B, to Amal) | {T['grammar_B']} |",
+         f"| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | {T.get('grammar_proposed', 0)} |",
          f"| Vocab fixes Amal voiced (A) | **{T['vocab_A']}** (sweep had {T['sweep_before']['vocab']}; lesson pages showed 23) |",
          f"| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {T['vocab_A_by_tier']} |",
          f"| Vocab she let pass (B, to Amal) | **{T['vocab_B']}** by tier {T['vocab_B_by_tier']} |",

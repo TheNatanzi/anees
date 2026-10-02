@@ -2328,7 +2328,7 @@
    "id": "GR-18",
    "kind": "data",
    "scope": "grammar-scoring",
-   "status": "moment-only",
+   "status": "enforced",
    "change": "new",
    "statement": "A real grammar correction that fits no bucket becomes a proposed new bucket for Medi's yes/no; it is never dropped.",
    "source": [
@@ -2339,12 +2339,48 @@
      "session": "9bce4014"
     }
    ],
-   "enforcement": [],
-   "test": [],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/full_audit_build.py",
+     "contains": "def apply_proposals(rows, hand, buckets):"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "A real grammar correction that fits no bucket becomes a PROPOSED new bucket"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/THIRD-READER-BRIEF.md",
+     "contains": "never dropped and never forced into the nearest bucket"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_audit_duplicates.py",
+     "contains": "def test_gr_18_a_correction_that_fits_no_bucket_becomes_a_proposal_not_a_drop"
+    },
+    {
+     "path": "tests/test_audit_duplicates.py",
+     "contains": "def test_gr_18_the_live_audit_drops_no_correction_for_no_bucket"
+    }
+   ],
    "aliases": [
     "report:M5"
    ],
-   "next_step": "READER-BRIEF: allow bucket 'PROPOSE' + proposed_rule; full_audit_build lists PROPOSE rows for Medi instead of rejecting them (FA-0075 was rejected 'no bucket fits'); unscored until his yes"
+   "example": {
+    "date": "2026-08-25",
+    "t": "59:04",
+    "note": "FA-0075 عملنا كتير was rejected 'no bucket fits'; now proposal P-OBJ on the Grammar Console, unscored until Medi's yes"
+   },
+   "moments": [
+    {
+     "type": "data",
+     "path": "data/lesson-work/full-audit/proposed-buckets.json",
+     "contains": "\"id\": \"P-OBJ\""
+    }
+   ]
   },
   {
    "id": "GR-19",

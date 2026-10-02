@@ -700,7 +700,7 @@ def validate(repo=REPO):
     probs += ledger_problems(ledger)
     # schema: full-audit rows
     # dropped-by-amal: Amal said "not an error" on her pattern review (apply_amal_audit_rulings.py) - never scored
-    kinds = {"grammar", "grammar-B", "vocab-A", "vocab-B", "rejected", "dropped-by-amal"}
+    kinds = {"grammar", "grammar-B", "grammar-propose", "vocab-A", "vocab-B", "rejected", "dropped-by-amal"}   # grammar-propose: GR-18, unscored until Medi's yes
     uids = set()
     for r in audit["rows"]:
         if r.get("kind") not in kinds:

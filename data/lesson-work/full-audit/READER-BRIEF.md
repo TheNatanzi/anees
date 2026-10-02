@@ -23,6 +23,11 @@ scored until Amal confirms; they go to her review page. Still write them - all o
 **kind = grammar** - a grammar fix Amal said out loud (recast, named the rule, explicit "no", finished his sentence,
 prompted him until he fixed it). File the bucket id from buckets.md (one id; a second id may go in `bucket2`).
 Also write grammar errors she let pass as **kind = grammar-B** with a bucket.
+**A real grammar correction that fits no bucket becomes a PROPOSED new bucket for Medi's yes/no; it is never dropped**
+(GR-18, Medi 2026-09-25: "if it doesnt fall into a bucket lets figure out to make one"). Write `"bucket": "PROPOSE"` and
+`"proposed_rule"`: one line, the rule Amal applied, in plain English with her example (e.g. "After bi / fi / min use
+the noun of the action, not a verb: bi el-tabe5"). Never force a row into the nearest bucket and never leave it out
+because no bucket fits. A PROPOSE row is listed for Medi on the Grammar Console and is unscored until his yes.
 
 Vocab error tiers (field `tier`, vocab kinds only):
 - **1** wrong word or a non-word (مغني for مغيم; a made-up word; the wrong verb for the meaning: بسط for انبسط is
@@ -62,7 +67,8 @@ Medi line and the actual Amal line that prove it.
 {"id": "<mmdd>-<n>", "t": "mm:ss of Medi's line", "t_amal": "mm:ss of her fix or null",
  "medi_said": "his line (trim to the sentence)", "amal_said": "her line (trim) or null", "chat": "her typed line or null",
  "wrong": "the wrong piece", "right": "the right piece (her words; for B your best reading, marked in why)",
- "kind": "vocab-A|vocab-B|grammar|grammar-B", "tier": 0|1|2|3|null, "bucket": "A1..F3 or null", "bucket2": null,
+ "kind": "vocab-A|vocab-B|grammar|grammar-B", "tier": 0|1|2|3|null, "bucket": "A1..F3, PROPOSE, or null", "bucket2": null,
+ "proposed_rule": "only when bucket is PROPOSE: the new rule in one line",
  "mode": "speaking|listening", "signal": "recast|named-rule|prompt-then-fix|explicit-no|finished-sentence|chat-fix|asked|none",
  "confidence": "high|medium|low", "why": "one sentence: what is wrong and how you know (quote the sheet row for tier 3)",
  "english": "what he meant, in English"}

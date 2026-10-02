@@ -903,6 +903,29 @@ function renderCheck(extra) {
   });
 }
 
+// GR-18 (Medi 2026-09-25 "if it doesnt fall into a bucket lets figure out to make one"): corrections Amal made that fit
+// no rule, each a proposed new rule waiting for Medi's yes or no. Never scored until he says yes.
+function renderProposals(doc) {
+  var P = (doc && doc.proposals) || [];
+  var box = $('gc-propose'), body = $('gc-propose-body');
+  if (!box || !P.length) return;
+  box.hidden = false;
+  $('gc-propose-sum').textContent = 'Proposed new rules (' + P.length + ') · fixes Amal made that fit no rule yet · not scored until you say yes';
+  body.textContent = '';
+  P.forEach(function (p) {
+    body.appendChild(el('div', 'gc-doc-head', (p.name || 'New rule') + (p.medi ? ' · your answer: ' + p.medi : ' · waiting for your yes or no')));
+    if (p.proposed_rule) body.appendChild(el('p', 'ab-mini', p.proposed_rule));
+    var ul = el('ul', 'gc-doc-list');
+    (p.moments || []).forEach(function (m) {
+      var also = (m.also_counted_as || []).map(function (a) { return a.kind + (a.bucket ? ' ' + a.bucket : ''); }).join(', ');
+      ul.appendChild(el('li', null, pretty(m.date) + ' ' + (m.t || '') + ' · ' + (m.wrong || '') + ' → ' + (m.right || '') +
+        (m.amal_said ? ' · Amal: ' + m.amal_said : '') + (m.already_counted ? ' · already counted under ' + (m.bucket || m.kind || '') : also ? ' · also counted as ' + also : '') +
+        (m.confidence === 'low' ? ' · low confidence' : '')));
+    });
+    body.appendChild(ul);
+  });
+}
+
 function optional(url) {
   return fetch(url).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
 }
@@ -946,6 +969,7 @@ Promise.all([optional('data/words.json'), optional('data/house_spelling.json'), 
     wire();
     render();
     renderDoc();
+    optional('data/grammar-proposals.json?v=' + Date.now()).then(renderProposals);
   })
   .catch(function (err) {
     $('gc-notice').textContent = 'Could not load the grammar data: ' + err.message;
