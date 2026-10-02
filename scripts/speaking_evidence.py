@@ -36,6 +36,11 @@ def normalize(text):
     text = ''.join(c for c in text if unicodedata.category(c) != 'Mn')
     return text.translate(str.maketrans('أإآٱ', 'اااا')).casefold()
 
+# Past forms said without the pronoun (S6). The he-form (هو) is left out: bare it is too often a noun (درس lesson,
+# رسم drawing, أكل food). NOT_BARE_PAST: bare forms that are everyday words in another sense.
+BARE_PAST_PRONOUNS = {normalize(x) for x in ('أنا','انا','إنت','انت','إنتي','انتي','إنتو','انتو','هي','إحنا','احنا','هم','همه')}
+NOT_BARE_PAST = {normalize(x) for x in ('بنت','وقت','بيت','ست')}
+
 def tokens(text):
     if text.rstrip().endswith(('-', '–', '—', '…', '...')):
         return None
@@ -68,12 +73,49 @@ class StrictMatcher:
             for f,method in forms:
                 t=tokens(f)
                 if t: self.index[t][key]=method
+        self._pronoun_omission(words)
         self.lengths=sorted({len(t) for t in self.index},reverse=True)
+
+    def _pronoun_omission(self, words):
+        """Past forms said without the pronoun (Medi 2026-10-02, RULES S6): Amal's Doc writes "أنا حكيت", Medi says
+        "حكيت" / "حكينا". The bare form is indexed for every Past Tense row whose Arabic is pronoun + one word, unless it
+        is risky: the he-form (هو درس = "lesson", هو رسم, هو أكل), a form any non-verb row of hers also uses (her nouns,
+        adjectives, phrases: درس, لعبة, رسمي), a word in NOT_BARE_PAST, a form ending in ة/ه, or a form under 3 letters.
+        Exact matches always win: a bare form already indexed by another method is left alone. Needs the words' topic."""
+        if not any(w.get('topic') for w in words): return
+        verb_topics={'Past Tense','Verbs List','Command Tense'}
+        other=set()
+        for w in words:
+            if w.get('active',True) and w.get('topic') not in verb_topics:
+                for f in [w.get('arabic') or '']+list(w.get('aliases') or []):
+                    for part in re.split('[/|]',f):
+                        t=tokens(part)
+                        if t: other.update(t)
+        add=defaultdict(dict)
+        for key,w in self.words.items():
+            if w.get('topic')!='Past Tense': continue
+            for f in re.split('[/|]',w.get('arabic') or ''):
+                t=tokens(f)
+                if not t or len(t)!=2 or t[0] not in BARE_PAST_PRONOUNS: continue
+                bare=t[1]
+                if (len(bare)<3 or bare.startswith('ب') or bare.endswith(('ة','ه')) or bare in other
+                        or bare in NOT_BARE_PAST or (bare,) in self.index): continue
+                add[(bare,)][key]='pronoun_omission'
+        for t,keys in add.items(): self.index[t].update(keys)
 
     def match(self,text):
         t=tokens(text)
         if t and any(re.search('[a-z]',x) and x in ENGLISH_STOP for x in t): return {}
-        return self.index.get(t,{}) if t else {}
+        found=self.index.get(t,{}) if t else {}
+        if len(found)>1 and set(found.values())=={'pronoun_omission'}:
+            # Bare, حكيت is "I spoke" or "you spoke": same verb and tense, the person is open. Keep one key (I, then we,
+            # then you...) so it counts for that verb's Past. A different sense (~scratch) is another verb: stays ambiguous.
+            senses={k.split('~',1)[1] if '~' in k else '' for k in found}
+            if len(senses)==1:
+                order=('ana ','i7na ','inta ','inti ','intu ','heiye ','hume ')
+                key=min(found,key=lambda k:(next((i for i,p in enumerate(order) if k.startswith(p)),len(order)),k))
+                return {key:'pronoun_omission_person_open'}
+        return found
 
 def review_overlay(data, reviews, transcript_sha, interpretations=()):
     """Validate all bindings before interpreting a partial review. No mutation.
