@@ -119,3 +119,38 @@ def test_tr_17_gap_filler_does_not_pay_again_for_a_recording_the_load_already_ha
     entry = {'date': DATE, 'missing': 'amal', 'window': {'from_s': 0.0, 'to_s': 120.0, 'from': '00:00', 'to': '02:00'}}
     trk, why = F.find_own_track(entry, raw=tmp_path)
     assert trk is None and 'no untranscribed Amal track' in why
+
+
+def _ev(i, reason=L.WITHHELD, assessment='unresolved', **kw):
+    e = {'id': i, 'speaker': 'Medi', 'item_ids': [i + ':item:0'], 'original_text': 'x', 'source_sha256': 's', 'row_id': 'r',
+         'word_key': 'bas', 'text': 'x', 't_start': 1.0, 't_end': 2.0, 'assessment': assessment, 'reason': reason,
+         'needs_review': True, 'spoken': False, 'context': []}
+    e.update(kw)
+    return e
+
+
+def test_tr_17_backfill_inserts_new_events_and_overlays_only_the_withheld_ones():
+    current = {'a': _ev('a'), 'b': _ev('b'), 'c': _ev('c', reason='other', assessment='independent')}
+    rebuilt = [_ev('a', reason='heard', assessment='independent', needs_review=False, spoken=True, context=[{'who': 'Amal'}]),
+               dict(current['b']), dict(current['c']), _ev('n', reason='new')]
+    review = {'patches': {'a': {'expected': {}, 'changes': {'audit_created': True, 'audit_kind': 'tutor_audio_missing',
+                                                             'audit_by': 'Claude audit 2026-09-28', 'ignored': True}}}}
+    new, fixes = L.reconcile_tracks(rebuilt, current, review)
+    assert [e['id'] for e in new] == ['n'] and list(fixes) == ['a']
+    ch = review['patches']['a']['changes']
+    assert ch['assessment'] == 'independent' and ch['auto_rule'] == 'TR-17' and 'ignored' not in ch   # missing-audio bin replaced
+    assert review['patches']['a']['expected']['reason'] == L.WITHHELD                                  # source-bound (S2)
+    import pytest
+    with pytest.raises(ValueError):                         # any other difference is not a missing-track change
+        L.reconcile_tracks([_ev('c', reason='other', assessment='helped')], current, {'patches': {}})
+
+
+def test_tr_17_same_day_rules_stack_on_the_re_read_event_and_undo_cleanly():
+    import review_new_lessons as R
+    review = {'patches': {'a': {'expected': {'assessment': 'unresolved'},
+                                'changes': {'auto_rule': 'TR-17', 'assessment': 'independent', 'needs_review': False}}}}
+    R.layer(review, 'a', {'expected': {}, 'changes': {'auto_rule': R.TAG, 'scored_in_event': True, 'needs_review': True}})
+    c = review['patches']['a']['changes']
+    assert c['auto_rule'] == 'TR-17' and c['scored_in_event'] is True and c['needs_review'] is True
+    R.unlayer(review, ['a'])                                   # a re-run starts from the TR-17 patch alone
+    assert review['patches']['a']['changes'] == {'auto_rule': 'TR-17', 'assessment': 'independent', 'needs_review': False}

@@ -289,6 +289,53 @@ def guard_events(events, data, info):
     return flagged
 
 
+WITHHELD = 'Tutor recording context unavailable for this interval; vocabulary assessment withheld'
+EVENT_KEYS = ['source_sha256', 'row_id', 'word_key', 'text', 't_start', 't_end']
+REVIEW = ROOT / 'docs' / 'data' / 'word-bank-review.json'
+TR17_TAG = 'TR-17'
+
+
+def reconcile_tracks(events, current, review):
+    """Rule TR-17 backfill of a lesson loaded before its reconnect recordings were transcribed. The saved events are
+    insert-only raw evidence, so nothing in the database is changed:
+      - events of the newly transcribed recordings are NEW ids -> returned for the insert-only install;
+      - a saved Medi event the old load WITHHELD only because the tutor's recording was missing (the guard_events reason)
+        and that the fuller transcript now assesses gets an overlay patch (docs/data/word-bank-review.json, RULES.md S2)
+        with the rebuilt fields, source-bound by `expected`, tagged auto_rule 'TR-17'. A 'Claude audit 2026-09-28' bin
+        made from the missing audio (tutor_audio_missing) is replaced; any other patch keeps its own fields.
+    Any other difference raises: that is not a missing-track change and needs a person.
+    Returns (new events, {event id: patch changes})."""
+    new, fixes = [], {}
+    for e in events:
+        old = current.get(e['id'])
+        if old is None:
+            new.append(e)
+            continue
+        if old == e:
+            continue
+        if old.get('reason') != WITHHELD or any(old.get(k) != e.get(k) for k in EVENT_KEYS + ['speaker', 'item_ids', 'original_text']):
+            raise ValueError(f'{e["id"]}: saved event differs for another reason than the missing tutor recording')
+        fix = {k: e.get(k) for k in set(e) | set(old) if e.get(k) != old.get(k)}
+        fix.update(auto_rule=TR17_TAG, tr17_note='Re-read with every recording of the lesson (rule TR-17): the tutor recording of a reconnect '
+                   'now covers this moment.')
+        p = review['patches'].get(e['id'])
+        exp = {k: old.get(k) for k in EVENT_KEYS + ['assessment', 'reason']}
+        if p is None or (p['changes'].get('audit_created') and p['changes'].get('audit_kind') == 'tutor_audio_missing'):
+            review['patches'][e['id']] = {'expected': exp, 'changes': fix}
+        else:
+            c = p['changes']
+            prior = c.pop('audit_prior', None) if c.get('audit_kind') == 'tutor_audio_missing' else None
+            if prior is not None:                     # undo the missing-audio bin, keep what it had overwritten
+                for k in [k for k in c if k.startswith('audit_')] + ['review_locked', 'reviewer']:
+                    c.pop(k, None)
+                for k, v in prior.items():
+                    if v != '__absent__':
+                        c[k] = v
+            c.update(fix)
+        fixes[e['id']] = fix
+    return new, fixes
+
+
 def envelope(path, seconds=900, rate=20):
     import numpy as np
     raw = subprocess.run(['ffmpeg', '-v', 'error', '-t', str(seconds), '-i', str(path), '-f', 's16le', '-ac', '1', '-ar', '8000', '-'],
@@ -328,6 +375,8 @@ def main():
     ap.add_argument('--chat-offset', type=float, help='skip the audio alignment and use this offset (seconds)')
     ap.add_argument('--apply', action='store_true'); ap.add_argument('--page-only', action='store_true')
     ap.add_argument('--note-extra', default='')
+    ap.add_argument('--reconcile-tracks', action='store_true',
+                    help='rule TR-17: a lesson re-loaded with its reconnect recordings (insert new events, overlay the withheld ones)')
     a = ap.parse_args()
     import db
     import sync_speaking_lesson as S
@@ -364,7 +413,9 @@ def main():
                 + ('Not transcribed: ' + '; '.join(f'{_person(o["participant"])}\'s other recording at {_clock(o["start"]["relative"])}'
                                                    f'-{_clock(o["start"]["relative"] + (o["duration_s"] or 0))} ({round((o["duration_s"] or 0) / 60, 1)} min)'
                                                    for o in info['omitted']) + '. '
-                   if info['omitted'] else 'Both participant tracks are transcribed. ')
+                   if info['omitted'] else ('Every recording of both people is transcribed, each placed at its own start '
+                                            f'({len(info["extra_segments"])} reconnect recording(s) included). '
+                                            if info.get('extra_segments') else 'Both participant tracks are transcribed. '))
                 + ('Amal\'s typed chat lines are placed by matching the host recording to this audio. ' if chat else '')
                 + 'Tap a time to play that line.')
     else:
@@ -384,7 +435,17 @@ def main():
         receipt['events'] = len(events)
         receipt['assessments'] = dict(collections.Counter(e['assessment'] for e in events if e['speaker'] == 'Medi'))
         (work / 'events.json').write_text(json.dumps(events, ensure_ascii=False), encoding='utf-8')
-        receipt['evidence'] = sync_events(events, digest(events), a.apply)
+        if a.reconcile_tracks:              # rule TR-17 backfill: new events inserted, withheld ones fixed in the overlay
+            current = {r['id']: r['data'] for r in db.select('speaking_events', {'lesson_date': f'eq.{date}'}, retries=2)}
+            review = json.loads(REVIEW.read_text(encoding='utf-8'))
+            new, fixes = reconcile_tracks(events, current, review)
+            receipt['evidence'] = sync_events(new, digest(new), a.apply) if new else {'new_events': 0}
+            receipt['tr17_overlay_patches'] = len(fixes)
+            receipt['tr17_assessments'] = dict(collections.Counter(f.get('assessment', current[i].get('assessment')) for i, f in fixes.items()))
+            if a.apply and fixes:
+                REVIEW.write_text(json.dumps(review, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+        else:
+            receipt['evidence'] = sync_events(events, digest(events), a.apply)
         row = {'date': date, 'source': 'Recall participant recordings' if info['kind'] == 'tracks' else 'Meet recording (host, mixed audio)',
                'minutes': minutes, 'words': words,
                'speaker_split': 'participant_tracks' if info['kind'] == 'tracks' else info['basis'],

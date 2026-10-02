@@ -644,6 +644,16 @@
      "type": "code",
      "path": "scripts/fill_meet_gaps.py",
      "contains": "the lesson load already has it as a segment (rule TR-17)"
+    },
+    {
+     "type": "code",
+     "path": "scripts/load_lesson.py",
+     "contains": "def reconcile_tracks("
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_new_lessons.py",
+     "contains": "def layer(review, rid, rule_patch):"
     }
    ],
    "test": [
@@ -658,6 +668,14 @@
     {
      "path": "tests/test_tr17_all_tracks.py",
      "contains": "def test_tr_17_overlapping_recordings_of_one_person_are_counted_once"
+    },
+    {
+     "path": "tests/test_tr17_all_tracks.py",
+     "contains": "def test_tr_17_backfill_inserts_new_events_and_overlays_only_the_withheld_ones"
+    },
+    {
+     "path": "tests/test_tr17_all_tracks.py",
+     "contains": "def test_tr_17_same_day_rules_stack_on_the_re_read_event_and_undo_cleanly"
     }
    ],
    "example": {

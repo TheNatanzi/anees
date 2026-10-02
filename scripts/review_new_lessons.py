@@ -85,6 +85,40 @@ def rules(events):
     return patches
 
 
+TR17 = 'TR-17'          # load_lesson.reconcile_tracks: a withheld event re-read with the lesson's reconnect recording
+
+
+def _tr17(review, e):
+    """The TR-17 patch of an event (its base: the event as the fuller transcript assesses it), or None."""
+    p = review['patches'].get(e['id'])
+    return p if p and p['changes'].get('auto_rule') == TR17 else None
+
+
+def unlayer(review, ids):
+    """Take this script's fields back out of TR-17 patches (restoring what they overwrote), so a re-run starts clean."""
+    for k in ids:
+        p = review['patches'].get(k)
+        if not p or p['changes'].get('auto_rule') != TR17 or 'rnl_prior' not in p['changes']:
+            continue
+        c = p['changes']
+        prior = c.pop('rnl_prior')
+        for f in c.pop('rnl_fields', []):
+            if prior.get(f, '__absent__') == '__absent__':
+                c.pop(f, None)
+            else:
+                c[f] = prior[f]
+
+
+def layer(review, rid, rule_patch):
+    """Rule TR-17: a rule patch for an event that carries a TR-17 patch is merged into it (one patch per event), with
+    the TR-17 values it overwrites kept in rnl_prior so unlayer() can restore them."""
+    c = review['patches'][rid]['changes']
+    add = {k: v for k, v in rule_patch['changes'].items() if k != 'auto_rule'}
+    c['rnl_prior'] = {k: c.get(k, '__absent__') for k in add}
+    c['rnl_fields'] = sorted(add)
+    c.update(add)
+
+
 def main(dates):
     snap = json.loads((ROOT / 'docs/data/word-bank-evidence.json').read_text(encoding='utf8'))
     path = ROOT / 'docs/data/word-bank-review.json'
@@ -92,20 +126,28 @@ def main(dates):
     by_id = {e['id']: e for e in snap['events']}
     for k in [k for k, p in review['patches'].items() if p['changes'].get('auto_rule') == TAG and by_id.get(k, {}).get('lesson_date') in dates]:
         del review['patches'][k]                                          # a re-run replaces this script's own patches
+    unlayer(review, [k for k, e in by_id.items() if e.get('lesson_date') in dates])
     before = copy.deepcopy(review)
     tag = 'lessons-' + '-'.join(d[5:].replace('-', '') for d in dates)
     report = {}
     for day in dates:
-        events = [e for e in snap['events'] if e['lesson_date'] == day]
-        assert events, f'no published events for {day}'
+        raw_events = [e for e in snap['events'] if e['lesson_date'] == day]
+        assert raw_events, f'no published events for {day}'
+        # TR-17: an event re-read with the tutor's reconnect recording is judged as re-read, not as the withheld original
+        events = [{**e, **{k: v for k, v in _tr17(review, e)['changes'].items() if k not in ('auto_rule', 'tr17_note')}}
+                  if _tr17(review, e) else e for e in raw_events]
         patches = rules(events)
-        overlap = set(patches) & set(review['patches'])
+        stacked = {k for k in patches if k in review['patches'] and review['patches'][k]['changes'].get('auto_rule') == TR17}
+        overlap = set(patches) & set(review['patches']) - stacked
         assert not overlap, f'{day}: {len(overlap)} events already carry a hand-made patch'
         for p in patches.values():
             if p['changes'].get('audit_version'):
                 p['changes']['audit_version'] = f'2026-09-23-{tag}-v1'
+        for k in stacked:
+            layer(review, k, patches.pop(k))
+        report[day] = {'tr17_layered': len(stacked)}
         review['patches'].update(patches)
-        report[day] = {'events': len(events), 'patches': len(patches),
+        report[day] = {**report[day], 'events': len(events), 'patches': len(patches),
                        'held_estimated_speakers': sum(HELD in p['changes'].get('reason', '') for p in patches.values()),
                        'scored_once_per_sentence': sum('scored once' in p['changes'].get('reason', '') for p in patches.values())}
     with tempfile.NamedTemporaryFile('w', suffix='.json', delete=False, encoding='utf8') as tmp:   # rule 3 sees rules 1-5
@@ -122,7 +164,8 @@ def main(dates):
             needs_review=True, reason='Heard form does not match any form of this word in the catalog (for example I-form vs command); held for review, not scored.')
         report[e['lesson_date']]['unplaced_held'] = report[e['lesson_date']].get('unplaced_held', 0) + 1
     review['version'] = re.sub(r'\+lessons-[0-9-]+', '', before['version']) + '+' + tag
-    assert all(review['patches'][k] == before['patches'][k] for k in before['patches'])
+    assert all(review['patches'][k] == before['patches'][k] for k in before['patches']
+               if before['patches'][k]['changes'].get('auto_rule') != TR17)
     assert review['additions'] == before['additions'] and review['transcript_rows'] == before['transcript_rows']
     path.write_text(json.dumps(review, ensure_ascii=False, indent=2) + '\n', encoding='utf8')    # written once, at the end
     print(json.dumps(report, ensure_ascii=False, indent=1))
