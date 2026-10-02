@@ -6,8 +6,9 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **613** (sweep had 312) |
+| Grammar fixes Amal voiced (A) | **611** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 93 |
+| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 3 |
 | Vocab fixes Amal voiced (A) | **295** (sweep had 147; lesson pages showed 23) |
 | - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 173, '0': 106, '2': 55, '3': 6} |
 | Vocab she let pass (B, to Amal) | **47** by tier {'1': 29, '2': 12, '3': 6} |
@@ -20,7 +21,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | lesson | grammar A | grammar B | vocab A | vocab B | listening | sweep grammar before | sweep vocab before | reader agreement |
 |---|---|---|---|---|---|---|---|---|
-| 2026-08-25 | 30 | 10 | 22 | 7 | 5 | 24 | 13 | 61.8 % |
+| 2026-08-25 | 29 | 10 | 22 | 7 | 5 | 24 | 13 | 61.8 % |
 | 2026-09-04 | 46 | 8 | 14 | 3 | 9 | 29 | 11 | 63.2 % |
 | 2026-09-05 | 36 | 2 | 8 | 2 | 0 | 25 | 5 | 64.6 % |
 | 2026-09-10 | 35 | 16 | 20 | 2 | 0 | 20 | 10 | 61.8 % |
@@ -31,7 +32,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-09-17 | 42 | 5 | 14 | 4 | 0 | 28 | 5 | 72.4 % |
 | 2026-09-18 | 48 | 1 | 10 | 2 | 1 | 20 | 4 | 58.7 % |
 | 2026-09-19 | 5 | 2 | 13 | 1 | 35 | 25 | 12 | 58.3 % |
-| 2026-09-21 | 68 | 13 | 39 | 7 | 8 | 43 | 32 | 58.7 % |
+| 2026-09-21 | 67 | 13 | 39 | 7 | 8 | 43 | 32 | 58.7 % |
 | 2026-09-23 | 32 | 2 | 29 | 2 | 12 | 23 | 20 | 64.3 % |
 | 2026-09-26 | 21 | 3 | 24 | 7 | 2 | 0 | 0 | 62.1 % |
 | 2026-09-28 | 21 | 3 | 29 | 1 | 1 | 0 | 0 | 61.0 % |
@@ -94,6 +95,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | B16 | kan laazem | 5 |
 | E4 | calendar | 4 |
 | E5 | kam + singular | 4 |
+| PROPOSE | ? | 3 |
 | C9 | word order | 3 |
 | C1 | no word for 'to be' | 3 |
 | A11 | kul: all vs every | 3 |
@@ -279,7 +281,7 @@ _Whole file read in order. Latin-transliterated stretch [36:42]-[42:33] (‹...�
 | FA-b5c75433 | 31:13 | grammar | D2 | لما، أتأس-- أت-- أتأسف. | And أتأسف takes لا so to her, أتأسف لها. | أتأسف -> أتأسف لها | She named the fixed preposition (أتأسف takes لـ -> أتأسف لها) while he was building 'she gets happy when I apologize (to her)'; he had not yet uttered a wrong preposition, so this is rule-teaching on a new verb rather than a recast of an error - medium; he then used it right (33:11 لما أتأسف لها). Kept apart from the D9 didn't-know so it is not double-counted. | medium | r3 |
 | FA-c327abb3 | 31:36 | grammar-B | B3 | لما أنا، لما أنا بأعمل غلط، إشي غلط. | ✓ Mm-hmm. | لما أنا بأعمل -> لما أعمل | After lamma the b- drops (B3); he kept بأعمل and she answered Mm-hmm. | high | r1+r2 |
 | FA-2c9e0146 | 31:59 | vocab-A | tier 1 | إن، إنتي ما- | هي. | إنتي -> هي | Building 'she doesn't stay angry' about his fiancée he said إنتي (you-f); she recast هي and he said 'هي، sorry' (32:07); a pronoun word-swap, not an ending/prefix rule, so vocab tier 1 rather than B18 (no verb had been produced yet). | medium | r3 |
-| FA-ffbd560d | 31:59 | grammar |  | إن، إنتي ما- | هي. | إنتي -> هي | 'you' instead of 'she' for the fiancee | medium | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
+| FA-ffbd560d | 31:59 | grammar-propose | PROPOSE | إن، إنتي ما- | هي. | إنتي -> هي | 'you' instead of 'she' for the fiancee | medium | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
 | FA-b786cb33 | 32:19 | vocab-A | tier 1 | وقت كتير. | لا وقت طويل. | وقت كتير -> لوقت طويل | كتير 'a lot' for 'long'; her sheet phrase is لوقت طويل; he then parroted her لا as part of the phrase (لا، لا وقت طويل). | high | r1+r2 |
 | FA-a54545fb | 32:27 | vocab-A | tier 1 | و أنا، أنا، بس-- بس بت، أنا بس بتها. | ببسطها. | بتها -> ببسطها | Second failure on the verb she taught at 26:33: he could not retrieve ببسطها, ended on the non-word بتها, she supplied it and he said 'I hate this verb' (32:40); low because it could be read as an S5 stumble, but he never reached the word himself. | low | r3 |
 | FA-b5403431 | 36:06 | vocab-A | tier 1 | عتيته أنا، بنت-- بنتطلع، بنتطلع بنات أخوي- | بنطلع؟ | بنتطلع -> بندير بالنا على | He used تطلع (look at) for 'we watch (babysit) my brother's girls'; she questioned it and built بندير بالنا على with him (sheet: i take care of / Ana badir baali / أنا بدير بالي). | high | r1+r2 |
@@ -313,7 +315,7 @@ _Whole file read in order. Latin-transliterated stretch [36:42]-[42:33] (‹...�
 | FA-95587f34 | 55:36 | grammar | C5 | أنا بكرى أو، أو. Oh, I can say ولا right؟ ولا، | أو؟ ... (56:06) ولا is used more for options يعني. Do you want this or that؟ | ولا -> أو | He had أو, then reached for ولا and asked if it works; she steered him back (أو؟) and explained ولا is for either-or options (C5). A bucket fits exactly, so grammar with signal asked rather than a tier-0 vocab row; medium because his actual production (أو) was right and the ولا was a question. | medium | r3 |
 | FA-0c9543fa | 58:18 | grammar | B1 | أغو، أغير الجو. | بغير جو. | أغير -> بغير | Plain present 'I change' needs b-: بغير (sheet: i change scenery / Ba8ayyer jaw / بغير جو). | high | r1+r2 |
 | FA-83505242 | 58:22 | grammar | A1 | بغير الجو. | No ال. Just جو. | بغير الجو -> بغير جو | The set phrase بغير جو takes no el- (sheet: Ba8ayyer jaw / بغير جو); he said الجو, she said 'No ال', and he repeated الجو at 58:26 anyway. | high | r1+r2 |
-| FA-2ca615a8 | 59:04 | rejected | C9 | عملنا كتير. | شو عملنا؟ ... عملنا. ... شو عملنا؟ | عملنا كتير -> عملنا تمرين كتير | عمل needs an object; 'we did a lot' came out as عملنا كتير, she asked شو عملنا؟ twice, ignoring his English 'We did a lot', until he supplied an object (عملنا تمرين كتير, 59:15) and then accepted (عنجد؟); low because it could be read as plain conversation. | low | r3 |
+| FA-2ca615a8 | 59:04 | grammar-propose | PROPOSE | عملنا كتير. | شو عملنا؟ ... عملنا. ... شو عملنا؟ | عملنا كتير -> عملنا تمرين كتير | عمل needs an object; 'we did a lot' came out as عملنا كتير, she asked شو عملنا؟ twice, ignoring his English 'We did a lot', until he supplied an object (عملنا تمرين كتير, 59:15) and then accepted (عنجد؟); low because it could be read as plain conversation. | low | r3 |
 
 ### 2026-09-04
 
@@ -1109,7 +1111,7 @@ _Whole file read. 800 Medi turns: 348 with Arabic script, ~130 more in Latin tra
 | FA-71d3c8fb | 34:37 | vocab-B (listening) | tier 1 | Okay, Arab customers ... are ... happy. Yeah. | بيهمنا زبايننا يكونوا مبسوطين. | زبايننا = Arab customers -> زبايننا = our customers | Glossing her sentence he rendered زبايننا as 'Arab customers', reading the -نا ending as عرب; she continued the drill without fixing (sheet: customer / Zboon / زبون). | low | r3 |
 | FA-e8b672bd | 37:56 | grammar-B | C1 | yeah, I was gonna say ana, ana ma-ana maruf, ana-- akun ana maruf. |  | akun ana maruf -> ana ma3roof | 'I am known (for cooking)' in the plain present takes no 'to be' - أكون is not needed; she let it pass and the talk went to English. My reading; the line is a restart so S5 is possible. | low | r3 |
 | FA-0d4e7fff | 38:10 | grammar | D2 | would it be a-ana mash-mashhur bi-ut-bi atbuk without the bi, right? | في. في or be. في، mm, the noun. Noun is طبخ. | bi atbuk -> bi el-tabe5 | مشهور/معروف takes بـ or في plus the noun (الطبخ), not a verb; she named it and he produced Bi tabakh il-kebab (38:29). | high | r1+r2 |
-| FA-737a36aa | 38:10 | grammar |  | would it be a-ana mash-mashhur bi-ut-bi atbuk without the bi, right? | في. ... في or be. ... في، mm, the noun. Noun is طبخ. | بـ أطبخ -> بالطبخ | verb after a preposition - needs the verbal noun | high | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
+| FA-737a36aa | 38:10 | grammar-propose | PROPOSE | would it be a-ana mash-mashhur bi-ut-bi atbuk without the bi, right? | في. ... في or be. ... في، mm, the noun. Noun is طبخ. | بـ أطبخ -> بالطبخ | verb after a preposition - needs the verbal noun | high | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
 | FA-30ded05c | 40:04 | grammar | B16 | ana bazun innu hadi mish lazim. | هذي مش لا-- إنه ما كان لازم، صح. | mish lazim -> ما كان لازم | 'It wasn't necessary' (his mother's rule) is ما كان لازم; he said مش لازم (present); she recast and he repeated makan lazim. | high | r1+r2 |
 | FA-b8a00718 | 40:17 | grammar | D1 | il-roz hon mish il-- uh, is not, yeah, mish il-roz fi Iran. | مش it's not like. | mish il-roz fi Iran -> mish zayy el-ruzz bi Iran | 'Is not like the rice in Iran' dropped زي (sheet: like / zayy / زي); she prompted 'it's not like' and he added zay at 40:27. An omitted function word, filed as grammar D1 rather than vocab. | medium | r3 |
 | FA-20fee0f9 | 41:01 | grammar | B18 | Bi, bibi'u, ishna bibi'? | بتبيع because شركة is | bibi'u -> بتبيع | شركة is feminine so the verb is بتبيع; he had a masculine/plural form; she started 'because شركة is...' and he said feminine, Bitbi'a (41:07). | high | r1+r2 |

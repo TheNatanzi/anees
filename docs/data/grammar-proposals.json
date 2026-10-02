@@ -1,0 +1,120 @@
+{
+ "updated": "2026-10-02T11:10:30-07:00",
+ "rule": "GR-18",
+ "about": "Grammar corrections Amal made that fit no existing rule. Each is a proposed new rule for Medi's yes or no; nothing here is scored until he says yes. Built by scripts/full_audit_build.py from the audit rows and data/lesson-work/full-audit/proposed-buckets.json.",
+ "proposals": [
+  {
+   "id": "P-A12",
+   "name": "pronoun matches who you mean",
+   "proposed_rule": "Pick the pronoun for the real person: humma for 'they' (his family), heyye for 'she' (his fiancee), not the last pronoun used.",
+   "family": "A",
+   "from": "09-24 sweep group NEW-A12 (proposed then, never shown to Medi)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-ffbd560d",
+     "date": "2026-08-25",
+     "t": "31:59",
+     "t_amal": "32:06",
+     "medi_said": "إن، إنتي ما-",
+     "amal_said": "هي.",
+     "chat": null,
+     "wrong": "إنتي",
+     "right": "هي",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "medium",
+     "why": "sweep row 0825-U3: Amal recast هي for his إنتي about his fiancee; the readers filed the same moment as a vocab word swap (FA-2c9e0146)",
+     "also_counted_as": [
+      {
+       "uid": "FA-2c9e0146",
+       "kind": "vocab-A",
+       "bucket": null
+      }
+     ]
+    },
+    {
+     "uid": "FA-9e441fb3",
+     "date": "2026-08-25",
+     "t": "22:13",
+     "t_amal": "22:44",
+     "medi_said": "أنا بتعب كتير لما عيلتنا-- عيلتي، اللي، أشتغل معهم. و هو...",
+     "amal_said": "هما.",
+     "chat": null,
+     "wrong": "هو",
+     "right": "هما",
+     "kind": "grammar",
+     "bucket": "B18",
+     "confidence": "high",
+     "why": "sweep row 0825-U2: هو for his family members, Amal said هما; the readers filed it under B18",
+     "also_counted_as": [
+      {
+       "uid": "FA-4916a145",
+       "kind": "grammar-B",
+       "bucket": "B1"
+      }
+     ],
+     "already_counted": true
+    }
+   ]
+  },
+  {
+   "id": "P-C11",
+   "name": "noun, not verb, after a preposition",
+   "proposed_rule": "After bi / fi / min use the noun of the action, not a verb: ana ma3roof bi el-tabe5 (her chat 09-21), not bi a6bo5.",
+   "family": "C",
+   "from": "09-24 sweep group NEW-C11 (proposed then, never shown to Medi)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-737a36aa",
+     "date": "2026-09-21",
+     "t": "38:10",
+     "t_amal": "38:23",
+     "medi_said": "would it be a-ana mash-mashhur bi-ut-bi atbuk without the bi, right?",
+     "amal_said": "في. ... في or be. ... في، mm, the noun. Noun is طبخ.",
+     "chat": "ana ma3roof bi el-tabe5 el-kabab",
+     "wrong": "بـ أطبخ",
+     "right": "بالطبخ",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "high",
+     "why": "sweep row 0921-U1: Medi asked, Amal: 'the noun. Noun is طبخ'; the readers filed the same moment under D2 (FA-0d4e7fff)",
+     "also_counted_as": [
+      {
+       "uid": "FA-0d4e7fff",
+       "kind": "grammar",
+       "bucket": "D2"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P-OBJ",
+   "name": "a doing verb says what was done",
+   "proposed_rule": "A verb like 3amal (do / make) names what was done: 3amalna tamreen kteer, not just 3amalna kteer (Amal kept asking 'shu 3amalna?' until he added it).",
+   "family": "C",
+   "from": "rejected.json FA-0075 (hand check 2026-09-26: 'plain conversation, no correction and no bucket fits') - re-checked 2026-10-02 under GR-18: 'no bucket fits' is never a reason to drop; low confidence, the hand check read it as conversation",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-2ca615a8",
+     "date": "2026-08-25",
+     "t": "59:04",
+     "t_amal": "59:06",
+     "medi_said": "عملنا كتير.",
+     "amal_said": "شو عملنا؟ ... عملنا. ... شو عملنا؟",
+     "chat": null,
+     "wrong": "عملنا كتير",
+     "right": "عملنا تمرين كتير",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "low",
+     "why": "59:04 he said عملنا كتير; Amal asked شو عملنا؟ at 59:06 and 59:12 until he said عملنا تمرين كتير (59:15). Low: the hand check read her question as conversation",
+     "also_counted_as": []
+    }
+   ]
+  }
+ ]
+}

@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T10:34:23-07:00",
+ "updated": "2026-10-02T11:10:46-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -280,7 +280,7 @@
     "unscored_mistakes": 6,
     "eligible": 41,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -401,8 +401,7 @@
      "reader agreement: pass 1 vs pass 2 settled rows agree on 74.6 % (>= 95 % needed)",
      "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
      "coverage: speaker labels agree with an independent check on only 86.7 % of 875 lines (voice pitch per line (Medi < 155 Hz, Amal > 180 Hz) vs the engine's diarization labels)",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -492,7 +491,7 @@
     "unique_rows": 33,
     "eligible": 46,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "eligible_pct": 80.4,
     "excluded_why": {},
     "verified_pct": null
@@ -504,9 +503,9 @@
     "estimate": false,
     "scored_mistakes": 31,
     "unscored_mistakes": 4,
-    "eligible": 35,
-    "excluded": 0,
-    "pending": 4,
+    "eligible": 32,
+    "excluded": 3,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -620,8 +619,7 @@
      "reader agreement: pass 1 vs pass 2 settled rows agree on 80.0 % (>= 95 % needed)",
      "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
      "coverage: speaker labels agree with an independent check on only 89.8 % of 659 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
-     "speech recognition not reviewed: nobody listened; 9 excerpts (241 s of 3762 s) compared with a second model",
-     "checks: 5 scored rows need an audio or human check (1 words, 4 grammar)"
+     "speech recognition not reviewed: nobody listened; 9 excerpts (241 s of 3762 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -712,7 +710,7 @@
     "unique_rows": 69,
     "eligible": 115,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "eligible_pct": 85.7,
     "excluded_why": {},
     "verified_pct": null
@@ -726,7 +724,7 @@
     "unscored_mistakes": 7,
     "eligible": 34,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -838,8 +836,7 @@
      "reader agreement: pass 2 readers agree on 66.2 % of rows (>= 95 % needed)",
      "reader agreement: pass 1 vs pass 2 settled rows agree on 77.9 % (>= 95 % needed)",
      "coverage: line times estimated from each person's recording by silence detection (no engine word timings)",
-     "speech recognition not reviewed: nobody listened; 21 excerpts (519 s of 3762 s) compared with a second model",
-     "checks: 2 scored rows need an audio or human check (1 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 21 excerpts (519 s of 3762 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -942,9 +939,9 @@
     "estimate": false,
     "scored_mistakes": 28,
     "unscored_mistakes": 5,
-    "eligible": 26,
-    "excluded": 7,
-    "pending": 2,
+    "eligible": 25,
+    "excluded": 8,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -1053,8 +1050,7 @@
      "reader agreement: pass 1 vs pass 2 settled rows agree on 67.8 % (>= 95 % needed)",
      "coverage: 30 stretches of Medi's speech written as '[speaking ...]' markers (04:16 in all)",
      "coverage: 10 stretches of Amal's speech written as '[speaking ...]' markers (00:58 in all)",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model",
-     "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -1345,11 +1341,13 @@
     "audit_partial": 1,
     "not_on_sheet": 5,
     "unique_rows": 55,
-    "eligible": 85,
-    "excluded": 0,
-    "pending": 1,
-    "eligible_pct": 85.3,
-    "excluded_why": {},
+    "eligible": 84,
+    "excluded": 1,
+    "pending": 0,
+    "eligible_pct": 86.3,
+    "excluded_why": {
+     "rejected on a human check by Amal": 1
+    },
     "verified_pct": null
    },
    "grammar": {
@@ -1359,9 +1357,9 @@
     "estimate": false,
     "scored_mistakes": 45,
     "unscored_mistakes": 2,
-    "eligible": 47,
-    "excluded": 0,
-    "pending": 4,
+    "eligible": 45,
+    "excluded": 2,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -1475,8 +1473,7 @@
      "reader agreement: pass 1 readers agree on 69.7 % of rows (>= 95 % needed)",
      "reader agreement: pass 2 readers agree on 61.9 % of rows (>= 95 % needed)",
      "reader agreement: pass 1 vs pass 2 settled rows agree on 77.3 % (>= 95 % needed)",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3768 s) compared with a second model",
-     "checks: 5 scored rows need an audio or human check (1 words, 4 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3768 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -1579,9 +1576,9 @@
     "estimate": false,
     "scored_mistakes": 42,
     "unscored_mistakes": 6,
-    "eligible": 48,
-    "excluded": 0,
-    "pending": 4,
+    "eligible": 45,
+    "excluded": 3,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -1702,8 +1699,7 @@
      "reader agreement: pass 1 readers agree on 57.9 % of rows (>= 95 % needed)",
      "reader agreement: pass 2 readers agree on 54.8 % of rows (>= 95 % needed)",
      "reader agreement: pass 1 vs pass 2 settled rows agree on 76.7 % (>= 95 % needed)",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4026 s) compared with a second model",
-     "checks: 4 scored rows need an audio or human check (0 words, 4 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4026 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -1808,9 +1804,9 @@
     "estimate": false,
     "scored_mistakes": 52,
     "unscored_mistakes": 5,
-    "eligible": 48,
-    "excluded": 9,
-    "pending": 3,
+    "eligible": 46,
+    "excluded": 11,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -1937,8 +1933,7 @@
      "reader agreement: pass 1 vs pass 2 settled rows agree on 79.6 % (>= 95 % needed)",
      "coverage: 33 stretches of Medi's speech written as '[speaking ...]' markers (04:49 in all)",
      "coverage: Medi talks 26:49-28:13 (24 s of speech on their own track) with no transcript line",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4182 s) compared with a second model",
-     "checks: 3 scored rows need an audio or human check (0 words, 3 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4182 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -2199,11 +2194,12 @@
     "audit_partial": 2,
     "not_on_sheet": 2,
     "unique_rows": 45,
-    "eligible": 62,
-    "excluded": 1,
-    "pending": 1,
-    "eligible_pct": 83.1,
+    "eligible": 61,
+    "excluded": 2,
+    "pending": 0,
+    "eligible_pct": 84.4,
     "excluded_why": {
+     "rejected on a human check by Amal": 1,
      "his line": 1
     },
     "verified_pct": null
@@ -2215,9 +2211,9 @@
     "estimate": false,
     "scored_mistakes": 36,
     "unscored_mistakes": 4,
-    "eligible": 35,
-    "excluded": 5,
-    "pending": 1,
+    "eligible": 34,
+    "excluded": 6,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -2338,8 +2334,7 @@
      "reader agreement: pass 2 readers agree on 62.1 % of rows (>= 95 % needed)",
      "reader agreement: pass 1 vs pass 2 settled rows agree on 69.2 % (>= 95 % needed)",
      "coverage: 33 stretches of Medi's speech written as '[speaking ...]' markers (05:24 in all)",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model",
-     "checks: 2 scored rows need an audio or human check (1 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -2608,9 +2603,9 @@
     "estimate": false,
     "scored_mistakes": 40,
     "unscored_mistakes": 5,
-    "eligible": 45,
-    "excluded": 0,
-    "pending": 4,
+    "eligible": 42,
+    "excluded": 3,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -2740,8 +2735,7 @@
      "reader agreement: pass 2 readers agree on 70.5 % of rows (>= 95 % needed)",
      "reader agreement: pass 1 vs pass 2 settled rows agree on 80.0 % (>= 95 % needed)",
      "coverage: speakers guessed by voice pitch on one mixed recording",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model",
-     "checks: 4 scored rows need an audio or human check (0 words, 4 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -3093,11 +3087,13 @@
     "not_an_error": 2,
     "not_on_sheet": 6,
     "unique_rows": 112,
-    "eligible": 208,
-    "excluded": 0,
-    "pending": 3,
-    "eligible_pct": 83.4,
-    "excluded_why": {},
+    "eligible": 205,
+    "excluded": 3,
+    "pending": 0,
+    "eligible_pct": 84.6,
+    "excluded_why": {
+     "rejected on a human check by Amal": 3
+    },
     "verified_pct": null
    },
    "grammar": {
@@ -3107,9 +3103,9 @@
     "estimate": false,
     "scored_mistakes": 59,
     "unscored_mistakes": 6,
-    "eligible": 65,
-    "excluded": 0,
-    "pending": 6,
+    "eligible": 59,
+    "excluded": 6,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -3210,8 +3206,7 @@
      "reader agreement: pass 1 readers agree on 58.7 % of rows (>= 95 % needed)",
      "reader agreement: pass 2 readers agree on 50.0 % of rows (>= 95 % needed)",
      "reader agreement: pass 1 vs pass 2 settled rows agree on 75.8 % (>= 95 % needed)",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4332 s) compared with a second model",
-     "checks: 9 scored rows need an audio or human check (3 words, 6 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4332 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -3290,23 +3285,23 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 66,
+    "unique": 65,
     "right": 73,
-    "wrong": 25,
-    "partial": 7,
-    "pct": 72.9,
-    "scored": 105,
-    "audit_wrong": 25,
-    "audit_partial": 6,
+    "wrong": 21,
+    "partial": 6,
+    "pct": 76.0,
+    "scored": 100,
+    "audit_wrong": 21,
+    "audit_partial": 5,
     "not_an_error": 1,
     "not_on_sheet": 3,
-    "unique_rows": 65,
-    "eligible": 85,
-    "excluded": 20,
-    "pending": 1,
-    "eligible_pct": 87.1,
+    "unique_rows": 64,
+    "eligible": 83,
+    "excluded": 17,
+    "pending": 0,
+    "eligible_pct": 89.2,
     "excluded_why": {
-     "his line": 20
+     "his line": 17
     },
     "verified_pct": null
    },
@@ -3440,7 +3435,7 @@
     "chat_lines": 57,
     "gap_fill": 266,
     "from_meet": 0,
-    "vocab_errors": 34,
+    "vocab_errors": 29,
     "vocab_correct": 74,
     "grammar_errors": 31,
     "grammar_not_counted": 1
@@ -3452,8 +3447,7 @@
      "reader agreement: pass 2 readers agree on 68.7 % of rows (>= 95 % needed)",
      "reader agreement: pass 1 vs pass 2 settled rows agree on 79.7 % (>= 95 % needed)",
      "coverage: 43 stretches of Medi's speech written as '[speaking ...]' markers (06:04 in all)",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (1 words, 0 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -3748,21 +3742,20 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 102,
+    "unique": 101,
     "right": 138,
-    "wrong": 15,
+    "wrong": 13,
     "partial": 18,
-    "pct": 86.0,
-    "scored": 171,
-    "audit_wrong": 13,
+    "pct": 87.0,
+    "scored": 169,
+    "audit_wrong": 11,
     "audit_partial": 2,
-    "not_an_error": 1,
     "not_on_sheet": 8,
-    "unique_rows": 100,
-    "eligible": 170,
+    "unique_rows": 99,
+    "eligible": 168,
     "excluded": 1,
-    "pending": 2,
-    "eligible_pct": 85.9,
+    "pending": 0,
+    "eligible_pct": 86.9,
     "excluded_why": {
      "Amal not transcribed": 1
     },
@@ -3873,8 +3866,7 @@
     }
    ],
    "notes": [
-    "gap fill: Amal's side 00:00-20:17 filled from the Meet recording (149 lines; speakers split by the engine's diarization, confidence 0.992; lines tagged from_meet).",
-    "1 word card(s) dropped after the 2026-09-27 hand check (he said it right, it was not his slip, or it repeats a slip already counted): 1:02:23 جرابين."
+    "gap fill: Amal's side 00:00-20:17 filled from the Meet recording (149 lines; speakers split by the engine's diarization, confidence 0.992; lines tagged from_meet)."
    ],
    "page": "lessons/2026-09-26.html",
    "detail": "data/lessons/2026-09-26.json",
@@ -3883,7 +3875,7 @@
     "chat_lines": 0,
     "gap_fill": 149,
     "from_meet": 149,
-    "vocab_errors": 25,
+    "vocab_errors": 23,
     "vocab_correct": 154,
     "grammar_errors": 21,
     "grammar_not_counted": 0
@@ -3895,8 +3887,7 @@
      "coverage: Amal not transcribed 17:31-20:17 while the other person talks",
      "coverage: Amal talks 00:04-01:06 (21 s of speech on their own track) with no transcript line",
      "coverage: Amal 00:00-20:17 comes from the mixed Meet recording, speakers split by diarization (their own track is silent there)",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4188 s) compared with a second model",
-     "checks: 2 scored rows need an audio or human check (2 words, 0 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4188 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -4441,7 +4432,6 @@
     "scored": 69,
     "audit_wrong": 1,
     "audit_partial": 0,
-    "not_an_error": 1,
     "unique_rows": 28,
     "eligible": 65,
     "excluded": 4,
@@ -4453,30 +4443,28 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 186,
-    "mistakes": 18,
-    "pct": 90.9,
+    "uses": 183,
+    "mistakes": 14,
+    "pct": 92.9,
     "estimate": false,
-    "scored_mistakes": 17,
+    "scored_mistakes": 13,
     "unscored_mistakes": 1,
-    "eligible": 17,
-    "excluded": 1,
-    "pending": 2,
+    "eligible": 14,
+    "excluded": 0,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
-      "4 slips are in rules the counter found 0 uses of in this lesson",
-      "4 rules have more slips than counted uses (A3, B12, B18, D1)"
+      "2 slips are in rules the counter found 0 uses of in this lesson",
+      "2 rules have more slips than counted uses (A3, B18)"
      ],
      "uses": 173,
-     "slips": 18,
+     "slips": 14,
      "slips_latin": 3,
-     "slips_in_zero_use_rules": 4,
+     "slips_in_zero_use_rules": 2,
      "rules_slips_over_uses": [
       "A3",
-      "B12",
-      "B18",
-      "D1"
+      "B18"
      ]
     },
     "verified_pct": null
@@ -4545,8 +4533,7 @@
    ],
    "coverage": "Amal's voice is missing from 00:00 to 23:14 (only her CHAT lines survive) and 19:58-23:14 is a dropout; first 23 min judged from chat and Medi's reactions only (01:33 'لسه الـ divine يروحوا' garbled, likely zbayin; 04:14 air conditioning not on sheet; 07:04-07:28 بحسب question with no answer visible). 09:49-14:51 mostly an English phone call. 46:00-46:45 'هذا' in 'أكتر هذا' is very likely 7ada with a dropped ح (S4) - not written as vocab. 45:11 'اللي بحب' self-fixed to بحبه at 45:37 - folded into the 46:45 pointer row. 53:00-1:01:00 largely Latin-transliterated by the engine (awal, laffe, nafs, tani). Questions about the rule (awal/al-awal, ghair, هذا ال rule) left out per brief. / Amal's voice is missing 00:00-23:14 (only her CHAT lines), so early fixes are judged from chat and Medi's echoes; 02:49 الساعة واحد was self-fixed at 02:55 before any chat, not written. 09:46-14:13 is an English phone call. 49:00-1:01:00 is in Latin letters (awal/oola/nafs drill). Much of 29:00-1:04:00 is rule discussion and questions, not counted. شيء is on her sheet (Kul shee, Wala shee) so not flagged. 04:02 شوك = engine for شوب (sheet: El-jaw shoab), not flagged. Names: Amal, Male (place).",
    "notes": [
-    "grammar: 1 of the 18 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
-    "1 word card(s) dropped after the 2026-09-27 hand check (he said it right, it was not his slip, or it repeats a slip already counted): 55:26 oola."
+    "grammar: 1 of the 14 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
    ],
    "page": "lessons/2026-10-01.html",
    "detail": "data/lessons/2026-10-01.json",
@@ -4555,7 +4542,7 @@
     "chat_lines": 32,
     "vocab_errors": 1,
     "vocab_correct": 68,
-    "grammar_errors": 18,
+    "grammar_errors": 14,
     "grammar_not_counted": 0
    },
    "release": {
@@ -4566,8 +4553,7 @@
      "coverage: Amal not transcribed 00:00-23:14 while the other person talks",
      "coverage: Amal talks 01:40-09:59 (129 s of speech on their own track) with no transcript line",
      "coverage: Amal talks 14:35-16:28 (23 s of speech on their own track) with no transcript line",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3966 s) compared with a second model",
-     "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3966 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
