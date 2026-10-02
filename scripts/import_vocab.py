@@ -5,7 +5,8 @@ Sources, in order of preference:
   ANEES_DOC_PUBLISHED_URL   env var with the Doc's "publish to web" URL -> fetched unattended (hourly Task Scheduler job)
   otherwise         the newest data/vocab/doc_*.md snapshot (no network; logs that no live source exists)
 
-Idempotent: rows are keyed by Amal's Arabizi (loose form); unchanged rows are not rewritten, missing rows are deactivated.
+Idempotent: rows are keyed by Amal's Arabizi (loose form); unchanged rows are not rewritten, missing rows are archived
+(active:false, history kept - AM-12). The snapshot fallback only rebuilds the JSON files; it never writes Supabase.
 Usage:  python scripts/import_vocab.py [--file PATH] [--dry] [--json-only]
 """
 import argparse, datetime, hashlib, html, io, json, re, sys
@@ -330,24 +331,38 @@ def load_source(path=None):
     return io.open(snaps[-1], encoding='utf-8').read(), 'md', f'{snaps[-1]} (snapshot; no live source configured)'
 
 
-def sync(words, dry=False):
-    """Upsert changed rows only; deactivate rows that left the Doc. Returns counts."""
-    import db
+def sync(words, dry=False, db=None, min_words=MIN_WORDS):
+    """Upsert changed rows only; ARCHIVE rows that left the Doc (AM-12, Medi 2026-09-30: "She took a few verbs off the
+    list that was added by mistake"): a word Amal removed gets active:false - never a DELETE, so its history (speaking
+    events, card results, first_seen) stays; a word she puts back is re-activated with the same key. Returns counts plus
+    the archived keys (so the run log shows Medi which words left). `db` is injectable for the offline test."""
+    if db is None:
+        import db
     existing = {r['key']: r for r in db.select('words', {'select': 'key,row_hash,active'})}
     active_n = sum(1 for r in existing.values() if r['active'])
-    if len(words) < MIN_WORDS or (active_n and len(words) < 0.8 * active_n):
+    if len(words) < min_words or (active_n and len(words) < 0.8 * active_n):
         # a broken/empty fetch must never wipe the table (mass-deactivate). Fail loudly instead.
-        raise RuntimeError(f'refusing to sync: only {len(words)} words parsed (table has {active_n} active, floor {MIN_WORDS})')
+        raise RuntimeError(f'refusing to sync: only {len(words)} words parsed (table has {active_n} active, floor {min_words})')
     changed = [w for w in words if existing.get(w['key'], {}).get('row_hash') != w['row_hash'] or not existing.get(w['key'], {}).get('active', True)]
-    gone = [k for k, r in existing.items() if r['active'] and k not in {w['key'] for w in words}]
+    keys = {w['key'] for w in words}
+    gone = sorted(k for k, r in existing.items() if r['active'] and k not in keys)
     now = datetime.datetime.now(datetime.timezone.utc).isoformat()
     if not dry:
         payload = [{**w, 'active': True, 'updated_at': now} for w in changed]
         db.upsert('words', payload, on='key')
         for k in gone:
             db.rest('PATCH', 'words', params={'key': f'eq.{k}'}, body={'active': False, 'updated_at': now}, prefer='return=minimal')
-    return {'total': len(words), 'inserted': sum(1 for w in changed if w['key'] not in existing), 'updated': sum(1 for w in changed if w['key'] in existing),
-            'deactivated': len(gone), 'unchanged': len(words) - len(changed)}
+    return {'total': len(words), 'inserted': sum(1 for w in changed if w['key'] not in existing),
+            'updated': sum(1 for w in changed if w['key'] in existing and existing[w['key']].get('active', True)),
+            'reactivated': sorted(w['key'] for w in changed if w['key'] in existing and not existing[w['key']].get('active', True)),
+            'deactivated': len(gone), 'archived': gone, 'unchanged': len(words) - len(changed)}
+
+
+def live_source(label, from_file):
+    """Only a real read of the Doc may change the table: --file (an export made now) or the published URL. The saved
+    snapshot fallback is OLD - syncing it re-activated words Amal had removed and reverted newer rows every hour
+    (2026-10-02: the hourly job on the 09-23 snapshot undid a newer sync; AM-12)."""
+    return bool(from_file) or not str(label).endswith('(snapshot; no live source configured)')
 
 
 def main():
@@ -371,8 +386,12 @@ def main():
                     '--output', str(DOCS_DATA / 'word-bank-catalog.json')], check=True)
     if a.json_only:
         return
+    if not live_source(label, a.file):
+        print('supabase: skipped - no live Doc read (the saved snapshot is never synced: it would undo newer syncs and '
+              're-activate words Amal removed; pass --file <fresh export> or set ANEES_DOC_PUBLISHED_URL)')
+        return
     res = sync(words, dry=a.dry)
-    print('supabase:', json.dumps(res))
+    print('supabase:', json.dumps(res, ensure_ascii=False))
 
 
 if __name__ == '__main__':

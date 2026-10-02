@@ -2917,7 +2917,7 @@
    "id": "AM-12",
    "kind": "data",
    "scope": "amal-data",
-   "status": "written",
+   "status": "enforced",
    "change": "new",
    "statement": "Every Doc sync archives words Amal removed (history kept, active:false).",
    "source": [
@@ -2933,13 +2933,27 @@
      "type": "code",
      "path": "scripts/import_vocab.py",
      "contains": "body={'active': False"
+    },
+    {
+     "type": "code",
+     "path": "scripts/import_vocab.py",
+     "contains": "if not live_source(label, a.file):"
     }
    ],
-   "test": [],
+   "test": [
+    {
+     "path": "tests/test_import_vocab_archive.py",
+     "contains": "def test_AM_12_a_word_amal_removed_is_archived_with_its_history_kept"
+    },
+    {
+     "path": "tests/test_import_vocab_archive.py",
+     "contains": "def test_AM_12_only_a_live_doc_read_syncs_never_the_old_snapshot"
+    }
+   ],
    "aliases": [
     "report:M11"
    ],
-   "note": "gap: removed words are not shown to Medi; the sync runs by hand (run_import_vocab.ps1)"
+   "note": "2026-10-02: the archive path worked, but the hourly task (C:/dev/anees run_import_vocab.ps1, no published URL) synced the OLD 09-23 snapshot every hour, re-activating removed words and reverting newer rows. Now only --file or the published URL may write Supabase; the run log lists the archived keys. The sync still runs by hand (no live source configured)."
   },
   {
    "id": "AM-13",
