@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Rule P1 (freshness audit 2026-10-02): a snapshot that grows with every lesson is never read in one request.
+"""Rule PR-14 / P1 (freshness audit 2026-10-02): a snapshot that grows with every lesson is never read in one request.
 rpc/speaking_snapshot hit the statement timeout on every try once lesson 2026-10-01 was loaded, so the hourly job could
 not refresh the Word Bank evidence and the lesson stayed blocked. Offline: the database is a fake."""
 import re, sys

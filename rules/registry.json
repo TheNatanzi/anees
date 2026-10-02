@@ -4051,6 +4051,192 @@
    "aliases": [
     "ai_rules:R2"
    ]
+  },
+  {
+   "id": "PG-15",
+   "kind": "process",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A page is never older than its source: when the database or the raw archive has a newer lesson than the pages, the pages say so (Progress, Lessons), and the publish guard warns when a transcribed lesson is not on the site, Amal's answers were not checked for 2 h, or publishing has been blocked for 6 h.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "Let's also do an audit of every report and ensure the data is getting populated as soon as it's available.",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "RULES.md",
+     "contains": "A page is never older than its source"
+    },
+    {
+     "type": "code",
+     "path": "scripts/publish_guard.py",
+     "contains": "def check_data_freshness(root, raw=None"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_data_freshness_names_a_transcribed_lesson_that_is_not_on_the_site"
+    }
+   ],
+   "aliases": [
+    "RULES:S7",
+    "S7:F1"
+   ]
+  },
+  {
+   "id": "PR-13",
+   "kind": "process",
+   "scope": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A generated file is rebuilt, never merged: a rebase conflict in built data keeps master's copy, re-stamps the build and queues the rebuild; only a hand-made file waits for a person (09-30 17:23 to 10-02: two build stamps stopped every hourly publish).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "Let's also do an audit of every report and ensure the data is getting populated as soon as it's available.",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "RULES.md",
+     "contains": "A page is never older than its source"
+    },
+    {
+     "type": "code",
+     "path": "scripts/publish_guard.py",
+     "contains": "def resolve_generated_conflicts(root, run=subprocess.run"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_real_git_a_build_stamp_conflict_no_longer_stops_publishing"
+    }
+   ],
+   "aliases": [
+    "S7:G1"
+   ]
+  },
+  {
+   "id": "LS-07",
+   "kind": "process",
+   "scope": "lessons",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Each AI reader file is checked against its own shape: r1/r2 hold rows, the third reader holds rulings (+ added, challenges); checking r3 for rows failed every new lesson's same-day review from 2026-09-29.",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "Let's also do an audit of every report and ensure the data is getting populated as soon as it's available.",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "RULES.md",
+     "contains": "A page is never older than its source"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_lesson.py",
+     "contains": "READER_SHAPES = {\"reader\": (\"rows\",), \"third\": (\"rulings\",)}"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_review_lesson.py",
+     "contains": "def test_third_reader_file_is_checked_against_its_own_shape"
+    }
+   ],
+   "aliases": [
+    "S7:R3"
+   ]
+  },
+  {
+   "id": "PR-14",
+   "kind": "data",
+   "scope": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A snapshot that grows with every lesson is read in pages, never in one request (rpc/speaking_snapshot hit the statement timeout once lesson 2026-10-01 was loaded).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "Let's also do an audit of every report and ensure the data is getting populated as soon as it's available.",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "RULES.md",
+     "contains": "A page is never older than its source"
+    },
+    {
+     "type": "code",
+     "path": "scripts/speaking_snapshot.py",
+     "contains": "def events(db=None, retries=4)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_speaking_snapshot_paged.py",
+     "contains": "def test_the_scheduled_jobs_never_read_the_snapshot_in_one_call"
+    }
+   ],
+   "aliases": [
+    "S7:P1"
+   ]
+  },
+  {
+   "id": "PG-14",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A page that reads live data re-reads it when the tab comes back into view (docs/js/live-reread.js), or is listed with the reason it must not (an answer page, a card session).",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "Let's also do an audit of every report and ensure the data is getting populated as soon as it's available.",
+     "session": "65d34512"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "RULES.md",
+     "contains": "A page is never older than its source"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/live-reread.js",
+     "contains": "window.AneesLive = { onReturn: onReturn }"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_live_reread.py",
+     "contains": "def test_every_live_page_rereads_or_says_why_not"
+    }
+   ],
+   "aliases": [
+    "S7:L1"
+   ]
   }
  ]
 }

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Rule L1 (freshness audit, Medi 2026-10-02: "ensure the data is getting populated as soon as it's available"):
+"""Rule PG-14 / L1 (freshness audit, Medi 2026-10-02: "ensure the data is getting populated as soon as it's available"):
 every page that reads LIVE data (Supabase) re-reads it when the tab comes back into view - docs/js/live-reread.js
 (AneesLive.onReturn) or its own visibilitychange listener - or is listed below with the reason it must not.
 Precedent: the Progress Flashcards panels read the answers once and never again (fixed in 8d730a0).

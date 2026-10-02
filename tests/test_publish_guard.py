@@ -352,7 +352,7 @@ def _two_clones(tmp_path, required=('json_data',)):
 
 
 def test_real_git_a_build_stamp_conflict_no_longer_stops_publishing(tmp_path):
-    """2026-09-30 17:23 -> 2026-10-02: every hourly push stopped at 'a person merges' over two build stamps (69 commits
+    """Rule PR-13 (RULES.md S7 G1). 2026-09-30 17:23 -> 2026-10-02: every hourly push stopped at 'a person merges' over two build stamps (69 commits
     stuck). A stamp conflict is now resolved (master's copy, then re-stamped) and the push goes through."""
     g, remote, work, other = _two_clones(tmp_path)
     write(other / 'docs' / 'data' / 'build.json', {'build': 'master-stamp'})
@@ -410,7 +410,7 @@ def test_generated_paths_cover_the_stamp_and_never_code():
 
 
 def test_data_freshness_names_a_transcribed_lesson_that_is_not_on_the_site(repo, tmp_path):
-    """Rule F1 (2026-10-02): 10-01 sat transcribed in the raw archive 11+ hours while every page ended at 09-30."""
+    """Rule PG-15 (RULES.md S7 F1). Rule F1 (2026-10-02): 10-01 sat transcribed in the raw archive 11+ hours while every page ended at 09-30."""
     raw = tmp_path / 'raw'
     write(raw / '2026-10-01' / 'scribe_Medi.json', '{}')
     write(raw / DATES[0] / 'scribe_Medi.json', '{}')                       # on the site: fine

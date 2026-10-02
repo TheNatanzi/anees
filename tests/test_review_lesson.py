@@ -181,7 +181,7 @@ def test_a_reader_file_that_is_not_valid_json_fails_closed(repo, monkeypatch):
 
 
 def test_third_reader_file_is_checked_against_its_own_shape(tmp_path):
-    """2026-10-02: r3 writes rulings/added (no rows); the old check wanted rows and failed every new lesson's review."""
+    """Rule LS-07 (RULES.md S7 R3). 2026-10-02: r3 writes rulings/added (no rows); the old check wanted rows and failed every new lesson's review."""
     p = tmp_path / 'r3.json'
     p.write_text(json.dumps({'date': D, 'reader': 'r3', 'rulings': [{'id': 'D1', 'verdict': 'drop'}], 'added': []}), encoding='utf-8')
     assert RL.valid_reader_file(str(p), D, kind='third')
