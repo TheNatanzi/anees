@@ -6,35 +6,35 @@
   "max_reader_passes": 2
  },
  "totals": {
-  "lessons": 16,
+  "lessons": 17,
   "verified_lessons": 0,
   "threshold_pct": 95.0,
   "words": {
    "verified_avg_pct": null,
-   "unverified_avg_pct": 81.1,
+   "unverified_avg_pct": 81.8,
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
-   "eligible": 1307,
-   "excluded": 24,
+   "eligible": 1392,
+   "excluded": 28,
    "pending": 10
   },
   "grammar": {
    "verified_avg_pct": null,
-   "unverified_avg_pct": 81.4,
+   "unverified_avg_pct": 82.0,
    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
    "denominator_valid_lessons": 0,
-   "eligible": 539,
-   "excluded": 32,
+   "eligible": 556,
+   "excluded": 33,
    "pending": 32
   },
   "verification_queue": 42,
   "word_bank": {
-   "occurrences": 2392,
-   "eligible": 1099,
-   "excluded_not_scored": 1259,
+   "occurrences": 2596,
+   "eligible": 1187,
+   "excluded_not_scored": 1375,
    "pending_needs_review": 34,
    "other": 0,
-   "pct": 96.0,
-   "lessons_in_audit": 16,
+   "pct": 95.7,
+   "lessons_in_audit": 17,
    "lessons_missing": [],
    "note": "pct = (Correct + half Partial) / (Correct + Partial + Wrong); 'Needs review' is pending and counts nowhere; 'Not scored' is excluded by rule (English, names, glue words...)."
   }
@@ -716,11 +716,11 @@
     "checks: 9 scored rows need an audio or human check (3 words, 6 grammar)"
    ],
    "words": {
-    "pct": 83.1,
-    "eligible_pct": 83.1,
+    "pct": 83.4,
+    "eligible_pct": 83.4,
     "verified_pct": null,
-    "scored": 204,
-    "eligible": 204,
+    "scored": 208,
+    "eligible": 208,
     "excluded": 0,
     "pending": 3,
     "excluded_why": {}
@@ -776,11 +776,11 @@
     "checks: 1 scored rows need an audio or human check (1 words, 0 grammar)"
    ],
    "words": {
-    "pct": 71.2,
-    "eligible_pct": 86.1,
+    "pct": 72.9,
+    "eligible_pct": 87.1,
     "verified_pct": null,
-    "scored": 99,
-    "eligible": 79,
+    "scored": 105,
+    "eligible": 85,
     "excluded": 20,
     "pending": 1,
     "excluded_why": {
@@ -841,8 +841,8 @@
     "pct": 86.0,
     "eligible_pct": 85.9,
     "verified_pct": null,
-    "scored": 164,
-    "eligible": 163,
+    "scored": 171,
+    "eligible": 170,
     "excluded": 1,
     "pending": 2,
     "excluded_why": {
@@ -945,15 +945,14 @@
    "release": "not verified",
    "reasons": [
     "reader agreement: pass 1 62.1 %; 2 consecutive passes at >= 95 % are needed",
-    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3942 s) compared with a second model",
-    "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
+    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3942 s) compared with a second model"
    ],
    "words": {
-    "pct": 86.1,
-    "eligible_pct": 86.1,
+    "pct": 86.6,
+    "eligible_pct": 86.6,
     "verified_pct": null,
-    "scored": 79,
-    "eligible": 79,
+    "scored": 82,
+    "eligible": 82,
     "excluded": 0,
     "pending": 0,
     "excluded_why": {}
@@ -965,7 +964,7 @@
     "uses": 203,
     "eligible": 21,
     "excluded": 0,
-    "pending": 2,
+    "pending": 0,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -991,6 +990,66 @@
    },
    "agreement": [
     62.1
+   ],
+   "between_passes": []
+  },
+  {
+   "date": "2026-10-01",
+   "release": "not verified",
+   "reasons": [
+    "reader agreement: pass 1 58.1 %; 2 consecutive passes at >= 95 % are needed",
+    "coverage: 4 stretches of Medi's speech written as '[speaking ...]' markers (00:16 in all)",
+    "coverage: Amal not transcribed 00:00-23:14 while the other person talks",
+    "coverage: Amal talks 01:40-09:59 (129 s of speech on their own track) with no transcript line",
+    "coverage: Amal talks 14:35-16:28 (23 s of speech on their own track) with no transcript line",
+    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3966 s) compared with a second model",
+    "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
+   ],
+   "words": {
+    "pct": 90.6,
+    "eligible_pct": 90.0,
+    "verified_pct": null,
+    "scored": 69,
+    "eligible": 65,
+    "excluded": 4,
+    "pending": 0,
+    "excluded_why": {
+     "Amal not transcribed": 4
+    }
+   },
+   "grammar": {
+    "pct": 90.9,
+    "verified_pct": null,
+    "mistakes": 18,
+    "uses": 186,
+    "eligible": 17,
+    "excluded": 1,
+    "pending": 2,
+    "estimate": false,
+    "denominator_valid": false,
+    "denominator_reasons": [
+     "4 slips are in rules the counter found 0 uses of in this lesson",
+     "4 rules have more slips than counted uses (A3, B12, B18, D1)"
+    ]
+   },
+   "coverage": {
+    "Medi": {
+     "covered_pct": 100.0,
+     "missing_s": 0,
+     "hole_s": 16.2
+    },
+    "Amal": {
+     "covered_pct": 64.9,
+     "missing_s": 1393.7,
+     "hole_s": 0
+    }
+   },
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "agreement": [
+    58.1
    ],
    "between_passes": []
   }

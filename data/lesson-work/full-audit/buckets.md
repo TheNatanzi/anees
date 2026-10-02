@@ -70,26 +70,48 @@
 - **C2** the pointer rule (Sentence glue): Move the object to the front and the verb grows an ending pointing back.
 - **C3** comparatives (Sentence glue): `a7san`, `aktar`, `a2al` - and never `el-` in front.
 - **C4** saying no (Sentence glue): `ma` before verbs, `mish` before nouns and adjectives.
-- **C4b** words that drag a ma along (Sentence glue): `abadan` is not enough on its own - the verb still needs `ma`.
-- **C5** u / aw / wala (Sentence glue): and, either-or, nor/nothing.
-- **C6** iza / lamma (Sentence glue): if, when - lamma drops the b- on the next verb, iza keeps it.
-  - lamma akoon ta3baan when I'm tired - ykoon here is optional, never marked wrong if left out. (Amal, B8)
+- **C4b** words that drag a ma along (Sentence glue): `abadan` is not enough on its own - the verb still needs `ma`. And after `abel` it is always `abel ma` + a bare present verb.
+  - After abel it's always ma + the present verb with no b-, even when the English is past: abel ma aaji = before I came. (Amal)
+  - Other words / prepositions take ma as well; Amal will explain them later. (Amal)
+- **C5** u / aw / willa / wala (Sentence glue): and, or, or, nor/nothing.
+  - u = and.  aw = or.  willa = another way to say or. (Amal)  wala = nor / not even / none.
+  - wala 7ada nobody, wala ishi nothing, wala ana neither do I. (Amal)
+  - The recorded slip is aw vs willa, not aw vs wala. (Amal)
+- **C6** iza / lamma (Sentence glue): if, when - conditional words. lamma drops the b- on the next verb, iza keeps it.
+  - These are conditional words: they need bikoon before the adjective, or before biddi and 3indi, in their sentence. (Amal)
+  - lamma drops the present marker b-; iza does not. (Amal) lamma aru7 when I go - bare verb.
   - Iza (if) KEEPS the b (Amal): iza bteji, never iza teji.
-- **C7** illi (Sentence glue): 'the one that' - never changes shape.
+- **C7** illi (Sentence glue): 'the one that' - never changes shape. No el-, no illi.
+  - No el, no illi: if the word before illi is not definite (no el- and no possessive ending), don't add illi. (Amal)
+  - aktar ishi ba7ebbo = the thing I like the most; seyyarti illi basoo2ha = my car that I drive; fi u8niyye ba3rafha = there is a song that I know. (Amal)
 - **C8** question words (Sentence glue): The basic set.
+  - Addaish and kam both mean how much / how many; they're used differently and build the sentence differently. (Amal)
+  - kam always takes the singular: kam dars = how many lessons. (Amal) See E5.
+  - kam also means few: 3indi kam ishi = I have a few things. (Amal)
 - **C9** word order (Sentence glue): Normal is verb then object; front the object and C2 kicks in.
 - **C10** preposition goes in front (Sentence glue): English leaves it dangling; Arabic never does.
 - **D1** prepositions (Words that pick their partner): Small words with several jobs each.
+  - For the fuller explanation, see Amal's Doc "Arabic Materials". (Amal)
 - **D2** verb + its fixed preposition (Words that pick their partner): The verb chooses it. You can't guess from English.
 - **D5** preposition keeps el- (Words that pick their partner): Where English drops 'the', Levantine keeps it.
-- **D3** endings on prepositions (Words that pick their partner): Stick the person on the end of the preposition.
+- **D3** endings on prepositions (Words that pick their partner): Stick the person on the end of the preposition. All take endings except bi.
+  - All prepositions take endings except "bi". (Amal)
+  - la- has its own endings: ili, ilak, ilek, ilkom, ilo, ilha, ilhom, ilna. (Amal)
+  - fi is like the others with small changes: fiyy, fik, fiki, fikom, fiyyo, fiha, fihom, fina. (Amal)
 - **D4** endings on verbs (Words that pick their partner): The object rides on the back of the verb.
 - **D6** iyyaa - the second object (Words that pick their partner): A verb carries only one pronoun; a second one rides on `iyyaa`.
 - **E1** number + noun (Numbers and time): 2 has its own form; 3-10 take a plural; 11+ take a SINGULAR.
+  - 3 to 10: the number without its -e / -a ending + the plural noun: 5ames da2aaye2 = 5 minutes. (Amal)
 - **E2** clock time (Numbers and time): `el-saa3a` + the feminine number.
+  - tult = the twenty-minute mark: talaat u tult = 3:20. (Amal)
+  - illa also means except. (Amal)
 - **E3** time units, two-of and many-of (Numbers and time): Each unit has three forms.
 - **E4** calendar (Numbers and time): Days, months, and 'on Monday'.
 - **E5** kam + singular (Numbers and time): After `kam` (how many) the noun is always singular - never plural.
+  - kam also means few: 3indi kam ishi = I have a few things. (Amal)
 - **F1** the seven hard letters (Sound shape (pronunciation, not grammar)): Sounds English doesn't have - scored as pronunciation, not grammar.
 - **F2** vowel length (Sound shape (pronunciation, not grammar)): Holding a vowel longer changes the word.
-- **F3** shadda (doubled letter) (Sound shape (pronunciation, not grammar)): Hold the consonant twice as long.
+- **F3** causative verbs: 3 forms (Sound shape (pronunciation, not grammar)): One root, two sides - doing it to someone vs it happening to you - made 3 ways: doubled middle, n-, or t-.
+  - Doubled middle, then t- for the 'it happens to me' side: ba3allem teach -> bat3allam learn; ba8ayyer change -> bat8ayyar be changed. (Amal)
+  - n- for the 'it happens to me' side: baz3ej annoy -> banze3ej be annoyed. (Amal)
+  - Replaces the old shadda card (Amal 2026-09-30). make-X / get-X slips are scored under B12; this card is still not scored on its own (family F).

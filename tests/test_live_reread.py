@@ -22,6 +22,7 @@ ONCE_OK = {
     'docs/amal/word-review.html': "Amal's answer page (see after.html)",
     'docs/js/amal-grammar-notes.js': "Amal writes notes under each rule; a re-read would drop a note she is typing",
     'docs/js/hub/after-task.js': 'a task Amal has open inside the Tutor page (tutor.js re-reads the list around it)',
+    'docs/js/hub/new-words-task.js': "the 'new words' task Amal has open (tutor.js re-reads the list and her saved choices around it)",
     'docs/js/tutor-verify.js': "the 'check these moments' task Amal has open (tutor.js re-reads the list around it)",
     'docs/homework.html': 'Medi types homework answers on it; a re-read would reset them',
     'docs/big-picture.html': "Medi's idea dump: he types on it; a re-read would reset a draft",

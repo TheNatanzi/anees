@@ -1378,6 +1378,125 @@
     "human_listened_s": 0
    },
    "gap_fill": []
+  },
+  "2026-10-01": {
+   "date": "2026-10-01",
+   "lesson_s": 3966.0,
+   "attribution": "per-speaker-tracks",
+   "timing": "engine",
+   "people": {
+    "Medi": {
+     "segments": [
+      {
+       "offset": 0.403,
+       "duration_s": 3963.2,
+       "status": "ok",
+       "file": "Medi_Natanzi-3f27146181995b60.mp3"
+      }
+     ],
+     "audio_s": 3963.2,
+     "audio_pct": 99.9,
+     "no_audio": [],
+     "lost_segments": [],
+     "lines": 531,
+     "first_line": 4.36,
+     "speech_s": 1084.1,
+     "speech_transcribed_pct": 96.7,
+     "untranscribed_s": 36.0,
+     "holes": [],
+     "empty_audio": []
+    },
+    "Amal": {
+     "segments": [
+      {
+       "offset": 1.172,
+       "duration_s": 1237.3,
+       "status": "ok",
+       "file": "Amal-e36ff7bb4dcf61cf.mp3"
+      },
+      {
+       "offset": 1392.226,
+       "duration_s": 2571.5,
+       "status": "ok",
+       "file": "Amal-f87924fdbaa1b12d.mp3"
+      }
+     ],
+     "audio_s": 3808.7,
+     "audio_pct": 96.0,
+     "no_audio": [
+      [
+       1238.3,
+       1392.2
+      ]
+     ],
+     "lost_segments": [],
+     "lines": 295,
+     "first_line": 1393.67,
+     "speech_s": 911.1,
+     "speech_transcribed_pct": 78.7,
+     "untranscribed_s": 194.5,
+     "holes": [
+      [
+       99.8,
+       598.9,
+       129.4
+      ],
+      [
+       874.9,
+       987.7,
+       23.1
+      ]
+     ],
+     "empty_audio": []
+    }
+   },
+   "flags": [
+    {
+     "who": "Amal",
+     "kind": "untranscribed",
+     "from": 99.8,
+     "to": 598.9,
+     "speech_s": 129.4,
+     "text": "Amal talks 01:40-09:59 (129 s of speech on their own track) with no transcript line"
+    },
+    {
+     "who": "Amal",
+     "kind": "untranscribed",
+     "from": 874.9,
+     "to": 987.7,
+     "speech_s": 23.1,
+     "text": "Amal talks 14:35-16:28 (23 s of speech on their own track) with no transcript line"
+    }
+   ],
+   "recording": "per-person tracks",
+   "swap_check": {
+    "method": "own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?)",
+    "checked": 719,
+    "agree_pct": 95.0,
+    "by_person": {
+     "Medi": {
+      "own_track_louder": 453,
+      "other_track_louder": 19
+     },
+     "Amal": {
+      "own_track_louder": 230,
+      "other_track_louder": 17
+     }
+    },
+    "caption_agree_pct": null,
+    "caption_checked": 0,
+    "caption_offset_s": null,
+    "cutoffs": {
+     "swapped_below": 50.0,
+     "doubtful_below": 90.0
+    }
+   },
+   "asr_review": {
+    "second_model_excerpts": 0,
+    "second_model_s": 0,
+    "human_listened_s": 0
+   },
+   "gap_fill": []
   }
  },
  "about": "Per lesson x per person source audit (scripts/source_audit.py): audio present, speech on each person's own track, untranscribed speech, independent speaker-label check, ASR review. Read by scripts/accuracy_gates.py.",
@@ -1388,5 +1507,5 @@
   "loud_db": 6.0,
   "speech": "own-track frame energy > max(20th percentile + 15 dB, -50 dBFS), 0.1-s frames"
  },
- "built": "2026-09-30T15:40:24-07:00"
+ "built": "2026-10-02T02:19:06-07:00"
 }

@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T01:13:14-07:00",
+ "updated": "2026-10-02T02:24:57-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -3057,21 +3057,21 @@
    "type_why": "Conversation and role plays for the whole hour: stress at work, pizza, ordering at a cafe, complaining about food to a manager, how he cooks rice (tahdig), Iranian food abroad.",
    "type_source": "claude-read",
    "words": {
-    "unique": 110,
-    "right": 167,
+    "unique": 112,
+    "right": 171,
     "wrong": 32,
     "partial": 5,
-    "pct": 83.1,
-    "scored": 204,
+    "pct": 83.4,
+    "scored": 208,
     "audit_wrong": 26,
     "audit_partial": 5,
     "not_an_error": 2,
     "not_on_sheet": 6,
-    "unique_rows": 110,
-    "eligible": 204,
+    "unique_rows": 112,
+    "eligible": 208,
     "excluded": 0,
     "pending": 3,
-    "eligible_pct": 83.1,
+    "eligible_pct": 83.4,
     "excluded_why": {},
     "verified_pct": null
    },
@@ -3174,7 +3174,7 @@
     "turns": 1274,
     "chat_lines": 57,
     "vocab_errors": 43,
-    "vocab_correct": 167,
+    "vocab_correct": 171,
     "grammar_errors": 65,
     "grammar_not_counted": 2
    },
@@ -3263,21 +3263,21 @@
    "type_why": "Conversation and role plays: coffee, stomach ache, then booking a hotel room, breakfast, paying, complaining to the manager, booking tickets and appointments, a weekend drive. Medi's first ~23 min is not transcribed (Amal's side only).",
    "type_source": "claude-read",
    "words": {
-    "unique": 63,
-    "right": 67,
+    "unique": 66,
+    "right": 73,
     "wrong": 25,
     "partial": 7,
-    "pct": 71.2,
-    "scored": 99,
+    "pct": 72.9,
+    "scored": 105,
     "audit_wrong": 25,
     "audit_partial": 6,
     "not_an_error": 1,
     "not_on_sheet": 3,
-    "unique_rows": 63,
-    "eligible": 79,
+    "unique_rows": 65,
+    "eligible": 85,
     "excluded": 20,
     "pending": 1,
-    "eligible_pct": 86.1,
+    "eligible_pct": 87.1,
     "excluded_why": {
      "his line": 20
     },
@@ -3413,7 +3413,7 @@
     "gap_fill": 266,
     "from_meet": 0,
     "vocab_errors": 34,
-    "vocab_correct": 68,
+    "vocab_correct": 74,
     "grammar_errors": 31,
     "grammar_not_counted": 1
    },
@@ -3719,18 +3719,18 @@
    "type_why": "Role plays that review words already taught: after small talk (his knee, the app, the date) and a ~2 min drop-out at 18:00, a doctor visit (types of doctor, head ache, medicine, body and face parts, feminine/dual body words, 'my hands' = إيدي) then a clothes shop for a wedding (suit, shirt, shoes, colours, socks, sunglasses). No new verb pair taught. Amal's side is not transcribed before 20:17 (only Medi's).",
    "type_source": "claude-read",
    "words": {
-    "unique": 99,
-    "right": 133,
+    "unique": 102,
+    "right": 138,
     "wrong": 15,
-    "partial": 16,
+    "partial": 18,
     "pct": 86.0,
-    "scored": 164,
+    "scored": 171,
     "audit_wrong": 13,
     "audit_partial": 2,
     "not_an_error": 1,
     "not_on_sheet": 8,
-    "unique_rows": 97,
-    "eligible": 163,
+    "unique_rows": 100,
+    "eligible": 170,
     "excluded": 1,
     "pending": 2,
     "eligible_pct": 85.9,
@@ -3854,7 +3854,7 @@
     "gap_fill": 149,
     "from_meet": 149,
     "vocab_errors": 25,
-    "vocab_correct": 147,
+    "vocab_correct": 154,
     "grammar_errors": 21,
     "grammar_not_counted": 0
    },
@@ -4219,20 +4219,20 @@
    "type_why": "16:00-65:30 (~50 of 66 min) is the planned el- review (16:52 'حكينا بدنا نراجع ال'; 58:02 'I'm not introducing anything new... just testing'): general nouns (A1), noun + adjective (A7), hada/hadol + el (A10/A10b), idafa with feminine -t and chains (A2/A3/A5), ending with Medi explaining the rule back; first 5 min app talk, 05:35-15:50 small talk about yesterday's rug customers.",
    "type_source": "claude-read",
    "words": {
-    "unique": 55,
-    "right": 64,
+    "unique": 57,
+    "right": 67,
     "wrong": 7,
     "partial": 8,
-    "pct": 86.1,
-    "scored": 79,
+    "pct": 86.6,
+    "scored": 82,
     "audit_wrong": 7,
     "audit_partial": 1,
     "not_on_sheet": 4,
-    "unique_rows": 55,
-    "eligible": 79,
+    "unique_rows": 57,
+    "eligible": 82,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 86.1,
+    "eligible_pct": 86.6,
     "excluded_why": {},
     "verified_pct": null
    },
@@ -4245,7 +4245,7 @@
     "unscored_mistakes": 2,
     "eligible": 21,
     "excluded": 0,
-    "pending": 2,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -4328,7 +4328,7 @@
     "turns": 1067,
     "chat_lines": 0,
     "vocab_errors": 12,
-    "vocab_correct": 71,
+    "vocab_correct": 74,
     "grammar_errors": 21,
     "grammar_not_counted": 1
    },
@@ -4336,8 +4336,7 @@
     "status": "not verified",
     "reasons": [
      "reader agreement: pass 1 62.1 %; 2 consecutive passes at >= 95 % are needed",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3942 s) compared with a second model",
-     "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3942 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -4382,6 +4381,231 @@
      "missing_s": 0,
      "hole_s": 0,
      "covered_pct": 100.0
+    }
+   }
+  },
+  {
+   "date": "2026-10-01",
+   "start_local": "2026-10-01T13:04:51-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "duration_min": 66.1,
+   "type": "free-speak",
+   "review_mode": null,
+   "type_why": "Not read yet: default until Claude reads this lesson and adds it to LESSON_TYPES.",
+   "type_source": "claude-read",
+   "words": {
+    "unique": 28,
+    "right": 57,
+    "wrong": 1,
+    "partial": 11,
+    "pct": 90.6,
+    "scored": 69,
+    "audit_wrong": 1,
+    "audit_partial": 0,
+    "not_an_error": 1,
+    "unique_rows": 28,
+    "eligible": 65,
+    "excluded": 4,
+    "pending": 0,
+    "eligible_pct": 90.0,
+    "excluded_why": {
+     "Amal not transcribed": 4
+    },
+    "verified_pct": null
+   },
+   "grammar": {
+    "uses": 186,
+    "mistakes": 18,
+    "pct": 90.9,
+    "estimate": false,
+    "scored_mistakes": 17,
+    "unscored_mistakes": 1,
+    "eligible": 17,
+    "excluded": 1,
+    "pending": 2,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "4 slips are in rules the counter found 0 uses of in this lesson",
+      "4 rules have more slips than counted uses (A3, B12, B18, D1)"
+     ],
+     "uses": 173,
+     "slips": 18,
+     "slips_latin": 3,
+     "slips_in_zero_use_rules": 4,
+     "rules_slips_over_uses": [
+      "A3",
+      "B12",
+      "B18",
+      "D1"
+     ]
+    },
+    "verified_pct": null
+   },
+   "talk": {
+    "medi_s": 1086.3,
+    "amal_s": 788.2,
+    "speak_pct": 58.0,
+    "listen_pct": 42.0,
+    "window": [
+     0.0,
+     3962.9
+    ]
+   },
+   "fillers": {
+    "count": 147,
+    "per_min": 8.12,
+    "top": [
+     [
+      "uh",
+      118
+     ],
+     [
+      "um",
+      19
+     ],
+     [
+      "امم",
+      4
+     ],
+     [
+      "ah",
+      3
+     ],
+     [
+      "hmm",
+      1
+     ],
+     [
+      "mm",
+      1
+     ]
+    ],
+    "in_turns": 147,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.88,
+    "p75_s": 3.0,
+    "n": 149
+   },
+   "flow": {
+    "wpm": 58.9,
+    "n_turns": 99,
+    "arabic_words": 303
+   },
+   "new_words": [],
+   "taught": [],
+   "coverage": "Amal's voice is missing from 00:00 to 23:14 (only her CHAT lines survive) and 19:58-23:14 is a dropout; first 23 min judged from chat and Medi's reactions only (01:33 'لسه الـ divine يروحوا' garbled, likely zbayin; 04:14 air conditioning not on sheet; 07:04-07:28 بحسب question with no answer visible). 09:49-14:51 mostly an English phone call. 46:00-46:45 'هذا' in 'أكتر هذا' is very likely 7ada with a dropped ح (S4) - not written as vocab. 45:11 'اللي بحب' self-fixed to بحبه at 45:37 - folded into the 46:45 pointer row. 53:00-1:01:00 largely Latin-transliterated by the engine (awal, laffe, nafs, tani). Questions about the rule (awal/al-awal, ghair, هذا ال rule) left out per brief. / Amal's voice is missing 00:00-23:14 (only her CHAT lines), so early fixes are judged from chat and Medi's echoes; 02:49 الساعة واحد was self-fixed at 02:55 before any chat, not written. 09:46-14:13 is an English phone call. 49:00-1:01:00 is in Latin letters (awal/oola/nafs drill). Much of 29:00-1:04:00 is rule discussion and questions, not counted. شيء is on her sheet (Kul shee, Wala shee) so not flagged. 04:02 شوك = engine for شوب (sheet: El-jaw shoab), not flagged. Names: Amal, Male (place).",
+   "notes": [
+    "grammar: 1 of the 18 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "1 word card(s) dropped after the 2026-09-27 hand check (he said it right, it was not his slip, or it repeats a slip already counted): 55:26 oola."
+   ],
+   "page": "lessons/2026-10-01.html",
+   "detail": "data/lessons/2026-10-01.json",
+   "counts": {
+    "turns": 826,
+    "chat_lines": 32,
+    "vocab_errors": 1,
+    "vocab_correct": 68,
+    "grammar_errors": 18,
+    "grammar_not_counted": 0
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 58.1 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: 4 stretches of Medi's speech written as '[speaking ...]' markers (00:16 in all)",
+     "coverage: Amal not transcribed 00:00-23:14 while the other person talks",
+     "coverage: Amal talks 01:40-09:59 (129 s of speech on their own track) with no transcript line",
+     "coverage: Amal talks 14:35-16:28 (23 s of speech on their own track) with no transcript line",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3966 s) compared with a second model",
+     "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 29,
+       "r2": 26,
+       "agreed": 18,
+       "disputed": 13,
+       "agreement_pct": 58.1
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3966.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3965.9999999999995,
+     "first_t": 4.36,
+     "last_t": 3961.34,
+     "missing": [],
+     "holes": [
+      [
+       2005.7,
+       2006.7,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3326.14,
+       3335.18,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3439.66,
+       3444.84,
+       "engine heard speech but wrote a marker, not words"
+      ],
+      [
+       3494.98,
+       3495.98,
+       "engine heard speech but wrote a marker, not words"
+      ]
+     ],
+     "missing_s": 0,
+     "hole_s": 16.2,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3965.9999999999995,
+     "first_t": 1393.67,
+     "last_t": 3958.76,
+     "missing": [
+      [
+       0.0,
+       1393.67,
+       "no transcript for Amal while the other person talks"
+      ],
+      [
+       99.8,
+       598.9,
+       "Amal talks 01:40-09:59 (129 s of speech on their own track) with no transcript line"
+      ],
+      [
+       874.9,
+       987.7,
+       "Amal talks 14:35-16:28 (23 s of speech on their own track) with no transcript line"
+      ]
+     ],
+     "holes": [],
+     "missing_s": 1393.7,
+     "hole_s": 0,
+     "covered_pct": 64.9
     }
    }
   }

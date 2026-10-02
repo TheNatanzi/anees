@@ -9790,6 +9790,406 @@
    },
    "at": "2026-09-29T04:02:21-07:00",
    "run_id": "e23b4e4bb23c45a8a3cc5975b7f5919b"
+  },
+  {
+   "uid": "FA-0710b68a",
+   "date": "2026-09-30",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi says the noun without the feminine singular ending, and Amal immediately supplies/recasts the singular-counted form. The mixed and Medi-track transcriptions also show the shift from «سجاد» to «سجادة».",
+   "evidence": {
+    "t_start": 579.0,
+    "t_end": 618.0,
+    "quote": "Medi: «أكتر من 20 سجاد»; Amal: «سجادة» / «بعت أكتر من عشرين سجادة»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-30/FA-0710b68a_Medi_Medi_Natanzi-1f530a1c937.mp3",
+      "sha256": "c82c86adafe2e25083800ad7999bfea3c6483e77622a1a23da9b10f6af8411f2",
+      "source": "Medi_Natanzi-1f530a1c93762433.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-30/FA-0710b68a_Amal_Amal-0303874dcac11235.mp3",
+      "sha256": "7c7939aac0b7fd4378f541c62a8a63dcfb58007ae6bf157f2270f89212f50869",
+      "source": "Amal-0303874dcac11235.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-30/FA-0710b68a_mixed_lesson.mp3",
+      "sha256": "2d3752f93204f439099cbaad68ec7cd1197133d63dbe4953ef26f1fc3f4d33f4",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا متأكد انه اكثر من 20 سجاد أكثر من 10 أكثر من 20 أكثر من 20",
+     "Amal": "سيدات يعني بعت اكتر من عشرين سجادة بعت اكتر من عشرين سجادة",
+     "mixed": "اسمعي اسمعي اسمعي اسمعي اسمعي اسمعي اسمعي اسمعي اسمعي اسمعي اكتر من اكتر من اكتر من عشرين سجاد سجادة اكتر من عشرين سجادة يعني بعد اكتر من عشرين سجادة بعد اكتر من عشرين سجادة"
+    }
+   },
+   "claim": {
+    "wrong": "عشرين سجاد",
+    "right": "عشرين سجادة",
+    "bucket": "E1",
+    "tier": null
+   },
+   "at": "2026-10-02T02:21:55-07:00",
+   "run_id": "4cf86284c4254a11958d356e573e7513"
+  },
+  {
+   "uid": "FA-d70bdfa2",
+   "date": "2026-09-30",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi produced «كوندارة الشانيل» without the construct -t, and Amal immediately recast it as «كوندارت». The evidence is noisy but the correction is present on Amal’s track.",
+   "evidence": {
+    "t_start": 3208.0,
+    "t_end": 3243.0,
+    "quote": "Medi: «كوندارة لشنيل»; Amal: «كوندارت»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-30/FA-d70bdfa2_Medi_Medi_Natanzi-1f530a1c937.mp3",
+      "sha256": "6cade5b080c9d03898a7153e29471f9afac1d10b9bec58b56b7dc3d4c7b922fa",
+      "source": "Medi_Natanzi-1f530a1c93762433.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-30/FA-d70bdfa2_Amal_Amal-0303874dcac11235.mp3",
+      "sha256": "6017312d0d9ac9c33e13b168bcc98af72a31f6650611dfd69d3ff49cbe31abdd",
+      "source": "Amal-0303874dcac11235.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-30/FA-d70bdfa2_mixed_lesson.mp3",
+      "sha256": "7d913fb1984cee615e855335a71d278f612d0175e9c0450f1e4fdc9d400d5e57",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "لذا فإن السيارات الشينيليات ستكون كوندارة الشينيلي نعم نعم هذا صحيح كوندارة الشينيلي حسنًا نعم السيارة السيارة السيارة تجعلها أكثر سهولة سيد",
+     "Amal": "كون ده ريت كيس كون ده رئيس مهم لا تقلقوا",
+     "mixed": "so like the chanel shoes would be okay yeah the double down rule makes it a lot easier لا تقلقوا"
+    }
+   },
+   "claim": {
+    "wrong": "kundara el Chanel",
+    "right": "kundret el Chanel",
+    "bucket": "A3",
+    "tier": null
+   },
+   "at": "2026-10-02T02:21:55-07:00",
+   "run_id": "4cf86284c4254a11958d356e573e7513"
+  },
+  {
+   "uid": "FA-4cc7f993",
+   "date": "2026-10-01",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "high",
+   "reason": "The independent transcriptions consistently have Medi saying «متشجع», not «مشجع», and Amal’s follow-up uses the same form in a meaning check rather than correcting the morphology.",
+   "evidence": {
+    "t_start": 386.0,
+    "t_end": 432.0,
+    "quote": "Medi: «متشجع»; Amal: «يعني إنت مش متشجع كتير للشغل»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-01/FA-4cc7f993_Medi_Medi_Natanzi-3f271461819.mp3",
+      "sha256": "ea6996aab9184698d2f67c754caba720d69906d327925475b5821db751c6b379",
+      "source": "Medi_Natanzi-3f27146181995b60.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-01/FA-4cc7f993_Amal_Amal-e36ff7bb4dcf61cf.mp3",
+      "sha256": "8171906396451d1d60dbf15389fa9c728cd3dbba6d137c39f724a4f4df4922da",
+      "source": "Amal-e36ff7bb4dcf61cf.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-01/FA-4cc7f993_mixed_lesson.mp3",
+      "sha256": "377c1e67001683fa4a5b3385847f727be25ed1b5a69fc8dc1778a20777a98489",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "لانا نسيط نسيط نسيطة اوه هذا صحيح متشجع متشجع انا لا اتذكر هذا بسهولة لكنه مختلف اه لا أعرف أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد أنني لا أعتقد ",
+     "Amal": "متشجع يعني أن يعني أنت مش متشجع كتير للشغل طيب متشجع للعربي أو لا؟ لا؟ روح إذا لا ما بتشجع؟ و؟ بحسب؟",
+     "mixed": "لا أنا نسيت. نسيته. نسيتها. متشجع. Oh that's right. متشجع. متشجع. I can't remember this easily but it's similar. يعني أنت مش متشجع كتير للشغل؟ آه طيب متشجع للعربي أو لا؟ انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا ان"
+    }
+   },
+   "claim": {
+    "wrong": "مشجع",
+    "right": "mitshajje3 (متشجع)",
+    "bucket": "B12",
+    "tier": null
+   },
+   "at": "2026-10-02T02:21:55-07:00",
+   "run_id": "4cf86284c4254a11958d356e573e7513"
+  },
+  {
+   "uid": "FA-5a9a2de9",
+   "date": "2026-10-01",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "medium",
+   "reason": "Medi appears to work through/self-fix toward «سيارة/سيارت الـ BM», and Amal responds with confirmation («صح», «ممتاز») rather than signalling a correction. The later chat line looks like a spelling/transliteration support, not a correction of a signalled mistake.",
+   "evidence": {
+    "t_start": 924.0,
+    "t_end": 984.0,
+    "quote": "Medi: «سيارت ال... no, it's double noun... سيارت ال BM»; Amal: «صح، صح، صح» / «ممتاز»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-01/FA-5a9a2de9_Medi_Medi_Natanzi-3f271461819.mp3",
+      "sha256": "d2f1c0dc684004e80e223e9eef7605b17f4f812238f6a90016ca7cf0d0b28917",
+      "source": "Medi_Natanzi-3f27146181995b60.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-01/FA-5a9a2de9_Amal_Amal-e36ff7bb4dcf61cf.mp3",
+      "sha256": "b89c4ba938aa1e107152f63f9cf5bdd7efed2021cd49f9e0eae392c2668fef68",
+      "source": "Amal-e36ff7bb4dcf61cf.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-01/FA-5a9a2de9_mixed_lesson.mp3",
+      "sha256": "9251e9bdaf9ae462f42c364a5a1b97ad1f5d46f122a017a12888bf3692380ccc",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "سوزنا الي ال بي ام ايه الي. او السيارة او سيارة ال بي او سيارة ال بي ام دوليو. اشعر انه كان سيارة ال بي ام دوليو. اشعر انه كان سيارة ال بي ام دوليو. اشعر انه كان سيارة ال بي ام دوليو. اشعر انه كان سيارة ال بي ام دوليو. اشعر انه كان سيارة ال بي ام دوليو. اشعر انه كان سيارة ال بي ام دوليو. اشعر انه كان بس دبل نون او بس دبل او او او او او او او او او او او او او او او او او او او او او او او او او او",
+     "Amal": "yeah it's correct but I want you to include car in the sentence yeah yeah ممتاز. طيب. كيف بحكي? My sister's manager is a mean. And let's make the manager a female.",
+     "mixed": "so it's not إلي إلي yeah it's correct but I want you to include car in the sentence oh سيارة no it's double noun سيارة I thought if it was double noun it was double L oh no no opposite سيارة إلي إلي ممتاز طيب كيف بحكي my sister's manager is a mean and let's make the manager a female okay so this is possessive so it doesn't matter right that it's two nouns"
+    }
+   },
+   "claim": {
+    "wrong": "الـ سيارة",
+    "right": "sayyaaret el-BM",
+    "bucket": "A2",
+    "tier": null
+   },
+   "at": "2026-10-02T02:21:55-07:00",
+   "run_id": "4cf86284c4254a11958d356e573e7513"
+  },
+  {
+   "uid": "FA-5e612f27",
+   "date": "2026-10-01",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi first says masculine «المتأخر», Amal prompts the gender choice, and Medi switches to feminine «المتأخرة» before explaining it is because of «طيارة».",
+   "evidence": {
+    "t_start": 2384.0,
+    "t_end": 2415.0,
+    "quote": "Medi: «المتأخر؟»; Amal: «متأخر أو متأخرة»; Medi: «المتأخرة»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-01/FA-5e612f27_Medi_Medi_Natanzi-3f271461819.mp3",
+      "sha256": "3ba3534e3e5ae5d518a5179f1e01e8fd54523948d4eb945d5605561864cb9394",
+      "source": "Medi_Natanzi-3f27146181995b60.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-01/FA-5e612f27_Amal_Amal-f87924fdbaa1b12d.mp3",
+      "sha256": "8f7e988ac54c7f61e933df05491c9b8d53b748b51dac098dbda6bcb5620fe8ae",
+      "source": "Amal-f87924fdbaa1b12d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-01/FA-5e612f27_mixed_lesson.mp3",
+      "sha256": "03d61177cb0be460900d251ff1b50582d1b14468578ae119f616ee3cf45bc42d",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "المتأخر متأخر سيارة اشتركوا في القناة",
+     "Amal": "صح متأخر او متأخرة. نايس ليش? حلو. أود أن تحضر بعض العمل لذلك لست أرسل لك عمل",
+     "mixed": "المتأخر صح متأخر أو متأخرة متأخرة نايس، ليش؟ سيارة سمنة حلو ترجمة نانسي قنقر"
+    }
+   },
+   "claim": {
+    "wrong": "المتأخر",
+    "right": "المتأخرة",
+    "bucket": "A8",
+    "tier": null
+   },
+   "at": "2026-10-02T02:21:55-07:00",
+   "run_id": "4cf86284c4254a11958d356e573e7513"
+  },
+  {
+   "uid": "FA-e0fdc1b8",
+   "date": "2026-10-01",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "The dialect transcription shows Medi saying «هاذي المحل», and Amal recasts the sentence with masculine «هذا» soon after. Her correction also changes the construction, so the signal is a recast rather than an explicit gender explanation.",
+   "evidence": {
+    "t_start": 2522.0,
+    "t_end": 2560.0,
+    "quote": "Medi: «هاذي المحل أحسن إشي»; Amal: «هذا أحسن محل»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-01/FA-e0fdc1b8_Medi_Medi_Natanzi-3f271461819.mp3",
+      "sha256": "3a680531400062e0e0c27f71bf2f76fbd7e81e2871c8525604dc4702df9b8546",
+      "source": "Medi_Natanzi-3f27146181995b60.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-01/FA-e0fdc1b8_Amal_Amal-f87924fdbaa1b12d.mp3",
+      "sha256": "3279fc62062545e9b01413214cace8f826ce8421ef8cc836a5c3bdf54f19b6e7",
+      "source": "Amal-f87924fdbaa1b12d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-01/FA-e0fdc1b8_mixed_lesson.mp3",
+      "sha256": "e938787e171527dced6fd84cf7fec4e6944389cf2a5488bc385b89e7aa3a0da7",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "So this is my favorite. This is the best. The best store would be Mahal احسن اشي. Okay and then with Hadi. كيف تقول أن هذا هو الطريق الأفضل في الطريق الأخر؟",
+     "Amal": "it works yeah أحسن محل is like more efficient in a way as you like to put it شكرا",
+     "mixed": "هذا هو أفضل مني. هذا هو أفضل. ستكون محل أفضل. هذا المحل أفضل. إنه يعمل. نعم. هذا المحل الأفضل هو مثلاً أفضل في طريقة. كما تود أن تضعه. حسناً. ثم مع هذه. كيف تقول أن هذا هو الطريق الأفضل في الطريق الأخر؟"
+    }
+   },
+   "claim": {
+    "wrong": "هذي المحل",
+    "right": "هذا المحل",
+    "bucket": "A10",
+    "tier": null
+   },
+   "at": "2026-10-02T02:21:55-07:00",
+   "run_id": "4cf86284c4254a11958d356e573e7513"
+  },
+  {
+   "uid": "FA-0c9ac7a5",
+   "date": "2026-10-01",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "At 46:18 the independent mixed/dialect transcript hears «أكتر حدا إشي؟», so that exact timestamp is weak. But Medi later says «أكثر هذا أحبه / أفكر هذا، بحبه» and Amal supplies «أكثر حدا», matching the claimed correction from هذا to حدا.",
+   "evidence": {
+    "t_start": 2768.0,
+    "t_end": 2800.0,
+    "quote": "Medi: «أكثر هذا أحبه»; Amal: «أكثر حدا»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-01/FA-0c9ac7a5_Medi_Medi_Natanzi-3f271461819.mp3",
+      "sha256": "7eed06d0fdaab8939e7df4e8f43811ebaf1da2b425598560bae7b65afec23857",
+      "source": "Medi_Natanzi-3f27146181995b60.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-01/FA-0c9ac7a5_Amal_Amal-f87924fdbaa1b12d.mp3",
+      "sha256": "1ab85aa9ed16b1405af830a1f86ea3ec527a2957e4a91cf5e2fe811c283f980d",
+      "source": "Amal-f87924fdbaa1b12d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-01/FA-0c9ac7a5_mixed_lesson.mp3",
+      "sha256": "edb8b736876d8026eb0dad3a65e9aee573128e878f68ac37f252078a790f123b",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "موسيقى موسيقى موسيقى موسيقى أكثر هذا أحبه",
+     "Amal": "إنه خطأ هنا لأنه يسمع أنك ستقول أكثر حدا أكتر حدا بحبه ممم نعم",
+     "mixed": "إنه خطأ هنا لأنه يسمح لك أن تقول أكثر حدا أفضل الشخص أحب الشخص نعم هذا مخيف للمتحدثين الأمريكيين باللغة الإنجليزية"
+    }
+   },
+   "claim": {
+    "wrong": "أكتر هذا",
+    "right": "أكثر حدا",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-02T02:22:15-07:00",
+   "run_id": "cfc052d0eb054924b37a5f2d8c6f1708"
+  },
+  {
+   "uid": "FA-180b27bf",
+   "date": "2026-10-01",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi says «نفس إشي», and Amal immediately recasts it as «نفس الإشي / نفس ال إشي». She then explicitly contrasts «نفس إشي without L», so this is a real correction.",
+   "evidence": {
+    "t_start": 3593.0,
+    "t_end": 3624.0,
+    "quote": "Medi: «سو نفس إشي»; Amal: «نفس ال إشي»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-01/FA-180b27bf_Medi_Medi_Natanzi-3f271461819.mp3",
+      "sha256": "95f93d1b7aa30fcf4a198e05662e760724e39ea51e74da97549ff282b1ad648a",
+      "source": "Medi_Natanzi-3f27146181995b60.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-01/FA-180b27bf_Amal_Amal-f87924fdbaa1b12d.mp3",
+      "sha256": "1226b0b5d245a519e87a235382e57c26e40518f7b1ef6246b298ce9520638c9e",
+      "source": "Amal-f87924fdbaa1b12d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-01/FA-180b27bf_mixed_lesson.mp3",
+      "sha256": "9ed7ad24a49ba7545db84e958a61fbce0f3697fc43367027d2d2258f4157094d",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "نفس الشيء. نفس الشيء. نفس الشيء. نفس الشيء. نفس الشيء. ماذا؟ ماذا؟ ماذا؟ ماذا؟ ماذا؟ ماذا؟ ماذا؟ ماذا؟ ماذا؟ ترجمة نانسي قنقر",
+     "Amal": "so same is not a noun it's not it could be an adjective but it's not نفس الاشي the same thing نفس نفس اشي without L It's the same thing",
+     "mixed": "نفسي نفسي نفسي نفسي نفسي نفسي نفسي نفسي نفسي نفسي نفسي نفسي ماذا؟ نفس الشيء ماذا عن نفس الشيء؟ ماذا عن نفس الشيء؟ ماذا عن نفس الشيء؟ ماذا عن نفس الشيء؟ نفس الشيء نفس الشيء نفس الشيء نفس الشيء"
+    }
+   },
+   "claim": {
+    "wrong": "nafs ishi",
+    "right": "nafs el-ishi (نفس الإشي)",
+    "bucket": "A2",
+    "tier": null
+   },
+   "at": "2026-10-02T02:22:15-07:00",
+   "run_id": "cfc052d0eb054924b37a5f2d8c6f1708"
   }
  ]
 }

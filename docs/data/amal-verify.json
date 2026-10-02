@@ -1,7 +1,7 @@
 {
  "about": "Rows two AIs disagree on (Claude readers: a mistake Amal signalled; Codex, listening to an independent transcription of the audio: not so, or cannot tell). Built by scripts/codex_rejudge.py. Amal answers on the Tutor page; her 'Correction is correct' makes the row a scored mistake, her reason drops it (scripts/apply_amal_audit_rulings.py).",
- "built": "2026-10-02T01:13:15-07:00",
- "count": 40,
+ "built": "2026-10-02T02:24:58-07:00",
+ "count": 42,
  "items": [
   {
    "id": "verify:FA-12007447",
@@ -842,6 +842,48 @@
    "codex_verdict": "rejected",
    "audio": "lessons/2026-09-26/audio/lesson.mp3#t=4058,4090",
    "sec": 4068.0
+  },
+  {
+   "id": "verify:FA-4cc7f993",
+   "uid": "FA-4cc7f993",
+   "date": "2026-10-01",
+   "t": "06:36",
+   "t_amal": "06:52",
+   "kind": "grammar",
+   "bucket": "B12",
+   "tier": null,
+   "medi_said": "مشجع.",
+   "amal_said": null,
+   "chat": "mitshajje3 = motivated",
+   "wrong": "مشجع",
+   "right": "mitshajje3 (متشجع)",
+   "english": "motivated",
+   "readers_say": "He said مشجع (the make-someone / encouraging side) for 'motivated'; she typed mitshajje3 = motivated, the t- 'it happens to me' form of the same root - a make-X vs get-X form slip (brief: بسط for انبسط is grammar B12), not a new word. Her voice is missing here.",
+   "codex_says": "The independent transcriptions consistently have Medi saying «متشجع», not «مشجع», and Amal’s follow-up uses the same form in a meaning check rather than correcting the morphology.",
+   "codex_verdict": "rejected",
+   "audio": "lessons/2026-10-01/audio/lesson.mp3#t=386,433",
+   "sec": 396.0
+  },
+  {
+   "id": "verify:FA-5a9a2de9",
+   "uid": "FA-5a9a2de9",
+   "date": "2026-10-01",
+   "t": "15:34",
+   "t_amal": "16:06",
+   "kind": "grammar",
+   "bucket": "A2",
+   "tier": null,
+   "medi_said": "Oh, الـ سيارة، uh, or سيارة الـ B... No, it's double noun. Oh, سيارة الـ BMW.",
+   "amal_said": null,
+   "chat": "sayyaaret el-BM illi",
+   "wrong": "الـ سيارة",
+   "right": "sayyaaret el-BM",
+   "english": "the BMW car that...",
+   "readers_say": "First word of an idafa never takes el- and grows -t (sayyaaret el-BM); he put الـ on سيارة while working it out after her (inaudible) correction of his 09:49 'الBMW', she typed sayyaaret el-BM illi.",
+   "codex_says": "Medi appears to work through/self-fix toward «سيارة/سيارت الـ BM», and Amal responds with confirmation («صح», «ممتاز») rather than signalling a correction. The later chat line looks like a spelling/transliteration support, not a correction of a signalled mistake.",
+   "codex_verdict": "rejected",
+   "audio": "lessons/2026-10-01/audio/lesson.mp3#t=924,985",
+   "sec": 934.0
   }
  ]
 }
