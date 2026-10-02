@@ -451,7 +451,7 @@ def _git(run, root, *args, env=None):
 REGENERATE_DEFAULT = {
     'stamp': ['docs/data/build.json', 'docs/js/build.js'],
     'paths': ['docs/data/*', 'docs/js/build.js', 'docs/amal/*.html', 'docs/lessons/*/clips/*', 'data/accuracy/*',
-              'data/full-audit-2026-09-26.json', 'data/lesson-work/full-audit/patterns.json', 'data/amal-trigger/*',
+              'data/full-audit-2026-09-26.json', 'data/lesson-work/full-audit/patterns.json', 'RULE-BOOK.md', 'data/amal-trigger/*',
               'data/vocab/amal_verb_checks.json', 'data/runs/*.jsonl', 'data/decisions/*.jsonl', 'plan/FULL-AUDIT-2026-09-26.md'],
 }
 

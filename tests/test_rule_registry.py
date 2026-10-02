@@ -53,6 +53,22 @@ def test_clean_world_passes(tmp_path):
     assert problems(tmp_path, world(tmp_path)) == []
 
 
+def test_plain_and_topic_are_optional_strings(tmp_path):
+    """PG-16 rule book: `plain` / `topic` may be left out, but when present they are real text."""
+    d = world(tmp_path)
+    d["rules"][0]["plain"], d["rules"][0]["topic"] = "a thing, in plain words", "things"
+    assert any("statement changed after its plain wording" in p for p in problems(tmp_path, d))
+    d["rules"][0]["plain_for"] = RR.plain_hash(d["rules"][0]["statement"])
+    assert problems(tmp_path, d) == []
+    d["rules"][0]["statement"] = "a thing, with a new meaning"
+    assert any("statement changed after its plain wording" in p for p in problems(tmp_path, d))
+    d["rules"][0]["statement"] = "a thing"
+    d["rules"][0]["plain"] = ""
+    assert any("plain must be a non-empty string" in p for p in problems(tmp_path, d))
+    d["rules"][0]["plain"], d["rules"][0]["topic"] = "ok", 3
+    assert any("topic must be a non-empty string" in p for p in problems(tmp_path, d))
+
+
 def test_enforced_without_a_guard_test_fails(tmp_path):
     d = world(tmp_path)
     d["rules"][0]["test"] = []

@@ -56,6 +56,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Raw transcripts are never edited; the engine's output is written once and corrections live in an overlay.",
+   "plain": "The transcript the machine writes is never changed; fixes are kept in a separate layer on top.",
+   "plain_for": "d7e1f509",
+   "topic": "raw transcript",
    "source": [
     {
      "by": "medi",
@@ -103,6 +106,9 @@
    "status": "written",
    "change": "new",
    "statement": "Keep Medi's wrong forms, false starts and stumbles verbatim; never auto-correct them, never replace an unknown form with the nearest Doc word.",
+   "plain": "Your wrong words, false starts and stumbles are written down exactly as you said them: never fixed, never swapped for the closest word on Amal's list.",
+   "plain_for": "37d17044",
+   "topic": "your mistakes",
    "source": [
     {
      "by": "medi",
@@ -138,6 +144,9 @@
    "status": "written",
    "change": "new",
    "statement": "No vocabulary list in the recognizer's ear on the primary pass (names only).",
+   "plain": "On the first pass, the speech-to-text engine is given names only (no word list), so it cannot invent words nobody said.",
+   "plain_for": "4b23046a",
+   "topic": "engine setup",
    "source": [
     {
      "by": "claude",
@@ -175,6 +184,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Off-call Farsi (Medi speaking Farsi to his dad) is not the lesson: never scored, never a grammar use.",
+   "plain": "Farsi you speak to your dad during the call is not part of the lesson: it is never scored and never counted as grammar.",
+   "plain_for": "7148866d",
+   "topic": "off-lesson talk",
    "source": [
     {
      "by": "medi",
@@ -211,6 +223,9 @@
    "status": "written",
    "change": "new",
    "statement": "The lesson window runs from Amal's first word to her last; off-lesson talk is not scored.",
+   "plain": "The lesson runs from Amal's first word to her last word; talk outside that is not scored.",
+   "plain_for": "a9899d6d",
+   "topic": "off-lesson talk",
    "source": [
     {
      "by": "medi",
@@ -243,6 +258,9 @@
    "status": "written",
    "change": "new",
    "statement": "Never make Medi judge silent or empty clips.",
+   "plain": "You are never asked to judge a clip that is silent or empty.",
+   "plain_for": "fc247ec2",
+   "topic": "clips",
    "source": [
     {
      "by": "medi",
@@ -270,6 +288,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Fillers ('um', 'uh') are pauses, not words and not errors.",
+   "plain": "'Um' and 'uh' are pauses: not words and not mistakes.",
+   "plain_for": "7472e94b",
+   "topic": "pauses",
    "source": [
     {
      "by": "medi",
@@ -307,6 +328,9 @@
    "status": "written",
    "change": "new",
    "statement": "Only strong confirmations (mhm, aha, yes, ممتاز...) count as Amal approving; khalas / tamam are not approval.",
+   "plain": "Only clear yeses from Amal (mhm, aha, yes, mumtaz) count as her approving; khalas and tamam do not.",
+   "plain_for": "2fb9b94a",
+   "topic": "Amal approving",
    "source": [
     {
      "by": "medi",
@@ -334,6 +358,9 @@
    "status": "written",
    "change": "new",
    "statement": "A cut-off stumble before a pause never matches a Doc word; h is not 7.",
+   "plain": "A half-said word cut off before a pause never counts as a word from the list, and an 'h' sound is not the letter 7.",
+   "plain_for": "f82dac7d",
+   "topic": "your mistakes",
    "source": [
     {
      "by": "medi",
@@ -362,6 +389,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "When the engine mishears Medi, trust Amal's echo of what he said, and note what the engine wrote.",
+   "plain": "When the engine mishears you, trust what Amal repeats back, and keep a note of what the engine wrote.",
+   "plain_for": "57fac1dd",
+   "topic": "mishearing",
    "source": [
     {
      "by": "medi",
@@ -399,6 +429,9 @@
    "status": "moment-only",
    "change": "new",
    "statement": "Every transcript view labels both speakers, each in their own colour.",
+   "plain": "Every transcript labels both speakers, Medi and Amal, each in their own colour.",
+   "plain_for": "4f2d5340",
+   "topic": "speakers",
    "source": [
     {
      "by": "medi",
@@ -421,6 +454,9 @@
    "status": "written",
    "change": "new",
    "statement": "Transcribe the whole lesson track, never 25-second chunks.",
+   "plain": "The whole lesson recording is transcribed in one go, never in 25-second pieces.",
+   "plain_for": "1a00b7fd",
+   "topic": "engine setup",
    "source": [
     {
      "by": "claude",
@@ -447,6 +483,9 @@
    "status": "written",
    "change": "new",
    "statement": "Hash the audio and the raw transcript and keep a second copy (planned).",
+   "plain": "The audio and the raw transcript get a fingerprint (a code that shows if a file ever changes) and a second copy (planned).",
+   "plain_for": "ab672c6b",
+   "topic": "backups",
    "source": [
     {
      "by": "claude",
@@ -473,6 +512,9 @@
    "status": "written",
    "change": "new",
    "statement": "Speaker = recording channel, never a guess; two-track lessons keep their per-speaker source.",
+   "plain": "Who is speaking comes from which recording track it is on, never from a guess.",
+   "plain_for": "9e6db467",
+   "topic": "speakers",
    "source": [
     {
      "by": "claude",
@@ -514,6 +556,9 @@
    "status": "written",
    "change": "new",
    "statement": "'More Arabic = Amal' is a hint, never a fact.",
+   "plain": "'More Arabic means it is Amal' is only a hint, never proof of who spoke.",
+   "plain_for": "f6cf364e",
+   "topic": "speakers",
    "source": [
     {
      "by": "claude",
@@ -540,6 +585,9 @@
    "status": "written",
    "change": "new",
    "statement": "When speakers are unclear, per-speaker numbers show '–' with the reason.",
+   "plain": "When it is unclear who spoke, the per-person numbers show '–' and say why.",
+   "plain_for": "7ba814fa",
+   "topic": "speakers",
    "source": [
     {
      "by": "claude",
@@ -566,6 +614,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Amal's spelling is the only spelling: her house spelling, then her Doc Arabizi, then her Arabic; never an invented Latin spelling.",
+   "plain": "Every Arabic word is spelled the way Amal spells it: first how she types it, then her Doc's Arabizi, then her Arabic script; never a made-up spelling.",
+   "plain_for": "257a3008",
+   "topic": "Amal's spelling",
    "source": [
     {
      "by": "medi",
@@ -615,6 +666,9 @@
    "status": "written",
    "change": "new",
    "statement": "Medi never reviews Arabizi spellings: best guess ships, Amal corrects.",
+   "plain": "You never check Arabizi spellings: the best guess goes live and Amal corrects it.",
+   "plain_for": "f6cac9a3",
+   "topic": "who checks spelling",
    "source": [
     {
      "by": "medi",
@@ -647,6 +701,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "A word not on her list may show in Arabizi when built from her own pieces or a similar-sound letter and it fits the sentence; each built row carries method + source.",
+   "plain": "A word that is not on her list can still show in Arabizi when it is built from her own spellings (or one similar-sounding letter) and fits the sentence; each one records how it was built.",
+   "plain_for": "82d12d02",
+   "topic": "words not on her list",
    "source": [
     {
      "by": "medi",
@@ -684,6 +741,9 @@
    "status": "written",
    "change": "new",
    "statement": "Fragments and truly unclear words stay in Arabic and go on a 'Words to check' list (outside the Lessons error cards).",
+   "plain": "Half-words and truly unclear words stay in Arabic script and go on a 'Words to check' list.",
+   "plain_for": "ad9f18ad",
+   "topic": "words not on her list",
    "source": [
     {
      "by": "medi",
@@ -713,6 +773,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Nothing on the Lessons error cards stays Arabic-only - his own wrong or cut-off forms are spelled as they sound in her letters (as-said).",
+   "plain": "Nothing on the Lessons mistake cards is in Arabic only: even your wrong or cut-off words are spelled the way they sounded, in her letters.",
+   "plain_for": "2a05eb28",
+   "topic": "mistake cards",
    "source": [
     {
      "by": "medi",
@@ -754,6 +817,9 @@
    "status": "written",
    "change": "amend",
    "statement": "Arabizi big, Arabic small under it.",
+   "plain": "Arabizi is shown big, with the Arabic script small underneath.",
+   "plain_for": "83ff5bc5",
+   "topic": "layout",
    "source": [
     {
      "by": "medi",
@@ -795,6 +861,9 @@
    "status": "superseded",
    "change": "new",
    "statement": "Arabic script left-aligned beside the Arabizi (09-21 handoff rule 20).",
+   "plain": "Arabic script sat left-aligned next to the Arabizi.",
+   "plain_for": "1e73dd98",
+   "topic": "layout",
    "source": [
     {
      "by": "medi",
@@ -817,6 +886,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "كم always shows as Kam (her 'how many' row), never Kum (sleeve).",
+   "plain": "كم (how many) is always spelled Kam, the way Amal writes it, never Kum.",
+   "plain_for": "e27f9f9c",
+   "topic": "single words",
    "source": [
     {
      "by": "medi",
@@ -849,6 +921,9 @@
    "status": "moment-only",
    "change": "new",
    "statement": "Arabizi big with Arabic small under it on every page, not only the Lessons error cards (Grammar and Word Bank unguarded).",
+   "plain": "Big Arabizi with small Arabic underneath goes on every page, not only the Lessons mistake cards (Grammar and Word Bank are not checked yet).",
+   "plain_for": "1452b9c1",
+   "topic": "layout",
    "source": [
     {
      "by": "medi",
@@ -871,6 +946,9 @@
    "status": "written",
    "change": "new",
    "statement": "Pronunciation is never a missed word: a dropped ع or ط is logged as pronunciation and never lowers a word's score.",
+   "plain": "Saying a word with a wrong sound (like a dropped ع or ط) is a pronunciation note: it never counts as a missed word and never lowers the word's score.",
+   "plain_for": "0023fc39",
+   "topic": "pronunciation",
    "source": [
     {
      "by": "medi",
@@ -909,6 +987,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Only Medi's own recorded speech is scored.",
+   "plain": "Only words you say out loud in the recording are scored.",
+   "plain_for": "bdfad07f",
+   "topic": "whose words",
    "source": [
     {
      "by": "medi",
@@ -952,6 +1033,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "'New' words come only from an explicit Amal / Medi mark, never inferred.",
+   "plain": "A word is 'new' only when Amal or you marked it new, never because the computer guessed.",
+   "plain_for": "db02e26d",
+   "topic": "new words",
    "source": [
     {
      "by": "medi",
@@ -990,6 +1074,9 @@
    "status": "written",
    "change": "new",
    "statement": "New words get their own strict lane, apart from missed words.",
+   "plain": "New words are tracked in their own lane, apart from missed words.",
+   "plain_for": "fbf81531",
+   "topic": "new words",
    "source": [
     {
      "by": "medi",
@@ -1018,6 +1105,9 @@
    "status": "written",
    "change": "new",
    "statement": "A word's last-said date comes only from Medi's spoken events.",
+   "plain": "A word's 'last said' date comes only from times you actually said it.",
+   "plain_for": "99c31afa",
+   "topic": "last said",
    "source": [
     {
      "by": "medi",
@@ -1051,6 +1141,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "A grammar slip never counts as a missed word.",
+   "plain": "A grammar mistake never counts as a missed word.",
+   "plain_for": "af1752fc",
+   "topic": "grammar or word",
    "source": [
     {
      "by": "medi",
@@ -1094,6 +1187,9 @@
    "status": "written",
    "change": "new",
    "statement": "Word Bank scoring rules 1-12 (attempt values, self-correction, wrong-word pairs, shu ya3ni, homework, confirmations, pending = specific).",
+   "plain": "The Word Bank follows 12 scoring rules (how attempts count, fixing yourself, wrong-word pairs, 'shu ya3ni', homework, Amal's yeses, pending items).",
+   "plain_for": "251df5f2",
+   "topic": "scoring details",
    "source": [
     {
      "by": "medi",
@@ -1127,6 +1223,9 @@
    "status": "written",
    "change": "new",
    "statement": "A repair after a hint earns partial credit (hints count as slips).",
+   "plain": "Getting a word right after Amal gives a hint earns part credit; the hint counts as a slip.",
+   "plain_for": "fe8ab828",
+   "topic": "hints",
    "source": [
     {
      "by": "medi",
@@ -1154,6 +1253,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Classify a miss by what was actually wrong: a different word is vocab, an ending/prefix rule is grammar.",
+   "plain": "A mistake is sorted by what was really wrong: a different word is a word miss; a wrong ending or prefix is a grammar slip.",
+   "plain_for": "cf9d662c",
+   "topic": "grammar or word",
    "source": [
     {
      "by": "medi",
@@ -1190,6 +1292,9 @@
    "status": "written",
    "change": "new",
    "statement": "Words that are not on Amal's sheet go to her list, unscored, labelled 'Not on sheet'.",
+   "plain": "Words that are not on Amal's sheet go to her list, are not scored, and are labelled 'Not on sheet'.",
+   "plain_for": "379c5850",
+   "topic": "not on sheet",
    "source": [
     {
      "by": "medi",
@@ -1228,6 +1333,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Fixes Amal voiced (A) are scored; errors she let pass (B) go to her review page, unscored until she confirms; tiers 0-3.",
+   "plain": "Mistakes Amal fixed out loud are scored; mistakes she let pass go to her review page and are not scored until she confirms them (sorted in tiers 0-3).",
+   "plain_for": "a7054b63",
+   "topic": "Amal's fixes",
    "source": [
     {
      "by": "medi",
@@ -1259,6 +1367,9 @@
    "status": "written",
    "change": "new",
    "statement": "On the Lessons page, new verbs are the pairs Amal taught in that lesson, read from context (bat3eb / bata33eb).",
+   "plain": "On the Lessons page, new verbs are the verb pairs Amal taught in that lesson, read from what was said (like bat3eb / bata33eb).",
+   "plain_for": "ff9a0376",
+   "topic": "new words",
    "source": [
     {
      "by": "medi",
@@ -1293,6 +1404,9 @@
    "status": "written",
    "change": "new",
    "statement": "Percent colours: 90%+ dark green, 80-90% light green.",
+   "plain": "Percent colours: 90% and up is dark green; 80-90% is light green.",
+   "plain_for": "8a328b12",
+   "topic": "colours",
    "source": [
     {
      "by": "medi",
@@ -1320,6 +1434,9 @@
    "status": "written",
    "change": "new",
    "statement": "The error list shows only errors; switch Errors · Correct · All, default Errors.",
+   "plain": "The mistake list shows only mistakes; a switch shows Errors, Correct or All, and it starts on Errors.",
+   "plain_for": "d3bcdd8b",
+   "topic": "mistake list",
    "source": [
     {
      "by": "medi",
@@ -1347,6 +1464,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Dish names, foods, brands and loan words (kabab, ma2loobe, cake, countries) never go on Amal's 'not on sheet' list.",
+   "plain": "Dish names, foods, brands and borrowed words (kabab, ma2loobe, cake, country names) never go on Amal's 'not on sheet' list.",
+   "plain_for": "f76bfa16",
+   "topic": "not on sheet",
    "source": [
     {
      "by": "medi",
@@ -1394,6 +1514,9 @@
    "status": "moment-only",
    "change": "new",
    "statement": "Whether a word is on the sheet is judged by meaning (any tense, plural, one-letter slip, both directions) for EVERY new lesson.",
+   "plain": "Whether a word is on Amal's sheet is judged by meaning (any tense, plural, small spelling slip, Arabic or English) for every new lesson.",
+   "plain_for": "39f5b173",
+   "topic": "not on sheet",
    "source": [
     {
      "by": "medi",
@@ -1427,6 +1550,9 @@
    "status": "moment-only",
    "change": "new",
    "statement": "A machine flag (the 15-second rule) never makes a word 'helped' without a context read.",
+   "plain": "A computer flag (like the 15-second rule) never marks a word as 'helped' on its own; someone reads the context first.",
+   "plain_for": "ea5e9a8b",
+   "topic": "help from Amal",
    "source": [
     {
      "by": "medi",
@@ -1460,6 +1586,9 @@
    "status": "moment-only",
    "change": "new",
    "statement": "A word first taught in a lesson is shown as new and is not rated Good from that lesson.",
+   "plain": "A word Amal first taught in a lesson shows as new and is not rated Good from that same lesson.",
+   "plain_for": "6308455d",
+   "topic": "new words",
    "source": [
     {
      "by": "medi",
@@ -1482,6 +1611,9 @@
    "status": "enforced",
    "change": "amend",
    "statement": "Glue words (shu, bas, ya3ni, tamam ...) are graded only once they are on Amal's Doc; every glue word not on her Doc goes on her Tutor hub New words card (nothing pre-selected, hint: probably an old word she forgot to add) and is marked old by Medi on Anees' side, so it never counts as NEW on Flashcards when she adds it.",
+   "plain": "Glue words (shu, bas, ya3ni, tamam...) are scored only once they are on Amal's Doc; missing ones go on her New words card to add (nothing pre-picked: probably old words she forgot) and are marked old, so they never count as NEW in Flashcards.",
+   "plain_for": "e3fe0063",
+   "topic": "glue words",
    "source": [
     {
      "by": "claude",
@@ -1554,6 +1686,9 @@
    "status": "written",
    "change": "new",
    "statement": "A Doc lemma covers its conjugations (Basa6tek belongs to babse6).",
+   "plain": "A word on the Doc covers all its forms (Basa6tek counts as babse6).",
+   "plain_for": "7f2b27b1",
+   "topic": "word families",
    "source": [
     {
      "by": "claude",
@@ -1580,6 +1715,9 @@
    "status": "written",
    "change": "new",
    "statement": "'Possible miss' stays labelled possible until Amal taps.",
+   "plain": "A 'possible miss' stays marked possible until Amal taps an answer.",
+   "plain_for": "06826e5b",
+   "topic": "possible misses",
    "source": [
     {
      "by": "claude",
@@ -1606,6 +1744,9 @@
    "status": "written",
    "change": "new",
    "statement": "Mastered needs 5 consecutive successes across at least 3 dates.",
+   "plain": "A word is Mastered after 5 right answers in a row, spread over at least 3 different days.",
+   "plain_for": "3be5b6b6",
+   "topic": "word levels",
    "source": [
     {
      "by": "claude",
@@ -1632,6 +1773,9 @@
    "status": "written",
    "change": "new",
    "statement": "Recover from Missed with two consecutive independent successes.",
+   "plain": "A missed word recovers after 2 right answers in a row with no help.",
+   "plain_for": "48533a1e",
+   "topic": "word levels",
    "source": [
     {
      "by": "claude",
@@ -1658,6 +1802,9 @@
    "status": "written",
    "change": "new",
    "statement": "Each word has separate Speaking and Flashcards scores.",
+   "plain": "Each word has two separate scores: one for speaking, one for flashcards.",
+   "plain_for": "30f8b21c",
+   "topic": "word levels",
    "source": [
     {
      "by": "claude",
@@ -1684,6 +1831,9 @@
    "status": "written",
    "change": "amend",
    "statement": "Word statuses are Mastered / Good / Shaky / Wrong (Untested), replacing Ice cold / Cold / Shaky / Missed.",
+   "plain": "Word levels are Mastered, Good, Shaky and Wrong (Untested if never tried).",
+   "plain_for": "ffccef71",
+   "topic": "word levels",
    "source": [
     {
      "by": "medi",
@@ -1714,6 +1864,9 @@
    "status": "superseded",
    "change": "new",
    "statement": "Ice cold / Cold / Shaky / Missed buckets (09-05).",
+   "plain": "Word levels were Ice cold, Cold, Shaky and Missed.",
+   "plain_for": "a4f444f2",
+   "topic": "word levels",
    "source": [
     {
      "by": "medi",
@@ -1736,6 +1889,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "A slip is only a slip when there is a signal: Amal recasts / corrects, or Medi asks.",
+   "plain": "A grammar slip counts only when there is a signal: Amal corrects or re-says it, or you ask about it.",
+   "plain_for": "364d3f1a",
+   "topic": "what makes a slip",
    "source": [
     {
      "by": "medi",
@@ -1779,6 +1935,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Pauses are not errors: a long pause before a right answer is a right answer.",
+   "plain": "Pauses are not mistakes: a long pause and then the right answer is a right answer.",
+   "plain_for": "60e050d1",
+   "topic": "pauses",
    "source": [
     {
      "by": "medi",
@@ -1828,6 +1987,9 @@
    "status": "written",
    "change": "new",
    "statement": "A wrong preposition after a verb or adjective is its own kind of slip.",
+   "plain": "Using the wrong small linking word after a verb or adjective (like 'ba6lub min') is its own kind of slip.",
+   "plain_for": "389dab1c",
+   "topic": "small linking words",
    "source": [
     {
      "by": "medi",
@@ -1856,6 +2018,9 @@
    "status": "written",
    "change": "new",
    "statement": "Missing or wrong ykun / akun in lamma/iza clauses is a tense slip (bucket B8).",
+   "plain": "Leaving out or misusing ykun / akun after lamma or iza is a tense slip (rule group B8).",
+   "plain_for": "0b9f8f31",
+   "topic": "ykun",
    "source": [
     {
      "by": "medi",
@@ -1884,6 +2049,9 @@
    "status": "written",
    "change": "new",
    "statement": "Tally slips on rules Medi already learned; never write Amal's lesson plans.",
+   "plain": "Count slips only on rules you already learned; never write Amal's lesson plans for her.",
+   "plain_for": "8f330c61",
+   "topic": "tally",
    "source": [
     {
      "by": "medi",
@@ -1912,6 +2080,9 @@
    "status": "written",
    "change": "new",
    "statement": "Grammar buckets come from Medi's named patterns (hadi/hadol + el, b- returns, abadan, iyya, saarli, kaan laazem, min wein, kam + singular, hadeek...).",
+   "plain": "Grammar rule groups come from patterns you named yourself (hadi/hadol + el, b- coming back, abadan, iyya, saarli, kaan laazem, min wein, kam + singular, hadeek...).",
+   "plain_for": "687cea7e",
+   "topic": "rule groups",
    "source": [
     {
      "by": "medi",
@@ -1939,6 +2110,9 @@
    "status": "written",
    "change": "new",
    "statement": "Grammar usage comes from the lesson transcripts, not from Amal's Docs.",
+   "plain": "How often you use a grammar rule is counted from the lesson recordings, not from Amal's Docs.",
+   "plain_for": "6a486538",
+   "topic": "counting uses",
    "source": [
     {
      "by": "medi",
@@ -1966,6 +2140,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Readers must find about 20-45 grammar rows in an hour-long lesson; far fewer means re-read.",
+   "plain": "The AI readers should find about 20-45 grammar moments in an hour-long lesson; far fewer means they read it again.",
+   "plain_for": "fb8752d1",
+   "topic": "AI readers",
    "source": [
     {
      "by": "medi",
@@ -1997,6 +2174,9 @@
    "status": "written",
    "change": "new",
    "statement": "Amal rules once per pattern, examples folded under it; new lessons' B rows join existing patterns so she is never asked twice.",
+   "plain": "Amal rules once per pattern, with the examples listed under it; new lessons' cases join the existing patterns, so she is never asked the same thing twice.",
+   "plain_for": "1598b177",
+   "topic": "asking Amal",
    "source": [
     {
      "by": "medi",
@@ -2031,6 +2211,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "A question about a rule ('when is it X?', 'is it X or Y?') is neither a slip nor a use.",
+   "plain": "Asking about a rule ('when is it X?', 'is it X or Y?') is neither a slip nor a use.",
+   "plain_for": "2df31ca4",
+   "topic": "questions",
    "source": [
     {
      "by": "medi",
@@ -2073,6 +2256,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "'كم مرة؟' alone right after Amal spoke, answered by her repeating herself, is 'kaman marra?' (again?) - not كم + noun, not a slip.",
+   "plain": "Saying 'كم مرة؟' right after Amal spoke, so she repeats herself, means 'kaman marra?' (again?): not a كم mistake, not a slip.",
+   "plain_for": "27436d1d",
+   "topic": "kam marra",
    "source": [
     {
      "by": "medi",
@@ -2122,6 +2308,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "He repeats the same wrong phrase and Amal fixes it once: within 30 s it is ONE slip, the first.",
+   "plain": "If you repeat the same wrong phrase and Amal fixes it once, within 30 seconds it is one slip: the first one.",
+   "plain_for": "9d884bf0",
+   "topic": "repeats",
    "source": [
     {
      "by": "medi",
@@ -2171,6 +2360,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Latin-letter (Arabizi) turns are read as Arabic and count as grammar uses.",
+   "plain": "What you said that got written down in Latin letters (Arabizi) is read as Arabic and counts as grammar uses.",
+   "plain_for": "f012c004",
+   "topic": "counting uses",
    "source": [
     {
      "by": "medi",
@@ -2203,6 +2395,9 @@
    "status": "written",
    "change": "new",
    "statement": "One turn is never both a use and a slip.",
+   "plain": "One thing you say is never counted as both a use and a slip.",
+   "plain_for": "89c75743",
+   "topic": "counting uses",
    "source": [
     {
      "by": "medi",
@@ -2230,6 +2425,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "He is mid-sentence and Amal supplies the next word, then ممتاز: help on the way to a right answer, not a slip.",
+   "plain": "If you are mid-sentence, Amal gives you the next word and then says mumtaz, that is help on the way to a right answer, not a slip.",
+   "plain_for": "218421db",
+   "topic": "help from Amal",
    "source": [
     {
      "by": "medi",
@@ -2261,6 +2459,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Amal says both forms are fine: not a slip.",
+   "plain": "If Amal says both ways are fine, it is not a slip.",
+   "plain_for": "04225c8a",
+   "topic": "help from Amal",
    "source": [
     {
      "by": "medi",
@@ -2292,6 +2493,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "He applies the rule just drilled and Amal only re-phrases it a nicer way: not a slip.",
+   "plain": "If you use the rule you just practised and Amal only says it a nicer way, it is not a slip.",
+   "plain_for": "8d8c4614",
+   "topic": "help from Amal",
    "source": [
     {
      "by": "medi",
@@ -2331,6 +2535,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "A real grammar correction that fits no bucket becomes a proposed new bucket for Medi's yes/no; it is never dropped.",
+   "plain": "A real grammar correction that fits no rule group becomes a proposed new group for your yes or no; it is never thrown away.",
+   "plain_for": "0f962f45",
+   "topic": "rule groups",
    "source": [
     {
      "by": "medi",
@@ -2389,6 +2596,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "A fix Amal only TYPED in the Meet chat is not a correction (she may be cleaning up what he said): a slip needs a voiced signal; when she voiced it and typed it, the voiced signal counts. The chat only gives context.",
+   "plain": "A fix Amal only typed in the Meet chat is not a correction (she may just be tidying what you said): a slip needs her voice; if she said it and typed it, the spoken fix counts. The chat only gives context.",
+   "plain_for": "3e627555",
+   "topic": "chat fixes",
    "source": [
     {
      "by": "medi",
@@ -2458,6 +2668,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Tier 3 (an English word dropped into an Arabic sentence though the word is on her sheet) that Amal let pass is pre-ruled 'do not correct' (her AR-1933); a tier-3 fix she voiced still counts.",
+   "plain": "Dropping an English word into an Arabic sentence (tier 3) when the word is on her sheet is not corrected if Amal let it pass (her ruling AR-1933); if she fixed it out loud, it still counts.",
+   "plain_for": "01f3f75b",
+   "topic": "English words",
    "source": [
     {
      "by": "amal",
@@ -2494,6 +2707,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "A correction Amal confirmed on her review page counts like one she voiced: every confirmed row reaches the copy the pages read (sweep_compat), every run; a confirmed row at the same lesson second as a counted row is the same moment, not a second slip.",
+   "plain": "A correction Amal confirmed on her review page counts like one she said out loud, on every page, every run; if it lands on the same second as a slip already counted, it is the same slip, not a second one.",
+   "plain_for": "c1ba6ced",
+   "topic": "Amal's fixes",
    "source": [
     {
      "by": "medi",
@@ -2535,6 +2751,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "A grammar slip he fixes himself in the same turn, before Amal helps, is not a slip (same as vocab); it counts only if she then corrects the fixed version.",
+   "plain": "A grammar slip you fix yourself in the same breath, before Amal helps, is not a slip (same as for words); it counts only if she then corrects your fixed version.",
+   "plain_for": "30b21543",
+   "topic": "fixing yourself",
    "source": [
     {
      "by": "medi",
@@ -2563,6 +2782,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Each new lesson's type (free speak, review, new words, grammar review) and its taught words are read from context the same day.",
+   "plain": "Each new lesson's type (free talk, review, new words, grammar review) and the words it taught are worked out from what was said, the same day.",
+   "plain_for": "528e0976",
+   "topic": "lesson type",
    "source": [
     {
      "by": "medi",
@@ -2619,6 +2841,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Every lesson gets a finished same-day review before it is published.",
+   "plain": "Every lesson gets a finished same-day review before it goes on the site.",
+   "plain_for": "a6f3b72b",
+   "topic": "same-day review",
    "source": [
     {
      "by": "medi",
@@ -2651,6 +2876,9 @@
    "status": "written",
    "change": "new",
    "statement": "Every recording is ingested hourly, not only the bots' recordings.",
+   "plain": "Every recording is loaded every hour, not only the ones the recording bot made.",
+   "plain_for": "e6a25d56",
+   "topic": "loading lessons",
    "source": [
     {
      "by": "medi",
@@ -2678,6 +2906,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "If the hourly job cannot load a lesson (credits gone, missing track, transcription error), Medi is told the same hour: one line on Progress and Lessons, e.g. \"10-01 lesson not loaded: voice-to-text credits ran out (since 15:15)\"; low ElevenLabs credits are flagged every hour before any transcribing.",
+   "plain": "If a lesson cannot load (credits ran out, a track is missing, transcription failed), you are told within the hour by one line on Progress and Lessons; low voice-to-text credits are flagged every hour before transcribing.",
+   "plain_for": "57823c26",
+   "topic": "loading lessons",
    "source": [
     {
      "by": "medi",
@@ -2725,6 +2956,9 @@
    "status": "written",
    "change": "new",
    "statement": "Amal's topic pick decides whether new words are expected.",
+   "plain": "Amal's topic choice for a lesson decides whether new words are expected.",
+   "plain_for": "3eb79615",
+   "topic": "lesson type",
    "source": [
     {
      "by": "claude",
@@ -2751,6 +2985,9 @@
    "status": "moment-only",
    "change": "new",
    "statement": "Every page's numbers refresh after each lesson and each card set, with a check that fails when a page is stale.",
+   "plain": "Every page's numbers update after each lesson and each flashcard set, and a check fails when a page is out of date.",
+   "plain_for": "a72d1ce5",
+   "topic": "fresh numbers",
    "source": [
     {
      "by": "medi",
@@ -2779,6 +3016,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Code never contacts Amal; links are minted, Medi sends them.",
+   "plain": "The computer never contacts Amal: it makes links, and you send them to her.",
+   "plain_for": "d22c0191",
+   "topic": "contacting Amal",
    "source": [
     {
      "by": "medi",
@@ -2817,6 +3057,9 @@
    "status": "written",
    "change": "new",
    "statement": "Amal's pages are public Anees pages (she has no Claude login).",
+   "plain": "Amal's pages are public Anees pages, because she has no Claude login.",
+   "plain_for": "64f9ee4c",
+   "topic": "her pages",
    "source": [
     {
      "by": "medi",
@@ -2845,6 +3088,9 @@
    "status": "written",
    "change": "new",
    "statement": "The vocabulary Google Doc is the only word truth; the app never writes it (one exception: 18 words Claude typed by hand with Medi's OK on 09-23).",
+   "plain": "Amal's vocabulary Google Doc is the only source of truth for words; the app never writes to it (one exception: 18 words typed in by hand with your OK on 09-23).",
+   "plain_for": "9ec510d6",
+   "topic": "the Doc",
    "source": [
     {
      "by": "medi",
@@ -2873,6 +3119,9 @@
    "status": "written",
    "change": "new",
    "statement": "Amal's tap beats any machine label.",
+   "plain": "Amal's tap beats any computer label.",
+   "plain_for": "02744783",
+   "topic": "her word wins",
    "source": [
     {
      "by": "medi",
@@ -2901,6 +3150,9 @@
    "status": "written",
    "change": "new",
    "statement": "Keep Amal's review under 10 minutes: short, one tap each, measured.",
+   "plain": "Amal's review stays under 10 minutes: short, one tap per item, and timed.",
+   "plain_for": "741b4230",
+   "topic": "her time",
    "source": [
     {
      "by": "medi",
@@ -2929,6 +3181,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Amal's verb answer beats any guess; the engine rule is fixed, never one form by hand.",
+   "plain": "Amal's answer about a verb beats any guess; the fix goes into the rule the engine uses, never into one form by hand.",
+   "plain_for": "5a48df8e",
+   "topic": "her word wins",
    "source": [
     {
      "by": "medi",
@@ -2961,6 +3216,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Only Amal's named Quizlet sets are card sets; dated sets and other students' sets are excluded.",
+   "plain": "Only Amal's named Quizlet sets become card sets; dated sets and other students' sets are left out.",
+   "plain_for": "79f87bc6",
+   "topic": "Quizlet",
    "source": [
     {
      "by": "medi",
@@ -2993,6 +3251,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Amal's AR-* rulings apply to every lesson's rows of that pattern automatically: her reason drops the rows and is never asked again; her yes scores them.",
+   "plain": "Amal's ruling on a pattern applies to that pattern in every lesson automatically: if she gave a reason it is fine, those cases drop and she is never asked again; if she said yes, they are scored.",
+   "plain_for": "0493e1de",
+   "topic": "her rulings",
    "source": [
     {
      "by": "medi",
@@ -3030,6 +3291,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Amal's newer spelling wins, and any Amal action triggers a rebuild.",
+   "plain": "Amal's newest spelling wins, and anything Amal does triggers a rebuild of the numbers.",
+   "plain_for": "c14c2dc0",
+   "topic": "her rulings",
    "source": [
     {
      "by": "medi",
@@ -3062,6 +3326,9 @@
    "status": "written",
    "change": "new",
    "statement": "Amal's 09-29 grammar notes (B7/B8 kept/dropped, B14/B15 not taught) apply.",
+   "plain": "Amal's 09-29 grammar notes apply (B7 and B8 kept or dropped as she said; B14 and B15 not taught yet).",
+   "plain_for": "38ed78ec",
+   "topic": "her rulings",
    "source": [
     {
      "by": "medi",
@@ -3089,6 +3356,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "For each new lesson, every word Amal used that is not on her sheet goes on the Tutor hub with 3 choices: add to Doc / save for later / forget.",
+   "plain": "After each new lesson, every word Amal used that is not on her sheet goes on her Tutor page with 3 choices: add to the Doc, save for later, or forget.",
+   "plain_for": "b9ed9e18",
+   "topic": "new words for her",
    "source": [
     {
      "by": "medi",
@@ -3140,6 +3410,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Every Doc sync archives words Amal removed (history kept, active:false).",
+   "plain": "Each time the Doc is read, words Amal removed are archived, not erased (history kept).",
+   "plain_for": "8902ce8a",
+   "topic": "the Doc",
    "source": [
     {
      "by": "medi",
@@ -3182,6 +3455,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Nothing Amal opens is off-site, behind a login, or off-brand.",
+   "plain": "Nothing Amal opens is on another site, behind a login, or outside the Anees look.",
+   "plain_for": "bbf7eda6",
+   "topic": "her pages",
    "source": [
     {
      "by": "medi",
@@ -3224,6 +3500,9 @@
    "status": "written",
    "change": "amend",
    "statement": "Amal's Quizlet sets are card sets only; the Doc stays the word truth.",
+   "plain": "Amal's Quizlet sets are only card sets; the Doc stays the source of truth for words.",
+   "plain_for": "0cc8bcaa",
+   "topic": "Quizlet",
    "source": [
     {
      "by": "medi",
@@ -3254,6 +3533,9 @@
    "status": "superseded",
    "change": "new",
    "statement": "All the vocab is on the Doc, no need to open Quizlets (09-05).",
+   "plain": "All the words were on the Doc, so Quizlets did not need opening.",
+   "plain_for": "b48bfa52",
+   "topic": "Quizlet",
    "source": [
     {
      "by": "medi",
@@ -3276,6 +3558,9 @@
    "status": "written",
    "change": "new",
    "statement": "A stale page shows a flashing out-of-date banner.",
+   "plain": "A page that is out of date shows a flashing banner.",
+   "plain_for": "2aa59c60",
+   "topic": "out of date",
    "source": [
     {
      "by": "medi",
@@ -3303,6 +3588,9 @@
    "status": "written",
    "change": "new",
    "statement": "The Sabz brand book skins every page; red stays for Wrong.",
+   "plain": "Every page uses the Sabz brand look; red is kept for Wrong.",
+   "plain_for": "e6f81596",
+   "topic": "look",
    "source": [
     {
      "by": "medi",
@@ -3330,6 +3618,9 @@
    "status": "written",
    "change": "amend",
    "statement": "New pages copy the Anees shell and follow the same pattern (not the Stitch mockups).",
+   "plain": "New pages copy the Anees frame (header, menu, look) and follow the same pattern as the other pages.",
+   "plain_for": "56428e3b",
+   "topic": "look",
    "source": [
     {
      "by": "medi",
@@ -3360,6 +3651,9 @@
    "status": "superseded",
    "change": "new",
    "statement": "Only use the starred Stitch items (09-21).",
+   "plain": "Only the starred Stitch mockup items were used.",
+   "plain_for": "a002272a",
+   "topic": "look",
    "source": [
     {
      "by": "medi",
@@ -3382,6 +3676,9 @@
    "status": "written",
    "change": "new",
    "statement": "No guessed number or target: unknown shows '–' and why.",
+   "plain": "No guessed numbers or made-up targets: when a number is unknown, the page shows '–' and why.",
+   "plain_for": "7a8fa3e9",
+   "topic": "numbers",
    "source": [
     {
      "by": "medi",
@@ -3415,6 +3712,9 @@
    "status": "written",
    "change": "new",
    "statement": "Counts are counts; 'better' or 'accurate' only with a named metric and human labels.",
+   "plain": "Counts are just counts; 'better' or 'accurate' is said only with a named measure checked by people.",
+   "plain_for": "8918c832",
+   "topic": "numbers",
    "source": [
     {
      "by": "claude",
@@ -3441,6 +3741,9 @@
    "status": "written",
    "change": "new",
    "statement": "Home = Progress Overview; everything for Amal is on one Tutor page.",
+   "plain": "The home page is Progress Overview; everything for Amal is on one Tutor page.",
+   "plain_for": "b5733b9f",
+   "topic": "where things are",
    "source": [
     {
      "by": "medi",
@@ -3473,6 +3776,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Rule ids (B5...) show a tooltip with the rule's name everywhere.",
+   "plain": "Grammar rule codes (like B5) show the rule's name when you hover or tap them, on every page.",
+   "plain_for": "564a102d",
+   "topic": "rule names",
    "source": [
     {
      "by": "medi",
@@ -3505,6 +3811,9 @@
    "status": "moment-only",
    "change": "new",
    "statement": "No page repeats another page's lists; Progress & Stats shows summaries plus new data only.",
+   "plain": "No page repeats another page's lists; Progress & Stats shows only summaries and new data.",
+   "plain_for": "a27d3d2f",
+   "topic": "where things are",
    "source": [
     {
      "by": "medi",
@@ -3527,6 +3836,9 @@
    "status": "moment-only",
    "change": "new",
    "statement": "Grammar and Lessons mirror the Word Bank: search, last seen, status colours, left indent, sort arrows on every column, full detail card for every entry.",
+   "plain": "Grammar and Lessons work like the Word Bank: search, last seen, status colours, left indent, sort arrows on every column, and a full detail card for every entry.",
+   "plain_for": "07e06bd2",
+   "topic": "same layout",
    "source": [
     {
      "by": "medi",
@@ -3549,6 +3861,9 @@
    "status": "moment-only",
    "change": "new",
    "statement": "One status palette app-wide: Mastered dark green, Good light green, Shaky yellow, Wrong red, Untested gray.",
+   "plain": "One set of status colours everywhere: Mastered dark green, Good light green, Shaky yellow, Wrong red, Untested grey.",
+   "plain_for": "8d671610",
+   "topic": "colours",
    "source": [
     {
      "by": "medi",
@@ -3577,6 +3892,9 @@
    "status": "moment-only",
    "change": "new",
    "statement": "Every row says Wrong or Correct in words, under any filter.",
+   "plain": "Every row says Wrong or Correct in words, whatever the filter.",
+   "plain_for": "29bd8728",
+   "topic": "labels",
    "source": [
     {
      "by": "medi",
@@ -3605,6 +3923,9 @@
    "status": "moment-only",
    "change": "new",
    "statement": "Time charts start at the first month with data and run forward.",
+   "plain": "Time charts start at the first month that has data and run forward.",
+   "plain_for": "e70a47c9",
+   "topic": "charts",
    "source": [
     {
      "by": "medi",
@@ -3627,6 +3948,9 @@
    "status": "written",
    "change": "new",
    "statement": "Every reported miss or moment carries its audio clip.",
+   "plain": "Every reported mistake or moment comes with its audio clip.",
+   "plain_for": "b1f48451",
+   "topic": "clips",
    "source": [
     {
      "by": "claude",
@@ -3653,6 +3977,9 @@
    "status": "moment-only",
    "change": "new",
    "statement": "Every error clip is its own cut, starts a few seconds before Medi's line, runs through Amal's fix, and has both voices.",
+   "plain": "Every mistake clip is its own cut: it starts a few seconds before your line, runs through Amal's fix, and has both voices.",
+   "plain_for": "fbb3a0ad",
+   "topic": "clips",
    "source": [
     {
      "by": "medi",
@@ -3687,6 +4014,9 @@
    "status": "written",
    "change": "amend",
    "statement": "One player everywhere: play, pause, stop that resets, progress bar, volume, ⋯ menu, opened next to the button tapped.",
+   "plain": "One audio player everywhere: play, pause, stop (back to the start), progress bar, volume and a ⋯ menu, opened next to the button you tapped.",
+   "plain_for": "1fdc0320",
+   "topic": "player",
    "source": [
     {
      "by": "medi",
@@ -3723,6 +4053,9 @@
    "status": "superseded",
    "change": "new",
    "statement": "Native seekable audio controls; no custom play/pause/stop control (09-21 handoff rule 13).",
+   "plain": "The browser's own audio controls were used, with no custom player.",
+   "plain_for": "612b3b8d",
+   "topic": "player",
    "source": [
     {
      "by": "medi",
@@ -3745,6 +4078,9 @@
    "status": "written",
    "change": "new",
    "statement": "Cards work like Quizlet in both directions, retry wrong ones; swipe time is recorded but never changes the grade.",
+   "plain": "Cards work like Quizlet, in both directions, and wrong ones come back; how fast you swipe is recorded but never changes the grade.",
+   "plain_for": "a768c18f",
+   "topic": "how cards work",
    "source": [
     {
      "by": "medi",
@@ -3783,6 +4119,9 @@
    "status": "written",
    "change": "new",
    "statement": "FSRS: Again/Good only, no English before grading, no root tags, labelled categories, verb drills.",
+   "plain": "Cards are graded Again or Good only, with no English shown before you grade, no root tags, labelled categories, and verb drills.",
+   "plain_for": "288f30b6",
+   "topic": "how cards work",
    "source": [
     {
      "by": "medi",
@@ -3810,6 +4149,9 @@
    "status": "written",
    "change": "new",
    "statement": "What a card shows: flashcard rules F1-F11.",
+   "plain": "What a card shows follows the 11 written card-display rules in the flashcard rules file.",
+   "plain_for": "f32501b6",
+   "topic": "card rules",
    "source": [
     {
      "by": "medi",
@@ -3837,6 +4179,9 @@
    "status": "written",
    "change": "new",
    "statement": "How answering works: flashcard rules A1-A8.",
+   "plain": "How answering works follows the 8 written answering rules in the flashcard rules file (undo, word buttons, keep going).",
+   "plain_for": "4b8d03dc",
+   "topic": "card rules",
    "source": [
     {
      "by": "medi",
@@ -3864,6 +4209,9 @@
    "status": "written",
    "change": "amend",
    "statement": "NEW = only words Amal adds to the Doc after 2026-09-30; new-word pace = her batch size; old words have no limit (N1-N5).",
+   "plain": "A NEW card is only a word Amal adds to the Doc after 30 Sept 2026; new words come at the pace of her batches; old words have no daily limit.",
+   "plain_for": "b646e4a2",
+   "topic": "new cards",
    "source": [
     {
      "by": "medi",
@@ -3896,6 +4244,9 @@
    "status": "superseded",
    "change": "new",
    "statement": "Daily new-card limit 20, later 8 a day (09-21).",
+   "plain": "There was a daily limit of 20 new cards, later 8 a day.",
+   "plain_for": "843872c2",
+   "topic": "new cards",
    "source": [
     {
      "by": "medi",
@@ -3918,6 +4269,9 @@
    "status": "enforced",
    "change": "amend",
    "statement": "A card is a leech at 3 misses in any phase (learning misses count); one rule only - the lapses path is gone. Supersedes the 09-21 \"8 lapses\" decision and the 09-27 \"4 misses or 8 lapses\" setting.",
+   "plain": "A card becomes a leech (a word you keep missing) after 3 misses at any stage; this is the only leech rule.",
+   "plain_for": "0855fc28",
+   "topic": "leech",
    "source": [
     {
      "by": "medi",
@@ -3971,6 +4325,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Test runs never write to Medi's card history: live-database tests run only with ANEES_E2E_LIVE=1.",
+   "plain": "Test runs never write into your real flashcard history.",
+   "plain_for": "355d2f45",
+   "topic": "tests",
    "source": [
     {
      "by": "medi",
@@ -4004,6 +4361,9 @@
    "status": "superseded",
    "change": "new",
    "statement": "Leech at 8 lapses (09-21 decisions), set in code 09-27 as 4 misses in any phase or 8 lapses in review.",
+   "plain": "A card was a leech at 8 lapses, later at 4 misses or 8 lapses.",
+   "plain_for": "de759e08",
+   "topic": "leech",
    "source": [
     {
      "by": "claude",
@@ -4026,6 +4386,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Every correction becomes a rule: fix the moment through the ruling files AND write the general rule where the next lesson meets it; registered in rules/registry.json.",
+   "plain": "Every correction becomes a rule: fix that one moment, and write the general rule where the next lesson will meet it, listed in the rule list.",
+   "plain_for": "7af89d74",
+   "topic": "corrections",
    "source": [
     {
      "by": "medi",
@@ -4064,6 +4427,9 @@
    "status": "written",
    "change": "new",
    "statement": "Low security posture: no passwords or security friction on Anees.",
+   "plain": "Keep security light: no passwords or login friction on Anees.",
+   "plain_for": "8a9f76be",
+   "topic": "security",
    "source": [
     {
      "by": "medi",
@@ -4096,6 +4462,9 @@
    "status": "written",
    "change": "new",
    "statement": "Grill Medi with questions before a big task.",
+   "plain": "Before a big task, ask you questions, one at a time.",
+   "plain_for": "a9ba090d",
+   "topic": "big tasks",
    "source": [
     {
      "by": "medi",
@@ -4123,6 +4492,9 @@
    "status": "written",
    "change": "new",
    "statement": "Never review or recap the rules with Medi.",
+   "plain": "Never go over or recap the rules with you.",
+   "plain_for": "6226ae5d",
+   "topic": "talking to Medi",
    "source": [
     {
      "by": "medi",
@@ -4150,6 +4522,9 @@
    "status": "written",
    "change": "new",
    "statement": "When an ask conflicts with what exists, ask ONE question before building.",
+   "plain": "When a request clashes with what already exists, ask you one question before building.",
+   "plain_for": "59f2fd2b",
+   "topic": "big tasks",
    "source": [
     {
      "by": "medi",
@@ -4177,6 +4552,9 @@
    "status": "written",
    "change": "new",
    "statement": "Push master yourself when the publish guard is OK and the push is a fast-forward; never force.",
+   "plain": "The AI helpers put work on the live site themselves when the publish check passes and nothing gets overwritten; never forced.",
+   "plain_for": "f6422c9f",
+   "topic": "publishing",
    "source": [
     {
      "by": "medi",
@@ -4209,6 +4587,9 @@
    "status": "written",
    "change": "new",
    "statement": "Produce a trustworthy transcript first, then everything else.",
+   "plain": "A trustworthy transcript comes first; everything else is built on it.",
+   "plain_for": "f456f690",
+   "topic": "order of work",
    "source": [
     {
      "by": "medi",
@@ -4236,6 +4617,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Keep a checklist of every ask in a session (including messages typed mid-run) and tick each one before reporting done.",
+   "plain": "Keep a checklist of everything you asked in a session (including messages sent mid-way) and tick each one before saying done.",
+   "plain_for": "55a604c2",
+   "topic": "every ask done",
    "source": [
     {
      "by": "medi",
@@ -4280,6 +4664,9 @@
    "status": "written",
    "change": "new",
    "statement": "Nothing is emailed before the page is pushed and answers 200.",
+   "plain": "Nothing is emailed until the page is live and opens correctly.",
+   "plain_for": "c2048424",
+   "topic": "emails",
    "source": [
     {
      "by": "claude",
@@ -4306,6 +4693,9 @@
    "status": "written",
    "change": "new",
    "statement": "Paid AI calls stop at 90% of the budget.",
+   "plain": "Paid AI calls stop at 90% of the budget.",
+   "plain_for": "f0f1799b",
+   "topic": "budget",
    "source": [
     {
      "by": "claude",
@@ -4343,6 +4733,9 @@
    "status": "written",
    "change": "new",
    "statement": "Freeze clips, hashes and test arms before any output is seen.",
+   "plain": "Lock the test clips and test setup before looking at any results.",
+   "plain_for": "02c53fd2",
+   "topic": "testing engines",
    "source": [
     {
      "by": "claude",
@@ -4369,6 +4762,9 @@
    "status": "written",
    "change": "new",
    "statement": "An engine is replaced only on held-out, Amal-labelled events, tested on full tracks.",
+   "plain": "A transcription engine is replaced only after testing on full recordings that Amal labelled and the engine has never seen.",
+   "plain_for": "fd957335",
+   "topic": "testing engines",
    "source": [
     {
      "by": "claude",
@@ -4395,6 +4791,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "A page is never older than its source: when the database or the raw archive has a newer lesson than the pages, the pages say so (Progress, Lessons), and the publish guard warns when a transcribed lesson is not on the site, Amal's answers were not checked for 2 h, or publishing has been blocked for 6 h.",
+   "plain": "A page is never older than its data: when a newer lesson exists the page says so, and the publish check warns if a lesson is missing from the site, Amal's answers were not checked for 2 hours, or publishing has been stuck for 6 hours.",
+   "plain_for": "4f91783e",
+   "topic": "out of date",
    "source": [
     {
      "by": "medi",
@@ -4433,6 +4832,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "A generated file is rebuilt, never merged: a rebase conflict in built data keeps master's copy, re-stamps the build and queues the rebuild; only a hand-made file waits for a person (09-30 17:23 to 10-02: two build stamps stopped every hourly publish).",
+   "plain": "Built files are rebuilt, never hand-merged: when two versions clash, the live copy is kept and the build runs again; only hand-written files wait for a person.",
+   "plain_for": "29cfa7c5",
+   "topic": "publishing",
    "source": [
     {
      "by": "medi",
@@ -4470,6 +4872,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Each AI reader file is checked against its own shape: r1/r2 hold rows, the third reader holds rulings (+ added, challenges); checking r3 for rows failed every new lesson's same-day review from 2026-09-29.",
+   "plain": "Each AI reader's answer file is checked against its own expected shape (the third reader writes rulings, not rows).",
+   "plain_for": "589ae932",
+   "topic": "AI readers",
    "source": [
     {
      "by": "medi",
@@ -4507,6 +4912,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "A snapshot that grows with every lesson is read in pages, never in one request (rpc/speaking_snapshot hit the statement timeout once lesson 2026-10-01 was loaded).",
+   "plain": "Data that grows with every lesson is loaded in pages, never in one big request.",
+   "plain_for": "662a572e",
+   "topic": "loading data",
    "source": [
     {
      "by": "medi",
@@ -4544,6 +4952,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "A page that reads live data re-reads it when the tab comes back into view (docs/js/live-reread.js), or is listed with the reason it must not (an answer page, a card session).",
+   "plain": "A page that shows live data reads it again when you come back to the tab (or the page is listed with the reason it must not).",
+   "plain_for": "ed19d25c",
+   "topic": "out of date",
    "source": [
     {
      "by": "medi",
@@ -4581,6 +4992,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "Old/new marks: Amal's New words card offers Add to the Doc as NEW / as OLD (nothing pre-selected; Medi's own old mark shows only as a hint); Anees keeps Medi's marks in data/word-marks.json (never the Doc; not on the word list until it is in her Doc); every word she said she will add is on a promised list (Tutor hub + Word Bank) as Waiting until the Doc import sees it (In the Doc since <date>); a word marked OLD never counts as NEW on Flashcards.",
+   "plain": "Amal's New words card lets her add each word to the Doc as NEW or as OLD (nothing pre-picked); your own old/new marks are kept by Anees, not in the Doc; every word she promised to add shows as 'Waiting' on the Tutor page and Word Bank until it is in the Doc; a word marked OLD never counts as NEW in Flashcards.",
+   "plain_for": "3a41118c",
+   "topic": "new words for her",
    "source": [
     {
      "by": "medi",
@@ -4662,6 +5076,9 @@
    "status": "superseded",
    "change": "new",
    "statement": "Glue words (shu, bas, ya3ni, tamam ...) are never graded (ai_rules M3 as written 2026-09-05).",
+   "plain": "Glue words (shu, bas, ya3ni, tamam...) were never scored.",
+   "plain_for": "b0dc2952",
+   "topic": "glue words",
    "source": [
     {
      "by": "medi",
@@ -4676,6 +5093,45 @@
    ],
    "superseded_by": "WS-19",
    "note": "the ai_rules M3 wording before Medi's 2026-10-02 amendment; kept as history (nothing is deleted)"
+  },
+  {
+   "id": "PG-16",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The rule book (docs/rules.html + RULE-BOOK.md) is built from rules/registry.json and RULES.md by scripts/build_rule_book.py, ordered by the life of a lesson; a published book older than the registry blocks the publish.",
+   "plain": "This rule book is built from the rule list automatically, in the order a lesson happens; publishing is blocked if the book falls out of date.",
+   "plain_for": "e0778a17",
+   "topic": "rule book",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "Lets keep a parrallel document of the rules that has it in an organized fashion so I can read it and follow it. Please make sure the orginzation makes sense for a human to follow"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_rule_book.py",
+     "contains": "def build_book(root=ROOT):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/hourly_lessons.py",
+     "contains": "'build_rule_book.py'"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_rule_book.py",
+     "contains": "def test_published_rule_book_matches_the_registry"
+    }
+   ],
+   "aliases": [
+    "rule-book"
+   ]
   }
  ]
 }

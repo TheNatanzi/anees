@@ -257,9 +257,9 @@ def _commit(paths, message):
 
 # what the Tutor refresh rebuilds (data/accuracy: accuracy_gates annotate rewrites the verification queue on every
 # lesson-data build; left uncommitted it made the guard's clean-tree check block every later hour)
-TUTOR_PATHS = ['docs/data', 'docs/amal/grammar-rules.html', 'data/full-audit-2026-09-26.json', 'data/accuracy']
+TUTOR_PATHS = ['docs/data', 'docs/amal/grammar-rules.html', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'RULE-BOOK.md']
 # everything a run may build that the site or the guard reads: committed before the run's one push
-BUILT_PATHS = ['docs', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'data/lesson-work/full-audit', 'plan/FULL-AUDIT-2026-09-26.md',
+BUILT_PATHS = ['docs', 'RULE-BOOK.md', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'data/lesson-work/full-audit', 'plan/FULL-AUDIT-2026-09-26.md',
                'data/budget.json', 'data/lessons/recall_bots.json', 'data/runs', 'data/decisions', 'data/backfill',
                'data/amal-trigger', 'data/vocab', 'data/lesson-work/amal-new-words', 'data/lesson-work/amal-new-words-verdicts.json']
 
@@ -275,6 +275,8 @@ def tutor_refresh(no_push=False, rebuild_all=False):
             for s in ('build_amal_review.py', 'build_lessons_page_data.py', 'build_grammar_console.py', 'build_amal_grammar_rules.py'):
                 run_step(s, [sys.executable, str(HERE / s)], failures, timeout=1800)
         run_step('build_tutor_data.py', [sys.executable, str(HERE / 'build_tutor_data.py')], failures, timeout=300)
+        # rule PG-16: the rule book (docs/rules.html + RULE-BOOK.md) is rebuilt from rules/registry.json every hour
+        run_step('build_rule_book.py', [sys.executable, str(HERE / 'build_rule_book.py')], failures)
         paths = [p for p in TUTOR_PATHS if (ROOT / p).exists()]
         changed = subprocess.run(['git', 'status', '--porcelain', '--', *paths], cwd=ROOT, capture_output=True, text=True).stdout.strip()
         if not changed:

@@ -1,0 +1,50 @@
+/* Rule book (docs/rules.html, rule PG-16): the Word Bank shell (word-bank.css) + a reading layout. Only what it lacks. */
+#anees-bank .rb-crumb{font-size:11px;color:var(--ab-muted);margin-bottom:4px}
+#anees-bank .rb-crumb a{color:var(--ab-accent);text-decoration:none}
+#anees-bank .rb-crumb a:hover{text-decoration:underline}
+#anees-bank .rb-chip{display:inline-flex;gap:6px;align-items:center;font-size:12px;padding:6px 10px}
+#anees-bank .rb-chip strong{font-weight:600;font-variant-numeric:tabular-nums}
+#anees-bank .rb-dot{width:8px;height:8px;border-radius:50%;background:currentColor;flex:none}
+#anees-bank .rb-chip-auto .rb-dot{color:var(--ab-green)}#anees-bank .rb-chip-written .rb-dot{color:var(--ab-blue)}
+#anees-bank .rb-chip-once .rb-dot{color:var(--ab-orange)}#anees-bank .rb-chip-you .rb-dot{color:var(--ab-red)}
+#anees-bank .rb-toc{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}
+#anees-bank .rb-tocitem{display:inline-flex;align-items:center;font-size:12px;padding:5px 9px;border:1px solid var(--ab-line);border-radius:20px;background:var(--ab-panel);color:var(--ab-text);text-decoration:none;white-space:nowrap}
+#anees-bank .rb-tocitem:hover{border-color:var(--ab-accent);color:var(--ab-accent)}
+#anees-bank .rb-tocitem.rb-none{opacity:.45}
+#anees-bank .rb-help{margin:0 0 18px;font-size:13px}
+#anees-bank .rb-help summary{color:var(--ab-accent);font-size:12px}
+#anees-bank .rb-help>div{margin-top:8px;padding:12px 14px;background:var(--ab-panel);border:1px solid var(--ab-line);border-radius:7px;display:grid;gap:10px}
+#anees-bank .rb-legend{margin:0;padding:0;list-style:none;display:grid;gap:6px;line-height:1.5}
+#anees-bank .rb-group{margin:0 0 26px;scroll-margin-top:12px}
+#anees-bank .rb-h2{font-family:var(--sabz-font-serif);font-size:21px;font-weight:500;line-height:1.25;margin:0 0 4px;display:flex;gap:10px;align-items:baseline;padding-top:14px;border-top:1px solid var(--ab-line)}
+#anees-bank .rb-num{display:inline-grid;place-items:center;min-width:26px;height:26px;border-radius:50%;background:var(--ab-active);color:var(--ab-accent);font-size:14px;font-family:var(--sabz-font-sans);font-weight:600;flex:none;align-self:center}
+#anees-bank .rb-intro{margin:0 0 10px;font-size:13px;color:var(--ab-muted);line-height:1.5}
+#anees-bank .rb-h3{font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--ab-muted);font-weight:600;margin:16px 0 6px}
+#anees-bank .rb-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+#anees-bank .rb-rule{background:var(--ab-panel);border:1px solid var(--ab-line);border-left:3px solid var(--ab-line);border-radius:6px;padding:10px 12px;min-width:0}
+#anees-bank .rb-rule-auto{border-left-color:var(--ab-green)}#anees-bank .rb-rule-written{border-left-color:var(--ab-blue)}
+#anees-bank .rb-rule-once{border-left-color:var(--ab-orange)}#anees-bank .rb-rule-you{border-left-color:var(--ab-red)}
+#anees-bank .rb-text{margin:0;font-size:14px;line-height:1.5;overflow-wrap:anywhere}
+#anees-bank .rb-struck{color:var(--ab-muted);text-decoration:line-through;text-decoration-thickness:1px}
+#anees-bank .rb-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px}
+#anees-bank .rb-id{font-size:11px;color:var(--ab-muted);font-variant-numeric:tabular-nums;letter-spacing:.2px}
+#anees-bank .rb-badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;border:1px solid currentColor;white-space:nowrap;line-height:1.5}
+#anees-bank .rb-auto{color:var(--ab-green)}#anees-bank .rb-written{color:var(--ab-blue)}
+#anees-bank .rb-once{color:var(--ab-orange)}#anees-bank .rb-you{color:var(--ab-red)}#anees-bank .rb-old{color:var(--ab-muted)}
+#anees-bank .rb-said{margin-top:5px;font-size:12px;color:var(--ab-muted);line-height:1.5;overflow-wrap:anywhere}
+#anees-bank .rb-words{font-style:italic}
+#anees-bank .rb-ask,#anees-bank .rb-replaced{margin-top:6px;font-size:12px;line-height:1.5}
+#anees-bank .rb-ask strong,#anees-bank .rb-replaced strong{font-weight:600}
+#anees-bank .rb-oldbox{margin-top:12px}
+#anees-bank .rb-oldbox>summary{font-size:12px;color:var(--ab-muted);padding:6px 0}
+#anees-bank .rb-oldbox>.rb-list{margin-top:6px}
+#anees-bank .rb-big .rb-biglist{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+#anees-bank .rb-big .rb-biglist li{background:var(--ab-panel);border:1px solid var(--ab-line);border-left:3px solid var(--ab-accent);border-radius:6px;padding:10px 12px}
+#anees-bank .rb-bigtitle{margin:0 0 3px;font-weight:600;font-size:14px}
+#anees-bank .rb-bigtitle .rb-id{margin-right:4px}
+#anees-bank .rb-foot{margin-top:18px}
+@media(max-width:680px){
+#anees-bank .rb-text{font-size:15px}
+#anees-bank .rb-h2{font-size:19px}
+#anees-bank .rb-rule{padding:10px}
+}

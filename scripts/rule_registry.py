@@ -4,6 +4,7 @@
     python scripts/rule_registry.py check            # exit 0 = every claim is provable; exit 1 = first line says why
     python scripts/rule_registry.py show [scope|id]  # read the rules before building in a scope (CLAUDE.md / AGENTS.md)
     python scripts/rule_registry.py stats            # one line: counts by status, then the questions for Medi
+    python scripts/rule_registry.py plain GR-14 "..." [--topic t]   # the rule in plain words for the rule book (PG-16)
 
 rules/registry.json is the index. It does not replace RULES.md (S1-S6, Medi's own words) or the files that apply a rule
 (code, guard tests, the AI readers' briefs, docs/data/ai_rules.json, docs/flashcard-rules.md, memory notes). Each entry
@@ -23,6 +24,9 @@ It fails on (the ESLint "Missing tests for rule X" pattern; design C:/Claude/rep
   - a status lower than on origin/master (enforced > written > moment-only), or an entry that disappeared;
     origin/master unreadable (fail closed; --no-origin only for offline runs)
   - a NEW enforced rule whose test does not mention its id (no borrowing an unrelated test)
+Optional per entry: `plain` (the statement in plain words, shown by the rule book - scripts/build_rule_book.py, rule
+PG-16; it never changes the meaning; `plain_for` = the hash of the statement it was written for, so a changed statement
+fails until its plain wording is re-read - use the `plain` command) and `topic` (a short label that keeps related rules together in the book).
 Superseded entries keep only their links checked: the code they pointed at may be gone, by design. Nothing is deleted.
 """
 from __future__ import annotations
@@ -93,6 +97,26 @@ def _read(root, rel, cache, memory=False):
         p = (Path(MEMORY_DIR) / rel) if memory else (Path(root) / rel)
         cache[key] = p.read_text(encoding="utf-8", errors="replace").replace("\r\n", "\n") if p.is_file() else None
     return cache[key]
+
+
+def plain_hash(statement):
+    """Which statement a `plain` sentence was written for (rule book, PG-16): a changed statement needs a new plain."""
+    return hashlib.sha1(str(statement).strip().encode("utf-8")).hexdigest()[:8]
+
+
+def set_plain(root, rid, text, topic=None):
+    """Write `plain` (+ plain_for, optional topic) for one entry, keeping the file's layout. Returns the entry."""
+    data = load(root)
+    r = next((x for x in data["rules"] if isinstance(x, dict) and x.get("id") == rid), None)
+    if r is None:
+        raise KeyError(rid)
+    items = [(k, v) for k, v in r.items() if k not in ("plain", "plain_for") and not (topic and k == "topic")]
+    at = [k for k, _ in items].index("statement") + 1
+    items[at:at] = [("plain", text.strip()), ("plain_for", plain_hash(r["statement"]))] + ([("topic", topic)] if topic else [])
+    r.clear(); r.update(items)
+    with open(Path(root) / REGISTRY, "w", encoding="utf-8") as f:
+        f.write(json.dumps(data, ensure_ascii=False, indent=1) + "\n")
+    return r
 
 
 def moment_id(row, fields):
@@ -169,6 +193,12 @@ def check_entry(root, r, by_id, cache, tests_run, check_rules_required, origin_i
     for f in ("statement", "kind", "status", "change", "source"):
         if not r.get(f):
             bad.append(f"{rid}: missing {f}")
+    for f in ("plain", "topic"):                      # optional, for the rule book (PG-16): plain words, same meaning
+        if f in r and (not isinstance(r[f], str) or not r[f].strip()):
+            bad.append(f"{rid}: {f} must be a non-empty string when present")
+    if isinstance(r.get("plain"), str) and isinstance(r.get("statement"), str) and r.get("plain_for") != plain_hash(r["statement"]):
+        bad.append(f"{rid}: statement changed after its plain wording was written - re-read it and run: "
+                   f"python scripts/rule_registry.py plain {rid} \"<plain words, same meaning>\"")
     st = r.get("status")
     if r.get("kind") and r["kind"] not in KINDS:
         bad.append(f"{rid}: unknown kind {r['kind']!r}")
@@ -388,8 +418,10 @@ def show(data, what=None):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("cmd", choices=["check", "show", "stats"])
+    ap.add_argument("cmd", choices=["check", "show", "stats", "plain"])
     ap.add_argument("what", nargs="?")
+    ap.add_argument("text", nargs="?", help="plain: the rule in plain words (same meaning) for the rule book")
+    ap.add_argument("--topic", help="plain: a short topic that keeps related rules together in the rule book")
     ap.add_argument("--root", default=str(ROOT))
     ap.add_argument("--no-origin", action="store_true", help="skip the ratchet against origin/master")
     a = ap.parse_args(argv)
@@ -398,6 +430,17 @@ def main(argv=None):
     except Exception as e:
         print(f"rule_registry: FAIL - {REGISTRY} unreadable ({type(e).__name__}: {e})")
         return 1
+    if a.cmd == "plain":
+        if not a.what or not a.text:
+            print('usage: python scripts/rule_registry.py plain <ID> "<plain words>" [--topic <topic>]')
+            return 2
+        try:
+            r = set_plain(a.root, a.what, a.text, a.topic)
+        except KeyError:
+            print(f"rule_registry: no entry {a.what}")
+            return 1
+        print(f"{a.what}: plain = {r['plain']!r} - now run python scripts/build_rule_book.py")
+        return 0
     if a.cmd == "show":
         show(data, a.what)
         return 0

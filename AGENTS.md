@@ -8,6 +8,9 @@
    runs, or a READER-BRIEF line + the real moment as `example`. A new row in `rejected.json`, `duplicates.json` or
    `grammar-usage-rulings.json` carries `"rule": "<id>"` (or `"one-off: <reason>"`).
 4. `python scripts/rule_registry.py check` must print OK before any push (the publish guard runs it).
+   After any change to `rules/registry.json` or `RULES.md`, rebuild the rule book: `python scripts/build_rule_book.py`
+   (PG-16: docs/rules.html + RULE-BOOK.md; a stale book blocks the publish). Give a new entry its plain-words sentence
+   with `python scripts/rule_registry.py plain <ID> "<plain words, same meaning>" --topic <topic>`.
 5. Tell Medi one line: "Added GR-14 (code + test); changed 3 past moments." Never recap rules to him.
 6. Amal is never asked anything by code or by an agent; Medi sends her links.
 

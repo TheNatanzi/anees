@@ -1,0 +1,2280 @@
+{
+ "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
+ "updated": "2026-10-02",
+ "total": 132,
+ "replaced": 8,
+ "counts": {
+  "Automatic": 53,
+  "Written down": 67,
+  "Fixed once": 12,
+  "Waiting on you": 0
+ },
+ "badges": [
+  {
+   "status": "enforced",
+   "badge": "Automatic",
+   "means": "the computer checks it every time"
+  },
+  {
+   "status": "written",
+   "badge": "Written down",
+   "means": "written where the AI helpers read it; no automatic check yet"
+  },
+  {
+   "status": "moment-only",
+   "badge": "Fixed once",
+   "means": "only one moment was fixed so far"
+  },
+  {
+   "status": "needs-medi",
+   "badge": "Waiting on you",
+   "means": "needs your decision"
+  }
+ ],
+ "glossary": [
+  {
+   "term": "Doc",
+   "means": "Amal's vocabulary Google Doc: the master list of words."
+  },
+  {
+   "term": "Arabizi",
+   "means": "Arabic written in Latin letters and numbers, the way Amal types it."
+  },
+  {
+   "term": "Slip",
+   "means": "a grammar mistake that counts."
+  },
+  {
+   "term": "Rule group",
+   "means": "a named grammar pattern, like B8 (also called a bucket)."
+  },
+  {
+   "term": "AI readers",
+   "means": "the AI that reads each lesson transcript and finds the moments."
+  },
+  {
+   "term": "Publish check",
+   "means": "the test that must pass before anything goes on the live site."
+  }
+ ],
+ "big_rules": [
+  {
+   "id": "S1",
+   "title": "Amal's spelling is the only spelling",
+   "text": "Every Arabic word is spelled the way Amal spells it: first how she types it, then her Doc's Arabizi, then her Arabic script; never a made-up spelling.",
+   "rule": "AZ-01"
+  },
+  {
+   "id": "S2",
+   "title": "Raw transcripts are never edited",
+   "text": "The transcript the machine writes is never changed; fixes are kept in a separate layer on top.",
+   "rule": "TR-01"
+  },
+  {
+   "id": "S3",
+   "title": "A slip is only a slip when there is a signal",
+   "text": "A grammar slip counts only when there is a signal: Amal corrects or re-says it, or you ask about it.",
+   "rule": "GR-01"
+  },
+  {
+   "id": "S4",
+   "title": "Pronunciation is never a missed word",
+   "text": "Saying a word with a wrong sound (like a dropped ع or ط) is a pronunciation note: it never counts as a missed word and never lowers the word's score.",
+   "rule": "WS-01"
+  },
+  {
+   "id": "S5",
+   "title": "Pauses are not errors",
+   "text": "Pauses are not mistakes: a long pause and then the right answer is a right answer.",
+   "rule": "GR-02"
+  },
+  {
+   "id": "S6",
+   "title": "Every correction becomes a rule",
+   "text": "Every correction becomes a rule: fix that one moment, and write the general rule where the next lesson will meet it, listed in the rule list.",
+   "rule": "PR-01"
+  },
+  {
+   "id": "S7",
+   "title": "A page is never older than its source",
+   "text": "A page is never older than its data: when a newer lesson exists the page says so, and the publish check warns if a lesson is missing from the site, Amal's answers were not checked for 2 hours, or publishing has been stuck for 6 hours.",
+   "rule": "PG-15"
+  }
+ ],
+ "groups": [
+  {
+   "n": 1,
+   "key": "recording",
+   "title": "Recording & transcript",
+   "intro": "What gets written down from the lesson recording, and what is left out.",
+   "count": 16,
+   "sections": [
+    {
+     "kind": "not-error",
+     "heading": "Doesn't count",
+     "rules": [
+      {
+       "id": "TR-08",
+       "text": "Only clear yeses from Amal (mhm, aha, yes, mumtaz) count as her approving; khalas and tamam do not.",
+       "status": "written",
+       "topic": "Amal approving",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-04",
+         "quote": "mhm or aha as confirmations / why khalas?"
+        }
+       ]
+      },
+      {
+       "id": "TR-10",
+       "text": "When the engine mishears you, trust what Amal repeats back, and keep a note of what the engine wrote.",
+       "status": "enforced",
+       "topic": "mishearing",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-27",
+         "quote": "I said Daba instead of Bada... you heard Jaab?"
+        }
+       ]
+      },
+      {
+       "id": "TR-04",
+       "text": "Farsi you speak to your dad during the call is not part of the lesson: it is never scored and never counted as grammar.",
+       "status": "enforced",
+       "topic": "off-lesson talk",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-04",
+         "quote": "me speaking farsi to my dad just remove"
+        }
+       ]
+      },
+      {
+       "id": "TR-07",
+       "text": "'Um' and 'uh' are pauses: not words and not mistakes.",
+       "status": "enforced",
+       "topic": "pauses",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-04",
+         "quote": "recognize 'um's as pauses"
+        }
+       ]
+      },
+      {
+       "id": "TR-02",
+       "text": "Your wrong words, false starts and stumbles are written down exactly as you said them: never fixed, never swapped for the closest word on Amal's list.",
+       "status": "written",
+       "topic": "your mistakes",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-04",
+         "quote": "its automatically fixing my errors"
+        }
+       ]
+      },
+      {
+       "id": "TR-09",
+       "text": "A half-said word cut off before a pause never counts as a word from the list, and an 'h' sound is not the letter 7.",
+       "status": "written",
+       "topic": "your mistakes",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "Moz... trying to say maz3ooj / Besse... a pause / heyye"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "data",
+     "heading": "Facts and records",
+     "rules": [
+      {
+       "id": "TR-13",
+       "text": "The audio and the raw transcript get a fingerprint (a code that shows if a file ever changes) and a second copy (planned).",
+       "status": "written",
+       "topic": "backups",
+       "badge": "Written down",
+       "claude": "2026-09-05"
+      },
+      {
+       "id": "TR-01",
+       "text": "The transcript the machine writes is never changed; fixes are kept in a separate layer on top.",
+       "status": "enforced",
+       "topic": "raw transcript",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-04",
+         "quote": "its automatically fixing my errors"
+        }
+       ]
+      },
+      {
+       "id": "TR-14",
+       "text": "Who is speaking comes from which recording track it is on, never from a guess.",
+       "status": "written",
+       "topic": "speakers",
+       "badge": "Written down",
+       "claude": "2026-09-05"
+      },
+      {
+       "id": "TR-15",
+       "text": "'More Arabic means it is Amal' is only a hint, never proof of who spoke.",
+       "status": "written",
+       "topic": "speakers",
+       "badge": "Written down",
+       "claude": "2026-09-05"
+      }
+     ]
+    },
+    {
+     "kind": "display",
+     "heading": "How it's shown",
+     "rules": [
+      {
+       "id": "TR-11",
+       "text": "Every transcript labels both speakers, Medi and Amal, each in their own colour.",
+       "status": "moment-only",
+       "topic": "speakers",
+       "badge": "Fixed once",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-27",
+         "quote": "show 'Medi' like how we show 'Amal'"
+        }
+       ]
+      },
+      {
+       "id": "TR-16",
+       "text": "When it is unclear who spoke, the per-person numbers show '–' and say why.",
+       "status": "written",
+       "topic": "speakers",
+       "badge": "Written down",
+       "claude": "2026-09-05"
+      }
+     ]
+    },
+    {
+     "kind": "process",
+     "heading": "How the work runs",
+     "rules": [
+      {
+       "id": "TR-06",
+       "text": "You are never asked to judge a clip that is silent or empty.",
+       "status": "written",
+       "topic": "clips",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-04",
+         "quote": "why are we testing when nothing is recorded"
+        }
+       ]
+      },
+      {
+       "id": "TR-03",
+       "text": "On the first pass, the speech-to-text engine is given names only (no word list), so it cannot invent words nobody said.",
+       "status": "written",
+       "topic": "engine setup",
+       "badge": "Written down",
+       "claude": "2026-09-05"
+      },
+      {
+       "id": "TR-12",
+       "text": "The whole lesson recording is transcribed in one go, never in 25-second pieces.",
+       "status": "written",
+       "topic": "engine setup",
+       "badge": "Written down",
+       "claude": "2026-09-05"
+      },
+      {
+       "id": "TR-05",
+       "text": "The lesson runs from Amal's first word to her last word; talk outside that is not scored.",
+       "status": "written",
+       "topic": "off-lesson talk",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-04",
+         "quote": "recognize when the class starts"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "old": []
+  },
+  {
+   "n": 2,
+   "key": "spelling",
+   "title": "Spelling (Amal's Arabizi)",
+   "intro": "How Arabic words are spelled on screen. Arabizi = Arabic in Latin letters and numbers (3 = ع, 7 = ح).",
+   "count": 8,
+   "sections": [
+    {
+     "kind": "display",
+     "heading": "How it's shown",
+     "rules": [
+      {
+       "id": "AZ-01",
+       "text": "Every Arabic word is spelled the way Amal spells it: first how she types it, then her Doc's Arabizi, then her Arabic script; never a made-up spelling.",
+       "status": "enforced",
+       "topic": "Amal's spelling",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "her arabizi should be the rule but lets be lenient on my spelling"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-09-23",
+         "quote": "we are using amals spelling always right? create the rule"
+        }
+       ]
+      },
+      {
+       "id": "AZ-06",
+       "text": "Arabizi is shown big, with the Arabic script small underneath.",
+       "status": "written",
+       "topic": "layout",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-23",
+         "quote": "convert everything to amals arabizi spelling and have the arabic under it in smaller writing"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-09-26",
+         "quote": "(grill Q3 'b')"
+        }
+       ]
+      },
+      {
+       "id": "AZ-09",
+       "text": "Big Arabizi with small Arabic underneath goes on every page, not only the Lessons mistake cards (Grammar and Word Bank are not checked yet).",
+       "status": "moment-only",
+       "topic": "layout",
+       "badge": "Fixed once",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-23",
+         "quote": "convert everything to amals arabizi spelling"
+        }
+       ]
+      },
+      {
+       "id": "AZ-05",
+       "text": "Nothing on the Lessons mistake cards is in Arabic only: even your wrong or cut-off words are spelled the way they sounded, in her letters.",
+       "status": "enforced",
+       "topic": "mistake cards",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-26",
+         "quote": "why no arabizi again. How do we stop you"
+        }
+       ]
+      },
+      {
+       "id": "AZ-08",
+       "text": "كم (how many) is always spelled Kam, the way Amal writes it, never Kum.",
+       "status": "enforced",
+       "topic": "single words",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "what are we using Kum, doesnt amal use Kam?"
+        }
+       ]
+      },
+      {
+       "id": "AZ-03",
+       "text": "A word that is not on her list can still show in Arabizi when it is built from her own spellings (or one similar-sounding letter) and fits the sentence; each one records how it was built.",
+       "status": "enforced",
+       "topic": "words not on her list",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-23",
+         "quote": "see if the word fits contextually / these are all no brainers"
+        }
+       ]
+      },
+      {
+       "id": "AZ-04",
+       "text": "Half-words and truly unclear words stay in Arabic script and go on a 'Words to check' list.",
+       "status": "written",
+       "topic": "words not on her list",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-23",
+         "quote": "some that are truly question marks... keep for manual review"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "process",
+     "heading": "How the work runs",
+     "rules": [
+      {
+       "id": "AZ-02",
+       "text": "You never check Arabizi spellings: the best guess goes live and Amal corrects it.",
+       "status": "written",
+       "topic": "who checks spelling",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "I dont want to spend too much time on spelling"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "old": [
+    {
+     "id": "AZ-07",
+     "text": "Arabic script sat left-aligned next to the Arabizi.",
+     "status": "superseded",
+     "topic": "layout",
+     "said": [
+      {
+       "who": "Medi",
+       "date": "2026-09-21",
+       "quote": "handoff rule 20"
+      }
+     ],
+     "replaced_by": {
+      "id": "AZ-06",
+      "text": "Arabizi is shown big, with the Arabic script small underneath."
+     }
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "key": "words",
+   "title": "Words: what counts and what doesn't",
+   "intro": "Which words you said get scored, and which don't.",
+   "count": 27,
+   "sections": [
+    {
+     "kind": "error",
+     "heading": "Counts",
+     "rules": [
+      {
+       "id": "WS-11",
+       "text": "Mistakes Amal fixed out loud are scored; mistakes she let pass go to her review page and are not scored until she confirms them (sorted in tiers 0-3).",
+       "status": "enforced",
+       "topic": "Amal's fixes",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-26",
+         "quote": "do A for sure, make a list of B for her"
+        }
+       ]
+      },
+      {
+       "id": "WS-19",
+       "text": "Glue words (shu, bas, ya3ni, tamam...) are scored only once they are on Amal's Doc; missing ones go on her New words card to add (nothing pre-picked: probably old words she forgot) and are marked old, so they never count as NEW in Flashcards.",
+       "status": "enforced",
+       "topic": "glue words",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "the glue words should be added to the doc, bring to her attention"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "the glue words are likely going to be old words she forgot to add"
+        }
+       ]
+      },
+      {
+       "id": "WS-09",
+       "text": "A mistake is sorted by what was really wrong: a different word is a word miss; a wrong ending or prefix is a grammar slip.",
+       "status": "enforced",
+       "topic": "grammar or word",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-23",
+         "quote": "this is a vocab miss... Ustaaz should be marked as wrong"
+        }
+       ]
+      },
+      {
+       "id": "WS-08",
+       "text": "Getting a word right after Amal gives a hint earns part credit; the hint counts as a slip.",
+       "status": "written",
+       "topic": "hints",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-22",
+         "quote": "yes (hints as slips)"
+        }
+       ]
+      },
+      {
+       "id": "WS-03",
+       "text": "A word is 'new' only when Amal or you marked it new, never because the computer guessed.",
+       "status": "enforced",
+       "topic": "new words",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "ONLY WORDS... BABSET AND BANBESET"
+        }
+       ]
+      },
+      {
+       "id": "WS-18",
+       "text": "A word Amal first taught in a lesson shows as new and is not rated Good from that same lesson.",
+       "status": "moment-only",
+       "topic": "new words",
+       "badge": "Fixed once",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-27",
+         "quote": "this shouldnt be marked as good, its a new word"
+        }
+       ]
+      },
+      {
+       "id": "WS-07",
+       "text": "The Word Bank follows 12 scoring rules (how attempts count, fixing yourself, wrong-word pairs, 'shu ya3ni', homework, Amal's yeses, pending items).",
+       "status": "written",
+       "topic": "scoring details",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-21",
+         "quote": "Codex handoff scoring rules"
+        }
+       ]
+      },
+      {
+       "id": "WS-02",
+       "text": "Only words you say out loud in the recording are scored.",
+       "status": "enforced",
+       "topic": "whose words",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "we only want to count the words I say"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "not-error",
+     "heading": "Doesn't count",
+     "rules": [
+      {
+       "id": "WS-06",
+       "text": "A grammar mistake never counts as a missed word.",
+       "status": "enforced",
+       "topic": "grammar or word",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "Aktar... this is a grammar mistake / it was an el issue"
+        }
+       ]
+      },
+      {
+       "id": "WS-17",
+       "text": "A computer flag (like the 15-second rule) never marks a word as 'helped' on its own; someone reads the context first.",
+       "status": "moment-only",
+       "topic": "help from Amal",
+       "badge": "Fixed once",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-25",
+         "quote": "The amal 15s rule is only a clue, not final"
+        }
+       ]
+      },
+      {
+       "id": "WS-01",
+       "text": "Saying a word with a wrong sound (like a dropped ع or ط) is a pronunciation note: it never counts as a missed word and never lowers the word's score.",
+       "status": "written",
+       "topic": "pronunciation",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "pronunciation (S4)"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "data",
+     "heading": "Facts and records",
+     "rules": [
+      {
+       "id": "WS-05",
+       "text": "A word's 'last said' date comes only from times you actually said it.",
+       "status": "written",
+       "topic": "last said",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "7ashara is marked as being reviewed yesterday"
+        }
+       ]
+      },
+      {
+       "id": "LS-01",
+       "text": "Each new lesson's type (free talk, review, new words, grammar review) and the words it taught are worked out from what was said, the same day.",
+       "status": "enforced",
+       "topic": "lesson type",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "This was clearly a grammar review for 'el' im shocked you didnt detect that"
+        }
+       ]
+      },
+      {
+       "id": "LS-05",
+       "text": "Amal's topic choice for a lesson decides whether new words are expected.",
+       "status": "written",
+       "topic": "lesson type",
+       "badge": "Written down",
+       "claude": "2026-09-21"
+      },
+      {
+       "id": "WS-04",
+       "text": "New words are tracked in their own lane, apart from missed words.",
+       "status": "written",
+       "topic": "new words",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "lets not mix up the new words with the missed words"
+        }
+       ]
+      },
+      {
+       "id": "WS-12",
+       "text": "On the Lessons page, new verbs are the verb pairs Amal taught in that lesson, read from what was said (like bat3eb / bata33eb).",
+       "status": "written",
+       "topic": "new words",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-26",
+         "quote": "you dont see bat3eb and bata33eb as new verbs"
+        }
+       ]
+      },
+      {
+       "id": "WS-10",
+       "text": "Words that are not on Amal's sheet go to her list, are not scored, and are labelled 'Not on sheet'.",
+       "status": "written",
+       "topic": "not on sheet",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-23",
+         "quote": "words that dont appear on the list... send it to amal"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-09-27",
+         "quote": "label it 'not on sheet'"
+        }
+       ]
+      },
+      {
+       "id": "WS-15",
+       "text": "Dish names, foods, brands and borrowed words (kabab, ma2loobe, cake, country names) never go on Amal's 'not on sheet' list.",
+       "status": "enforced",
+       "topic": "not on sheet",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-23",
+         "quote": "we dont need to add proper nouns like kabaab and ma2loobe and cake and countries"
+        }
+       ]
+      },
+      {
+       "id": "WS-16",
+       "text": "Whether a word is on Amal's sheet is judged by meaning (any tense, plural, small spelling slip, Arabic or English) for every new lesson.",
+       "status": "moment-only",
+       "topic": "not on sheet",
+       "badge": "Fixed once",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-27",
+         "quote": "use context and meanings both ways arabic and english"
+        }
+       ]
+      },
+      {
+       "id": "WS-21",
+       "text": "A 'possible miss' stays marked possible until Amal taps an answer.",
+       "status": "written",
+       "topic": "possible misses",
+       "badge": "Written down",
+       "claude": "2026-09-05"
+      },
+      {
+       "id": "WS-20",
+       "text": "A word on the Doc covers all its forms (Basa6tek counts as babse6).",
+       "status": "written",
+       "topic": "word families",
+       "badge": "Written down",
+       "claude": "2026-09-21"
+      },
+      {
+       "id": "WS-22",
+       "text": "A word is Mastered after 5 right answers in a row, spread over at least 3 different days.",
+       "status": "written",
+       "topic": "word levels",
+       "badge": "Written down",
+       "claude": "2026-09-21"
+      },
+      {
+       "id": "WS-23",
+       "text": "A missed word recovers after 2 right answers in a row with no help.",
+       "status": "written",
+       "topic": "word levels",
+       "badge": "Written down",
+       "claude": "2026-09-21"
+      },
+      {
+       "id": "WS-24",
+       "text": "Each word has two separate scores: one for speaking, one for flashcards.",
+       "status": "written",
+       "topic": "word levels",
+       "badge": "Written down",
+       "claude": "2026-09-21"
+      }
+     ]
+    },
+    {
+     "kind": "display",
+     "heading": "How it's shown",
+     "rules": [
+      {
+       "id": "WS-13",
+       "text": "Percent colours: 90% and up is dark green; 80-90% is light green.",
+       "status": "written",
+       "topic": "colours",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-27",
+         "quote": "80-90% light green, 90%+ dark green"
+        }
+       ]
+      },
+      {
+       "id": "WS-14",
+       "text": "The mistake list shows only mistakes; a switch shows Errors, Correct or All, and it starts on Errors.",
+       "status": "written",
+       "topic": "mistake list",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-27",
+         "quote": "these are supposed to be errors why is it showing words I said right"
+        }
+       ]
+      },
+      {
+       "id": "WS-25",
+       "text": "Word levels are Mastered, Good, Shaky and Wrong (Untested if never tried).",
+       "status": "written",
+       "topic": "word levels",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-21",
+         "quote": "Mastered / Good / Shaky / Wrong"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "old": [
+    {
+     "id": "WS-27",
+     "text": "Glue words (shu, bas, ya3ni, tamam...) were never scored.",
+     "status": "superseded",
+     "topic": "glue words",
+     "said": [
+      {
+       "who": "Medi",
+       "date": "2026-09-05",
+       "quote": "Glue words (shu, bas, ya3ni, tamam …) are never graded."
+      }
+     ],
+     "replaced_by": {
+      "id": "WS-19",
+      "text": "Glue words (shu, bas, ya3ni, tamam...) are scored only once they are on Amal's Doc; missing ones go on her New words card to add (nothing pre-picked: probably old words she forgot) and are marked old, so they never count as NEW in Flashcards."
+     }
+    },
+    {
+     "id": "WS-26",
+     "text": "Word levels were Ice cold, Cold, Shaky and Missed.",
+     "status": "superseded",
+     "topic": "word levels",
+     "said": [
+      {
+       "who": "Medi",
+       "date": "2026-09-05",
+       "quote": "Ice cold / Cold / Shaky / Missed"
+      }
+     ],
+     "replaced_by": {
+      "id": "WS-25",
+      "text": "Word levels are Mastered, Good, Shaky and Wrong (Untested if never tried)."
+     }
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "key": "grammar",
+   "title": "Grammar slips: what counts and what doesn't",
+   "intro": "When a grammar mistake counts as a slip, and when it doesn't.",
+   "count": 22,
+   "sections": [
+    {
+     "kind": "error",
+     "heading": "Counts",
+     "rules": [
+      {
+       "id": "GR-08",
+       "text": "The AI readers should find about 20-45 grammar moments in an hour-long lesson; far fewer means they read it again.",
+       "status": "enforced",
+       "topic": "AI readers",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-23",
+         "quote": "She corrects me on grammar at least 20-30 times a lesson"
+        }
+       ]
+      },
+      {
+       "id": "GR-19",
+       "text": "A fix Amal only typed in the Meet chat is not a correction (she may just be tidying what you said): a slip needs her voice; if she said it and typed it, the spoken fix counts. The chat only gives context.",
+       "status": "enforced",
+       "topic": "chat fixes",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "I think if she didnt correct me on voice dont factor it as a correction, she might just be cleaning up what I said"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-09-23",
+         "quote": "the chat should only be used to help give context and audio to whats being said in the voice lesson"
+        }
+       ]
+      },
+      {
+       "id": "GR-13",
+       "text": "What you said that got written down in Latin letters (Arabizi) is read as Arabic and counts as grammar uses.",
+       "status": "enforced",
+       "topic": "counting uses",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-01",
+         "quote": "the 09-28 / 09-30 doubtful slips list"
+        }
+       ]
+      },
+      {
+       "id": "GR-03",
+       "text": "Using the wrong small linking word after a verb or adjective (like 'ba6lub min') is its own kind of slip.",
+       "status": "written",
+       "topic": "small linking words",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "ba6lub min is a preposition error"
+        }
+       ]
+      },
+      {
+       "id": "GR-01",
+       "text": "A grammar slip counts only when there is a signal: Amal corrects or re-says it, or you ask about it.",
+       "status": "enforced",
+       "topic": "what makes a slip",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "RULES.md S3"
+        }
+       ]
+      },
+      {
+       "id": "GR-04",
+       "text": "Leaving out or misusing ykun / akun after lamma or iza is a tense slip (rule group B8).",
+       "status": "written",
+       "topic": "ykun",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "ykun is also a difficult grammar for me"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "not-error",
+     "heading": "Doesn't count",
+     "rules": [
+      {
+       "id": "GR-14",
+       "text": "One thing you say is never counted as both a use and a slip.",
+       "status": "written",
+       "topic": "counting uses",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-01",
+         "quote": "the 09-28 / 09-30 doubtful slips list"
+        }
+       ]
+      },
+      {
+       "id": "GR-20",
+       "text": "Dropping an English word into an Arabic sentence (tier 3) when the word is on her sheet is not corrected if Amal let it pass (her ruling AR-1933); if she fixed it out loud, it still counts.",
+       "status": "enforced",
+       "topic": "English words",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Amal",
+         "date": "2026-09-30",
+         "quote": "it's ok to switch sometimes. your example isn't sufficient"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-09-25",
+         "quote": "tier 3 counts"
+        }
+       ]
+      },
+      {
+       "id": "GR-22",
+       "text": "A grammar slip you fix yourself in the same breath, before Amal helps, is not a slip (same as for words); it counts only if she then corrects your fixed version.",
+       "status": "enforced",
+       "topic": "fixing yourself",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "looks like I corrected myself"
+        }
+       ]
+      },
+      {
+       "id": "GR-15",
+       "text": "If you are mid-sentence, Amal gives you the next word and then says mumtaz, that is help on the way to a right answer, not a slip.",
+       "status": "enforced",
+       "topic": "help from Amal",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-01",
+         "quote": "from the 09-30 review"
+        }
+       ]
+      },
+      {
+       "id": "GR-16",
+       "text": "If Amal says both ways are fine, it is not a slip.",
+       "status": "enforced",
+       "topic": "help from Amal",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-01",
+         "quote": "from the 09-30 review"
+        }
+       ]
+      },
+      {
+       "id": "GR-17",
+       "text": "If you use the rule you just practised and Amal only says it a nicer way, it is not a slip.",
+       "status": "enforced",
+       "topic": "help from Amal",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-01",
+         "quote": "from the 09-30 review"
+        }
+       ]
+      },
+      {
+       "id": "GR-11",
+       "text": "Saying 'كم مرة؟' right after Amal spoke, so she repeats herself, means 'kaman marra?' (again?): not a كم mistake, not a slip.",
+       "status": "enforced",
+       "topic": "kam marra",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "Medi: yes, check the other kam marra moments"
+        }
+       ]
+      },
+      {
+       "id": "GR-02",
+       "text": "Pauses are not mistakes: a long pause and then the right answer is a right answer.",
+       "status": "enforced",
+       "topic": "pauses",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "pauses can mean just that I am thinking"
+        }
+       ]
+      },
+      {
+       "id": "GR-10",
+       "text": "Asking about a rule ('when is it X?', 'is it X or Y?') is neither a slip nor a use.",
+       "status": "enforced",
+       "topic": "questions",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-01",
+         "quote": "the 09-28 / 09-30 doubtful slips list"
+        }
+       ]
+      },
+      {
+       "id": "GR-12",
+       "text": "If you repeat the same wrong phrase and Amal fixes it once, within 30 seconds it is one slip: the first one.",
+       "status": "enforced",
+       "topic": "repeats",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-01",
+         "quote": "عشرين سجاد at 09:49 and 10:05 is one"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "data",
+     "heading": "Facts and records",
+     "rules": [
+      {
+       "id": "GR-21",
+       "text": "A correction Amal confirmed on her review page counts like one she said out loud, on every page, every run; if it lands on the same second as a slip already counted, it is the same slip, not a second one.",
+       "status": "enforced",
+       "topic": "Amal's fixes",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "amals corrections should be counted"
+        }
+       ]
+      },
+      {
+       "id": "GR-07",
+       "text": "How often you use a grammar rule is counted from the lesson recordings, not from Amal's Docs.",
+       "status": "written",
+       "topic": "counting uses",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-23",
+         "quote": "the only one i dont use is the shams one"
+        }
+       ]
+      },
+      {
+       "id": "GR-06",
+       "text": "Grammar rule groups come from patterns you named yourself (hadi/hadol + el, b- coming back, abadan, iyya, saarli, kaan laazem, min wein, kam + singular, hadeek...).",
+       "status": "written",
+       "topic": "rule groups",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-24",
+         "quote": "kam... always singular"
+        }
+       ]
+      },
+      {
+       "id": "GR-18",
+       "text": "A real grammar correction that fits no rule group becomes a proposed new group for your yes or no; it is never thrown away.",
+       "status": "enforced",
+       "topic": "rule groups",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-25",
+         "quote": "if it doesnt fall into a bucket lets figure out to make one"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "process",
+     "heading": "How the work runs",
+     "rules": [
+      {
+       "id": "GR-09",
+       "text": "Amal rules once per pattern, with the examples listed under it; new lessons' cases join the existing patterns, so she is never asked the same thing twice.",
+       "status": "written",
+       "topic": "asking Amal",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-26",
+         "quote": "we dont keep asking her the same correction rules"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-09-26",
+         "quote": "ALways examples even on the new immediate lesson reviews"
+        }
+       ]
+      },
+      {
+       "id": "GR-05",
+       "text": "Count slips only on rules you already learned; never write Amal's lesson plans for her.",
+       "status": "written",
+       "topic": "tally",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "We dont want to give her lesson plans... keep a tally"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "old": []
+  },
+  {
+   "n": 5,
+   "key": "amal",
+   "title": "Amal's say",
+   "intro": "What Amal decides: her Doc, her pages, her rulings, and the words she promised to add.",
+   "count": 15,
+   "sections": [
+    {
+     "kind": "data",
+     "heading": "Facts and records",
+     "rules": [
+      {
+       "id": "AM-08",
+       "text": "Amal's ruling on a pattern applies to that pattern in every lesson automatically: if she gave a reason it is fine, those cases drop and she is never asked again; if she said yes, they are scored.",
+       "status": "enforced",
+       "topic": "her rulings",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-26",
+         "quote": "(correction is correct) or (reason not to correct) with a fillable box"
+        }
+       ]
+      },
+      {
+       "id": "AM-09",
+       "text": "Amal's newest spelling wins, and anything Amal does triggers a rebuild of the numbers.",
+       "status": "enforced",
+       "topic": "her rulings",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-29",
+         "quote": "use amals / trigger... with anything amal does there should be a trigger to recalc"
+        }
+       ]
+      },
+      {
+       "id": "AM-10",
+       "text": "Amal's 09-29 grammar notes apply (B7 and B8 kept or dropped as she said; B14 and B15 not taught yet).",
+       "status": "written",
+       "topic": "her rulings",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-29",
+         "quote": "apply"
+        }
+       ]
+      },
+      {
+       "id": "AM-04",
+       "text": "Amal's tap beats any computer label.",
+       "status": "written",
+       "topic": "her word wins",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "ultimately she dictates what goes in"
+        }
+       ]
+      },
+      {
+       "id": "AM-06",
+       "text": "Amal's answer about a verb beats any guess; the fix goes into the rule the engine uses, never into one form by hand.",
+       "status": "enforced",
+       "topic": "her word wins",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-22",
+         "quote": "(verb answers)"
+        }
+       ]
+      },
+      {
+       "id": "AM-11",
+       "text": "After each new lesson, every word Amal used that is not on her sheet goes on her Tutor page with 3 choices: add to the Doc, save for later, or forget.",
+       "status": "enforced",
+       "topic": "new words for her",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "bring it to her attention if she wants to add it to the document, save it for a future lesson, or forget it"
+        }
+       ]
+      },
+      {
+       "id": "AM-16",
+       "text": "Amal's New words card lets her add each word to the Doc as NEW or as OLD (nothing pre-picked); your own old/new marks are kept by Anees, not in the Doc; every word she promised to add shows as 'Waiting' on the Tutor page and Word Bank until it is in the Doc; a word marked OLD never counts as NEW in Flashcards.",
+       "status": "enforced",
+       "topic": "new words for her",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "We need a way for her to indicate old and new words. We know mumtaz but need to add it to the sheet as an old word."
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "keep it on your system that mumtaz is an old word and wait for her to add it to the doc. Keep a tab of what she said shes going to add"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "yes have her tap that its old"
+        }
+       ]
+      },
+      {
+       "id": "AM-07",
+       "text": "Only Amal's named Quizlet sets become card sets; dated sets and other students' sets are left out.",
+       "status": "enforced",
+       "topic": "Quizlet",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-22",
+         "quote": "remove the dated ones / JD/janna?"
+        }
+       ]
+      },
+      {
+       "id": "AM-14",
+       "text": "Amal's Quizlet sets are only card sets; the Doc stays the source of truth for words.",
+       "status": "written",
+       "topic": "Quizlet",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-22",
+         "quote": "Amal's Quizlet sets imported as card sets"
+        }
+       ]
+      },
+      {
+       "id": "AM-03",
+       "text": "Amal's vocabulary Google Doc is the only source of truth for words; the app never writes to it (one exception: 18 words typed in by hand with your OK on 09-23).",
+       "status": "written",
+       "topic": "the Doc",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "the word document is the master"
+        }
+       ]
+      },
+      {
+       "id": "AM-12",
+       "text": "Each time the Doc is read, words Amal removed are archived, not erased (history kept).",
+       "status": "enforced",
+       "topic": "the Doc",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-30",
+         "quote": "She took a few verbs off the list that was added by mistake"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "process",
+     "heading": "How the work runs",
+     "rules": [
+      {
+       "id": "AM-01",
+       "text": "The computer never contacts Amal: it makes links, and you send them to her.",
+       "status": "enforced",
+       "topic": "contacting Amal",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-04",
+         "quote": "lets not include amal until absolutely needed"
+        }
+       ]
+      },
+      {
+       "id": "AM-02",
+       "text": "Amal's pages are public Anees pages, because she has no Claude login.",
+       "status": "written",
+       "topic": "her pages",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-04",
+         "quote": "she doesnt have a claude login, you need to host it somewhere"
+        }
+       ]
+      },
+      {
+       "id": "AM-13",
+       "text": "Nothing Amal opens is on another site, behind a login, or outside the Anees look.",
+       "status": "enforced",
+       "topic": "her pages",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-01",
+         "quote": "DOnt make it a different workflow or off site"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "These links are leaving our brandign and interface"
+        }
+       ]
+      },
+      {
+       "id": "AM-05",
+       "text": "Amal's review stays under 10 minutes: short, one tap per item, and timed.",
+       "status": "written",
+       "topic": "her time",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "keep under 10 minutes for her"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "old": [
+    {
+     "id": "AM-15",
+     "text": "All the words were on the Doc, so Quizlets did not need opening.",
+     "status": "superseded",
+     "topic": "Quizlet",
+     "said": [
+      {
+       "who": "Medi",
+       "date": "2026-09-05",
+       "quote": "all the vocab is on my list no need to open quizlets"
+      }
+     ],
+     "replaced_by": {
+      "id": "AM-14",
+      "text": "Amal's Quizlet sets are only card sets; the Doc stays the source of truth for words."
+     }
+    }
+   ]
+  },
+  {
+   "n": 6,
+   "key": "flashcards",
+   "title": "Flashcards",
+   "intro": "How the review cards work.",
+   "count": 7,
+   "sections": [
+    {
+     "kind": "data",
+     "heading": "Facts and records",
+     "rules": [
+      {
+       "id": "FC-07",
+       "text": "A card becomes a leech (a word you keep missing) after 3 misses at any stage; this is the only leech rule.",
+       "status": "enforced",
+       "topic": "leech",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "I feel like I've had more than 3 leech words"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "leech should alwys be 4"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "actually lets make it 3"
+        }
+       ]
+      },
+      {
+       "id": "FC-05",
+       "text": "A NEW card is only a word Amal adds to the Doc after 30 Sept 2026; new words come at the pace of her batches; old words have no daily limit.",
+       "status": "written",
+       "topic": "new cards",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-01",
+         "quote": "NEW = Doc adds"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "display",
+     "heading": "How it's shown",
+     "rules": [
+      {
+       "id": "FC-03",
+       "text": "What a card shows follows the 11 written card-display rules in the flashcard rules file.",
+       "status": "written",
+       "topic": "card rules",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-01",
+         "quote": "two of the same word... same size"
+        }
+       ]
+      },
+      {
+       "id": "FC-04",
+       "text": "How answering works follows the 8 written answering rules in the flashcard rules file (undo, word buttons, keep going).",
+       "status": "written",
+       "topic": "card rules",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-01",
+         "quote": "undo / word buttons / keep going"
+        }
+       ]
+      },
+      {
+       "id": "FC-01",
+       "text": "Cards work like Quizlet, in both directions, and wrong ones come back; how fast you swipe is recorded but never changes the grade.",
+       "status": "written",
+       "topic": "how cards work",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "work exactly like quizlet"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-09-22",
+         "quote": "no, just record it"
+        }
+       ]
+      },
+      {
+       "id": "FC-02",
+       "text": "Cards are graded Again or Good only, with no English shown before you grade, no root tags, labelled categories, and verb drills.",
+       "status": "written",
+       "topic": "how cards work",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-22",
+         "quote": "remove the root tags"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "process",
+     "heading": "How the work runs",
+     "rules": [
+      {
+       "id": "FC-08",
+       "text": "Test runs never write into your real flashcard history.",
+       "status": "enforced",
+       "topic": "tests",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-29",
+         "quote": "delete (108 fake test answers)"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "old": [
+    {
+     "id": "FC-09",
+     "text": "A card was a leech at 8 lapses, later at 4 misses or 8 lapses.",
+     "status": "superseded",
+     "topic": "leech",
+     "claude": "2026-09-21",
+     "replaced_by": {
+      "id": "FC-07",
+      "text": "A card becomes a leech (a word you keep missing) after 3 misses at any stage; this is the only leech rule."
+     }
+    },
+    {
+     "id": "FC-06",
+     "text": "There was a daily limit of 20 new cards, later 8 a day.",
+     "status": "superseded",
+     "topic": "new cards",
+     "said": [
+      {
+       "who": "Medi",
+       "date": "2026-09-21",
+       "quote": "daily new limit 20 -> 8/day"
+      }
+     ],
+     "replaced_by": {
+      "id": "FC-05",
+      "text": "A NEW card is only a word Amal adds to the Doc after 30 Sept 2026; new words come at the pace of her batches; old words have no daily limit."
+     }
+    }
+   ]
+  },
+  {
+   "n": 7,
+   "key": "pages",
+   "title": "Pages, audio & numbers on screen",
+   "intro": "What each page shows, the audio clips, and keeping numbers up to date.",
+   "count": 22,
+   "sections": [
+    {
+     "kind": "data",
+     "heading": "Facts and records",
+     "rules": [
+      {
+       "id": "AU-01",
+       "text": "Every reported mistake or moment comes with its audio clip.",
+       "status": "written",
+       "topic": "clips",
+       "badge": "Written down",
+       "claude": "2026-09-05"
+      }
+     ]
+    },
+    {
+     "kind": "display",
+     "heading": "How it's shown",
+     "rules": [
+      {
+       "id": "PG-13",
+       "text": "Time charts start at the first month that has data and run forward.",
+       "status": "moment-only",
+       "topic": "charts",
+       "badge": "Fixed once",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "lets show this month and the forward months"
+        }
+       ]
+      },
+      {
+       "id": "AU-02",
+       "text": "Every mistake clip is its own cut: it starts a few seconds before your line, runs through Amal's fix, and has both voices.",
+       "status": "moment-only",
+       "topic": "clips",
+       "badge": "Fixed once",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "I need more seconds before and after"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-09-27",
+         "quote": "we need the conversation with both of us"
+        }
+       ]
+      },
+      {
+       "id": "PG-11",
+       "text": "One set of status colours everywhere: Mastered dark green, Good light green, Shaky yellow, Wrong red, Untested grey.",
+       "status": "moment-only",
+       "topic": "colours",
+       "badge": "Fixed once",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-22",
+         "quote": "Dark green, light green, yellow, red, gray"
+        }
+       ]
+      },
+      {
+       "id": "LS-06",
+       "text": "Every page's numbers update after each lesson and each flashcard set, and a check fails when a page is out of date.",
+       "status": "moment-only",
+       "topic": "fresh numbers",
+       "badge": "Fixed once",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "this should update immediately after a card set is done"
+        }
+       ]
+      },
+      {
+       "id": "PG-12",
+       "text": "Every row says Wrong or Correct in words, whatever the filter.",
+       "status": "moment-only",
+       "topic": "labels",
+       "badge": "Fixed once",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "I want clear labels for Wrong or Correct even if we are filtering for wrong only"
+        }
+       ]
+      },
+      {
+       "id": "PG-02",
+       "text": "Every page uses the Sabz brand look; red is kept for Wrong.",
+       "status": "written",
+       "topic": "look",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-22",
+         "quote": "entire interface... to the sabz brand book"
+        }
+       ]
+      },
+      {
+       "id": "PG-03",
+       "text": "New pages copy the Anees frame (header, menu, look) and follow the same pattern as the other pages.",
+       "status": "written",
+       "topic": "look",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-25",
+         "quote": "dont use the stitch as a guide... follow the same pattern"
+        }
+       ]
+      },
+      {
+       "id": "PG-05",
+       "text": "No guessed numbers or made-up targets: when a number is unknown, the page shows '–' and why.",
+       "status": "written",
+       "topic": "numbers",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-21",
+         "quote": "(1,428 target 'fake')"
+        }
+       ]
+      },
+      {
+       "id": "PG-06",
+       "text": "Counts are just counts; 'better' or 'accurate' is said only with a named measure checked by people.",
+       "status": "written",
+       "topic": "numbers",
+       "badge": "Written down",
+       "claude": "2026-09-05"
+      },
+      {
+       "id": "PG-01",
+       "text": "A page that is out of date shows a flashing banner.",
+       "status": "written",
+       "topic": "out of date",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "a thing that flashes... page is out of date"
+        }
+       ]
+      },
+      {
+       "id": "PG-14",
+       "text": "A page that shows live data reads it again when you come back to the tab (or the page is listed with the reason it must not).",
+       "status": "enforced",
+       "topic": "out of date",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "Let's also do an audit of every report and ensure the data is getting populated as soon as it's available."
+        }
+       ]
+      },
+      {
+       "id": "AU-03",
+       "text": "One audio player everywhere: play, pause, stop (back to the start), progress bar, volume and a ⋯ menu, opened next to the button you tapped.",
+       "status": "written",
+       "topic": "player",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-01",
+         "quote": "unify the Play bar for EVERYTHING. PLAY, PAUSE, STOP, BAR FOR PROGRESS, VOLUME, THREE DOT MENU"
+        }
+       ]
+      },
+      {
+       "id": "PG-16",
+       "text": "This rule book is built from the rule list automatically, in the order a lesson happens; publishing is blocked if the book falls out of date.",
+       "status": "enforced",
+       "topic": "rule book",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "Lets keep a parrallel document of the rules that has it in an organized fashion so I can read it and follow it. Please make sure the orginzation makes sense for a human to follow"
+        }
+       ]
+      },
+      {
+       "id": "PG-08",
+       "text": "Grammar rule codes (like B5) show the rule's name when you hover or tap them, on every page.",
+       "status": "enforced",
+       "topic": "rule names",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "reference to a Letter# (B5)... hover"
+        }
+       ]
+      },
+      {
+       "id": "PG-10",
+       "text": "Grammar and Lessons work like the Word Bank: search, last seen, status colours, left indent, sort arrows on every column, and a full detail card for every entry.",
+       "status": "moment-only",
+       "topic": "same layout",
+       "badge": "Fixed once",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-23",
+         "quote": "add the same search and last seen from the word bank / I want every entry to look like this"
+        }
+       ]
+      },
+      {
+       "id": "PG-07",
+       "text": "The home page is Progress Overview; everything for Amal is on one Tutor page.",
+       "status": "written",
+       "topic": "where things are",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-27",
+         "quote": "get rid of the today tab / just put it all on the main tutor page"
+        }
+       ]
+      },
+      {
+       "id": "PG-09",
+       "text": "No page repeats another page's lists; Progress & Stats shows only summaries and new data.",
+       "status": "moment-only",
+       "topic": "where things are",
+       "badge": "Fixed once",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "none of the progress and stats overlaps with the pages they referrence"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "process",
+     "heading": "How the work runs",
+     "rules": [
+      {
+       "id": "LS-03",
+       "text": "Every recording is loaded every hour, not only the ones the recording bot made.",
+       "status": "written",
+       "topic": "loading lessons",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-22",
+         "quote": "every lesson gets added... not just the bots"
+        }
+       ]
+      },
+      {
+       "id": "LS-04",
+       "text": "If a lesson cannot load (credits ran out, a track is missing, transcription failed), you are told within the hour by one line on Progress and Lessons; low voice-to-text credits are flagged every hour before transcribing.",
+       "status": "enforced",
+       "topic": "loading lessons",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "I thought we load lessons automatically now? Why didn't today's get loaded"
+        }
+       ]
+      },
+      {
+       "id": "PG-15",
+       "text": "A page is never older than its data: when a newer lesson exists the page says so, and the publish check warns if a lesson is missing from the site, Amal's answers were not checked for 2 hours, or publishing has been stuck for 6 hours.",
+       "status": "enforced",
+       "topic": "out of date",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "Let's also do an audit of every report and ensure the data is getting populated as soon as it's available."
+        }
+       ]
+      },
+      {
+       "id": "LS-02",
+       "text": "Every lesson gets a finished same-day review before it goes on the site.",
+       "status": "enforced",
+       "topic": "same-day review",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-26",
+         "quote": "review every lesson immediately"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "old": [
+    {
+     "id": "PG-04",
+     "text": "Only the starred Stitch mockup items were used.",
+     "status": "superseded",
+     "topic": "look",
+     "said": [
+      {
+       "who": "Medi",
+       "date": "2026-09-21",
+       "quote": "only use the starred items"
+      }
+     ],
+     "replaced_by": {
+      "id": "PG-03",
+      "text": "New pages copy the Anees frame (header, menu, look) and follow the same pattern as the other pages."
+     }
+    },
+    {
+     "id": "AU-04",
+     "text": "The browser's own audio controls were used, with no custom player.",
+     "status": "superseded",
+     "topic": "player",
+     "said": [
+      {
+       "who": "Medi",
+       "date": "2026-09-21",
+       "quote": "handoff rule 13"
+      }
+     ],
+     "replaced_by": {
+      "id": "AU-03",
+      "text": "One audio player everywhere: play, pause, stop (back to the start), progress bar, volume and a ⋯ menu, opened next to the button you tapped."
+     }
+    }
+   ]
+  },
+  {
+   "n": 8,
+   "key": "process",
+   "title": "How Claude and Codex must work",
+   "intro": "Rules for the AI helpers that build Anees.",
+   "count": 15,
+   "sections": [
+    {
+     "kind": "data",
+     "heading": "Facts and records",
+     "rules": [
+      {
+       "id": "PR-14",
+       "text": "Data that grows with every lesson is loaded in pages, never in one big request.",
+       "status": "enforced",
+       "topic": "loading data",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "Let's also do an audit of every report and ensure the data is getting populated as soon as it's available."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "kind": "process",
+     "heading": "How the work runs",
+     "rules": [
+      {
+       "id": "LS-07",
+       "text": "Each AI reader's answer file is checked against its own expected shape (the third reader writes rulings, not rows).",
+       "status": "enforced",
+       "topic": "AI readers",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "Let's also do an audit of every report and ensure the data is getting populated as soon as it's available."
+        }
+       ]
+      },
+      {
+       "id": "PR-03",
+       "text": "Before a big task, ask you questions, one at a time.",
+       "status": "written",
+       "topic": "big tasks",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "grill me"
+        }
+       ]
+      },
+      {
+       "id": "PR-05",
+       "text": "When a request clashes with what already exists, ask you one question before building.",
+       "status": "written",
+       "topic": "big tasks",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-23",
+         "quote": "tell me when... theres a conflict"
+        }
+       ]
+      },
+      {
+       "id": "PR-10",
+       "text": "Paid AI calls stop at 90% of the budget.",
+       "status": "written",
+       "topic": "budget",
+       "badge": "Written down",
+       "claude": "2026-09-05"
+      },
+      {
+       "id": "PR-01",
+       "text": "Every correction becomes a rule: fix that one moment, and write the general rule where the next lesson will meet it, listed in the rule list.",
+       "status": "enforced",
+       "topic": "corrections",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "make a permanent rule in the md file that you should be creating some universal rules system"
+        }
+       ]
+      },
+      {
+       "id": "PR-09",
+       "text": "Nothing is emailed until the page is live and opens correctly.",
+       "status": "written",
+       "topic": "emails",
+       "badge": "Written down",
+       "claude": "2026-09-05"
+      },
+      {
+       "id": "PR-08",
+       "text": "Keep a checklist of everything you asked in a session (including messages sent mid-way) and tick each one before saying done.",
+       "status": "enforced",
+       "topic": "every ask done",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-01",
+         "quote": "please dont cut any stepts"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-09-27",
+         "quote": "you didnt do all the tasks I just asked you"
+        }
+       ]
+      },
+      {
+       "id": "PR-07",
+       "text": "A trustworthy transcript comes first; everything else is built on it.",
+       "status": "written",
+       "topic": "order of work",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-07",
+         "quote": "first produce a trustworthy transcript"
+        }
+       ]
+      },
+      {
+       "id": "PR-06",
+       "text": "The AI helpers put work on the live site themselves when the publish check passes and nothing gets overwritten; never forced.",
+       "status": "written",
+       "topic": "publishing",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-30",
+         "quote": "Push it yourself"
+        }
+       ]
+      },
+      {
+       "id": "PR-13",
+       "text": "Built files are rebuilt, never hand-merged: when two versions clash, the live copy is kept and the build runs again; only hand-written files wait for a person.",
+       "status": "enforced",
+       "topic": "publishing",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "Let's also do an audit of every report and ensure the data is getting populated as soon as it's available."
+        }
+       ]
+      },
+      {
+       "id": "PR-02",
+       "text": "Keep security light: no passwords or login friction on Anees.",
+       "status": "written",
+       "topic": "security",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-05",
+         "quote": "remove all passwords and security"
+        }
+       ]
+      },
+      {
+       "id": "PR-04",
+       "text": "Never go over or recap the rules with you.",
+       "status": "written",
+       "topic": "talking to Medi",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-09-21",
+         "quote": "dont review the rules with me"
+        }
+       ]
+      },
+      {
+       "id": "PR-11",
+       "text": "Lock the test clips and test setup before looking at any results.",
+       "status": "written",
+       "topic": "testing engines",
+       "badge": "Written down",
+       "claude": "2026-09-05"
+      },
+      {
+       "id": "PR-12",
+       "text": "A transcription engine is replaced only after testing on full recordings that Amal labelled and the engine has never seen.",
+       "status": "written",
+       "topic": "testing engines",
+       "badge": "Written down",
+       "claude": "2026-09-05"
+      }
+     ]
+    }
+   ],
+   "old": []
+  }
+ ]
+}
