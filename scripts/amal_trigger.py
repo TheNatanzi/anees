@@ -193,11 +193,14 @@ STEPS = [
     ("codex_list", [sys.executable, "scripts/codex_rejudge.py", "--list"]),
     ("accuracy_annotate", [sys.executable, "scripts/accuracy_gates.py", "annotate"]),
     ("build_sentence_ladder", [sys.executable, "scripts/build_sentence_ladder.py"]),
+    # new words Amal used that are not on her Doc + her add / later / forget taps (Medi 2026-10-02)
+    ("amal_new_words", [sys.executable, "scripts/amal_new_words.py"]),
     ("build_tutor_data", [sys.executable, "scripts/build_tutor_data.py"]),
     ("write_build", [sys.executable, "scripts/write_build.py"]),
 ]
 AUDIT_CHAIN = ["full_audit_build", "apply_amal_audit_rulings", "amal_grammar_notes", "build_grammar_console", "build_amal_docs",
-               "build_amal_grammar_rules", "build_amal_review", "build_lessons_page_data", "codex_list", "accuracy_annotate", "build_sentence_ladder", "build_tutor_data"]
+               "build_amal_grammar_rules", "build_amal_review", "build_lessons_page_data", "codex_list", "accuracy_annotate", "build_sentence_ladder", "amal_new_words",
+               "build_tutor_data"]
 
 SOURCES = [
     {"id": "tutor_verify", "label": "Tutor page: check these moments", "fetch": fetch_tutor_verify, "steps": AUDIT_CHAIN},

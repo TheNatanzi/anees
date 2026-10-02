@@ -8,7 +8,7 @@
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const fmt = n => (n === null || n === undefined) ? '—' : Number(n).toLocaleString('en-US');
   const pretty = d => d ? new Date(String(d).slice(0, 10) + 'T12:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
-  let T = { open: [], closed: [] }, tasks = [], verifyN = null;
+  let T = { open: [], closed: [] }, tasks = [], verifyN = null, NW = null;
 
   async function rest(path, token) {
     const H = { apikey: ANEES.anon, Authorization: 'Bearer ' + ANEES.anon, 'X-Anees-Token': token };
@@ -42,7 +42,7 @@
   }
 
   // ---- the task list -------------------------------------------------------------------------------------------
-  const MIN_EACH = { after: 0.7, before: 0.7, verify: 0.4, review: 1.2, verb_check: 0.1, word_review: 0.3 };
+  const MIN_EACH = { after: 0.7, before: 0.7, verify: 0.4, review: 1.2, verb_check: 0.1, word_review: 0.3, newwords: 0.3 };
   function taskOf(it, L) {
     const total = it.total || 0, d = Math.min(total, (L && L.done) || 0), left = Math.max(0, total - d);
     const unit = { after: 'moments', before: 'questions', review: 'slip patterns', verb_check: 'verb forms', word_review: 'lines' }[it.kind] || 'items';
@@ -82,6 +82,8 @@
       AneesAfterTask.mount(body, t.item, { onChange: s => { t.total = s.total; t.done = Math.min(s.done, s.total); t.left = s.total - t.done; t.finished = s.finished; update(); } });
     } else if (t.kind === 'verify') {
       body.appendChild($('#tv'));
+    } else if (t.kind === 'newwords') {
+      AneesNewWordsTask.mount(body, NW, { onChange: s => { t.total = s.total; t.done = s.done; t.left = s.total - s.done; t.finished = s.finished; update(); } });
     } else {
       // Not rebuilt inside the hub yet (Medi 2026-10-01 plan: one task at a time, shown before the next).
       body.innerHTML = `<p class="hb-sub">${esc(t.item.what || '')}</p><a class="hb-ans primary" style="display:block;text-decoration:none;text-align:center" href="go.html?to=${
@@ -129,6 +131,15 @@
       const got = new Set(ans.map(r => String(r.word_key)).filter(k => k.startsWith('verify:')));
       verifyN = { total: items.length, done: items.filter(r => got.has('verify:' + (r.uid || r.id))).length };
       if (items.length) tasks.push({ id: 'verify', kind: 'verify', title: 'Check these moments', total: verifyN.total, done: verifyN.done, left: verifyN.total - verifyN.done, unit: 'moments', rank: 2, date: '', finished: verifyN.done >= verifyN.total });
+    } catch (e) {}
+    try {   // new words Amal used that are not on her Doc (Medi 2026-10-02): taps = amal_rules word_key newword:* on the review token
+      const N = await (await fetch('data/amal-new-words.json', { cache: 'no-store' })).json(), rv = T.open.find(x => x.kind === 'review');
+      const ans = {};
+      if (rv) (await rest('amal_rules?select=kind,word_key,created_at&source=eq.review&word_key=like.newword:*&order=created_at.asc&token=eq.' + encodeURIComponent(rv.token), rv.token))
+        .forEach(r => { ans[r.word_key] = { kind: r.kind, at: r.created_at }; });
+      NW = { token: rv ? rv.token : '', data: N, answers: ans };
+      const c = AneesNewWordsTask.count(N, ans);
+      if (c.total) tasks.push({ id: 'newwords', kind: 'newwords', title: 'New words from our lessons', total: c.total, done: c.done, left: c.left, unit: 'words', rank: 1.5, date: c.newest, finished: c.left === 0 });
     } catch (e) {}
     rankAll(tasks); count();
     const open = tasks.filter(t => !t.finished), mins = Math.max(1, Math.round(open.reduce((s, t) => s + t.left * (MIN_EACH[t.kind] || 0.5), 0)));

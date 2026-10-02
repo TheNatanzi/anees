@@ -1,0 +1,270 @@
+{
+ "date": "2026-10-01",
+ "reader": "r3",
+ "note": "No Amal audio from 00:00 to 23:14 (only her chat lines) - every row there rests on chat or is B. Engine writes 7ada as هذا at 46:00-46:45 (Amal echoes الحدا/حدا). 53:19-59:26 is a meaning drill where he translates her Arabic into English - those rows are listening, not speaking. Male (ماليه) and Amal are names.",
+ "rulings": [
+  {
+   "id": "D1",
+   "verdict": "keep",
+   "row": {
+    "id": "1001-2",
+    "t": "06:36",
+    "t_amal": "06:52",
+    "medi_said": "مشجع.",
+    "amal_said": null,
+    "chat": "mitshajje3 = motivated",
+    "wrong": "مشجع",
+    "right": "متشجع (mitshajje3)",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "B12",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "chat-fix",
+    "confidence": "high",
+    "why": "He used mushajje3 (the doubled make-someone form, 'encouraging') for 'motivated'; her chat supplies the t- form mitshajje3 - a make-X vs get-X verb-form slip (B12), like بسط for انبسط, not a different lexical item.",
+    "english": "motivated"
+   },
+   "why": "Same root, wrong derived form (make-someone vs become): the brief files that as grammar B12, not vocab tier 2; chat at 06:52 is the fix."
+  },
+  {
+   "id": "D2",
+   "verdict": "keep",
+   "row": {
+    "id": "1001-3",
+    "t": "07:36",
+    "t_amal": null,
+    "medi_said": "أنا، أنا مشجع الدرس.",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "مشجع",
+    "right": "متشجع (mitshajje3)",
+    "kind": "grammar-B",
+    "tier": null,
+    "bucket": "B12",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "none",
+    "confidence": "low",
+    "why": "He repeats مشجع a minute after her chat gave mitshajje3; Amal's audio is missing in this stretch (no Amal line until 23:14), so no signal; could also be an engine spelling of mitshajje3.",
+    "english": "I am motivated for the lesson"
+   },
+   "why": "Separate repeat of the D1 slip after the fix; no Amal audio, so grammar-B with low confidence."
+  },
+  {
+   "id": "D3",
+   "verdict": "keep",
+   "row": {
+    "id": "1001-11",
+    "t": "29:05",
+    "t_amal": "29:11",
+    "medi_said": "الـ مدرسته الـ قديمة.",
+    "amal_said": "Mm-hmm. What if I want to say that, like, the old name?",
+    "chat": "esem madrasto el-2adeem/e",
+    "wrong": "الـ مدرسته",
+    "right": "مدرسته (madrasto)",
+    "kind": "grammar-B",
+    "tier": null,
+    "bucket": "A2",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "none",
+    "confidence": "low",
+    "why": "A noun with a possessive ending takes no el-; Amal answered Mm-hmm and moved on, and her chat at 31:26 is the model sentence for the exercise (typed 2 min later), not a voiced fix; the first الـ may be a restart the engine wrote.",
+    "english": "the name of his old school"
+   },
+   "why": "Amal let it pass (Mm-hmm); her 29:04 مدرسته came BEFORE this line, echoing his 28:58 attempt, so B not A."
+  },
+  {
+   "id": "D4",
+   "verdict": "keep",
+   "row": {
+    "id": "1001-16",
+    "t": "42:12",
+    "t_amal": "42:18",
+    "medi_said": "هذي المحل أحسن إشي.",
+    "amal_said": "Mm, it works, yeah. هذا أحسن محل is like, like more efficient",
+    "chat": "a7san ma7al = the best store",
+    "wrong": "هذي",
+    "right": "هذا",
+    "kind": "grammar-B",
+    "tier": null,
+    "bucket": "A10",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "none",
+    "confidence": "medium",
+    "why": "محل is masculine so 'this' is هذا; Amal explicitly said 'it works' and her هذا أحسن محل was offered as a more efficient structure, not a gender fix; he keeps saying هذي at 42:27.",
+    "english": "this store is the best"
+   },
+   "why": "She accepted the sentence out loud; the هذا in her model sentence is incidental to a structure point, so the gender slip is a let-pass."
+  },
+  {
+   "id": "D5",
+   "verdict": "keep",
+   "row": {
+    "id": "1001-18",
+    "t": "43:55",
+    "t_amal": "45:13",
+    "medi_said": "Okay. So أحسن الزبون ما، ما تشتري إشي.",
+    "amal_said": null,
+    "chat": "aswa2 zboon ma beyshteir ishi",
+    "wrong": "أحسن",
+    "right": "أسوأ",
+    "kind": "vocab-A",
+    "tier": 1,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "chat-fix",
+    "confidence": "low",
+    "why": "Task was 'the worst customer is the one who doesn't buy' and he had said أسوأ at 43:44, but here the engine writes أحسن 'best'; her chat writes aswa2 zboon...; low because it may be an engine slip and her voice never flagged the word.",
+    "english": "the worst customer doesn't buy anything"
+   },
+   "why": "Her chat spells the whole corrected sentence with aswa2, so there is a chat signal; confidence low (possible engine mishearing)."
+  },
+  {
+   "id": "D6",
+   "verdict": "drop",
+   "why": "Restart before help: he said الناس, then Okay, اللي - abandoned on his own; Amal's 'First you have to say the one... or الحدا' was about sentence order and she then said 'Yes, it actually works. إلي.' Not a standing error."
+  },
+  {
+   "id": "D7",
+   "verdict": "keep",
+   "row": {
+    "id": "1001-21",
+    "t": "46:18",
+    "t_amal": "46:20",
+    "medi_said": "أكتر هذا إشي?",
+    "amal_said": "أكثر حدا بحبه.",
+    "chat": "aktar 7ada ba7ebbo",
+    "wrong": "أكتر هذا إشي",
+    "right": "أكثر حدا بحبه",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "C3",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "recast",
+    "confidence": "medium",
+    "why": "Engine writes حدا as هذا (at 46:00 he asked about 'إلى هذا' and Amal answered 'you can say الحدا', so he is saying 7ada); the slip is the stacked aktar 7ada ishi, which Amal recast as أكثر حدا بحبه.",
+    "english": "the person I like the most"
+   },
+   "why": "Amal's echo (الحدا / أكثر حدا) shows the word he used was 7ada, so it is not a هذا-for-حدا vocab error; the fix is the superlative structure."
+  },
+  {
+   "id": "D8",
+   "verdict": "keep",
+   "row": {
+    "id": "1001-28",
+    "t": "1:00:03",
+    "t_amal": "1:00:04",
+    "medi_said": "So nafs ishi.",
+    "amal_said": "Nafs al ishi.",
+    "chat": "nafs el-ishi",
+    "wrong": "nafs ishi",
+    "right": "nafs el-ishi",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "A2",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "recast",
+    "confidence": "high",
+    "why": "nafs works like the first word of an idafa: it stays bare and the noun after it takes el-; Amal recast Nafs al ishi and said نفس إشي doesn't mean anything (1:01:01).",
+    "english": "the same thing"
+   },
+   "why": "Bucket A2 (idafa: nafs + el-noun) fits better than A1."
+  },
+  {
+   "id": "D9",
+   "verdict": "drop",
+   "why": "Not an Arabic production error: an English meta guess about a rule ('So أول would be beginning and الأول is the first?') that Amal answered; الأول after a noun is in fact correct, as she then explains."
+  },
+  {
+   "id": "D10",
+   "verdict": "keep",
+   "row": {
+    "id": "1001-24",
+    "t": "49:04",
+    "t_amal": "49:08",
+    "medi_said": "So how do you say, how do you say the beginning of time?",
+    "amal_said": "أول المرة. بس يعني المرة here doesn't apply as time so أول الوقت.",
+    "chat": null,
+    "wrong": null,
+    "right": "أول الوقت",
+    "kind": "vocab-A",
+    "tier": 0,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "asked",
+    "confidence": "medium",
+    "why": "He asked how to say it; Amal supplied awal el-wa2t - a didn't-know, tier 0.",
+    "english": "the beginning of time"
+   },
+   "why": "'How do you say X?' answered by Amal = vocab-A, signal asked, tier 0 per brief."
+  },
+  {
+   "id": "D11",
+   "verdict": "keep",
+   "row": {
+    "id": "1001-25",
+    "t": "50:00",
+    "t_amal": "50:05",
+    "medi_said": "first car, aw-awal, uh, \"...\"",
+    "amal_said": "أول سيارة.",
+    "chat": "awal sayyaara",
+    "wrong": null,
+    "right": "أول سيارة",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "C3",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "finished-sentence",
+    "confidence": "low",
+    "why": "He stalled after awal (the rest is a transcript hole) and Amal finished it as أول سيارة; at 50:07 he still reads it as 'the beginning of the car', so he did not have the tool-word use of awal; low because what he said after awal is not in the transcript.",
+    "english": "the first car"
+   },
+   "why": "Amal finished his sentence; real but the transcript hole hides what he produced, so low."
+  },
+  {
+   "id": "D12",
+   "verdict": "drop",
+   "why": "Not an error: shi is normal Levantine for 'thing' (her own sheet has 'everything | Kul shee | كل شيء' and kulshi); the engine spells it شيء. Medi was asking a meta question and Amal's answer was about el- (غير إشي or غير الـ إشي), not the word."
+  },
+  {
+   "id": "D13",
+   "verdict": "drop",
+   "why": "Same as D12: shi (engine شيء) is valid Levantine (sheet: 'Kul shee | كل شيء'); Amal accepted 'I want a different thing'. Not an error."
+  }
+ ],
+ "added": [],
+ "challenges": [
+  {
+   "id": "A1",
+   "why": "Possible self-fix: at 02:55 he says 'So dates are واحد, times are واحدة' and 03:02 'الساعة واحدة'; Amal's voice is missing, so it is unclear whether she prompted him before he fixed it (chat 03:26 came after)."
+  },
+  {
+   "id": "A3",
+   "why": "Amal audio missing; he moved from الـ سيارة to سيارة الـ BMW himself ('No, it's double noun') within the same turn - may be a self-fix before help; chat 16:06 only came after."
+  },
+  {
+   "id": "A15",
+   "why": "Amal's 'No, no. First you have to say the one...' at 45:15 was about sentence order (and she retracted it: 'Yes, it actually works. إلي.'), not the missing -o; he added بحبه himself at 45:37. The missing pointer is real but should be grammar-B, not a voiced fix."
+  },
+  {
+   "id": "A17",
+   "why": "'The week's beginning' is his English translation of her Arabic الأسبوع الأول - a comprehension slip in a meaning drill; mode should be listening, not speaking."
+  },
+  {
+   "id": "A19",
+   "why": "Laffe aula is him repeating/mishearing her al laffa al oola while she asks what it means - a listening drill; mode should be listening."
+  },
+  {
+   "id": "A20",
+   "why": "'something else' for tani ishi is his English answer to her meaning question - comprehension, mode should be listening."
+  }
+ ]
+}

@@ -19,6 +19,8 @@ builder that fails, a broken reader file or Arabizi gaps left = exit 1 and no pu
   6b arabizi   arabizi_gaps.cjs: any Arabic word on the error cards without Arabizi -> `claude -p` fills arabizi-extra.json
   7 Amal      `claude -p` pattern reader for this lesson's B rows (PATTERN-BRIEF.md, appends to patterns.json)
               -> build_amal_review.py -> amal_review_link.py (refreshes her hub payload) -> prints the hub link
+  7d new words amal_new_words.py --candidates -> `claude -p` by-meaning reader -> amal_new_words.py (Tutor hub: words Amal
+              used that are not on her Doc; add / later / forget)
   7c tutor     build_tutor_data.py -> docs/data/tutor.json (the Tutor page = Medi's menu of everything open for Amal)
   7b after     after_from_audit.py -> 3-5 "was he right here?" questions with clips -> amal_links kind after (on her hub)
   8 git       commit; push through scripts/publish_guard.py (unless --no-push / --dry-run / a failure above)
@@ -139,6 +141,23 @@ def pattern_prompt(date):
             f"{WORK}\\patterns.json: if a row fits one of its patterns, add the row's uid to that pattern's rows; otherwise add a "
             f"new pattern. Write the whole updated file back to {WORK}\\patterns.json (keep every existing pattern and row). "
             f"Reply with one line: n rows placed, n new patterns." + names_note(date))
+
+
+def new_words_prompt(date):
+    """Step 7d reader (Medi 2026-10-02): judge the lesson's new-word candidates by meaning (memory anees-list-by-meaning)."""
+    return (f"Repo: {REPO}. Read the docstring of scripts/amal_new_words.py and RULES.md S1. "
+            f"data/lesson-work/amal-new-words/{date}.candidates.json lists words Amal said or typed in lesson {date} that a string "
+            f"check could not find on her vocabulary Doc (docs/data/words.json items: arabizi, arabic, english, plural, aliases). "
+            f"Judge EVERY candidate BY MEANING (any tense, plural, gender, pronoun ending, article, one-letter transcription "
+            f"difference, Arabic or English meaning) using the lesson transcript data/lesson-work/full-audit/{date}.txt for context. "
+            f"Append one row per candidate to data/lesson-work/amal-new-words-verdicts.json (a JSON list; keep every existing row): "
+            f'{{"date":"{date}","key":<candidate key exactly>,"verdict":"new|on_doc|name|english|function|garble","arabic":<Arabic script or null>,'
+            f'"arabizi":<only the exact form SHE typed in chat, else null - never invent a spelling>,"english":<short meaning>,"t":<candidate t>,'
+            f'"line":<her line>,"typed":<true if from chat>,"doc_match":<the Doc entry for on_doc, else null>,"dup_of":<for another form of a '
+            f'new word already listed in this lesson: the first key, else null>,"reason":<one short sentence>}}. '
+            f"new = a real content word she used that is NOT on the Doc by meaning; function = particles, pronouns, question words, "
+            f"fillers; garble = speech-engine error or cut-off. Be strict: only genuinely new vocabulary is 'new'. Edit no other file. "
+            f"Reply with one line: new n, on_doc n, other n." + names_note(date))
 
 
 def gaps_prompt(date=None):
@@ -397,6 +416,20 @@ def main():
         # it prints "REVIEW <url>" since the Tutor Hub page was removed (2026-09-28); the old "HUB" parse always gave None
         link = next((l.split(None, 1)[1] for l in (r.stdout or "").splitlines() if l.startswith(("REVIEW", "HUB")) and len(l.split(None, 1)) > 1), None)
         log("review link", link, "" if not r.returncode else f"(amal_review_link exit {r.returncode}: database only, pages unaffected)")
+    # 7d new words Amal used that are not on her Doc (Medi 2026-10-02 "we should be doing this for all new lessons"): string
+    # candidates -> one by-meaning reader -> docs/data/amal-new-words.json (Tutor hub item: add to the Doc / later / forget).
+    # Unjudged candidates are never shown to Amal; a reader that fails leaves them unjudged (counted) and fails the run.
+    py(os.path.join(HERE, "amal_new_words.py"), "--candidates", d, check=False)
+    vp = os.path.join(REPO, "data", "lesson-work", "amal-new-words-verdicts.json")
+    cand = os.path.join(REPO, "data", "lesson-work", "amal-new-words", d + ".candidates.json")
+    judged = {v.get("key") for v in (json.load(open(vp, encoding="utf-8")) if os.path.exists(vp) else []) if v.get("date") == d}
+    todo = [c for c in (json.load(open(cand, encoding="utf-8"))["candidates"] if os.path.exists(cand) else []) if c["key"] not in judged]
+    if todo and not a.dry_run:
+        claude(new_words_prompt(d), f"{d} new words", step="amal.new_words", lesson_date=d, role="new_words",
+               prompt_sha=_src_sha(new_words_prompt), inputs=[cand, os.path.join(REPO, "docs", "data", "words.json")], outputs=[vp])
+    rc = py(os.path.join(HERE, "amal_new_words.py"), check=False).returncode
+    if rc:
+        failures.append(f"amal_new_words.py exit {rc}"); log("FAILED amal_new_words.py exit", rc)
     # 7c the Tutor page (Medi's menu) lists every open link with its total - rebuilt so the new after link shows up
     rc = py(os.path.join(HERE, "build_tutor_data.py"), check=False).returncode
     if rc:
@@ -404,7 +437,8 @@ def main():
     # 8 git: the local commit is kept either way (nothing lost); the push goes through the publish guard, and only when
     # nothing above failed (scripts/publish_guard.py; Medi decision 7, 2026-09-29)
     if not a.dry_run:
-        subprocess.run(["git", "add", "-A", "data/full-audit-2026-09-26.json", "plan/FULL-AUDIT-2026-09-26.md", "docs", "data/lesson-work/full-audit"], cwd=REPO)
+        subprocess.run(["git", "add", "-A", "data/full-audit-2026-09-26.json", "plan/FULL-AUDIT-2026-09-26.md", "docs", "data/lesson-work/full-audit",
+                        "data/lesson-work/amal-new-words", "data/lesson-work/amal-new-words-verdicts.json"], cwd=REPO)
         subprocess.run(["git", "commit", "-q", "-m", f"Same-day review {d}: two readers + third reader, pages fed, Amal's items\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>"], cwd=REPO)
         if failures:
             log("NOT PUSHED:", "; ".join(failures))

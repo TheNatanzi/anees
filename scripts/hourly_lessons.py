@@ -261,7 +261,7 @@ TUTOR_PATHS = ['docs/data', 'docs/amal/grammar-rules.html', 'data/full-audit-202
 # everything a run may build that the site or the guard reads: committed before the run's one push
 BUILT_PATHS = ['docs', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'data/lesson-work/full-audit', 'plan/FULL-AUDIT-2026-09-26.md',
                'data/budget.json', 'data/lessons/recall_bots.json', 'data/runs', 'data/decisions', 'data/backfill',
-               'data/amal-trigger', 'data/vocab']
+               'data/amal-trigger', 'data/vocab', 'data/lesson-work/amal-new-words', 'data/lesson-work/amal-new-words-verdicts.json']
 
 
 def tutor_refresh(no_push=False, rebuild_all=False):
