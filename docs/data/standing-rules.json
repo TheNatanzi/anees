@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-26",
+ "updated": "2026-10-02",
  "source": "RULES.md",
  "intro_md": "Rules that outlive any one build. Everything here binds the code, the pages, the wiki, and every\nagent (Claude, Codex) writing to Medi. A rule changes only when Medi says so, in writing, here.",
  "rules": [
@@ -27,6 +27,11 @@
    "id": "S5",
    "title": "Pauses are not errors",
    "body_md": "Medi builds a sentence before he says it. A long pause before a right answer is a right answer.\n(Rule M7.)"
+  },
+  {
+   "id": "S6",
+   "title": "Every correction becomes a rule (Medi 2026-10-02)",
+   "body_md": "When Medi (or Amal) finds an error, fixing that one moment is not enough. Two things happen, every time:\n\n1. **The moment** is fixed through the existing ruling files — never by deleting a row; the ruling stays visible with\n   its reason (`data/lesson-work/full-audit/rejected.json`, `duplicates.json`, `data/grammar-usage-rulings.json`,\n   Amal's notes in `scripts/amal_grammar_notes.py`).\n2. **The general rule** is written where the next lesson will meet it, so the same correction is never needed twice:\n   code (e.g. the automatic not-a-use rules in `scripts/detect_grammar_usage.py`, the repeat-slip rule in\n   `scripts/full_audit_build.py`, the homograph list in `docs/js/word-bank-arabizi.js`), the AI readers' brief\n   (`data/lesson-work/full-audit/READER-BRIEF.md`), or this file.\n\nThe agent tells Medi which rule it added and how many past moments the rule changed. If a correction cannot be made\ngeneral (a true one-off), the agent says so instead of staying silent."
   }
  ]
 }

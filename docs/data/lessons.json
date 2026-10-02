@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-01T20:15:57-07:00",
+ "updated": "2026-10-02T01:09:45-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -67,9 +67,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 233,
+    "uses": 244,
     "mistakes": 28,
-    "pct": 90.1,
+    "pct": 90.6,
     "estimate": false,
     "scored_mistakes": 23,
     "unscored_mistakes": 5,
@@ -79,11 +79,10 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "7 of 28 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
       "5 slips are in rules the counter found 0 uses of in this lesson",
       "3 rules have more slips than counted uses (A4, B18, D2)"
      ],
-     "uses": 217,
+     "uses": 228,
      "slips": 28,
      "slips_latin": 7,
      "slips_in_zero_use_rules": 5,
@@ -268,9 +267,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 105,
+    "uses": 126,
     "mistakes": 41,
-    "pct": 66.7,
+    "pct": 72.2,
     "estimate": false,
     "scored_mistakes": 35,
     "unscored_mistakes": 6,
@@ -280,16 +279,14 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "24 of 41 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
-      "15 slips are in rules the counter found 0 uses of in this lesson",
-      "6 rules have more slips than counted uses (A10, A2, A3, B18, B5, D2)"
+      "13 slips are in rules the counter found 0 uses of in this lesson",
+      "5 rules have more slips than counted uses (A2, A3, B18, B5, D2)"
      ],
-     "uses": 70,
+     "uses": 95,
      "slips": 41,
      "slips_latin": 24,
-     "slips_in_zero_use_rules": 15,
+     "slips_in_zero_use_rules": 13,
      "rules_slips_over_uses": [
-      "A10",
       "A2",
       "A3",
       "B18",
@@ -494,9 +491,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 109,
+    "uses": 141,
     "mistakes": 35,
-    "pct": 71.6,
+    "pct": 78.0,
     "estimate": false,
     "scored_mistakes": 31,
     "unscored_mistakes": 4,
@@ -506,11 +503,10 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "24 of 35 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
       "14 slips are in rules the counter found 0 uses of in this lesson",
       "8 rules have more slips than counted uses (A2, A9, B18, B5, B6, C1, C4, D2)"
      ],
-     "uses": 79,
+     "uses": 115,
      "slips": 35,
      "slips_latin": 24,
      "slips_in_zero_use_rules": 14,
@@ -713,9 +709,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 244,
+    "uses": 239,
     "mistakes": 34,
-    "pct": 88.9,
+    "pct": 88.7,
     "estimate": false,
     "scored_mistakes": 27,
     "unscored_mistakes": 7,
@@ -725,11 +721,10 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "3 of 34 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
       "14 slips are in rules the counter found 0 uses of in this lesson",
       "7 rules have more slips than counted uses (A7, B18, B2, C7, D2, E1, E2)"
      ],
-     "uses": 232,
+     "uses": 226,
      "slips": 34,
      "slips_latin": 3,
      "slips_in_zero_use_rules": 14,
@@ -930,33 +925,30 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 124,
-    "mistakes": 34,
-    "pct": 76.6,
+    "uses": 136,
+    "mistakes": 33,
+    "pct": 79.4,
     "estimate": false,
-    "scored_mistakes": 29,
+    "scored_mistakes": 28,
     "unscored_mistakes": 5,
-    "eligible": 27,
+    "eligible": 26,
     "excluded": 7,
     "pending": 2,
     "denominator": {
      "valid": false,
      "reasons": [
-      "20 of 34 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
-      "14 slips are in rules the counter found 0 uses of in this lesson",
-      "11 rules have more slips than counted uses (A11, A2, A3, A7, A9, B10, B12, B18)"
+      "13 slips are in rules the counter found 0 uses of in this lesson",
+      "9 rules have more slips than counted uses (A11, A3, A7, A9, B12, B18, B5, C2)"
      ],
-     "uses": 98,
-     "slips": 34,
+     "uses": 111,
+     "slips": 33,
      "slips_latin": 20,
-     "slips_in_zero_use_rules": 14,
+     "slips_in_zero_use_rules": 13,
      "rules_slips_over_uses": [
       "A11",
-      "A2",
       "A3",
       "A7",
       "A9",
-      "B10",
       "B12",
       "B18",
       "B5",
@@ -1029,7 +1021,7 @@
    "coverage": "Latin-transliterated stretch 40:47-59:51 plus 1:02:24-1:02:27 (Medi's Arabizi, Amal's Arabic in script). Untranscribed '[speaking Arabic]' holes on Medi's side: 18:14-18:25, 18:52-18:58, 20:49, 21:08-21:19, 22:42, 30:30-30:38, 33:14-36:29; Amal's fixes untranscribed at 30:51-31:01 (only 'ما أجا' shows), 53:11, 53:50, 55:06, 54:31-54:43. English-only stretches: 13:29-15:40 (meaning of خرب), 23:12-24:35, 46:56-49:11 (Medi explains the AI tool), 1:00:12-1:02:10 (planning). Farsi interjections 'كما ما (را)' at 02:11, 14:28, 18:14 not treated as Arabic. Left out as S4 pronunciation: قربان for خربان 10:55, ثلاجة for تلاجة 25:18, banbesit/بنبسط 58:29, banzaj/بنزعج 58:54, mat kharab vs ما تخرّب (shadda) 45:51, jumla/جملة 22:17, 'ruf' for روح 45:42. Left out as self-fixes: ملايين→مليان 01:05, 'also'→كمان 04:47, بغلط→بالغلط 39:42. Unclear, not filed: 07:03 'الدنيا أخلى', 08:05-08:08 'أكثر إنت ساليني أكثر', 58:03 'ana batsakat'. Questions he asked and she answered (not errors): 05:57 بيكون/أكون, 25:49 يخربوا?, 40:47 bakharreb or bakharraab, 40:58 bitkharbi or bitkharibi, 35:56-36:21 past forms. / Medi's Arabic is untranscribed ('[speaking Arabic]') from 18:14 to 19:11, 20:49-22:42 (fiancee sentence), 30:30-31:16 (3azoome sentence), 31:32-36:36 (command + past of ba5arreb; her fixes 35:52 5arab, 36:02 5arrabet, 36:22 5arrabti are answers to his 'is it X or Y' choices, not written as errors); 40:47-59:51 is Latin transliteration (rows copy his Latin). English-only stretches: 13:29-15:22 (meaning of 5ereb), 20:25-24:35, 46:56-49:11 (talk about the AI form), 1:00:12-1:02:10 (planning). 40:16 Medi line mixes a background conversation ('One ticket was like forty-five dollars'). Not written (S4 pronunciation / self-fixes): 01:05 ملايين->مليان self-fix, 04:47 'also'->كمان self-fix, 10:55 قربان for خربان (root-letter slip), 25:18 ثلاجة for تلاجة, 06:19 بتثلج, 39:42 بغلط->بالغلط self-fix, 58:22-58:54 banbesit/bazaj (dropped ط/ع), 01:21 هلا يا فيكي and 02:00 هلا قلبك (garbled الله يعافيكي / ع قلبك), 02:11/14:28 'كما ما' = كمان مرة. Unclear, not written: 07:03 'الدنيا أ-أخلى', 08:05-08:08 'أكثر إنت ساليني أكثر', 51:40 'the wawu ha?' (asked about ضوها, never finished), 53:11 Amal 'Mm-mm, no' after 'bidullu yikharabu' (she then agreed 'they are what's breaking'; her Arabic untranscribed). Amal's 59:29 'break. break.' is an English hint, not a supplied word.",
    "notes": [
     "38 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow.",
-    "grammar: 5 of the 34 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
+    "grammar: 5 of the 33 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
    ],
    "page": "lessons/2026-09-11.html",
    "detail": "data/lessons/2026-09-11.json",
@@ -1038,7 +1030,7 @@
     "chat_lines": 0,
     "vocab_errors": 13,
     "vocab_correct": 59,
-    "grammar_errors": 34,
+    "grammar_errors": 33,
     "grammar_not_counted": 0
    },
    "release": {
@@ -1348,9 +1340,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 149,
+    "uses": 186,
     "mistakes": 47,
-    "pct": 69.8,
+    "pct": 75.8,
     "estimate": false,
     "scored_mistakes": 45,
     "unscored_mistakes": 2,
@@ -1360,23 +1352,20 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "21 of 47 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
-      "12 slips are in rules the counter found 0 uses of in this lesson",
-      "9 rules have more slips than counted uses (A2, A9, B12, B18, B2, B5, B7, C7)"
+      "6 slips are in rules the counter found 0 uses of in this lesson",
+      "7 rules have more slips than counted uses (A9, B12, B18, B2, B5, B7, E2)"
      ],
-     "uses": 106,
+     "uses": 144,
      "slips": 47,
      "slips_latin": 21,
-     "slips_in_zero_use_rules": 12,
+     "slips_in_zero_use_rules": 6,
      "rules_slips_over_uses": [
-      "A2",
       "A9",
       "B12",
       "B18",
       "B2",
       "B5",
       "B7",
-      "C7",
       "E2"
      ]
     },
@@ -1569,9 +1558,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 133,
+    "uses": 166,
     "mistakes": 48,
-    "pct": 68.4,
+    "pct": 74.7,
     "estimate": false,
     "scored_mistakes": 42,
     "unscored_mistakes": 6,
@@ -1581,18 +1570,15 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "24 of 48 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
-      "19 slips are in rules the counter found 0 uses of in this lesson",
-      "10 rules have more slips than counted uses (A11, A2, B10, B12, B16, B18, B2, D2)"
+      "16 slips are in rules the counter found 0 uses of in this lesson",
+      "8 rules have more slips than counted uses (A2, B12, B16, B18, B2, D2, D4, E5)"
      ],
-     "uses": 92,
+     "uses": 125,
      "slips": 48,
      "slips_latin": 24,
-     "slips_in_zero_use_rules": 19,
+     "slips_in_zero_use_rules": 16,
      "rules_slips_over_uses": [
-      "A11",
       "A2",
-      "B10",
       "B12",
       "B16",
       "B18",
@@ -1799,9 +1785,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 104,
+    "uses": 145,
     "mistakes": 57,
-    "pct": 50.0,
+    "pct": 64.1,
     "estimate": false,
     "scored_mistakes": 52,
     "unscored_mistakes": 5,
@@ -1811,15 +1797,13 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "fewer counted uses (52) than corrected slips (57)",
-      "49 of 57 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
-      "26 slips are in rules the counter found 0 uses of in this lesson",
-      "13 rules have more slips than counted uses (A4, B10, B11, B12, B16, B18, B3, B6)"
+      "17 slips are in rules the counter found 0 uses of in this lesson",
+      "12 rules have more slips than counted uses (A4, B10, B11, B12, B16, B18, B3, B5)"
      ],
-     "uses": 52,
+     "uses": 97,
      "slips": 57,
      "slips_latin": 49,
-     "slips_in_zero_use_rules": 26,
+     "slips_in_zero_use_rules": 17,
      "rules_slips_over_uses": [
       "A4",
       "B10",
@@ -1828,10 +1812,9 @@
       "B16",
       "B18",
       "B3",
-      "B6",
+      "B5",
       "C10",
       "C9",
-      "D1",
       "D2",
       "D4"
      ]
@@ -2207,9 +2190,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 103,
+    "uses": 134,
     "mistakes": 40,
-    "pct": 65.0,
+    "pct": 73.1,
     "estimate": false,
     "scored_mistakes": 36,
     "unscored_mistakes": 4,
@@ -2219,11 +2202,10 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "28 of 40 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
       "8 slips are in rules the counter found 0 uses of in this lesson",
       "11 rules have more slips than counted uses (B10, B11, B12, B18, B2, B5, B8, C2)"
      ],
-     "uses": 70,
+     "uses": 101,
      "slips": 40,
      "slips_latin": 28,
      "slips_in_zero_use_rules": 8,
@@ -2599,9 +2581,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 62,
+    "uses": 104,
     "mistakes": 45,
-    "pct": 35.5,
+    "pct": 61.5,
     "estimate": false,
     "scored_mistakes": 40,
     "unscored_mistakes": 5,
@@ -2611,15 +2593,13 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "fewer counted uses (23) than corrected slips (45)",
-      "39 of 45 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
-      "40 slips are in rules the counter found 0 uses of in this lesson",
-      "14 rules have more slips than counted uses (B1, B11, B12, B18, B3, B5, B8, C2)"
+      "35 slips are in rules the counter found 0 uses of in this lesson",
+      "10 rules have more slips than counted uses (B1, B11, B12, B18, B3, B5, B8, C4b)"
      ],
-     "uses": 23,
+     "uses": 65,
      "slips": 45,
      "slips_latin": 39,
-     "slips_in_zero_use_rules": 40,
+     "slips_in_zero_use_rules": 35,
      "rules_slips_over_uses": [
       "B1",
       "B11",
@@ -2628,13 +2608,9 @@
       "B3",
       "B5",
       "B8",
-      "C2",
-      "C4",
       "C4b",
-      "C7",
       "D2",
-      "D4",
-      "D6"
+      "D4"
      ]
     },
     "verified_pct": null
@@ -2839,9 +2815,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 27,
+    "uses": 31,
     "mistakes": 4,
-    "pct": 85.2,
+    "pct": 87.1,
     "estimate": false,
     "scored_mistakes": 4,
     "unscored_mistakes": 0,
@@ -2851,11 +2827,10 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "1 of 4 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
       "2 slips are in rules the counter found 0 uses of in this lesson",
       "2 rules have more slips than counted uses (B11, E2)"
      ],
-     "uses": 23,
+     "uses": 27,
      "slips": 4,
      "slips_latin": 1,
      "slips_in_zero_use_rules": 2,
@@ -3101,9 +3076,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 266,
+    "uses": 359,
     "mistakes": 65,
-    "pct": 77.8,
+    "pct": 83.6,
     "estimate": false,
     "scored_mistakes": 59,
     "unscored_mistakes": 6,
@@ -3113,11 +3088,10 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "27 of 65 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
       "13 slips are in rules the counter found 0 uses of in this lesson",
       "9 rules have more slips than counted uses (A2, A4, B10, B12, B16, B17, B18, B4b)"
      ],
-     "uses": 216,
+     "uses": 312,
      "slips": 65,
      "slips_latin": 27,
      "slips_in_zero_use_rules": 13,
@@ -3310,28 +3284,26 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 132,
+    "uses": 142,
     "mistakes": 31,
-    "pct": 78.0,
+    "pct": 78.2,
     "estimate": false,
-    "scored_mistakes": 29,
-    "unscored_mistakes": 2,
+    "scored_mistakes": 31,
+    "unscored_mistakes": 0,
     "eligible": 22,
     "excluded": 9,
     "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
-      "7 of 31 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
-      "8 slips are in rules the counter found 0 uses of in this lesson",
-      "7 rules have more slips than counted uses (A2, A5, B12, B3, D2, E1, E2)"
+      "5 slips are in rules the counter found 0 uses of in this lesson",
+      "6 rules have more slips than counted uses (A5, B12, B3, D2, E1, E2)"
      ],
-     "uses": 105,
+     "uses": 113,
      "slips": 31,
      "slips_latin": 7,
-     "slips_in_zero_use_rules": 8,
+     "slips_in_zero_use_rules": 5,
      "rules_slips_over_uses": [
-      "A2",
       "A5",
       "B12",
       "B3",
@@ -3431,7 +3403,6 @@
     "gap fill: Medi's side 00:00-22:37 filled from own recording (transcribed late) (266 lines), 22:37-23:45: nothing found in the Meet recording.",
     "talk, fillers, latency and flow measured over the whole lesson: Medi's side 00:00-23:45 is filled (Medi's side 00:00-22:37 filled from own recording (transcribed late) (266 lines), 22:37-23:45: nothing found in the Meet recording).",
     "32 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow.",
-    "grammar: 2 of the 31 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
     "1 word card(s) dropped after the 2026-09-27 hand check (he said it right, it was not his slip, or it repeats a slip already counted): 53:21 شاليه / بيت."
    ],
    "page": "lessons/2026-09-23.html",
@@ -3769,9 +3740,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 207,
+    "uses": 226,
     "mistakes": 21,
-    "pct": 89.9,
+    "pct": 90.7,
     "estimate": false,
     "scored_mistakes": 21,
     "unscored_mistakes": 0,
@@ -3781,10 +3752,9 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "4 of 21 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
       "1 rules have more slips than counted uses (D4)"
      ],
-     "uses": 192,
+     "uses": 212,
      "slips": 21,
      "slips_latin": 4,
      "slips_in_zero_use_rules": 0,
@@ -3988,9 +3958,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 173,
+    "uses": 177,
     "mistakes": 21,
-    "pct": 87.9,
+    "pct": 88.1,
     "estimate": false,
     "scored_mistakes": 21,
     "unscored_mistakes": 0,
@@ -4000,16 +3970,14 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "2 of 21 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
       "5 slips are in rules the counter found 0 uses of in this lesson",
-      "4 rules have more slips than counted uses (A2, B12, B3, E1)"
+      "3 rules have more slips than counted uses (B12, B3, E1)"
      ],
-     "uses": 154,
+     "uses": 158,
      "slips": 21,
      "slips_latin": 2,
      "slips_in_zero_use_rules": 5,
      "rules_slips_over_uses": [
-      "A2",
       "B12",
       "B3",
       "E1"
@@ -4269,30 +4237,26 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 134,
-    "mistakes": 26,
-    "pct": 82.8,
+    "uses": 204,
+    "mistakes": 22,
+    "pct": 90.2,
     "estimate": false,
-    "scored_mistakes": 23,
-    "unscored_mistakes": 3,
-    "eligible": 26,
+    "scored_mistakes": 20,
+    "unscored_mistakes": 2,
+    "eligible": 22,
     "excluded": 0,
-    "pending": 5,
+    "pending": 2,
     "denominator": {
      "valid": false,
      "reasons": [
-      "8 of 26 slips are in turns the engine wrote in Latin letters, which the usage counter skips",
-      "10 slips are in rules the counter found 0 uses of in this lesson",
-      "7 rules have more slips than counted uses (A2, A3, A5, B18, C1, D2, D4)"
+      "5 slips are in rules the counter found 0 uses of in this lesson",
+      "4 rules have more slips than counted uses (B18, C1, D2, D4)"
      ],
-     "uses": 113,
-     "slips": 26,
-     "slips_latin": 8,
-     "slips_in_zero_use_rules": 10,
+     "uses": 188,
+     "slips": 22,
+     "slips_latin": 6,
+     "slips_in_zero_use_rules": 5,
      "rules_slips_over_uses": [
-      "A2",
-      "A3",
-      "A5",
       "B18",
       "C1",
       "D2",
@@ -4357,7 +4321,7 @@
    "taught": [],
    "coverage": "Long Latin-transliterated stretch ~23:58-1:00:30 (engine wrote Arabic as Latin). Many opaque engine forms (سوالونا, شطار, Halloween=الحلوين?, Gromela, Zahadi, عذرا=زرقا, علي فيكي) read via Amal's echo. Unclear/skipped: 07:21-07:34 سويت with Amal's صرت/سألت guesses (target verb unclear); 15:39 weather 'رجعوا شوفت كتير'; 15:05 date; 32:36 'ما بتجنن'. بسول at 33:08 is the verb بوصل, not the name سول (Seoul). English prompt echoes ('is tiring', 'visited us') are him repeating her cue, not tier 3. 01:46 confusion over who did homework is comprehension, not written. / Lesson is mostly English meta-talk about the el- rule from ~17:00; long stretches (19:00-36:00, 37:00-60:00) are Arabizi in Latin script. 22:15 'Halloween' is almost certainly the engine for الحلوين (beautiful) - not flagged. 15:39 رجعوا شوفت كتير (weather reply) is garbled - not judged. 10:47 ثلاث->تلات, 30:04 mata'ib->متعب, 08:26 متهمس, 43:24 يدل=يضل are S4 pronunciation, not counted. 31:32 واطي (low) for short was self-fixed to قصيرة before Amal commented - left out. 24:15 قادين/قاديات: Amal gave both as fine. 17:52 'Uh, no. How about food is important' reads as a redirect, not a fix. 07:12 'It takes لا' unclear.",
    "notes": [
-    "grammar: 3 of the 26 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
+    "grammar: 2 of the 22 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
    ],
    "page": "lessons/2026-09-30.html",
    "detail": "data/lessons/2026-09-30.json",
@@ -4366,7 +4330,7 @@
     "chat_lines": 0,
     "vocab_errors": 14,
     "vocab_correct": 71,
-    "grammar_errors": 26,
+    "grammar_errors": 22,
     "grammar_not_counted": 1
    },
    "release": {
@@ -4374,7 +4338,7 @@
     "reasons": [
      "reader agreement: pass 1 62.1 %; 2 consecutive passes at >= 95 % are needed",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3942 s) compared with a second model",
-     "checks: 5 scored rows need an audio or human check (0 words, 5 grammar)"
+     "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
     ],
     "agreement": {
      "status": "withheld",

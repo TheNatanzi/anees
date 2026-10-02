@@ -413,6 +413,8 @@ def asks_again(T, i, txt):
 
 if __name__ == "__main__":
     dates = sorted(d for d in os.listdir(ANEES) if re.fullmatch(r"\d{4}-\d{2}-\d{2}", d))
+    # only lessons with a published page (same list as full_audit_build.py), so the Lessons page and the console add up
+    dates = [d for d in dates if os.path.exists(os.path.join(DOCS, "lessons", d + ".html"))]
     NOT_ARABIC = {"2026-08-22", "2026-08-23", "2026-09-01"}
     RULINGS = load_rulings()
 

@@ -1,4 +1,4 @@
-# Full vocab + grammar audit - 2026-09-30
+# Full vocab + grammar audit - 2026-10-02
 
 Two independent readers per lesson, a third settles disagreements, reconciled with the 2026-09-24 hand sweep. A = Amal fixed it out loud or in chat (scored). B = she let it pass (unscored until she rules on her review page). Tier 0 = she supplied a word he asked for. Nothing the sweep verified was dropped.
 
@@ -6,10 +6,10 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **600** (sweep had 312) |
+| Grammar fixes Amal voiced (A) | **595** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 90 |
-| Vocab fixes Amal voiced (A) | **294** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 172, '0': 105, '2': 56, '3': 6} |
+| Vocab fixes Amal voiced (A) | **293** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 172, '0': 105, '2': 55, '3': 6} |
 | Vocab she let pass (B, to Amal) | **45** by tier {'1': 28, '2': 11, '3': 6} |
 | Listening-drill misreads (kept apart) | 79 |
 | Rows the readers found that the sweep did not have | 637 |
@@ -24,18 +24,18 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-09-04 | 46 | 8 | 14 | 3 | 9 | 29 | 11 | 63.2 % |
 | 2026-09-05 | 36 | 2 | 8 | 2 | 0 | 25 | 5 | 64.6 % |
 | 2026-09-10 | 35 | 16 | 20 | 2 | 0 | 20 | 10 | 61.8 % |
-| 2026-09-11 | 34 | 9 | 14 | 6 | 1 | 21 | 10 | 58.5 % |
+| 2026-09-11 | 33 | 9 | 14 | 6 | 1 | 21 | 10 | 58.5 % |
 | 2026-09-14 | 47 | 3 | 16 | 1 | 1 | 29 | 7 | 69.7 % |
 | 2026-09-15 | 49 | 4 | 12 | 0 | 2 | 29 | 8 | 57.9 % |
 | 2026-09-16 | 59 | 1 | 17 | 0 | 0 | 23 | 10 | 50.0 % |
 | 2026-09-17 | 42 | 5 | 14 | 4 | 0 | 28 | 5 | 72.4 % |
 | 2026-09-18 | 48 | 1 | 10 | 2 | 1 | 20 | 4 | 58.7 % |
 | 2026-09-19 | 5 | 2 | 13 | 1 | 35 | 25 | 12 | 58.3 % |
-| 2026-09-21 | 68 | 13 | 40 | 7 | 8 | 43 | 32 | 58.7 % |
+| 2026-09-21 | 68 | 13 | 39 | 7 | 8 | 43 | 32 | 58.7 % |
 | 2026-09-23 | 32 | 2 | 29 | 2 | 12 | 23 | 20 | 64.3 % |
 | 2026-09-26 | 21 | 3 | 24 | 7 | 2 | 0 | 0 | 62.1 % |
 | 2026-09-28 | 21 | 3 | 29 | 1 | 1 | 0 | 0 | 61.0 % |
-| 2026-09-30 | 27 | 8 | 12 | 0 | 2 | 0 | 0 | 62.1 % |
+| 2026-09-30 | 23 | 8 | 12 | 0 | 2 | 0 | 0 | 62.1 % |
 
 ## Reader passes (the loop)
 
@@ -61,12 +61,12 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | bucket | name | fixes |
 |---|---|---|
 | B18 | verb matches its subject | 64 |
-| B5 | past tense | 57 |
+| B5 | past tense | 56 |
 | B12 | make-X vs get-X | 52 |
 | D2 | verb + its fixed preposition | 48 |
 | D4 | endings on verbs | 45 |
 | B1 | present with b- | 38 |
-| A2 | idafa (possession) | 35 |
+| A2 | idafa (possession) | 33 |
 | A8 | gender on adjectives | 33 |
 | D1 | prepositions | 26 |
 | A9 | plurals | 26 |
@@ -77,7 +77,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | B11 | negative commands | 15 |
 | B2 | b-drop after modals | 14 |
 | B3 | b-drop after time words | 13 |
-| E1 | number + noun | 13 |
+| E1 | number + noun | 12 |
 | A7 | noun + adjective | 11 |
 | C4 | saying no | 11 |
 | C7 | illi | 10 |
@@ -95,13 +95,13 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | C9 | word order | 3 |
 | C1 | no word for 'to be' | 3 |
 | A11 | kul: all vs every | 3 |
-| A5 | chain possession | 3 |
 | C5 | u / aw / willa / wala | 2 |
 | C6 | iza / lamma | 2 |
 | A10b | demonstrative keeps el- | 2 |
 | A9b | broken plurals are patterns | 2 |
 | C10 | preposition goes in front | 2 |
 | C4b | words that drag a ma along | 2 |
+| A5 | chain possession | 2 |
 | E3 | time units, two-of and many-of | 2 |
 | B9 | person on ykoon | 1 |
 | C8 | question words | 1 |
@@ -569,7 +569,7 @@ _Latin-transliterated stretch 40:47-59:51 plus 1:02:24-1:02:27 (Medi's Arabizi, 
 | FA-39494241 | 12:45 | grammar | A2 | آآآ، ع الـ-- أول الكلمة. ... الأول الـ-- فعل الكلمة. | لا، أول الكلمة. | الـ-- أول الكلمة -> أول الكلمة | Idafa head takes no el-; she said لا، أول الكلمة; he repeated الأول at 12:50 and she let it pass (mm-hmm). | medium | r1+r2 |
 | FA-4c52e07c | 13:10 | grammar | B12 | means to make something stop working. | مم. It's not بخرب yet. It's بخرب. (bkharreb vs bkhrab) | بخرب = to make something stop working -> بخرَب = I stop working / break down (بخرِّب is the causative) | He read the plain form as the make-X causative; she said it's not بخرّب yet, and he then said 'I stop working' (13:23). | high | r1+r2 |
 | FA-02708c1c | 16:03 | grammar | B5 | آآآ، هي خربات. | mm-hmm. خربت. | خربات -> خربت | Past tense she-ending is -at (خربت); he said خربات and asked again at 16:18 ('It's خربات or خربات؟'), she repeated خربت. خربوا. | high | r1+r2 |
-| FA-e087be57 | 16:18 | grammar | B5 | خربوا. It's خربات or خربات؟ خربات. خربات. خربوا. | خربت. خربوا. | خربات -> خربت | Fifteen seconds after her first fix (16:06) he produced the she-form as خربات again while asking which was right, and she recast خربت a second time; low because the engine spells both of his alternatives the same, so the exact contrast he was asking about is unseen. | low | r3 |
+| FA-e087be57 | 16:18 | rejected | B5 | خربوا. It's خربات or خربات؟ خربات. خربات. خربوا. | خربت. خربوا. | خربات -> خربت | Fifteen seconds after her first fix (16:06) he produced the she-form as خربات again while asking which was right, and she recast خربت a second time; low because the engine spells both of his alternatives the same, so the exact contrast he was asking about is unseen. | low | r3 |
 | FA-227a7611 | 17:31 | grammar | A4 | with AC, can I say that? Air conditioning. تباي. | مم. تبعيت. We don't-- We haven't discussed تبعيت a lot yet. So تبعيت. | تباي -> تبعي (her form transcribed as تبعيت, possibly تبعتي) | He tried the possessive particle تبع + my-ending for 'my AC' and asked 'can I say that?'; she recast the form three times (transcribed تبعيت, likely تبعتي or تبعي) and said they had not covered it much. Possession-marker construction = A4, not a lexical item; low because her form is garbled and his تباي may be only تبعي with the ع softened (which would be S4). | medium | r3 |
 | FA-0de2bd00 | 17:53 | vocab-B | tier 1 | the air conditioning تباي، آآآ، خرب. بارد. | مم. ... So I fixed it. | بارد -> مبارح (my reading) | Retelling her 'my AC stopped working yesterday, so I fixed it', the word after خرب is بارد (cold) where 'yesterday' (sheet: 'yesterday / Mbaare7 / مبارح') belongs; بارد and مبارح are near-homophones, so this may be an engine rendering or a real sound-alike slip - she said مم and prompted the next clause. Amal to confirm. | low | r3 |
 | FA-d0203927 | 18:04 | vocab-A | tier 1 | صححته. | صلحته. | صححته -> صلحته | For 'I fixed it' he used صحّح (to correct); she recast صلّحته (to repair), a different lexical item. | high | r1+r2 |
@@ -1131,7 +1131,7 @@ _Whole file read. 800 Medi turns: 348 with Arabic script, ~130 more in Latin tra
 | FA-65a3568d | 45:02 | grammar | B1 | أقيم الـ مي | Perfect. | أقيم -> بقيم | Bare present again (sheet: i remove / Ana ba2eem / أنا بقيم); aloud she said 'Perfect' for the verb choice, her chat writes ba2eem with the b-. | medium | r1+r2 |
 | FA-b106381b | 45:13 | grammar | B12 | Or برجع الـ rose في الـ طنجرة. | Or برجع أحط الرز. ... برجع أحطه أو برجعه، بس we didn't يعني expand on this version of برجع، برجّع. | برجع الـ rose -> برجع أحط الرز / برجّعه | برجع (I go back) cannot take the rice as object; 'put it back' is برجع أحطه or the doubled برجّعه; she recast and explained the two verbs. | medium | r1+r2 |
 | FA-f45c7a9f | 46:23 | vocab-A | tier 2 | uh، زبداية. | زبدة. | زبداية -> زبدة | Invented shape of a word he knows (sheet: butter / Zibdeh / زبدة); she recast, he repeated. | high | r1+r2 |
-| FA-f5f88ca6 | 46:49 | vocab-A | tier 2 | بزيد الـ- الـ زبداية. | زبدة. | زبداية -> زبدة | Same wrong shape twenty seconds after her first fix; she recast again. | high | r1+r2 |
+| FA-f5f88ca6 | 46:49 | rejected | tier 2 | بزيد الـ- الـ زبداية. | زبدة. | زبداية -> زبدة | Same wrong shape twenty seconds after her first fix; she recast again. | high | r1+r2 |
 | FA-79f03b2c | 47:14 | grammar | A2 | لازم أحط شوي زيت، uh، في الـ تحت الطنجرة. | mm-hmm. | في الـ تحت الطنجرة -> في الطنجرة / تحت الطنجرة | el- on تحت, the first word of تحت الطنجرة - the same التحت pattern he repeats at 51:59 and 52:40; she accepted aloud and her chat drops the تحت altogether (fi el-tunjara). Low: 'في الـ' could be a restart. | low | r3 |
 | FA-32ec2df1 | 47:43 | vocab-A | tier 1 | بعدين، uh، بس أعمل الـ، الـ، الـ ... Would I say الـ تحت تاني من مقلاة؟ | You could say بستعمل الـ whatever spoon is you're gonna say، آآآ بالعكس | أعمل -> بستعمل | 'Then I use the other end of the ladle' with أعمل (do / make, and without b-); she rebuilt the sentence with بستعمل (sheet: use / Esta3mel / استعمل). Low: 'بس أعمل' could be the ASR splitting a stumbled بستعمل, though his أساهم at 43:03 and 49:00 says he did not have the verb. | low | r3 |
 | FA-522ecc47 | 48:02 | vocab-A | tier 1 | الـ تحت تاني من مقلاة، مقلاة؟ | لا، لا تحت is just under. Below. Under. ... الجهة. جهة is side. ... بالعكس أو عكس الـ | الـ تحت تاني -> عكس الـ / الجهة | تحت (sheet: down / under / bottom / below / Ta7t) used for 'the other end/side'; she said لا and gave جهة / عكس (sheet: opposite / 3aks / عكس). | high | r1+r2 |
@@ -1416,7 +1416,7 @@ _Long Latin-transliterated stretch ~23:58-1:00:30 (engine wrote Arabic as Latin)
 | FA-397411f9 | 09:17 | grammar | B5 | It would be جابت؟ بجيب، جابت. | جبت. ... Cuz بجيب، جبت. | جابت -> جبت | 'I brought' is جبت; he used the she-form جابت and repeated it at 09:29 and 09:42 despite the recast. | high | r1+r2 |
 | FA-851d7b7d | 09:42 | grammar-B | B5 | Um, جابت أكثر... |  | جابت -> جبت | She had just fixed جابت -> جبت at 09:28-09:31 ('بجيب، جبت'); he said جابت again for 'I brought' and she let it pass. | medium | r3 |
 | FA-0710b68a | 09:49 | grammar | E1 | Okay, أكثر من عشرين سجاد | سجادة. | عشرين سجاد -> عشرين سجادة | 11+ takes a singular noun; she recast سجادة. | high | r3 |
-| FA-89f175fa | 10:05 | grammar | E1 | Uh, [laughing] أكثر من عشرين سجاد | يعني بعت أكتر من عشرين سجادة. | عشرين سجاد -> عشرين سجادة | Right after her 09:58 fix he said سجاد again; she recast سجادة a second time. | high | r3 |
+| FA-89f175fa | 10:05 | rejected | E1 | Uh, [laughing] أكثر من عشرين سجاد | يعني بعت أكتر من عشرين سجادة. | عشرين سجاد -> عشرين سجادة | Right after her 09:58 fix he said سجاد again; she recast سجادة a second time. | high | r3 |
 | FA-0220c169 | 10:20 | vocab-A (listening) | tier 1 | بعد؟ بعد. ... وبعد. | بعت، أنت بعت. ... No, no, no، بعت. إيش يعني بعت؟ | بعد -> بعت | He heard/repeated her بعت (sold) as بعد (after); Amal said no no no, بعت. | medium | r1+r2 |
 | FA-52212aa1 | 11:03 | grammar | B18 | ما، ما شطار. ما شطار. | ما؟ They are a group so they didn't. ... ستروا. Yes. | ما شطار -> ما اشتروا | He used a singular form for 'they didn't buy'; Amal prompted 'they are a group' and he fixed to شطارو (اشتروا). | high | r1+r2 |
 | FA-ac0aab01 | 12:15 | vocab-A | tier 2 | مواعد. ... Yeah الموعد. | موعد. | مواعد -> موعد | He said مواعد (plural-like form) for 'appointment'; she recast موعد (sheet: appointment / Maw3ed / موعد). | high | r1+r2 |
@@ -1439,7 +1439,7 @@ _Long Latin-transliterated stretch ~23:58-1:00:30 (engine wrote Arabic as Latin)
 | FA-7b4748c3 | 34:45 | grammar-B | A8 | Oh, طاولة كبير, yeah. |  | طاولة كبير -> طاولة كبيرة | طاولة is feminine; he said كبير (he had كبيرة at 34:33, may be engine). | low | r1+r2 |
 | FA-64edd83a | 37:28 | grammar | A8 | Maftuha. | مفتوح. | Maftuha -> مفتوح | باب is masculine; Amal repeated مفتوح and he fixed ('cause it's bab'). | high | r1+r2 |
 | FA-82920154 | 37:47 | grammar | A2 | So el ba-- No. Yeah, el bab. | No ال. | el bab -> bab | First word of idafa never takes el-: باب الغرفة المفتوح. | high | r1+r2 |
-| FA-d2b70664 | 38:36 | grammar | A2 | Arabic lesson, al-dars al-arabi. | Where do I put the ال؟ ... the Arabic lesson of Arabic is درس العربي. | al-dars al-arabi -> dars al-arabi | In the idafa drill she prompted the el- placement; he moved to dars al-arabi; she explained both readings. | medium | r1+r2 |
+| FA-3d12e536 | 38:36 | rejected | A2 | Arabic lesson, al-dars al-arabi. | Where do I put the ال؟ ... the Arabic lesson of Arabic is درس العربي. | al-dars al-arabi -> dars al-arabi | In the idafa drill she prompted the el- placement; he moved to dars al-arabi; she explained both readings. | medium | r1+r2 |
 | FA-3454229c | 41:40 | vocab-A | tier 0 | is sick. Uh, awahi ... I forgot the word for, like, mild sickness. | عيانة. | is sick -> عيانة | He forgot 'sick' and asked; Amal supplied عيانة (sheet: 'sick / 3ayaan / عيان'). | high | r1+r2 |
 | FA-5d4cb265 | 42:34 | grammar | A7 | walad al, uh, ayan. / So walad al ayan now, the sick boy. | So where, where do I put the ال؟ ... No. ... It's not boy the sick. It's the sick boy. | walad al ayan -> الولد العيان | Noun + adjective both take el-; he put it only on the adjective like idafa; Amal said no. | high | r1+r2 |
 | FA-2f6c3602 | 43:14 | grammar | B2 | لازم بيدل بيته. | لازم. | لازم بيدل -> لازم يضل | No b- after لازم; Amal repeated لازم and he fixed to يدل. | high | r1+r2 |
@@ -1451,8 +1451,8 @@ _Long Latin-transliterated stretch ~23:58-1:00:30 (engine wrote Arabic as Latin)
 | FA-d70bdfa2 | 53:38 | grammar | A3 | el kunda-- or kundara el Chanel. | Kundera rit because Kundera is... | kundara el Chanel -> kundret el Chanel | Feminine كندرة grows -t before the owner; she said 'Kundera-t because...'. Engine writes his repeat as kundara, so whether he fixed it is unclear. | medium | r3 |
 | FA-16c519c0 | 57:02 | grammar | C1 | Uh, Fehon. ... Is this pointer rule Fehon Hon? | ليش فيه هون؟ ... No, they're just هون. طلاب الجامعة هون. | فيه هون -> هون | 'Are here' needs no verb; فيه means 'there is'; Amal said no, just هون. | high | r1+r2 |
 | FA-2e421be3 | 58:55 | vocab-A | tier 1 | Jazam. Oh, jazam. | What's bag؟ Uh, the other word like big bag، backpack ... شنتة سفر. | Jazam -> شنتة سفر | For 'suitcase' he offered جزدان (purse); Amal asked for 'the other word' and then supplied شنتة سفر (sheet: 'suitcase / Shantet safar / شنتة سفر'). | medium | r1+r2 |
-| FA-6b73e313 | 59:28 | grammar | A2 | Hadi el, uh, shanta Zahadi. | So why did you put ال؟ هذه. ... يعني شنتة السفر هذه إلي. | Hadi el shanta -> هادي شنتة السفر / شنتة السفر هذه | شنتة سفر is idafa so el- goes on the second word, not شنتة; Amal asked why he put ال and moved هذه after. | medium | r1+r2 |
+| FA-b13d13da | 59:28 | rejected | A2 | Hadi el, uh, shanta Zahadi. | So why did you put ال؟ هذه. ... يعني شنتة السفر هذه إلي. | Hadi el shanta -> هادي شنتة السفر / شنتة السفر هذه | شنتة سفر is idafa so el- goes on the second word, not شنتة; Amal asked why he put ال and moved هذه after. | medium | r1+r2 |
 | FA-e0e0f7b5 | 1:01:25 | vocab-A | tier 2 | راح يصلوا، يصلوا | يوصلوا. | يصلوا -> يوصلوا | He used the MSA stem يصلوا; Amal recast Levantine يوصلوا (sheet: 'i arrive / bawsal / بوصل'). | high | r1+r2 |
-| FA-ce33fd4f | 1:02:30 | grammar | A5 | So صديقة-- | House. | صديقة -> بيت صديقة خطيبتي | In a chain the owned thing (بيت) comes first; he started with صديقة, she prompted 'House.', he fixed to بيت صديقة خطيبتي. | medium | r3 |
+| FA-bae8d298 | 1:02:30 | rejected | A5 | So صديقة-- | House. | صديقة -> بيت صديقة خطيبتي | In a chain the owned thing (بيت) comes first; he started with صديقة, she prompted 'House.', he fixed to بيت صديقة خطيبتي. | medium | r3 |
 | FA-32e83e6b | 1:04:18 | vocab-A | tier 1 | So after هذي and هدول and هناك and, | هناك is what؟ | هناك -> هداك | Again listed هناك (over there) as a demonstrative; she queried and he dropped it for هذاك. | high | r1+r2 |
 | FA-1d5c941e | 1:05:40 | grammar-B | B1 | Okay. أشوفك. Bye. | يلا بشوفك. | أشوفك -> بشوفك | Plain present needs b-; she had just said بشوفك and he answered أشوفك. Farewell formula, could be engine. | low | r3 |

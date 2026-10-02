@@ -266,11 +266,12 @@ def test_ledger_revision_history_latest_human_wins():
 
 
 # ---------------------------------------------------------------- item 7: grammar denominator
-def test_grammar_denominator_latin_slips_invalid():
-    """09-04 22:09: the engine wrote his try in Latin letters ('M-mitruj?'); the usage counter skips Latin turns."""
+def test_grammar_denominator_latin_slips_counted_not_invalid():
+    """09-04 22:09: the engine wrote his try in Latin letters ('M-mitruj?'). Since 2026-10-01 the usage counter reads
+    Latin turns (scripts/arabizi_reader.py), so a Latin slip alone no longer invalidates the denominator; it is still counted."""
     den = G.grammar_denominator([{"said": "maruj baru... Is it m-maruj? M-mitruj?", "bucket": "B15"},
                                  {"said": "أنا بتحمس", "bucket": "B15"}], {"uses": 70, "by_bucket": {"B15": 3}})
-    assert not den["valid"] and den["slips_latin"] == 1
+    assert den["valid"] and den["slips_latin"] == 1
 
 
 def test_grammar_denominator_valid_when_counter_saw_every_slip():

@@ -1,5 +1,5 @@
 {
- "built": "2026-09-30T17:23:57-07:00",
+ "built": "2026-10-02T00:57:34-07:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -3614,29 +3614,6 @@
     "mistake": "Past tense she-ending is -at (خربت); he said خربات and asked again at 16:18 ('It's خربات or خربات؟'), she repeated خربت. خربوا.",
     "bucket": "B5",
     "bucket2": "F2",
-    "new_bucket_group": null
-   },
-   {
-    "id": "FA-e087be57",
-    "date": "2026-09-11",
-    "t": "16:18",
-    "t_amal": "16:21",
-    "medi_said": "خربوا. It's خربات or خربات؟ خربات. خربات. خربوا.",
-    "amal_said": "خربت. خربوا.",
-    "chat": null,
-    "wrong": "خربات",
-    "right": "خربت",
-    "confidence": "low",
-    "confidence_why": "Transcript shows a repeat of the she-form slip with a second recast from Amal, a separate moment from the agreed 16:03 row; kept low because his two alternatives are transcribed identically.",
-    "signal": "recast",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-e087be57",
-    "sweep_id": null,
-    "mistake": "Fifteen seconds after her first fix (16:06) he produced the she-form as خربات again while asking which was right, and she recast خربت a second time; low because the engine spells both of his alternatives the same, so the exact contrast he was asking about is unseen.",
-    "bucket": "B5",
-    "bucket2": null,
     "new_bucket_group": null
    },
    {
@@ -14036,29 +14013,6 @@
     "new_bucket_group": null
    },
    {
-    "id": "FA-89f175fa",
-    "date": "2026-09-30",
-    "t": "10:05",
-    "t_amal": "10:11",
-    "medi_said": "Uh, [laughing] أكثر من عشرين سجاد",
-    "amal_said": "يعني بعت أكتر من عشرين سجادة.",
-    "chat": null,
-    "wrong": "عشرين سجاد",
-    "right": "عشرين سجادة",
-    "confidence": "high",
-    "confidence_why": "Repeat slip after the fix, recast again - own row.",
-    "signal": "recast",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-89f175fa",
-    "sweep_id": null,
-    "mistake": "Right after her 09:58 fix he said سجاد again; she recast سجادة a second time.",
-    "bucket": "E1",
-    "bucket2": null,
-    "new_bucket_group": null
-   },
-   {
     "id": "FA-52212aa1",
     "date": "2026-09-30",
     "t": "11:03",
@@ -14289,29 +14243,6 @@
     "new_bucket_group": null
    },
    {
-    "id": "FA-d2b70664",
-    "date": "2026-09-30",
-    "t": "38:36",
-    "t_amal": "38:40",
-    "medi_said": "Arabic lesson, al-dars al-arabi.",
-    "amal_said": "Where do I put the ال؟ ... the Arabic lesson of Arabic is درس العربي.",
-    "chat": null,
-    "wrong": "al-dars al-arabi",
-    "right": "dars al-arabi",
-    "confidence": "medium",
-    "confidence_why": "r1+r2",
-    "signal": "prompt-then-fix",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-d2b70664",
-    "sweep_id": null,
-    "mistake": "In the idafa drill she prompted the el- placement; he moved to dars al-arabi; she explained both readings.",
-    "bucket": "A2",
-    "bucket2": null,
-    "new_bucket_group": null
-   },
-   {
     "id": "FA-5d4cb265",
     "date": "2026-09-30",
     "t": "42:34",
@@ -14492,52 +14423,6 @@
     "sweep_id": null,
     "mistake": "'Are here' needs no verb; فيه means 'there is'; Amal said no, just هون.",
     "bucket": "C1",
-    "bucket2": null,
-    "new_bucket_group": null
-   },
-   {
-    "id": "FA-6b73e313",
-    "date": "2026-09-30",
-    "t": "59:28",
-    "t_amal": "59:41",
-    "medi_said": "Hadi el, uh, shanta Zahadi.",
-    "amal_said": "So why did you put ال؟ هذه. ... يعني شنتة السفر هذه إلي.",
-    "chat": null,
-    "wrong": "Hadi el shanta",
-    "right": "هادي شنتة السفر / شنتة السفر هذه",
-    "confidence": "medium",
-    "confidence_why": "r1+r2",
-    "signal": "explicit-no",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-6b73e313",
-    "sweep_id": null,
-    "mistake": "شنتة سفر is idafa so el- goes on the second word, not شنتة; Amal asked why he put ال and moved هذه after.",
-    "bucket": "A2",
-    "bucket2": "A10b",
-    "new_bucket_group": null
-   },
-   {
-    "id": "FA-ce33fd4f",
-    "date": "2026-09-30",
-    "t": "1:02:30",
-    "t_amal": "1:02:32",
-    "medi_said": "So صديقة--",
-    "amal_said": "House.",
-    "chat": null,
-    "wrong": "صديقة",
-    "right": "بيت صديقة خطيبتي",
-    "confidence": "medium",
-    "confidence_why": "Real prompt-then-fix.",
-    "signal": "prompt-then-fix",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-ce33fd4f",
-    "sweep_id": null,
-    "mistake": "In a chain the owned thing (بيت) comes first; he started with صديقة, she prompted 'House.', he fixed to بيت صديقة خطيبتي.",
-    "bucket": "A5",
     "bucket2": null,
     "new_bucket_group": null
    }
@@ -19720,31 +19605,6 @@
     "amal_gave_arabizi": null
    },
    {
-    "id": "FA-f5f88ca6",
-    "date": "2026-09-21",
-    "t": "46:49",
-    "t_amal": "46:53",
-    "medi_said": "بزيد الـ- الـ زبداية.",
-    "amal_said": "زبدة.",
-    "chat": "u bazeed zibde",
-    "wrong": "زبداية",
-    "right": "زبدة",
-    "confidence": "high",
-    "confidence_why": "r1+r2",
-    "signal": "recast",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-f5f88ca6",
-    "sweep_id": "V0921-110",
-    "amal_gave": "زبدة",
-    "english": "I add the butter",
-    "why": "Same wrong shape twenty seconds after her first fix; she recast again.",
-    "kind": "wrong-word",
-    "tier": 2,
-    "amal_gave_arabizi": null
-   },
-   {
     "id": "FA-32ec2df1",
     "date": "2026-09-21",
     "t": "47:43",
@@ -23090,8 +22950,8 @@
   "pron_from_sweep": [],
   "hand_check": {},
   "totals": {
-   "speaking_grammar": 600,
-   "vocab": 294,
+   "speaking_grammar": 595,
+   "vocab": 293,
    "machine_caught_speaking": 104
   }
  },
@@ -23099,13 +22959,13 @@
  "lessons_missing": [],
  "totals": {
   "rows": 1114,
-  "grammar_A": 600,
+  "grammar_A": 595,
   "grammar_B": 90,
-  "vocab_A": 294,
+  "vocab_A": 293,
   "vocab_A_by_tier": {
    "1": 172,
    "0": 105,
-   "2": 56,
+   "2": 55,
    "3": 6
   },
   "vocab_B": 45,
@@ -23130,12 +22990,12 @@
  },
  "by_bucket": {
   "B18": 64,
-  "B5": 57,
+  "B5": 56,
   "B12": 52,
   "D2": 48,
   "D4": 45,
   "B1": 38,
-  "A2": 35,
+  "A2": 33,
   "A8": 33,
   "D1": 26,
   "A9": 26,
@@ -23146,7 +23006,7 @@
   "B11": 15,
   "B2": 14,
   "B3": 13,
-  "E1": 13,
+  "E1": 12,
   "A7": 11,
   "C4": 11,
   "C7": 10,
@@ -23164,13 +23024,13 @@
   "C9": 3,
   "C1": 3,
   "A11": 3,
-  "A5": 3,
   "C5": 2,
   "C6": 2,
   "A10b": 2,
   "A9b": 2,
   "C10": 2,
   "C4b": 2,
+  "A5": 2,
   "E3": 2,
   "B9": 1,
   "C8": 1,
@@ -23220,7 +23080,7 @@
    "sweep_vocab_before": 10
   },
   "2026-09-11": {
-   "grammar_A": 34,
+   "grammar_A": 33,
    "grammar_B": 9,
    "vocab_A": 14,
    "vocab_B": 6,
@@ -23285,7 +23145,7 @@
   "2026-09-21": {
    "grammar_A": 68,
    "grammar_B": 13,
-   "vocab_A": 40,
+   "vocab_A": 39,
    "vocab_B": 7,
    "listening": 8,
    "sweep_grammar_before": 43,
@@ -23319,7 +23179,7 @@
    "sweep_vocab_before": 0
   },
   "2026-09-30": {
-   "grammar_A": 27,
+   "grammar_A": 23,
    "grammar_B": 8,
    "vocab_A": 12,
    "vocab_B": 0,
@@ -35919,7 +35779,10 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-02708c1c",
-   "n": 304
+   "n": 304,
+   "duplicates_merged": [
+    "FA-e087be57"
+   ]
   },
   {
    "id": "0911-D6",
@@ -35930,7 +35793,7 @@
    "chat": null,
    "wrong": "خربات",
    "right": "خربت",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "B5",
    "bucket2": null,
@@ -35953,7 +35816,10 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-e087be57",
-   "n": 305
+   "n": 305,
+   "kind_before_rejection": "grammar",
+   "duplicate_of": "FA-02708c1c",
+   "rejected_why": "duplicate of FA-02708c1c: he repeated the same wrong phrase within 30 s, one slip (Medi 2026-10-01)"
   },
   {
    "id": "0911-r3-6",
@@ -49329,7 +49195,7 @@
    "n": 688,
    "kind_before_rejection": "vocab-A",
    "duplicate_of": "FA-caf56e28",
-   "rejected_why": "duplicate of FA-caf56e28: 07:03-07:15 one episode: the month said as ستة instead of تسعة, queried once and recast once (one retrieval episode, one result - SESSION-DECISIONS 2026-09-21)"
+   "rejected_why": "duplicate of FA-caf56e28: he repeated the same wrong phrase within 30 s, one slip (Medi 2026-10-01)"
   },
   {
    "id": "0919-D3",
@@ -53924,7 +53790,10 @@
    "sweep_id": "V0921-109",
    "machine_had": false,
    "uid": "FA-f45c7a9f",
-   "n": 817
+   "n": 817,
+   "duplicates_merged": [
+    "FA-f5f88ca6"
+   ]
   },
   {
    "id": "0921-64",
@@ -53935,7 +53804,7 @@
    "chat": "u bazeed zibde",
    "wrong": "زبداية",
    "right": "زبدة",
-   "kind": "vocab-A",
+   "kind": "rejected",
    "tier": 2,
    "bucket": null,
    "bucket2": null,
@@ -53960,7 +53829,10 @@
    "sweep_id": "V0921-110",
    "machine_had": false,
    "uid": "FA-f5f88ca6",
-   "n": 818
+   "n": 818,
+   "kind_before_rejection": "vocab-A",
+   "duplicate_of": "FA-f45c7a9f",
+   "rejected_why": "duplicate of FA-f45c7a9f: he repeated the same wrong phrase within 30 s, one slip (Medi 2026-10-01)"
   },
   {
    "id": "0921-D20",
@@ -62686,7 +62558,7 @@
    "bucket2": "C4",
    "mode": "speaking",
    "signal": "recast",
-   "confidence": "medium",
+   "confidence": "high",
    "why": "Talking about yesterday he used present مش + adjective; Amal recast with past كان negated by ما.",
    "english": "I wasn't motivated (yesterday)",
    "ids": [
@@ -62703,7 +62575,14 @@
    "machine_had": false,
    "bucket_name": "kaan = was / were",
    "uid": "FA-825af56d",
-   "n": 1068
+   "n": 1068,
+   "amal_ruling": {
+    "kind": "confirm",
+    "at": "2026-10-01T18:59:57.854715+00:00",
+    "rule_id": 2029,
+    "label": "Wrong word",
+    "alias": null
+   }
   },
   {
    "id": "0930-r3-2",
@@ -62784,7 +62663,7 @@
    "chat": null,
    "wrong": "إنهم",
    "right": "إلهم",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "D2",
    "bucket2": null,
@@ -62807,7 +62686,15 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-a0a76d00",
-   "n": 1071
+   "n": 1071,
+   "kind_before_rejection": "grammar",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-01",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-01T19:00:09.453719+00:00",
+    "rule_id": 2030,
+    "label": "Right"
+   }
   },
   {
    "id": "0930-7",
@@ -62852,13 +62739,13 @@
    "chat": null,
    "wrong": "جابت",
    "right": "جبت",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "B5",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "She had just fixed جابت -> جبت at 09:28-09:31 ('بجيب، جبت'); he said جابت again for 'I brought' and she let it pass.",
    "english": "I brought more...",
    "ids": [
@@ -62876,7 +62763,13 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-851d7b7d",
-   "n": 1073
+   "n": 1073,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-i-past-as-she-form",
+    "at": "2026-10-01T19:01:47.325456+00:00",
+    "rule_id": 2033
+   }
   },
   {
    "id": "0930-r3-14",
@@ -62910,7 +62803,10 @@
    "machine_had": false,
    "bucket_name": "number + noun",
    "uid": "FA-0710b68a",
-   "n": 1074
+   "n": 1074,
+   "duplicates_merged": [
+    "FA-89f175fa"
+   ]
   },
   {
    "id": "0930-r3-15",
@@ -62921,7 +62817,7 @@
    "chat": null,
    "wrong": "عشرين سجاد",
    "right": "عشرين سجادة",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "E1",
    "bucket2": null,
@@ -62944,7 +62840,10 @@
    "machine_had": false,
    "bucket_name": "number + noun",
    "uid": "FA-89f175fa",
-   "n": 1075
+   "n": 1075,
+   "kind_before_rejection": "grammar",
+   "duplicate_of": "FA-0710b68a",
+   "rejected_why": "duplicate of FA-0710b68a: he repeated the same wrong phrase within 30 s, one slip (Medi 2026-10-01)"
   },
   {
    "id": "0930-10",
@@ -63089,12 +62988,12 @@
    "chat": null,
    "wrong": "أسبوع الماضي",
    "right": "الأسبوع الماضي",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A7",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
+   "signal": "amal-ruling",
    "confidence": "high",
    "why": "Noun + adjective both need el- (she just said من الأسبوع الماضي); he dropped it and she moved on.",
    "english": "since last week",
@@ -63112,7 +63011,13 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-7838fd1e",
-   "n": 1080
+   "n": 1080,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-el-missing-on-noun",
+    "at": "2026-10-01T19:01:26.085858+00:00",
+    "rule_id": 2031
+   }
   },
   {
    "id": "0930-15",
@@ -63157,7 +63062,7 @@
    "chat": null,
    "wrong": "شفت",
    "right": "فرجيت (show: فرجي)",
-   "kind": "vocab-A",
+   "kind": "rejected",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
@@ -63179,7 +63084,15 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-121421d4",
-   "n": 1082
+   "n": 1082,
+   "kind_before_rejection": "vocab-A",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-01",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-01T18:59:28.600788+00:00",
+    "rule_id": 2026,
+    "label": "Right"
+   }
   },
   {
    "id": "0930-17",
@@ -63325,13 +63238,13 @@
    "chat": null,
    "wrong": "هدول",
    "right": "هدولاك",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "tier": null,
    "bucket": "A10",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
+   "signal": "amal-ruling",
+   "confidence": "high",
    "why": "He asked for 'those' but used هدول 'these' (he says 'Hadol is these' at 26:50; sheet: those | هدولاك); Amal's صح was about el- placement.",
    "english": "those expensive dresses",
    "ids": [
@@ -63348,7 +63261,13 @@
    "machine_had": false,
    "bucket_name": "hada / hadi",
    "uid": "FA-21490966",
-   "n": 1087
+   "n": 1087,
+   "amal_ruling": {
+    "kind": "confirm",
+    "pattern": "p-hadol-for-hadolak",
+    "at": "2026-10-01T19:01:38.380239+00:00",
+    "rule_id": 2032
+   }
   },
   {
    "id": "0930-20",
@@ -63460,7 +63379,7 @@
    "chat": null,
    "wrong": "zalameh",
    "right": "shab",
-   "kind": "vocab-A",
+   "kind": "rejected",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
@@ -63482,7 +63401,15 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-39e4e568",
-   "n": 1091
+   "n": 1091,
+   "kind_before_rejection": "vocab-A",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-01",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-01T18:59:39.093971+00:00",
+    "rule_id": 2027,
+    "label": "Right"
+   }
   },
   {
    "id": "0930-27",
@@ -63696,7 +63623,7 @@
    "chat": null,
    "wrong": "al-dars al-arabi",
    "right": "dars al-arabi",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "A2",
    "bucket2": null,
@@ -63717,8 +63644,10 @@
    "date": "2026-09-30",
    "source": "audit-2026-09-26",
    "machine_had": false,
+   "kind_before_rejection": "grammar",
+   "rejected_why": "hand check 2026-10-02 (Medi's read 10-01): Amal explained both readings are valid (38:47 الدرس العربي = the lesson that is Arabic); not a slip",
    "bucket_name": "idafa (possession)",
-   "uid": "FA-d2b70664",
+   "uid": "FA-3d12e536",
    "n": 1098
   },
   {
@@ -64075,7 +64004,7 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "explicit-no",
-   "confidence": "medium",
+   "confidence": "high",
    "why": "For 'suitcase' he offered جزدان (purse); Amal asked for 'the other word' and then supplied شنتة سفر (sheet: 'suitcase | Shantet safar | شنتة سفر').",
    "english": "suitcase",
    "ids": [
@@ -64091,7 +64020,14 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-2e421be3",
-   "n": 1109
+   "n": 1109,
+   "amal_ruling": {
+    "kind": "confirm",
+    "at": "2026-10-01T18:59:48.732338+00:00",
+    "rule_id": 2028,
+    "label": "Wrong word",
+    "alias": null
+   }
   },
   {
    "id": "0930-44",
@@ -64102,7 +64038,7 @@
    "chat": null,
    "wrong": "Hadi el shanta",
    "right": "هادي شنتة السفر / شنتة السفر هذه",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "A2",
    "bucket2": "A10b",
@@ -64123,8 +64059,10 @@
    "date": "2026-09-30",
    "source": "audit-2026-09-26",
    "machine_had": false,
+   "kind_before_rejection": "grammar",
+   "rejected_why": "hand check 2026-10-02 (Medi's read 10-01): 'Hadi el shanta' applies the hadi + el rule (A10b) just drilled; Amal re-phrased to شنتة السفر هذه, not a mistake",
    "bucket_name": "idafa (possession)",
-   "uid": "FA-6b73e313",
+   "uid": "FA-b13d13da",
    "n": 1110
   },
   {
@@ -64169,7 +64107,7 @@
    "chat": null,
    "wrong": "صديقة",
    "right": "بيت صديقة خطيبتي",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "A5",
    "bucket2": null,
@@ -64190,8 +64128,10 @@
    "date": "2026-09-30",
    "source": "audit-2026-09-26",
    "machine_had": false,
+   "kind_before_rejection": "grammar",
+   "rejected_why": "hand check 2026-10-02 (Medi's read 10-01): mid-sentence - he had said صديقة, Amal supplied the next word (House.), he built بيت صديقة خطيبتي at 63:00 and she said ممتاز; not a slip",
    "bucket_name": "chain possession",
-   "uid": "FA-ce33fd4f",
+   "uid": "FA-bae8d298",
    "n": 1112
   },
   {
@@ -64264,7 +64204,7 @@
  ],
  "rulings_applied": [
   {
-   "at": "2026-10-01T00:37:31.733904+00:00",
+   "at": "2026-10-02T07:57:36.578308+00:00",
    "rules": [
     1928,
     1929,
@@ -64344,7 +64284,15 @@
     2005,
     2006,
     2007,
-    2008
+    2008,
+    2031,
+    2032,
+    2033,
+    2026,
+    2027,
+    2028,
+    2029,
+    2030
    ]
   }
  ]
