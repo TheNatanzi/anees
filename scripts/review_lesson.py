@@ -227,13 +227,24 @@ def pin(out, inputs, prompt, adopted=False):
     _gates().write_manifest(out, inputs, repo=REPO, extra=extra)
 
 
-def valid_reader_file(out, date):
-    """A reader file must be whole JSON for this lesson with a rows list; a cut-off or wrong file fails the run."""
+# Each reader file is checked against ITS OWN shape (2026-10-02 freshness audit): the third reader writes
+# {"rulings": [...], "added": [...], "challenges": [...]} (what full_audit_compare.settle reads), never "rows"; checking it
+# for "rows" failed every new lesson's review since 2026-09-29 (09-23 and 10-01 never settled, the hourly job blocked).
+READER_SHAPES = {"reader": ("rows",), "third": ("rulings",)}
+
+
+def valid_reader_file(out, date, kind="reader"):
+    """A reader file must be whole JSON for this lesson with its list (r1/r2: rows; r3: rulings, plus optional added /
+    challenges lists); a cut-off or wrong file fails the run."""
     try:
         d = json.load(open(out, encoding="utf-8"))
-        return isinstance(d, dict) and isinstance(d.get("rows"), list) and d.get("date") in (None, date)
     except Exception:
         return False
+    if not isinstance(d, dict) or d.get("date") not in (None, date):
+        return False
+    if not all(isinstance(d.get(k), list) for k in READER_SHAPES[kind]):
+        return False
+    return kind != "third" or all(isinstance(d.get(k, []), list) for k in ("added", "challenges"))
 
 
 def drop(out, why):
@@ -316,7 +327,7 @@ def main():
                outputs=[out3])
         if not os.path.exists(out3):
             log("third reader wrote nothing; stopping"); return 1
-        if not valid_reader_file(out3, d):
+        if not valid_reader_file(out3, d, kind="third"):
             os.replace(out3, out3[:-5] + ".invalid.json"); log("third reader wrote a broken file; stopping"); return 1
         pin(out3, third_in, prompt3)
     py(os.path.join(HERE, "full_audit_compare.py"), "settle", d)

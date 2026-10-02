@@ -193,5 +193,6 @@ function render(){
 document.querySelectorAll('.vp-pill').forEach(b=>b.onclick=()=>{period=b.dataset.period;document.querySelectorAll('.vp-pill').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));render();});
 document.querySelectorAll('.vp-minipill').forEach(b=>b.onclick=()=>{newView=b.dataset.newview;renderNew();});
 $('vp-retry').onclick=load;
+window.AneesLive&&AneesLive.onReturn(load);   // rule L1 (2026-10-02): live words + lesson evidence re-read when the tab comes back
 window.AneesVocabularyProgress={reload:load,get rows(){return rows;},get events(){return events;},get period(){return period;}};load();
 })();

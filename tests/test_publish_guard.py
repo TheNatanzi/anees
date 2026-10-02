@@ -320,3 +320,123 @@ def test_short_reason_names_the_failing_test():
            "      at async startSubtestAfterBootstrap {\n    code: 'ERR_ASSERTION',\n    operator: '==',\n    diff: 'simple'\n  }")
     r = G._short(out)
     assert "golden: Amal's 25" in r and "operator" not in r
+
+
+# ---------------------------------------------------------------- generated files are rebuilt, never merged (2026-10-02)
+
+def _two_clones(tmp_path, required=('json_data',)):
+    """A bare 'GitHub' + the hourly clone (work) + another writer (other). Returns (g, remote, work, other)."""
+    import shutil
+    if not shutil.which('git'):
+        pytest.skip('git not on PATH')
+    g = lambda cwd, *a: subprocess.run(['git', *a], cwd=cwd, capture_output=True, text=True, check=True).stdout.strip()
+    remote, work, other = tmp_path / 'remote.git', tmp_path / 'work', tmp_path / 'other'
+    g(tmp_path, 'init', '-q', '--bare', '-b', 'master', str(remote))
+    g(tmp_path, 'clone', '-q', str(remote), str(work))
+    for k, v in (('user.email', 't@example.com'), ('user.name', 'test'), ('core.hooksPath', 'no-hooks')):
+        g(work, 'config', k, v)
+    write(work / G.CONFIG, {'required': list(required), 'advisory': [], 'total_timeout_s': 60, 'commands': {}})
+    write(work / 'scripts' / 'write_build.py', (ROOT / 'scripts' / 'write_build.py').read_text(encoding='utf-8'))
+    write(work / 'scripts' / 'tool.py', 'x = 1\n')
+    write(work / '.gitignore', 'data/publish-guard/\n')
+    write(work / 'data' / 'runs' / '.gitattributes', '*.jsonl merge=union\n')
+    write(work / 'docs' / 'data' / 'lessons.json', {'lessons': []})
+    write(work / 'docs' / 'data' / 'build.json', {'build': 'start'})
+    write(work / 'docs' / 'data' / 'tutor.json', {'updated': 'start'})
+    write(work / 'data' / 'runs' / '2026-10.jsonl', '{"id": 1}\n')
+    g(work, 'add', '-A'); g(work, 'commit', '-q', '-m', 'start'); g(work, 'push', '-q', 'origin', 'HEAD:master')
+    g(tmp_path, 'clone', '-q', str(remote), str(other))
+    for k, v in (('user.email', 'o@example.com'), ('user.name', 'other'), ('core.hooksPath', 'no-hooks')):
+        g(other, 'config', k, v)
+    return g, remote, work, other
+
+
+def test_real_git_a_build_stamp_conflict_no_longer_stops_publishing(tmp_path):
+    """2026-09-30 17:23 -> 2026-10-02: every hourly push stopped at 'a person merges' over two build stamps (69 commits
+    stuck). A stamp conflict is now resolved (master's copy, then re-stamped) and the push goes through."""
+    g, remote, work, other = _two_clones(tmp_path)
+    write(other / 'docs' / 'data' / 'build.json', {'build': 'master-stamp'})
+    write(other / 'data' / 'runs' / '2026-10.jsonl', '{"id": 1}\n{"id": "master"}\n')
+    g(other, 'commit', '-qam', 'master moved'); g(other, 'push', '-q', 'origin', 'HEAD:master')
+    write(work / 'docs' / 'data' / 'build.json', {'build': 'hourly-stamp'})
+    write(work / 'data' / 'runs' / '2026-10.jsonl', '{"id": 1}\n{"id": "hourly"}\n')
+    write(work / 'docs' / 'data' / 'lessons.json', {'lessons': [{'date': '2026-10-01'}]})
+    g(work, 'commit', '-qam', 'hourly lesson')
+    lines = []
+    res = G.guarded_push(work, source='hourly', log=lambda *p: lines.append(' '.join(map(str, p))))
+    assert res['pushed'], res
+    assert json.loads(g(remote, 'show', 'master:docs/data/lessons.json'))['lessons'] == [{'date': '2026-10-01'}]
+    stamp = json.loads(g(remote, 'show', 'master:docs/data/build.json'))['build']
+    assert stamp not in ('master-stamp', 'hourly-stamp')                        # re-stamped after the rebase
+    runs = g(remote, 'show', 'master:data/runs/2026-10.jsonl')
+    assert '"master"' in runs and '"hourly"' in runs                            # append-only log keeps both sides
+    assert 'tutor' not in G.open_failures(work)                                 # a stamp needs no rebuild
+    assert any("kept master's copy" in l for l in lines)
+
+
+def test_real_git_a_generated_data_conflict_keeps_master_and_queues_the_rebuild(tmp_path):
+    g, remote, work, other = _two_clones(tmp_path, required=('step_failures', 'json_data'))
+    write(other / 'docs' / 'data' / 'tutor.json', {'updated': 'master'})
+    g(other, 'commit', '-qam', 'master rebuilt the Tutor page'); g(other, 'push', '-q', 'origin', 'HEAD:master')
+    write(work / 'docs' / 'data' / 'tutor.json', {'updated': 'hourly'})
+    g(work, 'commit', '-qam', 'hourly rebuilt the Tutor page')
+    res = G.guarded_push(work, source='hourly', log=lambda *p: None)
+    assert res['outcome'] == 'blocked' and 'rebuild pending' in res['reason']   # not "a person merges"
+    assert 'tutor' in G.open_failures(work)                                     # the next hourly run rebuilds it
+    assert not G._rebasing(work, subprocess.run)
+    assert json.loads((work / 'docs' / 'data' / 'tutor.json').read_text(encoding='utf-8'))['updated'] == 'master'
+    subprocess.run(['git', 'merge-base', '--is-ancestor', 'origin/master', 'HEAD'], cwd=work, check=True)   # rebased
+
+
+def test_real_git_a_hand_made_conflict_still_stops_for_a_person(tmp_path):
+    g, remote, work, other = _two_clones(tmp_path)
+    write(other / 'scripts' / 'tool.py', 'x = 2\n')
+    g(other, 'commit', '-qam', 'master edit'); g(other, 'push', '-q', 'origin', 'HEAD:master')
+    write(work / 'scripts' / 'tool.py', 'x = 3\n')
+    g(work, 'commit', '-qam', 'local edit')
+    head = g(work, 'rev-parse', 'HEAD')
+    res = G.guarded_push(work, source='hourly', log=lambda *p: None)
+    assert res['outcome'] == 'rebase_failed' and 'scripts/tool.py' in res['reason']
+    assert g(work, 'rev-parse', 'HEAD') == head and not G._rebasing(work, subprocess.run)   # aborted, nothing lost
+
+
+def test_generated_paths_cover_the_stamp_and_never_code():
+    for p in ('docs/data/build.json', 'docs/js/build.js', 'docs/data/lessons/2026-10-01.json', 'docs/data/tutor.json',
+              'data/accuracy/verification-queue.json', 'data/runs/2026-10.jsonl', 'docs/lessons/2026-09-23/clips/gc-1.mp3'):
+        assert G.is_generated(p), p
+    for p in ('scripts/publish_guard.py', 'docs/js/app.js', 'docs/progress.html', 'RULES.md',
+              'data/lesson-work/full-audit/2026-10-01.r1.json'):
+        assert not G.is_generated(p), p
+
+
+def test_data_freshness_names_a_transcribed_lesson_that_is_not_on_the_site(repo, tmp_path):
+    """Rule F1 (2026-10-02): 10-01 sat transcribed in the raw archive 11+ hours while every page ended at 09-30."""
+    raw = tmp_path / 'raw'
+    write(raw / '2026-10-01' / 'scribe_Medi.json', '{}')
+    write(raw / DATES[0] / 'scribe_Medi.json', '{}')                       # on the site: fine
+    write(raw / '2026-09-01' / 'scribe.json', '{}')                          # before automatic loading: ignored
+    import datetime as dt
+    now = dt.datetime.now().astimezone()
+    write(repo / 'data' / 'amal-trigger' / 'state.json', {'checked': now.isoformat()})
+    ok, detail = G.check_data_freshness(repo, raw=raw, now=now)
+    assert not ok and 'lesson 2026-10-01 transcribed' in detail and DATES[0] not in detail and '2026-09-01' not in detail
+
+
+def test_data_freshness_names_a_silent_amal_trigger_and_a_long_publish_block(repo, tmp_path):
+    import datetime as dt
+    now = dt.datetime.now().astimezone()
+    write(repo / 'data' / 'amal-trigger' / 'state.json', {'checked': (now - dt.timedelta(hours=35)).isoformat()})
+    old = (now - dt.timedelta(hours=32)).isoformat()
+    write(repo / G.STATE, {'blocks_since_last_pass': 35, 'last_block': {'reason': 'pull --rebase failed'},
+                           'history': [{'at': old, 'outcome': 'rebase_failed'}]})
+    ok, detail = G.check_data_freshness(repo, raw=tmp_path / 'none', now=now)
+    assert not ok and "last checked 35 h ago" in detail and 'nothing published for 32 h' in detail
+
+
+def test_data_freshness_passes_when_current_and_is_advisory(repo, tmp_path):
+    import datetime as dt
+    now = dt.datetime.now().astimezone()
+    write(repo / 'data' / 'amal-trigger' / 'state.json', {'checked': now.isoformat()})
+    assert G.check_data_freshness(repo, raw=tmp_path / 'none', now=now)[0]
+    cfg = json.loads((ROOT / G.CONFIG).read_text(encoding='utf-8'))
+    assert 'data_freshness' in cfg['advisory'] and 'data_freshness' not in cfg['required']   # a stale source never blocks a fresh publish

@@ -181,7 +181,7 @@ def test_refresh_published_reports_failed_steps(tmp_path, monkeypatch):
     root = tmp_path / 'repo'
     (root / 'docs' / 'data').mkdir(parents=True)
     monkeypatch.setattr(H, 'ROOT', root)
-    fdb = types.ModuleType('db'); fdb.rest = lambda *a, **k: {'events': []}
+    fdb = types.ModuleType('db'); fdb.rest = lambda *a, **k: {'events': []}; fdb.select = lambda *a, **k: []   # paged snapshot (2026-10-02)
     monkeypatch.setitem(sys.modules, 'db', fdb)
     monkeypatch.setattr(H, 'build_clips', lambda *a, **k: None)
     monkeypatch.setattr(H.subprocess, 'run', Git(fail={'build_sentence_ladder.py', 'review_lesson.py'}))
@@ -243,7 +243,7 @@ def test_a_new_lesson_gets_its_grammar_uses_counted(tmp_path, monkeypatch):
     root = tmp_path / 'repo'
     (root / 'docs' / 'data').mkdir(parents=True)
     monkeypatch.setattr(H, 'ROOT', root)
-    fdb = types.ModuleType('db'); fdb.rest = lambda *a, **k: {'events': []}
+    fdb = types.ModuleType('db'); fdb.rest = lambda *a, **k: {'events': []}; fdb.select = lambda *a, **k: []   # paged snapshot (2026-10-02)
     monkeypatch.setitem(sys.modules, 'db', fdb)
     monkeypatch.setattr(H, 'build_clips', lambda *a, **k: None)
     git = Git()

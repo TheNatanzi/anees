@@ -119,6 +119,7 @@ $('#ab-rows').addEventListener('click',e=>{const open=e.target.closest('[data-op
 $('#ab-rows').addEventListener('play',e=>{if(e.target.tagName==='AUDIO')root.querySelectorAll('audio').forEach(a=>{if(a!==e.target)a.pause();});},true);
 $('#ab-rows').addEventListener('loadedmetadata',e=>{if(e.target.tagName==='AUDIO'&&Number(e.target.dataset.start)>0)e.target.currentTime=Number(e.target.dataset.start);},true);
 
-window.addEventListener('storage',e=>{if(e.key==='anees-card-log')load();});setInterval(async()=>{if(document.hidden||[...root.querySelectorAll('audio')].some(a=>!a.paused))return;try{const res=await fetch('data/build.json',{cache:'no-store'}),latest=await res.json();if(res.ok&&latest.build&&latest.build!==window.ANEES_WORD_BANK_BUILD){location.reload();return;}}catch{}},60000);load();
+window.addEventListener('storage',e=>{if(e.key==='anees-card-log')load();});window.AneesLive&&AneesLive.onReturn(load,{busy:()=>[...root.querySelectorAll('audio')].some(a=>!a.paused)});   // rule L1 (2026-10-02): live words + answers re-read when the tab comes back
+setInterval(async()=>{if(document.hidden||[...root.querySelectorAll('audio')].some(a=>!a.paused))return;try{const res=await fetch('data/build.json',{cache:'no-store'}),latest=await res.json();if(res.ok&&latest.build&&latest.build!==window.ANEES_WORD_BANK_BUILD){location.reload();return;}}catch{}},60000);load();
 window.AneesWordBankPage={reload:load,get rows(){return rows;},get events(){return events;}};
 })();

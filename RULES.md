@@ -105,3 +105,17 @@ When Medi (or Amal) finds an error, fixing that one moment is not enough. Two th
 
 The agent tells Medi which rule it added and how many past moments the rule changed. If a correction cannot be made
 general (a true one-off), the agent says so instead of staying silent.
+
+---
+
+## S7 — A page is never older than its source (Medi 2026-10-02)
+
+"Ensure the data is getting populated as soon as it's available." Five rules, each enforced in code and tests:
+
+| Id | Rule | Where it lives |
+|---|---|---|
+| G1 | A generated file is rebuilt, never merged: a rebase conflict in built data keeps master's copy, re-stamps the build and queues the rebuild; only a hand-made file waits for a person | `scripts/publish_guard.py` (resolve_generated_conflicts), `tests/test_publish_guard.py` |
+| R3 | Each AI reader file is checked against its own shape (the third reader writes rulings, not rows) | `scripts/review_lesson.py` (valid_reader_file), `tests/test_review_lesson.py` |
+| P1 | A snapshot that grows with every lesson is read in pages, never in one request | `scripts/speaking_snapshot.py`, `tests/test_speaking_snapshot_paged.py` |
+| L1 | A page that reads live data re-reads it when the tab comes back into view, or says why it must not | `docs/js/live-reread.js`, `tests/test_live_reread.py` |
+| F1 | When the database or the raw archive has a newer lesson than the pages, the pages say so, and the publish guard warns when Amal's answers or publishing fall behind | `docs/js/lesson-behind.js`, `check_data_freshness` in `scripts/publish_guard.py` |

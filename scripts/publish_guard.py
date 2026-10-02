@@ -9,7 +9,8 @@ EVERY `git push origin HEAD:master` publishes. This module is the one door to th
     hourly_lessons.publish / tutor_refresh / decisions_refresh / gap_fill_refresh / the stranded-commit push in main(),
     review_lesson.py step 8, lesson_pipeline.git_publish / publish (retired job, still importable)
 
-guarded_push(): pull --rebase (abort + stop on conflict) -> run_checks() on exactly what would be pushed -> on any failed
+guarded_push(): pull --rebase (a conflict in GENERATED files only: master's copy is kept and the rebuild is queued,
+see resolve_generated_conflicts; any other conflict: abort + stop) -> run_checks() on exactly what would be pushed -> on any failed
 REQUIRED check: no push (the live site keeps the last good version; the local commits are KEPT, so nothing is lost and the
 next hour re-checks them), one line in the hourly log, the reason in data/publish-guard/state.json (local, never pushed)
 -> on a pass: docs/data/publish-guard.json (System Settings reads it; it also carries the last block, so a block that
@@ -25,7 +26,7 @@ check that fails, times out, crashes or whose script is missing blocks (fail clo
 """
 from __future__ import annotations
 
-import argparse, datetime, glob, json, os, re, subprocess, sys, time
+import argparse, datetime, fnmatch, glob, json, os, re, subprocess, sys, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -33,7 +34,8 @@ CONFIG = 'scripts/publish_guard_config.json'
 STATE = 'data/publish-guard/state.json'            # local only (.gitignore): what happened on THIS PC, incl. blocks
 PUBLISHED = 'docs/data/publish-guard.json'         # published with each passing push; System Settings reads it
 NODE_DEFAULT = r'C:\dev\tools\node-v24.18.0-win-x64\node.exe'
-BUILTINS = ('step_failures', 'clean_tree', 'json_data', 'lesson_coverage', 'review_done', 'review_freshness', 'lesson_type_read')
+BUILTINS = ('step_failures', 'clean_tree', 'json_data', 'lesson_coverage', 'review_done', 'review_freshness', 'lesson_type_read',
+            'data_freshness')
 DATE_RE = re.compile(r'^20\d\d-\d\d-\d\d$')
 OK_ENV = 'ANEES_PUBLISH_GUARD_OK'                  # set on the guard's own `git push` so the pre-push hook does not re-run
 
@@ -211,6 +213,62 @@ def check_lesson_type_read(root, **_):
     return (not unread, ('type not read yet (default "free-speak" shown as Claude\'s reading): ' + ', '.join(unread)) if unread else 'every lesson type was read')
 
 
+FRESH_RAW_DEFAULT = r'C:\dev\anees\data\lessons'
+FRESH_FROM = '2026-09-10'                 # hourly_lessons.AUTO_START: earlier recordings were decided by hand
+FRESH_TRIGGER_MAX_H = 2                   # the Amal trigger runs every 15 min (fallback: every hour)
+FRESH_PUBLISH_MAX_H = 6                   # blocks for longer than this = the live site is falling behind
+
+
+def _age_h(stamp, now=None):
+    try:
+        t = datetime.datetime.fromisoformat(str(stamp).replace('Z', '+00:00'))
+        if t.tzinfo is None:
+            t = t.astimezone()
+        return ((now or datetime.datetime.now().astimezone()) - t).total_seconds() / 3600
+    except Exception:
+        return None
+
+
+def check_data_freshness(root, raw=None, now=None, **_):
+    """Rule F1 (freshness audit 2026-10-02): the pages must not be older than their newest source. Warns when
+    (1) a lesson is transcribed in the raw archive but missing from lessons.json (10-01 sat transcribed 11+ hours),
+    (2) the Amal trigger has not checked her answers for FRESH_TRIGGER_MAX_H hours (its 15-minute task never existed),
+    (3) nothing was published for FRESH_PUBLISH_MAX_H hours while pushes were blocked (09-30 17:23 -> 10-02: 32 h unseen)."""
+    root = Path(root)
+    probs = []
+    raw = Path(raw or os.environ.get('ANEES_RAW') or FRESH_RAW_DEFAULT)
+    _, listed = _lesson_dates(root)
+    if raw.is_dir():
+        for d in sorted(x.name for x in raw.iterdir() if x.is_dir() and DATE_RE.match(x.name) and x.name >= FRESH_FROM):
+            scribes = list((raw / d).glob('scribe*.json')) + list((raw / d).glob('meet-*/scribe.json'))
+            if scribes and d not in listed:
+                newest = max(f.stat().st_mtime for f in scribes)
+                at = datetime.datetime.fromtimestamp(newest).astimezone()
+                probs.append(f'lesson {d} transcribed {at:%m-%d %H:%M} but not on the site (not in lessons.json)')
+    st = _load_json(root / 'data/amal-trigger/state.json') or {}
+    age = _age_h(st.get('checked'), now)
+    if age is None or age > FRESH_TRIGGER_MAX_H:
+        probs.append("Amal's answers last checked " + (f'{age:.0f} h ago' if age is not None else 'never on this PC')
+                     + ' (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)')
+    gs = read_state(root)
+    last = (gs.get('last_pass') or {}).get('at')
+    blocks = int(gs.get('blocks_since_last_pass') or 0)
+    stuck = [h.get('at') for h in gs.get('history') or [] if h.get('outcome') in ('blocked', 'rebase_failed', 'push_failed')
+             and (not last or str(h.get('at')) > str(last))]
+    age = _age_h(stuck[0], now) if stuck else (_age_h(last, now) if last else None)   # blocked since the first block after the last pass
+    if blocks and (age is None or age > FRESH_PUBLISH_MAX_H):
+        probs.append('nothing published for ' + (f'{age:.0f} h' if age is not None else 'a long time')
+                     + f' ({blocks} blocked pushes; last: {str((gs.get("last_block") or {}).get("reason") or "")[:120]})')
+    return (not probs, '; '.join(probs) if probs else 'every lesson in the raw archive is on the site; Amal trigger and publishing are current')
+
+
+def _load_json(p):
+    try:
+        return J(p)
+    except Exception:
+        return None
+
+
 # ---------------------------------------------------------------- command checks
 
 def _missing_files(root, cmd):
@@ -260,7 +318,8 @@ def run_checks(root=ROOT, config=None, step_failures=(), run=subprocess.run, clo
                'lesson_coverage': lambda: check_lesson_coverage(root, run),
                'review_done': lambda: check_review_done(root),
                'review_freshness': lambda: check_review_freshness(root),
-               'lesson_type_read': lambda: check_lesson_type_read(root)}
+               'lesson_type_read': lambda: check_lesson_type_read(root),
+               'data_freshness': lambda: check_data_freshness(root)}
     if not required:
         checks.append({'id': 'config', 'required': True, 'ok': False, 'secs': 0, 'detail': 'no required checks configured'})
     for cid in required + [a for a in advisory if a not in required]:
@@ -291,7 +350,8 @@ _WHAT = {'step_failures': 'no build step failed in this run', 'clean_tree': 'wha
          'lesson_coverage': 'every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)',
          'review_done': 'every lesson has a finished same-day review',
          'review_freshness': 'the two readers read the transcript the pages show now',
-         'lesson_type_read': 'no default lesson type shown as a reading'}
+         'lesson_type_read': 'no default lesson type shown as a reading',
+         'data_freshness': 'the pages are not older than their newest source (raw lessons, Amal trigger, last publish)'}
 
 
 # ---------------------------------------------------------------- local state + published status
@@ -374,6 +434,109 @@ def _git(run, root, *args, env=None):
     return run(['git', *args], **kw)
 
 
+# ---------------------------------------------------------------- generated files are rebuilt, never merged
+
+# What a rebase may resolve by itself (scripts/publish_guard_config.json "regenerate_on_conflict" overrides it). Rule
+# (2026-10-02 freshness audit): two build stamps (docs/data/build.json, docs/js/build.js) written a minute apart made
+# EVERY hourly push stop at "a person merges" from 2026-09-30 17:23 on: 69 local commits, lesson 2026-10-01 and Amal's
+# answers stuck off the live site for 30+ hours. A generated file is never hand-merged: master's copy is kept, the stamp
+# is re-written, and every other generated file is queued for a rebuild (open failure 'tutor' + 'refresh:<date>' for a
+# lesson missing from a page), which blocks this push and makes the next hourly run rebuild and publish.
+REGENERATE_DEFAULT = {
+    'stamp': ['docs/data/build.json', 'docs/js/build.js'],
+    'paths': ['docs/data/*', 'docs/js/build.js', 'docs/amal/*.html', 'docs/lessons/*/clips/*', 'data/accuracy/*',
+              'data/full-audit-2026-09-26.json', 'data/lesson-work/full-audit/patterns.json', 'data/amal-trigger/*',
+              'data/vocab/amal_verb_checks.json', 'data/runs/*.jsonl', 'data/decisions/*.jsonl', 'plan/FULL-AUDIT-2026-09-26.md'],
+}
+
+
+def regenerate_rules(config=None):
+    r = dict(REGENERATE_DEFAULT)
+    r.update((config or {}).get('regenerate_on_conflict') or {})
+    return r
+
+
+def is_generated(path, rules=None):
+    rules = rules or REGENERATE_DEFAULT
+    path = path.replace('\\', '/')
+    return any(fnmatch.fnmatchcase(path, pat) for pat in list(rules.get('paths') or []) + list(rules.get('stamp') or []))
+
+
+def _rebasing(root, run):
+    for name in ('rebase-merge', 'rebase-apply'):
+        p = (getattr(_git(run, root, 'rev-parse', '--git-path', name), 'stdout', '') or '').strip()
+        if p and (Path(p) if os.path.isabs(p) else Path(root) / p).is_dir():
+            return True
+    return False
+
+
+def _unmerged(root, run):
+    out = getattr(_git(run, root, 'diff', '--name-only', '--diff-filter=U'), 'stdout', '') or ''
+    return [l.strip() for l in out.splitlines() if l.strip()]
+
+
+def resolve_generated_conflicts(root, run=subprocess.run, config=None, max_steps=2000):
+    """Called while a `pull --rebase` is stopped on a conflict. If EVERY conflicted file is generated, keep master's copy
+    (during a rebase "ours" = the commit being rebased onto) and continue, step by step. Returns (True, {'resolved':
+    [...]}) when the rebase finished, or (False, {'reason': ...}) - the caller aborts; a hand-made file always stops here."""
+    rules = regenerate_rules(config)
+    if not _rebasing(root, run):
+        return False, {'reason': 'not stopped on a rebase conflict'}
+    env = {**os.environ, 'GIT_EDITOR': 'true'}
+    resolved = []
+    for _ in range(max_steps):
+        if not _rebasing(root, run):
+            return True, {'resolved': sorted(set(resolved))}
+        u = _unmerged(root, run)
+        if not u:
+            # stopped without a conflict (e.g. the commit became empty once master's copies were kept): go on or skip it
+            c = _git(run, root, 'rebase', '--continue', env=env)
+            if getattr(c, 'returncode', 0) and _rebasing(root, run) and not _unmerged(root, run):
+                if getattr(_git(run, root, 'rebase', '--skip'), 'returncode', 0) and _rebasing(root, run) and not _unmerged(root, run):
+                    return False, {'reason': 'the rebase stopped and could not continue: ' + _short(getattr(c, 'stderr', ''), 160)}
+            continue
+        hand = [p for p in u if not is_generated(p, rules)]
+        if hand:
+            return False, {'reason': 'conflict in a hand-made file (a person merges): ' + ', '.join(hand[:5]), 'files': hand}
+        for p in u:
+            if getattr(_git(run, root, 'checkout', '--ours', '--', p), 'returncode', 0):
+                _git(run, root, 'rm', '-q', '--', p)                 # master deleted it: keep it deleted
+            else:
+                _git(run, root, 'add', '--', p)
+            resolved.append(p)
+        _git(run, root, 'rebase', '--continue', env=env)            # the next stop (if any) is handled by the loop
+    return False, {'reason': f'the rebase needed more than {max_steps} steps'}
+
+
+def after_generated_rebase(root, resolved, run=subprocess.run, config=None, log=_log):
+    """Master's copies were kept: re-stamp the build, and queue a rebuild of every other generated file (open failures
+    the hourly job retries: 'tutor' rebuilds the audit pages + Tutor page, 'refresh:<date>' re-feeds a lesson that is now
+    missing from a page). Append-only logs (*.jsonl) need nothing. Returns the queued keys."""
+    rules = regenerate_rules(config)
+    stamps = list(rules.get('stamp') or [])
+    rebuild = [p for p in resolved if p not in stamps and not p.endswith('.jsonl')]
+    if any(p in stamps for p in resolved) and (Path(root) / 'scripts/write_build.py').exists():
+        run([sys.executable, 'scripts/write_build.py'], cwd=str(root), capture_output=True, text=True)
+        _git(run, root, 'add', '--', *[p for p in stamps if (Path(root) / p).exists()])
+        _git(run, root, 'commit', '-q', '-m', 'Build stamp re-written after rebasing onto master (publish guard)\n\n'
+                                              'Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>')
+    queued = []
+    if rebuild:
+        why = (f"{len(rebuild)} generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. "
+               + ', '.join(rebuild[:4]) + ': rebuild pending')
+        set_open_failures(root, 'tutor', [why]); queued.append('tutor')
+        try:
+            ok, detail = check_lesson_coverage(root, run)
+        except Exception:
+            ok, detail = True, ''
+        for d in sorted(set(re.findall(r'(20\d\d-\d\d-\d\d)(?: missing from|: lesson page but not)', detail or ''))):
+            set_open_failures(root, 'refresh:' + d, [f'lesson {d} lost page data in a rebase onto master: re-feed pending'])
+            queued.append('refresh:' + d)
+    log(f"publish guard: rebased onto master; {len(resolved)} generated file(s) kept master's copy"
+        + (f"; rebuild queued ({', '.join(queued)})" if queued else ''))
+    return queued
+
+
 def guarded_push(root=ROOT, source='?', step_failures=(), run=subprocess.run, log=_log, remote='origin', branch='master',
                  pull=True, config=None):
     """Rebase on origin, check, then push HEAD:master only if every required check passes. Never raises for a block; returns
@@ -383,9 +546,19 @@ def guarded_push(root=ROOT, source='?', step_failures=(), run=subprocess.run, lo
     ahead = lambda: (getattr(_git(run, root, 'rev-list', '--count', f'{remote}/{branch}..HEAD'), 'stdout', '') or '').strip()
     if pull:
         r = _git(run, root, 'pull', '--rebase', '--autostash', remote, branch)
+        fixed, info = False, {}
         if getattr(r, 'returncode', 0):
+            try:
+                cfg = config or load_config(root)
+            except Exception:
+                cfg = {}
+            fixed, info = resolve_generated_conflicts(root, run=run, config=cfg)
+            if fixed:
+                after_generated_rebase(root, info.get('resolved') or [], run=run, config=cfg, log=log)
+        if getattr(r, 'returncode', 0) and not fixed:
             _git(run, root, 'rebase', '--abort')
-            reason = 'pull --rebase failed (a conflict with master; a person merges): ' + _short(getattr(r, 'stderr', ''), 200)
+            why = info.get('reason') if info.get('files') else None
+            reason = 'pull --rebase failed (a conflict with master; a person merges): ' + (why or _short(getattr(r, 'stderr', ''), 200))
             res = {'at': now_iso(), 'sha': None, 'checks': []}
             record(root, res, source, 'rebase_failed', reason, ahead())
             log(block_line(source, reason, ahead()))

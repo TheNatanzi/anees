@@ -99,7 +99,8 @@ def main():
     import db, load_lesson as L, sync_speaking_lesson as S, build_lesson_page as P
     raw_root, work = Path(a.raw), Path(a.work)
     lessons = sorted(db.select('lessons', {'select': 'date,source,speaker_split,unlabeled_share,summary'}, retries=1), key=lambda r: r['date'])
-    live_events = db.rest('GET', 'rpc/speaking_snapshot', retries=1)['events']
+    import speaking_snapshot
+    live_events = speaking_snapshot.events(retries=1)      # paged: the one-call RPC times out (2026-10-02)
     patches = json.loads((ROOT / 'docs/data/word-bank-review.json').read_text(encoding='utf-8'))['patches']
     raw_by_id = {e['id']: e for e in live_events}                                                # source binding is checked on the raw event
     live_events = [{**e, **patches.get(e['id'], {}).get('changes', {})} for e in live_events]     # judged as the Word Bank shows them
@@ -108,7 +109,7 @@ def main():
         by_date[e['lesson_date']].append(e)
     published = json.loads((ROOT / 'docs/data/word-bank-evidence.json').read_text(encoding='utf-8'))['events']
     pub_by_date = collections.Counter(e['lesson_date'] for e in published)
-    raw_live = {e['id']: e for e in db.rest('GET', 'rpc/speaking_snapshot', retries=4)['events']}
+    raw_live = {e['id']: e for e in speaking_snapshot.events(retries=4)}
     same_as_live = {d: all(raw_live.get(e['id']) == e for e in published if e['lesson_date'] == d)
                     and sum(1 for e in raw_live.values() if e['lesson_date'] == d) == pub_by_date.get(d, 0) for d in pub_by_date}
     checks = json.loads((ROOT / 'docs/data/word-bank-audit-checks.json').read_text(encoding='utf-8'))['ledger']

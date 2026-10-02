@@ -214,10 +214,12 @@ def refresh_published(dates, raw, work):
     publish' (check=False): a failure published a lesson missing from pages and the review was never retried."""
     failures = []
     try:
-        import db
-        live = db.rest('GET', 'rpc/speaking_snapshot', retries=4)      # 2026-09-23: one call failed transiently under load
+        import speaking_snapshot
+        # paged, never one rpc/speaking_snapshot call: from lesson 2026-10-01 on the single call hit the statement timeout
+        # on every try and the lesson stayed blocked (freshness audit 2026-10-02; scripts/speaking_snapshot.py)
+        events = speaking_snapshot.events(retries=4)
         (ROOT / 'docs/data/word-bank-evidence.json').write_text(
-            json.dumps({'version': datetime.date.today().isoformat(), 'events': live['events']}, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
+            json.dumps({'version': datetime.date.today().isoformat(), 'events': events}, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
     except Exception as e:
         failures.append(f'speaking snapshot (Word Bank evidence) failed: {type(e).__name__}: {str(e)[:200]}')
         log('FAILED speaking snapshot', e)

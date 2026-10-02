@@ -116,6 +116,7 @@
     todo(id);
   }
 
+  let wired = false;
   async function main() {
     try { T = await (await fetch('data/tutor.json', { cache: 'no-store' })).json(); }
     catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The Tutor list could not load. Refresh to try again.</div>'; return; }
@@ -133,7 +134,12 @@
     const open = tasks.filter(t => !t.finished), mins = Math.max(1, Math.round(open.reduce((s, t) => s + t.left * (MIN_EACH[t.kind] || 0.5), 0)));
     $('#hb-hello').textContent = open.length ? `Marhaba Amal · ${open.length} thing${open.length === 1 ? '' : 's'} to check, about ${mins} min` : 'Marhaba Amal · nothing to check right now';
     $('#ab-source').textContent = 'Live · ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-    window.addEventListener('hashchange', route); route();
+    if (!wired) { wired = true; window.addEventListener('hashchange', route); route(); }
+    else if (onList()) route();
   }
+  // rule L1 (2026-10-02): her list, counts and answers are re-read when the tab comes back; the view is re-drawn only on
+  // the bare to-do list, so an open task (or the grammar / materials frame) is never reset under her.
+  function onList() { const h = decodeURIComponent(location.hash.slice(1)); return !h || h === 'todo' || h === 'done'; }
   main();
+  window.AneesLive && AneesLive.onReturn(main, { busy: () => !onList() });
 })();

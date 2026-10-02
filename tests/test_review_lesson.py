@@ -36,8 +36,10 @@ class Fake:
     def claude(self, prompt, label, **kw):
         self.claude_calls.append(label)
         for out in kw.get('outputs') or []:
-            if out.endswith(('.r1.json', '.r2.json', '.r3.json')):
+            if out.endswith(('.r1.json', '.r2.json')):
                 Path(out).write_text(json.dumps({'date': D, 'reader': label.split()[-1], 'rows': []}), encoding='utf-8')
+            elif out.endswith('.r3.json'):          # the third reader's REAL shape (what settle reads), not "rows"
+                Path(out).write_text(json.dumps({'date': D, 'reader': 'r3', 'note': '', 'rulings': [], 'added': []}), encoding='utf-8')
 
     def py(self, *args, check=True):
         name = os.path.basename(args[0])
@@ -176,6 +178,28 @@ def test_a_reader_file_that_is_not_valid_json_fails_closed(repo, monkeypatch):
     install(monkeypatch, fake, pushes)
     monkeypatch.setattr(RL, 'claude', bad_claude)
     assert _run_main(monkeypatch, [D, '--no-push']) != 0
+
+
+def test_third_reader_file_is_checked_against_its_own_shape(tmp_path):
+    """2026-10-02: r3 writes rulings/added (no rows); the old check wanted rows and failed every new lesson's review."""
+    p = tmp_path / 'r3.json'
+    p.write_text(json.dumps({'date': D, 'reader': 'r3', 'rulings': [{'id': 'D1', 'verdict': 'drop'}], 'added': []}), encoding='utf-8')
+    assert RL.valid_reader_file(str(p), D, kind='third')
+    assert not RL.valid_reader_file(str(p), D)                      # not a first/second reader file
+    p.write_text(json.dumps({'date': D, 'rows': []}), encoding='utf-8')
+    assert not RL.valid_reader_file(str(p), D, kind='third')        # no rulings list
+    p.write_text(json.dumps({'date': '2026-01-01', 'rulings': []}), encoding='utf-8')
+    assert not RL.valid_reader_file(str(p), D, kind='third')        # another lesson
+    p.write_text('{"date": "2026-09-30", "rulings": [', encoding='utf-8')
+    assert not RL.valid_reader_file(str(p), D, kind='third')        # cut off
+
+
+def test_a_real_shaped_third_reader_settles_the_review(repo, monkeypatch):
+    (Path(RL.WORK) / f'{D}.txt').write_text(fresh_text(12), encoding='utf-8')
+    fake, pushes = Fake(), []
+    install(monkeypatch, fake, pushes)
+    assert _run_main(monkeypatch, [D, '--no-push']) == 0
+    assert (Path(RL.WORK) / f'{D}.r3.json').exists() and not (Path(RL.WORK) / f'{D}.r3.invalid.json').exists()
 
 
 def test_transcript_text_matches_full_audit_prep(repo, monkeypatch):
