@@ -1,8 +1,8 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 23,
+ "count": 22,
  "by_date": {
-  "2026-08-25": 3,
+  "2026-08-25": 1,
   "2026-09-04": 2,
   "2026-09-05": 1,
   "2026-09-10": 3,
@@ -12,30 +12,10 @@
   "2026-09-23": 1,
   "2026-09-26": 1,
   "2026-09-28": 2,
-  "2026-09-30": 2
+  "2026-09-30": 2,
+  "2026-10-01": 1
  },
  "rows": [
-  {
-   "uid": "FA-ffbd560d",
-   "date": "2026-08-25",
-   "t": "31:59",
-   "t_amal": "32:06",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A12",
-   "medi_said": "إن، إنتي ما-",
-   "amal_said": "هي.",
-   "wrong": "إنتي",
-   "right": "هي",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "31:49",
-   "listen_to": "32:26"
-  },
   {
    "uid": "FA-8096ecda",
    "date": "2026-08-25",
@@ -53,33 +33,14 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Amal's reaction is about «على كل» sounding wrong, not a correction of «بعصب» or a supplied «من شو بتعصبي؟». There is no signalled verb-subject correction in this window."
+   },
    "listen_from": "45:49",
    "listen_to": "46:19"
-  },
-  {
-   "uid": "FA-2ca615a8",
-   "date": "2026-08-25",
-   "t": "59:04",
-   "t_amal": "59:06",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C12",
-   "medi_said": "عملنا كتير.",
-   "amal_said": "شو عملنا؟ ... عملنا. ... شو عملنا؟",
-   "wrong": "عملنا كتير",
-   "right": "عملنا تمرين كتير",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "58:54",
-   "listen_to": "59:26"
   },
   {
    "uid": "FA-a4ad5c2c",
@@ -97,8 +58,12 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The evidence does not show Amal correcting a masculine address form; she echoes/answers «بعرف nerd» and then calls him «إنتا nerd». The independent transcription does not clearly support «انتَ بتعرف» as the corrected item."
+   },
    "listen_from": "00:19",
    "listen_to": "00:53"
   },
@@ -118,8 +83,12 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Even if Medi said «عربي فلسطيني», Amal did not signal or correct the article issue; the later correction is about «مشكلة» being feminine."
+   },
    "listen_from": "02:51",
    "listen_to": "03:21"
   },
@@ -140,8 +109,12 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Amal does not correct this line and simply continues explaining the computer issue. The independent transcriptions also hear «تستعملي», so the claimed missing feminine ending is not supported."
+   },
    "listen_from": "46:06",
    "listen_to": "46:36"
   },
@@ -162,8 +135,12 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Amal's response is surprise/confirmation, not a correction of the article; there is no recast like «الجو». The independent audio is also unclear on whether Medi even said «جو»."
+   },
    "listen_from": "07:22",
    "listen_to": "07:52"
   },
@@ -183,8 +160,12 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi did say something like «فيديو لـ/لا يوتيوب», but Amal did not correct or signal the preposition; her later correction is about «صلحته»."
+   },
    "listen_from": "07:54",
    "listen_to": "08:24"
   },
@@ -205,8 +186,12 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The dialect transcript supports a possible «بينكسري», but Amal's immediate «إنتو» is just prompting the next subject, not correcting that form. Her later «هو» addresses the later subject slip."
+   },
    "listen_from": "45:14",
    "listen_to": "45:45"
   },
@@ -227,8 +212,12 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi said «شو أكتر...» but Amal did not signal it as wrong; he then explicitly asked for the word for dark and she supplied «عتمة»."
+   },
    "listen_from": "06:38",
    "listen_to": "07:08"
   },
@@ -249,8 +238,12 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The independent transcription does not clearly support «مزيد»; it hears «بي ايه», and Amal only gives a backchannel before confirming the placement correction «أول الكلمة»."
+   },
    "listen_from": "12:27",
    "listen_to": "12:57"
   },
@@ -271,8 +264,12 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Even if the object word is garbled, Amal only corrected/recast «بالغلط» and did not signal any issue with «الغرف/الغرفة»."
+   },
    "listen_from": "39:25",
    "listen_to": "39:55"
   },
@@ -293,8 +290,12 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi appears to self-repair toward the feminine form, and Amal answers the content rather than correcting the verb ending. Her lines are not a supplied «حكيتيلي» correction."
+   },
    "listen_from": "45:52",
    "listen_to": "46:22"
   },
@@ -314,8 +315,12 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The independent tracks show Medi said something like «أنا أخرب كل شي», not «خرب كل شي», and Amal did not correct it to past «خرّبت». She offered an idiom with present «بخرب الدنيا»."
+   },
    "listen_from": "49:07",
    "listen_to": "49:37"
   },
@@ -336,8 +341,12 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi’s audio is better read as «أنا أخرب كل شيء», and Amal’s response introduces an idiom rather than signalling that his verb needed past «خرّبت». Her later «خربت الدنيا» is an example translation, not a direct correction of his clause."
+   },
    "listen_from": "49:17",
    "listen_to": "49:47"
   },
@@ -358,8 +367,12 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Even if Medi used singular «دولة», Amal only gives backchannels «امم» and does not correct or recast the plural. This is no signalled error."
+   },
    "listen_from": "1:05:06",
    "listen_to": "1:05:36"
   },
@@ -380,8 +393,12 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The sentence is fragmented and Amal only backchannels; there is no correction or recast of «الأكتر». The mixed transcript that smooths it to «الأكل المفضل» is model normalization, not an Amal signal."
+   },
    "listen_from": "1:09:45",
    "listen_to": "1:10:15"
   },
@@ -402,8 +419,12 @@
     "found in pass 1 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Amal corrects Medi’s mishearing of «فطور» as «فول», not the missing article. Her later «أنا ما بحب الفول كمان» is agreement, not a correction of «ما بحب فول»."
+   },
    "listen_from": "25:14",
    "listen_to": "25:44"
   },
@@ -423,8 +444,12 @@
     "decided by the third reader alone, in one pass only"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The independent transcriptions show Medi saying the expected form, and Amal only acknowledged rather than corrected. Her later list was not a correction of this item."
+   },
    "listen_from": "41:06",
    "listen_to": "41:36"
   },
@@ -444,8 +469,12 @@
     "decided by the third reader alone, in one pass only"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi did say «الولاد بيكون ولاد», but Amal did not signal a correction in this window; there is no recast or repair."
+   },
    "listen_from": "56:29",
    "listen_to": "56:59"
   },
@@ -465,8 +494,12 @@
     "decided by the third reader alone, in one pass only"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi said «البنات بتروح», but Amal only responded to the profession/place word and moved on; she did not correct the verb agreement."
+   },
    "listen_from": "1:02:36",
    "listen_to": "1:03:06"
   },
@@ -486,8 +519,12 @@
     "decided by the third reader alone, in one pass only"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The independent Medi-track transcriptions show «جبت أكتر», not «جابت», and Amal did not correct that verb there."
+   },
    "listen_from": "09:32",
    "listen_to": "10:02"
   },
@@ -507,10 +544,40 @@
     "decided by the third reader alone, in one pass only"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Amal corrected/promoted the definite article placement, not the demonstrative; she accepted the final phrase with «صح»."
+   },
    "listen_from": "22:32",
    "listen_to": "23:02"
+  },
+  {
+   "uid": "FA-2d8205d4",
+   "date": "2026-10-01",
+   "t": "02:21",
+   "t_amal": "02:23",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "E4",
+   "medi_said": "Uh, واحدة وواحد و...",
+   "amal_said": "واحد.",
+   "wrong": "واحدة",
+   "right": "واحد",
+   "why_check": [
+    "reader confidence low",
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi began with «وحدة» but immediately also produced «واحد» before Amal's prompt, so this looks like a restart/self-fix rather than a clean signalled error."
+   },
+   "listen_from": "02:11",
+   "listen_to": "02:43"
   }
  ]
 }

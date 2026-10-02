@@ -1430,57 +1430,35 @@
       ]
      ],
      "lost_segments": [],
-     "lines": 295,
-     "first_line": 1393.67,
+     "lines": 405,
+     "first_line": 4.47,
      "speech_s": 911.1,
-     "speech_transcribed_pct": 78.7,
-     "untranscribed_s": 194.5,
-     "holes": [
-      [
-       99.8,
-       598.9,
-       129.4
-      ],
-      [
-       874.9,
-       987.7,
-       23.1
-      ]
-     ],
+     "speech_transcribed_pct": 99.0,
+     "untranscribed_s": 8.9,
+     "holes": [],
      "empty_audio": []
     }
    },
    "flags": [
     {
-     "who": "Amal",
-     "kind": "untranscribed",
-     "from": 99.8,
-     "to": 598.9,
-     "speech_s": 129.4,
-     "text": "Amal talks 01:40-09:59 (129 s of speech on their own track) with no transcript line"
-    },
-    {
-     "who": "Amal",
-     "kind": "untranscribed",
-     "from": 874.9,
-     "to": 987.7,
-     "speech_s": 23.1,
-     "text": "Amal talks 14:35-16:28 (23 s of speech on their own track) with no transcript line"
+     "who": null,
+     "kind": "labels-doubtful",
+     "text": "speaker labels agree with an independent check on only 88.3 % of 792 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))"
     }
    ],
    "recording": "per-person tracks",
    "swap_check": {
     "method": "own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?)",
-    "checked": 719,
-    "agree_pct": 95.0,
+    "checked": 792,
+    "agree_pct": 88.3,
     "by_person": {
      "Medi": {
       "own_track_louder": 453,
       "other_track_louder": 19
      },
      "Amal": {
-      "own_track_louder": 230,
-      "other_track_louder": 17
+      "own_track_louder": 246,
+      "other_track_louder": 74
      }
     },
     "caption_agree_pct": null,
@@ -1507,5 +1485,5 @@
   "loud_db": 6.0,
   "speech": "own-track frame energy > max(20th percentile + 15 dB, -50 dBFS), 0.1-s frames"
  },
- "built": "2026-10-02T02:19:06-07:00"
+ "built": "2026-10-02T14:29:26-07:00"
 }
