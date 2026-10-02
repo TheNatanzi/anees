@@ -8,14 +8,14 @@
    AM-17 (Medi 2026-10-02 "can you add an undo button to all these tutor hub stuff"): every note she saved here has the
    shared Undo (js/amal-undo.js): a note still waiting to send leaves the queue; a sent one gets an amal_rules row of kind
    'undo' (same token / source / word_key, payload.match {text}) - never a delete. scripts/amal_undo.py makes every reader
-   (scripts/build_amal_docs.py written_notes) leave it out; this page hides it at once. */
+   (scripts/build_amal_docs.py written_notes) leave it out; this page hides it at once.
+   Medi 2026-10-02 "everything on the tutor hub do what the new words is doing": the Tutor hub's Grammar tab shows one
+   rule at a time in its panel with this same code: AneesGrammarNotes.start({token, base, scope}) decorates the rule
+   cards inside `scope` (the page runs it on the whole document by itself). */
 (function () {
   const root = window;
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  const p = new URLSearchParams(location.search), h = new URLSearchParams(location.hash.slice(1));
-  const TOKEN = (p.get('t') || h.get('t') || '').trim();
-  const Q = 'anees-grammar-notes-q-' + TOKEN;
-  const H = { apikey: ANEES.anon, Authorization: 'Bearer ' + ANEES.anon, 'Content-Type': 'application/json', 'X-Anees-Token': TOKEN };
+  let TOKEN = '', Q = '', H = {}, BASE = '../', SCOPE = document;
   const LS = (k, v) => { try { if (v === undefined) return JSON.parse(localStorage.getItem(k) || 'null'); localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return v === undefined ? null : false; } };
   const day = s => new Date(s).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   const css = document.createElement('style');
@@ -41,7 +41,7 @@
       <div class="an-list">${savedHtml(id)}</div><textarea aria-label="${esc(label)}" placeholder="Write your note here"></textarea>
       <button type="button">Save note</button><span class="an-st" role="status"></span></details>`;
   }
-  function refresh(id) { document.querySelectorAll(`.an-write[data-rule="${CSS.escape(id)}"] .an-list`).forEach(el => { el.innerHTML = savedHtml(id); }); }
+  function refresh(id) { SCOPE.querySelectorAll(`.an-write[data-rule="${CSS.escape(id)}"] .an-list`).forEach(el => { el.innerHTML = savedHtml(id); }); }
 
   async function post(row) {
     const r = await fetch(ANEES.url + '/rest/v1/amal_rules', { method: 'POST', headers: { ...H, Prefer: 'return=minimal' }, body: JSON.stringify(row) });
@@ -65,7 +65,7 @@
   }
   document.addEventListener('click', e => { const b = e.target.closest('[data-note-undo]'); if (b) undoNote(b.dataset.noteUndo, +b.dataset.i); });
   function bind() {
-    document.querySelectorAll('.an-write button').forEach(b => b.onclick = async () => {
+    SCOPE.querySelectorAll('.an-write button').forEach(b => b.onclick = async () => {
       const box = b.closest('.an-write'), id = box.dataset.rule, ta = box.querySelector('textarea'), st = box.querySelector('.an-st'), text = ta.value.trim();
       if (!text) { st.textContent = 'Write something first.'; return; }
       const row = { token: TOKEN, source: 'grammar_notes', kind: 'note', word_key: 'rule:' + id, payload: { rule: id, text, page: 'amal/grammar-rules.html' } };
@@ -76,9 +76,16 @@
     });
   }
 
-  async function main() {
+  const art = id => SCOPE.querySelector('article[id="' + CSS.escape(id) + '"]');
+  let wiredOnline = false;
+  async function start(o) {
+    o = o || {};
+    TOKEN = String(o.token || '').trim(); Q = 'anees-grammar-notes-q-' + TOKEN; BASE = o.base == null ? '../' : o.base; SCOPE = o.scope || document;
+    H = { apikey: ANEES.anon, Authorization: 'Bearer ' + ANEES.anon, 'Content-Type': 'application/json', 'X-Anees-Token': TOKEN };
+    for (const k of Object.keys(rows)) delete rows[k];
+    canWrite = false;
     let notes = { sections: [] };
-    try { notes = await (await fetch('../data/amal-grammar-notes.json', { cache: 'no-store' })).json(); } catch (e) {}
+    try { notes = await (await fetch(BASE + 'data/amal-grammar-notes.json', { cache: 'no-store' })).json(); } catch (e) {}
     // notes she already saved here (built into the data file, so they stay when her link's token changes)
     const add = (id, x) => { const l = rows[id] = rows[id] || []; if (!l.some(y => y.text === x.text)) l.push(x); };
     for (const w of notes.written || []) add(w.rule, { text: w.text, at: w.at });
@@ -101,30 +108,39 @@
     }
     // her Doc notes under each rule
     for (const s of notes.sections || []) for (const id of s.rules) {
-      const art = document.getElementById(id); if (!art) continue;
+      const a = art(id); if (!a) continue;
       const also = s.rules.filter(x => x !== id);
-      art.insertAdjacentHTML('beforeend', `<div class="an-doc"><h4>Amal&#39;s notes${also.length ? ' (also on ' + also.map(esc).join(', ') + ')' : ''} · from her Doc, ${esc(notes.source && notes.source.edited ? day(notes.source.edited + 'T12:00') : '')}</h4>${s.html}</div>`);
+      a.insertAdjacentHTML('beforeend', `<div class="an-doc"><h4>Amal&#39;s notes${also.length ? ' (also on ' + also.map(esc).join(', ') + ')' : ''} · from her Doc, ${esc(notes.source && notes.source.edited ? day(notes.source.edited + 'T12:00') : '')}</h4>${s.html}</div>`);
     }
     // the ask box: where to write, and the materials page
-    const ask = document.querySelector('.ask');
+    const ask = SCOPE.querySelector('.ask');
     const box = document.createElement('div'); box.className = 'an-box';
+    // inside the Tutor hub the materials are a tab of the same page (PG-17), never another page
+    const mat = SCOPE === document ? '<a href="materials.html">Your Arabic Materials &rarr;</a>' : '<a href="#materials">Your Arabic Materials &rarr;</a>';
     box.innerHTML = canWrite
-      ? `<b>Your notes now live here.</b> Write a note under any rule (✎) or below for anything general. Your notes from your Google Doc are shown under each rule. <a href="materials.html">Your Arabic Materials &rarr;</a>${writer('general', 'A general note (anything not about one rule)')}`
-      : `<b>Your notes from your Google Doc are shown under each rule.</b> ${TOKEN ? 'This link has expired, so new notes cannot be saved; Medi can send a new one.' : 'To write new notes here, open this page from the Grammar rules link Medi sends you.'} <a href="materials.html">Your Arabic Materials &rarr;</a>`;
+      ? `<b>Your notes now live here.</b> Write a note under any rule (✎) or below for anything general. Your notes from your Google Doc are shown under each rule. ${mat}${writer('general', 'A general note (anything not about one rule)')}`
+      : `<b>Your notes from your Google Doc are shown under each rule.</b> ${TOKEN ? 'This link has expired, so new notes cannot be saved; Medi can send a new one.' : 'To write new notes here, open this page from the Grammar rules link Medi sends you.'} ${mat}`;
     if (ask) ask.insertAdjacentElement('afterend', box);
+    else if (SCOPE.querySelector('[data-general]')) SCOPE.querySelector('[data-general]').appendChild(box);
     if (!canWrite) for (const id of Object.keys(rows)) {
-      const art = document.getElementById(id) || (id === 'general' ? box : null); if (!art || !rows[id].length) continue;
-      art.insertAdjacentHTML('beforeend', `<div class="an-doc"><h4>Amal&#39;s notes written on this page</h4>${savedHtml(id)}</div>`);
+      const a = art(id) || (id === 'general' && box.isConnected ? box : null); if (!a || !rows[id].length) continue;
+      a.insertAdjacentHTML('beforeend', `<div class="an-doc"><h4>Amal&#39;s notes written on this page</h4>${savedHtml(id)}</div>`);
     }
     if (canWrite) {
-      document.querySelectorAll('article[id]').forEach(art => {
-        const id = art.id, name = (art.querySelector('h3') || {}).textContent || id;
-        art.insertAdjacentHTML('beforeend', writer(id, `Your note on ${id} · ${name}`));
+      SCOPE.querySelectorAll('article[id]').forEach(a => {
+        const id = a.id, name = (a.querySelector('h3') || {}).textContent || id;
+        a.insertAdjacentHTML('beforeend', writer(id, `Your note on ${id} · ${name}`));
       });
-      bind(); flush(); window.addEventListener('online', flush);
+      bind(); flush(); if (!wiredOnline) { wiredOnline = true; window.addEventListener('online', flush); }
     }
     // keep the token on in-page links back to this page (materials -> rules keeps working with the same link)
-    if (TOKEN) document.querySelectorAll('a[href="materials.html"]').forEach(a => a.href = 'materials.html?t=' + encodeURIComponent(TOKEN));
+    if (TOKEN) SCOPE.querySelectorAll('a[href="materials.html"]').forEach(a => a.href = 'materials.html?t=' + encodeURIComponent(TOKEN));
+    return { canWrite, notes: rows };
   }
-  main();
+  root.AneesGrammarNotes = { start };
+  // the rules page itself (amal/grammar-rules.html): the whole document, token from ?t= / #t=
+  if (/grammar-rules\.html$/.test(location.pathname)) {
+    const p = new URLSearchParams(location.search), h = new URLSearchParams(location.hash.slice(1));
+    start({ token: p.get('t') || h.get('t') || '', base: '../', scope: document });
+  }
 })();

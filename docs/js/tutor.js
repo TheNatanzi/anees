@@ -1,13 +1,21 @@
 /* Tutor hub (Medi 2026-10-01): one page for Amal and Medi. Tabs: To do · Grammar · Materials · Done.
    To do = every list waiting on Amal, ranked (what holds up Medi's scores first: newest lesson, older lessons, the
-   moments to check, slip patterns, then the long verb list). A task opens INSIDE the hub (laptop: list left, task right;
-   phone: the task replaces the list). Facts come from data/tutor.json (scripts/build_tutor_data.py); done counts are
-   read live from Supabase with each list's own token. Address: tutor.html#todo/<task id>, #grammar, #materials, #done. */
+   moments to check, slip patterns, then the long verb lists). Facts come from data/tutor.json
+   (scripts/build_tutor_data.py); done counts are read live from Supabase with each list's own token.
+   PG-17 (Medi 2026-10-02 "can we have everything on the tutor hub do what the new words is doing where you dont have
+   to go to an external page"): EVERY item opens and is answered inside the hub - laptop: list left, the item in the
+   panel on the right; phone: the item opens right under its row. Each kind mounts the same module its old address
+   (amal/*.html) mounts (MOUNT below). Grammar = one rule at a time with her notes, Materials = one section at a time.
+   Medi 2026-10-02 "can you make these into accodrians so I can see what you are asking": the Done tab is accordions -
+   each row opens in place with every question asked and her answer (Undo where the link is still open).
+   Address: tutor.html#todo/<task id>, #grammar/<rule id>, #materials/<section id>, #done. */
 (function () {
   const $ = s => document.querySelector(s);
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const fmt = n => (n === null || n === undefined) ? '—' : Number(n).toLocaleString('en-US');
   const pretty = d => d ? new Date(String(d).slice(0, 10) + 'T12:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+  const today = () => new Date().toISOString().slice(0, 10);
+  const PAGE = 20;
   let T = { open: [], closed: [] }, tasks = [], verifyN = null, NW = null;
 
   async function rest(path, token) {
@@ -44,77 +52,153 @@
 
   // ---- the task list -------------------------------------------------------------------------------------------
   const MIN_EACH = { after: 0.7, before: 0.7, verify: 0.4, review: 1.2, verb_check: 0.1, word_review: 0.3, newwords: 0.3 };
+  const UNIT = { after: 'moments', before: 'questions', review: 'slip patterns', verb_check: 'verb forms', word_review: 'lines', verify: 'moments', newwords: 'words' };
   function taskOf(it, L) {
     const total = it.total || 0, d = Math.min(total, (L && L.done) || 0), left = Math.max(0, total - d);
-    const unit = { after: 'moments', before: 'questions', review: 'slip patterns', verb_check: 'verb forms', word_review: 'lines' }[it.kind] || 'items';
     const title = it.kind === 'after' ? 'After the lesson · ' + pretty(it.lesson_date)
       : it.kind === 'review' ? 'Slips to review' : it.kind === 'verb_check' ? it.title.replace('Verb check', 'Verb forms') : it.title;
     const rank = it.kind === 'before' ? 0 : it.kind === 'after' ? 1 : it.kind === 'review' ? 3 : it.kind === 'word_review' ? 4 : 5;
-    return { id: it.id, kind: it.kind, item: it, title, total, done: d, left, unit, rank, date: it.lesson_date || '', finished: (L && L.finished) || (total > 0 && left === 0) };
+    return { id: it.id, kind: it.kind, item: it, title, total, done: d, left, unit: UNIT[it.kind] || 'items', rank, date: it.lesson_date || '', finished: (L && L.finished) || (total > 0 && left === 0) };
   }
   function rankAll(list) { return list.sort((a, b) => a.rank - b.rank || String(b.date).localeCompare(String(a.date))); }
-  const sub = t => t.finished ? 'Done · thank you' : `${fmt(t.left)} ${t.unit} left · about ${Math.max(1, Math.round(t.left * (MIN_EACH[t.kind] || 0.5)))} min`;
+  const mins = t => Math.max(1, Math.round(t.left * (MIN_EACH[t.kind] || 0.5)));
+  const sub = t => t.finished ? 'Done · thank you' : `${fmt(t.left)} ${t.unit} left · about ${mins(t)} min`;
   const bar = t => `<div class="hb-bar" aria-hidden="true"><i style="width:${t.total ? Math.round(100 * t.done / t.total) : 0}%"></i></div>`;
-  const rowHtml = (t, cur) => `<button type="button" class="hb-row" data-task="${esc(t.id)}"${cur ? ' aria-current="true"' : ''}><p class="hb-row-t">${esc(t.title)}</p><p class="hb-row-s">${esc(sub(t))}</p>${bar(t)}</button>`;
 
-  // ---- views ---------------------------------------------------------------------------------------------------
+  // ---- the one list + panel every tab uses (PG-17) ----------------------------------------------------------------
+  // rows: [{id, title, sub, bar}]; laptop: panel on the right; phone: the panel opens right under its row (accordion).
+  const wide = () => window.matchMedia('(min-width:960px)').matches;
+  function listPanel(tab, rows, selId, fill, o) {
+    o = o || {};
+    const view = $('#hb-view'), sel = rows.find(r => r.id === selId) || (wide() && !o.noAuto ? rows[0] : null);
+    let shown = Math.max(PAGE, sel ? rows.indexOf(sel) + 1 : 0), q = '';
+    view.innerHTML = `<div class="hb-wrap">${o.head || ''}<div class="hb-list" role="list">${o.search ? `<input type="search" class="hb-search" placeholder="${esc(o.search)}" aria-label="${esc(o.search)}">` : ''}<div data-rows></div></div>
+      <div class="hb-panel" id="hb-panel" hidden></div></div>`;
+    const panelEl = $('#hb-panel'), $rows = view.querySelector('[data-rows]');
+    function draw() {
+      const ql = q.trim().toLowerCase(), list = rows.filter(r => !ql || (r.title + ' ' + (r.find || '')).toLowerCase().includes(ql)), page = list.slice(0, shown);
+      $rows.innerHTML = page.map(r => `<button type="button" class="hb-row" role="listitem" data-row="${esc(r.id)}" aria-expanded="${!!(sel && r.id === sel.id)}"${sel && r.id === sel.id ? ' aria-current="true"' : ''}><p class="hb-row-t">${esc(r.title)}</p>${r.sub ? `<p class="hb-row-s">${esc(r.sub)}</p>` : ''}${r.bar || ''}</button>`).join('')
+        + (list.length > shown ? `<button type="button" class="hb-ans" data-more>Next ${Math.min(PAGE, list.length - shown)} (${list.length - shown} more)</button>` : '')
+        + (!list.length ? '<p class="hb-empty">Nothing matches.</p>' : '');
+      $rows.querySelectorAll('[data-row]').forEach(b => b.onclick = () => { location.hash = tab + (sel && sel.id === b.dataset.row && !wide() ? '' : '/' + b.dataset.row); });
+      const m = $rows.querySelector('[data-more]'); if (m) m.onclick = () => { shown += PAGE; draw(); };
+      if (sel && !wide()) { const row = $rows.querySelector(`[data-row="${CSS.escape(sel.id)}"]`); if (row) row.insertAdjacentElement('afterend', panelEl); }
+    }
+    const s = view.querySelector('.hb-search'); if (s) s.oninput = () => { q = s.value; shown = PAGE; draw(); };
+    draw();
+    if (sel) { panelEl.hidden = false; fill(sel, panelEl); if (!wide()) panelEl.scrollIntoView({ block: 'nearest' }); }
+  }
+
+  // ---- To do --------------------------------------------------------------------------------------------------
   function setTab(tab) { document.querySelectorAll('.hb-tab').forEach(a => a.setAttribute('aria-selected', String(a.dataset.tab === tab))); }
   function todo(openId) {
     setTab('todo');
     const open = tasks.filter(t => !t.finished);
     if (!open.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing to check right now. Shukran!</p>'; return; }
-    const wide = window.matchMedia('(min-width:960px)').matches, sel = open.find(t => t.id === openId) || (wide ? open[0] : null);
-    $('#hb-view').innerHTML = `<div class="hb-wrap${openId && sel ? ' hb-open' : ''}"><div class="hb-list" role="list">${open.map(t => rowHtml(t, sel && t.id === sel.id)).join('')}</div>
-      <div class="hb-panel" id="hb-panel"></div></div>`;
-    document.querySelectorAll('.hb-row').forEach(b => b.onclick = () => { location.hash = 'todo/' + b.dataset.task; });
-    if (sel) panel(sel);
+    listPanel('todo', open.map(t => ({ id: t.id, title: t.title, sub: sub(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p));
   }
-  function panel(t) {
-    const p = $('#hb-panel');
-    p.innerHTML = `<button type="button" class="hb-back">‹ To do</button><h2 class="hb-ptitle">${esc(t.title)}</h2><p class="hb-pnote">${esc(sub(t))}</p><div id="hb-body"></div>`;
-    p.querySelector('.hb-back').onclick = () => { location.hash = 'todo'; };
-    const body = $('#hb-body');
+  // every kind of item opens here, with the same module as its old address (no link to another page)
+  const MOUNT = {
+    after: (b, it, on) => AneesAfterTask.mount(b, it, { onChange: on }),
+    before: (b, it, on) => AneesPlanTask.mount(b, it, { onChange: on }),
+    review: (b, it, on) => AneesReviewTask.mount(b, { token: it.token, base: '' }, { onChange: on }),
+    verb_check: (b, it, on, o) => AneesVerbCheckTask.mount(b, { token: it.token }, { onChange: on, view: o && o.view }),
+    word_review: (b, it) => AneesWordReviewTask.mount(b, { token: it.token }),
+    verify: b => b.appendChild($('#tv')),
+    newwords: (b, it, on) => AneesNewWordsTask.mount(b, NW, { onChange: on }),
+  };
+  function panel(t, p) {
+    p.innerHTML = `<h2 class="hb-ptitle">${esc(t.title)}</h2><p class="hb-pnote">${esc(sub(t))}</p>${t.item && t.item.what ? `<p class="hb-sub">${esc(t.item.what)}</p>` : ''}<div id="hb-body"></div><div data-earlier></div>`;
     const update = () => {
-      const row = document.querySelector(`.hb-row[data-task="${CSS.escape(t.id)}"]`);
+      const row = document.querySelector(`.hb-row[data-row="${CSS.escape(t.id)}"]`);
       if (row) { row.querySelector('.hb-row-s').textContent = sub(t); row.querySelector('.hb-bar i').style.width = (t.total ? Math.round(100 * t.done / t.total) : 0) + '%'; }
       p.querySelector('.hb-pnote').textContent = sub(t); count();
     };
-    if (t.kind === 'after') {
-      AneesAfterTask.mount(body, t.item, { onChange: s => { t.total = s.total; t.done = Math.min(s.done, s.total); t.left = s.total - t.done; t.finished = s.finished; update(); } });
-    } else if (t.kind === 'verify') {
-      body.appendChild($('#tv'));
-    } else if (t.kind === 'newwords') {
-      AneesNewWordsTask.mount(body, NW, { onChange: s => { t.total = s.total; t.done = s.done; t.left = s.total - s.done; t.finished = s.finished; update(); } });
-    } else {
-      // Not rebuilt inside the hub yet (Medi 2026-10-01 plan: one task at a time, shown before the next).
-      body.innerHTML = `<p class="hb-sub">${esc(t.item.what || '')}</p><a class="hb-ans primary" style="display:block;text-decoration:none;text-align:center" href="go.html?to=${
-        t.kind === 'review' ? 'review' : t.kind === 'word_review' ? 'word-review' : t.kind === 'before' ? 'before' : (t.id.endsWith('-2') ? 'verb-check-2' : 'verb-check')}">Open this list</a>`;
-    }
+    const on = s => { t.total = s.total; t.done = Math.min(s.done, s.total); t.left = s.total - t.done; t.finished = s.finished; update(); };
+    (MOUNT[t.kind] || ((b) => { b.innerHTML = '<p class="hb-sub">This list cannot be shown yet.</p>'; }))($('#hb-body'), t.item, on);
+    earlier(p.querySelector('[data-earlier]'), t.item);
   }
-  function hold() { const tv = $('#tv'); if (tv && tv.parentElement.id !== 'hb-hold') $('#hb-hold').appendChild(tv); }
-  function frame(tab, url) {
-    setTab(tab);
-    $('#hb-view').innerHTML = `<iframe class="hb-frame" title="${tab === 'grammar' ? 'Grammar rules' : 'Arabic Materials'}" src="${esc(url)}"></iframe>`;
-    const f = $('.hb-frame');
-    f.onload = () => { try { const d = f.contentDocument; d.documentElement.style.overflow = 'hidden'; const fit = () => { f.style.height = d.documentElement.scrollHeight + 'px'; }; fit(); new ResizeObserver(fit).observe(d.body); } catch (e) {} };
+  // a lesson whose first link was replaced by a newer one: the first link's questions and answers, inside the same item
+  function earlier(el, it) {
+    const E = (it && it.earlier) || [];
+    el.innerHTML = E.map((e, i) => `<details class="hb-acc" data-e="${i}"><summary><b>An earlier link for this lesson</b> · ${esc(e.why)} · ${fmt((e.detail || {}).answered)} of ${fmt((e.detail || {}).total)} answered</summary><div class="hb-acc-body"></div></details>`).join('');
+    el.querySelectorAll('details').forEach(d => d.addEventListener('toggle', () => {
+      if (!d.open || d.dataset.on) return; d.dataset.on = '1';
+      const e = E[+d.dataset.e]; accBody(d.querySelector('.hb-acc-body'), { kind: it.kind, lesson_date: it.lesson_date, token: e.token, expires: e.expires, detail: e.detail });
+    }));
+  }
+
+  // ---- Grammar and Materials: one rule / one section at a time ------------------------------------------------
+  async function grammar(id) {
+    setTab('grammar');
+    $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
+    let G; try { G = await AneesDoc.grammar(''); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The grammar rules could not load. Refresh to try again.</div>'; return; }
+    const g = T.open.find(x => x.kind === 'grammar_notes'), token = g ? g.token : '';
+    const rows = [{ id: 'general', title: 'A general note', sub: 'Anything not about one rule', find: 'note' }]
+      .concat(G.rules.map(r => ({ id: r.id, title: `${r.id} · ${r.title}`, sub: `${r.family} · ${r.status}`, find: r.family, r })));
+    listPanel('grammar', rows, id, (row, p) => {
+      p.innerHTML = `<div class="hb-doc">${row.r ? row.r.html : `<h3 class="hb-q">A general note</h3><p class="hb-sub">${esc(G.intro)}</p><div data-general></div>`}</div>`;
+      AneesGrammarNotes.start({ token, base: '', scope: p });
+    }, { search: 'Find a rule (id, name or family)', head: `<p class="hb-sub hb-span">${esc(G.intro)} Tap a rule to read it and write a note under it.</p>` });
+  }
+  async function materials(id) {
+    setTab('materials');
+    $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
+    let M; try { M = await AneesDoc.materials(''); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The materials could not load. Refresh to try again.</div>'; return; }
+    listPanel('materials', M.sections.map(s => ({ id: s.id, title: s.title, s })), id,
+      (row, p) => { p.innerHTML = `<div class="hb-doc">${row.s.html}</div><p class="hb-foot">${esc(M.foot)}</p>`; },
+      { head: `<p class="hb-sub hb-span">${esc(M.intro.replace(/Medi's grammar rules →$/, ''))}</p>` });
+  }
+
+  // ---- Done: accordions -----------------------------------------------------------------------------------------
+  function readOnly(el, d, why) {
+    const A = (d && d.asked) || [];
+    el.innerHTML = `<p class="hb-sub">${esc(why || '')}${why ? ' · ' : ''}${fmt((d || {}).answered)} of ${fmt((d || {}).total)} answered${A.length > PAGE ? '' : ''}</p>`
+      + (A.length > PAGE ? `<input type="search" class="hb-search" placeholder="Find a question or answer" aria-label="Find a question or answer">` : '') + '<ul class="hb-done hb-asked" data-asked></ul>';
+    let shown = PAGE, q = '';
+    const draw = () => {
+      const L = A.filter(x => !q || JSON.stringify(x).toLowerCase().includes(q)), page = L.slice(0, shown);
+      el.querySelector('[data-asked]').innerHTML = page.map(x => `<li><span><b>${esc(x.ask || '')}</b>${x.word ? ` · ${esc(x.word)}` : ''}${x.english ? ` <span>(${esc(x.english)})</span>` : ''}</span>
+        <span class="hb-ansline">${x.answer ? `Amal: ${esc(x.answer)}${x.at ? ` · ${esc(pretty(x.at))}` : ''}` : '<i>not answered</i>'}</span></li>`).join('')
+        + (L.length > shown ? `<li><button type="button" class="hb-ans" data-more>Next ${Math.min(PAGE, L.length - shown)} (${L.length - shown} more)</button></li>` : '');
+      const m = el.querySelector('[data-more]'); if (m) m.onclick = () => { shown += PAGE; draw(); };
+    };
+    const s = el.querySelector('.hb-search'); if (s) s.oninput = () => { q = s.value.trim().toLowerCase(); shown = PAGE; draw(); };
+    draw();
+  }
+  // a link that is still open: the live module (her answers + Undo); an expired one: what it asked and what she answered
+  function accBody(el, x) {
+    const liveLink = x.token && (!x.expires || x.expires >= today()) && MOUNT[x.kind];
+    if (liveLink) { el.innerHTML = '<div data-live></div>'; MOUNT[x.kind](el.querySelector('[data-live]'), x, () => {}, { view: 'done' }); }
+    else readOnly(el, x.detail, x.why ? 'The link has closed (' + x.why + '), so answers cannot be changed' : '');
   }
   function doneView() {
     setTab('done');
-    const fin = tasks.filter(t => t.finished);
-    $('#hb-view').innerHTML = (fin.length || (T.closed || []).length)
-      ? `<ul class="hb-done">${fin.map(t => `<li><b>${esc(t.title)}</b> <span>· ${fmt(t.total)} ${esc(t.unit)} answered</span></li>`).join('')}${(T.closed || []).map(c => `<li><b>${esc(c.title)}</b> <span>· ${esc(c.why)}</span></li>`).join('')}</ul>`
-      : '<p class="hb-empty">Nothing finished yet.</p>';
+    const fin = tasks.filter(t => t.finished), C = T.closed || [];
+    if (!fin.length && !C.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing finished yet.</p>'; return; }
+    const rows = fin.map(t => ({ key: 't:' + t.id, title: t.title, note: `${fmt(t.total)} ${t.unit} answered`, open: () => t }))
+      .concat(C.map(c => ({ key: 'c:' + c.id, title: c.title, note: `${c.why}${c.detail ? ` · ${fmt(c.detail.answered)} of ${fmt(c.detail.total)} answered` : ''}`, c })));
+    $('#hb-view').innerHTML = `<p class="hb-sub">Tap a row to see what was asked and every answer. Undo works while a list is still open.</p><div class="hb-accs">${rows.map((r, i) =>
+      `<details class="hb-acc" data-i="${i}"><summary><b>${esc(r.title)}</b> <span>· ${esc(r.note)}</span></summary><div class="hb-acc-body"></div><div data-earlier></div></details>`).join('')}</div>`;
+    document.querySelectorAll('.hb-accs > details').forEach(d => d.addEventListener('toggle', () => {
+      if (!d.open || d.dataset.on) return; d.dataset.on = '1';
+      const r = rows[+d.dataset.i], body = d.querySelector('.hb-acc-body');
+      if (r.c) { accBody(body, r.c); earlier(d.querySelector('[data-earlier]'), r.c); return; }
+      const t = r.open();
+      MOUNT[t.kind](body, t.item, () => {}, { view: 'done' });
+      earlier(d.querySelector('[data-earlier]'), t.item);
+    }));
   }
   function count() {
     $('#hb-n-todo').textContent = tasks.filter(t => !t.finished).length || '';
     $('#hb-n-done').textContent = (tasks.filter(t => t.finished).length + (T.closed || []).length) || '';
   }
+  function hold() { const tv = $('#tv'); if (tv && tv.parentElement.id !== 'hb-hold') $('#hb-hold').appendChild(tv); }
   function route() {
     hold(); window.AneesClip && AneesClip.stopAll();
     const [tab, id] = (decodeURIComponent(location.hash.slice(1)) || 'todo').split('/');
-    const g = T.open.find(x => x.kind === 'grammar_notes'), m = T.open.find(x => x.kind === 'materials');
-    if (tab === 'grammar') return frame('grammar', (g ? g.url + '&' : 'amal/grammar-rules.html?') + 'in=hub');
-    if (tab === 'materials') return frame('materials', (m ? m.url : 'amal/materials.html') + '?in=hub');
+    if (tab === 'grammar') return grammar(id);
+    if (tab === 'materials') return materials(id);
     if (tab === 'done') return doneView();
     todo(id);
   }
@@ -133,7 +217,7 @@
       const lat = AneesUndo.latest(ans), seen = new Set(), items = (V.rows || V.items || []).concat(V.answered || []).filter(r => !seen.has(r.id) && seen.add(r.id));
       const isDone = r => { const a = lat[r.id]; return a ? AneesUndo.isAnswer(a) : !!r.answered; };
       verifyN = { total: items.length, done: items.filter(isDone).length };
-      if (items.length) tasks.push({ id: 'verify', kind: 'verify', title: 'Check these moments', total: verifyN.total, done: verifyN.done, left: verifyN.total - verifyN.done, unit: 'moments', rank: 2, date: '', finished: verifyN.done >= verifyN.total });
+      if (items.length) tasks.push({ id: 'verify', kind: 'verify', item: {}, title: 'Check these moments', total: verifyN.total, done: verifyN.done, left: verifyN.total - verifyN.done, unit: 'moments', rank: 2, date: '', finished: verifyN.done >= verifyN.total });
     } catch (e) {}
     try {   // new words Amal used that are not on her Doc (Medi 2026-10-02): taps = amal_rules word_key newword:* on the review token
       const N = await (await fetch('data/amal-new-words.json', { cache: 'no-store' })).json(), rv = T.open.find(x => x.kind === 'review');
@@ -143,18 +227,18 @@
         .forEach(r => { ans[r.word_key] = { kind: r.kind, at: r.created_at }; }); live = true; }
       NW = { token: rv ? rv.token : '', data: N, answers: ans, live };
       const c = AneesNewWordsTask.count(N, AneesNewWordsTask.liveView(N, ans, NW.token, live));
-      if (c.total) tasks.push({ id: 'newwords', kind: 'newwords', title: 'New words from our lessons', total: c.total, done: c.done, left: c.left, unit: 'words', rank: 1.5, date: c.newest, finished: c.left === 0 });
+      if (c.total) tasks.push({ id: 'newwords', kind: 'newwords', item: {}, title: 'New words from our lessons', total: c.total, done: c.done, left: c.left, unit: 'words', rank: 1.5, date: c.newest, finished: c.left === 0 });
     } catch (e) {}
     rankAll(tasks); count();
-    const open = tasks.filter(t => !t.finished), mins = Math.max(1, Math.round(open.reduce((s, t) => s + t.left * (MIN_EACH[t.kind] || 0.5), 0)));
-    $('#hb-hello').textContent = open.length ? `Marhaba Amal · ${open.length} thing${open.length === 1 ? '' : 's'} to check, about ${mins} min` : 'Marhaba Amal · nothing to check right now';
+    const open = tasks.filter(t => !t.finished), m = open.reduce((s, t) => s + t.left * (MIN_EACH[t.kind] || 0.5), 0);
+    $('#hb-hello').textContent = open.length ? `Marhaba Amal · ${open.length} thing${open.length === 1 ? '' : 's'} to check, about ${Math.max(1, Math.round(m))} min` : 'Marhaba Amal · nothing to check right now';
     $('#ab-source').textContent = 'Live · ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
     if (!wired) { wired = true; window.addEventListener('hashchange', route); route(); }
     else if (onList()) route();
   }
   // rule L1 (2026-10-02): her list, counts and answers are re-read when the tab comes back; the view is re-drawn only on
-  // the bare to-do list, so an open task (or the grammar / materials frame) is never reset under her.
-  function onList() { const h = decodeURIComponent(location.hash.slice(1)); return !h || h === 'todo' || h === 'done'; }
+  // the bare to-do list, so an open task (or a rule, a section, an open accordion) is never reset under her.
+  function onList() { const h = decodeURIComponent(location.hash.slice(1)); return !h || h === 'todo'; }
   main();
   window.AneesLive && AneesLive.onReturn(main, { busy: () => !onList() });
 })();

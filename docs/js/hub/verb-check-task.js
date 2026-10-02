@@ -24,7 +24,7 @@
       const r = await fetch(url, { method: method || 'GET', headers, body: body ? JSON.stringify(body) : undefined, cache: 'no-store', referrerPolicy: 'no-referrer' });
       if (!r.ok) throw Error('network'); return r.json();
     }
-    let payload, saved, answers = {}, undone = [], timer = null, saving = false, again = false, shown = PAGE, view = 'open', q = '';
+    let payload, saved, answers = {}, undone = [], timer = null, saving = false, again = false, shown = PAGE, view = opt.view === 'done' ? 'done' : 'open', q = '';
     let draftKey = 'anees-verb-check-' + token.slice(0, 16);
 
     function keepDraft() { try { localStorage.setItem(draftKey, JSON.stringify({ answers, undone })); } catch (e) {} }

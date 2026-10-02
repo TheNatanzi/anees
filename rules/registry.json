@@ -5389,6 +5389,97 @@
    "aliases": [
     "rule-book"
    ]
+  },
+  {
+   "id": "PG-17",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every item on the Tutor hub opens and is answered inside the hub, like the New words card: on a laptop the list stays on the left and the item opens in the panel on the right; on a phone it opens right under its row. Each kind (after / before the lesson, slips, verb forms, word review, moments to check, new words) mounts the same module its old address (amal/*.html) renders, so the old links keep working and show the same thing; Grammar shows one rule at a time with her notes and Materials one section at a time, read from the same pages. Long lists come 20 at a time (Next 20) with a search box and an honest time left. Nothing on the hub links to another page.",
+   "plain": "Everything on the Tutor page opens right there, like the New words card - nothing sends Amal to another page. On a laptop the item opens on the right; on a phone it opens under its row. Grammar rules and Materials open one at a time on the same page. Long lists show 20 at a time with a Next 20 button, a search box and the real time left.",
+   "plain_for": "08fab49a",
+   "topic": "her answers",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "can we have everything on the tutor hub do what the new words is doing where you dont have to go to an external page"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/tutor.js",
+     "contains": "// every kind of item opens here, with the same module as its old address (no link to another page)"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/hub/doc-task.js",
+     "contains": "root.AneesDoc = { grammar, materials, load };"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/hub/solo.js",
+     "contains": "root.AneesSolo = { run, token };"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_in_panel.py",
+     "contains": "def test_PG_17_no_hub_item_links_to_another_page"
+    },
+    {
+     "path": "tests/test_tutor_in_panel.py",
+     "contains": "def test_PG_17_every_item_kind_opens_in_the_panel_with_the_shared_module"
+    },
+    {
+     "path": "tests/test_tutor_in_panel.py",
+     "contains": "def test_PG_17_long_lists_come_20_at_a_time_with_an_honest_time"
+    }
+   ],
+   "note": "Medi's screenshot: 'Verb forms · list 2 (endings and prepositions)' had an 'Open this list' button that left tutor.html (go.html -> amal/verb-check.html). Phone rows open in place (accordion) - Medi asked for accordions on list rows the same day (PG-18)."
+  },
+  {
+   "id": "PG-18",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The Tutor hub's Done tab is a list of accordions: tapping a row opens it in place and shows every question that was asked and Amal's answer (her tap or text, with the date), or 'not answered'. A list whose link is still open shows the live list with Undo on each answer; an expired link is read from the questions and answers stored when the hub data was built (scripts/build_tutor_data.py), never from the expired link. Long ones show 20 at a time with Next 20 and a search box. A lesson with two links is one row; the older link is shown inside it as 'an earlier link for this lesson'.",
+   "plain": "On the Tutor page's Done tab, each row opens in place to show every question asked and Amal's answer (or 'not answered'), with Undo while the list is still open; expired lists are shown from what was saved. Long lists show 20 at a time with a search box. A lesson that had two links is one row, with the older link shown inside it.",
+   "plain_for": "25d5688b",
+   "topic": "her answers",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "can you make these into accodrians so I can see what you are asking"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/tutor.js",
+     "contains": "function doneView() {"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_data.py",
+     "contains": "def link_detail(r, dates):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_in_panel.py",
+     "contains": "def test_PG_18_done_rows_are_accordions_that_show_what_was_asked"
+    },
+    {
+     "path": "tests/test_tutor_in_panel.py",
+     "contains": "def test_PG_18_expired_links_keep_their_questions_and_one_lesson_is_one_row"
+    }
+   ],
+   "note": "The double 'After the lesson · Oct 1' was real: two links for the Oct 1 lesson (the first expired 2026-10-02 with 0 of 5 answered, a newer one replaced it). Same for Sep 26 / Sep 23 after new links were minted on 2026-10-02."
   }
  ]
 }

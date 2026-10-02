@@ -6,7 +6,8 @@
 #anees-bank .hb-tab .hb-n{font-weight:500;opacity:.75}
 #anees-bank .hb-wrap{display:grid;gap:16px;align-items:start}
 @media(min-width:960px){#anees-bank .hb-wrap{grid-template-columns:340px minmax(0,1fr)}#anees-bank .hb-back{display:none}}
-@media(max-width:959px){#anees-bank .hb-wrap.hb-open .hb-list{display:none}#anees-bank .hb-wrap:not(.hb-open) .hb-panel{display:none}}
+/* phone (PG-17, 2026-10-02): the open item sits right under its row, like an accordion; the list never disappears */
+@media(max-width:959px){#anees-bank .hb-list .hb-panel{margin:-4px 0 6px;border-top-left-radius:0;border-top-right-radius:0;padding:14px 12px}}
 #anees-bank .hb-list{display:grid;gap:10px}
 #anees-bank .hb-row{display:block;width:100%;text-align:left;border:1px solid var(--ab-line);background:var(--ab-panel);color:var(--ab-text);border-radius:12px;padding:12px 14px;cursor:pointer;font:inherit}
 #anees-bank .hb-row:hover{border-color:var(--ab-muted)}
@@ -81,3 +82,38 @@
 #anees-bank .wr .audio-sr-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}#anees-bank .wr .inline-audio-status{color:var(--sabz-danger,#B3261E)}
 #anees-bank .hb-moment{grid-template-columns:minmax(0,1fr);min-width:0}#anees-bank .hb-moment>*{min-width:0;max-width:100%}
 #anees-bank .hb-moment .apb{max-width:100%;box-sizing:border-box}
+
+/* PG-17 / Done accordions (Medi 2026-10-02) */
+#anees-bank .hb-span{grid-column:1/-1;margin:0}
+#anees-bank .hb-panel[hidden]{display:none}
+#anees-bank .hb-row[aria-expanded="true"]{border:2px solid var(--vp-sage,#2E6A4E);padding:11px 13px}
+#anees-bank .hb-accs{display:grid;gap:10px}
+#anees-bank .hb-acc{border:1px solid var(--ab-line);background:var(--ab-panel);border-radius:12px;padding:0 14px;min-width:0}
+#anees-bank .hb-acc>summary{cursor:pointer;padding:12px 0;min-height:44px;list-style:none;display:flex;gap:6px;flex-wrap:wrap;align-items:baseline;font-size:15px}
+#anees-bank .hb-acc>summary::-webkit-details-marker{display:none}
+#anees-bank .hb-acc>summary::before{content:'▸';color:var(--ab-muted);margin-right:4px}#anees-bank .hb-acc[open]>summary::before{content:'▾'}
+#anees-bank .hb-acc>summary span{color:var(--ab-muted);font-size:13.5px}
+#anees-bank .hb-acc-body{padding:0 0 14px;min-width:0}
+#anees-bank .hb-acc .hb-acc{background:var(--ab-bg);margin-top:8px}
+#anees-bank .hb-asked li{display:grid;gap:3px}#anees-bank .hb-ansline{font-weight:600;color:var(--vp-sage,#2E6A4E)}#anees-bank .hb-ansline i{font-weight:400;color:var(--ab-muted)}
+/* Amal's reading pages shown one rule / one section at a time (docs/js/hub/doc-task.js) */
+#anees-bank .hb-doc{--bg:var(--ab-bg);--panel:var(--ab-panel);--ink:var(--ab-text);--muted:var(--ab-muted);--line:var(--ab-line);--green:var(--vp-sage,#2E6A4E);--greenbg:var(--ab-active);--red:var(--sabz-danger,#B3261E);
+  --m:var(--ab-green);--g:var(--ab-blue);--s:var(--ab-orange);--w:var(--ab-red);--u:var(--ab-muted);font-size:15px;line-height:1.55;min-width:0;overflow-wrap:anywhere}
+#anees-bank .hb-doc article{border:0;padding:0;margin:0;background:none}
+#anees-bank .hb-doc header{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 10px}
+#anees-bank .hb-doc h3{font-family:var(--sabz-font-serif);font-size:20px;font-weight:500;margin:0}
+#anees-bank .hb-doc h2{font-family:var(--sabz-font-serif);font-size:21px;font-weight:500;margin:0 0 10px}
+#anees-bank .hb-doc h4{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ab-muted);font-weight:600;margin:10px 0 6px}
+#anees-bank .hb-doc .id{font:500 12px var(--sabz-font-mono,monospace);color:var(--green);background:var(--greenbg);border-radius:3px;padding:1px 6px}
+#anees-bank .hb-doc .pill{margin-left:auto;font-size:12px;border:1px solid currentColor;border-radius:999px;padding:0 9px}
+#anees-bank .hb-doc .uses,#anees-bank .hb-doc .when,#anees-bank .hb-doc .en,#anees-bank .hb-doc .none{font-size:12.5px;color:var(--ab-muted)}
+#anees-bank .hb-doc .s-Mastered{color:var(--m)}#anees-bank .hb-doc .s-Good{color:var(--g)}#anees-bank .hb-doc .s-Shaky{color:var(--s)}#anees-bank .hb-doc .s-Wrong{color:var(--w)}#anees-bank .hb-doc .s-Untested,#anees-bank .hb-doc .s-Unscored,#anees-bank .hb-doc .s-NotTaught{color:var(--u)}
+#anees-bank .hb-doc .one{font-weight:600;margin:10px 0 4px}#anees-bank .hb-doc .why{color:var(--ab-muted);margin:0 0 12px}
+#anees-bank .hb-doc .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:16px}
+#anees-bank .hb-doc .ext{border-collapse:collapse;width:100%;margin-bottom:12px}#anees-bank .hb-doc .ext td{padding:4px 8px 4px 0;border-bottom:1px solid var(--ab-line);vertical-align:top}
+#anees-bank .hb-doc .more,#anees-bank .hb-doc ul{margin:4px 0 8px;padding-left:18px;display:grid;gap:3px}
+#anees-bank .hb-doc .les{border-left:2px solid var(--ab-line);padding:2px 0 6px 10px;margin-bottom:10px}
+#anees-bank .hb-doc .line{display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:8px}#anees-bank .hb-doc .who{font-size:12px;color:var(--ab-muted);grid-row:span 2}
+#anees-bank .hb-doc .ar{font-size:14px;color:var(--ab-muted)}#anees-bank .hb-doc .good{color:var(--green)}#anees-bank .hb-doc .bad{color:var(--red)}
+#anees-bank .hb-doc code,#anees-bank .hb-doc .az{font-family:var(--sabz-font-mono,monospace);font-size:.92em}
+#anees-bank .hb-doc p{margin:6px 0}

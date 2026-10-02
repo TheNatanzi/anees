@@ -57,6 +57,64 @@ def pulled_count(payload, repo=REPO):
     return len(items & set((json.load(open(p, encoding="utf-8")).get("answers") or {})))
 
 
+def tap_dates(rules):
+    """{(token, word_key or label): latest created_at} from her taps (db.select already leaves undone taps out, AM-17)."""
+    out = {}
+    for r in rules:
+        p = r.get("payload") or {}
+        for k in (r.get("word_key"), p.get("arabizi"), p.get("english"), p.get("topic") and "topic"):
+            if k:
+                out[(r.get("token"), str(k))] = max(out.get((r.get("token"), str(k))) or "", r.get("created_at") or "")
+    return out
+
+
+def link_detail(r, dates):
+    """Medi 2026-10-02 "can you make these into accodrians so I can see what you are asking": every question a link asked
+    and Amal's answer (or not answered), stored here so it stays readable after the link expires."""
+    p, a, tok = r.get("payload") or {}, r.get("answers") or {}, r.get("token")
+    asked = []
+
+    def when(k):
+        return (dates.get((tok, str(k))) or "")[:10] or None
+
+    def pick(m, k):
+        m = m or {}
+        return m.get(str(k), m.get(k))
+    if r.get("kind") == "after":
+        for i, q in enumerate(p.get("questions") or []):
+            ans = pick(a.get("q"), i)
+            asked.append({"ask": q.get("ask"), "word": q.get("arabizi") or q.get("arabic"), "arabic": q.get("arabic"), "english": q.get("english"),
+                          "answer": ans, "at": when(q.get("word_key")) if ans else None})
+        for i, h in enumerate(p.get("homework") or []):
+            ans = pick(a.get("hw"), i)
+            asked.append({"ask": "Homework suggestion: keep, drop or edit?", "word": h.get("arabizi"), "english": h.get("english"), "answer": ans,
+                          "at": when(h.get("arabizi")) if ans else None})
+        for it in p.get("prompts") or []:
+            ans = pick(a.get("pr"), it.get("id"))
+            asked.append({"ask": "Homework line: keep, drop or edit?", "word": it.get("english"), "answer": ans, "at": when(it.get("english")) if ans else None})
+    elif r.get("kind") == "before":
+        asked.append({"ask": "What is today's lesson about?", "answer": a.get("topic"), "at": when("topic") if a.get("topic") else None})
+        asked.append({"ask": "Words for today", "answer": ", ".join(a.get("repeat") or []) or None})
+        for i, x in enumerate(p.get("sentences") or []):
+            ans = pick(a.get("sentences"), i)
+            asked.append({"ask": "Keep this sentence?", "word": x.get("arabizi"), "english": x.get("english"), "answer": ans, "at": when(x.get("arabizi")) if ans else None})
+    elif r.get("kind") == "word_review":
+        ans = a.get("answers") or {}
+        said = {"yes": "Yes, that is what I hear", "inaudible": "Cannot hear clearly"}
+        for it in p.get("items") or []:
+            x = ans.get(it.get("id")) or {}
+            got = said.get(x.get("choice")) or (("Different: " + (x.get("text") or "")) if x.get("choice") else None)
+            asked.append({"ask": "What do you hear?", "word": it.get("proposal"), "answer": got, "at": (x.get("updated_at") or "")[:10] or None})
+    elif r.get("kind") == "verb_check":
+        ans, items = (a.get("answers") or {}), (p.get("items") or {})
+        for iid, x in sorted(ans.items(), key=lambda kv: kv[1].get("updated_at") or ""):
+            it = items.get(iid) or {}
+            asked.append({"ask": f"{it.get('tense', '')} · {it.get('person', '')}", "word": it.get("word"),
+                          "answer": "Right" if x.get("choice") == "yes" else "Fixed: " + str(x.get("word") or ""), "at": (x.get("updated_at") or "")[:10] or None})
+    total = len(p.get("items") or {}) if r.get("kind") == "verb_check" else len(asked)
+    return {"answered": sum(1 for x in asked if x.get("answer")), "total": total, "asked": asked}
+
+
 def main():
     import db
     now = datetime.datetime.now(datetime.timezone.utc)
@@ -66,7 +124,12 @@ def main():
     # review (Amal's slip patterns) + after / before lesson links
     review = json.load(open(os.path.join(DOCS, "data", "amal-review.json"), encoding="utf-8")) if os.path.exists(os.path.join(DOCS, "data", "amal-review.json")) else {}
     seen_review = False
-    for r in db.select("amal_links", {"select": "token,kind,lesson_date,created_at,expires_at,opened_at,done_at,payload", "order": "created_at.desc"}):
+    try:
+        dates = tap_dates(db.select("amal_rules", {"select": "token,kind,word_key,payload,created_at", "source": "in.(after,planner)"}))
+    except Exception as e:  # noqa: BLE001 - the dates are a nicety; the answers come from the link rows
+        print("tap dates not read:", type(e).__name__)
+        dates = {}
+    for r in db.select("amal_links", {"select": "token,kind,lesson_date,created_at,expires_at,opened_at,done_at,payload,answers", "order": "created_at.desc"}):
         live = r["expires_at"] > now.isoformat() and not r.get("done_at")
         p = r.get("payload") or {}
         if r["kind"] == "review":
@@ -100,12 +163,21 @@ def main():
                                        else "Words to bring back and sentences to try in this lesson. Keep or drop."),
                               "who": "Amal answers · Medi sends the link", "url": f"amal/{'after' if r['kind'] == 'after' else 'plan'}.html?t={r['token']}",
                               "total": n, "expires": day(r["expires_at"])})
-            elif day(r["expires_at"]) >= day((now - datetime.timedelta(days=21)).isoformat()) and not any(c.get("id") == f"{r['kind']}-{r.get('lesson_date')}" for c in closed):
-                closed.append({"id": f"{r['kind']}-{r.get('lesson_date')}", "title": title, "why": ("answered" if r.get("done_at") else f"link expired {day(r['expires_at'])}")})
+            elif day(r["expires_at"]) >= day((now - datetime.timedelta(days=21)).isoformat()):
+                why = "answered" if r.get("done_at") else f"link expired {day(r['expires_at'])}"
+                row = {"id": f"{r['kind']}-{r.get('lesson_date')}", "title": title, "why": why, "kind": r["kind"], "lesson_date": r.get("lesson_date"),
+                       "token": r["token"], "expires": day(r["expires_at"]), "detail": link_detail(r, dates)}
+                # 2026-10-02: a lesson can have two links (a newer one replaced the first). The older one is shown INSIDE
+                # the lesson's row as "an earlier link", never as a second row with the same title.
+                newer = next((x for x in open_ + closed if x.get("kind") == r["kind"] and x.get("lesson_date") == r.get("lesson_date")), None)
+                if newer:
+                    newer.setdefault("earlier", []).append({"why": why, "token": r["token"], "expires": row["expires"], "detail": row["detail"]})
+                else:
+                    closed.append(row)
     # verb checks (two lists) and word reviews
     for table, kind, page, title in (("verb_check_links", "verb_check", "verb-check", "Verb check"), ("transcript_review_links", "word_review", "word-review", "Word review")):
         try:
-            rows = db.select(table, {"select": "token,created_at,expires_at,opened_at,done_at,payload", "order": "created_at.asc"})
+            rows = db.select(table, {"select": "token,created_at,expires_at,opened_at,done_at,payload,answers", "order": "created_at.asc"})
         except Exception as e:
             print("skip", table, e)
             continue
@@ -127,7 +199,8 @@ def main():
                               "expires": day(r["expires_at"])})
             elif day(r["expires_at"]) >= day((now - datetime.timedelta(days=21)).isoformat()):
                 closed.append({"id": f"{kind}-{r['token'][:6]}", "title": title + (f" ({pretty(p.get('lesson'))})" if p.get("lesson") else ""),
-                               "why": "answered" if r.get("done_at") else f"link expired {day(r['expires_at'])}"})
+                               "why": "answered" if r.get("done_at") else f"link expired {day(r['expires_at'])}", "kind": kind,
+                               "token": r["token"], "expires": day(r["expires_at"]), "detail": link_detail({**r, "kind": kind}, {})})
     # keep the old stamp when nothing changed, so the hourly job does not commit a new file every hour
     same = cur.get("open") == kept + open_ and cur.get("closed") == closed
     out = {"updated": cur.get("updated") if same and cur.get("updated") else now.astimezone().isoformat(timespec="seconds"),

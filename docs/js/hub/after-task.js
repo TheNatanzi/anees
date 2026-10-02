@@ -117,7 +117,7 @@
         // which tap an undo cancels: the word + lesson, narrowed by the moment when the same word is asked twice
         const twin = Q.some((x, j) => j !== i && x.word_key === q.word_key);
         const match = q.audit_uid ? { audit_uid: q.audit_uid } : (!q.word_key || twin) ? { t: q.t, ask: q.ask } : null;
-        S.push({ part: 'q', k: i, title: q.arabizi || q.arabic || q.ask, said: () => answers.q[i], prog: `${i + 1} of ${total}`, html: `<h3 class="hb-q">${esc(q.ask)}</h3><p class="hb-sub">${esc(q.why)}. Your answer changes how the app scores this word.</p>
+        S.push({ part: 'q', k: i, title: (q.ask ? q.ask + ' · ' : '') + (q.arabizi || q.arabic || ''), said: () => answers.q[i], prog: `${i + 1} of ${total}`, html: `<h3 class="hb-q">${esc(q.ask)}</h3><p class="hb-sub">${esc(q.why)}. Your answer changes how the app scores this word.</p>
           <div class="hb-moment">${q.arabizi ? `<div class="hb-big">${esc(q.arabizi)}</div>` : ''}<div class="hb-ar" dir="auto">${esc(q.arabic || '')}</div><div class="hb-en">${esc(q.english || '')}</div><div data-player></div></div>
           ${q.typed ? `<input class="hb-input" id="${id}t" placeholder="Your spelling (optional)" aria-label="Your spelling">` : ''}
           <div class="hb-btns">${q.buttons.slice(0, 3).map((b, j) => btn(`${id}b${j}`, esc(b))).join('')}</div><a href="#" class="hb-skip" id="${id}s">Skip this one</a>`,
