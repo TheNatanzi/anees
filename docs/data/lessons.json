@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T11:20:51-07:00",
+ "updated": "2026-10-02T11:56:53-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -52,46 +52,48 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 68,
+    "unique": 67,
     "right": 70,
-    "wrong": 20,
+    "wrong": 19,
     "partial": 7,
-    "pct": 75.8,
-    "scored": 97,
-    "audit_wrong": 15,
+    "pct": 76.6,
+    "scored": 96,
+    "audit_wrong": 14,
     "audit_partial": 6,
     "not_on_sheet": 5,
-    "unique_rows": 68,
-    "eligible": 97,
+    "unique_rows": 67,
+    "eligible": 96,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 75.8,
+    "eligible_pct": 76.6,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
     "uses": 248,
-    "mistakes": 33,
+    "mistakes": 35,
     "pct": 89.1,
     "estimate": false,
     "scored_mistakes": 27,
-    "unscored_mistakes": 6,
-    "eligible": 33,
+    "unscored_mistakes": 8,
+    "eligible": 35,
     "excluded": 0,
-    "pending": 1,
+    "pending": 3,
     "denominator": {
      "valid": false,
      "reasons": [
-      "6 slips are in rules the counter found 0 uses of in this lesson",
-      "3 rules have more slips than counted uses (A4, B18, D2)"
+      "8 slips are in rules the counter found 0 uses of in this lesson",
+      "5 rules have more slips than counted uses (A12, A4, B18, C12, D2)"
      ],
      "uses": 228,
-     "slips": 33,
+     "slips": 35,
      "slips_latin": 7,
-     "slips_in_zero_use_rules": 6,
+     "slips_in_zero_use_rules": 8,
      "rules_slips_over_uses": [
+      "A12",
       "A4",
       "B18",
+      "C12",
       "D2"
      ]
     },
@@ -155,7 +157,7 @@
    "coverage": "Whole file read in order. Latin-transliterated stretch [36:42]-[42:33] (‹...› forms; wrong/right kept in the transcript's Latin there). English-only stretches: [09:32]-[10:26] (Meet/computer logistics), [13:21]-[13:48], [16:12]-[16:57], and most of [29:33]-[31:05] (her explanation of بتأسف). Garbled/uncertain transcript lines left out: [03:31] 'تمام. مهمتي', [03:38] 'يا مهمني. بابا جان من ميرم بيته سريع', [03:45] 'يومي كان مني', [04:19] Amal 'جان ملت', [07:04] Amal 'وهلا شو بتمشي', [08:32] 'فندرة بنية', [20:54] 'لما كم يخلصوا', [32:07] 'مناسبة' (she said Perfect - surely معصبة misheard), [36:06] 'عتيته', [55:36] 'أنا بكرى'. [07:32] Amal 'خمسة' after his date line is a repeat I could not pin to a fix (pronunciation at most). S4 pronunciation left out: ثمانية/تلاتة for تمانية, اثنتين for تنتين (08:04), هواء for هوا (57:50), الله يفيكي (59:42), bin khaf/nakun vowels (39:24-39:39), and 'بس بتها' for ببسطها (32:27) which is a dropped root letter, not vocab. English drops in Arabic sentences ('understand' 13:54, 'makes me angry' 49:19, 'noodles' 06:50, 'Arabic or English letters' 15:54) were all self-fixed to Arabic within the turn, so no tier-3 rows; 'project', 'issue', 'problem', 'instead', 'apologize', 'moment', 'noodles' are not on her sheet. Comprehension misses not written as rows: 43:18 (بتخططوا, caught on repeat), 33:57 (answered for himself when she asked what SHE does), 50:18 (كان مرة؟ to إذا شفت حدا معصب). No swapped speaker labels noticed. / Lesson opens with Meet audio trouble 09:32-13:48 (mostly English). Stretch 36:42-42:33 is Latin-transliterated in ‹...›; Latin kept there. 07:19 date line: Amal replied 'خمسة.' - unclear whether pronunciation or a fix, not filed. 07:45/08:04 clock answer changed after her 'لا، مش تلاتة ونص' - treated as a fact/time-zone correction, not language. 08:17 'blouze' is her word بلوزة in Latin, not English filler. 05:15 'project', 06:50 'noodles' (self-fixed to مكرونة), English 'issue' (used by Amal herself) are not on her sheet - no tier-3 rows. 14:08 يأتينا (MSA verb, echoed by her) and 59:42 الله يفيكي (dropped ع, S4) not filed. Several stutter-fragments (32:27 بتها for ببسطها, 34:03 بتأسف→بتتأسف self-fix) left out per S5. Medi Arabic turns counted by script: Medi lines containing Arabic script or ‹Latin Arabic›.",
    "notes": [
     "timings: one mixed recording, speakers labelled by the engine's diarization (words_labeled.json)",
-    "grammar: 6 of the 33 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "grammar: 8 of the 35 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
     "fillers: the page turns carry 16 of the 167 filled pauses the engine words hold, so fillers.per_min is not comparable with lessons whose pages keep them."
    ],
    "page": "lessons/2026-08-25.html",
@@ -163,9 +165,9 @@
    "counts": {
     "turns": 623,
     "chat_lines": 0,
-    "vocab_errors": 31,
+    "vocab_errors": 30,
     "vocab_correct": 71,
-    "grammar_errors": 33,
+    "grammar_errors": 35,
     "grammar_not_counted": 1
    },
    "release": {
@@ -176,7 +178,7 @@
      "reader agreement: pass 1 vs pass 2 settled rows agree on 78.9 % (>= 95 % needed)",
      "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+     "checks: 3 scored rows need an audio or human check (0 words, 3 grammar)"
     ],
     "agreement": {
      "status": "withheld",
@@ -3101,25 +3103,25 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 359,
+    "uses": 358,
     "mistakes": 62,
-    "pct": 84.4,
+    "pct": 84.6,
     "estimate": false,
-    "scored_mistakes": 56,
-    "unscored_mistakes": 6,
+    "scored_mistakes": 55,
+    "unscored_mistakes": 7,
     "eligible": 61,
     "excluded": 1,
     "pending": 2,
     "denominator": {
      "valid": false,
      "reasons": [
-      "12 slips are in rules the counter found 0 uses of in this lesson",
+      "13 slips are in rules the counter found 0 uses of in this lesson",
       "9 rules have more slips than counted uses (A2, A4, B10, B12, B16, B17, B18, B4b)"
      ],
      "uses": 312,
      "slips": 62,
      "slips_latin": 29,
-     "slips_in_zero_use_rules": 12,
+     "slips_in_zero_use_rules": 13,
      "rules_slips_over_uses": [
       "A2",
       "A4",
@@ -3129,7 +3131,7 @@
       "B17",
       "B18",
       "B4b",
-      "D2"
+      "C11"
      ]
     },
     "verified_pct": null
@@ -3191,7 +3193,7 @@
    "taught_words": [],
    "coverage": "Whole file read. 800 Medi turns: 348 with Arabic script, ~130 more in Latin transliteration (31:49-32:48, 34:07-35:31, 37:41-43:03, 49:25-1:00:47, 1:07:43-1:11:18) where vowel/pronoun endings are ambiguous. Garbled/untrustworthy Medi lines skipped: 01:14 'بابا، مريان بيضرهبي', 12:00 'access في الـ', 16:00 'Sven is lazy', 26:20 'على البرك' (probably على قلبك), 26:31 'By كما ما', 27:15 'بنجرة شي-شيطاني' (echoing her), 31:29 'Shumel', 49:13 'bixfun', 50:05 'thway sufun', 1:07:39 'Is bafta internal'. Transcript renders his 'roz' as English 'rose' (44:09-47:27) - treated as رز, not an English drop. 25:47 'سبق أن أدفع أطفالك' = his 'بقدر أدفع لك' per chat 26:53. 11:46 'أسبوع شغل' is almost surely 'أسبوع شوب' (chat: usboo3 shoab) - pronunciation, not vocab. Pronunciation left out (S4): 'أديش' for قديش, 'pantalón' for بنطلون, 'بهري' for بحري, 'إمني' for منيح, 'أوالي' for حوالي, 'دايّة' for دقيقة, 'ذكي' vowel for زاكي (F2), 'wa'atir' for واطية, 'ma'ali' for مقلي, 'ما السلامة', 'Al-yafeeki'. English-only stretches: 13:22-13:55 sirens, 36:13-37:29 proficiency test, 1:08:27-1:09:02, 1:11:31-1:12:05. Long meta/English exchange 25:03-25:40 about pay-for vs pay-to. Self-fixes not logged: 07:08 نوصف→ثلت, 15:32 قدرت, 39:25 علمتني, 46:31 ملح, 52:19 Irani→Iraniyin, 55:40 بيعملوا, 1:02:29 مخية→مقلوبة (logged low). Amal's 33:44 'لا، خلص شكرًا' answers his 33:41 question about سلامة إيديك; the earlier 22:59 'سلامتي' is logged against it. / Whole file read in order. Latin-transliterated stretches: 31:49-35:12, 37:41-42:52, 49:13-1:00:47, 1:08:03-1:11:59 (kept as printed). English-only stretches: 13:22-13:55 (sirens), 36:13-37:29 (proficiency test), 1:08:27-1:09:02, 1:11:31-1:12:05. ASR garbage not scored: 01:14 'مريان بيضرهبي', 12:00 'access', 16:00 'Sven is lazy' (= كسلان), 24:34 'أدفع أطفالهم' and 25:47 'سبق أن أدفع أطفالك' (probably أدفع لك / بقدر; her 'تقدر' at 26:01 may be a fix but his line is unreadable), 26:20 'على البرك', 26:31 'By كما ما', 26:47 'يا تيك يا راسي' (= يعطيك العافية), 49:00 'طلقة', 55:17, 1:06:47 'مطبخ'. Pronunciation only (S4, left out): pantalón with P (07:32-07:50 -> بنطلون), كندورة for كندرة, آل/أوالي/أديش/دايّة dropped ق-ح-ق, ما السلامة, كليان for كليًا, بهري for بحري, hamid/malh, Al-yafeeki. Self-fixes left out: 12:12 صيف->شتاء, 15:32 أقدر->قدرت, 16:22 جايبة لي->جايبالي (she recast 'كان جاي على بالك' but changed only the tense), 19:27 حكينا->بنحكي, 39:25 ta'alamathni->'alamathni (B12), 53:11 tahet min roz->roz min tahet, 1:02:29 مخية->مقلوبة. Not errors: 'crispy' (52:11, she said not learned); pizza/pepperoni/bacon/croissant/chocolate/cappuccino/credit card/holes/fire department/ambulance not on her sheet (she uses several herself); 31:16 'A shawarma' is a whole English clause. 11:46 'أسبوع شغل' is most likely her 'usboo3 shoab' misheard by the ASR, not a vocab slip. 47:27 'أرجع أحط' after بعدين left unflagged because her own chat keeps arja3. medi_turns counts Medi lines carrying Arabic script or Latin-transliterated Arabic.",
    "notes": [
-    "grammar: 6 of the 62 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "grammar: 7 of the 62 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
     "1 word card(s) dropped after the 2026-09-27 hand check (he said it right, it was not his slip, or it repeats a slip already counted): 33:41 شكرًا."
    ],
    "page": "lessons/2026-09-21.html",

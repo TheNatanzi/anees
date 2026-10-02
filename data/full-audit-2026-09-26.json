@@ -1,5 +1,5 @@
 {
- "built": "2026-10-02T11:20:31-07:00",
+ "built": "2026-10-02T11:56:36-07:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -277,7 +277,7 @@
     "uid": "FA-9e441fb3",
     "sweep_id": "0825-U2",
     "mistake": "Referring back to plural عيلتي / معهم he used singular هو; she supplied هما.",
-    "bucket": "B18",
+    "bucket": "A12",
     "bucket2": null,
     "new_bucket_group": null
    },
@@ -418,6 +418,29 @@
     "bucket": "D2",
     "bucket2": null,
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-ffbd560d",
+    "date": "2026-08-25",
+    "t": "31:59",
+    "t_amal": "32:06",
+    "medi_said": "إن، إنتي ما-",
+    "amal_said": "هي.",
+    "chat": null,
+    "wrong": "إنتي",
+    "right": "هي",
+    "confidence": "medium",
+    "confidence_why": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "sweep-2026-09-24",
+    "uid": "FA-ffbd560d",
+    "sweep_id": "0825-U3",
+    "mistake": "'you' instead of 'she' for the fiancee",
+    "bucket": "A12",
+    "bucket2": null,
+    "new_bucket_group": "NEW-A12"
    },
    {
     "id": "FA-408d91a2",
@@ -784,6 +807,29 @@
     "sweep_id": null,
     "mistake": "The set phrase بغير جو takes no el- (sheet: Ba8ayyer jaw | بغير جو); he said الجو, she said 'No ال', and he repeated الجو at 58:26 anyway.",
     "bucket": "A1",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-2ca615a8",
+    "date": "2026-08-25",
+    "t": "59:04",
+    "t_amal": "59:06",
+    "medi_said": "عملنا كتير.",
+    "amal_said": "شو عملنا؟ ... عملنا. ... شو عملنا؟",
+    "chat": null,
+    "wrong": "عملنا كتير",
+    "right": "عملنا تمرين كتير",
+    "confidence": "low",
+    "confidence_why": "She repeated the same prompt until he changed the sentence, which is a prompt-then-fix signal; kept low-confidence, C9 as the nearest bucket (verb + object sentence shape).",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-2ca615a8",
+    "sweep_id": null,
+    "mistake": "عمل needs an object; 'we did a lot' came out as عملنا كتير, she asked شو عملنا؟ twice, ignoring his English 'We did a lot', until he supplied an object (عملنا تمرين كتير, 59:15) and then accepted (عنجد؟); low because it could be read as plain conversation.",
+    "bucket": "C12",
     "bucket2": null,
     "new_bucket_group": null
    },
@@ -11662,7 +11708,7 @@
     "uid": "FA-0d4e7fff",
     "sweep_id": null,
     "mistake": "مشهور/معروف takes بـ or في plus the noun (الطبخ), not a verb; she named it and he produced Bi tabakh il-kebab (38:29).",
-    "bucket": "D2",
+    "bucket": "C11",
     "bucket2": "D5",
     "new_bucket_group": null
    },
@@ -15647,31 +15693,6 @@
     "why": "He built the verb from أسف as بأسف; the verb 'I apologize' is بتأسف (t-form), which she supplied after 'very close'.",
     "kind": "wrong-word",
     "tier": 2,
-    "amal_gave_arabizi": null
-   },
-   {
-    "id": "FA-2c9e0146",
-    "date": "2026-08-25",
-    "t": "31:59",
-    "t_amal": "32:06",
-    "medi_said": "إن، إنتي ما-",
-    "amal_said": "هي.",
-    "chat": null,
-    "wrong": "إنتي",
-    "right": "هي",
-    "confidence": "medium",
-    "confidence_why": "Both readers saw the same slip; the fix is a single substituted pronoun before any verb, so the brief's 'ending/prefix rule = grammar' test points to vocab-A tier 1.",
-    "signal": "recast",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-2c9e0146",
-    "sweep_id": null,
-    "amal_gave": "هي",
-    "english": "She (doesn't stay...)",
-    "why": "Building 'she doesn't stay angry' about his fiancée he said إنتي (you-f); she recast هي and he said 'هي، sorry' (32:07); a pronoun word-swap, not an ending/prefix rule, so vocab tier 1 rather than B18 (no verb had been produced yet).",
-    "kind": "wrong-word",
-    "tier": 1,
     "amal_gave_arabizi": null
    },
    {
@@ -23599,8 +23620,8 @@
   "pron_from_sweep": [],
   "hand_check": {},
   "totals": {
-   "speaking_grammar": 573,
-   "vocab": 282,
+   "speaking_grammar": 575,
+   "vocab": 281,
    "machine_caught_speaking": 104
   }
  },
@@ -23608,12 +23629,12 @@
  "lessons_missing": [],
  "totals": {
   "rows": 1142,
-  "grammar_A": 573,
+  "grammar_A": 575,
   "grammar_B": 93,
-  "grammar_proposed": 3,
-  "vocab_A": 282,
+  "grammar_proposed": 0,
+  "vocab_A": 281,
   "vocab_A_by_tier": {
-   "1": 165,
+   "1": 164,
    "0": 106,
    "2": 50,
    "3": 6
@@ -23639,10 +23660,10 @@
   }
  },
  "by_bucket": {
-  "B18": 63,
+  "B18": 62,
   "B5": 55,
   "B12": 51,
-  "D2": 48,
+  "D2": 47,
   "D4": 43,
   "B1": 34,
   "A2": 33,
@@ -23670,11 +23691,11 @@
   "B16": 5,
   "E2": 5,
   "E5": 4,
-  "PROPOSE": 3,
   "C9": 3,
   "C1": 3,
   "E4": 3,
   "A11": 3,
+  "A12": 2,
   "C6": 2,
   "A10b": 2,
   "A9b": 2,
@@ -23684,19 +23705,21 @@
   "E3": 2,
   "B9": 1,
   "C5": 1,
+  "C12": 1,
   "C8": 1,
   "B14": 1,
   "A6": 1,
   "B7": 1,
   "D6": 1,
+  "C11": 1,
   "B4b": 1,
   "B17": 1
  },
  "by_lesson": {
   "2026-08-25": {
-   "grammar_A": 29,
+   "grammar_A": 31,
    "grammar_B": 10,
-   "vocab_A": 22,
+   "vocab_A": 21,
    "vocab_B": 7,
    "listening": 5,
    "sweep_grammar_before": 24,
@@ -25532,7 +25555,8 @@
    "proposed_rule": "Pick the pronoun for the real person: humma for 'they' (his family), heyye for 'she' (his fiancee), not the last pronoun used.",
    "family": "A",
    "from": "09-24 sweep group NEW-A12 (proposed then, never shown to Medi)",
-   "medi": null,
+   "medi": "yes",
+   "bucket": "A12",
    "moments": [
     {
      "uid": "FA-ffbd560d",
@@ -25544,17 +25568,12 @@
      "chat": null,
      "wrong": "إنتي",
      "right": "هي",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
+     "kind": "grammar",
+     "bucket": "A12",
      "confidence": "medium",
      "why": "sweep row 0825-U3: Amal recast هي for his إنتي about his fiancee; the readers filed the same moment as a vocab word swap (FA-2c9e0146)",
-     "also_counted_as": [
-      {
-       "uid": "FA-2c9e0146",
-       "kind": "vocab-A",
-       "bucket": null
-      }
-     ]
+     "also_counted_as": [],
+     "scored_under": "A12"
     },
     {
      "uid": "FA-9e441fb3",
@@ -25567,7 +25586,7 @@
      "wrong": "هو",
      "right": "هما",
      "kind": "grammar",
-     "bucket": "B18",
+     "bucket": "A12",
      "confidence": "high",
      "why": "sweep row 0825-U2: هو for his family members, Amal said هما; the readers filed it under B18",
      "also_counted_as": [
@@ -25577,7 +25596,7 @@
        "bucket": "B1"
       }
      ],
-     "already_counted": true
+     "scored_under": "A12"
     }
    ]
   },
@@ -25587,29 +25606,25 @@
    "proposed_rule": "After bi / fi / min use the noun of the action, not a verb: ana ma3roof bi el-tabe5 (her chat 09-21), not bi a6bo5.",
    "family": "C",
    "from": "09-24 sweep group NEW-C11 (proposed then, never shown to Medi)",
-   "medi": null,
+   "medi": "yes",
+   "bucket": "C11",
    "moments": [
     {
-     "uid": "FA-737a36aa",
+     "uid": "FA-0d4e7fff",
      "date": "2026-09-21",
      "t": "38:10",
-     "t_amal": "38:23",
+     "t_amal": "38:15",
      "medi_said": "would it be a-ana mash-mashhur bi-ut-bi atbuk without the bi, right?",
-     "amal_said": "في. ... في or be. ... في، mm, the noun. Noun is طبخ.",
+     "amal_said": "في. في or be. في، mm, the noun. Noun is طبخ.",
      "chat": "ana ma3roof bi el-tabe5 el-kabab",
-     "wrong": "بـ أطبخ",
-     "right": "بالطبخ",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
+     "wrong": "bi atbuk",
+     "right": "bi el-tabe5",
+     "kind": "grammar",
+     "bucket": "C11",
      "confidence": "high",
      "why": "sweep row 0921-U1: Medi asked, Amal: 'the noun. Noun is طبخ'; the readers filed the same moment under D2 (FA-0d4e7fff)",
-     "also_counted_as": [
-      {
-       "uid": "FA-0d4e7fff",
-       "kind": "grammar",
-       "bucket": "D2"
-      }
-     ]
+     "also_counted_as": [],
+     "scored_under": "C11"
     }
    ]
   },
@@ -25619,7 +25634,8 @@
    "proposed_rule": "A verb like 3amal (do / make) names what was done: 3amalna tamreen kteer, not just 3amalna kteer (Amal kept asking 'shu 3amalna?' until he added it).",
    "family": "C",
    "from": "rejected.json FA-0075 (hand check 2026-09-26: 'plain conversation, no correction and no bucket fits') - re-checked 2026-10-02 under GR-18: 'no bucket fits' is never a reason to drop; low confidence, the hand check read it as conversation",
-   "medi": null,
+   "medi": "yes",
+   "bucket": "C12",
    "moments": [
     {
      "uid": "FA-2ca615a8",
@@ -25631,11 +25647,12 @@
      "chat": null,
      "wrong": "عملنا كتير",
      "right": "عملنا تمرين كتير",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
+     "kind": "grammar",
+     "bucket": "C12",
      "confidence": "low",
      "why": "59:04 he said عملنا كتير; Amal asked شو عملنا؟ at 59:06 and 59:12 until he said عملنا تمرين كتير (59:15). Low: the hand check read her question as conversation",
-     "also_counted_as": []
+     "also_counted_as": [],
+     "scored_under": "C12"
     }
    ]
   }
@@ -26563,7 +26580,7 @@
    "right": "هما",
    "kind": "grammar",
    "tier": null,
-   "bucket": "B18",
+   "bucket": "A12",
    "bucket2": null,
    "mode": "speaking",
    "signal": "recast",
@@ -26587,7 +26604,9 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-9e441fb3",
-   "n": 25
+   "n": 25,
+   "bucket_before_refile": "B18",
+   "refiled_by": "P-A12 approved by Medi (GR-18)"
   },
   {
    "id": "0825-D8",
@@ -27123,7 +27142,7 @@
    "chat": null,
    "wrong": "إنتي",
    "right": "هي",
-   "kind": "vocab-A",
+   "kind": "rejected",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
@@ -27148,7 +27167,10 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-2c9e0146",
-   "n": 40
+   "n": 40,
+   "kind_before_rejection": "vocab-A",
+   "duplicate_of": "FA-ffbd560d",
+   "rejected_why": "same moment as FA-ffbd560d, a grammar slip under A12 since Medi approved P-A12 (GR-18): one slip"
   },
   {
    "sweep_id": "0825-U3",
@@ -27160,9 +27182,9 @@
    "chat": null,
    "wrong": "إنتي",
    "right": "هي",
-   "kind": "grammar-propose",
+   "kind": "grammar",
    "tier": null,
-   "bucket": "PROPOSE",
+   "bucket": "A12",
    "bucket2": null,
    "mode": "speaking",
    "signal": "recast",
@@ -27175,10 +27197,15 @@
    "fid": "0825-U3",
    "uid": "FA-ffbd560d",
    "n": 41,
-   "kind_before_proposal": "grammar",
    "bucket_before_proposal": null,
-   "proposal": "P-A12",
-   "proposed_rule": "Pick the pronoun for the real person: humma for 'they' (his family), heyye for 'she' (his fiancee), not the last pronoun used."
+   "approved_proposal": "P-A12",
+   "passes": [
+    1,
+    2
+   ],
+   "duplicates_merged": [
+    "FA-2c9e0146"
+   ]
   },
   {
    "id": "0825-38",
@@ -28374,9 +28401,9 @@
    "chat": null,
    "wrong": "عملنا كتير",
    "right": "عملنا تمرين كتير",
-   "kind": "grammar-propose",
+   "kind": "grammar",
    "tier": null,
-   "bucket": "PROPOSE",
+   "bucket": "C12",
    "bucket2": null,
    "mode": "speaking",
    "signal": "prompt-then-fix",
@@ -28395,15 +28422,12 @@
    "date": "2026-08-25",
    "source": "audit-2026-09-26",
    "machine_had": false,
-   "kind_before_rejection": "grammar",
    "bucket_name": "word order",
    "uid": "FA-2ca615a8",
    "n": 75,
-   "kind_before_proposal": "grammar",
    "was_rejected_why": "hand check 2026-09-26: plain conversation, no correction and no bucket fits",
    "bucket_before_proposal": "C9",
-   "proposal": "P-OBJ",
-   "proposed_rule": "A verb like 3amal (do / make) names what was done: 3amalna tamreen kteer, not just 3amalna kteer (Amal kept asking 'shu 3amalna?' until he added it)."
+   "approved_proposal": "P-OBJ"
   },
   {
    "id": "0904-1",
@@ -53859,7 +53883,7 @@
    "right": "bi el-tabe5",
    "kind": "grammar",
    "tier": null,
-   "bucket": "D2",
+   "bucket": "C11",
    "bucket2": "D5",
    "mode": "speaking",
    "signal": "named-rule",
@@ -53882,7 +53906,12 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-0d4e7fff",
-   "n": 793
+   "n": 793,
+   "bucket_before_refile": "D2",
+   "refiled_by": "P-C11 approved by Medi (GR-18)",
+   "duplicates_merged": [
+    "FA-737a36aa"
+   ]
   },
   {
    "sweep_id": "0921-U1",
@@ -53894,9 +53923,9 @@
    "chat": "ana ma3roof bi el-tabe5 el-kabab",
    "wrong": "بـ أطبخ",
    "right": "بالطبخ",
-   "kind": "grammar-propose",
+   "kind": "rejected",
    "tier": null,
-   "bucket": "PROPOSE",
+   "bucket": null,
    "bucket2": null,
    "mode": "speaking",
    "signal": "named-rule",
@@ -53909,10 +53938,9 @@
    "fid": "0921-U1",
    "uid": "FA-737a36aa",
    "n": 794,
-   "kind_before_proposal": "grammar",
-   "bucket_before_proposal": null,
-   "proposal": "P-C11",
-   "proposed_rule": "After bi / fi / min use the noun of the action, not a verb: ana ma3roof bi el-tabe5 (her chat 09-21), not bi a6bo5."
+   "kind_before_rejection": "grammar",
+   "duplicate_of": "FA-0d4e7fff",
+   "rejected_why": "same moment as FA-0d4e7fff, filed under C11 when Medi approved P-C11 (GR-18): one slip"
   },
   {
    "id": "0921-46",
@@ -66233,7 +66261,7 @@
  ],
  "rulings_applied": [
   {
-   "at": "2026-10-02T18:20:33.810527+00:00",
+   "at": "2026-10-02T18:56:38.385232+00:00",
    "rules": [
     1928,
     1929,

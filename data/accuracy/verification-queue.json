@@ -1,8 +1,8 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 21,
+ "count": 23,
  "by_date": {
-  "2026-08-25": 1,
+  "2026-08-25": 3,
   "2026-09-04": 2,
   "2026-09-05": 1,
   "2026-09-10": 3,
@@ -15,6 +15,27 @@
   "2026-09-30": 2
  },
  "rows": [
+  {
+   "uid": "FA-ffbd560d",
+   "date": "2026-08-25",
+   "t": "31:59",
+   "t_amal": "32:06",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A12",
+   "medi_said": "إن، إنتي ما-",
+   "amal_said": "هي.",
+   "wrong": "إنتي",
+   "right": "هي",
+   "why_check": [
+    "kept from the 09-24 sweep; neither reader pass listed it"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "31:49",
+   "listen_to": "32:26"
+  },
   {
    "uid": "FA-8096ecda",
    "date": "2026-08-25",
@@ -36,6 +57,29 @@
    "second_judge": null,
    "listen_from": "45:49",
    "listen_to": "46:19"
+  },
+  {
+   "uid": "FA-2ca615a8",
+   "date": "2026-08-25",
+   "t": "59:04",
+   "t_amal": "59:06",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "C12",
+   "medi_said": "عملنا كتير.",
+   "amal_said": "شو عملنا؟ ... عملنا. ... شو عملنا؟",
+   "wrong": "عملنا كتير",
+   "right": "عملنا تمرين كتير",
+   "why_check": [
+    "reader confidence low",
+    "decided by the third reader alone, in one pass only",
+    "found in pass 2 only (the other pass did not list it)"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "58:54",
+   "listen_to": "59:26"
   },
   {
    "uid": "FA-a4ad5c2c",

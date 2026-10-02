@@ -11,9 +11,9 @@
   "threshold_pct": 95.0,
   "words": {
    "verified_avg_pct": null,
-   "unverified_avg_pct": 82.4,
+   "unverified_avg_pct": 82.5,
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
-   "eligible": 1381,
+   "eligible": 1380,
    "excluded": 27,
    "pending": 1
   },
@@ -22,11 +22,11 @@
    "unverified_avg_pct": 81.5,
    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
    "denominator_valid_lessons": 0,
-   "eligible": 569,
+   "eligible": 571,
    "excluded": 42,
-   "pending": 20
+   "pending": 22
   },
-  "verification_queue": 21,
+  "verification_queue": 23,
   "word_bank": {
    "occurrences": 2596,
    "eligible": 1187,
@@ -49,14 +49,14 @@
     "reader agreement: pass 1 vs pass 2 settled rows agree on 78.9 % (>= 95 % needed)",
     "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model",
-    "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+    "checks: 3 scored rows need an audio or human check (0 words, 3 grammar)"
    ],
    "words": {
-    "pct": 75.8,
-    "eligible_pct": 75.8,
+    "pct": 76.6,
+    "eligible_pct": 76.6,
     "verified_pct": null,
-    "scored": 97,
-    "eligible": 97,
+    "scored": 96,
+    "eligible": 96,
     "excluded": 0,
     "pending": 0,
     "excluded_why": {}
@@ -64,16 +64,16 @@
    "grammar": {
     "pct": 89.1,
     "verified_pct": null,
-    "mistakes": 33,
+    "mistakes": 35,
     "uses": 248,
-    "eligible": 33,
+    "eligible": 35,
     "excluded": 0,
-    "pending": 1,
+    "pending": 3,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
-     "6 slips are in rules the counter found 0 uses of in this lesson",
-     "3 rules have more slips than counted uses (A4, B18, D2)"
+     "8 slips are in rules the counter found 0 uses of in this lesson",
+     "5 rules have more slips than counted uses (A12, A4, B18, C12, D2)"
     ]
    },
    "coverage": {
@@ -725,17 +725,17 @@
     }
    },
    "grammar": {
-    "pct": 84.4,
+    "pct": 84.6,
     "verified_pct": null,
     "mistakes": 62,
-    "uses": 359,
+    "uses": 358,
     "eligible": 61,
     "excluded": 1,
     "pending": 2,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
-     "12 slips are in rules the counter found 0 uses of in this lesson",
+     "13 slips are in rules the counter found 0 uses of in this lesson",
      "9 rules have more slips than counted uses (A2, A4, B10, B12, B16, B17, B18, B4b)"
     ]
    },
