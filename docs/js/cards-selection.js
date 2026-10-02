@@ -100,6 +100,7 @@
 
   // Match on house spelling / Arabizi / aliases first, then the Arabic; only a unique match counts.
   function matcher(words) {
+    useWords(words);
     const latin = new Map(), arabic = new Map();
     const add = (m, s, w) => { const k = norm(s); if (!k) return; if (!m.has(k)) m.set(k, new Set()); m.get(k).add(w); };
     for (const w of words) { for (const s of [w.arabizi, w.house_spelling].concat(w.aliases || [])) add(latin, s, w); add(arabic, w.arabic, w); }
@@ -109,6 +110,31 @@
 
   // A Quizlet set as cards. Matched terms reuse the Doc word (shared history); the rest are
   // their own cards keyed q:<set id>:<rank>. Terms with a blank side are skipped.
+  // A bracket after a Quizlet word is a plural unless it is a preposition the word takes ("Ana bat6all3 (3ala)", "(la-)",
+  // "(X)"), a gender note ("(M)", "(Feminine)"), the same word spelled again ("Hishis (his-his)"), or the card is a verb /
+  // pattern ("I look", "+ (no b) verb").
+  const PREP = /^(3ala|3al|la|la-|ma3|fi|bi|b|min|mn|3an|3and|X|m|f|g|p|d|m&f|male|female|masc(uline)?|fem(inine?)?|no b|-|\s|\/)+$/i;
+  function quizletPlural(arabizi, english) {
+    const m = String(arabizi || '').match(/^([^()]+?)\s*\(([^()]+)[()]?\s*$/); if (!m) return null;
+    const singular = m[1].trim(), plural = m[2].trim(), en = String(english || '').trim(), key = x => String(x).toLowerCase().replace(/[^a-z0-9]/g, '');
+    if (!singular || !plural || /\+/.test(arabizi) || /\d/.test(en) || PREP.test(plural.replace(/-$/, '')) || key(plural) === key(singular)) return null;
+    if (/^(I|you|he|she|it|we|they)/i.test(en) || /\((command|progressive)\)/i.test(en)) return null;
+    return { singular, plural };
+  }
+  // The back of a plural-set card is English when every word of it is an English word Amal uses in the Doc (and not Arabizi).
+  function looksEnglish(text, en) {
+    const toks = String(text || '').toLowerCase().replace(/[()'’.,!?]/g, ' ').split(/[\s/]+/).filter(Boolean);
+    if (!toks.length || /\d/.test(text)) return false;
+    if (/\s(the|a|an|to|of|is|i|you|my|your)\s/i.test(' ' + text + ' ')) return true;
+    return toks.every(t => en.english.has(t) && !en.arabizi.has(t));
+  }
+  let englishWords = { english: new Set(), arabizi: new Set() };
+  function useWords(words) {
+    const e = new Set(), a = new Set(), tok = s => String(s || '').toLowerCase().replace(/[()'’.,!?]/g, ' ').split(/[\s/]+/).filter(Boolean);
+    for (const w of words || []) { for (const t of tok(w.english)) e.add(t); for (const t of tok(w.arabizi).concat(tok(w.plural))) a.add(t); }
+    englishWords = { english: e, arabizi: a };
+  }
+
   function quizletCards(set, match) {
     const out = [], seen = new Set();
     (set.terms || []).forEach((pair, i) => {
@@ -119,11 +145,14 @@
       const t = splitTerm(target); if (!t.arabizi && !t.arabic) t.arabizi = String(target).trim();
       const w = match(t);
       const card = w || { key: 'q:' + set.id + ':' + (i + 1), arabizi: t.arabizi || t.arabic, arabic: t.arabizi ? t.arabic : '', english, topic: set.title, quizlet: set.id,
-        // Rule F8 (Medi 2026-10-01): in Amal's plural sets the back is the Arabic PLURAL, not English -> label Singular / Plural
-        ...(/plural/i.test(set.title || '') && !/\s(the|a|an|to|of|is|i|you)\s/i.test(' ' + english + ' ') ? { _pl: true } : {}) };
-      // Rule F2: Quizlet writes a plural as "Daif (dyoof) = Guest - Guests"; show it like the Doc: Daif · dyoof / Guest · guests
-      const pm = !w && !card.plural && String(card.arabizi).match(/^(.+?)\s*\(([^()]+)\)\s*$/);
-      if (pm && /\s[-–]\s/.test(card.english) && !/\d/.test(card.english)) { card.arabizi = pm[1].trim(); card.plural = pm[2].trim(); }
+        // Rule F8b (Medi 2026-10-01): in Amal's plural sets the back is the Arabic PLURAL, not English -> label Singular / Plural.
+        // A back that is English (Parents, Siblings, Country, "my uncles's (F) sons/kids") stays an Arabic / English card: the
+        // front has Arabic letters ("E5we | أخوة = Siblings") or every back word is English Amal uses in the Doc.
+        ...(/plur/i.test(set.title || '') && !AR.test(target) && !looksEnglish(english, englishWords) ? { _pl: true } : {}) };
+      // Rule F2: Quizlet writes a plural in brackets: "Daif (dyoof) = Guest - Guests", "Fasel (fsool) = Season",
+      // even "Kalb (klaab( = Dog - dogs". Show it like the Doc: Daif · dyoof / Guest · guests.
+      const pm = !w && !card.plural && quizletPlural(card.arabizi, card.english);
+      if (pm) { card.arabizi = pm.singular; card.plural = pm.plural; }
       if (seen.has(card.key)) return; seen.add(card.key); out.push(card);
     });
     return out;
@@ -159,6 +188,6 @@
   function isQuizletOnly(key) { return /^q:/.test(String(key || '')); }
   function isFormCard(key) { return /^form:/.test(String(key || '')); }
 
-  root.AneesCardSelection = { TYPES, TYPE_LABEL, TENSES, statusSplit, newFromAmal, neverTested, answeredKeys, tenses, topics, splitTerm, matcher, quizletCards, quizletGroups, collocationSets, isDated, MIX, scoreMix, statusByKey, isQuizletOnly, isFormCard, formCard, typeOf };
+  root.AneesCardSelection = { TYPES, TYPE_LABEL, TENSES, statusSplit, newFromAmal, neverTested, answeredKeys, tenses, topics, splitTerm, matcher, quizletCards, quizletGroups, collocationSets, isDated, MIX, scoreMix, statusByKey, isQuizletOnly, isFormCard, formCard, typeOf, quizletPlural, looksEnglish, useWords };
   if (typeof module !== 'undefined' && module.exports) module.exports = root.AneesCardSelection;
 })(typeof window !== 'undefined' ? window : globalThis);

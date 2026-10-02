@@ -100,3 +100,16 @@ test('a scored form with no Doc key still gets a card, and Word Bank maps its an
  assert.equal(cardFor.key,'form:v:past');assert.equal(cardFor.arabizi,'saa3adet');assert.equal(cardFor.english,'I help (past)');
  assert.ok(S.isFormCard(cardFor.key));
 });
+
+test('Quizlet plurals in brackets are read; prepositions, gender notes and spellings are not (Medi 2026-10-01)',()=>{
+ const P=S.quizletPlural;
+ assert.deepEqual(P('Fasel (fsool)','Season'),{singular:'Fasel',plural:'fsool'});
+ assert.deepEqual(P('Kalb (klaab(','Dog - dogs'),{singular:'Kalb',plural:'klaab'});
+ assert.deepEqual(P('Daif (dyoof)','Guest - Guests'),{singular:'Daif',plural:'dyoof'});
+ for(const [a,e] of [['Ana bat6all3 (3ala)','I look'],['2al2aan/e/a (3ala)','Worried'],['Mishtaa2/a (la-)','Missing / longing'],['Ana balteq/2i (ma3/fi)','I meet'],
+   ['Hishis (his-his)','Mosquito (general)'],['Shu ra2yak/ek + (no b) verb','Suggestion'],['Wijeh (M)','Face'],['Daan (Feminine)','Ear']]) assert.equal(P(a,e),null,a);
+ const set={id:'t',title:'Family Plurals',terms:[['sadiq','Asdiqaa2'],['E5we | أخوة','Siblings'],['wlaad 3ammi','my uncles\'s (F) sons/kids'],['Dawle/a','Country']]};
+ const cards=S.quizletCards(set,S.matcher([{key:'dawle',arabizi:'Dawle',english:'Country'}]));
+ assert.equal(cards.find(c=>c.arabizi==='sadiq')._pl,true);
+ for(const a of ['E5we','wlaad 3ammi']) assert.ok(!cards.find(c=>c.arabizi===a)._pl,a);
+});

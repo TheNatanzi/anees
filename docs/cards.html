@@ -112,7 +112,7 @@ h1{font-weight:500;font-size:32px;letter-spacing:-.3px} h2{font-weight:500;font-
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main></div></div>
-<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260930-newfromnow-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260930-mastered3"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20261001-audit-v1"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
+<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260930-newfromnow-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260930-mastered3"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20261001-plural-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
 <script>
 const C=window.AneesCards, F=window.AneesFSRS, SEL=window.AneesCardSelection, VD=window.AneesVerbDrills, WB=window.AneesWordBank, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -213,10 +213,11 @@ let ALT=null; const enKey=e=>String(e||'').toLowerCase().replace(/\s+/g,' ').tri
 function alts(w){ if(!ALT){ ALT=new Map(); for(const x of words){ const k=enKey(x.english); if(!k) continue; if(!ALT.has(k)) ALT.set(k,[]); ALT.get(k).push(x); } }
   return (ALT.get(enKey(w.english))||[]).filter(x=>x.key!==w.key&&x.arabizi!==w.arabizi); }
 // English plural to match the Arabic one (Medi 2026-09-30: "Customer" needs to be "customer / customers").
-const EN_IRR={man:'men',woman:'women',child:'children',person:'people',foot:'feet',tooth:'teeth',mouse:'mice',knife:'knives',wife:'wives',life:'lives',leaf:'leaves',shelf:'shelves',half:'halves',fish:'fish',sheep:'sheep',deer:'deer',stomach:'stomachs'};
-const EN_SAME=new Set(['homework','weather','help','work','sand','motivation','advice','information','money','furniture','music','news','luggage','water','rice','milk','bread','hair','traffic','practice','review','conversation practice','atmosphere','vibe']);   // no English plural: stays as is
+const EN_IRR={man:'men',woman:'women',child:'children',person:'people',foot:'feet',tooth:'teeth',mouse:'mice',knife:'knives',wife:'wives',life:'lives',leaf:'leaves',shelf:'shelves',half:'halves',fish:'fish',sheep:'sheep',deer:'deer',stomach:'stomachs',mosquito:'mosquitoes',potato:'potatoes',tomato:'tomatoes',hero:'heroes'};
+const EN_SAME=new Set(['homework','weather','help','work','sand','advice','information','money','furniture','music','news','luggage','water','rice','milk','bread','hair','traffic','practice','conversation practice','atmosphere','vibe','scenery']);   // 2026-10-01: 'review' + 'motivation' removed (Muraaja3a · muraaja3aat = reviews; Amal's Quizlet: Motivation - motivations)   // no English plural: stays as is
 const EN_SKIP=/^(something|only|lonely|formal)$|\((progressive|command)\)/i;   // adjectives / -ing / commands: the English plural is left out
-function enPlural(e){ e=String(e).trim().replace(/^(a|an|the) /i,''); if(/\?/.test(e)||e.split(/\s+/).length>4||EN_SKIP.test(e)) return ''; if(EN_SAME.has(e.toLowerCase())) return e.toLowerCase();
+function enPlural(e){ e=String(e).trim().replace(/^\([^)]*\)\s*/,'').replace(/^(a|an|the) /i,'');   // a leading note stays on the singular only: (Travel) trip · trips
+  if(/\?/.test(e)||e.split(/\s+/).length>4||EN_SKIP.test(e)) return ''; if(EN_SAME.has(e.toLowerCase())) return e.toLowerCase();
   if(/^day off$/i.test(e)) return 'days off';
   const note=(e.match(/\s*\([^)]*\)\s*$/)||[''])[0], body=e.slice(0,e.length-note.length), of=body.search(/\s+of\s+/i);
   const head=of>0?body.slice(0,of):body, rest=of>0?body.slice(of):'', m=head.match(/^(.*?)([A-Za-z]+)$/); if(!m) return '';
@@ -226,16 +227,35 @@ function enPlural(e){ e=String(e).trim().replace(/^(a|an|the) /i,''); if(/\?/.te
 // Hand-picked English notes for look-alike words (Rule F7; Medi 2026-10-01: Tair = bird in general vs 3asfoor = small bird).
 const EN_NOTE={tair:'general'};
 const enBase=w=>w.drill?String(w.english||'').replace(/^(.+?) · (.+!)$/,'$1, $2').replace(/ · /,' '):w.english;
-const hasPl=w=>!w.drill&&w.plural&&!['—','-','–'].includes(String(w.plural).trim());
+// Rule F2: the plural field holds a plural. Person forms (Tewsal "m: Tewsal f: Tewsli") are not a plural, and a plural spelled
+// like the singular (His-his · his-his) is said once.
+const isForms=p=>/(^|\s)[mfp]:\s/i.test(String(p||''));
+const plKey=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+const hasPl=w=>!w.drill&&w.plural&&!['—','-','–'].includes(String(w.plural).trim())&&!isForms(w.plural)&&plKey(w.plural)!==plKey(w.arabizi);
+// Hand-picked English plurals where the singular has no regular plural (titles; a note that names the plural). Display only.
+const EN_PL={'groceries store':'grocery stores','mr. / sir':'gentlemen','grandmother / mrs. / ms.':'grandmothers / ladies','watch / hour (2 hours/hours)':'watches / hours'};
+// "/" outside ( ) only: "Watch / Hour (2 hours/Hours)" is two parts, not three.
+const splitTop=s=>{ const out=[]; let d=0,cur=''; for(const ch of String(s)){ if(ch==='(') d++; if(ch===')') d=Math.max(0,d-1); if(ch==='/'&&!d){ out.push(cur); cur=''; } else cur+=ch; } out.push(cur); return out.map(x=>x.trim()).filter(Boolean); };
+const enBare=x=>String(x).toLowerCase().replace(/^(a|an|the) /,'');
 // "/" joins words of the same kind (two meanings, two spellings); " · " separates singular from plural - same on both sides.
-const enFull0=w=>{ const e=enBase(w)||''; const dash=e.match(/^([\s\S]+?)\s+[–-]\s+([\s\S]+)$/);
-  if(hasPl(w)&&dash&&!/\d/.test(e)) return `${dash[1]} · ${dash[2]}`;
-  if(!hasPl(w)||isCmd(w)) return e; const parts=[...new Map(e.split('/').map(x=>x.trim()).filter(Boolean).map(x=>[x.toLowerCase().replace(/^(a|an|the) /,''),x])).values()];
-  const ps=parts.map(enPlural); if(!ps.every(Boolean)) return e; const pu=[...new Set(ps)]; if(pu.join('/')===parts.map(x=>x.toLowerCase().replace(/^(a|an|the) /,'')).join('/')) return e; return `${e} · ${pu.join(' / ')}`; };   // plural same as singular (weather) -> say it once
+// Each "/" part gives its own plural: Amal's own pair ("Adjective – adjectives / trait – traits", "Cat- cats", "Foreigner / foreigners")
+// or a generated one; parts with no English plural (F5: adjectives, -ing, already plural) are left out of the plural side.
+const enParts=e=>{ const parts=splitTop(e), sg=[], pl=[]; let paired=false;
+  for(let i=0;i<parts.length;i++){ const p=parts[i], d=p.match(/^([\s\S]+?)\s*[–-]\s+([\s\S]+)$/);
+    if(d&&!/\d/.test(p)){ sg.push(d[1].trim()); pl.push(d[2].trim()); paired=true; continue; }
+    const gp=enPlural(p), nx=parts[i+1];
+    if(gp&&nx&&enBare(nx)===gp.toLowerCase()){ sg.push(p); pl.push(nx); i++; paired=true; continue; }
+    sg.push(p); if(gp) pl.push(gp); }
+  return { sg, pl:[...new Map(pl.map(x=>[x.toLowerCase(),x])).values()], paired }; };
+const enFull0=w=>{ const e=enBase(w)||''; if(!hasPl(w)||isCmd(w)) return e;
+  const fix=EN_PL[e.toLowerCase().replace(/\s+/g,' ').trim()]; if(fix) return `${e} · ${fix}`;
+  const {sg,pl,paired}=enParts(e); if(!pl.length) return e;
+  if(pl.map(x=>x.toLowerCase()).join('/')===[...new Set(sg.map(enBare))].join('/')) return e;   // plural same as singular (weather, sheep) -> said once
+  return `${paired?sg.join(' / '):e} · ${pl.join(' / ')}`; };
 const enFull=w=>enFull0(w)+(EN_NOTE[w.key]?` (${EN_NOTE[w.key]})`:'');
 // Command-tense words read as orders on the English side (Medi 2026-10-01: "Scratch" alone is confusing).
 const isCmd=w=>!w.drill&&(w.topic==='Command Tense'||w.subtopic==='Command Tense');
-function faces(w){ const al=w.drill?[]:alts(w), arFace=`<div class="big${al.length||String(w.plural||'').includes('/')?' two':''}">${[w.arabizi,...al.map(x=>x.arabizi)].map(x=>`<span class="w">${esc(x)}</span>`).join(' / ')}${hasPl(w)?' · '+String(w.plural).split('/').map(x=>`<span class="w">${esc(x.trim())}</span>`).join(' / '):''}</div><div class="ar">${[w.arabic,...al.map(x=>x.arabic)].filter(Boolean).map(x=>`<span class="w">${esc(x)}</span>`).join(' / ')}</div>`,
+function faces(w){ const al=w.drill?[]:alts(w), arFace=`<div class="big${al.length||String(w.plural||'').includes('/')?' two':''}">${[w.arabizi,...al.map(x=>x.arabizi)].map(x=>`<span class="w">${esc(x)}</span>`).join(' / ')}${hasPl(w)?' · '+String(w.plural).split('/').map(x=>`<span class="w">${esc(x.trim())}</span>`).join(' / '):''}</div><div class="ar">${[w.arabic,...al.map(x=>x.arabic)].filter(Boolean).map(x=>`<span class="w">${esc(x)}</span>`).join(' / ')}</div>${!w.drill&&isForms(w.plural)?`<div class="pl">${esc(String(w.plural).trim().replace(/\s+(?=[mfp]:)/gi,', '))}</div>`:''}`,
   enFace=`<div class="en">${esc(enFull(w))}${isCmd(w)&&!/[!?]$/.test(enFull(w))?'!':''}</div>${isCmd(w)?'<div class="pl">command · telling someone to do it</div>':''}${al.length?`<div class="pl">${al.length+1} ways to say it · any is right</div>`:''}`; return pref.mode==='ar_first'?[arFace,enFace]:[enFace,arFace]; }
 const LABELS=()=>pref.mode==='ar_first'?['Arabic','English']:['English','Arabic'];
 // ---- one Quizlet-style card: tap to flip, then swipe right = Know, left = Still learning ----
