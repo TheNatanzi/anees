@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-02",
- "total": 133,
+ "total": 136,
  "replaced": 8,
  "counts": {
-  "Automatic": 54,
+  "Automatic": 57,
   "Written down": 67,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -1718,7 +1718,7 @@
    "key": "pages",
    "title": "Pages, audio & numbers on screen",
    "intro": "What each page shows, the audio clips, and keeping numbers up to date.",
-   "count": 22,
+   "count": 25,
    "sections": [
     {
      "kind": "data",
@@ -1731,6 +1731,48 @@
        "topic": "clips",
        "badge": "Written down",
        "claude": "2026-09-05"
+      },
+      {
+       "id": "LS-08",
+       "text": "The words a lesson taught include every word Amal gives Medi - when he asks how to say something, gets stuck, or she types 'word = meaning' - even if he repeats it straight after.",
+       "status": "enforced",
+       "topic": "lesson type",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "there was a new word from the lesson yesterday... you didnt catch it it was like sheja3a or something for \"motivation\". why didnt you catch this"
+        }
+       ]
+      },
+      {
+       "id": "LS-09",
+       "text": "Every new word on a lesson's Tutor list must also be in that lesson's taught words, or say why it wasn't taught; if not, the review fails and nothing is published.",
+       "status": "enforced",
+       "topic": "lesson type",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "there was a new word from the lesson yesterday... you didnt catch it it was like sheja3a or something for \"motivation\". why didnt you catch this"
+        }
+       ]
+      },
+      {
+       "id": "LS-10",
+       "text": "A stretch marked off-lesson must say who, what, and from when to when; it fails if Amal speaks Arabic or types in it, and missing audio is not off-lesson.",
+       "status": "enforced",
+       "topic": "lesson type",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "there was a new word from the lesson yesterday... you didnt catch it it was like sheja3a or something for \"motivation\". why didnt you catch this"
+        }
+       ]
       }
      ]
     },

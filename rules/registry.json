@@ -4968,6 +4968,133 @@
    ]
   },
   {
+   "id": "LS-08",
+   "kind": "data",
+   "scope": "lessons",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A lesson's taught words list every word Amal introduces or gives Medi (when he asks how to say something, is stuck, or she types 'word = meaning'), even when he repeats it right after.",
+   "plain": "The words a lesson taught include every word Amal gives Medi - when he asks how to say something, gets stuck, or she types 'word = meaning' - even if he repeats it straight after.",
+   "plain_for": "6e17bef3",
+   "topic": "lesson type",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "there was a new word from the lesson yesterday... you didnt catch it it was like sheja3a or something for \"motivation\". why didnt you catch this"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/lesson_type_read.py",
+     "contains": "LS-08: list EVERY word Amal "
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_lesson_type_read.py",
+     "contains": "def test_ls_08_reader_prompt_lists_every_word_amal_gives_with_the_real_moment"
+    }
+   ],
+   "example": {
+    "date": "2026-10-01",
+    "t": "06:52",
+    "note": "Medi reached for 'motivated' (06:36 مشجع), Amal typed 'mitshajje3 = motivated' at 06:52; it was on the Tutor new-words list but the type read had only oola and called 07:00-15:20 off-lesson. Fixed in data/lesson-work/lesson-types/2026-10-01.json"
+   }
+  },
+  {
+   "id": "LS-09",
+   "kind": "data",
+   "scope": "lessons",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every word on a lesson's Tutor new-words list is in that lesson's taught words, or the type read says why it was not taught; otherwise the review fails and the publish guard blocks.",
+   "plain": "Every new word on a lesson's Tutor list must also be in that lesson's taught words, or say why it wasn't taught; if not, the review fails and nothing is published.",
+   "plain_for": "c7c82d9c",
+   "topic": "lesson type",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "there was a new word from the lesson yesterday... you didnt catch it it was like sheja3a or something for \"motivation\". why didnt you catch this"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/lesson_type_read.py",
+     "contains": "def cross_check(date, repo=None, read=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/publish_guard.py",
+     "contains": "def check_taught_words_cross_check(root, **_):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_lesson.py",
+     "contains": "def taught_cross_step(d, dry_run, failures"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_lesson_type_read.py",
+     "contains": "def test_ls_09_tutor_new_word_missing_from_taught_words_fails"
+    },
+    {
+     "path": "tests/test_lesson_type_read.py",
+     "contains": "def test_ls_09_guard_check_is_required_and_review_step_fails_closed"
+    }
+   ],
+   "example": {
+    "date": "2026-10-01",
+    "t": "06:52",
+    "note": "Medi reached for 'motivated' (06:36 مشجع), Amal typed 'mitshajje3 = motivated' at 06:52; it was on the Tutor new-words list but the type read had only oola and called 07:00-15:20 off-lesson. Fixed in data/lesson-work/lesson-types/2026-10-01.json"
+   }
+  },
+  {
+   "id": "LS-10",
+   "kind": "data",
+   "scope": "lessons",
+   "status": "enforced",
+   "change": "new",
+   "statement": "An off-lesson stretch names who and what with its start and end times, and the check fails when Amal speaks Arabic or types in the chat inside it; a stretch where her audio is missing is not off-lesson.",
+   "plain": "A stretch marked off-lesson must say who, what, and from when to when; it fails if Amal speaks Arabic or types in it, and missing audio is not off-lesson.",
+   "plain_for": "935900cb",
+   "topic": "lesson type",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "there was a new word from the lesson yesterday... you didnt catch it it was like sheja3a or something for \"motivation\". why didnt you catch this"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/lesson_type_read.py",
+     "contains": "LS-10: an off-lesson window cites who and what"
+    },
+    {
+     "type": "code",
+     "path": "scripts/lesson_type_read.py",
+     "contains": "has Amal teaching inside it"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_lesson_type_read.py",
+     "contains": "def test_ls_10_off_lesson_window_needs_who_what_times_and_fails_on_amal_teaching"
+    }
+   ],
+   "example": {
+    "date": "2026-10-01",
+    "t": "10:00",
+    "note": "The read said '07:00-15:20 off-lesson (a customer call)'; the call is 10:00-13:48 (Medi booking Ms. Gantz). 06:36-10:00 is lesson (motivated, bahseb, the BMW el- question) and 14:13-15:20 is Medi asking Amal 'ana 3ala el-Wi-Fi?'. Amal's own audio for 00:00-20:37 was never transcribed."
+   }
+  },
+  {
    "id": "PR-14",
    "kind": "data",
    "scope": "process",

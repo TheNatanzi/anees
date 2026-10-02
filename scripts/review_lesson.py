@@ -313,6 +313,26 @@ def new_words_step(d, dry_run, failures, repo=None, reader=None, run=None):
     return todo
 
 
+def taught_cross_step(d, dry_run, failures, repo=None, reader=None):
+    """Step 7e, LS-09 / LS-10 (Medi 2026-10-02 "there was a new word from the lesson yesterday... you didnt catch it"):
+    the Tutor new-words list (7d) is built after the type read (2b), so the two are cross-checked here. A Tutor word missing
+    from taught_words (and not in not_taught with a reason), or an off-lesson window with Amal teaching inside, goes back to
+    the type reader once; still failing = a failure (no push; the publish guard's taught_words_cross_check also blocks)."""
+    import lesson_type_read as LTR
+    repo = repo or REPO
+    reader = reader or claude
+    issues = LTR.cross_check(d, repo)
+    if issues and not dry_run and os.path.exists(LTR.path(d, repo)):
+        reader(LTR.reconcile_prompt(d, issues, repo), f"{d} taught words cross-check", step="lesson.type_reconcile",
+               lesson_date=d, role="type", prompt_sha=_src_sha(LTR.reconcile_prompt), inputs=[LTR.path(d, repo)],
+               outputs=[LTR.path(d, repo)])
+        issues = LTR.cross_check(d, repo)
+    if issues:
+        failures.append("taught words cross-check (LS-09/LS-10): " + "; ".join(issues)[:300])
+        log("!! TAUGHT WORDS CROSS-CHECK FAILED:", "; ".join(issues))
+    return issues
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("date")
@@ -477,6 +497,7 @@ def main():
     # candidates -> one by-meaning reader -> docs/data/amal-new-words.json (Tutor hub item: add to the Doc / later / forget).
     # Unjudged candidates are never shown to Amal; a reader that fails leaves them unjudged (counted) and fails the run.
     new_words_step(d, a.dry_run, failures)
+    taught_cross_step(d, a.dry_run, failures)
     # 7c the Tutor page (Medi's menu) lists every open link with its total - rebuilt so the new after link shows up
     rc = py(os.path.join(HERE, "build_tutor_data.py"), check=False).returncode
     if rc:

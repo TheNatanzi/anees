@@ -35,7 +35,7 @@ STATE = 'data/publish-guard/state.json'            # local only (.gitignore): wh
 PUBLISHED = 'docs/data/publish-guard.json'         # published with each passing push; System Settings reads it
 NODE_DEFAULT = r'C:\dev\tools\node-v24.18.0-win-x64\node.exe'
 BUILTINS = ('step_failures', 'clean_tree', 'json_data', 'lesson_coverage', 'review_done', 'review_freshness', 'lesson_type_read',
-            'data_freshness')
+            'taught_words_cross_check', 'data_freshness')
 DATE_RE = re.compile(r'^20\d\d-\d\d-\d\d$')
 OK_ENV = 'ANEES_PUBLISH_GUARD_OK'                  # set on the guard's own `git push` so the pre-push hook does not re-run
 
@@ -219,6 +219,25 @@ def check_lesson_type_read(root, **_):
                          'data/lesson-work/lesson-types/<date>.json): ' + ', '.join(unread)) if unread else f'every lesson type was read ({len(L)} lessons)')
 
 
+def check_taught_words_cross_check(root, **_):
+    """LS-09 + LS-10 (Medi 2026-10-02 "there was a new word from the lesson yesterday... you didnt catch it"): every
+    lesson type read agrees with that lesson's Tutor new-words list (each word is in taught_words or in not_taught with a
+    reason) and no off-lesson window has Amal speaking Arabic or typing inside it. 10-01: mitshajje3 was on the Tutor list,
+    missing from taught_words, inside a stretch wrongly called off-lesson."""
+    try:
+        sys.path.insert(0, str(Path(root) / 'scripts'))
+        import lesson_type_read as LTR
+    except Exception as e:
+        return False, f'lesson_type_read.py not importable ({type(e).__name__})'
+    d = Path(root) / LTR.REL_DIR
+    dates = sorted(p.stem for p in d.glob('20*.json') if DATE_RE.match(p.stem)) if d.is_dir() else []
+    probs = []
+    for date in dates:
+        probs += [f'{date}: {x}' for x in LTR.cross_check(date, str(root))]
+    return (not probs, '; '.join(probs)[:1200] if probs else
+            f'{len(dates)} lesson type read(s) cover their Tutor new words; no off-lesson window has Amal teaching')
+
+
 FRESH_RAW_DEFAULT = r'C:\dev\anees\data\lessons'
 FRESH_FROM = '2026-09-10'                 # hourly_lessons.AUTO_START: earlier recordings were decided by hand
 FRESH_TRIGGER_MAX_H = 2                   # the Amal trigger runs every 15 min (fallback: every hour)
@@ -325,6 +344,7 @@ def run_checks(root=ROOT, config=None, step_failures=(), run=subprocess.run, clo
                'review_done': lambda: check_review_done(root),
                'review_freshness': lambda: check_review_freshness(root),
                'lesson_type_read': lambda: check_lesson_type_read(root),
+               'taught_words_cross_check': lambda: check_taught_words_cross_check(root),
                'data_freshness': lambda: check_data_freshness(root)}
     if not required:
         checks.append({'id': 'config', 'required': True, 'ok': False, 'secs': 0, 'detail': 'no required checks configured'})
@@ -357,6 +377,7 @@ _WHAT = {'step_failures': 'no build step failed in this run', 'clean_tree': 'wha
          'review_done': 'every lesson has a finished same-day review',
          'review_freshness': 'the two readers read the transcript the pages show now',
          'lesson_type_read': 'no default lesson type shown as a reading',
+         'taught_words_cross_check': "every Tutor new word of a lesson is in its taught words (or says why not); no off-lesson window hides Amal teaching",
          'data_freshness': 'the pages are not older than their newest source (raw lessons, Amal trigger, last publish)'}
 
 

@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T11:56:53-07:00",
+ "updated": "2026-10-02T13:20:56-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -4433,9 +4433,9 @@
    "duration_min": 66.1,
    "type": "review-grammar",
    "review_mode": "speaking",
-   "type_why": "15:22-1:04:50 (~49 of 66 min) continues the planned el- review from 09-30 in English-to-Arabic phrases (15:34 'سيارة الـ BMW'): a possessed noun is definite, so its adjective takes el (24:38, شنتة شغلي الحمرا 25:40), his old school's name (28:58), المطعم الإيراني الجديد (32:28), favourite as an adjective (35:10); then 'the thing before ال' (40:27): superlatives take no el (42:49) and أول/آخر/تاني/نفس/غير as tools before a noun vs adjectives after it (47:18-1:02:40), partly new (55:26 'we never said it before', 1:02:59 'this is new actually'). First ~7 min date/time/clothes warm-up; 07:00-15:20 off-lesson (a customer call); 19:58-23:14 Amal dropped out.",
+   "type_why": "15:22-1:04:50 (~49 of 66 min) continues the planned el- review from 09-30 in English-to-Arabic phrases (15:34 'سيارة الـ BMW'): a possessed noun is definite, so its adjective takes el (24:38, شنتة شغلي الحمرا 25:40), his old school's name (28:58), المطعم الإيراني الجديد (32:28), favourite as an adjective (35:10); then 'the thing before ال' (40:27): superlatives take no el (42:49) and أول/آخر/تاني/نفس/غير as tools before a noun vs adjectives after it (47:18-1:02:40), partly new (55:26 'we never said it before', 1:02:59 'this is new actually'). 00:00-06:00 date/time/clothes warm-up; 05:23-07:30 Amal reviews yesterday's word for motivation and teaches motivated: she says متشجع at 06:29, types 'mitshajje3 = motivated' at 06:52 and asks 'متشجع للعربي؟' (06:50); 07:04-07:28 he asks about بحسب; 08:14-08:48 Tutor hub talk; 09:00-09:58 the el- review starts (BMW). Off-lesson: 10:00-13:48 only (Medi's customer call). 14:08-15:20 is lesson (أنا على الـ Wi-Fi, the BMW sentence). Amal's audio for 00:00-20:37 is missing from the transcript (her first track was not transcribed; read here from that track); 20:37-23:12 she dropped out.",
    "type_source": "claude-read",
-   "type_read_by": "Claude (agent, by hand from the transcript; first use of the LS-01 reader file)",
+   "type_read_by": "Claude (agent, by hand from the transcript; first use of the LS-01 reader file); corrected 2026-10-02 by hand (LS-08/09/10) with Amal's first track 05:00-16:30 read locally (faster-whisper, check only)",
    "words": {
     "unique": 28,
     "right": 57,
@@ -4538,10 +4538,24 @@
    "taught": [],
    "taught_words": [
     {
+     "latin": "mitshajje3",
+     "arabic": "متشجع",
+     "english": "motivated / encouraged",
+     "t": "06:52",
+     "note": "Amal says it at 06:29 after reviewing 'motivation' from 09-30; Medi tries مشجع at 06:36, 06:40 and 07:36"
+    },
+    {
      "latin": "oola",
      "arabic": "أولى",
      "english": "first (feminine of awal)",
      "t": "55:26"
+    },
+    {
+     "latin": "laffe",
+     "arabic": "لفة",
+     "english": "a drive / a ride around",
+     "t": "57:25",
+     "note": "Medi reaches for the noun of 'drive' (57:20 'Laffe?'), Amal: 'Laffa is a drive'; typed 59:40"
     }
    ],
    "coverage": "Amal's voice is missing from 00:00 to 23:14 (only her CHAT lines survive) and 19:58-23:14 is a dropout; first 23 min judged from chat and Medi's reactions only (01:33 'لسه الـ divine يروحوا' garbled, likely zbayin; 04:14 air conditioning not on sheet; 07:04-07:28 بحسب question with no answer visible). 09:49-14:51 mostly an English phone call. 46:00-46:45 'هذا' in 'أكتر هذا' is very likely 7ada with a dropped ح (S4) - not written as vocab. 45:11 'اللي بحب' self-fixed to بحبه at 45:37 - folded into the 46:45 pointer row. 53:00-1:01:00 largely Latin-transliterated by the engine (awal, laffe, nafs, tani). Questions about the rule (awal/al-awal, ghair, هذا ال rule) left out per brief. / Amal's voice is missing 00:00-23:14 (only her CHAT lines), so early fixes are judged from chat and Medi's echoes; 02:49 الساعة واحد was self-fixed at 02:55 before any chat, not written. 09:46-14:13 is an English phone call. 49:00-1:01:00 is in Latin letters (awal/oola/nafs drill). Much of 29:00-1:04:00 is rule discussion and questions, not counted. شيء is on her sheet (Kul shee, Wala shee) so not flagged. 04:02 شوك = engine for شوب (sheet: El-jaw shoab), not flagged. Names: Amal, Male (place).",
