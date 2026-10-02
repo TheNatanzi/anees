@@ -15,9 +15,10 @@ const AGAIN=1,GOOD=3;
 // timing; stability and difficulty replay identically for every logged answer.
 // newPerDay 8 = the OLD new-word cap (wiki 06 rule 2). Since 2026-09-30 (Medi) the Flashcards page limits only words Amal
 // ADDED to the Doc after the first import, at her latest batch size per day (AneesCards.curriculum); 8 is a fallback.
-// leechMisses 4 = "cull any card failed 4x" (wiki 06 rule 12), counted in every phase; leechLapses 8
-// stays as the classic Anki rule for a card that keeps forgetting once it is in review. 0 turns a rule off.
-const DEFAULTS=Object.freeze({desiredRetention:0.9,learningSteps:[1,4],relearningSteps:[4],sessionMinutes:7,maximumInterval:36500,newPerDay:8,matureDays:21,leechLapses:8,leechMisses:4});
+// Rule FC-07 (Medi 2026-10-02: "leech should alwys be 4", then "actually lets make it 3"): a card is a leech at
+// leechMisses = 3 misses, counted in every phase (learning misses included). ONE rule: the old 8-lapses-in-review path
+// is gone (lapses are never more than misses, so it never fired first). 0 turns the rule off.
+const DEFAULTS=Object.freeze({desiredRetention:0.9,learningSteps:[1,4],relearningSteps:[4],sessionMinutes:7,maximumInterval:36500,newPerDay:8,matureDays:21,leechMisses:3});
 const RETENTIONS=Object.freeze([0.8,0.85,0.9,0.95]);
 const opt=o=>({...DEFAULTS,...(o||{})});
 const ms=t=>t instanceof Date?t.getTime():typeof t==='string'?Date.parse(t):Number(t);
@@ -94,19 +95,18 @@ function phase(card,options){
  if(!card||!card.reps)return 'new';
  return card.state==='review'&&card.interval>=o.matureDays?'mature':'learning';
 }
-// Leech: failed leechMisses times in any phase (learning misses included), or leechLapses lapses in review.
+// Leech (rule FC-07): missed leechMisses times in any phase (learning misses included). Nothing else makes a leech.
 function isLeech(card,options){
  if(!card)return false;const o=opt(options);
- return (o.leechMisses>0&&(card.misses||0)>=o.leechMisses)||(o.leechLapses>0&&(card.lapses||0)>=o.leechLapses);
+ return o.leechMisses>0&&(card.misses||0)>=o.leechMisses;
 }
 // How far a card is from the leech line: misses so far and the misses still allowed (null when the rule is off).
 function leechDistance(card,options){const o=opt(options),m=(card&&card.misses)||0;return {misses:m,limit:o.leechMisses>0?o.leechMisses:null,left:o.leechMisses>0?Math.max(0,o.leechMisses-m):null};}
 // The card-face tag for a leech. It names the count that made it a leech: since the 09-27 rule a card can be a leech
 // on learning misses alone with 0 review lapses, and "Leech · 0 lapses" read as a contradiction (audit 2026-09-29).
 function leechLabel(card,options){
- if(!isLeech(card,options))return '';const o=opt(options),m=(card.misses||0),l=(card.lapses||0);
- const byMiss=o.leechMisses>0&&m>=o.leechMisses;
- return byMiss?`Leech · ${m} ${m===1?'miss':'misses'}`:`Leech · ${l} ${l===1?'lapse':'lapses'}`;
+ if(!isLeech(card,options))return '';const m=(card.misses||0);
+ return `Leech · ${m} ${m===1?'miss':'misses'}`;
 }
 const isDue=(card,now)=>!!card&&card.reps>0&&card.due<=ms(now);
 function localDay(t){const d=new Date(ms(t));return new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime();}

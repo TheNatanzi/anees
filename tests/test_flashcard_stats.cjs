@@ -35,11 +35,11 @@ test('true retention: only answers on cards mature at answer time; null when non
  const h={answers:[{phase:'mature',right:true},{phase:'mature',right:false},{phase:'learning',right:false},{phase:'mature',right:true},{phase:'mature',right:true}]};
  assert.deepEqual(S.trueRetention(h),{n:4,right:3,pct:75});
 });
-test('leeches: 4 misses in any phase or 8 lapses; leechWatch lists the nearest cards',()=>{
- const cards=new Map([['a',{id:'a',reps:9,lapses:8,misses:8}],['b',{id:'b',reps:5,lapses:0,misses:3}],['c',{id:'c',reps:4,lapses:0,misses:4}],['d',{id:'d',reps:3,lapses:0,misses:1}],['e',{id:'e',reps:3,lapses:0,misses:0}]]);
+test('leeches: 3 misses in any phase (FC-07); leechWatch lists the nearest cards',()=>{
+ const cards=new Map([['a',{id:'a',reps:9,lapses:8,misses:8}],['b',{id:'b',reps:5,lapses:0,misses:2}],['c',{id:'c',reps:4,lapses:0,misses:3}],['d',{id:'d',reps:3,lapses:0,misses:1}],['e',{id:'e',reps:3,lapses:0,misses:0}]]);
  assert.deepEqual(S.leeches(cards).map(c=>c.id),['a','c']);
- const w=S.leechWatch(cards);assert.deepEqual(w.map(x=>x.key),['b','d']);assert.deepEqual(w[0],{key:'b',misses:3,limit:4,left:1,lapses:0,reps:5});
- const h=S.history(['missed','got','missed','got','missed'].map((r,i)=>ans('7Ades',at(9,22,10,i),r)),O);   // the 2026-09-27 audit case: 3 of 5 missed while learning
+ const w=S.leechWatch(cards);assert.deepEqual(w.map(x=>x.key),['b','d']);assert.deepEqual(w[0],{key:'b',misses:2,limit:3,left:1,lapses:0,reps:5});
+ const h=S.history(['missed','got','missed','got'].map((r,i)=>ans('7Ades',at(9,22,10,i),r)),O);   // 2 of 4 missed while learning
  assert.equal(S.leeches(h.cards).length,0);assert.equal(S.leechWatch(h.cards)[0].key,'7Ades');assert.equal(S.leechWatch(h.cards)[0].left,1);
 });
 test('curve: from first answer to today + 30, 100% on the review day, then decays; bump markers',()=>{

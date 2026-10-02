@@ -73,10 +73,10 @@ test('replay ignores the local undo marker rows (kind "undo")', () => {
   assert.equal(F.replay(rows).get('k').reps, 1);
 });
 
-test('leech tag names the count that made it a leech (4 learning misses, 0 lapses)', () => {
+test('leech tag names the misses that made it a leech (3 learning misses, 0 lapses)', () => {
   let c = F.newCard('k'), t = T0;
-  for (let i = 0; i < 4; i++) { c = F.schedule(c, 'again', t); t += MIN; }
+  for (let i = 0; i < 3; i++) { c = F.schedule(c, 'again', t); t += MIN; }
   assert.equal(F.isLeech(c), true); assert.equal(c.lapses, 0);
-  assert.equal(F.leechLabel(c), 'Leech · 4 misses');
+  assert.equal(F.leechLabel(c), 'Leech · 3 misses');
   assert.equal(F.leechLabel(F.newCard('x')), '');
 });

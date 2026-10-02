@@ -3781,14 +3781,26 @@
    "id": "FC-07",
    "kind": "data",
    "scope": "flashcards",
-   "status": "needs-medi",
-   "change": "new",
-   "statement": "One written leech threshold: today fsrs.js uses 4 misses OR 8 lapses; the 09-21 decision said 8 lapses; Medi doubted '3'.",
+   "status": "enforced",
+   "change": "amend",
+   "statement": "A card is a leech at 3 misses in any phase (learning misses count); one rule only - the lapses path is gone. Supersedes the 09-21 \"8 lapses\" decision and the 09-27 \"4 misses or 8 lapses\" setting.",
    "source": [
     {
      "by": "medi",
      "date": "2026-10-02",
      "quote": "I feel like I've had more than 3 leech words",
+     "session": "72396edc"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "leech should alwys be 4",
+     "session": "72396edc"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "actually lets make it 3",
      "session": "72396edc"
     }
    ],
@@ -3796,22 +3808,27 @@
     {
      "type": "code",
      "path": "docs/js/fsrs.js",
-     "contains": "leechLapses:8,leechMisses:4"
+     "contains": "matureDays:21,leechMisses:3});"
+    },
+    {
+     "type": "doc",
+     "path": "docs/flashcard-rules.md",
+     "contains": "| L1 | A card is a leech once it is missed **3 times**"
     }
    ],
-   "test": [],
+   "test": [
+    {
+     "path": "tests/test_fsrs.cjs",
+     "contains": "test('FC-07 leech at 3 misses in any phase, one rule only"
+    }
+   ],
    "aliases": [
     "report:M8",
     "report:C9"
    ],
-   "question": {
-    "ask": "A leech is a card you missed how many times? (now 4 misses or 8 lapses)",
-    "options": [
-     "3",
-     "4",
-     "8"
-    ]
-   }
+   "supersedes": [
+    "FC-09"
+   ]
   },
   {
    "id": "FC-08",
@@ -3845,6 +3862,28 @@
     "report:O16"
    ],
    "note": "gap: browser .cjs audits (flashcard_audit_browser.js) have no stub"
+  },
+  {
+   "id": "FC-09",
+   "kind": "data",
+   "scope": "flashcards",
+   "status": "superseded",
+   "change": "new",
+   "statement": "Leech at 8 lapses (09-21 decisions), set in code 09-27 as 4 misses in any phase or 8 lapses in review.",
+   "source": [
+    {
+     "by": "claude",
+     "date": "2026-09-21",
+     "quote": "leech at 8 lapses",
+     "session": "plan/SESSION-DECISIONS-2026-09-21.md"
+    }
+   ],
+   "enforcement": [],
+   "test": [],
+   "aliases": [
+    "report:M8-old"
+   ],
+   "superseded_by": "FC-07"
   },
   {
    "id": "PR-01",

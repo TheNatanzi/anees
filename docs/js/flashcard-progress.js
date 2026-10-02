@@ -103,10 +103,10 @@ function topRow(d){
   card({label:'Leech words',icon:'⚑',value:n(d.leeches.length),sub:leechSub(d)})
  ].join('');
 }
-// Leech = missed leechMisses times in any phase, learning misses included (wiki 06 rule 12), or leechLapses lapses in review.
+// Leech = missed leechMisses (3) times in any phase, learning misses included (rule FC-07, Medi 2026-10-02).
 // Counts only (Medi 2026-10-02: no word lists on Progress); the leech words themselves are listed on Flashcards.
 function leechSub(d){
- const o=F.DEFAULTS,rule=`missed ${o.leechMisses}× in any phase${o.leechLapses?` or ${o.leechLapses} lapses in review`:''}`;
+ const o=F.DEFAULTS,rule=`missed ${o.leechMisses}× in any phase`;
  const all=[...d.cards.values()].filter(c=>c.reps&&(c.misses||0)>0),near=all.filter(c=>!F.isLeech(c)&&(c.misses||0)===o.leechMisses-1).length;
  return `<b>${n(all.length)}</b> cards missed at least once · <b>${n(near)}</b> one miss from the line. Rule: ${rule}. <a href="cards.html">The words are in Flashcards →</a>`;
 }

@@ -42,21 +42,22 @@ test('phases: New, Learning under 21 days, Mature at 21',()=>{
  assert.equal(F.phase({reps:5,state:'review',interval:21}),'mature');
  assert.equal(F.phase({reps:9,state:'relearning',interval:0}),'learning');
 });
-test('lapses count only Again on a review card; the lapse rule alone fires at 8',()=>{
+test('lapses count only Again on a review card (misses count every Again)',()=>{
  let c=F.newCard();c=F.schedule(c,'again',T0);c=F.schedule(c,'again',T0+60000);assert.equal(c.lapses,0);assert.equal(c.misses,2);
- const L={leechMisses:0};   // lapse rule in isolation (0 = the miss rule off)
  const rows=golden['many_lapses@0.9'];c=F.newCard();
- rows.forEach((r,i)=>{c=F.schedule(c,r.grade,r.ts,{learningSteps:[1,10],relearningSteps:[10]});if(i===2+2*7)assert.equal(F.isLeech(c,L),false);});
- assert.equal(c.lapses,9);assert.equal(F.isLeech(c,L),true);
- assert.equal(F.isLeech({lapses:8},L),true);assert.equal(F.isLeech({lapses:7},L),false);
+ rows.forEach(r=>{c=F.schedule(c,r.grade,r.ts,{learningSteps:[1,10],relearningSteps:[10]});});
+ assert.equal(c.lapses,9);assert.ok(c.misses>=c.lapses);
 });
-test('leech at 4 misses in any phase (wiki 06 rule 12): learning misses count, 3 of 5 is not yet one',()=>{
- let c=F.newCard('7Ades');['missed','got','missed','got','missed'].forEach((g,i)=>{c=F.schedule(c,g,T0+i*90000);});   // the 2026-09-27 audit case
- assert.equal(c.misses,3);assert.equal(c.lapses,0);assert.equal(F.isLeech(c),false);
- assert.deepEqual(F.leechDistance(c),{misses:3,limit:4,left:1});
- c=F.schedule(c,'missed',T0+6*90000);assert.equal(c.misses,4);assert.equal(F.isLeech(c),true);
- assert.equal(F.isLeech({lapses:8,misses:8}),true);assert.equal(F.isLeech({lapses:0,misses:3}),false);assert.equal(F.isLeech({lapses:8,misses:8},{leechMisses:0,leechLapses:0}),false);
- assert.equal(F.DEFAULTS.leechMisses,4);assert.equal(F.DEFAULTS.leechLapses,8);
+test('FC-07 leech at 3 misses in any phase, one rule only (Medi 2026-10-02 "actually lets make it 3")',()=>{
+ let c=F.newCard('7Ades');['missed','got','missed','got'].forEach((g,i)=>{c=F.schedule(c,g,T0+i*90000);});   // the 2026-09-27 audit case
+ assert.equal(c.misses,2);assert.equal(c.lapses,0);assert.equal(F.isLeech(c),false);              // 2 misses = not a leech
+ assert.deepEqual(F.leechDistance(c),{misses:2,limit:3,left:1});
+ c=F.schedule(c,'missed',T0+5*90000);assert.equal(c.misses,3);assert.equal(F.isLeech(c),true);   // 3 = leech (learning misses count)
+ assert.equal(F.leechLabel(c),'Leech · 3 misses');
+ assert.equal(F.isLeech({lapses:20,misses:2}),false);              // no lapse path: lapses alone never make a leech
+ assert.equal(F.isLeech({misses:3},{leechMisses:0}),false);        // 0 turns the rule off
+ assert.equal(F.DEFAULTS.leechMisses,3);                           // the default can't silently change
+ assert.equal('leechLapses' in F.DEFAULTS,false);
 });
 test('learning ladder fits one 7-minute session: Again 1 min, second step 4 min, relearning 4 min',()=>{
  const o=F.DEFAULTS;assert.deepEqual(o.learningSteps,[1,4]);assert.deepEqual(o.relearningSteps,[4]);assert.equal(o.sessionMinutes,7);

@@ -57,6 +57,12 @@ All three sources (Doc words, Quizlet-only cards, verb-drill forms), both modes 
 | N3 | No button may lead nowhere: a Start button says how many cards open today or why none can; tiles with no cards are hidden |
 | N4 | Mastered (Word Bank flashcard column) = right on 3 different days |
 
+## Leech words
+
+| # | Rule |
+|---|---|
+| L1 | A card is a leech once it is missed **3 times**, in any phase (learning misses count). That is the only leech rule: review lapses never make a leech on their own. The tag says the misses (`Leech · 3 misses`). Rule FC-07, Medi 2026-10-02 ("leech should alwys be 4", then "actually lets make it 3"); replaces the 09-21 "8 lapses" decision. Code: `docs/js/fsrs.js` (DEFAULTS.leechMisses = 3), test: `tests/test_fsrs.cjs` |
+
 ## Data issues for Amal (not changed by the page)
 
 Her Doc and Quizlet wording and spelling are the rule; the page only changes how they are shown. Only Amal can fix these:

@@ -11,7 +11,7 @@
 const F=window.AneesFSRS;
 const D=(F&&F.DEFAULTS)||{};
 // The cull line and the new-card cap live in AneesFSRS.DEFAULTS (one place); wiki 06 rules 12 and 2.
-const DAY=86400000,MIN=60000,SESSION_GAP=30*MIN,COLD_DAYS=7,WINDOW_DAYS=28,CULL=D.leechMisses||4,CAP_NEW=D.newPerDay||8,CAP_REVIEWS=40,SLOW_FLIP=6000;
+const DAY=86400000,MIN=60000,SESSION_GAP=30*MIN,COLD_DAYS=7,WINDOW_DAYS=28,CULL=D.leechMisses||3,CAP_NEW=D.newPerDay||8,CAP_REVIEWS=40,SLOW_FLIP=6000;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const n=v=>v===null||v===undefined||Number.isNaN(v)?'—':Number(v).toLocaleString();
 const pc=(r,t)=>t?Math.round(r/t*100):null;
