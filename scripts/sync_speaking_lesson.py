@@ -186,7 +186,7 @@ def preserve_contextual_reviews(events, prior_events):
 
 def detected_events(date, data=None, words=None):
     data = data or build_transcript(date)
-    words = words or db.select('words', {'select': 'key,arabizi,arabic,plural,aliases,active', 'active': 'eq.true'})
+    words = words or db.select('words', {'select': 'key,arabizi,arabic,plural,aliases,active,topic', 'active': 'eq.true'})
     events = se.assess(se.candidates(data, se.StrictMatcher(words)))
     for event in events:
         # The public lesson transcript has different row IDs. Review audio is
