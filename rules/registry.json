@@ -5386,6 +5386,52 @@
    "note": "No schema change: undo rows reuse amal_rules (kind 'undo', payload {undoes, match}); verb checks / word review / after-lesson steps keep an answers.undone log in their link row. Homework lines go back to 'suggested' server-side (scripts/apply_rules.py revert_undone; anon may not). After-lesson taps applied to word_events before 2026-10-02 have no stored before-values: an undo marks them and reports it. 2026-10-02: Medi's accidental Forget on آها (row 2097) was removed by hand; the page now prefers the live read."
   },
   {
+   "id": "AM-18",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A lesson has one after-lesson link. Making a link (scripts/amal_links.py create) keeps the lesson's link Amal already answered, or the one still open, and makes a new one only when none exists or only expired, untouched ones do - so the hourly re-review of a lesson whose transcript grew never re-opens a lesson she answered. Links made again before this rule are closed with her earlier answers carried over as the answers of record (scripts/close_reasked_after_links.py; nothing deleted, no new taps written, she is never re-asked); the Done row shows the link she really answered, with the re-made one inside it.",
+   "plain": "Each lesson gets one after-lesson list. When the app re-checks a lesson, it never makes a new list for a lesson Amal already answered; lists made again by mistake are closed with her earlier answers (nothing deleted, she is not asked again).",
+   "plain_for": "9bbdf599",
+   "topic": "her answers",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "close, but I want accordians to see the results and what you are asking"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/amal_links.py",
+     "contains": "def reuse_for(rows, kind, lesson_date, now_iso):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/close_reasked_after_links.py",
+     "contains": "def carry(old, new):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_data.py",
+     "contains": "def answered_first(rows):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_in_panel.py",
+     "contains": "def test_AM_18_a_re_review_does_not_make_a_new_link_for_an_answered_lesson"
+    },
+    {
+     "path": "tests/test_tutor_in_panel.py",
+     "contains": "def test_AM_18_re_made_links_are_closed_with_her_earlier_answers"
+    }
+   ],
+   "note": "Cause 2026-10-02: hourly_lessons.py re-reviews a lesson whose transcript grew after its readers ran (AUTO_REREVIEW; TR-17 re-transcribed the lessons that day); review_lesson.py step 7b runs after_from_audit.py, which called amal_links.create every time -> new links for Oct 1 (18:27 UTC), Sep 23 (19:37) and Sep 26 (20:32), with new questions because the re-review rebuilt the audit rows. Closed the same day: Oct 1 carried 2 of 5 answers, Sep 23 1 of 5, Sep 26 0 of 5 (the rest marked 'not asked - she had answered this lesson already')."
+  },
+  {
    "id": "WS-27",
    "kind": "error",
    "scope": "word-scoring",
@@ -5505,15 +5551,20 @@
    "scope": "pages",
    "status": "enforced",
    "change": "new",
-   "statement": "The Tutor hub's Done tab is a list of accordions: tapping a row opens it in place and shows every question that was asked and Amal's answer (her tap or text, with the date), or 'not answered'. A list whose link is still open shows the live list with Undo on each answer; an expired link is read from the questions and answers stored when the hub data was built (scripts/build_tutor_data.py), never from the expired link. Long ones show 20 at a time with Next 20 and a search box. A lesson with two links is one row; the older link is shown inside it as 'an earlier link for this lesson'.",
-   "plain": "On the Tutor page's Done tab, each row opens in place to show every question asked and Amal's answer (or 'not answered'), with Undo while the list is still open; expired lists are shown from what was saved. Long lists show 20 at a time with a search box. A lesson that had two links is one row, with the older link shown inside it.",
-   "plain_for": "25d5688b",
+   "statement": "The Tutor hub's Done tab is a list of accordions: tapping a row opens it in place and shows every question that was asked - the moment, with its time, recording and Medi's line - and the result: Amal's answer (her tap or text, with the date) and what it changed (e.g. slip counted, on the promised list), or 'not answered'. A list whose link is still open shows the live list with Undo on each answer; an expired link is read from the questions and answers stored when the hub data was built (scripts/build_tutor_data.py), never from the expired link. Long ones show 20 at a time with Next 20 and a search box. A lesson with two links is one row; the older link is shown inside it as 'an earlier link for this lesson'.",
+   "plain": "On the Tutor page's Done tab, each row opens in place to show every question asked - the moment with its time, recording and Medi's words - and the result: Amal's answer, its date and what it changed (or 'not answered'), with Undo while the list is still open; expired lists are shown from what was saved. Long lists show 20 at a time with a search box. A lesson that had two links is one row, with the other link shown inside it.",
+   "plain_for": "93790cc1",
    "topic": "her answers",
    "source": [
     {
      "by": "medi",
      "date": "2026-10-02",
      "quote": "can you make these into accodrians so I can see what you are asking"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "close, but I want accordians to see the results and what you are asking"
     }
    ],
    "enforcement": [
@@ -5536,6 +5587,10 @@
     {
      "path": "tests/test_tutor_in_panel.py",
      "contains": "def test_PG_18_expired_links_keep_their_questions_and_one_lesson_is_one_row"
+    },
+    {
+     "path": "tests/test_tutor_in_panel.py",
+     "contains": "def test_PG_18_done_rows_show_the_moment_and_the_result"
     }
    ],
    "note": "The double 'After the lesson · Oct 1' was real: two links for the Oct 1 lesson (the first expired 2026-10-02 with 0 of 5 answered, a newer one replaced it). Same for Sep 26 / Sep 23 after new links were minted on 2026-10-02."

@@ -61,7 +61,7 @@ def test_stand_in_answers_5_questions_and_homework_under_5_min():
     import db, amal_links, apply_rules
     from playwright.sync_api import sync_playwright
     p = payload()
-    token, url = amal_links.create('after', '2026-09-04', p)
+    token, url = amal_links.create('after', '2026-09-04', p, force=True)
     local = (ROOT / 'docs' / 'amal' / 'after.html').resolve().as_uri() + f'?t={token}'
     nq = len(p['questions'])
     keys = {q['word_key'] for q in p['questions'] if q.get('word_key')}
@@ -143,7 +143,7 @@ def test_stand_in_answers_5_questions_and_homework_under_5_min():
 def test_link_expires_after_7_days():
     import db, amal_links
     from playwright.sync_api import sync_playwright
-    token, url = amal_links.create('after', '2026-09-04', {'questions': [], 'homework': []})
+    token, url = amal_links.create('after', '2026-09-04', {'questions': [], 'homework': []}, force=True)
     try:
         row = db.select('amal_links', {'token': f'eq.{token}'})[0]
         created = datetime.datetime.fromisoformat(row['created_at'].replace('Z', '+00:00')); exp = datetime.datetime.fromisoformat(row['expires_at'].replace('Z', '+00:00'))

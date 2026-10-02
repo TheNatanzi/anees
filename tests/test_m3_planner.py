@@ -60,7 +60,7 @@ def test_stand_in_completes_planner_on_phone_under_2_min():
     import db, amal_links
     from playwright.sync_api import sync_playwright
     p = payload()
-    token, url = amal_links.create('before', '2026-09-05', p)
+    token, url = amal_links.create('before', '2026-09-05', p, force=True)
     local = (ROOT / 'docs' / 'amal' / 'plan.html').resolve().as_uri() + f'?t={token}'
     try:
         with sync_playwright() as pw:

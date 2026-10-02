@@ -62,10 +62,44 @@ def tap_dates(rules):
     out = {}
     for r in rules:
         p = r.get("payload") or {}
-        for k in (r.get("word_key"), p.get("arabizi"), p.get("english"), p.get("topic") and "topic"):
+        for k in (r.get("word_key"), p.get("audit_uid"), p.get("arabizi"), p.get("english"), p.get("topic") and "topic"):
             if k:
                 out[(r.get("token"), str(k))] = max(out.get((r.get("token"), str(k))) or "", r.get("created_at") or "")
     return out
+
+
+_AUDIT = {}
+
+
+def audit_rows():
+    """uid -> the audit row (his line, her line, what it counts as now)."""
+    if not _AUDIT:
+        p = os.path.join(REPO, "data", "full-audit-2026-09-26.json")
+        if os.path.exists(p):
+            _AUDIT.update({x["uid"]: x for x in json.load(open(p, encoding="utf-8")).get("rows", [])})
+    return _AUDIT
+
+
+def mmss(t):
+    try:
+        t = int(float(t))
+    except (TypeError, ValueError):
+        return None
+    return f"{t // 60}:{t % 60:02d}" if t < 3600 else f"{t // 3600}:{t % 3600 // 60:02d}:{t % 60:02d}"
+
+
+SCORED = ("grammar", "vocab-A")
+
+
+def effect_after(label, row):
+    """What her answer changed (PG-18 'the result'): the audit row's state now when the row is known, else what the tap does."""
+    k = (row or {}).get("kind")
+    if k in SCORED:
+        return "slip counted for Medi"
+    if k in ("rejected", "dropped-by-amal"):
+        return "not counted as a slip"
+    return {"Right": "not counted as a slip", "Wrong": "slip counted for Medi", "Wrong word": "slip counted for Medi (word)",
+            "Wrong grammar": "slip counted for Medi (grammar)", "Not Medi": "dropped - it was not Medi", "Skip": "no change"}.get(label, None)
 
 
 def link_detail(r, dates):
@@ -81,10 +115,18 @@ def link_detail(r, dates):
         m = m or {}
         return m.get(str(k), m.get(k))
     if r.get("kind") == "after":
+        rows = audit_rows()
+        carried = a.get("carried_from") or {}
         for i, q in enumerate(p.get("questions") or []):
             ans = pick(a.get("q"), i)
+            row = rows.get(q.get("audit_uid")) or {}
+            t = q.get("t")
             asked.append({"ask": q.get("ask"), "word": q.get("arabizi") or q.get("arabic"), "arabic": q.get("arabic"), "english": q.get("english"),
-                          "answer": ans, "at": when(q.get("word_key")) if ans else None})
+                          "t": mmss(t), "clip": ("lessons/" + q["clip"]) if q.get("clip") else (f"lessons/{r.get('lesson_date')}/audio/lesson.mp3#t={max(0, int(t) - 3)},{int(t) + 12}" if t is not None else None),
+                          "medi": row.get("medi_said"), "amal": row.get("amal_said"),
+                          "answer": ans, "at": (when(q.get("audit_uid") or q.get("word_key")) or (a.get("updated") or r.get("done_at") or "")[:10] or None) if ans else None,
+                          "result": effect_after(ans, row) if ans else ((a.get("not_asked") or {}).get(str(i)) or None),
+                          "carried": str(i) in (carried.get("questions") or {})})
         for i, h in enumerate(p.get("homework") or []):
             ans = pick(a.get("hw"), i)
             asked.append({"ask": "Homework suggestion: keep, drop or edit?", "word": h.get("arabizi"), "english": h.get("english"), "answer": ans,
@@ -112,7 +154,26 @@ def link_detail(r, dates):
             asked.append({"ask": f"{it.get('tense', '')} · {it.get('person', '')}", "word": it.get("word"),
                           "answer": "Right" if x.get("choice") == "yes" else "Fixed: " + str(x.get("word") or ""), "at": (x.get("updated_at") or "")[:10] or None})
     total = len(p.get("items") or {}) if r.get("kind") == "verb_check" else len(asked)
-    return {"answered": sum(1 for x in asked if x.get("answer")), "total": total, "asked": asked}
+    out = {"answered": sum(1 for x in asked if x.get("answer")), "total": total, "asked": asked}
+    if (a.get("carried_from") or {}).get("token"):
+        out["carried_from"] = a["carried_from"]["token"]
+    return out
+
+
+def answered_first(rows):
+    """AM-18: a lesson's row shows the link Amal really answered; a link re-made after she answered (and closed with her
+    answers carried over) goes inside it as 'made again by mistake'."""
+    for x in rows:
+        E = x.get("earlier") or []
+        src = (x.get("detail") or {}).get("carried_from")
+        hit = next((e for e in E if e.get("token") == src), None)
+        if not hit:
+            continue
+        moved = {"why": "made again by the hourly re-review after she had answered; closed with her answers (AM-18)",
+                 "token": x.get("token"), "expires": x.get("expires"), "detail": x.get("detail")}
+        x["token"], x["expires"], x["detail"], x["why"] = hit["token"], hit["expires"], hit["detail"], hit["why"]
+        x["earlier"] = [moved] + [e for e in E if e is not hit]
+    return rows
 
 
 def main():
@@ -162,7 +223,7 @@ def main():
                               "what": ("3-5 moments from this lesson the app was least sure about: was he right here? One tap each, with the clip." if r["kind"] == "after"
                                        else "Words to bring back and sentences to try in this lesson. Keep or drop."),
                               "who": "Amal answers · Medi sends the link", "url": f"amal/{'after' if r['kind'] == 'after' else 'plan'}.html?t={r['token']}",
-                              "total": n, "expires": day(r["expires_at"])})
+                              "total": n, "expires": day(r["expires_at"]), "detail": link_detail(r, dates)})
             elif day(r["expires_at"]) >= day((now - datetime.timedelta(days=21)).isoformat()):
                 why = "answered" if r.get("done_at") else f"link expired {day(r['expires_at'])}"
                 row = {"id": f"{r['kind']}-{r.get('lesson_date')}", "title": title, "why": why, "kind": r["kind"], "lesson_date": r.get("lesson_date"),
@@ -201,6 +262,7 @@ def main():
                 closed.append({"id": f"{kind}-{r['token'][:6]}", "title": title + (f" ({pretty(p.get('lesson'))})" if p.get("lesson") else ""),
                                "why": "answered" if r.get("done_at") else f"link expired {day(r['expires_at'])}", "kind": kind,
                                "token": r["token"], "expires": day(r["expires_at"]), "detail": link_detail({**r, "kind": kind}, {})})
+    answered_first(closed)
     # keep the old stamp when nothing changed, so the hourly job does not commit a new file every hour
     same = cur.get("open") == kept + open_ and cur.get("closed") == closed
     out = {"updated": cur.get("updated") if same and cur.get("updated") else now.astimezone().isoformat(timespec="seconds"),

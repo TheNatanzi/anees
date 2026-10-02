@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-02",
- "total": 140,
+ "total": 141,
  "replaced": 8,
  "counts": {
-  "Automatic": 61,
+  "Automatic": 62,
   "Written down": 67,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -1302,7 +1302,7 @@
    "key": "amal",
    "title": "Amal's say",
    "intro": "What Amal decides: her Doc, her pages, her rulings, and the words she promised to add.",
-   "count": 16,
+   "count": 17,
    "sections": [
     {
      "kind": "data",
@@ -1319,6 +1319,20 @@
          "who": "Medi",
          "date": "2026-10-02",
          "quote": "can you add an undo button to all these tutor hub stuff"
+        }
+       ]
+      },
+      {
+       "id": "AM-18",
+       "text": "Each lesson gets one after-lesson list. When the app re-checks a lesson, it never makes a new list for a lesson Amal already answered; lists made again by mistake are closed with her earlier answers (nothing deleted, she is not asked again).",
+       "status": "enforced",
+       "topic": "her answers",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "close, but I want accordians to see the results and what you are asking"
         }
        ]
       },
@@ -1890,7 +1904,7 @@
       },
       {
        "id": "PG-18",
-       "text": "On the Tutor page's Done tab, each row opens in place to show every question asked and Amal's answer (or 'not answered'), with Undo while the list is still open; expired lists are shown from what was saved. Long lists show 20 at a time with a search box. A lesson that had two links is one row, with the older link shown inside it.",
+       "text": "On the Tutor page's Done tab, each row opens in place to show every question asked - the moment with its time, recording and Medi's words - and the result: Amal's answer, its date and what it changed (or 'not answered'), with Undo while the list is still open; expired lists are shown from what was saved. Long lists show 20 at a time with a search box. A lesson that had two links is one row, with the other link shown inside it.",
        "status": "enforced",
        "topic": "her answers",
        "badge": "Automatic",
@@ -1899,6 +1913,11 @@
          "who": "Medi",
          "date": "2026-10-02",
          "quote": "can you make these into accodrians so I can see what you are asking"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "close, but I want accordians to see the results and what you are asking"
         }
        ]
       },

@@ -121,10 +121,10 @@
   // a lesson whose first link was replaced by a newer one: the first link's questions and answers, inside the same item
   function earlier(el, it) {
     const E = (it && it.earlier) || [];
-    el.innerHTML = E.map((e, i) => `<details class="hb-acc" data-e="${i}"><summary><b>An earlier link for this lesson</b> · ${esc(e.why)} · ${fmt((e.detail || {}).answered)} of ${fmt((e.detail || {}).total)} answered</summary><div class="hb-acc-body"></div></details>`).join('');
+    el.innerHTML = E.map((e, i) => `<details class="hb-acc" data-e="${i}"><summary><b>${/made again/.test(e.why) ? 'A second link for this lesson' : 'An earlier link for this lesson'}</b> · ${esc(e.why)} · ${fmt((e.detail || {}).answered)} of ${fmt((e.detail || {}).total)} answered</summary><div class="hb-acc-body"></div></details>`).join('');
     el.querySelectorAll('details').forEach(d => d.addEventListener('toggle', () => {
       if (!d.open || d.dataset.on) return; d.dataset.on = '1';
-      const e = E[+d.dataset.e]; accBody(d.querySelector('.hb-acc-body'), { kind: it.kind, lesson_date: it.lesson_date, token: e.token, expires: e.expires, detail: e.detail });
+      const e = E[+d.dataset.e]; accBody(d.querySelector('.hb-acc-body'), { kind: it.kind, lesson_date: it.lesson_date, token: e.token, expires: e.expires, detail: e.detail, why: e.why });
     }));
   }
 
@@ -151,26 +151,37 @@
   }
 
   // ---- Done: accordions -----------------------------------------------------------------------------------------
+  // PG-18: what was asked (the moment: time, recording, Medi's line) and the result (her answer, date, what it changed)
+  function asked(x) {
+    const moment = x.t || x.medi || x.clip ? `<div class="hb-moment"><p class="hb-prog">${x.t ? 'at ' + esc(x.t) : ''}</p>${x.medi ? `<div>Medi: <span lang="ar">${esc(x.medi)}</span></div>` : ''}${x.amal ? `<div>Amal: <span lang="ar">${esc(x.amal)}</span></div>` : ''}<div data-clip="${esc(x.clip || '')}"></div></div>` : '';
+    const res = x.answer ? `<p class="hb-ansline">Amal: ${esc(x.answer)}${x.at ? ` · ${esc(pretty(x.at))}` : ''}${x.carried ? ' · carried over from her earlier link' : ''}</p>${x.result ? `<p class="hb-result">Result: ${esc(x.result)}</p>` : ''}`
+                         : `<p class="hb-ansline"><i>${esc(x.result || 'not answered')}</i></p>`;
+    return `<li><p class="hb-askq"><b>${esc(x.ask || '')}</b>${x.word ? ` · ${esc(x.word)}` : ''}${x.english ? ` <span>(${esc(x.english)})</span>` : ''}</p>${moment}${res}</li>`;
+  }
   function readOnly(el, d, why) {
     const A = (d && d.asked) || [];
-    el.innerHTML = `<p class="hb-sub">${esc(why || '')}${why ? ' · ' : ''}${fmt((d || {}).answered)} of ${fmt((d || {}).total)} answered${A.length > PAGE ? '' : ''}</p>`
+    el.innerHTML = `<p class="hb-sub">${esc(why || '')}${why ? ' · ' : ''}${fmt((d || {}).answered)} of ${fmt((d || {}).total)} answered</p>`
       + (A.length > PAGE ? `<input type="search" class="hb-search" placeholder="Find a question or answer" aria-label="Find a question or answer">` : '') + '<ul class="hb-done hb-asked" data-asked></ul>';
     let shown = PAGE, q = '';
     const draw = () => {
       const L = A.filter(x => !q || JSON.stringify(x).toLowerCase().includes(q)), page = L.slice(0, shown);
-      el.querySelector('[data-asked]').innerHTML = page.map(x => `<li><span><b>${esc(x.ask || '')}</b>${x.word ? ` · ${esc(x.word)}` : ''}${x.english ? ` <span>(${esc(x.english)})</span>` : ''}</span>
-        <span class="hb-ansline">${x.answer ? `Amal: ${esc(x.answer)}${x.at ? ` · ${esc(pretty(x.at))}` : ''}` : '<i>not answered</i>'}</span></li>`).join('')
+      el.querySelector('[data-asked]').innerHTML = page.map(asked).join('')
         + (L.length > shown ? `<li><button type="button" class="hb-ans" data-more>Next ${Math.min(PAGE, L.length - shown)} (${L.length - shown} more)</button></li>` : '');
+      el.querySelectorAll('[data-clip]').forEach(c => { const src = c.dataset.clip; if (!src || !window.AneesClip) return;
+        const [f, frag] = src.split('#t='), [st, en] = (frag || '').split(',').map(Number);
+        c.appendChild(AneesClip.bar({ src: ANEES.pages + f, start: frag ? st : 0, end: frag ? en : null })); });
       const m = el.querySelector('[data-more]'); if (m) m.onclick = () => { shown += PAGE; draw(); };
     };
     const s = el.querySelector('.hb-search'); if (s) s.oninput = () => { q = s.value.trim().toLowerCase(); shown = PAGE; draw(); };
     draw();
   }
-  // a link that is still open: the live module (her answers + Undo); an expired one: what it asked and what she answered
+  // the results always; a link that is still open also gets its live list (her answers with Undo) one tap below
   function accBody(el, x) {
     const liveLink = x.token && (!x.expires || x.expires >= today()) && MOUNT[x.kind];
-    if (liveLink) { el.innerHTML = '<div data-live></div>'; MOUNT[x.kind](el.querySelector('[data-live]'), x, () => {}, { view: 'done' }); }
-    else readOnly(el, x.detail, x.why ? 'The link has closed (' + x.why + '), so answers cannot be changed' : '');
+    el.innerHTML = '<div data-res></div>' + (liveLink ? '<details class="hb-acc"><summary><b>Change an answer</b> <span>· Undo is here while the list is open</span></summary><div class="hb-acc-body" data-live></div></details>' : '');
+    readOnly(el.querySelector('[data-res]'), x.detail, liveLink ? '' : (x.why ? 'The link has closed (' + x.why + '), so answers cannot be changed' : ''));
+    const d = el.querySelector('details');
+    if (d) d.addEventListener('toggle', () => { if (d.open && !d.dataset.on) { d.dataset.on = '1'; MOUNT[x.kind](d.querySelector('[data-live]'), x, () => {}, { view: 'done' }); } });
   }
   function doneView() {
     setTab('done');
@@ -185,7 +196,8 @@
       const r = rows[+d.dataset.i], body = d.querySelector('.hb-acc-body');
       if (r.c) { accBody(body, r.c); earlier(d.querySelector('[data-earlier]'), r.c); return; }
       const t = r.open();
-      MOUNT[t.kind](body, t.item, () => {}, { view: 'done' });
+      if (t.item && t.item.detail) accBody(body, t.item);            // results first, the live list (Undo) one tap below
+      else MOUNT[t.kind](body, t.item, () => {}, { view: 'done' });
       earlier(d.querySelector('[data-earlier]'), t.item);
     }));
   }

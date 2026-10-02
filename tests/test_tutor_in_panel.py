@@ -77,7 +77,7 @@ def test_PG_18_done_rows_are_accordions_that_show_what_was_asked():
     assert '<details class="hb-acc"' in TUTOR_JS and "function doneView()" in TUTOR_JS
     dv = TUTOR_JS[TUTOR_JS.index("function doneView()"):TUTOR_JS.index("function count()")]
     assert "location.hash" not in dv, "a Done row must open in place, not change the page"
-    assert "<i>not answered</i>" in TUTOR_JS and "Find a question or answer" in TUTOR_JS
+    assert "x.result || 'not answered'" in TUTOR_JS and "Find a question or answer" in TUTOR_JS
     assert "MOUNT[t.kind](body, t.item, () => {}, { view: 'done' })" in TUTOR_JS   # a list still open: live, with Undo
 
 
@@ -117,3 +117,59 @@ def test_PG_18_expired_links_keep_their_questions_and_one_lesson_is_one_row(tmp_
     assert [(a["word"], a["answer"], a["at"]) for a in asked] == [("kalb", "Wrong word", "2026-10-01"), ("bet", None, None)]   # not answered stays visible
     sep30 = next(x for x in out["closed"] if x["title"] == "After the lesson · Sep 30")
     assert sep30["detail"]["total"] == 1 and sep30["detail"]["asked"][0]["ask"] == "Was Medi right here?"
+
+
+# ---- AM-18: one after link per lesson; a re-review never re-opens a lesson Amal answered -----------------------------
+QUOTE_AM18 = "close, but I want accordians to see the results and what you are asking"
+
+
+def test_AM_18_a_re_review_does_not_make_a_new_link_for_an_answered_lesson(monkeypatch):
+    import amal_links as L
+    answered = {"token": "OLD", "kind": "after", "lesson_date": "2026-10-01", "created_at": "2026-10-02T08:54:00Z", "expires_at": "2026-10-09T00:00:00Z",
+                "done_at": "2026-10-02T12:10:00Z", "answers": {"q": {"0": "Right"}, "done": True}}
+    made = []
+    monkeypatch.setattr(L.db, "select", lambda *a, **k: [answered])
+    monkeypatch.setattr(L.db, "upsert", lambda *a, **k: made.append(a))
+    tok, url = L.create("after", "2026-10-01", {"questions": [{"ask": "x"}]})
+    assert tok == "OLD" and made == []                                           # the answered link is kept, nothing minted
+    # an open link she has not touched yet is kept too (one link per lesson); only expired untouched links allow a new one
+    open_ = {**answered, "token": "OPEN", "done_at": None, "answers": {}}
+    assert L.reuse_for([open_], "after", "2026-10-01", "2026-10-02T20:00:00Z")["token"] == "OPEN"
+    expired = {**open_, "expires_at": "2026-10-02T00:00:00Z"}
+    assert L.reuse_for([expired], "after", "2026-10-01", "2026-10-02T20:00:00Z") is None
+    assert L.reuse_for([expired, answered], "after", "2026-10-01", "2026-10-02T20:00:00Z")["token"] == "OLD"
+    # the path the hourly re-review takes goes through this guard
+    src = (ROOT / "scripts" / "after_from_audit.py").read_text(encoding="utf-8")
+    assert "amal_links" + '.create("after", a.date, p)' in src    # (split: the FC-08 scan reads test sources)
+
+
+def test_AM_18_re_made_links_are_closed_with_her_earlier_answers():
+    import close_reasked_after_links as C
+    old = {"token": "OLD", "kind": "after", "lesson_date": "2026-10-01", "created_at": "2026-10-02T08:54:00Z", "expires_at": "2026-10-09T00:00:00Z",
+           "done_at": "2026-10-02T12:10:00Z", "answers": {"q": {"0": "Right", "1": "Wrong word"}, "done": True},
+           "payload": {"questions": [{"audit_uid": "FA-1", "t": 396.0}, {"audit_uid": "FA-2", "t": 861.0}]}}
+    new = {"token": "NEW", "kind": "after", "lesson_date": "2026-10-01", "created_at": "2026-10-02T18:27:00Z", "expires_at": "2026-10-09T00:00:00Z",
+           "done_at": None, "answers": None, "payload": {"questions": [{"audit_uid": "FA-9", "t": 862.5}, {"audit_uid": "FA-7", "t": 2711.0}]}}
+    (r, src, ans), = C.plan([old, new], "2026-10-02T20:00:00Z")
+    assert r["token"] == "NEW" and src["token"] == "OLD"
+    assert ans["q"] == {"0": "Wrong word"} and ans["done"] is True                # same moment (861 ~ 862.5 s) carries her answer
+    assert ans["not_asked"] == {"1": C.NOT_ASKED} and ans["carried_from"]["token"] == "OLD"
+    assert C.plan([old], "2026-10-02T20:00:00Z") == []                           # nothing to close: nothing written
+
+
+def test_PG_18_done_rows_show_the_moment_and_the_result():
+    import build_tutor_data as B
+    link = {"kind": "after", "token": "T", "lesson_date": "2026-10-01", "done_at": "2026-10-02T12:10:00Z",
+            "payload": {"questions": [{"ask": "Was Medi right here?", "audit_uid": "FA-x", "t": 396.0, "arabizi": "mitshajje3"},
+                                      {"ask": "Was Medi right here?", "audit_uid": "FA-y", "t": 900.0}]},
+            "answers": {"q": {"0": "Wrong word"}, "updated": "2026-10-02T12:10:00Z", "not_asked": {"1": "not asked - she had answered this lesson already"}}}
+    B._AUDIT.clear(); B._AUDIT.update({"FA-x": {"uid": "FA-x", "kind": "vocab-A", "medi_said": "ana mshajje3"}})
+    d = B.link_detail(link, {})
+    a, b = d["asked"]
+    assert (a["t"], a["medi"], a["answer"], a["at"], a["result"]) == ("6:36", "ana mshajje3", "Wrong word", "2026-10-02", "slip counted for Medi")
+    assert a["clip"].startswith("lessons/2026-10-01/audio/lesson.mp3#t=393,")
+    assert b["answer"] is None and b["result"].startswith("not asked")
+    B._AUDIT.clear()
+    js = TUTOR_JS
+    assert "Result: ${esc(x.result)}" in js and "Medi: <span lang=\"ar\">${esc(x.medi)}</span>" in js and "AneesClip.bar(" in js
+    assert "<b>Change an answer</b>" in js                                       # Undo one tap below the results while live

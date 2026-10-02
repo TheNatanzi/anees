@@ -20,9 +20,35 @@ def url(kind, token):
     return f'{PAGES}{PAGE[kind]}?t={token}'
 
 
-def create(kind, lesson_date, payload):
-    token = secrets.token_urlsafe(24)
+def answered(r):
+    """An after/before link Amal answered: she finished it, or tapped at least one step."""
+    a = r.get('answers') or {}
+    return bool(r.get('done_at') or a.get('done') or any(a.get(k) for k in ('q', 'hw', 'v', 'pr', 'topic', 'sentences')))
+
+
+def reuse_for(rows, kind, lesson_date, now_iso):
+    """AM-18 (Medi 2026-10-02 "close, but I want accordians to see the results and what you are asking"): a lesson gets ONE
+    after (or before) link. The hourly re-review re-runs review_lesson.py step 7b on a lesson whose transcript grew, and
+    every run minted a fresh link - on 2026-10-02 that re-opened Oct 1, Sep 26 and Sep 23, which Amal had already answered.
+    -> the existing link to keep (answered, or still open), or None when a new one may be made (none yet, or only expired
+    links she never touched)."""
+    mine = [r for r in rows if r.get('kind') == kind and r.get('lesson_date') == lesson_date]
+    done = [r for r in mine if answered(r)]
+    if done:
+        return max(done, key=lambda r: r.get('created_at') or '')
+    live = [r for r in mine if (r.get('expires_at') or '') > now_iso]
+    return max(live, key=lambda r: r.get('created_at') or '') if live else None
+
+
+def create(kind, lesson_date, payload, force=False):
     now = datetime.datetime.now(datetime.timezone.utc)
+    if not force:
+        rows = db.select('amal_links', {'select': 'token,kind,lesson_date,created_at,expires_at,done_at,answers', 'kind': f'eq.{kind}', 'lesson_date': f'eq.{lesson_date}'})
+        keep = reuse_for(rows, kind, lesson_date, now.isoformat())
+        if keep:
+            print(f'{kind} link for {lesson_date} kept (already {"answered" if answered(keep) else "open"}); no new link (AM-18)')
+            return keep['token'], url(kind, keep['token'])
+    token = secrets.token_urlsafe(24)
     row = {'token': token, 'kind': kind, 'lesson_date': lesson_date, 'created_at': now.isoformat(),
            'expires_at': (now + datetime.timedelta(days=DAYS)).isoformat(), 'payload': payload}
     db.upsert('amal_links', [row], on='token')
