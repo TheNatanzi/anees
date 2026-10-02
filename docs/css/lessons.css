@@ -119,3 +119,28 @@
 #anees-bank .ls-medisaid{border-top:0;padding-top:0;margin-top:6px}#anees-bank .ls-medisaid>span:first-child{color:var(--ls-medi)}
 #anees-bank .pct-a{color:light-dark(#0f6b3a,#3fcf7f)!important} #anees-bank .pct-b{color:light-dark(#447f26,#a8e08a)!important} #anees-bank .pct-c{color:light-dark(#9a7400,#f2c94c)!important} #anees-bank .pct-d{color:light-dark(#b3261e,#ff7a70)!important}
 #anees-bank .gc-uncounted{opacity:.8;border-left-style:dotted}
+/* PG-20 transcript marks: one status palette (PG-11) - Correct dark green, Partial light green, Asked yellow, Wrong red, Not scored grey */
+#anees-bank .tm-main{min-width:0}
+#anees-bank .tm-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+#anees-bank .tm-chip{--c:var(--ab-muted);display:inline-block;max-width:100%;border:1px solid var(--c);border-radius:11px;padding:2px 8px;font-size:11px;line-height:1.35;background:color-mix(in srgb,var(--c) 10%,transparent);color:var(--ab-text);text-align:left;overflow-wrap:anywhere;cursor:pointer}
+#anees-bank .tm-chip .tm-sign{color:var(--c);font-weight:700}
+#anees-bank .tm-chip .tm-word{font-weight:600;color:var(--c)}
+#anees-bank .tm-chip .tm-kind{color:var(--ab-muted)}
+#anees-bank .tm-chip .tm-ar{font-size:10px;color:var(--ab-muted);margin-left:6px}
+#anees-bank .tm-correct{--c:var(--ab-green)}
+#anees-bank .tm-partial{--c:var(--ab-blue)}
+#anees-bank .tm-asked{--c:var(--ab-orange)}
+#anees-bank .tm-wrong{--c:var(--ab-red)}
+#anees-bank .tm-fix{--c:var(--ab-green);border-style:dashed}
+#anees-bank .tm-na{--c:var(--ab-muted);border-style:dotted}
+#anees-bank .tm-chip.tm-on{outline:2px solid var(--c);outline-offset:1px}
+#anees-bank .tm-legend{display:flex;flex-wrap:wrap;gap:5px 6px;align-items:center;margin:4px 0 8px;font-size:11px}
+#anees-bank .tm-legend .tm-chip{cursor:default}
+#anees-bank .tm-legend-ul{flex:1 1 100%;color:var(--ab-muted)}
+#anees-bank .tm-filters{margin-bottom:8px}
+#anees-bank mark.tm-ul{background:none;color:inherit;padding:0;text-decoration-line:underline;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-skip-ink:none;cursor:pointer}
+#anees-bank mark.tm-ul-wrong{text-decoration-style:wavy;text-decoration-color:light-dark(#C4321F,#FF8A7A)}
+#anees-bank mark.tm-ul-fix{text-decoration-style:solid;text-decoration-color:light-dark(#2F7D52,#6FD39A)}
+#anees-bank mark.tm-ul.tm-on{background:color-mix(in srgb,currentColor 12%,transparent);border-radius:3px}
+#anees-bank .tm-detail{margin-top:6px;padding:6px 8px;border-left:3px solid var(--ab-accent);background:var(--ab-panel);border-radius:4px;font-size:12px}
+#anees-bank .ls-turn.tm-flash{box-shadow:0 0 0 2px var(--ab-accent)}

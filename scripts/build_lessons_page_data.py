@@ -841,7 +841,8 @@ def build():
                          "word_key": None, "arabic": v.get("amal_gave"), "arabizi": v.get("amal_gave_arabizi"), "english": v.get("english"),
                          "said": v.get("medi_said"), "said_html": mark_html(v.get("medi_said") or "", v.get("wrong") or "", "ab-wrong") if v.get("wrong") else esc(v.get("medi_said") or ""),
                          "wrong": v.get("wrong"), "fix": v.get("amal_gave"), "clip": None, "why": v.get("why"), "event_id": None,
-                         "tier": v.get("tier"), "signal": v.get("signal"), "confidence": v.get("confidence"), "source": "audit-2026-09-26", "audit_uid": v.get("uid")})
+                         "tier": v.get("tier"), "signal": v.get("signal"), "confidence": v.get("confidence"), "source": "audit-2026-09-26", "audit_uid": v.get("uid"),
+                         "t_fix": sec(v.get("t_amal")) if v.get("t_amal") else None})
             need_ar.add(v.get("medi_said") or "")
         verr.sort(key=lambda e: e["t"])
         # The audit's slips count in the word score too (Medi 2026-09-26: "35 errors ... 0 wrong?"). Tiers 1-3 = wrong;
@@ -1010,6 +1011,17 @@ def build():
         json.dump({"updated": dt.datetime.now().astimezone().isoformat(timespec="seconds"), **SL}, f, ensure_ascii=False, indent=1)
     print("word slips into the Word Bank:", len(SL["events"]), "| not placed:", len(SL["unplaced"]), [(x["date"], x["uid"], x["why"]) for x in SL["unplaced"]])
 
+    # PG-20 transcript marks (scripts/transcript_marks.py): every scored item on the turn it was said in, Amal's fix
+    # line linked to it, the wrong / right words underlined. Precomputed here so the page stays fast.
+    import transcript_marks as TM
+    U = J(usage_p) if os.path.exists(usage_p) else {}
+    for d, v in per.items():
+        v["tmarks"], v["marks_report"] = TM.build(d, v, U.get("uses", {}), buckets, AMAL.not_taught,
+                                                  U.get("ruled_out", []), U.get("not_uses_auto", []),
+                                                  (TYPE_READS.get(d) or {}).get("off_lesson") or [])
+        r = v["marks_report"]
+        print(f"transcript marks {d}: {r['placed']}/{r['scored']} placed ({r['rate']}%), Amal fixes {r['fix_placed']}/{r['fix_wanted']}, "
+              f"underlines {r['ul_exact']} exact + {len(r['ul_closest'])} closest + {len(r['ul_none'])} none of {r['ul_wanted']}")
     os.makedirs(os.path.join(DOCS, "data", "lessons"), exist_ok=True)
     for d, v in per.items():
         with open(os.path.join(DOCS, "data", "lessons", d + ".json"), "w", encoding="utf-8") as f:

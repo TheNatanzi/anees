@@ -5752,6 +5752,69 @@
     }
    ],
    "note": "Before: the Hear it cell read '— collecting, 29 of 30' for 35 of 47 rules even though the ladder had their %."
+  },
+  {
+   "id": "PG-20",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The Lessons page's full transcript marks every Medi line from the scored evidence, never a new judgment: a ✓ Correct or ✗ Wrong chip per word or rule (\"vocab · <word in Amal's Arabizi>\" or \"grammar · <rule id> <name>\", the id with its rule-name tooltip), partial / asked in the status colours, grey 'not scored: <reason>' where a stated reason exists (off-lesson, Amal's notes, not on her list, a question about the rule). His wrong word is underlined red in both the Arabizi and the Arabic line; Amal's line with the signal that made the ✗ count (recast, says no, names the rule, ...) carries an 'Amal's fix' chip with her fix underlined green, and tapping either side highlights the other. A legend and a filter row (All · Only marked · Only ✗ · Vocab · Grammar · Amal's fixes) sit above it. The marks are placed by time (±2 s, same speaker) in scripts/build_lessons_page_data.py via scripts/transcript_marks.py, and each lesson's marks_report counts placed / scored items, Amal fixes and underlines (exact, closest, none).",
+   "plain": "The lesson transcript shows a green ✓ or red ✗ on each of Medi's lines for every word and grammar rule already scored there (word in Amal's spelling, or the rule id with its name), grey 'not scored' with the reason where one is recorded, his wrong word underlined in red, and Amal's correcting line marked with how she flagged it and her fix underlined in green; tapping one side highlights the other. A legend and filters (All, Only marked, Only ✗, Vocab, Grammar, Amal's fixes) sit above it.",
+   "plain_for": "db3d3352",
+   "topic": "lessons page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "for the transcript lets put check marks and xs for incorrect correct and mark vocab or grammar with grammar rule"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "mark amals signal for correction too"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "underline the word thats wrong"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/transcript_marks.py",
+     "contains": "def build(date, detail, uses_by_bucket, buckets, not_taught"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/transcript-marks.js",
+     "contains": "function chipModel(c, toArabizi)"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "function openChip(list, id)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_transcript_marks.py",
+     "contains": "def test_PG_20_every_scored_item_lands_on_exactly_one_medi_turn"
+    },
+    {
+     "path": "tests/test_transcript_marks.py",
+     "contains": "def test_PG_20_every_voiced_slip_fix_lands_on_one_amal_turn_linked_back"
+    },
+    {
+     "path": "tests/test_transcript_marks.py",
+     "contains": "def test_PG_20_underlines_point_at_real_chips_and_are_counted"
+    },
+    {
+     "path": "tests/test_transcript_marks.cjs",
+     "contains": "test('chips say Wrong / Correct in words"
+    }
+   ]
   }
  ]
 }

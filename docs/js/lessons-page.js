@@ -572,37 +572,124 @@ function grammarList(body, x) {
     body.appendChild(card);
   });
 }
-// Marks on the transcript: his wrong words in the Medi turn at the slip, her fix in the next Amal turns.
-function transcriptMarks(x) {
-  var turns = x.turns || [], out = turns.map(function () { return []; });
-  (x.marks || []).forEach(function (m) {
-    var cls = m.kind === 'vocab' ? 'ab-partial' : 'ab-wrong';
-    var said = -1;
-    for (var i = 0; i < turns.length; i++) {
-      var t = turns[i];
-      if (t.t < m.t - 6) continue;
-      if (t.t > m.t + 20) break;
-      if (t.who === 'Medi' && m.wrong && t.text.indexOf(m.wrong) >= 0) { out[i].push([m.wrong, cls]); said = i; break; }
-    }
-    var from = said >= 0 ? said + 1 : 0;
-    for (var j = from; j < turns.length; j++) {
-      var u = turns[j];
-      if (u.t < m.t - 2) continue;
-      if (u.t > m.t + 40) break;
-      if (u.who === 'Amal' && m.right && u.text.indexOf(m.right) >= 0) { out[j].push([m.right, 'ab-correct']); break; }
-    }
-  });
-  return out;
-}
+// PG-20 transcript marks (Medi 2026-10-02): ✓ / ✗ chips on each line from the scored evidence, Amal's fix line linked
+// both ways, the wrong word underlined red and her fix green. Precomputed (scripts/transcript_marks.py -> x.tmarks).
+var TMF = 'all';
 function transcript(body, x) {
   var turns = x.turns || [];
   if (!turns.length) { body.appendChild(el('div', 'gc-empty', 'No transcript for this lesson.')); return; }
   var L = lessons().filter(function (l) { return l.date === x.date; })[0];
   if (L && L.coverage) body.appendChild(el('p', 'ab-mini', 'Coverage: ' + L.coverage));
-  var marks = transcriptMarks(x);
+  var TMK = window.AneesTranscriptMarks, tm = x.tmarks || {};
   var list = el('div', 'ls-transcript');
-  turns.forEach(function (t, i) { list.appendChild(turnRow(x, t, marks[i])); });
+  if (TMK && x.tmarks) {
+    var leg = el('div', 'tm-legend');
+    leg.setAttribute('aria-label', 'What the marks mean');
+    TMK.LEGEND.forEach(function (g) {
+      var it = el('span', 'tm-chip tm-' + g[0]);
+      it.appendChild(el('b', 'tm-sign', g[1]));
+      it.appendChild(document.createTextNode(' ' + g[2]));
+      leg.appendChild(it);
+    });
+    var ul = el('span', 'tm-legend-ul');
+    ul.innerHTML = '<mark class="tm-ul tm-ul-wrong">underlined red</mark> = the wrong word · <mark class="tm-ul tm-ul-fix">green</mark> = Amal\'s fix · tap a chip or a word to see what was said and jump to the other line';
+    leg.appendChild(ul);
+    body.appendChild(leg);
+    var n = TMK.counts(tm), bar = el('div', 'ab-chips tm-filters');
+    bar.setAttribute('aria-label', 'Show lines');
+    TMK.FILTERS.forEach(function (f) {
+      var b = el('button', 'ab-chip', f[1] + (f[0] === 'all' ? '' : ' · ' + n[f[0]]));
+      b.type = 'button';
+      b.setAttribute('aria-pressed', TMF === f[0]);
+      b.addEventListener('click', function () {
+        TMF = f[0];
+        Array.prototype.forEach.call(bar.children, function (c, i) { c.setAttribute('aria-pressed', TMK.FILTERS[i][0] === TMF); });
+        draw();
+      });
+      bar.appendChild(b);
+    });
+    body.appendChild(bar);
+    list.addEventListener('click', function (e) {
+      var hit = e.target.closest('[data-chip]');
+      if (!hit || !list.contains(hit)) return;
+      e.preventDefault();
+      openChip(list, hit.getAttribute('data-chip'));
+    });
+  }
+  function draw() {
+    list.textContent = '';
+    var shown = 0;
+    turns.forEach(function (t, i) {
+      var m = tm[i];
+      if (TMK && !TMK.shows(m, TMF)) return;
+      list.appendChild(tmRow(x, t, m, i));
+      shown++;
+    });
+    if (!shown) list.appendChild(el('div', 'gc-empty', 'No line in this lesson has that mark.'));
+  }
+  draw();
   body.appendChild(list);
+}
+function tmRow(x, t, m, i) {
+  var TMK = window.AneesTranscriptMarks;
+  if (!TMK || !m) return turnRow(x, t, []);
+  var r = el('div', 'ls-turn ls-turn-' + (t.who === 'Medi' ? 'medi' : t.who === 'chat' ? 'chat' : 'amal'));
+  r.dataset.turn = i;
+  var h = el('div', 'ls-turnhead');
+  h.appendChild(el('span', 'ls-who', t.who === 'Medi' ? 'Medi' : t.who === 'chat' ? 'Amal · chat' : t.who === '?' ? 'Unknown' : t.who));
+  h.appendChild(timeButton(x.date, t.t, t.who));
+  r.appendChild(h);
+  var main = el('div', 'tm-main');
+  main.appendChild(speech('ls-turntext', TMK.underlined(t.text, m.u), null));
+  var chips = el('div', 'tm-chips');
+  (m.c || []).forEach(function (c) {
+    var v = TMK.chipModel(c, toArabizi);
+    var b = el('button', 'tm-chip tm-' + c.s);
+    b.type = 'button';
+    b.dataset.chip = c.id;
+    b.id = 'tm-' + x.date + '-' + c.id;
+    if (c.link) b.dataset.link = c.link;
+    b.title = v.tip;
+    b.dataset.raw = TMK.chipModel(c, null).tip;   // Arabic kept: the detail shows Arabizi big, Arabic small (S1)
+    b.setAttribute('aria-label', v.word + ' · ' + v.kind + ' · ' + v.main + '. ' + v.tip);
+    b.appendChild(el('b', 'tm-sign', v.sign));
+    b.appendChild(el('span', 'tm-word', ' ' + v.word));
+    b.appendChild(el('span', 'tm-kind', ' · ' + (c.s === 'na' ? (c.label || v.kind) : (c.k === 'fix' ? 'she ' + v.sig + ' · ' : '') + v.kind)));
+    if (v.main) b.appendChild(el('span', 'tm-what', ' · ' + v.main));
+    if (v.ar) { var a = el('span', 'tm-ar', v.ar); a.setAttribute('lang', 'ar'); a.setAttribute('dir', 'rtl'); b.appendChild(a); }
+    chips.appendChild(b);
+  });
+  main.appendChild(chips);
+  r.appendChild(main);
+  return r;
+}
+// Tap a chip or an underlined word: its detail opens under the line, and the linked line (his ✗ <-> her fix) is
+// highlighted and brought into view.
+function openChip(list, id) {
+  var b = list.querySelector('button.tm-chip[data-chip="' + id + '"]');
+  if (!b) return;
+  var row = b.closest('.ls-turn'), old = row.querySelector('.tm-detail');
+  var same = old && old.dataset.chip === id;
+  if (old) old.remove();
+  Array.prototype.forEach.call(list.querySelectorAll('.tm-on'), function (n) { n.classList.remove('tm-on'); });
+  if (same) return;
+  b.classList.add('tm-on');
+  Array.prototype.forEach.call(list.querySelectorAll('mark[data-chip="' + id + '"]'), function (n) { n.classList.add('tm-on'); });
+  var d = el('div', 'tm-detail');
+  d.dataset.chip = id;
+  d.setAttribute('role', 'status');
+  d.appendChild(speech('', null, b.dataset.raw || b.title));
+  var link = b.dataset.link && list.querySelector('button.tm-chip[data-chip="' + b.dataset.link + '"]');
+  if (b.dataset.link && !link) d.appendChild(el('div', 'ab-mini', 'The linked line is hidden by the filter: choose All to see it.'));
+  row.querySelector('.tm-main').appendChild(d);
+  if (link) {
+    link.classList.add('tm-on');
+    Array.prototype.forEach.call(list.querySelectorAll('mark[data-chip="' + b.dataset.link + '"]'), function (n) { n.classList.add('tm-on'); });
+    var lr = link.closest('.ls-turn');
+    lr.classList.add('tm-flash');
+    setTimeout(function () { lr.classList.remove('tm-flash'); }, 1600);
+    if (lr.scrollIntoView) lr.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
 }
 function turnRow(x, t, marks) {
   var r = el('div', 'ls-turn ls-turn-' + (t.who === 'Medi' ? 'medi' : t.who === 'chat' ? 'chat' : 'amal'));
