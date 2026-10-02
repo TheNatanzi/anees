@@ -39,6 +39,7 @@ def normalize(text):
 # Past forms said without the pronoun (S6). The he-form (هو) is left out: bare it is too often a noun (درس lesson,
 # رسم drawing, أكل food). NOT_BARE_PAST: bare forms that are everyday words in another sense.
 BARE_PAST_PRONOUNS = {normalize(x) for x in ('أنا','انا','إنت','انت','إنتي','انتي','إنتو','انتو','هي','إحنا','احنا','هم','همه')}
+BARE_PAST_LATIN = {normalize(x) for x in ('ana','inta','inti','intu','heiye','heyye','hiye','i7na','e7na','humme','hume','humma')}
 NOT_BARE_PAST = {normalize(x) for x in ('بنت','وقت','بيت','ست')}
 
 def tokens(text):
@@ -87,7 +88,7 @@ class StrictMatcher:
         other=set()
         for w in words:
             if w.get('active',True) and w.get('topic') not in verb_topics:
-                for f in [w.get('arabic') or '']+list(w.get('aliases') or []):
+                for f in [w.get('arabic') or '',w.get('arabizi') or '']+list(w.get('aliases') or []):
                     for part in re.split('[/|]',f):
                         t=tokens(part)
                         if t: other.update(t)
@@ -101,6 +102,13 @@ class StrictMatcher:
                 if (len(bare)<3 or bare.startswith('ب') or bare.endswith(('ة','ه')) or bare in other
                         or bare in NOT_BARE_PAST or (bare,) in self.index): continue
                 add[(bare,)][key]='pronoun_omission'
+            # The same in Latin letters, exact spelling only (no phoneme folding, see the module note): her "Ana 7akait"
+            # -> "7akait". English words and her non-verb Latin forms are never matched bare.
+            t=tokens(w.get('arabizi') or '')
+            if t and len(t)==2 and t[0] in BARE_PAST_LATIN:
+                bare=t[1]
+                if (len(bare)>=4 and re.search('[0-9]',bare) or len(bare)>=5) and bare not in other and bare not in ENGLISH_STOP                         and not bare.startswith('b') and (bare,) not in self.index:
+                    add[(bare,)][key]='pronoun_omission'
         for t,keys in add.items(): self.index[t].update(keys)
 
     def match(self,text):
