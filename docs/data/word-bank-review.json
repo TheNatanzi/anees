@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-21-reliability-v1+silence+zibdeh-wrong-form+azra2-gender-form+ustaaz-vocab-miss+context-sweep-0925+vocab-unresolved-audit-0928+silence+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+lessons-1001+vocab-unresolved-audit-0928",
+  "version": "2026-09-21-reliability-v1+silence+zibdeh-wrong-form+azra2-gender-form+ustaaz-vocab-miss+context-sweep-0925+vocab-unresolved-audit-0928+silence+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+lessons-1001+vocab-unresolved-audit-0928",
   "patches": {
     "14451e90578dc9ffc26af8db425e0c639905c361a2bdc850a03be575e3830243": {
       "expected": {
@@ -42251,10 +42251,32 @@
         "spoken": true,
         "tr17_note": "Re-read with every recording of the lesson (rule TR-17): the tutor recording of a reconnect now covers this moment.",
         "rnl_prior": {
-          "needs_review": null
+          "contextual_audit": true,
+          "audit_version": "2026-09-23-lessons-1001-v1",
+          "reason": "El-yom is used as today; nearby hesitation, another word’s correction, or its presence in Amal’s question is not an error on el-yom.",
+          "assessment": "independent",
+          "vocab_points": 1,
+          "ignored": false,
+          "observation_only": false,
+          "needs_review": null,
+          "immediate_repeat": false,
+          "is_echo": false,
+          "grammar_only": false,
+          "classification": "lexical"
         },
         "rnl_fields": [
-          "needs_review"
+          "assessment",
+          "audit_version",
+          "classification",
+          "contextual_audit",
+          "grammar_only",
+          "ignored",
+          "immediate_repeat",
+          "is_echo",
+          "needs_review",
+          "observation_only",
+          "reason",
+          "vocab_points"
         ],
         "audit_by": "Claude audit 2026-09-28",
         "reviewer": "Claude audit 2026-09-28",
@@ -43292,7 +43314,7 @@
         "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
       },
       "changes": {
-        "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified",
+        "reason": "Claude audit 2026-09-28: Said again at 5:36 after only «أمم.» from Amal: one attempt, the fuller one is kept.",
         "context": [
           {
             "row_id": "anees-20261001-recall-medi:row:416",
@@ -43351,11 +43373,35 @@
             "timeline_end": 367.112469622
           }
         ],
-        "assessment": "independent",
-        "needs_review": null,
+        "assessment": "unresolved",
+        "needs_review": false,
         "spoken": true,
         "auto_rule": "TR-17",
-        "tr17_note": "Re-read with every recording of the lesson (rule TR-17): the tutor recording of a reconnect now covers this moment."
+        "tr17_note": "Re-read with every recording of the lesson (rule TR-17): the tutor recording of a reconnect now covers this moment.",
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Said again at 5:36 after only «أمم.» from Amal: one attempt, the fuller one is kept.",
+        "contextual_audit": true,
+        "review_locked": true,
+        "vocab_points": null,
+        "ignored": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
+        "audit_prior": {
+          "reviewer": "__absent__",
+          "contextual_audit": "__absent__",
+          "review_locked": "__absent__",
+          "assessment": "independent",
+          "vocab_points": "__absent__",
+          "needs_review": null,
+          "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified",
+          "ignored": "__absent__",
+          "immediate_repeat": "__absent__",
+          "classification": "__absent__"
+        }
       }
     },
     "56a6803d3662582208cdf66d24ca2b20585abdf654da8918616e1f24d01e8652": {
@@ -45885,6 +45931,809 @@
         "tr17_note": "Re-read with every recording of the lesson (rule TR-17): the tutor recording of a reconnect now covers this moment."
       }
     },
+    "2ad4f05e70e4e7e0a3d97e5f1da045bee06b0afd2c6beeadc6cef087f6393121": {
+      "expected": {
+        "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
+        "row_id": "anees-20261001-recall-medi:row:242",
+        "word_key": "u",
+        "text": "و،",
+        "t_start": 184.70330256300002,
+        "t_end": 185.063302563,
+        "assessment": "unresolved",
+        "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
+      },
+      "changes": {
+        "context": [
+          {
+            "row_id": "anees-20261001-recall-medi:row:210",
+            "speaker": "Medi",
+            "text": "الساعة،",
+            "timeline_start": 167.20330256300002,
+            "timeline_end": 167.843302563
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:212",
+            "speaker": "Medi",
+            "text": "uh، واح-واحد.",
+            "timeline_start": 169.323302563,
+            "timeline_end": 173.02330256300002
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:134",
+            "speaker": "Amal",
+            "text": "واحد.",
+            "timeline_start": 174.012469622,
+            "timeline_end": 174.65246962199998
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:216",
+            "speaker": "Medi",
+            "text": "واحدة-- Oh my God, the date-- So dates are واحد, times are واحدة.",
+            "timeline_start": 175.30330256300002,
+            "timeline_end": 179.163302563
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:136",
+            "speaker": "Amal",
+            "text": "أمم.",
+            "timeline_start": 176.612469622,
+            "timeline_end": 176.93246962199999
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:138",
+            "speaker": "Amal",
+            "text": "هيك الساعة واحدة.",
+            "timeline_start": 180.09246962199998,
+            "timeline_end": 181.59246962199998
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:242",
+            "speaker": "Medi",
+            "text": "Yeah. Okay. الساعة واحدة و،",
+            "timeline_start": 181.663302563,
+            "timeline_end": 185.063302563
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:252",
+            "speaker": "Medi",
+            "text": "uh، صباح.",
+            "timeline_start": 186.283302563,
+            "timeline_end": 187.80330256300002
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:144",
+            "speaker": "Amal",
+            "text": "أووه.",
+            "timeline_start": 190.31246962199998,
+            "timeline_end": 190.832469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:256",
+            "speaker": "Medi",
+            "text": "Uh, ثماني، uh، ثماني، uh، ثمان دقايق.",
+            "timeline_start": 193.14330256300002,
+            "timeline_end": 197.503302563
+          }
+        ],
+        "reason": "Claude audit 2026-09-28: «Okay. الساعة واحدة و، uh، صباح.»: و here holds the floor (alone, turn-final, or before uh/um/a cut-off/restart); it does not join two words.",
+        "assessment": "unresolved",
+        "spoken": true,
+        "needs_review": false,
+        "auto_rule": "TR-17",
+        "tr17_note": "Re-read with every recording of the lesson (rule TR-17): the tutor recording of a reconnect now covers this moment.",
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "filler",
+        "audit_note": "«Okay. الساعة واحدة و، uh، صباح.»: و here holds the floor (alone, turn-final, or before uh/um/a cut-off/restart); it does not join two words.",
+        "contextual_audit": true,
+        "review_locked": true,
+        "vocab_points": null,
+        "ignored": true,
+        "classification": "ignored",
+        "audit_prior": {
+          "reviewer": "__absent__",
+          "contextual_audit": "__absent__",
+          "review_locked": "__absent__",
+          "assessment": "independent",
+          "vocab_points": "__absent__",
+          "needs_review": null,
+          "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified",
+          "ignored": "__absent__",
+          "classification": "__absent__"
+        }
+      }
+    },
+    "f14ef6c38a547e728981036fd8f7bd9c68d316b043af1a4d8e42ecc661802419": {
+      "expected": {
+        "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
+        "row_id": "anees-20261001-recall-medi:row:276",
+        "word_key": "aw",
+        "text": "أو،",
+        "t_start": 217.76330256300002,
+        "t_end": 217.98330256300002,
+        "assessment": "unresolved",
+        "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
+      },
+      "changes": {
+        "context": [
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:146",
+            "speaker": "Amal",
+            "text": "شو لون أواعيك اليوم؟",
+            "timeline_start": 204.87246962199998,
+            "timeline_end": 206.452469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:270",
+            "speaker": "Medi",
+            "text": "اليوم بلبس بلوزة،",
+            "timeline_start": 208.043302563,
+            "timeline_end": 211.603302563
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:276",
+            "speaker": "Medi",
+            "text": "uh، أخ-أخ-أخضر أو،",
+            "timeline_start": 213.36330256300002,
+            "timeline_end": 217.98330256300002
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:154",
+            "speaker": "Amal",
+            "text": "بلوزة شو؟",
+            "timeline_start": 217.87246962199998,
+            "timeline_end": 219.492469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:282",
+            "speaker": "Medi",
+            "text": "أو خضرا it's feminine.",
+            "timeline_start": 220.563302563,
+            "timeline_end": 222.043302563
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:158",
+            "speaker": "Amal",
+            "text": "أمم.",
+            "timeline_start": 222.252469622,
+            "timeline_end": 222.612469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:290",
+            "speaker": "Medi",
+            "text": "وبنطلون بيج وكندرة بالنيلة.",
+            "timeline_start": 223.48330256300002,
+            "timeline_end": 226.843302563
+          }
+        ],
+        "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified",
+        "assessment": "independent",
+        "spoken": true,
+        "needs_review": null,
+        "auto_rule": "TR-17",
+        "tr17_note": "Re-read with every recording of the lesson (rule TR-17): the tutor recording of a reconnect now covers this moment."
+      }
+    },
+    "6c3e0fe02f2887809d71cd22d7d9bbfa7530cee2ba63d688a2f78edddd09150e": {
+      "expected": {
+        "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
+        "row_id": "anees-20261001-recall-medi:row:416",
+        "word_key": "bas",
+        "text": "بس،",
+        "t_start": 339.683302563,
+        "t_end": 340.043302563,
+        "assessment": "unresolved",
+        "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
+      },
+      "changes": {
+        "context": [
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:282",
+            "speaker": "Amal",
+            "text": "غير منيح.",
+            "timeline_start": 322.792469622,
+            "timeline_end": 323.492469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:410",
+            "speaker": "Medi",
+            "text": "uh,",
+            "timeline_start": 324.843302563,
+            "timeline_end": 325.603302563
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:412",
+            "speaker": "Medi",
+            "text": "أنا، uh،",
+            "timeline_start": 328.543302563,
+            "timeline_end": 329.543302563
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:416",
+            "speaker": "Medi",
+            "text": "ما بدي-- ما كان بدي، uh، أشتغل كتير امبارح. بس،",
+            "timeline_start": 332.043302563,
+            "timeline_end": 340.043302563
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:286",
+            "speaker": "Amal",
+            "text": "أمم.",
+            "timeline_start": 338.492469622,
+            "timeline_end": 338.772469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:436",
+            "speaker": "Medi",
+            "text": "uh، اليوم،",
+            "timeline_start": 341.62330256300004,
+            "timeline_end": 342.643302563
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:440",
+            "speaker": "Medi",
+            "text": "اليوم كمان بس،",
+            "timeline_start": 344.12330256300004,
+            "timeline_end": 345.56330256300004
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:446",
+            "speaker": "Medi",
+            "text": "uh، أنا",
+            "timeline_start": 347.023302563,
+            "timeline_end": 348.283302563
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:450",
+            "speaker": "Medi",
+            "text": "بجرب-- أنا يعني بجرب أشتغل عشان",
+            "timeline_start": 349.50330256300003,
+            "timeline_end": 354.50330256300003
+          }
+        ],
+        "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified",
+        "assessment": "independent",
+        "spoken": true,
+        "needs_review": null,
+        "auto_rule": "TR-17",
+        "tr17_note": "Re-read with every recording of the lesson (rule TR-17): the tutor recording of a reconnect now covers this moment."
+      }
+    },
+    "fb9b568868954c7d3af911d568b5f277ba324b3da5409b711831a51000102bad": {
+      "expected": {
+        "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
+        "row_id": "anees-20261001-recall-medi:row:480",
+        "word_key": "ana nsIt",
+        "text": "أنا نسيت،",
+        "t_start": 386.651302563,
+        "t_end": 387.571302563,
+        "assessment": "unresolved",
+        "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
+      },
+      "changes": {
+        "context": [
+          {
+            "row_id": "anees-20261001-recall-medi:row:468",
+            "speaker": "Medi",
+            "text": "Uh, ال.",
+            "timeline_start": 369.05130256300004,
+            "timeline_end": 369.631302563
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:298",
+            "speaker": "Amal",
+            "text": "No، الـ الكلمة اللي حكيت لك إياها امبارح.",
+            "timeline_start": 371.382469622,
+            "timeline_end": 374.662469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:472",
+            "speaker": "Medi",
+            "text": "Uh, uh, حافظ، حافظ.",
+            "timeline_start": 375.11130256300004,
+            "timeline_end": 377.351302563
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:314",
+            "speaker": "Amal",
+            "text": "Hafiz is a motivation، بس what's about motivated؟",
+            "timeline_start": 378.26246962199997,
+            "timeline_end": 381.182469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:480",
+            "speaker": "Medi",
+            "text": "Mm. لا، أنا نسيت، نسيت، نسيت.",
+            "timeline_start": 384.61130256300004,
+            "timeline_end": 389.691302563
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:330",
+            "speaker": "Amal",
+            "text": "متشـ... متشجع.",
+            "timeline_start": 389.422469622,
+            "timeline_end": 391.342469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:492",
+            "speaker": "Medi",
+            "text": "Oh, that's right.",
+            "timeline_start": 393.311302563,
+            "timeline_end": 393.851302563
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:498",
+            "speaker": "Medi",
+            "text": "مشجع.",
+            "timeline_start": 396.291302563,
+            "timeline_end": 397.331302563
+          }
+        ],
+        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 6:29.",
+        "spoken": true,
+        "needs_review": false,
+        "auto_rule": "TR-17",
+        "tr17_note": "Re-read with every recording of the lesson (rule TR-17): the tutor recording of a reconnect now covers this moment.",
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 6:29.",
+        "contextual_audit": true,
+        "review_locked": true,
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "ignored": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
+        "audit_prior": {
+          "reviewer": "__absent__",
+          "contextual_audit": "__absent__",
+          "review_locked": "__absent__",
+          "assessment": "__absent__",
+          "vocab_points": "__absent__",
+          "needs_review": null,
+          "reason": "Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error",
+          "ignored": "__absent__",
+          "immediate_repeat": "__absent__",
+          "classification": "__absent__"
+        }
+      }
+    },
+    "ad70c8559259f33dca466eb7458b3a23656f3ae009a7479cd6d126a3a924095a": {
+      "expected": {
+        "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
+        "row_id": "anees-20261001-recall-medi:row:480",
+        "word_key": "ana nsIt",
+        "text": "نسيت،",
+        "t_start": 388.091302563,
+        "t_end": 388.43130256300003,
+        "assessment": "unresolved",
+        "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
+      },
+      "changes": {
+        "context": [
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:298",
+            "speaker": "Amal",
+            "text": "No، الـ الكلمة اللي حكيت لك إياها امبارح.",
+            "timeline_start": 371.382469622,
+            "timeline_end": 374.662469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:472",
+            "speaker": "Medi",
+            "text": "Uh, uh, حافظ، حافظ.",
+            "timeline_start": 375.11130256300004,
+            "timeline_end": 377.351302563
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:314",
+            "speaker": "Amal",
+            "text": "Hafiz is a motivation، بس what's about motivated؟",
+            "timeline_start": 378.26246962199997,
+            "timeline_end": 381.182469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:480",
+            "speaker": "Medi",
+            "text": "Mm. لا، أنا نسيت، نسيت، نسيت.",
+            "timeline_start": 384.61130256300004,
+            "timeline_end": 389.691302563
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:330",
+            "speaker": "Amal",
+            "text": "متشـ... متشجع.",
+            "timeline_start": 389.422469622,
+            "timeline_end": 391.342469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:492",
+            "speaker": "Medi",
+            "text": "Oh, that's right.",
+            "timeline_start": 393.311302563,
+            "timeline_end": 393.851302563
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:498",
+            "speaker": "Medi",
+            "text": "مشجع.",
+            "timeline_start": 396.291302563,
+            "timeline_end": 397.331302563
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:500",
+            "speaker": "Medi",
+            "text": "مشجع.",
+            "timeline_start": 399.61130256300004,
+            "timeline_end": 400.471302563
+          }
+        ],
+        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 6:29.",
+        "spoken": true,
+        "needs_review": false,
+        "auto_rule": "TR-17",
+        "tr17_note": "Re-read with every recording of the lesson (rule TR-17): the tutor recording of a reconnect now covers this moment.",
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 6:29.",
+        "contextual_audit": true,
+        "review_locked": true,
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "ignored": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
+        "audit_prior": {
+          "reviewer": "__absent__",
+          "contextual_audit": "__absent__",
+          "review_locked": "__absent__",
+          "assessment": "__absent__",
+          "vocab_points": "__absent__",
+          "needs_review": null,
+          "reason": "Tutor cue/repetition or recall language needs contextual adjudication; not automatically an error",
+          "ignored": "__absent__",
+          "immediate_repeat": "__absent__",
+          "classification": "__absent__"
+        }
+      }
+    },
+    "329bb786320aae0399068d504b57215f68d39d7acad8a02c42246c20d9513312": {
+      "expected": {
+        "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
+        "row_id": "anees-20261001-recall-medi:row:1308",
+        "word_key": "seiyara",
+        "text": "سيارة،",
+        "t_start": 934.541302563,
+        "t_end": 935.1413025630001,
+        "assessment": "unresolved",
+        "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
+      },
+      "changes": {
+        "context": [
+          {
+            "row_id": "anees-20261001-recall-medi:row:1288",
+            "speaker": "Medi",
+            "text": "Go ahead.",
+            "timeline_start": 916.961302563,
+            "timeline_end": 917.321302563
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:760",
+            "speaker": "Amal",
+            "text": "The BM car is mine is.",
+            "timeline_start": 918.832469622,
+            "timeline_end": 920.832469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:1292",
+            "speaker": "Medi",
+            "text": "Uh,",
+            "timeline_start": 922.241302563,
+            "timeline_end": 922.6413025630001
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:1294",
+            "speaker": "Medi",
+            "text": "so it's not إلي? الـ BMW إلي؟",
+            "timeline_start": 924.721302563,
+            "timeline_end": 927.981302563
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:772",
+            "speaker": "Amal",
+            "text": "Yeah it's correct بس I want you to include car in the sentence.",
+            "timeline_start": 930.092469622,
+            "timeline_end": 933.332469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:1308",
+            "speaker": "Medi",
+            "text": "Oh, الـ سيارة، uh, or سيارة الـ B... No, it's double noun. Oh, سيارة الـ BMW.",
+            "timeline_start": 933.961302563,
+            "timeline_end": 941.001302563
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:798",
+            "speaker": "Amal",
+            "text": "صح، صح، صح.",
+            "timeline_start": 938.572469622,
+            "timeline_end": 939.592469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:1340",
+            "speaker": "Medi",
+            "text": "I thought if it was double noun, it was double L. Oh, no, no. Oh, opposite. Opposite. Uh, سيارة الـ BMW إلي.",
+            "timeline_start": 942.6413025630001,
+            "timeline_end": 950.761302563
+          }
+        ],
+        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 15:39.",
+        "assessment": "unresolved",
+        "spoken": true,
+        "needs_review": false,
+        "auto_rule": "TR-17",
+        "tr17_note": "Re-read with every recording of the lesson (rule TR-17): the tutor recording of a reconnect now covers this moment.",
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 15:39.",
+        "contextual_audit": true,
+        "review_locked": true,
+        "vocab_points": null,
+        "ignored": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
+        "audit_prior": {
+          "reviewer": "__absent__",
+          "contextual_audit": "__absent__",
+          "review_locked": "__absent__",
+          "assessment": "independent",
+          "vocab_points": "__absent__",
+          "needs_review": null,
+          "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified",
+          "ignored": "__absent__",
+          "immediate_repeat": "__absent__",
+          "classification": "__absent__"
+        }
+      }
+    },
+    "3e83b5645c80433a900652a448083e3995c5b2852eff60d22eb374ce28d9bb8f": {
+      "expected": {
+        "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
+        "row_id": "anees-20261001-recall-medi:row:1308",
+        "word_key": "seiyara",
+        "text": "سيارة",
+        "t_start": 936.721302563,
+        "t_end": 937.261302563,
+        "assessment": "unresolved",
+        "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
+      },
+      "changes": {
+        "context": [
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:760",
+            "speaker": "Amal",
+            "text": "The BM car is mine is.",
+            "timeline_start": 918.832469622,
+            "timeline_end": 920.832469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:1292",
+            "speaker": "Medi",
+            "text": "Uh,",
+            "timeline_start": 922.241302563,
+            "timeline_end": 922.6413025630001
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:1294",
+            "speaker": "Medi",
+            "text": "so it's not إلي? الـ BMW إلي؟",
+            "timeline_start": 924.721302563,
+            "timeline_end": 927.981302563
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:772",
+            "speaker": "Amal",
+            "text": "Yeah it's correct بس I want you to include car in the sentence.",
+            "timeline_start": 930.092469622,
+            "timeline_end": 933.332469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:1308",
+            "speaker": "Medi",
+            "text": "Oh, الـ سيارة، uh, or سيارة الـ B... No, it's double noun. Oh, سيارة الـ BMW.",
+            "timeline_start": 933.961302563,
+            "timeline_end": 941.001302563
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:798",
+            "speaker": "Amal",
+            "text": "صح، صح، صح.",
+            "timeline_start": 938.572469622,
+            "timeline_end": 939.592469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:1340",
+            "speaker": "Medi",
+            "text": "I thought if it was double noun, it was double L. Oh, no, no. Oh, opposite. Opposite. Uh, سيارة الـ BMW إلي.",
+            "timeline_start": 942.6413025630001,
+            "timeline_end": 950.761302563
+          }
+        ],
+        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 15:39.",
+        "assessment": "unresolved",
+        "spoken": true,
+        "needs_review": false,
+        "auto_rule": "TR-17",
+        "tr17_note": "Re-read with every recording of the lesson (rule TR-17): the tutor recording of a reconnect now covers this moment.",
+        "rnl_prior": {
+          "contextual_audit": "__absent__",
+          "audit_version": "__absent__",
+          "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified",
+          "assessment": "independent",
+          "vocab_points": "__absent__",
+          "ignored": "__absent__",
+          "scored_in_event": "__absent__",
+          "needs_review": null
+        },
+        "rnl_fields": [
+          "assessment",
+          "audit_version",
+          "contextual_audit",
+          "ignored",
+          "needs_review",
+          "reason",
+          "scored_in_event",
+          "vocab_points"
+        ],
+        "contextual_audit": true,
+        "audit_version": "2026-09-23-lessons-1001-v1",
+        "vocab_points": null,
+        "ignored": true,
+        "scored_in_event": "329bb786320aae0399068d504b57215f68d39d7acad8a02c42246c20d9513312",
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 15:39.",
+        "review_locked": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
+        "audit_prior": {
+          "reviewer": "__absent__",
+          "contextual_audit": true,
+          "review_locked": "__absent__",
+          "assessment": "unresolved",
+          "vocab_points": null,
+          "needs_review": false,
+          "reason": "Repeated occurrence within the same sentence; count the vocabulary attempt once.",
+          "ignored": true,
+          "immediate_repeat": "__absent__",
+          "classification": "__absent__"
+        }
+      }
+    },
+    "7a13af8c8a3667a01b2660a06f4312dc85c50a863db3ac851d81afbf75e1db26": {
+      "expected": {
+        "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
+        "row_id": "anees-20261001-recall-medi:row:1308",
+        "word_key": "seiyara",
+        "text": "سيارة",
+        "t_start": 939.921302563,
+        "t_end": 940.461302563,
+        "assessment": "unresolved",
+        "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
+      },
+      "changes": {
+        "context": [
+          {
+            "row_id": "anees-20261001-recall-medi:row:1292",
+            "speaker": "Medi",
+            "text": "Uh,",
+            "timeline_start": 922.241302563,
+            "timeline_end": 922.6413025630001
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:1294",
+            "speaker": "Medi",
+            "text": "so it's not إلي? الـ BMW إلي؟",
+            "timeline_start": 924.721302563,
+            "timeline_end": 927.981302563
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:772",
+            "speaker": "Amal",
+            "text": "Yeah it's correct بس I want you to include car in the sentence.",
+            "timeline_start": 930.092469622,
+            "timeline_end": 933.332469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:1308",
+            "speaker": "Medi",
+            "text": "Oh, الـ سيارة، uh, or سيارة الـ B... No, it's double noun. Oh, سيارة الـ BMW.",
+            "timeline_start": 933.961302563,
+            "timeline_end": 941.001302563
+          },
+          {
+            "row_id": "anees-20261001-recall-amal-seg1:row:798",
+            "speaker": "Amal",
+            "text": "صح، صح، صح.",
+            "timeline_start": 938.572469622,
+            "timeline_end": 939.592469622
+          },
+          {
+            "row_id": "anees-20261001-recall-medi:row:1340",
+            "speaker": "Medi",
+            "text": "I thought if it was double noun, it was double L. Oh, no, no. Oh, opposite. Opposite. Uh, سيارة الـ BMW إلي.",
+            "timeline_start": 942.6413025630001,
+            "timeline_end": 950.761302563
+          }
+        ],
+        "reason": "Claude audit 2026-09-28: Already left out by an earlier review: Repeated occurrence within the same sentence; count the vocabulary attempt once.",
+        "assessment": "unresolved",
+        "spoken": true,
+        "needs_review": false,
+        "auto_rule": "TR-17",
+        "tr17_note": "Re-read with every recording of the lesson (rule TR-17): the tutor recording of a reconnect now covers this moment.",
+        "rnl_prior": {
+          "contextual_audit": "__absent__",
+          "audit_version": "__absent__",
+          "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified",
+          "assessment": "independent",
+          "vocab_points": "__absent__",
+          "ignored": "__absent__",
+          "scored_in_event": "__absent__",
+          "needs_review": null
+        },
+        "rnl_fields": [
+          "assessment",
+          "audit_version",
+          "contextual_audit",
+          "ignored",
+          "needs_review",
+          "reason",
+          "scored_in_event",
+          "vocab_points"
+        ],
+        "contextual_audit": true,
+        "audit_version": "2026-09-23-lessons-1001-v1",
+        "vocab_points": null,
+        "ignored": true,
+        "scored_in_event": "329bb786320aae0399068d504b57215f68d39d7acad8a02c42246c20d9513312",
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Already left out by an earlier review: Repeated occurrence within the same sentence; count the vocabulary attempt once.",
+        "review_locked": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
+        "audit_prior": {
+          "reviewer": "__absent__",
+          "contextual_audit": true,
+          "review_locked": "__absent__",
+          "assessment": "unresolved",
+          "vocab_points": null,
+          "needs_review": false,
+          "reason": "Repeated occurrence within the same sentence; count the vocabulary attempt once.",
+          "ignored": true,
+          "immediate_repeat": "__absent__",
+          "classification": "__absent__"
+        }
+      }
+    },
     "9d842e6adbf245ac07baa627269ddc8972d5be3bece2cb54af20f0f8a3dc9446": {
       "expected": {
         "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
@@ -47237,35 +48086,6 @@
         "vocab_points": null,
         "needs_review": false,
         "reason": "Claude audit 2026-09-28: «و،»: و here holds the floor (alone, turn-final, or before uh/um/a cut-off/restart); it does not join two words.",
-        "ignored": true,
-        "classification": "ignored",
-        "audit_created": true
-      }
-    },
-    "2ad4f05e70e4e7e0a3d97e5f1da045bee06b0afd2c6beeadc6cef087f6393121": {
-      "expected": {
-        "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
-        "row_id": "anees-20261001-recall-medi:row:242",
-        "word_key": "u",
-        "text": "و،",
-        "t_start": 184.70330256300002,
-        "t_end": 185.063302563,
-        "assessment": "unresolved",
-        "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
-      },
-      "changes": {
-        "audit_by": "Claude audit 2026-09-28",
-        "reviewer": "Claude audit 2026-09-28",
-        "audit_run": "2026-09-28-vocab-unresolved-audit",
-        "audit_bin": "not_counted",
-        "audit_kind": "filler",
-        "audit_note": "«Okay. الساعة واحدة و، uh، صباح.»: و here holds the floor (alone, turn-final, or before uh/um/a cut-off/restart); it does not join two words.",
-        "contextual_audit": true,
-        "review_locked": true,
-        "assessment": "unresolved",
-        "vocab_points": null,
-        "needs_review": false,
-        "reason": "Claude audit 2026-09-28: «Okay. الساعة واحدة و، uh، صباح.»: و here holds the floor (alone, turn-final, or before uh/um/a cut-off/restart); it does not join two words.",
         "ignored": true,
         "classification": "ignored",
         "audit_created": true
@@ -61829,96 +62649,6 @@
         "audit_created": true
       }
     },
-    "329bb786320aae0399068d504b57215f68d39d7acad8a02c42246c20d9513312": {
-      "expected": {
-        "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
-        "row_id": "anees-20261001-recall-medi:row:1308",
-        "word_key": "seiyara",
-        "text": "سيارة،",
-        "t_start": 934.541302563,
-        "t_end": 935.1413025630001,
-        "assessment": "unresolved",
-        "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
-      },
-      "changes": {
-        "audit_by": "Claude audit 2026-09-28",
-        "reviewer": "Claude audit 2026-09-28",
-        "audit_run": "2026-09-28-vocab-unresolved-audit",
-        "audit_bin": "not_counted",
-        "audit_kind": "repeat",
-        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 15:48.",
-        "contextual_audit": true,
-        "review_locked": true,
-        "assessment": "unresolved",
-        "vocab_points": null,
-        "needs_review": false,
-        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 15:48.",
-        "ignored": true,
-        "immediate_repeat": true,
-        "classification": "ignored",
-        "audit_created": true
-      }
-    },
-    "3e83b5645c80433a900652a448083e3995c5b2852eff60d22eb374ce28d9bb8f": {
-      "expected": {
-        "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
-        "row_id": "anees-20261001-recall-medi:row:1308",
-        "word_key": "seiyara",
-        "text": "سيارة",
-        "t_start": 936.721302563,
-        "t_end": 937.261302563,
-        "assessment": "unresolved",
-        "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
-      },
-      "changes": {
-        "audit_by": "Claude audit 2026-09-28",
-        "reviewer": "Claude audit 2026-09-28",
-        "audit_run": "2026-09-28-vocab-unresolved-audit",
-        "audit_bin": "not_counted",
-        "audit_kind": "repeat",
-        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 15:48.",
-        "contextual_audit": true,
-        "review_locked": true,
-        "assessment": "unresolved",
-        "vocab_points": null,
-        "needs_review": false,
-        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 15:48.",
-        "ignored": true,
-        "immediate_repeat": true,
-        "classification": "ignored",
-        "audit_created": true
-      }
-    },
-    "6c3e0fe02f2887809d71cd22d7d9bbfa7530cee2ba63d688a2f78edddd09150e": {
-      "expected": {
-        "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
-        "row_id": "anees-20261001-recall-medi:row:416",
-        "word_key": "bas",
-        "text": "بس،",
-        "t_start": 339.683302563,
-        "t_end": 340.043302563,
-        "assessment": "unresolved",
-        "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
-      },
-      "changes": {
-        "audit_by": "Claude audit 2026-09-28",
-        "reviewer": "Claude audit 2026-09-28",
-        "audit_run": "2026-09-28-vocab-unresolved-audit",
-        "audit_bin": "not_counted",
-        "audit_kind": "repeat",
-        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 5:45.",
-        "contextual_audit": true,
-        "review_locked": true,
-        "assessment": "unresolved",
-        "vocab_points": null,
-        "needs_review": false,
-        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 5:45.",
-        "ignored": true,
-        "immediate_repeat": true,
-        "classification": "ignored",
-        "audit_created": true
-      }
-    },
     "78d622d851b7a43a2dac80ef040f6af4f6f95c21b8ebe13bf055f737e4ab1e51": {
       "expected": {
         "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
@@ -61943,66 +62673,6 @@
         "vocab_points": null,
         "needs_review": false,
         "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 60:52.",
-        "ignored": true,
-        "immediate_repeat": true,
-        "classification": "ignored",
-        "audit_created": true
-      }
-    },
-    "7a13af8c8a3667a01b2660a06f4312dc85c50a863db3ac851d81afbf75e1db26": {
-      "expected": {
-        "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
-        "row_id": "anees-20261001-recall-medi:row:1308",
-        "word_key": "seiyara",
-        "text": "سيارة",
-        "t_start": 939.921302563,
-        "t_end": 940.461302563,
-        "assessment": "unresolved",
-        "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
-      },
-      "changes": {
-        "audit_by": "Claude audit 2026-09-28",
-        "reviewer": "Claude audit 2026-09-28",
-        "audit_run": "2026-09-28-vocab-unresolved-audit",
-        "audit_bin": "not_counted",
-        "audit_kind": "repeat",
-        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 15:48.",
-        "contextual_audit": true,
-        "review_locked": true,
-        "assessment": "unresolved",
-        "vocab_points": null,
-        "needs_review": false,
-        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 15:48.",
-        "ignored": true,
-        "immediate_repeat": true,
-        "classification": "ignored",
-        "audit_created": true
-      }
-    },
-    "ad70c8559259f33dca466eb7458b3a23656f3ae009a7479cd6d126a3a924095a": {
-      "expected": {
-        "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
-        "row_id": "anees-20261001-recall-medi:row:480",
-        "word_key": "ana nsIt",
-        "text": "نسيت،",
-        "t_start": 388.091302563,
-        "t_end": 388.43130256300003,
-        "assessment": "unresolved",
-        "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
-      },
-      "changes": {
-        "audit_by": "Claude audit 2026-09-28",
-        "reviewer": "Claude audit 2026-09-28",
-        "audit_run": "2026-09-28-vocab-unresolved-audit",
-        "audit_bin": "not_counted",
-        "audit_kind": "repeat",
-        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 6:29.",
-        "contextual_audit": true,
-        "review_locked": true,
-        "assessment": "unresolved",
-        "vocab_points": null,
-        "needs_review": false,
-        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 6:29.",
         "ignored": true,
         "immediate_repeat": true,
         "classification": "ignored",
@@ -62039,36 +62709,6 @@
         "audit_created": true
       }
     },
-    "f14ef6c38a547e728981036fd8f7bd9c68d316b043af1a4d8e42ecc661802419": {
-      "expected": {
-        "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
-        "row_id": "anees-20261001-recall-medi:row:276",
-        "word_key": "aw",
-        "text": "أو،",
-        "t_start": 217.76330256300002,
-        "t_end": 217.98330256300002,
-        "assessment": "unresolved",
-        "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
-      },
-      "changes": {
-        "audit_by": "Claude audit 2026-09-28",
-        "reviewer": "Claude audit 2026-09-28",
-        "audit_run": "2026-09-28-vocab-unresolved-audit",
-        "audit_bin": "not_counted",
-        "audit_kind": "repeat",
-        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 3:40.",
-        "contextual_audit": true,
-        "review_locked": true,
-        "assessment": "unresolved",
-        "vocab_points": null,
-        "needs_review": false,
-        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 3:40.",
-        "ignored": true,
-        "immediate_repeat": true,
-        "classification": "ignored",
-        "audit_created": true
-      }
-    },
     "f2ff9450e29fcc6aea05d51ffdbd1079a72111e206a588fe563db5e1ef52da47": {
       "expected": {
         "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
@@ -62093,36 +62733,6 @@
         "vocab_points": null,
         "needs_review": false,
         "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 54:16.",
-        "ignored": true,
-        "immediate_repeat": true,
-        "classification": "ignored",
-        "audit_created": true
-      }
-    },
-    "fb9b568868954c7d3af911d568b5f277ba324b3da5409b711831a51000102bad": {
-      "expected": {
-        "source_sha256": "26e1c3e69016d1e4209d3bb88a3ad993cf944c83b899357b2744a191334bac59",
-        "row_id": "anees-20261001-recall-medi:row:480",
-        "word_key": "ana nsIt",
-        "text": "أنا نسيت،",
-        "t_start": 386.651302563,
-        "t_end": 387.571302563,
-        "assessment": "unresolved",
-        "reason": "Tutor recording context unavailable for this interval; vocabulary assessment withheld"
-      },
-      "changes": {
-        "audit_by": "Claude audit 2026-09-28",
-        "reviewer": "Claude audit 2026-09-28",
-        "audit_run": "2026-09-28-vocab-unresolved-audit",
-        "audit_bin": "not_counted",
-        "audit_kind": "repeat",
-        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 6:29.",
-        "contextual_audit": true,
-        "review_locked": true,
-        "assessment": "unresolved",
-        "vocab_points": null,
-        "needs_review": false,
-        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 6:29.",
         "ignored": true,
         "immediate_repeat": true,
         "classification": "ignored",
