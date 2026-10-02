@@ -3,6 +3,21 @@
 // and nothing on the site said so: the publish was blocked for 32 h and only a log on the PC knew. This compares the
 // newest lesson in the live `lessons` table with the newest one the pages were built with (data/lessons.json) and, when
 // the database is ahead, says so at the top of the page. Re-checked when the tab comes back. Read-only; anon key.
+// Rule LS-04 (2026-10-02, Medi: "Why didn't today's get loaded"): the 10-01 lesson failed to load for 9 h (voice-to-text
+// credits ran out) and only a log on the PC knew. The hourly job writes every problem it hits to data/lesson-alerts.json;
+// each one shows here as one line, e.g. "10-01 lesson not loaded: voice-to-text credits ran out (since 15:15)".
+function alertLines(doc, now) {
+  const today = (now || new Date());
+  const pad = function (n) { return String(n).padStart(2, '0'); };
+  const ymd = function (d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
+  return ((doc && doc.problems) || []).filter(function (p) { return p && p.text; }).map(function (p) {
+    const t = p.since ? new Date(p.since) : null;
+    if (!t || isNaN(t)) return p.text;
+    const hm = pad(t.getHours()) + ':' + pad(t.getMinutes());
+    return p.text + ' (since ' + (ymd(t) === ymd(today) ? hm : pad(t.getMonth() + 1) + '-' + pad(t.getDate()) + ' ' + hm) + ')';
+  });
+}
+if (typeof module !== 'undefined' && module.exports) module.exports = { alertLines };
 (function () {
   if (typeof window === 'undefined' || window.AneesLessonBehind) return;
   const base = (function () { const s = document.querySelector('script[src*="js/lesson-behind.js"]'); return s ? s.getAttribute('src').replace(/js\/lesson-behind\.js.*$/, '') : ''; })();
@@ -36,7 +51,29 @@
       return missing;
     } catch (e) { return null; }
   }
-  window.AneesLessonBehind = { check: check, newer: newer };
-  if (window.AneesLive) AneesLive.onReturn(check);
-  check();
+  function showAlerts(lines) {
+    let el = document.getElementById('lesson-alerts');
+    if (!lines.length) { if (el) el.remove(); return; }
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'lesson-alerts'; el.setAttribute('role', 'alert');
+      el.style.cssText = 'margin:0 0 12px;padding:10px 14px;border-radius:10px;border-left:4px solid #B26F0E;background:rgba(178,111,14,.18);font:600 14px/1.4 system-ui';
+      const main = document.querySelector('main') || document.body;
+      main.insertBefore(el, main.firstChild);
+    }
+    el.innerHTML = '';
+    lines.forEach(function (l) { const d = document.createElement('div'); d.textContent = l; el.appendChild(d); });
+  }
+  async function checkAlerts() {
+    try {
+      const r = await fetch(base + 'data/lesson-alerts.json?t=' + Date.now(), { cache: 'no-store' });
+      const lines = r.ok ? alertLines(await r.json()) : [];
+      showAlerts(lines);
+      return lines;
+    } catch (e) { return null; }
+  }
+  function both() { checkAlerts(); return check(); }
+  window.AneesLessonBehind = { check: check, newer: newer, checkAlerts: checkAlerts, alertLines: alertLines };
+  if (window.AneesLive) AneesLive.onReturn(both);
+  both();
 })();

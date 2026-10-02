@@ -105,6 +105,7 @@ def job(tmp_path, monkeypatch):
     raw.mkdir()
     monkeypatch.setattr(H, 'ROOT', root)
     monkeypatch.setenv('ANEES_TRIGGER', 'hourly')      # main() setdefaults it; keep it from leaking into other tests
+    monkeypatch.delenv('ELEVENLABS_API_KEY', raising=False)   # the hourly credit check (LS-04) never calls ElevenLabs in tests
     state = types.SimpleNamespace(in_db=set(), guard=[], guard_ok=False, refresh=[], refresh_fail=[], git=Git())
     fdb = types.ModuleType('db')
     fdb.select = lambda *a, **k: [{'date': d} for d in state.in_db]
@@ -271,3 +272,97 @@ def test_built_clips_are_force_added(job):
     job.guard_ok = True
     H.main()
     assert ['git', 'add', '-f', '--', 'docs/lessons/2026-09-26/clips'] in job.git.calls
+
+
+# ---------- rule LS-04: a lesson that cannot load reaches Medi the same hour (docs/data/lesson-alerts.json) ----------
+
+import json as _json
+import lesson_alerts as A
+
+QUOTA = ('ElevenLabs failed after 1 try: ElevenLabs 401: {"detail":{"type":"invalid_request","code":"quota_exceeded",'
+         '"message":"This request exceeds your quota of 37472. You have 133 credits remaining, while 530 credits are required"}}')
+
+
+def recorded_lesson(job, d='2026-10-01', tracks=True):
+    """A Recall bot in the ledger whose lesson is not in the database yet (the 10-01 case)."""
+    (job.root / 'data' / 'lessons' / 'recall_bots.json').write_text(
+        _json.dumps([{'t': d + 'T22:00:00', 'bot_id': 'b1', 'date': d}]), encoding='utf-8')
+    if tracks:
+        (job.raw / d / 'tracks').mkdir(parents=True)
+        (job.raw / d / 'tracks' / 'tracks.json').write_text('{"tracks": [{"participant": "Amal", "file": "a.mp3"}]}', encoding='utf-8')
+    return d
+
+
+def alerts(job):
+    return _json.loads((job.root / A.ALERTS).read_text(encoding='utf-8'))['problems']
+
+
+def test_LS04_credits_running_out_puts_a_not_loaded_line_on_the_pages_the_same_hour(job, monkeypatch):
+    """Rule LS-04 (Medi 2026-10-02: "Why didn't today's get loaded"): 10-01 failed 9 hours on ElevenLabs credits and only
+    hourly.log knew. Planted: the transcription fails with the real quota message."""
+    d = recorded_lesson(job)
+    calls = []
+
+    def broke(*a, **k):
+        calls.append(a); raise RuntimeError(QUOTA)
+    monkeypatch.setattr(H, 'transcribe_once', broke)
+    job.guard_ok = True
+    H.main()
+    assert calls, 'the planted failure never ran'
+    p = alerts(job)
+    assert [x['text'] for x in p] == ['10-01 lesson not loaded: voice-to-text credits ran out']
+    since = p[0]['since']
+    adds = [c for c in job.git.calls if c[:2] == ['git', 'add']]
+    assert any('docs' in c for c in adds)                      # committed with the run's built files ...
+    assert job.guard                                           # ... and carried by the run's one guarded push
+    H.main()                                                   # still failing next hour: the first time is kept
+    assert alerts(job)[0]['since'] == since
+    monkeypatch.setattr(H, 'transcribe_once', lambda *a, **k: None)
+    H.main()                                                   # loads -> the line goes away
+    assert alerts(job) == []
+
+
+def test_LS04_a_missing_track_is_named_in_plain_words(job):
+    """Rule LS-04: planted - the bot is in the ledger but its tracks never arrived on the PC."""
+    recorded_lesson(job, '2026-10-03', tracks=False)
+    H.main()
+    assert [x['text'] for x in alerts(job)] == ['10-03 lesson not loaded: the recording tracks are missing']
+
+
+def test_LS04_low_credits_are_flagged_before_any_transcribing(job, monkeypatch):
+    """Rule LS-04: the credit check runs every hour, before a lesson needs them (10-01 had 133 left, a track needed 530)."""
+    monkeypatch.setattr(A, 'elevenlabs_credits', lambda *a, **k: 133)
+    H.main()
+    assert [x['text'] for x in alerts(job)] == ['Voice-to-text credits low: 133 left, a lesson needs about 1360']
+    monkeypatch.setattr(A, 'elevenlabs_credits', lambda *a, **k: None)     # check could not run: keep what we knew
+    H.main()
+    assert [x['kind'] for x in alerts(job)] == ['credits-low']
+    monkeypatch.setattr(A, 'elevenlabs_credits', lambda *a, **k: 30000)
+    H.main()
+    assert alerts(job) == []
+
+
+def test_LS04_causes_credits_and_quiet_hours(tmp_path):
+    """Rule LS-04: raw errors become plain words; the credit read uses a fake GET (no network); an unchanged hour
+    rewrites nothing (no commit every hour)."""
+    assert A.plain_cause(RuntimeError(QUOTA)) == 'voice-to-text credits ran out'
+    assert A.plain_cause('MISSING ELEVENLABS_API_KEY') == 'voice-to-text key is missing on the PC'
+    assert A.plain_cause('ElevenLabs failed after 3 tries: ElevenLabs 503') == 'voice-to-text failed'
+    assert A.plain_cause(FileNotFoundError("No such file: 'x/tracks/tracks.json'")) == 'the recording tracks are missing'
+    assert A.plain_cause('database has the lesson but no saved transcript on this PC') == 'the recording tracks are missing'
+    assert A.plain_cause('boom') == 'loading failed'
+
+    class R:
+        status_code = 200
+        def json(self): return {'character_limit': 37472, 'character_count': 37339}
+    seen = []
+    assert A.elevenlabs_credits(get=lambda url, **k: (seen.append((url, k['headers'])), R())[1], key='k') == 133
+    assert seen[0][1] == {'xi-api-key': 'k'}
+    assert A.elevenlabs_credits(get=lambda *a, **k: (_ for _ in ()).throw(OSError('offline')), key='k') is None
+    assert A.elevenlabs_credits(key='') is None
+    prob = [{'key': 'load:2026-10-01', 'kind': 'not-loaded', 'date': '2026-10-01', 'cause': 'voice-to-text credits ran out'}]
+    _, changed, new = A.update(tmp_path, prob, now='2026-10-01T15:15:23-07:00')
+    assert changed and new == ['load:2026-10-01']
+    _, changed, new = A.update(tmp_path, prob, now='2026-10-01T16:15:26-07:00')
+    assert not changed and not new
+    assert A.read(tmp_path)['problems'][0]['since'] == '2026-10-01T15:15:23-07:00'

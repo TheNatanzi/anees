@@ -389,6 +389,7 @@ def _main():
     os.environ.setdefault('ANEES_TRIGGER', 'hourly')     # run log (scripts/track.py): every child call is tagged hourly
     import db, recall_bot as R
     import publish_guard as G
+    import lesson_alerts as A
     raw, work = Path(a.raw), Path(a.work)
     R.LESSONS = raw
     ledger_path = ROOT / 'data' / 'lessons' / 'recall_bots.json'
@@ -421,9 +422,25 @@ def _main():
     except Exception as e:
         af = [f'amal_trigger crashed: {type(e).__name__}: {str(e)[:200]}']
     G.set_open_failures(ROOT, 'amal', af); run_failures += af
+    credits = A.elevenlabs_credits()      # every hour, before any transcribing: a free GET; None = unknown (no key / no network)
+
+    def alerts(load_problems):
+        """Rule LS-04: this hour's load failures + low credits -> docs/data/lesson-alerts.json (committed with the run's
+        built files, so the run's one push carries it; an unchanged file makes no commit)."""
+        probs = list(load_problems)
+        low = A.credits_problem(credits)
+        if low and not any(p['cause'] == 'voice-to-text credits ran out' for p in probs):
+            probs.append(low)
+        try:
+            doc, changed, new = A.update(ROOT, probs, keep=() if credits is not None else ('credits',))
+            for p in doc['problems']:
+                log('ALERT', p['text'], '(since', str(p.get('since'))[:16] + ')', '(new)' if p['key'] in new else '')
+        except Exception as e:
+            log('lesson alerts not written:', e)
+
     if new_rows:
         ledger_path.write_text(json.dumps(sorted(ledger + new_rows, key=lambda e: e['t']), ensure_ascii=False, indent=1), encoding='utf-8')
-    done, failures = [], 0
+    done, failures, load_problems = [], 0, []
     for t in todo:
         d = t['date']
         try:
@@ -455,6 +472,9 @@ def _main():
             done.append(d)
         except Exception as ex:
             failures += 1; log('FAILED', d, str(ex)[:500])
+            # rule LS-04: the failure reaches Medi this hour as one line on Progress + Lessons (docs/data/lesson-alerts.json)
+            load_problems.append({'key': 'load:' + d, 'kind': 'not-loaded', 'date': d, 'cause': A.plain_cause(ex)})
+    alerts(load_problems)
     # every lesson fed this hour: the new ones + any whose feeding failed in an earlier hour (retried until it passes)
     retry = sorted(k.split(':', 1)[1] for k in open_before if k.startswith('refresh:'))
     batch = sorted(set(done) | set(retry))

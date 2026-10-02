@@ -59,6 +59,7 @@ UNTRACKED_AI_OK = {
     "diarize_words_aug25.py": "08-25 local engine experiment (no paid call)",
     "turns_pyannote_aug25.py": "08-25 local engine experiment (no paid call)",
     "build_engine_report.py": "page builder: names the endpoint in report text, makes no call",
+    "lesson_alerts.py": "reads the ElevenLabs credit balance (GET /v1/user/subscription, free, no AI call) for rule LS-04",
 }
 AI_CALL = re.compile(r"api\.openai\.com|api\.elevenlabs\.io|api\.anthropic\.com|speech-to-text|"
                      r"\[\s*CLAUDE\s*,\s*['\"]-p['\"]|['\"]claude['\"]\s*,\s*['\"]-p['\"]")

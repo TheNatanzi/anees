@@ -2509,9 +2509,9 @@
    "id": "LS-04",
    "kind": "process",
    "scope": "lessons",
-   "status": "moment-only",
+   "status": "enforced",
    "change": "new",
-   "statement": "If the hourly job cannot load a lesson (credits gone, missing track), Medi is alerted the same hour.",
+   "statement": "If the hourly job cannot load a lesson (credits gone, missing track, transcription error), Medi is told the same hour: one line on Progress and Lessons, e.g. \"10-01 lesson not loaded: voice-to-text credits ran out (since 15:15)\"; low ElevenLabs credits are flagged every hour before any transcribing.",
    "source": [
     {
      "by": "medi",
@@ -2520,12 +2520,37 @@
      "session": "72396edc"
     }
    ],
-   "enforcement": [],
-   "test": [],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/hourly_lessons.py",
+     "contains": "'kind': 'not-loaded', 'date': d, 'cause': A.plain_cause(ex)"
+    },
+    {
+     "type": "code",
+     "path": "scripts/lesson_alerts.py",
+     "contains": "def update(root, problems, now=None, keep=())"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lesson-behind.js",
+     "contains": "function alertLines(doc, now)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_hourly_lessons.py",
+     "contains": "def test_LS04_credits_running_out_puts_a_not_loaded_line_on_the_pages_the_same_hour"
+    },
+    {
+     "path": "tests/test_lesson_alerts.cjs",
+     "contains": "test('LS-04: a lesson that failed to load is one line with its start time'"
+    }
+   ],
    "aliases": [
     "report:M9"
    ],
-   "next_step": "publish data/publish-guard open_failures to a docs/data status file and show it through stale.js as a banner (an email/ntfy alert needs Medi)"
+   "next_step": "a blocked publish cannot reach the site, and no phone channel (ntfy or other) exists for Medi yet: the hourly log and data/publish-guard/state.json hold it until Medi picks one"
   },
   {
    "id": "LS-05",
