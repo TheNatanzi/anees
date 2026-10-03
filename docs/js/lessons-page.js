@@ -619,8 +619,8 @@ function transcript(body, x) {
   function draw() {
     list.textContent = '';
     var shown = 0;
-    turns.forEach(function (t, i) {
-      var m = tm[i];
+    sentences(turns, tm).forEach(function (g) {
+      var t = g.turn, m = g.m, i = g.i;
       if (TMK && !TMK.shows(m, TMF)) return;
       list.appendChild(tmRow(x, t, m, i));
       shown++;
@@ -629,6 +629,34 @@ function transcript(body, x) {
   }
   draw();
   body.appendChild(list);
+}
+// PG-23 (Medi 2026-10-02 "why are we breaking all of these up instead of putting them in a sentence"): the engine starts
+// a new line at every pause he takes while building a sentence; his lines with nobody else speaking between and a gap of
+// 6 s or less (his thinking pauses, S5) show as ONE sentence (each piece keeps its chips and underlines, shifted into the joined text).
+var JOIN_GAP = 6;
+function sentences(turns, tm) {
+  var out = [];
+  turns.forEach(function (t, i) {
+    var last = out[out.length - 1], prev = turns[i - 1];
+    var gap = prev ? t.t - (prev.end != null ? prev.end : prev.t) : 99;
+    var m = tm[i] || null;
+    if (last && t.who === 'Medi' && prev && prev.who === 'Medi' && last.turn.who === 'Medi' && gap <= JOIN_GAP) {
+      var off = last.turn.text.length + 1;
+      last.turn = Object.assign({}, last.turn, {
+        text: last.turn.text + ' ' + t.text, end: t.end,
+        engine: (last.turn.engine || t.engine) ? [(last.turn.engine || last.turn.text), (t.engine || t.text)].join(' ') : undefined,
+        heard: (last.turn.heard || []).concat(t.heard || [])
+      });
+      if (m) {
+        var lm = last.m || { c: [], u: [] };
+        last.m = { c: lm.c.concat(m.c || []), u: lm.u.concat((m.u || []).map(function (u) { return [u[0] + off, u[1] + off].concat(u.slice(2)); })) };
+      }
+      last.pieces++;
+      return;
+    }
+    out.push({ turn: t, m: m, i: i, pieces: 1 });
+  });
+  return out;
 }
 function tmRow(x, t, m, i) {
   var TMK = window.AneesTranscriptMarks;

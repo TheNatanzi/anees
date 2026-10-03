@@ -276,6 +276,7 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
                 tm[p[0]]["c"][-1]["english"] = m.group(0)
                 if not any(m.start() < x[1] and x[0] < m.end() for x in tm[p[0]].get("u", [])):
                     tm[p[0]]["u"].append([m.start(), m.end(), "fix", fid, "english"])
+                    rep["ul_english"] = rep.get("ul_english", 0) + 1
 
     # ---------------- vocab
     for e in detail.get("vocab_correct") or []:

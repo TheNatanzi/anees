@@ -115,13 +115,15 @@ def test_PG_20_underlines_point_at_real_chips_and_are_counted():
         x = json.load(open(f, encoding="utf-8"))
         r, tm = x["marks_report"], x["tmarks"]
         chips = {c["id"] for v in tm.values() for c in v["c"]}
-        n = 0
+        n = e = 0
         for k, v in tm.items():
             text = x["turns"][int(k)]["text"]
             for a, b, cls, cid, how in v["u"]:
-                assert 0 <= a < b <= len(text) and cls in ("wrong", "fix") and cid in chips and how in ("exact", "closest")
-                n += 1
+                assert 0 <= a < b <= len(text) and cls in ("wrong", "fix") and cid in chips and how in ("exact", "closest", "english")
+                n += how != "english"          # PG-22: her English fix words, counted apart
+                e += how == "english"
             spans = sorted(v["u"])
             assert all(spans[i][1] <= spans[i + 1][0] for i in range(len(spans) - 1)), (f, k)   # never overlapping
         assert n == r["ul_exact"] + len(r["ul_closest"]), f
+        assert e == r.get("ul_english", 0), f
         assert r["ul_exact"] + len(r["ul_closest"]) + len(r["ul_none"]) + r["ul_shared"] == r["ul_wanted"], f

@@ -62,3 +62,16 @@ test('PG-21 / PG-22 a wrong vocab chip names said -> wanted, and an English fix 
  const f=T.chipModel({s:'fix',k:'fix',of:'vocab',sig:'prompts you, then gives it',said:'سفر',right:'أسافر',english:'I should travel'},null);
  assert.match(f.tip,/she said it in English: «I should travel»/);
 });
+test('PG-23 his lines split at pauses show as one sentence, chips and underlines kept',()=>{
+ const src=fs.readFileSync(path.join(DOCS,'js','lessons-page.js'),'utf8');
+ const body=src.slice(src.indexOf('var JOIN_GAP'),src.indexOf('function tmRow('));
+ const sentences=new Function(body+'; return sentences;')();
+ const turns=[{t:675.78,end:677.18,who:'Medi',text:'بس أنا راح'},{t:678.64,end:679.58,who:'Medi',text:'آآآ على'},{t:683.96,end:684.72,who:'Medi',text:'عموي.'},
+  {t:694.55,end:696.14,who:'Amal',text:'Sorry'},{t:696.94,end:700,who:'Medi',text:'I am going'}];
+ const tm={'2':{c:[{id:'x1'}],u:[[0,4,'wrong','x1','exact']]}};
+ const g=sentences(turns,tm);
+ assert.equal(g.length,3);
+ assert.equal(g[0].turn.text,'بس أنا راح آآآ على عموي.');
+ assert.deepEqual(g[0].m.u[0].slice(0,2),[19,23]);
+ assert.equal(g[0].turn.text.slice(19,23),'عموي');
+});
