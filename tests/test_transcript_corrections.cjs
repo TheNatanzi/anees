@@ -58,3 +58,9 @@ test('PG-24 a redraw never deletes the audio player, and a tab return never redr
  assert.match(tc,/!!\(au && !au\.paused\)/);
  assert.match(fs.readFileSync(path.join(DOCS,'css','lessons.css'),'utf8'),/\.ls-turn > \.tc-panel\{grid-column:1 \/ -1\}/);
 });
+test('PG-26 a second play bar sits at the bottom middle and Stop closes both',()=>{
+ const js=fs.readFileSync(path.join(DOCS,'js','lessons-page.js'),'utf8');
+ assert.match(js,/function dock\(label\)/);
+ assert.match(js,/stop\.addEventListener\('click', function \(\) \{ audio\.pause\(\); dockEl\.hidden = true; \$\('ls-player'\)\.hidden = true; \}\)/);
+ assert.match(fs.readFileSync(path.join(DOCS,'css','lessons.css'),'utf8'),/\.ls-dock\{position:fixed;left:50%;bottom:12px/);
+});

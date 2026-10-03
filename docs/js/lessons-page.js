@@ -147,6 +147,32 @@ function play(src, from, label) {
   }
   var p = audio.play();
   if (p && p.catch) p.catch(function () { /* user can press play */ });
+  dock(label);
+}
+// PG-26 (Medi 2026-10-03 "I cant stop it because I dont know where its playing from. Lets have two play bars. One next to
+// the play button I click but lets open a middle bottom one too"): a second bar fixed at the bottom middle of the screen,
+// driving the SAME audio element - what is playing, play/pause, back 3 s, Stop. Stop pauses and closes both bars.
+var dockEl = null;
+function dock(label) {
+  if (!dockEl) {
+    dockEl = el('div', 'ls-dock');
+    dockEl.id = 'ls-dock';
+    dockEl.setAttribute('role', 'region');
+    dockEl.setAttribute('aria-label', 'Now playing');
+    var back = el('button', 'ls-dockbtn', '« 3 s'); back.type = 'button'; back.title = 'Back 3 seconds';
+    var pp = el('button', 'ls-dockbtn ls-dockpp', '❚❚'); pp.type = 'button'; pp.title = 'Play / pause';
+    var stop = el('button', 'ls-dockbtn ls-dockstop', '■ Stop'); stop.type = 'button'; stop.title = 'Stop and close';
+    var lab = el('span', 'ls-docklabel'), tm = el('span', 'ls-docktime');
+    back.addEventListener('click', function () { audio.currentTime = Math.max(0, audio.currentTime - 3); });
+    pp.addEventListener('click', function () { if (audio.paused) audio.play(); else audio.pause(); });
+    stop.addEventListener('click', function () { audio.pause(); dockEl.hidden = true; $('ls-player').hidden = true; });
+    var sync = function () { pp.textContent = audio.paused ? '▶' : '❚❚'; tm.textContent = mmss(audio.currentTime || 0); };
+    ['play', 'pause', 'timeupdate', 'ended', 'loadedmetadata'].forEach(function (ev) { audio.addEventListener(ev, sync); });
+    dockEl.appendChild(lab); dockEl.appendChild(tm); dockEl.appendChild(back); dockEl.appendChild(pp); dockEl.appendChild(stop);
+    (document.getElementById('anees-bank') || document.body).appendChild(dockEl);
+  }
+  dockEl.querySelector('.ls-docklabel').textContent = label || '';
+  dockEl.hidden = false;
 }
 function playButton(label, onClick, title) {
   var b = el('button', 'ls-play', '▶ ' + label);
@@ -942,6 +968,7 @@ function wire() {
   });
   $('ls-playerclose').addEventListener('click', function () {
     var a = $('ls-audio'); a.pause(); $('ls-player').hidden = true;
+    if (dockEl) dockEl.hidden = true;
   });
   $('ls-audio').addEventListener('loadedmetadata', function () {
     if (pendingSeek != null) { try { this.currentTime = pendingSeek; } catch (e) { /* ignore */ } pendingSeek = null; }

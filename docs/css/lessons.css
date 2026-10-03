@@ -192,3 +192,11 @@
 #anees-bank mark.tm-caret.tm-on{background:color-mix(in srgb,currentColor 12%,transparent);border-radius:3px}
 /* a correction panel on a line with no chips spans the whole line, never the narrow time column */
 #anees-bank .ls-turn > .tc-panel{grid-column:1 / -1}
+/* PG-26: the second play bar, fixed at the bottom middle; same audio as the inline one */
+#anees-bank .ls-dock{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:40;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 32px);padding:6px 10px;border-radius:12px;border:1px solid var(--ab-accent);background:var(--ab-panel);box-shadow:0 4px 18px rgba(0,0,0,.25)}
+#anees-bank .ls-dock[hidden]{display:none}
+#anees-bank .ls-docklabel{font-size:12px;color:var(--ab-muted);max-width:40ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#anees-bank .ls-docktime{font-variant-numeric:tabular-nums;font-size:13px}
+#anees-bank .ls-dockbtn{min-height:44px;min-width:44px;padding:4px 12px;border-radius:8px;border:1px solid var(--ab-line,#ccc);background:var(--ab-raised,#fff);color:var(--ab-text);font:inherit;cursor:pointer}
+#anees-bank .ls-dockstop{border-color:var(--ab-red);color:var(--ab-red);font-weight:600}
+#anees-bank .tc-toast{bottom:76px}

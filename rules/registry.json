@@ -7047,6 +7047,47 @@
     "t": "13:47",
     "note": "engine 'Rah nimbisit'; he said ra7 nenbisit; Amal typed ra7 nenbese6"
    }
+  },
+  {
+   "id": "PG-26",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The Lessons page has two play bars for the same audio: the one that opens next to the Play button or time he tapped, and a second one fixed at the bottom middle of the screen showing what is playing (lesson + time), play/pause, back 3 s and Stop; Stop (or Close) pauses and closes both. A transcript redraw never deletes the player (it is parked first), and a tab-return re-read never redraws while a clip is playing.",
+   "plain": "Audio has two play bars: one next to what you tapped and one always at the bottom middle, with Stop, so you can always find and stop what is playing.",
+   "plain_for": "aec79f53",
+   "topic": "audio",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "ok I cant stop it because I dont know where its playing from.  Lets have two play bars.  One next to the play button I click but lets open a middle bottom one too"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "im clicking a different audio file and its not working.  I hit the stop button on the previous one.  Can you see why its not wroking again"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "function dock(label)"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "if (pl && list.contains(pl))"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_transcript_corrections.cjs",
+     "contains": "test('PG-26 a second play bar sits at the bottom middle"
+    }
+   ]
   }
  ]
 }
