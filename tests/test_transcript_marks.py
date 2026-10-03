@@ -115,15 +115,21 @@ def test_PG_20_underlines_point_at_real_chips_and_are_counted():
         x = json.load(open(f, encoding="utf-8"))
         r, tm = x["marks_report"], x["tmarks"]
         chips = {c["id"] for v in tm.values() for c in v["c"]}
-        n = e = 0
+        n = e = carets = 0
         for k, v in tm.items():
             text = x["turns"][int(k)]["text"]
-            for a, b, cls, cid, how in v["u"]:
+            for u in v["u"]:
+                if u[2] == "missing":           # PG-25: a zero-width ^ for a missing word, counted apart
+                    assert u[0] == u[1] and 0 <= u[0] <= len(text) and u[3] in chips and u[4] == "caret" and u[5]
+                    carets += 1
+                    continue
+                a, b, cls, cid, how = u
                 assert 0 <= a < b <= len(text) and cls in ("wrong", "fix") and cid in chips and how in ("exact", "closest", "english")
                 n += how != "english"          # PG-22: her English fix words, counted apart
                 e += how == "english"
-            spans = sorted(v["u"])
+            spans = sorted(u for u in v["u"] if u[2] != "missing")
             assert all(spans[i][1] <= spans[i + 1][0] for i in range(len(spans) - 1)), (f, k)   # never overlapping
         assert n == r["ul_exact"] + len(r["ul_closest"]), f
         assert e == r.get("ul_english", 0), f
+        assert carets == r.get("carets", 0), f
         assert r["ul_exact"] + len(r["ul_closest"]) + len(r["ul_none"]) + r["ul_shared"] == r["ul_wanted"], f
