@@ -787,7 +787,8 @@ function renderMedi() {
   box.hidden = !items.length;
   if (!items.length) return;
   box.appendChild(el('h3', '', 'Medi? · ' + items.length + (items.length === 1 ? ' moment' : ' moments') + ' where two judges disagree'));
-  box.appendChild(el('p', 'ab-mini', 'Counted as before until you pick. Reply like: 1 keep, 2 grammar'));
+  var ex = items.slice(0, 2).map(function (x, i) { var o = (x.it.options || [])[0] || 'keep'; return (i + 1) + ' ' + (o === 'wrong' ? 'wrong' : o === 'keep' ? 'keep' : (toArabizi && /[؀-ۿ]/.test(o) ? toArabizi(o).text : o)); }).join(', ');
+  box.appendChild(el('p', 'ab-mini', 'Counted as before until you pick. Reply like: ' + ex));
   var ol = el('ol', '');
   items.forEach(function (x) {
     var it = x.it, li = el('li', '');

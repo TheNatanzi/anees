@@ -235,3 +235,12 @@ def test_LS_11_check_is_clean_on_a_consistent_mini_repo_and_catches_planted_drif
     led["marks"] = [m for m in led["marks"] if m["id"] != "wb:e-x"]
     lp.write_text(json.dumps(led, ensure_ascii=False), encoding="utf-8")
     assert any("have no mark" in x or "counts do not match" in x for x in LL.check(str(root)))
+
+
+def test_LS_11_a_reader_slip_never_lands_on_a_turn_that_ended_before_it():
+    import transcript_marks as TM
+    T = [{"t": 2610.0, "end": 2614.17, "who": "Medi", "text": "كان ولا كانت عمرها؟"},
+         {"t": 2615.84, "end": 2616.5, "who": "Medi", "text": "كانت."}]
+    assert TM.place(T, 2615, "Medi", "كانت عمرها")[0] == 1           # whole-second reader time: the later line
+    T[0]["end"] = None
+    assert TM.place(T, 2611.4, "Medi", "كانت")[0] == 0               # a Word Bank time on a turn with no end: unchanged
