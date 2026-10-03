@@ -218,13 +218,43 @@ BENCH = [
 ]
 
 
+def answer_key():
+    """Every moment Gemini must get right (Medi 2026-10-03: "you are keeping track of what we are gonna test gemini for
+    right?"): the 10-02 list above + EVERY text correction he makes from now on, automatically - his page corrections
+    (scripts/medi_corrections.py) and his own rows in transcript-fixes.json. -> [(date, t, want, gone, note)]."""
+    key = [("2026-10-02", t, w, g, n) for t, w, g, n in BENCH]
+    seen = {(d, round(t)) for d, t, *_ in key}
+    import medi_corrections as MC
+    fixes = [r for r in (J(os.path.join(REPO, "data", "lesson-work", "transcript-fixes.json")) or {}).get("rows", []) if r.get("by") == "medi"]
+    for r in fixes + [r for r in MC.text_rows() if r.get("engine_wrote")]:
+        if r.get("who", "Medi") != "Medi":
+            continue                     # ask() listens to HIS microphone; Amal's lines are in amal_key()
+        k = (str(r["date"]), round(float(r["t"])))
+        if k in seen or not r.get("heard"):
+            continue
+        seen.add(k)
+        key.append((k[0], float(r["t"]), [r["heard"]], [r["engine_wrote"]] if r["engine_wrote"] not in r["heard"] else [],
+                    "Medi: %s -> %s" % (r["engine_wrote"], r["heard"])))
+    return key
+
+
+def amal_key():
+    """Amal's lines Medi corrected (10-02 14:54 engine تشتم = her ta5yeem): kept for an Amal-track listening test (not built:
+    ask() listens to Medi's microphone only)."""
+    import medi_corrections as MC
+    fixes = [r for r in (J(os.path.join(REPO, "data", "lesson-work", "transcript-fixes.json")) or {}).get("rows", []) if r.get("by") == "medi"]
+    return [(str(r["date"]), float(r["t"]), r["heard"], r["engine_wrote"]) for r in fixes + MC.text_rows()
+            if r.get("who") == "Amal" and r.get("engine_wrote") and r.get("heard")]
+
+
 def bench(model=MODEL):
-    date = "2026-10-02"
-    turns = J(os.path.join(REPO, "docs", "data", "lessons", date + ".json"))["turns"]
-    idx = {round(u["t"], 2): k for k, u in enumerate(turns)}
-    rows, hit = [], 0
-    for t, want, gone, note in BENCH:
-        r = ask(date, turns, idx[round(t, 2)], model)
+    rows, hit, KEY, T = [], 0, answer_key(), {}
+    for date, t, want, gone, note in KEY:
+        if date not in T:
+            T[date] = J(os.path.join(REPO, "docs", "data", "lessons", date + ".json"))["turns"]
+        turns = T[date]
+        i = min(range(len(turns)), key=lambda k: abs(turns[k]["t"] - t))
+        r = ask(date, turns, i, model)
         heard = (r.get("arabic") or "") + " " + (r.get("arabizi") or "") if r.get("accepted") else r.get("engine")
         a = DIAC.sub("", heard or "")
         ok = any(w in a for w in want) and not any(g in a for g in gone)
@@ -232,10 +262,10 @@ def bench(model=MODEL):
         rows.append(dict(r, ok=ok, note=note))
         print(("OK  " if ok else "MISS"), "%.0f" % t, note, "|", r.get("arabic"), "| bare:", r.get("confirm"),
               "| accepted" if r.get("accepted") else "| REJECTED %s" % r.get("unsupported"), flush=True)
-    print("%d of %d right (engine alone: 3 of %d)" % (hit, len(BENCH), len(BENCH)))
+    print("%d of %d right" % (hit, len(KEY)))
     p = os.path.join(REPO, "data", "lesson-work", "context-heard", "bench-%s.json" % model)
     os.makedirs(os.path.dirname(p), exist_ok=True)
-    json.dump({"model": model, "score": [hit, len(BENCH)], "rows": rows}, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    json.dump({"model": model, "score": [hit, len(KEY)], "rows": rows}, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     return hit
 
 

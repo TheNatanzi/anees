@@ -69,6 +69,32 @@ def laazem_noun(turns):
     return out
 
 
+def chat_latin(turns):
+    """TR-23 (Medi 2026-10-03 "she even wrote it for you"): the engine writes his Arabic in English-ear letters (13:47
+    'nimbisit'); Amal TYPES it in her Arabizi in the chat (14:10 'ra7 nenbese6'). Each of his Latin words (not English, 4+
+    letters) whose sound skeleton equals one of her chat words in the next 45 s is listed with her spelling, for the
+    reader to confirm as a heard-word overlay row (rule TR-23). A clue: her typed word may be her CORRECTED form."""
+    import arabizi_reader as R
+    from xscript import is_english
+    out = []
+    for i, c in enumerate(turns):
+        if c["who"] != "chat":
+            continue
+        hers = {R._sk(w): w for w in re.findall(r"[A-Za-z0-9']{4,}", c["text"]) if len(R._sk(w)) >= 3}
+        for u in turns[max(0, i - 20):i]:
+            if u["who"] != "Medi" or not (0 <= c["t"] - u["t"] <= 45) or AR.search(u["text"]):
+                continue
+            for w in re.findall(r"[A-Za-z][A-Za-z0-9']{3,}", u["text"]):
+                lw = w.lower()
+                if lw in R.FUNC or is_english(lw):
+                    continue
+                k = R._sk(lw)
+                if k in hers and hers[k].lower() != lw:
+                    out.append({"t": u["t"], "engine_wrote": w, "her_chat": hers[k], "chat_t": c["t"], "line": u["text"], "chat": c["text"],
+                                "why": "his Latin word sounds like her typed word (TR-23)"})
+    return out
+
+
 def chat_pairs(turns):
     """TR-21 (Medi 2026-10-02 "aa5ud Etla3 makes no seanse"): Amal often TYPES the sentence he was saying; each of her chat
     lines with his lines of the 45 s before it, for the reader to compare word by word (أطلع ~ her 3otle)."""
@@ -106,7 +132,7 @@ def main(argv=None):
     d = os.path.join(REPO, "data", "lesson-work", "echo-candidates")
     os.makedirs(d, exist_ok=True)
     with open(os.path.join(d, date + ".json"), "w", encoding="utf-8", newline="\n") as f:
-        json.dump({"date": date, "rule": "TR-19", "candidates": C, "take_verb": take_verb(L.get("turns") or []), "laazem_noun": laazem_noun(L.get("turns") or []),
+        json.dump({"date": date, "rule": "TR-19", "candidates": C, "take_verb": take_verb(L.get("turns") or []), "laazem_noun": laazem_noun(L.get("turns") or []), "chat_latin": chat_latin(L.get("turns") or []),
                    "chat_pairs": chat_pairs(L.get("turns") or [])}, f, ensure_ascii=False, indent=1)
     print(date, len(C), "echo candidates")
     return 0

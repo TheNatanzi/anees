@@ -101,6 +101,9 @@ def word(w):
     hit = m.match_tier(lw, fuzzy=False)
     if hit and hit[1] in STRICT and hit[0] in ar:
         return ar[hit[0]]
+    vf = verb_form(lw)
+    if vf:
+        return vf
     # one of her nouns + a possessive ending: jari -> جار + ي (my neighbour), beiti -> بيت + ي
     for end, ar_end in SUFFIX:
         if lw.endswith(end) and len(lw) - len(end) >= 3:
@@ -114,6 +117,50 @@ def word(w):
                 hit = m.match_tier(base, fuzzy=False)
                 if hit and hit[1] in STRICT and ar.get(hit[0], "").endswith("ة"):
                     return ar[hit[0]][:-1] + "ت"
+    return None
+
+
+def _sk(w):
+    """Consonant skeleton of a Latin spelling, with the English-ear spellings undone (TR-23): mb -> nb (he says nenbisit,
+    the engine hears nimbisit), 6 -> t, 7 -> h, vowels dropped, doubles collapsed."""
+    w = w.lower().replace("kh", "5").replace("sh", "$").replace("gh", "8")
+    w = re.sub(r"[^a-z0-9$]", "", w).replace("mb", "nb")
+    w = w.translate(str.maketrans({"6": "t", "7": "h", "9": "s", "q": "k", "a": "", "e": "", "i": "", "o": "", "u": "", "y": "", "w": ""}))
+    return re.sub(r"(.)\1+", r"\1", w)
+
+
+PERSON = (("bn", "بن"), ("bt", "بت"), ("by", "بي"), ("n", "ن"), ("t", "ت"), ("y", "ي"))
+_stems = None
+
+
+def _verb_stems():
+    """Her b-present verbs (Banbese6 = بنبسط) by the skeleton of the stem after b-: one skeleton -> one Arabic stem."""
+    global _stems
+    if _stems is None:
+        m, ar = _load()
+        seen = {}
+        for x in json.load(open(os.path.join(DOCS, "data", "words.json"), encoding="utf-8"))["items"]:
+            a = re.sub(r"^أنا\s+", "", (x.get("arabic") or "").split("/")[0].strip())
+            z = re.sub(r"^ana\s+", "", (x.get("arabizi") or "").strip().lower())
+            if " " in a or " " in z or not a.startswith("ب") or not z.startswith("b") or len(a) < 4:
+                continue
+            k = _sk(z[1:])
+            if len(k) >= 4:
+                seen.setdefault(k, set()).add(a[1:])
+        _stems = {k: next(iter(v)) for k, v in seen.items() if len(v) == 1}     # ambiguous skeletons are never used
+    return _stems
+
+
+def verb_form(lw):
+    """TR-23 (Medi 2026-10-03 "why no credit here ... this should be nenbisit"; engine wrote 'Rah nimbisit'): another
+    person of one of her b-present verbs, in the engine's English-ear spelling - nimbisit -> ننبسط (we'll have fun,
+    her Banbese6 = بنبسط). Only her own verbs, only a stem skeleton of 4+ consonants that points at exactly one of them."""
+    st = _verb_stems()
+    for pre, ar_pre in PERSON:
+        if lw.startswith(pre) and len(lw) - len(pre) >= 4:
+            k = _sk(lw[len(pre):])
+            if k in st:
+                return ar_pre + st[k]
     return None
 
 

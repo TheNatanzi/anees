@@ -163,7 +163,7 @@ function status() { Array.prototype.forEach.call(doc.querySelectorAll('.tc-sync'
 root.addEventListener('online', sync);
 // L1 / PG-14: back on the tab -> re-read the table (a correction made on the phone shows here), resend the queue, redraw
 if (root.AneesLive) root.AneesLive.onReturn(function () { return probe().then(function () { status(); sync(); if (H.redraw) H.redraw(); }); },
-  { busy: function () { return !!doc.querySelector('.tc-panel, .tc-why'); } });   // never wipe a half-typed correction
+  { busy: function () { var au = doc.getElementById('ls-audio'); return !!doc.querySelector('.tc-panel, .tc-why') || !!(au && !au.paused); } });   // never wipe a half-typed correction or a playing clip
 
 /* ---------- small DOM helpers ---------- */
 function el(tag, cls, text) { var n = doc.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }

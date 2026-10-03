@@ -259,3 +259,17 @@ def test_pg_25_a_missing_preposition_or_verb_is_a_caret_where_it_belongs():
     d = json.load(open(os.path.join(ROOT, "docs", "data", "lessons", "2026-10-02.json"), encoding="utf-8"))
     carets = [u for m in d["tmarks"].values() for u in m["u"] if u[2] == "missing"]
     assert any(u[5] == "ل" and u[6] == "la" for u in carets) and any(u[5] == "أروح" for u in carets)
+
+
+def test_tr_23_his_arabic_in_english_letters_is_read_and_checked_against_her_chat_and_gemini_tests_it():
+    """TR-23 (Medi 2026-10-03 "why no credit here ... this should be nenbisit"; "she even wrote it for you")."""
+    import arabizi_reader as R
+    import echo_candidates as E
+    import context_transcribe as CT
+    assert "ننبسط" in R.to_arabic("Rah nimbisit.") and "رح" in R.to_arabic("Rah nimbisit.")
+    assert R.to_arabic("basically nobody") .strip(" .") == ""          # English stays English
+    T = [{"t": 827.2, "who": "Medi", "text": "nimbisit."}, {"t": 850.0, "who": "chat", "text": "bas 5atibti ra7 tiji ma3i u ra7 nenbese6"}]
+    c = E.chat_latin(T)
+    assert c and c[0]["engine_wrote"] == "nimbisit" and c[0]["her_chat"] == "nenbese6"
+    key = CT.answer_key()
+    assert any(d == "2026-10-02" and abs(t - 827.2) < .01 and "ننبسط" in w for d, t, w, g, n in key)

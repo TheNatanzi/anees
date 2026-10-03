@@ -626,6 +626,10 @@ function transcript(body, x) {
   if (AC) AC.setup({ redraw: function () { draw(); }, toArabizi: toArabizi,
     play: function (date, t, anchor) { playAnchor = anchor; play(lessonAudio(date, 'Medi'), Math.max(0, t - 2), prettyDate(date) + ' · lesson from ' + mmss(t)); } });
   function draw() {
+    // the player opens inside the transcript (under the tapped line): park it before a redraw, or the redraw deletes it
+    // and every Play after that does nothing (Medi 2026-10-03 "im clicking a different audio file and its not working")
+    var pl = $('ls-player');
+    if (pl && list.contains(pl)) { (playerHome || document.getElementById('anees-bank')).appendChild(pl); pl.classList.remove('ls-player-inline'); }
     list.textContent = '';
     ROWG = {}; CHIPS = {};
     var shown = 0;

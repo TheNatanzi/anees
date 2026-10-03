@@ -51,3 +51,10 @@ test('PG-24 the Lessons page loads the module, and every control is 44 px',()=>{
  assert.match(js,/counts update within 15 min/);
  assert.doesNotMatch(js,/confirm\(/);      // no "are you sure"
 });
+test('PG-24 a redraw never deletes the audio player, and a tab return never redraws over a playing clip',()=>{
+ const js=fs.readFileSync(path.join(DOCS,'js','lessons-page.js'),'utf8');
+ assert.match(js,/if \(pl && list\.contains\(pl\)\) \{ \(playerHome \|\| document\.getElementById\('anees-bank'\)\)\.appendChild\(pl\)/);
+ const tc=fs.readFileSync(path.join(DOCS,'js','transcript-corrections.js'),'utf8');
+ assert.match(tc,/!!\(au && !au\.paused\)/);
+ assert.match(fs.readFileSync(path.join(DOCS,'css','lessons.css'),'utf8'),/\.ls-turn > \.tc-panel\{grid-column:1 \/ -1\}/);
+});

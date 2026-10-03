@@ -6991,6 +6991,62 @@
      "contains": "test('PG-25 a missing word is a ^ mark at its place"
     }
    ]
+  },
+  {
+   "id": "TR-23",
+   "kind": "error",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The engine often writes Medi's Arabic in English-ear Latin letters (10-02 13:47 'Rah nimbisit' for his ra7 nenbisit, we'll have fun; Amal typed 'ra7 nenbese6' at 14:10 and said صح). Three things follow, every lesson: (1) the Latin reader (scripts/arabizi_reader.py verb_form) reads another person of one of HER b-present verbs by its stem's sound skeleton with the English-ear spellings undone (mb -> nb, 6 -> t, 7 -> h): nimbisit -> ننبسط, teenbesit -> تنبسط; only her own verbs, only a 4+ consonant skeleton pointing at exactly one of them; (2) scripts/echo_candidates.py chat_latin lists each of his Latin words that sounds like a word Amal typed in the chat in the next 45 s, for the reader to confirm as a heard-word overlay row (his form, never her corrected one); (3) every text correction Medi makes joins the Gemini answer key automatically (scripts/context_transcribe.py answer_key; other kinds such as vowels in data/lesson-work/gemini-tests.json). 2026-10-03: the reader newly reads 4 moments in 18 lessons; chat_latin lists 35.",
+   "plain": "When the recording engine writes your Arabic in English letters (nimbisit for nenbisit), Anees now reads it as your Arabic, checks it against what Amal typed in the chat, and adds it to the list Gemini is tested on.",
+   "plain_for": "f7b0a00e",
+   "topic": "transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "why no credit here for the grammar and vocab? ... this should be nenbisit"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "she even wrote it for it for you"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "you are keeping track of what we are gonna test gemini for right? like hearing this one right"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/arabizi_reader.py",
+     "contains": "def verb_form(lw):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/echo_candidates.py",
+     "contains": "def chat_latin(turns):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/context_transcribe.py",
+     "contains": "def answer_key():"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_correction_mode.py",
+     "contains": "def test_tr_23_his_arabic_in_english_letters_is_read_and_checked_against_her_chat_and_gemini_tests_it"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "13:47",
+    "note": "engine 'Rah nimbisit'; he said ra7 nenbisit; Amal typed ra7 nenbese6"
+   }
   }
  ]
 }

@@ -190,3 +190,5 @@
 /* PG-25: ^ marks where a missing word / preposition belongs on his line */
 #anees-bank mark.tm-caret{background:none;color:light-dark(#C4321F,#FF8A7A);font-weight:700;font-size:.8em;vertical-align:super;padding:0 1px;cursor:pointer;white-space:nowrap}
 #anees-bank mark.tm-caret.tm-on{background:color-mix(in srgb,currentColor 12%,transparent);border-radius:3px}
+/* a correction panel on a line with no chips spans the whole line, never the narrow time column */
+#anees-bank .ls-turn > .tc-panel{grid-column:1 / -1}
