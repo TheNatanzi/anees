@@ -726,6 +726,64 @@
    }
   },
   {
+   "id": "TR-18",
+   "kind": "not-error",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "When the engine wrote a word that does not fit the moment (an answer to Amal's question must fit the question: 'ay sa3a?' wants a time), the word said is read from the context, her reaction and her chat; the line gets a heard-word overlay (data/lesson-work/transcript-fixes.json: the page shows the heard word, the engine's words under it, every builder reads the heard text) and the engine's word is never scored as his wrong word. The raw transcript is never edited (S2).",
+   "plain": "When the recording engine writes a word that doesn't fit the moment (Amal asks 'what time?' and the engine writes 'dinner'), we read the word you said from the context and her reaction. The line shows the word you said, with the engine's word underneath, and the engine's word is never counted as your mistake.",
+   "plain_for": "76c66976",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "why are we missing my arabizi? 3ala 3ashrah cant you tell from context im saying a time?  she corrects me and says el 3ashrah"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/transcript_fixes.py",
+     "contains": "def apply(date, turns, rows=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_lessons_page_data.py",
+     "contains": "TFX.apply(d, with_gapfill(page_turns(d), gap[d]))"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "An answer to a\nquestion must fit the question"
+    },
+    {
+     "type": "code",
+     "path": "scripts/lesson_turns.py",
+     "contains": "transcript_fixes.apply_tracks(date, T)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_transcript_fixes.py",
+     "contains": "def test_tr_18_overlay_shows_the_heard_word_and_keeps_the_engine_text"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "07:34",
+    "note": "engine wrote على العشاء (dinner) for his على عشرة (at ten), the answer to her 'ay sa3a?'"
+   },
+   "moments": [
+    {
+     "type": "data",
+     "path": "data/lesson-work/transcript-fixes.json",
+     "contains": "\"rule\": \"TR-18\""
+    }
+   ]
+  },
+  {
    "id": "AZ-01",
    "kind": "display",
    "scope": "arabizi",
@@ -2995,6 +3053,47 @@
      "contains": "\"agreed_by\": \"GR-24\""
     }
    ]
+  },
+  {
+   "id": "GR-25",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "When Amal's whole voiced reply is 'el' (ال), she is prompting the missing el-: the moment is one voiced A1 el- (the) grammar slip (prompt-then-fix; wrong = his word without el-, right = with it), never a vocab slip - she heard the rest as right. Code re-files any reader row of that shape (full_audit_build.apply_el_prompt).",
+   "plain": "When Amal's whole reply is just 'el', she is reminding you of the missing el-. That is one el- grammar slip, not a wrong word.",
+   "plain_for": "cb8b7a00",
+   "topic": "el- (the)",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "why are we missing my arabizi? 3ala 3ashrah cant you tell from context im saying a time?  she corrects me and says el 3ashrah"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/full_audit_build.py",
+     "contains": "def apply_el_prompt(rows):"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "When her whole reply is \"el\""
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_transcript_fixes.py",
+     "contains": "def test_gr_25_her_whole_reply_el_is_an_a1_slip_not_a_wrong_word"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "07:34",
+    "note": "he said 3ala 3ashra, she said 'el', he said 3ala el-3ashra; readers had filed 'dinner for ten' as vocab-B"
+   }
   },
   {
    "id": "LS-01",

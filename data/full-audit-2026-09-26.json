@@ -1,5 +1,5 @@
 {
- "built": "2026-10-02T23:06:24-07:00",
+ "built": "2026-10-02T23:16:33-07:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -15301,6 +15301,29 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-6c1241b7",
+    "date": "2026-10-02",
+    "t": "07:34",
+    "t_amal": "07:37",
+    "medi_said": "آآآ على العشاء",
+    "amal_said": "الـ.",
+    "chat": "3ala el-3ashara",
+    "wrong": "عشرة",
+    "right": "العشرة",
+    "confidence": "medium",
+    "confidence_why": "r1+r2",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-6c1241b7",
+    "sweep_id": null,
+    "mistake": "GR-25 (Medi 2026-10-02 'she corrects me and says el 3ashrah'): her whole reply was 'el' - she prompted the missing el-, she did not hear a wrong word; the slip is A1 el- (the), voiced. Readers wrote: He said 3asha (dinner) for 3ashara (ten) as the clock time; her chat writes 3ala el-3ashara; her voiced 'الـ' is not a clear fix of the word (she voiced the same slip at 15:42).",
+    "bucket": "A1",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
     "id": "FA-5e8b298b",
     "date": "2026-10-02",
     "t": "07:54",
@@ -23954,7 +23977,7 @@
   "pron_from_sweep": [],
   "hand_check": {},
   "totals": {
-   "speaking_grammar": 592,
+   "speaking_grammar": 593,
    "vocab": 283,
    "machine_caught_speaking": 104
   }
@@ -23963,7 +23986,7 @@
  "lessons_missing": [],
  "totals": {
   "rows": 1155,
-  "grammar_A": 592,
+  "grammar_A": 593,
   "grammar_B": 89,
   "grammar_proposed": 9,
   "vocab_A": 283,
@@ -23973,9 +23996,9 @@
    "2": 46,
    "3": 5
   },
-  "vocab_B": 45,
+  "vocab_B": 44,
   "vocab_B_by_tier": {
-   "1": 26,
+   "1": 25,
    "2": 13,
    "3": 6
   },
@@ -24004,8 +24027,8 @@
   "A2": 31,
   "A9": 27,
   "D1": 23,
+  "A1": 18,
   "A4": 18,
-  "A1": 17,
   "D3": 17,
   "A7": 16,
   "B15": 16,
@@ -24206,10 +24229,10 @@
    "sweep_vocab_before": 0
   },
   "2026-10-02": {
-   "grammar_A": 12,
+   "grammar_A": 13,
    "grammar_B": 0,
    "vocab_A": 12,
-   "vocab_B": 2,
+   "vocab_B": 1,
    "listening": 2,
    "sweep_grammar_before": 0,
    "sweep_vocab_before": 0
@@ -66638,16 +66661,16 @@
    "medi_said": "آآآ على العشاء",
    "amal_said": "الـ.",
    "chat": "3ala el-3ashara",
-   "wrong": "العشاء",
+   "wrong": "عشرة",
    "right": "العشرة",
-   "kind": "vocab-B",
-   "tier": 1,
-   "bucket": null,
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A1",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "none",
+   "signal": "prompt-then-fix",
    "confidence": "medium",
-   "why": "He said 3asha (dinner) for 3ashara (ten) as the clock time; her chat writes 3ala el-3ashara; her voiced 'الـ' is not a clear fix of the word (she voiced the same slip at 15:42).",
+   "why": "GR-25 (Medi 2026-10-02 'she corrects me and says el 3ashrah'): her whole reply was 'el' - she prompted the missing el-, she did not hear a wrong word; the slip is A1 el- (the), voiced. Readers wrote: He said 3asha (dinner) for 3ashara (ten) as the clock time; her chat writes 3ala el-3ashara; her voiced 'الـ' is not a clear fix of the word (she voiced the same slip at 15:42).",
    "english": "at ten o'clock",
    "ids": [
     "1002-3",
@@ -66661,7 +66684,12 @@
    "date": "2026-10-02",
    "source": "audit-2026-09-26",
    "machine_had": false,
-   "uid": "FA-a1f1a56e",
+   "kind_before_gr25": "vocab-B",
+   "wrong_before_gr25": "العشاء",
+   "right_before_gr25": "العشرة",
+   "rule": "GR-25",
+   "bucket_name": "el- (the)",
+   "uid": "FA-6c1241b7",
    "n": 1126
   },
   {
@@ -67661,7 +67689,7 @@
  ],
  "rulings_applied": [
   {
-   "at": "2026-10-03T06:06:25.571310+00:00",
+   "at": "2026-10-03T06:17:30.083764+00:00",
    "rules": [
     1928,
     1929,

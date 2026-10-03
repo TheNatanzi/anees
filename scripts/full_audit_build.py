@@ -182,6 +182,30 @@ def apply_chat_rule(rows, signal_rulings=()):
     return re_n, rej
 
 
+EL_ONLY = {"ال", "الـ", "ال-", "el", "il", "el-", "il-", "l"}
+EL_WHY = ("GR-25 (Medi 2026-10-02 'she corrects me and says el 3ashrah'): her whole reply was 'el' - she prompted the "
+          "missing el-, she did not hear a wrong word; the slip is A1 el- (the), voiced")
+
+
+def apply_el_prompt(rows):
+    """GR-25: when Amal's whole voiced reply is 'el' (ال), she prompted the missing el- (A1): the row is re-filed as a
+    voiced A1 grammar slip (wrong = his word without el-, right = with it), never a vocab slip. 10-02 07:34: the engine
+    wrote على العشاء (dinner) for his على عشرة; readers filed 'dinner for ten' as vocab-B. Returns the re-filed count."""
+    n = 0
+    for r in rows:
+        a = re.sub(r"[.…,،؟?!:;\"“”\s]+", " ", str(r.get("amal_said") or "")).strip().lower()
+        if a not in EL_ONLY or r.get("kind") not in ("vocab-A", "vocab-B", "grammar-B"):
+            continue
+        right = re.sub(r"\s*\([^)]*\)", "", str(r.get("right") or "")).strip()
+        if not right.startswith("ال"):
+            right = "ال" + right
+        r["kind_before_gr25"], r["wrong_before_gr25"], r["right_before_gr25"] = r["kind"], r.get("wrong"), r.get("right")
+        r.update(kind="grammar", bucket="A1", signal="prompt-then-fix", wrong=right[2:], right=right, tier=None, rule="GR-25",
+                 why=EL_WHY + ". Readers wrote: " + str(r.get("why") or ""))
+        n += 1
+    return n
+
+
 PROPOSE = "PROPOSE"
 PROPOSALS_OUT = os.path.join(REPO, "docs", "data", "grammar-proposals.json")
 
@@ -407,6 +431,7 @@ def build():
                         r["rejected_rule"] = x["rule"]
                     break
     apply_chat_rule(rows, json.load(open(SIGNAL_P, encoding="utf-8"))["rows"] if os.path.exists(SIGNAL_P) else [])
+    apply_el_prompt(rows)
     # per-row bucket names + a stable order
     for r in rows:
         if r.get("bucket") in buckets:

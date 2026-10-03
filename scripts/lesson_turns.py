@@ -169,4 +169,6 @@ def lesson_turns(date, with_chat=False):
                 c["chat_offset"] = round(off, 1)
             T = T + C
     T.sort(key=lambda x: x["start"])
+    import transcript_fixes                      # TR-18 heard-word overlay (raw files untouched, RULES.md S2)
+    T = transcript_fixes.apply_tracks(date, T)
     return T, src

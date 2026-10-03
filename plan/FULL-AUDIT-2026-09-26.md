@@ -6,12 +6,12 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **592** (sweep had 312) |
+| Grammar fixes Amal voiced (A) | **593** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 89 |
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 9 |
 | Vocab fixes Amal voiced (A) | **283** (sweep had 147; lesson pages showed 23) |
 | - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 161, '0': 115, '2': 46, '3': 5} |
-| Vocab she let pass (B, to Amal) | **45** by tier {'1': 26, '2': 13, '3': 6} |
+| Vocab she let pass (B, to Amal) | **44** by tier {'1': 25, '2': 13, '3': 6} |
 | Listening-drill misreads (kept apart) | 82 |
 | Rows the readers found that the sweep did not have | 678 |
 | Sweep rows the readers did not list (kept) | 115 |
@@ -38,7 +38,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-09-28 | 18 | 2 | 20 | 0 | 2 | 0 | 0 | 51.1 % |
 | 2026-09-30 | 20 | 2 | 14 | 0 | 0 | 0 | 0 | 73.7 % |
 | 2026-10-01 | 16 | 2 | 4 | 3 | 2 | 0 | 0 | 78.8 % |
-| 2026-10-02 | 12 | 0 | 12 | 2 | 2 | 0 | 0 | 52.8 % |
+| 2026-10-02 | 13 | 0 | 12 | 1 | 2 | 0 | 0 | 52.8 % |
 
 ## Reader passes (the loop)
 
@@ -75,8 +75,8 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | A2 | idafa (possession) | 31 |
 | A9 | plurals | 27 |
 | D1 | prepositions | 23 |
+| A1 | el- (the) | 18 |
 | A4 | possessive endings | 18 |
-| A1 | el- (the) | 17 |
 | D3 | endings on prepositions | 17 |
 | A7 | noun + adjective | 16 |
 | B15 | participles | 16 |
@@ -1490,7 +1490,7 @@ _00:02-06:12 and 53:31-end are English meta talk. 12:34-15:40 and 37:41-42:12 tr
 |---|---|---|---|---|---|---|---|---|---|
 | FA-172fc4ea | 07:02 | vocab-A | tier 1 | أنا سمعت متأخر اليوم | صحيت. What's مت؟ | سمعت -> صحيت | He said سمعت (I heard) for 'I woke up'; Amal voiced صحيت and asked what his word was, and he explained 'I listened'. | medium | GR-24 |
 | FA-035f0923 | 07:14 | vocab-B | tier 2 | أأأ أنا صحيت تأخر. |  | تأخر -> متأخر (mit2a55er) | He used the verb تأخر where the adjective متأخر is needed (he had said متأخر a moment earlier); her chat writes mit2a55er, no voiced fix. | medium | r1+r2 |
-| FA-a1f1a56e | 07:34 | vocab-B | tier 1 | آآآ على العشاء | الـ. | العشاء -> العشرة | He said 3asha (dinner) for 3ashara (ten) as the clock time; her chat writes 3ala el-3ashara; her voiced 'الـ' is not a clear fix of the word (she voiced the same slip at 15:42). | medium | r1+r2 |
+| FA-6c1241b7 | 07:34 | grammar | A1 | آآآ على العشاء | الـ. | عشرة -> العشرة | GR-25 (Medi 2026-10-02 'she corrects me and says el 3ashrah'): her whole reply was 'el' - she prompted the missing el-, she did not hear a wrong word; the slip is A1 el- (the), voiced. Readers wrote: He said 3asha (dinner) for 3ashara (ten) as the clock time; her chat writes 3ala el-3ashara; her voiced 'الـ' is not a clear fix of the word (she voiced the same slip at 15:42). | medium | r1+r2 |
 | FA-5e8b298b | 07:54 | grammar | B5 | أنا كان قنيش شوي-- | أنا كنت صح. | أنا كان -> أنا كنت | kaan needs the 'I' ending with ana: Amal recast أنا كنت. | high | r1+r2 |
 | FA-6abc4e23 | 08:23 | vocab-A | tier 1 | عادي الصباح (engine; her echo shows هذا الصبح) ... 08:58 عاد الصباح | We never say هذا الصبح just say الصبح or بالصباح. | عادي الصباح -> الصبح / بالصباح | Engine wrote عادي; Amal's echo shows he said هذا الصبح, a calque of 'this morning'; she said we never say it and gave الصبح / بالصباح - a wrong expression, not an ending/prefix rule, so vocab tier 1. | medium | r3 |
 | FA-27538ea5 | 09:23 | vocab-A | tier 1 | أنا لا مش شجاع اليوم. مش شجاع اليوم. | متشجع. | شجاع -> متشجع (mitshajje3) | She asked لسه مش متشجع لل شغل؟ and he answered with شجاع (brave), a different lexical item; she recast متشجع at once - tier 1 (different word), not a form of متشجع. | high | r3 |

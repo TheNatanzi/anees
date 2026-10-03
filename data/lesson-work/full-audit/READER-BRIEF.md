@@ -104,3 +104,11 @@ or the Read tool; the file is 600-1400 lines.
 
 ## The engine can mishear him - trust Amal's echo (Medi 2026-09-26)
 The transcript is speech-to-text, not audio. When Medi asks "what did I say?" (or Amal repeats his form back, often with a laugh or "شو يعني"), HER words show what he really said - use them for `medi_said` and `wrong`, and note "engine wrote X". Example 09-26 31:53: the engine wrote راسي جاب; he asked "What did I say?" and Amal answered دبا - he said daba (بدا with letters swapped), a wrong form, not the word جاب.
+
+## Read the word from the context, not only from the engine (TR-18 / GR-25, Medi 2026-10-02)
+"3ala 3ashrah cant you tell from context im saying a time? she corrects me and says el 3ashrah". Example 10-02 07:34:
+Amal asked "ay sa3a?" (what time); the engine wrote على العشاء (dinner) - he said على عشرة (at ten). An answer to a
+question must fit the question: a time answer is a number, so a near-sound word (عشاء / عشرة, ستة / ستي) is the engine
+mishearing, not his wrong word - write `wrong` as what he said ("engine wrote X") and look at what she reacts to.
+When her whole reply is "el" (الـ), she is prompting the missing el-: that is ONE voiced A1 grammar slip (prompt-then-fix),
+never a vocab slip (the code re-files it, GR-25). She heard the rest as right.

@@ -661,7 +661,7 @@ def input_files(date):
     return ["docs/lessons/%s.html" % date, "docs/data/word-bank-evidence.json", "docs/data/word-bank-review.json",
             "data/full-audit-2026-09-26.json", "docs/data/grammar-usage.json", "data/grammar-usage-rulings.json",
             "data/lesson-work/sheet-verdicts.json", "data/lesson-work/lesson-types/%s.json" % date,
-            "data/lesson-work/ledger-rulings.json", "data/lesson-work/ledger-amal.json", "docs/data/words.json", "docs/data/grammar-buckets.json",
+            "data/lesson-work/ledger-rulings.json", "data/lesson-work/ledger-amal.json", "data/lesson-work/transcript-fixes.json", "docs/data/words.json", "docs/data/grammar-buckets.json",
             "scripts/amal_grammar_notes.py", "scripts/lesson_ledger.py", "scripts/transcript_marks.py",
             "scripts/build_lessons_page_data.py"]
 

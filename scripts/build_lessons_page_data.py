@@ -38,6 +38,7 @@ NODE = r"C:\dev\tools\node-v24.18.0-win-x64\node.exe"
 TMP = os.path.join(__import__("tempfile").gettempdir(), "anees-lessons-page")
 sys.path.insert(0, HERE)
 import lesson_ledger as LL  # noqa: E402  LS-11 one lesson ledger
+import transcript_fixes as TFX  # noqa: E402  TR-18 heard-word overlay
 import amal_grammar_notes as AMAL  # noqa: E402  Amal's notes 2026-09-27: which grammar corrections do not count
 
 
@@ -713,7 +714,11 @@ def build():
     # first lesson each list word shows up in: the earlier of (Word Bank evidence, plain text of any lesson page).
     # Evidence for the early lessons is sparse, so text keeps everyday words (بس, شو) from looking "new" later.
     gap = {d: trim_layers(gapfill_layers(d), page_turns(d)) for d in DATES}   # Meet gap fills (fill_meet_gaps.py), merged as lines
-    pages = {d: with_gapfill(page_turns(d), gap[d]) for d in DATES}
+    # TR-18 heard-word overlay (RULES.md S2: the engine's text is kept on the line as "engine", never edited)
+    pages = {d: TFX.apply(d, with_gapfill(page_turns(d), gap[d])) for d in DATES}
+    for d in DATES:
+        for r in TFX.unmatched(d, pages[d]):
+            raise SystemExit(f"transcript-fixes.json: {d} {r['t']} {r['who']} '{r['engine_wrote']}' matches no line (the transcript changed?)")
     text_all = {d: " " + " ".join(ar_norm(tok_clean(p["text"])) for p in pages[d] if not p["chat"]) + " " for d in DATES}
     text_amal = {d: " " + " ".join(ar_norm(tok_clean(p["text"])) for p in pages[d] if p["who"] == "Amal" and not p["chat"]) + " " for d in DATES}
 
@@ -826,6 +831,7 @@ def build():
         # ---- per-lesson heavy parts
         turns = [{"t": round(p["t"], 2), "end": p["end"], "who": "chat" if p["chat"] else p["who"],
                   **({"typed_by": p["who"]} if p["chat"] else {}), "text": p["text"],
+                  **({"engine": p["engine"], "heard": p["heard"]} if p.get("engine") else {}),
                   **({"gap_fill": True, "source": p["source"], "confidence": p.get("confidence"),
                       **({"from_meet": True} if p.get("from_meet") else {})} if p.get("gap_fill") else {})} for p in P]
         med = sorted((p for p in P if p["who"] == "Medi" and not p["chat"]), key=lambda p: p["t"])
@@ -1213,7 +1219,7 @@ def main():
     ap.add_argument("--dump")
     a = ap.parse_args()
     if a.dump:
-        P = page_turns(a.dump)
+        P = TFX.apply(a.dump, page_turns(a.dump))
         W, _ = words_for(a.dump, P)
         attach_words(P, capped(W))
         for p in P:

@@ -641,6 +641,7 @@ function tmRow(x, t, m, i) {
   r.appendChild(h);
   var main = el('div', 'tm-main');
   main.appendChild(speech('ls-turntext', TMK.underlined(t.text, m.u), null));
+  heardNote(main, t);
   var chips = el('div', 'tm-chips');
   (m.c || []).forEach(function (c) {
     var v = TMK.chipModel(c, toArabizi);
@@ -698,7 +699,19 @@ function turnRow(x, t, marks) {
   h.appendChild(timeButton(x.date, t.t, t.who));
   r.appendChild(h);
   r.appendChild(speech('ls-turntext', markText(t.text, marks || []), null));
+  heardNote(r, t);
   return r;
+}
+// TR-18 heard-word overlay (RULES.md S2): the line shows what was said; the engine's own words stay visible under it.
+function heardNote(host, t) {
+  if (!t.engine) return;
+  var n = el('div', 'ab-mini ls-heard', 'Recording engine wrote: ');
+  var a = el('span', '', t.engine);
+  a.setAttribute('lang', 'ar'); a.setAttribute('dir', 'rtl');
+  n.appendChild(a);
+  n.appendChild(document.createTextNode(' · fixed: ' + (t.heard || []).map(function (h) { return h.engine_wrote + ' → ' + h.heard; }).join(', ')));
+  n.title = 'The raw transcript is never edited; this line shows the word that was said (rule ' + ((t.heard || [])[0] || {}).rule + ')';
+  host.appendChild(n);
 }
 // Medi 2026-09-26: "an accordion that shows the full transcript of the error" - both speakers around the moment
 // (20 s before to 40 s after, at least 3 turns each side), his wrong word and her fix marked. Built when opened.
