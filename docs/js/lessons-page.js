@@ -787,10 +787,12 @@ function renderMedi() {
   box.hidden = !items.length;
   if (!items.length) return;
   box.appendChild(el('h3', '', 'Medi? · ' + items.length + (items.length === 1 ? ' moment' : ' moments') + ' where two judges disagree'));
-  box.appendChild(el('p', 'ab-mini', 'Counted as before until you pick. Tell Claude the lesson, time and your pick.'));
+  box.appendChild(el('p', 'ab-mini', 'Counted as before until you pick. Reply like: 1 keep, 2 grammar, 3 ' + 'Blooze' + '.'));
   var ol = el('ol', '');
   items.forEach(function (x) {
     var it = x.it, li = el('li', '');
+    li.appendChild(playButton('Play', function () { play(lessonAudio(x.L.date, 'Medi'), Math.max(0, it.t - 3), prettyDate(x.L.date) + ' · ' + it.mmss); }, 'Plays the lesson from just before this moment'));
+    li.appendChild(document.createTextNode(' '));
     li.appendChild(el('b', '', prettyDate(x.L.date) + ' ' + it.mmss + (it.also && it.also.length ? ', ' + it.also.join(', ') : '') + ' · '));
     li.appendChild(document.createTextNode((it.question || '') + ' '));
     (it.options || []).forEach(function (o) {
@@ -799,10 +801,10 @@ function renderMedi() {
     });
     var az2 = function (t) { return t && toArabizi && /[؀-ۿ]/.test(t) ? toArabizi(t).text : (t || ''); };
     var A = it.a || {}, B = it.b || {};
-    li.appendChild(el('div', 'ab-mini', 'Judge 1 (' + (A.by === 'word-bank' ? 'Word Bank' : 'readers') + '): ' + (A.verdict === 'right' ? 'right' : A.verdict || '') +
-      ' · Judge 2 (' + (B.bucket ? 'grammar ' + B.bucket : 'readers') + '): Amal → ' + az2(B.fix)));
+    li.appendChild(el('div', 'ab-mini', (A.by === 'word-bank' ? 'Word Bank: right' : 'Word slip: wrong') +
+      ' · ' + (B.bucket ? 'Grammar ' + B.bucket + ': wrong' : 'Amal: wrong') + ', said ' + az2(B.fix)));
+    li.appendChild(el('div', 'ab-mini', 'Now: ' + (it.kind === 'C2q' ? 'counted twice (word + grammar)' : 'the word counts right and the slip counts wrong')));
     if (it.line) { var q = el('div', 'ab-mini', 'You said: ' + (toArabizi && /[؀-ۿ]/.test(it.line) ? toArabizi(it.line).text : it.line)); li.appendChild(q); }
-    li.appendChild(playButton('Play ' + it.mmss, function () { play(lessonAudio(x.L.date, 'Medi'), Math.max(0, it.t - 3), prettyDate(x.L.date) + ' · ' + it.mmss); }, 'Plays the lesson from just before this moment'));
     ol.appendChild(li);
   });
   box.appendChild(ol);

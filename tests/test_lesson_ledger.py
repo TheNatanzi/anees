@@ -69,6 +69,40 @@ def test_LS_11_c1q_a_phrase_with_two_candidate_words_is_one_medi_question_counte
     assert not act["overrides"] and led["counts"]["words"]["right"] == 2 and led["counts"]["words"]["wrong"] == 1
 
 
+def test_LS_11_c1_same_word_is_one_attempt_counted_as_the_slip():
+    # 09-10 27:50 shape: the Word Bank took his بخسر as bakser right; Amal recast it to بكسر (same list word)
+    led, act = build(detail(vocab_correct=[wb("e-k", 2000.5, "ana bakser", "بخسر")],
+                            vocab_errors=[audit("FA-k", 2000, "بخسر", "بكسر", key="ana bakser", signal="recast")]))
+    assert led["conflicts"][0]["kind"] == "C1" and act["overrides"][0]["changes"]["scored_in_event"] is True
+    assert "Same attempt" in act["overrides"][0]["changes"]["ledger_reason"]
+
+
+def test_LS_11_c2q_medi_says_word_slip_takes_the_grammar_copy_out():
+    g = {"id": "FA-g", "t": 2000, "bucket": "A9", "wrong": "اسمي", "right": "أسماء", "signal": "recast", "confidence": "high"}
+    d = detail(grammar_errors=[g], vocab_errors=[audit("FA-v", 2000, "اسمي", "أسماء", tier=1)])
+    led, _ = build(d)
+    cid = led["needs_medi"][0]
+    led2, act = build(d, rulings={cid: {"conflict": cid, "answer": "word"}})
+    assert ("grammar_errors", "rg:FA-g") == act["move"][0][:2]
+    assert led2["counts"]["grammar"]["mistakes"] == 0 and led2["counts"]["words"]["wrong"] == 1
+
+
+def test_LS_11_an_answer_to_a_grouped_question_settles_every_word_without_crashing():
+    d = detail(vocab_correct=[wb("e-b1", 1285.7, "ana balbes", "بلبس"), wb("e-b2", 1286.5, "blUze", "بلوزة")],
+               vocab_errors=[audit("FA-j", 1285, "بلبس بلوزة", "الجو", conf="medium", signal="prompt-then-fix")])
+    led, _ = build(d)
+    cid = led["needs_medi"][0]
+    led2, act = build(d, rulings={cid: {"conflict": cid, "answer": "بلوزة", "date": "2026-10-03"}})
+    assert not led2["needs_medi"] and all(c.get("resolved") for c in led2["conflicts"])
+    assert [o["event_id"] for o in act["overrides"]] == ["e-b2"]
+
+
+def test_LS_11_shadow_mode_settles_nothing():
+    led, act = build(detail(vocab_correct=[wb("e-lisa", 92.92, "lisa", "لسه")],
+                            vocab_errors=[audit("FA-lisa", 93, "لسه", "لـ الزباين", on_sheet=False)]), resolve=False)
+    assert not led["conflicts"][0].get("resolved") and led["conflicts"][0]["would_settle"]
+
+
 def test_LS_11_medi_answer_settles_the_question():
     d = detail(vocab_correct=[wb("e-b1", 1285.7, "ana balbes", "بلبس")],
                vocab_errors=[audit("FA-j", 1285, "بلبس بلوزة", "الجو", conf="medium", signal="prompt-then-fix")])
@@ -183,7 +217,10 @@ def test_LS_11_check_is_clean_on_a_consistent_mini_repo_and_catches_planted_drif
     led["conflicts"][0].pop("resolved", None)
     lp.write_text(json.dumps(led, ensure_ascii=False), encoding="utf-8")
     assert any("neither resolved by a rule nor listed for Medi" in x for x in LL.check(str(root)))
-    # 5 a producer item with no mark (a card on the page the ledger never saw)
+    # 5 an answer of Medi's that matches no question any more is never dropped silently
+    (root / "data/lesson-work/ledger-rulings.json").write_text(json.dumps({"rulings": [{"conflict": "C1q-gone", "answer": "keep"}]}), encoding="utf-8")
+    assert any("matches no question" in x for x in LL.check(str(root)))
+    # 6 a producer item with no mark (a card on the page the ledger never saw)
     led["marks"] = [m for m in led["marks"] if m["id"] != "wb:e-x"]
     lp.write_text(json.dumps(led, ensure_ascii=False), encoding="utf-8")
     assert any("have no mark" in x or "counts do not match" in x for x in LL.check(str(root)))

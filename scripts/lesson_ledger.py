@@ -173,6 +173,12 @@ def item_ids(items, prefix, key):
     return out
 
 
+def mode(repo=REPO):
+    """'on', or 'shadow' (the kill switch): ANEES_LEDGER=shadow, or "mode": "shadow" in data/lesson-work/ledger-rulings.json."""
+    p = os.path.join(repo, "data", "lesson-work", "ledger-rulings.json")
+    return os.environ.get("ANEES_LEDGER") or ((J(p) or {}).get("mode") if os.path.exists(p) else None) or "on"
+
+
 def load_rulings(path=RULINGS_P):
     R = J(path, {"rulings": []}) or {"rulings": []}
     return {r["conflict"]: r for r in R.get("rulings", []) if r.get("conflict")}
@@ -331,6 +337,13 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
         c["counted_as_now"] = "both judgments count as before until Medi picks"
         return None
 
+    def settle(c):
+        """A rule decided it. In shadow mode (ANEES_LEDGER=shadow) nothing is applied, so it is only 'would settle'."""
+        if resolve:
+            c["resolved"] = True
+        else:
+            c["would_settle"] = True
+
     def supersede_wb(m, slip, why, same_key):
         """The Word Bank's right/wrong on this word gives way: folded into the slip's mark; its event is overridden."""
         m["verdict"], m["folded_into"], m["why"] = "folded", slip["id"], why
@@ -354,21 +367,28 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                 if not W or not (W <= set(toks(g.get("wrong")))):
                     continue
                 same_fix = bool(toks(r.get("fix"))) and set(toks(r.get("fix"))) <= set(toks(g.get("fix")))
-                if r.get("tier") == 2:
+                if not g.get("scored_rule"):
+                    conflict("C2b", r, g, {"by": "the grammar slip is in a rule with no use counter: the word slip keeps counting"})
+                elif r.get("tier") == 2:
                     c = conflict("C2", r, g, {"by": "wrong form"})
                     if resolve:
                         why = "the same slip is counted as grammar %s (a wrong form is grammar, WS-06)" % g.get("bucket")
                         r.update(verdict="not-scored", folded_into=g["id"], why=why, why_by="C2", _was="wrong")
                         g.setdefault("folded", []).append({"id": r["id"], "producer": r["by"]["producer"], "ref": r["by"]["ref"], "why": why})
                         actions["move"].append(("vocab_errors", r["id"], why, "C2"))
-                    c["resolved"] = True
+                    settle(c)
                 elif not same_fix:
                     conflict("C2b", r, g)          # a different word AND a wrong form: two errors, both stand (WS-09)
                 else:
                     c = conflict("C2q", r, g, {"why_medi": "the same fix was filed as a word slip and as a grammar slip"})
-                    ans = needs_medi(c, ["grammar", "both"], "Word slip or grammar slip?")
+                    ans = needs_medi(c, ["word", "grammar", "both"], "Word slip or grammar slip?")
                     if ans:
                         c["resolved"] = True
+                    if ans == "word" and resolve:
+                        why = "Medi: the same slip is a word slip, not grammar %s" % g.get("bucket")
+                        g.update(verdict="not-scored", folded_into=r["id"], why=why, why_by="medi", _was="slip")
+                        r.setdefault("folded", []).append({"id": g["id"], "producer": g["by"]["producer"], "ref": g["by"]["ref"], "why": why})
+                        actions["move"].append(("grammar_errors", g["id"], why, "C2q"))
                     if ans == "grammar" and resolve:
                         why = "Medi: the same slip is grammar %s" % g.get("bucket")
                         r.update(verdict="not-scored", folded_into=g["id"], why=why, why_by="medi", _was=r["verdict"])
@@ -405,11 +425,12 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                 if names_this and not is_gloss(r.get("wrong")) and (strength(r) >= 2 or (strength(r) == 1 and r.get("signal") in TM.VOICED)) and not patched:
                     c = conflict("C1", m, r)
                     if resolve:
-                        supersede_wb(m, r, ("Same attempt, counted once: Amal %s and it counts as the slip" if why_same else
-                                            "Said here, another word intended: Amal %s (%s)") % (TM.SIGNAL_WORDS.get(r.get("signal"), "flagged it"), r.get("fix") or ""),
+                        supersede_wb(m, r, ("Same attempt, counted once: Amal %s (%s) and it counts as the slip" if why_same else
+                                            ("Said here, another word intended: Amal %s (%s)" + ("" if r["verdict"] != "not-scored" else
+                                            "; her word is not on her list, so neither counts"))) % (TM.SIGNAL_WORDS.get(r.get("signal"), "flagged it"), r.get("fix") or ""),
                                      bool(why_same))
                         actions["move"].append(("vocab_correct", m["id"], m["why"], "C1"))
-                    c["resolved"] = True
+                    settle(c)
                     continue
                 kind = "CR" if patched else "C1q"
                 c = conflict(kind, m, r, {"why_medi": "his Word Bank edit" if patched else "not one word" if not names_this
@@ -422,13 +443,13 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                 if ans:
                     c["resolved"] = True
                     if resolve and (ans == "ledger" or base(norm(ans)) == t):
-                        supersede_wb(m, r, "Medi %s: %s was the wrong word" % ((rulings[c["id"]].get("date") or ""), ans), bool(why_same))
+                        supersede_wb(m, r, "Medi %s: %s was the wrong word" % (((c.get("medi") or {}).get("date") or ""), ans), bool(why_same))
                         actions["move"].append(("vocab_correct", m["id"], m["why"], kind))
         # C2w: a Word Bank Wrong on a counted grammar slip's word
         for m in wb_bad:
             t = base(norm(m.get("tok")))
             for g in gs:
-                if t and t in toks(g.get("wrong")):
+                if t and t in toks(g.get("wrong")) and g.get("scored_rule"):
                     if reviewed(review_patches, m["by"]["ref"]) == "hand":
                         conflict("C1r", m, g)
                         break
@@ -447,7 +468,7 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                                                      "changes": {"grammar_only": True, "classification": "grammar",
                                                                  "ledger": g["id"], "ledger_reason": why}})
                         actions["move"].append(("vocab_errors", m["id"], why, c["kind"]))
-                    c["resolved"] = True
+                    settle(c)
                     break
         # C3: a use and a slip of the same rule on one turn (GR-14)
         for u in [m for m in ms if m["verdict"] == "use"]:
@@ -460,7 +481,7 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                 g.setdefault("folded", []).append({"id": u["id"], "producer": "use-counter", "ref": u["id"], "t": u.get("t"), "hit": u.get("said"),
                                                    "why": "same turn as the slip (GR-14)"})
                 actions["fold_uses"].append({"bucket": u["bucket"], "date": date, "t": u.get("t"), "hit": u.get("said"), "mark": g["id"]})
-            c["resolved"] = True
+            settle(c)
 
     for m in marks:
         if "_was" in m:
@@ -559,7 +580,8 @@ def write_diff(published, lessons, ledgers, repo=REPO):
     before = {d: {"words": x.get("words") or {}, "grammar": x.get("grammar") or {}} for d, x in published.items()}
     after = {L["date"]: {"words": L["words"], "grammar": L["grammar"], "resolved": L["ledger"]["resolved"],
                          "needs_medi": L["ledger"]["needs_medi"]} for L in lessons}
-    lines = ["# One ledger: published -> this build", "", diff_table(before, after), "", "## Conflicts", ""]
+    lines = ["# One ledger: live site (origin/master) -> this build", "",
+             "A cell 'a -> **b**' moved from a to b; a single number did not move.", "", diff_table(before, after), "", "## Conflicts", ""]
     for d, led in sorted(ledgers.items()):
         for c in led["conflicts"]:
             state = "Medi?" if c.get("needs_medi") else "Medi: " + c["medi"]["answer"] if c.get("medi") else "settled" if c.get("resolved") else "both stand"
@@ -581,7 +603,8 @@ def input_files(date):
             "data/full-audit-2026-09-26.json", "docs/data/grammar-usage.json", "data/grammar-usage-rulings.json",
             "data/lesson-work/sheet-verdicts.json", "data/lesson-work/lesson-types/%s.json" % date,
             "data/lesson-work/ledger-rulings.json", "docs/data/words.json", "docs/data/grammar-buckets.json",
-            "scripts/amal_grammar_notes.py", "scripts/lesson_ledger.py"]
+            "scripts/amal_grammar_notes.py", "scripts/lesson_ledger.py", "scripts/transcript_marks.py",
+            "scripts/build_lessons_page_data.py"]
 
 
 def write(led, repo=REPO):
@@ -596,13 +619,13 @@ def write(led, repo=REPO):
 
 def diff_table(before, after):
     """before/after = {date: {"words": {...}, "grammar": {...}}} -> markdown table (one row per lesson)."""
-    out = ["| Lesson | Words % | Grammar % | Slips | Uses | Conflicts (resolved / Medi?) |", "|---|---|---|---|---|---|"]
+    out = ["| Lesson | Words % | Words scored | Grammar % | Slips | Uses | Conflicts (settled / Medi?) |", "|---|---|---|---|---|---|---|"]
     for d in sorted(after):
         b, a = before.get(d) or {}, after[d]
         f = lambda k, x: (b.get(k) or {}).get(x)
         g = lambda k, x: (a.get(k) or {}).get(x)
         cell = lambda k, x: (str(f(k, x)) if f(k, x) == g(k, x) else "%s -> **%s**" % (f(k, x), g(k, x)))
-        out.append("| %s | %s | %s | %s | %s | %s / %s |" % (d, cell("words", "pct"), cell("grammar", "pct"), cell("grammar", "mistakes"),
+        out.append("| %s | %s | %s | %s | %s | %s | %s / %s |" % (d, cell("words", "pct"), cell("words", "scored"), cell("grammar", "pct"), cell("grammar", "mistakes"),
                                                            cell("grammar", "uses"), a.get("resolved", 0), a.get("needs_medi", 0)))
     return "\n".join(out) + "\n"
 
@@ -620,6 +643,10 @@ def check(repo=REPO):
     wba = J(os.path.join(repo, "docs", "data", "word-bank-audit.json"), {}) or {}
     wbc = collections.Counter((e.get("date"), e.get("status")) for e in wba.get("events", []))
     console = J(os.path.join(repo, "docs", "data", "grammar-console.json"), {}) or {}
+    usage = J(os.path.join(repo, "docs", "data", "grammar-usage.json"), {}) or {}
+    usage_uses = usage.get("uses") or {}
+    usage_rows = list(usage.get("ruled_out") or []) + list(usage.get("not_uses_auto") or [])
+    bucket_ids = {b["id"] for b in (J(os.path.join(repo, "docs", "data", "grammar-buckets.json"), {}) or {}).get("buckets", [])}
     all_over = []
     led_by_rule = collections.defaultdict(lambda: [0, 0])
     for Ls in L["lessons"]:
@@ -672,11 +699,21 @@ def check(repo=REPO):
         vrows = [v for v in audit["sweep_compat"].get("vocab", []) if v["date"] == d and v.get("source") == "audit-2026-09-26"
                  and v.get("t") not in (None, "")]
         need |= {"ra:" + v["uid"] for v in vrows}
+        # every grammar use the counter found (and every ruled-out / not-a-use row) is in the ledger
+        n_use = sum(1 for b, us in usage_uses.items() if b not in NO_USAGE and b in bucket_ids for u in us if u.get("date") == d)
+        led_use = sum(1 for k in have if str(k).startswith("use:"))
+        if n_use != led_use:
+            probs.append(f"{d}: the use counter found {n_use} grammar uses, the ledger holds {led_use}")
+        n_nu = sum(1 for r in usage_rows if r.get("date") == d)
+        if n_nu != sum(1 for k in have if str(k).startswith("nu:")):
+            probs.append(f"{d}: {n_nu} ruled-out / not-a-use rows, the ledger holds a different number")
         lost = sorted(need - have)
         if lost:
             probs.append(f"{d}: {len(lost)} producer items have no mark {lost[:3]}")
         # no conflict without a needs-Medi entry or a rule that decided it
         for cf in led["conflicts"]:
+            if cf.get("would_settle") and not led.get("resolve"):
+                continue
             if not cf.get("resolved") and not cf.get("needs_medi") and not cf.get("medi") and cf["kind"] not in ("C1p", "C1a", "C2b", "C1r"):
                 probs.append(f"{d}: conflict {cf['id']} is neither resolved by a rule nor listed for Medi")
             if cf.get("needs_medi") and (cf.get("group") or cf["id"]) not in led["needs_medi"]:
@@ -694,6 +731,14 @@ def check(repo=REPO):
             led_by_rule[r][0] += x["uses"]
             led_by_rule[r][1] += x["mistakes"]
         all_over += [o["event_id"] for o in (led.get("overrides") or [])]
+    # every answer Medi gave still matches a question (a changed row would otherwise drop his answer silently)
+    asked = set()
+    for f in os.listdir(os.path.join(repo, "data", "lesson-work", "ledger")) if os.path.isdir(os.path.join(repo, "data", "lesson-work", "ledger")) else []:
+        if re.fullmatch(r"\d{4}-\d\d-\d\d\.json", f):
+            asked |= {c["id"] for c in J(os.path.join(repo, "data", "lesson-work", "ledger", f)).get("conflicts", [])}
+    for cid in load_rulings(os.path.join(repo, "data", "lesson-work", "ledger-rulings.json")):
+        if cid not in asked:
+            probs.append(f"Medi's answer to {cid} matches no question any more (the moment changed): ask him again or move the answer")
     # the Word Bank overrides the pages apply = the ledgers' overrides, and each still matches its event
     over = slips_doc.get("overrides") or []
     if sorted(o["event_id"] for o in over) != sorted(all_over):

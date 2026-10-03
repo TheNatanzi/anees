@@ -876,7 +876,8 @@ def build():
             tv = sec(v.get("t")) if v.get("t") else sec(v.get("t_amal"))
             if tv is None or v.get("source") != "audit-2026-09-26":
                 continue
-            same = next((e for e in verr if not e.get("source") and abs(e["t"] - tv) <= 5 and LL.same_word(e, v)), None)
+            # (kill switch ANEES_LEDGER=shadow: the old rule, any miss within 5 s)
+            same = next((e for e in verr if not e.get("source") and abs(e["t"] - tv) <= 5 and (LL.same_word(e, v) or LL.mode(REPO) == "shadow")), None)
             if same:
                 same.setdefault("folded", []).append(v.get("uid"))
                 continue
@@ -1025,7 +1026,9 @@ def build():
     # the same moment differently the existing rules decide (lesson_ledger.PRECEDENCE) or it is a "Medi?" moment counted
     # as before. The lists below are then rewritten from the ledger and every number on the page is the ledger's count.
     # ANEES_LEDGER=shadow builds the ledger and its diff but applies no resolution (the old counts), for a bad hour.
-    LMODE = os.environ.get("ANEES_LEDGER", "on")
+    # the kill switch: ANEES_LEDGER=shadow, or "mode": "shadow" in data/lesson-work/ledger-rulings.json (one line anyone
+    # can commit, read by the hourly job too)
+    LMODE = LL.mode(REPO)
     U0 = J(usage_p) if os.path.exists(usage_p) else {}
     patches = (J(os.path.join(DOCS, "data", "word-bank-review.json")).get("patches") or {})
     EV = {e["id"]: e for e in J(os.path.join(DOCS, "data", "word-bank-evidence.json")).get("events", [])}
@@ -1033,8 +1036,14 @@ def build():
         EV.setdefault(_a["event"]["id"], _a["event"])        # events the review overlay adds
     rulings = LL.load_rulings()
     scored_rules = {b for b, r in GT.items() if r["scored"]}
+    # "before" = what the live site shows (origin/master's lessons.json), else the last local build
     prev_p = os.path.join(DOCS, "data", "lessons.json")
-    published = {x["date"]: x for x in (J(prev_p).get("lessons", []) if os.path.exists(prev_p) else [])}
+    try:
+        _live = subprocess.run(["git", "show", "origin/master:docs/data/lessons.json"], cwd=REPO, capture_output=True,
+                               encoding="utf-8", check=True).stdout
+        published = {x["date"]: x for x in json.loads(_live).get("lessons", [])}
+    except Exception:
+        published = {x["date"]: x for x in (J(prev_p).get("lessons", []) if os.path.exists(prev_p) else [])}
     ledgers, fold_uses_all = {}, []
     for L in lessons:
         d, v = L["date"], per[L["date"]]
@@ -1044,8 +1053,14 @@ def build():
                "vocab_errors": {**dict(zip(LL.item_ids([e for e in v["vocab_errors"] if e.get("source") != "audit-2026-09-26"], "wb:", "event_id"),
                                            [e for e in v["vocab_errors"] if e.get("source") != "audit-2026-09-26"])),
                                 **{"ra:" + e["audit_uid"]: e for e in v["vocab_errors"] if e.get("source") == "audit-2026-09-26"}}}
+        ids["grammar_errors"] = {"rg:" + g["id"]: g for g in v["grammar_errors"]}
         for lst, mid, why, rule in act["move"]:
             e = ids[lst][mid]
+            if lst == "grammar_errors":          # Medi said the slip is a word slip: the grammar card is shown apart, not counted
+                v[lst] = [x for x in v[lst] if x is not e]
+                e.update(counted=False, not_counted_kind="ledger", not_counted_why=why, ledger_rule=rule)
+                v["grammar_not_counted"].append(e)
+                continue
             v[lst] = [x for x in v[lst] if x is not e]
             e.update(verdict_reason=why, ledger_rule=rule, ledger_id=mid)
             v.setdefault("not_errors", []).append(e)
@@ -1156,8 +1171,10 @@ def build():
     # with the reasons; lessons.json gains release / coverage_by_person / eligible-excluded-pending (scripts/accuracy_gates.py)
     sys.path.insert(0, HERE)
     # the Word Bank audit applies the ledger's overrides too (LS-11): re-run it so its counts follow this build
-    subprocess.run([NODE, os.path.join(HERE, "audit_word_bank_reliability.cjs"), os.path.join(DOCS, "data", "word-bank-evidence.json")],
-                   check=False, capture_output=True)
+    wa = subprocess.run([NODE, os.path.join(HERE, "audit_word_bank_reliability.cjs"), os.path.join(DOCS, "data", "word-bank-evidence.json")],
+                        capture_output=True, text=True, encoding="utf-8", errors="replace")
+    if wa.returncode:
+        raise SystemExit("Word Bank audit (audit_word_bank_reliability.cjs) failed after the ledger build: " + (wa.stderr or wa.stdout)[-800:])
     import accuracy_gates
     accuracy_gates.run_annotate(REPO)
     for L in lessons:
