@@ -13,8 +13,8 @@
    "verified_avg_pct": null,
    "unverified_avg_pct": 83.3,
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
-   "eligible": 1509,
-   "excluded": 20,
+   "eligible": 1511,
+   "excluded": 18,
    "pending": 3
   },
   "grammar": {
@@ -22,8 +22,8 @@
    "unverified_avg_pct": 82.5,
    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
    "denominator_valid_lessons": 0,
-   "eligible": 584,
-   "excluded": 40,
+   "eligible": 585,
+   "excluded": 39,
    "pending": 15
   },
   "verification_queue": 18,
@@ -830,30 +830,28 @@
    "reasons": [
     "reader agreement: pass 1 73.0 %; 2 consecutive passes at >= 95 % are needed",
     "coverage: Amal not transcribed 17:30-20:17 while the other person talks",
-    "coverage: Amal talks 00:04-01:06 (21 s of speech on their own track) with no transcript line",
+    "coverage: speaker labels agree with an independent check on only 87.7 % of 1002 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
     "coverage: Amal 00:00-20:17 comes from the mixed Meet recording, speakers split by diarization (their own track is silent there)",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4188 s) compared with a second model",
     "checks: 1 scored rows need an audio or human check (1 words, 0 grammar)"
    ],
    "words": {
     "pct": 87.6,
-    "eligible_pct": 87.5,
+    "eligible_pct": 87.6,
     "verified_pct": null,
     "scored": 170,
-    "eligible": 168,
-    "excluded": 2,
+    "eligible": 170,
+    "excluded": 0,
     "pending": 1,
-    "excluded_why": {
-     "Amal not transcribed": 2
-    }
+    "excluded_why": {}
    },
    "grammar": {
     "pct": 87.9,
     "verified_pct": null,
     "mistakes": 30,
     "uses": 232,
-    "eligible": 29,
-    "excluded": 1,
+    "eligible": 30,
+    "excluded": 0,
     "pending": 0,
     "estimate": false,
     "denominator_valid": false,
@@ -869,8 +867,8 @@
      "hole_s": 0
     },
     "Amal": {
-     "covered_pct": 94.5,
-     "missing_s": 229.5,
+     "covered_pct": 96.0,
+     "missing_s": 167.7,
      "hole_s": 0
     }
    },

@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T17:57:37-07:00",
+ "updated": "2026-10-02T17:59:34-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -3761,13 +3761,11 @@
     "audit_partial": 0,
     "not_on_sheet": 10,
     "unique_rows": 97,
-    "eligible": 168,
-    "excluded": 2,
+    "eligible": 170,
+    "excluded": 0,
     "pending": 1,
-    "eligible_pct": 87.5,
-    "excluded_why": {
-     "Amal not transcribed": 2
-    },
+    "eligible_pct": 87.6,
+    "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
@@ -3777,8 +3775,8 @@
     "estimate": false,
     "scored_mistakes": 28,
     "unscored_mistakes": 2,
-    "eligible": 29,
-    "excluded": 1,
+    "eligible": 30,
+    "excluded": 0,
     "pending": 0,
     "denominator": {
      "valid": false,
@@ -3885,7 +3883,7 @@
     "reasons": [
      "reader agreement: pass 1 73.0 %; 2 consecutive passes at >= 95 % are needed",
      "coverage: Amal not transcribed 17:30-20:17 while the other person talks",
-     "coverage: Amal talks 00:04-01:06 (21 s of speech on their own track) with no transcript line",
+     "coverage: speaker labels agree with an independent check on only 87.7 % of 1002 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
      "coverage: Amal 00:00-20:17 comes from the mixed Meet recording, speakers split by diarization (their own track is silent there)",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4188 s) compared with a second model",
      "checks: 1 scored rows need an audio or human check (1 words, 0 grammar)"
@@ -3933,17 +3931,12 @@
        1049.51,
        1217.25,
        "no transcript for Amal while the other person talks"
-      ],
-      [
-       4.4,
-       66.2,
-       "Amal talks 00:04-01:06 (21 s of speech on their own track) with no transcript line"
       ]
      ],
      "holes": [],
-     "missing_s": 229.5,
+     "missing_s": 167.7,
      "hole_s": 0,
-     "covered_pct": 94.5
+     "covered_pct": 96.0
     }
    }
   },
