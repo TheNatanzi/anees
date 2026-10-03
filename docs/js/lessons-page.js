@@ -707,6 +707,9 @@ function tmRow(x, t, m, i) {
     b.appendChild(el('span', 'tm-kind', ' · ' + (c.s === 'na' ? (c.label || v.kind) : (c.k === 'fix' ? 'she ' + v.sig + ' · ' : '') + v.kind)));
     if (v.main) b.appendChild(el('span', 'tm-what', ' · ' + v.main));
     if (v.ar) { var a = el('span', 'tm-ar', v.ar); a.setAttribute('lang', 'ar'); a.setAttribute('dir', 'rtl'); b.appendChild(a); }
+    // PR-15: a chip he corrected shows it at once (the number moves on the 15-minute rebuild)
+    var AC = window.AneesCorrections, mine = AC ? AC.chipRows(x.date, c, t) : [];
+    if (mine.length) { b.classList.add('tc-chip-yours'); b.appendChild(el('span', 'tc-chip-note', ' · ✎ you: ' + AC.label(mine[mine.length - 1]))); }
     chips.appendChild(b);
   });
   main.appendChild(chips);

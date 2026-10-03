@@ -305,12 +305,16 @@ function openWordPanel(row, x, turn, parts, word) {
     P.appendChild(ws);
   } else {
     var part = partFor(parts, word);
-    var q = el('div', 'tc-q'); q.appendChild(document.createTextNode('What did you say? The engine wrote ')); q.appendChild(arabic(el('b', '', word)));
+    var q = el('div', 'tc-q'); q.appendChild(document.createTextNode('What did you say? The engine wrote '));
+    if (H.toArabizi && /[؀-ۿ]/.test(word)) q.appendChild(el('b', '', H.toArabizi(word).text + ' '));
+    q.appendChild(arabic(el('small', '', word)));
     P.appendChild(q);
     var g = guesses(word, ctxFor(x, part), H.toArabizi), gr = el('div', 'tc-row');
     g.forEach(function (o) {
       var b = btn('tc-big tc-guess', '', function () { save(x, part, 'text', { word: word }, { engine_wrote: word, heard: o.w, from: o.from }); });
-      b.appendChild(arabic(el('span', 'tc-g', o.w))); if (o.az) b.appendChild(el('small', '', ' ' + o.az)); b.appendChild(el('small', 'tc-from', ' · ' + o.from));
+      // S1: Arabizi big, Arabic small
+      var isAr = /[؀-ۿ]/.test(o.w), big = o.az || (isAr && H.toArabizi ? H.toArabizi(o.w).text : o.w);
+      b.appendChild(el('span', 'tc-g', big)); if (isAr) b.appendChild(arabic(el('small', '', ' ' + o.w))); b.appendChild(el('small', 'tc-from', ' · ' + o.from));
       gr.appendChild(b);
     });
     P.appendChild(gr);
@@ -378,22 +382,30 @@ function decorate(row, x, turn, parts) {
 function answerOf(pid) {
   return effective(allRows()).filter(function (r) { return r.kind === 'rule-answer' && r.proposal === pid; }).pop() || null;
 }
+// S1: Arabizi big, Arabic small - for the plain sentence and each before/after
+function azText(text) {
+  var span = el('span', 'tc-az');
+  var t = String(text || ''), hasAr = /[؀-ۿ]/.test(t);
+  span.appendChild(el('span', '', hasAr && H.toArabizi ? t.replace(/[؀-ۿ][؀-ۿ\s]*/g, function (m) { return H.toArabizi(m.trim()).text + (/\s$/.test(m) ? ' ' : ''); }) : t));
+  if (hasAr) span.appendChild(arabic(el('small', 'tc-ar', (t.match(/[؀-ۿ][؀-ۿ\s]*/g) || []).map(function (m) { return m.trim(); }).join(' · '))));
+  return span;
+}
 function proposalCard(x, p) {
   var card = el('div', 'tc-prop tc-owner-' + p.owner);
   var mine = answerOf(p.id);
   if (p.owner === 'one-off') { card.appendChild(el('div', 'tc-plain', p.plain)); return card; }
   var head = el('div', 'tc-plain');
   head.appendChild(el('b', '', p.owner === 'medi' ? 'This looks like a rule: ' : p.owner === 'amal' ? "Amal's call: " : 'A shape for a code rule: '));
-  head.appendChild(arabic(el('span', '', p.plain)));
+  head.appendChild(azText(p.plain));
   card.appendChild(head);
   if (p.owner === 'medi') card.appendChild(el('div', 'ab-mini', 'It would change ' + p.n + ' other moment' + (p.n === 1 ? '' : 's') + (p.n ? ':' : ' today (and every future lesson).')));
   var list = el('ul', 'tc-moments');
   (p.first || []).forEach(function (m) {
     var li = el('li');
     li.appendChild(btn('tc-play', '▶ ' + m.date.slice(5) + ' ' + m.mmss, function (b) { if (H.play) H.play(m.date, m.t, b); }, 'Play this moment'));
-    li.appendChild(arabic(el('span', 'tc-before', ' ' + m.before)));
+    var bf = azText(m.before); bf.classList.add('tc-before'); li.appendChild(bf);
     li.appendChild(el('span', '', ' → '));
-    li.appendChild(arabic(el('span', 'tc-after', m.after)));
+    var af = azText(m.after); af.classList.add('tc-after'); li.appendChild(af);
     list.appendChild(li);
   });
   if (p.n > 3) { var more = el('li', 'ab-mini', 'and ' + (p.n - 3) + ' more'); list.appendChild(more); }
@@ -437,8 +449,7 @@ function mountLesson(body, x) {
   body.appendChild(box);
   function paint() {
     props.textContent = '';
-    var mineIds = {}; rowsFor(x.date).forEach(function (r) { mineIds[r.id] = 1; });
-    var ps = (PROPOSALS || []).filter(function (p) { return p.date === x.date && mineIds[p.from]; });
+    var ps = (PROPOSALS || []).filter(function (p) { return p.date === x.date; });   // his page taps + the ones he gave in chat
     var pending = rowsFor(x.date).filter(function (r) { return r.kind !== 'rule-answer' && !(PROPOSALS || []).some(function (p) { return p.from === r.id; }); }).length;
     if (pending) props.appendChild(el('div', 'ab-mini tc-wait', pending + ' new correction' + (pending === 1 ? '' : 's') + ': Anees looks for the rule behind ' + (pending === 1 ? 'it' : 'them') + ' within 15 min.'));
     ps.forEach(function (p) { props.appendChild(proposalCard(x, p)); });
@@ -450,7 +461,11 @@ function mountLesson(body, x) {
   return { paint: paint };
 }
 function setup(h) { H = Object.assign(H, h || {}); }
+function label(r) {
+  var why = (REASONS.filter(function (q) { return q[0] === (r.payload || {}).reason; })[0] || [])[1];
+  return (KIND_WORDS[r.kind] || r.kind) + (why ? ' (' + why + ')' : '');
+}
 
 root.AneesCorrections = Object.assign(api, { setup: setup, decorate: decorate, chipActions: chipActions, wordTap: wordTap, mountLesson: mountLesson,
-  rowsFor: rowsFor, lineRows: lineRows, chipRows: chipRows, statusText: statusText, sync: sync });
+  rowsFor: rowsFor, lineRows: lineRows, chipRows: chipRows, label: label, statusText: statusText, sync: sync });
 })(this);

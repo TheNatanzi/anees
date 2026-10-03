@@ -197,3 +197,38 @@ def test_pr_16_standing_rules_apply_to_every_lesson_text_rows_and_not_use():
     rows = [{"date": "2026-11-01", "t": "00:01", "kind": "vocab-A", "wrong": "سمعت", "signal": "recast"},
             {"date": "2026-11-01", "t": "00:02", "kind": "vocab-A", "wrong": "سمعت", "signal": "amal-ruling"}]
     assert MC.apply_standing(rows, [ns]) == {"MC-004": 1} and rows[0]["kind"] == "rejected" and rows[1]["kind"] == "vocab-A"
+
+
+# ------------------------------------------------------------------ Codex audit 2026-10-03 (PR-17)
+def test_pr_17_a_duplicate_suffixed_uid_picks_its_own_row_and_an_ambiguous_fingerprint_changes_nothing():
+    uid_of = lambda r: "FA-base0001"  # noqa: E731  (both rows share one base, as before assign_uids)
+    a = {"date": "2026-10-02", "t": "07:02", "kind": "vocab-A", "wrong": "سمعت", "signal": "recast"}
+    b = dict(a)
+    MC.apply_rows([a, b], [_c(target={"k": "vocab", "wrong": "سمعت", "src": "FA-base0001x"})], answers={}, rules=[], uid_of=uid_of)
+    assert a["kind"] == "vocab-A" and b["kind"] == "rejected"
+    a2, b2 = dict(a), dict(a)
+    rep = MC.apply_rows([a2, b2], [_c(cid="amb", target={"k": "vocab", "wrong": "سمعت"})], answers={}, rules=[])
+    assert a2["kind"] == b2["kind"] == "vocab-A" and rep["orphaned"] == ["c-amb"]
+
+
+def test_pr_17_a_held_bad_batch_never_blocks_later_real_corrections(tmp_path):
+    out, q = str(tmp_path / "m.json"), str(tmp_path / "q.json")
+    junk = [_c(cid="j%d" % i) for i in range(MC.HOLD_OVER + 1)]
+    assert MC.pull(out, fetch=lambda: junk, dates={"2026-10-02"}, quar=q, log=Q)["status"] == "held"
+    res = MC.pull(out, fetch=lambda: junk + [_c(cid="real")], dates={"2026-10-02"}, quar=q, log=Q)
+    assert res["status"] == "ok" and [r["id"] for r in MC.J(out)["rows"]] == ["c-real"]
+
+
+def test_pr_17_a_time_fix_reaches_the_track_turns_too():
+    import transcript_fixes as TF
+    rows = MC.text_rows([_c(cid="t", kind="time", turn_t=10.0, payload={"t": 12.5})])
+    T = TF.apply_tracks("2026-10-02", [{"start": 10.0, "end": 11.0, "speaker": "Medi", "text": "b"}], rows)
+    assert T[0]["start"] == 12.5 and T[0]["end"] == 13.5 and T[0]["engine_start"] == 10.0
+
+
+def test_pr_16_the_corrected_moment_is_never_counted_as_another_moment():
+    # his sentence starts 06:46 (406.48) and runs to 428.64; the reader row sits at 07:02 inside it
+    rows = [{"date": "2026-10-02", "t": "07:02", "kind": "vocab-A", "wrong": "سمعت", "signal": "recast", "uid": "FA-172fc4ea"}]
+    c = _c(turn_t=406.48, target={"k": "vocab", "wrong": "سمعت", "signal": "recast", "src": "FA-172fc4ea"},
+           payload={"reason": "not-correcting", "turn_end": 428.64})
+    assert MC.propose([c], rows=rows, uses_=[])[0]["n"] == 0

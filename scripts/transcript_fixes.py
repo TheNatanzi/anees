@@ -121,5 +121,8 @@ def apply_tracks(date, T, rows=None):
             u = dict(u, text=v["text"], engine=v["engine"], heard=v["heard"])
         if v.get("engine_who") and v["who"] != u.get("speaker"):
             u = dict(u, speaker=v["who"], engine_speaker=u.get("speaker"))
+        if v.get("engine_t") is not None and float(v["t"]) != float(u["start"]):     # PR-15 time fix (Codex audit 2026-10-03)
+            d = float(v["t"]) - float(u["start"])
+            u = dict(u, start=float(v["t"]), end=(float(u["end"]) + d) if u.get("end") is not None else None, engine_start=u["start"])
         res.append(u)
     return res

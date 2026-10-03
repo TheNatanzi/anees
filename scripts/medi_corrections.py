@@ -149,9 +149,16 @@ def pull(path=OUT, fetch=None, dates=None, quar=QUAR_P, log=print):
     old = {r["id"]: r for r in all_rows(path, hand=None)}
     Q = J(quar) or {"rows": []}
     qids = {x["row"].get("id") for x in Q["rows"] if isinstance(x.get("row"), dict)}
-    new = [r for r in rows if isinstance(r, dict) and r.get("id") not in old]
+    # a row already quarantined or held is not 'new' again: a bad batch can never block later real corrections
+    # (Codex audit 2026-10-03); ANEES_CORRECTIONS_BULK_OK=1 releases the held ones after a look
+    bulk_ok = os.environ.get("ANEES_CORRECTIONS_BULK_OK") == "1"
+    held_ids = {x["row"].get("id") for x in Q["rows"] if str(x.get("why", "")).startswith("held") and isinstance(x.get("row"), dict)}
+    new = [r for r in rows if isinstance(r, dict) and r.get("id") not in old and (r.get("id") not in qids or (bulk_ok and r.get("id") in held_ids))]
+    if bulk_ok and held_ids:
+        Q["rows"] = [x for x in Q["rows"] if not str(x.get("why", "")).startswith("held")]
+        qids -= held_ids
     out = {"status": "ok", "new": 0, "quarantined": 0}
-    if len(new) > HOLD_OVER and os.environ.get("ANEES_CORRECTIONS_BULK_OK") != "1":
+    if len(new) > HOLD_OVER and not bulk_ok:
         for r in new:
             if r.get("id") not in qids:
                 Q["rows"].append({"row": r, "why": "held: %d new rows in one pull (more than %d); set ANEES_CORRECTIONS_BULK_OK=1 after a look" % (len(new), HOLD_OVER)})
@@ -242,15 +249,23 @@ def matches(row, c):
 
 
 def find(rows, c, uid_of=None, include_rejected=False):
-    """-> (rows, how): the producer id first (council 1), else the fingerprint."""
-    src = (c.get("target") or {}).get("src")
+    """-> (rows, how): the producer id first (council 1), else the fingerprint. full_audit_build applies corrections
+    before assign_uids(), so a duplicate's suffixed uid (FA-...x) is its base uid plus its place among the rows sharing
+    that base, in display order (Codex audit 2026-10-03). The fingerprint fallback changes ONE row only: when it matches
+    several, the correction is orphaned ('re-check this one') instead of changing them all."""
+    src = str((c.get("target") or {}).get("src") or "")
     pool = [r for r in rows if include_rejected or r.get("kind") != "rejected"]
-    if src and str(src).startswith("FA-"):
-        hit = [r for r in pool if (r.get("uid") or r.get("id") or (uid_of(r) if uid_of else "")) == src
-               or (uid_of and uid_of(r) == src)]
-        if hit:
-            return hit, "producer"
+    if src.startswith("FA-"):
+        base, nth = src.rstrip("x"), len(src) - len(src.rstrip("x"))
+        same = [r for r in pool if (r.get("uid") or "").rstrip("x") == base or (uid_of and uid_of(r) == base)]
+        if any(r.get("uid") == src for r in same):
+            return [r for r in same if r.get("uid") == src], "producer"
+        same.sort(key=lambda r: (str(r.get("date")), sec(r.get("t")) if sec(r.get("t")) is not None else 1e9))
+        if nth < len(same):
+            return [same[nth]], "producer"
     hit = [r for r in pool if matches(r, c)]
+    if len(hit) > 1:
+        return [], "ambiguous"
     return hit, ("fingerprint" if hit else None)
 
 
@@ -469,8 +484,9 @@ def row_matches(pattern, rows, skip=None):
         if pattern.get("not_class") and _class(r.get("kind")) != pattern["not_class"]:
             continue
         t = sec(r.get("t")) or 0
-        if skip and str(r.get("date")) == skip[0] and abs(t - skip[1]) <= 4:
-            continue
+        if skip and (str(r.get("date")) == skip[0] and skip[1] - 4 <= t <= (skip[2] if len(skip) > 2 and skip[2] else skip[1]) + 4
+                     or (len(skip) > 3 and skip[3] and r.get("uid") == skip[3])):
+            continue                     # the corrected moment itself (his line can span several engine lines)
         after = pattern.get("after_words") or "not counted"
         hits.append(_moment(str(r.get("date")), t, "%s → %s (%s)" % (r.get("wrong"), r.get("right"), r.get("kind")), after,
                             r.get("signal") == "amal-ruling"))
@@ -482,7 +498,7 @@ def use_matches(pattern, uses_, skip=None):
     for u in uses_:
         if u.get("bucket") != pattern["rule"] or _piece(u.get("hit")) != _piece(pattern["hit"]):
             continue
-        if skip and str(u.get("date")) == skip[0] and abs(float(u.get("t") or 0) - skip[1]) <= 3:
+        if skip and str(u.get("date")) == skip[0] and skip[1] - 3 <= float(u.get("t") or 0) <= skip[2] + 3:
             continue
         hits.append(_moment(str(u.get("date")), float(u.get("t") or 0), "✓ %s use: %s" % (pattern["rule"], u.get("hit")), "not a use"))
     return hits
@@ -502,7 +518,7 @@ def propose(corrections=None, repo=REPO, rows=None, uses_=None):
         k, p, tg = c.get("kind"), c.get("payload") or {}, c.get("target") or {}
         if k in ("rule-answer",):
             continue
-        skip = (str(c["lesson_date"]), float(c["turn_t"]))
+        skip = (str(c["lesson_date"]), float(c["turn_t"]), float(p.get("turn_end") or c["turn_t"]), tg.get("src"))
         X = None
         prop = {"id": "P-" + c["id"][:8], "from": c["id"], "kind": k, "date": str(c["lesson_date"]), "t": float(c["turn_t"]),
                 "mmss": mmss(c["turn_t"]), "moments": []}
