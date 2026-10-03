@@ -1,6 +1,6 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 21,
+ "count": 20,
  "by_date": {
   "2026-08-25": 1,
   "2026-09-04": 2,
@@ -12,7 +12,7 @@
   "2026-09-21": 3,
   "2026-09-26": 1,
   "2026-10-01": 1,
-  "2026-10-02": 3
+  "2026-10-02": 2
  },
  "rows": [
   {
@@ -513,32 +513,6 @@
    "second_judge": null,
    "listen_from": "09:13",
    "listen_to": "09:44"
-  },
-  {
-   "uid": "FA-62568de1",
-   "date": "2026-10-02",
-   "t": "23:31",
-   "t_amal": "23:40",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "المال راح... Is money masculine?",
-   "amal_said": "مسافة is plural. (engine; = مصاري)",
-   "wrong": "المال",
-   "right": "المصاري (el-masari)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "the transcript under it is disputed (engine wrote something else)"
-   ],
-   "check": "audio",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "The independent transcriptions show Medi already saying «المصاري», and Amal's response is about number agreement, not replacing «المال» with «المصاري»."
-   },
-   "listen_from": "23:21",
-   "listen_to": "24:00"
   }
  ]
 }

@@ -9,8 +9,8 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | Grammar fixes Amal voiced (A) | **595** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 89 |
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 9 |
-| Vocab fixes Amal voiced (A) | **283** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 161, '0': 115, '2': 46, '3': 5} |
+| Vocab fixes Amal voiced (A) | **282** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 160, '0': 115, '2': 46, '3': 5} |
 | Vocab she let pass (B, to Amal) | **44** by tier {'1': 25, '2': 13, '3': 6} |
 | Listening-drill misreads (kept apart) | 82 |
 | Rows the readers found that the sweep did not have | 681 |
@@ -38,7 +38,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-09-28 | 18 | 2 | 20 | 0 | 2 | 0 | 0 | 51.1 % |
 | 2026-09-30 | 20 | 2 | 14 | 0 | 0 | 0 | 0 | 73.7 % |
 | 2026-10-01 | 16 | 2 | 4 | 3 | 2 | 0 | 0 | 78.8 % |
-| 2026-10-02 | 15 | 0 | 11 | 1 | 2 | 0 | 0 | 52.8 % |
+| 2026-10-02 | 15 | 0 | 10 | 1 | 2 | 0 | 0 | 52.8 % |
 
 ## Reader passes (the loop)
 
@@ -1507,7 +1507,7 @@ _00:02-06:12 and 53:31-end are English meta talk. 12:34-15:40 and 37:41-42:12 tr
 | FA-ee7adb71 | 15:40 | vocab-A | tier 1 | Talat Asha Alfayn Sitwa Ashrin. | عشاء. What's عشاء؟ | Asha -> 3ashara | He said 3asha (dinner) inside the date for 3ashara; Amal echoed عشاء and asked what it means, he realized 'was that dinner?'. | high | r1+r2 |
 | FA-57c40cde | 18:12 | grammar | A8 | So elsaa el awal | Yes. بس we learned how to say الأول for a feminine. What is it? | elsaa el awal -> الساعة الأولى | ساعة is feminine so the adjective is الأولى; Amal prompted and he fixed. | high | r1+r2 |
 | FA-0529f692 | 21:50 | grammar-propose | PROPOSE | and التاني الساعة means a different hour. | لا. We can't say تاني الساعة. It doesn't mean anything. | التاني الساعة -> ساعة تانية / تاني ساعة | He put el-tani before el-saa3a; she said it means nothing. | medium | r1+r2 |
-| FA-62568de1 | 23:31 | vocab-A | tier 1 | المال راح... Is money masculine? | مسافة is plural. (engine; = مصاري) | المال -> المصاري (el-masari) | He used MSA المال; Amal answered with her word مصاري (engine wrote مسافة), her chat writes el-masari; sheet row 'money (plural) / Ma9aari / مصاري'. Medium: her voiced word came as the answer to his gender question. | medium | r3 |
+| FA-bad335d3 | 23:31 | rejected | tier 1 | المال راح... Is money masculine? | مسافة is plural. (engine; = مصاري) | المال -> المصاري (el-masari) | He used MSA المال; Amal answered with her word مصاري (engine wrote مسافة), her chat writes el-masari; sheet row 'money (plural) / Ma9aari / مصاري'. Medium: her voiced word came as the answer to his gender question. | medium | r3 |
 | FA-5442b74f | 27:16 | vocab-A | tier 1 | هذي اليوم التانية. | مرة، هذي المرة. | اليوم -> المرة | He said اليوم (day) where he meant المرة (time); Amal supplied هذي المرة and he rebuilt it. | medium | r1+r2 |
 | FA-9d06f6cf | 28:43 | grammar | A8 | So ساعة الأول-- It should be ساعة الأول. ... 28:54 ساعة الأول. | أولى. ... السـ-- الساعة الأولى. | ساعة الأول -> الساعة الأولى | Feminine ساعة needs الأولى (plus el- on the noun with an el- adjective); she said أولى, he repeated ساعة الأول, she recast الساعة الأولى - a new production after the 18:12 row (A11), fixed again. | high | r3 |
 | FA-478fa349 | 30:35 | grammar (listening) | PROPOSE | The first day ... 30:39 The first day. | أول اليوم. ... أول اليوم. [تضحك] | The first day -> the beginning of the day | Listening drill: he read أول اليوم as 'the first day'; she repeated أول اليوم twice and laughed until he said 'The beginning of the day' (30:52). | medium | r3 |

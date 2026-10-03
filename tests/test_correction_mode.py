@@ -279,3 +279,14 @@ def test_tr_23_elsa_on_his_line_is_el_saa3a():
     """TR-23 (Medi 2026-10-03 "I was trying to say el Sa3aa")."""
     import arabizi_reader as R
     assert R.to_arabic("Elsa.").strip(" .") == "الساعة" and "الساعة" in R.to_arabic("So elsaa el awal")
+
+
+def test_tr_24_a_slip_built_on_a_word_he_says_the_engine_misheard_is_dropped_but_not_a_real_slip_around_it():
+    """TR-24 (Medi 2026-10-03 "maal masafe these are suppose to be masari (money)")."""
+    import full_audit_build as F
+    fx = [{"date": "2026-10-02", "t": 1411.15, "who": "Medi", "engine_wrote": "المال", "heard": "المصاري", "by": "medi"},
+          {"date": "2026-10-02", "t": 1091.88, "who": "Medi", "engine_wrote": "elsaa", "heard": "الساعة", "by": "medi"}]
+    rows = [{"date": "2026-10-02", "t": "23:31", "kind": "vocab-A", "wrong": "المال", "right": "المصاري"},
+            {"date": "2026-10-02", "t": "18:12", "kind": "grammar", "wrong": "elsaa el awal", "right": "el-saa3a el-oola"}]
+    assert F.apply_misheard(rows, fx) == 1
+    assert rows[0]["kind"] == "rejected" and "TR-24" in rows[0]["rejected_why"] and rows[1]["kind"] == "grammar"

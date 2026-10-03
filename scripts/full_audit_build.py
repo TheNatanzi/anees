@@ -85,6 +85,33 @@ def uid_base(r):
     return f"{r['date']}|{int(sec(r.get('t')) or 0)}|{norm(r.get('wrong'))}|{kind_class(r.get('kind'))}"
 
 
+def apply_misheard(rows, fixes=None):
+    """TR-24 (Medi 2026-10-03 "maal masafe these are suppose to be masari (money)"): when Medi says what he really said on a
+    line (a heard-word overlay row of his, data/lesson-work/transcript-fixes.json by: medi, or his page correction), a
+    slip the readers built on the engine's word there is not his slip: it is kept, rejected, with the reason. Only his own
+    overlay rows - a reader's overlay row never drops a slip by itself. -> how many rows it dropped."""
+    import transcript_fixes as TF
+    fixes = [f for f in (TF.load() if fixes is None else fixes) if f.get("by") == "medi" and f.get("engine_wrote") and f.get("who", "Medi") == "Medi"]
+    n = 0
+    for r in rows:
+        if r.get("kind") == "rejected" or not norm(r.get("wrong")):
+            continue
+        t = sec(r.get("t"))
+        for f in fixes:
+            if str(f["date"]) != str(r.get("date")) or t is None or abs(float(f["t"]) - t) > 4:
+                continue
+            ew, w = norm(f["engine_wrote"]), norm(r.get("wrong"))
+            # the whole wrong piece IS the misheard word: 'المال' (yes) - never a phrase that only contains it ('elsaa el
+            # awal' is his real gender slip on awal, 18:12)
+            if ew and w == ew:
+                r["kind_before_rejection"] = r["kind"]
+                r.update(kind="rejected", rejected_rule="TR-24",
+                         rejected_why="TR-24: the recording engine wrote %s; Medi said %s (%s), so it is not his slip" % (f["engine_wrote"], f["heard"], f.get("on") or ""))
+                n += 1
+                break
+    return n
+
+
 def assign_uids(rows):
     """uid is STABLE across rebuilds (patterns.json and Amal's rulings key on it): a hash of date + moment + wrong piece,
     not a position. `n` is the display order. A second row with the same base keeps a suffixed uid (so an old link to it
@@ -463,6 +490,7 @@ def build():
     apply_chat_rule(rows, json.load(open(SIGNAL_P, encoding="utf-8"))["rows"] if os.path.exists(SIGNAL_P) else [])
     apply_el_prompt(rows)
     apply_demonstrative(rows)
+    apply_misheard(rows)
     import medi_corrections as MC     # PR-15: Medi's corrections (page table mirror + the ones he gave in chat)
     import hashlib as _hl
     MC_REPORT = MC.apply_rows(rows, uid_of=lambda r: "FA-" + _hl.sha1(uid_base(r).encode("utf-8")).hexdigest()[:8])

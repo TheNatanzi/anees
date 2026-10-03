@@ -7097,6 +7097,42 @@
      "contains": "test('PG-26 a second play bar sits at the bottom middle"
     }
    ]
+  },
+  {
+   "id": "TR-24",
+   "kind": "not-error",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "When Medi says what he really said on a line (his own heard-word overlay row, data/lesson-work/transcript-fixes.json by: medi), a slip the AI readers built on the engine's word there is not his slip: scripts/full_audit_build.py apply_misheard() keeps the row, rejected, with the reason. Only when the slip's whole wrong piece IS the misheard word (10-02 23:31 engine المال, he said المصاري, masari = money: the ✗ 'el-maal -> el-masari' goes) - never a phrase that only contains it (18:12 'elsaa el awal' stays: his real gender slip on awal). Only his own rows drop a slip; a reader's overlay row never does. 2026-10-03: 1 slip dropped in 18 lessons.",
+   "plain": "When you fix a word the engine misheard, a mistake that was built on the engine's wrong word disappears. A real mistake on the same line stays.",
+   "plain_for": "09d0c34d",
+   "topic": "transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "maal masafe these are suppose to be masari (money)"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/full_audit_build.py",
+     "contains": "def apply_misheard(rows, fixes=None):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_correction_mode.py",
+     "contains": "def test_tr_24_a_slip_built_on_a_word_he_says_the_engine_misheard_is_dropped_but_not_a_real_slip_around_it"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "23:31",
+    "note": "engine المال, he said المصاري; Amal's 'masari is plural' was written مسافة"
+   }
   }
  ]
 }
