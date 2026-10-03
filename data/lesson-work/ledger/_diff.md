@@ -21,7 +21,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-09-28 | 85.7 | 140 | 89.7 | 19 | 174 | 0 / 1 |
 | 2026-09-30 | 86.7 | 83 | 91.3 | 19 | 207 | 1 / 0 |
 | 2026-10-01 | 92.1 | 101 | 92.4 | 15 | 185 | 1 / 0 |
-| 2026-10-02 | 84.4 | 77 | 93.4 | 16 | 244 -> **243** | 1 / 0 |
+| 2026-10-02 | 84.4 | 77 | 93.4 | 16 | 243 | 1 / 0 |
 
 
 ## Conflicts
@@ -56,7 +56,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 
 ## Medi's corrections (PR-15)
 
-- applied: chat-20261002-hadi-subu7, chat-20261003-laazem-3utle, chat-20261003-re7le-a5eera
+- applied: chat-20261002-hadi-subu7, chat-20261003-laazem-3utle, chat-20261003-re7le-a5eera, chat-20261003-3ashrah-da2aye2
 - orphaned (match nothing, re-check): none
 - waiting for Amal: none
 - standing rules: none

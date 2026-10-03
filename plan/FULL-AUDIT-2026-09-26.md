@@ -7,13 +7,13 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | | count |
 |---|---|
 | Grammar fixes Amal voiced (A) | **596** (sweep had 312) |
-| Grammar she let pass (B, to Amal) | 89 |
+| Grammar she let pass (B, to Amal) | 90 |
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 8 |
 | Vocab fixes Amal voiced (A) | **282** (sweep had 147; lesson pages showed 23) |
 | - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 160, '0': 115, '2': 46, '3': 5} |
 | Vocab she let pass (B, to Amal) | **44** by tier {'1': 25, '2': 13, '3': 6} |
 | Listening-drill misreads (kept apart) | 82 |
-| Rows the readers found that the sweep did not have | 682 |
+| Rows the readers found that the sweep did not have | 683 |
 | Sweep rows the readers did not list (kept) | 115 |
 | Machine audit already had | 104 |
 
@@ -38,7 +38,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-09-28 | 18 | 2 | 20 | 0 | 2 | 0 | 0 | 51.1 % |
 | 2026-09-30 | 20 | 2 | 14 | 0 | 0 | 0 | 0 | 73.7 % |
 | 2026-10-01 | 16 | 2 | 4 | 3 | 2 | 0 | 0 | 78.8 % |
-| 2026-10-02 | 16 | 0 | 10 | 1 | 2 | 0 | 0 | 52.8 % |
+| 2026-10-02 | 16 | 1 | 10 | 1 | 2 | 0 | 0 | 52.8 % |
 
 ## Reader passes (the loop)
 
@@ -93,8 +93,8 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | B8 | bakoon / ykoon | 7 |
 | A3 | feminine -t in idafa | 7 |
 | B6 | kaan = was / were | 7 |
+| E1 | number + noun | 7 |
 | A10 | hada / hadi | 6 |
-| E1 | number + noun | 6 |
 | A12 | pronoun matches who you mean | 5 |
 | E4 | calendar | 5 |
 | B16 | kan laazem | 4 |
@@ -1519,6 +1519,7 @@ _00:02-06:12 and 53:31-end are English meta talk. 12:34-15:40 and 37:41-42:12 tr
 | FA-7f27b005 | 42:09 | grammar | A8 | il khitiara il awwal. Is it awwal? | الأولى. | il awwal -> الأولى | 5ityaara is feminine so the adjective is el-oola; Amal recast الأولى. | medium | r1+r2 |
 | FA-ea740d3c | 43:16 | grammar-propose | PROPOSE | تاني حاجة. | تاني حدا would mean the second person. | تاني حاجة -> حدا تاني | Engine wrote حاجة; Amal echoes تاني حدا - before the noun tani means 'second', for 'someone else' it goes after: 7ada taani. | high | r1+r2 |
 | FA-2a4b4458 | 43:20 | grammar | A7 | Oh, you're right. Uh, هذا الثاني. | حدا التاني is no. X. Just حدا تاني. | هذا الثاني -> حدا تاني | Engine wrote هذا for 7ada; Amal: حدا التاني is wrong, an indefinite noun takes the adjective without el-: حدا تاني. | high | r1+r2 |
+| FA-0d9dd3dc | 44:59 | grammar-B | E1 | آخر عشرة دقايق. عشرة دقايق؟ | عشر y. | عشرة دقايق -> عشر دقايق | Medi 2026-10-03 marked it a mistake: grammar incorrect, when counting its not 3asharah, its 3ashar (Amal did not voice a fix: on her review page, tier B) | medium | medi-correction |
 | FA-f4b60b4a | 45:55 | vocab-A | tier 2 | العشر دقايق الـ، الآخر. | ال أخي- | الآخر -> الأخير / الأخيرات | After the noun the adjective form of آخر is أخير (taught at 32:17); he used الآخر, Amal started 'ال أخي-' and he switched to الأخير - wrong form of a word he knows (tier 2). The plural agreement that followed is D12. | medium | r3 |
 | FA-50c3a19a | 46:06 | grammar | A8 | دقيقة is, is masculine. So، أخ-أخير. | أخيرات. [laughs] That's why I paused. | أخير -> أخيرات | دقايق is plural so the adjective must be plural أخيرات; he chose masculine أخير, Amal recast أخيرات and he said 'Oh, because it's plural' - agreement error separate from the أخير form fix (D11). | high | r3 |
 | FA-07c3e8d5 | 47:01 | grammar-propose | PROPOSE | مين آخر الـ ... آخر Moazafa, right? | The end of the employees? | آخر الـ Moazafa -> آخر موظفة | آخر + el-noun means 'the end of'; Amal asked 'The end of the employees?' and he dropped el-: مين آخر موظفة?, which she accepted (Mm-hmm). | medium | r3 |

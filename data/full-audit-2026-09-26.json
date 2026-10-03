@@ -1,5 +1,5 @@
 {
- "built": "2026-10-03T13:55:38-07:00",
+ "built": "2026-10-03T13:58:17-07:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -24031,9 +24031,9 @@
  "decisions": "A counts (every fix Amal voiced; a chat-only fix never counts - GR-19, Medi 2026-10-02); B (she let it pass) is unscored until she rules on Amal's review page; tiers 1-3 vocab, tier 0 = she supplied a word he asked for; grammar filed by bucket; listening rows kept apart.",
  "lessons_missing": [],
  "totals": {
-  "rows": 1159,
+  "rows": 1160,
   "grammar_A": 596,
-  "grammar_B": 89,
+  "grammar_B": 90,
   "grammar_proposed": 8,
   "vocab_A": 282,
   "vocab_A_by_tier": {
@@ -24049,9 +24049,9 @@
    "3": 6
   },
   "listening": 82,
-  "from_readers": 1044,
+  "from_readers": 1045,
   "readers_also_in_sweep": 362,
-  "readers_new": 682,
+  "readers_new": 683,
   "sweep_only_kept": 115,
   "machine_had": 104,
   "sweep_before": {
@@ -24091,8 +24091,8 @@
   "B8": 7,
   "A3": 7,
   "B6": 7,
+  "E1": 7,
   "A10": 6,
-  "E1": 6,
   "A12": 5,
   "E4": 5,
   "B16": 4,
@@ -24276,7 +24276,7 @@
   },
   "2026-10-02": {
    "grammar_A": 16,
-   "grammar_B": 0,
+   "grammar_B": 1,
    "vocab_A": 10,
    "vocab_B": 1,
    "listening": 2,
@@ -67693,6 +67693,30 @@
    "n": 1154
   },
   {
+   "id": "MC-chat-202",
+   "date": "2026-10-02",
+   "t": "44:59",
+   "t_amal": "45:05",
+   "medi_said": "آخر عشرة دقايق. عشرة دقايق؟",
+   "amal_said": "عشر y.",
+   "wrong": "عشرة دقايق",
+   "right": "عشر دقايق",
+   "kind": "grammar-B",
+   "bucket": "E1",
+   "tier": null,
+   "mode": "speaking",
+   "signal": "medi-correction",
+   "confidence": "medium",
+   "source": "audit-2026-09-26",
+   "added_by": "medi-correction",
+   "correction": "chat-20261003-3ashrah-da2aye2",
+   "agreed_by": "medi-correction",
+   "why": "Medi 2026-10-03 marked it a mistake: grammar incorrect, when counting its not 3asharah, its 3ashar (Amal did not voice a fix: on her review page, tier B)",
+   "bucket_name": "number + noun",
+   "uid": "FA-0d9dd3dc",
+   "n": 1155
+  },
+  {
    "id": "1002-r3-11",
    "t": "45:55",
    "t_amal": "45:58",
@@ -67724,7 +67748,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f4b60b4a",
-   "n": 1155
+   "n": 1156
   },
   {
    "id": "1002-r3-12",
@@ -67758,7 +67782,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-50c3a19a",
-   "n": 1156
+   "n": 1157
   },
   {
    "id": "1002-r3-13",
@@ -67792,7 +67816,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-07c3e8d5",
-   "n": 1157,
+   "n": 1158,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-07c3e8d5"
@@ -67828,7 +67852,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-0583f785",
-   "n": 1158
+   "n": 1159
   },
   {
    "id": "A19",
@@ -67861,12 +67885,12 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-605b741f",
-   "n": 1159
+   "n": 1160
   }
  ],
  "rulings_applied": [
   {
-   "at": "2026-10-03T20:55:40.210449+00:00",
+   "at": "2026-10-03T20:58:18.793476+00:00",
    "rules": [
     1928,
     1929,
