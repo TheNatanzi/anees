@@ -130,7 +130,8 @@ def reviewed(review_patches, event_id):
     ch = (review_patches.get(event_id) or {}).get("changes") or {}
     if not any(k in ch for k in SCORE_KEYS):
         return None
-    return "auto" if ch.get("auto_rule") else "hand"
+    # a context review (contextual_audit) weighed the whole exchange even when a script ran it (review_new_lessons)
+    return "hand" if ch.get("contextual_audit") or not ch.get("auto_rule") else "auto"
 
 
 def word_core(arabic):
@@ -441,7 +442,7 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                 orig = {base(norm(x)): x for x in re.split(r"[\s.…,،؟?!:;\"“”()\-]+", r.get("wrong") or "") if norm(x)}
                 settled = {base(norm(x.get("tok"))) for x in wb_ok if reviewed(review_patches, x["by"]["ref"]) == "hand"}
                 opts = (["ledger", "keep"] if patched else [orig.get(w, w) for w in W if w not in F and w not in settled][:4] + ["keep"])
-                q = ("Your Word Bank edit vs Amal's 'no'" if patched else
+                q = ("The Word Bank's re-read says right, Amal said no: which stands?" if patched else
                      "Was %s wrong here?" % opts[0] if len(opts) == 2 else "Which word was wrong?")
                 ans = needs_medi(c, opts, q, group=r["id"])
                 if ans:
@@ -534,7 +535,7 @@ KIND_WORDS = {"C1": "Word Bank said right, Amal said no to that word: her no cou
               "C1p": "slip elsewhere in the phrase: the word stays right", "C1a": "he asked for another word: both stand",
               "C1q": "which word of the phrase was wrong: Medi", "C1r": "the Word Bank's context review already settled it: unchanged", "C2": "one slip was counted twice (word + grammar): counted once, as grammar",
               "C2b": "a different word and a wrong form in one word: both count", "C2q": "word slip or grammar slip: Medi", "C2w": "a grammar slip the Word Bank also called a wrong word: counted once, as grammar",
-              "C3": "one turn was both a use and a slip of the same rule: one attempt, wrong", "CR": "Medi's own Word Bank edit vs the ledger: Medi"}
+              "C3": "one turn was both a use and a slip of the same rule: one attempt, wrong", "CR": "a Word Bank re-read (or Medi's edit) vs Amal's no: Medi"}
 
 
 def medi_item(led, c):
