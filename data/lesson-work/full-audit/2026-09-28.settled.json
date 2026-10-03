@@ -2,32 +2,32 @@
  "date": "2026-09-28",
  "pass": 1,
  "counts": {
-  "r1": 43,
-  "r2": 35,
-  "agreed": 24,
-  "disputed": 23,
-  "agreement_pct": 51.1,
-  "r3_kept": 18,
-  "r3_dropped": 5,
+  "r1": 42,
+  "r2": 37,
+  "agreed": 28,
+  "disputed": 18,
+  "agreement_pct": 60.9,
+  "r3_kept": 14,
+  "r3_dropped": 4,
   "r3_unruled": 0,
-  "r3_added": 0,
-  "r3_challenged": 2,
+  "r3_added": 1,
+  "r3_challenged": 1,
   "final": 42
  },
  "coverage": {
-  "r1": "00:00-15:40 and 19:50-21:20 mostly English app talk. 15:43-19:08 his Arabic is lost to [speaking foreign language], rows there are low confidence. Several ع-drops (أمي for عمي, أمتي for عمتي, وين القلب 41:51), محمد/محامي (29:14, vowel length), مقني (1:03:21), صبية/سبية are pronunciation (S4) and left out. 44:53 اثناش بنات let pass and her own chat keeps banaat, so not written. Listening misunderstandings at 57:56 (بالشركة) and 1:00:05 (clinic) left out; 1:00:39 جنين is his mishearing of جمع (name list), not written. 30:35 عماوم accepted (chat 3maam).",
-  "r2": "Many Medi turns 15:43-18:53 are [speaking foreign language] (engine dropped his Arabic); only the 16:04 slip is recoverable from Amal's echo. 00:00-15:40 and 19:00-21:20 are mostly English/meta. 29:14 محمد vs محامي treated as pronunciation (Amal: 'long and not doubled', S4/F2). 37:45 Amal's ابن-for-ولاد remark was reversed by her at 40:10, not filed separately. 1:00:39 جنين is on the name list (he misheard جمع) - not flagged. 54:11 سبية/صبية, 1:03:21 مقني, 1:02:50 كوفار are pronunciation. 44:53 اثناش بنات accepted by Amal (said and typed banaat)."
+  "r1": "00:00-15:40 mostly English (app/AI talk) plus an off-call stretch 04:33-05:00; 15:43-18:53 his Arabic is '[speaking foreign language]' so rows at 16:04 and 17:52 are inferred from Amal's replies; 25:26 أريحا is the engine (name, not flagged); 1:00:39 جنين is his mishearing of جمع (name, not flagged); 29:14/29:22 محمد = mu7aami (sound); 59:36 وأهمي = محامي (sound, skipped); 1:03:21 مقني = مغني (sound, skipped); 1:02:58 كوفار = كوافير (sound, skipped); 44:53 اثناش بنات accepted by Amal (chat etna3sh banaat), not flagged; 37:45 her ابن vs ولاد for cousins was later reversed (40:23 ولاد عم), not flagged there; no echo-candidates file for this date.",
+  "r2": "00:00-15:40 mostly English (app/AI talk); 15:43-18:26 Medi's Arabic is [speaking foreign language] (engine dropped it) so the انبسطت row is low confidence. No echo-candidates file for 09-28. Skipped as S4 pronunciation: محمد for محامي (29:14, Amal: long and not doubled), فهدين for حفيدين (51:10), حلق for حلاق (1:02:32), كوفار for كوافير, مقني for مغني, سبية for صبية, أمتي for عمتي. أريحا (25:26) and جنين (1:00:39) are engine/place names, not flagged. Amal contradicted herself on ولد/ابن عم (37:45 vs 40:23) - only the voiced plural fix was kept. عماوم at 30:35 got her mm-hmm; the plural was fixed at 39:41."
  },
- "r3_note": "Engine writes أمي/أمتي for عمي/عمتي (3ammi/3amti) and أماو/عماوم for أعمام throughout - S4, not errors. 29:14 محمد for محامي is vowel length/gemination (S4). Names (أريحا, جنين) left alone; جنين at 1:00:39 is the engine/his mishearing of جمع.",
+ "r3_note": "Engine writes أم/أمي for عم/عمي throughout the cousins section (38:00-42:44) and القلب for her الـ at 42:00; أريحا at 25:26 is the engine for his attempt at 'put it back', not the place. Speech at 15:43-18:26 is mostly dropped ([speaking foreign language]), so D1 and A2 rest on Amal's replies only.",
  "rows": [
   {
    "id": "A1",
    "t": "00:43",
-   "t_amal": "00:45",
-   "medi_said": "شو بتظني؟ / أو شو، شو بتفكري؟ / شو، شو أصدك؟",
-   "amal_said": "What's the better word؟ ... No. ... The third one. ... No. ... Close.",
+   "t_amal": "00:48",
+   "medi_said": "شو بتظني؟ / أو شو، شو بتفكري؟",
+   "amal_said": "No. The third one. ... Close.",
    "chat": "shu ra2yek = what do you think?",
-   "wrong": "بتظني",
+   "wrong": "شو بتظني",
    "right": "شو رأيك",
    "kind": "vocab-A",
    "tier": 1,
@@ -36,7 +36,7 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "He used بتظني (then بتفكري, أصدك) for 'what do you think?'; Amal said 'No' to each and he reached شو رأيك.",
+   "why": "He asked 'what do you think?' with بتظني / بتفكري / أصدك; Amal said No / Close until he reached شو رأيك (her chat shu ra2yek).",
    "english": "What do you think?",
    "ids": [
     "0928-1",
@@ -52,22 +52,23 @@
    "medi_said": "[speaking foreign language] Um, I was made happy.",
    "amal_said": "هل أسعدتِ أحداً ما؟ ... إنبسطت.",
    "chat": null,
-   "wrong": "بسطت (engine dropped; her echo)",
+   "wrong": "[speaking foreign language] (likely بسطت)",
    "right": "انبسطت",
    "kind": "grammar",
    "tier": null,
    "bucket": "B12",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "recast",
+   "signal": "prompt-then-fix",
    "confidence": "medium",
-   "why": "Engine lost his Arabic; Amal's 'did you make someone happy?' then إنبسطت shows he used the make-happy form instead of the become-happy form.",
-   "english": "I was happy / I enjoyed it",
+   "why": "Engine dropped his Arabic; Amal asked 'did you make someone happy?' and gave انبسطت, so he used the make-X form for 'I got happy'.",
+   "english": "I was happy / I enjoyed",
    "ids": [
     "0928-2",
     "0928-2"
    ],
    "agreed_by": "r1+r2",
+   "r3_challenge": "His Arabic is missing (engine: [speaking foreign language]); Amal's reply 'هل أسعدتِ أحداً ما؟ ... إنبسطت' echoes أسعدت (made someone happy), so the wrong piece is likely أسعدت, not بسطت. Still a B12 make/get slip, but the wrong form needs the audio.",
    "fid": "0928-002"
   },
   {
@@ -75,9 +76,9 @@
    "t": "17:23",
    "t_amal": "17:31",
    "medi_said": "No, I don't know how to say. I'm trying to say I lift-- I lifted the most amount ever today.",
-   "amal_said": "حملت، ما تعملت. ... حملت.",
+   "amal_said": "حملت ... حملت.",
    "chat": null,
-   "wrong": "I lifted",
+   "wrong": "(didn't know: lifted)",
    "right": "حملت",
    "kind": "vocab-A",
    "tier": 0,
@@ -86,8 +87,8 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "high",
-   "why": "Didn't-know: he said he did not know the verb and Amal supplied حملت.",
-   "english": "I lifted.",
+   "why": "He said he did not know 'lifted'; Amal supplied حملت.",
+   "english": "I lifted",
    "ids": [
     "0928-3",
     "0928-3"
@@ -96,13 +97,13 @@
    "fid": "0928-003"
   },
   {
-   "id": "0928-r3-1",
+   "id": "A4",
    "t": "17:39",
    "t_amal": "17:44",
    "medi_said": "But this would be to, like, also works for the, for the gym.",
-   "amal_said": "نعم، عادي، حملت. بس، وزن is weight، وزن.",
+   "amal_said": "وزن is weight، وزن.",
    "chat": null,
-   "wrong": "weight",
+   "wrong": "(didn't know: weight)",
    "right": "وزن",
    "kind": "vocab-A",
    "tier": 0,
@@ -111,23 +112,23 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "medium",
-   "why": "Didn't-know: while he built the lifting sentence Amal supplied وزن for 'weight' (his Arabic attempt at 17:31 is lost to the engine); tier 0.",
+   "why": "Amal supplied وزن for 'weight' in his gym sentence.",
    "english": "weight",
    "ids": [
+    "0928-4",
     "0928-4"
    ],
-   "agreed_by": "r3",
-   "r3_why": "Amal voiced وزن as the word he lacked; a didn't-know, tier 0.",
+   "agreed_by": "r1+r2",
    "fid": "0928-004"
   },
   {
-   "id": "0928-r3-2",
+   "id": "0928-r3-1",
    "t": "17:52",
    "t_amal": "17:52",
-   "medi_said": "[speaking foreign language] But isn't",
+   "medi_said": "[speaking foreign language] But isn't ... just big?",
    "amal_said": "بس، لا، we, we would need biggest. So, would be أكبر، أكبر وزن.",
    "chat": null,
-   "wrong": "[speaking foreign language]",
+   "wrong": "[speaking foreign language] (likely كبير)",
    "right": "أكبر وزن",
    "kind": "grammar",
    "tier": null,
@@ -136,17 +137,18 @@
    "mode": "speaking",
    "signal": "explicit-no",
    "confidence": "low",
-   "why": "Engine lost his Arabic; Amal said لا, 'we would need biggest' and gave أكبر وزن (later أكتر وزن), and he then asked whether it is 'just big' - he used a plain adjective where the comparative/superlative was needed. His words are not in the transcript, hence low.",
-   "english": "the most weight",
+   "why": "He tried to say 'the most weight' in Arabic (engine dropped it); Amal said 'بس لا, we would need biggest' and gave the comparative أكبر وزن, and he then asked 'just big?' - plain adjective where the comparative was needed. Not a didn't-know: he attempted it and she said no.",
+   "english": "the biggest weight",
    "ids": [
+    "0928-5",
     "0928-5"
    ],
    "agreed_by": "r3",
-   "r3_why": "Real (her لا + 'we would need biggest'), but his line is lost: kept low. D20 is the same fix.",
+   "r3_why": "Same moment for both readers; he did attempt the phrase (Amal: 'بس لا ... we would need biggest'), so it is a comparative fix (C3), not an asked didn't-know. His Arabic is missing from the transcript, so low confidence.",
    "fid": "0928-005"
   },
   {
-   "id": "A4",
+   "id": "A5",
    "t": "21:50",
    "t_amal": "21:54",
    "medi_said": "Is it مي- uh, مئين؟ مئين؟ مئين؟",
@@ -157,53 +159,52 @@
    "kind": "grammar",
    "tier": null,
    "bucket": "A9",
-   "bucket2": "E1",
+   "bucket2": "A3",
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "Amal said No and walked him through feminine ميا + dual until he said ميتين.",
+   "why": "He built the dual of مية without the feminine -t; Amal said No and walked him to ميتين (chat mitain).",
    "english": "two hundred",
    "ids": [
     "0928-6",
-    "0928-5"
+    "0928-6"
    ],
    "agreed_by": "r1+r2",
    "fid": "0928-006"
   },
   {
-   "id": "0928-r3-3",
+   "id": "A6",
    "t": "22:45",
    "t_amal": "22:49",
    "medi_said": "من الأرض على to,",
    "amal_said": "لا.",
-   "chat": "min el-ard la-foa2 raasi",
+   "chat": "ana 7amalet ... min el-ard la-foa2 raasi",
    "wrong": "على",
-   "right": "فوق (la-foa2)",
+   "right": "فوق",
    "kind": "vocab-A",
    "tier": 1,
    "bucket": null,
    "bucket2": null,
    "mode": "speaking",
-   "signal": "prompt-then-fix",
+   "signal": "explicit-no",
    "confidence": "high",
-   "why": "He used على ('on') for 'up to / above'; Amal said لا, hinted ('the opposite of تحت', 'sounds like صوت') until he found فوق; her chat la-foa2 raasi.",
-   "english": "from the ground to above my head",
+   "why": "He used على for 'above / up to'; Amal said لا and he found فوق (chat la-foa2 raasi).",
+   "english": "from the ground to above (my head)",
    "ids": [
     "0928-7",
-    "0928-6"
+    "0928-7"
    ],
-   "agreed_by": "r3",
-   "r3_why": "Wrong lexical item (على for فوق), fixed by her لا and hints; vocab tier 1 fits better than D1 grammar - the fix is a different word, not a preposition usage rule.",
+   "agreed_by": "r1+r2",
    "fid": "0928-007"
   },
   {
-   "id": "A5",
+   "id": "A7",
    "t": "23:55",
    "t_amal": "23:58",
    "medi_said": "Is it محرك or just حركة؟",
    "amal_said": "حركة.",
    "chat": null,
-   "wrong": "محرك",
+   "wrong": "(asked: محرك or حركة)",
    "right": "حركة",
    "kind": "vocab-A",
    "tier": 0,
@@ -212,17 +213,17 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "medium",
-   "why": "He asked which word means 'movement'; Amal answered حركة.",
+   "why": "He asked which word means 'movement'; Amal supplied حركة.",
    "english": "movement",
    "ids": [
-    "0928-9",
-    "0928-7"
+    "0928-8",
+    "0928-8"
    ],
    "agreed_by": "r1+r2",
    "fid": "0928-008"
   },
   {
-   "id": "A6",
+   "id": "A8",
    "t": "23:59",
    "t_amal": "24:00",
    "medi_said": "حركة. واحد حركة. حركة واحد.",
@@ -237,17 +238,17 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "حركة is feminine so the number-adjective must be واحدة; Amal recast it.",
+   "why": "حركة is feminine so the number-adjective is واحدة; Amal recast.",
    "english": "one movement",
    "ids": [
-    "0928-10",
-    "0928-8"
+    "0928-9",
+    "0928-9"
    ],
    "agreed_by": "r1+r2",
    "fid": "0928-009"
   },
   {
-   "id": "A7",
+   "id": "A9",
    "t": "24:41",
    "t_amal": "24:44",
    "medi_said": "بعد بحمل...",
@@ -262,22 +263,22 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "After بعد you need ما and the verb drops b-; Amal prompted and he said ما أحمل.",
-   "english": "after I lift it",
+   "why": "After بعد you need ما and the verb drops its b-; Amal prompted and he said ما أحمل.",
+   "english": "after I lift (it)",
    "ids": [
-    "0928-11",
-    "0928-9"
+    "0928-10",
+    "0928-10"
    ],
    "agreed_by": "r1+r2",
    "fid": "0928-010"
   },
   {
-   "id": "A8",
+   "id": "A10",
    "t": "25:26",
    "t_amal": "25:37",
-   "medi_said": "I put it past tense. أنا بطيت أريحا. ... بطيت أريحا. No?",
-   "amal_said": "No. ... بـ برجع.",
-   "chat": "3ashaan ba3ed ma a7mel foa2 raasi barajj3o",
+   "medi_said": "I put it past tense. أنا بطيت أريحا. Is that right? بطيت أريحا. No?",
+   "amal_said": "No. بـ برجع.",
+   "chat": "barajj3o",
    "wrong": "بطيت",
    "right": "برجّعه",
    "kind": "vocab-A",
@@ -287,24 +288,24 @@
    "mode": "speaking",
    "signal": "explicit-no",
    "confidence": "medium",
-   "why": "He used بطيت (not a verb for 'put back') in the past; Amal said No and gave برجع, chat barajj3o.",
-   "english": "I put it back.",
+   "why": "Engine wrote بطيت (likely حطيت 'I put'); for 'I put it back' Amal said No and gave برجع (chat barajj3o); أريحا is a name and not flagged.",
+   "english": "I put it back",
    "ids": [
-    "0928-12",
-    "0928-10"
+    "0928-11",
+    "0928-11"
    ],
    "agreed_by": "r1+r2",
    "fid": "0928-011"
   },
   {
-   "id": "A9",
+   "id": "A11",
    "t": "26:02",
    "t_amal": "26:06",
    "medi_said": "اآآ الـ-الـ حدا",
    "amal_said": "الـ، شو يعني people؟",
    "chat": null,
    "wrong": "حدا",
-   "right": "ناس / أشخاص",
+   "right": "الأشخاص / ناس",
    "kind": "vocab-A",
    "tier": 1,
    "bucket": null,
@@ -312,22 +313,22 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "medium",
-   "why": "He said حدا ('someone') for the 'people' card; Amal asked 'what is people?' and he said الأشخاص, she added ناس.",
+   "why": "He used حدا (someone) for 'people'; Amal asked what 'people' is and he gave الأشخاص, which she confirmed (ناس، أشخاص).",
    "english": "people",
    "ids": [
-    "0928-13",
-    "0928-11"
+    "0928-12",
+    "0928-12"
    ],
    "agreed_by": "r1+r2",
    "fid": "0928-012"
   },
   {
-   "id": "A10",
+   "id": "A12",
    "t": "26:27",
    "t_amal": "26:29",
    "medi_said": "أشتغل، أشتغل.",
    "amal_said": "No. What، شو جمع شغل؟",
-   "chat": null,
+   "chat": "ash8aal",
    "wrong": "أشتغل",
    "right": "أشغال",
    "kind": "vocab-A",
@@ -337,23 +338,23 @@
    "mode": "speaking",
    "signal": "explicit-no",
    "confidence": "high",
-   "why": "He used the verb أشتغل ('I work') for the noun 'jobs'; Amal said No and asked for the plural of شغل.",
-   "english": "jobs",
+   "why": "For 'jobs' he gave the verb أشتغل; Amal said No and asked for the plural of شغل.",
+   "english": "jobs / works",
    "ids": [
-    "0928-14",
-    "0928-12"
+    "0928-13",
+    "0928-13"
    ],
    "agreed_by": "r1+r2",
    "fid": "0928-013"
   },
   {
-   "id": "0928-r3-4",
+   "id": "A13",
    "t": "26:36",
    "t_amal": "26:39",
    "medi_said": "فـ شغلين، شغلات.",
    "amal_said": "No.",
    "chat": "ash8aal",
-   "wrong": "شغلين، شغلات",
+   "wrong": "شغلات",
    "right": "أشغال",
    "kind": "vocab-A",
    "tier": 2,
@@ -362,18 +363,17 @@
    "mode": "speaking",
    "signal": "explicit-no",
    "confidence": "high",
-   "why": "A new wrong form after A10 (أشتغل): he invented the plural شغلات (and dual شغلين); Amal said No and he produced أشغال, which she accepted.",
+   "why": "Invented plural شغلات; Amal said No and accepted أشغال (chat ash8aal).",
    "english": "jobs",
    "ids": [
-    "0928-15",
-    "0928-13"
+    "0928-14",
+    "0928-14"
    ],
-   "agreed_by": "r3",
-   "r3_why": "Second, different wrong form after A10, rejected by a voiced No; an invented plural pattern is vocab tier 2 per the reader brief.",
+   "agreed_by": "r1+r2",
    "fid": "0928-014"
   },
   {
-   "id": "A11",
+   "id": "A14",
    "t": "28:13",
    "t_amal": "28:22",
    "medi_said": "أنااا بشتغل معاا أبوي في المحل السجاد.",
@@ -388,24 +388,74 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "In idafa the first noun takes no el-; Amal recast في محل السجاد.",
-   "english": "I work with my dad in the rug store.",
+   "why": "In idafa the first word takes no el-; Amal recast في محل السجاد and he repeated it.",
+   "english": "in the rug store",
    "ids": [
-    "0928-16",
-    "0928-14"
+    "0928-15",
+    "0928-15"
    ],
    "agreed_by": "r1+r2",
    "fid": "0928-015"
   },
   {
-   "id": "0928-r3-5",
+   "id": "0928-r3-2",
+   "t": "29:14",
+   "t_amal": "29:24",
+   "medi_said": "أخوي آآ مح-- أخوي محمد، or محمد؟",
+   "amal_said": "محامي. It's long and it's not doubled.",
+   "chat": "a5uy mu7aami",
+   "wrong": "محمد",
+   "right": "محامي",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "F2",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "named-rule",
+   "confidence": "medium",
+   "why": "He said mu7ammad for mu7aami (sheet: 'lawyer | Mu7aami | محامي'); Amal said محامي twice and named the rule 'it's long and it's not doubled' - a vowel-length/doubling slip (F2, sound-shape family).",
+   "english": "my brother is a lawyer",
+   "ids": [
+    "0928-16"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "Real voiced fix at 29:20 and 29:24 with the rule named; F2 is the bucket for vowel length. He had already said the wrong form in his sentence before asking.",
+   "fid": "0928-016"
+  },
+  {
+   "id": "0928-r3-3",
+   "t": "30:19",
+   "t_amal": "30:29",
+   "medi_said": "what was the plural for عمو؟",
+   "amal_said": "Remember باب، ضوء، شال.",
+   "chat": "talat 3maam",
+   "wrong": "(asked: plural of عم)",
+   "right": "أعمام / 3maam",
+   "kind": "vocab-A",
+   "tier": 0,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "asked",
+   "confidence": "medium",
+   "why": "He asked the plural of عم; Amal hinted with the pattern (باب، ضوء، شال), he produced it (engine wrote عماوم, she said Mm-hmm, chat 3maam) and she supplied أعمام again at 39:41 when he asked a second time.",
+   "english": "uncles (paternal)",
+   "ids": [
+    "0928-17"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "A real asked/didn't-know. The 39:34 repeat (D15) is the same question about the same word - one row, the first.",
+   "fid": "0928-017"
+  },
+  {
+   "id": "A15",
    "t": "31:00",
    "t_amal": "31:03",
    "medi_said": "Okay مهندس واحدة،",
-   "amal_said": "واحد. ... You would say واحد مهندس.",
+   "amal_said": "واحد.",
    "chat": null,
-   "wrong": "واحدة",
-   "right": "واحد",
+   "wrong": "مهندس واحدة",
+   "right": "مهندس واحد",
    "kind": "grammar",
    "tier": null,
    "bucket": "A8",
@@ -413,22 +463,22 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "For an uncle (masculine) he used feminine واحدة; Amal recast واحد twice and he said مهندس واحد (then she gave the order واحد مهندس for 'one is an engineer').",
-   "english": "one (of them) is an engineer",
+   "why": "مهندس is masculine so واحد; Amal recast twice.",
+   "english": "one engineer",
    "ids": [
-    "0928-17"
+    "0928-18",
+    "0928-16"
    ],
-   "agreed_by": "r3",
-   "r3_why": "Voiced recast of a gender slip on the number-adjective.",
-   "fid": "0928-016"
+   "agreed_by": "r1+r2",
+   "fid": "0928-018"
   },
   {
-   "id": "0928-r3-6",
+   "id": "A16",
    "t": "31:26",
    "t_amal": "31:33",
-   "medi_said": "تاني.",
-   "amal_said": "The second or the other?",
-   "chat": "el-tani",
+   "medi_said": "تاني. ... آه، التاني.",
+   "amal_said": "The second or the other? (The.)",
+   "chat": "el-tani ustaaz handasa",
    "wrong": "تاني",
    "right": "التاني",
    "kind": "grammar",
@@ -438,22 +488,22 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "'The other one' (a known person) needs el-; Amal asked 'The second or the other?' and he fixed it to التاني.",
+   "why": "'The other' needs el-; Amal prompted 'The' and he said التاني.",
    "english": "the other one",
    "ids": [
-    "0928-18"
+    "0928-19",
+    "0928-17"
    ],
-   "agreed_by": "r3",
-   "r3_why": "She prompted, he fixed: real el- slip.",
-   "fid": "0928-017"
+   "agreed_by": "r1+r2",
+   "fid": "0928-019"
   },
   {
-   "id": "0928-r3-7",
+   "id": "A17",
    "t": "31:44",
    "t_amal": "32:01",
-   "medi_said": "أستاذ مهندس. أستاذ مهندس؟ Or مهندس الأستاذ؟ No، أستاذ مهندس.",
+   "medi_said": "أستاذ مهندس. أستاذ مهندس؟",
    "amal_said": "أستاذ هندسة. We would use the noun here. أستاذ هندسة.",
-   "chat": "el-tani ustaaz handasa",
+   "chat": "ustaaz handasa",
    "wrong": "أستاذ مهندس",
    "right": "أستاذ هندسة",
    "kind": "grammar",
@@ -463,17 +513,17 @@
    "mode": "speaking",
    "signal": "named-rule",
    "confidence": "high",
-   "why": "A professor title is idafa with the field noun (هندسة), not the person noun; Amal named it ('We would use the noun here').",
-   "english": "the other is an engineering professor",
+   "why": "Professor of engineering is idafa with the field noun هندسة, not the person مهندس; Amal named it.",
+   "english": "engineering professor",
    "ids": [
-    "0928-19"
+    "0928-20",
+    "0928-18"
    ],
-   "agreed_by": "r3",
-   "r3_why": "Real; she named the rule. A6 (professions are idafa) fits.",
-   "fid": "0928-018"
+   "agreed_by": "r1+r2",
+   "fid": "0928-020"
   },
   {
-   "id": "0928-r3-8",
+   "id": "0928-r3-4",
    "t": "32:18",
    "t_amal": "32:30",
    "medi_said": "آخر واحدة. آخر الواحدة.",
@@ -483,28 +533,29 @@
    "right": "آخر واحد",
    "kind": "grammar",
    "tier": null,
-   "bucket": "C3",
-   "bucket2": null,
+   "bucket": "A1",
+   "bucket2": "A8",
    "mode": "speaking",
-   "signal": "named-rule",
+   "signal": "explicit-no",
    "confidence": "high",
-   "why": "آخر + noun works like a superlative and never takes el-; Amal: 'we never put ل. آخر واحد' (also واحدة -> واحد for an uncle).",
+   "why": "He put el- on واحد after آخر; Amal said 'we never put ل' (with ل it means 'the end of something') and gave آخر واحد; also masculine واحد for his uncle.",
    "english": "the last one",
    "ids": [
-    "0928-20"
+    "0928-21",
+    "0928-19"
    ],
    "agreed_by": "r3",
-   "r3_why": "Real; Amal named the rule.",
-   "fid": "0928-019"
+   "r3_why": "Both readers agree on the slip. The el- he added sits on the SECOND word, so A2 (first word never takes el-) does not describe it; it is an el- misuse (A1). Gender واحدة->واحد for the uncle goes in bucket2 A8, same as agreed A15.",
+   "fid": "0928-021"
   },
   {
-   "id": "0928-r3-9",
+   "id": "0928-r3-5",
    "t": "34:56",
    "t_amal": "34:59",
-   "medi_said": "But scientist. مـال، مال-- No.",
+   "medi_said": "مـال، مال-- No.",
    "amal_said": "عالمة.",
    "chat": "u 3amti 3aalime",
-   "wrong": "مال",
+   "wrong": "(didn't know: scientist)",
    "right": "عالمة",
    "kind": "vocab-A",
    "tier": 0,
@@ -513,17 +564,17 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "high",
-   "why": "Didn't-know: he said he did not remember 'scientist'; Amal supplied عالمة (and said No to his معالمة).",
-   "english": "scientist (f)",
+   "why": "He said he didn't remember 'scientist' (34:45) and tried مال; Amal supplied عالمة.",
+   "english": "my aunt is a scientist",
    "ids": [
-    "0928-21"
+    "0928-22"
    ],
    "agreed_by": "r3",
-   "r3_why": "She supplied the word he said he forgot: didn't-know tier 0.",
-   "fid": "0928-020"
+   "r3_why": "Clear didn't-know; Amal voiced the word.",
+   "fid": "0928-022"
   },
   {
-   "id": "A12",
+   "id": "A18",
    "t": "37:24",
    "t_amal": "37:31",
    "medi_said": "بنات وولاد أخوي، er، أخي أمتي--",
@@ -537,99 +588,47 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "prompt-then-fix",
-   "confidence": "high",
-   "why": "He said أخي (my brother) meaning uncle; Amal asked what أخي means and he switched to خالي، خالتي، عمتي.",
-   "english": "children of my uncle (cousins)",
+   "confidence": "medium",
+   "why": "For cousins he said 'children of my brother'; Amal asked what أخي means and he switched to خالي، خالتي، عمتي.",
+   "english": "my uncle's / aunt's children",
    "ids": [
-    "0928-22",
-    "0928-15"
+    "0928-23",
+    "0928-20"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0928-021"
-  },
-  {
-   "id": "0928-r3-10",
-   "t": "37:49",
-   "t_amal": "37:53",
-   "medi_said": "Oh، is there a word, is there a word for cousins?",
-   "amal_said": "بس we wouldn't say ولد عمي... Yes بنت. بس what's the other one؟ ابن.",
-   "chat": "kam eben 3am 3indak",
-   "wrong": "ولاد",
-   "right": "ابن عم",
-   "kind": "vocab-A",
-   "tier": 0,
-   "bucket": null,
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "asked",
-   "confidence": "medium",
-   "why": "Amal said 'we wouldn't say ولد عمي, what's the other word?'; he asked for the cousin word and she supplied ابن (sheet: 'cousin (male, paternal) | Eben 3am | ابن عم'). He then said 'I said ولاد'.",
-   "english": "cousin (male)",
-   "ids": [
-    "0928-23"
-   ],
-   "agreed_by": "r3",
-   "r3_why": "She voiced the word (ابن) after he asked; didn't-know tier 0. Separate from A12 (أخي -> عمي).",
-   "fid": "0928-022"
-  },
-  {
-   "id": "0928-r3-11",
-   "t": "39:16",
-   "t_amal": "39:24",
-   "medi_said": "همس بنات، أمي. (engine أمي = عمي)",
-   "amal_said": "خلاص بس بس uncle يعني. خمس بنات عم. Cuz cousins. We're not saying my.",
-   "chat": "5ames banaat 3am",
-   "wrong": "بنات أمي",
-   "right": "بنات عم",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A4",
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "named-rule",
-   "confidence": "medium",
-   "why": "For cousins in general he added 'my' (عمي; engine writes أمي for عمي all lesson); Amal: خمس بنات عم, 'We're not saying my'. A4 (possessive endings) covers a wrong owner ending.",
-   "english": "five female cousins",
-   "ids": [
-    "0928-25",
-    "0928-16"
-   ],
-   "agreed_by": "r3",
-   "r3_why": "Both readers saw it; A4 fits (the fix is removing the possessive ending), so no PROPOSE needed.",
    "fid": "0928-023"
   },
   {
-   "id": "0928-r3-12",
+   "id": "A19",
    "t": "40:06",
    "t_amal": "40:10",
-   "medi_said": "ابن أمي، أم، أم مو، أم. (engine أمي = عمي)",
-   "amal_said": "No. What's we don't say ابن. No. We make it plural for ولد. ... We say ولاد عم. بس when we say one we say ابن عم.",
-   "chat": "5ames banaat 3am u tese3 wlaad 3am",
+   "medi_said": "ابن أمي، أم، أم مو، أم.",
+   "amal_said": "No. we don't say ابن. No. We make it plural for ولد. ... We say ولاد عم.",
+   "chat": "tese3 wlaad 3am",
    "wrong": "ابن أمي",
    "right": "ولاد عم",
    "kind": "grammar",
    "tier": null,
-   "bucket": "A9",
-   "bucket2": "E1",
+   "bucket": "E1",
+   "bucket2": "A9",
    "mode": "speaking",
    "signal": "explicit-no",
    "confidence": "high",
-   "why": "With nine (وتسع) he used singular ابن; Amal said No - the plural of ابن is ولاد (ولاد عم), ابن only for one. A plural-form fix; number rule E1 as second bucket.",
+   "why": "After تسع the noun must be plural; Amal said No, ولاد عم.",
    "english": "nine male cousins",
    "ids": [
-    "0928-26",
-    "0928-17"
+    "0928-25",
+    "0928-22"
    ],
-   "agreed_by": "r3",
-   "r3_why": "Real; label grammar A9 (plural shape) + E1 (3-10 take a plural) - the fix is singular -> plural with a count, not a new word.",
+   "agreed_by": "r1+r2",
    "fid": "0928-024"
   },
   {
-   "id": "0928-r3-17",
+   "id": "0928-r3-7",
    "t": "41:51",
    "t_amal": "42:00",
-   "medi_said": "لا، بس الـ، الـ ولاد أمي عندهم ولاد. (engine أمي = عمي)",
-   "amal_said": "وين القلب؟ وين بنحط القلب؟ (engine القلب = الـ)",
+   "medi_said": "لا، بس الـ، الـ ولاد أمي عندهم ولاد.",
+   "amal_said": "وين القلب؟ وين بنحط القلب؟",
    "chat": "la bas wlaad 3ammi 3indhom wlaad z8aar",
    "wrong": "الـ ولاد أمي",
    "right": "ولاد عمي",
@@ -640,17 +639,17 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "medium",
-   "why": "He put el- on the first word of the idafa; Amal asked 'where do we put the el-?' (engine wrote القلب) and he went on without it (ولاد أمي عندهم), her chat ولاد عمي.",
-   "english": "my cousins have children",
+   "why": "He put el- on the first word of an idafa (الـ ولاد عمي; engine writes أمي for عمي); Amal asked where the el- goes (engine wrote القلب for الـ) and he then said ولاد أمي عندهم without it, as her chat has it.",
+   "english": "but my cousins have children",
    "ids": [
-    "0928-18"
+    "0928-26"
    ],
    "agreed_by": "r3",
-   "r3_why": "Voiced prompt about el- placement right after his الـ ولاد; real A2 slip.",
+   "r3_why": "Her voiced 'where do we put the [el]?' right after his الـ ولاد is a prompt; القلب makes no sense there and is the engine for الـ. He dropped the el- afterwards (42:35, 42:44).",
    "fid": "0928-025"
   },
   {
-   "id": "A13",
+   "id": "A20",
    "t": "43:14",
    "t_amal": "43:20",
    "medi_said": "عندي عيلة كبير،",
@@ -665,21 +664,46 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "عيلة is feminine; Amal stretched كبيييير as a prompt and he fixed it to كبيرة.",
-   "english": "I have a big family.",
+   "why": "عيلة is feminine; Amal stretched كبير and he fixed to كبيرة.",
+   "english": "I have a big family",
    "ids": [
     "0928-27",
-    "0928-19"
+    "0928-23"
    ],
    "agreed_by": "r1+r2",
    "fid": "0928-026"
   },
   {
-   "id": "A14",
+   "id": "0928-r3-16",
+   "t": "44:53",
+   "t_amal": null,
+   "medi_said": "عندي اثناش بنات.",
+   "amal_said": "مم. ... بنات.",
+   "chat": "3indi etna3sh banaat",
+   "wrong": "اثناش بنات",
+   "right": "اتناعش بنت",
+   "kind": "grammar-B",
+   "tier": null,
+   "bucket": "E1",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "none",
+   "confidence": "low",
+   "why": "E1: 11+ takes a singular noun; Amal only said مم and بنات, and typed banaat herself, so she let it pass (at 45:18 she did fix the same rule for احداش ولاد).",
+   "english": "I have twelve girl cousins",
+   "ids": [
+    "0928-24"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "Real against E1 but unvoiced (her chat even has banaat) - grammar-B, low, for her review.",
+   "fid": "0928-027"
+  },
+  {
+   "id": "A21",
    "t": "45:18",
    "t_amal": "45:25",
    "medi_said": "احداش، احداش ولاد.",
-   "amal_said": "dash.",
+   "amal_said": "dash. ... ولد واحد. ... Actually ابن. ليش؟ بعد العشرة شو؟",
    "chat": "e7da3sh eben 5aal u 5aale",
    "wrong": "احداش ولاد",
    "right": "احداش ابن",
@@ -690,23 +714,48 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "After 11+ the noun is singular; Amal prompted and he said احداش ولد (then she gave ابن).",
-   "english": "eleven male cousins",
+   "why": "After 11+ the noun is singular; Amal asked 'after ten what?' and gave ابن.",
+   "english": "eleven (male) cousins",
    "ids": [
     "0928-28",
-    "0928-20"
+    "0928-25"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0928-027"
+   "fid": "0928-028"
   },
   {
-   "id": "A15",
+   "id": "0928-r3-17",
+   "t": "45:28",
+   "t_amal": "45:36",
+   "medi_said": "احداش ولد،",
+   "amal_said": "Actually ابن. ليش؟ بعد العشرة شو؟",
+   "chat": "e7da3sh eben 5aal u 5aale",
+   "wrong": "ولد",
+   "right": "ابن",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "medium",
+   "why": "After he fixed the number (ولاد -> ولد), Amal changed the word: a single male cousin is ابن خال (sheet: 'cousin (male, maternal) | Eben 5aal'), not ولد; he said 'Oh yeah, it's ابن'.",
+   "english": "eleven male cousins",
+   "ids": [
+    "0928-26"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "A separate fix from agreed A21 (the E1 singular-after-ten fix at 45:18): here the word itself, ولد -> ابن, is replaced, as she taught at 40:23.",
+   "fid": "0928-029"
+  },
+  {
+   "id": "0928-r3-8",
    "t": "46:25",
-   "t_amal": "47:27",
-   "medi_said": "Relatives. عائلة? ... So close is قريب. ... قريبًا? ... قريبة? ... قرايب.",
-   "amal_said": "No. ... لا. ... No. ... أديب.",
+   "t_amal": "46:28",
+   "medi_said": "Relatives. عائلة? No, that's family.",
+   "amal_said": "No. ... one relative is the same word as close. That's the only hint.",
    "chat": "2araayeb",
-   "wrong": "عائلة",
+   "wrong": "(didn't know: relatives)",
    "right": "قرايب",
    "kind": "vocab-A",
    "tier": 0,
@@ -715,23 +764,23 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "high",
-   "why": "Didn't-know: 'relatives' was not on his cards; he guessed عائلة (No) and Amal hinted until قرايب. Sheet: 'relative | Qareeb | قريب'.",
+   "why": "Amal quizzed 'relatives'; he didn't know it (sheet: 'relative | Qareeb | قريب'), she hinted 'same word as close' and he reached قرايب at 47:29.",
    "english": "relatives",
    "ids": [
-    "0928-30",
-    "0928-21"
+    "0928-29"
    ],
-   "agreed_by": "r1+r2",
-   "fid": "0928-028"
+   "agreed_by": "r3",
+   "r3_why": "One didn't-know for the whole relatives quiz; his guesses قريبًا / قريبة on the way (D18) belong to this row.",
+   "fid": "0928-030"
   },
   {
-   "id": "A16",
-   "t": "48:00",
-   "t_amal": "48:58",
-   "medi_said": "There's a ف in there, right? ... خوار? ... أخوت، أخوت. أخوتي?",
-   "amal_said": "No. ... أهـم. إخوتي. إخوة. إخوة is siblings.",
+   "id": "0928-r3-9",
+   "t": "48:22",
+   "t_amal": "48:29",
+   "medi_said": "خوار? No, خوار is... Is it خوار?",
+   "amal_said": "No. ... There's أخوات. ... إخوة is siblings.",
    "chat": null,
-   "wrong": "خوار",
+   "wrong": "(didn't know: siblings)",
    "right": "إخوة",
    "kind": "vocab-A",
    "tier": 0,
@@ -740,21 +789,22 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "high",
-   "why": "Didn't-know: he tried خوار (Farsi) and أخوت; Amal said No and supplied إخوة.",
+   "why": "Amal quizzed 'siblings'; he guessed خوار as a question (his Farsi mnemonic for sister), she said No and supplied إخوة at 48:58.",
    "english": "siblings",
    "ids": [
-    "0928-31",
-    "0928-22"
+    "0928-30",
+    "0928-28"
    ],
-   "agreed_by": "r1+r2",
-   "fid": "0928-029"
+   "agreed_by": "r3",
+   "r3_why": "A quiz word he didn't know; خوار was a questioned guess ('Is it خوار?'), not a word used in a sentence - tier 0 didn't-know, not tier 1.",
+   "fid": "0928-031"
   },
   {
-   "id": "A17",
+   "id": "A22",
    "t": "49:53",
    "t_amal": "50:03",
-   "medi_said": "مرات أخوي or مرات، uh, خالي or مرات, uh, أمي.",
-   "amal_said": "Mm-hmm. مرت خالي.",
+   "medi_said": "مرات أخوي or مرات، uh, خالي",
+   "amal_said": "مرت خالي.",
    "chat": "mart 5aali",
    "wrong": "مرات خالي",
    "right": "مرت خالي",
@@ -765,18 +815,17 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "medium",
-   "why": "مرة in idafa becomes مرت; he said مرات and Amal recast مرت خالي.",
+   "why": "A feminine first word in idafa takes -t: mart 5aali; Amal recast (engine may have written mart as مرات).",
    "english": "my uncle's wife",
    "ids": [
-    "0928-32",
-    "0928-23"
+    "0928-31",
+    "0928-29"
    ],
    "agreed_by": "r1+r2",
-   "r3_challenge": "Amal answered 'Mm-hmm' (accepted) then said مرت خالي; مرات vs مرت is likely pronunciation of the same form (S4) or her cleaning up, not a voiced correction - needs audio.",
-   "fid": "0928-030"
+   "fid": "0928-032"
   },
   {
-   "id": "0928-r3-13",
+   "id": "A23",
    "t": "50:38",
    "t_amal": "50:40",
    "medi_said": "Is it أفحد؟",
@@ -791,18 +840,17 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "He knew the word family and offered the plural (metathesised أحفاد) for 'grandchild'; Amal said it is plural and asked for one, he gave حفيد. He attempted a wrong form, so tier 2, not a didn't-know.",
+   "why": "Asked for 'grandchild' he gave a (garbled) plural; Amal said that's plural and he gave حفيد.",
    "english": "grandchild",
    "ids": [
-    "0928-33",
-    "0928-24"
+    "0928-32",
+    "0928-30"
    ],
-   "agreed_by": "r3",
-   "r3_why": "Tier 2: wrong form (plural for singular) of a word he knows, fixed by her prompt.",
-   "fid": "0928-031"
+   "agreed_by": "r1+r2",
+   "fid": "0928-033"
   },
   {
-   "id": "A18",
+   "id": "0928-r3-10",
    "t": "52:58",
    "t_amal": "53:04",
    "medi_said": "آآآ، إذا بنات،",
@@ -817,21 +865,47 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "medium",
-   "why": "'If a girl is...' needs the singular; Amal recast بنت and he continued إذا بنت.",
-   "english": "If a girl...",
+   "why": "'If a girl is ...' needs the singular بنت; he used the plural بنات, Amal recast بنت and he repeated إذا بنت.",
+   "english": "if a girl",
    "ids": [
-    "0928-34",
-    "0928-25"
+    "0928-33",
+    "0928-31"
    ],
-   "agreed_by": "r1+r2",
-   "fid": "0928-032"
+   "agreed_by": "r3",
+   "r3_why": "He knows both forms; the slip is singular vs plural number (A9), not a different or invented word, so grammar not vocab tier 2.",
+   "fid": "0928-034"
   },
   {
-   "id": "A19",
+   "id": "0928-r3-12",
+   "t": "54:01",
+   "t_amal": "54:15",
+   "medi_said": "بين عشرين و، وو آآآ سبعطاش،",
+   "amal_said": "ليش سبعطعش؟ بين عشرين وتلاتين ممكن.",
+   "chat": "u bein 3eshreen u talateen bitkoon sabiyye",
+   "wrong": "سبعطاش",
+   "right": "تلاتين",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "low",
+   "why": "He gave 17 as the top of 'between twenty and ...' (illogical); Amal asked 'why seventeen?' and gave تلاتين, which he repeated - likely the wrong number word, though he also said 'I have no idea' about the ages, so it may be content, not language.",
+   "english": "between twenty and thirty",
+   "ids": [
+    "0928-35"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "Amal voiced it and he repeated تلاتين; 'between 20 and 17' points to a wrong number word, but her 'ممكن' leaves room for a content suggestion - kept low for a human check.",
+   "fid": "0928-035"
+  },
+  {
+   "id": "A24",
    "t": "56:39",
-   "t_amal": "57:29",
+   "t_amal": null,
    "medi_said": "الولاد بيكون ولاد",
-   "amal_said": "ممتاز.",
+   "amal_said": "(none voiced)",
    "chat": "a2al min e7da3sh el-walad beykoon walad",
    "wrong": "الولاد بيكون ولاد",
    "right": "الولد بيكون ولد",
@@ -842,17 +916,17 @@
    "mode": "speaking",
    "signal": "none",
    "confidence": "medium",
-   "why": "Plural الولاد with singular بيكون; her chat writes el-walad beykoon walad. Not voiced (my reading).",
-   "english": "A boy (under 11) is a boy.",
+   "why": "Plural subject with singular بيكون; Amal's typed line uses the singular el-walad ... walad, but she did not voice it.",
+   "english": "a boy is called a boy",
    "ids": [
-    "0928-35",
-    "0928-26"
+    "0928-36",
+    "0928-32"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0928-033"
+   "fid": "0928-036"
   },
   {
-   "id": "A20",
+   "id": "A25",
    "t": "59:14",
    "t_amal": "59:19",
    "medi_said": "محاسب، محاسب.",
@@ -867,23 +941,23 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "medium",
-   "why": "In a list of plural staff he said singular محاسب; Amal recast محاسبين and he repeated it.",
+   "why": "Listing the staff in plural (موظفين، مديرين), he said singular محاسب; Amal recast to محاسبين and he repeated it.",
    "english": "accountants",
    "ids": [
-    "0928-36",
-    "0928-27"
+    "0928-37",
+    "0928-33"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0928-034"
+   "fid": "0928-037"
   },
   {
-   "id": "A21",
+   "id": "A26",
    "t": "1:00:27",
    "t_amal": "1:00:29",
    "medi_said": "مـ-مماير؟ مميان؟",
    "amal_said": "ممرض.",
    "chat": "el-mummared",
-   "wrong": "مماير",
+   "wrong": "(didn't know: nurse)",
    "right": "ممرض",
    "kind": "vocab-A",
    "tier": 0,
@@ -892,20 +966,20 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "high",
-   "why": "Didn't-know: he guessed non-words with question marks; Amal supplied ممرض (sheet: 'nurse | Mummared | ممرض').",
+   "why": "He guessed non-words for 'who helps the doctor'; Amal supplied ممرض (sheet: nurse | Mummared).",
    "english": "nurse",
    "ids": [
-    "0928-37",
-    "0928-28"
+    "0928-38",
+    "0928-34"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0928-035"
+   "fid": "0928-038"
   },
   {
-   "id": "A22",
+   "id": "A27",
    "t": "1:01:13",
    "t_amal": "1:01:18",
-   "medi_said": "زبـ-- آآآ زبان، زبان أو زباين.",
+   "medi_said": "زبان، زبان أو زباين.",
    "amal_said": "زبون، زباين.",
    "chat": null,
    "wrong": "زبان",
@@ -917,44 +991,18 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "Wrong singular form زبان; Amal recast زبون (sheet: 'customer | Zboon | زبون').",
+   "why": "Wrong singular shape for customer (sheet: customer | Zboon); Amal recast زبون.",
    "english": "customer",
    "ids": [
-    "0928-38",
-    "0928-29"
-   ],
-   "agreed_by": "r1+r2",
-   "fid": "0928-036"
-  },
-  {
-   "id": "A23",
-   "t": "1:01:39",
-   "t_amal": "1:01:41",
-   "medi_said": "Who makes the streets?",
-   "amal_said": "وين بتعمل شعرك؟ وين بتعمل شعرك؟",
-   "chat": null,
-   "wrong": "streets",
-   "right": "شعرك (hair)",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "bucket2": null,
-   "mode": "listening",
-   "signal": "prompt-then-fix",
-   "confidence": "medium",
-   "why": "Listening: he heard شعرك as 'streets'; Amal repeated until he got 'hair'.",
-   "english": "Where do you get your hair done?",
-   "ids": [
     "0928-39",
-    "0928-30"
+    "0928-35"
    ],
    "agreed_by": "r1+r2",
-   "r3_challenge": "'Who makes the streets?' is him mishearing her شعرك as streets - a listening/comprehension slip; label should be mode listening, not a speaking vocab tier-1 error.",
-   "fid": "0928-037"
+   "fid": "0928-039"
   },
   {
-   "id": "A24",
-   "t": "1:02:32",
+   "id": "0928-r3-13",
+   "t": "1:02:29",
    "t_amal": "1:02:34",
    "medi_said": "على آآآ حلق.",
    "amal_said": "حلاق.",
@@ -967,68 +1015,18 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "recast",
-   "confidence": "high",
-   "why": "He said حلق for 'barber'; Amal recast حلاق (sheet: 'barber | 7alla2 | حلاق').",
-   "english": "the barber",
-   "ids": [
-    "0928-40",
-    "0928-31"
-   ],
-   "agreed_by": "r1+r2",
-   "fid": "0928-038"
-  },
-  {
-   "id": "0928-r3-18",
-   "t": "1:02:44",
-   "t_amal": null,
-   "medi_said": "بنات بتروح على، كوفار",
-   "amal_said": null,
-   "chat": null,
-   "wrong": "بنات بتروح",
-   "right": "بنات بيروحوا",
-   "kind": "grammar-B",
-   "tier": null,
-   "bucket": "B18",
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
-   "why": "Plural subject البنات with a singular verb بتروح; Amal let it pass (my reading: بيروحوا, as she had him match الزلمة بيروح just before).",
-   "english": "girls go to the hairdresser",
-   "ids": [
-    "0928-32"
-   ],
-   "agreed_by": "r3",
-   "r3_why": "Let-pass agreement slip; kept as grammar-B low.",
-   "fid": "0928-039"
-  },
-  {
-   "id": "0928-r3-14",
-   "t": "1:02:50",
-   "t_amal": "1:02:54",
-   "medi_said": "كوفا-كوفار، كوفار.",
-   "amal_said": "مـم. وفير.",
-   "chat": null,
-   "wrong": "كوفار",
-   "right": "كوافير",
-   "kind": "vocab-A",
-   "tier": 2,
-   "bucket": null,
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "recast",
    "confidence": "medium",
-   "why": "Wrong form of 'hairdresser'; Amal recast it (engine clipped her كوافير to وفير); sheet: 'hairdresser | Kwafair | كوافير'.",
-   "english": "hairdresser",
+   "why": "He said حلق (shave/throat) for حلاق (sheet: 'barber | 7alla2 | حلاق'); Amal recast حلاق at once.",
+   "english": "to the barber",
    "ids": [
-    "0928-41"
+    "0928-40"
    ],
    "agreed_by": "r3",
-   "r3_why": "Her recast is voiced; engine clipped it. Kept medium.",
+   "r3_why": "Voiced recast right after his word; wrong form of a word on her sheet.",
    "fid": "0928-040"
   },
   {
-   "id": "0928-r3-15",
+   "id": "0928-r3-14",
    "t": "1:03:08",
    "t_amal": "1:03:09",
    "medi_said": "معلم؟",
@@ -1040,21 +1038,21 @@
    "tier": 1,
    "bucket": null,
    "bucket2": null,
-   "mode": "listening",
+   "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "medium",
-   "why": "He misunderstood her بيدرس ('studies') as 'teaches' and answered معلم; Amal contrasted مين بيعلم and he gave طالب وطلاب. The slip is in understanding her word, so listening.",
+   "why": "Asked who studies at the university/school, he said معلم (teacher); Amal contrasted 'who teaches? the teacher' and he answered طالب وطلاب (sheet: 'student | 6aaleb | طالب').",
    "english": "student",
    "ids": [
-    "0928-42",
-    "0928-33"
+    "0928-41",
+    "0928-36"
    ],
    "agreed_by": "r3",
-   "r3_why": "Same row both readers; mode listening - his معلم was right for what he understood; he misheard her question.",
+   "r3_why": "It is a speaking quiz answer, not a listening drill where he read her Arabic aloud, so mode = speaking.",
    "fid": "0928-041"
   },
   {
-   "id": "0928-r3-16",
+   "id": "A28",
    "t": "1:04:25",
    "t_amal": "1:04:26",
    "medi_said": "جيرار.",
@@ -1069,14 +1067,13 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "Wrong plural shape of جار (he knows the singular); after her hints (walls, teeth) Amal recast جيران.",
-   "english": "neighbours",
+   "why": "Wrong plural of جار; Amal hinted 'like walls/teeth' then recast جيران.",
+   "english": "neighbors",
    "ids": [
-    "0928-43",
-    "0928-34"
+    "0928-42",
+    "0928-37"
    ],
-   "agreed_by": "r3",
-   "r3_why": "Invented plural of a known word = vocab tier 2 (same handling as D5).",
+   "agreed_by": "r1+r2",
    "fid": "0928-042"
   }
  ]
