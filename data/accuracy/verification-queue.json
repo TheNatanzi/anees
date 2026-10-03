@@ -1,6 +1,6 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 22,
+ "count": 20,
  "by_date": {
   "2026-08-25": 1,
   "2026-09-04": 2,
@@ -9,11 +9,10 @@
   "2026-09-11": 4,
   "2026-09-17": 2,
   "2026-09-21": 2,
-  "2026-09-23": 1,
   "2026-09-26": 1,
   "2026-09-28": 2,
-  "2026-09-30": 2,
-  "2026-10-01": 1
+  "2026-10-01": 1,
+  "2026-10-02": 1
  },
  "rows": [
   {
@@ -403,32 +402,6 @@
    "listen_to": "1:10:15"
   },
   {
-   "uid": "FA-cca6494e",
-   "date": "2026-09-23",
-   "t": "25:24",
-   "t_amal": null,
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A1",
-   "medi_said": "آآآ لا ما، ما بحب، ما بحب فول.",
-   "amal_said": "No. لا. أنا ما بحب الفول كمان.",
-   "wrong": "ما بحب فول",
-   "right": "ما بحب الفول",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Amal corrects Medi’s mishearing of «فطور» as «فول», not the missing article. Her later «أنا ما بحب الفول كمان» is agreement, not a correction of «ما بحب فول»."
-   },
-   "listen_from": "25:14",
-   "listen_to": "25:44"
-  },
-  {
    "uid": "FA-d520ccef",
    "date": "2026-09-26",
    "t": "41:16",
@@ -504,56 +477,6 @@
    "listen_to": "1:03:06"
   },
   {
-   "uid": "FA-851d7b7d",
-   "date": "2026-09-30",
-   "t": "09:42",
-   "t_amal": null,
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "Um, جابت أكثر...",
-   "amal_said": null,
-   "wrong": "جابت",
-   "right": "جبت",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "The independent Medi-track transcriptions show «جبت أكتر», not «جابت», and Amal did not correct that verb there."
-   },
-   "listen_from": "09:32",
-   "listen_to": "10:02"
-  },
-  {
-   "uid": "FA-21490966",
-   "date": "2026-09-30",
-   "t": "22:42",
-   "t_amal": null,
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A10",
-   "medi_said": "So if I wanna say those expensive dresses, it would be هدول",
-   "amal_said": "صح (to هدول الفساتين الغاليين at 23:10)",
-   "wrong": "هدول",
-   "right": "هدولاك",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Amal corrected/promoted the definite article placement, not the demonstrative; she accepted the final phrase with «صح»."
-   },
-   "listen_from": "22:32",
-   "listen_to": "23:02"
-  },
-  {
    "uid": "FA-2d8205d4",
    "date": "2026-10-01",
    "t": "02:21",
@@ -578,6 +501,32 @@
    },
    "listen_from": "02:11",
    "listen_to": "02:43"
+  },
+  {
+   "uid": "FA-62568de1",
+   "date": "2026-10-02",
+   "t": "23:31",
+   "t_amal": "23:40",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "medi_said": "المال راح... Is money masculine?",
+   "amal_said": "مسافة is plural. (engine; = مصاري)",
+   "wrong": "المال",
+   "right": "المصاري (el-masari)",
+   "why_check": [
+    "decided by the third reader alone, in one pass only",
+    "the transcript under it is disputed (engine wrote something else)"
+   ],
+   "check": "audio",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The independent transcriptions show Medi already saying «المصاري», and Amal's response is about number agreement, not replacing «المال» with «المصاري»."
+   },
+   "listen_from": "23:21",
+   "listen_to": "24:00"
   }
  ]
 }

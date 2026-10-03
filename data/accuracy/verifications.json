@@ -12125,6 +12125,1368 @@
    },
    "at": "2026-10-02T14:34:53-07:00",
    "run_id": "8d9a19875616441ab29277d3405a9acc"
+  },
+  {
+   "uid": "FA-1cecc3fb",
+   "date": "2026-09-23",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi says the noun with a separate number, and Amal immediately prompts him to make قهوة dual; he then tries and reaches the corrected form.",
+   "evidence": {
+    "t_start": 284.0,
+    "t_end": 318.0,
+    "quote": "Medi: «أشرب تنين قهوة» / Amal: «How do you make قهوة two؟» / Medi: «قهوتين؟»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-23/FA-1cecc3fb_Medi_Medi_Natanzi-e3a8d6e67e3.mp3",
+      "sha256": "a7fb62adb11e4e52a580184a45b1c5c634e77782e783c42f68f10d9999f8bd43",
+      "source": "Medi_Natanzi-e3a8d6e67e31e021.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-23/FA-1cecc3fb_Amal_Amal-a01dfd0b096f5d0d.mp3",
+      "sha256": "023769b351b3ad5d106f0b7ecfd89314f91c315c94d2d6243d6eecc5e8d9b230",
+      "source": "Amal-a01dfd0b096f5d0d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-23/FA-1cecc3fb_mixed_lesson.mp3",
+      "sha256": "d3f58b8afa5093a6a943163fc8ad360efc7edd7acbec932e623406aaf2463139",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا بقدر احكي احسن لما اشرب اه اشرب تنين احوى أحوين أحويتين أحويتين",
+     "Amal": "كيف تصنع كيف تصنع كيف تصنع كيف تصنع شكرا",
+     "mixed": "انا بقدر احكي احسن لما اشرب اه اشرب تنين احوى. اهوين. أخوة فاين أخوة فاين"
+    }
+   },
+   "claim": {
+    "wrong": "تنين قهوة",
+    "right": "قهوتين",
+    "bucket": "A9",
+    "tier": null
+   },
+   "at": "2026-10-02T17:23:46-07:00",
+   "run_id": "7439b21384fe4adcb487f5e6b3ac2796"
+  },
+  {
+   "uid": "FA-b04db7b7",
+   "date": "2026-09-23",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "After Amal prompts for the dual, Medi says «قهوين/أهوين», and Amal explicitly rejects it because the noun is feminine before he changes to «قهوتين».",
+   "evidence": {
+    "t_start": 295.0,
+    "t_end": 326.0,
+    "quote": "Medi: «قهوين؟» / Amal: «No، it's feminine» / Medi: «قهوتين؟»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-23/FA-b04db7b7_Medi_Medi_Natanzi-e3a8d6e67e3.mp3",
+      "sha256": "3c384f771645ebd2cffc56c716431d84f3a5ef292ebfe8cb7fee18c99c352ed7",
+      "source": "Medi_Natanzi-e3a8d6e67e31e021.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-23/FA-b04db7b7_Amal_Amal-a01dfd0b096f5d0d.mp3",
+      "sha256": "72567c5263deb8b11ade53a44dfd64d21c3635e218f3495590ee73e8f742b5dc",
+      "source": "Amal-a01dfd0b096f5d0d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-23/FA-b04db7b7_mixed_lesson.mp3",
+      "sha256": "b6f101a640309d5d09349b7c16223a4f7a1a2b1f49d1163c877bd6a0deb2b590",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أحوى أحوين أحويتين أحويتين أنا لن أخبرك أنا دايماً",
+     "Amal": "كيف تجعلني أريد أن لا، إنه فمينامي، لذلك بالتأكيد ترجمة نانسي قنقر",
+     "mixed": "أحوى. كيف تصنع أحوى كثيرا؟ أحوين. لا. إنه عجيب. لذا أعرف. أحويتين. حسنًا. حسنًا. أحويتين. اه اه اه اه اه اه اه اه اه"
+    }
+   },
+   "claim": {
+    "wrong": "قهوين",
+    "right": "قهوتين",
+    "bucket": "A9",
+    "tier": null
+   },
+   "at": "2026-10-02T17:23:46-07:00",
+   "run_id": "7439b21384fe4adcb487f5e6b3ac2796"
+  },
+  {
+   "uid": "FA-2d801399",
+   "date": "2026-09-23",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "The dialect transcription preserves Medi saying «هي تشربي», and Amal recasts the sentence as «بتشرب قهوة؟ كتير»; this is a signalled form/person correction.",
+   "evidence": {
+    "t_start": 321.0,
+    "t_end": 358.0,
+    "quote": "Medi: «هي تشربي» / Amal: «بتشرب قهوة؟ كتير»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-23/FA-2d801399_Medi_Medi_Natanzi-e3a8d6e67e3.mp3",
+      "sha256": "40251e8fce51057c0aeecb94610bf7483f303c3e02a306d4002dda6825065f62",
+      "source": "Medi_Natanzi-e3a8d6e67e31e021.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-23/FA-2d801399_Amal_Amal-a01dfd0b096f5d0d.mp3",
+      "sha256": "bd23cca2fe4fba9f32a4e2a7dcf24c6a0d46e59e676c59ac641baa6e4ee91000",
+      "source": "Amal-a01dfd0b096f5d0d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-23/FA-2d801399_mixed_lesson.mp3",
+      "sha256": "5ccbdfa93f21d4506dfebcae9d9a3077baad56725ff56534d15cecd1cfe6f6f5",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا دايماً احكي لها انه هي تشرب اكثر اخوة تشرب اكثر اخوة وانا حكيت لك انه انا بقدر ادرس احسن لما اشترك",
+     "Amal": "اشتركوا في القناة اشتركوا في القناة",
+     "mixed": "انا دايما احكي لها انه هي تشرب كثير من الاحوال تشرب احوال كثير تشرب احوال كثير شو حكت لك هي طيب وأنا حكيت لك أنه أنا بقدر أدرس أحسن لما أشرب"
+    }
+   },
+   "claim": {
+    "wrong": "تشربي",
+    "right": "بتشرب",
+    "bucket": "B1",
+    "tier": null
+   },
+   "at": "2026-10-02T17:23:46-07:00",
+   "run_id": "7439b21384fe4adcb487f5e6b3ac2796"
+  },
+  {
+   "uid": "FA-2e21f16e",
+   "date": "2026-09-23",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi uses English «too much» inside the Arabic sentence, then Amal supplies «كتير» and he repeats it in Arabic.",
+   "evidence": {
+    "t_start": 325.0,
+    "t_end": 358.0,
+    "quote": "Medi: «تو ماتش قهوة» / Amal: «تشرب قهوة؟ كتير» / Medi: «تشرب قهوة كثير»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-23/FA-2e21f16e_Medi_Medi_Natanzi-e3a8d6e67e3.mp3",
+      "sha256": "a667690bbe6012f6a46bc5cf1b96d34c87bf721a31cc0ef21188bdc90a9925fd",
+      "source": "Medi_Natanzi-e3a8d6e67e31e021.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-23/FA-2e21f16e_Amal_Amal-a01dfd0b096f5d0d.mp3",
+      "sha256": "e7a407ba82c2aab85f4d94f559872c23a7ee90b017334d255bd8e8558c146e7b",
+      "source": "Amal-a01dfd0b096f5d0d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-23/FA-2e21f16e_mixed_lesson.mp3",
+      "sha256": "49caf2a29be78964714ac2623ea110f7d829116c65e3df4e428285c05cdc8db3",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أحكي لها أنه هي تشرب كثير من الأحوال تشرب أحوال كثيرة وانا حكيت لك انه انا بقدر ادرس احسن لما اشترك",
+     "Amal": "اشتركوا في القناة ترجمة نانسي قنقر",
+     "mixed": "أحكي لها أنه هي تشرب كثير من القهوة تشرب قهوة كثير تشرب قهوة كثير شو حكت لك هي طيب؟ وأنا حكيت لك أنه أنا بقدر أدرس أحسن لما أشترك"
+    }
+   },
+   "claim": {
+    "wrong": "too much",
+    "right": "كتير",
+    "bucket": null,
+    "tier": 3
+   },
+   "at": "2026-10-02T17:23:46-07:00",
+   "run_id": "7439b21384fe4adcb487f5e6b3ac2796"
+  },
+  {
+   "uid": "FA-d71e58bb",
+   "date": "2026-09-23",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi says «تمي/ثمي» about pain, Amal echoes «تمك؟» and later asks what «طم» means; the later exchange shows the intended correction was from mouth to belly/stomach.",
+   "evidence": {
+    "t_start": 414.0,
+    "t_end": 474.0,
+    "quote": "Medi: «تمي شوي...» / Amal: «تمك؟» ... «شو يعني طم؟» / Medi: «بطني sorry بطني»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-23/FA-d71e58bb_Medi_Medi_Natanzi-e3a8d6e67e3.mp3",
+      "sha256": "832f12ec43134ef6d0a7aab939849216e5c8448f0c4432550db1fc432b41b7c3",
+      "source": "Medi_Natanzi-e3a8d6e67e31e021.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-23/FA-d71e58bb_Amal_Amal-a01dfd0b096f5d0d.mp3",
+      "sha256": "86a2541afe6c017a2ab608d42536cce5a16b0b88d90d04270ea353c0d5c4a357",
+      "source": "Amal-a01dfd0b096f5d0d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-23/FA-d71e58bb_mixed_lesson.mp3",
+      "sha256": "78cbde33c0c8b223f4b1919f6f009ec488fcf28de0dbe914e511b51f0378ea1d",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "تمام. آآ اليوم آآ ثمي شوي تواجهت. آآ ما بعرف شو حكلت بس آآ I don't know how to say I was supposed to do I I should have أنا كان لازم أنا كان لازم أمرنت في الصباح بس ما ما تروي شكرا",
+     "Amal": "غير تمام تمك ليش مالو ترجمة نانسي قنقر",
+     "mixed": "تمام. غير تمام. اه اليوم ثمي شوي تواجه. ثمك? اه. ليش مالو? اه ما بعرف شو حكلت بس I don't know how to say I was supposed to Do I Yeah you should have I should have أنا كان لازم أمرنت في الصباح بس ما تروي"
+    }
+   },
+   "claim": {
+    "wrong": "توني",
+    "right": "بطني",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-02T17:23:46-07:00",
+   "run_id": "7439b21384fe4adcb487f5e6b3ac2796"
+  },
+  {
+   "uid": "FA-f3f29483",
+   "date": "2026-09-23",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi first says «أغلب من أيام/اليوم» and later still lacks the definite form with «أغلب أيام»; Amal prompts «أغلب شو؟ الأيام», signalling the correction to «أغلب الأيام».",
+   "evidence": {
+    "t_start": 508.0,
+    "t_end": 568.0,
+    "quote": "Medi: «أغلب من أيام» ... «أغلب أيام» / Amal: «أغلب شو؟ الأيام»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-23/FA-f3f29483_Medi_Medi_Natanzi-e3a8d6e67e3.mp3",
+      "sha256": "cdc391a3e288e8a01bb67e4535c45a3f1c51e99c16102f05c0b2c7c80014c7c4",
+      "source": "Medi_Natanzi-e3a8d6e67e31e021.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-23/FA-f3f29483_Amal_Amal-a01dfd0b096f5d0d.mp3",
+      "sha256": "8238788c4521c8d8c1d4c7f563cccad7e74bd88be6619e0b5ef56ebd89ecd035",
+      "source": "Amal-a01dfd0b096f5d0d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-23/FA-f3f29483_mixed_lesson.mp3",
+      "sha256": "ff66ed12eb6995a4ce809b54b21c28a5a53553607e75f23379d7c6904b66f3bb",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أنا أكل نفس الشيء أغلب من أيام شوي الجملة اشي اشي انا باكل نفس اشي اكلب ايام بلايك. ننمى أسفل.",
+     "Amal": "انا باكل نفس شو يجمع الاشي شو جمع اشي اشياء نفس الاشياء most of most most days اغلب شو الايام سلامتك لازم تشرب نانا عندكم نانا؟",
+     "mixed": "انا باكل نفس اشي اغلب من ايوم انا باكل نفس شو الجمع الاشي شو الجمع الاشي شو جمع? اشي. اه اشياء. اشياء نفس الاشياء. انا باكل اشياء. اغلب. اغلب. ايام. شو? الايام. الايام. سلامتك لازم تشرب نانا اه عندكم نانا"
+    }
+   },
+   "claim": {
+    "wrong": "أغلب من أيام",
+    "right": "أغلب الأيام",
+    "bucket": "A2",
+    "tier": null
+   },
+   "at": "2026-10-02T17:23:46-07:00",
+   "run_id": "7439b21384fe4adcb487f5e6b3ac2796"
+  },
+  {
+   "uid": "FA-47ff01c5",
+   "date": "2026-09-23",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "medium",
+   "reason": "Amal's signal was asking for the missing month after the date, not clearly correcting the form of the number phrase. Her decisive echo is \"23 شو؟\" and then she supplies \"تسعة\".",
+   "evidence": {
+    "t_start": 763.0,
+    "t_end": 797.0,
+    "quote": "Medi: «23 2026» / Amal: «23 شو؟ ... تسعة»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-23/FA-47ff01c5_Medi_Medi_Natanzi-e3a8d6e67e3.mp3",
+      "sha256": "5bf6f1c1b775379c445ad26101b1f1b47bab46b72e8e92cd77cb239b5b136e06",
+      "source": "Medi_Natanzi-e3a8d6e67e31e021.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-23/FA-47ff01c5_Amal_Amal-a01dfd0b096f5d0d.mp3",
+      "sha256": "a035594648f19a902c7ec14c5a4e0d6125a125ffd6fc797388fe0ca2eaea8a0e",
+      "source": "Amal-a01dfd0b096f5d0d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-23/FA-47ff01c5_mixed_lesson.mp3",
+      "sha256": "5410346e9f9d53a6d1498a9234fa88f40d155507624ef6b2f253e78616857cc8",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اليوم يوم الأربعة ٢٣ ٢٠٢٦ ٢٠٠٠ شكرا",
+     "Amal": "23 شو 23 شو 9 طيب أتساء",
+     "mixed": "اليوم يوم الأربعة ٢٣ ٢٠٢٦ ٢٣ شو؟ ٢٣ شو؟ ٢٨ أو 9 طيب أنت ساعة ساعة"
+    }
+   },
+   "claim": {
+    "wrong": "ثلاث عشرين",
+    "right": "تلاتة وعشرين + month",
+    "bucket": "E4",
+    "tier": null
+   },
+   "at": "2026-10-02T17:24:06-07:00",
+   "run_id": "4880617caaa045b383088a0a1ff00dbe",
+   "changed_to": {
+    "wrong": "omitted the month after saying the date: «23 2026»",
+    "right": "«23 تسعة 2026» or equivalent month expression"
+   }
+  },
+  {
+   "uid": "FA-8541eb37",
+   "date": "2026-09-23",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi put the minutes first, and Amal explicitly rejected the order with \"لا، بالعكس\"; he then reversed it.",
+   "evidence": {
+    "t_start": 822.0,
+    "t_end": 858.0,
+    "quote": "Medi: «عشرة دقايق إلا ثلاث» / Amal: «لا، بالعكس» / Medi: «ثلاث إلا...»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-23/FA-8541eb37_Medi_Medi_Natanzi-e3a8d6e67e3.mp3",
+      "sha256": "7b44c3e5a75489af47409b45ea78366c81a099fa3bc36cdbb48871e3bfa3c0ed",
+      "source": "Medi_Natanzi-e3a8d6e67e31e021.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-23/FA-8541eb37_Amal_Amal-a01dfd0b096f5d0d.mp3",
+      "sha256": "843d3802a3799883e105bdf7b244cfbb4b7a946f680ce85db365273d64deb1e9",
+      "source": "Amal-a01dfd0b096f5d0d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-23/FA-8541eb37_mixed_lesson.mp3",
+      "sha256": "ab37ab7ee2803b7135517f8a87db909e7e6b447474f1261086fcd8ad461f1aba",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "الى تنتين الى ثلاثة. اش عشر دقايق الى ثلاثة الى ثلاثة. ثلاثة الى عشرين عشر. لم نستخدم ذلك من قبل. I I don't think I've done ten minutes too or twenty minutes too or you wouldn't do",
+     "Amal": "بلاكس لا بلاكس عشرة شو لون قواعي كله تقوله دائما",
+     "mixed": "الى ثلاث بالعكس اوكي عشرة دقايق الى ثلاث الى ثلاث لا بالعكس ثلاث الى عشر عشرة اوكي انا لم استخدم ذلك قبل انت دائما تقوله I I don't think I've done ten minutes too or twenty minutes too or you wouldn't do"
+    }
+   },
+   "claim": {
+    "wrong": "عشر دقائق إلا تلات",
+    "right": "تلات إلا عشرة",
+    "bucket": "E2",
+    "tier": null
+   },
+   "at": "2026-10-02T17:24:06-07:00",
+   "run_id": "4880617caaa045b383088a0a1ff00dbe"
+  },
+  {
+   "uid": "FA-769877e7",
+   "date": "2026-09-23",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "After fixing the order, Medi said the wrong number, and Amal immediately supplied \"عشرة\"; he repeated it.",
+   "evidence": {
+    "t_start": 831.0,
+    "t_end": 862.0,
+    "quote": "Medi: «ثلاثة إلا عشرين» / Amal: «عشرة» / Medi: «عشرة»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-23/FA-769877e7_Medi_Medi_Natanzi-e3a8d6e67e3.mp3",
+      "sha256": "e58a9f67960aa8b6c9c3e61d695bc3e3289a2775dccc7a353a2e6085fd9dd83a",
+      "source": "Medi_Natanzi-e3a8d6e67e31e021.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-23/FA-769877e7_Amal_Amal-a01dfd0b096f5d0d.mp3",
+      "sha256": "f3adef467264d253ece290b23fc64ff603b84a8af621c77a7d3f4d5792dcc8aa",
+      "source": "Amal-a01dfd0b096f5d0d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-23/FA-769877e7_mixed_lesson.mp3",
+      "sha256": "260c32291704aa7b5f134d9ac4cb6a52866f0e141e236d133dbdbdd8538db385",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "حسناً، عشرة دعاية إلى ثلاثة ثلاثة إلى عشرين، عشرة، حسناً لم أستخدم ذلك من قبل لا أعتقد أنني قمت بذلك في 10 دقائق أيضاً أو 20 دقائق أيضاً، أو أنت لن تفعل 20 دقائق أيضاً حسنا",
+     "Amal": "اشتركوا في القناة اشتركوا في القناة",
+     "mixed": "حسناً، عشرة دعاية إلا ثلاث، إلا ثلاثة لا، بالعكس ثلاثة إلا عشرين، عشرة، حسناً لم أستخدم ذلك من قبل أنت دائماً تقول ذلك لا أعتقد أنني قمت بذلك في 10 دقائق أيضاً، أو 20 دقائق أيضاً، أو أنت لن تفعل 20 دقائق أيضاً نعم نفعل حسنا"
+    }
+   },
+   "claim": {
+    "wrong": "عشرين",
+    "right": "عشرة",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-02T17:24:06-07:00",
+   "run_id": "4880617caaa045b383088a0a1ff00dbe"
+  },
+  {
+   "uid": "FA-36358459",
+   "date": "2026-09-23",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi used «أطلب» for booking a room, and Amal said no, there is a specific word; she then contrasted it with «طلب is order» and supplied «حجز/أحجز».",
+   "evidence": {
+    "t_start": 1190.0,
+    "t_end": 1228.0,
+    "quote": "Medi: «أنا بدي أطلب ... غرفة» / Amal: «No... specific word» / «طلب is order. No.»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-23/FA-36358459_Medi_Medi_Natanzi-e3a8d6e67e3.mp3",
+      "sha256": "f09220a46aaf832f71e0e5ebc8e3cfb7462e5c9096418eb397cd394d259afb55",
+      "source": "Medi_Natanzi-e3a8d6e67e31e021.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-23/FA-36358459_Amal_Amal-a01dfd0b096f5d0d.mp3",
+      "sha256": "8b985e47a2c1557c3a4d0fd03c34a31e941b54b776931aa93509655cbb948279",
+      "source": "Amal-a01dfd0b096f5d0d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-23/FA-36358459_mixed_lesson.mp3",
+      "sha256": "cb782ccdd306188600a70caad1ea86057cc0200dc58b35d6570ec573bfe8733e",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "بوكينج بوكينج بوكينج بوكينج بوكينج بوكينج بوكينج بوكينج بوكينج بوكينج بوكينج أعتقد أنه يوجد بعض الصلاة",
+     "Amal": "لكي تحضر نعم أريد أن أحضر غرفة على سبيل المثال كيف تقولها لا هناك كلمة مختلفة نعرفها يمكننا أن نتعلم الآخرين العنوان والعنوان لأنهم مختلفين جداً أهلاً بكم في أهلاً بكم في أهلاً بكم في أهلاً بكم في أهلاً بكم في أهلاً",
+     "mixed": "to book booking yeah I wanna book a room for example how do you say it there's a specific word we know booking and this is a verb or a noun verb and noun because they're very similar هل هو من سلاب؟ سلاب هو مرحلة لا"
+    }
+   },
+   "claim": {
+    "wrong": "أطلب",
+    "right": "أحجز",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-02T17:24:06-07:00",
+   "run_id": "4880617caaa045b383088a0a1ff00dbe"
+  },
+  {
+   "uid": "FA-83496534",
+   "date": "2026-09-23",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi offered «كم أيام» as an alternative, and Amal explicitly rejected it with «لا، كم يوم»; he then stated the singular-after-كم rule.",
+   "evidence": {
+    "t_start": 1604.0,
+    "t_end": 1635.0,
+    "quote": "Medi: «كم يوم؟ أو كم أيام؟» / Amal: «لا، كم يوم»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-23/FA-83496534_Medi_Medi_Natanzi-7f074f2821c.mp3",
+      "sha256": "0a00ceba842e79863c445539c3c1488e057e503a056b97fab0941dbb53533a11",
+      "source": "Medi_Natanzi-7f074f2821cf5603.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-23/FA-83496534_Amal_Amal-a01dfd0b096f5d0d.mp3",
+      "sha256": "c8f0e4ef0cbd9a4eab7588229d8dbdc587919b16c350183a7ae97bd039bd7983",
+      "source": "Amal-a01dfd0b096f5d0d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-23/FA-83496534_mixed_lesson.mp3",
+      "sha256": "8f600c7fdef88f9163f851ec74eee860d50d16d35e465741ebe33605f6302e1f",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "حسناً. نعم. أم يوم أم يوم. أم يوم. أم يوم. أم يوم. أم يوم. أم يوم. أم يوم. أم يوم. أم يوم. أم يوم. أم يوم. أم يوم. أم يوم. أم يوم. أنا",
+     "Amal": "بس you got that means how long or we could say how many days how can I say how many days كم يوم ليش كم يوم ترجمة نانسي قنقر",
+     "mixed": "حسنًا، لقد حصلت على ذلك، فهذا يعني كم عدد؟ نعم، أو يمكننا أن نقول كم عدد؟ كيف يمكنني أن أقول كم عدد؟ كم يوم؟ لا، كم يوم لماذا؟ لا يستطيع أن يأخذ كلمة لا يستطيع أن يأخذ كلمة هذا يحتاج إلى إضافةه إلى قائمة الكلمات لم أضع هذا أنا أنا بدأت"
+    }
+   },
+   "claim": {
+    "wrong": "كم أيام",
+    "right": "كم يوم",
+    "bucket": "E5",
+    "tier": null
+   },
+   "at": "2026-10-02T17:24:06-07:00",
+   "run_id": "4880617caaa045b383088a0a1ff00dbe"
+  },
+  {
+   "uid": "FA-c192b287",
+   "date": "2026-09-23",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi said the future phrase with a b-prefixed stay verb after «راح», and Amal immediately recast it as «أضل». The evidence is a bit noisy, but both Medi-track and mixed dialect transcriptions support «أنا راح بدول/بدل» followed by Amal's «أضل».",
+   "evidence": {
+    "t_start": 1628.0,
+    "t_end": 1660.0,
+    "quote": "Medi: «أنا راح بدول/بدل» / Amal: «أضل»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-23/FA-c192b287_Medi_Medi_Natanzi-7f074f2821c.mp3",
+      "sha256": "ff642b543abab1e4855246caf088380f2ad9a40e0d3fe79434b67d31f3b582c9",
+      "source": "Medi_Natanzi-7f074f2821cf5603.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-23/FA-c192b287_Amal_Amal-a01dfd0b096f5d0d.mp3",
+      "sha256": "73c1099da3df2253b3fcfda1f12e704e06eb71354a3fbe7096b153d8f04748ec",
+      "source": "Amal-a01dfd0b096f5d0d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-23/FA-c192b287_mixed_lesson.mp3",
+      "sha256": "81c16d7bc0fa54486adf28c93c0de0377f5c5e2ad8a2f473ef2054147c0a6601",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا انا بدل انا راح بدل ادل لسنتين ايام ترجمة نانسي قنقر",
+     "Amal": "سأبقى كيف أجعل يومي ممتاز",
+     "mixed": "انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا "
+    }
+   },
+   "claim": {
+    "wrong": "راح بدول",
+    "right": "راح أضل",
+    "bucket": "B3",
+    "tier": null
+   },
+   "at": "2026-10-02T17:24:06-07:00",
+   "run_id": "4880617caaa045b383088a0a1ff00dbe"
+  },
+  {
+   "uid": "FA-89974a5e",
+   "date": "2026-09-23",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Amal immediately treats “paper” as the word to translate, prompts “شو يعني paper؟” and “One paper,” and Medi then gives the Arabic form. The missing Medi line is outweighed by Amal’s direct prompt.",
+   "evidence": {
+    "t_start": 1776.0,
+    "t_end": 1806.0,
+    "quote": "Amal: «شو يعني paper؟ ... One paper.» Medi: «ورقة» / «وين الورقة»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-23/FA-89974a5e_Medi_Medi_Natanzi-7f074f2821c.mp3",
+      "sha256": "a70f22fcd35ec3a4c816a8abf28b79bf71fa0d18732b6ba10bce2ab87994a730",
+      "source": "Medi_Natanzi-7f074f2821cf5603.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-23/FA-89974a5e_Amal_Amal-a01dfd0b096f5d0d.mp3",
+      "sha256": "afabd6443a84476e06aef596470d5b5f90117236dc6f4935ef54de2582eaf6ad",
+      "source": "Amal-a01dfd0b096f5d0d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-23/FA-89974a5e_mixed_lesson.mp3",
+      "sha256": "ea8c5fa14dcc81083518955f16a9b1fbfbd3bd254aa15bf606fdff51375df1fe",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا راح اكتب بعدين. وراء وراء اوكي وين الورقة",
+     "Amal": "ترجمة نانسي قنقر",
+     "mixed": "انا راح اكتب بعدين نعم انا لا اعلم ايه هنالك ورقة ورقة واحدة ورقة طيب دعونا نعتقد انك لا تملك حسنا وين الورقة وين الورقة"
+    }
+   },
+   "claim": {
+    "wrong": "paper",
+    "right": "ورقة",
+    "bucket": null,
+    "tier": 3
+   },
+   "at": "2026-10-02T17:24:31-07:00",
+   "run_id": "86bb21fcc94e46e68bc68d675ec13f34"
+  },
+  {
+   "uid": "FA-0db922a6",
+   "date": "2026-09-23",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi used «موظف اللي يجي», and Amal explicitly identified it as an error, saying he did not need «اللي» and later supplied «إنه يجي».",
+   "evidence": {
+    "t_start": 2292.0,
+    "t_end": 2348.0,
+    "quote": "Medi: «موظف اللي يجي»; Amal: «So you don't need الـ اللي ... No اللي then ... إنه يجي»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-23/FA-0db922a6_Medi_Medi_Natanzi-7f074f2821c.mp3",
+      "sha256": "325ff1c74a53f8df8412d606654c38b7677b0699a0954d90c6e5e306c984db47",
+      "source": "Medi_Natanzi-7f074f2821cf5603.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-23/FA-0db922a6_Amal_Amal-a01dfd0b096f5d0d.mp3",
+      "sha256": "9070e69050b4667fb30fa87ee5165a2f441787774ec740b9f456a30fc05b4d5e",
+      "source": "Amal-a01dfd0b096f5d0d.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-23/FA-0db922a6_mixed_lesson.mp3",
+      "sha256": "6a436d6aa32192d42dd0dd7d01f7da33a7153861f891ec5651ef6beabb38981b",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "الغرفة كانت شوي وسخة وانا طلبت من الموافز اللي ييجي موظف اللي ييجي اوه ايليا اه تي جي لا انا فقط قلت اه اخبرت الموظف نعم انت صحيح ان نعم، حسناً يجب أن يكون",
+     "Amal": "موظف او في ارر موظف اللي what اللي now edited اللي بنظف يجي like the employee that cleans you meant so you don't need the illy no illy then",
+     "mixed": "الغرفة كانت شوي وسخة وانا طلبت من الموافز موظف موظف اللي يجي Oh في error here موظف اللي what اللي اللي بنضف جيجي. The employee that cleans you meant. No, I just meant. So you don't need. I told the employee. No, I didn't. Yeah, you're right that. Yeah. Okay. موازفة موازفة and then it needs to be"
+    }
+   },
+   "claim": {
+    "wrong": "اللي يجي",
+    "right": "إنه يجي",
+    "bucket": "C7",
+    "tier": null
+   },
+   "at": "2026-10-02T17:24:31-07:00",
+   "run_id": "86bb21fcc94e46e68bc68d675ec13f34"
+  },
+  {
+   "uid": "FA-825af56d",
+   "date": "2026-09-30",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi said «أنا مش شجاع/مش شجع» while reaching for the yesterday sentence, and Amal recast it with past «ما كنت متشجع». This is a real correction, though it also includes the earlier lexical shift from شجاع to متشجع.",
+   "evidence": {
+    "t_start": 413.0,
+    "t_end": 466.0,
+    "quote": "Medi: «أنا مش شجع ... لا إمبارح»; Amal: «إنت ما كنت متشجع»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-30/FA-825af56d_Medi_Medi_Natanzi-1f530a1c937.mp3",
+      "sha256": "a9b8e11f2dbeaf94d3c3ece18c1a95932832067032fd571f1de4a7a1b0507303",
+      "source": "Medi_Natanzi-1f530a1c93762433.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-30/FA-825af56d_Amal_Amal-0303874dcac11235.mp3",
+      "sha256": "df79052ea49f2eb885da8b3303b305d1c2cf969c996d4ffa5c8ef9ca6597db22",
+      "source": "Amal-0303874dcac11235.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-30/FA-825af56d_mixed_lesson.mp3",
+      "sha256": "de16f6d98543ddfbeef1a0f499366213d5773388dcf8002866763599001ba53b",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا مش شجع اشان انا مش شجع اشان مريمي لا او لا بيكاز جسد لا. اه لا امباري. انا سوءت. سوءت. سوءت. سوءت. اه أنا سؤال لأنتين ساقين",
+     "Amal": "متشجع لا لا التكس لا انت ما كنت متشجع صرت سؤال",
+     "mixed": "أنا مش شجع متشجع لا أنا مش مش مش شجع عشان لا ماذا تعني لا؟ تأخذ لا لا لأن فقط لا حسنا لا امبار أنا سؤال انت ما كنت متشجع سؤال سؤال سؤال سؤال انا سؤال لانتين ساعتين"
+    }
+   },
+   "claim": {
+    "wrong": "مش شجاع",
+    "right": "ما كنت متشجع",
+    "bucket": "B6",
+    "tier": null
+   },
+   "at": "2026-10-02T17:24:31-07:00",
+   "run_id": "86bb21fcc94e46e68bc68d675ec13f34"
+  },
+  {
+   "uid": "FA-9b1db5d8",
+   "date": "2026-09-30",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi asked whether «honak» meant “that,” and Amal clearly rejected it, saying it was not in the demonstratives list and meant “over there.”",
+   "evidence": {
+    "t_start": 1614.0,
+    "t_end": 1652.0,
+    "quote": "Medi: «honak is that?»; Amal: «No, hunak is not in this list. Hunak means over there»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-30/FA-9b1db5d8_Medi_Medi_Natanzi-1f530a1c937.mp3",
+      "sha256": "f654ab4e26426c9c786769971c12de34bf1f53602663fcddd06654a5ed74cc50",
+      "source": "Medi_Natanzi-1f530a1c93762433.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-30/FA-9b1db5d8_Amal_Amal-0303874dcac11235.mp3",
+      "sha256": "d635be14c31b4b3ecb8296470051bc334f9da530687972debf053bd48b5dc795",
+      "source": "Amal-0303874dcac11235.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-30/FA-9b1db5d8_mixed_lesson.mp3",
+      "sha256": "9ae60a6d24d97195b37200e5a178ee130940ee81787f508e81b3cbbb8493605c",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "هذه هذه هونك هونك هونك هونك هل كنت تكتبه؟ اوه هذا هادي اوه نعم هادي",
+     "Amal": "هذا هذا أو هؤلاء ماذا؟ ماذا هو؟ لا، هونك ليس في هذه الرسالة، هونك في هنا دعنا نبدأ من هذا، ماذا هو هذا؟ ترجمة نانسي قنقر",
+     "mixed": "هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك هنك لنبدأ من هذا ما هو هذا؟ هل تكتبه؟ اوه هذا حادي اوه هذا حادي اوه هذا حادي"
+    }
+   },
+   "claim": {
+    "wrong": "honak",
+    "right": "hadak",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-02T17:24:31-07:00",
+   "run_id": "86bb21fcc94e46e68bc68d675ec13f34"
+  },
+  {
+   "uid": "FA-d7775cb3",
+   "date": "2026-09-30",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi said «هداك الزلمة», Amal reprompted specifically for “young guy, young man,” and Medi switched to «هداك الشاب».",
+   "evidence": {
+    "t_start": 1769.0,
+    "t_end": 1801.0,
+    "quote": "Medi: «هداك الزلمة»; Amal: «Young guy, young man»; Medi: «هداك الشاب»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-30/FA-d7775cb3_Medi_Medi_Natanzi-1f530a1c937.mp3",
+      "sha256": "44c3959d1c15e269b664d244fb91b7edb57bd9d5e31718d52dfb35c453354646",
+      "source": "Medi_Natanzi-1f530a1c93762433.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-30/FA-d7775cb3_Amal_Amal-0303874dcac11235.mp3",
+      "sha256": "a931e65a93fece0f4aed1eb5c81166d5dde6405fad384c5e9ca13ce1e910d6f3",
+      "source": "Amal-0303874dcac11235.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-30/FA-d7775cb3_mixed_lesson.mp3",
+      "sha256": "857dda8acea61cacac67b9d3915417afcb0250bf3a3eed0c38d3880b8489f8bb",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "هذا الرجل لذا هذا هذا الشاب هذا الشاب هذا الشاب هذا الشاب ترجمة نانسي قنقر",
+     "Amal": "يسرق الناس. إنه يسرق. شخص صغير. شخص صغير. لديك اثنين اختيارات لقول انه يسرق. ترجمة نانسي قنقر",
+     "mixed": "he tires people. He's tiring. That guy. So young guy. Young man. Oh so that is tiring. You have two options to say tiring. ترجمة نانسي قنقر"
+    }
+   },
+   "claim": {
+    "wrong": "zalameh",
+    "right": "shab",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-02T17:24:31-07:00",
+   "run_id": "86bb21fcc94e46e68bc68d675ec13f34"
+  },
+  {
+   "uid": "FA-1d6036bf",
+   "date": "2026-09-30",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "medium",
+   "reason": "Medi appears to say «سيارة» then «أخوتي» separately, and Amal’s prompt “for feminine nouns, what do we add?” signals the missing idafa -t. The corrected item is the construct form «سيارة» to «سيارة/سيارت أخوتي», not a separate wrong phrase already fully formed as «سيارة أخوتي».",
+   "evidence": {
+    "t_start": 2662.0,
+    "t_end": 2702.0,
+    "quote": "Medi: «سيارة ... أخوتي»; Amal: «So for feminine nouns, what do we add?»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-30/FA-1d6036bf_Medi_Medi_Natanzi-1f530a1c937.mp3",
+      "sha256": "7a8abb3cba7042b6a4d8f6d7d72cd4207d31fdd241707c5b606732f05a6c4f7c",
+      "source": "Medi_Natanzi-1f530a1c93762433.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-30/FA-1d6036bf_Amal_Amal-0303874dcac11235.mp3",
+      "sha256": "dc5ce05ebef5b66f5bccb6f25029828946a88d713e80704cc39354176444cea9",
+      "source": "Amal-0303874dcac11235.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-30/FA-1d6036bf_mixed_lesson.mp3",
+      "sha256": "29fc692d60ea76d3752dd63140620b49ebc525dc3a114e703b25caf7a1abdab1",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "سيارة أخوتي أخوتي شكرا",
+     "Amal": "ممتاز ممتاز so for feminine nouns what do we add طيب كيف بحكي the apple tree is behind you",
+     "mixed": "my sibling's car سيارة ممتاز أخوتي ممتاز so for feminine nouns what do we add feminine nouns the teeth جيد كيف بحكي the apple tree is behind you"
+    }
+   },
+   "claim": {
+    "wrong": "سيارة أخوتي",
+    "right": "sayyaaret e5wti",
+    "bucket": "A3",
+    "tier": null
+   },
+   "at": "2026-10-02T17:24:31-07:00",
+   "run_id": "86bb21fcc94e46e68bc68d675ec13f34",
+   "changed_to": {
+    "wrong": "سيارة أخوتي / سيارة + أخوتي without -t",
+    "right": "سيارة أخوتي pronounced sayyaaret e5wti"
+   }
+  },
+  {
+   "uid": "FA-e0e0f7b5",
+   "date": "2026-09-30",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi produced a form like «يصلوا» and Amal immediately recast it as «يوصلوا», which is a direct correction of the dialect verb form.",
+   "evidence": {
+    "t_start": 3675.0,
+    "t_end": 3709.0,
+    "quote": "Medi: «راح يصلوا» / Amal: «يوصلوا»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-30/FA-e0e0f7b5_Medi_Medi_Natanzi-1f530a1c937.mp3",
+      "sha256": "b92992cb90c942c06b16015b5bec5f38924f827b0c605c0c73ea73352c3461fe",
+      "source": "Medi_Natanzi-1f530a1c93762433.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-30/FA-e0e0f7b5_Amal_Amal-0303874dcac11235.mp3",
+      "sha256": "bd22f86e2a12950205ee7973e793da4904ef0d670c510631fdc7516818996901",
+      "source": "Amal-0303874dcac11235.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-30/FA-e0e0f7b5_mixed_lesson.mp3",
+      "sha256": "e6a0289bbb86f1f34a7b6227ea3fc744e2d67858a3e1b8344e4c8faf1f06e20e",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "راه راه راه راه راه راه راه راه راه راه راه راه راه راه راه راه أفضل جدًا",
+     "Amal": "ممتاز يوصلوا ممتاز هادو يفعل اعطيني جملة طيب اشتركوا في القناة",
+     "mixed": "راح راح راح راح يسلوا يوصلوا يوصلوا حل ممتاز كيف تشعرين؟ أفضل أعطيني جملة طيب شكرا"
+    }
+   },
+   "claim": {
+    "wrong": "يصلوا",
+    "right": "يوصلوا",
+    "bucket": null,
+    "tier": 2
+   },
+   "at": "2026-10-02T17:24:51-07:00",
+   "run_id": "2f56f71295c14623902489ef44e2becc"
+  },
+  {
+   "uid": "FA-32e83e6b",
+   "date": "2026-09-30",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi included «هناك» in the demonstrative list, Amal challenged it with «هناك is what؟», and he immediately backed off and replaced it with «هذاك/هداك».",
+   "evidence": {
+    "t_start": 3848.0,
+    "t_end": 3881.0,
+    "quote": "Medi: «هذي وهدول وهناك» / Amal: «هناك is what؟» / Medi: «not هناك... هذاك»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-30/FA-32e83e6b_Medi_Medi_Natanzi-1f530a1c937.mp3",
+      "sha256": "cae2a51055d4429a4fa213177b9172b861d0a9d26bdd5fedafe18d8c9b137b67",
+      "source": "Medi_Natanzi-1f530a1c93762433.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-30/FA-32e83e6b_Amal_Amal-0303874dcac11235.mp3",
+      "sha256": "e5dbdf6c169aa2b887bc55d1ea0384caf4139289e9d674de6872c445c617c300",
+      "source": "Amal-0303874dcac11235.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-30/FA-32e83e6b_mixed_lesson.mp3",
+      "sha256": "c55507bf835f6bb5d869d0f7c1f61cd8a110e48c047ac81d29f79249c72ac22e",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "ماذا؟ لذا بعد هادي و هادول و هونيك لا هونيك هاديك و هداك لديهم L ثم إذا كانت الثانية الثانية الثانية الثانية الثانية الثانية الثانية",
+     "Amal": "اذهب الى الطعام افتح هذه الأشياء الأسهل دعني أعطني قوة أسهل هناك ماذا؟ طيب اشتركوا في القناة",
+     "mixed": "اكتب هذه الأشياء الأسهل. اعطني القرار الصعب. لذا بعد هادي و هادول و هناك. هناك ماذا؟ لا هناك. هاديك و هداك. لديهم L. صحيح. وإذا كانت الآية مرتبطة بثلاثة الآيات. إذا كانت الآية مرتبطة بثلاث آيات."
+    }
+   },
+   "claim": {
+    "wrong": "هناك",
+    "right": "هذاك",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-02T17:24:51-07:00",
+   "run_id": "2f56f71295c14623902489ef44e2becc"
+  },
+  {
+   "uid": "FA-6abc4e23",
+   "date": "2026-10-02",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "high",
+   "reason": "The correction is real, but the wrong expression was not «عادي الصباح»; the audio and Amal's echo point to «هذا الصباح/هذي الصباح», which she explicitly rejected.",
+   "evidence": {
+    "t_start": 493.0,
+    "t_end": 553.0,
+    "quote": "Medi: «هذا الصباح» / Amal: «We never say هذا الصباح, just say الصباح or بالصباح»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-02/FA-6abc4e23_Medi_Medi_Natanzi-26d03125bb9.mp3",
+      "sha256": "f3ffe6b6c1705b648a8e093c0895b3ee92d70d98c42bdb5429a37ee184208f4e",
+      "source": "Medi_Natanzi-26d03125bb92f95a.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-02/FA-6abc4e23_Amal_Amal-e0cad64c3ccb6c20.mp3",
+      "sha256": "d15f6068ab3ed074dd84841f932f74d21056f3a35e1eb2bfe14ffeced361b7e6",
+      "source": "Amal-e0cad64c3ccb6c20.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-02/FA-6abc4e23_mixed_lesson.mp3",
+      "sha256": "da6bcfca4fbedade097ec4472a584881935d88ba606fc64ebab271c309534950",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اشتركوا في القناة لأنكم لا تقولون أنني كنت لذلك فقط أقول أنني أكون صحيح أنا كنت أنا كنت شوية كسول هذا الصباح هذا الصباح هذا الصباح",
+     "Amal": "في الصباح او بالصباح. او الصباح. اوكي. كمل. انت صحيت متأخر و We never say هذا الصباح We just say الصباح Or بالصباح طيب لسه مش متشجع للشغل شكرا",
+     "mixed": "في الصباح او بالصباح. او السباح. حدي صاري الصباح. اوكي. او حادي الصباح. اوكي كمان. تمام. انت صحيت متأخر و. انا صحيت متأخر و. انا كنت شوي كسول هادي الصباح هذا الصباح طيب لسه مش متشجع للشغال اشتركوا في القناة"
+    }
+   },
+   "claim": {
+    "wrong": "عادي الصباح",
+    "right": "الصبح / بالصباح",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-02T17:24:51-07:00",
+   "run_id": "2f56f71295c14623902489ef44e2becc",
+   "changed_to": {
+    "wrong": "هذا الصباح / هذي الصباح",
+    "right": "الصباح / الصبح / بالصباح"
+   }
+  },
+  {
+   "uid": "FA-24cd2cbd",
+   "date": "2026-10-02",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi repeatedly says «أموي / amuwi» for 'my uncle', and the transcript has Amal recasting it as «عمي» twice right after. The independent window cuts off before the actual recast, so confidence is medium rather than high.",
+   "evidence": {
+    "t_start": 674.0,
+    "t_end": 734.0,
+    "quote": "Medi: «and amuwi» / Amal: «عمي»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-02/FA-24cd2cbd_Medi_Medi_Natanzi-26d03125bb9.mp3",
+      "sha256": "8eb734332933a75d1765271069dd7a82aa66c2e5ba9d4da1b5e16120ffe37f0c",
+      "source": "Medi_Natanzi-26d03125bb92f95a.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-02/FA-24cd2cbd_Amal_Amal-e0cad64c3ccb6c20.mp3",
+      "sha256": "d7c70a89d1541cf7526edc35dd1ca828d6ecaee0e85a1f6bb607a73a81174c1e",
+      "source": "Amal-e0cad64c3ccb6c20.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-02/FA-24cd2cbd_mixed_lesson.mp3",
+      "sha256": "f6eb13f3b2841613bcd69bc877d2ace9ec6540d6aee788ef7ca979a4e6c9f850",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "بس انا راه على اموي لشغل بس انا راه على اموي لشغل بس انا اذهب الى عائلتي واند اموي اند اموي او اند اموي راح اروح على اند اموي نعم نعم نعم نعم نعم نعم نعم نعم نعم نعم نعم نعم نعم",
+     "Amal": "اشتركوا في القناة راح going what's going إيزرالا or عند which one can't put two راح going",
+     "mixed": "بس أنا راه على أموي لشغل بس بس أنا راه وات I'm going to my uncle's and amoi راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح راح "
+    }
+   },
+   "claim": {
+    "wrong": "عموي",
+    "right": "عمي (3ammi)",
+    "bucket": "A4",
+    "tier": null
+   },
+   "at": "2026-10-02T17:24:51-07:00",
+   "run_id": "2f56f71295c14623902489ef44e2becc"
+  },
+  {
+   "uid": "FA-62568de1",
+   "date": "2026-10-02",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "high",
+   "reason": "The independent transcriptions show Medi already saying «المصاري», and Amal's response is about number agreement, not replacing «المال» with «المصاري».",
+   "evidence": {
+    "t_start": 1401.0,
+    "t_end": 1440.0,
+    "quote": "Medi: «المصاري راح... is مصاري masculine؟» / Amal: «المصاري is plural»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-02/FA-62568de1_Medi_Medi_Natanzi-26d03125bb9.mp3",
+      "sha256": "44409f6cd799f84f1d25b06a44364a1d2e59416276991f73e2da1940d8db9432",
+      "source": "Medi_Natanzi-26d03125bb92f95a.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-02/FA-62568de1_Amal_Amal-e0cad64c3ccb6c20.mp3",
+      "sha256": "64c2c3952d5c1551bdede17f9ad9307d01c47958b8230cb55144c22cd35a9a0b",
+      "source": "Amal-e0cad64c3ccb6c20.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-02/FA-62568de1_mixed_lesson.mp3",
+      "sha256": "5cad991499662c224395d7ecd5da872d79a2dfb9170e98afc11425e06265998b",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "فالمال سيأتي في اليوم الثاني، ولكن نقول في اليوم الثاني، صحيح؟ المساري راح المساري هو هل المساري زوجي؟ حسنًا، لكن المساري، حسنًا إلا صار رأى إيجو أثي",
+     "Amal": "موسيقى موسيقى اشتركوا في القناة",
+     "mixed": "سيأتي المال في اليوم الثاني، ولكن ستقول في اليوم الثاني، صحيح؟ المصاري راح المصاري هل المصاري زوجي؟ المصاري مصاري حسنًا، لكن المصاري إلا صار رأى إيجو أتي"
+    }
+   },
+   "claim": {
+    "wrong": "المال",
+    "right": "المصاري (el-masari)",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-02T17:24:51-07:00",
+   "run_id": "2f56f71295c14623902489ef44e2becc"
+  },
+  {
+   "uid": "FA-9d06f6cf",
+   "date": "2026-10-02",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi says «ساعة الأول», Amal supplies «أولى», he repeats the masculine form, and she recasts the full correct phrase «الساعة الأولى».",
+   "evidence": {
+    "t_start": 1713.0,
+    "t_end": 1755.0,
+    "quote": "Medi: «ساعة الأول» / Amal: «أولى... الساعة الأولى»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-02/FA-9d06f6cf_Medi_Medi_Natanzi-26d03125bb9.mp3",
+      "sha256": "b1d40b58c23e7fbffc8d19f333d988068efb1a363ba25815406f61bb61ddeaf9",
+      "source": "Medi_Natanzi-26d03125bb92f95a.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-02/FA-9d06f6cf_Amal_Amal-e0cad64c3ccb6c20.mp3",
+      "sha256": "25075be4b3b6974d2479450412f1ca65eacc423a61ad7710f8ef6eec23f2bad7",
+      "source": "Amal-e0cad64c3ccb6c20.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-02/FA-9d06f6cf_mixed_lesson.mp3",
+      "sha256": "5b83168617086fb72915a02851b8971b7000233a943fc1fa7c315d96c80cf448",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "يجب أن يكون ساعة أول صحيح؟ لذا ساعة الأول يجب أن يكون ساعة الأول ساعة الأول لكن ماذا عن الأبد؟ حسنًا",
+     "Amal": "أولى الساعة الأولى for the beginning أول now خلص we don't use it as an adjective or a tool it's خلص it's a tool so we say أول الساعة",
+     "mixed": "يجب ان يكون ساعة اوال صحيح لذا يجب ان يكون ساعة الاول ساعة الاول ولكن ماذا عن الساعة الأولى؟ لساعة الأولى أول الآن خلص نحن لا نستخدمه كعادة أو طريقة إنه خلص، إنه طريقة لذلك نقول أول الساعة"
+    }
+   },
+   "claim": {
+    "wrong": "ساعة الأول",
+    "right": "الساعة الأولى",
+    "bucket": "A8",
+    "tier": null
+   },
+   "at": "2026-10-02T17:24:51-07:00",
+   "run_id": "2f56f71295c14623902489ef44e2becc"
+  },
+  {
+   "uid": "FA-ae711e92",
+   "date": "2026-10-02",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi repeatedly produced «الأول اليوم» for “the first day,” and Amal explicitly rejected it twice with “Nothing” before supplying «اليوم الأول». His “Oh, that's right” confirms he took her form as the fix.",
+   "evidence": {
+    "t_start": 1837.0,
+    "t_end": 1886.0,
+    "quote": "Medi: «الأول اليوم... Isn't that the first day؟» Amal: «Nothing... اليوم الأول»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-02/FA-ae711e92_Medi_Medi_Natanzi-26d03125bb9.mp3",
+      "sha256": "f74e3205d65230853bc86212572e0f1dacfa6ee703cc750075d92103f38ccc79",
+      "source": "Medi_Natanzi-26d03125bb92f95a.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-02/FA-ae711e92_Amal_Amal-e0cad64c3ccb6c20.mp3",
+      "sha256": "c96775227097b79371dbc7b6083164754c9f7d97fb22bb51c6e9651c85d6aea7",
+      "source": "Amal-e0cad64c3ccb6c20.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-02/FA-ae711e92_mixed_lesson.mp3",
+      "sha256": "60889eacbe4f486530ae073d43d6c30188d58ce661c200d4b4271435ea2c3331",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أول يوم أول يوم أول يوم أول يوم أول يوم أول يوم أول يوم نعم الطريق الثاني",
+     "Amal": "اليوم اول اليوم طيب nothing nothing اليوم الاول تادي صفر السيارة الأولى",
+     "mixed": "اليوم. اول ايليوم او اهم. The beginning of the day. الاول الايليوم. الاول اليوم. نعم، هذا صحيح السيارة الثانية"
+    }
+   },
+   "claim": {
+    "wrong": "الأول اليوم",
+    "right": "اليوم الأول",
+    "bucket": "A7",
+    "tier": null
+   },
+   "at": "2026-10-02T17:25:03-07:00",
+   "run_id": "6792cf1c87734fe5a32ad829ff1a292f"
+  },
+  {
+   "uid": "FA-f4b60b4a",
+   "date": "2026-10-02",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi first reached for «الآخر» after «العشر دقايق», and Amal immediately prompted «ال أخي-», after which he switched to «الأخير/الأخيرة». The later plural fix is separate, but this row’s form correction is signalled.",
+   "evidence": {
+    "t_start": 2745.0,
+    "t_end": 2778.0,
+    "quote": "Medi: «العشر دقايق... الآخر» Amal: «ال أخي-» Medi: «الأخير، الأخيرة»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-02/FA-f4b60b4a_Medi_Medi_Natanzi-26d03125bb9.mp3",
+      "sha256": "8db96dac58153b1bccf82f1dec3a43e52076b111b8922a05c72b5702552f44c3",
+      "source": "Medi_Natanzi-26d03125bb92f95a.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-02/FA-f4b60b4a_Amal_Amal-e0cad64c3ccb6c20.mp3",
+      "sha256": "86d5c6d5ee97920c670e29a01634727fb748bf343ff4ec791b00dde6413f4216",
+      "source": "Amal-e0cad64c3ccb6c20.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-02/FA-f4b60b4a_mixed_lesson.mp3",
+      "sha256": "8724173e54c9aced83eb299c6ccf9579f1d9b2b1001c9e483a36483492d8dd3b",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "الاشار دعاية ال الاخر الاخيرة الاخيرة دعاية is masculine اخير اوه لانه مباشر كان هذا مخيفا",
+     "Amal": "أخيرة أخيرات شكرا",
+     "mixed": "الأشهر دعاية الأخر الأخيرة الأخيرة الأخيرة دعاية دعاية أخير أخيرات اوه لأنه مقبول هذا كان صعبا"
+    }
+   },
+   "claim": {
+    "wrong": "الآخر",
+    "right": "الأخير / الأخيرات",
+    "bucket": null,
+    "tier": 2
+   },
+   "at": "2026-10-02T17:25:03-07:00",
+   "run_id": "6792cf1c87734fe5a32ad829ff1a292f"
+  },
+  {
+   "uid": "FA-50c3a19a",
+   "date": "2026-10-02",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "After considering «دقيقة» as masculine, Medi chose «أخير», and Amal corrected to the plural adjective «أخيرات». Medi then repeated/questioned it and explained, «because it's plural», showing this was the signalled agreement fix.",
+   "evidence": {
+    "t_start": 2756.0,
+    "t_end": 2790.0,
+    "quote": "Medi: «is masculine, so أخير» Amal: «أخيرات» Medi: «Oh, because it's plural»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-02/FA-50c3a19a_Medi_Medi_Natanzi-26d03125bb9.mp3",
+      "sha256": "2ec6052bffb4fb25af7e64c3ded800ce9261b43364821f199d3a9f050d6d287b",
+      "source": "Medi_Natanzi-26d03125bb92f95a.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-02/FA-50c3a19a_Amal_Amal-e0cad64c3ccb6c20.mp3",
+      "sha256": "d14e49507105a6e08cd7adfedebd216071b199079232cdfc0dd52e2e6726dcbb",
+      "source": "Amal-e0cad64c3ccb6c20.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-02/FA-50c3a19a_mixed_lesson.mp3",
+      "sha256": "54837241870018bb055af345f083dda1c281381aaf6b221ef54531f95bf13bd5",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اخر اخير اخير لا انتظر ان الآية مرحباً لا اخيراً او لانه ملحوظ كان ذلك صعباً ترجمة نانسي قنقر",
+     "Amal": "الأخيرة الأخيرات هذا هو السبب لأنني توقفت موسيقى",
+     "mixed": "اخر اخيرة اخيرة الاخيرة لا انتظر الدعاء هو هو المسكين او لأنه قصير كان ذلك صعبا لهذا السبب توقفت مرحبا بكم"
+    }
+   },
+   "claim": {
+    "wrong": "أخير",
+    "right": "أخيرات",
+    "bucket": "A8",
+    "tier": null
+   },
+   "at": "2026-10-02T17:25:03-07:00",
+   "run_id": "6792cf1c87734fe5a32ad829ff1a292f"
   }
  ]
 }
