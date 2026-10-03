@@ -2,23 +2,23 @@
  "date": "2026-10-01",
  "pass": 1,
  "counts": {
-  "r1": 29,
-  "r2": 30,
-  "agreed": 26,
+  "r1": 27,
+  "r2": 29,
+  "agreed": 24,
   "disputed": 7,
-  "agreement_pct": 78.8,
-  "r3_kept": 4,
-  "r3_dropped": 3,
+  "agreement_pct": 77.4,
+  "r3_kept": 5,
+  "r3_dropped": 2,
   "r3_unruled": 0,
   "r3_added": 0,
-  "r3_challenged": 1,
-  "final": 30
+  "r3_challenged": 0,
+  "final": 29
  },
  "coverage": {
-  "r1": "10:00-14:02 Medi on a work phone call (English); 19:58-23:14 Amal disconnected. 18:29-24:12 and 47:00-1:02:00 his Arabic is in Latin transliteration (Shanteti, awal, laffe, nafs). 47-64 min is mostly English rule discussion (awal/aa5er/nafs/8air), few Arabic production turns. 26:58 'بيليت صديقي' looks like an engine mishearing of 3ailet (Amal said Nice) - not filed. 03:43 'بالنيلة' vs chat binniyye likely engine - not filed. 46:45 أكتر هذا repeat of the 46:18 هذا-for-حدا slip - one row (46:18). Tier-3 checks: 'air conditioning', 'grammar', 'Wi-Fi' not on her sheet - not errors.",
-  "r2": "10:00-14:02 Medi on a work phone call (English); 19:58-23:14 disconnect gap; 50:00-1:00:00 awal/oola/tani/nafs lesson mostly in Latin transliteration and English meta-talk; 04:14 'air conditioning' not on sheet (skipped); 04:02 شوك for شوب treated as S4; 03:06 صباح unclear, skipped; 1:01:44 غير ال شيء is a question, skipped."
+  "r1": "10:00-14:02 and 19:58-23:14 are Medi on a work phone call / dropped connection (English only). 52:00-1:01:00 mostly Latin-letter Arabic (awal / laffe / nafs). Engine: 'divine' = الزباين (01:33); 'شوك' = شوب (04:02, S4); 'هوايحة' = أواعيها (37:16). No echo-candidates file for 2026-10-01. Skipped: 03:06 'الساعة واحدة و صباح' (unclear, her 'أووه' not a fix); 04:14 'لازم air conditioning' (she only asked 'لازم إيش؟'; air conditioning not on sheet); 39:54 المتأخر (she said both fine); 1:01:44 غير ال شيء (she said both depending); 45:11 اللي بحب (he added the pointer himself).",
+  "r2": "10:00-14:02 Medi on a work phone call (English only); 19:58-23:14 Amal disconnected. 17:00-31:00 and 49:00-1:00:00 much Arabic is Latin-transliterated by the engine (Shantet Shogoli, awal usbu'a, laffe). Engine: 'divine' at 01:33 = الزباين (Amal's echo); الأواى / هوايحة at 34:48/37:16 = أواعيها; هذا at 46:00-46:37 is the engine for حدا (Amal says الحدا/حدا back). 04:14 'لازم air conditioning': Amal only asked 'لازم إيش؟' and gave no verb - no B2 slip (GR-27); air conditioning not on her sheet. No echo-candidates file exists for 2026-10-01. Most of the lesson is English-language grammar discussion (idafa/el- placement, awal/nafs/gher), so few free-speech turns."
  },
- "r3_note": "14:21-14:51 is one Wi-Fi episode of questions (A8 covers it). 57:54-58:49 is a hearing problem with Amal's 'al oola', not a parse error. A25: Amal said 'Mm-hmm ... Of course' - she voiced no fix.",
+ "r3_note": "Names: Male (ماليه) = Malé, Amal = person - not words. 14:21-14:51 is one how-do-I-say 'on the Wi-Fi' exchange (A7); D5 sits inside it. 46:18-46:49 is one superlative-with-someone drill: D2 is the هذا/حدا word, A21 the -o ending.",
  "rows": [
   {
    "id": "A1",
@@ -28,7 +28,7 @@
    "amal_said": "شو يعني لسه الزباين يروحوا؟ ... لا، لا الزباين يروحوا. ... There are other words, but the one we know is لا.",
    "chat": null,
    "wrong": "لسه",
-   "right": "لـ (la) الزباين يروحوا",
+   "right": "لـ (la el-zabayen yroo7o)",
    "kind": "vocab-A",
    "tier": 1,
    "bucket": null,
@@ -36,8 +36,8 @@
    "mode": "speaking",
    "signal": "explicit-no",
    "confidence": "high",
-   "why": "He used لسه (still/yet; sheet: 'still / yet | Lissa | لسه') for 'until'; Amal asked what he meant and gave la- as the word for until. Engine wrote 'divine' for الزباين (she echoed الزباين).",
-   "english": "Until the customers leave.",
+   "why": "He used لسه (sheet: 'still / not yet | Lissa') for 'until'; Amal asked what it means and gave لا الزباين يروحوا ('the one we know is la'). Engine wrote 'divine' for الزباين.",
+   "english": "until the customers leave",
    "ids": [
     "1001-1",
     "1001-1"
@@ -60,14 +60,14 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "recast",
-   "confidence": "low",
-   "why": "For the date he opened with the feminine واحدة; Amal recast واحد and he then said اليوم الخميس واحد. At 02:55 he says 'So dates are واحد, times are واحدة', so he had not known the date form. Confidence is low because he also said واحد in the same turn, which may be a self-fix.",
-   "english": "Today is the 1st",
+   "confidence": "medium",
+   "why": "For the date (the 1st) he started with feminine واحدة; Amal said واحد, and at 02:55 he states the rule he took from it: 'dates are واحد, times are واحدة'.",
+   "english": "the first (of the month)",
    "ids": [
     "1001-2"
    ],
    "agreed_by": "r3",
-   "r3_why": "Amal voiced واحد right after his واحدة, and his 02:55 remark shows the date gender was new to him. Kept at low confidence because of the possible self-fix.",
+   "r3_why": "Voiced recast; his 02:55 remark confirms he registered a correction on the date number.",
    "fid": "1001-002"
   },
   {
@@ -77,8 +77,8 @@
    "medi_said": "الساعة، uh، واح-واحد.",
    "amal_said": "واحد. ... هيك الساعة واحدة.",
    "chat": "el-saa3a wa7de u taman da2aaye2",
-   "wrong": "واحد",
-   "right": "واحدة",
+   "wrong": "الساعة واحد",
+   "right": "الساعة واحدة",
    "kind": "grammar",
    "tier": null,
    "bucket": "E2",
@@ -86,39 +86,14 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "Clock time takes the feminine number; Amal echoed واحد back, he fixed it ('times are واحدة') and she confirmed الساعة واحدة.",
-   "english": "It's one o'clock.",
+   "why": "Clock time takes the feminine number; Amal echoed his واحد, he caught it ('times are واحدة') and she confirmed الساعة واحدة.",
+   "english": "it's one o'clock",
    "ids": [
-    "1001-3",
-    "1001-2"
+    "1001-2",
+    "1001-3"
    ],
    "agreed_by": "r1+r2",
    "fid": "1001-003"
-  },
-  {
-   "id": "1001-4",
-   "t": "03:06",
-   "t_amal": null,
-   "medi_said": "الساعة واحدة و، uh، صباح.",
-   "amal_said": null,
-   "chat": "el-saa3a wa7de u taman da2aaye2",
-   "wrong": "صباح",
-   "right": "الصبح",
-   "kind": "vocab-B",
-   "tier": 2,
-   "bucket": null,
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "none",
-   "confidence": "low",
-   "why": "The sheet has 'morning | el-sube7 | الصبح'. صباح is the greeting/MSA form, and Amal's 'أووه' is not a fix. This is my reading, and it is unclear whether he meant a.m. at all.",
-   "english": "It is 1:08 (in the morning)",
-   "ids": [
-    "1001-4"
-   ],
-   "agreed_by": "r3",
-   "r3_why": "Possible wrong form that she let pass. Kept as B at low confidence for Amal to review.",
-   "fid": "1001-004"
   },
   {
    "id": "A3",
@@ -127,8 +102,8 @@
    "medi_said": "اليوم بلبس بلوزة، uh، أخ-أخ-أخضر أو،",
    "amal_said": "بلوزة شو؟",
    "chat": "el-yoam balbes bluze 5adra",
-   "wrong": "أخضر",
-   "right": "خضرا",
+   "wrong": "بلوزة أخضر",
+   "right": "بلوزة خضرا",
    "kind": "grammar",
    "tier": null,
    "bucket": "A8",
@@ -136,36 +111,62 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "بلوزة is feminine; Amal's 'بلوزة شو؟' prompted him and he fixed it to خضرا ('it's feminine').",
-   "english": "Today I'm wearing a green blouse.",
+   "why": "Feminine noun بلوزة needs the feminine colour; Amal prompted 'بلوزة شو؟' and he fixed to خضرا ('it's feminine').",
+   "english": "I'm wearing a green blouse",
    "ids": [
-    "1001-5",
-    "1001-3"
+    "1001-3",
+    "1001-4"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1001-005"
+   "fid": "1001-004"
   },
   {
-   "id": "A4",
+   "id": "1001-4",
    "t": "06:15",
-   "t_amal": "06:29",
-   "medi_said": "Uh, uh, حافظ، حافظ. ... لا، أنا نسيت، نسيت، نسيت.",
+   "t_amal": "06:18",
+   "medi_said": "Uh, uh, حافظ، حافظ.",
    "amal_said": "Hafiz is a motivation، بس what's about motivated؟ ... متشـ... متشجع.",
    "chat": "mitshajje3 = motivated",
    "wrong": "حافظ",
    "right": "متشجع",
    "kind": "vocab-A",
-   "tier": 0,
+   "tier": 1,
    "bucket": null,
    "bucket2": null,
    "mode": "speaking",
-   "signal": "asked",
-   "confidence": "high",
-   "why": "He could not recall 'motivated' (offered حافظ = motivation, then 'I forgot'); Amal supplied متشجع - a didn't-know.",
+   "signal": "explicit-no",
+   "confidence": "medium",
+   "why": "Asked to recall yesterday's word 'motivated' he produced a different lexical item, حافز (sheet: 'motivation | 7aafez daafe3'; engine wrote حافظ); Amal said that is motivation and supplied متشجع (sheet: 'motivated | Mitshajje3'). He attempted a wrong word, so tier 1, not tier 0 didn't-know.",
    "english": "motivated",
    "ids": [
-    "1001-6",
-    "1001-4"
+    "1001-4",
+    "1001-5"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "Tier 1: he gave a real but wrong word before saying he forgot; tier 0 is only for words never attempted.",
+   "fid": "1001-005"
+  },
+  {
+   "id": "A4",
+   "t": "06:36",
+   "t_amal": "07:47",
+   "medi_said": "مشجع. ... أنا، أنا مشجع الدرس.",
+   "amal_said": "هاي، هاي، برا، برا. ... مت-- Okay، شكرًا.",
+   "chat": "mitshajje3 = motivated",
+   "wrong": "مشجع",
+   "right": "متشجع",
+   "kind": "vocab-A",
+   "tier": 2,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "medium",
+   "why": "He repeated her متشجع as مشجع (encourager / fan) at 06:36 and again at 07:36; after the second she started 'مت--' to restore the mit- form (sheet: 'motivated | Mitshajje3').",
+   "english": "motivated",
+   "ids": [
+    "1001-5",
+    "1001-6"
    ],
    "agreed_by": "r1+r2",
    "fid": "1001-006"
@@ -174,10 +175,10 @@
    "id": "A5",
    "t": "07:04",
    "t_amal": "07:11",
-   "medi_said": "Is it-- Is there a verb for حساب? Do you guys use it?",
+   "medi_said": "Is there a verb for حساب? Do you guys use it?",
    "amal_said": "بحسب.",
    "chat": null,
-   "wrong": null,
+   "wrong": "(asked: verb 'to consider')",
    "right": "بحسب",
    "kind": "vocab-A",
    "tier": 0,
@@ -186,11 +187,11 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "high",
-   "why": "He asked for the verb 'to consider' and Amal supplied بحسب - a didn't-know.",
+   "why": "He asked for the verb from حساب meaning 'to consider'; Amal supplied بحسب.",
    "english": "I consider",
    "ids": [
-    "1001-7",
-    "1001-6"
+    "1001-6",
+    "1001-7"
    ],
    "agreed_by": "r1+r2",
    "fid": "1001-007"
@@ -198,34 +199,9 @@
   {
    "id": "A6",
    "t": "07:36",
-   "t_amal": "07:37",
+   "t_amal": "07:33",
    "medi_said": "أنا، أنا مشجع الدرس.",
-   "amal_said": "هاي، هاي، برا، برا. برا.",
-   "chat": "mitshajje3 = motivated",
-   "wrong": "مشجع",
-   "right": "متشجع",
-   "kind": "vocab-B",
-   "tier": 2,
-   "bucket": null,
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
-   "why": "He dropped the ت of متشجع (motivated) - مشجع is 'encourager / fan', a different form; Amal had just said متشجع and let it pass.",
-   "english": "I'm motivated for the lesson.",
-   "ids": [
-    "1001-8",
-    "1001-5"
-   ],
-   "agreed_by": "r1+r2",
-   "fid": "1001-008"
-  },
-  {
-   "id": "A7",
-   "t": "07:36",
-   "t_amal": "07:37",
-   "medi_said": "أنا، أنا مشجع الدرس.",
-   "amal_said": "هاي، هاي، برا، برا. برا.",
+   "amal_said": "بس متشجع إله أو لا؟",
    "chat": null,
    "wrong": "مشجع الدرس",
    "right": "متشجع للدرس",
@@ -236,49 +212,49 @@
    "mode": "speaking",
    "signal": "none",
    "confidence": "medium",
-   "why": "Amal's own frame was 'متشجع لـ العربي' / 'متشجع إله' - the adjective takes la-; he left the preposition out.",
-   "english": "I'm motivated for the lesson.",
+   "why": "متشجع takes لـ - Amal herself modelled 'متشجع لـ العربي' and 'متشجع إله' right before; he dropped the preposition and she only fixed the word.",
+   "english": "I'm motivated for the lesson",
    "ids": [
-    "1001-9",
-    "1001-7"
+    "1001-7",
+    "1001-8"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1001-008"
+  },
+  {
+   "id": "A7",
+   "t": "14:21",
+   "t_amal": "14:43",
+   "medi_said": "أنا في الـ Wi-Fi? Is that how you say it?",
+   "amal_said": "Yeah I'm on the wifi أنا عالـ wifi. ... على الـ، عالـ.",
+   "chat": null,
+   "wrong": "في الـ Wi-Fi",
+   "right": "عالـ wifi",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "D1",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "asked",
+   "confidence": "medium",
+   "why": "'On the wifi' takes على not في; he offered في and asked, Amal gave عالـ (and على الـ when he then dropped the el-).",
+   "english": "I'm on the Wi-Fi",
+   "ids": [
+    "1001-8",
+    "1001-9"
    ],
    "agreed_by": "r1+r2",
    "fid": "1001-009"
   },
   {
    "id": "A8",
-   "t": "14:21",
-   "t_amal": "14:43",
-   "medi_said": "أنا في الـ Wi-Fi? Is that how you say it?",
-   "amal_said": "Yeah I'm on the wifi أنا عالـ wifi.",
-   "chat": null,
-   "wrong": "في الـ",
-   "right": "عالـ",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D1",
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "recast",
-   "confidence": "high",
-   "why": "'On the wifi' takes 3ala, not fi; Amal recast أنا عالـ wifi.",
-   "english": "I'm on the Wi-Fi.",
-   "ids": [
-    "1001-10",
-    "1001-8"
-   ],
-   "agreed_by": "r1+r2",
-   "fid": "1001-010"
-  },
-  {
-   "id": "A9",
    "t": "19:07",
    "t_amal": "23:47",
-   "medi_said": "So Shanteti, uh... Would it be El Shogol?",
+   "medi_said": "So Shanteti, ... El Shogolelah El, uh, Amra.",
    "amal_said": "Yes, but what's work bag without any my or yours?",
    "chat": null,
    "wrong": "Shanteti",
-   "right": "Shantet Shogoli",
+   "right": "Shantet shu8li",
    "kind": "grammar",
    "tier": null,
    "bucket": "A2",
@@ -286,42 +262,42 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "In idafa the first word takes no possessive ending; Amal prompted and he fixed it to 'Shantet Shogoli, not Shanteti Shogoli'; she said صح.",
+   "why": "In idafa the owner ending goes on the last noun; Amal made him build 'work bag' first and he said 'Shantet Shogoli, not Shanteti Shogoli'.",
    "english": "my work bag",
    "ids": [
-    "1001-11",
-    "1001-10"
+    "1001-9",
+    "1001-11"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1001-010"
+  },
+  {
+   "id": "A9",
+   "t": "24:03",
+   "t_amal": "24:15",
+   "medi_said": "So Shantet Shogoli, uh, uh, Amra.",
+   "amal_said": "That would mean is red. ... if it's possessed by a pronoun it's definitive, so the adjective after it should be definitive as well.",
+   "chat": "shantet shu8li el-7amra",
+   "wrong": "Amra",
+   "right": "el-7amra",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A7",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "explicit-no",
+   "confidence": "high",
+   "why": "An adjective after a definite (possessed) noun takes el-; without it the phrase becomes a sentence ('is red') - Amal said exactly that.",
+   "english": "my red work bag",
+   "ids": [
+    "1001-10",
+    "1001-12"
    ],
    "agreed_by": "r1+r2",
    "fid": "1001-011"
   },
   {
    "id": "A10",
-   "t": "24:03",
-   "t_amal": "24:15",
-   "medi_said": "So Shantet Shogoli, uh, Amra.",
-   "amal_said": "That would mean is red. ... the adjective after it should be definitive as well.",
-   "chat": "shantet shu8li el-7amra",
-   "wrong": "Amra",
-   "right": "الحمرا (el-7amra)",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A7",
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "named-rule",
-   "confidence": "high",
-   "why": "A possessed noun is definite so its adjective takes el-; Amal said 'Amra' makes it a sentence ('is red') and explained the rule.",
-   "english": "my red work bag",
-   "ids": [
-    "1001-12",
-    "1001-11"
-   ],
-   "agreed_by": "r1+r2",
-   "fid": "1001-012"
-  },
-  {
-   "id": "A11",
    "t": "25:01",
    "t_amal": "25:08",
    "medi_said": "So would it be شنتت، شنتت شغلي الأحمر، الأحمر،",
@@ -336,18 +312,18 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "شنتة is feminine so the adjective must be الحمرا; Amal recast it immediately.",
+   "why": "شنتة is feminine so the adjective is الحمرا; Amal recast and he repeated it.",
    "english": "my red work bag",
    "ids": [
-    "1001-13",
-    "1001-12"
+    "1001-11",
+    "1001-13"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1001-013"
+   "fid": "1001-012"
   },
   {
-   "id": "A12",
-   "t": "25:30",
+   "id": "A11",
+   "t": "25:24",
    "t_amal": "25:39",
    "medi_said": "اه، ما فيهون. ... ما فيهون.",
    "amal_said": "ما فيهن means there aren't here or there isn't here. ... Yeah, مشون.",
@@ -359,22 +335,22 @@
    "bucket": "C4",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "named-rule",
+   "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "'Not here' is مش + adverb; Amal explained ما فيهن means 'there aren't (in them)' and confirmed مش هون.",
+   "why": "'Not here' negates an adverb with مش, not ما في (there isn't); Amal explained his meaning and confirmed مش هون after he tried it.",
    "english": "is not here",
    "ids": [
-    "1001-14",
-    "1001-13"
+    "1001-12",
+    "1001-14"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1001-014"
+   "fid": "1001-013"
   },
   {
-   "id": "A13",
+   "id": "A12",
    "t": "27:53",
    "t_amal": "27:55",
-   "medi_said": "اسمى. ... اسميت.",
+   "medi_said": "اسم. اسمى. اسميت.",
    "amal_said": "ليش؟ لا، ليش. ... It's just اسم. Why would it be feminine?",
    "chat": "esem madrasto el-2adeem/e",
    "wrong": "اسميت",
@@ -386,22 +362,22 @@
    "mode": "speaking",
    "signal": "explicit-no",
    "confidence": "high",
-   "why": "He added the feminine idafa -t to اسم, which is masculine; Amal said لا and that اسم takes nothing.",
+   "why": "He added the feminine idafa -t to اسم, which is not feminine; Amal said لا, it's just اسم.",
    "english": "the name of his old school",
    "ids": [
-    "1001-15",
-    "1001-14"
+    "1001-13",
+    "1001-15"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1001-015"
+   "fid": "1001-014"
   },
   {
-   "id": "A14",
+   "id": "A13",
    "t": "29:54",
    "t_amal": "29:57",
    "medi_said": "uh, الـ، الـ اسم،",
    "amal_said": "لا.",
-   "chat": "esem madrasto el-2adeem/e",
+   "chat": null,
    "wrong": "الـ اسم",
    "right": "اسم",
    "kind": "grammar",
@@ -411,17 +387,17 @@
    "mode": "speaking",
    "signal": "explicit-no",
    "confidence": "high",
-   "why": "The first word of an idafa never takes el-; Amal said لا, and again at 30:21 when he asked 'So it's not الـ اسم'.",
+   "why": "The first word of idafa never takes el-; Amal said لا twice (29:57, 30:21).",
    "english": "the old name of his school",
    "ids": [
-    "1001-17",
-    "1001-15"
+    "1001-14",
+    "1001-17"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1001-016"
+   "fid": "1001-015"
   },
   {
-   "id": "A15",
+   "id": "A14",
    "t": "30:29",
    "t_amal": "30:31",
    "medi_said": "So الـ اسم قديم. No, it's like اسم القديمة. Okay, I don't know.",
@@ -435,23 +411,23 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "explicit-no",
-   "confidence": "high",
-   "why": "To make 'old' describe the name, the adjective goes masculine to agree with اسم; Amal said لا and told him to change the gender of قديم.",
+   "confidence": "medium",
+   "why": "To make 'old' describe اسم the adjective must match اسم (masculine) - Amal: 'you just change the gender of adeem'.",
    "english": "the old name of his school",
    "ids": [
-    "1001-18",
-    "1001-16"
+    "1001-15",
+    "1001-18"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1001-017"
+   "fid": "1001-016"
   },
   {
-   "id": "A16",
+   "id": "A15",
    "t": "34:48",
    "t_amal": "34:52",
    "medi_said": "محل الأواى المفضل.",
-   "amal_said": "But her. Her favorite store.",
-   "chat": "ma7al awa3iha el-mufaddal / ma7al el-awa3i el-mufadal 3indha",
+   "amal_said": "But her. Her favorite store. ... محل أواعيها المفضل",
+   "chat": "ma7al awa3iha el-mufaddal",
    "wrong": "محل الأواى المفضل",
    "right": "محل أواعيها المفضل",
    "kind": "grammar",
@@ -460,22 +436,47 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "prompt-then-fix",
-   "confidence": "high",
-   "why": "He left out 'her'; Amal prompted 'But her' and gave محل أواعيها المفضل (owner ending on the last noun), and he then said محل أواعيها المفضل.",
-   "english": "her favorite clothing store",
+   "confidence": "medium",
+   "why": "He left out 'her'; Amal prompted 'But her' and gave محل أواعيها المفضل (possessive ending on the last noun).",
+   "english": "her favourite clothing store",
    "ids": [
-    "1001-19",
-    "1001-17"
+    "1001-16",
+    "1001-19"
    ],
    "agreed_by": "r1+r2",
+   "fid": "1001-017"
+  },
+  {
+   "id": "1001-20",
+   "t": "39:54",
+   "t_amal": "39:55",
+   "medi_said": "طيارة جاري ... المتأخر؟",
+   "amal_said": "صح. متأخر أو متأخرة. ... ليش؟",
+   "chat": "tayyaaret jaari el-mit2a55ra",
+   "wrong": "المتأخر",
+   "right": "المتأخرة",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A8",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "medium",
+   "why": "طيارة is feminine; he offered masculine المتأخر, Amal prompted 'متأخر أو متأخرة', he switched to المتأخرة at 39:59 and she asked why (طيارة).",
+   "english": "my neighbour's late flight",
+   "ids": [
+    "1001-20"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "Her 'متأخر أو متأخرة' is a voiced prompt that got him to fix the gender.",
    "fid": "1001-018"
   },
   {
-   "id": "A17",
+   "id": "A16",
    "t": "41:18",
    "t_amal": "41:23",
    "medi_said": "So أحسن المحل.",
-   "amal_said": "No. Even though in English we don't-- we say the, in Arabic we don't.",
+   "amal_said": "No. Even though in English we say the, in Arabic we don't.",
    "chat": "a7san ma7al = the best store",
    "wrong": "أحسن المحل",
    "right": "أحسن محل",
@@ -486,24 +487,24 @@
    "mode": "speaking",
    "signal": "explicit-no",
    "confidence": "high",
-   "why": "Superlative أحسن + noun never takes el-; Amal said No and named the rule.",
+   "why": "Superlative أحسن + noun takes no el-; Amal said No and explained, he fixed to أحسن محل.",
    "english": "the best store",
    "ids": [
-    "1001-20",
-    "1001-18"
+    "1001-17",
+    "1001-21"
    ],
    "agreed_by": "r1+r2",
    "fid": "1001-019"
   },
   {
-   "id": "A18",
+   "id": "A17",
    "t": "42:12",
    "t_amal": "42:20",
    "medi_said": "هذي المحل أحسن إشي.",
-   "amal_said": "Mm, it works, yeah. هذا أحسن محل is like more efficient.",
-   "chat": null,
-   "wrong": "هذي",
-   "right": "هذا",
+   "amal_said": "Mm, it works, yeah. هذا أحسن محل",
+   "chat": "a7san ma7al = the best store",
+   "wrong": "هذي المحل",
+   "right": "هذا المحل",
    "kind": "grammar-B",
    "tier": null,
    "bucket": "A10",
@@ -511,17 +512,17 @@
    "mode": "speaking",
    "signal": "none",
    "confidence": "medium",
-   "why": "محل is masculine so it takes هذا; he said هذي, Amal said 'it works' but her own versions use هذا.",
-   "english": "This store is the best.",
+   "why": "محل is masculine so it is هذا; Amal said 'it works' and modelled هذا أحسن محل without flagging هذي.",
+   "english": "this store is the best",
    "ids": [
-    "1001-21",
-    "1001-19"
+    "1001-18",
+    "1001-22"
    ],
    "agreed_by": "r1+r2",
    "fid": "1001-020"
   },
   {
-   "id": "A19",
+   "id": "A18",
    "t": "43:27",
    "t_amal": "43:28",
    "medi_said": "No, not-- أس-- أس-- أسوأ الزبون.",
@@ -535,22 +536,22 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "none",
-   "confidence": "high",
-   "why": "Superlative + noun takes no el- (the rule she had just named at 41:26 and 42:49); he said أسوأ الزبون twice and she did not voice the fix; chat has aswa2 zboon.",
+   "confidence": "medium",
+   "why": "Superlative + noun takes no el- (her chat: aswa2 zboon); her voiced 'The worst.' is not a clear fix, so let pass. Repeated at 43:44.",
    "english": "the worst customer",
    "ids": [
-    "1001-22",
-    "1001-20"
+    "1001-19",
+    "1001-23"
    ],
    "agreed_by": "r1+r2",
    "fid": "1001-021"
   },
   {
-   "id": "A20",
+   "id": "A19",
    "t": "43:55",
-   "t_amal": "44:21",
+   "t_amal": null,
    "medi_said": "Okay. So أحسن الزبون ما، ما تشتري إشي.",
-   "amal_said": "ممتاز.",
+   "amal_said": null,
    "chat": "aswa2 zboon ma beyshteir ishi",
    "wrong": "أحسن",
    "right": "أسوأ",
@@ -560,20 +561,20 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "none",
-   "confidence": "medium",
-   "why": "The task was 'the worst customer' and he had just said أسوأ; here he said أحسن (best), a different word, and Amal let it pass.",
-   "english": "The worst customer is the one who doesn't buy anything.",
+   "confidence": "low",
+   "why": "Amal asked for 'the worst customer' and he had just said أسوأ; here he said أحسن (best) - may be a slip of the opposite word.",
+   "english": "the worst customer",
    "ids": [
-    "1001-23",
-    "1001-21"
+    "1001-20",
+    "1001-24"
    ],
    "agreed_by": "r1+r2",
    "fid": "1001-022"
   },
   {
-   "id": "A21",
+   "id": "A20",
    "t": "44:03",
-   "t_amal": "44:12",
+   "t_amal": "44:08",
    "medi_said": "ما تشتري إشي. ما بتشتري. ما بتشتري.",
    "amal_said": "It's ما بي، ما بيشتري because it's زبون.",
    "chat": "aswa2 zboon ma beyshteir ishi",
@@ -584,44 +585,19 @@
    "bucket": "B18",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "named-rule",
+   "signal": "recast",
    "confidence": "high",
-   "why": "زبون is masculine so the verb is the he-form بيشتري; Amal corrected and gave the reason.",
-   "english": "doesn't buy anything",
+   "why": "The verb must match زبون (he); he used the she/you form and Amal recast ما بيشتري 'because it's زبون'. (He fixed the b- himself.)",
+   "english": "who doesn't buy anything",
    "ids": [
-    "1001-24",
-    "1001-22"
+    "1001-21",
+    "1001-25"
    ],
    "agreed_by": "r1+r2",
    "fid": "1001-023"
   },
   {
-   "id": "A22",
-   "t": "45:11",
-   "t_amal": "45:15",
-   "medi_said": "اللي بحب أكتر إشي.",
-   "amal_said": "No, no. First you have to say the one ...",
-   "chat": "illi ba7ebbo aktar ishi",
-   "wrong": "بحب",
-   "right": "بحبه",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C2",
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "prompt-then-fix",
-   "confidence": "medium",
-   "why": "After illi the verb needs the pointer ending; after Amal's 'No, no' he restarted and said اللي بحبه أكتر إشي, matching her chat illi ba7ebbo.",
-   "english": "the one I like the most",
-   "ids": [
-    "1001-25",
-    "1001-23"
-   ],
-   "agreed_by": "r1+r2",
-   "fid": "1001-024"
-  },
-  {
-   "id": "A23",
+   "id": "1001-22",
    "t": "46:18",
    "t_amal": "46:20",
    "medi_said": "أكتر هذا إشي?",
@@ -636,20 +612,20 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "He used هذا (this) for 'person / someone'; Amal recast أكثر حدا (sheet: 'someone | 7ada | حدا') at 46:20 and 46:43.",
-   "english": "the person I like the most",
+   "why": "He used هذا (this) for 'someone' after she had just modelled أكثر حدا at 46:11; she recast أكثر حدا at 46:20 and again at 46:43 (sheet: 'someone | 7ada'); he only switched to حدا at 46:45.",
+   "english": "the person I like most",
    "ids": [
-    "1001-26",
-    "1001-24"
+    "1001-22"
    ],
-   "agreed_by": "r1+r2",
-   "fid": "1001-025"
+   "agreed_by": "r3",
+   "r3_why": "Real wrong-word slip, recast twice; distinct from A21 (بحب -> بحبه).",
+   "fid": "1001-024"
   },
   {
-   "id": "A24",
+   "id": "A21",
    "t": "46:45",
    "t_amal": "46:49",
-   "medi_said": "هذا. أكتر هذا بحب.",
+   "medi_said": "هذا. أكتر حدا بحب.",
    "amal_said": "بحبه.",
    "chat": "aktar 7ada ba7ebbo",
    "wrong": "بحب",
@@ -661,98 +637,98 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "The verb needs the pointer ending back to the person; Amal recast بحبه and he said 'There's a pointer.'",
+   "why": "The verb needs the pointer ending back to حدا; Amal recast بحبه and he said 'There's a pointer'.",
    "english": "the person I like the most",
    "ids": [
-    "1001-27",
-    "1001-25"
+    "1001-23",
+    "1001-26"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1001-026"
+   "fid": "1001-025"
   },
   {
-   "id": "1001-26",
+   "id": "1001-24",
    "t": "53:19",
    "t_amal": "53:21",
    "medi_said": "The week's beginning.",
-   "amal_said": "Why? ... بس if you say the week's beginning, now you'd have to be إضافة which is two nouns, so أول has to be, like already has to be before أسبوع.",
+   "amal_said": "Why? ... بس if you say the week's beginning, now you'd have to be إضافة ... It would be the first week.",
    "chat": "el-usboo3 el-awal",
-   "wrong": "The week's beginning",
+   "wrong": "الأسبوع الأول = the week's beginning",
    "right": "the first week",
    "kind": "grammar",
    "tier": null,
-   "bucket": "A7",
-   "bucket2": "A2",
-   "mode": "listening",
-   "signal": "prompt-then-fix",
-   "confidence": "high",
-   "why": "He read Amal's الأسبوع الأول (noun + adjective) as an idafa, 'the week's beginning'. Amal asked why and explained that it means the first week, and at 53:51 she said 'صح. It would be the first week.'",
-   "english": "the first week",
-   "ids": [
-    "1001-26"
-   ],
-   "agreed_by": "r3",
-   "r3_why": "A clear listening misread that Amal fixed out loud.",
-   "fid": "1001-027"
-  },
-  {
-   "id": "A25",
-   "t": "56:00",
-   "t_amal": "56:04",
-   "medi_said": "Il awal il tamreen or il tamreen il awal is the first exercise.",
-   "amal_said": "Mm-hmm. ... Of course.",
-   "chat": null,
-   "wrong": "Il awal il tamreen",
-   "right": "awal tamreen / il tamreen il awal",
-   "kind": "grammar-B",
-   "tier": null,
    "bucket": "PROPOSE",
-   "bucket2": null,
-   "proposed_rule": "awal / aa5er / taani before a noun never take el-: awal sayyaara = the first car; after the noun they are adjectives and take el-: el-usboo3 el-awal.",
-   "mode": "speaking",
-   "signal": "none",
-   "confidence": "medium",
-   "why": "Amal's rule this lesson: awal before the noun never takes el- (il awal il tamreen is not a form); she let it pass.",
-   "english": "the first exercise",
-   "ids": [
-    "1001-28",
-    "1001-27"
-   ],
-   "agreed_by": "r1+r2",
-   "r3_challenge": "Amal answered 'Mm-hmm ... Of course' at 56:04/56:08 and voiced no fix. He may have meant the two options or been mis-transcribed. At most this is grammar-B, not a voiced correction, and it needs an audio check.",
-   "fid": "1001-028"
-  },
-  {
-   "id": "1001-29",
-   "t": "59:16",
-   "t_amal": "59:26",
-   "medi_said": "Uh, something else. ... Something else?",
-   "amal_said": "Tani ishi. ... The second thing.",
-   "chat": null,
-   "wrong": "something else (for تاني إشي)",
-   "right": "the second thing",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
    "bucket2": null,
    "mode": "listening",
    "signal": "explicit-no",
    "confidence": "medium",
-   "why": "He glossed tani ishi as 'something else'. Amal repeated it and said 'The second thing', and he then saw that ishi tani is 'something else' (sheet: 'something else | Eshi taani').",
-   "english": "the second thing",
+   "why": "He read her الأسبوع الأول as 'the week's beginning'; Amal asked why, explained that would need idafa with awal first, and confirmed it means the first week at 53:51.",
+   "english": "the first week",
+   "proposed_rule": "awal before a noun (awal el-usboo3) = the beginning of; awal after a noun as an adjective (el-usboo3 el-awal) = the first - same as awal usboo3.",
    "ids": [
-    "1001-29"
+    "1001-24"
    ],
    "agreed_by": "r3",
-   "r3_why": "Amal voiced the correct gloss after his wrong one.",
-   "fid": "1001-029"
+   "r3_why": "Real listening misread with a voiced fix; no bucket covers awal-as-tool vs awal-as-adjective (same rule as A22), so PROPOSE.",
+   "fid": "1001-026"
   },
   {
-   "id": "A26",
+   "id": "A22",
+   "t": "56:00",
+   "t_amal": "56:04",
+   "medi_said": "Il awal il tamreen or il tamreen il awal is the first exercise.",
+   "amal_said": "Mm-hmm. ... Of course.",
+   "chat": "awal laffe, awal el-lafe, el-laffe el-oola",
+   "wrong": "Il awal il tamreen",
+   "right": "awal tamreen / el-tamreen el-awal",
+   "kind": "grammar-B",
+   "tier": null,
+   "bucket": "PROPOSE",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "none",
+   "confidence": "medium",
+   "why": "Amal had just taught that awal before the noun never takes el-; he said 'il awal il tamreen' and she let it pass with Mm-hmm. Latin-letter turn.",
+   "english": "the first exercise",
+   "proposed_rule": "أول / تاني before a noun is a tool word and never takes el- (awal usboo3 = the first week; awal sayyaara); put after the noun it is an adjective and takes el- like the noun (el-usboo3 el-awal); awal + el-noun = the beginning of (awal el-usboo3).",
+   "ids": [
+    "1001-25",
+    "1001-27"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1001-027"
+  },
+  {
+   "id": "A23",
+   "t": "58:07",
+   "t_amal": "58:10",
+   "medi_said": "Laffe ul-- Laffe il aula?",
+   "amal_said": "Al laffa al oola. ... Al laffa, what does al laffa mean?",
+   "chat": "awal laffe, awal el-lafe, el-laffe el-oola",
+   "wrong": "Laffe il aula",
+   "right": "el-laffe el-oola",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A7",
+   "bucket2": null,
+   "mode": "listening",
+   "signal": "prompt-then-fix",
+   "confidence": "medium",
+   "why": "Repeating her phrase he dropped el- on laffe; she repeated 'Al laffa al oola' until he got it.",
+   "english": "the first drive",
+   "ids": [
+    "1001-26",
+    "1001-28"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1001-028"
+  },
+  {
+   "id": "A24",
    "t": "1:00:03",
    "t_amal": "1:00:04",
    "medi_said": "So nafs ishi.",
-   "amal_said": "Nafs al ishi. ... نفس الـ إشي the same thing. نفس إشي doesn't mean anything.",
+   "amal_said": "Nafs al ishi. ... نفس إشي doesn't mean anything.",
    "chat": "nafs el-ishi",
    "wrong": "nafs ishi",
    "right": "nafs el-ishi",
@@ -760,18 +736,18 @@
    "tier": null,
    "bucket": "PROPOSE",
    "bucket2": null,
-   "proposed_rule": "nafs (same) is followed by an el- noun: nafs el-ishi = the same thing; nafs ishi is not a phrase.",
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "Amal recast نفس الـ إشي and said نفس إشي means nothing.",
+   "why": "Amal recast nafs al ishi and said نفس إشي without el- doesn't mean anything.",
    "english": "the same thing",
+   "proposed_rule": "nafs (same) is a tool word before the noun and the noun after it takes el-: nafs el-ishi = the same thing; nafs ishi means nothing.",
    "ids": [
-    "1001-29",
-    "1001-30"
+    "1001-27",
+    "1001-29"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1001-030"
+   "fid": "1001-029"
   }
  ]
 }
