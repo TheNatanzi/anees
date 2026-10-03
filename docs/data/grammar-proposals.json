@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T14:50:42-07:00",
+ "updated": "2026-10-02T17:06:50-07:00",
  "rule": "GR-18",
  "about": "Grammar corrections Amal made that fit no existing rule. Each is a proposed new rule for Medi's yes or no; nothing here is scored until he says yes. Built by scripts/full_audit_build.py from the audit rows and data/lesson-work/full-audit/proposed-buckets.json.",
  "proposals": [
@@ -111,6 +111,32 @@
    ]
   },
   {
+   "id": "P-FA-af168fb5",
+   "name": null,
+   "proposed_rule": "After asking / telling someone to do something (talabet min ...) the action is a bare present verb even in a past story, never the past: talabet min el-muwazzaf yiji, not aja.",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-af168fb5 (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-af168fb5",
+     "date": "2026-09-23",
+     "t": "35:21",
+     "t_amal": "35:31",
+     "medi_said": "آآآ جا،",
+     "amal_said": "To come. So it's not to came. So it's to come.",
+     "chat": "talabet min el-muwazzaf illi yiji u ynaddef el-8urfe",
+     "wrong": "جا",
+     "right": "يجي",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "high",
+     "why": "After asking someone to do something the action is a bare present verb, not past; she said it's to come not came and he said يجي. No bucket covers tense after a request verb (B2 is about the b-, not past vs present).",
+     "also_counted_as": []
+    }
+   ]
+  },
+  {
    "id": "P-FA-a0e94e92",
    "name": null,
    "proposed_rule": "awal / aa5er / taani before a noun never take el-: awal sayyaara = the first car; after the noun they are adjectives and take el-: el-usboo3 el-awal.",
@@ -158,6 +184,110 @@
      "bucket": "PROPOSE",
      "confidence": "high",
      "why": "Amal recast نفس الـ إشي and said نفس إشي means nothing.",
+     "also_counted_as": []
+    }
+   ]
+  },
+  {
+   "id": "P-FA-0529f692",
+   "name": null,
+   "proposed_rule": "Before the noun, awal / tani / aa5er / 8eir take no el- (awal sa3a, tani yoam, 8eir yoam); 'the first X' puts the ordinal AFTER as an adjective with el- on both (el-saa3a el-oowla) - el-awal el-saa3a / tani el-saa3a mean nothing",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-0529f692 (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-0529f692",
+     "date": "2026-10-02",
+     "t": "21:50",
+     "t_amal": "21:56",
+     "medi_said": "and التاني الساعة means a different hour.",
+     "amal_said": "لا. We can't say تاني الساعة. It doesn't mean anything.",
+     "chat": "taani saa3a = second hour / second hour",
+     "wrong": "التاني الساعة",
+     "right": "ساعة تانية / تاني ساعة",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "medium",
+     "why": "He put el-tani before el-saa3a; she said it means nothing.",
+     "also_counted_as": []
+    }
+   ]
+  },
+  {
+   "id": "P-FA-40d5b3fc",
+   "name": null,
+   "proposed_rule": "غير is a tool before a bare noun: no el- on the noun after it (غير يوم, not غير اليوم).",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-40d5b3fc (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-40d5b3fc",
+     "date": "2026-10-02",
+     "t": "39:16",
+     "t_amal": "39:18",
+     "medi_said": "qayril yom.\" \"Qayril yom.\" I'll see you another day.",
+     "amal_said": "غير يوم.",
+     "chat": "bashufek 8eir yoam = i'll see you another day",
+     "wrong": "qayril yom",
+     "right": "غير يوم",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "low",
+     "why": "Repeating her بشوفك غير يوم he said 8eir el-yoam (Latin transcript); she recast غير يوم, as she had at 38:12 after his 'Qayril yom, okay' (a question then). Low: may be pronunciation/engine of ghayr yom.",
+     "also_counted_as": []
+    }
+   ]
+  },
+  {
+   "id": "P-FA-ea740d3c",
+   "name": null,
+   "proposed_rule": "Tool words awal / aa5er / tani / 8eir: right BEFORE a noun they take the bare noun with no el- (tani 7ada = second person, 8eir yoam = another day, aa5er muwazzafe = the last employee); awal el- / aa5er el- + noun means beginning / end of; AFTER the noun they act as adjectives (7ada taani = someone else)",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-ea740d3c (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-ea740d3c",
+     "date": "2026-10-02",
+     "t": "43:16",
+     "t_amal": "43:18",
+     "medi_said": "تاني حاجة.",
+     "amal_said": "تاني حدا would mean the second person.",
+     "chat": "ana fakkaret enno inti 8eir 7ada / 7ada taani",
+     "wrong": "تاني حاجة",
+     "right": "حدا تاني",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "high",
+     "why": "Engine wrote حاجة; Amal echoes تاني حدا - before the noun tani means 'second', for 'someone else' it goes after: 7ada taani.",
+     "also_counted_as": []
+    }
+   ]
+  },
+  {
+   "id": "P-FA-07c3e8d5",
+   "name": null,
+   "proposed_rule": "آخر (like أول) before an el- noun means 'the end of'; for 'the last X' use آخر + bare noun (آخر موظفة) or X el-a5eera.",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-07c3e8d5 (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-07c3e8d5",
+     "date": "2026-10-02",
+     "t": "47:01",
+     "t_amal": "47:09",
+     "medi_said": "مين آخر الـ ... آخر Moazafa, right?",
+     "amal_said": "The end of the employees?",
+     "chat": "min aa5er muwazzafe/a / min el-muwazzafa el-a5ira",
+     "wrong": "آخر الـ Moazafa",
+     "right": "آخر موظفة",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "medium",
+     "why": "آخر + el-noun means 'the end of'; Amal asked 'The end of the employees?' and he dropped el-: مين آخر موظفة?, which she accepted (Mm-hmm).",
      "also_counted_as": []
     }
    ]
