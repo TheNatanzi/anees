@@ -1,383 +1,18 @@
 {
  "date": "2026-09-10",
  "reader": "r3",
- "note": "D3 and D8 paired two different moments: D3 = r2's 12:44 preposition row (r1's عشان يكون is D21); D8 = r2's 24:50 person row (r1's 25:08 b-drop is D22). بقيم (D9) is on Amal's sheet - the engine is right. 43:10 'صح، بس order. Word or letters order' is a root-letter swap (S4), not written. Possible unvoiced A10b at 20:44 هدول أيام (no el-) not added: engine may have dropped الـ.",
+ "note": "Echo: فعلاً (13:42 Amal) = فعلين; بقيم (26:51 Amal) = بشيل; بعين/بعيم (26:52 Medi) = بشيل; كاسه (40:34/40:46 Amal) = كاسته. D22 (el- on أشيائي) needs audio: Amal heard el-, Medi denies it.",
  "rulings": [
   {
    "id": "D1",
-   "verdict": "keep",
-   "row": {
-    "id": "0910-r3-1",
-    "t": "09:00",
-    "t_amal": "09:10",
-    "medi_said": "مهندس-- Do you guys say مهندس كهرباء؟",
-    "amal_said": "مهندس الكهربا. ... Or some people say كهربجي. It's easier.",
-    "chat": null,
-    "wrong": null,
-    "right": "كهربجي",
-    "kind": "vocab-A",
-    "tier": 0,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "asked",
-    "confidence": "high",
-    "why": "He asked how to say electrician; she taught the new word كهربجي (didn't-know, tier 0).",
-    "english": "electrician"
-   },
-   "why": "Transcript 09:00-09:28: a how-do-you-say question, she supplies كهربجي. Didn't-know, tier 0."
+   "verdict": "drop",
+   "why": "Cannot be verified - transcript hole: الليلة جو كتير كتير is missing its adjective, so the engine likely garbled the line (الليلة may be a mishearing); Amal's عن جد shows no confusion about the time."
   },
   {
    "id": "D2",
    "verdict": "keep",
    "row": {
-    "id": "0910-r3-2",
-    "t": "12:36",
-    "t_amal": "12:39",
-    "medi_said": "اه، اليوم دولت stayed.",
-    "amal_said": "what؟ ضليت.",
-    "chat": null,
-    "wrong": "دولت",
-    "right": "ضليت",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "B5",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "recast",
-    "confidence": "medium",
-    "why": "Wrong I-form past of ضل (sheet 'i stayed/kept | Ana dallait | أنا ضليت'); Amal asked what and recast ضليت.",
-    "english": "today I stayed (home)"
-   },
-   "why": "He knows ضل (on her sheet, conjugated there); the slip is the past-tense I-ending of a doubled verb -> grammar B5, not a vocab non-word."
-  },
-  {
-   "id": "D3",
-   "verdict": "keep",
-   "row": {
-    "id": "0910-r3-3",
-    "t": "12:44",
-    "t_amal": "12:48",
-    "medi_said": "اه، this is take Allah بيتي.",
-    "amal_said": "بِ أو فِي بيتي؟",
-    "chat": null,
-    "wrong": "Allah",
-    "right": "فِي / بِ",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "D1",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "prompt-then-fix",
-    "confidence": "medium",
-    "why": "Wrong preposition before بيتي (engine wrote 'Allah', likely على); Amal prompted بِ أو فِي and he said بي بيتي.",
-    "english": "I stayed in my house"
-   },
-   "why": "r1's half (عشان يكون) is a separate slip ruled under D21; this ruling is r2's preposition row, which Amal prompted at 12:48."
-  },
-  {
-   "id": "D4",
-   "verdict": "keep",
-   "row": {
-    "id": "0910-r3-4",
-    "t": "13:27",
-    "t_amal": null,
-    "medi_said": "بس كلمة-- بس فعل، اه، تنين،",
-    "amal_said": null,
-    "chat": null,
-    "wrong": "فعل، اه، تنين",
-    "right": "فعلين",
-    "kind": "grammar-B",
-    "tier": null,
-    "bucket": "E1",
-    "bucket2": "A9",
-    "mode": "speaking",
-    "signal": "none",
-    "confidence": "medium",
-    "why": "Two of a noun uses the dual -ain (فعلين), not noun + تنين; Amal let it pass.",
-    "english": "just two verbs"
-   },
-   "why": "Real dual slip, let pass. E1 (number + noun: 2 has its own form) is the closer bucket; A9 as bucket2."
-  },
-  {
-   "id": "D5",
-   "verdict": "keep",
-   "row": {
-    "id": "0910-r3-5",
-    "t": "17:00",
-    "t_amal": "17:03",
-    "medi_said": "One more is واحد أكتر؟",
-    "amal_said": "كمان واحد.",
-    "chat": null,
-    "wrong": "واحد أكتر",
-    "right": "كمان واحد",
-    "kind": "vocab-A",
-    "tier": 0,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "asked",
-    "confidence": "high",
-    "why": "A how-do-you-say question with a guess; she supplied كمان واحد and he repeated (same treatment as the agreed A4 'Is it raki? What was electricity?').",
-    "english": "one more"
-   },
-   "why": "Phrased as a question ('One more is ...?'), so a didn't-know: tier 0 / asked."
-  },
-  {
-   "id": "D6",
-   "verdict": "keep",
-   "row": {
-    "id": "0910-r3-6",
-    "t": "20:41",
-    "t_amal": "20:43",
-    "medi_said": "هدول اليوم.",
-    "amal_said": "أيام.",
-    "chat": null,
-    "wrong": "اليوم",
-    "right": "أيام",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "A9",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "recast",
-    "confidence": "medium",
-    "why": "Singular يوم for 'these days'; Amal supplied the plural أيام (he: 'I even wrote أيام').",
-    "english": "these days"
-   },
-   "why": "He knows أيام (wrote it himself); the fix is singular -> plural = A9 grammar, not a vocab tier-2 form."
-  },
-  {
-   "id": "D7",
-   "verdict": "keep",
-   "row": {
-    "id": "0910-r3-7",
-    "t": "20:57",
-    "t_amal": null,
-    "medi_said": "إنتي متأكتي",
-    "amal_said": null,
-    "chat": null,
-    "wrong": "متأكتي",
-    "right": "متأكدة",
-    "kind": "grammar-B",
-    "tier": null,
-    "bucket": "A8",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "none",
-    "confidence": "low",
-    "why": "Feminine of متأكد is متأكدة/mit2akkde; engine wrote متأكتي (-ti verb-like ending) - may be engine on mit2akde.",
-    "english": "are you (f) sure"
-   },
-   "why": "Plausible gender-ending slip, let pass; d->t is S4 so only the ending matters, which the engine may have garbled - low."
-  },
-  {
-   "id": "D8",
-   "verdict": "keep",
-   "row": {
-    "id": "0910-r3-8",
-    "t": "24:50",
-    "t_amal": "25:03",
-    "medi_said": "uh, بتداي، بتداي، بتدايك.",
-    "amal_said": "They upset you.",
-    "chat": null,
-    "wrong": "بتدايك",
-    "right": "يضايقوكي",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "B18",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "prompt-then-fix",
-    "confidence": "medium",
-    "why": "For 'they upset you' he used the you/she-form بتدايك; Amal re-said 'They upset you.' and he moved to the plural (ض->د is S4).",
-    "english": "(they didn't mean to) upset you"
-   },
-   "why": "Two different moments: r1's 25:08 b-drop row is ruled under D22; this is r2's 24:50 person slip, prompted by her English 'They upset you.' (PG-22)."
-  },
-  {
-   "id": "D9",
-   "verdict": "keep",
-   "row": {
-    "id": "0910-r3-9",
-    "t": "26:49",
-    "t_amal": "26:51",
-    "medi_said": "شول، فيل،",
-    "amal_said": "بقيم.",
-    "chat": null,
-    "wrong": "شول، فيل",
-    "right": "بقيم",
-    "kind": "vocab-A",
-    "tier": 1,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "recast",
-    "confidence": "medium",
-    "why": "He groped for 'remove' with non-words شول / فيل; she supplied بقيم (sheet 'i remove / take away | Ba2eem | بقيم' - engine is right, not بشيل); he echoed بعينك/بعيم.",
-    "english": "remove"
-   },
-   "why": "Non-word attempts at a sheet word -> tier 1. بقيم is the real word (on her sheet), so r2's 'likely بشيل' reading is wrong."
-  },
-  {
-   "id": "D10",
-   "verdict": "keep",
-   "row": {
-    "id": "0910-r3-10",
-    "t": "27:26",
-    "t_amal": null,
-    "medi_said": "الـ أول الـ فعل، الـ أول الكلمة.",
-    "amal_said": "Mm.",
-    "chat": null,
-    "wrong": "الـ أول الـ فعل",
-    "right": "أول الفعل",
-    "kind": "grammar-B",
-    "tier": null,
-    "bucket": "A2",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "none",
-    "confidence": "low",
-    "why": "In an idafa the first word takes no el-: أول الفعل / أول الكلمة; he put الـ on أول twice. He also uses 'الـ،' as a filler, so low.",
-    "english": "the beginning of the verb / word"
-   },
-   "why": "Repeated twice with el- on the first word; Amal's 'Mm.' is no fix. Low because الـ is often his hesitation filler."
-  },
-  {
-   "id": "D11",
-   "verdict": "keep",
-   "row": {
-    "id": "0910-r3-11",
-    "t": "32:14",
-    "t_amal": null,
-    "medi_said": "هم يكسروا.",
-    "amal_said": "Nice.",
-    "chat": null,
-    "wrong": "يكسروا",
-    "right": "بيكسروا",
-    "kind": "grammar-B",
-    "tier": null,
-    "bucket": "B1",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "none",
-    "confidence": "low",
-    "why": "Plain present needs b-: بيكسروا; every other person in the same drill had b-. Engine may have dropped the b-.",
-    "english": "they break"
-   },
-   "why": "Real-looking B1 miss in a conjugation drill, let pass; engine could have eaten the b-, so low."
-  },
-  {
-   "id": "D12",
-   "verdict": "keep",
-   "row": {
-    "id": "0910-r3-12",
-    "t": "39:55",
-    "t_amal": "39:58",
-    "medi_said": "كاسته. كاسته.",
-    "amal_said": "كساته.",
-    "chat": null,
-    "wrong": "كاسته",
-    "right": "كاساته",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "A9",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "recast",
-    "confidence": "medium",
-    "why": "'His cups' needs the plural كاسات + ه; he said the singular (sheet 'cup | Kaasa | كاسة'); Amal recast the plural (engine wrote كساته).",
-    "english": "his cups"
-   },
-   "why": "Plural via the -aat ending is a buckets rule (A9), so grammar, not vocab tier 2."
-  },
-  {
-   "id": "D13",
-   "verdict": "keep",
-   "row": {
-    "id": "0910-r3-13",
-    "t": "44:33",
-    "t_amal": "44:36",
-    "medi_said": "مضارعة أو جملة؟",
-    "amal_said": "مضارع أول بعدين جملة.",
-    "chat": null,
-    "wrong": "مضارعة",
-    "right": "مضارع",
-    "kind": "vocab-A",
-    "tier": 2,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "recast",
-    "confidence": "low",
-    "why": "He added -a to مضارع; Amal answered with مضارع (voiced), he repeated المضارعة at 44:41 anyway.",
-    "english": "present tense"
-   },
-   "why": "Same slip at 44:33 and 44:41 - one row, the first. Her voiced مضارع right after is a soft recast; low."
-  },
-  {
-   "id": "D14",
-   "verdict": "drop",
-   "why": "Cannot be verified: at 03:03 أعزمت is right after her عزمت, and the a- is likely the tail of أنا (he said 'أنا زعمت' at 02:59) or the engine; the real slip of this moment is the agreed A2 (زعمت -> عزمت)."
-  },
-  {
-   "id": "D15",
-   "verdict": "keep",
-   "row": {
-    "id": "0910-r3-15",
-    "t": "07:08",
-    "t_amal": "07:18",
-    "medi_said": "Sa alaat ila nun-- ila tult.",
-    "amal_said": "تلات أو تنتين؟",
-    "chat": null,
-    "wrong": "alaat",
-    "right": "تنتين",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "E2",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "prompt-then-fix",
-    "confidence": "low",
-    "why": "For 1:40 he said talaat illa tult (2:40); Amal asked 'تلات أو تنتين؟' and he changed to Intayn ila tult. Could be she simply didn't hear - low.",
-    "english": "it's twenty to two"
-   },
-   "why": "Her either/or question names the right hour and he switches - a prompt. Clock time with illa = E2, not a vocab word slip."
-  },
-  {
-   "id": "D16",
-   "verdict": "drop",
-   "why": "S4 / transcription: 'Intayn' is the Latin engine spelling of tinten; he said the number she asked for and she just confirmed it - no form error."
-  },
-  {
-   "id": "D17",
-   "verdict": "keep",
-   "row": {
-    "id": "0910-r3-17",
-    "t": "07:57",
-    "t_amal": null,
-    "medi_said": "شفت فيديو لـ YouTube",
-    "amal_said": null,
-    "chat": null,
-    "wrong": "لـ YouTube",
-    "right": "على YouTube",
-    "kind": "grammar-B",
-    "tier": null,
-    "bucket": "D1",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "none",
-    "confidence": "low",
-    "why": "'On YouTube' is 3ala (على اليوتيوب), not la-; Amal let it pass. Engine may have cut على.",
-    "english": "I watched a video on YouTube"
-   },
-   "why": "Plausible preposition slip, let pass; low."
-  },
-  {
-   "id": "D18",
-   "verdict": "keep",
-   "row": {
-    "id": "0910-r3-18",
+    "id": "0910-5",
     "t": "08:08",
     "t_amal": "08:11",
     "medi_said": "صلاحت-- صلاحتو.",
@@ -392,19 +27,19 @@
     "mode": "speaking",
     "signal": "recast",
     "confidence": "medium",
-    "why": "Long aa inserted in صلّح (salaa7to); Amal recast صلحته, he repeated صلاhto - same kind as agreed A19 بزياد -> بزيد.",
+    "why": "He gave صلح (fix) a long-a form صلاحتو; Amal recast صلحته and he repeated it.",
     "english": "I fixed it"
    },
-   "why": "Voiced recast of a wrong form of a word he knows; treated as tier 2 like A19."
+   "why": "Same slip, both readers; the long-a form صلاحت is a wrong verb form she recast, matching the agreed A19 بزياد -> بزيد (tier 2)."
   },
   {
-   "id": "D19",
+   "id": "D3",
    "verdict": "keep",
    "row": {
-    "id": "0910-r3-19",
+    "id": "0910-7",
     "t": "09:30",
     "t_amal": "09:42",
-    "medi_said": "I think is كراجي electrician",
+    "medi_said": "I think is كراجي electrician ... كراجي. This is a new word.",
     "amal_said": "كهـ، كهربجي.",
     "chat": null,
     "wrong": "كراجي",
@@ -416,64 +51,117 @@
     "mode": "speaking",
     "signal": "recast",
     "confidence": "medium",
-    "why": "He re-said her new word كهربجي as كراجي (twice, 09:30 and 09:39); Amal re-said كهـ، كهربجي stressing the lost syllable.",
+    "why": "He said كهربجي as كراجي and Amal repeated it syllable by syllable.",
     "english": "electrician"
    },
-   "why": "A garbled form of the word she just taught, voiced fix; not a single dropped ع/ط/ق, a whole syllable is missing."
+   "why": "She had just volunteered كهربجي at 09:10 (D16, tier 0); at 09:39 he tried to say it back as كراجي and she re-said كهـ، كهربجي - a wrong form of a word he had just been given, so tier 2."
   },
   {
-   "id": "D20",
+   "id": "D4",
    "verdict": "keep",
    "row": {
-    "id": "0910-r3-20",
-    "t": "10:34",
-    "t_amal": "10:44",
-    "medi_said": "صلاح، صلاحني شوي.",
-    "amal_said": "صلحني would be he fixed me. Like you, you were who's being fixed. ... Fixed for me، صلح لي.",
+    "id": "0910-11",
+    "t": "12:34",
+    "t_amal": "12:39",
+    "medi_said": "اه، اليوم دولت stayed.",
+    "amal_said": "what؟ ضليت.",
     "chat": null,
-    "wrong": "صلاحني",
-    "right": "صلح لي",
+    "wrong": "دولت",
+    "right": "ضليت",
     "kind": "grammar",
     "tier": null,
-    "bucket": "D3",
+    "bucket": "B5",
     "bucket2": null,
     "mode": "speaking",
-    "signal": "named-rule",
+    "signal": "recast",
     "confidence": "high",
-    "why": "Amal explained -ni makes 'fixed me'; 'for me' needs la- + ending (صلح لي).",
-    "english": "he fixed (it) for me a bit"
+    "why": "Doubled verb ضل takes -eit for 'I' (ضليت); he said دلت/ضلت and Amal said 'what? ضليت'.",
+    "english": "today I stayed (home)"
    },
-   "why": "Distinct from agreed A6 (vocab: صلح vs ساعد): here she named the object/preposition-ending rule. His صلاحلي at 10:40 came after her 10:30 صلح لي, so not a self-fix."
+   "why": "Same verb ضل; the slip is the I-past ending of a doubled verb (ضليت, not ضلت). That is a past-tense ending rule (B5), so it is grammar. د/ض is S4."
   },
   {
-   "id": "D21",
+   "id": "D5",
    "verdict": "keep",
    "row": {
-    "id": "0910-r3-21",
+    "id": "0910-12",
     "t": "12:53",
     "t_amal": null,
     "medi_said": "عشان يكون air conditioning.",
     "amal_said": null,
     "chat": null,
-    "wrong": "عشان يكون",
-    "right": "عشان في",
+    "wrong": "يكون",
+    "right": "في",
     "kind": "grammar-B",
     "tier": null,
     "bucket": "B8",
-    "bucket2": null,
+    "bucket2": "C1",
     "mode": "speaking",
     "signal": "none",
     "confidence": "low",
-    "why": "'Because there is AC' needs في, not يكون (or عشان يكون في); Amal let it pass. My reading.",
+    "why": "'Because there is AC (at home)' is عشان في مكيف; يكون is not the plain present 'there is'. Amal let it pass. Reader's reading.",
     "english": "because there is air conditioning"
    },
-   "why": "Real but unvoiced; low. This is r1's half of D3."
+   "why": "The real slip is r1's يكون for 'there is'. r2's piece (take Allah بيتي -> بـ/في) is dropped: Amal's 'بِ أو فِي بيتي؟' asks which word she heard, he said بي بيتي and she moved on, so nothing was wrong. r2's version of the يكون row is D18 (a duplicate)."
   },
   {
-   "id": "D22",
+   "id": "D6",
    "verdict": "keep",
    "row": {
-    "id": "0910-r3-22",
+    "id": "0910-14",
+    "t": "13:27",
+    "t_amal": "13:42",
+    "medi_said": "بس كلمة-- بس فعل، اه، تنين،",
+    "amal_said": "أههم بس فعلاً. (engine; = فعلين)",
+    "chat": null,
+    "wrong": "فعل، اه، تنين",
+    "right": "فعلين",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "E1",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "recast",
+    "confidence": "medium",
+    "why": "Two of a noun takes the dual (فعلين), not noun + تنين; Amal's reply recasts it as فعلين (engine wrote فعلاً).",
+    "english": "just two verbs"
+   },
+   "why": "Her 13:42 'أههم بس فعلاً' reads as بس فعلين (engine wrote فعلاً): she recast his فعل تنين into the dual."
+  },
+  {
+   "id": "D7",
+   "verdict": "drop",
+   "why": "Not an error: مش قصدهم ('they didn't mean') is normal spoken Levantine, like مش قصدي; ما كان قصدهم is optional."
+  },
+  {
+   "id": "D8",
+   "verdict": "keep",
+   "row": {
+    "id": "0910-26",
+    "t": "24:50",
+    "t_amal": "25:03",
+    "medi_said": "بتداي، بتداي، بتدايك.",
+    "amal_said": "They upset you.",
+    "chat": null,
+    "wrong": "بتدايك",
+    "right": "يضايقوكي",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "B18",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "A singular verb for 'they'; Amal repeated 'They upset you' (stress on they) and he moved to the plural بيتايوك.",
+    "english": "(it wasn't their intention) to upset you"
+   },
+   "why": "Keep r1's piece: he gave 'they' a singular verb (بتدايك), Amal repeated 'They upset you' and he changed to the plural. r2's piece is the same as D9."
+  },
+  {
+   "id": "D9",
+   "verdict": "keep",
+   "row": {
+    "id": "0910-27",
     "t": "25:08",
     "t_amal": "25:14",
     "medi_said": "بيتايو، بيتايوك، بيتايوكي.",
@@ -488,43 +176,43 @@
     "mode": "speaking",
     "signal": "recast",
     "confidence": "medium",
-    "why": "After 'their intention (to)' the verb drops b-; Amal recast يدايقوكي (engine spelling), he kept بيتايوكي.",
-    "english": "(they didn't mean) to upset you"
+    "why": "After قصدهم (intention + ending, like biddi) the second verb drops b-; Amal recast يدايقوكي and he repeated it with b-.",
+    "english": "it wasn't their intention to upset you"
    },
-   "why": "Voiced recast removing the b-; the ض/ق sounds are S4 only."
+   "why": "After مش قصدهم the next verb has no b- (like after biddi). Amal recast يدايقوكي without b-, and he said بيتايوكي again. ق -> د/ت is S4."
   },
   {
-   "id": "D23",
+   "id": "D10",
    "verdict": "keep",
    "row": {
-    "id": "0910-r3-23",
-    "t": "33:22",
-    "t_amal": "33:30",
-    "medi_said": "إنتِ بتزلي، ... زري.",
-    "amal_said": "I didn't hear the \"t\".",
+    "id": "0910-29",
+    "t": "26:49",
+    "t_amal": "26:51",
+    "medi_said": "شول، فيل،",
+    "amal_said": "بقيم. (engine; likely بشيل)",
     "chat": null,
-    "wrong": "زري",
-    "right": "تكسري",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "B18",
+    "wrong": "شول",
+    "right": "بشيل",
+    "kind": "vocab-A",
+    "tier": 2,
+    "bucket": null,
     "bucket2": null,
     "mode": "speaking",
-    "signal": "prompt-then-fix",
+    "signal": "recast",
     "confidence": "low",
-    "why": "After بتضلي (engine بتزلي) he said the verb without its you-prefix t- (engine زري); he asked 'I say?' and Amal answered she didn't hear the t; he then said بتكسري.",
-    "english": "you keep breaking (my plates)"
+    "why": "For 'I remove' he said شول (root of شيل, wrong form); Amal gave the verb (engine wrote بقيم) and he echoed it. Low: the engine is garbled on both sides.",
+    "english": "and I remove"
    },
-   "why": "Her echo shows the slip was the missing t- (person prefix). Engine garbled the word, so low."
+   "why": "He did try the word: شول is شيل with the wrong vowel. Amal supplied the verb (engine wrote بقيم, it is بشيل) and he repeated it (engine بعين / بعيم). That is a wrong form he attempted, so tier 2, not tier 0."
   },
   {
-   "id": "D24",
+   "id": "D11",
    "verdict": "keep",
    "row": {
-    "id": "0910-r3-24",
+    "id": "0910-32",
     "t": "37:31",
     "t_amal": null,
-    "medi_said": "انكسرتم.",
+    "medi_said": "إنتي انكسرتي. انكسرتم. انكسرنا.",
     "amal_said": null,
     "chat": null,
     "wrong": "انكسرتم",
@@ -536,21 +224,134 @@
     "mode": "speaking",
     "signal": "none",
     "confidence": "low",
-    "why": "MSA -tum for you-plural past; spoken is -tu (he said كسرتوا right at 29:18); Amal let it pass. Engine may have normalised.",
+    "why": "Spoken 'you (pl)' past is -tu (انكسرتو); -tum is MSA. Amal let it pass.",
     "english": "you (pl) got broken"
    },
-   "why": "Plausible ending slip in a drill, let pass; low."
+   "why": "In the conjugation list he gave the MSA ending -tum. Spoken Levantine uses -tu, and he himself said كسرتوا at 29:18. Amal let it pass."
+  },
+  {
+   "id": "D12",
+   "verdict": "drop",
+   "why": "Not an error: كاسته (kaast-o, 'his cup') is the correct feminine -t + ending (A3). Amal's كاسه is the engine spelling of the same word, and she then said 'كاسه انكسرت' = his cup broke, confirming it. Her only fix here is انكسر -> انكسرت (A23)."
+  },
+  {
+   "id": "D13",
+   "verdict": "drop",
+   "why": "Duplicate of A2 / S4: at 03:03, one second after her عزمت, he is repeating her fix with a glottal onset (أعزمت). That is pronunciation of the ع, not a new wrong form."
+  },
+  {
+   "id": "D14",
+   "verdict": "keep",
+   "row": {
+    "id": "0910-5b",
+    "t": "08:04",
+    "t_amal": null,
+    "medi_said": "شفت فيديو لـ YouTube",
+    "amal_said": null,
+    "chat": null,
+    "wrong": "لـ YouTube",
+    "right": "على YouTube",
+    "kind": "grammar-B",
+    "tier": null,
+    "bucket": "D1",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "none",
+    "confidence": "low",
+    "why": "'On YouTube' is على/عَ اليوتيوب, not لـ; Amal let it pass. Reader's reading; the engine may have misheard عَ.",
+    "english": "I watched a video on YouTube"
+   },
+   "why": "'A video on YouTube' takes على (عَ اليوتيوب); لـ is the wrong preposition. Amal let it pass. Low: the engine may have written عَ as لـ."
+  },
+  {
+   "id": "D15",
+   "verdict": "drop",
+   "why": "Not an error: رنّيت لـ (رنيتله, رنلي) is normal Levantine next to رنيت على."
+  },
+  {
+   "id": "D16",
+   "verdict": "keep",
+   "row": {
+    "id": "0910-9",
+    "t": "09:13",
+    "t_amal": "09:10",
+    "medi_said": "مهندس، مهندس كهربجي.",
+    "amal_said": "Or some people say كهربجي. It's easier.",
+    "chat": null,
+    "wrong": "مهندس الكهرباء (asked)",
+    "right": "كهربجي",
+    "kind": "vocab-A",
+    "tier": 0,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "asked",
+    "confidence": "medium",
+    "why": "Amal taught كهربجي (electrician), a new word, after his question; tier 0.",
+    "english": "electrician"
+   },
+   "why": "A didn't-know: he asked 'Do you guys say مهندس كهرباء؟' while looking for 'electrician', and Amal offered the new word كهربجي."
+  },
+  {
+   "id": "D17",
+   "verdict": "drop",
+   "why": "Duplicate of A6, same moment: her 'صلحني would be he fixed me ... صلح لي' was a step on the way to finding the verb he meant (ساعدني, which takes -ni correctly). The slip was the verb, and A6 already holds it."
+  },
+  {
+   "id": "D18",
+   "verdict": "drop",
+   "why": "Duplicate of D5 (same يكون -> في/فيه row; D5 holds it as B8 + C1)."
+  },
+  {
+   "id": "D19",
+   "verdict": "drop",
+   "why": "Not an error: متأكتي is متأكدة said the Levantine way, mit2akkde/-i (ة after د is said -i), with ت/د as S4. The feminine ending is there."
+  },
+  {
+   "id": "D20",
+   "verdict": "drop",
+   "why": "Not an error / engine spacing: 'من هم' sounds the same as منهم (minhom); the engine split one word into two."
+  },
+  {
+   "id": "D21",
+   "verdict": "drop",
+   "why": "Likely engine: in the same drill he used b- on every other person (بيكسر, بتكسر, بنكسر), and 'humme bikasro' loses its b to the m before it in speech-to-text. Cannot be verified."
+  },
+  {
+   "id": "D22",
+   "verdict": "keep",
+   "row": {
+    "id": "0910-38",
+    "t": "38:30",
+    "t_amal": "38:33",
+    "medi_said": "كل أشيائي...",
+    "amal_said": "أشياءي نوع الإل. (engine; = أشيائي بدون الـ)",
+    "chat": null,
+    "wrong": "الأشيائي (as Amal heard it; engine wrote أشيائي)",
+    "right": "أشيائي",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "A2",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "named-rule",
+    "confidence": "low",
+    "why": "Amal reminded him that a noun with a possessive ending takes no el-; the engine shows no el- and Medi says 'I don't think I said ال' - needs audio.",
+    "english": "all my things"
+   },
+   "why": "Amal said out loud that he used el- on a possessive noun (engine 'نوع الإل' = without el-). The brief says to trust her echo over the engine, but he says he did not say ال, so confidence is low and it should go to an audio check."
+  },
+  {
+   "id": "D23",
+   "verdict": "drop",
+   "why": "Self-fix: in the 45:34 line he switched to هو بينكسر himself before Amal's 'هو' (which confirms it). He then gave هي بتنكسر, and at 45:25 her 'إنتو' only set the order of the drill."
+  },
+  {
+   "id": "D24",
+   "verdict": "drop",
+   "why": "Engine/stutter: 'بن-بنكسر' is bin-ninkiser (بننكسر) broken at the stutter, so the second n is there; Amal moved on."
   }
  ],
  "added": [],
- "challenges": [
-  {
-   "id": "A3",
-   "why": "Amal's 'عن جد؟' reacts to a weather word (the AC then broke): the engine likely dropped شوب after جو; الليلة may also be the engine. Needs audio before scoring الليلة/missing شوب as his vocab slip."
-  },
-  {
-   "id": "A17",
-   "why": "'من هم' vs 'منهم' is only word spacing in the transcript; nothing audible marks it as wrong and Amal gave no signal - likely an engine split, not his error."
-  }
- ]
+ "challenges": []
 }
