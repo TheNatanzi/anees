@@ -33,6 +33,30 @@ def apply(date, turns, rows=None):
                 u["text"] = u["text"].replace(r["engine_wrote"], r["heard"], 1)
                 u.setdefault("heard", []).append({"engine_wrote": r["engine_wrote"], "heard": r["heard"], "rule": r.get("rule")})
         out.append(u)
+    return kaman_marra(out)
+
+
+import re as _re
+FILLER = _re.compile(r"^(آآآ|أأأ|اممم?|امم|uh|um|aaa|ا+)[،,.\s]*")
+
+
+def kaman_marra(turns):
+    """GR-11 on the transcript (Medi 2026-10-02 "10:09 aaa Kam Marra? Should be kaman marra"): his line that is only
+    'كم مرة؟' (fillers aside) within 15 s after Amal spoke is 'كمان مرة؟' (again?), not 'how many times' - the engine
+    drops the -an. Returns the turns with the heard words in place (engine text kept)."""
+    out = []
+    for i, u in enumerate(turns):
+        core = FILLER.sub("", (u.get("text") or "").strip()).strip()
+        before = [v for v in turns[max(0, i - 6):i] if v.get("who") == "Amal" and 0 <= float(u["t"]) - float(v["t"]) <= 15]
+        after = [v for v in turns[i + 1:i + 6] if v.get("who") == "Amal" and 0 <= float(v["t"]) - float(u["t"]) <= 15]
+        W = lambda v: set(_re.sub(r"[^\w\s]", " ", v.get("text") or "").split())
+        repeats = any(len(W(a) & W(b)) >= max(1, len(W(b)) // 2) for b in before for a in after)   # she says it again
+        if u.get("who") == "Medi" and _re.fullmatch(r"كم\s+مر[ةه]\s*[؟?]?\.?", core) and before and repeats:
+            u = dict(u)
+            u.setdefault("engine", u["text"])
+            u["text"] = _re.sub(r"كم\s+مر", "كمان مر", u["text"], count=1)
+            u.setdefault("heard", []).append({"engine_wrote": "كم مرة", "heard": "كمان مرة", "rule": "GR-11"})
+        out.append(u)
     return out
 
 

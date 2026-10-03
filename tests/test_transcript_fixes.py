@@ -55,3 +55,21 @@ def test_tr_20_a_verb_right_after_take_is_flagged():
     T = [{"t": 584.14, "who": "Medi", "text": "أنا لازم أخد أطلع وسفر"}, {"t": 600, "who": "Medi", "text": "لازم آخد عطلة"},
          {"t": 610, "who": "Medi", "text": "أخد أطلع", "engine": "x"}]
     assert [c["engine_wrote"] for c in EC.take_verb(T)] == ["أطلع"]
+
+
+def test_tr_21_her_chat_line_is_paired_with_his_lines_before_it():
+    """TR-21: her typed 'ana laazem aa5ud 3otle u asaafer' is paired with his 'أنا لازم أخد أطلع وسفر' 31 s before."""
+    import echo_candidates as EC
+    T = [{"t": 584.14, "who": "Medi", "text": "أنا لازم أخد أطلع وسفر"}, {"t": 615.2, "who": "chat", "text": "ana laazem aa5ud 3otle u asaafer"}]
+    P = EC.chat_pairs(T)
+    assert P and P[0]["medi"][0]["text"].startswith("أنا لازم")
+
+
+def test_gr_11_kam_marra_alone_then_she_repeats_herself_reads_kaman_marra():
+    """GR-11 on the transcript: 'آآآ كم مرة؟' after Amal, who then says it again, is كمان مرة (again?)."""
+    T = [{"t": 600.0, "who": "Amal", "text": "شو بتحب تلبس لون كلسات أكتر إشي؟"}, {"t": 603.0, "who": "Medi", "text": "آآآ، كم مرة؟"},
+         {"t": 605.0, "who": "Amal", "text": "شو بتحب تلبس لون كلسات أكتر إشي؟"},
+         {"t": 700.0, "who": "Amal", "text": "عندك أخوات؟"}, {"t": 702.0, "who": "Medi", "text": "كم مرة؟"}, {"t": 704.0, "who": "Amal", "text": "تلاتة"}]
+    out = TFX.kaman_marra(T)
+    assert out[1]["text"] == "آآآ، كمان مرة؟" and out[1]["engine"] == "آآآ، كم مرة؟"
+    assert out[4]["text"] == "كم مرة؟"          # she did not repeat herself: a real 'how many times?'

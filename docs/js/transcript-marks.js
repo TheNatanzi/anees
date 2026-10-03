@@ -26,6 +26,9 @@ function az(text, given, toArabizi) {
 }
 // What a chip is about: "vocab · <word>" or "grammar · <rule> <name>"
 function subject(c, toArabizi) {
+  // PG-21 (Medi 2026-10-02 "you marked the correct word wrong for safar"): a ✗ names what he said → what Amal wanted,
+  // never the right word alone (a ✗ beside asaafer read as "asaafer is wrong")
+  if (c.k === 'vocab' && c.s === 'wrong' && c.said) return { kind: 'vocab', main: az(c.said, null, toArabizi) + ' → ' + az(c.right || c.ar, c.w, toArabizi), ar: isArabic(c.ar) ? c.ar : '' };
   if (c.k === 'vocab') return { kind: 'vocab', main: az(c.ar, c.w, toArabizi), ar: isArabic(c.ar) ? c.ar : '' };
   if (c.k === 'grammar') return { kind: 'grammar', main: (c.rule || '') + (c.name ? ' ' + c.name : ''), ar: '' };
   if (c.k === 'fix') {
@@ -50,7 +53,8 @@ function chipModel(c, toArabizi) {
   else if (c.s === 'asked') tip = 'Asked Amal for the word' + (c.right ? ' → Amal: ' + az(c.right, null, toArabizi) : '');
   else if (c.s === 'partial') tip = 'Partial · got there with help' + (c.said ? ' · said ' + az(c.said, null, toArabizi) : '');
   else if (c.s === 'correct') tip = 'Correct' + (c.said ? ' · said ' + az(c.said, null, toArabizi) : '');
-  else if (c.s === 'fix') tip = "Amal's fix: she " + c.sig + (c.said || c.right ? ' · ' + pair(c.said, c.right, toArabizi) : '');
+  else if (c.s === 'fix') tip = "Amal's fix: she " + c.sig + (c.said || c.right ? ' · ' + pair(c.said, c.right, toArabizi) : '') +
+    (c.english ? ' · she said it in English: «' + c.english + '»' : '');
   else if (c.s === 'medi') tip = (c.label || 'Open question') + ' ' + (c.why || '');
   else tip = 'Not scored: ' + (c.why || '');
   var arSrc = [c.said, c.right].filter(isArabic).join(' → ');

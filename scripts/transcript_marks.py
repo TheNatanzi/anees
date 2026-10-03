@@ -267,6 +267,15 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
                    "of": slip_chip["k"], "rule": slip_chip.get("rule"), "w": slip_chip.get("w"), "ar": slip_chip.get("ar"),
                    "said": slip_chip.get("said"), "right": right, "link": slip_chip["id"]})
         underline(p[0], right, "fix", fid, what + " fix")
+        # PG-22 (Medi 2026-10-02 "she corrected me in english. This can happen"): her fix may be in English (09:53 "Aw I
+        # should travel. Aw." for asaafer): when her right word is not on her line, her English words are the fix
+        txt = turns[p[0]]["text"]
+        if not find_span(txt, right or "") and re.search(r"[A-Za-z]{2,}", txt):
+            m = max(re.finditer(r"[A-Za-z][A-Za-z' ]*[A-Za-z]", txt), key=lambda x: len(x.group(0)), default=None)
+            if m:
+                tm[p[0]]["c"][-1]["english"] = m.group(0)
+                if not any(m.start() < x[1] and x[0] < m.end() for x in tm[p[0]].get("u", [])):
+                    tm[p[0]]["u"].append([m.start(), m.end(), "fix", fid, "english"])
 
     # ---------------- vocab
     for e in detail.get("vocab_correct") or []:

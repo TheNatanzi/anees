@@ -14,7 +14,7 @@ test('chips say Wrong / Correct in words, kind and rule, Arabizi first',()=>{
  const c=T.chipModel({k:'vocab',s:'correct',w:'Bass',ar:'بس'},fakeAz);
  assert.equal(c.sign,'✓');assert.equal(c.word,'Correct');assert.equal(c.main,'Bass');assert.equal(c.ar,'بس');
  const v=T.chipModel({k:'vocab',s:'wrong',ar:'لـ',said:'لسه',right:'لـ'},fakeAz);
- assert.equal(v.main,'AZ(لـ)');
+ assert.equal(v.main,'AZ(لسه) → AZ(لـ)');   // PG-21: said → wanted
  const f=T.chipModel({k:'fix',s:'fix',of:'grammar',rule:'B6',sig:'repeats it right',said:'كانت',right:'كنت'},null);
  assert.equal(f.sign,'←');assert.equal(f.tip,"Amal's fix: she repeats it right · said كانت → Amal: كنت");
  const n=T.chipModel({k:'na',s:'na',label:'lesson',why:'off-lesson (customer call)'},null);
@@ -55,4 +55,10 @@ test('PG-21 a wrong chip says what you said, what Amal said instead, and quotes 
  const v=T.chipModel({s:'wrong',k:'vocab',said:'هادي الصباح',right:'الصبح / بالصباح',sig:'says no',amal_line:'We never say هذا الصبح just say الصبح or بالصباح.',amal_t:540.31},null);
  assert.match(v.tip,/you said هادي الصباح → Amal: say الصبح \/ بالصباح/);
  assert.match(v.tip,/Amal at 9:00: «We never say هذا الصبح/);
+});
+test('PG-21 / PG-22 a wrong vocab chip names said -> wanted, and an English fix of Amal is shown as hers',()=>{
+ const w=T.chipModel({s:'wrong',k:'vocab',said:'سفر',right:'أسافر',ar:'أسافر'},null);
+ assert.equal(w.main,'سفر → أسافر');
+ const f=T.chipModel({s:'fix',k:'fix',of:'vocab',sig:'prompts you, then gives it',said:'سفر',right:'أسافر',english:'I should travel'},null);
+ assert.match(f.tip,/she said it in English: «I should travel»/);
 });

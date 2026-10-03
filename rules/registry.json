@@ -883,6 +883,54 @@
    }
   },
   {
+   "id": "TR-21",
+   "kind": "not-error",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Chat check: Amal often types the sentence he was saying; every chat line of hers is compared with his lines of the 45 s before it, word by word. A sound-alike with an unrelated meaning (engine أطلع, her typed 3otle) is the engine and becomes a heard-word overlay row (rule TR-21); a wrong form she types right (سفر -> asaafer) is his slip and stays. scripts/echo_candidates.py lists the pairs for every new lesson. 2026-10-03 read of all 682 past pairs: 47 mishearings added (each shows 'Recording engine wrote …').",
+   "plain": "Amal often types what you were trying to say in the chat. We compare your line with hers; when the engine wrote a different word that sounds like hers, we fix the line.",
+   "plain_for": "5a7805df",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "aa5ud Etla3 makes no seanse"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/echo_candidates.py",
+     "contains": "def chat_pairs(turns):"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "And its `chat_pairs` (TR-21"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_transcript_fixes.py",
+     "contains": "def test_tr_21_her_chat_line_is_paired_with_his_lines_before_it"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "09:44",
+    "note": "engine أخد أطلع; her chat ana laazem aa5ud 3otle u asaafer"
+   },
+   "moments": [
+    {
+     "type": "data",
+     "path": "data/lesson-work/transcript-fixes.json",
+     "contains": "\"rule\": \"TR-21\""
+    }
+   ]
+  },
+  {
    "id": "AZ-01",
    "kind": "display",
    "scope": "arabizi",
@@ -2566,16 +2614,21 @@
    "scope": "grammar-scoring",
    "status": "enforced",
    "change": "new",
-   "statement": "'كم مرة؟' alone right after Amal spoke, answered by her repeating herself, is 'kaman marra?' (again?) - not كم + noun, not a slip.",
-   "plain": "Saying 'كم مرة؟' right after Amal spoke, so she repeats herself, means 'kaman marra?' (again?): not a كم mistake, not a slip.",
-   "plain_for": "27436d1d",
-   "topic": "kam marra",
+   "statement": "'كم مرة؟' alone right after Amal spoke, answered by her repeating herself, is 'kaman marra?' (again?) - not كم + noun, not a slip. The transcript line itself reads كمان مرة (engine text kept underneath), so no 'how many times' word or kam+singular use is scored (5 moments: 09-10 x2, 09-21, 09-26, 10-02).",
+   "plain": "When you say just 'kam marra?' right after Amal and she says her sentence again, you meant 'kaman marra?' (again?): not 'how many times' and not a slip. The transcript line shows kaman marra.",
+   "plain_for": "2bb66d8b",
+   "topic": "kam / kaman",
    "source": [
     {
      "by": "medi",
      "date": "2026-10-02",
      "quote": "Medi: yes, check the other kam marra moments",
      "session": "65d34512"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "10:09 aaa Kam Marra? Should be kaman marra"
     }
    ],
    "enforcement": [
@@ -2588,12 +2641,21 @@
      "type": "brief",
      "path": "data/lesson-work/full-audit/READER-BRIEF.md",
      "contains": "\"كم مرة؟\" alone, right after Amal spoke"
+    },
+    {
+     "type": "code",
+     "path": "scripts/transcript_fixes.py",
+     "contains": "def kaman_marra(turns):"
     }
    ],
    "test": [
     {
      "path": "tests/test_arabizi_reader.py",
      "contains": "def test_kaman_marra_when_amal_repeats"
+    },
+    {
+     "path": "tests/test_transcript_fixes.py",
+     "contains": "def test_gr_11_kam_marra_alone_then_she_repeats_herself_reads_kaman_marra"
     }
    ],
    "example": {
@@ -6592,6 +6654,52 @@
     "date": "2026-10-02",
     "t": "08:23",
     "note": "✗ vocab el-sube7 / b-el-Sabah with no reason shown; her fix came 37 s later at 09:00"
+   }
+  },
+  {
+   "id": "PG-22",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Amal may correct in English (10-02 09:53 'Aw I should travel. Aw.' for his سفر -> أسافر): when her right word is not on her fix line, her English words are underlined green as the fix and her chip says 'she said it in English: «…»'; readers count an English rephrase as a voiced signal. A ✗ vocab chip names what he said → what she wanted (never the right word alone beside a ✗).",
+   "plain": "Amal sometimes corrects you in English ('or I should travel'). Her English words are marked as her fix, and a ✗ shows what you said and what she wanted.",
+   "plain_for": "eb4b1207",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "you marked the correct word wrong for safar but didnt mark amals correction. 09:53 Aw I should travel. Aw. she corrected me in english.  This can happen.  Please make a ntoe"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/transcript_marks.py",
+     "contains": "tm[p[0]][\"c\"][-1][\"english\"] = m.group(0)"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/transcript-marks.js",
+     "contains": "she said it in English"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "Amal may correct in ENGLISH (PG-22"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_transcript_marks.cjs",
+     "contains": "test('PG-21 / PG-22 a wrong vocab chip names said -> wanted"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "09:53",
+    "note": "her 'Aw I should travel. Aw.' had no mark; the ✗ showed asaafer"
    }
   }
  ]

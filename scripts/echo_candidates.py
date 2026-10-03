@@ -34,6 +34,19 @@ def take_verb(turns):
     return out
 
 
+def chat_pairs(turns):
+    """TR-21 (Medi 2026-10-02 "aa5ud Etla3 makes no seanse"): Amal often TYPES the sentence he was saying; each of her chat
+    lines with his lines of the 45 s before it, for the reader to compare word by word (أطلع ~ her 3otle)."""
+    out = []
+    for i, c in enumerate(turns):
+        if c["who"] != "chat":
+            continue
+        his = [{"t": u["t"], "text": u["text"]} for u in turns[max(0, i - 14):i] if u["who"] == "Medi" and c["t"] - u["t"] <= 45 and not u.get("engine")]
+        if his:
+            out.append({"chat_t": c["t"], "chat": c["text"], "medi": his})
+    return out
+
+
 def candidates(turns):
     out = []
     for i, u in enumerate(turns):
@@ -58,7 +71,8 @@ def main(argv=None):
     d = os.path.join(REPO, "data", "lesson-work", "echo-candidates")
     os.makedirs(d, exist_ok=True)
     with open(os.path.join(d, date + ".json"), "w", encoding="utf-8", newline="\n") as f:
-        json.dump({"date": date, "rule": "TR-19", "candidates": C, "take_verb": take_verb(L.get("turns") or [])}, f, ensure_ascii=False, indent=1)
+        json.dump({"date": date, "rule": "TR-19", "candidates": C, "take_verb": take_verb(L.get("turns") or []),
+                   "chat_pairs": chat_pairs(L.get("turns") or [])}, f, ensure_ascii=False, indent=1)
     print(date, len(C), "echo candidates")
     return 0
 

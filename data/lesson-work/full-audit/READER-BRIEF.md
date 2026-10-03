@@ -124,3 +124,8 @@ Arabic (her لسه؟ -> "This suck.", ببسط -> "babysit.", انبارح -> "i
 he said, and add it to your coverage_note as "echo: <engine words> = <Arabic>" so it joins data/lesson-work/transcript-fixes.json.
 Also read its `take_verb` list (TR-20, Medi 2026-10-02 "aa5ud can never be followed by a command tense word?"): آخد (take)
 takes a thing, so a verb right after it (أخد أطلع) usually means the engine misheard the noun (10-02 09:44: aa5ud 3otle).
+And its `chat_pairs` (TR-21, Medi 2026-10-02 "aa5ud Etla3 makes no seanse"): Amal often TYPES the sentence he was
+trying to say. Compare his line with her typed line word by word: a sound-alike with an unrelated meaning (أطلع ~ her
+3otle) is the engine - note "engine wrote X"; a wrong form she types right (سفر -> asaafer) is his slip.
+Amal may correct in ENGLISH (PG-22, Medi 2026-10-02 "she corrected me in english. This can happen"): 10-02 09:53 "Aw I
+should travel. Aw." is her fix of his سفر -> أسافر. An English rephrase of his sentence is a voiced signal (prompt-then-fix).
