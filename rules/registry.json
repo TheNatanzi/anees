@@ -7133,6 +7133,37 @@
     "t": "23:31",
     "note": "engine المال, he said المصاري; Amal's 'masari is plural' was written مسافة"
    }
+  },
+  {
+   "id": "AZ-11",
+   "kind": "display",
+   "scope": "arabizi",
+   "status": "enforced",
+   "change": "new",
+   "statement": "ثانية has two of Amal's spellings: Saanie (a second, her list's Units of Time) and taanye (second / another, her chat: 'marra tanye', 'el-tayyara el-taanya'). The Arabizi line shows Saanie only right after a number or kam ('5ames Saanie', 'kam Saanie?'); everywhere else taanye ('blooze taanye', 'marra taanye') - docs/js/word-bank-arabizi.js sense(). 10-02 31:36 'Blooze Saanie' was 'blooze taanye'.",
+   "plain": "ثانية shows as taanye (another) after a word like blooze, and as Saanie (a second) only after a number.",
+   "plain_for": "f3dff81e",
+   "topic": "spelling",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "not saanye, taanye (another shirt as written later)"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/word-bank-arabizi.js",
+     "contains": "function sense(raw,before){"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_word_bank_arabizi.cjs",
+     "contains": "test('AZ-11 ثانية is taanye (another) after a noun"
+    }
+   ]
   }
  ]
 }

@@ -56,6 +56,15 @@ function create(words=[],catalog={},extra={}){
  // Her own spellings only (Marra = 'one time' row; Tenein = her 'two' row minus a stray V; Kam = her 'how many' row,
  // not Kum 'sleeve' - Medi 2026-10-02).
  for(const [ar,latin] of [['مرة','Marra'],['تنين','Tenein'],['كم','Kam']])lexicon.set(norm(ar),latin);
+ // Homograph by context (Medi 2026-10-03 "not saanye, taanye (another shirt as written later)"): ثانية is her list's Saanie
+ // (a second, Units of Time) only after a number or kam ('khamas thawaani', 'kam saanie'); everywhere else it is taanye,
+ // second / another (her chat: 'marra tanye', 'el-tayyara el-taanya') - 'blooze taanye'.
+ const NUMBEFORE=/(?:^|\s)(?:\d+|كم|واحدة?|وحدة|تنتين|ثنتين|تلات|ثلاث|اربع|أربع|خمس|ست|سبع|تمان|ثمان|تسع|عشر|[ء-ي]+ة?عشر)[\s،,]*$/;
+ function sense(raw,before){
+  const n=norm(raw);
+  if(n===norm('ثانية')||n===norm('ثانيه'))return {text:NUMBEFORE.test(before||'')?'Saanie':'taanye',approximate:false};
+  return word(raw);
+ }
  function word(raw){
   if(/^آ+ه?$/.test(raw))return {text:raw.endsWith("ه")?"aaah":"aaa",approximate:false};
   const n=norm(raw);if(lexicon.has(n))return {text:lexicon.get(n),approximate:false};
@@ -66,7 +75,7 @@ function create(words=[],catalog={},extra={}){
   if(built.has(n))return {text:built.get(n),approximate:false,built:true};
   return {text:raw,approximate:true}; // Keep Arabic when vowels/spelling are not documented; never invent a consonant string.
  }
- return function render(text){let approximate=false;const source=String(text||'');const value=source.replace(/ـ/g,'').replace(/[\u061C\u200E\u200F\u202A-\u202E\u2066-\u2069]/g,'').replace(/[\u0621-\u063A\u0641-\u065F\u0670\u0671]+/g,s=>{const w=word(s);approximate ||= w.approximate;return w.text;}).replace(/،/g,',').replace(/؟/g,'?').replace(/؛/g,';');return {text:value,source,generated:AR.test(source),approximate};};
+ return function render(text){let approximate=false;const source=String(text||'');const value=source.replace(/ـ/g,'').replace(/[\u061C\u200E\u200F\u202A-\u202E\u2066-\u2069]/g,'').replace(/[\u0621-\u063A\u0641-\u065F\u0670\u0671]+/g,(s,off,str)=>{const w=sense(s,str.slice(0,off));approximate ||= w.approximate;return w.text;}).replace(/،/g,',').replace(/؟/g,'?').replace(/؛/g,';');return {text:value,source,generated:AR.test(source),approximate};};
 }
 const api={create};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.AneesWordBankArabizi=api;
 })(typeof window!=='undefined'?window:globalThis);
