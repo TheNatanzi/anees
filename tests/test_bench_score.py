@@ -133,8 +133,12 @@ def test_whole_words_only_no_substring_credit():           # Codex audit 2026-10
 
 def test_second_field_cannot_dodge_the_veto_or_earn_an_arabic_word():
     m = TRUTH["moments"][3]                                 # want غير, rejected spelling qayr
-    assert BS.score_moment(m, {"text": "", "alt": "qayr"}, conv=conv) == "miss-engine"
+    assert BS.score_moment(m, {"text": "qayr", "alt": "ghayr"}, conv=conv) == "miss-engine"
     assert BS.score_moment(m, {"text": "", "alt": "ghayr"}, engine_line="qayr", conv=conv) == "miss-other"   # Arabic truth: the text field only
+    assert BS.score_moment(m, {"text": "غير", "alt": "qayr"}, conv=conv) == "hit"         # its Arabizi echo cannot veto a right Arabic answer
+    lat = {"want": ["nafs el-ishi"], "gone": ["nafs al-ishi"]}
+    assert BS.score_moment(lat, {"text": "نفس الإشي", "alt": "nafs al-ishi"}, engine_line="x", conv=conv) != "hit"
+    assert BS.score_moment(lat, {"text": "نفس الإشي", "alt": "nafs el-ishi"}, engine_line="x", conv=conv) == "hit"
     assert BS.score_moment({"want": ["5otatet"], "gone": []}, {"text": "خططت", "alt": "5otatet"}, conv=conv) == "hit"
 
 
@@ -145,3 +149,25 @@ def test_all_lines_uses_every_run_and_counts_each_word_once():
     assert s["false_changes"] == 1 and s["lines_sent"] == 6
     assert BS.line_words("غير غير", "غير", conv)[:2] == (2, 1)
     assert BS.line_words("غير", "غير غير", conv) == (1, 1, BC.tokens("غير"))
+
+
+def test_neighbour_that_says_the_word_itself_gives_no_credit():
+    import copy
+    T = copy.deepcopy(TRUTH)
+    T["lines"][1]["truth"] = T["lines"][1]["engine"] = "أنا صحيت متأخر"      # the next line really has صحيت
+    r = run(L1={"text": "أنا"}, L2={"text": "أنا صحيت متأخر"})
+    assert BS.score(T, [r], whole_file=True, conv=conv)["per_moment"][0]["final"] == "miss-other"
+
+
+def test_scorer_v2_spellings_and_script_neutral_changes():
+    assert BC.tokens("راح ننبسط") == BC.tokens("رح ننبسط")
+    assert BC.tokens("هذا") == BC.tokens("هاد") != BC.tokens("هذه") == BC.tokens("هادي")     # gender stays apart (A10)
+    assert BC.tokens("تنتين و تلت") == BC.tokens("تنتين وتلت")
+    m = {"want": ['أول."'], "gone": ['awwal."']}
+    truth = 'أول." Is it awwal?'                                                            # he fixed the first one only
+    assert BS.score_moment(m, {"text": "أول. Is it awwal?"}, engine_line='awwal." Is it awwal?', truth_line=truth, conv=conv) == "hit"
+    assert BS.score_moment(m, {"text": "awwal. Is it awwal?"}, engine_line='awwal." Is it awwal?', truth_line=truth, conv=conv) == "miss-engine"
+    assert BC.same_sound("تخييم", "takheem") and BC.same_sound("خطيبتي", "hatibti") and not BC.same_sound("تخييم", "tashtum")
+    assert not BS.content_change("Takheem, that's right.", "تخييم، that's right.", conv)      # script only
+    assert BS.content_change("It's just...", "إيش اسـ...", conv)                              # English heard as Arabic
+    assert BS.content_change("شجاع اليوم. مش شجاع اليوم.", "شجاع اليوم. متشجع اليوم.", conv)   # a word changed

@@ -19,6 +19,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import bench_common as BC  # noqa: E402
 
+DONE_AT_ONCE = ("eleven-raw", "cohere-open", "audar-open", "audar-open-ar")     # their run file is written once, when the run ends
 VERDICTS = ("hit", "miss-engine", "miss-other", "hidden-slip", "error")
 
 
@@ -51,24 +52,32 @@ def _alts(want, conv):
     return out
 
 
-def has_want(m, text, alt="", conv=BC.latin_to_arabic):
-    """The truth word(s) in the engine's text. The second field of a listener (its Arabizi) counts ONLY for a truth
-    that is itself in Latin letters, so a listener gets no second chance on an Arabic word."""
+def count_seq(seq, toks):
+    n = len(seq)
+    return sum(1 for k in range(len(toks) - n + 1) if all(BC.tok_eq(seq[j], toks[k + j]) for j in range(n))) if n else 0
+
+
+def has_gone(m, text, truth_line=""):
+    """The rejected word (what ElevenLabs wrote and Medi corrected) is still there - more often than in the truth line
+    itself (10-02 42:08: he fixed the first 'awwal' of a line and left the second)."""
+    raw, tr = BC.tokens(text or ""), BC.tokens(truth_line or "")
+    return any(count_seq(BC.tokens(g), raw) > count_seq(BC.tokens(g), tr) for g in m.get("gone") or [])
+
+
+def has_want(m, text, alt="", conv=BC.latin_to_arabic, truth_line=""):
+    """The truth word(s) in the engine's text, and the rejected word gone from that same field. The second field of a
+    listener (its Arabizi) is read ONLY for a truth that is itself in Latin letters (a vowel-level fix), and then the
+    veto runs on that field: a listener gets no second chance on an Arabic word, and its Arabizi echo cannot veto a
+    right Arabic answer."""
     raw, cv = views(text or "", conv)
-    for a, latin in _alts(m["want"], conv):
-        if find_seq(a, raw) or find_seq(a, cv):
-            return True
-        if latin and alt and find_seq(a, BC.tokens(alt)):
-            return True
-    return False
-
-
-def has_gone(m, text, alt=""):
-    """The rejected word (what ElevenLabs wrote and Medi corrected) is still there - in either field."""
-    for src in (text, alt):
-        raw = BC.tokens(src or "")
-        if any(find_seq(BC.tokens(g), raw) for g in m.get("gone") or []):
-            return True
+    if not has_gone(m, text, truth_line):
+        for a, latin in _alts(m["want"], conv):
+            if find_seq(a, raw) or find_seq(a, cv):
+                return True
+    if alt and not has_gone(m, alt, truth_line):
+        for a, latin in _alts(m["want"], conv):
+            if latin and find_seq(a, BC.tokens(alt)):
+                return True
     return False
 
 
@@ -105,10 +114,9 @@ def score_moment(m, out, neighbours=(), engine_line="", slip=None, truth_line=""
     text, alt = out.get("text") or "", out.get("alt") or ""
     if slip is not None and slip_hidden(slip, truth_line, text, conv):
         return "hidden-slip"
-    if not has_gone(m, text, alt):
-        if has_want(m, text, alt, conv) or any(has_want(m, n, "", conv) for n in neighbours):
-            return "hit"
-    if has_gone(m, text, alt) or BC.tokens(text) == BC.tokens(engine_line):
+    if has_want(m, text, alt, conv, truth_line) or (not has_gone(m, text, truth_line) and any(has_want(m, n, "", conv) for n in neighbours)):
+        return "hit"
+    if has_gone(m, text, truth_line) or BC.tokens(text) == BC.tokens(engine_line):
         return "miss-engine"
     return "miss-other"
 
@@ -144,6 +152,24 @@ def line_words(truth_text, text, conv=BC.latin_to_arabic):
         else:
             left[k] -= 1
     return len(want), found, extra
+
+
+def content_change(truth_text, text, conv=BC.latin_to_arabic):
+    """Is the line changed in its WORDS, not only in its script? A truth Arabic word the engine wrote in Latin letters
+    (or a Latin-letter Arabic word of the truth the engine wrote in Arabic script) is the same word by sound."""
+    w, f, extra = line_words(truth_text, text, conv)
+    t_raw, e_raw = BC.tokens(truth_text), BC.tokens(text)
+    t_lat = [x for x in t_raw if not BC.is_ar(x) and not x.isdigit()]
+    e_lat = [x for x in e_raw if not BC.is_ar(x) and not x.isdigit()]
+    extra = [x for x in extra if not any(BC.same_sound(x, y) for y in t_lat)]
+    missing = 0
+    if f < w:
+        raw, cv = views(text, conv)
+        have = raw + cv
+        for x in [t for t in t_raw if BC.is_ar(t)]:
+            if not any(BC.tok_eq(x, h) for h in have) and not any(BC.same_sound(x, y) for y in e_lat):
+                missing += 1
+    return bool(missing or extra)
 
 
 def bleed(extra, line, amal_all):
@@ -192,7 +218,9 @@ def score(truth, runs, whole_file=False, conv=BC.latin_to_arabic, who="Medi"):
             nb = ()
             if whole_file:
                 k = pos[m["i"]]
-                nb = [text_of(run, order[j]) for j in (k - 1, k + 1) if 0 <= j < len(order)]
+                # the line before / after counts only when its own truth lacks the word (the word slid across the
+                # line break); a neighbour that says the word anyway is no evidence for this line
+                nb = [text_of(run, order[j]) for j in (k - 1, k + 1) if 0 <= j < len(order) and not has_want(m, lines[order[j]]["truth"], "", conv)]
             vs.append(score_moment(m, out_of(run, m["i"]), nb, ln["engine"], slip_of.get(m["i"]) if m["class"] == "kept-slip" else None, ln["truth"], conv))
         c = consensus(vs)
         final[c] += 1
@@ -215,7 +243,7 @@ def score(truth, runs, whole_file=False, conv=BC.latin_to_arabic, who="Medi"):
             hid_rows.append({"t": s["t"], "wrong": s["wrong"], "right": s["right"], "heard": text_of(runs[0], s["i"])})
 
     # ---- all lines: word recall, false changes on the should-stay set, language switch, bleed, run agreement
-    tot = found = stay = changed = switch = agree = sent = extra_n = bleed_n = errors = 0
+    tot = found = stay = changed = content = switch = agree = sent = extra_n = bleed_n = errors = 0
     changed_rows = []
     for i in order:
         ln = lines[i]
@@ -236,6 +264,7 @@ def score(truth, runs, whole_file=False, conv=BC.latin_to_arabic, who="Medi"):
         bleed_n += len(bleed(extra, ln, truth.get("amal_all") or []))
         if ln["should_stay"]:
             stay += 1
+            content += content_change(ln["truth"], text, conv)
             if f < w or extra:
                 changed += 1
                 if len(changed_rows) < 400:
@@ -245,6 +274,7 @@ def score(truth, runs, whole_file=False, conv=BC.latin_to_arabic, who="Medi"):
             "stable_pct": round(100.0 * sum(1 for p in per if len(set(p["runs"])) == 1) / n, 1) if n else None,
             "hidden_slips": hid, "slips_judged": judged, "hidden_rows": hid_rows,
             "should_stay": stay, "false_changes": changed, "false_change_pct": round(100.0 * changed / stay, 1) if stay else None,
+            "content_changes": content, "content_change_pct": round(100.0 * content / stay, 1) if stay else None,
             "arabic_words": tot, "arabic_words_heard": found, "all_lines_pct": round(100.0 * found / tot, 1) if tot else None,
             "extra_arabic_words": extra_n, "language_switch_lines": switch, "bleed_words": bleed_n,
             "lines_sent": sent, "lines_2of3_agree_pct": round(100.0 * agree / sent, 1) if sent else None, "call_errors": errors,
@@ -256,7 +286,7 @@ def score_amal(truth, runs, conv=BC.latin_to_arabic):
     lines = {ln["i"]: ln for ln in truth.get("amal_lines") or []}
     per, hits = [], 0
     for m in truth.get("amal_moments") or []:
-        vs = [score_moment(m, run.get("A%d" % m["i"]), (), lines[m["i"]]["engine"], None, "", conv) if run.get("A%d" % m["i"]) is not None else "error" for run in runs]
+        vs = [score_moment(m, run.get("A%d" % m["i"]), (), lines[m["i"]]["engine"], None, lines[m["i"]]["truth"], conv) if run.get("A%d" % m["i"]) is not None else "error" for run in runs]
         c = consensus(vs)
         hits += c == "hit"
         per.append({"id": m["id"], "runs": vs, "final": c})
@@ -269,7 +299,7 @@ def load_runs(d, engine, mode):
     runs = []
     for n in (1, 2, 3):
         r = BC.J(os.path.join(d, engine, "%s-run%d.json" % (mode, n)))
-        if r:
+        if r and (r.get("complete") is True or ("complete" not in r and "seconds" in r and engine in DONE_AT_ONCE)):   # a run in progress is never scored
             runs.append(r)
     return runs
 
@@ -297,9 +327,9 @@ def main(argv):
             s.update(model=runs[0].get("model"), cost_usd=round(sum(r.get("cost_usd") or 0 for r in runs), 4),
                      seconds=[round(r.get("seconds") or 0, 1) for r in runs], truth_sha256=man["truth_sha256"])
             scores["%s|%s" % (e, mode)] = s
-            print("%-22s %-5s A %2d/%d (%s%%) hidden %d/%d  false-change %d/%d (%s%%)  all-lines %s%%  switch %d  stable %s%%  runs %d  $%.2f" % (
+            print("%-22s %-5s A %2d/%d (%s%%) hidden %d/%d  changed %d/%d (%s%%) words-changed %d  all-lines %s%%  switch %d  stable %s%%  runs %d  $%.2f" % (
                 e, mode, s["hit"], s["moments"], s["hit_pct"], s["hidden_slips"], s["slips_judged"], s["false_changes"], s["should_stay"],
-                s["false_change_pct"], s["all_lines_pct"], s["language_switch_lines"], s["stable_pct"], s["runs"], s["cost_usd"]))
+                s["false_change_pct"], s["content_changes"], s["all_lines_pct"], s["language_switch_lines"], s["stable_pct"], s["runs"], s["cost_usd"]))
     BC.W(os.path.join(d, "scores.json"), scores)
     return 0
 

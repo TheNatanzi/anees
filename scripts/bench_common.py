@@ -64,12 +64,20 @@ NUM = {"واحد": "1", "وحده": "1", "واحده": "1", "اتنين": "2", "
        "تسعه": "9", "تسع": "9", "عشره": "10", "عشر": "10", "احدعش": "11", "اطنعش": "12", "اتنعش": "12"}
 
 
+# One word, several spellings (scorer v2, 2026-10-03, after the first outputs showed the truth itself mixes them): the
+# future particle ra7 (Medi's corrected lines رح, the untouched lines راح) and the demonstratives in MSA or Levantine
+# spelling. Masculine and feminine stay apart (hada / hadi is a grammar rule, A10).
+ALIAS = {"راح": "رح", "هدا": "هاد", "هادا": "هاد", "هاد": "هاد", "هده": "هادي", "هدي": "هادي", "هادي": "هادي", "هاي": "هادي"}
+
+
 def norm_token(w):
     """One word, normalised: no harakat/tatweel, alef and hamza forms folded, ة->ه, ى->ي, dialect letter pairs folded
     (ث->ت, ذ->د, ظ->ض: the same word in MSA or Levantine spelling), a final ه/ا folded to ا (لسه = لسا = لسة), Latin
     lower-cased without apostrophes. Orthography only: never a different word."""
     w = DIAC.sub("", w).translate(_MAP).lower()
     w = re.sub("[^0-9a-z\u0621-\u064A]", "", w)
+    if w in ALIAS:
+        return ALIAS[w]
     if AR_LETTER.search(w) and len(w) > 2 and w.endswith("ه"):
         w = w[:-1] + "ا"
     return w
@@ -85,6 +93,12 @@ def tokens(text, fillers=False):
         if not fillers and (AR_FILLER.match(w) or w in LAT_FILLER):
             continue
         out.append(w)
+    # a lone و (and) belongs to the next Arabic word: "تنتين و تلت" = "تنتين وتلت"
+    k = 0
+    while k < len(out) - 1:
+        if out[k] == "و" and AR_LETTER.search(out[k + 1]):
+            out[k:k + 2] = ["و" + out[k + 1]]
+        k += 1
     return out
 
 
@@ -110,6 +124,39 @@ def tok_eq(a, b):
         d, w = (a, b) if a.isdigit() else (b, a)
         return _num(w) == d
     return False
+
+
+_AR_SK = {"ب": "b", "ت": "t", "ط": "t", "ج": "j", "ح": "h", "ه": "h", "خ": "x", "د": "d", "ض": "d", "ر": "r", "ز": "z", "س": "s", "ص": "s",
+          "ش": "$", "غ": "g", "ف": "f", "ق": "k", "ك": "k", "ل": "l", "م": "m", "ن": "n"}
+_LAT_DI = (("kh", "x"), ("sh", "$"), ("ch", "$"), ("gh", "g"), ("th", "t"), ("dh", "d"), ("5", "x"), ("7", "h"), ("8", "g"), ("9", "s"), ("6", "t"), ("q", "k"), ("c", "k"), ("p", "b"), ("v", "f"))
+
+
+def skel(tok):
+    """Consonant skeleton of a word in either script, without el- : تخييم and takheem both -> txm. Used only to tell a
+    change of SCRIPT (his Arabic written in English letters or back) from a change of WORD."""
+    if AR_LETTER.search(tok):
+        t = re.sub("^ال", "", tok)
+        out = "".join(_AR_SK.get(c, "") for c in t)
+    else:
+        t = re.sub("^(el|al|il)(?=[a-z0-9]{3})", "", tok)
+        for a, b in _LAT_DI:
+            t = t.replace(a, b)
+        out = re.sub("[^bdfghjklmnrstxz$]", "", t)
+    return re.sub(r"(.)\1+", r"\1", out)
+
+
+def same_sound(a, b):
+    """Two words, one Arabic-script and one Latin, that are the same word by sound (skeleton equal, or one letter apart
+    when 3+ consonants)."""
+    x, y = skel(a), skel(b)
+    if x == y:
+        return True
+    if min(len(x), len(y)) < 2 or abs(len(x) - len(y)) > 1:
+        return False
+    if len(x) == len(y):
+        return sum(c != d for c, d in zip(x, y)) == 1 and len(x) >= 3
+    lo, hi = (x, y) if len(x) < len(y) else (y, x)
+    return any(hi[:k] + hi[k + 1:] == lo for k in range(len(hi))) and len(hi) >= 3
 
 
 _reader = None
