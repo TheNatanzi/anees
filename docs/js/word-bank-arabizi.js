@@ -56,7 +56,7 @@ function create(words=[],catalog={},extra={}){
  // Her own spellings only (Marra = 'one time' row; Tenein = her 'two' row minus a stray V; Kam = her 'how many' row,
  // not Kum 'sleeve' - Medi 2026-10-02).
  // 3indna = her own chat spelling (9x; Medi 2026-10-03 "I said e7na 3endna (we have)" - the page showed 3inna).
- for(const [ar,latin] of [['مرة','Marra'],['تنين','Tenein'],['كم','Kam'],['عندنا','3indna']])lexicon.set(norm(ar),latin);
+ for(const [ar,latin] of [['مرة','Marra'],['تنين','Tenein'],['كم','Kam'],['عندنا','3indna'],['طريق','6aree2']])lexicon.set(norm(ar),latin);   // 6aree2: her '3ala el-6aree2' (was 6ariq)
  // Homograph by context (Medi 2026-10-03 "not saanye, taanye (another shirt as written later)"): ثانية is her list's Saanie
  // (a second, Units of Time) only after a number or kam ('khamas thawaani', 'kam saanie'); everywhere else it is taanye,
  // second / another (her chat: 'marra tanye', 'el-tayyara el-taanya') - 'blooze taanye'.

@@ -296,3 +296,13 @@ def test_tr_23_qayr_on_his_line_is_8air():
     """TR-23 (Medi 2026-10-03 "8air")."""
     import arabizi_reader as R
     assert R.to_arabic("qayr").strip(" .") == "غير"
+
+
+def test_tr_25_another_script_on_a_line_is_the_engine_switching_language():
+    """TR-25 (Medi 2026-10-03 "why did it switch languages here? How can we prevent this")."""
+    import echo_candidates as E
+    T = [{"t": 1.0, "who": "Medi", "text": "Is it 結 局 ?"}, {"t": 2.0, "who": "Medi", "text": "كل يوم"}, {"t": 3.0, "who": "Medi", "text": "хотим سا"}]
+    assert [x["t"] for x in E.foreign_script(T)] == [1.0, 3.0]
+    import transcript_fixes as TF
+    fixed = TF.apply("2026-10-02", [{"t": 2947.05, "who": "Medi", "text": "Uh, every-- Is it 結 局 ?"}])
+    assert "كل يوم" in fixed[0]["text"] and not E.foreign_script(fixed)

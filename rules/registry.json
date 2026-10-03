@@ -7164,6 +7164,47 @@
      "contains": "test('AZ-11 ثانية is taanye (another) after a noun"
     }
    ]
+  },
+  {
+   "id": "TR-25",
+   "kind": "error",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The recording engine guesses the language of each short piece and sometimes writes his Arabic in Chinese, Japanese, Russian, Hebrew or Hindi letters (10-02 49:01 結局 = kul yoam, 49:41 他人 = 8air, 50:07 誰 = 8air; 09-04 a Hebrew ב inside نبسط). Any such letter on a line is the engine, never him: scripts/echo_candidates.py foreign_script lists every one for the lesson's review, the publish guard warns (advisory foreign_script) while one is left unfixed on a page, and these lines go first in the Gemini re-hear (TR-22). Forcing the engine to Arabic is not the fix (2026-10-02: it fixed 0 of 5 mishearings and turns his English into Arabic letters). 2026-10-03: 8 lines in 18 lessons, 6 fixed, 2 left (09-04 'را ー', 09-30 'хотим') for the re-hear.",
+   "plain": "When the engine writes your Arabic in Chinese, Japanese, Russian or Hebrew letters, that line is flagged in every lesson, a warning shows before publishing, and Gemini re-hears it first.",
+   "plain_for": "70f1556b",
+   "topic": "transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "why did it switch languages here? How can we prevent this"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/echo_candidates.py",
+     "contains": "def foreign_script(turns, fixed=True):"
+    },
+    {
+     "type": "check",
+     "path": "scripts/publish_guard_config.json",
+     "contains": "\"foreign_script\""
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_correction_mode.py",
+     "contains": "def test_tr_25_another_script_on_a_line_is_the_engine_switching_language"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "49:07",
+    "note": "engine 結 局, he said kul yoam"
+   }
   }
  ]
 }

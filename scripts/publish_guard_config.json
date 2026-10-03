@@ -22,7 +22,8 @@
  "advisory": [
   "review_freshness",
   "data_freshness",
-  "medi_corrections"
+  "medi_corrections",
+  "foreign_script"
  ],
  "total_timeout_s": 300,
  "clean_paths": [
@@ -207,6 +208,15 @@
    ],
    "timeout_s": 60,
    "what": "Medi's transcript corrections: none orphaned, held or quarantined, no rule paused by probation (PR-15; a warning only, never blocks)"
+  },
+  "foreign_script": {
+   "cmd": [
+    "{python}",
+    "scripts/echo_candidates.py",
+    "--foreign-check"
+   ],
+   "timeout_s": 60,
+   "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)"
   }
  },
  "left_out": {

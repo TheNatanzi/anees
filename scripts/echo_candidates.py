@@ -95,6 +95,30 @@ def chat_latin(turns):
     return out
 
 
+FOREIGN = re.compile(r"[぀-ヿ㐀-鿿가-힯Ѐ-ӿ֐-׿ऀ-ॿ]")
+
+
+def foreign_script(turns, fixed=True):
+    """TR-25 (Medi 2026-10-03 "why did it switch languages here? How can we prevent this"): the engine guesses the language
+    of each short piece and sometimes writes his Arabic in Chinese / Japanese / Russian / Hebrew / Hindi letters (10-02
+    49:01 結局 = kul yoam, 49:41 他人 = 8air). Any such letter on a line is the engine, never him. Listed for every lesson's
+    review, warned by the publish guard while one is left unfixed, and first in the Gemini re-hear. fixed=True reads the
+    text after the heard-word overlay (what the page shows)."""
+    return [{"t": u["t"], "who": u.get("who"), "text": u.get("text") if fixed else (u.get("engine") or u.get("text"))}
+            for u in turns if FOREIGN.search((u.get("text") if fixed else (u.get("engine") or u.get("text"))) or "")]
+
+
+def foreign_check(repo=REPO):
+    """Publish guard ADVISORY (warning only): every page line still showing another script. -> (ok, detail)."""
+    left = []
+    d = os.path.join(repo, "docs", "data", "lessons")
+    for f in sorted(os.listdir(d)):
+        if re.fullmatch(r"\d{4}-\d\d-\d\d\.json", f):
+            for x in foreign_script(json.load(open(os.path.join(d, f), encoding="utf-8")).get("turns") or []):
+                left.append("%s %s %r" % (f[:10], x["t"], x["text"][:40]))
+    return (not left), ("; ".join(left) or "no line in another script (TR-25)")
+
+
 def chat_pairs(turns):
     """TR-21 (Medi 2026-10-02 "aa5ud Etla3 makes no seanse"): Amal often TYPES the sentence he was saying; each of her chat
     lines with his lines of the 45 s before it, for the reader to compare word by word (أطلع ~ her 3otle)."""
@@ -126,13 +150,17 @@ def candidates(turns):
 
 def main(argv=None):
     sys.stdout.reconfigure(encoding="utf-8")
+    if (argv or sys.argv[1:])[:1] == ["--foreign-check"]:
+        ok, detail = foreign_check()
+        print(detail)
+        return 0 if ok else 1
     date = (argv or sys.argv[1:])[0]
     L = json.load(open(os.path.join(REPO, "docs", "data", "lessons", date + ".json"), encoding="utf-8"))
     C = candidates(L.get("turns") or [])
     d = os.path.join(REPO, "data", "lesson-work", "echo-candidates")
     os.makedirs(d, exist_ok=True)
     with open(os.path.join(d, date + ".json"), "w", encoding="utf-8", newline="\n") as f:
-        json.dump({"date": date, "rule": "TR-19", "candidates": C, "take_verb": take_verb(L.get("turns") or []), "laazem_noun": laazem_noun(L.get("turns") or []), "chat_latin": chat_latin(L.get("turns") or []),
+        json.dump({"date": date, "rule": "TR-19", "candidates": C, "take_verb": take_verb(L.get("turns") or []), "laazem_noun": laazem_noun(L.get("turns") or []), "chat_latin": chat_latin(L.get("turns") or []), "foreign_script": foreign_script(L.get("turns") or []),
                    "chat_pairs": chat_pairs(L.get("turns") or [])}, f, ensure_ascii=False, indent=1)
     print(date, len(C), "echo candidates")
     return 0

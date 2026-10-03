@@ -52,3 +52,8 @@ test('AZ-11 عندنا shows as her 3indna, never 3inna',()=>{
  const r=az.create(J2('words.json').items,J2('word-bank-catalog.json'),J2('arabizi-extra.json'));
  assert.equal(r('عندنا').text,'3indna');
 });
+test('AZ-11 طريق shows as her 6aree2',()=>{
+ const az=require('../docs/js/word-bank-arabizi.js'),fs2=require('fs'),p2=require('path'),D=p2.join(__dirname,'..','docs','data');
+ const J2=f=>JSON.parse(fs2.readFileSync(p2.join(D,f),'utf8'));
+ assert.equal(az.create(J2('words.json').items,J2('word-bank-catalog.json'),J2('arabizi-extra.json'))('طريق').text,'6aree2');
+});
