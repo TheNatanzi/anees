@@ -740,6 +740,11 @@
      "by": "medi",
      "date": "2026-10-02",
      "quote": "why are we missing my arabizi? 3ala 3ashrah cant you tell from context im saying a time?  she corrects me and says el 3ashrah"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "this is hadi el subu7 I dont undertand the error here"
     }
    ],
    "enforcement": [
@@ -780,6 +785,59 @@
      "type": "data",
      "path": "data/lesson-work/transcript-fixes.json",
      "contains": "\"rule\": \"TR-18\""
+    }
+   ]
+  },
+  {
+   "id": "TR-19",
+   "kind": "not-error",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Echo check: when Amal says a short Arabic line and his reply within 5 s comes out short with no Arabic letters, the engine may have turned his Arabic repeat into English look-alikes (her لسه؟ -> 'This suck.'). scripts/echo_candidates.py lists those moments for every new lesson's review; a sound-alike becomes a heard-word overlay row (rule TR-19). A forced Arabic engine setting was tested on the full 10-02 track and fixed 0 of 5 mishearings, so the setting stays and the check is a context read. 2026-10-02 read of all 327 past candidates: 8 moments misheard (overlay rows), 180 English, 123 his Latin-letter Arabic, 15 unclear.",
+   "plain": "When you repeat Amal's short Arabic word and the engine turns it into English (her 'lissa?', your 'this suck'), we check it against her word and fix the line.",
+   "plain_for": "ef68a501",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "why is it so bad at understanding me... I repeated lissa back to her not this suck"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/echo_candidates.py",
+     "contains": "def candidates(turns):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_lesson.py",
+     "contains": "echo_candidates.py"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "## Echo check (TR-19"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_transcript_fixes.py",
+     "contains": "def test_tr_19_a_short_english_reply_right_after_her_short_arabic_word_is_an_echo_candidate"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "09:31",
+    "note": "her لسه؟ at 09:29, his 'This suck.' at 09:31"
+   },
+   "moments": [
+    {
+     "type": "data",
+     "path": "data/lesson-work/transcript-fixes.json",
+     "contains": "\"rule\": \"TR-19\""
     }
    ]
   },
@@ -1062,9 +1120,9 @@
    "status": "enforced",
    "change": "new",
    "statement": "كم always shows as Kam (her 'how many' row), never Kum (sleeve).",
-   "plain": "كم (how many) is always spelled Kam, the way Amal writes it, never Kum.",
+   "plain": "Every line of the transcript shows Arabizi, not just the error cards. A word Amal never spelled gets a spelling in her letters.",
    "plain_for": "e27f9f9c",
-   "topic": "single words",
+   "topic": "spelling",
    "source": [
     {
      "by": "medi",
@@ -1114,6 +1172,42 @@
     "report:O8"
    ],
    "next_step": "extend scripts/arabizi_gaps.cjs to the grammar console and Word Bank catalog (display only), then add it to check_rules"
+  },
+  {
+   "id": "AZ-10",
+   "kind": "display",
+   "scope": "arabizi",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every transcript line on the Lessons page (both speakers and the chat) shows Arabizi for every Arabic word, not only the error cards (extends AZ-05; fragments and cut-offs too, as-said, so AZ-04's 'stay in Arabic' no longer applies to transcript lines): a word with no spelling of hers gets one in docs/data/arabizi-extra.json; scripts/arabizi_gaps.cjs reads every line and the publish guard fails on any gap (560 words filled 2026-10-02).",
+   "plain": "Every line of the transcript shows Arabizi, not just the error cards. A word Amal never spelled gets a spelling in her letters.",
+   "plain_for": "ec23d4b1",
+   "topic": "spelling",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "why are we missing my arabizi?"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/arabizi_gaps.cjs",
+     "contains": "for (const t of L.turns || []) strs.push(t.text);"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_transcript_fixes.py",
+     "contains": "def test_az_10_every_transcript_line_has_arabizi"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "07:34",
+    "note": "آآآ على العشاء showed 'Unverified spelling stays in Arabic'"
+   }
   },
   {
    "id": "WS-01",
@@ -3016,6 +3110,11 @@
      "by": "medi",
      "date": "2026-10-02",
      "quote": "make sure to add it to your rules to ensure this error doesnt persist in future lessons"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "yes yes"
     }
    ],
    "enforcement": [
@@ -3033,6 +3132,11 @@
      "type": "brief",
      "path": "data/lesson-work/full-audit/READER-BRIEF.md",
      "contains": "A self-fix needs his right word BEFORE hers"
+    },
+    {
+     "type": "code",
+     "path": "scripts/full_audit_compare.py",
+     "contains": "the context read decides"
     }
    ],
    "test": [
@@ -3051,6 +3155,11 @@
      "type": "data",
      "path": "data/lesson-work/full-audit/2026-10-02.settled.json",
      "contains": "\"agreed_by\": \"GR-24\""
+    },
+    {
+     "type": "data",
+     "path": "data/lesson-work/full-audit/self-fix-rulings.json",
+     "contains": "\"verdict\": \"her-fix\""
     }
    ]
   },
@@ -3093,6 +3202,42 @@
     "date": "2026-10-02",
     "t": "07:34",
     "note": "he said 3ala 3ashra, she said 'el', he said 3ala el-3ashra; readers had filed 'dinner for ten' as vocab-B"
+   }
+  },
+  {
+   "id": "GR-26",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A slip on the demonstrative (hada / hadi / هذا ...) that Amal takes out or changes, the rest of the phrase kept (هادي الصباح -> الصبح: 'We never say هذا الصبح'), is an A10 (hada / hadi) grammar slip, never a wrong word (full_audit_build.apply_demonstrative). Past moments it re-filed: 09-04 58:56 hadi al fill -> hada al fil.",
+   "plain": "When Amal takes out or changes your hada / hadi ('we never say hada el-subu7'), that is a hada / hadi grammar slip, not a wrong word.",
+   "plain_for": "ae5eb4d2",
+   "topic": "hada / hadi",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "you can tell from her cotext I said hadi el not 3aadi el ... she even corrected it ... this should be a grammar error for not using hadi for the morning"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/full_audit_build.py",
+     "contains": "def apply_demonstrative(rows):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_medi_corrections.py",
+     "contains": "def test_gr_26_a_demonstrative_amal_takes_out_is_an_a10_grammar_slip"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "08:23",
+    "note": "engine عادي الصباح = his هادي الصباح; Amal 09:00 'We never say هذا الصبح just say الصبح or بالصباح'"
    }
   },
   {
@@ -5622,6 +5767,47 @@
    ]
   },
   {
+   "id": "PR-15",
+   "kind": "process",
+   "scope": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Medi's transcript corrections are one append-only log (Supabase transcript_corrections, migration 022, mirrored to data/lesson-work/medi-corrections.json; the ones he gives in chat in data/lesson-work/medi-corrections-hand.json, same row shape). The effective set (not undone) enters upstream of every page through scripts/medi_corrections.py: text/speaker/time into the heard-word overlay, not-slip/was-wrong/classify/add into the reader rows (full_audit_build), not-use into the use rulings. Amal on Arabic correctness: a row she ruled is never changed by his correction. Undo = a new row.",
+   "plain": "Your corrections on the transcript are saved, can be undone, and change every page. Amal still decides whether your Arabic was right.",
+   "plain_for": "bd7f5ec8",
+   "topic": "your corrections",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "i am going to make some corrections to the transcript. try and make rule and patterns with my corrections."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/medi_corrections.py",
+     "contains": "def apply_rows(rows, corrections=None, quote_date=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/full_audit_build.py",
+     "contains": "MC_REPORT = MC.apply_rows(rows)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_medi_corrections.py",
+     "contains": "def test_pr_15_undo_takes_a_correction_back_and_undoing_the_undo_restores_it"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "08:23",
+    "note": "his chat correction 'this should be a grammar error' re-files the row as A10"
+   }
+  },
+  {
    "id": "PG-14",
    "kind": "display",
    "scope": "pages",
@@ -6034,6 +6220,42 @@
    "note": "the ai_rules M3 wording before Medi's 2026-10-02 amendment; kept as history (nothing is deleted)"
   },
   {
+   "id": "WS-28",
+   "kind": "error",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A word Amal taught in an EARLIER lesson (that lesson's taught words, LS-08) is a word he was given: a slip on it is scored in the Lessons Words % even before she adds it to her Doc (overrides 'not on her word list' for that word); a word taught the same day stays new (WS-18).",
+   "plain": "A word Amal taught you in an earlier lesson counts when you get it wrong, even before she adds it to her Doc.",
+   "plain_for": "fafd668b",
+   "topic": "new words",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "its a new word but I still got mitshaje3a wrong here"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_lessons_page_data.py",
+     "contains": "e[\"on_sheet\"], e[\"keyed_by\"] = True, \"taught-earlier\""
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_medi_corrections.py",
+     "contains": "def test_ws_28_a_word_taught_in_an_earlier_lesson_is_scored"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "09:23",
+    "note": "شجاع for متشجع (mitshajje3, taught 10-01 06:52); Amal recast متشجع at 09:24"
+   }
+  },
+  {
    "id": "PG-16",
    "kind": "display",
    "scope": "pages",
@@ -6289,6 +6511,47 @@
      "contains": "test('chips say Wrong / Correct in words"
     }
    ]
+  },
+  {
+   "id": "PG-21",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A ✗ chip on the transcript says in plain words what he said, what Amal said instead, and quotes her own line with its time ('Wrong · you said hadi el-subu7 → Amal: say el-subu7 / bil-sabah (she says no) · Amal at 9:00: «We never say هذا الصبح…»'), so the error is understood without hunting for her line.",
+   "plain": "A ✗ on the transcript says what you said, what Amal said instead, and quotes her words with the time.",
+   "plain_for": "39935dc9",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "this is hadi el subu7 I dont undertand the error here"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/transcript_marks.py",
+     "contains": "slip_chip[\"amal_line\"], slip_chip[\"amal_t\"]"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/transcript-marks.js",
+     "contains": "'Amal: say '"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_transcript_marks.cjs",
+     "contains": "test('PG-21 a wrong chip says what you said"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "08:23",
+    "note": "✗ vocab el-sube7 / b-el-Sabah with no reason shown; her fix came 37 s later at 09:00"
+   }
   }
  ]
 }

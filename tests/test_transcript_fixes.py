@@ -29,3 +29,21 @@ def test_gr_25_her_whole_reply_el_is_an_a1_slip_not_a_wrong_word():
     assert rows[0]["kind"] == "grammar" and rows[0]["bucket"] == "A1" and rows[0]["signal"] == "prompt-then-fix"
     assert rows[0]["wrong"] == "عشرة" and rows[0]["right"] == "العشرة" and rows[0]["rule"] == "GR-25"
     assert rows[1]["kind"] == "vocab-A"                     # she named the wrong word: a real vocab slip stays
+
+
+def test_az_10_every_transcript_line_has_arabizi():
+    """AZ-10: no Arabic word on any transcript line without Arabizi."""
+    import subprocess, shutil
+    node = shutil.which("node") or "node"
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    r = subprocess.run([node, os.path.join(root, "scripts", "arabizi_gaps.cjs")], capture_output=True, text=True, encoding="utf-8")
+    assert "transcript lines" in r.stdout and r.returncode == 0, r.stdout
+
+
+def test_tr_19_a_short_english_reply_right_after_her_short_arabic_word_is_an_echo_candidate():
+    """TR-19: her لسه؟ then his 'This suck.' within 5 s is listed for the echo check; a filler 'Okay.' is not."""
+    import echo_candidates as EC
+    T = [{"t": 568.95, "who": "Amal", "text": "لسه؟"}, {"t": 570.62, "who": "Medi", "text": "This suck."},
+         {"t": 600.0, "who": "Amal", "text": "طيب."}, {"t": 601.0, "who": "Medi", "text": "Okay."}]
+    C = EC.candidates(T)
+    assert [c["engine_wrote"] for c in C] == ["This suck."]

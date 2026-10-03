@@ -10,7 +10,7 @@ const fakeAz=s=>({text:'AZ('+s+')'});
 test('chips say Wrong / Correct in words, kind and rule, Arabizi first',()=>{
  const w=T.chipModel({k:'grammar',s:'wrong',rule:'B6',name:'kan',said:'كانت',right:'كنت',sig:'says no'},fakeAz);
  assert.equal(w.sign,'✗');assert.equal(w.word,'Wrong');assert.equal(w.kind,'grammar');assert.equal(w.main,'B6 kan');
- assert.equal(w.tip,'Wrong · said AZ(كانت) → Amal: AZ(كنت) · she says no');
+ assert.equal(w.tip,'Wrong · you said AZ(كانت) → Amal: say AZ(كنت) (she says no)');   // PG-21 wording
  const c=T.chipModel({k:'vocab',s:'correct',w:'Bass',ar:'بس'},fakeAz);
  assert.equal(c.sign,'✓');assert.equal(c.word,'Correct');assert.equal(c.main,'Bass');assert.equal(c.ar,'بس');
  const v=T.chipModel({k:'vocab',s:'wrong',ar:'لـ',said:'لسه',right:'لـ'},fakeAz);
@@ -50,4 +50,9 @@ test('every committed lesson renders its marked lines without throwing',()=>{
    for(const c of m.c){const v=T.chipModel(c,null);assert.ok(v.word&&v.tip,f+' '+c.id);}
   }
  }
+});
+test('PG-21 a wrong chip says what you said, what Amal said instead, and quotes her line with its time',()=>{
+ const v=T.chipModel({s:'wrong',k:'vocab',said:'هادي الصباح',right:'الصبح / بالصباح',sig:'says no',amal_line:'We never say هذا الصبح just say الصبح or بالصباح.',amal_t:540.31},null);
+ assert.match(v.tip,/you said هادي الصباح → Amal: say الصبح \/ بالصباح/);
+ assert.match(v.tip,/Amal at 9:00: «We never say هذا الصبح/);
 });

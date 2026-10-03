@@ -17,6 +17,8 @@ for (const f of fs.readdirSync(path.join(DOCS, 'data', 'lessons')).filter(f => /
   const strs = [];
   for (const v of (L.vocab_errors || []).concat(L.vocab_correct || [])) strs.push(v.arabic, v.fix, v.said);
   for (const g of (L.grammar_errors || []).concat(L.grammar_not_counted || [])) strs.push(g.said, g.fix, g.wrong, g.right);
+  // AZ-08 (Medi 2026-10-02 "why are we missing my arabizi?"): every transcript line too, both speakers, chat included
+  for (const t of L.turns || []) strs.push(t.text);
   for (const s of strs) {
     if (!s || !AR.test(s)) continue;
     for (const tok of String(s).split(/[^\u0621-\u064A\u064B-\u0652\u0670]+/)) {
@@ -30,5 +32,5 @@ for (const f of fs.readdirSync(path.join(DOCS, 'data', 'lessons')).filter(f => /
 const out = [...gaps.values()].sort((a, b) => b.n - a.n).map(g => ({ word: g.word, n: g.n, lessons: [...g.lessons].sort(), example: g.example }));
 const i = process.argv.indexOf('--json');
 if (i > 0) fs.writeFileSync(process.argv[i + 1], JSON.stringify({ gaps: out.length, words: out }, null, 1));
-console.log('arabizi gaps on error cards:', out.length, 'words,', out.reduce((a, g) => a + g.n, 0), 'uses');
+console.log('arabizi gaps on error cards and transcript lines:', out.length, 'words,', out.reduce((a, g) => a + g.n, 0), 'uses');
 process.exit(out.length ? 1 : 0);

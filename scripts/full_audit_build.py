@@ -206,6 +206,35 @@ def apply_el_prompt(rows):
     return n
 
 
+DEMONSTR = re.compile(r"^(هاد|هادا|هادي|هاي|هذا|هذه|هدا|هيدا|هيدي|hada|hadi|haada|haadi|hay)$", re.I)
+DEM_WHY = ("GR-26 (Medi 2026-10-02 'this should be a grammar error for not using hadi for the morning'): the slip is the "
+           "demonstrative (hada / hadi) she took out or changed, so it is grammar A10, not a wrong word")
+
+
+def apply_demonstrative(rows):
+    """GR-26: a vocab row whose wrong phrase starts with a demonstrative (هادا / هادي / هذا ...) that Amal's right form
+    drops or changes, with the rest of the phrase kept, is an A10 (hada / hadi) grammar slip. 10-02 08:23 هادي الصباح ->
+    الصبح ('We never say هذا الصبح'). Returns the re-filed count."""
+    import transcript_marks as TMn
+    nz = lambda x: TMn.normalise(re.sub(r"\s*\([^)]*\)", "", str(x or "")))[0].split()
+    n = 0
+    for r in rows:
+        if r.get("kind") not in ("vocab-A", "vocab-B"):
+            continue
+        w, rt = nz(r.get("wrong")), nz(str(r.get("right") or "").split("/")[0])
+        if len(w) < 2 or not DEMONSTR.match(w[0]) or not rt or (rt and DEMONSTR.match(rt[0]) and rt[0] == w[0]):
+            continue
+        rest = [x for x in rt if not DEMONSTR.match(x)]
+        core = lambda x: x.replace("ال", "", 1).replace("ا", "")        # الصبح ~ الصباح (subu7 / sabah): same root
+        if not rest or not set(map(core, rest)) & set(map(core, w[1:])):
+            continue          # her right form is a different word, not the same phrase without / with another demonstrative
+        r["kind_before_gr26"] = r["kind"]
+        r.update(kind="grammar" if r["kind"] == "vocab-A" else "grammar-B", bucket="A10", tier=None, rule="GR-26",
+                 why=DEM_WHY + ". Readers wrote: " + str(r.get("why") or ""))
+        n += 1
+    return n
+
+
 PROPOSE = "PROPOSE"
 PROPOSALS_OUT = os.path.join(REPO, "docs", "data", "grammar-proposals.json")
 
@@ -432,6 +461,9 @@ def build():
                     break
     apply_chat_rule(rows, json.load(open(SIGNAL_P, encoding="utf-8"))["rows"] if os.path.exists(SIGNAL_P) else [])
     apply_el_prompt(rows)
+    apply_demonstrative(rows)
+    import medi_corrections as MC     # PR-15: Medi's corrections (page table mirror + the ones he gave in chat)
+    MC_REPORT = MC.apply_rows(rows)
     # per-row bucket names + a stable order
     for r in rows:
         if r.get("bucket") in buckets:

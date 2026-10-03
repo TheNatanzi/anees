@@ -112,3 +112,13 @@ question must fit the question: a time answer is a number, so a near-sound word 
 mishearing, not his wrong word - write `wrong` as what he said ("engine wrote X") and look at what she reacts to.
 When her whole reply is "el" (الـ), she is prompting the missing el-: that is ONE voiced A1 grammar slip (prompt-then-fix),
 never a vocab slip (the code re-files it, GR-25). She heard the rest as right.
+When he repeats Amal's sentence right after her (her "إنت صحيت متأخر", his "أنا صرت متأخر" at 10-02 08:39 - he said
+ana s7eet mit2a55er, Medi 2026-10-02 "I repeated ana se7eet mita55er"), one different word is EITHER his slip (09-23
+أشكي for her أشتكي) OR the engine mishearing a near-sound (صرت / صحيت): decide from the sound and the context, write
+"engine wrote X" when it is the engine, and never credit the engine's word as a word he used right.
+
+## Echo check (TR-19, Medi 2026-10-02 "I repeated lissa back to her not this suck")
+Read data/lesson-work/echo-candidates/<date>.json: each is a short reply of his, right after her short Arabic line, that
+came out with no Arabic letters. Most are real English or his own Latin-letter Arabic - leave those. A sound-alike of
+Arabic (her لسه؟ -> "This suck.", ببسط -> "babysit.", انبارح -> "imbare.") is the engine: treat the line as the Arabic
+he said, and add it to your coverage_note as "echo: <engine words> = <Arabic>" so it joins data/lesson-work/transcript-fixes.json.

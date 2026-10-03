@@ -1016,6 +1016,25 @@ def build():
             w["pct"] = round(100 * (w["right"] + .5 * w["partial"]) / w["scored"], 1) if w["scored"] else None
             L["notes"].append(f"{len(dropped)} word card(s) dropped after the 2026-09-27 hand check (he said it right, it was not his slip, or it repeats a slip already counted): "
                               + "; ".join(f"{e['mmss']} {e.get('arabic')}" for e in dropped) + ".")
+    # WS-28 (Medi 2026-10-02 "its a new word but I still got mitshaje3a wrong here"): a word Amal taught in an EARLIER
+    # lesson (that lesson's taught words, LS-08) is a word he has been given: a slip on it is scored even before she adds it
+    # to her Doc. A word taught the same day stays new (WS-18).
+    import transcript_marks as _TMW
+
+    def _tn(s):
+        return _TMW.normalise(re.sub(r"\([^)]*\)", " ", str(s or "")))[0].replace("ال", "", 1).strip()
+    for d, v in per.items():
+        earlier = [(dd, w) for dd, tr in TYPE_READS.items() if dd < d for w in ((tr or {}).get("taught_words") or (tr or {}).get("taught") or [])
+                   if isinstance(w, dict) and w.get("arabic")]
+        for e in v["vocab_errors"]:
+            if e.get("on_sheet") is not False or e.get("sheet_reason"):
+                continue
+            want = {_tn(x) for x in re.split(r"\s*/\s*", str(e.get("fix") or e.get("arabic") or "")) if _tn(x)}
+            hit = next(((dd, w) for dd, w in earlier if _tn(w["arabic"]) in want), None)
+            if hit:
+                e["on_sheet"], e["keyed_by"] = True, "taught-earlier"
+                e["sheet_reason"] = "Amal taught %s (%s) on %s - scored as a word you were given (WS-28)" % (
+                    hit[1].get("latin") or hit[1]["arabic"], hit[1].get("english") or "", hit[0])
     # A word not on her sheet is not his miss (Medi 2026-09-26: "a new word that's not on the document") - it is listed,
     # tagged "Not on sheet", sent to Amal's review, and left out of the Words %.
     for L in lessons:

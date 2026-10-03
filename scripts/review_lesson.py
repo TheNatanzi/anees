@@ -420,6 +420,7 @@ def main():
         failures.append("lesson type not read (LS-01): " + "; ".join(type_why)[:200])
         log("!! LESSON TYPE NOT READ (LS-01):", "; ".join(type_why), "- the page would show the default; not pushed")
     # 3 compare
+    py(os.path.join(HERE, "echo_candidates.py"), d, check=False)     # TR-19: short repeats the engine may have made English
     py(os.path.join(HERE, "full_audit_compare.py"), "compare", d)
     # 4 third reader + settle
     third_in = [f(".txt"), f(".disputes.md"), f(".r1.json"), f(".r2.json"), os.path.join(WORK, "THIRD-READER-BRIEF.md")] + common

@@ -6,14 +6,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **593** (sweep had 312) |
+| Grammar fixes Amal voiced (A) | **594** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 89 |
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 9 |
 | Vocab fixes Amal voiced (A) | **283** (sweep had 147; lesson pages showed 23) |
 | - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 161, '0': 115, '2': 46, '3': 5} |
 | Vocab she let pass (B, to Amal) | **44** by tier {'1': 25, '2': 13, '3': 6} |
 | Listening-drill misreads (kept apart) | 82 |
-| Rows the readers found that the sweep did not have | 678 |
+| Rows the readers found that the sweep did not have | 680 |
 | Sweep rows the readers did not list (kept) | 115 |
 | Machine audit already had | 104 |
 
@@ -32,13 +32,13 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-09-17 | 46 | 5 | 12 | 3 | 1 | 28 | 5 | 68.0 % |
 | 2026-09-18 | 46 | 1 | 10 | 2 | 1 | 20 | 4 | 58.7 % |
 | 2026-09-19 | 5 | 2 | 12 | 1 | 35 | 25 | 12 | 58.3 % |
-| 2026-09-21 | 55 | 13 | 35 | 7 | 8 | 43 | 32 | 58.7 % |
+| 2026-09-21 | 55 | 13 | 36 | 7 | 8 | 43 | 32 | 58.7 % |
 | 2026-09-23 | 36 | 9 | 27 | 3 | 11 | 23 | 20 | 65.2 % |
 | 2026-09-26 | 30 | 0 | 22 | 3 | 2 | 0 | 0 | 73.0 % |
 | 2026-09-28 | 18 | 2 | 20 | 0 | 2 | 0 | 0 | 51.1 % |
 | 2026-09-30 | 20 | 2 | 14 | 0 | 0 | 0 | 0 | 73.7 % |
 | 2026-10-01 | 16 | 2 | 4 | 3 | 2 | 0 | 0 | 78.8 % |
-| 2026-10-02 | 13 | 0 | 12 | 1 | 2 | 0 | 0 | 52.8 % |
+| 2026-10-02 | 14 | 0 | 11 | 1 | 2 | 0 | 0 | 52.8 % |
 
 ## Reader passes (the loop)
 
@@ -49,11 +49,11 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-09-11**: pass 1: r1 44 r2 44 agreed 31 disputed 22 (58.5 %), r3 kept 16 dropped 6 -> 47 rows; pass 2: r1 51 r2 47 agreed 33 disputed 27 (55.0 %), r3 kept 19 dropped 8 -> 52 rows; pass 1 vs pass 2: 67.8 % of rows in both
 - **2026-09-14**: pass 1: r1 55 r2 62 agreed 46 disputed 20 (69.7 %), r3 kept 14 dropped 6 -> 60 rows; pass 2: r1 51 r2 58 agreed 39 disputed 24 (61.9 %), r3 kept 17 dropped 7 -> 57 rows; pass 1 vs pass 2: 77.3 % of rows in both
 - **2026-09-15**: pass 1: r1 51 r2 47 agreed 33 disputed 24 (57.9 %), r3 kept 16 dropped 8 -> 49 rows; pass 2: r1 51 r2 52 agreed 34 disputed 28 (54.8 %), r3 kept 23 dropped 5 -> 57 rows; pass 1 vs pass 2: 76.7 % of rows in both
-- **2026-09-16**: pass 1: r1 46 r2 37 agreed 30 disputed 21 (58.8 %), r3 kept 8 dropped 13 -> 38 rows; pass 2: r1 54 r2 51 agreed 38 disputed 22 (63.3 %), r3 kept 12 dropped 10 -> 50 rows; pass 1 vs pass 2: 79.6 % of rows in both
-- **2026-09-17**: pass 1: r1 42 r2 46 agreed 34 disputed 16 (68.0 %), r3 kept 8 dropped 8 -> 42 rows; pass 2: r1 58 r2 56 agreed 41 disputed 25 (62.1 %), r3 kept 18 dropped 7 -> 59 rows; pass 1 vs pass 2: 69.2 % of rows in both
+- **2026-09-16**: pass 1: r1 46 r2 37 agreed 30 disputed 21 (58.8 %), r3 kept 8 dropped 13 -> 38 rows; pass 2: r1 54 r2 51 agreed 38 disputed 22 (63.3 %), r3 kept 13 dropped 9 -> 51 rows; pass 1 vs pass 2: 79.6 % of rows in both
+- **2026-09-17**: pass 1: r1 42 r2 46 agreed 34 disputed 16 (68.0 %), r3 kept 9 dropped 7 -> 43 rows; pass 2: r1 58 r2 56 agreed 41 disputed 25 (62.1 %), r3 kept 18 dropped 7 -> 59 rows; pass 1 vs pass 2: 69.2 % of rows in both
 - **2026-09-18**: pass 1: r1 37 r2 42 agreed 27 disputed 19 (58.7 %), r3 kept 15 dropped 4 -> 42 rows; pass 2: r1 42 r2 37 agreed 31 disputed 13 (70.5 %), r3 kept 8 dropped 5 -> 39 rows; pass 1 vs pass 2: 80.0 % of rows in both
 - **2026-09-19**: pass 1: r1 36 r2 48 agreed 28 disputed 20 (58.3 %), r3 kept 16 dropped 4 -> 45 rows; pass 2: r1 45 r2 45 agreed 35 disputed 15 (70.0 %), r3 kept 12 dropped 3 -> 47 rows; pass 1 vs pass 2: 76.9 % of rows in both
-- **2026-09-21**: pass 1: r1 107 r2 106 agreed 71 disputed 50 (58.7 %), r3 kept 45 dropped 5 -> 117 rows; pass 2: r1 112 r2 93 agreed 62 disputed 62 (50.0 %), r3 kept 47 dropped 15 -> 109 rows; pass 1 vs pass 2: 75.8 % of rows in both
+- **2026-09-21**: pass 1: r1 107 r2 106 agreed 71 disputed 50 (58.7 %), r3 kept 46 dropped 4 -> 118 rows; pass 2: r1 112 r2 93 agreed 62 disputed 62 (50.0 %), r3 kept 48 dropped 14 -> 110 rows; pass 1 vs pass 2: 75.8 % of rows in both
 - **2026-09-23**: pass 1: r1 56 r2 58 agreed 43 disputed 23 (65.2 %), r3 kept 20 dropped 3 -> 63 rows; pass 2: r1 61 r2 57 agreed 46 disputed 21 (68.7 %), r3 kept 14 dropped 7 -> 60 rows; pass 1 vs pass 2: 78.6 % of rows in both
 - **2026-09-26**: pass 1: r1 57 r2 56 agreed 46 disputed 17 (73.0 %), r3 kept 11 dropped 6 -> 57 rows
 - **2026-09-28**: pass 1: r1 43 r2 35 agreed 24 disputed 23 (51.1 %), r3 kept 18 dropped 5 -> 42 rows
@@ -93,9 +93,9 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | B8 | bakoon / ykoon | 7 |
 | A3 | feminine -t in idafa | 7 |
 | B6 | kaan = was / were | 7 |
+| A10 | hada / hadi | 6 |
 | E1 | number + noun | 6 |
 | A12 | pronoun matches who you mean | 5 |
-| A10 | hada / hadi | 5 |
 | E4 | calendar | 5 |
 | B16 | kan laazem | 4 |
 | A11 | kul: all vs every | 4 |
@@ -792,6 +792,7 @@ _Many Medi turns are Latin-transliterated or '[speaking Arabic/foreign language]
 | FA-83e2a3ce | 16:54 | grammar | B15 | Lesh mabuchit hamasi. | we are using the adjective here because it's are... If I'm saying out of habit, why don't you get excited... I would use get, which is the verb. | mabuchit hamasi -> mish mit7ammse | For 'why aren't you excited (now)' he used a negated verb; Amal said use the adjective mit7ammse with mish. | high | r1+r2 |
 | FA-862b5075 | 19:19 | rejected | B12 | hamasna | Mm-hmm. | hamasna -> t7ammasna | 'We got excited' needs the t- form t7ammasna (her chat); he said 7ammasna (we excited someone) and she let it pass on voice. | medium | r1+r2 |
 | FA-e9d2ae46 | 19:23 | vocab-A | tier 1 | fi el shara. | street. What's the road? | shara -> طريق (taree2) | He said shaare3 (street) for 'road'; Amal: 'street. What's the road?' and he gave taree2. Sheet: 'road / way / route / 6ariq' vs 'street / Shaare3'. | high | r1+r2 |
+| FA-b805511c | 19:26 | rejected | D1 | Or ala el shara? No, fi el shara. |  | fi el shara -> 3ala el-taree2 | He weighed fi against 3ala and settled on fi ('in the street'); 'on the road' takes 3ala, which he switched to himself once the noun changed and which her chat confirms. | low | GR-24 |
 | FA-bc5d156b | 20:58 | vocab-A | tier 2 | Okay. El safra. | الـ safar. Safra is one trip. Safar is... | El safra -> الـ safar | safra = one trip; for 'traveling' Amal recast el-safar. | high | r1+r2 |
 | FA-e5593248 | 22:00 | grammar | D4 | hamasi akthar. | Me. Excite me. | hamasi -> hamasini (7ammsini) | 'Excite me' needs the -ni object ending; Amal prompted 'Me' and he said hamasini. | high | r1+r2 |
 | FA-9c726e88 | 22:00 | grammar | D4 | hamasi akthar. | Me. Excite me. | حمسي -> حمسيني | left off the -ni object | high | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
@@ -851,7 +852,7 @@ _14:11-22:45 and scattered later lines are '[speaking foreign language]' / '[spe
 | FA-313dc8af | 03:04 | grammar-B | C4 | أنا لا بعرف، بتعرف في Jambalaya؟ |  | لا بعرف -> ما بعرف | Verb negated with la (fus7a) instead of ma; Amal let it pass (best reading ma ba3ref). | high | r1+r2 |
 | FA-c8f496a7 | 03:04 | grammar-B | B18 | بتعرف في Jambalaya؟ |  | بتعرف -> بتعرفي | Addressing Amal (she) needs the you-feminine -i ending; let pass. | medium | r1+r2 |
 | FA-1512dc8c | 03:10 | rejected | A2 | is أكل من الـ جنوب أمريكي | شو فيه؟ | الـ جنوب أمريكي -> جنوب أمريكا | First word of an idafa takes no el-; her chat wrote janoob amrica but she voiced nothing (chat alone is not a fix). | medium | r1+r2 |
-| FA-45859eb6 | 04:23 | grammar | D1 | عنده ماي بس، uh، uh، فيها ماي بس شوي، | فيها، not عندها. فيها؟ | عنده -> فيها | 'It has water in it' takes fi- not 3ind-; he self-corrected mid-line but she still said explicitly 'fiha, not 3indha'. | medium | r1+r2 |
+| FA-f14f0ca2 | 04:23 | grammar | D1 | عنده ماي بس، uh، uh، فيها ماي بس شوي | فيها، not عندها. فيها؟ | عنده ماي -> فيها ماي | Used 3ind (has) for 'there is water in it'; Amal said 'fiha, not 3indha' (he had half self-fixed in the same turn, but she voiced it). | high | GR-24 |
 | FA-e6badeef | 04:35 | vocab-A | tier 1 | uh، زفير ماي. | خفيف؟ | زفير -> خفيف | Non-word / wrong word for 'light, thin'; Amal supplied 5afeef and her chat wrote it. | high | r1+r2 |
 | FA-d7a858df | 04:41 | vocab-A | tier 1 | كافية الزباين، yeah، كافية. كافية ماي. | مش كتير. | كافية -> مش كتير / خفيف | Said kaafye (enough) for 'not much water'; she recast mish kteer and typed 5afeef. | medium | r1+r2 |
 | FA-bec3abbb | 05:21 | vocab-B | tier 1 | هاي، عذرتي. |  | عذرتي -> آسف | Apologising for the audio he said عذرتي (not a word in this form); sheet: 'sorry / aasef / آسف'. My reading. | low | r1+r2 |
@@ -1159,6 +1160,7 @@ _Whole file read. 800 Medi turns: 348 with Arabic script, ~130 more in Latin tra
 | FA-445fa1a6 | 54:33 | rejected | A1 | ehna Iraniyin, uh, mashhur, mashhurin bin hut al saffron fi al roz. | الزعفران. | ehna Iraniyin -> e7na el-iraanyeen | Same missing el- on 'we Iranians' two minutes after her 52:29 fix; aloud she only supplied الزعفران, her chat writes el-iraanyeen. (mashhur -> mashhurin was his own fix.) | medium | r3 |
 | FA-2d675e8b | 54:43 | vocab-A | tier 0 | bin hut al saffron fi al roz. | الزعفران. | saffron -> الزعفران | English word; not on her sheet; she supplied الزعفران as a new word. | high | r1+r2 |
 | FA-bef9647d | 55:06 | vocab-A | tier 1 | uh, awali is, awali is country, right? ... Awali dawla. Iran | دولة. ... دوالي. [تضحك] العالم. | awali -> دولة | He offered a non-word (awali, which she heard as عالم - sheet: the world / people / 3aalam / عالم) for 'country' and asked; the word is دولة (sheet: country / Dawle / دولة), which she supplied and he took. Tier 1 not 0: he attempted a word and it was wrong. | medium | r3 |
+| FA-fae8ed67 | 55:40 | vocab-A | tier 1 | or bikhall, uh, that makes saffron. I don't know how to say makes. Is it bikhall? Uh, okay. Bi'amalu, | بيعملوا. | bikhall -> بيعملوا | بخلي (make someone do) tried for 'produces / makes'; he asked and she confirmed بيعملوا. | low | GR-24 |
 | FA-23ec6eb8 | 56:33 | grammar | D3 | Um, 'andhum | عنا. | 'andhum -> عنا / عندنا | Second time this lesson: 'we have' with the 'them' ending; she recast عنا and he said anna. | high | r1+r2 |
 | FA-eb53f2bb | 56:55 | grammar | D1 | bas il ta'am mashhoor, uh, min Iran. | فيه. | min Iran -> في إيران | 'The taste famous in Iran' takes في, not من; she recast فيه and he said Fi Iran. | high | r1+r2 |
 | FA-9df0e107 | 57:12 | grammar | C4 | Mish anna akil bihr. | م-ما عنا. | Mish anna -> ما عنا | عند is negated with ما, not مش; she recast ما عنا and he repeated Ma anna. | high | r1+r2 |
@@ -1492,7 +1494,7 @@ _00:02-06:12 and 53:31-end are English meta talk. 12:34-15:40 and 37:41-42:12 tr
 | FA-035f0923 | 07:14 | vocab-B | tier 2 | أأأ أنا صحيت تأخر. |  | تأخر -> متأخر (mit2a55er) | He used the verb تأخر where the adjective متأخر is needed (he had said متأخر a moment earlier); her chat writes mit2a55er, no voiced fix. | medium | r1+r2 |
 | FA-6c1241b7 | 07:34 | grammar | A1 | آآآ على العشاء | الـ. | عشرة -> العشرة | GR-25 (Medi 2026-10-02 'she corrects me and says el 3ashrah'): her whole reply was 'el' - she prompted the missing el-, she did not hear a wrong word; the slip is A1 el- (the), voiced. Readers wrote: He said 3asha (dinner) for 3ashara (ten) as the clock time; her chat writes 3ala el-3ashara; her voiced 'الـ' is not a clear fix of the word (she voiced the same slip at 15:42). | medium | r1+r2 |
 | FA-5e8b298b | 07:54 | grammar | B5 | أنا كان قنيش شوي-- | أنا كنت صح. | أنا كان -> أنا كنت | kaan needs the 'I' ending with ana: Amal recast أنا كنت. | high | r1+r2 |
-| FA-6abc4e23 | 08:23 | vocab-A | tier 1 | عادي الصباح (engine; her echo shows هذا الصبح) ... 08:58 عاد الصباح | We never say هذا الصبح just say الصبح or بالصباح. | عادي الصباح -> الصبح / بالصباح | Engine wrote عادي; Amal's echo shows he said هذا الصبح, a calque of 'this morning'; she said we never say it and gave الصبح / بالصباح - a wrong expression, not an ending/prefix rule, so vocab tier 1. | medium | r3 |
+| FA-d3ecce97 | 08:23 | grammar | A10 | عادي الصباح (engine; her echo shows هذا الصبح) ... 08:58 عاد الصباح | We never say هذا الصبح just say الصبح or بالصباح. | هادي الصباح -> الصبح | Medi 2026-10-02: grammar A10: you can tell from her cotext I said hadi el not 3aadi el ... she even corrected it ... this should be a grammar error for not using hadi for the morning. Readers wrote: Engine wrote عادي; Amal's echo shows he said هذا الصبح, a calque of 'this morning'; she said we never say it and gave الصبح / بالصباح - a wrong expression, not an ending/prefix rule, so vocab tier 1. | medium | r3 |
 | FA-27538ea5 | 09:23 | vocab-A | tier 1 | أنا لا مش شجاع اليوم. مش شجاع اليوم. | متشجع. | شجاع -> متشجع (mitshajje3) | She asked لسه مش متشجع لل شغل؟ and he answered with شجاع (brave), a different lexical item; she recast متشجع at once - tier 1 (different word), not a form of متشجع. | high | r3 |
 | FA-c7cbcaff | 09:44 | vocab-A | tier 2 | أنا لازم أخد أطلع وسفر، سفر. | أو I should travel. أو. | سفر -> أسافر | He used the noun سفر (travel) where the verb is needed; Amal prompted 'I should travel' and he fixed to ولازم أسافر. | high | r1+r2 |
 | FA-2b7a0857 | 10:56 | grammar | D2 | أنا خططت سفر | You plan for. | خططت سفر -> خططت لسفرة | خطط takes la-; Amal said 'You plan for' and he added لا سفر (la-safar); chat la-safra. | high | r1+r2 |

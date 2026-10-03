@@ -261,6 +261,8 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
         rep["fix_placed"] += 1
         fid = nid("f")
         slip_chip["link"] = fid
+        # PG-21 (Medi 2026-10-02 "I dont undertand the error here"): the ✗ quotes what Amal actually said, with its time
+        slip_chip["amal_line"], slip_chip["amal_t"] = turns[p[0]]["text"], turns[p[0]]["t"]
         put(p[0], {"id": fid, "k": "fix", "s": "fix", "signal": signal, "sig": SIGNAL_WORDS[signal],
                    "of": slip_chip["k"], "rule": slip_chip.get("rule"), "w": slip_chip.get("w"), "ar": slip_chip.get("ar"),
                    "said": slip_chip.get("said"), "right": right, "link": slip_chip["id"]})

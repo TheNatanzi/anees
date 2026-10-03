@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-02",
- "total": 150,
+ "total": 158,
  "replaced": 8,
  "counts": {
-  "Automatic": 71,
+  "Automatic": 79,
   "Written down": 67,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -107,7 +107,7 @@
    "key": "recording",
    "title": "Recording & transcript",
    "intro": "What gets written down from the lesson recording, and what is left out.",
-   "count": 17,
+   "count": 19,
    "sections": [
     {
      "kind": "not-error",
@@ -166,6 +166,39 @@
          "who": "Medi",
          "date": "2026-09-04",
          "quote": "recognize 'um's as pauses"
+        }
+       ]
+      },
+      {
+       "id": "TR-18",
+       "text": "When the recording engine writes a word that doesn't fit the moment (Amal asks 'what time?' and the engine writes 'dinner'), we read the word you said from the context and her reaction. The line shows the word you said, with the engine's word underneath, and the engine's word is never counted as your mistake.",
+       "status": "enforced",
+       "topic": "the transcript",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "why are we missing my arabizi? 3ala 3ashrah cant you tell from context im saying a time?  she corrects me and says el 3ashrah"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "this is hadi el subu7 I dont undertand the error here"
+        }
+       ]
+      },
+      {
+       "id": "TR-19",
+       "text": "When you repeat Amal's short Arabic word and the engine turns it into English (her 'lissa?', your 'this suck'), we check it against her word and fix the line.",
+       "status": "enforced",
+       "topic": "the transcript",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "why is it so bad at understanding me... I repeated lissa back to her not this suck"
         }
        ]
       },
@@ -353,7 +386,7 @@
    "key": "spelling",
    "title": "Spelling (Amal's Arabizi)",
    "intro": "How Arabic words are spelled on screen. Arabizi = Arabic in Latin letters and numbers (3 = ع, 7 = ح).",
-   "count": 8,
+   "count": 9,
    "sections": [
     {
      "kind": "display",
@@ -427,15 +460,29 @@
       },
       {
        "id": "AZ-08",
-       "text": "كم (how many) is always spelled Kam, the way Amal writes it, never Kum.",
+       "text": "Every line of the transcript shows Arabizi, not just the error cards. A word Amal never spelled gets a spelling in her letters.",
        "status": "enforced",
-       "topic": "single words",
+       "topic": "spelling",
        "badge": "Automatic",
        "said": [
         {
          "who": "Medi",
          "date": "2026-10-02",
          "quote": "what are we using Kum, doesnt amal use Kam?"
+        }
+       ]
+      },
+      {
+       "id": "AZ-10",
+       "text": "Every line of the transcript shows Arabizi, not just the error cards. A word Amal never spelled gets a spelling in her letters.",
+       "status": "enforced",
+       "topic": "spelling",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "why are we missing my arabizi?"
         }
        ]
       },
@@ -515,7 +562,7 @@
    "key": "words",
    "title": "Words: what counts and what doesn't",
    "intro": "Which words you said get scored, and which don't.",
-   "count": 27,
+   "count": 28,
    "sections": [
     {
      "kind": "error",
@@ -607,6 +654,20 @@
          "who": "Medi",
          "date": "2026-09-27",
          "quote": "this shouldnt be marked as good, its a new word"
+        }
+       ]
+      },
+      {
+       "id": "WS-28",
+       "text": "A word Amal taught you in an earlier lesson counts when you get it wrong, even before she adds it to her Doc.",
+       "status": "enforced",
+       "topic": "new words",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "its a new word but I still got mitshaje3a wrong here"
         }
        ]
       },
@@ -936,7 +997,7 @@
    "key": "grammar",
    "title": "Grammar slips: what counts and what doesn't",
    "intro": "When a grammar mistake counts as a slip, and when it doesn't.",
-   "count": 24,
+   "count": 26,
    "sections": [
     {
      "kind": "error",
@@ -990,6 +1051,20 @@
        ]
       },
       {
+       "id": "GR-25",
+       "text": "When Amal's whole reply is just 'el', she is reminding you of the missing el-. That is one el- grammar slip, not a wrong word.",
+       "status": "enforced",
+       "topic": "el- (the)",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "why are we missing my arabizi? 3ala 3ashrah cant you tell from context im saying a time?  she corrects me and says el 3ashrah"
+        }
+       ]
+      },
+      {
        "id": "GR-24",
        "text": "You fixed it yourself only if you said the right word BEFORE Amal did, by the time each word was said, not when your line starts. If you said it after her (often with 'that's right'), she corrected you and the slip counts.",
        "status": "enforced",
@@ -1005,6 +1080,25 @@
          "who": "Medi",
          "date": "2026-10-02",
          "quote": "make sure to add it to your rules to ensure this error doesnt persist in future lessons"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "yes yes"
+        }
+       ]
+      },
+      {
+       "id": "GR-26",
+       "text": "When Amal takes out or changes your hada / hadi ('we never say hada el-subu7'), that is a hada / hadi grammar slip, not a wrong word.",
+       "status": "enforced",
+       "topic": "hada / hadi",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "you can tell from her cotext I said hadi el not 3aadi el ... she even corrected it ... this should be a grammar error for not using hadi for the morning"
         }
        ]
       },
@@ -1850,7 +1944,7 @@
    "key": "pages",
    "title": "Pages, audio & numbers on screen",
    "intro": "What each page shows, the audio clips, and keeping numbers up to date.",
-   "count": 31,
+   "count": 32,
    "sections": [
     {
      "kind": "data",
@@ -2236,6 +2330,20 @@
        ]
       },
       {
+       "id": "PG-21",
+       "text": "A ✗ on the transcript says what you said, what Amal said instead, and quotes her words with the time.",
+       "status": "enforced",
+       "topic": "the transcript",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "this is hadi el subu7 I dont undertand the error here"
+        }
+       ]
+      },
+      {
        "id": "PG-07",
        "text": "The home page is Progress Overview; everything for Amal is on one Tutor page.",
        "status": "written",
@@ -2370,7 +2478,7 @@
    "key": "process",
    "title": "How Claude and Codex must work",
    "intro": "Rules for the AI helpers that build Anees.",
-   "count": 15,
+   "count": 16,
    "sections": [
     {
      "kind": "data",
@@ -2572,6 +2680,20 @@
        "topic": "testing engines",
        "badge": "Written down",
        "claude": "2026-09-05"
+      },
+      {
+       "id": "PR-15",
+       "text": "Your corrections on the transcript are saved, can be undone, and change every page. Amal still decides whether your Arabic was right.",
+       "status": "enforced",
+       "topic": "your corrections",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "i am going to make some corrections to the transcript. try and make rule and patterns with my corrections."
+        }
+       ]
       }
      ]
     }

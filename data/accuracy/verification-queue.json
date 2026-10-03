@@ -1,6 +1,6 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 18,
+ "count": 21,
  "by_date": {
   "2026-08-25": 1,
   "2026-09-04": 2,
@@ -9,10 +9,10 @@
   "2026-09-11": 4,
   "2026-09-16": 1,
   "2026-09-17": 1,
-  "2026-09-21": 2,
+  "2026-09-21": 3,
   "2026-09-26": 1,
   "2026-10-01": 1,
-  "2026-10-02": 1
+  "2026-10-02": 3
  },
  "rows": [
   {
@@ -349,6 +349,27 @@
    "listen_to": "49:37"
   },
   {
+   "uid": "FA-fae8ed67",
+   "date": "2026-09-21",
+   "t": "55:40",
+   "t_amal": "55:46",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "medi_said": "or bikhall, uh, that makes saffron. I don't know how to say makes. Is it bikhall? Uh, okay. Bi'amalu,",
+   "amal_said": "بيعملوا.",
+   "wrong": "bikhall",
+   "right": "بيعملوا",
+   "why_check": [
+    "reader confidence low"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "55:30",
+   "listen_to": "56:06"
+  },
+  {
    "uid": "FA-c2ac3a65",
    "date": "2026-09-21",
    "t": "1:05:16",
@@ -450,6 +471,48 @@
    },
    "listen_from": "02:11",
    "listen_to": "02:43"
+  },
+  {
+   "uid": "FA-d3ecce97",
+   "date": "2026-10-02",
+   "t": "08:23",
+   "t_amal": "09:00",
+   "kind": "grammar",
+   "tier": 1,
+   "bucket": "A10",
+   "medi_said": "عادي الصباح (engine; her echo shows هذا الصبح) ... 08:58 عاد الصباح",
+   "amal_said": "We never say هذا الصبح just say الصبح or بالصباح.",
+   "wrong": "هادي الصباح",
+   "right": "الصبح",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "08:13",
+   "listen_to": "09:20"
+  },
+  {
+   "uid": "FA-27538ea5",
+   "date": "2026-10-02",
+   "t": "09:23",
+   "t_amal": "09:24",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "medi_said": "أنا لا مش شجاع اليوم. مش شجاع اليوم.",
+   "amal_said": "متشجع.",
+   "wrong": "شجاع",
+   "right": "متشجع (mitshajje3)",
+   "why_check": [
+    "decided by the third reader alone, in one pass only"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "09:13",
+   "listen_to": "09:44"
   },
   {
    "uid": "FA-62568de1",

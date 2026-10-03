@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T23:20:38-07:00",
+ "updated": "2026-10-02T23:38:10-07:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -3614,25 +3614,6 @@
    "audit_uid": "FA-172fc4ea"
   },
   {
-   "id": "audit:FA-6abc4e23",
-   "word_key": "alsube7",
-   "entry_id": "alsube7:word",
-   "lesson_date": "2026-10-02",
-   "t_start": 503,
-   "t_end": 503,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "عادي الصباح",
-   "said": "عادي الصباح (engine; her echo shows هذا الصبح) ... 08:58 عاد الصباح",
-   "reason": "Engine wrote عادي; Amal's echo shows he said هذا الصبح, a calque of 'this morning'; she said we never say it and gave الصبح / بالصباح - a wrong expression, not an ending/prefix rule, so vocab tier 1.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-6abc4e23"
-  },
-  {
    "id": "audit:FA-c093d0ab",
    "word_key": "ta5yIm",
    "entry_id": "ta5yIm:word",
@@ -3764,6 +3745,17 @@
    "wrong": "don't be angry",
    "why": "no Word Bank row for this list word",
    "keyed_by": null
+  },
+  {
+   "uid": "FA-fae8ed67",
+   "date": "2026-09-21",
+   "t": 3340,
+   "key": "ana ba3mal",
+   "kind": "wrong",
+   "said": "or bikhall, uh, that makes saffron. I don't know how to say makes. Is it bikhall? Uh, okay. Bi'amalu,",
+   "wrong": "bikhall",
+   "why": "which list word it is waits for a reader (the automatic match was part)",
+   "keyed_by": "auto-part"
   },
   {
    "uid": "FA-6e165dc2",
@@ -3949,6 +3941,28 @@
    "keyed_by": "auto-part"
   },
   {
+   "uid": "FA-c24ef29e",
+   "date": "2026-10-01",
+   "t": 375,
+   "key": null,
+   "kind": "asked",
+   "said": "Uh, uh, حافظ، حافظ. ... لا، أنا نسيت، نسيت، نسيت.",
+   "wrong": "حافظ",
+   "why": "which list word it is waits for a reader (the automatic match was taught-earlier)",
+   "keyed_by": "taught-earlier"
+  },
+  {
+   "uid": "FA-27538ea5",
+   "date": "2026-10-02",
+   "t": 563,
+   "key": null,
+   "kind": "wrong",
+   "said": "أنا لا مش شجاع اليوم. مش شجاع اليوم.",
+   "wrong": "شجاع",
+   "why": "which list word it is waits for a reader (the automatic match was taught-earlier)",
+   "keyed_by": "taught-earlier"
+  },
+  {
    "uid": "FA-c7cbcaff",
    "date": "2026-10-02",
    "t": 584,
@@ -4031,6 +4045,21 @@
    "expected": {
     "word_key": "lisa",
     "t_start": 92.923302563
+   }
+  },
+  {
+   "event_id": "8e9fefda88f310b901c162fb89a451487a06b98b746dc3ee53ec470b402f65e3",
+   "date": "2026-10-02",
+   "mark": "wb:8e9fefda88f310b901c162fb89a451487a06b98b746dc3ee53ec470b402f65e3",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:8e9fefda88f310b901c162fb89a451487a06b98b746dc3ee53ec470b402f65e3",
+    "ledger_reason": "the recording engine wrote صرت; you said صحيت (TR-18)"
+   },
+   "expected": {
+    "word_key": "ana seret",
+    "t_start": 519.404810951
    }
   },
   {

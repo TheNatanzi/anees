@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T23:20:42-07:00",
+ "updated": "2026-10-02T23:38:15-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -284,9 +284,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 130,
+    "uses": 134,
     "mistakes": 47,
-    "pct": 69.2,
+    "pct": 70.1,
     "estimate": false,
     "scored_mistakes": 40,
     "unscored_mistakes": 7,
@@ -299,7 +299,7 @@
       "16 slips are in rules the counter found 0 uses of in this lesson",
       "6 rules have more slips than counted uses (A2, A3, A7, B18, B5, D2)"
      ],
-     "uses": 95,
+     "uses": 99,
      "slips": 47,
      "slips_latin": 25,
      "slips_in_zero_use_rules": 16,
@@ -408,7 +408,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-04.json",
-    "marks": 174,
+    "marks": 178,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,
@@ -2135,7 +2135,7 @@
     "reasons": [
      "reader agreement: pass 1 readers agree on 58.8 % of rows (>= 95 % needed)",
      "reader agreement: pass 2 readers agree on 63.3 % of rows (>= 95 % needed)",
-     "reader agreement: pass 1 vs pass 2 settled rows agree on 76.0 % (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 74.5 % (>= 95 % needed)",
      "coverage: 33 stretches of Medi's speech written as '[speaking ...]' markers (08:48 in all)",
      "coverage: speaker labels agree with an independent check on only 78.1 % of 795 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4182 s) compared with a second model",
@@ -2167,7 +2167,7 @@
         1,
         2
        ],
-       "agreement_pct": 76.0
+       "agreement_pct": 74.5
       }
      ],
      "threshold_pct": 95.0
@@ -2626,7 +2626,7 @@
     "reasons": [
      "reader agreement: pass 1 readers agree on 68.0 % of rows (>= 95 % needed)",
      "reader agreement: pass 2 readers agree on 62.1 % of rows (>= 95 % needed)",
-     "reader agreement: pass 1 vs pass 2 settled rows agree on 60.3 % (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 61.9 % (>= 95 % needed)",
      "coverage: 33 stretches of Medi's speech written as '[speaking ...]' markers (08:47 in all)",
      "coverage: speaker labels agree with an independent check on only 89.1 % of 801 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model",
@@ -2658,7 +2658,7 @@
         1,
         2
        ],
-       "agreement_pct": 60.3
+       "agreement_pct": 61.9
       }
      ],
      "threshold_pct": 95.0
@@ -3139,9 +3139,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 31,
+    "uses": 33,
     "mistakes": 4,
-    "pct": 87.1,
+    "pct": 87.9,
     "estimate": false,
     "scored_mistakes": 4,
     "unscored_mistakes": 0,
@@ -3154,7 +3154,7 @@
       "2 slips are in rules the counter found 0 uses of in this lesson",
       "2 rules have more slips than counted uses (B11, E2)"
      ],
-     "uses": 27,
+     "uses": 29,
      "slips": 4,
      "slips_latin": 1,
      "slips_in_zero_use_rules": 2,
@@ -3228,7 +3228,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-19.json",
-    "marks": 69,
+    "marks": 71,
     "conflicts": 2,
     "resolved": 0,
     "needs_medi": 0,
@@ -3396,19 +3396,19 @@
    "words": {
     "unique": 110,
     "right": 170,
-    "wrong": 31,
+    "wrong": 32,
     "partial": 5,
-    "pct": 83.7,
-    "scored": 206,
-    "audit_wrong": 25,
+    "pct": 83.3,
+    "scored": 207,
+    "audit_wrong": 26,
     "audit_partial": 5,
     "not_an_error": 1,
     "not_on_sheet": 5,
     "unique_rows": 110,
-    "eligible": 204,
+    "eligible": 205,
     "excluded": 2,
-    "pending": 0,
-    "eligible_pct": 84.6,
+    "pending": 1,
+    "eligible_pct": 84.1,
     "excluded_why": {
      "rejected on a human check by Amal": 2
     },
@@ -3515,14 +3515,14 @@
    "counts": {
     "turns": 1274,
     "chat_lines": 57,
-    "vocab_errors": 41,
+    "vocab_errors": 42,
     "vocab_correct": 170,
     "grammar_errors": 62,
     "grammar_not_counted": 2
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-21.json",
-    "marks": 587,
+    "marks": 588,
     "conflicts": 7,
     "resolved": 1,
     "needs_medi": 2,
@@ -3596,9 +3596,9 @@
     "reasons": [
      "reader agreement: pass 1 readers agree on 58.7 % of rows (>= 95 % needed)",
      "reader agreement: pass 2 readers agree on 50.0 % of rows (>= 95 % needed)",
-     "reader agreement: pass 1 vs pass 2 settled rows agree on 76.6 % (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 76.7 % (>= 95 % needed)",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4332 s) compared with a second model",
-     "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
+     "checks: 3 scored rows need an audio or human check (1 words, 2 grammar)"
     ],
     "agreement": {
      "status": "withheld",
@@ -3626,7 +3626,7 @@
         1,
         2
        ],
-       "agreement_pct": 76.6
+       "agreement_pct": 76.7
       }
      ],
      "threshold_pct": 95.0
@@ -5255,17 +5255,17 @@
     "unique": 49,
     "right": 87,
     "wrong": 1,
-    "partial": 13,
-    "pct": 92.6,
-    "scored": 101,
+    "partial": 14,
+    "pct": 92.2,
+    "scored": 102,
     "audit_wrong": 1,
-    "audit_partial": 0,
-    "not_on_sheet": 4,
+    "audit_partial": 1,
+    "not_on_sheet": 3,
     "unique_rows": 49,
-    "eligible": 101,
+    "eligible": 102,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 92.6,
+    "eligible_pct": 92.2,
     "excluded_why": {},
     "verified_pct": null
    },
@@ -5502,41 +5502,41 @@
    "type_source": "claude-read",
    "type_read_by": "claude -p (review_lesson.py)",
    "words": {
-    "unique": 31,
-    "right": 62,
+    "unique": 29,
+    "right": 61,
     "wrong": 7,
     "partial": 10,
-    "pct": 84.8,
-    "scored": 79,
+    "pct": 84.6,
+    "scored": 78,
     "audit_wrong": 7,
     "audit_partial": 1,
-    "not_on_sheet": 4,
-    "unique_rows": 30,
-    "eligible": 79,
+    "not_on_sheet": 3,
+    "unique_rows": 28,
+    "eligible": 78,
     "excluded": 0,
-    "pending": 1,
-    "eligible_pct": 84.8,
+    "pending": 2,
+    "eligible_pct": 84.6,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 223,
-    "mistakes": 13,
-    "pct": 94.2,
+    "uses": 227,
+    "mistakes": 14,
+    "pct": 93.8,
     "estimate": false,
-    "scored_mistakes": 13,
+    "scored_mistakes": 14,
     "unscored_mistakes": 0,
-    "eligible": 13,
+    "eligible": 14,
     "excluded": 0,
-    "pending": 0,
+    "pending": 1,
     "denominator": {
      "valid": false,
      "reasons": [
       "2 slips are in rules the counter found 0 uses of in this lesson",
       "2 rules have more slips than counted uses (A4, D2)"
      ],
-     "uses": 210,
-     "slips": 13,
+     "uses": 214,
+     "slips": 14,
      "slips_latin": 2,
      "slips_in_zero_use_rules": 2,
      "rules_slips_over_uses": [
@@ -5669,14 +5669,14 @@
    "counts": {
     "turns": 1003,
     "chat_lines": 44,
-    "vocab_errors": 12,
-    "vocab_correct": 71,
-    "grammar_errors": 13,
+    "vocab_errors": 11,
+    "vocab_correct": 70,
+    "grammar_errors": 14,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-02.json",
-    "marks": 308,
+    "marks": 311,
     "conflicts": 2,
     "resolved": 1,
     "needs_medi": 0,
@@ -5688,7 +5688,7 @@
     "reasons": [
      "reader agreement: pass 1 52.8 %; 2 consecutive passes at >= 95 % are needed",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3852 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (1 words, 0 grammar)"
+     "checks: 3 scored rows need an audio or human check (2 words, 1 grammar)"
     ],
     "agreement": {
      "status": "withheld",

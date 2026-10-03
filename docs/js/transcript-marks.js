@@ -42,9 +42,11 @@ function pair(said, right, toArabizi) {
   return p.join(' → ');
 }
 // The chip's words: {sign, word, kind, main, ar, tip}
+function clock(t) { t = Math.max(0, Math.floor(Number(t) || 0)); return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0'); }
 function chipModel(c, toArabizi) {
   var s = subject(c, toArabizi), tip = '';
-  if (c.s === 'wrong') tip = 'Wrong · ' + pair(c.said, c.right, toArabizi) + (c.sig ? ' · she ' + c.sig : '');
+  if (c.s === 'wrong') tip = 'Wrong · ' + [c.said ? 'you said ' + az(c.said, null, toArabizi) : '', c.right ? 'Amal: say ' + az(c.right, null, toArabizi) : ''].filter(Boolean).join(' → ') + (c.sig ? ' (she ' + c.sig + ')' : '') +
+    (c.amal_line ? ' · Amal at ' + clock(c.amal_t) + ': «' + c.amal_line + '»' : '');
   else if (c.s === 'asked') tip = 'Asked Amal for the word' + (c.right ? ' → Amal: ' + az(c.right, null, toArabizi) : '');
   else if (c.s === 'partial') tip = 'Partial · got there with help' + (c.said ? ' · said ' + az(c.said, null, toArabizi) : '');
   else if (c.s === 'correct') tip = 'Correct' + (c.said ? ' · said ' + az(c.said, null, toArabizi) : '');

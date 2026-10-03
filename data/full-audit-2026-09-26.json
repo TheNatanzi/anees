@@ -1,5 +1,5 @@
 {
- "built": "2026-10-02T23:16:33-07:00",
+ "built": "2026-10-02T23:36:08-07:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -8079,26 +8079,26 @@
     "new_bucket_group": null
    },
    {
-    "id": "FA-45859eb6",
+    "id": "FA-f14f0ca2",
     "date": "2026-09-17",
     "t": "04:23",
     "t_amal": "04:27",
-    "medi_said": "عنده ماي بس، uh، uh، فيها ماي بس شوي،",
+    "medi_said": "عنده ماي بس، uh، uh، فيها ماي بس شوي",
     "amal_said": "فيها، not عندها. فيها؟",
-    "chat": "fiha mayy bas 5afeef.",
-    "wrong": "عنده",
-    "right": "فيها",
-    "confidence": "medium",
-    "confidence_why": "r1+r2",
+    "chat": "fiha mayy bas 5afeef",
+    "wrong": "عنده ماي",
+    "right": "فيها ماي",
+    "confidence": "high",
+    "confidence_why": "Self-fix before help (GR-22): in the same 04:23 turn he went عنده ماي -> فيها ماي before Amal spoke; her 'فيها، not عندها' confirmed his fixed version rather than correcting it.",
     "signal": "explicit-no",
     "machine_audit": true,
     "mode": "speaking",
     "source": "audit-2026-09-26",
-    "uid": "FA-45859eb6",
+    "uid": "FA-f14f0ca2",
     "sweep_id": "0917-02",
-    "mistake": "'It has water in it' takes fi- not 3ind-; he self-corrected mid-line but she still said explicitly 'fiha, not 3indha'.",
+    "mistake": "Used 3ind (has) for 'there is water in it'; Amal said 'fiha, not 3indha' (he had half self-fixed in the same turn, but she voiced it).",
     "bucket": "D1",
-    "bucket2": "A8",
+    "bucket2": null,
     "new_bucket_group": null
    },
    {
@@ -15347,6 +15347,29 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-d3ecce97",
+    "date": "2026-10-02",
+    "t": "08:23",
+    "t_amal": "09:00",
+    "medi_said": "عادي الصباح (engine; her echo shows هذا الصبح) ... 08:58 عاد الصباح",
+    "amal_said": "We never say هذا الصبح just say الصبح or بالصباح.",
+    "chat": "3ala el-3ashara. ana kunet shwai kasool el-subu7",
+    "wrong": "هادي الصباح",
+    "right": "الصبح",
+    "confidence": "medium",
+    "confidence_why": "r3",
+    "signal": "explicit-no",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-d3ecce97",
+    "sweep_id": null,
+    "mistake": "Medi 2026-10-02: grammar A10: you can tell from her cotext I said hadi el not 3aadi el ... she even corrected it ... this should be a grammar error for not using hadi for the morning. Readers wrote: Engine wrote عادي; Amal's echo shows he said هذا الصبح, a calque of 'this morning'; she said we never say it and gave الصبح / بالصباح - a wrong expression, not an ending/prefix rule, so vocab tier 1.",
+    "bucket": "A10",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
     "id": "FA-2b7a0857",
     "date": "2026-10-02",
     "t": "10:56",
@@ -20899,6 +20922,31 @@
     "amal_gave_arabizi": null
    },
    {
+    "id": "FA-fae8ed67",
+    "date": "2026-09-21",
+    "t": "55:40",
+    "t_amal": "55:46",
+    "medi_said": "or bikhall, uh, that makes saffron. I don't know how to say makes. Is it bikhall? Uh, okay. Bi'amalu,",
+    "amal_said": "بيعملوا.",
+    "chat": "Iraan dawle aktar ishi bye3malu Za3faraan",
+    "wrong": "bikhall",
+    "right": "بيعملوا",
+    "confidence": "low",
+    "confidence_why": "Self-fix before help: he first said biyamal (بيعمل), floated bikhall as a doubt ('Is it bikhall?'), then chose Bi'amalu himself at 55:40 before her بيعملوا (55:46), which only confirmed him. The wrong candidate was never his committed answer.",
+    "signal": "asked",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-fae8ed67",
+    "sweep_id": null,
+    "amal_gave": "بيعملوا",
+    "english": "Iran is the country that makes the most saffron",
+    "why": "بخلي (make someone do) tried for 'produces / makes'; he asked and she confirmed بيعملوا.",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null
+   },
+   {
     "id": "FA-6e165dc2",
     "date": "2026-09-21",
     "t": "57:28",
@@ -23624,31 +23672,6 @@
     "amal_gave_arabizi": null
    },
    {
-    "id": "FA-6abc4e23",
-    "date": "2026-10-02",
-    "t": "08:23",
-    "t_amal": "09:00",
-    "medi_said": "عادي الصباح (engine; her echo shows هذا الصبح) ... 08:58 عاد الصباح",
-    "amal_said": "We never say هذا الصبح just say الصبح or بالصباح.",
-    "chat": "3ala el-3ashara. ana kunet shwai kasool el-subu7",
-    "wrong": "عادي الصباح",
-    "right": "الصبح / بالصباح",
-    "confidence": "medium",
-    "confidence_why": "r3",
-    "signal": "explicit-no",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-6abc4e23",
-    "sweep_id": null,
-    "amal_gave": "الصبح / بالصباح",
-    "english": "this morning",
-    "why": "Engine wrote عادي; Amal's echo shows he said هذا الصبح, a calque of 'this morning'; she said we never say it and gave الصبح / بالصباح - a wrong expression, not an ending/prefix rule, so vocab tier 1.",
-    "kind": "wrong-word",
-    "tier": 1,
-    "amal_gave_arabizi": null
-   },
-   {
     "id": "FA-27538ea5",
     "date": "2026-10-02",
     "t": "09:23",
@@ -23977,7 +24000,7 @@
   "pron_from_sweep": [],
   "hand_check": {},
   "totals": {
-   "speaking_grammar": 593,
+   "speaking_grammar": 594,
    "vocab": 283,
    "machine_caught_speaking": 104
   }
@@ -23985,8 +24008,8 @@
  "decisions": "A counts (every fix Amal voiced; a chat-only fix never counts - GR-19, Medi 2026-10-02); B (she let it pass) is unscored until she rules on Amal's review page; tiers 1-3 vocab, tier 0 = she supplied a word he asked for; grammar filed by bucket; listening rows kept apart.",
  "lessons_missing": [],
  "totals": {
-  "rows": 1155,
-  "grammar_A": 593,
+  "rows": 1157,
+  "grammar_A": 594,
   "grammar_B": 89,
   "grammar_proposed": 9,
   "vocab_A": 283,
@@ -24003,9 +24026,9 @@
    "3": 6
   },
   "listening": 82,
-  "from_readers": 1040,
+  "from_readers": 1042,
   "readers_also_in_sweep": 362,
-  "readers_new": 678,
+  "readers_new": 680,
   "sweep_only_kept": 115,
   "machine_had": 104,
   "sweep_before": {
@@ -24045,9 +24068,9 @@
   "B8": 7,
   "A3": 7,
   "B6": 7,
+  "A10": 6,
   "E1": 6,
   "A12": 5,
-  "A10": 5,
   "E4": 5,
   "B16": 4,
   "A11": 4,
@@ -24177,7 +24200,7 @@
   "2026-09-21": {
    "grammar_A": 55,
    "grammar_B": 13,
-   "vocab_A": 35,
+   "vocab_A": 36,
    "vocab_B": 7,
    "listening": 8,
    "sweep_grammar_before": 43,
@@ -24229,9 +24252,9 @@
    "sweep_vocab_before": 0
   },
   "2026-10-02": {
-   "grammar_A": 13,
+   "grammar_A": 14,
    "grammar_B": 0,
-   "vocab_A": 12,
+   "vocab_A": 11,
    "vocab_B": 1,
    "listening": 2,
    "sweep_grammar_before": 0,
@@ -24619,9 +24642,9 @@
      "agreed": 38,
      "disputed": 22,
      "agreement_pct": 63.3,
-     "r3_kept": 12,
-     "r3_dropped": 10,
-     "final": 50
+     "r3_kept": 13,
+     "r3_dropped": 9,
+     "final": 51
     },
     {
      "pass": "1 vs 2",
@@ -24636,7 +24659,7 @@
    "agreement_pct": 58.8,
    "readers_rows": 38,
    "in_sweep_too": 17,
-   "new_vs_sweep": 33,
+   "new_vs_sweep": 34,
    "sweep_only_kept": 16
   },
   {
@@ -24658,9 +24681,9 @@
      "agreed": 34,
      "disputed": 16,
      "agreement_pct": 68.0,
-     "r3_kept": 8,
-     "r3_dropped": 8,
-     "final": 42
+     "r3_kept": 9,
+     "r3_dropped": 7,
+     "final": 43
     },
     {
      "pass": 2,
@@ -24684,7 +24707,7 @@
     }
    ],
    "agreement_pct": 68.0,
-   "readers_rows": 42,
+   "readers_rows": 43,
    "in_sweep_too": 24,
    "new_vs_sweep": 38,
    "sweep_only_kept": 9
@@ -24808,9 +24831,9 @@
      "agreed": 71,
      "disputed": 50,
      "agreement_pct": 58.7,
-     "r3_kept": 45,
-     "r3_dropped": 5,
-     "final": 117
+     "r3_kept": 46,
+     "r3_dropped": 4,
+     "final": 118
     },
     {
      "pass": 2,
@@ -24819,9 +24842,9 @@
      "agreed": 62,
      "disputed": 62,
      "agreement_pct": 50.0,
-     "r3_kept": 47,
-     "r3_dropped": 15,
-     "final": 109
+     "r3_kept": 48,
+     "r3_dropped": 14,
+     "final": 110
     },
     {
      "pass": "1 vs 2",
@@ -24834,9 +24857,9 @@
     }
    ],
    "agreement_pct": 58.7,
-   "readers_rows": 117,
+   "readers_rows": 118,
    "in_sweep_too": 62,
-   "new_vs_sweep": 63,
+   "new_vs_sweep": 64,
    "sweep_only_kept": 11
   },
   {
@@ -44518,6 +44541,51 @@
    "n": 497
   },
   {
+   "id": "0916-16",
+   "t": "19:26",
+   "t_amal": null,
+   "medi_said": "Or ala el shara? No, fi el shara.",
+   "amal_said": null,
+   "chat": "e7na t7ammasna 3ala el-taree2",
+   "wrong": "fi el shara",
+   "right": "3ala el-taree2",
+   "kind": "rejected",
+   "tier": null,
+   "bucket": "D1",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "chat-fix",
+   "confidence": "low",
+   "why": "He weighed fi against 3ala and settled on fi ('in the street'); 'on the road' takes 3ala, which he switched to himself once the noun changed and which her chat confirms.",
+   "english": "on the road",
+   "ids": [
+    "0916-16"
+   ],
+   "agreed_by": "GR-24",
+   "rule": "GR-24",
+   "r3_why": "Self-fix before help / not the piece she fixed. Her reaction at [19:29] 'street. What's the road?' corrects the NOUN (shaare3 -> taree2), not the preposition; 'fi el-shaare3' (in the street) is acceptable Levantine, and he switched to 3ala himself at [19:36] 'so ala el taree-' once the noun changed. The noun fix belongs to the agreed row for this moment.",
+   "gr24": {
+    "verdict": "her-first",
+    "his_t": 1176.0,
+    "her_t": 1168.0,
+    "by": "context read: he said 'No, fi el shara', her hint 'What's the road?' came first, then his 'ala el taree-'"
+   },
+   "gr24_why": "not a self-fix: Amal said 3ala el-taree2 at 19:28, he said it after her at 19:36 (word times)",
+   "fid": "0916-015",
+   "passes": [
+    2
+   ],
+   "date": "2026-09-16",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "kind_before_rejection": "grammar",
+   "rejected_why": "GR-19 (Medi 2026-10-02): typed in the Meet chat only, never voiced - 'if she didnt correct me on voice dont factor it as a correction, she might just be cleaning up what I said'",
+   "rejected_rule": "GR-19",
+   "bucket_name": "prepositions",
+   "uid": "FA-b805511c",
+   "n": 498
+  },
+  {
    "id": "A10",
    "t": "20:58",
    "t_amal": "21:02",
@@ -44540,18 +44608,18 @@
     "0916-12"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-015",
+   "fid": "0916-016",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-015",
+   "p2_fid": "0916-016",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "sweep_id": "V0916-068",
    "machine_had": false,
    "uid": "FA-bc5d156b",
-   "n": 498
+   "n": 499
   },
   {
    "id": "A11",
@@ -44576,18 +44644,18 @@
     "0916-13"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-016",
+   "fid": "0916-017",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-016",
+   "p2_fid": "0916-017",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-e5593248",
-   "n": 499
+   "n": 500
   },
   {
    "sweep_id": "0916-07",
@@ -44614,7 +44682,7 @@
    "fid": "0916-07",
    "bucket_name": "endings on verbs",
    "uid": "FA-9c726e88",
-   "n": 500
+   "n": 501
   },
   {
    "id": "0916-D18",
@@ -44639,7 +44707,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "A clear 'how do you say X' answered by her; tier-0 didn't-know per the brief.",
-   "fid": "0916-017",
+   "fid": "0916-018",
    "passes": [
     2
    ],
@@ -44647,7 +44715,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-186f5001",
-   "n": 501
+   "n": 502
   },
   {
    "id": "A12",
@@ -44672,18 +44740,18 @@
     "0916-14"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-018",
+   "fid": "0916-019",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-018",
+   "p2_fid": "0916-019",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "bucket_name": "word order",
    "uid": "FA-1f9188ae",
-   "n": 502
+   "n": 503
   },
   {
    "sweep_id": "0916-08",
@@ -44710,7 +44778,7 @@
    "fid": "0916-08",
    "bucket_name": "word order",
    "uid": "FA-ad7f6c4a",
-   "n": 503
+   "n": 504
   },
   {
    "id": "A13",
@@ -44735,19 +44803,19 @@
     "0916-15"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-019",
+   "fid": "0916-020",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-019",
+   "p2_fid": "0916-020",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "sweep_id": "0916-09",
    "machine_had": false,
    "bucket_name": "kaan + verb = used to / was doing",
    "uid": "FA-75337ba9",
-   "n": 504
+   "n": 505
   },
   {
    "id": "A14",
@@ -44773,12 +44841,12 @@
    ],
    "agreed_by": "r1+r2",
    "r3_challenge": "No voiced signal: Amal's 'إي، عاد' (24:16) answers his adjective question, not bi; only the chat writes fi el-AI, and bi el-AI is acceptable for 'working in/with AI' (GR-19).",
-   "fid": "0916-020",
+   "fid": "0916-021",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-020",
+   "p2_fid": "0916-021",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "machine_had": false,
@@ -44787,7 +44855,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "prepositions",
    "uid": "FA-f018a4e5",
-   "n": 505
+   "n": 506
   },
   {
    "id": "A15",
@@ -44812,19 +44880,19 @@
     "0916-17"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-021",
+   "fid": "0916-022",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-021",
+   "p2_fid": "0916-022",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "sweep_id": "0916-10",
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-ba30514e",
-   "n": 506
+   "n": 507
   },
   {
    "id": "A16",
@@ -44849,18 +44917,18 @@
     "0916-18"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-022",
+   "fid": "0916-023",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-022",
+   "p2_fid": "0916-023",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "sweep_id": "V0916-069",
    "machine_had": false,
    "uid": "FA-c13cde2d",
-   "n": 507
+   "n": 508
   },
   {
    "id": "0916-23",
@@ -44885,7 +44953,7 @@
     "0916-23"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-023",
+   "fid": "0916-024",
    "passes": [
     2
    ],
@@ -44894,7 +44962,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-c84e4d29",
-   "n": 508
+   "n": 509
   },
   {
    "id": "0916-D19",
@@ -44919,7 +44987,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "He stated the gap himself and she supplied the words; a didn't-know she voiced.",
-   "fid": "0916-024",
+   "fid": "0916-025",
    "passes": [
     2
    ],
@@ -44927,7 +44995,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-e91d4707",
-   "n": 509
+   "n": 510
   },
   {
    "id": "0916-D6",
@@ -44953,7 +45021,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "The gap is the conjugation (past ending + object suffix) of a verb already on his sheet, not a missing word, so grammar B5/D4 with signal finished-sentence fits the transcript better than a tier-0 vocab row.",
-   "fid": "0916-025",
+   "fid": "0916-026",
    "passes": [
     2
    ],
@@ -44962,7 +45030,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-b7908613",
-   "n": 510
+   "n": 511
   },
   {
    "id": "0916-22",
@@ -44987,19 +45055,19 @@
    ],
    "agreed_by": "r3",
    "r3_why": null,
-   "fid": "0916-026",
+   "fid": "0916-027",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-026",
+   "p2_fid": "0916-027",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "sweep_id": "0916-11",
    "machine_had": true,
    "bucket_name": "verb matches its subject",
    "uid": "FA-d08a8e07",
-   "n": 511
+   "n": 512
   },
   {
    "id": "0916-D7",
@@ -45024,7 +45092,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Real and explicit: a wrong possessive ending she rejected with 'No'. Separate wrong piece from the agreed verb-gender row at the same moment.",
-   "fid": "0916-027",
+   "fid": "0916-028",
    "passes": [
     2
    ],
@@ -45033,7 +45101,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-391aaceb",
-   "n": 512
+   "n": 513
   },
   {
    "id": "0916-19",
@@ -45058,12 +45126,12 @@
    ],
    "agreed_by": "r3",
    "r3_why": null,
-   "fid": "0916-028",
+   "fid": "0916-029",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-028",
+   "p2_fid": "0916-029",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "machine_had": false,
@@ -45072,7 +45140,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "verb matches its subject",
    "uid": "FA-f4bcd7a5",
-   "n": 513
+   "n": 514
   },
   {
    "id": "A17",
@@ -45097,19 +45165,19 @@
     "0916-20"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-029",
+   "fid": "0916-030",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-029",
+   "p2_fid": "0916-030",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "sweep_id": "0916-12",
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-6d45c023",
-   "n": 514
+   "n": 515
   },
   {
    "id": "0916-26",
@@ -45135,19 +45203,19 @@
    ],
    "agreed_by": "r3",
    "r3_why": null,
-   "fid": "0916-030",
+   "fid": "0916-031",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-030",
+   "p2_fid": "0916-031",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "sweep_id": "0916-13",
    "machine_had": true,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-0561679f",
-   "n": 515
+   "n": 516
   },
   {
    "id": "A18",
@@ -45172,18 +45240,18 @@
     "0916-22"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-031",
+   "fid": "0916-032",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-031",
+   "p2_fid": "0916-032",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-de3fca22",
-   "n": 516
+   "n": 517
   },
   {
    "sweep_id": "0916-14",
@@ -45210,7 +45278,7 @@
    "fid": "0916-14",
    "bucket_name": "make-X vs get-X",
    "uid": "FA-c25785bf",
-   "n": 517
+   "n": 518
   },
   {
    "id": "A19",
@@ -45235,18 +45303,18 @@
     "0916-23"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-032",
+   "fid": "0916-033",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-032",
+   "p2_fid": "0916-033",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "bucket_name": "negative commands",
    "uid": "FA-3cbed749",
-   "n": 518
+   "n": 519
   },
   {
    "id": "0916-24",
@@ -45271,12 +45339,12 @@
    ],
    "agreed_by": "r3",
    "r3_why": null,
-   "fid": "0916-033",
+   "fid": "0916-034",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-033",
+   "p2_fid": "0916-034",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "machine_had": false,
@@ -45285,7 +45353,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-0040b44a",
-   "n": 519
+   "n": 520
   },
   {
    "sweep_id": "0916-15",
@@ -45312,7 +45380,7 @@
    "fid": "0916-15",
    "bucket_name": "endings on verbs",
    "uid": "FA-3b330b66",
-   "n": 520
+   "n": 521
   },
   {
    "id": "0916-35",
@@ -45337,7 +45405,7 @@
     "0916-35"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-034",
+   "fid": "0916-035",
    "passes": [
     2
    ],
@@ -45346,7 +45414,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-a5918114",
-   "n": 521
+   "n": 522
   },
   {
    "id": "A20",
@@ -45371,18 +45439,18 @@
     "0916-25"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-035",
+   "fid": "0916-036",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-035",
+   "p2_fid": "0916-036",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-2764a880",
-   "n": 522
+   "n": 523
   },
   {
    "sweep_id": "0916-16",
@@ -45409,7 +45477,7 @@
    "fid": "0916-16",
    "bucket_name": "endings on verbs",
    "uid": "FA-a8e153c7",
-   "n": 523
+   "n": 524
   },
   {
    "id": "A21",
@@ -45435,18 +45503,18 @@
    ],
    "agreed_by": "r1+r2",
    "r3_challenge": "At 46:17-46:21 he already said tedaya ti / teyadaya ti with the t- prefix; 'dayat-- daya ti' at 46:42 is likely the engine dropping it, and Amal said Yes. Needs audio.",
-   "fid": "0916-036",
+   "fid": "0916-037",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-036",
+   "p2_fid": "0916-037",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-65623974",
-   "n": 524,
+   "n": 525,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-t-form-dropped",
@@ -45485,7 +45553,7 @@
    "fid": "0916-17",
    "bucket_name": "past tense",
    "uid": "FA-8c7f9a21",
-   "n": 525
+   "n": 526
   },
   {
    "id": "0916-37",
@@ -45510,7 +45578,7 @@
     "0916-37"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-037",
+   "fid": "0916-038",
    "passes": [
     2
    ],
@@ -45519,7 +45587,7 @@
    "machine_had": false,
    "bucket_name": "the pointer rule",
    "uid": "FA-311451ee",
-   "n": 526
+   "n": 527
   },
   {
    "id": "A22",
@@ -45544,19 +45612,19 @@
     "0916-28"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-038",
+   "fid": "0916-039",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-038",
+   "p2_fid": "0916-039",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "sweep_id": "0916-18",
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-ac34e7b3",
-   "n": 527
+   "n": 528
   },
   {
    "id": "A23",
@@ -45581,18 +45649,18 @@
     "0916-29"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-039",
+   "fid": "0916-040",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-039",
+   "p2_fid": "0916-040",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "bucket_name": "pronoun matches who you mean",
    "uid": "FA-dda4e377",
-   "n": 528
+   "n": 529
   },
   {
    "sweep_id": "V0916-070",
@@ -45618,7 +45686,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "V0916-070",
    "uid": "FA-43811fa3",
-   "n": 529
+   "n": 530
   },
   {
    "id": "0916-40",
@@ -45643,7 +45711,7 @@
     "0916-41"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-040",
+   "fid": "0916-041",
    "passes": [
     2
    ],
@@ -45652,7 +45720,7 @@
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-bc203430",
-   "n": 530
+   "n": 531
   },
   {
    "sweep_id": "V0916-071",
@@ -45678,7 +45746,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "V0916-071",
    "uid": "FA-0ee84adc",
-   "n": 531
+   "n": 532
   },
   {
    "id": "A24",
@@ -45703,18 +45771,18 @@
     "0916-30"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-041",
+   "fid": "0916-042",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-041",
+   "p2_fid": "0916-042",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "sweep_id": "V0916-072",
    "machine_had": false,
    "uid": "FA-ca99319f",
-   "n": 532
+   "n": 533
   },
   {
    "id": "A25",
@@ -45739,18 +45807,18 @@
     "0916-31"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-042",
+   "fid": "0916-043",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-042",
+   "p2_fid": "0916-043",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-c7fb3e5d",
-   "n": 533
+   "n": 534
   },
   {
    "sweep_id": "0916-19",
@@ -45777,7 +45845,7 @@
    "fid": "0916-19",
    "bucket_name": "prepositions",
    "uid": "FA-92d67ddc",
-   "n": 534
+   "n": 535
   },
   {
    "id": "A26",
@@ -45802,12 +45870,12 @@
     "0916-32"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-043",
+   "fid": "0916-044",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-043",
+   "p2_fid": "0916-044",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "machine_had": false,
@@ -45816,7 +45884,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "prepositions",
    "uid": "FA-b76bfa31",
-   "n": 535
+   "n": 536
   },
   {
    "id": "A27",
@@ -45841,18 +45909,18 @@
     "0916-33"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-044",
+   "fid": "0916-045",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-044",
+   "p2_fid": "0916-045",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "sweep_id": "V0916-073",
    "machine_had": false,
    "uid": "FA-d27c5f8a",
-   "n": 536
+   "n": 537
   },
   {
    "id": "0916-D22",
@@ -45877,7 +45945,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Real: her line is an explicit No naming the b- after ra7 (buckets B3/B13). His line is a transcript hole, so kept with low confidence as the brief requires.",
-   "fid": "0916-045",
+   "fid": "0916-046",
    "passes": [
     2
    ],
@@ -45886,7 +45954,7 @@
    "machine_had": false,
    "bucket_name": "b-drop after time words",
    "uid": "FA-08ccdc50",
-   "n": 537
+   "n": 538
   },
   {
    "id": "0916-34",
@@ -45911,18 +45979,18 @@
    ],
    "agreed_by": "r3",
    "r3_why": null,
-   "fid": "0916-046",
+   "fid": "0916-047",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-046",
+   "p2_fid": "0916-047",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "bucket_name": "preposition goes in front",
    "uid": "FA-52c1039e",
-   "n": 538
+   "n": 539
   },
   {
    "sweep_id": "0916-20",
@@ -45949,7 +46017,7 @@
    "fid": "0916-20",
    "bucket_name": "preposition goes in front",
    "uid": "FA-474daca6",
-   "n": 539
+   "n": 540
   },
   {
    "id": "A28",
@@ -45974,19 +46042,19 @@
     "0916-35"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-047",
+   "fid": "0916-048",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-047",
+   "p2_fid": "0916-048",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "sweep_id": "0916-21",
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-5e5d4048",
-   "n": 540
+   "n": 541
   },
   {
    "id": "A29",
@@ -46011,19 +46079,19 @@
     "0916-36"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-048",
+   "fid": "0916-049",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-048",
+   "p2_fid": "0916-049",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "sweep_id": "0916-22",
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-284e8a12",
-   "n": 541
+   "n": 542
   },
   {
    "sweep_id": "0916-23",
@@ -46050,7 +46118,7 @@
    "fid": "0916-23",
    "bucket_name": "endings on verbs",
    "uid": "FA-d682605b",
-   "n": 542
+   "n": 543
   },
   {
    "id": "A30",
@@ -46075,18 +46143,18 @@
     "0916-37"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0916-049",
+   "fid": "0916-050",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-049",
+   "p2_fid": "0916-050",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-0192851c",
-   "n": 543
+   "n": 544
   },
   {
    "id": "0916-46",
@@ -46111,17 +46179,17 @@
    ],
    "agreed_by": "r3",
    "r3_why": null,
-   "fid": "0916-050",
+   "fid": "0916-051",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0916-050",
+   "p2_fid": "0916-051",
    "date": "2026-09-16",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-cf6eb60a",
-   "n": 544
+   "n": 545
   },
   {
    "id": "0917-D18",
@@ -46157,7 +46225,7 @@
    "rejected_why": "GR-19 (Medi 2026-10-02 'if she didnt correct me on voice dont factor it as a correction'): fix typed in the Meet chat only",
    "rejected_rule": "GR-19",
    "uid": "FA-bf78c23a",
-   "n": 545
+   "n": 546
   },
   {
    "id": "A1",
@@ -46194,7 +46262,7 @@
    "machine_had": true,
    "bucket_name": "pronoun matches who you mean",
    "uid": "FA-715ad3f8",
-   "n": 546
+   "n": 547
   },
   {
    "id": "A2",
@@ -46230,7 +46298,7 @@
    "machine_had": false,
    "bucket_name": "saying no",
    "uid": "FA-313dc8af",
-   "n": 547,
+   "n": 548,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-la-for-ma",
@@ -46275,7 +46343,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-c8f496a7",
-   "n": 548
+   "n": 549
   },
   {
    "id": "A4",
@@ -46314,42 +46382,52 @@
    "rejected_rule": "GR-19",
    "bucket_name": "idafa (possession)",
    "uid": "FA-1512dc8c",
-   "n": 549
+   "n": 550
   },
   {
    "id": "0917-5",
    "t": "04:23",
    "t_amal": "04:27",
-   "medi_said": "عنده ماي بس، uh، uh، فيها ماي بس شوي،",
+   "medi_said": "عنده ماي بس، uh، uh، فيها ماي بس شوي",
    "amal_said": "فيها، not عندها. فيها؟",
-   "chat": "fiha mayy bas 5afeef.",
-   "wrong": "عنده",
-   "right": "فيها",
+   "chat": "fiha mayy bas 5afeef",
+   "wrong": "عنده ماي",
+   "right": "فيها ماي",
    "kind": "grammar",
    "tier": null,
    "bucket": "D1",
-   "bucket2": "A8",
+   "bucket2": null,
    "mode": "speaking",
    "signal": "explicit-no",
-   "confidence": "medium",
-   "why": "'It has water in it' takes fi- not 3ind-; he self-corrected mid-line but she still said explicitly 'fiha, not 3indha'.",
-   "english": "It has water in it but only a little.",
+   "confidence": "high",
+   "why": "Used 3ind (has) for 'there is water in it'; Amal said 'fiha, not 3indha' (he had half self-fixed in the same turn, but she voiced it).",
+   "english": "It has water in it.",
    "ids": [
-    "0917-4",
     "0917-5"
    ],
-   "agreed_by": "r1+r2",
+   "agreed_by": "GR-24",
+   "rule": "GR-24",
+   "r3_why": "Self-fix before help (GR-22): in the same 04:23 turn he went عنده ماي -> فيها ماي before Amal spoke; her 'فيها، not عندها' confirmed his fixed version rather than correcting it.",
+   "gr24": {
+    "verdict": "her-first",
+    "his_t": 270.0,
+    "her_t": 261.0,
+    "by": "context read: her 'شو فيها؟' and 'فيها، not عندها' came before his فيها, late in his own long line"
+   },
+   "gr24_why": "not a self-fix: Amal said فيها ماي at 04:21, he said it after her at 04:30 (word times)",
    "fid": "0917-006",
    "passes": [
+    1,
     2
    ],
+   "p2_fid": "0917-005",
    "date": "2026-09-17",
    "source": "audit-2026-09-26",
    "sweep_id": "0917-02",
    "machine_had": true,
    "bucket_name": "prepositions",
-   "uid": "FA-45859eb6",
-   "n": 550
+   "uid": "FA-f14f0ca2",
+   "n": 551
   },
   {
    "id": "A5",
@@ -46385,7 +46463,7 @@
    "sweep_id": "V0917-074",
    "machine_had": false,
    "uid": "FA-e6badeef",
-   "n": 551
+   "n": 552
   },
   {
    "id": "0917-6",
@@ -46418,7 +46496,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-d7a858df",
-   "n": 552
+   "n": 553
   },
   {
    "id": "A6",
@@ -46454,7 +46532,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-bec3abbb",
-   "n": 553,
+   "n": 554,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-3uzurti-for-sorry",
@@ -46503,7 +46581,7 @@
    "sweep_id": "V0917-075",
    "machine_had": false,
    "uid": "FA-61d08dbe",
-   "n": 554
+   "n": 555
   },
   {
    "id": "A7",
@@ -46540,7 +46618,7 @@
    "machine_had": false,
    "bucket_name": "bakoon / ykoon",
    "uid": "FA-2585979c",
-   "n": 555
+   "n": 556
   },
   {
    "id": "A8",
@@ -46575,7 +46653,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-14654f82",
-   "n": 556,
+   "n": 557,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-english-word-for-sheet-word",
@@ -46622,7 +46700,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-463a55ab",
-   "n": 557
+   "n": 558
   },
   {
    "bucket2": null,
@@ -46659,7 +46737,7 @@
    "machine_had": true,
    "bucket_name": "calendar",
    "uid": "FA-3579f0cf",
-   "n": 558
+   "n": 559
   },
   {
    "id": "0917-13",
@@ -46693,7 +46771,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-f18f1f72",
-   "n": 559
+   "n": 560
   },
   {
    "id": "A10",
@@ -46729,7 +46807,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-ff29ba99",
-   "n": 560
+   "n": 561
   },
   {
    "id": "A11",
@@ -46766,7 +46844,7 @@
    "machine_had": true,
    "bucket_name": "verb matches its subject",
    "uid": "FA-8606b0f5",
-   "n": 561
+   "n": 562
   },
   {
    "id": "A12",
@@ -46803,7 +46881,7 @@
    "machine_had": true,
    "bucket_name": "el- (the)",
    "uid": "FA-58f0da05",
-   "n": 562
+   "n": 563
   },
   {
    "id": "A13",
@@ -46839,7 +46917,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-b8a11e6b",
-   "n": 563,
+   "n": 564,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-b8a11e6b"
@@ -46878,7 +46956,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-545da78e",
-   "n": 564
+   "n": 565
   },
   {
    "id": "A15",
@@ -46914,7 +46992,7 @@
    "sweep_id": "V0917-076",
    "machine_had": false,
    "uid": "FA-01f826d7",
-   "n": 565
+   "n": 566
   },
   {
    "id": "A16",
@@ -46950,7 +47028,7 @@
    "machine_had": false,
    "bucket_name": "comparatives",
    "uid": "FA-dbd555f6",
-   "n": 566,
+   "n": 567,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-el-on-first-idafa-word",
@@ -46997,7 +47075,7 @@
    "sweep_id": "V0917-077",
    "machine_had": false,
    "uid": "FA-0c71ba92",
-   "n": 567
+   "n": 568
   },
   {
    "id": "A19",
@@ -47034,7 +47112,7 @@
    "machine_had": true,
    "bucket_name": "kaan + verb = used to / was doing",
    "uid": "FA-1c353020",
-   "n": 568
+   "n": 569
   },
   {
    "id": "A18",
@@ -47069,7 +47147,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-2078f5b0",
-   "n": 569,
+   "n": 570,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-3ajul-for-mista3jel",
@@ -47107,7 +47185,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "V0917-078",
    "uid": "FA-9b9fbce4",
-   "n": 570
+   "n": 571
   },
   {
    "id": "0917-25",
@@ -47141,7 +47219,7 @@
    "machine_had": false,
    "bucket_name": "negative commands",
    "uid": "FA-b666db72",
-   "n": 571
+   "n": 572
   },
   {
    "bucket2": null,
@@ -47179,7 +47257,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-f5fcb639",
-   "n": 572
+   "n": 573
   },
   {
    "bucket2": null,
@@ -47214,7 +47292,7 @@
    "machine_had": false,
    "bucket_name": "kul: all vs every",
    "uid": "FA-fde513df",
-   "n": 573,
+   "n": 574,
    "duplicates_merged": [
     "FA-fde513dfx"
    ]
@@ -47251,7 +47329,7 @@
    "machine_had": false,
    "bucket_name": "b-drop after modals",
    "uid": "FA-fde513dfx",
-   "n": 574,
+   "n": 575,
    "kind_before_rejection": "grammar",
    "duplicate_of": "FA-fde513df",
    "rejected_why": "duplicate of FA-fde513df: same lesson, second, wrong piece and kind (eng audit 2026-09-29)"
@@ -47289,7 +47367,7 @@
    "machine_had": false,
    "bucket_name": "kul: all vs every",
    "uid": "FA-1be339be",
-   "n": 575
+   "n": 576
   },
   {
    "id": "0917-D7",
@@ -47324,7 +47402,7 @@
    "machine_had": false,
    "bucket_name": "b-drop after modals",
    "uid": "FA-ecafdaf9",
-   "n": 576
+   "n": 577
   },
   {
    "id": "A20",
@@ -47361,7 +47439,7 @@
    "machine_had": true,
    "bucket_name": "endings on prepositions",
    "uid": "FA-5060cbb4",
-   "n": 577
+   "n": 578
   },
   {
    "id": "0917-D9",
@@ -47395,7 +47473,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-4b021837",
-   "n": 578
+   "n": 579
   },
   {
    "id": "0917-D10",
@@ -47430,7 +47508,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-e38d2332",
-   "n": 579
+   "n": 580
   },
   {
    "id": "0917-33",
@@ -47464,7 +47542,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-9e842a37",
-   "n": 580
+   "n": 581
   },
   {
    "id": "A21",
@@ -47499,7 +47577,7 @@
    "machine_had": true,
    "bucket_name": "prepositions",
    "uid": "FA-ad5eef79",
-   "n": 581
+   "n": 582
   },
   {
    "id": "0917-34",
@@ -47533,7 +47611,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-3ee28ac2",
-   "n": 582
+   "n": 583
   },
   {
    "bucket2": null,
@@ -47570,7 +47648,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-80f2cb58",
-   "n": 583
+   "n": 584
   },
   {
    "id": "A22",
@@ -47606,7 +47684,7 @@
    "machine_had": false,
    "bucket_name": "kam + singular",
    "uid": "FA-e8a77db7",
-   "n": 584
+   "n": 585
   },
   {
    "id": "A23",
@@ -47643,7 +47721,7 @@
    "machine_had": true,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-0d11428d",
-   "n": 585
+   "n": 586
   },
   {
    "id": "A24",
@@ -47679,7 +47757,7 @@
    "machine_had": false,
    "bucket_name": "the pointer rule",
    "uid": "FA-0f22e1d0",
-   "n": 586
+   "n": 587
   },
   {
    "sweep_id": "0917-14",
@@ -47706,7 +47784,7 @@
    "fid": "0917-14",
    "bucket_name": "the pointer rule",
    "uid": "FA-48a904fa",
-   "n": 587
+   "n": 588
   },
   {
    "id": "A25",
@@ -47743,7 +47821,7 @@
    "machine_had": true,
    "bucket_name": "verb matches its subject",
    "uid": "FA-b30f87eb",
-   "n": 588
+   "n": 589
   },
   {
    "id": "0917-D20",
@@ -47777,7 +47855,7 @@
    "machine_had": false,
    "bucket_name": "endings on prepositions",
    "uid": "FA-9641739c",
-   "n": 589
+   "n": 590
   },
   {
    "sweep_id": "0917-16",
@@ -47804,7 +47882,7 @@
    "fid": "0917-16",
    "bucket_name": "endings on prepositions",
    "uid": "FA-dc15e590",
-   "n": 590
+   "n": 591
   },
   {
    "id": "0917-D11",
@@ -47839,7 +47917,7 @@
    "machine_had": false,
    "bucket_name": "the pointer rule",
    "uid": "FA-8ca970c0",
-   "n": 591
+   "n": 592
   },
   {
    "id": "A26",
@@ -47876,7 +47954,7 @@
    "machine_had": false,
    "bucket_name": "illi",
    "uid": "FA-7e6ca526",
-   "n": 592
+   "n": 593
   },
   {
    "id": "A27",
@@ -47911,7 +47989,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-64681e02",
-   "n": 593
+   "n": 594
   },
   {
    "id": "A28",
@@ -47948,7 +48026,7 @@
    "machine_had": true,
    "bucket_name": "endings on verbs",
    "uid": "FA-1689394f",
-   "n": 594
+   "n": 595
   },
   {
    "id": "A29",
@@ -47984,7 +48062,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-d7c36c11",
-   "n": 595
+   "n": 596
   },
   {
    "sweep_id": "0917-19",
@@ -48011,7 +48089,7 @@
    "fid": "0917-19",
    "bucket_name": "present with b-",
    "uid": "FA-3d4d1360",
-   "n": 596
+   "n": 597
   },
   {
    "id": "0917-44",
@@ -48046,7 +48124,7 @@
    "machine_had": true,
    "bucket_name": "negative commands",
    "uid": "FA-13bc7711",
-   "n": 597
+   "n": 598
   },
   {
    "bucket2": null,
@@ -48081,7 +48159,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-15a9ac17",
-   "n": 598
+   "n": 599
   },
   {
    "id": "0917-47",
@@ -48115,7 +48193,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-c5ee0bdf",
-   "n": 599,
+   "n": 600,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-i-past-as-bare-he-form",
@@ -48163,7 +48241,7 @@
    "machine_had": true,
    "bucket_name": "verb matches its subject",
    "uid": "FA-92252f56",
-   "n": 600
+   "n": 601
   },
   {
    "id": "0917-D23",
@@ -48196,7 +48274,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-8a93585f",
-   "n": 601
+   "n": 602
   },
   {
    "id": "0917-D13",
@@ -48229,7 +48307,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-78c4bb33",
-   "n": 602
+   "n": 603
   },
   {
    "id": "0917-D14",
@@ -48264,7 +48342,7 @@
    "machine_had": true,
    "bucket_name": "present with b-",
    "uid": "FA-06093425",
-   "n": 603
+   "n": 604
   },
   {
    "id": "0917-51",
@@ -48297,7 +48375,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-234b660a",
-   "n": 604
+   "n": 605
   },
   {
    "bucket2": null,
@@ -48334,7 +48412,7 @@
    "machine_had": false,
    "bucket_name": "participles",
    "uid": "FA-99d009e7",
-   "n": 605
+   "n": 606
   },
   {
    "sweep_id": "0917-22",
@@ -48361,7 +48439,7 @@
    "fid": "0917-22",
    "bucket_name": "participles",
    "uid": "FA-918ab141",
-   "n": 606
+   "n": 607
   },
   {
    "id": "0917-53",
@@ -48395,7 +48473,7 @@
    "machine_had": false,
    "bucket_name": "negative commands",
    "uid": "FA-6876df13",
-   "n": 607
+   "n": 608
   },
   {
    "sweep_id": "0917-23",
@@ -48422,7 +48500,7 @@
    "fid": "0917-23",
    "bucket_name": "negative commands",
    "uid": "FA-bc99fe4e",
-   "n": 608
+   "n": 609
   },
   {
    "id": "A31",
@@ -48459,7 +48537,7 @@
    "machine_had": true,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-ce257a77",
-   "n": 609
+   "n": 610
   },
   {
    "sweep_id": "0917-25",
@@ -48486,7 +48564,7 @@
    "fid": "0917-25",
    "bucket_name": "make-X vs get-X",
    "uid": "FA-2d91b048",
-   "n": 610
+   "n": 611
   },
   {
    "id": "A32",
@@ -48522,7 +48600,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-79b4a6c5",
-   "n": 611
+   "n": 612
   },
   {
    "sweep_id": "0917-26",
@@ -48549,7 +48627,7 @@
    "fid": "0917-26",
    "bucket_name": "commands",
    "uid": "FA-121ec05a",
-   "n": 612
+   "n": 613
   },
   {
    "id": "A33",
@@ -48585,7 +48663,7 @@
    "machine_had": false,
    "bucket_name": "commands",
    "uid": "FA-739af247",
-   "n": 613
+   "n": 614
   },
   {
    "sweep_id": "0917-27",
@@ -48612,7 +48690,7 @@
    "fid": "0917-27",
    "bucket_name": "negative commands",
    "uid": "FA-4f1eaa01",
-   "n": 614
+   "n": 615
   },
   {
    "id": "A34",
@@ -48648,7 +48726,7 @@
    "machine_had": false,
    "bucket_name": "negative commands",
    "uid": "FA-67b572e8",
-   "n": 615
+   "n": 616
   },
   {
    "id": "0918-1",
@@ -48681,7 +48759,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-4c7ea778",
-   "n": 616,
+   "n": 617,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-msa-form-for-her-word",
@@ -48729,7 +48807,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-99f6ab7e",
-   "n": 617
+   "n": 618
   },
   {
    "id": "0918-2",
@@ -48765,7 +48843,7 @@
    "sweep_id": "V0918-079",
    "machine_had": false,
    "uid": "FA-551e5a2b",
-   "n": 618
+   "n": 619
   },
   {
    "id": "0918-3",
@@ -48802,7 +48880,7 @@
    "machine_had": false,
    "bucket_name": "b-drop after time words",
    "uid": "FA-cef482f3",
-   "n": 619
+   "n": 620
   },
   {
    "id": "0918-D1",
@@ -48839,7 +48917,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-65d686ec",
-   "n": 620,
+   "n": 621,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-i-past-as-bare-he-form",
@@ -48886,7 +48964,7 @@
    "sweep_id": "V0918-080",
    "machine_had": false,
    "uid": "FA-e30bbfe0",
-   "n": 621
+   "n": 622
   },
   {
    "id": "0918-6",
@@ -48925,7 +49003,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "el- (the)",
    "uid": "FA-6767d593",
-   "n": 622
+   "n": 623
   },
   {
    "id": "0918-8",
@@ -48958,7 +49036,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-2493098e",
-   "n": 623
+   "n": 624
   },
   {
    "id": "0918-9",
@@ -48991,7 +49069,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-0d375e5e",
-   "n": 624
+   "n": 625
   },
   {
    "id": "0918-7",
@@ -49030,7 +49108,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "present with b-",
    "uid": "FA-0a297b2e",
-   "n": 625
+   "n": 626
   },
   {
    "sweep_id": "0918-02",
@@ -49057,7 +49135,7 @@
    "fid": "0918-02",
    "bucket_name": "endings on verbs",
    "uid": "FA-696c7b30",
-   "n": 626
+   "n": 627
   },
   {
    "id": "0918-8",
@@ -49093,7 +49171,7 @@
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-f2397e63",
-   "n": 627
+   "n": 628
   },
   {
    "id": "0918-9",
@@ -49130,7 +49208,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-569ee5ef",
-   "n": 628
+   "n": 629
   },
   {
    "id": "0918-D2",
@@ -49167,7 +49245,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-30765cbc",
-   "n": 629
+   "n": 630
   },
   {
    "id": "0918-11",
@@ -49203,7 +49281,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-72b9a236",
-   "n": 630
+   "n": 631
   },
   {
    "sweep_id": "0918-05",
@@ -49230,7 +49308,7 @@
    "fid": "0918-05",
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-94fa58c9",
-   "n": 631
+   "n": 632
   },
   {
    "sweep_id": "0918-06",
@@ -49257,7 +49335,7 @@
    "fid": "0918-06",
    "bucket_name": "make-X vs get-X",
    "uid": "FA-e007181a",
-   "n": 632
+   "n": 633
   },
   {
    "id": "0918-12",
@@ -49293,7 +49371,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-8f69d8d2",
-   "n": 633
+   "n": 634
   },
   {
    "id": "0918-D3",
@@ -49330,7 +49408,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-7c1d629f",
-   "n": 634
+   "n": 635
   },
   {
    "sweep_id": "0918-07",
@@ -49357,7 +49435,7 @@
    "fid": "0918-07",
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-d97eb6a7",
-   "n": 635
+   "n": 636
   },
   {
    "id": "0918-14",
@@ -49393,7 +49471,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-66f8b26b",
-   "n": 636
+   "n": 637
   },
   {
    "sweep_id": "0918-08",
@@ -49420,7 +49498,7 @@
    "fid": "0918-08",
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-2aa4acc3",
-   "n": 637
+   "n": 638
   },
   {
    "id": "0918-15",
@@ -49456,7 +49534,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-d61f9166",
-   "n": 638
+   "n": 639
   },
   {
    "sweep_id": "0918-09",
@@ -49483,7 +49561,7 @@
    "fid": "0918-09",
    "bucket_name": "make-X vs get-X",
    "uid": "FA-015b4c8e",
-   "n": 639
+   "n": 640
   },
   {
    "sweep_id": "0918-10",
@@ -49510,7 +49588,7 @@
    "fid": "0918-10",
    "bucket_name": "participles",
    "uid": "FA-fa3899f4",
-   "n": 640
+   "n": 641
   },
   {
    "id": "0918-17",
@@ -49546,7 +49624,7 @@
    "machine_had": false,
    "bucket_name": "participles",
    "uid": "FA-eb21d32c",
-   "n": 641
+   "n": 642
   },
   {
    "id": "0918-D5",
@@ -49580,7 +49658,7 @@
    "machine_had": false,
    "bucket_name": "bakoon / ykoon",
    "uid": "FA-e6ef83c1",
-   "n": 642
+   "n": 643
   },
   {
    "sweep_id": "0918-11",
@@ -49607,7 +49685,7 @@
    "fid": "0918-11",
    "bucket_name": "make-X vs get-X",
    "uid": "FA-be86f21b",
-   "n": 643
+   "n": 644
   },
   {
    "id": "0918-D6",
@@ -49644,7 +49722,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-b6a71538",
-   "n": 644
+   "n": 645
   },
   {
    "id": "0918-D12",
@@ -49677,7 +49755,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-2892100b",
-   "n": 645
+   "n": 646
   },
   {
    "id": "0918-20",
@@ -49713,7 +49791,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-81dcb74f",
-   "n": 646
+   "n": 647
   },
   {
    "sweep_id": "0918-12",
@@ -49740,7 +49818,7 @@
    "fid": "0918-12",
    "bucket_name": "endings on verbs",
    "uid": "FA-7d3bb460",
-   "n": 647
+   "n": 648
   },
   {
    "id": "0918-D13",
@@ -49773,7 +49851,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-8921b46c",
-   "n": 648,
+   "n": 649,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-days-off-for-meetings",
@@ -49811,7 +49889,7 @@
    "fid": "0918-U1",
    "bucket_name": "verb matches its subject",
    "uid": "FA-99e6bbe3",
-   "n": 649
+   "n": 650
   },
   {
    "id": "0918-D7",
@@ -49848,7 +49926,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-4b596b91",
-   "n": 650
+   "n": 651
   },
   {
    "id": "0918-D14",
@@ -49882,7 +49960,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-d4e9b790",
-   "n": 651
+   "n": 652
   },
   {
    "id": "0918-D16",
@@ -49917,7 +49995,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-bcbeff67",
-   "n": 652
+   "n": 653
   },
   {
    "id": "0918-22",
@@ -49953,7 +50031,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-e4364b18",
-   "n": 653
+   "n": 654
   },
   {
    "id": "0918-23",
@@ -49989,7 +50067,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-56f977ee",
-   "n": 654
+   "n": 655
   },
   {
    "id": "0918-24",
@@ -50025,7 +50103,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-4321345d",
-   "n": 655
+   "n": 656
   },
   {
    "sweep_id": "0918-13",
@@ -50052,7 +50130,7 @@
    "fid": "0918-13",
    "bucket_name": "participles",
    "uid": "FA-cb1f0dbb",
-   "n": 656
+   "n": 657
   },
   {
    "sweep_id": "0918-14",
@@ -50079,7 +50157,7 @@
    "fid": "0918-14",
    "bucket_name": "endings on verbs",
    "uid": "FA-8fe83e7e",
-   "n": 657
+   "n": 658
   },
   {
    "id": "0918-25",
@@ -50115,7 +50193,7 @@
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-851a9ec0",
-   "n": 658
+   "n": 659
   },
   {
    "id": "0918-D17",
@@ -50149,7 +50227,7 @@
    "machine_had": false,
    "bucket_name": "iyyaa - the second object",
    "uid": "FA-d75dee86",
-   "n": 659
+   "n": 660
   },
   {
    "id": "0918-26",
@@ -50185,7 +50263,7 @@
    "sweep_id": "V0918-081",
    "machine_had": false,
    "uid": "FA-8dd1e25a",
-   "n": 660
+   "n": 661
   },
   {
    "id": "0918-D8",
@@ -50220,7 +50298,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-6abf9688",
-   "n": 661
+   "n": 662
   },
   {
    "sweep_id": "0918-15",
@@ -50247,7 +50325,7 @@
    "fid": "0918-15",
    "bucket_name": "words that drag a ma along",
    "uid": "FA-5fb68cc1",
-   "n": 662
+   "n": 663
   },
   {
    "id": "0918-28",
@@ -50283,7 +50361,7 @@
    "machine_had": false,
    "bucket_name": "saying no",
    "uid": "FA-1f2f0f3f",
-   "n": 663
+   "n": 664
   },
   {
    "id": "0918-29",
@@ -50319,7 +50397,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-1a36a807",
-   "n": 664
+   "n": 665
   },
   {
    "sweep_id": "0918-16",
@@ -50346,7 +50424,7 @@
    "fid": "0918-16",
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-3df1365b",
-   "n": 665
+   "n": 666
   },
   {
    "id": "0918-30",
@@ -50381,7 +50459,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-d643e1f2",
-   "n": 666
+   "n": 667
   },
   {
    "sweep_id": "0918-17",
@@ -50408,7 +50486,7 @@
    "fid": "0918-17",
    "bucket_name": "illi",
    "uid": "FA-38fda431",
-   "n": 667
+   "n": 668
   },
   {
    "id": "0918-31",
@@ -50444,7 +50522,7 @@
    "machine_had": false,
    "bucket_name": "illi",
    "uid": "FA-81c1264b",
-   "n": 668
+   "n": 669
   },
   {
    "id": "0918-D18",
@@ -50478,7 +50556,7 @@
    "machine_had": false,
    "bucket_name": "the pointer rule",
    "uid": "FA-4d8580f0",
-   "n": 669
+   "n": 670
   },
   {
    "id": "0918-D19",
@@ -50514,7 +50592,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-bfec594d",
-   "n": 670
+   "n": 671
   },
   {
    "id": "0918-D9",
@@ -50551,7 +50629,7 @@
    "machine_had": false,
    "bucket_name": "negative commands",
    "uid": "FA-854becea",
-   "n": 671
+   "n": 672
   },
   {
    "sweep_id": "0918-18",
@@ -50578,7 +50656,7 @@
    "fid": "0918-18",
    "bucket_name": "negative commands",
    "uid": "FA-a13502c6",
-   "n": 672
+   "n": 673
   },
   {
    "sweep_id": "0918-19",
@@ -50605,7 +50683,7 @@
    "fid": "0918-19",
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-ba61f95b",
-   "n": 673
+   "n": 674
   },
   {
    "id": "0918-33",
@@ -50641,7 +50719,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-a26354cc",
-   "n": 674
+   "n": 675
   },
   {
    "id": "0918-34",
@@ -50677,7 +50755,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-2b9fd7a6",
-   "n": 675
+   "n": 676
   },
   {
    "id": "0918-36",
@@ -50713,7 +50791,7 @@
    "sweep_id": "V0918-082",
    "machine_had": false,
    "uid": "FA-f17d7066",
-   "n": 676
+   "n": 677
   },
   {
    "id": "0918-37",
@@ -50748,7 +50826,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-ec3aa0ff",
-   "n": 677
+   "n": 678
   },
   {
    "id": "0919-15",
@@ -50783,7 +50861,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-89deb27d",
-   "n": 678
+   "n": 679
   },
   {
    "id": "0919-D11",
@@ -50816,7 +50894,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-ba332604",
-   "n": 679
+   "n": 680
   },
   {
    "id": "0919-D1",
@@ -50853,7 +50931,7 @@
    "sweep_id": "V0919-083",
    "machine_had": false,
    "uid": "FA-f54cbff7",
-   "n": 680
+   "n": 681
   },
   {
    "id": "0919-D2",
@@ -50889,7 +50967,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-a25640de",
-   "n": 681,
+   "n": 682,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-year-2026-said-wrong",
@@ -50936,7 +51014,7 @@
    "sweep_id": "V0919-084",
    "machine_had": false,
    "uid": "FA-caf56e28",
-   "n": 682,
+   "n": 683,
    "duplicates_merged": [
     "FA-88ce4612"
    ]
@@ -50968,7 +51046,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-88ce4612",
-   "n": 683,
+   "n": 684,
    "kind_before_rejection": "vocab-A",
    "duplicate_of": "FA-caf56e28",
    "rejected_why": "duplicate of FA-caf56e28: he repeated the same wrong phrase within 30 s, one slip (Medi 2026-10-01)"
@@ -51005,7 +51083,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-5ffee7c8",
-   "n": 684
+   "n": 685
   },
   {
    "id": "0919-5",
@@ -51043,7 +51121,7 @@
    "signal_why": "GR-19 check 2026-10-02: she ALSO voiced the fix - 07:38 Amal said the year aloud (engine: سنتين وته = tentan u tult) before typing tentan u tult",
    "bucket_name": "clock time",
    "uid": "FA-2c926c84",
-   "n": 685
+   "n": 686
   },
   {
    "id": "0919-6",
@@ -51080,7 +51158,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-b207caa6",
-   "n": 686
+   "n": 687
   },
   {
    "id": "0919-7",
@@ -51118,7 +51196,7 @@
    "rejected_why": "GR-19 (Medi 2026-10-02 'if she didnt correct me on voice dont factor it as a correction'): fix typed in the Meet chat only",
    "rejected_rule": "GR-19",
    "uid": "FA-1eddad37",
-   "n": 687
+   "n": 688
   },
   {
    "id": "0919-8",
@@ -51156,7 +51234,7 @@
    "kind_before_rejection": "vocab-A",
    "rejected_why": "hand check 2026-09-26: 2abl embare7 heard as ab el-embare7 - pronunciation (S4), not a word miss",
    "uid": "FA-9a48c096",
-   "n": 688
+   "n": 689
   },
   {
    "id": "0919-9",
@@ -51192,7 +51270,7 @@
    "sweep_id": "V0919-086",
    "machine_had": false,
    "uid": "FA-59d0def9",
-   "n": 689
+   "n": 690
   },
   {
    "id": "0919-10",
@@ -51229,7 +51307,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-91f74ac6",
-   "n": 690
+   "n": 691
   },
   {
    "id": "0919-D3",
@@ -51266,7 +51344,7 @@
    "sweep_id": "V0919-087",
    "machine_had": false,
    "uid": "FA-c367d0a1",
-   "n": 691
+   "n": 692
   },
   {
    "id": "0919-14",
@@ -51303,7 +51381,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-2178c57c",
-   "n": 692
+   "n": 693
   },
   {
    "sweep_id": "V0919-088",
@@ -51329,7 +51407,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "V0919-088",
    "uid": "FA-914e218a",
-   "n": 693
+   "n": 694
   },
   {
    "id": "0919-15",
@@ -51366,7 +51444,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-5acff7c2",
-   "n": 694
+   "n": 695
   },
   {
    "id": "0919-14",
@@ -51401,7 +51479,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-d1bc36a8",
-   "n": 695
+   "n": 696
   },
   {
    "sweep_id": "V0919-089",
@@ -51427,7 +51505,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "V0919-089",
    "uid": "FA-42aff598",
-   "n": 696
+   "n": 697
   },
   {
    "id": "0919-16",
@@ -51464,7 +51542,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-00082f13",
-   "n": 697
+   "n": 698
   },
   {
    "sweep_id": "V0919-090",
@@ -51490,7 +51568,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "V0919-090",
    "uid": "FA-46f349b0",
-   "n": 698
+   "n": 699
   },
   {
    "id": "0919-17",
@@ -51525,7 +51603,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-4283dc2e",
-   "n": 699
+   "n": 700
   },
   {
    "id": "0919-D5",
@@ -51563,7 +51641,7 @@
    "machine_had": false,
    "bucket_name": "commands",
    "uid": "FA-ba5f8b03",
-   "n": 700
+   "n": 701
   },
   {
    "id": "0919-19",
@@ -51599,7 +51677,7 @@
    "sweep_id": "V0919-091",
    "machine_had": false,
    "uid": "FA-cac18cf8",
-   "n": 701
+   "n": 702
   },
   {
    "id": "0919-D6",
@@ -51633,7 +51711,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-f19b71e9",
-   "n": 702,
+   "n": 703,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-causative-heard-as-state",
@@ -51683,7 +51761,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-9d9f1e4f",
-   "n": 703
+   "n": 704
   },
   {
    "id": "0919-D14",
@@ -51716,7 +51794,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-2d1a4cb5",
-   "n": 704
+   "n": 705
   },
   {
    "id": "0919-D14",
@@ -51751,7 +51829,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-c877fde7",
-   "n": 705
+   "n": 706
   },
   {
    "id": "0919-21",
@@ -51787,7 +51865,7 @@
    "sweep_id": "V0919-092",
    "machine_had": false,
    "uid": "FA-5ea7e655",
-   "n": 706
+   "n": 707
   },
   {
    "id": "0919-D7",
@@ -51821,7 +51899,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-89d1baed",
-   "n": 707
+   "n": 708
   },
   {
    "id": "0919-22",
@@ -51858,7 +51936,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-2770d8fb",
-   "n": 708
+   "n": 709
   },
   {
    "id": "0919-D15",
@@ -51891,7 +51969,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-6a236ab9",
-   "n": 709
+   "n": 710
   },
   {
    "id": "0919-23",
@@ -51928,7 +52006,7 @@
    "machine_had": false,
    "bucket_name": "endings on prepositions",
    "uid": "FA-08f17d16",
-   "n": 710
+   "n": 711
   },
   {
    "id": "0919-24",
@@ -51965,7 +52043,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-ca68232d",
-   "n": 711
+   "n": 712
   },
   {
    "id": "0919-26",
@@ -51999,7 +52077,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-3f9aae2d",
-   "n": 712
+   "n": 713
   },
   {
    "id": "0919-D17",
@@ -52036,7 +52114,7 @@
    "machine_had": true,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-6ad35ecf",
-   "n": 713
+   "n": 714
   },
   {
    "id": "0919-25",
@@ -52072,7 +52150,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-07aea3b3",
-   "n": 714
+   "n": 715
   },
   {
    "id": "0919-12",
@@ -52109,7 +52187,7 @@
    "machine_had": false,
    "bucket_name": "negative commands",
    "uid": "FA-b378ed9c",
-   "n": 715
+   "n": 716
   },
   {
    "id": "0919-26",
@@ -52146,7 +52224,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-6c7cdd7d",
-   "n": 716
+   "n": 717
   },
   {
    "id": "0919-36",
@@ -52183,7 +52261,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-58ff7954",
-   "n": 717
+   "n": 718
   },
   {
    "id": "0919-D18",
@@ -52220,7 +52298,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-e943b77e",
-   "n": 718
+   "n": 719
   },
   {
    "id": "0919-28",
@@ -52256,7 +52334,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-00a747bb",
-   "n": 719
+   "n": 720
   },
   {
    "id": "0919-29",
@@ -52293,7 +52371,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-cee43a11",
-   "n": 720
+   "n": 721
   },
   {
    "id": "0919-D19",
@@ -52329,7 +52407,7 @@
    "machine_had": false,
    "bucket_name": "participles",
    "uid": "FA-8d44b7e6",
-   "n": 721
+   "n": 722
   },
   {
    "id": "0919-D4",
@@ -52367,7 +52445,7 @@
    "machine_had": false,
    "bucket_name": "participles",
    "uid": "FA-59708ab1",
-   "n": 722
+   "n": 723
   },
   {
    "sweep_id": "V0919-093",
@@ -52393,7 +52471,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "V0919-093",
    "uid": "FA-80682590",
-   "n": 723
+   "n": 724
   },
   {
    "id": "0919-30",
@@ -52428,7 +52506,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-996af11c",
-   "n": 724
+   "n": 725
   },
   {
    "id": "0919-42",
@@ -52464,7 +52542,7 @@
    "sweep_id": "V0919-094",
    "machine_had": false,
    "uid": "FA-9bdc3ec6",
-   "n": 725
+   "n": 726
   },
   {
    "id": "0919-D9",
@@ -52500,7 +52578,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-d253f717",
-   "n": 726
+   "n": 727
   },
   {
    "id": "0919-D7",
@@ -52535,7 +52613,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-b1923117",
-   "n": 727
+   "n": 728
   },
   {
    "id": "0919-33",
@@ -52572,7 +52650,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-fdebf994",
-   "n": 728
+   "n": 729
   },
   {
    "id": "0919-34",
@@ -52609,7 +52687,7 @@
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-428f0003",
-   "n": 729
+   "n": 730
   },
   {
    "id": "0919-46",
@@ -52646,7 +52724,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-56f2e3eb",
-   "n": 730
+   "n": 731
   },
   {
    "id": "0919-D20",
@@ -52683,7 +52761,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-4c5c15ff",
-   "n": 731
+   "n": 732
   },
   {
    "sweep_id": "0919-24",
@@ -52710,7 +52788,7 @@
    "fid": "0919-24",
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-ce57617b",
-   "n": 732
+   "n": 733
   },
   {
    "id": "0919-D8",
@@ -52748,7 +52826,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-8bf8e7ef",
-   "n": 733
+   "n": 734
   },
   {
    "id": "0919-D10",
@@ -52782,7 +52860,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-ab1497b9",
-   "n": 734,
+   "n": 735,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-see-you-reply-clipped",
@@ -52830,7 +52908,7 @@
    "sweep_id": "V0921-095",
    "machine_had": false,
    "uid": "FA-b4751269",
-   "n": 735
+   "n": 736
   },
   {
    "id": "0921-2",
@@ -52867,7 +52945,7 @@
    "machine_had": true,
    "bucket_name": "past tense",
    "uid": "FA-e9947230",
-   "n": 736
+   "n": 737
   },
   {
    "id": "0921-3",
@@ -52903,7 +52981,7 @@
    "sweep_id": "V0921-096",
    "machine_had": false,
    "uid": "FA-92fa5dfe",
-   "n": 737
+   "n": 738
   },
   {
    "id": "0921-D37",
@@ -52938,7 +53016,7 @@
    "sweep_id": "V0921-097",
    "machine_had": false,
    "uid": "FA-ce128069",
-   "n": 738
+   "n": 739
   },
   {
    "id": "0921-5",
@@ -52974,7 +53052,7 @@
    "sweep_id": "V0921-098",
    "machine_had": false,
    "uid": "FA-394bf733",
-   "n": 739
+   "n": 740
   },
   {
    "id": "0921-6",
@@ -53010,7 +53088,7 @@
    "sweep_id": "V0921-099",
    "machine_had": false,
    "uid": "FA-1eb05c1b",
-   "n": 740
+   "n": 741
   },
   {
    "id": "0921-D2",
@@ -53048,7 +53126,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "calendar",
    "uid": "FA-cdcf85e7",
-   "n": 741
+   "n": 742
   },
   {
    "id": "0921-8",
@@ -53085,7 +53163,7 @@
    "machine_had": true,
    "bucket_name": "gender on adjectives",
    "uid": "FA-3e4c7061",
-   "n": 742
+   "n": 743
   },
   {
    "id": "0921-9",
@@ -53122,7 +53200,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "possessive endings",
    "uid": "FA-a5f99897",
-   "n": 743
+   "n": 744
   },
   {
    "id": "0921-10",
@@ -53159,7 +53237,7 @@
    "machine_had": true,
    "bucket_name": "endings on prepositions",
    "uid": "FA-37bbfa35",
-   "n": 744
+   "n": 745
   },
   {
    "id": "0921-11",
@@ -53196,7 +53274,7 @@
    "machine_had": false,
    "bucket_name": "number + noun",
    "uid": "FA-aaab56ee",
-   "n": 745
+   "n": 746
   },
   {
    "id": "0921-12",
@@ -53231,7 +53309,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-902cc6ce",
-   "n": 746,
+   "n": 747,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-english-word-amal-also-used",
@@ -53278,7 +53356,7 @@
    "machine_had": false,
    "bucket_name": "endings on prepositions",
    "uid": "FA-325cf9c6",
-   "n": 747
+   "n": 748
   },
   {
    "id": "0921-13",
@@ -53315,7 +53393,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-9872ff76",
-   "n": 748
+   "n": 749
   },
   {
    "id": "0921-D3",
@@ -53352,7 +53430,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "u / aw / willa / wala",
    "uid": "FA-217e197d",
-   "n": 749
+   "n": 750
   },
   {
    "id": "0921-11",
@@ -53388,7 +53466,7 @@
    "rejected_why": "GR-19 (Medi 2026-10-02 'if she didnt correct me on voice dont factor it as a correction'): fix typed in the Meet chat only",
    "rejected_rule": "GR-19",
    "uid": "FA-0bfd1552",
-   "n": 750
+   "n": 751
   },
   {
    "id": "0921-15",
@@ -53425,7 +53503,7 @@
    "machine_had": false,
    "bucket_name": "illi",
    "uid": "FA-f43f73d1",
-   "n": 751
+   "n": 752
   },
   {
    "id": "0921-D4",
@@ -53460,7 +53538,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-42d4492b",
-   "n": 752
+   "n": 753
   },
   {
    "id": "0921-21",
@@ -53496,7 +53574,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-0d04f674",
-   "n": 753,
+   "n": 754,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-fem-noun-masc-adj",
@@ -53541,7 +53619,7 @@
    "machine_had": false,
    "bucket_name": "b-drop after time words",
    "uid": "FA-9d8a4295",
-   "n": 754,
+   "n": 755,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-b-kept-after-lamma-iza",
@@ -53590,7 +53668,7 @@
    "machine_had": true,
    "bucket_name": "present with b-",
    "uid": "FA-6a1ea264",
-   "n": 755
+   "n": 756
   },
   {
    "id": "0921-17",
@@ -53627,7 +53705,7 @@
    "machine_had": true,
    "bucket_name": "verb matches its subject",
    "uid": "FA-a9016762",
-   "n": 756
+   "n": 757
   },
   {
    "id": "0921-D5",
@@ -53661,7 +53739,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-edaf838b",
-   "n": 757
+   "n": 758
   },
   {
    "id": "0921-D40",
@@ -53700,7 +53778,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "idafa (possession)",
    "uid": "FA-8452dda1",
-   "n": 758
+   "n": 759
   },
   {
    "id": "0921-D6",
@@ -53734,7 +53812,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-838ef137",
-   "n": 759,
+   "n": 760,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-kam-marra-for-kaman-marra",
@@ -53781,7 +53859,7 @@
    "sweep_id": "V0921-100",
    "machine_had": false,
    "uid": "FA-3ee43251",
-   "n": 760
+   "n": 761
   },
   {
    "id": "0921-24",
@@ -53816,7 +53894,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-4a89968f",
-   "n": 761
+   "n": 762
   },
   {
    "id": "0921-25",
@@ -53854,7 +53932,7 @@
    "rejected_why": "GR-19 (Medi 2026-10-02 'if she didnt correct me on voice dont factor it as a correction'): fix typed in the Meet chat only",
    "rejected_rule": "GR-19",
    "uid": "FA-54f1ee8d",
-   "n": 762
+   "n": 763
   },
   {
    "sweep_id": "0921-11",
@@ -53881,7 +53959,7 @@
    "fid": "0921-11",
    "bucket_name": "present with b-",
    "uid": "FA-e9ff4253",
-   "n": 763
+   "n": 764
   },
   {
    "id": "0921-26",
@@ -53917,7 +53995,7 @@
    "sweep_id": "V0921-101",
    "machine_had": false,
    "uid": "FA-bb249394",
-   "n": 764
+   "n": 765
   },
   {
    "id": "0921-D8",
@@ -53952,7 +54030,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f06a3712",
-   "n": 765
+   "n": 766
   },
   {
    "id": "0921-28",
@@ -53991,7 +54069,7 @@
    "signal_why": "GR-19 check 2026-10-02: she ALSO voiced the fix - 22:34 Amal said استناك aloud right after his أستانك",
    "bucket_name": "endings on verbs",
    "uid": "FA-10ca1179",
-   "n": 766
+   "n": 767
   },
   {
    "id": "0921-27",
@@ -54026,7 +54104,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-ec814975",
-   "n": 767
+   "n": 768
   },
   {
    "id": "0921-D9b",
@@ -54055,7 +54133,7 @@
    "sweep_id": "V0921-102",
    "machine_had": false,
    "uid": "FA-ed8509a3",
-   "n": 768
+   "n": 769
   },
   {
    "id": "0921-31",
@@ -54092,7 +54170,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-e7be8a26",
-   "n": 769,
+   "n": 770,
    "duplicates_merged": [
     "FA-e7be8a26x"
    ]
@@ -54132,7 +54210,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-e7be8a26x",
-   "n": 770,
+   "n": 771,
    "kind_before_rejection": "grammar",
    "duplicate_of": "FA-e7be8a26",
    "rejected_why": "duplicate of FA-e7be8a26: same lesson, second, wrong piece and kind (eng audit 2026-09-29)"
@@ -54169,7 +54247,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-5aa8d5d4",
-   "n": 771
+   "n": 772
   },
   {
    "id": "0921-D11",
@@ -54205,7 +54283,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-cb73ffba",
-   "n": 772,
+   "n": 773,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-present-no-b",
@@ -54253,7 +54331,7 @@
    "machine_had": true,
    "bucket_name": "prepositions",
    "uid": "FA-a36f7b0e",
-   "n": 773
+   "n": 774
   },
   {
    "id": "0921-35",
@@ -54290,7 +54368,7 @@
    "machine_had": true,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-debc8157",
-   "n": 774
+   "n": 775
   },
   {
    "id": "0921-D41",
@@ -54327,7 +54405,7 @@
    "machine_had": false,
    "bucket_name": "commands",
    "uid": "FA-0ef360a8",
-   "n": 775
+   "n": 776
   },
   {
    "id": "0921-37",
@@ -54364,7 +54442,7 @@
    "machine_had": true,
    "bucket_name": "hada / hadi",
    "uid": "FA-ce8e5ec1",
-   "n": 776
+   "n": 777
   },
   {
    "id": "0921-38",
@@ -54403,7 +54481,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "gender on adjectives",
    "uid": "FA-3de55fe3",
-   "n": 777
+   "n": 778
   },
   {
    "id": "0921-39",
@@ -54440,7 +54518,7 @@
    "machine_had": true,
    "bucket_name": "endings on prepositions",
    "uid": "FA-5b9ef3b3",
-   "n": 778
+   "n": 779
   },
   {
    "id": "0921-40",
@@ -54475,7 +54553,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-04e85efb",
-   "n": 779
+   "n": 780
   },
   {
    "id": "0921-D13",
@@ -54511,7 +54589,7 @@
    "sweep_id": "V0921-103",
    "machine_had": false,
    "uid": "FA-05d57cd3",
-   "n": 780
+   "n": 781
   },
   {
    "id": "0921-D14",
@@ -54545,7 +54623,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-0400a15c",
-   "n": 781
+   "n": 782
   },
   {
    "id": "0921-38",
@@ -54581,7 +54659,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-dee7044e",
-   "n": 782
+   "n": 783
   },
   {
    "sweep_id": "0921-19",
@@ -54608,7 +54686,7 @@
    "fid": "0921-19",
    "bucket_name": "gender on adjectives",
    "uid": "FA-d241312f",
-   "n": 783
+   "n": 784
   },
   {
    "id": "0921-43",
@@ -54641,7 +54719,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-a04b9a1d",
-   "n": 784
+   "n": 785
   },
   {
    "id": "0921-D42",
@@ -54676,7 +54754,7 @@
    "sweep_id": "V0921-104",
    "machine_had": false,
    "uid": "FA-e94d8b1c",
-   "n": 785
+   "n": 786
   },
   {
    "id": "0921-D15",
@@ -54710,7 +54788,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-71d3c8fb",
-   "n": 786,
+   "n": 787,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-zbayenna-glossed-arab",
@@ -54758,7 +54836,7 @@
    "machine_had": false,
    "bucket_name": "no word for 'to be'",
    "uid": "FA-e8b672bd",
-   "n": 787,
+   "n": 788,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-ykoon-in-plain-present",
@@ -54805,7 +54883,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-0d4e7fff",
-   "n": 788,
+   "n": 789,
    "bucket_before_refile": "D2",
    "refiled_by": "P-C11 approved by Medi (GR-18)",
    "duplicates_merged": [
@@ -54836,7 +54914,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "0921-U1",
    "uid": "FA-737a36aa",
-   "n": 789,
+   "n": 790,
    "kind_before_rejection": "grammar",
    "duplicate_of": "FA-0d4e7fff",
    "rejected_why": "same moment as FA-0d4e7fff, filed under C11 when Medi approved P-C11 (GR-18): one slip"
@@ -54876,7 +54954,7 @@
    "machine_had": true,
    "bucket_name": "kan laazem",
    "uid": "FA-30ded05c",
-   "n": 790
+   "n": 791
   },
   {
    "id": "0921-D16",
@@ -54913,7 +54991,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-b8a00718",
-   "n": 791
+   "n": 792
   },
   {
    "id": "0921-48",
@@ -54950,7 +55028,7 @@
    "machine_had": true,
    "bucket_name": "verb matches its subject",
    "uid": "FA-20fee0f9",
-   "n": 792
+   "n": 793
   },
   {
    "id": "0921-49",
@@ -54987,7 +55065,7 @@
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-cfff9321",
-   "n": 793
+   "n": 794
   },
   {
    "id": "0921-50",
@@ -55024,7 +55102,7 @@
    "machine_had": true,
    "bucket_name": "verb matches its subject",
    "uid": "FA-4e765094",
-   "n": 794
+   "n": 795
   },
   {
    "id": "0921-D22",
@@ -55058,7 +55136,7 @@
    "machine_had": false,
    "bucket_name": "the pointer rule",
    "uid": "FA-f81324fa",
-   "n": 795
+   "n": 796
   },
   {
    "id": "0921-D17",
@@ -55095,7 +55173,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-be244df5",
-   "n": 796
+   "n": 797
   },
   {
    "id": "0921-D56",
@@ -55129,7 +55207,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-688c6a35",
-   "n": 797,
+   "n": 798,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-fem-noun-masc-adj",
@@ -55167,7 +55245,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "V0921-105",
    "uid": "FA-6a21221c",
-   "n": 798
+   "n": 799
   },
   {
    "id": "0921-52",
@@ -55203,7 +55281,7 @@
    "machine_had": false,
    "bucket_name": "bakoon / ykoon",
    "uid": "FA-d2009048",
-   "n": 799
+   "n": 800
   },
   {
    "sweep_id": "0921-24",
@@ -55230,7 +55308,7 @@
    "fid": "0921-24",
    "bucket_name": "bakoon / ykoon",
    "uid": "FA-5d2bf797",
-   "n": 800
+   "n": 801
   },
   {
    "id": "0921-D18",
@@ -55265,7 +55343,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-9e964adb",
-   "n": 801
+   "n": 802
   },
   {
    "sweep_id": "0921-25",
@@ -55292,7 +55370,7 @@
    "fid": "0921-25",
    "bucket_name": "present with b-",
    "uid": "FA-a47ebc9d",
-   "n": 802
+   "n": 803
   },
   {
    "id": "0921-54",
@@ -55328,7 +55406,7 @@
    "sweep_id": "V0921-106",
    "machine_had": false,
    "uid": "FA-8ffb6735",
-   "n": 803
+   "n": 804
   },
   {
    "id": "0921-55",
@@ -55365,7 +55443,7 @@
    "machine_had": true,
    "bucket_name": "when the b- comes back",
    "uid": "FA-47825d0f",
-   "n": 804
+   "n": 805
   },
   {
    "id": "0921-D19",
@@ -55401,7 +55479,7 @@
    "sweep_id": "V0921-107",
    "machine_had": false,
    "uid": "FA-85c2bfca",
-   "n": 805
+   "n": 806
   },
   {
    "id": "0921-57",
@@ -55440,7 +55518,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "gender on adjectives",
    "uid": "FA-a7ce1640",
-   "n": 806
+   "n": 807
   },
   {
    "id": "0921-58",
@@ -55477,7 +55555,7 @@
    "machine_had": true,
    "bucket_name": "present with b-",
    "uid": "FA-e36a8258",
-   "n": 807
+   "n": 808
   },
   {
    "id": "0921-59",
@@ -55512,7 +55590,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-db41adc6",
-   "n": 808
+   "n": 809
   },
   {
    "id": "0921-60",
@@ -55548,7 +55626,7 @@
    "sweep_id": "V0921-108",
    "machine_had": false,
    "uid": "FA-04d9e42f",
-   "n": 809
+   "n": 810
   },
   {
    "id": "0921-61",
@@ -55587,7 +55665,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "present with b-",
    "uid": "FA-11d87be9",
-   "n": 810
+   "n": 811
   },
   {
    "id": "0921-62",
@@ -55623,7 +55701,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-b106381b",
-   "n": 811
+   "n": 812
   },
   {
    "id": "0921-63",
@@ -55659,7 +55737,7 @@
    "sweep_id": "V0921-109",
    "machine_had": false,
    "uid": "FA-f45c7a9f",
-   "n": 812,
+   "n": 813,
    "duplicates_merged": [
     "FA-f5f88ca6"
    ]
@@ -55698,7 +55776,7 @@
    "sweep_id": "V0921-110",
    "machine_had": false,
    "uid": "FA-f5f88ca6",
-   "n": 813,
+   "n": 814,
    "kind_before_rejection": "vocab-A",
    "duplicate_of": "FA-f45c7a9f",
    "rejected_why": "duplicate of FA-f45c7a9f: he repeated the same wrong phrase within 30 s, one slip (Medi 2026-10-01)"
@@ -55739,7 +55817,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "idafa (possession)",
    "uid": "FA-c2d5d510",
-   "n": 814
+   "n": 815
   },
   {
    "id": "0921-D44",
@@ -55771,7 +55849,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-32ec2df1",
-   "n": 815
+   "n": 816
   },
   {
    "id": "0921-62",
@@ -55807,7 +55885,7 @@
    "sweep_id": "V0921-111",
    "machine_had": false,
    "uid": "FA-522ecc47",
-   "n": 816
+   "n": 817
   },
   {
    "id": "0921-67",
@@ -55843,7 +55921,7 @@
    "sweep_id": "V0921-112",
    "machine_had": false,
    "uid": "FA-f4819c40",
-   "n": 817
+   "n": 818
   },
   {
    "id": "0921-68",
@@ -55880,7 +55958,7 @@
    "machine_had": true,
    "bucket_name": "idafa (possession)",
    "uid": "FA-bd21df1a",
-   "n": 818
+   "n": 819
   },
   {
    "id": "0921-D45",
@@ -55917,7 +55995,7 @@
    "rejected_why": "GR-19 (Medi 2026-10-02 'if she didnt correct me on voice dont factor it as a correction'): fix typed in the Meet chat only",
    "rejected_rule": "GR-19",
    "uid": "FA-0ed33b9c",
-   "n": 819
+   "n": 820
   },
   {
    "id": "0921-D21",
@@ -55954,7 +56032,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "idafa (possession)",
    "uid": "FA-2ef16cea",
-   "n": 820
+   "n": 821
   },
   {
    "id": "0921-66",
@@ -55991,7 +56069,7 @@
    "machine_had": true,
    "bucket_name": "number + noun",
    "uid": "FA-595c3f41",
-   "n": 821
+   "n": 822
   },
   {
    "id": "0921-67",
@@ -56027,7 +56105,7 @@
    "sweep_id": "V0921-113",
    "machine_had": false,
    "uid": "FA-d5435708",
-   "n": 822
+   "n": 823
   },
   {
    "id": "0921-D33",
@@ -56064,7 +56142,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "prepositions",
    "uid": "FA-ec9e7ef2",
-   "n": 823
+   "n": 824
   },
   {
    "id": "0921-68",
@@ -56100,7 +56178,7 @@
    "sweep_id": "V0921-114",
    "machine_had": false,
    "uid": "FA-8fe8f0c2",
-   "n": 824
+   "n": 825
   },
   {
    "id": "0921-69",
@@ -56137,7 +56215,7 @@
    "machine_had": true,
    "bucket_name": "gender on adjectives",
    "uid": "FA-4db8e2d3",
-   "n": 825
+   "n": 826
   },
   {
    "id": "0921-74",
@@ -56173,7 +56251,7 @@
    "sweep_id": "V0921-115",
    "machine_had": false,
    "uid": "FA-beb8285c",
-   "n": 826
+   "n": 827
   },
   {
    "sweep_id": "V0921-116",
@@ -56199,7 +56277,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "V0921-116",
    "uid": "FA-8021af06",
-   "n": 827
+   "n": 828
   },
   {
    "id": "0921-D22",
@@ -56236,7 +56314,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-fd772b9b",
-   "n": 828
+   "n": 829
   },
   {
    "id": "0921-D24",
@@ -56274,7 +56352,7 @@
    "machine_had": true,
    "bucket_name": "el- (the)",
    "uid": "FA-28fe7170",
-   "n": 829
+   "n": 830
   },
   {
    "id": "0921-D25",
@@ -56313,7 +56391,7 @@
    "signal_why": "GR-19 check 2026-10-02: she ALSO voiced the fix - 52:41 Amal voiced بي-- to prompt ma3roofeen bi- (bel-ruz), then typed it",
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-bac200ef",
-   "n": 830
+   "n": 831
   },
   {
    "id": "0921-D23",
@@ -56347,7 +56425,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-3ddceb3a",
-   "n": 831
+   "n": 832
   },
   {
    "sweep_id": "0921-33",
@@ -56374,7 +56452,7 @@
    "fid": "0921-33",
    "bucket_name": "el- (the)",
    "uid": "FA-9b0781cc",
-   "n": 832
+   "n": 833
   },
   {
    "id": "0921-79",
@@ -56410,7 +56488,7 @@
    "sweep_id": "V0921-117",
    "machine_had": false,
    "uid": "FA-102d3de3",
-   "n": 833
+   "n": 834
   },
   {
    "id": "0921-D47",
@@ -56449,7 +56527,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "el- (the)",
    "uid": "FA-445fa1a6",
-   "n": 834
+   "n": 835
   },
   {
    "id": "0921-78",
@@ -56485,7 +56563,7 @@
    "sweep_id": "V0921-118",
    "machine_had": false,
    "uid": "FA-2d675e8b",
-   "n": 835
+   "n": 836
   },
   {
    "id": "0921-D26",
@@ -56521,7 +56599,50 @@
    "sweep_id": "V0921-119",
    "machine_had": false,
    "uid": "FA-bef9647d",
-   "n": 836
+   "n": 837
+  },
+  {
+   "id": "0921-80",
+   "t": "55:40",
+   "t_amal": "55:46",
+   "medi_said": "or bikhall, uh, that makes saffron. I don't know how to say makes. Is it bikhall? Uh, okay. Bi'amalu,",
+   "amal_said": "بيعملوا.",
+   "chat": "Iraan dawle aktar ishi bye3malu Za3faraan",
+   "wrong": "bikhall",
+   "right": "بيعملوا",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "asked",
+   "confidence": "low",
+   "why": "بخلي (make someone do) tried for 'produces / makes'; he asked and she confirmed بيعملوا.",
+   "english": "Iran is the country that makes the most saffron",
+   "ids": [
+    "0921-80"
+   ],
+   "agreed_by": "GR-24",
+   "rule": "GR-24",
+   "r3_why": "Self-fix before help: he first said biyamal (بيعمل), floated bikhall as a doubt ('Is it bikhall?'), then chose Bi'amalu himself at 55:40 before her بيعملوا (55:46), which only confirmed him. The wrong candidate was never his committed answer.",
+   "gr24": {
+    "verdict": "her-first",
+    "his_t": 3348.0,
+    "her_t": 3346.0,
+    "by": "context read: same moment as p2 D39"
+   },
+   "gr24_why": "not a self-fix: Amal said بيعملوا at 55:46, he said it after her at 55:48 (word times)",
+   "fid": "0921-095",
+   "passes": [
+    1,
+    2
+   ],
+   "p2_fid": "0921-084",
+   "date": "2026-09-21",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "uid": "FA-fae8ed67",
+   "n": 838
   },
   {
    "id": "0921-82",
@@ -56546,19 +56667,19 @@
     "0921-81"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-095",
+   "fid": "0921-096",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-084",
+   "p2_fid": "0921-085",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "sweep_id": "0921-34",
    "machine_had": true,
    "bucket_name": "endings on prepositions",
    "uid": "FA-23ec6eb8",
-   "n": 837
+   "n": 839
   },
   {
    "id": "0921-83",
@@ -56583,19 +56704,19 @@
     "0921-82"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-096",
+   "fid": "0921-097",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-085",
+   "p2_fid": "0921-086",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "sweep_id": "0921-35",
    "machine_had": true,
    "bucket_name": "prepositions",
    "uid": "FA-eb53f2bb",
-   "n": 838
+   "n": 840
   },
   {
    "id": "0921-84",
@@ -56620,19 +56741,19 @@
     "0921-83"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-097",
+   "fid": "0921-098",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-086",
+   "p2_fid": "0921-087",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "sweep_id": "0921-36",
    "machine_had": true,
    "bucket_name": "saying no",
    "uid": "FA-9df0e107",
-   "n": 839
+   "n": 841
   },
   {
    "id": "0921-85",
@@ -56657,18 +56778,18 @@
     "0921-84"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-098",
+   "fid": "0921-099",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-087",
+   "p2_fid": "0921-088",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "sweep_id": "V0921-120",
    "machine_had": false,
    "uid": "FA-6e165dc2",
-   "n": 840
+   "n": 842
   },
   {
    "id": "0921-D41",
@@ -56694,7 +56815,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Kept as the صح-for-حق slip; r2's didn't-know reading is D40.",
-   "fid": "0921-099",
+   "fid": "0921-100",
    "passes": [
     2
    ],
@@ -56702,7 +56823,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-1b5baeed",
-   "n": 841
+   "n": 843
   },
   {
    "id": "0921-86",
@@ -56727,18 +56848,18 @@
     "0921-85"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-100",
+   "fid": "0921-101",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-089",
+   "p2_fid": "0921-090",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-71e588b7",
-   "n": 842
+   "n": 844
   },
   {
    "sweep_id": "0921-37",
@@ -56765,7 +56886,7 @@
    "fid": "0921-37",
    "bucket_name": "idafa (possession)",
    "uid": "FA-556b5cf0",
-   "n": 843
+   "n": 845
   },
   {
    "id": "0921-87",
@@ -56790,17 +56911,17 @@
     "0921-86"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-101",
+   "fid": "0921-102",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-090",
+   "p2_fid": "0921-091",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-0cabc117",
-   "n": 844,
+   "n": 846,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-english-word-for-sheet-word",
@@ -56837,17 +56958,17 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Her reply (a repeat) fits 'one more time?', so this is the D6 vocab misuse again, not a question-word error; low because his intent is ambiguous.",
-   "fid": "0921-102",
+   "fid": "0921-103",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-091",
+   "p2_fid": "0921-092",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-7a3e67b3",
-   "n": 845,
+   "n": 847,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-kam-marra-for-kaman-marra",
@@ -56885,7 +57006,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "V0921-121",
    "uid": "FA-7811d557",
-   "n": 846
+   "n": 848
   },
   {
    "id": "0921-89",
@@ -56917,17 +57038,17 @@
     "her_t": 3750.54
    },
    "gr24_why": "not a self-fix: Amal said المقلوبة at 1:02:30, he said it after her at 1:02:31 (word times)",
-   "fid": "0921-103",
+   "fid": "0921-104",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-092",
+   "p2_fid": "0921-093",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-3d3b05fe",
-   "n": 847
+   "n": 849
   },
   {
    "id": "0921-90",
@@ -56952,19 +57073,19 @@
     "0921-88"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-104",
+   "fid": "0921-105",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-093",
+   "p2_fid": "0921-094",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "sweep_id": "0921-38",
    "machine_had": false,
    "bucket_name": "comparatives",
    "uid": "FA-dc2fe94c",
-   "n": 848
+   "n": 850
   },
   {
    "id": "0921-97",
@@ -56989,7 +57110,7 @@
     "0921-81"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-105",
+   "fid": "0921-106",
    "passes": [
     2
    ],
@@ -56998,7 +57119,7 @@
    "machine_had": false,
    "bucket_name": "endings on prepositions",
    "uid": "FA-e0c1e94c",
-   "n": 849,
+   "n": 851,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-3andak-for-3andkom",
@@ -57035,18 +57156,18 @@
     "0921-89"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-106",
+   "fid": "0921-107",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-095",
+   "p2_fid": "0921-096",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "sweep_id": "V0921-122",
    "machine_had": false,
    "uid": "FA-eb350a4f",
-   "n": 850
+   "n": 852
   },
   {
    "id": "0921-92",
@@ -57071,12 +57192,12 @@
     "0921-90"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-107",
+   "fid": "0921-108",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-096",
+   "p2_fid": "0921-097",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "machine_had": false,
@@ -57084,7 +57205,7 @@
    "rejected_why": "GR-19 (Medi 2026-10-02 'if she didnt correct me on voice dont factor it as a correction'): fix typed in the Meet chat only",
    "rejected_rule": "GR-19",
    "uid": "FA-d31737b4",
-   "n": 851
+   "n": 853
   },
   {
    "id": "0921-D29",
@@ -57110,7 +57231,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Missing عند + ending is the possession construction (D3), not a wrong lexical item.",
-   "fid": "0921-108",
+   "fid": "0921-109",
    "passes": [
     1
    ],
@@ -57122,7 +57243,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "endings on prepositions",
    "uid": "FA-550cf238",
-   "n": 852
+   "n": 854
   },
   {
    "id": "0921-94",
@@ -57147,19 +57268,19 @@
     "0921-92"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-109",
+   "fid": "0921-110",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-097",
+   "p2_fid": "0921-098",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "sweep_id": "0921-39",
    "machine_had": true,
    "bucket_name": "saying no",
    "uid": "FA-40e90ba0",
-   "n": 853
+   "n": 855
   },
   {
    "id": "0921-D30",
@@ -57185,7 +57306,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Both buckets apply; the lost عند is the core fault (D3), ما on a pronoun follows from it (C4 as bucket2).",
-   "fid": "0921-110",
+   "fid": "0921-111",
    "passes": [
     1
    ],
@@ -57194,7 +57315,7 @@
    "machine_had": false,
    "bucket_name": "endings on prepositions",
    "uid": "FA-eaff41c4",
-   "n": 854,
+   "n": 856,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-ma-on-pronoun-3and-lost",
@@ -57231,7 +57352,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Plural expected with two named countries; she did not react; low.",
-   "fid": "0921-111",
+   "fid": "0921-112",
    "passes": [
     1
    ],
@@ -57240,7 +57361,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-c2ac3a65",
-   "n": 855,
+   "n": 857,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-singular-for-plural",
@@ -57277,18 +57398,18 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Her prompt came 28 s later for a different sentence; this occurrence was let pass, so grammar-B.",
-   "fid": "0921-112",
+   "fid": "0921-113",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-098",
+   "p2_fid": "0921-099",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-38c1a9c7",
-   "n": 856,
+   "n": 858,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-singular-for-plural",
@@ -57325,19 +57446,19 @@
    ],
    "agreed_by": "r3",
    "r3_why": "She voiced the fix (prompt) and he fixed it - grammar, not grammar-B; A9 primary, A7 secondary.",
-   "fid": "0921-113",
+   "fid": "0921-114",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-099",
+   "p2_fid": "0921-100",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "sweep_id": "0921-40",
    "machine_had": true,
    "bucket_name": "plurals",
    "uid": "FA-5de31110",
-   "n": 857
+   "n": 859
   },
   {
    "id": "0921-99",
@@ -57362,18 +57483,18 @@
     "0921-96"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-114",
+   "fid": "0921-115",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-101",
+   "p2_fid": "0921-102",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "sweep_id": "V0921-123",
    "machine_had": false,
    "uid": "FA-05897aaa",
-   "n": 858
+   "n": 860
   },
   {
    "id": "0921-100",
@@ -57398,19 +57519,19 @@
     "0921-97"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-115",
+   "fid": "0921-116",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-102",
+   "p2_fid": "0921-103",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "sweep_id": "0921-42",
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-3c821e14",
-   "n": 859
+   "n": 861
   },
   {
    "id": "0921-101",
@@ -57435,7 +57556,7 @@
     "0921-98"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-116",
+   "fid": "0921-117",
    "passes": [
     1
    ],
@@ -57443,7 +57564,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-27a42e5b",
-   "n": 860,
+   "n": 862,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-english-word-for-sheet-word",
@@ -57480,7 +57601,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Reader brief lists 'wrong plural pattern he invented' under tier 2; no fix from her, so vocab-B.",
-   "fid": "0921-117",
+   "fid": "0921-118",
    "passes": [
     1
    ],
@@ -57488,7 +57609,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-622f7da5",
-   "n": 861,
+   "n": 863,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-el-arabin-invented-plural",
@@ -57525,18 +57646,18 @@
     "0921-100"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-118",
+   "fid": "0921-119",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-103",
+   "p2_fid": "0921-104",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "bucket_name": "saying no",
    "uid": "FA-2012c50f",
-   "n": 862,
+   "n": 864,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-ma-for-mish-participle",
@@ -57573,7 +57694,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "V0921-124",
    "uid": "FA-bd6ffd45",
-   "n": 863
+   "n": 865
   },
   {
    "id": "0921-D49",
@@ -57598,18 +57719,18 @@
    ],
    "agreed_by": "r3",
    "r3_why": "A wrong hypothesis about صارلي voiced and redirected by her; kept low as it was framed as a question.",
-   "fid": "0921-119",
+   "fid": "0921-120",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-104",
+   "p2_fid": "0921-105",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "bucket_name": "sarli",
    "uid": "FA-e8cbd7d9",
-   "n": 864
+   "n": 866
   },
   {
    "id": "0921-102",
@@ -57634,7 +57755,7 @@
     "0921-102"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-120",
+   "fid": "0921-121",
    "passes": [
     1
    ],
@@ -57643,7 +57764,7 @@
    "machine_had": false,
    "bucket_name": "illi",
    "uid": "FA-2e9daa0d",
-   "n": 865
+   "n": 867
   },
   {
    "id": "0921-D62",
@@ -57668,7 +57789,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Distinct piece of the 1:09:55 sentence from D48; kept low for Amal's review.",
-   "fid": "0921-121",
+   "fid": "0921-122",
    "passes": [
     2
    ],
@@ -57677,7 +57798,7 @@
    "machine_had": false,
    "bucket_name": "comparatives",
    "uid": "FA-f64beaa6",
-   "n": 866,
+   "n": 868,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-el-on-comparative",
@@ -57713,18 +57834,18 @@
     "0921-103"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-122",
+   "fid": "0921-123",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-106",
+   "p2_fid": "0921-107",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-2b4cb69c",
-   "n": 867,
+   "n": 869,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-el-missing-on-adjective",
@@ -57760,18 +57881,18 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Clear A7 pattern with no fix from her.",
-   "fid": "0921-123",
+   "fid": "0921-124",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-107",
+   "p2_fid": "0921-108",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-3bdc61fc",
-   "n": 868,
+   "n": 870,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-el-missing-on-adjective",
@@ -57807,18 +57928,18 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Production task, so mode speaking; tier 0 as both readers had it.",
-   "fid": "0921-124",
+   "fid": "0921-125",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-108",
+   "p2_fid": "0921-109",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "sweep_id": "V0921-125",
    "machine_had": false,
    "uid": "FA-f2c089aa",
-   "n": 869
+   "n": 871
   },
   {
    "id": "0921-D36",
@@ -57843,18 +57964,18 @@
    ],
    "agreed_by": "r3",
    "r3_why": "He did not pick the preposition من, he mangled a memorised phrase; vocab tier 2, low.",
-   "fid": "0921-125",
+   "fid": "0921-126",
    "passes": [
     1,
     2
    ],
-   "p2_fid": "0921-109",
+   "p2_fid": "0921-110",
    "date": "2026-09-21",
    "source": "audit-2026-09-26",
    "sweep_id": "V0921-126",
    "machine_had": false,
    "uid": "FA-ea9cb60b",
-   "n": 870
+   "n": 872
   },
   {
    "id": "A1",
@@ -57888,7 +58009,7 @@
    "machine_had": false,
    "bucket_name": "endings on prepositions",
    "uid": "FA-07a06626",
-   "n": 871
+   "n": 873
   },
   {
    "id": "A2",
@@ -57922,7 +58043,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-1cecc3fb",
-   "n": 872
+   "n": 874
   },
   {
    "id": "0923-r3-1",
@@ -57957,7 +58078,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-b04db7b7",
-   "n": 873
+   "n": 875
   },
   {
    "id": "0923-2",
@@ -57991,7 +58112,7 @@
    "machine_had": false,
    "bucket_name": "number + noun",
    "uid": "FA-6371890c",
-   "n": 874
+   "n": 876
   },
   {
    "id": "A3",
@@ -58025,7 +58146,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-ff63fded",
-   "n": 875
+   "n": 877
   },
   {
    "id": "A4",
@@ -58059,7 +58180,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-2d801399",
-   "n": 876
+   "n": 878
   },
   {
    "id": "A5",
@@ -58092,7 +58213,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-2e21f16e",
-   "n": 877
+   "n": 879
   },
   {
    "id": "A6",
@@ -58126,7 +58247,7 @@
    "machine_had": false,
    "bucket_name": "endings on prepositions",
    "uid": "FA-2880a873",
-   "n": 878
+   "n": 880
   },
   {
    "id": "0923-r3-2",
@@ -58162,7 +58283,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-d71e58bb",
-   "n": 879
+   "n": 881
   },
   {
    "id": "A7",
@@ -58196,7 +58317,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-d656dce9",
-   "n": 880
+   "n": 882
   },
   {
    "id": "A8",
@@ -58230,7 +58351,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-3cae1727",
-   "n": 881
+   "n": 883
   },
   {
    "id": "A9",
@@ -58267,7 +58388,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-966e91f4",
-   "n": 882
+   "n": 884
   },
   {
    "id": "A10",
@@ -58304,7 +58425,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-a705f5cc",
-   "n": 883
+   "n": 885
   },
   {
    "id": "A11",
@@ -58338,7 +58459,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-f3f29483",
-   "n": 884
+   "n": 886
   },
   {
    "id": "0923-r3-4",
@@ -58372,7 +58493,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-3cb0440a",
-   "n": 885
+   "n": 887
   },
   {
    "id": "0923-r3-5",
@@ -58405,7 +58526,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-45d0d6bc",
-   "n": 886
+   "n": 888
   },
   {
    "id": "0923-7",
@@ -58439,7 +58560,7 @@
    "sweep_id": "V0923-127",
    "machine_had": false,
    "uid": "FA-89c96e25",
-   "n": 887
+   "n": 889
   },
   {
    "id": "0923-r2-6",
@@ -58472,7 +58593,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-0cd5b995",
-   "n": 888
+   "n": 890
   },
   {
    "id": "0923-8",
@@ -58505,7 +58626,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-d31d3358",
-   "n": 889
+   "n": 891
   },
   {
    "id": "A12",
@@ -58539,7 +58660,7 @@
    "machine_had": false,
    "bucket_name": "calendar",
    "uid": "FA-47ff01c5",
-   "n": 890
+   "n": 892
   },
   {
    "id": "A13",
@@ -58573,7 +58694,7 @@
    "machine_had": false,
    "bucket_name": "clock time",
    "uid": "FA-8541eb37",
-   "n": 891
+   "n": 893
   },
   {
    "id": "0923-r3-6",
@@ -58607,7 +58728,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-769877e7",
-   "n": 892
+   "n": 894
   },
   {
    "id": "A14",
@@ -58641,7 +58762,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-c3cd5f60",
-   "n": 893
+   "n": 895
   },
   {
    "id": "A15",
@@ -58676,7 +58797,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-42d11519",
-   "n": 894
+   "n": 896
   },
   {
    "id": "A16",
@@ -58712,7 +58833,7 @@
    "sweep_id": "V0923-129",
    "machine_had": false,
    "uid": "FA-2875b2bc",
-   "n": 895
+   "n": 897
   },
   {
    "id": "A17",
@@ -58745,7 +58866,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-b3e1dce5",
-   "n": 896
+   "n": 898
   },
   {
    "sweep_id": "V0923-128",
@@ -58771,7 +58892,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "V0923-128",
    "uid": "FA-3a0e1e30",
-   "n": 897
+   "n": 899
   },
   {
    "id": "0923-r3-7",
@@ -58806,7 +58927,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-9b93760e",
-   "n": 898
+   "n": 900
   },
   {
    "sweep_id": "V0923-130",
@@ -58832,7 +58953,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "V0923-130",
    "uid": "FA-c69eca23",
-   "n": 899
+   "n": 901
   },
   {
    "id": "0923-12",
@@ -58865,7 +58986,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-4c2c1e18",
-   "n": 900,
+   "n": 902,
    "kind_before_rejection": "vocab-A",
    "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-02",
    "amal_ruling": {
@@ -58911,7 +59032,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-36358459",
-   "n": 901
+   "n": 903
   },
   {
    "id": "0923-13",
@@ -58945,7 +59066,7 @@
    "sweep_id": "V0923-131",
    "machine_had": false,
    "uid": "FA-2e194cb5",
-   "n": 902
+   "n": 904
   },
   {
    "id": "0923-14",
@@ -58979,7 +59100,7 @@
    "machine_had": false,
    "bucket_name": "b-drop after modals",
    "uid": "FA-9d238e33",
-   "n": 903
+   "n": 905
   },
   {
    "id": "0923-15",
@@ -59013,7 +59134,7 @@
    "sweep_id": "V0923-132",
    "machine_had": false,
    "uid": "FA-4d354cf3",
-   "n": 904
+   "n": 906
   },
   {
    "id": "A18",
@@ -59048,7 +59169,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-74c66084",
-   "n": 905
+   "n": 907
   },
   {
    "sweep_id": "V0923-133",
@@ -59074,7 +59195,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "V0923-133",
    "uid": "FA-c99daa57",
-   "n": 906
+   "n": 908
   },
   {
    "id": "0923-r3-14",
@@ -59109,7 +59230,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-cb66f70c",
-   "n": 907
+   "n": 909
   },
   {
    "id": "0923-r3-15",
@@ -59145,7 +59266,7 @@
    "machine_had": false,
    "bucket_name": "el- (the)",
    "uid": "FA-cca6494e",
-   "n": 908,
+   "n": 910,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-el-missing-known-thing",
@@ -59192,7 +59313,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-b60a3e0a",
-   "n": 909,
+   "n": 911,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-you-f-ending-on-i-verb",
@@ -59238,7 +59359,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-d3f49feb",
-   "n": 910
+   "n": 912
   },
   {
    "sweep_id": "0923-05",
@@ -59265,7 +59386,7 @@
    "fid": "0923-05",
    "bucket_name": "endings on prepositions",
    "uid": "FA-3404f724",
-   "n": 911
+   "n": 913
   },
   {
    "id": "0923-20",
@@ -59300,7 +59421,7 @@
    "machine_had": false,
    "bucket_name": "kam + singular",
    "uid": "FA-83496534",
-   "n": 912
+   "n": 914
   },
   {
    "id": "A20",
@@ -59337,7 +59458,7 @@
    "machine_had": false,
    "bucket_name": "future with ra7",
    "uid": "FA-8a2d1b2d",
-   "n": 913
+   "n": 915
   },
   {
    "id": "0923-r3-9",
@@ -59371,7 +59492,7 @@
    "machine_had": false,
    "bucket_name": "b-drop after time words",
    "uid": "FA-c192b287",
-   "n": 914
+   "n": 916
   },
   {
    "id": "A21",
@@ -59408,7 +59529,7 @@
    "machine_had": false,
    "bucket_name": "time units, two-of and many-of",
    "uid": "FA-72823d61",
-   "n": 915
+   "n": 917
   },
   {
    "id": "0923-r3-17",
@@ -59443,7 +59564,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-be8d84c0",
-   "n": 916
+   "n": 918
   },
   {
    "sweep_id": "V0923-134",
@@ -59469,7 +59590,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "V0923-134",
    "uid": "FA-3164ed8c",
-   "n": 917
+   "n": 919
   },
   {
    "id": "0923-24",
@@ -59502,7 +59623,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-89974a5e",
-   "n": 918
+   "n": 920
   },
   {
    "id": "A22",
@@ -59535,7 +59656,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-80e6401b",
-   "n": 919,
+   "n": 921,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-la-sama7ti-for-law",
@@ -59583,7 +59704,7 @@
    "sweep_id": "V0923-135",
    "machine_had": false,
    "uid": "FA-c7ec2afb",
-   "n": 920
+   "n": 922
   },
   {
    "id": "A24",
@@ -59619,7 +59740,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-09583fce",
-   "n": 921
+   "n": 923
   },
   {
    "id": "0923-r2-25",
@@ -59653,7 +59774,7 @@
    "sweep_id": "V0923-136",
    "machine_had": false,
    "uid": "FA-dad2a320",
-   "n": 922
+   "n": 924
   },
   {
    "id": "A25",
@@ -59689,7 +59810,7 @@
    "sweep_id": "V0923-137",
    "machine_had": false,
    "uid": "FA-12b749a0",
-   "n": 923
+   "n": 925
   },
   {
    "id": "A26",
@@ -59725,7 +59846,7 @@
    "sweep_id": "V0923-138",
    "machine_had": false,
    "uid": "FA-8c44631e",
-   "n": 924
+   "n": 926
   },
   {
    "id": "0923-r3-10",
@@ -59763,7 +59884,7 @@
    "machine_had": false,
    "bucket_name": "el- (the)",
    "uid": "FA-33921d35",
-   "n": 925
+   "n": 927
   },
   {
    "id": "A27",
@@ -59800,7 +59921,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-7482d383",
-   "n": 926
+   "n": 928
   },
   {
    "id": "A28",
@@ -59837,7 +59958,7 @@
    "machine_had": false,
    "bucket_name": "el- (the)",
    "uid": "FA-e4ee4311",
-   "n": 927
+   "n": 929
   },
   {
    "id": "0923-r3-18",
@@ -59873,7 +59994,7 @@
    "machine_had": false,
    "bucket_name": "illi",
    "uid": "FA-ddaf1f50",
-   "n": 928
+   "n": 930
   },
   {
    "id": "0923-r3-11",
@@ -59911,7 +60032,7 @@
    "sweep_id": "0923-12",
    "machine_had": false,
    "uid": "FA-af168fb5",
-   "n": 929,
+   "n": 931,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-af168fb5"
@@ -59951,7 +60072,7 @@
    "machine_had": false,
    "bucket_name": "words that drag a ma along",
    "uid": "FA-dfad5b40",
-   "n": 930
+   "n": 932
   },
   {
    "id": "A30",
@@ -59987,7 +60108,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-abc240f9",
-   "n": 931
+   "n": 933
   },
   {
    "id": "A31",
@@ -60024,7 +60145,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-9f293da5",
-   "n": 932
+   "n": 934
   },
   {
    "sweep_id": "0923-15",
@@ -60051,7 +60172,7 @@
    "fid": "0923-15",
    "bucket_name": "noun + adjective",
    "uid": "FA-94a3ae16",
-   "n": 933
+   "n": 935
   },
   {
    "id": "A32",
@@ -60088,7 +60209,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-8b515379",
-   "n": 934
+   "n": 936
   },
   {
    "sweep_id": "0923-17",
@@ -60115,7 +60236,7 @@
    "fid": "0923-17",
    "bucket_name": "illi",
    "uid": "FA-0db922a6",
-   "n": 935
+   "n": 937
   },
   {
    "id": "0923-r3-20",
@@ -60151,7 +60272,7 @@
    "sweep_id": "V0923-139",
    "machine_had": false,
    "uid": "FA-f05f77e2",
-   "n": 936
+   "n": 938
   },
   {
    "id": "0923-39",
@@ -60184,7 +60305,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-dfa4bccf",
-   "n": 937
+   "n": 939
   },
   {
    "id": "0923-r3-21",
@@ -60223,7 +60344,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "present with b-",
    "uid": "FA-f234f10f",
-   "n": 938
+   "n": 940
   },
   {
    "id": "0923-42",
@@ -60256,7 +60377,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f10b7e54",
-   "n": 939
+   "n": 941
   },
   {
    "id": "0923-43",
@@ -60290,7 +60411,7 @@
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-127deba6",
-   "n": 940
+   "n": 942
   },
   {
    "id": "A33",
@@ -60326,7 +60447,7 @@
    "sweep_id": "V0923-140",
    "machine_had": false,
    "uid": "FA-96ff89c2",
-   "n": 941
+   "n": 943
   },
   {
    "id": "0923-45",
@@ -60360,7 +60481,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-8caac245",
-   "n": 942
+   "n": 944
   },
   {
    "sweep_id": "V0923-141",
@@ -60386,7 +60507,7 @@
    "agreed_by": "sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason)",
    "fid": "V0923-141",
    "uid": "FA-1db26b27",
-   "n": 943
+   "n": 945
   },
   {
    "id": "0923-46",
@@ -60420,7 +60541,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-52f7c012",
-   "n": 944
+   "n": 946
   },
   {
    "id": "A34",
@@ -60457,7 +60578,7 @@
    "machine_had": true,
    "bucket_name": "idafa (possession)",
    "uid": "FA-7329aeca",
-   "n": 945
+   "n": 947
   },
   {
    "id": "A35",
@@ -60494,7 +60615,7 @@
    "machine_had": true,
    "bucket_name": "iza / lamma",
    "uid": "FA-49352a50",
-   "n": 946
+   "n": 948
   },
   {
    "id": "A36",
@@ -60531,7 +60652,7 @@
    "machine_had": true,
    "bucket_name": "chain possession",
    "uid": "FA-7376f3db",
-   "n": 947
+   "n": 949
   },
   {
    "id": "A37",
@@ -60568,7 +60689,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-898dc934",
-   "n": 948
+   "n": 950
   },
   {
    "id": "A38",
@@ -60605,7 +60726,7 @@
    "machine_had": true,
    "bucket_name": "clock time",
    "uid": "FA-8104e8b8",
-   "n": 949
+   "n": 951
   },
   {
    "id": "A39",
@@ -60640,7 +60761,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-e43f6f24",
-   "n": 950
+   "n": 952
   },
   {
    "id": "A40",
@@ -60675,7 +60796,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-a69bf4ea",
-   "n": 951
+   "n": 953
   },
   {
    "id": "A41",
@@ -60712,7 +60833,7 @@
    "machine_had": false,
    "bucket_name": "chain possession",
    "uid": "FA-593f4d3e",
-   "n": 952
+   "n": 954
   },
   {
    "id": "0923-r3-13",
@@ -60748,7 +60869,7 @@
    "sweep_id": "V0923-142",
    "machine_had": false,
    "uid": "FA-82e2eee7",
-   "n": 953
+   "n": 955
   },
   {
    "id": "A42",
@@ -60784,7 +60905,7 @@
    "sweep_id": "V0923-143",
    "machine_had": false,
    "uid": "FA-8786b214",
-   "n": 954
+   "n": 956
   },
   {
    "id": "0923-r3-22",
@@ -60820,7 +60941,7 @@
    "sweep_id": "V0923-144",
    "machine_had": false,
    "uid": "FA-81862eb7",
-   "n": 955
+   "n": 957
   },
   {
    "id": "0923-r3-23",
@@ -60856,7 +60977,7 @@
    "sweep_id": "V0923-145",
    "machine_had": false,
    "uid": "FA-1803bd4c",
-   "n": 956
+   "n": 958
   },
   {
    "id": "0923-60",
@@ -60890,7 +61011,7 @@
    "machine_had": false,
    "bucket_name": "time units, two-of and many-of",
    "uid": "FA-de8b2fc7",
-   "n": 957
+   "n": 959
   },
   {
    "id": "A43",
@@ -60926,7 +61047,7 @@
    "sweep_id": "V0923-146",
    "machine_had": false,
    "uid": "FA-adf19727",
-   "n": 958
+   "n": 960
   },
   {
    "id": "0926-1",
@@ -60961,7 +61082,7 @@
    "machine_had": false,
    "bucket_name": "feminine -t in idafa",
    "uid": "FA-ba534605",
-   "n": 959
+   "n": 961
   },
   {
    "id": "0926-2",
@@ -60994,7 +61115,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-bd5ae37e",
-   "n": 960
+   "n": 962
   },
   {
    "id": "A1",
@@ -61028,7 +61149,7 @@
    "machine_had": false,
    "bucket_name": "kaan = was / were",
    "uid": "FA-995823a4",
-   "n": 961
+   "n": 963
   },
   {
    "id": "A2",
@@ -61062,7 +61183,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-eb571f14",
-   "n": 962
+   "n": 964
   },
   {
    "id": "A3",
@@ -61096,7 +61217,7 @@
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-2d66559c",
-   "n": 963
+   "n": 965
   },
   {
    "id": "A4",
@@ -61130,7 +61251,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-0bc124d0",
-   "n": 964
+   "n": 966
   },
   {
    "id": "A5",
@@ -61164,7 +61285,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-0e51c6c7",
-   "n": 965
+   "n": 967
   },
   {
    "id": "A6",
@@ -61198,7 +61319,7 @@
    "machine_had": false,
    "bucket_name": "illi",
    "uid": "FA-04770d07",
-   "n": 966
+   "n": 968
   },
   {
    "id": "A7",
@@ -61231,7 +61352,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-2a6dae3d",
-   "n": 967
+   "n": 969
   },
   {
    "id": "A8",
@@ -61265,7 +61386,7 @@
    "machine_had": false,
    "bucket_name": "endings on prepositions",
    "uid": "FA-8456d703",
-   "n": 968
+   "n": 970
   },
   {
    "id": "0926-10",
@@ -61300,7 +61421,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-262a1989",
-   "n": 969
+   "n": 971
   },
   {
    "id": "A9",
@@ -61333,7 +61454,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-5aec7a75",
-   "n": 970
+   "n": 972
   },
   {
    "id": "A10",
@@ -61366,7 +61487,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-97c9d936",
-   "n": 971
+   "n": 973
   },
   {
    "id": "A11",
@@ -61400,7 +61521,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-aef6f852",
-   "n": 972
+   "n": 974
   },
   {
    "id": "A12",
@@ -61433,7 +61554,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-82f07166",
-   "n": 973
+   "n": 975
   },
   {
    "id": "A13",
@@ -61467,7 +61588,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-3e3e39b0",
-   "n": 974
+   "n": 976
   },
   {
    "id": "0926-16",
@@ -61500,7 +61621,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-45ca9b70",
-   "n": 975
+   "n": 977
   },
   {
    "id": "A14",
@@ -61533,7 +61654,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-a01c9be5",
-   "n": 976
+   "n": 978
   },
   {
    "id": "A15",
@@ -61566,7 +61687,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-d555dedc",
-   "n": 977
+   "n": 979
   },
   {
    "id": "A16",
@@ -61599,7 +61720,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-25bdf75b",
-   "n": 978
+   "n": 980
   },
   {
    "id": "A17",
@@ -61632,7 +61753,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-276a1c49",
-   "n": 979
+   "n": 981
   },
   {
    "id": "0926-21",
@@ -61665,7 +61786,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-5ed77f53",
-   "n": 980
+   "n": 982
   },
   {
    "id": "A18",
@@ -61698,7 +61819,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-cbaacc83",
-   "n": 981
+   "n": 983
   },
   {
    "id": "A19",
@@ -61731,7 +61852,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-6baf0d9e",
-   "n": 982
+   "n": 984
   },
   {
    "id": "A20",
@@ -61764,7 +61885,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-3a1cd185",
-   "n": 983
+   "n": 985
   },
   {
    "id": "A21",
@@ -61797,7 +61918,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-ce75619c",
-   "n": 984,
+   "n": 986,
    "amal_ruling": {
     "kind": "skip",
     "pattern": "p-ba3do-for-faat",
@@ -61843,7 +61964,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-4d11cdaa",
-   "n": 985
+   "n": 987
   },
   {
    "id": "A23",
@@ -61877,7 +61998,7 @@
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-90101f73",
-   "n": 986
+   "n": 988
   },
   {
    "id": "A24",
@@ -61911,7 +62032,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-fb9e849e",
-   "n": 987
+   "n": 989
   },
   {
    "id": "A25",
@@ -61944,7 +62065,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-148ab87f",
-   "n": 988
+   "n": 990
   },
   {
    "id": "A26",
@@ -61978,7 +62099,7 @@
    "machine_had": false,
    "bucket_name": "endings on prepositions",
    "uid": "FA-219400af",
-   "n": 989
+   "n": 991
   },
   {
    "id": "A27",
@@ -62012,7 +62133,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-844f75ae",
-   "n": 990
+   "n": 992
   },
   {
    "id": "A28",
@@ -62046,7 +62167,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-eea3da3e",
-   "n": 991
+   "n": 993
   },
   {
    "id": "A29",
@@ -62080,7 +62201,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-ee2bf7f5",
-   "n": 992
+   "n": 994
   },
   {
    "id": "A30",
@@ -62113,7 +62234,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-9713a603",
-   "n": 993
+   "n": 995
   },
   {
    "id": "A31",
@@ -62146,7 +62267,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-6d6ea94b",
-   "n": 994
+   "n": 996
   },
   {
    "id": "A32",
@@ -62179,7 +62300,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-8319a994",
-   "n": 995
+   "n": 997
   },
   {
    "id": "A33",
@@ -62213,7 +62334,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-1c43da56",
-   "n": 996
+   "n": 998
   },
   {
    "id": "A34",
@@ -62247,7 +62368,7 @@
    "machine_had": false,
    "bucket_name": "b-drop after modals",
    "uid": "FA-4c53b475",
-   "n": 997
+   "n": 999
   },
   {
    "id": "0926-42",
@@ -62281,7 +62402,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-3f8c78bd",
-   "n": 998
+   "n": 1000
   },
   {
    "id": "0926-41",
@@ -62314,7 +62435,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-e36a9361",
-   "n": 999
+   "n": 1001
   },
   {
    "id": "0926-43",
@@ -62347,7 +62468,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-4456ef11",
-   "n": 1000
+   "n": 1002
   },
   {
    "id": "A35",
@@ -62381,7 +62502,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-81acfc6d",
-   "n": 1001
+   "n": 1003
   },
   {
    "id": "A36",
@@ -62415,7 +62536,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-eac02644",
-   "n": 1002
+   "n": 1004
   },
   {
    "id": "A37",
@@ -62449,7 +62570,7 @@
    "machine_had": false,
    "bucket_name": "pronoun matches who you mean",
    "uid": "FA-fc001aea",
-   "n": 1003
+   "n": 1005
   },
   {
    "id": "A38",
@@ -62483,7 +62604,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-9fc87be2",
-   "n": 1004
+   "n": 1006
   },
   {
    "id": "0926-46",
@@ -62517,7 +62638,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-4c29db72",
-   "n": 1005
+   "n": 1007
   },
   {
    "id": "A39",
@@ -62551,7 +62672,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-d52dab23",
-   "n": 1006
+   "n": 1008
   },
   {
    "id": "A40",
@@ -62585,7 +62706,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-d32809b7",
-   "n": 1007
+   "n": 1009
   },
   {
    "id": "0926-49",
@@ -62619,7 +62740,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-93360f8b",
-   "n": 1008
+   "n": 1010
   },
   {
    "id": "A41",
@@ -62653,7 +62774,7 @@
    "machine_had": false,
    "bucket_name": "el- (the)",
    "uid": "FA-6bfdb037",
-   "n": 1009
+   "n": 1011
   },
   {
    "id": "A42",
@@ -62687,7 +62808,7 @@
    "machine_had": false,
    "bucket_name": "kaan = was / were",
    "uid": "FA-d7a48f3c",
-   "n": 1010
+   "n": 1012
   },
   {
    "id": "A43",
@@ -62720,7 +62841,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-21d8c454",
-   "n": 1011
+   "n": 1013
   },
   {
    "id": "A44",
@@ -62754,7 +62875,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-888878bd",
-   "n": 1012
+   "n": 1014
   },
   {
    "id": "0926-55",
@@ -62788,7 +62909,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-2a899ac2",
-   "n": 1013,
+   "n": 1015,
    "kind_before_rejection": "vocab-A",
    "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-02",
    "amal_ruling": {
@@ -62835,7 +62956,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-0c86024b",
-   "n": 1014
+   "n": 1016
   },
   {
    "id": "A46",
@@ -62869,7 +62990,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-5657e2f7",
-   "n": 1015
+   "n": 1017
   },
   {
    "id": "A1",
@@ -62902,7 +63023,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-65cc8860",
-   "n": 1016
+   "n": 1018
   },
   {
    "id": "A2",
@@ -62936,7 +63057,7 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-4a568344",
-   "n": 1017
+   "n": 1019
   },
   {
    "id": "A3",
@@ -62969,7 +63090,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-a82c5b20",
-   "n": 1018
+   "n": 1020
   },
   {
    "id": "0928-r3-1",
@@ -63002,7 +63123,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-9667a233",
-   "n": 1019
+   "n": 1021
   },
   {
    "id": "0928-r3-2",
@@ -63036,7 +63157,7 @@
    "machine_had": false,
    "bucket_name": "comparatives",
    "uid": "FA-13456053",
-   "n": 1020
+   "n": 1022
   },
   {
    "id": "A4",
@@ -63070,7 +63191,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-415ba18f",
-   "n": 1021
+   "n": 1023
   },
   {
    "id": "0928-r3-3",
@@ -63104,7 +63225,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-24b68dea",
-   "n": 1022
+   "n": 1024
   },
   {
    "id": "A5",
@@ -63137,7 +63258,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-043d4093",
-   "n": 1023
+   "n": 1025
   },
   {
    "id": "A6",
@@ -63171,7 +63292,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-4b94ea80",
-   "n": 1024
+   "n": 1026
   },
   {
    "id": "A7",
@@ -63205,7 +63326,7 @@
    "machine_had": false,
    "bucket_name": "b-drop after time words",
    "uid": "FA-9aeb157f",
-   "n": 1025
+   "n": 1027
   },
   {
    "id": "A8",
@@ -63238,7 +63359,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-29f610de",
-   "n": 1026
+   "n": 1028
   },
   {
    "id": "A9",
@@ -63271,7 +63392,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-fa283f02",
-   "n": 1027
+   "n": 1029
   },
   {
    "id": "A10",
@@ -63304,7 +63425,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-329f1035",
-   "n": 1028
+   "n": 1030
   },
   {
    "id": "0928-r3-4",
@@ -63338,7 +63459,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-118f2578",
-   "n": 1029
+   "n": 1031
   },
   {
    "id": "A11",
@@ -63372,7 +63493,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-7c59a25c",
-   "n": 1030
+   "n": 1032
   },
   {
    "id": "0928-r3-5",
@@ -63406,7 +63527,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-0da26e28",
-   "n": 1031
+   "n": 1033
   },
   {
    "id": "0928-r3-6",
@@ -63440,7 +63561,7 @@
    "machine_had": false,
    "bucket_name": "el- (the)",
    "uid": "FA-bba4c032",
-   "n": 1032
+   "n": 1034
   },
   {
    "id": "0928-r3-7",
@@ -63474,7 +63595,7 @@
    "machine_had": false,
    "bucket_name": "professions",
    "uid": "FA-4becdb63",
-   "n": 1033
+   "n": 1035
   },
   {
    "id": "0928-r3-8",
@@ -63508,7 +63629,7 @@
    "machine_had": false,
    "bucket_name": "comparatives",
    "uid": "FA-9651b695",
-   "n": 1034
+   "n": 1036
   },
   {
    "id": "0928-r3-9",
@@ -63541,7 +63662,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-6d9cd381",
-   "n": 1035
+   "n": 1037
   },
   {
    "id": "A12",
@@ -63574,7 +63695,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-ac785b7c",
-   "n": 1036
+   "n": 1038
   },
   {
    "id": "0928-r3-10",
@@ -63607,7 +63728,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-39a67af7",
-   "n": 1037
+   "n": 1039
   },
   {
    "id": "0928-r3-11",
@@ -63642,7 +63763,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-074fddc8",
-   "n": 1038
+   "n": 1040
   },
   {
    "id": "0928-r3-12",
@@ -63677,7 +63798,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-45869cc2",
-   "n": 1039
+   "n": 1041
   },
   {
    "id": "0928-r3-17",
@@ -63711,7 +63832,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-d2f96b6a",
-   "n": 1040
+   "n": 1042
   },
   {
    "id": "A13",
@@ -63745,7 +63866,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-39556217",
-   "n": 1041
+   "n": 1043
   },
   {
    "id": "A14",
@@ -63779,7 +63900,7 @@
    "machine_had": false,
    "bucket_name": "number + noun",
    "uid": "FA-b44053ed",
-   "n": 1042
+   "n": 1044
   },
   {
    "id": "A15",
@@ -63812,7 +63933,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-9ad64b74",
-   "n": 1043
+   "n": 1045
   },
   {
    "id": "A16",
@@ -63845,7 +63966,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-4c4ca2e5",
-   "n": 1044
+   "n": 1046
   },
   {
    "id": "A17",
@@ -63880,7 +64001,7 @@
    "machine_had": false,
    "bucket_name": "feminine -t in idafa",
    "uid": "FA-fa605db6",
-   "n": 1045
+   "n": 1047
   },
   {
    "id": "0928-r3-13",
@@ -63914,7 +64035,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-beb49479",
-   "n": 1046
+   "n": 1048
   },
   {
    "id": "A18",
@@ -63948,7 +64069,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-76cdbaac",
-   "n": 1047
+   "n": 1049
   },
   {
    "id": "A19",
@@ -63982,7 +64103,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-678f0d24",
-   "n": 1048,
+   "n": 1050,
    "amal_ruling": {
     "kind": "confirm",
     "pattern": "p-plural-people-verb-mismatch",
@@ -64027,7 +64148,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-aa694e6b",
-   "n": 1049
+   "n": 1051
   },
   {
    "id": "A21",
@@ -64060,7 +64181,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-6b79877d",
-   "n": 1050
+   "n": 1052
   },
   {
    "id": "A22",
@@ -64093,7 +64214,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f6c9e014",
-   "n": 1051
+   "n": 1053
   },
   {
    "id": "A23",
@@ -64127,7 +64248,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-86d191ab",
-   "n": 1052
+   "n": 1054
   },
   {
    "id": "A24",
@@ -64160,7 +64281,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-491c9ab1",
-   "n": 1053
+   "n": 1055
   },
   {
    "id": "0928-r3-18",
@@ -64194,7 +64315,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-4a0d9d00",
-   "n": 1054
+   "n": 1056
   },
   {
    "id": "0928-r3-14",
@@ -64227,7 +64348,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-efb76c4d",
-   "n": 1055
+   "n": 1057
   },
   {
    "id": "0928-r3-15",
@@ -64261,7 +64382,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-8535edbf",
-   "n": 1056
+   "n": 1058
   },
   {
    "id": "0928-r3-16",
@@ -64295,7 +64416,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-b6a6cbad",
-   "n": 1057
+   "n": 1059
   },
   {
    "bucket": null,
@@ -64328,7 +64449,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-127a867d",
-   "n": 1058
+   "n": 1060
   },
   {
    "id": "A1",
@@ -64361,7 +64482,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-d7918f68",
-   "n": 1059
+   "n": 1061
   },
   {
    "id": "A2",
@@ -64395,7 +64516,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-f4ea8cfd",
-   "n": 1060
+   "n": 1062
   },
   {
    "bucket": "B6",
@@ -64429,7 +64550,7 @@
    "machine_had": false,
    "bucket_name": "kaan = was / were",
    "uid": "FA-825af56d",
-   "n": 1061,
+   "n": 1063,
    "amal_ruling": {
     "kind": "confirm",
     "at": "2026-10-01T18:59:57.854715+00:00",
@@ -64474,7 +64595,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-7e835cb3",
-   "n": 1062
+   "n": 1064
   },
   {
    "id": "A4",
@@ -64508,7 +64629,7 @@
    "machine_had": false,
    "bucket_name": "number + noun",
    "uid": "FA-ea5d1332",
-   "n": 1063
+   "n": 1065
   },
   {
    "bucket": null,
@@ -64541,7 +64662,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-5e140027",
-   "n": 1064
+   "n": 1066
   },
   {
    "id": "A5",
@@ -64575,7 +64696,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-a0a76d00",
-   "n": 1065,
+   "n": 1067,
    "kind_before_rejection": "grammar",
    "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-01",
    "amal_ruling": {
@@ -64622,7 +64743,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-397411f9",
-   "n": 1066
+   "n": 1068
   },
   {
    "id": "A7",
@@ -64656,7 +64777,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-52212aa1",
-   "n": 1067
+   "n": 1069
   },
   {
    "id": "A8",
@@ -64689,7 +64810,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-ac0aab01",
-   "n": 1068
+   "n": 1070
   },
   {
    "id": "A9",
@@ -64723,7 +64844,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-633779d7",
-   "n": 1069
+   "n": 1071
   },
   {
    "id": "A10",
@@ -64757,7 +64878,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-d32b9d22",
-   "n": 1070
+   "n": 1072
   },
   {
    "id": "A11",
@@ -64790,7 +64911,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-121421d4",
-   "n": 1071,
+   "n": 1073,
    "kind_before_rejection": "vocab-A",
    "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-01",
    "amal_ruling": {
@@ -64837,7 +64958,7 @@
    "machine_had": false,
    "bucket_name": "endings on verbs",
    "uid": "FA-75d48473",
-   "n": 1072
+   "n": 1074
   },
   {
    "id": "A13",
@@ -64870,7 +64991,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-af025a92",
-   "n": 1073
+   "n": 1075
   },
   {
    "id": "A14",
@@ -64904,7 +65025,7 @@
    "machine_had": false,
    "bucket_name": "demonstrative keeps el-",
    "uid": "FA-53e51387",
-   "n": 1074
+   "n": 1076
   },
   {
    "id": "A15",
@@ -64938,7 +65059,7 @@
    "machine_had": false,
    "bucket_name": "plurals",
    "uid": "FA-f58616eb",
-   "n": 1075
+   "n": 1077
   },
   {
    "bucket": null,
@@ -64971,7 +65092,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-9b1db5d8",
-   "n": 1076
+   "n": 1078
   },
   {
    "id": "A16",
@@ -65004,7 +65125,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-d7775cb3",
-   "n": 1077
+   "n": 1079
   },
   {
    "id": "A17",
@@ -65038,7 +65159,7 @@
    "machine_had": false,
    "bucket_name": "hada / hadi",
    "uid": "FA-c9174856",
-   "n": 1078
+   "n": 1080
   },
   {
    "bucket": "C4",
@@ -65072,7 +65193,7 @@
    "machine_had": false,
    "bucket_name": "saying no",
    "uid": "FA-800c9b0f",
-   "n": 1079
+   "n": 1081
   },
   {
    "id": "A18",
@@ -65105,7 +65226,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-513be5f4",
-   "n": 1080
+   "n": 1082
   },
   {
    "id": "A19",
@@ -65139,7 +65260,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-422f343f",
-   "n": 1081
+   "n": 1083
   },
   {
    "id": "A20",
@@ -65173,7 +65294,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-64edd83a",
-   "n": 1082
+   "n": 1084
   },
   {
    "id": "A21",
@@ -65207,7 +65328,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-82920154",
-   "n": 1083
+   "n": 1085
   },
   {
    "id": "A22",
@@ -65240,7 +65361,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-b664c997",
-   "n": 1084
+   "n": 1086
   },
   {
    "id": "A23",
@@ -65274,7 +65395,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-5d4cb265",
-   "n": 1085
+   "n": 1087
   },
   {
    "id": "A24",
@@ -65308,7 +65429,7 @@
    "machine_had": false,
    "bucket_name": "b-drop after modals",
    "uid": "FA-2f6c3602",
-   "n": 1086
+   "n": 1088
   },
   {
    "id": "A25",
@@ -65342,7 +65463,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-c127b823",
-   "n": 1087
+   "n": 1089
   },
   {
    "bucket": "A3",
@@ -65376,7 +65497,7 @@
    "machine_had": false,
    "bucket_name": "feminine -t in idafa",
    "uid": "FA-1d6036bf",
-   "n": 1088
+   "n": 1090
   },
   {
    "id": "A26",
@@ -65410,7 +65531,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-75a9b961",
-   "n": 1089
+   "n": 1091
   },
   {
    "id": "A27",
@@ -65444,7 +65565,7 @@
    "machine_had": false,
    "bucket_name": "no word for 'to be'",
    "uid": "FA-16c519c0",
-   "n": 1090
+   "n": 1092
   },
   {
    "id": "A28",
@@ -65477,7 +65598,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-d34ce259",
-   "n": 1091
+   "n": 1093
   },
   {
    "bucket": null,
@@ -65510,7 +65631,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-e0e0f7b5",
-   "n": 1092
+   "n": 1094
   },
   {
    "bucket": null,
@@ -65543,7 +65664,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-32e83e6b",
-   "n": 1093
+   "n": 1095
   },
   {
    "id": "A1",
@@ -65576,7 +65697,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-736711de",
-   "n": 1094
+   "n": 1096
   },
   {
    "id": "1001-2",
@@ -65610,7 +65731,7 @@
    "machine_had": false,
    "bucket_name": "calendar",
    "uid": "FA-2d8205d4",
-   "n": 1095
+   "n": 1097
   },
   {
    "id": "A2",
@@ -65644,7 +65765,7 @@
    "machine_had": false,
    "bucket_name": "clock time",
    "uid": "FA-521a2a9e",
-   "n": 1096
+   "n": 1098
   },
   {
    "id": "1001-4",
@@ -65677,7 +65798,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-7d218bec",
-   "n": 1097
+   "n": 1099
   },
   {
    "id": "A3",
@@ -65711,7 +65832,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-bf13a87e",
-   "n": 1098
+   "n": 1100
   },
   {
    "id": "A4",
@@ -65744,7 +65865,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-c24ef29e",
-   "n": 1099
+   "n": 1101
   },
   {
    "id": "A5",
@@ -65777,7 +65898,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-9c0751bc",
-   "n": 1100
+   "n": 1102
   },
   {
    "id": "A6",
@@ -65810,7 +65931,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f4ae1cc9",
-   "n": 1101
+   "n": 1103
   },
   {
    "id": "A7",
@@ -65844,7 +65965,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-c9e3a2db",
-   "n": 1102
+   "n": 1104
   },
   {
    "id": "A8",
@@ -65878,7 +65999,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-ede803fb",
-   "n": 1103
+   "n": 1105
   },
   {
    "id": "A9",
@@ -65912,7 +66033,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-1d80ca09",
-   "n": 1104
+   "n": 1106
   },
   {
    "id": "A10",
@@ -65946,7 +66067,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-95825b04",
-   "n": 1105
+   "n": 1107
   },
   {
    "id": "A11",
@@ -65980,7 +66101,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-0b1221a7",
-   "n": 1106
+   "n": 1108
   },
   {
    "id": "A12",
@@ -66014,7 +66135,7 @@
    "machine_had": false,
    "bucket_name": "saying no",
    "uid": "FA-7405fac8",
-   "n": 1107
+   "n": 1109
   },
   {
    "id": "A13",
@@ -66048,7 +66169,7 @@
    "machine_had": false,
    "bucket_name": "feminine -t in idafa",
    "uid": "FA-a5baa9b2",
-   "n": 1108
+   "n": 1110
   },
   {
    "id": "A14",
@@ -66082,7 +66203,7 @@
    "machine_had": false,
    "bucket_name": "idafa (possession)",
    "uid": "FA-8bd77be0",
-   "n": 1109
+   "n": 1111
   },
   {
    "id": "A15",
@@ -66116,7 +66237,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-963a6f53",
-   "n": 1110,
+   "n": 1112,
    "kind_before_rejection": "grammar",
    "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-02",
    "amal_ruling": {
@@ -66163,7 +66284,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-3b30ae8f",
-   "n": 1111
+   "n": 1113
   },
   {
    "id": "A17",
@@ -66197,7 +66318,7 @@
    "machine_had": false,
    "bucket_name": "comparatives",
    "uid": "FA-735f75d8",
-   "n": 1112
+   "n": 1114
   },
   {
    "id": "A18",
@@ -66231,7 +66352,7 @@
    "machine_had": false,
    "bucket_name": "hada / hadi",
    "uid": "FA-c7e97527",
-   "n": 1113
+   "n": 1115
   },
   {
    "id": "A19",
@@ -66268,7 +66389,7 @@
    "rejected_rule": "GR-19",
    "bucket_name": "comparatives",
    "uid": "FA-b2ed4beb",
-   "n": 1114
+   "n": 1116
   },
   {
    "id": "A20",
@@ -66301,7 +66422,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-67dfd12c",
-   "n": 1115
+   "n": 1117
   },
   {
    "id": "A21",
@@ -66335,7 +66456,7 @@
    "machine_had": false,
    "bucket_name": "verb matches its subject",
    "uid": "FA-667cacda",
-   "n": 1116
+   "n": 1118
   },
   {
    "id": "A22",
@@ -66369,7 +66490,7 @@
    "machine_had": false,
    "bucket_name": "the pointer rule",
    "uid": "FA-96d64e4f",
-   "n": 1117
+   "n": 1119
   },
   {
    "id": "A23",
@@ -66402,7 +66523,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-033b326f",
-   "n": 1118
+   "n": 1120
   },
   {
    "id": "A24",
@@ -66436,7 +66557,7 @@
    "machine_had": false,
    "bucket_name": "the pointer rule",
    "uid": "FA-54b6874c",
-   "n": 1119
+   "n": 1121
   },
   {
    "id": "1001-26",
@@ -66470,7 +66591,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-e744b22b",
-   "n": 1120
+   "n": 1122
   },
   {
    "id": "A25",
@@ -66505,7 +66626,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-a0e94e92",
-   "n": 1121,
+   "n": 1123,
    "kind_before_proposal": "grammar-B",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-a0e94e92"
@@ -66541,7 +66662,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-a641de6d",
-   "n": 1122
+   "n": 1124
   },
   {
    "id": "A26",
@@ -66575,7 +66696,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-180b27bf",
-   "n": 1123,
+   "n": 1125,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-180b27bf"
@@ -66618,7 +66739,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-172fc4ea",
-   "n": 1124
+   "n": 1126
   },
   {
    "id": "A1",
@@ -66652,7 +66773,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-035f0923",
-   "n": 1125
+   "n": 1127
   },
   {
    "id": "A2",
@@ -66690,7 +66811,7 @@
    "rule": "GR-25",
    "bucket_name": "el- (the)",
    "uid": "FA-6c1241b7",
-   "n": 1126
+   "n": 1128
   },
   {
    "id": "A3",
@@ -66724,7 +66845,7 @@
    "machine_had": false,
    "bucket_name": "past tense",
    "uid": "FA-5e8b298b",
-   "n": 1127
+   "n": 1129
   },
   {
    "id": "1002-r3-2",
@@ -66733,16 +66854,16 @@
    "medi_said": "عادي الصباح (engine; her echo shows هذا الصبح) ... 08:58 عاد الصباح",
    "amal_said": "We never say هذا الصبح just say الصبح or بالصباح.",
    "chat": "3ala el-3ashara. ana kunet shwai kasool el-subu7",
-   "wrong": "عادي الصباح",
-   "right": "الصبح / بالصباح",
-   "kind": "vocab-A",
+   "wrong": "هادي الصباح",
+   "right": "الصبح",
+   "kind": "grammar",
    "tier": 1,
-   "bucket": null,
+   "bucket": "A10",
    "bucket2": null,
    "mode": "speaking",
    "signal": "explicit-no",
    "confidence": "medium",
-   "why": "Engine wrote عادي; Amal's echo shows he said هذا الصبح, a calque of 'this morning'; she said we never say it and gave الصبح / بالصباح - a wrong expression, not an ending/prefix rule, so vocab tier 1.",
+   "why": "Medi 2026-10-02: grammar A10: you can tell from her cotext I said hadi el not 3aadi el ... she even corrected it ... this should be a grammar error for not using hadi for the morning. Readers wrote: Engine wrote عادي; Amal's echo shows he said هذا الصبح, a calque of 'this morning'; she said we never say it and gave الصبح / بالصباح - a wrong expression, not an ending/prefix rule, so vocab tier 1.",
    "english": "this morning",
    "ids": [
     "1002-5",
@@ -66757,8 +66878,16 @@
    "date": "2026-10-02",
    "source": "audit-2026-09-26",
    "machine_had": false,
-   "uid": "FA-6abc4e23",
-   "n": 1128
+   "medi_corrections": [
+    "chat-20261002-hadi-subu7"
+   ],
+   "kind_before_medi": "vocab-A",
+   "bucket_before_medi": null,
+   "wrong_before_medi": "عادي الصباح",
+   "right_before_medi": "الصبح / بالصباح",
+   "bucket_name": "hada / hadi",
+   "uid": "FA-d3ecce97",
+   "n": 1130
   },
   {
    "id": "1002-r3-4",
@@ -66792,7 +66921,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-27538ea5",
-   "n": 1129
+   "n": 1131
   },
   {
    "id": "A4",
@@ -66825,7 +66954,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-c7cbcaff",
-   "n": 1130
+   "n": 1132
   },
   {
    "id": "A5",
@@ -66859,7 +66988,7 @@
    "machine_had": false,
    "bucket_name": "verb + its fixed preposition",
    "uid": "FA-2b7a0857",
-   "n": 1131
+   "n": 1133
   },
   {
    "id": "A6",
@@ -66893,7 +67022,7 @@
    "machine_had": false,
    "bucket_name": "future with ra7",
    "uid": "FA-058fc180",
-   "n": 1132
+   "n": 1134
   },
   {
    "id": "1002-r3-5",
@@ -66928,7 +67057,7 @@
    "machine_had": false,
    "bucket_name": "possessive endings",
    "uid": "FA-24cd2cbd",
-   "n": 1133
+   "n": 1135
   },
   {
    "id": "A7",
@@ -66962,7 +67091,7 @@
    "machine_had": false,
    "bucket_name": "prepositions",
    "uid": "FA-147722d0",
-   "n": 1134
+   "n": 1136
   },
   {
    "id": "A8",
@@ -66995,7 +67124,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f6326df4",
-   "n": 1135
+   "n": 1137
   },
   {
    "id": "A9",
@@ -67028,7 +67157,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-c093d0ab",
-   "n": 1136
+   "n": 1138
   },
   {
    "id": "A10",
@@ -67061,7 +67190,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-ee7adb71",
-   "n": 1137
+   "n": 1139
   },
   {
    "id": "A11",
@@ -67095,7 +67224,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-57c40cde",
-   "n": 1138
+   "n": 1140
   },
   {
    "id": "A12",
@@ -67130,7 +67259,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-0529f692",
-   "n": 1139,
+   "n": 1141,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-0529f692"
@@ -67166,7 +67295,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-62568de1",
-   "n": 1140
+   "n": 1142
   },
   {
    "id": "A13",
@@ -67199,7 +67328,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-5442b74f",
-   "n": 1141
+   "n": 1143
   },
   {
    "id": "1002-r3-7",
@@ -67233,7 +67362,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-9d06f6cf",
-   "n": 1142
+   "n": 1144
   },
   {
    "id": "1002-r3-17",
@@ -67267,7 +67396,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-478fa349",
-   "n": 1143
+   "n": 1145
   },
   {
    "id": "1002-r3-8",
@@ -67302,7 +67431,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-ae711e92",
-   "n": 1144
+   "n": 1146
   },
   {
    "id": "A14",
@@ -67336,7 +67465,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-ceceda0c",
-   "n": 1145
+   "n": 1147
   },
   {
    "id": "1002-r3-9",
@@ -67370,7 +67499,7 @@
    "machine_had": false,
    "bucket_name": "present with b-",
    "uid": "FA-d716d39c",
-   "n": 1146
+   "n": 1148
   },
   {
    "id": "1002-r3-10",
@@ -67405,7 +67534,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-40d5b3fc",
-   "n": 1147,
+   "n": 1149,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-40d5b3fc"
@@ -67442,7 +67571,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-7f27b005",
-   "n": 1148
+   "n": 1150
   },
   {
    "id": "A16",
@@ -67476,7 +67605,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-ea740d3c",
-   "n": 1149,
+   "n": 1151,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-ea740d3c"
@@ -67513,7 +67642,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-2a4b4458",
-   "n": 1150
+   "n": 1152
   },
   {
    "id": "1002-r3-11",
@@ -67547,7 +67676,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f4b60b4a",
-   "n": 1151
+   "n": 1153
   },
   {
    "id": "1002-r3-12",
@@ -67581,7 +67710,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-50c3a19a",
-   "n": 1152
+   "n": 1154
   },
   {
    "id": "1002-r3-13",
@@ -67615,7 +67744,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-07c3e8d5",
-   "n": 1153,
+   "n": 1155,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-07c3e8d5"
@@ -67651,7 +67780,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-0583f785",
-   "n": 1154
+   "n": 1156
   },
   {
    "id": "A19",
@@ -67684,12 +67813,12 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-605b741f",
-   "n": 1155
+   "n": 1157
   }
  ],
  "rulings_applied": [
   {
-   "at": "2026-10-03T06:17:30.083764+00:00",
+   "at": "2026-10-03T06:36:10.219663+00:00",
    "rules": [
     1928,
     1929,

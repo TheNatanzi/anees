@@ -319,6 +319,22 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
 
     # ---------------- conflicts: two producers on the same moment
     conflicts, actions = [], {"move": [], "overrides": [], "fold_uses": []}
+    # TR-18: a Word Bank score on a word the heard-word overlay says the engine misheard is not his use of that word
+    # (10-02 08:39: the engine wrote صرت for his صحيت and the Word Bank credited 'Ana seret' Correct)
+    for m in marks:
+        if m["by"]["producer"] != "word-bank" or m["turn"] is None or m["verdict"] not in ("right", "partial", "wrong"):
+            continue
+        H = turns[m["turn"]].get("heard") or []
+        tk = norm(m.get("tok"))
+        hit = next((h for h in H if tk and norm(h["engine_wrote"]) and (norm(h["engine_wrote"]) == tk or set(norm(h["engine_wrote"]).split()) <= set(tk.split())
+                                                                        or tk in norm(h["engine_wrote"]).split())), None)
+        if hit and resolve:
+            why = "the recording engine wrote %s; you said %s (%s)" % (hit["engine_wrote"], hit["heard"], hit.get("rule") or "TR-18")
+            lst = "vocab_correct" if m["verdict"] in ("right", "partial") else "vocab_errors"
+            m.update(verdict="not-scored", why=why, why_by="TR-18", was=m["verdict"])
+            actions["move"].append((lst, m["id"], why, "TR-18"))
+            actions["overrides"].append({"event_id": m["by"]["ref"], "date": date, "mark": m["id"], "was": m["was"],
+                                         "changes": {"observation_only": True, "ledger": m["id"], "ledger_reason": why}})
     on_turn = collections.defaultdict(list)
     for m in marks:
         if m["turn"] is not None:

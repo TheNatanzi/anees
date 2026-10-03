@@ -199,6 +199,7 @@ def settle(date, pas=1):
     rulings = {x["id"]: x for x in R.get("rulings", [])}
     challenges = {x.get("id"): x.get("why") for x in R.get("challenges", []) if str(x.get("id", "")).startswith("A")}
     rows = []
+    HAND_SF = {(x["date"], x["pass"], x["ruling"]): x for x in (SFT.J(os.path.join(WORK, "self-fix-rulings.json")) or {}).get("rows", [])}
     W = SFT.words(date)
     timing = None
     if W:
@@ -232,8 +233,11 @@ def settle(date, pas=1):
             # GR-24 (Medi 2026-10-02, 10-02 07:02 سمعت -> صحيت): a "self-fix" drop stands only when his right word came
             # BEFORE hers by the engine's word times; his line starting first is not enough (scripts/self_fix_timing.py)
             row = d.get("r1") or d.get("r2") or {}
-            if SFT.SELF_FIX.search(v.get("why") or "") and timing is not None:
-                res = SFT.check(date, row, *timing)
+            hand = HAND_SF.get((date, "p%d" % pas, d["id"]))
+            if SFT.SELF_FIX.search(v.get("why") or "") and (timing is not None or hand):
+                res = SFT.check(date, row, *timing) if timing is not None else {"verdict": "unknown"}
+                if res["verdict"] == "unknown" and hand and hand.get("verdict") == "her-fix":     # the context read decides
+                    res = {"verdict": "her-first", "his_t": SFT.sec(hand["his_t"]), "her_t": SFT.sec(hand["her_t"]), "by": "context read: " + hand["why"]}
                 if res["verdict"] == "her-first":
                     row = {k: val for k, val in row.items() if not k.startswith("_")}
                     row.update(ids=[x["id"] for x in (d.get("r1"), d.get("r2")) if x], agreed_by="GR-24", rule="GR-24",
