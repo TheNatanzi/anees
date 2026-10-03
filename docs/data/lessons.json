@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T17:40:40-07:00",
+ "updated": "2026-10-02T17:55:52-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -1784,46 +1784,47 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 42,
+    "unique": 41,
     "right": 35,
-    "wrong": 8,
+    "wrong": 7,
     "partial": 4,
-    "pct": 78.7,
-    "scored": 47,
-    "audit_wrong": 6,
+    "pct": 80.4,
+    "scored": 46,
+    "audit_wrong": 5,
     "audit_partial": 4,
     "not_on_sheet": 1,
-    "unique_rows": 42,
-    "eligible": 45,
+    "unique_rows": 41,
+    "eligible": 44,
     "excluded": 2,
     "pending": 0,
-    "eligible_pct": 81.1,
+    "eligible_pct": 83.0,
     "excluded_why": {
      "his line": 2
     },
     "verified_pct": null
    },
    "grammar": {
-    "uses": 140,
-    "mistakes": 51,
-    "pct": 66.4,
+    "uses": 134,
+    "mistakes": 42,
+    "pct": 71.6,
     "estimate": false,
-    "scored_mistakes": 47,
+    "scored_mistakes": 38,
     "unscored_mistakes": 4,
-    "eligible": 42,
+    "eligible": 33,
     "excluded": 9,
-    "pending": 0,
+    "pending": 1,
     "denominator": {
      "valid": false,
      "reasons": [
-      "15 slips are in rules the counter found 0 uses of in this lesson",
-      "12 rules have more slips than counted uses (A4, B10, B11, B12, B16, B18, B3, B5)"
+      "14 slips are in rules the counter found 0 uses of in this lesson",
+      "14 rules have more slips than counted uses (A12, A4, B10, B11, B12, B16, B18, B3)"
      ],
      "uses": 97,
-     "slips": 51,
-     "slips_latin": 45,
-     "slips_in_zero_use_rules": 15,
+     "slips": 42,
+     "slips_latin": 37,
+     "slips_in_zero_use_rules": 14,
      "rules_slips_over_uses": [
+      "A12",
       "A4",
       "B10",
       "B11",
@@ -1832,6 +1833,7 @@
       "B18",
       "B3",
       "B5",
+      "B7",
       "C10",
       "C9",
       "D2",
@@ -1841,56 +1843,56 @@
     "verified_pct": null
    },
    "talk": {
-    "medi_s": 1054.1,
-    "amal_s": 831.6,
-    "speak_pct": 55.9,
-    "listen_pct": 44.1,
+    "medi_s": 1919.9,
+    "amal_s": 1569.8,
+    "speak_pct": 55.0,
+    "listen_pct": 45.0,
     "window": [
      0.0,
      4163.0
     ]
    },
    "fillers": {
-    "count": 174,
-    "per_min": 9.9,
+    "count": 348,
+    "per_min": 10.88,
     "top": [
      [
       "uh",
-      127
+      254
      ],
      [
       "um",
-      38
+      76
      ],
      [
       "mm",
-      4
+      8
      ],
      [
       "ah",
-      2
+      4
      ],
      [
       "eh",
-      2
+      4
      ],
      [
       "اه",
-      1
+      2
      ]
     ],
     "in_turns": 174,
     "comparable": true
    },
    "latency": {
-    "median_s": 1.73,
-    "p75_s": 2.73,
-    "n": 206
+    "median_s": 1.5,
+    "p75_s": 2.78,
+    "n": 200
    },
    "flow": {
-    "wpm": 53.2,
-    "n_turns": 41,
-    "arabic_words": 118
+    "wpm": 46.9,
+    "n_turns": 59,
+    "arabic_words": 266
    },
    "new_words": [],
    "taught": [
@@ -1916,41 +1918,43 @@
     }
    ],
    "taught_words": [],
-   "coverage": "Whole file read. Holes: ~33 Medi turns are '[speaking Arabic]'/'[speaking foreign language]' (05:28, 06:13-06:28, 26:46-30:50, 1:02:48-1:09:06) so several fixes there are inferred from Amal's recast only (rows 3,5,21,22,42,43,44 marked low/medium). 18:52-1:01:44 is mostly ASR Latin for both speakers (t- prefixes and 7/3 often dropped, e.g. hamasna 19:19, daya ti 46:42); I did not score those as errors. Pronunciation left out per S4: h for 7 in every 7ammas form (10:44, 12:39, 12:53, 13:22 - Amal recast each), ba7seb for ba3asseb 11:30, 'It's a three' 30:08, long-a in daaya2ni 44:52 and tetdaaya2i 51:16 (F2), shufeta 54:29, بندارة 08:32 (ASR of kundara), akhti 57:26 (ASR of ta5ti). Skipped: chat 21:17 't7ammastu hunaak' (he was reconnecting, no attempt); 1:08:21 he asked about singular after 30 and knew the rule; Medi corrected Amal at 49:59 (kaan drops b-). Chat 39:33 'e7na bnetwajja3 bsur3a' lacks the ma he said - her typo, not his error. / Whole file read. Holes: Medi's Arabic is hidden as [speaking Arabic]/[speaking foreign language] at 03:25, 04:22-04:47, 05:28 (she prompted صـ... صغيرة; his attempt unseen), 06:13-06:28, 26:46-27:45 (she prompted 'Fi eish' twice; chat 'lamma ana biddi ba9eer a7san bi ishi laazem atmarran' - a preposition fix is likely but unprovable), 28:22-28:55, 29:56-30:34 ('It's a three. Wajja'tek' - unclear what he said), 31:27, 1:02:48-1:03:27, 1:04:29-1:04:37, 1:05:13, 1:07:09-1:08:10, 1:09:06 (her 'أو الله يعافيكي ألف مرة' answers a hidden line). Long Latin-transliterated stretch 13:41-1:02:00 (verb drill); Arabic script only at the start and in scattered lines. Not filed as errors (S4 pronunciation): ح→ه in بتهمس/بيهمسوني (10:44, 12:39, 12:44, 12:58, 13:12, 13:22 - she recast بيحمس 5 times), بحسب for بعصب (11:30), بسوار for بصور (09:31-09:48), ستطاش (07:34), دول for ضل (10:21), 'akhti' for ta5ti (57:26), 'ada' for 7ada (39:10), dayani vowel length (44:43-44:52, F2), 7amasna/7ammesna shadda (21:24). Transcript garble left alone: فيسة (07:41, probably tes3a), حمارة (08:53, 10:15), بندارة for kundara (08:32), 'Hamamara' (1:00:49), نوبي تحركي (1:03:07), بتسكر/بتزكر for remind/remember (10:26 - cannot tell ذ from تس). Self-fixes not filed: إلا خلت→إلا ربع (07:53), batham→muthammis (23:59-24:20), ما بنوجع→ما بنتوجع (37:33-37:38), daya una→tedaya u minna (52:48-52:52), baharrak→bit haraki (1:01:33). Medi corrected Amal at 49:59 (kaan + bare verb) and she agreed (كان يضايق). Speaker labels look consistent.",
+   "coverage": "Many Medi turns are Latin-transliterated or '[speaking Arabic/foreign language]' (26:46-27:45, 29:56-31:27, 1:02:48-1:09:06) so wrong pieces are inferred from Amal's echoes. 26:46-29:04: chat 'lamma ana biddi ba9eer a7san bi ishi laazem atmarran' but his words are hidden; Amal said 'Fi eish' - fix unknown, not rowed. ح->ه (behamas, بيهمسوني) and the dayani long-vowel fix are S4/F2 pronunciation, left out. 57:26 'akhti' is engine for ta5ti (chat). 07:41 'فيسة' engine for tes3a. Questions (بنسوار أو بسوار؟, بحسب؟, thirty rugs singular?) not rowed. 10:17 repeat of واحد أكتر folded into the 09:18 row. Name عمان (00:33) not flagged. / Large Latin-transliterated stretches 13:41-59:46; many Medi Arabic lines are hidden as [speaking Arabic]/[speaking foreign language] (05:28, 06:13-06:28, 26:46-30:50, 1:02:48-1:09:06) so rows there rest on Amal's echo. 06:28 he asked whether 'ana laazem t9eer' works and Amal said No (a5alliha t9eer) - a question about the rule, left out. ح->ه (بيهمس for بيحمس), dropped ق/ع (dayani, bilax, بنزج) treated as S4 pronunciation; 44:52 vowel-length fix on daaya2ni is pronunciation (F2), left out. Self-fixes left out: 07:34 ستطاش, 07:53 خلت, 37:33 بنوجع, 52:48 dayauna. 27:19 and 28:55 his Arabic is hidden; chat 29:04 gives 'lamma ana biddi ba9eer a7san bi ishi laazem atmarran' but no voiced fix is visible. 1:08:21 thirty rugs singular was his question, right.",
    "notes": [
-    "25 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow.",
-    "grammar: 4 of the 51 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
+    "timings: anees-20260916-recall-amal-seg22: page/engine offset spread 42.34s; anees-20260916-recall-medi-seg0: page/engine offset spread 14.90s",
+    "50 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow.",
+    "grammar: 4 of the 42 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
    ],
    "page": "lessons/2026-09-16.html",
    "detail": "data/lessons/2026-09-16.json",
    "counts": {
-    "turns": 969,
+    "turns": 976,
     "chat_lines": 69,
-    "vocab_errors": 13,
+    "vocab_errors": 12,
     "vocab_correct": 35,
-    "grammar_errors": 51,
+    "grammar_errors": 42,
     "grammar_not_counted": 2
    },
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 readers agree on 50.0 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 readers agree on 58.8 % of rows (>= 95 % needed)",
      "reader agreement: pass 2 readers agree on 63.3 % of rows (>= 95 % needed)",
-     "reader agreement: pass 1 vs pass 2 settled rows agree on 79.6 % (>= 95 % needed)",
-     "coverage: 33 stretches of Medi's speech written as '[speaking ...]' markers (04:49 in all)",
-     "coverage: Medi talks 26:49-28:13 (24 s of speech on their own track) with no transcript line",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4182 s) compared with a second model"
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 76.0 % (>= 95 % needed)",
+     "coverage: 33 stretches of Medi's speech written as '[speaking ...]' markers (08:48 in all)",
+     "coverage: speaker labels agree with an independent check on only 78.1 % of 795 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4182 s) compared with a second model",
+     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
     ],
     "agreement": {
      "status": "withheld",
      "passes": [
       {
        "pass": 1,
-       "r1": 45,
-       "r2": 48,
-       "agreed": 29,
-       "disputed": 29,
-       "agreement_pct": 50.0
+       "r1": 46,
+       "r2": 37,
+       "agreed": 30,
+       "disputed": 21,
+       "agreement_pct": 58.8
       },
       {
        "pass": 2,
@@ -1967,7 +1971,7 @@
         1,
         2
        ],
-       "agreement_pct": 79.6
+       "agreement_pct": 76.0
       }
      ],
      "threshold_pct": 95.0
@@ -1983,24 +1987,18 @@
    "coverage_by_person": {
     "Medi": {
      "_lesson_s": 4182.0,
-     "first_t": 77.1,
+     "first_t": 28.06,
      "last_t": 4155.52,
-     "missing": [
-      [
-       1608.9,
-       1693.0,
-       "Medi talks 26:49-28:13 (24 s of speech on their own track) with no transcript line"
-      ]
-     ],
+     "missing": [],
      "holes": [
       [
        204.94,
-       212.18,
+       212.83,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        261.68,
-       269.32,
+       316.67,
        "engine heard speech but wrote a marker, not words"
       ],
       [
@@ -2020,17 +2018,17 @@
       ],
       [
        387.84,
-       394.5,
+       413.6,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1605.69,
-       1606.69,
+       1625.82,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1640.57,
-       1641.57,
+       1655.94,
        "engine heard speech but wrote a marker, not words"
       ],
       [
@@ -2045,12 +2043,12 @@
       ],
       [
        1712.43,
-       1713.43,
+       1734.94,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1735.03,
-       1746.63,
+       1749.38,
        "engine heard speech but wrote a marker, not words"
       ],
       [
@@ -2065,7 +2063,7 @@
       ],
       [
        1820.45,
-       1829.89,
+       1830.18,
        "engine heard speech but wrote a marker, not words"
       ],
       [
@@ -2075,17 +2073,17 @@
       ],
       [
        1849.67,
-       1850.67,
+       1856.87,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1886.63,
-       1887.63,
+       1904.63,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        3767.7,
-       3775.19,
+       3785.96,
        "engine heard speech but wrote a marker, not words"
       ],
       [
@@ -2100,17 +2098,17 @@
       ],
       [
        3807.4,
-       3817.73,
+       3826.5,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        3869.48,
-       3877.19,
+       3877.3,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        3877.2,
-       3882.99,
+       3897.94,
        "engine heard speech but wrote a marker, not words"
       ],
       [
@@ -2120,27 +2118,27 @@
       ],
       [
        3946.98,
-       3954.43,
+       3988.92,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        4028.68,
-       4045.41,
+       4052.86,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        4049.1,
-       4050.1,
+       4057.02,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        4070.8,
-       4089.85,
+       4093.04,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        4090.04,
-       4096.45,
+       4099.86,
        "engine heard speech but wrote a marker, not words"
       ],
       [
@@ -2159,13 +2157,13 @@
        "engine heard speech but wrote a marker, not words"
       ]
      ],
-     "missing_s": 84.1,
-     "hole_s": 289.4,
-     "covered_pct": 98.0
+     "missing_s": 0,
+     "hole_s": 527.8,
+     "covered_pct": 100.0
     },
     "Amal": {
      "_lesson_s": 4182.0,
-     "first_t": 108.59,
+     "first_t": 26.62,
      "last_t": 4152.92,
      "missing": [],
      "holes": [],
@@ -2190,108 +2188,108 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 44,
-    "right": 51,
-    "wrong": 9,
+    "unique": 45,
+    "right": 52,
+    "wrong": 8,
     "partial": 2,
-    "pct": 83.9,
+    "pct": 85.5,
     "scored": 62,
-    "audit_wrong": 9,
+    "audit_wrong": 8,
     "audit_partial": 2,
-    "not_on_sheet": 2,
-    "unique_rows": 44,
-    "eligible": 61,
-    "excluded": 1,
+    "not_on_sheet": 1,
+    "unique_rows": 45,
+    "eligible": 62,
+    "excluded": 0,
     "pending": 0,
-    "eligible_pct": 84.4,
-    "excluded_why": {
-     "his line": 1
-    },
+    "eligible_pct": 85.5,
+    "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 137,
-    "mistakes": 44,
-    "pct": 70.8,
+    "uses": 141,
+    "mistakes": 47,
+    "pct": 69.5,
     "estimate": false,
-    "scored_mistakes": 40,
+    "scored_mistakes": 43,
     "unscored_mistakes": 4,
-    "eligible": 38,
+    "eligible": 41,
     "excluded": 6,
-    "pending": 2,
+    "pending": 1,
     "denominator": {
      "valid": false,
      "reasons": [
-      "8 slips are in rules the counter found 0 uses of in this lesson",
-      "11 rules have more slips than counted uses (B10, B11, B12, B18, B2, B5, B8, C2)"
+      "11 slips are in rules the counter found 0 uses of in this lesson",
+      "13 rules have more slips than counted uses (A12, B10, B11, B12, B18, B2, B5, B7)"
      ],
      "uses": 101,
-     "slips": 44,
-     "slips_latin": 30,
-     "slips_in_zero_use_rules": 8,
+     "slips": 47,
+     "slips_latin": 35,
+     "slips_in_zero_use_rules": 11,
      "rules_slips_over_uses": [
+      "A12",
       "B10",
       "B11",
       "B12",
       "B18",
       "B2",
       "B5",
+      "B7",
       "B8",
       "C2",
+      "C3",
       "D1",
-      "D2",
-      "D3"
+      "D2"
      ]
     },
     "verified_pct": null
    },
    "talk": {
-    "medi_s": 1112.9,
+    "medi_s": 1959.6,
     "amal_s": 777.8,
-    "speak_pct": 58.9,
-    "listen_pct": 41.1,
+    "speak_pct": 71.6,
+    "listen_pct": 28.4,
     "window": [
      0.0,
      3826.0
     ]
    },
    "fillers": {
-    "count": 198,
-    "per_min": 10.67,
+    "count": 396,
+    "per_min": 12.13,
     "top": [
      [
       "uh",
-      127
+      254
      ],
      [
       "um",
-      56
+      112
      ],
      [
       "mm",
-      12
+      24
      ],
      [
       "hmm",
-      2
+      4
      ],
      [
       "ah",
-      1
+      2
      ]
     ],
     "in_turns": 198,
     "comparable": true
    },
    "latency": {
-    "median_s": 1.64,
-    "p75_s": 2.65,
-    "n": 220
+    "median_s": 1.58,
+    "p75_s": 2.4,
+    "n": 187
    },
    "flow": {
-    "wpm": 70.7,
-    "n_turns": 59,
-    "arabic_words": 180
+    "wpm": 57.4,
+    "n_turns": 95,
+    "arabic_words": 398
    },
    "new_words": [],
    "taught": [
@@ -2317,41 +2315,42 @@
     }
    ],
    "taught_words": [],
-   "coverage": "Medi's Arabic is transcribed as [speaking foreign language]/[speaking Arabic] 33 times, mostly 14:11-14:47, 16:21-24:07 (the whole 'apologize' translation drill) and 33:03-34:01; in those stretches only Amal's fixes/chat show what he said. From 27:46 to the end (1:03:44) his Arabic is Latin-transliterated by the engine, often garbled (e.g. 'sijal', 'behtr', 'mata kharab po', 'Glesh'), so 'wrong' strings there are the engine's spelling. 09:13 Amal asks 'متى؟' and types 'talaate u rube3' but his time answer is not in the transcript. Skipped as S4/S5: 'ما تارات' for ma66arat (41:29), 'خربات' for 5erbat (41:14), 'سرابته' (44:20), 'بيصلع' restart (43:23), self-fixes 'سبعتين'->'سبعتاش' (08:32), 'يوم السب--'->'يوم الخميس' (09:00), 'نفس الجو اليوم'->'نفس جو اليوم' (09:44). 05:32-05:41 he asked whether 'they put' should be past; she said present (rule answer, not an error). 55:11 'bidahik/bizahik' mix-up was self-fixed before her 'Bizahiq'. / 33 Medi turns are '[speaking foreign language]' / '[speaking Arabic]' with no text (mostly the apology drill 14:11-24:07 and 33:03-36:06); for those, rows 21-23 rest on Amal's fix lines and chat only. From ~27:46 to the end Medi's Arabic is Latin-transliterated by the engine (kharab, kanit, tistamali...), so shadda and emphatic letters are invisible; several B12 rows rely on her chat spelling. English-only stretches: 16:29-17:12 (apologize from/to debate), 35:30-36:21 (pointer-in-questions meta), 1:02:44-1:03:23 (the AI app). Not written: pronunciation slips ('behtr' for بحري, 'ma tarat' for مطّرت, 'khirbat' as خربات), his self-fixes (سبعتين->سبعتاش, ما تخرب->ما تخربي, blouzeti->blouzetik, ando->andik), meta questions he asked before speaking (pointer in questions 35:49; بيخربه أو بيخرب 43:02; asfi/asafi 19:46), 'pantalon' at 13:03 (= her sheet word بنطلون), and 'اليومي' at 02:08 which her chat kept as yoami. medi_turns = Medi lines with Arabic script (109) plus Latin-transliterated Arabic (113); 33 untranscribed Arabic turns not counted. Timestamps after the hour appear as 1:00:02 style, kept as in the transcript.",
+   "coverage": "14:11-22:45 and scattered later lines are '[speaking foreign language]' / '[speaking Arabic]' with no text, so drills there (أسف/تأسف, 20:31, 21:07, 22:14) can only be inferred from Amal's replies. From 27:46 on Medi's Arabic is Latin-transliterated by the engine. 04:23 عنده->فيها left out: he self-fixed to فيها in the same turn before Amal's 'فيها not عندها'. 41:44 ما تارات = مطرت (S4). 55:11 bidahik/bizahik for 'boring' unclear (engine). 54:15 'khawaf' after kaan not scored (B7). 58:48 Mazuja = sheet Maz3ooj (S4). Names amrica, Amal not flagged. / 14:09-24:00 drill on et2assaf is mostly '[speaking Arabic]/[speaking foreign language]' - his Arabic lost; rows at 21:07 and 22:14 rebuilt from Amal's lines (low). 27:46-1:03:46 Medi and much of Amal are Latin-transliterated by the engine; shadda (doubled middle) is invisible, so ba5arreb/ba5rab slips only filed where Amal voiced them. Names amrica/Amal not flagged. Pronunciation (behtr, ma tarat, stawarini) and self-fixes (sab3teen, yom el-sabt, blouzeti) left out.",
    "notes": [
-    "16 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow.",
-    "grammar: 4 of the 44 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
+    "timings: anees-20260917-recall-medi-seg1: page/engine offset spread 18.78s",
+    "32 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow.",
+    "grammar: 4 of the 47 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
    ],
    "page": "lessons/2026-09-17.html",
    "detail": "data/lessons/2026-09-17.json",
    "counts": {
-    "turns": 954,
+    "turns": 958,
     "chat_lines": 41,
-    "vocab_errors": 13,
-    "vocab_correct": 51,
-    "grammar_errors": 44,
+    "vocab_errors": 11,
+    "vocab_correct": 52,
+    "grammar_errors": 47,
     "grammar_not_counted": 2
    },
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 readers agree on 72.4 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 readers agree on 68.0 % of rows (>= 95 % needed)",
      "reader agreement: pass 2 readers agree on 62.1 % of rows (>= 95 % needed)",
-     "reader agreement: pass 1 vs pass 2 settled rows agree on 69.2 % (>= 95 % needed)",
-     "coverage: 33 stretches of Medi's speech written as '[speaking ...]' markers (05:24 in all)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 60.3 % (>= 95 % needed)",
+     "coverage: 33 stretches of Medi's speech written as '[speaking ...]' markers (08:47 in all)",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model",
-     "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
+     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
     ],
     "agreement": {
      "status": "withheld",
      "passes": [
       {
        "pass": 1,
-       "r1": 51,
-       "r2": 52,
-       "agreed": 42,
+       "r1": 42,
+       "r2": 46,
+       "agreed": 34,
        "disputed": 16,
-       "agreement_pct": 72.4
+       "agreement_pct": 68.0
       },
       {
        "pass": 2,
@@ -2368,7 +2367,7 @@
         1,
         2
        ],
-       "agreement_pct": 69.2
+       "agreement_pct": 60.3
       }
      ],
      "threshold_pct": 95.0
@@ -2384,7 +2383,7 @@
    "coverage_by_person": {
     "Medi": {
      "_lesson_s": 3828.0,
-     "first_t": 119.58,
+     "first_t": 31.94,
      "last_t": 3824.03,
      "missing": [],
      "holes": [
@@ -2405,7 +2404,7 @@
       ],
       [
        953.08,
-       958.88,
+       959.12,
        "engine heard speech but wrote a marker, not words"
       ],
       [
@@ -2420,17 +2419,17 @@
       ],
       [
        1063.72,
-       1064.72,
+       1073.7,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1085.24,
-       1096.32,
+       1100.62,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1124.42,
-       1125.42,
+       1140.52,
        "engine heard speech but wrote a marker, not words"
       ],
       [
@@ -2445,27 +2444,27 @@
       ],
       [
        1173.62,
-       1174.62,
+       1218.1,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1231.36,
-       1266.42,
+       1298.68,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1266.8,
-       1304.68,
+       1304.7,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1304.84,
-       1306.06,
+       1306.12,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1306.06,
-       1326.3,
+       1339.46,
        "engine heard speech but wrote a marker, not words"
       ],
       [
@@ -2495,12 +2494,12 @@
       ],
       [
        1446.68,
-       1457.8,
+       1458.52,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1458.68,
-       1469.36,
+       1474.6,
        "engine heard speech but wrote a marker, not words"
       ],
       [
@@ -2510,7 +2509,7 @@
       ],
       [
        1555.8,
-       1561.18,
+       1595.53,
        "engine heard speech but wrote a marker, not words"
       ],
       [
@@ -2525,27 +2524,27 @@
       ],
       [
        1983.23,
-       1993.61,
+       1996.1,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1995.99,
-       2002.57,
+       2007.5,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        2018.33,
-       2028.95,
+       2033.46,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        2041.23,
-       2042.23,
+       2070.82,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        2166.37,
-       2173.63,
+       2178.3,
        "engine heard speech but wrote a marker, not words"
       ],
       [
@@ -2555,7 +2554,7 @@
       ]
      ],
      "missing_s": 0,
-     "hole_s": 324.0,
+     "hole_s": 527.1,
      "covered_pct": 100.0
     },
     "Amal": {
@@ -2828,7 +2827,8 @@
     "scored": 35,
     "audit_wrong": 10,
     "audit_partial": 2,
-    "not_on_sheet": 2,
+    "not_an_error": 1,
+    "not_on_sheet": 1,
     "unique_rows": 30,
     "eligible": 35,
     "excluded": 0,
@@ -2912,13 +2912,15 @@
    "taught": [],
    "taught_words": [],
    "coverage": "First ~6.5 min is English chat about a song; her Arabic there is redacted as [foreign language] so the balad/bilad and 'sakit/yard' questions cannot be quoted in Arabic. Speaking Arabic is limited to 06:26-10:40 (date, time, weather, clothes) plus a few Arabic productions inside the drill (38:13 ma tahammasi, 41:10 inti kharabti il safra - correct, 44:46 bored->زهقان, 1:00:47 ahsan katir iliyom - correct). From 11:13 to 1:00:35 the lesson is a listening drill: Amal says a verb sentence, he translates to English; misreads are logged with mode=listening (rows 14-36); correctly translated sentences are not logged. Pronunciation-only slips left out per S4: خندرة for كندرة (10:31, chat kundara), بيكميس for قميص (10:08), Shufik for أشوفك (1:02:02), Kamara/Tawamara for 'كمان مرة'. Some Medi Arabic in the drill is Latin-transliterated by the engine (Bisar, Ma bistah, Min daya ik, Basat, Imbasat). Amal's 'بيضة' at 10:02 is likely a mis-transcribed بيضا. Trailing CHAT lines 1:02:22-1:04:26 are transcriptions of drill sentences, not fixes. medi_turns = 37 Medi turns with Arabic script + 12 Arabizi/Latin Arabic turns; ~55 further Medi turns are English translations in the listening drill. / 00:00-06:26 is English chat about a song; Amal's Arabic there is redacted as [foreign language], so the 03:22-03:57 words (loaf, yard) cannot be recovered - only two asked-rows written from his Latin (balad/bilad, Sakit). 06:26-10:49 is the only speaking stretch (date, time, weather, clothes). 11:13-1:00:35 is a listening drill: Amal says a sentence, Medi gives the English - so most rows are mode=listening and 'wrong' is his English reading. His Arabic in the drill is Latin and often garbled by the engine: Kamara / Kamamara / Tawamara = kaman marra / tani marra ('again', not errors); Bisar, bizat, Ma bistah, Bin hafi bin, Namaste, Basatu shu, Mao, ume mit as, Ume safulu, 'My choose Aloo' are garbled echoes of her line and were skipped. [07:26] 'ألفين تنين وتلات' is probably the engine's rendering of tentain u tult (she said صح) - two low/medium rows written from her chat spelling. خندرة (10:31) for كندرة and بيكميس (10:08) for قميص treated as S4/transcription, not vocab. [35:10] is stray background speech (library). [58:36] 'the gatherings' for بالعزومة not written: her sheet glosses عزومة as 'house gathering / invitation'. Chat lines lag 30-120 s; used as fixes only where they differ from what he said.",
-   "notes": [],
+   "notes": [
+    "1 word card(s) dropped after the 2026-09-27 hand check (he said it right, it was not his slip, or it repeats a slip already counted): 07:10 تسعطاش (tese3ta3sh)."
+   ],
    "page": "lessons/2026-09-19.html",
    "detail": "data/lessons/2026-09-19.json",
    "counts": {
     "turns": 843,
     "chat_lines": 78,
-    "vocab_errors": 16,
+    "vocab_errors": 15,
     "vocab_correct": 21,
     "grammar_errors": 4,
     "grammar_not_counted": 1
@@ -3292,20 +3294,21 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 65,
+    "unique": 66,
     "right": 73,
     "wrong": 20,
-    "partial": 9,
-    "pct": 76.0,
-    "scored": 102,
+    "partial": 8,
+    "pct": 76.2,
+    "scored": 101,
     "audit_wrong": 20,
-    "audit_partial": 8,
+    "audit_partial": 7,
+    "not_an_error": 1,
     "not_on_sheet": 3,
-    "unique_rows": 64,
-    "eligible": 93,
+    "unique_rows": 65,
+    "eligible": 92,
     "excluded": 9,
     "pending": 0,
-    "eligible_pct": 82.8,
+    "eligible_pct": 83.2,
     "excluded_why": {
      "his line": 9
     },
@@ -3430,7 +3433,8 @@
    "notes": [
     "gap fill: Medi's side 00:00-22:37 filled from own recording (transcribed late) (266 lines), 22:37-23:45: nothing found in the Meet recording.",
     "talk, fillers, latency and flow measured over the whole lesson: Medi's side 00:00-23:45 is filled (Medi's side 00:00-22:37 filled from own recording (transcribed late) (266 lines), 22:37-23:45: nothing found in the Meet recording).",
-    "32 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow."
+    "32 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow.",
+    "1 word card(s) dropped after the 2026-09-27 hand check (he said it right, it was not his slip, or it repeats a slip already counted): 53:21 بيت / شاليه."
    ],
    "page": "lessons/2026-09-23.html",
    "detail": "data/lessons/2026-09-23.json",
@@ -3439,7 +3443,7 @@
     "chat_lines": 57,
     "gap_fill": 266,
     "from_meet": 0,
-    "vocab_errors": 31,
+    "vocab_errors": 30,
     "vocab_correct": 74,
     "grammar_errors": 38,
     "grammar_not_counted": 0
@@ -3742,59 +3746,63 @@
    "duration_min": 69.8,
    "type": "review-words",
    "review_mode": "speaking",
-   "type_why": "Role plays that review words already taught: after small talk (his knee, the app, the date) and a ~2 min drop-out at 18:00, a doctor visit (types of doctor, head ache, medicine, body and face parts, feminine/dual body words, 'my hands' = إيدي) then a clothes shop for a wedding (suit, shirt, shoes, colours, socks, sunglasses). No new verb pair taught. Amal's side is not transcribed before 20:17 (only Medi's).",
+   "type_why": "Role plays that review words already taught: after small talk (his knee, the app, the date) and a ~2 min drop-out at 18:00, a doctor visit (types of doctor, head ache, medicine, body and face parts, feminine/dual body words, 'my hands' = إيدي) then a clothes shop for a wedding (suit, shirt, shoes, colours, socks, sunglasses). No new verb pair taught. Amal's first recording (00:00-18:33) is transcribed since 2026-10-02 (TR-17); 18:33-20:17 she was reconnecting (filled from the Meet recording).",
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 101,
-    "right": 138,
+    "unique": 99,
+    "right": 140,
     "wrong": 12,
     "partial": 18,
-    "pct": 87.5,
-    "scored": 168,
+    "pct": 87.6,
+    "scored": 170,
     "audit_wrong": 10,
-    "audit_partial": 2,
+    "audit_partial": 0,
     "not_on_sheet": 10,
-    "unique_rows": 99,
-    "eligible": 167,
-    "excluded": 1,
-    "pending": 0,
-    "eligible_pct": 87.4,
+    "unique_rows": 97,
+    "eligible": 168,
+    "excluded": 2,
+    "pending": 1,
+    "eligible_pct": 87.5,
     "excluded_why": {
-     "Amal not transcribed": 1
+     "Amal not transcribed": 2
     },
     "verified_pct": null
    },
    "grammar": {
-    "uses": 228,
-    "mistakes": 23,
-    "pct": 89.9,
+    "uses": 232,
+    "mistakes": 30,
+    "pct": 87.9,
     "estimate": false,
-    "scored_mistakes": 23,
-    "unscored_mistakes": 0,
-    "eligible": 23,
-    "excluded": 0,
-    "pending": 1,
+    "scored_mistakes": 28,
+    "unscored_mistakes": 2,
+    "eligible": 29,
+    "excluded": 1,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
-      "1 rules have more slips than counted uses (D4)"
+      "3 slips are in rules the counter found 0 uses of in this lesson",
+      "4 rules have more slips than counted uses (A12, A7, B18, D2)"
      ],
      "uses": 212,
-     "slips": 23,
-     "slips_latin": 6,
-     "slips_in_zero_use_rules": 0,
+     "slips": 30,
+     "slips_latin": 3,
+     "slips_in_zero_use_rules": 3,
      "rules_slips_over_uses": [
-      "D4"
+      "A12",
+      "A7",
+      "B18",
+      "D2"
      ]
     },
     "verified_pct": null
    },
    "talk": {
     "medi_s": 1221.5,
-    "amal_s": 970.9,
-    "speak_pct": 55.7,
-    "listen_pct": 44.3,
+    "amal_s": 1424.3,
+    "speak_pct": 46.2,
+    "listen_pct": 53.8,
     "window": [
      0.0,
      4186.7
@@ -3833,9 +3841,9 @@
     "comparable": true
    },
    "latency": {
-    "median_s": 1.29,
-    "p75_s": 2.21,
-    "n": 295
+    "median_s": 1.24,
+    "p75_s": 2.25,
+    "n": 249
    },
    "flow": {
     "wpm": 66.2,
@@ -3843,67 +3851,54 @@
     "arabic_words": 564
    },
    "new_words": [],
-   "taught": [],
-   "taught_words": [],
-   "coverage": "Amal's audio is missing from 00:00 to 20:17 (only Medi's lines, ~180 turns; the power/internet dropped); several apparent self-fixes there (أبدأك->أبعت, غلطتي->غلطاتي, مساعد->مساعدة, أشوفك->نشوف, واحدة يوم->يوم واحد) may be her corrections but cannot be shown, so they are either vocab-B low or left out. 17:31-17:42 is Farsi to someone else. 25:00-50:00 (doctors / body parts) is mostly Latin-transliterated. Pronunciation-only fixes left out (S4): رقبة Q, شعر, ضلوا, أعود/أقعد, طاقية, حمار->أحمر self-fix. 1:08:08 Amal's line on بيض is garbled. / 00:00-20:17: Amal's voice is missing from the transcript (only Medi lines), so fixes she made there cannot be quoted; those errors are filed as B. 25:00-48:00 is mostly Latin transliteration of Medi's Arabic (body parts drill). 17:31-17:42 Medi speaks Farsi to family (skipped). No CHAT lines in this transcript. Skipped as S4: ركبتك/ركبة, sha'ar/شعر, حواجب, riqaba/رقبة, تاية/طاقية, أعود/أقعد, دلوا/ضلوا, خصلات/كصلات for كلسات, الشاب/الشعب. English 'guidance', 'link', 'app', 'tan', 'transcript' not on her sheet; 'short' = شورت on sheet (same word); 'blouse'/'pantalón' likely the engine rendering بلوزة/بنطلون. Self-fixes skipped: يوم واحدة->يوم واحد, نشوفك->نشوف, غلطتي->غلطاتي, امبارح ملآن->كان ملآن, سكني->سكنية, biwajuna->biwajuha. / Amal's side 00:00-20:17 filled from the Meet recording (149 lines; speakers split by the engine's diarization, confidence 0.992; lines tagged from_meet).",
-   "gap_fill": [
+   "taught": [
     {
-     "side": "Amal",
-     "from": "00:00",
-     "to": "20:17",
-     "from_s": 0.0,
-     "to_s": 1217.0,
-     "source": "meet_mixed",
-     "lines": 149,
-     "parts": [
-      {
-       "source": "meet_mixed",
-       "from": "00:00",
-       "to": "20:17",
-       "lines": 149
-      }
-     ],
-     "offset_s": -49.203,
-     "residual_s": 0.073,
-     "diarization_confidence": 0.992,
-     "meet_file": "rvn-mpoe-zat (2026-09-26 14 33 GMT-7)"
+     "latin": "Ana bawajje3 / Ana batwajja3",
+     "arabic": "أنا بوجّع / أنا بتوجّع",
+     "review": true
+    },
+    {
+     "latin": "Ana badaaye2 / Ana batdaaya2",
+     "arabic": "أنا بضايق / أنا بتضايق",
+     "review": true
     }
    ],
+   "taught_words": [],
+   "coverage": "13:00-17:00 and 20:49-21:00 English-only chat; 17:31-18:24 Medi speaking Farsi to family (skipped); 18:24-20:17 call dropped; 25:00-29:00 and 37:40-50:00 body/doctor drill mostly Latin-transliterated by the engine (wajh, ijrain, etc.) - pronunciation slips there (shahar, awajib, riqaba) skipped per S4. 1:02:23 he self-fixed كصلات to كلسات before Amal (skipped). / 18:01-20:17 connection drop (no turns); 17:31-17:42 Medi speaking Farsi off-lesson; 25:00-29:51 and 36:43-47:52 mostly Latin-transliterated Arabic (engine), so sound vs word slips there are low confidence; long English-only stretches 13:00-16:51 (apps chat) and parts of the doctor section. medi_turns counts Medi lines containing Arabic script (incl. 3 Farsi).",
    "notes": [
-    "gap fill: Amal's side 00:00-20:17 filled from the Meet recording (149 lines; speakers split by the engine's diarization, confidence 0.992; lines tagged from_meet)."
+    "timings: anees-20260926-recall-amal-seg0: page/engine offset spread 300.27s",
+    "grammar: 2 of the 30 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
    ],
    "page": "lessons/2026-09-26.html",
    "detail": "data/lessons/2026-09-26.json",
    "counts": {
-    "turns": 1243,
-    "chat_lines": 0,
-    "gap_fill": 149,
-    "from_meet": 149,
-    "vocab_errors": 24,
-    "vocab_correct": 154,
-    "grammar_errors": 23,
+    "turns": 1218,
+    "chat_lines": 74,
+    "vocab_errors": 22,
+    "vocab_correct": 158,
+    "grammar_errors": 30,
     "grammar_not_counted": 0
    },
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 62.1 %; 2 consecutive passes at >= 95 % are needed",
-     "coverage: Amal not transcribed 17:31-20:17 while the other person talks",
+     "reader agreement: pass 1 73.0 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: Amal not transcribed 17:30-20:17 while the other person talks",
      "coverage: Amal talks 00:04-01:06 (21 s of speech on their own track) with no transcript line",
      "coverage: Amal 00:00-20:17 comes from the mixed Meet recording, speakers split by diarization (their own track is silent there)",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4188 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+     "checks: 1 scored rows need an audio or human check (1 words, 0 grammar)"
     ],
     "agreement": {
      "status": "withheld",
      "passes": [
       {
        "pass": 1,
-       "r1": 52,
-       "r2": 58,
-       "agreed": 41,
-       "disputed": 25,
-       "agreement_pct": 62.1
+       "r1": 57,
+       "r2": 56,
+       "agreed": 46,
+       "disputed": 17,
+       "agreement_pct": 73.0
       }
      ],
      "between": [],
@@ -3930,11 +3925,11 @@
     },
     "Amal": {
      "_lesson_s": 4188.0,
-     "first_t": 68.22,
+     "first_t": 3.87,
      "last_t": 4185.03,
      "missing": [
       [
-       1050.52,
+       1049.51,
        1217.25,
        "no transcript for Amal while the other person talks"
       ],
@@ -3945,7 +3940,7 @@
       ]
      ],
      "holes": [],
-     "missing_s": 228.5,
+     "missing_s": 229.5,
      "hole_s": 0,
      "covered_pct": 94.5
     }
@@ -3966,46 +3961,46 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 71,
-    "right": 110,
-    "wrong": 16,
-    "partial": 12,
-    "pct": 84.1,
-    "scored": 138,
-    "audit_wrong": 16,
-    "audit_partial": 2,
-    "not_an_error": 4,
-    "not_on_sheet": 6,
-    "unique_rows": 71,
-    "eligible": 135,
-    "excluded": 3,
+    "unique": 72,
+    "right": 113,
+    "wrong": 12,
+    "partial": 16,
+    "pct": 85.8,
+    "scored": 141,
+    "audit_wrong": 12,
+    "audit_partial": 5,
+    "not_an_error": 2,
+    "not_on_sheet": 3,
+    "unique_rows": 72,
+    "eligible": 136,
+    "excluded": 5,
     "pending": 0,
-    "eligible_pct": 83.7,
+    "eligible_pct": 86.4,
     "excluded_why": {
-     "Medi not transcribed": 3
+     "Medi not transcribed": 5
     },
     "verified_pct": null
    },
    "grammar": {
-    "uses": 178,
-    "mistakes": 24,
-    "pct": 87.6,
+    "uses": 174,
+    "mistakes": 19,
+    "pct": 89.7,
     "estimate": false,
-    "scored_mistakes": 22,
-    "unscored_mistakes": 2,
-    "eligible": 22,
+    "scored_mistakes": 18,
+    "unscored_mistakes": 1,
+    "eligible": 17,
     "excluded": 2,
-    "pending": 2,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
-      "8 slips are in rules the counter found 0 uses of in this lesson",
+      "4 slips are in rules the counter found 0 uses of in this lesson",
       "4 rules have more slips than counted uses (B12, B18, B3, E1)"
      ],
      "uses": 158,
-     "slips": 24,
+     "slips": 19,
      "slips_latin": 2,
-     "slips_in_zero_use_rules": 8,
+     "slips_in_zero_use_rules": 4,
      "rules_slips_over_uses": [
       "B12",
       "B18",
@@ -4016,95 +4011,94 @@
     "verified_pct": null
    },
    "talk": {
-    "medi_s": 1157.9,
+    "medi_s": 2144.7,
     "amal_s": 901.8,
-    "speak_pct": 56.2,
-    "listen_pct": 43.8,
+    "speak_pct": 70.4,
+    "listen_pct": 29.6,
     "window": [
      0.0,
      3934.8
     ]
    },
    "fillers": {
-    "count": 184,
-    "per_min": 9.53,
+    "count": 369,
+    "per_min": 10.32,
     "top": [
      [
       "آآ",
-      70
+      140
      ],
      [
       "uh",
-      62
+      124
      ],
      [
       "um",
-      42
+      84
      ],
      [
       "hmm",
-      3
+      6
      ],
      [
       "امم",
-      3
+      6
      ],
      [
       "mm",
-      2
+      4
      ]
     ],
-    "in_turns": 184,
+    "in_turns": 211,
     "comparable": true
    },
    "latency": {
-    "median_s": 1.41,
-    "p75_s": 2.29,
-    "n": 209
+    "median_s": 1.3,
+    "p75_s": 2.59,
+    "n": 198
    },
    "flow": {
-    "wpm": 61.1,
-    "n_turns": 171,
-    "arabic_words": 492
+    "wpm": 53.7,
+    "n_turns": 268,
+    "arabic_words": 1142
    },
    "new_words": [],
    "taught": [],
    "taught_words": [],
-   "coverage": "00:00-07:30 is Amal-only small talk (English/MSA engine output). 15:43-18:53 Medi's Arabic is lost as [speaking foreign language] (9 turns); rows there rely on Amal's echo. 28:49-29:06 (beside/not with/في بناته), 35:52-36:04 (شوي/بشوي فواكه), 59:29 شيكمن and 1:03:34 دكتورة تلساند are too garbled to judge. Pronunciation slips skipped per S4: أمتي/أم ماو for عمتي/عم, همس for خمس, مقني for مغني, وأهمي for محامي, فهدين for حفيدين, مماردين for ممرضين. جنين at 1:00:39 is a name / misheard جمع, not flagged. medi_turns counts every Medi line with Arabic script, fillers included. / 00:00-15:40 is English meta talk (no Arabic from Medi). 15:43-18:26 his Arabic is lost as [speaking foreign language]; rows there rely on Amal's replies. Left out as S4 pronunciation: محمد for محامي (29:14, Amal: 'long and not doubled'), أمي/إمي for عمي, سبية for صبية, مقني, همس, فهدين->حفيدين, أهمي, مماردين, كوفار. 1:00:39 'جنين؟' was a listening mix-up of جمع (name, not scored). 53:52 'بين عشرين وسبعطاش' is a content slip, not language. 57:56 he misunderstood 'مين بيشتغل بالشركة' (comprehension). Self-fixes skipped: ما بتشتغل 28:34, مرة واحدة 24:23, بيروح 1:02:25, بنات خال وخالة 44:39. Garbled/unclear: 38:59 كليان, 59:29 شيكمن, 1:03:34 دكتورة تلساند, 1:04:52 على رفيقي.",
+   "coverage": "00:00-15:40 and 19:50-21:20 mostly English app talk. 15:43-19:08 his Arabic is lost to [speaking foreign language], rows there are low confidence. Several ع-drops (أمي for عمي, أمتي for عمتي, وين القلب 41:51), محمد/محامي (29:14, vowel length), مقني (1:03:21), صبية/سبية are pronunciation (S4) and left out. 44:53 اثناش بنات let pass and her own chat keeps banaat, so not written. Listening misunderstandings at 57:56 (بالشركة) and 1:00:05 (clinic) left out; 1:00:39 جنين is his mishearing of جمع (name list), not written. 30:35 عماوم accepted (chat 3maam). / Many Medi turns 15:43-18:53 are [speaking foreign language] (engine dropped his Arabic); only the 16:04 slip is recoverable from Amal's echo. 00:00-15:40 and 19:00-21:20 are mostly English/meta. 29:14 محمد vs محامي treated as pronunciation (Amal: 'long and not doubled', S4/F2). 37:45 Amal's ابن-for-ولاد remark was reversed by her at 40:10, not filed separately. 1:00:39 جنين is on the name list (he misheard جمع) - not flagged. 54:11 سبية/صبية, 1:03:21 مقني, 1:02:50 كوفار are pronunciation. 44:53 اثناش بنات accepted by Amal (said and typed banaat).",
    "notes": [
-    "grammar: 2 of the 24 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
-    "4 word card(s) dropped after the 2026-09-27 hand check (he said it right, it was not his slip, or it repeats a slip already counted): 35:00 عالمة; 47:16 قرايب; 54:08 تلاتين; 1:03:08 طالب."
+    "timings: anees-20260928-recall-medi-seg0: page/engine offset spread 91.50s",
+    "grammar: 1 of the 19 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "2 word card(s) dropped after the 2026-09-27 hand check (he said it right, it was not his slip, or it repeats a slip already counted): 34:56 عالمة; 1:03:08 طالب."
    ],
    "page": "lessons/2026-09-28.html",
    "detail": "data/lessons/2026-09-28.json",
    "counts": {
-    "turns": 1018,
-    "chat_lines": 0,
-    "vocab_errors": 24,
-    "vocab_correct": 120,
-    "grammar_errors": 24,
+    "turns": 1082,
+    "chat_lines": 28,
+    "vocab_errors": 20,
+    "vocab_correct": 124,
+    "grammar_errors": 19,
     "grammar_not_counted": 0
    },
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 61.0 %; 2 consecutive passes at >= 95 % are needed",
-     "coverage: Medi not transcribed 00:00-07:30 while the other person talks",
-     "coverage: 17 stretches of Medi's speech written as '[speaking ...]' markers (01:32 in all)",
+     "reader agreement: pass 1 51.1 %; 2 consecutive passes at >= 95 % are needed",
+     "coverage: 17 stretches of Medi's speech written as '[speaking ...]' markers (03:10 in all)",
      "coverage: Medi talks 00:42-06:42 (174 s of speech on their own track) with no transcript line",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3948 s) compared with a second model",
-     "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3948 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
      "passes": [
       {
        "pass": 1,
-       "r1": 53,
-       "r2": 50,
-       "agreed": 36,
+       "r1": 43,
+       "r2": 35,
+       "agreed": 24,
        "disputed": 23,
-       "agreement_pct": 61.0
+       "agreement_pct": 51.1
       }
      ],
      "between": [],
@@ -4121,14 +4115,9 @@
    "coverage_by_person": {
     "Medi": {
      "_lesson_s": 3948.0,
-     "first_t": 450.22,
+     "first_t": 0.06,
      "last_t": 3934.67,
      "missing": [
-      [
-       0.0,
-       450.22,
-       "no transcript for Medi while the other person talks"
-      ],
       [
        42.1,
        401.9,
@@ -4148,22 +4137,22 @@
       ],
       [
        964.11,
-       975.79,
+       977.94,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        978.77,
-       979.77,
+       997.86,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        997.79,
-       1006.61,
+       1011.46,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1012.01,
-       1014.03,
+       1015.74,
        "engine heard speech but wrote a marker, not words"
       ],
       [
@@ -4173,12 +4162,12 @@
       ],
       [
        1023.37,
-       1024.37,
+       1041.36,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1050.57,
-       1056.31,
+       1059.38,
        "engine heard speech but wrote a marker, not words"
       ],
       [
@@ -4188,43 +4177,43 @@
       ],
       [
        1083.55,
-       1084.75,
+       1089.8,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1089.99,
-       1099.93,
+       1101.16,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1104.13,
-       1106.45,
+       1106.48,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1106.47,
-       1107.47,
+       1130.28,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1132.51,
-       1133.51,
+       1145.72,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        1148.01,
-       1150.93,
+       1160.06,
        "engine heard speech but wrote a marker, not words"
       ],
       [
        2688.34,
-       2691.37,
+       2692.02,
        "engine heard speech but wrote a marker, not words"
       ]
      ],
-     "missing_s": 450.2,
-     "hole_s": 91.9,
-     "covered_pct": 88.6
+     "missing_s": 359.8,
+     "hole_s": 189.8,
+     "covered_pct": 90.9
     },
     "Amal": {
      "_lesson_s": 3948.0,

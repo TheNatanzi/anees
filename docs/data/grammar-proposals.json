@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T17:39:29-07:00",
+ "updated": "2026-10-02T17:54:55-07:00",
  "rule": "GR-18",
  "about": "Grammar corrections Amal made that fit no existing rule. Each is a proposed new rule for Medi's yes or no; nothing here is scored until he says yes. Built by scripts/full_audit_build.py from the audit rows and data/lesson-work/full-audit/proposed-buckets.json.",
  "proposals": [
@@ -107,6 +107,64 @@
      "why": "59:04 he said عملنا كتير; Amal asked شو عملنا؟ at 59:06 and 59:12 until he said عملنا تمرين كتير (59:15). Low: the hand check read her question as conversation",
      "also_counted_as": [],
      "scored_under": "C12"
+    }
+   ]
+  },
+  {
+   "id": "P-FA-30250557",
+   "name": null,
+   "proposed_rule": "To make / let someone become X use a5alli + object ending + bare verb (a5alliha t9eer), not laazem + verb.",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-30250557 (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-30250557",
+     "date": "2026-09-16",
+     "t": "06:13",
+     "t_amal": "06:37",
+     "medi_said": "make her a good [speaking Arabic] Would it be [speaking Arabic] ?",
+     "amal_said": "Let her be. ... أخليها تصير ... أنا لازم تصير؟ No. You'd need something like to make her، to make to let her become.",
+     "chat": "bas ana ra7 ajrreb a5alliha t9eer muwazzafe mnee7a",
+     "wrong": "لازم تصير",
+     "right": "أخليها تصير",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "medium",
+     "why": "Amal echoed his form 'أنا لازم تصير؟' and said No, then gave a5alliha t9eer; low because he offered it as 'would it be ...?' and his Arabic is hidden by the engine.",
+     "also_counted_as": []
+    }
+   ]
+  },
+  {
+   "id": "P-FA-b8a11e6b",
+   "name": null,
+   "proposed_rule": "For weather use ONE subject, الدنيا (feminine verb/adjective) or الجو (masculine), never both together: الدنيا بردت / الجو برد",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-b8a11e6b (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-b8a11e6b",
+     "date": "2026-09-17",
+     "t": "11:02",
+     "t_amal": "11:04",
+     "medi_said": "Okay. دنيا جو.",
+     "amal_said": "No, no, no. Either دنيا or جو. One just one.",
+     "chat": null,
+     "wrong": "دنيا جو",
+     "right": "الدنيا or الجو",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "high",
+     "why": "He stacked both weather words; Amal: either دنيا or جو, just one.",
+     "also_counted_as": [
+      {
+       "uid": "FA-58f0da05",
+       "kind": "grammar",
+       "bucket": "A1"
+      }
+     ]
     }
    ]
   },
