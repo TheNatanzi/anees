@@ -6,14 +6,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **595** (sweep had 312) |
+| Grammar fixes Amal voiced (A) | **596** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 89 |
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 9 |
 | Vocab fixes Amal voiced (A) | **282** (sweep had 147; lesson pages showed 23) |
 | - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 160, '0': 115, '2': 46, '3': 5} |
 | Vocab she let pass (B, to Amal) | **44** by tier {'1': 25, '2': 13, '3': 6} |
 | Listening-drill misreads (kept apart) | 82 |
-| Rows the readers found that the sweep did not have | 681 |
+| Rows the readers found that the sweep did not have | 682 |
 | Sweep rows the readers did not list (kept) | 115 |
 | Machine audit already had | 104 |
 
@@ -38,7 +38,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-09-28 | 18 | 2 | 20 | 0 | 2 | 0 | 0 | 51.1 % |
 | 2026-09-30 | 20 | 2 | 14 | 0 | 0 | 0 | 0 | 73.7 % |
 | 2026-10-01 | 16 | 2 | 4 | 3 | 2 | 0 | 0 | 78.8 % |
-| 2026-10-02 | 15 | 0 | 10 | 1 | 2 | 0 | 0 | 52.8 % |
+| 2026-10-02 | 16 | 0 | 10 | 1 | 2 | 0 | 0 | 52.8 % |
 
 ## Reader passes (the loop)
 
@@ -75,7 +75,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | A2 | idafa (possession) | 31 |
 | A9 | plurals | 27 |
 | D1 | prepositions | 23 |
-| A1 | el- (the) | 18 |
+| A1 | el- (the) | 19 |
 | A4 | possessive endings | 18 |
 | D3 | endings on prepositions | 17 |
 | A7 | noun + adjective | 16 |
@@ -1514,6 +1514,7 @@ _00:02-06:12 and 53:31-end are English meta talk. 12:34-15:40 and 37:41-42:12 tr
 | FA-ae711e92 | 30:47 | grammar | A7 | الأول اليوم. ... 31:01 الأول اليوم. No, that's the-- Isn't that the first day? | Nothing. ... Nothing. ... اليوم الأول. | الأول اليوم -> اليوم الأول | He built الأول اليوم for 'the first day' (adjective before the noun); Amal said 'Nothing' twice and gave اليوم الأول - A7 adjective goes after. He produced the form, so speaking; his misreading of أول اليوم is D17. | medium | r3 |
 | FA-ceceda0c | 33:43 | grammar | A7 | مرة الأخيرة. | المرة الأخيرة. | مرة الأخيرة -> المرة الأخيرة | With an el- adjective after it the noun needs el- too; Amal recast المرة الأخيرة. | high | r1+r2 |
 | FA-d716d39c | 34:58 | grammar (listening) | B1 | The last person that came. | Yeah, yeah. To come. Mm-hmm. | came -> comes | Listening drill: he glossed بيجي (b- present) as past 'came'; Amal said 'To come' and he fixed it to 'that comes'. Low: small tense slip in an English gloss. | low | r3 |
+| FA-43aadef1 | 35:30 | grammar | A1 | الرحلة أخيرة. | الأخيرة. | أخيرة -> الأخيرة | Medi 2026-10-03 marked it a mistake: my first attempt didnt have the "el" in the second word and amal corrected | high | medi-correction |
 | FA-40d5b3fc | 39:16 | grammar-propose | PROPOSE | qayril yom." "Qayril yom." I'll see you another day. | غير يوم. | qayril yom -> غير يوم | Repeating her بشوفك غير يوم he said 8eir el-yoam (Latin transcript); she recast غير يوم, as she had at 38:12 after his 'Qayril yom, okay' (a question then). Low: may be pronunciation/engine of ghayr yom. | low | r3 |
 | FA-7f27b005 | 42:09 | grammar | A8 | il khitiara il awwal. Is it awwal? | الأولى. | il awwal -> الأولى | 5ityaara is feminine so the adjective is el-oola; Amal recast الأولى. | medium | r1+r2 |
 | FA-ea740d3c | 43:16 | grammar-propose | PROPOSE | تاني حاجة. | تاني حدا would mean the second person. | تاني حاجة -> حدا تاني | Engine wrote حاجة; Amal echoes تاني حدا - before the noun tani means 'second', for 'someone else' it goes after: 7ada taani. | high | r1+r2 |

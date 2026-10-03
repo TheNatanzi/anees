@@ -1,5 +1,5 @@
 {
- "built": "2026-10-03T12:58:54-07:00",
+ "built": "2026-10-03T13:40:08-07:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -15624,6 +15624,30 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-43aadef1",
+    "date": "2026-10-02",
+    "t": "35:30",
+    "t_amal": "35:34",
+    "medi_said": "الرحلة أخيرة.",
+    "amal_said": "الأخيرة.",
+    "chat": null,
+    "wrong": "أخيرة",
+    "right": "الأخيرة",
+    "confidence": "high",
+    "confidence_why": "medi-correction",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-43aadef1",
+    "sweep_id": null,
+    "correction": "chat-20261003-re7le-a5eera",
+    "mistake": "Medi 2026-10-03 marked it a mistake: my first attempt didnt have the \"el\" in the second word and amal corrected",
+    "bucket": "A1",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
     "id": "FA-7f27b005",
     "date": "2026-10-02",
     "t": "42:09",
@@ -23999,7 +24023,7 @@
   "pron_from_sweep": [],
   "hand_check": {},
   "totals": {
-   "speaking_grammar": 595,
+   "speaking_grammar": 596,
    "vocab": 282,
    "machine_caught_speaking": 104
   }
@@ -24007,8 +24031,8 @@
  "decisions": "A counts (every fix Amal voiced; a chat-only fix never counts - GR-19, Medi 2026-10-02); B (she let it pass) is unscored until she rules on Amal's review page; tiers 1-3 vocab, tier 0 = she supplied a word he asked for; grammar filed by bucket; listening rows kept apart.",
  "lessons_missing": [],
  "totals": {
-  "rows": 1158,
-  "grammar_A": 595,
+  "rows": 1159,
+  "grammar_A": 596,
   "grammar_B": 89,
   "grammar_proposed": 9,
   "vocab_A": 282,
@@ -24025,9 +24049,9 @@
    "3": 6
   },
   "listening": 82,
-  "from_readers": 1043,
+  "from_readers": 1044,
   "readers_also_in_sweep": 362,
-  "readers_new": 681,
+  "readers_new": 682,
   "sweep_only_kept": 115,
   "machine_had": 104,
   "sweep_before": {
@@ -24049,7 +24073,7 @@
   "A2": 31,
   "A9": 27,
   "D1": 23,
-  "A1": 18,
+  "A1": 19,
   "A4": 18,
   "D3": 17,
   "A7": 16,
@@ -24251,7 +24275,7 @@
    "sweep_vocab_before": 0
   },
   "2026-10-02": {
-   "grammar_A": 15,
+   "grammar_A": 16,
    "grammar_B": 0,
    "vocab_A": 10,
    "vocab_B": 1,
@@ -67528,6 +67552,30 @@
    "n": 1149
   },
   {
+   "id": "MC-chat-202",
+   "date": "2026-10-02",
+   "t": "35:30",
+   "t_amal": "35:34",
+   "medi_said": "الرحلة أخيرة.",
+   "amal_said": "الأخيرة.",
+   "wrong": "أخيرة",
+   "right": "الأخيرة",
+   "kind": "grammar",
+   "bucket": "A1",
+   "tier": null,
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "high",
+   "source": "audit-2026-09-26",
+   "added_by": "medi-correction",
+   "correction": "chat-20261003-re7le-a5eera",
+   "agreed_by": "medi-correction",
+   "why": "Medi 2026-10-03 marked it a mistake: my first attempt didnt have the \"el\" in the second word and amal corrected",
+   "bucket_name": "el- (the)",
+   "uid": "FA-43aadef1",
+   "n": 1150
+  },
+  {
    "id": "1002-r3-10",
    "t": "39:16",
    "t_amal": "39:18",
@@ -67560,7 +67608,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-40d5b3fc",
-   "n": 1150,
+   "n": 1151,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-40d5b3fc"
@@ -67597,7 +67645,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-7f27b005",
-   "n": 1151
+   "n": 1152
   },
   {
    "id": "A16",
@@ -67631,7 +67679,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-ea740d3c",
-   "n": 1152,
+   "n": 1153,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-ea740d3c"
@@ -67668,7 +67716,7 @@
    "machine_had": false,
    "bucket_name": "noun + adjective",
    "uid": "FA-2a4b4458",
-   "n": 1153
+   "n": 1154
   },
   {
    "id": "1002-r3-11",
@@ -67702,7 +67750,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f4b60b4a",
-   "n": 1154
+   "n": 1155
   },
   {
    "id": "1002-r3-12",
@@ -67736,7 +67784,7 @@
    "machine_had": false,
    "bucket_name": "gender on adjectives",
    "uid": "FA-50c3a19a",
-   "n": 1155
+   "n": 1156
   },
   {
    "id": "1002-r3-13",
@@ -67770,7 +67818,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-07c3e8d5",
-   "n": 1156,
+   "n": 1157,
    "kind_before_proposal": "grammar",
    "bucket_before_proposal": "PROPOSE",
    "proposal": "P-FA-07c3e8d5"
@@ -67806,7 +67854,7 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-0583f785",
-   "n": 1157
+   "n": 1158
   },
   {
    "id": "A19",
@@ -67839,12 +67887,12 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-605b741f",
-   "n": 1158
+   "n": 1159
   }
  ],
  "rulings_applied": [
   {
-   "at": "2026-10-03T19:59:03.279760+00:00",
+   "at": "2026-10-03T20:40:10.686760+00:00",
    "rules": [
     1928,
     1929,
