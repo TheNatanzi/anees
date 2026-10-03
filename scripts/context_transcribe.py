@@ -123,12 +123,20 @@ def _oai(model, audio, text):
         time.sleep(5 * (n + 1))
     if r is None or r.status_code != 200:
         return {"error": "no answer (%s) %s" % (r.status_code if r is not None else "timeout", (r.text[:200] if r is not None else ""))}
+    _runline("openai", model)
     PE.spend("openai", USD_PER_CALL, "TR-22 context listening " + model)
     try:
         txt = r.json()["choices"][0]["message"]["content"]
         return json.loads(re.search(r"\{.*\}", txt, re.S).group(0))
     except Exception as e:
         return {"error": str(e)[:200]}
+
+
+def _runline(service, model):
+    """Every paid call has a run line (check_rules AI-paid-logged)."""
+    import track
+    track.log_run("context.listen", None, kind="inference", provider="google" if service == "gemini" else "openai",
+                  request_model=model, response_model=model, cost_usd=USD_PER_CALL, params={"rule": "TR-22"})
 
 
 def _call(model, audio, text):
@@ -154,6 +162,7 @@ def _gem(model, audio, text):
         time.sleep(5 * (k + 1))
     if r is None or r.status_code != 200:
         return {"error": "no answer (%s)" % (r.status_code if r is not None else "timeout")}
+    _runline("gemini", model)
     PE.spend("gemini", USD_PER_CALL, "TR-22 context listening")
     try:
         txt = r.json()["candidates"][0]["content"]["parts"][0]["text"]
