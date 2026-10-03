@@ -5504,7 +5504,7 @@
     {
      "type": "code",
      "path": "docs/js/promised-words.js",
-     "contains": "root.AneesPromised = { html, label, mount };"
+     "contains": "root.AneesPromised = { html, label, mount, note };"
     }
    ],
    "test": [
@@ -5647,6 +5647,92 @@
     }
    ],
    "note": "Cause 2026-10-02: hourly_lessons.py re-reviews a lesson whose transcript grew after its readers ran (AUTO_REREVIEW; TR-17 re-transcribed the lessons that day); review_lesson.py step 7b runs after_from_audit.py, which called amal_links.create every time -> new links for Oct 1 (18:27 UTC), Sep 23 (19:37) and Sep 26 (20:32), with new questions because the re-review rebuilt the audit rows. Closed the same day: Oct 1 carried 2 of 5 answers, Sep 23 1 of 5, Sep 26 0 of 5 (the rest marked 'not asked - she had answered this lesson already')."
+  },
+  {
+   "id": "AM-19",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every word the lesson-type reader found Amal taught (data/lesson-work/lesson-types/<date>.json taught_words + taught, every lesson, not only since AM-11's start date) plus the hand verb pairs is judged by meaning against her Doc once (data/lesson-work/taught-words-verdicts.json; review_lesson step 7d judges new lessons, fail closed). A word not in her Doc and not already answered or on her card becomes one New words card (same choices, Undo and promised list as AM-11/AM-16), deduped by meaning across lessons and citing the lesson + time (other lessons listed as 'also'); WS-15 loan words are never asked; more than 25 open cards from older lessons fold under 'From older lessons' below the newest. A word already in her Doc only shows as taught. The lesson page lists reader-found and hand taught words together, each with its status: In the Doc / Waiting for Amal / Amal said she'll add it / saved for later / forget. A promised word not in the Doc 7 days after her tap shows 'still waiting' on her promised list and one line on Medi's Word Bank promised section; the app never messages her (ai_rules A1).",
+   "plain": "Words Amal taught you in any lesson that are not in her Doc go on her New words card on the Tutor page (one card per word, with the lesson and time), so she can add them, save them or forget them. Words already in the Doc just show as taught on the lesson page, where every taught word shows whether it is in the Doc, waiting for Amal, promised, or dropped. If she promised a word and it is still not in the Doc a week later, her list and your Word Bank say 'still waiting' - the app never messages her.",
+   "plain_for": "70177b31",
+   "topic": "new words for her",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "we have a process already for words like metshaje3. We need to ask amal if she wants to add them in the tutor hub and then make sure that she adds them."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/amal_new_words.py",
+     "contains": "def taught_build(entries, verdicts, doc, items, taps, prev, marks, lesson_audio=None, turns_for=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/amal_new_words.py",
+     "contains": "\"still_waiting\": bool(days is not None and days >= WAIT_DAYS),"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_lesson.py",
+     "contains": "taught_todo = amal_new_words.taught_unjudged(d, repo)"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_lessons_page_data.py",
+     "contains": "taught_words = list(rd.get(\"taught_words\") or []) if rd else []"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/hub/new-words-task.js",
+     "contains": "From older lessons (${parts.older.length})"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/promised-words.js",
+     "contains": "still not in the Doc after 7 days"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "function taughtBlock(L) {"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_taught_to_amal.py",
+     "contains": "def test_AM_19_taught_words_not_in_her_doc_become_one_card_each_citing_lesson_and_time"
+    },
+    {
+     "path": "tests/test_taught_to_amal.py",
+     "contains": "def test_AM_19_words_in_her_doc_only_show_as_taught_and_a_card_already_asking_is_not_repeated"
+    },
+    {
+     "path": "tests/test_taught_to_amal.py",
+     "contains": "def test_AM_19_lesson_page_status_follows_her_answer_and_the_doc"
+    },
+    {
+     "path": "tests/test_taught_to_amal.py",
+     "contains": "def test_AM_19_a_promised_word_not_in_the_doc_after_7_days_is_still_waiting_and_nothing_is_sent"
+    },
+    {
+     "path": "tests/test_taught_to_amal.py",
+     "contains": "def test_AM_19_every_reader_taught_word_in_the_repo_is_judged"
+    },
+    {
+     "path": "tests/test_taught_to_amal.cjs",
+     "contains": "test('AM-19 older lesson cards fold under From older lessons only past older_fold'"
+    },
+    {
+     "path": "tests/test_taught_to_amal.cjs",
+     "contains": "test('AM-19 still waiting after 7 days: a mark on her list and one line for Medi'"
+    }
+   ],
+   "note": "2026-10-02 first run: 85 reader-found taught words on 8 lessons (09-16..10-02) judged by hand against the Doc import of 2026-10-02 21:02 (54 on the Doc, 7 already on her card, 24 new = 23 cards after one same-lesson duplicate); the hand verb pairs are all in the Doc. No schema change: cards reuse amal_rules (source review, word_key newword:<date>:<hash of 'taught:'+word>)."
   },
   {
    "id": "WS-27",

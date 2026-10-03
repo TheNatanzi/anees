@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T21:15:54-07:00",
+ "updated": "2026-10-02T21:25:19-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -2014,7 +2014,96 @@
      "review": true
     }
    ],
-   "taught_words": [],
+   "taught_words": [
+    {
+     "latin": "ballashat",
+     "arabic": "بلّشت",
+     "english": "she started (= badat)",
+     "t": "04:15",
+     "note": "he said بدأت; she adds بلشت, typed 'badat/ballashat' at 05:14"
+    },
+    {
+     "latin": "z8eere",
+     "arabic": "صغيرة",
+     "english": "young / small (feminine)",
+     "t": "05:33",
+     "note": "he stalls at 05:28; she supplies it, typed 06:00"
+    },
+    {
+     "latin": "a5alliha t9eer",
+     "arabic": "أخليها تصير",
+     "english": "let her become / make her be",
+     "t": "06:24",
+     "note": "he asks how to say 'make her a good...' (06:13); typed 07:04"
+    },
+    {
+     "latin": "muwazzafe",
+     "arabic": "موظفة",
+     "english": "employee (feminine)",
+     "t": "06:30",
+     "note": "typed 07:04"
+    },
+    {
+     "latin": null,
+     "arabic": "بالتوفيق",
+     "english": "good luck",
+     "t": "07:00"
+    },
+    {
+     "latin": "el-safar",
+     "arabic": "السفر",
+     "english": "travel (safra = one trip)",
+     "t": "21:02",
+     "note": "he said 'el safra'; typed 'el-safar bey7ammesna' 22:22"
+    },
+    {
+     "latin": null,
+     "arabic": "بكمّل / نكمّل",
+     "english": "I continue / go on",
+     "t": "25:36",
+     "note": "'We need to learn this verb نكمل. Continue.'"
+    },
+    {
+     "latin": null,
+     "arabic": "كامل",
+     "english": "whole / full",
+     "t": "26:00",
+     "note": "he asked if kamel means 'in total'"
+    },
+    {
+     "latin": null,
+     "arabic": "متوجّع",
+     "english": "hurt (adjective, = موجوع)",
+     "t": "29:24"
+    },
+    {
+     "latin": null,
+     "arabic": "أشيائك",
+     "english": "your things",
+     "t": "1:00:27",
+     "note": "he asks 'can things be possessive?'; 'I don't think we've used that before'"
+    },
+    {
+     "latin": "lawain",
+     "arabic": "لوين",
+     "english": "to where",
+     "t": "1:03:29",
+     "note": "typed 'lawain ra7 t7arrki hadi el-taawla' 1:06:46"
+    },
+    {
+     "latin": "wara2",
+     "arabic": "ورقة / ورق",
+     "english": "a paper / papers",
+     "t": "1:05:36",
+     "note": "'ورقة is feminine and one. ورق is plural.'; typed 1:09:17"
+    },
+    {
+     "latin": null,
+     "arabic": "الله يعافيكي",
+     "english": "reply to يعطيك العافية (God give you health)",
+     "t": "1:09:04"
+    }
+   ],
    "coverage": "Many Medi turns are Latin-transliterated or '[speaking Arabic/foreign language]' (26:46-27:45, 29:56-31:27, 1:02:48-1:09:06) so wrong pieces are inferred from Amal's echoes. 26:46-29:04: chat 'lamma ana biddi ba9eer a7san bi ishi laazem atmarran' but his words are hidden; Amal said 'Fi eish' - fix unknown, not rowed. ح->ه (behamas, بيهمسوني) and the dayani long-vowel fix are S4/F2 pronunciation, left out. 57:26 'akhti' is engine for ta5ti (chat). 07:41 'فيسة' engine for tes3a. Questions (بنسوار أو بسوار؟, بحسب؟, thirty rugs singular?) not rowed. 10:17 repeat of واحد أكتر folded into the 09:18 row. Name عمان (00:33) not flagged. / Large Latin-transliterated stretches 13:41-59:46; many Medi Arabic lines are hidden as [speaking Arabic]/[speaking foreign language] (05:28, 06:13-06:28, 26:46-30:50, 1:02:48-1:09:06) so rows there rest on Amal's echo. 06:28 he asked whether 'ana laazem t9eer' works and Amal said No (a5alliha t9eer) - a question about the rule, left out. ح->ه (بيهمس for بيحمس), dropped ق/ع (dayani, bilax, بنزج) treated as S4 pronunciation; 44:52 vowel-length fix on daaya2ni is pronunciation (F2), left out. Self-fixes left out: 07:34 ستطاش, 07:53 خلت, 37:33 بنوجع, 52:48 dayauna. 27:19 and 28:55 his Arabic is hidden; chat 29:04 gives 'lamma ana biddi ba9eer a7san bi ishi laazem atmarran' but no voiced fix is visible. 1:08:21 thirty rugs singular was his question, right.",
    "notes": [
     "timings: anees-20260916-recall-amal-seg22: page/engine offset spread 42.34s; anees-20260916-recall-medi-seg0: page/engine offset spread 14.90s",
@@ -2420,7 +2509,92 @@
      "review": true
     }
    ],
-   "taught_words": [],
+   "taught_words": [
+    {
+     "latin": "5afeef",
+     "arabic": "خفيف",
+     "english": "light / thin (of a soup)",
+     "t": "04:38",
+     "note": "he stalls ('زفير ماي'); she supplies it, typed 05:05"
+    },
+    {
+     "latin": "sujo2",
+     "arabic": "سجق",
+     "english": "sausage",
+     "t": "06:31",
+     "note": "he forgot the word (06:00 'what was the word?'); typed 07:42"
+    },
+    {
+     "latin": null,
+     "arabic": "مغيمة",
+     "english": "cloudy",
+     "t": "11:27",
+     "note": "he tries 'ما قايمة'; she corrects to مغيمة"
+    },
+    {
+     "latin": null,
+     "arabic": "أحلى",
+     "english": "the most beautiful / prettiest",
+     "t": "11:54",
+     "note": "'أحلى مطر هو أول مطر'"
+    },
+    {
+     "latin": null,
+     "arabic": "غبرة",
+     "english": "dust",
+     "t": "12:28",
+     "note": "12:33 'We didn't learn dust'"
+    },
+    {
+     "latin": "kunet ra7",
+     "arabic": "كنت راح",
+     "english": "I was going to",
+     "t": "13:37",
+     "note": "Medi 13:49 'that's the first time'; typed 'kunet ra7 = I was going to' 14:23"
+    },
+    {
+     "latin": "waade7",
+     "arabic": "واضح",
+     "english": "clear / obvious",
+     "t": "17:21",
+     "note": "Medi: 'you never taught me waz'; typed 'waade7 = clear / obvious' 18:06"
+    },
+    {
+     "latin": "3emel",
+     "arabic": "عمل",
+     "english": "he made / did",
+     "t": "21:38",
+     "note": "typed '3emel = he made' 22:44"
+    },
+    {
+     "latin": null,
+     "arabic": "زيادة",
+     "english": "extra / too much",
+     "t": "49:15",
+     "note": "he says 'I don't wanna say too much'; she gives زيادة"
+    },
+    {
+     "latin": "ba5arreb el-denia",
+     "arabic": "بخرّب الدنيا",
+     "english": "I mess everything up (lit. I ruin the world)",
+     "t": "49:31",
+     "note": "'there's another term'; typed 51:43"
+    },
+    {
+     "latin": null,
+     "arabic": "مخيف",
+     "english": "scary",
+     "t": "53:42",
+     "note": "he asks for the adjective for scary; she gives 'Fi mukhif' (and خايف = scared)"
+    },
+    {
+     "latin": null,
+     "arabic": "كون / ما تكون",
+     "english": "be! / don't be (command)",
+     "t": "58:30",
+     "note": "he asks if bikun can be a command; 58:38 'kun is be. Kun ahsan. Be better.'"
+    }
+   ],
    "coverage": "14:11-22:45 and scattered later lines are '[speaking foreign language]' / '[speaking Arabic]' with no text, so drills there (أسف/تأسف, 20:31, 21:07, 22:14) can only be inferred from Amal's replies. From 27:46 on Medi's Arabic is Latin-transliterated by the engine. 04:23 عنده->فيها left out: he self-fixed to فيها in the same turn before Amal's 'فيها not عندها'. 41:44 ما تارات = مطرت (S4). 55:11 bidahik/bizahik for 'boring' unclear (engine). 54:15 'khawaf' after kaan not scored (B7). 58:48 Mazuja = sheet Maz3ooj (S4). Names amrica, Amal not flagged. / 14:09-24:00 drill on et2assaf is mostly '[speaking Arabic]/[speaking foreign language]' - his Arabic lost; rows at 21:07 and 22:14 rebuilt from Amal's lines (low). 27:46-1:03:46 Medi and much of Amal are Latin-transliterated by the engine; shadda (doubled middle) is invisible, so ba5arreb/ba5rab slips only filed where Amal voiced them. Names amrica/Amal not flagged. Pronunciation (behtr, ma tarat, stawarini) and self-fixes (sab3teen, yom el-sabt, blouzeti) left out.",
    "notes": [
     "timings: anees-20260917-recall-medi-seg1: page/engine offset spread 18.78s",
@@ -3604,7 +3778,26 @@
    },
    "new_words": [],
    "taught": [],
-   "taught_words": [],
+   "taught_words": [
+    {
+     "latin": "ma ilo ta3em",
+     "arabic": "ما إله طعم",
+     "english": "it doesn't have a taste",
+     "t": "11:55"
+    },
+    {
+     "latin": "shufair",
+     "arabic": "شوفير",
+     "english": "driver (chauffeur)",
+     "t": "55:51"
+    },
+    {
+     "latin": "bildoar",
+     "arabic": "بالدور",
+     "english": "taking turns, turn by turn",
+     "t": "57:34"
+    }
+   ],
    "coverage": "00:53-03:27 garbled/possibly Farsi, nothing filed. 42:13-47:49 and 59:28-1:02:12 most Medi Arabic is '[speaking Arabic]'/'[speaking foreign language]': rows only where Amal's echo shows the error; her 'No. أكتر من شهر قبل' (43:59) and 'فيه error' (45:00) could not be tied to his words. 48:19 بتألم for بتعلم = dropped ع (S4). 26:54 'كم يوم or كم أيام' was a question. 39:04 'command tense' and 50:24 السنان were self-fixes. 1:02:40 Zalameen = zalamain, accepted. Names عمان / إيطالي / French not counted. / 00:58-03:27 garbled pre-recording chatter (mixed Farsi?); 42:13-47:57 and 57:14-1:02:12 most of Medi's Arabic is '[speaking Arabic]/[speaking foreign language]' - errors there reconstructed only from Amal's echo/chat (e.g. 43:51 'a month before' fix and 45:00 'فيه error' not recoverable); 59:09-1:00:16 dual drill answers lost. Names عمان/إيطالي/فرنسي not flagged. S4 skips: ما منظر (مع), بدول (بضل), بتألم (بتعلم); سنين self-fixed to سنان; الموعد الـ self-fixed at 49:45. / Medi's side 00:00-22:37 filled from own recording (transcribed late) (266 lines), 22:37-23:45: nothing found in the Meet recording.",
    "gap_fill": [
     {
@@ -4107,7 +4300,151 @@
      "review": true
     }
    ],
-   "taught_words": [],
+   "taught_words": [
+    {
+     "latin": "keef serti",
+     "arabic": "كيف صرتي",
+     "english": "how have you been since (after a change)",
+     "t": "02:44",
+     "note": "explained 01:01-01:33, typed 'how have you been since = keef serti'"
+    },
+    {
+     "latin": null,
+     "arabic": "وقعت",
+     "english": "I fell",
+     "t": "02:16",
+     "note": "02:08 'we actually don't know this verb. To fall.'"
+    },
+    {
+     "latin": "el-barnaamej",
+     "arabic": "البرنامج",
+     "english": "the program",
+     "t": "07:11",
+     "note": "typed 08:07"
+    },
+    {
+     "latin": "8altaat",
+     "arabic": "غلطات",
+     "english": "mistakes (غلطة = one mistake)",
+     "t": "09:48",
+     "note": "he said غلطتي; typed 10:24 / 12:55"
+    },
+    {
+     "latin": "musaa3ade",
+     "arabic": "مساعدة",
+     "english": "help (noun)",
+     "t": "10:51",
+     "note": "he asked مساعد or مساعد?; typed 11:20"
+    },
+    {
+     "latin": "net2akkad",
+     "arabic": "نتأكد",
+     "english": "we make sure",
+     "t": "11:47",
+     "note": "11:47 'We don't know make sure, but أكد، نتأكد'; typed 12:55"
+    },
+    {
+     "latin": "m3allem",
+     "arabic": "معلم / أستاذ",
+     "english": "teacher",
+     "t": "12:57",
+     "note": "typed 13:32"
+    },
+    {
+     "latin": "bilmiyye",
+     "arabic": "بالمية",
+     "english": "percent",
+     "t": "24:05",
+     "note": "he asked 23:46 'How do you say percentage?'; typed 'bilmiyye = percentage' 25:06"
+    },
+    {
+     "latin": "el-dmaa8",
+     "arabic": "دماغ",
+     "english": "brain",
+     "t": "26:29",
+     "note": "he asked for brain doctor; typed 28:16"
+    },
+    {
+     "latin": "doktoar nafsi",
+     "arabic": "دكتور نفسي",
+     "english": "psychologist",
+     "t": "28:04",
+     "note": "typed 'doktoar nafsi = psychologist' 29:13"
+    },
+    {
+     "latin": "doktoar 3aam",
+     "arabic": "دكتور عام",
+     "english": "general doctor (عام = general)",
+     "t": "28:43",
+     "note": "he asked 28:40 'How would I say general doctor?'; typed 29:51"
+    },
+    {
+     "latin": null,
+     "arabic": "باطني",
+     "english": "internal-medicine doctor",
+     "t": "28:54"
+    },
+    {
+     "latin": "wa22af",
+     "arabic": "وقّف",
+     "english": "stopped",
+     "t": "34:28",
+     "note": "he tried ما وافى; typed 36:08"
+    },
+    {
+     "latin": "wejeh",
+     "arabic": "وجه",
+     "english": "face",
+     "t": "40:44",
+     "note": "she asks 'What's وجه؟' 38:39, he reads it 38:42; typed 'wejeh = face'"
+    },
+    {
+     "latin": null,
+     "arabic": "ولا مرة / أبدًا",
+     "english": "never",
+     "t": "45:07"
+    },
+    {
+     "latin": "usba3 / asaabe3",
+     "arabic": "إصبع / أصابع",
+     "english": "finger / fingers",
+     "t": "45:26",
+     "note": "she starts the word for him (أسـ); typed 48:19"
+    },
+    {
+     "latin": "3urus",
+     "arabic": "عرس",
+     "english": "wedding",
+     "t": "51:54",
+     "note": "he said العروس (bride); 51:16 'Arus is bride'; typed 'libse la-3urus' 55:06"
+    },
+    {
+     "latin": null,
+     "arabic": "عريس",
+     "english": "groom",
+     "t": "51:19"
+    },
+    {
+     "latin": "3ala el-a8lab",
+     "arabic": "على الأغلب",
+     "english": "most likely",
+     "t": "55:39",
+     "note": "he was stuck ('I don't know' 55:38); typed 58:57"
+    },
+    {
+     "latin": null,
+     "arabic": "جرابين",
+     "english": "socks (her Palestinian word; كلسات also fine)",
+     "t": "1:02:34"
+    },
+    {
+     "latin": "kulshi",
+     "arabic": "عن كل شي",
+     "english": "about everything",
+     "t": "1:09:07",
+     "note": "he was stuck on 'everything'; typed '7akain 3an kulshi' 1:12:51"
+    }
+   ],
    "coverage": "13:00-17:00 and 20:49-21:00 English-only chat; 17:31-18:24 Medi speaking Farsi to family (skipped); 18:24-20:17 call dropped; 25:00-29:00 and 37:40-50:00 body/doctor drill mostly Latin-transliterated by the engine (wajh, ijrain, etc.) - pronunciation slips there (shahar, awajib, riqaba) skipped per S4. 1:02:23 he self-fixed كصلات to كلسات before Amal (skipped). / 18:01-20:17 connection drop (no turns); 17:31-17:42 Medi speaking Farsi off-lesson; 25:00-29:51 and 36:43-47:52 mostly Latin-transliterated Arabic (engine), so sound vs word slips there are low confidence; long English-only stretches 13:00-16:51 (apps chat) and parts of the doctor section. medi_turns counts Medi lines containing Arabic script (incl. 3 Farsi).",
    "notes": [
     "timings: anees-20260926-recall-amal-seg0: page/engine offset spread 300.27s",
@@ -4340,7 +4677,130 @@
    },
    "new_words": [],
    "taught": [],
-   "taught_words": [],
+   "taught_words": [
+    {
+     "latin": "shu ra2yek",
+     "arabic": "شو رأيك؟",
+     "english": "what do you think?",
+     "t": "01:12",
+     "note": "he tried شو بتظني / شو بتفكري, she hinted, typed 'shu ra2yek = what do you think?'"
+    },
+    {
+     "latin": "7amalet",
+     "arabic": "حملت",
+     "english": "I lifted",
+     "t": "17:31",
+     "note": "he: 'I don't know how to say... I lifted the most amount'; typed 24:16"
+    },
+    {
+     "latin": "el-wazen",
+     "arabic": "الوزن",
+     "english": "weight",
+     "t": "17:44",
+     "note": "'وزن is weight'; typed 20:32"
+    },
+    {
+     "latin": null,
+     "arabic": "أكبر وزن / أكتر وزن",
+     "english": "the most weight",
+     "t": "17:52"
+    },
+    {
+     "latin": "barajj3o",
+     "arabic": "برجّعه",
+     "english": "I put it back",
+     "t": "25:40",
+     "note": "he didn't know 'drop it'; typed 26:00"
+    },
+    {
+     "latin": "mu7aami",
+     "arabic": "محامي",
+     "english": "lawyer",
+     "t": "29:20",
+     "note": "he was stuck between محمد forms; typed 33:54"
+    },
+    {
+     "latin": "ustaaz handasa",
+     "arabic": "أستاذ هندسة",
+     "english": "engineering professor",
+     "t": "32:01",
+     "note": "'We would use the noun here'"
+    },
+    {
+     "latin": "3aalime",
+     "arabic": "عالمة",
+     "english": "scientist (f.)",
+     "t": "34:59",
+     "note": "he asked 'scientist'; typed 35:56"
+    },
+    {
+     "latin": "eben 3am",
+     "arabic": "ابن عم",
+     "english": "cousin (son of paternal uncle)",
+     "t": "37:53",
+     "note": "typed 38:40"
+    },
+    {
+     "latin": null,
+     "arabic": "أعمام",
+     "english": "paternal uncles (plural)",
+     "t": "39:41"
+    },
+    {
+     "latin": "wlaad 3am",
+     "arabic": "ولاد عم",
+     "english": "cousins (plural)",
+     "t": "40:23",
+     "note": "'We say ولاد عم'; typed 41:12"
+    },
+    {
+     "latin": "2araayeb",
+     "arabic": "قرايب / قريب",
+     "english": "relatives / a relative",
+     "t": "47:02",
+     "note": "he forgot it ('similar to the Farsi word'); she hinted, typed 48:26"
+    },
+    {
+     "latin": null,
+     "arabic": "إخوة",
+     "english": "siblings",
+     "t": "48:58"
+    },
+    {
+     "latin": "mart 5aali",
+     "arabic": "مرت خالي",
+     "english": "my uncle's wife",
+     "t": "50:03",
+     "note": "he said مرات; typed 50:58 (and 'marti' 51:10)"
+    },
+    {
+     "latin": "7afeedain",
+     "arabic": "حفيدين",
+     "english": "two grandchildren",
+     "t": "51:13",
+     "note": "he tried فهدين; typed 52:22"
+    },
+    {
+     "latin": null,
+     "arabic": "عصبية",
+     "english": "angry woman (by nature)",
+     "t": "54:53",
+     "note": "he did not know it at 54:26-54:36"
+    },
+    {
+     "latin": null,
+     "arabic": "صبايا",
+     "english": "young women (plural of صبية)",
+     "t": "54:53"
+    },
+    {
+     "latin": "el-mummared",
+     "arabic": "الممرض",
+     "english": "nurse",
+     "t": "1:00:29",
+     "note": "he tried مماير / مميان; typed 1:01:50"
+    }
+   ],
    "coverage": "00:00-15:40 and 19:50-21:20 mostly English app talk. 15:43-19:08 his Arabic is lost to [speaking foreign language], rows there are low confidence. Several ع-drops (أمي for عمي, أمتي for عمتي, وين القلب 41:51), محمد/محامي (29:14, vowel length), مقني (1:03:21), صبية/سبية are pronunciation (S4) and left out. 44:53 اثناش بنات let pass and her own chat keeps banaat, so not written. Listening misunderstandings at 57:56 (بالشركة) and 1:00:05 (clinic) left out; 1:00:39 جنين is his mishearing of جمع (name list), not written. 30:35 عماوم accepted (chat 3maam). / Many Medi turns 15:43-18:53 are [speaking foreign language] (engine dropped his Arabic); only the 16:04 slip is recoverable from Amal's echo. 00:00-15:40 and 19:00-21:20 are mostly English/meta. 29:14 محمد vs محامي treated as pronunciation (Amal: 'long and not doubled', S4/F2). 37:45 Amal's ابن-for-ولاد remark was reversed by her at 40:10, not filed separately. 1:00:39 جنين is on the name list (he misheard جمع) - not flagged. 54:11 سبية/صبية, 1:03:21 مقني, 1:02:50 كوفار are pronunciation. 44:53 اثناش بنات accepted by Amal (said and typed banaat).",
    "notes": [
     "timings: anees-20260928-recall-medi-seg0: page/engine offset spread 91.50s",
@@ -4651,7 +5111,50 @@
    },
    "new_words": [],
    "taught": [],
-   "taught_words": [],
+   "taught_words": [
+    {
+     "latin": "7aafez / daafe3",
+     "arabic": "حافز / دافع",
+     "english": "motivation",
+     "t": "06:00",
+     "note": "he asked for 'motivated' (05:45); she says 'we knew it before', typed 06:19"
+    },
+    {
+     "latin": "mitshajje3",
+     "arabic": "متشجع",
+     "english": "motivated / encouraged",
+     "t": "06:27",
+     "note": "typed 'mitshajje3 = Motivated' at 06:47 and 'mitshajje3 + la' at 07:16"
+    },
+    {
+     "latin": null,
+     "arabic": "راحت عليها",
+     "english": "she missed out (it went on her)",
+     "t": "13:55",
+     "note": "'That's a good expression' (14:13), explained 14:27"
+    },
+    {
+     "latin": null,
+     "arabic": "بزور",
+     "english": "I visit (zaaruna = they visited us)",
+     "t": "33:34",
+     "note": "he reached for سوالونا; she gave 'basour', he then said زرونا"
+    },
+    {
+     "latin": "3ayaane",
+     "arabic": "عيانة",
+     "english": "sick (feminine; 3ayaan masc.)",
+     "t": "42:01",
+     "note": "he forgot the word for mild sickness (41:58); typed 'bent jaari 3ayaane' 43:13"
+    },
+    {
+     "latin": "shantet el-safar",
+     "arabic": "شنتة سفر",
+     "english": "suitcase",
+     "t": "59:11",
+     "note": "he forgot the bag word (59:07); typed 1:01:39"
+    }
+   ],
    "coverage": "Opening 00:00-06:00 is English app talk. 16:00-31:00 and 34:00-56:00 are mostly English rule discussion of el- with short Latin-transliterated answers (Latin kept). Engine garbles: 15:39 رجعوا شوفت كتير (her chat el-jaww shoab kteer), 22:15 'Halloween' = el-7ilween, 07:31/07:34 صرت/سألت likely her su2et. Skipped as not slips: 08:02 الزباين/زباين both fine; 22:25 صغار self-fixed to غاليين; 24:15 هاديين/هاديات both accepted; 31:38 واطي self-fixed to قصيرة before her comment; 38:36 الدرس العربي vs درس العربي both valid; 59:28 Hadi el-shanta only rephrased; 1:02:32 House supplied mid-sentence; 10:47 تلات and 30:04 متعب pronunciation (S4). No tier-3 English-in-Arabic slips found (English stretches were whole clauses / thinking aloud). / 00:00-06:00 English chat about the app. 15:58-1:05:42 is a drill on el- with many Latin-transliterated Medi turns (El safra, hadak el zalameh, bab al-ghurfa) and English meta discussion. Skipped as not slips: 08:02 الزباين/زباين (she gave both), 31:38 واطي -> he self-fixed to عسيرة (قصيرة) before her 'curse word' remark, 38:36 الدرس العربي (she said both fine), 59:28 Hadi el shanta (she only rephrased), 1:02:30 صديقة -> 'House' (mid-sentence help), 1:01:25 يصلوا vs يوصلوا (vowel/pronunciation), 10:47 ثلاث/تلات (S4), 15:05 date numbers unclear, 15:39 weather line garbled (chat: el-jaww shoab kteer). Engine mishears: 33:05 سوالونا = وصلونا per her 'arrive or reach'; 22:15 'Halloween' = 7ilween (chat).",
    "notes": [
     "grammar: 1 of the 19 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",

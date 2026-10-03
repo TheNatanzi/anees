@@ -9,6 +9,10 @@
    answers" and in "You said you will add" - has the shared Undo (docs/js/amal-undo.js). Undo queues an amal_rules row of
    kind 'undo' (never a delete), drops a tap that was not sent yet, and puts the card back at once. What this browser
    saved earlier is shown only while it is still queued: once sent, the live answers win.
+   AM-19 (Medi 2026-10-02 "We need to ask amal if she wants to add them in the tutor hub and then make sure that she adds
+   them"): words she TAUGHT in any lesson (source 'taught') are cards here too, citing the lesson and time; more than
+   older_fold open cards from older lessons fold under "From older lessons"; a promised word still not in the Doc after
+   7 days shows "still waiting" (a mark only - nothing is sent to her).
    AneesNewWordsTask.mount(el, {token, data, answers, live}, {onChange}); AneesNewWordsTask.count(data, answers). */
 (function (root) {
   'use strict';
@@ -47,6 +51,19 @@
     });
     return out;
   }
+  // AM-19: a word she taught in more than one lesson is one card; the other lessons are cited on it
+  function alsoOf(it) {
+    const a = (it.also || []).filter(x => x && x.date);
+    return a.length ? ' · also ' + a.map(x => esc(pretty(x.date)) + (x.mmss ? ' ' + esc(x.mmss) : '')).join(', ') : '';
+  }
+  // AM-19: open cards from lessons before data.older_before; more than data.older_fold of them -> folded below the newest
+  function split(open, data) {
+    const before = (data && data.older_before) || '', fold = (data && data.older_fold) || 25;
+    const older = before ? open.filter(it => it.source !== 'glue' && it.date < before) : [];
+    return older.length > fold ? { newest: open.filter(it => older.indexOf(it) < 0), older } : { newest: open, older: [] };
+  }
+  // AM-19 "make sure that she adds them": a promised word still not in the Doc after 7 days - a gentle mark, no message
+  function stillWaiting(p) { return p && p.state === 'waiting' && p.still_waiting ? ' · still waiting' + (p.waiting_days ? ' (' + p.waiting_days + ' days)' : '') : ''; }
   function count(data, answers) {
     const items = (data && data.items) || [];
     const done = items.filter(it => decided(it, answers)).length;
@@ -98,7 +115,7 @@
       const big = it.arabizi ? `<div class="hb-big">${esc(it.arabizi)}</div>${it.arabic ? `<div class="hb-ar" lang="ar">${esc(it.arabic)}</div>` : ''}`
                              : `<div class="hb-big hb-ar" lang="ar" style="color:var(--ab-text);font-size:24px">${esc(it.arabic)}</div>`;
       return `<div class="hb-moment" data-nw="${esc(it.id)}">
-        <p class="hb-prog">${it.source === 'glue' ? 'Small linking word Medi uses a lot (WS-19)' : `${esc(pretty(it.date))} lesson · ${esc(it.mmss || '')}`}</p>${big}
+        <p class="hb-prog">${it.source === 'glue' ? 'Small linking word Medi uses a lot (WS-19)' : `${esc(pretty(it.date))} lesson · ${esc(it.mmss || '')}${it.source === 'taught' ? ' · you taught this word' : ''}${alsoOf(it)}`}</p>${big}
         ${it.english ? `<div class="hb-en">${esc(it.english)}</div>` : ''}
         ${it.hint ? `<div class="hb-why" data-hint="old"><b>Note from Medi:</b> ${esc(it.hint)}</div>` : ''}
         ${it.line ? `<div class="hb-why">You ${it.typed ? 'typed' : 'said'}: <span lang="${it.typed ? 'en' : 'ar'}">${esc(it.line)}</span></div>` : ''}
@@ -113,12 +130,14 @@
       const saving = it => (LS(QK) || []).some(j => j.body.word_key === it.id) ? ' · saving…' : '';
       const word = it => `<b>${esc(it.arabizi || it.arabic)}</b>${it.arabizi && it.arabic ? ` <span lang="ar">${esc(it.arabic)}</span>` : ''}`;
       const P = {}; (D.promised || []).forEach(p => { P[p.id] = p; });
-      const stateOf = it => { const p = P[it.id]; return p && p.state === 'in_doc' ? 'In the Doc' + (p.in_doc_since ? ' since ' + pretty(p.in_doc_since) : '') : 'Waiting'; };
+      const stateOf = it => { const p = P[it.id]; return p && p.state === 'in_doc' ? 'In the Doc' + (p.in_doc_since ? ' since ' + pretty(p.in_doc_since) : '') : 'Waiting' + stillWaiting(p); };
+      const parts = split(open, D);
       const ageOf = it => AGE[(decided(it, answers) || {}).kind] || (P[it.id] && P[it.id].age) || '';
       const c = count(D, answers);
       el.innerHTML = `<div class="hb-task"><p class="hb-sub">Words you used in our lessons that are not on the vocabulary Doc. For each one: add it to the Doc as a NEW word or an OLD word Medi already knows, save it for a future lesson, or forget it.</p>
         ${TOKEN ? '' : '<p class="hb-sub">No open review link, so answers cannot be saved right now.</p>'}
-        <div data-root>${open.length ? open.map(card).join('') : '<p class="hb-empty">All new words decided. Shukran!</p>'}</div>
+        <div data-root>${open.length ? parts.newest.map(card).join('') : '<p class="hb-empty">All new words decided. Shukran!</p>'}</div>
+        ${parts.older.length ? `<details class="hb-older" data-older><summary class="hb-prog">From older lessons (${parts.older.length})</summary>${parts.older.map(card).join('')}</details>` : ''}
         ${adds.length ? `<p class="hb-prog" style="margin-top:14px">You said you will add these to the Doc (${adds.length})</p><ul class="hb-done" data-promised>${adds.map(it => `<li data-answered="${esc(it.id)}">${word(it)} <span>· ${esc(it.english || '')}${ageOf(it) ? ' · ' + esc(ageOf(it)) : ''} · result: on the promised list, ${esc(stateOf(it))}${saving(it)}</span>${AneesUndo.button({ 'data-nwundo': it.id })}</li>`).join('')}</ul>` : ''}
         ${rest.length ? `<p class="hb-prog" style="margin-top:14px">Your other answers (${rest.length})</p><ul class="hb-done" data-answers>${rest.map(it => `<li data-answered="${esc(it.id)}">${word(it)} <span>· ${esc(SAID[decided(it, answers).kind] || '')} · result: ${esc(({ newword_later: 'kept for a future lesson', newword_forget: 'the app stops asking' })[decided(it, answers).kind] || 'no change')}${saving(it)}</span>${AneesUndo.button({ 'data-nwundo': it.id })}</li>`).join('')}</ul>` : ''}
         <p class="hb-foot">Saved as you tap · nothing changes the Doc by itself</p></div>`;
@@ -132,5 +151,5 @@
     }
     render(); flush();
   }
-  root.AneesNewWordsTask = { mount, count, decided, liveView };
+  root.AneesNewWordsTask = { mount, count, decided, liveView, split, stillWaiting, alsoOf };
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -140,7 +140,10 @@ TAUGHT = {
 import lesson_type_read as LTR  # noqa: E402
 TYPE_READS = LTR.load_all(REPO)
 for _d, _r in TYPE_READS.items():
-    TAUGHT.setdefault(_d, [V(x["latin"], x["arabic"], bool(x.get("review"))) for x in _r.get("taught") or []])
+    # AM-19: union - the hand pairs stay, the reader's pairs that are not already there are added (never hidden)
+    _have = {re.sub(r"\s+", "", x["arabic"]) for x in TAUGHT.get(_d, [])}
+    TAUGHT.setdefault(_d, []).extend(V(x["latin"], x["arabic"], bool(x.get("review"))) for x in _r.get("taught") or []
+                                     if re.sub(r"\s+", "", x["arabic"]) not in _have)
 DATES = sorted(f[:-5] for f in os.listdir(os.path.join(REPO, "docs", "lessons")) if re.fullmatch(r"20\d\d-\d\d-\d\d\.html", f))  # every published lesson page, so a new lesson flows by itself
 GLUE = 1.2          # s: words closer than this are one turn
 LAT_MAX = 15.0      # s: a reply later than this is not a reply
@@ -808,7 +811,8 @@ def build():
         typ, mode, why = LESSON_TYPES.get(date) or ((rd["type"], rd.get("review_mode"), rd["why"]) if rd else
                                                      ("free-speak", None, "Not read yet: default until the same-day reader (review_lesson.py, scripts/lesson_type_read.py) reads this lesson. The publish guard blocks while this shows."))
         type_read_by = "hand (LESSON_TYPES)" if date in LESSON_TYPES else (rd.get("read_by") or "reader") if rd else None
-        taught_words = [] if date in LESSON_TYPES or not rd else list(rd.get("taught_words") or [])
+        # AM-19: the reader's taught words show on every lesson it read, hand LESSON_TYPES / TAUGHT dates too (union)
+        taught_words = list(rd.get("taught_words") or []) if rd else []
         # HARD RULE (Medi 2026-09-05): "new" = only words Amal (or Medi) marked new for this lesson
         # (amal_rules kind='new') or a Doc diff. Never inferred from "first time on the recording" -
         # that listed words Medi already knew (Medi 2026-09-25).

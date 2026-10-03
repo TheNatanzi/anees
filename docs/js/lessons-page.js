@@ -730,6 +730,29 @@ function convoFold(x, t, wrong, right) {
   });
   return d;
 }
+// AM-19 (Medi 2026-10-02 "We need to ask amal if she wants to add them in the tutor hub and then make sure that she adds
+// them"): every word Amal taught in this lesson - the same-day reader's words plus the hand verb pairs - with where it
+// stands: In the Doc / Waiting for Amal (on her New words card) / Amal said she'll add it / saved for later / forget.
+// Data: data/amal-new-words.json `taught` (scripts/amal_new_words.py); never scored.
+var TAUGHT = {};
+function taughtBlock(L) {
+  var rows = TAUGHT[L.date] || [];
+  if (!rows.length) return null;
+  var box = el('div', 'ls-newwords ls-taught');
+  box.appendChild(el('h3', 'gc-secttitle', 'Words Amal taught in this lesson (' + rows.length + ')'));
+  var g = el('div', 'ls-nwgrid');
+  rows.forEach(function (x) {
+    var c = el('div', 'ls-nw');
+    c.setAttribute('data-taught-status', x.status);
+    c.appendChild(el('strong', 'ls-nwlatin', x.latin || x.arabic));
+    if (x.latin && x.arabic) { var ar = el('div', 'ls-ar', x.arabic); ar.setAttribute('lang', 'ar'); ar.setAttribute('dir', 'rtl'); c.appendChild(ar); }
+    if (x.english) c.appendChild(el('div', 'ls-en', x.english));
+    c.appendChild(el('div', 'ab-mini', (x.mmss ? x.mmss + ' · ' : '') + (x.kind === 'verb' ? 'verb pair · ' : '') + (x.status_label || x.status) + (x.still_waiting ? ' · still waiting' : '')));
+    g.appendChild(c);
+  });
+  box.appendChild(g);
+  return box;
+}
 function newWords(L) {
   var box = el('div', 'ls-newwords');
   var verbs = (L.taught || []).filter(function (x) { return !x.review; });
@@ -746,11 +769,13 @@ function newWords(L) {
     });
     box.appendChild(g);
   }
-  if (verbs.length) grid('New verbs you learned', verbs);
+  var withStatus = (TAUGHT[L.date] || []).length;   // AM-19: the taught list with statuses replaces the plain grids
+  if (verbs.length && !withStatus) grid('New verbs you learned', verbs);
   if ((L.new_words || []).length) grid('New words Amal marked', L.new_words);
   // LS-01: words Amal introduced in this lesson, read from context the same day (never scored)
-  if ((L.taught_words || []).length) grid('Words Amal introduced (read from the lesson)', L.taught_words);
-  if (review.length) grid('Reviewed from earlier lessons', review);
+  if ((L.taught_words || []).length && !withStatus) grid('Words Amal introduced (read from the lesson)', L.taught_words);
+  if (review.length && !withStatus) grid('Reviewed from earlier lessons', review);
+  var tb = taughtBlock(L); if (tb) box.appendChild(tb);
   if (!box.childNodes.length) box.appendChild(el('div', 'gc-empty', 'No new words or verbs recorded for this lesson.'));
   return box;
 }
@@ -767,6 +792,7 @@ function detail(L) {
     d.appendChild(newWords(L));
   } else {
     var c = L.counts || {};
+    var tb = taughtBlock(L); if (tb) d.appendChild(tb);
     d.appendChild(vocabAcc(c));
     d.appendChild(acc('Grammar errors (' + (num(c.grammar_errors) ? c.grammar_errors : '…') + (c.grammar_not_counted ? ' + ' + c.grammar_not_counted + ' not counted' : '') + ')', grammarList));
     d.appendChild(acc('Full transcript' + (num(c.turns) ? ' (' + c.turns + ' turns' + (c.chat_lines ? ' + ' + c.chat_lines + ' chat lines' : '') + ')' : ''), transcript));
@@ -847,8 +873,9 @@ function optional(url) {
 }
 var RULES = Object.create(null);
 var q = '?build=' + encodeURIComponent(BUILD);
-Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json' + q), optional('data/word-bank-catalog.json' + q), optional('data/arabizi-extra.json' + q), optional('data/grammar-console.json' + q)])
+Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json' + q), optional('data/word-bank-catalog.json' + q), optional('data/arabizi-extra.json' + q), optional('data/grammar-console.json' + q), optional('data/amal-new-words.json' + q)])
   .then(function (res) {
+    TAUGHT = (res[5] && res[5].taught) || {};
     if (window.AneesWordBankArabizi) {
       var house = (res[1] && res[1].items) || {};
       var words = ((res[0] && res[0].items) || []).map(function (w) {

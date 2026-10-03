@@ -236,7 +236,8 @@ def load_taps():
     return out
 
 
-def build(verdicts=None, taps=None, previous=None, lesson_audio=None, today=None, marks=None, doc=None, glue=False):
+def build(verdicts=None, taps=None, previous=None, lesson_audio=None, today=None, marks=None, doc=None, glue=False,
+          taught=None, taught_verdicts=None, turns_for=None):
     """Pure: verdict rows + taps -> the page data. `previous` = the last built file (statuses kept when taps is None).
     `marks` = data/word-marks.json (Medi's old/new marks, AM-16), `doc` = docs/data/words.json (her Doc: a promised word
     moves Waiting -> In the Doc when it appears there)."""
@@ -305,6 +306,13 @@ def build(verdicts=None, taps=None, previous=None, lesson_audio=None, today=None
         it["hint"] = (mk.get("hint") or word_marks.HINT_OLD) if mk and mk.get("mark") == "old" else glue_words.HINT
         it["age"], it["age_by"] = word_marks.resolve(it["medi_mark"], it["tap"])
         items.append(it)
+    # AM-19: words she taught (every lesson) -> the same cards; `taught` = taught_entries(), None = not built here
+    T_map, T_counts = None, None
+    if taught is not None:
+        TV = taught_verdicts if taught_verdicts is not None else (
+            json.load(open(TAUGHT_VERDICTS, encoding="utf-8")) if os.path.exists(TAUGHT_VERDICTS) else [])
+        T_items, T_map, T_counts = taught_build(taught, TV, W, items, taps, prev, M, lesson_audio, turns_for)
+        items.extend(T_items)
     items.sort(key=lambda x: (x["date"], x["t"] or 0), reverse=False)
     items.sort(key=lambda x: x["date"], reverse=True)
     out = {"built": today or datetime.datetime.now().astimezone().isoformat(timespec="seconds"),
@@ -314,7 +322,7 @@ def build(verdicts=None, taps=None, previous=None, lesson_audio=None, today=None
            "counts": {"items": len(items), "open": sum(1 for x in items if x["status"] == "open"),
                       "add": sum(1 for x in items if x["status"] == "add"), "later": sum(1 for x in items if x["status"] == "later"),
                       "forget": sum(1 for x in items if x["status"] == "forget")},
-           "excluded": excl, "items": items,
+           "excluded": excl, "items": items, "older_before": START, "older_fold": OLDER_FOLD,
            "pending_doc_additions": [{"id": x["id"], "date": x["date"], "arabic": x["arabic"], "arabizi": x["arabizi"], "english": x["english"]}
                                      for x in items if x["status"] == "add"]}
     # AM-16 "Keep a tab of what she said shes going to add": every word Amal tapped Add (new or old) -> Waiting, then
@@ -331,13 +339,239 @@ def build(verdicts=None, taps=None, previous=None, lesson_audio=None, today=None
         in_doc = word_marks.doc_has(x, W)
         was = prev_promised.get(pid) or {}
         state = ("in_doc" if in_doc else "waiting") if x["status"] == "add" else "awaiting_amal"
+        # AM-19 "make sure that she adds them": Waiting for WAIT_DAYS or more -> still_waiting (a gentle mark on her list
+        # and one line for Medi on the Word Bank; the code never messages her, ai_rules A1)
+        days = None
+        if state == "waiting" and x["answered_at"]:
+            try:
+                days = (datetime.date.fromisoformat(day) - datetime.date.fromisoformat(str(x["answered_at"])[:10])).days
+            except ValueError:
+                days = None
         promised.append({"id": pid, "date": x["date"], "arabic": x["arabic"], "arabizi": x["arabizi"], "english": x["english"],
                          "age": x["age"], "age_by": x["age_by"], "marks": {"medi": x["medi_mark"], "amal": word_marks.AGE_OF_TAP.get(x["tap"])},
-                         "tapped_at": x["answered_at"], "state": state,
+                         "tapped_at": x["answered_at"], "state": state, "waiting_days": days,
+                         "still_waiting": bool(days is not None and days >= WAIT_DAYS),
                          "in_doc_since": (was.get("in_doc_since") or day) if state == "in_doc" else None})
     out["promised"] = promised
     out["counts"]["promised_waiting"] = sum(1 for p in promised if p["state"] == "waiting")
     out["counts"]["promised_in_doc"] = sum(1 for p in promised if p["state"] == "in_doc")
+    out["counts"]["promised_still_waiting"] = sum(1 for p in promised if p.get("still_waiting"))
+    out["counts"]["older_open"] = sum(1 for x in items if x["status"] == "open" and x["date"] < START)
+    if T_map is not None:
+        # a card whose word is in the Doc now counts as in the Doc on the lesson page too
+        for rows in T_map.values():
+            for r in rows:
+                p = next((q for q in promised if q["id"] == r.get("card")), None)
+                if p and p["state"] == "in_doc":
+                    r["status"], r["status_label"] = "in_doc", TAUGHT_STATUS["in_doc"]
+                elif p and p.get("still_waiting"):
+                    r["still_waiting"] = True
+        out["taught"], out["taught_counts"] = T_map, T_counts
+    return out
+
+
+# ---------------------------------------------------------------- AM-19: words Amal TAUGHT -> her New words card
+# Medi 2026-10-02: "we have a process already for words like metshaje3. We need to ask amal if she wants to add them in
+# the tutor hub and then make sure that she adds them." Every word the lesson-type reader found she taught
+# (data/lesson-work/lesson-types/<date>.json taught_words + taught, every lesson - START does not apply) plus the hand
+# verb pairs (docs/data/lessons.json `taught`) is judged BY MEANING against her Doc once
+# (data/lesson-work/taught-words-verdicts.json: on_doc | new | on_card {date,key} = already on her card; dup_of = another
+# form of a new word of the same lesson). A word in her Doc only shows as taught on the lesson page; a new one is one card
+# (same choices, same promised list), deduped by meaning across lessons; WS-15 loanwords never reach her.
+TAUGHT_VERDICTS = os.path.join(REPO, "data", "lesson-work", "taught-words-verdicts.json")
+LESSONS_JSON = os.path.join(REPO, "docs", "data", "lessons.json")
+OLDER_FOLD = 25        # more open cards than this from lessons before START -> folded under "From older lessons"
+WAIT_DAYS = 7          # a promised word not in the Doc after this many days -> "still waiting" (no message is sent, A1)
+TAUGHT_STATUS = {"in_doc": "In the Doc", "waiting_amal": "Waiting for Amal", "promised": "Amal said she'll add it",
+                 "later": "Amal saved it for a later lesson", "forgotten": "Amal said forget it", "unjudged": "Not checked against the Doc yet"}
+
+
+def _secs(t):
+    if t is None or t == "":
+        return None
+    if isinstance(t, (int, float)):
+        return float(t)
+    p = [int(x) for x in str(t).split(":")]
+    return float(p[0] * 3600 + p[1] * 60 + p[2] if len(p) == 3 else p[0] * 60 + p[1])
+
+
+def _tkey(arabic, latin=None):
+    return ar_norm(re.sub(r"\s+", " ", arabic or "").strip()) or lat_norm(latin or "")
+
+
+def taught_entries(reads=None, lessons=None):
+    """Union per lesson of the reader's taught_words + taught verb pairs and the hand verb pairs, in date order:
+    [{date, kind 'word'|'verb', latin, arabic, english, t (s), by 'reader'|'hand'}], one per (date, Arabic)."""
+    import lesson_type_read as LTR
+    R = reads if reads is not None else LTR.load_all(REPO)
+    if lessons is None:
+        lessons = json.load(open(LESSONS_JSON, encoding="utf-8")).get("lessons", []) if os.path.exists(LESSONS_JSON) else []
+    out, seen = [], set()
+
+    def add(d, kind, x, by):
+        k = (d, _tkey(x.get("arabic"), x.get("latin")))
+        if not k[1] or k in seen:
+            return
+        seen.add(k)
+        out.append({"date": d, "kind": kind, "latin": x.get("latin") or None, "arabic": x.get("arabic") or None,
+                    "english": x.get("english") or None, "t": _secs(x.get("t")), "review": bool(x.get("review")), "by": by})
+    for L in lessons:
+        for x in L.get("taught") or []:
+            add(L["date"], "verb", x, "hand")
+    for d, r in R.items():
+        for x in r.get("taught") or []:
+            add(d, "verb", x, "reader")
+        for x in r.get("taught_words") or []:
+            add(d, "word", x, "reader")
+    return sorted(out, key=lambda e: (e["date"], e["t"] if e["t"] is not None else 1e9))
+
+
+def _parts(e):
+    """The entry as Doc-checkable words: the whole Arabic and each '/' part, each '/' part of her Arabizi."""
+    ars = [e.get("arabic")] + [p for p in re.split(r"\s*/\s*", e.get("arabic") or "") if p]
+    lats = [p for p in re.split(r"\s*/\s*", e.get("latin") or "") if len(p) > 2]
+    return [{"arabic": a, "arabizi": None} for a in ars if a] + [{"arabic": None, "arabizi": l} for l in lats]
+
+
+def in_doc(e, doc):
+    return any(word_marks.doc_has(p, doc) for p in _parts(e))
+
+
+def _taught_line(turns, e):
+    """(her line, typed?) near the moment: a chat line of hers with the Arabizi, else her spoken turn with the Arabic."""
+    t = e.get("t")
+    if t is None:
+        return None, False
+    lat = [lat_norm(p) for p in re.split(r"\s*/\s*", e.get("latin") or "") if len(p) > 2]
+    ar = [ar_norm(p) for p in re.split(r"\s*/\s*", e.get("arabic") or "") if p]
+    for u in turns:
+        ut = float(u.get("t") or 0)
+        if u.get("who") == "chat" and (u.get("typed_by") or "Amal") == "Amal" and t - 10 <= ut <= t + 240 and lat \
+                and any(x in lat_norm(u.get("text")) for x in lat):
+            return u.get("text"), True
+    for u in turns:
+        ut = float(u.get("t") or 0)
+        if u.get("who") == "Amal" and abs(ut - t) <= 20 and any(x and x in ar_norm(u.get("text")) for x in ar):
+            return u.get("text"), False
+    return None, False
+
+
+def _lesson_turns(date):
+    p = os.path.join(LESSONS, date + ".json")
+    try:
+        return json.load(open(p, encoding="utf-8")).get("turns") or []
+    except Exception:
+        return []
+
+
+def _tap_of(iid, taps, prev):
+    if taps is not None:
+        return taps.get(iid)
+    p = prev.get(iid) or {}
+    kk = p.get("tap") or next((kk for kk, vv in KINDS.items() if vv == p.get("status")), None)
+    return (kk, p.get("answered_at"), p.get("tap_token")) if p.get("status") not in (None, "open") else None
+
+
+def taught_build(entries, verdicts, doc, items, taps, prev, marks, lesson_audio=None, turns_for=None):
+    """-> (new card items, {date: [taught word + status]}, counts). `items` = the cards already built (reader + glue);
+    a word already on one of them (by meaning, or the verdict's on_card) links to it instead of a second card."""
+    vmap = {(v.get("date"), _tkey(v.get("arabic"), v.get("latin"))): v for v in verdicts or []}
+    turns_for = turns_for or _lesson_turns
+    new_items, taught, counts = [], {}, {"entries": 0, "in_doc": 0, "new_cards": 0, "linked": 0, "unjudged": 0, "loanword": 0}
+    by_id = {x["id"]: x for x in items}
+
+    def status_of(it):
+        if it["status"] == "open":
+            return "waiting_amal"
+        if it["status"] == "add":
+            return "in_doc" if word_marks.doc_has(it, doc) else "promised"
+        return {"later": "later", "forget": "forgotten"}.get(it["status"], "waiting_amal")
+
+    def same_meaning(e, it):
+        return any(word_marks.same(p, {"arabic": it.get("arabic"), "arabizi": it.get("arabizi")}) for p in _parts(e))
+
+    for e in entries:
+        counts["entries"] += 1
+        v = vmap.get((e["date"], _tkey(e.get("arabic"), e.get("latin"))))
+        row = {k: e.get(k) for k in ("kind", "latin", "arabic", "english", "by")}
+        row.update(t=e.get("t"), mmss=mmss(e["t"]) if e.get("t") is not None else None, card=None)
+        verdict = (v or {}).get("verdict")
+        card = None
+        if v is None:                                        # no by-meaning row yet: a card of the same word still links
+            card = next((x for x in list(by_id.values()) if x.get("source") != "glue" and same_meaning(e, x)), None)
+        elif verdict == "on_card" and v.get("card"):
+            card = by_id.get(item_id(v["card"]["date"], v["card"]["key"]))
+        elif verdict == "new":
+            if any(loanwords.loan_entry(x) for x in (e.get("arabic"), e.get("latin")) if x):
+                counts["loanword"] += 1                      # WS-15: never asked
+                verdict = "loanword"
+            elif v.get("dup_of"):
+                card = by_id.get(item_id(e["date"], "taught:" + _tkey(v["dup_of"])))
+            else:
+                card = next((x for x in list(by_id.values()) if x.get("source") != "glue" and same_meaning(e, x)), None)
+                if card is None:
+                    iid = item_id(e["date"], "taught:" + _tkey(e.get("arabic"), e.get("latin")))
+                    k = _tap_of(iid, taps, prev)
+                    if not (in_doc(e, doc) and not k):       # in her Doc and never answered: nothing to ask
+                        line, typed = _taught_line(turns_for(e["date"]), e)
+                        t = e.get("t")
+                        audio = (lesson_audio or (lambda dd: f"lessons/{dd}/audio/lesson.mp3"))(e["date"])
+                        card = {"id": iid, "date": e["date"], "key": "taught:" + _tkey(e.get("arabic"), e.get("latin")),
+                                "arabic": e.get("arabic"), "arabizi": e.get("latin"), "english": e.get("english"), "t": t,
+                                "mmss": mmss(t) if t is not None else None, "line": line, "typed": typed, "source": "taught",
+                                "reason": v.get("reason"), "also": [],
+                                "clip": {"src": audio, "start": max(0.0, float(t) - 2.0), "end": float(t) + 8.0} if t is not None else None}
+                        card["status"], card["answered_at"] = (KINDS[k[0]], k[1]) if k and k[0] in KINDS else ("open", None)
+                        card["tap"] = k[0] if k and k[0] in KINDS else None
+                        card["tap_token"] = (k[2] if len(k) > 2 else None) if card["tap"] else None
+                        mk = word_marks.mark_for(card, marks)
+                        card["medi_mark"] = mk.get("mark") if mk else None
+                        card["hint"] = (mk.get("hint") or word_marks.HINT_OLD) if card["medi_mark"] == "old" else None
+                        card["age"], card["age_by"] = word_marks.resolve(card["medi_mark"], card["tap"])
+                        new_items.append(card); by_id[iid] = card
+                        counts["new_cards"] += 1
+                        card = dict(card, _fresh=True)
+        if card is not None and not card.get("_fresh"):
+            counts["linked"] += 1                            # one card per word: this lesson is cited on it too
+            if card["date"] != e["date"] or card.get("t") != e.get("t"):
+                by_id[card["id"]].setdefault("also", []).append({"date": e["date"], "mmss": row["mmss"]})
+        if in_doc(e, doc) and (card is None or by_id.get(card["id"], card)["status"] == "open"):
+            row["status"] = "in_doc"
+        elif card is not None:
+            row["status"], row["card"] = status_of(by_id.get(card["id"], card)), card["id"]
+        elif verdict == "on_doc":
+            row["status"] = "in_doc"
+        elif verdict == "loanword":
+            row["status"] = "in_doc" if in_doc(e, doc) else "loanword"
+        else:
+            row["status"] = "unjudged"
+        if row["status"] == "in_doc":
+            counts["in_doc"] += 1
+        if row["status"] == "unjudged":
+            counts["unjudged"] += 1
+        row["status_label"] = TAUGHT_STATUS.get(row["status"], "Loan word: not asked (WS-15)")
+        taught.setdefault(e["date"], []).append(row)
+    return new_items, taught, counts
+
+
+def taught_unjudged(date, repo=None):
+    """AM-19, review_lesson step 7d: the lesson's taught words (lesson-types read) with no row in
+    taught-words-verdicts.json that are not plainly in the Doc - the by-meaning reader judges them."""
+    import lesson_type_read as LTR
+    repo = repo or REPO
+    r, _ = LTR.load(date, repo)
+    if not r:
+        return []
+    vp = os.path.join(repo, "data", "lesson-work", "taught-words-verdicts.json")
+    have = {_tkey(v.get("arabic"), v.get("latin")) for v in (json.load(open(vp, encoding="utf-8")) if os.path.exists(vp) else [])
+            if v.get("date") == date}
+    wp = os.path.join(repo, "docs", "data", "words.json")
+    W = json.load(open(wp, encoding="utf-8")) if os.path.exists(wp) else {"items": []}
+    out = []
+    for x in (r.get("taught_words") or []) + (r.get("taught") or []):
+        e = {"arabic": x.get("arabic"), "latin": x.get("latin")}
+        if _tkey(e["arabic"], e["latin"]) not in have and not in_doc(e, W):
+            out.append(x)
     return out
 
 
@@ -380,10 +614,10 @@ def main():
     taps = None if a.offline else load_taps()
     if taps is None and os.environ.get("ANEES_STRICT") == "1" and not a.offline:
         print("FAILED: Amal's taps could not be read (ANEES_STRICT)"); return 1
-    out = build(V, taps, prev, glue=True)
+    out = build(V, taps, prev, glue=True, taught=taught_entries())
     out["unjudged"] = unjudged(V)
     json.dump(out, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print("amal-new-words", out["counts"], "excluded", out["excluded"], "unjudged", out["unjudged"])
+    print("amal-new-words", out["counts"], "excluded", out["excluded"], "unjudged", out["unjudged"], "taught", out.get("taught_counts"))
     return 0
 
 

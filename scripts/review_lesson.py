@@ -159,7 +159,13 @@ def new_words_prompt(date):
             f'new word already listed in this lesson: the first key, else null>,"reason":<one short sentence>}}. '
             f"new = a real content word she used that is NOT on the Doc by meaning; function = particles, pronouns, question words, "
             f"fillers; garble = speech-engine error or cut-off; loanword = a dish name, food, brand, loan word or country (rule WS-15, Medi: 'we dont need to add proper nouns like kabaab and ma2loobe and cake and countries'). Be strict: only genuinely new vocabulary is 'new'. Edit no other file. "
-            f"Reply with one line: new n, on_doc n, other n." + names_note(date))
+            f"AM-19: then judge every word Amal TAUGHT in this lesson (data/lesson-work/lesson-types/{date}.json taught_words "
+            f"and taught) that has no row yet in data/lesson-work/taught-words-verdicts.json, the same way BY MEANING against the Doc, "
+            f'and append {{"date":"{date}","arabic":<exactly as in the read>,"verdict":"on_doc|new|on_card","card":<for on_card: '
+            f'{{"date","key"}} of the New-words item already asking her about this word (docs/data/amal-new-words.json or a new '
+            f'verdict above), else omit>,"dup_of":<for another form of a new taught word of this lesson: its arabic, else omit>,'
+            f'"reason":<one short sentence>,"by":"claude -p (review_lesson.py)"}}. '
+            f"Reply with one line: new n, on_doc n, other n, taught judged n." + names_note(date))
 
 
 def gaps_prompt(date=None):
@@ -300,13 +306,18 @@ def new_words_step(d, dry_run, failures, repo=None, reader=None, run=None):
     if not os.path.exists(cand):
         failures.append(f"new words: no candidate file for {d}"); log("FAILED new-word candidates for", d)
     todo = unjudged()
-    if todo and not dry_run:
+    taught_todo = amal_new_words.taught_unjudged(d, repo)     # AM-19: words she taught, judged in the same read
+    if (todo or taught_todo) and not dry_run:
         reader(new_words_prompt(d), f"{d} new words", step="amal.new_words", lesson_date=d, role="new_words",
                prompt_sha=_src_sha(new_words_prompt), inputs=[cand, os.path.join(repo, "docs", "data", "words.json")], outputs=[vp])
         todo = unjudged()
         if todo:
             failures.append(f"new words: {len(todo)} candidate(s) of {d} not judged by the reader")
             log("FAILED new-word reader left", len(todo), "unjudged for", d)
+        taught_todo = amal_new_words.taught_unjudged(d, repo)
+        if taught_todo:
+            failures.append(f"taught words: {len(taught_todo)} word(s) Amal taught on {d} not judged against the Doc (AM-19)")
+            log("FAILED taught-word reader left", len(taught_todo), "unjudged for", d)
     rc = run(os.path.join(HERE, "amal_new_words.py")).returncode
     if rc:
         failures.append(f"amal_new_words.py exit {rc}"); log("FAILED amal_new_words.py exit", rc)
