@@ -1,5 +1,5 @@
 {
-  "built": "2026-10-02",
+  "built": "2026-10-03",
   "patterns": [
     {
       "id": "p-present-no-b",
@@ -339,6 +339,46 @@
       ]
     },
     {
+      "id": "p-object-ending-dropped",
+      "kind": "grammar",
+      "bucket": "D4",
+      "tier": null,
+      "title": "Object ending dropped from the verb (az3ajtu -> az3ajtuh, bashuf -> bashufek)",
+      "wrong": "az3ajtu / bashuf",
+      "right": "az3ajtuh / bashufek",
+      "wrong_arabic": "ازعجتو / بشوف",
+      "right_arabic": "أزعجتوه / بشوفك",
+      "wrong_arabizi": null,
+      "right_arabizi": null,
+      "why": "He leaves the 'him' / 'you' off the verb, and the object rides on the back of the verb as an ending.",
+      "english": "you (pl) annoyed him / see you",
+      "rows": [
+        "FA-a4b3650b",
+        "FA-9848001e",
+        "FA-b042b53a"
+      ]
+    },
+    {
+      "id": "p-plural-people-verb-mismatch",
+      "kind": "grammar",
+      "bucket": "B18",
+      "tier": null,
+      "title": "Plural people with a singular verb (banaat btruu7 -> el-banaat byruu7u, el-wlaad bykoon wlaad -> bykoon walad)",
+      "wrong": "banaat btruu7 / el-wlaad bykoon wlaad",
+      "right": "el-banaat byruu7u / bykoon walad",
+      "wrong_arabic": "بنات بتروح / الولاد بيكون ولاد",
+      "right_arabic": "البنات بيروحوا / بيكون ولد",
+      "wrong_arabizi": null,
+      "right_arabizi": null,
+      "why": "He puts a plural people-word with a singular verb (the girls goes, the boys is boys); we think the verb and noun must match, plural with plural or one boy with a singular verb.",
+      "english": "the girls go to the hairdresser",
+      "rows": [
+        "FA-63e8085c",
+        "FA-678f0d24",
+        "FA-4a0d9d00"
+      ]
+    },
+    {
       "id": "p-ma-plus-bare-present",
       "kind": "grammar",
       "bucket": "B1",
@@ -412,25 +452,6 @@
       "rows": [
         "FA-43265fca",
         "FA-45ad5e80"
-      ]
-    },
-    {
-      "id": "p-object-ending-dropped",
-      "kind": "grammar",
-      "bucket": "D4",
-      "tier": null,
-      "title": "Object ending dropped from the verb (az3ajtu -> az3ajtuh, bashuf -> bashufek)",
-      "wrong": "az3ajtu / bashuf",
-      "right": "az3ajtuh / bashufek",
-      "wrong_arabic": "ازعجتو / بشوف",
-      "right_arabic": "أزعجتوه / بشوفك",
-      "wrong_arabizi": null,
-      "right_arabizi": null,
-      "why": "He leaves the 'him' / 'you' off the verb, and the object rides on the back of the verb as an ending.",
-      "english": "you (pl) annoyed him / see you",
-      "rows": [
-        "FA-a4b3650b",
-        "FA-9848001e"
       ]
     },
     {
@@ -510,26 +531,6 @@
       ]
     },
     {
-      "id": "p-plural-people-verb-mismatch",
-      "kind": "grammar",
-      "bucket": "B18",
-      "tier": null,
-      "title": "Plural people with a singular verb (banaat btruu7 -> el-banaat byruu7u, el-wlaad bykoon wlaad -> bykoon walad)",
-      "wrong": "banaat btruu7 / el-wlaad bykoon wlaad",
-      "right": "el-banaat byruu7u / bykoon walad",
-      "wrong_arabic": "بنات بتروح / الولاد بيكون ولاد",
-      "right_arabic": "البنات بيروحوا / بيكون ولد",
-      "wrong_arabizi": null,
-      "right_arabizi": null,
-      "why": "He puts a plural people-word with a singular verb (the girls goes, the boys is boys); we think the verb and noun must match, plural with plural or one boy with a singular verb.",
-      "english": "the girls go to the hairdresser",
-      "rows": [
-        "FA-63e8085c",
-        "FA-678f0d24",
-        "FA-4a0d9d00"
-      ]
-    },
-    {
       "id": "p-11plus-plural-noun",
       "kind": "grammar",
       "bucket": "E1",
@@ -606,6 +607,44 @@
       ]
     },
     {
+      "id": "p-we-form-of-inkasar",
+      "kind": "grammar",
+      "bucket": "B18",
+      "tier": null,
+      "title": "We-form of inkasar given as bniksir (we break) instead of bninkasir",
+      "wrong": "bniksir",
+      "right": "bninkasir",
+      "wrong_arabic": "بنكسر",
+      "right_arabic": "بننكسر",
+      "wrong_arabizi": null,
+      "right_arabizi": null,
+      "why": "For 'we get broken' he gave bniksir, which is the we-form of plain kasar ('we break'); the un-verb needs the extra n (bninkasir).",
+      "english": "we get broken",
+      "rows": [
+        "FA-6ee6290b",
+        "FA-3103de59"
+      ]
+    },
+    {
+      "id": "p-la-for-3ala-on",
+      "kind": "grammar",
+      "bucket": "D1",
+      "tier": null,
+      "title": "la- for 3ala ('a video on YouTube' said as video la YouTube)",
+      "wrong": "video la YouTube",
+      "right": "video 3ala YouTube",
+      "wrong_arabic": "فيديو لـ YouTube",
+      "right_arabic": "فيديو على YouTube",
+      "wrong_arabizi": null,
+      "right_arabizi": "3ala",
+      "why": "'On YouTube' takes 3ala; he used la- (for / of) and you let it pass.",
+      "english": "I watched a video on YouTube.",
+      "rows": [
+        "FA-7d36c59d",
+        "FA-8db208b0"
+      ]
+    },
+    {
       "id": "p-b-dropped-after-enno",
       "kind": "grammar",
       "bucket": "B3",
@@ -675,24 +714,6 @@
       "english": "he / she gets broken",
       "rows": [
         "FA-1e2ca596"
-      ]
-    },
-    {
-      "id": "p-we-form-of-inkasar",
-      "kind": "grammar",
-      "bucket": "B18",
-      "tier": null,
-      "title": "We-form of inkasar given as bniksir (we break) instead of bninkasir",
-      "wrong": "bniksir",
-      "right": "bninkasir",
-      "wrong_arabic": "بنكسر",
-      "right_arabic": "بننكسر",
-      "wrong_arabizi": null,
-      "right_arabizi": null,
-      "why": "For 'we get broken' he gave bniksir, which is the we-form of plain kasar ('we break'); the un-verb needs the extra n (bninkasir).",
-      "english": "we get broken",
-      "rows": [
-        "FA-6ee6290b"
       ]
     },
     {
@@ -1254,24 +1275,6 @@
       ]
     },
     {
-      "id": "p-la-for-3ala-on",
-      "kind": "grammar",
-      "bucket": "D1",
-      "tier": null,
-      "title": "la- for 3ala ('a video on YouTube' said as video la YouTube)",
-      "wrong": "video la YouTube",
-      "right": "video 3ala YouTube",
-      "wrong_arabic": "فيديو لـ YouTube",
-      "right_arabic": "فيديو على YouTube",
-      "wrong_arabizi": null,
-      "right_arabizi": "3ala",
-      "why": "'On YouTube' takes 3ala; he used la- (for / of) and you let it pass.",
-      "english": "I watched a video on YouTube.",
-      "rows": [
-        "FA-7d36c59d"
-      ]
-    },
-    {
       "id": "p-participle-with-verb-ending",
       "kind": "grammar",
       "bucket": "B15",
@@ -1683,6 +1686,60 @@
       "english": "this family is amazing",
       "rows": [
         "FA-800c9b0f"
+      ]
+    },
+    {
+      "id": "p-tonight-for-today-weather",
+      "kind": "vocab",
+      "bucket": null,
+      "tier": 1,
+      "title": "ellaile (tonight) for el-youm (today), weather word missing (ellaile jaw kteer -> el-youm el-jaw shoab kteer)",
+      "wrong": "ellaile jaw kteer kteer",
+      "right": "el-youm el-jaw shoab kteer",
+      "wrong_arabic": "الليلة جو كتير كتير",
+      "right_arabic": "اليوم الجو شوب كتير",
+      "wrong_arabizi": "ellaile",
+      "right_arabizi": "El-youm",
+      "why": "He said tonight where he meant today and left out the word for hot (shoab), but the recording may have cut it, so please say if you heard shoab.",
+      "english": "Today the weather is very very hot.",
+      "rows": [
+        "FA-07051cc0"
+      ]
+    },
+    {
+      "id": "p-noun-plus-tenein-for-dual",
+      "kind": "grammar",
+      "bucket": "E1",
+      "tier": null,
+      "title": "Two of a thing said as noun + tenein instead of the dual -ein (fe3el tenein -> fe3lein)",
+      "wrong": "fe3el, ah, tenein",
+      "right": "fe3lein",
+      "wrong_arabic": "فعل، اه، تنين",
+      "right_arabic": "فعلين",
+      "wrong_arabizi": "Fe3el ... TeneinV",
+      "right_arabizi": null,
+      "why": "For 'two verbs' he said the noun and then tenein, and two of a noun is normally one word with the -ein ending.",
+      "english": "just two verbs",
+      "rows": [
+        "FA-ca7519b4"
+      ]
+    },
+    {
+      "id": "p-kaan-missing-past-intention",
+      "kind": "grammar",
+      "bucket": "B6",
+      "tier": null,
+      "title": "'It wasn't their intention' without kaan (mish 2asdhom -> ma kaan 2asdhom?)",
+      "wrong": "mish 2asd hom",
+      "right": "ma kaan 2asdhom",
+      "wrong_arabic": "مش أزد هم",
+      "right_arabic": "ما كان قصدهم",
+      "wrong_arabizi": null,
+      "right_arabizi": null,
+      "why": "He was talking about the past but said mish 2asdhom with no kaan; your sheet has 'mish azdi' for 'it wasn't my intention', so this may be fine as is.",
+      "english": "It wasn't their intention.",
+      "rows": [
+        "FA-c1d7f4d2"
       ]
     }
   ],
