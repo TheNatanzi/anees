@@ -10,7 +10,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-09-10 | 86.4 | 114 | 85.2 | 45 | 243 | 1 / 0 |
 | 2026-09-11 | 83.3 | 72 | 75.5 | 40 | 143 | 1 / 0 |
 | 2026-09-14 | 92.9 -> **94.7** | 77 -> **76** | 78.3 -> **78.8** | 42 -> **41** | 180 -> **179** | 2 / 0 |
-| 2026-09-15 | 79.8 | 57 | 75.3 | 46 | 166 | 0 / 0 |
+| 2026-09-15 | 79.8 -> **83.6** | 57 -> **55** | 75.3 -> **77.6** | 46 -> **41** | 166 -> **161** | 1 / 0 |
 | 2026-09-16 | 80.4 | 46 | 71.6 | 42 | 134 | 0 / 0 |
 | 2026-09-17 | 85.2 | 61 | 69.5 | 47 | 141 | 0 / 0 |
 | 2026-09-18 | 31.8 | 11 | 62.9 | 44 | 105 | 1 / 0 |
@@ -34,6 +34,8 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-09-14 36:16 C1a both stand: كل (word-bank right) vs كل حدا / حدا -> الكل (readers asked) - he asked for another word: both stand
 - 2026-09-14 36:17 C1a both stand: حدا (word-bank right) vs كل حدا / حدا -> الكل (readers asked) - he asked for another word: both stand
 - 2026-09-14 52:04 C1 settled: hada. (word-bank right) vs hada -> هيك (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
+- 2026-09-15 03:14 C1a both stand: تسعة (word-bank right) vs على تسعة ونص -> من وين؟ -> كنت في محل (readers not-scored) - he asked for another word: both stand
+- 2026-09-15 1:02:41 C2 settled: Asayam (readers wrong) vs Asayam -> el-asmaa2 (readers slip A1) - one slip was counted twice (word + grammar): counted once, as grammar
 - 2026-09-16 09:18 C1p both stand: واحد (word-bank right) vs واحد أكتر -> كمان واحد (readers wrong) - slip elsewhere in the phrase: the word stays right
 - 2026-09-18 01:25 C2 settled: الصباح (readers wrong) vs الصباح -> على الصبح (readers slip D1) - one slip was counted twice (word + grammar): counted once, as grammar
 - 2026-09-19 06:51 C1p both stand: ألفين (word-bank right) vs ألفين وسبعة عشرين -> ألفين وستة وعشرين (alfein u sitte u 3eshreen) - my reading, the year 2026 (amal-tap wrong) - slip elsewhere in the phrase: the word stays right

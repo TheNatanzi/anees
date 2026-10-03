@@ -1,13 +1,14 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 20,
+ "count": 23,
  "by_date": {
   "2026-08-25": 1,
   "2026-09-04": 2,
   "2026-09-05": 1,
   "2026-09-10": 3,
   "2026-09-11": 4,
-  "2026-09-14": 4,
+  "2026-09-14": 3,
+  "2026-09-15": 4,
   "2026-09-16": 1,
   "2026-09-17": 1,
   "2026-09-21": 3,
@@ -351,28 +352,6 @@
    "listen_to": "36:39"
   },
   {
-   "uid": "FA-192691bb",
-   "date": "2026-09-14",
-   "t": "57:02",
-   "t_amal": "57:02",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D4",
-   "medi_said": "لا، بسطت، بسطت. I knew there was an extra T.",
-   "amal_said": "بسطتك.",
-   "wrong": "بسطت",
-   "right": "بسطتك",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "56:52",
-   "listen_to": "57:22"
-  },
-  {
    "uid": "FA-9848001e",
    "date": "2026-09-14",
    "t": "1:02:38",
@@ -389,10 +368,110 @@
     "found in pass 2 only (the other pass did not list it)"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Amal was giving a farewell, not correcting him afterward; her only response after Medi is «Bye». The independent dialect transcription even hears Medi as ending with «بشوفك»."
+   },
    "listen_from": "1:02:28",
    "listen_to": "1:02:57"
+  },
+  {
+   "uid": "FA-a412e4d4",
+   "date": "2026-09-15",
+   "t": "31:21",
+   "t_amal": "31:27",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "B16",
+   "medi_said": "احنا ان لازم--",
+   "amal_said": "we just should. we not should have.",
+   "wrong": "ان لازم",
+   "right": "لازم",
+   "why_check": [
+    "the transcript under it is disputed (engine wrote something else)"
+   ],
+   "check": "audio",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Amal does contrast plain should with should-have, but the independent dialect transcript of Medi has him saying «إحنا لازم» twice, not «كان/ان لازم». This looks more like Amal clarifying the target meaning than correcting a proven wrong form."
+   },
+   "listen_from": "31:11",
+   "listen_to": "31:47"
+  },
+  {
+   "uid": "FA-cc6d2b4d",
+   "date": "2026-09-15",
+   "t": "40:20",
+   "t_amal": "40:31",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "B2",
+   "medi_said": "لازم، uh, um, يتغيروا. (engine wrote يتغيروا; he said تغيروا)",
+   "amal_said": "يتغير، يتغيروا. ... لازم تغيروا would be should have been changed.",
+   "wrong": "تغيروا",
+   "right": "يتغيروا",
+   "why_check": [
+    "the transcript under it is disputed (engine wrote something else)"
+   ],
+   "check": "audio",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The available audio transcriptions show Medi saying «يتغيروا», and Amal echoes «يتغيروا» before explaining the contrast with «لازم تغيروا». His own question about past tense is metalinguistic, not clear evidence that he had actually said the wrong form."
+   },
+   "listen_from": "40:10",
+   "listen_to": "40:51"
+  },
+  {
+   "uid": "FA-04c646b6",
+   "date": "2026-09-15",
+   "t": "55:20",
+   "t_amal": "55:28",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "B5",
+   "medi_said": "lama ana livil, livil-- oh my God.",
+   "amal_said": "First do the left, left past. Make it past.",
+   "wrong": "livil",
+   "right": "laffait",
+   "why_check": [
+    "the transcript under it is disputed (engine wrote something else)"
+   ],
+   "check": "audio",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "55:10",
+   "listen_to": "55:48"
+  },
+  {
+   "uid": "FA-594b9df7",
+   "date": "2026-09-15",
+   "t": "55:24",
+   "t_amal": "55:28",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "B5",
+   "medi_said": "livil-- oh my God.",
+   "amal_said": "First do the left, left past. Make it past.",
+   "wrong": "لما ... (present)",
+   "right": "لما لفّيت",
+   "why_check": [
+    "kept from the 09-24 sweep; neither reader pass listed it"
+   ],
+   "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "This is the same stumble already captured at 55:20, not a separate signalled mistake at 55:24. Amal's single prompt «make it past» responds to the whole interrupted attempt, so this duplicate row should not stand independently."
+   },
+   "listen_from": "55:14",
+   "listen_to": "55:48"
   },
   {
    "uid": "FA-311451ee",

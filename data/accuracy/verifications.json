@@ -16440,6 +16440,614 @@
    },
    "at": "2026-10-03T01:29:55-07:00",
    "run_id": "811ef701fbf24f2786d678d0a1cc371f"
+  },
+  {
+   "uid": "FA-192691bb",
+   "date": "2026-09-14",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi first had «هي بسطتك» then backed up to a form without the object ending, and Amal immediately recast the -ك form. The mixed track also shows the sequence from «هي بساطتك» to «لا ... بستات».",
+   "evidence": {
+    "t_start": 3412.0,
+    "t_end": 3442.0,
+    "quote": "Medi: «لا، بسطت، بسطت» / Amal: «بسطتك»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-14/FA-192691bb_Medi_Medi_Natanzi-stitched.mp3",
+      "sha256": "ffef221e679be3bca11c969be5470eb920756ea84c56e6c2771a2d35c3ea2375",
+      "source": "Medi_Natanzi-stitched.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-14/FA-192691bb_Amal_Amal-03690493f213a15e.mp3",
+      "sha256": "541639d4c1ed7fc75ab2194c31ab0ed3b3d73f40db3343912f3a813484ebb104",
+      "source": "Amal-03690493f213a15e.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-14/FA-192691bb_mixed_lesson.mp3",
+      "sha256": "221c38fb26b0f58980ff09d3e492cc4efeaa823d24f3f31d3e6efd55c2fa27c9",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "هي بساطة بساطة هي بساطتك بساطات بساطات أعلم أنه كان هناك طعام أكثر هو باستاتيك",
+     "Amal": "بس تتك نحن نحاول أن نحاول أن نفعل",
+     "mixed": "هي بساطة آآ بساط هي بساط تيك بساطات بساطة. I know there's an extra T. نحن نحاول نحاول أن نصنع"
+    }
+   },
+   "claim": {
+    "wrong": "بسطت",
+    "right": "بسطتك",
+    "bucket": "D4",
+    "tier": null
+   },
+   "at": "2026-10-03T02:30:29-07:00",
+   "run_id": "4ece15bd16ee44a796bccb845b4613fa"
+  },
+  {
+   "uid": "FA-9848001e",
+   "date": "2026-09-14",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "high",
+   "reason": "Amal was giving a farewell, not correcting him afterward; her only response after Medi is «Bye». The independent dialect transcription even hears Medi as ending with «بشوفك».",
+   "evidence": {
+    "t_start": 3748.0,
+    "t_end": 3777.0,
+    "quote": "Medi: «باش نشوف، باش نشوفك. باي» / Amal: «باي»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-14/FA-9848001e_Medi_Medi_Natanzi-stitched.mp3",
+      "sha256": "b28cbfc1cd9f1947455427770b38c4ec969e062db17d0f317d787ff50af16409",
+      "source": "Medi_Natanzi-stitched.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-14/FA-9848001e_Amal_Amal-03690493f213a15e.mp3",
+      "sha256": "35db37acaf76de6986ec463131dc32153bebf359fab97ad6596cdf2ec5cb2a1e",
+      "source": "Amal-03690493f213a15e.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-14/FA-9848001e_mixed_lesson.mp3",
+      "sha256": "82bc44f7a83102f5d6fb3b1973a72ec27283c8cf0063efdb8d4f1814971a147d",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "حسناً، حسناً، حسناً، حسناً، حسناً، حسناً، حسناً، حسناً، حسناً، حسناً، حسناً، حسناً، حسناً، حسناً، حسناً،",
+     "Amal": "اعطيك العافية احلا سهلا بشوفك واي",
+     "mixed": "أعطيك العافية أهلا سهلا بشوفك"
+    }
+   },
+   "claim": {
+    "wrong": "بشوف",
+    "right": "بشوفك",
+    "bucket": "D4",
+    "tier": null
+   },
+   "at": "2026-10-03T02:30:29-07:00",
+   "run_id": "4ece15bd16ee44a796bccb845b4613fa"
+  },
+  {
+   "uid": "FA-219c3e8b",
+   "date": "2026-09-15",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "high",
+   "reason": "Amal did signal a mistake, but it was answering a where-question with a time, not the clock-time construction itself. She says «من وين؟ Not إمتى», so the right repair is a place answer, not «الساعة تسعة ونص».",
+   "evidence": {
+    "t_start": 182.0,
+    "t_end": 212.0,
+    "quote": "Medi: «شغلي على تسا ونص» / Amal: «من وين؟ لا إمتى»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-15/FA-219c3e8b_Medi_Medi_Natanzi.mp3",
+      "sha256": "ce60d1189e68d0a70cc780570a49fa7d84047665b9f42eaca2cb00010ed8a436",
+      "source": "Medi_Natanzi.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-15/FA-219c3e8b_Amal_Amal-33129.mp3",
+      "sha256": "1625d1cc2adc0322547d06767e91149939f8d9c51ea5f5e136880dc5b3115b73",
+      "source": "Amal-33129.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-15/FA-219c3e8b_mixed_lesson.mp3",
+      "sha256": "1d2765f8fa4baa8fc5e4021315295e2e48fea44ee8aa2684b0f04cffe8cee8f5",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "شغلي على تسا ونص من وين؟ اليوم كنت في مهل",
+     "Amal": "اشتركوا في القناة",
+     "mixed": "شغلي على تسا ونص من وين؟ لا امتى اه من وين؟ اه اليوم كان في مهل كنت في مهل اييب شو اكلت اليوم؟"
+    }
+   },
+   "claim": {
+    "wrong": "على تسعة ونص",
+    "right": "الساعة تسعة ونص",
+    "bucket": "E2",
+    "tier": null
+   },
+   "at": "2026-10-03T02:30:29-07:00",
+   "run_id": "4ece15bd16ee44a796bccb845b4613fa",
+   "changed_to": {
+    "wrong": "على تسعة ونص as an answer to «من وين؟»",
+    "right": "a location answer to «من وين؟»"
+   }
+  },
+  {
+   "uid": "FA-8dae067e",
+   "date": "2026-09-15",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi seems to answer with «حكيتني/حكيت لي مبارح», and Amal immediately prompts/recasts with «حبيت؟» then restates the full question. That supports a signalled wrong verb, though the learner audio is somewhat messy.",
+   "evidence": {
+    "t_start": 638.0,
+    "t_end": 672.0,
+    "quote": "Medi: «حكيتني مبارح» / Amal: «حبيت؟ أنت حبيت كيف تدربنا مبارح عليهم؟»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-15/FA-8dae067e_Medi_Medi_Natanzi.mp3",
+      "sha256": "69669acb6d6048a6a7001003ff43a1ba159ef44108f5eefe9c3f3984e1723afe",
+      "source": "Medi_Natanzi.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-15/FA-8dae067e_Amal_Amal-33129.mp3",
+      "sha256": "fafb3115b7d0e3b7a0ef7329de71b39250b75792d3e01f8e7c6f8803ecf53aee",
+      "source": "Amal-33129.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-15/FA-8dae067e_mixed_lesson.mp3",
+      "sha256": "a6d9daa11e7e2da0864c311d3f493af67d1e026283bae0df45061b06152251b9",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "حكيت لي مباراة شو شو اوه ايه ايه",
+     "Amal": "كيف تدربنا ولا بدك اشي تاني حبيت انت حبيت كيف اتدربنا مبارح عليهم بدك نفس الطريقة",
+     "mixed": "كيف تدربنا؟ ولا بدك اشي تاني؟ حكيتني مبارح حبيت شو؟ انت حبيت كيف تدربنا مبارح عليهم بدك نفس الطريقة? اه اه نفس الطريقة."
+    }
+   },
+   "claim": {
+    "wrong": "haketni",
+    "right": "حبيت",
+    "bucket": "B5",
+    "tier": null
+   },
+   "at": "2026-10-03T02:30:29-07:00",
+   "run_id": "4ece15bd16ee44a796bccb845b4613fa"
+  },
+  {
+   "uid": "FA-e1eb2824",
+   "date": "2026-09-15",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "This is a tier-0 supplied-word/form case: Medi asks for the plural of «كاسة», and Amal gives the regular «-ات» cue, after which he says «كاسات».",
+   "evidence": {
+    "t_start": 1200.0,
+    "t_end": 1241.0,
+    "quote": "Medi: «the plural for كاسة is...» / Amal: «If we didn't learn it, then it's -ات» / Medi: «كاسات»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-15/FA-e1eb2824_Medi_Medi_Natanzi.mp3",
+      "sha256": "e792467893fb1f424078e134e6228da05482530c1938d7aef40db4c0ce3f0d33",
+      "source": "Medi_Natanzi.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-15/FA-e1eb2824_Amal_Amal-33129.mp3",
+      "sha256": "da53106acffba704982b3292e0fa8efa25b4ee4647069c7fdef329a2fe6d61c9",
+      "source": "Amal-33129.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-15/FA-e1eb2824_mixed_lesson.mp3",
+      "sha256": "91dc49296e6f9f3becd2a89995c4a4251cf8c94a8d681826c04bf28f22b78957",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "ترجمة نانسي قنقر تمام معرأة الجملة مين",
+     "Amal": "كوبس كاسا اذا لم نتعلمه فهو اكت هو بركزيس كبس",
+     "mixed": "كوكس كوكس كوكس كوكس كوكس كوكس كوكس كوكس كوكس كم مرأة الجملة؟ خبروكزيس كبس مين؟"
+    }
+   },
+   "claim": {
+    "wrong": "qasa (plural?)",
+    "right": "كاسات (kasat)",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-03T02:30:29-07:00",
+   "run_id": "4ece15bd16ee44a796bccb845b4613fa"
+  },
+  {
+   "uid": "FA-0db47a38",
+   "date": "2026-09-15",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi stalls after «الولاد قتلوا...» and Amal asks who they fought, supplying «قتلوا بعض». His later «ما بعد» comes after that prompt, so this fits a supplied «بعض» case.",
+   "evidence": {
+    "t_start": 1617.0,
+    "t_end": 1652.0,
+    "quote": "Medi: «الولاد قتلوا، و...» / Amal: «They fought who? قتلوا بعض»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-15/FA-0db47a38_Medi_Medi_Natanzi.mp3",
+      "sha256": "a50623bc556c964d31d8c4c384add14c32267161475687b98c6de3ae50b62271",
+      "source": "Medi_Natanzi.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-15/FA-0db47a38_Amal_Amal.mp3",
+      "sha256": "1008acb7930aa94bdd5c00b321fcc4b00dfd42ce8bb4ce18e003985020ca0899",
+      "source": "Amal.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-15/FA-0db47a38_mixed_lesson.mp3",
+      "sha256": "86de63c378d7b3d2bf57ab44c7669f3c950f833cb1290f9edcb83060ddf329ce",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "الولاد أتلوا أتلوا مع بعض ووحدة مع بعض أو بعض بعض لن نتعاون معاً ولا نتعاون معاً لن نتعاون معاً لن نتعاون معاً",
+     "Amal": "أتلهو تفأهو أتلوباد تفاتيش أذر ترجمة نانسي قنقر",
+     "mixed": "الولاد اتلوا أتلو ماباد ووحدة أتلو ماباد أتلو ماباد أتلو ماباد أتلو ماباد و وحدة"
+    }
+   },
+   "claim": {
+    "wrong": "(missing each other)",
+    "right": "بعض",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-03T02:30:29-07:00",
+   "run_id": "4ece15bd16ee44a796bccb845b4613fa"
+  },
+  {
+   "uid": "FA-a412e4d4",
+   "date": "2026-09-15",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "medium",
+   "reason": "Amal does contrast plain should with should-have, but the independent dialect transcript of Medi has him saying «إحنا لازم» twice, not «كان/ان لازم». This looks more like Amal clarifying the target meaning than correcting a proven wrong form.",
+   "evidence": {
+    "t_start": 1871.0,
+    "t_end": 1907.0,
+    "quote": "إحنا لازم آه، إحنا لازم / we just should. we not should have.",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-15/FA-a412e4d4_Medi_Medi_Natanzi.mp3",
+      "sha256": "77d1984f9b883008724543b9968dd40b0f6e3e84871ec606094cee8ca3cbabf8",
+      "source": "Medi_Natanzi.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-15/FA-a412e4d4_Amal_Amal.mp3",
+      "sha256": "0b0ca6fa50e50a364086d2d61888f151ee50eb7634ed5d05eecdcedecc27efbd",
+      "source": "Amal.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-15/FA-a412e4d4_mixed_lesson.mp3",
+      "sha256": "4fb7fb3c25654fc0fc0caec5b6c2e1c798dd6e0939c82e836214f07cbc5dbec9",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "يجب أن نغير وقت الطرق شكرا",
+     "Amal": "ترجمة نانسي قنقر يجب أن نغير المدارية",
+     "mixed": "نحن بحاجة لتغيير وقت الطرق نحن بحاجة لتغيير وقت الطرق نحن بحاجة لتغيير وقت الطرق نحن بحاجة لتغيير وقت الطرق نحن بحاجة لتغيير وقت الطرق نحن بحاجة لتغيير وقت الطرق نحن بحاجة لتغيير وقت الطرق يجب أن نغير المدارس"
+    }
+   },
+   "claim": {
+    "wrong": "ان لازم",
+    "right": "لازم",
+    "bucket": "B16",
+    "tier": null
+   },
+   "at": "2026-10-03T02:30:43-07:00",
+   "run_id": "470ec0fe3d384540a4f08f3c88a84ee0"
+  },
+  {
+   "uid": "FA-035d867e",
+   "date": "2026-09-15",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi used a past/perfect-looking form after «لازم», transcribed as «غيرنا/تغيرنا», and Amal immediately named the present-tense rule and supplied «نغير».",
+   "evidence": {
+    "t_start": 1889.0,
+    "t_end": 1922.0,
+    "quote": "إحنا لازم، أمم، تغيرنا، تغيرنا ... present, مضارع ... نغير",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-15/FA-035d867e_Medi_Medi_Natanzi.mp3",
+      "sha256": "07ee683d2f69e0ca36c7a87984d8f6f5c8fe6e5b08209b1dc09bdd0826608d29",
+      "source": "Medi_Natanzi.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-15/FA-035d867e_Amal_Amal.mp3",
+      "sha256": "53549be6086f4c8483ecb9906be112db9a9da996d4b49c9cd9207ca2cc15f396",
+      "source": "Amal.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-15/FA-035d867e_mixed_lesson.mp3",
+      "sha256": "e8931895d88ad1fa77015abdf67e6ff43ea75af555e535367632e2013f70ea29",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اه احنا لازم اه غيرنا غيرنا اه نغير نغير بايت تايم",
+     "Amal": "نغير نغير ترجمة نانسي قنقر",
+     "mixed": "نحن يجب أن نغير نغير نغير نغير نهاية الدرس"
+    }
+   },
+   "claim": {
+    "wrong": "طيرنا",
+    "right": "نغير",
+    "bucket": "B2",
+    "tier": null
+   },
+   "at": "2026-10-03T02:30:43-07:00",
+   "run_id": "470ec0fe3d384540a4f08f3c88a84ee0"
+  },
+  {
+   "uid": "FA-cc6d2b4d",
+   "date": "2026-09-15",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "medium",
+   "reason": "The available audio transcriptions show Medi saying «يتغيروا», and Amal echoes «يتغيروا» before explaining the contrast with «لازم تغيروا». His own question about past tense is metalinguistic, not clear evidence that he had actually said the wrong form.",
+   "evidence": {
+    "t_start": 2410.0,
+    "t_end": 2451.0,
+    "quote": "امم, يتغيروا. / يتغيروا، يتغيروا. / لازم تغيرو ... should have been changed",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-15/FA-cc6d2b4d_Medi_Medi_Natanzi.mp3",
+      "sha256": "94591b63d44b7e0de527addd261676bef6d36c6f2fb4e76bb53dd4b4fbb5bac5",
+      "source": "Medi_Natanzi.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-15/FA-cc6d2b4d_Amal_Amal.mp3",
+      "sha256": "ad6acc618f1829e46434d4d1900fb86c05e925113280f835878350ec9fb8cc25",
+      "source": "Amal.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-15/FA-cc6d2b4d_mixed_lesson.mp3",
+      "sha256": "52ccbcb4f76b78ecde908652e56da0aa9118d772be2953fc74c841e30c7c585c",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اه اه اه oh oh it's not past tense should be should be oh you're right it's present tense you're right uh okay",
+     "Amal": "يتغير يتغير يتغير لازم تغيره لازم تغيره",
+     "mixed": "يتغيروا يتغيروا لازم تغيرو لازم تغيرو"
+    }
+   },
+   "claim": {
+    "wrong": "تغيروا",
+    "right": "يتغيروا",
+    "bucket": "B2",
+    "tier": null
+   },
+   "at": "2026-10-03T02:30:43-07:00",
+   "run_id": "470ec0fe3d384540a4f08f3c88a84ee0"
+  },
+  {
+   "uid": "FA-ca916f35",
+   "date": "2026-09-15",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi appears stuck using the base/non-past attempt «لفت ال...» and Amal explicitly prompts him to make «لف» past; he then produces «لما لفت» and she accepts it.",
+   "evidence": {
+    "t_start": 3237.0,
+    "t_end": 3297.0,
+    "quote": "لفت ال، لفت ال، أو ماي جود ... لف past, make it past ... لما لفت",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-15/FA-ca916f35_Medi_Medi_Natanzi.mp3",
+      "sha256": "f638bc0de1f8959cee3eac272450b5a21d0a30e9d8930d6b1af4b537a65d17c7",
+      "source": "Medi_Natanzi.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-15/FA-ca916f35_Amal_Amal.mp3",
+      "sha256": "8bd18afb181523660b48e502f62a999e42c194ac770c1bfb5da233e7928921c8",
+      "source": "Amal.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-15/FA-ca916f35_mixed_lesson.mp3",
+      "sha256": "29059bf5e0c12436052c329a6c24248af9e7bf48dd261626b70eb144f850ed9b",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "هل هذا بخير لكي أقوله؟ حسناً كيف اه كيف كيف كيف كيف كيف كيف كيف كيف كيف مرحبا بكم. كيف حالك؟ كيف حالك؟ كيف حالك؟ كيف حالك؟ كيف حالك؟ كيف حالك؟ كيف حالك؟ كيف حالك؟ كيف حالك؟ كيف حالك؟ كيف حالك؟ كيف حالك؟ ترجمة نانسي قنقر",
+     "Amal": "نعم نعم هنا نعم كما قلنا طوال الوقت أنه إذا كنت تعرف كيف تفعل شيئًا تعرف كيف تفعله في العربية يمكنك أن تقول لذلك نعم رفي صوّر أيضًا صحيح ويجب أيضاً أن نقول بيعرف يسوّر بدون الـ how لا بيه بأي طريقة بيعرف يسوّر أو بيعرف كيف يسوّر هل قلت بيه من قبل؟ لم أسمعه لا قلت يسوّر اشتركوا في القناة",
+     "mixed": "هل هذا صحيح لقوله؟ نعم حسنا كيف بساور نعم هنا عن نعم كما قلنا طوال الوقت أنه إذا كنت تعرف كيف تفعل شيئاً فأنت تعرف كيف تفعله يمكنك أن تقوله في العربية لذا بيارة فساور أيضاً صحيح نعم ويجب أيضاً أن نقول بيارفي سووت بدون كيف نعم اثنين فتوكرام لكن هل يجب أن يعمل مع البي لا بي في أي طريقة بيارفي سووت أو بيارفي كيفي سووت حسناً لقد قلتها خاطئاً لا بي هل قلت بي من قبل؟ لم أسمعه أظن أني قلت نعم قالت دي سوو"
+    }
+   },
+   "claim": {
+    "wrong": "bisawar",
+    "right": "يصور (ysawwer)",
+    "bucket": "B2",
+    "tier": null
+   },
+   "at": "2026-10-03T02:30:43-07:00",
+   "run_id": "470ec0fe3d384540a4f08f3c88a84ee0"
+  },
+  {
+   "uid": "FA-594b9df7",
+   "date": "2026-09-15",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "high",
+   "reason": "This is the same stumble already captured at 55:20, not a separate signalled mistake at 55:24. Amal's single prompt «make it past» responds to the whole interrupted attempt, so this duplicate row should not stand independently.",
+   "evidence": {
+    "t_start": 3314.0,
+    "t_end": 3348.0,
+    "quote": "لما أنا لفت ال، لفت ال، او ماي غود ... لف باست، ميك إت پاست",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-15/FA-594b9df7_Medi_Medi_Natanzi.mp3",
+      "sha256": "0cf8babcab4d3968d8c13825fca21800068d61d2a2e5cdc479b57b6f23d00167",
+      "source": "Medi_Natanzi.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-15/FA-594b9df7_Amal_Amal.mp3",
+      "sha256": "06e4ba808182d63613b7a8d5c96f9bfc5ab90244e7f2dfcd47f1de226d760500",
+      "source": "Amal.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-15/FA-594b9df7_mixed_lesson.mp3",
+      "sha256": "06946a204b898cf9c1200bd86028a4df114b9daaa01e318ea6050fa11bc06a6a",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "لما أنا لفت العلم شكرا",
+     "Amal": "first do the left left past make it past صحيح",
+     "mixed": "اه لما انا لف ال... لف ال... اوه يا ربي اولا افعل اللف... لف ال... اوه حسنا لما لخفيت العلم ممتاز"
+    }
+   },
+   "claim": {
+    "wrong": "لما ... (present)",
+    "right": "لما لفّيت",
+    "bucket": "B5",
+    "tier": null
+   },
+   "at": "2026-10-03T02:30:43-07:00",
+   "run_id": "470ec0fe3d384540a4f08f3c88a84ee0"
+  },
+  {
+   "uid": "FA-6d50ea57",
+   "date": "2026-09-15",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "medium",
+   "reason": "Amal does recast immediately, but the independent audio evidence does not support the specific claimed «Zakaretno»/-no ending. The clearest contrast is Medi saying something like «زاكاراتو» and Amal recasting «زاكارتو/ذكرتو».",
+   "evidence": {
+    "t_start": 3597.0,
+    "t_end": 3628.0,
+    "quote": "Medi: «زاكاراتو»; Amal: «زاكارتو»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-15/FA-6d50ea57_Medi_Medi_Natanzi.mp3",
+      "sha256": "0b2a0a0e84a9767559053db71d8751e5e08da8dea7b7b40eb9f0cab5dd4ef6e9",
+      "source": "Medi_Natanzi.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-15/FA-6d50ea57_Amal_Amal.mp3",
+      "sha256": "497b6e5de3783a240b9f2d526de3d40913bacc7aa2751a57426ff310c1881549",
+      "source": "Amal.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-15/FA-6d50ea57_mixed_lesson.mp3",
+      "sha256": "0b883e20617513bcc6a220b2f5b356216d451813299008cf3f32865bc2596d70",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "زكارتك زكارتا زكارس زكاراتني شكرا",
+     "Amal": "لقد تذكرتني لأنها تذكرتني ترجمة نانسي قنقر",
+     "mixed": "زكارتك I reminded him زكارتك زكارتك زكارتك She reminded me زكارتني That she remembered me شكرا"
+    }
+   },
+   "claim": {
+    "wrong": "Zakaretno",
+    "right": "ذكّرته (zakkarto)",
+    "bucket": "D4",
+    "tier": null
+   },
+   "at": "2026-10-03T02:30:57-07:00",
+   "run_id": "37d561500a6c4af8b7a4c43dda7a25e5",
+   "changed_to": {
+    "wrong": "زاكاراتو",
+    "right": "زاكارتو / ذكرتو"
+   }
   }
  ]
 }
