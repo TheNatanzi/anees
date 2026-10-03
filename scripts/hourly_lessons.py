@@ -534,6 +534,13 @@ def _main():
         low = A.credits_problem(credits)
         if low and not any(p['cause'] == 'voice-to-text credits ran out' for p in probs):
             probs.append(low)
+        try:                                   # rule AM-20: Amal's Doc export missing or older than 2 h -> one line
+            import doc_sync
+            stale = doc_sync.stale_problem()
+            if stale:
+                probs.append(stale)
+        except Exception as e:
+            log('doc sync state not read:', e)
         try:
             doc, changed, new = A.update(ROOT, probs, keep=() if credits is not None else ('credits',))
             for p in doc['problems']:

@@ -1,6 +1,8 @@
 # Hourly one-way import of Amal's Google Doc into Supabase `words` (Task Scheduler "Anees vocab import").
-# Needs ANEES_DOC_PUBLISHED_URL in the User env (the Doc's publish-to-web URL). Without it the script uses the newest
-# saved snapshot and logs that no live source is configured, so nothing changes.
+# Source (rule AM-20): G:\My Drive\Anees doc sync\amal-vocab-doc.md, exported from Amal's Doc every hour by the Apps
+# Script "Anees doc sync" under wc@adibs.com (scripts/apps_script/doc_sync) and synced here by Drive for desktop.
+# An export older than 2 h is never imported: the log says why, and Progress/Lessons show the LS-04 line.
+# ANEES_DOC_SYNC_DIR overrides the folder.
 $ErrorActionPreference = 'Continue'
 $root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 $log = Join-Path $root 'data\vocab\import.log'

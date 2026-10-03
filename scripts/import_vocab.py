@@ -2,7 +2,10 @@
 
 Sources, in order of preference:
   --file X          a saved export: markdown (Drive connector read_file_content) or Google-Docs HTML (export / publish-to-web)
-  ANEES_DOC_PUBLISHED_URL   env var with the Doc's "publish to web" URL -> fetched unattended (hourly Task Scheduler job)
+  synced export     G:/My Drive/Anees doc sync/amal-vocab-doc.md (ANEES_DOC_SYNC_DIR), written every hour by the Apps
+                    Script "Anees doc sync" under wc@adibs.com and brought here by Drive for desktop (AM-20, the hourly
+                    Task Scheduler job's source); used only when at most 2 h old (scripts/doc_sync.py)
+  ANEES_DOC_PUBLISHED_URL   env var with the Doc's "publish to web" URL -> fetched unattended (not set: the Doc is private)
   otherwise         nothing is written (logs that no live source exists); --from-snapshot rebuilds the JSON from the
                     newest data/vocab/doc_*.md snapshot on purpose
 
@@ -319,6 +322,12 @@ def load_source(path=None):
     if path:
         p = Path(path); t = io.open(p, encoding='utf-8').read()
         return t, ('html' if p.suffix.lower() in ('.html', '.htm') else 'md'), str(p)
+    import doc_sync                      # AM-20: the hourly Google-side export of the Doc, synced to G:/My Drive
+    ds = doc_sync.state()
+    if ds['fresh']:
+        return (io.open(ds['path'], encoding='utf-8').read(), 'md',
+                f"{ds['path']} (synced Doc export {ds['exported_at']:%Y-%m-%d %H:%M})")
+    print(f"synced Doc export not used: {ds['reason']}" + (f" (last good export {ds['exported_at']:%Y-%m-%d %H:%M})" if ds['exported_at'] else ''))
     url = E.env('ANEES_DOC_PUBLISHED_URL')
     if url:
         import requests
@@ -391,6 +400,11 @@ def main():
         print(f'source: {label}\nnothing written: no live Doc read (an old snapshot never overwrites the committed word '
               'list; pass --file <fresh export>, set ANEES_DOC_PUBLISHED_URL, or --from-snapshot to rebuild from it on purpose)')
         return
+    digest = hashlib.sha256(text.encode('utf-8')).hexdigest()
+    if not a.file and not a.from_snapshot and not a.dry and last_synced() == digest:
+        # AM-20: the hourly export is the same text the last successful sync used - nothing to write (no hourly churn)
+        print(f'source: {label}\nunchanged since the last sync ({digest[:12]}): nothing written')
+        return
     rows = parse_html(text) if kind == 'html' else parse_markdown(text)
     words, merged = to_words(rows)
     VOCAB.mkdir(parents=True, exist_ok=True); DOCS_DATA.mkdir(parents=True, exist_ok=True)
@@ -413,8 +427,24 @@ def main():
         return
     res = sync(words, dry=a.dry)
     print('supabase:', json.dumps(res, ensure_ascii=False))
+    if not a.dry:
+        last_synced(digest, label)
     if res.get('old_marked') and not a.dry:
         record_old(words, res['old_marked'])
+
+
+LAST_SYNC = VOCAB / 'doc-sync-last.json'      # PC-local (gitignored): sha of the text the last good Supabase sync used
+
+
+def last_synced(digest=None, label=None, path=None):
+    """Read (no digest) or record the sha256 of the Doc text the last successful sync used."""
+    p = Path(path or LAST_SYNC)
+    if digest is None:
+        try:
+            return json.loads(p.read_text(encoding='utf-8')).get('sha256')
+        except Exception:
+            return None
+    p.write_text(json.dumps({'sha256': digest, 'source': label, 'at': datetime.datetime.now().isoformat(timespec='seconds')}), encoding='utf-8')
 
 
 def record_old(words, rows, path=None):

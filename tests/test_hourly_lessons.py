@@ -106,6 +106,8 @@ def job(tmp_path, monkeypatch):
     monkeypatch.setattr(H, 'ROOT', root)
     monkeypatch.setenv('ANEES_TRIGGER', 'hourly')      # main() setdefaults it; keep it from leaking into other tests
     monkeypatch.delenv('ELEVENLABS_API_KEY', raising=False)   # the hourly credit check (LS-04) never calls ElevenLabs in tests
+    import doc_sync                                     # AM-20: a fresh Amal Doc export unless a test says otherwise
+    monkeypatch.setattr(doc_sync, 'stale_problem', lambda *a, **k: None)
     state = types.SimpleNamespace(in_db=set(), guard=[], guard_ok=False, refresh=[], refresh_fail=[], git=Git())
     fdb = types.ModuleType('db')
     fdb.select = lambda *a, **k: [{'date': d} for d in state.in_db]

@@ -437,7 +437,9 @@ def test_data_freshness_passes_when_current_and_is_advisory(repo, tmp_path):
     import datetime as dt
     now = dt.datetime.now().astimezone()
     write(repo / 'data' / 'amal-trigger' / 'state.json', {'checked': now.isoformat()})
-    assert G.check_data_freshness(repo, raw=tmp_path / 'none', now=now)[0]
+    write(tmp_path / 'doc' / 'amal-vocab-doc.md', '# words')
+    write(tmp_path / 'doc' / 'amal-vocab-doc.status.json', {'ok_at': now.isoformat()})
+    assert G.check_data_freshness(repo, raw=tmp_path / 'none', now=now, doc_dir=tmp_path / 'doc')[0]
     cfg = json.loads((ROOT / G.CONFIG).read_text(encoding='utf-8'))
     assert 'data_freshness' in cfg['advisory'] and 'data_freshness' not in cfg['required']   # a stale source never blocks a fresh publish
 
@@ -466,3 +468,18 @@ def test_ls_01_lesson_type_read_is_required_and_blocks_a_default_type(repo):
     lj['lessons'][1].update(type='review-grammar')
     write(repo / 'docs/data/lessons.json', lj)
     assert G.check_lesson_type_read(repo)[0] is True
+
+
+def test_AM_20_a_stale_amal_doc_export_warns_in_data_freshness(repo, tmp_path):
+    """AM-20 (Medi 2026-10-02 "DUDE FUCKING FIX THE ISSUE WITH HER DOCUMENT"): the hourly Doc export older than 2 h is a
+    data_freshness warning with its time and reason; a missing export says so too."""
+    import datetime as dt
+    now = dt.datetime.now().astimezone()
+    write(repo / 'data' / 'amal-trigger' / 'state.json', {'checked': now.isoformat()})
+    write(tmp_path / 'doc' / 'amal-vocab-doc.md', '# words')
+    write(tmp_path / 'doc' / 'amal-vocab-doc.status.json', {'ok_at': (now - dt.timedelta(hours=5)).isoformat(),
+                                                           'tried_at': now.isoformat(), 'error': 'export HTTP 403'})
+    ok, detail = G.check_data_freshness(repo, raw=tmp_path / 'none', now=now, doc_dir=tmp_path / 'doc')
+    assert not ok and "Amal's word Doc not synced since" in detail and 'export HTTP 403' in detail
+    ok, detail = G.check_data_freshness(repo, raw=tmp_path / 'none', now=now, doc_dir=tmp_path / 'empty')
+    assert not ok and "Amal's word Doc not synced on this PC" in detail

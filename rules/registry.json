@@ -5735,6 +5735,69 @@
    "note": "2026-10-02 first run: 85 reader-found taught words on 8 lessons (09-16..10-02) judged by hand against the Doc import of 2026-10-02 21:02 (54 on the Doc, 7 already on her card, 24 new = 23 cards after one same-lesson duplicate); the hand verb pairs are all in the Doc. No schema change: cards reuse amal_rules (source review, word_key newword:<date>:<hash of 'taught:'+word>)."
   },
   {
+   "id": "AM-20",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The hourly vocab import reads Amal's live Doc by itself: an Apps Script under wc@adibs.com exports it every hour (read-only) to G:/My Drive/Anees doc sync, and an export older than 2 h is never imported and shows \"Amal's word Doc not synced since <time>: <reason>\" on Progress and Lessons plus a data_freshness warning.",
+   "topic": "the Doc",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "DUDE FUCKING FIX THE ISSUE WITH HER DOCUMENT. YOU HAVE A DIRECT GOOGLE CONNECTION TO THE DOC WHY IS THIS SO FUCKING HARD",
+     "session": "4311f39d"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/import_vocab.py",
+     "contains": "ds = doc_sync.state()"
+    },
+    {
+     "type": "code",
+     "path": "scripts/doc_sync.py",
+     "contains": "def stale_problem(folder=None, now=None)"
+    },
+    {
+     "type": "code",
+     "path": "scripts/apps_script/doc_sync/Code.gs",
+     "contains": "/export?mimeType=text%2Fmarkdown"
+    },
+    {
+     "type": "code",
+     "path": "scripts/publish_guard.py",
+     "contains": "ds = doc_sync.state(doc_dir, now)"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lesson-behind.js",
+     "contains": "p.text.replace('{since}', when)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_doc_sync.py",
+     "contains": "def test_AM_20_the_import_picks_the_synced_doc_export"
+    },
+    {
+     "path": "tests/test_doc_sync.py",
+     "contains": "def test_AM_20_a_stale_export_raises_the_banner_line_with_time_and_reason"
+    },
+    {
+     "path": "tests/test_publish_guard.py",
+     "contains": "def test_AM_20_a_stale_amal_doc_export_warns_in_data_freshness"
+    },
+    {
+     "path": "tests/test_lesson_alerts.cjs",
+     "contains": "test(\"AM-20: a stale Amal Doc export reads"
+    }
+   ],
+   "note": "2026-10-02: the Doc is private (anonymous export 401) and the Drive connector only exists inside a Claude chat, so the hourly task had no live source since it was made. Amal and the Doc's sharing are untouched; the export script has read-only access to her Doc. AM-12 still governs what a sync does (archive, never delete)."
+  },
+  {
    "id": "WS-27",
    "kind": "error",
    "scope": "word-scoring",

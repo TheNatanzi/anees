@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-02",
- "total": 147,
+ "total": 148,
  "replaced": 8,
  "counts": {
-  "Automatic": 68,
+  "Automatic": 69,
   "Written down": 67,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -1307,7 +1307,7 @@
    "key": "amal",
    "title": "Amal's say",
    "intro": "What Amal decides: her Doc, her pages, her rulings, and the words she promised to add.",
-   "count": 18,
+   "count": 19,
    "sections": [
     {
      "kind": "data",
@@ -1516,6 +1516,20 @@
          "who": "Medi",
          "date": "2026-09-30",
          "quote": "She took a few verbs off the list that was added by mistake"
+        }
+       ]
+      },
+      {
+       "id": "AM-20",
+       "text": "The hourly vocab import reads Amal's live Doc by itself: an Apps Script under wc@adibs.com exports it every hour (read-only) to G:/My Drive/Anees doc sync, and an export older than 2 h is never imported and shows \"Amal's word Doc not synced since <time>: <reason>\" on Progress and Lessons plus a data_freshness warning.",
+       "status": "enforced",
+       "topic": "the Doc",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "DUDE FUCKING FIX THE ISSUE WITH HER DOCUMENT. YOU HAVE A DIRECT GOOGLE CONNECTION TO THE DOC WHY IS THIS SO FUCKING HARD"
         }
        ]
       }

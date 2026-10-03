@@ -18,3 +18,11 @@ test('LS-04: no file, an empty file or a bad row shows nothing', () => {
   assert.deepEqual(alertLines({ problems: [{ text: 'Voice-to-text credits low: 133 left, a lesson needs about 1360', since: 'nonsense' }] }),
     ['Voice-to-text credits low: 133 left, a lesson needs about 1360']);
 });
+
+test("AM-20: a stale Amal Doc export reads \"Amal's word Doc not synced since <time>: <reason>\"", () => {
+  const since = new Date(2026, 9, 2, 14, 5).toISOString();
+  const doc = { problems: [{ key: 'doc-sync', kind: 'doc-stale', since,
+    text: "Amal's word Doc not synced since {since}: the Google export failed: export HTTP 403" }] };
+  assert.deepEqual(alertLines(doc, new Date(2026, 9, 2, 18, 0)), ["Amal's word Doc not synced since 14:05: the Google export failed: export HTTP 403"]);
+  assert.deepEqual(alertLines(doc, new Date(2026, 9, 3, 9, 0)), ["Amal's word Doc not synced since 10-02 14:05: the Google export failed: export HTTP 403"]);
+});

@@ -57,6 +57,10 @@ def line_for(p):
         return f"{str(p.get('date'))[5:]} lesson not loaded: {p.get('cause')}"
     if p.get('kind') == 'missing-audio':           # rule TR-17: a recording the hourly job could not transcribe
         return f"{str(p.get('date'))[5:]} lesson missing {p.get('minutes')} min of audio: {p.get('cause')}"
+    if p.get('kind') == 'doc-stale':                # rule AM-20: Amal's Doc export stopped reaching this PC
+        if not p.get('since'):
+            return f"Amal's word Doc never synced on this PC: {p.get('cause')}"
+        return "Amal's word Doc not synced since {since}: " + str(p.get('cause'))   # the page fills {since}
     if p.get('kind') == 'credits-low':
         return f"Voice-to-text credits low: {p.get('left')} left, a lesson needs about {p.get('need')}"
     return str(p.get('cause'))
@@ -107,7 +111,8 @@ def update(root, problems, now=None, keep=()):
     for p in problems:
         prev = before.get(p['key'])
         q = dict(p)
-        q['since'] = prev.get('since') if prev and prev.get('cause') == p.get('cause') else now
+        # a problem that knows its own start (AM-20: the last good Doc export) keeps it
+        q['since'] = p['since'] if 'since' in p else (prev.get('since') if prev and prev.get('cause') == p.get('cause') else now)
         out.append(q)
     seen = {p['key'] for p in out}
     out += [p for k, p in before.items() if k not in seen and any(str(k).startswith(x) for x in keep)]

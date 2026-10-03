@@ -12,9 +12,12 @@ function alertLines(doc, now) {
   const ymd = function (d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
   return ((doc && doc.problems) || []).filter(function (p) { return p && p.text; }).map(function (p) {
     const t = p.since ? new Date(p.since) : null;
-    if (!t || isNaN(t)) return p.text;
+    if (!t || isNaN(t)) return p.text.replace(' since {since}', '');
     const hm = pad(t.getHours()) + ':' + pad(t.getMinutes());
-    return p.text + ' (since ' + (ymd(t) === ymd(today) ? hm : pad(t.getMonth() + 1) + '-' + pad(t.getDate()) + ' ' + hm) + ')';
+    const when = ymd(t) === ymd(today) ? hm : pad(t.getMonth() + 1) + '-' + pad(t.getDate()) + ' ' + hm;
+    // rule AM-20: "Amal's word Doc not synced since {since}: <reason>" carries the time inside the line
+    if (p.text.indexOf('{since}') >= 0) return p.text.replace('{since}', when);
+    return p.text + ' (since ' + when + ')';
   });
 }
 if (typeof module !== 'undefined' && module.exports) module.exports = { alertLines };

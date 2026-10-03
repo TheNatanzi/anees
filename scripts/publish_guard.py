@@ -254,11 +254,12 @@ def _age_h(stamp, now=None):
         return None
 
 
-def check_data_freshness(root, raw=None, now=None, **_):
+def check_data_freshness(root, raw=None, now=None, doc_dir=None, **_):
     """Rule F1 (freshness audit 2026-10-02): the pages must not be older than their newest source. Warns when
     (1) a lesson is transcribed in the raw archive but missing from lessons.json (10-01 sat transcribed 11+ hours),
     (2) the Amal trigger has not checked her answers for FRESH_TRIGGER_MAX_H hours (its 15-minute task never existed),
-    (3) nothing was published for FRESH_PUBLISH_MAX_H hours while pushes were blocked (09-30 17:23 -> 10-02: 32 h unseen)."""
+    (3) nothing was published for FRESH_PUBLISH_MAX_H hours while pushes were blocked (09-30 17:23 -> 10-02: 32 h unseen),
+    (4) rule AM-20: Amal's word Doc export (G:/My Drive/Anees doc sync, scripts/doc_sync.py) is missing or 2+ hours old."""
     root = Path(root)
     probs = []
     raw = Path(raw or os.environ.get('ANEES_RAW') or FRESH_RAW_DEFAULT)
@@ -284,7 +285,16 @@ def check_data_freshness(root, raw=None, now=None, **_):
     if blocks and (age is None or age > FRESH_PUBLISH_MAX_H):
         probs.append('nothing published for ' + (f'{age:.0f} h' if age is not None else 'a long time')
                      + f' ({blocks} blocked pushes; last: {str((gs.get("last_block") or {}).get("reason") or "")[:120]})')
-    return (not probs, '; '.join(probs) if probs else 'every lesson in the raw archive is on the site; Amal trigger and publishing are current')
+    try:
+        import doc_sync
+        ds = doc_sync.state(doc_dir, now)
+        if not ds['fresh']:
+            at = ds['exported_at']
+            probs.append("Amal's word Doc not synced " + (f"since {at:%m-%d %H:%M}" if at else 'on this PC') + ': ' + ds['reason'])
+    except Exception as e:
+        probs.append(f"Amal's word Doc sync state unreadable: {type(e).__name__}: {str(e)[:120]}")
+    return (not probs, '; '.join(probs) if probs else 'every lesson in the raw archive is on the site; Amal trigger, '
+            "Amal's word Doc and publishing are current")
 
 
 def _load_json(p):
