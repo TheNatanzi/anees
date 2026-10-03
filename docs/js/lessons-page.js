@@ -684,12 +684,20 @@ function transcript(body, x) {
 // a new line at every pause he takes while building a sentence; his lines with nobody else speaking between and a gap of
 // 6 s or less (his thinking pauses, S5) show as ONE sentence (each piece keeps its chips and underlines, shifted into the joined text).
 var JOIN_GAP = 6;
+// Amal's TYPED chat line arriving while he speaks does not break his sentence (Medi 2026-10-03 "why did you break this
+// sentence up? should be together" - 15:28 his date answer, her chat at 15:35 in between): it is shown right after it.
 function sentences(turns, tm) {
-  var out = [];
+  var out = [], held = [], lastMedi = null;
+  var flush = function () { held.forEach(function (h) { out.push(h); }); held = []; };
   turns.forEach(function (t, i) {
-    var last = out[out.length - 1], prev = turns[i - 1];
-    var gap = prev ? t.t - (prev.end != null ? prev.end : prev.t) : 99;
     var m = tm[i] || null;
+    var last = out[out.length - 1];
+    if (t.who === 'chat' && last && last.turn.who === 'Medi' && lastMedi) { held.push({ turn: t, m: m, i: i, pieces: 1, parts: [t] }); return; }
+    var prev = held.length ? lastMedi : turns[i - 1];
+    var gap = prev ? t.t - (prev.end != null ? prev.end : prev.t) : 99;
+    if (!(t.who === 'Medi' && last && last.turn.who === 'Medi' && gap <= JOIN_GAP)) flush();
+    last = out[out.length - 1];
+    lastMedi = t.who === 'Medi' ? t : null;
     if (last && t.who === 'Medi' && prev && prev.who === 'Medi' && last.turn.who === 'Medi' && gap <= JOIN_GAP) {
       var off = last.turn.text.length + 1;
       last.turn = Object.assign({}, last.turn, {
@@ -707,6 +715,7 @@ function sentences(turns, tm) {
     }
     out.push({ turn: t, m: m, i: i, pieces: 1, parts: [t] });
   });
+  flush();
   return out;
 }
 function tmRow(x, t, m, i) {

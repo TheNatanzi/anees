@@ -79,3 +79,12 @@ test('PG-25 a missing word is a ^ mark at its place, not an underline',()=>{
  const h=T.underlined('أنا خططت سفر',[[9,9,'missing','x1','caret','ل','la','preposition'],[9,12,'wrong','x1','exact']]);
  assert.match(h,/<mark class="tm-caret" data-chip="x1" title="missing preposition: la">\^la<\/mark><mark class="tm-ul tm-ul-wrong"/);
 });
+test('PG-23 Amal typing in the chat while he speaks does not break his sentence (15:28 date answer)',()=>{
+ const src=fs.readFileSync(path.join(DOCS,'js','lessons-page.js'),'utf8');
+ const sentences=new Function(src.slice(src.indexOf('var JOIN_GAP'),src.indexOf('function tmRow('))+'; return sentences;')();
+ const turns=[{t:934.34,end:937.86,who:'Medi',text:"Juma already. Uh, Talat"},{t:935.2,who:'chat',text:'u ba3dain e7na ra7 nroo7'},
+  {t:939.58,end:941.96,who:'Medi',text:'Asha Alfayn Sitwa Ashrin.'},{t:942.44,end:942.86,who:'Amal',text:'عشاء.'}];
+ const g=sentences(turns,{});
+ assert.deepEqual(g.map(x=>x.turn.who),['Medi','chat','Amal']);
+ assert.equal(g[0].turn.text,'Juma already. Uh, Talat Asha Alfayn Sitwa Ashrin.');
+});

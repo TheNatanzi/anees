@@ -157,6 +157,24 @@ def J(p):
         return json.load(f)
 
 
+_SOUND = None
+
+
+def sound_key(latin):
+    """TR-23: the one list word whose Arabizi sounds like `latin` (arabizi_reader._sk skeleton, 3+ letters), else None."""
+    global _SOUND
+    import arabizi_reader as AR
+    if _SOUND is None:
+        idx = {}
+        for w in J(os.path.join(DOCS, "data", "words.json"))["items"]:
+            for f in [w.get("arabizi")] + list(w.get("aliases") or []):
+                z = re.sub(r"^(ana|el-|al-)\s*", "", str(f or "").strip().lower())
+                if z and " " not in z and len(AR._sk(z)) >= 3:
+                    idx.setdefault(AR._sk(z), set()).add(w["key"])
+        _SOUND = {k: next(iter(v)) for k, v in idx.items() if len(v) == 1}
+    return _SOUND.get(AR._sk(str(latin).strip().lower()))
+
+
 def mmss(t):
     if t is None:
         return None
@@ -974,6 +992,13 @@ def build():
                 sh = NO["sheet"].get((e.get("arabic") or "") + "" + (e.get("english") or "")) or {}
                 e["on_sheet"], e["rating"], e["sheet_key"] = bool(sh.get("on_sheet")), sh.get("rating"), sh.get("key")
                 e["keyed_by"] = "auto-" + str(sh.get("match")) if sh.get("key") else None
+                # TR-23 (Medi 2026-10-03 "ashar3a (i got wrong and amal corrected)"): a reader row whose word Amal gave is in
+                # LATIN letters ('3ashara') never matched her Arabic list; match it by sound against her own Arabizi spellings
+                # (3ashrah) - one list word only, never a guess between two
+                if not sh.get("key") and re.fullmatch(r"[A-Za-z0-9' -]+", e.get("arabic") or ""):
+                    k = sound_key(e["arabic"])
+                    if k:
+                        e["on_sheet"], e["sheet_key"], e["rating"], e["keyed_by"] = True, k, NO["ratings"].get(k), "auto-sound"
     # Hand verdicts win over the automatic sheet check (Medi 2026-09-27 "use context and meanings both ways"): a reader
     # judged each word against his list by meaning -> data/lesson-work/sheet-verdicts.json [{date, mmss, arabic, verdict}].
     vp = os.path.join(REPO, "data", "lesson-work", "sheet-verdicts.json")

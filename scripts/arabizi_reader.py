@@ -124,7 +124,7 @@ def _sk(w):
     """Consonant skeleton of a Latin spelling, with the English-ear spellings undone (TR-23): mb -> nb (he says nenbisit,
     the engine hears nimbisit), 6 -> t, 7 -> h, vowels dropped, doubles collapsed."""
     w = w.lower().replace("kh", "5").replace("sh", "$").replace("gh", "8")
-    w = re.sub(r"[^a-z0-9$]", "", w).replace("mb", "nb")
+    w = re.sub(r"(?<=[aeiou])h$", "", re.sub(r"[^a-z0-9$]", "", w)).replace("mb", "nb")   # 3ashrah = 3ashra (-ah is the ة)
     w = w.translate(str.maketrans({"6": "t", "7": "h", "9": "s", "q": "k", "a": "", "e": "", "i": "", "o": "", "u": "", "y": "", "w": ""}))
     return re.sub(r"(.)\1+", r"\1", w)
 
