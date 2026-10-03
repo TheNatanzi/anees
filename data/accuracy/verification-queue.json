@@ -1,19 +1,17 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 21,
+ "count": 17,
  "by_date": {
   "2026-08-25": 1,
   "2026-09-04": 2,
   "2026-09-05": 1,
   "2026-09-10": 3,
   "2026-09-11": 4,
-  "2026-09-14": 3,
-  "2026-09-15": 3,
+  "2026-09-16": 1,
   "2026-09-17": 1,
-  "2026-09-21": 3,
+  "2026-09-21": 2,
   "2026-09-26": 1,
-  "2026-10-01": 1,
-  "2026-10-02": 2
+  "2026-10-01": 1
  },
  "rows": [
   {
@@ -300,17 +298,17 @@
    "listen_to": "46:22"
   },
   {
-   "uid": "FA-65b1d2c1",
-   "date": "2026-09-14",
-   "t": "03:42",
-   "t_amal": "03:45",
+   "uid": "FA-311451ee",
+   "date": "2026-09-16",
+   "t": "48:52",
+   "t_amal": "48:55",
    "kind": "grammar",
    "tier": null,
-   "bucket": "D1",
-   "medi_said": "في المحل. في الـ، في البيت.",
-   "amal_said": "بالبيت.",
-   "wrong": "في البيت",
-   "right": "بالبيت (belbait)",
+   "bucket": "C2",
+   "medi_said": "So ili amalti.",
+   "amal_said": "عملت.",
+   "wrong": "ili amalti",
+   "right": "illi 3meltih",
    "why_check": [
     "found in pass 2 only (the other pass did not list it)"
    ],
@@ -319,137 +317,10 @@
    "second_judge": {
     "reviewer": "codex gpt-5.5",
     "verdict": "rejected",
-    "reason": "The independent audio does not clearly show Medi saying «في البيت» at the correction point; the mixed dialect transcription has him saying «بالمحل، لا بالبيت», and Amal's «بالبيت؟» reads as an echo/confirmation rather than a correction."
+    "reason": "Medi does say «إلي عملتي», but Amal's immediate echo is just «عملت/عملتي» and the evidence does not show her signaling the missing pointer suffix «ـه» at that moment."
    },
-   "listen_from": "03:32",
-   "listen_to": "04:05"
-  },
-  {
-   "uid": "FA-9f3cc9f6",
-   "date": "2026-09-14",
-   "t": "36:15",
-   "t_amal": "36:19",
-   "kind": "vocab-A",
-   "tier": 0,
-   "bucket": null,
-   "medi_said": "So can I say كل حدا or just حدا؟",
-   "amal_said": "يمكن تقول كل حدا or الكل.",
-   "wrong": "كل حدا / حدا",
-   "right": "الكل",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Medi is asking whether «كل حدا» or «حدا» works, and Amal answers that he can say «كل حدا» or «الكل». Since she explicitly accepts «كل حدا», this is not a correction from wrong «كل حدا» to right «الكل»."
-   },
-   "listen_from": "36:05",
-   "listen_to": "36:39"
-  },
-  {
-   "uid": "FA-9848001e",
-   "date": "2026-09-14",
-   "t": "1:02:38",
-   "t_amal": "1:02:37",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D4",
-   "medi_said": "بشوف، بشوف. Thanks. Bye.",
-   "amal_said": "أهلًا وسهلًا. بشوفك.",
-   "wrong": "بشوف",
-   "right": "بشوفك",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Amal was giving a farewell, not correcting him afterward; her only response after Medi is «Bye». The independent dialect transcription even hears Medi as ending with «بشوفك»."
-   },
-   "listen_from": "1:02:28",
-   "listen_to": "1:02:57"
-  },
-  {
-   "uid": "FA-a412e4d4",
-   "date": "2026-09-15",
-   "t": "31:21",
-   "t_amal": "31:27",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B16",
-   "medi_said": "احنا ان لازم--",
-   "amal_said": "we just should. we not should have.",
-   "wrong": "ان لازم",
-   "right": "لازم",
-   "why_check": [
-    "the transcript under it is disputed (engine wrote something else)"
-   ],
-   "check": "audio",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Amal does contrast plain should with should-have, but the independent dialect transcript of Medi has him saying «إحنا لازم» twice, not «كان/ان لازم». This looks more like Amal clarifying the target meaning than correcting a proven wrong form."
-   },
-   "listen_from": "31:11",
-   "listen_to": "31:47"
-  },
-  {
-   "uid": "FA-cc6d2b4d",
-   "date": "2026-09-15",
-   "t": "40:20",
-   "t_amal": "40:31",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B2",
-   "medi_said": "لازم، uh, um, يتغيروا. (engine wrote يتغيروا; he said تغيروا)",
-   "amal_said": "يتغير، يتغيروا. ... لازم تغيروا would be should have been changed.",
-   "wrong": "تغيروا",
-   "right": "يتغيروا",
-   "why_check": [
-    "the transcript under it is disputed (engine wrote something else)"
-   ],
-   "check": "audio",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "The available audio transcriptions show Medi saying «يتغيروا», and Amal echoes «يتغيروا» before explaining the contrast with «لازم تغيروا». His own question about past tense is metalinguistic, not clear evidence that he had actually said the wrong form."
-   },
-   "listen_from": "40:10",
-   "listen_to": "40:51"
-  },
-  {
-   "uid": "FA-594b9df7",
-   "date": "2026-09-15",
-   "t": "55:24",
-   "t_amal": "55:28",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "livil-- oh my God.",
-   "amal_said": "First do the left, left past. Make it past.",
-   "wrong": "لما ... (present)",
-   "right": "لما لفّيت",
-   "why_check": [
-    "kept from the 09-24 sweep; neither reader pass listed it"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "This is the same stumble already captured at 55:20, not a separate signalled mistake at 55:24. Amal's single prompt «make it past» responds to the whole interrupted attempt, so this duplicate row should not stand independently."
-   },
-   "listen_from": "55:14",
-   "listen_to": "55:48"
+   "listen_from": "48:42",
+   "listen_to": "49:15"
   },
   {
    "uid": "FA-c5ee0bdf",
@@ -475,27 +346,6 @@
    },
    "listen_from": "49:07",
    "listen_to": "49:37"
-  },
-  {
-   "uid": "FA-fae8ed67",
-   "date": "2026-09-21",
-   "t": "55:40",
-   "t_amal": "55:46",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "or bikhall, uh, that makes saffron. I don't know how to say makes. Is it bikhall? Uh, okay. Bi'amalu,",
-   "amal_said": "بيعملوا.",
-   "wrong": "bikhall",
-   "right": "بيعملوا",
-   "why_check": [
-    "reader confidence low"
-   ],
-   "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "55:30",
-   "listen_to": "56:06"
   },
   {
    "uid": "FA-c2ac3a65",
@@ -599,48 +449,6 @@
    },
    "listen_from": "02:11",
    "listen_to": "02:43"
-  },
-  {
-   "uid": "FA-d3ecce97",
-   "date": "2026-10-02",
-   "t": "08:23",
-   "t_amal": "09:00",
-   "kind": "grammar",
-   "tier": 1,
-   "bucket": "A10",
-   "medi_said": "عادي الصباح (engine; her echo shows هذا الصبح) ... 08:58 عاد الصباح",
-   "amal_said": "We never say هذا الصبح just say الصبح or بالصباح.",
-   "wrong": "هادي الصباح",
-   "right": "الصبح",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "08:13",
-   "listen_to": "09:20"
-  },
-  {
-   "uid": "FA-27538ea5",
-   "date": "2026-10-02",
-   "t": "09:23",
-   "t_amal": "09:24",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "أنا لا مش شجاع اليوم. مش شجاع اليوم.",
-   "amal_said": "متشجع.",
-   "wrong": "شجاع",
-   "right": "متشجع (mitshajje3)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "09:13",
-   "listen_to": "09:44"
   }
  ]
 }
