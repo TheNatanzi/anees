@@ -1,6 +1,6 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 23,
+ "count": 21,
  "by_date": {
   "2026-08-25": 1,
   "2026-09-04": 2,
@@ -8,8 +8,7 @@
   "2026-09-10": 3,
   "2026-09-11": 4,
   "2026-09-14": 3,
-  "2026-09-15": 4,
-  "2026-09-16": 1,
+  "2026-09-15": 3,
   "2026-09-17": 1,
   "2026-09-21": 3,
   "2026-09-26": 1,
@@ -428,27 +427,6 @@
    "listen_to": "40:51"
   },
   {
-   "uid": "FA-04c646b6",
-   "date": "2026-09-15",
-   "t": "55:20",
-   "t_amal": "55:28",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "lama ana livil, livil-- oh my God.",
-   "amal_said": "First do the left, left past. Make it past.",
-   "wrong": "livil",
-   "right": "laffait",
-   "why_check": [
-    "the transcript under it is disputed (engine wrote something else)"
-   ],
-   "check": "audio",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "55:10",
-   "listen_to": "55:48"
-  },
-  {
    "uid": "FA-594b9df7",
    "date": "2026-09-15",
    "t": "55:24",
@@ -472,31 +450,6 @@
    },
    "listen_from": "55:14",
    "listen_to": "55:48"
-  },
-  {
-   "uid": "FA-311451ee",
-   "date": "2026-09-16",
-   "t": "48:52",
-   "t_amal": "48:55",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C2",
-   "medi_said": "So ili amalti.",
-   "amal_said": "عملت.",
-   "wrong": "ili amalti",
-   "right": "illi 3meltih",
-   "why_check": [
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Medi does say «إلي عملتي», but Amal's immediate echo is just «عملت/عملتي» and the evidence does not show her signaling the missing pointer suffix «ـه» at that moment."
-   },
-   "listen_from": "48:42",
-   "listen_to": "49:15"
   },
   {
    "uid": "FA-c5ee0bdf",

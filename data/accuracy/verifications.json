@@ -17048,6 +17048,56 @@
     "wrong": "زاكاراتو",
     "right": "زاكارتو / ذكرتو"
    }
+  },
+  {
+   "uid": "FA-04c646b6",
+   "date": "2026-09-15",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi was struggling with the verb, saying something like \"أنا لفت/لفل...\", and Amal immediately prompted the past form: \"لف past, make it past.\" He then produced \"لما لفت\" and Amal accepted it as perfect, so the past-tense correction is real even though the exact engine spelling \"livil\" is noisy.",
+   "evidence": {
+    "t_start": 3310.0,
+    "t_end": 3348.0,
+    "quote": "Medi: «أنا لفت... لفت»; Amal: «لف past, make it past»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-15/FA-04c646b6_Medi_Medi_Natanzi.mp3",
+      "sha256": "a343cfd4f027fff2ddbc81f9ee217d31dcf5e70b59c26fda7975343759bd8443",
+      "source": "Medi_Natanzi.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-15/FA-04c646b6_Amal_Amal.mp3",
+      "sha256": "415799c8d82200ff73794df1678b2743614d850f592b01ef5eb05af86b1d48cd",
+      "source": "Amal.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-15/FA-04c646b6_mixed_lesson.mp3",
+      "sha256": "810c88ecb1ee0a35a5a0749ed7a350f8f37320a506e2f61e38caebf554030309",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "لما أنا لفت لفت لفت لما لفت العلم",
+     "Amal": "first do the left lift past make it past صحيح",
+     "mixed": "اه لما انا لفل لفل او مي جادي. بس دو دا لف لف باست ميك ات باست. اه اتا. لما لخفيت العلم ممتاز"
+    }
+   },
+   "claim": {
+    "wrong": "livil",
+    "right": "laffait",
+    "bucket": "B5",
+    "tier": null
+   },
+   "at": "2026-10-03T03:25:04-07:00",
+   "run_id": "c09995d3ece84276876455cb05f24d39"
   }
  ]
 }
