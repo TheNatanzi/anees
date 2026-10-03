@@ -141,6 +141,10 @@ def mark_duplicates(rows, hand=()):
     by_uid = {r["uid"]: r for r in rows}
     for h in hand:
         keep, drop = by_uid.get(h["keep"]), by_uid.get(h["drop"])
+        if keep is None and drop is None:
+            # both rows left with a re-read (2026-10-02: 09-30 re-read when its chat was merged now has ONE row for
+            # 'عشرين سجاد', new uid): nothing left to count twice. Only a pair with its repeat still present must resolve.
+            continue
         if keep is None:
             raise SystemExit(f"duplicates.json: kept row {h['keep']} is not in the audit rows (uids changed?) - fix the file")
         if drop is None:          # the repeat is already gone (e.g. union_rows no longer lets it through)
