@@ -236,3 +236,19 @@ def test_tr_17_meet_gap_fill_gives_way_to_the_persons_own_recording():
     out = BP.trim_layers([layer], P)
     assert [L['t'] for L in out[0]['lines']] == [1180.0] and [w['s'] for w in out[0]['words']] == [1180.0]
     assert BP.trim_layers([{'side': 'Amal', 'lines': [{'t': 50.0}], 'words': []}], P) == []
+
+
+def test_tr_17_a_manifest_without_its_archive_is_not_called_missing(tmp_path, monkeypatch):
+    """2026-10-02: the guard ran without ANEES_RAW on the repo's data/lessons, where git keeps only 09-05's tracks.json,
+    and called two fully transcribed recordings (125 min) missing. A folder with the manifest alone is not judged, and
+    without ANEES_RAW the check reads the hourly job's archive when this machine has it."""
+    d = tmp_path / 'lessons' / '2026-09-05' / 'tracks'
+    d.mkdir(parents=True)
+    (d / 'tracks.json').write_text(json.dumps({'tracks': [{'participant': 'Amal', 'start': {'relative': 0.6},
+                                                           'duration_s': 3737.0, 'file': 'Amal.mp3'}]}))
+    assert MR.missing(tmp_path / 'lessons') == []
+    monkeypatch.delenv('ANEES_RAW', raising=False)
+    monkeypatch.setattr(MR, 'ARCHIVE', tmp_path / 'lessons')
+    assert MR.default_raw() == str(tmp_path / 'lessons')
+    monkeypatch.setenv('ANEES_RAW', 'X:/elsewhere')
+    assert MR.default_raw() == 'X:/elsewhere'

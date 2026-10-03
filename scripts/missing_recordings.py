@@ -24,6 +24,16 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 ROOT = HERE.parent
 MIN_S = 3.0
+ARCHIVE = Path('C:/dev/anees/data/lessons')     # the raw archive the hourly job uses (scripts/run_hourly_lessons.ps1 default)
+
+
+def default_raw():
+    """ANEES_RAW, else the hourly job's archive when this machine has it, else the repo's data/lessons. 2026-10-02: the
+    guard ran without ANEES_RAW, read the repo's data/lessons - where git keeps only 09-05's tracks.json (audio and
+    transcripts are gitignored) - and called 09-05's two fully transcribed recordings (125 min) missing."""
+    if os.environ.get('ANEES_RAW'):
+        return os.environ['ANEES_RAW']
+    return str(ARCHIVE) if ARCHIVE.is_dir() else str(ROOT / 'data' / 'lessons')
 
 
 def _j(p):
@@ -84,6 +94,8 @@ def missing(raw, min_s=MIN_S):
     """[{date, who, file, start_s, duration_s, minutes}] of every person's recording with no transcript."""
     out = []
     for d in sorted(p for p in Path(raw).iterdir() if p.is_dir() and (p / 'tracks' / 'tracks.json').exists()):
+        if not any((d / 'tracks').glob('*.mp3')) and not any(d.glob('scribe*.json')):
+            continue                                    # only the manifest is here (a repo copy): no archive to judge
         done = covered(d)
         for t in _j(d / 'tracks' / 'tracks.json').get('tracks') or []:
             who = _person(t.get('participant'))
@@ -104,7 +116,7 @@ def summary(items):
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument('--raw', default=os.environ.get('ANEES_RAW', str(ROOT / 'data' / 'lessons')))
+    ap.add_argument('--raw', default=default_raw())
     a = ap.parse_args(argv)
     if not Path(a.raw).is_dir():
         print(f'recordings: raw archive {a.raw} not on this machine - nothing to check')
