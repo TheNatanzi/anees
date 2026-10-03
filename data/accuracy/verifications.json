@@ -16090,6 +16090,356 @@
    },
    "at": "2026-10-03T00:31:40-07:00",
    "run_id": "21b3b9da9aea49f69093570d98ed40e2"
+  },
+  {
+   "uid": "FA-74674e14",
+   "date": "2026-09-14",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi appears to use the 3rd-person-looking form «اختارت/خطارت» for 'I chose', then Amal supplies the target form and explains that some people add an initial vowel. His follow-up question about «بختار» with T shows this was a correction, not just confirmation.",
+   "evidence": {
+    "t_start": 173.0,
+    "t_end": 209.0,
+    "quote": "Medi: «اختارت... Is it... بختار with a T?» / Amal: «اخترت... Some people say e5taret»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-14/FA-74674e14_Medi_Medi_Natanzi-stitched.mp3",
+      "sha256": "a7dd363f49fe130967acfd415af8007cebfbaae99484d5283f66f56baa61b630",
+      "source": "Medi_Natanzi-stitched.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-14/FA-74674e14_Amal_Amal-03690493f213a15e.mp3",
+      "sha256": "1c0ec3b9f648dc56546983e4edebc659fbb1c5a3d3d802f4a0926f19779d2934",
+      "source": "Amal-03690493f213a15e.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-14/FA-74674e14_mixed_lesson.mp3",
+      "sha256": "ff632fb4ce6bc0c6dc24eb6f0185f9780b09dd2a6d3e527c113e280a2b2bfd1b",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "خطارات خطارات خطارات خطارات خطارات خطارات أعتقد أنه يجعل المشكلة أكثر أكثر أكثر أكثر أكثر أكثر",
+     "Amal": "اشتركوا في القناة شكرا",
+     "mixed": "اخترت اخترت اخترت اخترت اخترت لكي تجعله أسهل أعتقد أنه يجعله أسهل أعتقد أنه يجعله أسهل أعتقد أنه يجعله أسهل أعتقد أنه يجعله أسهل أعتقد أنه يجعله أسهل أعتقد أنه يجعله أسهل أعتقد أنه يجعله أسهل"
+    }
+   },
+   "claim": {
+    "wrong": "اختارت",
+    "right": "اخترت (e5taret)",
+    "bucket": "B5",
+    "tier": null
+   },
+   "at": "2026-10-03T01:29:39-07:00",
+   "run_id": "4a47b45a8e3245058024d4b4f65c2fa9"
+  },
+  {
+   "uid": "FA-65b1d2c1",
+   "date": "2026-09-14",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "medium",
+   "reason": "The independent audio does not clearly show Medi saying «في البيت» at the correction point; the mixed dialect transcription has him saying «بالمحل، لا بالبيت», and Amal's «بالبيت؟» reads as an echo/confirmation rather than a correction.",
+   "evidence": {
+    "t_start": 212.0,
+    "t_end": 245.0,
+    "quote": "Medi/mixed: «بالمحل، لا بالبيت» / Amal: «بالبيت؟»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-14/FA-65b1d2c1_Medi_Medi_Natanzi-stitched.mp3",
+      "sha256": "642aef7ff5d00f1a77b914352ec3ff3fad26023438ad3a3b5fa372e7ff8e9ec2",
+      "source": "Medi_Natanzi-stitched.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-14/FA-65b1d2c1_Amal_Amal-03690493f213a15e.mp3",
+      "sha256": "5e18921f3d7746180370826cfb352d4088f8015eebcf5f0c2c43c7d66b76b239",
+      "source": "Amal-03690493f213a15e.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-14/FA-65b1d2c1_mixed_lesson.mp3",
+      "sha256": "a4b32a312758a5fe612f4740346bff1d4f5da3d3b88958e43af67bdc539c299d",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا في المهل انا في المهل دايما مؤسس سواء الفيني",
+     "Amal": "في بيتي بس انا انا سألتك اذا بتحب الشغل بالبيت اكتر او بالمحل بالبيت ترجمة نانسي قنقر",
+     "mixed": "في بيتي بس انا سألتك اذا بتحب الشغل بالبيت اكتر او بالمحل بالمحل بالبيت بالبيت انا في المهل انا في المهل دايما مؤسس موازفيني"
+    }
+   },
+   "claim": {
+    "wrong": "في البيت",
+    "right": "بالبيت (belbait)",
+    "bucket": "D1",
+    "tier": null
+   },
+   "at": "2026-10-03T01:29:39-07:00",
+   "run_id": "4a47b45a8e3245058024d4b4f65c2fa9"
+  },
+  {
+   "uid": "FA-e6e6f5cb",
+   "date": "2026-09-14",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi reaches for the word with «من شاف، من شاف، Try», then Amal supplies «الجو ناشف» and he repeats it. This fits a tier-0 supplied-word signal.",
+   "evidence": {
+    "t_start": 1474.0,
+    "t_end": 1509.0,
+    "quote": "Medi: «من شاف، من شاف، تراي» / Amal: «الجو ناشف» / Medi: «الجو ناشف»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-14/FA-e6e6f5cb_Medi_Medi_Natanzi-stitched.mp3",
+      "sha256": "e5a71a1727a986865ac25c86e42d9f7da0f674119cb9592f40c134d26367d678",
+      "source": "Medi_Natanzi-stitched.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-14/FA-e6e6f5cb_Amal_Amal-03690493f213a15e.mp3",
+      "sha256": "cd0175f1c0355726aff6fe30401b36297372be2419cb8c667acfab286c07e34c",
+      "source": "Amal-03690493f213a15e.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-14/FA-e6e6f5cb_mixed_lesson.mp3",
+      "sha256": "24229bb7a9cbc34426d0732bc6880faa0a0895ed7745a8112342f6e04c5ebcfd",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "من شاف من شاف تراي الجو ناشف الشوب مش سي سي اشتركوا في القناة",
+     "Amal": "الجو ناشف مش سيء اوكي ممتاز حلو طيب اول اشي رح نعمله هو نوع أطيك",
+     "mixed": "منشف الجو ناشف الجو ناشف الشوب مش سيء مش سيء أوكي ممتاز حلو طيب أول إشي رح نعمله هو ن أ ت ا"
+    }
+   },
+   "claim": {
+    "wrong": "من شاف",
+    "right": "ناشف (naashef)",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-03T01:29:39-07:00",
+   "run_id": "4a47b45a8e3245058024d4b4f65c2fa9"
+  },
+  {
+   "uid": "FA-21034185",
+   "date": "2026-09-14",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi says something like «المفضلي / مفضل لي» for 'my favorite', and Amal immediately recasts it as «المفضل عندي». He then repeats her form.",
+   "evidence": {
+    "t_start": 1563.0,
+    "t_end": 1600.0,
+    "quote": "Medi: «المفضلي... مفضلي» / Amal: «المفضل عندي» / Medi: «المفضل عندي»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-14/FA-21034185_Medi_Medi_Natanzi-stitched.mp3",
+      "sha256": "547298444a2f40d61a03acca310e3f80b2f949d2b93bce19717cca9f5706ef12",
+      "source": "Medi_Natanzi-stitched.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-14/FA-21034185_Amal_Amal-03690493f213a15e.mp3",
+      "sha256": "14b96c779ef939c54747870b1a0bc7a6392af2ff7f86d778dcb627c505e7da34",
+      "source": "Amal-03690493f213a15e.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-14/FA-21034185_mixed_lesson.mp3",
+      "sha256": "6171ed63bd116b3bb80255840b196f835679ea7f375dca3011c28338620fe713",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "حالاً، نعم، حسناً أول المفضل أو فقط المفضل نقل المفضل عندي باب ست الماضي شكرا",
+     "Amal": "بدك من نعمل منها نعمل لها كمان? المفضل عندي. ام. اشتركوا في القناة",
+     "mixed": "حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا، حسنا شكرا"
+    }
+   },
+   "claim": {
+    "wrong": "مفضل لي",
+    "right": "المفضل عندي",
+    "bucket": "D1",
+    "tier": null
+   },
+   "at": "2026-10-03T01:29:39-07:00",
+   "run_id": "4a47b45a8e3245058024d4b4f65c2fa9"
+  },
+  {
+   "uid": "FA-c0b4437b",
+   "date": "2026-09-14",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "The prompt was 'they are very annoying'; Medi starts with «هو», Amal prompts 'They', and Medi changes to «هم» before completing the sentence. That is a signalled pronoun correction.",
+   "evidence": {
+    "t_start": 1739.0,
+    "t_end": 1771.0,
+    "quote": "Medi: «هو» / Amal: «They» / Medi: «اه هم... هم مزعجين كتير»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-14/FA-c0b4437b_Medi_Medi_Natanzi-stitched.mp3",
+      "sha256": "56d3135ef0848264b0d278fccddd2b2f9e4652248a87391e5ec6b6d097252a7e",
+      "source": "Medi_Natanzi-stitched.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-14/FA-c0b4437b_Amal_Amal-03690493f213a15e.mp3",
+      "sha256": "dee416f14f7132617ffc90b1a419bfbb11cdfefd5c728b4336420a0ab23e12f6",
+      "source": "Amal-03690493f213a15e.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-14/FA-c0b4437b_mixed_lesson.mp3",
+      "sha256": "0477839ec8592c523b929435ccb983daba24fb2e4b937b4edcd6741113f06b98",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "وهم مزعجين كثير شكرا",
+     "Amal": "مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجرد مجر شكرا",
+     "mixed": "مزعج جدا هو هم هم مزعجين كثير شكرا شكرا"
+    }
+   },
+   "claim": {
+    "wrong": "هو",
+    "right": "هم",
+    "bucket": "A12",
+    "tier": null
+   },
+   "at": "2026-10-03T01:29:39-07:00",
+   "run_id": "4a47b45a8e3245058024d4b4f65c2fa9"
+  },
+  {
+   "uid": "FA-9f3cc9f6",
+   "date": "2026-09-14",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "medium",
+   "reason": "Medi is asking whether «كل حدا» or «حدا» works, and Amal answers that he can say «كل حدا» or «الكل». Since she explicitly accepts «كل حدا», this is not a correction from wrong «كل حدا» to right «الكل».",
+   "evidence": {
+    "t_start": 2165.0,
+    "t_end": 2199.0,
+    "quote": "Medi: «can I say كل حدا or just حدا؟» / Amal: «يمكن تقول كل حدا or الكل»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-14/FA-9f3cc9f6_Medi_Medi_Natanzi-stitched.mp3",
+      "sha256": "25d7c8d954261dc0cd819e52cc20bd44f7cccd87464396962d40d4467a3e3db7",
+      "source": "Medi_Natanzi-stitched.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-14/FA-9f3cc9f6_Amal_Amal-03690493f213a15e.mp3",
+      "sha256": "61f1536078682570cdb10991b316fd12342c448d20048be38c25ca1bfec44a27",
+      "source": "Amal-03690493f213a15e.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-14/FA-9f3cc9f6_mixed_lesson.mp3",
+      "sha256": "7aef262a4abd1bfba372025475caa332d5e571dcca39a6bd87d622665316fb4d",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا انا ",
+     "Amal": "اشتركوا في القناة اه",
+     "mixed": "انا انهي ديزي برزنس هنس. انهي ديزي برزنس هنس. انهي ديزي برزنس هنس. انهي ديزي برزنس هنس. انهي ديزي برزنس هنس. انهي ديزي برزنس هنس. انهي ديزي برزنس هنس. انهي ديزي برزنس هنس. انهي ديزي برزنس هنس. انهي ديزي برزنس هنس. انهي ديزي برزنس هنس. انهي ديزي برزنس هنس. انهي ديزي برزنس هنس. انهي ديزي برزنس ه الكل."
+    }
+   },
+   "claim": {
+    "wrong": "كل حدا / حدا",
+    "right": "الكل",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-03T01:29:39-07:00",
+   "run_id": "4a47b45a8e3245058024d4b4f65c2fa9"
+  },
+  {
+   "uid": "FA-20050678",
+   "date": "2026-09-14",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi used a non-past form/question and Amal immediately named the issue, then supplied the past form. The transcript has her saying \"ماضي\" and then \"بسطتك.\"",
+   "evidence": {
+    "t_start": 2456.0,
+    "t_end": 2490.0,
+    "quote": "Medi: «Babtatik?» / Amal: «ماضي» … «بسطتك» العافية. Good job today. Medi's own microphone has odd ",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-14/FA-20050678_Medi_Medi_Natanzi-stitched.mp3",
+      "sha256": "bfdc6ba3acf1bb44309282b94f876fad8e3aa66bdd1b718c2cdbbaf23179bc1c",
+      "source": "Medi_Natanzi-stitched.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-14/FA-20050678_Amal_Amal-03690493f213a15e.mp3",
+      "sha256": "37f615b6cca40aeb7b36059a062a80fb202da7715bd2f518ff8c05d4249bc2ff",
+      "source": "Amal-03690493f213a15e.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-14/FA-20050678_mixed_lesson.mp3",
+      "sha256": "deb01e687369b2c8c5fec79b993ff964a88fe6ce454f3d2dd918d5be9bdc2767",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "باب ساتيك. اوه هذا صحيح. لقد أجعلتك سعيدة قليلا صغير",
+     "Amal": "ماذا تريد أن تفعل؟ اشتركوا في القناة",
+     "mixed": "باب ساتك ماضي بساتك بساتك هل تسمع الحيوانات؟ قليلاً"
+    }
+   },
+   "claim": {
+    "wrong": "babsetek (present)",
+    "right": "بسطتك",
+    "bucket": "B5",
+    "tier": null
+   },
+   "at": "2026-10-03T01:29:55-07:00",
+   "run_id": "811ef701fbf24f2786d678d0a1cc371f"
   }
  ]
 }

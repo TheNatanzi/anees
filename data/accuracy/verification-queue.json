@@ -7,6 +7,7 @@
   "2026-09-05": 1,
   "2026-09-10": 3,
   "2026-09-11": 4,
+  "2026-09-14": 4,
   "2026-09-16": 1,
   "2026-09-17": 1,
   "2026-09-21": 3,
@@ -297,6 +298,101 @@
    },
    "listen_from": "45:52",
    "listen_to": "46:22"
+  },
+  {
+   "uid": "FA-65b1d2c1",
+   "date": "2026-09-14",
+   "t": "03:42",
+   "t_amal": "03:45",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "D1",
+   "medi_said": "في المحل. في الـ، في البيت.",
+   "amal_said": "بالبيت.",
+   "wrong": "في البيت",
+   "right": "بالبيت (belbait)",
+   "why_check": [
+    "found in pass 2 only (the other pass did not list it)"
+   ],
+   "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "The independent audio does not clearly show Medi saying «في البيت» at the correction point; the mixed dialect transcription has him saying «بالمحل، لا بالبيت», and Amal's «بالبيت؟» reads as an echo/confirmation rather than a correction."
+   },
+   "listen_from": "03:32",
+   "listen_to": "04:05"
+  },
+  {
+   "uid": "FA-9f3cc9f6",
+   "date": "2026-09-14",
+   "t": "36:15",
+   "t_amal": "36:19",
+   "kind": "vocab-A",
+   "tier": 0,
+   "bucket": null,
+   "medi_said": "So can I say كل حدا or just حدا؟",
+   "amal_said": "يمكن تقول كل حدا or الكل.",
+   "wrong": "كل حدا / حدا",
+   "right": "الكل",
+   "why_check": [
+    "decided by the third reader alone, in one pass only",
+    "found in pass 2 only (the other pass did not list it)"
+   ],
+   "check": "audio or human",
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi is asking whether «كل حدا» or «حدا» works, and Amal answers that he can say «كل حدا» or «الكل». Since she explicitly accepts «كل حدا», this is not a correction from wrong «كل حدا» to right «الكل»."
+   },
+   "listen_from": "36:05",
+   "listen_to": "36:39"
+  },
+  {
+   "uid": "FA-192691bb",
+   "date": "2026-09-14",
+   "t": "57:02",
+   "t_amal": "57:02",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "D4",
+   "medi_said": "لا، بسطت، بسطت. I knew there was an extra T.",
+   "amal_said": "بسطتك.",
+   "wrong": "بسطت",
+   "right": "بسطتك",
+   "why_check": [
+    "decided by the third reader alone, in one pass only",
+    "found in pass 2 only (the other pass did not list it)"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "56:52",
+   "listen_to": "57:22"
+  },
+  {
+   "uid": "FA-9848001e",
+   "date": "2026-09-14",
+   "t": "1:02:38",
+   "t_amal": "1:02:37",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "D4",
+   "medi_said": "بشوف، بشوف. Thanks. Bye.",
+   "amal_said": "أهلًا وسهلًا. بشوفك.",
+   "wrong": "بشوف",
+   "right": "بشوفك",
+   "why_check": [
+    "decided by the third reader alone, in one pass only",
+    "found in pass 2 only (the other pass did not list it)"
+   ],
+   "check": "audio or human",
+   "stage": "needs the second judge (audio)",
+   "second_judge": null,
+   "listen_from": "1:02:28",
+   "listen_to": "1:02:57"
   },
   {
    "uid": "FA-311451ee",
