@@ -208,6 +208,22 @@ def test_tutor_refresh_reports_a_failed_apply(tmp_path, monkeypatch):
     assert fails and 'apply_amal_audit_rulings.py' in fails[0]
 
 
+def test_LS_11_a_stale_lesson_ledger_is_rebuilt_the_same_hour(tmp_path, monkeypatch):
+    """LS-11: a ledger older than its inputs would block every publish; the hourly Tutor refresh rebuilds the lesson data."""
+    import lesson_ledger as LL
+    monkeypatch.setattr(H, 'ROOT', tmp_path)
+    monkeypatch.setattr(LL, 'check', lambda repo=None: ['2026-10-01: ledger is older than its inputs (x): rebuild'])
+    g = Git()
+    monkeypatch.setattr(H.subprocess, 'run', g)
+    H.tutor_refresh(no_push=True)
+    assert any('build_lessons_page_data.py' in ' '.join(c) for c in g.calls)
+    monkeypatch.setattr(LL, 'check', lambda repo=None: [])
+    g2 = Git()
+    monkeypatch.setattr(H.subprocess, 'run', g2)
+    H.tutor_refresh(no_push=True)
+    assert not any('build_lessons_page_data.py' in ' '.join(c) for c in g2.calls)
+
+
 def test_pending_reviews_finds_unfinished_and_outdated_reviews(tmp_path, monkeypatch):
     import review_lesson as RL
     work = tmp_path / 'data' / 'lesson-work' / 'full-audit'
