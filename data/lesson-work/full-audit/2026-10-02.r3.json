@@ -1,18 +1,24 @@
 {
  "date": "2026-10-02",
  "reader": "r3",
- "note": "Lesson is a drill on awal / taani / aa5er / 8eir before vs after the noun; much of 17:00-48:00 is rule talk and listening drills. Rule hypotheses he states in English ('X means Y') with her 'Nothing'/'no' are treated as rule questions, not slips (17:53 and 21:50). 30:35-31:06 is ONE confusion (awal el-yoam vs el-yoam el-awal), kept once as D4.",
+ "note": "D9 (r1) and D15 (r2) are the same plural-agreement slip at 46:02-46:10 (kept once, as D15); D9 is kept as r2's separate الآخر -> الأخير slip at 45:55. D11/D12 filed A7 to match agreed A15 (ordinal with el- before the noun). D1 dropped as engine (he said متأخر right at 07:04). D5 dropped as S4 (dropped final ر in 3ashar).",
  "rulings": [
   {
    "id": "D1",
+   "verdict": "drop",
+   "why": "Not a slip: he had already said متأخر right at 07:04 (10 s earlier), so تأخر at 07:14 is the engine dropping the م-; her إنت صحيت متأخر at 08:35 is 80 s later and is her retell prompt (he said ana s7eet mit2a55er at 08:39), and the chat alone is not a correction (GR-19)."
+  },
+  {
+   "id": "D2",
    "verdict": "keep",
+   "why": "Real recast; شجاع (brave) is a different lexical item from متشجع (motivated), so tier 1 not tier 2.",
    "row": {
     "id": "1002-6",
     "t": "09:23",
     "t_amal": "09:24",
     "medi_said": "أنا لا مش شجاع اليوم. مش شجاع اليوم.",
     "amal_said": "متشجع.",
-    "chat": "ana la mish mitshajje3",
+    "chat": "lissa mish mitshajje3 lalshu9ul? / ana la mish mitshajje3",
     "wrong": "شجاع",
     "right": "متشجع",
     "kind": "vocab-A",
@@ -22,19 +28,43 @@
     "mode": "speaking",
     "signal": "recast",
     "confidence": "high",
-    "why": "She asked لسه مش متشجع; he answered shujaa3 (brave), a different word with a different meaning, not a form of mitshajje3; she recast متشجع at 09:24.",
+    "why": "She asked لسه مش متشجع and he answered with شجاع (brave), a different word of the same root; she recast متشجع at once. Sheet: motivated | Mitshajje3 | متشجع.",
     "english": "I'm not motivated today"
-   },
-   "why": "Both readers agree on the slip; tier 1 because شجاع (brave) is a separate lexical item, not a wrong form of متشجع (motivated)."
+   }
   },
   {
-   "id": "D2",
+   "id": "D3",
    "verdict": "keep",
+   "why": "GR-27 / PG-22: after laazem (carried by u) he put the noun سفر where the verb is needed; she gave the verb in English 'I should travel' and he said ولازم أسافر. Grammar B2, not vocab.",
+   "row": {
+    "id": "1002-8",
+    "t": "09:44",
+    "t_amal": "09:53",
+    "medi_said": "أنا لازم أخد عطلة وسفر، سفر.",
+    "amal_said": "أو I should travel. أو.",
+    "chat": "ana laazem aa5ud 3otle u asaafer",
+    "wrong": "سفر",
+    "right": "أسافر",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "B2",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "prompt-then-fix",
+    "confidence": "high",
+    "why": "laazem needs a verb (GR-27): he chained the noun safar after laazem ... u; her English rephrase 'I should travel' (PG-22) made him say ولازم أسافر.",
+    "english": "I must take a vacation and travel"
+   }
+  },
+  {
+   "id": "D4",
+   "verdict": "keep",
+   "why": "Real recast (عمي twice, he took it 'That's right'); the fix is only the possessive ending on عم, so grammar A4 per the tier-2 note (purely an ending rule = grammar).",
    "row": {
     "id": "1002-12",
     "t": "11:24",
     "t_amal": "12:21",
-    "medi_said": "عموي.",
+    "medi_said": "آآآ عموي. / and amuwi.",
     "amal_said": "عمي.",
     "chat": "3ind 3ammi/o",
     "wrong": "عموي",
@@ -45,109 +75,197 @@
     "bucket2": null,
     "mode": "speaking",
     "signal": "recast",
-    "confidence": "high",
-    "why": "He stuck the my-ending -i onto 3ammo (3ammo-i); she recast عمي twice at 12:21/12:24 and he took it ('That's right'); first use at 11:24, repeated 12:18 - one row.",
-    "english": "my uncle"
-   },
-   "why": "The fix is the possessive ending (A4: stick the owner on the end; -i on 3amm), not a different word; one row at the first use 11:24."
-  },
-  {
-   "id": "D3",
-   "verdict": "drop",
-   "why": "S4 pronunciation: for 13 he said 3asha(ra) dropping the r - a dropped letter of a number he knows (he said Ashra at 15:44, and 'talat 3ashar' is the date); her echo عشاء is a joke about the sound, not a vocab fix."
-  },
-  {
-   "id": "D4",
-   "verdict": "keep",
-   "row": {
-    "id": "1002-19",
-    "t": "30:47",
-    "t_amal": "30:59",
-    "medi_said": "الأول اليوم. ... The beginning of the day. ... الأول اليوم.",
-    "amal_said": "Nothing. / اليوم الأول.",
-    "chat": "awal el-sa3a = the beginning of the hour",
-    "wrong": "الأول اليوم",
-    "right": "أول اليوم",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "A2",
-    "bucket2": null,
-    "mode": "listening",
-    "signal": "explicit-no",
     "confidence": "medium",
-    "why": "Listening drill: she said أول اليوم and he repeated it as الأول اليوم (el- on the first word); she said 'Nothing' twice and gave اليوم الأول.",
-    "english": "the beginning of the day"
-   },
-   "why": "Real slip; mode is listening - it is her drill phrase أول اليوم that he repeated wrongly while translating, not his own sentence."
+    "why": "He built 'my uncle' as 3ammo + -i; she said عمي twice and he accepted ('That's right'); the fix is the possessive ending on 3am (sheet: uncle (paternal) | 3am | عم).",
+    "english": "my uncle"
+   }
   },
   {
    "id": "D5",
    "verdict": "drop",
-   "why": "Not a clear slip: in her listening drill he said غير يوم first (right), then tried غير اليوم while thinking, and translated it right ('I'll see you another day'); her غير يوم repeats the drill phrase. The right form came before hers."
+   "why": "S4 pronunciation: for 13 he said 3asha(r) with the final ر dropped - he knows talat 3ashar and said Ashra at 15:44; a dropped root letter is pronunciation, never vocab. Her عشاء echo shows what she heard, not a different word he chose."
   },
   {
    "id": "D6",
    "verdict": "keep",
+   "why": "Real: in the listening drill he read أول اليوم as 'the first day'; she repeated it twice (laughing) until he said 'the beginning of the day'. The point is the أول placement / el- rule, so grammar, listening.",
+   "row": {
+    "id": "1002-20",
+    "t": "30:35",
+    "t_amal": "30:41",
+    "medi_said": "The first day",
+    "amal_said": "أول اليوم. ... أول اليوم. [تضحك]",
+    "chat": "awal el-sa3a = the beginning of the hour.",
+    "wrong": "The first day (for أول اليوم)",
+    "right": "the beginning of the day",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "PROPOSE",
+    "bucket2": null,
+    "mode": "listening",
+    "signal": "prompt-then-fix",
+    "confidence": "high",
+    "why": "He misread her أول اليوم as 'the first day'; she repeated it twice until he said 'the beginning of the day' at 30:52.",
+    "english": "the beginning of the day",
+    "proposed_rule": "أول before a noun with el- means 'the beginning of' (أول اليوم = the beginning of the day); before a bare noun it means 'first' (أول يوم = first day)."
+   }
+  },
+  {
+   "id": "D7",
+   "verdict": "keep",
+   "why": "Real A7 recast; he was reading back her Arabic in the guess drill (she said الرحلة الأخيرة, he repeated it without el-), so mode listening.",
    "row": {
     "id": "1002-24",
-    "t": "43:16",
-    "t_amal": "43:18",
-    "medi_said": "Yes، uh، tan-- uh، تاني، تاني حدا.",
-    "amal_said": "تاني حدا would mean the second person.",
-    "chat": "ana fakkaret enno inti 8eir 7ada / 7ada taani",
-    "wrong": "تاني حدا",
-    "right": "حدا تاني",
+    "t": "35:31",
+    "t_amal": "35:35",
+    "medi_said": "الرحلة أخيرة.",
+    "amal_said": "الأخيرة.",
+    "chat": "el-re7le el-a5ire",
+    "wrong": "الرحلة أخيرة",
+    "right": "الرحلة الأخيرة",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "A7",
+    "bucket2": null,
+    "mode": "listening",
+    "signal": "recast",
+    "confidence": "high",
+    "why": "Repeating her الرحلة الأخيرة he dropped el- on the adjective (makes a sentence 'the trip is last'); she recast الأخيرة and he repeated it right.",
+    "english": "the last trip"
+   }
+  },
+  {
+   "id": "D8",
+   "verdict": "keep",
+   "why": "She said بشوفك غير يوم and asked its meaning; reading it back he said غير يوم then غير اليوم and she re-said غير يوم - a listening read-back slip, kept low because he said it right first.",
+   "row": {
+    "id": "1002-25",
+    "t": "39:16",
+    "t_amal": "39:18",
+    "medi_said": "غير يوم. غير اليوم. I'll see you another day.",
+    "amal_said": "غير يوم.",
+    "chat": "bashufek 8eir yoam = i'll see you another day",
+    "wrong": "غير اليوم",
+    "right": "غير يوم",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "PROPOSE",
+    "bucket2": null,
+    "mode": "listening",
+    "signal": "recast",
+    "confidence": "low",
+    "why": "Right after she said غير takes no el-, reading back her بشوفك غير يوم he said غير اليوم; she repeated غير يوم.",
+    "english": "I'll see you another day",
+    "proposed_rule": "غير (other / another) never puts el- on the noun after it: بشوفك غير يوم."
+   }
+  },
+  {
+   "id": "D9",
+   "verdict": "keep",
+   "why": "Two separate slips sit at 45:55-46:10. This row is the first: he said الآخر where the adjective form الأخير is needed (taught 32:17 'آخر as an adjective is أخير'); she prompted 'ال أخي-' and he switched. The plural-agreement slip (الأخيرات) is D15 - kept there, not here.",
+   "row": {
+    "id": "1002-34",
+    "t": "45:55",
+    "t_amal": "45:58",
+    "medi_said": "العشر دقايق الـ، uh, الآخر.",
+    "amal_said": "ال أخي-",
+    "chat": "el-3ashar da2aaye2 el-a5eeraat",
+    "wrong": "الآخر",
+    "right": "الأخير",
+    "kind": "vocab-A",
+    "tier": 2,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "After the noun آخر becomes the adjective أخير (she taught it at 32:17); she started 'ال أخي-' and he switched to الأخير. Same pattern as agreed A16 (مرة الأخر).",
+    "english": "the last (ten minutes)"
+   }
+  },
+  {
+   "id": "D10",
+   "verdict": "drop",
+   "why": "Not an error: القانون لغير مش نفس الـ... إشي من نفس = 'the rule for غير is not the same thing as (for) نفس' - a sensible sentence; her 'Or مش نفس...' offered an alternative and when he asked 'Did I say it right?' she said صح."
+  },
+  {
+   "id": "D11",
+   "verdict": "keep",
+   "why": "During the أول recall drill he gave el awal elsaa as a form meaning 'the first hour'; she said 'Nothing' and explained أول must come after. Same pattern as agreed A15 (الأول اليوم -> Nothing), so filed A7 like A15. Medium because it sits inside his English rule recital.",
+   "row": {
+    "id": "1002-16",
+    "t": "17:53",
+    "t_amal": "18:01",
+    "medi_said": "if I say el awal elsaa, that means the f-- the, the... I thought you said this was also the first hour",
+    "amal_said": "Nothing. ... It would be the first if the أول is after.",
+    "chat": null,
+    "wrong": "el awal elsaa",
+    "right": "الساعة الأولى",
     "kind": "grammar",
     "tier": null,
     "bucket": "A7",
     "bucket2": null,
     "mode": "speaking",
     "signal": "explicit-no",
-    "confidence": "high",
-    "why": "For 'someone else' the adjective taani must come after the noun; before it means 'second'. She said so and he accepted.",
-    "english": "someone else"
-   },
-   "why": "A7 fits exactly (adjective goes AFTER the noun); no PROPOSE needed."
+    "confidence": "medium",
+    "why": "He put el-awal with el- before the noun; she said it means nothing and the 'the first' form goes after the noun (then الساعة الأولى at 18:31).",
+    "english": "the first hour"
+   }
   },
   {
-   "id": "D7",
+   "id": "D12",
    "verdict": "keep",
+   "why": "She asked him to apply the أول rule to تاني; he produced التاني الساعة for 'a different hour' and she said 'لا. We can't say تاني الساعة. It doesn't mean anything.' Real explicit-no; filed A7 like D11 / A15.",
    "row": {
-    "id": "1002-15",
-    "t": "18:12",
-    "t_amal": "18:14",
-    "medi_said": "So الساعة el awal",
-    "amal_said": "Yes. بس we learned how to say الأول for a feminine. What is it? Do you remember?",
-    "chat": "awal sa3a = the first hour",
-    "wrong": "الساعة el awal",
-    "right": "الساعة الأولى",
+    "id": "1002-18",
+    "t": "21:50",
+    "t_amal": "21:56",
+    "medi_said": "and التاني الساعة means a different hour.",
+    "amal_said": "لا. We can't say تاني الساعة. It doesn't mean anything.",
+    "chat": "taani saa3a = second hour / second hour",
+    "wrong": "التاني الساعة",
+    "right": "ساعة تانية / تاني ساعة",
     "kind": "grammar",
     "tier": null,
-    "bucket": "A8",
+    "bucket": "A7",
     "bucket2": null,
     "mode": "speaking",
-    "signal": "prompt-then-fix",
+    "signal": "explicit-no",
     "confidence": "medium",
-    "why": "ساعة is feminine so the adjective is الأولى; she prompted for the feminine and he produced الساعة الأولى at 18:31.",
-    "english": "the first hour"
-   },
-   "why": "He applied the after-the-noun pattern himself and used the masculine; she prompted, he fixed. A separate moment from A15 (28:43)."
+    "why": "Ordinal with el- before the noun; she said it doesn't mean anything (ساعة تاني after the noun = a different hour, 22:26).",
+    "english": "a different hour"
+   }
   },
   {
-   "id": "D8",
-   "verdict": "drop",
-   "why": "Rule hypothesis, not a use: 'and التاني الساعة means a different hour' is him testing the rule in English while she drills it (same as 17:53 'el awal elsaa ... I thought this was also the first hour', which neither reader counted); a question/hypothesis about the rule is neither a slip nor a use."
-  },
-  {
-   "id": "D9",
-   "verdict": "drop",
-   "why": "Duplicate of D4: 30:35-31:06 is one confusion between أول اليوم and اليوم الأول; the Arabic slip and her 'Nothing' are written as D4."
-  },
-  {
-   "id": "D10",
+   "id": "D13",
    "verdict": "keep",
+   "why": "He switched to MSA المال a moment after using المصاري; Amal let it pass. Kept as vocab-B (her review), low.",
    "row": {
-    "id": "1002-23",
+    "id": "1002-20b",
+    "t": "24:14",
+    "t_amal": null,
+    "medi_said": "the money will come another day would be المال راح يجي، uh, في يوم تاني.",
+    "amal_said": null,
+    "chat": "el masari ra7 yiju el-yom el-tani",
+    "wrong": "المال",
+    "right": "المصاري",
+    "kind": "vocab-B",
+    "tier": 1,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "none",
+    "confidence": "low",
+    "why": "Spoken word for money is مصاري (sheet: money (plural) | Ma9aari | مصاري), which he used at 23:50; المال is MSA. She did not voice it; her chat writes el masari.",
+    "english": "the money will come another day"
+   }
+  },
+  {
+   "id": "D14",
+   "verdict": "keep",
+   "why": "Listening: he read present بيجي as past 'came'; she said 'To come' and he changed to 'That comes'. Tense is a grammar point (b- present), so grammar B1, listening, low.",
+   "row": {
+    "id": "1002-27",
     "t": "34:58",
     "t_amal": "35:02",
     "medi_said": "The last person that came.",
@@ -162,45 +280,35 @@
     "mode": "listening",
     "signal": "recast",
     "confidence": "low",
-    "why": "Listening: بيجي is present (b- present); he translated it as past, she nudged 'To come' and he changed to 'that comes' at 35:03.",
+    "why": "He read her آخر حدا بيجي (present, b-) as past; she stressed 'To come' and he said 'That comes. The last person that comes.'",
     "english": "the last person who comes"
-   },
-   "why": "Small but real listening slip: she voiced 'To come' and he took it; low because she also said 'Yeah, yeah'."
+   }
   },
   {
-   "id": "D11",
+   "id": "D15",
    "verdict": "keep",
+   "why": "Real A8 slip (same slip r1 filed under D9): he gave الأخيرة then masc أخير for plural دقايق; she gave أخيرات and he took it ('Oh, because it's plural').",
    "row": {
-    "id": "1002-29",
-    "t": "45:55",
-    "t_amal": "45:58",
-    "medi_said": "العشر دقايق الـ، الآخر.",
-    "amal_said": "ال أخي-",
+    "id": "1002-35",
+    "t": "46:02",
+    "t_amal": "46:10",
+    "medi_said": "الأخيرة. No، wait. دقيقة is, is masculine. So، أخ-أخير.",
+    "amal_said": "أخيرات. [laughs] That's why I paused.",
     "chat": "el-3ashar da2aaye2 el-a5eeraat",
-    "wrong": "الآخر",
-    "right": "الأخيرة",
-    "kind": "vocab-A",
-    "tier": 2,
-    "bucket": null,
+    "wrong": "الأخيرة / أخير",
+    "right": "الأخيرات",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "A8",
     "bucket2": null,
     "mode": "speaking",
     "signal": "recast",
-    "confidence": "low",
-    "why": "After the noun he used aa5er (the tool form) instead of the adjective a5eer that she taught at 32:17; she started ال أخي- and he switched to الأخير at the same second, so the order is unproven - low.",
+    "confidence": "high",
+    "why": "The adjective after plural دقايق agrees in the plural; she paused on أخيرة and then gave أخيرات, he accepted it.",
     "english": "the last ten minutes"
-   },
-   "why": "Distinct from A21 (which fixes the agreement of أخير to أخيرات); her ال أخي- reacts to his الآخر, but both are stamped 45:58, so low confidence."
+   }
   }
  ],
  "added": [],
- "challenges": [
-  {
-   "id": "A2",
-   "why": "Likely the engine: he said متأخر correctly at 07:04, ten seconds earlier, and تأخر is متأخر with the mi- dropped (near-sound). Amal's 08:35 'إنت صحيت متأخر و…' is her prompting him to go on, not a fix of 07:14 (a minute later). Needs audio."
-  },
-  {
-   "id": "A24",
-   "why": "Possibly the engine (من vs مش near-sound); right after, he asked 'Did I say it right?' and she said صح (53:08). Her 'Or مش نفس...' may offer an alternative rather than fix. Needs audio."
-  }
- ]
+ "challenges": []
 }
