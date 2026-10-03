@@ -57,3 +57,10 @@ test('AZ-11 طريق shows as her 6aree2',()=>{
  const J2=f=>JSON.parse(fs2.readFileSync(p2.join(D,f),'utf8'));
  assert.equal(az.create(J2('words.json').items,J2('word-bank-catalog.json'),J2('arabizi-extra.json'))('طريق').text,'6aree2');
 });
+test('AZ-11 el-marra el-taanye and her qanoon',()=>{
+ const az=require('../docs/js/word-bank-arabizi.js'),fs2=require('fs'),p2=require('path'),D=p2.join(__dirname,'..','docs','data');
+ const J2=f=>JSON.parse(fs2.readFileSync(p2.join(D,f),'utf8'));
+ const r=az.create(J2('words.json').items,J2('word-bank-catalog.json'),J2('arabizi-extra.json'));
+ assert.equal(r('المرة الثانية').text,'el-marra el-taanye'.replace('el-marra',r('المرة').text));
+ assert.equal(r('القانون').text,'el-qanoon');
+});
