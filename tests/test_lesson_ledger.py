@@ -65,7 +65,7 @@ def test_LS_11_c1q_a_phrase_with_two_candidate_words_is_one_medi_question_counte
     assert [c["kind"] for c in led["conflicts"]] == ["C1q", "C1q"]
     assert len(led["needs_medi"]) == 1                                      # one question for the moment
     lead = next(c for c in led["conflicts"] if c["id"] in led["needs_medi"])
-    assert set(lead["options"]) == {"بلبس", "بلوزه", "keep"} or "keep" in lead["options"]
+    assert set(lead["options"]) == {"بلبس", "بلوزة", "keep"}            # his own words, not the normalised ones
     assert not act["overrides"] and led["counts"]["words"]["right"] == 2 and led["counts"]["words"]["wrong"] == 1
 
 
@@ -101,6 +101,17 @@ def test_LS_11_shadow_mode_settles_nothing():
     led, act = build(detail(vocab_correct=[wb("e-lisa", 92.92, "lisa", "لسه")],
                             vocab_errors=[audit("FA-lisa", 93, "لسه", "لـ الزباين", on_sheet=False)]), resolve=False)
     assert not led["conflicts"][0].get("resolved") and led["conflicts"][0]["would_settle"]
+
+
+def test_LS_11_one_candidate_is_a_yes_no_question():
+    # 09-28 26:05 shape: one reader row on a single word (medium) -> "Was حدا wrong here?" yes, wrong / no, keep
+    d = detail(vocab_correct=[wb("e-h", 2000.5, "7ada", "حدا")],
+               vocab_errors=[audit("FA-h", 2000, "حدا", "ناس / أشخاص", conf="medium", signal="prompt-then-fix")])
+    led, _ = build(d)
+    c = next(c for c in led["conflicts"] if c["id"] in led["needs_medi"])
+    assert c["options"] == ["wrong", "keep"] and "حدا" in c["question"]
+    led2, act = build(d, rulings={c["id"]: {"conflict": c["id"], "answer": "wrong", "rule": "LS-11"}})
+    assert act["overrides"] and not led2["needs_medi"]
 
 
 def test_LS_11_medi_answer_settles_the_question():

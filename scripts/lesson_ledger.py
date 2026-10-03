@@ -442,12 +442,15 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                 orig = {base(norm(x)): x for x in re.split(r"[\s.…,،؟?!:;\"“”()\-]+", r.get("wrong") or "") if norm(x)}
                 settled = {base(norm(x.get("tok"))) for x in wb_ok if reviewed(review_patches, x["by"]["ref"]) == "hand"}
                 opts = (["ledger", "keep"] if patched else [orig.get(w, w) for w in W if w not in F and w not in settled][:4] + ["keep"])
+                one = None
+                if not patched and len(opts) == 2:     # one candidate: a yes/no, he never types the word
+                    one, opts = opts[0], ["wrong", "keep"]
                 q = ("The Word Bank's re-read says right, Amal said no: which stands?" if patched else
-                     "Was %s wrong here?" % opts[0] if len(opts) == 2 else "Which word was wrong?")
+                     "Was %s wrong here?" % one if one else "Which word was wrong?")
                 ans = needs_medi(c, opts, q, group=r["id"])
                 if ans:
                     c["resolved"] = True
-                    if resolve and (ans == "ledger" or base(norm(ans)) == t):
+                    if resolve and (ans in ("ledger", "wrong") or base(norm(ans)) == t):
                         supersede_wb(m, r, "Medi %s: %s was the wrong word" % (((c.get("medi") or {}).get("date") or ""), ans), bool(why_same))
                         actions["move"].append(("vocab_correct", m["id"], m["why"], kind))
         # C2w: a Word Bank Wrong on a counted grammar slip's word
@@ -590,9 +593,10 @@ def write_diff(published, lessons, ledgers, repo=REPO):
             state = "Medi?" if c.get("needs_medi") else "Medi: " + c["medi"]["answer"] if c.get("medi") else "settled" if c.get("resolved") else "both stand"
             M = {m["id"]: m for m in led["marks"]}
             a, b = M[c["marks"][0]], M[c["marks"][1]]
+            extra = "; her word is not on her list, so neither counts" if c["kind"] == "C1" and b.get("verdict") == "not-scored" else ""
             lines.append(f"- {d} {c['mmss']} {c['kind']} {state}: {a.get('tok') or a.get('wrong') or a.get('said') or ''} "
                          f"({a['by']['producer']} {a.get('was') or a['verdict']}) vs {b.get('wrong') or b.get('said') or ''} -> {b.get('fix') or ''} "
-                         f"({b['by']['producer']} {b.get('verdict')}{' ' + b['bucket'] if b.get('bucket') else ''}) - {KIND_WORDS[c['kind']]}")
+                         f"({b['by']['producer']} {b.get('verdict')}{' ' + b['bucket'] if b.get('bucket') else ''}) - {KIND_WORDS[c['kind']]}{extra}")
     p = os.path.join(repo, "data", "lesson-work", "ledger", "_diff.md")
     os.makedirs(os.path.dirname(p), exist_ok=True)
     with open(p, "w", encoding="utf-8", newline="\n") as f:
@@ -746,15 +750,19 @@ def check(repo=REPO):
     for f in os.listdir(os.path.join(repo, "data", "lesson-work", "ledger")) if os.path.isdir(os.path.join(repo, "data", "lesson-work", "ledger")) else []:
         if re.fullmatch(r"\d{4}-\d\d-\d\d\.json", f):
             asked |= {c["id"] for c in J(os.path.join(repo, "data", "lesson-work", "ledger", f)).get("conflicts", [])}
-    opts = {}
+    opts, followers = {}, {}
     for f in os.listdir(os.path.join(repo, "data", "lesson-work", "ledger")) if os.path.isdir(os.path.join(repo, "data", "lesson-work", "ledger")) else []:
         if re.fullmatch(r"\d{4}-\d\d-\d\d\.json", f):
-            opts.update({c["id"]: c.get("options") or [] for c in J(os.path.join(repo, "data", "lesson-work", "ledger", f)).get("conflicts", [])})
+            cs = J(os.path.join(repo, "data", "lesson-work", "ledger", f)).get("conflicts", [])
+            opts.update({c["id"]: c.get("options") or [] for c in cs})
+            followers.update({c["id"]: c["group"] for c in cs if c.get("group")})
     for cid, r in load_rulings(os.path.join(repo, "data", "lesson-work", "ledger-rulings.json")).items():
         if r.get("rule") != "LS-11":
             probs.append(f"Medi's answer to {cid} has no rule 'LS-11' (AGENTS.md: every ruling row names its rule)")
         if cid in opts and r.get("answer") not in opts[cid]:
             probs.append(f"Medi's answer {r.get('answer')!r} to {cid} is not one of its options {opts[cid]}: nothing would change")
+        if cid in followers:
+            probs.append(f"Medi's answer is keyed to {cid}, which is part of question {followers[cid]}: key it to that question")
         if cid not in asked:
             probs.append(f"Medi's answer to {cid} matches no question any more (the moment changed): ask him again or move the answer")
     # the Word Bank overrides the pages apply = the ledgers' overrides, and each still matches its event

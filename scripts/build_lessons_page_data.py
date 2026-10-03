@@ -1087,6 +1087,9 @@ def build():
         L["ledger"] = {"file": f"data/lesson-work/ledger/{d}.json", "marks": len(led["marks"]), "conflicts": len(led["conflicts"]),
                        "resolved": len(res), "needs_medi": len(led["needs_medi"]), "mode": LMODE,
                        "items": [LL.medi_item(led, x) for x in led["conflicts"] if x["id"] in led["needs_medi"]]}
+        for it in L["ledger"]["items"]:                 # the rule's plain name, not its code (Medi reads it)
+            if it["b"].get("bucket"):
+                it["b"]["bucket_name"] = (buckets.get(it["b"]["bucket"]) or {}).get("name")
         if res:
             L["notes"].append(f"one ledger (LS-11): {len(res)} moment(s) where two judges disagreed were settled by the existing rules: "
                               + "; ".join(f"{x['mmss']} {LL.KIND_WORDS[x['kind']]}" for x in res) + ".")

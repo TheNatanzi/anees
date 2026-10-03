@@ -156,7 +156,9 @@ def place(turns, t, who, needle=None):
         # a turn that ENDED before the item's time is the least likely home (whole-second reader times sit up to 1 s
         # BEFORE the line they name, never after it: 09-10 43:35 "كانت." was placed on the 43:32 question - loop audit
         # 2026-10-02), then the turn whose text holds the word, then the nearest start
-        near.sort(key=lambda c: ((turns[c[1]].get("end") or turns[c[1]]["t"]) < t - 0.01, not has(c[1]), abs(turns[c[1]]["t"] - t)))
+        whole = float(t).is_integer()          # only the readers' whole-second times (final council 2026-10-02)
+        ended = lambda i: whole and turns[i].get("end") is not None and turns[i]["end"] < t - 0.01
+        near.sort(key=lambda c: (ended(c[1]), not has(c[1]), abs(turns[c[1]]["t"] - t)))
         return near[0][1], "time"
     loose = sorted((c for c in cand if has(c[1])), key=lambda c: c[0])
     return (loose[0][1], "text") if loose else None

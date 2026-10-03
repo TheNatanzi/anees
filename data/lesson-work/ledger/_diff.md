@@ -50,6 +50,6 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-09-26 21:27 C1q Medi?: بلوزة (word-bank right) vs بلبس بلوزة -> الجو شوب (readers wrong) - which word of the phrase was wrong: Medi
 - 2026-09-28 26:05 C1q Medi?: حدا (word-bank right) vs حدا -> ناس / أشخاص (readers wrong) - which word of the phrase was wrong: Medi
 - 2026-09-30 09:25 C3 settled: جابت (use-counter use) vs جابت -> جبت (readers slip B5) - one turn was both a use and a slip of the same rule: one attempt, wrong
-- 2026-10-01 01:33 C1 settled: لسه (word-bank right) vs لسه -> لـ (la) الزباين يروحوا (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts
+- 2026-10-01 01:33 C1 settled: لسه (word-bank right) vs لسه -> لـ (la) الزباين يروحوا (readers not-scored) - Word Bank said right, Amal said no to that word: her no counts; her word is not on her list, so neither counts
 - 2026-10-02 09:50 C1 settled: سفر. (word-bank right) vs سفر -> أسافر (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-10-02 27:18 C1r both stand: اليوم (word-bank right) vs اليوم -> المرة (readers wrong) - the Word Bank's context review already settled it: unchanged
