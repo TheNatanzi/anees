@@ -1,5 +1,5 @@
 {
- "built": "2026-10-03T13:58:17-07:00",
+ "built": "2026-10-03T14:03:42-07:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -15694,6 +15694,30 @@
     "new_bucket_group": null
    },
    {
+    "id": "FA-0d9dd3dc",
+    "date": "2026-10-02",
+    "t": "44:59",
+    "t_amal": "45:05",
+    "medi_said": "آخر عشرة دقايق. عشرة دقايق؟",
+    "amal_said": "عشر y.",
+    "chat": null,
+    "wrong": "عشرة دقايق",
+    "right": "عشر دقايق",
+    "confidence": "high",
+    "confidence_why": "medi-correction",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-0d9dd3dc",
+    "sweep_id": null,
+    "correction": "chat-20261003-3ashrah-da2aye2",
+    "mistake": "Medi 2026-10-03 marked it a mistake: grammar incorrect, when counting its not 3asharah, its 3ashar",
+    "bucket": "E1",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
     "id": "FA-50c3a19a",
     "date": "2026-10-02",
     "t": "46:06",
@@ -24023,7 +24047,7 @@
   "pron_from_sweep": [],
   "hand_check": {},
   "totals": {
-   "speaking_grammar": 596,
+   "speaking_grammar": 597,
    "vocab": 282,
    "machine_caught_speaking": 104
   }
@@ -24032,8 +24056,8 @@
  "lessons_missing": [],
  "totals": {
   "rows": 1160,
-  "grammar_A": 596,
-  "grammar_B": 90,
+  "grammar_A": 597,
+  "grammar_B": 89,
   "grammar_proposed": 8,
   "vocab_A": 282,
   "vocab_A_by_tier": {
@@ -24275,8 +24299,8 @@
    "sweep_vocab_before": 0
   },
   "2026-10-02": {
-   "grammar_A": 16,
-   "grammar_B": 1,
+   "grammar_A": 17,
+   "grammar_B": 0,
    "vocab_A": 10,
    "vocab_B": 1,
    "listening": 2,
@@ -67701,17 +67725,17 @@
    "amal_said": "عشر y.",
    "wrong": "عشرة دقايق",
    "right": "عشر دقايق",
-   "kind": "grammar-B",
+   "kind": "grammar",
    "bucket": "E1",
    "tier": null,
    "mode": "speaking",
-   "signal": "medi-correction",
-   "confidence": "medium",
+   "signal": "recast",
+   "confidence": "high",
    "source": "audit-2026-09-26",
    "added_by": "medi-correction",
    "correction": "chat-20261003-3ashrah-da2aye2",
    "agreed_by": "medi-correction",
-   "why": "Medi 2026-10-03 marked it a mistake: grammar incorrect, when counting its not 3asharah, its 3ashar (Amal did not voice a fix: on her review page, tier B)",
+   "why": "Medi 2026-10-03 marked it a mistake: grammar incorrect, when counting its not 3asharah, its 3ashar",
    "bucket_name": "number + noun",
    "uid": "FA-0d9dd3dc",
    "n": 1155
@@ -67890,7 +67914,7 @@
  ],
  "rulings_applied": [
   {
-   "at": "2026-10-03T20:58:18.793476+00:00",
+   "at": "2026-10-03T21:03:44.508222+00:00",
    "rules": [
     1928,
     1929,

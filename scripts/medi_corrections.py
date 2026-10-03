@@ -280,7 +280,12 @@ def amal_voiced(c, right, repo=REPO, turns=None):
     for u in turns if turns is not None else turns_of(c["lesson_date"], repo):
         if u.get("who") != "Amal" or not (t0 <= float(u.get("t") or 0) <= t0 + 15):
             continue
-        if (len(R) >= 2 and R in _piece(u.get("text"))) or (en and re.search(r"\b%s\b" % re.escape(en), (u.get("text") or "").lower())):
+        txt = _piece(u.get("text"))
+        # her fix may be only the corrected word (10-02 45:05 'عشر' for his 'عشرة دقايق'): the words of the right form that
+        # differ from his wrong form count too
+        his = [_piece(x) for x in _words((c.get("payload") or {}).get("wrong") or (c.get("target") or {}).get("said"))]
+        diff = [_piece(w) for w in _words(right) if _piece(w) and _piece(w) not in his]
+        if (len(R) >= 2 and R in txt) or any(len(d) >= 2 and d in txt for d in diff) or (en and re.search(r"\b%s\b" % re.escape(en), (u.get("text") or "").lower())):
             return True
     return False
 
