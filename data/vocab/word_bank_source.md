@@ -7,6 +7,34 @@
 | Mitshajje3/a | Mitshajj3een | متشجع/ة | Motivated  |
 | 7aafez  daafe3 | 7awaafez dawaafe3  | حافز دافع | Motivation  |
 | oowla | awaa2el  | أولى | First (feminine) |
+| a5eer/e/a | a5eereen/aat for human nouns  Awaa5er for all | أخير/ة | Last (adjective) |
+
+## Function (tool) words \+ “el” Combinations
+
+| Transliteration | Arabic | English |
+| ----- | ----- | ----- |
+| Awal | أول | First / beginning |
+| Awal \+ noun | أول \+ اسم | First / the first… |
+| Awal \+ el \+ noun | أول \+ الـ \+ اسم | The beginning of… |
+| El \+ noun \+ el \+ awal | الـ \+ اسم \+ الـ \+ أول | The first |
+| Oola | أولى | First (feminine) |
+| Aa5er | آخر | Last / end |
+| Aa5er \+ noun | آخر \+ اسم | Last / the last… |
+| Aa5er \+ el \+ noun | آخر \+ الـ \+ اسم | The end of… |
+| A5eer/e/a | أخير/ة | Last (adjective) |
+| El \+ noun \+ el \+ a5eer/e/a | الـ \+ اسم \+ الـ \+ أخير/ة | The last… |
+| Taani \+ noun | ثاني \+ اسم | Second / the second… |
+| El \+ noun \+ el \+ tani/e | الـ \+ اسم \+ الـ \+ ثاني/ة | The second… |
+| Noun \+ tani/e | اسم \+ ثاني/ة | Another… / else |
+| 8eir \+ noun | غير \+ اسم | A different… |
+| El \+ noun \+ el \+ 8eir | الـ \+ اسم \+ الـ \+ غير | The different… |
+| Nafs \+ el \+ noun | نفس \+ الـ \+ اسم | The same… |
+| Nafs el-ishi | نفس الإشي | The same |
+| Kul \+ noun | كل \+ اسم | Every… |
+| Kul \+ el \+ noun | كل \+ الـ \+ اسم | All / the whole… |
+| El-kul | الكل | Everybody / all |
+| Farq i5tilaaf | فرق اختلاف  | Difference |
+| Shu el-farq | شو الفرق | What’s the difference  |
 
 | Transliteration | Plural | Arabic | English |
 | :---- | :---- | ----- | :---- |
