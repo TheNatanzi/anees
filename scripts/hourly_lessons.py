@@ -366,7 +366,7 @@ def tutor_refresh(no_push=False, rebuild_all=False):
         # inputs) would block every publish; it is rebuilt here, every hour, before anything is checked
         try:
             import lesson_ledger as LL
-            stale = any('older than its inputs' in p or 'no ledger' in p for p in LL.check(ROOT))
+            stale = bool(LL.check(ROOT))      # any ledger problem: a rebuild is the fix (Codex 2026-10-02: not only staleness)
         except Exception as e:
             stale = True
             log('lesson ledger check crashed, rebuilding:', e)

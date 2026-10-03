@@ -366,7 +366,7 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
             for g in gs:
                 if not W or not (W <= set(toks(g.get("wrong")))):
                     continue
-                same_fix = bool(toks(r.get("fix"))) and set(toks(r.get("fix"))) <= set(toks(g.get("fix")))
+                same_fix = bool(toks(r.get("fix"))) and set(toks(r.get("fix"))) == set(toks(g.get("fix")))
                 if not g.get("scored_rule"):
                     conflict("C2b", r, g, {"by": "the grammar slip is in a rule with no use counter: the word slip keeps counting"})
                 elif r.get("tier") == 2:
@@ -422,7 +422,10 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                 why_same = r.get("word_key") and r.get("word_key") == m.get("word_key")
                 # her voiced signal on exactly this word, on a row the audit counts (one reader or both): specific beats the
                 # matcher's general "provisional use"; a low-confidence row or a gloss is not enough
-                if names_this and not is_gloss(r.get("wrong")) and (strength(r) >= 2 or (strength(r) == 1 and r.get("signal") in TM.VOICED)) and not patched:
+                # her signal on exactly this word, on a row both readers saw (or she tapped): specific beats the matcher's
+                # general "provisional use"; one reader alone (medium) or low is not enough (loop audit + Codex 2026-10-02:
+                # 09-23 33:17 لازم - her real fix there was أشكي -> أشتكي)
+                if names_this and not is_gloss(r.get("wrong")) and strength(r) >= 2 and not patched:
                     c = conflict("C1", m, r)
                     if resolve:
                         supersede_wb(m, r, ("Same attempt, counted once: Amal %s (%s) and it counts as the slip" if why_same else
@@ -438,7 +441,8 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                 orig = {base(norm(x)): x for x in re.split(r"[\s.…,،؟?!:;\"“”()\-]+", r.get("wrong") or "") if norm(x)}
                 settled = {base(norm(x.get("tok"))) for x in wb_ok if reviewed(review_patches, x["by"]["ref"]) == "hand"}
                 opts = (["ledger", "keep"] if patched else [orig.get(w, w) for w in W if w not in F and w not in settled][:4] + ["keep"])
-                q = ("Your Word Bank edit vs Amal's 'no'" if patched else "Which word was wrong?")
+                q = ("Your Word Bank edit vs Amal's 'no'" if patched else
+                     "Was %s wrong here?" % opts[0] if len(opts) == 2 else "Which word was wrong?")
                 ans = needs_medi(c, opts, q, group=r["id"])
                 if ans:
                     c["resolved"] = True
@@ -521,9 +525,7 @@ def counts(led, scored_rules=None):
     grammar = {"uses": uses, "mistakes": sum(r["mistakes"] for r in by_rule.values()), "scored_mistakes": smis,
                "unscored_mistakes": sum(r["mistakes"] for r in by_rule.values() if not r["scored"]),
                "pct": round(100 * (uses - smis) / uses, 1) if uses else None, "by_rule": dict(sorted(by_rule.items()))}
-    for r in grammar["by_rule"].values():           # an unscored rule has no counted uses: only its slips are on record
-        if not r["scored"]:
-            r["uses"] = 0
+    # an unscored rule (no use counter) keeps uses = its slips per rule, as the Grammar page shows; it is never in a %
     return {"words": words, "grammar": grammar, "conflicts": len(led["conflicts"]), "needs_medi": len(led["needs_medi"])}
 
 
@@ -687,7 +689,10 @@ def check(repo=REPO):
             probs.append(f"{d}: grammar cards != ledger slip marks ({len(ids_g ^ led_g)} differ)")
         # every producer item exactly one mark (its own, or folded into the mark of the same moment)
         own = collections.Counter(m["id"] for m in led["marks"])
-        folded = collections.Counter(f["id"] for m in led["marks"] for f in m.get("folded") or [] if f["id"] not in own)
+        own_m = {m["id"]: m for m in led["marks"]}
+        # a folded reference counts unless it is the back-reference of a mark that says it was folded into this one
+        folded = collections.Counter(f["id"] for m in led["marks"] for f in m.get("folded") or []
+                                     if not (f["id"] in own_m and own_m[f["id"]].get("folded_into") == m["id"]))
         dup = [k for k, n in (own + folded).items() if n > 1]
         if dup:
             probs.append(f"{d}: {len(dup)} producer items with two marks {dup[:3]}")
@@ -725,6 +730,10 @@ def check(repo=REPO):
                 probs.append(f"{d}: not-scored mark {m['id']} has no reason")
         # Word Bank: its Correct count for the lesson = the ledger's Word Bank right marks
         wb_right = sum(1 for m in led["marks"] if m["id"].startswith("wb:") and m["verdict"] == "right")
+        for st, vs in (("Partial", ("partial",)), ("Wrong", ("wrong",))):
+            n = len({m["by"]["ref"] for m in led["marks"] if m["id"].startswith("wb:") and m["verdict"] in vs})
+            if wba and n > wbc[(d, st)]:
+                probs.append(f"{d}: the ledger has {n} Word Bank {st.lower()} events, the Word Bank audit {wbc[(d, st)]}")
         if wba and wb_right != wbc[(d, "Correct")]:
             probs.append(f"{d}: Word Bank audit has {wbc[(d, 'Correct')]} Correct, the ledger {wb_right}")
         for r, x in c["grammar"]["by_rule"].items():
@@ -736,7 +745,15 @@ def check(repo=REPO):
     for f in os.listdir(os.path.join(repo, "data", "lesson-work", "ledger")) if os.path.isdir(os.path.join(repo, "data", "lesson-work", "ledger")) else []:
         if re.fullmatch(r"\d{4}-\d\d-\d\d\.json", f):
             asked |= {c["id"] for c in J(os.path.join(repo, "data", "lesson-work", "ledger", f)).get("conflicts", [])}
-    for cid in load_rulings(os.path.join(repo, "data", "lesson-work", "ledger-rulings.json")):
+    opts = {}
+    for f in os.listdir(os.path.join(repo, "data", "lesson-work", "ledger")) if os.path.isdir(os.path.join(repo, "data", "lesson-work", "ledger")) else []:
+        if re.fullmatch(r"\d{4}-\d\d-\d\d\.json", f):
+            opts.update({c["id"]: c.get("options") or [] for c in J(os.path.join(repo, "data", "lesson-work", "ledger", f)).get("conflicts", [])})
+    for cid, r in load_rulings(os.path.join(repo, "data", "lesson-work", "ledger-rulings.json")).items():
+        if r.get("rule") != "LS-11":
+            probs.append(f"Medi's answer to {cid} has no rule 'LS-11' (AGENTS.md: every ruling row names its rule)")
+        if cid in opts and r.get("answer") not in opts[cid]:
+            probs.append(f"Medi's answer {r.get('answer')!r} to {cid} is not one of its options {opts[cid]}: nothing would change")
         if cid not in asked:
             probs.append(f"Medi's answer to {cid} matches no question any more (the moment changed): ask him again or move the answer")
     # the Word Bank overrides the pages apply = the ledgers' overrides, and each still matches its event
@@ -745,7 +762,8 @@ def check(repo=REPO):
         probs.append(f"word-bank-audit-slips.json carries {len(over)} overrides, the ledgers {len(all_over)}")
     patches = (J(os.path.join(repo, "docs", "data", "word-bank-review.json"), {}) or {}).get("patches") or {}
     for o in over:
-        hit = set((patches.get(o["event_id"]) or {}).get("changes", {})) & set(o.get("changes") or {})
+        pt = patches.get(o["event_id"]) or {}
+        hit = (set(pt.get("changes", {})) | set(pt.get("expected", {}))) & set(o.get("changes") or {})
         if hit:
             probs.append(f"override {o['event_id'][:12]}: a Word Bank review patch sets {sorted(hit)} too, so the ledger's call would not show")
         e = ev.get(o["event_id"])
@@ -758,7 +776,7 @@ def check(repo=REPO):
         if not isinstance(b, dict) or not b.get("id"):
             continue
         u, mi = led_by_rule.get(b["id"], [0, 0])
-        if b.get("scored") is not False and b.get("uses") is not None and int(b.get("uses") or 0) != u and u:
+        if b.get("uses") is not None and int(b.get("uses") or 0) != u:
             probs.append(f"Grammar page {b['id']}: {b.get('uses')} uses, the ledgers {u}")
         if int(b.get("mistakes") or 0) != mi:
             probs.append(f"Grammar page {b['id']}: {b.get('mistakes')} slips, the ledgers {mi}")
