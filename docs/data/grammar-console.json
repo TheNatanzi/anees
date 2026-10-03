@@ -6,7 +6,7 @@
   "buckets_scored": 54,
   "lessons_scored": 18,
   "lessons_recorded": 18,
-  "note": "Corrections come from the full audit of 2026-09-26: two independent readers per lesson, a third settling disagreements, reconciled with the 2026-09-24 hand sweep (a hand check of 20 scored rows found 17 right). 629 fixes Amal voiced or typed, filed in an approved rule, are counted. Uses are machine-counted: every time his Arabic exercises the rule, right or wrong; a fix with no counted use within 2 s counts as a use too, so a rule never has more mistakes than uses. Unscored = no counter sees his right uses of the rule, so its fixes are listed but no % is given. Asks: his own questions about a form (rule M1). Untested = he never used it in any recorded lesson, or it is a sound (F). Not taught yet = Amal has not taught the rule (her notes, 2026-09-27): no score, left out of every total. 19 corrections are shown but not counted (Amal's notes: not taught yet, or not a mistake - list in data/amal-grammar-notes-2026-09-29.json). A score built from a lesson that is not verified yet is marked with ≈ (hover or tap it for why).",
+  "note": "Corrections come from the full audit of 2026-09-26: two independent readers per lesson, a third settling disagreements, reconciled with the 2026-09-24 hand sweep (a hand check of 20 scored rows found 17 right). 630 fixes Amal voiced or typed, filed in an approved rule, are counted. Uses are machine-counted: every time his Arabic exercises the rule, right or wrong; a fix with no counted use within 2 s counts as a use too, so a rule never has more mistakes than uses. Unscored = no counter sees his right uses of the rule, so its fixes are listed but no % is given. Asks: his own questions about a form (rule M1). Untested = he never used it in any recorded lesson, or it is a sound (F). Not taught yet = Amal has not taught the rule (her notes, 2026-09-27): no score, left out of every total. 19 corrections are shown but not counted (Amal's notes: not taught yet, or not a mistake - list in data/amal-grammar-notes-2026-09-29.json). A score built from a lesson that is not verified yet is marked with ≈ (hover or tap it for why).",
   "not_taught": [
    "B14",
    "B15"
@@ -358,35 +358,35 @@
   {
    "date": "2026-10-02",
    "medi_sentences": 238,
-   "slips": 17,
-   "slips_counted": 17,
+   "slips": 18,
+   "slips_counted": 18,
    "sound_slips": 0,
-   "detected_uses": 229,
-   "rule_uses": 243,
-   "scored_slips": 17,
+   "detected_uses": 231,
+   "rule_uses": 245,
+   "scored_slips": 18,
    "unscored_slips": 0,
-   "grammar_pct": 93.0,
+   "grammar_pct": 92.7,
    "unique_rules": 27,
    "not_counted": 0,
    "rights": 0,
    "asks_verified": 0,
    "asks_machine": 0,
    "asks": 0,
-   "mistakes_per_sentence": 0.0714,
+   "mistakes_per_sentence": 0.0756,
    "self_correction_rate": null
   }
  ],
  "sweep": {
   "file": "data/full-audit-2026-09-26.json",
-  "counted": 629,
+  "counted": 630,
   "buckets_hit": 53,
   "lessons": 18,
   "left_out": 36,
-  "clips": 629,
+  "clips": 630,
   "marks": {
-   "said": 620,
-   "recast": 510,
-   "fallback": 241,
+   "said": 621,
+   "recast": 511,
+   "fallback": 242,
    "none": 22
   }
  },
@@ -430,6 +430,37 @@
    "tally_title": null,
    "kind": null,
    "candidates": [
+    {
+     "id": "FA-439fd3f5",
+     "bucket": "A1",
+     "bucket2": null,
+     "date": "2026-10-02",
+     "t": 2826.0,
+     "mmss": "47:06",
+     "said": "آخر الموظفة, right?",
+     "recast": "The end of the employees?",
+     "recast_at": "47:09",
+     "recast_t": 2829.0,
+     "said_html": "<mark class=\"ab-wrong\">آخر الموظفة</mark>, right?",
+     "recast_html": "<mark class=\"ab-correct\">employees</mark>",
+     "wrong": "آخر الموظفة",
+     "right": "آخر موظفة",
+     "pair_wrong": "آخر الموظفة",
+     "pair_fixed": "آخر موظفة",
+     "said_arabizi": null,
+     "recast_arabizi": null,
+     "wrong_arabizi": null,
+     "right_arabizi": null,
+     "why": "Medi 2026-10-03 marked it a mistake: I said it wrong the first time and amal corrected in english and I said the right the 2nd time / I said \"2aa5er EL Moazafa, right?\"",
+     "signal": "recast",
+     "chat": null,
+     "confidence": "high",
+     "confidence_why": "medi-correction",
+     "machine_audit": false,
+     "verified": true,
+     "source": "hand-full-audit-2026-09-26",
+     "clip": "2026-10-02/clips/gc-2be8245f275d5ff0.mp3"
+    },
     {
      "id": "FA-43aadef1",
      "bucket": "A1",
@@ -1020,7 +1051,7 @@
      "clip": "2026-08-25/clips/gc-8f5fe9a1f090b4bc.mp3"
     }
    ],
-   "candidate_count": 19,
+   "candidate_count": 20,
    "usage": [
     {
      "date": "2026-10-02",
@@ -1130,6 +1161,17 @@
      "verdict": "right",
      "said_html": "الـ Moazafa <mark class=\"ab-correct\">الأخيرة</mark>?",
      "clip": "2026-10-02/clips/gc-676f37c93bf4fda6.mp3"
+    },
+    {
+     "date": "2026-10-02",
+     "t": 2826.8,
+     "mmss": "47:06",
+     "hit": "الموظفة",
+     "said": "Yeah، آخر الموظفة, right?",
+     "read_as": ". ، آخر الموظفة , . ?",
+     "verdict": "wrong",
+     "said_html": "Yeah، آخر <mark class=\"ab-correct\">الموظفة</mark>, right?",
+     "clip": "2026-10-02/clips/gc-8059bd7a995c4079.mp3"
     },
     {
      "date": "2026-10-02",
@@ -1435,32 +1477,22 @@
      "verdict": "right",
      "said_html": "<mark class=\"ab-correct\">اليوم</mark> الثاني.",
      "clip": "2026-10-02/clips/gc-0b55f1219e9ced50.mp3"
-    },
-    {
-     "date": "2026-10-02",
-     "t": 1480.5,
-     "mmss": "24:40",
-     "hit": "اليوم",
-     "said": "اليوم يوم تاني.",
-     "verdict": "right",
-     "said_html": "<mark class=\"ab-correct\">اليوم</mark> يوم تاني.",
-     "clip": "2026-10-02/clips/gc-25625c68cbb08a18.mp3"
     }
    ],
-   "usage_total": 493,
+   "usage_total": 494,
    "last_used": "2026-10-02",
    "last_used_mmss": "59:38",
-   "verified_slips": 19,
+   "verified_slips": 20,
    "auto_slips": 0,
-   "uses": 508,
-   "mistakes": 19,
+   "uses": 509,
+   "mistakes": 20,
    "asks": 0,
    "pct": 96,
    "status": "Mastered",
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 508,
+   "uses_seen": 509,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []
@@ -2526,6 +2558,17 @@
     },
     {
      "date": "2026-10-02",
+     "t": 2826.8,
+     "mmss": "47:06",
+     "hit": "آخر الموظفة",
+     "said": "Yeah، آخر الموظفة, right?",
+     "read_as": ". ، آخر الموظفة , . ?",
+     "verdict": "right",
+     "said_html": "Yeah، <mark class=\"ab-correct\">آخر الموظفة</mark>, right?",
+     "clip": "2026-10-02/clips/gc-8059bd7a995c4079.mp3"
+    },
+    {
+     "date": "2026-10-02",
      "t": 1733.5,
      "mmss": "28:53",
      "hit": "ساعة الأول",
@@ -2927,25 +2970,14 @@
      "verdict": "right",
      "said_html": "ابن",
      "clip": "2026-09-28/clips/gc-cd2d8e2b41aba8b7.mp3"
-    },
-    {
-     "date": "2026-09-28",
-     "t": 1910.4,
-     "mmss": "31:50",
-     "hit": "مهندس الأستاذ",
-     "said": "Or مهندس الأستاذ؟ No، أستاذ مهندس.",
-     "read_as": ". مهندس الأستاذ؟ . ، أستاذ مهندس .",
-     "verdict": "right",
-     "said_html": "Or <mark class=\"ab-correct\">مهندس الأستاذ</mark>؟ No، أستاذ مهندس.",
-     "clip": "2026-09-28/clips/gc-426b62922ba1002b.mp3"
     }
    ],
-   "usage_total": 72,
+   "usage_total": 73,
    "last_used": "2026-10-02",
    "last_used_mmss": "59:38",
    "verified_slips": 31,
    "auto_slips": 0,
-   "uses": 99,
+   "uses": 100,
    "mistakes": 31,
    "asks": 0,
    "pct": 69,
@@ -2953,7 +2985,7 @@
    "status_label": null,
    "not_taught": false,
    "not_taught_why": null,
-   "uses_seen": 99,
+   "uses_seen": 100,
    "not_counted": [],
    "not_counted_count": 0,
    "events": []

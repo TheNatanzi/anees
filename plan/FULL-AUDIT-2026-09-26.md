@@ -6,14 +6,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **597** (sweep had 312) |
+| Grammar fixes Amal voiced (A) | **598** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 89 |
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 8 |
 | Vocab fixes Amal voiced (A) | **282** (sweep had 147; lesson pages showed 23) |
 | - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 160, '0': 115, '2': 46, '3': 5} |
 | Vocab she let pass (B, to Amal) | **44** by tier {'1': 25, '2': 13, '3': 6} |
 | Listening-drill misreads (kept apart) | 82 |
-| Rows the readers found that the sweep did not have | 683 |
+| Rows the readers found that the sweep did not have | 684 |
 | Sweep rows the readers did not list (kept) | 115 |
 | Machine audit already had | 104 |
 
@@ -38,7 +38,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-09-28 | 18 | 2 | 20 | 0 | 2 | 0 | 0 | 51.1 % |
 | 2026-09-30 | 20 | 2 | 14 | 0 | 0 | 0 | 0 | 73.7 % |
 | 2026-10-01 | 16 | 2 | 4 | 3 | 2 | 0 | 0 | 78.8 % |
-| 2026-10-02 | 17 | 0 | 10 | 1 | 2 | 0 | 0 | 52.8 % |
+| 2026-10-02 | 18 | 0 | 10 | 1 | 2 | 0 | 0 | 52.8 % |
 
 ## Reader passes (the loop)
 
@@ -75,7 +75,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | A2 | idafa (possession) | 31 |
 | A9 | plurals | 27 |
 | D1 | prepositions | 23 |
-| A1 | el- (the) | 19 |
+| A1 | el- (the) | 20 |
 | A4 | possessive endings | 18 |
 | D3 | endings on prepositions | 17 |
 | A7 | noun + adjective | 16 |
@@ -1523,5 +1523,6 @@ _00:02-06:12 and 53:31-end are English meta talk. 12:34-15:40 and 37:41-42:12 tr
 | FA-f4b60b4a | 45:55 | vocab-A | tier 2 | العشر دقايق الـ، الآخر. | ال أخي- | الآخر -> الأخير / الأخيرات | After the noun the adjective form of آخر is أخير (taught at 32:17); he used الآخر, Amal started 'ال أخي-' and he switched to الأخير - wrong form of a word he knows (tier 2). The plural agreement that followed is D12. | medium | r3 |
 | FA-50c3a19a | 46:06 | grammar | A8 | دقيقة is, is masculine. So، أخ-أخير. | أخيرات. [laughs] That's why I paused. | أخير -> أخيرات | دقايق is plural so the adjective must be plural أخيرات; he chose masculine أخير, Amal recast أخيرات and he said 'Oh, because it's plural' - agreement error separate from the أخير form fix (D11). | high | r3 |
 | FA-07c3e8d5 | 47:01 | grammar-propose | PROPOSE | مين آخر الـ ... آخر Moazafa, right? | The end of the employees? | آخر الـ Moazafa -> آخر موظفة | آخر + el-noun means 'the end of'; Amal asked 'The end of the employees?' and he dropped el-: مين آخر موظفة?, which she accepted (Mm-hmm). | medium | r3 |
+| FA-439fd3f5 | 47:06 | grammar | A1 | آخر الموظفة, right? | The end of the employees? | آخر الموظفة -> آخر موظفة | Medi 2026-10-03 marked it a mistake: I said it wrong the first time and amal corrected in english and I said the right the 2nd time / I said "2aa5er EL Moazafa, right?" | high | medi-correction |
 | FA-0583f785 | 48:58 | vocab-A | tier 0 | you say it was dwarf? What was it again? | ضيوف. | guests -> ضيوف | He asked again for 'guests'; Amal supplied ضيوف. | high | r1+r2 |
 | FA-605b741f | 52:13 | vocab-A | tier 1 | أنا بسوق نفس الطريقة | طريق. What's طريقة? | الطريقة -> الطريق | طريقة is 'way/method'; for 'route' Amal recast طريق and he fixed نفس الطريق. | high | r1+r2 |
