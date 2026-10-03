@@ -270,13 +270,17 @@ def find(rows, c, uid_of=None, include_rejected=False):
 
 
 def amal_voiced(c, right, repo=REPO, turns=None):
-    """Her voiced fix: an Amal line within 15 s after his line that says the right word (council 2: then tier A)."""
+    """Her voiced fix: an Amal line within 15 s after his line that says the right word (council 2: then tier A), or says
+    it in English (PG-22: payload.right_en, 10-02 09:41 'لازم you should take.' for his laazem 3utle)."""
     R = _piece(right)
-    if len(R) < 2:
+    en = str((c.get("payload") or {}).get("right_en") or "").strip().lower()
+    if len(R) < 2 and not en:
         return False
     t0 = float(c["turn_t"])
     for u in turns if turns is not None else turns_of(c["lesson_date"], repo):
-        if u.get("who") == "Amal" and t0 <= float(u.get("t") or 0) <= t0 + 15 and R in _piece(u.get("text")):
+        if u.get("who") != "Amal" or not (t0 <= float(u.get("t") or 0) <= t0 + 15):
+            continue
+        if (len(R) >= 2 and R in _piece(u.get("text"))) or (en and re.search(r"\b%s\b" % re.escape(en), (u.get("text") or "").lower())):
             return True
     return False
 

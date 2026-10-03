@@ -352,7 +352,8 @@ def compat_entry(r):
             "amal_said": r.get("amal_said"), "chat": r.get("chat"), "wrong": r.get("wrong"), "right": r.get("right"),
             "confidence": r.get("confidence") or "medium", "confidence_why": r.get("r3_why") or r.get("agreed_by"),
             "signal": r.get("signal"), "machine_audit": bool(r.get("machine_had")), "mode": r.get("mode", "speaking"),
-            "source": r.get("source"), "uid": r["uid"], "sweep_id": r.get("sweep_id")}
+            "source": r.get("source"), "uid": r["uid"], "sweep_id": r.get("sweep_id"),
+            **({"correction": r["correction"]} if r.get("correction") else {})}   # PR-15: his correction travels to every page
     if r["kind"] == "grammar":
         return {**base, "mistake": r.get("why"), "bucket": r.get("bucket"), "bucket2": r.get("bucket2"), "new_bucket_group": r.get("new_bucket_group")}
     if r["kind"] == "vocab-A":

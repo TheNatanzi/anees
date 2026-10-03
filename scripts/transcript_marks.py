@@ -177,6 +177,43 @@ def _in_off(t, off):
     return next((o for o in off if o[0] <= t <= o[1]), None)
 
 
+PREFIX_AZ = {"ل": "la", "لل": "lal", "ب": "b", "بال": "bil", "ع": "3a", "عال": "3al", "و": "w", "ال": "el", "لـ": "la", "فـ": "fi"}
+_FILL = re.compile(r"^(آ+|أأ+|ا{2,}|امم+|um|uh|aaa+)$", re.I)
+
+
+def _toks(s):
+    return [w for w in re.split(r"[\s.…,،؟?!:;\"“”()\-]+", str(s or "")) if w and not _FILL.match(w)]
+
+
+def missing_piece(wrong, right):
+    """PG-25 (Medi 2026-10-03 "can we underline my mistake. maybe put one of these ^ la (preposition missing)"): what
+    Amal's right form has that his words lack, and the word of HIS that it goes in front of.
+    -> {"before": his word, "add": text, "az": Arabizi or None, "what": "preposition"|"word"} or None.
+    خططت سفر -> خططت لسفرة: add ل before سفر (la, preposition); أنا لازم عطلة -> أنا لازم آخد عطلة: add آخد before عطلة."""
+    ws, rs = _toks(wrong), _toks(right)
+    if not ws or not rs:
+        return None
+    n = lambda w: normalise(w)[0]
+    if len(rs) == len(ws):
+        for w, r in zip(ws, rs):
+            nw, nr = n(w), n(r)
+            if nw == nr:
+                continue
+            k = nr.find(nw.rstrip("ةه")) if len(nw.rstrip("ةه")) >= 2 else -1
+            if k > 0:
+                pre = r[:k]
+                return {"before": w, "add": pre, "az": PREFIX_AZ.get(pre), "what": "preposition" if pre in ("ل", "ب", "ع", "لل", "بال", "عال") else "prefix"}
+            return None
+        return None
+    if len(rs) == len(ws) + 1:
+        for k in range(len(rs)):
+            if [n(x) for x in rs[:k] + rs[k + 1:]] == [n(x) for x in ws]:
+                if k == len(ws):
+                    return None                  # missing at the very end: no word of his to put the mark in front of
+                return {"before": ws[k], "add": rs[k], "az": PREFIX_AZ.get(rs[k]), "what": "preposition" if rs[k] in ("ل", "لـ", "على", "في", "ب", "مع", "من", "عن", "لل") else "word"}
+    return None
+
+
 def _src(e, own=None):
     """PR-15: the producer id a correction on this chip targets (reader row FA-uid / Word Bank event) + Amal-ruled flag."""
     out = {}
@@ -237,6 +274,19 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
         else:
             rep["ul_closest"].append({"t": turns[i]["t"], "what": what, "needle": needle, "got": turns[i]["text"][sp[0]:sp[1]]})
         tm.setdefault(i, {"c": [], "u": []})["u"].append([sp[0], sp[1], cls, chip_id, sp[2]])
+
+    def caret(i, wrong, right, chip):
+        """PG-25: a missing word / preposition is a ^ mark where it belongs on his line (zero-width underline)."""
+        mp = missing_piece(wrong, right)
+        if not mp:
+            return
+        for j in [i] + [j for j in range(max(0, i - 3), min(len(turns), i + 3)) if j != i and _speaker(turns[j], "Medi")]:
+            sp = find_span(turns[j]["text"], mp["before"])
+            if sp and sp[2] == "exact":
+                tm.setdefault(j, {"c": [], "u": []})["u"].append([sp[0], sp[0], "missing", chip["id"], "caret", mp["add"], mp.get("az"), mp["what"]])
+                chip["missing"] = {"add": mp["add"], "az": mp.get("az"), "what": mp["what"]}
+                rep["carets"] = rep.get("carets", 0) + 1
+                return
 
     def scored_item(t, chip, needle=None, what=""):
         rep["scored"] += 1
@@ -307,6 +357,7 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
         if i is not None:
             if s == "wrong":
                 underline(i, e.get("wrong"), "wrong", chip["id"], "vocab " + str(e.get("arabic")))
+                caret(i, e.get("wrong"), e.get("fix"), chip)
             amal_fix(chip, i, e.get("t_fix"), sig, e.get("fix"), "vocab " + str(e.get("arabic")))
     for e in detail.get("not_errors") or []:
         grey(e["t"], e.get("verdict_reason") or "dropped on the hand check", "vocab", e.get("wrong"))
@@ -323,6 +374,7 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
         slips_by_b.setdefault(g.get("bucket"), []).append(t)
         if i is not None:
             underline(i, g.get("wrong"), "wrong", chip["id"], "grammar " + str(g.get("id")))
+            caret(i, g.get("wrong"), g.get("right"), chip)
             amal_fix(chip, i, g.get("t_fix"), g.get("signal"), g.get("right"), "grammar " + str(g.get("id")))
     for g in detail.get("grammar_not_counted") or []:
         grey(g.get("t"), g.get("not_counted_why") or "taken out by Amal's notes", "grammar · " + str(g.get("bucket")), g.get("wrong"))

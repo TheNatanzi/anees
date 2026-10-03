@@ -232,3 +232,30 @@ def test_pr_16_the_corrected_moment_is_never_counted_as_another_moment():
     c = _c(turn_t=406.48, target={"k": "vocab", "wrong": "سمعت", "signal": "recast", "src": "FA-172fc4ea"},
            payload={"reason": "not-correcting", "turn_end": 428.64})
     assert MC.propose([c], rows=rows, uses_=[])[0]["n"] == 0
+
+
+def test_gr_27_laazem_straight_onto_a_thing_is_a_b2_clue_and_her_english_take_counts_as_her_fix():
+    """GR-27 (Medi 2026-10-03 "you 'take' a day off, it cant be 3utle by itself")."""
+    import echo_candidates as E
+    T = [{"t": 575.8, "end": 577.0, "who": "Medi", "text": "أنا لازم"}, {"t": 578.26, "end": 580.0, "who": "Medi", "text": "آآآ عطلة و"},
+         {"t": 581.27, "who": "Amal", "text": "لازم you should take."},
+         {"t": 600.0, "who": "Medi", "text": "وأنا لازم كل اليوم، أطلبهم"}]
+    c = E.laazem_noun(T)
+    assert [x["thing"] for x in c] == ["عطلة"] and c[0]["amal_after"][0]["text"].endswith("take.")
+    hand = MC.J(MC.HAND_P)["rows"]
+    row = next(r for r in hand if r["id"] == "chat-20261003-laazem-3utle")
+    rows = []
+    MC.apply_rows(rows, [row], answers={}, turns=T, rules=[])
+    assert rows[0]["kind"] == "grammar" and rows[0]["bucket"] == "B2" and rows[0]["signal"] == "recast"
+
+
+def test_pg_25_a_missing_preposition_or_verb_is_a_caret_where_it_belongs():
+    """PG-25 (Medi 2026-10-03 "maybe put one of these ^ la (preposition missing)"; "same here with the missing verb Ra7 ^aroo7")."""
+    import transcript_marks as T
+    assert T.missing_piece("خططت سفر", "خططت لسفرة") == {"before": "سفر", "add": "ل", "az": "la", "what": "preposition"}
+    assert T.missing_piece("راح على", "راح أروح على")["before"] == "على" and T.missing_piece("راح على", "راح أروح على")["add"] == "أروح"
+    assert T.missing_piece("أنا لازم آآآ عطلة", "أنا لازم آخد عطلة")["add"] == "آخد"
+    assert T.missing_piece("سمعت", "صحيت") is None
+    d = json.load(open(os.path.join(ROOT, "docs", "data", "lessons", "2026-10-02.json"), encoding="utf-8"))
+    carets = [u for m in d["tmarks"].values() for u in m["u"] if u[2] == "missing"]
+    assert any(u[5] == "ل" and u[6] == "la" for u in carets) and any(u[5] == "أروح" for u in carets)

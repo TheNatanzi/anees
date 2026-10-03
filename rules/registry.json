@@ -6900,6 +6900,97 @@
      "contains": "def test_pr_17_pull_never_fails_missing_table_unreachable_bad_rows_and_big_batch"
     }
    ]
+  },
+  {
+   "id": "GR-27",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "laazem (must) is followed by a verb (B2: laazem aa5ud 3otle). When his sentence goes from laazem straight to a thing (fillers skipped, his pause-split lines joined as on the page) and Amal then gives the verb - in Arabic or in English ('laazem you should take', PG-22) - it is one B2 grammar slip, counted (her voiced fix). No slip when she only asks ('laazem shu?'), when he fixes it himself first (b7taj), or when a time word sits between (laazem kul el-yoam atlob). scripts/echo_candidates.py lists every such moment (laazem_noun) for the reader; a clue, never an automatic slip (S3). 2026-10-03 read of all 18 lessons: 6 candidates, 1 slip (10-02 09:35), 5 not (a time word, English, two self-fixes, Amal only asking).",
+   "plain": "After laazem comes a verb: you take (aa5ud) a day off, it can't be laazem 3utle on its own. When Amal then gives you the verb, even in English, it counts as one B2 slip.",
+   "plain_for": "16d2d7f4",
+   "topic": "b-drop after modals",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "i dont know what grammer rule this would fall under but you \"take\" a day off, it cant be 3utle by itself"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/echo_candidates.py",
+     "contains": "def laazem_noun(turns):"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "## laazem needs a verb (GR-27"
+    },
+    {
+     "type": "data",
+     "path": "data/lesson-work/medi-corrections-hand.json",
+     "contains": "chat-20261003-laazem-3utle"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_correction_mode.py",
+     "contains": "def test_gr_27_laazem_straight_onto_a_thing_is_a_b2_clue_and_her_english_take_counts_as_her_fix"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "09:35",
+    "note": "ana laazem aaa 3utle; Amal: 'laazem you should take'; he: ana laazem aa5ud 3utle"
+   }
+  },
+  {
+   "id": "PG-25",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A slip where he LEFT OUT a word or a preposition (Amal's right form = his words plus a piece) shows a ^ mark with the missing piece at the spot on his line where it belongs, in the wrong-word red, Arabizi on top ('^la' for the preposition la in khattatet la-safra, '^aroo7' for the verb after ra7, '^aa5ud' before 3otle); a mark that falls inside an underlined phrase is drawn inside it, and the ✗ chip says 'missing preposition: ^la'. scripts/transcript_marks.py missing_piece() finds the piece (same word count: a prefix his word lacks; one word more: the extra word), docs/js/transcript-marks.js underlined() draws it.",
+   "plain": "When you left a word out (a preposition like la, or a verb like aroo7), your line shows a red ^ with the missing word right where it belongs.",
+   "plain_for": "d93340ea",
+   "topic": "transcript marks",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "can we underline my mistake.  maybe put one of these ^ la (preposition missing)"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "same here with the missing verb \"Ra7 ^aroo7\""
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/transcript_marks.py",
+     "contains": "def missing_piece(wrong, right):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/transcript-marks.js",
+     "contains": "PG-25: a missing word / preposition is a ^"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_correction_mode.py",
+     "contains": "def test_pg_25_a_missing_preposition_or_verb_is_a_caret_where_it_belongs"
+    },
+    {
+     "path": "tests/test_transcript_marks.cjs",
+     "contains": "test('PG-25 a missing word is a ^ mark at its place"
+    }
+   ]
   }
  ]
 }

@@ -75,3 +75,7 @@ test('PG-23 his lines split at pauses show as one sentence, chips and underlines
  assert.deepEqual(g[0].m.u[0].slice(0,2),[19,23]);
  assert.equal(g[0].turn.text.slice(19,23),'عموي');
 });
+test('PG-25 a missing word is a ^ mark at its place, not an underline',()=>{
+ const h=T.underlined('أنا خططت سفر',[[9,9,'missing','x1','caret','ل','la','preposition'],[9,12,'wrong','x1','exact']]);
+ assert.match(h,/<mark class="tm-caret" data-chip="x1" title="missing preposition: la">\^la<\/mark><mark class="tm-ul tm-ul-wrong"/);
+});

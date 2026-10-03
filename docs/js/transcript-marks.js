@@ -49,6 +49,7 @@ function clock(t) { t = Math.max(0, Math.floor(Number(t) || 0)); return Math.flo
 function chipModel(c, toArabizi) {
   var s = subject(c, toArabizi), tip = '';
   if (c.s === 'wrong') tip = 'Wrong · ' + [c.said ? 'you said ' + az(c.said, null, toArabizi) : '', c.right ? 'Amal: say ' + az(c.right, null, toArabizi) : ''].filter(Boolean).join(' → ') + (c.sig ? ' (she ' + c.sig + ')' : '') +
+    (c.missing ? ' · missing ' + (c.missing.what || 'word') + ': ^' + (c.missing.az || c.missing.add) : '') +
     (c.amal_line ? ' · Amal at ' + clock(c.amal_t) + ': «' + c.amal_line + '»' : '');
   else if (c.s === 'asked') tip = 'Asked Amal for the word' + (c.right ? ' → Amal: ' + az(c.right, null, toArabizi) : '');
   else if (c.s === 'partial') tip = 'Partial · got there with help' + (c.said ? ' · said ' + az(c.said, null, toArabizi) : '');
@@ -67,13 +68,25 @@ function chipModel(c, toArabizi) {
 function underlined(text, ul) {
   text = String(text == null ? '' : text);
   var out = '', at = 0;
-  (ul || []).slice().sort(function (a, b) { return a[0] - b[0]; }).forEach(function (u) {
+  // PG-25: a missing word / preposition is a ^ where it belongs (zero-width: [at, at, 'missing', chip, 'caret', add, az, what]);
+  // one that falls inside an underlined phrase is drawn inside that underline
+  var carets = (ul || []).slice().sort(function (a, b) { return a[0] - b[0]; }).filter(function (u) { return u[2] === 'missing' && u[0] === u[1] && u[0] <= text.length; });
+  var caret = function (u) { return '<mark class="tm-caret" data-chip="' + esc(u[3]) + '" title="missing ' + esc(u[7] || 'word') + ': ' + esc(u[6] || u[5]) + '">^' + esc(u[6] || u[5]) + '</mark>'; };
+  var withCarets = function (a, b, edgeA) {
+    var o = '', p = a;
+    carets.forEach(function (c) { if ((edgeA ? c[0] >= a && c[0] <= b : c[0] > a && c[0] < b) && !c.done) { o += esc(text.slice(p, c[0])) + caret(c); p = c[0]; c.done = 1; } });
+    return o + esc(text.slice(p, b));
+  };
+  (ul || []).slice().sort(function (a, b) { return a[0] - b[0] || a[1] - b[1]; }).forEach(function (u) {
+    if (u[2] === 'missing') return;
     if (u[0] < at || u[1] > text.length || u[1] <= u[0]) return;
-    out += esc(text.slice(at, u[0])) + '<mark class="tm-ul tm-ul-' + u[2] + '" data-chip="' + esc(u[3]) + '"' +
-      (u[4] === 'closest' ? ' data-closest="1"' : '') + '>' + esc(text.slice(u[0], u[1])) + '</mark>';
+    out += withCarets(at, u[0], true) + '<mark class="tm-ul tm-ul-' + u[2] + '" data-chip="' + esc(u[3]) + '"' +
+      (u[4] === 'closest' ? ' data-closest="1"' : '') + '>' + withCarets(u[0], u[1], false) + '</mark>';
     at = u[1];
   });
-  return out + esc(text.slice(at));
+  out += withCarets(at, text.length, true);
+  carets.forEach(function (c) { delete c.done; });
+  return out;
 }
 // Does a turn show under this filter?
 function shows(m, filter) {

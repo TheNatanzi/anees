@@ -1,9 +1,53 @@
 {
  "about": "Medi's corrections given in chat, in the same row shape as the transcript_corrections table (migration 022), applied by scripts/medi_corrections.py exactly like the ones he saves on the page. Hand-made: never delete a row; an undo is a new row with undoes.",
  "rows": [
-  {"id": "chat-20261002-hadi-subu7", "lesson_date": "2026-10-02", "turn_t": 502.9, "turn_who": "Medi", "kind": "classify",
-   "target": {"k": "vocab", "wrong": "عادي الصباح"}, "payload": {"to": "grammar", "rule": "A10", "wrong": "هادي الصباح", "right": "الصبح", "turn_end": 504},
+  {
+   "id": "chat-20261002-hadi-subu7",
+   "lesson_date": "2026-10-02",
+   "turn_t": 502.9,
+   "turn_who": "Medi",
+   "kind": "classify",
+   "target": {
+    "k": "vocab",
+    "wrong": "عادي الصباح"
+   },
+   "payload": {
+    "to": "grammar",
+    "rule": "A10",
+    "wrong": "هادي الصباح",
+    "right": "الصبح",
+    "turn_end": 504
+   },
    "note": "you can tell from her cotext I said hadi el not 3aadi el ... she even corrected it ... this should be a grammar error for not using hadi for the morning",
-   "ts": "2026-10-02T23:40:00-07:00", "by": "medi (chat)"}
+   "ts": "2026-10-02T23:40:00-07:00",
+   "by": "medi (chat)"
+  },
+  {
+   "id": "chat-20261003-laazem-3utle",
+   "lesson_date": "2026-10-02",
+   "turn_t": 575.8,
+   "turn_who": "Medi",
+   "kind": "add",
+   "target": {
+    "k": "grammar",
+    "said": "أنا لازم آآآ عطلة",
+    "rule": "B2"
+   },
+   "payload": {
+    "k": "grammar",
+    "rule": "B2",
+    "wrong": "أنا لازم آآآ عطلة",
+    "right": "أنا لازم آخد عطلة",
+    "right_en": "take",
+    "turn_end": 580.0,
+    "t_amal": "09:41",
+    "amal_said": "لازم you should take.",
+    "line": "أنا لازم / آآآ عطلة و"
+   },
+   "note": "i dont know what grammer rule this would fall under but you \"take\" a day off, it cant be 3utle by itself",
+   "ts": "2026-10-03T11:30:00-07:00",
+   "by": "medi (chat)",
+   "rule": "GR-27"
+  }
  ]
 }

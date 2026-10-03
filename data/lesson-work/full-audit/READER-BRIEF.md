@@ -129,3 +129,11 @@ trying to say. Compare his line with her typed line word by word: a sound-alike 
 3otle) is the engine - note "engine wrote X"; a wrong form she types right (سفر -> asaafer) is his slip.
 Amal may correct in ENGLISH (PG-22, Medi 2026-10-02 "she corrected me in english. This can happen"): 10-02 09:53 "Aw I
 should travel. Aw." is her fix of his سفر -> أسافر. An English rephrase of his sentence is a voiced signal (prompt-then-fix).
+
+## laazem needs a verb (GR-27, Medi 2026-10-03)
+
+"you 'take' a day off, it cant be 3utle by itself." laazem (must) is followed by a verb (B2: laazem aa5ud 3otle). When his
+sentence goes from laazem straight to a thing (ana laazem ... 3otle; laazem air conditioning) AND Amal then gives the verb
+- in Arabic or in English ("laazem you should take") - it is ONE B2 grammar slip (wrong = his words, right = with the verb).
+No slip when she only asks ("laazem shu?"), when he fixes it himself first (laazem... or b7taj), or when a time word sits
+between (laazem kul el-yoam atlob). 'I need X' is b7taj X. scripts/echo_candidates.py lists these as laazem_noun.

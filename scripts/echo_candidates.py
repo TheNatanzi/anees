@@ -34,6 +34,41 @@ def take_verb(turns):
     return out
 
 
+LAAZEM_FILL = re.compile(r"^(آ+|أأ+|ا{2,}|امم+|um|uh|aaa+|so|like)$", re.I)
+NOT_A_THING = re.compile(r"^(أ|ا|إ|ي|ت|ن|ب|ر[اح]|ما|مش|كمان|كل|هلأ|هلق|بس|ي?عني|كان|نـ|تـ|يـ|دايما|اليوم|بكرا)")   # verbs, negation, time words
+
+
+def laazem_noun(turns):
+    """GR-27 (Medi 2026-10-03: "you 'take' a day off, it cant be 3utle by itself"): laazem (must) is followed by a verb
+    (B2: laazem aa5ud 3otle); laazem straight onto a thing ("ana laazem ... 3otle", "laazem air conditioning") is the B2
+    slip WHEN Amal then gives the verb (in Arabic or English: 'you should take') - 'I need X' is b7taj X / laazemni X.
+    His lines are joined like the page joins them (PG-23: no one else between, gap <= 6 s); fillers are skipped. A clue
+    for the reader, never an automatic slip (S3: her signal decides; 10-01 04:13 she only asked 'laazem shu?')."""
+    out, i = [], 0
+    while i < len(turns):
+        u = turns[i]
+        if u.get("who") != "Medi":
+            i += 1
+            continue
+        j, text, end = i, u["text"], u.get("end") or u["t"]
+        while j + 1 < len(turns) and turns[j + 1].get("who") == "Medi" and turns[j + 1]["t"] - end <= 6:
+            j += 1
+            text += " " + turns[j]["text"]
+            end = turns[j].get("end") or turns[j]["t"]
+        ws = re.sub(r"[.,،؟?!…\-]+", " ", text).split()
+        for k, w in enumerate(ws):
+            if w != "لازم":
+                continue
+            nxt = [x for x in ws[k + 1:] if not LAAZEM_FILL.match(x)]
+            if nxt and nxt[0] != "لازم" and not NOT_A_THING.match(nxt[0]) and not nxt[0].startswith("ال"):
+                amal = [{"t": v["t"], "who": v["who"], "text": v["text"]} for v in turns[j + 1:j + 8]
+                        if v.get("who") in ("Amal", "chat") and 0 <= v["t"] - end <= 20]
+                out.append({"t": u["t"], "line": text, "thing": nxt[0], "amal_after": amal,
+                            "why": "laazem straight onto a thing, no verb (GR-27): a B2 slip only if Amal then gives the verb"})
+        i = j + 1
+    return out
+
+
 def chat_pairs(turns):
     """TR-21 (Medi 2026-10-02 "aa5ud Etla3 makes no seanse"): Amal often TYPES the sentence he was saying; each of her chat
     lines with his lines of the 45 s before it, for the reader to compare word by word (أطلع ~ her 3otle)."""
@@ -71,7 +106,7 @@ def main(argv=None):
     d = os.path.join(REPO, "data", "lesson-work", "echo-candidates")
     os.makedirs(d, exist_ok=True)
     with open(os.path.join(d, date + ".json"), "w", encoding="utf-8", newline="\n") as f:
-        json.dump({"date": date, "rule": "TR-19", "candidates": C, "take_verb": take_verb(L.get("turns") or []),
+        json.dump({"date": date, "rule": "TR-19", "candidates": C, "take_verb": take_verb(L.get("turns") or []), "laazem_noun": laazem_noun(L.get("turns") or []),
                    "chat_pairs": chat_pairs(L.get("turns") or [])}, f, ensure_ascii=False, indent=1)
     print(date, len(C), "echo candidates")
     return 0
