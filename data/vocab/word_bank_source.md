@@ -1,99 +1,39 @@
 # Latest Topic
 
-## Added from lessons (Medi, Sep 23)
+# Newest Nouns 
 
-&nbsp;
+| Transliteration  | Plural | Arabic | English |
+| :---- | :---- | ----- | :---- |
+| Mitshajje3/a | Mitshajj3een | متشجع/ة | Motivated  |
+| 7aafez  daafe3 | 7awaafez dawaafe3  | حافز دافع | Motivation  |
+| oowla | awaa2el  | أولى | First (feminine) |
 
 | Transliteration | Plural | Arabic | English |
-| ----- | ----- | ----- | ----- |
+| :---- | :---- | ----- | :---- |
 | Mayy |  | مي | water |
-| Akle |  | أكلة | a dish / a meal |
+| Akle |  | أكلة | A dish / a meal |
 | Irani |  | إيراني | Iranian |
-| Ana ba5rab |  | أنا بخرب | I break down / go bad (food: bye5rab = it spoils) |
+| Ana ba5rab |  | أنا بخرب | I break down / go bad (food: bye5rab \= it spoils) |
 | Ana ba5arreb |  | أنا بخرّب | I ruin / break (something) |
 | Amriki |  | أمريكي | American |
-| 3aks |  | عكس | opposite (bel-3aks = on the contrary) |
-| Ahel |  | أهل | parents / family |
+| 3aks |  | عكس | Opposite (bel-3aks \= on the contrary) |
+| Ahel |  | أهل | Parents / family |
 | Koari |  | كوري | Korean |
 | Eh |  | إيه | yes |
-| Aimta |  | امتى | when? (question) |
+| Aimta |  | امتى | When? (question) |
 | Janoob |  | جنوب | south |
 | Tarjame |  | ترجمة | translation |
-| Iyyah |  | إياه | it / him (object: biddna iyyah = we want it) |
+| Iyyah |  | إياه | It / him (object: biddna iyyah \= we want it) |
 | 3arabi |  | عربي | Arabic / Arab |
-| Lissa |  | لسه | still / yet |
-| 3aalam |  | عالم | the world / people (el-3aalam) |
-| Kulliyyan |  | كليًا | completely / fully |
-
-
-## Grammar Termonology & Causative Verbs&nbsp;
-
-## Grammar Termonology&nbsp;
-
-&nbsp;
-
-| Transliteration | Plural | Arabic | English |
-| ----- | ----- | ----- | ----- |
-| Ma3na | ma3aani | معنى | Meaning – meanings |
-| Raqam | arqaam | رقم | Number – numbers |
-| 7arf | 7roof | حرف | Letter – letters / preposition |
-| Kelme | kelmaat | كلمة | Word – words |
-| Jumle | jumal | جملة | Sentence – sentences |
-| Esem | asmaa2 | اسم | Noun – nouns |
-| Sifa | sifaat | صفة | Adjective – adjectives / trait – traits |
-| Jame3 | — | جمع | Plural |
-| Zarf | zroof | ظرف | Adverb – adverbs / circumstance – circumstances |
-| Fe3el | af3aal | فعل | Verb – verbs |
-| Maadi | — | ماضي | Past |
-| Mudaare3 | — | مضارع | Present tense |
-| Amer | awaamer | أمر | Command – commands |
-| Musta2bal | — | مستقبل | Future |
-| Sabab | asbaab | سبب | Reason – reasons |
-| 5ayaar | 5ayaaraat | خيار | Option – options |
-| 7atta | — | حتى | Even |
-| 7atta law | — | حتى لو | Even if |
-| 7aades | 7awaades | حادث | Accident – accidents |
-| Bil8ala6 | — | بالغلط | Accidentally |
-| Bazeed | — | بزيد | I add |
-| Ziaadeh | ziaadaat | زيادة | Extra / increase |
-| Ba2eem | — | بقيم | I remove / take away |
-| Muraaja3a | muraaja3aat | مراجعة | Review |
-| Ana baraaje3 | — | أنا براجع | I review |
-| Ana 7aafez | — | أنا حافظ | I have something memorized / know it by heart |
-| Daafe3 | dawaafe3 | دافع | Motivation |
-| Mu7aadase/a | mu7aadasaat | محادثة | Conversation practice&nbsp; |
-
-## Causative Verbs
-
-### Doubled Middle&nbsp;
-
-&nbsp;
-
-| Transliteration | Arabic | English |
-| ----- | ----- | ----- |
-| Ana bad7ak | بضحك | I laugh |
-| Ana bada77ek | بضحِّك | I make people laugh |
-| Ana bazha2 | بزهق | I get bored |
-| Ana bazahhe2 | بزهِّق | I bore / make people bored |
-| Ana baz3al | بزعَل | I get sad / upset |
-| Ana baza33el | بزعِّل | I make someone sad / upset |
-| Ana bat3ab | بتعب | I get tired |
-| Ana bata33eb | بتعِّب | I tire / make people tired |
-| Ana ba5aaf | بخاف | I get scared / I am afraid |
-| Ana ba5awwef | بخوِّف | I scare / make people scared |
-| Ana bajhaz | بجهز | I get ready |
-| Ana bajahhez | بجهِّز | I prepare / make something or someone ready |
-| Ana ba3asseb | بعصِّب | I get angry / make someone angry |
-
-&nbsp;
+| Lissa |  | لسه | Still / not yet |
+| 3aalam |  | عالم | The world / people (el-3aalam) |
+| Kulliyyan |  | كليًا | Completely / fully |
 
 # Introductions and Pleasantries
 
-## Introductions, greetings , and Pleasantries&nbsp;
+# Introductions, greetings , and Pleasantries 
 
 ## Introductions
-
-&nbsp;
 
 | Arabic | Transliteration | English |
 | :---- | :---- | :---- |
@@ -131,9 +71,7 @@
 | وين ساكنة؟ | wein saknah? | Where do you live? (Female) |
 | وين ساكن؟ | wein saken? | Where do you live? (Male) |
 
-## Greetings&nbsp;
-
-&nbsp;
+## Greetings 
 
 | Arabic | Transliteration | English |
 | :---- | :---- | :---- |
@@ -149,11 +87,7 @@
 | تصبح على خير | tesbah 'ala kheir | good night (wake up to good) |
 | تلاقي الخير | telaqi alkheir | good night response |
 
-&nbsp;
-
 ## Pleasantries & Social expression
-
-&nbsp;
 
 | Arabic | Transliteration | English |
 | :---- | :---- | :---- |
@@ -185,13 +119,9 @@
 | الله يعافيك | Allah y'afik | ya'tik al'afyah response |
 | الله يعافيكي | Allah Y'afiki | ya'tiki al'afyah response |
 
-&nbsp;
-
 # Numbers
 
 ## Numbers
-
-&nbsp;
 
 | Arabic | Transliteration | English |
 | :---- | :---- | :---- |
@@ -253,17 +183,11 @@
 | ميتين | metein | two hundred |
 | ألفين | alfein | two thousand |
 
-&nbsp;
+# Food and Drink 
 
-&nbsp;
-
-# Food and Drink
-
-## Food & Drink&nbsp;
+## Food & Drink 
 
 ### Breakfast & Snacks
-
-&nbsp;
 
 | Arabic | Transliteration | English |
 | :---- | :---- | :---- |
@@ -294,11 +218,7 @@
 | لبنة | labaneh | sower cream |
 | فطور | Ftur | tomatoBreakfast |
 
-&nbsp;
-
 ### Fruits
-
-&nbsp;
 
 | Arabic | Transliteration | English |
 | :---- | :---- | :---- |
@@ -323,11 +243,7 @@
 | بطيخ / بطيخ | Batti5 / Battikh | Watermelon |
 | شمام | Shummam | cantilope |
 
-&nbsp;
-
 ### Vegetables
-
-&nbsp;
 
 | Arabic | Transliteration | English |
 | :---- | :---- | :---- |
@@ -365,11 +281,7 @@
 | بندورة | Bandora | tomato |
 | كوسا | Kusa | zucchini |
 
-&nbsp;
-
 Meat & Other Food Items
-
-&nbsp;
 
 | Arabic | Transliteration | English |
 | :---- | :---- | :---- |
@@ -392,15 +304,11 @@ Meat & Other Food Items
 | شوربة | Shoraba | Soup |
 | حبش | 7abash | Turkey |
 
-&nbsp;
-
 # Adjectives
 
 ## Adjectives
 
-### Taste Adjectives&nbsp;
-
-&nbsp;
+### Taste Adjectives 
 
 | Arabic | Transliteration | English |
 | :---- | :---- | :---- |
@@ -423,11 +331,7 @@ Meat & Other Food Items
 | حلوة | 7ilua | sweet/nice (F) |
 | مش زاكي/زاكية | Mesh zaaki/zaakia | Not delicious |
 
-&nbsp;
-
 ### Shape/size Adjectives
-
-&nbsp;
 
 | Arabic | Transliteration | English |
 | ----- | :---- | :---- |
@@ -460,11 +364,7 @@ Meat & Other Food Items
 | قاسي/ة | Qaasi / 2aasi / 2aasya | Hard |
 | ناعم/ة | Naa3em / naa3ma | Soft |
 
-&nbsp;
-
 ## Feelings / Emotions
-
-&nbsp;
 
 | Transliteration | Arabic | English |
 | :---- | ----- | ----- |
@@ -486,7 +386,7 @@ Meat & Other Food Items
 | Maz3ooj / Maz3ooje | مزعوج/ة | Annoyed |
 | Zahqaan / Zah2aan/a/e | زهقان/ة | Bored |
 | Mirtaa7/a | مرتاح/ة | Comfortable / Relaxed |
-| Bardaan / Bardaane/a&nbsp; | بردان/ة | Cold (Person) |
+| Bardaan / Bardaane/a  | بردان/ة | Cold (Person) |
 | Sa23aan / Sa23aane/a | سقعان/ة | Cold (Person) |
 | Shawbaan / Shawbaane | شوبان/ة | Hot (Person) |
 | Mash8ool / Mash8oole | مشغول/ة | Busy |
@@ -499,14 +399,10 @@ Meat & Other Food Items
 | mit7ammes/e/a la | متحمس لَ | Excited |
 | Mawjoo3/a | موجوع | In pain / hurt (physical) |
 | Majroo7/a | مجروح/ة | Hurt |
-| mishtaaq/2/a la&nbsp; | مشتااق لَ | Missing / longing |
+| mishtaaq/2/a la  | مشتااق لَ | Missing / longing |
 | Ma7rooj/e/a | محروج/ة | Emberrassed |
 
-&nbsp;
-
-## People Adjectives / Traits&nbsp;
-
-&nbsp;
+## People Adjectives / Traits 
 
 | Transliteration | Arabic | English |
 | :---- | ----- | ----- |
@@ -536,11 +432,11 @@ Meat & Other Food Items
 | Beyda77ek | بيضحك | Funny |
 | beyzahheq/2 | بيزهق | Boring / causes boredom |
 | Mumell/e/a | ممل/ة | Boring |
-| beysalli&nbsp; | بيسلي | Entertaining / fun |
-| beyjannen&nbsp; | بيجنن | Amazing / insane / make someone crazy |
+| beysalli  | بيسلي | Entertaining / fun |
+| beyjannen  | بيجنن | Amazing / insane / make someone crazy |
 | 3aneed/e/a | عنيد/ة | Stubborn |
 | Majnoon/e/a fi | مجنون/ة | Crazy |
-| 8al6aan&nbsp; | غلطان | Wrong (person) |
+| 8al6aan  | غلطان | Wrong (person) |
 | Shaa6er/a | شاطر | Clever / good at something |
 | Muz3ej/e/a | مزعج/ة | Annoying |
 | Mista3jel/e/a | مستعجل/ة | In a hurry / rushed |
@@ -548,11 +444,7 @@ Meat & Other Food Items
 | kazzaab/e/a | كذاب/ة | Liar |
 | Ma7zooz/a | محظوظ/ة | Lucky |
 
-&nbsp;
-
 ## General Adjectives
-
-&nbsp;
 
 | Transliteration | Arabic | English |
 | ----- | ----- | :---- |
@@ -562,23 +454,23 @@ Meat & Other Food Items
 | 5afeef | خفيف | Light |
 | Malyaan / Malaane | مليان / ملانة | Full (General/Object) |
 | Faudi / Faudya | فاضي/ة | Empty (Object) |
-| Mrattab/e/a | مرتب/ة | Organized/put together/tidy&nbsp; |
-| sa7  Mazboo6 | صح مزبوط&nbsp; | true&nbsp; |
-| 8ala6/t | غلط | Wrong&nbsp; |
+| Mrattab/e/a | مرتب/ة | Organized/put together/tidy  |
+| sa7  Mazboo6 | صح مزبوط  | true  |
+| 8ala6/t | غلط | Wrong  |
 | 8ala6 | غلط | Mistake |
-| a7san&nbsp; | أحسن | Better |
+| a7san  | أحسن | Better |
 | Aswa2 | أسوأ | Worse |
 | mu5talef/e/a (3an) | مختلف/ة | Different (from) |
-| 8air&nbsp; | غير&nbsp; | other/different/else |
-| taani&nbsp; | تاني | Else/second/ |
+| 8air  | غير  | other/different/else |
+| taani  | تاني | Else/second/ |
 | Nafs | نفس | Same |
-| Soat 3aali&nbsp; | صوت عالي | Loud/high volume&nbsp; |
+| Soat 3aali  | صوت عالي | Loud/high volume  |
 | Soat wa6i | صوت واطي | Low volume |
 | Maksoor /a | مكسور/ة | Broken (physical) |
-| 5arbaan/e/a | خربان/ة | Not working properly&nbsp; |
+| 5arbaan/e/a | خربان/ة | Not working properly  |
 | Naashef/e/a | ناشف/ة | Dry |
 | Mablool/e/a | مبلول/ة | Wet |
-| Maftoo7/a | مفتوح/ة | Open&nbsp; |
+| Maftoo7/a | مفتوح/ة | Open  |
 | Msakkar/e | مسكر/ة | Closed |
 | kaamel/e/a | كامل/ة | Whole / Complete |
 | Muz3ej/e/a | مزعج/ة | Annoying |
@@ -587,16 +479,14 @@ Meat & Other Food Items
 | Madwi | مضوي | On |
 | Ma6fi | مطفي | Off |
 | Mut3eb | متعب | Tiring |
-| bey5awwef&nbsp; | بيخوف | Scary |
-| bey7ammes | بيحمس | Exciting&nbsp; |
-| beyza33el&nbsp; | بيزعل | Saddening&nbsp; |
-| beydaaye2&nbsp; | بيدايق | Upseting&nbsp; |
+| bey5awwef  | بيخوف | Scary |
+| bey7ammes | بيحمس | Exciting  |
+| beyza33el  | بيزعل | Saddening  |
+| beydaaye2  | بيدايق | Upseting  |
 | ma3roof | معروف | Well known |
 | Mashhoor | مشهور | Famous |
 
 ### Colors
-
-&nbsp;
 
 | Transliteration | Arabic | English |
 | ----: | ----: | ----: |
@@ -620,17 +510,11 @@ Meat & Other Food Items
 | Faate7 / Faat7a | فاتح / فاتحة | Light (Color) |
 | 8aameq / 8aam2a | غامق / غامقة | Dark (Color) |
 
-&nbsp;
-
-&nbsp;
-
 # Household Items
 
-### Household&nbsp;
+### Household 
 
-&nbsp;
-
-| Transliteration | Plural&nbsp; | Arabic (S / Pl) | English |
+| Transliteration | Plural  | Arabic (S / Pl) | English |
 | :---- | :---- | ----- | :---- |
 | Bait | Byoot | **بيت / بيوت** | House |
 | Shu8ul | Ash8aal | **شغل / أشغال** | Work |
@@ -669,7 +553,7 @@ Meat & Other Food Items
 | Kanabaayeh | Kanabaayaat | **كنباي / كنبايات** | Sofa |
 | Ma5adda | Ma5addaat | **مخدّة / مخدات** | Pillow |
 | Tilfizyon | Tilfizyonaat | **تلفزيون / تلفزيونات** | TV |
-| Sijjade/a | Sajjaad / sijjadaat&nbsp; | **سجادةة / سجاد** | Carpet |
+| Sijjade/a | Sajjaad / sijjadaat  | **سجادةة / سجاد** | Carpet |
 | 7ait | 7eetaan | **حيط / حيطان** | Wall |
 | Saala | Saalaat | **صالة / صالات** | Living room |
 | Salon | Salonaat | **صالون / صالونات** | Guest room |
@@ -694,24 +578,18 @@ Meat & Other Food Items
 | Sallet zbaale | Silaal zbaale | **سلة زبالة / سلال** | Trash can |
 | Zbaale | — | **زبالة** | Trash |
 
-&nbsp;
+# People, Family, and Professions 
 
-&nbsp;
+## People 
 
-# People, Family, and Professions
-
-## People&nbsp;
-
-&nbsp;
-
-| Transliteration | Plural&nbsp; | Arabic (S / Pl) | English |
+| Transliteration | Plural  | Arabic (S / Pl) | English |
 | :---- | :---- | ----- | :---- |
 | Sha5s | Ash5aas | **شخص / أشخاص** | Person |
 | 7ada | — | **حدا** | Someone |
 | Wa7deh | — | **وحدة** | Female someone |
 | Sadeeq | Asdiqaa2 | **صديق / أصدقاء** | Friend |
 | Sâa7eb | S7aab | **صاحب / صحاب** | Friend/boyfriend |
-| saa7be/a | saa7baat&nbsp; | **صاحبة / صاحبات** | Female friend |
+| saa7be/a | saa7baat  | **صاحبة / صاحبات** | Female friend |
 | Sadeeqa | Sadeeqaat | **صديقة / صديقات** | Female friend |
 | Jâar | Jeeraan | **جار / جيران** | Neighbour |
 | Jâara | Jâaraat | **جارة / جارات** | Female neighbour |
@@ -726,16 +604,12 @@ Meat & Other Food Items
 | Naas | — | **ناس** | People (Plural) |
 | Jamaa3a | Jamaa3aat | **جماعة / جماعات** | A group of people |
 
-&nbsp;
-
 ## Family
-
-&nbsp;
 
 | Transliteration | Plural | Arabic (S / Pl) | English |
 | :---- | :---- | :---- | :---- |
 | Qareeb / 2areeb | Qaraayeb / 2araayeb | **قريب / قرايب** | Relative |
-| 3aileh | 3iyal&nbsp; | **عيلة / عيل**&nbsp; | Family |
+| 3aileh | 3iyal  | **عيلة / عيل**  | Family |
 | Em | Emmayyaat | **أم / أميات** | Mother |
 | Ab / Abu | Abbayyaat | **أبو / أبيات** | Father |
 | A5 / A5u | E5we/a | **أخ / إخوة** | Brother |
@@ -758,11 +632,7 @@ Meat & Other Food Items
 | 7afeedeh | 7afeedaat | **حفيدة / حفيدات** | Granddaughter |
 | A7faad | — | **أحفاد** | Grandchildren (Plural) |
 
-&nbsp;
-
-## Professions&nbsp;
-
-&nbsp;
+## Professions 
 
 | Transliteration | Plural | Arabic (S / Pl) | English |
 | :---- | :---- | :---- | :---- |
@@ -785,13 +655,9 @@ Meat & Other Food Items
 | Mu8anni / ye | Mu8anneen | **مغني/ة / مغنين** | Singer |
 | 6aaleb / a | 6ullaab | **طالب/ة / طلاب** | Student |
 
-&nbsp;
-
 # Body Parts and Clothing
 
 ## Body Parts
-
-&nbsp;
 
 | Transliteration | Plural | Arabic (S / Pl) | English |
 | :---- | :---- | :---- | :---- |
@@ -821,8 +687,6 @@ Meat & Other Food Items
 | Rukbe | Rukab | **ركبة / ركب** | Knee |
 
 ## Clothing
-
-&nbsp;
 
 | Transliteration | Plural | Arabic (S / Pl) | English |
 | :---- | :---- | :---- | :---- |
@@ -854,13 +718,9 @@ Meat & Other Food Items
 | Ba8ayyer | — | **بغير** | I change |
 | Bashla7 | — | **بشلح** | I undress |
 
-&nbsp;
-
 # Nature and Places
 
-## Nature&nbsp;
-
-&nbsp;
+## Nature 
 
 | Transliteration | Plural | Arabic (S / Pl) | English |
 | :---- | :---- | :---- | :---- |
@@ -885,7 +745,7 @@ Meat & Other Food Items
 | Sha66 |  | **شط / شطوط** | Beach |
 | Bu7ayra | Bu7ayraat | **بحيرة / بحيرات** | Lake |
 | Naar |  | **نار / نيران** | Fire |
-| Manzar | Manaazer&nbsp; | **منظر / مناظر** | View / Scenery |
+| Manzar | Manaazer  | **منظر / مناظر** | View / Scenery |
 | Waraqa / 2a | Waraq / 2 | **ورقة / ورق** | Leaf |
 | 8aabe | 8aabaat | **غابة / غابات** | Forest |
 | Ramel | Rmaal | **رمل / رمال** | Sand |
@@ -893,13 +753,7 @@ Meat & Other Food Items
 | 7ajar | 7jaar | **حجر / حجار** | Stone |
 | Bustaan | Basateen | **بستان / بساتين** | Orchard / Garden |
 
-&nbsp;
-
-&nbsp;
-
 ## Places
-
-&nbsp;
 
 | Transliteration | Plural | Arabic (S / Pl) | English |
 | :---- | :---- | :---- | :---- |
@@ -909,7 +763,7 @@ Meat & Other Food Items
 | Ba6la3 | — | **بطلع** | I go out |
 | Dawle | Duwal | **دولة / دول** | Country |
 | Madeena | Mudun | **مدينة / مدن** | City |
-| Qarya | Qariaat / qura&nbsp; | **قرية / قرى** | Village |
+| Qarya | Qariaat / qura  | **قرية / قرى** | Village |
 | Madrasa | Madaares | **مدرسة / مدارس** | School |
 | Jaam3a | Jaam3aat | **جامعة / جامعات** | University |
 | Mustashfa | Mustashfayaat | **مستشفى / مستشفيات** | Hospital |
@@ -929,26 +783,20 @@ Meat & Other Food Items
 | Mall | Mallaat | **مول / مولات** | Mall |
 | Salon | Salonaat | **صالون / صالونات** | Hair Salon |
 | 7afle | 7aflaat | **حفلة / حفلات** | Party |
-| 3azoome | 3azaayem&nbsp; | **عزومة / عزومات** | House gathering / Invitation |
+| 3azoome | 3azaayem  | **عزومة / عزومات** | House gathering / Invitation |
 | Shaare3 | Shawaare3 | **شارع / شوارع** | Street |
 | 3emaara | 3emaaraat | **عمارة / عمارات** | Building |
 | Mabna | Mabaani | **مبنى / مباني** | Building |
 | Gym | Gymaat | **جم / جمات** | Gym |
 | Sa7et el-bait | Saa7aat el-bait | **ساحة البيت / ساحات البيت** | House yard |
 | Berke | Birak | **بركة / برك** | Pool |
-| Bank | Bnook&nbsp; | **بنك / بنوك** | Bank |
+| Bank | Bnook  | **بنك / بنوك** | Bank |
 | Balkoane | Balkoanaat | **بلكونة / بلكونات** | Balcony |
-| Manzar | Manaazer&nbsp; | **منظر / مناظر** | View |
-
-&nbsp;
-
-&nbsp;
+| Manzar | Manaazer  | **منظر / مناظر** | View |
 
 # Time and Calendar
 
 ## Adverbs of Time
-
-&nbsp;
 
 | Transliteration | Arabic | English |
 | :---- | :---- | :---- |
@@ -976,15 +824,7 @@ Meat & Other Food Items
 | Mbaare7 | مبارح | Yesterday |
 | Bukra | بكرا | Tomorrow |
 
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
 ## Times of Day
-
-&nbsp;
 
 | Transliteration | Arabic | English |
 | :---- | :---- | :---- |
@@ -998,9 +838,7 @@ Meat & Other Food Items
 | billail | بالليل | At night |
 | nus el-lail | نص الليل | Midnight |
 
-## Clock&nbsp;
-
-&nbsp;
+## Clock 
 
 | Transliteration | Arabic | English |
 | :---- | ----- | :---- |
@@ -1023,14 +861,10 @@ Meat & Other Food Items
 | Elsaa3a 5amse u noss | الساعة خمسة ونص | It's 5:30 (Half past five) |
 | Elsaa3a tes3a ella rube3 | الساعة تسعة إلا ربع | It's 8:45 (Quarter to nine) |
 | Tult | ثلث | Third |
-| Elsaa3a talaate u tult | الساعة 3لا3ة وثلث&nbsp; | It’s 3:20 |
+| Elsaa3a talaate u tult | الساعة 3لا3ة وثلث  | It’s 3:20 |
 | Illa tult | إلا ثلث | Third to |
 
-&nbsp;
-
 ## Units of Time
-
-&nbsp;
 
 | Transliteration (Singular / Dual / Plural) | Arabic | English |
 | :---- | :---- | :---- |
@@ -1050,11 +884,7 @@ Meat & Other Food Items
 | shahar / Sharain / Ashhur | شهر (شهرين/أشهر) | Month (2 months/Months) |
 | Sane / Santain / Sneen | سنة (سنتين/سنين) | Year (2 years/Years) |
 
-&nbsp;
-
-## Calendar&nbsp;
-
-&nbsp;
+## Calendar 
 
 | Transliteration | Arabic | English |
 | :---- | :---- | :---- |
@@ -1078,13 +908,9 @@ Meat & Other Food Items
 | Mumken / yemken | ممكن / يمكن | Maybe / Might / May |
 | 3aadatan / Bil3aade | عادةً / بالعادة | Usually |
 
-&nbsp;
-
 # Location and Directions
 
-## &nbsp;& Directions
-
-&nbsp;
+##  & Directions
 
 | Transliteration | Arabic | English |
 | :---- | ----- | :---- |
@@ -1125,15 +951,9 @@ Meat & Other Food Items
 | Hayy | هي | Here’s |
 | 7awalain | حوالين | Around / surrounding |
 
-&nbsp;
-
-&nbsp;
-
 # Quantity / Degree
 
 ## Quantity / Degree Words
-
-&nbsp;
 
 | Transliteration | Arabic | English |
 | :---- | ----- | :---- |
@@ -1156,20 +976,14 @@ Meat & Other Food Items
 | Nus | نص | Half |
 | Rube3 | ربع | Quarter |
 | Shwai shwai | شوي شوي | Bit by bit / Slowly |
-| a8lab | أغلب | Most&nbsp; |
+| a8lab | أغلب | Most  |
 | Noss | نص | half |
 | Tult | تلت | Third |
 | illa | إلا | Except |
 
-&nbsp;
-
-&nbsp;
-
 # Verbs List
 
 ## Verbs List
-
-&nbsp;
 
 | Arabic | Transliteration | English |
 | ----- | ----- | :---- |
@@ -1189,9 +1003,9 @@ Meat & Other Food Items
 | أنا بدي | Ana beddi | I want |
 | أنا بشتغل | Ana bashte8el | I work |
 | أنا بكتب | Ana baktub | I write |
-| أنا بجلي | Ana Bajli&nbsp; | I wash dishes&nbsp; |
-| أنا بقلي&nbsp; | Ana Ba2li | I fry |
-| أنا بحط&nbsp; | Ana ba7ut | I put |
+| أنا بجلي | Ana Bajli  | I wash dishes  |
+| أنا بقلي  | Ana Ba2li | I fry |
+| أنا بحط  | Ana ba7ut | I put |
 | أنا بعطي | Ana ba3ti | I give |
 | أنا بروح | Ana baru7 | I go |
 | أنا باخد | Ana ba5ud | I take |
@@ -1208,7 +1022,7 @@ Meat & Other Food Items
 | أنا بقدر | Ana baqdar / ba2dar | I can |
 | أنا بسخدم / بسعمل | Ana basta5dem / basta3mel | I use |
 | أنا بتعلم | Ana bat3allam | I learn |
-| أنا بحتاج&nbsp; | Ana ba7taaj | I need |
+| أنا بحتاج  | Ana ba7taaj | I need |
 | أنا بسوق | Ana bassoq / basoo2 | I drive |
 | أنا ببيع | Ana babee3 | I sell |
 | أنا بشتري | Ana bashteri | I buy |
@@ -1219,7 +1033,7 @@ Meat & Other Food Items
 | أنا بفهم | Ana bafham | I understand |
 | أنا بشم | Ana bashemm | I smell |
 | أنا بتذكر | Ana batzakkar | I remember |
-| أنا بجيب | Ana bajeeb&nbsp; | I bring&nbsp; |
+| أنا بجيب | Ana bajeeb  | I bring  |
 | أنا بساعد | Ana basaa3ed | I help |
 | أنا بلاقي | Ana balaaqi / balaa2i | I find |
 | أنا ببدا | Ana babda | I start |
@@ -1227,7 +1041,7 @@ Meat & Other Food Items
 | أنا بوقف | Ana bawaqqef / bawa22ef | I stop |
 | أنا بخلص | Ana ba5alles | I finish / I be done |
 | أنا بوجع | Ana bawajje3 | I hurt |
-| أنا بقص&nbsp; | Ana Baquss / ba2uss | I cut |
+| أنا بقص  | Ana Baquss / ba2uss | I cut |
 | أنا بفتح | Ana bafta7 | I open |
 | أنا بسكر | Ana basakker | I close |
 | أنا بضحك | Ana bad7ak | I smile / laugh |
@@ -1236,14 +1050,14 @@ Meat & Other Food Items
 | أنا بحمل | Ana ba7mel | I carry |
 | أنا بمسك | Ana bamsek | I hold |
 | أنا برتاح | Ana bartaa7 | I relax |
-| أنا بحضر&nbsp; | Ana ba7dar | I watch |
+| أنا بحضر  | Ana ba7dar | I watch |
 | أنا بنسى | Ana bansa | I forget |
 | أنا بتدرب | Ana batdarrab | I practice |
 | أنا بكون | Ana bakoon | I be |
 | أنا بصير | Ana ba9eer / baseer | I become |
 | أنا بلبس | Ana balbes | I wear / put on |
-| أنا بشلح | Ana bashla7 | I undress&nbsp; |
-| أنا بغير | Ana ba8ayyer | I change&nbsp; |
+| أنا بشلح | Ana bashla7 | I undress  |
+| أنا بغير | Ana ba8ayyer | I change  |
 | أنا بطلع | Ana ba6la3 | I go out / up |
 | أنا بضحِّك | Ana Bada77ek | I’m funny / make someone laugh |
 | أنا بزهق | Ana bazahheq/2 | I make someone bored / boring |
@@ -1253,8 +1067,8 @@ Meat & Other Food Items
 | أنا بطَّلَّع (على) | Ana bat6alla3 (3ala) | I look (at) |
 | أنا بشرح | Ana bashra7 (la) | I explain (to) |
 | أنا بعزم | Ana ba3zem (3ala) | I invite (to) |
-| أنا بظن | Ana bathonn / bazonn&nbsp; | I suppose/assume/believe |
-| أنا بطلب&nbsp; | Ana ba6lub (min) | I order/request/ask for |
+| أنا بظن | Ana bathonn / bazonn  | I suppose/assume/believe |
+| أنا بطلب  | Ana ba6lub (min) | I order/request/ask for |
 | أنا بنضف | Ana banaddef | I clean |
 | أنا برتب | Ana baratteb | I tidy/organize/arrange |
 | أنا بحك | Ana ba7ukk | I scratch |
@@ -1267,13 +1081,13 @@ Meat & Other Food Items
 | بيصير | Bey9eer | Acceptable/it’s ok//permission |
 | أنا بضل | Ana badall | I stay |
 | أنا بضل | Ana badal | I keep on |
-| بيضل | Beydall | Remains&nbsp; |
-| أنا بتمرن | Ana batmarran&nbsp; | I exercise&nbsp; |
-| أنا بستعجل | Ana basta3jel | I hurry&nbsp; |
-| أنا بتصل أنا برن&nbsp; | Ana barenn (3ala)/la- Ana battisel(3ala/la-) | I call |
-| أنا ببعت&nbsp; | Ana bab3at (la-) | I send |
+| بيضل | Beydall | Remains  |
+| أنا بتمرن | Ana batmarran  | I exercise  |
+| أنا بستعجل | Ana basta3jel | I hurry  |
+| أنا بتصل أنا برن  | Ana barenn (3ala)/la- Ana battisel(3ala/la-) | I call |
+| أنا ببعت  | Ana bab3at (la-) | I send |
 | أنا بقاتل | Ana baq/2aatel | I fight |
-| أنا بجهز | Ana bajahhez&nbsp; | I prepare&nbsp; |
+| أنا بجهز | Ana bajahhez  | I prepare  |
 | أنا بقضي وقت | Ana ba2addi wa2et | I spend time |
 | أنا بخطط | Ana ba5a66et | I plan |
 | أنا بلتقي | Ana balte2/qi | I meet |
@@ -1288,18 +1102,18 @@ Meat & Other Food Items
 | أنا بكزب | Ana bakazzeb | I lie |
 | أنا بضوي | Ana badwi | I turn on |
 | أنا بطفي | Ana ba6fi | I turn off |
-| أنا بسكت | Ana baskut | I be quiet&nbsp; |
+| أنا بسكت | Ana baskut | I be quiet  |
 | أنا بفضل | Ana bafaddel | I prefer |
-| بغش | Ba8osh | I cheat&nbsp; |
+| بغش | Ba8osh | I cheat  |
 | أنا بعلم | Ana ba3allem | I teach |
 | أنا بفرجي | Ana bafarji | I show |
 | أنا بنتبه | Ana bantebeh | I pay attention |
-| أنا بدير بالي | Ana badir baali | I take care of&nbsp; |
-| أنا بجهز حالي | Ana bajahhez 7aali | I get ready&nbsp; |
-| أنا بترجم | Ana batarjem | I translate&nbsp; |
+| أنا بدير بالي | Ana badir baali | I take care of  |
+| أنا بجهز حالي | Ana bajahhez 7aali | I get ready  |
+| أنا بترجم | Ana batarjem | I translate  |
 | Ana bat8ayyar | أنا بتغير | I get changed |
 | Ana basaafer | أنا بسافر | I travel |
-| Ana bawsal | أنا بوصل&nbsp; | I arrive |
+| Ana bawsal | أنا بوصل  | I arrive |
 | Ana ba7jez | أنا بحجز | I book |
 | Ana ba6eer | أنا بطير | I fly |
 | Ana bazoor | أنا بزور | I visit |
@@ -1308,46 +1122,41 @@ Meat & Other Food Items
 | Ana bashtaa2 | أنا بشتاق | I miss |
 | Ana basawwer | أنا بصور | I take a photo (photograph) |
 | Ana barawwe7 | أنا بروح | I go home |
-| Ana basba7&nbsp; | أنا بسبح | I swim&nbsp; |
-| Ana bazbut&nbsp; | أنا بزبط | I work out |
-| Byezbut&nbsp; | بيزبط | It works out / is permissible&nbsp; |
-| Ana bahemm | أنا بهم | I matter&nbsp; |
+| Ana basba7  | أنا بسبح | I swim  |
+| Ana bazbut  | أنا بزبط | I work out |
+| Byezbut  | بيزبط | It works out / is permissible  |
+| Ana bahemm | أنا بهم | I matter  |
 | Ana ba5aaf | أنا بخاف | I get scared |
 | Ana ba5awwef | أنا بخوف | I scare (someone) |
 | Ana bazakker | أنا بذكر | I remind |
-| Ana bajhaz | أنا بجهز | I get ready&nbsp; |
+| Ana bajhaz | أنا بجهز | I get ready  |
 | Ana batwajja3 | أنا بتوجع | I get hurt |
-| Ana bat7ammas&nbsp; | أنا بتحمس | I get excited |
+| Ana bat7ammas  | أنا بتحمس | I get excited |
 | Ana ba7ammes | أنا بحمس | I excite (someone) |
 | Ana bat3ab | أنا بتعب | I get tired |
 | Ana bata33eb | أنا بتعب | I cause tiredness / tire |
 | Ana baz3ej | أنا بزعج | I annoy |
-| Ana banze3ej | أنا بنزعج&nbsp; | I get annoyed |
-| Ana ba7rej | أنا بحرج | I embarrass |
-| Ana ban7erej | أنا بنحرج | I get embarrassed |
+| Ana banze3ej | أنا بنزعج  | I get annoyed |
 | Ana baz3al | أنا بزعل | I get sad/upset |
-| Ana baza33el | أنا بزعل | I upset someone&nbsp; |
-| Ana ba3asseb | أنا بعصب | I get angry / cause angriness&nbsp; |
+| Ana baza33el | أنا بزعل | I upset someone  |
+| Ana ba3asseb | أنا بعصب | I get angry / cause angriness  |
 | Ana bat7arrak | أنا بتحرك | I (get moved) move |
-| Ana bakser | أنا بكسر | I break |
 | Ana badaaye2 | أنا بدايق | I upset someone |
 | Ana batdaaya2 | أنا بتدايق | I get upset |
 | Ana bazeed | أنا بزيد | I add |
 | Ana ba2eem | أنا بقيم | I remove / take away |
-| Ana baraaje3 | أنا براجع&nbsp; | I review |
+| Ana baraaje3 | أنا براجع  | I review |
 | Ana ba7faz | أنا بحفظ | I memorize |
+| Ana ba5rab  | أنا بخرب | I get ruined / messed up |
+| Ana ba5arreb | أنا بخرِّب | I ruin / break / mess something up |
+| Ana bakser  | أنا بكسر | I break something(physically) |
+| Ana bankeser | أنا بنكسر | I get broken  |
 
-&nbsp;
+	
 
-&nbsp;
+# Random Nouns 
 
-&nbsp;
-
-# Random Nouns
-
-## Random Nouns&nbsp;
-
-&nbsp;
+## Random Nouns 
 
 | Transliteration | Plural | Arabic (S / Pl) | English |
 | :---- | ----- | ----- | :---- |
@@ -1370,8 +1179,8 @@ Meat & Other Food Items
 | Ijaaza | Ijaazaat | **إجازة / إجازات** | Vacation |
 | 3utle | 3u6laat | **عطلة / عطلات** | Holiday / day off |
 | Musaa3ada | Musaa3adaat | **مساعدة / مساعدات** | Help |
-| Risaale | Rasaayel&nbsp; | **رسالة / رسائل** | Message / Letter |
-| Mishwaar | MAshaweer&nbsp; | **مشوار / مشاوير** | Outing |
+| Risaale | Rasaayel  | **رسالة / رسائل** | Message / Letter |
+| Mishwaar | MAshaweer  | **مشوار / مشاوير** | Outing |
 | Ijtemaa3 | Ijtemaa3aat | **اجتماع / اجتماعات** | Meeting |
 | 5u66a | 5u6a6 | **خطة / خطط** | Plan |
 | Ma9aari | — | **مصاري** | Money (Plural) |
@@ -1390,17 +1199,13 @@ Meat & Other Food Items
 | Hadiyye | Hadaya | **هدية / هدايا** | Gift |
 | 5aime/a | 8eyam | **خيمة** | Tent |
 | ta5yeem |  | **تخييم** | Camping |
-| daafe3&nbsp; | Dawaafe3 | **دافع** | Motivation |
-| ser | asraar | **سر** | Secret&nbsp; |
+| daafe3  | Dawaafe3 | **دافع** | Motivation |
+| ser | asraar | **سر** | Secret  |
 | Sbaa7a |  | **سباحة** | Swimming (noun) |
-
-&nbsp;
 
 # Sentence Toolbox
 
-## Sentence Toolbox&nbsp;
-
-&nbsp;
+## Sentence Toolbox 
 
 | Transliteration | Arabic | English |
 | ----- | ----- | ----- |
@@ -1449,38 +1254,34 @@ Meat & Other Food Items
 | Shwai | شوي | A little / A bit |
 | Kteer | كتير | A lot / very |
 | 3aadatan / bil3aade | عادةً / بالعادة | Usually |
-| Sheklo | شكلو | Seems like / Looks like / Apparently&nbsp; |
+| Sheklo | شكلو | Seems like / Looks like / Apparently  |
 | Jaay 3ala bali | جاي على بالي | I feel like / in the mood for |
-| Jadd / 3anjad&nbsp; | جد / عن جد&nbsp; | Seriously / Really |
+| Jadd / 3anjad  | جد / عن جد  | Seriously / Really |
 | 3ashaan | عشان | Because / For the sake of |
 | Heik | هيك | Like this / this way |
 | 3ashaan heik | عشان هيك | That’s why / therefore / because of this |
-| bidoon&nbsp; | بدون | Without |
+| bidoon  | بدون | Without |
 | Shu fi? | شو في | What’s wrong? What’s there? |
-| taani&nbsp; | تاني | Other / else |
+| taani  | تاني | Other / else |
 | 8air | غير | Other / different / else |
 | Eshi taani/ 8air eshi | اشي تاني غير اشي | Something else |
-| nafs&nbsp; | نفس | Same |
+| nafs  | نفس | Same |
 | la7aal | لحال | a lone / on its own |
-| sa7&nbsp; | صح | True / correct / right |
+| sa7  | صح | True / correct / right |
 | 8ala6 | غلط | Wrong / incorrect |
 | Ba3ad | بعض | Each other |
 | Ma3 ba3ad | مع بعض | Together |
 | Ma ma3i/o… | ما معي/و… | There’s no … with me/him |
-| zayy | زي&nbsp; | Like |
-| a8lab&nbsp; | أغلب | Most |
+| zayy | زي  | Like |
+| a8lab  | أغلب | Most |
 | 7awaali | حوالي | Around / approximately |
-| 7awaalain | حوالين | Around / surrounding&nbsp; |
+| 7awaalain | حوالين | Around / surrounding  |
 | Aktar … | أكثر … | The most |
-| Haada hu | هذا هو | That’s it&nbsp; |
-
-&nbsp;
+| Haada hu | هذا هو | That’s it  |
 
 # Command Tense
 
-## Command Tense&nbsp;
-
-&nbsp;
+## Command Tense 
 
 | Transliteration (M / F / Plural) | Arabic | English |
 | :---- | ----- | :---- |
@@ -1592,15 +1393,11 @@ Meat & Other Food Items
 | farji / farju | فرجي/وا | Show |
 | Haat / haati / haatu | هات/ي/وا | Give me |
 | Shwai shwai | شوي شوي | Slowly |
-| Jahhez / jahhzi / jahhzu 7aalak/ek/kom | جهز حالك | Get ready&nbsp; |
+| Jahhez / jahhzi / jahhzu 7aalak/ek/kom | جهز حالك | Get ready  |
 
-&nbsp;
+#  Tense
 
-&nbsp;
-
-# Past Tense
-
-## Past Tense&nbsp; {#past-tense}
+# Past Tense  {#past-tense}
 
 [**Past   Tense 1**](#past-tense)
 
@@ -1634,8 +1431,6 @@ Meat & Other Food Items
 
 [Irregular End Vowel Verbs	47](#irregular-end-vowel-verbs)
 
-&nbsp;
-
 In spoken Arabic, when switching from present tense to the past, verbs are are divided into 3 categories:
 
 1. ## Normal verbs (3 consonants and more): {#normal-verbs-(3-consonants-and-more):}
@@ -1643,29 +1438,24 @@ In spoken Arabic, when switching from present tense to the past, verbs are are d
 Pronouns are also divided into 2 groups when switching to past:
 
 * Huwwe, heyye,  humme  
-* Ana, inta, inti, intu, i7na.&nbsp;
+* Ana, inta, inti, intu, i7na. 
 
-&nbsp;
+### How Do We Turn Normal Verbs to Past?  {#how-do-we-turn-normal-verbs-to-past?}
 
-### How Do We Turn Normal Verbs to Past?&nbsp; {#how-do-we-turn-normal-verbs-to-past?}
-
-1. Remove the “ba” present prefix.&nbsp;  
-2. You then have the he past form of that verb.&nbsp;  
-3. Heyye: you add “at” to the end of the verb.&nbsp;  
-4. humme : you add “u”&nbsp;  
+1. Remove the “ba” present prefix.   
+2. You then have the he past form of that verb.   
+3. Heyye: you add “at” to the end of the verb.   
+4. humme : you add “u”   
 5. Ana \+ inta: add “et” to the end.  
-6. Intu: add “tu”&nbsp;  
-7. i7na : add “na”&nbsp;
+6. Intu: add “tu”   
+7. i7na : add “na” 
 
-&nbsp;
-
-This category is divided into 2 groups:&nbsp;
+This category is divided into 2 groups: 
 
 #### “A” internal flip {#“a”-internal-flip}
 
-This group flips the short vowels within the verb into “a”&nbsp;
-
-The following verbs follow this group:&nbsp;
+This group flips the short vowels within the verb into “a”   
+The following verbs follow this group: 
 
 | Transliteration | Arabic | English |
 | :---- | :---- | :---- |
@@ -2044,27 +1834,17 @@ The following verbs follow this group:&nbsp;
 | Heyye t3allamat | هي تعلمت | She learned |
 | Humme t3allamu | هم تعلموا | They learned |
 
-&nbsp;
-
-&nbsp;
-
 #### “E” Internal Flip {#“e”-internal-flip}
 
-In this group, Short vowels in the verbs turn into “e”&nbsp;
-
-&nbsp;
+In this group, Short vowels in the verbs turn into “e” 
 
 Notes:
 
-* In the I, you, and we conjugation, you will notice that the “e” is only in the second part of the verb. E.g. 2deret and not 2ederet.&nbsp;  
+* In the I, you, and we conjugation, you will notice that the “e” is only in the second part of the verb. E.g. 2deret and not 2ederet.   
 * For the he conjugation, The “e” is present is both the first and second part of the verbs. E.g. 2eder.  
 * In the she and they conjugations however, the “e” is only in the second half of the verb. E.g. 2edrat and 2edru.
 
-&nbsp;
-
-Verbs that follow this group are below:&nbsp;
-
-&nbsp;
+Verbs that follow this group are below: 
 
 | Transliteration | Arabic | English |
 | ----- | ----- | ----- |
@@ -2177,35 +1957,27 @@ Verbs that follow this group are below:&nbsp;
 
 Verbs in this category have a long vowel in the middle. E.g. bashoof, ba9eer, banaam, basaa3ed, etc.
 
-&nbsp;
-
 ### How Do We Turn Middle Long Vowel Verbs into Past? {#how-do-we-turn-middle-long-vowel-verbs-into-past?}
 
-* Remove the “ba” present tense prefix. Bashoof \- ba \= shoof.&nbsp;  
-* Flip the “oo” long vowel to “aa” \= shaaf.&nbsp;  
+* Remove the “ba” present tense prefix. Bashoof \- ba \= shoof.   
+* Flip the “oo” long vowel to “aa” \= shaaf.   
 * Huwwe: the product of flipping the “oo” into “aa”  
 * Heyye: add “at” to the end. \= shaafat.  
-* Humme: add “u” \= shaafu.&nbsp;  
-* Ana \+ inta: go back to the base form (shoof) and shorten the “oo” long vowel to be only “u” then add the “et” to the end of the verb. \= shufet.&nbsp;  
+* Humme: add “u” \= shaafu.   
+* Ana \+ inta: go back to the base form (shoof) and shorten the “oo” long vowel to be only “u” then add the “et” to the end of the verb. \= shufet.   
 * inti : add “ti” \= shufti.  
 * Intu: add “tu” shuftu.  
 * I7na: add “na” \= shufna.
 
-&nbsp;
-
   ### Notes: {#notes:}
 
 * All middle long vowels flip to “aa” when switched to past.  
-* For longer verbs (3 consonants or more) that also have middle long vowel, these vowels don’t get shortened for I, you, and we, conjugations. E.g. saa3adet not sa3adet, and 2aatalti and not 2atalti.&nbsp;  
+* For longer verbs (3 consonants or more) that also have middle long vowel, these vowels don’t get shortened for I, you, and we, conjugations. E.g. saa3adet not sa3adet, and 2aatalti and not 2atalti.   
 * longer verbs that have “t” as the second consonant do get shorter though. E.g. 7tajet not 7taajaet, and rta7et and not rtaa7et.
 
-&nbsp;
-
-We can divide this category into 3 groups:&nbsp;
+We can divide this category into 3 groups: 
 
 #### “Oo” Middle Long Vowel Verbs {#“oo”-middle-long-vowel-verbs}
-
-&nbsp;
 
 | Transliteration | Arabic | English |
 | ----- | ----- | ----- |
@@ -2255,7 +2027,7 @@ We can divide this category into 3 groups:&nbsp;
 | huwwe saa2 | هو ساق | He drove |
 | heyye saa2at | هي ساقت | She drove |
 | humme saa2u | هم ساقوا | They drove |
-| Ana 2ulet | أنا قلت&nbsp; | I said |
+| Ana 2ulet | أنا قلت  | I said |
 | inta 2ulet | إنت قلت | You (m) said |
 | inti 2ulti | إنتي قلتي | You (f) said |
 | intu 2ultu | إنتو قلتو | You (pl) said |
@@ -2265,8 +2037,6 @@ We can divide this category into 3 groups:&nbsp;
 | humme 2aalu | هم قالوا | They said |
 
 #### "Ee” Middle Long Vowel {#"ee”-middle-long-vowel}
-
-&nbsp;
 
 | Ana seret | أنا صرت | I became |
 | :---- | ----- | :---- |
@@ -2296,9 +2066,7 @@ We can divide this category into 3 groups:&nbsp;
 
 #### “Aa” Middle Long Vowel Verbs {#“aa”-middle-long-vowel-verbs}
 
-&nbsp;
-
-| Ana nemet | أنا نمت&nbsp; | I slept |
+| Ana nemet | أنا نمت  | I slept |
 | :---- | ----- | :---- |
 | inta nemet | إنت نمت | You (m) slept |
 | inti nemti | إنتي نمتي | You (f) slept |
@@ -2332,34 +2100,26 @@ We can divide this category into 3 groups:&nbsp;
 | heyye 2aatalat | هي قاتلت | She fought |
 | humme 2aatalu | هم قاتلوا | They fought |
 
-&nbsp;
-
 ## 3\. End Vowel and Short Verbs {#3.-end-vowel-and-short-verbs}
 
-This category includes all verbs that end with a vowel (e.g. ba7ki, bamshi, etc.),and all short verbs (e.g. barudd, ba7ebb, etc.)&nbsp;
-
-&nbsp;
+This category includes all verbs that end with a vowel (e.g. ba7ki, bamshi, etc.),and all short verbs (e.g. barudd, ba7ebb, etc.) 
 
 ### How Do We Turn Short and End Vowel Verbs into Past ? {#how-do-we-turn-short-and-end-vowel-verbs-into-past-?}
 
-* Remove the “ba” present prefix. Ba7ki \- ba \= 7aki & ba7utt \- ba \= 7utt.&nbsp;  
-* For end vowels, flip the vowel to “a” and add another “a” to the middle for easier pronunciation. 7ki \= 7aka&nbsp;  
-* For short verbs, only flip the middle vowel to “a” (you do not add an extra “a” to the end. 7utt \= 7att.&nbsp;  
-* Huwwe: 7aka & 7abb.&nbsp;  
-* Heyye: add “t” for end vowel verbs and “at” for short verbs. \= 7akat & 7attat.&nbsp;  
+* Remove the “ba” present prefix. Ba7ki \- ba \= 7aki & ba7utt \- ba \= 7utt.   
+* For end vowels, flip the vowel to “a” and add another “a” to the middle for easier pronunciation. 7ki \= 7aka   
+* For short verbs, only flip the middle vowel to “a” (you do not add an extra “a” to the end. 7utt \= 7att.   
+* Huwwe: 7aka & 7abb.   
+* Heyye: add “t” for end vowel verbs and “at” for short verbs. \= 7akat & 7attat.   
 * Humme” turn the “a” into “u” \= 7aku, and add a “u” for short verbs. \= 7attu.  
 * Ana \+ inta: add “ait” suffix to \= 7akait & 7attait.  
 * Inti: add “aiti” suffix to the base verb. \= 7akaiti & 7attaiti.  
-* Intu: add “aitu” suffix. \= 7akaitu & 7attaitu.&nbsp;  
-* i7na : add “aina” suffix. \= 7akaina \+ 7attaina.&nbsp;
-
-&nbsp;
+* Intu: add “aitu” suffix. \= 7akaitu & 7attaitu.   
+* i7na : add “aina” suffix. \= 7akaina \+ 7attaina. 
 
 This category can be divided into 3 groups:
 
 #### End Vowel Verbs {#end-vowel-verbs}
-
-&nbsp;
 
 | Transliteration | Arabic | English |
 | ----- | ----- | ----- |
@@ -2502,8 +2262,6 @@ This category can be divided into 3 groups:
 
 #### Short Verbs {#short-verbs}
 
-&nbsp;
-
 | Transliteration | Arabic | English |
 | ----- | ----- | ----- |
 | Ana 7abbait | أنا حبيت | I liked |
@@ -2601,8 +2359,6 @@ This category can be divided into 3 groups:
 
 This small group has a unique conjugation style:
 
-&nbsp;
-
 | Transliteration | Arabic | English |
 | ----- | ----- | ----- |
 | Ana nseet | أنا نسيت | I forgot |
@@ -2630,17 +2386,11 @@ This small group has a unique conjugation style:
 | heyye ajat | هي إجت | She came |
 | humme aju | هم إجوا | They came |
 
-&nbsp;
-
-&nbsp;
-
 # Travel and Weather
 
-## Travel and Weather&nbsp;
+# Travel and Weather 
 
-## Travel&nbsp;
-
-&nbsp;
+## Travel 
 
 | Transliteration | Plural / Forms | Arabic | English |
 | :---- | :---- | :---- | :---- |
@@ -2687,8 +2437,6 @@ This small group has a unique conjugation style:
 | **Ajnabi** | **Aajaaneb** | أجنبي | Foreigner – foreigners |
 
 ## Weather
-
-&nbsp;
 
 | Transliteration | Plural | Arabic | English |
 | ----- | ----- | ----- | ----- |
@@ -2746,15 +2494,9 @@ This small group has a unique conjugation style:
 | **Re6eb** | — | رطب | Humid / moist |
 | **Daafi** | — | دافي | Warm |
 
-&nbsp;
-
-&nbsp;
-
 # Everyday Expressions
 
-## Everyday Expressions&nbsp;
-
-&nbsp;
+## Everyday Expressions 
 
 | Transliteration | Arabic | English |
 | ----- | ----- | ----- |
@@ -2791,25 +2533,19 @@ This small group has a unique conjugation style:
 | **Bel2asd** | بالقصد | Intentionally / On purpose |
 | **Mish bel2asd** | مش بالقصد | Unintentionally / By accident |
 | **Mish azdi** | مش قصدي | I didn’t mean it / It wasn’t my intention |
-| **Wejhi 7ilu 3alaik/i** | وجهي حلو عليك | I bring good luck to you&nbsp; |
-| **Akeed**&nbsp; | أكيد | Deffinitely / surely |
+| **Wejhi 7ilu 3alaik/i** | وجهي حلو عليك | I bring good luck to you  |
+| **Akeed**  | أكيد | Deffinitely / surely |
 | **Mit2akked/e/a** | متأكد | Sure / certain |
-| **Shwai shwai** | شوي شوي | Slowly&nbsp; |
+| **Shwai shwai** | شوي شوي | Slowly  |
 | **7asab** | حسب | It depends |
 | **Haiku ishi** | هيك اشي | Something like this / such a thing |
 | **Hada hu** | هاد هو | That’s it / that’s the one |
-| **6a3em** | طعم | لTaist / flavore&nbsp; |
-| **ree7a**&nbsp; | ريحة | Smell&nbsp; |
-
-&nbsp;
+| **6a3em** | طعم | لTaist / flavore  |
+| **ree7a**  | ريحة | Smell  |
 
 # Animals
 
 ## Animals
-
-&nbsp;
-
-&nbsp;
 
 | Transliteration | Plural | Arabic | English |
 | ----- | ----- | ----- | ----- |
@@ -2829,7 +2565,7 @@ This small group has a unique conjugation style:
 | **Dubaane/a** | dubaanaat | دبانة | Fly |
 | **Namel** | — | نمل | Ants (general) |
 | **Namle/a** | namlaat | نملة | Ant |
-| **His-his** | his-his | بعوضة&nbsp; | Mosquito (general) |
+| **His-his** | his-his | بعوضة  | Mosquito (general) |
 | **His-hise/a** | his-hisaat | هسهسة | Mosquito |
 | **Sarsoor** | saraseer | صرصور | Cockroach |
 | **3ankaboot** | 3anaakeb | عنكبوت | Spider |
@@ -2841,6 +2577,112 @@ This small group has a unique conjugation style:
 | **Sinjaab** | sanaajeb | سنجاب | Squirrel |
 | **Na7el** | — | نحل | Bees (general) |
 | **Na7le/a** | na7laat | نحلة | Bee |
-| **7adee2et el-7aywaanaat** | 7adaaye2 el-7aywaanaat&nbsp; | حديقة الحيوانات | The zoo |
+| **7adee2et el-7aywaanaat** | 7adaaye2 el-7aywaanaat  | حديقة الحيوانات | The zoo |
 | **8azaal** | 8uzlaan | غزال | Deer |
 | **Albaan** |  | ألبان | Dairy |
+
+# Tab 21
+
+## Grammar Terminology 
+
+## Grammar Termonology 
+
+| Transliteration | Plural | Arabic | English |
+| ----- | ----- | ----- | ----- |
+| Ma3na | ma3aani | معنى | Meaning – meanings |
+| Raqam | arqaam | رقم | Number – numbers |
+| 7arf | 7roof | حرف | Letter – letters / preposition |
+| Kelme | kelmaat | كلمة | Word – words |
+| Jumle | jumal | جملة | Sentence – sentences |
+| Esem | asmaa2 | اسم | Noun – nouns |
+| Sifa | sifaat | صفة | Adjective – adjectives / trait – traits |
+| Jame3 | — | جمع | Plural |
+| Zarf | zroof | ظرف | Adverb – adverbs / circumstance – circumstances |
+| Fe3el | af3aal | فعل | Verb – verbs |
+| Maadi | — | ماضي | Past |
+| Mudaare3 | — | مضارع | Present tense |
+| Amer | awaamer | أمر | Command – commands |
+| Musta2bal | — | مستقبل | Future |
+| Sabab | asbaab | سبب | Reason – reasons |
+| 5ayaar | 5ayaaraat | خيار | Option – options |
+| 7atta | — | حتى | Even |
+| 7atta law | — | حتى لو | Even if |
+| 7aades | 7awaades | حادث | Accident – accidents |
+| Bil8ala6 | — | بالغلط | Accidentally |
+| Bazeed | — | بزيد | I add |
+| Ziaadeh | ziaadaat | زيادة | Extra / increase |
+| Ba2eem | — | بقيم | I remove / take away |
+| Muraaja3a | muraaja3aat | مراجعة | Review |
+| Ana baraaje3 | — | أنا براجع | I review |
+| Ana 7aafez | — | أنا حافظ | I have something memorized / know it by heart |
+| Daafe3 | dawaafe3 | دافع | Motivation |
+| Mu7aadase/a | mu7aadasaat | محادثة | Conversation practice  |
+
+# Tab 22
+
+## Causative Verbs
+
+### Doubled Middle 
+
+| Transliteration | Arabic | English |
+| ----- | ----- | ----- |
+| Ana bad7ak | بضحك | I laugh |
+| Ana bada77ek | بضحِّك | I make people laugh |
+| Ana bazha2 | بزهق | I get bored |
+| Ana bazahhe2 | بزهِّق | I bore / make people bored |
+| Ana baz3al | بزعَل | I get sad / upset |
+| Ana baza33el | بزعِّل | I make someone sad / upset |
+| Ana bat3ab | بتعب | I get tired |
+| Ana bata33eb | بتعِّب | I tire / make people tired |
+| Ana ba5aaf | بخاف | I get scared / I am afraid |
+| Ana ba5awwef | بخوِّف | I scare / make people scared |
+| Ana bajhaz | بجهز | I get ready |
+| Ana bajahhez | بجهِّز | I prepare / make something or someone ready |
+| Ana ba3asseb | بعصِّب | I get angry / make someone angry |
+| Ana ba5rab | أنا بخرب | I get ruined/messed up |
+| Ana ba5arreb | أنا بخرِّب | I ruin/break/mess something up  |
+
+### T Causative Verbs 
+
+| Transliteration | Arabic | English |
+| ----- | ----- | ----- |
+| Bazakker | بذكر | I remind |
+| Batzakkar | بتذكر | I remember |
+| Ba7arrek | بحرك | I move (something) |
+| Bat7arrak | بتحرك | I get moved |
+| Ba8ayyer | بغير | I change (something) |
+| Bat8ayyar | بتغير | I get changed |
+| Ba8ayyer ra2yi | بغير رأيي | I change my mind |
+| Ba7ammes | بحمس | I excite (someone) |
+| Bat7ammas | بتحمس | I get excited |
+| Bawajje3 | بوجع | I hurt (something/someone) |
+| Batwajja3 | بتوجع | I get hurt |
+| Basawwer | بصور | I take a picture (of something) |
+| Batsawwar | بتصور | I get photographed |
+| Badaaye2 | بدايق | I upset (someone) |
+| Batdaaya2 | بتدايق | I get upset |
+| Bat2assaf | بتأسف | I apologize |
+
+### N Causative Verbs
+
+| Transliteration | Arabic | English |
+| ----- | ----- | ----- |
+| Baz3ej | بزعج | I annoy |
+| Banz3ej | بنزعج | I get annoyed |
+| Maz3ooj/e | مزعوج | Annoyed |
+| Muz3ej/e | مزعج | Annoying |
+| Laish maz3ooj | ليش مزعوج | Why are you annoyed? |
+| Bakoon maz3ooj lamma at3ab | بكون مزعوج لما اتعب | I'm annoyed when I get tired |
+| Banz3ej izza ma akalet | بنزعج اذا ما اكلت | I get annoyed if I haven't eaten |
+| Babse6 | ببسط | I make someone happy |
+| Banbese6 | بنبسط | I get happy |
+| Enbese6 (fi/bi) | انبسط | Have fun / enjoy |
+| Mabsoo6/a | مبسوط | Happy |
+| Meen mish mabsoo6 | مين مش مبسوط | Who isn't happy? |
+| Bakoon mabsoo6 iza bashufek | بكون مبسوط اذا بشوفك | I'm / I'd be happy if I see you |
+| Btenbese6 fi el-saif | بتنبسط في الصيف؟ | Do you have fun in / enjoy summer? |
+| Bakser | بكسر | I break |
+| Bankeser | بنكسر | I get broken |
+| Ma tekser | ما تكسر | Don't break (command) |
+| El-s7oon enkasaru bil8ala6 | الصحون انكسروا بالغلط | The plates broke by accident |
+
