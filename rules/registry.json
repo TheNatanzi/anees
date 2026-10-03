@@ -931,6 +931,38 @@
    ]
   },
   {
+   "id": "TR-22",
+   "kind": "process",
+   "scope": "transcription",
+   "status": "written",
+   "change": "new",
+   "statement": "Context listening: each of Medi's lines is re-heard by an audio model from his own microphone for that line, with the engine text of the 40 s around it (both speakers) and Amal's chat as context, keeping his mistakes (scripts/context_transcribe.py). A word it changes must also be heard by a second, context-free listen of the same audio, or the change is rejected (stops it pulling his slip toward Amal's fix). Benchmark on Medi's own 10-02 corrections: Gemini 3.8 Flash 11 of 11 (40 s mixed clip, blind prompt), engine alone 1 of 11; false changes on his unflagged lines 07:00-11:40: 2 of 44 after the bare-audio check (both look right); OpenAI gpt-audio-1.5: 3 of 13, no better than the engine. Not yet run on the lessons: Gemini prepaid credit ran out 2026-10-03.",
+   "plain": "Each of your lines can be re-heard by an AI that listens to your microphone with the lesson around it. It may only change a word it also hears without the context, so your real mistakes stay.",
+   "plain_for": "1936572f",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "Maybe you can figure out a process to go through the transcript and try and actualyl figure out what I am saying using judgement and context.  this is awful as is."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/context_transcribe.py",
+     "contains": "def ask(date, turns, i, model=MODEL, ctx_s=40.0, confirm=True):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_transcript_fixes.py",
+     "contains": "def test_tr_22_a_change_the_bare_audio_does_not_support_is_rejected"
+    }
+   ],
+   "next": "top up Gemini credit (AI Studio), re-run bench with the gate, then run every lesson and feed accepted lines into data/lesson-work/transcript-fixes.json (rule TR-22); score only listened lines (Codex audit 2026-10-03)"
+  },
+  {
    "id": "AZ-01",
    "kind": "display",
    "scope": "arabizi",
@@ -6700,6 +6732,42 @@
     "date": "2026-10-02",
     "t": "09:53",
     "note": "her 'Aw I should travel. Aw.' had no mark; the ✗ showed asaafer"
+   }
+  },
+  {
+   "id": "PG-23",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The engine starts a new line at every pause Medi takes while building a sentence: on the Lessons page his lines with nobody else speaking between and a gap of 6 s or less show as ONE sentence, each piece keeping its chips and underlines (docs/js/lessons-page.js sentences()).",
+   "plain": "When you pause while building a sentence, the pieces show as one sentence on the transcript.",
+   "plain_for": "2289ee34",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "why are we breaking all of these up instead of putting them in a sentece."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "function sentences(turns, tm) {"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_transcript_marks.cjs",
+     "contains": "test('PG-23 his lines split at pauses show as one sentence"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "11:16",
+    "note": "Bass ana raa7 / aaa 'ala / aaa / 3ammwi / umm / lishu8ul were six lines"
    }
   }
  ]

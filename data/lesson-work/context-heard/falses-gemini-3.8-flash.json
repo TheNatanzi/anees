@@ -1,0 +1,797 @@
+{
+ "model": "gemini-3.8-flash",
+ "changed": [
+  2,
+  44
+ ],
+ "rows": [
+  {
+   "arabic": "متأخر اليوم. صحيت. That's right.",
+   "arabizi": "mit'akhkher elyom. s7eet. That's right.",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "The engine transcription accurately captured Medi's speech and code-switching into English.",
+   "t": 423.8,
+   "engine": "متأخر اليوم. صحيت. That's right.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "متأخر اليوم صحيت That's right",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "أأأ أنا صحيت تأخير",
+   "arabizi": "aaa ana s7eet ta2kheer",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "تأخر",
+     "said": "تأخير"
+    }
+   ],
+   "confidence": "high",
+   "why": "Medi uses the noun 'تأخير' (delay/being late) instead of the adverb/adjective 'متأخر'.",
+   "t": 433.84,
+   "engine": "أأأ أنا صحيت تأخر.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "Uh I have to say it's تأثيره",
+   "changed": [
+    "تاخير"
+   ],
+   "unsupported": [
+    "تاخير"
+   ],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "أأأ",
+   "arabizi": "aaa",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "Medi makes a brief hesitation sound 'uh / aaa' after being asked a question.",
+   "t": 438.92,
+   "engine": "أأأ.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "بتعرف شو صار اليوم؟",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "على",
+   "arabizi": "3ala",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "Medi simply begins his answer with 'على' (at...), hesitating.",
+   "t": 451.44,
+   "engine": "على،",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "على the",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "اممم",
+   "arabizi": "ummm",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "Medi is just making a thinking/hesitation sound ('Ummm').",
+   "t": 461.92,
+   "engine": "اممم.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "Um",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "Okay أنا شوي، أنا كان كنت شوي",
+   "arabizi": "Okay ana shway, ana kan kunit shway",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "قنيش",
+     "said": "كنت"
+    }
+   ],
+   "confidence": "high",
+   "why": "Medi says 'Okay ana shway, ana kan... kunit shway', correcting himself from 'kan' to 'kunit'.",
+   "t": 474.4,
+   "engine": "Okay أنا شوي-- أنا كان قنيش شوي--",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "أنا شوي، أنا كان، كنت شوي",
+   "changed": [
+    "كنت"
+   ],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": true
+  },
+  {
+   "arabic": "امم",
+   "arabizi": "mmm",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "Medi is just making a thinking/hesitation sound ('umm').",
+   "t": 483.64,
+   "engine": "امم",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "Um",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "كسول",
+   "arabizi": "kasool",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "Medi clearly pronounces 'كسول' (kasool) continuing his sentence 'أنا كنت شوي كسول'.",
+   "t": 486.74,
+   "engine": "كسول",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "كسول",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "الصبح",
+   "arabizi": "el-subu7",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "آآآ",
+     "said": "الصبح"
+    }
+   ],
+   "confidence": "high",
+   "why": "Medi says 'الصبح' (as reflected in Amal's typed chat notes: 'ana kunet shwai kasool el-subu7'), which the engine completely misheard as 'آآآ'.",
+   "t": 490.0,
+   "engine": "آآآ",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "uh يمكن",
+   "changed": [
+    "الصبح"
+   ],
+   "unsupported": [
+    "الصبح"
+   ],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "الصباح. Wait.",
+   "arabizi": "el-saba7. Wait.",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "في الصباح.",
+     "said": "الصباح. Wait."
+    }
+   ],
+   "confidence": "high",
+   "why": "Medi says 'الصباح' followed by the English word 'Wait', which confirms his later statement 'I just said الصباح'.",
+   "t": 491.68,
+   "engine": "في الصباح.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "السباحة wait",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "في الصباح.",
+   "arabizi": "fee el-saba7.",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "Medi says 'في الصباح' with his American accent, which matches the engine transcript.",
+   "t": 496.92,
+   "engine": "في الصباح.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "Wait. إيه، في الصباح",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "I just said الصباح.",
+   "arabizi": "I just said el-saba7.",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "The engine correctly transcribed his mixed English and Arabic utterance 'I just said الصباح.'",
+   "t": 500.22,
+   "engine": "I just said الصباح.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "هذا سابع السباح",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "امم",
+   "arabizi": "umm",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "Medi is just making a thinking sound ('umm').",
+   "t": 512.24,
+   "engine": "امم",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "Um",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "تمام.",
+   "arabizi": "tamam.",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "Medi clearly says 'تمام'.",
+   "t": 514.4,
+   "engine": "تمام.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "تمام؟",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "'Cause you guys don't say I have been, so I just say I am, right? And uh, أنا كنت I was. Yeah أنا كنت شوي كسول",
+   "arabizi": "'Cause you guys don't say I have been, so I just say I am, right? And uh, ana kunit I was. Yeah ana kunit shway kasool",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "امم",
+     "said": "'Cause"
+    },
+    {
+     "engine": "أنا،",
+     "said": "And uh,"
+    }
+   ],
+   "confidence": "high",
+   "why": "Medi says ''Cause you guys don't say I have been...' and transitions with 'And uh...' before 'ana kunit'.",
+   "t": 522.54,
+   "engine": "امم you guys don't say I have been, so I just say I am, right? أنا، أنا كنت I was. Yeah أنا كنت شوي كسول",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "Um you guys don't say I have been so I just say I am right? أنا Yeah أنا كنت شوي كسول",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "آه، شو الصباح؟",
+   "arabizi": "aah, shu el-saba7?",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "امم",
+     "said": "آه"
+    },
+    {
+     "engine": "شوي",
+     "said": "شو"
+    }
+   ],
+   "confidence": "high",
+   "why": "Amal just corrected him on how to say 'this morning' (saying 'الصبح or بالصباح'), to which Medi responds 'آه، شو الصباح؟' ('Ah, what is el-sabah?'). The engine misheard 'شو الـ' as 'شوي'.",
+   "t": 543.38,
+   "engine": "امم. شوي الصباح.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "uh في الصباح",
+   "changed": [
+    "شو"
+   ],
+   "unsupported": [
+    "شو"
+   ],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "Uh, um",
+   "arabizi": "Uh, um",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "آآآ أنا",
+     "said": "Uh, um"
+    }
+   ],
+   "confidence": "high",
+   "why": "Medi hesitates with the English filler sounds 'uh, um', which the engine misheard as 'آآآ أنا'.",
+   "t": 553.48,
+   "engine": "آآآ أنا،",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "Uh, I'm",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "أنا لا، مش",
+   "arabizi": "ana la, mish",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "The engine transcription is accurate; Medi clearly says 'أنا لا، مش'.",
+   "t": 559.14,
+   "engine": "أنا لا مش",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "أنا لا، مش",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "أنا لازم،",
+   "arabizi": "ana laazem,",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "Medi clearly says 'أنا لازم' before pausing and hesitating.",
+   "t": 573.22,
+   "engine": "أنا لازم،",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "أنا لازم",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "أنا لازم",
+   "arabizi": "ana laazem",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "The audio clearly matches the transcript 'أنا لازم'.",
+   "t": 575.8,
+   "engine": "أنا لازم",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "أنا لازم",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "مش",
+   "arabizi": "mish",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "The audio clearly says 'مش'.",
+   "t": 581.66,
+   "engine": "مش...",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "مش",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "ولازم أسافر.",
+   "arabizi": "w lazem asafer.",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "The engine transcription correctly matches Medi's spoken Arabic.",
+   "t": 597.34,
+   "engine": "ولازم أسافر.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "ولازم أسافر",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "فقط",
+   "arabizi": "faqa6",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "low",
+   "why": "Audio is extremely brief and faint/unclear, but matches the engine's transcription.",
+   "t": 613.84,
+   "engine": "فقط.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "Wait, do you speak",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "part. You said كنت؟",
+   "arabizi": "part. You said kunt?",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "\"قنت\"",
+     "said": "كنت"
+    }
+   ],
+   "confidence": "high",
+   "why": "Medi is completing his thought 'the first part' and asking if Amal said 'كنت'.",
+   "t": 621.82,
+   "engine": "part. You said \"قنت\"؟",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "part you said pont?",
+   "changed": [
+    "كنت"
+   ],
+   "unsupported": [
+    "كنت"
+   ],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "So كنت",
+   "arabizi": "So kint",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "Medi confirms Amal's explanation by repeating 'So كنت'.",
+   "t": 628.26,
+   "engine": "So كنت.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "So كنت",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "آه [ضحك] yeah, and uh",
+   "arabizi": "aah [laughter] yeah, and uh",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "آآآ",
+     "said": "آه"
+    },
+    {
+     "engine": "And أأ",
+     "said": "and uh"
+    }
+   ],
+   "confidence": "high",
+   "why": "Medi laughs and says in English 'yeah, and uh'.",
+   "t": 632.76,
+   "engine": "آآآ [ضحك] yeah. And أأ",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "Yeah and uh",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "error": "no answer (402)",
+   "t": 636.96,
+   "engine": "um أنا",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": null,
+   "changed": [],
+   "unsupported": [],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "error": "no answer (402)",
+   "t": 639.82,
+   "engine": "آآآ بخطط.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": null,
+   "changed": [],
+   "unsupported": [],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "error": "no answer (402)",
+   "t": 649.92,
+   "engine": "أنا خططت",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "أنا خطَّطِت",
+   "changed": [],
+   "unsupported": [],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "Um",
+   "arabizi": "Um",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "امم",
+     "said": "Um"
+    }
+   ],
+   "confidence": "high",
+   "why": "Medi is hesitating with the English filler 'Um'.",
+   "t": 652.48,
+   "engine": "امم",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "Um",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "سفر",
+   "arabizi": "safar",
+   "engine_was_wrong": false,
+   "changes": [],
+   "confidence": "high",
+   "why": "Medi clearly pronounces 'سفر'.",
+   "t": 655.54,
+   "engine": "سفر،",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "صفّر",
+   "changed": [],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "سفرة",
+   "arabizi": "safra",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "سفر",
+     "said": "سفرة"
+    }
+   ],
+   "confidence": "high",
+   "why": "Medi clearly pronounces the taa marbuta at the end, saying 'safra' (a trip).",
+   "t": 657.54,
+   "engine": "سفر",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "سفرة",
+   "changed": [
+    "سفره"
+   ],
+   "unsupported": [],
+   "accepted": true,
+   "changed_accepted": true
+  },
+  {
+   "arabic": "بسفر",
+   "arabizi": "bsafar",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "بسف...",
+     "said": "بسفر"
+    }
+   ],
+   "confidence": "high",
+   "why": "Amal prompts him with 'You plan for', and Medi tries using the preposition bi- before 'safar', saying 'بسفر'.",
+   "t": 659.9,
+   "engine": "بسف...",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": "بس هيك",
+   "changed": [
+    "بسفر"
+   ],
+   "unsupported": [
+    "بسفر"
+   ],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "arabic": "So لـ...",
+   "arabizi": "So la...",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "لا",
+     "said": "لـ..."
+    }
+   ],
+   "confidence": "high",
+   "why": "Medi is repeating Amal's hint ('You plan for') by saying 'So' followed by the preposition 'لـ' (pronounced 'la'), not the negation 'لا'.",
+   "t": 662.76,
+   "engine": "So لا،",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": null,
+   "changed": [
+    "لـ"
+   ],
+   "unsupported": [
+    "لـ"
+   ],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "error": "no answer (402)",
+   "t": 666.92,
+   "engine": "لا سفر",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": null,
+   "changed": [],
+   "unsupported": [],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "error": "no answer (402)",
+   "t": 669.6,
+   "engine": "آآآ",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": null,
+   "changed": [],
+   "unsupported": [],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "error": "no answer (402)",
+   "t": 672.1,
+   "engine": "جاي-- الأسبوع الجاي.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": null,
+   "changed": [],
+   "unsupported": [],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "error": "no answer (402)",
+   "t": 675.78,
+   "engine": "بس أنا راح",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": null,
+   "changed": [],
+   "unsupported": [],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "error": "no answer (402)",
+   "t": 678.64,
+   "engine": "آآآ على",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": null,
+   "changed": [],
+   "unsupported": [],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "error": "no answer (402)",
+   "t": 682.16,
+   "engine": "آآآ",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": null,
+   "changed": [],
+   "unsupported": [],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "error": "no answer (402)",
+   "t": 687.66,
+   "engine": "امم",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": null,
+   "changed": [],
+   "unsupported": [],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "error": "no answer (402)",
+   "t": 689.4,
+   "engine": "لشغل.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": null,
+   "changed": [],
+   "unsupported": [],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "error": "no answer (402)",
+   "t": 691.54,
+   "engine": "بس.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": null,
+   "changed": [],
+   "unsupported": [],
+   "accepted": false,
+   "changed_accepted": false
+  },
+  {
+   "error": "no answer (402)",
+   "t": 696.94,
+   "engine": "I'm going to my uncle's and, and عموي.",
+   "model": "gemini-3.8-flash",
+   "audio": "own track",
+   "confirm": null,
+   "changed": [],
+   "unsupported": [],
+   "accepted": false,
+   "changed_accepted": false
+  }
+ ]
+}

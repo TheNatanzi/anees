@@ -73,3 +73,18 @@ def test_gr_11_kam_marra_alone_then_she_repeats_herself_reads_kaman_marra():
     out = TFX.kaman_marra(T)
     assert out[1]["text"] == "آآآ، كمان مرة؟" and out[1]["engine"] == "آآآ، كم مرة؟"
     assert out[4]["text"] == "كم مرة؟"          # she did not repeat herself: a real 'how many times?'
+
+
+def test_tr_22_a_change_the_bare_audio_does_not_support_is_rejected(monkeypatch):
+    """TR-22: listen 1 (with context) may only change a word the bare listen 2 also hears; 3ammwi -> 3ammi is refused."""
+    import context_transcribe as CT
+    monkeypatch.setattr(CT, "track_clip", lambda *a, **k: (b"x", "own track"))
+    answers = iter([{"arabic": "عمي.", "arabizi": "3ammi"}, {"arabic": "عموي", "arabizi": "3ammwi"}])
+    monkeypatch.setattr(CT, "_call", lambda *a, **k: next(answers))
+    T = [{"t": 683.96, "end": 684.72, "who": "Medi", "text": "عموي."}]
+    r = CT.ask("2026-10-02", T, 0)
+    assert r["accepted"] is False and r["unsupported"] == ["عمي"]
+    answers = iter([{"arabic": "على عشرة"}, {"arabic": "على عشرة"}])
+    monkeypatch.setattr(CT, "_call", lambda *a, **k: next(answers))
+    r = CT.ask("2026-10-02", [{"t": 454.02, "end": 455.56, "who": "Medi", "text": "على العشاء"}], 0)
+    assert r["accepted"] is True and r["changed"] == ["عشره"]

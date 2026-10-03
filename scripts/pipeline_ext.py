@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 ROOT = Path(__file__).resolve().parent.parent
 LEDGER = ROOT / 'data' / 'budget.json'
-CAPS = {'elevenlabs': 10.0, 'openai': 10.0}      # USD, the plan's hard limits; paid calls stop at 90 %
+CAPS = {'elevenlabs': 10.0, 'openai': 40.0, 'gemini': 40.0}   # gemini: TR-22 context listening (Medi 2026-10-03 "use as much $ as you need")      # USD, the plan's hard limits; paid calls stop at 90 %
 STOP_AT = 0.9
 ELEVEN_USD_PER_MIN = 0.22 / 60                  # Scribe v2 list price ($0.22 / hour)
 KEYTERM_USD_PER_MIN = 0.05 / 60                 # keyterm prompting surcharge (+$0.05 / hour, plan/AI-ENGINEERING-REVIEW-2026-09-27.md)

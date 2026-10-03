@@ -1,0 +1,223 @@
+{
+ "model": "gemini-3.1-pro-preview",
+ "score": [
+  9,
+  11
+ ],
+ "rows": [
+  {
+   "arabic": "أنا صحيت",
+   "arabizi": "ana s7eet",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "سمعت",
+     "said": "صحيت"
+    }
+   ],
+   "confidence": "high",
+   "why": "He clearly says 's7eet' (woke up), which matches the teacher's chat and the context of waking up late.",
+   "t": 421.64,
+   "engine": "أنا سمعت",
+   "model": "gemini-3.1-pro-preview",
+   "ok": false,
+   "note": "kept: he really said sme3et (his slip)"
+  },
+  {
+   "arabic": "آآآ على عشرة.",
+   "arabizi": "aaa 3ala 3ashara.",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "العشاء",
+     "said": "عشرة"
+    }
+   ],
+   "confidence": "high",
+   "why": "Medi says '3ashara' (ten), not 'el-3asha' (dinner), which matches Amal's chat '3ala el-3ashara' and her prompt 'el-'.",
+   "t": 454.02,
+   "engine": "آآآ على العشاء.",
+   "model": "gemini-3.1-pro-preview",
+   "ok": true,
+   "note": "3ala 3ashra"
+  },
+  {
+   "arabic": "على الـ عشرة.",
+   "arabizi": "3ala el-3ashara.",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "على إلى العشاء.",
+     "said": "على الـ عشرة."
+    }
+   ],
+   "confidence": "high",
+   "why": "Medi is trying to say 'at ten' (3ala el-3ashara). The engine misheard 'el-3ashara' as 'ila el-3ashaa'.",
+   "t": 457.84,
+   "engine": "على إلى العشاء.",
+   "model": "gemini-3.1-pro-preview",
+   "ok": true,
+   "note": "3ala el-3ashra"
+  },
+  {
+   "arabic": "عادي الصبح.",
+   "arabizi": "3adi el-subu7.",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "الصباح",
+     "said": "الصبح"
+    }
+   ],
+   "confidence": "high",
+   "why": "He clearly pronounces 'el-subu7' with short 'u' vowels, not 'el-sabaa7', which also matches the teacher's typed chat.",
+   "t": 502.9,
+   "engine": "عادي الصباح.",
+   "model": "gemini-3.1-pro-preview",
+   "ok": false,
+   "note": "hadi el-subu7"
+  },
+  {
+   "arabic": "أنا صحيت متأخر و",
+   "arabizi": "ana s7eet mit'akhkher w",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "صرت",
+     "said": "صحيت"
+    },
+    {
+     "engine": "متأخر.",
+     "said": "متأخر و"
+    }
+   ],
+   "confidence": "high",
+   "why": "He is repeating Amal's phrase 'صحيت متأخر و' but changing 'إنت' to 'أنا'.",
+   "t": 519.4,
+   "engine": "أنا صرت متأخر.",
+   "model": "gemini-3.1-pro-preview",
+   "ok": true,
+   "note": "ana s7eet mit2a55er"
+  },
+  {
+   "arabic": "هاد الصبح",
+   "arabizi": "haad il-9ub7",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "عادي الصباح.",
+     "said": "هاد الصبح"
+    }
+   ],
+   "confidence": "high",
+   "why": "He says 'haad il-subH' (this morning), failing to assimilate the sun letter, which the engine misheard as 'aadi as-sabaH'.",
+   "t": 533.84,
+   "engine": "عادي الصباح.",
+   "model": "gemini-3.1-pro-preview",
+   "ok": true,
+   "note": "hadi el-subu7 (2nd)"
+  },
+  {
+   "arabic": "لسه",
+   "arabizi": "lissa",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "This suck.",
+     "said": "لسه"
+    }
+   ],
+   "confidence": "high",
+   "why": "He is repeating Amal's word 'lissa' (not yet), which the engine misheard as English.",
+   "t": 570.62,
+   "engine": "This suck.",
+   "model": "gemini-3.1-pro-preview",
+   "ok": true,
+   "note": "lissa"
+  },
+  {
+   "arabic": "آآآ عطلة و",
+   "arabizi": "aaa 3otle w",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "أطلع",
+     "said": "عطلة"
+    }
+   ],
+   "confidence": "high",
+   "why": "He clearly says '3otle' (vacation), which the engine misheard as 'atla3', and Amal's chat confirms the word '3otle'.",
+   "t": 578.26,
+   "engine": "آآآ أطلع و",
+   "model": "gemini-3.1-pro-preview",
+   "ok": true,
+   "note": "3otle"
+  },
+  {
+   "arabic": "أنا لازم آخد عطلة و سفر، سفرة.",
+   "arabizi": "ana laazem aa5ud 3uTle w safar, safra.",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "أخد",
+     "said": "آخد"
+    },
+    {
+     "engine": "أطلع",
+     "said": "عطلة"
+    },
+    {
+     "engine": "وسفر،",
+     "said": "و سفر،"
+    },
+    {
+     "engine": "سفر.",
+     "said": "سفرة."
+    }
+   ],
+   "confidence": "high",
+   "why": "He clearly says '3uTle' (holiday) instead of 'aTla3', and then corrects 'safar' to 'safra'.",
+   "t": 584.14,
+   "engine": "أنا لازم أخد أطلع وسفر، سفر.",
+   "model": "gemini-3.1-pro-preview",
+   "ok": true,
+   "note": "aa5ud 3otle w safar"
+  },
+  {
+   "arabic": "آآآ كمان مرة؟",
+   "arabizi": "aaa kaman marra?",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "كم",
+     "said": "كمان"
+    }
+   ],
+   "confidence": "high",
+   "why": "Medi asks Amal to repeat what she said by using the Levantine phrase 'kaman marra' (one more time), rather than 'kam marra' (how many times).",
+   "t": 609.44,
+   "engine": "آآآ كم مرة؟",
+   "model": "gemini-3.1-pro-preview",
+   "ok": true,
+   "note": "kaman marra"
+  },
+  {
+   "arabic": "um no I have-- I plan this past tense. أنا خططت.",
+   "arabizi": "um no I have-- I plan this past tense. ana khaTTaTit.",
+   "engine_was_wrong": true,
+   "changes": [
+    {
+     "engine": "I planned is",
+     "said": "I plan this"
+    }
+   ],
+   "confidence": "high",
+   "why": "Medi clearly says 'I plan this' rather than 'I planned is'.",
+   "t": 642.88,
+   "engine": "Um no I have-- I planned is past tense. أنا خططت.",
+   "model": "gemini-3.1-pro-preview",
+   "ok": true,
+   "note": "5otatet (vowel slip; Medi: understandable to miss)"
+  }
+ ]
+}
