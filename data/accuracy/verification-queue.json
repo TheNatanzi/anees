@@ -1,6 +1,6 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 17,
+ "count": 16,
  "by_date": {
   "2026-08-25": 1,
   "2026-09-04": 2,
@@ -10,8 +10,7 @@
   "2026-09-16": 1,
   "2026-09-17": 1,
   "2026-09-21": 2,
-  "2026-09-26": 1,
-  "2026-10-01": 1
+  "2026-09-26": 1
  },
  "rows": [
   {
@@ -423,32 +422,6 @@
    },
    "listen_from": "25:14",
    "listen_to": "25:56"
-  },
-  {
-   "uid": "FA-2d8205d4",
-   "date": "2026-10-01",
-   "t": "02:21",
-   "t_amal": "02:23",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "E4",
-   "medi_said": "Uh, واحدة وواحد و...",
-   "amal_said": "واحد.",
-   "wrong": "واحدة",
-   "right": "واحد",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Medi began with «وحدة» but immediately also produced «واحد» before Amal's prompt, so this looks like a restart/self-fix rather than a clean signalled error."
-   },
-   "listen_from": "02:11",
-   "listen_to": "02:43"
   }
  ]
 }

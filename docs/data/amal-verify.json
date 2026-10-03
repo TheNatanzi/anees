@@ -1,7 +1,7 @@
 {
  "about": "Rows two AIs disagree on (Claude readers: a mistake Amal signalled; Codex, listening to an independent transcription of the audio: not so, or cannot tell). Built by scripts/codex_rejudge.py. Amal answers on the Tutor page; her 'Correction is correct' makes the row a scored mistake, her reason drops it (scripts/apply_amal_audit_rulings.py).",
- "built": "2026-10-03T14:23:50-07:00",
- "count": 19,
+ "built": "2026-10-03T15:15:55-07:00",
+ "count": 22,
  "items": [
   {
    "id": "verify:FA-8096ecda",
@@ -130,6 +130,27 @@
    "sec": 484.0
   },
   {
+   "id": "verify:FA-50d1116e",
+   "uid": "FA-50d1116e",
+   "date": "2026-09-10",
+   "t": "20:44",
+   "t_amal": null,
+   "kind": "grammar",
+   "bucket": "A10b",
+   "tier": null,
+   "medi_said": "أيام. I even wrote أيام. هدول أيام.",
+   "amal_said": null,
+   "chat": null,
+   "wrong": "هدول أيام",
+   "right": "هدول الأيام",
+   "english": "these days",
+   "readers_say": "The noun after هدول keeps its el-; he dropped it in the fixed version and she moved on (طيب).",
+   "codex_says": "The independent Medi transcriptions show he was saying «هادولي الأيام» with the article, not «هدول أيام». Amal's intervention there was only «أيام», correcting «اليوم» to the plural, not the demonstrative-plus-article pattern.",
+   "codex_verdict": "rejected",
+   "audio": null,
+   "sec": 1244.0
+  },
+  {
    "id": "verify:FA-1e2ca596",
    "uid": "FA-1e2ca596",
    "date": "2026-09-10",
@@ -235,6 +256,48 @@
    "sec": 2762.0
   },
   {
+   "id": "verify:FA-65b1d2c1",
+   "uid": "FA-65b1d2c1",
+   "date": "2026-09-14",
+   "t": "03:42",
+   "t_amal": "03:45",
+   "kind": "grammar",
+   "bucket": "D1",
+   "tier": null,
+   "medi_said": "في المحل. [ضحكة] في الـ، في البيت.",
+   "amal_said": "بالبيت.",
+   "chat": "belbait. 3ashan lamma ana fi el-ma7al ...",
+   "wrong": "في البيت",
+   "right": "بالبيت",
+   "english": "At home.",
+   "readers_say": "Answering 'home or shop', he said في البيت; she recast to بالبيت and typed belbait (her preposition choice for 'at home').",
+   "codex_says": "The independent audio does not clearly show Medi saying «في البيت» at the correction point; the mixed dialect transcription has him saying «بالمحل، لا بالبيت», and Amal's «بالبيت؟» reads as an echo/confirmation rather than a correction.",
+   "codex_verdict": "rejected",
+   "audio": "lessons/2026-09-14/audio/lesson.mp3#t=212,246",
+   "sec": 222.0
+  },
+  {
+   "id": "verify:FA-9848001e",
+   "uid": "FA-9848001e",
+   "date": "2026-09-14",
+   "t": "1:02:38",
+   "t_amal": null,
+   "kind": "grammar",
+   "bucket": "D4",
+   "tier": null,
+   "medi_said": "بشوف، بشوف. Thanks. Bye.",
+   "amal_said": "أهلًا وسهلًا. بشوفك.",
+   "chat": null,
+   "wrong": "بشوف",
+   "right": "بشوفك",
+   "english": "See you.",
+   "readers_say": "Echoing her بشوفك he dropped the -ك (see you); not corrected.",
+   "codex_says": "Amal was giving a farewell, not correcting him afterward; her only response after Medi is «Bye». The independent dialect transcription even hears Medi as ending with «بشوفك».",
+   "codex_verdict": "rejected",
+   "audio": "lessons/2026-09-14/audio/lesson.mp3#t=3748,3778",
+   "sec": 3758.0
+  },
+  {
    "id": "verify:FA-311451ee",
    "uid": "FA-311451ee",
    "date": "2026-09-16",
@@ -275,6 +338,27 @@
    "codex_verdict": "rejected",
    "audio": "lessons/2026-09-17/audio/lesson.mp3#t=2947,2978",
    "sec": 2957.0
+  },
+  {
+   "id": "verify:FA-551e5a2b",
+   "uid": "FA-551e5a2b",
+   "date": "2026-09-18",
+   "t": "01:25",
+   "t_amal": "01:31",
+   "kind": "vocab-A",
+   "bucket": null,
+   "tier": 2,
+   "medi_said": "الصباح. ووو.",
+   "amal_said": "على؟ الصبح؟",
+   "chat": null,
+   "wrong": "الصباح",
+   "right": "الصبح",
+   "english": "morning",
+   "readers_say": "MSA-shaped 'الصباح' for the sheet's Levantine form; sheet row: 'morning | el-sube7 | الصبح'; she recast it as 'الصبح'.",
+   "codex_says": "Amal's follow-up is not a clear recast from «الصباح» to «الصبح»; the dialect transcription hears her prompting «على؟ السبعة؟», and Medi answers «على السبعة». This looks like eliciting the time, not correcting the word for morning.",
+   "codex_verdict": "rejected",
+   "audio": "lessons/2026-09-18/audio/lesson.mp3#t=75,112",
+   "sec": 85.0
   },
   {
    "id": "verify:FA-c2ac3a65",
@@ -380,27 +464,6 @@
    "codex_verdict": "rejected",
    "audio": "lessons/2026-09-28/audio/lesson.mp3#t=3389,3420",
    "sec": 3399.0
-  },
-  {
-   "id": "verify:FA-2d8205d4",
-   "uid": "FA-2d8205d4",
-   "date": "2026-10-01",
-   "t": "02:21",
-   "t_amal": "02:23",
-   "kind": "grammar",
-   "bucket": "E4",
-   "tier": null,
-   "medi_said": "Uh, واحدة وواحد و...",
-   "amal_said": "واحد.",
-   "chat": "yoam el-5amees, wa7ad 3ashara alafain u sitte u 3eshreen",
-   "wrong": "واحدة",
-   "right": "واحد",
-   "english": "Today is the 1st",
-   "readers_say": "For the date he opened with the feminine واحدة; Amal recast واحد and he then said اليوم الخميس واحد. At 02:55 he says 'So dates are واحد, times are واحدة', so he had not known the date form. Confidence is low because he also said واحد in the same turn, which may be a self-fix.",
-   "codex_says": "Medi began with «وحدة» but immediately also produced «واحد» before Amal's prompt, so this looks like a restart/self-fix rather than a clean signalled error.",
-   "codex_verdict": "rejected",
-   "audio": "lessons/2026-10-01/audio/lesson.mp3#t=131,164",
-   "sec": 141.0
   }
  ],
  "answered": [
@@ -766,32 +829,6 @@
     "kind": "audit_skip",
     "reason": "it's right",
     "at": "2026-10-02T12:45:29.849145+00:00"
-   }
-  },
-  {
-   "id": "verify:FA-7c1d629f",
-   "uid": "FA-7c1d629f",
-   "date": "2026-09-18",
-   "t": "12:16",
-   "t_amal": "12:18",
-   "kind": "grammar",
-   "bucket": "B5",
-   "tier": null,
-   "medi_said": "Hasabit or hasabti.",
-   "amal_said": "Ah, hasabti.",
-   "chat": "laish 3assabti",
-   "wrong": "Hasabit",
-   "right": "hasabti (3assabti)",
-   "english": "Why did you get angry?",
-   "readers_say": "Asked 'why did you (f) get angry' he hesitated between 3assabet and 3assabti; the you-feminine past ending is -ti and she picked it; he had the right form among his options, so low.",
-   "codex_says": "Medi offered both options, including the correct «عصبتي», and Amal only selected/confirmed that option; this is more an asked choice than a clear wrong form corrected.",
-   "codex_verdict": "rejected",
-   "audio": "lessons/2026-09-18/audio/lesson.mp3#t=726,759",
-   "sec": 736.0,
-   "answered": {
-    "kind": "audit_skip",
-    "reason": "no error",
-    "at": "2026-10-02T13:02:10.637525+00:00"
    }
   },
   {

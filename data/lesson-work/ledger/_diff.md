@@ -9,19 +9,19 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-09-05 | 78.7 | 47 | 76.9 | 37 | 143 | 0 / 1 |
 | 2026-09-10 | 86.4 | 114 | 85.2 | 45 | 243 | 1 / 0 |
 | 2026-09-11 | 83.3 | 72 | 75.5 | 40 | 143 | 1 / 0 |
-| 2026-09-14 | 92.9 -> **94.7** | 77 -> **76** | 78.3 -> **78.8** | 42 -> **41** | 180 -> **179** | 2 / 0 |
-| 2026-09-15 | 79.8 -> **83.6** | 57 -> **55** | 75.3 -> **77.6** | 46 -> **41** | 166 -> **161** | 1 / 0 |
-| 2026-09-16 | 80.4 | 46 | 71.6 -> **76.2** | 42 -> **35** | 134 -> **126** | 0 / 0 |
+| 2026-09-14 | 92.9 | 77 | 78.3 | 42 | 180 | 3 / 0 |
+| 2026-09-15 | 79.8 | 57 | 75.3 | 46 | 166 | 0 / 0 |
+| 2026-09-16 | 80.4 | 46 | 71.6 | 42 | 134 | 0 / 0 |
 | 2026-09-17 | 85.2 | 61 | 69.5 | 47 | 141 | 0 / 0 |
-| 2026-09-18 | 31.8 -> **30.0** | 11 -> **10** | 62.9 -> **64.7** | 44 -> **38** | 105 -> **102** | 0 / 0 |
+| 2026-09-18 | 31.8 | 11 | 62.9 -> **63.5** | 44 -> **43** | 105 -> **104** | 1 / 0 |
 | 2026-09-19 | 62.9 | 35 | 87.9 | 4 | 33 | 0 / 0 |
 | 2026-09-21 | 83.3 | 206 | 84.8 | 62 | 361 | 1 / 2 |
 | 2026-09-23 | 76.0 | 100 | 74.0 | 38 | 146 | 0 / 1 |
 | 2026-09-26 | 87.1 | 170 | 88.0 | 30 | 234 | 0 / 1 |
 | 2026-09-28 | 85.7 | 140 | 89.7 | 19 | 174 | 0 / 1 |
-| 2026-09-30 | 86.7 | 83 | 91.3 | 19 | 207 | 1 / 0 |
-| 2026-10-01 | 92.1 | 101 | 92.4 | 15 | 185 | 1 / 0 |
-| 2026-10-02 | 84.2 | 76 | 92.7 | 18 | 248 | 1 / 0 |
+| 2026-09-30 | 86.7 -> **85.3** | 83 -> **85** | 91.3 | 19 | 207 | 1 / 0 |
+| 2026-10-01 | 92.1 -> **92.5** | 101 -> **100** | 92.4 -> **93.4** | 15 -> **13** | 185 -> **183** | 1 / 0 |
+| 2026-10-02 | 84.2 -> **85.3** | 76 -> **75** | 92.7 | 18 | 248 | 1 / 0 |
 
 
 ## Conflicts
@@ -30,13 +30,11 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-09-10 17:01 C1p both stand: واحد (word-bank right) vs واحد أكتر -> كمان واحد (readers wrong) - slip elsewhere in the phrase: the word stays right
 - 2026-09-10 54:44 C2 settled: الفعلات (readers wrong) vs الفعلات -> الأفعال (readers slip A9b) - one slip was counted twice (word + grammar): counted once, as grammar
 - 2026-09-11 09:30 C2 settled: أنجم (readers wrong) vs أنجم -> نجوم (readers slip A9) - one slip was counted twice (word + grammar): counted once, as grammar
+- 2026-09-14 08:16 C2 settled: اسمي (readers wrong) vs اسمي -> أسماء (readers slip A9) - one slip was counted twice (word + grammar): counted once, as grammar
 - 2026-09-14 23:16 C2w settled: azra (word-bank wrong) vs azra -> زرقا (readers slip A8) - a grammar slip the Word Bank also called a wrong word: counted once, as grammar
-- 2026-09-14 36:16 C1a both stand: كل (word-bank right) vs كل حدا / حدا -> الكل (readers asked) - he asked for another word: both stand
-- 2026-09-14 36:17 C1a both stand: حدا (word-bank right) vs كل حدا / حدا -> الكل (readers asked) - he asked for another word: both stand
 - 2026-09-14 52:04 C1 settled: hada. (word-bank right) vs hada -> هيك (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
-- 2026-09-15 03:14 C1a both stand: تسعة (word-bank right) vs على تسعة ونص -> من وين؟ -> كنت في محل (readers not-scored) - he asked for another word: both stand
-- 2026-09-15 1:02:41 C2 settled: Asayam (readers wrong) vs Asayam -> el-asmaa2 (readers slip A1) - one slip was counted twice (word + grammar): counted once, as grammar
 - 2026-09-16 09:18 C1p both stand: واحد (word-bank right) vs واحد أكتر -> كمان واحد (readers wrong) - slip elsewhere in the phrase: the word stays right
+- 2026-09-18 01:25 C2 settled: الصباح (readers wrong) vs الصباح -> على الصبح (readers slip D1) - one slip was counted twice (word + grammar): counted once, as grammar
 - 2026-09-19 06:51 C1p both stand: ألفين (word-bank right) vs ألفين وسبعة عشرين -> ألفين وستة وعشرين (alfein u sitte u 3eshreen) - my reading, the year 2026 (amal-tap wrong) - slip elsewhere in the phrase: the word stays right
 - 2026-09-19 06:51 C1p both stand: عشرين. (word-bank right) vs ألفين وسبعة عشرين -> ألفين وستة وعشرين (alfein u sitte u 3eshreen) - my reading, the year 2026 (amal-tap wrong) - slip elsewhere in the phrase: the word stays right
 - 2026-09-21 01:44 C1a both stand: متوتر (word-bank right) vs متوتر -> مضغوط (readers asked) - he asked for another word: both stand
@@ -58,7 +56,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 
 ## Medi's corrections (PR-15)
 
-- applied: chat-20261002-hadi-subu7, chat-20261003-laazem-3utle, chat-20261003-re7le-a5eera, chat-20261003-3ashrah-da2aye2, chat-20261003-aa5er-el-moazafa
-- orphaned (match nothing, re-check): none
+- applied: chat-20261003-laazem-3utle, chat-20261003-re7le-a5eera, chat-20261003-3ashrah-da2aye2, chat-20261003-aa5er-el-moazafa
+- orphaned (match nothing, re-check): chat-20261002-hadi-subu7
 - waiting for Amal: none
 - standing rules: none
