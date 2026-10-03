@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02T17:26:33-07:00",
+ "updated": "2026-10-02T17:37:43-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -4676,19 +4676,19 @@
    "type_read_by": "claude -p (review_lesson.py)",
    "words": {
     "unique": 31,
-    "right": 71,
+    "right": 63,
     "wrong": 6,
     "partial": 10,
-    "pct": 87.4,
-    "scored": 87,
+    "pct": 86.1,
+    "scored": 79,
     "audit_wrong": 6,
     "audit_partial": 1,
     "not_on_sheet": 4,
     "unique_rows": 31,
-    "eligible": 87,
+    "eligible": 79,
     "excluded": 0,
     "pending": 1,
-    "eligible_pct": 87.4,
+    "eligible_pct": 86.1,
     "excluded_why": {},
     "verified_pct": null
    },
@@ -4824,6 +4824,13 @@
      "english": "difference",
      "t": "1:00:40",
      "note": "Medi asked if غير can mean 'difference'; she gives الفرق أو اختلاف, 1:02:23 'we don't know اختلاف before'"
+    },
+    {
+     "latin": null,
+     "arabic": "الفرق",
+     "english": "the difference",
+     "t": "1:00:40",
+     "note": "Medi asked if غير can mean 'difference' (1:00:22); she gives 'الفرق أو اختلاف' 1:00:40"
     }
    ],
    "coverage": "00:02-06:12 and 53:31-end are English meta talk. 12:34-15:40 and 37:41-42:12 transcribed in Latin. Engine wrote حاجة/هذا for حدا (43:16-43:20), عادي for hada (08:23), مسافة for masari (23:40). 49:07-50:07 garbled CJK. 45:01 عشر/عشرة and 51:15 hadi/hada were his questions, skipped. Main lesson: awal/tani/aa5er/8eir/nafs; PROPOSE rows share one rule. / 00:00-06:40 English meta talk about the verb list; 12:12-15:40, 37:41-42:19, 57:38-59:54 Medi lines Latin-transliterated; 17:00-1:03:40 mostly a rule lesson on awal/tani/aa5er/8eir/nafs with many rule questions (not rows); 45:01 عشر vs عشرة was a question (skipped); 51:15 hadi/hada asked as a question (skipped); 28:43 ساعة الأول repeats 18:12 as a question (skipped).",
@@ -4834,7 +4841,7 @@
     "turns": 1003,
     "chat_lines": 44,
     "vocab_errors": 11,
-    "vocab_correct": 80,
+    "vocab_correct": 72,
     "grammar_errors": 12,
     "grammar_not_counted": 0
    },
