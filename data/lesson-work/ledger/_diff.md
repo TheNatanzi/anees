@@ -13,7 +13,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-09-15 | 79.8 -> **83.6** | 57 -> **55** | 75.3 -> **77.6** | 46 -> **41** | 166 -> **161** | 1 / 0 |
 | 2026-09-16 | 80.4 | 46 | 71.6 -> **76.2** | 42 -> **35** | 134 -> **126** | 0 / 0 |
 | 2026-09-17 | 85.2 | 61 | 69.5 | 47 | 141 | 0 / 0 |
-| 2026-09-18 | 31.8 | 11 | 62.9 | 44 | 105 | 1 / 0 |
+| 2026-09-18 | 31.8 -> **30.0** | 11 -> **10** | 62.9 -> **64.7** | 44 -> **38** | 105 -> **102** | 0 / 0 |
 | 2026-09-19 | 62.9 | 35 | 87.9 | 4 | 33 | 0 / 0 |
 | 2026-09-21 | 83.3 | 206 | 84.8 | 62 | 361 | 1 / 2 |
 | 2026-09-23 | 76.0 | 100 | 74.0 | 38 | 146 | 0 / 1 |
@@ -37,7 +37,6 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-09-15 03:14 C1a both stand: تسعة (word-bank right) vs على تسعة ونص -> من وين؟ -> كنت في محل (readers not-scored) - he asked for another word: both stand
 - 2026-09-15 1:02:41 C2 settled: Asayam (readers wrong) vs Asayam -> el-asmaa2 (readers slip A1) - one slip was counted twice (word + grammar): counted once, as grammar
 - 2026-09-16 09:18 C1p both stand: واحد (word-bank right) vs واحد أكتر -> كمان واحد (readers wrong) - slip elsewhere in the phrase: the word stays right
-- 2026-09-18 01:25 C2 settled: الصباح (readers wrong) vs الصباح -> على الصبح (readers slip D1) - one slip was counted twice (word + grammar): counted once, as grammar
 - 2026-09-19 06:51 C1p both stand: ألفين (word-bank right) vs ألفين وسبعة عشرين -> ألفين وستة وعشرين (alfein u sitte u 3eshreen) - my reading, the year 2026 (amal-tap wrong) - slip elsewhere in the phrase: the word stays right
 - 2026-09-19 06:51 C1p both stand: عشرين. (word-bank right) vs ألفين وسبعة عشرين -> ألفين وستة وعشرين (alfein u sitte u 3eshreen) - my reading, the year 2026 (amal-tap wrong) - slip elsewhere in the phrase: the word stays right
 - 2026-09-21 01:44 C1a both stand: متوتر (word-bank right) vs متوتر -> مضغوط (readers asked) - he asked for another word: both stand

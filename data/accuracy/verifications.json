@@ -17098,6 +17098,262 @@
    },
    "at": "2026-10-03T03:25:04-07:00",
    "run_id": "c09995d3ece84276876455cb05f24d39"
+  },
+  {
+   "uid": "FA-551e5a2b",
+   "date": "2026-09-18",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "medium",
+   "reason": "Amal's follow-up is not a clear recast from «الصباح» to «الصبح»; the dialect transcription hears her prompting «على؟ السبعة؟», and Medi answers «على السبعة». This looks like eliciting the time, not correcting the word for morning.",
+   "evidence": {
+    "t_start": 75.0,
+    "t_end": 111.0,
+    "quote": "Medi: «الصباح» / Amal: «علا؟ السبعة؟» / Medi: «علا السبعة»",
+    "clips": [
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-18/FA-551e5a2b_mixed_lesson.mp3",
+      "sha256": "aa5e9dc1532f01a98978f80f00f316a0a4da919bee6f62a9100d298d81f6a038",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "mixed": "سهيت بطري السباح على السباح على السباح اتمرنت اتمرنت ولا اتمرنت شكرا"
+    }
+   },
+   "claim": {
+    "wrong": "الصباح",
+    "right": "الصبح",
+    "bucket": null,
+    "tier": 2
+   },
+   "at": "2026-10-03T04:28:49-07:00",
+   "run_id": "11e4ab7c6a4d481d9caae889021314a5"
+  },
+  {
+   "uid": "FA-5de305a3",
+   "date": "2026-09-18",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "medium",
+   "reason": "The audio evidence shows Amal supplied the missing question word, not a clear correction from «zehekti» to «zaha2tih». Medi says «زهأتي», Amal recasts it as «ليش زهأتي», and he repeats that.",
+   "evidence": {
+    "t_start": 937.0,
+    "t_end": 969.0,
+    "quote": "Medi: «زهأتي» / Amal: «لاش زهأتي؟» / Medi: «لاش زهأتي؟»",
+    "clips": [
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-18/FA-5de305a3_mixed_lesson.mp3",
+      "sha256": "28f7d8a8204c4737586cc2d410fd6412b693d8765b80b3dac7af48669fc8df03",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "mixed": "زهتي لش زهتي لش زهتي I'm scared I am scared ونحن بخاف"
+    }
+   },
+   "claim": {
+    "wrong": "zehekti",
+    "right": "zaha2tih",
+    "bucket": "B12",
+    "tier": null
+   },
+   "at": "2026-10-03T04:28:49-07:00",
+   "run_id": "11e4ab7c6a4d481d9caae889021314a5",
+   "changed_to": {
+    "wrong": "missing «ليش» in «زهأتي»",
+    "right": "«ليش زهأتي؟» / «ليش زَهّقتيه؟»"
+   }
+  },
+  {
+   "uid": "FA-79180fc3",
+   "date": "2026-09-18",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "unsure",
+   "confidence": "low",
+   "reason": "Amal clearly rejects something and prompts «they make me bored», but Medi's attempted Arabic is garbled across the evidence, so the exact wrong form cannot be established. The transcriptions do not reliably show a singular verb versus «بيزهقوني».",
+   "evidence": {
+    "t_start": 1720.0,
+    "t_end": 1764.0,
+    "quote": "Amal: «No, they make me bored»; garbled Medi: «إييزهوني» / «يدعى هوني»",
+    "clips": [
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-18/FA-79180fc3_mixed_lesson.mp3",
+      "sha256": "a07b02aa06bf8f85f3aea07a164356ea14a03c4e80c49c40a2d09b046ee1c8c7",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "mixed": "اجتماعات اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه ا يدعى هوني تحاول مرة أخرى يدعى بزها لا"
+    }
+   },
+   "claim": {
+    "wrong": "(singular verb; engine dropped his Arabic)",
+    "right": "beyzah2uni",
+    "bucket": "B18",
+    "tier": null
+   },
+   "at": "2026-10-03T04:28:49-07:00",
+   "run_id": "11e4ab7c6a4d481d9caae889021314a5"
+  },
+  {
+   "uid": "FA-bcbeff67",
+   "date": "2026-09-18",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi explicitly asks whether to say «مش لسه» or «ما لسه», and Amal says no and supplies «ولا لسه» / «أو لسه» for 'or not yet'. This is a genuine tier-0 supplied-form row.",
+   "evidence": {
+    "t_start": 1965.0,
+    "t_end": 1999.0,
+    "quote": "Medi: «Is it مش لسه أو ما لسه؟» / Amal: «لا لا لا... ولا لسه or أو لسه»",
+    "clips": [
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-18/FA-bcbeff67_mixed_lesson.mp3",
+      "sha256": "787e0168e70b7cdf0216b043e7402036fe3b46f450afdf66ca4774cd81e17a13",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "mixed": "مازلت. حسنًا. هل أنت؟ أو هذا يعني أنك مازلت مهربًا. حسنًا. هل هو مش لسة أو ما لسة؟ مش لسة. لا لا لا. لا بعد. كل شيء يعني لسة. so ولا لسه or أو لسه أو لسه أو لسه or ولا لسه meaning or not yet ولا لسه ولا لسه will or not"
+    }
+   },
+   "claim": {
+    "wrong": "mish lissa",
+    "right": "willa lissa / aw lissa",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-03T04:28:49-07:00",
+   "run_id": "11e4ab7c6a4d481d9caae889021314a5"
+  },
+  {
+   "uid": "FA-56f977ee",
+   "date": "2026-09-18",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi reaches for a khalli-type form «خليك/تخليك», and Amal immediately says no, reframing it as «you anger someone» and prompting the causative verb. He then moves toward «بتعصبي».",
+   "evidence": {
+    "t_start": 2208.0,
+    "t_end": 2241.0,
+    "quote": "Medi: «خليك» / Amal: «No, you anger someone. What does you anger mean?» / «بتعصبي»",
+    "clips": [
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-18/FA-56f977ee_mixed_lesson.mp3",
+      "sha256": "f0ce2df1d4c23028a4d4078cdc607c2f1fc7bf159694adb523c071434ff1f10f",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "mixed": "So how do I say you make angry first? So you make So is it خليك No, you anger someone What does you anger mean? You anger انتي متعصب بي بتعصبي انتي بتعصبي"
+    }
+   },
+   "claim": {
+    "wrong": "khaliq",
+    "right": "bit'asib (bet3asseb) - the causative verb itself",
+    "bucket": "B12",
+    "tier": null
+   },
+   "at": "2026-10-03T04:28:49-07:00",
+   "run_id": "11e4ab7c6a4d481d9caae889021314a5"
+  },
+  {
+   "uid": "FA-bfec594d",
+   "date": "2026-09-18",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi offers «ما تعصبني» and then «ما تعصب علي»; Amal says the first one was right and asks him what «ما تعصب علي» means. That directly signals the second form is wrong for 'don't make me angry'.",
+   "evidence": {
+    "t_start": 2996.0,
+    "t_end": 3034.0,
+    "quote": "Medi: «ما تعصبني... ما تعصب علي» / Amal: «Your first one was right... ما تعصب علي would be what?»",
+    "clips": [
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-18/FA-bfec594d_mixed_lesson.mp3",
+      "sha256": "39b33c6f1cb13352419f7538263c5a16047f0f1ff4bcb5f52a230e242054790b",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "mixed": "Don't make me angry So make me angry You don't make So ما تعصب ما تعصب علي Don't make me Your first one was right ما تعصبني Yes ما تعصبني ما تعصب علي would be what don't get angry at me yes"
+    }
+   },
+   "claim": {
+    "wrong": "Ma tasab ali",
+    "right": "ma tasabni",
+    "bucket": "D4",
+    "tier": null
+   },
+   "at": "2026-10-03T04:28:49-07:00",
+   "run_id": "11e4ab7c6a4d481d9caae889021314a5"
+  },
+  {
+   "uid": "FA-2b9fd7a6",
+   "date": "2026-09-18",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi supplied «أليني/Aleni» for “at me,” and Amal immediately corrected the preposition with «إلي إضحكيلي». The follow-up contrast «إضحكي علي» confirms she was distinguishing smile to/for me from laugh at me.",
+   "evidence": {
+    "t_start": 3149.0,
+    "t_end": 3181.0,
+    "quote": "Medi: «أليني.» Amal: «إلي إضحكيلي» ... «إضحكي علي»",
+    "clips": [
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-18/FA-2b9fd7a6_mixed_lesson.mp3",
+      "sha256": "a85e909236fe8daf56044cf0439f63f25763a47bbd44916a6c0310d6523b0a61",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "mixed": "اضحكني اضحكيني اضحكي اتمي اضحكيني اضحكيلي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي اضحكي علي حسنا لا تصمت ماذا كان حدثك؟ اصمت حسنا ألعب"
+    }
+   },
+   "claim": {
+    "wrong": "Aleni",
+    "right": "Id hakili",
+    "bucket": "D2",
+    "tier": null
+   },
+   "at": "2026-10-03T04:29:03-07:00",
+   "run_id": "e2da5a6f9cf94c4382ac14256f72dd06"
   }
  ]
 }
