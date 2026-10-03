@@ -48,6 +48,11 @@ NOT errors (leave out, or note in `coverage_note` if it matters):
 - S5 pauses, restarts, stutters, "umm".
 - His own self-fix before she helps (write it only if she THEN corrected the fixed version) - grammar exactly like vocab
   (GR-22, Medi 2026-10-02 "looks like I corrected myself": 09-14 02:42 he said بيخلص then خل-- خلاص in the same turn).
+  A self-fix needs his right word BEFORE hers. Look at when each WORD was said, not when the line starts: his line can
+  start first and still hold her word said after her (GR-24, Medi 2026-10-02 "this is clearly a correction. I said
+  Sme3et instead of s7eet": 10-02 07:02 أنا سمعت, his line 07:04 "متأخر اليوم. صحيت. That's right." ran to 07:08, her
+  صحيت was at 07:06 - he repeated her word and said "That's right", so it is her recast and the slip counts). "That's
+  right" / "yes" / "aha" right after her word, or her asking what his word was, means he is taking her fix.
 - (GR-19, Medi 2026-10-02: "I think if she didnt correct me on voice dont factor it as a correction, she might just be
   cleaning up what I said") Amal's typed chat line alone is not a correction - she may be cleaning up what he said; a slip
   needs a voiced signal. Example 09-14 02:42: he said بيخلص, she said nothing about it, her chat line wrote "u 5allas

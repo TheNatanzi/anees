@@ -9,11 +9,11 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | Grammar fixes Amal voiced (A) | **592** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 89 |
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 9 |
-| Vocab fixes Amal voiced (A) | **282** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 160, '0': 115, '2': 46, '3': 5} |
+| Vocab fixes Amal voiced (A) | **283** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 161, '0': 115, '2': 46, '3': 5} |
 | Vocab she let pass (B, to Amal) | **45** by tier {'1': 26, '2': 13, '3': 6} |
 | Listening-drill misreads (kept apart) | 82 |
-| Rows the readers found that the sweep did not have | 677 |
+| Rows the readers found that the sweep did not have | 678 |
 | Sweep rows the readers did not list (kept) | 115 |
 | Machine audit already had | 104 |
 
@@ -38,7 +38,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-09-28 | 18 | 2 | 20 | 0 | 2 | 0 | 0 | 51.1 % |
 | 2026-09-30 | 20 | 2 | 14 | 0 | 0 | 0 | 0 | 73.7 % |
 | 2026-10-01 | 16 | 2 | 4 | 3 | 2 | 0 | 0 | 78.8 % |
-| 2026-10-02 | 12 | 0 | 11 | 2 | 2 | 0 | 0 | 52.8 % |
+| 2026-10-02 | 12 | 0 | 12 | 2 | 2 | 0 | 0 | 52.8 % |
 
 ## Reader passes (the loop)
 
@@ -53,13 +53,13 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-09-17**: pass 1: r1 42 r2 46 agreed 34 disputed 16 (68.0 %), r3 kept 8 dropped 8 -> 42 rows; pass 2: r1 58 r2 56 agreed 41 disputed 25 (62.1 %), r3 kept 18 dropped 7 -> 59 rows; pass 1 vs pass 2: 69.2 % of rows in both
 - **2026-09-18**: pass 1: r1 37 r2 42 agreed 27 disputed 19 (58.7 %), r3 kept 15 dropped 4 -> 42 rows; pass 2: r1 42 r2 37 agreed 31 disputed 13 (70.5 %), r3 kept 8 dropped 5 -> 39 rows; pass 1 vs pass 2: 80.0 % of rows in both
 - **2026-09-19**: pass 1: r1 36 r2 48 agreed 28 disputed 20 (58.3 %), r3 kept 16 dropped 4 -> 45 rows; pass 2: r1 45 r2 45 agreed 35 disputed 15 (70.0 %), r3 kept 12 dropped 3 -> 47 rows; pass 1 vs pass 2: 76.9 % of rows in both
-- **2026-09-21**: pass 1: r1 107 r2 106 agreed 71 disputed 50 (58.7 %), r3 kept 44 dropped 6 -> 116 rows; pass 2: r1 112 r2 93 agreed 62 disputed 62 (50.0 %), r3 kept 47 dropped 15 -> 109 rows; pass 1 vs pass 2: 75.8 % of rows in both
+- **2026-09-21**: pass 1: r1 107 r2 106 agreed 71 disputed 50 (58.7 %), r3 kept 45 dropped 5 -> 117 rows; pass 2: r1 112 r2 93 agreed 62 disputed 62 (50.0 %), r3 kept 47 dropped 15 -> 109 rows; pass 1 vs pass 2: 75.8 % of rows in both
 - **2026-09-23**: pass 1: r1 56 r2 58 agreed 43 disputed 23 (65.2 %), r3 kept 20 dropped 3 -> 63 rows; pass 2: r1 61 r2 57 agreed 46 disputed 21 (68.7 %), r3 kept 14 dropped 7 -> 60 rows; pass 1 vs pass 2: 78.6 % of rows in both
 - **2026-09-26**: pass 1: r1 57 r2 56 agreed 46 disputed 17 (73.0 %), r3 kept 11 dropped 6 -> 57 rows
 - **2026-09-28**: pass 1: r1 43 r2 35 agreed 24 disputed 23 (51.1 %), r3 kept 18 dropped 5 -> 42 rows
 - **2026-09-30**: pass 1: r1 34 r2 32 agreed 28 disputed 10 (73.7 %), r3 kept 8 dropped 2 -> 36 rows
 - **2026-10-01**: pass 1: r1 29 r2 30 agreed 26 disputed 7 (78.8 %), r3 kept 4 dropped 3 -> 30 rows
-- **2026-10-02**: pass 1: r1 33 r2 28 agreed 19 disputed 17 (52.8 %), r3 kept 12 dropped 5 -> 31 rows
+- **2026-10-02**: pass 1: r1 33 r2 28 agreed 19 disputed 17 (52.8 %), r3 kept 13 dropped 4 -> 32 rows
 
 ## Grammar by bucket (A, speaking)
 
@@ -1169,7 +1169,7 @@ _Whole file read. 800 Medi turns: 348 with Arabic script, ~130 more in Latin tra
 | FA-0cabc117 | 1:01:29 | vocab-B | tier 3 | أنا حكيت عن الـ rice كتير. | بس إحنا، إحنا شوي مختلف الرز عنا. | rice -> الرز | English 'rice' dropped into an Arabic sentence after forty minutes of رز; sheet: rice / Ruz / رز; she answered with الرز but did not flag it. | medium | r1+r2 |
 | FA-7a3e67b3 | 1:01:44 | vocab-B | tier 1 | وكم شوية؟ كم مرة؟ | ما بنطبخ، ما بنطبخ الرز لتلات ساعات ولا مرة، مثلًا. | كم مرة -> كمان مرة | After her fast 1:01:34-1:01:40 line he asks كم شوية؟ كم مرة؟ and she answers by repeating the sentence slowly - she read it as 'one more time?', the same كم مرة for كمان مرة misuse as 15:55 (D6); sheet: how many times / Kam marra vs one more time / Kaman marra. Low: he may instead have meant 'how long then?' (r2's C8 reading). | low | r3 |
 | FA-7811d557 | 1:02:14 | vocab-A | tier 1 | مخية | مقلوبة | مخية -> مقلوبة | maqluba (dish) | medium | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
-| FA-3d3b05fe | 1:02:23 | vocab-A | tier 1 | المخية. | مقلوبة you mean؟ | المخية -> مقلوبة | Non-word for the dish مقلوبة; she supplied it. | medium | r1+r2 |
+| FA-3d3b05fe | 1:02:23 | vocab-A | tier 1 | مخية؟ المخية. ... المخية مش، uh, مقلوبة. Yeah. | مقلوبة you mean؟ | المخية -> المقلوبة | Non-word for the dish; he reached مقلوبة himself mid-line and she confirmed 'مقلوبة you mean?' - mostly a self-fix. | medium | GR-24 |
 | FA-dc2fe94c | 1:03:04 | grammar | C3 | رزنا أحسن من الـ دنيا. ... في الـ دنيا. | أحسن من كل الدنيا؟ Ah, you mean the best in the world؟ ... So أحسن رز في الدنيا، أو بالدنيا. | أحسن من الـ دنيا -> أحسن رز في الدنيا | Superlative 'the best rice in the world' is أحسن رز في الدنيا; he used the comparative frame أحسن من; she prompted, recast, and he said أحسن رز في الدنيا (1:03:23). | high | r1+r2 |
 | FA-e0c1e94c | 1:03:39 | grammar-B | D3 | ما عنـ عندك مطعم إيراني في فلسطين؟ |  | عندك -> عندكم | Asking about Palestine (you plural) with the singular ending; at 1:04:49 she fixes the same to ما عندكم. | low | r1+r2 |
 | FA-eb350a4f | 1:03:54 | vocab-A | tier 0 | للأسف، للأسف. | للأسف means-- sorry I said it. We don't know it yet. للأسف means unfortunately. | للأسف (echoed, unknown) -> للأسف = unfortunately | He echoed her new word; she stopped to teach it (not on the sheet) - a didn't-know. | medium | r1+r2 |
@@ -1488,6 +1488,7 @@ _00:02-06:12 and 53:31-end are English meta talk. 12:34-15:40 and 37:41-42:12 tr
 
 | id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
 |---|---|---|---|---|---|---|---|---|---|
+| FA-172fc4ea | 07:02 | vocab-A | tier 1 | أنا سمعت متأخر اليوم | صحيت. What's مت؟ | سمعت -> صحيت | He said سمعت (I heard) for 'I woke up'; Amal voiced صحيت and asked what his word was, and he explained 'I listened'. | medium | GR-24 |
 | FA-035f0923 | 07:14 | vocab-B | tier 2 | أأأ أنا صحيت تأخر. |  | تأخر -> متأخر (mit2a55er) | He used the verb تأخر where the adjective متأخر is needed (he had said متأخر a moment earlier); her chat writes mit2a55er, no voiced fix. | medium | r1+r2 |
 | FA-a1f1a56e | 07:34 | vocab-B | tier 1 | آآآ على العشاء | الـ. | العشاء -> العشرة | He said 3asha (dinner) for 3ashara (ten) as the clock time; her chat writes 3ala el-3ashara; her voiced 'الـ' is not a clear fix of the word (she voiced the same slip at 15:42). | medium | r1+r2 |
 | FA-5e8b298b | 07:54 | grammar | B5 | أنا كان قنيش شوي-- | أنا كنت صح. | أنا كان -> أنا كنت | kaan needs the 'I' ending with ana: Amal recast أنا كنت. | high | r1+r2 |

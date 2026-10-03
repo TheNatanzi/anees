@@ -7,11 +7,12 @@
   "agreed": 71,
   "disputed": 50,
   "agreement_pct": 58.7,
-  "r3_kept": 44,
-  "r3_dropped": 6,
+  "r3_kept": 45,
+  "r3_dropped": 5,
   "r3_unruled": 0,
   "r3_added": 1,
-  "final": 116
+  "r3_challenged": 0,
+  "final": 117
  },
  "coverage": {
   "r1": "Whole file read. 800 Medi turns: 348 with Arabic script, ~130 more in Latin transliteration (31:49-32:48, 34:07-35:31, 37:41-43:03, 49:25-1:00:47, 1:07:43-1:11:18) where vowel/pronoun endings are ambiguous. Garbled/untrustworthy Medi lines skipped: 01:14 'بابا، مريان بيضرهبي', 12:00 'access في الـ', 16:00 'Sven is lazy', 26:20 'على البرك' (probably على قلبك), 26:31 'By كما ما', 27:15 'بنجرة شي-شيطاني' (echoing her), 31:29 'Shumel', 49:13 'bixfun', 50:05 'thway sufun', 1:07:39 'Is bafta internal'. Transcript renders his 'roz' as English 'rose' (44:09-47:27) - treated as رز, not an English drop. 25:47 'سبق أن أدفع أطفالك' = his 'بقدر أدفع لك' per chat 26:53. 11:46 'أسبوع شغل' is almost surely 'أسبوع شوب' (chat: usboo3 shoab) - pronunciation, not vocab. Pronunciation left out (S4): 'أديش' for قديش, 'pantalón' for بنطلون, 'بهري' for بحري, 'إمني' for منيح, 'أوالي' for حوالي, 'دايّة' for دقيقة, 'ذكي' vowel for زاكي (F2), 'wa'atir' for واطية, 'ma'ali' for مقلي, 'ما السلامة', 'Al-yafeeki'. English-only stretches: 13:22-13:55 sirens, 36:13-37:29 proficiency test, 1:08:27-1:09:02, 1:11:31-1:12:05. Long meta/English exchange 25:03-25:40 about pay-for vs pay-to. Self-fixes not logged: 07:08 نوصف→ثلت, 15:32 قدرت, 39:25 علمتني, 46:31 ملح, 52:19 Irani→Iraniyin, 55:40 بيعملوا, 1:02:29 مخية→مقلوبة (logged low). Amal's 33:44 'لا، خلص شكرًا' answers his 33:41 question about سلامة إيديك; the earlier 22:59 'سلامتي' is logged against it.",
@@ -2415,6 +2416,38 @@
    "fid": "0921-096"
   },
   {
+   "id": "0921-89",
+   "t": "1:02:23",
+   "t_amal": "1:02:31",
+   "medi_said": "مخية؟ المخية. ... المخية مش، uh, مقلوبة. Yeah.",
+   "amal_said": "مقلوبة you mean؟",
+   "chat": null,
+   "wrong": "المخية",
+   "right": "المقلوبة",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "low",
+   "why": "Non-word for the dish; he reached مقلوبة himself mid-line and she confirmed 'مقلوبة you mean?' - mostly a self-fix.",
+   "english": "the maqluba (upside-down rice)",
+   "ids": [
+    "0921-89"
+   ],
+   "agreed_by": "GR-24",
+   "rule": "GR-24",
+   "r3_why": "Self-fix before help: he groped for the dish name (مخية؟ المخية) and reached مقلوبة himself in the same line (1:02:29); she only confirmed 'مقلوبة you mean?'. Not a row (S rule: own self-fix).",
+   "gr24": {
+    "verdict": "her-first",
+    "his_t": 3751.82,
+    "her_t": 3750.54
+   },
+   "gr24_why": "not a self-fix: Amal said المقلوبة at 1:02:30, he said it after her at 1:02:31 (word times)",
+   "fid": "0921-097"
+  },
+  {
    "id": "0921-90",
    "t": "1:03:04",
    "t_amal": "1:03:11",
@@ -2437,7 +2470,7 @@
     "0921-88"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-097"
+   "fid": "0921-098"
   },
   {
    "id": "0921-91",
@@ -2462,7 +2495,7 @@
     "0921-89"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-098"
+   "fid": "0921-099"
   },
   {
    "id": "0921-92",
@@ -2487,7 +2520,7 @@
     "0921-90"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-099"
+   "fid": "0921-100"
   },
   {
    "id": "0921-D29",
@@ -2513,7 +2546,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Missing عند + ending is the possession construction (D3), not a wrong lexical item.",
-   "fid": "0921-100"
+   "fid": "0921-101"
   },
   {
    "id": "0921-94",
@@ -2538,7 +2571,7 @@
     "0921-92"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-101"
+   "fid": "0921-102"
   },
   {
    "id": "0921-D30",
@@ -2564,7 +2597,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Both buckets apply; the lost عند is the core fault (D3), ما on a pronoun follows from it (C4 as bucket2).",
-   "fid": "0921-102"
+   "fid": "0921-103"
   },
   {
    "id": "0921-D31",
@@ -2589,7 +2622,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Plural expected with two named countries; she did not react; low.",
-   "fid": "0921-103"
+   "fid": "0921-104"
   },
   {
    "id": "0921-D32",
@@ -2615,7 +2648,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Her prompt came 28 s later for a different sentence; this occurrence was let pass, so grammar-B.",
-   "fid": "0921-104"
+   "fid": "0921-105"
   },
   {
    "id": "0921-D33",
@@ -2641,7 +2674,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "She voiced the fix (prompt) and he fixed it - grammar, not grammar-B; A9 primary, A7 secondary.",
-   "fid": "0921-105"
+   "fid": "0921-106"
   },
   {
    "id": "0921-99",
@@ -2666,7 +2699,7 @@
     "0921-96"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-106"
+   "fid": "0921-107"
   },
   {
    "id": "0921-100",
@@ -2691,7 +2724,7 @@
     "0921-97"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-107"
+   "fid": "0921-108"
   },
   {
    "id": "0921-101",
@@ -2716,7 +2749,7 @@
     "0921-98"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-108"
+   "fid": "0921-109"
   },
   {
    "id": "0921-D34",
@@ -2741,7 +2774,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Reader brief lists 'wrong plural pattern he invented' under tier 2; no fix from her, so vocab-B.",
-   "fid": "0921-109"
+   "fid": "0921-110"
   },
   {
    "id": "0921-103",
@@ -2766,7 +2799,7 @@
     "0921-100"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-110"
+   "fid": "0921-111"
   },
   {
    "id": "0921-D49",
@@ -2791,7 +2824,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "A wrong hypothesis about صارلي voiced and redirected by her; kept low as it was framed as a question.",
-   "fid": "0921-111"
+   "fid": "0921-112"
   },
   {
    "id": "0921-102",
@@ -2816,7 +2849,7 @@
     "0921-102"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-112"
+   "fid": "0921-113"
   },
   {
    "id": "0921-105",
@@ -2841,7 +2874,7 @@
     "0921-103"
    ],
    "agreed_by": "r1+r2",
-   "fid": "0921-113"
+   "fid": "0921-114"
   },
   {
    "id": "0921-D50",
@@ -2866,7 +2899,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Clear A7 pattern with no fix from her.",
-   "fid": "0921-114"
+   "fid": "0921-115"
   },
   {
    "id": "0921-D35",
@@ -2891,7 +2924,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "Production task, so mode speaking; tier 0 as both readers had it.",
-   "fid": "0921-115"
+   "fid": "0921-116"
   },
   {
    "id": "0921-D36",
@@ -2916,7 +2949,7 @@
    ],
    "agreed_by": "r3",
    "r3_why": "He did not pick the preposition من, he mangled a memorised phrase; vocab tier 2, low.",
-   "fid": "0921-116"
+   "fid": "0921-117"
   }
  ]
 }

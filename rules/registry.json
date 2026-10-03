@@ -2939,6 +2939,64 @@
    ]
   },
   {
+   "id": "GR-24",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A self-fix (GR-22) needs his right word BEFORE Amal's, by the engine's word times on the lesson clock, never by when his line starts: his line can start first and still hold her word said after her. His right word after hers (even inside one line, often with 'that's right' / 'yes') is her recast and the slip counts; the third reader's self-fix drop is overturned in code (full_audit_compare.settle via self_fix_timing.check) and the row is kept with both times.",
+   "plain": "You fixed it yourself only if you said the right word BEFORE Amal did, by the time each word was said, not when your line starts. If you said it after her (often with 'that's right'), she corrected you and the slip counts.",
+   "plain_for": "9078f13c",
+   "topic": "fixing yourself",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "this is clearly a correction.  I said Sme3et instead of s7eet.  Why did we skip this? lets figure out systematically what went wrong here so we can create a rule to catch other issues"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "make sure to add it to your rules to ensure this error doesnt persist in future lessons"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/self_fix_timing.py",
+     "contains": "def check(date, row, turns, W, off):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/full_audit_compare.py",
+     "contains": "SFT.SELF_FIX.search"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "A self-fix needs his right word BEFORE hers"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_self_fix_timing.py",
+     "contains": "def test_gr_24_his_line_starts_first_but_her_word_came_first_is_not_a_self_fix"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "07:02",
+    "note": "أنا سمعت (I heard) for I woke up; his line 07:04 ran to 07:08, his صحيت at 07:07 came 1.7 s after hers at 07:06: the third reader called it a self-fix"
+   },
+   "moments": [
+    {
+     "type": "data",
+     "path": "data/lesson-work/full-audit/2026-10-02.settled.json",
+     "contains": "\"agreed_by\": \"GR-24\""
+    }
+   ]
+  },
+  {
    "id": "LS-01",
    "kind": "data",
    "scope": "lessons",

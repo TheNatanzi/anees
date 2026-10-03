@@ -14,7 +14,10 @@ Match rule (plan step 2): same moment (t within 5 s, or t_amal within 5 s) AND t
 (normalised Arabic / lower-case Latin; one containing the other, or >= half the tokens shared).
 Rows that match on the moment but not on the piece, or on the piece but with a different kind, are disputes too.
 """
-import argparse, json, os, re, unicodedata
+import argparse, json, os, re, sys, unicodedata
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import self_fix_timing as SFT  # noqa: E402  GR-24
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE)
 WORK = os.path.join(REPO, "data", "lesson-work", "full-audit")
 TOL = 5.0
@@ -196,6 +199,11 @@ def settle(date, pas=1):
     rulings = {x["id"]: x for x in R.get("rulings", [])}
     challenges = {x.get("id"): x.get("why") for x in R.get("challenges", []) if str(x.get("id", "")).startswith("A")}
     rows = []
+    W = SFT.words(date)
+    timing = None
+    if W:
+        D = SFT.J(os.path.join(SFT.REPO, "docs", "data", "lessons", date + ".json")) or {}
+        timing = (D.get("turns") or [], W, SFT.offsets(D.get("turns") or [], W))
     for a in C["agreed"]:
         a = dict(a)
         if a.get("id") in challenges:
@@ -221,6 +229,21 @@ def settle(date, pas=1):
             rows.append(row)
             kept += 1
         else:
+            # GR-24 (Medi 2026-10-02, 10-02 07:02 سمعت -> صحيت): a "self-fix" drop stands only when his right word came
+            # BEFORE hers by the engine's word times; his line starting first is not enough (scripts/self_fix_timing.py)
+            row = d.get("r1") or d.get("r2") or {}
+            if SFT.SELF_FIX.search(v.get("why") or "") and timing is not None:
+                res = SFT.check(date, row, *timing)
+                if res["verdict"] == "her-first":
+                    row = {k: val for k, val in row.items() if not k.startswith("_")}
+                    row.update(ids=[x["id"] for x in (d.get("r1"), d.get("r2")) if x], agreed_by="GR-24", rule="GR-24",
+                               r3_why=v.get("why"), gr24=res,
+                               gr24_why="not a self-fix: Amal said %s at %s, he said it after her at %s (word times)"
+                                        % (row.get("right"), SFT.mmss(res["her_t"]), SFT.mmss(res["his_t"])))
+                    row.setdefault("id", d["id"])
+                    rows.append(row)
+                    kept += 1
+                    continue
             dropped += 1
     for x in R.get("added", []):
         x = dict(x)
