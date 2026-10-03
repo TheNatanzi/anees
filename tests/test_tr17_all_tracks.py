@@ -132,7 +132,7 @@ def _ev(i, reason=L.WITHHELD, assessment='unresolved', **kw):
 def test_tr_17_backfill_inserts_new_events_and_overlays_only_the_withheld_ones():
     current = {'a': _ev('a'), 'b': _ev('b'), 'c': _ev('c', reason='other', assessment='independent')}
     rebuilt = [_ev('a', reason='heard', assessment='independent', needs_review=False, spoken=True, context=[{'who': 'Amal'}]),
-               dict(current['b']), dict(current['c']), _ev('n', reason='new')]
+               dict(current['b']), dict(current['c']), _ev('n', reason='new', source_id='seg')]
     review = {'patches': {'a': {'expected': {}, 'changes': {'audit_created': True, 'audit_kind': 'tutor_audio_missing',
                                                              'audit_by': 'Claude audit 2026-09-28', 'ignored': True}}}}
     new, fixes = L.reconcile_tracks(rebuilt, current, review)
@@ -140,9 +140,12 @@ def test_tr_17_backfill_inserts_new_events_and_overlays_only_the_withheld_ones()
     ch = review['patches']['a']['changes']
     assert ch['assessment'] == 'independent' and ch['auto_rule'] == 'TR-17' and 'ignored' not in ch   # missing-audio bin replaced
     assert review['patches']['a']['expected']['reason'] == L.WITHHELD                                  # source-bound (S2)
-    import pytest
-    with pytest.raises(ValueError):                         # any other difference is not a missing-track change
-        L.reconcile_tracks([_ev('c', reason='other', assessment='helped')], current, {'patches': {}})
+    kept = {}                                               # a later audit's in-place change stays as saved
+    assert L.reconcile_tracks([_ev('c', reason='other', assessment='helped')], current, {'patches': {}}, kept) == ([], {})
+    assert kept == {'saved_audit_kept': 1}
+    kept = {}                                               # a new id in an already-loaded recording is matcher drift
+    assert L.reconcile_tracks([_ev('z', source_id='old')], {'o': _ev('o', source_id='old')}, {'patches': {}}, kept)[0] == []
+    assert kept == {'matcher_drift': 1}
 
 
 def test_tr_17_same_day_rules_stack_on_the_re_read_event_and_undo_cleanly():
@@ -167,3 +170,69 @@ def test_tr_17_backfill_survives_the_unresolved_word_audit_reset():
     A.reset(review)                                         # the audit's re-run starts by removing its own patches
     assert review['patches']['a']['changes']['auto_rule'] == 'TR-17'
     assert review['patches']['a']['changes']['assessment'] == 'independent'
+
+
+# ---- Medi 2026-10-02: "fill always fill and be complete" ---------------------------------------------------------
+import missing_recordings as MR
+import lesson_alerts as A
+
+
+def test_tr_17_freshness_check_fails_on_a_lesson_with_an_untranscribed_recording(tmp_path):
+    raw = tmp_path / 'lessons'
+    plant(raw / DATE)
+    (raw / DATE / 'scribe_Amal_seg1.json').unlink()             # her reconnect recording was never transcribed
+    left = MR.missing(raw)
+    assert [(m['date'], m['who'], m['file'], round(m['minutes'], 1)) for m in left] == [(DATE, 'Amal', 'Amal-first.mp3', 1.7)]
+    assert MR.main(['--raw', str(raw)]) == 1                    # the guard's recordings_complete check blocks
+    plant(raw / '2026-10-02')                                   # a complete lesson alone passes
+    (raw / DATE / 'tracks' / 'tracks.json').unlink()
+    assert MR.missing(raw) == [] and MR.main(['--raw', str(raw)]) == 0
+
+
+def test_tr_17_freshness_check_is_a_required_guard_check():
+    cfg = json.loads((Path(__file__).resolve().parents[1] / 'scripts' / 'publish_guard_config.json').read_text(encoding='utf-8'))
+    assert 'recordings_complete' in cfg['required'] and 'missing_recordings.py' in ' '.join(cfg['commands']['recordings_complete']['cmd'])
+
+
+def test_tr_17_old_lessons_tell_recordings_apart_by_start(tmp_path):
+    d = tmp_path / 'lessons' / '2026-09-16'
+    plant(d)
+    t = json.loads((d / 'tracks' / 'tracks.json').read_text())
+    for x in t['tracks']:                                      # before 09-18 every connection of a person shared one name
+        x['file'] = x['file'].replace('Amal-first', 'Amal').replace('Amal-second', 'Amal')
+    (d / 'tracks' / 'tracks.json').write_text(json.dumps(t))
+    (d / 'scribe_Amal_seg1.json').unlink()
+    assert [(m['who'], int(m['start_s'])) for m in MR.missing(tmp_path / 'lessons')] == [('Amal', 1)]
+
+
+def test_tr_17_hourly_job_fills_every_missing_recording_without_asking(tmp_path):
+    raw = tmp_path / 'lessons'
+    plant(raw / DATE)
+    (raw / DATE / 'scribe_Amal_seg1.json').unlink()
+    paid = []
+    grown, problems = H.fill_missing_recordings(raw, {DATE}, transcribe=lambda out, f, who: paid.append((out.name, f.name, who)),
+                                                log=lambda *a: None)
+    assert paid == [('scribe_Amal_seg1.json', 'Amal-first.mp3', 'Amal')] and grown == [DATE] and problems == []
+    src = Path(H.__file__).read_text(encoding='utf-8')
+    assert 'fill_missing_recordings(raw, ' in src[src.index('def _main'):]          # every hour, every loaded lesson
+
+
+def test_tr_17_spending_cap_leaves_one_ls04_line_per_lesson(tmp_path):
+    raw = tmp_path / 'lessons'
+    plant(raw / DATE)
+    (raw / DATE / 'scribe_Amal_seg1.json').unlink()
+
+    def capped(out, f, who):
+        raise RuntimeError('ElevenLabs budget: 9.00 + 0.10 USD would pass 90 % of the 10 USD cap')
+    grown, problems = H.fill_missing_recordings(raw, {DATE}, transcribe=capped, log=lambda *a: None)
+    assert grown == [] and [A.line_for(p) for p in problems] == ['10-01 lesson missing 1.7 min of audio: the spending cap was reached']
+
+
+def test_tr_17_meet_gap_fill_gives_way_to_the_persons_own_recording():
+    import build_lessons_page_data as BP
+    P = [{'t': 5.0, 'who': 'Amal', 'row': 'anees-20260926-recall-amal-seg0:row:1', 'chat': False, 'text': 'x'},
+         {'t': 1100.0, 'who': 'Amal', 'row': 'anees-20260926-recall-amal-seg0:row:9', 'chat': False, 'text': 'y'}]
+    layer = {'side': 'Amal', 'lines': [{'t': 50.0}, {'t': 1180.0}], 'words': [{'s': 50.0}, {'s': 1180.0}]}
+    out = BP.trim_layers([layer], P)
+    assert [L['t'] for L in out[0]['lines']] == [1180.0] and [w['s'] for w in out[0]['words']] == [1180.0]
+    assert BP.trim_layers([{'side': 'Amal', 'lines': [{'t': 50.0}], 'words': []}], P) == []

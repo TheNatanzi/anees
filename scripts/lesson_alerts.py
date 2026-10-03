@@ -35,6 +35,8 @@ def plain_cause(err) -> str:
     low = s.lower()
     if 'quota_exceeded' in low or 'credits remaining' in low or 'exceeds your quota' in low:
         return 'voice-to-text credits ran out'
+    if 'budget' in low and 'cap' in low:
+        return 'the spending cap was reached'
     if 'missing elevenlabs_api_key' in low:
         return 'voice-to-text key is missing on the PC'
     if 'elevenlabs' in low:
@@ -53,6 +55,8 @@ def line_for(p):
     viewer's own day, so the file only changes when a problem does."""
     if p.get('kind') == 'not-loaded':
         return f"{str(p.get('date'))[5:]} lesson not loaded: {p.get('cause')}"
+    if p.get('kind') == 'missing-audio':           # rule TR-17: a recording the hourly job could not transcribe
+        return f"{str(p.get('date'))[5:]} lesson missing {p.get('minutes')} min of audio: {p.get('cause')}"
     if p.get('kind') == 'credits-low':
         return f"Voice-to-text credits low: {p.get('left')} left, a lesson needs about {p.get('need')}"
     return str(p.get('cause'))

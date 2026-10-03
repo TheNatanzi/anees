@@ -60,6 +60,7 @@ def word_core(arabic):
     'كمان نص ساعة = in half an hour' -> 'كمان نص ساعة'; 'قريب من السفر (قبل السفر بشوي)' -> 'قريب من السفر'."""
     a = str(arabic or "").split(" = ")[0]
     a = re.sub(r"\([^)]*\)", " ", a)
+    a = re.sub(r"[ً-ْٰ]", "", a)        # harakat / shadda: خرّبته and خربته are one word
     a = re.sub(r"[^؀-ۿ ]", " ", a)
     return " ".join(a.split())
 
@@ -71,9 +72,10 @@ def hand_verdicts(rows):
     that re-timed or re-glossed a card (09-23 re-read after Amal's track was added: 07:09 -> 07:04, 'كمان نص ساعة = in half
     an hour (after half an hour)' -> '... = in half an hour') silently lost the reader's on-list verdict and the string
     match flagged known list words 'Not on sheet' (the hourly job's test_sheet_v1 block, 2026-10-02)."""
-    exact, by_word, used = {}, {}, set()
+    exact, by_word, by_time, used = {}, {}, {}, set()
     for x in rows:
         exact[(x["date"], x["mmss"], x["arabic"])] = x
+        by_time.setdefault((x["date"], x["mmss"]), []).append(x)
         core = word_core(x["arabic"])
         if core:
             by_word.setdefault((x["date"], core), []).append(x)
@@ -83,6 +85,10 @@ def hand_verdicts(rows):
         if x is not None:
             used.add(id(x))
             return x
+        same = [y for y in by_time.get((date, mmss), []) if id(y) not in used]
+        if len(same) == 1:            # the one verdict at this very moment, re-glossed by a re-read ('ashyaak / ashyaaki' ->
+            used.add(id(same[0]))     # 'أشياءك (ashyaa2ek)', 09-16 1:00:25 after the TR-17 re-read)
+            return same[0]
         t, core = _secs(mmss), word_core(arabic)
         if t is None or not core:
             return None
@@ -216,6 +222,38 @@ def with_gapfill(P, layers):
                    "source": L.get("source") or "meet_mixed", "confidence": L.get("confidence")}
                   for g in layers for L in g.get("lines") or []), key=lambda p: p["t"])
     return list(heapq.merge(P, add, key=lambda p: p["t"])) if add else P
+
+
+def own_spans(P):
+    """{side: [(from, to)]} lesson-clock spans the page already has from a person's reconnect recording (rows of a
+    '-seg<start>' source, rule TR-17)."""
+    by = {}
+    for p in P:
+        row = p.get("row") or ""
+        if "-seg" in row and not p.get("chat"):
+            by.setdefault((p["who"], row.split(":row:")[0]), []).append(p["t"])
+    out = {}
+    for (who, _), ts in by.items():
+        out.setdefault(who, []).append((min(ts), max(ts)))
+    return out
+
+
+def trim_layers(layers, P, margin=2.0):
+    """Rule TR-17: once a person's own reconnect recording is transcribed, the Meet gap-fill lines for the same stretch
+    are the same speech heard a second time (from the mixed recording): they are dropped, the rest of the layer stays.
+    A layer with nothing left is dropped."""
+    spans = own_spans(P)
+    if not spans:
+        return layers
+    out = []
+    for g in layers:
+        sp = spans.get(g.get("side")) or []
+        inside = lambda t: any(a - margin <= t <= b + margin for a, b in sp)
+        lines = [L for L in g.get("lines") or [] if not inside(L["t"])]
+        if not lines:
+            continue
+        out.append({**g, "lines": lines, "words": [w for w in g.get("words") or [] if not inside(w["s"])]})
+    return out
 
 
 def gapfill_words(layers):
@@ -560,7 +598,7 @@ LESSON_TYPES = {
     "2026-09-23": ("free-speak", None, "Conversation and role plays: coffee, stomach ache, then booking a hotel room, breakfast, paying, complaining to the manager, booking tickets and appointments, a weekend drive. Medi's first ~23 min is not transcribed (Amal's side only)."),
     "2026-09-28": ("review-words", "speaking", "After ~15 min of app/flashcard talk and a gym story (15:40-25:50), Amal reviews the people/family/professions cards she gave him (25:55 'شو الـ cards اللي أعطيتك إياهم؟'): family members and their jobs, cousins, relatives, siblings, ages (بنت/صبية/مرة/ختيارة), who works in a company, hospital, salon, school; at 64:57 she plans a grammar review next time and Medi asks for 'the L again'."),
     "2026-09-30": ("review-grammar", "speaking", "16:00-65:30 (~50 of 66 min) is the planned el- review (16:52 'حكينا بدنا نراجع ال'; 58:02 'I'm not introducing anything new... just testing'): general nouns (A1), noun + adjective (A7), hada/hadol + el (A10/A10b), idafa with feminine -t and chains (A2/A3/A5), ending with Medi explaining the rule back; first 5 min app talk, 05:35-15:50 small talk about yesterday's rug customers."),
-    "2026-09-26": ("review-words", "speaking", "Role plays that review words already taught: after small talk (his knee, the app, the date) and a ~2 min drop-out at 18:00, a doctor visit (types of doctor, head ache, medicine, body and face parts, feminine/dual body words, 'my hands' = إيدي) then a clothes shop for a wedding (suit, shirt, shoes, colours, socks, sunglasses). No new verb pair taught. Amal's side is not transcribed before 20:17 (only Medi's)."),
+    "2026-09-26": ("review-words", "speaking", "Role plays that review words already taught: after small talk (his knee, the app, the date) and a ~2 min drop-out at 18:00, a doctor visit (types of doctor, head ache, medicine, body and face parts, feminine/dual body words, 'my hands' = إيدي) then a clothes shop for a wedding (suit, shirt, shoes, colours, socks, sunglasses). No new verb pair taught. Amal's first recording (00:00-18:33) is transcribed since 2026-10-02 (TR-17); 18:33-20:17 she was reconnecting (filled from the Meet recording)."),
 }
 
 DEFINITIONS = {
@@ -669,7 +707,7 @@ def build():
     lessons, per = [], {}
     # first lesson each list word shows up in: the earlier of (Word Bank evidence, plain text of any lesson page).
     # Evidence for the early lessons is sparse, so text keeps everyday words (بس, شو) from looking "new" later.
-    gap = {d: gapfill_layers(d) for d in DATES}                     # Meet gap fills (fill_meet_gaps.py), merged as lines
+    gap = {d: trim_layers(gapfill_layers(d), page_turns(d)) for d in DATES}   # Meet gap fills (fill_meet_gaps.py), merged as lines
     pages = {d: with_gapfill(page_turns(d), gap[d]) for d in DATES}
     text_all = {d: " " + " ".join(ar_norm(tok_clean(p["text"])) for p in pages[d] if not p["chat"]) + " " for d in DATES}
     text_amal = {d: " " + " ".join(ar_norm(tok_clean(p["text"])) for p in pages[d] if p["who"] == "Amal" and not p["chat"]) + " " for d in DATES}

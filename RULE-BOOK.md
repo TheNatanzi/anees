@@ -61,8 +61,8 @@ _What gets written down from the lesson recording, and what is left out._
   <br><sub>Written by Claude, 2026-09-05</sub>
 - 'More Arabic means it is Amal' is only a hint, never proof of who spoke. `TR-15` _Written down_
   <br><sub>Written by Claude, 2026-09-05</sub>
-- Every recording of each person is turned into text and put at its own time in the lesson, so a reconnect never loses part of the lesson; speech heard on two recordings counts once. `TR-17` _Automatic_
-  <br><sub>Medi, 2026-10-02: “fix” · Medi, 2026-10-02: “there was a new word from the lesson yesterday... you didnt catch it it was like sheja3a or something for "motivation". why didnt you catch this”</sub>
+- Every recording of each person is turned into text and put at its own time in the lesson, always and on its own every hour with no asking; only the spending cap stops it, and then the page says how many minutes of a lesson are missing. Speech heard on two recordings counts once. `TR-17` _Automatic_
+  <br><sub>Medi, 2026-10-02: “fix” · Medi, 2026-10-02: “there was a new word from the lesson yesterday... you didnt catch it it was like sheja3a or something for "motivation". why didnt you catch this” · Medi, 2026-10-02: “fill always fill and be complete”</sub>
 
 ### How it's shown
 

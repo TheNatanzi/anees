@@ -194,7 +194,50 @@ def track_transcripts(lesson_dir, tracks, min_extra_s=MIN_EXTRA_S):
     return out
 
 
-def load(date, lesson_dir, work, meet, apply, page_only=False):
+def recording_file(lesson_dir, item):
+    """The audio of one untranscribed recording: lessons before 09-18 reused one file name for every connection of a
+    person (the file holds the longest), so a short one is its cut-out under tracks/recovered/ (recovery.json)."""
+    d = Path(lesson_dir)
+    rec = d / 'tracks' / 'recovered' / 'recovery.json'
+    if rec.exists():
+        import load_lesson as L
+        for r in json.loads(rec.read_text(encoding='utf-8')).get('recovered') or []:
+            if L._person(r.get('participant')) == item['who'] and abs(float(r['start']['relative']) - item['start_s']) < 1:
+                return d / 'tracks' / 'recovered' / Path(r['file']).name
+    return d / 'tracks' / item['file']
+
+
+def fill_missing_recordings(raw, loaded, transcribe=None, log=log):
+    """Rule TR-17 (Medi 2026-10-02: "fill always fill and be complete"): every hour, every untranscribed recording of every
+    loaded lesson (scripts/missing_recordings.py) is transcribed as scribe_<who>_seg<start>.json - no per-lesson approval;
+    the project's spending cap (pipeline_ext, 90 % of the cap) is the only stop. Returns (dates whose transcripts grew,
+    LS-04 problems: one per lesson that is still missing audio, e.g. '09-26 lesson missing 18.6 min of audio: ...')."""
+    import missing_recordings as MR
+    import lesson_alerts as A
+    transcribe = transcribe or transcribe_once
+    grown, problems, left = set(), [], {}
+    for m in MR.missing(raw):
+        d = m['date']
+        if d not in loaded or not (Path(raw) / d / f"scribe_{m['who']}.json").exists():
+            continue                                    # a lesson not loaded yet goes through the normal tracks load
+        out = Path(raw) / d / f"scribe_{m['who']}_seg{int(m['start_s'])}.json"
+        try:
+            f = recording_file(Path(raw) / d, m)
+            if not f.exists():
+                raise FileNotFoundError(f'no such file: {f.name} (.mp3)')
+            transcribe(out, f, m['who'])
+            grown.add(d)
+        except (Exception, SystemExit) as e:           # lesson_pipeline.transcribe exits when the key is missing
+            log('missing recording not transcribed', d, m['who'], m['file'], e)
+            cause = 'the spending cap was reached' if 'budget' in str(e).lower() else A.plain_cause(e)
+            x = left.setdefault(d, {'min': 0.0, 'cause': cause})
+            x['min'] += m['duration_s'] / 60
+    for d, x in sorted(left.items()):
+        problems.append({'key': 'audio:' + d, 'kind': 'missing-audio', 'date': d, 'minutes': round(x['min'], 1), 'cause': x['cause']})
+    return sorted(grown), problems
+
+
+def load(date, lesson_dir, work, meet, apply, page_only=False, reconcile=False):
     cmd = [sys.executable, str(HERE / 'load_lesson.py'), date, '--raw', str(lesson_dir), '--work', str(work)]
     if meet:
         cmd += ['--meet', str(meet)]
@@ -202,6 +245,8 @@ def load(date, lesson_dir, work, meet, apply, page_only=False):
         cmd += ['--apply']
     if page_only:
         cmd += ['--page-only']
+    if reconcile:
+        cmd += ['--reconcile-tracks']
     out = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', cwd=ROOT)
     if out.returncode:
         raise RuntimeError(out.stderr[-800:])
@@ -258,6 +303,9 @@ def refresh_published(dates, raw, work):
         # paged, never one rpc/speaking_snapshot call: from lesson 2026-10-01 on the single call hit the statement timeout
         # on every try and the lesson stayed blocked (freshness audit 2026-10-02; scripts/speaking_snapshot.py)
         events = speaking_snapshot.events(retries=4)
+        # only lessons this tree has a page for (+ this batch): a lesson another run loaded into the database but has not
+        # published yet has no reviewed overlay here, and its events failed the Word Bank integrity check (2026-10-02)
+        events = [e for e in events if e['lesson_date'] in dates or (ROOT / 'docs' / 'lessons' / f"{e['lesson_date']}.html").exists()]
         (ROOT / 'docs/data/word-bank-evidence.json').write_text(
             json.dumps({'version': datetime.date.today().isoformat(), 'events': events}, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
     except Exception as e:
@@ -526,6 +574,20 @@ def _main():
             failures += 1; log('FAILED', d, str(ex)[:500])
             # rule LS-04: the failure reaches Medi this hour as one line on Progress + Lessons (docs/data/lesson-alerts.json)
             load_problems.append({'key': 'load:' + d, 'kind': 'not-loaded', 'date': d, 'cause': A.plain_cause(ex)})
+    # every recording of every loaded lesson, always (rule TR-17): transcribe what is missing, re-load those lessons
+    try:
+        grown, audio_problems = fill_missing_recordings(raw, (in_db & published) | set(done))
+    except Exception as e:
+        grown, audio_problems = [], [{'key': 'audio:scan', 'kind': 'scan', 'cause': f'recording check failed: {A.plain_cause(e)}'}]
+    for d in grown:
+        try:
+            r = load(d, raw / d, work, meet_for(d, recordings), apply=True, reconcile=True)
+            log('re-loaded with every recording', d, r.get('tr17_overlay_patches'), 'events re-read')
+            done.append(d)
+        except Exception as ex:
+            failures += 1; log('FAILED re-load', d, str(ex)[:500])
+            load_problems.append({'key': 'load:' + d, 'kind': 'not-loaded', 'date': d, 'cause': A.plain_cause(ex)})
+    load_problems += audio_problems
     alerts(load_problems)
     # every lesson fed this hour: the new ones + any whose feeding failed in an earlier hour (retried until it passes)
     retry = sorted(k.split(':', 1)[1] for k in open_before if k.startswith('refresh:'))

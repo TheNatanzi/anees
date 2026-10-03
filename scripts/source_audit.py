@@ -411,6 +411,14 @@ def main(argv):
         D = J(os.path.join(REPO, "docs", "data", "lessons", L["date"] + ".json"))
         r = audit_lesson(L["date"], L, D, wbc, ed)
         r["gap_fill"] = gf.get(L["date"], [])
+        if r["gap_fill"]:                   # rule TR-17: the part a person's own reconnect recording now covers is not Meet-filled
+            import build_lessons_page_data as BP
+            spans = BP.own_spans(BP.page_turns(L["date"]))
+            for g in r["gap_fill"]:
+                for a, b in spans.get(g["who"], []):
+                    if a - 2 <= g["from"] <= b + 2:
+                        g["from"] = max(g["from"], b)
+            r["gap_fill"] = [g for g in r["gap_fill"] if g["to"] - g["from"] > 1]
         for g in r["gap_fill"]:
             if g["source"] == "meet_mixed":
                 r["flags"].append({"who": g["who"], "kind": "diarized-window", "from": g["from"], "to": g["to"],

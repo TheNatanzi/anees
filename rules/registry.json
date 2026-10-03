@@ -613,9 +613,9 @@
    "scope": "transcription",
    "status": "enforced",
    "change": "new",
-   "statement": "Every recording of each person is transcribed (a reconnect makes a second track), placed on the lesson clock by its own start offset and merged per speaker, with overlapping speech counted once; never only the longest recording.",
-   "plain": "Every recording of each person is turned into text and put at its own time in the lesson, so a reconnect never loses part of the lesson; speech heard on two recordings counts once.",
-   "plain_for": "d5fbcba5",
+   "statement": "Every recording of each person is transcribed (a reconnect makes a second track), placed on the lesson clock by its own start offset and merged per speaker, with overlapping speech counted once; never only the longest recording. Always and automatically: every hour the job transcribes every missing or dropped recording of every lesson with no per-lesson approval (the spending cap is the only stop; when it or the credits block, one LS-04 line says 'lesson X missing N min of audio: <reason>'), and the publish guard fails while any recording of 3 s or more is untranscribed.",
+   "plain": "Every recording of each person is turned into text and put at its own time in the lesson, always and on its own every hour with no asking; only the spending cap stops it, and then the page says how many minutes of a lesson are missing. Speech heard on two recordings counts once.",
+   "plain_for": "5480b09f",
    "topic": "speakers",
    "source": [
     {
@@ -627,6 +627,11 @@
      "by": "medi",
      "date": "2026-10-02",
      "quote": "there was a new word from the lesson yesterday... you didnt catch it it was like sheja3a or something for \"motivation\". why didnt you catch this"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "fill always fill and be complete"
     }
    ],
    "enforcement": [
@@ -654,6 +659,26 @@
      "type": "code",
      "path": "scripts/review_new_lessons.py",
      "contains": "def layer(review, rid, rule_patch):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/hourly_lessons.py",
+     "contains": "def fill_missing_recordings("
+    },
+    {
+     "type": "code",
+     "path": "scripts/missing_recordings.py",
+     "contains": "def missing(raw, min_s=MIN_S):"
+    },
+    {
+     "type": "check",
+     "path": "scripts/publish_guard_config.json",
+     "contains": "\"recordings_complete\""
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_lessons_page_data.py",
+     "contains": "def trim_layers("
     }
    ],
    "test": [
@@ -676,6 +701,18 @@
     {
      "path": "tests/test_tr17_all_tracks.py",
      "contains": "def test_tr_17_same_day_rules_stack_on_the_re_read_event_and_undo_cleanly"
+    },
+    {
+     "path": "tests/test_tr17_all_tracks.py",
+     "contains": "def test_tr_17_freshness_check_fails_on_a_lesson_with_an_untranscribed_recording"
+    },
+    {
+     "path": "tests/test_tr17_all_tracks.py",
+     "contains": "def test_tr_17_hourly_job_fills_every_missing_recording_without_asking"
+    },
+    {
+     "path": "tests/test_tr17_all_tracks.py",
+     "contains": "def test_tr_17_spending_cap_leaves_one_ls04_line_per_lesson"
     }
    ],
    "example": {
@@ -892,7 +929,7 @@
    "kind": "display",
    "scope": "arabizi",
    "status": "written",
-   "change": "amend",
+   "change": "new",
    "statement": "Arabizi big, Arabic small under it.",
    "plain": "Arabizi is shown big, with the Arabic script small underneath.",
    "plain_for": "83ff5bc5",
@@ -1686,7 +1723,7 @@
    "kind": "error",
    "scope": "word-scoring",
    "status": "enforced",
-   "change": "amend",
+   "change": "new",
    "statement": "Glue words (shu, bas, ya3ni, tamam ...) are graded only once they are on Amal's Doc; every glue word not on her Doc goes on her Tutor hub New words card (nothing pre-selected, hint: probably an old word she forgot to add) and is marked old by Medi on Anees' side, so it never counts as NEW on Flashcards when she adds it.",
    "plain": "Glue words (shu, bas, ya3ni, tamam...) are scored only once they are on Amal's Doc; missing ones go on her New words card to add (nothing pre-picked: probably old words she forgot) and are marked old, so they never count as NEW in Flashcards.",
    "plain_for": "e3fe0063",
@@ -1906,7 +1943,7 @@
    "kind": "display",
    "scope": "word-scoring",
    "status": "written",
-   "change": "amend",
+   "change": "new",
    "statement": "Word statuses are Mastered / Good / Shaky / Wrong (Untested), replacing Ice cold / Cold / Shaky / Missed.",
    "plain": "Word levels are Mastered, Good, Shaky and Wrong (Untested if never tried).",
    "plain_for": "ffccef71",
@@ -3620,7 +3657,7 @@
    "kind": "data",
    "scope": "amal-data",
    "status": "written",
-   "change": "amend",
+   "change": "new",
    "statement": "Amal's Quizlet sets are card sets only; the Doc stays the word truth.",
    "plain": "Amal's Quizlet sets are only card sets; the Doc stays the source of truth for words.",
    "plain_for": "0cc8bcaa",
@@ -3738,7 +3775,7 @@
    "kind": "display",
    "scope": "pages",
    "status": "written",
-   "change": "amend",
+   "change": "new",
    "statement": "New pages copy the Anees shell and follow the same pattern (not the Stitch mockups).",
    "plain": "New pages copy the Anees frame (header, menu, look) and follow the same pattern as the other pages.",
    "plain_for": "56428e3b",
@@ -4134,7 +4171,7 @@
    "kind": "display",
    "scope": "audio",
    "status": "written",
-   "change": "amend",
+   "change": "new",
    "statement": "One player everywhere: play, pause, stop that resets, progress bar, volume, ⋯ menu, opened next to the button tapped.",
    "plain": "One audio player everywhere: play, pause, stop (back to the start), progress bar, volume and a ⋯ menu, opened next to the button you tapped.",
    "plain_for": "1fdc0320",
@@ -4329,7 +4366,7 @@
    "kind": "data",
    "scope": "flashcards",
    "status": "written",
-   "change": "amend",
+   "change": "new",
    "statement": "NEW = only words Amal adds to the Doc after 2026-09-30; new-word pace = her batch size; old words have no limit (N1-N5).",
    "plain": "A NEW card is only a word Amal adds to the Doc after 30 Sept 2026; new words come at the pace of her batches; old words have no daily limit.",
    "plain_for": "b646e4a2",
@@ -4389,7 +4426,7 @@
    "kind": "data",
    "scope": "flashcards",
    "status": "enforced",
-   "change": "amend",
+   "change": "new",
    "statement": "A card is a leech at 3 misses in any phase (learning misses count); one rule only - the lapses path is gone. Supersedes the 09-21 \"8 lapses\" decision and the 09-27 \"4 misses or 8 lapses\" setting.",
    "plain": "A card becomes a leech (a word you keep missing) after 3 misses at any stage; this is the only leech rule.",
    "plain_for": "0855fc28",

@@ -296,26 +296,39 @@ TR17_TAG = 'TR-17'
 AUDIT_REVIEWER = 'Claude audit 2026-09-28'      # scripts/audit_vocab_unresolved.py REVIEWER
 
 
-def reconcile_tracks(events, current, review):
+def reconcile_tracks(events, current, review, kept=None):
     """Rule TR-17 backfill of a lesson loaded before its reconnect recordings were transcribed. The saved events are
     insert-only raw evidence, so nothing in the database is changed:
-      - events of the newly transcribed recordings are NEW ids -> returned for the insert-only install;
+      - events of a recording that has NO saved event yet (the newly transcribed one) are NEW ids -> returned for the
+        insert-only install;
       - a saved Medi event the old load WITHHELD only because the tutor's recording was missing (the guard_events reason)
         and that the fuller transcript now assesses gets an overlay patch (docs/data/word-bank-review.json, RULES.md S2)
         with the rebuilt fields, source-bound by `expected`, tagged auto_rule 'TR-17'. A 'Claude audit 2026-09-28' bin
-        made from the missing audio (tutor_audio_missing) is replaced; any other patch keeps its own fields.
-    Any other difference raises: that is not a missing-track change and needs a person.
+        made from the missing audio is undone; any other patch keeps its own fields.
+    Everything else stays exactly as saved and is only counted in `kept` (dict): a saved event that later audits changed
+    in place (09-16/17 'kul-sense', 'zero-said'), one whose context now also shows the new recording's lines, and new
+    ids today's word matcher would find in recordings that were already loaded (matcher drift, not a missing recording).
+    A withheld event whose source words changed raises: that needs a person.
     Returns (new events, {event id: patch changes})."""
+    kept = {} if kept is None else kept
+    loaded_sources = {o.get('source_id') for o in current.values()}
     new, fixes = [], {}
     for e in events:
         old = current.get(e['id'])
         if old is None:
-            new.append(e)
+            if e.get('source_id') in loaded_sources:
+                kept['matcher_drift'] = kept.get('matcher_drift', 0) + 1
+            else:
+                new.append(e)
             continue
         if old == e:
             continue
-        if old.get('reason') != WITHHELD or any(old.get(k) != e.get(k) for k in EVENT_KEYS + ['speaker', 'item_ids', 'original_text']):
-            raise ValueError(f'{e["id"]}: saved event differs for another reason than the missing tutor recording')
+        if old.get('reason') != WITHHELD:
+            k = 'context_only' if {k for k in set(e) | set(old) if e.get(k) != old.get(k)} == {'context'} else 'saved_audit_kept'
+            kept[k] = kept.get(k, 0) + 1
+            continue
+        if any(old.get(k) != e.get(k) for k in EVENT_KEYS + ['speaker', 'item_ids', 'original_text']):
+            raise ValueError(f'{e["id"]}: withheld event changed its source words; needs a person')
         fix = {k: e.get(k) for k in set(e) | set(old) if e.get(k) != old.get(k)}
         fix.update(auto_rule=TR17_TAG, tr17_note='Re-read with every recording of the lesson (rule TR-17): the tutor recording of a reconnect '
                    'now covers this moment.')
@@ -452,7 +465,9 @@ def main():
         if a.reconcile_tracks:              # rule TR-17 backfill: new events inserted, withheld ones fixed in the overlay
             current = {r['id']: r['data'] for r in db.select('speaking_events', {'lesson_date': f'eq.{date}'}, retries=2)}
             review = json.loads(REVIEW.read_text(encoding='utf-8'))
-            new, fixes = reconcile_tracks(events, current, review)
+            kept = {}
+            new, fixes = reconcile_tracks(events, current, review, kept)
+            receipt['tr17_kept_as_saved'] = kept
             receipt['evidence'] = sync_events(new, digest(new), a.apply) if new else {'new_events': 0}
             receipt['tr17_overlay_patches'] = len(fixes)
             receipt['tr17_assessments'] = dict(collections.Counter(f.get('assessment', current[i].get('assessment')) for i, f in fixes.items()))

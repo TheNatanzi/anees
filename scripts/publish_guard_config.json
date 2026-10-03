@@ -14,6 +14,7 @@
   "check_rules",
   "check_pages",
   "arabizi_gaps",
+  "recordings_complete",
   "tests_py",
   "tests_node"
  ],
@@ -46,6 +47,14 @@
    ],
    "timeout_s": 120,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar"
+  },
+  "recordings_complete": {
+   "cmd": [
+    "{python}",
+    "scripts/missing_recordings.py"
+   ],
+   "timeout_s": 60,
+   "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)"
   },
   "check_numbers": {
    "cmd": [

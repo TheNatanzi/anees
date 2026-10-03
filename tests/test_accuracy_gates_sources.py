@@ -62,7 +62,8 @@ def test_real_source_audit_covers_every_lesson_and_finds_0928():
     sa = json.load(open(os.path.join(S.REPO, "data", "accuracy", "source-audit.json"), encoding="utf-8"))["lessons"]
     lessons = [L["date"] for L in json.load(open(os.path.join(S.REPO, "docs", "data", "lessons.json"), encoding="utf-8"))["lessons"]]
     assert set(lessons) <= set(sa)
-    assert any(f["kind"] == "untranscribed" and f["who"] == "Medi" and f["from"] < 60 for f in sa["2026-09-28"]["flags"])
+    # 09-28 Medi 0:00-6:43 was a known hole until his first recording was transcribed (TR-17, 2026-10-02)
+    assert not [f for f in sa["2026-09-28"]["flags"] if f["kind"] == "untranscribed" and f["who"] == "Medi" and f["from"] < 60]
     # 09-23 Medi 0:00-22:37 was the known hole; the gap filler transcribed his first track - the raw audio agrees
     assert not [f for f in sa["2026-09-23"]["flags"] if f["kind"] == "untranscribed" and f["who"] == "Medi"]
 

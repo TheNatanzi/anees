@@ -139,13 +139,14 @@ def main(dates):
         patches = rules(events)
         stacked = {k for k in patches if k in review['patches'] and review['patches'][k]['changes'].get('auto_rule') == TR17}
         overlap = set(patches) & set(review['patches']) - stacked
-        assert not overlap, f'{day}: {len(overlap)} events already carry a hand-made patch'
+        for k in overlap:             # an older lesson re-fed after a TR-17 re-load: its hand-made patches win, untouched
+            patches.pop(k)
         for p in patches.values():
             if p['changes'].get('audit_version'):
                 p['changes']['audit_version'] = f'2026-09-23-{tag}-v1'
         for k in stacked:
             layer(review, k, patches.pop(k))
-        report[day] = {'tr17_layered': len(stacked)}
+        report[day] = {'tr17_layered': len(stacked), 'hand_patch_kept': len(overlap)}
         review['patches'].update(patches)
         report[day] = {**report[day], 'events': len(events), 'patches': len(patches),
                        'held_estimated_speakers': sum(HELD in p['changes'].get('reason', '') for p in patches.values()),
