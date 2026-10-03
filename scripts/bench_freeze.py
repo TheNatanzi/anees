@@ -16,6 +16,10 @@ import bench_common as BC  # noqa: E402
 
 AR = BC.AR_LETTER
 LISTEN_CTX_S, CHAT_S = 40.0, 60.0
+# The hand list (context_transcribe.BENCH) names short stems; the scorer matches whole words only (Codex audit
+# 2026-10-03: a stem credits عشرين for عشر), so each stem is frozen as its accepted whole-word variants.
+VARIANTS = {"عشر": ["عشر", "عشرة", "العشرة", "العشر"], "عطل": ["عطلة", "العطلة", "عطل"], "خطط": ["خططت", "خطط"],
+            "هادي": ["هادي", "هاذي", "هذي", "هذه"], "هاد": ["هاد", "هاذ"], "هذا": ["هذا", "هاذا"]}
 
 
 def raw(u):
@@ -86,14 +90,15 @@ def build_truth(date):
         mine = [f for f in ln["fixes"] if f["by"] == "medi"]
         if hb:
             w, g, n = hb
-            moments.append({"id": "M%03d" % len(moments), "i": ln["i"], "t": ln["t"], "who": "Medi", "want": w, "gone": g, "stem": True,
+            w = [v for x in w for v in VARIANTS.get(x, [x])]
+            moments.append({"id": "M%03d" % len(moments), "i": ln["i"], "t": ln["t"], "who": "Medi", "want": w, "gone": g,
                             "source": "hand list (context_transcribe.BENCH)" + (" + his overlay row" if mine else ""), "note": n,
                             "class": error_class(mine[0]["engine_wrote"] if mine else "", mine[0]["heard"] if mine else w[0], n)})
             seen.add(ln["i"])
             mine = mine[1:] if len(mine) > 1 else []     # a second row on a hand-list line is its own moment
         for f in mine:
             moments.append({"id": "M%03d" % len(moments), "i": ln["i"], "t": ln["t"], "who": "Medi", "want": [f["heard"]],
-                            "gone": [f["engine_wrote"]] if f["engine_wrote"] not in f["heard"] else [], "stem": False,
+                            "gone": [f["engine_wrote"]] if f["engine_wrote"] not in f["heard"] else [],
                             "source": "his overlay row", "note": "%s -> %s" % (f["engine_wrote"], f["heard"]),
                             "class": error_class(f["engine_wrote"], f["heard"])})
     amal = []
@@ -103,7 +108,7 @@ def build_truth(date):
         for f in ln["fixes"]:
             if f["by"] == "medi":
                 amal.append({"id": "A%02d" % len(amal), "i": ln["i"], "t": ln["t"], "who": "Amal", "want": [f["heard"]],
-                             "gone": [f["engine_wrote"]] if f["engine_wrote"] not in f["heard"] else [], "stem": False,
+                             "gone": [f["engine_wrote"]] if f["engine_wrote"] not in f["heard"] else [],
                              "source": "his overlay row (Amal's line)", "note": "%s -> %s" % (f["engine_wrote"], f["heard"]),
                              "class": error_class(f["engine_wrote"], f["heard"])})
 
@@ -137,16 +142,22 @@ def build_truth(date):
              "amal_all": [{"t": ln["t"], "end": ln["end"], "text": ln["engine"]} for ln in lines if ln["who"] == "Amal"],
              "vowel": [v for v in (BC.J(os.path.join(BC.REPO, "data", "lesson-work", "gemini-tests.json")) or {}).get("vowel", []) if v["date"] == date]}
 
-    # --- the listeners' frozen prompt per line: RAW engine text of +-40 s (both speakers) + Amal's chat +-60 s. Never the
-    # overlay, the truth, a correction row or an audit ruling.
-    prompts = {}
+    # --- the listeners' frozen prompts per line, two arms (never the overlay, the truth, a correction row or a ruling):
+    #   ctx     RAW engine text of +-40 s (both speakers) + Amal's chat +-60 s = how the listener runs in production
+    #           (spec 4). Amal's spoken recast AFTER his line is inside it, so this arm can read the answer off her.
+    #   before  only what came BEFORE his line (-40 s .. 0, chat -60 s .. 0): no later recast can leak (spec 6, Codex
+    #           audit 2026-10-03). Cut by time alone, never by looking at the answer key.
+    prompts = {"ctx": {}, "before": {}}
     for ln in medi:
         if not ln["listen"]:
             continue
-        ctx = "\n".join("%+.1f s %s: %s" % (v["t"] - ln["t"], v["who"], raw(v)) for k, v in enumerate(turns)
-                        if ln["t"] - LISTEN_CTX_S <= v["t"] <= ln["t"] + LISTEN_CTX_S and v["who"] != "chat" and k != ln["i"])
-        chat = " | ".join(v["text"] for v in turns if v["who"] == "chat" and ln["t"] - CHAT_S <= v["t"] <= ln["t"] + CHAT_S) or "(none)"
-        prompts[str(ln["i"])] = CT.PROMPT.format(context=ctx, chat=chat, target=ln["engine"])
+        for arm, after in (("ctx", True), ("before", False)):
+            ctx = "\n".join("%+.1f s %s: %s" % (v["t"] - ln["t"], v["who"], raw(v)) for k, v in enumerate(turns)
+                            if v["who"] != "chat" and k != ln["i"] and ln["t"] - LISTEN_CTX_S <= v["t"]
+                            and (v["t"] <= ln["t"] + LISTEN_CTX_S if after else v["t"] < ln["t"]))
+            chat = " | ".join(v["text"] for v in turns if v["who"] == "chat" and ln["t"] - CHAT_S <= v["t"]
+                              and (v["t"] <= ln["t"] + CHAT_S if after else v["t"] < ln["t"])) or "(none)"
+            prompts[arm][str(ln["i"])] = CT.PROMPT.format(context=ctx, chat=chat, target=ln["engine"])
     return truth, prompts, CT.PROMPT
 
 
@@ -199,15 +210,19 @@ def main(argv):
         now = hashes(date, BC.J(os.path.join(d, "truth.json")))
         bad = [k for k in ("truth_sha256", "prompts_sha256", "clips_sha256") if now[k] != man[k]]
         print("bench freeze: %s" % ("CHANGED " + ", ".join(bad) if bad else "OK (truth %s)" % man["truth_sha256"][:16]))
+        code = [k for k, f in (("normaliser_sha256", "bench_common.py"), ("scorer_sha256", "bench_score.py")) if BC.sha_file(os.path.join(HERE, f)) != man.get(k)]
+        if code:
+            print("note: scoring code changed since the freeze (%s) - every engine is re-scored with one version" % ", ".join(code))
         return 1 if bad else 0
     if os.path.exists(mp):
         raise SystemExit("already frozen (%s). A changed key is a new benchmark version, never a silent edit." % mp)
     truth, prompts, prompt = build_truth(date)
     BC.W(os.path.join(d, "truth.json"), truth)
-    BC.W(os.path.join(d, "prompts.json"), {"template": prompt, "template_sha256": BC.sha_text(prompt), "context_s": LISTEN_CTX_S, "chat_s": CHAT_S, "by_line": prompts})
+    BC.W(os.path.join(d, "prompts.json"), {"template": prompt, "template_sha256": BC.sha_text(prompt), "context_s": LISTEN_CTX_S, "chat_s": CHAT_S, "arms": prompts})
     make_clips(date, truth)
     man = dict({"date": date, "version": truth["version"], "frozen": truth["frozen"], "counts": truth["counts"],
-                "normaliser_sha256": BC.sha_file(os.path.join(HERE, "bench_common.py"))}, **hashes(date, truth))
+                "normaliser_sha256": BC.sha_file(os.path.join(HERE, "bench_common.py")),
+                "scorer_sha256": BC.sha_file(os.path.join(HERE, "bench_score.py"))}, **hashes(date, truth))
     BC.W(mp, man)
     print(json.dumps(truth["counts"]), "\ntruth", man["truth_sha256"][:16], "clips", man["clips_sha256"][:16], "prompts", man["prompts_sha256"][:16])
     return 0

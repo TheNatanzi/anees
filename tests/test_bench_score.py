@@ -28,10 +28,10 @@ TRUTH = {
         line(6, 60, "qayr", "غير", stay=False),
     ],
     "moments": [
-        {"id": "M0", "i": 1, "t": 10, "want": ["صحيت"], "gone": ["صرت"], "stem": False, "class": "wrong-arabic-word"},
-        {"id": "M1", "i": 2, "t": 20, "want": ["سمعت"], "gone": [], "stem": True, "class": "kept-slip"},
-        {"id": "M2", "i": 3, "t": 30, "want": ["لسه", "لسا"], "gone": ["suck"], "stem": True, "class": "short-repeat-english"},
-        {"id": "M3", "i": 6, "t": 60, "want": ["غير"], "gone": ["qayr"], "stem": False, "class": "latin-arabic"},
+        {"id": "M0", "i": 1, "t": 10, "want": ["صحيت"], "gone": ["صرت"], "class": "wrong-arabic-word"},
+        {"id": "M1", "i": 2, "t": 20, "want": ["سمعت"], "gone": [], "class": "kept-slip"},
+        {"id": "M2", "i": 3, "t": 30, "want": ["لسه", "لسا"], "gone": ["suck"], "class": "short-repeat-english"},
+        {"id": "M3", "i": 6, "t": 60, "want": ["غير"], "gone": ["qayr"], "class": "latin-arabic"},
     ],
     "slips": [{"i": 2, "t": 20, "kind": "vocab", "wrong": "سمعت", "right": "صحيت"}],
     "amal_all": [{"t": 41, "end": 43, "text": "ممتاز يا مهدي"}],
@@ -105,7 +105,7 @@ def test_language_switch_error_and_unsent_lines():
 def test_latin_letters_read_as_arabic_but_the_rejected_spelling_is_not():
     assert BS.score(TRUTH, [run(L6={"text": "ghayr"})], conv=conv)["per_moment"][3]["final"] == "hit"
     assert BS.score(TRUTH, [run(L6={"text": "qayr"})], conv=conv)["per_moment"][3]["final"] == "miss-engine"
-    assert BS.score(TRUTH, [run(L3={"text": "", "alt": "lissa"})], conv=conv)["per_moment"][2]["final"] == "hit"
+    assert BS.score(TRUTH, [run(L3={"text": "lissa"})], conv=conv)["per_moment"][2]["final"] == "hit"
 
 
 def test_whole_file_mode_accepts_the_neighbour_line():
@@ -123,3 +123,25 @@ def test_alignment_puts_words_on_the_nearest_line():
 def test_bleed_counts_amals_words_on_his_line():
     s = BS.score(TRUTH, [run(L4={"text": "بدي أروح على البيت ممتاز"})], conv=conv)
     assert s["bleed_words"] == 1
+
+
+def test_whole_words_only_no_substring_credit():           # Codex audit 2026-10-03
+    m = {"want": ["عشر", "عشرة"], "gone": []}
+    assert not BS.has_want(m, "عشرين", conv=conv) and BS.has_want(m, "على عشرة", conv=conv)
+    assert not BS.has_want({"want": ["عطلة"], "gone": []}, "تعطل", conv=conv)
+
+
+def test_second_field_cannot_dodge_the_veto_or_earn_an_arabic_word():
+    m = TRUTH["moments"][3]                                 # want غير, rejected spelling qayr
+    assert BS.score_moment(m, {"text": "", "alt": "qayr"}, conv=conv) == "miss-engine"
+    assert BS.score_moment(m, {"text": "", "alt": "ghayr"}, engine_line="qayr", conv=conv) == "miss-other"   # Arabic truth: the text field only
+    assert BS.score_moment({"want": ["5otatet"], "gone": []}, {"text": "خططت", "alt": "5otatet"}, conv=conv) == "hit"
+
+
+def test_all_lines_uses_every_run_and_counts_each_word_once():
+    r1, r23 = run(), run(L4={"text": "غلط"})
+    del r1["4"]
+    s = BS.score(TRUTH, [r1, r23, r23], conv=conv)
+    assert s["false_changes"] == 1 and s["lines_sent"] == 6
+    assert BS.line_words("غير غير", "غير", conv)[:2] == (2, 1)
+    assert BS.line_words("غير", "غير غير", conv) == (1, 1, BC.tokens("غير"))

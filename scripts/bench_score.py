@@ -12,7 +12,6 @@ A moment counts for A only when 2 of 3 runs hit. Separately: false changes on th
 recall, language switches (TR-25), speaker bleed, stability.
 
     python scripts/bench_score.py 2026-10-02                 # every engine dir with run files -> scores.json + table
-    python scripts/bench_score.py 2026-10-02 eleven-raw      # one engine
 """
 import collections, json, os, re, sys
 
@@ -29,46 +28,48 @@ def views(text, conv=BC.latin_to_arabic):
     return raw, (BC.tokens(conv(text)) if re.search("[A-Za-z]", text or "") else raw)
 
 
-def find_seq(seq, toks, stem=False):
-    """Is the word sequence in the token list, in order and adjacent? stem=True: each want is a piece of the token
-    (the hand list's short stems: عشر inside عشرة)."""
-    if not seq:
-        return False
+def find_seq(seq, toks):
+    """Is the word sequence in the token list, in order and adjacent? Whole words only (no substring credit:
+    عشر is not in عشرين)."""
     n = len(seq)
-    for k in range(len(toks) - n + 1):
-        if all((seq[j] in toks[k + j]) if stem else BC.tok_eq(seq[j], toks[k + j]) for j in range(n)):
-            return True
-    return False
+    return bool(n) and any(all(BC.tok_eq(seq[j], toks[k + j]) for j in range(n)) for k in range(len(toks) - n + 1))
 
 
 def _alts(want, conv):
+    """[(tokens, latin?)] - each accepted variant of the truth; a Latin-letter truth (a vowel-level fix: nafs el-ishi,
+    5otatet) also matches its Arabic script."""
     out = []
     for w in want:
         t = BC.tokens(w)
         if any(BC.is_ar(x) for x in t):
-            t = [x for x in t if BC.is_ar(x)] or t        # a broken-off Latin piece ("ro--") is not required
-        out.append(t)
-        if re.search("[A-Za-z]", w) and not any(BC.is_ar(x) for x in t):
+            out.append(([x for x in t if BC.is_ar(x)], False))   # a broken-off Latin piece ("ro--") is not required
+        elif t:
+            out.append((t, True))
             c = [x for x in BC.tokens(conv(w)) if BC.is_ar(x)]
             if c:
-                out.append(c)                             # a Latin truth (nafs el-ishi) also matches its Arabic script
-    return [a for a in out if a]
+                out.append((c, False))
+    return out
 
 
 def has_want(m, text, alt="", conv=BC.latin_to_arabic):
-    for src in (text, alt):
-        if not src:
-            continue
-        raw, cv = views(src, conv)
-        for a in _alts(m["want"], conv):
-            if find_seq(a, raw, m.get("stem")) or find_seq(a, cv, m.get("stem")):
-                return True
+    """The truth word(s) in the engine's text. The second field of a listener (its Arabizi) counts ONLY for a truth
+    that is itself in Latin letters, so a listener gets no second chance on an Arabic word."""
+    raw, cv = views(text or "", conv)
+    for a, latin in _alts(m["want"], conv):
+        if find_seq(a, raw) or find_seq(a, cv):
+            return True
+        if latin and alt and find_seq(a, BC.tokens(alt)):
+            return True
     return False
 
 
-def has_gone(m, text):
-    raw = BC.tokens(text)
-    return any(find_seq(BC.tokens(g), raw) for g in m.get("gone") or [])
+def has_gone(m, text, alt=""):
+    """The rejected word (what ElevenLabs wrote and Medi corrected) is still there - in either field."""
+    for src in (text, alt):
+        raw = BC.tokens(src or "")
+        if any(find_seq(BC.tokens(g), raw) for g in m.get("gone") or []):
+            return True
+    return False
 
 
 def _set(text, conv):
@@ -104,10 +105,10 @@ def score_moment(m, out, neighbours=(), engine_line="", slip=None, truth_line=""
     text, alt = out.get("text") or "", out.get("alt") or ""
     if slip is not None and slip_hidden(slip, truth_line, text, conv):
         return "hidden-slip"
-    if not has_gone(m, text):
+    if not has_gone(m, text, alt):
         if has_want(m, text, alt, conv) or any(has_want(m, n, "", conv) for n in neighbours):
             return "hit"
-    if has_gone(m, text) or BC.tokens(text) == BC.tokens(engine_line):
+    if has_gone(m, text, alt) or BC.tokens(text) == BC.tokens(engine_line):
         return "miss-engine"
     return "miss-other"
 
@@ -119,12 +120,29 @@ def consensus(verdicts):
 
 
 def line_words(truth_text, text, conv=BC.latin_to_arabic):
-    """(truth Arabic words, how many the engine has, engine Arabic words that are not in the truth line)."""
+    """(truth Arabic words, how many the engine has, engine Arabic words that are not in the truth line). Each engine
+    word is used once (truth غير غير needs two)."""
     want = [t for t in BC.tokens(truth_text) if BC.is_ar(t)]
     raw, cv = views(text, conv)
-    have = raw + cv
-    found = sum(1 for w in want if any(BC.tok_eq(w, h) for h in have))
-    extra = [h for h in raw if BC.is_ar(h) and not any(BC.tok_eq(h, w) for w in want)]
+    pool = collections.Counter(raw)
+    for t, n in collections.Counter(cv).items():
+        pool[t] = max(pool[t], n)
+    found = 0
+    for w in want:
+        k = next((h for h in pool if pool[h] > 0 and BC.tok_eq(w, h)), None)
+        if k is not None:
+            pool[k] -= 1
+            found += 1
+    left = collections.Counter(want)
+    extra = []
+    for h in raw:
+        if not BC.is_ar(h):
+            continue
+        k = next((w for w in left if left[w] > 0 and BC.tok_eq(h, w)), None)
+        if k is None:
+            extra.append(h)
+        else:
+            left[k] -= 1
     return len(want), found, extra
 
 
@@ -202,11 +220,11 @@ def score(truth, runs, whole_file=False, conv=BC.latin_to_arabic, who="Medi"):
     for i in order:
         ln = lines[i]
         outs = [out_of(run, i) for run in runs]
-        if outs[0] is None:
+        if all(x is None for x in outs):
             o, ok = {"text": ln["engine"]}, True
         else:
             sent += 1
-            o, ok = majority_text(outs)
+            o, ok = majority_text([x if x is not None else {"text": ln["engine"]} for x in outs])   # a run that lacks the line = the raw text there
             agree += ok
             errors += sum(1 for x in outs if x and x.get("error"))
         text = o.get("text") or ""
@@ -263,14 +281,18 @@ def main(argv):
     man = BC.J(os.path.join(d, "manifest.json"))
     if BC.sha_file(os.path.join(d, "truth.json")) != man["truth_sha256"]:
         raise SystemExit("truth.json does not match the manifest: the key was edited after the freeze")
-    engines = argv[1:] or sorted(x for x in os.listdir(d) if os.path.isdir(os.path.join(d, x)) and x not in ("clips", "scratch", "runs", "vowel"))
-    scores = BC.J(os.path.join(d, "scores.json")) or {}
+    code = (BC.sha_file(os.path.abspath(__file__)), BC.sha_file(os.path.join(HERE, "bench_common.py")))
+    if code != (man.get("scorer_sha256"), man.get("normaliser_sha256")):
+        print("NOTE: the scorer / normaliser changed since the freeze - every engine is re-scored with this one version: %s / %s" % (code[0][:12], code[1][:12]))
+    engines = sorted(x for x in os.listdir(d) if os.path.isdir(os.path.join(d, x)) and x not in ("clips", "scratch", "runs", "vowel", "b"))
+    scores = {}                                    # always every engine, one scorer version (never a mix)
     for e in engines:
         for mode in ("line", "whole"):
             runs = load_runs(d, e, mode)
             if not runs:
                 continue
             s = score(truth, [r["lines"] for r in runs], whole_file=(mode == "whole"))
+            s["scorer_sha256"], s["normaliser_sha256"] = code
             s["amal"] = score_amal(truth, [r["lines"] for r in runs])
             s.update(model=runs[0].get("model"), cost_usd=round(sum(r.get("cost_usd") or 0 for r in runs), 4),
                      seconds=[round(r.get("seconds") or 0, 1) for r in runs], truth_sha256=man["truth_sha256"])
