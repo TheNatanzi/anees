@@ -38,8 +38,8 @@ _What gets written down from the lesson recording, and what is left out._
 
 ### Counts
 
-- When the recording engine writes your Arabic in English letters (nimbisit for nenbisit), Anees now reads it as your Arabic, checks it against what Amal typed in the chat, and adds it to the list Gemini is tested on. `TR-23` _Automatic_
-  <br><sub>Medi, 2026-10-03: “why no credit here for the grammar and vocab? ... this should be nenbisit” · Medi, 2026-10-03: “she even wrote it for it for you” · Medi, 2026-10-03: “you are keeping track of what we are gonna test gemini for right? like hearing this one right”</sub>
+- When the recording engine writes your Arabic in English letters (nimbisit for nenbisit), Anees now reads it as your Arabic, checks it against what Amal typed in the chat, and adds it to the list Gemini is tested on. 'Elsa' on your line is el-saa3a. `TR-23` _Automatic_
+  <br><sub>Medi, 2026-10-03: “why no credit here for the grammar and vocab? ... this should be nenbisit” · Medi, 2026-10-03: “she even wrote it for it for you” · Medi, 2026-10-03: “you are keeping track of what we are gonna test gemini for right? like hearing this one right” · Medi, 2026-10-03: “you even saw the correction after, I was trying to say el Sa3aa”</sub>
 
 ### Doesn't count
 

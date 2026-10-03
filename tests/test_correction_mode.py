@@ -273,3 +273,9 @@ def test_tr_23_his_arabic_in_english_letters_is_read_and_checked_against_her_cha
     assert c and c[0]["engine_wrote"] == "nimbisit" and c[0]["her_chat"] == "nenbese6"
     key = CT.answer_key()
     assert any(d == "2026-10-02" and abs(t - 827.2) < .01 and "ننبسط" in w for d, t, w, g, n in key)
+
+
+def test_tr_23_elsa_on_his_line_is_el_saa3a():
+    """TR-23 (Medi 2026-10-03 "I was trying to say el Sa3aa")."""
+    import arabizi_reader as R
+    assert R.to_arabic("Elsa.").strip(" .") == "الساعة" and "الساعة" in R.to_arabic("So elsaa el awal")
