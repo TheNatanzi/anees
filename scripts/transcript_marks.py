@@ -336,8 +336,9 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
     # ---------------- LS-11: a moment two judges disagree on and no rule decides: an orange "Medi?" chip, counted as before
     for c in (ledger or {}).get("conflicts") or []:
         if c.get("needs_medi") and c.get("turn") is not None:
-            put(c["turn"], {"id": nid("q"), "k": "medi", "s": "medi", "label": "Medi?", "conflict": c["id"],
-                            "why": (c.get("question") or "") + " " + " / ".join(c.get("options") or []) + " · counted as before until you pick"})
+            who = "Amal" if c.get("ask") == "amal" else "Medi"
+            put(c["turn"], {"id": nid("q"), "k": "medi", "s": "medi", "label": who + "?", "conflict": c["id"],
+                            "why": (c.get("question") or "") + " · waiting for " + who + ", counted as before until answered"})
             rep["medi"] = rep.get("medi", 0) + 1
 
     # ---------------- off-lesson stretches: grey on his unmarked turns inside them

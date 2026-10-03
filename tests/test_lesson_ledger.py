@@ -3,7 +3,7 @@
 lessons? I think the transcription page of the lessons should be no?" - then "yes": the marked transcript is the one
 source of every judgment. Each conflict kind is tested on its real moment; the guard check is tested on planted drift.
 Offline: nothing here touches the database or writes outside tmp_path."""
-import copy, json, os, sys
+import copy, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
@@ -65,7 +65,7 @@ def test_LS_11_c1q_a_phrase_with_two_candidate_words_is_one_medi_question_counte
     assert [c["kind"] for c in led["conflicts"]] == ["C1q", "C1q"]
     assert len(led["needs_medi"]) == 1                                      # one question for the moment
     lead = next(c for c in led["conflicts"] if c["id"] in led["needs_medi"])
-    assert set(lead["options"]) == {"بلبس", "بلوزة", "keep"}            # his own words, not the normalised ones
+    assert set(lead["options"]) == {"بلبس", "بلوزة", "none"} and lead["ask"] == "amal"            # his own words, not the normalised ones
     assert not act["overrides"] and led["counts"]["words"]["right"] == 2 and led["counts"]["words"]["wrong"] == 1
 
 
@@ -109,7 +109,7 @@ def test_LS_11_one_candidate_is_a_yes_no_question():
                vocab_errors=[audit("FA-h", 2000, "حدا", "ناس / أشخاص", conf="medium", signal="prompt-then-fix")])
     led, _ = build(d)
     c = next(c for c in led["conflicts"] if c["id"] in led["needs_medi"])
-    assert c["options"] == ["wrong", "keep"] and "حدا" in c["question"]
+    assert c["options"] == ["wrong", "none"] and "حدا" in c["question"] and c["ask"] == "amal"
     led2, act = build(d, rulings={c["id"]: {"conflict": c["id"], "answer": "wrong", "rule": "LS-11"}})
     assert act["overrides"] and not led2["needs_medi"]
 
@@ -244,3 +244,54 @@ def test_LS_11_a_reader_slip_never_lands_on_a_turn_that_ended_before_it():
     assert TM.place(T, 2615, "Medi", "كانت عمرها")[0] == 1           # whole-second reader time: the later line
     T[0]["end"] = None
     assert TM.place(T, 2611.4, "Medi", "كانت")[0] == 0               # a Word Bank time on a turn with no end: unchanged
+
+
+# ---------------- LS-12 (Medi 2026-10-02 "1-6 put for amal on her list"): Amal answers the word questions
+def test_LS_12_word_questions_go_to_amal_in_plain_words():
+    d = detail(vocab_correct=[wb("e-h", 2000.5, "7ada", "حدا")],
+               vocab_errors=[audit("FA-h", 2000, "حدا", "ناس", conf="medium", signal="prompt-then-fix")])
+    led, _ = build(d)
+    c = next(c for c in led["conflicts"] if c["id"] in led["needs_medi"])
+    item = LL.amal_item("2026-09-28", led, c)
+    assert item["id"] == "ledger:" + c["id"] and item["audio"].startswith("lessons/2026-09-28/audio/lesson.mp3#t=")
+    assert [o["label"] for o in item["options"]] == ["Yes, it was wrong", "Nothing was wrong"]
+    assert not re.search(r"[A-F]\d+|C1q|ledger|Word Bank", item["question"])      # no rule ids, no app words
+
+
+def test_LS_12_her_tap_is_the_ruling_and_nothing_wrong_drops_the_slip(tmp_path):
+    import apply_amal_audit_rulings as A
+    d = detail(vocab_correct=[wb("e-h", 2000.5, "7ada", "حدا")],
+               vocab_errors=[audit("FA-h", 2000, "حدا", "ناس", conf="medium", signal="prompt-then-fix")])
+    led, _ = build(d)
+    cid = led["needs_medi"][0]
+    rows = [{"id": 1, "source": "review", "kind": "ledger_pick", "word_key": "ledger:" + cid, "payload": {"answer": "wrong"}, "created_at": "2026-10-03T01:00:00Z"},
+            {"id": 2, "source": "review", "kind": "ledger_pick", "word_key": "ledger:" + cid, "payload": {"answer": "none"}, "created_at": "2026-10-03T01:05:00Z"},
+            {"id": 3, "source": "review", "kind": "audit_confirm", "word_key": "P12", "payload": {}}]
+    got = A.ledger_answers(rows)
+    assert got == [{"conflict": cid, "answer": "none", "by": "amal", "at": "2026-10-03T01:05:00Z", "rule_id": 2, "rule": "LS-12"}]  # latest tap wins
+    p = tmp_path / "ledger-amal.json"
+    assert A.write_ledger_answers(got, str(p)) and not A.write_ledger_answers(got, str(p))
+    (tmp_path / "ledger-rulings.json").write_text('{"rulings": []}', encoding="utf-8")
+    rul = LL.load_rulings(str(tmp_path / "ledger-rulings.json"))
+    assert rul[cid]["by"] == "amal"
+    led2, act = build(d, rulings=rul)
+    assert not led2["needs_medi"] and led2["conflicts"][0]["ruled"]["by"] == "amal"
+    assert ("vocab_errors", "ra:FA-h") == act["move"][0][:2] and "Amal" in act["move"][0][2]
+    assert led2["counts"]["words"]["wrong"] == 0 and led2["counts"]["words"]["right"] == 1
+
+
+def test_LS_12_amal_answer_beats_medi_answer(tmp_path):
+    (tmp_path / "ledger-rulings.json").write_text('{"rulings": [{"conflict": "C1q-x", "answer": "none", "rule": "LS-11"}]}', encoding="utf-8")
+    (tmp_path / "ledger-amal.json").write_text('{"rulings": [{"conflict": "C1q-x", "answer": "wrong", "rule": "LS-12"}]}', encoding="utf-8")
+    r = LL.load_rulings(str(tmp_path / "ledger-rulings.json"))["C1q-x"]
+    assert r["answer"] == "wrong" and r["by"] == "amal"
+
+
+def test_LS_12_committed_hub_cards_are_the_open_amal_questions():
+    import json
+    D = json.load(open(os.path.join(ROOT, "docs", "data", "amal-ledger.json"), encoding="utf-8"))
+    L = json.load(open(os.path.join(ROOT, "docs", "data", "lessons.json"), encoding="utf-8"))["lessons"]
+    want = sorted("ledger:" + it["id"] for x in L for it in (x.get("ledger") or {}).get("items") or [] if it.get("ask") == "amal")
+    assert sorted(i["id"] for i in D["items"]) == want
+    for i in D["items"]:
+        assert i["audio"] and i["medi_said"] and i["question"] and len(i["options"]) >= 2

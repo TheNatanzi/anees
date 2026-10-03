@@ -122,6 +122,40 @@ def withdrawn_records(undone, ledger):
     return out
 
 
+LEDGER_AMAL = os.path.join(REPO, "data", "lesson-work", "ledger-amal.json")
+
+
+def ledger_answers(rows):
+    """LS-12: Amal's taps on the "Which word was wrong?" cards (amal_rules source 'review', word_key 'ledger:<question id>',
+    kind 'ledger_pick', payload.answer). rows = amal_rules rows with undone taps already left out (scripts/db.py, AM-17);
+    the latest tap per question wins. -> the rows of data/lesson-work/ledger-amal.json (her ruling, rule LS-12)."""
+    last = {}
+    for r in sorted(rows or [], key=lambda r: (str(r.get("created_at") or ""), r.get("id") or 0)):
+        wk = str(r.get("word_key") or "")
+        if not wk.startswith("ledger:") or r.get("kind") != "ledger_pick" or str(r.get("source") or "review").startswith("test"):
+            continue
+        ans = (r.get("payload") or {}).get("answer")
+        if ans:
+            last[wk] = {"conflict": wk[len("ledger:"):], "answer": ans, "by": "amal", "at": r.get("created_at"),
+                        "rule_id": r.get("id"), "rule": "LS-12"}
+    return [last[k] for k in sorted(last)]
+
+
+def write_ledger_answers(rulings, path=LEDGER_AMAL):
+    """Writes ledger-amal.json; True when it changed (then the lesson data is rebuilt: her tap settles the ledger)."""
+    doc = {"about": "Amal's answers on her Tutor hub 'Which word was wrong?' cards (LS-12). Generated from amal_rules by "
+                    "scripts/apply_amal_audit_rulings.py every hour; never edit by hand (Undo on the hub takes one back).",
+           "rulings": rulings}
+    old = json.load(open(path, encoding="utf-8")) if os.path.exists(path) else None
+    if old == doc:
+        return False
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        json.dump(doc, f, ensure_ascii=False, indent=1)
+        f.write("\n")
+    return True
+
+
 def _sec(s):
     if s in (None, ""):
         return None
@@ -233,9 +267,16 @@ def apply(dry=False):
     import full_audit_build as FAB
     if dry:
         return
+    try:      # LS-12: her "which word was wrong" taps (db.select leaves undone taps out)
+        import db
+        led_changed = write_ledger_answers(ledger_answers(db.select("amal_rules", {"select": "*", "source": "eq.review",
+                                                                                   "word_key": "like.ledger:*", "order": "created_at.asc"})))
+    except Exception as e:
+        led_changed = False
+        print("ledger answers not read:", type(e).__name__, str(e)[:200])
     added, removed, same = FAB.sync_compat(A)
     print(f"sweep_compat: +{added} confirmed rows, -{removed} ruled-out rows, {len(same)} same-moment twins left out {same}")
-    if not changed and not added and not removed and not reverted and not vrec:
+    if not changed and not added and not removed and not reverted and not vrec and not led_changed:
         return
     if vrec:
         L.setdefault("records", []).extend(vrec)

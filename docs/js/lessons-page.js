@@ -807,11 +807,17 @@ function detail(L) {
 function renderMedi() {
   var box = $('ls-medi');
   if (!box) return;
-  var items = [];
-  lessons().forEach(function (L) { ((L.ledger || {}).items || []).forEach(function (it) { items.push({ L: L, it: it }); }); });
+  var items = [], amal = 0;
+  // LS-12 (Medi 2026-10-02 "1-6 put for amal on her list"): questions about his Arabic words are Amal's, on her Tutor hub;
+  // only a question about the app itself is listed here for Medi
+  lessons().forEach(function (L) { ((L.ledger || {}).items || []).forEach(function (it) { if ((it.ask || 'medi') === 'amal') amal++; else items.push({ L: L, it: it }); }); });
   box.textContent = '';
-  box.hidden = !items.length;
-  if (!items.length) return;
+  box.hidden = !items.length && !amal;
+  if (!items.length) {
+    if (amal) box.appendChild(el('p', 'ab-mini', 'Waiting for Amal · ' + amal + (amal === 1 ? ' moment' : ' moments') + ' where two judges disagree about a word are on her Tutor hub. Counted as before until she answers.'));
+    return;
+  }
+  if (amal) box.appendChild(el('p', 'ab-mini', 'Also waiting for Amal: ' + amal + ' word ' + (amal === 1 ? 'moment' : 'moments') + ' on her Tutor hub.'));
   box.appendChild(el('h3', '', 'Medi? · ' + items.length + (items.length === 1 ? ' moment' : ' moments') + ' where two judges disagree'));
   var ex = items.slice(0, 2).map(function (x, i) { var o = (x.it.options || [])[0] || 'keep'; return (i + 1) + ' ' + (o === 'wrong' ? 'wrong' : o === 'keep' ? 'keep' : (toArabizi && /[؀-ۿ]/.test(o) ? toArabizi(o).text : o)); }).join(', ');
   box.appendChild(el('p', 'ab-mini', 'Counted as before until you pick. Reply like: ' + ex));

@@ -348,9 +348,9 @@ def _commit(paths, message):
 # what the Tutor refresh rebuilds (data/accuracy: accuracy_gates annotate rewrites the verification queue on every
 # lesson-data build; left uncommitted it made the guard's clean-tree check block every later hour)
 TUTOR_PATHS = ['docs/data', 'docs/amal/grammar-rules.html', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'RULE-BOOK.md',
-               'data/lesson-work/ledger']   # LS-11: the lesson ledgers change with every build of the lesson data
+               'data/lesson-work/ledger', 'data/lesson-work/ledger-amal.json']   # LS-11: the lesson ledgers change with every build of the lesson data
 # everything a run may build that the site or the guard reads: committed before the run's one push
-BUILT_PATHS = ['docs', 'RULE-BOOK.md', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'data/lesson-work/full-audit', 'data/lesson-work/ledger', 'plan/FULL-AUDIT-2026-09-26.md',
+BUILT_PATHS = ['docs', 'RULE-BOOK.md', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'data/lesson-work/full-audit', 'data/lesson-work/ledger', 'data/lesson-work/ledger-amal.json', 'plan/FULL-AUDIT-2026-09-26.md',
                'data/budget.json', 'data/lessons/recall_bots.json', 'data/runs', 'data/decisions', 'data/backfill',
                'data/amal-trigger', 'data/vocab', 'data/lesson-work/amal-new-words', 'data/lesson-work/amal-new-words-verdicts.json']
 

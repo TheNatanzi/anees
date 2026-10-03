@@ -20,7 +20,7 @@ def kinds_built():
     """Every item kind scripts/build_tutor_data.py can put on the hub."""
     src = (ROOT / "scripts" / "build_tutor_data.py").read_text(encoding="utf-8")
     ks = set(re.findall(r'"kind": "([a-z_]+)"', src)) | {"after", "before", "verb_check", "word_review"}
-    return ks | {"verify", "newwords"}          # the two lists tutor.js adds itself
+    return ks | {"verify", "newwords", "ledger"}   # the lists tutor.js adds itself (ledger: LS-12)
 
 
 def test_PG_17_no_hub_item_links_to_another_page():

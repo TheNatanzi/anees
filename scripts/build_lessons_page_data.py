@@ -1164,6 +1164,24 @@ def build():
               f"underlines {r['ul_exact']} exact + {len(r['ul_closest'])} closest + {len(r['ul_none'])} none of {r['ul_wanted']}")
     for d, led in ledgers.items():
         LL.write(led)
+    # LS-12 (Medi 2026-10-02 "1-6 put for amal on her list"): the open questions about Arabic words are cards on Amal's
+    # Tutor hub (docs/js/hub/ledger-task.js); the ones she answered stay listed with Undo
+    amal_q = J(LL.AMAL_P).get("rulings", []) if os.path.exists(LL.AMAL_P) else []
+    amal_by = {r["conflict"]: r for r in amal_q}
+    cards, done_cards = [], []
+    for d, led in sorted(ledgers.items()):
+        for c in led["conflicts"]:
+            if c.get("ask") != "amal" or c.get("group"):
+                continue
+            if c["id"] in led["needs_medi"]:
+                cards.append(LL.amal_item(d, led, c))
+            elif c["id"] in amal_by:
+                r = amal_by[c["id"]]
+                done_cards.append(LL.amal_item(d, led, c, {"kind": "ledger_pick", "answer": r["answer"], "at": r.get("at")}))
+    with open(os.path.join(DOCS, "data", "amal-ledger.json"), "w", encoding="utf-8") as f:
+        json.dump({"about": "Moments where two of Anees' judges disagree about one of Medi's Arabic words (LS-11/LS-12). Amal's tap "
+                            "settles each: amal_rules source 'review', word_key = the item id, kind 'ledger_pick', payload.answer.",
+                   "items": cards, "answered": done_cards}, f, ensure_ascii=False, indent=1)
     LL.write_diff(published, lessons, ledgers)
     os.makedirs(os.path.join(DOCS, "data", "lessons"), exist_ok=True)
     for d, v in per.items():

@@ -16,7 +16,7 @@
   const pretty = d => d ? new Date(String(d).slice(0, 10) + 'T12:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
   const today = () => new Date().toISOString().slice(0, 10);
   const PAGE = 20;
-  let T = { open: [], closed: [] }, tasks = [], verifyN = null, NW = null;
+  let T = { open: [], closed: [] }, tasks = [], verifyN = null, NW = null, LG = null;
 
   async function rest(path, token) {
     const H = { apikey: ANEES.anon, Authorization: 'Bearer ' + ANEES.anon, 'X-Anees-Token': token };
@@ -43,7 +43,7 @@
       }
       if (item.kind === 'review') {   // AM-17: the latest action per pattern counts (an undo puts it back)
         const rows = (await rest('amal_rules?select=kind,word_key&source=eq.review&order=created_at.asc&token=eq.' + encodeURIComponent(item.token), item.token))
-          .filter(r => !/^(verify|newword):/.test(String(r.word_key || '')));
+          .filter(r => !/^(verify|newword|ledger):/.test(String(r.word_key || '')));
         return { ok: true, done: Object.values(AneesUndo.latest(rows)).filter(AneesUndo.isAnswer).length };
       }
     } catch (e) { return { ok: false, done: 0 }; }
@@ -51,8 +51,8 @@
   }
 
   // ---- the task list -------------------------------------------------------------------------------------------
-  const MIN_EACH = { after: 0.7, before: 0.7, verify: 0.4, review: 1.2, verb_check: 0.1, word_review: 0.3, newwords: 0.3 };
-  const UNIT = { after: 'moments', before: 'questions', review: 'slip patterns', verb_check: 'verb forms', word_review: 'lines', verify: 'moments', newwords: 'words' };
+  const MIN_EACH = { after: 0.7, before: 0.7, verify: 0.4, ledger: 0.5, review: 1.2, verb_check: 0.1, word_review: 0.3, newwords: 0.3 };
+  const UNIT = { after: 'moments', before: 'questions', review: 'slip patterns', verb_check: 'verb forms', word_review: 'lines', verify: 'moments', ledger: 'moments', newwords: 'words' };
   function taskOf(it, L) {
     const total = it.total || 0, d = Math.min(total, (L && L.done) || 0), left = Math.max(0, total - d);
     const title = it.kind === 'after' ? 'After the lesson · ' + pretty(it.lesson_date)
@@ -106,6 +106,7 @@
     word_review: (b, it) => AneesWordReviewTask.mount(b, { token: it.token }),
     verify: b => b.appendChild($('#tv')),
     newwords: (b, it, on) => AneesNewWordsTask.mount(b, NW, { onChange: on }),
+    ledger: (b, it, on) => AneesLedgerTask.mount(b, LG, { onChange: on }),
   };
   function panel(t, p) {
     p.innerHTML = `<h2 class="hb-ptitle">${esc(t.title)}</h2><p class="hb-pnote">${esc(sub(t))}</p>${t.item && t.item.what ? `<p class="hb-sub">${esc(t.item.what)}</p>` : ''}<div id="hb-body"></div><div data-earlier></div>`;
@@ -240,6 +241,14 @@
       NW = { token: rv ? rv.token : '', data: N, answers: ans, live };
       const c = AneesNewWordsTask.count(N, AneesNewWordsTask.liveView(N, ans, NW.token, live));
       if (c.total) tasks.push({ id: 'newwords', kind: 'newwords', item: {}, title: 'New words from our lessons', total: c.total, done: c.done, left: c.left, unit: 'words', rank: 1.5, date: c.newest, finished: c.left === 0 });
+    } catch (e) {}
+    try {   // LS-12: "Which word was wrong?" - taps = amal_rules word_key ledger:* on the review token
+      const Q = await (await fetch('data/amal-ledger.json', { cache: 'no-store' })).json(), rv = T.open.find(x => x.kind === 'review');
+      let rows = [], live = false;
+      if (rv) { rows = await rest('amal_rules?select=kind,word_key,payload,created_at&source=eq.review&word_key=like.ledger:*&order=created_at.asc&token=eq.' + encodeURIComponent(rv.token), rv.token); live = true; }
+      LG = { token: rv ? rv.token : '', data: Q, answers: AneesLedgerTask.liveView(rows), live };
+      const c = AneesLedgerTask.count(Q, LG.answers);
+      if (c.total) tasks.push({ id: 'ledger', kind: 'ledger', item: {}, title: 'Which word was wrong?', total: c.total, done: c.done, left: c.left, unit: 'moments', rank: 2.5, date: '', finished: c.left === 0 });
     } catch (e) {}
     rankAll(tasks); count();
     const open = tasks.filter(t => !t.finished), m = open.reduce((s, t) => s + t.left * (MIN_EACH[t.kind] || 0.5), 0);

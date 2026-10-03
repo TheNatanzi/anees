@@ -5371,6 +5371,60 @@
    }
   },
   {
+   "id": "LS-12",
+   "kind": "data",
+   "scope": "lessons",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A lesson-ledger question about whether, or which, Arabic word Medi got wrong is Amal's: it becomes a card on her Tutor hub ('Which word was wrong?': the moment with both voices, Medi's line, her next line, the question and one-tap choices in plain words, Undo), saved on the open review link (no new link); her tap is the ruling (data/lesson-work/ledger-amal.json, rule LS-12) and beats Medi's; until she answers the moment counts as today and the Lessons page says it is waiting for Amal. Only a question about the app itself goes to Medi.",
+   "plain": "When the app's judges disagree about whether, or which, Arabic word Medi got wrong, Amal answers it with one tap on her Tutor hub and her answer counts; until then it counts as before, and only questions about the app itself go to Medi.",
+   "plain_for": "6a7015ef",
+   "topic": "one ledger",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "1-6 put for amal on her list"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/lesson_ledger.py",
+     "contains": "ASK = {\"C1q\": \"amal\""
+    },
+    {
+     "type": "code",
+     "path": "scripts/apply_amal_audit_rulings.py",
+     "contains": "def ledger_answers(rows):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/hub/ledger-task.js",
+     "contains": "root.AneesLedgerTask = { mount, count, liveView };"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_lesson_ledger.py",
+     "contains": "def test_LS_12_her_tap_is_the_ruling_and_nothing_wrong_drops_the_slip"
+    },
+    {
+     "path": "tests/test_lesson_ledger.py",
+     "contains": "def test_LS_12_word_questions_go_to_amal_in_plain_words"
+    },
+    {
+     "path": "tests/test_lesson_ledger.py",
+     "contains": "def test_LS_12_committed_hub_cards_are_the_open_amal_questions"
+    }
+   ],
+   "example": {
+    "date": "2026-09-28",
+    "t": "26:05",
+    "note": "Word Bank: حدا right; the readers: Amal prompted, then gave ناس. One reader only, so no rule decides: Amal's card asks 'Was «حدا» wrong here?' Yes, it was wrong / Nothing was wrong."
+   }
+  },
+  {
    "id": "PR-14",
    "kind": "data",
    "scope": "process",

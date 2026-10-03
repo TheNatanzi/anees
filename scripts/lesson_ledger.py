@@ -180,9 +180,33 @@ def mode(repo=REPO):
     return os.environ.get("ANEES_LEDGER") or ((J(p) or {}).get("mode") if os.path.exists(p) else None) or "on"
 
 
-def load_rulings(path=RULINGS_P):
+AMAL_P = os.path.join(REPO, "data", "lesson-work", "ledger-amal.json")
+
+
+def load_rulings(path=RULINGS_P, amal_path=None):
+    """{conflict id: ruling}. Medi's answers (ledger-rulings.json, hand-made) and Amal's taps on her Tutor hub
+    (ledger-amal.json, pulled from amal_rules by scripts/apply_amal_audit_rulings.py). LS-12 (Medi 2026-10-02 "1-6 put for
+    amal on her list"): a question about whether / which Arabic word was wrong is hers - her answer wins over his."""
     R = J(path, {"rulings": []}) or {"rulings": []}
-    return {r["conflict"]: r for r in R.get("rulings", []) if r.get("conflict")}
+    out = {r["conflict"]: dict(r, by=r.get("by") or "medi") for r in R.get("rulings", []) if r.get("conflict")}
+    if amal_path is None:
+        amal_path = os.path.join(os.path.dirname(os.path.abspath(path)), "ledger-amal.json")
+    A = J(amal_path, {"rulings": []}) or {"rulings": []}
+    out.update({r["conflict"]: dict(r, by="amal") for r in A.get("rulings", []) if r.get("conflict") and r.get("answer")})
+    return out
+
+
+# LS-12: who answers an open question. Whether / which Arabic word was wrong is Amal's call (her teaching); only a
+# question about the app itself (a process question, none yet) goes to Medi.
+ASK = {"C1q": "amal", "C2q": "amal", "CR": "amal"}
+AMAL_WORDS = {   # the question and the choices in plain words, for her card (no rule ids, no app words)
+    "C1q": "Which of Medi's words was wrong here?",
+    "C1q1": "Was «%s» wrong here?",
+    "C2q": "Was this the wrong word, or the right word with a grammar mistake?",
+    "CR": "Was «%s» wrong here?",
+}
+LABELS = {"none": "Nothing was wrong", "wrong": "Yes, it was wrong", "ledger": "Yes, it was wrong",
+          "word": "Wrong word", "grammar": "Grammar mistake", "both": "Both"}
 
 
 # ------------------------------------------------------------------ build one lesson
@@ -320,23 +344,30 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                 groups[group] = c
             else:
                 c["group"] = lead["id"]
-                lead["options"] = [o for o in lead["options"] if o != "keep"] + [o for o in options if o not in lead["options"] and o != "keep"] + ["keep"]
-                c["options"], c["question"] = lead["options"], question
+                lead["options"] = [o for o in lead["options"] if o != "none"] + [o for o in options if o not in lead["options"] and o != "none"] + ["none"]
+                c["options"], c["question"], c["ask"] = lead["options"], question, lead["ask"]
                 r = rulings.get(lead["id"])
                 if r:
-                    c["medi"] = {"answer": r["answer"], "date": r.get("date"), "quote": r.get("quote")}
+                    c["medi"] = c["ruled"] = {"answer": r["answer"], "by": r.get("by") or "medi", "date": r.get("date") or r.get("at"), "quote": r.get("quote")}
                     return r["answer"]
                 c["needs_medi"] = True
                 c["counted_as_now"] = lead["counted_as_now"]
                 return None
         r = rulings.get(c["id"])
-        c["options"], c["question"] = options, question
+        c["options"], c["question"], c["ask"] = options, question, ASK.get(c["kind"], "medi")
         if r:
-            c["medi"] = {"answer": r["answer"], "date": r.get("date"), "quote": r.get("quote")}
+            c["medi"] = c["ruled"] = {"answer": r["answer"], "by": r.get("by") or "medi", "date": r.get("date") or r.get("at"), "quote": r.get("quote")}
             return r["answer"]
-        c["needs_medi"] = True
-        c["counted_as_now"] = "both judgments count as before until Medi picks"
+        c["needs_medi"] = True       # an open question (kept under this name: it is asked of c["ask"])
+        c["counted_as_now"] = "both judgments count as before until %s answers" % ("Amal" if c["ask"] == "amal" else "Medi")
         return None
+
+    def drop_slip(r, c, ans):
+        """Amal: nothing was wrong here - the reader slip leaves the count (kept, with her answer as the reason)."""
+        if r["verdict"] in ("wrong", "asked") and resolve:
+            why = "Amal: nothing was wrong here (her answer on the Tutor hub)" if (c.get("ruled") or {}).get("by") == "amal" else "Medi: nothing was wrong here"
+            r.update(verdict="not-scored", why=why, why_by=(c.get("ruled") or {}).get("by") or "medi", _was=r["verdict"])
+            actions["move"].append(("vocab_errors", r["id"], why, c["kind"]))
 
     def settle(c):
         """A rule decided it. In shadow mode (ANEES_LEDGER=shadow) nothing is applied, so it is only 'would settle'."""
@@ -382,16 +413,16 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                     conflict("C2b", r, g)          # a different word AND a wrong form: two errors, both stand (WS-09)
                 else:
                     c = conflict("C2q", r, g, {"why_medi": "the same fix was filed as a word slip and as a grammar slip"})
-                    ans = needs_medi(c, ["word", "grammar", "both"], "Word slip or grammar slip?")
+                    ans = needs_medi(c, ["word", "grammar", "both"], AMAL_WORDS["C2q"])
                     if ans:
                         c["resolved"] = True
                     if ans == "word" and resolve:
-                        why = "Medi: the same slip is a word slip, not grammar %s" % g.get("bucket")
+                        why = "%s: the same slip is a wrong word, not grammar %s" % ("Amal" if c["ruled"]["by"] == "amal" else "Medi", g.get("bucket"))
                         g.update(verdict="not-scored", folded_into=r["id"], why=why, why_by="medi", _was="slip")
                         r.setdefault("folded", []).append({"id": g["id"], "producer": g["by"]["producer"], "ref": g["by"]["ref"], "why": why})
                         actions["move"].append(("grammar_errors", g["id"], why, "C2q"))
                     if ans == "grammar" and resolve:
-                        why = "Medi: the same slip is grammar %s" % g.get("bucket")
+                        why = "%s: the same slip is grammar %s" % ("Amal" if c["ruled"]["by"] == "amal" else "Medi", g.get("bucket"))
                         r.update(verdict="not-scored", folded_into=g["id"], why=why, why_by="medi", _was=r["verdict"])
                         g.setdefault("folded", []).append({"id": r["id"], "producer": r["by"]["producer"], "ref": r["by"]["ref"], "why": why})
                         actions["move"].append(("vocab_errors", r["id"], why, "C2q"))
@@ -441,17 +472,20 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                                           else "a description, not his words" if is_gloss(r.get("wrong")) else "only one reader saw it"})
                 orig = {base(norm(x)): x for x in re.split(r"[\s.…,،؟?!:;\"“”()\-]+", r.get("wrong") or "") if norm(x)}
                 settled = {base(norm(x.get("tok"))) for x in wb_ok if reviewed(review_patches, x["by"]["ref"]) == "hand"}
-                opts = (["ledger", "keep"] if patched else [orig.get(w, w) for w in W if w not in F and w not in settled][:4] + ["keep"])
+                opts = (["ledger", "none"] if patched else [orig.get(w, w) for w in W if w not in F and w not in settled][:4] + ["none"])
                 one = None
-                if not patched and len(opts) == 2:     # one candidate: a yes/no, he never types the word
-                    one, opts = opts[0], ["wrong", "keep"]
-                q = ("The Word Bank's re-read says right, Amal said no: which stands?" if patched else
-                     "Was %s wrong here?" % one if one else "Which word was wrong?")
+                if not patched and len(opts) == 2:     # one candidate: a yes/no, nobody types the word
+                    one, opts = opts[0], ["wrong", "none"]
+                q = (AMAL_WORDS["CR"] % (m.get("tok") or "") if patched else AMAL_WORDS["C1q1"] % one if one else AMAL_WORDS["C1q"])
+                c["one"] = one
                 ans = needs_medi(c, opts, q, group=r["id"])
                 if ans:
                     c["resolved"] = True
-                    if resolve and (ans in ("ledger", "wrong") or base(norm(ans)) == t):
-                        supersede_wb(m, r, "Medi %s: %s was the wrong word" % (((c.get("medi") or {}).get("date") or ""), ans), bool(why_same))
+                    who = "Amal" if (c.get("ruled") or {}).get("by") == "amal" else "Medi"
+                    if ans == "none":
+                        drop_slip(r, c, ans)
+                    elif resolve and (ans in ("ledger", "wrong") or base(norm(ans)) == t):
+                        supersede_wb(m, r, "%s %s: %s was the wrong word" % (who, ((c.get("ruled") or {}).get("date") or "")[:10], ans if ans not in ("ledger", "wrong") else m.get("tok")), bool(why_same))
                         actions["move"].append(("vocab_correct", m["id"], m["why"], kind))
         # C2w: a Word Bank Wrong on a counted grammar slip's word
         for m in wb_bad:
@@ -463,7 +497,7 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                         break
                     if hand_patch(review_patches, m["by"]["ref"]) or reviewed(review_patches, m["by"]["ref"]) == "auto":
                         c = conflict("CR", m, g)
-                        if needs_medi(c, ["ledger", "keep"], "Your Word Bank edit vs the grammar slip") != "ledger":
+                        if needs_medi(c, ["ledger", "none"], AMAL_WORDS["CR"] % (m.get("tok") or "")) != "ledger":
                             break
                     else:
                         c = conflict("C2w", m, g)
@@ -552,7 +586,25 @@ def medi_item(led, c):
             "a": {"by": a.get("by", {}).get("producer"), "verdict": a.get("verdict") if a.get("verdict") != "folded" else a.get("was"),
                   "word": a.get("tok") or a.get("wrong"), "word_key": a.get("word_key")},
             "b": {"by": b.get("by", {}).get("producer"), "verdict": b.get("verdict"), "wrong": b.get("wrong"), "fix": b.get("fix"),
-                  "bucket": b.get("bucket"), "signal": b.get("signal")}}
+                  "bucket": b.get("bucket"), "signal": b.get("signal")},
+            "ask": c.get("ask") or "medi"}
+
+
+def amal_item(date, led, c, answered=None):
+    """One card on Amal's Tutor hub (LS-12): the moment (both voices), Medi's line, her own next line, the question and the
+    choices in plain words. id = 'ledger:<question id>' = the amal_rules word_key her tap is saved under."""
+    T = led["turns"]
+    i = c.get("turn")
+    medi = T[i][3] if i is not None else None
+    amal = next((u[3] for u in T[(i or 0) + 1:(i or 0) + 14] if u[2] in ("Amal", "chat") and u[0] <= c["t"] + 30), None) if i is not None else None
+    opts = c.get("options") or []
+    lab = lambda o: LABELS.get(o) or o
+    a, b = max(0, int(c["t"]) - 4), int(c["t"]) + 14
+    return {"id": "ledger:" + c["id"], "conflict": c["id"], "date": date, "t": c["t"], "mmss": c["mmss"],
+            "audio": ("lessons/%s/audio/lesson.mp3#t=%d,%d" % (date, a, b)) if date != "2026-09-10" else ("lessons/%s/audio/Medi.mp3#t=%d,%d" % (date, a, b)),
+            "medi_said": medi, "amal_said": amal, "question": c.get("question"),
+            "options": [{"value": o, "label": lab(o)} for o in opts],
+            **({"answered": answered} if answered else {})}
 
 
 def uses_minus(uses_by_bucket, folds):
@@ -609,7 +661,7 @@ def input_files(date):
     return ["docs/lessons/%s.html" % date, "docs/data/word-bank-evidence.json", "docs/data/word-bank-review.json",
             "data/full-audit-2026-09-26.json", "docs/data/grammar-usage.json", "data/grammar-usage-rulings.json",
             "data/lesson-work/sheet-verdicts.json", "data/lesson-work/lesson-types/%s.json" % date,
-            "data/lesson-work/ledger-rulings.json", "docs/data/words.json", "docs/data/grammar-buckets.json",
+            "data/lesson-work/ledger-rulings.json", "data/lesson-work/ledger-amal.json", "docs/data/words.json", "docs/data/grammar-buckets.json",
             "scripts/amal_grammar_notes.py", "scripts/lesson_ledger.py", "scripts/transcript_marks.py",
             "scripts/build_lessons_page_data.py"]
 
@@ -757,6 +809,8 @@ def check(repo=REPO):
             opts.update({c["id"]: c.get("options") or [] for c in cs})
             followers.update({c["id"]: c["group"] for c in cs if c.get("group")})
     for cid, r in load_rulings(os.path.join(repo, "data", "lesson-work", "ledger-rulings.json")).items():
+        if r.get("by") == "amal":
+            continue                 # her taps come from her own buttons (always an option); a vanished one is listed in _diff.md
         if r.get("rule") != "LS-11":
             probs.append(f"Medi's answer to {cid} has no rule 'LS-11' (AGENTS.md: every ruling row names its rule)")
         if cid in opts and r.get("answer") not in opts[cid]:

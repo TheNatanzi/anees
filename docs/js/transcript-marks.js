@@ -10,9 +10,9 @@ var FILTERS = [['all', 'All'], ['marked', 'Only marked'], ['wrong', 'Only ✗'],
 var LEGEND = [
   ['correct', '✓', 'Correct'], ['partial', '◐', 'Partial · got there with help'], ['asked', '◐', 'Asked Amal for the word'],
   ['wrong', '✗', 'Wrong'], ['fix', '←', "Amal's fix (how she flagged it)"], ['na', '–', 'Not scored (reason on the chip)'],
-  ['medi', '?', 'Medi? · two judges disagree, counted as before until you pick']
+  ['medi', '?', 'Open question · two judges disagree; Amal decides on her Tutor hub, counted as before until she answers']
 ];
-var WORD = { correct: 'Correct', partial: 'Partial', asked: 'Asked', wrong: 'Wrong', fix: "Amal's fix", na: 'Not scored', medi: 'Medi?' };
+var WORD = { correct: 'Correct', partial: 'Partial', asked: 'Asked', wrong: 'Wrong', fix: "Amal's fix", na: 'Not scored', medi: 'Open question' };
 var SIGN = { correct: '✓', partial: '◐', asked: '◐', wrong: '✗', fix: '←', na: '–', medi: '?' };
 
 function isArabic(s) { return /[؀-ۿ]/.test(s || ''); }
@@ -49,7 +49,7 @@ function chipModel(c, toArabizi) {
   else if (c.s === 'partial') tip = 'Partial · got there with help' + (c.said ? ' · said ' + az(c.said, null, toArabizi) : '');
   else if (c.s === 'correct') tip = 'Correct' + (c.said ? ' · said ' + az(c.said, null, toArabizi) : '');
   else if (c.s === 'fix') tip = "Amal's fix: she " + c.sig + (c.said || c.right ? ' · ' + pair(c.said, c.right, toArabizi) : '');
-  else if (c.s === 'medi') tip = 'Medi? ' + (c.why || '');
+  else if (c.s === 'medi') tip = (c.label || 'Open question') + ' ' + (c.why || '');
   else tip = 'Not scored: ' + (c.why || '');
   var arSrc = [c.said, c.right].filter(isArabic).join(' → ');
   return {
