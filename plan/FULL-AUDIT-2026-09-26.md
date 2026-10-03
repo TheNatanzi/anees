@@ -8,7 +8,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 |---|---|
 | Grammar fixes Amal voiced (A) | **596** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 89 |
-| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 9 |
+| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 8 |
 | Vocab fixes Amal voiced (A) | **282** (sweep had 147; lesson pages showed 23) |
 | - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 160, '0': 115, '2': 46, '3': 5} |
 | Vocab she let pass (B, to Amal) | **44** by tier {'1': 25, '2': 13, '3': 6} |
@@ -87,8 +87,8 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | C7 | illi | 12 |
 | C2 | the pointer rule | 11 |
 | B10 | commands | 9 |
-| PROPOSE | ? | 9 |
 | C3 | comparatives | 8 |
+| PROPOSE | ? | 8 |
 | E2 | clock time | 7 |
 | B8 | bakoon / ykoon | 7 |
 | A3 | feminine -t in idafa | 7 |
@@ -1515,7 +1515,7 @@ _00:02-06:12 and 53:31-end are English meta talk. 12:34-15:40 and 37:41-42:12 tr
 | FA-ceceda0c | 33:43 | grammar | A7 | مرة الأخيرة. | المرة الأخيرة. | مرة الأخيرة -> المرة الأخيرة | With an el- adjective after it the noun needs el- too; Amal recast المرة الأخيرة. | high | r1+r2 |
 | FA-d716d39c | 34:58 | grammar (listening) | B1 | The last person that came. | Yeah, yeah. To come. Mm-hmm. | came -> comes | Listening drill: he glossed بيجي (b- present) as past 'came'; Amal said 'To come' and he fixed it to 'that comes'. Low: small tense slip in an English gloss. | low | r3 |
 | FA-43aadef1 | 35:30 | grammar | A1 | الرحلة أخيرة. | الأخيرة. | أخيرة -> الأخيرة | Medi 2026-10-03 marked it a mistake: my first attempt didnt have the "el" in the second word and amal corrected | high | medi-correction |
-| FA-40d5b3fc | 39:16 | grammar-propose | PROPOSE | qayril yom." "Qayril yom." I'll see you another day. | غير يوم. | qayril yom -> غير يوم | Repeating her بشوفك غير يوم he said 8eir el-yoam (Latin transcript); she recast غير يوم, as she had at 38:12 after his 'Qayril yom, okay' (a question then). Low: may be pronunciation/engine of ghayr yom. | low | r3 |
+| FA-76206565 | 39:16 | rejected | PROPOSE | qayril yom." "Qayril yom." I'll see you another day. | غير يوم. | qayril yom -> غير يوم | Repeating her بشوفك غير يوم he said 8eir el-yoam (Latin transcript); she recast غير يوم, as she had at 38:12 after his 'Qayril yom, okay' (a question then). Low: may be pronunciation/engine of ghayr yom. | low | r3 |
 | FA-7f27b005 | 42:09 | grammar | A8 | il khitiara il awwal. Is it awwal? | الأولى. | il awwal -> الأولى | 5ityaara is feminine so the adjective is el-oola; Amal recast الأولى. | medium | r1+r2 |
 | FA-ea740d3c | 43:16 | grammar-propose | PROPOSE | تاني حاجة. | تاني حدا would mean the second person. | تاني حاجة -> حدا تاني | Engine wrote حاجة; Amal echoes تاني حدا - before the noun tani means 'second', for 'someone else' it goes after: 7ada taani. | high | r1+r2 |
 | FA-2a4b4458 | 43:20 | grammar | A7 | Oh, you're right. Uh, هذا الثاني. | حدا التاني is no. X. Just حدا تاني. | هذا الثاني -> حدا تاني | Engine wrote هذا for 7ada; Amal: حدا التاني is wrong, an indefinite noun takes the adjective without el-: حدا تاني. | high | r1+r2 |

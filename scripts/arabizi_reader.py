@@ -40,7 +40,8 @@ for ar, lat in [
     ("إذا", "iza itha eza"), ("لما", "lamma lama"), ("اللي", "illi ili elli eli"), ("كم", "kam"),
     ("بس", "bas bass"), ("و", "w wa"), ("كتير", "kteer ktir kteir"), ("هون", "hon hoon"), ("هناك", "honak hunak"),
     ("كل", "kul kol"), ("رح", "ra7 rah"),
-    ("الساعة", "elsa elsaa elsa3a elsaa3a"),   # TR-23 (Medi 2026-10-03 "I was trying to say el Sa3aa"): the engine's 'Elsa ("بدي", "baddi bidi biddi badi"), ("لازم", "lazem lazim"), ("ممكن", "mumken mumkin momken"),
+    ("الساعة", "elsa elsaa elsa3a elsaa3a"),
+    ("غير", "qayr ghair ghayr 8air"),        # TR-23 (Medi 2026-10-03 "8air"): the engine writes his 8air as 'qayr'    # TR-23 (Medi 2026-10-03 "I was trying to say el Sa3aa"): the engine's 'Elsa ("بدي", "baddi bidi biddi badi"), ("لازم", "lazem lazim"), ("ممكن", "mumken mumkin momken"),
 ]:
     for w in lat.split():
         FUNC[w] = ar

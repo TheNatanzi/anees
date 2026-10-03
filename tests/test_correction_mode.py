@@ -290,3 +290,9 @@ def test_tr_24_a_slip_built_on_a_word_he_says_the_engine_misheard_is_dropped_but
             {"date": "2026-10-02", "t": "18:12", "kind": "grammar", "wrong": "elsaa el awal", "right": "el-saa3a el-oola"}]
     assert F.apply_misheard(rows, fx) == 1
     assert rows[0]["kind"] == "rejected" and "TR-24" in rows[0]["rejected_why"] and rows[1]["kind"] == "grammar"
+
+
+def test_tr_23_qayr_on_his_line_is_8air():
+    """TR-23 (Medi 2026-10-03 "8air")."""
+    import arabizi_reader as R
+    assert R.to_arabic("qayr").strip(" .") == "غير"
