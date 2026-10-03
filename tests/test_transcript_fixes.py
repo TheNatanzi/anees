@@ -47,3 +47,11 @@ def test_tr_19_a_short_english_reply_right_after_her_short_arabic_word_is_an_ech
          {"t": 600.0, "who": "Amal", "text": "طيب."}, {"t": 601.0, "who": "Medi", "text": "Okay."}]
     C = EC.candidates(T)
     assert [c["engine_wrote"] for c in C] == ["This suck."]
+
+
+def test_tr_20_a_verb_right_after_take_is_flagged():
+    """TR-20: 'أخد أطلع' (take go-out) is flagged; 'أخد عطلة' (take a holiday) and an overlaid line are not."""
+    import echo_candidates as EC
+    T = [{"t": 584.14, "who": "Medi", "text": "أنا لازم أخد أطلع وسفر"}, {"t": 600, "who": "Medi", "text": "لازم آخد عطلة"},
+         {"t": 610, "who": "Medi", "text": "أخد أطلع", "engine": "x"}]
+    assert [c["engine_wrote"] for c in EC.take_verb(T)] == ["أطلع"]

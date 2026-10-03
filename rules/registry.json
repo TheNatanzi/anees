@@ -842,6 +842,47 @@
    ]
   },
   {
+   "id": "TR-20",
+   "kind": "not-error",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "'Take' (آخد / تاخد / ياخد) takes a thing: a verb-looking word right after it on his line is flagged for the reader as a likely engine mishearing of the noun (10-02 09:44 أخد أطلع = his aa5ud 3otle; her chat 'ana laazem aa5ud 3otle u asaafer'). Listed by scripts/echo_candidates.py (take_verb) for every new lesson; 1 moment in all 18 lessons on 2026-10-02.",
+   "plain": "'Take' (aa5ud) is followed by a thing, not a verb. When the transcript shows a verb right after it, we check whether the engine misheard your word.",
+   "plain_for": "b5c301ac",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "aa5ud can never be followed by a command tense word?"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/echo_candidates.py",
+     "contains": "def take_verb(turns):"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "Also read its `take_verb` list (TR-20"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_transcript_fixes.py",
+     "contains": "def test_tr_20_a_verb_right_after_take_is_flagged"
+    }
+   ],
+   "example": {
+    "date": "2026-10-02",
+    "t": "09:44",
+    "note": "engine أنا لازم أخد أطلع وسفر; Amal typed ana laazem aa5ud 3otle u asaafer"
+   }
+  },
+  {
    "id": "AZ-01",
    "kind": "display",
    "scope": "arabizi",

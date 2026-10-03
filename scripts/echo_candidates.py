@@ -16,6 +16,24 @@ AR = re.compile("[ء-ي]")
 FILLER = re.compile(r"(?i)\b(ok|okay|yes|yeah|no|mhm|uh|um|right|sorry|what|so|and|but|oh|ah|hmm|i|it|is|that)\b$")
 
 
+TAKE = re.compile(r"(^|\s)(آخد|اخد|أخد|ناخد|تاخد|ياخد|باخد|بتاخد|بياخد|خد|خدي)\s+([^\s.,،؟?!]+)")
+VERBLIKE = re.compile(r"^(أ|ا|ي|ت|ن|ب)[^\s]{2,4}$")
+
+
+def take_verb(turns):
+    """TR-20 (Medi 2026-10-02 "aa5ud can never be followed by a command tense word?"): 'take' (آخد) takes a thing; a
+    verb-looking word right after it on his line is a red flag the engine misheard the noun (10-02 09:44 أخد أطلع = his
+    aa5ud 3otle, her chat 'ana laazem aa5ud 3otle u asaafer')."""
+    out = []
+    for u in turns:
+        if u["who"] != "Medi" or u.get("engine"):
+            continue
+        for m in TAKE.finditer(u["text"]):
+            if VERBLIKE.match(m.group(3)) and not m.group(3).startswith("ال"):
+                out.append({"t": u["t"], "engine_wrote": m.group(3), "line": u["text"], "why": "a verb right after 'take' (TR-20)"})
+    return out
+
+
 def candidates(turns):
     out = []
     for i, u in enumerate(turns):
@@ -40,7 +58,7 @@ def main(argv=None):
     d = os.path.join(REPO, "data", "lesson-work", "echo-candidates")
     os.makedirs(d, exist_ok=True)
     with open(os.path.join(d, date + ".json"), "w", encoding="utf-8", newline="\n") as f:
-        json.dump({"date": date, "rule": "TR-19", "candidates": C}, f, ensure_ascii=False, indent=1)
+        json.dump({"date": date, "rule": "TR-19", "candidates": C, "take_verb": take_verb(L.get("turns") or [])}, f, ensure_ascii=False, indent=1)
     print(date, len(C), "echo candidates")
     return 0
 

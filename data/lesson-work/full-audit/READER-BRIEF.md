@@ -122,3 +122,5 @@ Read data/lesson-work/echo-candidates/<date>.json: each is a short reply of his,
 came out with no Arabic letters. Most are real English or his own Latin-letter Arabic - leave those. A sound-alike of
 Arabic (her لسه؟ -> "This suck.", ببسط -> "babysit.", انبارح -> "imbare.") is the engine: treat the line as the Arabic
 he said, and add it to your coverage_note as "echo: <engine words> = <Arabic>" so it joins data/lesson-work/transcript-fixes.json.
+Also read its `take_verb` list (TR-20, Medi 2026-10-02 "aa5ud can never be followed by a command tense word?"): آخد (take)
+takes a thing, so a verb right after it (أخد أطلع) usually means the engine misheard the noun (10-02 09:44: aa5ud 3otle).
