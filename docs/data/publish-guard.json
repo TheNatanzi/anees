@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-02T19:15:05-07:00",
+ "updated": "2026-10-02T21:17:20-07:00",
  "result": "pass",
- "source": "one-ledger LS-11",
- "checked_commit": "1671807a38a1",
- "secs": 52.8,
+ "source": "hourly: tutor refresh",
+ "checked_commit": "7176a323c4ed",
+ "secs": 61.5,
  "checks": [
   {
    "id": "step_failures",
@@ -17,7 +17,7 @@
    "id": "clean_tree",
    "required": true,
    "ok": true,
-   "secs": 0.0,
+   "secs": 0.1,
    "what": "what is checked is exactly what gets published",
    "detail": "nothing uncommitted under docs, data/full-audit-2026-09-26.json, data/accuracy, RULE-BOOK.md, data/lesson-work/ledger"
   },
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 0.8,
+   "secs": 1.2,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "95 JSON files parse"
   },
@@ -33,7 +33,7 @@
    "id": "rule_registry",
    "required": true,
    "ok": true,
-   "secs": 0.3,
+   "secs": 1.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
    "detail": "rule_registry: OK - 154 rules: enforced 67 (code 58, brief 9), written 67, moment-only 12, needs Medi 0, superseded 8"
   },
@@ -41,7 +41,7 @@
    "id": "lesson_coverage",
    "required": true,
    "ok": true,
-   "secs": 0.4,
+   "secs": 0.6,
    "what": "every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)",
    "detail": "all 18 lessons reach every page"
   },
@@ -65,7 +65,7 @@
    "id": "taught_words_cross_check",
    "required": true,
    "ok": true,
-   "secs": 0.0,
+   "secs": 0.1,
    "what": "every Tutor new word of a lesson is in its taught words (or says why not); no off-lesson window hides Amal teaching",
    "detail": "8 lesson type read(s) cover their Tutor new words; no off-lesson window has Amal teaching"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 1.8,
+   "secs": 1.7,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.1,
+   "secs": 1.0,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 1.6,
+   "secs": 3.9,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...3 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 4.2,
+   "secs": 4.8,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 63 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.5,
+   "secs": 0.6,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,45 +129,47 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 39.4,
+   "secs": 43.6,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 84%] | ..................................................................       [100%] | 422 passed, 1 skipped, 3 xfailed in 35.95s"
+   "detail": "............................. [ 84%] | ..................................................................       [100%] | 422 passed, 1 skipped, 3 xfailed in 41.36s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 1.0,
+   "secs": 0.9,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 906.9553"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 818.7471"
   },
   {
    "id": "review_freshness",
    "required": false,
    "ok": true,
-   "secs": 0.1,
+   "secs": 0.2,
    "what": "the two readers read the transcript the pages show now",
    "detail": "18 lessons audited on their current transcript"
   },
   {
    "id": "data_freshness",
    "required": false,
-   "ok": true,
+   "ok": false,
    "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
-   "detail": "every lesson in the raw archive is on the site; Amal trigger and publishing are current"
+   "detail": "Amal's answers last checked 4 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
   }
  ],
- "warnings": [],
+ "warnings": [
+  "data_freshness: Amal's answers last checked 4 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
+ ],
  "last_block": {
-  "at": "2026-10-02T17:54:41-07:00",
-  "source": "lesson_pipeline: Lesson 2099-01-01: report page + clips",
-  "outcome": "blocked",
+  "at": "2026-10-02T20:15:44-07:00",
+  "source": "hourly: 1 local commit(s)",
+  "outcome": "rebase_failed",
   "sha": null,
-  "reason": "lesson_coverage: 17 gap(s): 2026-08-25 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-04 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-05 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-10 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-11 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/); 2026-09-14 missing from: lesson audio (nothing committed under docs/lessons/<date>/audio/) (+11 more); arabizi_gaps: output does not show /\\b0 words\\b/: ",
-  "secs": 1.3,
-  "commits_waiting": ""
+  "reason": "pull --rebase failed (a conflict with master; a person merges): hint: Fix them up in the work tree, and then use 'git add/rm <file>' | hint: as appropriate to mark resolution and make a commit. | fatal: Exiting because of an unresolved conflict.",
+  "secs": null,
+  "commits_waiting": "1"
  },
- "blocks_before_this_pass": 2,
+ "blocks_before_this_pass": 6,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
