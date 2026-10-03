@@ -463,7 +463,12 @@ def build():
     apply_el_prompt(rows)
     apply_demonstrative(rows)
     import medi_corrections as MC     # PR-15: Medi's corrections (page table mirror + the ones he gave in chat)
-    MC_REPORT = MC.apply_rows(rows)
+    import hashlib as _hl
+    MC_REPORT = MC.apply_rows(rows, uid_of=lambda r: "FA-" + _hl.sha1(uid_base(r).encode("utf-8")).hexdigest()[:8])
+    # every applied / orphaned / waiting correction, for the Lessons page, Amal's cards (LS-12) and the publish guard
+    MC.W(os.path.join(REPO, "data", "lesson-work", "medi-corrections-report.json"), dict(MC_REPORT, about="What scripts/full_audit_build.py did with "
+         "Medi's corrections (PR-15): applied, orphaned (matches nothing: shown 're-check this one', never a failed build), "
+         "waiting for Amal (his 'my Arabic was right' - her Tutor hub card), tier B (no voiced fix from her). Generated."))
     # per-row bucket names + a stable order
     for r in rows:
         if r.get("bucket") in buckets:

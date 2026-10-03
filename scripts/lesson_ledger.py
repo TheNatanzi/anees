@@ -42,6 +42,7 @@ PRODUCERS = {
     "use-rulings": "ruled-out / automatic not-a-use rows (data/grammar-usage-rulings.json, detect_grammar_usage.py)",
     "sheet": "list membership (data/lesson-work/sheet-verdicts.json, else the automatic sheet match)",
     "medi": "Medi's answer to a needs-Medi moment (data/lesson-work/ledger-rulings.json)",
+    "medi-correction": "Medi's own correction on the Lessons transcript or his standing rule from one (PR-15, scripts/medi_corrections.py)",
 }
 
 # The conflict kinds and the existing rule that decides each (design: C:\Claude\reports\anees-one-ledger-design-2026-10-02.md)
@@ -66,6 +67,15 @@ MEDI_ANSWERS = {"C1q": "a word of the phrase = that word was the wrong one; keep
 
 
 # ------------------------------------------------------------------ small helpers
+def _producer(row):
+    """Who made a reader-row mark: Amal's tap, Medi's correction (PR-15), or the AI readers."""
+    if row.get("signal") == "amal-ruling":
+        return "amal-tap"
+    if row.get("signal") == "medi-correction" or row.get("source") == "medi-correction" or row.get("correction"):
+        return "medi-correction"
+    return "readers"
+
+
 def J(p, default=None):
     if not os.path.exists(p):
         return default
@@ -245,7 +255,7 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
             m = {"id": "ra:" + e["audit_uid"], "kind": "vocab", "verdict": v, "t": e["t"], "word_key": e.get("sheet_key"),
                  "arabic": e.get("arabic"), "wrong": e.get("wrong"), "fix": e.get("fix"), "tier": e.get("tier"),
                  "signal": e.get("signal"), "confidence": e.get("confidence"), "row_kind": e["kind"],
-                 "by": {"producer": "amal-tap" if e.get("signal") == "amal-ruling" else "readers", "ref": e["audit_uid"]}}
+                 "by": {"producer": _producer(e), "ref": e["audit_uid"]}}
             if v == "not-scored":
                 m["why"] = "not on her word list (left out of the Words %)"
                 m["why_by"] = "sheet"
@@ -272,7 +282,7 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
         m = add({"id": "rg:" + g["id"], "kind": "grammar", "verdict": "slip", "t": g.get("t"), "bucket": g.get("bucket"),
                  "wrong": g.get("wrong"), "fix": g.get("right"), "signal": g.get("signal"), "confidence": g.get("confidence"),
                  "scored_rule": g.get("bucket") in scored_rules,
-                 "by": {"producer": "amal-tap" if g.get("signal") == "amal-ruling" else "readers", "ref": g["id"]}}, g.get("wrong"))
+                 "by": {"producer": _producer(g), "ref": g["id"]}}, g.get("wrong"))
         slips_by_b[g.get("bucket")].append(m)
     for g in detail.get("grammar_not_counted") or []:
         add({"id": "rg:" + g["id"], "kind": "grammar", "verdict": "not-scored", "t": g.get("t"), "bucket": g.get("bucket"),
@@ -665,6 +675,13 @@ def write_diff(published, lessons, ledgers, repo=REPO):
             lines.append(f"- {d} {c['mmss']} {c['kind']} {state}: {a.get('tok') or a.get('wrong') or a.get('said') or ''} "
                          f"({a['by']['producer']} {a.get('was') or a['verdict']}) vs {b.get('wrong') or b.get('said') or ''} -> {b.get('fix') or ''} "
                          f"({b['by']['producer']} {b.get('verdict')}{' ' + b['bucket'] if b.get('bucket') else ''}) - {KIND_WORDS[c['kind']]}{extra}")
+    # PR-15 council 1: every applied correction of Medi's is listed (and every one that matched nothing)
+    mc = J(os.path.join(repo, "data", "lesson-work", "medi-corrections-report.json")) or {}
+    lines += ["", "## Medi's corrections (PR-15)", ""]
+    lines += ["- applied: " + (", ".join(mc.get("applied") or []) or "none")]
+    lines += ["- orphaned (match nothing, re-check): " + (", ".join(mc.get("orphaned") or []) or "none")]
+    lines += ["- waiting for Amal: " + (", ".join(w["correction"] for w in mc.get("waiting_for_amal") or [] if not w.get("answered")) or "none")]
+    lines += ["- standing rules: " + (", ".join("%s %d" % kv for kv in sorted((mc.get("standing") or {}).items())) or "none")]
     p = os.path.join(repo, "data", "lesson-work", "ledger", "_diff.md")
     os.makedirs(os.path.dirname(p), exist_ok=True)
     with open(p, "w", encoding="utf-8", newline="\n") as f:
@@ -677,7 +694,8 @@ def input_files(date):
     return ["docs/lessons/%s.html" % date, "docs/data/word-bank-evidence.json", "docs/data/word-bank-review.json",
             "data/full-audit-2026-09-26.json", "docs/data/grammar-usage.json", "data/grammar-usage-rulings.json",
             "data/lesson-work/sheet-verdicts.json", "data/lesson-work/lesson-types/%s.json" % date,
-            "data/lesson-work/ledger-rulings.json", "data/lesson-work/ledger-amal.json", "data/lesson-work/transcript-fixes.json", "docs/data/words.json", "docs/data/grammar-buckets.json",
+            "data/lesson-work/ledger-rulings.json", "data/lesson-work/ledger-amal.json", "data/lesson-work/transcript-fixes.json",
+            "data/lesson-work/medi-corrections.json", "data/lesson-work/medi-corrections-hand.json", "data/lesson-work/correction-rules.json", "docs/data/words.json", "docs/data/grammar-buckets.json",
             "scripts/amal_grammar_notes.py", "scripts/lesson_ledger.py", "scripts/transcript_marks.py",
             "scripts/build_lessons_page_data.py"]
 

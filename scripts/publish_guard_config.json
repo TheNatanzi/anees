@@ -21,7 +21,8 @@
  ],
  "advisory": [
   "review_freshness",
-  "data_freshness"
+  "data_freshness",
+  "medi_corrections"
  ],
  "total_timeout_s": 300,
  "clean_paths": [
@@ -145,7 +146,8 @@
     "tests/test_amal_undo.py",
     "tests/test_tutor_in_panel.py",
     "tests/test_transcript_marks.py",
-    "tests/test_lesson_ledger.py"
+    "tests/test_lesson_ledger.py",
+    "tests/test_correction_mode.py"
    ],
    "timeout_s": 180,
    "what": "fast offline tests on the committed data (no network, no paid API)"
@@ -182,7 +184,8 @@
     "tests/test_amal_undo.cjs",
     "tests/test_early_values.cjs",
     "tests/test_transcript_marks.cjs",
-    "tests/test_ledger_overrides.cjs"
+    "tests/test_ledger_overrides.cjs",
+    "tests/test_transcript_corrections.cjs"
    ],
    "timeout_s": 120,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)"
@@ -195,6 +198,15 @@
    ],
    "timeout_s": 60,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi"
+  },
+  "medi_corrections": {
+   "cmd": [
+    "{python}",
+    "scripts/medi_corrections.py",
+    "check"
+   ],
+   "timeout_s": 60,
+   "what": "Medi's transcript corrections: none orphaned, held or quarantined, no rule paused by probation (PR-15; a warning only, never blocks)"
   }
  },
  "left_out": {

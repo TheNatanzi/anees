@@ -13,26 +13,69 @@ REPO = os.path.dirname(HERE)
 FIXES_P = os.path.join(REPO, "data", "lesson-work", "transcript-fixes.json")
 
 
-def load(path=FIXES_P):
-    if not os.path.exists(path):
-        return []
-    with open(path, encoding="utf-8-sig") as f:
-        return json.load(f).get("rows") or []
+def load(path=FIXES_P, medi=True):
+    """The hand overlay rows, plus Medi's own page corrections (text / speaker / time / missing) and his standing text
+    rules (PR-15, scripts/medi_corrections.py) - every builder reads the same overlay."""
+    rows = []
+    if os.path.exists(path):
+        with open(path, encoding="utf-8-sig") as f:
+            rows = json.load(f).get("rows") or []
+    if medi and path == FIXES_P:
+        try:
+            import medi_corrections as MC
+            rows = rows + MC.text_rows() + MC.rule_text_rows()
+        except Exception as e:  # noqa: BLE001 - a bad corrections file never stops a build (council 5)
+            print("transcript_fixes: Medi's corrections not applied (%s)" % type(e).__name__)
+    return rows
 
 
-def apply(date, turns, rows=None):
+def _hit(r, u):
+    """Does overlay row r belong to turn u? A standing rule (pattern) matches any line of that speaker with the same
+    3-word context; a moment row matches its own line (+-1 s)."""
+    if r.get("pattern"):
+        import medi_corrections as MC
+        src = u.get("engine") or u.get("text") or ""
+        return r.get("who") == u.get("who") and r["engine_wrote"] in src and MC._ctx(src, r["engine_wrote"]) == tuple(r.get("ctx") or ())
+    return r.get("who") == u.get("who") and abs(float(r["t"]) - float(u["t"])) <= 1.0
+
+
+def apply(date, turns, rows=None, sort=True):
     """turns: [{t, who, text, ...}] -> new list; a fixed turn gets text = heard version, engine = the engine's text,
     heard = [{engine_wrote, heard, rule}]. A row that matches no turn is reported in unmatched()."""
-    rows = [r for r in (load() if rows is None else rows) if r.get("date") == date]
+    rows = [r for r in (load() if rows is None else rows) if r.get("date") == date or r.get("pattern")]
     out = []
     for u in turns:
         u = dict(u)
         for r in rows:
-            if r.get("who") == u.get("who") and abs(float(r["t"]) - float(u["t"])) <= 1.0 and r["engine_wrote"] in (u.get("text") or ""):
+            if not _hit(r, u):
+                continue
+            if r.get("set_who") or r.get("set_t") is not None:      # PR-15: wrong speaker / wrong time on this line
+                u.setdefault("engine_who", u.get("who"))
+                u.setdefault("engine_t", u.get("t"))
+                if r.get("set_who"):
+                    u["who"] = r["set_who"]
+                if r.get("set_t") is not None:
+                    u["t"] = r["set_t"]
+                u.setdefault("heard", []).append({"engine_wrote": "", "heard": "", "rule": r.get("rule"), "moved": True})
+                continue
+            if not r["engine_wrote"]:                                 # PR-15: a word the engine dropped
+                if not r.get("heard"):
+                    continue
+                u.setdefault("engine", u["text"])
+                a = r.get("insert_after") or ""
+                i = u["text"].find(a) if a else -1
+                u["text"] = (u["text"][:i + len(a)] + " " + r["heard"] + u["text"][i + len(a):]) if i >= 0 else (u["text"].rstrip() + " " + r["heard"])
+                u.setdefault("heard", []).append({"engine_wrote": "", "heard": r["heard"], "rule": r.get("rule"),
+                                                  **({"correction": r["correction"]} if r.get("correction") else {})})
+                continue
+            if r["engine_wrote"] in (u.get("text") or ""):
                 u.setdefault("engine", u["text"])
                 u["text"] = u["text"].replace(r["engine_wrote"], r["heard"], 1)
-                u.setdefault("heard", []).append({"engine_wrote": r["engine_wrote"], "heard": r["heard"], "rule": r.get("rule")})
+                u.setdefault("heard", []).append({"engine_wrote": r["engine_wrote"], "heard": r["heard"], "rule": r.get("rule"),
+                                                  **({"correction": r["correction"]} if r.get("correction") else {})})
         out.append(u)
+    if sort:
+        out.sort(key=lambda u: float(u.get("t") or 0))
     return kaman_marra(out)
 
 
@@ -62,7 +105,8 @@ def kaman_marra(turns):
 
 def unmatched(date, turns, rows=None):
     rows = [r for r in (load() if rows is None else rows) if r.get("date") == date]
-    return [r for r in rows if not any(r.get("who") == u.get("who") and abs(float(r["t"]) - float(u["t"])) <= 1.0
+    return [r for r in rows if not any((u.get("engine_who") or u.get("who")) in (r.get("who"), r.get("set_who"))
+                                       and abs(float(r["t"]) - float(u.get("engine_t", u["t"]))) <= 1.0
                                        and r["engine_wrote"] in (u.get("engine") or u.get("text") or "") for u in turns)]
 
 
@@ -70,10 +114,12 @@ def apply_tracks(date, T, rows=None):
     """The same overlay on scripts/lesson_turns.py turns ({speaker, start, end, text}): the grammar use counter and
     the console read the heard text too (TR-18: every builder reads what was said)."""
     conv = [{"t": u["start"], "who": u.get("speaker"), "text": u.get("text")} for u in T]
-    out = apply(date, conv, rows)
+    out = apply(date, conv, rows, sort=False)
     res = []
     for u, v in zip(T, out):
         if v.get("engine"):
             u = dict(u, text=v["text"], engine=v["engine"], heard=v["heard"])
+        if v.get("engine_who") and v["who"] != u.get("speaker"):
+            u = dict(u, speaker=v["who"], engine_speaker=u.get("speaker"))
         res.append(u)
     return res

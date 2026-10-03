@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-03",
- "total": 163,
+ "total": 166,
  "replaced": 8,
  "counts": {
-  "Automatic": 83,
+  "Automatic": 86,
   "Written down": 68,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -1991,7 +1991,7 @@
    "key": "pages",
    "title": "Pages, audio & numbers on screen",
    "intro": "What each page shows, the audio clips, and keeping numbers up to date.",
-   "count": 34,
+   "count": 35,
    "sections": [
     {
      "kind": "data",
@@ -2445,6 +2445,25 @@
          "quote": "none of the progress and stats overlaps with the pages they referrence"
         }
        ]
+      },
+      {
+       "id": "PG-24",
+       "text": "On the Lessons transcript you can correct anything: tap a chip (Not a mistake / Was wrong / Not a use), tap a word the engine got wrong, or ✎ more on a line. Each fix shows at once with Undo, and the counts update within 15 minutes.",
+       "status": "enforced",
+       "topic": "your corrections",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-03",
+         "quote": "do a hand off chip where I can make all the corrections. Have it make rules for every correction if possible"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "i am going to make some corrections to the transcript. try and make rule and patterns with my corrections."
+        }
+       ]
       }
      ]
     },
@@ -2553,7 +2572,7 @@
    "key": "process",
    "title": "How Claude and Codex must work",
    "intro": "Rules for the AI helpers that build Anees.",
-   "count": 16,
+   "count": 18,
    "sections": [
     {
      "kind": "data",
@@ -2767,6 +2786,39 @@
          "who": "Medi",
          "date": "2026-10-02",
          "quote": "i am going to make some corrections to the transcript. try and make rule and patterns with my corrections."
+        }
+       ]
+      },
+      {
+       "id": "PR-16",
+       "text": "Every correction you make is checked for a general rule. You see the rule in plain words, how many other moments it would change and the first three to play, and you pick Just this one or Make it a rule. A yes becomes a numbered rule for every lesson, with its own test.",
+       "status": "enforced",
+       "topic": "your corrections",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-03",
+         "quote": "do a hand off chip where I can make all the corrections. Have it make rules for every correction if possible"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-02",
+         "quote": "i am going to make some corrections to the transcript. try and make rule and patterns with my corrections."
+        }
+       ]
+      },
+      {
+       "id": "PR-17",
+       "text": "Your corrections are counted within 15 minutes and can never stop the site from updating. If you say your Arabic was right, Amal gets the question and it still counts until she answers. A mistake you add counts only if Amal said the fix out loud; otherwise it goes to her to check.",
+       "status": "enforced",
+       "topic": "your corrections",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-03",
+         "quote": "do a hand off chip where I can make all the corrections. Have it make rules for every correction if possible"
         }
        ]
       }

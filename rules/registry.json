@@ -751,7 +751,7 @@
     {
      "type": "code",
      "path": "scripts/transcript_fixes.py",
-     "contains": "def apply(date, turns, rows=None):"
+     "contains": "def apply(date, turns, rows=None, sort=True):"
     },
     {
      "type": "code",
@@ -5922,12 +5922,12 @@
     {
      "type": "code",
      "path": "scripts/medi_corrections.py",
-     "contains": "def apply_rows(rows, corrections=None, quote_date=None):"
+     "contains": "def apply_rows(rows, corrections=None, quote_date=None, uid_of=None, turns=None, answers=None, rules=None):"
     },
     {
      "type": "code",
      "path": "scripts/full_audit_build.py",
-     "contains": "MC_REPORT = MC.apply_rows(rows)"
+     "contains": "MC_REPORT = MC.apply_rows(rows, uid_of="
     }
    ],
    "test": [
@@ -6625,7 +6625,7 @@
     {
      "type": "code",
      "path": "docs/js/lessons-page.js",
-     "contains": "function openChip(list, id)"
+     "contains": "function openChip(list, id, x, chips)"
     }
    ],
    "test": [
@@ -6769,6 +6769,137 @@
     "t": "11:16",
     "note": "Bass ana raa7 / aaa 'ala / aaa / 3ammwi / umm / lishu8ul were six lines"
    }
+  },
+  {
+   "id": "PG-24",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Correction mode on the Lessons page transcript (docs/js/transcript-corrections.js): the fix lives inside the chip detail (a ✗ chip: 'Not a mistake', which asks why in one tap - she wasn't correcting me / I fixed it first / she said both are fine / I was asking / wrong speaker or time / my Arabic was right (Amal decides); a ✓ vocab chip: 'Was wrong'; a ✓ grammar chip: 'Not a use'; Amal's fix chip: 'Not a correction'); tapping a word opens 'What did you say?' with 2-3 guesses from her chat, her next line and the word list, then a type box; '✎ more' on each line fixes the speaker, the time, a missing word, or adds a slip nobody marked. Every control is at least 44 px, there is no 'are you sure', a toast says 'Saved · Undo · counts update within 15 min', and the '✎ yours' tag on the line is its Undo (no expiry). The line shows the correction at once; nothing needs a login (PR-02).",
+   "plain": "On the Lessons transcript you can correct anything: tap a chip (Not a mistake / Was wrong / Not a use), tap a word the engine got wrong, or ✎ more on a line. Each fix shows at once with Undo, and the counts update within 15 minutes.",
+   "plain_for": "7931d1fb",
+   "topic": "your corrections",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "do a hand off chip where I can make all the corrections. Have it make rules for every correction if possible"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "i am going to make some corrections to the transcript. try and make rule and patterns with my corrections."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/transcript-corrections.js",
+     "contains": "function chipActions(d, c, x, turn, link)"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "AC.chipActions(d, me.c, x, me.turn"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_transcript_corrections.cjs",
+     "contains": "test('PG-24 the fix lives inside the chip"
+    }
+   ]
+  },
+  {
+   "id": "PR-16",
+   "kind": "process",
+   "scope": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every correction Medi saves proposes a rule (RULES.md S6): scripts/medi_corrections.py propose finds the general pattern and searches all lessons; the Lessons page shows 'This looks like a rule: <plain sentence>. It would change N other moments', the first 3 before -> after with a play button and 'and N more', and 'Just this one' (the default) / 'Make it a rule'. A text fix spreads only to the same 3-word context on the same speaker (a lone word stays one-off); 'Make it a rule' is off when N > 15 or a match is a row Amal ruled; a question about whether his Arabic was right goes to Amal's Tutor hub, never to him; a shape (timing, prompts, speaker/time) is queued for Claude to write as a code rule (data/lesson-work/code-rule-queue.json). His yes counts only while the proposal id and pattern hash still match; it becomes standing rule MC-nnn (data/lesson-work/correction-rules.json), applied to every lesson including future ones, on probation (paused when a run would change more than 2 x N at his yes), and `medi_corrections.py register` writes its rules/registry.json entry with his words, a generated guard test naming the id (tests/test_correction_rules_generated.py), a READER-BRIEF line for a not-error, and rebuilds the rule book.",
+   "plain": "Every correction you make is checked for a general rule. You see the rule in plain words, how many other moments it would change and the first three to play, and you pick Just this one or Make it a rule. A yes becomes a numbered rule for every lesson, with its own test.",
+   "plain_for": "b6550a7a",
+   "topic": "your corrections",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "do a hand off chip where I can make all the corrections. Have it make rules for every correction if possible"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "i am going to make some corrections to the transcript. try and make rule and patterns with my corrections."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/medi_corrections.py",
+     "contains": "def propose(corrections=None, repo=REPO, rows=None, uses_=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/medi_corrections.py",
+     "contains": "def register(repo=REPO, run_book=True, log=print):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_correction_mode.py",
+     "contains": "def test_pr_16_a_lone_word_stays_one_off_and_a_text_fix_spreads_only_in_the_same_3_word_context"
+    },
+    {
+     "path": "tests/test_correction_mode.py",
+     "contains": "def test_pr_16_his_yes_becomes_a_registry_entry_with_a_test_that_names_it"
+    }
+   ]
+  },
+  {
+   "id": "PR-17",
+   "kind": "process",
+   "scope": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Medi's page corrections reach every page within 15 minutes without ever blocking a publish: the amal trigger has a medi_corrections source (scripts/amal_trigger.py) and the hourly job pulls too; the pull is fail-open (a missing table or an error keeps the last mirror), quarantines rows for an unknown lesson or a bad shape, and holds a batch of more than 50 new rows with a warning. A correction targets the producer id on the chip (reader row FA-uid, Word Bank event, use bucket+time) with a fingerprint fallback; one that matches nothing is orphaned - listed on the ledger diff and as a publish-guard warning, never a failure. Precedence: 'my Arabic was right' becomes a card on Amal's Tutor hub (ledger:MC-<id>, LS-12) and the slip keeps counting until she taps 'He was right' (her voiced recast counts like her tap); a row she ruled is never changed; 'Was wrong' / 'add' without her voiced fix in the next 15 s is tier B (her review page), with it tier A; every other reason is Medi's call.",
+   "plain": "Your corrections are counted within 15 minutes and can never stop the site from updating. If you say your Arabic was right, Amal gets the question and it still counts until she answers. A mistake you add counts only if Amal said the fix out loud; otherwise it goes to her to check.",
+   "plain_for": "3a752845",
+   "topic": "your corrections",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "do a hand off chip where I can make all the corrections. Have it make rules for every correction if possible"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/medi_corrections.py",
+     "contains": "def pull(path=OUT, fetch=None, dates=None, quar=QUAR_P, log=print):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/amal_trigger.py",
+     "contains": "def fetch_medi_corrections():"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_lessons_page_data.py",
+     "contains": "MC.amal_cards("
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_correction_mode.py",
+     "contains": "def test_pr_17_my_arabic_was_right_is_amals_card_and_counts_until_she_taps"
+    },
+    {
+     "path": "tests/test_correction_mode.py",
+     "contains": "def test_pr_17_pull_never_fails_missing_table_unreachable_bad_rows_and_big_batch"
+    }
+   ]
   }
  ]
 }

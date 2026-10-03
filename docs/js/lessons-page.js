@@ -609,26 +609,46 @@ function transcript(body, x) {
       bar.appendChild(b);
     });
     body.appendChild(bar);
-    list.addEventListener('click', function (e) {
-      var hit = e.target.closest('[data-chip]');
-      if (!hit || !list.contains(hit)) return;
-      e.preventDefault();
-      openChip(list, hit.getAttribute('data-chip'));
-    });
   }
+  // PR-15 correction mode (docs/js/transcript-corrections.js): tap a chip, a word, or ✎ more on a line
+  var AC = window.AneesCorrections, ROWG = {}, CHIPS = {};
+  list.addEventListener('click', function (e) {
+    var hit = e.target.closest('[data-chip]');
+    if (hit && list.contains(hit)) {
+      e.preventDefault();
+      openChip(list, hit.getAttribute('data-chip'), x, CHIPS);
+      return;
+    }
+    if (!AC || e.target.closest('button, a, input, select, form, .tc-panel')) return;
+    var row = e.target.closest('.ls-turn'), g = row && ROWG[row.dataset.turn];
+    if (g && e.target.closest('.ls-turntext') && g.turn.who !== 'chat') AC.wordTap(e, x, row, g.turn, g.parts);
+  });
+  if (AC) AC.setup({ redraw: function () { draw(); }, toArabizi: toArabizi,
+    play: function (date, t, anchor) { playAnchor = anchor; play(lessonAudio(date, 'Medi'), Math.max(0, t - 2), prettyDate(date) + ' · lesson from ' + mmss(t)); } });
   function draw() {
     list.textContent = '';
+    ROWG = {}; CHIPS = {};
     var shown = 0;
-    sentences(turns, tm).forEach(function (g) {
+    var mine = AC ? AC.rowsFor(x.date).filter(function (r) { return ['text', 'missing', 'speaker', 'time'].indexOf(r.kind) >= 0; }) : [];
+    var T = mine.length ? turns.map(function (u) {
+      return AC.overlay(u, mine.filter(function (r) { return Math.abs(Number(r.turn_t) - Number(u.t)) <= 1 && r.turn_who === u.who; }));
+    }) : turns;
+    sentences(T, tm).forEach(function (g) {
       var t = g.turn, m = g.m, i = g.i;
+      ((m && m.c) || []).forEach(function (c) { CHIPS[c.id] = { c: c, turn: t }; });
       if (TMK && !TMK.shows(m, TMF)) return;
-      list.appendChild(tmRow(x, t, m, i));
+      var row = tmRow(x, t, m, i);
+      row.dataset.turn = i;
+      ROWG[i] = g;
+      if (AC) AC.decorate(row, x, t, g.parts);
+      list.appendChild(row);
       shown++;
     });
     if (!shown) list.appendChild(el('div', 'gc-empty', 'No line in this lesson has that mark.'));
   }
   draw();
   body.appendChild(list);
+  if (AC) AC.mountLesson(body, x);
 }
 // PG-23 (Medi 2026-10-02 "why are we breaking all of these up instead of putting them in a sentence"): the engine starts
 // a new line at every pause he takes while building a sentence; his lines with nobody else speaking between and a gap of
@@ -652,9 +672,10 @@ function sentences(turns, tm) {
         last.m = { c: lm.c.concat(m.c || []), u: lm.u.concat((m.u || []).map(function (u) { return [u[0] + off, u[1] + off].concat(u.slice(2)); })) };
       }
       last.pieces++;
+      last.parts.push(t);
       return;
     }
-    out.push({ turn: t, m: m, i: i, pieces: 1 });
+    out.push({ turn: t, m: m, i: i, pieces: 1, parts: [t] });
   });
   return out;
 }
@@ -694,7 +715,7 @@ function tmRow(x, t, m, i) {
 }
 // Tap a chip or an underlined word: its detail opens under the line, and the linked line (his ✗ <-> her fix) is
 // highlighted and brought into view.
-function openChip(list, id) {
+function openChip(list, id, x, chips) {
   var b = list.querySelector('button.tm-chip[data-chip="' + id + '"]');
   if (!b) return;
   var row = b.closest('.ls-turn'), old = row.querySelector('.tm-detail');
@@ -711,6 +732,11 @@ function openChip(list, id) {
   var link = b.dataset.link && list.querySelector('button.tm-chip[data-chip="' + b.dataset.link + '"]');
   if (b.dataset.link && !link) d.appendChild(el('div', 'ab-mini', 'The linked line is hidden by the filter: choose All to see it.'));
   row.querySelector('.tm-main').appendChild(d);
+  var AC = window.AneesCorrections, me = chips && chips[id];
+  if (AC && x && me) {
+    var ln = b.dataset.link && chips[b.dataset.link];
+    AC.chipActions(d, me.c, x, me.turn, ln ? Object.assign({}, ln.c, { _turn: ln.turn }) : null);
+  }
   if (link) {
     link.classList.add('tm-on');
     Array.prototype.forEach.call(list.querySelectorAll('mark[data-chip="' + b.dataset.link + '"]'), function (n) { n.classList.add('tm-on'); });

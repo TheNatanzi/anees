@@ -339,13 +339,28 @@ def _secs(v):
 
 
 def load_rulings():
-    if not os.path.exists(RULINGS_FILE):
-        return []
-    return [dict(r, _t=_secs(r["t"])) for r in json.load(open(RULINGS_FILE, encoding="utf-8"))["rows"]]
+    rows = [dict(r, _t=_secs(r["t"])) for r in json.load(open(RULINGS_FILE, encoding="utf-8"))["rows"]] if os.path.exists(RULINGS_FILE) else []
+    try:   # PR-15: Medi's 'Not a use' taps on the Lessons transcript + his standing not-use rules (MC-nnn)
+        import medi_corrections as MC
+        rows += [dict(r, _t=None if r.get("pattern") else float(r["t"])) for r in MC.use_rulings()]
+    except Exception as e:  # noqa: BLE001 - a bad corrections file never stops a build (council 5)
+        print("detect_grammar_usage: Medi's corrections not applied (%s)" % type(e).__name__)
+    return rows
 
 
-def ruled(rulings, date, bucket, t):
-    return next((r for r in rulings if r["date"] == date and r["bucket"] == bucket and abs(r["_t"] - t) <= 3.0), None)
+def ruled(rulings, date, bucket, t, hit=None):
+    for r in rulings:
+        if r.get("pattern"):
+            if r["bucket"] == bucket and hit is not None and _mc_piece(hit) == _mc_piece(r.get("hit")):
+                return r
+        elif r["date"] == date and r["bucket"] == bucket and abs(r["_t"] - t) <= 3.0:
+            return r
+    return None
+
+
+def _mc_piece(s):
+    import medi_corrections as MC
+    return MC._piece(s)
 
 
 def _is_backchannel(text):
@@ -441,7 +456,7 @@ if __name__ == "__main__":
                 u["read_as"] = read_as[:300]
             if joined:
                 u["joined"] = joined
-            r = ruled(RULINGS, date, bid, t["start"])
+            r = ruled(RULINGS, date, bid, t["start"], hit)
             if r:
                 ruled_out.append(dict(u, bucket=bid, why=r["why"], ruling_by=r.get("by")))
                 return

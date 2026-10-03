@@ -177,6 +177,17 @@ def _in_off(t, off):
     return next((o for o in off if o[0] <= t <= o[1]), None)
 
 
+def _src(e, own=None):
+    """PR-15: the producer id a correction on this chip targets (reader row FA-uid / Word Bank event) + Amal-ruled flag."""
+    out = {}
+    src = own or e.get("audit_uid") or (("wb:" + e["event_id"]) if e.get("event_id") else None)
+    if src:
+        out["src"] = src
+    if e.get("signal") == "amal-ruling":
+        out["amal_ruled"] = True
+    return out
+
+
 def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_uses=(), off_lesson=(), ledger=None):
     """detail = the per-lesson JSON (turns, vocab_errors, vocab_correct, grammar_errors, grammar_not_counted, not_errors).
     Returns (tmarks, report): tmarks = {turn index: {"c": [chips], "u": [underlines]}}."""
@@ -282,7 +293,7 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
     for e in detail.get("vocab_correct") or []:
         s = "correct" if e.get("kind") == "correct" else "partial"
         scored_item(e["t"], {"id": nid("v"), "k": "vocab", "s": s, "w": e.get("arabizi"), "ar": e.get("arabic"),
-                             "en": e.get("english"), "said": e.get("said")}, e.get("arabic"), "vocab " + str(e.get("word_key")))
+                             "en": e.get("english"), "said": e.get("said"), **_src(e)}, e.get("arabic"), "vocab " + str(e.get("word_key")))
     for e in detail.get("vocab_errors") or []:
         if e.get("on_sheet") is False:
             grey(e["t"], "not on her word list (left out of the Words %)", "vocab", e.get("wrong"))
@@ -291,7 +302,7 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
         sig = e.get("signal")
         chip = {"id": nid("v"), "k": "vocab", "s": s, "w": e.get("arabizi"), "ar": e.get("arabic"), "en": e.get("english"),
                 "said": e.get("wrong") or e.get("said"), "right": e.get("fix") or e.get("arabic"),
-                "signal": sig, "sig": SIGNAL_WORDS.get(sig)}
+                "signal": sig, "sig": SIGNAL_WORDS.get(sig), **_src(e)}
         i = scored_item(e["t"], chip, e.get("wrong"), "vocab " + str(e.get("arabic")))
         if i is not None:
             if s == "wrong":
@@ -307,7 +318,7 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
         chip = {"id": nid("x"), "k": "grammar", "s": "wrong", "rule": g.get("bucket"), "name": g.get("bucket_name"),
                 "said": g.get("wrong") or g.get("said"), "said_az": g.get("wrong_arabizi"),
                 "right": g.get("right") or g.get("fix"), "right_az": g.get("right_arabizi"),
-                "signal": g.get("signal"), "sig": SIGNAL_WORDS.get(g.get("signal"))}
+                "signal": g.get("signal"), "sig": SIGNAL_WORDS.get(g.get("signal")), **_src(g, g.get("id"))}
         i = scored_item(t, chip, g.get("wrong"), "grammar " + str(g.get("id")))
         slips_by_b.setdefault(g.get("bucket"), []).append(t)
         if i is not None:
@@ -340,7 +351,7 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
                 grey(u["t"], "rule not taught yet (Amal's notes)", "grammar · " + b, u.get("hit"))
                 continue
             scored_item(u["t"], {"id": nid("r"), "k": "grammar", "s": "correct", "rule": b, "name": buckets[b].get("name"),
-                                 "said": u.get("hit")}, u.get("hit"), "use " + b)
+                                 "said": u.get("hit"), "src": "use:%s:%s" % (b, u["t"])}, u.get("hit"), "use " + b)
     for r in list(ruled_out) + list(not_uses):
         if r.get("date") == date:
             grey(r.get("t"), r.get("why") or "not a use", "grammar" + (" · " + r["bucket"] if r.get("bucket") else ""), r.get("hit"))

@@ -150,3 +150,36 @@
 #anees-bank mark.tm-ul.tm-on{background:color-mix(in srgb,currentColor 12%,transparent);border-radius:3px}
 #anees-bank .tm-detail{margin-top:6px;padding:6px 8px;border-left:3px solid var(--ab-accent);background:var(--ab-panel);border-radius:4px;font-size:12px}
 #anees-bank .ls-turn.tm-flash{box-shadow:0 0 0 2px var(--ab-accent)}
+/* PR-15 correction mode (docs/js/transcript-corrections.js): 44 px targets, 12 px clear of the chips (council 4) */
+#anees-bank .tc-actions,#anees-bank .tc-panel{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+#anees-bank .tc-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+#anees-bank .tc-btn{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--ab-line,#ccc);background:var(--ab-raised,#fff);color:var(--ab-text)}
+#anees-bank .tc-big,#anees-bank .tc-reason,#anees-bank .tc-word{min-height:44px;min-width:44px;padding:8px 14px;font-size:14px}
+#anees-bank .tc-big{border-color:var(--ab-accent);font-weight:600}
+#anees-bank .tc-primary{background:var(--ab-accent);color:var(--ab-on-accent,#fff)}
+#anees-bank .tc-big[disabled]{opacity:.45;cursor:not-allowed}
+#anees-bank .tc-why{display:flex;flex-wrap:wrap;gap:8px}
+#anees-bank .tc-why .tc-q{flex:1 1 100%}
+#anees-bank .tc-reason.tc-amal{border-style:dashed}
+#anees-bank .tc-q{font-weight:600;font-size:13px}
+#anees-bank .tc-small,#anees-bank .tc-tag,#anees-bank .tc-more,#anees-bank .tc-play,#anees-bank .tc-undo{min-height:44px;padding:4px 10px;font-size:12px}
+#anees-bank .tc-tag{border-color:var(--ab-accent);color:var(--ab-accent);font-weight:600;margin-top:4px}
+#anees-bank .tc-more{color:var(--ab-muted);border-style:dashed;margin-top:4px}
+#anees-bank .tc-type{display:flex;flex-wrap:wrap;gap:8px}
+#anees-bank .tc-type input,#anees-bank .tc-type select{min-height:44px;padding:6px 10px;font:inherit;font-size:14px;border-radius:8px;border:1px solid var(--ab-line,#ccc);background:var(--ab-panel);color:var(--ab-text);flex:1 1 160px;min-width:0}
+#anees-bank .tc-guess .tc-g{font-size:16px}
+#anees-bank .tc-guess small{color:var(--ab-muted)}
+#anees-bank .tc-panel{padding:10px;border:1px solid var(--ab-accent);border-radius:8px;background:var(--ab-panel)}
+#anees-bank .tc-close{align-self:flex-start}
+#anees-bank .tc-yours-note{color:var(--ab-accent);font-weight:600;font-size:12px}
+#anees-bank .ls-turn.tc-has{box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ab-accent) 45%,transparent)}
+#anees-bank .tc-box{margin-top:12px;display:flex;flex-direction:column;gap:10px}
+#anees-bank .tc-prop{padding:10px 12px;border:1px solid var(--ab-accent);border-radius:8px;background:var(--ab-panel);display:flex;flex-direction:column;gap:8px}
+#anees-bank .tc-prop.tc-owner-amal,#anees-bank .tc-prop.tc-owner-one-off{border-style:dashed;border-color:var(--ab-muted)}
+#anees-bank .tc-moments{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px;font-size:13px}
+#anees-bank .tc-before{text-decoration:line-through;color:var(--ab-muted)}
+#anees-bank .tc-after{font-weight:600}
+#anees-bank .tc-toast{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:50;display:flex;gap:6px;align-items:center;padding:6px 14px;border-radius:10px;background:var(--ab-text);color:var(--ab-panel);font-size:14px;max-width:calc(100vw - 32px);flex-wrap:wrap}
+#anees-bank .tc-toast .tc-undo{background:transparent;color:inherit;border-color:currentColor;font-weight:700}
+#anees-bank .tc-toast[hidden]{display:none}
+#anees-bank .ls-turntext{cursor:text}

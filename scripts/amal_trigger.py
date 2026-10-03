@@ -26,6 +26,7 @@ Sources (SOURCES below; a new Amal input = one more entry):
   word_review         word review links                                     transcript_review_links payload / done_at
   homework            her homework verdicts                                 homework_answers amal_verdict / amal_fix
   grammar_doc         her grammar-rules Google Doc (1SCYeIEu-...)           ANEES_GRAMMAR_DOC_URL (see below)
+  medi_corrections    Medi's own transcript corrections (PR-15)            transcript_corrections (migration 022)
   quizlet             her Quizlet sets                                      FIRECRAWL_API_KEY (see below) + the local file
 
 Unreadable unattended (status "not readable" with the exact reason, never a silent pass):
@@ -114,6 +115,16 @@ KNOWN_RULE_SOURCES = ("review", "after", "before", "plan", "planner", "grammar_n
 NOT_AMAL_SOURCES = ("flashcards", "medi")
 
 
+def fetch_medi_corrections():
+    """PR-15: Medi's corrections on the Lessons transcript (transcript_corrections, migration 022). Not Amal's input, but
+    the same 15-minute recount (Medi 2026-10-03: counts update within 15 min). A missing table is unreadable, never a fail."""
+    import pull_decisions as PD
+    rows = PD.http_fetch("transcript_corrections", select="id,ts,created_at", order="ts.asc,id.asc")
+    if rows is None:
+        raise Unreadable("transcript_corrections table not set up (migration 022)")
+    return fp_rows(rows, ("id", "ts"))
+
+
 def fetch_grammar_notes():
     """Notes Amal writes under the rules on amal/grammar-rules.html (replaces writing in her Google Doc, 2026-10-01)."""
     return fp_rows(_amal_rules(lambda r: r.get("source") == "grammar_notes"), ("id", "kind", "word_key", "payload"))
@@ -182,6 +193,9 @@ STEPS = [
     ("pull_verb_checks", [sys.executable, "scripts/verb_check_links.py", "pull"]),
     ("build_word_bank_catalog", [sys.executable, "scripts/build_word_bank_catalog.py"]),
     ("build_verb_addon_tags", [NODE, "scripts/build_verb_addon_tags.cjs"]),
+    # PR-15: pull Medi's corrections (fail-open, quarantine, proposals, his yes -> registry) BEFORE every builder reads them
+    ("pull_medi_corrections", [sys.executable, "scripts/medi_corrections.py", "pull"]),
+    ("detect_grammar_usage", [sys.executable, "scripts/detect_grammar_usage.py"]),
     ("full_audit_build", [sys.executable, "scripts/full_audit_build.py"]),
     # AFTER full_audit_build: the build rewrites the audit JSON without her rulings (2026-09-30 bug: 134 answers wiped)
     ("apply_amal_audit_rulings", [sys.executable, "scripts/apply_amal_audit_rulings.py"]),
@@ -197,6 +211,8 @@ STEPS = [
     # new words Amal used that are not on her Doc + her add / later / forget taps (Medi 2026-10-02)
     ("amal_new_words", [sys.executable, "scripts/amal_new_words.py"]),
     ("build_tutor_data", [sys.executable, "scripts/build_tutor_data.py"]),
+    # after the lesson data is rebuilt: proposals count the moments on the rebuilt transcript
+    ("medi_corrections_propose", [sys.executable, "scripts/medi_corrections.py", "propose"]),
     ("write_build", [sys.executable, "scripts/write_build.py"]),
 ]
 AUDIT_CHAIN = ["full_audit_build", "apply_amal_audit_rulings", "amal_grammar_notes", "build_grammar_console", "build_amal_docs",
@@ -219,6 +235,9 @@ SOURCES = [
      "note": "like her Doc notes, a note becomes a scoring ruling only after a row-by-row read (amal_grammar_notes.py)"},
     {"id": "grammar_doc", "label": "Her grammar-rules Google Doc", "fetch": fetch_grammar_doc, "steps": [],
      "note": "a change is logged as 'needs a read': Claude re-reads the Doc into data/amal-docs/ with Medi's Drive connector (build_amal_docs.py shows it on the Anees rules page); her notes become scoring rulings only after a row-by-row read"},
+    {"id": "medi_corrections", "label": "Medi's corrections on the Lessons transcript (PR-15)", "fetch": fetch_medi_corrections,
+     "steps": ["pull_medi_corrections", "detect_grammar_usage"] + AUDIT_CHAIN + ["medi_corrections_propose", "write_build"],
+     "note": "his own taps, not Amal's: recounted within 15 min; 'my Arabic was right' becomes a card on her hub"},
     {"id": "quizlet", "label": "Her Quizlet sets", "fetch": fetch_quizlet, "steps": ["write_build"], "pass_state": True},
 ]
 
@@ -381,7 +400,9 @@ def run(publish=False, dry_run=False, runner=subprocess.run, root=ROOT, sources=
     _write(PAGE_P, page)
     if firing and publish:
         paths = ["docs", "data/amal-trigger", "data/vocab", "data/full-audit-2026-09-26.json", "data/accuracy",
-                 "data/lesson-work/full-audit", "data/amal-grammar-notes-2026-09-29.json"]
+                 "data/lesson-work/full-audit", "data/amal-grammar-notes-2026-09-29.json", "data/lesson-work",
+                 "data/grammar-usage-rulings.json", "rules", "RULE-BOOK.md", "tests/test_correction_rules_generated.py",
+                 "scripts/publish_guard_config.json"]
         paths = [p for p in paths if (root / p).exists()]
         runner(["git", "add", "-A", *paths], cwd=str(root), capture_output=True, text=True)
         c = runner(["git", "commit", "-q", "-m", "Amal trigger: " + ", ".join(x["source"] for x in firing["changed"]) +

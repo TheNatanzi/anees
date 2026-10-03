@@ -7,7 +7,7 @@
 
 create table if not exists transcript_corrections (
   id text primary key,                         -- client uuid: offline queue replays are idempotent
-  lesson_date date not null,
+  lesson_date date not null check (lesson_date >= date '2026-08-01'),   -- upper bound (now()+1 day): trigger below
   turn_t numeric not null check (turn_t >= 0 and turn_t < 20000),   -- the line's start on the lesson clock (s)
   turn_who text not null check (turn_who in ('Medi', 'Amal', 'chat', '?')),
   kind text not null check (kind in ('text', 'speaker', 'time', 'missing', 'not-slip', 'was-wrong', 'classify', 'add',
@@ -22,6 +22,19 @@ create table if not exists transcript_corrections (
   tz_offset_min smallint check (tz_offset_min is null or tz_offset_min between -840 and 840),
   created_at timestamptz not null default now()
 );
+-- Council 5 (2026-10-03): a lesson date in the future is a bad row. A CHECK may not call now() reliably, so a trigger does.
+create or replace function transcript_corrections_date_ok() returns trigger language plpgsql set search_path = public as $$
+begin
+  if new.lesson_date > (now() + interval '1 day')::date then
+    raise exception 'transcript_corrections: lesson_date % is in the future', new.lesson_date;
+  end if;
+  return new;
+end $$;
+drop trigger if exists transcript_corrections_date_ok on transcript_corrections;
+create trigger transcript_corrections_date_ok before insert on transcript_corrections
+  for each row execute function transcript_corrections_date_ok();
+alter table transcript_corrections add constraint transcript_corrections_id_len check (char_length(id) between 8 and 64);
+
 create index if not exists transcript_corrections_lesson on transcript_corrections(lesson_date);
 
 comment on table transcript_corrections is 'Medi''s corrections on the lesson transcript. Append-only; undo = a new row with undoes.';

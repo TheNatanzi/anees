@@ -326,6 +326,8 @@ def refresh_published(dates, raw, work):
     # the Word Bank audit reads the overlay AFTER the unresolved-word bins (2026-10-02: run before them it counted a
     # restart as Correct and accuracy_gates blocked the publish: 10-01 words.right 88 vs audit 89)
     run_step('audit_word_bank_reliability.cjs', [NODE, str(HERE / 'audit_word_bank_reliability.cjs'), str(ROOT / 'docs/data/word-bank-evidence.json')], failures)
+    # PR-15: Medi's transcript corrections (fail-open: a missing table or bad row never stops the hour)
+    run_step('medi_corrections.py pull', [sys.executable, str(HERE / 'medi_corrections.py'), 'pull'], failures)
     # grammar uses (the Grammar % denominator): was never run by the hourly job - 09-28 went live with uses/pct = None
     run_step('detect_grammar_usage.py', [sys.executable, str(HERE / 'detect_grammar_usage.py')], failures)
     run_step('build_lessons_page_data.py', [sys.executable, str(HERE / 'build_lessons_page_data.py')], failures)   # the transcript on the lesson clock, for the readers

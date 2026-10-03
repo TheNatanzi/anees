@@ -898,7 +898,8 @@ def build():
                          "said": v.get("medi_said"), "said_html": mark_html(v.get("medi_said") or "", v.get("wrong") or "", "ab-wrong") if v.get("wrong") else esc(v.get("medi_said") or ""),
                          "wrong": v.get("wrong"), "fix": v.get("amal_gave"), "clip": None, "why": v.get("why"), "event_id": None,
                          "tier": v.get("tier"), "signal": v.get("signal"), "confidence": v.get("confidence"), "source": "audit-2026-09-26", "audit_uid": v.get("uid"),
-                         "t_fix": sec(v.get("t_amal")) if v.get("t_amal") else None})
+                         "t_fix": sec(v.get("t_amal")) if v.get("t_amal") else None,
+                         **({"correction": v["correction"]} if v.get("correction") else {})})
             need_ar.add(v.get("medi_said") or "")
         verr.sort(key=lambda e: e["t"])
         # The audit's slips count in the word score too (Medi 2026-09-26: "35 errors ... 0 wrong?"). Tiers 1-3 = wrong;
@@ -919,6 +920,7 @@ def build():
                          "chat": r.get("chat"), "wrong": r.get("wrong"), "wrong_arabizi": r.get("wrong_arabizi"),
                          "right": r.get("right"), "right_arabizi": r.get("right_arabizi"),
                          "confidence": r.get("confidence"), "signal": r.get("signal"), "id": r.get("id"),
+                         **({"correction": r["correction"]} if r.get("correction") else {}),
                          **({"counted": False, "not_counted_kind": r["_ruling"]["kind"],
                              "not_counted_why": r["_ruling"]["why"]} if r.get("_ruling") else {})})
         # Amal's notes 2026-09-27: rows her notes take out of the count get their own list (shown, never counted)
@@ -1203,6 +1205,10 @@ def build():
             elif c["id"] in amal_by:
                 r = amal_by[c["id"]]
                 done_cards.append(LL.amal_item(d, led, c, {"kind": "ledger_pick", "answer": r["answer"], "at": r.get("at")}))
+    # PR-15 council 2: Medi's "my Arabic was right" is Amal's call - one card each, counted as before until she taps
+    import medi_corrections as MC
+    for card in MC.amal_cards(MC.J(os.path.join(REPO, "data", "lesson-work", "medi-corrections-report.json")) or {}):
+        (done_cards if card.get("answered") else cards).append(card)
     with open(os.path.join(DOCS, "data", "amal-ledger.json"), "w", encoding="utf-8") as f:
         json.dump({"about": "Moments where two of Anees' judges disagree about one of Medi's Arabic words (LS-11/LS-12). Amal's tap "
                             "settles each: amal_rules source 'review', word_key = the item id, kind 'ledger_pick', payload.answer.",
