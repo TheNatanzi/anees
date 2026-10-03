@@ -28,6 +28,12 @@ AUDIT = os.path.join(DOCS, "data", "grammar-audit.json")
 audit = json.load(open(AUDIT, encoding="utf-8")) if os.path.exists(AUDIT) else {"events": [], "lessons": []}
 USAGE = os.path.join(DOCS, "data", "grammar-usage.json")
 usage = json.load(open(USAGE, encoding="utf-8")) if os.path.exists(USAGE) else {"uses": {}, "lessons": {}}
+# LS-11 (one lesson ledger): a use on the same turn as a slip of the same rule is that slip's attempt (GR-14); the ledger
+# folds it, and this page drops the same uses so its per-rule numbers are the ledger's (scripts/lesson_ledger.py check).
+import sys as _sys  # noqa: E402
+_sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import lesson_ledger as _LL  # noqa: E402
+usage["uses"] = _LL.uses_minus(usage.get("uses", {}), _LL.all_fold_uses())
 # F1 and F3 match any hard letter / any shadda, so their "use" count is every
 # Arabic word Medi says. That is not a rule being exercised - leave them unscored.
 NO_USAGE_SCORE = {"F1", "F2", "F3"}

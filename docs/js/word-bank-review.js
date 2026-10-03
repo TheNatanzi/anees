@@ -3,9 +3,9 @@
 'use strict';
 function matches(e,expected){return !!e&&Object.entries(expected||{}).every(([k,v])=>JSON.stringify(e[k]??null)===JSON.stringify(v));}
 function apply(events,review={}){
- const originals=new Map(events.map(e=>[e.id,e])),stale=[];
+ const ledger=events&&events._ledger,originals=new Map(events.map(e=>[e.id,e])),stale=[];
  let result=events.map(e=>{const p=review.patches?.[e.id];if(!p)return {...e};if(!matches(e,p.expected)){stale.push(e.id);return {...e};}return {...e,...p.changes};});
- for(const a of review.additions||[]){const anchor=originals.get(a.anchor_id);if(anchor?.source_sha256===a.expected_source&&!originals.has(a.event.id))result.push({...a.event});else if(!originals.has(a.event.id))stale.push(a.event.id);}
+ for(const a of review.additions||[]){const anchor=originals.get(a.anchor_id);if(anchor?.source_sha256===a.expected_source&&!originals.has(a.event.id)){const o=ledger&&ledger.get(a.event.id);result.push(o&&matches(a.event,o.expected)?{...a.event,...o.changes}:{...a.event});}else if(!originals.has(a.event.id))stale.push(a.event.id);}
  result=result.map(e=>({...e,context:(e.context||[]).map(r=>{const edit=review.transcript_rows?.[r.row_id];return edit&&edit.original===r.text&&edit.source_sha256===e.source_sha256?{...r,reviewed_text:edit.display,reviewed_arabizi:edit.arabizi,transcript_note:edit.reason}:r;})}));
  return {events:result,stale};
 }
@@ -17,6 +17,11 @@ function mark(text,parts=[],partial=[],correct=[],feedback=[]){
 }
 // Eng audit 2026-09-29 (Medi's decision 6): the full audit's on-list word slips (docs/data/word-bank-audit-slips.json)
 // join the lesson evidence on every page that scores words, so the Lessons page, Word Bank and Progress count the same.
-function withSlips(events,doc){const ids=new Set((events||[]).map(e=>e.id));return (events||[]).concat(((doc&&doc.events)||[]).filter(e=>e&&e.id&&!ids.has(e.id)&&ids.add(e.id)));}
-const api={apply,matches,mark,withSlips};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.AneesWordBankReview=api;
+// LS-11 (one lesson ledger, Medi 2026-10-02): where two judges disagreed on a moment the ledger's rule decides, and the
+// slips file carries that decision as an override of the Word Bank event ({event_id, expected, changes}). It applies only
+// while the event is still the one the ledger saw (expected); otherwise the event is left as is and the guard fails.
+function tag(arr,ov){if(ov&&ov.size)Object.defineProperty(arr,'_ledger',{value:ov,enumerable:false});return arr;}
+function withLedger(events,doc){const ov=new Map(((doc&&doc.overrides)||[]).map(o=>[o.event_id,o]));if(!ov.size)return (events||[]).slice();return tag((events||[]).map(e=>{const o=e&&ov.get(e.id);return o&&matches(e,o.expected)?{...e,...o.changes}:e;}),ov);}
+function withSlips(events,doc){const ids=new Set((events||[]).map(e=>e.id)),base=withLedger(events,doc);return tag(base.concat(((doc&&doc.events)||[]).filter(e=>e&&e.id&&!ids.has(e.id)&&ids.add(e.id))),base._ledger);}
+const api={apply,matches,mark,withSlips,withLedger};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.AneesWordBankReview=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

@@ -18,7 +18,7 @@ Underlines are character spans in the turn text: the slip's `wrong` on his line,
 after normalising hamza / taa marbuta / alif maqsura / diacritics / "الـ " spacing; with no exact match the closest
 token window is used and flagged "closest".
 """
-import difflib, re
+import collections, difflib, re
 
 SLACK = 2.0          # s: same moment
 LOOSE = 8.0          # s: a second look only when the turn text holds the word
@@ -172,7 +172,7 @@ def _in_off(t, off):
     return next((o for o in off if o[0] <= t <= o[1]), None)
 
 
-def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_uses=(), off_lesson=()):
+def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_uses=(), off_lesson=(), ledger=None):
     """detail = the per-lesson JSON (turns, vocab_errors, vocab_correct, grammar_errors, grammar_not_counted, not_errors).
     Returns (tmarks, report): tmarks = {turn index: {"c": [chips], "u": [underlines]}}."""
     turns = detail["turns"]
@@ -314,7 +314,11 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
                 if free.get(int(st) + k):
                     free[int(st) + k].pop()
                     break
+        folded = collections.Counter((f["bucket"], f.get("t"), f.get("hit")) for f in (ledger or {}).get("fold_uses") or [])
         for u in sorted((u for v in free.values() for u in v), key=lambda u: u["t"]):
+            if folded[(b, u.get("t"), u.get("hit"))]:          # LS-11 C3: the same turn's slip is this attempt (GR-14)
+                folded[(b, u.get("t"), u.get("hit"))] -= 1
+                continue
             if not_taught(b):
                 grey(u["t"], "rule not taught yet (Amal's notes)", "grammar · " + b, u.get("hit"))
                 continue
@@ -323,6 +327,13 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
     for r in list(ruled_out) + list(not_uses):
         if r.get("date") == date:
             grey(r.get("t"), r.get("why") or "not a use", "grammar" + (" · " + r["bucket"] if r.get("bucket") else ""), r.get("hit"))
+
+    # ---------------- LS-11: a moment two judges disagree on and no rule decides: an orange "Medi?" chip, counted as before
+    for c in (ledger or {}).get("conflicts") or []:
+        if c.get("needs_medi") and c.get("turn") is not None:
+            put(c["turn"], {"id": nid("q"), "k": "medi", "s": "medi", "label": "Medi?", "conflict": c["id"],
+                            "why": (c.get("question") or "") + " " + " / ".join(c.get("options") or []) + " · counted as before until you pick"})
+            rep["medi"] = rep.get("medi", 0) + 1
 
     # ---------------- off-lesson stretches: grey on his unmarked turns inside them
     for i, u in enumerate(turns):

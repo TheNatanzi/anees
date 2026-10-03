@@ -9,10 +9,11 @@
 var FILTERS = [['all', 'All'], ['marked', 'Only marked'], ['wrong', 'Only ✗'], ['vocab', 'Vocab'], ['grammar', 'Grammar'], ['fix', "Amal's fixes"]];
 var LEGEND = [
   ['correct', '✓', 'Correct'], ['partial', '◐', 'Partial · got there with help'], ['asked', '◐', 'Asked Amal for the word'],
-  ['wrong', '✗', 'Wrong'], ['fix', '←', "Amal's fix (how she flagged it)"], ['na', '–', 'Not scored (reason on the chip)']
+  ['wrong', '✗', 'Wrong'], ['fix', '←', "Amal's fix (how she flagged it)"], ['na', '–', 'Not scored (reason on the chip)'],
+  ['medi', '?', 'Medi? · two judges disagree, counted as before until you pick']
 ];
-var WORD = { correct: 'Correct', partial: 'Partial', asked: 'Asked', wrong: 'Wrong', fix: "Amal's fix", na: 'Not scored' };
-var SIGN = { correct: '✓', partial: '◐', asked: '◐', wrong: '✗', fix: '←', na: '–' };
+var WORD = { correct: 'Correct', partial: 'Partial', asked: 'Asked', wrong: 'Wrong', fix: "Amal's fix", na: 'Not scored', medi: 'Medi?' };
+var SIGN = { correct: '✓', partial: '◐', asked: '◐', wrong: '✗', fix: '←', na: '–', medi: '?' };
 
 function isArabic(s) { return /[؀-ۿ]/.test(s || ''); }
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -48,10 +49,11 @@ function chipModel(c, toArabizi) {
   else if (c.s === 'partial') tip = 'Partial · got there with help' + (c.said ? ' · said ' + az(c.said, null, toArabizi) : '');
   else if (c.s === 'correct') tip = 'Correct' + (c.said ? ' · said ' + az(c.said, null, toArabizi) : '');
   else if (c.s === 'fix') tip = "Amal's fix: she " + c.sig + (c.said || c.right ? ' · ' + pair(c.said, c.right, toArabizi) : '');
+  else if (c.s === 'medi') tip = 'Medi? ' + (c.why || '');
   else tip = 'Not scored: ' + (c.why || '');
   var arSrc = [c.said, c.right].filter(isArabic).join(' → ');
   return {
-    sign: SIGN[c.s] || '', word: WORD[c.s] || '', kind: s.kind, main: c.s === 'na' ? (c.why || '') : s.main,
+    sign: SIGN[c.s] || '', word: WORD[c.s] || '', kind: s.kind, main: c.s === 'na' || c.s === 'medi' ? (c.why || '') : s.main,
     ar: s.ar, tip: tip, tipAr: arSrc, sig: c.s === 'fix' ? c.sig : ''
   };
 }

@@ -77,6 +77,8 @@ def run(repo=REPO):
     D = {d: J("docs", "data", "lessons", d + ".json") for d in dates}
     audit = J("data", "full-audit-2026-09-26.json")
     usage = J("docs", "data", "grammar-usage.json")
+    import lesson_ledger as LL                        # LS-11: the uses the ledger folded into a same-turn slip (GR-14)
+    usage = dict(usage, uses=LL.uses_minus(usage.get("uses", {}), LL.all_fold_uses(REPO)))
     console = J("docs", "data", "grammar-console.json")
     buckets = {b["id"]: b for b in J("docs", "data", "grammar-buckets.json")["buckets"]}
     slips_p = os.path.join(REPO, "docs", "data", "word-bank-audit-slips.json")

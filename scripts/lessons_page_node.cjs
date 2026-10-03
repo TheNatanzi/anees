@@ -53,7 +53,8 @@ if (Array.isArray(inp.slips)) {
   slipDoc = { version: 1, about: 'Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. ' +
     'Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. ' +
     'unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.', events: placed, unplaced };
-  events = events.concat(placed);
+  slipDoc.overrides = Array.isArray(inp.overrides) ? inp.overrides : [];   // LS-11: the ledger's decisions on Word Bank events
+  events = Rv.withSlips(events, slipDoc);
 }
 
 // Same steps, same order as docs/js/word-bank.js load().

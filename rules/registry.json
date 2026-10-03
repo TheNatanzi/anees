@@ -5298,6 +5298,79 @@
    }
   },
   {
+   "id": "LS-11",
+   "kind": "data",
+   "scope": "lessons",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The marked lesson transcript is the one source of every judgment: each lesson has one ledger (data/lesson-work/ledger/<date>.json) where every scored item from every producer (Word Bank matcher, AI readers + Amal's taps, grammar use counter, sheet verdicts, ruling files) is exactly one mark on one turn with who made it; where two producers judged the same moment differently the existing rules decide (Amal's tap > Medi's rulings > specific > general: her voiced no on that exact word beats the matcher's provisional Correct, a wrong form filed twice counts once as grammar, a use and a slip of one rule on one turn are one attempt), anything no rule decides is a 'Medi?' mark counted as before until he picks; the Lessons %, Word Bank, Grammar page and Progress count from the ledger and the publish guard blocks when a page number is not the ledger's count.",
+   "plain": "Every mark on the lesson transcript is the one record of what was right or wrong: each word and grammar rule Medi said is one mark with who judged it, the existing rules settle any disagreement between judges, a disagreement no rule settles shows as 'Medi?' and counts as before until he picks, and every page counts from these marks.",
+   "plain_for": "b3663948",
+   "topic": "one ledger",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "what is the main source of all of errors on the lessons? I think the transcription page of the lessons should be no?"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "yes"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-02",
+     "quote": "council must approve the transition of making the the lesson transcript the central database file."
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/lesson_ledger.py",
+     "contains": "PRECEDENCE = {"
+    },
+    {
+     "type": "code",
+     "path": "scripts/lesson_ledger.py",
+     "contains": "def check(repo=REPO):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_lessons_page_data.py",
+     "contains": "LS-11 one lesson ledger (Medi 2026-10-02"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/word-bank-review.js",
+     "contains": "function withLedger(events,doc)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_lesson_ledger.py",
+     "contains": "def test_LS_11_c1_word_bank_correct_gives_way_to_amals_no_on_that_word"
+    },
+    {
+     "path": "tests/test_lesson_ledger.py",
+     "contains": "def test_LS_11_check_is_clean_on_a_consistent_mini_repo_and_catches_planted_drift"
+    },
+    {
+     "path": "tests/test_lesson_ledger.py",
+     "contains": "def test_LS_11_committed_pages_equal_the_ledger"
+    },
+    {
+     "path": "tests/test_ledger_overrides.cjs",
+     "contains": "test('LS-11 an override applies only while the event is the one the ledger saw'"
+    }
+   ],
+   "example": {
+    "date": "2026-10-01",
+    "t": "01:33",
+    "note": "The Word Bank scored لسه Correct while the readers had Amal saying no to it (he meant 'until', la-): the ledger lets her no count, the Word Bank shows it as 'said here, another word intended'."
+   }
+  },
+  {
    "id": "PR-14",
    "kind": "data",
    "scope": "process",

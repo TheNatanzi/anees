@@ -167,7 +167,10 @@ def test_sheet_v2_every_hand_verdict_is_applied():
         if not hits:
             continue          # the card left the page (a later audit may drop it); the v1 test checks coverage
         for where, e in hits:
-            if v["verdict"] == "on_list" and not (where == "shown" and e.get("on_sheet") is True):
+            # LS-11: a card the one lesson ledger folded into the same moment's grammar slip (WS-06) keeps the verdict
+            # (on_sheet True) and sits under 'dropped' with the ledger's reason
+            folded = where == "dropped" and e.get("ledger_rule") and e.get("on_sheet") is True
+            if v["verdict"] == "on_list" and not ((where == "shown" or folded) and e.get("on_sheet") is True):
                 bad.append(("on_list", v["date"], v["mmss"], where, e.get("on_sheet")))
             if v["verdict"] == "new" and not (where == "shown" and e.get("on_sheet") is False):
                 bad.append(("new", v["date"], v["mmss"], where, e.get("on_sheet")))

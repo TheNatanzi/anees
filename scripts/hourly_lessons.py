@@ -347,9 +347,10 @@ def _commit(paths, message):
 
 # what the Tutor refresh rebuilds (data/accuracy: accuracy_gates annotate rewrites the verification queue on every
 # lesson-data build; left uncommitted it made the guard's clean-tree check block every later hour)
-TUTOR_PATHS = ['docs/data', 'docs/amal/grammar-rules.html', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'RULE-BOOK.md']
+TUTOR_PATHS = ['docs/data', 'docs/amal/grammar-rules.html', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'RULE-BOOK.md',
+               'data/lesson-work/ledger']   # LS-11: the lesson ledgers change with every build of the lesson data
 # everything a run may build that the site or the guard reads: committed before the run's one push
-BUILT_PATHS = ['docs', 'RULE-BOOK.md', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'data/lesson-work/full-audit', 'plan/FULL-AUDIT-2026-09-26.md',
+BUILT_PATHS = ['docs', 'RULE-BOOK.md', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'data/lesson-work/full-audit', 'data/lesson-work/ledger', 'plan/FULL-AUDIT-2026-09-26.md',
                'data/budget.json', 'data/lessons/recall_bots.json', 'data/runs', 'data/decisions', 'data/backfill',
                'data/amal-trigger', 'data/vocab', 'data/lesson-work/amal-new-words', 'data/lesson-work/amal-new-words-verdicts.json']
 
@@ -361,7 +362,17 @@ def tutor_refresh(no_push=False, rebuild_all=False):
     failures = []
     try:
         run_step('apply_amal_audit_rulings.py', [sys.executable, str(HERE / 'apply_amal_audit_rulings.py')], failures, timeout=1800)
-        if rebuild_all:           # an earlier hour failed: rebuild everything that reads the audit, not only on new taps
+        # LS-11: a lesson ledger older than its inputs (a vocabulary import, a ruling file, a rebase that brought master's
+        # inputs) would block every publish; it is rebuilt here, every hour, before anything is checked
+        try:
+            import lesson_ledger as LL
+            stale = any('older than its inputs' in p or 'no ledger' in p for p in LL.check(ROOT))
+        except Exception as e:
+            stale = True
+            log('lesson ledger check crashed, rebuilding:', e)
+        if stale and not rebuild_all:
+            log('lesson ledger older than its inputs: rebuilding the lesson data')
+        if rebuild_all or stale:  # an earlier hour failed: rebuild everything that reads the audit, not only on new taps
             for s in ('build_amal_review.py', 'build_lessons_page_data.py', 'build_grammar_console.py', 'build_amal_grammar_rules.py'):
                 run_step(s, [sys.executable, str(HERE / s)], failures, timeout=1800)
         run_step('build_tutor_data.py', [sys.executable, str(HERE / 'build_tutor_data.py')], failures, timeout=300)

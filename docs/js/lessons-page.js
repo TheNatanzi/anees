@@ -777,8 +777,39 @@ function detail(L) {
   return d;
 }
 
+/* ---------- LS-11: the moments two judges disagree on and no rule decides (one list, one line each) ---------- */
+function renderMedi() {
+  var box = $('ls-medi');
+  if (!box) return;
+  var items = [];
+  lessons().forEach(function (L) { ((L.ledger || {}).items || []).forEach(function (it) { items.push({ L: L, it: it }); }); });
+  box.textContent = '';
+  box.hidden = !items.length;
+  if (!items.length) return;
+  box.appendChild(el('h3', '', 'Medi? · ' + items.length + (items.length === 1 ? ' moment' : ' moments') + ' where two judges disagree'));
+  box.appendChild(el('p', 'ab-mini', 'Counted as before until you pick. Tell Claude the lesson, time and your pick.'));
+  var ol = el('ol', '');
+  items.forEach(function (x) {
+    var it = x.it, li = el('li', '');
+    li.appendChild(el('b', '', prettyDate(x.L.date) + ' ' + it.mmss + (it.also && it.also.length ? ', ' + it.also.join(', ') : '') + ' · '));
+    li.appendChild(document.createTextNode((it.question || '') + ' '));
+    (it.options || []).forEach(function (o) {
+      var arz = o !== 'keep' && toArabizi && /[؀-ۿ]/.test(o) ? toArabizi(o).text : o;
+      li.appendChild(el('span', 'lg-opt', o === 'keep' ? 'keep as is' : arz));
+    });
+    var az2 = function (t) { return t && toArabizi && /[؀-ۿ]/.test(t) ? toArabizi(t).text : (t || ''); };
+    var A = it.a || {}, B = it.b || {};
+    li.appendChild(el('div', 'ab-mini', 'Judge 1 (' + (A.by === 'word-bank' ? 'Word Bank' : 'readers') + '): ' + (A.verdict === 'right' ? 'right' : A.verdict || '') +
+      ' · Judge 2 (' + (B.bucket ? 'grammar ' + B.bucket : 'readers') + '): Amal → ' + az2(B.fix)));
+    if (it.line) { var q = el('div', 'ab-mini', 'You said: ' + (toArabizi && /[؀-ۿ]/.test(it.line) ? toArabizi(it.line).text : it.line)); li.appendChild(q); }
+    li.appendChild(playButton('Play ' + it.mmss, function () { play(lessonAudio(x.L.date, 'Medi'), Math.max(0, it.t - 3), prettyDate(x.L.date) + ' · ' + it.mmss); }, 'Plays the lesson from just before this moment'));
+    ol.appendChild(li);
+  });
+  box.appendChild(ol);
+}
 /* ---------- render ---------- */
 function render() {
+  renderMedi();
   var rows = $('ls-rows');
   rows.textContent = '';
   var list = sortList(lessons().filter(matches));

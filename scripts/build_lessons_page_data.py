@@ -37,6 +37,7 @@ RAW = r"C:\dev\anees\data\lessons"
 NODE = r"C:\dev\tools\node-v24.18.0-win-x64\node.exe"
 TMP = os.path.join(__import__("tempfile").gettempdir(), "anees-lessons-page")
 sys.path.insert(0, HERE)
+import lesson_ledger as LL  # noqa: E402  LS-11 one lesson ledger
 import amal_grammar_notes as AMAL  # noqa: E402  Amal's notes 2026-09-27: which grammar corrections do not count
 
 
@@ -570,11 +571,12 @@ def audio_duration(date):
     return None
 
 
-def run_node(strings, sheet=(), slips=None):
+def run_node(strings, sheet=(), slips=None, overrides=None):
     os.makedirs(TMP, exist_ok=True)
     i, o = os.path.join(TMP, "node-in.json"), os.path.join(TMP, "node-out.json")
     json.dump({"arabic": sorted(set(s for s in strings if s)), "sheet": sorted(set(s for s in sheet if s)),
-               "taught": [x for v in TAUGHT.values() for x in v], **({"slips": slips} if slips is not None else {})},
+               "taught": [x for v in TAUGHT.values() for x in v], **({"slips": slips} if slips is not None else {}),
+               **({"overrides": overrides} if overrides is not None else {})},
               open(i, "w", encoding="utf-8"), ensure_ascii=False)
     subprocess.run([NODE, os.path.join(HERE, "lessons_page_node.cjs"), i, o], check=True, capture_output=True)
     return J(o)
@@ -850,7 +852,7 @@ def build():
                          "label": s["label"], "word_key": s["word_key"], "arabic": s["arabic"],
                          "arabizi": wi.get("house") or wi.get("doc_arabizi"), "english": s["english"],
                          "said": said, "said_html": mark_html(said, tok, "ab-wrong" if s["points"] == 0 else "ab-partial"),
-                         "wrong": tok, "fix": fix, "clip": clip, "why": s["reason"], "event_id": s["id"]})
+                         "wrong": tok, "tok": s["text"], "fix": fix, "clip": clip, "why": s["reason"], "event_id": s["id"]})
             need_ar.add(said)
         # Words he got right (Medi 2026-09-26: a slider "Errors, Correct, All" on the vocab list). Word Bank uses scored
         # 1 (right) or 0.5 (partial = got there with help), same moment rules as the misses above.
@@ -863,15 +865,20 @@ def build():
                         "arabic": s_["arabic"], "arabizi": wi.get("house") or wi.get("doc_arabizi"), "english": s_["english"],
                         "said": said, "said_html": mark_html(said, s_["text"], "ab-correct" if s_["points"] == 1 else "ab-partial"),
                         "clip": s_["sentence_audio_url"] or (f"lessons/{date}/clips/{s_['legacy_clip']}" if s_["legacy_clip"] else None),
-                        "why": s_["reason"], "event_id": s_["id"]})
+                        "why": s_["reason"], "event_id": s_["id"], "tok": s_["text"]})
             need_ar.add(said)
         # Medi 2026-09-25 (decision A): every vocab fix Amal voiced or typed is an error on his page. The audit's vocab-A
-        # rows join the Word Bank's scored misses; a row within 5 s of an existing miss is the same moment and is skipped.
-        for v in sorted(vocab_fix.get(date, []), key=lambda v: sec(v.get("t")) or 0):
-            tv = sec(v.get("t"))
+        # rows join the Word Bank's scored misses. LS-11 (one ledger, C4): a row within 5 s of a Word Bank miss of the SAME
+        # word is the same moment and is folded into that card (its uid kept on it); a different word is its own card.
+        # Before 2026-10-02 any miss within 5 s swallowed the row (09-26 10:13 مساعد was lost to a لازم miss at 10:09).
+        # The slip's time is `t` (his line), `t_amal` only when `t` is missing.
+        for v in sorted(vocab_fix.get(date, []), key=lambda v: sec(v.get("t")) or sec(v.get("t_amal")) or 0):
+            tv = sec(v.get("t")) if v.get("t") else sec(v.get("t_amal"))
             if tv is None or v.get("source") != "audit-2026-09-26":
                 continue
-            if any(abs(e["t"] - tv) <= 5 for e in verr):
+            same = next((e for e in verr if not e.get("source") and abs(e["t"] - tv) <= 5 and LL.same_word(e, v)), None)
+            if same:
+                same.setdefault("folded", []).append(v.get("uid"))
                 continue
             asked = v.get("tier") == 0
             verr.append({"t": round(tv, 2), "mmss": v.get("t"), "kind": "asked" if asked else "wrong",
@@ -1012,6 +1019,78 @@ def build():
             w["audit_partial"] = w.get("audit_partial", 0) - sum(1 for e in offa if e["kind"] == "asked")
             w["pct"] = round(100 * (w["right"] + .5 * w["partial"]) / w["scored"], 1) if w["scored"] else None
 
+
+    # ---- LS-11 one lesson ledger (Medi 2026-10-02: the marked transcript is the one source of every judgment). Every
+    # producer's items above become marks on the transcript turns (scripts/lesson_ledger.py); where two producers judged
+    # the same moment differently the existing rules decide (lesson_ledger.PRECEDENCE) or it is a "Medi?" moment counted
+    # as before. The lists below are then rewritten from the ledger and every number on the page is the ledger's count.
+    # ANEES_LEDGER=shadow builds the ledger and its diff but applies no resolution (the old counts), for a bad hour.
+    LMODE = os.environ.get("ANEES_LEDGER", "on")
+    U0 = J(usage_p) if os.path.exists(usage_p) else {}
+    patches = (J(os.path.join(DOCS, "data", "word-bank-review.json")).get("patches") or {})
+    EV = {e["id"]: e for e in J(os.path.join(DOCS, "data", "word-bank-evidence.json")).get("events", [])}
+    for _a in J(os.path.join(DOCS, "data", "word-bank-review.json")).get("additions", []):
+        EV.setdefault(_a["event"]["id"], _a["event"])        # events the review overlay adds
+    rulings = LL.load_rulings()
+    scored_rules = {b for b, r in GT.items() if r["scored"]}
+    prev_p = os.path.join(DOCS, "data", "lessons.json")
+    published = {x["date"]: x for x in (J(prev_p).get("lessons", []) if os.path.exists(prev_p) else [])}
+    ledgers, fold_uses_all = {}, []
+    for L in lessons:
+        d, v = L["date"], per[L["date"]]
+        led, act = LL.build(d, v, U0.get("uses", {}), buckets, scored_rules, AMAL.not_taught, U0.get("ruled_out", []),
+                            U0.get("not_uses_auto", []), patches, rulings, resolve=LMODE != "shadow")
+        ids = {"vocab_correct": dict(zip(LL.item_ids(v["vocab_correct"], "wb:", "event_id"), v["vocab_correct"])),
+               "vocab_errors": {**dict(zip(LL.item_ids([e for e in v["vocab_errors"] if e.get("source") != "audit-2026-09-26"], "wb:", "event_id"),
+                                           [e for e in v["vocab_errors"] if e.get("source") != "audit-2026-09-26"])),
+                                **{"ra:" + e["audit_uid"]: e for e in v["vocab_errors"] if e.get("source") == "audit-2026-09-26"}}}
+        for lst, mid, why, rule in act["move"]:
+            e = ids[lst][mid]
+            v[lst] = [x for x in v[lst] if x is not e]
+            e.update(verdict_reason=why, ledger_rule=rule, ledger_id=mid)
+            v.setdefault("not_errors", []).append(e)
+        led["overrides"] = []
+        for o in act["overrides"]:
+            ev = EV.get(o["event_id"]) or {}
+            led["overrides"].append({**o, "expected": {"word_key": ev.get("word_key"), "t_start": ev.get("t_start")}})
+        led["fold_uses"] = act["fold_uses"]
+        fold_uses_all += act["fold_uses"]
+        ledgers[d] = led
+        c = led["counts"]
+        w = L["words"]
+        old = dict(w)
+        for k in ("right", "partial", "wrong", "scored", "pct", "audit_wrong", "audit_partial"):
+            w[k] = c["words"][k]
+        if LMODE == "shadow" and any(old[k] != w[k] for k in ("right", "partial", "wrong", "scored")):
+            raise SystemExit(f"{d}: the ledger in shadow mode counts {w} but the lists give {old} (a producer item has no mark)")
+        g = L["grammar"]
+        g["mistakes"] = c["grammar"]["mistakes"]
+        if g.get("uses") is not None:
+            g.update(uses=c["grammar"]["uses"], pct=c["grammar"]["pct"], scored_mistakes=c["grammar"]["scored_mistakes"],
+                     unscored_mistakes=c["grammar"]["unscored_mistakes"])
+        res = [x for x in led["conflicts"] if x.get("resolved")]
+        L["ledger"] = {"file": f"data/lesson-work/ledger/{d}.json", "marks": len(led["marks"]), "conflicts": len(led["conflicts"]),
+                       "resolved": len(res), "needs_medi": len(led["needs_medi"]), "mode": LMODE,
+                       "items": [LL.medi_item(led, x) for x in led["conflicts"] if x["id"] in led["needs_medi"]]}
+        if res:
+            L["notes"].append(f"one ledger (LS-11): {len(res)} moment(s) where two judges disagreed were settled by the existing rules: "
+                              + "; ".join(f"{x['mmss']} {LL.KIND_WORDS[x['kind']]}" for x in res) + ".")
+        if led["needs_medi"]:
+            L["notes"].append(f"{len(led['needs_medi'])} moment(s) wait for Medi (counted as before until he picks): "
+                              + "; ".join(x["mmss"] for x in led["conflicts"] if x["id"] in led["needs_medi"]) + ".")
+        L["counts"]["vocab_errors"], L["counts"]["vocab_correct"] = len(v["vocab_errors"]), len(v["vocab_correct"])
+        v["marks"] = [m for m in v["marks"] if m["kind"] != "vocab" or any(abs(m["t"] - e["t"]) < .01 for e in v["vocab_errors"])]
+    # self-check: the console's formula with the same folded uses gives the ledger's grammar numbers
+    GT2 = grammar_math.table(LL.uses_minus(J(usage_p).get("uses", {}) if os.path.exists(usage_p) else {}, fold_uses_all),
+                             [{"bucket": r["bucket"], "date": r["date"], "t": (sec(r.get("t")) if r.get("t") else sec(r.get("t_amal")))}
+                              for rs in G.values() for r in rs if not r.get("_ruling")], list(buckets), AMAL.not_taught)
+    for L in lessons:
+        if L["grammar"].get("uses") is None:
+            continue
+        gl = grammar_math.lesson(GT2, L["date"])
+        if (gl["uses"], gl["pct"]) != (L["grammar"]["uses"], L["grammar"]["pct"]):
+            raise SystemExit(f"{L['date']}: ledger grammar {L['grammar']['uses']} uses / {L['grammar']['pct']}% but grammar_math gives {gl['uses']} / {gl['pct']}%")
+
     # Eng audit 2026-09-29 (Medi's decision 6, one truth). The audit's on-list word slips join the Word Bank evidence as
     # events (docs/data/word-bank-audit-slips.json, loaded by the Word Bank, Progress and this builder), so every page
     # scores the same attempts. Ratings on the cards are the Word Bank's own status with those slips in it. This replaces
@@ -1024,7 +1103,8 @@ def build():
                 slips.append({"uid": e.get("audit_uid"), "date": L["date"], "t": e["t"], "key": e.get("sheet_key") or e.get("word_key"),
                               "kind": "wrong" if e["kind"] == "wrong" else "asked", "said": e.get("said"), "wrong": e.get("wrong"),
                               "why": e.get("why"), "keyed_by": e.get("keyed_by")})
-    NO2 = run_node([], slips=slips)
+    overrides = [o for led in ledgers.values() for o in led["overrides"]]
+    NO2 = run_node([], slips=slips, overrides=overrides)
     SL = NO2["slips"]
     unplaced = {x["uid"]: x["why"] for x in SL["unplaced"]}
     # RULE CONFLICT (eng audit 2026-09-29, for Medi): a slip whose list word is a preposition (7: مع, عند, قبل, زي, فوق)
@@ -1056,10 +1136,13 @@ def build():
     for d, v in per.items():
         v["tmarks"], v["marks_report"] = TM.build(d, v, U.get("uses", {}), buckets, AMAL.not_taught,
                                                   U.get("ruled_out", []), U.get("not_uses_auto", []),
-                                                  (TYPE_READS.get(d) or {}).get("off_lesson") or [])
+                                                  (TYPE_READS.get(d) or {}).get("off_lesson") or [], ledger=ledgers.get(d))
         r = v["marks_report"]
         print(f"transcript marks {d}: {r['placed']}/{r['scored']} placed ({r['rate']}%), Amal fixes {r['fix_placed']}/{r['fix_wanted']}, "
               f"underlines {r['ul_exact']} exact + {len(r['ul_closest'])} closest + {len(r['ul_none'])} none of {r['ul_wanted']}")
+    for d, led in ledgers.items():
+        LL.write(led)
+    LL.write_diff(published, lessons, ledgers)
     os.makedirs(os.path.join(DOCS, "data", "lessons"), exist_ok=True)
     for d, v in per.items():
         with open(os.path.join(DOCS, "data", "lessons", d + ".json"), "w", encoding="utf-8") as f:
@@ -1072,6 +1155,9 @@ def build():
     # release layer (Medi 2026-09-27): reader agreement, source coverage, checks, grammar denominator -> verified or not,
     # with the reasons; lessons.json gains release / coverage_by_person / eligible-excluded-pending (scripts/accuracy_gates.py)
     sys.path.insert(0, HERE)
+    # the Word Bank audit applies the ledger's overrides too (LS-11): re-run it so its counts follow this build
+    subprocess.run([NODE, os.path.join(HERE, "audit_word_bank_reliability.cjs"), os.path.join(DOCS, "data", "word-bank-evidence.json")],
+                   check=False, capture_output=True)
     import accuracy_gates
     accuracy_gates.run_annotate(REPO)
     for L in lessons:
