@@ -23818,31 +23818,6 @@
     "amal_gave_arabizi": null
    },
    {
-    "id": "FA-f6326df4",
-    "date": "2026-10-02",
-    "t": "13:14",
-    "t_amal": "13:16",
-    "medi_said": "How do I say we will have fun, Rah? Rah bida.",
-    "amal_said": "No. It's the reason of our whole one month long lesson.",
-    "chat": "ra7 nenbese6",
-    "wrong": "Rah bida",
-    "right": "ra7 nenbese6",
-    "confidence": "medium",
-    "confidence_why": "r1+r2",
-    "signal": "asked",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-f6326df4",
-    "sweep_id": null,
-    "amal_gave": "ra7 nenbese6",
-    "english": "we will have fun",
-    "why": "He asked how to say 'we will have fun' and tried 'bida'; Amal said no and prompted (we will get happy) until he said nimbisit.",
-    "kind": "didn't-know",
-    "tier": 0,
-    "amal_gave_arabizi": null
-   },
-   {
     "id": "FA-c093d0ab",
     "date": "2026-10-02",
     "t": "14:18",
@@ -23915,31 +23890,6 @@
     "why": "He said اليوم (day) where he meant المرة (time); Amal supplied هذي المرة and he rebuilt it.",
     "kind": "wrong-word",
     "tier": 1,
-    "amal_gave_arabizi": null
-   },
-   {
-    "id": "FA-f4b60b4a",
-    "date": "2026-10-02",
-    "t": "45:55",
-    "t_amal": "45:58",
-    "medi_said": "العشر دقايق الـ، الآخر.",
-    "amal_said": "ال أخي-",
-    "chat": "el-3ashar da2aaye2 el-a5eeraat",
-    "wrong": "الآخر",
-    "right": "الأخير / الأخيرات",
-    "confidence": "medium",
-    "confidence_why": "r3",
-    "signal": "prompt-then-fix",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-f4b60b4a",
-    "sweep_id": null,
-    "amal_gave": "الأخير / الأخيرات",
-    "english": "the last ten minutes",
-    "why": "After the noun the adjective form of آخر is أخير (taught at 32:17); he used الآخر, Amal started 'ال أخي-' and he switched to الأخير - wrong form of a word he knows (tier 2). The plural agreement that followed is D12.",
-    "kind": "wrong-word",
-    "tier": 2,
     "amal_gave_arabizi": null
    },
    {
@@ -67177,7 +67127,7 @@
    "chat": "ra7 nenbese6",
    "wrong": "Rah bida",
    "right": "ra7 nenbese6",
-   "kind": "vocab-A",
+   "kind": "rejected",
    "tier": 0,
    "bucket": null,
    "bucket2": null,
@@ -67199,7 +67149,20 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f6326df4",
-   "n": 1138
+   "n": 1138,
+   "kind_before_rejection": "vocab-A",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-03",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-03T21:59:53.640526+00:00",
+    "rule_id": 2099,
+    "label": "Right",
+    "before": {
+     "kind": "vocab-A",
+     "signal": "asked",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "A9",
@@ -67390,7 +67353,7 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "recast",
-   "confidence": "medium",
+   "confidence": "high",
    "why": "He said اليوم (day) where he meant المرة (time); Amal supplied هذي المرة and he rebuilt it.",
    "english": "this is the second time",
    "ids": [
@@ -67406,7 +67369,19 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-5442b74f",
-   "n": 1144
+   "n": 1144,
+   "amal_ruling": {
+    "kind": "confirm",
+    "at": "2026-10-03T22:00:30.795296+00:00",
+    "rule_id": 2101,
+    "label": "Wrong word",
+    "alias": null,
+    "before": {
+     "kind": "vocab-A",
+     "signal": "recast",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "1002-r3-7",
@@ -67779,7 +67754,7 @@
    "chat": "el-3ashar da2aaye2 el-a5eeraat",
    "wrong": "الآخر",
    "right": "الأخير / الأخيرات",
-   "kind": "vocab-A",
+   "kind": "rejected",
    "tier": 2,
    "bucket": null,
    "bucket2": null,
@@ -67802,7 +67777,20 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-f4b60b4a",
-   "n": 1156
+   "n": 1156,
+   "kind_before_rejection": "vocab-A",
+   "rejected_why": "Amal tapped Right on the after-lesson link 2026-10-03",
+   "amal_ruling": {
+    "kind": "drop",
+    "at": "2026-10-03T22:00:43.62658+00:00",
+    "rule_id": 2102,
+    "label": "Right",
+    "before": {
+     "kind": "vocab-A",
+     "signal": "prompt-then-fix",
+     "confidence": "medium"
+    }
+   }
   },
   {
    "id": "1002-r3-12",
@@ -68132,6 +68120,18 @@
    "rules": [
     1990,
     2001
+   ]
+  },
+  {
+   "at": "2026-10-03T22:01:16.737460+00:00",
+   "rules": [
+    1990,
+    2001,
+    2098,
+    2099,
+    2100,
+    2101,
+    2102
    ]
   }
  ]
