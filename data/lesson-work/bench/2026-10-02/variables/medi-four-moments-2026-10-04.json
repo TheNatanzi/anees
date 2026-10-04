@@ -1,0 +1,92 @@
+{
+ "date": "2026-10-04",
+ "by": "medi",
+ "page": "https://claude.ai/artifact/TSgtmKjTmXfLmkhShgRSbx",
+ "words": "10-02 four moments: 49:44 - تاني (tani); 39:45 - أكلة (akleh); 08:22 - الصباح (el-saba7) - the published slip; 35:30 - أخيرة (a5eera, no el-) - my correction",
+ "answers": [
+  {
+   "t": "49:44",
+   "moment": "M059",
+   "key_v1": "غير",
+   "he_says": "تاني",
+   "key_was": "wrong"
+  },
+  {
+   "t": "39:45",
+   "moment": "M041",
+   "key_v1": "غير أكل",
+   "he_says": "غير أكلة",
+   "key_was": "wrong"
+  },
+  {
+   "t": "08:22",
+   "slip": "الصباح -> الصبح",
+   "he_says": "الصباح",
+   "key_was": "right: the slip stands, and every recipe that writes الصبح hides it"
+  },
+  {
+   "t": "35:30",
+   "moment": "M027",
+   "key_v1": "أخيرة",
+   "he_says": "أخيرة (no el-)",
+   "key_was": "right"
+  }
+ ],
+ "note": "The frozen key v1 (4a26fdb66bac0acd) is NOT edited. These numbers are a side column; a corrected key is a new benchmark version, and the two overlay rows of the lesson are wrong until fixed through the ruling files.",
+ "side_scores": {
+  "gemini-flash-t1|line": {
+   "key_v1": 53,
+   "with_medi_relisten": 55,
+   "hidden": 1,
+   "changed": 59
+  },
+  "gemini-flash-v13-t1|line": {
+   "key_v1": 54,
+   "with_medi_relisten": 56,
+   "hidden": 1,
+   "changed": 58
+  },
+  "gemini-flash-v8-t1|line": {
+   "key_v1": 53,
+   "with_medi_relisten": 55,
+   "hidden": 1,
+   "changed": 56
+  },
+  "gemini-flash-v7-t1|line": {
+   "key_v1": 54,
+   "with_medi_relisten": 56,
+   "hidden": 2,
+   "changed": 61
+  },
+  "gemini-flash-v12-t1|line": {
+   "key_v1": 52,
+   "with_medi_relisten": 54,
+   "hidden": 1,
+   "changed": 59
+  },
+  "gemini-flash-best-t1|line": {
+   "key_v1": 49,
+   "with_medi_relisten": 51,
+   "hidden": 2,
+   "changed": 60
+  },
+  "eleven-raw|line": {
+   "key_v1": 4,
+   "with_medi_relisten": 4,
+   "hidden": 1,
+   "changed": 0
+  },
+  "deepgram-ar|line": {
+   "key_v1": 13,
+   "with_medi_relisten": 14,
+   "hidden": 0,
+   "changed": 329
+  },
+  "deepgram-ar|whole": {
+   "key_v1": 21,
+   "with_medi_relisten": 22,
+   "hidden": 1,
+   "changed": 191
+  }
+ }
+}
