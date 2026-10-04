@@ -202,7 +202,8 @@ def download_file(name, out):
 
 def job_state(j):
     """The job's state from a status answer: the long-running-operation shape ({"metadata": {"state"}}) or the flat one."""
-    return (j.get("metadata") or {}).get("state") or j.get("state") or ("JOB_STATE_UNKNOWN" if not j.get("error") else "JOB_STATE_FAILED")
+    st = (j.get("metadata") or {}).get("state") or j.get("state") or ("JOB_STATE_UNKNOWN" if not j.get("error") else "JOB_STATE_FAILED")
+    return st.replace("BATCH_STATE_", "JOB_STATE_")     # the live API answers BATCH_STATE_* (first real run, 2026-10-04); the docs show JOB_STATE_*
 
 
 def responses_file(j):
