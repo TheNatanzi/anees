@@ -1,7 +1,7 @@
 {
  "benchmark": "PR-18 speech-engine benchmark",
  "lesson": "2026-10-02",
- "built": "2026-10-03T21:48:27",
+ "built": "2026-10-03T22:26:46",
  "truth_sha256": "4a26fdb66bac0acd7ac8e4550d72ca43edca297fda750f87c4ca361d2648cb6a",
  "clips_sha256": "8a7457bdca0e5a3087be6917b3f75341a517d014a75b56b0058fd3c328abb108",
  "prompts_sha256": "bd1a29d409660d4ffe6585a0c9da9a6a03e8564fe56944472f2e5d8c1d2b2dbe",
@@ -883,6 +883,10 @@
   "gemini-flash-v12-t1": {
    "usd": 1.81,
    "calls": 1416
+  },
+  "gemini-flash-v13-t1": {
+   "usd": 0.09,
+   "calls": 48
   },
   "gemini-flash-v2-t1": {
    "usd": 0.18,
@@ -17723,6 +17727,1145 @@
     }
    ],
    "hidden_rows": []
+  },
+  {
+   "id": "gemini-flash-v13-t1",
+   "mode": "line",
+   "name": "gemini-flash-v13-t1",
+   "class": "listener",
+   "model": "gemini-3.8-flash",
+   "runs": 3,
+   "heard_right": 54,
+   "of": 63,
+   "real_mishearings_fixed": [
+    27,
+    32
+   ],
+   "latin_letter_arabic_fixed": [
+    27,
+    31
+   ],
+   "verdicts": {
+    "hit": 54,
+    "miss-engine": 1,
+    "miss-other": 7,
+    "unstable": 1
+   },
+   "by_class": {
+    "el-": [
+     0,
+     1
+    ],
+    "foreign-script": [
+     3,
+     4
+    ],
+    "kept-slip": [
+     3,
+     3
+    ],
+    "latin-arabic": [
+     27,
+     31
+    ],
+    "number-time": [
+     6,
+     8
+    ],
+    "short-repeat-english": [
+     1,
+     1
+    ],
+    "vowel": [
+     3,
+     3
+    ],
+    "wrong-arabic-word": [
+     11,
+     12
+    ]
+   },
+   "hidden_slips": 1,
+   "slips_judged": 24,
+   "lines_changed": 95,
+   "lines_words_changed": 58,
+   "should_stay": 519,
+   "all_lines_pct": 85.0,
+   "wrong_alphabet_lines": 0,
+   "bleed_words": 21,
+   "same_3_of_3_pct": 92.1,
+   "lines_2of3_agree_pct": 94.9,
+   "call_errors": 0,
+   "lines_sent": 472,
+   "seconds": [
+    10.2,
+    13.8,
+    80.9
+   ],
+   "amal_lines_right": 0,
+   "board_b": {
+    "words_pct": 83.3,
+    "words_right": 52,
+    "words_partial": 11,
+    "words_wrong": 6,
+    "grammar_pct": 95.8,
+    "uses": 261,
+    "grammar_slips": 11,
+    "slips": 17,
+    "by_bucket": {
+     "B1": 11,
+     "C1": 1,
+     "B5": 7,
+     "A1": 67,
+     "A2": 15,
+     "D1": 4,
+     "D5": 3,
+     "B10": 2,
+     "B6": 5,
+     "A8": 45,
+     "A10b": 6,
+     "A10": 13,
+     "C4": 4,
+     "B15": 1,
+     "E3": 25,
+     "B13": 5,
+     "D3": 2,
+     "E4": 1,
+     "E2": 7,
+     "A7": 8,
+     "C3": 13,
+     "D4": 4,
+     "C7": 1,
+     "C9": 1,
+     "A3": 2,
+     "E1": 2,
+     "C8": 5,
+     "A11": 1
+    },
+    "d_words": 0.2,
+    "d_grammar": 2.0,
+    "d_slips": 4,
+    "d_uses": 21,
+    "runs": 3
+   },
+   "per_moment": [
+    {
+     "id": "M000",
+     "t": 421.64,
+     "class": "kept-slip",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "أنا سمعت",
+      "أنا سمعت",
+      "أنا سمعت"
+     ]
+    },
+    {
+     "id": "M001",
+     "t": 454.02,
+     "class": "number-time",
+     "runs": [
+      "miss-engine",
+      "hit",
+      "miss-engine"
+     ],
+     "final": "miss-engine",
+     "heard": [
+      "آآآ على عشا",
+      "آآ على عشرة",
+      "آآ على عشاء"
+     ]
+    },
+    {
+     "id": "M002",
+     "t": 457.84,
+     "class": "number-time",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "على العشرة",
+      "على العشرة",
+      "على العشرة"
+     ]
+    },
+    {
+     "id": "M003",
+     "t": 502.9,
+     "class": "wrong-arabic-word",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "أ هادي الصبح",
+      "هاد الصبح",
+      "هادا الصبح"
+     ]
+    },
+    {
+     "id": "M004",
+     "t": 519.4,
+     "class": "wrong-arabic-word",
+     "runs": [
+      "hit",
+      "miss-engine",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "أنا صحيت متأخر و",
+      "أنا صرت متأخر و...",
+      "أنا صحيت متأخر و..."
+     ]
+    },
+    {
+     "id": "M005",
+     "t": 533.84,
+     "class": "wrong-arabic-word",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "هادي الصباح.",
+      "هادي الصباح.",
+      "هادي الصبح"
+     ]
+    },
+    {
+     "id": "M006",
+     "t": 538.42,
+     "class": "wrong-arabic-word",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "هذا الصباح",
+      "هذا الصباح.",
+      "هاد الصباح"
+     ]
+    },
+    {
+     "id": "M007",
+     "t": 562.94,
+     "class": "kept-slip",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "شجاع اليوم. متشجع اليوم.",
+      "شجاع اليوم. متشجع اليوم.",
+      "شجاع اليوم، مش شجاع اليوم."
+     ]
+    },
+    {
+     "id": "M008",
+     "t": 570.62,
+     "class": "short-repeat-english",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "لسه.",
+      "لسه",
+      "لسة"
+     ]
+    },
+    {
+     "id": "M009",
+     "t": 578.26,
+     "class": "wrong-arabic-word",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "آآآ عطلة و",
+      "آآآ عطلة و",
+      "آآآ عطلة و"
+     ]
+    },
+    {
+     "id": "M010",
+     "t": 584.14,
+     "class": "wrong-arabic-word",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "أنا لازم آخد عطلة و سفر، سفرة.",
+      "أنا لازم آخد عطلة و سفر، سفرة.",
+      "أنا لازم آخد عطلة و سفر، سفرة."
+     ]
+    },
+    {
+     "id": "M011",
+     "t": 609.44,
+     "class": "wrong-arabic-word",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "آآآ كمان مرة؟",
+      "آآ كمان مرة؟",
+      "آ كمان مرة؟"
+     ]
+    },
+    {
+     "id": "M012",
+     "t": 642.88,
+     "class": "vowel",
+     "runs": [
+      "hit",
+      "hit",
+      "miss-other"
+     ],
+     "final": "hit",
+     "heard": [
+      "Um no I have-- I planned is past tense. أنا خططت.",
+      "Um no, I have-- I planned is past tense. أنا خططت.",
+      "Um no, I have-- I planned is past tense? أنا خطتت."
+     ]
+    },
+    {
+     "id": "M013",
+     "t": 683.96,
+     "class": "kept-slip",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "عموي",
+      "عموي.",
+      "عموي"
+     ]
+    },
+    {
+     "id": "M014",
+     "t": 823.22,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "راح",
+      "رح",
+      "راح"
+     ]
+    },
+    {
+     "id": "M015",
+     "t": 827.2,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "ننبسط؟",
+      "ننبسط؟",
+      "ننبسط؟"
+     ]
+    },
+    {
+     "id": "M016",
+     "t": 833.7,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "راح ننبسط.",
+      "راح ننبسط",
+      "راح ننبسط"
+     ]
+    },
+    {
+     "id": "M017",
+     "t": 932.02,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "Or was it جمعة؟",
+      "Or is it جمعة",
+      "Or is it جمعة؟"
+     ]
+    },
+    {
+     "id": "M018",
+     "t": 934.34,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "Can't believe it's جمعة already. Uh, تلات",
+      "Can't believe it's جمعة already. Uh, تلات",
+      "Can't believe it's جمعة already. Uh, تلات"
+     ]
+    },
+    {
+     "id": "M019",
+     "t": 962.62,
+     "class": "number-time",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "الساعة",
+      "الساعة",
+      "الساعة"
+     ]
+    },
+    {
+     "id": "M020",
+     "t": 966.42,
+     "class": "number-time",
+     "runs": [
+      "miss-other",
+      "miss-other",
+      "miss-other"
+     ],
+     "final": "miss-other",
+     "heard": [
+      "تنتين وربع",
+      "تنتين وربع",
+      "تنتين وربع"
+     ]
+    },
+    {
+     "id": "M021",
+     "t": 968.84,
+     "class": "number-time",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "No، تنتين وتلت.",
+      "No، تنتين وتلت",
+      "No، تنتين و تلت."
+     ]
+    },
+    {
+     "id": "M022",
+     "t": 1072.64,
+     "class": "number-time",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "If I say أول الساعة means the beginning of the hour. And if I say الأول الساعة that means the, the, the... I thought you said this was also the first.",
+      "if I say أول الساعة, that means the beginning of the hour. And if I say الأول الساعة, that means the f-- the, the... I thought you said this was also the first",
+      "If I say أول الساعة that means the beginning of the hour. And if I say الأول الساعة that means the f- the, the... I thought you said this was also the first"
+     ]
+    },
+    {
+     "id": "M023",
+     "t": 1091.88,
+     "class": "number-time",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "So الساعة الأول؟",
+      "So الساعة الأول؟",
+      "So الساعة الأول؟"
+     ]
+    },
+    {
+     "id": "M024",
+     "t": 1411.15,
+     "class": "wrong-arabic-word",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "Uh المصاري راح",
+      "uh المصاري راح",
+      "Uh, المصاري راح"
+     ]
+    },
+    {
+     "id": "M025",
+     "t": 1425.75,
+     "class": "wrong-arabic-word",
+     "runs": [
+      "miss-other",
+      "miss-other",
+      "miss-other"
+     ],
+     "final": "miss-other",
+     "heard": [
+      "Okay, but المصـ-- okay.",
+      "Okay, but المصـ-- Okay.",
+      "Okay, but المصـ-- okay."
+     ]
+    },
+    {
+     "id": "M026",
+     "t": 1430.23,
+     "class": "wrong-arabic-word",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "المصاري راح",
+      "المصاري راح",
+      "المصاري راح"
+     ]
+    },
+    {
+     "id": "M027",
+     "t": 2130.94,
+     "class": "el-",
+     "runs": [
+      "hit",
+      "miss-other",
+      "miss-engine"
+     ],
+     "final": "unstable",
+     "heard": [
+      "الرحلة أخيرة",
+      "الرحلة خيرة",
+      "الرحلة الأخيرة."
+     ]
+    },
+    {
+     "id": "M028",
+     "t": 2260.51,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "Wait, you cannot say غير اليوم؟",
+      "Wait, you cannot say غير اليوم.",
+      "Wait, you cannot say غير اليوم"
+     ]
+    },
+    {
+     "id": "M029",
+     "t": 2267.35,
+     "class": "latin-arabic",
+     "runs": [
+      "miss-other",
+      "miss-other",
+      "miss-other"
+     ],
+     "final": "miss-other",
+     "heard": [
+      "So it's just غير يوم or ال غـ- uh اليوم الـ- whatever the adjective version of Okay so it doesn't have a",
+      "So it's just غير يوم or الغيـ uh اليوم الـ whatever the adjective version of... Okay, so it doesn't have a...",
+      "So it's just غير يوم or الـ- uh اليوم الـ- whatever the adjective version of... Okay, so it doesn't have a..."
+     ]
+    },
+    {
+     "id": "M030",
+     "t": 2267.35,
+     "class": "latin-arabic",
+     "runs": [
+      "miss-other",
+      "miss-other",
+      "miss-other"
+     ],
+     "final": "miss-other",
+     "heard": [
+      "So it's just غير يوم or ال غـ- uh اليوم الـ- whatever the adjective version of Okay so it doesn't have a",
+      "So it's just غير يوم or الغيـ uh اليوم الـ whatever the adjective version of... Okay, so it doesn't have a...",
+      "So it's just غير يوم or الـ- uh اليوم الـ- whatever the adjective version of... Okay, so it doesn't have a..."
+     ]
+    },
+    {
+     "id": "M031",
+     "t": 2267.35,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "So it's just غير يوم or ال غـ- uh اليوم الـ- whatever the adjective version of Okay so it doesn't have a",
+      "So it's just غير يوم or الغيـ uh اليوم الـ whatever the adjective version of... Okay, so it doesn't have a...",
+      "So it's just غير يوم or الـ- uh اليوم الـ- whatever the adjective version of... Okay, so it doesn't have a..."
+     ]
+    },
+    {
+     "id": "M032",
+     "t": 2279.03,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "Okay, so the adjective form is the same for غير.",
+      "Okay, so the adjective form is the same for غير؟",
+      "Okay, so the adjective form is the same for غير؟"
+     ]
+    },
+    {
+     "id": "M033",
+     "t": 2283.11,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "Okay. اليوم الغير, and you'll barely hear that.",
+      "Okay. اليوم الغير, and you'll barely hear that.",
+      "Okay. اليوم الغير and you'll barely hear that."
+     ]
+    },
+    {
+     "id": "M034",
+     "t": 2290.67,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "Which one? غير يوم، okay.",
+      "Which one? غير يوم؟ Okay.",
+      "Which one? غير يوم، okay."
+     ]
+    },
+    {
+     "id": "M035",
+     "t": 2299.55,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "So I can pretty much just remember that غير never takes ال",
+      "So I can pretty much just remember that غير never takes ال.",
+      "So I can pretty much just remember that غير never takes ال."
+     ]
+    },
+    {
+     "id": "M036",
+     "t": 2328.73,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "But sa-- but, but, but غير, but غير, غير just will never have",
+      "But ta-- but, but, but gh-- but غير, but غير, غير just will never have...",
+      "But se-- but, but, but غير, but غير, غير just will never have"
+     ]
+    },
+    {
+     "id": "M037",
+     "t": 2328.73,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "But sa-- but, but, but غير, but غير, غير just will never have",
+      "But ta-- but, but, but gh-- but غير, but غير, غير just will never have...",
+      "But se-- but, but, but غير, but غير, غير just will never have"
+     ]
+    },
+    {
+     "id": "M038",
+     "t": 2356.25,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "بشوفك غير اليوم. غير يوم. I'll see you another day.",
+      "بشوفك غير اليوم. غير يوم. I'll see you another day.",
+      "بشوفك غير اليوم. غير يوم. I'll see you another day."
+     ]
+    },
+    {
+     "id": "M039",
+     "t": 2356.25,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "بشوفك غير اليوم. غير يوم. I'll see you another day.",
+      "بشوفك غير اليوم. غير يوم. I'll see you another day.",
+      "بشوفك غير اليوم. غير يوم. I'll see you another day."
+     ]
+    },
+    {
+     "id": "M040",
+     "t": 2381.91,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "إحنا بدنا",
+      "إحنا بدنا",
+      "إحنا بدنا"
+     ]
+    },
+    {
+     "id": "M041",
+     "t": 2385.63,
+     "class": "latin-arabic",
+     "runs": [
+      "miss-other",
+      "miss-other",
+      "miss-other"
+     ],
+     "final": "miss-other",
+     "heard": [
+      "غير أكلة",
+      "غير أكلة",
+      "غير أكلة"
+     ]
+    },
+    {
+     "id": "M042",
+     "t": 2457.11,
+     "class": "latin-arabic",
+     "runs": [
+      "miss-other",
+      "miss-other",
+      "miss-other"
+     ],
+     "final": "miss-other",
+     "heard": [
+      "And then I can say, هو بده",
+      "And then I can say هو بده",
+      "And then I can say هو بده"
+     ]
+    },
+    {
+     "id": "M043",
+     "t": 2462.09,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "الطيّارة، الـ، الطيّارة التانية.",
+      "الطيارة، الـ، الطيارة الثانية.",
+      "الطيارة، الـ... الطيارة الثانية."
+     ]
+    },
+    {
+     "id": "M044",
+     "t": 2498.01,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "Okay. She's the first old woman in our program. هيّ",
+      "Okay, she's the first old woman in our program. هي،",
+      "She's the first old woman in our program. هي..."
+     ]
+    },
+    {
+     "id": "M045",
+     "t": 2505.29,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "um، أول ختيارة",
+      "um أول ختيارة",
+      "um, أول ختيارة"
+     ]
+    },
+    {
+     "id": "M046",
+     "t": 2511.75,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "ببرنامجنا",
+      "ببرنامجنا",
+      "ببرنامجنا"
+     ]
+    },
+    {
+     "id": "M047",
+     "t": 2516.33,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "Or هيّ",
+      "Or, هيّ",
+      "Or هي"
+     ]
+    },
+    {
+     "id": "M048",
+     "t": 2519.65,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "الـ",
+      "ال",
+      "ال"
+     ]
+    },
+    {
+     "id": "M049",
+     "t": 2521.99,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "ال، الختيارة",
+      "ال، الختيارة",
+      "الـ، الختيارة"
+     ]
+    },
+    {
+     "id": "M050",
+     "t": 2525.53,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "الـ",
+      "الـ",
+      "الـ"
+     ]
+    },
+    {
+     "id": "M051",
+     "t": 2528.59,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "أول؟ Is it awwal?",
+      "أول؟ Is it أول؟",
+      "أول. Is it أول؟"
+     ]
+    },
+    {
+     "id": "M052",
+     "t": 2532.01,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "miss-other"
+     ],
+     "final": "hit",
+     "heard": [
+      "أولى، goddammit، أولى بـ، ببرنامجنا.",
+      "أولى. Goddammit. أولى بـ، ببرنامجنا.",
+      "أولى. Goddammit. أولى، بـ، بـ برنامجنا."
+     ]
+    },
+    {
+     "id": "M053",
+     "t": 2532.01,
+     "class": "latin-arabic",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "أولى، goddammit، أولى بـ، ببرنامجنا.",
+      "أولى. Goddammit. أولى بـ، ببرنامجنا.",
+      "أولى. Goddammit. أولى، بـ، بـ برنامجنا."
+     ]
+    },
+    {
+     "id": "M054",
+     "t": 2595.85,
+     "class": "wrong-arabic-word",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "تاني حدا",
+      "تاني حدا",
+      "تاني حدا"
+     ]
+    },
+    {
+     "id": "M055",
+     "t": 2699.41,
+     "class": "number-time",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "عشرة",
+      "عشرة",
+      "عشرة"
+     ]
+    },
+    {
+     "id": "M056",
+     "t": 2826.79,
+     "class": "wrong-arabic-word",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "Yeah, آخر الموظفة, right?",
+      "Yeah، آخر الموظفة، right؟",
+      "Yeah، آخر الموظفة، right?"
+     ]
+    },
+    {
+     "id": "M057",
+     "t": 2947.05,
+     "class": "foreign-script",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "Oh gosh, we need to do this lesson too. Ah, every-- is it كل يوم?",
+      "Oh, gosh. We need to do this lesson too. Uh, every-- Is it كل يوم؟",
+      "Oh gosh, we need to do this lesson too. Uh, every-- Is it كل يوم؟"
+     ]
+    },
+    {
+     "id": "M058",
+     "t": 2955.43,
+     "class": "foreign-script",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "And then what's كل اليوم؟ It's, uh, all the days.",
+      "And then what's كل اليوم? It's, uh, all the days?",
+      "And then what's كل اليوم? It's, uh, all the days."
+     ]
+    },
+    {
+     "id": "M059",
+     "t": 2984.21,
+     "class": "foreign-script",
+     "runs": [
+      "miss-other",
+      "miss-other",
+      "miss-other"
+     ],
+     "final": "miss-other",
+     "heard": [
+      "Does it work? 'Cause تاني means like other...",
+      "Does it work? 'Cause تاني means like other...",
+      "Does it work? 'Cause تاني means like other..."
+     ]
+    },
+    {
+     "id": "M060",
+     "t": 3006.73,
+     "class": "foreign-script",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "I think it's the same as غير, right? It's just the s- same...",
+      "I think it's the same as غير, right? It's just the same...",
+      "I think it's the same as غير, right? It's just the same..."
+     ]
+    },
+    {
+     "id": "M061",
+     "t": 3075.03,
+     "class": "vowel",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "هـ- هادي نفس الاشي or is it هادي النفس الـ-- هدا نفس الاشي؟",
+      "هادي نفس الإشي or is it هادي النفس الـ... هادا نفس الإشي؟",
+      "هـ- هادي نفس الشي or is it هادي النفس الـ... هدا نفس الشي؟"
+     ]
+    },
+    {
+     "id": "M062",
+     "t": 3075.03,
+     "class": "vowel",
+     "runs": [
+      "hit",
+      "hit",
+      "hit"
+     ],
+     "final": "hit",
+     "heard": [
+      "هـ- هادي نفس الاشي or is it هادي النفس الـ-- هدا نفس الاشي؟",
+      "هادي نفس الإشي or is it هادي النفس الـ... هادا نفس الإشي؟",
+      "هـ- هادي نفس الشي or is it هادي النفس الـ... هدا نفس الشي؟"
+     ]
+    }
+   ],
+   "hidden_rows": [
+    {
+     "t": 502.9,
+     "wrong": "هادي الصباح",
+     "right": "الصبح",
+     "heard": "أ هادي الصبح"
+    }
+   ]
   },
   {
    "id": "gemini-flash-v7-t1",

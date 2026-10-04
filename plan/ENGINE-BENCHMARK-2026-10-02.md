@@ -343,6 +343,49 @@ Rule tried: a change is proposed only when 2 of 3 Gemini runs agree; it is held 
 
 ![cost](img/engine-vars-cost-2026-10-04.png)
 
+## Follow-up the same day: three near-free steps (2026-10-04, Medi: "do all of your recommendations")
+
+**Re-cutting 16 edge-clipped lines hears one more moment (54 of 63, no moment lost); a word-by-word pile rule plus the two-clip check raises what would actually land in the transcript from 39 to 49 moments.**
+
+### 1. Side scoring columns (no call; the headline scorer is unchanged)
+
+| Recipe | Strict (headline) | + cut-off accepted | + ـه = ـو ending | + both | Right in at least 1 run |
+|---|---|---|---|---|---|
+| Baseline | 53 | 54 | 54 | 55 | 56 |
+| V8 word list | 53 | 55 | 54 | 56 | 55 |
+| V7 accent note | 54 | 55 | 54 | 55 | 55 |
+| V1 evidence | 53 | 54 | 54 | 55 | 57 |
+| V12 guessing lines removed | 52 | 53 | 53 | 54 | 54 |
+
+- Cut-off adds 23:45 (المصـ-- for المصاري); the ending adds 40:57 (بده for بدو). No recipe passes the baseline by more than one moment under any column.
+- Scorer trap, reported and not patched: at 16:06 a faithful Arabic cut-off "تنتين و رو--" would score as a miss, while the same fragment finished in Latin letters ("rob3") would score as a hit. No saved run kept the fragment.
+- File: `variables/side-columns.md` (33 engines). Code `scripts/bench_side.py`.
+
+### 2. Pile rules replayed on the saved runs (no call; nothing applied to the lesson)
+
+| Rule | Proposed lines | Held | No agreement | Corrections right in the delivered transcript (of 63) | Slips hidden | Untouched lines with a word changed (proposed) |
+|---|---|---|---|---|---|---|
+| Today: whole line, 2 of 3 agree | 131 | 28 | 25 | 39 | 2 | 36 |
+| (a) agree piece by piece | 146 | 32 | 6 | 41 | 2 | 43 |
+| (b) release held lines the two-clip check cleared | 153 | 6 | 25 | 47 | 2 | 45 |
+| (a) + (b) | 168 | 10 | 6 | 49 | 2 | 52 |
+
+- The answer key only scores the result; the pile decision never sees it (a test asserts it).
+- The price of the new rules is 16 more untouched lines with a word changed. The same two slips are hidden under every rule (08:22, 35:30) - both are on the four-moments page.
+- File: `variables/piles.md`. Code `scripts/bench_piles.py`.
+
+### 3. V13 edge re-cut (48 Gemini calls, $0.09 at list price; Codex audit before the run: no blocker)
+
+| Recipe | Heard right (of 63) | Slips hidden | Untouched lines changed |
+|---|---|---|---|
+| Baseline | 53 | 1 | 59 |
+| Baseline + 16 clips re-cut to the nearest silence | 54 | 1 | 58 |
+
+- 16 lines were chosen by the audio alone (speech in the first or last 150 ms of the clip). 39:41 "e7na biddna" is now heard in 3 of 3 runs (was 1 of 3). No moment was lost.
+- Side effect: on 3 of the 16 lines the longer clip pulls in the next sentence (48:56 now carries "did you say it was dwaaf?"). A real re-cut needs a guard for that.
+- +1 is inside the noise of 2 as a total, but this one is a stable 3-of-3 flip on the one moment the change was aimed at.
+- Still one lesson: confirm on the second corrected lesson.
+
 ## Where everything is
 
 - Results for the AI Reports page: `data/lesson-work/bench/2026-10-02/results.json` (every engine, every number, every moment's verdict in each run).

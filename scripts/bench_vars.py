@@ -11,8 +11,8 @@ The answer key (truth.json) is never written here; the variables' prompts are fr
     python scripts/bench_vars.py 2026-10-02 run <vid> [runs=3] [--limit N]
     python scripts/bench_vars.py 2026-10-02 derive               # v1h / v4h: the same answers with the weak changes dropped (no call)
 
-Variables that only touch some lines (v2 forced choice, v3 two clips, v6 Arabic span) are scored as baseline + that
-step: run n keeps the baseline's run n on every other line.
+Variables that only touch some lines (v2 forced choice, v3 two clips, v6 Arabic span, v13 edge re-cut) are scored as
+baseline + that step: run n keeps the baseline's run n on every other line.
 """
 import collections, hashlib, json, os, random, re, sys, threading, time
 from concurrent.futures import ThreadPoolExecutor
@@ -84,6 +84,8 @@ def variables(date):
                              "word he said at that place (again what he said, not what he should have said).",
                "answer": answer(F_ARABIC, F_ARABIZI, F_TAIL, '"second_guess": [{"said": "the unsure word exactly as written in arabic", "second": "the next most likely word"}] (an empty list when you are sure of every word)')},
         "v6": {"name": "Arabic span inside long lines (two calls)", "kind": "subset"},
+        # review ANEES-FABLE-53-TO-60-REVIEW-2026-10-04, experiment 3 (Medi 2026-10-04 "do all of your recommendations"):
+        "v13": {"name": "edge re-cut: clips that start or end on speech, cut out to the nearest silence", "kind": "subset"},
         "v7": {"name": "accent note", "kind": "full", "insert": ACCENT},
         "v8": {"name": "taught-word list, SAID + MEANT", "kind": "full", "text_key": "said",
                "insert": "Words Amal taught or re-taught in THIS lesson (her list). He is still learning them, so he may say one of them WRONG (a wrong vowel or "
@@ -151,9 +153,142 @@ V6_NOTE = ("NOTE: this audio clip is only a PART of the target line - the stretc
            "Write only what he says in this clip.")
 
 
-def subset_prompts(date, truth):
-    """{vid: {line_i: {...}}} for v2, v3, v6. v2 / v3 come from the baseline re-hear piles (rehear/<BASE>.json: lines the 3
-    baseline runs disagreed on, and lines held because Amal says the added word next)."""
+# ---- v13, the edge re-cut: lines chosen by AUDIO ALONE (never the key, never a text). His microphone track is noise-gated
+# (digital silence between his turns), so a clip that is all speech has no noise floor of its own (the 10-02 clip of
+# "e7na biddna" is one): loudness is measured against his own speech level on the whole track instead.
+V13 = {"edge_ms": 150,             # the very start / end of the clip that is measured
+       "frame_ms": 50,             # loudness frames on the track
+       "speech_pct": 95,           # his speech level = this percentile of the track's frame loudness (dB)
+       "edge_within_db": 20.0,     # an edge is ON SPEECH when it is within this many dB of his speech level
+       "silence_below_db": 30.0,   # a frame is SILENT when it is at least this many dB under his speech level
+       "min_silence_s": 0.2,       # the nearest silence = the first run of silent frames this long
+       "max_extend_s": 2.0}        # never more than this much extra audio per side
+
+
+def wav_samples(path):
+    """(int16 samples, rate) of a 16-bit mono wav."""
+    import wave
+    import numpy as np
+    with wave.open(path, "rb") as w:
+        if w.getnchannels() != 1 or w.getsampwidth() != 2:
+            raise ValueError("not a 16-bit mono wav: %s" % path)
+        return np.frombuffer(w.readframes(w.getnframes()), dtype="<i2"), w.getframerate()
+
+
+def rms_db(x):
+    """Loudness of a stretch in dB (of the 16-bit sample scale); digital silence = -90."""
+    import numpy as np
+    if len(x) == 0:
+        return -90.0
+    e = float(np.mean(np.square(np.asarray(x, dtype=np.float64))))
+    return float(10.0 * np.log10(e)) if e > 1e-9 else -90.0
+
+
+def frames_db(x, sr, ms):
+    """Loudness per whole frame of `ms` milliseconds."""
+    import numpy as np
+    n = int(sr * ms / 1000)
+    k = len(x) // n
+    out = np.full(k, -90.0)
+    step = 4000                                                    # frames per block (keeps the memory small on a whole track)
+    for a in range(0, k, step):
+        b = min(k, a + step)
+        e = np.mean(np.square(np.asarray(x[a * n:b * n], dtype=np.float64).reshape(b - a, n)), axis=1)
+        out[a:b] = np.where(e > 1e-9, 10.0 * np.log10(np.maximum(e, 1e-9)), -90.0)
+    return out
+
+
+def speech_level(track, sr, rule=V13):
+    import numpy as np
+    return float(np.percentile(frames_db(track, sr, rule["frame_ms"]), rule["speech_pct"]))
+
+
+def edge_speech(clip, sr, level, rule=V13):
+    """Which ends of a clip sit on speech: (edges, {"start": dB, "end": dB}); edges is "", "start", "end" or "both"."""
+    n = int(sr * rule["edge_ms"] / 1000)
+    db = {"start": round(rms_db(clip[:n]), 1), "end": round(rms_db(clip[-n:]), 1)}
+    on = [k for k in ("start", "end") if db[k] >= level - rule["edge_within_db"]]
+    return ("both" if len(on) == 2 else on[0] if on else ""), db
+
+
+def extend_to_silence(track, sr, t, direction, level, rule=V13):
+    """From time t on the track outward (direction -1 = earlier, +1 = later): how many seconds to add so the cut lands
+    in the nearest silence - the first run of `min_silence_s` silent frames, which is taken in whole as the lead-in /
+    tail. Returns (seconds, capped): capped when no silence is found within `max_extend_s` (then the cap is the cut)."""
+    n = int(sr * rule["frame_ms"] / 1000)
+    need = int(round(rule["min_silence_s"] * 1000 / rule["frame_ms"]))
+    top = int(round(rule["max_extend_s"] * 1000 / rule["frame_ms"]))
+    p0 = int(round(t * sr))
+    quiet = []
+    for k in range(top):
+        a, b = (p0 - (k + 1) * n, p0 - k * n) if direction < 0 else (p0 + k * n, p0 + (k + 1) * n)
+        if a < 0 or b > len(track):
+            quiet.append(True)                                     # before the start / after the end of the recording: silence
+        else:
+            quiet.append(rms_db(track[a:b]) < level - rule["silence_below_db"])
+        if len(quiet) >= need and all(quiet[-need:]):
+            return round(len(quiet) * rule["frame_ms"] / 1000.0, 3), False
+    return float(rule["max_extend_s"]), True
+
+
+def edge_lines(windows, clips, track, sr, rule=V13):
+    """THE SELECTOR OF V13 - audio alone. windows = {line_i: (start, end)} of each existing clip on the track clock;
+    clips = {line_i: samples of that clip}; track = his whole track. It is given no text, no answer key, no moment:
+    a line is chosen when the first or last `edge_ms` of its clip is on speech, and its new window runs outward to the
+    nearest silence. Returns ({line_i: {"edge", "edge_db", "old_window", "new_window", "extended_s", "capped"}}, level)."""
+    level = speech_level(track, sr, rule)
+    out = {}
+    for i in sorted(windows):
+        edge, db = edge_speech(clips[i], sr, level, rule)
+        if not edge:
+            continue
+        a, b = windows[i]
+        ea, ca = extend_to_silence(track, sr, a, -1, level, rule) if edge in ("start", "both") else (0.0, False)
+        eb, cb = extend_to_silence(track, sr, b, +1, level, rule) if edge in ("end", "both") else (0.0, False)
+        na, nb = max(0.0, a - ea), min(len(track) / float(sr), b + eb)
+        out[i] = {"edge": edge, "edge_db": db, "old_window": [round(a, 3), round(b, 3)], "new_window": [round(na, 3), round(nb, 3)],
+                  "extended_s": [round(a - na, 3), round(nb - b, 3)], "capped": [ca, cb]}
+    return out, round(level, 1)
+
+
+def v13_rows(date, truth):
+    """{line_i: row} of v13. Only each listen line's id, times and clip name are read from truth.json (the same fields
+    bench_freeze.make_clips cut the clips from) - never a moment, a slip, a text."""
+    d = BC.bench_dir(date)
+    off, pad = truth["offsets"]["Medi"], truth.get("pad_s", BC.PAD)
+    listen = [(ln["i"], ln["t"], ln["end"], ln["clip"]) for ln in truth["lines"] if ln["listen"]]
+    track, sr = wav_samples(os.path.join(d, "clips", "medi-whole.wav"))        # his own track, 16 kHz mono (hashed in the main manifest)
+    windows = {i: (max(0.0, t - pad - off), end + pad - off) for i, t, end, _ in listen}
+    clips = {i: wav_samples(os.path.join(d, c))[0] for i, _, _, c in listen}
+    sel, level = edge_lines(windows, clips, track, sr)
+    base = BC.J(os.path.join(d, "prompts.json"))["arms"]["ctx"]
+    clip_of = {i: c for i, _, _, c in listen}
+    return {str(i): {"clip": "variables/clips/v13-medi-%04d.wav" % i, "old_clip": clip_of[i], "edge": r["edge"], "edge_db": r["edge_db"],
+                     "old_window_track_s": r["old_window"], "new_window_track_s": r["new_window"], "extended_s": r["extended_s"], "capped": r["capped"],
+                     "speech_level_db": level, "prompt": "prompts.json arms.ctx (unchanged)", "prompt_sha256": BC.sha_text(base[str(i)])}
+            for i, r in sel.items()}
+
+
+def v13_clips(date, P, cut_missing=False):
+    """Every re-cut clip is the frozen one: a clip on disk must have its frozen hash; a missing clip (wav files are not in
+    git) is cut again from his track when cut_missing, and must then hash the same. Returns the lines that are wrong."""
+    import bench_freeze as BF
+    d, bad = BC.bench_dir(date), []
+    for i, row in P.items():
+        out = os.path.join(d, row["clip"])
+        if not os.path.exists(out):
+            if not cut_missing:
+                continue
+            BF.cut(BF.track_file(date, "Medi"), row["new_window_track_s"][0], row["new_window_track_s"][1], out)
+        if BC.sha_file(out) != row.get("clip_sha256"):
+            bad.append(i)
+    return bad
+
+
+def subset_prompts(date, truth, want=None):
+    """{vid: {line_i: {...}}} for v2, v3, v6 (and v13 when asked for in `want`: it reads every clip). v2 / v3 come from the
+    baseline re-hear piles (rehear/<BASE>.json: lines the 3 baseline runs disagreed on, and lines held because Amal says
+    the added word next); v13 comes from the audio alone (edge_lines)."""
     d = BC.bench_dir(date)
     rows = (BC.J(os.path.join(d, "rehear", BASE + ".json")) or {}).get("rows") or []
     lines = {ln["i"]: ln for ln in truth["lines"]}
@@ -191,6 +326,8 @@ def subset_prompts(date, truth):
     for ln in truth["lines"]:
         if ln["listen"] and len(ln["engine"].split()) >= LONG_WORDS:
             out["v6"][str(ln["i"])] = {"prompt": V6_SPAN_PROMPT.format(target=ln["engine"])}
+    if want and "v13" in want:
+        out["v13"] = v13_rows(date, truth)
     return out
 
 
@@ -228,7 +365,7 @@ def freeze(date, only=()):
     V = variables(date)
     V.update(extra(date))
     todo = [k for k in V if k not in man["vars"] and (not only or k in only)]
-    sub = subset_prompts(date, truth) if any(V[k]["kind"] == "subset" for k in todo) else {}
+    sub = subset_prompts(date, truth, todo) if any(V[k]["kind"] == "subset" for k in todo) else {}
     for vid in todo:
         var = V[vid]
         if var["kind"] == "full":
@@ -250,8 +387,18 @@ def freeze(date, only=()):
                         off = truth["offsets"]["Amal"]
                         BF.cut(BF.track_file(date, "Amal"), row["amal_span"][0] - BC.PAD - off, row["amal_span"][1] + BC.PAD - off, out)
                     row["amal_clip_sha256"] = BC.sha_file(out)
+            if vid == "v13":                                       # the new clips, cut from his own track like the first ones
+                import bench_freeze as BF
+                for i, row in P.items():
+                    out = os.path.join(d, row["clip"])
+                    BF.cut(BF.track_file(date, "Medi"), row["new_window_track_s"][0], row["new_window_track_s"][1], out)
+                    row["clip_sha256"] = BC.sha_file(out)
             BC.W(os.path.join(v, "prompts-%s.json" % vid), P)
             man["vars"][vid] = {"name": var["name"], "kind": "subset", "engine": engine_id(vid), "lines": len(P), "prompts_sha256": sha_obj(P)}
+            if vid == "v13":
+                man["vars"][vid].update(rule=dict(V13), chosen_by="audio alone (bench_vars.edge_lines): no text, no answer key",
+                                        track_wav_sha256=BC.sha_file(os.path.join(d, "clips", "medi-whole.wav")),
+                                        source_track_sha256=main["source_tracks"]["Medi"])
         frozen[vid] = var
         man["vars"][vid]["frozen"] = time.strftime("%Y-%m-%dT%H:%M:%S")
         print("frozen %-5s %-45s %3d lines  %s" % (vid, var["name"], man["vars"][vid]["lines"], man["vars"][vid]["prompts_sha256"][:16]))
@@ -272,6 +419,8 @@ def load(date, vid):
     P = materialise(date, vid, V, BC.J(os.path.join(d, "prompts.json"))["arms"]["ctx"]) if var["kind"] == "full" else BC.J(os.path.join(v, "prompts-%s.json" % vid))
     if sha_obj(P) != man["vars"][vid]["prompts_sha256"]:
         raise SystemExit("%s: prompts do not match the frozen hash" % vid)
+    if vid == "v13" and v13_clips(date, P):
+        raise SystemExit("v13: a re-cut clip does not match its frozen hash")
     return var, P, man["vars"][vid]["engine"]
 
 
@@ -421,6 +570,11 @@ def run(date, vid, runs=3, limit=None, only=None):
     svc = "openai" if oa else "gemini"
     lines = {str(ln["i"]): ln for ln in truth["lines"]}
     base_prompts = BC.J(os.path.join(d, "prompts.json"))["arms"]["ctx"]
+    if vid == "v13":                                               # before any call: the frozen clips and the unchanged prompts
+        if v13_clips(date, P, cut_missing=True):
+            raise SystemExit("v13: a re-cut clip does not match its frozen hash")
+        if any(BC.sha_text(base_prompts[i]) != P[i]["prompt_sha256"] for i in P):
+            raise SystemExit("v13: a baseline prompt changed since the freeze")
     # One Gemini job at a time by default. Medi 2026-10-04, when the test was slow: "Go as many as possible at once, all
     # if you can" -> ANEES_BENCH_PARALLEL=1: one lock per variable (never two jobs on the same files); every job writes
     # only its own run files and re-reads the others' spend once a minute for the cap.
@@ -501,6 +655,9 @@ def run(date, vid, runs=3, limit=None, only=None):
                     b = base_run.get(i) or {"text": lines[i]["engine"]}     # this run's own baseline answer for the line
                     keep = take or bool(out.get("error"))                   # a failed check changes nothing
                     out["text"], out["alt"], out["took"] = (b.get("text") or "") if keep else lines[i]["engine"], (b.get("alt") or "") if keep else "", take
+                elif vid == "v13":                                 # the unchanged baseline prompt, the re-cut clip
+                    out = g(os.path.join(d, P[i]["clip"]), base_prompts[i])
+                    out["recut"] = P[i]["edge"]
                 else:                                              # v6: mark the Arabic stretches, then re-hear each one alone
                     out = g(clip, P[i]["prompt"])
                     spans = (out.get("raw") or {}).get("spans") if isinstance(out.get("raw"), dict) else None

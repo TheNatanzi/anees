@@ -13,12 +13,12 @@ import bench_score as BS  # noqa: E402
 import bench_vars as BV  # noqa: E402
 
 NOISE = 2                        # baseline temperature 0 vs 1 differed by 2 moments: a change of +-2 is noise
-ORDER = ["v1", "v1h", "v2", "v3", "v4", "v4h", "v5", "v6", "v7", "v8", "v10", "v11", "v12", "best", "bestoa", "v0", "v9"]
+ORDER = ["v1", "v1h", "v2", "v3", "v4", "v4h", "v5", "v6", "v7", "v8", "v10", "v11", "v12", "v13", "best", "bestoa", "v0", "v9"]
 LABEL = {"base": "Baseline: Flash + context, temperature 1", "v1": "V1 evidence (heard / inferred), all changes", "v1h": "V1 keep only 'heard' changes",
          "v2": "V2 forced choice (held + no-agreement lines)", "v3": "V3 two clips (his line + Amal's next)", "v4": "V4 word confidence, all changes",
          "v4h": "V4 keep only high-confidence changes", "v5": "V5 second guess (top 1)", "v6": "V6 Arabic span in long lines", "v7": "V7 accent note",
          "v8": "V8 word list, SAID", "v9": "V9 thinking high (224 lines, 2 runs)", "v10": "V10 vowel marks in the text",
-         "v11": "V11 one-field answer (Gemini's idea)", "v12": "V12 guessing lines removed (Gemini's idea)",
+         "v11": "V11 one-field answer (Gemini's idea)", "v12": "V12 guessing lines removed (Gemini's idea)", "v13": "V13 edge re-cut (clips that start or end on speech)",
          "best": "Best recipe: word list + said/meant + marks apart", "bestoa": "Best recipe on OpenAI gpt-audio",
          "v0": "Baseline on V9's 224 lines (2 runs)"}
 COMPARE = {"v9": "v0"}           # V9 was sent fewer lines, 2 runs: it is compared with the baseline cut the same way
@@ -93,7 +93,7 @@ def harakat(truth, runs):
 
 
 def subset_view(truth, d, vid, base_runs, runs):
-    """v2 / v3 / v6: the lines the step touched - moments heard right and slips hidden there, baseline vs the step."""
+    """v2 / v3 / v6 / v13: the lines the step touched - moments heard right and slips hidden there, baseline vs the step."""
     P = BC.J(os.path.join(BV.vdir(os.path.basename(d)), "prompts-%s.json" % vid)) or {}
     ids = {int(i) for i in P}
     lines = {ln["i"]: ln for ln in truth["lines"]}
@@ -143,6 +143,8 @@ def subset_view(truth, d, vid, base_runs, runs):
                 c["engine's own text chosen" if opt is not None and " ".join(BC.tokens(opt)) == " ".join(BC.tokens(lines[int(i)]["engine"])) else "a Gemini text chosen" if opt is not None else "no valid choice"] += 1
             elif vid == "v3":
                 c["held change taken" if o.get("took") else "held change rejected"] += 1
+            elif vid == "v13":
+                c["re-cut at the %s" % P[i]["edge"]] += 1
             else:
                 raw = o.get("raw") or {}
                 c["spans marked"] += len(raw.get("spans") or [])
@@ -192,7 +194,7 @@ def build(date):
              "cost_per_lesson_run": round(s["cost_usd"] / max(1, s["runs"]), 2), "paid_calls": calls, "seconds": s.get("seconds"),
              "compared_with": COMPARE.get(vid, "base"), "by_class": s["by_class"], "gained": sorted(hit - base_hit), "lost": sorted(base_hit - hit), "hidden_rows": s["hidden_rows"],
              "per_moment": s["per_moment"], "verdicts": s["verdicts"]}
-        if vid in ("v2", "v3", "v6"):
+        if vid in ("v2", "v3", "v6", "v13"):
             r["subset"] = subset_view(truth, d, vid, base_runs, rr)
             r["added_to_baseline"] = True
         if vid == "v1":

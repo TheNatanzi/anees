@@ -1,0 +1,2607 @@
+{
+ "date": "2026-10-02",
+ "engine": "gemini-flash-t1",
+ "runs": 3,
+ "v3_engine": "gemini-flash-v3-t1",
+ "v3_runs": 3,
+ "v3_lines_checked": 28,
+ "v3_lines_released": [
+  100,
+  120,
+  126,
+  137,
+  140,
+  148,
+  182,
+  234,
+  254,
+  355,
+  359,
+  468,
+  491,
+  617,
+  629,
+  649,
+  656,
+  713,
+  764,
+  827,
+  837,
+  1017
+ ],
+ "held_lines_with_no_two_clip_check_under_a+b": 4,
+ "key_use": "measure() only; decide() sees bare lines (i, t, end, engine), Amal's raw lines, the runs and the V3 verdicts",
+ "rules": {
+  "old": {
+   "lines_changed": 184,
+   "proposed": 131,
+   "proposed_words": 62,
+   "proposed_alphabet": 69,
+   "proposed_by_spans": 0,
+   "released_by_v3": 0,
+   "held": 28,
+   "no_agreement": 25,
+   "moments": 63,
+   "moments_fixed_by_proposed": 35,
+   "moments_fixed_with_held": 45,
+   "moments_right_in_delivered_transcript": 39,
+   "moment_ids_proposed": [
+    "M002",
+    "M003",
+    "M004",
+    "M005",
+    "M008",
+    "M009",
+    "M011",
+    "M014",
+    "M015",
+    "M016",
+    "M017",
+    "M018",
+    "M019",
+    "M021",
+    "M022",
+    "M023",
+    "M024",
+    "M026",
+    "M032",
+    "M033",
+    "M035",
+    "M043",
+    "M044",
+    "M045",
+    "M046",
+    "M047",
+    "M048",
+    "M049",
+    "M050",
+    "M051",
+    "M052",
+    "M053",
+    "M056",
+    "M057",
+    "M058"
+   ],
+   "moment_ids_only_in_held": [
+    "M006",
+    "M007",
+    "M010",
+    "M028",
+    "M034",
+    "M038",
+    "M039",
+    "M054",
+    "M055",
+    "M060"
+   ],
+   "slips_hidden_by_proposed": 2,
+   "slips_hidden_with_held": 2,
+   "slips_hidden_rows": [
+    {
+     "t": 502.9,
+     "wrong": "هادي الصباح",
+     "right": "الصبح"
+    },
+    {
+     "t": 2130.94,
+     "wrong": "أخيرة",
+     "right": "الأخيرة"
+    }
+   ],
+   "untouched_lines_word_changed_proposed": 36,
+   "untouched_lines_word_changed_held": 12,
+   "untouched_proposed_i": [
+    15,
+    65,
+    76,
+    78,
+    84,
+    106,
+    124,
+    144,
+    161,
+    163,
+    165,
+    171,
+    194,
+    236,
+    250,
+    271,
+    286,
+    301,
+    326,
+    331,
+    332,
+    334,
+    357,
+    382,
+    383,
+    387,
+    466,
+    493,
+    502,
+    505,
+    535,
+    724,
+    782,
+    789,
+    969,
+    990
+   ]
+  },
+  "a": {
+   "lines_changed": 184,
+   "proposed": 146,
+   "proposed_words": 70,
+   "proposed_alphabet": 76,
+   "proposed_by_spans": 15,
+   "released_by_v3": 0,
+   "held": 32,
+   "no_agreement": 6,
+   "moments": 63,
+   "moments_fixed_by_proposed": 37,
+   "moments_fixed_with_held": 49,
+   "moments_right_in_delivered_transcript": 41,
+   "moment_ids_proposed": [
+    "M002",
+    "M003",
+    "M004",
+    "M005",
+    "M008",
+    "M009",
+    "M011",
+    "M014",
+    "M015",
+    "M016",
+    "M017",
+    "M018",
+    "M019",
+    "M021",
+    "M022",
+    "M023",
+    "M024",
+    "M026",
+    "M032",
+    "M033",
+    "M035",
+    "M036",
+    "M037",
+    "M043",
+    "M044",
+    "M045",
+    "M046",
+    "M047",
+    "M048",
+    "M049",
+    "M050",
+    "M051",
+    "M052",
+    "M053",
+    "M056",
+    "M057",
+    "M058"
+   ],
+   "moment_ids_only_in_held": [
+    "M006",
+    "M007",
+    "M010",
+    "M028",
+    "M034",
+    "M038",
+    "M039",
+    "M054",
+    "M055",
+    "M060",
+    "M061",
+    "M062"
+   ],
+   "slips_hidden_by_proposed": 2,
+   "slips_hidden_with_held": 2,
+   "slips_hidden_rows": [
+    {
+     "t": 502.9,
+     "wrong": "هادي الصباح",
+     "right": "الصبح"
+    },
+    {
+     "t": 2130.94,
+     "wrong": "أخيرة",
+     "right": "الأخيرة"
+    }
+   ],
+   "untouched_lines_word_changed_proposed": 43,
+   "untouched_lines_word_changed_held": 14,
+   "untouched_proposed_i": [
+    15,
+    26,
+    54,
+    56,
+    65,
+    76,
+    78,
+    84,
+    106,
+    122,
+    124,
+    144,
+    161,
+    163,
+    165,
+    168,
+    171,
+    194,
+    236,
+    250,
+    271,
+    286,
+    301,
+    326,
+    331,
+    332,
+    334,
+    357,
+    382,
+    383,
+    387,
+    392,
+    466,
+    493,
+    502,
+    505,
+    535,
+    724,
+    782,
+    789,
+    877,
+    969,
+    990
+   ],
+   "moments_gained_vs_old": [
+    "M036",
+    "M037"
+   ],
+   "moments_lost_vs_old": []
+  },
+  "b": {
+   "lines_changed": 184,
+   "proposed": 153,
+   "proposed_words": 80,
+   "proposed_alphabet": 73,
+   "proposed_by_spans": 0,
+   "released_by_v3": 22,
+   "held": 6,
+   "no_agreement": 25,
+   "moments": 63,
+   "moments_fixed_by_proposed": 44,
+   "moments_fixed_with_held": 45,
+   "moments_right_in_delivered_transcript": 47,
+   "moment_ids_proposed": [
+    "M002",
+    "M003",
+    "M004",
+    "M005",
+    "M006",
+    "M007",
+    "M008",
+    "M009",
+    "M010",
+    "M011",
+    "M014",
+    "M015",
+    "M016",
+    "M017",
+    "M018",
+    "M019",
+    "M021",
+    "M022",
+    "M023",
+    "M024",
+    "M026",
+    "M028",
+    "M032",
+    "M033",
+    "M034",
+    "M035",
+    "M038",
+    "M039",
+    "M043",
+    "M044",
+    "M045",
+    "M046",
+    "M047",
+    "M048",
+    "M049",
+    "M050",
+    "M051",
+    "M052",
+    "M053",
+    "M054",
+    "M056",
+    "M057",
+    "M058",
+    "M060"
+   ],
+   "moment_ids_only_in_held": [
+    "M055"
+   ],
+   "slips_hidden_by_proposed": 2,
+   "slips_hidden_with_held": 2,
+   "slips_hidden_rows": [
+    {
+     "t": 502.9,
+     "wrong": "هادي الصباح",
+     "right": "الصبح"
+    },
+    {
+     "t": 2130.94,
+     "wrong": "أخيرة",
+     "right": "الأخيرة"
+    }
+   ],
+   "untouched_lines_word_changed_proposed": 45,
+   "untouched_lines_word_changed_held": 3,
+   "untouched_proposed_i": [
+    15,
+    65,
+    76,
+    78,
+    84,
+    100,
+    106,
+    124,
+    126,
+    140,
+    144,
+    148,
+    161,
+    163,
+    165,
+    171,
+    194,
+    234,
+    236,
+    250,
+    271,
+    286,
+    301,
+    326,
+    331,
+    332,
+    334,
+    357,
+    359,
+    382,
+    383,
+    387,
+    466,
+    468,
+    493,
+    502,
+    505,
+    535,
+    724,
+    764,
+    782,
+    789,
+    969,
+    990,
+    1017
+   ],
+   "moments_gained_vs_old": [
+    "M006",
+    "M007",
+    "M010",
+    "M028",
+    "M034",
+    "M038",
+    "M039",
+    "M054",
+    "M060"
+   ],
+   "moments_lost_vs_old": []
+  },
+  "a+b": {
+   "lines_changed": 184,
+   "proposed": 168,
+   "proposed_words": 88,
+   "proposed_alphabet": 80,
+   "proposed_by_spans": 15,
+   "released_by_v3": 22,
+   "held": 10,
+   "no_agreement": 6,
+   "moments": 63,
+   "moments_fixed_by_proposed": 46,
+   "moments_fixed_with_held": 49,
+   "moments_right_in_delivered_transcript": 49,
+   "moment_ids_proposed": [
+    "M002",
+    "M003",
+    "M004",
+    "M005",
+    "M006",
+    "M007",
+    "M008",
+    "M009",
+    "M010",
+    "M011",
+    "M014",
+    "M015",
+    "M016",
+    "M017",
+    "M018",
+    "M019",
+    "M021",
+    "M022",
+    "M023",
+    "M024",
+    "M026",
+    "M028",
+    "M032",
+    "M033",
+    "M034",
+    "M035",
+    "M036",
+    "M037",
+    "M038",
+    "M039",
+    "M043",
+    "M044",
+    "M045",
+    "M046",
+    "M047",
+    "M048",
+    "M049",
+    "M050",
+    "M051",
+    "M052",
+    "M053",
+    "M054",
+    "M056",
+    "M057",
+    "M058",
+    "M060"
+   ],
+   "moment_ids_only_in_held": [
+    "M055",
+    "M061",
+    "M062"
+   ],
+   "slips_hidden_by_proposed": 2,
+   "slips_hidden_with_held": 2,
+   "slips_hidden_rows": [
+    {
+     "t": 502.9,
+     "wrong": "هادي الصباح",
+     "right": "الصبح"
+    },
+    {
+     "t": 2130.94,
+     "wrong": "أخيرة",
+     "right": "الأخيرة"
+    }
+   ],
+   "untouched_lines_word_changed_proposed": 52,
+   "untouched_lines_word_changed_held": 5,
+   "untouched_proposed_i": [
+    15,
+    26,
+    54,
+    56,
+    65,
+    76,
+    78,
+    84,
+    100,
+    106,
+    122,
+    124,
+    126,
+    140,
+    144,
+    148,
+    161,
+    163,
+    165,
+    168,
+    171,
+    194,
+    234,
+    236,
+    250,
+    271,
+    286,
+    301,
+    326,
+    331,
+    332,
+    334,
+    357,
+    359,
+    382,
+    383,
+    387,
+    392,
+    466,
+    468,
+    493,
+    502,
+    505,
+    535,
+    724,
+    764,
+    782,
+    789,
+    877,
+    969,
+    990,
+    1017
+   ],
+   "moments_gained_vs_old": [
+    "M006",
+    "M007",
+    "M010",
+    "M028",
+    "M034",
+    "M036",
+    "M037",
+    "M038",
+    "M039",
+    "M054",
+    "M060"
+   ],
+   "moments_lost_vs_old": []
+  }
+ },
+ "moved_lines": {
+  "a": [
+   {
+    "i": 26,
+    "mmss": "02:12",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "أنا بش ربى like this, this is normal.",
+    "heard": "I know, but like this, this is normal.",
+    "spans": [
+     {
+      "engine": "أنا",
+      "said": "I",
+      "runs": 2
+     },
+     {
+      "engine": "بش",
+      "said": "know,",
+      "runs": 2
+     },
+     {
+      "engine": "ربى",
+      "said": "but",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "I know, but like this, this is normal.",
+     "I know, but should it be like this? This is normal?",
+     "أنا بشربها like this, this is normal."
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 54,
+    "mmss": "04:34",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "in small words ما، لا، إلا each verb takes. Each one gets a fixed noun ما، لا، إ which makes four hundred and ten",
+    "heard": "And small words مع، لـ، على each verb takes. Each one gets a fixed noun ما، لا، إ which makes 410",
+    "spans": [
+     {
+      "engine": "in",
+      "said": "And",
+      "runs": 3
+     },
+     {
+      "engine": "ما،",
+      "said": "مع،",
+      "runs": 3
+     },
+     {
+      "engine": "لا،",
+      "said": "لـ،",
+      "runs": 3
+     },
+     {
+      "engine": "إلا",
+      "said": "على",
+      "runs": 3
+     },
+     {
+      "engine": "four hundred and ten",
+      "said": "410",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "And small words مع، لـ، على each verb takes. Each one gets a fixed noun, like, uh, which makes four hundred ten",
+     "And small words مع، لـ، على each verb takes. Each one gets a fixed pronoun معها، إلها، eh, which makes 410",
+     "And small words مع، لـ، على each verb takes. Each one gets a fixed noun مع، لـ، eh, which makes 410"
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 56,
+    "mmss": "04:48",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "on whether anyone actually says them. That's why you get أنا برسم لها, I drive for her. It's grammatically--",
+    "heard": "on whether anyone actually says them. That's why you get أنا برسم إلها, and I, I draw for her, it's grammatically--",
+    "spans": [
+     {
+      "engine": "لها,",
+      "said": "إلها,",
+      "runs": 3
+     },
+     {
+      "engine": "",
+      "said": "and",
+      "runs": 2
+     },
+     {
+      "engine": "",
+      "said": "I",
+      "runs": 2
+     },
+     {
+      "engine": "drive",
+      "said": "draw",
+      "runs": 3
+     }
+    ],
+    "runs": [
+     "on whether anyone actually says them. That's why you get أنا برسم إلها, I I draw for her, it's grammatically--",
+     "on whether anyone actually says them. That's why you get أنا برسم إلها, and I, I draw for her, it's grammatically--",
+     "on whether anyone actually says them. That's why you get أنا برسم إلها, and, uh, I draw for her. It's grammatically--"
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 60,
+    "mmss": "05:11",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "I paused the list.",
+    "heard": "A, paused the list.",
+    "spans": [
+     {
+      "engine": "I",
+      "said": "A,",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "A, parse the list",
+     "A sparse list",
+     "I paused the list."
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 122,
+    "mmss": "09:03",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "امم. شوي الصباح.",
+    "heard": "آ... في الصبح.",
+    "spans": [
+     {
+      "engine": "شوي",
+      "said": "في",
+      "runs": 2
+     },
+     {
+      "engine": "الصباح.",
+      "said": "الصبح.",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "اه، شوي الصبح.",
+     "اه، في الصباح.",
+     "آ... في الصبح."
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 168,
+    "mmss": "11:12",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "جاي-- الأسبوع الجاي.",
+    "heard": "جاي... أسبوع الجاي.",
+    "spans": [
+     {
+      "engine": "الأسبوع",
+      "said": "أسبوع",
+      "runs": 3
+     }
+    ],
+    "runs": [
+     "جاي... أسبوع الجاي.",
+     "جا-- أسبوع الجاي.",
+     "جاي، أسبوع جاي."
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 195,
+    "mmss": "12:35",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "Uh, or and ammo. Lashol bas,",
+    "heard": "Uh, or عند عمو للشغل بس",
+    "spans": [
+     {
+      "engine": "and",
+      "said": "عند",
+      "runs": 3
+     },
+     {
+      "engine": "ammo.",
+      "said": "عمو",
+      "runs": 2
+     },
+     {
+      "engine": "Lashol",
+      "said": "للشغل",
+      "runs": 2
+     },
+     {
+      "engine": "bas,",
+      "said": "بس",
+      "runs": 3
+     }
+    ],
+    "runs": [
+     "Uh, or عند عمو للشغل بس",
+     "Uh, or عند عمه للشغل بس،",
+     "Uh, or عند عمو لشغل بس"
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 365,
+    "mmss": "22:19",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "Okay, so it doesn't have the ال rule, but the before and after. So ساعة تاني is",
+    "heard": "Okay, so it doesn't have the ال rule, but the before and after. So تاني ساعة is",
+    "spans": [
+     {
+      "engine": "",
+      "said": "تاني",
+      "runs": 3
+     },
+     {
+      "engine": "تاني",
+      "said": "",
+      "runs": 3
+     }
+    ],
+    "runs": [
+     "Okay, so it doesn't have the ال with the before and after. So تاني ساعة is",
+     "Okay, so it doesn't have the ال, uh, but the before and after. So تاني ساعة",
+     "Okay, so it doesn't have the ال rule, but the before and after. So تاني ساعة is"
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 392,
+    "mmss": "24:13",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "Uh, so if it's it will come another day, it would be the money will come another day would be المال راح يجي،",
+    "heard": "Uh, so if it's it will come another day, it would be the money will come another day would be المصاري راح يجوا",
+    "spans": [
+     {
+      "engine": "المال",
+      "said": "المصاري",
+      "runs": 3
+     },
+     {
+      "engine": "يجي،",
+      "said": "يجوا",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "Uh, so if it's it will come another day, it would be the money will come another day would be المصاري راح يجوا",
+     "Uh, so if it's it will come another day, it would be the money will come another day would be المصاري راح ييجوا",
+     "Uh, so if it's it will come another day would be the money will come another day would be المصاري راح يجوا"
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 621,
+    "mmss": "37:47",
+    "from": "no-agreement",
+    "to": "held",
+    "how": "spans",
+    "engine": "So it's just \"qayril yom\" or \"il ghay,\" uh, \"il yom,\" \"il\"... whatever the adjective version of... Okay, so it doesn't have a...",
+    "heard": "So it's just غير يوم or \"il ghay,\" uh, \"il yom,\" \"il\"... whatever the adjective version of... Okay, so it doesn't have a...",
+    "spans": [
+     {
+      "engine": "\"qayril",
+      "said": "غير",
+      "runs": 3
+     },
+     {
+      "engine": "yom\"",
+      "said": "يوم",
+      "runs": 3
+     }
+    ],
+    "runs": [
+     "So it's just غير يوم or ال غـ- uh اليوم الـ- whatever the adjective version of Okay so it doesn't have a",
+     "So it's just غير يوم or الغيـ uh اليوم الـ whatever the adjective version of... Okay, so it doesn't have a...",
+     "So it's just غير يوم or الـ- uh اليوم الـ- whatever the adjective version of... Okay, so it doesn't have a..."
+    ],
+    "amal_next": [
+     "غير",
+     "يوم"
+    ],
+    "v3_took": null
+   },
+   {
+    "i": 641,
+    "mmss": "38:48",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "But sa-- But, but, but if they-- But \"qayr,\" but \"qayr\" just will never have...",
+    "heard": "But sa-- but, but, but غير, but غير, غير just will never have",
+    "spans": [
+     {
+      "engine": "if they--",
+      "said": "غير,",
+      "runs": 2
+     },
+     {
+      "engine": "\"qayr,\"",
+      "said": "غير,",
+      "runs": 3
+     },
+     {
+      "engine": "but \"qayr\"",
+      "said": "غير",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "But sa-- but, but, but غير, but غير, غير just will never have",
+     "But ta-- but, but, but gh-- but غير, but غير, غير just will never have...",
+     "But se-- but, but, but غير, but غير, غير just will never have"
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 715,
+    "mmss": "43:20",
+    "from": "no-agreement",
+    "to": "held",
+    "how": "spans",
+    "engine": "Oh, you're right. Uh, هذا الثاني.",
+    "heard": "Oh, you're right. Uh, uh, حدا الـ الثاني.",
+    "spans": [
+     {
+      "engine": "هذا",
+      "said": "حدا الـ",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "Oh, you're right. Uh, uh, حدا الـ الثاني.",
+     "Oh, you're right. حـ- uh, حدا الـ- الثاني.",
+     "Oh, you're right. Ha- uh, حدا التاني."
+    ],
+    "amal_next": [
+     "حدا"
+    ],
+    "v3_took": null
+   },
+   {
+    "i": 777,
+    "mmss": "46:43",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "So، مين",
+    "heard": "So is مين",
+    "spans": [
+     {
+      "engine": "",
+      "said": "is",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "So, who is مين",
+     "So is مين",
+     "So، مين"
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 828,
+    "mmss": "49:36",
+    "from": "no-agreement",
+    "to": "held",
+    "how": "spans",
+    "engine": "So forget it.",
+    "heard": "So غير, right?",
+    "spans": [
+     {
+      "engine": "forget",
+      "said": "غير,",
+      "runs": 2
+     },
+     {
+      "engine": "it.",
+      "said": "right?",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "So it's غير, right?",
+     "So forget it.",
+     "Just غير, right?"
+    ],
+    "amal_next": [
+     "غير"
+    ],
+    "v3_took": null
+   },
+   {
+    "i": 849,
+    "mmss": "51:15",
+    "from": "no-agreement",
+    "to": "held",
+    "how": "spans",
+    "engine": "hal-hadi nafs al-ishi or is it hadi al-nafs al-- hada nafs al-ishi?",
+    "heard": "هـ- هادي نفس الاشي or is it هادي النفس الـ-- هدا نفس الاشي؟",
+    "spans": [
+     {
+      "engine": "",
+      "said": "هـ-",
+      "runs": 2
+     },
+     {
+      "engine": "hal-hadi",
+      "said": "هادي",
+      "runs": 3
+     },
+     {
+      "engine": "nafs",
+      "said": "نفس",
+      "runs": 3
+     },
+     {
+      "engine": "al-ishi",
+      "said": "الاشي",
+      "runs": 2
+     },
+     {
+      "engine": "hadi",
+      "said": "هادي",
+      "runs": 3
+     },
+     {
+      "engine": "al-nafs",
+      "said": "النفس",
+      "runs": 3
+     },
+     {
+      "engine": "al--",
+      "said": "الـ--",
+      "runs": 3
+     },
+     {
+      "engine": "hada",
+      "said": "هدا",
+      "runs": 3
+     },
+     {
+      "engine": "nafs",
+      "said": "نفس",
+      "runs": 3
+     },
+     {
+      "engine": "al-ishi?",
+      "said": "الاشي؟",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "هـ- هادي نفس الاشي or is it هادي النفس الـ-- هدا نفس الاشي؟",
+     "هادي نفس الإشي or is it هادي النفس الـ... هادا نفس الإشي؟",
+     "هـ- هادي نفس الشي or is it هادي النفس الـ... هدا نفس الشي؟"
+    ],
+    "amal_next": [
+     "ال"
+    ],
+    "v3_took": null
+   },
+   {
+    "i": 877,
+    "mmss": "52:42",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "You guys use قانون for like grammar? القانون لغير مش نفس ال--",
+    "heard": "You guys use قانون for like grammar? الـ القانون، لا، غير، مش نفس الـ-",
+    "spans": [
+     {
+      "engine": "",
+      "said": "الـ",
+      "runs": 3
+     },
+     {
+      "engine": "لغير",
+      "said": "لا، غير،",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "You guys use قانون for like grammar? الـ القانون، لا، غير، مش نفس الـ-",
+     "Do you guys use قانون for like grammar? الـ- القانون... لا... غير؟ مش نفس الـ-",
+     "You guys use قانون for like grammar? الـ القانون لـ غير مش نفس الـ..."
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 888,
+    "mmss": "53:36",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "No, I, I think I have it. It's كل is every, um, every and then كل ال is like all.",
+    "heard": "No, I think I have it. It's كل is every, um, every and then كل ال is like all.",
+    "spans": [
+     {
+      "engine": "I,",
+      "said": "",
+      "runs": 3
+     }
+    ],
+    "runs": [
+     "No, I think I have it. It's كل is every, um, every and then كل ال is like all.",
+     "No, I think I have it. It's كل is ever-, um, every and then كل الـ is like all.",
+     "No, I think I have it. It's كل is ev-, um, every and then كل الـ is like all."
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 981,
+    "mmss": "59:53",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "Nafs ishi.",
+    "heard": "نفس ishi.",
+    "spans": [
+     {
+      "engine": "Nafs",
+      "said": "نفس",
+      "runs": 3
+     }
+    ],
+    "runs": [
+     "نفس الشي",
+     "نفس الإشي",
+     "نفس إشي"
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 1019,
+    "mmss": "62:27",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "Yeah, i-ikhtilaf is Farsi, so...",
+    "heard": "Yeah, إ- اختلاف is Farsi, so...",
+    "spans": [
+     {
+      "engine": "i-ikhtilaf",
+      "said": "اختلاف",
+      "runs": 3
+     }
+    ],
+    "runs": [
+     "Yeah, إ- اختلاف is Farsi, so...",
+     "إ- إخـ- اختلاف is Farsi, so",
+     "Yeah, إخـ -اختلاف is Farsi, so..."
+    ],
+    "amal_next": [],
+    "v3_took": null
+   }
+  ],
+  "b": [
+   {
+    "i": 100,
+    "mmss": "07:54",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "Okay أنا شوي-- أنا كان قنيش شوي--",
+    "heard": "Okay أنا شوي، أنا كان، كنت شوي",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "كنت"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 120,
+    "mmss": "08:58",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "عاد الصباح.",
+    "heard": "هذا الصباح",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "هاد"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 126,
+    "mmss": "09:22",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "شجاع اليوم. مش شجاع اليوم.",
+    "heard": "شجاع اليوم. متشجع اليوم.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "متشجع"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 137,
+    "mmss": "09:44",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "أنا لازم أخد أطلع وسفر، سفر.",
+    "heard": "أنا لازم آخد عطلة و سفر، سفرة.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "عطلا"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 140,
+    "mmss": "09:57",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "ولازم أسافر.",
+    "heard": "أو لازم أسافر",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "لازم"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 148,
+    "mmss": "10:21",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "part. You said \"قنت\"؟",
+    "heard": "part. You said كنت؟",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "كنت"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 182,
+    "mmss": "11:56",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "and عموي.",
+    "heard": "عند عموي.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "عند"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 234,
+    "mmss": "14:42",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "Bema?",
+    "heard": "خيمة؟",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "خيما"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 254,
+    "mmss": "15:39",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "Asha Alfayn Sitwa Ashrin.",
+    "heard": "عشا، ألفين ستة وعشرين.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "عشا"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 355,
+    "mmss": "21:41",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "So if it's the same rule, then it would be ساعة",
+    "heard": "So if it's the same rule, then it would be تاني ساعة",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "تاني"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 359,
+    "mmss": "21:49",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "and التاني الساعة means a different hour.",
+    "heard": "and تاني الساعة means a different hour.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "تاني"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 468,
+    "mmss": "28:53",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "ساعة الأول.",
+    "heard": "ساعة الأولى",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "الاولي"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 491,
+    "mmss": "30:15",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "The first-- El is she الأول?",
+    "heard": "The first-- الإشي الأول؟",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "الاشي"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 617,
+    "mmss": "37:40",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "So you, you cannot say \"qayril yom.\"",
+    "heard": "Wait, you cannot say غير اليوم؟",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "اليوم"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 629,
+    "mmss": "38:10",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "Which one? \"Qayril yom,\" okay.",
+    "heard": "Which one? غير يوم، okay.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "غير",
+     "يوم"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 649,
+    "mmss": "39:16",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "qayril yom.\" \"Qayril yom.\" I'll see you another day.",
+    "heard": "بشوفك غير اليوم. غير يوم. I'll see you another day.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "غير",
+     "غير",
+     "يوم"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 656,
+    "mmss": "39:45",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "tayir aklin.\"",
+    "heard": "غير أكلة",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "غير"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 713,
+    "mmss": "43:15",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "تاني حاجة.",
+    "heard": "تاني حدا",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "حدا"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 764,
+    "mmss": "45:58",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "الأخير، الأخيرة.",
+    "heard": "أخير، أخيرة.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "اخيرا"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 827,
+    "mmss": "49:31",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "yeah, we decided not to do the other way of 誰 .",
+    "heard": "Yeah, we decided not to do the other way of غير.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "غير"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 837,
+    "mmss": "50:06",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "I think it's the same as 誰 , right? It's just the same...",
+    "heard": "I think it's the same as غير, right? It's just the same...",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "غير"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 1017,
+    "mmss": "62:21",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "Muk-- ikhtilaf, yeah.",
+    "heard": "مخـ-- اختلاف، yeah.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "اختلاف"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   }
+  ],
+  "a+b": [
+   {
+    "i": 26,
+    "mmss": "02:12",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "أنا بش ربى like this, this is normal.",
+    "heard": "I know, but like this, this is normal.",
+    "spans": [
+     {
+      "engine": "أنا",
+      "said": "I",
+      "runs": 2
+     },
+     {
+      "engine": "بش",
+      "said": "know,",
+      "runs": 2
+     },
+     {
+      "engine": "ربى",
+      "said": "but",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "I know, but like this, this is normal.",
+     "I know, but should it be like this? This is normal?",
+     "أنا بشربها like this, this is normal."
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 54,
+    "mmss": "04:34",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "in small words ما، لا، إلا each verb takes. Each one gets a fixed noun ما، لا، إ which makes four hundred and ten",
+    "heard": "And small words مع، لـ، على each verb takes. Each one gets a fixed noun ما، لا، إ which makes 410",
+    "spans": [
+     {
+      "engine": "in",
+      "said": "And",
+      "runs": 3
+     },
+     {
+      "engine": "ما،",
+      "said": "مع،",
+      "runs": 3
+     },
+     {
+      "engine": "لا،",
+      "said": "لـ،",
+      "runs": 3
+     },
+     {
+      "engine": "إلا",
+      "said": "على",
+      "runs": 3
+     },
+     {
+      "engine": "four hundred and ten",
+      "said": "410",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "And small words مع، لـ، على each verb takes. Each one gets a fixed noun, like, uh, which makes four hundred ten",
+     "And small words مع، لـ، على each verb takes. Each one gets a fixed pronoun معها، إلها، eh, which makes 410",
+     "And small words مع، لـ، على each verb takes. Each one gets a fixed noun مع، لـ، eh, which makes 410"
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 56,
+    "mmss": "04:48",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "on whether anyone actually says them. That's why you get أنا برسم لها, I drive for her. It's grammatically--",
+    "heard": "on whether anyone actually says them. That's why you get أنا برسم إلها, and I, I draw for her, it's grammatically--",
+    "spans": [
+     {
+      "engine": "لها,",
+      "said": "إلها,",
+      "runs": 3
+     },
+     {
+      "engine": "",
+      "said": "and",
+      "runs": 2
+     },
+     {
+      "engine": "",
+      "said": "I",
+      "runs": 2
+     },
+     {
+      "engine": "drive",
+      "said": "draw",
+      "runs": 3
+     }
+    ],
+    "runs": [
+     "on whether anyone actually says them. That's why you get أنا برسم إلها, I I draw for her, it's grammatically--",
+     "on whether anyone actually says them. That's why you get أنا برسم إلها, and I, I draw for her, it's grammatically--",
+     "on whether anyone actually says them. That's why you get أنا برسم إلها, and, uh, I draw for her. It's grammatically--"
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 60,
+    "mmss": "05:11",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "I paused the list.",
+    "heard": "A, paused the list.",
+    "spans": [
+     {
+      "engine": "I",
+      "said": "A,",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "A, parse the list",
+     "A sparse list",
+     "I paused the list."
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 100,
+    "mmss": "07:54",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "Okay أنا شوي-- أنا كان قنيش شوي--",
+    "heard": "Okay أنا شوي، أنا كان، كنت شوي",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "كنت"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 120,
+    "mmss": "08:58",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "عاد الصباح.",
+    "heard": "هذا الصباح",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "هاد"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 122,
+    "mmss": "09:03",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "امم. شوي الصباح.",
+    "heard": "آ... في الصبح.",
+    "spans": [
+     {
+      "engine": "شوي",
+      "said": "في",
+      "runs": 2
+     },
+     {
+      "engine": "الصباح.",
+      "said": "الصبح.",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "اه، شوي الصبح.",
+     "اه، في الصباح.",
+     "آ... في الصبح."
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 126,
+    "mmss": "09:22",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "شجاع اليوم. مش شجاع اليوم.",
+    "heard": "شجاع اليوم. متشجع اليوم.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "متشجع"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 137,
+    "mmss": "09:44",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "أنا لازم أخد أطلع وسفر، سفر.",
+    "heard": "أنا لازم آخد عطلة و سفر، سفرة.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "عطلا"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 140,
+    "mmss": "09:57",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "ولازم أسافر.",
+    "heard": "أو لازم أسافر",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "لازم"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 148,
+    "mmss": "10:21",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "part. You said \"قنت\"؟",
+    "heard": "part. You said كنت؟",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "كنت"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 168,
+    "mmss": "11:12",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "جاي-- الأسبوع الجاي.",
+    "heard": "جاي... أسبوع الجاي.",
+    "spans": [
+     {
+      "engine": "الأسبوع",
+      "said": "أسبوع",
+      "runs": 3
+     }
+    ],
+    "runs": [
+     "جاي... أسبوع الجاي.",
+     "جا-- أسبوع الجاي.",
+     "جاي، أسبوع جاي."
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 182,
+    "mmss": "11:56",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "and عموي.",
+    "heard": "عند عموي.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "عند"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 195,
+    "mmss": "12:35",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "Uh, or and ammo. Lashol bas,",
+    "heard": "Uh, or عند عمو للشغل بس",
+    "spans": [
+     {
+      "engine": "and",
+      "said": "عند",
+      "runs": 3
+     },
+     {
+      "engine": "ammo.",
+      "said": "عمو",
+      "runs": 2
+     },
+     {
+      "engine": "Lashol",
+      "said": "للشغل",
+      "runs": 2
+     },
+     {
+      "engine": "bas,",
+      "said": "بس",
+      "runs": 3
+     }
+    ],
+    "runs": [
+     "Uh, or عند عمو للشغل بس",
+     "Uh, or عند عمه للشغل بس،",
+     "Uh, or عند عمو لشغل بس"
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 234,
+    "mmss": "14:42",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "Bema?",
+    "heard": "خيمة؟",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "خيما"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 254,
+    "mmss": "15:39",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "Asha Alfayn Sitwa Ashrin.",
+    "heard": "عشا، ألفين ستة وعشرين.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "عشا"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 355,
+    "mmss": "21:41",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "So if it's the same rule, then it would be ساعة",
+    "heard": "So if it's the same rule, then it would be تاني ساعة",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "تاني"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 359,
+    "mmss": "21:49",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "and التاني الساعة means a different hour.",
+    "heard": "and تاني الساعة means a different hour.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "تاني"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 365,
+    "mmss": "22:19",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "Okay, so it doesn't have the ال rule, but the before and after. So ساعة تاني is",
+    "heard": "Okay, so it doesn't have the ال rule, but the before and after. So تاني ساعة is",
+    "spans": [
+     {
+      "engine": "",
+      "said": "تاني",
+      "runs": 3
+     },
+     {
+      "engine": "تاني",
+      "said": "",
+      "runs": 3
+     }
+    ],
+    "runs": [
+     "Okay, so it doesn't have the ال with the before and after. So تاني ساعة is",
+     "Okay, so it doesn't have the ال, uh, but the before and after. So تاني ساعة",
+     "Okay, so it doesn't have the ال rule, but the before and after. So تاني ساعة is"
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 392,
+    "mmss": "24:13",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "Uh, so if it's it will come another day, it would be the money will come another day would be المال راح يجي،",
+    "heard": "Uh, so if it's it will come another day, it would be the money will come another day would be المصاري راح يجوا",
+    "spans": [
+     {
+      "engine": "المال",
+      "said": "المصاري",
+      "runs": 3
+     },
+     {
+      "engine": "يجي،",
+      "said": "يجوا",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "Uh, so if it's it will come another day, it would be the money will come another day would be المصاري راح يجوا",
+     "Uh, so if it's it will come another day, it would be the money will come another day would be المصاري راح ييجوا",
+     "Uh, so if it's it will come another day would be the money will come another day would be المصاري راح يجوا"
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 468,
+    "mmss": "28:53",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "ساعة الأول.",
+    "heard": "ساعة الأولى",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "الاولي"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 491,
+    "mmss": "30:15",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "The first-- El is she الأول?",
+    "heard": "The first-- الإشي الأول؟",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "الاشي"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 617,
+    "mmss": "37:40",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "So you, you cannot say \"qayril yom.\"",
+    "heard": "Wait, you cannot say غير اليوم؟",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "اليوم"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 621,
+    "mmss": "37:47",
+    "from": "no-agreement",
+    "to": "held",
+    "how": "spans",
+    "engine": "So it's just \"qayril yom\" or \"il ghay,\" uh, \"il yom,\" \"il\"... whatever the adjective version of... Okay, so it doesn't have a...",
+    "heard": "So it's just غير يوم or \"il ghay,\" uh, \"il yom,\" \"il\"... whatever the adjective version of... Okay, so it doesn't have a...",
+    "spans": [
+     {
+      "engine": "\"qayril",
+      "said": "غير",
+      "runs": 3
+     },
+     {
+      "engine": "yom\"",
+      "said": "يوم",
+      "runs": 3
+     }
+    ],
+    "runs": [
+     "So it's just غير يوم or ال غـ- uh اليوم الـ- whatever the adjective version of Okay so it doesn't have a",
+     "So it's just غير يوم or الغيـ uh اليوم الـ whatever the adjective version of... Okay, so it doesn't have a...",
+     "So it's just غير يوم or الـ- uh اليوم الـ- whatever the adjective version of... Okay, so it doesn't have a..."
+    ],
+    "amal_next": [
+     "غير",
+     "يوم"
+    ],
+    "v3_took": null
+   },
+   {
+    "i": 629,
+    "mmss": "38:10",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "Which one? \"Qayril yom,\" okay.",
+    "heard": "Which one? غير يوم، okay.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "غير",
+     "يوم"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 641,
+    "mmss": "38:48",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "But sa-- But, but, but if they-- But \"qayr,\" but \"qayr\" just will never have...",
+    "heard": "But sa-- but, but, but غير, but غير, غير just will never have",
+    "spans": [
+     {
+      "engine": "if they--",
+      "said": "غير,",
+      "runs": 2
+     },
+     {
+      "engine": "\"qayr,\"",
+      "said": "غير,",
+      "runs": 3
+     },
+     {
+      "engine": "but \"qayr\"",
+      "said": "غير",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "But sa-- but, but, but غير, but غير, غير just will never have",
+     "But ta-- but, but, but gh-- but غير, but غير, غير just will never have...",
+     "But se-- but, but, but غير, but غير, غير just will never have"
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 649,
+    "mmss": "39:16",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "qayril yom.\" \"Qayril yom.\" I'll see you another day.",
+    "heard": "بشوفك غير اليوم. غير يوم. I'll see you another day.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "غير",
+     "غير",
+     "يوم"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 656,
+    "mmss": "39:45",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "tayir aklin.\"",
+    "heard": "غير أكلة",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "غير"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 713,
+    "mmss": "43:15",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "تاني حاجة.",
+    "heard": "تاني حدا",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "حدا"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 715,
+    "mmss": "43:20",
+    "from": "no-agreement",
+    "to": "held",
+    "how": "spans",
+    "engine": "Oh, you're right. Uh, هذا الثاني.",
+    "heard": "Oh, you're right. Uh, uh, حدا الـ الثاني.",
+    "spans": [
+     {
+      "engine": "هذا",
+      "said": "حدا الـ",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "Oh, you're right. Uh, uh, حدا الـ الثاني.",
+     "Oh, you're right. حـ- uh, حدا الـ- الثاني.",
+     "Oh, you're right. Ha- uh, حدا التاني."
+    ],
+    "amal_next": [
+     "حدا"
+    ],
+    "v3_took": null
+   },
+   {
+    "i": 764,
+    "mmss": "45:58",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "الأخير، الأخيرة.",
+    "heard": "أخير، أخيرة.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "اخيرا"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 777,
+    "mmss": "46:43",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "So، مين",
+    "heard": "So is مين",
+    "spans": [
+     {
+      "engine": "",
+      "said": "is",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "So, who is مين",
+     "So is مين",
+     "So، مين"
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 827,
+    "mmss": "49:31",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "yeah, we decided not to do the other way of 誰 .",
+    "heard": "Yeah, we decided not to do the other way of غير.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "غير"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 828,
+    "mmss": "49:36",
+    "from": "no-agreement",
+    "to": "held",
+    "how": "spans",
+    "engine": "So forget it.",
+    "heard": "So غير, right?",
+    "spans": [
+     {
+      "engine": "forget",
+      "said": "غير,",
+      "runs": 2
+     },
+     {
+      "engine": "it.",
+      "said": "right?",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "So it's غير, right?",
+     "So forget it.",
+     "Just غير, right?"
+    ],
+    "amal_next": [
+     "غير"
+    ],
+    "v3_took": null
+   },
+   {
+    "i": 837,
+    "mmss": "50:06",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "I think it's the same as 誰 , right? It's just the same...",
+    "heard": "I think it's the same as غير, right? It's just the same...",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "غير"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 849,
+    "mmss": "51:15",
+    "from": "no-agreement",
+    "to": "held",
+    "how": "spans",
+    "engine": "hal-hadi nafs al-ishi or is it hadi al-nafs al-- hada nafs al-ishi?",
+    "heard": "هـ- هادي نفس الاشي or is it هادي النفس الـ-- هدا نفس الاشي؟",
+    "spans": [
+     {
+      "engine": "",
+      "said": "هـ-",
+      "runs": 2
+     },
+     {
+      "engine": "hal-hadi",
+      "said": "هادي",
+      "runs": 3
+     },
+     {
+      "engine": "nafs",
+      "said": "نفس",
+      "runs": 3
+     },
+     {
+      "engine": "al-ishi",
+      "said": "الاشي",
+      "runs": 2
+     },
+     {
+      "engine": "hadi",
+      "said": "هادي",
+      "runs": 3
+     },
+     {
+      "engine": "al-nafs",
+      "said": "النفس",
+      "runs": 3
+     },
+     {
+      "engine": "al--",
+      "said": "الـ--",
+      "runs": 3
+     },
+     {
+      "engine": "hada",
+      "said": "هدا",
+      "runs": 3
+     },
+     {
+      "engine": "nafs",
+      "said": "نفس",
+      "runs": 3
+     },
+     {
+      "engine": "al-ishi?",
+      "said": "الاشي؟",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "هـ- هادي نفس الاشي or is it هادي النفس الـ-- هدا نفس الاشي؟",
+     "هادي نفس الإشي or is it هادي النفس الـ... هادا نفس الإشي؟",
+     "هـ- هادي نفس الشي or is it هادي النفس الـ... هدا نفس الشي؟"
+    ],
+    "amal_next": [
+     "ال"
+    ],
+    "v3_took": null
+   },
+   {
+    "i": 877,
+    "mmss": "52:42",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "You guys use قانون for like grammar? القانون لغير مش نفس ال--",
+    "heard": "You guys use قانون for like grammar? الـ القانون، لا، غير، مش نفس الـ-",
+    "spans": [
+     {
+      "engine": "",
+      "said": "الـ",
+      "runs": 3
+     },
+     {
+      "engine": "لغير",
+      "said": "لا، غير،",
+      "runs": 2
+     }
+    ],
+    "runs": [
+     "You guys use قانون for like grammar? الـ القانون، لا، غير، مش نفس الـ-",
+     "Do you guys use قانون for like grammar? الـ- القانون... لا... غير؟ مش نفس الـ-",
+     "You guys use قانون for like grammar? الـ القانون لـ غير مش نفس الـ..."
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 888,
+    "mmss": "53:36",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "No, I, I think I have it. It's كل is every, um, every and then كل ال is like all.",
+    "heard": "No, I think I have it. It's كل is every, um, every and then كل ال is like all.",
+    "spans": [
+     {
+      "engine": "I,",
+      "said": "",
+      "runs": 3
+     }
+    ],
+    "runs": [
+     "No, I think I have it. It's كل is every, um, every and then كل ال is like all.",
+     "No, I think I have it. It's كل is ever-, um, every and then كل الـ is like all.",
+     "No, I think I have it. It's كل is ev-, um, every and then كل الـ is like all."
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 981,
+    "mmss": "59:53",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "Nafs ishi.",
+    "heard": "نفس ishi.",
+    "spans": [
+     {
+      "engine": "Nafs",
+      "said": "نفس",
+      "runs": 3
+     }
+    ],
+    "runs": [
+     "نفس الشي",
+     "نفس الإشي",
+     "نفس إشي"
+    ],
+    "amal_next": [],
+    "v3_took": null
+   },
+   {
+    "i": 1017,
+    "mmss": "62:21",
+    "from": "held",
+    "to": "proposed",
+    "how": "whole-line",
+    "engine": "Muk-- ikhtilaf, yeah.",
+    "heard": "مخـ-- اختلاف، yeah.",
+    "spans": null,
+    "runs": null,
+    "amal_next": [
+     "اختلاف"
+    ],
+    "v3_took": [
+     true,
+     true,
+     true
+    ]
+   },
+   {
+    "i": 1019,
+    "mmss": "62:27",
+    "from": "no-agreement",
+    "to": "proposed",
+    "how": "spans",
+    "engine": "Yeah, i-ikhtilaf is Farsi, so...",
+    "heard": "Yeah, إ- اختلاف is Farsi, so...",
+    "spans": [
+     {
+      "engine": "i-ikhtilaf",
+      "said": "اختلاف",
+      "runs": 3
+     }
+    ],
+    "runs": [
+     "Yeah, إ- اختلاف is Farsi, so...",
+     "إ- إخـ- اختلاف is Farsi, so",
+     "Yeah, إخـ -اختلاف is Farsi, so..."
+    ],
+    "amal_next": [],
+    "v3_took": null
+   }
+  ]
+ }
+}

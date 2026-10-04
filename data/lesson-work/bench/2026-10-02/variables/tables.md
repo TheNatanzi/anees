@@ -14,6 +14,7 @@
 | V10 vowel marks in the text | **49** | worse (-4) | 1 | 62 | 77.8% | $0.79 |
 | V11 one-field answer (Gemini's idea) | **50** | worse (-3) | 1 | 62 | 88.9% | $0.66 |
 | V12 guessing lines removed (Gemini's idea) | **52** | same (-1, inside the noise) | 1 | 59 | 92.1% | $0.60 |
+| V13 edge re-cut (clips that start or end on speech) | **54** | same (+1, inside the noise) | 1 | 58 | 92.1% | +$0.03 |
 | Best recipe: word list + said/meant + marks apart | **49** | worse (-4) | 2 | 60 | 92.1% | $0.89 |
 | Best recipe on OpenAI gpt-audio | **21** | worse (-32) | 7 | 223 | 87.3% | $2.38 |
 | Baseline on V9's 224 lines (2 runs) | **52** | same (-1, inside the noise) | 1 | 44 | 93.7% | $0 (no call) |

@@ -23,6 +23,7 @@
 
 | Engine | Mode | Heard right (of 63) | Real mishearings fixed (of 32) | English-letter Arabic fixed (of 31) | Slips hidden (of 24) | Lines changed of 519 (words changed, not just the alphabet) | All Arabic words right | Wrong alphabet lines | Same answer 3 of 3 | Runs | Sec / lesson | Cost |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| gemini-flash-v13-t1 | per line | **54** (85.7%) | 27 | 27 | 1 | 95 (words: 58) | 85.0% | 0 | 92.1% | 3 | 35 | $0.09 |
 | Flash V7 accent note | per line | **54** (85.7%) | 28 | 26 | 2 | 98 (words: 61) | 84.7% | 0 | 87.3% | 3 | 382 | $2.20 |
 | Flash V1 evidence (heard / inferred) | per line | **53** (84.1%) | 27 | 26 | 2 | 91 (words: 57) | 84.5% | 0 | 87.3% | 3 | 198 | $2.13 |
 | Flash V5 second guess | per line | **53** (84.1%) | 27 | 26 | 2 | 92 (words: 58) | 83.0% | 0 | 87.3% | 3 | 289 | $2.15 |
@@ -54,6 +55,7 @@
 | Flash V5 second guess | per line | 83.1 | 0.0 | 95.5 | 1.7 | 18 | 269 |
 | Flash V9 thinking high (224 lines, 2 runs) | per line | 83.6 | 0.5 | 95.0 | 1.2 | 18 | 242 |
 | Flash V12 guessing lines removed | per line | 83.1 | 0.0 | 95.8 | 2.0 | 17 | 264 |
+| gemini-flash-v13-t1 | per line | 83.3 | 0.2 | 95.8 | 2.0 | 17 | 261 |
 | Gemini 3.8 Flash + context, temperature 1 | per line | 83.3 | 0.2 | 95.8 | 2.0 | 17 | 264 |
 | Flash V3 two clips | per line | 83.3 | 0.2 | 95.8 | 2.0 | 17 | 262 |
 | Flash V6 Arabic span in long lines | per line | 83.3 | 0.2 | 95.8 | 2.0 | 17 | 264 |
@@ -107,6 +109,7 @@
 | ElevenLabs Scribe v2 (today's transcript) | line | 0/1 | 0/4 | 3/3 | 0/31 | 0/8 | 0/1 | 1/3 | 0/12 |
 | Deepgram nova-3 (multi) | line | 0/1 | 0/4 | 0/3 | 2/31 | 0/8 | 0/1 | 0/3 | 1/12 |
 | Deepgram nova-3 (multi) | whole | 0/1 | 0/4 | 0/3 | 2/31 | 0/8 | 0/1 | 0/3 | 1/12 |
+| gemini-flash-v13-t1 | line | 0/1 | 3/4 | 3/3 | 27/31 | 6/8 | 1/1 | 3/3 | 11/12 |
 | Flash V7 accent note | line | 0/1 | 3/4 | 3/3 | 26/31 | 7/8 | 1/1 | 3/3 | 11/12 |
 | Flash V1 evidence (heard / inferred) | line | 0/1 | 3/4 | 3/3 | 26/31 | 7/8 | 1/1 | 3/3 | 10/12 |
 | Flash V5 second guess | line | 0/1 | 3/4 | 3/3 | 26/31 | 7/8 | 1/1 | 3/3 | 10/12 |

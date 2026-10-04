@@ -1607,6 +1607,156 @@
 <li><strong>The scorer was not changed.</strong> The side columns the reviewers ask for (cut-off accepted, بده = بدو) are not built yet.</li>
 </ul>
 <p><img alt="cost" src="img/engine-vars-cost-2026-10-04.png" /></p>
+<h2 id="follow-up-the-same-day-three-near-free-steps-2026-10-04-medi-do-all-of-your-recommendations">Follow-up the same day: three near-free steps (2026-10-04, Medi: "do all of your recommendations")</h2>
+<p><strong>Re-cutting 16 edge-clipped lines hears one more moment (54 of 63, no moment lost); a word-by-word pile rule plus the two-clip check raises what would actually land in the transcript from 39 to 49 moments.</strong></p>
+<h3 id="1-side-scoring-columns-no-call-the-headline-scorer-is-unchanged">1. Side scoring columns (no call; the headline scorer is unchanged)</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Recipe</th>
+<th>Strict (headline)</th>
+<th>+ cut-off accepted</th>
+<th>+ ـه = ـو ending</th>
+<th>+ both</th>
+<th>Right in at least 1 run</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Baseline</td>
+<td>53</td>
+<td>54</td>
+<td>54</td>
+<td>55</td>
+<td>56</td>
+</tr>
+<tr>
+<td>V8 word list</td>
+<td>53</td>
+<td>55</td>
+<td>54</td>
+<td>56</td>
+<td>55</td>
+</tr>
+<tr>
+<td>V7 accent note</td>
+<td>54</td>
+<td>55</td>
+<td>54</td>
+<td>55</td>
+<td>55</td>
+</tr>
+<tr>
+<td>V1 evidence</td>
+<td>53</td>
+<td>54</td>
+<td>54</td>
+<td>55</td>
+<td>57</td>
+</tr>
+<tr>
+<td>V12 guessing lines removed</td>
+<td>52</td>
+<td>53</td>
+<td>53</td>
+<td>54</td>
+<td>54</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Cut-off adds 23:45 (المصـ-- for المصاري); the ending adds 40:57 (بده for بدو). No recipe passes the baseline by more than one moment under any column.</li>
+<li>Scorer trap, reported and not patched: at 16:06 a faithful Arabic cut-off "تنتين و رو--" would score as a miss, while the same fragment finished in Latin letters ("rob3") would score as a hit. No saved run kept the fragment.</li>
+<li>File: <code>variables/side-columns.md</code> (33 engines). Code <code>scripts/bench_side.py</code>.</li>
+</ul>
+<h3 id="2-pile-rules-replayed-on-the-saved-runs-no-call-nothing-applied-to-the-lesson">2. Pile rules replayed on the saved runs (no call; nothing applied to the lesson)</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Proposed lines</th>
+<th>Held</th>
+<th>No agreement</th>
+<th>Corrections right in the delivered transcript (of 63)</th>
+<th>Slips hidden</th>
+<th>Untouched lines with a word changed (proposed)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Today: whole line, 2 of 3 agree</td>
+<td>131</td>
+<td>28</td>
+<td>25</td>
+<td>39</td>
+<td>2</td>
+<td>36</td>
+</tr>
+<tr>
+<td>(a) agree piece by piece</td>
+<td>146</td>
+<td>32</td>
+<td>6</td>
+<td>41</td>
+<td>2</td>
+<td>43</td>
+</tr>
+<tr>
+<td>(b) release held lines the two-clip check cleared</td>
+<td>153</td>
+<td>6</td>
+<td>25</td>
+<td>47</td>
+<td>2</td>
+<td>45</td>
+</tr>
+<tr>
+<td>(a) + (b)</td>
+<td>168</td>
+<td>10</td>
+<td>6</td>
+<td>49</td>
+<td>2</td>
+<td>52</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>The answer key only scores the result; the pile decision never sees it (a test asserts it).</li>
+<li>The price of the new rules is 16 more untouched lines with a word changed. The same two slips are hidden under every rule (08:22, 35:30) - both are on the four-moments page.</li>
+<li>File: <code>variables/piles.md</code>. Code <code>scripts/bench_piles.py</code>.</li>
+</ul>
+<h3 id="3-v13-edge-re-cut-48-gemini-calls-009-at-list-price-codex-audit-before-the-run-no-blocker">3. V13 edge re-cut (48 Gemini calls, $0.09 at list price; Codex audit before the run: no blocker)</h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Recipe</th>
+<th>Heard right (of 63)</th>
+<th>Slips hidden</th>
+<th>Untouched lines changed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Baseline</td>
+<td>53</td>
+<td>1</td>
+<td>59</td>
+</tr>
+<tr>
+<td>Baseline + 16 clips re-cut to the nearest silence</td>
+<td>54</td>
+<td>1</td>
+<td>58</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>16 lines were chosen by the audio alone (speech in the first or last 150 ms of the clip). 39:41 "e7na biddna" is now heard in 3 of 3 runs (was 1 of 3). No moment was lost.</li>
+<li>Side effect: on 3 of the 16 lines the longer clip pulls in the next sentence (48:56 now carries "did you say it was dwaaf?"). A real re-cut needs a guard for that.</li>
+<li>+1 is inside the noise of 2 as a total, but this one is a stable 3-of-3 flip on the one moment the change was aimed at.</li>
+<li>Still one lesson: confirm on the second corrected lesson.</li>
+</ul>
 <h2 id="where-everything-is">Where everything is</h2>
 <ul>
 <li>Results for the AI Reports page: <code>data/lesson-work/bench/2026-10-02/results.json</code> (every engine, every number, every moment's verdict in each run).</li>

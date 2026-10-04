@@ -126,6 +126,26 @@
    "prompts_sha256": "087f747eb997ad83446a05b75ed2cea33c2b48f512f509dcdd6e43bb32f1f521",
    "spec_sha256": "4236e977a47620f3de7a120766939d41d2d91364942db48ab7b5c2d9a6168e17",
    "frozen": "2026-10-03T21:27:02"
+  },
+  "v13": {
+   "name": "edge re-cut: clips that start or end on speech, cut out to the nearest silence",
+   "kind": "subset",
+   "engine": "gemini-flash-v13-t1",
+   "lines": 16,
+   "prompts_sha256": "7c27ef044ea3ff8657ba8111e05c2960b982ca8a8435b1eb9d74aca8189e5951",
+   "rule": {
+    "edge_ms": 150,
+    "frame_ms": 50,
+    "speech_pct": 95,
+    "edge_within_db": 20.0,
+    "silence_below_db": 30.0,
+    "min_silence_s": 0.2,
+    "max_extend_s": 2.0
+   },
+   "chosen_by": "audio alone (bench_vars.edge_lines): no text, no answer key",
+   "track_wav_sha256": "2d734aa9613243a026ad76a364f1a65937f29d273e0d05e773255d6d7754cc02",
+   "source_track_sha256": "65d6c7dfd03bff060172b8a4d91d3b1c5c862b45d92429f263621c5239cde735",
+   "frozen": "2026-10-03T22:19:49"
   }
  }
 }
