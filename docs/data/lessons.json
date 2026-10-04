@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T23:18:51-07:00",
+ "updated": "2026-10-03T23:32:17-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -52,7 +52,7 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 67,
+    "unique": 68,
     "right": 70,
     "wrong": 19,
     "partial": 7,
@@ -61,7 +61,7 @@
     "audit_wrong": 14,
     "audit_partial": 6,
     "not_on_sheet": 5,
-    "unique_rows": 67,
+    "unique_rows": 68,
     "eligible": 96,
     "excluded": 0,
     "pending": 0,
@@ -272,7 +272,7 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 23,
+    "unique": 22,
     "right": 13,
     "wrong": 5,
     "partial": 6,
@@ -281,7 +281,7 @@
     "audit_wrong": 5,
     "audit_partial": 6,
     "not_on_sheet": 3,
-    "unique_rows": 23,
+    "unique_rows": 22,
     "eligible": 24,
     "excluded": 0,
     "pending": 0,
@@ -894,9 +894,63 @@
      "latin": "Ana baz3ej / Ana banze3ej",
      "arabic": "أنا بزعج / أنا بنزعج",
      "review": true
+    },
+    {
+     "latin": "Ana babse6 / Ana banbese6",
+     "arabic": "أنا ببسط / أنا بنبسط",
+     "review": true
     }
    ],
-   "taught_words": [],
+   "taught_words": [
+    {
+     "latin": null,
+     "arabic": "كهربا",
+     "english": "electricity",
+     "t": "08:51",
+     "note": "Medi forgot it: 08:46 'What was electricity?'"
+    },
+    {
+     "latin": null,
+     "arabic": "كهربجي",
+     "english": "electrician",
+     "t": "09:10",
+     "note": "Medi said مهندس كهربا; Amal: 'some people say كهربجي. It's easier'; 09:39 Medi: 'This is a new word'"
+    },
+    {
+     "latin": null,
+     "arabic": "ولا مرة",
+     "english": "not once / never",
+     "t": "52:23",
+     "note": "given as an alternative to أبداً ما"
+    },
+    {
+     "latin": null,
+     "arabic": "أفعال",
+     "english": "verbs (plural of فعل)",
+     "t": "54:51",
+     "note": "Medi said الفعلات"
+    },
+    {
+     "latin": null,
+     "arabic": "بسخن",
+     "english": "I heat up (food)",
+     "t": "59:20",
+     "note": "Medi asked how to say heat up food; 'من سخن not شوب'"
+    },
+    {
+     "latin": null,
+     "arabic": "شوّب",
+     "english": "to get hot (weather only)",
+     "t": "59:30"
+    },
+    {
+     "latin": null,
+     "arabic": "بكفي",
+     "english": "enough",
+     "t": "1:01:39",
+     "note": "'بكفي means enough'"
+    }
+   ],
    "coverage": "Whole file read in order. Long English-only stretches (meta talk about the recorder 03:40-05:52; verb-pair explanation 17:06-18:06; usage discussion 46:08-48:13; causative-verb wrap-up 57:27-1:02:40). Latin transliteration on Medi's lines at 06:38-06:47 (date), 07:08-07:20 (clock), 19:39 (means ajik), 30:49 (albo), 48:20-48:31. ASR-garbled Amal fixes: 12:13 'بدائية' (read as وردية), 13:42 'فعلاً' (read as فعلين), 38:33 'أشياءي نوع الإل' (unreadable; Medi says he did not say ال - no row), 45:57 'بتنكسر'. Not written (S4/S5/self-fix): 03:11 جهزت->وجهّزت (shadda F3, twice), 05:58 الأربعاء->الخميس self-fix, 06:40 date order self-fix before her عشرة تسعة, 07:46 قربان for خربان (ق/خ), 15:02 أزعشتك (ش/ج), 20:57 متأكتي, 29:46 سكرتي self-fix, 33:41 سهوني (ص/س), 34:14 يسكر->اكسر self-fix (her 'K before S' = letter order), 35:17 كنا self-fix, 42:53-43:16 انكسرت letter-order fix, 52:52 اشي->إشي vowel, 44:18 اثنعش accepted as ممتاز. 'air conditioning' is used in English by both (07:39, 12:53, 48:29, 53:14) and is not on her sheet, so not tier 3. 09:13 'مهندس كهربجي' (redundant pairing) got an explanation, not a fix - no row. Medi turns counted = Medi lines containing Arabic script (366 of 615 Medi lines). / Whole file read in order. Left out as S4 pronunciation: وجهّزت shadda 03:13, صلاحتو→صلحته 08:11 (vowel length), قربان for خربان 07:46, أزعشتك 15:02, سكرتي/سهوني/يسكر letter-order slips 29:46/33:41/34:14 ('The K is before the S'), إن كسر→انكسر spacing 49:31, إيدها انكسرت letter order 43:10, ولا اشي→إشي vowel 52:52, بعيم for بقيم 27:05, بفزت for ببسّط 56:04, تباين for تبعي 48:31. Three letter-order slips that produced real other words (زعمت, بخسر, تعبي) ARE written as low-confidence vocab rows because Amal treated them as words and Medi asked (04:05) that such fixes be marked. Latin-transliterated stretch 06:38-07:20 (date and clock). Garbled/unreadable Medi lines not judged: 19:36-19:39 (مين أزعجك), 19:54 أشيك تير, 24:50 بتدايك, 30:02-30:21 (we broke your windows), 38:33 Amal 'أشياءي نوع الإل' (unclear, he says he did not say el-), 42:05-42:15 (hand), 54:24 إمّني, 55:05 أبن كتير, 55:30 بفيت, 55:33 Amal 'أنا واعي'. English-only stretches: 03:40-05:51 (recording rules), 17:06-18:06, 46:08-48:13, 57:37-1:01:49 (causative verbs). Drill slips during conjugation runs (45:24 بينكسري, 45:34) and self-fixes (13:37, 29:46, 34:20, 05:58) not written. Amal used English 'air conditioning' herself (48:29) and مكيف is not on her sheet, so his 'air conditioning' is not tier 3; YouTube, bones not on sheet.",
    "notes": [
     "timings: no word timings from the engine: talking time measured from each person's own recording (silence detection), the line's words spread over it",
@@ -931,9 +985,9 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 readers agree on 61.8 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 readers agree on 53.8 % of rows (>= 95 % needed)",
      "reader agreement: pass 2 readers agree on 66.2 % of rows (>= 95 % needed)",
-     "reader agreement: pass 1 vs pass 2 settled rows agree on 77.9 % (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 54.5 % (>= 95 % needed)",
      "coverage: line times estimated from each person's recording by silence detection (no engine word timings)",
      "speech recognition not reviewed: nobody listened; 21 excerpts (519 s of 3762 s) compared with a second model",
      "checks: 3 scored rows need an audio or human check (0 words, 3 grammar)"
@@ -943,11 +997,11 @@
      "passes": [
       {
        "pass": 1,
-       "r1": 62,
-       "r2": 55,
-       "agreed": 42,
-       "disputed": 26,
-       "agreement_pct": 61.8
+       "r1": 40,
+       "r2": 48,
+       "agreed": 28,
+       "disputed": 24,
+       "agreement_pct": 53.8
       },
       {
        "pass": 2,
@@ -964,7 +1018,7 @@
         1,
         2
        ],
-       "agreement_pct": 77.9
+       "agreement_pct": 54.5
       }
      ],
      "threshold_pct": 95.0
@@ -1567,7 +1621,62 @@
      "review": true
     }
    ],
-   "taught_words": [],
+   "taught_words": [
+    {
+     "latin": "bey2aat3uni",
+     "arabic": "بيقاطعوني",
+     "english": "they interrupt me",
+     "t": "04:12"
+    },
+    {
+     "latin": "lalmawsem",
+     "arabic": "موسم",
+     "english": "season (sports season)",
+     "t": "04:59"
+    },
+    {
+     "latin": "laa3ebeen",
+     "arabic": "لاعبين",
+     "english": "players",
+     "t": "07:00"
+    },
+    {
+     "latin": "feraqna",
+     "arabic": "فريق / فرق",
+     "english": "team / teams (feraqna = our teams)",
+     "t": "07:27"
+    },
+    {
+     "latin": "el-asmaa2",
+     "arabic": "أسماء",
+     "english": "nouns / names (plural of اسم)",
+     "t": "08:19"
+    },
+    {
+     "latin": null,
+     "arabic": "شوب",
+     "english": "hot (weather)",
+     "t": "24:21"
+    },
+    {
+     "latin": null,
+     "arabic": "ناشف",
+     "english": "dry (الجو ناشف = the weather is dry)",
+     "t": "24:49"
+    },
+    {
+     "latin": "el-kul",
+     "arabic": "الكل",
+     "english": "everyone",
+     "t": "36:19"
+    },
+    {
+     "latin": "bimashaweerek",
+     "arabic": "مشاوير",
+     "english": "outings / errands (plural of مشوار)",
+     "t": "55:08"
+    }
+   ],
    "coverage": "Whole file read. Two long Latin-transliterated stretches: homework sentences ~12:00-24:00 and N-verb drill ~36:50-54:40 (his Arabic is in ad-hoc Latin there; `wrong` copied as printed). Engine garbles: Amal 03:09 'اشتريت. ما فتاك' is her اخترت/no-alef fix; Amal 04:12 'بيعطوني' = bey2aat3uni per chat; 28:22 'أزعجني' = زعجني. Left out as S4 pronunciation (she did react to some): 28:18 زاجني/28:38 زاجتها (dropped ع), 30:06 تنزلي, 19:03 nitlab, 16:10 Wahta, 04:33 أطلستي, 20:42 inkisar→انكسر ('no internal flipping'), 26:43 بساط→بسّط, 59:26 نبسطه→نبسّته (shadda), 53:16 enbasena→enbasa6na (she said 'you missed a letter' - root ط, S4). Left out as self-fixes: 11:27 هون→هلق (she then said هلا), 13:53 tistamel→tistameli, 42:16 aju→ajitu, 36:53 bezaj→bienzaj. Not on her sheet so not tier 3: football, fantasy football, players, team (the last two filed as didn't-know tier 0). Amal chat lines at 09:48, 13:32, 15:41, 19:40, 21:24, 23:18, 23:39, 24:13, 24:48 lag 60-120 s and were matched to the voice turns above. Amal dropped from the Meet ~27:40-28:10. / Whole lesson read. Latin-transliterated stretches: ~12:00-24:00 and ~36:30-54:40 (Medi and some Amal lines in Latin). Amal's spoken echoes are sometimes garbled by the engine (03:09 'اشتريت' = اخترت; 04:12 'بيعطوني' = بيقاطعوني; 28:22 'أزعجني' = زعجني; 50:33 'تنبسطي' = بتنبسطي); chat lines used to confirm. Dropped-out stretch 43:57-45:38 (Medi away from mic). S4 pronunciation left out: 04:33 أطلستي (عطلتي), 05:17 هدرت (حضرت), 06:34 ما (مع), 12:59 mazuruj, 16:10 Wahta, 19:03 nitlab (نلعب), 19:09 mabad (مع بعض), 28:20 زاجني / 28:38 زاجتها (dropped ع), 30:10 تنزلي (تنزعجي), 1:02:34 علي فيك (الله يعافيك). Self-fixes not written: 12:19 eskir→kasar, 30:06 تنزلش→تنزلي, 37:52 bienzaj→bienzaju, 42:16 aju→ajitu, 42:55 انبسطتي→انبسطت. English 'football' (04:45), 'fantasy football' (05:55) not on her sheet so no tier-3 rows.",
    "notes": [
     "grammar: 3 of the 42 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
@@ -1601,9 +1710,9 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 readers agree on 69.7 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 readers agree on 72.2 % of rows (>= 95 % needed)",
      "reader agreement: pass 2 readers agree on 61.9 % of rows (>= 95 % needed)",
-     "reader agreement: pass 1 vs pass 2 settled rows agree on 77.3 % (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 71.2 % (>= 95 % needed)",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3768 s) compared with a second model"
     ],
     "agreement": {
@@ -1611,11 +1720,11 @@
      "passes": [
       {
        "pass": 1,
-       "r1": 55,
-       "r2": 62,
-       "agreed": 46,
-       "disputed": 20,
-       "agreement_pct": 69.7
+       "r1": 49,
+       "r2": 47,
+       "agreed": 39,
+       "disputed": 15,
+       "agreement_pct": 72.2
       },
       {
        "pass": 2,
@@ -1632,7 +1741,7 @@
         1,
         2
        ],
-       "agreement_pct": 77.3
+       "agreement_pct": 71.2
       }
      ],
      "threshold_pct": 95.0
@@ -1808,7 +1917,111 @@
      "review": true
     }
    ],
-   "taught_words": [],
+   "taught_words": [
+    {
+     "latin": null,
+     "arabic": "مطفي",
+     "english": "switched off / out of it (of a person)",
+     "t": "02:19",
+     "note": "Medi asks at 02:12 if it works for people; she explains"
+    },
+    {
+     "latin": null,
+     "arabic": "مفروم",
+     "english": "ground (meat)",
+     "t": "04:11",
+     "note": "Medi: 'What was ground?'"
+    },
+    {
+     "latin": null,
+     "arabic": "روّح",
+     "english": "went home / left (to go back home)",
+     "t": "06:55",
+     "note": "Medi said راح; she gives روّح and explains بروح at 07:26-07:34"
+    },
+    {
+     "latin": "bafaddel",
+     "arabic": "بفضّل",
+     "english": "I prefer",
+     "t": "09:50",
+     "note": "Medi did not recognise بتفضل (08:51); typed 'bafaddel = I prefer'"
+    },
+    {
+     "latin": "ashyaa2",
+     "arabic": "أشياء",
+     "english": "things (plural of إشي)",
+     "t": "16:26"
+    },
+    {
+     "latin": "snaan",
+     "arabic": "سنان",
+     "english": "teeth",
+     "t": "18:20",
+     "note": "Medi said سنين (years); typed 'a8lab snaanha enkasaru' 19:47"
+    },
+    {
+     "latin": "kasaat",
+     "arabic": "كاسات",
+     "english": "cups",
+     "t": "20:21",
+     "note": "Medi asks the plural of كاسة; she says it at 20:54, typed 21:54"
+    },
+    {
+     "latin": "2aatalu ba3ad",
+     "arabic": "قاتلوا بعض",
+     "english": "they fought each other",
+     "t": "27:12",
+     "note": "Medi said عطلوا; typed 29:41"
+    },
+    {
+     "latin": "raas el-taani",
+     "arabic": "راس التاني",
+     "english": "the other one's head",
+     "t": "28:22",
+     "note": "Medi: 'Do I know how to say other?'"
+    },
+    {
+     "latin": "maw3ed",
+     "arabic": "موعد",
+     "english": "appointment / time of something",
+     "t": "34:09",
+     "note": "said 32:28; new sense 'time of something'"
+    },
+    {
+     "latin": "5u66atna",
+     "arabic": "خططنا",
+     "english": "our plans",
+     "t": "43:57",
+     "note": "Medi said بوتنا at 41:58"
+    },
+    {
+     "latin": null,
+     "arabic": "حاسس",
+     "english": "feeling (right now, progressive)",
+     "t": "56:33",
+     "note": "شو حاسس vs شو بتحس"
+    },
+    {
+     "latin": "el-asmaa2",
+     "arabic": "الأسماء",
+     "english": "names",
+     "t": "1:03:03",
+     "note": "Medi asks 'Asayam?' 1:02:41; typed 1:06:36"
+    },
+    {
+     "latin": null,
+     "arabic": "كل شي",
+     "english": "everything",
+     "t": "1:05:41",
+     "note": "Medi tried الكل"
+    },
+    {
+     "latin": null,
+     "arabic": "عليك",
+     "english": "it's on you (you have to)",
+     "t": "1:05:47"
+    }
+   ],
    "coverage": "Large Latin-transliterated stretches with wobbly spelling: 06:05-13:00, 18:14-24:25, 48:51-1:07:03 (Medi's Arabic written as e.g. qasar/Zakarini); Arabic-script Medi lines often show S4 slips (عطلوا for قاتلوا, بتدري for بتقدري, شهر for شعر at 44:12, كسا for كسر at 27:52) - all left out as pronunciation. Unclear Medi fragments not scored: 01:58 'شو كما ما مرا', 04:42 'آه هلا قلبك', 10:48 'haketni bare', 1:00:10 'Zakarsaf', 58:00 'maqtarakhar'. 41:58 'بوتنا' for خططنا is probably a transcription of 5u66atna (Amal said Perfect; chat 5u66atna). 47:37 'تصوري' vs chat tetsawwari - Amal said ممتاز so not filed. 1:00:18 zakaratni for 'she remembered me' - Amal accepted with optional et-, not filed. English-only meta stretches 07:00-07:50, 21:18-23:58 (fi / word-order discussion, no error), 1:03:30-1:05:00 (Farsi/shukr chat). ~311 Medi Arabic turns = 176 Arabic-script lines + ~135 Latin-transliterated lines. / Whole file read in order. Latin-transliterated stretches (transcriber Latin, q for k): 06:05-13:00 partial, 18:14-24:11, 48:51-56:04, 57:52-1:05:45. Not filed (S4 pronunciation): ما تفي for مطفي (02:04), عطلوا for قاتلوا (26:47, dropped ق), كسا for كسر (27:52/28:13), اقرب for أغلب (17:38), شهر for شعر (44:12, she did call it out as 'month'), maqsudin for maksooreen (19:12), هلات إلى 12 for talaat illa tult (05:05, chat has it), بوتنا for 5u66atna (41:58), Asmaa vowel length (1:03:08). Self-fixes not filed: الأمبارح->امبارح (05:52/06:01), كان في محل->كنت (03:17), 'خروف is pig'->lamb (04:00, English meta), كسروا->انكسروا (14:57/15:06), اكسرو->ما تكسرو (17:13), meeting->ijtema (24:11), شعرها->شعرك (44:12/44:18), sawarti->sawarit (55:46). Not errors: asawi (08:27) and بوتك (38:27) are on her sheet (Sawwi / Boat). Unclear garbles left out: يومي امني (01:17), بتيت (01:24, she said 'it doesn't go' but the word is unrecoverable), شو كما ما مرا (01:58), آه هلا قلبك (04:42), haketni bare (10:48), kamamana (52:30/54:23). Ambiguous: 16:18 بتكسري vs her تكسري (chat has btekser) not filed. Speaker labels looked consistent; chat lines lag 30-120 s as expected.",
    "notes": [
     "grammar: 5 of the 46 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
@@ -1842,9 +2055,9 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 readers agree on 57.9 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 readers agree on 68.0 % of rows (>= 95 % needed)",
      "reader agreement: pass 2 readers agree on 54.8 % of rows (>= 95 % needed)",
-     "reader agreement: pass 1 vs pass 2 settled rows agree on 76.7 % (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 78.9 % (>= 95 % needed)",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4026 s) compared with a second model"
     ],
     "agreement": {
@@ -1852,11 +2065,11 @@
      "passes": [
       {
        "pass": 1,
-       "r1": 51,
-       "r2": 47,
-       "agreed": 33,
-       "disputed": 24,
-       "agreement_pct": 57.9
+       "r1": 46,
+       "r2": 42,
+       "agreed": 34,
+       "disputed": 16,
+       "agreement_pct": 68.0
       },
       {
        "pass": 2,
@@ -1873,7 +2086,7 @@
         1,
         2
        ],
-       "agreement_pct": 76.7
+       "agreement_pct": 78.9
       }
      ],
      "threshold_pct": 95.0
@@ -2181,9 +2394,9 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 readers agree on 58.8 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 readers agree on 58.7 % of rows (>= 95 % needed)",
      "reader agreement: pass 2 readers agree on 63.3 % of rows (>= 95 % needed)",
-     "reader agreement: pass 1 vs pass 2 settled rows agree on 74.5 % (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 67.9 % (>= 95 % needed)",
      "coverage: 33 stretches of Medi's speech written as '[speaking ...]' markers (08:48 in all)",
      "coverage: speaker labels agree with an independent check on only 78.1 % of 795 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4182 s) compared with a second model",
@@ -2194,11 +2407,11 @@
      "passes": [
       {
        "pass": 1,
-       "r1": 46,
-       "r2": 37,
-       "agreed": 30,
-       "disputed": 21,
-       "agreement_pct": 58.8
+       "r1": 41,
+       "r2": 36,
+       "agreed": 27,
+       "disputed": 19,
+       "agreement_pct": 58.7
       },
       {
        "pass": 2,
@@ -2215,7 +2428,7 @@
         1,
         2
        ],
-       "agreement_pct": 74.5
+       "agreement_pct": 67.9
       }
      ],
      "threshold_pct": 95.0
@@ -2947,14 +3160,14 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 105,
-    "mistakes": 44,
-    "pct": 62.9,
+    "uses": 104,
+    "mistakes": 43,
+    "pct": 63.5,
     "estimate": false,
-    "scored_mistakes": 39,
+    "scored_mistakes": 38,
     "unscored_mistakes": 5,
     "eligible": 41,
-    "excluded": 3,
+    "excluded": 2,
     "pending": 0,
     "denominator": {
      "valid": false,
@@ -2963,8 +3176,8 @@
       "10 rules have more slips than counted uses (B1, B11, B12, B18, B3, B5, B8, C4b)"
      ],
      "uses": 66,
-     "slips": 44,
-     "slips_latin": 39,
+     "slips": 43,
+     "slips_latin": 38,
      "slips_in_zero_use_rules": 34,
      "rules_slips_over_uses": [
       "B1",
@@ -3062,11 +3275,68 @@
      "review": true
     }
    ],
-   "taught_words": [],
+   "taught_words": [
+    {
+     "latin": "mafroome",
+     "arabic": "مفرومة",
+     "english": "minced (meat)",
+     "t": "02:45",
+     "note": "Medi stuck at 02:38 ('I'm never gonna remember'), tried معروف; she says مفرومة, types it at 03:12"
+    },
+    {
+     "latin": null,
+     "arabic": "ممل",
+     "english": "boring",
+     "t": "16:41",
+     "note": "'We have mumil, but we chose not to learn it before'"
+    },
+    {
+     "latin": "5aayef",
+     "arabic": "خايف",
+     "english": "scared (adjective)",
+     "t": "17:35",
+     "note": "Medi tried 'bakun khaf' at 16:22; she says 'Ana khayef' at 16:23, types 'ana 5aayef' at 17:35"
+    },
+    {
+     "latin": "mut3eb",
+     "arabic": "متعب",
+     "english": "tiring",
+     "t": "24:50",
+     "note": "Medi 21:57 'I don't know the tiring'; she types mut3eb 24:50 and 'el-shu8ul mut3eb' 25:03 (she says 'we also know motab' at 17:01)"
+    },
+    {
+     "latin": "willa lissa / aw lissa",
+     "arabic": "ولا لسّا / أو لسّا",
+     "english": "or not yet",
+     "t": "33:04",
+     "note": "typed 't3ebtu willa/aw lissa?' at 35:47"
+    },
+    {
+     "latin": "ma ilo nehaaye",
+     "arabic": "ما إلو نهاية",
+     "english": "endless (nehaaye = end)",
+     "t": "44:53",
+     "note": "said 42:26, Medi 42:31 'I don't know that'; typed 'ma ilo nehaaye = endless' at 44:53"
+    },
+    {
+     "latin": null,
+     "arabic": "ارجع أعطيني الجملة",
+     "english": "say the sentence again",
+     "t": "44:50",
+     "note": "Medi did not understand her 'shu kul al jumla' (44:42); she explains 'Arja a'tiki al jumla... Meaning say it again' (45:03)"
+    },
+    {
+     "latin": null,
+     "arabic": "منشوف",
+     "english": "we'll see",
+     "t": "1:02:53",
+     "note": "'Min shuf. We'll see is what?'"
+    }
+   ],
    "coverage": "Lines 1-90 are Arabic script; from ~05:00 the transcript is Latin transliteration. 19:20-31:30 has many Medi/Amal Arabic words dropped entirely (blank gaps: 'So can, can', 'Is it or-', 'be as'), so the flight/meetings/parents/'I made him smile' drills could not be checked and rows 20-21 are low confidence. Speaker labels look right; a few Amal echo lines (15:49 'Leesh zehekti', 46:19 'Saw') may be flattened. Not written as errors: pronunciation/vowel repeats (01:52 أتمارنت, 04:27 أزرق, 09:13 kuffet->khuffet, 46:13 sawa->sawwa, 53:44 and 58:42 double-T commands), factual time fixes at 03:41-04:11 (2 o'clock, 26 min), his own self-fix 03:02 مختلفة, listening comprehension 56:07 him/her, and his unfinished 1:00:54 'il film mbare' which she completed in chat at 1:04:26. medi_turns counts every Medi line with an Arabic attempt (script or Latin), excluding pure filler. / Arabic script only for 00:13-04:53; from 05:00 to the end the engine wrote Latin transliteration, and between roughly 19:30 and 31:30 it dropped many of Medi's and Amal's Arabic words entirely (lines like 'So is it ?', 'Is [ ] I am tired'), so several fixes there (show made me laugh, work made me tired, he's funny, he makes me bored, I made him smile, meetings make me bored, my parents made me upset, the flight made me tired) can only be inferred from Amal's English prompts and her later chat lines; those rows are marked low. Speaker labels looked right throughout. Not filed: clock corrections at 03:41 (tlaat -> tentain) and 04:02 (minutes -> sitte u 3eshreen) are fact fixes, not language; pronunciation-only fixes skipped per S4 (02:17 atmaarant -> atmarrant vowel length, 09:13 kuffet -> khuffet, 46:13 sawa vowel length, 53:59/58:57 double-T simplification ma etta3ebhom / ma tta3bina, 04:31 azra2 repeat). Medi's own free sentence at 1:00:54 'il film mbare' was abandoned and only completed in chat (el-filem mbaare7 da77akni). 31:24 'I made them scared / khawafatum' for her prompt 'him' was accepted by Amal and her chat also has -hom, so not filed.",
    "notes": [
     "timings: speakers estimated by voice pitch on one mixed recording (as on the lesson page)",
-    "grammar: 5 of the 44 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "grammar: 5 of the 43 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
     "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 01:25 one slip was counted twice (word + grammar): counted once, as grammar."
    ],
    "page": "lessons/2026-09-18.html",
@@ -3082,12 +3352,12 @@
     "chat_lines": 66,
     "vocab_errors": 11,
     "vocab_correct": 2,
-    "grammar_errors": 44,
+    "grammar_errors": 43,
     "grammar_not_counted": 3
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-18.json",
-    "marks": 127,
+    "marks": 126,
     "conflicts": 1,
     "resolved": 1,
     "needs_medi": 0,
@@ -3097,9 +3367,9 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 readers agree on 58.7 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 readers agree on 67.6 % of rows (>= 95 % needed)",
      "reader agreement: pass 2 readers agree on 70.5 % of rows (>= 95 % needed)",
-     "reader agreement: pass 1 vs pass 2 settled rows agree on 80.0 % (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 67.4 % (>= 95 % needed)",
      "coverage: speakers guessed by voice pitch on one mixed recording",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model"
     ],
@@ -3108,11 +3378,11 @@
      "passes": [
       {
        "pass": 1,
-       "r1": 37,
-       "r2": 42,
-       "agreed": 27,
-       "disputed": 19,
-       "agreement_pct": 58.7
+       "r1": 35,
+       "r2": 31,
+       "agreed": 25,
+       "disputed": 12,
+       "agreement_pct": 67.6
       },
       {
        "pass": 2,
@@ -3129,7 +3399,7 @@
         1,
         2
        ],
-       "agreement_pct": 80.0
+       "agreement_pct": 67.4
       }
      ],
      "threshold_pct": 95.0
@@ -3270,8 +3540,115 @@
     "arabic_words": 80
    },
    "new_words": [],
-   "taught": [],
-   "taught_words": [],
+   "taught": [
+    {
+     "latin": "Ana basawwer / Ana batsawwar",
+     "arabic": "أنا بصوّر / أنا بتصوّر",
+     "review": true
+    },
+    {
+     "latin": "Ana ba5aaf / Ana ba5awwef",
+     "arabic": "أنا بخاف / أنا بخوّف",
+     "review": true
+    },
+    {
+     "latin": "Ana bat3ab / Ana bata33eb",
+     "arabic": "أنا بتعب / أنا بتعّب",
+     "review": true
+    },
+    {
+     "latin": "Ana bazha2 / Ana bazahhe2",
+     "arabic": "أنا بزهق / أنا بزهّق",
+     "review": true
+    },
+    {
+     "latin": "Ana ba5rab / Ana ba5arreb",
+     "arabic": "أنا بخرب / أنا بخرّب",
+     "review": true
+    },
+    {
+     "latin": "Ana bakser / Ana bankeser",
+     "arabic": "أنا بكسر / أنا بنكسر",
+     "review": true
+    },
+    {
+     "latin": "Ana baz3al / Ana baza33el",
+     "arabic": "أنا بزعل / أنا بزعّل",
+     "review": true
+    },
+    {
+     "latin": "Ana bad7ak / Ana bada77ek",
+     "arabic": "أنا بضحك / أنا بضحّك",
+     "review": true
+    },
+    {
+     "latin": "Ana baz3ej / Ana banze3ej",
+     "arabic": "أنا بزعج / أنا بنزعج",
+     "review": true
+    },
+    {
+     "latin": "Ana ba3asseb",
+     "arabic": "أنا بعصّب",
+     "review": true
+    },
+    {
+     "latin": "Ana babse6 / Ana banbese6",
+     "arabic": "أنا ببسط / أنا بنبسط",
+     "review": true
+    },
+    {
+     "latin": "Ana badaaye2 / Ana batdaaya2",
+     "arabic": "أنا بضايق / أنا بتضايق",
+     "review": true
+    },
+    {
+     "latin": "Ana ba7ammes / Ana bat7ammas",
+     "arabic": "أنا بحمّس / أنا بتحمّس",
+     "review": true
+    },
+    {
+     "latin": "Ana bat2assaf (la / min)",
+     "arabic": "أنا بتأسف (لـ / من)",
+     "review": true
+    }
+   ],
+   "taught_words": [
+    {
+     "latin": null,
+     "arabic": "بلاد",
+     "english": "countries (another way to say it)",
+     "t": "02:18",
+     "note": "from the song; Medi asks 'Does balad mean like bilad?' (02:29)"
+    },
+    {
+     "latin": null,
+     "arabic": "قبل امبارح",
+     "english": "the day before yesterday (also أول امبارح)",
+     "t": "09:00",
+     "note": "Medi stuck on 'أب الامبارح' (08:54)"
+    },
+    {
+     "latin": null,
+     "arabic": "ريحة",
+     "english": "smell",
+     "t": "09:37",
+     "note": "Medi asks 'شو يعني ريحة؟' (09:36)"
+    },
+    {
+     "latin": "8aame2",
+     "arabic": "غامق",
+     "english": "dark (colour)",
+     "t": "10:28",
+     "note": "Medi stuck at 'أزرق، كمي'; typed 10:49"
+    },
+    {
+     "latin": null,
+     "arabic": "زهقان",
+     "english": "bored (adjective)",
+     "t": "45:00",
+     "note": "Medi stuck on 'bored' as an adjective (44:50 'zar-zarha, zar'a?')"
+    }
+   ],
    "coverage": "First ~6.5 min is English chat about a song; her Arabic there is redacted as [foreign language] so the balad/bilad and 'sakit/yard' questions cannot be quoted in Arabic. Speaking Arabic is limited to 06:26-10:40 (date, time, weather, clothes) plus a few Arabic productions inside the drill (38:13 ma tahammasi, 41:10 inti kharabti il safra - correct, 44:46 bored->زهقان, 1:00:47 ahsan katir iliyom - correct). From 11:13 to 1:00:35 the lesson is a listening drill: Amal says a verb sentence, he translates to English; misreads are logged with mode=listening (rows 14-36); correctly translated sentences are not logged. Pronunciation-only slips left out per S4: خندرة for كندرة (10:31, chat kundara), بيكميس for قميص (10:08), Shufik for أشوفك (1:02:02), Kamara/Tawamara for 'كمان مرة'. Some Medi Arabic in the drill is Latin-transliterated by the engine (Bisar, Ma bistah, Min daya ik, Basat, Imbasat). Amal's 'بيضة' at 10:02 is likely a mis-transcribed بيضا. Trailing CHAT lines 1:02:22-1:04:26 are transcriptions of drill sentences, not fixes. medi_turns = 37 Medi turns with Arabic script + 12 Arabizi/Latin Arabic turns; ~55 further Medi turns are English translations in the listening drill. / 00:00-06:26 is English chat about a song; Amal's Arabic there is redacted as [foreign language], so the 03:22-03:57 words (loaf, yard) cannot be recovered - only two asked-rows written from his Latin (balad/bilad, Sakit). 06:26-10:49 is the only speaking stretch (date, time, weather, clothes). 11:13-1:00:35 is a listening drill: Amal says a sentence, Medi gives the English - so most rows are mode=listening and 'wrong' is his English reading. His Arabic in the drill is Latin and often garbled by the engine: Kamara / Kamamara / Tawamara = kaman marra / tani marra ('again', not errors); Bisar, bizat, Ma bistah, Bin hafi bin, Namaste, Basatu shu, Mao, ume mit as, Ume safulu, 'My choose Aloo' are garbled echoes of her line and were skipped. [07:26] 'ألفين تنين وتلات' is probably the engine's rendering of tentain u tult (she said صح) - two low/medium rows written from her chat spelling. خندرة (10:31) for كندرة and بيكميس (10:08) for قميص treated as S4/transcription, not vocab. [35:10] is stray background speech (library). [58:36] 'the gatherings' for بالعزومة not written: her sheet glosses عزومة as 'house gathering / invitation'. Chat lines lag 30-120 s; used as fixes only where they differ from what he said.",
    "notes": [
     "1 word card(s) dropped after the 2026-09-27 hand check (he said it right, it was not his slip, or it repeats a slip already counted): 07:10 تسعطاش (tese3ta3sh)."
@@ -3304,9 +3681,9 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 readers agree on 58.3 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 readers agree on 35.5 % of rows (>= 95 % needed)",
      "reader agreement: pass 2 readers agree on 70.0 % of rows (>= 95 % needed)",
-     "reader agreement: pass 1 vs pass 2 settled rows agree on 76.9 % (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 55.1 % (>= 95 % needed)",
      "coverage: 4 stretches of Medi's speech written as '[speaking ...]' markers (00:19 in all)",
      "coverage: 10 stretches of Amal's speech written as '[speaking ...]' markers (01:08 in all)",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3726 s) compared with a second model"
@@ -3316,11 +3693,11 @@
      "passes": [
       {
        "pass": 1,
-       "r1": 36,
-       "r2": 48,
-       "agreed": 28,
+       "r1": 24,
+       "r2": 29,
+       "agreed": 11,
        "disputed": 20,
-       "agreement_pct": 58.3
+       "agreement_pct": 35.5
       },
       {
        "pass": 2,
@@ -3337,7 +3714,7 @@
         1,
         2
        ],
-       "agreement_pct": 76.9
+       "agreement_pct": 55.1
       }
      ],
      "threshold_pct": 95.0
@@ -3473,7 +3850,7 @@
     "unique_rows": 109,
     "eligible": 204,
     "excluded": 2,
-    "pending": 1,
+    "pending": 0,
     "eligible_pct": 84.1,
     "excluded_why": {
      "rejected on a human check by Amal": 2
@@ -3568,7 +3945,219 @@
    },
    "new_words": [],
    "taught": [],
-   "taught_words": [],
+   "taught_words": [
+    {
+     "latin": "mad8oot",
+     "arabic": "مضغوط",
+     "english": "stressed / under pressure",
+     "t": "02:25",
+     "note": "Medi 'ما بتذكر' (02:23); typed 'mad8oot = stressed' 02:26"
+    },
+    {
+     "latin": null,
+     "arabic": "كليًا",
+     "english": "completely",
+     "t": "03:35",
+     "note": "Medi asks 'can you say كامل نسيتو?'"
+    },
+    {
+     "latin": "5areef",
+     "arabic": "خريف",
+     "english": "autumn",
+     "t": "06:37",
+     "note": "Medi stuck on the season (06:14-06:35)"
+    },
+    {
+     "latin": "ay talateen yoam",
+     "arabic": "أي تلاتين يوم",
+     "english": "which 30 days",
+     "t": "11:34",
+     "note": "typed 'ay talateen yoam = which 30 days'"
+    },
+    {
+     "latin": null,
+     "arabic": "كسلان",
+     "english": "lazy",
+     "t": "15:56",
+     "note": "Medi asks 'Why lazy?' (16:13)"
+    },
+    {
+     "latin": null,
+     "arabic": "كان جاي على بالك",
+     "english": "you felt like (having it)",
+     "t": "16:02"
+    },
+    {
+     "latin": null,
+     "arabic": "كعكة",
+     "english": "cake / pastry",
+     "t": "20:55",
+     "note": "Medi asks 'شو كعكة؟' (21:01)"
+    },
+    {
+     "latin": null,
+     "arabic": "تستنى",
+     "english": "to wait",
+     "t": "21:45",
+     "note": "Medi asks what تستنى is (21:49); استناك 22:34, typed 'astannaaki' 23:19"
+    },
+    {
+     "latin": "2addaish 7a22hom",
+     "arabic": "قديش حقها",
+     "english": "how much is it (its price)",
+     "t": "23:56",
+     "note": "Medi 'What was price?' (23:14)"
+    },
+    {
+     "latin": "allah y3afeek",
+     "arabic": "الله يعافيك",
+     "english": "reply to يعطيك العافية",
+     "t": "26:50",
+     "note": "typed 27:56"
+    },
+    {
+     "latin": "fiha ishi 8alt",
+     "arabic": "فيها إشي غلط",
+     "english": "there's something wrong with it",
+     "t": "29:40",
+     "note": "Medi asks how to say something's wrong with it (29:03)"
+    },
+    {
+     "latin": "shu maal",
+     "arabic": "شو مال",
+     "english": "what's wrong with",
+     "t": "31:37",
+     "note": "typed 'shu maal el-shawerma?' 32:59"
+    },
+    {
+     "latin": "beyhemna",
+     "arabic": "بيهمنا",
+     "english": "it matters to us",
+     "t": "34:01",
+     "note": "Medi asks if it is like muhim (34:26)"
+    },
+    {
+     "latin": null,
+     "arabic": "ماكينة",
+     "english": "machine (rice cooker = ماكينة الرز)",
+     "t": "43:17",
+     "note": "Amal: 'We didn't learn ماكينة'"
+    },
+    {
+     "latin": "zibde",
+     "arabic": "زبدة",
+     "english": "butter",
+     "t": "46:26",
+     "note": "Medi said زبداية"
+    },
+    {
+     "latin": null,
+     "arabic": "جهة",
+     "english": "side",
+     "t": "48:16",
+     "note": "Medi asks how to say the other end (48:13)"
+    },
+    {
+     "latin": "3aks",
+     "arabic": "عكس",
+     "english": "opposite / the other end",
+     "t": "48:49"
+    },
+    {
+     "latin": null,
+     "arabic": "ملعقة",
+     "english": "spoon",
+     "t": "49:04"
+    },
+    {
+     "latin": "ma8rafe",
+     "arabic": "مغرفة",
+     "english": "ladle",
+     "t": "49:21",
+     "note": "Medi asks what the big spoon was (49:13)"
+    },
+    {
+     "latin": "waatye",
+     "arabic": "واطية",
+     "english": "low (temperature)",
+     "t": "50:33"
+    },
+    {
+     "latin": "naar haadye",
+     "arabic": "نار هادية",
+     "english": "low heat (calm fire)",
+     "t": "51:12",
+     "note": "typed 53:27"
+    },
+    {
+     "latin": "mistiwi",
+     "arabic": "مستوي",
+     "english": "cooked / done",
+     "t": "51:48",
+     "note": "Medi said mishtihi"
+    },
+    {
+     "latin": null,
+     "arabic": "مقلي",
+     "english": "fried",
+     "t": "53:31",
+     "note": "Medi asks 'ali is fried, right?'"
+    },
+    {
+     "latin": null,
+     "arabic": "بقرش",
+     "english": "crunchy",
+     "t": "53:34"
+    },
+    {
+     "latin": null,
+     "arabic": "الزعفران",
+     "english": "saffron",
+     "t": "54:49",
+     "note": "Medi said saffron in English"
+    },
+    {
+     "latin": null,
+     "arabic": "دولة",
+     "english": "country",
+     "t": "55:11",
+     "note": "Medi asks 'awali is country, right?'"
+    },
+    {
+     "latin": "ma3ek 7a2",
+     "arabic": "معك حق",
+     "english": "you're right",
+     "t": "58:02",
+     "note": "Medi asks how to say I agree (57:28); typed 'ma3ek 7a2 = your right' 1:00:54"
+    },
+    {
+     "latin": null,
+     "arabic": "الحق عليك",
+     "english": "it's your fault",
+     "t": "58:39"
+    },
+    {
+     "latin": null,
+     "arabic": "للأسف",
+     "english": "unfortunately",
+     "t": "1:03:56",
+     "note": "Amal: 'We don't know it yet'"
+    },
+    {
+     "latin": null,
+     "arabic": "بيفتح",
+     "english": "opens",
+     "t": "1:06:45",
+     "note": "Medi heard it as بيدفع (1:06:35)"
+    },
+    {
+     "latin": "mu7aadase",
+     "arabic": "محادثة",
+     "english": "conversation",
+     "t": "1:10:56",
+     "note": "Medi 'ma ba'rif' (1:10:54); typed 1:13:45"
+    }
+   ],
    "coverage": "Whole file read. 800 Medi turns: 348 with Arabic script, ~130 more in Latin transliteration (31:49-32:48, 34:07-35:31, 37:41-43:03, 49:25-1:00:47, 1:07:43-1:11:18) where vowel/pronoun endings are ambiguous. Garbled/untrustworthy Medi lines skipped: 01:14 'بابا، مريان بيضرهبي', 12:00 'access في الـ', 16:00 'Sven is lazy', 26:20 'على البرك' (probably على قلبك), 26:31 'By كما ما', 27:15 'بنجرة شي-شيطاني' (echoing her), 31:29 'Shumel', 49:13 'bixfun', 50:05 'thway sufun', 1:07:39 'Is bafta internal'. Transcript renders his 'roz' as English 'rose' (44:09-47:27) - treated as رز, not an English drop. 25:47 'سبق أن أدفع أطفالك' = his 'بقدر أدفع لك' per chat 26:53. 11:46 'أسبوع شغل' is almost surely 'أسبوع شوب' (chat: usboo3 shoab) - pronunciation, not vocab. Pronunciation left out (S4): 'أديش' for قديش, 'pantalón' for بنطلون, 'بهري' for بحري, 'إمني' for منيح, 'أوالي' for حوالي, 'دايّة' for دقيقة, 'ذكي' vowel for زاكي (F2), 'wa'atir' for واطية, 'ma'ali' for مقلي, 'ما السلامة', 'Al-yafeeki'. English-only stretches: 13:22-13:55 sirens, 36:13-37:29 proficiency test, 1:08:27-1:09:02, 1:11:31-1:12:05. Long meta/English exchange 25:03-25:40 about pay-for vs pay-to. Self-fixes not logged: 07:08 نوصف→ثلت, 15:32 قدرت, 39:25 علمتني, 46:31 ملح, 52:19 Irani→Iraniyin, 55:40 بيعملوا, 1:02:29 مخية→مقلوبة (logged low). Amal's 33:44 'لا، خلص شكرًا' answers his 33:41 question about سلامة إيديك; the earlier 22:59 'سلامتي' is logged against it. / Whole file read in order. Latin-transliterated stretches: 31:49-35:12, 37:41-42:52, 49:13-1:00:47, 1:08:03-1:11:59 (kept as printed). English-only stretches: 13:22-13:55 (sirens), 36:13-37:29 (proficiency test), 1:08:27-1:09:02, 1:11:31-1:12:05. ASR garbage not scored: 01:14 'مريان بيضرهبي', 12:00 'access', 16:00 'Sven is lazy' (= كسلان), 24:34 'أدفع أطفالهم' and 25:47 'سبق أن أدفع أطفالك' (probably أدفع لك / بقدر; her 'تقدر' at 26:01 may be a fix but his line is unreadable), 26:20 'على البرك', 26:31 'By كما ما', 26:47 'يا تيك يا راسي' (= يعطيك العافية), 49:00 'طلقة', 55:17, 1:06:47 'مطبخ'. Pronunciation only (S4, left out): pantalón with P (07:32-07:50 -> بنطلون), كندورة for كندرة, آل/أوالي/أديش/دايّة dropped ق-ح-ق, ما السلامة, كليان for كليًا, بهري for بحري, hamid/malh, Al-yafeeki. Self-fixes left out: 12:12 صيف->شتاء, 15:32 أقدر->قدرت, 16:22 جايبة لي->جايبالي (she recast 'كان جاي على بالك' but changed only the tense), 19:27 حكينا->بنحكي, 39:25 ta'alamathni->'alamathni (B12), 53:11 tahet min roz->roz min tahet, 1:02:29 مخية->مقلوبة. Not errors: 'crispy' (52:11, she said not learned); pizza/pepperoni/bacon/croissant/chocolate/cappuccino/credit card/holes/fire department/ambulance not on her sheet (she uses several herself); 31:16 'A shawarma' is a whole English clause. 11:46 'أسبوع شغل' is most likely her 'usboo3 shoab' misheard by the ASR, not a vocab slip. 47:27 'أرجع أحط' after بعدين left unflagged because her own chat keeps arja3. medi_turns counts Medi lines carrying Arabic script or Latin-transliterated Arabic.",
    "notes": [
     "grammar: 7 of the 62 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
@@ -3666,22 +4255,22 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 readers agree on 58.7 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 readers agree on 60.2 % of rows (>= 95 % needed)",
      "reader agreement: pass 2 readers agree on 50.0 % of rows (>= 95 % needed)",
-     "reader agreement: pass 1 vs pass 2 settled rows agree on 76.7 % (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 55.0 % (>= 95 % needed)",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4332 s) compared with a second model",
-     "checks: 3 scored rows need an audio or human check (1 words, 2 grammar)"
+     "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
     ],
     "agreement": {
      "status": "withheld",
      "passes": [
       {
        "pass": 1,
-       "r1": 107,
-       "r2": 106,
-       "agreed": 71,
-       "disputed": 50,
-       "agreement_pct": 58.7
+       "r1": 79,
+       "r2": 71,
+       "agreed": 53,
+       "disputed": 35,
+       "agreement_pct": 60.2
       },
       {
        "pass": 2,
@@ -3698,7 +4287,7 @@
         1,
         2
        ],
-       "agreement_pct": 76.7
+       "agreement_pct": 55.0
       }
      ],
      "threshold_pct": 95.0
@@ -3972,9 +4561,9 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 readers agree on 65.2 % of rows (>= 95 % needed)",
+     "reader agreement: pass 1 readers agree on 77.6 % of rows (>= 95 % needed)",
      "reader agreement: pass 2 readers agree on 68.7 % of rows (>= 95 % needed)",
-     "reader agreement: pass 1 vs pass 2 settled rows agree on 51.9 % (>= 95 % needed)",
+     "reader agreement: pass 1 vs pass 2 settled rows agree on 43.2 % (>= 95 % needed)",
      "coverage: 43 stretches of Medi's speech written as '[speaking ...]' markers (06:04 in all)",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model"
     ],
@@ -3983,11 +4572,11 @@
      "passes": [
       {
        "pass": 1,
-       "r1": 56,
-       "r2": 58,
-       "agreed": 43,
-       "disputed": 23,
-       "agreement_pct": 65.2
+       "r1": 53,
+       "r2": 53,
+       "agreed": 45,
+       "disputed": 13,
+       "agreement_pct": 77.6
       },
       {
        "pass": 2,
@@ -4004,7 +4593,7 @@
         1,
         2
        ],
-       "agreement_pct": 51.9
+       "agreement_pct": 43.2
       }
      ],
      "threshold_pct": 95.0
@@ -4591,7 +5180,7 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 73.0 %; 2 consecutive passes at >= 95 % are needed",
+     "reader agreement: pass 1 71.4 %; 2 consecutive passes at >= 95 % are needed",
      "coverage: Amal not transcribed 17:30-20:17 while the other person talks",
      "coverage: speaker labels agree with an independent check on only 87.7 % of 1002 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
      "coverage: Amal 00:00-20:17 comes from the mixed Meet recording, speakers split by diarization (their own track is silent there)",
@@ -4603,11 +5192,11 @@
      "passes": [
       {
        "pass": 1,
-       "r1": 57,
-       "r2": 56,
-       "agreed": 46,
-       "disputed": 17,
-       "agreement_pct": 73.0
+       "r1": 56,
+       "r2": 55,
+       "agreed": 45,
+       "disputed": 18,
+       "agreement_pct": 71.4
       }
      ],
      "between": [],
@@ -4955,7 +5544,7 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 51.1 %; 2 consecutive passes at >= 95 % are needed",
+     "reader agreement: pass 1 60.9 %; 2 consecutive passes at >= 95 % are needed",
      "coverage: 17 stretches of Medi's speech written as '[speaking ...]' markers (03:10 in all)",
      "coverage: speaker labels agree with an independent check on only 87.3 % of 874 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3948 s) compared with a second model"
@@ -4965,11 +5554,11 @@
      "passes": [
       {
        "pass": 1,
-       "r1": 43,
-       "r2": 35,
-       "agreed": 24,
-       "disputed": 23,
-       "agreement_pct": 51.1
+       "r1": 42,
+       "r2": 37,
+       "agreed": 28,
+       "disputed": 18,
+       "agreement_pct": 60.9
       }
      ],
      "between": [],
@@ -5107,20 +5696,20 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 55,
+    "unique": 56,
     "right": 67,
-    "wrong": 6,
-    "partial": 10,
-    "pct": 86.7,
-    "scored": 83,
-    "audit_wrong": 6,
-    "audit_partial": 3,
-    "not_on_sheet": 4,
-    "unique_rows": 55,
-    "eligible": 83,
+    "wrong": 7,
+    "partial": 11,
+    "pct": 85.3,
+    "scored": 85,
+    "audit_wrong": 7,
+    "audit_partial": 4,
+    "not_on_sheet": 2,
+    "unique_rows": 56,
+    "eligible": 85,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 86.7,
+    "eligible_pct": 85.3,
     "excluded_why": {},
     "verified_pct": null
    },
@@ -5284,7 +5873,7 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 73.7 %; 2 consecutive passes at >= 95 % are needed",
+     "reader agreement: pass 1 75.8 %; 2 consecutive passes at >= 95 % are needed",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3942 s) compared with a second model"
     ],
     "agreement": {
@@ -5292,11 +5881,11 @@
      "passes": [
       {
        "pass": 1,
-       "r1": 34,
-       "r2": 32,
-       "agreed": 28,
-       "disputed": 10,
-       "agreement_pct": 73.7
+       "r1": 28,
+       "r2": 31,
+       "agreed": 25,
+       "disputed": 8,
+       "agreement_pct": 75.8
       }
      ],
      "between": [],
@@ -5351,30 +5940,30 @@
     "unique": 49,
     "right": 86,
     "wrong": 1,
-    "partial": 14,
-    "pct": 92.1,
-    "scored": 101,
+    "partial": 13,
+    "pct": 92.5,
+    "scored": 100,
     "audit_wrong": 1,
-    "audit_partial": 1,
+    "audit_partial": 0,
     "not_on_sheet": 3,
     "unique_rows": 49,
-    "eligible": 101,
+    "eligible": 100,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 92.1,
+    "eligible_pct": 92.5,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 185,
-    "mistakes": 15,
-    "pct": 92.4,
+    "uses": 183,
+    "mistakes": 13,
+    "pct": 93.4,
     "estimate": false,
-    "scored_mistakes": 14,
+    "scored_mistakes": 12,
     "unscored_mistakes": 1,
-    "eligible": 15,
+    "eligible": 13,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -5382,7 +5971,7 @@
       "3 rules have more slips than counted uses (A3, B18, D1)"
      ],
      "uses": 174,
-     "slips": 15,
+     "slips": 13,
      "slips_latin": 2,
      "slips_in_zero_use_rules": 3,
      "rules_slips_over_uses": [
@@ -5472,7 +6061,7 @@
    "coverage": "10:00-14:02 Medi on a work phone call (English); 19:58-23:14 Amal disconnected. 18:29-24:12 and 47:00-1:02:00 his Arabic is in Latin transliteration (Shanteti, awal, laffe, nafs). 47-64 min is mostly English rule discussion (awal/aa5er/nafs/8air), few Arabic production turns. 26:58 'بيليت صديقي' looks like an engine mishearing of 3ailet (Amal said Nice) - not filed. 03:43 'بالنيلة' vs chat binniyye likely engine - not filed. 46:45 أكتر هذا repeat of the 46:18 هذا-for-حدا slip - one row (46:18). Tier-3 checks: 'air conditioning', 'grammar', 'Wi-Fi' not on her sheet - not errors. / 10:00-14:02 Medi on a work phone call (English); 19:58-23:14 disconnect gap; 50:00-1:00:00 awal/oola/tani/nafs lesson mostly in Latin transliteration and English meta-talk; 04:14 'air conditioning' not on sheet (skipped); 04:02 شوك for شوب treated as S4; 03:06 صباح unclear, skipped; 1:01:44 غير ال شيء is a question, skipped.",
    "notes": [
     "timings: anees-20261001-recall-amal-seg1: page/engine offset spread 395.78s",
-    "grammar: 1 of the 15 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "grammar: 1 of the 13 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
     "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 01:33 Word Bank said right, Amal said no to that word: her no counts."
    ],
    "page": "lessons/2026-10-01.html",
@@ -5486,14 +6075,14 @@
    "counts": {
     "turns": 936,
     "chat_lines": 32,
-    "vocab_errors": 5,
+    "vocab_errors": 4,
     "vocab_correct": 99,
-    "grammar_errors": 15,
+    "grammar_errors": 13,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-01.json",
-    "marks": 292,
+    "marks": 289,
     "conflicts": 1,
     "resolved": 1,
     "needs_medi": 0,
@@ -5503,24 +6092,23 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 78.8 %; 2 consecutive passes at >= 95 % are needed",
+     "reader agreement: pass 1 77.4 %; 2 consecutive passes at >= 95 % are needed",
      "coverage: 4 stretches of Medi's speech written as '[speaking ...]' markers (00:16 in all)",
      "coverage: Amal not transcribed 09:57-14:05 while the other person talks",
      "coverage: Amal not transcribed 18:46-23:14 while the other person talks",
      "coverage: speaker labels agree with an independent check on only 88.3 % of 792 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3966 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3966 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
      "passes": [
       {
        "pass": 1,
-       "r1": 29,
-       "r2": 30,
-       "agreed": 26,
+       "r1": 27,
+       "r2": 29,
+       "agreed": 24,
        "disputed": 7,
-       "agreement_pct": 78.8
+       "agreement_pct": 77.4
       }
      ],
      "between": [],
@@ -5604,20 +6192,20 @@
    "type_source": "claude-read",
    "type_read_by": "claude -p (review_lesson.py)",
    "words": {
-    "unique": 27,
+    "unique": 28,
     "right": 59,
-    "wrong": 7,
+    "wrong": 6,
     "partial": 10,
-    "pct": 84.2,
-    "scored": 76,
-    "audit_wrong": 7,
+    "pct": 85.3,
+    "scored": 75,
+    "audit_wrong": 6,
     "audit_partial": 1,
-    "not_on_sheet": 2,
-    "unique_rows": 26,
-    "eligible": 76,
+    "not_on_sheet": 1,
+    "unique_rows": 27,
+    "eligible": 75,
     "excluded": 0,
-    "pending": 1,
-    "eligible_pct": 84.2,
+    "pending": 0,
+    "eligible_pct": 85.3,
     "excluded_why": {},
     "verified_pct": null
    },
@@ -5630,7 +6218,7 @@
     "unscored_mistakes": 0,
     "eligible": 18,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -5778,14 +6366,14 @@
    "counts": {
     "turns": 1003,
     "chat_lines": 44,
-    "vocab_errors": 10,
+    "vocab_errors": 8,
     "vocab_correct": 68,
     "grammar_errors": 18,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-02.json",
-    "marks": 333,
+    "marks": 331,
     "conflicts": 2,
     "resolved": 1,
     "needs_medi": 0,
@@ -5795,20 +6383,19 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 52.8 %; 2 consecutive passes at >= 95 % are needed",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3852 s) compared with a second model",
-     "checks: 2 scored rows need an audio or human check (1 words, 1 grammar)"
+     "reader agreement: pass 1 65.7 %; 2 consecutive passes at >= 95 % are needed",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3852 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
      "passes": [
       {
        "pass": 1,
-       "r1": 33,
-       "r2": 28,
-       "agreed": 19,
-       "disputed": 17,
-       "agreement_pct": 52.8
+       "r1": 31,
+       "r2": 33,
+       "agreed": 23,
+       "disputed": 12,
+       "agreement_pct": 65.7
       }
      ],
      "between": [],
