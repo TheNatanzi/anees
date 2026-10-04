@@ -101,7 +101,7 @@ FOREIGN = re.compile(r"[぀-ヿ㐀-鿿가-힯Ѐ-ӿ֐-׿ऀ-ॿ]")
 def foreign_script(turns, fixed=True):
     """TR-25 (Medi 2026-10-03 "why did it switch languages here? How can we prevent this"): the engine guesses the language
     of each short piece and sometimes writes his Arabic in Chinese / Japanese / Russian / Hebrew / Hindi letters (10-02
-    49:01 結局 = kul yoam, 49:41 他人 = 8air). Any such letter on a line is the engine, never him. Listed for every lesson's
+    49:01 結局 = kul yoam, 49:41 他人 = tani - Medi re-listened 2026-10-04; his first guess from context, 8air, was wrong). Any such letter on a line is the engine, never him. Listed for every lesson's
     review, warned by the publish guard while one is left unfixed, and first in the Gemini re-hear. fixed=True reads the
     text after the heard-word overlay (what the page shows)."""
     return [{"t": u["t"], "who": u.get("who"), "text": u.get("text") if fixed else (u.get("engine") or u.get("text"))}

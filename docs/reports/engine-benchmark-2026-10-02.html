@@ -1757,6 +1757,182 @@
 <li>+1 is inside the noise of 2 as a total, but this one is a stable 3-of-3 flip on the one moment the change was aimed at.</li>
 <li>Still one lesson: confirm on the second corrected lesson.</li>
 </ul>
+<h2 id="key-version-2-2026-10-04">Key version 2 (2026-10-04)</h2>
+<p><strong>You re-listened to four moments and two of your own corrections were wrong, so the answer key has a second version; every Gemini recipe gains 2 moments (the baseline goes from 53 to 55 of 63) and the order of the Gemini recipes does not change.</strong></p>
+<p>Why: on 2026-10-04 you listened again and said "49:44 - تاني (tani); 39:45 - أكلة (akleh)". Key v1 had غير at 49:44 and غير أكل at 39:45. The other two answers (08:22 الصباح, the published slip; 35:30 أخيرة) confirm key v1.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Engine</th>
+<th>Heard right, key v1 (of 63)</th>
+<th>Heard right, key v2 (of 63)</th>
+<th>Slips hidden</th>
+<th>Untouched lines with a word changed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gemini Flash baseline + 16 clips re-cut (V13)</td>
+<td>54</td>
+<td><strong>56</strong></td>
+<td>1</td>
+<td>58</td>
+</tr>
+<tr>
+<td>V7 accent note</td>
+<td>54</td>
+<td><strong>56</strong></td>
+<td>2</td>
+<td>61</td>
+</tr>
+<tr>
+<td><strong>Gemini 3.8 Flash + context, temperature 1 (baseline)</strong></td>
+<td>53</td>
+<td><strong>55</strong></td>
+<td>1</td>
+<td>59</td>
+</tr>
+<tr>
+<td>V1 evidence</td>
+<td>53</td>
+<td><strong>55</strong></td>
+<td>2</td>
+<td>57</td>
+</tr>
+<tr>
+<td>V4 word confidence</td>
+<td>53</td>
+<td><strong>55</strong></td>
+<td>2</td>
+<td>63</td>
+</tr>
+<tr>
+<td>V5 second guess</td>
+<td>53</td>
+<td><strong>55</strong></td>
+<td>2</td>
+<td>58</td>
+</tr>
+<tr>
+<td>V8 word list</td>
+<td>53</td>
+<td><strong>55</strong></td>
+<td>1</td>
+<td>56</td>
+</tr>
+<tr>
+<td>Baseline on the 224 lines of the V9 test</td>
+<td>52</td>
+<td><strong>54</strong></td>
+<td>1</td>
+<td>44</td>
+</tr>
+<tr>
+<td>V12 guessing lines removed</td>
+<td>52</td>
+<td><strong>54</strong></td>
+<td>1</td>
+<td>59</td>
+</tr>
+<tr>
+<td>V3 two clips</td>
+<td>52</td>
+<td><strong>54</strong></td>
+<td>1</td>
+<td>56</td>
+</tr>
+<tr>
+<td>V2 forced choice</td>
+<td>51</td>
+<td><strong>53</strong></td>
+<td>1</td>
+<td>57</td>
+</tr>
+<tr>
+<td>V6 Arabic span</td>
+<td>51</td>
+<td><strong>53</strong></td>
+<td>1</td>
+<td>60</td>
+</tr>
+<tr>
+<td>Gemini 3.8 Flash + context (first run, default temperature)</td>
+<td>51</td>
+<td><strong>53</strong></td>
+<td>2</td>
+<td>62</td>
+</tr>
+<tr>
+<td>V11 one-field answer</td>
+<td>50</td>
+<td><strong>52</strong></td>
+<td>1</td>
+<td>62</td>
+</tr>
+<tr>
+<td>Gemini 3.8 Flash, context before only</td>
+<td>49</td>
+<td><strong>51</strong></td>
+<td>1</td>
+<td>61</td>
+</tr>
+<tr>
+<td>Best recipe</td>
+<td>49</td>
+<td><strong>51</strong></td>
+<td>2</td>
+<td>60</td>
+</tr>
+<tr>
+<td>V10 vowel marks in the text</td>
+<td>49</td>
+<td><strong>51</strong></td>
+<td>1</td>
+<td>62</td>
+</tr>
+<tr>
+<td>V1 keep only 'heard' changes</td>
+<td>49</td>
+<td><strong>51</strong></td>
+<td>2</td>
+<td>55</td>
+</tr>
+<tr>
+<td>V4 keep only high-confidence changes</td>
+<td>49</td>
+<td><strong>51</strong></td>
+<td>2</td>
+<td>59</td>
+</tr>
+<tr>
+<td>V9 thinking high (224 lines, 2 runs)</td>
+<td>46</td>
+<td><strong>47</strong></td>
+<td>0</td>
+<td>47</td>
+</tr>
+<tr>
+<td>Deepgram nova-3 (ar), whole file - best plain transcriber</td>
+<td>21</td>
+<td><strong>22</strong></td>
+<td>1</td>
+<td>191</td>
+</tr>
+<tr>
+<td>ElevenLabs Scribe v2 (today's transcript)</td>
+<td>4</td>
+<td><strong>4</strong></td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Key v1 is not edited (truth <code>4a26fdb66bac0acd</code>, <code>bench_freeze.py --check</code> still OK). Key v2 = key v1 + the two revisions in <code>key-v2-revisions.json</code> (your words and the date on each): truth <code>e267354cdc21888b</code>, <code>manifest-v2.json</code>, <code>scores-v2.json</code>. Code <code>scripts/bench_key2.py</code> (<code>--check</code> re-derives it), test <code>tests/test_bench_key2.py</code>.</li>
+<li>No engine was called: the saved runs were scored again. Slips hidden and untouched lines changed are the same under both keys (the two lines are corrected lines, not untouched ones).</li>
+<li>V9 gains 1, not 2. Two plain engines lose a moment under key v2 (ElevenLabs fresh runs, whole file 12 to 11; OpenAI gpt-transcribe 10 to 9): they had written the word key v1 wanted.</li>
+<li>The same two lines are fixed in the live 10-02 lesson through the heard-word overlay (rows kept, with the old word and "Medi re-listened 2026-10-04"). No score on the lesson page moved.</li>
+</ul>
 <h2 id="where-everything-is">Where everything is</h2>
 <ul>
 <li>Results for the AI Reports page: <code>data/lesson-work/bench/2026-10-02/results.json</code> (every engine, every number, every moment's verdict in each run).</li>

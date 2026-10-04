@@ -386,6 +386,42 @@ Rule tried: a change is proposed only when 2 of 3 Gemini runs agree; it is held 
 - +1 is inside the noise of 2 as a total, but this one is a stable 3-of-3 flip on the one moment the change was aimed at.
 - Still one lesson: confirm on the second corrected lesson.
 
+## Key version 2 (2026-10-04)
+
+**You re-listened to four moments and two of your own corrections were wrong, so the answer key has a second version; every Gemini recipe gains 2 moments (the baseline goes from 53 to 55 of 63) and the order of the Gemini recipes does not change.**
+
+Why: on 2026-10-04 you listened again and said "49:44 - تاني (tani); 39:45 - أكلة (akleh)". Key v1 had غير at 49:44 and غير أكل at 39:45. The other two answers (08:22 الصباح, the published slip; 35:30 أخيرة) confirm key v1.
+
+| Engine | Heard right, key v1 (of 63) | Heard right, key v2 (of 63) | Slips hidden | Untouched lines with a word changed |
+|---|---|---|---|---|
+| Gemini Flash baseline + 16 clips re-cut (V13) | 54 | **56** | 1 | 58 |
+| V7 accent note | 54 | **56** | 2 | 61 |
+| **Gemini 3.8 Flash + context, temperature 1 (baseline)** | 53 | **55** | 1 | 59 |
+| V1 evidence | 53 | **55** | 2 | 57 |
+| V4 word confidence | 53 | **55** | 2 | 63 |
+| V5 second guess | 53 | **55** | 2 | 58 |
+| V8 word list | 53 | **55** | 1 | 56 |
+| Baseline on the 224 lines of the V9 test | 52 | **54** | 1 | 44 |
+| V12 guessing lines removed | 52 | **54** | 1 | 59 |
+| V3 two clips | 52 | **54** | 1 | 56 |
+| V2 forced choice | 51 | **53** | 1 | 57 |
+| V6 Arabic span | 51 | **53** | 1 | 60 |
+| Gemini 3.8 Flash + context (first run, default temperature) | 51 | **53** | 2 | 62 |
+| V11 one-field answer | 50 | **52** | 1 | 62 |
+| Gemini 3.8 Flash, context before only | 49 | **51** | 1 | 61 |
+| Best recipe | 49 | **51** | 2 | 60 |
+| V10 vowel marks in the text | 49 | **51** | 1 | 62 |
+| V1 keep only 'heard' changes | 49 | **51** | 2 | 55 |
+| V4 keep only high-confidence changes | 49 | **51** | 2 | 59 |
+| V9 thinking high (224 lines, 2 runs) | 46 | **47** | 0 | 47 |
+| Deepgram nova-3 (ar), whole file - best plain transcriber | 21 | **22** | 1 | 191 |
+| ElevenLabs Scribe v2 (today's transcript) | 4 | **4** | 1 | 0 |
+
+- Key v1 is not edited (truth `4a26fdb66bac0acd`, `bench_freeze.py --check` still OK). Key v2 = key v1 + the two revisions in `key-v2-revisions.json` (your words and the date on each): truth `e267354cdc21888b`, `manifest-v2.json`, `scores-v2.json`. Code `scripts/bench_key2.py` (`--check` re-derives it), test `tests/test_bench_key2.py`.
+- No engine was called: the saved runs were scored again. Slips hidden and untouched lines changed are the same under both keys (the two lines are corrected lines, not untouched ones).
+- V9 gains 1, not 2. Two plain engines lose a moment under key v2 (ElevenLabs fresh runs, whole file 12 to 11; OpenAI gpt-transcribe 10 to 9): they had written the word key v1 wanted.
+- The same two lines are fixed in the live 10-02 lesson through the heard-word overlay (rows kept, with the old word and "Medi re-listened 2026-10-04"). No score on the lesson page moved.
+
 ## Where everything is
 
 - Results for the AI Reports page: `data/lesson-work/bench/2026-10-02/results.json` (every engine, every number, every moment's verdict in each run).
