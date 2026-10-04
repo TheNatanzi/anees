@@ -2,29 +2,29 @@
  "date": "2026-10-02",
  "pass": 1,
  "counts": {
-  "r1": 34,
-  "r2": 38,
-  "agreed": 24,
-  "disputed": 15,
-  "agreement_pct": 61.5,
-  "r3_kept": 12,
-  "r3_dropped": 3,
+  "r1": 31,
+  "r2": 33,
+  "agreed": 23,
+  "disputed": 12,
+  "agreement_pct": 65.7,
+  "r3_kept": 10,
+  "r3_dropped": 2,
   "r3_unruled": 0,
   "r3_added": 0,
   "r3_challenged": 0,
-  "final": 36
+  "final": 33
  },
  "coverage": {
-  "r1": "00:00-06:40 and 54:16-1:04:06 are English meta talk. 12:12-15:40 Medi speaks Latin-transliterated Arabic (hatibti rah tiji mai, Rah niru takheem bad). Echo candidates are real English (Forgot it all, The first day, Bye) except: echo: 'Ashra.' = عشرة (his fix of 13 after her عشاء). Engine wrote هذا الثاني at 43:20; Amal's echo shows حدا التاني. 07:34 engine got على عشرة right (time). 16:54-53:20 is a rule lesson on awal/aa5er/taani/8eir/nafs; slips on it are filed under one PROPOSE rule.",
-  "r2": "Opening 00:00-06:40 and 54:16-end are English meta talk. 12:12-15:40 and many drill turns are Latin-transliterated by the engine. Most of 17:00-53:00 is a rule drill on أول/آخر/تاني/غير/نفس, so several rows are rule statements she rejected (medium). No bucket fits the ordinal-position rule, so those rows are PROPOSE. echo: 'Ashra.' (15:44) = عشرة after her عشاء; 'A different person.' / 'The second thing.' are real English translations. 43:20 engine wrote هذا الثاني, her echo shows حدا التاني."
+  "r1": "00:00-06:40 English meta talk about the verb list; 16:21-16:27 clothes answer in Latin letters (no errors: beige is on her sheet as beij); 47:49-1:03:50 mostly English rule discussion. echo: 'Ashra.' (15:44) = عشر; 15:40 'Asha' for talat-3ashar - Amal asked 'What's عشاء?' (dinner) - a dropped r, treated as S4 pronunciation, not written as a row. 06:58 ينقل unclear (engine). 10:40 بخطط -> خططت self-fix. 08:58 هادي -> هاد self-fix. 24:14 المال (MSA money) for مصاري let pass, not written. Other echo candidates are real English.",
+  "r2": "00:00-06:40 English talk about the verb list. Latin-transliterated stretches 11:35-15:10, 16:21-16:27, 57:38-1:00:00. Engine wrote 'and' for عند (11:37-12:18). echo: 'Ashra.' (15:44) = his عشر after her عشاء; the other echo candidates are real English glosses in the meaning drill. take_verb 09:44 أخد عطلة is right (aa5ud 3otle). 16:06 تلت = tult (2:20), fine. Meaning-drill rows (29:37-31:38, 35:23, 39:16) are mode=listening. 51:15 'hadi nafs el-ishi or hada nafs el-ishi?' was a question, not filed. 52:43-53:09 garbled sentence he restarted himself, not filed. 1002-15/17/22/25/27/30 share one PROPOSE rule (awal/aa5er/tani/8eir before the noun take no el-)."
  },
- "r3_note": "D9 (r1) and D15 (r2) are the same plural-agreement slip at 46:02-46:10 (kept once, as D15); D9 is kept as r2's separate الآخر -> الأخير slip at 45:55. D11/D12 filed A7 to match agreed A15 (ordinal with el- before the noun). D1 dropped as engine (he said متأخر right at 07:04). D5 dropped as S4 (dropped final ر in 3ashar).",
+ "r3_note": "Much of the lesson is metalinguistic drilling of awal / taani / ghair / a5eer placement; rows where he proposes a form inside rule-talk (D3, D5, D11) were kept and filed A7 for consistency with agreed A16/A17; D4 and D6 are meaning drills (listening). New PROPOSE rules: no hada before el-subu7 (D1), awal + el-noun = beginning (D4), ghair + bare noun (D6). D10 (3asha for 3ashar) dropped as S4.",
  "rows": [
   {
    "id": "A1",
    "t": "07:02",
    "t_amal": "07:06",
-   "medi_said": "أنا سمعت متأخر اليوم. صحيت. That's right.",
+   "medi_said": "أنا سمعت / متأخر اليوم. صحيت. That's right.",
    "amal_said": "صحيت.",
    "chat": "ana s7eet mit2a55er kteer",
    "wrong": "سمعت",
@@ -36,7 +36,7 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "He said سمعت (I heard) for صحيت (I woke up); her صحيت at 07:06 came before his 'صحيت. That's right.' (GR-24 example).",
+   "why": "He said sami3et (I heard) for s7eet (I woke up); her صحيت at 07:06 lands inside his 07:04 line and he takes it with 'That's right' (GR-24).",
    "english": "I woke up late today.",
    "ids": [
     "1002-1",
@@ -47,6 +47,31 @@
   },
   {
    "id": "A2",
+   "t": "07:14",
+   "t_amal": "08:35",
+   "medi_said": "أأأ أنا صحيت تأخر.",
+   "amal_said": "إنت صحيت متأخر و…",
+   "chat": "ana s7eet mit2a55er kteer",
+   "wrong": "تأخر",
+   "right": "متأخر",
+   "kind": "vocab-B",
+   "tier": 2,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "none",
+   "confidence": "low",
+   "why": "Verb/noun ta2a55ar where the adjective mit2a55er is needed; her 08:35 restatement uses متأخر and he repeats it, but she gave no clear fix signal and the engine may have dropped 'mi-'.",
+   "english": "I woke up late.",
+   "ids": [
+    "1002-2",
+    "1002-33"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1002-002"
+  },
+  {
+   "id": "A3",
    "t": "07:34",
    "t_amal": "07:37",
    "medi_said": "آآآ على عشرة.",
@@ -61,20 +86,20 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "Clock time takes el-; her whole reply was الـ and he fixed it to على العشرة (GR-25: one A1 el- prompt).",
-   "english": "At ten o'clock.",
+   "why": "Her whole reply is 'el' and he answers على العشرة - clock time takes el- (GR-25).",
+   "english": "At ten.",
    "ids": [
     "1002-3",
-    "1002-3"
+    "1002-2"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1002-002"
+   "fid": "1002-003"
   },
   {
-   "id": "A3",
+   "id": "A4",
    "t": "07:54",
    "t_amal": "07:59",
-   "medi_said": "Okay أنا شوي-- أنا كان قنيش شوي--",
+   "medi_said": "أنا كان قنيش شوي--",
    "amal_said": "أنا كنت صح.",
    "chat": "ana kunet shwai kasool el-subu7",
    "wrong": "أنا كان",
@@ -82,27 +107,27 @@
    "kind": "grammar",
    "tier": null,
    "bucket": "B5",
-   "bucket2": "B6",
+   "bucket2": "B18",
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "kaan must carry the I-ending with أنا (kunt); she said أنا كنت and he repeated أنا كنت شوي.",
+   "why": "He used the he-form kaan with ana; she recasts أنا كنت and he repeats it at 08:01.",
    "english": "I was a bit lazy.",
    "ids": [
     "1002-4",
-    "1002-4"
+    "1002-3"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1002-003"
+   "fid": "1002-004"
   },
   {
-   "id": "A4",
-   "t": "08:54",
+   "id": "1002-r3-1",
+   "t": "08:23",
    "t_amal": "09:00",
-   "medi_said": "أنا كنت شوي كسول هادي الصباح. هاد الصباح.",
+   "medi_said": "هادي الصباح. / (08:54) هادي الصباح. (08:58) هاد الصباح.",
    "amal_said": "We never say هذا الصبح just say الصبح or بالصباح.",
    "chat": "ana kunet shwai kasool el-subu7",
-   "wrong": "هاد الصباح",
+   "wrong": "هادي الصباح",
    "right": "الصبح / بالصباح",
    "kind": "grammar",
    "tier": null,
@@ -110,24 +135,25 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "explicit-no",
-   "confidence": "high",
-   "why": "He calqued 'this morning' as هاد الصباح (also هادي الصباح at 08:23); she said we never say that, just الصبح or بالصباح.",
+   "confidence": "medium",
+   "why": "She accepted الصباح itself at 08:14 (في الصباح or بالصباح أو الصباح); what she rules out at 09:00 is the demonstrative in front ('we never say هذا الصبح') - a construction rule, not a different word, so grammar; same phrase at 08:23/08:54/08:58 = one row, the first; his هادي->هاد was only a gender self-fix.",
    "english": "I was a bit lazy this morning.",
-   "proposed_rule": "'This morning' is el-sub7 or bil-saba7, never hada el-saba7 (a calque from English): ana kunet kasool el-sub7",
+   "proposed_rule": "'This morning' is just the time word with no hada in front: el-subu7 / bel-subu7 (never hada el-subu7).",
    "ids": [
     "1002-5",
-    "1002-5"
+    "1002-4"
    ],
-   "agreed_by": "r1+r2",
-   "fid": "1002-004"
+   "agreed_by": "r3",
+   "r3_why": "Both readers saw the same slip; the transcript shows the fix is about dropping هادي, not about the noun, so grammar PROPOSE; t = first occurrence 08:23.",
+   "fid": "1002-005"
   },
   {
-   "id": "1002-6",
+   "id": "1002-r3-2",
    "t": "09:23",
    "t_amal": "09:24",
    "medi_said": "أنا لا مش شجاع اليوم. مش شجاع اليوم.",
    "amal_said": "متشجع.",
-   "chat": "lissa mish mitshajje3 lalshu9ul? / ana la mish mitshajje3",
+   "chat": "lissa mish mitshajje3 lalshu9ul?",
    "wrong": "شجاع",
    "right": "متشجع",
    "kind": "vocab-A",
@@ -137,21 +163,21 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "She asked لسه مش متشجع and he answered with شجاع (brave), a different word of the same root; she recast متشجع at once. Sheet: motivated | Mitshajje3 | متشجع.",
-   "english": "I'm not motivated today",
+   "why": "shujaa3 is a different existing word (brave), not a wrong form of mitshajje3 (motivated), which she had just said at 09:08; she recast متشجع at once; sheet: motivated | Mitshajje3 | متشجع.",
+   "english": "I'm not motivated today.",
    "ids": [
     "1002-6",
-    "1002-6"
+    "1002-5"
    ],
    "agreed_by": "r3",
-   "r3_why": "Real recast; شجاع (brave) is a different lexical item from متشجع (motivated), so tier 1 not tier 2.",
-   "fid": "1002-005"
+   "r3_why": "Tier 1: شجاع is its own lexical item (brave), not a mis-built form of متشجع.",
+   "fid": "1002-006"
   },
   {
    "id": "A5",
-   "t": "09:38",
+   "t": "09:36",
    "t_amal": "09:41",
-   "medi_said": "أنا لازم آآآ عطلة و",
+   "medi_said": "أنا لازم / آآآ عطلة و",
    "amal_said": "لازم you should take.",
    "chat": "ana laazem aa5ud 3otle u asaafer",
    "wrong": "أنا لازم آآآ عطلة",
@@ -163,17 +189,17 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "laazem went straight onto a noun; she supplied the verb in English ('you should take') and he said أنا لازم أخد عطلة (GR-27).",
-   "english": "I need to take a vacation.",
+   "why": "laazem went straight to a noun; she supplies the verb 'take' in English and he says لازم أخد عطلة at 09:44 (GR-27).",
+   "english": "I need to take a day off.",
    "ids": [
     "1002-7",
-    "1002-7"
+    "1002-6"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1002-006"
+   "fid": "1002-007"
   },
   {
-   "id": "1002-8",
+   "id": "A6",
    "t": "09:44",
    "t_amal": "09:53",
    "medi_said": "أنا لازم أخد عطلة وسفر، سفر.",
@@ -181,32 +207,31 @@
    "chat": "ana laazem aa5ud 3otle u asaafer",
    "wrong": "سفر",
    "right": "أسافر",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B2",
+   "kind": "vocab-A",
+   "tier": 2,
+   "bucket": null,
    "bucket2": null,
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "laazem needs a verb (GR-27): he chained the noun safar after laazem ... u; her English rephrase 'I should travel' (PG-22) made him say ولازم أسافر.",
-   "english": "I must take a vacation and travel",
+   "why": "Noun safar (travel) used where the verb asaafer is needed; her English rephrase 'I should travel' and he fixes to ولازم أسافر at 09:57 (PG-22).",
+   "english": "and travel",
    "ids": [
     "1002-8",
-    "1002-8"
+    "1002-7"
    ],
-   "agreed_by": "r3",
-   "r3_why": "GR-27 / PG-22: after laazem (carried by u) he put the noun سفر where the verb is needed; she gave the verb in English 'I should travel' and he said ولازم أسافر. Grammar B2, not vocab.",
-   "fid": "1002-007"
+   "agreed_by": "r1+r2",
+   "fid": "1002-008"
   },
   {
-   "id": "A6",
+   "id": "A7",
    "t": "10:56",
    "t_amal": "10:59",
-   "medi_said": "أنا خططت امم سفر، سفر",
+   "medi_said": "أنا خططت / سفر، سفر",
    "amal_said": "You plan for.",
    "chat": "ana ba5a66atet la-safra el-usboo3 el-jaay",
    "wrong": "خططت سفر",
-   "right": "خططت لسفرة",
+   "right": "خططت لـ سفر",
    "kind": "grammar",
    "tier": null,
    "bucket": "D2",
@@ -214,24 +239,24 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "خطط takes la- (plan for); she said 'You plan for.' and he said لا سفر (la-safar).",
-   "english": "I planned a trip.",
+   "why": "khattat (plan) takes la- ('plan for'); she prompts 'You plan for.' and he says لا سفر (la-safar) at 11:07.",
+   "english": "I planned for a trip.",
    "ids": [
     "1002-9",
-    "1002-9"
+    "1002-8"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1002-008"
+   "fid": "1002-009"
   },
   {
-   "id": "A7",
+   "id": "A8",
    "t": "11:16",
-   "t_amal": "11:35",
-   "medi_said": "بس أنا راح آآآ على آآآ عموي.",
+   "t_amal": "11:49",
+   "medi_said": "بس أنا راح / آآآ على / عموي.",
    "amal_said": "Sorry بس أنا راح what?. ... راح going. What's going؟",
    "chat": "bas ana ra7 aru7 3ind 3ammi/o la-shu8ul",
-   "wrong": "أنا راح على عموي",
-   "right": "أنا راح أروح عند عمي",
+   "wrong": "أنا راح على",
+   "right": "أنا راح أروح على",
    "kind": "grammar",
    "tier": null,
    "bucket": "B13",
@@ -239,20 +264,45 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "ra7 needs a verb; she asked 'راح what?' / 'What's going?' and he added أروح (راح أروح).",
-   "english": "But I'm going to my uncle's for work.",
+   "why": "He used ra7 as the verb 'go' with no verb after it; she asks 'what?' and 'What's going?' and he adds أروح at 11:52.",
+   "english": "But I will go to my uncle's.",
    "ids": [
     "1002-10",
+    "1002-9"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1002-010"
+  },
+  {
+   "id": "A10",
+   "t": "11:52",
+   "t_amal": "11:58",
+   "medi_said": "راح أروح على / and عموي.",
+   "amal_said": "Either على or عند which one؟ Can't put two.",
+   "chat": "bas ana ra7 aru7 3ind 3ammi/o la-shu8ul",
+   "wrong": "على and عموي",
+   "right": "عند عمي",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "D1",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "explicit-no",
+   "confidence": "high",
+   "why": "Two prepositions stacked (3ala + 3ind; engine wrote 'and' for 3ind); she says you can't put two.",
+   "english": "I'll go to my uncle's.",
+   "ids": [
+    "1002-12",
     "1002-10"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1002-009"
+   "fid": "1002-011"
   },
   {
-   "id": "1002-12",
-   "t": "11:24",
+   "id": "A9",
+   "t": "12:18",
    "t_amal": "12:21",
-   "medi_said": "آآآ عموي. / and amuwi.",
+   "medi_said": "and amuwi.",
    "amal_said": "عمي.",
    "chat": "3ind 3ammi/o",
    "wrong": "عموي",
@@ -263,49 +313,23 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "recast",
-   "confidence": "medium",
-   "why": "He built 'my uncle' as 3ammo + -i; she said عمي twice and he accepted ('That's right'); the fix is the possessive ending on 3am (sheet: uncle (paternal) | 3am | عم).",
-   "english": "my uncle",
-   "ids": [
-    "1002-12",
-    "1002-12"
-   ],
-   "agreed_by": "r3",
-   "r3_why": "Real recast (عمي twice, he took it 'That's right'); the fix is only the possessive ending on عم, so grammar A4 per the tier-2 note (purely an ending rule = grammar).",
-   "fid": "1002-010"
-  },
-  {
-   "id": "A8",
-   "t": "11:52",
-   "t_amal": "11:58",
-   "medi_said": "راح أروح على and عموي.",
-   "amal_said": "Either على or عند which one؟ Can't put two.",
-   "chat": "bas ana ra7 aru7 3ind 3ammi/o",
-   "wrong": "على and (عند)",
-   "right": "عند",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D1",
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "explicit-no",
    "confidence": "high",
-   "why": "He stacked two prepositions على + عند; she said you can't put two, pick one (chat: 3ind).",
-   "english": "I'll go to my uncle's.",
+   "why": "He built 3amuwi; 'my uncle' is 3amm + -i = عمي; she recast twice and he took it ('That's right'); sheet: uncle (paternal) | 3am | عم.",
+   "english": "My uncle.",
    "ids": [
     "1002-11",
     "1002-11"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1002-011"
+   "fid": "1002-012"
   },
   {
-   "id": "A9",
+   "id": "1002-r3-9",
    "t": "13:14",
    "t_amal": "13:16",
    "medi_said": "How do I say we will have fun, Rah? Rah bida.",
    "amal_said": "No. It's the whole-- It's the reason of our whole one month long lesson.",
-   "chat": null,
+   "chat": "... u ra7 nenbese6.",
    "wrong": "Rah bida",
    "right": "رح ننبسط",
    "kind": "vocab-A",
@@ -313,25 +337,25 @@
    "bucket": null,
    "bucket2": null,
    "mode": "speaking",
-   "signal": "explicit-no",
+   "signal": "prompt-then-fix",
    "confidence": "low",
-   "why": "He tried 'Rah bida' for 'we will have fun'; she said No and hinted until he produced ننبسط (sheet: have fun / enjoy | Enbese6). The engine text 'bida' is unclear.",
+   "why": "He guessed 'bida' for 'have fun'; she said No and hinted ('we will get happy') until he found ننبسط himself at 13:47 (she said صح); she never supplied the word, so not tier 0; low because 'bida' in Latin may be the engine and her No may answer his question rather than the guess.",
    "english": "We will have fun.",
    "ids": [
-    "1002-13",
-    "1002-13"
+    "1002-12"
    ],
-   "agreed_by": "r1+r2",
-   "fid": "1002-012"
+   "agreed_by": "r3",
+   "r3_why": "Her 'No' + hints led him to a word he already knew (sheet: have fun / enjoy | Enbese6) - a wrong-word guess fixed by prompting, not a didn't-know.",
+   "fid": "1002-013"
   },
   {
-   "id": "A10",
-   "t": "14:33",
+   "id": "A11",
+   "t": "14:07",
    "t_amal": "14:54",
-   "medi_said": "Oh my gosh, I forgot the word for, for camping. ... Tesh-teshki?",
+   "medi_said": "ehna rah / niru, / um... / Oh my gosh, I forgot the word for, for camping.",
    "amal_said": "تخييم.",
    "chat": "u ba3dain e7na ra7 nroo7 ta5yeem ba3ed.",
-   "wrong": "Tesh-teshki?",
+   "wrong": "for camping",
    "right": "تخييم",
    "kind": "vocab-A",
    "tier": 0,
@@ -340,22 +364,22 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "high",
-   "why": "He forgot camping (sheet: camping | ta5yeem | تخييم), guessed teshki; she hinted خيمة then supplied تخييم.",
-   "english": "camping",
+   "why": "He could not find camping (sheet: camping | ta5yeem); after a خيمة hint she supplies تخييم.",
+   "english": "We will go camping.",
    "ids": [
-    "1002-14",
-    "1002-14"
+    "1002-13",
+    "1002-13"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1002-013"
+   "fid": "1002-014"
   },
   {
-   "id": "1002-16",
+   "id": "1002-r3-11",
    "t": "17:53",
    "t_amal": "18:01",
-   "medi_said": "if I say el awal elsaa, that means the f-- the, the... I thought you said this was also the first hour",
-   "amal_said": "Nothing. ... It would be the first if the أول is after.",
-   "chat": null,
+   "medi_said": "And if I say el awal elsaa, that means the f-- the, the... I thought you said this was also the first hour",
+   "amal_said": "Nothing. ... It would be the first if the أول is after. صح.",
+   "chat": "awal el-sa3a = the beginning of the hour",
    "wrong": "el awal elsaa",
    "right": "الساعة الأولى",
    "kind": "grammar",
@@ -364,23 +388,23 @@
    "bucket2": null,
    "mode": "speaking",
    "signal": "explicit-no",
-   "confidence": "medium",
-   "why": "He put el-awal with el- before the noun; she said it means nothing and the 'the first' form goes after the noun (then الساعة الأولى at 18:31).",
-   "english": "the first hour",
+   "confidence": "low",
+   "why": "He offered el-awal el-saa3a as 'the first hour'; she said 'Nothing' and 'it would be the first if the أول is after' - definite adjective goes after the noun (A7); it is inside rule-talk, so low.",
+   "english": "The first hour.",
    "ids": [
-    "1002-16"
+    "1002-15"
    ],
    "agreed_by": "r3",
-   "r3_why": "During the أول recall drill he gave el awal elsaa as a form meaning 'the first hour'; she said 'Nothing' and explained أول must come after. Same pattern as agreed A15 (الأول اليوم -> Nothing), so filed A7 like A15. Medium because it sits inside his English rule recital.",
-   "fid": "1002-014"
+   "r3_why": "Same pattern she rejected at 21:56/31:03 and the readers agreed on similar rule-talk rows (A15); kept low since it is close to a question about the rule.",
+   "fid": "1002-015"
   },
   {
-   "id": "A11",
+   "id": "A12",
    "t": "18:12",
    "t_amal": "18:14",
    "medi_said": "So الساعة el awal",
-   "amal_said": "Yes. بس we learned how to say الأول for a feminine. What is it? Do you remember?",
-   "chat": "haadi el-saa3a el-oowla",
+   "amal_said": "Yes. بس we learned how to say الأول for a feminine. What is it?",
+   "chat": "awal sa3a = the first hour",
    "wrong": "الساعة el awal",
    "right": "الساعة الأولى",
    "kind": "grammar",
@@ -390,22 +414,22 @@
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "ساعة is feminine so the adjective is الأولى; she prompted and he said الساعة الأولى.",
+   "why": "saa3a is feminine so the ordinal after it is el-oola; she prompts the feminine and he says الساعة الأولى at 18:31.",
    "english": "the first hour",
    "ids": [
-    "1002-16",
-    "1002-17"
+    "1002-14",
+    "1002-16"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1002-015"
+   "fid": "1002-016"
   },
   {
-   "id": "1002-18",
+   "id": "1002-r3-3",
    "t": "21:50",
    "t_amal": "21:56",
    "medi_said": "and التاني الساعة means a different hour.",
    "amal_said": "لا. We can't say تاني الساعة. It doesn't mean anything.",
-   "chat": "taani saa3a = second hour / second hour",
+   "chat": "taani saa3a = second hour",
    "wrong": "التاني الساعة",
    "right": "ساعة تانية / تاني ساعة",
    "kind": "grammar",
@@ -415,24 +439,25 @@
    "mode": "speaking",
    "signal": "explicit-no",
    "confidence": "medium",
-   "why": "Ordinal with el- before the noun; she said it doesn't mean anything (ساعة تاني after the noun = a different hour, 22:26).",
-   "english": "a different hour",
+   "why": "He put el-taani (with el-) before the noun; she says it means nothing - an adjective with el- goes after the noun (el-saa3a el-taanye), bare taani may go before a bare noun; that is A7 (adjective goes after, el- placement).",
+   "english": "A different hour.",
    "ids": [
-    "1002-18"
+    "1002-15",
+    "1002-17"
    ],
    "agreed_by": "r3",
-   "r3_why": "She asked him to apply the أول rule to تاني; he produced التاني الساعة for 'a different hour' and she said 'لا. We can't say تاني الساعة. It doesn't mean anything.' Real explicit-no; filed A7 like D11 / A15.",
-   "fid": "1002-016"
+   "r3_why": "A7 covers it: definite adjective placed before the noun; same family as agreed A16/A17.",
+   "fid": "1002-017"
   },
   {
-   "id": "A12",
+   "id": "A13",
    "t": "23:50",
-   "t_amal": "24:03",
-   "medi_said": "المصاري راح يجي، uh, في... في تاني يوم.",
-   "amal_said": "No, that's not two days. Second week.",
+   "t_amal": null,
+   "medi_said": "المصاري راح / يجي،",
+   "amal_said": null,
    "chat": "el-masari ra7 yiju fi tani youm / youm tani",
    "wrong": "المصاري راح يجي",
-   "right": "المصاري راح يجو",
+   "right": "المصاري راح يجوا",
    "kind": "grammar-B",
    "tier": null,
    "bucket": "B18",
@@ -440,20 +465,20 @@
    "mode": "speaking",
    "signal": "none",
    "confidence": "medium",
-   "why": "She had just told him مصاري is plural, so the verb is يجو (her chat yiju); she voiced nothing on the verb.",
-   "english": "The money will come on the second day.",
+   "why": "masaari is plural (she said so at 23:40) so the verb is yiju (my reading, from her chat); she only typed it, no voiced fix (GR-19).",
+   "english": "The money will come.",
    "ids": [
-    "1002-17",
-    "1002-19"
+    "1002-16",
+    "1002-18"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1002-017"
+   "fid": "1002-018"
   },
   {
-   "id": "1002-20b",
+   "id": "1002-r3-12",
    "t": "24:14",
    "t_amal": null,
-   "medi_said": "the money will come another day would be المال راح يجي، uh, في يوم تاني.",
+   "medi_said": "المال راح يجي، uh, في يوم تاني.",
    "amal_said": null,
    "chat": "el masari ra7 yiju el-yom el-tani",
    "wrong": "المال",
@@ -465,21 +490,21 @@
    "mode": "speaking",
    "signal": "none",
    "confidence": "low",
-   "why": "Spoken word for money is مصاري (sheet: money (plural) | Ma9aari | مصاري), which he used at 23:50; المال is MSA. She did not voice it; her chat writes el masari.",
-   "english": "the money will come another day",
+   "why": "He switched to MSA maal for money right after using المصاري at 23:50; sheet: money (plural) | Ma9aari | مصاري; she let it pass.",
+   "english": "The money will come another day.",
    "ids": [
-    "1002-20"
+    "1002-19"
    ],
    "agreed_by": "r3",
-   "r3_why": "He switched to MSA المال a moment after using المصاري; Amal let it pass. Kept as vocab-B (her review), low.",
-   "fid": "1002-018"
+   "r3_why": "Real register slip she let pass; vocab-B, unscored until Amal confirms.",
+   "fid": "1002-019"
   },
   {
-   "id": "A13",
+   "id": "A14",
    "t": "27:16",
    "t_amal": "27:25",
    "medi_said": "هذي اليوم التانية.",
-   "amal_said": "مم، مم، هذي اليوم. ... مرة، هذي المرة.",
+   "amal_said": "مم، مم، هذي اليوم. / مرة، هذي المرة.",
    "chat": "hadi el-marra el-tania illi bashufek elyoam",
    "wrong": "هذي اليوم التانية",
    "right": "هذي المرة التانية",
@@ -488,24 +513,24 @@
    "bucket": null,
    "bucket2": null,
    "mode": "speaking",
-   "signal": "recast",
+   "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "He put اليوم (day) where المرة (time) was meant; she echoed هذي اليوم then said مرة، هذي المرة and he redid it.",
-   "english": "This is the second time (I see you today).",
+   "why": "He said el-yoam (the day) for el-marra (the time); she echoes هذي اليوم then gives المرة and he fixes at 27:27.",
+   "english": "This is the second time.",
    "ids": [
-    "1002-18",
-    "1002-21"
+    "1002-17",
+    "1002-20"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1002-019"
+   "fid": "1002-020"
   },
   {
-   "id": "A14",
+   "id": "A15",
    "t": "28:43",
    "t_amal": "28:55",
-   "medi_said": "So ساعة الأول-- It should be ساعة الأول. ساعة، ساعة أـ...",
-   "amal_said": "أولى. ... السـ-- الساعة الأولى.",
-   "chat": "awal sa3a = the first hour",
+   "medi_said": "So ساعة الأول-- It should be ساعة الأول.",
+   "amal_said": "أولى. / السـ-- الساعة الأولى.",
+   "chat": "awal el-sa3a = the beginning of the hour",
    "wrong": "ساعة الأول",
    "right": "الساعة الأولى",
    "kind": "grammar",
@@ -515,23 +540,23 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "Feminine ساعة needs الأولى and the noun needs el- too; she recast الساعة الأولى.",
+   "why": "Same masc ordinal after feminine saa3a again (and no el- on saa3a); she recasts twice.",
    "english": "the first hour",
    "ids": [
-    "1002-19",
-    "1002-22"
+    "1002-18",
+    "1002-21"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1002-020"
+   "fid": "1002-021"
   },
   {
-   "id": "1002-20",
+   "id": "1002-r3-4",
    "t": "30:35",
    "t_amal": "30:41",
-   "medi_said": "The first day",
-   "amal_said": "أول اليوم. ... أول اليوم. [تضحك]",
-   "chat": "awal el-sa3a = the beginning of the hour.",
-   "wrong": "The first day (for أول اليوم)",
+   "medi_said": "The first day / (30:39) The first day.",
+   "amal_said": "أول اليوم. / أول اليوم. [تضحك]",
+   "chat": null,
+   "wrong": "The first day",
    "right": "the beginning of the day",
    "kind": "grammar",
    "tier": null,
@@ -539,71 +564,45 @@
    "bucket2": null,
    "mode": "listening",
    "signal": "prompt-then-fix",
-   "confidence": "high",
-   "why": "He misread her أول اليوم as 'the first day'; she repeated it twice until he said 'the beginning of the day' at 30:52.",
-   "english": "the beginning of the day",
-   "proposed_rule": "أول before a noun with el- means 'the beginning of' (أول اليوم = the beginning of the day); before a bare noun it means 'first' (أول يوم = first day).",
+   "confidence": "medium",
+   "why": "Meaning drill: she said أول اليوم, he twice answered 'the first day'; she repeated it with a laugh until he said 'The beginning of the day' at 30:52 - he misread the awal + el-noun construction.",
+   "english": "awal el-yoam = the beginning of the day",
+   "proposed_rule": "awal before a noun with el- means 'the beginning of' (awal el-yoam = the beginning of the day); 'the first day' is el-yoam el-awwal or awal yoam.",
    "ids": [
-    "1002-20",
-    "1002-23"
+    "1002-19"
    ],
    "agreed_by": "r3",
-   "r3_why": "Real: in the listening drill he read أول اليوم as 'the first day'; she repeated it twice (laughing) until he said 'the beginning of the day'. The point is the أول placement / el- rule, so grammar, listening.",
-   "fid": "1002-021"
+   "r3_why": "Real listening misreading with her repeated prompt; it is the construction being taught (awal + el- = beginning), so grammar PROPOSE, mode listening.",
+   "fid": "1002-022"
   },
   {
-   "id": "A15",
+   "id": "1002-r3-5",
    "t": "30:57",
    "t_amal": "31:06",
-   "medi_said": "الأول اليوم. No, that's the-- Isn't that the first day?",
-   "amal_said": "Nothing. ... اليوم الأول.",
-   "chat": null,
+   "medi_said": "الأول اليوم. ... الأول اليوم. No, that's the-- Isn't that the first day?",
+   "amal_said": "Nothing. / Nothing. / اليوم الأول.",
+   "chat": "awal el-sa3a = the b eginning of the hour.",
    "wrong": "الأول اليوم",
    "right": "اليوم الأول",
    "kind": "grammar",
    "tier": null,
    "bucket": "A7",
-   "bucket2": "PROPOSE",
+   "bucket2": null,
    "mode": "speaking",
    "signal": "explicit-no",
    "confidence": "high",
-   "why": "Adjective must follow the noun; she said his الأول اليوم means nothing and gave اليوم الأول.",
-   "english": "the first day",
-   "proposed_rule": "Tool words awal / aa5er / taani / 8eir go BEFORE a bare noun with no el- (awal saa3a, taani youm, 7ada taani = someone else); AFTER the noun they act as adjectives, take el- with the noun and agree (el-saa3a el-oola); aa5er + el-noun = the end of (aa5er el-ijtimaa3)",
+   "why": "He built el-awwal before el-yoam for 'the first day' (his own Arabic, not reading hers); she said 'Nothing' twice and gave اليوم الأول - definite adjective goes after the noun (A7).",
+   "english": "The first day.",
    "ids": [
-    "1002-21",
-    "1002-24"
+    "1002-20",
+    "1002-22"
    ],
-   "agreed_by": "r1+r2",
-   "fid": "1002-022"
-  },
-  {
-   "id": "A16",
-   "t": "33:34",
-   "t_amal": "33:42",
-   "medi_said": "And then مرة, uh, مرة الأخر.",
-   "amal_said": "Now.",
-   "chat": "el-marra el-a5eera = the last time",
-   "wrong": "الأخر",
-   "right": "الأخيرة",
-   "kind": "vocab-A",
-   "tier": 2,
-   "bucket": null,
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "prompt-then-fix",
-   "confidence": "medium",
-   "why": "After a noun آخر becomes the adjective أخيرة (taught minutes before); she cued him and he changed to مرة الأخيرة.",
-   "english": "the last time",
-   "ids": [
-    "1002-22",
-    "1002-25"
-   ],
-   "agreed_by": "r1+r2",
+   "agreed_by": "r3",
+   "r3_why": "He produced the phrase himself, so speaking; A7 fits (el-awwal must follow the noun); t=30:57, the one she answered (30:47 was his echo of her prompt).",
    "fid": "1002-023"
   },
   {
-   "id": "A17",
+   "id": "A16",
    "t": "33:43",
    "t_amal": "33:45",
    "medi_said": "مرة الأخيرة.",
@@ -614,46 +613,21 @@
    "kind": "grammar",
    "tier": null,
    "bucket": "A7",
-   "bucket2": null,
+   "bucket2": "A1",
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "Noun + el-adjective needs el- on the noun too; she recast المرة الأخيرة and he repeated it.",
+   "why": "Noun + el-adjective needs el- on the noun too; she recasts المرة الأخيرة and he repeats it.",
    "english": "the last time",
    "ids": [
-    "1002-23",
-    "1002-26"
+    "1002-21",
+    "1002-23"
    ],
    "agreed_by": "r1+r2",
    "fid": "1002-024"
   },
   {
-   "id": "1002-27",
-   "t": "34:58",
-   "t_amal": "35:02",
-   "medi_said": "The last person that came.",
-   "amal_said": "Yeah, yeah. To come. Mm-hmm.",
-   "chat": "aa5er 7ada byiji",
-   "wrong": "that came",
-   "right": "that comes",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B1",
-   "bucket2": null,
-   "mode": "listening",
-   "signal": "recast",
-   "confidence": "low",
-   "why": "He read her آخر حدا بيجي (present, b-) as past; she stressed 'To come' and he said 'That comes. The last person that comes.'",
-   "english": "the last person who comes",
-   "ids": [
-    "1002-27"
-   ],
-   "agreed_by": "r3",
-   "r3_why": "Listening: he read present بيجي as past 'came'; she said 'To come' and he changed to 'That comes'. Tense is a grammar point (b- present), so grammar B1, listening, low.",
-   "fid": "1002-025"
-  },
-  {
-   "id": "1002-24",
+   "id": "A17",
    "t": "35:31",
    "t_amal": "35:35",
    "medi_said": "الرحلة أخيرة.",
@@ -668,21 +642,20 @@
    "mode": "listening",
    "signal": "recast",
    "confidence": "high",
-   "why": "Repeating her الرحلة الأخيرة he dropped el- on the adjective (makes a sentence 'the trip is last'); she recast الأخيرة and he repeated it right.",
+   "why": "He repeated her الرحلة الأخيرة without el- on the adjective; she supplies الأخيرة.",
    "english": "the last trip",
    "ids": [
-    "1002-24",
-    "1002-28"
+    "1002-22",
+    "1002-24"
    ],
-   "agreed_by": "r3",
-   "r3_why": "Real A7 recast; he was reading back her Arabic in the guess drill (she said الرحلة الأخيرة, he repeated it without el-), so mode listening.",
-   "fid": "1002-026"
+   "agreed_by": "r1+r2",
+   "fid": "1002-025"
   },
   {
-   "id": "1002-25",
+   "id": "1002-r3-6",
    "t": "39:16",
    "t_amal": "39:18",
-   "medi_said": "غير يوم. غير اليوم. I'll see you another day.",
+   "medi_said": "غير يوم.\" \"غير اليوم.\" I'll see you another day.",
    "amal_said": "غير يوم.",
    "chat": "bashufek 8eir yoam = i'll see you another day",
    "wrong": "غير اليوم",
@@ -694,22 +667,22 @@
    "mode": "listening",
    "signal": "recast",
    "confidence": "low",
-   "why": "Right after she said غير takes no el-, reading back her بشوفك غير يوم he said غير اليوم; she repeated غير يوم.",
-   "english": "I'll see you another day",
-   "proposed_rule": "غير (other / another) never puts el- on the noun after it: بشوفك غير يوم.",
+   "why": "Meaning drill on بشوفك غير يوم: repeating her phrase he said غير اليوم, right after agreeing 'ghair never takes el-'; she repeated غير يوم; could be her simply confirming or the engine adding el-, so low.",
+   "english": "I'll see you another day.",
+   "proposed_rule": "ghair (other / another) goes before a bare noun and the noun never takes el-: ghair yoam, ghair ishi.",
    "ids": [
-    "1002-25",
-    "1002-29"
+    "1002-23",
+    "1002-25"
    ],
    "agreed_by": "r3",
-   "r3_why": "She said بشوفك غير يوم and asked its meaning; reading it back he said غير يوم then غير اليوم and she re-said غير يوم - a listening read-back slip, kept low because he said it right first.",
-   "fid": "1002-027"
+   "r3_why": "Her immediate re-say of the bare form after his el- version reads as a recast; no bucket covers ghair + el-, so PROPOSE; low because it may be echo/engine.",
+   "fid": "1002-026"
   },
   {
    "id": "A18",
-   "t": "42:02",
+   "t": "42:06",
    "t_amal": "42:11",
-   "medi_said": "هي ال، الختيارة ال أول. Is it awwal?",
+   "medi_said": "هي ال، ال، الختيارة ال أول. Is it awwal?",
    "amal_said": "الأولى.",
    "chat": "heyye el-5ityaara el-oola bibarnaamejna",
    "wrong": "الختيارة ال أول",
@@ -721,73 +694,47 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "ختيارة is feminine so أول becomes الأولى; she said الأولى and he repeated it.",
+   "why": "Feminine 5ityaara needs el-oola; she says الأولى and he swears and repeats أولى.",
    "english": "She is the first old woman in our program.",
    "ids": [
-    "1002-26",
-    "1002-30"
+    "1002-24",
+    "1002-26"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1002-028"
+   "fid": "1002-027"
   },
   {
-   "id": "A19",
+   "id": "1002-r3-7",
    "t": "43:16",
    "t_amal": "43:18",
-   "medi_said": "تاني، تاني حدا.",
-   "amal_said": "تاني حدا would mean the second person.",
+   "medi_said": "Yes, uh, tan-- uh, تاني، تاني حدا. / هذا الثاني.",
+   "amal_said": "تاني حدا would mean the second person. ... حدا التاني is no. X. Just حدا تاني.",
    "chat": "ana fakkaret enno inti 8eir 7ada / 7ada taani",
    "wrong": "تاني حدا",
    "right": "حدا تاني",
    "kind": "grammar",
    "tier": null,
-   "bucket": "PROPOSE",
-   "bucket2": "A7",
+   "bucket": "A7",
+   "bucket2": null,
    "mode": "speaking",
    "signal": "explicit-no",
    "confidence": "high",
-   "why": "For 'someone else' تاني must come after the noun; before it means 'the second person', she told him.",
-   "english": "someone else",
-   "proposed_rule": "Tool words awal / aa5er / taani / 8eir go BEFORE a bare noun with no el- (awal saa3a, taani youm, 7ada taani = someone else); AFTER the noun they act as adjectives, take el- with the noun and agree (el-saa3a el-oola); aa5er + el-noun = the end of (aa5er el-ijtimaa3)",
+   "why": "For 'someone else' taani must come after the noun; before it, it means 'the second person'; she says so and rejects his follow-up too ('no. X. Just حدا تاني').",
+   "english": "I thought you were someone else.",
    "ids": [
-    "1002-27",
-    "1002-31"
+    "1002-25",
+    "1002-27"
    ],
-   "agreed_by": "r1+r2",
-   "fid": "1002-029"
+   "agreed_by": "r3",
+   "r3_why": "Same slip, label only differs; A7 (adjective after the noun) fits, consistent with D3/D5.",
+   "fid": "1002-028"
   },
   {
-   "id": "A20",
-   "t": "43:20",
-   "t_amal": "43:27",
-   "medi_said": "Oh, you're right. Uh, هذا الثاني.",
-   "amal_said": "حدا التاني is no. X. Just حدا تاني.",
-   "chat": "7ada taani",
-   "wrong": "حدا التاني (engine wrote هذا الثاني)",
-   "right": "حدا تاني",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "PROPOSE",
-   "bucket2": "A7",
-   "mode": "speaking",
-   "signal": "explicit-no",
-   "confidence": "high",
-   "why": "Her echo 'حدا التاني is no' shows he said حدا التاني (engine wrote هذا الثاني); el- on تاني after an indefinite noun is wrong, she gave حدا تاني.",
-   "english": "someone else",
-   "proposed_rule": "Tool words awal / aa5er / taani / 8eir go BEFORE a bare noun with no el- (awal saa3a, taani youm, 7ada taani = someone else); AFTER the noun they act as adjectives, take el- with the noun and agree (el-saa3a el-oola); aa5er + el-noun = the end of (aa5er el-ijtimaa3)",
-   "ids": [
-    "1002-28",
-    "1002-32"
-   ],
-   "agreed_by": "r1+r2",
-   "fid": "1002-030"
-  },
-  {
-   "id": "A21",
+   "id": "A19",
    "t": "45:01",
    "t_amal": "45:05",
-   "medi_said": "آخر عشرة دقايق. عشرة دقايق؟",
-   "amal_said": "صح. عشر y. ... y عشر not عشرة.",
+   "medi_said": "آخر / عشرة / دقايق. عشرة دقايق؟",
+   "amal_said": "عشر y. ... y عشر not عشرة.",
    "chat": "aa5er 3ashar da2aaye2",
    "wrong": "عشرة دقايق",
    "right": "عشر دقايق",
@@ -796,70 +743,44 @@
    "bucket": "E1",
    "bucket2": null,
    "mode": "speaking",
-   "signal": "named-rule",
+   "signal": "recast",
    "confidence": "high",
-   "why": "3-10 before a plural noun drop the -a ending (E1); she said عشر not عشرة and he said عشر دقايق.",
+   "why": "3-10 before a plural noun drop the -a ending; she says عشر not عشرة and he repeats.",
    "english": "the last ten minutes",
    "ids": [
-    "1002-29",
-    "1002-33"
+    "1002-26",
+    "1002-28"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1002-031"
+   "fid": "1002-029"
   },
   {
-   "id": "1002-34",
-   "t": "45:55",
-   "t_amal": "45:58",
-   "medi_said": "العشر دقايق الـ، uh, الآخر.",
-   "amal_said": "ال أخي-",
-   "chat": "el-3ashar da2aaye2 el-a5eeraat",
-   "wrong": "الآخر",
-   "right": "الأخير",
-   "kind": "vocab-A",
-   "tier": 2,
-   "bucket": null,
-   "bucket2": null,
-   "mode": "speaking",
-   "signal": "prompt-then-fix",
-   "confidence": "medium",
-   "why": "After the noun آخر becomes the adjective أخير (she taught it at 32:17); she started 'ال أخي-' and he switched to الأخير. Same pattern as agreed A16 (مرة الأخر).",
-   "english": "the last (ten minutes)",
-   "ids": [
-    "1002-30",
-    "1002-34"
-   ],
-   "agreed_by": "r3",
-   "r3_why": "Two separate slips sit at 45:55-46:10. This row is the first: he said الآخر where the adjective form الأخير is needed (taught 32:17 'آخر as an adjective is أخير'); she prompted 'ال أخي-' and he switched. The plural-agreement slip (الأخيرات) is D15 - kept there, not here.",
-   "fid": "1002-032"
-  },
-  {
-   "id": "1002-35",
-   "t": "46:02",
+   "id": "A20",
+   "t": "45:58",
    "t_amal": "46:10",
-   "medi_said": "الأخيرة. No، wait. دقيقة is, is masculine. So، أخ-أخير.",
-   "amal_said": "أخيرات. [laughs] That's why I paused.",
+   "medi_said": "الأخير، الأخيرة. ... دقيقة is masculine. So، أخ-أخير.",
+   "amal_said": "أخيرة. / أخيرات. [laughs] That's why I paused.",
    "chat": "el-3ashar da2aaye2 el-a5eeraat",
-   "wrong": "الأخيرة / أخير",
+   "wrong": "الأخير",
    "right": "الأخيرات",
    "kind": "grammar",
    "tier": null,
    "bucket": "A8",
-   "bucket2": null,
+   "bucket2": "A9",
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "The adjective after plural دقايق agrees in the plural; she paused on أخيرة and then gave أخيرات, he accepted it.",
+   "why": "The adjective after plural da2aaye2 is a5eeraat; he gave masc/fem singular (and called دقيقة masculine); she supplies أخيرات.",
    "english": "the last ten minutes",
    "ids": [
-    "1002-35"
+    "1002-27",
+    "1002-29"
    ],
-   "agreed_by": "r3",
-   "r3_why": "Real A8 slip (same slip r1 filed under D9): he gave الأخيرة then masc أخير for plural دقايق; she gave أخيرات and he took it ('Oh, because it's plural').",
-   "fid": "1002-033"
+   "agreed_by": "r1+r2",
+   "fid": "1002-030"
   },
   {
-   "id": "A22",
+   "id": "A21",
    "t": "47:07",
    "t_amal": "47:09",
    "medi_said": "Yeah، آخر الموظفة, right?",
@@ -870,28 +791,28 @@
    "kind": "grammar",
    "tier": null,
    "bucket": "PROPOSE",
-   "bucket2": "A7",
+   "bucket2": null,
    "mode": "speaking",
    "signal": "prompt-then-fix",
    "confidence": "high",
-   "why": "آخر + el-noun means 'the end of'; she asked 'The end of the employees?' and he dropped the el- (مين آخر Moazafa).",
+   "why": "For 'the last X' aa5er goes before a bare noun; with el- it means 'the end of X' - she asks 'The end of the employees?' and he fixes to آخر موظفة at 47:12.",
    "english": "Who is the last employee?",
-   "proposed_rule": "Tool words awal / aa5er / taani / 8eir go BEFORE a bare noun with no el- (awal saa3a, taani youm, 7ada taani = someone else); AFTER the noun they act as adjectives, take el- with the noun and agree (el-saa3a el-oola); aa5er + el-noun = the end of (aa5er el-ijtimaa3)",
+   "proposed_rule": "awwal / aa5er before a noun take a bare noun for 'the first / last X'; with el- they mean 'the beginning / end of X': aa5er muwazzafe = the last employee, aa5er el-ijtima3 = the end of the meeting",
    "ids": [
-    "1002-31",
-    "1002-36"
+    "1002-28",
+    "1002-30"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1002-034"
+   "fid": "1002-031"
   },
   {
-   "id": "A23",
-   "t": "48:58",
+   "id": "A22",
+   "t": "48:52",
    "t_amal": "49:00",
-   "medi_said": "you say it was dwarf? What was it again?",
+   "medi_said": "غير / Uh, you say it was dwarf? What was it again?",
    "amal_said": "ضيوف.",
    "chat": "37na 3indna 8eir dyoof kul yoam",
-   "wrong": "(forgot) ضيوف",
+   "wrong": "guests",
    "right": "ضيوف",
    "kind": "vocab-A",
    "tier": 0,
@@ -900,20 +821,20 @@
    "mode": "speaking",
    "signal": "asked",
    "confidence": "high",
-   "why": "He did not know guests; she supplied ضيف ضيوف and again ضيوف when he asked.",
-   "english": "guests",
+   "why": "He asked her for the word for guests and she gave ضيوف.",
+   "english": "We have different guests every day.",
    "ids": [
-    "1002-32",
-    "1002-37"
+    "1002-29",
+    "1002-31"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1002-035"
+   "fid": "1002-032"
   },
   {
-   "id": "A24",
+   "id": "A23",
    "t": "52:13",
    "t_amal": "52:15",
-   "medi_said": "أنا بسوق نفس الطريقة",
+   "medi_said": "أنا بسوق / نفس الطريقة",
    "amal_said": "طريق. What's طريقة?",
    "chat": "ana basoo2 nafs el-taree2 kul yom",
    "wrong": "الطريقة",
@@ -925,14 +846,14 @@
    "mode": "speaking",
    "signal": "recast",
    "confidence": "high",
-   "why": "طريقة = way/method, not road; she said طريق and he said نفس الطريق. Sheet: road / way / route | 6ariq | طريق; way / method | Tariqa | طريقة.",
+   "why": "6ari2a = way/method, 6ari2 = road/route (sheet: road / way / route | 6ariq); she recasts and he says نفس الطريق.",
    "english": "I drive the same route every day.",
    "ids": [
-    "1002-33",
-    "1002-38"
+    "1002-30",
+    "1002-32"
    ],
    "agreed_by": "r1+r2",
-   "fid": "1002-036"
+   "fid": "1002-033"
   }
  ]
 }
