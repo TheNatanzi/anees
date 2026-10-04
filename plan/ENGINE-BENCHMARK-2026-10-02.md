@@ -330,7 +330,7 @@ Rule tried: a change is proposed only when 2 of 3 Gemini runs agree; it is held 
 | **Gemini total** | | **$23.11** |
 | **OpenAI total** | | **$7.15** |
 
-- **Google took more than this count.** Your first $20 of credit was used up when my count said $14.78: about 35% more. Real Gemini spend for this job is probably near $31. The bill review is still to do.
+- **Bill review (Google AI Studio, read 2026-10-04):** $40 of credit was added and $9.26 is left, so Google took about $30.74 for what I counted as $20.43: about 1.5x my count. The token counts agree (Google shows 18.1M input and 9.1M output tokens for Gemini 3.8 Flash on Oct 3; my log has the same once the earlier benchmark runs are added), so the gap is the price per token, not hidden calls. Real Gemini spend for this job is about $35, not $23. Google's cost-per-model page lags a day, so the exact rate is not confirmed yet; the price table the spending cap uses is still the old one.
 - Gemini credit ran out twice mid-run. No miss was counted against any idea: those lines were thrown out and re-sent.
 - Allowance: the spec's $20 plus the $5 you approved for Gemini's two ideas. The pipeline's own cap was not raised.
 
