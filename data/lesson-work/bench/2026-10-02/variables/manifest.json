@@ -1,0 +1,131 @@
+{
+ "date": "2026-10-02",
+ "truth_sha256": "4a26fdb66bac0acd7ac8e4550d72ca43edca297fda750f87c4ca361d2648cb6a",
+ "base_prompts_sha256": "bd1a29d409660d4ffe6585a0c9da9a6a03e8564fe56944472f2e5d8c1d2b2dbe",
+ "base_engine": "gemini-flash-t1",
+ "vars": {
+  "v1": {
+   "name": "evidence: heard or inferred",
+   "kind": "full",
+   "engine": "gemini-flash-v1-t1",
+   "lines": 472,
+   "prompts_sha256": "cab75979cd281ba06fb0d6783f25e35ee825446050085e0879d76fa3a9fecde7",
+   "spec_sha256": "a53092ef7823360fe48527597d7c6573fa657e6cc78e96085a9f90974606a54a",
+   "frozen": "2026-10-03T19:59:18"
+  },
+  "v2": {
+   "name": "forced choice on held / no-agreement lines",
+   "kind": "subset",
+   "engine": "gemini-flash-v2-t1",
+   "lines": 53,
+   "prompts_sha256": "98aae9e0886f7854fdeae9f2829a08db16e45122590b56a156623ec93e97d35b",
+   "frozen": "2026-10-03T19:59:18"
+  },
+  "v3": {
+   "name": "two clips: his line + Amal's next",
+   "kind": "subset",
+   "engine": "gemini-flash-v3-t1",
+   "lines": 28,
+   "prompts_sha256": "affe04c47067308fed1e84af8af932d940c23a1c4795c897045ff7324b01ab90",
+   "frozen": "2026-10-03T19:59:18"
+  },
+  "v4": {
+   "name": "confidence per changed word",
+   "kind": "full",
+   "engine": "gemini-flash-v4-t1",
+   "lines": 472,
+   "prompts_sha256": "ae1846a135f9771a09b30b0d458b9056151ff7294f6f69d73d545e23a46a87c8",
+   "spec_sha256": "ef432f9f25f0820768396b9e521ad99e7edefb9ef655f7368ca2ab7ad4cd6bd4",
+   "frozen": "2026-10-03T19:59:18"
+  },
+  "v5": {
+   "name": "second guess for unsure words",
+   "kind": "full",
+   "engine": "gemini-flash-v5-t1",
+   "lines": 472,
+   "prompts_sha256": "710d09a54d29b242f4c279dab17fafe127ff99d3cddb4dda29bc1e514b8ecf98",
+   "spec_sha256": "1278ea06311c5d220d30b413c621c0cde0902feafe0b0dacf11a85dcd70af192",
+   "frozen": "2026-10-03T19:59:19"
+  },
+  "v6": {
+   "name": "Arabic span inside long lines (two calls)",
+   "kind": "subset",
+   "engine": "gemini-flash-v6-t1",
+   "lines": 27,
+   "prompts_sha256": "ef6a3240347f89e7002de6a0015331e2b5161e1829df36e92fe16c0f346d183c",
+   "frozen": "2026-10-03T19:59:19"
+  },
+  "v7": {
+   "name": "accent note",
+   "kind": "full",
+   "engine": "gemini-flash-v7-t1",
+   "lines": 472,
+   "prompts_sha256": "302fb0723e8ea543679c53c9df736ab095aa563a65ce8f7feeacb21de8a51fad",
+   "spec_sha256": "2c4dd21e48bb4470de9f4eaf3c83a6aa7e4304931be972625bf00f32c0857262",
+   "frozen": "2026-10-03T19:59:19"
+  },
+  "v8": {
+   "name": "taught-word list, SAID + MEANT",
+   "kind": "full",
+   "engine": "gemini-flash-v8-t1",
+   "lines": 472,
+   "prompts_sha256": "912991adcf8cb05e632e60654eb54e38468761efbdd419c00a3a5d6ce150ed61",
+   "spec_sha256": "3e38a15029b2588166fdf627a743ef657a8002d3c5f3342b0a7014d25261b6a1",
+   "frozen": "2026-10-03T19:59:19"
+  },
+  "v9": {
+   "name": "thinking level high",
+   "kind": "full",
+   "engine": "gemini-flash-v9-t1",
+   "lines": 472,
+   "prompts_sha256": "854b71192feb1fe19b7da35337e9d4ba3548052d8ca4fde53e00fc1566b06f07",
+   "spec_sha256": "05e820f7ed21ab4dd7fa7dfd05c2540bb2aeca243152488edd82795914c0c131",
+   "frozen": "2026-10-03T19:59:19"
+  },
+  "v10": {
+   "name": "vowel marks (harakat)",
+   "kind": "full",
+   "engine": "gemini-flash-v10-t1",
+   "lines": 472,
+   "prompts_sha256": "d9812face8eb7240f0f61136363ab7a0be8d46336921a1a335707788e481ff54",
+   "spec_sha256": "887c3408a2788c07d45f25b0aef39a1d537ba6e41f31f39e8ef020a52bba701e",
+   "frozen": "2026-10-03T19:59:19"
+  },
+  "best": {
+   "name": "best recipe: word list, SAID + MEANT, vowel marks in their own field",
+   "kind": "full",
+   "engine": "gemini-flash-best-t1",
+   "lines": 472,
+   "prompts_sha256": "8fc734ffcbfe4e8ad49b00e3a933258b38e0e40fec7e8a3a5efdcefb0f20f993",
+   "spec_sha256": "c98eb8c57f54238b1383f25eaa92d47dd0eda3153b6ab36546514379e06ab0f9",
+   "frozen": "2026-10-03T20:58:46"
+  },
+  "bestoa": {
+   "name": "best recipe on OpenAI gpt-audio-1.5",
+   "kind": "full",
+   "engine": "openai-audio-best",
+   "lines": 472,
+   "prompts_sha256": "8fc734ffcbfe4e8ad49b00e3a933258b38e0e40fec7e8a3a5efdcefb0f20f993",
+   "spec_sha256": "0c4b4cdc8aa4110dfe96c324bae1452231a7432dd2c889681ce768fc0bdda5ac",
+   "frozen": "2026-10-03T20:58:46"
+  },
+  "v11": {
+   "name": "one-field answer (the text only)",
+   "kind": "full",
+   "engine": "gemini-flash-v11-t1",
+   "lines": 472,
+   "prompts_sha256": "ff57ee0a8dc97576af0cee3e472032c141ff4ee9dc275bf0e24fcc9d3c306ffa",
+   "spec_sha256": "e46c75371943b5820806e376cd927a9a7ae50731bac5f95bd06fa572e660050d",
+   "frozen": "2026-10-03T21:27:02"
+  },
+  "v12": {
+   "name": "context advice without the guessing lines",
+   "kind": "full",
+   "engine": "gemini-flash-v12-t1",
+   "lines": 472,
+   "prompts_sha256": "087f747eb997ad83446a05b75ed2cea33c2b48f512f509dcdd6e43bb32f1f521",
+   "spec_sha256": "4236e977a47620f3de7a120766939d41d2d91364942db48ab7b5c2d9a6168e17",
+   "frozen": "2026-10-03T21:27:02"
+  }
+ }
+}

@@ -42,13 +42,15 @@ SERVICE = {"eleven": "elevenlabs", "openai-stt": "openai", "openai-4o": "openai"
            "gemini-flash": "gemini", "gemini-pro": "gemini", "gemini-transcribe": "gemini"}
 LISTENERS = {"gemini-flash": "gemini-3.8-flash", "gemini-pro": "gemini-3.1-pro-preview", "openai-audio": "gpt-audio-1.5"}
 def root(engine):
-    """The engine without its arm / temperature suffix: gemini-flash-before-t1 -> gemini-flash."""
-    return re.sub(r"(-before|-t0|-t1)+$", "", engine)
+    """The engine without its arm / temperature / variable suffix: gemini-flash-before-t1 -> gemini-flash,
+    gemini-flash-v4h-t1 -> gemini-flash, openai-audio-best -> openai-audio (scripts/bench_vars.py)."""
+    return re.sub(r"(-before|-t0|-t1|-v\d+h?|-best)+$", "", engine)
 
 
 # Medi 2026-10-03, on the temperature test: "I want to do this right and now how much the temp affects it. 20$ is fine"
 # - an allowance for THIS benchmark only, on top of the room left under the pipeline's cap (pipeline_ext.CAPS untouched).
-BENCH_EXTRA = {"gemini": 20.0}
+# Medi 2026-10-04, asked "Test Gemini's two untested ideas? A: yes, both, and raise the benchmark allowance by $5": "a".
+BENCH_EXTRA = {"gemini": 25.0}
 
 
 def key(name):
@@ -256,7 +258,7 @@ def _json(txt):
         return None
 
 
-def gemini(model, path, prompt, as_json=True, temp=None):
+def gemini(model, path, prompt, as_json=True, temp=None, cfg_extra=None, more_audio=()):
     import requests
     audio = base64.b64encode(open(path, "rb").read()).decode()
     cfg = {"temperature": 0}
@@ -269,7 +271,11 @@ def gemini(model, path, prompt, as_json=True, temp=None):
         cfg["temperature"] = temp
     if as_json:
         cfg["responseMimeType"] = "application/json"
-    parts = [{"inline_data": {"mime_type": "audio/wav", "data": audio}}] + ([{"text": prompt}] if prompt else [])
+    if cfg_extra:                                     # the variables test (bench_vars.py): thinking level, output cap
+        cfg.update(cfg_extra)
+    parts = [{"inline_data": {"mime_type": "audio/wav", "data": audio}}]
+    parts += [{"inline_data": {"mime_type": "audio/wav", "data": base64.b64encode(open(x, "rb").read()).decode()}} for x in more_audio]
+    parts += [{"text": prompt}] if prompt else []
     body = {"contents": [{"parts": parts}], "generationConfig": cfg}
     r = requests.post("https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent" % model, params={"key": key("GEMINI_API_KEY")}, json=body, timeout=420)
     if r.status_code != 200:

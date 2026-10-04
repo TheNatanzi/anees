@@ -201,9 +201,152 @@ Rule tried: a change is proposed only when 2 of 3 Gemini runs agree; it is held 
 - With Gemini's text the readers no longer write the false slip المال -> المصاري (the engine's mishearing Medi had to reject by hand).
 - Files: `data/lesson-work/bench/2026-10-02/rehear/` (proposals) and `readers/flash/` (the readers' scratch run).
 
+## Gemini variables test (2026-10-04)
+
+**None of the 12 ideas beat the plain baseline: Gemini 3.8 Flash + context still hears 53 of your 63 corrected moments, and the combined "best recipe" scored 49.**
+
+![heard right](img/engine-vars-heard-2026-10-04.png)
+
+![harm](img/engine-vars-harm-2026-10-04.png)
+
+| Recipe | Heard right (of 63) | vs baseline | Slips hidden (of 24) | Untouched lines with a word changed (of 519) | Same in 3 of 3 | Cost per lesson (1 run) |
+|---|---|---|---|---|---|---|
+| **Baseline: Flash + context, temperature 1** | **53** | - | 1 | 59 | 90.5% | $0.67 |
+| V1 evidence (heard / inferred), all changes | **53** | same (+0, inside the noise) | 2 | 57 | 87.3% | $0.71 |
+| V1 keep only 'heard' changes | **49** | worse (-4) | 2 | 55 | 87.3% | $0 (no call) |
+| V2 forced choice (held + no-agreement lines) | **51** | same (-2, inside the noise) | 1 | 57 | 92.1% | +$0.06 |
+| V3 two clips (his line + Amal's next) | **52** | same (-1, inside the noise) | 1 | 56 | 90.5% | +$0.03 |
+| V4 word confidence, all changes | **53** | same (+0, inside the noise) | 2 | 63 | 87.3% | $0.70 |
+| V4 keep only high-confidence changes | **49** | worse (-4) | 2 | 59 | 84.1% | $0 (no call) |
+| V5 second guess (top 1) | **53** | same (+0, inside the noise) | 2 | 58 | 87.3% | $0.72 |
+| V6 Arabic span in long lines | **51** | same (-2, inside the noise) | 1 | 60 | 87.3% | +$0.20 |
+| V7 accent note | **54** | same (+1, inside the noise) | 2 | 61 | 87.3% | $0.73 |
+| V8 word list, SAID | **53** | same (+0, inside the noise) | 1 | 56 | 88.9% | $0.78 |
+| V10 vowel marks in the text | **49** | worse (-4) | 1 | 62 | 77.8% | $0.79 |
+| V11 one-field answer (Gemini's idea) | **50** | worse (-3) | 1 | 62 | 88.9% | $0.66 |
+| V12 guessing lines removed (Gemini's idea) | **52** | same (-1, inside the noise) | 1 | 59 | 92.1% | $0.60 |
+| Best recipe: word list + said/meant + marks apart | **49** | worse (-4) | 2 | 60 | 92.1% | $0.89 |
+| Best recipe on OpenAI gpt-audio | **21** | worse (-32) | 7 | 223 | 87.3% | $2.38 |
+| Baseline on V9's 224 lines (2 runs) | **52** | same (-1, inside the noise) | 1 | 44 | 93.7% | $0 (no call) |
+| V9 thinking high (224 lines, 2 runs) | **46** | worse (-6) | 0 | 47 | 82.5% | $1.25 |
+
+- "Heard right" = the word you said is in Gemini's text in 2 of 3 runs. "Slip hidden" = it wrote Amal's correct word where you made a mistake. "Changed" = a word changed on a line you did not correct.
+- The baseline moved by 2 moments between two settings, so a change of 2 or less is noise.
+- Rows marked "+$" are the baseline plus one extra step on some lines. V9 was sent only the 224 Arabic and answer-key lines, 2 runs, and is compared with the baseline cut the same way.
+
+## What each idea showed
+
+- **V1 heard or inferred:** Gemini called 633 of 639 changes "heard". The label separates nothing; keeping only "heard" changes scored 49.
+- **V4 word confidence:** 602 of 632 changes were "high". Keeping only those scored 49.
+- **V5 second guess:** 18 lines got a second guess; counting either guess added 0 moments.
+- **V2 forced choice** (53 held or disagreeing lines): 51. It picked the engine's own text 24 times of 159.
+- **V3 two clips** (28 held lines): 52. It kept the held change 67 times and took it back 17 times; the step can only remove a change.
+- **V6 Arabic span** (27 long lines): 51. On those lines the baseline heard 9 of 11 moments, the span step 7.
+- **V7 accent note:** 54, the only row above the baseline, and inside the noise; it hid one more slip.
+- **V8 word list, said + meant (your idea):** 53, no extra hidden slip, 56 changed lines against 59. Its "meant" answer was Amal's correct form on 15 of 24 slips, while "said" hid 1.
+- **V10 vowel marks in the text:** 49. With marks Gemini spells the word as pronounced (one ط in خططت), so letters drift from the word. Marks were on 95.4% of Arabic words.
+- **V9 thinking high:** 46 against 52 for the baseline on the same lines, at almost 3x the cost; 11 calls ran to the token cap without an answer.
+- **V11 one-field answer and V12 guessing lines removed** (Gemini's own two ideas): 50 and 52. V11 has no Arabizi field, which costs it 2 moments by output shape (M061, M062), so read it as about 52. V12 changes three sentences at once.
+- **Best recipe** (word list + said/meant + vowel marks in their own field): **49, 2 slips hidden, 60 lines changed. Worse than the baseline.** Asking for three answers lowered the score.
+- **OpenAI gpt-audio-1.5 on the best recipe:** 21 of 63, 7 slips hidden, 223 lines changed. Still unusable.
+
+## The vowel marks (your decision: always ask, never score)
+
+- Asked for inside the scored text they cost 4 moments (V10); asked for in a separate field they sat in a recipe that also scored 49.
+- So the marks should come from **their own second call** on the lines that need them, not from the re-hear call. That keeps the baseline's 53 and still gives a pronunciation note on every re-heard line.
+- On your two vowel moments: خُطَتِتْ with your damma in 3 of 3 runs; at 18:31 it wrote الأوَّل (aw-) in 3 of 3, not Amal's أُولى.
+
+## Re-hear piles on the best recipe (nothing applied to the lesson)
+
+| Pile | Baseline | Best recipe |
+|---|---|---|
+| Proposed, words changed | 62 | 65 |
+| Proposed, alphabet only | 69 | 74 |
+| Held: Amal says the word next | 28 | 32 |
+| No agreement between the 3 runs | 25 | 17 |
+| Your corrections fixed by the proposed pile | 35 | 32 |
+| ...more if the held pile is taken | 10 | 13 |
+| Slips hidden by the proposed pile | 2 | 2 |
+
+- The 53 is counted per moment. What the piles would actually put in the transcript is lower: 35 moments from the proposed pile, 45 with the held pile.
+
+## Scoreboard B (score closeness)
+
+- Recomputed part (rule uses, slips still visible): best recipe Words 83.3% (off 0.2), Grammar 95.9% (off 2.1); baseline 83.3% / 95.8%. No difference.
+- The readers' scratch run (the 3 AI readers re-reading the text) was **not repeated** on the best recipe: it lost to the baseline, which already has that run (32 slips against 32 published, 30 the same). Medi chose to skip it.
+
+## The 10 moments the baseline misses
+
+| Time | You said | Gemini wrote (3 runs) | Kind |
+|---|---|---|---|
+| 07:34 | على عشرة | عشا / عشرة / عشاء | unstable: right in 1 of 3 |
+| 16:06 | تنتين و ro-- (cut off) | تنتين وربع | finished your cut-off word |
+| 23:45 | المصاري-- | المصـ-- | wrote it as cut off |
+| 35:30 | الرحلة أخيرة | أخيرة / خيرة / الأخيرة | unstable |
+| 37:47 | غير اليوم | غير يوم | dropped the el- |
+| 37:47 | الغير | الـ غـ- / الغيـ | wrote it as cut off |
+| 39:41 | إحنا بدنا | نـ بدنا / إحنا بدنا / نه بدنا | unstable; the clip is 0.54 s |
+| 39:45 | غير أكل | غير أكلة | one letter off |
+| 40:57 | هو بدو | هو بده (Arabizi: biddo) | same sound, other spelling |
+| 49:44 | 'Cause غير means other | 'Cause تاني means other | other word |
+
+## Four outside reviews of the whole project (ideas, not measurements)
+
+| Reviewer | Main point |
+|---|---|
+| Codex gpt-5.5 | two misses are the scorer (بده / بدو, a cut-off word); the "changed lines" count mixes harm with real unflagged fixes; next: a context-free listen that must agree |
+| Codex GPT-6 Astra (medium) | gains are in clip boundaries and a blind first listen, not in more prompt text or thinking; realistic ceiling 57-59 |
+| Fable (fresh reviewer, numbers from the saved runs) | at least 1 of 3 baseline runs is right on 56; any of 30 runs on 57; a vote across all 30 runs still gives 53; 60 is not reachable against this key, about 56 is |
+| Gemini itself | blames three context sentences and the extra answer fields; both ideas were then tested (V11 50, V12 52) and did not help |
+| Web research | Google: keep temperature 1, be concise, use examples. A study on other models: with a transcript as context, models copy from it; a silent-audio check would show how much of the 53 is reading, not hearing |
+
+- Fable's sharpest finding: at 49:44 five other engines also hear "tani", and at 39:45 four hear "akleh". Those two may be the key, not Gemini. Only your ear can settle it.
+- Files: `variables/codex-improvement-review.md`, `variables/codex-astra-whole-project-review.md`, `variables/gemini-self-review.json`, C:/Claude/reports/ANEES-FABLE-53-TO-60-REVIEW-2026-10-04.md, C:/Claude/reports/ANEES-GEMINI-TRANSCRIPTION-RESEARCH-2026-10-04.md.
+
+## What this test cannot tell you
+
+- **Every idea was tuned and scored on the same single lesson**, the only one you have corrected. The winner (the plain baseline) and every loser must be confirmed on a second corrected lesson before any of it is trusted.
+- 1 or 2 hidden slips of 24 is too few to rank recipes on.
+- "Changed" means you did not flag the line, not that you checked it.
+
+## Spend (list-price count from the tokens each call reported; every paid call has a run line)
+
+| Idea | Paid calls | Spend |
+|---|---|---|
+| V1 evidence (heard / inferred), all changes | 1416 | $2.13 |
+| V2 forced choice (held + no-agreement lines) | 159 | $0.18 |
+| V3 two clips (his line + Amal's next) | 84 | $0.10 |
+| V4 word confidence, all changes | 1415 | $2.10 |
+| V5 second guess (top 1) | 1416 | $2.15 |
+| V6 Arabic span in long lines | 81 | $0.59 |
+| V7 accent note | 1416 | $2.20 |
+| V8 word list, SAID | 1416 | $2.33 |
+| V10 vowel marks in the text | 1416 | $2.37 |
+| V11 one-field answer (Gemini's idea) | 1416 | $1.98 |
+| V12 guessing lines removed (Gemini's idea) | 1416 | $1.81 |
+| Best recipe: word list + said/meant + marks apart | 1416 | $2.67 |
+| Best recipe on OpenAI gpt-audio | 1416 | $7.15 |
+| V9 thinking high (224 lines, 2 runs) | 448 | $2.50 |
+| **Gemini total** | | **$23.11** |
+| **OpenAI total** | | **$7.15** |
+
+- **Google took more than this count.** Your first $20 of credit was used up when my count said $14.78: about 35% more. Real Gemini spend for this job is probably near $31. The bill review is still to do.
+- Gemini credit ran out twice mid-run. No miss was counted against any idea: those lines were thrown out and re-sent.
+- Allowance: the spec's $20 plus the $5 you approved for Gemini's two ideas. The pipeline's own cap was not raised.
+
+## Changes to the plan you should know
+
+- **Codex audited the prompts before any paid run** (3 passes): 2 blockers and 4 faults, all fixed first. The two-clip step stored Gemini's earlier text (now it can only take a change back); a no-credit answer could have been stored as a miss; the derived rows could keep an unfiltered change; the cap check under parallel jobs.
+- **Jobs ran in parallel** after you said "Go as many as possible at once" (the spec said one at a time). Each job wrote only its own files.
+- **V9 is 2 runs on 224 lines**, not 3 runs on all 472: at about $1.25 a run it would have taken the best recipe's budget.
+- **The scorer was not changed.** The side columns the reviewers ask for (cut-off accepted, بده = بدو) are not built yet.
+
+![cost](img/engine-vars-cost-2026-10-04.png)
+
 ## Where everything is
 
 - Results for the AI Reports page: `data/lesson-work/bench/2026-10-02/results.json` (every engine, every number, every moment's verdict in each run).
 - Raw engine outputs: `data/lesson-work/bench/2026-10-02/<engine>/<mode>-run<n>.json`. Per-call cost log: `runs.jsonl.gz`.
 - Code: `scripts/bench_freeze.py`, `bench_score.py` (16 fixture tests, now in the publish guard), `bench_run.py`, `bench_local.py`, `bench_b.py`, `bench_vowel.py`, `bench_report.py`.
 - Rule: PR-18 in the registry (code + test).
+- Variables test (2026-10-04): `scripts/bench_vars.py`, `bench_vars_report.py`, `bench_vars_chart.py`, `bench_ask_gemini.py`, `bench_readers.py`; frozen prompts and results in `data/lesson-work/bench/2026-10-02/variables/`.

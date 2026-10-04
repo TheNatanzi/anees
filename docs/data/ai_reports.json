@@ -3,11 +3,11 @@
  "reports": [
   {
    "slug": "engine-benchmark-2026-10-02",
-   "date": "2026-10-03",
+   "date": "2026-10-04",
    "author": "Claude",
    "title": "Speech-engine benchmark: which AI hears Medi's Arabic",
    "question": "On the 63 moments Medi corrected in the 10-02 transcript, which speech engine writes the word he actually said, without hiding his mistakes?",
-   "verdict": "Gemini 3.8 Flash, listening to his microphone with the lesson around it, heard 53 of 63. Today's engine (ElevenLabs) heard 4 and no plain transcriber passed 21. Flash still changes a word on about 60 lines he left alone, so its changes are proposals, not automatic.",
+   "verdict": "Gemini 3.8 Flash, listening to his microphone with the lesson around it, heard 53 of 63. Today's engine (ElevenLabs) heard 4 and no plain transcriber passed 21. On 2026-10-04 twelve ideas were tried on top of it, one at a time (evidence labels, word confidence, a second guess, an accent note, the lesson's word list, vowel marks, more thinking, a one-field answer): none beat 53 beyond the run-to-run noise, and the combined best recipe scored 49. Flash still changes a word on about 60 lines he left alone, so its changes are proposals, not automatic. All of it was measured on one lesson.",
    "numbers": [
     {
      "label": "Gemini Flash + context",
@@ -28,6 +28,16 @@
      "label": "engines tested",
      "value": "13",
      "note": "3 runs each where the provider allowed"
+    },
+    {
+     "label": "ideas tried on top (10-04)",
+     "value": "12",
+     "note": "none beat 53 beyond the noise of 2"
+    },
+    {
+     "label": "best recipe (10-04)",
+     "value": "49 of 63",
+     "note": "word list + said/meant + vowel marks: worse than the baseline"
     }
    ],
    "bars_title": "Corrected moments heard right (of 63)",
@@ -37,6 +47,42 @@
      "value": 53,
      "max": 63,
      "text": "53"
+    },
+    {
+     "label": "V7 accent note (10-04)",
+     "value": 54,
+     "max": 63,
+     "text": "54"
+    },
+    {
+     "label": "V8 word list, SAID (10-04)",
+     "value": 53,
+     "max": 63,
+     "text": "53"
+    },
+    {
+     "label": "V12 guessing lines removed (Gemini's idea) (10-04)",
+     "value": 52,
+     "max": 63,
+     "text": "52"
+    },
+    {
+     "label": "V11 one-field answer (Gemini's idea) (10-04)",
+     "value": 50,
+     "max": 63,
+     "text": "50"
+    },
+    {
+     "label": "V10 vowel marks in the text (10-04)",
+     "value": 49,
+     "max": 63,
+     "text": "49"
+    },
+    {
+     "label": "Best recipe: word list + said/meant + marks apart (10-04)",
+     "value": 49,
+     "max": 63,
+     "text": "49"
     },
     {
      "label": "Gemini 3.8 Flash + context (temperature 0)",

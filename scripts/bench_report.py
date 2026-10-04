@@ -17,7 +17,15 @@ NAMES = {"eleven-raw": "ElevenLabs Scribe v2 (today's transcript)", "eleven": "E
          "gemini-flash": "Gemini 3.8 Flash + context", "gemini-flash-before": "Gemini 3.8 Flash, context before only",
          "gemini-pro": "Gemini 3.1 Pro + context", "gemini-pro-before": "Gemini 3.1 Pro, context before only",
          "gemini-flash-t1": "Gemini 3.8 Flash + context, temperature 1", "gemini-pro-t0": "Gemini 3.1 Pro + context, temperature 0",
-         "openai-audio": "OpenAI gpt-audio-1.5 + context", "openai-audio-before": "OpenAI gpt-audio-1.5, context before only"}
+         "openai-audio": "OpenAI gpt-audio-1.5 + context", "openai-audio-before": "OpenAI gpt-audio-1.5, context before only",
+         # the variables test of 2026-10-04 (scripts/bench_vars.py): Flash + context, temperature 1, one idea changed
+         "gemini-flash-v1-t1": "Flash V1 evidence (heard / inferred)", "gemini-flash-v1h-t1": "Flash V1, only 'heard' changes kept",
+         "gemini-flash-v2-t1": "Flash V2 forced choice", "gemini-flash-v3-t1": "Flash V3 two clips", "gemini-flash-v4-t1": "Flash V4 word confidence",
+         "gemini-flash-v4h-t1": "Flash V4, only high-confidence changes kept", "gemini-flash-v5-t1": "Flash V5 second guess",
+         "gemini-flash-v6-t1": "Flash V6 Arabic span in long lines", "gemini-flash-v7-t1": "Flash V7 accent note", "gemini-flash-v8-t1": "Flash V8 word list, said + meant",
+         "gemini-flash-v9-t1": "Flash V9 thinking high (224 lines, 2 runs)", "gemini-flash-v0-t1": "Flash baseline on V9's 224 lines (2 runs)",
+         "gemini-flash-v10-t1": "Flash V10 vowel marks in the text", "gemini-flash-v11-t1": "Flash V11 one-field answer", "gemini-flash-v12-t1": "Flash V12 guessing lines removed",
+         "gemini-flash-best-t1": "Flash best recipe (word list + said/meant + marks apart)", "openai-audio-best": "OpenAI gpt-audio-1.5, best recipe"}
 SCRIPT_ONLY = ("latin-arabic",)                      # the engine wrote his Arabic in English letters: a script fault, not a mishearing
 
 
@@ -30,7 +38,7 @@ def rows(date):
         e, mode = k.split("|")
         real = [p for p in s["per_moment"] if p["class"] not in SCRIPT_ONLY]
         lat = [p for p in s["per_moment"] if p["class"] in SCRIPT_ONLY]
-        out.append({"key": k, "engine": e, "mode": mode, "name": NAMES.get(e, e), "listener": re.sub(r"(-before|-t0|-t1)+$", "", e) in LISTEN, "s": s, "b": B.get(k),
+        out.append({"key": k, "engine": e, "mode": mode, "name": NAMES.get(e, e), "listener": re.sub(r"(-before|-t0|-t1|-v\d+h?|-best)+$", "", e) in LISTEN, "s": s, "b": B.get(k),
                     "real": (sum(p["final"] == "hit" for p in real), len(real)), "latin": (sum(p["final"] == "hit" for p in lat), len(lat))})
     out.sort(key=lambda r: (r["listener"], -r["s"]["hit"], r["s"]["false_changes"]))
     return out, B.get("truth")
@@ -106,11 +114,11 @@ def spend(date):
     d = os.path.join(BC.bench_dir(date), "runs")
     usd, calls = collections.Counter(), collections.Counter()
     files = glob.glob(os.path.join(d, "**", "*.jsonl"), recursive=True)
-    opener = open
-    if not files and os.path.exists(os.path.join(BC.bench_dir(date), "runs.jsonl.gz")):
-        files, opener = [os.path.join(BC.bench_dir(date), "runs.jsonl.gz")], gzip.open
+    gz = os.path.join(BC.bench_dir(date), "runs.jsonl.gz")           # the first benchmark's run lines, packed; later jobs add runs/
+    if os.path.exists(gz):
+        files.append(gz)
     for f in files:
-        with opener(f, "rt", encoding="utf-8") as fh:
+        with (gzip.open if f.endswith(".gz") else open)(f, "rt", encoding="utf-8") as fh:
             for line in fh:
                 try:
                     r = json.loads(line)

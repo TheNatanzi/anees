@@ -511,7 +511,7 @@ _Rules for the AI helpers that build Anees._
   <br><sub>Written by Claude, 2026-09-05</sub>
 - A transcription engine is replaced only after testing on full recordings that Amal labelled and the engine has never seen. `PR-12` _Written down_
   <br><sub>Written by Claude, 2026-09-05</sub>
-- A new speech engine is judged on your own corrections of a whole lesson, locked before any engine runs. Every engine hears the same clips of your microphone three times, and a fix counts only if two of three runs get it. An engine that writes Amal's right word where you made a mistake is marked as hiding your mistake. `PR-18` _Automatic_
+- A new speech engine is judged on your own corrections of a whole lesson, locked before any engine runs. Every engine hears the same clips of your microphone three times, and a fix counts only if two of three runs get it. An engine that writes Amal's right word where you made a mistake is marked as hiding your mistake. A new way of asking the engine is tested the same way: its wording is locked first, it is tried alone against the plain version, and an answer the provider never gave (no credit, daily limit) is never counted as the engine's miss. `PR-18` _Automatic_
   <br><sub>Medi, 2026-10-03: “I want to retest with ALL the different ais ... do the best benchmark as possible ... Lets track both a and b separately”</sub>
 - Your corrections on the transcript are saved, can be undone, and change every page. Amal still decides whether your Arabic was right. `PR-15` _Automatic_
   <br><sub>Medi, 2026-10-02: “i am going to make some corrections to the transcript. try and make rule and patterns with my corrections.”</sub>

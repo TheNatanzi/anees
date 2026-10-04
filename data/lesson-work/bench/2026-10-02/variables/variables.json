@@ -1,0 +1,103 @@
+{
+ "v1": {
+  "name": "evidence: heard or inferred",
+  "kind": "full",
+  "pre_answer": "For every change you make, say what it rests on: \"heard\" = you can clearly hear that word in the audio itself; \"inferred\" = the audio is unclear at that place and you chose the word mainly from the context, the chat or what would make sense.",
+  "answer": "Answer JSON only: {\"arabic\": \"his words in Arabic script (English words stay English)\", \"arabizi\": \"his words in Latin letters with 2 3 5 6 7 8 9 for ء ع خ ط ح غ ص\", \"engine_was_wrong\": true|false, \"changes\": [{\"engine\": \"...\", \"said\": \"...\", \"evidence\": \"heard\"|\"inferred\"}], \"confidence\": \"high\"|\"medium\"|\"low\", \"why\": \"one short reason\"}"
+ },
+ "v2": {
+  "name": "forced choice on held / no-agreement lines",
+  "kind": "subset"
+ },
+ "v3": {
+  "name": "two clips: his line + Amal's next",
+  "kind": "subset"
+ },
+ "v4": {
+  "name": "confidence per changed word",
+  "kind": "full",
+  "pre_answer": "For every change you make, give your confidence that the AUDIO ITSELF carries that word: \"high\" = clearly audible; \"medium\" = probably; \"low\" = mostly a guess from the context.",
+  "answer": "Answer JSON only: {\"arabic\": \"his words in Arabic script (English words stay English)\", \"arabizi\": \"his words in Latin letters with 2 3 5 6 7 8 9 for ء ع خ ط ح غ ص\", \"engine_was_wrong\": true|false, \"changes\": [{\"engine\": \"...\", \"said\": \"...\", \"confidence\": \"high\"|\"medium\"|\"low\"}], \"confidence\": \"high\"|\"medium\"|\"low\", \"why\": \"one short reason\"}"
+ },
+ "v5": {
+  "name": "second guess for unsure words",
+  "kind": "full",
+  "pre_answer": "For each word of your answer that you are not sure you heard right, also give your SECOND guess: the next most likely word he said at that place (again what he said, not what he should have said).",
+  "answer": "Answer JSON only: {\"arabic\": \"his words in Arabic script (English words stay English)\", \"arabizi\": \"his words in Latin letters with 2 3 5 6 7 8 9 for ء ع خ ط ح غ ص\", \"engine_was_wrong\": true|false, \"changes\": [{\"engine\": \"...\", \"said\": \"...\"}], \"confidence\": \"high\"|\"medium\"|\"low\", \"why\": \"one short reason\", \"second_guess\": [{\"said\": \"the unsure word exactly as written in arabic\", \"second\": \"the next most likely word\"}] (an empty list when you are sure of every word)}"
+ },
+ "v6": {
+  "name": "Arabic span inside long lines (two calls)",
+  "kind": "subset"
+ },
+ "v7": {
+  "name": "accent note",
+  "kind": "full",
+  "insert": "Medi's accent (about his SOUNDS only; true of every lesson, no vocabulary):\n- he often drops or weakens ع, and his ط is weak;\n- his emphatic letters come out plain: ط sounds like ت, ض sounds like د;\n- his ح sounds like ه (an English h);\n- n before b comes out as m (nb -> mb).\nA word that differs from a real word that fits the sentence only by these sounds is that word said in his accent\n(pronunciation is not a wrong word): write it with its normal letters. Do not turn it into a different, more common\nword or into English look-alike words because of his accent."
+ },
+ "v8": {
+  "name": "taught-word list, SAID + MEANT",
+  "kind": "full",
+  "text_key": "said",
+  "insert": "Words Amal taught or re-taught in THIS lesson (her list). He is still learning them, so he may say one of them WRONG (a wrong vowel or ending, a wrong form, or a different word by mistake), and he also says many words that are not on the list:\n- عطلة (3otle): a vacation / time off\n- خيمة: a tent\n- تخييم (ta5yeem): camping\n- متشجع (mitshajje3): motivated\n- أخير / أخيرة (a5eer/a): last / final (adjective form of آخر)\n- وأخيرًا: finally\n- ضيف / ضيوف (dyoof): guest / guests\n- اختلاف: difference\n- الفرق: the difference",
+  "pre_answer": "Give TWO answers for the target line:\n- SAID: exactly what he said, as it sounds, with his mistakes kept - even when it is not a real word or is the wrong word. The list is NOT a reason to write a list word: write a list word in SAID only when that is what you hear.\n- MEANT: the line as he intended it - the same line with the word(s) he was aiming for (from the list or the context) in place of his mistakes. When he made no mistake, MEANT is the same as SAID.",
+  "answer": "Answer JSON only: {\"said\": \"SAID, in Arabic script (English words stay English)\", \"meant\": \"MEANT, in Arabic script (English words stay English)\", \"arabizi\": \"SAID in Latin letters with 2 3 5 6 7 8 9 for ء ع خ ط ح غ ص\", \"engine_was_wrong\": true|false, \"changes\": [{\"engine\": \"...\", \"said\": \"...\"}], \"confidence\": \"high\"|\"medium\"|\"low\", \"why\": \"one short reason\"}"
+ },
+ "v9": {
+  "name": "thinking level high",
+  "kind": "full",
+  "cfg": {
+   "thinkingConfig": {
+    "thinkingLevel": "high"
+   },
+   "maxOutputTokens": 8192
+  }
+ },
+ "v10": {
+  "name": "vowel marks (harakat)",
+  "kind": "full",
+  "answer": "Answer JSON only: {\"arabic\": \"his words in Arabic script WITH the small vowel marks (harakat: fatha, damma, kasra, shadda, sukun) on every Arabic word, exactly as HE pronounced them - a learner may say a wrong vowel: write the vowel you hear, not the dictionary form (English words stay English)\", \"arabizi\": \"his words in Latin letters with 2 3 5 6 7 8 9 for ء ع خ ط ح غ ص\", \"engine_was_wrong\": true|false, \"changes\": [{\"engine\": \"...\", \"said\": \"...\"}], \"confidence\": \"high\"|\"medium\"|\"low\", \"why\": \"one short reason\"}"
+ },
+ "best": {
+  "name": "best recipe: word list, SAID + MEANT, vowel marks in their own field",
+  "kind": "full",
+  "text_key": "said",
+  "allow_list": true,
+  "insert": "Words Amal taught or re-taught in THIS lesson (her list). He is still learning them, so he may say one of them WRONG (a wrong vowel or ending, a wrong form, or a different word by mistake), and he also says many words that are not on the list:\n- عطلة (3otle): a vacation / time off\n- خيمة: a tent\n- تخييم (ta5yeem): camping\n- متشجع (mitshajje3): motivated\n- أخير / أخيرة (a5eer/a): last / final (adjective form of آخر)\n- وأخيرًا: finally\n- ضيف / ضيوف (dyoof): guest / guests\n- اختلاف: difference\n- الفرق: the difference",
+  "pre_answer": "Give TWO answers for the target line:\n- SAID: exactly what he said, as it sounds, with his mistakes kept - even when it is not a real word or is the wrong word. The list is NOT a reason to write a list word: write a list word in SAID only when that is what you hear.\n- MEANT: the line as he intended it - the same line with the word(s) he was aiming for (from the list or the context) in place of his mistakes. When he made no mistake, MEANT is the same as SAID.",
+  "answer": "Answer JSON only: {\"said\": \"SAID, in Arabic script without vowel marks (English words stay English)\", \"said_marked\": \"SAID again, in Arabic script WITH the small vowel marks (harakat: fatha, damma, kasra, shadda, sukun) on every Arabic word, exactly as HE pronounced them - a learner may say a wrong vowel: write the vowel you hear, not the dictionary form (English words stay English)\", \"meant\": \"MEANT, in Arabic script (English words stay English)\", \"arabizi\": \"SAID in Latin letters with 2 3 5 6 7 8 9 for ء ع خ ط ح غ ص\", \"engine_was_wrong\": true|false, \"changes\": [{\"engine\": \"...\", \"said\": \"...\"}], \"confidence\": \"high\"|\"medium\"|\"low\", \"why\": \"one short reason\"}"
+ },
+ "bestoa": {
+  "name": "best recipe on OpenAI gpt-audio-1.5",
+  "kind": "full",
+  "text_key": "said",
+  "allow_list": true,
+  "insert": "Words Amal taught or re-taught in THIS lesson (her list). He is still learning them, so he may say one of them WRONG (a wrong vowel or ending, a wrong form, or a different word by mistake), and he also says many words that are not on the list:\n- عطلة (3otle): a vacation / time off\n- خيمة: a tent\n- تخييم (ta5yeem): camping\n- متشجع (mitshajje3): motivated\n- أخير / أخيرة (a5eer/a): last / final (adjective form of آخر)\n- وأخيرًا: finally\n- ضيف / ضيوف (dyoof): guest / guests\n- اختلاف: difference\n- الفرق: the difference",
+  "pre_answer": "Give TWO answers for the target line:\n- SAID: exactly what he said, as it sounds, with his mistakes kept - even when it is not a real word or is the wrong word. The list is NOT a reason to write a list word: write a list word in SAID only when that is what you hear.\n- MEANT: the line as he intended it - the same line with the word(s) he was aiming for (from the list or the context) in place of his mistakes. When he made no mistake, MEANT is the same as SAID.",
+  "answer": "Answer JSON only: {\"said\": \"SAID, in Arabic script without vowel marks (English words stay English)\", \"said_marked\": \"SAID again, in Arabic script WITH the small vowel marks (harakat: fatha, damma, kasra, shadda, sukun) on every Arabic word, exactly as HE pronounced them - a learner may say a wrong vowel: write the vowel you hear, not the dictionary form (English words stay English)\", \"meant\": \"MEANT, in Arabic script (English words stay English)\", \"arabizi\": \"SAID in Latin letters with 2 3 5 6 7 8 9 for ء ع خ ط ح غ ص\", \"engine_was_wrong\": true|false, \"changes\": [{\"engine\": \"...\", \"said\": \"...\"}], \"confidence\": \"high\"|\"medium\"|\"low\", \"why\": \"one short reason\"}",
+  "engine": "openai-audio-best",
+  "provider": "openai"
+ },
+ "v11": {
+  "name": "one-field answer (the text only)",
+  "kind": "full",
+  "answer": "Answer JSON only: {\"arabic\": \"his words in Arabic script (English words stay English)\"}"
+ },
+ "v12": {
+  "name": "context advice without the guessing lines",
+  "kind": "full",
+  "replace": [
+   [
+    "- Medi often REPEATS Amal's previous sentence with small changes (her \"you woke up late\" -> his \"I woke up late\"): if his\n  line sounds like hers, expect her words in it.",
+    "- Medi often tries to repeat Amal's previous sentence, but he changes, drops or mispronounces her words: write what he\n  actually said, not her words."
+   ],
+   [
+    "- An answer must fit the question just before it (asked \"what time?\", he answers with a time).\n",
+    ""
+   ],
+   [
+    "- Amal's next reaction shows what she heard: if she only fixes one small piece, the rest was right as she heard it.\n",
+    ""
+   ]
+  ]
+ }
+}

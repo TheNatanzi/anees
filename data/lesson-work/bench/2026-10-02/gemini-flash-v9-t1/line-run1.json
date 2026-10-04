@@ -1,0 +1,4703 @@
+{
+ "engine": "gemini-flash-v9-t1",
+ "mode": "line",
+ "run": 1,
+ "lines": {
+  "0": {
+   "text": "مرحبا.",
+   "alt": "Mar7aba.",
+   "raw": {
+    "arabic": "مرحبا.",
+    "arabizi": "Mar7aba.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly greets Amal with 'مرحبا'."
+   },
+   "usd": 0.0007845,
+   "tokens": [
+    747,
+    47,
+    211
+   ]
+  },
+  "13": {
+   "text": "",
+   "error": "bad json",
+   "raw": "? No, \"sheet\" ends in /t/.\nWhat about \"cache\"? \"page\"? \"tab\"?\nWait, does Amal say:\n\"It's the second verb list, the 400 something.\"\n\"Did it remove me?\"\n\"It's in the tutor. No.\" (Wait, is it \"tutor\" or \"two\"? \"two-...\"?)\n\"It's the remaining thing on the...\"\nWait! What could be \"remaining thing on the.",
+   "usd": 0.0208575,
+   "tokens": [
+    979,
+    134,
+    8188
+   ]
+  },
+  "26": {
+   "text": "أنا بشربه like this, this is normal.",
+   "alt": "ana bashrabo like this, this is normal.",
+   "raw": {
+    "arabic": "أنا بشربه like this, this is normal.",
+    "arabizi": "ana bashrabo like this, this is normal.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "بش ربى",
+      "said": "بشربه"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi cites the example sentence 'أنا بشربه' (ana bashrabo) followed by English, which the engine split and misheard as 'بش ربى'."
+   },
+   "usd": 0.0113714,
+   "tokens": [
+    999,
+    106,
+    4399
+   ]
+  },
+  "53": {
+   "text": "Um, okay, so it takes every verb on your word list, a hundred forty-four, uses only the I form for أنا برسم, Claude guesses which ending",
+   "alt": "Um, okay, so it takes every verb on your word list, a hundred forty-four, uses only the I form for ana barsom, Claude guesses which ending",
+   "raw": {
+    "arabic": "Um, okay, so it takes every verb on your word list, a hundred forty-four, uses only the I form for أنا برسم, Claude guesses which ending",
+    "arabizi": "Um, okay, so it takes every verb on your word list, a hundred forty-four, uses only the I form for ana barsom, Claude guesses which ending",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "a hundred and forty-four",
+      "said": "a hundred forty-four"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'a hundred forty-four' without 'and'."
+   },
+   "usd": 0.0051607,
+   "tokens": [
+    1166,
+    287,
+    1844
+   ]
+  },
+  "54": {
+   "text": "",
+   "error": "bad json",
+   "raw": "{\n  \"arabic\": \"And small words مع، لـ، على each verb takes. Each one gets a fixed noun مع، لـ، eh, which makes four hundred ten\",\n  \"arabizi\": \"And small words ma3, la, 3ala each verb takes. Each one gets a fixed noun ma3, la, eh, which makes four hundred ten\",\n  \"engine_was_wrong\": true,\n  \"changes",
+   "usd": 0.0209833,
+   "tokens": [
+    1127,
+    261,
+    8185
+   ]
+  },
+  "56": {
+   "text": "on whether anyone actually says them. That's why you get أنا برسم إلها, and, uh, I draw for her. It's grammatically--",
+   "alt": "on whether anyone actually says them. That's why you get ana barsom elha, and, uh, I draw for her. It's grammatically--",
+   "raw": {
+    "arabic": "on whether anyone actually says them. That's why you get أنا برسم إلها, and, uh, I draw for her. It's grammatically--",
+    "arabizi": "on whether anyone actually says them. That's why you get ana barsom elha, and, uh, I draw for her. It's grammatically--",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "لها",
+      "said": "إلها"
+     },
+     {
+      "engine": "drive",
+      "said": "draw"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'إلها' (elha) rather than 'لها', followed by 'and, uh, I draw for her' translating 'أنا برسم إلها' (draw, not drive)."
+   },
+   "usd": 0.0206633,
+   "tokens": [
+    1082,
+    241,
+    8068
+   ]
+  },
+  "65": {
+   "text": "Yeah, so it's, it's in its mind it's only asking if it's possible. So like أنا برسم إلها",
+   "alt": "Yeah, so it's, it's in its mind it's only asking if it's possible. So like ana barsem ilha",
+   "raw": {
+    "arabic": "Yeah, so it's, it's in its mind it's only asking if it's possible. So like أنا برسم إلها",
+    "arabizi": "Yeah, so it's, it's in its mind it's only asking if it's possible. So like ana barsem ilha",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "لها",
+      "said": "إلها"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says the Levantine form 'إلها' (ilha) rather than the MSA 'لها' (laha) transcribed by the speech engine."
+   },
+   "usd": 0.0034611,
+   "tokens": [
+    1069,
+    197,
+    1201
+   ]
+  },
+  "75": {
+   "text": "Um, أنا تمام. أنا",
+   "alt": "Um, ana tamam. Ana",
+   "raw": {
+    "arabic": "Um, أنا تمام. أنا",
+    "arabizi": "Um, ana tamam. Ana",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clears his throat and says 'Um, ana tamam, ana...', which the engine captured accurately."
+   },
+   "usd": 0.0038578,
+   "tokens": [
+    879,
+    88,
+    1413
+   ]
+  },
+  "76": {
+   "text": "And, um...",
+   "alt": "And, um...",
+   "raw": {
+    "arabic": "And, um...",
+    "arabizi": "And, um...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أنا",
+      "said": "And, um..."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi hesitates in English, saying 'And, um...', which the engine misheard as 'أنا'."
+   },
+   "usd": 0.0031179000000000003,
+   "tokens": [
+    843,
+    50,
+    1132
+   ]
+  },
+  "77": {
+   "text": "والله.",
+   "alt": "wallah.",
+   "raw": {
+    "arabic": "والله.",
+    "arabizi": "wallah.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi says 'والله' with an American non-emphatic pronunciation as a conversational filler while thinking."
+   },
+   "usd": 0.00679,
+   "tokens": [
+    809,
+    39,
+    2608
+   ]
+  },
+  "78": {
+   "text": "English",
+   "alt": "English",
+   "raw": {
+    "arabic": "English",
+    "arabizi": "English",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "ينقل.",
+      "said": "English"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi mutters 'English' under his breath as he struggles to formulate his sentence in Arabic, which the Arabic speech engine misheard as ينقل."
+   },
+   "usd": 0.0078813,
+   "tokens": [
+    836,
+    40,
+    3041
+   ]
+  },
+  "79": {
+   "text": "أنا سمعت",
+   "alt": "ana sme3t",
+   "raw": {
+    "arabic": "أنا سمعت",
+    "arabizi": "ana sme3t",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi mistakenly said 'أنا سمعت' (I listened) instead of 'صحيت' (I woke up), which he clarifies moments later."
+   },
+   "usd": 0.0025745,
+   "tokens": [
+    864,
+    54,
+    911
+   ]
+  },
+  "80": {
+   "text": "متأخر اليوم. سمعت. That's right.",
+   "alt": "mit2a55er el yom. sme3t. That's right.",
+   "raw": {
+    "arabic": "متأخر اليوم. سمعت. That's right.",
+    "arabizi": "mit2a55er el yom. sme3t. That's right.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "صحيت",
+      "said": "سمعت"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi confused 'سمعت' (I heard/listened) with 'صحيت' (I woke up). Amal corrects him right after with 'صحيت' and asks him what 'سمعت' means, to which he replies 'I listened'."
+   },
+   "usd": 0.0065551,
+   "tokens": [
+    973,
+    151,
+    2463
+   ]
+  },
+  "84": {
+   "text": "أأ أنا صحيت تأخير.",
+   "alt": "a2 ana s7eet ta2kheer.",
+   "raw": {
+    "arabic": "أأ أنا صحيت تأخير.",
+    "arabizi": "a2 ana s7eet ta2kheer.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "تأخر",
+      "said": "تأخير"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi mistakenly used the verbal noun تأخير (delay) instead of متأخر (late), which Amal later corrected in the chat."
+   },
+   "usd": 0.0060512,
+   "tokens": [
+    981,
+    117,
+    2270
+   ]
+  },
+  "86": {
+   "text": "Uh, what?",
+   "alt": "Uh, what?",
+   "raw": {
+    "arabic": "Uh, what?",
+    "arabizi": "Uh, what?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أأأ.",
+      "said": "Uh, what?"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi didn't hear Amal's question clearly and asks 'Uh, what?', leading her to repeat 'أي ساعة؟'."
+   },
+   "usd": 0.0021903,
+   "tokens": [
+    930,
+    34,
+    755
+   ]
+  },
+  "91": {
+   "text": "على",
+   "alt": "3ala",
+   "raw": {
+    "arabic": "على",
+    "arabizi": "3ala",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi elongates 'على' while thinking of the time to say in response to Amal's question."
+   },
+   "usd": 0.0019272,
+   "tokens": [
+    946,
+    37,
+    647
+   ]
+  },
+  "92": {
+   "text": "آآآ على عشا",
+   "alt": "aaa 3ala 3asha",
+   "raw": {
+    "arabic": "آآآ على عشا",
+    "arabizi": "aaa 3ala 3asha",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "العشاء",
+      "said": "عشا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi omitted the definite article and said '3ala 3asha' instead of '3ala el-3ashara', prompting Amal to correct him with 'الـ'."
+   },
+   "usd": 0.012252299999999999,
+   "tokens": [
+    1005,
+    69,
+    4761
+   ]
+  },
+  "95": {
+   "text": "على العشرة",
+   "alt": "3ala el-3ashara",
+   "raw": {
+    "arabic": "على العشرة",
+    "arabizi": "3ala el-3ashara",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "على إلى العشاء.",
+      "said": "على العشرة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is answering what time he woke up; after Amal corrected his previous slip ('العشاء'), he says 'على العشرة' (at 10:00), matching her chat note '3ala el-3ashara'."
+   },
+   "usd": 0.0028728,
+   "tokens": [
+    998,
+    62,
+    1012
+   ]
+  },
+  "96": {
+   "text": "اممم",
+   "alt": "ummm",
+   "raw": {
+    "arabic": "اممم",
+    "arabizi": "ummm",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi is just making a hesitation sound ('ummm')."
+   },
+   "usd": 0.0030311,
+   "tokens": [
+    1010,
+    58,
+    1075
+   ]
+  },
+  "100": {
+   "text": "Okay أنا شوي، أنا كان... كنت شوي",
+   "alt": "Okay ana shway, ana kaan... kunit shway",
+   "raw": {
+    "arabic": "Okay أنا شوي، أنا كان... كنت شوي",
+    "arabizi": "Okay ana shway, ana kaan... kunit shway",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "قنيش",
+      "said": "كنت"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts saying 'ana kaan' and self-corrects to 'kunit', which the engine misheard as 'قنيش'. Amal immediately confirms his correction with 'أنا كنت صح'."
+   },
+   "usd": 0.0044603,
+   "tokens": [
+    1075,
+    154,
+    1612
+   ]
+  },
+  "102": {
+   "text": "I kind of شوي",
+   "alt": "I kind of shway",
+   "raw": {
+    "arabic": "I kind of شوي",
+    "arabizi": "I kind of shway",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أنا قنيش",
+      "said": "I kind of"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi switched to English saying 'I kind of' followed by the Arabic word 'شوي', which the engine misheard as 'أنا قنيش'."
+   },
+   "usd": 0.0068708,
+   "tokens": [
+    990,
+    59,
+    2613
+   ]
+  },
+  "103": {
+   "text": "امم",
+   "alt": "mmm",
+   "raw": {
+    "arabic": "امم",
+    "arabizi": "mmm",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi is hesitating and making an 'umm' sound before continuing his sentence."
+   },
+   "usd": 0.0021388,
+   "tokens": [
+    1004,
+    43,
+    723
+   ]
+  },
+  "104": {
+   "text": "كسول",
+   "alt": "kasool",
+   "raw": {
+    "arabic": "كسول",
+    "arabizi": "kasool",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly pronounces the word 'kasool' (كسول) as transcribed by the engine."
+   },
+   "usd": 0.0010528,
+   "tokens": [
+    983,
+    47,
+    290
+   ]
+  },
+  "105": {
+   "text": "الصباح",
+   "alt": "el-sabaa7",
+   "raw": {
+    "arabic": "الصباح",
+    "arabizi": "el-sabaa7",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "آآآ",
+      "said": "الصباح"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly says 'الصباح', consistent with his comment moments later: 'I just said الصباح.'"
+   },
+   "usd": 0.0020976999999999997,
+   "tokens": [
+    962,
+    38,
+    713
+   ]
+  },
+  "106": {
+   "text": "الصباح. Wait",
+   "alt": "es-sabaa7. Wait",
+   "raw": {
+    "arabic": "الصباح. Wait",
+    "arabizi": "es-sabaa7. Wait",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "في الصباح.",
+      "said": "الصباح. Wait"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly says 'الصباح. Wait' without 'في'; he later confirms this in the context by stating 'I just said الصباح'."
+   },
+   "usd": 0.0036759,
+   "tokens": [
+    960,
+    47,
+    1342
+   ]
+  },
+  "108": {
+   "text": "في الصباح",
+   "alt": "fee es-saba7",
+   "raw": {
+    "arabic": "في الصباح",
+    "arabizi": "fee es-saba7",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'في الصباح' with a brief pause between the two words."
+   },
+   "usd": 0.0035684000000000002,
+   "tokens": [
+    947,
+    49,
+    1300
+   ]
+  },
+  "109": {
+   "text": "I just said الصباح.",
+   "alt": "I just said el-saba7.",
+   "raw": {
+    "arabic": "I just said الصباح.",
+    "arabizi": "I just said el-saba7.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately captures what Medi said in English and Arabic."
+   },
+   "usd": 0.0020224,
+   "tokens": [
+    951,
+    53,
+    680
+   ]
+  },
+  "111": {
+   "text": "هادي الصبح.",
+   "alt": "haadi es-sube7.",
+   "raw": {
+    "arabic": "هادي الصبح.",
+    "arabizi": "haadi es-sube7.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "عادي",
+      "said": "هادي"
+     },
+     {
+      "engine": "الصباح",
+      "said": "الصبح"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi tries to say 'this morning' literally as 'هادي الصبح', which the engine misheard as 'عادي الصباح'. Amal soon corrects him that they never say 'هذا الصبح'."
+   },
+   "usd": 0.0060501,
+   "tokens": [
+    953,
+    56,
+    2290
+   ]
+  },
+  "114": {
+   "text": "امم",
+   "alt": "umm",
+   "raw": {
+    "arabic": "امم",
+    "arabizi": "umm",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi makes a brief hesitation sound ('umm'), which the engine transcribed correctly as امم."
+   },
+   "usd": 0.004767,
+   "tokens": [
+    960,
+    45,
+    1779
+   ]
+  },
+  "115": {
+   "text": "تمام؟",
+   "alt": "tamam?",
+   "raw": {
+    "arabic": "تمام؟",
+    "arabizi": "tamam?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly said تمام؟ with rising intonation to check if Amal is following or ready."
+   },
+   "usd": 0.0015827999999999999,
+   "tokens": [
+    954,
+    38,
+    508
+   ]
+  },
+  "117": {
+   "text": "أنا صحيت متأخر و",
+   "alt": "ana s7eet met2akhkher w",
+   "raw": {
+    "arabic": "أنا صحيت متأخر و",
+    "arabizi": "ana s7eet met2akhkher w",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "صرت",
+      "said": "صحيت"
+     },
+     {
+      "engine": "متأخر.",
+      "said": "متأخر و"
+     }
+    ],
+    "confidence": "high",
+    "why": "Amal prompted him with 'إنت صحيت متأخر و…' and he echoed her phrase with 'أنا صحيت متأخر و'."
+   },
+   "usd": 0.0021253,
+   "tokens": [
+    954,
+    63,
+    718
+   ]
+  },
+  "118": {
+   "text": "Um, you guys don't say I have been, so I just say I am, right? أنا، أنا كنت I was. Yeah أنا كنت شوي كسول",
+   "alt": "Um, you guys don't say I have been, so I just say I am, right? ana, ana kunit I was. Yeah ana kunit shway kasool",
+   "raw": {
+    "arabic": "Um, you guys don't say I have been, so I just say I am, right? أنا، أنا كنت I was. Yeah أنا كنت شوي كسول",
+    "arabizi": "Um, you guys don't say I have been, so I just say I am, right? ana, ana kunit I was. Yeah ana kunit shway kasool",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "امم",
+      "said": "Um,"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts the sentence in English with 'Um', which the engine rendered as Arabic 'امم'. The rest of the line, including his false start 'أنا' followed by 'أنا كنت', is transcribed accurately."
+   },
+   "usd": 0.0206866,
+   "tokens": [
+    1158,
+    281,
+    8057
+   ]
+  },
+  "119": {
+   "text": "هاد الصباح",
+   "alt": "had el-9aba7",
+   "raw": {
+    "arabic": "هاد الصباح",
+    "arabizi": "had el-9aba7",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "عادي",
+      "said": "هاد"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi tries to say 'this morning' using the Levantine demonstrative هاد followed by الصباح (which Amal later notes should just be الصبح or بالصباح)."
+   },
+   "usd": 0.0202922,
+   "tokens": [
+    973,
+    54,
+    7985
+   ]
+  },
+  "120": {
+   "text": "هاد الصباح",
+   "alt": "had el-soba7",
+   "raw": {
+    "arabic": "هاد الصباح",
+    "arabizi": "had el-soba7",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "عاد",
+      "said": "هاد"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'هاد الصباح' (had el-soba7) trying to translate 'this morning', which Amal immediately corrects."
+   },
+   "usd": 0.0068575,
+   "tokens": [
+    956,
+    51,
+    2614
+   ]
+  },
+  "122": {
+   "text": "Uh, شوي الصباح.",
+   "alt": "Uh, shway el-saba7.",
+   "raw": {
+    "arabic": "Uh, شوي الصباح.",
+    "arabizi": "Uh, shway el-saba7.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "امم.",
+      "said": "Uh,"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts with an English filler 'Uh' rather than 'امم', followed by 'شوي الصباح' as he tries to reformulate his earlier sentence ('أنا كنت شوي كسول')."
+   },
+   "usd": 0.0203228,
+   "tokens": [
+    969,
+    78,
+    7991
+   ]
+  },
+  "124": {
+   "text": "Uh, um",
+   "alt": "Uh, um",
+   "raw": {
+    "arabic": "Uh, um",
+    "arabizi": "Uh, um",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "آآآ أنا،",
+      "said": "Uh, um"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is hesitating and saying the English filler 'Uh, um'; there is no 'أنا' spoken here."
+   },
+   "usd": 0.0054858,
+   "tokens": [
+    1004,
+    103,
+    2045
+   ]
+  },
+  "125": {
+   "text": "أنا لا مش",
+   "alt": "ana la mish",
+   "raw": {
+    "arabic": "أنا لا مش",
+    "arabizi": "ana la mish",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcript matches the audio perfectly."
+   },
+   "usd": 0.0015575,
+   "tokens": [
+    970,
+    70,
+    487
+   ]
+  },
+  "126": {
+   "text": "شجاع اليوم. متشجاع اليوم.",
+   "alt": "shajaa3 el-yom. mitshajaa3 el-yom.",
+   "raw": {
+    "arabic": "شجاع اليوم. متشجاع اليوم.",
+    "arabizi": "shajaa3 el-yom. mitshajaa3 el-yom.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "مش شجاع",
+      "said": "متشجاع"
+     }
+    ],
+    "confidence": "high",
+    "why": "Amal asked if he was 'مش متشجع'. Medi first tries 'شجاع اليوم', then attempts the prefix to form 'متشجاع اليوم' (which the engine misheard as 'مش شجاع'), leading Amal to immediately correct him with 'متشجع'."
+   },
+   "usd": 0.020480599999999998,
+   "tokens": [
+    1020,
+    153,
+    8027
+   ]
+  },
+  "130": {
+   "text": "لسه",
+   "alt": "lissa",
+   "raw": {
+    "arabic": "لسه",
+    "arabizi": "lissa",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "This suck.",
+      "said": "لسه"
+     }
+    ],
+    "confidence": "high",
+    "why": "Amal asked 'لسه؟' (Still?), and Medi answers by confirming 'لسه' (Still / not yet), which the engine misheard as 'This suck.'."
+   },
+   "usd": 0.0016379,
+   "tokens": [
+    901,
+    43,
+    535
+   ]
+  },
+  "131": {
+   "text": "أنا لازم",
+   "alt": "ana laazem",
+   "raw": {
+    "arabic": "أنا لازم",
+    "arabizi": "ana laazem",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'أنا لازم', which matches the engine transcription."
+   },
+   "usd": 0.0102567,
+   "tokens": [
+    920,
+    51,
+    3978
+   ]
+  },
+  "133": {
+   "text": "أنا لازم",
+   "alt": "ana laazem",
+   "raw": {
+    "arabic": "أنا لازم",
+    "arabizi": "ana laazem",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The audio clearly matches the engine transcription 'أنا لازم'."
+   },
+   "usd": 0.001035,
+   "tokens": [
+    943,
+    53,
+    286
+   ]
+  },
+  "134": {
+   "text": "آآآ عطلة و",
+   "alt": "aaa 3otle w",
+   "raw": {
+    "arabic": "آآآ عطلة و",
+    "arabizi": "aaa 3otle w",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أطلع",
+      "said": "عطلة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'عطلة' (vacation), missing the verb 'to take' ('أخد'), which prompts Amal to correct him right after with 'you should take'."
+   },
+   "usd": 0.0034042,
+   "tokens": [
+    974,
+    85,
+    1221
+   ]
+  },
+  "136": {
+   "text": "مش",
+   "alt": "mish",
+   "raw": {
+    "arabic": "مش",
+    "arabizi": "mish",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply says 'مش' (mish)."
+   },
+   "usd": 0.0023763,
+   "tokens": [
+    906,
+    35,
+    832
+   ]
+  },
+  "137": {
+   "text": "أنا لازم آخد عطلة و سَفَت، سفرة.",
+   "alt": "ana laazem aa5od 3otle u safat, safra.",
+   "raw": {
+    "arabic": "أنا لازم آخد عطلة و سَفَت، سفرة.",
+    "arabizi": "ana laazem aa5od 3otle u safat, safra.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أخد",
+      "said": "آخد"
+     },
+     {
+      "engine": "أطلع",
+      "said": "عطلة"
+     },
+     {
+      "engine": "وسفر، سفر",
+      "said": "و سَفَت، سفرة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'عطلة' (vacation), which the engine misheard as 'أطلع', followed by a stumble 'سَفَت' and self-correction to 'سفرة'."
+   },
+   "usd": 0.0206164,
+   "tokens": [
+    1090,
+    192,
+    8062
+   ]
+  },
+  "140": {
+   "text": "ولازم أسافر.",
+   "alt": "u lazem asaafer.",
+   "raw": {
+    "arabic": "ولازم أسافر.",
+    "arabizi": "u lazem asaafer.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed Medi's words accurately; he clearly says 'ولازم أسافر'."
+   },
+   "usd": 0.0021836,
+   "tokens": [
+    1035,
+    83,
+    726
+   ]
+  },
+  "142": {
+   "text": "آآآ كمان مرة؟",
+   "alt": "aaa kaman marra?",
+   "raw": {
+    "arabic": "آآآ كمان مرة؟",
+    "arabizi": "aaa kaman marra?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "كم مرة",
+      "said": "كمان مرة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi didn't understand Amal's previous sentence and asks her to repeat it ('كمان مرة؟')."
+   },
+   "usd": 0.0022728,
+   "tokens": [
+    1000,
+    54,
+    774
+   ]
+  },
+  "144": {
+   "text": "What?",
+   "alt": "What?",
+   "raw": {
+    "arabic": "What?",
+    "arabizi": "What?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "فقط.",
+      "said": "What?"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'What?' in English when he doesn't understand Amal's word; the speech engine misheard it as 'فقط'."
+   },
+   "usd": 0.006639,
+   "tokens": [
+    971,
+    36,
+    2529
+   ]
+  },
+  "148": {
+   "text": "part. You said كنت؟",
+   "alt": "part. You said kunt?",
+   "raw": {
+    "arabic": "part. You said كنت؟",
+    "arabizi": "part. You said kunt?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "\"قنت\"؟",
+      "said": "كنت؟"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi completes his thought ('the first part') and asks if she said 'كنت', pronouncing it with a clear /k/."
+   },
+   "usd": 0.0020312,
+   "tokens": [
+    1004,
+    75,
+    671
+   ]
+  },
+  "150": {
+   "text": "So كنت",
+   "alt": "So kunit",
+   "raw": {
+    "arabic": "So كنت",
+    "arabizi": "So kunit",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi repeats 'So كنت' following Amal's explanation of the word she had used."
+   },
+   "usd": 0.0013761,
+   "tokens": [
+    963,
+    46,
+    422
+   ]
+  },
+  "152": {
+   "text": "آآآ [ضحك] yeah, and uh",
+   "alt": "aaa [de7ek] yeah, and uh",
+   "raw": {
+    "arabic": "آآآ [ضحك] yeah, and uh",
+    "arabizi": "aaa [de7ek] yeah, and uh",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أأ",
+      "said": "uh"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi switches to English filler words ('yeah, and uh'); the engine transcribed the English filler 'uh' in Arabic letters as 'أأ'."
+   },
+   "usd": 0.005787100000000001,
+   "tokens": [
+    1052,
+    95,
+    2162
+   ]
+  },
+  "154": {
+   "text": "um أنا",
+   "alt": "um ana",
+   "raw": {
+    "arabic": "um أنا",
+    "arabizi": "um ana",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription is correct; Medi says 'um ana' before continuing in the next turn with 'بخطط'."
+   },
+   "usd": 0.004313399999999999,
+   "tokens": [
+    1008,
+    55,
+    1589
+   ]
+  },
+  "155": {
+   "text": "آآآ بخطط.",
+   "alt": "aaa bakhaTTaT.",
+   "raw": {
+    "arabic": "آآآ بخطط.",
+    "arabizi": "aaa bakhaTTaT.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi says 'uh, bakhattat' (بخطط), using the present tense before correcting himself to past tense (خططت) in the following line."
+   },
+   "usd": 0.0051974,
+   "tokens": [
+    1022,
+    69,
+    1937
+   ]
+  },
+  "156": {
+   "text": "",
+   "error": "bad json",
+   "raw": "...\nWait, look at the prompt text:\n00:02 have, I planned\n00:03 is past tense?\nWait, let's re-listen very closely to:\n00:01.5 to 00:03.5:\nDoes he say:\n\"have a plan is past tense\"?\nWait, could it be:\n\"how 'I plan' is past tense?\"\nWait, does he say:\n\"how\"?\nLet's listen to the consonant:\nIs it \"no, I...",
+   "usd": 0.020894799999999998,
+   "tokens": [
+    1080,
+    144,
+    8188
+   ]
+  },
+  "158": {
+   "text": "أنا خططت",
+   "alt": "ana 5a66a6et",
+   "raw": {
+    "arabic": "أنا خططت",
+    "arabizi": "ana 5a66a6et",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly repeats 'أنا خططت' just as the engine transcribed."
+   },
+   "usd": 0.0015839,
+   "tokens": [
+    1000,
+    52,
+    499
+   ]
+  },
+  "159": {
+   "text": "Um",
+   "alt": "Um",
+   "raw": {
+    "arabic": "Um",
+    "arabizi": "Um",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "امم",
+      "said": "Um"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi just says the English filler 'Um'."
+   },
+   "usd": 0.0025328,
+   "tokens": [
+    995,
+    49,
+    880
+   ]
+  },
+  "160": {
+   "text": "سفر",
+   "alt": "safar",
+   "raw": {
+    "arabic": "سفر",
+    "arabizi": "safar",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'سفر' (safar) as heard in the audio."
+   },
+   "usd": 0.0015249,
+   "tokens": [
+    977,
+    49,
+    479
+   ]
+  },
+  "161": {
+   "text": "سفرة",
+   "alt": "safra",
+   "raw": {
+    "arabic": "سفرة",
+    "arabizi": "safra",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "سفر",
+      "said": "سفرة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly pronounces two syllables: 'safra' (سفرة, meaning 'a trip')."
+   },
+   "usd": 0.0019008,
+   "tokens": [
+    989,
+    38,
+    631
+   ]
+  },
+  "163": {
+   "text": "بسفر",
+   "alt": "basafar",
+   "raw": {
+    "arabic": "بسفر",
+    "arabizi": "basafar",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "بسف...",
+      "said": "بسفر"
+     }
+    ],
+    "confidence": "high",
+    "why": "Amal prompted Medi with 'You plan for', so he tried adding the preposition to 'safar' (saying 'basafar'), which the engine left truncated as 'بسف...'."
+   },
+   "usd": 0.0118224,
+   "tokens": [
+    973,
+    40,
+    4601
+   ]
+  },
+  "164": {
+   "text": "So لا",
+   "alt": "So la",
+   "raw": {
+    "arabic": "So لا",
+    "arabizi": "So la",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi says the English word 'So' followed by 'la' (referring to the preposition لـ 'for' in Levantine, after Amal prompted 'You plan for')."
+   },
+   "usd": 0.0042492,
+   "tokens": [
+    959,
+    45,
+    1572
+   ]
+  },
+  "165": {
+   "text": "على سفر",
+   "alt": "3ala safar",
+   "raw": {
+    "arabic": "على سفر",
+    "arabizi": "3ala safar",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "لا سفر",
+      "said": "على سفر"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly says 'على سفر' (3ala safar), attempting to use a preposition with 'سفر' (likely from English 'plan on'). The engine missed the initial 'ayn and heard 'لا'."
+   },
+   "usd": 0.0047462,
+   "tokens": [
+    978,
+    54,
+    1766
+   ]
+  },
+  "166": {
+   "text": "آآآ",
+   "alt": "aaa",
+   "raw": {
+    "arabic": "آآآ",
+    "arabizi": "aaa",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi is just making a hesitation sound ('آآآ')."
+   },
+   "usd": 0.0032080999999999998,
+   "tokens": [
+    948,
+    41,
+    1158
+   ]
+  },
+  "168": {
+   "text": "جاي-- أسبوع جاي.",
+   "alt": "jaye-- usboo3 jaye.",
+   "raw": {
+    "arabic": "جاي-- أسبوع جاي.",
+    "arabizi": "jaye-- usboo3 jaye.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الأسبوع",
+      "said": "أسبوع"
+     },
+     {
+      "engine": "الجاي",
+      "said": "جاي"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi confused Amal's question 'wen' (where) with the English word 'when'. He omitted the definite article 'al-' in both words, saying 'usboo3 jaye' rather than 'el-usboo3 el-jaye'."
+   },
+   "usd": 0.0060566000000000005,
+   "tokens": [
+    1007,
+    85,
+    2278
+   ]
+  },
+  "169": {
+   "text": "بس أنا راح",
+   "alt": "bass ana raa7",
+   "raw": {
+    "arabic": "بس أنا راح",
+    "arabizi": "bass ana raa7",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription is accurate; Medi says 'بس أنا راح' (using 'راح' incorrectly instead of 'رايح' or 'راح أروح', which Amal later questions)."
+   },
+   "usd": 0.0017394,
+   "tokens": [
+    938,
+    65,
+    565
+   ]
+  },
+  "170": {
+   "text": "آآآ على",
+   "alt": "aaa 3ala",
+   "raw": {
+    "arabic": "آآآ على",
+    "arabizi": "aaa 3ala",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The audio clearly matches the engine transcription: Medi hesitates with 'آآآ' and says 'على'."
+   },
+   "usd": 0.0032106,
+   "tokens": [
+    951,
+    54,
+    1155
+   ]
+  },
+  "171": {
+   "text": "آآ عند",
+   "alt": "aa 3and",
+   "raw": {
+    "arabic": "آآ عند",
+    "arabizi": "aa 3and",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "آآآ",
+      "said": "آآ عند"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi hesitates and says 'عند' (which Amal later corrects him for combining with 'على')."
+   },
+   "usd": 0.017656400000000003,
+   "tokens": [
+    929,
+    36,
+    6941
+   ]
+  },
+  "172": {
+   "text": "عموي",
+   "alt": "3amoy",
+   "raw": {
+    "arabic": "عموي",
+    "arabizi": "3amoy",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi overgeneralizes the possessive suffix from 'أبوي' (aboy) to coin 'عموي' (3ammoy) instead of 'عمي' (3ammi)."
+   },
+   "usd": 0.0035369,
+   "tokens": [
+    917,
+    49,
+    1291
+   ]
+  },
+  "173": {
+   "text": "امم",
+   "alt": "mmm",
+   "raw": {
+    "arabic": "امم",
+    "arabizi": "mmm",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply makes a thinking/hesitation humming sound (امم)."
+   },
+   "usd": 0.0015783,
+   "tokens": [
+    932,
+    41,
+    508
+   ]
+  },
+  "174": {
+   "text": "لشغل.",
+   "alt": "la shoghol.",
+   "raw": {
+    "arabic": "لشغل.",
+    "arabizi": "la shoghol.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'لشغل' (for work), which matches the engine transcript perfectly."
+   },
+   "usd": 0.0025071,
+   "tokens": [
+    939,
+    47,
+    877
+   ]
+  },
+  "175": {
+   "text": "بس.",
+   "alt": "bas.",
+   "raw": {
+    "arabic": "بس.",
+    "arabizi": "bas.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'بس'."
+   },
+   "usd": 0.0009454,
+   "tokens": [
+    920,
+    42,
+    256
+   ]
+  },
+  "177": {
+   "text": "I'm going to my uncle's, عند، عند عموي.",
+   "alt": "I'm going to my uncle's, 3end, 3end 3ammoy.",
+   "raw": {
+    "arabic": "I'm going to my uncle's, عند، عند عموي.",
+    "arabizi": "I'm going to my uncle's, 3end, 3end 3ammoy.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "and, and",
+      "said": "عند، عند"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi was trying to use the preposition 'عند' (at/to someone's place), which the engine misheard as the English word 'and'."
+   },
+   "usd": 0.0042591,
+   "tokens": [
+    994,
+    112,
+    1553
+   ]
+  },
+  "179": {
+   "text": "It's عند عموي or um عموي عند؟",
+   "alt": "It's 3and 3amwi or um 3amwi 3and?",
+   "raw": {
+    "arabic": "It's عند عموي or um عموي عند؟",
+    "arabizi": "It's 3and 3amwi or um 3amwi 3and?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "and",
+      "said": "عند"
+     },
+     {
+      "engine": "and",
+      "said": "عند"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is asking whether the preposition 'عند' goes before or after 'عموي'; the engine misheard Arabic 'عند' as English 'and'."
+   },
+   "usd": 0.0163676,
+   "tokens": [
+    958,
+    86,
+    6408
+   ]
+  },
+  "181": {
+   "text": "راح أروح على",
+   "alt": "ra7 aroo7 3ala",
+   "raw": {
+    "arabic": "راح أروح على",
+    "arabizi": "ra7 aroo7 3ala",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The audio clearly matches the engine transcription 'راح أروح على'."
+   },
+   "usd": 0.0018527,
+   "tokens": [
+    1008,
+    104,
+    591
+   ]
+  },
+  "182": {
+   "text": "عند عموي.",
+   "alt": "3end 3amuwi.",
+   "raw": {
+    "arabic": "عند عموي.",
+    "arabizi": "3end 3amuwi.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "and",
+      "said": "عند"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is attempting the Arabic preposition 'عند', which the engine misheard as English 'and', as confirmed by Amal's immediate reply: 'Either على or عند which one?'"
+   },
+   "usd": 0.0045433,
+   "tokens": [
+    963,
+    67,
+    1683
+   ]
+  },
+  "211": {
+   "text": "راح",
+   "alt": "ra7",
+   "raw": {
+    "arabic": "راح",
+    "arabizi": "ra7",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "rah",
+      "said": "راح"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is starting his sentence with the future marker 'ra7' (راح)."
+   },
+   "usd": 0.0025876,
+   "tokens": [
+    939,
+    37,
+    912
+   ]
+  },
+  "213": {
+   "text": "ننبسط؟",
+   "alt": "nenbese6?",
+   "raw": {
+    "arabic": "ننبسط؟",
+    "arabizi": "nenbese6?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "nimbisit.",
+      "said": "ننبسط؟"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi tentatively suggests 'nenbese6?' with rising questioning intonation, which Amal immediately confirms with 'صح'."
+   },
+   "usd": 0.0041575,
+   "tokens": [
+    963,
+    48,
+    1534
+   ]
+  },
+  "217": {
+   "text": "راح ننبسط",
+   "alt": "ra7 nenbese6",
+   "raw": {
+    "arabic": "راح ننبسط",
+    "arabizi": "ra7 nenbese6",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'راح ننبسط' (we will have fun), which matches the engine's phonetic transcription."
+   },
+   "usd": 0.006923100000000001,
+   "tokens": [
+    969,
+    57,
+    2637
+   ]
+  },
+  "251": {
+   "text": "الجمعة",
+   "alt": "el-Jum3a",
+   "raw": {
+    "arabic": "الجمعة",
+    "arabizi": "el-Jum3a",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Or was it Juma?",
+      "said": "الجمعة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is completing his sentence from the previous line ('Yom el...') with 'el-Jum'a' (Friday). The engine misheard the Arabic article as English words."
+   },
+   "usd": 0.0046976000000000006,
+   "tokens": [
+    998,
+    51,
+    1745
+   ]
+  },
+  "252": {
+   "text": "Can't believe it's جمعة already. Uh, تلات",
+   "alt": "Can't believe it's jum3a already. Uh, talat",
+   "raw": {
+    "arabic": "Can't believe it's جمعة already. Uh, تلات",
+    "arabizi": "Can't believe it's jum3a already. Uh, talat",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Juma",
+      "said": "جمعة"
+     },
+     {
+      "engine": "Talat",
+      "said": "تلات"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi inserts the Arabic day جمعة (jum3a) into an English sentence, followed by the date number تلات (talat)."
+   },
+   "usd": 0.013155100000000001,
+   "tokens": [
+    1050,
+    118,
+    5103
+   ]
+  },
+  "254": {
+   "text": "عشا، ألفين ستة وعشرين",
+   "alt": "3asha, alfayn sitte w 3ishreen",
+   "raw": {
+    "arabic": "عشا، ألفين ستة وعشرين",
+    "arabizi": "3asha, alfayn sitte w 3ishreen",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Asha",
+      "said": "عشا"
+     },
+     {
+      "engine": "Alfayn",
+      "said": "ألفين"
+     },
+     {
+      "engine": "Sitwa",
+      "said": "ستة و"
+     },
+     {
+      "engine": "Ashrin.",
+      "said": "عشرين"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi tries to say the date (following 'Talat' from the previous line) but accidentally drops the 'r' from 'ashra' (saying '3asha', meaning dinner, which Amal immediately points out), followed by the year 2026."
+   },
+   "usd": 0.006370600000000001,
+   "tokens": [
+    1017,
+    90,
+    2401
+   ]
+  },
+  "262": {
+   "text": "الساعة",
+   "alt": "el-saa3a",
+   "raw": {
+    "arabic": "الساعة",
+    "arabizi": "el-saa3a",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Elsa,",
+      "said": "الساعة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Amal asked what time it is, and Medi starts his answer with 'el-saa3a' (الساعة)."
+   },
+   "usd": 0.0026109,
+   "tokens": [
+    911,
+    43,
+    923
+   ]
+  },
+  "264": {
+   "text": "تنتين وربع",
+   "alt": "tintein u rob3",
+   "raw": {
+    "arabic": "تنتين وربع",
+    "arabizi": "tintein u rob3",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "tinte nu ro.",
+      "said": "tintein u rob3"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi answers the question about the time with 'تنتين وربع' (2:15), which the engine misheard and missegmented as 'tinte nu ro.', right before correcting himself to 2:20 ('tintein u tult')."
+   },
+   "usd": 0.0107388,
+   "tokens": [
+    920,
+    54,
+    4170
+   ]
+  },
+  "265": {
+   "text": "No، تنتين وتلت",
+   "alt": "No, tentayn u tult",
+   "raw": {
+    "arabic": "No، تنتين وتلت",
+    "arabizi": "No, tentayn u tult",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "tinte nu",
+      "said": "tentayn u"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi corrected his previous line ('tintayn u rob3') to 'No, tentayn u tult' (2:20), which the engine missegmented as 'tinte nu'."
+   },
+   "usd": 0.0031592,
+   "tokens": [
+    936,
+    62,
+    1134
+   ]
+  },
+  "292": {
+   "text": "If I say أول الساعة that means the beginning of the hour. And if I say الأول الساعة that means the f- the, the... I thought you said this was also the first",
+   "alt": "If I say awal el-saa that means the beginning of the hour. And if I say el-awal el-saa that means the f- the, the... I thought you said this was also the first",
+   "raw": {
+    "arabic": "If I say أول الساعة that means the beginning of the hour. And if I say الأول الساعة that means the f- the, the... I thought you said this was also the first",
+    "arabizi": "If I say awal el-saa that means the beginning of the hour. And if I say el-awal el-saa that means the f- the, the... I thought you said this was also the first",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "awal elsaa",
+      "said": "أول الساعة"
+     },
+     {
+      "engine": "el awal elsaa",
+      "said": "الأول الساعة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is speaking English mixed with Arabic phrases (أول الساعة and الأول الساعة), which the engine wrote in English/transliteration."
+   },
+   "usd": 0.0050547,
+   "tokens": [
+    1234,
+    310,
+    1787
+   ]
+  },
+  "297": {
+   "text": "So الساعة الأول؟",
+   "alt": "So el-saa el-awal?",
+   "raw": {
+    "arabic": "So الساعة الأول؟",
+    "arabizi": "So el-saa el-awal?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "elsaa el awal",
+      "said": "الساعة الأول؟"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi asks 'So الساعة الأول?' following Amal's note about putting 'أول' after the noun."
+   },
+   "usd": 0.0022633,
+   "tokens": [
+    952,
+    61,
+    774
+   ]
+  },
+  "299": {
+   "text": "أول؟",
+   "alt": "awwal?",
+   "raw": {
+    "arabic": "أول؟",
+    "arabizi": "awwal?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi tentatively guesses 'أول' with rising question intonation in response to Amal's question."
+   },
+   "usd": 0.0026000999999999997,
+   "tokens": [
+    930,
+    48,
+    915
+   ]
+  },
+  "300": {
+   "text": "Do you have to make it feminine? Well, cuz it's ساعة.",
+   "alt": "Do you have to make it feminine? Well, cuz it's saa3a.",
+   "raw": {
+    "arabic": "Do you have to make it feminine? Well, cuz it's ساعة.",
+    "arabizi": "Do you have to make it feminine? Well, cuz it's saa3a.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "So you",
+      "said": "Do you"
+     },
+     {
+      "engine": "because",
+      "said": "cuz"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi asks 'Do you have to make it feminine?' and answers himself with 'Well, cuz it's ساعة'."
+   },
+   "usd": 0.0082492,
+   "tokens": [
+    954,
+    90,
+    3160
+   ]
+  },
+  "320": {
+   "text": "So هادي",
+   "alt": "So hadi",
+   "raw": {
+    "arabic": "So هادي",
+    "arabizi": "So hadi",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "هذي",
+      "said": "هادي"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi uses the Levantine feminine demonstrative 'هادي' with a 'd' sound, which the engine transcribed in MSA spelling as 'هذي'."
+   },
+   "usd": 0.0035507,
+   "tokens": [
+    904,
+    60,
+    1295
+   ]
+  },
+  "326": {
+   "text": "في، uh شغلنا.",
+   "alt": "fee, uh shoghlna.",
+   "raw": {
+    "arabic": "في، uh شغلنا.",
+    "arabizi": "fee, uh shoghlna.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription matches what was spoken."
+   },
+   "usd": 0.0016154000000000001,
+   "tokens": [
+    943,
+    100,
+    505
+   ]
+  },
+  "301": {
+   "text": "Okay, so الساعة الأول.",
+   "alt": "Okay, so el-saa el-awal.",
+   "raw": {
+    "arabic": "Okay, so الساعة الأول.",
+    "arabizi": "Okay, so el-saa el-awal.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الأولى",
+      "said": "الأول"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi said 'el-awal' (الأول) instead of the feminine form, which Amal corrects right after by saying 'أولى'."
+   },
+   "usd": 0.0063108999999999995,
+   "tokens": [
+    1008,
+    130,
+    2367
+   ]
+  },
+  "304": {
+   "text": "Oh, it didn't catch. Did it tell you to add أولى or no? Did it catch this? Oh, wow. Okay, good.",
+   "alt": "Oh, it didn't catch. Did it tell you to add ula or no? Did it catch this? Oh, wow. Okay, good.",
+   "raw": {
+    "arabic": "Oh, it didn't catch. Did it tell you to add أولى or no? Did it catch this? Oh, wow. Okay, good.",
+    "arabizi": "Oh, it didn't catch. Did it tell you to add ula or no? Did it catch this? Oh, wow. Okay, good.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Did it catch it?",
+      "said": "Did it catch this?"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly says 'Did it catch this?' instead of 'Did it catch it?' before saying 'Oh wow, okay, good.'"
+   },
+   "usd": 0.0041773,
+   "tokens": [
+    1042,
+    171,
+    1498
+   ]
+  },
+  "322": {
+   "text": "Yeah, 'cause it's سـ ساعة, right? هادي ساعة؟ So هادي...",
+   "alt": "Yeah, 'cause it's sa- sa3a, right? hadi sa3a? So hadi...",
+   "raw": {
+    "arabic": "Yeah, 'cause it's سـ ساعة, right? هادي ساعة؟ So هادي...",
+    "arabizi": "Yeah, 'cause it's sa- sa3a, right? hadi sa3a? So hadi...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "ساعة",
+      "said": "سـ ساعة"
+     },
+     {
+      "engine": "هذي ساعة",
+      "said": "هادي ساعة؟"
+     },
+     {
+      "engine": "هذي",
+      "said": "هادي..."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi stutters on 'ساعة' (sa- sa3a) and uses the Levantine demonstrative pronoun 'هادي' (hadi) rather than MSA 'هذي'."
+   },
+   "usd": 0.0205517,
+   "tokens": [
+    958,
+    124,
+    8071
+   ]
+  },
+  "324": {
+   "text": "أول ساعة",
+   "alt": "awwal sa3a",
+   "raw": {
+    "arabic": "أول ساعة",
+    "arabizi": "awwal sa3a",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly pronounces 'أول ساعة' (awwal sa3a) as transcribed."
+   },
+   "usd": 0.0011083,
+   "tokens": [
+    913,
+    67,
+    315
+   ]
+  },
+  "329": {
+   "text": "هذي الساعة",
+   "alt": "haadi el-saa3a",
+   "raw": {
+    "arabic": "هذي الساعة",
+    "arabizi": "haadi el-saa3a",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcript matches his spoken words exactly ('هذي الساعة')."
+   },
+   "usd": 0.0026114000000000003,
+   "tokens": [
+    980,
+    107,
+    897
+   ]
+  },
+  "330": {
+   "text": "ال",
+   "alt": "el",
+   "raw": {
+    "arabic": "ال",
+    "arabizi": "el",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi starts to say the definite article 'el' before pausing to think of 'الأولى'."
+   },
+   "usd": 0.002129,
+   "tokens": [
+    876,
+    41,
+    735
+   ]
+  },
+  "331": {
+   "text": "um, أولى",
+   "alt": "um, oola",
+   "raw": {
+    "arabic": "um, أولى",
+    "arabizi": "um, oola",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الأولى",
+      "said": "أولى"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'oola' without the definite article prefix 'el-', which he adds in the next turn."
+   },
+   "usd": 0.0021882,
+   "tokens": [
+    922,
+    63,
+    747
+   ]
+  },
+  "332": {
+   "text": "أولى؟",
+   "alt": "oowla?",
+   "raw": {
+    "arabic": "أولى؟",
+    "arabizi": "oowla?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الأولى",
+      "said": "أولى"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'أولى' with questioning intonation without the prefix 'الـ', which he had paused after in the preceding line."
+   },
+   "usd": 0.005835399999999999,
+   "tokens": [
+    902,
+    39,
+    2215
+   ]
+  },
+  "334": {
+   "text": "Uh, بشغلنا.",
+   "alt": "Uh, bi shu8ulna.",
+   "raw": {
+    "arabic": "Uh, بشغلنا.",
+    "arabizi": "Uh, bi shu8ulna.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "في شغلنا",
+      "said": "بشغلنا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly says the preposition 'bi' (بـ) rather than 'fi' (في)."
+   },
+   "usd": 0.0021186,
+   "tokens": [
+    949,
+    77,
+    712
+   ]
+  },
+  "340": {
+   "text": "So تاني means else or second.",
+   "alt": "So tani means else or second.",
+   "raw": {
+    "arabic": "So تاني means else or second.",
+    "arabizi": "So tani means else or second.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the utterance accurately."
+   },
+   "usd": 0.0020549,
+   "tokens": [
+    1051,
+    128,
+    660
+   ]
+  },
+  "350": {
+   "text": "التاني, it's always gonna be the second.",
+   "alt": "el-taani, it's always gonna be the second.",
+   "raw": {
+    "arabic": "التاني, it's always gonna be the second.",
+    "arabizi": "el-taani, it's always gonna be the second.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the audio correctly."
+   },
+   "usd": 0.0023073,
+   "tokens": [
+    1035,
+    99,
+    771
+   ]
+  },
+  "355": {
+   "text": "So if it's the same rule, then it would be تاني ساعة",
+   "alt": "So if it's the same rule, then it would be taani sa3a",
+   "raw": {
+    "arabic": "So if it's the same rule, then it would be تاني ساعة",
+    "arabizi": "So if it's the same rule, then it would be taani sa3a",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "ساعة",
+      "said": "تاني ساعة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly says 'taani sa3a' following Amal's prompt to apply the rule using the word 'sa3a'."
+   },
+   "usd": 0.0023199,
+   "tokens": [
+    1058,
+    125,
+    766
+   ]
+  },
+  "357": {
+   "text": "means the second hour",
+   "alt": "means the second hour",
+   "raw": {
+    "arabic": "means the second hour",
+    "arabizi": "means the second hour",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "تاني",
+      "said": ""
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi speaks only in English in this clip, saying 'means the second hour'; 'تاني' is not present in the audio."
+   },
+   "usd": 0.002835,
+   "tokens": [
+    1003,
+    63,
+    996
+   ]
+  },
+  "359": {
+   "text": "and تاني الساعة means a different hour.",
+   "alt": "and taani el-saa3a means a different hour.",
+   "raw": {
+    "arabic": "and تاني الساعة means a different hour.",
+    "arabizi": "and taani el-saa3a means a different hour.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "التاني",
+      "said": "تاني"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'تاني' without the definite article 'ال', which Amal also quotes right after ('We can't say تاني الساعة')."
+   },
+   "usd": 0.0026406999999999997,
+   "tokens": [
+    1078,
+    139,
+    888
+   ]
+  },
+  "362": {
+   "text": "Okay, so this doesn't follow the same rule as أول.",
+   "alt": "Okay, so this doesn't follow the same rule as awwal.",
+   "raw": {
+    "arabic": "Okay, so this doesn't follow the same rule as أول.",
+    "arabizi": "Okay, so this doesn't follow the same rule as awwal.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately captures what Medi said."
+   },
+   "usd": 0.0017072,
+   "tokens": [
+    1034,
+    110,
+    528
+   ]
+  },
+  "365": {
+   "text": "Okay, so it doesn't have the ال, but the before and after. So تاني ساعة",
+   "alt": "Okay, so it doesn't have the el, but the before and after. So taani saa3a",
+   "raw": {
+    "arabic": "Okay, so it doesn't have the ال, but the before and after. So تاني ساعة",
+    "arabizi": "Okay, so it doesn't have the el, but the before and after. So taani saa3a",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "the ال rule",
+      "said": "the ال"
+     },
+     {
+      "engine": "ساعة تاني is",
+      "said": "تاني ساعة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi does not say 'rule' (hesitation misheard as 'rule'), and says 'تاني ساعة' rather than 'ساعة تاني is'."
+   },
+   "usd": 0.0056744,
+   "tokens": [
+    1046,
+    158,
+    2100
+   ]
+  },
+  "367": {
+   "text": "So a second hour, and then, uh, ساعة تاني means, uh, a different hour.",
+   "alt": "So a second hour, and then, uh, saa3a taani means, uh, a different hour.",
+   "raw": {
+    "arabic": "So a second hour, and then, uh, ساعة تاني means, uh, a different hour.",
+    "arabizi": "So a second hour, and then, uh, saa3a taani means, uh, a different hour.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "s-a",
+      "said": "So a"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'So a second hour', echoing Amal's prompt 'So...', which the engine mistranscribed as 's-a'."
+   },
+   "usd": 0.020418,
+   "tokens": [
+    1078,
+    203,
+    7981
+   ]
+  },
+  "381": {
+   "text": "Uh, المصاري راح",
+   "alt": "Uh, el-maSaari raa7",
+   "raw": {
+    "arabic": "Uh, المصاري راح",
+    "arabizi": "Uh, el-maSaari raa7",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "المال",
+      "said": "Uh, المصاري"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi said 'el-masaari' (money), which Amal later notes is plural, leading him to ask about gender and switch to 'al-maal'."
+   },
+   "usd": 0.0029261,
+   "tokens": [
+    880,
+    78,
+    1043
+   ]
+  },
+  "385": {
+   "text": "Okay. But المص-- Okay.",
+   "alt": "Okay. But el-ma9-- Okay.",
+   "raw": {
+    "arabic": "Okay. But المص-- Okay.",
+    "arabizi": "Okay. But el-ma9-- Okay.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "المال--",
+      "said": "المص--"
+     }
+    ],
+    "confidence": "high",
+    "why": "Amal just told him 'مصاري is plural'; Medi starts to say 'المصـ' (el-mas--), cuts himself off, says 'Okay', and then resumes using 'المال'."
+   },
+   "usd": 0.014196700000000001,
+   "tokens": [
+    880,
+    86,
+    5549
+   ]
+  },
+  "386": {
+   "text": "المصاري راح",
+   "alt": "el-ma9ari ra7",
+   "raw": {
+    "arabic": "المصاري راح",
+    "arabizi": "el-ma9ari ra7",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "المال",
+      "said": "المصاري"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly says 'المصاري راح' (el-ma9ari ra7) after Amal previously reminded him that 'مصاري' is plural."
+   },
+   "usd": 0.0016611,
+   "tokens": [
+    866,
+    59,
+    544
+   ]
+  },
+  "387": {
+   "text": "يجوا",
+   "alt": "yeeju",
+   "raw": {
+    "arabic": "يجوا",
+    "arabizi": "yeeju",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "يجي",
+      "said": "يجوا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Amal just told Medi that money is plural, so he uses the plural verb ending 'يجوا' (yeeju) instead of singular 'يجي'."
+   },
+   "usd": 0.0061077,
+   "tokens": [
+    867,
+    43,
+    2327
+   ]
+  },
+  "388": {
+   "text": "uh, في",
+   "alt": "uh, fi",
+   "raw": {
+    "arabic": "uh, في",
+    "arabizi": "uh, fi",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply hesitates with 'uh' and the preposition 'في'."
+   },
+   "usd": 0.0015037,
+   "tokens": [
+    866,
+    52,
+    483
+   ]
+  },
+  "389": {
+   "text": "In two days, or in, in-- on the second day. The second day. في تاني يوم.",
+   "alt": "In two days, or in, in-- on the second day. The second day. fee taani yom.",
+   "raw": {
+    "arabic": "In two days, or in, in-- on the second day. The second day. في تاني يوم.",
+    "arabizi": "In two days, or in, in-- on the second day. The second day. fee taani yom.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the audio completely accurately, including his English hesitations and the Arabic phrase."
+   },
+   "usd": 0.0038048,
+   "tokens": [
+    1053,
+    227,
+    1332
+   ]
+  },
+  "392": {
+   "text": "Uh, so if it's it will come another day, it would be the money will come another day would be المصاري راح يجوا",
+   "alt": "Uh, so if it's it will come another day, it would be the money will come another day would be el-maSari ra7 yijoo",
+   "raw": {
+    "arabic": "Uh, so if it's it will come another day, it would be the money will come another day would be المصاري راح يجوا",
+    "arabizi": "Uh, so if it's it will come another day, it would be the money will come another day would be el-maSari ra7 yijoo",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "المال راح يجي،",
+      "said": "المصاري راح يجوا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi switches to the plural noun 'المصاري' (money) and plural verb 'يجوا' after the teacher reminded him that 'masari' is plural."
+   },
+   "usd": 0.0041724,
+   "tokens": [
+    1089,
+    276,
+    1461
+   ]
+  },
+  "393": {
+   "text": "Uh, في",
+   "alt": "Uh, fi",
+   "raw": {
+    "arabic": "Uh, في",
+    "arabizi": "Uh, fi",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi hesitates and says 'Uh, في' exactly as transcribed by the engine."
+   },
+   "usd": 0.0019130999999999998,
+   "tokens": [
+    902,
+    50,
+    643
+   ]
+  },
+  "394": {
+   "text": "يوم تاني.",
+   "alt": "yom tani.",
+   "raw": {
+    "arabic": "يوم تاني.",
+    "arabizi": "yom tani.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'يوم تاني' as correctly transcribed by the engine."
+   },
+   "usd": 0.0010492000000000001,
+   "tokens": [
+    914,
+    50,
+    296
+   ]
+  },
+  "396": {
+   "text": "اليوم",
+   "alt": "el-yom",
+   "raw": {
+    "arabic": "اليوم",
+    "arabizi": "el-yom",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The audio clearly matches the engine transcription 'اليوم' without any additions or errors."
+   },
+   "usd": 0.0013100999999999998,
+   "tokens": [
+    930,
+    48,
+    399
+   ]
+  },
+  "397": {
+   "text": "اليوم mean تاني؟",
+   "alt": "elyoum mean tani?",
+   "raw": {
+    "arabic": "اليوم mean تاني؟",
+    "arabizi": "elyoum mean tani?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "ميتني",
+      "said": "mean تاني"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is asking about the meaning of Amal's phrase 'اليوم التاني' by asking 'اليوم mean تاني?', using the English word 'mean'."
+   },
+   "usd": 0.004300399999999999,
+   "tokens": [
+    989,
+    66,
+    1583
+   ]
+  },
+  "399": {
+   "text": "اليوم التاني",
+   "alt": "el-yom el-tani",
+   "raw": {
+    "arabic": "اليوم التاني",
+    "arabizi": "el-yom el-tani",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "اليوم الثاني",
+      "said": "اليوم التاني"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly repeats Amal's phrase using the Levantine pronunciation with 'ت' rather than 'ث'."
+   },
+   "usd": 0.0020458,
+   "tokens": [
+    951,
+    65,
+    686
+   ]
+  },
+  "400": {
+   "text": "اليوم",
+   "alt": "el-yom",
+   "raw": {
+    "arabic": "اليوم",
+    "arabizi": "el-yom",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly repeats 'اليوم' (el-yom)."
+   },
+   "usd": 0.0028875,
+   "tokens": [
+    950,
+    50,
+    1027
+   ]
+  },
+  "401": {
+   "text": "التاني",
+   "alt": "et-tani",
+   "raw": {
+    "arabic": "التاني",
+    "arabizi": "et-tani",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الثاني",
+      "said": "التاني"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says the Levantine form 'التاني' with a 't' sound rather than MSA 'الثاني'."
+   },
+   "usd": 0.0022511,
+   "tokens": [
+    937,
+    50,
+    774
+   ]
+  },
+  "406": {
+   "text": "So يوم تاني is just second day.",
+   "alt": "So youm tani is just second day.",
+   "raw": {
+    "arabic": "So يوم تاني is just second day.",
+    "arabizi": "So youm tani is just second day.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "the",
+      "said": "just"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'just second day' (without 'the'), distinguishing 'يوم تاني' from 'اليوم التاني' which he had just confirmed meant 'the second day'."
+   },
+   "usd": 0.006989100000000001,
+   "tokens": [
+    971,
+    79,
+    2657
+   ]
+  },
+  "407": {
+   "text": "So my sentence didn't make sense as يوم، uh، تاني يوم, right?",
+   "alt": "So my sentence didn't make sense as youm, uh, tani youm, right?",
+   "raw": {
+    "arabic": "So my sentence didn't make sense as يوم، uh، تاني يوم, right?",
+    "arabizi": "So my sentence didn't make sense as youm, uh, tani youm, right?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the speech accurately, including the hesitation and Arabic words."
+   },
+   "usd": 0.0043395,
+   "tokens": [
+    1050,
+    160,
+    1565
+   ]
+  },
+  "418": {
+   "text": "م-مرة. Does it work with مرة or no?",
+   "alt": "m-marra. Does it work with marra or no?",
+   "raw": {
+    "arabic": "م-مرة. Does it work with مرة or no?",
+    "arabizi": "m-marra. Does it work with marra or no?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription is completely accurate to what Medi said."
+   },
+   "usd": 0.0033324,
+   "tokens": [
+    1015,
+    97,
+    1184
+   ]
+  },
+  "430": {
+   "text": "So هادي",
+   "alt": "So hadi",
+   "raw": {
+    "arabic": "So هادي",
+    "arabizi": "So hadi",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "هذي",
+      "said": "هادي"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly pronounces the Levantine feminine demonstrative 'هادي' with a /d/ sound, which the engine transcribed as MSA 'هذي'."
+   },
+   "usd": 0.0037594,
+   "tokens": [
+    947,
+    54,
+    1375
+   ]
+  },
+  "431": {
+   "text": "تاني مرة or ta-- the تانية؟",
+   "alt": "tani marra or ta-- the tania?",
+   "raw": {
+    "arabic": "تاني مرة or ta-- the تانية؟",
+    "arabizi": "tani marra or ta-- the tania?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "is it",
+      "said": "the"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says the English word 'the' before 'تانية' with rising question intonation, which the engine misheard as 'is it'."
+   },
+   "usd": 0.0087175,
+   "tokens": [
+    1021,
+    116,
+    3332
+   ]
+  },
+  "435": {
+   "text": "Yeah, هادي تاني مرة",
+   "alt": "Yeah, hadi taani marra",
+   "raw": {
+    "arabic": "Yeah, هادي تاني مرة",
+    "arabizi": "Yeah, hadi taani marra",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "هذي",
+      "said": "هادي"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly pronounces the word with a 'd' sound (هادي / hadi), which is the standard Levantine form, rather than 'dh' (هذي)."
+   },
+   "usd": 0.0032603000000000003,
+   "tokens": [
+    1002,
+    96,
+    1157
+   ]
+  },
+  "436": {
+   "text": "",
+   "error": "bad json",
+   "raw": "\nSo this, would we assume an ال here?`\nor\n`that I see you. So this, would we assume an ال here?`\nor\n`that I see you. So this-- would we assume an ال here?`\n\nWait, let's listen to the pause after \"So this\":\n\"that I see you. So this, would we assume an ال here?\"\nWait, does he say \"that I see you\" or \"",
+   "usd": 0.0208676,
+   "tokens": [
+    1022,
+    130,
+    8188
+   ]
+  },
+  "438": {
+   "text": "Okay. هذي تاني",
+   "alt": "Okay. haadi taani",
+   "raw": {
+    "arabic": "Okay. هذي تاني",
+    "arabizi": "Okay. haadi taani",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine captured Medi's words accurately; he says 'Okay. هذي تاني' before pausing."
+   },
+   "usd": 0.0028076999999999998,
+   "tokens": [
+    977,
+    78,
+    984
+   ]
+  },
+  "439": {
+   "text": "I mean, هذي تاني مرة",
+   "alt": "I mean, haadi taani marra",
+   "raw": {
+    "arabic": "I mean, هذي تاني مرة",
+    "arabizi": "I mean, haadi taani marra",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcript matches the audio accurately."
+   },
+   "usd": 0.005349,
+   "tokens": [
+    950,
+    70,
+    2006
+   ]
+  },
+  "440": {
+   "text": "أنا بشوفك",
+   "alt": "ana bashoofek",
+   "raw": {
+    "arabic": "أنا بشوفك",
+    "arabizi": "ana bashoofek",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcript matches the audio perfectly."
+   },
+   "usd": 0.0021216,
+   "tokens": [
+    914,
+    57,
+    723
+   ]
+  },
+  "442": {
+   "text": "اليوم.",
+   "alt": "elyom.",
+   "raw": {
+    "arabic": "اليوم.",
+    "arabizi": "elyom.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi says 'اليوم' in response to Amal's prompt 'Today'."
+   },
+   "usd": 0.0010076,
+   "tokens": [
+    851,
+    39,
+    290
+   ]
+  },
+  "446": {
+   "text": "هذي اليوم التانية",
+   "alt": "hadi elyom eltanya",
+   "raw": {
+    "arabic": "هذي اليوم التانية",
+    "arabizi": "hadi elyom eltanya",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription matches what Medi said word-for-word, which is also confirmed by Amal's immediate correction in the context."
+   },
+   "usd": 0.0018770999999999998,
+   "tokens": [
+    910,
+    138,
+    603
+   ]
+  },
+  "450": {
+   "text": "Oh, هال-- Yeah. هذي، uh، المرة التانية اللي بشوفك اليوم.",
+   "alt": "Oh, hal-- Yeah. hadi, uh, el-marra el-tanya illi bashoofek el-yom.",
+   "raw": {
+    "arabic": "Oh, هال-- Yeah. هذي، uh، المرة التانية اللي بشوفك اليوم.",
+    "arabizi": "Oh, hal-- Yeah. hadi, uh, el-marra el-tanya illi bashoofek el-yom.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "هل--",
+      "said": "هال--"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts saying 'هالـ--' (hal-marra) before cutting himself off with 'yeah' and switching to 'هذي المرة'. The engine wrote MSA 'هل--' instead of Levantine proclitic 'هال--'."
+   },
+   "usd": 0.020601599999999998,
+   "tokens": [
+    1057,
+    285,
+    8034
+   ]
+  },
+  "456": {
+   "text": "بشوفك مرة تانية",
+   "alt": "bashoofak marra tania",
+   "raw": {
+    "arabic": "بشوفك مرة تانية",
+    "arabizi": "bashoofak marra tania",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi is repeating Amal's prompt 'بشوفك مرة تانية' word for word before translating it."
+   },
+   "usd": 0.0014058,
+   "tokens": [
+    901,
+    115,
+    422
+   ]
+  },
+  "460": {
+   "text": "So, okay. So, uh, with, uh, uh, with أول",
+   "alt": "So, okay. So, uh, with, uh, uh, with awwal",
+   "raw": {
+    "arabic": "So, okay. So, uh, with, uh, uh, with أول",
+    "arabizi": "So, okay. So, uh, with, uh, uh, with awwal",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately reflects what Medi said, including his hesitation and the Arabic word أول."
+   },
+   "usd": 0.0033615999999999997,
+   "tokens": [
+    1000,
+    138,
+    1186
+   ]
+  },
+  "461": {
+   "text": "It should be ساعة",
+   "alt": "It should be saa3a",
+   "raw": {
+    "arabic": "It should be ساعة",
+    "arabizi": "It should be saa3a",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'It should be ساعة', which matches the engine transcript."
+   },
+   "usd": 0.0029273000000000003,
+   "tokens": [
+    991,
+    75,
+    1031
+   ]
+  },
+  "462": {
+   "text": "uh, أول, right?",
+   "alt": "uh, awwal, right?",
+   "raw": {
+    "arabic": "uh, أول, right?",
+    "arabizi": "uh, awwal, right?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcript matches what Medi said accurately."
+   },
+   "usd": 0.0017202,
+   "tokens": [
+    1010,
+    71,
+    547
+   ]
+  },
+  "466": {
+   "text": "Uh, so ساعة الأول-- It should be ساعة الأول. ساعة الـ-- ساعة أـ...",
+   "alt": "Uh, so sa3a el-awwal-- It should be sa3a el-awwal. sa3a el-- sa3a u-...",
+   "raw": {
+    "arabic": "Uh, so ساعة الأول-- It should be ساعة الأول. ساعة الـ-- ساعة أـ...",
+    "arabizi": "Uh, so sa3a el-awwal-- It should be sa3a el-awwal. sa3a el-- sa3a u-...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "ساعة،",
+      "said": "ساعة الـ--"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi started saying 'ساعة الـ' before pausing, repeating 'ساعة', and starting to say 'أولى' ('أـ...'). The engine omitted the first 'الـ'."
+   },
+   "usd": 0.0133149,
+   "tokens": [
+    1169,
+    256,
+    5114
+   ]
+  },
+  "468": {
+   "text": "ساعة الأولى",
+   "alt": "saa3a el-oola",
+   "raw": {
+    "arabic": "ساعة الأولى",
+    "arabizi": "saa3a el-oola",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الأول",
+      "said": "الأولى"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats Amal's correction ('أولى'), saying 'ساعة الأولى', which prompts Amal to then correct the definiteness to 'الساعة الأولى'."
+   },
+   "usd": 0.0029528,
+   "tokens": [
+    994,
+    78,
+    1040
+   ]
+  },
+  "491": {
+   "text": "The first... الإشي الأول؟",
+   "alt": "The first... el-ishi el-awwal?",
+   "raw": {
+    "arabic": "The first... الإشي الأول؟",
+    "arabizi": "The first... el-ishi el-awwal?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "El is she",
+      "said": "الإشي"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts translating in English ('The first...') then switches to repeating Amal's phrase 'الإشي الأول؟' as a question, which the engine misheard as English 'El is she'."
+   },
+   "usd": 0.0017232,
+   "tokens": [
+    965,
+    91,
+    548
+   ]
+  },
+  "502": {
+   "text": "أول اليوم. Oh, um...",
+   "alt": "awwal el-yom. Oh, um...",
+   "raw": {
+    "arabic": "أول اليوم. Oh, um...",
+    "arabizi": "awwal el-yom. Oh, um...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الأول",
+      "said": "أول"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'awwal el-yom' repeating Amal's phrase without the definite article on 'awwal'."
+   },
+   "usd": 0.0030956,
+   "tokens": [
+    916,
+    69,
+    1109
+   ]
+  },
+  "505": {
+   "text": "الأول الـ اليوم",
+   "alt": "el-awwal el- el-yom",
+   "raw": {
+    "arabic": "الأول الـ اليوم",
+    "arabizi": "el-awwal el- el-yom",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "اليوم",
+      "said": "الـ اليوم"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi stumbles over 'اليوم', making a false start on the definite article: 'el-awwal el- el-yom'."
+   },
+   "usd": 0.0041892,
+   "tokens": [
+    910,
+    66,
+    1548
+   ]
+  },
+  "507": {
+   "text": "الأول اليوم. No, that's the-- Isn't that the first day?",
+   "alt": "el-awwal el-yom. No, that's the-- Isn't that the first day?",
+   "raw": {
+    "arabic": "الأول اليوم. No, that's the-- Isn't that the first day?",
+    "arabizi": "el-awwal el-yom. No, that's the-- Isn't that the first day?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed both the Arabic and English words accurately."
+   },
+   "usd": 0.0040996,
+   "tokens": [
+    980,
+    133,
+    1485
+   ]
+  },
+  "528": {
+   "text": "أخير and أخيرة. So أول doesn't ch-- أول doesn't change as an adjective, but أخير does. آخر does.",
+   "alt": "a5eer and a5eereh. So awwal doesn't ch-- awwal doesn't change as an adjective, but a5eer does. aa5ar does.",
+   "raw": {
+    "arabic": "أخير and أخيرة. So أول doesn't ch-- أول doesn't change as an adjective, but أخير does. آخر does.",
+    "arabizi": "a5eer and a5eereh. So awwal doesn't ch-- awwal doesn't change as an adjective, but a5eer does. aa5ar does.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أخر",
+      "said": "آخر"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi pronounced 'آخر' (aakhar) with a long vowel, which was transcribed without the madda as 'أخر'."
+   },
+   "usd": 0.0034341999999999997,
+   "tokens": [
+    1180,
+    236,
+    1166
+   ]
+  },
+  "532": {
+   "text": "أخير، أخيرة",
+   "alt": "a5eer, a5eera",
+   "raw": {
+    "arabic": "أخير، أخيرة",
+    "arabizi": "a5eer, a5eera",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Yeah, أخير",
+      "said": "أخير"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats the words 'أخير، أخيرة' without saying 'Yeah'."
+   },
+   "usd": 0.0024186,
+   "tokens": [
+    1008,
+    66,
+    828
+   ]
+  },
+  "535": {
+   "text": "In Farsi, like أخير، أخيرًا means like rarely. I don't know if it's...",
+   "alt": "In Farsi, like a5eer, a5eeran means like rarely. I don't know if it's...",
+   "raw": {
+    "arabic": "In Farsi, like أخير، أخيرًا means like rarely. I don't know if it's...",
+    "arabizi": "In Farsi, like a5eer, a5eeran means like rarely. I don't know if it's...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أخيران",
+      "said": "أخيرًا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says the adverb 'akhiran' (أخيرًا / اخیراً), which ends with tanwin al-fath, not the letter nun."
+   },
+   "usd": 0.008973700000000001,
+   "tokens": [
+    1097,
+    153,
+    3415
+   ]
+  },
+  "541": {
+   "text": "أخير",
+   "alt": "akheer",
+   "raw": {
+    "arabic": "أخير",
+    "arabizi": "akheer",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The audio clearly matches the engine transcription 'أخير'."
+   },
+   "usd": 0.0012214,
+   "tokens": [
+    1027,
+    44,
+    353
+   ]
+  },
+  "543": {
+   "text": "آخر مرة is, is the...",
+   "alt": "2akher marra is, is the...",
+   "raw": {
+    "arabic": "آخر مرة is, is the...",
+    "arabizi": "2akher marra is, is the...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أخر",
+      "said": "آخر"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'آخر مرة' with a long vowel /aa/ at the start (spelled with madda آ), followed by 'is, is the...'."
+   },
+   "usd": 0.0033564000000000003,
+   "tokens": [
+    1061,
+    108,
+    1185
+   ]
+  },
+  "550": {
+   "text": "Last time or the last time. And then مرة, uh, مرة الأخير.",
+   "alt": "Last time or the last time. And then marra, uh, marra el-a5eer.",
+   "raw": {
+    "arabic": "Last time or the last time. And then مرة, uh, مرة الأخير.",
+    "arabizi": "Last time or the last time. And then marra, uh, marra el-a5eer.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الأخر",
+      "said": "الأخير"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly pronounces the 'ee' vowel in 'el-a5eer' (الأخير), not 'el-aakhar' (الآخر)."
+   },
+   "usd": 0.0036045,
+   "tokens": [
+    1115,
+    200,
+    1252
+   ]
+  },
+  "552": {
+   "text": "مرة الأخيرة",
+   "alt": "marra el-a5eera",
+   "raw": {
+    "arabic": "مرة الأخيرة",
+    "arabizi": "marra el-a5eera",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The audio matches the engine transcription exactly; Medi says 'مرة الأخيرة' without the definite article on 'مرة'."
+   },
+   "usd": 0.0015473,
+   "tokens": [
+    969,
+    63,
+    485
+   ]
+  },
+  "554": {
+   "text": "المرة الأخيرة is also the last time.",
+   "alt": "el marra el a5ira is also the last time.",
+   "raw": {
+    "arabic": "المرة الأخيرة is also the last time.",
+    "arabizi": "el marra el a5ira is also the last time.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the words correctly; Medi clearly says 'المرة الأخيرة is also the last time'."
+   },
+   "usd": 0.0015822,
+   "tokens": [
+    1047,
+    133,
+    470
+   ]
+  },
+  "557": {
+   "text": "آخر المرة is",
+   "alt": "aa5er el-marra is",
+   "raw": {
+    "arabic": "آخر المرة is",
+    "arabizi": "aa5er el-marra is",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أخر",
+      "said": "آخر"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'آخر المرة is', which the engine transcribed with an alif with hamza instead of alif madda."
+   },
+   "usd": 0.003278,
+   "tokens": [
+    988,
+    88,
+    1168
+   ]
+  },
+  "581": {
+   "text": "الرحلة أخيرة",
+   "alt": "el-ri7le a5eereh",
+   "raw": {
+    "arabic": "الرحلة أخيرة",
+    "arabizi": "el-ri7le a5eereh",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الأخيرة",
+      "said": "أخيرة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi omitted the definite article 'el-' on the second word, saying 'أخيرة' instead of 'الأخيرة', which Amal then corrects."
+   },
+   "usd": 0.0091652,
+   "tokens": [
+    921,
+    77,
+    3534
+   ]
+  },
+  "583": {
+   "text": "الرحلة الأخيرة؟",
+   "alt": "el-re7leh el-a5eereh?",
+   "raw": {
+    "arabic": "الرحلة الأخيرة؟",
+    "arabizi": "el-re7leh el-a5eereh?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine accurately transcribed Medi repeating Amal's phrase 'الرحلة الأخيرة'."
+   },
+   "usd": 0.0017409,
+   "tokens": [
+    944,
+    61,
+    566
+   ]
+  },
+  "617": {
+   "text": "Wait, you cannot say غير اليوم",
+   "alt": "Wait, you cannot say 8eir el yom",
+   "raw": {
+    "arabic": "Wait, you cannot say غير اليوم",
+    "arabizi": "Wait, you cannot say 8eir el yom",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "So you, you",
+      "said": "Wait, you"
+     },
+     {
+      "engine": "\"qayril yom.\"",
+      "said": "غير اليوم"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts with 'Wait,' and asks if you cannot say 'غير اليوم'."
+   },
+   "usd": 0.0021281,
+   "tokens": [
+    1032,
+    80,
+    705
+   ]
+  },
+  "621": {
+   "text": "So it's just غير يوم or الغيـ uh اليوم الـ whatever the adjective version of... Okay, so it doesn't have a...",
+   "alt": "So it's just 8eir yom or el-8ay- uh el-yom el- whatever the adjective version of... Okay, so it doesn't have a...",
+   "raw": {
+    "arabic": "So it's just غير يوم or الغيـ uh اليوم الـ whatever the adjective version of... Okay, so it doesn't have a...",
+    "arabizi": "So it's just 8eir yom or el-8ay- uh el-yom el- whatever the adjective version of... Okay, so it doesn't have a...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "qayril yom",
+      "said": "غير يوم"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'ghayr yom' without 'il', confirming the rule after Amal just told him 'ghayril yom' is not said."
+   },
+   "usd": 0.010178,
+   "tokens": [
+    1257,
+    262,
+    3847
+   ]
+  },
+  "623": {
+   "text": "Okay, so the adjective form is the same for it, okay?",
+   "alt": "Okay, so the adjective form is the same for it, okay?",
+   "raw": {
+    "arabic": "Okay, so the adjective form is the same for it, okay?",
+    "arabizi": "Okay, so the adjective form is the same for it, okay?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "the \"qayr.\"",
+      "said": "it, okay?"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is speaking entirely in English, asking 'is the same for it, okay?'; the engine misheard this as 'the qayr'."
+   },
+   "usd": 0.013193,
+   "tokens": [
+    1088,
+    88,
+    5122
+   ]
+  },
+  "625": {
+   "text": "Okay. اليوم الغير and you'll barely hear that.",
+   "alt": "Okay. il yom il 8eir, and you'll barely hear that.",
+   "raw": {
+    "arabic": "Okay. اليوم الغير and you'll barely hear that.",
+    "arabizi": "Okay. il yom il 8eir, and you'll barely hear that.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "\"Il yom il qayr,\"",
+      "said": "اليوم الغير"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is quoting Amal's previous phrase 'اليوم الغير' before continuing in English."
+   },
+   "usd": 0.0030971999999999996,
+   "tokens": [
+    1101,
+    92,
+    1081
+   ]
+  },
+  "629": {
+   "text": "Which one? غير يوم, okay.",
+   "alt": "Which one? 8eir yom, okay.",
+   "raw": {
+    "arabic": "Which one? غير يوم, okay.",
+    "arabizi": "Which one? 8eir yom, okay.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Qayril yom",
+      "said": "غير يوم"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi asks 'Which one?' and then confirms 'غير يوم, okay' without the definite article 'il'."
+   },
+   "usd": 0.0029352,
+   "tokens": [
+    1175,
+    111,
+    1002
+   ]
+  },
+  "632": {
+   "text": "So I can pretty much just remember that غير never takes ال.",
+   "alt": "So I can pretty much just remember that 8eir never takes al.",
+   "raw": {
+    "arabic": "So I can pretty much just remember that غير never takes ال.",
+    "arabizi": "So I can pretty much just remember that 8eir never takes al.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "\"qayr\"",
+      "said": "غير"
+     },
+     {
+      "engine": "\"al.\"",
+      "said": "ال."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is speaking English with the Arabic words 'غير' (ghayr) and the definite article 'ال' (al), which the engine mis-transcribed phonetically in English."
+   },
+   "usd": 0.004154,
+   "tokens": [
+    1143,
+    98,
+    1497
+   ]
+  },
+  "641": {
+   "text": "",
+   "error": "bad json",
+   "raw": " just will never have\"?\nWait, look at the prompt timestamp lines again:\n00:00 But se-\n00:01 but but\n00:02 but qayr\n00:03 but qayr\n00:04 qayr just will never have\nWait! Look at the prompt timestamp lines:\n00:00: But se-\n00:01: but but\n00:02: but qayr\n00:03: but qayr\n00:04: qayr just will never have\nW",
+   "usd": 0.0209315,
+   "tokens": [
+    1144,
+    169,
+    8188
+   ]
+  },
+  "649": {
+   "text": "أشوفك غير اليوم. غير يوم. I'll see you another day.",
+   "alt": "Ashoofak gheir el yom. Gheir yom. I'll see you another day.",
+   "raw": {
+    "arabic": "أشوفك غير اليوم. غير يوم. I'll see you another day.",
+    "arabizi": "Ashoofak gheir el yom. Gheir yom. I'll see you another day.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "qayril yom.\" \"Qayril yom",
+      "said": "أشوفك غير اليوم. غير يوم"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi first repeats the sentence adding 'al-' ('ashoofak gheir el yom'), Amal corrects him to 'gheir yom', which he repeats before translating into English."
+   },
+   "usd": 0.0073352,
+   "tokens": [
+    1111,
+    167,
+    2754
+   ]
+  },
+  "655": {
+   "text": "نا بدنا",
+   "alt": "na biddna",
+   "raw": {
+    "arabic": "نا بدنا",
+    "arabizi": "na biddna",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "biddna",
+      "said": "نا بدنا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'na' before 'biddna' (either a false start of 'ne7na'/'e7na' or a learner attempt at the pronoun 'we'), which the engine missed."
+   },
+   "usd": 0.0202728,
+   "tokens": [
+    915,
+    44,
+    7987
+   ]
+  },
+  "656": {
+   "text": "غير أكلة",
+   "alt": "gheir akleh",
+   "raw": {
+    "arabic": "غير أكلة",
+    "arabizi": "gheir akleh",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "tayir aklin",
+      "said": "gheir akleh"
+     }
+    ],
+    "confidence": "high",
+    "why": "Following Amal's prompt 'a different meal or dish' and Medi's previous word 'biddna', he completes the sentence with 'gheir akleh' (غير أكلة)."
+   },
+   "usd": 0.002231,
+   "tokens": [
+    860,
+    65,
+    771
+   ]
+  },
+  "674": {
+   "text": "And then I can say هو بدو",
+   "alt": "And then I can say huwwe biddo",
+   "raw": {
+    "arabic": "And then I can say هو بدو",
+    "arabizi": "And then I can say huwwe biddo",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Huwa bido",
+      "said": "هو بدو"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'And then I can say' followed by the Levantine Arabic words 'huwwe biddo' (هو بدو)."
+   },
+   "usd": 0.004790399999999999,
+   "tokens": [
+    879,
+    106,
+    1781
+   ]
+  },
+  "675": {
+   "text": "الطيارة، الـ الطيارة التانية",
+   "alt": "e6-6ayyara, el, e6-6ayyara et-tanye",
+   "raw": {
+    "arabic": "الطيارة، الـ الطيارة التانية",
+    "arabizi": "e6-6ayyara, el, e6-6ayyara et-tanye",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "il, il tayara",
+      "said": "الـ الطيارة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi said 'الطيارة' followed by a hesitation 'الـ', then 'الطيارة التانية'; the engine hallucinated an extra repeated 'il'."
+   },
+   "usd": 0.0071724,
+   "tokens": [
+    944,
+    156,
+    2712
+   ]
+  },
+  "683": {
+   "text": "Okay. She's the first old woman in our program. هي...",
+   "alt": "Okay. She's the first old woman in our program. Hiyye...",
+   "raw": {
+    "arabic": "Okay. She's the first old woman in our program. هي...",
+    "arabizi": "Okay. She's the first old woman in our program. Hiyye...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "\"Hiya,",
+      "said": "هي..."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats the English prompt and starts translating into Arabic with 'hiyye' (هي)."
+   },
+   "usd": 0.0035288000000000003,
+   "tokens": [
+    986,
+    140,
+    1254
+   ]
+  },
+  "684": {
+   "text": "um، أول ختيارة",
+   "alt": "um, awwal 5ityara",
+   "raw": {
+    "arabic": "um، أول ختيارة",
+    "arabizi": "um, awwal 5ityara",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'um, awwal khitiara' exactly as the engine captured."
+   },
+   "usd": 0.0030485,
+   "tokens": [
+    994,
+    129,
+    1064
+   ]
+  },
+  "685": {
+   "text": "ببرنامجنا",
+   "alt": "bi barnamijna",
+   "raw": {
+    "arabic": "ببرنامجنا",
+    "arabizi": "bi barnamijna",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcript accurately captures what Medi said."
+   },
+   "usd": 0.0024378000000000004,
+   "tokens": [
+    944,
+    78,
+    840
+   ]
+  },
+  "687": {
+   "text": "Or هي",
+   "alt": "Or hiyye",
+   "raw": {
+    "arabic": "Or هي",
+    "arabizi": "Or hiyye",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "\"Hiya",
+      "said": "هي"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says the English word 'Or' followed by the Arabic pronoun 'hiyye' (هي)."
+   },
+   "usd": 0.0018556,
+   "tokens": [
+    935,
+    68,
+    611
+   ]
+  },
+  "688": {
+   "text": "ال",
+   "alt": "il",
+   "raw": {
+    "arabic": "ال",
+    "arabizi": "il",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply says the definite article 'il' (el-)."
+   },
+   "usd": 0.0036953000000000003,
+   "tokens": [
+    904,
+    38,
+    1359
+   ]
+  },
+  "689": {
+   "text": "ال، الختيارة",
+   "alt": "il, il-khtyara",
+   "raw": {
+    "arabic": "ال، الختيارة",
+    "arabizi": "il, il-khtyara",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine accurately transcribed what Medi said: he repeats the definite article 'il' and then says 'il-khtyara'."
+   },
+   "usd": 0.0035219,
+   "tokens": [
+    949,
+    71,
+    1275
+   ]
+  },
+  "690": {
+   "text": "الـ",
+   "alt": "el",
+   "raw": {
+    "arabic": "الـ",
+    "arabizi": "el",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi is hesitating on the Arabic definite article 'el'/'il', which the engine accurately captured."
+   },
+   "usd": 0.0066767,
+   "tokens": [
+    905,
+    36,
+    2552
+   ]
+  },
+  "691": {
+   "text": "أول؟ Is it أول؟",
+   "alt": "awwal? Is it awwal?",
+   "raw": {
+    "arabic": "أول؟ Is it أول؟",
+    "arabizi": "awwal? Is it awwal?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed Medi saying 'awwal' and asking 'Is it awwal?'."
+   },
+   "usd": 0.0054468,
+   "tokens": [
+    951,
+    70,
+    2045
+   ]
+  },
+  "693": {
+   "text": "أولى. Goddammit. أولى بـ، ببرنامجنا.",
+   "alt": "Ula. Goddammit. Ula bi, bi barnamijna.",
+   "raw": {
+    "arabic": "أولى. Goddammit. أولى بـ، ببرنامجنا.",
+    "arabizi": "Ula. Goddammit. Ula bi, bi barnamijna.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine accurately transcribed Medi's words, including his English expletive and the repetition of 'ula' and 'bi'."
+   },
+   "usd": 0.0056588,
+   "tokens": [
+    1075,
+    159,
+    2090
+   ]
+  },
+  "706": {
+   "text": "Thought you were somebody else. I thought you were-- so أنا",
+   "alt": "Thought you were somebody else. I thought you were-- so ana",
+   "raw": {
+    "arabic": "Thought you were somebody else. I thought you were-- so أنا",
+    "arabizi": "Thought you were somebody else. I thought you were-- so ana",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "I thought you were somebody else",
+      "said": "Thought you were somebody else"
+     }
+    ],
+    "confidence": "high",
+    "why": "The clip begins directly on 'Thought', with the pronoun 'I' omitted/clipped. He repeats the English phrase before starting his Arabic translation with 'أنا'."
+   },
+   "usd": 0.0077145,
+   "tokens": [
+    1027,
+    127,
+    2927
+   ]
+  },
+  "707": {
+   "text": "فكرت إنه",
+   "alt": "fakkaret enno",
+   "raw": {
+    "arabic": "فكرت إنه",
+    "arabizi": "fakkaret enno",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription correctly captures what Medi said: 'فكرت إنه' (fakkaret enno)."
+   },
+   "usd": 0.0025098000000000004,
+   "tokens": [
+    966,
+    75,
+    867
+   ]
+  },
+  "708": {
+   "text": "إنتي",
+   "alt": "inti",
+   "raw": {
+    "arabic": "إنتي",
+    "arabizi": "inti",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'إنتي' addressing his teacher Amal as he constructs the sentence."
+   },
+   "usd": 0.0019535999999999998,
+   "tokens": [
+    991,
+    59,
+    646
+   ]
+  },
+  "709": {
+   "text": "غير حدا",
+   "alt": "gheir 7ada",
+   "raw": {
+    "arabic": "غير حدا",
+    "arabizi": "gheir 7ada",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "هذا",
+      "said": "حدا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is attempting to say 'someone else' (غير حدا); the engine misheard 'حدا' (7ada) as 'هذا' (haada)."
+   },
+   "usd": 0.0021592,
+   "tokens": [
+    1001,
+    52,
+    729
+   ]
+  },
+  "712": {
+   "text": "Yes, uh, تانـ- uh, تاني",
+   "alt": "Yes, uh, tan- uh, tani",
+   "raw": {
+    "arabic": "Yes, uh, تانـ- uh, تاني",
+    "arabizi": "Yes, uh, tan- uh, tani",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "tan--",
+      "said": "تانـ-"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi started saying the Arabic word 'تاني' (tan-), hesitated, and then said 'تاني'; the false start should be in Arabic script."
+   },
+   "usd": 0.009751,
+   "tokens": [
+    1051,
+    101,
+    3746
+   ]
+  },
+  "713": {
+   "text": "تاني حدا.",
+   "alt": "tani 7ada.",
+   "raw": {
+    "arabic": "تاني حدا.",
+    "arabizi": "tani 7ada.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "حاجة",
+      "said": "حدا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'تاني حدا', which Amal immediately addresses in her response ('تاني حدا would mean the second person')."
+   },
+   "usd": 0.0010396,
+   "tokens": [
+    1026,
+    49,
+    279
+   ]
+  },
+  "715": {
+   "text": "Oh, you're right. Ha- uh, حدا التاني.",
+   "alt": "Oh, you're right. Ha- uh, 7ada el-tani.",
+   "raw": {
+    "arabic": "Oh, you're right. Ha- uh, حدا التاني.",
+    "arabizi": "Oh, you're right. Ha- uh, 7ada el-tani.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Uh, هذا الثاني",
+      "said": "Ha- uh, حدا التاني"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'حدا التاني' (someone else), which Amal immediately corrects in the following turns ('حدا التاني is no... just حدا تاني')."
+   },
+   "usd": 0.0062878000000000005,
+   "tokens": [
+    1096,
+    120,
+    2350
+   ]
+  },
+  "724": {
+   "text": "حدا تاني.",
+   "alt": "7ada taani.",
+   "raw": {
+    "arabic": "حدا تاني.",
+    "arabizi": "7ada taani.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "هذا",
+      "said": "حدا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is repeating the phrase 'حدا تاني' (someone else) that they were discussing; the initial sound is clearly a '7' (ح) and 'd' (د)."
+   },
+   "usd": 0.0022175,
+   "tokens": [
+    994,
+    49,
+    754
+   ]
+  },
+  "731": {
+   "text": "تاني and أول",
+   "alt": "tani and awwal",
+   "raw": {
+    "arabic": "تاني and أول",
+    "arabizi": "tani and awwal",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription is completely accurate to the audio."
+   },
+   "usd": 0.0023391999999999996,
+   "tokens": [
+    976,
+    52,
+    804
+   ]
+  },
+  "743": {
+   "text": "آخر",
+   "alt": "aa5er",
+   "raw": {
+    "arabic": "آخر",
+    "arabizi": "aa5er",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly pronounces 'آخر' (meaning 'last') as the first part of translating 'the last 10 minutes'."
+   },
+   "usd": 0.0013728,
+   "tokens": [
+    896,
+    45,
+    429
+   ]
+  },
+  "744": {
+   "text": "عشرة",
+   "alt": "3ashara",
+   "raw": {
+    "arabic": "عشرة",
+    "arabizi": "3ashara",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "عشر",
+      "said": "عشرة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly pronounces 'عشرة' (3ashara) with the feminine ending, which Amal later corrects to 'عشر'."
+   },
+   "usd": 0.0019398,
+   "tokens": [
+    886,
+    45,
+    657
+   ]
+  },
+  "745": {
+   "text": "دقايق. عشرة دقايق؟",
+   "alt": "da2ayeq. 3ashara da2ayeq?",
+   "raw": {
+    "arabic": "دقايق. عشرة دقايق؟",
+    "arabizi": "da2ayeq. 3ashara da2ayeq?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed Medi's exact words accurately."
+   },
+   "usd": 0.0033585,
+   "tokens": [
+    916,
+    91,
+    1208
+   ]
+  },
+  "748": {
+   "text": "Yeah. Oh, عشر دقايق.",
+   "alt": "Yeah. Oh, 3ashar da2aye2.",
+   "raw": {
+    "arabic": "Yeah. Oh, عشر دقايق.",
+    "arabizi": "Yeah. Oh, 3ashar da2aye2.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription matches what Medi said verbatim."
+   },
+   "usd": 0.0053852,
+   "tokens": [
+    938,
+    84,
+    2018
+   ]
+  },
+  "755": {
+   "text": "Okay. الـ",
+   "alt": "Okay. el",
+   "raw": {
+    "arabic": "Okay. الـ",
+    "arabizi": "Okay. el",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi says 'Okay' followed by the start of the definite article 'el-'."
+   },
+   "usd": 0.002018,
+   "tokens": [
+    968,
+    93,
+    665
+   ]
+  },
+  "757": {
+   "text": "",
+   "error": "bad json",
+   "raw": "user sent the audio alignment or engine output timestamps!\nWait, let's look at the audio timestamps:\n00:00: الـ أ--\n00:01: العشر\n00:03: دقايـه، no عشر (or whatever was detected)\n00:05: الـ da ayk don't?\nWait, does it say `don't`?!\nWait, listen to the audio at 00:05!\nDoes Medi say \"don't know\"?\nLet's",
+   "usd": 0.0209107,
+   "tokens": [
+    1070,
+    171,
+    8188
+   ]
+  },
+  "759": {
+   "text": "Okay. العشر دقايق",
+   "alt": "Okay. el-3ashar daqayeq",
+   "raw": {
+    "arabic": "Okay. العشر دقايق",
+    "arabizi": "Okay. el-3ashar daqayeq",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription matches what Medi said perfectly."
+   },
+   "usd": 0.0025618000000000004,
+   "tokens": [
+    982,
+    96,
+    880
+   ]
+  },
+  "760": {
+   "text": "الـ",
+   "alt": "el",
+   "raw": {
+    "arabic": "الـ",
+    "arabizi": "el",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi starts saying the definite article 'el-' (الـ) before hesitating."
+   },
+   "usd": 0.0018388,
+   "tokens": [
+    897,
+    46,
+    615
+   ]
+  },
+  "762": {
+   "text": "الآخر",
+   "alt": "el-2aakhar",
+   "raw": {
+    "arabic": "الآخر",
+    "arabizi": "el-2aakhar",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi says 'الآخر' (intending 'last', which Amal immediately corrects to 'الأخير'). The engine transcript is correct."
+   },
+   "usd": 0.003363,
+   "tokens": [
+    931,
+    66,
+    1215
+   ]
+  },
+  "764": {
+   "text": "أخير، أخيرة",
+   "alt": "a5eer, a5eera",
+   "raw": {
+    "arabic": "أخير، أخيرة",
+    "arabizi": "a5eer, a5eera",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الأخير، الأخيرة",
+      "said": "أخير، أخيرة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says the words without the definite article 'الـ' (al-)."
+   },
+   "usd": 0.0019798,
+   "tokens": [
+    933,
+    57,
+    664
+   ]
+  },
+  "766": {
+   "text": "الأخيرة. No، wait. دقايق is",
+   "alt": "al-a5eera. No, wait. da2ayeq is",
+   "raw": {
+    "arabic": "الأخيرة. No، wait. دقايق is",
+    "arabizi": "al-a5eera. No, wait. da2ayeq is",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "دقيقة",
+      "said": "دقايق"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi said 'دقايق' referring to 'العشر دقايق', not 'دقيقة', which is confirmed by his following line where he mistakenly considers 'دقايق' to be masculine."
+   },
+   "usd": 0.0057262,
+   "tokens": [
+    969,
+    90,
+    2149
+   ]
+  },
+  "767": {
+   "text": "is masculine. So أخ- أخير.",
+   "alt": "is masculine. So a5- a5eer.",
+   "raw": {
+    "arabic": "is masculine. So أخ- أخير.",
+    "arabizi": "is masculine. So a5- a5eer.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the audio correctly; Medi said 'is masculine. So akh- akheer.'"
+   },
+   "usd": 0.0042658999999999996,
+   "tokens": [
+    952,
+    79,
+    1570
+   ]
+  },
+  "769": {
+   "text": "No. أخيرات؟ Oh، because it's plural.",
+   "alt": "No. akheeraat? Oh, because it's plural.",
+   "raw": {
+    "arabic": "No. أخيرات؟ Oh، because it's plural.",
+    "arabizi": "No. akheeraat? Oh, because it's plural.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription is accurate; Medi says 'No. أخيرات؟ Oh, 'cause it's plural.'"
+   },
+   "usd": 0.0113394,
+   "tokens": [
+    989,
+    111,
+    4386
+   ]
+  },
+  "777": {
+   "text": "So is مين",
+   "alt": "So is meen",
+   "raw": {
+    "arabic": "So is مين",
+    "arabizi": "So is meen",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "So،",
+      "said": "So is"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'So is مين' with a clear 'is' between 'So' and 'مين' which the engine missed."
+   },
+   "usd": 0.005757600000000001,
+   "tokens": [
+    907,
+    65,
+    2176
+   ]
+  },
+  "780": {
+   "text": "Okay, مين",
+   "alt": "Okay, meen",
+   "raw": {
+    "arabic": "Okay, مين",
+    "arabizi": "Okay, meen",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed Medi saying 'Okay' followed by 'مين'."
+   },
+   "usd": 0.004984199999999999,
+   "tokens": [
+    837,
+    58,
+    1877
+   ]
+  },
+  "781": {
+   "text": "مين آخر الـ",
+   "alt": "meen aa5er el-",
+   "raw": {
+    "arabic": "مين آخر الـ",
+    "arabizi": "meen aa5er el-",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately captures what Medi said before trailing off."
+   },
+   "usd": 0.0015194000000000002,
+   "tokens": [
+    867,
+    74,
+    483
+   ]
+  },
+  "782": {
+   "text": "أخير، no",
+   "alt": "a5eer, no",
+   "raw": {
+    "arabic": "أخير، no",
+    "arabizi": "a5eer, no",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أخـ--",
+      "said": "أخير،"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly pronounces the full word 'أخير' before rejecting it with 'no'."
+   },
+   "usd": 0.0042275,
+   "tokens": [
+    826,
+    46,
+    1579
+   ]
+  },
+  "783": {
+   "text": "Yeah، آخر الموظفة, right?",
+   "alt": "Yeah, aa5er el-mwazzafeh, right?",
+   "raw": {
+    "arabic": "Yeah، آخر الموظفة, right?",
+    "arabizi": "Yeah, aa5er el-mwazzafeh, right?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Moazafa",
+      "said": "الموظفة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi said 'el-mwazzafeh' (definite), which prompts Amal's question 'The end of the employees?' because adding 'el-' makes it an idafa meaning 'the end of...'."
+   },
+   "usd": 0.004251899999999999,
+   "tokens": [
+    849,
+    71,
+    1579
+   ]
+  },
+  "785": {
+   "text": "Uh، مين آخر موظفة؟",
+   "alt": "Uh, meen aa5er mwazafeh?",
+   "raw": {
+    "arabic": "Uh، مين آخر موظفة؟",
+    "arabizi": "Uh, meen aa5er mwazafeh?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Oh",
+      "said": "Uh"
+     },
+     {
+      "engine": "Moazafa",
+      "said": "موظفة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'Uh' followed by the Arabic phrase 'مين آخر موظفة؟', which the engine partly transcribed in English letters."
+   },
+   "usd": 0.0020637,
+   "tokens": [
+    881,
+    92,
+    694
+   ]
+  },
+  "788": {
+   "text": "مين",
+   "alt": "meen",
+   "raw": {
+    "arabic": "مين",
+    "arabizi": "meen",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'مين' as recognized by the engine."
+   },
+   "usd": 0.0009622000000000001,
+   "tokens": [
+    832,
+    43,
+    273
+   ]
+  },
+  "789": {
+   "text": "الموظفة الأخيرة؟",
+   "alt": "el-muwaZZafa el-a5eereh?",
+   "raw": {
+    "arabic": "الموظفة الأخيرة؟",
+    "arabizi": "el-muwaZZafa el-a5eereh?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الـ Moazafa",
+      "said": "الموظفة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi speaks the full phrase in Arabic as 'الموظفة الأخيرة', which the engine partially wrote in Latin script."
+   },
+   "usd": 0.0016495,
+   "tokens": [
+    852,
+    77,
+    536
+   ]
+  },
+  "810": {
+   "text": "So إحنا عندنا",
+   "alt": "So e7na 3endna",
+   "raw": {
+    "arabic": "So إحنا عندنا",
+    "arabizi": "So e7na 3endna",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed what Medi said: 'So إحنا عندنا'."
+   },
+   "usd": 0.0015037,
+   "tokens": [
+    1045,
+    86,
+    452
+   ]
+  },
+  "812": {
+   "text": "غير",
+   "alt": "ghayr",
+   "raw": {
+    "arabic": "غير",
+    "arabizi": "ghayr",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'غير' (ghayr), attempting to translate 'different' from the English sentence."
+   },
+   "usd": 0.0019371,
+   "tokens": [
+    1002,
+    45,
+    642
+   ]
+  },
+  "816": {
+   "text": "ضيوف، غير ضيوف",
+   "alt": "Dyoof, gher dyoof",
+   "raw": {
+    "arabic": "ضيوف، غير ضيوف",
+    "arabizi": "Dyoof, gher dyoof",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "You pay a due,",
+      "said": "ضيوف، غير ضيوف"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats the word 'dyoof' (guests) provided by Amal and combines it with 'gher' (different/other) which he was trying to use earlier."
+   },
+   "usd": 0.0028993,
+   "tokens": [
+    966,
+    60,
+    1027
+   ]
+  },
+  "818": {
+   "text": "Oh gosh. We need to do this lesson too. Uh, every-- is it كل يوم؟",
+   "alt": "Oh gosh. We need to do this lesson too. Uh, every-- is it kull yom?",
+   "raw": {
+    "arabic": "Oh gosh. We need to do this lesson too. Uh, every-- is it كل يوم؟",
+    "arabizi": "Oh gosh. We need to do this lesson too. Uh, every-- is it kull yom?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "結 局",
+      "said": "كل يوم"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is asking how to say 'every day' in Arabic, which is 'kull yom' (كل يوم), misheard by the engine as Asian characters."
+   },
+   "usd": 0.0028241,
+   "tokens": [
+    1071,
+    154,
+    958
+   ]
+  },
+  "819": {
+   "text": "And then what's كل اليوم? It's, uh, all the days.",
+   "alt": "And then what's kull el-yom? It's, uh, all the days.",
+   "raw": {
+    "arabic": "And then what's كل اليوم? It's, uh, all the days.",
+    "arabizi": "And then what's kull el-yom? It's, uh, all the days.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "結 局",
+      "said": "كل اليوم"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is asking about the phrase 'كل اليوم' (kull el-yom), translating it as 'all the days', which Amal immediately corrects to 'all day'."
+   },
+   "usd": 0.0027446,
+   "tokens": [
+    1055,
+    108,
+    941
+   ]
+  },
+  "827": {
+   "text": "Yeah, we decided not to do the other way for غير.",
+   "alt": "Yeah, we decided not to do the other way for gheer.",
+   "raw": {
+    "arabic": "Yeah, we decided not to do the other way for غير.",
+    "arabizi": "Yeah, we decided not to do the other way for gheer.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "of 誰",
+      "said": "for غير"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly says 'for غير' at the end of the sentence, referring to the Arabic word discussed previously."
+   },
+   "usd": 0.0022119,
+   "tokens": [
+    1045,
+    87,
+    735
+   ]
+  },
+  "831": {
+   "text": "",
+   "error": "bad json",
+   "raw": "wait, tani means like other...\"\nWait, does he pause after \"wait\"?\n\"Does it work? Cuz wait... tani means like other...\"\nYes, there is a slight pause:\n\"Does it work? (pause) Cuz wait, (micro-pause) tani means like other...\"\n\nLet's check if \"wait\" should be in the arabic/arabizi:\n\"arabic\": \"Does it wor",
+   "usd": 0.0208556,
+   "tokens": [
+    1052,
+    100,
+    8188
+   ]
+  },
+  "837": {
+   "text": "I think it's the same as غير, right? It's just the same, s-",
+   "alt": "I think it's the same as 8eir, right? It's just the same, s-",
+   "raw": {
+    "arabic": "I think it's the same as غير, right? It's just the same, s-",
+    "arabizi": "I think it's the same as 8eir, right? It's just the same, s-",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "誰",
+      "said": "غير"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is responding to Amal's question about the word 'نفس' and comparing it to 'غير', which they were just discussing. The engine misheard 'غير' as a Chinese character."
+   },
+   "usd": 0.0088155,
+   "tokens": [
+    1062,
+    92,
+    3373
+   ]
+  },
+  "849": {
+   "text": "هـ- هادي نفس الإشي or is it هادي النفس الـ- هادا نفس الإشي؟",
+   "alt": "ha- hadi nafs el-ishi or is it hadi el-nafs el-- hada nafs el-ishi?",
+   "raw": {
+    "arabic": "هـ- هادي نفس الإشي or is it هادي النفس الـ- هادا نفس الإشي؟",
+    "arabizi": "ha- hadi nafs el-ishi or is it hadi el-nafs el-- hada nafs el-ishi?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "hal-hadi",
+      "said": "ha- hadi"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi had a false start with 'ha- hadi', not the MSA question particle 'hal'."
+   },
+   "usd": 0.008033199999999999,
+   "tokens": [
+    1097,
+    163,
+    3036
+   ]
+  },
+  "866": {
+   "text": "أنا بسوق",
+   "alt": "ana basooq",
+   "raw": {
+    "arabic": "أنا بسوق",
+    "arabizi": "ana basooq",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'أنا بسوق' (I drive) in response to Amal's translation prompt."
+   },
+   "usd": 0.001122,
+   "tokens": [
+    933,
+    53,
+    322
+   ]
+  },
+  "867": {
+   "text": "نفس الطريقة",
+   "alt": "nafs eT-Taree2a",
+   "raw": {
+    "arabic": "نفس الطريقة",
+    "arabizi": "nafs eT-Taree2a",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi said 'نفس الطريقة', which matches the engine transcript and context perfectly (Amal immediately corrects it to طريق)."
+   },
+   "usd": 0.0014712,
+   "tokens": [
+    954,
+    75,
+    453
+   ]
+  },
+  "871": {
+   "text": "Okay. نفس الطريق",
+   "alt": "Okay. nafs eT-Tareeq",
+   "raw": {
+    "arabic": "Okay. نفس الطريق",
+    "arabizi": "Okay. nafs eT-Tareeq",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcript accurately captured Medi's words 'Okay. نفس الطريق'."
+   },
+   "usd": 0.0016769,
+   "tokens": [
+    920,
+    87,
+    536
+   ]
+  },
+  "872": {
+   "text": "كل يوم.",
+   "alt": "kul yom.",
+   "raw": {
+    "arabic": "كل يوم.",
+    "arabizi": "kul yom.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'كل يوم' to complete his sentence 'نفس الطريق كل يوم'."
+   },
+   "usd": 0.0011153,
+   "tokens": [
+    890,
+    44,
+    327
+   ]
+  },
+  "875": {
+   "text": "القانون, right?",
+   "alt": "el-qanoon, right?",
+   "raw": {
+    "arabic": "القانون, right?",
+    "arabizi": "el-qanoon, right?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription is completely accurate; Medi says 'el-qanoon, right?' while thinking of a sentence using 'nafs'."
+   },
+   "usd": 0.0029966999999999997,
+   "tokens": [
+    1004,
+    115,
+    1046
+   ]
+  },
+  "877": {
+   "text": "Do you guys use قانون for like grammar? الـ القانون لـ غير مش نفس الـ...",
+   "alt": "Do you guys use qanoon for like grammar? el- el-qanoon la- ghayr mish nafs el-...",
+   "raw": {
+    "arabic": "Do you guys use قانون for like grammar? الـ القانون لـ غير مش نفس الـ...",
+    "arabizi": "Do you guys use qanoon for like grammar? el- el-qanoon la- ghayr mish nafs el-...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "You guys use",
+      "said": "Do you guys use"
+     },
+     {
+      "engine": "القانون",
+      "said": "الـ القانون"
+     },
+     {
+      "engine": "لغير",
+      "said": "لـ غير"
+     },
+     {
+      "engine": "ال--",
+      "said": "الـ..."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts with 'Do you guys use', stutters on 'الـ' before 'القانون', hesitates on 'لـ' before 'غير', and cuts off after 'مش نفس الـ'."
+   },
+   "usd": 0.006867600000000001,
+   "tokens": [
+    1089,
+    237,
+    2550
+   ]
+  },
+  "878": {
+   "text": "uh, إشي مش",
+   "alt": "uh, ishi mish",
+   "raw": {
+    "arabic": "uh, إشي مش",
+    "arabizi": "uh, ishi mish",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "من",
+      "said": "مش"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'إشي مش' followed by 'نفس' in the next turn; the engine misheard Levantine 'مش' as 'من'."
+   },
+   "usd": 0.005709,
+   "tokens": [
+    915,
+    85,
+    2150
+   ]
+  },
+  "879": {
+   "text": "نفس",
+   "alt": "nafs",
+   "raw": {
+    "arabic": "نفس",
+    "arabizi": "nafs",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly pronounces 'nafs' as he attempts to form an example sentence using the word."
+   },
+   "usd": 0.0025579,
+   "tokens": [
+    852,
+    39,
+    910
+   ]
+  },
+  "884": {
+   "text": "Okay. مش نفس الإشي.",
+   "alt": "Okay. mish nafs el-ishi.",
+   "raw": {
+    "arabic": "Okay. مش نفس الإشي.",
+    "arabizi": "Okay. mish nafs el-ishi.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription is completely accurate to what Medi said."
+   },
+   "usd": 0.0015568,
+   "tokens": [
+    881,
+    75,
+    496
+   ]
+  },
+  "888": {
+   "text": "No, I think I have it. It's كل is ev-, um, every and then كل الـ is like all.",
+   "alt": "No, I think I have it. It's kull is ev-, um, every and then kull el is like all.",
+   "raw": {
+    "arabic": "No, I think I have it. It's كل is ev-, um, every and then كل الـ is like all.",
+    "arabizi": "No, I think I have it. It's kull is ev-, um, every and then kull el is like all.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "I, I",
+      "said": "I"
+     },
+     {
+      "engine": "every, um",
+      "said": "ev-, um"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi does not repeat 'I', and he cuts off 'every' into a false start 'ev-' before saying 'um, every'."
+   },
+   "usd": 0.0058766,
+   "tokens": [
+    1098,
+    221,
+    2157
+   ]
+  },
+  "908": {
+   "text": "Is there a name for this rule? Is it just ال؟",
+   "alt": "Is there a name for this rule? Is it just el?",
+   "raw": {
+    "arabic": "Is there a name for this rule? Is it just ال؟",
+    "arabizi": "Is there a name for this rule? Is it just el?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the line accurately; Medi asks in English whether the rule has a specific name or if it's just 'ال' (el)."
+   },
+   "usd": 0.0028564000000000003,
+   "tokens": [
+    860,
+    87,
+    1015
+   ]
+  }
+ },
+ "cost_usd": 1.226923,
+ "seconds": 359.09886956214905,
+ "model": "gemini-3.8-flash",
+ "variable": "v9",
+ "complete": true,
+ "lines_sent_rule": "arabic"
+}

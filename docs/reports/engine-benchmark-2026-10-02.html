@@ -2,7 +2,7 @@
 <body><div id="anees-bank" class="vp-sabz" aria-label="Anees AI report"><div class="ab-shell">
 <aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="../progress.html">Progress &amp; Stats</a><a class="ab-nav" href="../lessons.html">Lessons &amp; Audio</a><a class="ab-nav" href="../word-bank.html">Word Bank</a><a class="ab-nav" href="../grammar.html">Grammar Rules</a><a class="ab-nav" href="../cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="../tutor.html">Tutor</a><a class="ab-nav" aria-current="page" href="../ai-reports.html">AI Reports</a><a class="ab-nav" href="../big-picture.html">Big Picture</a><a class="ab-nav" href="../settings.html">System Settings</a></nav></aside>
 <main>
-<header class="ab-header"><div><div class="vp-eyebrow">AI report · Claude · 2026-10-03</div><h1>Speech-engine benchmark: which AI hears Medi&#x27;s Arabic</h1><div class="ab-sub">Built from ENGINE-BENCHMARK-2026-10-02.md</div></div><a class="ab-preview" href="../ai-reports.html">‹ All AI reports</a></header>
+<header class="ab-header"><div><div class="vp-eyebrow">AI report · Claude · 2026-10-04</div><h1>Speech-engine benchmark: which AI hears Medi&#x27;s Arabic</h1><div class="ab-sub">Built from ENGINE-BENCHMARK-2026-10-02.md</div></div><a class="ab-preview" href="../ai-reports.html">‹ All AI reports</a></header>
 <article class="ar-doc">
 <h1 id="speech-engine-benchmark-on-medis-own-corrections-lesson-2026-10-02">Speech-engine benchmark on Medi's own corrections (lesson 2026-10-02)</h1>
 <p><strong>Gemini 3.8 Flash, listening to your microphone with the lesson around it, heard 53 of your 63 corrected moments on 10-02; today's engine (ElevenLabs) heard 4, and no plain transcriber got past 21.</strong></p>
@@ -1125,12 +1125,495 @@
 <li>With Gemini's text the readers no longer write the false slip المال -&gt; المصاري (the engine's mishearing Medi had to reject by hand).</li>
 <li>Files: <code>data/lesson-work/bench/2026-10-02/rehear/</code> (proposals) and <code>readers/flash/</code> (the readers' scratch run).</li>
 </ul>
+<h2 id="gemini-variables-test-2026-10-04">Gemini variables test (2026-10-04)</h2>
+<p><strong>None of the 12 ideas beat the plain baseline: Gemini 3.8 Flash + context still hears 53 of your 63 corrected moments, and the combined "best recipe" scored 49.</strong></p>
+<p><img alt="heard right" src="img/engine-vars-heard-2026-10-04.png" /></p>
+<p><img alt="harm" src="img/engine-vars-harm-2026-10-04.png" /></p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Recipe</th>
+<th>Heard right (of 63)</th>
+<th>vs baseline</th>
+<th>Slips hidden (of 24)</th>
+<th>Untouched lines with a word changed (of 519)</th>
+<th>Same in 3 of 3</th>
+<th>Cost per lesson (1 run)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Baseline: Flash + context, temperature 1</strong></td>
+<td><strong>53</strong></td>
+<td>-</td>
+<td>1</td>
+<td>59</td>
+<td>90.5%</td>
+<td>$0.67</td>
+</tr>
+<tr>
+<td>V1 evidence (heard / inferred), all changes</td>
+<td><strong>53</strong></td>
+<td>same (+0, inside the noise)</td>
+<td>2</td>
+<td>57</td>
+<td>87.3%</td>
+<td>$0.71</td>
+</tr>
+<tr>
+<td>V1 keep only 'heard' changes</td>
+<td><strong>49</strong></td>
+<td>worse (-4)</td>
+<td>2</td>
+<td>55</td>
+<td>87.3%</td>
+<td>$0 (no call)</td>
+</tr>
+<tr>
+<td>V2 forced choice (held + no-agreement lines)</td>
+<td><strong>51</strong></td>
+<td>same (-2, inside the noise)</td>
+<td>1</td>
+<td>57</td>
+<td>92.1%</td>
+<td>+$0.06</td>
+</tr>
+<tr>
+<td>V3 two clips (his line + Amal's next)</td>
+<td><strong>52</strong></td>
+<td>same (-1, inside the noise)</td>
+<td>1</td>
+<td>56</td>
+<td>90.5%</td>
+<td>+$0.03</td>
+</tr>
+<tr>
+<td>V4 word confidence, all changes</td>
+<td><strong>53</strong></td>
+<td>same (+0, inside the noise)</td>
+<td>2</td>
+<td>63</td>
+<td>87.3%</td>
+<td>$0.70</td>
+</tr>
+<tr>
+<td>V4 keep only high-confidence changes</td>
+<td><strong>49</strong></td>
+<td>worse (-4)</td>
+<td>2</td>
+<td>59</td>
+<td>84.1%</td>
+<td>$0 (no call)</td>
+</tr>
+<tr>
+<td>V5 second guess (top 1)</td>
+<td><strong>53</strong></td>
+<td>same (+0, inside the noise)</td>
+<td>2</td>
+<td>58</td>
+<td>87.3%</td>
+<td>$0.72</td>
+</tr>
+<tr>
+<td>V6 Arabic span in long lines</td>
+<td><strong>51</strong></td>
+<td>same (-2, inside the noise)</td>
+<td>1</td>
+<td>60</td>
+<td>87.3%</td>
+<td>+$0.20</td>
+</tr>
+<tr>
+<td>V7 accent note</td>
+<td><strong>54</strong></td>
+<td>same (+1, inside the noise)</td>
+<td>2</td>
+<td>61</td>
+<td>87.3%</td>
+<td>$0.73</td>
+</tr>
+<tr>
+<td>V8 word list, SAID</td>
+<td><strong>53</strong></td>
+<td>same (+0, inside the noise)</td>
+<td>1</td>
+<td>56</td>
+<td>88.9%</td>
+<td>$0.78</td>
+</tr>
+<tr>
+<td>V10 vowel marks in the text</td>
+<td><strong>49</strong></td>
+<td>worse (-4)</td>
+<td>1</td>
+<td>62</td>
+<td>77.8%</td>
+<td>$0.79</td>
+</tr>
+<tr>
+<td>V11 one-field answer (Gemini's idea)</td>
+<td><strong>50</strong></td>
+<td>worse (-3)</td>
+<td>1</td>
+<td>62</td>
+<td>88.9%</td>
+<td>$0.66</td>
+</tr>
+<tr>
+<td>V12 guessing lines removed (Gemini's idea)</td>
+<td><strong>52</strong></td>
+<td>same (-1, inside the noise)</td>
+<td>1</td>
+<td>59</td>
+<td>92.1%</td>
+<td>$0.60</td>
+</tr>
+<tr>
+<td>Best recipe: word list + said/meant + marks apart</td>
+<td><strong>49</strong></td>
+<td>worse (-4)</td>
+<td>2</td>
+<td>60</td>
+<td>92.1%</td>
+<td>$0.89</td>
+</tr>
+<tr>
+<td>Best recipe on OpenAI gpt-audio</td>
+<td><strong>21</strong></td>
+<td>worse (-32)</td>
+<td>7</td>
+<td>223</td>
+<td>87.3%</td>
+<td>$2.38</td>
+</tr>
+<tr>
+<td>Baseline on V9's 224 lines (2 runs)</td>
+<td><strong>52</strong></td>
+<td>same (-1, inside the noise)</td>
+<td>1</td>
+<td>44</td>
+<td>93.7%</td>
+<td>$0 (no call)</td>
+</tr>
+<tr>
+<td>V9 thinking high (224 lines, 2 runs)</td>
+<td><strong>46</strong></td>
+<td>worse (-6)</td>
+<td>0</td>
+<td>47</td>
+<td>82.5%</td>
+<td>$1.25</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>"Heard right" = the word you said is in Gemini's text in 2 of 3 runs. "Slip hidden" = it wrote Amal's correct word where you made a mistake. "Changed" = a word changed on a line you did not correct.</li>
+<li>The baseline moved by 2 moments between two settings, so a change of 2 or less is noise.</li>
+<li>Rows marked "+$" are the baseline plus one extra step on some lines. V9 was sent only the 224 Arabic and answer-key lines, 2 runs, and is compared with the baseline cut the same way.</li>
+</ul>
+<h2 id="what-each-idea-showed">What each idea showed</h2>
+<ul>
+<li><strong>V1 heard or inferred:</strong> Gemini called 633 of 639 changes "heard". The label separates nothing; keeping only "heard" changes scored 49.</li>
+<li><strong>V4 word confidence:</strong> 602 of 632 changes were "high". Keeping only those scored 49.</li>
+<li><strong>V5 second guess:</strong> 18 lines got a second guess; counting either guess added 0 moments.</li>
+<li><strong>V2 forced choice</strong> (53 held or disagreeing lines): 51. It picked the engine's own text 24 times of 159.</li>
+<li><strong>V3 two clips</strong> (28 held lines): 52. It kept the held change 67 times and took it back 17 times; the step can only remove a change.</li>
+<li><strong>V6 Arabic span</strong> (27 long lines): 51. On those lines the baseline heard 9 of 11 moments, the span step 7.</li>
+<li><strong>V7 accent note:</strong> 54, the only row above the baseline, and inside the noise; it hid one more slip.</li>
+<li><strong>V8 word list, said + meant (your idea):</strong> 53, no extra hidden slip, 56 changed lines against 59. Its "meant" answer was Amal's correct form on 15 of 24 slips, while "said" hid 1.</li>
+<li><strong>V10 vowel marks in the text:</strong> 49. With marks Gemini spells the word as pronounced (one ط in خططت), so letters drift from the word. Marks were on 95.4% of Arabic words.</li>
+<li><strong>V9 thinking high:</strong> 46 against 52 for the baseline on the same lines, at almost 3x the cost; 11 calls ran to the token cap without an answer.</li>
+<li><strong>V11 one-field answer and V12 guessing lines removed</strong> (Gemini's own two ideas): 50 and 52. V11 has no Arabizi field, which costs it 2 moments by output shape (M061, M062), so read it as about 52. V12 changes three sentences at once.</li>
+<li><strong>Best recipe</strong> (word list + said/meant + vowel marks in their own field): <strong>49, 2 slips hidden, 60 lines changed. Worse than the baseline.</strong> Asking for three answers lowered the score.</li>
+<li><strong>OpenAI gpt-audio-1.5 on the best recipe:</strong> 21 of 63, 7 slips hidden, 223 lines changed. Still unusable.</li>
+</ul>
+<h2 id="the-vowel-marks-your-decision-always-ask-never-score">The vowel marks (your decision: always ask, never score)</h2>
+<ul>
+<li>Asked for inside the scored text they cost 4 moments (V10); asked for in a separate field they sat in a recipe that also scored 49.</li>
+<li>So the marks should come from <strong>their own second call</strong> on the lines that need them, not from the re-hear call. That keeps the baseline's 53 and still gives a pronunciation note on every re-heard line.</li>
+<li>On your two vowel moments: خُطَتِتْ with your damma in 3 of 3 runs; at 18:31 it wrote الأوَّل (aw-) in 3 of 3, not Amal's أُولى.</li>
+</ul>
+<h2 id="re-hear-piles-on-the-best-recipe-nothing-applied-to-the-lesson">Re-hear piles on the best recipe (nothing applied to the lesson)</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Pile</th>
+<th>Baseline</th>
+<th>Best recipe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proposed, words changed</td>
+<td>62</td>
+<td>65</td>
+</tr>
+<tr>
+<td>Proposed, alphabet only</td>
+<td>69</td>
+<td>74</td>
+</tr>
+<tr>
+<td>Held: Amal says the word next</td>
+<td>28</td>
+<td>32</td>
+</tr>
+<tr>
+<td>No agreement between the 3 runs</td>
+<td>25</td>
+<td>17</td>
+</tr>
+<tr>
+<td>Your corrections fixed by the proposed pile</td>
+<td>35</td>
+<td>32</td>
+</tr>
+<tr>
+<td>...more if the held pile is taken</td>
+<td>10</td>
+<td>13</td>
+</tr>
+<tr>
+<td>Slips hidden by the proposed pile</td>
+<td>2</td>
+<td>2</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>The 53 is counted per moment. What the piles would actually put in the transcript is lower: 35 moments from the proposed pile, 45 with the held pile.</li>
+</ul>
+<h2 id="scoreboard-b-score-closeness">Scoreboard B (score closeness)</h2>
+<ul>
+<li>Recomputed part (rule uses, slips still visible): best recipe Words 83.3% (off 0.2), Grammar 95.9% (off 2.1); baseline 83.3% / 95.8%. No difference.</li>
+<li>The readers' scratch run (the 3 AI readers re-reading the text) was <strong>not repeated</strong> on the best recipe: it lost to the baseline, which already has that run (32 slips against 32 published, 30 the same). Medi chose to skip it.</li>
+</ul>
+<h2 id="the-10-moments-the-baseline-misses">The 10 moments the baseline misses</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Time</th>
+<th>You said</th>
+<th>Gemini wrote (3 runs)</th>
+<th>Kind</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>07:34</td>
+<td>على عشرة</td>
+<td>عشا / عشرة / عشاء</td>
+<td>unstable: right in 1 of 3</td>
+</tr>
+<tr>
+<td>16:06</td>
+<td>تنتين و ro-- (cut off)</td>
+<td>تنتين وربع</td>
+<td>finished your cut-off word</td>
+</tr>
+<tr>
+<td>23:45</td>
+<td>المصاري--</td>
+<td>المصـ--</td>
+<td>wrote it as cut off</td>
+</tr>
+<tr>
+<td>35:30</td>
+<td>الرحلة أخيرة</td>
+<td>أخيرة / خيرة / الأخيرة</td>
+<td>unstable</td>
+</tr>
+<tr>
+<td>37:47</td>
+<td>غير اليوم</td>
+<td>غير يوم</td>
+<td>dropped the el-</td>
+</tr>
+<tr>
+<td>37:47</td>
+<td>الغير</td>
+<td>الـ غـ- / الغيـ</td>
+<td>wrote it as cut off</td>
+</tr>
+<tr>
+<td>39:41</td>
+<td>إحنا بدنا</td>
+<td>نـ بدنا / إحنا بدنا / نه بدنا</td>
+<td>unstable; the clip is 0.54 s</td>
+</tr>
+<tr>
+<td>39:45</td>
+<td>غير أكل</td>
+<td>غير أكلة</td>
+<td>one letter off</td>
+</tr>
+<tr>
+<td>40:57</td>
+<td>هو بدو</td>
+<td>هو بده (Arabizi: biddo)</td>
+<td>same sound, other spelling</td>
+</tr>
+<tr>
+<td>49:44</td>
+<td>'Cause غير means other</td>
+<td>'Cause تاني means other</td>
+<td>other word</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="four-outside-reviews-of-the-whole-project-ideas-not-measurements">Four outside reviews of the whole project (ideas, not measurements)</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Reviewer</th>
+<th>Main point</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Codex gpt-5.5</td>
+<td>two misses are the scorer (بده / بدو, a cut-off word); the "changed lines" count mixes harm with real unflagged fixes; next: a context-free listen that must agree</td>
+</tr>
+<tr>
+<td>Codex GPT-6 Astra (medium)</td>
+<td>gains are in clip boundaries and a blind first listen, not in more prompt text or thinking; realistic ceiling 57-59</td>
+</tr>
+<tr>
+<td>Fable (fresh reviewer, numbers from the saved runs)</td>
+<td>at least 1 of 3 baseline runs is right on 56; any of 30 runs on 57; a vote across all 30 runs still gives 53; 60 is not reachable against this key, about 56 is</td>
+</tr>
+<tr>
+<td>Gemini itself</td>
+<td>blames three context sentences and the extra answer fields; both ideas were then tested (V11 50, V12 52) and did not help</td>
+</tr>
+<tr>
+<td>Web research</td>
+<td>Google: keep temperature 1, be concise, use examples. A study on other models: with a transcript as context, models copy from it; a silent-audio check would show how much of the 53 is reading, not hearing</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>Fable's sharpest finding: at 49:44 five other engines also hear "tani", and at 39:45 four hear "akleh". Those two may be the key, not Gemini. Only your ear can settle it.</li>
+<li>Files: <code>variables/codex-improvement-review.md</code>, <code>variables/codex-astra-whole-project-review.md</code>, <code>variables/gemini-self-review.json</code>, C:/Claude/reports/ANEES-FABLE-53-TO-60-REVIEW-2026-10-04.md, C:/Claude/reports/ANEES-GEMINI-TRANSCRIPTION-RESEARCH-2026-10-04.md.</li>
+</ul>
+<h2 id="what-this-test-cannot-tell-you">What this test cannot tell you</h2>
+<ul>
+<li><strong>Every idea was tuned and scored on the same single lesson</strong>, the only one you have corrected. The winner (the plain baseline) and every loser must be confirmed on a second corrected lesson before any of it is trusted.</li>
+<li>1 or 2 hidden slips of 24 is too few to rank recipes on.</li>
+<li>"Changed" means you did not flag the line, not that you checked it.</li>
+</ul>
+<h2 id="spend-list-price-count-from-the-tokens-each-call-reported-every-paid-call-has-a-run-line">Spend (list-price count from the tokens each call reported; every paid call has a run line)</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Idea</th>
+<th>Paid calls</th>
+<th>Spend</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>V1 evidence (heard / inferred), all changes</td>
+<td>1416</td>
+<td>$2.13</td>
+</tr>
+<tr>
+<td>V2 forced choice (held + no-agreement lines)</td>
+<td>159</td>
+<td>$0.18</td>
+</tr>
+<tr>
+<td>V3 two clips (his line + Amal's next)</td>
+<td>84</td>
+<td>$0.10</td>
+</tr>
+<tr>
+<td>V4 word confidence, all changes</td>
+<td>1415</td>
+<td>$2.10</td>
+</tr>
+<tr>
+<td>V5 second guess (top 1)</td>
+<td>1416</td>
+<td>$2.15</td>
+</tr>
+<tr>
+<td>V6 Arabic span in long lines</td>
+<td>81</td>
+<td>$0.59</td>
+</tr>
+<tr>
+<td>V7 accent note</td>
+<td>1416</td>
+<td>$2.20</td>
+</tr>
+<tr>
+<td>V8 word list, SAID</td>
+<td>1416</td>
+<td>$2.33</td>
+</tr>
+<tr>
+<td>V10 vowel marks in the text</td>
+<td>1416</td>
+<td>$2.37</td>
+</tr>
+<tr>
+<td>V11 one-field answer (Gemini's idea)</td>
+<td>1416</td>
+<td>$1.98</td>
+</tr>
+<tr>
+<td>V12 guessing lines removed (Gemini's idea)</td>
+<td>1416</td>
+<td>$1.81</td>
+</tr>
+<tr>
+<td>Best recipe: word list + said/meant + marks apart</td>
+<td>1416</td>
+<td>$2.67</td>
+</tr>
+<tr>
+<td>Best recipe on OpenAI gpt-audio</td>
+<td>1416</td>
+<td>$7.15</td>
+</tr>
+<tr>
+<td>V9 thinking high (224 lines, 2 runs)</td>
+<td>448</td>
+<td>$2.50</td>
+</tr>
+<tr>
+<td><strong>Gemini total</strong></td>
+<td></td>
+<td><strong>$23.11</strong></td>
+</tr>
+<tr>
+<td><strong>OpenAI total</strong></td>
+<td></td>
+<td><strong>$7.15</strong></td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Google took more than this count.</strong> Your first $20 of credit was used up when my count said $14.78: about 35% more. Real Gemini spend for this job is probably near $31. The bill review is still to do.</li>
+<li>Gemini credit ran out twice mid-run. No miss was counted against any idea: those lines were thrown out and re-sent.</li>
+<li>Allowance: the spec's $20 plus the $5 you approved for Gemini's two ideas. The pipeline's own cap was not raised.</li>
+</ul>
+<h2 id="changes-to-the-plan-you-should-know_1">Changes to the plan you should know</h2>
+<ul>
+<li><strong>Codex audited the prompts before any paid run</strong> (3 passes): 2 blockers and 4 faults, all fixed first. The two-clip step stored Gemini's earlier text (now it can only take a change back); a no-credit answer could have been stored as a miss; the derived rows could keep an unfiltered change; the cap check under parallel jobs.</li>
+<li><strong>Jobs ran in parallel</strong> after you said "Go as many as possible at once" (the spec said one at a time). Each job wrote only its own files.</li>
+<li><strong>V9 is 2 runs on 224 lines</strong>, not 3 runs on all 472: at about $1.25 a run it would have taken the best recipe's budget.</li>
+<li><strong>The scorer was not changed.</strong> The side columns the reviewers ask for (cut-off accepted, بده = بدو) are not built yet.</li>
+</ul>
+<p><img alt="cost" src="img/engine-vars-cost-2026-10-04.png" /></p>
 <h2 id="where-everything-is">Where everything is</h2>
 <ul>
 <li>Results for the AI Reports page: <code>data/lesson-work/bench/2026-10-02/results.json</code> (every engine, every number, every moment's verdict in each run).</li>
 <li>Raw engine outputs: <code>data/lesson-work/bench/2026-10-02/&lt;engine&gt;/&lt;mode&gt;-run&lt;n&gt;.json</code>. Per-call cost log: <code>runs.jsonl.gz</code>.</li>
 <li>Code: <code>scripts/bench_freeze.py</code>, <code>bench_score.py</code> (16 fixture tests, now in the publish guard), <code>bench_run.py</code>, <code>bench_local.py</code>, <code>bench_b.py</code>, <code>bench_vowel.py</code>, <code>bench_report.py</code>.</li>
 <li>Rule: PR-18 in the registry (code + test).</li>
+<li>Variables test (2026-10-04): <code>scripts/bench_vars.py</code>, <code>bench_vars_report.py</code>, <code>bench_vars_chart.py</code>, <code>bench_ask_gemini.py</code>, <code>bench_readers.py</code>; frozen prompts and results in <code>data/lesson-work/bench/2026-10-02/variables/</code>.</li>
 </ul>
 </article>
 </main></div></div><script>if(location.hash){const e=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(e)setTimeout(()=>e.scrollIntoView({block:"start"}),50);}</script><script src="../js/build.js"></script><script src="../js/stale.js?v=fresh1"></script></body></html>
