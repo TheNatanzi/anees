@@ -65,10 +65,39 @@ def test_page_saves_like_her_other_pages_and_stays_on_anees():
     assert "<a " not in html and "<a " not in js
 
 
-def test_not_on_the_tutor_hub():
-    assert "listen-check" not in (DOCS / "data" / "tutor.json").read_text(encoding="utf-8")
-    assert "listen-check" not in (DOCS / "tutor.html").read_text(encoding="utf-8")
-    assert "listen-check" not in (DOCS / "js" / "tutor.js").read_text(encoding="utf-8")
+def test_on_the_tutor_hub_with_the_review_link_token():
+    """Medi 2026-10-04 "put anything that needs to be checked in the tutor portal, i will have her check"."""
+    T = json.loads((DOCS / "data" / "tutor.json").read_text(encoding="utf-8"))
+    row = next(x for x in T["open"] if x["id"] == "listen-check")
+    rv = next(x for x in T["open"] if x["kind"] == "review")
+    assert row["kind"] == "listen" and row["token"] == rv["token"] and row["total"] == len(DATA["items"]) == 40
+    assert row["url"] == "amal/listen-check.html?t=" + rv["token"] and "10 minutes" in row["what"]
+    hub, js = (DOCS / "tutor.html").read_text(encoding="utf-8"), (DOCS / "js" / "tutor.js").read_text(encoding="utf-8")
+    assert "js/hub/listen-check-task.js" in hub                                   # opens inside the hub panel (PG-17)
+    assert "listen: (b, it, on) => AneesListenTask.mount(" in js and "source=eq.listen-check" in js and "'listen'].includes(x.kind)" in js
+
+
+def test_builder_puts_the_row_on_the_live_review_link(tmp_path, monkeypatch):
+    import build_tutor_data as T
+    monkeypatch.setattr(T, "OUT", str(tmp_path / "tutor.json"))
+    links = [{"token": "RV", "kind": "review", "lesson_date": None, "created_at": "2026-09-26T10:00:00Z", "expires_at": "2099-01-01T00:00:00Z",
+              "opened_at": None, "done_at": None, "payload": {}, "answers": None}]
+    import types
+    monkeypatch.setitem(sys.modules, "db", types.SimpleNamespace(select=lambda table, *a, **k: links if table == "amal_links" else []))
+    T.main()
+    out = json.loads((tmp_path / "tutor.json").read_text(encoding="utf-8"))
+    row = next(x for x in out["open"] if x["id"] == "listen-check")
+    assert row["kind"] == "listen" and row["token"] == "RV" and row["total"] == 40 and row["url"] == "amal/listen-check.html?t=RV"
+    committed = next(x for x in json.loads((DOCS / "data" / "tutor.json").read_text(encoding="utf-8"))["open"] if x["id"] == "listen-check")
+    skip = ("token", "url", "expires")
+    assert {k: v for k, v in row.items() if k not in skip} == {k: v for k, v in committed.items() if k not in skip}
+
+
+def test_listen_taps_do_not_start_the_audit_chain():
+    import amal_trigger as AT
+    src = (ROOT / "scripts" / "amal_trigger.py").read_text(encoding="utf-8")
+    assert "listen-check" in AT.KNOWN_RULE_SOURCES                              # so amal_rules_other (the audit chain) never sees them
+    assert '"id": "listen_check"' in src and '"fetch": fetch_listen_check, "steps": ["build_tutor_data"]' in src
 
 
 def test_results_tally_against_the_key():

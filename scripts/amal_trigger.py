@@ -106,11 +106,16 @@ def fetch_after():
     return fp_rows(_amal_rules(lambda r: r.get("source") == "after"), ("id", "kind", "word_key", "payload"))
 
 
+def fetch_listen_check():
+    return fp_rows(_amal_rules(lambda r: r.get("source") == "listen-check"), ("id", "kind", "word_key", "payload"))
+
+
 def fetch_plan():
     return fp_rows(_amal_rules(lambda r: r.get("source") in ("before", "plan", "planner")), ("id", "kind", "word_key", "payload"))
 
 
-KNOWN_RULE_SOURCES = ("review", "after", "before", "plan", "planner", "grammar_notes")
+# listen-check: her listening check (amal/listen-check.html, 2026-10-04) - nothing is rebuilt from it but her hub list
+KNOWN_RULE_SOURCES = ("review", "after", "before", "plan", "planner", "grammar_notes", "listen-check")
 # not Amal: machine flags from flashcard answers, and Medi's own marks
 NOT_AMAL_SOURCES = ("flashcards", "medi")
 
@@ -224,6 +229,8 @@ SOURCES = [
     {"id": "pattern_review", "label": "Slips-by-pattern review", "fetch": fetch_pattern_review, "steps": AUDIT_CHAIN},
     {"id": "after_links", "label": "After-lesson questions", "fetch": fetch_after, "steps": AUDIT_CHAIN},
     {"id": "plan_links", "label": "Before-lesson planner", "fetch": fetch_plan, "steps": ["build_tutor_data"]},
+    {"id": "listen_check", "label": "Listening check: which version is right", "fetch": fetch_listen_check, "steps": ["build_tutor_data"],
+     "note": "her taps are read by scripts/amal_listen_results.py; nothing is re-scored, only her hub list is refreshed"},
     {"id": "amal_rules_other", "label": "Any other answer she gives in the app", "fetch": fetch_rules_other, "steps": AUDIT_CHAIN},
     {"id": "verb_checks", "label": "Verb check lists 1 and 2", "fetch": fetch_verb_checks,
      "steps": ["pull_verb_checks", "build_word_bank_catalog", "build_verb_addon_tags", "build_sentence_ladder", "build_tutor_data"]},

@@ -46,18 +46,22 @@
           .filter(r => !/^(verify|newword|ledger):/.test(String(r.word_key || '')));
         return { ok: true, done: Object.values(AneesUndo.latest(rows)).filter(AneesUndo.isAnswer).length };
       }
+      if (item.kind === 'listen') {   // her listening check: the latest tap per line counts (an undo puts it back)
+        const rows = await rest('amal_rules?select=kind,word_key&source=eq.listen-check&order=created_at.asc&token=eq.' + encodeURIComponent(item.token), item.token);
+        return { ok: true, done: Object.values(AneesUndo.latest(rows)).filter(AneesUndo.isAnswer).length };
+      }
     } catch (e) { return { ok: false, done: 0 }; }
     return { ok: true, done: 0 };
   }
 
   // ---- the task list -------------------------------------------------------------------------------------------
-  const MIN_EACH = { after: 0.7, before: 0.7, verify: 0.4, ledger: 0.5, review: 1.2, verb_check: 0.1, word_review: 0.3, newwords: 0.3 };
-  const UNIT = { after: 'moments', before: 'questions', review: 'slip patterns', verb_check: 'verb forms', word_review: 'lines', verify: 'moments', ledger: 'moments', newwords: 'words' };
+  const MIN_EACH = { after: 0.7, before: 0.7, verify: 0.4, ledger: 0.5, review: 1.2, verb_check: 0.1, word_review: 0.3, newwords: 0.3, listen: 0.25 };
+  const UNIT = { after: 'moments', before: 'questions', review: 'slip patterns', verb_check: 'verb forms', word_review: 'lines', verify: 'moments', ledger: 'moments', newwords: 'words', listen: 'lines' };
   function taskOf(it, L) {
     const total = it.total || 0, d = Math.min(total, (L && L.done) || 0), left = Math.max(0, total - d);
     const title = it.kind === 'after' ? 'After the lesson · ' + pretty(it.lesson_date)
       : it.kind === 'review' ? 'Slips to review' : it.kind === 'verb_check' ? it.title.replace('Verb check', 'Verb forms') : it.title;
-    const rank = it.kind === 'before' ? 0 : it.kind === 'after' ? 1 : it.kind === 'review' ? 3 : it.kind === 'word_review' ? 4 : 5;
+    const rank = it.kind === 'before' ? 0 : it.kind === 'after' ? 1 : it.kind === 'review' ? 3 : it.kind === 'word_review' ? 4 : it.kind === 'listen' ? 3.5 : 5;
     return { id: it.id, kind: it.kind, item: it, title, total, done: d, left, unit: UNIT[it.kind] || 'items', rank, date: it.lesson_date || '', finished: (L && L.finished) || (total > 0 && left === 0) };
   }
   function rankAll(list) { return list.sort((a, b) => a.rank - b.rank || String(b.date).localeCompare(String(a.date))); }
@@ -104,6 +108,7 @@
     review: (b, it, on) => AneesReviewTask.mount(b, { token: it.token, base: '' }, { onChange: on }),
     verb_check: (b, it, on, o) => AneesVerbCheckTask.mount(b, { token: it.token }, { onChange: on, view: o && o.view }),
     word_review: (b, it) => AneesWordReviewTask.mount(b, { token: it.token }),
+    listen: (b, it, on) => AneesListenTask.mount(b, { token: it.token, base: '' }, { onChange: on }),
     verify: b => b.appendChild($('#tv')),
     newwords: (b, it, on) => AneesNewWordsTask.mount(b, NW, { onChange: on }),
     ledger: (b, it, on) => AneesLedgerTask.mount(b, LG, { onChange: on }),
@@ -220,7 +225,7 @@
   async function main() {
     try { T = await (await fetch('data/tutor.json', { cache: 'no-store' })).json(); }
     catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The Tutor list could not load. Refresh to try again.</div>'; return; }
-    const work = T.open.filter(x => ['after', 'before', 'review', 'verb_check', 'word_review'].includes(x.kind));
+    const work = T.open.filter(x => ['after', 'before', 'review', 'verb_check', 'word_review', 'listen'].includes(x.kind));
     const lives = await Promise.all(work.map(live));
     tasks = work.map((it, i) => taskOf(it, lives[i]));
     try {   // the moments to check (tutor-verify): answers are amal_rules rows word_key verify:<uid> on the review token

@@ -17,6 +17,7 @@ OUT = os.path.join(DOCS, "data", "tutor.json")
 # Hand-kept cards: none since 2026-10-01 (her grammar Google Doc card became the Anees grammar-notes card below).
 KEEP_KINDS = set()
 NOTES = os.path.join(DOCS, "data", "amal-grammar-notes.json")
+LISTEN = os.path.join(DOCS, "data", "amal-listen.json")
 
 
 def day(s):
@@ -226,6 +227,14 @@ def main():
             open_.append({"id": "materials", "title": "Arabic Materials", "kind": "materials", "token": None,
                           "what": "Her explanations: prepositions, possession, adjectives, time, kul, the b- prefix and the pointer rule, copied word for word from her Doc.",
                           "who": "To read · no answers needed", "url": "amal/materials.html"})
+            # Her listening check (Medi 2026-10-04 "put anything that needs to be checked in the tutor portal"): her own
+            # lines, two versions each. Saved with this same link's token (amal_rules source 'listen-check').
+            n_listen = len(json.load(open(LISTEN, encoding="utf-8")).get("items") or []) if os.path.exists(LISTEN) else 0
+            if n_listen:
+                open_.append({"id": "listen-check", "title": "Listen: which version is right?", "kind": "listen", "token": r["token"],
+                              "what": f"{n_listen} of your own lines from two lessons, each written two ways. Play your clip and tap the one that is right. About 10 minutes.",
+                              "who": "Amal answers · on her Tutor page", "url": f"amal/listen-check.html?t={r['token']}",
+                              "total": n_listen, "expires": day(r["expires_at"])})
         elif r["kind"] in ("after", "before"):
             title = ("After the lesson · " if r["kind"] == "after" else "Before the lesson · ") + pretty(r.get("lesson_date") or "")
             n = len(p.get("questions") or []) + len(p.get("homework") or []) + len(p.get("prompts") or []) if r["kind"] == "after" else len(p.get("suggestions") or p.get("items") or [])
