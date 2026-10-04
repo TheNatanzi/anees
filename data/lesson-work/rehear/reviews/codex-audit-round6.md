@@ -1,0 +1,4 @@
+- **(3) Cleanup: FIXED.** Requires nonempty jobs, all succeeded and fully collected; six in-memory cases passed. [Line 134](C:/dev/anees-wt-bench/scripts/rehear_backfill.py:134).
+- **(4) Seed: STILL OPEN.** Existing run files are protected, including `{}`. But “any job exists” is not guaranteed: an empty job record without a build file resolves to `"none"` and permits seeding—reproduced in memory. [Guard](C:/dev/anees-wt-bench/scripts/rehear_backfill.py:65), [state](C:/dev/anees-wt-bench/scripts/rehear_job.py:214).
+- **New blocker:** None beyond that seed edge. No edits or network.
+- **VERDICT B: BLOCKED.**

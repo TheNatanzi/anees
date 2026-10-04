@@ -192,6 +192,45 @@ def write_disputes_md(date, out, tag=""):
     open(os.path.join(WORK, f"{date}{tag}.disputes.md"), "w", encoding="utf-8").write("\n".join(L) + "\n")
 
 
+SF_TOL = 10.0
+
+
+def hand_self_fix(hand_rows, date, pas, did, row, disputes=()):
+    """The hand GR-24 ruling (self-fix-rulings.json) for one dispute. The file keys on a dispute NUMBER (date, pass, D<n>),
+    and a re-read renumbers the disputes (2026-10-04 re-hear), so the MOMENT decides. A ruling fits a dispute when the
+    dispute row's t / t_amal is within SF_TOL s of the ruling's his_t / her_t.
+      - a ruling whose own numbered dispute (same pass) still fits its moment applies to that dispute only (as before);
+      - a ruling whose number no longer fits (renumbered, or its pass was retired) applies to the dispute of this pass
+        CLOSEST to its moment, unless another ruling of the same moment already sits on its own number;
+      - a ruling without times keeps the old number-only behaviour."""
+    def dist(x, r):
+        ts = [sec(x.get(k)) for k in ("his_t", "her_t") if sec(x.get(k)) is not None]
+        rt = [sec((r or {}).get(k)) for k in ("t", "t_amal") if sec((r or {}).get(k)) is not None]
+        if not ts:
+            return None
+        return min((abs(a - b) for a in ts for b in rt), default=1e9)
+    drow = {d.get("id"): (d.get("r1") or d.get("r2") or {}) for d in disputes}
+    mine = [x for x in hand_rows if x.get("date") == date]
+
+    def anchored(x):
+        if x.get("pass") != "p%d" % pas:
+            return False
+        dx = dist(x, drow.get(x.get("ruling"))) if disputes else dist(x, row if x.get("ruling") == did else None)
+        return dx is None or dx <= SF_TOL
+    moment = lambda x: (x.get("his_t"), x.get("her_t"))
+    for x in mine:
+        if anchored(x):
+            if x.get("ruling") == did:
+                return x
+            continue
+        if not disputes or any(anchored(y) and moment(y) == moment(x) for y in mine if y is not x):
+            continue
+        dx = dist(x, row)
+        if dx is not None and dx <= SF_TOL and dx <= min(dist(x, r) for r in drow.values()):
+            return x
+    return None
+
+
 def settle(date, pas=1):
     tag = "" if pas == 1 else f".p{pas}"
     C = json.load(open(os.path.join(WORK, f"{date}{tag}.compare.json"), encoding="utf-8"))
@@ -199,7 +238,7 @@ def settle(date, pas=1):
     rulings = {x["id"]: x for x in R.get("rulings", [])}
     challenges = {x.get("id"): x.get("why") for x in R.get("challenges", []) if str(x.get("id", "")).startswith("A")}
     rows = []
-    HAND_SF = {(x["date"], x["pass"], x["ruling"]): x for x in (SFT.J(os.path.join(WORK, "self-fix-rulings.json")) or {}).get("rows", [])}
+    HAND_SF = (SFT.J(os.path.join(WORK, "self-fix-rulings.json")) or {}).get("rows", [])
     W = SFT.words(date)
     timing = None
     if W:
@@ -233,7 +272,7 @@ def settle(date, pas=1):
             # GR-24 (Medi 2026-10-02, 10-02 07:02 سمعت -> صحيت): a "self-fix" drop stands only when his right word came
             # BEFORE hers by the engine's word times; his line starting first is not enough (scripts/self_fix_timing.py)
             row = d.get("r1") or d.get("r2") or {}
-            hand = HAND_SF.get((date, "p%d" % pas, d["id"]))
+            hand = hand_self_fix(HAND_SF, date, pas, d["id"], row, C["disputes"])
             if SFT.SELF_FIX.search(v.get("why") or "") and (timing is not None or hand):
                 res = SFT.check(date, row, *timing) if timing is not None else {"verdict": "unknown"}
                 if res["verdict"] == "unknown" and hand and hand.get("verdict") == "her-fix":     # the context read decides

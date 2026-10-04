@@ -36,6 +36,13 @@ def _hit(r, u):
         import medi_corrections as MC
         src = u.get("engine") or u.get("text") or ""
         return r.get("who") == u.get("who") and r["engine_wrote"] in src and MC._ctx(src, r["engine_wrote"]) == tuple(r.get("ctx") or ())
+    if u.get("span_end") is not None:
+        # a track turn (lesson_turns: words glued on a 1.2 s gap) can hold several page lines: a row made for a page line
+        # belongs to the track turn whose span holds its time and whose engine text holds its words (2026-10-04: with
+        # start-only matching 12 of 121 rows never reached the grammar-use counter, silently)
+        src = u.get("engine") or u.get("text") or ""
+        near = float(u["t"]) - 1.0 <= float(r["t"]) <= float(u["span_end"]) + 1.0
+        return r.get("who") == u.get("who") and near and (r.get("engine_wrote") or r.get("insert_after") or "") in src
     return r.get("who") == u.get("who") and abs(float(r["t"]) - float(u["t"])) <= 1.0
 
 
@@ -113,7 +120,7 @@ def unmatched(date, turns, rows=None):
 def apply_tracks(date, T, rows=None):
     """The same overlay on scripts/lesson_turns.py turns ({speaker, start, end, text}): the grammar use counter and
     the console read the heard text too (TR-18: every builder reads what was said)."""
-    conv = [{"t": u["start"], "who": u.get("speaker"), "text": u.get("text")} for u in T]
+    conv = [{"t": u["start"], "who": u.get("speaker"), "text": u.get("text"), "span_end": u.get("end")} for u in T]
     out = apply(date, conv, rows, sort=False)
     res = []
     for u, v in zip(T, out):

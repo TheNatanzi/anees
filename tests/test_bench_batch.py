@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """The Batch transport of the baseline listener (scripts/bench_batch.py, PR-18): no network, no paid call.
-Everything runs in a temp bench folder; the four network functions are replaced."""
+Everything runs in a temp bench folder; the five network functions are replaced."""
 import json, os, struct, sys
 
 import pytest
@@ -44,7 +44,7 @@ def bench(tmp_path, monkeypatch):
     paid = []
     monkeypatch.setattr(BR, "paid", lambda *a, **k: paid.append((a, k)))
     monkeypatch.setattr(BV, "money_base", lambda date, path, svc="gemini": (10.0, 61.0))
-    for name in ("upload_file", "create_batch", "get_batch", "download_file"):         # a test that reaches the network fails loudly
+    for name in ("upload_file", "create_batch", "get_batch", "download_file", "list_batches"):         # a test that reaches the network fails loudly
         monkeypatch.setattr(BB, name, lambda *a, _n=name, **k: (_ for _ in ()).throw(AssertionError("network call: " + _n)))
     return {"d": d, "paid": paid}
 
@@ -198,3 +198,129 @@ def test_the_batch_engine_is_billed_to_gemini_and_named():
     import bench_report
     assert BR.root(BB.ENGINE) == "gemini-flash" and BR.SERVICE[BR.root(BB.ENGINE)] == "gemini"
     assert BB.ENGINE in bench_report.NAMES and BB.PRICE_FACTOR == 0.5
+
+
+# ------------------------------------------------------------------ 2026-10-04: complete baseline, crash recovery, the missing lines as a later part
+
+def test_estimate_refuses_an_incomplete_baseline_and_prices_the_lines_of_this_job(bench):
+    d, p = bench["d"], BR.PRICE["gemini-3.8-flash"]
+    line = (900 * p[0] + 100 * p[1] + 200 * p[2]) / 1e6 / 2
+    tok = {"text": "x", "tokens": [1000, 100, 200], "usd": 0.001}
+    base = os.path.join(d, "gemini-flash-t1", "line-run1.json")
+    BC.W(base, {"complete": False, "lines": {i: tok for i in ("0", "2", "5")}})            # not marked complete
+    assert BB.estimate(DATE, 1) is None
+    BC.W(base, {"complete": True, "lines": {i: tok for i in ("0", "2")}})                  # a listen line is absent
+    assert BB.estimate(DATE, 1) is None
+    BC.W(base, {"complete": True, "lines": {"0": tok, "2": tok, "5": {"text": "x"}}})      # an answered line with no token counts
+    assert BB.estimate(DATE, 1) is None
+    BB.build(DATE, 1)
+    with pytest.raises(SystemExit, match="no baseline token counts"):
+        BB.submit(DATE, 1)
+    BC.W(os.path.join(d, "gemini-flash-t1", "line-run3.json"), {"complete": True, "lines": {"0": tok, "2": tok, "5": {"text": "", "error": "400 bad"}}})
+    assert BB.estimate(DATE, 1) == round(3 * line, 4)             # run 1 is not usable: any COMPLETE run is (a stored error needs no tokens)
+    # the number of lines is the build's, not the baseline's: a part with one line costs one line
+    BC.W(BB.paths(DATE, 1, 2)["build"], {"requests": 1})
+    assert BB.estimate(DATE, 1, 2) == round(line, 4)
+
+
+class Google:
+    """A fake of the five network functions with a memory of the jobs that were created."""
+
+    def __init__(self, monkeypatch):
+        self.jobs, self.uploads, self.creates, self.fail_after_create = [], [], 0, False
+        self.results = {}                                      # job name -> rows of its results file
+        for name in ("upload_file", "create_batch", "get_batch", "download_file", "list_batches"):
+            monkeypatch.setattr(BB, name, getattr(self, name))
+
+    def upload_file(self, path, name):
+        self.uploads.append(os.path.basename(path))
+        return "files/f%d" % len(self.uploads)
+
+    def create_batch(self, model, file_name, name):
+        self.creates += 1
+        job = {"name": "batches/b%d" % self.creates, "metadata": {"state": "JOB_STATE_PENDING", "displayName": name, "createTime": "2099-01-01T00:00:%02dZ" % self.creates}}
+        self.jobs.append(job)
+        if self.fail_after_create:
+            raise RuntimeError("the connection dropped after Google created the job")
+        return job
+
+    def list_batches(self):
+        return list(self.jobs)
+
+    def get_batch(self, name):
+        return {"name": name, "metadata": {"state": "JOB_STATE_SUCCEEDED"}, "response": {"responsesFile": "files/out-" + name.split("/")[1]}}
+
+    def download_file(self, name, out):
+        _results(out, self.results["batches/" + name.split("-")[1]])
+
+
+def test_a_submit_that_crashed_after_create_is_recovered_and_never_created_twice(bench, monkeypatch, capsys):
+    _baseline(bench["d"])
+    BB.build(DATE, 1)
+    g = Google(monkeypatch)
+    g.fail_after_create = True
+    with pytest.raises(RuntimeError):
+        BB.submit(DATE, 1)
+    job = BC.J(BB.paths(DATE, 1)["job"])                         # on disk before the create: the name that finds the job again
+    assert job["job"] is None and job["display_name"].startswith("anees-run1-") and job["est_usd"] == BB.estimate(DATE, 1) and job["file"] == "files/f1"
+    assert BB.outstanding(DATE) == job["est_usd"]                # owed although this PC has no job id
+    g.fail_after_create = False
+    rec = BB.submit(DATE, 1)                                     # the second submit attaches the job Google already has
+    assert rec["job"] == "batches/b1" and rec["recovered"] and g.creates == 1 and g.uploads == ["run1.jsonl"]
+    assert "recovered run 1: batches/b1" in capsys.readouterr().out
+    with pytest.raises(SystemExit, match="already submitted"):
+        BB.submit(DATE, 1)
+    assert g.creates == 1
+
+
+def test_recover_cli_attaches_the_job_and_says_when_there_is_none(bench, monkeypatch, capsys):
+    _baseline(bench["d"])
+    BB.build(DATE, 2)
+    g = Google(monkeypatch)
+    P = BB.paths(DATE, 2)
+    BC.W(P["job"], {"display_name": "anees-run2-x", "est_usd": 0.1, "file": "files/f1", "job": None})
+    assert BB.recover(DATE, 2) == [] and "nothing was created" in capsys.readouterr().out
+    g.jobs.append({"name": "batches/zz", "displayName": "anees-run2-x", "state": "BATCH_STATE_RUNNING"})
+    rec = BB.recover(DATE, 2)
+    assert [r["job"] for r in rec] == ["batches/zz"] and BC.J(P["job"])["state"] == "JOB_STATE_RUNNING"
+    assert BB.recover(DATE, 2) == [] and "nothing to recover" in capsys.readouterr().out
+
+
+def test_submit_missing_sends_only_the_unanswered_lines_and_collect_merges_the_parts(bench, monkeypatch, capsys):
+    _baseline(bench["d"])
+    BB.build(DATE, 1)
+    g = Google(monkeypatch)
+    BB.submit(DATE, 1)
+    with pytest.raises(SystemExit, match="no collected answers yet"):
+        BB.submit_missing(DATE, 1)
+    g.results["batches/b1"] = [{"key": "0", "response": _answer("مرحبا", "mar7aba")},
+                               {"key": "2", "error": {"code": 8, "message": "quota", "status": "RESOURCE_EXHAUSTED"}}]      # 5 is absent from the results
+    rec = BB.collect(DATE, 1)
+    assert sorted(rec["lines"]) == ["0"] and rec["complete"] is False and len(bench["paid"]) == 1
+    assert BB.missing(DATE, 1) == ["2", "5"] and BB.outstanding(DATE) == 0.0       # part 1 was collected: nothing is owed for it
+    monkeypatch.setattr(BV, "money_base", lambda date, path, svc="gemini": (61.0, 61.0))       # the cap also guards a part
+    with pytest.raises(SystemExit, match="budget cap"):
+        BB.submit_missing(DATE, 1)
+    assert g.creates == 1
+    monkeypatch.setattr(BV, "money_base", lambda date, path, svc="gemini": (10.0, 61.0))
+    job2 = BB.submit_missing(DATE, 1)
+    P1, P2 = BB.paths(DATE, 1), BB.paths(DATE, 1, 2)
+    assert os.path.basename(P2["jsonl"]) == "run1.p2.jsonl" and g.uploads == ["run1.jsonl", "run1.p2.jsonl"] and job2["job"] == "batches/b2"
+    orig = {json.loads(x)["key"]: x for x in open(P1["jsonl"], encoding="utf-8")}
+    assert open(P2["jsonl"], encoding="utf-8").read() == orig["2"] + orig["5"]     # the same requests, line for line
+    assert job2["requests"] == 2 and job2["est_usd"] == BB.estimate(DATE, 1, 2) == pytest.approx(BB.estimate(DATE, 1) * 2 / 3, abs=1e-4) and BB.outstanding(DATE) == job2["est_usd"]
+    with pytest.raises(SystemExit, match="collect 1 first"):                       # its answers are still out: never a third job for the same lines
+        BB.submit_missing(DATE, 1)
+    assert g.creates == 2
+    g.results["batches/b2"] = [{"key": "2", "response": _answer("تنين", "tnen")}, {"key": "5", "response": _answer("خمسة", "5amse")}]
+    rec = BB.collect(DATE, 1)                                    # part 1 again (nothing new) + part 2
+    assert rec["complete"] is True and sorted(rec["lines"]) == ["0", "2", "5"] and rec["job"] == "batches/b1" and rec["parts"] == {"2": "batches/b2"}
+    assert len(bench["paid"]) == 3                               # one run line per answered line, none twice
+    again = BB.collect(DATE, 1)
+    assert len(bench["paid"]) == 3 and again["cost_usd"] == rec["cost_usd"] and BB.outstanding(DATE) == 0.0
+    with pytest.raises(SystemExit, match="nothing to send again"):
+        BB.submit_missing(DATE, 1)
+    capsys.readouterr()
+    BB.status(DATE)
+    out = capsys.readouterr().out
+    assert "run 1: batches/b1 JOB_STATE_SUCCEEDED" in out and "run 1 part 2: batches/b2 JOB_STATE_SUCCEEDED" in out
