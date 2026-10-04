@@ -17,7 +17,8 @@
   "arabizi_gaps",
   "recordings_complete",
   "tests_py",
-  "tests_node"
+  "tests_node",
+  "rehear_rows"
  ],
  "advisory": [
   "review_freshness",
@@ -129,6 +130,7 @@
     "tests/test_audit_duplicates.py",
     "tests/test_self_fix_timing.py",
     "tests/test_transcript_fixes.py",
+    "tests/test_rehear_apply.py",
     "tests/test_medi_corrections.py",
     "tests/test_rules_check.py",
     "tests/test_farsi.py",
@@ -142,7 +144,16 @@
     "tests/test_import_vocab_archive.py",
     "tests/test_doc_sync.py",
     "tests/test_word_marks.py",
-    "tests/test_session_asks.py", "tests/test_bench_score.py", "tests/test_bench_vars.py", "tests/test_bench_batch.py", "tests/test_batch_jobs.py", "tests/test_rehear_status.py", "tests/test_rehear_rejudge.py", "tests/test_bench_side.py", "tests/test_bench_piles.py", "tests/test_bench_key2.py",
+    "tests/test_session_asks.py",
+    "tests/test_bench_score.py",
+    "tests/test_bench_vars.py",
+    "tests/test_bench_batch.py",
+    "tests/test_batch_jobs.py",
+    "tests/test_rehear_status.py",
+    "tests/test_rehear_rejudge.py",
+    "tests/test_bench_side.py",
+    "tests/test_bench_piles.py",
+    "tests/test_bench_key2.py",
     "tests/test_rule_book.py",
     "tests/test_amal_undo.py",
     "tests/test_tutor_in_panel.py",
@@ -217,6 +228,15 @@
    ],
    "timeout_s": 60,
    "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)"
+  },
+  "rehear_rows": {
+   "cmd": [
+    "{python}",
+    "scripts/rehear_apply.py",
+    "check"
+   ],
+   "timeout_s": 300,
+   "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)"
   }
  },
  "left_out": {

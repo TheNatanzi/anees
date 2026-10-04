@@ -36,23 +36,59 @@ def _hit(r, u):
         import medi_corrections as MC
         src = u.get("engine") or u.get("text") or ""
         return r.get("who") == u.get("who") and r["engine_wrote"] in src and MC._ctx(src, r["engine_wrote"]) == tuple(r.get("ctx") or ())
-    if u.get("span_end") is not None:
-        # a track turn (lesson_turns: words glued on a 1.2 s gap) can hold several page lines: a row made for a page line
-        # belongs to the track turn whose span holds its time and whose engine text holds its words (2026-10-04: with
-        # start-only matching 12 of 121 rows never reached the grammar-use counter, silently)
-        src = u.get("engine") or u.get("text") or ""
-        near = float(u["t"]) - 1.0 <= float(r["t"]) <= float(u["span_end"]) + 1.0
-        return r.get("who") == u.get("who") and near and (r.get("engine_wrote") or r.get("insert_after") or "") in src
     return r.get("who") == u.get("who") and abs(float(r["t"]) - float(u["t"])) <= 1.0
+
+
+def _lands(r, u):
+    """Would moment / rule row r change turn u as the engine wrote it?"""
+    if r.get("heard_line") is not None:
+        return _whole(r, u)
+    if not _hit(r, u):
+        return False
+    if r.get("pattern") or r.get("set_who") or r.get("set_t") is not None:
+        return True
+    if not r["engine_wrote"]:
+        return bool(r.get("heard"))
+    return r["engine_wrote"] in (u.get("text") or "")
+
+
+def _whole(r, u):
+    """A WHOLE-LINE row (TR-22, the Gemini re-hear: {"line": the engine's whole line, "heard_line": the line as re-heard,
+    "spans": [{"engine_wrote", "heard"}]}) names exactly one line: the same speaker, its time (+-1 s) and the engine's
+    text letter for letter. It never lands on a typed chat line or on a line whose text differs by one character."""
+    return (not u.get("chat") and r.get("who") == u.get("who") and abs(float(r["t"]) - float(u["t"])) <= 1.0
+            and r["line"] == (u.get("text") or ""))
+
+
+def whole_owners(whole, turns):
+    """{turn index: row} - each whole-line row belongs to ONE turn: the nearest in time of the turns it names; when two
+    turns it names start within 11 ms of the same distance (two identical lines at one moment) it belongs to none, and a
+    turn takes one row only."""
+    own = {}
+    for r in whole:
+        c = sorted((abs(float(r["t"]) - float(u["t"])), k) for k, u in enumerate(turns) if _whole(r, u))
+        if c and (len(c) == 1 or c[1][0] - c[0][0] > 0.011) and c[0][1] not in own:
+            own[c[0][1]] = r
+    return own
 
 
 def apply(date, turns, rows=None, sort=True):
     """turns: [{t, who, text, ...}] -> new list; a fixed turn gets text = heard version, engine = the engine's text,
     heard = [{engine_wrote, heard, rule}]. A row that matches no turn is reported in unmatched()."""
     rows = [r for r in (load() if rows is None else rows) if r.get("date") == date or r.get("pattern")]
+    whole = [r for r in rows if r.get("heard_line") is not None]
+    rows = [r for r in rows if r.get("heard_line") is None]
     out = []
-    for u in turns:
+    own = whole_owners(whole, turns) if whole else {}
+    for k, u in enumerate(turns):
         u = dict(u)
+        # A whole-line row goes in first, and ONLY on a line no correction of anyone lands on (Medi 2026-10-04: his own
+        # corrections stay; a line he corrects later keeps his correction and loses the second listen's text).
+        g = own.get(k)
+        if g is not None and not any(_lands(r, u) for r in rows):
+            u["engine"] = u["text"]
+            u["text"] = g["heard_line"]
+            u.setdefault("heard", []).extend({"engine_wrote": x["engine_wrote"], "heard": x["heard"], "rule": g.get("rule"), "by": g.get("by")} for x in g.get("spans") or [])
         for r in rows:
             if not _hit(r, u):
                 continue
@@ -112,7 +148,10 @@ def kaman_marra(turns):
 
 def unmatched(date, turns, rows=None):
     rows = [r for r in (load() if rows is None else rows) if r.get("date") == date]
-    return [r for r in rows if not any((u.get("engine_who") or u.get("who")) in (r.get("who"), r.get("set_who"))
+    lost = [r for r in rows if r.get("heard_line") is not None
+            and not any(_whole(r, dict(u, text=u.get("engine") or u.get("text"), who=u.get("engine_who") or u.get("who"), t=u.get("engine_t", u["t"]))) for u in turns)]
+    rows = [r for r in rows if r.get("heard_line") is None]
+    return lost + [r for r in rows if not any((u.get("engine_who") or u.get("who")) in (r.get("who"), r.get("set_who"))
                                        and abs(float(r["t"]) - float(u.get("engine_t", u["t"]))) <= 1.0
                                        and r["engine_wrote"] in (u.get("engine") or u.get("text") or "") for u in turns)]
 
@@ -120,10 +159,14 @@ def unmatched(date, turns, rows=None):
 def apply_tracks(date, T, rows=None):
     """The same overlay on scripts/lesson_turns.py turns ({speaker, start, end, text}): the grammar use counter and
     the console read the heard text too (TR-18: every builder reads what was said)."""
-    conv = [{"t": u["start"], "who": u.get("speaker"), "text": u.get("text"), "span_end": u.get("end")} for u in T]
-    out = apply(date, conv, rows, sort=False)
-    res = []
-    for u, v in zip(T, out):
+    conv = [{"t": u["start"], "who": u.get("speaker"), "text": u.get("text")} for u in T]
+    every = [r for r in (load() if rows is None else rows) if r.get("date") == date or r.get("pattern")]
+    out = apply(date, conv, [r for r in every if r.get("heard_line") is None], sort=False)     # whole-line rows: below, one owner each
+    res, touched, span0 = [], set(), {}
+    for k, (u, v) in enumerate(zip(T, out)):
+        span0[k] = (float(u["start"]), float(u.get("end") or u["start"]))      # the turn's own span, before any time fix
+        if v.get("heard") or v.get("engine") or v.get("engine_who") or v.get("engine_t") is not None:
+            touched.add(k)                                         # a correction of anyone (text, speaker or time) is on this turn
         if v.get("engine"):
             u = dict(u, text=v["text"], engine=v["engine"], heard=v["heard"])
         if v.get("engine_who") and v["who"] != u.get("speaker"):
@@ -132,4 +175,30 @@ def apply_tracks(date, T, rows=None):
             d = float(v["t"]) - float(u["start"])
             u = dict(u, start=float(v["t"]), end=(float(u["end"]) + d) if u.get("end") is not None else None, engine_start=u["start"])
         res.append(u)
+    # Whole-line rows (the second listen) on track turns. A track turn glues several page lines, so the row's line is
+    # looked for as WHOLE WORDS in the ENGINE text of his turns whose span holds the row's time (0.3 s of slack). Every
+    # owner is decided on the engine's text before anything is replaced (a row never lands on words another row wrote);
+    # a row is applied only when exactly one turn holds its line exactly once and no correction of anyone is on that turn.
+    todo = {}
+    for r in [x for x in every if x.get("heard_line") is not None]:
+        pat = _re.compile(r"(?<!\S)" + _re.escape(r["line"]) + r"(?!\S)")
+        own = []
+        for k, v in enumerate(res):
+            a0, b0 = span0[k]
+            if k not in touched and T[k].get("speaker") == r.get("who") and a0 - 0.3 <= float(r["t"]) <= max(b0, a0) + 0.3:
+                m = list(pat.finditer(v.get("text") or ""))
+                if len(m) == 1:
+                    own.append((k, m[0].start(), m[0].end()))
+        if len(own) == 1:
+            todo.setdefault(own[0][0], []).append((own[0][1], own[0][2], r))
+    for k, hits in todo.items():
+        hits.sort(key=lambda h: h[0])
+        if any(b0[1] > a1[0] for b0, a1 in zip(hits, hits[1:])):     # two rows claim overlapping words of one turn: none
+            continue
+        v, text, heard = res[k], res[k]["text"], []
+        for a0, b0, r in reversed(hits):
+            text = text[:a0] + r["heard_line"] + text[b0:]
+        for a0, b0, r in hits:
+            heard += [{"engine_wrote": x["engine_wrote"], "heard": x["heard"], "rule": r.get("rule"), "by": r.get("by")} for x in r.get("spans") or []]
+        res[k] = dict(v, engine=v["text"], text=text, heard=heard, rehear=True)
     return res

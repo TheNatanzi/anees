@@ -164,7 +164,12 @@ def pump(ds, every=90):
             try:
                 st[d] = pump_one(d)
             except SystemExit as e:                               # one lesson's refusal (allowance, credit) never hides the others
-                st[d] = "STOPPED: %s" % str(e)[:200]
+                msg = str(e)
+                # Google answering 5xx / a dropped connection on a status or download call is not a refusal: try again next round
+                soft = any(k in msg for k in ("batch status", "results download", "file upload")) and not any(k in msg for k in ("402", "429", "allowance"))
+                st[d] = ("retry: " if soft else "STOPPED: ") + msg[:200]
+            except Exception as e:  # noqa: BLE001 - a connection error on this PC: try again next round
+                st[d] = "retry: %s: %s" % (type(e).__name__, str(e)[:160])
         left = [d for d, s in st.items() if s != "proposed"]
         print(time.strftime("%H:%M:%S"), "proposed %d of %d; waiting: %s" % (len(ds) - len(left), len(ds), ", ".join("%s (%s)" % (d[5:], st[d][:30]) for d in left) or "none"), flush=True)
         if not left:
