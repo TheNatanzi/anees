@@ -46,8 +46,9 @@ SERVICE = {"eleven": "elevenlabs", "openai-stt": "openai", "openai-4o": "openai"
 LISTENERS = {"gemini-flash": "gemini-3.8-flash", "gemini-pro": "gemini-3.1-pro-preview", "openai-audio": "gpt-audio-1.5"}
 def root(engine):
     """The engine without its arm / temperature / variable suffix: gemini-flash-before-t1 -> gemini-flash,
-    gemini-flash-v4h-t1 -> gemini-flash, openai-audio-best -> openai-audio (scripts/bench_vars.py)."""
-    return re.sub(r"(-before|-t0|-t1|-v\d+h?|-best)+$", "", engine)
+    gemini-flash-v4h-t1 -> gemini-flash, openai-audio-best -> openai-audio (scripts/bench_vars.py),
+    gemini-flash-batch-t1 -> gemini-flash (scripts/bench_batch.py: the same call through Google's Batch mode)."""
+    return re.sub(r"(-before|-t0|-t1|-v\d+h?|-best|-batch)+$", "", engine)
 
 
 # Medi 2026-10-03, on the temperature test: "I want to do this right and now how much the temp affects it. 20$ is fine"
@@ -261,8 +262,9 @@ def _json(txt):
         return None
 
 
-def gemini(model, path, prompt, as_json=True, temp=None, cfg_extra=None, more_audio=()):
-    import requests
+def gemini_body(model, path, prompt, as_json=True, temp=None, cfg_extra=None, more_audio=()):
+    """The generateContent request body of one call. The instant call (gemini) and the Batch transport
+    (scripts/bench_batch.py) both send exactly this."""
     audio = base64.b64encode(open(path, "rb").read()).decode()
     cfg = {"temperature": 0}
     if "pro" in model:
@@ -279,18 +281,17 @@ def gemini(model, path, prompt, as_json=True, temp=None, cfg_extra=None, more_au
     parts = [{"inline_data": {"mime_type": "audio/wav", "data": audio}}]
     parts += [{"inline_data": {"mime_type": "audio/wav", "data": base64.b64encode(open(x, "rb").read()).decode()}} for x in more_audio]
     parts += [{"text": prompt}] if prompt else []
-    body = {"contents": [{"parts": parts}], "generationConfig": cfg}
-    r = requests.post("https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent" % model, params={"key": key("GEMINI_API_KEY")}, json=body, timeout=420)
-    if r.status_code != 200:
-        if r.status_code == 429:
-            time.sleep(15)
-        return {"retry": "per_day" not in r.text, "text": "", "error": "%d %s" % (r.status_code, r.text[:400].replace(key("GEMINI_API_KEY"), "***"))}
-    j = r.json()
+    return {"contents": [{"parts": parts}], "generationConfig": cfg}
+
+
+def gemini_parse(model, j, as_json=True, price_factor=1.0):
+    """One GenerateContentResponse -> the run-file row (text, alt, raw, tokens [in, audio, out], usd).
+    price_factor: 0.5 for Google's Batch mode (half the instant price)."""
     u = j.get("usageMetadata") or {}
     aud = sum(d.get("tokenCount", 0) for d in u.get("promptTokensDetails") or [] if d.get("modality") == "AUDIO")
     tin, tout = u.get("promptTokenCount", 0), u.get("candidatesTokenCount", 0) + u.get("thoughtsTokenCount", 0)
     p = PRICE[model]
-    usd = ((tin - aud) * p[0] + aud * p[1] + tout * p[2]) / 1e6
+    usd = ((tin - aud) * p[0] + aud * p[1] + tout * p[2]) / 1e6 * price_factor
     try:
         part = j["candidates"][0]["content"]["parts"][0]
         txt = part["text"] if "text" in part else part["audioTranscription"]["text"]     # gemini-3.5-transcribe answers in audioTranscription
@@ -302,6 +303,17 @@ def gemini(model, path, prompt, as_json=True, temp=None, cfg_extra=None, more_au
     if d is None:
         return {"text": "", "error": "bad json", "raw": txt[:300], "usd": usd, "tokens": [tin, aud, tout]}
     return {"text": d.get("arabic") or "", "alt": d.get("arabizi") or "", "raw": d, "usd": usd, "tokens": [tin, aud, tout]}
+
+
+def gemini(model, path, prompt, as_json=True, temp=None, cfg_extra=None, more_audio=()):
+    import requests
+    body = gemini_body(model, path, prompt, as_json, temp, cfg_extra, more_audio)
+    r = requests.post("https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent" % model, params={"key": key("GEMINI_API_KEY")}, json=body, timeout=420)
+    if r.status_code != 200:
+        if r.status_code == 429:
+            time.sleep(15)
+        return {"retry": "per_day" not in r.text, "text": "", "error": "%d %s" % (r.status_code, r.text[:400].replace(key("GEMINI_API_KEY"), "***"))}
+    return gemini_parse(model, r.json(), as_json)
 
 
 def openai_audio(model, path, prompt):

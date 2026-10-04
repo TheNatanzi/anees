@@ -67,6 +67,7 @@ def test_variable_engines_are_billed_to_gemini():
     for e in ("gemini-flash-v1-t1", "gemini-flash-v4h-t1", "gemini-flash-v10-t1", "gemini-flash-v13-t1", "gemini-flash-best-t1"):
         assert BR.SERVICE.get(BR.root(e)) == "gemini", e
     assert BR.root("openai-audio-best") == "openai-audio"
+    assert BR.root("gemini-flash-batch-t1") == "gemini-flash" and BR.SERVICE.get(BR.root("gemini-flash-batch-t1")) == "gemini"
     assert BR.root("gemini-flash-before-t1") == "gemini-flash"
 
 

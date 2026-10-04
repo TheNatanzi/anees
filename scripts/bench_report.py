@@ -16,7 +16,8 @@ NAMES = {"eleven-raw": "ElevenLabs Scribe v2 (today's transcript)", "eleven": "E
          "audar-open": "Audar ASR V1 Turbo (local, auto)", "audar-open-ar": "Audar ASR V1 Turbo (local, forced ar)", "gemini-transcribe": "Gemini 3.5 Transcribe",
          "gemini-flash": "Gemini 3.8 Flash + context", "gemini-flash-before": "Gemini 3.8 Flash, context before only",
          "gemini-pro": "Gemini 3.1 Pro + context", "gemini-pro-before": "Gemini 3.1 Pro, context before only",
-         "gemini-flash-t1": "Gemini 3.8 Flash + context, temperature 1", "gemini-pro-t0": "Gemini 3.1 Pro + context, temperature 0",
+         "gemini-flash-t1": "Gemini 3.8 Flash + context, temperature 1", "gemini-flash-batch-t1": "Gemini 3.8 Flash + context, temperature 1, Batch mode (half price)",
+         "gemini-pro-t0": "Gemini 3.1 Pro + context, temperature 0",
          "openai-audio": "OpenAI gpt-audio-1.5 + context", "openai-audio-before": "OpenAI gpt-audio-1.5, context before only",
          # the variables test of 2026-10-04 (scripts/bench_vars.py): Flash + context, temperature 1, one idea changed
          "gemini-flash-v1-t1": "Flash V1 evidence (heard / inferred)", "gemini-flash-v1h-t1": "Flash V1, only 'heard' changes kept",
@@ -38,7 +39,7 @@ def rows(date):
         e, mode = k.split("|")
         real = [p for p in s["per_moment"] if p["class"] not in SCRIPT_ONLY]
         lat = [p for p in s["per_moment"] if p["class"] in SCRIPT_ONLY]
-        out.append({"key": k, "engine": e, "mode": mode, "name": NAMES.get(e, e), "listener": re.sub(r"(-before|-t0|-t1|-v\d+h?|-best)+$", "", e) in LISTEN, "s": s, "b": B.get(k),
+        out.append({"key": k, "engine": e, "mode": mode, "name": NAMES.get(e, e), "listener": re.sub(r"(-before|-t0|-t1|-v\d+h?|-best|-batch)+$", "", e) in LISTEN, "s": s, "b": B.get(k),
                     "real": (sum(p["final"] == "hit" for p in real), len(real)), "latin": (sum(p["final"] == "hit" for p in lat), len(lat))})
     out.sort(key=lambda r: (r["listener"], -r["s"]["hit"], r["s"]["false_changes"]))
     return out, B.get("truth")
