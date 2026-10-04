@@ -41,6 +41,16 @@ PRICE = {
 SERVICE = {"eleven": "elevenlabs", "openai-stt": "openai", "openai-4o": "openai", "openai-audio": "openai",
            "gemini-flash": "gemini", "gemini-pro": "gemini", "gemini-transcribe": "gemini"}
 LISTENERS = {"gemini-flash": "gemini-3.8-flash", "gemini-pro": "gemini-3.1-pro-preview", "openai-audio": "gpt-audio-1.5"}
+def root(engine):
+    """The engine without its arm / temperature suffix: gemini-flash-before-t1 -> gemini-flash."""
+    return re.sub(r"(-before|-t0|-t1)+$", "", engine)
+
+
+# Medi 2026-10-03, on the temperature test: "I want to do this right and now how much the temp affects it. 20$ is fine"
+# - an allowance for THIS benchmark only, on top of the room left under the pipeline's cap (pipeline_ext.CAPS untouched).
+BENCH_EXTRA = {"gemini": 20.0}
+
+
 def key(name):
     k = os.environ.get(name)
     if not k:
@@ -63,7 +73,7 @@ def spent(date, service=None):
     nothing is shared between the parallel jobs). service: only engines billed to that budget service."""
     d, out = BC.bench_dir(date), {}
     for e in sorted(os.listdir(d)):
-        if not os.path.isdir(os.path.join(d, e)) or (service and SERVICE.get(e.replace("-before", "")) != service):
+        if not os.path.isdir(os.path.join(d, e)) or (service and SERVICE.get(root(e)) != service):
             continue
         for f in sorted(os.listdir(os.path.join(d, e))):
             m = re.match(r"(line|whole)-run(\d)\.json$", f)
@@ -80,7 +90,7 @@ def spent(date, service=None):
 
 def cap_ok(date, engine, usd, _cache={}):
     """PR-10: stop before a service passes 90 % of its cap (budget.json so far + this benchmark's spend on the service)."""
-    svc = SERVICE.get(engine.replace("-before", ""))
+    svc = SERVICE.get(root(engine))
     if not svc:
         return True
     import pipeline_ext as PE
@@ -90,7 +100,7 @@ def cap_ok(date, engine, usd, _cache={}):
     mine_since = _mine["usd"] - _cache["base"]
     own = sum(v["usd"] for k, v in spent(date, svc).items() if k.split("|")[0] == engine) if "own" not in _cache else _cache["own"]
     _cache.setdefault("own", own)
-    return PE.ledger().get(svc, 0.0) + _cache["others"] + _cache["own"] + _mine["usd"] + usd <= PE.CAPS[svc] * PE.STOP_AT
+    return PE.ledger().get(svc, 0.0) + _cache["others"] + _cache["own"] + _mine["usd"] + usd <= PE.CAPS[svc] * PE.STOP_AT + BENCH_EXTRA.get(svc, 0.0)
 
 
 def paid(date, engine, mode, run, model, usd, seconds=None, provider=None):
@@ -109,9 +119,17 @@ def paid(date, engine, mode, run, model, usd, seconds=None, provider=None):
 TRANSPORT = ("SSLError", "ConnectionError", "ConnectTimeout", "ReadTimeout", "Timeout", "ChunkedEncodingError", "ProxyError")
 
 
+NO_MONEY = ("no credits remaining", "exceeded your current quota", "insufficient_quota", "credit balance")   # the account, not the engine
+
+
+def out_of_money(err):
+    return bool(err) and any(q in str(err) for q in NO_MONEY)
+
+
 def transport(err):
-    """The request never reached the engine (this PC's connection dropped): not the engine's failure."""
-    return bool(err) and str(err).startswith(TRANSPORT)
+    """The engine never got to answer (this PC's connection dropped, or the account ran out of credit): not the
+    engine's failure - the line is re-sent on the next run of the job."""
+    return bool(err) and (str(err).startswith(TRANSPORT) or any(q in str(err) for q in NO_MONEY))
 
 
 def tried(fn):
@@ -238,10 +256,17 @@ def _json(txt):
         return None
 
 
-def gemini(model, path, prompt, as_json=True):
+def gemini(model, path, prompt, as_json=True, temp=None):
     import requests
     audio = base64.b64encode(open(path, "rb").read()).decode()
     cfg = {"temperature": 0}
+    if "pro" in model:
+        # 2026-10-03: at temperature 0 gemini-3.1-pro-preview looped in its thinking (63,000 output tokens on 14 of 44
+        # calls, $0.76 each; $17.93 for 67 calls before it was stopped). Google's guidance for Gemini 3 is the default
+        # temperature; thinking is set low and the answer is capped so one call can never cost more than ~$0.05.
+        cfg = {"thinkingConfig": {"thinkingLevel": "low"}, "maxOutputTokens": 4096}
+    if temp is not None:                              # the temperature test (engines ending -t0 / -t1)
+        cfg["temperature"] = temp
     if as_json:
         cfg["responseMimeType"] = "application/json"
     parts = [{"inline_data": {"mime_type": "audio/wav", "data": audio}}] + ([{"text": prompt}] if prompt else [])
@@ -250,7 +275,7 @@ def gemini(model, path, prompt, as_json=True):
     if r.status_code != 200:
         if r.status_code == 429:
             time.sleep(15)
-        return {"retry": True, "error": "%d %s" % (r.status_code, r.text[:120].replace(key("GEMINI_API_KEY"), "***"))}
+        return {"retry": "per_day" not in r.text, "text": "", "error": "%d %s" % (r.status_code, r.text[:400].replace(key("GEMINI_API_KEY"), "***"))}
     j = r.json()
     u = j.get("usageMetadata") or {}
     aud = sum(d.get("tokenCount", 0) for d in u.get("promptTokensDetails") or [] if d.get("modality") == "AUDIO")
@@ -305,8 +330,9 @@ def run_engine(date, engine, runs=3, mode="line", limit=None):
     d = BC.bench_dir(date)
     truth = BC.J(os.path.join(d, "truth.json"))
     prompts = BC.J(os.path.join(d, "prompts.json"))["arms"]
-    base = engine.replace("-before", "")
-    arm = "before" if engine.endswith("-before") else "ctx"
+    base = root(engine)
+    arm = "before" if "-before" in engine else "ctx"
+    temp = 0 if engine.endswith("-t0") else 1 if engine.endswith("-t1") else None
     gem_lock = None
     if SERVICE.get(base) == "gemini":
         gem_lock = os.path.join(d, ".gemini.lock")                 # never two Gemini jobs at once
@@ -342,12 +368,17 @@ def run_engine(date, engine, runs=3, mode="line", limit=None):
                     items = [(str(ln["i"]), os.path.join(d, ln["clip"]), None) for ln in truth["lines"]] + \
                             [("A%d" % ln["i"], os.path.join(d, ln["clip"]), None) for ln in truth["amal_lines"]]
                 elif base == "gemini-transcribe":
-                    model, threads = "gemini-3.5-transcribe", 4
+                    model, threads = "gemini-3.5-transcribe", 8
                     items = [(str(ln["i"]), os.path.join(d, ln["clip"]), None) for ln in truth["lines"]] + \
                             [("A%d" % ln["i"], os.path.join(d, ln["clip"]), None) for ln in truth["amal_lines"]]
                 else:
-                    model, threads = LISTENERS[base], (4 if base.startswith("gemini") else 6)
+                    model, threads = LISTENERS[base], (8 if base.startswith("gemini") else 6)
                     items = [(str(ln["i"]), os.path.join(d, ln["clip"]), prompts[arm][str(ln["i"])]) for ln in truth["lines"] if ln["listen"]]
+                    if base == "gemini-pro":
+                        # the Gemini budget cap (PR-10) leaves room for his Arabic lines only: every line with Arabic in
+                        # it and every answer-key / slip line (the short English-only lines are not sent)
+                        keep = {m["i"] for m in truth["moments"]} | {x["i"] for x in truth["slips"]} | {ln["i"] for ln in truth["lines"] if ln["has_arabic"]}
+                        items = [it for it in items if int(it[0]) in keep]
                 rec["model"] = model
                 todo = [it for it in items if it[0] not in rec["lines"] or transport(rec["lines"][it[0]].get("error"))]   # unreached lines are re-sent
                 if limit:
@@ -370,11 +401,13 @@ def run_engine(date, engine, runs=3, mode="line", limit=None):
                         out = tried(lambda: openai_audio(model, path, prompt))
                         usd = out.pop("usd", 0.0)
                     else:
-                        out = tried(lambda: gemini(model, path, prompt, as_json=(base != "gemini-transcribe")))
+                        out = tried(lambda: gemini(model, path, prompt, as_json=(base != "gemini-transcribe"), temp=temp))
                         usd = out.pop("usd", 0.0)
                     if usd or base == "cohere-api":
                         paid(date, engine, mode, n, model, usd, secs, provider={"gemini": "google", "openai": "openai"}.get(SERVICE.get(base)))
                     out["usd"] = round(usd, 6)
+                    if out_of_money(out.get("error")) and ("no credits" in str(out.get("error")) or "per_day" in str(out.get("error"))):
+                        stop.append(2)                       # the account is empty: stop the job, do not burn the other lines
                     return i, out
 
                 done = 0
@@ -395,7 +428,7 @@ def run_engine(date, engine, runs=3, mode="line", limit=None):
                     BC.W(p, rec)
                 if stop:
                     BC.W(p, rec)
-                    raise SystemExit("budget cap (PR-10) reached for %s: stopped at %d lines" % (engine, len(rec["lines"])))
+                    raise SystemExit(("the provider account has no credit left" if 2 in stop else "budget cap (PR-10) reached") + " for %s: stopped at %d lines" % (engine, len(rec["lines"])))
                 rec["complete"] = len(rec["lines"]) >= len(items) and not any(transport(v.get("error")) for v in rec["lines"].values())
             rec["seconds"] += time.time() - t0
             if mode == "whole":

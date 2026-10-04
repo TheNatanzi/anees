@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-03",
- "total": 173,
+ "total": 174,
  "replaced": 8,
  "counts": {
-  "Automatic": 93,
+  "Automatic": 94,
   "Written down": 68,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -2701,7 +2701,7 @@
    "key": "process",
    "title": "How Claude and Codex must work",
    "intro": "Rules for the AI helpers that build Anees.",
-   "count": 18,
+   "count": 19,
    "sections": [
     {
      "kind": "data",
@@ -2903,6 +2903,20 @@
        "topic": "testing engines",
        "badge": "Written down",
        "claude": "2026-09-05"
+      },
+      {
+       "id": "PR-18",
+       "text": "A new speech engine is judged on your own corrections of a whole lesson, locked before any engine runs. Every engine hears the same clips of your microphone three times, and a fix counts only if two of three runs get it. An engine that writes Amal's right word where you made a mistake is marked as hiding your mistake.",
+       "status": "enforced",
+       "topic": "testing engines",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-03",
+         "quote": "I want to retest with ALL the different ais ... do the best benchmark as possible ... Lets track both a and b separately"
+        }
+       ]
       },
       {
        "id": "PR-15",

@@ -34,6 +34,13 @@ def W(p, obj):
     tmp = p + ".tmp"
     with open(tmp, "w", encoding="utf-8", newline="\n") as f:
         json.dump(obj, f, ensure_ascii=False, indent=1)
+    for n in range(40):                           # Windows: a reader may hold the file for a moment
+        try:
+            os.replace(tmp, p)
+            return
+        except PermissionError:
+            import time
+            time.sleep(0.25)
     os.replace(tmp, p)
 
 

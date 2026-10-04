@@ -1,0 +1,3643 @@
+{
+ "engine": "gemini-pro",
+ "mode": "line",
+ "run": 1,
+ "lines": {
+  "0": {
+   "text": "مرحبا.",
+   "alt": "mar7aba.",
+   "raw": {
+    "arabic": "مرحبا.",
+    "arabizi": "mar7aba.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed the common Arabic greeting."
+   },
+   "tokens": [
+    747,
+    47,
+    186
+   ],
+   "usd": 0.003726
+  },
+  "13": {
+   "text": "Ah, ah, ah, ah, ah, ah, right. أنا بشوفه.",
+   "alt": "Ah, ah, ah, ah, ah, ah, right. ana bshuufo.",
+   "raw": {
+    "arabic": "Ah, ah, ah, ah, ah, ah, right. أنا بشوفه.",
+    "arabizi": "Ah, ah, ah, ah, ah, ah, right. ana bshuufo.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Oh, oh, oh, oh, oh, oh,",
+      "said": "Ah, ah, ah, ah, ah, ah,"
+     },
+     {
+      "engine": "بش.",
+      "said": "بشوفه."
+     }
+    ],
+    "confidence": "high",
+    "why": "The audio clearly shows Medi saying 'Ah' instead of 'Oh', and completing the word 'bshuufo' (بشوفه) meaning 'I see it'."
+   },
+   "tokens": [
+    979,
+    134,
+    558
+   ],
+   "usd": 0.008654
+  },
+  "26": {
+   "text": "أنا بشربه like this, this is normal.",
+   "alt": "ana bashrabu like this, this is normal.",
+   "raw": {
+    "arabic": "أنا بشربه like this, this is normal.",
+    "arabizi": "ana bashrabu like this, this is normal.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "بش ربى",
+      "said": "بشربه"
+     }
+    ],
+    "confidence": "high",
+    "why": "The engine split 'bashrabu' (I drink it) into 'bash raba'."
+   },
+   "tokens": [
+    999,
+    106,
+    521
+   ],
+   "usd": 0.00825
+  },
+  "53": {
+   "text": "Uh, okay, so it takes every verb on your word list, a hundred forty-four, uses only the I form for أنا برسم. Claude guesses which ending...",
+   "alt": "Uh, okay, so it takes every verb on your word list, a hundred forty-four, uses only the I form for ana barsom. Claude guesses which ending...",
+   "raw": {
+    "arabic": "Uh, okay, so it takes every verb on your word list, a hundred forty-four, uses only the I form for أنا برسم. Claude guesses which ending...",
+    "arabizi": "Uh, okay, so it takes every verb on your word list, a hundred forty-four, uses only the I form for ana barsom. Claude guesses which ending...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "um, okay, so it takes every verb on your word list, a hundred and forty-four. Uses only the I form for أنا برسم. Claude guesses which ending",
+      "said": "Uh, okay, so it takes every verb on your word list, a hundred forty-four, uses only the I form for أنا برسم. Claude guesses which ending..."
+     }
+    ],
+    "confidence": "high",
+    "why": "Minor corrections to exactly match the spoken English, removing the 'and' in 'a hundred forty-four'."
+   },
+   "tokens": [
+    1166,
+    287,
+    1177
+   ],
+   "usd": 0.016456
+  },
+  "54": {
+   "text": "and small words مع، لـ، على each verb takes. each one gets a fixed pronoun معها، لها، إلها which makes four hundred and ten",
+   "alt": "and small words ma3, la, 3ala each verb takes. each one gets a fixed pronoun ma3ha, laha, ilha which makes four hundred and ten",
+   "raw": {
+    "arabic": "and small words مع، لـ، على each verb takes. each one gets a fixed pronoun معها، لها، إلها which makes four hundred and ten",
+    "arabizi": "and small words ma3, la, 3ala each verb takes. each one gets a fixed pronoun ma3ha, laha, ilha which makes four hundred and ten",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "in small words ما، لا، إلا",
+      "said": "and small words مع، لـ، على"
+     },
+     {
+      "engine": "noun ما، لا، إ",
+      "said": "pronoun معها، لها، إلها"
+     }
+    ],
+    "confidence": "high",
+    "why": "The engine misheard the Arabic prepositions and their pronoun-attached forms, as well as 'pronoun' as 'noun'."
+   },
+   "tokens": [
+    1127,
+    261,
+    863
+   ],
+   "usd": 0.01261
+  },
+  "56": {
+   "text": "on whether anyone actually says them. That's why you get أنا بسوق إلها, أنا I drive for her. It's grammatically",
+   "alt": "on whether anyone actually says them. That's why you get ana basuuq ilha, ana I drive for her. It's grammatically",
+   "raw": {
+    "arabic": "on whether anyone actually says them. That's why you get أنا بسوق إلها, أنا I drive for her. It's grammatically",
+    "arabizi": "on whether anyone actually says them. That's why you get ana basuuq ilha, ana I drive for her. It's grammatically",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أنا برسم لها",
+      "said": "أنا بسوق إلها"
+     }
+    ],
+    "confidence": "high",
+    "why": "He translates the Arabic as 'I drive for her', which corresponds to 'أنا بسوق إلها', not 'أنا برسم لها' (I draw for her)."
+   },
+   "tokens": [
+    1082,
+    241,
+    837
+   ],
+   "usd": 0.012208
+  },
+  "65": {
+   "text": "Yeah, so it's, it's in its mind it's only asking if it's possible. So like, أنا بعتلها...",
+   "alt": "Yeah, so it's, it's in its mind it's only asking if it's possible. So like, ana ba3attilha...",
+   "raw": {
+    "arabic": "Yeah, so it's, it's in its mind it's only asking if it's possible. So like, أنا بعتلها...",
+    "arabizi": "Yeah, so it's, it's in its mind it's only asking if it's possible. So like, ana ba3attilha...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أنا برسم لها",
+      "said": "أنا بعتلها"
+     }
+    ],
+    "confidence": "high",
+    "why": "The speaker clearly says 'ba3attilha' (I sent her) instead of 'barsum laha'."
+   },
+   "tokens": [
+    1069,
+    197,
+    550
+   ],
+   "usd": 0.008738
+  },
+  "75": {
+   "text": "Um, أنا تمام. أنا",
+   "alt": "Um, ana tamam. ana",
+   "raw": {
+    "arabic": "Um, أنا تمام. أنا",
+    "arabizi": "Um, ana tamam. ana",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Um, [clears throat] أنا تمام. أنا،",
+      "said": "Um, أنا تمام. أنا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Removed non-speech events and punctuation to match standard transcription."
+   },
+   "tokens": [
+    879,
+    88,
+    509
+   ],
+   "usd": 0.007866
+  },
+  "76": {
+   "text": "أنا نايم",
+   "alt": "ana naayem",
+   "raw": {
+    "arabic": "أنا نايم",
+    "arabizi": "ana naayem",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أنا",
+      "said": "أنا نايم"
+     }
+    ],
+    "confidence": "high",
+    "why": "He says 'ana naayem' (I am sleeping/tired), and the engine missed the second word."
+   },
+   "tokens": [
+    843,
+    50,
+    733
+   ],
+   "usd": 0.010482
+  },
+  "77": {
+   "text": "والله.",
+   "alt": "wallah.",
+   "raw": {
+    "arabic": "والله.",
+    "arabizi": "wallah.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed 'والله', which Medi uses as a filler here."
+   },
+   "tokens": [
+    809,
+    39,
+    369
+   ],
+   "usd": 0.006046
+  },
+  "78": {
+   "text": "نمت",
+   "alt": "nimt",
+   "raw": {
+    "arabic": "نمت",
+    "arabizi": "nimt",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "ينقل",
+      "said": "نمت"
+     }
+    ],
+    "confidence": "low",
+    "why": "Guessing 'nimt' (I slept) as it relates to waking up late and might be misrecognized by the engine."
+   },
+   "tokens": [
+    836,
+    40,
+    998
+   ],
+   "usd": 0.013648
+  },
+  "79": {
+   "text": "أنا صحيت",
+   "alt": "ana s7eet",
+   "raw": {
+    "arabic": "أنا صحيت",
+    "arabizi": "ana s7eet",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "سمعت",
+      "said": "صحيت"
+     }
+    ],
+    "confidence": "high",
+    "why": "Amal's chat and Medi's following lines confirm he was trying to say 'صحيت' (I woke up), which sounds similar to the engine's 'سمعت'."
+   },
+   "tokens": [
+    864,
+    54,
+    499
+   ],
+   "usd": 0.007716
+  },
+  "80": {
+   "text": "متأخر اليوم. صحيت. That's right.",
+   "alt": "mit2a55er elyom. s7eet. That's right.",
+   "raw": {
+    "arabic": "متأخر اليوم. صحيت. That's right.",
+    "arabizi": "mit2a55er elyom. s7eet. That's right.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the Arabic and English perfectly."
+   },
+   "tokens": [
+    973,
+    151,
+    359
+   ],
+   "usd": 0.006254
+  },
+  "84": {
+   "text": "أأأ أنا صحيت تأخير كتير.",
+   "alt": "a a ana s7eet ta2xeer kteer.",
+   "raw": {
+    "arabic": "أأأ أنا صحيت تأخير كتير.",
+    "arabizi": "a a ana s7eet ta2xeer kteer.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "تأخر.",
+      "said": "تأخير كتير."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'ta2xeer kteer' (making a learner mistake), which the engine misheard as 'ta2axur' and missed 'kteer'."
+   },
+   "tokens": [
+    981,
+    117,
+    984
+   ],
+   "usd": 0.01377
+  },
+  "86": {
+   "text": "أأأ",
+   "alt": "aaa",
+   "raw": {
+    "arabic": "أأأ",
+    "arabizi": "aaa",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "It is just a hesitation sound."
+   },
+   "tokens": [
+    930,
+    34,
+    560
+   ],
+   "usd": 0.00858
+  },
+  "91": {
+   "text": "على",
+   "alt": "3ala",
+   "raw": {
+    "arabic": "على",
+    "arabizi": "3ala",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "على،",
+      "said": "على"
+     }
+    ],
+    "confidence": "high",
+    "why": "Removed comma; the word 'على' matches the beginning of his answer."
+   },
+   "tokens": [
+    946,
+    37,
+    494
+   ],
+   "usd": 0.00782
+  },
+  "92": {
+   "text": "آآآ على العشرة.",
+   "alt": "aaa 3ala el-3ashara.",
+   "raw": {
+    "arabic": "آآآ على العشرة.",
+    "arabizi": "aaa 3ala el-3ashara.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "العشاء",
+      "said": "العشرة"
+     }
+    ],
+    "confidence": "high",
+    "why": "The teacher asked 'what time?' (أي ساعة؟) and Medi answered 'at ten' (على العشرة). The teacher's chat confirmed he was trying to say '3ala el-3ashara'."
+   },
+   "tokens": [
+    1005,
+    69,
+    136
+   ],
+   "usd": 0.003642
+  },
+  "95": {
+   "text": "على الـ عشرة.",
+   "alt": "3ala el- 3ashara.",
+   "raw": {
+    "arabic": "على الـ عشرة.",
+    "arabizi": "3ala el- 3ashara.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "إلى العشاء",
+      "said": "الـ عشرة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is answering the question 'what time?' and says 'at 10'. The engine misheard 'العشرة' as 'العشاء' and added 'إلى'."
+   },
+   "tokens": [
+    998,
+    62,
+    578
+   ],
+   "usd": 0.008932
+  },
+  "96": {
+   "text": "اممم",
+   "alt": "ummm",
+   "raw": {
+    "arabic": "اممم",
+    "arabizi": "ummm",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "It's just a filler word, the engine transcription is essentially correct."
+   },
+   "tokens": [
+    1010,
+    58,
+    684
+   ],
+   "usd": 0.010228
+  },
+  "100": {
+   "text": "Okay أنا شوي، أنا كان كنت شوي",
+   "alt": "Okay ana shway, ana kan kuntu shway",
+   "raw": {
+    "arabic": "Okay أنا شوي، أنا كان كنت شوي",
+    "arabizi": "Okay ana shway, ana kan kuntu shway",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "قنيش",
+      "said": "كنت"
+     }
+    ],
+    "confidence": "high",
+    "why": "The engine misheard 'kuntu' as 'quneesh'."
+   },
+   "tokens": [
+    1075,
+    154,
+    578
+   ],
+   "usd": 0.009086
+  },
+  "102": {
+   "text": "أنا كنت شوي",
+   "alt": "ana kunet shwai",
+   "raw": {
+    "arabic": "أنا كنت شوي",
+    "arabizi": "ana kunet shwai",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "قنيش",
+      "said": "كنت"
+     }
+    ],
+    "confidence": "high",
+    "why": "He is saying 'I was a little' (ana kunet shwai) in response to being called lazy. The engine misheard 'kunet' as 'quneesh'."
+   },
+   "tokens": [
+    990,
+    59,
+    553
+   ],
+   "usd": 0.008616
+  },
+  "103": {
+   "text": "امم",
+   "alt": "umm",
+   "raw": {
+    "arabic": "امم",
+    "arabizi": "umm",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "It's a hesitation sound matching the engine text."
+   },
+   "tokens": [
+    1004,
+    43,
+    307
+   ],
+   "usd": 0.005692
+  },
+  "104": {
+   "text": "كسول",
+   "alt": "kasool",
+   "raw": {
+    "arabic": "كسول",
+    "arabizi": "kasool",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi says the Arabic word for lazy clearly, which matches the engine's transcription."
+   },
+   "tokens": [
+    983,
+    47,
+    207
+   ],
+   "usd": 0.00445
+  },
+  "105": {
+   "text": "آآآ",
+   "alt": "aaa",
+   "raw": {
+    "arabic": "آآآ",
+    "arabizi": "aaa",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly captured the filler word."
+   },
+   "tokens": [
+    962,
+    38,
+    475
+   ],
+   "usd": 0.007624
+  },
+  "106": {
+   "text": "الصباح.",
+   "alt": "el-subu7.",
+   "raw": {
+    "arabic": "الصباح.",
+    "arabizi": "el-subu7.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "في الصباح.",
+      "said": "الصباح."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi confirms a few seconds later 'I just said الصباح'."
+   },
+   "tokens": [
+    960,
+    47,
+    915
+   ],
+   "usd": 0.0129
+  },
+  "108": {
+   "text": "إيه الصباح.",
+   "alt": "eeh is-saba7.",
+   "raw": {
+    "arabic": "إيه الصباح.",
+    "arabizi": "eeh is-saba7.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "في",
+      "said": "إيه"
+     }
+    ],
+    "confidence": "high",
+    "why": "He confirms in the next line that he 'just said الصباح', and the first sound is a hesitation 'eeh'."
+   },
+   "tokens": [
+    947,
+    49,
+    760
+   ],
+   "usd": 0.011014
+  },
+  "109": {
+   "text": "I just said الصباح.",
+   "alt": "I just said el-subu7.",
+   "raw": {
+    "arabic": "I just said الصباح.",
+    "arabizi": "I just said el-subu7.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine accurately transcribed Medi's mix of English and Arabic, which fits perfectly as a response to Amal's question 'What did you say?'."
+   },
+   "tokens": [
+    951,
+    53,
+    599
+   ],
+   "usd": 0.00909
+  },
+  "111": {
+   "text": "or هذا الصباح.",
+   "alt": "or hadha l-sabaaH.",
+   "raw": {
+    "arabic": "or هذا الصباح.",
+    "arabizi": "or hadha l-sabaaH.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "عادي",
+      "said": "or هذا"
+     }
+    ],
+    "confidence": "high",
+    "why": "He is continuing his sentence from before, saying 'or haadha al-sabaaH' (or this morning), and Amal then corrects him that they don't say 'haadha l-subuH'."
+   },
+   "tokens": [
+    953,
+    56,
+    673
+   ],
+   "usd": 0.009982
+  },
+  "114": {
+   "text": "امم",
+   "alt": "umm",
+   "raw": {
+    "arabic": "امم",
+    "arabizi": "umm",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed the hesitation marker."
+   },
+   "tokens": [
+    960,
+    45,
+    261
+   ],
+   "usd": 0.005052
+  },
+  "115": {
+   "text": "تمام.",
+   "alt": "tamam.",
+   "raw": {
+    "arabic": "تمام.",
+    "arabizi": "tamam.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine's transcription of 'تمام' is correct as he is likely just saying 'tamam' (okay)."
+   },
+   "tokens": [
+    954,
+    38,
+    532
+   ],
+   "usd": 0.008292
+  },
+  "117": {
+   "text": "أنا صحيت متأخر و",
+   "alt": "ana s7eet muta'akhkher w",
+   "raw": {
+    "arabic": "أنا صحيت متأخر و",
+    "arabizi": "ana s7eet muta'akhkher w",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "صرت",
+      "said": "صحيت"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats Amal's phrase 'صحيت متأخر', changing 'إنت' to 'أنا'."
+   },
+   "tokens": [
+    954,
+    63,
+    678
+   ],
+   "usd": 0.010044
+  },
+  "118": {
+   "text": "امم you guys don't say I have been, so I just say I am, right? أنا، أنا كنت I was. Yeah، أنا كنت شوي كسول.",
+   "alt": "umm you guys don't say I have been, so I just say I am, right? ana, ana kunet I was. Yeah, ana kunet shway kasool.",
+   "raw": {
+    "arabic": "امم you guys don't say I have been, so I just say I am, right? أنا، أنا كنت I was. Yeah، أنا كنت شوي كسول.",
+    "arabizi": "umm you guys don't say I have been, so I just say I am, right? ana, ana kunet I was. Yeah, ana kunet shway kasool.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the English and Arabic portions accurately."
+   },
+   "tokens": [
+    1158,
+    281,
+    959
+   ],
+   "usd": 0.013824
+  },
+  "119": {
+   "text": "هذا الصباح.",
+   "alt": "hadha s-sabaa7.",
+   "raw": {
+    "arabic": "هذا الصباح.",
+    "arabizi": "hadha s-sabaa7.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "عادي",
+      "said": "هذا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Amal explicitly corrects him saying 'We never say هذا الصبح...' and the audio clearly matches 'هذا'."
+   },
+   "tokens": [
+    973,
+    54,
+    383
+   ],
+   "usd": 0.006542
+  },
+  "120": {
+   "text": "هذا الصباح.",
+   "alt": "hatha el-sabaH.",
+   "raw": {
+    "arabic": "هذا الصباح.",
+    "arabizi": "hatha el-sabaH.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "عاد",
+      "said": "هذا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly says 'hatha', which matches Amal's subsequent correction about him using 'hatha' with morning."
+   },
+   "tokens": [
+    956,
+    51,
+    448
+   ],
+   "usd": 0.007288
+  },
+  "122": {
+   "text": "uh، شوية صباح.",
+   "alt": "uh, shwayyet saba7.",
+   "raw": {
+    "arabic": "uh، شوية صباح.",
+    "arabizi": "uh, shwayyet saba7.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "امم.",
+      "said": "uh,"
+     },
+     {
+      "engine": "شوي",
+      "said": "شوية"
+     },
+     {
+      "engine": "الصباح.",
+      "said": "صباح."
+     }
+    ],
+    "confidence": "high",
+    "why": "He said 'uh, shwayyet saba7' rather than the engine's interpretation."
+   },
+   "tokens": [
+    969,
+    78,
+    682
+   ],
+   "usd": 0.010122
+  },
+  "124": {
+   "text": "آآآ أنا اممم",
+   "alt": "aaa ana umm",
+   "raw": {
+    "arabic": "آآآ أنا اممم",
+    "arabizi": "aaa ana umm",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أنا،",
+      "said": "أنا اممم"
+     }
+    ],
+    "confidence": "high",
+    "why": "Added the hesitation sounds that the engine missed."
+   },
+   "tokens": [
+    1004,
+    103,
+    307
+   ],
+   "usd": 0.005692
+  },
+  "125": {
+   "text": "أنا لا مش",
+   "alt": "ana la mish",
+   "raw": {
+    "arabic": "أنا لا مش",
+    "arabizi": "ana la mish",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription perfectly matches the expected response and Amal's chat context."
+   },
+   "tokens": [
+    970,
+    70,
+    600
+   ],
+   "usd": 0.00914
+  },
+  "126": {
+   "text": "شجعا اليوم، مش شجعا اليوم.",
+   "alt": "shajja3a il-yoom, mish shajja3a il-yoom.",
+   "raw": {
+    "arabic": "شجعا اليوم، مش شجعا اليوم.",
+    "arabizi": "shajja3a il-yoom, mish shajja3a il-yoom.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "شجاع",
+      "said": "شجعا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi attempts to say 'mitshajje3' but says 'shajja3a' instead. The engine misheard it as 'shujaa3'."
+   },
+   "tokens": [
+    1020,
+    153,
+    618
+   ],
+   "usd": 0.009456
+  },
+  "130": {
+   "text": "لسه.",
+   "alt": "lissa.",
+   "raw": {
+    "arabic": "لسه.",
+    "arabizi": "lissa.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "This suck.",
+      "said": "لسه."
+     }
+    ],
+    "confidence": "medium",
+    "why": "Amal just asked 'لسه؟' (still?), and Medi confirms by repeating 'لسه' (lissa), which the speech engine misheard as 'This suck' due to phonetic similarity."
+   },
+   "tokens": [
+    901,
+    43,
+    540
+   ],
+   "usd": 0.008282
+  },
+  "131": {
+   "text": "أنا لازم",
+   "alt": "ana laazem",
+   "raw": {
+    "arabic": "أنا لازم",
+    "arabizi": "ana laazem",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly captured Medi saying 'أنا لازم'."
+   },
+   "tokens": [
+    920,
+    51,
+    321
+   ],
+   "usd": 0.005692
+  },
+  "133": {
+   "text": "أنا لازم",
+   "alt": "ana laazem",
+   "raw": {
+    "arabic": "أنا لازم",
+    "arabizi": "ana laazem",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly captured the words 'ana laazem' which match the audio perfectly."
+   },
+   "tokens": [
+    943,
+    53,
+    474
+   ],
+   "usd": 0.007574
+  },
+  "134": {
+   "text": "آآآ عطلة و",
+   "alt": "aaa 3otle w",
+   "raw": {
+    "arabic": "آآآ عطلة و",
+    "arabizi": "aaa 3otle w",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أطلع",
+      "said": "عطلة"
+     }
+    ],
+    "confidence": "high",
+    "why": "He is saying the word for vacation (3otle), which matches Amal's chat log, instead of the verb 'to go out'."
+   },
+   "tokens": [
+    974,
+    85,
+    390
+   ],
+   "usd": 0.006628
+  },
+  "136": {
+   "text": "مش...",
+   "alt": "mish...",
+   "raw": {
+    "arabic": "مش...",
+    "arabizi": "mish...",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "low",
+    "why": "Without the audio, and based on the context, 'مش' is a plausible filler or cut-off word as transcribed by the engine."
+   },
+   "tokens": [
+    906,
+    35,
+    577
+   ],
+   "usd": 0.008736
+  },
+  "137": {
+   "text": "أنا لازم آخد عطلة و سفر، سفرة.",
+   "alt": "ana laazem aa5ud 3otle w safar, safra.",
+   "raw": {
+    "arabic": "أنا لازم آخد عطلة و سفر، سفرة.",
+    "arabizi": "ana laazem aa5ud 3otle w safar, safra.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أطلع",
+      "said": "عطلة"
+     },
+     {
+      "engine": "وسفر",
+      "said": "و سفر"
+     },
+     {
+      "engine": "سفر",
+      "said": "سفرة"
+     }
+    ],
+    "confidence": "high",
+    "why": "The audio clearly shows Medi saying '3otle' instead of 'atla3', followed by 'safar, safra' as he searches for the right word for a trip."
+   },
+   "tokens": [
+    1090,
+    192,
+    662
+   ],
+   "usd": 0.010124
+  },
+  "140": {
+   "text": "آآآ لازم أسافر.",
+   "alt": "aaa laazem asaafer.",
+   "raw": {
+    "arabic": "آآآ لازم أسافر.",
+    "arabizi": "aaa laazem asaafer.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "ولازم",
+      "said": "آآآ لازم"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'aaa' (hesitation) followed by 'laazem asaafer' (I must travel)."
+   },
+   "tokens": [
+    1035,
+    83,
+    114
+   ],
+   "usd": 0.003438
+  },
+  "142": {
+   "text": "آآآ كمان مرة؟",
+   "alt": "aaa kamaan marra?",
+   "raw": {
+    "arabic": "آآآ كمان مرة؟",
+    "arabizi": "aaa kamaan marra?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "كم",
+      "said": "كمان"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is asking Amal to repeat what she just said because he didn't understand her, so he says 'kamaan marra' (one more time) rather than 'kam marra' (how many times)."
+   },
+   "tokens": [
+    1000,
+    54,
+    835
+   ],
+   "usd": 0.01202
+  },
+  "144": {
+   "text": "what?",
+   "alt": "what?",
+   "raw": {
+    "arabic": "what?",
+    "arabizi": "what?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "فقط.",
+      "said": "what?"
+     }
+    ],
+    "confidence": "low",
+    "why": "The engine likely misheard the English word 'what' as 'فقط' because they can have similar phonetic boundaries to a generic speech recognizer, and Medi immediately follows up by asking in English what she said."
+   },
+   "tokens": [
+    971,
+    36,
+    704
+   ],
+   "usd": 0.01039
+  },
+  "148": {
+   "text": "But, you said كنت؟",
+   "alt": "But, you said kunt?",
+   "raw": {
+    "arabic": "But, you said كنت؟",
+    "arabizi": "But, you said kunt?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "part.",
+      "said": "But,"
+     },
+     {
+      "engine": "قنت",
+      "said": "كنت"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is asking about the first word Amal said (كنت), saying 'But, you said kunt?'"
+   },
+   "tokens": [
+    1004,
+    75,
+    439
+   ],
+   "usd": 0.007276
+  },
+  "150": {
+   "text": "So كنت.",
+   "alt": "So kunt.",
+   "raw": {
+    "arabic": "So كنت.",
+    "arabizi": "So kunt.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "medium",
+    "why": "Fits perfectly with the surrounding clarification of the word 'kunt'."
+   },
+   "tokens": [
+    963,
+    46,
+    678
+   ],
+   "usd": 0.010062
+  },
+  "152": {
+   "text": "آآآ [ضحك] yeah. And uh",
+   "alt": "aaa [ضحك] yeah. And uh",
+   "raw": {
+    "arabic": "آآآ [ضحك] yeah. And uh",
+    "arabizi": "aaa [ضحك] yeah. And uh",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أأ",
+      "said": "uh"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is speaking English ('yeah. And uh') with some hesitation, so 'أأ' is corrected to 'uh'."
+   },
+   "tokens": [
+    1052,
+    95,
+    481
+   ],
+   "usd": 0.007876
+  },
+  "154": {
+   "text": "um أنا",
+   "alt": "um ana",
+   "raw": {
+    "arabic": "um أنا",
+    "arabizi": "um ana",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed the hesitation 'um' followed by the Arabic pronoun 'أنا'."
+   },
+   "tokens": [
+    1008,
+    55,
+    71
+   ],
+   "usd": 0.002868
+  },
+  "155": {
+   "text": "أنا بخطط",
+   "alt": "ana ba5aTTeT",
+   "raw": {
+    "arabic": "أنا بخطط",
+    "arabizi": "ana ba5aTTeT",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "آآآ",
+      "said": "أنا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'ana bakhattat' (I plan/I am planning)."
+   },
+   "tokens": [
+    1022,
+    69,
+    499
+   ],
+   "usd": 0.008032
+  },
+  "156": {
+   "text": "Um, no I have, I planned is past tense. أنا خططت.",
+   "alt": "Um, no I have, I planned is past tense. ana khuTaTat.",
+   "raw": {
+    "arabic": "Um, no I have, I planned is past tense. أنا خططت.",
+    "arabizi": "Um, no I have, I planned is past tense. ana khuTaTat.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the English and Arabic parts correctly."
+   },
+   "tokens": [
+    1080,
+    144,
+    717
+   ],
+   "usd": 0.010764
+  },
+  "158": {
+   "text": "أنا خططت،",
+   "alt": "ana 5aTTaTt,",
+   "raw": {
+    "arabic": "أنا خططت،",
+    "arabizi": "ana 5aTTaTt,",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed 'أنا خططت'."
+   },
+   "tokens": [
+    1000,
+    52,
+    73
+   ],
+   "usd": 0.002876
+  },
+  "159": {
+   "text": "امم",
+   "alt": "um",
+   "raw": {
+    "arabic": "امم",
+    "arabizi": "um",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "It's just the hesitation sound 'um'."
+   },
+   "tokens": [
+    995,
+    49,
+    256
+   ],
+   "usd": 0.005062
+  },
+  "160": {
+   "text": "سفر",
+   "alt": "safar",
+   "raw": {
+    "arabic": "سفر",
+    "arabizi": "safar",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "سفر،",
+      "said": "سفر"
+     }
+    ],
+    "confidence": "high",
+    "why": "Removed punctuation to reflect the exact spoken word."
+   },
+   "tokens": [
+    977,
+    49,
+    431
+   ],
+   "usd": 0.007126
+  },
+  "161": {
+   "text": "سفرة،",
+   "alt": "safra,",
+   "raw": {
+    "arabic": "سفرة،",
+    "arabizi": "safra,",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "سفر،",
+      "said": "سفرة،"
+     }
+    ],
+    "confidence": "high",
+    "why": "He said 'safra' (trip), which ends with a taa marbuta."
+   },
+   "tokens": [
+    989,
+    38,
+    415
+   ],
+   "usd": 0.006958
+  },
+  "163": {
+   "text": "بسف...",
+   "alt": "bsaf...",
+   "raw": {
+    "arabic": "بسف...",
+    "arabizi": "bsaf...",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Engine correctly transcribed the false start"
+   },
+   "tokens": [
+    973,
+    40,
+    446
+   ],
+   "usd": 0.007298
+  },
+  "164": {
+   "text": "So la",
+   "alt": "So la",
+   "raw": {
+    "arabic": "So la",
+    "arabizi": "So la",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "لا،",
+      "said": "la"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is repeating the Arabic preposition 'la' (لـ) as a standalone word in response to Amal saying 'You plan for', which the engine misheard as the Arabic word for 'no' (لا)."
+   },
+   "tokens": [
+    959,
+    45,
+    676
+   ],
+   "usd": 0.01003
+  },
+  "165": {
+   "text": "آآآ لسفرة",
+   "alt": "aaa la safra",
+   "raw": {
+    "arabic": "آآآ لسفرة",
+    "arabizi": "aaa la safra",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "لا سفر",
+      "said": "آآآ لسفرة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Following Amal's prompt 'You plan for', Medi tries to add the preposition 'for' (li/la) to 'travel/trip', saying 'la safra' (لسفرة) instead of 'لا سفر'."
+   },
+   "tokens": [
+    978,
+    54,
+    1003
+   ],
+   "usd": 0.013992
+  },
+  "166": {
+   "text": "آآآ",
+   "alt": "aaa",
+   "raw": {
+    "arabic": "آآآ",
+    "arabizi": "aaa",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi just makes a filler sound, correctly transcribed by the engine."
+   },
+   "tokens": [
+    948,
+    41,
+    279
+   ],
+   "usd": 0.005244
+  },
+  "168": {
+   "text": "جاي... الأسبوع الجاي.",
+   "alt": "jaay... l-usbuu3 l-jaay.",
+   "raw": {
+    "arabic": "جاي... الأسبوع الجاي.",
+    "arabizi": "jaay... l-usbuu3 l-jaay.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "جاي-- الأسبوع الجاي.",
+      "said": "جاي... الأسبوع الجاي."
+     }
+    ],
+    "confidence": "high",
+    "why": "The engine transcribed the words correctly, but used dashes instead of an ellipsis for a pause."
+   },
+   "tokens": [
+    1007,
+    85,
+    124
+   ],
+   "usd": 0.003502
+  },
+  "169": {
+   "text": "بس أنا راح",
+   "alt": "bas ana ra7",
+   "raw": {
+    "arabic": "بس أنا راح",
+    "arabizi": "bas ana ra7",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed his learner mistake of saying 'ana ra7'."
+   },
+   "tokens": [
+    938,
+    65,
+    693
+   ],
+   "usd": 0.010192
+  },
+  "170": {
+   "text": "آآآ على",
+   "alt": "aaa 3ala",
+   "raw": {
+    "arabic": "آآآ على",
+    "arabizi": "aaa 3ala",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "medium",
+    "why": "Context indicates he was trying to say 'to my uncle's' and used '3ala' (to) before getting confused with '3ind' (at)."
+   },
+   "tokens": [
+    951,
+    54,
+    679
+   ],
+   "usd": 0.01005
+  },
+  "171": {
+   "text": "آآآ",
+   "alt": "aaa",
+   "raw": {
+    "arabic": "آآآ",
+    "arabizi": "aaa",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed the hesitation filler."
+   },
+   "tokens": [
+    929,
+    36,
+    227
+   ],
+   "usd": 0.004582
+  },
+  "172": {
+   "text": "عمان",
+   "alt": "3amman",
+   "raw": {
+    "arabic": "عمان",
+    "arabizi": "3amman",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "عموي.",
+      "said": "عمان"
+     }
+    ],
+    "confidence": "high",
+    "why": "The audio clearly says 'عمان' (Amman), fitting the context of traveling for work."
+   },
+   "tokens": [
+    917,
+    49,
+    692
+   ],
+   "usd": 0.010138
+  },
+  "173": {
+   "text": "امم",
+   "alt": "umm",
+   "raw": {
+    "arabic": "امم",
+    "arabizi": "umm",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "medium",
+    "why": "It is a standard filler word and fits the context."
+   },
+   "tokens": [
+    932,
+    41,
+    435
+   ],
+   "usd": 0.007084
+  },
+  "174": {
+   "text": "لا شغل.",
+   "alt": "la shoghol.",
+   "raw": {
+    "arabic": "لا شغل.",
+    "arabizi": "la shoghol.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "لشغل.",
+      "said": "لا شغل."
+     }
+    ],
+    "confidence": "high",
+    "why": "He clearly says 'la' followed by 'shughul' (no work) to indicate he has no work, rather than 'la-shughul'."
+   },
+   "tokens": [
+    939,
+    47,
+    352
+   ],
+   "usd": 0.006102
+  },
+  "175": {
+   "text": "بس.",
+   "alt": "bas.",
+   "raw": {
+    "arabic": "بس.",
+    "arabizi": "bas.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Fits the context perfectly as 'bas' (but/only), and no audio is available to contradict the engine's transcription."
+   },
+   "tokens": [
+    920,
+    42,
+    796
+   ],
+   "usd": 0.011392
+  },
+  "177": {
+   "text": "I'm going to my uncle's عند، عند عموي.",
+   "alt": "I'm going to my uncle's 3ind, 3ind 3ammui.",
+   "raw": {
+    "arabic": "I'm going to my uncle's عند، عند عموي.",
+    "arabizi": "I'm going to my uncle's 3ind, 3ind 3ammui.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "and, and",
+      "said": "عند، عند"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is using the Arabic preposition '3ind' (at/to a person's place), which sounds exactly like the English word 'and', leading the engine to mishear it."
+   },
+   "tokens": [
+    994,
+    112,
+    814
+   ],
+   "usd": 0.011756
+  },
+  "179": {
+   "text": "It's عند عموي or um عموي عند.",
+   "alt": "It's 3and 3amuwi or um 3amuwi 3and.",
+   "raw": {
+    "arabic": "It's عند عموي or um عموي عند.",
+    "arabizi": "It's 3and 3amuwi or um 3amuwi 3and.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "and",
+      "said": "عند"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is trying to figure out the word order with '3and' (at/to) and is confused, pronouncing it like 'and'."
+   },
+   "tokens": [
+    958,
+    86,
+    593
+   ],
+   "usd": 0.009032
+  },
+  "181": {
+   "text": "راح أروح على",
+   "alt": "ra7 aruu7 3ala",
+   "raw": {
+    "arabic": "راح أروح على",
+    "arabizi": "ra7 aruu7 3ala",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the Arabic exactly as spoken."
+   },
+   "tokens": [
+    1008,
+    104,
+    407
+   ],
+   "usd": 0.0069
+  },
+  "182": {
+   "text": "عند عموي.",
+   "alt": "3ind 3amuwi.",
+   "raw": {
+    "arabic": "عند عموي.",
+    "arabizi": "3ind 3amuwi.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "and",
+      "said": "عند"
+     }
+    ],
+    "confidence": "high",
+    "why": "Amal's immediate response 'Either على or عند' confirms that Medi used the Arabic word 'عند' (meaning at/with), which the engine misrecognized as the English word 'and'."
+   },
+   "tokens": [
+    963,
+    67,
+    532
+   ],
+   "usd": 0.00831
+  },
+  "211": {
+   "text": "رح،",
+   "alt": "ra7,",
+   "raw": {
+    "arabic": "رح،",
+    "arabizi": "ra7,",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "rah",
+      "said": "رح"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is starting the Arabic phrase 'ra7 nimbisit' (we will have fun) and says the future marker 'ra7'."
+   },
+   "tokens": [
+    939,
+    37,
+    497
+   ],
+   "usd": 0.007842
+  },
+  "213": {
+   "text": "ننبسط.",
+   "alt": "nenbese6.",
+   "raw": {
+    "arabic": "ننبسط.",
+    "arabizi": "nenbese6.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "nimbisit.",
+      "said": "nenbese6."
+     }
+    ],
+    "confidence": "high",
+    "why": "The engine wrote a phonetic English spelling instead of the Arabizi/Arabic for 'we will have fun' (nenbese6)."
+   },
+   "tokens": [
+    963,
+    48,
+    445
+   ],
+   "usd": 0.007266
+  },
+  "217": {
+   "text": "رح ننبسط.",
+   "alt": "ra7 nimbisit.",
+   "raw": {
+    "arabic": "رح ننبسط.",
+    "arabizi": "ra7 nimbisit.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Rah nimbisit.",
+      "said": "رح ننبسط."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is saying 'we will have fun' (رح ننبسط), mispronounced slightly with 'i' vowels but the meaning is clear and confirmed by Amal's response."
+   },
+   "tokens": [
+    969,
+    57,
+    768
+   ],
+   "usd": 0.011154
+  },
+  "251": {
+   "text": "oh is it Juma?",
+   "alt": "oh is it Juma?",
+   "raw": {
+    "arabic": "oh is it Juma?",
+    "arabizi": "oh is it Juma?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Or was",
+      "said": "oh is"
+     }
+    ],
+    "confidence": "low",
+    "why": "Guessing he said 'oh is it Juma?' as he realizes it is Friday."
+   },
+   "tokens": [
+    998,
+    51,
+    696
+   ],
+   "usd": 0.010348
+  },
+  "252": {
+   "text": "Can't believe it's Juma already. Uh, Talat",
+   "alt": "Can't believe it's Juma already. Uh, Talat",
+   "raw": {
+    "arabic": "Can't believe it's Juma already. Uh, Talat",
+    "arabizi": "Can't believe it's Juma already. Uh, Talat",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly captured the English sentence and the Arabic word 'Talat' that Medi said."
+   },
+   "tokens": [
+    1050,
+    118,
+    98
+   ],
+   "usd": 0.003276
+  },
+  "254": {
+   "text": "عشا، ألفين ستة وعشرين.",
+   "alt": "3asha, alfayn sitte w 3ishrin.",
+   "raw": {
+    "arabic": "عشا، ألفين ستة وعشرين.",
+    "arabizi": "3asha, alfayn sitte w 3ishrin.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Asha",
+      "said": "عشا"
+     },
+     {
+      "engine": "Alfayn",
+      "said": "ألفين"
+     },
+     {
+      "engine": "Sitwa",
+      "said": "ستة و"
+     },
+     {
+      "engine": "Ashrin",
+      "said": "عشرين"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is attempting to say the date (10, 2026) but mispronounces '10' (3ashara) as '3asha' (dinner), which Amal catches next."
+   },
+   "tokens": [
+    1017,
+    90,
+    847
+   ],
+   "usd": 0.012198
+  },
+  "262": {
+   "text": "الساعة",
+   "alt": "es-saa3a",
+   "raw": {
+    "arabic": "الساعة",
+    "arabizi": "es-saa3a",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Elsa,",
+      "said": "es-saa3a"
+     }
+    ],
+    "confidence": "high",
+    "why": "Amal asked what time it is, and Medi starts his answer with 'es-saa3a' (the time/hour), which the engine misheard as 'Elsa'."
+   },
+   "tokens": [
+    911,
+    43,
+    372
+   ],
+   "usd": 0.006286
+  },
+  "264": {
+   "text": "تنتين وربع",
+   "alt": "tentain u rub3",
+   "raw": {
+    "arabic": "تنتين وربع",
+    "arabizi": "tentain u rub3",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "tinte nu ro.",
+      "said": "tentain u rub3"
+     }
+    ],
+    "confidence": "high",
+    "why": "Context indicates Medi is stating the time, then corrects himself to 'tult'. He initially says 'tentain u rub3' (2:15)."
+   },
+   "tokens": [
+    920,
+    54,
+    544
+   ],
+   "usd": 0.008368
+  },
+  "265": {
+   "text": "No, ثنتين وثلث.",
+   "alt": "No, tentain u tult.",
+   "raw": {
+    "arabic": "No, ثنتين وثلث.",
+    "arabizi": "No, tentain u tult.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "tinte nu tult",
+      "said": "tentain u tult"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi corrects himself from a quarter to a third past the hour, mixing English 'No' with Arabic for 'two and a third'."
+   },
+   "tokens": [
+    936,
+    62,
+    460
+   ],
+   "usd": 0.007392
+  },
+  "292": {
+   "text": "if I say أول الساعة, that means the beginning of the hour. And if I say الأول الساعة, that means the f-- the, the... I thought you said this was also the first",
+   "alt": "if I say awal el-sa3a, that means the beginning of the hour. And if I say el-awal el-sa3a, that means the f-- the, the... I thought you said this was also the first",
+   "raw": {
+    "arabic": "if I say أول الساعة, that means the beginning of the hour. And if I say الأول الساعة, that means the f-- the, the... I thought you said this was also the first",
+    "arabizi": "if I say awal el-sa3a, that means the beginning of the hour. And if I say el-awal el-sa3a, that means the f-- the, the... I thought you said this was also the first",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "awal elsaa",
+      "said": "أول الساعة"
+     },
+     {
+      "engine": "el awal elsaa",
+      "said": "الأول الساعة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Transcribed 'saa' as 'الساعة' (el-sa3a) based on the context of 'first hour'."
+   },
+   "tokens": [
+    1234,
+    310,
+    1201
+   ],
+   "usd": 0.01688
+  },
+  "297": {
+   "text": "So الساعة الأول",
+   "alt": "So el sa3a el awwal",
+   "raw": {
+    "arabic": "So الساعة الأول",
+    "arabizi": "So el sa3a el awwal",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "elsaa el awal",
+      "said": "الساعة الأول"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is attempting to say 'the first hour' using the noun-adjective structure, saying 'el sa3a el awwal'."
+   },
+   "tokens": [
+    952,
+    61,
+    464
+   ],
+   "usd": 0.007472
+  },
+  "299": {
+   "text": "uh, أولى",
+   "alt": "uh, oola",
+   "raw": {
+    "arabic": "uh, أولى",
+    "arabizi": "uh, oola",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أول.",
+      "said": "uh, أولى"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is answering Amal's question about the feminine form of first, saying 'oola'."
+   },
+   "tokens": [
+    930,
+    48,
+    352
+   ],
+   "usd": 0.006084
+  },
+  "300": {
+   "text": "So you have to make it feminine? Well, because it's ساعة.",
+   "alt": "So you have to make it feminine? Well, because it's sa3a.",
+   "raw": {
+    "arabic": "So you have to make it feminine? Well, because it's ساعة.",
+    "arabizi": "So you have to make it feminine? Well, because it's sa3a.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the mixed English and Arabic sentence correctly."
+   },
+   "tokens": [
+    954,
+    90,
+    4025
+   ],
+   "usd": 0.050208
+  },
+  "301": {
+   "text": "Okay, so الساعة الأول.",
+   "alt": "Okay, so es-sa'a el-awwal.",
+   "raw": {
+    "arabic": "Okay, so الساعة الأول.",
+    "arabizi": "Okay, so es-sa'a el-awwal.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الأولى",
+      "said": "الأول"
+     }
+    ],
+    "confidence": "high",
+    "why": "He repeats 'el-awwal' and Amal subsequently corrects him with 'أولى'."
+   },
+   "tokens": [
+    1008,
+    130,
+    755
+   ],
+   "usd": 0.011076
+  },
+  "304": {
+   "text": "Oh, I didn't catch, did it tell you to add أولى or no? Did it catch it? Oh, wow. Okay, good.",
+   "alt": "Oh, I didn't catch, did it tell you to add oula or no? Did it catch it? Oh, wow. Okay, good.",
+   "raw": {
+    "arabic": "Oh, I didn't catch, did it tell you to add أولى or no? Did it catch it? Oh, wow. Okay, good.",
+    "arabizi": "Oh, I didn't catch, did it tell you to add oula or no? Did it catch it? Oh, wow. Okay, good.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "it didn't catch",
+      "said": "I didn't catch"
+     }
+    ],
+    "confidence": "high",
+    "why": "The engine misheard 'I' as 'it'."
+   },
+   "tokens": [
+    1042,
+    171,
+    1392
+   ],
+   "usd": 0.018788
+  },
+  "320": {
+   "text": "So هذي",
+   "alt": "So hadi",
+   "raw": {
+    "arabic": "So هذي",
+    "arabizi": "So hadi",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly captured the English word and the Arabic demonstrative pronoun."
+   },
+   "tokens": [
+    904,
+    60,
+    409
+   ],
+   "usd": 0.006716
+  },
+  "322": {
+   "text": "Yeah, 'cause it's ساعة, right? هذي ساعة. So هذي",
+   "alt": "Yeah, 'cause it's sa3a, right? haadhi sa3a. So haadhi",
+   "raw": {
+    "arabic": "Yeah, 'cause it's ساعة, right? هذي ساعة. So هذي",
+    "arabizi": "Yeah, 'cause it's sa3a, right? haadhi sa3a. So haadhi",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed the mixed English and Arabic sentence."
+   },
+   "tokens": [
+    958,
+    124,
+    472
+   ],
+   "usd": 0.00758
+  },
+  "324": {
+   "text": "أول ساعة",
+   "alt": "awwal sa3a",
+   "raw": {
+    "arabic": "أول ساعة",
+    "arabizi": "awwal sa3a",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed 'أول ساعة' which matches the audio and context perfectly."
+   },
+   "tokens": [
+    913,
+    67,
+    275
+   ],
+   "usd": 0.005126
+  },
+  "326": {
+   "text": "في، uh، شغلنا.",
+   "alt": "fi, uh, shughulna.",
+   "raw": {
+    "arabic": "في، uh، شغلنا.",
+    "arabizi": "fi, uh, shughulna.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed Medi saying 'fi, uh, shughulna' (in our work)."
+   },
+   "tokens": [
+    943,
+    100,
+    627
+   ],
+   "usd": 0.00941
+  },
+  "329": {
+   "text": "uh, هذي الساعة",
+   "alt": "uh, haadi el-saa3a",
+   "raw": {
+    "arabic": "uh, هذي الساعة",
+    "arabizi": "uh, haadi el-saa3a",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "هذي الساعة",
+      "said": "uh, هذي الساعة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Added the filler word at the beginning."
+   },
+   "tokens": [
+    980,
+    107,
+    316
+   ],
+   "usd": 0.005752
+  },
+  "330": {
+   "text": "ال...",
+   "alt": "el...",
+   "raw": {
+    "arabic": "ال...",
+    "arabizi": "el...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "ال،",
+      "said": "ال..."
+     }
+    ],
+    "confidence": "high",
+    "why": "He is hesitating before the word 'الأولى', so he just says the definite article 'el...' as a false start/pause."
+   },
+   "tokens": [
+    876,
+    41,
+    455
+   ],
+   "usd": 0.007212
+  },
+  "331": {
+   "text": "um, الأولى",
+   "alt": "um, el-oola",
+   "raw": {
+    "arabic": "um, الأولى",
+    "arabizi": "um, el-oola",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the hesitation and the word correctly."
+   },
+   "tokens": [
+    922,
+    63,
+    525
+   ],
+   "usd": 0.008144
+  },
+  "332": {
+   "text": "الأولى",
+   "alt": "al-oola",
+   "raw": {
+    "arabic": "الأولى",
+    "arabizi": "al-oola",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الأولى؟",
+      "said": "الأولى"
+     }
+    ],
+    "confidence": "high",
+    "why": "The engine correctly identified the word, but added a question mark which was not present in the intonation."
+   },
+   "tokens": [
+    902,
+    39,
+    403
+   ],
+   "usd": 0.00664
+  },
+  "334": {
+   "text": "بشغلنا.",
+   "alt": "bi shu8ulna.",
+   "raw": {
+    "arabic": "بشغلنا.",
+    "arabizi": "bi shu8ulna.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Uh, في شغلنا",
+      "said": "بشغلنا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'bi shughulna' using the prefix 'bi-' rather than the separate preposition 'fi'."
+   },
+   "tokens": [
+    949,
+    77,
+    408
+   ],
+   "usd": 0.006794
+  },
+  "340": {
+   "text": "So تاني means else or second.",
+   "alt": "So taani means else or second.",
+   "raw": {
+    "arabic": "So تاني means else or second.",
+    "arabizi": "So taani means else or second.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed both the English and Arabic words."
+   },
+   "tokens": [
+    1051,
+    128,
+    468
+   ],
+   "usd": 0.007718
+  },
+  "350": {
+   "text": "التاني, it's always gonna be the second.",
+   "alt": "el-taani, it's always gonna be the second.",
+   "raw": {
+    "arabic": "التاني, it's always gonna be the second.",
+    "arabizi": "el-taani, it's always gonna be the second.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly captured the Arabic word and the following English phrase."
+   },
+   "tokens": [
+    1035,
+    99,
+    840
+   ],
+   "usd": 0.01215
+  },
+  "355": {
+   "text": "So if it's the same rule, then it would be تاني ساعة",
+   "alt": "So if it's the same rule, then it would be taani saa3a",
+   "raw": {
+    "arabic": "So if it's the same rule, then it would be تاني ساعة",
+    "arabizi": "So if it's the same rule, then it would be taani saa3a",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "tanny saw",
+      "said": "تاني ساعة"
+     }
+    ],
+    "confidence": "high",
+    "why": "The engine misheard the Arabic 'تاني ساعة' as the English 'tanny saw'."
+   },
+   "tokens": [
+    1058,
+    125,
+    4062
+   ],
+   "usd": 0.05086
+  },
+  "357": {
+   "text": "تاني ساعة means the second hour,",
+   "alt": "taani saa3a means the second hour,",
+   "raw": {
+    "arabic": "تاني ساعة means the second hour,",
+    "arabizi": "taani saa3a means the second hour,",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "تاني",
+      "said": "تاني ساعة"
+     }
+    ],
+    "confidence": "medium",
+    "why": "Context indicates Medi is explaining 'taani saa3a' based on Amal's prompt."
+   },
+   "tokens": [
+    1003,
+    63,
+    1167
+   ],
+   "usd": 0.01601
+  },
+  "359": {
+   "text": "and تاني الساعة means a different hour.",
+   "alt": "and taani el-saa3a means a different hour.",
+   "raw": {
+    "arabic": "and تاني الساعة means a different hour.",
+    "arabizi": "and taani el-saa3a means a different hour.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "التاني",
+      "said": "تاني"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi said 'taani', not 'el-taani' before 'el-saa3a'."
+   },
+   "tokens": [
+    1078,
+    139,
+    544
+   ],
+   "usd": 0.008684
+  },
+  "362": {
+   "text": "Okay, so this doesn't follow the same rule as أول.",
+   "alt": "Okay, so this doesn't follow the same rule as awwal.",
+   "raw": {
+    "arabic": "Okay, so this doesn't follow the same rule as أول.",
+    "arabizi": "Okay, so this doesn't follow the same rule as awwal.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine's transcription matches the audio accurately. Medi is speaking English and only says the Arabic word أول."
+   },
+   "tokens": [
+    1034,
+    110,
+    98
+   ],
+   "usd": 0.003244
+  },
+  "365": {
+   "text": "Okay, so it doesn't have the ال rule, but the before and after. So تاني ساعة",
+   "alt": "Okay, so it doesn't have the el rule, but the before and after. So taani saa3a",
+   "raw": {
+    "arabic": "Okay, so it doesn't have the ال rule, but the before and after. So تاني ساعة",
+    "arabizi": "Okay, so it doesn't have the el rule, but the before and after. So taani saa3a",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "ساعة تاني is",
+      "said": "تاني ساعة"
+     }
+    ],
+    "confidence": "high",
+    "why": "He clearly says 'taani saa3a' without 'is' at the end."
+   },
+   "tokens": [
+    1046,
+    158,
+    855
+   ],
+   "usd": 0.012352
+  },
+  "367": {
+   "text": "a second hour, and then, uh, ساعة تاني means, uh, a different hour.",
+   "alt": "a second hour, and then, uh, sa3a taani means, uh, a different hour.",
+   "raw": {
+    "arabic": "a second hour, and then, uh, ساعة تاني means, uh, a different hour.",
+    "arabizi": "a second hour, and then, uh, sa3a taani means, uh, a different hour.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "s-a",
+      "said": "a"
+     }
+    ],
+    "confidence": "high",
+    "why": "The engine included a false start 's-' but the audio clearly starts with 'a' continuing from the 'is' at the end of the previous segment."
+   },
+   "tokens": [
+    1078,
+    203,
+    1015
+   ],
+   "usd": 0.014336
+  },
+  "381": {
+   "text": "uh, المصاري، راح...",
+   "alt": "uh, el-maSari, raaH...",
+   "raw": {
+    "arabic": "uh, المصاري، راح...",
+    "arabizi": "uh, el-maSari, raaH...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "المال",
+      "said": "uh, المصاري،"
+     }
+    ],
+    "confidence": "high",
+    "why": "He said 'masari' (Levantine for money) instead of 'al-mal'."
+   },
+   "tokens": [
+    880,
+    78,
+    791
+   ],
+   "usd": 0.011252
+  },
+  "385": {
+   "text": "Okay. But المصاري... Okay.",
+   "alt": "Okay. But el-maSari... Okay.",
+   "raw": {
+    "arabic": "Okay. But المصاري... Okay.",
+    "arabizi": "Okay. But el-maSari... Okay.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "المال--",
+      "said": "المصاري..."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says the Levantine word for money, 'المصاري', which the engine misheard as 'المال'."
+   },
+   "tokens": [
+    880,
+    86,
+    461
+   ],
+   "usd": 0.007292
+  },
+  "386": {
+   "text": "المصاري راح",
+   "alt": "el masari ra7",
+   "raw": {
+    "arabic": "المصاري راح",
+    "arabizi": "el masari ra7",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "المال",
+      "said": "المصاري"
+     }
+    ],
+    "confidence": "high",
+    "why": "The audio clearly says 'el masari' (money), which matches the previous context where the engine misheard 'masari' as 'مسافة'."
+   },
+   "tokens": [
+    866,
+    59,
+    491
+   ],
+   "usd": 0.007624
+  },
+  "387": {
+   "text": "يجي",
+   "alt": "yiji",
+   "raw": {
+    "arabic": "يجي",
+    "arabizi": "yiji",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "يجي،",
+      "said": "يجي"
+     }
+    ],
+    "confidence": "high",
+    "why": "Removed the comma that the engine added to the word 'يجي'."
+   },
+   "tokens": [
+    867,
+    43,
+    253
+   ],
+   "usd": 0.00477
+  },
+  "388": {
+   "text": "uh, في...",
+   "alt": "uh, fii...",
+   "raw": {
+    "arabic": "uh, في...",
+    "arabizi": "uh, fii...",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly captured Medi's hesitation and the Arabic preposition 'fii'."
+   },
+   "tokens": [
+    866,
+    52,
+    399
+   ],
+   "usd": 0.00652
+  },
+  "389": {
+   "text": "in two days, er, in in on the second day. the second day. في تاني يوم.",
+   "alt": "in two days, er, in in on the second day. the second day. fi taani yoom.",
+   "raw": {
+    "arabic": "in two days, er, in in on the second day. the second day. في تاني يوم.",
+    "arabizi": "in two days, er, in in on the second day. the second day. fi taani yoom.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "or in, in--",
+      "said": "er, in in"
+     }
+    ],
+    "confidence": "high",
+    "why": "Adjusted the filler word 'or' to 'er' based on the audio."
+   },
+   "tokens": [
+    1053,
+    227,
+    805
+   ],
+   "usd": 0.011766
+  },
+  "392": {
+   "text": "Uh, so if it's it will come another day, it would be the money will come another day would be المصاري راح ييجوا",
+   "alt": "Uh, so if it's it will come another day, it would be the money will come another day would be el maSari raH yiju",
+   "raw": {
+    "arabic": "Uh, so if it's it will come another day, it would be the money will come another day would be المصاري راح ييجوا",
+    "arabizi": "Uh, so if it's it will come another day, it would be the money will come another day would be el maSari raH yiju",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "المال راح يجي،",
+      "said": "المصاري راح ييجوا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'el massari rah yiju' which means 'the money will come', using plural 'massari' instead of 'al-mal'."
+   },
+   "tokens": [
+    1089,
+    276,
+    802
+   ],
+   "usd": 0.011802
+  },
+  "393": {
+   "text": "uh, في...",
+   "alt": "uh, fi...",
+   "raw": {
+    "arabic": "uh, في...",
+    "arabizi": "uh, fi...",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine accurately transcribed Medi saying 'uh, fi...' as he pauses to think."
+   },
+   "tokens": [
+    902,
+    50,
+    370
+   ],
+   "usd": 0.006244
+  },
+  "394": {
+   "text": "يوم تاني.",
+   "alt": "youm tani.",
+   "raw": {
+    "arabic": "يوم تاني.",
+    "arabizi": "youm tani.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine text matches the context perfectly. Medi is translating 'another day' to Arabic, which is 'youm tani'."
+   },
+   "tokens": [
+    914,
+    50,
+    341
+   ],
+   "usd": 0.00592
+  },
+  "396": {
+   "text": "اليوم.",
+   "alt": "el-yom.",
+   "raw": {
+    "arabic": "اليوم.",
+    "arabizi": "el-yom.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "No audio provided; assuming engine's transcription of the single word is correct based on context where he repeats the first part of Amal's phrase."
+   },
+   "tokens": [
+    930,
+    48,
+    328
+   ],
+   "usd": 0.005796
+  },
+  "397": {
+   "text": "اليوم التاني.",
+   "alt": "el-yom et-tani.",
+   "raw": {
+    "arabic": "اليوم التاني.",
+    "arabizi": "el-yom et-tani.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "ميتني",
+      "said": "التاني"
+     }
+    ],
+    "confidence": "high",
+    "why": "Context shows they are discussing 'اليوم التاني', and the engine misheard 'التاني' as 'ميتني'."
+   },
+   "tokens": [
+    989,
+    66,
+    436
+   ],
+   "usd": 0.00721
+  },
+  "399": {
+   "text": "اليوم التاني.",
+   "alt": "el-yom et-tani.",
+   "raw": {
+    "arabic": "اليوم التاني.",
+    "arabizi": "el-yom et-tani.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الثاني",
+      "said": "التاني"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is repeating Amal's phrase 'اليوم التاني', using the Levantine pronunciation with a 't' sound rather than the MSA 'th' sound."
+   },
+   "tokens": [
+    951,
+    65,
+    721
+   ],
+   "usd": 0.010554
+  },
+  "400": {
+   "text": "اليوم.",
+   "alt": "el-yom.",
+   "raw": {
+    "arabic": "اليوم.",
+    "arabizi": "el-yom.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed Medi saying 'el-yom'."
+   },
+   "tokens": [
+    950,
+    50,
+    271
+   ],
+   "usd": 0.005152
+  },
+  "401": {
+   "text": "التاني.",
+   "alt": "el-tani.",
+   "raw": {
+    "arabic": "التاني.",
+    "arabizi": "el-tani.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الثاني.",
+      "said": "التاني."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is repeating the word for 'the second' (el-tani) following his previous word 'el-yom' and Amal's prompt. The engine wrote it with the MSA spelling (ث) instead of the spoken Levantine pronunciation (ت)."
+   },
+   "tokens": [
+    937,
+    50,
+    763
+   ],
+   "usd": 0.01103
+  },
+  "406": {
+   "text": "So يوم تاني is the second day.",
+   "alt": "So youm tani is the second day.",
+   "raw": {
+    "arabic": "So يوم تاني is the second day.",
+    "arabizi": "So youm tani is the second day.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed Medi's mix of English and Arabic."
+   },
+   "tokens": [
+    971,
+    79,
+    302
+   ],
+   "usd": 0.005566
+  },
+  "407": {
+   "text": "So my sentence didn't make sense as يوم uh تاني يوم، right؟",
+   "alt": "So my sentence didn't make sense as yom uh tani yom, right?",
+   "raw": {
+    "arabic": "So my sentence didn't make sense as يوم uh تاني يوم، right؟",
+    "arabizi": "So my sentence didn't make sense as yom uh tani yom, right?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the speech correctly."
+   },
+   "tokens": [
+    1050,
+    160,
+    437
+   ],
+   "usd": 0.007344
+  },
+  "418": {
+   "text": "م-مرة. Does it work with مرة or no?",
+   "alt": "m-marra. Does it work with marra or no?",
+   "raw": {
+    "arabic": "م-مرة. Does it work with مرة or no?",
+    "arabizi": "m-marra. Does it work with marra or no?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly captured the stutter and the English."
+   },
+   "tokens": [
+    1015,
+    97,
+    663
+   ],
+   "usd": 0.009986
+  },
+  "430": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "431": {
+   "text": "تاني مرة-- Or ta-- is it تانية؟",
+   "alt": "tani marra-- Or ta-- is it taniye?",
+   "raw": {
+    "arabic": "تاني مرة-- Or ta-- is it تانية؟",
+    "arabizi": "tani marra-- Or ta-- is it taniye?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed Medi's mix of Arabic and English, including his false start."
+   },
+   "tokens": [
+    1021,
+    116,
+    608
+   ],
+   "usd": 0.009338
+  },
+  "435": {
+   "text": "Yeah. هذي تاني مرة",
+   "alt": "Yeah. hadhi tani marra",
+   "raw": {
+    "arabic": "Yeah. هذي تاني مرة",
+    "arabizi": "Yeah. hadhi tani marra",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "yeah.",
+      "said": "Yeah."
+     }
+    ],
+    "confidence": "high",
+    "why": "Capitalized 'Yeah' and transcribed the Arabic correctly as heard."
+   },
+   "tokens": [
+    1002,
+    96,
+    482
+   ],
+   "usd": 0.007788
+  },
+  "436": {
+   "text": "بشوفك فيها. So do we assume an ال here?",
+   "alt": "bshoofak fiha. So do we assume an al here?",
+   "raw": {
+    "arabic": "بشوفك فيها. So do we assume an ال here?",
+    "arabizi": "bshoofak fiha. So do we assume an al here?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "that I see you.",
+      "said": "بشوفك فيها."
+     },
+     {
+      "engine": "So this-- We-- Do we assume an L",
+      "said": "So do we assume an ال"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi translated 'that I see you' to Arabic 'بشوفك فيها' and then asked about the Arabic definite article 'ال' (al), which the engine misheard as the English letter 'L'."
+   },
+   "tokens": [
+    1022,
+    130,
+    1075
+   ],
+   "usd": 0.014944
+  },
+  "438": {
+   "text": "Okay. هذي تاني--",
+   "alt": "Okay. hadi tani--",
+   "raw": {
+    "arabic": "Okay. هذي تاني--",
+    "arabizi": "Okay. hadi tani--",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed the words based on the context and typical speech patterns."
+   },
+   "tokens": [
+    977,
+    78,
+    327
+   ],
+   "usd": 0.005878
+  },
+  "439": {
+   "text": "I mean, هذي تاني مرة",
+   "alt": "I mean, hadhi taani marra",
+   "raw": {
+    "arabic": "I mean, هذي تاني مرة",
+    "arabizi": "I mean, hadhi taani marra",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed Medi's English and Arabic exactly as he said it."
+   },
+   "tokens": [
+    950,
+    70,
+    605
+   ],
+   "usd": 0.00916
+  },
+  "440": {
+   "text": "أنا بشوفك",
+   "alt": "ana bashufik",
+   "raw": {
+    "arabic": "أنا بشوفك",
+    "arabizi": "ana bashufik",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed what Medi said."
+   },
+   "tokens": [
+    914,
+    57,
+    625
+   ],
+   "usd": 0.009328
+  },
+  "442": {
+   "text": "اليوم.",
+   "alt": "el-yom.",
+   "raw": {
+    "arabic": "اليوم.",
+    "arabizi": "el-yom.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed his translation of 'Today' as 'اليوم'."
+   },
+   "tokens": [
+    851,
+    39,
+    274
+   ],
+   "usd": 0.00499
+  },
+  "446": {
+   "text": "هذي اليوم التانية.",
+   "alt": "hadi il-yom it-tanye.",
+   "raw": {
+    "arabic": "هذي اليوم التانية.",
+    "arabizi": "hadi il-yom it-tanye.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed what Medi said, including his mistake of saying 'il-yom' instead of 'il-marra'."
+   },
+   "tokens": [
+    910,
+    138,
+    542
+   ],
+   "usd": 0.008324
+  },
+  "450": {
+   "text": "Oh, هل-- yeah, هذي uh, المرة التانية اللي بشوفك اليوم.",
+   "alt": "Oh, hal-- yeah, haddi uh, el marra el tanyeh illi bashufik il yom.",
+   "raw": {
+    "arabic": "Oh, هل-- yeah, هذي uh, المرة التانية اللي بشوفك اليوم.",
+    "arabizi": "Oh, hal-- yeah, haddi uh, el marra el tanyeh illi bashufik il yom.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الثانية",
+      "said": "التانية"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi corrects his previous mistake 'هذي اليوم التانية' based on Amal's prompt 'هذي المرة', saying 'هذي المرة التانية اللي بشوفك اليوم.' The engine transcription was very close but just slightly off with 'الثانية'."
+   },
+   "tokens": [
+    1057,
+    285,
+    173
+   ],
+   "usd": 0.00419
+  },
+  "456": {
+   "text": "بشوفك مرة تانية.",
+   "alt": "bshuufek marra tanya.",
+   "raw": {
+    "arabic": "بشوفك مرة تانية.",
+    "arabizi": "bshuufek marra tanya.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine perfectly captured Medi repeating the Arabic phrase before he translates it."
+   },
+   "tokens": [
+    901,
+    115,
+    712
+   ],
+   "usd": 0.010346
+  },
+  "460": {
+   "text": "So okay, so with uh... with أول",
+   "alt": "So okay, so with uh... with awwal",
+   "raw": {
+    "arabic": "So okay, so with uh... with أول",
+    "arabizi": "So okay, so with uh... with awwal",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the target line accurately; Medi mixes English and Arabic ('awwal')."
+   },
+   "tokens": [
+    1000,
+    138,
+    86
+   ],
+   "usd": 0.003032
+  },
+  "461": {
+   "text": "it should be ساعة،",
+   "alt": "it should be saa3a,",
+   "raw": {
+    "arabic": "it should be ساعة،",
+    "arabizi": "it should be saa3a,",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the target line accurately as spoken by Medi."
+   },
+   "tokens": [
+    991,
+    75,
+    284
+   ],
+   "usd": 0.00539
+  },
+  "462": {
+   "text": "uh, أول, right?",
+   "alt": "uh, awwal, right?",
+   "raw": {
+    "arabic": "uh, أول, right?",
+    "arabizi": "uh, awwal, right?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "uwal",
+      "said": "أول"
+     }
+    ],
+    "confidence": "high",
+    "why": "He is continuing his thought about the word 'أول' (first); the engine misheard his pronunciation as the English-looking nonsense word 'uwal'."
+   },
+   "tokens": [
+    1010,
+    71,
+    1280
+   ],
+   "usd": 0.01738
+  },
+  "466": {
+   "text": "uh, so, ساعة الأول-- it should be ساعة الأول. ساعة، ساعة أـ...",
+   "alt": "uh, so, sa3at el-awal-- it should be sa3at el-awal. sa3a, sa3at a-...",
+   "raw": {
+    "arabic": "uh, so, ساعة الأول-- it should be ساعة الأول. ساعة، ساعة أـ...",
+    "arabizi": "uh, so, sa3at el-awal-- it should be sa3at el-awal. sa3a, sa3at a-...",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine's transcript matches the audio well, reflecting Medi's hesitation and repetition of 'ساعة الأول' while mixing English and Arabic."
+   },
+   "tokens": [
+    1169,
+    256,
+    126
+   ],
+   "usd": 0.00385
+  },
+  "468": {
+   "text": "ساعة الأول.",
+   "alt": "sa3at el-2awwal.",
+   "raw": {
+    "arabic": "ساعة الأول.",
+    "arabizi": "sa3at el-2awwal.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed his words; he literally says 'sa3at el-2awwal'."
+   },
+   "tokens": [
+    994,
+    78,
+    80
+   ],
+   "usd": 0.002948
+  },
+  "491": {
+   "text": "The first... الإشي الأول",
+   "alt": "The first... el-ishi el-awal",
+   "raw": {
+    "arabic": "The first... الإشي الأول",
+    "arabizi": "The first... el-ishi el-awal",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "El is she الأول?",
+      "said": "الإشي الأول"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeated the Arabic phrase 'el-ishi el-awal' which the engine misheard as English 'El is she'."
+   },
+   "tokens": [
+    965,
+    91,
+    566
+   ],
+   "usd": 0.008722
+  },
+  "502": {
+   "text": "أول اليوم. Oh, um...",
+   "alt": "awal el-yom. oh, um...",
+   "raw": {
+    "arabic": "أول اليوم. Oh, um...",
+    "arabizi": "awal el-yom. oh, um...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الأول",
+      "said": "أول"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats Amal's phrase 'أول اليوم', not 'الأول', which makes sense in the context of discussing 'the beginning of the day'."
+   },
+   "tokens": [
+    916,
+    69,
+    440
+   ],
+   "usd": 0.007112
+  },
+  "505": {
+   "text": "الأول الـ اليوم",
+   "alt": "el-awal el el-yom",
+   "raw": {
+    "arabic": "الأول الـ اليوم",
+    "arabizi": "el-awal el el-yom",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الأول اليوم.",
+      "said": "الأول الـ اليوم"
+     }
+    ],
+    "confidence": "high",
+    "why": "He stumbled and said 'el' before 'elyom'."
+   },
+   "tokens": [
+    910,
+    66,
+    529
+   ],
+   "usd": 0.008168
+  },
+  "507": {
+   "text": "الأول اليوم. No, that's the... isn't that the first day?",
+   "alt": "el-awal el-yom. No, that's the... isn't that the first day?",
+   "raw": {
+    "arabic": "الأول اليوم. No, that's the... isn't that the first day?",
+    "arabizi": "el-awal el-yom. No, that's the... isn't that the first day?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine's transcription is accurate for both the Arabic and English parts."
+   },
+   "tokens": [
+    980,
+    133,
+    625
+   ],
+   "usd": 0.00946
+  },
+  "528": {
+   "text": "أخير and أخيرة. So أول doesn't ch-- أول doesn't change as an adjective, but أخير does. آخر does.",
+   "alt": "2khiir and 2khiira. So 2awwal doesn't ch-- 2awwal doesn't change as an adjective, but 2khiir does. 2aakher does.",
+   "raw": {
+    "arabic": "أخير and أخيرة. So أول doesn't ch-- أول doesn't change as an adjective, but أخير does. آخر does.",
+    "arabizi": "2khiir and 2khiira. So 2awwal doesn't ch-- 2awwal doesn't change as an adjective, but 2khiir does. 2aakher does.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أخر",
+      "said": "آخر"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is comparing the words, and pronounces آخر correctly with a long 'a' sound."
+   },
+   "tokens": [
+    1180,
+    236,
+    667
+   ],
+   "usd": 0.010364
+  },
+  "532": {
+   "text": "Yeah, أخير، أخيرة.",
+   "alt": "Yeah, a5eer, a5eera.",
+   "raw": {
+    "arabic": "Yeah, أخير، أخيرة.",
+    "arabizi": "Yeah, a5eer, a5eera.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed Medi repeating the words."
+   },
+   "tokens": [
+    1008,
+    66,
+    495
+   ],
+   "usd": 0.007956
+  },
+  "535": {
+   "text": "in Farsi like أخير، أخيرا means like rarely. I don't know if it's...",
+   "alt": "in Farsi like a5eer, a5eeran means like rarely. I don't know if it's...",
+   "raw": {
+    "arabic": "in Farsi like أخير، أخيرا means like rarely. I don't know if it's...",
+    "arabizi": "in Farsi like a5eer, a5eeran means like rarely. I don't know if it's...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أخيران",
+      "said": "أخيرا"
+     }
+    ],
+    "confidence": "high",
+    "why": "The engine misinterpreted the adverbial accusative ending '-an' (tanween) as the dual or plural suffix '-an', writing 'أخيران' instead of 'أخيرا'."
+   },
+   "tokens": [
+    1097,
+    153,
+    935
+   ],
+   "usd": 0.013414
+  },
+  "541": {
+   "text": "أخير",
+   "alt": "a5eer",
+   "raw": {
+    "arabic": "أخير",
+    "arabizi": "a5eer",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The target word matches the context of discussing 'a5eer'. Audio says 'a5eer' clearly."
+   },
+   "tokens": [
+    1027,
+    44,
+    76
+   ],
+   "usd": 0.002966
+  },
+  "543": {
+   "text": "آخر مرة is-- is the...",
+   "alt": "aa5er marra is-- is the...",
+   "raw": {
+    "arabic": "آخر مرة is-- is the...",
+    "arabizi": "aa5er marra is-- is the...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أخر",
+      "said": "آخر"
+     },
+     {
+      "engine": "is, is",
+      "said": "is-- is"
+     }
+    ],
+    "confidence": "high",
+    "why": "The speaker clearly says 'آخر مرة' followed by 'is-- is the...' in English, matching the context of discussing 'آخر' and 'أخير'."
+   },
+   "tokens": [
+    1061,
+    108,
+    148
+   ],
+   "usd": 0.003898
+  },
+  "550": {
+   "text": "Last time or the last time. And then مرة... مرة الآخر.",
+   "alt": "Last time or the last time. And then marra... marra l-aakhar.",
+   "raw": {
+    "arabic": "Last time or the last time. And then مرة... مرة الآخر.",
+    "arabizi": "Last time or the last time. And then marra... marra l-aakhar.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Last time or the last time.",
+      "said": "Last time or the last time."
+     },
+     {
+      "engine": "And then مرة, uh, مرة الأخر.",
+      "said": "And then مرة... مرة الآخر."
+     }
+    ],
+    "confidence": "high",
+    "why": "The engine was mostly correct, but captured 'uh' instead of a pause/repetition, and 'الأخر' should be 'الآخر'."
+   },
+   "tokens": [
+    1115,
+    200,
+    181
+   ],
+   "usd": 0.004402
+  },
+  "552": {
+   "text": "مرة الأخيرة.",
+   "alt": "marra l-a5eera.",
+   "raw": {
+    "arabic": "مرة الأخيرة.",
+    "arabizi": "marra l-a5eera.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed Medi's words."
+   },
+   "tokens": [
+    969,
+    63,
+    354
+   ],
+   "usd": 0.006186
+  },
+  "554": {
+   "text": "المرة الأخيرة is also the last time.",
+   "alt": "il-marra il-a5eera is also the last time.",
+   "raw": {
+    "arabic": "المرة الأخيرة is also the last time.",
+    "arabizi": "il-marra il-a5eera is also the last time.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine perfectly captured Medi's mix of Arabic and English."
+   },
+   "tokens": [
+    1047,
+    133,
+    355
+   ],
+   "usd": 0.006354
+  },
+  "557": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "581": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "583": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "617": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "621": {
+   "text": "So it's just غير يوم or الغي- uh, اليوم ال- whatever the adjective version of- Okay, so it doesn't have a-",
+   "alt": "So it's just 8eir yom or el-8ei- uh, el-yom el- whatever the adjective version of- Okay, so it doesn't have a-",
+   "raw": {
+    "arabic": "So it's just غير يوم or الغي- uh, اليوم ال- whatever the adjective version of- Okay, so it doesn't have a-",
+    "arabizi": "So it's just 8eir yom or el-8ei- uh, el-yom el- whatever the adjective version of- Okay, so it doesn't have a-",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "qayril yom",
+      "said": "غير يوم"
+     },
+     {
+      "engine": "il ghay",
+      "said": "الغي-"
+     },
+     {
+      "engine": "il yom",
+      "said": "اليوم"
+     },
+     {
+      "engine": "il",
+      "said": "ال-"
+     }
+    ],
+    "confidence": "high",
+    "why": "The user is attempting to say 'غير يوم' (which Amal said just prior) or formulate 'اليوم الغير', struggling with the definite article."
+   },
+   "tokens": [
+    1257,
+    262,
+    254
+   ],
+   "usd": 0.005562
+  },
+  "623": {
+   "text": "Okay, so the adjective form is the same for the ghayr.",
+   "alt": "Okay, so the adjective form is the same for the ghayr.",
+   "raw": {
+    "arabic": "Okay, so the adjective form is the same for the ghayr.",
+    "arabizi": "Okay, so the adjective form is the same for the ghayr.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "qayr",
+      "said": "ghayr"
+     }
+    ],
+    "confidence": "high",
+    "why": "He is pronouncing 'ghayr' with a ghayn, though the engine wrote 'qayr'."
+   },
+   "tokens": [
+    1088,
+    88,
+    128
+   ],
+   "usd": 0.003712
+  },
+  "625": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "629": {
+   "text": "Which one? غير يوم, okay.",
+   "alt": "Which one? ghayr yom, okay.",
+   "raw": {
+    "arabic": "Which one? غير يوم, okay.",
+    "arabizi": "Which one? ghayr yom, okay.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "\"Qayril yom,\"",
+      "said": "غير يوم"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is repeating what Amal just said ('ghayr yom') to confirm which one is more common."
+   },
+   "tokens": [
+    1175,
+    111,
+    493
+   ],
+   "usd": 0.008266
+  },
+  "632": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "641": {
+   "text": "But se- but but but غير, but غير just will never have...",
+   "alt": "But se- but but but 8eir, but 8eir just will never have...",
+   "raw": {
+    "arabic": "But se- but but but غير, but غير just will never have...",
+    "arabizi": "But se- but but but 8eir, but 8eir just will never have...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "if they--",
+      "said": "غير,"
+     },
+     {
+      "engine": "qayr",
+      "said": "غير"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is comparing 'tani' and 'ghayr' (غير). The engine misheard his pronunciation of 'ghayr' as 'if they' and 'qayr'."
+   },
+   "tokens": [
+    1144,
+    169,
+    775
+   ],
+   "usd": 0.011588
+  },
+  "649": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "655": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "656": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "674": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "675": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "683": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "684": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "685": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "687": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "688": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "689": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "690": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "691": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "693": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "706": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "707": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "708": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "709": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "712": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "713": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "715": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "724": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "731": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "743": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "744": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "745": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "748": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "755": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "757": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "759": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "760": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "762": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "764": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "766": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "767": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "769": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "777": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "780": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "781": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "782": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "783": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "785": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "788": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "789": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "810": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "812": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "816": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "818": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "819": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "827": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "831": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "837": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "849": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "866": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "867": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "871": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "872": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "875": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "877": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "878": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "879": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "884": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "888": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  },
+  "908": {
+   "text": "",
+   "error": "429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing deta",
+   "usd": 0.0
+  }
+ },
+ "cost_usd": 1.36113,
+ "seconds": 969.2600703239441,
+ "complete": false,
+ "model": "gemini-3.1-pro-preview",
+ "stopped": "Google daily limit: 250 requests per day for gemini-3.1-pro on this account (2026-10-03); 153 of 224 lines answered"
+}

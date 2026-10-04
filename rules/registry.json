@@ -7205,6 +7205,42 @@
     "t": "49:07",
     "note": "engine 結 局, he said kul yoam"
    }
+  },
+  {
+   "id": "PR-18",
+   "kind": "process",
+   "scope": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "How a speech engine is judged (amends PR-12 until Amal-labelled held-out events exist): on Medi's own corrections of a whole lesson, frozen with hashes before any engine runs (scripts/bench_freeze.py -> data/lesson-work/bench/<date>/truth.json + manifest.json; a changed key is a new version). Every engine gets the same clips of his own microphone; plain transcribers and context listeners are scored in separate tables; 3 runs, a moment counts only when 2 of 3 runs hear it. scripts/bench_score.py scores scoreboard A per corrected moment (hit / same wrong word / other wrong word / hidden slip = the engine wrote Amal's right form where he slipped / error), the lines he left untouched that an engine changes, wrong-alphabet lines and run-to-run agreement; scripts/bench_b.py scores scoreboard B (Words % and Grammar % from the engine's text against the same numbers from his corrected text) in scratch mode only (ANEES_BENCH=1: nothing published, no database, no ledger). Every paid call has a run line; a daily-limit or out-of-credit answer stops the job and is never counted as the engine's miss. First run, lesson 2026-10-02 (63 moments, truth sha 4a26fdb66bac0acd): Gemini 3.8 Flash listening with context 51 of 63 (53 at temperature 1; 49 with only the context before the line), ElevenLabs' published transcript 4, best plain transcriber Deepgram nova-3 ar 21, OpenAI gpt-audio-1.5 24 with 11 of 24 slips hidden; Gemini 3.1 Pro looped at temperature 0 ($17.93 for 67 calls) and is capped by Google at 250 requests a day. Report: C:/Claude/reports/ANEES-ENGINE-BENCHMARK-RESULTS-2026-10-03.md; data: data/lesson-work/bench/2026-10-02/results.json.",
+   "plain": "A new speech engine is judged on your own corrections of a whole lesson, locked before any engine runs. Every engine hears the same clips of your microphone three times, and a fix counts only if two of three runs get it. An engine that writes Amal's right word where you made a mistake is marked as hiding your mistake.",
+   "plain_for": "c788f23c",
+   "topic": "testing engines",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-03",
+     "quote": "I want to retest with ALL the different ais ... do the best benchmark as possible ... Lets track both a and b separately"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/bench_score.py",
+     "contains": "def score_moment(m, out, neighbours=(), engine_line=\"\", slip=None, truth_line=\"\", conv=BC.latin_to_arabic):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/bench_freeze.py",
+     "contains": "A changed key is a new benchmark version, never a silent edit."
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_bench_score.py",
+     "contains": "def test_hidden_slip_is_counted_apart"
+    }
+   ]
   }
  ]
 }
