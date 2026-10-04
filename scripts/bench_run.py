@@ -35,7 +35,10 @@ TRIES = 3
 PRICE = {
     "eleven": 0.22 / 3600, "openai-stt": 0.006 / 60, "openai-4o": 0.006 / 60, "speechmatics": 0.40 / 3600,
     "deepgram-ar": 0.0043 / 60, "deepgram-multi": 0.0052 / 60, "cohere-api": 0.0,               # per audio second
-    "gemini-3.8-flash": (0.30, 1.00, 2.50), "gemini-3.1-pro-preview": (2.00, 2.00, 12.00), "gemini-3.5-transcribe": (0.30, 1.00, 2.50),
+    # 2026-10-04 bill audit: Google's price page says 0.75 in / 3.75 out (thinking tokens are output) for gemini-3.8-flash,
+    # doubling on 2027-01-01; Batch / Flex are half. The old row here (0.30 / 1.00 / 2.50) under-counted every Flash run
+    # by about 1.6x; run files written before this date keep the old dollars (their tokens are right).
+    "gemini-3.8-flash": (0.75, 0.75, 3.75), "gemini-3.1-pro-preview": (2.00, 2.00, 12.00), "gemini-3.5-transcribe": (0.30, 1.00, 2.50),
     "gpt-audio-1.5": (2.50, 32.00, 10.00),                                                      # per 1M: text in, audio in, out
 }
 SERVICE = {"eleven": "elevenlabs", "openai-stt": "openai", "openai-4o": "openai", "openai-audio": "openai",
