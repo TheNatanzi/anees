@@ -295,10 +295,20 @@ function renderModes() {
 }
 
 /* ---------- collapsed row ---------- */
+// PG-27: the second AI listen (Gemini re-hear of his microphone) per lesson, from lessons.json (scripts/rehear_status.py).
+// The words come from the data; a lesson with no mark shows nothing rather than a guess.
+function rehearTip(L) { var r = L.rehear || {}; return (r.tip || '') + (r.note ? ' ' + r.note : ''); }
+function rehearChip(L) {
+  if (!L.rehear || !L.rehear.label) return null;
+  var c = el('span', 'ls-rehear ls-rehear-' + L.rehear.status, L.rehear.label);
+  c.title = rehearTip(L);
+  return c;
+}
 function typeTags(L) {
   var box = el('div', 'ls-tags');
   box.appendChild(el('span', 'ls-type ls-type-' + L.type, TYPE_LABEL[L.type] || L.type));
   if (L.review_mode) box.appendChild(el('span', 'ls-mode', L.review_mode.charAt(0).toUpperCase() + L.review_mode.slice(1)));
+  var rh = rehearChip(L); if (rh) box.appendChild(rh);
   return box;
 }
 // Medi 2026-09-27: 90%+ dark green · 80-89 light green · 70-79 yellow · 69 and below red
@@ -896,6 +906,12 @@ function detail(L) {
   why.appendChild(el('span', 'ls-muted', L.type_source === 'claude-read' ? '(Claude’s reading — tell Claude to change it)' : ''));
   d.appendChild(why);
   (L.notes || []).forEach(function (n) { d.appendChild(el('p', 'ab-mini ls-note', 'Note: ' + n)); });
+  if (L.rehear && L.rehear.label) {              // PG-27: on a phone there is no hover, so the opened row says it in words
+    var rp = el('p', 'ab-mini ls-note ls-rehearnote');
+    rp.appendChild(el('strong', null, L.rehear.label + '. '));
+    rp.appendChild(document.createTextNode(rehearTip(L)));
+    d.appendChild(rp);
+  }
   d.appendChild(statStrip(L));
   if (L.type === 'new-words') {
     d.appendChild(newWords(L));

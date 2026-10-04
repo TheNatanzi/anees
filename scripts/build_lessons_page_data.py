@@ -39,6 +39,7 @@ TMP = os.path.join(__import__("tempfile").gettempdir(), "anees-lessons-page")
 sys.path.insert(0, HERE)
 import lesson_ledger as LL  # noqa: E402  LS-11 one lesson ledger
 import transcript_fixes as TFX  # noqa: E402  TR-18 heard-word overlay
+import rehear_status as RH  # noqa: E402  PG-27 the "second listen" mark per lesson
 import amal_grammar_notes as AMAL  # noqa: E402  Amal's notes 2026-09-27: which grammar corrections do not count
 
 
@@ -695,6 +696,8 @@ def mark_html(said, token, cls):
 
 
 def build():
+    RH.build(REPO)                                 # PG-27: a newly published lesson joins as pending; lesson pages get their mark
+    rehear_doc = RH.load(REPO)
     # Full audit 2026-09-26 (two readers + third reader per lesson, reconciled with the 09-24 sweep) is the source of
     # grammar AND vocab errors; it carries a sweep-shaped view so the rest of this builder is unchanged. Falls back to
     # the 09-24 sweep only while the audit file does not exist.
@@ -964,6 +967,7 @@ def build():
             "new_words": new_words, "taught": taught, "taught_words": taught_words, "coverage": ((per_lesson_cov.get(date) + " / ") if per_lesson_cov.get(date) and fills else (per_lesson_cov.get(date) or "")) + (gapfill_note(fills) + "." if fills else "") or None,
             **({"gap_fill": fills} if fills else {}), "notes": notes,
             "page": f"lessons/{date}.html", "detail": f"data/lessons/{date}.json",
+            "rehear": RH.chip(date, rehear_doc),          # PG-27: second listen pending / sent / to review / applied
             "counts": {"turns": sum(1 for p in P if not p["chat"]), "chat_lines": sum(1 for p in P if p["chat"]),
                        **({"gap_fill": sum(1 for p in P if p.get("gap_fill")), "from_meet": sum(1 for p in P if p.get("from_meet"))} if fills else {}),
                        "vocab_errors": len(verr), "vocab_correct": len(vok),

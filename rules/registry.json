@@ -7255,6 +7255,51 @@
      "contains": "def test_limit_answers_are_never_the_engines_miss"
     }
    ]
+  },
+  {
+   "id": "PG-27",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every lesson says whether the second AI listen (the Gemini re-hear of Medi's own microphone, TR-22 / PR-18) has been done: a quiet chip on the Lessons list row (with the sentence in the opened row) and under the title of each lesson's own page. The words come from data/lesson-work/rehear-status.json (pending / submitted / proposed / applied, with a since-date and a note); scripts/rehear_status.py adds every newly published lesson as pending and never changes an existing row, scripts/build_lessons_page_data.py runs it on every build and puts the mark in docs/data/lessons.json. Only 'applied' says anything of Gemini's is in the transcript; a missing or unknown status shows as pending. 2026-10-04: all 18 lessons pending (nothing from the re-hear is applied to any lesson).",
+   "plain": "Every lesson shows whether the second AI listen of your microphone (Gemini) has been done. Today every lesson says 'Second listen: pending', on the Lessons list and on the lesson's own page. A lesson only says 'applied' once its changes were reviewed and are in the transcript.",
+   "plain_for": "d3756eaa",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-04",
+     "quote": "just make sure to mark that its bending still on the lessons"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/rehear_status.py",
+     "contains": "def stamp_pages"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_lessons_page_data.py",
+     "contains": "RH.chip(date, rehear_doc)"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "function rehearChip(L)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_rehear_status.py",
+     "contains": "def test_pg27_every_published_lesson_is_marked_on_its_page_and_on_the_list"
+    },
+    {
+     "path": "tests/test_rehear_status.py",
+     "contains": "def test_pg27_no_status_claims_more_than_is_true"
+    }
+   ]
   }
  ]
 }

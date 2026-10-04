@@ -354,7 +354,8 @@ TUTOR_PATHS = ['docs/data', 'docs/amal/grammar-rules.html', 'data/full-audit-202
 # everything a run may build that the site or the guard reads: committed before the run's one push
 BUILT_PATHS = ['docs', 'RULE-BOOK.md', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'data/lesson-work/full-audit', 'data/lesson-work/ledger', 'data/lesson-work/ledger-amal.json', 'plan/FULL-AUDIT-2026-09-26.md',
                'data/budget.json', 'data/lessons/recall_bots.json', 'data/runs', 'data/decisions', 'data/backfill',
-               'data/amal-trigger', 'data/vocab', 'data/lesson-work/amal-new-words', 'data/lesson-work/amal-new-words-verdicts.json']
+               'data/amal-trigger', 'data/vocab', 'data/lesson-work/amal-new-words', 'data/lesson-work/amal-new-words-verdicts.json',
+               'data/lesson-work/rehear-status.json']   # PG-27: a new lesson's pending row (scripts/rehear_status.py, via build_lessons_page_data.py)
 
 
 def tutor_refresh(no_push=False, rebuild_all=False):
@@ -445,6 +446,7 @@ def commit_lessons(dates):
     # data/budget.json: transcribing writes the cost log; left unstaged it made 'pull --rebase' refuse (exit 128) and the
     # 2026-09-23 lesson commit never reached master (2026-09-24 fix; --autostash covers any other stray edit).
     run('add', 'docs/data', 'docs/js/build.js', 'data/lessons/recall_bots.json', 'data/budget.json',
+        *[p for p in ('data/lesson-work/rehear-status.json',) if (ROOT / p).exists()],   # PG-27: the new lesson's pending row
         *[f'docs/lessons/{d}.html' for d in dates if (ROOT / 'docs' / 'lessons' / f'{d}.html').exists()],
         *[p for p in ('data/runs', 'data/decisions') if (ROOT / p).exists()])   # AI run + decision logs ride along (append-only)
     run('add', '-f', *[f'docs/lessons/{d}/audio/lesson.mp3' for d in dates if (ROOT / 'docs' / 'lessons' / d / 'audio' / 'lesson.mp3').exists()],

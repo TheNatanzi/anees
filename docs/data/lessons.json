@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-03T22:41:27-07:00",
+ "updated": "2026-10-03T23:18:51-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -162,6 +162,12 @@
    ],
    "page": "lessons/2026-08-25.html",
    "detail": "data/lessons/2026-08-25.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 623,
     "chat_lines": 0,
@@ -398,6 +404,12 @@
    ],
    "page": "lessons/2026-09-04.html",
    "detail": "data/lessons/2026-09-04.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 1395,
     "chat_lines": 0,
@@ -627,6 +639,12 @@
    ],
    "page": "lessons/2026-09-05.html",
    "detail": "data/lessons/2026-09-05.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 833,
     "chat_lines": 0,
@@ -887,6 +905,12 @@
    ],
    "page": "lessons/2026-09-10.html",
    "detail": "data/lessons/2026-09-10.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 970,
     "chat_lines": 0,
@@ -1112,6 +1136,12 @@
    ],
    "page": "lessons/2026-09-11.html",
    "detail": "data/lessons/2026-09-11.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 937,
     "chat_lines": 0,
@@ -1545,6 +1575,12 @@
    ],
    "page": "lessons/2026-09-14.html",
    "detail": "data/lessons/2026-09-14.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 996,
     "chat_lines": 45,
@@ -1780,6 +1816,12 @@
    ],
    "page": "lessons/2026-09-15.html",
    "detail": "data/lessons/2026-09-15.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 1025,
     "chat_lines": 72,
@@ -2113,6 +2155,12 @@
    ],
    "page": "lessons/2026-09-16.html",
    "detail": "data/lessons/2026-09-16.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 976,
     "chat_lines": 69,
@@ -2604,6 +2652,12 @@
    ],
    "page": "lessons/2026-09-17.html",
    "detail": "data/lessons/2026-09-17.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 958,
     "chat_lines": 41,
@@ -3017,6 +3071,12 @@
    ],
    "page": "lessons/2026-09-18.html",
    "detail": "data/lessons/2026-09-18.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 962,
     "chat_lines": 66,
@@ -3218,6 +3278,12 @@
    ],
    "page": "lessons/2026-09-19.html",
    "detail": "data/lessons/2026-09-19.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 843,
     "chat_lines": 78,
@@ -3512,6 +3578,12 @@
    ],
    "page": "lessons/2026-09-21.html",
    "detail": "data/lessons/2026-09-21.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 1274,
     "chat_lines": 57,
@@ -3841,6 +3913,12 @@
    ],
    "page": "lessons/2026-09-23.html",
    "detail": "data/lessons/2026-09-23.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 1056,
     "chat_lines": 57,
@@ -4457,6 +4535,12 @@
    ],
    "page": "lessons/2026-09-26.html",
    "detail": "data/lessons/2026-09-26.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 1218,
     "chat_lines": 74,
@@ -4815,6 +4899,12 @@
    ],
    "page": "lessons/2026-09-28.html",
    "detail": "data/lessons/2026-09-28.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 1082,
     "chat_lines": 28,
@@ -5168,6 +5258,12 @@
    ],
    "page": "lessons/2026-09-30.html",
    "detail": "data/lessons/2026-09-30.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 1067,
     "chat_lines": 30,
@@ -5381,6 +5477,12 @@
    ],
    "page": "lessons/2026-10-01.html",
    "detail": "data/lessons/2026-10-01.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
    "counts": {
     "turns": 936,
     "chat_lines": 32,
@@ -5666,6 +5768,13 @@
    ],
    "page": "lessons/2026-10-02.html",
    "detail": "data/lessons/2026-10-02.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-04",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only.",
+    "note": "This lesson was the test lesson of the engine benchmark: Gemini heard its lines there as a test, and nothing from that test is in the transcript."
+   },
    "counts": {
     "turns": 1003,
     "chat_lines": 44,
