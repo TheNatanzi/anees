@@ -36,7 +36,13 @@ A_KINDS = ("grammar", "vocab-A")
 EPISODE_SAYS_ONE = re.compile(r"same episode|count(ed)? once|repetition is practice|restates? |same answer|"
                               r"no new (lexical )?retrieval|one attempt", re.I)
 MEDI_EMAIL = "thenatanzi@gmail.com"
-CAPS = {"elevenlabs": 10.0, "openai": 10.0}       # = pipeline_ext.CAPS (rule H4); stop at 90 %
+# = pipeline_ext.CAPS (rule H4); stop at 90 %. Read from there, not copied: the copy here still said openai 10 after
+# the caps were set to openai 40 / gemini 40 on 2026-10-03 (commit d18192d), and had no gemini row at all.
+try:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from pipeline_ext import CAPS
+except Exception:  # noqa: BLE001 - never looser than the last known caps if the import fails
+    CAPS = {"elevenlabs": 10.0, "openai": 10.0}
 
 # Files that call a paid AI endpoint without scripts/track.py, each with the reason it is allowed (rule: every AI call
 # path is logged, AI engineering review 09-27 build #1). A NEW file calling an AI endpoint without track fails AI-logged.
