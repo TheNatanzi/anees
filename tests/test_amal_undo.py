@@ -184,6 +184,7 @@ CHOICE_PAGES = {   # page -> the module that draws its choices
     "amal/verb-check.html": ["js/hub/verb-check-task.js"],
     "amal/word-review.html": ["js/hub/word-review-task.js"],
     "amal/grammar-rules.html": ["js/amal-grammar-notes.js"],
+    "amal/listen-check.html": ["js/hub/listen-check-task.js"],
 }
 
 
