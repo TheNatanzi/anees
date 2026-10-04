@@ -1,6 +1,88 @@
 {
- "updated": "2026-09-29",
+ "updated": "2026-10-04",
  "reports": [
+  {
+   "slug": "engine-benchmark-2026-10-02",
+   "date": "2026-10-03",
+   "author": "Claude",
+   "title": "Speech-engine benchmark: which AI hears Medi's Arabic",
+   "question": "On the 63 moments Medi corrected in the 10-02 transcript, which speech engine writes the word he actually said, without hiding his mistakes?",
+   "verdict": "Gemini 3.8 Flash, listening to his microphone with the lesson around it, heard 53 of 63. Today's engine (ElevenLabs) heard 4 and no plain transcriber passed 21. Flash still changes a word on about 60 lines he left alone, so its changes are proposals, not automatic.",
+   "numbers": [
+    {
+     "label": "Gemini Flash + context",
+     "value": "53 of 63",
+     "note": "2 of 3 runs agree"
+    },
+    {
+     "label": "ElevenLabs today",
+     "value": "4 of 63",
+     "note": "the published transcript"
+    },
+    {
+     "label": "best plain transcriber",
+     "value": "21 of 63",
+     "note": "Deepgram Arabic, whole file"
+    },
+    {
+     "label": "engines tested",
+     "value": "13",
+     "note": "3 runs each where the provider allowed"
+    }
+   ],
+   "bars_title": "Corrected moments heard right (of 63)",
+   "bars": [
+    {
+     "label": "Gemini 3.8 Flash + context (temperature 1)",
+     "value": 53,
+     "max": 63,
+     "text": "53"
+    },
+    {
+     "label": "Gemini 3.8 Flash + context (temperature 0)",
+     "value": 51,
+     "max": 63,
+     "text": "51"
+    },
+    {
+     "label": "Gemini 3.8 Flash, context before the line only",
+     "value": 49,
+     "max": 63,
+     "text": "49"
+    },
+    {
+     "label": "OpenAI gpt-audio-1.5 + context (hides 11 of 24 slips)",
+     "value": 24,
+     "max": 63,
+     "text": "24"
+    },
+    {
+     "label": "Deepgram nova-3 Arabic, whole file",
+     "value": 21,
+     "max": 63,
+     "text": "21"
+    },
+    {
+     "label": "Cohere Arabic (open model, this PC)",
+     "value": 15,
+     "max": 63,
+     "text": "15"
+    },
+    {
+     "label": "ElevenLabs Scribe v2, today's transcript",
+     "value": 4,
+     "max": 63,
+     "text": "4"
+    }
+   ],
+   "source_md": "plan/ENGINE-BENCHMARK-2026-10-02.md",
+   "links": [
+    {
+     "label": "Full report",
+     "url": "reports/engine-benchmark-2026-10-02.html"
+    }
+   ]
+  },
   {
    "slug": "eng-audit-2026-09-29",
    "date": "2026-09-29",
