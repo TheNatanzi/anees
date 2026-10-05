@@ -74,7 +74,7 @@ def test_on_the_tutor_hub_with_the_review_link_token():
     assert row["url"] == "amal/listen-check.html?t=" + rv["token"] and "10 minutes" in row["what"]
     hub, js = (DOCS / "tutor.html").read_text(encoding="utf-8"), (DOCS / "js" / "tutor.js").read_text(encoding="utf-8")
     assert "js/hub/listen-check-task.js" in hub                                   # opens inside the hub panel (PG-17)
-    assert "listen: (b, it, on) => AneesListenTask.mount(" in js and "source=eq.listen-check" in js and "'listen'].includes(x.kind)" in js
+    assert "listen: (b, it, on) => AneesListenTask.mount(" in js and "source=eq.listen-check" in js and "'word_review', 'listen'" in js
 
 
 def test_builder_puts_the_row_on_the_live_review_link(tmp_path, monkeypatch):

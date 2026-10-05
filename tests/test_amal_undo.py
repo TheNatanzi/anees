@@ -177,7 +177,7 @@ def test_AM_17_undone_verb_form_leaves_the_pulled_answers(tmp_path, monkeypatch)
 
 # ---- every Tutor-reachable page with a choice renders the one shared Undo ------------------------------------------
 CHOICE_PAGES = {   # page -> the module that draws its choices
-    "tutor.html": ["js/hub/new-words-task.js", "js/tutor-verify.js", "js/hub/after-task.js", "js/hub/listen-check-task.js"],
+    "tutor.html": ["js/hub/new-words-task.js", "js/tutor-verify.js", "js/hub/after-task.js", "js/hub/listen-check-task.js", "js/hub/check-task.js"],
     "amal/after.html": ["js/hub/after-task.js"],
     "amal/plan.html": ["js/hub/plan-task.js"],
     "amal/review.html": ["js/hub/review-task.js"],
@@ -185,6 +185,7 @@ CHOICE_PAGES = {   # page -> the module that draws its choices
     "amal/word-review.html": ["js/hub/word-review-task.js"],
     "amal/grammar-rules.html": ["js/amal-grammar-notes.js"],
     "amal/listen-check.html": ["js/hub/listen-check-task.js"],
+    "amal/check.html": ["js/hub/check-task.js"],
 }
 
 

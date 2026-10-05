@@ -27,6 +27,7 @@ ONCE_OK = {
     'docs/js/hub/plan-task.js': "the before-lesson list Amal has open (tutor.js re-reads the list around it)",
     'docs/js/hub/review-task.js': "the slips list Amal has open; a re-read would close a reason she is typing",
     'docs/js/hub/verb-check-task.js': "the verb list Amal has open; her unsent answers live on the page",
+    'docs/js/hub/check-task.js': "a listening / checking list Amal has open; her 'Something else' box and unsent taps live on the page",
     'docs/js/hub/listen-check-task.js': "the listening check Amal has open; her 'Both wrong' box and unsent taps live on the page",
     'docs/js/hub/word-review-task.js': "the word review Amal has open; her unsent answers live on the page",
     'docs/js/tutor-verify.js': "the 'check these moments' task Amal has open (tutor.js re-reads the list around it)",

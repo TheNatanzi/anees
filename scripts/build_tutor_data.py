@@ -18,6 +18,7 @@ OUT = os.path.join(DOCS, "data", "tutor.json")
 KEEP_KINDS = set()
 NOTES = os.path.join(DOCS, "data", "amal-grammar-notes.json")
 LISTEN = os.path.join(DOCS, "data", "amal-listen.json")
+CHECKS = os.path.join(DOCS, "data", "amal-checks.json")
 
 
 def day(s):
@@ -235,6 +236,14 @@ def main():
                               "what": f"{n_listen} of your own lines from two lessons, each written two ways. Play your clip and tap the one that is right. About 10 minutes.",
                               "who": "Amal answers · on her Tutor page", "url": f"amal/listen-check.html?t={r['token']}",
                               "total": n_listen, "expires": day(r["expires_at"])})
+            # Her other listening / checking lists (Medi 2026-10-05 "have amal do the 27 line check too", "did you put the
+            # 108 on amals list", "5 send to amal"): one row per list of docs/data/amal-checks.json, same token, same saving.
+            for c in (json.load(open(CHECKS, encoding="utf-8")).get("lists") or []) if os.path.exists(CHECKS) else []:
+                if c.get("total"):
+                    open_.append({"id": "check-" + c["list"], "title": c["title"], "kind": "check", "list": c["list"], "token": r["token"],
+                                  "what": c["what"], "who": "Amal answers · on her Tutor page", "url": f"amal/check.html?list={c['list']}&t={r['token']}",
+                                  "total": c["total"], "unit": c.get("unit") or "items", "min_each": round(c.get("mins", 5) / c["total"], 3),
+                                  "expires": day(r["expires_at"])})
         elif r["kind"] in ("after", "before"):
             title = ("After the lesson · " if r["kind"] == "after" else "Before the lesson · ") + pretty(r.get("lesson_date") or "")
             n = len(p.get("questions") or []) + len(p.get("homework") or []) + len(p.get("prompts") or []) if r["kind"] == "after" else len(p.get("suggestions") or p.get("items") or [])
