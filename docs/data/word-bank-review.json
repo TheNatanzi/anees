@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-21-reliability-v1+silence+zibdeh-wrong-form+azra2-gender-form+ustaaz-vocab-miss+context-sweep-0925+vocab-unresolved-audit-0928+silence+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+lessons-1005+vocab-unresolved-audit-0928",
+  "version": "2026-09-21-reliability-v1+silence+zibdeh-wrong-form+azra2-gender-form+ustaaz-vocab-miss+context-sweep-0925+vocab-unresolved-audit-0928+silence+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+vocab-unresolved-audit-0928+lessons-1005+vocab-unresolved-audit-0928",
   "patches": {
     "14451e90578dc9ffc26af8db425e0c639905c361a2bdc850a03be575e3830243": {
       "expected": {
@@ -74053,11 +74053,18 @@
         "audit_by": "Claude audit 2026-09-28",
         "reviewer": "Claude audit 2026-09-28",
         "audit_run": "2026-09-28-vocab-unresolved-audit",
-        "audit_bin": "open",
-        "audit_kind": "question",
-        "audit_note": "",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 53:21.",
         "contextual_audit": true,
-        "audit_question": "Not classified by the audit: Isolated production; insufficient evidence of independent contextual success",
+        "review_locked": true,
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "needs_review": false,
+        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 53:21.",
+        "ignored": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
         "audit_created": true
       }
     },
@@ -75463,11 +75470,18 @@
         "audit_by": "Claude audit 2026-09-28",
         "reviewer": "Claude audit 2026-09-28",
         "audit_run": "2026-09-28-vocab-unresolved-audit",
-        "audit_bin": "open",
-        "audit_kind": "question",
-        "audit_note": "",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 54:05.",
         "contextual_audit": true,
-        "audit_question": "Not classified by the audit: Isolated production; insufficient evidence of independent contextual success",
+        "review_locked": true,
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "needs_review": false,
+        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 54:05.",
+        "ignored": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
         "audit_created": true
       }
     },
@@ -76248,6 +76262,66 @@
         "vocab_points": null,
         "needs_review": false,
         "reason": "Claude audit 2026-09-28: Said again at 59:38 after only «Mm-hmm. [laughs] Mm.» from Amal: one attempt, the fuller one is kept.",
+        "ignored": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
+        "audit_created": true
+      }
+    },
+    "9be5f6e22c14d2112457ead93f06c6e1eed6f86268b4b4033d05d0b67d9c28f7": {
+      "expected": {
+        "source_sha256": "7100810bb0cb45ad40e4ad7000fbd159497574993e319537b5badeafde61f041",
+        "row_id": "anees-20261005-recall-medi:row:208",
+        "word_key": "5arIf",
+        "text": "خريف.",
+        "t_start": 237.629462418,
+        "t_end": 238.04946241800002,
+        "assessment": "helped",
+        "reason": "Same vocabulary supplied by Amal within 15 seconds; repetition is practice, not independent credit"
+      },
+      "changes": {
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Said again at 4:07 after only «مم.» from Amal: one attempt, the fuller one is kept.",
+        "contextual_audit": true,
+        "review_locked": true,
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "needs_review": false,
+        "reason": "Claude audit 2026-09-28: Said again at 4:07 after only «مم.» from Amal: one attempt, the fuller one is kept.",
+        "ignored": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
+        "audit_created": true
+      }
+    },
+    "44fe5676ee56fe39724d3c5a5b8c0ea3e8fb9df446252a2a8d6f4cfc2073f713": {
+      "expected": {
+        "source_sha256": "7100810bb0cb45ad40e4ad7000fbd159497574993e319537b5badeafde61f041",
+        "row_id": "anees-20261005-recall-medi:row:4628",
+        "word_key": "i7na shufna",
+        "text": "shufna.",
+        "t_start": 3345.129462418,
+        "t_end": 3345.949462418,
+        "assessment": "independent",
+        "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified"
+      },
+      "changes": {
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Said again at 55:40 after only «Mm.» from Amal: one attempt, the fuller one is kept.",
+        "contextual_audit": true,
+        "review_locked": true,
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "needs_review": false,
+        "reason": "Claude audit 2026-09-28: Said again at 55:40 after only «Mm.» from Amal: one attempt, the fuller one is kept.",
         "ignored": true,
         "immediate_repeat": true,
         "classification": "ignored",
@@ -77328,6 +77402,246 @@
         "vocab_points": null,
         "needs_review": false,
         "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 47:07.",
+        "ignored": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
+        "audit_created": true
+      }
+    },
+    "8e058c1c6a0647d9843c8d9c7629499ca629eb1dfe747e572ca51d2081677750": {
+      "expected": {
+        "source_sha256": "7100810bb0cb45ad40e4ad7000fbd159497574993e319537b5badeafde61f041",
+        "row_id": "anees-20261005-recall-medi:row:306",
+        "word_key": "rabI3",
+        "text": "ربيع.",
+        "t_start": 301.669462418,
+        "t_end": 302.14946241800004,
+        "assessment": "helped",
+        "reason": "Same vocabulary supplied by Amal within 15 seconds; repetition is practice, not independent credit"
+      },
+      "changes": {
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 5:04.",
+        "contextual_audit": true,
+        "review_locked": true,
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "needs_review": false,
+        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 5:04.",
+        "ignored": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
+        "audit_created": true
+      }
+    },
+    "28edd6c10449c2bcfb78eca9f0d3f3f5e2856baed3466c7eea15e010afe69e49": {
+      "expected": {
+        "source_sha256": "7100810bb0cb45ad40e4ad7000fbd159497574993e319537b5badeafde61f041",
+        "row_id": "anees-20261005-recall-medi:row:422",
+        "word_key": "rasmi",
+        "text": "رسمي،",
+        "t_start": 413.665462418,
+        "t_end": 414.305462418,
+        "assessment": "independent",
+        "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified"
+      },
+      "changes": {
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 6:59.",
+        "contextual_audit": true,
+        "review_locked": true,
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "needs_review": false,
+        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 6:59.",
+        "ignored": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
+        "audit_created": true
+      }
+    },
+    "ce287bce2a8499fe8580723c0d81a869c24d4552d7fd4393daef682149731cdf": {
+      "expected": {
+        "source_sha256": "7100810bb0cb45ad40e4ad7000fbd159497574993e319537b5badeafde61f041",
+        "row_id": "anees-20261005-recall-medi:row:504",
+        "word_key": "ana 7atait",
+        "text": "أنا حطيت،",
+        "t_start": 472.925462418,
+        "t_end": 473.725462418,
+        "assessment": "independent",
+        "reason": "Word used in a new answer; tutor question wording alone is not evidence of help"
+      },
+      "changes": {
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 7:55.",
+        "contextual_audit": true,
+        "review_locked": true,
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "needs_review": false,
+        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 7:55.",
+        "ignored": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
+        "audit_created": true
+      }
+    },
+    "b5ffcc47c26a7932bbbe1a54eb13603093995de536e120956dbeadbe0c6fecc1": {
+      "expected": {
+        "source_sha256": "7100810bb0cb45ad40e4ad7000fbd159497574993e319537b5badeafde61f041",
+        "row_id": "anees-20261005-recall-medi:row:4284",
+        "word_key": "a8lab",
+        "text": "أغلب،",
+        "t_start": 3077.759462418,
+        "t_end": 3078.239462418,
+        "assessment": "independent",
+        "reason": "Word used in a new answer; tutor question wording alone is not evidence of help"
+      },
+      "changes": {
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 51:21.",
+        "contextual_audit": true,
+        "review_locked": true,
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "needs_review": false,
+        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 51:21.",
+        "ignored": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
+        "audit_created": true
+      }
+    },
+    "417087cbf0de4ec80e0ef4bee17230a0cc1dece546d2f343925c1322db228198": {
+      "expected": {
+        "source_sha256": "7100810bb0cb45ad40e4ad7000fbd159497574993e319537b5badeafde61f041",
+        "row_id": "anees-20261005-recall-medi:row:422",
+        "word_key": "2amIs",
+        "text": "قميص",
+        "t_start": 413.025462418,
+        "t_end": 413.465462418,
+        "assessment": "independent",
+        "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified"
+      },
+      "changes": {
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 6:58.",
+        "contextual_audit": true,
+        "review_locked": true,
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "needs_review": false,
+        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 6:58.",
+        "ignored": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
+        "audit_created": true
+      }
+    },
+    "2b6053897556e6d58a2e77bcadc4656dd5218a568facc7b0c569f39cce946b85": {
+      "expected": {
+        "source_sha256": "7100810bb0cb45ad40e4ad7000fbd159497574993e319537b5badeafde61f041",
+        "row_id": "anees-20261005-recall-medi:row:40",
+        "word_key": "zbUn",
+        "text": "زبون",
+        "t_start": 80.909462418,
+        "t_end": 81.649462418,
+        "assessment": "independent",
+        "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified"
+      },
+      "changes": {
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 1:28.",
+        "contextual_audit": true,
+        "review_locked": true,
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "needs_review": false,
+        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 1:28.",
+        "ignored": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
+        "audit_created": true
+      }
+    },
+    "faf52b34f3b701f5a512d7a0a5ffae3810aa4c7693be0457cda73958a933b093": {
+      "expected": {
+        "source_sha256": "7100810bb0cb45ad40e4ad7000fbd159497574993e319537b5badeafde61f041",
+        "row_id": "anees-20261005-recall-medi:row:1952",
+        "word_key": "ba3Id",
+        "text": "بَعِيدٍ،",
+        "t_start": 1455.239462418,
+        "t_end": 1455.719462418,
+        "assessment": "independent",
+        "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified"
+      },
+      "changes": {
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 24:17.",
+        "contextual_audit": true,
+        "review_locked": true,
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "needs_review": false,
+        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 24:17.",
+        "ignored": true,
+        "immediate_repeat": true,
+        "classification": "ignored",
+        "audit_created": true
+      }
+    },
+    "f76deb3b7eb86337c69c1b5e94550345ba4d455628e347c2d4f220b7e1688b09": {
+      "expected": {
+        "source_sha256": "7100810bb0cb45ad40e4ad7000fbd159497574993e319537b5badeafde61f041",
+        "row_id": "anees-20261005-recall-medi:row:40",
+        "word_key": "muhem",
+        "text": "مهم.",
+        "t_start": 81.849462418,
+        "t_end": 82.389462418,
+        "assessment": "independent",
+        "reason": "Word produced in a connected learner phrase, without a recent supplied target; provisional lexical use, pronunciation unverified"
+      },
+      "changes": {
+        "audit_by": "Claude audit 2026-09-28",
+        "reviewer": "Claude audit 2026-09-28",
+        "audit_run": "2026-09-28-vocab-unresolved-audit",
+        "audit_bin": "not_counted",
+        "audit_kind": "repeat",
+        "audit_note": "Same word again in one utterance (stutter or restart); one attempt, kept at 1:28.",
+        "contextual_audit": true,
+        "review_locked": true,
+        "assessment": "unresolved",
+        "vocab_points": null,
+        "needs_review": false,
+        "reason": "Claude audit 2026-09-28: Same word again in one utterance (stutter or restart); one attempt, kept at 1:28.",
         "ignored": true,
         "immediate_repeat": true,
         "classification": "ignored",
