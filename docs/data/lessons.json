@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-05T15:15:29-07:00",
+ "updated": "2026-10-05T15:21:18-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -70,9 +70,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 248,
+    "uses": 267,
     "mistakes": 35,
-    "pct": 89.1,
+    "pct": 89.9,
     "estimate": false,
     "scored_mistakes": 27,
     "unscored_mistakes": 8,
@@ -85,7 +85,7 @@
       "8 slips are in rules the counter found 0 uses of in this lesson",
       "5 rules have more slips than counted uses (A12, A4, B18, C12, D2)"
      ],
-     "uses": 228,
+     "uses": 247,
      "slips": 35,
      "slips_latin": 7,
      "slips_in_zero_use_rules": 8,
@@ -178,7 +178,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-08-25.json",
-    "marks": 360,
+    "marks": 379,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,
@@ -290,9 +290,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 134,
+    "uses": 136,
     "mistakes": 47,
-    "pct": 70.1,
+    "pct": 70.6,
     "estimate": false,
     "scored_mistakes": 40,
     "unscored_mistakes": 7,
@@ -305,7 +305,7 @@
       "16 slips are in rules the counter found 0 uses of in this lesson",
       "6 rules have more slips than counted uses (A2, A3, A7, B18, B5, D2)"
      ],
-     "uses": 99,
+     "uses": 101,
      "slips": 47,
      "slips_latin": 25,
      "slips_in_zero_use_rules": 16,
@@ -420,7 +420,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-04.json",
-    "marks": 178,
+    "marks": 180,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,
@@ -1087,9 +1087,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 143,
+    "uses": 147,
     "mistakes": 40,
-    "pct": 75.5,
+    "pct": 76.2,
     "estimate": false,
     "scored_mistakes": 35,
     "unscored_mistakes": 5,
@@ -1100,9 +1100,9 @@
      "valid": false,
      "reasons": [
       "16 slips are in rules the counter found 0 uses of in this lesson",
-      "10 rules have more slips than counted uses (A11, A2, A3, A7, A9, B12, B18, B5)"
+      "9 rules have more slips than counted uses (A11, A2, A3, A7, A9, B18, B5, C2)"
      ],
-     "uses": 111,
+     "uses": 115,
      "slips": 40,
      "slips_latin": 21,
      "slips_in_zero_use_rules": 16,
@@ -1112,7 +1112,6 @@
       "A3",
       "A7",
       "A9",
-      "B12",
       "B18",
       "B5",
       "C2",
@@ -1206,7 +1205,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-11.json",
-    "marks": 224,
+    "marks": 228,
     "conflicts": 1,
     "resolved": 1,
     "needs_medi": 0,
@@ -1810,9 +1809,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 166,
+    "uses": 168,
     "mistakes": 46,
-    "pct": 75.3,
+    "pct": 75.6,
     "estimate": false,
     "scored_mistakes": 41,
     "unscored_mistakes": 5,
@@ -1822,13 +1821,13 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "15 slips are in rules the counter found 0 uses of in this lesson",
+      "13 slips are in rules the counter found 0 uses of in this lesson",
       "8 rules have more slips than counted uses (A2, B12, B16, B18, B2, D2, D4, E5)"
      ],
-     "uses": 126,
+     "uses": 128,
      "slips": 46,
      "slips_latin": 23,
-     "slips_in_zero_use_rules": 15,
+     "slips_in_zero_use_rules": 13,
      "rules_slips_over_uses": [
       "A2",
       "B12",
@@ -2045,7 +2044,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-15.json",
-    "marks": 232,
+    "marks": 234,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,
@@ -3858,9 +3857,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 361,
+    "uses": 360,
     "mistakes": 62,
-    "pct": 84.8,
+    "pct": 84.7,
     "estimate": false,
     "scored_mistakes": 55,
     "unscored_mistakes": 7,
@@ -3873,7 +3872,7 @@
       "13 slips are in rules the counter found 0 uses of in this lesson",
       "9 rules have more slips than counted uses (A2, A4, B10, B12, B16, B17, B18, B4b)"
      ],
-     "uses": 315,
+     "uses": 314,
      "slips": 62,
      "slips_latin": 29,
      "slips_in_zero_use_rules": 13,
@@ -4183,7 +4182,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-21.json",
-    "marks": 590,
+    "marks": 589,
     "conflicts": 7,
     "resolved": 1,
     "needs_medi": 2,
@@ -4878,9 +4877,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 234,
+    "uses": 235,
     "mistakes": 30,
-    "pct": 88.0,
+    "pct": 88.1,
     "estimate": false,
     "scored_mistakes": 28,
     "unscored_mistakes": 2,
@@ -4893,7 +4892,7 @@
       "3 slips are in rules the counter found 0 uses of in this lesson",
       "4 rules have more slips than counted uses (A12, A7, B18, D2)"
      ],
-     "uses": 214,
+     "uses": 215,
      "slips": 30,
      "slips_latin": 3,
      "slips_in_zero_use_rules": 3,
@@ -5140,7 +5139,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-26.json",
-    "marks": 421,
+    "marks": 422,
     "conflicts": 2,
     "resolved": 0,
     "needs_medi": 1,
@@ -5714,7 +5713,7 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 207,
+    "uses": 208,
     "mistakes": 19,
     "pct": 91.3,
     "estimate": false,
@@ -5729,7 +5728,7 @@
       "4 slips are in rules the counter found 0 uses of in this lesson",
       "4 rules have more slips than counted uses (B18, C1, D2, D4)"
      ],
-     "uses": 193,
+     "uses": 194,
      "slips": 19,
      "slips_latin": 5,
      "slips_in_zero_use_rules": 4,
@@ -5863,7 +5862,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-30.json",
-    "marks": 300,
+    "marks": 301,
     "conflicts": 1,
     "resolved": 1,
     "needs_medi": 0,
@@ -6210,9 +6209,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 248,
+    "uses": 249,
     "mistakes": 18,
-    "pct": 92.7,
+    "pct": 92.8,
     "estimate": false,
     "scored_mistakes": 18,
     "unscored_mistakes": 0,
@@ -6225,7 +6224,7 @@
       "2 slips are in rules the counter found 0 uses of in this lesson",
       "2 rules have more slips than counted uses (A4, D2)"
      ],
-     "uses": 234,
+     "uses": 235,
      "slips": 18,
      "slips_latin": 2,
      "slips_in_zero_use_rules": 2,
@@ -6373,7 +6372,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-02.json",
-    "marks": 331,
+    "marks": 332,
     "conflicts": 2,
     "resolved": 1,
     "needs_medi": 0,
@@ -6424,6 +6423,184 @@
      "_lesson_s": 3852.0,
      "first_t": 3.88,
      "last_t": 3843.87,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   }
+  },
+  {
+   "date": "2026-10-05",
+   "start_local": "2026-10-05T13:15:16-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "duration_min": 65.2,
+   "type": "free-speak",
+   "review_mode": null,
+   "type_why": "Not read yet: default until the same-day reader (review_lesson.py, scripts/lesson_type_read.py) reads this lesson. The publish guard blocks while this shows.",
+   "type_source": "claude-read",
+   "type_read_by": null,
+   "words": {
+    "unique": 59,
+    "right": 102,
+    "wrong": 0,
+    "partial": 20,
+    "pct": 91.8,
+    "scored": 122,
+    "audit_wrong": 0,
+    "audit_partial": 0,
+    "unique_rows": 59,
+    "eligible": 122,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 91.8,
+    "excluded_why": {},
+    "verified_pct": null
+   },
+   "grammar": {
+    "uses": 191,
+    "mistakes": 0,
+    "pct": 100.0,
+    "estimate": false,
+    "scored_mistakes": 0,
+    "unscored_mistakes": 0,
+    "eligible": 0,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": true,
+     "reasons": [],
+     "uses": 191,
+     "slips": 0,
+     "slips_latin": 0,
+     "slips_in_zero_use_rules": 0,
+     "rules_slips_over_uses": []
+    },
+    "verified_pct": null
+   },
+   "talk": {
+    "medi_s": 1137.0,
+    "amal_s": 954.0,
+    "speak_pct": 54.4,
+    "listen_pct": 45.6,
+    "window": [
+     0.0,
+     3910.0
+    ]
+   },
+   "fillers": {
+    "count": 121,
+    "per_min": 6.39,
+    "top": [
+     [
+      "uh",
+      84
+     ],
+     [
+      "آآ",
+      20
+     ],
+     [
+      "um",
+      11
+     ],
+     [
+      "mm",
+      3
+     ],
+     [
+      "hmm",
+      1
+     ],
+     [
+      "امم",
+      1
+     ]
+    ],
+    "in_turns": 121,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.39,
+    "p75_s": 2.23,
+    "n": 269
+   },
+   "flow": {
+    "wpm": 61.3,
+    "n_turns": 170,
+    "arabic_words": 499
+   },
+   "new_words": [],
+   "taught": [],
+   "taught_words": [],
+   "coverage": null,
+   "notes": [],
+   "page": "lessons/2026-10-05.html",
+   "detail": "data/lessons/2026-10-05.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-05",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
+   "counts": {
+    "turns": 1051,
+    "chat_lines": 0,
+    "vocab_errors": 0,
+    "vocab_correct": 122,
+    "grammar_errors": 0,
+    "grammar_not_counted": 0
+   },
+   "ledger": {
+    "file": "data/lesson-work/ledger/2026-10-05.json",
+    "marks": 319,
+    "conflicts": 0,
+    "resolved": 0,
+    "needs_medi": 0,
+    "mode": "on",
+    "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: no reader pass; 2 consecutive passes at >= 95 % are needed",
+     "coverage: no source audit of the raw audio for this lesson (run scripts/source_audit.py)",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3912 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3912.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3912.0,
+     "first_t": 6.67,
+     "last_t": 3907.07,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3912.0,
+     "first_t": 22.17,
+     "last_t": 3909.84,
      "missing": [],
      "holes": [],
      "missing_s": 0,
