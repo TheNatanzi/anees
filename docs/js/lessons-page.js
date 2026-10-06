@@ -924,10 +924,11 @@ function summaryBlock(L) {
     }));
     box.appendChild(rule);
   });
-  if ((S.also || []).length) box.appendChild(acc('Also in this lesson (' + S.also.length + ')', function (b) {
-    var ul = el('ul', 'ls-bullets'); S.also.forEach(function (x) { ul.appendChild(el('li', null, x)); }); b.appendChild(ul);
+  // Medi 2026-10-05 "combine these somehow": one accordion - the rest of the lesson as bullets, the prose reading under them
+  if ((S.also || []).length || L.type_why) box.appendChild(acc('The rest of the lesson' + (S.also && S.also.length ? ' (' + S.also.length + ')' : ''), function (b) {
+    if ((S.also || []).length) { var ul = el('ul', 'ls-bullets'); S.also.forEach(function (x) { ul.appendChild(el('li', null, x)); }); b.appendChild(ul); }
+    if (L.type_why) { var w = el('p', 'ls-typewhy ls-fullreading', L.type_why + (L.type_source === 'claude-read' ? ' (Claude’s reading — tell Claude to change it)' : '')); b.appendChild(w); }
   }));
-  if (L.type_why) box.appendChild(acc('The full reading', function (b) { b.appendChild(el('p', 'ls-typewhy', L.type_why + (L.type_source === 'claude-read' ? ' (Claude’s reading — tell Claude to change it)' : ''))); }));
   return box;
 }
 function detail(L) {
