@@ -1,35 +1,6 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 1,
- "by_date": {
-  "2026-10-05": 1
- },
- "rows": [
-  {
-   "uid": "FA-5dc5d196",
-   "date": "2026-10-05",
-   "t": "17:15",
-   "t_amal": "17:19",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C4",
-   "medi_said": "مش لـ-- مش بتحتاج الـ.",
-   "amal_said": "هلأ قصدك إنه أغلب ما بتحتاج ال أو الكلمة اللي بعدها.",
-   "wrong": "مش بتحتاج",
-   "right": "ما بتحتاج",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Medi did say «مش بتحتاج», but Amal's next turn is a meaning clarification, not a clear correction of مش to ما. The later «ما بتحتاج» can be her own phrasing rather than a signalled error."
-   },
-   "listen_from": "17:05",
-   "listen_to": "17:39"
-  }
- ]
+ "count": 0,
+ "by_date": {},
+ "rows": []
 }
