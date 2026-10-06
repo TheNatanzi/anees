@@ -18896,6 +18896,660 @@
    },
    "at": "2026-10-06T15:46:49-07:00",
    "run_id": "532e827cd7924d8b94e03b201a3507e2"
+  },
+  {
+   "uid": "FA-0f048477",
+   "date": "2026-10-06",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi says the bare present after لسه, and Amal immediately supplies/recasts it with b-. He then repeats the corrected form.",
+   "evidence": {
+    "t_start": 283.0,
+    "t_end": 328.0,
+    "quote": "Medi: «لسه أجرب»; Amal: «بجرب»; Medi: «لسه بجرب»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-0f048477_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "bad590d1518edbcefcd87373ddb6659a9146b8cc2d21a2d22bbcf7ae9d2bf7cb",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-0f048477_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "061bfa0f6198e8e238ede7e1ff3fd9d2ec9855e4d0b2fbde8174edf6adf7bbe3",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-0f048477_mixed_lesson.mp3",
+      "sha256": "c59381ffb1978f579a5642edda2caefed544e2ee5e28dea157ab35d4da4f60ee",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اه تمام. اه اليوم انا لسه اجرب اه امسو يا لسه اجرب اه الا ايه لسه بجارب متشجعي",
+     "Amal": "يمين بجرب شجع is an adjective motivated what's the",
+     "mixed": "اليوم أنا لسه لسه جارب بجرب لسه بجرب ألقي متشجعي متشجع is an adjective motivated what's the"
+    }
+   },
+   "claim": {
+    "wrong": "أجرب",
+    "right": "بجرب",
+    "bucket": "B1",
+    "tier": null
+   },
+   "at": "2026-10-06T16:37:26-07:00",
+   "run_id": "2cb8d7b578f9427dba81c7e8467c536a"
+  },
+  {
+   "uid": "FA-e3afb2a2",
+   "date": "2026-10-06",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "unsure",
+   "confidence": "low",
+   "reason": "The peanut word segment is garbled in the independent transcriptions, and Amal's mic does not clearly show her supplying «فستق» there. The evidence is not strong enough to confirm or reject.",
+   "evidence": {
+    "t_start": 702.0,
+    "t_end": 732.0,
+    "quote": "Medi: «I know it starts with an F... Fistin? Can I say peanut?»; Amal mic unclear: «مست» / «وإيش توا؟»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-e3afb2a2_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "7ddb8e42561d02b55b9f0bf4bc43109e9da7cbcfe128c537566c5f8092299506",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-e3afb2a2_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "c95f34dd66e5c5442a09e82bd934e2c70a927907c928b353cffc438c5bc1f9f8",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-e3afb2a2_mixed_lesson.mp3",
+      "sha256": "52f842f479e53a084faf38f5f871f17031e1565274010187d4e21646281c4c16",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا اعرف انه يبدو بف هل تقول فتاة؟ هل تقول فتاة؟ اوه اوه اوه اوه شكرا",
+     "Amal": "مست مكرونة",
+     "mixed": "انا اعرف انه يبدو بف يبدو بف يبدو بف يبدو بف يبدو بف يبدو بف يبدو بف شكرا"
+    }
+   },
+   "claim": {
+    "wrong": "fistan",
+    "right": "فستق (fustu2)",
+    "bucket": null,
+    "tier": 2
+   },
+   "at": "2026-10-06T16:37:26-07:00",
+   "run_id": "2cb8d7b578f9427dba81c7e8467c536a"
+  },
+  {
+   "uid": "FA-2cc06086",
+   "date": "2026-10-06",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi used a past/incorrect form for a general statement, then Amal prompted with English present «They make / They make it», and later pushed the corrected Arabic with the object pronoun.",
+   "evidence": {
+    "t_start": 727.0,
+    "t_end": 773.0,
+    "quote": "Medi: «عمل مع روز» / «They made it, right? Past tense»; Amal: «They make it»; «بيعملوها what؟ They make it»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-2cc06086_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "e1f0333f65b2beca1d6d6ec0e516c9b806820f20f9b16d93c7e3de132379637f",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-2cc06086_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "c113c4ba8800f1d8d1ae8345aff515c25840f5b42108b8452eb47f60520d2714",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-2cc06086_mixed_lesson.mp3",
+      "sha256": "ffb2f87af4af4c9cfc3614732ad3725e2cdccf9b3c52a1f73a6b1b45a990f55a",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "مكرونة. بس المكرونة اه اه امال ما روز. They make the macaroni. They make the pasta with rice. هل قلت ذلك صحيحًا؟ لذلك لا يوجد رائحة. لذلك أعلم أعلم أعلم أعلم أعلم أعلم أعلم أعلم أعلم أعلم أعلم أعلم أعلم أعلم أعلم أعلم أعلم أعلم",
+     "Amal": "كيف يعني they make They make it with rice They make it Oh okay عملوها",
+     "mixed": "ماكارونا. بس الماكارونا اه اه اه امال ما روز. They make the macaroni. They make the pasta with rice. هل يمكنني أن أقول ذلك بشكل صحيح؟ لذلك يصنعون الماء لذلك يصنعون الماء لذلك يصنعون الماء لذلك يصنعون الماء لذلك يصنعون الماء لذلك يصنعون الماء لذلك يصنعون الماء لذلك يصنعون الماء لذلك يصنعون الماء لذلك يصنعون الماء لذلك يصنعون الماء لذلك يصنعون الماء لذلك يصنعون الماء لذلك يصنعون الماء لذلك يصنعون ال"
+    }
+   },
+   "claim": {
+    "wrong": "أمل",
+    "right": "بيعملوها",
+    "bucket": "B1",
+    "tier": null
+   },
+   "at": "2026-10-06T16:37:26-07:00",
+   "run_id": "2cb8d7b578f9427dba81c7e8467c536a"
+  },
+  {
+   "uid": "FA-d63dedeb",
+   "date": "2026-10-06",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi appears to say nine before ten in the date, Amal echoes it as a question/correction, and he changes to six before continuing. The exact intended date wording is messy, but the signalled mistake is the nine-to-six correction.",
+   "evidence": {
+    "t_start": 839.0,
+    "t_end": 880.0,
+    "quote": "Medi: «تيسة عشرة»; Amal: «تسعة؟»; Medi: «ستة ... عشرة ألفين ستة وعشرين»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-d63dedeb_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "2d00299074ff1f02dc22df4b1c79e5a6ec03213b4dd7bc8a7288951b1c7c59c0",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-d63dedeb_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "002e8d759b45666d1f3e6650083a5f454161cedde8248259bf18714333e76055",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-d63dedeb_mixed_lesson.mp3",
+      "sha256": "69e5eef85a6f53143fc2c3b6a439053b63c1a5041150c97d0f61b437a20006c8",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "مين الروس؟ اوكي نعم نحن على عدد اليوم يوم البلد 30 10 6 10 2026 اشتركوا في القناة",
+     "Amal": "خلص طيب ممتاز شو اليوم؟ ساعتين تسعر؟ أدسا",
+     "mixed": "من أجل البروز حسناً حسناً، ممتاز، ماذا اليوم؟ صحتان اليوم يوم الفلاك 9 10 9؟ 6 10 2026 أدسا"
+    }
+   },
+   "claim": {
+    "wrong": "التاسع",
+    "right": "ستة (sitte)",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-06T16:37:26-07:00",
+   "run_id": "2cb8d7b578f9427dba81c7e8467c536a"
+  },
+  {
+   "uid": "FA-f3c66254",
+   "date": "2026-10-06",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi repeatedly says «عشرين دقايق», Amal echoes «عشرين» and later explicitly says that was why she treated it that way; he then says he meant «عشرة».",
+   "evidence": {
+    "t_start": 873.0,
+    "t_end": 933.0,
+    "quote": "Medi: «عشرين دقايق»; Amal: «عشرين؟» / «لا بس ... عشرين»; Medi: «I meant to say عشرة»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-f3c66254_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "06fa50ec602baf7812b75ea34bc344646e7f83bbc7d465097c3153a57078d531",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-f3c66254_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "7e87105a0c8c1efbdb806535866312772693d3ca7626ea7437bc170f5c6a36a0",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-f3c66254_mixed_lesson.mp3",
+      "sha256": "26e5675d3bcf1f4459c011141c24642e6e0fdf18e3b9847167220d80e4ce60eb",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "عشرين دعاية عشرين دعاية عشرين دعاية أعتقد أنه كان أكثر من 10. أعتقد أنه كان أكثر من 11. اشتركوا في القناة",
+     "Amal": "ادسة عشرين ام نو تنتين عشرين دية or دية yeah but it's after ten what do you mean لا بس بس عشرين",
+     "mixed": "عدسة عشرين دقائق عشرين تنتين عشرين دقائق تنتين عشرين اشتريين اشتريين اشتريين اشتريين اشتريين اشتريين اشتريين اشتريين اشتريين اشتريين اشتريين اشتريين ماذا تقصد؟ إذن 10 ومن أعلى؟ أعتقد أنه 11 ومن أعلى لا، لكنه يقول أنه 11 ومن أعلى"
+    }
+   },
+   "claim": {
+    "wrong": "عشرين",
+    "right": "عشر",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-06T16:37:26-07:00",
+   "run_id": "2cb8d7b578f9427dba81c7e8467c536a"
+  },
+  {
+   "uid": "FA-bb44b7a0",
+   "date": "2026-10-06",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi first says «هذي سنة» without the definite article, Amal prompts by echoing «هذي؟», and Medi corrects to «هذي السنة».",
+   "evidence": {
+    "t_start": 1052.0,
+    "t_end": 1084.0,
+    "quote": "Medi: «هذي سنة»; Amal: «هذي؟»; Medi: «هذي السنة»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-bb44b7a0_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "1391d6fa9a342febf65d36b9f56d6e3bbcc4cc8a1d9a095348db9521a77044ca",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-bb44b7a0_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "bfdb6340c327bb99d45879df7f71d14fb28fee8c56e58576eeb0bc7a1d2add8a",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-bb44b7a0_mixed_lesson.mp3",
+      "sha256": "c71304a684bc8761de489f3c00fac9030f38ff86c56d622b4d587b03c66e8442",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اه ام هادي اه هادي سنة بس هادي السنة في اشي اسمو النيمي النيمي",
+     "Amal": "إحنا عنا بلشت نخلص برد هادي نيم ميو",
+     "mixed": "إحنا عنا بلشت.. خلص آه يم.. هادي.. آه.. هادي سنة هادي؟ هادي إلسنة آه آم.. في إشي اسمو آه.. إلنينيو نيميو النيميو"
+    }
+   },
+   "claim": {
+    "wrong": "هذه سنة",
+    "right": "هذه السنة",
+    "bucket": "A10b",
+    "tier": null
+   },
+   "at": "2026-10-06T16:37:26-07:00",
+   "run_id": "2cb8d7b578f9427dba81c7e8467c536a"
+  },
+  {
+   "uid": "FA-cd19688b",
+   "date": "2026-10-06",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi answered Amal's “شو يعني plan?” with a plural-like form, and Amal later contrasted it with the singular: “خطة is a plan.” The evidence is a little messy because Amal echoes it as “خطط,” but the correction is still singular «خطة» versus what he said.",
+   "evidence": {
+    "t_start": 1749.0,
+    "t_end": 1809.0,
+    "quote": "شو يعني بلان؟ ... ختات / خطة is a plan. You said خطط.",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-cd19688b_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "a16cc4941dea05c15a210394a7a5ab0b97e4319a2ae1bcf5bf7801841f157c46",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-cd19688b_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "c60564e7d982a619fa004f041c8aabaa326b31a64d24fd6bd3404f4a4f1d34ed",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-cd19688b_mixed_lesson.mp3",
+      "sha256": "a25505c7d17e7a2b830beee65164da2a6585c27dfda931b81c08d83100346f06",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اه اه لقد أحببت أحببت أحببت أحببت أحببت أحببت أحببت أحببت أحببت أحببت أحببت أحببت شكرا للمشاهدة",
+     "Amal": "شو يعني plan how do you say I liked your other plan بس خطة is what no صح you said it right at the first time بس it had to be 10 yeah شكرا",
+     "mixed": "شو يعني plan خطات how do you say I liked your other plan I liked أنا حبيت your other plan so خطتك التاني بس خطة is what oh it's definitive خطتك تاني no صح you said it right at the first time بس it had to be تانية oh that's right أتمنى أن تكونوا محظوظين"
+    }
+   },
+   "claim": {
+    "wrong": "خُطّات",
+    "right": "خطة",
+    "bucket": null,
+    "tier": 2
+   },
+   "at": "2026-10-06T16:37:47-07:00",
+   "run_id": "156cadfd98b842ce918d49dd936010b4"
+  },
+  {
+   "uid": "FA-96d2feab",
+   "date": "2026-10-06",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi changed the adjective phrase to «خطتك تاني», and Amal immediately said “No” and told him the first version was right but it needed «تانية». His own later repair is «خطتك إل تانية».",
+   "evidence": {
+    "t_start": 1783.0,
+    "t_end": 1819.0,
+    "quote": "إتسه خطتك تاني ... نو ... بس يت هاد تو بي ثانية ... خطتك إل تانية",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-96d2feab_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "f4a0b487dfe98aef7ed14f98c5291199fbd8b629c2fbfdaa77ef6811c063dc63",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-96d2feab_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "431e642d8943cb21b788ecfd68d3d55dc8349dceb9e384d26bb7212b64401bbd",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-96d2feab_mixed_lesson.mp3",
+      "sha256": "29574a3bf08494048d142df5458accc1b3c0b3c0313e32b906ac1c28c0a1f827",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "خطتك التاني خطتك التاني خطتك التاني خطط I said خطط the first time which is why",
+     "Amal": "بس خطة as what no صح you said it right at the first time but it had to be tan yeah that's a plural خطة خطط",
+     "mixed": "بس خطة is what no صح you said it right at the first time بس it had to be تانية بس شو plural خطة خطت خطت I said خطت the first time which is why"
+    }
+   },
+   "claim": {
+    "wrong": "خُطّاتك تاني",
+    "right": "خطتك التانية",
+    "bucket": "A7",
+    "tier": null
+   },
+   "at": "2026-10-06T16:37:47-07:00",
+   "run_id": "156cadfd98b842ce918d49dd936010b4"
+  },
+  {
+   "uid": "FA-28ef7d0a",
+   "date": "2026-10-06",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Amal asked for the plural of «خطة», Medi answered «خطات?», and Amal supplied «خطط». That is a clear recast of the broken plural.",
+   "evidence": {
+    "t_start": 1803.0,
+    "t_end": 1835.0,
+    "quote": "طيب، شو بلورال خطة؟ ... خطات؟ ... خطط.",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-28ef7d0a_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "3d7f8244d40fa291bcf06e4e635f4710e95a41110f7fca0d7b25ac60071bdb68",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-28ef7d0a_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "ef2f642af40771cfa56a015ede87264123ba5fa4488d7dcb8627af54f09934c6",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-28ef7d0a_mixed_lesson.mp3",
+      "sha256": "55d280d43e2daf3e94b9e96d6961ba67b77c5d4d30b42835c500081c6efc559f",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اوه هذا صحيح. خطط في الوقت المناسب. خطط؟ قلت خطط للمرة الأولى وهذا هو السبب بأنني أعتقدت أنه مرحبا. خطط نعم. لقد فعلت ذلك. اشتركوا في القناة",
+     "Amal": "خطة خطة خطة خطة so one plan is",
+     "mixed": "نعم هذا صحيح خطات في الوقت المناسب هل تتحدث بخطة؟ خطات؟ خطات قلت خطات في الوقت الأول وهذا هو السبب لأنني ظننت أنه مرحب خطات خطة هل تتحدث بخطات؟ نعم هذا صحيح So, should one one plan is"
+    }
+   },
+   "claim": {
+    "wrong": "خُطّات",
+    "right": "خطط",
+    "bucket": null,
+    "tier": 2
+   },
+   "at": "2026-10-06T16:37:47-07:00",
+   "run_id": "156cadfd98b842ce918d49dd936010b4"
+  },
+  {
+   "uid": "FA-101e92e1",
+   "date": "2026-10-06",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "medium",
+   "reason": "Medi was reaching for the dual and repeated a malformed version transcribed as «خطة تين/قطةين», then Amal recast «خطتين». The wrong form is not clearly «خطة ثان» from the independent audio, but the signalled target is clearly «خطتين».",
+   "evidence": {
+    "t_start": 2169.0,
+    "t_end": 2200.0,
+    "quote": "طب تو بلانز ... قطةين؟ ... خطتين ... قطة التين ... خطتين",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-101e92e1_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "5486ee27d0a487872e592e9656a25fc8f2f98b4e53428925d92915d7a2cec76f",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-101e92e1_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "c3b4a33140d32f9cbd3e4989e16a8cbfafe815729de9a3c4b986e95f765004be",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-101e92e1_mixed_lesson.mp3",
+      "sha256": "2f49936885abce2048c1faf184e0701be45b3dcfa9c27c5728bb3cd09458ff87",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "حسنا حسنا حسنا حسنا حسنا ترجمة نانسي قنقر",
+     "Amal": "ثلاثة طعام أو أكثر ثلاثة طعام خمسة طعام خمسة طعام خمسة طعام شوياني م",
+     "mixed": "ثلاث أو أكثر ثلاث ثلاث أو أكثر ثلاث ثلاث ثلاث ثلاث ثلاث ثلاث ثلاث شوياني م"
+    }
+   },
+   "claim": {
+    "wrong": "خطة ثان",
+    "right": "خطتين",
+    "bucket": "E1",
+    "tier": null
+   },
+   "at": "2026-10-06T16:37:47-07:00",
+   "run_id": "156cadfd98b842ce918d49dd936010b4",
+   "changed_to": {
+    "wrong": "خطة تين",
+    "right": "خطتين"
+   }
+  },
+  {
+   "uid": "FA-23b1bccc",
+   "date": "2026-10-06",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi answered “first” with masculine «أول», then Amal immediately prompted “Feminine” and supplied «الأولى».",
+   "evidence": {
+    "t_start": 2733.0,
+    "t_end": 2766.0,
+    "quote": "أول ... فيمينان ... الأولى",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-23b1bccc_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "b239e484f097d116f44364a35dfe0adfa81ef3610eb925636ba12b2465181aa6",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-23b1bccc_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "7370a67be1ae43fa29bd7210b27247c99572377d28142d8db13c3dfb8fc6ed9e",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-23b1bccc_mixed_lesson.mp3",
+      "sha256": "635974bfe4883958a688c3fe87986b655060fc162641ae99d7200b1cb2885044",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أو ثلاثة أو واحدة. أو أول كاش. واحدة. أنا راح أخد أفضل",
+     "Amal": "إذا ما هو أولاً؟ أولاً؟ أولاً؟ فميناً؟ فميناً أولاً؟ هيا بنا أنا أحب هذه الآية. سنقوم بفتحها في التالي. ترجمة نانسي قنقر",
+     "mixed": "إذا ما هو أولا؟ أولا أولا أولا أولا أولا أولا أولا أولا أولا ترجمة نانسي قنقر"
+    }
+   },
+   "claim": {
+    "wrong": "أول",
+    "right": "الأولى",
+    "bucket": "A8",
+    "tier": null
+   },
+   "at": "2026-10-06T16:37:47-07:00",
+   "run_id": "156cadfd98b842ce918d49dd936010b4"
+  },
+  {
+   "uid": "FA-868ef076",
+   "date": "2026-10-06",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi guessed «la» for “since,” and Amal explicitly corrected: «لا is until, since is من». His next response accepts «من».",
+   "evidence": {
+    "t_start": 3018.0,
+    "t_end": 3043.0,
+    "quote": "لا، لا رييت؟ ... لا إز أنتل، سنس إز من، فروم ... من، أوكي",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-868ef076_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "a741055da5ad33a6ba6d53b8efd261acfb4a0aa2559a6752c114e4224a53e082",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-868ef076_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "e5a4a7950004e149fc50a157fa3c165676ea8da9661a6959dec5d14f7ec4e201",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-868ef076_mixed_lesson.mp3",
+      "sha256": "237e2b6b984b6d54ab6dfc5f566ea443dc8e6d67a15196ea6f87c35b56361a8a",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اه سنس دوينو سنس. لا لا ري. انا راح اخد اول.",
+     "Amal": "نعم أنت دائما تصدر عندما تعرف أنك تعرف لا لا هو حتى السن هو من من اشتركوا في القناة",
+     "mixed": "اه منذ انا اعرف منذ نعم انت دائما تتفاجئ عندما تعرف انك تعرف انه لا لا صحيح لا لا هو حتى من من حسنا انا راح اخد اول"
+    }
+   },
+   "claim": {
+    "wrong": "la",
+    "right": "من",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-06T16:37:47-07:00",
+   "run_id": "156cadfd98b842ce918d49dd936010b4"
+  },
+  {
+   "uid": "FA-0788b479",
+   "date": "2026-10-06",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi reached for the word for “choice” with «مختار/محتار», and Amal immediately treated it as wrong by cueing “cucumber” and then supplying «خيار» as the intended word.",
+   "evidence": {
+    "t_start": 3106.0,
+    "t_end": 3138.0,
+    "quote": "Medi: «مختار أو شيء من هذا النوع؟» / Amal: «It sounds very much like cucumber… So خيار is choice.»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-0788b479_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "87ffde3eaae45fdbb3b8c3d3f67e75fe9b64986ee9f732d155f522d023c5ab9d",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-0788b479_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "fcd5bf54e3eaaaf24b53c090468a70daa4766b061c951f6274870a3e1a827cb1",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-0788b479_mixed_lesson.mp3",
+      "sha256": "8a1cabf9d2c918e4c01927d1bbf7e4a36cb1cb13996f241c6ce32f89de95486e",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "هل أعرف الوصفة للخيار؟ هل هو مختار أو شيء من هذا النوع؟ مختار؟ مختار؟ نعم هذا صحيح حيام؟ لا حيار مرحباً، هذا صحيح",
+     "Amal": "يبدو بشكل كبير جداً مثل الكوكومبرا ما هو الكوكومبرا؟ فخيار هو خيار",
+     "mixed": "هل أعرف الوصفة للخيوص؟ هل هو مختار أو شيء من ذلك؟ يبدو كثيراً على كيوكومبر نعم، هذا صحيح خيام؟ لا ما هو كيوكومبر؟ خيار خيار خيار هذا صحيح"
+    }
+   },
+   "claim": {
+    "wrong": "مختار",
+    "right": "خيار",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-06T16:37:54-07:00",
+   "run_id": "881363a3eb424a2d8e0f25bddf29b423"
   }
  ]
 }

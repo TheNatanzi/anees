@@ -1,48 +1,22 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 3,
+ "count": 1,
  "by_date": {
-  "2026-10-06": 3
+  "2026-10-06": 1
  },
  "rows": [
   {
-   "uid": "FA-eaebb674",
+   "uid": "FA-e3afb2a2",
    "date": "2026-10-06",
-   "t": "09:46",
-   "t_amal": "10:51",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "C2",
-   "medi_said": "Can fee-- kun-- can it fee.",
-   "amal_said": "بس هذي الشوربة كان فيها جاج. ... we flip it and we say كان فيها and then جاج.",
-   "wrong": "can it fee",
-   "right": "هذي الشوربة كان فيها جاج",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "unsure",
-    "reason": "Medi does struggle with «كان في / كانت في», and Amal explains that Arabic flips 'was in it', but the provided evidence does not include the claimed final correction «كان فيها جاج». The window is too guided and incomplete to rule the specific pointer-row confidently."
-   },
-   "listen_from": "09:36",
-   "listen_to": "11:11"
-  },
-  {
-   "uid": "FA-990e0961",
-   "date": "2026-10-06",
-   "t": "11:49",
+   "t": "11:52",
    "t_amal": "11:52",
    "kind": "vocab-A",
-   "tier": 1,
+   "tier": 2,
    "bucket": null,
    "medi_said": "Fistin? Can I say peanut? ... Fistan. I was close. Sauce fistan.",
-   "amal_said": "بس ذا. (engine; she said the word)",
-   "wrong": "Fistin",
-   "right": "فستق",
+   "amal_said": "بس ذا. (engine; likely fustu2)",
+   "wrong": "fistan",
+   "right": "فستق (fustu2)",
    "why_check": [
     "reader confidence low",
     "decided by the third reader alone, in one pass only",
@@ -53,35 +27,10 @@
    "second_judge": {
     "reviewer": "codex gpt-5.5",
     "verdict": "unsure",
-    "reason": "Medi clearly reaches for an F-starting peanut word, but Amal's supposed correction is garbled across the independent tracks and does not reliably show «فستق». I cannot confirm that she supplied the claimed form."
+    "reason": "The peanut word segment is garbled in the independent transcriptions, and Amal's mic does not clearly show her supplying «فستق» there. The evidence is not strong enough to confirm or reject."
    },
-   "listen_from": "11:39",
+   "listen_from": "11:42",
    "listen_to": "12:12"
-  },
-  {
-   "uid": "FA-2412b6ab",
-   "date": "2026-10-06",
-   "t": "17:42",
-   "t_amal": "17:44",
-   "kind": "vocab-A",
-   "tier": 2,
-   "bucket": null,
-   "medi_said": "هذه سنة.",
-   "amal_said": "هذي.",
-   "wrong": "هذه",
-   "right": "هذي",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "The independent tracks hear Medi already saying the spoken form, and Amal's echo sounds like confirmation/question rather than a correction. This looks like transcript spelling/normalization, not an error signalled by Amal."
-   },
-   "listen_from": "17:32",
-   "listen_to": "18:04"
   }
  ]
 }
