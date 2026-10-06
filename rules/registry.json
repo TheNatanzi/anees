@@ -8060,6 +8060,39 @@
     }
    ],
    "aliases": []
+  },
+  {
+   "id": "LS-15",
+   "kind": "not-error",
+   "scope": "lessons",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Two mistake rows at the same second (within 2 s) whose wrong word is the same word written once in Arabic letters and once in Arabizi (compared through the Arabizi reader, vowels and hamza forms ignored) are ONE mistake: scripts/build_amal_checks.py same_word_two_scripts() settles the pair by rule and never puts it on Amal's 'one mistake or two?' list; the settled pairs are listed in data/lesson-work/one-or-two-auto-same.json. 2026-10-06: 10 of 45 pairs settled this way. A card never shows a clip of 0 seconds (an empty microphone cut is dropped; the both-voices lesson window stays).",
+   "plain": "When the same wrong word shows up twice at the same second, once in Arabic letters and once in Arabizi, it is one mistake. The app settles it by itself and never asks Amal. Empty clips are never shown.",
+   "plain_for": "b18f9ca0",
+   "topic": "the Tutor page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "these are the same, one is arabizi and one is arabic?",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_amal_checks.py",
+     "contains": "def same_word_two_scripts(a, b):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_amal_checks.py",
+     "contains": "def test_LS_15_same_word_in_two_scripts_is_one_mistake_and_never_asked"
+    }
+   ],
+   "aliases": []
   }
  ]
 }

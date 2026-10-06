@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-06",
- "total": 191,
+ "total": 192,
  "replaced": 8,
  "counts": {
-  "Automatic": 109,
+  "Automatic": 110,
   "Written down": 70,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -2263,8 +2263,28 @@
    "key": "pages",
    "title": "Pages, audio & numbers on screen",
    "intro": "What each page shows, the audio clips, and keeping numbers up to date.",
-   "count": 44,
+   "count": 45,
    "sections": [
+    {
+     "kind": "not-error",
+     "heading": "Doesn't count",
+     "rules": [
+      {
+       "id": "LS-15",
+       "text": "When the same wrong word shows up twice at the same second, once in Arabic letters and once in Arabizi, it is one mistake. The app settles it by itself and never asks Amal. Empty clips are never shown.",
+       "status": "enforced",
+       "topic": "the Tutor page",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-06",
+         "quote": "these are the same, one is arabizi and one is arabic?"
+        }
+       ]
+      }
+     ]
+    },
     {
      "kind": "data",
      "heading": "Facts and records",

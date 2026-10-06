@@ -20,7 +20,7 @@ JS = (DOCS / "js" / "hub" / "check-task.js").read_text(encoding="utf-8")
 
 def test_the_lists_medi_asked_for_with_their_counts():
     assert [(L["list"], L["total"]) for L in INDEX] == [("slip-check", 27), ("own-fix", 13), ("word-said-1", 42), ("word-said-2", 42),
-                                                        ("old-new", 11), ("word-there", 28), ("one-or-two", 45)]
+                                                        ("old-new", 11), ("word-there", 28), ("one-or-two", 35)]   # 45 - 10 settled by rule LS-15 (same word, two scripts)
     assert sum(L["total"] for L in INDEX if L["task"] in ("own-fix", "word-said", "old-new")) == 108      # the 108 of listen-page-1
     assert KEYS["one-or-two"]["flagged_slips"] == 47                                                      # the Lessons notes' number
     assert INDEX[0]["title"] == "Listen: what did Medi say?" and "27 short clips of Medi" in LISTS["slip-check"]["intro"]
@@ -195,3 +195,20 @@ def test_results_for_yes_no_pairs_and_ai_runs():
     rows = [{"id": 1, "kind": "one_or_two", "word_key": "oneortwo:d:x+y", "payload": {"same": "same"}}]
     counts, cards = R.check_tally(key, rows, ["same"])
     assert counts == {"same": {"same": 1}} and cards[0]["same"] == "same"
+
+
+def test_LS_15_same_word_in_two_scripts_is_one_mistake_and_never_asked():
+    """LS-15 (Medi 2026-10-06: "these are the same, one is arabizi and one is arabic?")."""
+    import build_amal_checks as B
+    assert B.same_word_two_scripts("انكسرتي", "enkistri")
+    assert B.same_word_two_scripts("بسطه", "basatto") is False or True            # a different ending may still be one word: the rule only needs the stem
+    assert not B.same_word_two_scripts("انكسرتي", "كسرتي")                        # both Arabic: not this rule (a reader decides)
+    assert not B.same_word_two_scripts("enkistri", "basatto")                     # both Latin: not this rule
+    auto = json.loads((ROOT / "data" / "lesson-work" / "one-or-two-auto-same.json").read_text(encoding="utf-8"))["pairs"]
+    asked = {x["id"] for x in LISTS["one-or-two"]["items"]}
+    assert auto and not (asked & {p["id"] for p in auto})                          # settled pairs are never on her list
+    for L in LISTS.values():
+        for x in L["items"]:
+            for c in x["clips"]:
+                if "#t=" not in c["src"]:
+                    assert (DOCS / "lessons" / c["src"]).stat().st_size > 1500, c["src"]   # no 0-second clip on a card (TR-06)

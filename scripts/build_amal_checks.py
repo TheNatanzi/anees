@@ -59,6 +59,28 @@ TASKS = {   # list -> what the hub and the page say; kind / prefix keep the task
                    "questions": [{"field": "same", "ask": "Is this one mistake or two?", "type": "options",
                                   "options": [{"v": "same", "label": "The same mistake, written twice"}, {"v": "different", "label": "Two different mistakes"}, {"v": "not_sure", "label": "Not sure"}]}]},
 }
+_AR = re.compile(r"[\u0600-\u06FF]")
+
+
+def _norm_ar(w):
+    from arabizi_reader import to_arabic
+    w = str(w or "").strip()
+    if not _AR.search(w):
+        w = to_arabic(w)
+    w = re.sub(r"[\u064B-\u0652\u0670\u0640]", "", w).replace("أ", "ا").replace("إ", "ا").replace("آ", "ا").replace("ة", "ه").replace("ى", "ي")
+    return re.sub(r"[^\u0600-\u06FF]+", "", w)
+
+
+def same_word_two_scripts(a, b):
+    """LS-15: the same word once in Arabic letters and once in Arabizi (Medi 2026-10-06)."""
+    a, b = str(a or ""), str(b or "")
+    if not a or not b or bool(_AR.search(a)) == bool(_AR.search(b)):
+        return False
+    na, nb = _norm_ar(a), _norm_ar(b)
+    return bool(na) and (na == nb or na in nb or nb in na)
+
+
+auto_same = []
 ORDER = ("slip-check", "own-fix", "word-said", "old-new", "word-there", "one-or-two")
 
 
@@ -295,6 +317,11 @@ class Build:
                     seen.add(pair)
                     first, second = sorted([e, o], key=lambda x: (T(x), ident(x)))
                     iid = f"{date}:{pair[0]}+{pair[1]}"
+                    # LS-15 (Medi 2026-10-06 "these are the same, one is arabizi and one is arabic?"): the same word at the same
+                    # second, once in Arabic letters and once in Arabizi, is ONE mistake - settled here, never asked
+                    if abs(T(first) - T(second)) <= 2.0 and same_word_two_scripts(first.get("wrong"), second.get("wrong")):
+                        auto_same.append({"id": iid, "date": date, "mmss": first.get("mmss"), "said": [first.get("wrong"), second.get("wrong")], "rule": "LS-15"})
+                        continue
                     ln = self.line_at(date, T(first))
                     own, both, size = self.clips("one-or-two", date, iid, ln)
                     row = lambda n, x: {"label": f"Mistake {n} · {x.get('mmss') or ''}",
