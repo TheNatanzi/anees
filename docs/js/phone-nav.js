@@ -30,7 +30,9 @@
 @media (min-width: 681px) { .pn-bar, .pn-sheet { display: none !important; } }`;
   function build() {
     const nav = document.querySelector('#anees-bank aside nav'); if (!nav || document.querySelector('.pn-bar')) return;
-    const links = [...nav.querySelectorAll('a.ab-nav')].map(a => ({ href: a.getAttribute('href'), label: a.textContent.trim(), cur: a.getAttribute('aria-current') === 'page' }));
+    // four pages (Lessons, Word Bank, Grammar, Settings) mark their own entry as a <button> with no href: it is this page
+    const here = (location.pathname.split('/').pop() || 'progress.html').replace(/^$/, 'progress.html');
+    const links = [...nav.querySelectorAll('a.ab-nav, button.ab-nav')].map(a => ({ href: a.getAttribute('href') || here, label: a.textContent.trim(), cur: a.getAttribute('aria-current') === 'page' }));
     if (!links.length) return;
     const style = document.createElement('style'); style.textContent = css; document.head.appendChild(style);
     const byHref = h => links.find(l => l.href === h);
