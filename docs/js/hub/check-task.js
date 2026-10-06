@@ -108,7 +108,10 @@
       $prog.textContent = n ? `${done} of ${n} answered${done === n ? ' · all done, thank you!' : ''}` : 'Nothing to check right now.';
       opt.onChange && opt.onChange({ total: n, done, finished: n > 0 && done === n });
     }
-    function bar(src) { return root.AneesClip ? AneesClip.bar({ src: BASE + 'lessons/' + src, start: 0, end: null }) : null; }
+    // a clip is a cut file, or a window of the full lesson audio ("<date>/audio/lesson.mp3#t=start,end") - Medi 2026-10-06
+    // "amal doesnt correct me here? why are we not including this context in all of them": both voices, a little before and after
+    function bar(src) { if (!root.AneesClip) return null; const [f, frag] = String(src).split('#t='), [st, en] = (frag || '').split(',').map(Number);
+      return AneesClip.bar({ src: BASE + 'lessons/' + f, start: frag ? st : 0, end: frag ? en : null }); }
     function render() {
       const versionsAreButtons = Q().some(q => q.type === 'versions');
       $root.innerHTML = items().map((x, n) => `<article class="hb-moment hb-card" data-id="${esc(x.id)}">

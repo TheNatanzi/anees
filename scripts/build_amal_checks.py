@@ -143,6 +143,18 @@ class Build:
         size = sum((ROOT / "docs" / "lessons" / r).stat().st_size for r in (own, brel) if (ROOT / "docs" / "lessons" / r).exists() and (r == own or srcs))
         return own, (brel if srcs else None), size
 
+    def amal_rows(self, date, times, within=20.0):
+        """Amal's lines (spoken or typed) in the `within` seconds after each time - what she said about the moment, or that she let it pass."""
+        p = os.path.join(ROOT, "docs", "data", "lessons", f"{date}.json")
+        turns = (json.load(open(p, encoding="utf-8")).get("turns") or []) if os.path.exists(p) else []
+        out, seen = [], set()
+        for t in times:
+            for x in turns:
+                if x.get("who") in ("Amal", "chat") and t - 1 <= float(x.get("t", 0)) <= t + within and str(x.get("text") or "").strip() and (x.get("t"), x.get("text")) not in seen:
+                    seen.add((x.get("t"), x.get("text")))
+                    tt = int(float(x["t"])); out.append({"label": f"Amal · {tt // 60}:{tt % 60:02d}" + (" (typed)" if x.get("who") == "chat" else ""), "text": ["", str(x["text"]).strip(), "", ""]})
+        return out[:4] or [{"label": "Amal", "text": ["", "no line from Amal in the next 20 seconds - she let it pass", "", ""]}]
+
     def players(self, own, both):
         out = [{"label": "Medi's microphone", "src": own}]
         if both:
@@ -287,8 +299,14 @@ class Build:
                     own, both, size = self.clips("one-or-two", date, iid, ln)
                     row = lambda n, x: {"label": f"Mistake {n} · {x.get('mmss') or ''}",
                                         "text": ["he said ", x.get("wrong") or "(did not know the word)", " → should be ", x.get("right") or ""]}
-                    items.append({"id": iid, "date": date, "mmss": first.get("mmss") or "", "clips": self.players(own, both),
-                                  "rows": [row(1, first), row(2, second)], "bytes": size})
+                    # Medi 2026-10-06 "amal doesnt correct me here? why are we not including this context in all of them": her next
+                    # line after each mistake, and a both-voices window of the lesson audio (the card plays it from lesson.mp3)
+                    amal_rows = self.amal_rows(date, [T(first), T(second)])
+                    clips = self.players(own, both)
+                    if not both and os.path.exists(os.path.join(ROOT, "docs", "lessons", date, "audio", "lesson.mp3")):
+                        clips.append({"label": "Both of you · the lesson a little before and after", "src": f"{date}/audio/lesson.mp3#t={max(0, int(T(first)) - 3)},{int(T(second)) + 15}"})
+                    items.append({"id": iid, "date": date, "mmss": first.get("mmss") or "", "clips": clips,
+                                  "rows": [row(1, first), row(2, second)] + amal_rows, "bytes": size})
                     key.append({"id": iid, "kind": e["kind"], "t": T(first), "ids": [ident(first), ident(second)],
                                 "first_read": [bool(first.get("first_read")), bool(second.get("first_read"))],
                                 "slips": [{k: x.get(k) for k in ("id", "mmss", "wrong", "right", "bucket", "said")} for x in (first, second)]})

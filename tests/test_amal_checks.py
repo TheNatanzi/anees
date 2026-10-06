@@ -65,7 +65,7 @@ def test_cards_are_blind_and_complete():
                 if "old" in k["roles"].values():
                     assert texts[next(l for l, r in k["roles"].items() if r == "old")] == k["old"]
             else:
-                assert len(x["rows"]) == 2 and len(k["ids"]) == 2 and not versions_asked
+                assert len([r for r in x["rows"] if r["label"].startswith("Mistake")]) == 2 and len(k["ids"]) == 2 and not versions_asked   # + Amal's lines after (2026-10-06)
         assert fields == {"slip-check": ["choice", "mistake"], "own-fix": ["choice"], "old-new": ["choice"], "word-there": ["said"],
                           "one-or-two": ["same"]}.get(name, ["said"])
     sc = LISTS["slip-check"]
@@ -85,13 +85,15 @@ def test_every_clip_is_published_and_each_list_is_light():
         for x in D["items"]:
             for c in x["clips"]:
                 p = DOCS / "lessons" / c["src"]
+                if "#t=" in c["src"]:                                     # 2026-10-06: a both-voices window of the lesson audio
+                    assert (DOCS / "lessons" / c["src"].split("#t=")[0]).exists(), c["src"]; continue
                 assert p.exists() and p.stat().st_size > 800, c["src"]
                 assert re.fullmatch(r"\d{4}-\d{2}-\d{2}/clips/(sc|oc|ws|on|wt|ot)-[0-9a-f]{10}(-both)?\.mp3", c["src"])
                 size += p.stat().st_size
                 if tracked:
                     assert "docs/lessons/" + c["src"] in tracked, c["src"] + " is not force-added"
         assert size <= 4 * 1000 * 1000, (name, size)
-    assert len(LISTS["slip-check"]["items"][0]["clips"]) == 2                                             # his microphone + both speakers
+    assert len(LISTS["slip-check"]["items"][0]["clips"]) >= 2                                             # his microphone + both speakers (+ the lesson window, 2026-10-06)
 
 
 def test_keys_stay_out_of_docs():
