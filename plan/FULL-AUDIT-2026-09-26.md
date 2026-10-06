@@ -1,4 +1,4 @@
-# Full vocab + grammar audit - 2026-10-03
+# Full vocab + grammar audit - 2026-10-06
 
 Two independent readers per lesson, a third settles disagreements, reconciled with the 2026-09-24 hand sweep. A = Amal fixed it out loud (scored; a fix she only typed in the chat is not a correction - GR-19). B = she let it pass (unscored until she rules on her review page). Tier 0 = she supplied a word he asked for. Nothing the sweep verified was dropped.
 
@@ -6,14 +6,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **598** (sweep had 312) |
-| Grammar she let pass (B, to Amal) | 89 |
-| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 8 |
-| Vocab fixes Amal voiced (A) | **282** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 160, '0': 115, '2': 46, '3': 5} |
-| Vocab she let pass (B, to Amal) | **44** by tier {'1': 25, '2': 13, '3': 6} |
+| Grammar fixes Amal voiced (A) | **625** (sweep had 312) |
+| Grammar she let pass (B, to Amal) | 90 |
+| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 9 |
+| Vocab fixes Amal voiced (A) | **293** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 167, '0': 117, '2': 48, '3': 5} |
+| Vocab she let pass (B, to Amal) | **46** by tier {'1': 26, '2': 14, '3': 6} |
 | Listening-drill misreads (kept apart) | 82 |
-| Rows the readers found that the sweep did not have | 684 |
+| Rows the readers found that the sweep did not have | 727 |
 | Sweep rows the readers did not list (kept) | 115 |
 | Machine audit already had | 104 |
 
@@ -39,6 +39,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-09-30 | 20 | 2 | 14 | 0 | 0 | 0 | 0 | 73.7 % |
 | 2026-10-01 | 16 | 2 | 4 | 3 | 2 | 0 | 0 | 78.8 % |
 | 2026-10-02 | 18 | 0 | 10 | 1 | 2 | 0 | 0 | 52.8 % |
+| 2026-10-05 | 27 | 1 | 11 | 2 | 0 | 0 | 0 | 76.6 % |
 
 ## Reader passes (the loop)
 
@@ -60,46 +61,48 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-09-30**: pass 1: r1 34 r2 32 agreed 28 disputed 10 (73.7 %), r3 kept 8 dropped 2 -> 36 rows
 - **2026-10-01**: pass 1: r1 29 r2 30 agreed 26 disputed 7 (78.8 %), r3 kept 4 dropped 3 -> 30 rows
 - **2026-10-02**: pass 1: r1 33 r2 28 agreed 19 disputed 17 (52.8 %), r3 kept 13 dropped 4 -> 32 rows
+- **2026-10-05**: pass 1: r1 42 r2 44 agreed 36 disputed 11 (76.6 %), r3 kept 7 dropped 4 -> 43 rows
 
 ## Grammar by bucket (A, speaking)
 
 | bucket | name | fixes |
 |---|---|---|
 | B18 | verb matches its subject | 61 |
-| B5 | past tense | 54 |
+| B5 | past tense | 56 |
 | B12 | make-X vs get-X | 50 |
-| D2 | verb + its fixed preposition | 48 |
-| D4 | endings on verbs | 40 |
-| B1 | present with b- | 37 |
-| A8 | gender on adjectives | 34 |
-| A2 | idafa (possession) | 31 |
-| A9 | plurals | 27 |
-| D1 | prepositions | 23 |
-| A1 | el- (the) | 20 |
-| A4 | possessive endings | 18 |
-| D3 | endings on prepositions | 17 |
-| A7 | noun + adjective | 16 |
+| D2 | verb + its fixed preposition | 49 |
+| D4 | endings on verbs | 41 |
+| B1 | present with b- | 38 |
+| A2 | idafa (possession) | 36 |
+| A8 | gender on adjectives | 35 |
+| A9 | plurals | 28 |
+| D1 | prepositions | 24 |
+| A1 | el- (the) | 21 |
+| A4 | possessive endings | 20 |
+| A7 | noun + adjective | 18 |
+| D3 | endings on prepositions | 18 |
 | B15 | participles | 16 |
 | B11 | negative commands | 16 |
+| C4 | saying no | 15 |
 | B3 | b-drop after time words | 13 |
-| C4 | saying no | 13 |
 | B2 | b-drop after modals | 13 |
 | C7 | illi | 12 |
 | C2 | the pointer rule | 11 |
 | B10 | commands | 9 |
+| B6 | kaan = was / were | 9 |
+| PROPOSE | ? | 9 |
+| E2 | clock time | 8 |
 | C3 | comparatives | 8 |
-| PROPOSE | ? | 8 |
-| E2 | clock time | 7 |
 | B8 | bakoon / ykoon | 7 |
 | A3 | feminine -t in idafa | 7 |
-| B6 | kaan = was / were | 7 |
+| A10 | hada / hadi | 7 |
 | E1 | number + noun | 7 |
-| A10 | hada / hadi | 6 |
+| E4 | calendar | 6 |
 | A12 | pronoun matches who you mean | 5 |
-| E4 | calendar | 5 |
 | B16 | kan laazem | 4 |
 | A11 | kul: all vs every | 4 |
 | E5 | kam + singular | 4 |
+| A5 | chain possession | 4 |
 | C9 | word order | 3 |
 | C1 | no word for 'to be' | 3 |
 | C6 | iza / lamma | 3 |
@@ -110,7 +113,6 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | C4b | words that drag a ma along | 2 |
 | B13 | future with ra7 | 2 |
 | E3 | time units, two-of and many-of | 2 |
-| A5 | chain possession | 2 |
 | B9 | person on ykoon | 1 |
 | C5 | u / aw / willa / wala | 1 |
 | C12 | a doing verb says what was done | 1 |
@@ -1526,3 +1528,53 @@ _00:02-06:12 and 53:31-end are English meta talk. 12:34-15:40 and 37:41-42:12 tr
 | FA-439fd3f5 | 47:06 | grammar | A1 | آخر الموظفة, right? | The end of the employees? | آخر الموظفة -> آخر موظفة | Medi 2026-10-03 marked it a mistake: I said it wrong the first time and amal corrected in english and I said the right the 2nd time / I said "2aa5er EL Moazafa, right?" | high | medi-correction |
 | FA-0583f785 | 48:58 | vocab-A | tier 0 | you say it was dwarf? What was it again? | ضيوف. | guests -> ضيوف | He asked again for 'guests'; Amal supplied ضيوف. | high | r1+r2 |
 | FA-605b741f | 52:13 | vocab-A | tier 1 | أنا بسوق نفس الطريقة | طريق. What's طريقة? | الطريقة -> الطريق | طريقة is 'way/method'; for 'route' Amal recast طريق and he fixed نفس الطريق. | high | r1+r2 |
+
+### 2026-10-05
+
+_Echo candidates checked: all are real English/filler, none an Arabic sound-alike. 40:21 engine wrote قبيحة but chat bish3a and Amal's 'why do you not forget bisha' suggest he said بشعة (engine). 03:31/03:36 أملكت = his attempt at her عملت (pronunciation, skipped). 15:04 شوي بتي = بطيء (S4, skipped). 27:41 عبوي = أبوي (engine). 55:00-1:03:00 his Arabic is in Latin letters. Quiz answers about the أغلب/نفس rule (16:09, 28:15, 50:31) skipped as rule questions. 13:10/13:55 كام على = kaman marra. Medi turns: 315 with Arabic script plus ~20 Latin-letter Arabic turns. / 55:13-1:01:07 is Latin-transliterated (Medi's Arabic in Latin letters). Large English-only stretches (09:07-13:00 app talk, 15:20-20:10 and 28:50-31:00 rule talk about أغلب/نفس, 40:24-43:31). Echo candidates all real English/fillers, none Arabic sound-alikes. Engine notes: 40:21 قبيحة is likely the engine for bish3a (her chat bish3a, she says he never forgets it) - not filed; 03:31/03:36 أملكت likely 3emlat(ha); 07:10 بوع = bu2a3 (بقعة, dropped ق - S4, not filed); 15:04 بتي = بطيء (S4); 49:59 his 'كان يزعل' after her بيزهأ is likely يزهق misheard; 52:17 'نفس الـ issue' likely نفس الإشي. Rule-quiz answers (16:09 أغلب takes no ال, 28:15, 33:44 ال...) treated as questions about the rule, not slips. Self-fixes skipped: 14:09 لا->ما, 14:19 جديد->جديدة, 17:43 فكر->بفكر, 22:30 محلي->في محلي, 35:14 بدلي->بدلة, 39:17 kundaret->kundara, 53:21 إجازة->اجتماع. 56:32 ruhna vs rawwa7na: she offered both, not a slip._
+
+| id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
+|---|---|---|---|---|---|---|---|---|---|
+| FA-7eeb2a79 | 01:02 | vocab-B | tier 2 | شكرًا. يومي مليء، |  | مليء -> مليان | He used the MSA form مليء (said again at 01:13/01:17); her sheet has 'full (general/object) / Malyaan / مليان' - same root, dialect form; she voiced nothing, so B. Tier 2: wrong form of a word he knows. | low | r3 |
+| FA-71e3c0ea | 01:27 | grammar | A1 | Yeah، كان عندي زبون مهم صباح. | الصباح. either الصباح or في الصباح. | صباح -> في الصباح | He said bare صباح; she recast الصباح / في الصباح and he repeated في الصباح. | high | r1+r2 |
+| FA-bf5ddaa3 | 02:36 | vocab-A | tier 1 | uh، جهز، جهزت... | جهزت is like prepared... بس عملت أو طبخت would be a better fit for food. | جهزت -> عملت | He used جهزت (prepared) for cooking the dish; she said عملت / طبخت is the right fit for food and typed 3emlatha. | medium | r1+r2 |
+| FA-75e802ae | 03:49 | vocab-A | tier 1 | لحمت، لحمت خريف، | خريف. شو يعني خريف؟ | خريف -> خروف | He said خريف (autumn) for خروف (lamb); she echoed خريف and asked what it means, he switched to خروف; her chat la7met 5aroof. | high | r1+r2 |
+| FA-96ee441d | 04:08 | rejected | tier 0 | What is خريف؟ Should we learn خريف؟ | فصل، أي فصل الخريف؟ ... إحنا هلأ بأي فصل؟ | خريف -> خريف = autumn | He asked what خريف means (guessed winter at 04:26); she told him it is a season and led him to autumn. A didn't-know he asked about, not a misread of her Arabic aloud, so mode speaking. | medium | r3 |
+| FA-b5f58bd9 | 05:23 | grammar | E4 | Uh، خمس، uh، عشرة... | خمسة عشرة. | خمس -> خمسة | For the date (5 October) he said خمس; she recast خمسة عشرة and he repeated خمسة. | medium | r1+r2 |
+| FA-92b3a7d2 | 05:50 | grammar | E2 | واحد وثلاث. | طيب if it's 1:25 what would you say? ... واحدة. Because it's ساعة. | واحد -> واحدة | Clock time takes the feminine number; she said واحدة because it is ساعة. | high | r1+r2 |
+| FA-03f27373 | 07:10 | grammar | D1 | عنده بوعى، بوع. | Eh, on it. ... عليه بقع. | عنده -> عليه | He said عنده (it has) for stains on the shirt; she said 'on it' and recast عليه بقع. | high | r1+r2 |
+| FA-50587a6a | 07:45 | grammar | B5 | أنا بحط الـ... | حطيت. | بحط -> حطيت | She asked who put stains on it (past); he used present بحط, she said حطيت and he said 'that's right'. | high | r1+r2 |
+| FA-1889bfa3 | 08:20 | vocab-A | tier 0 | أنا نسيت الـ... | بنجر. | beets -> بنجر | He forgot the word for beets; she supplied بنجر. | high | r1+r2 |
+| FA-a82b14f1 | 10:52 | grammar | D4 | wait for you would be ستنت لك، ستنيت لك، | استنيتك. | ستنيت لك -> استنيتك | He put the object on لـ; she recast with the ending on the verb استنيتك, he said 'There's no il'. | high | r1+r2 |
+| FA-c10f800a | 11:18 | grammar | D3 | حكيت لي ني؟ ... حكيت، حكيت لي لي؟ | No. Try again. ... حكيت لي. | حكيت لي ني -> حكيت لي | He tacked -ni onto حكيت لي; she said 'No. Try again' then حكيت لي - with la- 'me' is -li, not -ni. | high | r1+r2 |
+| FA-5dc5d196 | 17:15 | grammar | C4 | مش لـ-- مش بتحتاج الـ. | هلأ قصدك إنه أغلب ما بتحتاج ال | مش بتحتاج -> ما بتحتاج | He negated a verb with مش; she restated it as ما بتحتاج and he then said ما بتحتاج. | medium | r1+r2 |
+| FA-10e26bf4 | 17:59 | grammar | A2 | Because it's mostly like أغلب men most-- no? | لا، it's not the first time we discussed this. We never say أغلب من. | أغلب من -> أغلب + noun (أغلب وقتي) | He built 'most of' with من; she said we never say أغلب من - it goes straight onto the noun. | high | r1+r2 |
+| FA-13f6cac9 | 19:07 | grammar | A2 | so ٱغْلَب most people because it's not ٱلنَّاسُ, so it'd be ٱغْلَب النَّاسِ. | أغلب after it there's ال. Why did you take it out? | أغلب ناس (engine wrote ٱغْلَب النَّاسِ) -> أغلب الناس | Her 'Why did you take it out?' and his 'because ناس is not definitive' show he said أغلب ناس without el- (engine wrote النَّاسِ); after أغلب the noun takes el-. | high | r1+r2 |
+| FA-58910c1d | 20:58 | vocab-A | tier 0 | How do you say my clothes? Is it أَوَا... | أوايي، أوايي. | my clothes -> أواعي | He asked how to say my clothes; she supplied أوايي (awa3iyyi). | high | r1+r2 |
+| FA-a2267598 | 24:18 | grammar | A2 | بَعِيدٍ النَّفْسِ? | نفس never takes ال before it. Al-always after it. | بَعِيدٍ النَّفْسِ -> نفس + الـnoun | He put النفس after the noun; she named the rule: نفس comes first and the ال goes on the noun after it. | medium | r1+r2 |
+| FA-01a39508 | 25:00 | grammar | C4 | مش، مش إشي. مش-- | Still nothing؟ ما في إشي؟ | مش إشي -> ما في إشي | For 'there is nothing (in common)' he negated with مش; she recast ما في إشي and he repeated it at 25:07. | medium | r3 |
+| FA-9fc71cb0 | 26:43 | grammar | A2 | So, uh, أشخاص النفس. | صح. نفس never takes ال before it always after and it's before the noun. | أشخاص النفس -> نفس الأشخاص | He said أشخاص النفس; she named the rule (نفس before the noun, ال after) and he fixed to نفس الأشخاص. | high | r1+r2 |
+| FA-4419e330 | 29:20 | grammar | A5 | أغلب الـ آخر الأسبوع. | Why ال آخر؟ ... أغلب آخر الأسبوع. | أغلب الـ آخر الأسبوع -> أغلب آخر الأسبوع | In a chain only the last noun takes ال; she asked why ال آخر and explained the idafa rule. | high | r1+r2 |
+| FA-770718d7 | 30:32 | grammar | A5 | أغلب أسبوع الأخر. That sounds so awkward. | أغلب آخر الأسبوع. | أغلب أسبوع الأخر -> أغلب آخر الأسبوع | He flipped the chain; she recast أغلب آخر الأسبوع and he repeated it. | high | r1+r2 |
+| FA-d67ee272 | 31:01 | vocab-B | tier 1 | روحنا على، على الشاطئ. | The beach. | الشاطئ -> الشط | He used MSA الشاطئ; her sheet has 'beach / Sha66 / شط'; 'The beach.' only translates, no voiced fix here (she says بالشط later at 32:37, filed under A19). Different lexical item, so tier 1. | low | r3 |
+| FA-0572b949 | 32:29 | grammar | D2 | انبسطنا الشاطئ. | بلشات. أو فيلشات. | انبسطنا الشاطئ -> انبسطنا بالشط | انبسط takes بـ; she recast بالشط and he said 'I forgot about انبسط' and repeated بالشاطئ. | high | r1+r2 |
+| FA-b21bb2c9 | 35:35 | grammar | A8 | البدلة الأولى. | شو الأول؟ What's feminine of أول؟ | البدلة الأولى -> البدلة الأولى (أولى) | Engine wrote الأولى but she echoed الأول and asked for the feminine - he said البدلة الأول; he then said أولى. | high | r1+r2 |
+| FA-c0e4d09d | 37:28 | vocab-A | tier 1 | كانت أكثر إشي. | Best. La, shu ya3ni best? Better. | أكثر -> أحسن | He used أكثر (most) for 'best'; she pushed with best/better and he said أحسن. | high | r1+r2 |
+| FA-310fd0ae | 37:34 | vocab-A | tier 1 | آه، أحسن إشي. | Ahsan. One. Now, what does one mean? | إشي -> واحدة | He said إشي (thing) for 'one'; she prompted 'One?' and he said واحدة (chat a7san wa7de). | medium | r1+r2 |
+| FA-89dd7735 | 39:22 | grammar | A7 | كندارة الأخيرة? | Bas that would mean nothing... It's not idafa here, it's just adjective. ... You're missing an L. | كندارة الأخيرة -> الكندرة الأخيرة | Noun + adjective needs ال on both; she said he was missing an ال and he fixed to الكندارة الأخيرة. | high | r1+r2 |
+| FA-2625734d | 44:00 | grammar | A4 | So أول اليوم. | اليومي. | أول اليوم -> أول يومي | 'The beginning of my day' needs the possessive ending; she prompted يومي and he said أول يومي. | high | r1+r2 |
+| FA-da7c0a66 | 46:45 | grammar | A2 | So يومي الأول. | No, that's my first day. I want you to say the beginning of my day. | يومي الأول -> أول يومي | He used the adjective structure (my first day) for 'beginning of my day'; she said no and he said أول يومي. | medium | r1+r2 |
+| FA-f04a2c9f | 47:55 | grammar | A4 | So كل اليوم. | My whole day. | كل اليوم -> كل يومي | He dropped 'my'; she repeated 'My whole day' and he said كل يومي. | high | r1+r2 |
+| FA-973f126e | 49:52 | vocab-A | tier 1 | كان يزعل. | بيزهأ. | يزعل -> بيزهق | He said يزعل (saddens) for 'boring'; she recast بيزهق, chat be/yzahhe2. | high | r1+r2 |
+| FA-0571abfc | 51:52 | vocab-A | tier 2 | أغلب العربية. | أغلب either العرب or العربيين. | العربية -> العرب / العربيين | العربية is the feminine / the language; for 'Arabs' she gave العرب or العربيين. | high | r1+r2 |
+| FA-d87c2eb3 | 53:30 | grammar | B6 | تاني اجتماع ... نفس الـ... | Was... | تاني اجتماع نفس -> تاني اجتماع كان نفس | Past sentence without كان; she prompted 'Was...' and he said 'Oh، كان' at 53:34. Separate from agreed A32 (56:09, a different sentence). | high | r3 |
+| FA-89701583 | 54:04 | grammar-propose | PROPOSE | آآآ، yeah، just نفس أول. | No، آآ go on. أول شو؟ ... What's one? What's one? | نفس أول -> نفس أول واحد | He stopped at أول with no noun; she asked أول شو / what's one and he added واحد. | medium | r1+r2 |
+| FA-a216df38 | 55:32 | vocab-A | tier 1 | Abel ma shufit. | After | Abel ma -> ba3ed ma | He said abel ma (before) for 'after'; she said 'After' in English and he changed to ba'id ma. | high | r1+r2 |
+| FA-0601f0e6 | 55:36 | grammar | B5 | Uh, uh, ba'id ma shufit. | we saw. | shufit -> shufna | He used the I-form shufit for 'we saw'; she said 'we saw' and he changed to shufna. | high | r1+r2 |
+| FA-1eb284ef | 56:09 | grammar | B6 | tani matam nafs il'ishi? | Was, was. | tani matam nafs il'ishi -> tani mat3am kaan nafs el-ishi | Past state needs kaan; she said 'Was, was' and he added kan. | high | r1+r2 |
+| FA-e2fac85a | 59:03 | grammar | A9 | sadiqik. | Friends. | sadiqik -> sahabik (s7aabek) | For 'your other friends' he used a singular noun; she stressed 'Friends.' (plural) and he gave the plural sahabik at 59:09. The fix is number (plural), so A9, not a vocab tier. | high | r3 |
+| FA-9ea3b0b3 | 59:14 | vocab-A | tier 1 | sahabik farq. | No, no. I want to choose thani. 'Cause thani is the best here. | farq -> tani | For 'other' he used farq (difference); she said 'No, no' and gave thani (sheet: 'else/second/other / taani / تاني'); he took it at 59:20. Separate from A34 (1:01:28, farq for 'different'). | medium | r3 |
+| FA-ec3ba385 | 59:28 | grammar | A7 | Sahab-- Sahabik tani? No? | No. ... No, sahabak al-thaniyin. | Sahabik tani -> s7aabek el-tanyeen | A definite noun (with -ik) takes an adjective with ال, plural to match; she said No and gave sahabak al-thaniyin. | high | r1+r2 |
+| FA-0ef0c833 | 1:01:28 | vocab-A | tier 2 | So فرق right? فرق. | What is difference? They are different. | فرق -> مختلفين | He used the noun فرق (difference) for the adjective 'different'; she pointed out it means difference and he said مختلفين. | high | r1+r2 |
+| FA-ddf772d2 | 1:03:58 | grammar | A10 | your friends which are masculine, so هداك. ... Right? هداك? | شو؟ ... غير عن. What does this mean? | هداك -> هدول | 'These' (plural) is هدول, not هداك (that, m.); she asked شو and he changed to هدول. | high | r1+r2 |
+| FA-6c26b1ed | 1:05:07 | grammar-B | B1 | Okay. أشوفك. | يلا بشوفك. | أشوفك -> بشوفك | Plain present takes b- (her بشوفك just before); may be the engine dropping b-. | low | r1+r2 |
