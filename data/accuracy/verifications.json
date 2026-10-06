@@ -18188,6 +18188,714 @@
    "at": "2026-10-06T18:43:05.403906+00:00",
    "rule_id": 3216,
    "source": "amal_rules review (Tutor page)"
+  },
+  {
+   "uid": "FA-8a4cfe50",
+   "date": "2026-10-06",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi explicitly asks for the noun and Amal supplies the Arabic forms. This is a tier-0 vocabulary supply, not a pronunciation issue.",
+   "evidence": {
+    "t_start": 332.0,
+    "t_end": 365.0,
+    "quote": "Medi: «So what is motivation?» Amal: «حافز or دافع.»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-8a4cfe50_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "aa6ac7e7ee7c67e8d34d2dcbb9229d2e609f8e23df9e7a16a12b6b999f097eb7",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-8a4cfe50_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "4b8e949f8ee9fc82d299a0a2167dbcb356b5100b47c7b0e86db6b624cdbbe1e5",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-8a4cfe50_mixed_lesson.mp3",
+      "sha256": "491c13eed88330ed477cdbe5c1b525a0bbafb7da0f8dce6d52ecdb403465a4fd",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "الشجاة. فما هو المотив؟ فقط الشجاة. حسنا. الله يحافظ",
+     "Amal": "مترجمات من قبل نانسي قنقر لسا ما لأتوا",
+     "mixed": "متشجع متشجع متشجع متشجع متشجع متشجع متشجع متشجع متشجع متشجع متشجع متشجع متشجع متشجع لساما لأيتو"
+    }
+   },
+   "claim": {
+    "wrong": "motivation",
+    "right": "حافز / دافع",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-06T15:46:04-07:00",
+   "run_id": "d879fe6957da491b92248cc556e830ea"
+  },
+  {
+   "uid": "FA-783866f3",
+   "date": "2026-10-06",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi's answer is transcribed as a broken «لسه ما لا...» form, and Amal immediately corrects the fused verb form by saying it is one word. The decisive signal is Amal's «لقيته، one word».",
+   "evidence": {
+    "t_start": 359.0,
+    "t_end": 393.0,
+    "quote": "Medi: «لسه ما لا لقيته، لسه ما لا» Amal: «لقيته، one word.»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-783866f3_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "4129b7666430197124e3a993d4bfd2258bf264e19b37c61c253966c75cd3c78e",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-783866f3_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "a55f373b187fd6aa8ff3223bef3a9cc8f6d9e1ecc680a46c83432c4748d815e2",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-783866f3_mixed_lesson.mp3",
+      "sha256": "c3d478bcf0071ccff2a9c3993ccd5cf4466a9aea1227ecfea01ce6f75d72d503",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "حافظي شو؟ لسه ما لقيت لسه ما لقيت لسه ما لقيت او لا عشان انا بعرف عندي",
+     "Amal": "لسه ما لقيتو لسه ما لقيتو لقيتو one word one word ترجمة نانسي قنقر",
+     "mixed": "اه حافزي. لسه ما لقيته. شو? لسه ما لقيته. لسه ما لقيته لسه ما لا. لقيته. one word. ما لا اشان انا بعرف عندي"
+    }
+   },
+   "claim": {
+    "wrong": "ما لا",
+    "right": "لا، لسه ما لقيته",
+    "bucket": "D4",
+    "tier": null
+   },
+   "at": "2026-10-06T15:46:04-07:00",
+   "run_id": "d879fe6957da491b92248cc556e830ea"
+  },
+  {
+   "uid": "FA-a35ee497",
+   "date": "2026-10-06",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi first says the masculine adjective after feminine «شوربة», then Amal recasts the feminine form. Even if Medi begins to self-fix, Amal still signals «فيتنامية».",
+   "evidence": {
+    "t_start": 467.0,
+    "t_end": 511.0,
+    "quote": "Medi: «اليوم أكلت شوربة فيتنامي» Amal: «فيتنامية.»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-a35ee497_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "27e85e51cdb58e723d4ab38f9a328b4627dab535d7f7eeff77ae6ce0df55c522",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-a35ee497_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "3936f2ad24b9add97f09dffdbe03f339fdc647772bfa90c68887d36bfe8849e7",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-a35ee497_mixed_lesson.mp3",
+      "sha256": "34f504a01a2b9fc726f11f91d475c91f03482ac6bea2e194e0e4353f3abe4dba",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "جامعه. ياس. اليوم اكلت شوربه فييتنامي اسمه فييتناميه اسمه فو. اسمها دمشق. اسمها فو.",
+     "Amal": "واو قريب خلص يلا هانت تقريبا قريبا طيب شو أكلت اليوم بيتنامية ليش اسمها فو شو فيها الفو",
+     "mixed": "جوما. واو. قريب. خلص يلا. هانت. تقريبا هناك. طيب شو أكلت اليوم؟ اليوم أكلت شوربة فيتنامي فيتنامية فيتنامية ليش؟ بسمو فو بسمها بسمها دمت شوربة بسمها فو فو؟ أعتقد أنني سمعت هذا من قبل شو فيها الفوق؟"
+    }
+   },
+   "claim": {
+    "wrong": "شوربة فيتنامي",
+    "right": "شوربة فيتنامية",
+    "bucket": "A8",
+    "tier": null
+   },
+   "at": "2026-10-06T15:46:04-07:00",
+   "run_id": "d879fe6957da491b92248cc556e830ea"
+  },
+  {
+   "uid": "FA-0280caa1",
+   "date": "2026-10-06",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi is using «فو» without the article in the prepositional phrase, and Amal offers the cleaner form with «الـ». He then repeats the corrected «بي الفو في».",
+   "evidence": {
+    "t_start": 508.0,
+    "t_end": 561.0,
+    "quote": "Amal: «you could use بي الفو في» Medi: «بي الفو في»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-0280caa1_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "3de514a26c9444a185bd062c6bd59e7ad56dd5295c328fbc674b19793bbfd0e8",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-0280caa1_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "12540ca4b28030ddbc4eda8c98b87276fe63cbec5c1707ec61ed2cffbd7244b9",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-0280caa1_mixed_lesson.mp3",
+      "sha256": "b8ad921b95084a12cb60e70a5edd0a4fe7469c31e64c26a3f39566896b6cbba3",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه ا بي إل فو في تي إت شو أدتن لحمة",
+     "Amal": "اه. شو فيها الفو? كنا فيه. how about فيه? What whatever is there and then فيه الفو. So many Fs. I guess yeah. أو يمكنك استخدام بي الفوم فيه. هذا أكثر من صغير. كيف تكتب فوم؟",
+     "mixed": "اه شو فيها الفو? اه بي فو حسنًا ، هناك ، نعم ، فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو فو ف بي إل فو بي بي إل فو بي كيف تكتب؟ بي"
+    }
+   },
+   "claim": {
+    "wrong": "بي فور",
+    "right": "بالـ pho",
+    "bucket": "D5",
+    "tier": null
+   },
+   "at": "2026-10-06T15:46:04-07:00",
+   "run_id": "d879fe6957da491b92248cc556e830ea"
+  },
+  {
+   "uid": "FA-eaebb674",
+   "date": "2026-10-06",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "unsure",
+   "confidence": "medium",
+   "reason": "Medi does struggle with «كان في / كانت في», and Amal explains that Arabic flips 'was in it', but the provided evidence does not include the claimed final correction «كان فيها جاج». The window is too guided and incomplete to rule the specific pointer-row confidently.",
+   "evidence": {
+    "t_start": 576.0,
+    "t_end": 636.0,
+    "quote": "Medi: «كان في، أكون كانت في» Amal: «you're gonna flip, was in it»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-eaebb674_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "177e3e49b6bbb6e7a4b20d57fb2fff50ce78028ba1a4fa943e64544556ddd819",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-eaebb674_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "e521df7fde4ae18f53c511da2a71b52b8dec5b39e7864e254f2cc39a0186e33e",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-eaebb674_mixed_lesson.mp3",
+      "sha256": "8c7633f859bb8bc55319275b82afe054356808bea037fb0f174ff5a732822cd5",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أريد أن أقول أنه يجب عليك أن ترى صحيحًا. يمكن أن ترى أو يمكن أن ترى ماذا؟ نعم ربما لا ماذا؟ سأستمع حسنا حسنا لذا لذا أعرف كلمة instead صحيح؟ هساب؟ لا",
+     "Amal": "وز انت في كان is in it وز انت it's a bit messy يعني in a way you're gonna say whatever was in it وز انت بس in Arabic you're gonna flip was in it what was in it give me give me what you want to say so it doesn't sound as messy as this instead of the beef well what's up or what was what was in it لا لا لا أعتقد ذلك",
+     "mixed": "انا اريد ان اقول اه انا اريد ان اقول في صحيح اه كان في او كان في كان is in it wait why was in it it's a bit messy you know what you're gonna say whatever was in it was in it was in it what was in it probably not wait what give me what you want to say so it doesn't sound as messy as this حسنًا ، أجل ، أجل ، أجل ، أجل ، أجل ، أجل ، أجل ، أجل ، أجل ، أجل ، أجل ، أجل ، أجل ، أجل ، أجل ، أجل ، أجل ، أج"
+    }
+   },
+   "claim": {
+    "wrong": "can it fee",
+    "right": "هذي الشوربة كان فيها جاج",
+    "bucket": "C2",
+    "tier": null
+   },
+   "at": "2026-10-06T15:46:04-07:00",
+   "run_id": "d879fe6957da491b92248cc556e830ea"
+  },
+  {
+   "uid": "FA-990e0961",
+   "date": "2026-10-06",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "unsure",
+   "confidence": "low",
+   "reason": "Medi clearly reaches for an F-starting peanut word, but Amal's supposed correction is garbled across the independent tracks and does not reliably show «فستق». I cannot confirm that she supplied the claimed form.",
+   "evidence": {
+    "t_start": 699.0,
+    "t_end": 732.0,
+    "quote": "Medi: «I know it starts with an F... فسن/فتن... peanut»; Amal audio around the fix is garbled as «قستة» / missing",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-990e0961_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "2241a4796de7b1cb3948454c5ea5341a0ef61db611f3a7d8598e353641d35e89",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-990e0961_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "3ea906000b65430186d740b57939f66112b8bc37dc844453b4b3a9d1ace8f4ab",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-990e0961_mixed_lesson.mp3",
+      "sha256": "5fcc775287ffaf87e56c2400444ccbd7ee138ae47166da05eb0947c1f104a18e",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا اعرف انه يبدو بف هل تقولي بينات؟ انا اعرف انه يبدو بف صوث بوستو و بسل و نود مكرون مكرون بسل",
+     "Amal": "مست مكرونا اشتركوا في القناة",
+     "mixed": "أعلم أنه يبدأ بـ F هل تقولي بينات؟ صوصة صوصة صوصة صوصة صوصة صوصة صوصة صوصة صوصة صوصة صوصة صوصة صوصة صوصة صوصة صوصة مكرونة"
+    }
+   },
+   "claim": {
+    "wrong": "Fistin",
+    "right": "فستق",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-06T15:46:04-07:00",
+   "run_id": "d879fe6957da491b92248cc556e830ea"
+  },
+  {
+   "uid": "FA-2412b6ab",
+   "date": "2026-10-06",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "medium",
+   "reason": "The independent tracks hear Medi already saying the spoken form, and Amal's echo sounds like confirmation/question rather than a correction. This looks like transcript spelling/normalization, not an error signalled by Amal.",
+   "evidence": {
+    "t_start": 1052.0,
+    "t_end": 1084.0,
+    "quote": "Medi: «هذي/هادي سنة»; Amal: «هذي؟ / هادي؟»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-2412b6ab_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "1391d6fa9a342febf65d36b9f56d6e3bbcc4cc8a1d9a095348db9521a77044ca",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-2412b6ab_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "bfdb6340c327bb99d45879df7f71d14fb28fee8c56e58576eeb0bc7a1d2add8a",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-2412b6ab_mixed_lesson.mp3",
+      "sha256": "c71304a684bc8761de489f3c00fac9030f38ff86c56d622b4d587b03c66e8442",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اه ام هادي اه هادي سنة بس هادي السنة في اشي اسمو النيمي النيمي",
+     "Amal": "إحنا عنا بلشت نخلص برد هادي نيم ميو",
+     "mixed": "إحنا عنا بلشت.. خلص آه يم.. هادي.. آه.. هادي سنة هادي؟ هادي إلسنة آه آم.. في إشي اسمو آه.. إلنينيو نيميو النيميو"
+    }
+   },
+   "claim": {
+    "wrong": "هذه",
+    "right": "هذي",
+    "bucket": null,
+    "tier": 2
+   },
+   "at": "2026-10-06T15:46:33-07:00",
+   "run_id": "e5e2e1cceb344a65b0337afcec318f59"
+  },
+  {
+   "uid": "FA-0323bb5f",
+   "date": "2026-10-06",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi used masculine «التاني» with feminine «خطة», and Amal explicitly prompted the gender and supplied that it had to be feminine.",
+   "evidence": {
+    "t_start": 1775.0,
+    "t_end": 1812.0,
+    "quote": "Medi: «خطتك التاني»; Amal: «بس خطة is what?» ... «بس it had to be ثانية»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-0323bb5f_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "b5b82061962a209f4fd003866e4c9f954a440833a7ac25ff734d01dd91c7f115",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-0323bb5f_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "1603d9c494111b1c8542cc01088f7bc2527c94b42f6344c1fac9c508b92716f0",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-0323bb5f_mixed_lesson.mp3",
+      "sha256": "2891df0f03d0b08b0122f0413e0f2010f5fff3f1fd9ff7535e02e7a76327ed1d",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "لقد أحببت مخططك الثاني لقد أحببت مخططك الثاني لقد أحببت مخططك الثاني لقد أحببت مخططك الثاني لقد أحببت مخططك الثاني هذا صحيح",
+     "Amal": "بس خطة as what no صح you said it right at the first time بس it had to be 10 yeah بابسو فلور الخطة",
+     "mixed": "أحببت أن أحببت خطتك الثانية خطتك الثانية خطتك الثانية خطتك الثانية خطتك الثانية خطتك الثانية خطتك الثانية خطتك الثانية خطتك الثانية بس يتالتو بي تانية بابشو بلور الخطة"
+    }
+   },
+   "claim": {
+    "wrong": "خُطّاتك التاني",
+    "right": "خطتك التانية",
+    "bucket": "A8",
+    "tier": null
+   },
+   "at": "2026-10-06T15:46:33-07:00",
+   "run_id": "e5e2e1cceb344a65b0337afcec318f59"
+  },
+  {
+   "uid": "FA-640005af",
+   "date": "2026-10-06",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "high",
+   "reason": "The signalled issue at this moment was the missing object pointer after the fronted object, not specifically the choice of «حط» versus «خط». Amal accepted the verb area with «صح» then asked what was needed at the end.",
+   "evidence": {
+    "t_start": 1930.0,
+    "t_end": 1967.0,
+    "quote": "Amal: «صح... بس what do we need at the end?» Medi: «Is it pointer?»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-640005af_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "ceeb5121a212b390a6670c0818cef380a97df90c8c3550a24fb48c89a4d1055a",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-640005af_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "cabb794e62caf02b63b887db8dd29ffcaebf68bea5e222dbc1a7fa0f6bd03cf3",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-640005af_mixed_lesson.mp3",
+      "sha256": "2ce715896aa3146261a143b6899ed1b49c584702b484d8077eaf9e63791270b8",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أول خطة التي صنعتها صنعتها أمالتي أو خطيتي خطيتي هل هناك نقطة؟ لأنك تبدأ بمعنى. نعم.",
+     "Amal": "صح it's not relevant to this lesson but what do we need at the end yes I'm starting with the object",
+     "mixed": "أول خطة that you made made past tense عملتي or خطتي صح it's not relevant to this lesson بس what do we need at the end is it a pointer لش Because you're starting with a noun I'm starting with the object Yeah"
+    }
+   },
+   "claim": {
+    "wrong": "خطيتي",
+    "right": "حطيتيها",
+    "bucket": "C2",
+    "tier": null
+   },
+   "at": "2026-10-06T15:46:33-07:00",
+   "run_id": "e5e2e1cceb344a65b0337afcec318f59",
+   "changed_to": {
+    "wrong": "عملتي/حطيتي without -ها",
+    "right": "عملتيها/حطيتيها"
+   }
+  },
+  {
+   "uid": "FA-e6c3b544",
+   "date": "2026-10-06",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Although the independent ASR often normalizes Medi to «حطيتيها», Amal immediately says there is one correction and contrasts the form, consistent with correcting his «خطتيها» to «حطيتيها».",
+   "evidence": {
+    "t_start": 1964.0,
+    "t_end": 2002.0,
+    "quote": "Medi: «خطتيها or ... عملتيها»; Amal: «One correction is حطيتيها not خطيتيها»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-e6c3b544_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "afcd404b7780b785e3bf1fa077a92fdf9ec2179d109e1045f22a83cd7cd1ee3e",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-e6c3b544_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "60b4697213ce907f6295e4efa0a7a56843503fd13e9c2f388cffb6d03b79fb24",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-e6c3b544_mixed_lesson.mp3",
+      "sha256": "33602de682440a529579cecdb84bec7acb024ba31ef9cfadba448c002188a223",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "هتاتي هتاتي أملتي اشتركوا في القناة",
+     "Amal": "but it's خطة one correction is حطتيها not حطتيها يجب أن نجد",
+     "mixed": "حطتي or but it's خطة oh you're right حطتيها or أملتيها fantastic one correction is حطتيها not حطتيها حطتيها ترجمة نانسي قنقر"
+    }
+   },
+   "claim": {
+    "wrong": "خطتيها",
+    "right": "حطيتيها",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-06T15:46:33-07:00",
+   "run_id": "e5e2e1cceb344a65b0337afcec318f59"
+  },
+  {
+   "uid": "FA-37caf5df",
+   "date": "2026-10-06",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi used the get-happy form with ن, Amal said no, then explained that ن is for 'get happy' and the needed meaning is 'make happy'.",
+   "evidence": {
+    "t_start": 2265.0,
+    "t_end": 2298.0,
+    "quote": "Medi: «تنبستي»; Amal: «No» ... «No N. N is for get happy. Make happy is...»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-37caf5df_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "71dbd1a8a7cd647ccfd88adeb760f3ae4136b948c3249c16e8afd640fe76d6bb",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-37caf5df_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "53aeb7eb54ccfc018e888139c54088d96d8e75ce71b6ba5d84225d0aef6c2037",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-37caf5df_mixed_lesson.mp3",
+      "sha256": "abc165a1f616fb6774814f0a96c136288c99ac8c36aaa85005033be4d39ff0ca",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "تنبستي تنبستي will not make you will not give you happiness will not get you happy ترجمة نانسي قنقر",
+     "Amal": "لا أنت تقول أنهم لا يريدون أن يكونوا سعيدين هنا شكرا",
+     "mixed": "آه آه آه آه آه آه آه آه آه آه آه أجعلك سعيداً، هذا صحيح."
+    }
+   },
+   "claim": {
+    "wrong": "تنبستي",
+    "right": "يبسطوكي",
+    "bucket": "B12",
+    "tier": null
+   },
+   "at": "2026-10-06T15:46:33-07:00",
+   "run_id": "e5e2e1cceb344a65b0337afcec318f59"
+  },
+  {
+   "uid": "FA-7c3420c3",
+   "date": "2026-10-06",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi used «واحدة» when reaching for 'first', and Amal explicitly rejected it and prompted repeatedly for 'first' before giving «الأولى».",
+   "evidence": {
+    "t_start": 2718.0,
+    "t_end": 2752.0,
+    "quote": "Medi: «أتلتي واحدة»; Amal: «No... what's first?» ... «العطلة الأولى»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-7c3420c3_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "f13af57b35151c3fb245eea574228d95331d28d0327af14e87a6fc392281057e",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-7c3420c3_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "c907b5e709143aa91664cc7b99eb32fdec6e1e6a5d532312d08dfb11c27373ba",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-7c3420c3_mixed_lesson.mp3",
+      "sha256": "ae9a467675ec2bcd816cc44fe8ebb3b60bb1755bceece5af6288391588d93281",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اذا اريد ان اقول يومي الاول هو اه اه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه ا هههه أولى",
+     "Amal": "ترجمة نانسي قنقر ترجمة نانسي قنقر",
+     "mixed": "اذا اريد ان اقول يومي الاول سيكون اه اه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه اوه او أولا أولا"
+    }
+   },
+   "claim": {
+    "wrong": "واحدة",
+    "right": "أولى",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-06T15:46:33-07:00",
+   "run_id": "e5e2e1cceb344a65b0337afcec318f59"
+  },
+  {
+   "uid": "FA-896201e9",
+   "date": "2026-10-06",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "high",
+   "reason": "Medi appears to have said the noun correctly as «عطلتي» but left the adjective indefinite; Amal immediately recast only the adjective as «الأولى». So the signalled error is «عطلتي أولى» -> «عطلتي الأولى», not «أولتي أولى».",
+   "evidence": {
+    "t_start": 2762.0,
+    "t_end": 2794.0,
+    "quote": "Medi: «عطلتي أولى»; Amal: «الأولى، ليش؟»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-896201e9_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "e0743cef4c26204577d15a55a9471b634e510a4f044c41402065536ddf99fe6e",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-896201e9_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "68ebdd634bbfefe0b25dfc869bab738f7b0b786a34ab76dee2bf07c72be611e6",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-896201e9_mixed_lesson.mp3",
+      "sha256": "9cb74566e046d116615e39bee58194466ae569b1fc0aa557d3087994433afca2",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول أول ترجمة نانسي قنقر",
+     "Amal": "لا، قلت عطلتي الأولى الأولى، لماذا؟ أول عطلة إلي لأن أول عطلتي يعني",
+     "mixed": "أول عطلتي الأولى. عطلتي أولى. الأولى. لاش? اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عطلة اول عط"
+    }
+   },
+   "claim": {
+    "wrong": "أولتي أولى",
+    "right": "عطلتي الأولى",
+    "bucket": "A7",
+    "tier": null
+   },
+   "at": "2026-10-06T15:46:49-07:00",
+   "run_id": "532e827cd7924d8b94e03b201a3507e2",
+   "changed_to": {
+    "wrong": "عطلتي أولى",
+    "right": "عطلتي الأولى"
+   }
+  },
+  {
+   "uid": "FA-6fbbb458",
+   "date": "2026-10-06",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi asked for 'since' and guessed «لا», and Amal explicitly corrected that «لا» means until and supplied «من». This is a supplied vocabulary item.",
+   "evidence": {
+    "t_start": 3009.0,
+    "t_end": 3043.0,
+    "quote": "Medi: «لا، لا، right?»; Amal: «لا is until, since is من»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-06/FA-6fbbb458_Medi_Medi_Natanzi-c412e3324f8.mp3",
+      "sha256": "e14c6a6c1463e5f0ca2cdbdd7f2ff7d6507b19b92b5964d7845372cfa52d0463",
+      "source": "Medi_Natanzi-c412e3324f87e4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-06/FA-6fbbb458_Amal_Amal-4d32629b29f1f100.mp3",
+      "sha256": "6d468ee666577ed04156d7fb06311905adcd01c2b813fec53a355fc7aa5f3efe",
+      "source": "Amal-4d32629b29f1f100.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-06/FA-6fbbb458_mixed_lesson.mp3",
+      "sha256": "855ce15a8b0def01f4be6a660c27fe617938e0a3d469dac0bda6f0c3407bc15d",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "إذا كنت أريد أن أقول بطريقي أول مرة أخذت يومي الأول منذ أن أعرف منذ إنه لا صحيح أنا راح أخذ أول",
+     "Amal": "ترجمة نانسي قنقر اشتركوا في القناة",
+     "mixed": "اذا اريد ان اقوله من طريقي اه اول مرة اه انا اخذ اول يومي اه منذ ان اعرف منذ نعم انت دائما تصبح مفاجئة عندما تعرفين انك تعرفين انه لا لا صحيح لا لا هو حتى من من حسنا أول"
+    }
+   },
+   "claim": {
+    "wrong": "la",
+    "right": "من",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-06T15:46:49-07:00",
+   "run_id": "532e827cd7924d8b94e03b201a3507e2"
   }
  ]
 }

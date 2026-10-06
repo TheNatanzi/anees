@@ -23,6 +23,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-10-01 | 92.5 | 100 | 93.4 | 13 | 183 | 1 / 0 |
 | 2026-10-02 | 85.3 | 75 | 91.5 | 18 | 213 | 1 / 0 |
 | 2026-10-05 | 84.6 | 123 | 88.1 | 24 | 201 | 0 / 1 |
+| 2026-10-06 | None -> **81.6** | None -> **95** | None -> **82.1** | None -> **31** | None -> **162** | 1 / 0 |
 
 
 ## Conflicts
@@ -55,6 +56,7 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 - 2026-10-02 09:50 C1 settled: سفر. (word-bank right) vs سفر -> أسافر (readers wrong) - Word Bank said right, Amal said no to that word: her no counts
 - 2026-10-02 27:18 C1r both stand: اليوم (word-bank right) vs اليوم -> المرة (readers wrong) - the Word Bank's context review already settled it: unchanged
 - 2026-10-05 37:34 C1q Medi?: إشي. (word-bank right) vs إشي -> واحدة (readers wrong) - which word of the phrase was wrong: Medi
+- 2026-10-06 28:37 C3 settled: التاني  الفستان (use-counter use) vs التاني الـ الفستان -> الفستان التاني (readers slip A7) - one turn was both a use and a slip of the same rule: one attempt, wrong
 
 ## Medi's corrections (PR-15)
 
