@@ -16,7 +16,7 @@
   const pretty = d => d ? new Date(String(d).slice(0, 10) + 'T12:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
   const today = () => new Date().toISOString().slice(0, 10);
   const PAGE = 20;
-  let T = { open: [], closed: [] }, tasks = [], verifyN = null, NW = null, LG = null;
+  let T = { open: [], closed: [] }, tasks = [], verifyN = null, NW = null, LG = null, UP = null, HW = null, PR = null, AT = null;
 
   async function rest(path, token) {
     const H = { apikey: ANEES.anon, Authorization: 'Bearer ' + ANEES.anon, 'X-Anees-Token': token };
@@ -46,23 +46,33 @@
           .filter(r => !/^(verify|newword|ledger):/.test(String(r.word_key || '')));
         return { ok: true, done: Object.values(AneesUndo.latest(rows)).filter(AneesUndo.isAnswer).length };
       }
+      if (item.kind === 'listen') {   // her listening check: the latest tap per line counts (an undo puts it back)
+        const rows = await rest('amal_rules?select=kind,word_key&source=eq.listen-check&word_key=like.listen:*&order=created_at.asc&token=eq.' + encodeURIComponent(item.token), item.token);
+        return { ok: true, done: Object.values(AneesUndo.latest(rows)).filter(AneesUndo.isAnswer).length };
+      }
+      if (item.kind === 'check') {    // her other listening / checking lists: a card counts when every question on it is answered
+        const D = await (await fetch('data/amal-check-' + item.list + '.json', { cache: 'no-store' })).json();
+        const rows = await rest('amal_rules?select=kind,word_key,payload&source=eq.listen-check&word_key=like.' + encodeURIComponent(D.prefix) + ':*&order=created_at.asc&token=eq.' + encodeURIComponent(item.token), item.token);
+        return { ok: true, done: AneesCheckTask.count(D, rows).done };
+      }
     } catch (e) { return { ok: false, done: 0 }; }
     return { ok: true, done: 0 };
   }
 
   // ---- the task list -------------------------------------------------------------------------------------------
-  const MIN_EACH = { after: 0.7, before: 0.7, verify: 0.4, ledger: 0.5, review: 1.2, verb_check: 0.1, word_review: 0.3, newwords: 0.3 };
-  const UNIT = { after: 'moments', before: 'questions', review: 'slip patterns', verb_check: 'verb forms', word_review: 'lines', verify: 'moments', ledger: 'moments', newwords: 'words' };
+  const MIN_EACH = { proposals: 1.5, attention: 1, after: 0.7, before: 0.7, verify: 0.4, ledger: 0.5, review: 1.2, verb_check: 0.1, word_review: 0.3, newwords: 0.3, listen: 0.25 };
+  const UNIT = { after: 'moments', before: 'questions', review: 'slip patterns', verb_check: 'verb forms', word_review: 'lines', verify: 'moments', ledger: 'moments', newwords: 'words', listen: 'lines' };
   function taskOf(it, L) {
     const total = it.total || 0, d = Math.min(total, (L && L.done) || 0), left = Math.max(0, total - d);
     const title = it.kind === 'after' ? 'After the lesson · ' + pretty(it.lesson_date)
       : it.kind === 'review' ? 'Slips to review' : it.kind === 'verb_check' ? it.title.replace('Verb check', 'Verb forms') : it.title;
-    const rank = it.kind === 'before' ? 0 : it.kind === 'after' ? 1 : it.kind === 'review' ? 3 : it.kind === 'word_review' ? 4 : 5;
-    return { id: it.id, kind: it.kind, item: it, title, total, done: d, left, unit: UNIT[it.kind] || 'items', rank, date: it.lesson_date || '', finished: (L && L.finished) || (total > 0 && left === 0) };
+    const rank = it.kind === 'before' ? 0 : it.kind === 'after' ? 1 : it.kind === 'review' ? 3 : it.kind === 'word_review' ? 4 : it.kind === 'listen' ? 3.5 : it.kind === 'check' ? 3.6 : 5;
+    return { id: it.id, kind: it.kind, item: it, title, total, done: d, left, unit: it.unit || UNIT[it.kind] || 'items', rank, date: it.lesson_date || '', finished: (L && L.finished) || (total > 0 && left === 0) };
   }
   function rankAll(list) { return list.sort((a, b) => a.rank - b.rank || String(b.date).localeCompare(String(a.date))); }
-  const mins = t => Math.max(1, Math.round(t.left * (MIN_EACH[t.kind] || 0.5)));
-  const sub = t => t.finished ? 'Done · thank you' : `${fmt(t.left)} ${t.unit} left · about ${mins(t)} min`;
+  const minEach = t => (t.item && t.item.min_each) || MIN_EACH[t.kind] || 0.5;
+  const mins = t => Math.max(1, Math.round(t.left * minEach(t)));
+  const sub = t => t.subText ? t.subText : t.finished ? 'Done · thank you' : `${fmt(t.left)} ${t.unit} left · about ${mins(t)} min`;
   const bar = t => `<div class="hb-bar" aria-hidden="true"><i style="width:${t.total ? Math.round(100 * t.done / t.total) : 0}%"></i></div>`;
 
   // ---- the one list + panel every tab uses (PG-17) ----------------------------------------------------------------
@@ -104,9 +114,13 @@
     review: (b, it, on) => AneesReviewTask.mount(b, { token: it.token, base: '' }, { onChange: on }),
     verb_check: (b, it, on, o) => AneesVerbCheckTask.mount(b, { token: it.token }, { onChange: on, view: o && o.view }),
     word_review: (b, it) => AneesWordReviewTask.mount(b, { token: it.token }),
+    listen: (b, it, on) => AneesListenTask.mount(b, { token: it.token, base: '' }, { onChange: on }),
+    check: (b, it, on) => AneesCheckTask.mount(b, { token: it.token, base: '', list: it.list }, { onChange: on }),
     verify: b => b.appendChild($('#tv')),
     newwords: (b, it, on) => AneesNewWordsTask.mount(b, NW, { onChange: on }),
     ledger: (b, it, on) => AneesLedgerTask.mount(b, LG, { onChange: on }),
+    proposals: (b, it, on) => AneesProposalsTask.mount(b, PR, { onChange: on }),   // Medi 2026-10-05: new grammar rules to approve, top of her list
+    attention: (b, it, on) => AneesAttentionTask.mount(b, AT, { onChange: on }),    // Medi 2026-10-06: his questions from the flashcards (the attention button)
   };
   function panel(t, p) {
     p.innerHTML = `<h2 class="hb-ptitle">${esc(t.title)}</h2><p class="hb-pnote">${esc(sub(t))}</p>${t.item && t.item.what ? `<p class="hb-sub">${esc(t.item.what)}</p>` : ''}<div id="hb-body"></div><div data-earlier></div>`;
@@ -129,18 +143,70 @@
     }));
   }
 
-  // ---- Grammar and Materials: one rule / one section at a time ------------------------------------------------
+  // ---- Amal's two tools for Medi (2026-10-05): Upload flashcards / Assign homework, each a full-width panel of its own
+  function tool(tab) {
+    setTab(tab);
+    const view = $('#hb-view');
+    if (!UP || !HW) { view.innerHTML = '<div class="vp-notice">Loading…</div>'; return; }
+    view.innerHTML = `<div class="hb-panel hb-tool" id="hb-panel"><h2 class="hb-ptitle">${tab === 'upload' ? 'Upload flashcards' : 'Assign homework'}</h2><div id="hb-body"></div></div>`;
+    const on = s => { if (tab === 'homework') $('#hb-n-homework').textContent = s.left ? s.left + ' to check' : ''; else $('#hb-n-upload').textContent = s.total || ''; };
+    if (tab === 'upload') AneesUploadTask.mount($('#hb-body'), UP, { onChange: s => on({ total: s.total }) });
+    else AneesHomeworkTask.mount($('#hb-body'), HW, { onChange: s => on({ left: s.total - s.done }) });
+  }
+  // ---- Grammar · Vocab · Decay (PG-30, Medi 2026-10-05 "the grammar and materials feel redundant ... Instead lets have grammar
+  // and vocab. For now lets add my worst performing 20 vocab words and 10 grammar lessons. for her"; "lets add a 5th page for
+  // decay. Words that are untested or decaying"): what Medi struggles with, from docs/data/tutor-weak.json
+  // (scripts/build_tutor_weak.py), each item in the panel with its numbers, its last real moments and her note box.
+  let WEAK = null;
+  async function weak() { if (!WEAK) WEAK = await (await fetch('data/tutor-weak.json', { cache: 'no-store' })).json(); return WEAK; }
+  const notesToken = () => { const g = T.open.find(x => x.kind === 'grammar_notes'); return g ? g.token : ''; };
+  const pctTxt = v => (v === null || v === undefined) ? '—' : v + '%';
+  function momentsHtml(ms, how) {
+    if (!ms || !ms.length) return '<p class="hb-sub">No moment recorded yet.</p>';
+    return `<ul class="hb-done hb-moments">${ms.map(m => `<li><span><span class="hb-time">${esc(pretty(m.date))}${m.mmss ? ' · ' + esc(m.mmss) : ''}</span> ${esc(how(m))}</span><span data-clip="${esc(m.clip || '')}" data-date="${esc(m.date || '')}"></span></li>`).join('')}</ul>`;
+  }
+  function clips(p) {
+    p.querySelectorAll('[data-clip]').forEach(c => { const src = c.dataset.clip; if (!src || !window.AneesClip) return;
+      const f = /^lessons\//.test(src) ? src : 'lessons/' + src; const [file, frag] = f.split('#t='), [st, en] = (frag || '').split(',').map(Number);
+      c.appendChild(AneesClip.bar({ src: ANEES.pages + file, start: frag ? st : 0, end: frag ? en : null })); });
+  }
   async function grammar(id) {
-    setTab('grammar');
-    $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
-    let G; try { G = await AneesDoc.grammar(''); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The grammar rules could not load. Refresh to try again.</div>'; return; }
-    const g = T.open.find(x => x.kind === 'grammar_notes'), token = g ? g.token : '';
-    const rows = [{ id: 'general', title: 'A general note', sub: 'Anything not about one rule', find: 'note' }]
-      .concat(G.rules.map(r => ({ id: r.id, title: `${r.id} · ${r.title}`, sub: `${r.family} · ${r.status}`, find: r.family, r })));
+    setTab('grammar'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
+    let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
+    const rows = D.rules.map(r => ({ id: r.id, title: `${r.id} · ${r.name}`, sub: `${pctTxt(r.pct)} right · ${fmt(r.uses)} uses · ${fmt(r.mistakes)} corrections · last ${pretty(r.last_used)}`, find: r.family || '', r }));
     listPanel('grammar', rows, id, (row, p) => {
-      p.innerHTML = `<div class="hb-doc">${row.r ? row.r.html : `<h3 class="hb-q">A general note</h3><p class="hb-sub">${esc(G.intro)}</p><div data-general></div>`}</div>`;
-      AneesGrammarNotes.start({ token, base: '', scope: p });
-    }, { search: 'Find a rule (id, name or family)', head: `<p class="hb-sub hb-span">${esc(G.intro)} Tap a rule to read it and write a note under it.</p>` });
+      const r = row.r;
+      p.innerHTML = `<article id="${esc(r.id)}" class="hb-doc"><h3 class="hb-q">${esc(r.id)} · ${esc(r.name)}</h3><p class="hb-sub">${esc(r.one_line || '')}</p>
+        <p class="hb-prog">${pctTxt(r.pct)} right over ${fmt(r.uses)} uses · ${fmt(r.mistakes)} corrections · ${esc(r.status || '')}</p>
+        <h4 class="hb-q">His last moments</h4>${momentsHtml(r.moments, m => (m.said || '') + (m.recast ? ' → ' + m.recast : ''))}</article>`;
+      clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
+    }, { noAuto: false, head: `<p class="hb-sub hb-span">Medi's ${D.rules.length} weakest grammar rules, lowest % first (3+ uses). Tap one: his numbers, his last moments, and a note box for you.</p>` });
+  }
+  async function vocab(id) {
+    setTab('vocab'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
+    let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
+    const rows = D.words.map(w => ({ id: 'word:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(w.english)} · ${pctTxt(w.pct)} right · ${fmt(w.n)} uses · last ${pretty(w.last_date)}`, find: w.english || '', w }));
+    listPanel('vocab', rows, id, (row, p) => {
+      const w = row.w;
+      p.innerHTML = `<article id="${esc(row.id)}" class="hb-doc"><h3 class="hb-q">${esc(w.arabizi)} ${w.arabic ? `<span lang="ar" dir="rtl">${esc(w.arabic)}</span>` : ''}</h3><p class="hb-sub">${esc(w.english || '')}</p>
+        <p class="hb-prog">${pctTxt(w.pct)} right · ${fmt(w.right)} right, ${fmt(w.partial)} partly, ${fmt(w.wrong)} wrong · ${esc(w.status || '')}</p>
+        <h4 class="hb-q">His last moments</h4>${momentsHtml(w.moments, m => `he said «${m.said || '?'}»${m.fix ? ' → ' + m.fix : ''}${m.kind === 'asked' ? ' (asked you for the word)' : ''}`)}</article>`;
+      clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
+    }, { search: 'Find a word', head: `<p class="hb-sub hb-span">Medi's ${D.words.length} weakest Doc words, lowest % first (2+ scored uses). Tap one: his numbers, his last moments, and a note box for you.</p>` });
+  }
+  async function decay(id) {
+    setTab('decay'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
+    let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
+    const K = D.decay || { decaying: [], untested: [], days: 0 };
+    const rows = K.decaying.map(w => ({ id: 'decay:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(w.english)} · last said ${pretty(w.last_date)} (${w.days_ago} days) · was ${esc(w.status || '')}`, find: w.english || '', w, kind: 'decaying' }))
+      .concat(K.untested.map(w => ({ id: 'untested:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(w.english)} · never said in a recorded lesson · in the Doc since ${pretty(w.first_seen)}`, find: w.english || '', w, kind: 'untested' })));
+    listPanel('decay', rows, id, (row, p) => {
+      const w = row.w;
+      p.innerHTML = `<article id="${esc(row.id)}" class="hb-doc"><h3 class="hb-q">${esc(w.arabizi)} ${w.arabic ? `<span lang="ar" dir="rtl">${esc(w.arabic)}</span>` : ''}</h3><p class="hb-sub">${esc(w.english || '')}</p>
+        <p class="hb-prog">${row.kind === 'decaying' ? `Last said ${esc(pretty(w.last_date))}, ${w.days_ago} days ago · was ${esc(w.status || '')} (${pctTxt(w.pct)} over ${fmt(w.n)} uses)` : `Never said in a recorded lesson · in the Doc since ${esc(pretty(w.first_seen))}`}</p>
+        ${row.kind === 'decaying' ? `<h4 class="hb-q">His last moments</h4>${momentsHtml(w.moments, m => `he said «${m.said || '?'}»${m.fix ? ' → ' + m.fix : ''}`)}` : ''}</article>`;
+      clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
+    }, { search: 'Find a word', noAuto: true, head: `<p class="hb-sub hb-span">Decay: ${fmt(K.decaying.length)} words Medi knew but has not said for ${K.days}+ days (longest first), then ${fmt(K.untested.length)} Doc words never said in a recorded lesson. Tap one for its story and a note box.</p>` });
   }
   async function materials(id) {
     setTab('materials');
@@ -203,14 +269,18 @@
     }));
   }
   function count() {
-    $('#hb-n-todo').textContent = tasks.filter(t => !t.finished).length || '';
+    $('#hb-n-todo').textContent = tasks.filter(t => !t.finished && !t.quiet).length || '';
     $('#hb-n-done').textContent = (tasks.filter(t => t.finished).length + (T.closed || []).length) || '';
+    weak().then(D => { $('#hb-n-grammar').textContent = D.rules.length || ''; $('#hb-n-vocab').textContent = D.words.length || ''; $('#hb-n-decay').textContent = ((D.decay || {}).decaying || []).length || ''; }).catch(() => {});
   }
   function hold() { const tv = $('#tv'); if (tv && tv.parentElement.id !== 'hb-hold') $('#hb-hold').appendChild(tv); }
   function route() {
     hold(); window.AneesClip && AneesClip.stopAll();
     const [tab, id] = (decodeURIComponent(location.hash.slice(1)) || 'todo').split('/');
+    if (tab === 'upload' || tab === 'homework') return tool(tab);
     if (tab === 'grammar') return grammar(id);
+    if (tab === 'vocab') return vocab(id);
+    if (tab === 'decay') return decay(id);
     if (tab === 'materials') return materials(id);
     if (tab === 'done') return doneView();
     todo(id);
@@ -220,7 +290,7 @@
   async function main() {
     try { T = await (await fetch('data/tutor.json', { cache: 'no-store' })).json(); }
     catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The Tutor list could not load. Refresh to try again.</div>'; return; }
-    const work = T.open.filter(x => ['after', 'before', 'review', 'verb_check', 'word_review'].includes(x.kind));
+    const work = T.open.filter(x => ['after', 'before', 'review', 'verb_check', 'word_review', 'listen', 'check'].includes(x.kind));
     const lives = await Promise.all(work.map(live));
     tasks = work.map((it, i) => taskOf(it, lives[i]));
     try {   // the moments to check (tutor-verify): answers are amal_rules rows word_key verify:<uid> on the review token
@@ -250,16 +320,56 @@
       const c = AneesLedgerTask.count(Q, LG.answers);
       if (c.total) tasks.push({ id: 'ledger', kind: 'ledger', item: {}, title: 'Which word was wrong?', total: c.total, done: c.done, left: c.left, unit: 'moments', rank: 2.5, date: '', finished: c.left === 0 });
     } catch (e) {}
+    try {   // GR-29 (Medi 2026-10-05 "For the grammar additions this should be at the top of her todo list"): proposed rules = the first row
+      const g = T.open.find(x => x.kind === 'grammar_notes'), tok = g ? g.token : '';
+      const S = await AneesProposalsTask.section('');
+      if (S && S.rules.length) {
+        const notes = {};
+        if (tok) (await rest('amal_rules?select=kind,word_key,payload&source=eq.grammar_notes&word_key=like.rule:P-*&order=created_at.asc&token=eq.' + encodeURIComponent(tok), tok))
+          .forEach(r => { const id = String(r.word_key).replace(/^rule:/, ''); notes[id] = notes[id] || []; if (r.kind === 'undo') notes[id].pop(); else notes[id].push(r); });
+        PR = { token: tok, section: S };
+        const c = AneesProposalsTask.count(S.rules.map(r => r.id), notes);
+        tasks.push({ id: 'proposals', kind: 'proposals', item: {}, title: 'New grammar rules to approve', total: c.total, done: c.done, left: c.left, unit: 'rules', rank: -0.1, date: '', finished: c.left === 0 });
+      }
+    } catch (e) {}
+    try {   // Medi 2026-10-06 "attention ... sent to the tutor portal": his flashcard questions, a To do row right after the proposals
+      const g = T.open.find(x => x.kind === 'grammar_notes'), tok = g ? g.token : '';
+      const rows = await rest('card_attention?select=*&order=created_at.asc', tok);
+      AT = { token: tok, rows };
+      const c = AneesAttentionTask.count(rows);
+      if (c.total) tasks.push({ id: 'attention', kind: 'attention', item: {}, title: 'Questions from the student', total: c.total, done: c.done, left: c.left, unit: 'questions', rank: -0.05, date: '', finished: c.left === 0 });
+    } catch (e) {}
+    try {   // Medi 2026-10-05: "Upload flashcards" (top) + "Assign homework" (his answers to check). Rows are plain anon tables
+            // (migration 023); her Tutor link token is kept on each row for provenance only, so she is never blocked.
+      const rv = T.open.find(x => x.kind === 'review'), tok = rv ? rv.token : '';
+      const J = u => fetch(u, { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
+      const [U, HT, HR, HV, W, QZ, SH, UJ] = await Promise.all([rest('amal_uploads?select=*&order=created_at.asc', tok).catch(() => null), rest('homework_tasks?select=*&order=created_at.asc', tok).catch(() => null),
+        rest('homework_replies?select=*&order=created_at.asc', tok).catch(() => null), rest('homework_verdicts?select=*&order=created_at.asc', tok).catch(() => null),
+        J('data/words.json'), J('data/quizlet/amal-quizlet-sets.json'), J('data/shaky-words.json'), J('data/uploads.json')]);
+      const live = !!(U && HT && HR && HV);
+      const uploads = U || (UJ && UJ.rows) || [];
+      UP = { token: tok, uploads, words: (W && W.items) || [], live };
+      const SEL = window.AneesCardSelection, H = window.AneesHomework;
+      const uSets = H.uploadSets(uploads).map(s => ({ id: s.id, title: s.title, n: s.n, group: 'From Amal' }));
+      const shakyN = SH && SH.words ? SH.words.length : 0;
+      const qz = SEL && QZ ? SEL.mergeSameTitle((QZ.sets || []).filter(s => !SEL.isDated(s.title) && !/audio homework/i.test(s.title || ''))).sets : [];
+      const sets = uSets.concat(shakyN ? [{ id: 'shaky', title: 'Shaky words (last 2 lessons)', n: shakyN, group: 'Weak spots' }] : [], qz.map(s => ({ id: 'q:' + s.id, title: s.title, n: s.n || (s.terms || []).length, group: 'Quizlet' })));
+      HW = { token: tok, tasks: HT || [], replies: HR || [], verdicts: HV || [], sets, live };
+      const uc = AneesUploadTask.count(uploads), hc = AneesHomeworkTask.count(HW.tasks, HW.replies, HW.verdicts);
+      // Medi 2026-10-05 "Separate the upload flash cards and assign homework from the other modules": their own strip above
+      // the To do tabs (#upload, #homework), never rows in her checking list
+      $('#hb-n-upload').textContent = uc.total || ''; $('#hb-n-homework').textContent = hc.waiting ? hc.waiting + ' to check' : '';
+    } catch (e) {}
     rankAll(tasks); count();
-    const open = tasks.filter(t => !t.finished), m = open.reduce((s, t) => s + t.left * (MIN_EACH[t.kind] || 0.5), 0);
-    $('#hb-hello').textContent = open.length ? `Marhaba Amal · ${open.length} thing${open.length === 1 ? '' : 's'} to check, about ${Math.max(1, Math.round(m))} min` : 'Marhaba Amal · nothing to check right now';
+    const open = tasks.filter(t => !t.finished && !t.quiet), m = open.reduce((s, t) => s + t.left * minEach(t), 0);
+    $('#hb-hello').textContent = open.length ? `Marhaba · ${open.length} thing${open.length === 1 ? '' : 's'} to check, about ${Math.max(1, Math.round(m))} min` : 'Marhaba · nothing to check right now';
     $('#ab-source').textContent = 'Live · ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
     if (!wired) { wired = true; window.addEventListener('hashchange', route); route(); }
     else if (onList()) route();
   }
   // rule L1 (2026-10-02): her list, counts and answers are re-read when the tab comes back; the view is re-drawn only on
   // the bare to-do list, so an open task (or a rule, a section, an open accordion) is never reset under her.
-  function onList() { const h = decodeURIComponent(location.hash.slice(1)); return !h || h === 'todo'; }
+  function onList() { const h = decodeURIComponent(location.hash.slice(1)); return !h || h === 'todo'; }   // #upload / #homework: her typing is never reset
   main();
   window.AneesLive && AneesLive.onReturn(main, { busy: () => !onList() });
 })();

@@ -20,7 +20,7 @@ def kinds_built():
     """Every item kind scripts/build_tutor_data.py can put on the hub."""
     src = (ROOT / "scripts" / "build_tutor_data.py").read_text(encoding="utf-8")
     ks = set(re.findall(r'"kind": "([a-z_]+)"', src)) | {"after", "before", "verb_check", "word_review"}
-    return ks | {"verify", "newwords", "ledger"}   # the lists tutor.js adds itself (ledger: LS-12)
+    return ks | {"verify", "newwords", "ledger", "proposals", "attention"}   # the lists tutor.js adds itself (ledger: LS-12; proposals: GR-29)
 
 
 def test_PG_17_no_hub_item_links_to_another_page():
@@ -43,7 +43,7 @@ def test_PG_17_no_hub_item_links_to_another_page():
 def test_PG_17_every_item_kind_opens_in_the_panel_with_the_shared_module():
     mount = TUTOR_JS[TUTOR_JS.index("const MOUNT = {"):TUTOR_JS.index("};", TUTOR_JS.index("const MOUNT = {"))]
     have = set(re.findall(r"^\s+([a-z_]+): ", mount, re.M))
-    tabs = {"grammar_notes": "AneesDoc.grammar(", "materials": "AneesDoc.materials("}
+    tabs = {"grammar_notes": "AneesGrammarNotes.start(", "materials": "AneesDoc.materials("}   # PG-30: Grammar = his weakest rules with her note box; Materials = route only
     for k in sorted(kinds_built()):
         if k in tabs:
             assert tabs[k] in TUTOR_JS, f"{k} must open inside the hub (PG-17)"
@@ -173,3 +173,25 @@ def test_PG_18_done_rows_show_the_moment_and_the_result():
     js = TUTOR_JS
     assert "Result: ${esc(x.result)}" in js and "Medi: <span lang=\"ar\">${esc(x.medi)}</span>" in js and "AneesClip.bar(" in js
     assert "<b>Change an answer</b>" in js                                       # Undo one tap below the results while live
+
+
+def test_AM_21_AM_22_the_two_tools_have_their_own_strip_not_rows_in_her_checking_list():
+    """Medi 2026-10-05: "Separate the upload flash cards and assign homework from the other modules"."""
+    assert 'href="#upload" data-tab="upload"' in TUTOR_HTML and 'href="#homework" data-tab="homework"' in TUTOR_HTML
+    assert "if (tab === 'upload' || tab === 'homework') return tool(tab);" in TUTOR_JS
+    assert "kind: 'upload'" not in TUTOR_JS and "kind: 'homework'" not in TUTOR_JS      # never a task row
+
+
+def test_AM_23_every_tutor_choice_is_a_plain_sentence_about_medi():
+    """AM-23 (Medi 2026-10-06: "all the verbiage in the tutor section is confusing. label it Medi got it right / Medi got the wrong
+    word / Medi had wrong grammar. Please revisit all of them")."""
+    after = (HUB / "after-task.js").read_text(encoding="utf-8")
+    for label in ("'Right': 'Medi got it right'", "'Wrong word': 'Medi got the wrong word'", "'Wrong grammar': 'Medi had wrong grammar'", "'Not Medi': 'That was not Medi speaking'"):
+        assert label in after
+    assert "esc(show(b))" in after and "Listen, then tap. Your tap sets the score for this word." in after
+    assert "the readers were not sure" not in after and "${esc(q.why)}" not in after      # no machine reason under the question
+    for f in (HUB / "review-task.js", DOCS / "js" / "tutor-verify.js"):
+        js = f.read_text(encoding="utf-8")
+        assert "Yes, Medi was wrong" in js and "No, Medi was fine" in js and "Correction is correct<" not in js, f.name
+    assert "Right as written" in (HUB / "verb-check-task.js").read_text(encoding="utf-8")
+    assert "right: 'Medi got it right', close: 'Medi was close', wrong: 'Medi got it wrong'" in (HUB / "homework-task.js").read_text(encoding="utf-8")

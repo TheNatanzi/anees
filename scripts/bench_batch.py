@@ -11,30 +11,31 @@ at HALF of bench_run.PRICE (Google: Batch is 50 % of the standard price).
     python scripts/bench_batch.py 2026-10-02 submit <run n>    # PAID: upload the JSONL + create the batch job
     python scripts/bench_batch.py 2026-10-02 status            # the state of every submitted run
     python scripts/bench_batch.py 2026-10-02 collect <run n>   # download the answers -> gemini-flash-batch-t1/line-run<n>.json
+    python scripts/bench_batch.py 2026-10-02 submit-missing <run n>   # PAID: after a collect, the lines with no answer as part 2, 3, ..
+    python scripts/bench_batch.py 2026-10-02 recover <run n>   # a job Google created but this PC never saved: find it by its display name
     python scripts/bench_batch.py 2026-10-02 compare           # baseline vs batch, from scores.json (after bench_score.py)
 
-REST shapes from https://ai.google.dev/gemini-api/docs/batch-api (read 2026-10-04), file-based input:
-    JSONL line   {"key": "<line i>", "request": <GenerateContentRequest>}
-    upload       POST https://generativelanguage.googleapis.com/upload/v1beta/files   (resumable: start, then upload+finalize)
-    create       POST https://generativelanguage.googleapis.com/v1beta/models/<model>:batchGenerateContent
-                 {"batch": {"display_name": ..., "input_config": {"file_name": "files/..."}}}   -> {"name": "batches/..."}
-    status       GET  https://generativelanguage.googleapis.com/v1beta/batches/...
-    results      GET  https://generativelanguage.googleapis.com/download/v1beta/<responses file>:download?alt=media
-Every network call is one of the four small functions below (upload_file, create_batch, get_batch, download_file) so
-the tests replace them; nothing else in this file touches the network.
+The transport itself (the JSONL, the job file, upload / create / status / list / download, the two shapes of Google's
+answers) is scripts/batch_jobs.py, which knows nothing about the benchmark; this file is the benchmark's side: which
+lines, which prompts, the money cap, the run file. Every network call is one of the five functions of batch_jobs
+(upload_file, create_batch, get_batch, download_file, list_batches); this module keeps its own names for them and
+hands THOSE to batch_jobs (_net), so the tests replace them here; nothing else in this file touches the network.
 
 Rules kept: creating a job is not idempotent, so a run that already has a job file is never submitted twice; the money
 cap (PR-10: pipeline cap + the benchmark allowance) is checked BEFORE submit with the run's cost estimated from the
 baseline's token counts; every collected answer writes a run line (bench_run.paid); a request that failed for quota /
-no credit is never stored as the engine's miss (bench_vars.unreached).
+no credit is never stored as the engine's miss (bench_vars.unreached). Such lines (and lines absent from the results)
+are sent again as a later PART of the same run (submit-missing: bench/<date>/batch/run<n>.p2.jsonl, .p3, ..), built
+from the original JSONL line for line; collect reads every part, and a line already stored is never paid twice.
 """
-import json, os, sys, time
+import json, os, sys, time, types
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import bench_common as BC  # noqa: E402
 import bench_run as BR  # noqa: E402
 import bench_vars as BV  # noqa: E402
+import batch_jobs as BJ  # noqa: E402
 
 ENGINE = "gemini-flash-batch-t1"
 BASE = BV.BASE                    # gemini-flash-t1, the instant baseline
@@ -42,21 +43,35 @@ MODEL = BV.MODEL                  # gemini-3.8-flash
 ARM = "ctx"
 TEMP = 1
 PRICE_FACTOR = 0.5                # Google's Batch mode: half the standard price
-API = "https://generativelanguage.googleapis.com"
-DONE = ("JOB_STATE_SUCCEEDED", "JOB_STATE_FAILED", "JOB_STATE_CANCELLED", "JOB_STATE_EXPIRED")
-# google.rpc codes a failed request may carry -> the HTTP status the instant call would have shown
-RPC_HTTP = {8: 429, 14: 503, 4: 504, 13: 500, 3: 400, 7: 403, 5: 404, 9: 400}
+API, DONE, RPC_HTTP = BJ.API, BJ.DONE, BJ.RPC_HTTP
+job_state, responses_file, err_text = BJ.job_state, BJ.responses_file, BJ.err_text      # moved to batch_jobs, same behaviour
+# the network: batch_jobs' five functions under this module's own names (the tests replace them here)
+upload_file, create_batch, get_batch, download_file, list_batches = BJ.upload_file, BJ.create_batch, BJ.get_batch, BJ.download_file, BJ.list_batches
+
+
+def _net():
+    """The five network functions as this module holds them NOW (a test's replacement included), for batch_jobs."""
+    return types.SimpleNamespace(upload_file=upload_file, create_batch=create_batch, get_batch=get_batch, download_file=download_file, list_batches=list_batches)
 
 
 def bdir(date):
     return os.path.join(BC.bench_dir(date), "batch")
 
 
-def paths(date, n):
-    b = bdir(date)
-    return {"jsonl": os.path.join(b, "run%d.jsonl" % n), "build": os.path.join(b, "run%d.build.json" % n),
-            "job": os.path.join(b, "run%d.job.json" % n), "results": os.path.join(b, "run%d.results.jsonl" % n),
-            "run": os.path.join(BC.bench_dir(date), ENGINE, "line-run%d.json" % n)}
+def jname(n, part=1):
+    """The job's name in batch_jobs: run<n>, and run<n>.p2, .p3, .. for the later parts (the lines that got no answer)."""
+    return BJ.part_name("run%d" % n, part)
+
+
+def paths(date, n, part=1):
+    P = BJ.paths(bdir(date), jname(n, part))
+    P["run"] = os.path.join(BC.bench_dir(date), ENGINE, "line-run%d.json" % n)
+    return P
+
+
+def parts(date, n):
+    """[part] of run n that were built or submitted (1 always)."""
+    return [k for k, _ in BJ.parts(bdir(date), "run%d" % n)]
 
 
 # ------------------------------------------------------------------ the requests (no network)
@@ -92,191 +107,135 @@ def request_line(i, clip, prompt):
 def build(date, n):
     P = paths(date, n)
     its = items(date)
-    os.makedirs(bdir(date), exist_ok=True)
-    with open(P["jsonl"], "w", encoding="utf-8", newline="\n") as f:
-        for i, clip, prompt in its:
-            f.write(json.dumps(request_line(i, clip, prompt), ensure_ascii=False) + "\n")
-    info = {"engine": ENGINE, "run": n, "model": MODEL, "requests": len(its), "bytes": os.path.getsize(P["jsonl"]),
-            "jsonl_sha256": BC.sha_file(P["jsonl"]), "prompts_sha256": BC.sha_file(os.path.join(BC.bench_dir(date), "prompts.json")),
-            "built": time.strftime("%Y-%m-%dT%H:%M:%S")}
-    BC.W(P["build"], info)
+    info = BJ.build(bdir(date), jname(n), MODEL, ((i, request_line(i, clip, prompt)["request"]) for i, clip, prompt in its),
+                    meta={"engine": ENGINE, "run": n, "prompts_sha256": BC.sha_file(os.path.join(BC.bench_dir(date), "prompts.json"))})
     print("built %s: %d requests, %d bytes (%.1f MB), sha %s" % (P["jsonl"], info["requests"], info["bytes"], info["bytes"] / 1e6, info["jsonl_sha256"][:16]))
     return info
 
 
 # ------------------------------------------------------------------ money (PR-10), before submit
 
-def estimate(date, n):
-    """The run's cost at the Batch price, from the token counts of the baseline's run n (any complete baseline run
-    when run n is missing). None when no baseline run has token counts."""
+def estimate(date, n, part=1):
+    """This JOB's cost at the Batch price: the baseline's average cost of one line x the number of requests in the
+    job's build (a part holds only the missing lines, so it is priced pro rata; the whole lesson when nothing is built).
+    Only a COMPLETE baseline run is used - rec["complete"] true AND every listen line there, with token counts on
+    every line that is not a stored error - because an average over half a run prices the wrong lines. Run n when it
+    is complete, else any complete one, else None (submit refuses on None)."""
     d = BC.bench_dir(date)
     p = BR.PRICE[MODEL]
+    want = [i for i, _, _ in items(date)]
     for k in [n] + [x for x in (1, 2, 3) if x != n]:
         r = BC.J(os.path.join(d, BASE, "line-run%d.json" % k)) or {}
-        tk = [v["tokens"] for v in (r.get("lines") or {}).values() if v.get("tokens")]
+        L = r.get("lines") or {}
+        if not r.get("complete") or any(i not in L or not (L[i].get("error") or L[i].get("tokens")) for i in want):
+            continue
+        tk = [L[i]["tokens"] for i in want if L[i].get("tokens")]
         if tk:
             tin, aud, tout = (sum(x[c] for x in tk) for c in range(3))
             per_line = ((tin - aud) * p[0] + aud * p[1] + tout * p[2]) / 1e6 / len(tk)
-            return round(per_line * len(r["lines"]) * PRICE_FACTOR, 4)
+            return round(per_line * ((BC.J(paths(date, n, part)["build"]) or {}).get("requests") or len(want)) * PRICE_FACTOR, 4)
     return None
 
 
 def outstanding(date, but=None):
-    """Dollars of batch runs already submitted whose answers are not collected yet (they are owed, not yet in a run file)."""
+    """Dollars of batch jobs already submitted whose answers are not collected yet (they are owed, not yet in a run
+    file). Every part of a run counts; a job whose answers were collected, or that failed / was cancelled / expired,
+    owes nothing more."""
     usd = 0.0
     for k in (1, 2, 3):
-        if k == but:
+        if k == but or (BC.J(paths(date, k)["run"]) or {}).get("complete"):
             continue
-        P = paths(date, k)
-        job = BC.J(P["job"])
-        if job and not (BC.J(P["run"]) or {}).get("complete"):
-            usd += job.get("est_usd") or 0.0
+        for part in parts(date, k):
+            job = BC.J(paths(date, k, part)["job"])
+            if job and not job.get("collected") and job.get("state") not in DONE[1:]:
+                usd += job.get("est_usd") or 0.0
     return usd
 
 
-def cap_room(date, n):
-    """(spent so far incl. submitted-but-uncollected runs, this run's estimate, the limit). Same sums as bench_vars.run()."""
+def cap_room(date, n, part=1):
+    """(spent so far incl. submitted-but-uncollected runs, this job's estimate, the limit). Same sums as bench_vars.run().
+    money_base leaves this run file's own cost out (a fresh run has none); a later part adds it back: it was paid."""
     spent, limit = BV.money_base(date, paths(date, n)["run"])
-    return spent + outstanding(date, but=n), estimate(date, n), limit
-
-
-# ------------------------------------------------------------------ the network (4 small functions; tests replace them)
-
-def _headers(extra=None):
-    h = {"x-goog-api-key": BR.key("GEMINI_API_KEY")}
-    h.update(extra or {})
-    return h
-
-
-def _fail(r, what):
-    raise SystemExit("%s: %d %s" % (what, r.status_code, r.text[:400].replace(BR.key("GEMINI_API_KEY"), "***")))
-
-
-def upload_file(path, display_name):
-    """The Files API resumable upload. Returns the file's name ("files/...")."""
-    import requests
-    size = os.path.getsize(path)
-    r = requests.post(API + "/upload/v1beta/files", timeout=120, json={"file": {"display_name": display_name}},
-                      headers=_headers({"X-Goog-Upload-Protocol": "resumable", "X-Goog-Upload-Command": "start",
-                                        "X-Goog-Upload-Header-Content-Length": str(size), "X-Goog-Upload-Header-Content-Type": "application/jsonl"}))
-    url = r.headers.get("x-goog-upload-url")
-    if r.status_code != 200 or not url:
-        _fail(r, "file upload (start)")
-    with open(path, "rb") as f:
-        r = requests.post(url, data=f, timeout=3600, headers={"Content-Length": str(size), "X-Goog-Upload-Offset": "0", "X-Goog-Upload-Command": "upload, finalize"})
-    if r.status_code != 200:
-        _fail(r, "file upload (bytes)")
-    return r.json()["file"]["name"]
-
-
-def create_batch(model, file_name, display_name):
-    """Creates the batch job (NOT idempotent). Returns Google's answer; its "name" is the job ("batches/...")."""
-    import requests
-    r = requests.post("%s/v1beta/models/%s:batchGenerateContent" % (API, model), timeout=120, headers=_headers({"Content-Type": "application/json"}),
-                      json={"batch": {"display_name": display_name, "input_config": {"file_name": file_name}}})
-    if r.status_code != 200:
-        _fail(r, "batch create")
-    return r.json()
-
-
-def get_batch(name):
-    import requests
-    r = requests.get("%s/v1beta/%s" % (API, name), timeout=120, headers=_headers())
-    if r.status_code != 200:
-        _fail(r, "batch status")
-    return r.json()
-
-
-def download_file(name, out):
-    import requests
-    with requests.get("%s/download/v1beta/%s:download" % (API, name), params={"alt": "media"}, timeout=3600, headers=_headers(), stream=True) as r:
-        if r.status_code != 200:
-            _fail(r, "results download")
-        with open(out, "wb") as f:
-            for chunk in r.iter_content(1 << 20):
-                f.write(chunk)
-    return out
-
-
-# ------------------------------------------------------------------ job state (Google's docs show two shapes)
-
-def job_state(j):
-    """The job's state from a status answer: the long-running-operation shape ({"metadata": {"state"}}) or the flat one."""
-    st = (j.get("metadata") or {}).get("state") or j.get("state") or ("JOB_STATE_UNKNOWN" if not j.get("error") else "JOB_STATE_FAILED")
-    return st.replace("BATCH_STATE_", "JOB_STATE_")     # the live API answers BATCH_STATE_* (first real run, 2026-10-04); the docs show JOB_STATE_*
-
-
-def responses_file(j):
-    """The results file's name: {"response": {"responsesFile"}} or {"dest": {"fileName"}} (both are in the docs)."""
-    return ((j.get("response") or {}).get("responsesFile") or (j.get("dest") or {}).get("fileName")
-            or (j.get("dest") or {}).get("file_name") or ((j.get("metadata") or {}).get("output") or {}).get("responsesFile"))
+    if part > 1:
+        spent += (BC.J(paths(date, n)["run"]) or {}).get("cost_usd") or 0.0
+    return spent + outstanding(date, but=n), estimate(date, n, part), limit
 
 
 # ------------------------------------------------------------------ submit / status / collect
 
-def submit(date, n):
-    P = paths(date, n)
+def label(n, part=1):
+    return "run %d" % n if part == 1 else "run %d part %d" % (n, part)
+
+
+def submit(date, n, part=1):
+    """PAID. The benchmark's checks (built, not collected, the lesson's lines unchanged, the cap), then batch_jobs.submit,
+    which writes the job file with its display name BEFORE the upload and, when an earlier submit crashed between
+    Google creating the job and this PC saving it, attaches that job instead of creating a second one."""
+    P = paths(date, n, part)
     info = BC.J(P["build"])
     if not info or not os.path.exists(P["jsonl"]):
         raise SystemExit("run %d is not built: python scripts/bench_batch.py %s build %d" % (n, date, n))
-    if BC.J(P["job"]):
-        raise SystemExit("run %d was already submitted (%s): a batch job is never created twice. Delete %s only if that job is gone." % (n, BC.J(P["job"]).get("job"), P["job"]))
+    job = BC.J(P["job"])
+    if job and (job.get("job") or not job.get("display_name")):
+        raise SystemExit("%s was already submitted (%s): a batch job is never created twice. Delete %s only if that job is gone." % (label(n, part), job.get("job"), P["job"]))
     if (BC.J(P["run"]) or {}).get("complete"):
         raise SystemExit("run %d is already collected" % n)
-    if BC.sha_file(P["jsonl"]) != info["jsonl_sha256"] or len(items(date)) != info["requests"]:
-        raise SystemExit("run %d: the JSONL changed since it was built - build it again" % n)
-    spent, est, limit = cap_room(date, n)
+    if BC.sha_file(P["jsonl"]) != info["jsonl_sha256"] or (part == 1 and len(items(date)) != info["requests"]):
+        raise SystemExit("%s: the JSONL changed since it was built - build it again" % label(n, part))
+    spent, est, limit = cap_room(date, n, part)
     if est is None:
         raise SystemExit("no baseline token counts to estimate the cost from: not submitting")
-    if spent + est > limit:
-        raise SystemExit("budget cap (PR-10) for %s: $%.2f spent or owed + $%.2f for this run > $%.2f" % (ENGINE, spent, est, limit))
-    name = "anees-bench-%s-%s-run%d" % (date, ENGINE, n)
-    file_name = upload_file(P["jsonl"], name)
-    BC.W(P["job"], {"engine": ENGINE, "run": n, "model": MODEL, "file": file_name, "job": None, "est_usd": est, "requests": info["requests"],
-                    "jsonl_sha256": info["jsonl_sha256"], "uploaded": time.strftime("%Y-%m-%dT%H:%M:%S")})      # kept even if create fails
-    job = create_batch(MODEL, file_name, name)
-    rec = BC.J(P["job"])
-    rec.update(job=job.get("name"), state=job_state(job), submitted=time.strftime("%Y-%m-%dT%H:%M:%S"), submitted_unix=round(time.time(), 1))
-    BC.W(P["job"], rec)
-    print("submitted run %d: %s (%d requests, about $%.2f at the Batch price)" % (n, rec["job"], info["requests"], est))
+    cap = lambda e: None if spent + e <= limit else "budget cap (PR-10) for %s: $%.2f spent or owed + $%.2f for this run > $%.2f" % (ENGINE, spent, e, limit)  # noqa: E731
+    rec = BJ.submit(bdir(date), jname(n, part), est, cap_check=cap, net=_net())
+    if rec.get("recovered"):
+        print("recovered %s: %s was created by an earlier submit and is attached, not created again (%s)" % (label(n, part), rec["job"], rec.get("state")))
+    else:
+        print("submitted %s: %s (%d requests, about $%.2f at the Batch price)" % (label(n, part), rec["job"], info["requests"], est))
     return rec
+
+
+def recover(date, n):
+    """Every part of run n whose job file has no job id: look the job up at Google by its display name and attach it.
+    Free (one list call). Returns the job records that were attached."""
+    out, pending = [], 0
+    for part in parts(date, n):
+        job = BC.J(paths(date, n, part)["job"])
+        if not job or job.get("job"):
+            continue
+        pending += 1
+        rec = BJ.recover(bdir(date), jname(n, part), net=_net())
+        print("%s: %s" % (label(n, part), ("attached %s (%s)" % (rec["job"], rec.get("state"))) if rec else
+                          "no job at Google carries the display name %s - nothing was created; submit it again" % job.get("display_name")))
+        out += [rec] if rec else []
+    if not pending:
+        print("run %d: nothing to recover (no job file is waiting for its job id)" % n)
+    return out
 
 
 def status(date):
     seen = 0
     for n in (1, 2, 3):
-        P = paths(date, n)
-        job = BC.J(P["job"])
-        if not job:
-            continue
-        seen += 1
-        if not job.get("job"):
-            print("run %d: the file was uploaded (%s) but no job was created" % (n, job.get("file")))
-            continue
-        j = get_batch(job["job"])
-        job.update(state=job_state(j), checked=time.strftime("%Y-%m-%dT%H:%M:%S"), stats=(j.get("metadata") or {}).get("batchStats") or j.get("batchStats"))
-        BC.W(P["job"], job)
-        print("run %d: %s %s %s%s" % (n, job["job"], job["state"], json.dumps(job["stats"]) if job["stats"] else "",
+        for part in parts(date, n):
+            P = paths(date, n, part)
+            job = BC.J(P["job"])
+            if not job:
+                continue
+            seen += 1
+            if not job.get("job"):
+                print("%s: the file was uploaded (%s) but no job was created" % (label(n, part), job.get("file")))
+                continue
+            job = BJ.status(bdir(date), jname(n, part), net=_net())
+            print("%s: %s %s %s%s" % (label(n, part), job["job"], job["state"], json.dumps(job["stats"]) if job["stats"] else "",
                                       "  (collected)" if (BC.J(P["run"]) or {}).get("complete") else ""))
     if not seen:
         print("no batch run was submitted yet")
 
 
-def err_text(e):
-    """A failed request's status object -> the text the instant call would have stored ("429 ..." for a quota failure)."""
-    if not isinstance(e, dict):
-        return str(e)[:400]
-    code, msg = e.get("code"), str(e.get("message") or e.get("status") or "")
-    if e.get("status") == "RESOURCE_EXHAUSTED" or "RESOURCE_EXHAUSTED" in msg:
-        code = 429
-    code = RPC_HTTP.get(code, code)
-    return ("%s %s" % (code if code is not None else "error", msg))[:400]
-
-
-def collect_file(date, n, results_path, job=None):
+def collect_file(date, n, results_path, job=None, part=1):
     """The results JSONL -> gemini-flash-batch-t1/line-run<n>.json. Each line of the file is {"key", "response"} (a
     GenerateContentResponse) or {"key", "error"/"status"}. Run again on the same file it changes nothing: a line
-    already stored is skipped, so no answer is paid or logged twice."""
+    already stored is skipped, so no answer is paid or logged twice. The results of a later part (submit-missing) go
+    through this same function into the same run file: only the lines still missing are added."""
     P = paths(date, n)
     want = [i for i, _, _ in items(date)]
     clip = {i: c for i, c, _ in items(date)}
@@ -286,32 +245,26 @@ def collect_file(date, n, results_path, job=None):
     rec["complete"] = False
     os.environ["ANEES_RUNS_DIR"] = os.path.join(BC.bench_dir(date), "runs", ENGINE)
     skipped, unknown = [], []
-    with open(results_path, encoding="utf-8") as f:
-        for raw in f:
-            if not raw.strip():
-                continue
-            row = json.loads(raw)
-            i = str(row.get("key") if row.get("key") is not None else (row.get("metadata") or {}).get("key"))
-            if i not in clip:
-                unknown.append(i)
-                continue
-            if i in rec["lines"]:
-                continue
-            if isinstance(row.get("response"), dict):
-                out = BR.gemini_parse(MODEL, row["response"], as_json=True, price_factor=PRICE_FACTOR)
-            else:
-                out = {"text": "", "error": err_text(row.get("error") or row.get("status") or "no response")}
-            if BV.unreached(out.get("error")):          # quota / no credit / rate limit: never the engine's miss
-                skipped.append(i)
-                continue
-            usd = out.pop("usd", 0.0)
-            if usd:
-                BR.paid(date, ENGINE, "line", n, MODEL, usd, BR.wav_seconds(clip[i]), provider="google")
-            out["usd"] = round(usd, 6)
-            rec["lines"][i] = out
-            rec["cost_usd"] = round(rec["cost_usd"] + usd, 6)
-    if job:
+    for i, resp, err in BJ.rows(results_path):
+        if i not in clip:
+            unknown.append(i)
+            continue
+        if i in rec["lines"]:
+            continue
+        out = BR.gemini_parse(MODEL, resp, as_json=True, price_factor=PRICE_FACTOR) if resp is not None else {"text": "", "error": err}
+        if BV.unreached(out.get("error")):              # quota / no credit / rate limit: never the engine's miss
+            skipped.append(i)
+            continue
+        usd = out.pop("usd", 0.0)
+        if usd:
+            BR.paid(date, ENGINE, "line", n, MODEL, usd, BR.wav_seconds(clip[i]), provider="google")
+        out["usd"] = round(usd, 6)
+        rec["lines"][i] = out
+        rec["cost_usd"] = round(rec["cost_usd"] + usd, 6)
+    if job and part == 1:
         rec.update(job=job.get("job"), submitted=job.get("submitted"))
+    elif job:
+        rec.setdefault("parts", {})[str(part)] = job.get("job")
     rec["collected"] = time.strftime("%Y-%m-%dT%H:%M:%S")
     missing = [i for i in want if i not in rec["lines"]]
     rec["complete"] = not missing
@@ -328,21 +281,64 @@ def collect_file(date, n, results_path, job=None):
 
 
 def collect(date, n):
-    P = paths(date, n)
-    job = BC.J(P["job"])
+    """Downloads and stores the answers of run n: part 1, then every later part that exists (submit-missing). Safe to
+    run again: collect_file skips a line already stored. A later part that is not finished yet is said and skipped, so
+    the answers that are there are still stored."""
+    job = BC.J(paths(date, n)["job"])
     if not job or not job.get("job"):
         raise SystemExit("run %d was not submitted" % n)
-    j = get_batch(job["job"])
-    state = job_state(j)
-    job.update(state=state, checked=time.strftime("%Y-%m-%dT%H:%M:%S"))
-    BC.W(P["job"], job)
-    if state != "JOB_STATE_SUCCEEDED":
-        raise SystemExit("run %d: %s is %s%s" % (n, job["job"], state, (" - " + json.dumps(j.get("error"))[:300]) if j.get("error") else " - nothing to collect yet" if state not in DONE else ""))
-    name = responses_file(j)
-    if not name:
-        raise SystemExit("run %d: the job succeeded but its answer names no results file: %s" % (n, json.dumps(j)[:400]))
-    download_file(name, P["results"])
-    return collect_file(date, n, P["results"], job)
+    rec = None
+    for part in parts(date, n):
+        P = paths(date, n, part)
+        job = BC.J(P["job"])
+        if not job or not job.get("job"):
+            print("  %s was built but has no job: not collected" % label(n, part))
+            continue
+        try:
+            res = BJ.fetch(bdir(date), jname(n, part), net=_net(), label=label(n, part))
+        except SystemExit as e:
+            if part == 1:
+                raise
+            print("  %s" % e)
+            continue
+        rec = collect_file(date, n, res, BC.J(P["job"]), part)
+        job = BC.J(P["job"])
+        job["collected"] = rec["collected"]             # its answers are in the run file: no longer owed (outstanding)
+        BC.W(P["job"], job)
+    return rec
+
+
+def missing(date, n):
+    """The listen lines of run n with no stored answer (never reached the engine, or absent from the results)."""
+    L = (BC.J(paths(date, n)["run"]) or {}).get("lines") or {}
+    return [i for i, _, _ in items(date) if i not in L or BV.unreached(L[i].get("error"))]
+
+
+def submit_missing(date, n):
+    """PAID. After a collect that left lines with no answer: builds the next part (run<n>.p2.jsonl, .p3, ..) from the
+    ORIGINAL JSONL with exactly those lines and submits it, cap-checked with a pro-rata estimate. Refuses while an
+    earlier part's answers are still out (they may hold these very lines: sending them again would pay twice)."""
+    run = BC.J(paths(date, n)["run"])
+    if not run:
+        raise SystemExit("run %d has no collected answers yet: python scripts/bench_batch.py %s collect %d" % (n, date, n))
+    miss = missing(date, n)
+    if run.get("complete") or not miss:
+        raise SystemExit("run %d has an answer for every line: nothing to send again" % n)
+    last = parts(date, n)[-1]
+    for part in parts(date, n)[1:]:
+        job = BC.J(paths(date, n, part)["job"])
+        if not job:                                   # built, never submitted: built again below from today's missing lines
+            continue
+        if not job.get("job"):                        # a submit that crashed: attach the job or create it, never a new part
+            return submit(date, n, part)
+        if not job.get("collected"):
+            st = BJ.status(bdir(date), jname(n, part), net=_net())["state"]
+            if st == "JOB_STATE_SUCCEEDED" or st not in DONE:
+                raise SystemExit("%s (%s) is %s and its answers are not collected: python scripts/bench_batch.py %s collect %d first" % (label(n, part), job["job"], st, date, n))
+    part = last if last > 1 and not BC.J(paths(date, n, last)["job"]) else last + 1
+    info = BJ.missing_part(bdir(date), jname(n), miss, part)
+    print("built %s: %d requests (the lines with no answer), %d bytes, sha %s" % (paths(date, n, part)["jsonl"], info["requests"], info["bytes"], info["jsonl_sha256"][:16]))
+    return submit(date, n, part)
 
 
 # ------------------------------------------------------------------ compare (reads scores.json; no call)
@@ -377,7 +373,7 @@ def compare(date):
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     argv = sys.argv[1:]
-    if len(argv) < 2 or argv[1] not in ("build", "submit", "status", "collect", "compare") or (argv[1] in ("build", "submit", "collect") and len(argv) < 3):
+    if len(argv) < 2 or argv[1] not in ("build", "submit", "status", "collect", "compare", "submit-missing", "recover") or (argv[1] in ("build", "submit", "collect", "submit-missing", "recover") and len(argv) < 3):
         raise SystemExit(__doc__)
     date, cmd = argv[0], argv[1]
     if cmd == "build":
@@ -388,5 +384,9 @@ if __name__ == "__main__":
         status(date)
     elif cmd == "collect":
         collect(date, int(argv[2]))
+    elif cmd == "submit-missing":
+        submit_missing(date, int(argv[2]))
+    elif cmd == "recover":
+        recover(date, int(argv[2]))
     else:
         sys.exit(compare(date))

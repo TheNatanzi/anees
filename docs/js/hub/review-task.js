@@ -21,7 +21,7 @@
     const api = (m, p, b, extra) => fetch(ANEES.url + '/rest/v1/' + p, { method: m, headers: { ...H, ...(extra || {}) }, body: b ? JSON.stringify(b) : undefined });
     const QK = 'anees-amal-review-q-' + TOKEN, AK = 'anees-amal-review-a-' + TOKEN;
     let DATA = null, answers = {}, filter = 'all', flushing = false, shown = 20;
-    el.innerHTML = '<div class="hb-task"><p class="hb-sub">One card per pattern. Open the examples if you like, then tap. <b>Correction is correct</b> = it becomes a scored mistake for Medi. <b>Reason not to correct</b> = type why and the app never asks about this pattern again.</p><div class="hb-chips" data-filters></div><p class="hb-prog" data-prog>Loading…</p><div data-root></div><p class="hb-foot" data-foot>Saved as you tap · stop any time</p></div>';
+    el.innerHTML = '<div class="hb-task"><p class="hb-sub">One card per pattern of slip. Play a moment if you like, then tap: <b>Yes, Medi was wrong</b> counts it against him; <b>No, Medi was fine</b> (say why in a line) drops it and the app never asks about this pattern again.</p><div class="hb-chips" data-filters></div><p class="hb-prog" data-prog>Loading…</p><div data-root></div><p class="hb-foot" data-foot>Saved as you tap · stop any time</p></div>';
     const $root = el.querySelector('[data-root]'), $prog = el.querySelector('[data-prog]'), $filters = el.querySelector('[data-filters]');
 
     async function flush() {
@@ -58,8 +58,8 @@
       return `<article class="hb-moment hb-card" data-pid="${esc(p.id)}"><p class="hb-prog">${esc(p.kind_label || '')}${p.bucket ? ` · rule ${esc(p.bucket)} ${esc(p.bucket_name || '')}` : ''}</p>
         ${pair(p)}<p class="hb-why">${esc(p.why || '')}</p>${p.english ? `<p class="hb-sub">e.g. “${esc(p.english)}”</p>` : ''}<p class="hb-sub">${n} time${n === 1 ? '' : 's'} in ${esc(p.lessons_label || '')}</p>
         ${a ? AneesUndo.answered((a.kind === 'audit_confirm' ? `You said: the correction is correct · result: ${n} slip${n === 1 ? '' : 's'} counted for Medi` : 'You said: no correction — ' + (a.reason || '') + ' · result: dropped, never asked again') + wait, { 'data-rv': 'undo', 'data-id': p.id })
-            : `<div class="hb-btns"><button type="button" class="hb-ans primary" data-rv="confirm" data-id="${esc(p.id)}">Correction is correct<small>counts as a mistake for Medi</small></button>
-          <button type="button" class="hb-ans" data-rv="skip" data-id="${esc(p.id)}">Reason not to correct<small>type why · the app stops asking about this</small></button>
+            : `<div class="hb-btns"><button type="button" class="hb-ans primary" data-rv="confirm" data-id="${esc(p.id)}">Yes, Medi was wrong<small>counts as a mistake for Medi</small></button>
+          <button type="button" class="hb-ans" data-rv="skip" data-id="${esc(p.id)}">No, Medi was fine<small>say why in a line · the app stops asking about this</small></button>
           <div data-reason hidden><textarea class="hb-input" placeholder="e.g. both are fine in Palestinian; or: this is what I say too" aria-label="Your reason"></textarea><button type="button" class="hb-ans primary" data-rv="skip-save" data-id="${esc(p.id)}">Save reason</button></div></div>`}
         ${n ? `<details data-exs><summary>Show ${n} example${n === 1 ? '' : 's'}</summary>${(p.examples || []).map(example).join('')}</details>` : ''}</article>`;
     }
@@ -68,8 +68,8 @@
       return `<article class="hb-moment hb-card" data-pid="${esc(w.id)}"><p class="hb-prog">New word · not on the sheet yet</p>
         <div class="hb-big" lang="ar">${esc(w.arabic)}</div>${w.arabizi ? `<div class="hb-en">${esc(w.arabizi)}</div>` : ''}${w.english ? `<div class="hb-en">${esc(w.english)}</div>` : ''}<p class="hb-sub">Came up ${n} time${n === 1 ? '' : 's'} in our lessons</p>
         ${a ? AneesUndo.answered(a.kind === 'sheet_add' ? 'You said: add it to the sheet · result: waiting for the sheet' : 'You said: not needed · result: stays off the sheet', { 'data-rv': 'undo', 'data-id': w.id })
-            : `<div class="hb-btns"><button type="button" class="hb-ans primary" data-rv="sheet_add" data-id="${esc(w.id)}">Add to my sheet<small>Medi learns it as a sheet word</small></button>
-          <button type="button" class="hb-ans" data-rv="sheet_skip" data-id="${esc(w.id)}">Not needed<small>it stays off the sheet</small></button></div>`}</article>`;
+            : `<div class="hb-btns"><button type="button" class="hb-ans primary" data-rv="sheet_add" data-id="${esc(w.id)}">Add it to my Doc<small>Medi learns it as one of your words</small></button>
+          <button type="button" class="hb-ans" data-rv="sheet_skip" data-id="${esc(w.id)}">Not needed<small>it stays off the Doc</small></button></div>`}</article>`;
     }
     function render() {
       if (!DATA) return;

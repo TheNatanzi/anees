@@ -243,6 +243,23 @@
   function isQuizletOnly(key) { return /^q:/.test(String(key || '')); }
   function isFormCard(key) { return /^form:/.test(String(key || '')); }
 
-  root.AneesCardSelection = { TYPES, TYPE_LABEL, TENSES, statusSplit, newFromAmal, neverTested, answeredKeys, tenses, topics, splitTerm, matcher, quizletCards, quizletGroups, sectionOf, mergeSameTitle, mergeAliases, collocationSets, isDated, MIX, scoreMix, statusByKey, isQuizletOnly, isFormCard, formCard, typeOf, quizletPlural, looksEnglish, useWords };
+  // FC-12 / F14 (Medi 2026-10-05: "Remove the bel 3aks here from the flash card it's too much of a hint"): the English side
+  // never shows the Arabic answer in Latin letters. A ( ) note or an "X = ..." gloss that holds an Arabizi word (a 2/3/5/6/7/8/9
+  // inside a word, or an el-/bel-/bil-/3al- prefix) is cut out of the English face; the Doc text itself is not changed.
+  var ARABIZI = /[A-Za-z]*[235678][A-Za-z]+|[A-Za-z]+[235678][A-Za-z]*|(el|bel|bil|3al)-[A-Za-z]/;
+  function stripArabiziHints(en) {
+    var s = String(en || '');
+    var hint = function (t) { return ARABIZI.test(t) || /\s=\s/.test(t); };          // an Arabizi word, or an "X = meaning" gloss
+    s = s.replace(/\s*\(([^()]*)\)/g, function (m, inner) {
+      if (!hint(inner)) return m;
+      var kept = inner.split(/\s*[;,]\s*/).filter(function (part) { return !hint(part); });
+      return kept.length ? ' (' + kept.join(', ') + ')' : '';
+    });
+    var parts = s.split(/\s\/\s/);                                                   // " / " parts: one that only quotes Arabizi goes
+    if (parts.length > 1) s = parts.filter(function (part) { return !ARABIZI.test(part); }).join(' / ') || parts[0];
+    return s.replace(/\s{2,}/g, ' ').replace(/\s+([,.])/g, '$1').trim();
+  }
+
+  root.AneesCardSelection = { TYPES, TYPE_LABEL, TENSES, statusSplit, newFromAmal, neverTested, answeredKeys, tenses, topics, splitTerm, matcher, quizletCards, quizletGroups, sectionOf, stripArabiziHints, ARABIZI, mergeSameTitle, mergeAliases, collocationSets, isDated, MIX, scoreMix, statusByKey, isQuizletOnly, isFormCard, formCard, typeOf, quizletPlural, looksEnglish, useWords };
   if (typeof module !== 'undefined' && module.exports) module.exports = root.AneesCardSelection;
 })(typeof window !== 'undefined' ? window : globalThis);

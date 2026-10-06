@@ -74,6 +74,12 @@ ${LM.why(G)}`],
       ['Words per minute', approx(last, last.test || last.partial) + num(last.wpm, 0), `Last lesson · pooled avg ${num(wpmAvg, 0)} · ${F.length} of ${rows.length} lessons`, `Arabic words inside your Arabic turns, per minute of those turns. Pooled = Σ Arabic words ÷ Σ minutes (${fW} ÷ ${num(fMin, 1)}).${last.partial ? ' Last lesson: ' + last.winTitle : ''}${last.test ? ' Last lesson: ' + last.testTitle : ''}`],
       ['Fillers / min', approx(last, last.test || last.fcmp === false) + num(last.fillers, 1), `"uh", "um", "آآ" per minute you spoke · pooled avg ${num(fillAvg, 1)} · ${P.length} comparable lessons`, `Pooled = Σ filled pauses ÷ Σ minutes you spoke, over the lessons whose page turns keep the fillers.${last.fcmp === false ? ' Last lesson: ' + last.fTitle : ''}`]
     ];
+    // Homework (Medi 2026-10-05, grill Q5): its own number, from Amal's verdicts on his typed homework only (docs/data/homework.json,
+    // hourly mirror of Supabase); the lesson Words % / Grammar % above are untouched. No verdict yet -> "—" and why (PG-05).
+    const hw = L.homework || null, hs = hw && hw.score;
+    metrics.push(['Homework', hs && hs.pct !== null && hs.pct !== undefined ? num(hs.pct, 1, '%') : '—',
+      hs && hs.done ? `${hs.done} answer${hs.done === 1 ? '' : 's'} checked by the teacher · right 1, close ½ · ${hs.waiting || 0} waiting` : 'no homework answer checked by the teacher yet · Student tab',
+      'Homework assigned on the Tutor page and answered on the Student tab. Only the teacher's verdict counts (the AI check never does): right = 1, close = ½, wrong = 0, divided by the answers she checked. Separate from the lesson numbers.']);
     $('#ov-metrics').innerHTML = metrics.map(([l, v, s, t]) => `<div class="ab-metric"${t ? ` title="${esc(t)}"` : ''}><div class="ab-metric-label">${esc(l)}</div><div class="ab-number">${esc(v)}</div><div class="ab-tiny">${esc(s)}</div></div>`).join('');
 
     const bandc = p => { p = Math.round(p); return p >= 90 ? 'pct-a' : p >= 80 ? 'pct-b' : p >= 70 ? 'pct-c' : 'pct-d'; };   // Medi 2026-09-27 colours
@@ -115,7 +121,9 @@ ${LM.why(G)}`],
   }
   async function main() {
     let L;
-    try { L = await (await fetch('data/lessons.json', { cache: 'no-store' })).json(); render(L); }
+    try { L = await (await fetch('data/lessons.json', { cache: 'no-store' })).json();
+      try { L.homework = await (await fetch('data/homework.json', { cache: 'no-store' })).json(); } catch (e) { L.homework = null; }   // the homework number (2026-10-05)
+      render(L); }
     catch (e) { $('#ov-series').innerHTML = '<div class="vp-notice">lessons.json could not load. Refresh to retry.</div>'; return; }
     try { if (await fillComparable(L)) render(L); } catch (e) { console.warn('lesson-overview', e); }
   }

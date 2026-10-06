@@ -837,6 +837,7 @@ def build():
         typ, mode, why = LESSON_TYPES.get(date) or ((rd["type"], rd.get("review_mode"), rd["why"]) if rd else
                                                      ("free-speak", None, "Not read yet: default until the same-day reader (review_lesson.py, scripts/lesson_type_read.py) reads this lesson. The publish guard blocks while this shows."))
         type_read_by = "hand (LESSON_TYPES)" if date in LESSON_TYPES else (rd.get("read_by") or "reader") if rd else None
+        type_summary = (rd or {}).get("summary") if isinstance((rd or {}).get("summary"), dict) else None   # LS-13: the structured reading the page shows
         # AM-19: the reader's taught words show on every lesson it read, hand LESSON_TYPES / TAUGHT dates too (union)
         taught_words = list(rd.get("taught_words") or []) if rd else []
         # HARD RULE (Medi 2026-09-05): "new" = only words Amal (or Medi) marked new for this lesson
@@ -963,6 +964,7 @@ def build():
             "date": date, "start_local": start, "start_source": start_src, "source": source,
             "duration_min": round(dur / 60, 1) if dur else None,
             "type": typ, "review_mode": mode, "type_why": why, "type_source": "claude-read", "type_read_by": type_read_by,
+            **({"summary": type_summary} if type_summary else {}),
             "words": words, "grammar": grammar, "talk": talk, "fillers": fillers, "latency": latency, "flow": flow,
             "new_words": new_words, "taught": taught, "taught_words": taught_words, "coverage": ((per_lesson_cov.get(date) + " / ") if per_lesson_cov.get(date) and fills else (per_lesson_cov.get(date) or "")) + (gapfill_note(fills) + "." if fills else "") or None,
             **({"gap_fill": fills} if fills else {}), "notes": notes,

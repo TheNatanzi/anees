@@ -1,0 +1,11 @@
+Read-only, offline: all 8 test functions passed; counterexamples checked in memory.
+
+- **1 FIXED—guarded; no APPLY blocker.** `rehear_rows` is required, and verification checks the builder’s lines. A later Medi correction wins; conflicting Gemini text blocks publication. [publish_guard_config.json:21](C:/dev/anees-wt-bench/scripts/publish_guard_config.json:21), [rehear_apply.py:141](C:/dev/anees-wt-bench/scripts/rehear_apply.py:141).
+- Coverage caveat: `check()` enumerates published lessons, not every Gemini-row date. Current overlay contains zero Gemini rows, so today’s passing check is vacuous. [rehear_apply.py:323](C:/dev/anees-wt-bench/scripts/rehear_apply.py:323).
+- **8 + cascading: original counterexamples FIXED.** Ownership is collected before replacements; overlapping claims are rejected and replacements run right to left. [transcript_fixes.py:179](C:/dev/anees-wt-bench/scripts/transcript_fixes.py:179), [transcript_fixes.py:193](C:/dev/anees-wt-bench/scripts/transcript_fixes.py:193).
+- **STILL OPEN—APPLY blocker:** time-only corrections lose their `heard` marker when copied into track results, bypassing “skip any corrected turn.” [transcript_fixes.py:167](C:/dev/anees-wt-bench/scripts/transcript_fixes.py:167), [transcript_fixes.py:189](C:/dev/anees-wt-bench/scripts/transcript_fixes.py:189).
+- Reproduced: track `[10,13] "intro cat"`, Medi `set_t=10.2`, Gemini `cat→dog @13.4` produces **“intro dog”**. Matching uses original start but shifted end, also admitting a timestamp beyond original `end+0.3`. Separate page lines `intro@10`, `cat@13.4` pass `verify()`. [transcript_fixes.py:173](C:/dev/anees-wt-bench/scripts/transcript_fixes.py:173), [transcript_fixes.py:185](C:/dev/anees-wt-bench/scripts/transcript_fixes.py:185).
+- **5 FIXED:** `red→red blue` rejects run `red blue red`; no containment bypass remains. [rehear_apply.py:87](C:/dev/anees-wt-bench/scripts/rehear_apply.py:87).
+- **6 FIXED:** deletion rejects retained Arabic `مرحبا`; `red→mar7aba` accepts Arabic `مرحبا`. Both correction alphabets are checked. These listening-page checks introduce no APPLY blocker. [rehear_apply.py:88](C:/dev/anees-wt-bench/scripts/rehear_apply.py:88).
+
+**VERDICT APPLY: BLOCKED.**

@@ -106,11 +106,16 @@ def fetch_after():
     return fp_rows(_amal_rules(lambda r: r.get("source") == "after"), ("id", "kind", "word_key", "payload"))
 
 
+def fetch_listen_check():
+    return fp_rows(_amal_rules(lambda r: r.get("source") == "listen-check"), ("id", "kind", "word_key", "payload"))
+
+
 def fetch_plan():
     return fp_rows(_amal_rules(lambda r: r.get("source") in ("before", "plan", "planner")), ("id", "kind", "word_key", "payload"))
 
 
-KNOWN_RULE_SOURCES = ("review", "after", "before", "plan", "planner", "grammar_notes")
+# listen-check: her listening check (amal/listen-check.html, 2026-10-04) - nothing is rebuilt from it but her hub list
+KNOWN_RULE_SOURCES = ("review", "after", "before", "plan", "planner", "grammar_notes", "listen-check")
 # not Amal: machine flags from flashcard answers, and Medi's own marks
 NOT_AMAL_SOURCES = ("flashcards", "medi")
 
@@ -148,6 +153,16 @@ def fetch_word_review():
 def fetch_homework():
     rows = _db().select("homework_answers", {"select": "id,amal_verdict,amal_fix,amal_at", "order": "id.asc"})
     return fp_rows([r for r in rows if r.get("amal_verdict") or r.get("amal_fix")], ("id", "amal_verdict", "amal_fix"), ("amal_at",))
+
+
+def fetch_student():
+    """Tutor page uploads + homework (migration 023, Medi 2026-10-05): any new row in the four append-only tables rebuilds the
+    Student / Flashcards data (scripts/build_student_data.py)."""
+    rows = []
+    for t in ("amal_uploads", "homework_tasks", "homework_replies", "homework_verdicts"):
+        for r in _db().select(t, {"select": "id,created_at", "order": "created_at.asc"}):
+            rows.append({"id": f"{t}:{r.get('id')}", "created_at": r.get("created_at")})
+    return fp_rows(rows, ("id",), ("created_at",))
 
 
 def fetch_grammar_doc():
@@ -211,25 +226,31 @@ STEPS = [
     # new words Amal used that are not on her Doc + her add / later / forget taps (Medi 2026-10-02)
     ("amal_new_words", [sys.executable, "scripts/amal_new_words.py"]),
     ("build_tutor_data", [sys.executable, "scripts/build_tutor_data.py"]),
+    # Amal's uploads + homework -> Student tab / Flashcards data (Medi 2026-10-05)
+    ("build_student_data", [sys.executable, "scripts/build_student_data.py"]),
+    ("build_tutor_weak", [sys.executable, "scripts/build_tutor_weak.py"]),   # PG-30: Amal\'s Grammar / Vocab / Decay tabs
     # after the lesson data is rebuilt: proposals count the moments on the rebuilt transcript
     ("medi_corrections_propose", [sys.executable, "scripts/medi_corrections.py", "propose"]),
     ("write_build", [sys.executable, "scripts/write_build.py"]),
 ]
 AUDIT_CHAIN = ["full_audit_build", "apply_amal_audit_rulings", "amal_grammar_notes", "build_grammar_console", "build_amal_docs",
                "build_amal_grammar_rules", "build_amal_review", "build_lessons_page_data", "codex_list", "accuracy_annotate", "build_sentence_ladder", "amal_new_words",
-               "build_tutor_data"]
+               "build_tutor_data", "build_tutor_weak"]
 
 SOURCES = [
     {"id": "tutor_verify", "label": "Tutor page: check these moments", "fetch": fetch_tutor_verify, "steps": AUDIT_CHAIN},
     {"id": "pattern_review", "label": "Slips-by-pattern review", "fetch": fetch_pattern_review, "steps": AUDIT_CHAIN},
     {"id": "after_links", "label": "After-lesson questions", "fetch": fetch_after, "steps": AUDIT_CHAIN},
     {"id": "plan_links", "label": "Before-lesson planner", "fetch": fetch_plan, "steps": ["build_tutor_data"]},
+    {"id": "listen_check", "label": "Listening check: which version is right", "fetch": fetch_listen_check, "steps": ["build_tutor_data"],
+     "note": "her taps are read by scripts/amal_listen_results.py; nothing is re-scored, only her hub list is refreshed"},
     {"id": "amal_rules_other", "label": "Any other answer she gives in the app", "fetch": fetch_rules_other, "steps": AUDIT_CHAIN},
     {"id": "verb_checks", "label": "Verb check lists 1 and 2", "fetch": fetch_verb_checks,
      "steps": ["pull_verb_checks", "build_word_bank_catalog", "build_verb_addon_tags", "build_sentence_ladder", "build_tutor_data"]},
     {"id": "word_review", "label": "Word review", "fetch": fetch_word_review, "steps": ["build_tutor_data"],
      "note": "her answers are detected and logged; showing them in the Word Bank still needs the Speaking release rebuild (not automated)"},
     {"id": "homework", "label": "Homework verdicts", "fetch": fetch_homework, "steps": ["build_tutor_data"]},
+    {"id": "student", "label": "Tutor uploads + homework (uploads, tasks, Medi's answers, her verdicts)", "fetch": fetch_student, "steps": ["build_student_data"]},
     {"id": "grammar_notes", "label": "Grammar notes she writes on the rules page", "fetch": fetch_grammar_notes,
      "steps": ["build_amal_docs", "build_tutor_data"],
      "note": "like her Doc notes, a note becomes a scoring ruling only after a row-by-row read (amal_grammar_notes.py)"},

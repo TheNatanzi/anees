@@ -7300,6 +7300,680 @@
      "contains": "def test_pg27_no_status_claims_more_than_is_true"
     }
    ]
+  },
+  {
+   "id": "FC-12",
+   "kind": "data",
+   "scope": "flashcards",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The English side of a flashcard never carries the Arabic answer in Latin letters: a ( ) note or an 'X = meaning' gloss that holds an Arabizi word (a 2/3/5/6/7/8/9 inside a word, or an el-/bel-/bil-/3al- prefix) is cut from the English face at display time (docs/js/cards-selection.js stripArabiziHints, used by cards.html enBase); the Doc text and Amal's spellings are not edited; the browser audit (F14) and a node test check every English face.",
+   "plain": "On a flashcard the English side never shows the Arabic answer written in English letters: a note like (bel-3aks = on the contrary) is cut off the card, because it gives the answer away.",
+   "plain_for": "30be9c98",
+   "topic": "card faces",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Remove the bel 3aks here from the flash card it's too much of a hint",
+     "session": "c7fcff48"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/cards-selection.js",
+     "contains": "function stripArabiziHints(en) {"
+    },
+    {
+     "type": "doc",
+     "path": "docs/flashcard-rules.md",
+     "contains": "| F14 | The English side never shows the Arabic answer in Latin letters"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_cards_english_side.cjs",
+     "contains": "test('FC-12 stripArabiziHints cuts the Arabizi gloss"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "AM-21",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The Tutor page opens with 'Upload flashcards': Amal pastes a Google Sheets or Docs link (anyone-with-the-link) or picks a file (xlsx / csv / tsv / txt) or pastes the list; the browser reads it (docs/js/sheet-import.js), shows which column is Arabizi / Arabic / English / plural / notes (she can change it) and the first rows, and she taps PERMANENT or TEMPORARY. Saved to Supabase amal_uploads (migration 023, append-only, undo = a new row) with her text exactly as written (S1); the hourly job mirrors it to docs/data/uploads.json. PERMANENT = the words join the full list and a reminder 'Add these to the Doc' stays on her Tutor page until the Doc import sees each word (Anees never writes the Doc); TEMPORARY = cards only. A private link is refused with the two ways out (share it, or download CSV and upload); no Google address is written on her pages (AM-13).",
+   "plain": "At the top of the Tutor page Amal can give a flashcard list: a Google Sheets or Docs link, a file, or a pasted list. She checks which column is which and says PERMANENT (the words should go in the Doc too, a reminder stays until they are) or TEMPORARY (cards only). Her spelling is kept as written.",
+   "plain_for": "a6e2b573",
+   "topic": "Amal's uploads",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Lets add something at the top of the tutor for 'upload flashcards' where she can give a google link like this one or she can upload a file. Subsequently we need add a student tab now where she can assign me work. Lets start whatever she uploads and the shaky words from the previous lessons in flashcards. lets also create a box for her 'assign homework'. Give her three options. Translate Sentence, Create Sentence with (she will provide words), and answer question (she may want to give context) please do some research on how teachers assign homework like this and see if theres a function we can copy",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/hub/upload-task.js",
+     "contains": "function commit(keep) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/sheet-import.js",
+     "contains": "function detectColumns(rows) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/homework-core.js",
+     "contains": "function permanentReminder(sets, docWords) {"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_sheet_import.cjs",
+     "contains": "test('AM-21 a Google Sheets / Docs link is recognised"
+    },
+    {
+     "path": "tests/test_homework_core.cjs",
+     "contains": "test('FC-13 an upload is a card set keyed u:<upload>:<n>"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "AM-22",
+   "kind": "process",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "'Assign homework' on the Tutor page is one box with four kinds (the pattern Google Classroom, Quizlet Assign, Duolingo for Schools and Preply share, plan/HOMEWORK-RESEARCH-2026-10-05.md): Translate a sentence (she picks English to Arabic or Arabic to English per sentence), Make a sentence with these words (her words), Answer a question (optional context), Cards for a lesson (one of her uploads, a Quizlet set or the Shaky words + the lesson date). Rows go to homework_tasks; Medi answers on the Student tab (typed Arabizi or Arabic letters, homework_replies); the check-homework edge function gives the first verdict at once (right / close / wrong + one reason, OpenAI, same budget guard as grade); her Tutor page shows his answer with Confirm or an overrule (right / close / wrong + a note and how to say it, homework_verdicts) - nothing counts until she taps, and every overrule is a correction rule: listed in docs/data/homework.json overrules and fed back to the checker as its examples (S6). Undo on every row (AM-17). Nothing is sent to Amal by code; Medi sends the link (AM-01).",
+   "plain": "Amal assigns homework in one box: translate a sentence (either direction), make a sentence with her words, answer a question, or cards for a lesson. Medi answers on the Student tab, the AI gives a first check at once, and Amal confirms or overrules on her Tutor page. Only her word counts, and every overrule teaches the checker.",
+   "plain_for": "e0fac961",
+   "topic": "homework",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Lets add something at the top of the tutor for 'upload flashcards' where she can give a google link like this one or she can upload a file. Subsequently we need add a student tab now where she can assign me work. Lets start whatever she uploads and the shaky words from the previous lessons in flashcards. lets also create a box for her 'assign homework'. Give her three options. Translate Sentence, Create Sentence with (she will provide words), and answer question (she may want to give context) please do some research on how teachers assign homework like this and see if theres a function we can copy",
+     "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Homework and the cards she assigns me for the next lessons.",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/hub/homework-task.js",
+     "contains": "function assign() {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/student.js",
+     "contains": "async function answer(task, text) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/homework-core.js",
+     "contains": "function taskState(task, replies, verdicts) {"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_student_data.py",
+     "contains": "def overrules(tasks, replies, verdicts):"
+    },
+    {
+     "type": "code",
+     "path": "supabase/functions/check-homework/index.ts",
+     "contains": "Amal's earlier overrules of this checker (learn from them)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_homework_core.cjs",
+     "contains": "test('AM-22 a task is to do, then checking, then waiting for Amal"
+    },
+    {
+     "path": "tests/test_build_student_data.py",
+     "contains": "def test_S6_every_overrule_is_listed_as_a_correction_rule_with_her_note_and_fix"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "PG-28",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A STUDENT tab sits in the Anees menu right under Tutor (docs/student.html, same shell as the Tutor page, on every page's menu). It is Medi's side: To do (his homework with a type box, the AI's first check, then 'waiting for Amal'), Cards for lessons ('For <date>: <set> - N cards, M done', each opening Flashcards on that set via cards.html?tile=<set>), Shaky words (the last 2 lessons), Done (her verdict, her fix and note). Live Supabase rows first, docs/data/homework.json as the offline copy; re-read when the tab comes back unless he is typing (L1). The Tutor tab stays Amal's.",
+   "plain": "A Student tab sits under Tutor in the menu: Medi's homework to do and done, the card sets Amal assigned for a lesson with how many are done, and the shaky words of the last 2 lessons.",
+   "plain_for": "7a1c7db8",
+   "topic": "homework",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "create a new tab 'student' below tutor",
+     "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Homework and the cards she assigns me for the next lessons.",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/student.html",
+     "contains": "<a class=\"ab-nav\" aria-current=\"page\" href=\"student.html\">Student</a>"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/student.js",
+     "contains": "function cardsView() {"
+    },
+    {
+     "type": "code",
+     "path": "docs/cards.html",
+     "contains": "function openRef(ref){"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_build_student_data.py",
+     "contains": "def test_PG_28_student_is_in_every_menu_right_under_tutor"
+    },
+    {
+     "path": "tests/test_homework_core.cjs",
+     "contains": "test('PG-28 a cards assignment counts the distinct cards answered"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "PG-29",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Homework has its own number: Amal's verdicts only (right 1, close 1/2, wrong 0, divided by the answers she checked); the AI's check never counts and no verdict means a dash with the reason. It shows on the Student tab and as a Homework card on Progress > Overview (docs/data/homework.json score). The lesson Words % and Grammar % are untouched by homework.",
+   "plain": "Homework has its own number, made only from Amal's verdicts (right 1, close half, wrong 0). It shows on the Student tab and on Progress. The lesson Words % and Grammar % never include homework.",
+   "plain_for": "9cb8b78a",
+   "topic": "homework",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Q5 scoring = 1: homework has its own number (Student tab + Progress); Words % / Grammar % stay lesson-only",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/homework-core.js",
+     "contains": "function score(tasks, replies, verdicts) {"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_student_data.py",
+     "contains": "def score(tasks, replies, verdicts):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lesson-overview.js",
+     "contains": "metrics.push(['Homework'"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_homework_core.cjs",
+     "contains": "test('PG-29 the homework number counts Amal\\'s verdicts only"
+    },
+    {
+     "path": "tests/test_build_student_data.py",
+     "contains": "def test_PG_29_homework_score_is_amals_verdicts_only_right_1_close_half_wrong_0"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "FC-13",
+   "kind": "data",
+   "scope": "flashcards",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Amal's uploads are merged into the cards as their own sets: Flashcards > Sets > 'From Amal - uploads' has one tile per upload (permanent and temporary alike), cards keyed u:<upload>:<n> unless the card is a Doc word (then the Doc word, shared history, like Quizlet), her spelling as written. A 'Shaky words' tile under Weak spots holds the LAST 2 lessons' wrong / partly wrong words and the words he asked Amal for (docs/data/shaky-words.json, scripts/build_student_data.py); a word leaves it after two right answers on cards given after that lesson. cards.html?tile=<set> opens one set (the Student tab's assigned cards). A shaky row whose Doc key does not fit its meaning (the audit tied 'the last ten minutes' to tesbah 'ala kheir = good night) is never dealt as that card: scripts/build_student_data.py key_fits leaves it out and lists it under left_out with the reason (Medi 2026-10-05 'Miskey sounds like a mistake').",
+   "plain": "Amal's uploaded lists are card sets on Flashcards under From Amal. A Shaky words set holds the words Medi got wrong or asked for in the last 2 lessons; a word leaves it after he gets it right twice on cards. A slip the audit tied to the wrong Doc word is left out and listed, never dealt as that card.",
+   "plain_for": "92a2cbfd",
+   "topic": "Amal's uploads",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Lets add something at the top of the tutor for 'upload flashcards' where she can give a google link like this one or she can upload a file. Subsequently we need add a student tab now where she can assign me work. Lets start whatever she uploads and the shaky words from the previous lessons in flashcards. lets also create a box for her 'assign homework'. Give her three options. Translate Sentence, Create Sentence with (she will provide words), and answer question (she may want to give context) please do some research on how teachers assign homework like this and see if theres a function we can copy",
+     "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Let's go back 2 lessons",
+     "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Her flashcards should get merged into our cards",
+     "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "dude what do you mean by miskey? Miskey sounds like a mistake and would you ever need prompting to keep a mistake",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/homework-core.js",
+     "contains": "function shakyCards(shaky, log) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/cards.html",
+     "contains": "function uploadSets(match){"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_student_data.py",
+     "contains": "def shaky_words(dates=None, lessons_dir=LESSONS_DIR, n=SHAKY_LESSONS, doc=None):"
+    },
+    {
+     "type": "doc",
+     "path": "docs/flashcard-rules.md",
+     "contains": "| F15 | Amal's uploads from the Tutor page are card sets"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_student_data.py",
+     "contains": "def key_fits(row, doc):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_homework_core.cjs",
+     "contains": "test('FC-13 Shaky words: the last 2 lessons"
+    },
+    {
+     "path": "tests/test_build_student_data.py",
+     "contains": "def test_FC_13_shaky_words_come_from_the_last_2_lessons_wrong_and_asked_only"
+    },
+    {
+     "path": "tests/test_build_student_data.py",
+     "contains": "def test_FC_13_a_slip_keyed_to_a_doc_word_with_another_meaning_is_left_out_not_dealt"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "LS-13",
+   "kind": "display",
+   "scope": "lessons",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A lesson's reading on the Lessons page is one headline (what was taught, one plain line, no times), then every grammar rule or word pattern Amal taught as its own block: the exact rule as the title (her spelling), an optional formula, 1-4 plain bullets, and the real moments (mm:ss + the words said) folded under 'Examples from the lesson'. The rest of the lesson (review, warm-up, off-lesson) and the full prose sit in two small accordions; the ledger note and the second-listen status are one short chip each (the long words on hover). The structure is the reader's `summary` in data/lesson-work/lesson-types/<date>.json (scripts/lesson_type_read.py summary_problems validates it; required for every read from 2026-10-05 on), passed through scripts/build_lessons_page_data.py to docs/data/lessons.json and drawn by docs/js/lessons-page.js summaryBlock. An old read without a summary shows its first sentence with the rest folded.",
+   "plain": "A lesson's reading is one headline, then each grammar rule Amal taught as its own block: the rule in one line, a few plain bullets, and the real moments folded under Examples. The rest of the lesson and the long prose are folded away.",
+   "plain_for": "1ba2fee4",
+   "topic": "the lesson page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "This is way to wordy.  Please simplify it.  We should be very clear about the exact new grammar rule with the accordian for examples and bulleted explanation",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/lesson_type_read.py",
+     "contains": "def summary_problems(s, required=False):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "function summaryBlock(L) {"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_lessons_page_data.py",
+     "contains": "**({\"summary\": type_summary} if type_summary else {}),"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_lesson_type_read.py",
+     "contains": "def test_ls_13_summary_is_a_headline_rules_with_bullets_and_examples_and_required_for_new_reads"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "GR-28",
+   "kind": "not-error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A Medi line that says the SAME phrase again within 30 s after Amal spoke - the fixed version of the line she just prompted on (10-02 07:34 'على عشرة' -> Amal 'الـ.' -> 07:38 'على العشرة') - is one moment with the slip, not fresh correct uses: scripts/detect_grammar_usage.py repeat_of_fixed() skips it (same Arabic words once el- and fillers are stripped, 2+ words, Amal or chat between) and lists it in grammar-usage.json not_uses_auto with the reason, so the transcript chip reads grey 'not scored: repeat of the line Amal just fixed (07:34)' instead of ✓ Correct, in every bucket. His own self-fix with no Amal between is GR-22's case, not this.",
+   "plain": "When Medi says the same line again right after Amal fixed it, that repeat is part of the same moment: it is not counted as new correct grammar uses. The chip says 'not scored: repeat of the line Amal just fixed'.",
+   "plain_for": "2ccafb1b",
+   "topic": "grammar uses",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "this is a repeat of a mistake and should be marked as repeat and not counted.  You have this in your rules right?",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "def repeat_of_fixed(T, i, window=30.0):"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "## A repeat of the line Amal just fixed is the same moment (GR-28"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_arabizi_reader.py",
+     "contains": "def test_GR_28_repeat_of_the_line_amal_just_fixed_is_not_a_new_use"
+    }
+   ],
+   "aliases": [],
+   "example": {
+    "date": "2026-10-02",
+    "t": "07:38",
+    "medi": "على العشرة",
+    "note": "repeat of 07:34 'على عشرة' after Amal's 'الـ.' - not scored"
+   }
+  },
+  {
+   "id": "TR-26",
+   "kind": "data",
+   "scope": "transcription",
+   "status": "written",
+   "change": "new",
+   "statement": "Sound-alike words the engines keep swapping in Medi's Arabic (3ala / ila / allah / alla / la-; el-3ashrah / el-3asha; mitshajje3 / shuja3 / mit7ammes; s7eet / sme3et) live in data/lesson-work/confusables.json with a cue per group (decide by the word after it). Every second-listen prompt (TR-22, the re-hear template) and the Arabizi reader should carry the list as a cue; the Lessons page's 'Recording engine wrote ... fixed' lines feed new groups. Medi 2026-10-05: wait for the Gemini corrections to land first, then see what they caught before wiring the cue in.",
+   "plain": "Words that sound alike and get swapped by the engines (3ala, ila, allah; el-3ashrah, el-3asha; ...) are kept in one list with a hint on how to tell them apart. The second AI listen should read that list. Parked until the Gemini corrections land.",
+   "plain_for": "e538a41d",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "also you are having a really hard time with 3ala and ala and allah.  How can we address this.  Can we cue gemini for similar sounding words?",
+     "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "oh wait we havent made the gemini correction yet to see if they caught them.  I will wait",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "data/lesson-work/confusables.json",
+     "contains": "\"sounds\": \"3ala / ila / allah / alla\""
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "## Sound-alike words (TR-26"
+    },
+    {
+     "type": "code",
+     "path": "scripts/confusables.py",
+     "contains": "def cue(path=PATH):"
+    }
+   ],
+   "next_step": "after the TR-22 re-hear is published (engine-bench): the re-hear template and scripts/arabizi_reader.py read confusables.json; a test plants 'على إلى العشاء' and expects 'على العشرة'",
+   "aliases": []
+  },
+  {
+   "id": "GR-29",
+   "kind": "process",
+   "scope": "grammar-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "The Oct 2 tool words are proposed as grammar rules A13 awal / oola, A14 taani, A15 aa5er / a5eer, A16 8eir, A17 nafs + el-, plus one added line on A11 (el-kull = everyone): docs/data/grammar-proposals.json (P-A13 .. P-A17, P-A11-add, medi pending, amal pending) and a 'Proposed rules from the Oct 2 lesson' section on Amal's rules page (docs/amal/grammar-rules.html) where she answers in the note box under each. Nothing is scored on them until Medi says yes and each gets a bucket + detector pattern (GR-18 / GR-23 path). Proposal: plan/GRAMMAR-RULES-PROPOSAL-TOOL-WORDS-2026-10-05.md. On her Tutor page the proposals are the FIRST row of her To do list ('New grammar rules to approve', docs/js/hub/proposals-task.js): each card with a one-tap Yes (saves the note 'Yes - this is the rule as I teach it') or the note box for a fix; a rule counts as answered when it has a note (Medi 2026-10-05 'this should be at the top of her todo list').",
+   "plain": "The six tool words from the Oct 2 lesson (awal, taani, aa5er, 8eir, nafs, kul) are proposed as grammar rules A13 to A17 plus one line on A11. They are the first row of Amal's To do list: one tap Yes, or a note with the fix. Nothing is scored on them until Medi says yes too.",
+   "plain_for": "0c267254",
+   "topic": "grammar rules",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "I need you to build a proposal on these on how to write them in our grammar rules and send them for review with letter number categories for Amal",
+     "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "For the grammar additions this should be at the top of her todo list.",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "plan/GRAMMAR-RULES-PROPOSAL-TOOL-WORDS-2026-10-05.md",
+     "contains": "Next free numbers: A13-A17"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/hub/proposals-task.js",
+     "contains": "const YES = 'Yes - this is the rule as I teach it';"
+    }
+   ],
+   "next_step": "Medi's yes per rule -> bucket in docs/data/grammar-buckets.json + pattern in scripts/detect_grammar_usage.py + a planted-mistake test; Amal's notes under P-A13.. read row by row (amal_grammar_notes.py)",
+   "aliases": []
+  },
+  {
+   "id": "PG-30",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Amal's Tutor page has To do · Grammar · Vocab · Decay · Completed (the Grammar-rules mirror and the Materials tab are gone from the menu; their routes #grammar-rules content moved, #materials still answers old links). Grammar = Medi's 10 weakest rules (3+ uses, lowest % first), Vocab = his 20 weakest Doc words (2+ scored uses, lowest % first), Decay = Doc words he knew but has not said for 21+ days (longest first) then Doc words never said in a recorded lesson. Each item opens in the panel with its numbers, his last moments (clip when there is one) and her note box (amal-grammar-notes.js, word_key rule:<id>). Data: docs/data/tutor-weak.json from scripts/build_tutor_weak.py, rebuilt by the hourly job and every Amal trigger.",
+   "plain": "Amal's Tutor page now has five tabs: To do, Grammar (Medi's 10 weakest rules), Vocab (his 20 weakest words), Decay (words he has not said for 3 weeks, and words never said), Completed. Each item shows his numbers, his last moments and a note box for her.",
+   "plain_for": "9507e4bf",
+   "topic": "the Tutor page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "yeah the grammar and mateirals feel redundant.  We should jsut have todo and compeleted.  Intead lets have grammar and vocab.  For now lets add my worst performing 20 vocab words and 10 grammar lessons. for her",
+     "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "lets add a 5th page for decay.  Words that are untested or decaying (havent been said in a long time)",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_weak.py",
+     "contains": "def decay(lessons, words, days=DECAY_DAYS, as_of=None):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/tutor.js",
+     "contains": "async function decay(id) {"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_build_tutor_weak.py",
+     "contains": "def test_PG_30_tutor_page_has_todo_grammar_vocab_completed_and_no_materials_tab"
+    },
+    {
+     "path": "tests/test_build_tutor_weak.py",
+     "contains": "def test_PG_30_decay_is_words_not_said_for_three_weeks_longest_first_plus_never_said"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "FC-14",
+   "kind": "process",
+   "scope": "flashcards",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every flashcard has a third button beside Still learning / Know: Attention (a warning icon). It opens a small box where Medi types a question or concern about that card; Send writes a card_attention row (migration 024, append-only, kind note, with the card's Arabizi / Arabic / English). The note is a To do row on Amal's Tutor page ('Questions from the student', docs/js/hub/attention-task.js) with a reply box; her reply (kind reply, ref = the note) shows under his question on the Student tab (To do while open, Done once answered); Undo = a new row (AM-17). Typing in the box never flips or answers the card.",
+   "plain": "Every flashcard has a third button, Attention: Medi types a question or concern about that card and it lands on Amal's To do list as 'Questions from the student'. Her reply shows under his question on the Student tab.",
+   "plain_for": "84b10973",
+   "topic": "card faces",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "For all the cards I want a third option called attention with the attention icon. This will send a to do message where I can ask Amal a questions or bring up a concern with her. This should be sent to the tutor portal",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/cards.html",
+     "contains": "<button id=\"attn\" class=\"attn\""
+    },
+    {
+     "type": "code",
+     "path": "docs/js/hub/attention-task.js",
+     "contains": "function view(rows) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/student.js",
+     "contains": "const attnCard = n =>"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_attention.cjs",
+     "contains": "test('FC-14 a note is open until a reply that is not undone answers it"
+    },
+    {
+     "path": "tests/test_attention.cjs",
+     "contains": "test('FC-14 every flashcard has the"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "PG-31",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "On a phone (680 px and narrower) every page with the shared menu hides the sidebar links and shows a bottom tab bar - Progress, Lessons, Cards, Student, More - built by docs/js/phone-nav.js from the page's own sidebar links; More opens a sheet with the other pages (Word Bank, Grammar Rules, Tutor, AI Reports, Big Picture, Settings). The current page is marked on the bar or on More. Laptops keep the left sidebar. Chosen as Option 1 of plan/PHONE-NAV-2026-10-06.md (Nielsen Norman Group: hidden menus are used less; Apple HIG / Material 3: 3-5 tab destinations).",
+   "plain": "On a phone the menu is a bar at the bottom with five tabs: Progress, Lessons, Cards, Student, More. More opens the other pages. Laptops keep the sidebar.",
+   "plain_for": "83935eaa",
+   "topic": "the phone",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "This top bar is really bothering me. Please do some deep research on app design and give me 5 options for the morning on we can reorgizne the app version",
+     "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "Option 1",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/phone-nav.js",
+     "contains": "const TABS = [['progress.html', 'Progress'], ['lessons.html', 'Lessons'], ['cards.html', 'Cards'], ['student.html', 'Student']];"
+    },
+    {
+     "type": "doc",
+     "path": "plan/PHONE-NAV-2026-10-06.md",
+     "contains": "| 1 | Bottom tab bar + More (recommended)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_build_tutor_weak.py",
+     "contains": "def test_PG_31_every_page_with_the_shared_menu_loads_the_phone_tab_bar"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "AM-23",
+   "kind": "display",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every choice Amal taps on the Tutor page is a plain sentence about Medi, never app-speak: the after-lesson moments read 'Medi got it right' / 'Medi got the wrong word' / 'Medi had wrong grammar' / 'That was not Medi speaking' (docs/js/hub/after-task.js SHOW: display only, the stored labels stay the data keys); the slip patterns and the moments to check read 'Yes, Medi was wrong' / 'No, Medi was fine' (review-task.js, tutor-verify.js); verb forms 'Right as written' / 'Needs a fix'; homework 'Yes: Medi got it right' / 'No: Medi was close'. The machine reason under a question ('the app thinks you corrected a word; the readers were not sure') is replaced by one line: 'Listen, then tap. Your tap sets the score for this word.'",
+   "plain": "Every button Amal taps says it in plain words about Medi: Medi got it right, Medi got the wrong word, Medi had wrong grammar, Yes Medi was wrong / No Medi was fine. No app-speak under the questions.",
+   "plain_for": "0c5ce0c4",
+   "topic": "the Tutor page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "all the verbiage in the tutor section is confusing.  label it Medi got it right Medi got the wrong word Medi had wrong grammar  Please revisit all of them",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/hub/after-task.js",
+     "contains": "const SHOW = { 'Right': 'Medi got it right'"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/hub/review-task.js",
+     "contains": "Yes, Medi was wrong<small>counts as a mistake for Medi</small>"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_in_panel.py",
+     "contains": "def test_AM_23_every_tutor_choice_is_a_plain_sentence_about_medi"
+    }
+   ],
+   "aliases": []
   }
  ]
 }

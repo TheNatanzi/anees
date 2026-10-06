@@ -137,3 +137,17 @@ sentence goes from laazem straight to a thing (ana laazem ... 3otle; laazem air 
 - in Arabic or in English ("laazem you should take") - it is ONE B2 grammar slip (wrong = his words, right = with the verb).
 No slip when she only asks ("laazem shu?"), when he fixes it himself first (laazem... or b7taj), or when a time word sits
 between (laazem kul el-yoam atlob). 'I need X' is b7taj X. scripts/echo_candidates.py lists these as laazem_noun.
+
+## A repeat of the line Amal just fixed is the same moment (GR-28, Medi 2026-10-05)
+
+When Medi says the SAME phrase again within 30 s after Amal spoke - the fixed version of the line she prompted on - it is
+one moment with the slip, never a fresh correct use and never a second slip. Example: 10-02 07:34 Medi "على عشرة" (A1,
+el- missing), Amal "الـ.", 07:38 Medi "على العشرة" -> one A1 slip at 07:34; the 07:38 line is 'repeat of the line Amal
+just fixed', not scored. Code: scripts/detect_grammar_usage.py repeat_of_fixed(). His own self-fix with no Amal between is
+GR-22, not this.
+
+## Sound-alike words (TR-26, Medi 2026-10-05)
+
+data/lesson-work/confusables.json lists the words the engine keeps swapping (3ala / ila / allah; el-3ashrah / el-3asha;
+mitshajje3 / shuja3 / mit7ammes; s7eet / sme3et) with a cue per group. When the transcript shows one of a group where it
+makes no sense, read the word from the sentence (TR-18) and say which one he meant.

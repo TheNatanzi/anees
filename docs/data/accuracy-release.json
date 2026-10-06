@@ -6,35 +6,35 @@
   "max_reader_passes": 2
  },
  "totals": {
-  "lessons": 19,
+  "lessons": 18,
   "verified_lessons": 0,
   "threshold_pct": 95.0,
   "words": {
    "verified_avg_pct": null,
-   "unverified_avg_pct": 83.8,
+   "unverified_avg_pct": 83.2,
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
-   "eligible": 1616,
+   "eligible": 1503,
    "excluded": 13,
-   "pending": 2
+   "pending": 4
   },
   "grammar": {
    "verified_avg_pct": null,
-   "unverified_avg_pct": 83.8,
+   "unverified_avg_pct": 82.2,
    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
-   "denominator_valid_lessons": 1,
-   "eligible": 587,
-   "excluded": 36,
-   "pending": 14
+   "denominator_valid_lessons": 0,
+   "eligible": 591,
+   "excluded": 39,
+   "pending": 16
   },
-  "verification_queue": 16,
+  "verification_queue": 20,
   "word_bank": {
-   "occurrences": 3051,
-   "eligible": 1403,
-   "excluded_not_scored": 1461,
-   "pending_needs_review": 187,
+   "occurrences": 2778,
+   "eligible": 1290,
+   "excluded_not_scored": 1405,
+   "pending_needs_review": 83,
    "other": 0,
-   "pct": 95.3,
-   "lessons_in_audit": 19,
+   "pct": 95.6,
+   "lessons_in_audit": 18,
    "lessons_missing": [],
    "note": "pct = (Correct + half Partial) / (Correct + Partial + Wrong); 'Needs review' is pending and counts nowhere; 'Not scored' is excluded by rule (English, names, glue words...)."
   }
@@ -62,10 +62,10 @@
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 89.9,
+    "pct": 89.1,
     "verified_pct": null,
     "mistakes": 35,
-    "uses": 267,
+    "uses": 247,
     "eligible": 35,
     "excluded": 0,
     "pending": 1,
@@ -123,10 +123,10 @@
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 70.6,
+    "pct": 70.1,
     "verified_pct": null,
     "mistakes": 47,
-    "uses": 136,
+    "uses": 134,
     "eligible": 47,
     "excluded": 0,
     "pending": 2,
@@ -226,9 +226,9 @@
    "date": "2026-09-10",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 readers agree on 53.8 % of rows (>= 95 % needed)",
+    "reader agreement: pass 1 readers agree on 61.8 % of rows (>= 95 % needed)",
     "reader agreement: pass 2 readers agree on 66.2 % of rows (>= 95 % needed)",
-    "reader agreement: pass 1 vs pass 2 settled rows agree on 54.5 % (>= 95 % needed)",
+    "reader agreement: pass 1 vs pass 2 settled rows agree on 77.9 % (>= 95 % needed)",
     "coverage: line times estimated from each person's recording by silence detection (no engine word timings)",
     "speech recognition not reviewed: nobody listened; 21 excerpts (519 s of 3762 s) compared with a second model",
     "checks: 3 scored rows need an audio or human check (0 words, 3 grammar)"
@@ -244,10 +244,10 @@
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 85.2,
+    "pct": 84.9,
     "verified_pct": null,
     "mistakes": 45,
-    "uses": 243,
+    "uses": 239,
     "eligible": 45,
     "excluded": 0,
     "pending": 3,
@@ -275,11 +275,11 @@
     "timing": "estimated"
    },
    "agreement": [
-    53.8,
+    61.8,
     66.2
    ],
    "between_passes": [
-    54.5
+    77.9
    ]
   },
   {
@@ -305,10 +305,10 @@
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 76.2,
+    "pct": 75.5,
     "verified_pct": null,
     "mistakes": 40,
-    "uses": 147,
+    "uses": 143,
     "eligible": 32,
     "excluded": 8,
     "pending": 3,
@@ -316,7 +316,7 @@
     "denominator_valid": false,
     "denominator_reasons": [
      "16 slips are in rules the counter found 0 uses of in this lesson",
-     "9 rules have more slips than counted uses (A11, A2, A3, A7, A9, B18, B5, C2)"
+     "10 rules have more slips than counted uses (A11, A2, A3, A7, A9, B12, B18, B5)"
     ]
    },
    "coverage": {
@@ -347,9 +347,9 @@
    "date": "2026-09-14",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 readers agree on 72.2 % of rows (>= 95 % needed)",
+    "reader agreement: pass 1 readers agree on 69.7 % of rows (>= 95 % needed)",
     "reader agreement: pass 2 readers agree on 61.9 % of rows (>= 95 % needed)",
-    "reader agreement: pass 1 vs pass 2 settled rows agree on 71.2 % (>= 95 % needed)",
+    "reader agreement: pass 1 vs pass 2 settled rows agree on 77.3 % (>= 95 % needed)",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3768 s) compared with a second model"
    ],
    "words": {
@@ -363,10 +363,10 @@
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 78.3,
+    "pct": 78.1,
     "verified_pct": null,
     "mistakes": 42,
-    "uses": 180,
+    "uses": 178,
     "eligible": 41,
     "excluded": 1,
     "pending": 0,
@@ -394,20 +394,20 @@
     "timing": "engine"
    },
    "agreement": [
-    72.2,
+    69.7,
     61.9
    ],
    "between_passes": [
-    71.2
+    77.3
    ]
   },
   {
    "date": "2026-09-15",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 readers agree on 68.0 % of rows (>= 95 % needed)",
+    "reader agreement: pass 1 readers agree on 57.9 % of rows (>= 95 % needed)",
     "reader agreement: pass 2 readers agree on 54.8 % of rows (>= 95 % needed)",
-    "reader agreement: pass 1 vs pass 2 settled rows agree on 78.9 % (>= 95 % needed)",
+    "reader agreement: pass 1 vs pass 2 settled rows agree on 76.7 % (>= 95 % needed)",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4026 s) compared with a second model"
    ],
    "words": {
@@ -421,17 +421,17 @@
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 75.6,
+    "pct": 75.3,
     "verified_pct": null,
     "mistakes": 46,
-    "uses": 168,
+    "uses": 166,
     "eligible": 46,
     "excluded": 0,
     "pending": 0,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
-     "13 slips are in rules the counter found 0 uses of in this lesson",
+     "15 slips are in rules the counter found 0 uses of in this lesson",
      "8 rules have more slips than counted uses (A2, B12, B16, B18, B2, D2, D4, E5)"
     ]
    },
@@ -452,20 +452,20 @@
     "timing": "engine"
    },
    "agreement": [
-    68.0,
+    57.9,
     54.8
    ],
    "between_passes": [
-    78.9
+    76.7
    ]
   },
   {
    "date": "2026-09-16",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 readers agree on 58.7 % of rows (>= 95 % needed)",
+    "reader agreement: pass 1 readers agree on 58.8 % of rows (>= 95 % needed)",
     "reader agreement: pass 2 readers agree on 63.3 % of rows (>= 95 % needed)",
-    "reader agreement: pass 1 vs pass 2 settled rows agree on 67.9 % (>= 95 % needed)",
+    "reader agreement: pass 1 vs pass 2 settled rows agree on 74.5 % (>= 95 % needed)",
     "coverage: 33 stretches of Medi's speech written as '[speaking ...]' markers (08:48 in all)",
     "coverage: speaker labels agree with an independent check on only 78.1 % of 795 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4182 s) compared with a second model",
@@ -484,11 +484,11 @@
     }
    },
    "grammar": {
-    "pct": 72.2,
+    "pct": 71.6,
     "verified_pct": null,
-    "mistakes": 41,
-    "uses": 133,
-    "eligible": 32,
+    "mistakes": 42,
+    "uses": 134,
+    "eligible": 33,
     "excluded": 9,
     "pending": 1,
     "estimate": false,
@@ -515,11 +515,11 @@
     "timing": "engine"
    },
    "agreement": [
-    58.7,
+    58.8,
     63.3
    ],
    "between_passes": [
-    67.9
+    74.5
    ]
   },
   {
@@ -545,12 +545,12 @@
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 71.0,
+    "pct": 69.1,
     "verified_pct": null,
-    "mistakes": 44,
-    "uses": 138,
-    "eligible": 40,
-    "excluded": 4,
+    "mistakes": 47,
+    "uses": 139,
+    "eligible": 41,
+    "excluded": 6,
     "pending": 1,
     "estimate": false,
     "denominator_valid": false,
@@ -587,9 +587,9 @@
    "date": "2026-09-18",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 readers agree on 67.6 % of rows (>= 95 % needed)",
+    "reader agreement: pass 1 readers agree on 58.7 % of rows (>= 95 % needed)",
     "reader agreement: pass 2 readers agree on 70.5 % of rows (>= 95 % needed)",
-    "reader agreement: pass 1 vs pass 2 settled rows agree on 67.4 % (>= 95 % needed)",
+    "reader agreement: pass 1 vs pass 2 settled rows agree on 80.0 % (>= 95 % needed)",
     "coverage: speakers guessed by voice pitch on one mixed recording",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model"
    ],
@@ -604,12 +604,12 @@
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 63.5,
+    "pct": 62.9,
     "verified_pct": null,
-    "mistakes": 43,
-    "uses": 104,
+    "mistakes": 44,
+    "uses": 105,
     "eligible": 41,
-    "excluded": 2,
+    "excluded": 3,
     "pending": 0,
     "estimate": false,
     "denominator_valid": false,
@@ -635,20 +635,20 @@
     "timing": "engine"
    },
    "agreement": [
-    67.6,
+    58.7,
     70.5
    ],
    "between_passes": [
-    67.4
+    80.0
    ]
   },
   {
    "date": "2026-09-19",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 readers agree on 35.5 % of rows (>= 95 % needed)",
+    "reader agreement: pass 1 readers agree on 58.3 % of rows (>= 95 % needed)",
     "reader agreement: pass 2 readers agree on 70.0 % of rows (>= 95 % needed)",
-    "reader agreement: pass 1 vs pass 2 settled rows agree on 55.1 % (>= 95 % needed)",
+    "reader agreement: pass 1 vs pass 2 settled rows agree on 76.9 % (>= 95 % needed)",
     "coverage: 4 stretches of Medi's speech written as '[speaking ...]' markers (00:19 in all)",
     "coverage: 10 stretches of Amal's speech written as '[speaking ...]' markers (01:08 in all)",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3726 s) compared with a second model"
@@ -695,22 +695,22 @@
     "timing": "engine"
    },
    "agreement": [
-    35.5,
+    58.3,
     70.0
    ],
    "between_passes": [
-    55.1
+    76.9
    ]
   },
   {
    "date": "2026-09-21",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 readers agree on 60.2 % of rows (>= 95 % needed)",
+    "reader agreement: pass 1 readers agree on 58.7 % of rows (>= 95 % needed)",
     "reader agreement: pass 2 readers agree on 50.0 % of rows (>= 95 % needed)",
-    "reader agreement: pass 1 vs pass 2 settled rows agree on 55.0 % (>= 95 % needed)",
+    "reader agreement: pass 1 vs pass 2 settled rows agree on 76.7 % (>= 95 % needed)",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4332 s) compared with a second model",
-    "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
+    "checks: 3 scored rows need an audio or human check (1 words, 2 grammar)"
    ],
    "words": {
     "pct": 83.3,
@@ -719,16 +719,16 @@
     "scored": 206,
     "eligible": 204,
     "excluded": 2,
-    "pending": 0,
+    "pending": 1,
     "excluded_why": {
      "rejected on a human check by Amal": 2
     }
    },
    "grammar": {
-    "pct": 84.7,
+    "pct": 84.8,
     "verified_pct": null,
     "mistakes": 62,
-    "uses": 360,
+    "uses": 361,
     "eligible": 61,
     "excluded": 1,
     "pending": 2,
@@ -756,20 +756,20 @@
     "timing": "engine"
    },
    "agreement": [
-    60.2,
+    58.7,
     50.0
    ],
    "between_passes": [
-    55.0
+    76.7
    ]
   },
   {
    "date": "2026-09-23",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 readers agree on 77.6 % of rows (>= 95 % needed)",
+    "reader agreement: pass 1 readers agree on 65.2 % of rows (>= 95 % needed)",
     "reader agreement: pass 2 readers agree on 68.7 % of rows (>= 95 % needed)",
-    "reader agreement: pass 1 vs pass 2 settled rows agree on 43.2 % (>= 95 % needed)",
+    "reader agreement: pass 1 vs pass 2 settled rows agree on 51.9 % (>= 95 % needed)",
     "coverage: 43 stretches of Medi's speech written as '[speaking ...]' markers (06:04 in all)",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model"
    ],
@@ -786,10 +786,10 @@
     }
    },
    "grammar": {
-    "pct": 74.0,
+    "pct": 73.6,
     "verified_pct": null,
     "mistakes": 38,
-    "uses": 146,
+    "uses": 144,
     "eligible": 32,
     "excluded": 6,
     "pending": 0,
@@ -817,18 +817,18 @@
     "timing": "engine"
    },
    "agreement": [
-    77.6,
+    65.2,
     68.7
    ],
    "between_passes": [
-    43.2
+    51.9
    ]
   },
   {
    "date": "2026-09-26",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 71.4 %; 2 consecutive passes at >= 95 % are needed",
+    "reader agreement: pass 1 73.0 %; 2 consecutive passes at >= 95 % are needed",
     "coverage: Amal not transcribed 17:30-20:17 while the other person talks",
     "coverage: speaker labels agree with an independent check on only 87.7 % of 1002 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
     "coverage: Amal 00:00-20:17 comes from the mixed Meet recording, speakers split by diarization (their own track is silent there)",
@@ -846,17 +846,17 @@
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 88.1,
+    "pct": 87.9,
     "verified_pct": null,
     "mistakes": 30,
-    "uses": 235,
+    "uses": 232,
     "eligible": 30,
     "excluded": 0,
     "pending": 0,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
-     "3 slips are in rules the counter found 0 uses of in this lesson",
+     "5 slips are in rules the counter found 0 uses of in this lesson",
      "4 rules have more slips than counted uses (A12, A7, B18, D2)"
     ]
    },
@@ -877,7 +877,7 @@
     "timing": "engine"
    },
    "agreement": [
-    71.4
+    73.0
    ],
    "between_passes": []
   },
@@ -885,7 +885,7 @@
    "date": "2026-09-28",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 60.9 %; 2 consecutive passes at >= 95 % are needed",
+    "reader agreement: pass 1 51.1 %; 2 consecutive passes at >= 95 % are needed",
     "coverage: 17 stretches of Medi's speech written as '[speaking ...]' markers (03:10 in all)",
     "coverage: speaker labels agree with an independent check on only 87.3 % of 874 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3948 s) compared with a second model"
@@ -901,10 +901,10 @@
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 89.7,
+    "pct": 89.5,
     "verified_pct": null,
     "mistakes": 19,
-    "uses": 174,
+    "uses": 171,
     "eligible": 17,
     "excluded": 2,
     "pending": 0,
@@ -932,7 +932,7 @@
     "timing": "engine"
    },
    "agreement": [
-    60.9
+    51.1
    ],
    "between_passes": []
   },
@@ -940,24 +940,24 @@
    "date": "2026-09-30",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 75.8 %; 2 consecutive passes at >= 95 % are needed",
+    "reader agreement: pass 1 73.7 %; 2 consecutive passes at >= 95 % are needed",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3942 s) compared with a second model"
    ],
    "words": {
-    "pct": 85.3,
-    "eligible_pct": 85.3,
+    "pct": 86.7,
+    "eligible_pct": 86.7,
     "verified_pct": null,
-    "scored": 85,
-    "eligible": 85,
+    "scored": 83,
+    "eligible": 83,
     "excluded": 0,
     "pending": 0,
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 91.3,
+    "pct": 91.1,
     "verified_pct": null,
     "mistakes": 19,
-    "uses": 208,
+    "uses": 202,
     "eligible": 19,
     "excluded": 0,
     "pending": 0,
@@ -985,7 +985,7 @@
     "timing": "engine"
    },
    "agreement": [
-    75.8
+    73.7
    ],
    "between_passes": []
   },
@@ -993,31 +993,32 @@
    "date": "2026-10-01",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 77.4 %; 2 consecutive passes at >= 95 % are needed",
+    "reader agreement: pass 1 78.8 %; 2 consecutive passes at >= 95 % are needed",
     "coverage: 4 stretches of Medi's speech written as '[speaking ...]' markers (00:16 in all)",
     "coverage: Amal not transcribed 09:57-14:05 while the other person talks",
     "coverage: Amal not transcribed 18:46-23:14 while the other person talks",
     "coverage: speaker labels agree with an independent check on only 88.3 % of 792 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
-    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3966 s) compared with a second model"
+    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3966 s) compared with a second model",
+    "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
    ],
    "words": {
-    "pct": 92.5,
-    "eligible_pct": 92.5,
+    "pct": 92.1,
+    "eligible_pct": 92.1,
     "verified_pct": null,
-    "scored": 100,
-    "eligible": 100,
+    "scored": 101,
+    "eligible": 101,
     "excluded": 0,
     "pending": 0,
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 93.4,
+    "pct": 92.4,
     "verified_pct": null,
-    "mistakes": 13,
-    "uses": 183,
-    "eligible": 13,
+    "mistakes": 15,
+    "uses": 185,
+    "eligible": 15,
     "excluded": 0,
-    "pending": 0,
+    "pending": 1,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -1042,7 +1043,7 @@
     "timing": "engine"
    },
    "agreement": [
-    77.4
+    78.8
    ],
    "between_passes": []
   },
@@ -1050,27 +1051,28 @@
    "date": "2026-10-02",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 65.7 %; 2 consecutive passes at >= 95 % are needed",
-    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3852 s) compared with a second model"
+    "reader agreement: pass 1 52.8 %; 2 consecutive passes at >= 95 % are needed",
+    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3852 s) compared with a second model",
+    "checks: 2 scored rows need an audio or human check (1 words, 1 grammar)"
    ],
    "words": {
-    "pct": 85.3,
-    "eligible_pct": 85.3,
+    "pct": 84.2,
+    "eligible_pct": 84.2,
     "verified_pct": null,
-    "scored": 75,
-    "eligible": 75,
+    "scored": 76,
+    "eligible": 76,
     "excluded": 0,
-    "pending": 0,
+    "pending": 1,
     "excluded_why": {}
    },
    "grammar": {
-    "pct": 92.8,
+    "pct": 91.5,
     "verified_pct": null,
     "mistakes": 18,
-    "uses": 249,
+    "uses": 212,
     "eligible": 18,
     "excluded": 0,
-    "pending": 0,
+    "pending": 1,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -1095,58 +1097,7 @@
     "timing": "engine"
    },
    "agreement": [
-    65.7
-   ],
-   "between_passes": []
-  },
-  {
-   "date": "2026-10-05",
-   "release": "not verified",
-   "reasons": [
-    "reader agreement: pass 1 76.6 %; 2 consecutive passes at >= 95 % are needed",
-    "coverage: no source audit of the raw audio for this lesson (run scripts/source_audit.py)",
-    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3912 s) compared with a second model"
-   ],
-   "words": {
-    "pct": 91.6,
-    "eligible_pct": 91.6,
-    "verified_pct": null,
-    "scored": 113,
-    "eligible": 113,
-    "excluded": 0,
-    "pending": 0,
-    "excluded_why": {}
-   },
-   "grammar": {
-    "pct": 100.0,
-    "verified_pct": null,
-    "mistakes": 0,
-    "uses": 191,
-    "eligible": 0,
-    "excluded": 0,
-    "pending": 0,
-    "estimate": false,
-    "denominator_valid": true,
-    "denominator_reasons": []
-   },
-   "coverage": {
-    "Medi": {
-     "covered_pct": 100.0,
-     "missing_s": 0,
-     "hole_s": 0
-    },
-    "Amal": {
-     "covered_pct": 100.0,
-     "missing_s": 0,
-     "hole_s": 0
-    }
-   },
-   "source": {
-    "attribution": "per-speaker-tracks",
-    "timing": "engine"
-   },
-   "agreement": [
-    76.6
+    52.8
    ],
    "between_passes": []
   }

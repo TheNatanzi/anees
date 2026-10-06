@@ -898,20 +898,49 @@ function newWords(L) {
   if (!box.childNodes.length) box.appendChild(el('div', 'gc-empty', 'No new words or verbs recorded for this lesson.'));
   return box;
 }
+// LS-13 (Medi 2026-10-05 "This is way to wordy. Please simplify it. We should be very clear about the exact new grammar rule
+// with the accordian for examples and bulleted explanation"): the reading is one headline, then each rule as its title +
+// bullets with its examples folded under it; the rest of the lesson and the full prose sit in two small accordions.
+function summaryBlock(L) {
+  var S = L.summary, box = el('div', 'ls-summary');
+  if (!S) {                                              // an old read without a summary: first sentence, the rest folded
+    var w = String(L.type_why || '—'), cut = w.search(/[.;:] /), first = cut > 20 ? w.slice(0, cut + 1) : w;
+    box.appendChild(el('p', 'ls-headline', first));
+    if (first.length < w.length) box.appendChild(acc('The full reading', function (b) { b.appendChild(el('p', 'ls-typewhy', w)); }));
+    return box;
+  }
+  box.appendChild(el('p', 'ls-headline', S.headline));
+  (S.rules || []).forEach(function (r) {
+    var rule = el('div', 'ls-rule');
+    rule.appendChild(el('h4', 'ls-ruletitle', r.title));
+    if (r.pattern) { var p = el('p', 'ls-pattern', r.pattern); p.setAttribute('dir', 'auto'); rule.appendChild(p); }
+    var ul = el('ul', 'ls-bullets');
+    (r.bullets || []).forEach(function (b) { var li = el('li', null, b); li.setAttribute('dir', 'auto'); ul.appendChild(li); });
+    rule.appendChild(ul);
+    if ((r.examples || []).length) rule.appendChild(acc('Examples from the lesson (' + r.examples.length + ')', function (b) {
+      var ol = el('ul', 'ls-examples');
+      r.examples.forEach(function (x) { var li = el('li', null, ''); li.appendChild(el('span', 'ls-time', x.t)); var t = el('span', 'ls-exline', ' ' + x.line); t.setAttribute('dir', 'auto'); li.appendChild(t); ol.appendChild(li); });
+      b.appendChild(ol);
+    }));
+    box.appendChild(rule);
+  });
+  // Medi 2026-10-05 "combine these somehow": one accordion - the rest of the lesson as bullets, the prose reading under them
+  if ((S.also || []).length || L.type_why) box.appendChild(acc('The rest of the lesson' + (S.also && S.also.length ? ' (' + S.also.length + ')' : ''), function (b) {
+    if ((S.also || []).length) { var ul = el('ul', 'ls-bullets'); S.also.forEach(function (x) { ul.appendChild(el('li', null, x)); }); b.appendChild(ul); }
+    if (L.type_why) { var w = el('p', 'ls-typewhy ls-fullreading', L.type_why + (L.type_source === 'claude-read' ? ' (Claude’s reading — tell Claude to change it)' : '')); b.appendChild(w); }
+  }));
+  return box;
+}
 function detail(L) {
   var d = el('div', 'ab-detail ls-detail');
-  var why = el('p', 'ls-typewhy');
-  why.appendChild(el('strong', null, 'Why this type: '));
-  why.appendChild(document.createTextNode((L.type_why || '—') + ' '));
-  why.appendChild(el('span', 'ls-muted', L.type_source === 'claude-read' ? '(Claude’s reading — tell Claude to change it)' : ''));
-  d.appendChild(why);
-  (L.notes || []).forEach(function (n) { d.appendChild(el('p', 'ab-mini ls-note', 'Note: ' + n)); });
-  if (L.rehear && L.rehear.label) {              // PG-27: on a phone there is no hover, so the opened row says it in words
-    var rp = el('p', 'ab-mini ls-note ls-rehearnote');
-    rp.appendChild(el('strong', null, L.rehear.label + '. '));
-    rp.appendChild(document.createTextNode(rehearTip(L)));
-    d.appendChild(rp);
-  }
+  d.appendChild(summaryBlock(L));
+  var small = el('p', 'ab-mini ls-note ls-smallnotes');   // one short line each; the long words live in the title (hover) and the full reading
+  (L.notes || []).forEach(function (n) {
+    var m = /one ledger \(LS-11\): (\d+) moment/.exec(n), s = el('span', 'ls-chipnote', m ? m[1] + ' disagreement' + (m[1] === '1' ? '' : 's') + ' settled by rule' : n.length > 90 ? n.slice(0, 88) + '…' : n);
+    s.title = n; small.appendChild(s);
+  });
+  if (L.rehear && L.rehear.label) { var rs = el('span', 'ls-chipnote ls-rehearnote', L.rehear.label); rs.title = rehearTip(L); small.appendChild(rs); }   // PG-27
+  if (small.childNodes.length) d.appendChild(small);
   d.appendChild(statStrip(L));
   if (L.type === 'new-words') {
     d.appendChild(newWords(L));

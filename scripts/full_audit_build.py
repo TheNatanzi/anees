@@ -112,17 +112,77 @@ def apply_misheard(rows, fixes=None):
     return n
 
 
-def assign_uids(rows):
+CARRY_P = os.path.join(WORK, "uid-carry.json")
+PRESERVED_P = os.path.join(WORK, "preserved-rows.json")
+
+
+def _hash_uid(r):
+    import hashlib
+    return "FA-" + hashlib.sha1(uid_base(r).encode("utf-8")).hexdigest()[:8]
+
+
+def stamp_read_keys(rows):
+    """read_key = the uid a row would get exactly as the readers (or the sweep) wrote it, before any ruling or rule
+    changes its kind or wrong piece ('x' on a repeat). It is what uid-carry.json keys on; assign_uids() drops it again."""
+    seen = set()
+    for r in rows:
+        k = _hash_uid(r)
+        while k in seen:
+            k += "x"
+        seen.add(k)
+        r["read_key"] = k
+    return rows
+
+
+def load_carry(path=None):
+    """uid-carry.json (scripts/rehear_rejudge.py carry) -> {read_key: old uid}. After a re-read on a re-heard transcript
+    the same slip can sit a second later or be worded differently, which would hash to a new uid and silently cut Amal's
+    rulings, verification records, patterns, duplicates.json and Medi's corrections off it. The carry names, per lesson,
+    the new row that IS an old row (same moment), and that row keeps the old uid. No file = no carry."""
+    path = path or CARRY_P
+    if not os.path.exists(path):
+        return {}
+    out = {}
+    for d, L in (json.load(open(path, encoding="utf-8")).get("lessons") or {}).items():
+        for x in L:
+            out[x["read_key"]] = x["old_uid"]
+    return out
+
+
+def load_preserved(path=None):
+    """preserved-rows.json (scripts/rehear_rejudge.py kept): rows Amal CONFIRMED that the readers did not write again on
+    the re-heard text. A row is never deleted (RULES.md S6): they stay in the audit under their old uid ("uid_keep"),
+    marked "kept", in the state they had before her ruling, so apply_amal_audit_rulings.py puts her ruling back."""
+    path = path or PRESERVED_P
+    return [dict(r) for r in json.load(open(path, encoding="utf-8")).get("rows", [])] if os.path.exists(path) else []
+
+
+def assign_uids(rows, carry=None):
     """uid is STABLE across rebuilds (patterns.json and Amal's rulings key on it): a hash of date + moment + wrong piece,
     not a position. `n` is the display order. A second row with the same base keeps a suffixed uid (so an old link to it
-    still resolves) but is marked a duplicate by mark_duplicates()."""
-    import hashlib
-    seen_uid = set()
+    still resolves) but is marked a duplicate by mark_duplicates().
+    2026-10-04 (re-hear): a row named in `carry` ({read_key: old uid}, load_carry) or carrying "uid_keep" (a preserved
+    row) takes that OLD uid instead of its hash, so everything that points at the uid still resolves; the row records
+    uid_carried_from (the hash it would have had). An old uid is given to one row only."""
+    carry = carry or {}
+    fixed = {}
+    for r in rows:
+        old = r.get("uid_keep") or carry.get(r.get("read_key"))
+        if old and old not in fixed.values():
+            fixed[id(r)] = old
+    seen_uid = set(fixed.values())
     for i, r in enumerate(rows, 1):
-        uid = "FA-" + hashlib.sha1(uid_base(r).encode("utf-8")).hexdigest()[:8]
-        while uid in seen_uid:
-            uid += "x"
+        uid = _hash_uid(r)
+        if id(r) in fixed:
+            if fixed[id(r)] != uid and not r.get("uid_keep"):
+                r["uid_carried_from"] = uid
+            uid = fixed[id(r)]
+        else:
+            while uid in seen_uid:
+                uid += "x"
         seen_uid.add(uid)
+        r.pop("read_key", None)
+        r.pop("uid_keep", None)
         r["uid"] = uid
         r["n"] = i
     return rows
@@ -422,7 +482,11 @@ def sync_compat(A):
     return added, removed, same
 
 
-def build():
+def gather(carry=None, preserved=None, write_report=True):
+    """Every audit row of every lesson, with all rulings and rules applied, BEFORE uids are assigned (build() does that).
+    scripts/rehear_rejudge.py (carry / preflight) calls it with write_report=False: nothing is written."""
+    carry = load_carry() if carry is None else carry
+    preserved = load_preserved() if preserved is None else preserved
     sweep = json.load(open(os.path.join(REPO, "data", "grammar-sweep-2026-09-24.json"), encoding="utf-8"))
     buckets = {b["id"]: b for b in json.load(open(os.path.join(REPO, "docs", "data", "grammar-buckets.json"), encoding="utf-8"))["buckets"]}
     S = sweep_rows(sweep)
@@ -475,6 +539,7 @@ def build():
         per_lesson.append({"date": d, "coverage": st.get("coverage"), "r3_note": st.get("r3_note"), "passes": pass_log(d),
                            "agreement_pct": c.get("agreement_pct"), "readers_rows": c.get("final"),
                            "in_sweep_too": n_both, "new_vs_sweep": n_new, "sweep_only_kept": kept})
+    stamp_read_keys(rows)
     # rows a human hand check rejected (data/lesson-work/full-audit/rejected.json): kept in the file, never scored
     rej_p = os.path.join(WORK, "rejected.json")
     if os.path.exists(rej_p):
@@ -493,17 +558,28 @@ def build():
     apply_misheard(rows)
     import medi_corrections as MC     # PR-15: Medi's corrections (page table mirror + the ones he gave in chat)
     import hashlib as _hl
-    MC_REPORT = MC.apply_rows(rows, uid_of=lambda r: "FA-" + _hl.sha1(uid_base(r).encode("utf-8")).hexdigest()[:8])
+    # a carried row answers to its OLD uid (his correction's target.src), 2026-10-04
+    MC_REPORT = MC.apply_rows(rows, uid_of=lambda r: carry.get(r.get("read_key")) or "FA-" + _hl.sha1(uid_base(r).encode("utf-8")).hexdigest()[:8])
     # every applied / orphaned / waiting correction, for the Lessons page, Amal's cards (LS-12) and the publish guard
-    MC.W(os.path.join(REPO, "data", "lesson-work", "medi-corrections-report.json"), dict(MC_REPORT, about="What scripts/full_audit_build.py did with "
+    if write_report:
+      MC.W(os.path.join(REPO, "data", "lesson-work", "medi-corrections-report.json"), dict(MC_REPORT, about="What scripts/full_audit_build.py did with "
          "Medi's corrections (PR-15): applied, orphaned (matches nothing: shown 're-check this one', never a failed build), "
          "waiting for Amal (his 'my Arabic was right' - her Tutor hub card), tier B (no voiced fix from her). Generated."))
+    # rows Amal confirmed that the re-read did not write again: kept as they were (already ruled; no rule above re-runs on them)
+    rows += [r for r in preserved if r.get("date") in DATES]
     # per-row bucket names + a stable order
     for r in rows:
         if r.get("bucket") in buckets:
             r["bucket_name"] = buckets[r["bucket"]]["name"]
     rows.sort(key=lambda r: (r["date"], sec(r.get("t")) if sec(r.get("t")) is not None else 1e9))
-    assign_uids(rows)
+    return {"rows": rows, "per_lesson": per_lesson, "missing": missing, "sweep_missed_by_readers": sweep_missed_by_readers,
+            "sweep": sweep, "buckets": buckets, "carry": carry, "mc_report": MC_REPORT}
+
+
+def build():
+    G = gather()
+    rows, per_lesson, missing, sweep_missed_by_readers, sweep, buckets = (G[k] for k in ("rows", "per_lesson", "missing", "sweep_missed_by_readers", "sweep", "buckets"))
+    assign_uids(rows, G["carry"])
     # Eng audit 2026-09-29: one slip is one row. Same uid base = same slip (was renamed "<uid>x" and counted twice);
     # plus the hand-read repeats in data/lesson-work/full-audit/duplicates.json. Kept in the file, never counted.
     dup_p = os.path.join(WORK, "duplicates.json")

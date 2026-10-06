@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><title>Student · Anees</title><script src="js/theme.js"></script><link rel="stylesheet" href="css/sabz-tokens.css"><link rel="stylesheet" href="css/word-bank.css?v=menu1"><link rel="stylesheet" href="css/vocabulary-progress.css"><link rel="stylesheet" href="css/tutor-hub.css?v=20261005-weak">
+<style>
+/* Medi's side of the homework (Medi 2026-10-05: "create a new tab 'student' below tutor"): the same hub look as the Tutor page */
+#anees-bank .st-score{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:0 0 18px}
+#anees-bank .st-task{border:1px solid var(--ab-line);background:var(--ab-panel);border-radius:12px;padding:14px 16px;margin:0 0 12px}
+#anees-bank .st-kind{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ab-muted);font-weight:600;margin:0 0 4px}
+#anees-bank .st-prompt{font-family:var(--sabz-font-serif);font-size:22px;line-height:1.35;margin:0 0 6px}
+#anees-bank .st-ctx{font-size:14px;color:var(--ab-muted);margin:0 0 8px}
+#anees-bank .st-ans{font-size:19px;margin:6px 0}
+#anees-bank .st-v{display:inline-block;font-weight:700;font-size:13px;padding:3px 10px;border-radius:999px;color:#fff;background:var(--ab-muted)}
+#anees-bank .st-v.right{background:var(--vp-sage,#2E6A4E)}#anees-bank .st-v.close{background:var(--ab-orange,#b45309)}#anees-bank .st-v.wrong{background:var(--sabz-danger,#B3261E)}
+#anees-bank .st-why{font-size:15px;margin:6px 0 0}#anees-bank .st-wait{font-size:13px;color:var(--ab-muted);margin:6px 0 0}
+#anees-bank .hb-ans.st-go{width:auto;min-height:48px;display:inline-block}
+#anees-bank .st-chips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+#anees-bank textarea.hb-input{font-size:19px}
+</style></head>
+<body><div id="anees-bank" class="vp-sabz" aria-label="Anees student"><div class="ab-shell">
+<aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="progress.html">Progress &amp; Stats</a><a class="ab-nav" href="lessons.html">Lessons &amp; Audio</a><a class="ab-nav" href="word-bank.html">Word Bank</a><a class="ab-nav" href="grammar.html">Grammar Rules</a><a class="ab-nav" href="cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="tutor.html">Tutor</a><a class="ab-nav" aria-current="page" href="student.html">Student</a><a class="ab-nav" href="ai-reports.html">AI Reports</a><a class="ab-nav" href="big-picture.html">Big Picture</a><a class="ab-nav" href="settings.html">System Settings</a></nav></aside>
+<main>
+<header class="ab-header vp-header"><div><div class="vp-eyebrow">Learner</div><h1>Student</h1><p class="ab-sub" id="st-hello">Homework your teacher assigned, and the cards to do before the next lesson.</p></div><span class="ab-preview" id="ab-source">Loading…</span></header>
+<section class="st-score" id="st-score" aria-label="Homework number"></section>
+<nav class="hb-tabs" role="tablist" aria-label="Student sections">
+<a class="hb-tab" role="tab" href="#todo" data-tab="todo">To do <span class="hb-n" id="st-n-todo"></span></a>
+<a class="hb-tab" role="tab" href="#shaky" data-tab="shaky">Shaky words <span class="hb-n" id="st-n-shaky"></span></a>
+<a class="hb-tab" role="tab" href="#done" data-tab="done">Done <span class="hb-n" id="st-n-done"></span></a>
+</nav>
+<section id="st-view" aria-live="polite"><div class="vp-notice">Loading…</div></section>
+</main></div></div>
+<script src="js/config.js"></script><script src="js/live-reread.js?v=20261002-1"></script><script src="js/homework-core.js?v=20261005-1"></script><script src="js/hub/attention-task.js?v=20261006-1"></script><script src="js/student.js?v=20261006-1"></script><script src="js/phone-nav.js?v=20261006-1"></script><script src="js/build.js"></script><script src="js/stale.js?v=fresh1"></script>
+<script src="js/rule-names.js?v=20261002-1" defer></script></body></html>

@@ -109,7 +109,7 @@ def test_tutor_page_has_the_check_list_and_no_hub():
     html = open(os.path.join(S.REPO, "docs", "tutor.html"), encoding="utf-8").read()
     js = open(os.path.join(S.REPO, "docs", "js", "tutor-verify.js"), encoding="utf-8").read()
     assert 'id="tv-list"' in html and "tutor-verify.js" in html
-    assert "Correction is correct" in js and "Reason not to correct" in js
+    assert "Yes, Medi was wrong" in js and "No, Medi was fine" in js   # AM-23 plain labels (2026-10-06)
     assert "audit_confirm" in js and "audit_skip" in js and "amal_rules" in js
     assert "hub.html" not in html and "Amal's hub" not in html                   # removed 2026-09-28, never back
 

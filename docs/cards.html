@@ -54,6 +54,8 @@ button.sel{border-color:var(--blue);color:var(--blue)} button.bad{background:var
 #miss.circle{color:var(--learn);border-color:var(--learn)} #got.circle{color:var(--know);border-color:var(--know)}
 #miss.circle:not(:disabled):hover{background:var(--learnbg)} #got.circle:not(:disabled):hover{background:var(--knowbg)}
 .ctrls .undo{width:44px;height:44px;min-height:44px;border-radius:999px;padding:0;border:none;background:none;font-size:22px;color:var(--mute)}
+.ctrls .attn{width:44px;height:44px;min-height:44px;border-radius:999px;padding:0;border:1px solid var(--line);background:none;font-size:20px;color:var(--mute)} .ctrls .attn.on{color:var(--learn);border-color:var(--learn)}
+.attnbox{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px;margin:8px 0 0} .attnbox textarea{width:100%;font:16px var(--sans);padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);min-height:48px;resize:vertical;margin-top:6px} .attnbox .row button{flex:1;min-height:44px}
 .hint{text-align:center;color:var(--mute);font-size:13px;min-height:18px}
 /* summary */
 .done{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
@@ -72,7 +74,7 @@ button.sel{border-color:var(--blue);color:var(--blue)} button.bad{background:var
 #anees-bank #root button{font:600 16px var(--sans);color:var(--ink)} #anees-bank #root .toggle button,#anees-bank #root .chips button{font-size:15px}
 #anees-bank #root button.study{font-size:18px;font-weight:800} #anees-bank #root button.primary{color:var(--sabz-cta-text)}
 #anees-bank #root button.sel{color:var(--sabz-data-ink)} #anees-bank #root button.bad{color:#fff}
-#anees-bank #root .qtop button,#anees-bank #root .ctrls .undo{font-size:22px;color:var(--mute)} #anees-bank #root .qtop .ask{font-size:13px;font-family:var(--sans)} #anees-bank #root .qtop .ask.on{color:var(--learn)} #anees-bank #root .ctrls .circle{font-size:26px;font-weight:700}
+#anees-bank #root .qtop button,#anees-bank #root .ctrls .undo{font-size:22px;color:var(--mute)} #anees-bank #root .ctrls .attn{font-size:20px;color:var(--mute)} #anees-bank #root .ctrls .attn.on{color:var(--learn)} #anees-bank #root .qtop .ask{font-size:13px;font-family:var(--sans)} #anees-bank #root .qtop .ask.on{color:var(--learn)} #anees-bank #root .ctrls .circle{font-size:26px;font-weight:700}
 #anees-bank #root #miss.circle{color:var(--learn)} #anees-bank #root #got.circle{color:var(--know)}
 #anees-bank #root button.fc-back{font:600 13px var(--sans);color:var(--ab-muted)}
 #anees-bank #root button.vp-card{font:inherit;color:var(--ab-text)}
@@ -107,12 +109,12 @@ h1{font-weight:500;font-size:32px;letter-spacing:-.3px} h2{font-weight:500;font-
 /* listening boost chip: this word sank a sentence he missed in a lesson (data/sentence-ladder.json boost) */
 .face .boost{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);max-width:calc(100% - 32px);font:600 12px var(--sans);padding:3px 10px;border-radius:999px;background:var(--learnbg);color:var(--learn);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 </style></head><body><div id="anees-bank" class="vp-sabz"><div class="ab-shell">
-<aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="progress.html">Progress &amp; Stats</a><a class="ab-nav" href="lessons.html">Lessons &amp; Audio</a><a class="ab-nav" href="word-bank.html">Word Bank</a><a class="ab-nav" href="grammar.html">Grammar Rules</a><a class="ab-nav" aria-current="page" href="cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="tutor.html">Tutor</a><a class="ab-nav" href="ai-reports.html">AI Reports</a><a class="ab-nav" href="big-picture.html">Big Picture</a><a class="ab-nav" href="settings.html">System Settings</a></nav></aside>
+<aside><div><div class="ab-logo">anees <span lang="ar">أنيس</span></div><div class="ab-tiny">Your Arabic, in progress.</div></div><nav aria-label="Main navigation"><a class="ab-nav" href="progress.html">Progress &amp; Stats</a><a class="ab-nav" href="lessons.html">Lessons &amp; Audio</a><a class="ab-nav" href="word-bank.html">Word Bank</a><a class="ab-nav" href="grammar.html">Grammar Rules</a><a class="ab-nav" aria-current="page" href="cards.html">Flashcards &amp; Review</a><a class="ab-nav" href="tutor.html">Tutor</a><a class="ab-nav" href="student.html">Student</a><a class="ab-nav" href="ai-reports.html">AI Reports</a><a class="ab-nav" href="big-picture.html">Big Picture</a><a class="ab-nav" href="settings.html">System Settings</a></nav></aside>
 <main>
 <div id="root"><p class="mute">Loading words…</p></div>
 <p class="sync" id="sync"></p>
 </main></div></div>
-<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260930-newfromnow-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260930-mastered3"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20261001-plural-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script>
+<script src="js/config.js"></script><script src="js/amal-newest.js?v=20260929-m1"></script><script src="js/buckets.js?v=20260921-quizlet-v1"></script><script src="js/fsrs.js?v=20260927-audit-v1"></script><script src="js/cards-core.js?v=20260930-newfromnow-v1"></script><script src="js/progress.js?v=20260921-quizlet-v1"></script><script src="js/word-bank-core.js?v=20260930-mastered3"></script><script src="js/word-bank-review.js?v=20260929-slips"></script><script src="js/cards-selection.js?v=20261001-plural-v2"></script><script src="js/speaking-snapshot.js?v=20260923-v1"></script><script src="js/verb-drills.js?v=20260923-drills-v1"></script><script src="js/verb-addons.js?v=20260923-drills-v1"></script><script src="js/homework-core.js?v=20261005-1"></script>
 <script>
 const C=window.AneesCards, F=window.AneesFSRS, SEL=window.AneesCardSelection, VD=window.AneesVerbDrills, WB=window.AneesWordBank, root=document.getElementById('root'), syncEl=document.getElementById('sync');
 const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
@@ -120,7 +122,8 @@ const uuid=()=> (crypto.randomUUID? crypto.randomUUID() : 'c'+Date.now().toStrin
 const LS=(k,v)=>{ try{ if(v===undefined) return JSON.parse(localStorage.getItem(k)||'null'); localStorage.setItem(k,JSON.stringify(v)); return true; }catch(e){ return v===undefined?null:false; } };
 let memQueue=[];   // used only when localStorage refuses the write: the answer is still sent, and the footer says it is not saved locally
 const readQ=()=>(LS('anees-card-queue')||[]).concat(memQueue);
-let CUR={newKeys:new Set(),batch:0,batches:[]}, words=[], stats={}, catalog=null, siblings=null, serverLog=[], cards=new Map(), speakEvents=[], quizlet=[], lessonScores='pending', boostList=[], ALIAS=new Map();
+let CUR={newKeys:new Set(),batch:0,batches:[]}, words=[], stats={}, catalog=null, siblings=null, serverLog=[], cards=new Map(), speakEvents=[], quizlet=[], lessonScores='pending', boostList=[], ALIAS=new Map(), uploads=[], shaky=null;
+const qtile=new URLSearchParams(location.search).get('tile');   // Student tab: open one set straight away (Medi 2026-10-05)
 let pref=Object.assign({mode:'ar_first',shuffle:true,n:20,subject:'b-new',retention:0.9},LS('anees-cards-pref')||{});
 if(!F.RETENTIONS.includes(pref.retention)) pref.retention=0.9;
 const savePref=()=>LS('anees-cards-pref',pref);
@@ -129,7 +132,7 @@ const H={apikey:ANEES.anon,Authorization:'Bearer '+ANEES.anon,'Content-Type':'ap
 // card_results columns. tz_offset_min / tz arrive with supabase/migrations/019_card_results_timezone.sql; until it is applied
 // reads fall back without them and writes drop them (tzColumn), so the page works either way.
 // A failed probe is remembered on this device for a day (anees-tz-col) so the 400 happens once, not on every load.
-const LOG_COLS='id,word_key,ts,result,attempt,mode,undone_at,flip_ms,answer_ms'; let tzColumn=!((LS('anees-tz-col')||{}).off>Date.now()-86400000);
+const LOG_COLS='id,word_key,ts,result,attempt,mode,subject,undone_at,flip_ms,answer_ms'; let tzColumn=!((LS('anees-tz-col')||{}).off>Date.now()-86400000);
 const noTzColumn=()=>{ tzColumn=false; LS('anees-tz-col',{off:Date.now()}); };
 function tzNow(){ let tz=null; try{ tz=Intl.DateTimeFormat().resolvedOptions().timeZone||null; }catch(e){} return {tz_offset_min:-new Date().getTimezoneOffset(), tz}; }   // the clock the answer was given in, for the hourly chart
 async function load(){
@@ -157,6 +160,10 @@ async function load(){
   { const mg=SEL.mergeSameTitle(quizlet); quizlet=mg.sets; ALIAS=SEL.mergeAliases(mg,SEL.matcher(words)); }   // Rule FC-10: one tile per title, newest set's spelling; dropped duplicates' answers read as the kept card's
   try{ const r=await fetch('data/sentence-ladder.json'); if(r.ok) boostList=(await r.json()).boost||[]; }catch(e){}   // listening boost: words that sank sentences he missed
   try{ const r=await fetch('data/verb-addons.json'); if(r.ok&&window.AneesVerbAddons) window.AneesVerbAddons.useTags((await r.json()).verbs); }catch(e){}
+  // Amal's uploads from the Tutor page (Medi 2026-10-05: "Her flashcards should get merged into our cards") - live table first, the hourly mirror as fallback
+  try{ const r=await fetch(ANEES.url+'/rest/v1/amal_uploads?select=*&order=created_at.asc&limit=1000',{headers:H}); if(!r.ok) throw new Error(r.status); uploads=await r.json(); }
+  catch(e){ try{ const r=await fetch('data/uploads.json'); if(r.ok) uploads=(await r.json()).rows||[]; }catch(e2){} }
+  try{ const r=await fetch('data/shaky-words.json'); if(r.ok) shaky=await r.json(); }catch(e){}   // Q3: wrong / partly wrong / asked-for words of the last 2 lessons
   applyLocalResults(); rebuild();
 }
 // One answer log: durable rows plus this device's unsynced rows, by id; an undo on either copy wins.
@@ -231,7 +238,7 @@ function enPlural(e){ e=String(e).trim().replace(/^\([^)]*\)\s*/,'').replace(/^(
   return (pre+pl+rest+note).split(' ').map(t=>/^[A-Z]{2,}s?$/.test(t)?t:t.toLowerCase()).join(' '); }
 // Hand-picked English notes for look-alike words (Rule F7; Medi 2026-10-01: Tair = bird in general vs 3asfoor = small bird).
 const EN_NOTE={tair:'general'};
-const enBase=w=>w.drill?String(w.english||'').replace(/^(.+?) · (.+!)$/,'$1, $2').replace(/ · /,' '):w.english;
+const enBase=w=>SEL.stripArabiziHints(w.drill?String(w.english||'').replace(/^(.+?) · (.+!)$/,'$1, $2').replace(/ · /,' '):w.english);   // FC-12: no Arabizi hint on the English side
 // Rule F2: the plural field holds a plural. Person forms (Tewsal "m: Tewsal f: Tewsli") are not a plural, and a plural spelled
 // like the singular (His-his · his-his) is said once.
 const isForms=p=>/(^|\s)[mfp]:\s/i.test(String(p||''));
@@ -274,7 +281,8 @@ function cardView(o){
       <div class="inner"><div class="face front"><span class="lab">${fl}</span><span class="tag">${esc(o.tag||'')}</span>${front}${o.chip?`<span class="boost" title="${esc(o.chip.title)}">${esc(o.chip.text)}</span>`:''}</div>
       <div class="face back"><span class="lab">${bl}</span>${back}${o.w.subtopic?`<div class="sub">${esc(o.w.subtopic)}</div>`:''}</div></div></div></div>
     <div class="ctrls${o.parts?' parts':''}" id="ctrls">${o.onUndo?'<button id="undo" class="undo" aria-label="Undo last answer" title="Undo (Ctrl+Z)">↺</button>':'<span style="width:44px"></span>'}${o.parts?`<button class="part" data-p="singular" title="Missed only ${esc(o.parts[0])}" disabled>✕ ${esc(o.parts[0])}</button>`:''}
-      <button id="miss" class="circle" aria-label="Still learning" title="Still learning (←)" disabled>✕</button><button id="got" class="circle" aria-label="Know" title="Know (→)" disabled>✓</button>${o.parts?`<button class="part" data-p="plural" title="Missed only ${esc(o.parts[1])}" disabled>✕ ${esc(o.parts[1])}</button>`:''}<span style="width:44px"></span></div>
+      <button id="miss" class="circle" aria-label="Still learning" title="Still learning (←)" disabled>✕</button><button id="got" class="circle" aria-label="Know" title="Know (→)" disabled>✓</button>${o.parts?`<button class="part" data-p="plural" title="Missed only ${esc(o.parts[1])}" disabled>✕ ${esc(o.parts[1])}</button>`:''}<button id="attn" class="attn" aria-label="Attention: ask Amal about this card" title="Attention: a question or concern for Amal">⚠</button></div>
+    <div class="attnbox" id="attnbox" hidden><label for="attntext" class="mute">A question or concern about this card, for Amal. It goes to her Tutor page; her reply comes back to your Student tab.</label><textarea id="attntext" dir="auto" rows="2" placeholder="e.g. Which one do you say more, tani yoam or yoam tani?"></textarea><div class="row" style="margin:6px 0 0"><button id="attnsend" class="primary">Send to Amal</button><button id="attncancel">Cancel</button></div><p class="mute" id="attnmsg"></p></div>
     ${o.next?`<p class="nexts" id="nexts" hidden><span class="l">✕ back in ${esc(o.next.missed)}</span><span class="k">✓ back in ${esc(o.next.got)}</span></p>`:''}<p class="hint" id="hint">Tap the card to flip · Space</p>`;
   const card=document.getElementById('card'), hint=document.getElementById('hint'), miss=document.getElementById('miss'), got=document.getElementById('got');
   const flip=()=>{ card.classList.toggle('flip'); if(!revealed){ revealed=true; timer.flip=timer.now(); miss.disabled=got.disabled=false; hint.textContent='Swipe or press → Know · ← Still learning'; const nx=document.getElementById('nexts'); if(nx) nx.hidden=false; root.querySelectorAll('.ctrls .part').forEach(b=>b.disabled=false); } };
@@ -295,6 +303,17 @@ function cardView(o){
   card.addEventListener('pointerup',end); card.addEventListener('pointercancel',()=>{ x0=null; card.style.transition=''; card.style.transform=''; card.classList.remove('dragL','dragR'); });
   miss.onclick=ask; got.onclick=()=>fly('got'); document.getElementById('close').onclick=o.onClose;
   const u=document.getElementById('undo'); if(u) u.onclick=o.onUndo;
+  // Medi 2026-10-06 "a third option called attention with the attention icon. This will send a to do message where I can ask
+  // Amal a question or bring up a concern with her. This should be sent to the tutor portal": card_attention row (kind note)
+  { const at=document.getElementById('attn'), box=document.getElementById('attnbox'), ta=document.getElementById('attntext'), msg=document.getElementById('attnmsg');
+    at.onclick=e=>{ e.stopPropagation(); box.hidden=!box.hidden; if(!box.hidden) ta.focus(); };
+    document.getElementById('attncancel').onclick=()=>{ box.hidden=true; };
+    ta.onkeydown=e=>e.stopPropagation();   // typing never flips or answers the card
+    document.getElementById('attnsend').onclick=async()=>{ const text=ta.value.trim(); if(!text){ msg.textContent='Write the question first.'; return; }
+      const w=o.w, row={id:uuid(), kind:'note', card_key:w.key, arabizi:(w.arabizi||'').slice(0,300), arabic:(w.arabic||'').slice(0,300), english:String(enBase(w)||'').slice(0,500), text:text.slice(0,2000), by_who:'student', created_at:new Date().toISOString()};
+      try{ const r=await fetch(ANEES.url+'/rest/v1/card_attention',{method:'POST',headers:{...H,Prefer:'return=minimal'},body:JSON.stringify(row)}); if(!r.ok) throw new Error(r.status);
+        msg.textContent='Sent. It is on Amal’s Tutor page under “Questions from the student”.'; ta.value=''; at.classList.add('on'); setTimeout(()=>{ box.hidden=true; msg.textContent=''; },1600); }
+      catch(e){ msg.textContent='Could not send (offline?). Try again in a moment.'; } }; }
   const ak=document.getElementById('ask'); ak.onclick=e=>{ e.stopPropagation(); const on=askToggle(o.w); ak.classList.toggle('on',on); ak.setAttribute('aria-pressed',on); ak.textContent=on?'✓ On Amal list':'? Ask Amal'; };
   if(askHas(o.w)) ak.textContent='✓ On Amal list';
   document.onkeydown=e=>{ if(e.target.closest&&e.target.closest('button')&&(e.key===' '||e.key==='Enter')&&e.target.id!=='card') return;
@@ -307,7 +326,13 @@ let lastAnswer=null, sessionMissed={}, sess=null, tileMap=new Map();
 const fmt=n=>Number(n).toLocaleString();
 function selection(){ const log=fullLog(), match=SEL.matcher(words), qcards=new Map(quizlet.map(set=>[set.id,SEL.quizletCards(set,match)])), rows=WB.models(words,catalog||{groups:[]},speakEvents,log);
   return { status:SEL.statusByKey(rows), split:SEL.statusSplit(rows,words), amal:SEL.newFromAmal(words,stats), never:SEL.neverTested(words,log),
-    tenses:SEL.tenses(words,catalog), drills:VD.verbs(catalog,words), topics:SEL.topics(words), colloc:SEL.collocationSets(quizlet), groups:SEL.quizletGroups(quizlet), qcards }; }
+    tenses:SEL.tenses(words,catalog), drills:VD.verbs(catalog,words), topics:SEL.topics(words), colloc:SEL.collocationSets(quizlet), groups:SEL.quizletGroups(quizlet), qcards,
+    usets:uploadSets(match), shaky:shakyWords(match,log) }; }
+// Amal's uploads as card sets (homework-core uploadSets): a card that is a Doc word reuses the Doc word (shared history, like Quizlet);
+// the rest are their own cards keyed u:<upload>:<n>, her spelling as written (S1). PERMANENT / TEMPORARY both show; the Doc reminder is on her Tutor page.
+function uploadSets(match){ const HW=window.AneesHomework; if(!HW) return []; return HW.uploadSets(uploads).map(s=>({...s, words:s.cards.map(c=>{ const w=match({arabizi:c.arabizi,arabic:c.arabic}); return w||{...c,topic:s.title}; })})); }
+// Shaky words (Medi 2026-10-05 Q3): the last 2 lessons' wrong / partly wrong words and words he asked for; a word leaves after two right answers on cards
+function shakyWords(match,log){ const HW=window.AneesHomework; if(!HW||!shaky) return []; const bk=byKey(); return HW.shakyCards(shaky,log).map(c=>bk.get(c.key)||match({arabizi:c.arabizi,arabic:c.arabic})||{...c}); }
 const union=lists=>{ const m=new Map(); for(const l of lists) for(const w of l) if(!m.has(w.key)) m.set(w.key,w); return [...m.values()]; };
 // Every tile shows its count; an empty tile shows "—" and why, never a bare 0.
 // Questions for Amal (Medi 2026-10-01): "? Ask Amal" on a card puts it on this list; Send opens the phone's share menu
@@ -350,6 +375,13 @@ const mixOf=ws=>{ const st=(lastSel&&lastSel.status)||new Map(); return SEL.scor
 function mixHtml(m){ const n=SEL.MIX.reduce((a,k)=>a+m[k],0)||1;
   return `<div class="fc-mix" aria-label="${SEL.MIX.map(k=>m[k]+' '+MIX_NAME[k].toLowerCase()).join(', ')}"><div class="fc-mixbar">${SEL.MIX.filter(k=>m[k]).map(k=>`<i class="mx-${k}" style="width:${100*m[k]/n}%"></i>`).join('')}</div><div class="fc-mixn">${SEL.MIX.map(k=>`<span class="mx-${k}${m[k]?'':' zero'}" title="${MIX_NAME[k]}">${fmt(m[k])}</span>`).join('')}</div></div>`; }
 const setTile=(set,ws)=>({id:'q:'+set.id,label:set.title,title:set.title,words:ws,mix:mixOf(ws),reason:'No usable terms'});
+const uploadTile=u=>({id:u.id,label:u.title,title:u.title+' · from Amal',words:u.words,mix:mixOf(u.words),note:`${u.keep==='permanent'?'permanent':'temporary'} · ${new Date(u.created_at||Date.now()).toLocaleDateString(undefined,{month:'short',day:'numeric'})}`,reason:'No usable rows'});
+// Student tab -> Flashcards on one set (Medi 2026-10-05: "the cards she assigns me for the next lessons"): ?tile=q:<set> | u:<upload> | shaky
+function openRef(ref){ const S=selection(); lastSel=S; let t=null;
+  if(ref==='shaky') t={id:'shaky',label:'Shaky words',title:'Shaky words · last 2 lessons',words:S.shaky};
+  else if(/^u:/.test(ref)){ const u=S.usets.find(x=>x.id===ref); if(u) t=uploadTile(u); }
+  else if(/^q:/.test(ref)){ const set=quizlet.find(x=>'q:'+x.id===ref||(x.merged_from||[]).some(m=>'q:'+m===ref)); if(set) t=setTile(set,S.qcards.get(set.id)||[]); }
+  if(!t||!t.words.length){ home(); return; } opts(t,home); }
 // Home = the category menu (Medi 2026-09-22): pick a category first, including the randomized ones.
 let lastSel=null;
 function home(){ document.onkeydown=null; rebuild(); tileMap=new Map(); window.scrollTo(0,0); const q=dueQueue(), n=q.counts, S=selection(); lastSel=S;
@@ -368,10 +400,12 @@ function home(){ document.onkeydown=null; rebuild(); tileMap=new Map(); window.s
     ${group('Weak spots',[
       tileHtml({id:'leech',label:'Words I keep missing',title:'Words I keep missing',unit:'words',words:words.filter(w=>F.isLeech(cards.get(w.key))),note:`missed ${F.DEFAULTS.leechMisses}+ times on cards`,reason:`No word missed ${F.DEFAULTS.leechMisses}+ times yet`}),
       tileHtml({id:'amal',label:'New from Amal',title:'New from Amal',unit:'words',words:S.amal,reason:'Amal has not marked any new words yet'}),
+      tileHtml({id:'shaky',label:'Shaky words',title:'Shaky words · last 2 lessons',unit:'words',tone:'shaky',words:S.shaky,note:shaky&&shaky.lessons?`wrong, partly wrong or asked for on ${shaky.lessons.map(d=>new Date(d+'T12:00').toLocaleDateString(undefined,{month:'short',day:'numeric'})).join(' + ')} · gone after 2 right answers`:'from the last 2 lessons',reason:shaky?'Nothing shaky left from the last 2 lessons':'The shaky-words list is not built yet'}),
       cat('shaky','Shaky',both('Shaky'),{tone:'shaky',unit:'forms',note:'in lessons + on cards',reason:'Nothing shaky yet'}),
       cat('wrong','Wrong',both('Wrong'),{tone:'wrong',unit:'forms',note:'in lessons + on cards',reason:'Nothing wrong yet'})])}
     ${group('Sets',[
       cat('sets','Amal’s card sets',namedWords,{unit:'cards',note:`${named.length} named sets`,mix:mixOf(namedWords),reason:'Quizlet sets did not load'}),
+      cat('uploads','From Amal · uploads',union(S.usets.map(u=>u.words)),{shown:S.usets.length,unit:'sets',note:S.usets.length?`${S.usets.filter(u=>u.keep==='permanent').length} permanent · ${S.usets.filter(u=>u.keep!=='permanent').length} temporary`:'',mix:mixOf(union(S.usets.map(u=>u.words))),reason:'Amal has not uploaded a list yet (Tutor page, top)'}),
       cat('colloc','Verbs + prepositions',collocWords,{unit:'cards',note:`${S.colloc.length} sets`,mix:mixOf(collocWords),reason:'Quizlet sets did not load'}),
       cat('tenses','Verb tenses',union(S.tenses.map(t=>t.words)),{unit:'forms',note:S.tenses.map(t=>t.name).join(' · '),reason:'No tense forms in the Doc'}),
       cat('topics','Amal’s Doc categories',S.topics.flatMap(t=>t.words),{shown:S.topics.length,unit:'topics',note:`${S.topics.reduce((a,t)=>a+t.subs.length,0)} sub-topics`,reason:'No Doc topics'})])}
@@ -400,6 +434,7 @@ function catView(id){ document.onkeydown=null; rebuild(); tileMap=new Map(); win
     tenses:()=>section(6,'Verb tenses','',`<div class="fc-grid">${S.tenses.map(t=>tileHtml({id:'tense:'+t.id,label:t.name,title:t.name+' tense',words:t.words,reason:`No ${t.name.toLowerCase()} forms in the Doc`})).join('')}</div>`),
     colloc:()=>section(8,'Verbs + prepositions','Amal’s Quizlet',S.colloc.length?`<div class="fc-grid">${S.colloc.map(set=>tileHtml(setTile(set,qs(set)))).join('')}</div>`:'<p class="mute">Quizlet sets did not load.</p>'),
     topics:()=>section(9,'Amal’s Doc categories',`${S.topics.length} topics · ${S.topics.reduce((a,t)=>a+t.subs.length,0)} sub-topics`,`<div class="fc-grid">${S.topics.map(t=>tileHtml({id:'topic:'+t.name,kind:'topic',label:t.name,title:t.name,words:t.words,subs:t.subs,note:t.subs.length?`${t.subs.length} sub-topic${t.subs.length===1?'':'s'}`:'',reason:'No words'})).join('')}</div>`),
+    uploads:()=>section(11,'From Amal · uploads',`${S.usets.length} set${S.usets.length===1?'':'s'} from her Tutor page`,S.usets.length?`<div class="fc-grid">${S.usets.map(u=>tileHtml(uploadTile(u))).join('')}</div>`:'<p class="mute">Amal has not uploaded a list yet.</p>'),
     sets:()=>section(10,'Amal’s card sets',`${S.groups.reduce((a,g)=>a+g.sets.length,0)} named sets`,S.groups.length?`<div class="fc-grid">${S.groups.map(g=>{ const ws=union(g.sets.map(qs)); return tileHtml({id:'group:'+g.id,kind:'group',label:g.name,title:g.name,words:ws,mix:mixOf(ws),sets:g.sets.map(set=>({set,words:qs(set)})),note:`${g.sets.length} set${g.sets.length===1?'':'s'}`,reason:'No sets in this group'}); }).join('')}</div>`:'<p class="mute">Quizlet sets did not load.</p>'),
   }[id];
   root.innerHTML=`<button class="fc-back" id="back">‹ Flashcards</button>${body()}`;
@@ -532,7 +567,7 @@ function startDrill(t,back){ const d=pref.drill, full=t.mode==='full', all=VD.ro
 function showCard(){ if(C.done(round)) return showSummary();
   const w=round.cards[round.i], s=Object.keys(stats).length?C.cardScore(stats[w.key]):{bucket:'–'};
   cardView({w, count:`${round.attempt>1?'Round '+round.attempt+' · ':''}${round.i+1} / ${round.cards.length}`, pct:100*round.i/round.cards.length, learnN:round.missed, knowN:round.got,
-    tag:round.results.some(r=>r.word_key===w.key)?'Again · missed earlier':w.drill?(w.guessed?'not checked by Amal':w.checked?'Checked by Amal · '+w.tense:w.tense+(w.addon?' · level 2':'')):SEL.isQuizletOnly(w.key)?'Quizlet · '+w.topic:s.bucket==='–'?w.topic:window.AneesBuckets.label(s.bucket), chip:w.drill?null:boostChip(w.key), next:nextLabel(w.key), parts:partsOf(w), onUndo:round.results.length?undoRound:null, onAnswer:(r,t)=>answer(r,t), onClose:round.back||picker});
+    tag:round.results.some(r=>r.word_key===w.key)?'Again · missed earlier':w.drill?(w.guessed?'not checked by Amal':w.checked?'Checked by Amal · '+w.tense:w.tense+(w.addon?' · level 2':'')):SEL.isQuizletOnly(w.key)?'Quizlet · '+w.topic:/^u:/.test(w.key)?'From Amal · '+w.topic:/^sh:/.test(w.key)?'Shaky · '+w.topic:s.bucket==='–'?w.topic:window.AneesBuckets.label(s.bucket), chip:w.drill?null:boostChip(w.key), next:nextLabel(w.key), parts:partsOf(w), onUndo:round.results.length?undoRound:null, onAnswer:(r,t)=>answer(r,t), onClose:round.back||picker});
 }
 function answer(result,t){ const w=round.cards[round.i]; const row=C.answer(round,result,new Date().toISOString(),uuid()); if(!row) return;
   row.flip_ms=t&&Number.isFinite(t.flip_ms)?t.flip_ms:null; row.answer_ms=t&&Number.isFinite(t.answer_ms)?t.answer_ms:null; Object.assign(row,tzNow()); if(row.answer_ms!==null) roundMs.push(row.answer_ms);
@@ -563,5 +598,5 @@ function showSummary(){ const s=C.summary(round); document.onkeydown=null; const
   const ag=document.getElementById('again'); if(ag) ag.onclick=round.restart||start; const bk=round.back||picker; document.getElementById('back').onclick=bk; document.getElementById('close').onclick=bk; document.getElementById('home').onclick=home; }
 window.AneesTest={ get alias(){return ALIAS;}, drillView, startDrill, get round(){return round;}, get stats(){return stats;}, get words(){return words;}, get cards(){return cards;}, answer:r=>{revealed=true;answer(r,{});}, grade:r=>{if(!sess)sess={know:0,learn:0,ms:[]};const q=dueQueue();const c=q.items[0];if(!c)return false;grade(c,byKey().get(c.id),r,{});return true;}, undo, queue:dueQueue, start, picker, home, selection, get tiles(){return tileMap;}, startTile, opts, startReview, sync, pref };
 if(window.self!==window.top){ const t=document.querySelector('#anees-bank aside'); if(t) t.style.display='none'; }   // inside the Flashcards tab the site menu is already there
-load().then(()=>qsub?picker():home());
-</script><script src="js/build.js"></script><script src="js/stale.js?v=fresh1"></script><script src="js/rule-names.js?v=20261002-1" defer></script></body></html>
+load().then(()=>qtile?openRef(qtile):qsub?picker():home());
+</script><script src="js/phone-nav.js?v=20261006-1"></script><script src="js/build.js"></script><script src="js/stale.js?v=fresh1"></script><script src="js/rule-names.js?v=20261002-1" defer></script></body></html>

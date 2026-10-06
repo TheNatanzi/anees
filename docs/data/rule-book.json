@@ -1,11 +1,11 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
- "updated": "2026-10-04",
- "total": 175,
+ "updated": "2026-10-06",
+ "total": 189,
  "replaced": 8,
  "counts": {
-  "Automatic": 95,
-  "Written down": 68,
+  "Automatic": 107,
+  "Written down": 70,
   "Fixed once": 12,
   "Waiting on you": 0
  },
@@ -107,7 +107,7 @@
    "key": "recording",
    "title": "Recording & transcript",
    "intro": "What gets written down from the lesson recording, and what is left out.",
-   "count": 25,
+   "count": 26,
    "sections": [
     {
      "kind": "error",
@@ -391,6 +391,25 @@
          "who": "Medi",
          "date": "2026-10-02",
          "quote": "fill always fill and be complete"
+        }
+       ]
+      },
+      {
+       "id": "TR-26",
+       "text": "Words that sound alike and get swapped by the engines (3ala, ila, allah; el-3ashrah, el-3asha; ...) are kept in one list with a hint on how to tell them apart. The second AI listen should read that list. Parked until the Gemini corrections land.",
+       "status": "written",
+       "topic": "the transcript",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "also you are having a really hard time with 3ala and ala and allah.  How can we address this.  Can we cue gemini for similar sounding words?"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "oh wait we havent made the gemini correction yet to see if they caught them.  I will wait"
         }
        ]
       }
@@ -1121,7 +1140,7 @@
    "key": "grammar",
    "title": "Grammar slips: what counts and what doesn't",
    "intro": "When a grammar mistake counts as a slip, and when it doesn't.",
-   "count": 27,
+   "count": 29,
    "sections": [
     {
      "kind": "error",
@@ -1350,6 +1369,20 @@
        ]
       },
       {
+       "id": "GR-28",
+       "text": "When Medi says the same line again right after Amal fixed it, that repeat is part of the same moment: it is not counted as new correct grammar uses. The chip says 'not scored: repeat of the line Amal just fixed'.",
+       "status": "enforced",
+       "topic": "grammar uses",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "this is a repeat of a mistake and should be marked as repeat and not counted.  You have this in your rules right?"
+        }
+       ]
+      },
+      {
        "id": "GR-15",
        "text": "If you are mid-sentence, Amal gives you the next word and then says mumtaz, that is help on the way to a right answer, not a slip.",
        "status": "enforced",
@@ -1540,6 +1573,25 @@
        ]
       },
       {
+       "id": "GR-29",
+       "text": "The six tool words from the Oct 2 lesson (awal, taani, aa5er, 8eir, nafs, kul) are proposed as grammar rules A13 to A17 plus one line on A11. They are the first row of Amal's To do list: one tap Yes, or a note with the fix. Nothing is scored on them until Medi says yes too.",
+       "status": "written",
+       "topic": "grammar rules",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "I need you to build a proposal on these on how to write them in our grammar rules and send them for review with letter number categories for Amal"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "For the grammar additions this should be at the top of her todo list."
+        }
+       ]
+      },
+      {
        "id": "GR-05",
        "text": "Count slips only on rules you already learned; never write Amal's lesson plans for her.",
        "status": "written",
@@ -1563,12 +1615,26 @@
    "key": "amal",
    "title": "Amal's say",
    "intro": "What Amal decides: her Doc, her pages, her rulings, and the words she promised to add.",
-   "count": 19,
+   "count": 22,
    "sections": [
     {
      "kind": "data",
      "heading": "Facts and records",
      "rules": [
+      {
+       "id": "AM-21",
+       "text": "At the top of the Tutor page Amal can give a flashcard list: a Google Sheets or Docs link, a file, or a pasted list. She checks which column is which and says PERMANENT (the words should go in the Doc too, a reminder stays until they are) or TEMPORARY (cards only). Her spelling is kept as written.",
+       "status": "enforced",
+       "topic": "Amal's uploads",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Lets add something at the top of the tutor for 'upload flashcards' where she can give a google link like this one or she can upload a file. Subsequently we need add a student tab now where she can assign me work. Lets start whatever she uploads and the shaky words from the previous lessons in flashcards. lets also create a box for her 'assign homework'. Give her three options. Translate Sentence, Create Sentence with (she will provide words), and answer question (she may want to give context) please do some research on how teachers assign homework like this and see if theres a function we can copy"
+        }
+       ]
+      },
       {
        "id": "AM-17",
        "text": "Every answer Amal gives on the Tutor page (and the pages it opens) has the same Undo button; tapping it makes the item unanswered again right away. Nothing is deleted - the undo is saved as a new record, and her latest action counts, so she can answer again. Everything that reads her answers respects the undo, and the page trusts the saved answers over an old copy in the browser.",
@@ -1792,6 +1858,26 @@
      ]
     },
     {
+     "kind": "display",
+     "heading": "How it's shown",
+     "rules": [
+      {
+       "id": "AM-23",
+       "text": "Every button Amal taps says it in plain words about Medi: Medi got it right, Medi got the wrong word, Medi had wrong grammar, Yes Medi was wrong / No Medi was fine. No app-speak under the questions.",
+       "status": "enforced",
+       "topic": "the Tutor page",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-06",
+         "quote": "all the verbiage in the tutor section is confusing.  label it Medi got it right Medi got the wrong word Medi had wrong grammar  Please revisit all of them"
+        }
+       ]
+      }
+     ]
+    },
+    {
      "kind": "process",
      "heading": "How the work runs",
      "rules": [
@@ -1855,6 +1941,25 @@
          "quote": "keep under 10 minutes for her"
         }
        ]
+      },
+      {
+       "id": "AM-22",
+       "text": "Amal assigns homework in one box: translate a sentence (either direction), make a sentence with her words, answer a question, or cards for a lesson. Medi answers on the Student tab, the AI gives a first check at once, and Amal confirms or overrules on her Tutor page. Only her word counts, and every overrule teaches the checker.",
+       "status": "enforced",
+       "topic": "homework",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Lets add something at the top of the tutor for 'upload flashcards' where she can give a google link like this one or she can upload a file. Subsequently we need add a student tab now where she can assign me work. Lets start whatever she uploads and the shaky words from the previous lessons in flashcards. lets also create a box for her 'assign homework'. Give her three options. Translate Sentence, Create Sentence with (she will provide words), and answer question (she may want to give context) please do some research on how teachers assign homework like this and see if theres a function we can copy"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Homework and the cards she assigns me for the next lessons."
+        }
+       ]
       }
      ]
     }
@@ -1884,12 +1989,55 @@
    "key": "flashcards",
    "title": "Flashcards",
    "intro": "How the review cards work.",
-   "count": 9,
+   "count": 12,
    "sections": [
     {
      "kind": "data",
      "heading": "Facts and records",
      "rules": [
+      {
+       "id": "FC-13",
+       "text": "Amal's uploaded lists are card sets on Flashcards under From Amal. A Shaky words set holds the words Medi got wrong or asked for in the last 2 lessons; a word leaves it after he gets it right twice on cards. A slip the audit tied to the wrong Doc word is left out and listed, never dealt as that card.",
+       "status": "enforced",
+       "topic": "Amal's uploads",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Lets add something at the top of the tutor for 'upload flashcards' where she can give a google link like this one or she can upload a file. Subsequently we need add a student tab now where she can assign me work. Lets start whatever she uploads and the shaky words from the previous lessons in flashcards. lets also create a box for her 'assign homework'. Give her three options. Translate Sentence, Create Sentence with (she will provide words), and answer question (she may want to give context) please do some research on how teachers assign homework like this and see if theres a function we can copy"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Let's go back 2 lessons"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Her flashcards should get merged into our cards"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "dude what do you mean by miskey? Miskey sounds like a mistake and would you ever need prompting to keep a mistake"
+        }
+       ]
+      },
+      {
+       "id": "FC-12",
+       "text": "On a flashcard the English side never shows the Arabic answer written in English letters: a note like (bel-3aks = on the contrary) is cut off the card, because it gives the answer away.",
+       "status": "enforced",
+       "topic": "card faces",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Remove the bel 3aks here from the flash card it's too much of a hint"
+        }
+       ]
+      },
       {
        "id": "FC-10",
        "text": "Two of Amal's card sets with the same name show as one tile; the newer set's spelling wins, repeated cards show once, and your answers on a dropped copy count for the kept card.",
@@ -2035,6 +2183,20 @@
      "heading": "How the work runs",
      "rules": [
       {
+       "id": "FC-14",
+       "text": "Every flashcard has a third button, Attention: Medi types a question or concern about that card and it lands on Amal's To do list as 'Questions from the student'. Her reply shows under his question on the Student tab.",
+       "status": "enforced",
+       "topic": "card faces",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-06",
+         "quote": "For all the cards I want a third option called attention with the attention icon. This will send a to do message where I can ask Amal a questions or bring up a concern with her. This should be sent to the tutor portal"
+        }
+       ]
+      },
+      {
        "id": "FC-08",
        "text": "Test runs never write into your real flashcard history.",
        "status": "enforced",
@@ -2087,7 +2249,7 @@
    "key": "pages",
    "title": "Pages, audio & numbers on screen",
    "intro": "What each page shows, the audio clips, and keeping numbers up to date.",
-   "count": 38,
+   "count": 43,
    "sections": [
     {
      "kind": "data",
@@ -2320,6 +2482,39 @@
        ]
       },
       {
+       "id": "PG-28",
+       "text": "A Student tab sits under Tutor in the menu: Medi's homework to do and done, the card sets Amal assigned for a lesson with how many are done, and the shaky words of the last 2 lessons.",
+       "status": "enforced",
+       "topic": "homework",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "create a new tab 'student' below tutor"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Homework and the cards she assigns me for the next lessons."
+        }
+       ]
+      },
+      {
+       "id": "PG-29",
+       "text": "Homework has its own number, made only from Amal's verdicts (right 1, close half, wrong 0). It shows on the Student tab and on Progress. The lesson Words % and Grammar % never include homework.",
+       "status": "enforced",
+       "topic": "homework",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Q5 scoring = 1: homework has its own number (Student tab + Progress); Words % / Grammar % stay lesson-only"
+        }
+       ]
+      },
+      {
        "id": "PG-12",
        "text": "Every row says Wrong or Correct in words, whatever the filter.",
        "status": "moment-only",
@@ -2492,6 +2687,39 @@
        ]
       },
       {
+       "id": "LS-13",
+       "text": "A lesson's reading is one headline, then each grammar rule Amal taught as its own block: the rule in one line, a few plain bullets, and the real moments folded under Examples. The rest of the lesson and the long prose are folded away.",
+       "status": "enforced",
+       "topic": "the lesson page",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "This is way to wordy.  Please simplify it.  We should be very clear about the exact new grammar rule with the accordian for examples and bulleted explanation"
+        }
+       ]
+      },
+      {
+       "id": "PG-31",
+       "text": "On a phone the menu is a bar at the bottom with five tabs: Progress, Lessons, Cards, Student, More. More opens the other pages. Laptops keep the sidebar.",
+       "status": "enforced",
+       "topic": "the phone",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-06",
+         "quote": "This top bar is really bothering me. Please do some deep research on app design and give me 5 options for the morning on we can reorgizne the app version"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-06",
+         "quote": "Option 1"
+        }
+       ]
+      },
+      {
        "id": "PG-21",
        "text": "A ✗ on the transcript says what you said, what Amal said instead, and quotes her words with the time.",
        "status": "enforced",
@@ -2544,6 +2772,25 @@
          "who": "Medi",
          "date": "2026-10-04",
          "quote": "just make sure to mark that its bending still on the lessons"
+        }
+       ]
+      },
+      {
+       "id": "PG-30",
+       "text": "Amal's Tutor page now has five tabs: To do, Grammar (Medi's 10 weakest rules), Vocab (his 20 weakest words), Decay (words he has not said for 3 weeks, and words never said), Completed. Each item shows his numbers, his last moments and a note box for her.",
+       "status": "enforced",
+       "topic": "the Tutor page",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "yeah the grammar and mateirals feel redundant.  We should jsut have todo and compeleted.  Intead lets have grammar and vocab.  For now lets add my worst performing 20 vocab words and 10 grammar lessons. for her"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "lets add a 5th page for decay.  Words that are untested or decaying (havent been said in a long time)"
         }
        ]
       },

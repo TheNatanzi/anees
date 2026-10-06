@@ -17,7 +17,8 @@
   "arabizi_gaps",
   "recordings_complete",
   "tests_py",
-  "tests_node"
+  "tests_node",
+  "rehear_rows"
  ],
  "advisory": [
   "review_freshness",
@@ -129,6 +130,7 @@
     "tests/test_audit_duplicates.py",
     "tests/test_self_fix_timing.py",
     "tests/test_transcript_fixes.py",
+    "tests/test_rehear_apply.py",
     "tests/test_medi_corrections.py",
     "tests/test_rules_check.py",
     "tests/test_farsi.py",
@@ -142,13 +144,24 @@
     "tests/test_import_vocab_archive.py",
     "tests/test_doc_sync.py",
     "tests/test_word_marks.py",
-    "tests/test_session_asks.py", "tests/test_bench_score.py", "tests/test_bench_vars.py", "tests/test_bench_batch.py", "tests/test_rehear_status.py", "tests/test_bench_side.py", "tests/test_bench_piles.py", "tests/test_bench_key2.py",
+    "tests/test_session_asks.py",
+    "tests/test_bench_score.py",
+    "tests/test_bench_vars.py",
+    "tests/test_bench_batch.py",
+    "tests/test_batch_jobs.py",
+    "tests/test_rehear_status.py",
+    "tests/test_rehear_rejudge.py",
+    "tests/test_bench_side.py",
+    "tests/test_bench_piles.py",
+    "tests/test_bench_key2.py",
     "tests/test_rule_book.py",
     "tests/test_amal_undo.py",
     "tests/test_tutor_in_panel.py",
     "tests/test_transcript_marks.py",
     "tests/test_lesson_ledger.py",
-    "tests/test_correction_mode.py"
+    "tests/test_correction_mode.py",
+    "tests/test_build_student_data.py",
+    "tests/test_build_tutor_weak.py"
    ],
    "timeout_s": 180,
    "what": "fast offline tests on the committed data (no network, no paid API)"
@@ -159,6 +172,7 @@
     "--test",
     "tests/test_big_picture.cjs",
     "tests/test_cards_selection.cjs",
+    "tests/test_cards_english_side.cjs",
     "tests/test_context_review.cjs",
     "tests/test_flashcard_boost.cjs",
     "tests/test_flashcard_stats.cjs",
@@ -186,7 +200,10 @@
     "tests/test_early_values.cjs",
     "tests/test_transcript_marks.cjs",
     "tests/test_ledger_overrides.cjs",
-    "tests/test_transcript_corrections.cjs"
+    "tests/test_transcript_corrections.cjs",
+    "tests/test_sheet_import.cjs",
+    "tests/test_homework_core.cjs",
+    "tests/test_attention.cjs"
    ],
    "timeout_s": 120,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)"
@@ -217,6 +234,15 @@
    ],
    "timeout_s": 60,
    "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)"
+  },
+  "rehear_rows": {
+   "cmd": [
+    "{python}",
+    "scripts/rehear_apply.py",
+    "check"
+   ],
+   "timeout_s": 300,
+   "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)"
   }
  },
  "left_out": {

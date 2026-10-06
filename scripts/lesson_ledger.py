@@ -337,7 +337,7 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
         H = turns[m["turn"]].get("heard") or []
         tk = norm(m.get("tok"))
         hit = next((h for h in H if tk and norm(h["engine_wrote"]) and (norm(h["engine_wrote"]) == tk or set(norm(h["engine_wrote"]).split()) <= set(tk.split())
-                                                                        or tk in norm(h["engine_wrote"]).split())), None)
+                                                                        or tk in norm(h["engine_wrote"]).split() or (" " + tk + " ") in (" " + norm(h["engine_wrote"]) + " "))), None)
         if hit and resolve:
             why = "the recording engine wrote %s; you said %s (%s)" % (hit["engine_wrote"], hit["heard"], hit.get("rule") or "TR-18")
             lst = "vocab_correct" if m["verdict"] in ("right", "partial") else "vocab_errors"
