@@ -1,5 +1,5 @@
 {
-  "built": "2026-10-02",
+  "built": "2026-10-06",
   "patterns": [
     {
       "id": "p-present-no-b",
@@ -180,6 +180,27 @@
       ]
     },
     {
+      "id": "p-singular-for-plural",
+      "kind": "grammar",
+      "bucket": "A9",
+      "tier": null,
+      "title": "Singular noun where he means several (el-madeena 7awaleen, dawle zay dawle 3arabiyye, mat3am irani kteer)",
+      "wrong": "el-madeena 7awaleen / dawle zay dawle 3arabiyye / mat3am irani kteer / khu66a (three plans)",
+      "right": "el-mudun 7awaleen / duwal zay ed-duwal el-3arabiyye / mata3em iraniyye kteer / khu6a6",
+      "wrong_arabic": "المدينة حوالين / دولة زي دولة عربية / مطعم إيراني كتير",
+      "right_arabic": "المدن حوالين / دول زي الدول العربية / مطاعم إيرانية كتير",
+      "wrong_arabizi": "Madeena / Dawle / Ma63am",
+      "right_arabizi": null,
+      "why": "He names two or more things (two cities, Qatar and the UAE, many restaurants) but keeps the noun singular, and the noun should be plural.",
+      "english": "the cities around / countries like the Arab countries / there are many Iranian restaurants",
+      "rows": [
+        "FA-33c1e051",
+        "FA-c2ac3a65",
+        "FA-38c1a9c7",
+        "FA-348c7972"
+      ]
+    },
+    {
       "id": "p-i-past-as-bare-he-form",
       "kind": "grammar",
       "bucket": "B5",
@@ -217,26 +238,6 @@
         "FA-b1718391",
         "FA-b0806e43",
         "FA-cca6494e"
-      ]
-    },
-    {
-      "id": "p-singular-for-plural",
-      "kind": "grammar",
-      "bucket": "A9",
-      "tier": null,
-      "title": "Singular noun where he means several (el-madeena 7awaleen, dawle zay dawle 3arabiyye, mat3am irani kteer)",
-      "wrong": "el-madeena 7awaleen / dawle zay dawle 3arabiyye / mat3am irani kteer",
-      "right": "el-mudun 7awaleen / duwal zay ed-duwal el-3arabiyye / mata3em iraniyye kteer",
-      "wrong_arabic": "المدينة حوالين / دولة زي دولة عربية / مطعم إيراني كتير",
-      "right_arabic": "المدن حوالين / دول زي الدول العربية / مطاعم إيرانية كتير",
-      "wrong_arabizi": "Madeena / Dawle / Ma63am",
-      "right_arabizi": null,
-      "why": "He names two or more things (two cities, Qatar and the UAE, many restaurants) but keeps the noun singular, and the noun should be plural.",
-      "english": "the cities around / countries like the Arab countries / there are many Iranian restaurants",
-      "rows": [
-        "FA-33c1e051",
-        "FA-c2ac3a65",
-        "FA-38c1a9c7"
       ]
     },
     {
@@ -1684,6 +1685,42 @@
       "english": "this family is amazing",
       "rows": [
         "FA-800c9b0f"
+      ]
+    },
+    {
+      "id": "p-friday-no-yoam-el",
+      "kind": "grammar",
+      "bucket": "E4",
+      "tier": null,
+      "title": "'On Friday' said as bare jum3a (ana ra7 asaafer jum3a -> yoam el-jum3a)",
+      "wrong": "ana ra7 asaafer jum3a",
+      "right": "ana ra7 asaafer yoam el-jum3a",
+      "wrong_arabic": "أنا راح أسافر جمعة",
+      "right_arabic": "أنا راح أسافر يوم الجمعة",
+      "wrong_arabizi": null,
+      "right_arabizi": "Yoam el-jum3a",
+      "why": "He says the day as a bare jum3a with no yoam / el-; we think 'on Friday' needs yoam el-jum3a or el-jum3a.",
+      "english": "I will travel on Friday.",
+      "rows": [
+        "FA-ebf8ebcd"
+      ]
+    },
+    {
+      "id": "p-plural-verb-singular-subject",
+      "kind": "grammar",
+      "bucket": "B18",
+      "tier": null,
+      "title": "Plural verb on a singular thing (jaa2u esh-shob -> ija esh-shob)",
+      "wrong": "jaa2u esh-shob",
+      "right": "ija esh-shob",
+      "wrong_arabic": "جاؤوا الشوب",
+      "right_arabic": "إجا الشوب",
+      "wrong_arabizi": null,
+      "right_arabizi": null,
+      "why": "esh-shob (the heat) is one thing, so the verb should be ija, not the plural (MSA) jaa2u.",
+      "english": "because the heat came",
+      "rows": [
+        "FA-877eb514"
       ]
     }
   ],

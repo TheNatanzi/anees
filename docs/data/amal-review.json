@@ -1,6 +1,6 @@
 {
- "built": "2026-10-06T11:46:13-07:00",
- "lessons": 19,
+ "built": "2026-10-06T15:30:01-07:00",
+ "lessons": 20,
  "patterns": [
   {
    "id": "p-el-missing-on-noun",
@@ -73,6 +73,43 @@
      "right": "باردة",
      "confidence": "medium",
      "clip": "2026-09-17/clips/gc-cb1f2a6ff7d88706.mp3"
+    }
+   ]
+  },
+  {
+   "id": "p-friday-no-yoam-el",
+   "kind": "grammar",
+   "kind_label": "Grammar",
+   "title": "'On Friday' said as bare jum3a (ana ra7 asaafer jum3a -> yoam el-jum3a)",
+   "wrong": "ana ra7 asaafer jum3a",
+   "right": "ana ra7 asaafer yoam el-jum3a",
+   "wrong_arabic": "أنا راح أسافر جمعة",
+   "right_arabic": "أنا راح أسافر يوم الجمعة",
+   "wrong_arabizi": null,
+   "right_arabizi": "Yoam el-jum3a",
+   "why": "He says the day as a bare jum3a with no yoam / el-; we think 'on Friday' needs yoam el-jum3a or el-jum3a.",
+   "english": "I will travel on Friday.",
+   "bucket": "E4",
+   "bucket_name": "calendar",
+   "tier": null,
+   "count": 1,
+   "lessons": [
+    "2026-10-06"
+   ],
+   "lessons_label": "2026-10-06",
+   "examples": [
+    {
+     "uid": "FA-ebf8ebcd",
+     "date": "2026-10-06",
+     "mmss": "07:45",
+     "medi_said": "أنا راح أسافر جمعة.",
+     "amal_said": "مم؟",
+     "chat": null,
+     "english": "I will travel Friday.",
+     "wrong": "جمعة",
+     "right": "يوم الجمعة",
+     "confidence": "low",
+     "clip": "2026-10-06/clips/gc-0106a52f6b6f389e.mp3"
     }
    ]
   },
@@ -258,6 +295,80 @@
      "right": "بنات بيروحوا",
      "confidence": "low",
      "clip": "2026-09-28/clips/gc-e2db79ea0383e3d0.mp3"
+    }
+   ]
+  },
+  {
+   "id": "p-plural-verb-singular-subject",
+   "kind": "grammar",
+   "kind_label": "Grammar",
+   "title": "Plural verb on a singular thing (jaa2u esh-shob -> ija esh-shob)",
+   "wrong": "jaa2u esh-shob",
+   "right": "ija esh-shob",
+   "wrong_arabic": "جاؤوا الشوب",
+   "right_arabic": "إجا الشوب",
+   "wrong_arabizi": null,
+   "right_arabizi": null,
+   "why": "esh-shob (the heat) is one thing, so the verb should be ija, not the plural (MSA) jaa2u.",
+   "english": "because the heat came",
+   "bucket": "B18",
+   "bucket_name": "verb matches its subject",
+   "tier": null,
+   "count": 1,
+   "lessons": [
+    "2026-10-06"
+   ],
+   "lessons_label": "2026-10-06",
+   "examples": [
+    {
+     "uid": "FA-877eb514",
+     "date": "2026-10-06",
+     "mmss": "16:47",
+     "medi_said": "عشان جاؤوا الشوب.",
+     "amal_said": null,
+     "chat": null,
+     "english": "because the heat came",
+     "wrong": "جاؤوا الشوب",
+     "right": "إجا الشوب",
+     "confidence": "low",
+     "clip": "2026-10-06/clips/gc-e49e611390d483c5.mp3"
+    }
+   ]
+  },
+  {
+   "id": "p-singular-for-plural",
+   "kind": "grammar",
+   "kind_label": "Grammar",
+   "title": "Singular noun where he means several (el-madeena 7awaleen, dawle zay dawle 3arabiyye, mat3am irani kteer)",
+   "wrong": "el-madeena 7awaleen / dawle zay dawle 3arabiyye / mat3am irani kteer / khu66a (three plans)",
+   "right": "el-mudun 7awaleen / duwal zay ed-duwal el-3arabiyye / mata3em iraniyye kteer / khu6a6",
+   "wrong_arabic": "المدينة حوالين / دولة زي دولة عربية / مطعم إيراني كتير",
+   "right_arabic": "المدن حوالين / دول زي الدول العربية / مطاعم إيرانية كتير",
+   "wrong_arabizi": "Madeena / Dawle / Ma63am",
+   "right_arabizi": null,
+   "why": "He names two or more things (two cities, Qatar and the UAE, many restaurants) but keeps the noun singular, and the noun should be plural.",
+   "english": "the cities around / countries like the Arab countries / there are many Iranian restaurants",
+   "bucket": "A9",
+   "bucket_name": "plurals",
+   "tier": null,
+   "count": 1,
+   "lessons": [
+    "2026-10-06"
+   ],
+   "lessons_label": "2026-10-06",
+   "examples": [
+    {
+     "uid": "FA-348c7972",
+     "date": "2026-10-06",
+     "mmss": "36:13",
+     "medi_said": "خطة.",
+     "amal_said": "طب two plans?",
+     "chat": null,
+     "english": "plans",
+     "wrong": "خطة",
+     "right": "خطط",
+     "confidence": "medium",
+     "clip": "2026-10-06/clips/gc-71a38db7fcb47e58.mp3"
     }
    ]
   },
@@ -1520,75 +1631,6 @@
     "reason": null,
     "at": "2026-09-30T17:54:56.915892+00:00",
     "rule_id": 1936
-   }
-  },
-  {
-   "id": "p-singular-for-plural",
-   "kind": "grammar",
-   "kind_label": "Grammar",
-   "title": "Singular noun where he means several (el-madeena 7awaleen, dawle zay dawle 3arabiyye, mat3am irani kteer)",
-   "wrong": "el-madeena 7awaleen / dawle zay dawle 3arabiyye / mat3am irani kteer",
-   "right": "el-mudun 7awaleen / duwal zay ed-duwal el-3arabiyye / mata3em iraniyye kteer",
-   "wrong_arabic": "المدينة حوالين / دولة زي دولة عربية / مطعم إيراني كتير",
-   "right_arabic": "المدن حوالين / دول زي الدول العربية / مطاعم إيرانية كتير",
-   "wrong_arabizi": "Madeena / Dawle / Ma63am",
-   "right_arabizi": null,
-   "why": "He names two or more things (two cities, Qatar and the UAE, many restaurants) but keeps the noun singular, and the noun should be plural.",
-   "english": "the cities around / countries like the Arab countries / there are many Iranian restaurants",
-   "bucket": "A9",
-   "bucket_name": "plurals",
-   "count": 3,
-   "lessons": [
-    "2026-09-11",
-    "2026-09-21"
-   ],
-   "lessons_label": "2 lessons",
-   "examples": [
-    {
-     "uid": "FA-33c1e051",
-     "date": "2026-09-11",
-     "mmss": "10:05",
-     "medi_said": "الـ المدينة حوالين or الـ المدينة سان فرانسيسكو Oakland",
-     "amal_said": null,
-     "chat": null,
-     "english": "the cities around",
-     "wrong": "الـ المدينة حوالين",
-     "right": "المدن حوالين (my reading)",
-     "confidence": "high",
-     "clip": "2026-09-11/clips/gc-37e113cb7aeee90b.mp3"
-    },
-    {
-     "uid": "FA-c2ac3a65",
-     "date": "2026-09-21",
-     "mmss": "1:05:16",
-     "medi_said": "قريب عشان في الـ دولة زي دولة عربية زي، uh، عما-- Qatar و، um، UAE،",
-     "amal_said": "أم.",
-     "chat": null,
-     "english": "nearby, because in countries like the Arab countries - Qatar and the UAE - there are many Iranian restaurants",
-     "wrong": "دولة زي دولة عربية",
-     "right": "دول زي الدول العربية",
-     "confidence": "high",
-     "clip": "2026-09-21/clips/gc-da189a9c1ee6d27e.mp3"
-    },
-    {
-     "uid": "FA-38c1a9c7",
-     "date": "2026-09-21",
-     "mmss": "1:05:38",
-     "medi_said": "في مطعم إيراني كتير.",
-     "amal_said": "أم.",
-     "chat": null,
-     "english": "there are many Iranian restaurants",
-     "wrong": "مطعم إيراني كتير",
-     "right": "مطاعم إيرانية كتير",
-     "confidence": "high",
-     "clip": "2026-09-21/clips/gc-396a49d8b2a56403.mp3"
-    }
-   ],
-   "answered": {
-    "kind": "audit_confirm",
-    "reason": null,
-    "at": "2026-09-30T17:55:18.876245+00:00",
-    "rule_id": 1937
    }
   },
   {
@@ -3970,6 +4012,81 @@
  ],
  "new_words": [
   {
+   "id": "sheet-31df7975aa0f",
+   "arabic": "مكرونة",
+   "arabizi": null,
+   "english": "pasta / noodles",
+   "moments": [
+    {
+     "date": "2026-10-06",
+     "mmss": "12:02",
+     "medi_said": "oo nood-- uh, macaron.",
+     "amal_gave": "مكرونة",
+     "clip": "2026-10-06/clips/gc-87af081266df9a24.mp3"
+    }
+   ]
+  },
+  {
+   "id": "sheet-54567cad894a",
+   "arabic": "نتائج",
+   "arabizi": null,
+   "english": "the results",
+   "moments": [
+    {
+     "date": "2026-10-06",
+     "mmss": "22:41",
+     "medi_said": "the results to you. أنا الـ، الـ آخر، الـ...",
+     "amal_gave": "نتائج",
+     "clip": "2026-10-06/clips/gc-093855a624067689.mp3"
+    }
+   ]
+  },
+  {
+   "id": "sheet-e7fafe9c16fc",
+   "arabic": "(spend",
+   "arabizi": null,
+   "english": "I spend most of my money",
+   "moments": [
+    {
+     "date": "2026-10-06",
+     "mmss": "41:04",
+     "medi_said": "أنا ما بدفع أغلب المساري.",
+     "amal_gave": "(spend - not taught yet)",
+     "clip": "2026-10-06/clips/gc-2c48cc6814963902.mp3"
+    }
+   ]
+  },
+  {
+   "id": "sheet-ef2d48ab1657",
+   "arabic": "بستعمل (what he then used)",
+   "arabizi": null,
+   "english": "I keep most of my money",
+   "moments": [
+    {
+     "date": "2026-10-06",
+     "mmss": "41:36",
+     "medi_said": "أنا بدل أغلب",
+     "amal_gave": "بستعمل (what he then used)",
+     "clip": "2026-10-06/clips/gc-9e35bf4f6b118621.mp3"
+    }
+   ]
+  },
+  {
+   "id": "sheet-bbdb8191212a",
+   "arabic": "اللي",
+   "arabizi": null,
+   "english": "is the one",
+   "moments": [
+    {
+     "date": "2026-10-06",
+     "mmss": "54:22",
+     "medi_said": "is the one. Uh, واح-واحدة...",
+     "amal_gave": "اللي",
+     "clip": "2026-10-06/clips/gc-cfd75b409666df2f.mp3"
+    }
+   ]
+  },
+  {
    "id": "sheet-f5643f39fb98",
    "arabic": "أواعيي",
    "arabizi": null,
@@ -4638,11 +4755,11 @@
  ],
  "note": "Slips the app thinks Amal let pass (B rows of the 2026-09-26 audit). Nothing is scored until she taps.",
  "counts": {
-  "patterns": 23,
-  "rows": 23,
+  "patterns": 26,
+  "rows": 26,
   "vocab": 8,
-  "grammar": 15,
-  "new_words": 43,
-  "loanwords_skipped": 7
+  "grammar": 18,
+  "new_words": 48,
+  "loanwords_skipped": 8
  }
 }

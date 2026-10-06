@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T15:15:30-07:00",
+ "updated": "2026-10-06T15:50:23-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -7073,6 +7073,398 @@
      "_lesson_s": 3912.0,
      "first_t": 22.17,
      "last_t": 3909.84,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   }
+  },
+  {
+   "date": "2026-10-06",
+   "start_local": "2026-10-06T13:33:39-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "duration_min": 62.3,
+   "type": "review-grammar",
+   "review_mode": "speaking",
+   "type_why": "26:20-1:01:46 (~35 of 62 min) applies the last two lessons' el- toolbox words to the SAT card words (23:54 'بدنا نروح على كل الكلمات من الـ SAT ... to apply the last two days lesson on them'): a fix to تاني (26:27 'I need to make a correction... for تاني', 35:35 خطتك التانية), كل/أغلب with مصاري (36:50-42:28), أول + a pronoun-ending noun = 'the beginning of' (46:31), and واحد/واحدة after the noun (44:24 'we never like just straight out said rule'), mostly as English-to-Arabic sentences. 00:25-04:30 is English talk about the app; 04:36-23:50 is warm-up talk (motivation, his trip, pho, the date and time, the heat warning, proper nouns take no el- at 19:37).",
+   "type_source": "claude-read",
+   "type_read_by": "claude -p (review_lesson.py)",
+   "summary": {
+    "headline": "The el- toolbox words used on the SAT card words: taani, awal, kul, a8lab, wa7ed after the noun",
+    "rules": [
+     {
+      "title": "taani after a noun with a pronoun ending takes el-: خطتك التانية",
+      "pattern": "noun + pronoun ending + el-taani / el-taanye",
+      "bullets": [
+       "After the noun, taani is an adjective: it means 'other' (or 'second')",
+       "A noun with a pronoun ending (my, your, our) is definite, so taani takes el-",
+       "taani agrees: feminine noun -> taanye"
+      ],
+      "examples": [
+       {
+        "t": "28:41",
+        "line": "الفستان التاني - the other dress"
+       },
+       {
+        "t": "30:05",
+        "line": "خطتك التانية - your other plan"
+       },
+       {
+        "t": "57:43",
+        "line": "ما عندك خيار تاني - you don't have another choice"
+       },
+       {
+        "t": "1:00:10",
+        "line": "عطلة تانية - another holiday"
+       },
+       {
+        "t": "1:00:47",
+        "line": "عطلتنا التانية - our second holiday"
+       }
+      ]
+     },
+     {
+      "title": "wa7ed / wa7de goes after the noun, as an adjective",
+      "pattern": "noun + wa7ed / wa7de",
+      "bullets": [
+       "wa7ed = one; wa7de with a feminine noun",
+       "It always comes after the noun, never before",
+       "'only' is بس, not واحد: عندي بس خيار واحد"
+      ],
+      "examples": [
+       {
+        "t": "43:46",
+        "line": "خطة واحدة - one plan"
+       },
+       {
+        "t": "57:01",
+        "line": "عندي خيار واحد - I have one choice"
+       },
+       {
+        "t": "57:08",
+        "line": "عندي بس خيار واحد - I only have one choice"
+       }
+      ]
+     },
+     {
+      "title": "awal before a noun with a pronoun ending means 'the beginning of'",
+      "pattern": "awal + noun-i = beginning of my ...; noun-i + el-oola = my first ...",
+      "bullets": [
+       "أول عطلة = the first holiday",
+       "أول عطلتي = the beginning of my holiday (idafa wins)",
+       "For 'my first' put the adjective after: عطلتي الأولى"
+      ],
+      "examples": [
+       {
+        "t": "45:51",
+        "line": "العطلة الأولى - the first holiday"
+       },
+       {
+        "t": "46:31",
+        "line": "أول عطلتي - the beginning of my holiday"
+       },
+       {
+        "t": "46:27",
+        "line": "أول عطلة إلي - my first holiday"
+       },
+       {
+        "t": "50:49",
+        "line": "راح آخد عطلتي الأولى من تلات شهور - I'm taking my first day off in three months"
+       }
+      ]
+     },
+     {
+      "title": "kul / a8lab + el-noun, and no el- when the noun has a pronoun ending",
+      "pattern": "kul / a8lab + el- + noun; a8lab + noun-i",
+      "bullets": [
+       "كل المصاري = all the money",
+       "أغلب مصاري = most of my money (no el-)",
+       "مصاري is plural: the verb is plural too"
+      ],
+      "examples": [
+       {
+        "t": "40:09",
+        "line": "كل المصاري ما راح يبسطوكي - all the money won't make you happy"
+       },
+       {
+        "t": "42:28",
+        "line": "أغلب مصاري - most of my money"
+       }
+      ]
+     },
+     {
+      "title": "Proper nouns never take el-: وسط أمريكا",
+      "pattern": "noun + proper noun",
+      "bullets": [
+       "Countries, cities and names are already definite",
+       "So no el- after وسط or any noun before them"
+      ],
+      "examples": [
+       {
+        "t": "19:03",
+        "line": "وسط أمريكا - the middle of America"
+       },
+       {
+        "t": "20:00",
+        "line": "وسط فلسطين، وسط مصر - the middle of Palestine, of Egypt"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "English talk 00:25-04:30: the AI app, Google vs ElevenLabs transcripts, her open questions",
+     "Warm-up 04:36-23:50: motivation, his trip on Friday, pho with rice noodles, the date and time, the heat warning",
+     "Words given along the way: متشجع, حافز / دافع, نتائج, خطط, خطتين, خيار, وأخيرًا",
+     "Next lesson: the same SAT card set again"
+    ]
+   },
+   "words": {
+    "unique": 49,
+    "right": 68,
+    "wrong": 8,
+    "partial": 19,
+    "pct": 81.6,
+    "scored": 95,
+    "audit_wrong": 8,
+    "audit_partial": 3,
+    "not_on_sheet": 6,
+    "unique_rows": 47,
+    "eligible": 95,
+    "excluded": 0,
+    "pending": 2,
+    "eligible_pct": 81.6,
+    "excluded_why": {},
+    "verified_pct": null
+   },
+   "grammar": {
+    "uses": 162,
+    "mistakes": 31,
+    "pct": 82.1,
+    "estimate": false,
+    "scored_mistakes": 29,
+    "unscored_mistakes": 2,
+    "eligible": 31,
+    "excluded": 0,
+    "pending": 1,
+    "denominator": {
+     "valid": false,
+     "reasons": [
+      "5 slips are in rules the counter found 0 uses of in this lesson",
+      "5 rules have more slips than counted uses (A7, B12, B18, B6, D2)"
+     ],
+     "uses": 137,
+     "slips": 31,
+     "slips_latin": 1,
+     "slips_in_zero_use_rules": 5,
+     "rules_slips_over_uses": [
+      "A7",
+      "B12",
+      "B18",
+      "B6",
+      "D2"
+     ]
+    },
+    "verified_pct": null
+   },
+   "talk": {
+    "medi_s": 1255.1,
+    "amal_s": 858.8,
+    "speak_pct": 59.4,
+    "listen_pct": 40.6,
+    "window": [
+     0.0,
+     3737.4
+    ]
+   },
+   "fillers": {
+    "count": 152,
+    "per_min": 7.27,
+    "top": [
+     [
+      "uh",
+      104
+     ],
+     [
+      "um",
+      37
+     ],
+     [
+      "آآ",
+      5
+     ],
+     [
+      "امم",
+      3
+     ],
+     [
+      "ah",
+      2
+     ],
+     [
+      "hmm",
+      1
+     ]
+    ],
+    "in_turns": 152,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.35,
+    "p75_s": 2.16,
+    "n": 254
+   },
+   "flow": {
+    "wpm": 56.4,
+    "n_turns": 155,
+    "arabic_words": 438
+   },
+   "new_words": [],
+   "taught": [],
+   "taught_words": [
+    {
+     "latin": null,
+     "arabic": "متشجع",
+     "english": "motivated",
+     "t": "05:36",
+     "note": "Medi said مش شجعي; Amal: شجاع is brave, متشجع = motivated"
+    },
+    {
+     "latin": null,
+     "arabic": "حافز / دافع",
+     "english": "motivation (noun)",
+     "t": "05:45",
+     "note": "Medi: 'So what is motivation?'"
+    },
+    {
+     "latin": null,
+     "arabic": "جهزوا حالكو",
+     "english": "be prepared (plural)",
+     "t": "18:32",
+     "note": "her reply to the heat-and-storms warning"
+    },
+    {
+     "latin": null,
+     "arabic": "نتيجة / نتائج",
+     "english": "result / results",
+     "t": "22:46",
+     "note": "Medi said 'the results to you' in English; Amal: نتيجة، نتائج"
+    },
+    {
+     "latin": null,
+     "arabic": "براجع",
+     "english": "I review (verb; مراجعة is the noun)",
+     "t": "24:40"
+    },
+    {
+     "latin": null,
+     "arabic": "خطط",
+     "english": "plans (plural of خطة)",
+     "t": "30:15",
+     "note": "Medi said خُطّات"
+    },
+    {
+     "latin": null,
+     "arabic": "خطتين",
+     "english": "two plans",
+     "t": "36:20",
+     "note": "Medi said خطة ثان"
+    },
+    {
+     "latin": null,
+     "arabic": "وأخيرًا",
+     "english": "finally",
+     "t": "51:18",
+     "note": "Medi repeats أخيراً at 51:23"
+    },
+    {
+     "latin": null,
+     "arabic": "خيار",
+     "english": "choice",
+     "t": "52:14",
+     "note": "Medi: 'Do I know the word for choice?' (51:49), guessed مختار; Amal hinted cucumber"
+    }
+   ],
+   "coverage": "English-only stretches: 00:03-04:36 (AI project talk), 23:16-24:11, 25:30-28:30 (تاني explanation), 42:51-43:20, 46:23-50:00 (idafa / أول discussion), 1:01:14-end. Engine wrote 'jerash' for جاج (chicken) at 11:00 / 11:20; 'أولتي / أولة' for عطلتي / عطلة at 45-47 min; 'بس أعمل' = بستعمل at 42:15-42:25; 'روز / ما روز' = رز / بالرز at 12:21-14:00; 'يوم' at 52:12-52:20 likely the engine for خيار (cucumber); 'حافظي' = حافزي (S4). 14:09-14:25 date line unclear (التاسع عشر / تسعة) - skipped. No echo-candidates file for 10-06. / No echo-candidates file for 2026-10-06. Engine: 'jerash' at 11:00/11:20 is جاج (chicken) - a name-list item, not flagged; 'أمل' at 12:17/12:38 is likely عملوها (they made it), not the name; أولتي at 45:19-47:38 = عطلتي; 'مصرية' at 42:51 = مصاري; 'بس ذا' at 11:52 = فستق; خُطّات at 29:19-29:45 may be خطة/خطتك misheard. Long English-only stretches 00:03-04:36, 23:16-28:30 (rule talk on تاني), 41:25-43:20, 46:17-50:00 (rule talk). 14:09 date line is unclear. 42:15-42:39 (بس أعمل / على or بي) too garbled to judge.",
+   "notes": [
+    "grammar: 2 of the 31 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 28:37 one turn was both a use and a slip of the same rule: one attempt, wrong."
+   ],
+   "page": "lessons/2026-10-06.html",
+   "detail": "data/lessons/2026-10-06.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-06",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
+   "counts": {
+    "turns": 1008,
+    "chat_lines": 0,
+    "vocab_errors": 17,
+    "vocab_correct": 84,
+    "grammar_errors": 31,
+    "grammar_not_counted": 0
+   },
+   "ledger": {
+    "file": "data/lesson-work/ledger/2026-10-06.json",
+    "marks": 278,
+    "conflicts": 1,
+    "resolved": 1,
+    "needs_medi": 0,
+    "mode": "on",
+    "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: pass 1 70.0 %; 2 consecutive passes at >= 95 % are needed",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3738 s) compared with a second model",
+     "checks: 3 scored rows need an audio or human check (2 words, 1 grammar)"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 55,
+       "r2": 53,
+       "agreed": 42,
+       "disputed": 18,
+       "agreement_pct": 70.0
+      }
+     ],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 3738.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 3738.0,
+     "first_t": 3.03,
+     "last_t": 3733.77,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 3738.0,
+     "first_t": 2.86,
+     "last_t": 3731.89,
      "missing": [],
      "holes": [],
      "missing_s": 0,

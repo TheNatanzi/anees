@@ -6,14 +6,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **622** (sweep had 312) |
-| Grammar she let pass (B, to Amal) | 89 |
-| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 10 |
-| Vocab fixes Amal voiced (A) | **294** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 169, '0': 117, '2': 47, '3': 5} |
+| Grammar fixes Amal voiced (A) | **653** (sweep had 312) |
+| Grammar she let pass (B, to Amal) | 92 |
+| Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 13 |
+| Vocab fixes Amal voiced (A) | **310** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 178, '0': 122, '2': 50, '3': 5} |
 | Vocab she let pass (B, to Amal) | **45** by tier {'1': 25, '2': 14, '3': 6} |
-| Listening-drill misreads (kept apart) | 82 |
-| Rows the readers found that the sweep did not have | 723 |
+| Listening-drill misreads (kept apart) | 83 |
+| Rows the readers found that the sweep did not have | 778 |
 | Sweep rows the readers did not list (kept) | 115 |
 | Machine audit already had | 104 |
 
@@ -40,6 +40,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-10-01 | 16 | 2 | 4 | 3 | 2 | 0 | 0 | 78.8 % |
 | 2026-10-02 | 18 | 0 | 10 | 1 | 2 | 0 | 0 | 52.8 % |
 | 2026-10-05 | 24 | 0 | 12 | 1 | 0 | 0 | 0 | 76.7 % |
+| 2026-10-06 | 31 | 3 | 16 | 0 | 1 | 0 | 0 | 70.0 % |
 
 ## Reader passes (the loop)
 
@@ -62,42 +63,43 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 - **2026-10-01**: pass 1: r1 29 r2 30 agreed 26 disputed 7 (78.8 %), r3 kept 4 dropped 3 -> 30 rows
 - **2026-10-02**: pass 1: r1 33 r2 28 agreed 19 disputed 17 (52.8 %), r3 kept 13 dropped 4 -> 32 rows
 - **2026-10-05**: pass 1: r1 40 r2 36 agreed 33 disputed 10 (76.7 %), r3 kept 6 dropped 4 -> 39 rows
+- **2026-10-06**: pass 1: r1 55 r2 53 agreed 42 disputed 18 (70.0 %), r3 kept 13 dropped 5 -> 55 rows
 
 ## Grammar by bucket (A, speaking)
 
 | bucket | name | fixes |
 |---|---|---|
-| B18 | verb matches its subject | 61 |
+| B18 | verb matches its subject | 64 |
 | B5 | past tense | 56 |
-| B12 | make-X vs get-X | 50 |
-| D2 | verb + its fixed preposition | 49 |
-| D4 | endings on verbs | 41 |
-| B1 | present with b- | 37 |
-| A2 | idafa (possession) | 35 |
-| A8 | gender on adjectives | 35 |
-| A9 | plurals | 28 |
-| D1 | prepositions | 24 |
+| B12 | make-X vs get-X | 51 |
+| D2 | verb + its fixed preposition | 50 |
+| D4 | endings on verbs | 43 |
+| A8 | gender on adjectives | 41 |
+| B1 | present with b- | 38 |
+| A2 | idafa (possession) | 36 |
+| A9 | plurals | 31 |
+| D1 | prepositions | 25 |
+| A7 | noun + adjective | 22 |
 | A1 | el- (the) | 21 |
-| A4 | possessive endings | 20 |
-| A7 | noun + adjective | 18 |
+| A4 | possessive endings | 21 |
 | D3 | endings on prepositions | 18 |
 | B15 | participles | 16 |
 | B11 | negative commands | 16 |
 | C4 | saying no | 14 |
+| B2 | b-drop after modals | 14 |
+| C2 | the pointer rule | 14 |
 | B3 | b-drop after time words | 13 |
-| B2 | b-drop after modals | 13 |
-| C7 | illi | 12 |
-| C2 | the pointer rule | 11 |
-| PROPOSE | ? | 10 |
+| C7 | illi | 13 |
+| PROPOSE | ? | 13 |
 | B10 | commands | 9 |
+| B6 | kaan = was / were | 9 |
+| E1 | number + noun | 9 |
 | E2 | clock time | 8 |
 | C3 | comparatives | 8 |
-| B6 | kaan = was / were | 8 |
 | B8 | bakoon / ykoon | 7 |
 | A3 | feminine -t in idafa | 7 |
 | A10 | hada / hadi | 7 |
-| E1 | number + noun | 7 |
-| E4 | calendar | 6 |
+| E4 | calendar | 7 |
 | A12 | pronoun matches who you mean | 5 |
 | B16 | kan laazem | 4 |
 | A11 | kul: all vs every | 4 |
@@ -123,6 +125,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | C11 | noun, not verb, after a preposition | 1 |
 | B4b | when the b- comes back | 1 |
 | B17 | sarli | 1 |
+| D5 | preposition keeps el- | 1 |
 
 ## Sweep rows the readers did not list (kept, not dropped)
 
@@ -1574,3 +1577,65 @@ _Whole file read. Long English rule-discussion stretches (15:09-20:20, 40:21-41:
 | FA-ec3ba385 | 59:28 | grammar | A7 | Sahab-- Sahabik tani? No? 'Cause tani doesn't take L at all, right? | No. ... No, sahabak al-thaniyin. | Sahabik tani -> s7aabek el-tanyeen | A definite noun (possessive) takes an adjective with el- and plural agreement; she said No and gave sahabak al-thaniyin. | high | r1+r2 |
 | FA-0ef0c833 | 1:01:28 | vocab-A | tier 1 | So فرق right? فرق. | What is difference? They are different. | فرق -> مختلفين / غير | فرق is the noun difference; she said They are different and he said مختلف، مختلفين (sheet: different (from) / mu5talef). | high | r1+r2 |
 | FA-e0df28e5 | 1:04:07 | grammar | A10 | These are your friends which are masculine, so هداك. No. Yeah. Right? هداك? | شو؟ / غير عن. What does this mean? | هداك -> هدول | For these (plural) he said هداك (that, m.); she asked what it means and he said هدول. | high | r1+r2 |
+
+### 2026-10-06
+
+_English-only stretches: 00:03-04:36 (AI project talk), 23:16-24:11, 25:30-28:30 (تاني explanation), 42:51-43:20, 46:23-50:00 (idafa / أول discussion), 1:01:14-end. Engine wrote 'jerash' for جاج (chicken) at 11:00 / 11:20; 'أولتي / أولة' for عطلتي / عطلة at 45-47 min; 'بس أعمل' = بستعمل at 42:15-42:25; 'روز / ما روز' = رز / بالرز at 12:21-14:00; 'يوم' at 52:12-52:20 likely the engine for خيار (cucumber); 'حافظي' = حافزي (S4). 14:09-14:25 date line unclear (التاسع عشر / تسعة) - skipped. No echo-candidates file for 10-06. / No echo-candidates file for 2026-10-06. Engine: 'jerash' at 11:00/11:20 is جاج (chicken) - a name-list item, not flagged; 'أمل' at 12:17/12:38 is likely عملوها (they made it), not the name; أولتي at 45:19-47:38 = عطلتي; 'مصرية' at 42:51 = مصاري; 'بس ذا' at 11:52 = فستق; خُطّات at 29:19-29:45 may be خطة/خطتك misheard. Long English-only stretches 00:03-04:36, 23:16-28:30 (rule talk on تاني), 41:25-43:20, 46:17-50:00 (rule talk). 14:09 date line is unclear. 42:15-42:39 (بس أعمل / على or بي) too garbled to judge._
+
+| id | time | kind | tier/bucket | Medi said | Amal said | wrong -> right | why | conf | source |
+|---|---|---|---|---|---|---|---|---|---|
+| FA-95afe6a7 | 04:53 | grammar | B1 | أنا لسه أجرب. | يمين بجرب. | لسه أجرب -> لسه بجرب | After لسه the present verb keeps its b-; Amal recast بجرب and he said 'لسه doesn't get rid of the...' then لسه بجرب. | high | r1+r2 |
+| FA-713b9e9e | 05:19 | vocab-A | tier 1 | uh, مش شجعي. | no, no. شجاع is an adjective, motivated. ... متشجع you، motivated. | شجعي -> متشجع | He reached for 'motivated' with شجاع (brave); Amal said no and gave متشجع. | high | r1+r2 |
+| FA-8a4cfe50 | 05:42 | vocab-A | tier 0 | So what is motivation? | حافز or دافع. | motivation -> حافز / دافع | Amal asked for the noun ('What's the motivation as a noun?'), he only had شجع and asked; she supplied حافز / دافع (sheet: motivation / 7aafez daafe3 / حافز دافع). Separate from A2 (adjective متشجع). | high | r3 |
+| FA-783866f3 | 06:09 | grammar | D4 | Yes ما لا. Yes ما لا. | لقيته one word. | ما لا -> لا، لسه ما لقيته | Answering لسه ما لقيته؟ he split the verb (ما لا) instead of ما لقيته; Amal: 'لقيته one word' = the object -ه rides on the verb. Partly a comprehension slip; engine text unclear. | low | r3 |
+| FA-fdb9aed3 | 06:34 | grammar-propose | PROPOSE | عشان أنا بعرف عندي سفر، عندي سفرة، أنا عندي سفرة. | إنه عندي. | بعرف عندي سفرة -> بعرف إنه عندي سفرة | After بعرف (I know) Amal inserted إنه before the clause. | medium | r1+r2 |
+| FA-ebf8ebcd | 07:45 | grammar-B | E4 | أنا راح أسافر جمعة. | مم؟ | جمعة -> يوم الجمعة | 'On Friday' needs يوم الجمعة / الجمعة; Amal only said مم? and he repeated جمعة (best reading). | low | r1+r2 |
+| FA-a35ee497 | 07:57 | grammar | A8 | ليان أكلت شوربة فيتنامي. | فيتنامية. | شوربة فيتنامي -> شوربة فيتنامية | شوربة is feminine so the adjective is فيتنامية; Amal recast it (his 08:10 line also has فيتنامية, possibly a near-simultaneous self-fix). | medium | r1+r2 |
+| FA-69762fd1 | 08:38 | grammar | B6 | فور. بي فور في. | في، في، في، كان في. | بي فور في -> كان في بالـ pho | Describing soup he already ate, 'there was' needs كان في; Amal recast كان في. | medium | r1+r2 |
+| FA-0280caa1 | 08:38 | grammar | D5 | فور. بي فور في. | Or you could use بي الـ pho. في. That's much cleaner. | بي فور -> بالـ pho | After the preposition the known noun (the pho they are talking about) keeps el-: Amal said بي الـ pho, and he repeated بي إن فور (= bil-pho) at 09:07. A separate fix from A6 (the missing كان). | medium | r3 |
+| FA-eaebb674 | 09:46 | grammar | C2 | Can fee-- kun-- can it fee. | بس هذي الشوربة كان فيها جاج. ... we flip it and we say كان فيها and then جاج. | can it fee -> هذي الشوربة كان فيها جاج | He tried كان في with the soup fronted; Amal built كان فيها (the -ها pointing back to the soup) and he asked 'why is it pointering?'. Low: largely guided help after he asked 'I need to use fee, right?'. | low | r3 |
+| FA-990e0961 | 11:49 | vocab-A | tier 1 | Fistin? Can I say peanut? ... Fistan. I was close. Sauce fistan. | بس ذا. (engine; she said the word) | Fistin -> فستق | Non-word fistin for peanut (sheet: peanuts / Fustu2 / فستق); Amal said the word (engine wrote بس ذا) and he answered 'Fistan. I was close' - taking her fix. | low | r3 |
+| FA-2493ea87 | 12:02 | vocab-A | tier 2 | oo nood-- uh, macaron. | مكرونة | macaron -> مكرونة | He said macaron; Amal recast مكرونة and he later asked if it is feminine (ماكرونة). | high | r1+r2 |
+| FA-f757f66c | 12:58 | grammar | D4 | آآ، بيعملوا. | بيعملوها what؟ They make it. | بيعملوا -> بيعملوها | 'They make it' needs the object ending -ها; Amal said بيعملوها and he said بيعملوها at 13:17. | high | r1+r2 |
+| FA-058f1fd0 | 13:17 | grammar | D1 | بيعملوها ما روز. | يعني بيعملوها بالرز، بالرز. | ما روز -> بالرز | 'Made with rice' = بالرز (bi + el-); he said ma roz, Amal recast بالرز. | medium | r1+r2 |
+| FA-dce24dc3 | 15:41 | grammar | E1 | عشرة دقيقة. It's ten minutes to | عشر دقايق. | عشرة دقيقة -> عشر دقايق | 3-10 take the plural and the number drops its ending; Amal recast عشر دقايق (he repeated عشرة دقيقة at 15:47). | high | r1+r2 |
+| FA-c36deca3 | 16:25 | vocab-A | tier 0 | بالtelephony. | بالتليفون. | telephony -> التليفون | He used a made-up English form; Amal supplied بالتليفون. Phone is not on her sheet, so this is a didn't-know supply (tier 0), not a tier-2 form slip. | medium | r3 |
+| FA-877eb514 | 16:47 | grammar-B | B18 | عشان جاؤوا الشوب. |  | جاؤوا الشوب -> إجا الشوب | الشوب is singular so the verb is إجا, not plural جاؤوا (best reading); Amal let it pass. | low | r1+r2 |
+| FA-2412b6ab | 17:42 | vocab-A | tier 2 | هذه سنة. | هذي. | هذه -> هذي | He used the MSA form هذه; Amal recast the spoken هذي (he still said هذه السنة at 17:46). The el- on السنة was his own addition - see D8. | medium | r3 |
+| FA-ff759ee6 | 18:36 | grammar | A2 | الوسط، الوسط الـ أمريك-- أمريكا | وسط، no ال. 'Cause you're saying it's إضافة again. وسط. | الوسط الـ أمريكا -> وسط أمريكا | In idafa the first word takes no el-; Amal named it (إضافة). | high | r1+r2 |
+| FA-8ffefa50 | 18:59 | grammar-propose | PROPOSE | sorry وسط الـ America. | أمريكا doesn't need ال. وسط أمريكا. | وسط الـ America -> وسط أمريكا | A proper noun (country, name) never takes el-; Amal: 'أمريكا doesn't need ال' and explained proper nouns. | high | r1+r2 |
+| FA-978cbd09 | 20:20 | grammar | B18 | بيحتاج، no. Uh, yeah, بيحتاج، ... يجهز. | So بيحتاجوا يجهزوا. | بيحتاج يجهز -> بيحتاجوا يجهزوا | The subject is the people in middle America (they); Amal recast both verbs plural. | high | r1+r2 |
+| FA-36fa7dd1 | 21:15 | vocab-A (listening) | tier 0 | what, what'd you say? ... عرا؟ | قرأت. | عرا -> قرأت | Listening: he did not catch her قرأت and asked; she repeated it and at 21:32 explained the glottal stop (بقرأ). | low | r3 |
+| FA-9bfd5768 | 21:58 | grammar | D2 | أحكي الـ AI. | أحكي لـ الـ AI. | أحكي الـ AI -> أحكي لـ الـ AI | احكي takes لـ for the person told; Amal recast and he repeated it. | high | r1+r2 |
+| FA-87d76f1c | 22:10 | grammar-propose | PROPOSE | لازم، | إنه لازم. [تضحك] لازم | لازم -> إنه لازم | After أحكي لـ الـ AI the reported clause needs إنه; Amal supplied إنه لازم and he repeated it. | medium | r1+r2 |
+| FA-dcc889d1 | 22:25 | grammar | B2 | بيبأتك. | يبعت. Why? | بيبأتك -> يبعت | After لازم the verb drops b-; Amal said يبعت. Why? (he still said بيبأت لك at 22:35, same moment). | high | r1+r2 |
+| FA-dcc889d1x | 22:25 | rejected | D2 | بيبأتك. | يبعت إلك. So يبعت لك. | بيبأتك -> يبعت لك | Send TO you = يبعت لك (ending on لـ, not on the verb); Amal recast. | high | r1+r2 |
+| FA-ea72603b | 22:41 | vocab-A | tier 0 | the results to you. أنا الـ، الـ آخر، الـ... | نتيجة، نتائج. Natije is result. | results -> نتائج | He could not find 'results'; Amal supplied نتيجة / نتائج. | high | r1+r2 |
+| FA-b83f6f11 | 28:37 | grammar | A7 | التاني الـ الفساتين-- الفستان. | No. الفستان التاني. | التاني الـ الفستان -> الفستان التاني | Adjective goes after the noun and both take el-; Amal said No. الفستان التاني (his 28:47 فستان التاني is the same moment). | high | r1+r2 |
+| FA-0323bb5f | 29:45 | grammar | A8 | So, uh, خُطّاتك التاني. | بس خطة is what? ... No. صح you said it right the first time بس it had to be تاني[ة], yeah. | خُطّاتك التاني -> خطتك التانية | خطة is feminine so the adjective must be التانية; Amal prompted the gender ('بس خطة is what?') and he said خُطّاتك التانية at 30:05. The خُطّات plural-form slip is agreed row A21. | high | r3 |
+| FA-28ef7d0a | 30:13 | vocab-A | tier 2 | The خُطّات? | خطط. | خُطّات -> خطط | Asked the plural of خطة he gave an invented pattern خطات; Amal said خطط. | high | r1+r2 |
+| FA-640005af | 32:20 | grammar | C2 | عملتي or خطيتي. خطيتي. | It's not relevant to this lesson. بس what do we need at the end? ... Mm-hmm. ليش؟ | خطيتي -> حطيتيها | With the object fronted (أول خطة) the verb needs -ها pointing back; Amal prompted 'what do we need at the end?', he said pointer and gave خطتيها / عملتيها at 32:54. | high | r3 |
+| FA-e6c3b544 | 32:54 | vocab-A | tier 1 | خطتيها or, um, عملتيها. | One correction is حطتيها not حطتيها. (engine wrote both the same: حطيتيها not خطيتيها) | خطتيها -> حطيتيها | He built a verb from خطة (plan) instead of حط (put) - Amal had just taught 'we put plans' (31:23); she said 'One correction is حطيتيها'. The C2 pointer fix at this moment is D16. | medium | r3 |
+| FA-4e7a006e | 34:39 | grammar | A8 | خطة ثاني. خط-- Yeah, خطة ثاني. | Fa... | خطة ثاني -> خطة ثانية | خطة is feminine; after Amal's prompt he said ثانية. | medium | r1+r2 |
+| FA-8998d451 | 35:27 | grammar | A9 | أبأقلب الخطة، | بس خطط. It's not one. | الخطة -> الخطط | 'Most of the plans' needs the plural خطط; Amal: بس خطط. It's not one. | high | r1+r2 |
+| FA-09b526f3 | 35:39 | grammar | C7 | بعمله because it's masculine. | That I make. | بعمله -> إلي بعمله | After the definite noun the clause needs إلي; after Amal's 'That I make' he said إلي بعمله. | high | r1+r2 |
+| FA-c8de4cfa | 35:47 | grammar | C2 | إلي بعمله. | بس خطط. It's not one. | بعمله -> بعملهم | The pointer ending must match plural خطط; he then said بعملهم. | high | r1+r2 |
+| FA-348c7972 | 36:13 | grammar-B | A9 | خطة. | طب two plans? | خطة -> خطط | Asked 'three plans or more' he gave singular خطة; Amal moved on. | medium | r1+r2 |
+| FA-ae1bf8ba | 36:19 | grammar | A9 | خطة. | خطتين. | خطة -> خطتين | Two has its own dual form; Amal recast خطتين twice (he also said خطة ثان). | high | r1+r2 |
+| FA-37caf5df | 37:55 | grammar | B12 | تـ-- uh, تنبس... تنبستي | No. ... (38:26) No N. N is for get happy. Make happy is... | تنبستي -> يبسطوكي | With money as the subject he needs make-happy (بسّط) not get-happy (انبسط); Amal said No, he retried ينبستك at 38:24 and she named the rule at 38:26. One moment (GR-28). Plural agreement is A28. | high | r3 |
+| FA-3e995841 | 38:43 | grammar | B18 | يبستك. | It's plural. | يبستك -> يبسطوكي | مصاري is plural so the verb is plural; Amal said It's plural and recast يبسطوا كي. | high | r1+r2 |
+| FA-dd054a6f | 41:04 | vocab-A | tier 1 | أنا ما بدفع أغلب المساري. | What do you mean? You, you mean spend? We don't know spend. | بدفع -> (spend - not taught yet) | He used بدفع (pay) for 'spend'; Amal questioned it and he agreed 'Badfa is pay, not spend'. | medium | r1+r2 |
+| FA-75dc1bf0 | 41:36 | vocab-A | tier 1 | أنا بدل أغلب | كيف يعني أنا بضل؟ ... No. I stay أنا بضل. | بدل -> بستعمل (what he then used) | He used بضل (stay / keep on) for 'keep/spend money'; Amal said No, it means I stay. | high | r1+r2 |
+| FA-1c580ba6 | 43:40 | grammar | A7 | one plan واحدة خُطّة. | No. خطة واحدة. | واحدة خُطّة -> خطة واحدة | واحدة is an adjective and goes after the noun; Amal said No. خطة واحدة. | high | r1+r2 |
+| FA-7c3420c3 | 45:28 | vocab-A | tier 1 | أولتي واحدة. | No. Now you said my first. So what's first? | واحدة -> أولى | He used واحدة (one) for 'first'; Amal said No, what's first? (engine wrote أولتي for عطلتي). | high | r1+r2 |
+| FA-23b1bccc | 45:43 | grammar | A8 | Oh, أول. Ash. | Feminine. | أول -> الأولى | عطلة is feminine so first = الأولى; Amal: Feminine, then العطلة الأولى. | high | r1+r2 |
+| FA-896201e9 | 46:12 | grammar | A7 | أولتي أولى. | الأولى. ليش؟ | أولتي أولى -> عطلتي الأولى | An adjective after a definite noun (عطلتي) takes el-; Amal recast الأولى (engine wrote أولتي for عطلتي). | high | r1+r2 |
+| FA-6fbbb458 | 50:19 | vocab-A | tier 0 | uh, since... Do I know since? ... It's, it's la, la, right? | لا، لا is until. Since is من، from. | la -> من | He asked 'Do I know since?' and guessed la (until); Amal: la is until, since is من. A question, so tier 0. | medium | r3 |
+| FA-4a3e654c | 51:00 | grammar | E1 | من تلات, تلات شهر. | شو plural شهر؟ | تلات شهر -> تلات شهور | 3-10 take the plural; Amal asked the plural and he said تلات شهور. | high | r1+r2 |
+| FA-0788b479 | 51:56 | vocab-A | tier 1 | مختار or something like that? مختار؟ | It sounds very much like cucumber. ... So خيار is choice. | مختار -> خيار | He reached for مختار for 'choice'; Amal hinted cucumber and gave خيار (sheet: option – options / 5ayaar / خيار). | high | r1+r2 |
+| FA-37d20baa | 53:36 | grammar | A4 | سفرة المفضل. | My trip that is favorite. | سفرة -> سفرتي | 'My trip' needs the possessive ending; Amal prompted and he said سفرتي. | high | r1+r2 |
+| FA-7eb585e6 | 53:49 | grammar | A8 | المفضل. | المفضلة. | المفضل -> المفضلة | سفرة is feminine so المفضلة; Amal recast and he repeated سفرتي المفضلة. | high | r1+r2 |
+| FA-b80d8d52 | 54:22 | vocab-A | tier 1 | is the one. Uh, واح-واحدة... | بس is the one is اللي. | واحدة -> اللي | He used واحدة for 'is the one'; Amal said 'is the one' is اللي. | medium | r1+r2 |
+| FA-f35210da | 55:57 | vocab-A | tier 1 | أنا عندي وحيد، واحدة. | وَاحِد is, uh, is as in like only as an adjective, like a child. But this only is not وَاحِد. It's just بَس. | وحيد -> بس | He used وحيد (only child) for 'only'; Amal said this 'only' is just بس. | high | r1+r2 |
+| FA-1ede885a | 55:57 | grammar | A7 | أنا عندي وحيد، واحدة. | So وَاحِد is an adjective. It goes after the noun. | عندي واحدة -> عندي خيار واحد | واحد goes after the noun; Amal named it (and again 'After.' at 56:37); he got عندي خيار واحد at 57:01. | high | r1+r2 |
+| FA-ee31c84a | 59:21 | grammar | A8 | عطلتنا الثاني. ... الثانيين. | عُطلة تانية ... 'Cause عُطلة is feminine and تانية should be feminine as well | الثاني -> التانية | عطلة is feminine so التانية; Amal: 'the only fix I made is تانية cause it's feminine'. | high | r1+r2 |
