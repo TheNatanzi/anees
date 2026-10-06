@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
- "updated": "2026-10-04",
- "total": 175,
+ "updated": "2026-10-05",
+ "total": 176,
  "replaced": 8,
  "counts": {
-  "Automatic": 95,
+  "Automatic": 96,
   "Written down": 68,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -1884,12 +1884,26 @@
    "key": "flashcards",
    "title": "Flashcards",
    "intro": "How the review cards work.",
-   "count": 9,
+   "count": 10,
    "sections": [
     {
      "kind": "data",
      "heading": "Facts and records",
      "rules": [
+      {
+       "id": "FC-12",
+       "text": "On a flashcard the English side never shows the Arabic answer written in English letters: a note like (bel-3aks = on the contrary) is cut off the card, because it gives the answer away.",
+       "status": "enforced",
+       "topic": "card faces",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Remove the bel 3aks here from the flash card it's too much of a hint"
+        }
+       ]
+      },
       {
        "id": "FC-10",
        "text": "Two of Amal's card sets with the same name show as one tile; the newer set's spelling wins, repeated cards show once, and your answers on a dropped copy count for the kept card.",

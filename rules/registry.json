@@ -7300,6 +7300,44 @@
      "contains": "def test_pg27_no_status_claims_more_than_is_true"
     }
    ]
+  },
+  {
+   "id": "FC-12",
+   "kind": "data",
+   "scope": "flashcards",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The English side of a flashcard never carries the Arabic answer in Latin letters: a ( ) note or an 'X = meaning' gloss that holds an Arabizi word (a 2/3/5/6/7/8/9 inside a word, or an el-/bel-/bil-/3al- prefix) is cut from the English face at display time (docs/js/cards-selection.js stripArabiziHints, used by cards.html enBase); the Doc text and Amal's spellings are not edited; the browser audit (F14) and a node test check every English face.",
+   "plain": "On a flashcard the English side never shows the Arabic answer written in English letters: a note like (bel-3aks = on the contrary) is cut off the card, because it gives the answer away.",
+   "plain_for": "30be9c98",
+   "topic": "card faces",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Remove the bel 3aks here from the flash card it's too much of a hint",
+     "session": "c7fcff48"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/cards-selection.js",
+     "contains": "function stripArabiziHints(en) {"
+    },
+    {
+     "type": "doc",
+     "path": "docs/flashcard-rules.md",
+     "contains": "| F14 | The English side never shows the Arabic answer in Latin letters"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_cards_english_side.cjs",
+     "contains": "test('FC-12 stripArabiziHints cuts the Arabizi gloss"
+    }
+   ],
+   "aliases": []
   }
  ]
 }

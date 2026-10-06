@@ -231,7 +231,7 @@ function enPlural(e){ e=String(e).trim().replace(/^\([^)]*\)\s*/,'').replace(/^(
   return (pre+pl+rest+note).split(' ').map(t=>/^[A-Z]{2,}s?$/.test(t)?t:t.toLowerCase()).join(' '); }
 // Hand-picked English notes for look-alike words (Rule F7; Medi 2026-10-01: Tair = bird in general vs 3asfoor = small bird).
 const EN_NOTE={tair:'general'};
-const enBase=w=>w.drill?String(w.english||'').replace(/^(.+?) · (.+!)$/,'$1, $2').replace(/ · /,' '):w.english;
+const enBase=w=>SEL.stripArabiziHints(w.drill?String(w.english||'').replace(/^(.+?) · (.+!)$/,'$1, $2').replace(/ · /,' '):w.english);   // FC-12: no Arabizi hint on the English side
 // Rule F2: the plural field holds a plural. Person forms (Tewsal "m: Tewsal f: Tewsli") are not a plural, and a plural spelled
 // like the singular (His-his · his-his) is said once.
 const isForms=p=>/(^|\s)[mfp]:\s/i.test(String(p||''));

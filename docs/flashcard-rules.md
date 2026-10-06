@@ -22,6 +22,7 @@ Quizlet data are never edited by the page (her wording and spelling are the rule
 | F11 | Verb drills: no ` · ` on the card (`I excite (someone)`); the stored data keeps its own format for Amal's verb check | |
 | F12 | Amal's Quizlet sets with the same title (case and spaces ignored) are ONE tile. The newest set (highest Quizlet id) is the base, with its spelling and order; an older set's card is dropped when the same card is already there (same Arabic, or same Arabizi + same English), else it is added with its own old key. A dropped card's answers count for the kept card (read only; no stored row is changed). Rule FC-10, Medi 2026-10-02 ("why are there 2 adverbs of time?"). Code: `mergeSameTitle` / `mergeAliases` in `docs/js/cards-selection.js`, read in `docs/cards.html` (`ALIAS`); test: `tests/test_cards_selection.cjs` | `Adverbs of Time` (3) + `Adverbs of time` (29) → one tile, 29 cards (`Mbaare7`, not `Mbare7`) |
 | F13 | A set sits in the section of what its cards drill: a verb's conjugations are Verbs, even with pronouns on it (`ba2ul conjugations`, `Beddi + 3endi Conjugation`, `Pronoun Objects With Verbs`, `Irregular Past Tenses`, `babse6 - banbese6 group`). `verb` must be a whole word (`Adverbs of time` is Topics). Possession & pronouns = possessive endings and prepositions + pronouns only. Rule FC-11, Medi 2026-10-02 ("isnt ba2ul a verb?"). Code: `SET_GROUPS` / `sectionOf` in `docs/js/cards-selection.js`; test: `tests/test_cards_selection.cjs` | `ba2ul conjugations` → Verbs |
+| F14 | The English side never shows the Arabic answer in Latin letters (no Arabizi in a `( )` note: `opposite (bel-3aks = ...)` gives the answer away). Medi 2026-10-05: "Remove the bel 3aks here from the flash card it's too much of a hint". Say the meaning in English instead | `opposite (also: on the contrary)` |
 
 ## What the audit checks (scripts/flashcard_audit_browser.js)
 
@@ -35,6 +36,7 @@ All three sources (Doc words, Quizlet-only cards, verb-drill forms), both modes 
 | P3 | The reverse: no English plural (` · ` or `X - Xs`) on a card whose Arabic has none |
 | P4 | No Quizlet bracket plural is missed |
 | P5 | No English back in a plural set is labelled Plural |
+| F14 | No Arabizi (a word with 2/3/5/6/7/8/9, or an el-/bel- prefix) on the English side |
 
 ## How answering works
 

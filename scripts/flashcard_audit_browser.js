@@ -65,6 +65,9 @@
     // P4: a Quizlet bracket the page did not read as a plural must be a preposition, gender note or spelling
     if (src === 'Quizlet' && !hasPl(w) && SEL.quizletPlural(w.arabizi, w.english)) add('P4 Quizlet plural in brackets missed', w.arabizi + ' = ' + w.english);
     if (/(^|\s)[mfp]:\s/i.test(A)) add('F2 person forms shown as a plural', A);
+    // F14: the English side never carries the Arabic answer in Latin letters (Medi 2026-10-05: "Remove the bel 3aks here from
+    // the flash card it's too much of a hint") - an Arabizi word (a 2/3/5/6/7/8/9 inside a word, or an el-/bel- prefix) is a giveaway
+    if (/[A-Za-z]*[235678][A-Za-z]+|[A-Za-z]+[235678][A-Za-z]*|(el|bel|bil|3al)-[A-Za-z]/.test(E)) add('F14 Arabizi hint on the English side', w.arabizi + ' = ' + E);
     if (/somethings|onlies|happies|stomaches|day offs|homeworks|weathers|sceneries|mosquitos\b|groceries stores|\((travel|local)\) trips|pantses|glasseses|sheeps|deers/i.test(E)) add('F4 bad English plural', E);
   }
   // P5: Amal's plural sets - a back in English ("my uncles's (F) sons/kids", "Country") is not labelled Plural
