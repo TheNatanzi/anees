@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T10:30:08-07:00",
+ "updated": "2026-10-06T10:49:36-07:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -3760,8 +3760,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "جهزت",
-   "said": "uh، جهز، جهزت...",
-   "reason": "He used جهزت (prepared) for cooking the dish; she said عملت / طبخت is the right fit for food and typed 3emlatha.",
+   "said": "أم خطيبتي، uh، جهز، جهزت...",
+   "reason": "For cooking a dish she said جهزت gives the prepared-everything impression and supplied عملت/طبخت, then prompted فعملت; chat em 5atibti 3emlatha.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-bf5ddaa3"
   },
@@ -3779,48 +3779,29 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "خريف",
-   "said": "لحمت، لحمت خريف،",
-   "reason": "He said خريف (autumn) for خروف (lamb); she echoed خريف and asked what it means, he switched to خروف; her chat la7met 5aroof.",
+   "said": "خريف،",
+   "reason": "He said خريف (autumn) for lamb meat; she echoed it questioningly, he switched to خروف; chat la7met 5aroof.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-75e802ae"
   },
   {
-   "id": "audit:FA-1889bfa3",
+   "id": "audit:FA-02c630f3",
    "word_key": "banjar",
    "entry_id": "banjar:word",
    "lesson_date": "2026-10-05",
-   "t_start": 500,
-   "t_end": 500,
+   "t_start": 493,
+   "t_end": 493,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "beets",
-   "said": "أنا نسيت الـ...",
-   "reason": "He forgot the word for beets; she supplied بنجر.",
+   "text": "(forgot beets)",
+   "said": "Do I know the word for beets? ... أنا نسيت الـ...",
+   "reason": "He forgot the word for beets and said so; she supplied بنجر - a didn't-know.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-1889bfa3"
-  },
-  {
-   "id": "audit:FA-58910c1d",
-   "word_key": "awA3i",
-   "entry_id": "awA3i:word",
-   "lesson_date": "2026-10-05",
-   "t_start": 1258,
-   "t_end": 1258,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "my clothes",
-   "said": "How do you say my clothes? Is it أَوَا...",
-   "reason": "He asked how to say my clothes; she supplied أوايي (awa3iyyi).",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-58910c1d"
+   "audit_uid": "FA-02c630f3"
   },
   {
    "id": "audit:FA-c0e4d09d",
@@ -3837,7 +3818,7 @@
    "vocab_points": 0,
    "text": "أكثر",
    "said": "كانت أكثر إشي.",
-   "reason": "He used أكثر (most) for 'best'; she pushed with best/better and he said أحسن.",
+   "reason": "He used أكثر (most) for best; she prompted best? Better. and he said أحسن.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-c0e4d09d"
   },
@@ -3855,8 +3836,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "يزعل",
-   "said": "كان يزعل.",
-   "reason": "He said يزعل (saddens) for 'boring'; she recast بيزهق, chat be/yzahhe2.",
+   "said": "آخر الدرس كان يزعل.",
+   "reason": "For boring he used يزعل (sad); she recast بيزهّق (sheet: boring / causes boredom | beyzahheq) and he repeated it (engine wrote يزعل again).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-973f126e"
   }
@@ -4134,6 +4115,17 @@
    "keyed_by": "auto-part"
   },
   {
+   "uid": "FA-8e86056a",
+   "date": "2026-10-05",
+   "t": 2421,
+   "key": "bishe3",
+   "kind": "wrong",
+   "said": "كانت، uh، قبيحة.",
+   "wrong": "قبيحة",
+   "why": "which list word it is waits for a reader (the automatic match was part)",
+   "keyed_by": "auto-part"
+  },
+  {
    "uid": "FA-0571abfc",
    "date": "2026-10-05",
    "t": 3112,
@@ -4150,7 +4142,7 @@
    "t": 3554,
    "key": "tAni",
    "kind": "wrong",
-   "said": "sahabik farq.",
+   "said": "farq.",
    "wrong": "farq",
    "why": "which list word it is waits for a reader (the automatic match was latin)",
    "keyed_by": "auto-latin"

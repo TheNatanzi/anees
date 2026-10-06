@@ -1,7 +1,7 @@
 {
  "about": "Rows two AIs disagree on (Claude readers: a mistake Amal signalled; Codex, listening to an independent transcription of the audio: not so, or cannot tell). Built by scripts/codex_rejudge.py. Amal answers on the Tutor page; her 'Correction is correct' makes the row a scored mistake, her reason drops it (scripts/apply_amal_audit_rulings.py).",
- "built": "2026-10-06T10:29:47-07:00",
- "count": 22,
+ "built": "2026-10-06T10:47:26-07:00",
+ "count": 23,
  "items": [
   {
    "id": "verify:FA-8096ecda",
@@ -464,6 +464,27 @@
    "codex_verdict": "rejected",
    "audio": "lessons/2026-09-28/audio/lesson.mp3#t=3389,3420",
    "sec": 3399.0
+  },
+  {
+   "id": "verify:FA-5dc5d196",
+   "uid": "FA-5dc5d196",
+   "date": "2026-10-05",
+   "t": "17:15",
+   "t_amal": "17:19",
+   "kind": "grammar",
+   "bucket": "C4",
+   "tier": null,
+   "medi_said": "مش لـ-- مش بتحتاج الـ.",
+   "amal_said": "هلأ قصدك إنه أغلب ما بتحتاج ال أو الكلمة اللي بعدها.",
+   "chat": null,
+   "wrong": "مش بتحتاج",
+   "right": "ما بتحتاج",
+   "english": "it doesn't need el-",
+   "readers_say": "He negated a verb with مش; her clarifying question restated it with ما بتحتاج and he switched to ما بتحتاج at 17:51. Low: her turn is mainly about meaning, so the recast may be incidental.",
+   "codex_says": "Medi did say «مش بتحتاج», but Amal's next turn is a meaning clarification, not a clear correction of مش to ما. The later «ما بتحتاج» can be her own phrasing rather than a signalled error.",
+   "codex_verdict": "rejected",
+   "audio": "lessons/2026-10-05/audio/lesson.mp3#t=1025,1060",
+   "sec": 1035.0
   }
  ],
  "answered": [

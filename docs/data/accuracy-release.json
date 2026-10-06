@@ -15,18 +15,18 @@
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
    "eligible": 1626,
    "excluded": 13,
-   "pending": 3
+   "pending": 2
   },
   "grammar": {
    "verified_avg_pct": null,
    "unverified_avg_pct": 82.4,
    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
    "denominator_valid_lessons": 0,
-   "eligible": 614,
+   "eligible": 611,
    "excluded": 36,
-   "pending": 18
+   "pending": 15
   },
-  "verification_queue": 21,
+  "verification_queue": 17,
   "word_bank": {
    "occurrences": 3051,
    "eligible": 1403,
@@ -1103,29 +1103,28 @@
    "date": "2026-10-05",
    "release": "not verified",
    "reasons": [
-    "reader agreement: pass 1 76.6 %; 2 consecutive passes at >= 95 % are needed",
-    "coverage: no source audit of the raw audio for this lesson (run scripts/source_audit.py)",
+    "reader agreement: pass 1 76.7 %; 2 consecutive passes at >= 95 % are needed",
     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3912 s) compared with a second model",
-    "checks: 5 scored rows need an audio or human check (1 words, 4 grammar)"
+    "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
    ],
    "words": {
-    "pct": 85.0,
-    "eligible_pct": 85.0,
+    "pct": 84.6,
+    "eligible_pct": 84.6,
     "verified_pct": null,
     "scored": 123,
     "eligible": 123,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "excluded_why": {}
    },
    "grammar": {
     "pct": null,
     "verified_pct": null,
-    "mistakes": 27,
+    "mistakes": 24,
     "uses": null,
-    "eligible": 27,
+    "eligible": 24,
     "excluded": 0,
-    "pending": 4,
+    "pending": 1,
     "estimate": false,
     "denominator_valid": false,
     "denominator_reasons": [
@@ -1149,7 +1148,7 @@
     "timing": "engine"
    },
    "agreement": [
-    76.6
+    76.7
    ],
    "between_passes": []
   }

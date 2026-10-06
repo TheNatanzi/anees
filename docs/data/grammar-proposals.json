@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T10:28:20-07:00",
+ "updated": "2026-10-06T10:43:27-07:00",
  "rule": "GR-18",
  "about": "Grammar corrections Amal made that fit no existing rule. Each is a proposed new rule for Medi's yes or no; nothing here is scored until he says yes. Built by scripts/full_audit_build.py from the audit rows and data/lesson-work/full-audit/proposed-buckets.json.",
  "proposals": [
@@ -333,7 +333,7 @@
   {
    "id": "P-FA-89701583",
    "name": null,
-   "proposed_rule": "An ordinal toolbox word (أول / تاني / آخر) needs a noun after it; for 'the first one' say أول واحد: nafs awal waa7ad.",
+   "proposed_rule": "An ordinal or superlative standing for the ... one takes waa7ad / wa7de after it, matching the noun: nafs awal waa7ad, a7san wa7de.",
    "family": null,
    "from": "audit-2026-09-26 row FA-89701583 (no bucket fits)",
    "medi": null,
@@ -344,14 +344,40 @@
      "t": "54:04",
      "t_amal": "54:23",
      "medi_said": "آآآ، yeah، just نفس أول.",
-     "amal_said": "No، آآ go on. أول شو؟ ... What's one? What's one?",
+     "amal_said": "أول شو؟ / What's one? What's one?",
      "chat": "taani ijtimaa3 kaan nafs awal waa7ad",
      "wrong": "نفس أول",
      "right": "نفس أول واحد",
      "kind": "grammar-propose",
      "bucket": "PROPOSE",
      "confidence": "medium",
-     "why": "He stopped at أول with no noun; she asked أول شو / what's one and he added واحد.",
+     "why": "The same as the first one needs واحد after أول; she prompted What's one? and he said أول واحد.",
+     "also_counted_as": []
+    }
+   ]
+  },
+  {
+   "id": "P-FA-5ecfb7dc",
+   "name": null,
+   "proposed_rule": "A clause after a verb of seeing / knowing / saying needs enno (that): ba3ed ma shufna enno taani mat3am kaan nafs el-ishi.",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-5ecfb7dc (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-5ecfb7dc",
+     "date": "2026-10-05",
+     "t": "55:44",
+     "t_amal": "55:52",
+     "medi_said": "Ba'id ma shufna. After we saw...",
+     "amal_said": "That. You didn't-- You did-- You need a that here.",
+     "chat": "ba3ed ma shufna enno tani mat3am kaan nafs el-ishi, rawwa7na",
+     "wrong": "(no enno)",
+     "right": "enno",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "high",
+     "why": "After we saw a clause follows; she said You need a that here and he added Enna (enno).",
      "also_counted_as": []
     }
    ]
