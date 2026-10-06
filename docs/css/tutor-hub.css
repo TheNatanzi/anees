@@ -9,6 +9,7 @@
 /* phone (PG-17, 2026-10-02): the open item sits right under its row, like an accordion; the list never disappears */
 @media(max-width:959px){#anees-bank .hb-list .hb-panel{margin:-4px 0 6px;border-top-left-radius:0;border-top-right-radius:0;padding:14px 12px}}
 #anees-bank .hb-list{display:grid;gap:10px}
+#anees-bank .hb-list [data-rows]{display:grid;gap:8px}   /* Medi 2026-10-05 "some space between the pill tiles": the rows sit in their own box, which had no gap */
 #anees-bank .hb-row{display:block;width:100%;box-sizing:border-box;text-align:left;border:1px solid var(--ab-line);background:var(--ab-panel);color:var(--ab-text);border-radius:12px;padding:12px 14px;cursor:pointer;font:inherit}
 #anees-bank .hb-row:hover{border-color:var(--ab-muted)}
 #anees-bank .hb-row[aria-current="true"]{border-color:var(--vp-sage,#2E6A4E);box-shadow:inset 0 0 0 1px var(--vp-sage,#2E6A4E)}   /* Medi 2026-10-05 "line up better": same box as every row, the selected one only gets the green edge */

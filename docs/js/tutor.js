@@ -16,7 +16,7 @@
   const pretty = d => d ? new Date(String(d).slice(0, 10) + 'T12:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
   const today = () => new Date().toISOString().slice(0, 10);
   const PAGE = 20;
-  let T = { open: [], closed: [] }, tasks = [], verifyN = null, NW = null, LG = null, UP = null, HW = null;
+  let T = { open: [], closed: [] }, tasks = [], verifyN = null, NW = null, LG = null, UP = null, HW = null, PR = null;
 
   async function rest(path, token) {
     const H = { apikey: ANEES.anon, Authorization: 'Bearer ' + ANEES.anon, 'X-Anees-Token': token };
@@ -60,7 +60,7 @@
   }
 
   // ---- the task list -------------------------------------------------------------------------------------------
-  const MIN_EACH = { after: 0.7, before: 0.7, verify: 0.4, ledger: 0.5, review: 1.2, verb_check: 0.1, word_review: 0.3, newwords: 0.3, listen: 0.25 };
+  const MIN_EACH = { proposals: 1.5, after: 0.7, before: 0.7, verify: 0.4, ledger: 0.5, review: 1.2, verb_check: 0.1, word_review: 0.3, newwords: 0.3, listen: 0.25 };
   const UNIT = { after: 'moments', before: 'questions', review: 'slip patterns', verb_check: 'verb forms', word_review: 'lines', verify: 'moments', ledger: 'moments', newwords: 'words', listen: 'lines' };
   function taskOf(it, L) {
     const total = it.total || 0, d = Math.min(total, (L && L.done) || 0), left = Math.max(0, total - d);
@@ -119,6 +119,7 @@
     verify: b => b.appendChild($('#tv')),
     newwords: (b, it, on) => AneesNewWordsTask.mount(b, NW, { onChange: on }),
     ledger: (b, it, on) => AneesLedgerTask.mount(b, LG, { onChange: on }),
+    proposals: (b, it, on) => AneesProposalsTask.mount(b, PR, { onChange: on }),   // Medi 2026-10-05: new grammar rules to approve, top of her list
   };
   function panel(t, p) {
     p.innerHTML = `<h2 class="hb-ptitle">${esc(t.title)}</h2><p class="hb-pnote">${esc(sub(t))}</p>${t.item && t.item.what ? `<p class="hb-sub">${esc(t.item.what)}</p>` : ''}<div id="hb-body"></div><div data-earlier></div>`;
@@ -272,6 +273,18 @@
       LG = { token: rv ? rv.token : '', data: Q, answers: AneesLedgerTask.liveView(rows), live };
       const c = AneesLedgerTask.count(Q, LG.answers);
       if (c.total) tasks.push({ id: 'ledger', kind: 'ledger', item: {}, title: 'Which word was wrong?', total: c.total, done: c.done, left: c.left, unit: 'moments', rank: 2.5, date: '', finished: c.left === 0 });
+    } catch (e) {}
+    try {   // GR-29 (Medi 2026-10-05 "For the grammar additions this should be at the top of her todo list"): proposed rules = the first row
+      const g = T.open.find(x => x.kind === 'grammar_notes'), tok = g ? g.token : '';
+      const S = await AneesProposalsTask.section('');
+      if (S && S.rules.length) {
+        const notes = {};
+        if (tok) (await rest('amal_rules?select=kind,word_key,payload&source=eq.grammar_notes&word_key=like.rule:P-*&order=created_at.asc&token=eq.' + encodeURIComponent(tok), tok))
+          .forEach(r => { const id = String(r.word_key).replace(/^rule:/, ''); notes[id] = notes[id] || []; if (r.kind === 'undo') notes[id].pop(); else notes[id].push(r); });
+        PR = { token: tok, section: S };
+        const c = AneesProposalsTask.count(S.rules.map(r => r.id), notes);
+        tasks.push({ id: 'proposals', kind: 'proposals', item: {}, title: 'New grammar rules to approve', total: c.total, done: c.done, left: c.left, unit: 'rules', rank: -0.1, date: '', finished: c.left === 0 });
+      }
     } catch (e) {}
     try {   // Medi 2026-10-05: "Upload flashcards" (top) + "Assign homework" (his answers to check). Rows are plain anon tables
             // (migration 023); her Tutor link token is kept on each row for provenance only, so she is never blocked.

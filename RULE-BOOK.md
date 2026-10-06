@@ -287,8 +287,8 @@ _When a grammar mistake counts as a slip, and when it doesn't._
 
 - Amal rules once per pattern, with the examples listed under it; new lessons' cases join the existing patterns, so she is never asked the same thing twice. `GR-09` _Written down_
   <br><sub>Medi, 2026-09-26: “we dont keep asking her the same correction rules” · Medi, 2026-09-26: “ALways examples even on the new immediate lesson reviews”</sub>
-- The six tool words from the Oct 2 lesson (awal, taani, aa5er, 8eir, nafs, kul) are proposed as grammar rules A13 to A17 plus one line on A11. They sit on Amal's rules page for her yes or fix, and on the Grammar console for Medi's yes. Nothing is scored on them yet. `GR-29` _Written down_
-  <br><sub>Medi, 2026-10-05: “I need you to build a proposal on these on how to write them in our grammar rules and send them for review with letter number categories for Amal”</sub>
+- The six tool words from the Oct 2 lesson (awal, taani, aa5er, 8eir, nafs, kul) are proposed as grammar rules A13 to A17 plus one line on A11. They are the first row of Amal's To do list: one tap Yes, or a note with the fix. Nothing is scored on them until Medi says yes too. `GR-29` _Written down_
+  <br><sub>Medi, 2026-10-05: “I need you to build a proposal on these on how to write them in our grammar rules and send them for review with letter number categories for Amal” · Medi, 2026-10-05: “For the grammar additions this should be at the top of her todo list.”</sub>
 - Count slips only on rules you already learned; never write Amal's lesson plans for her. `GR-05` _Written down_
   <br><sub>Medi, 2026-09-05: “We dont want to give her lesson plans... keep a tally”</sub>
 
