@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-06T13:16:47-07:00",
+ "updated": "2026-10-06T13:18:08-07:00",
  "result": "pass",
- "source": "hourly: tutor refresh",
- "checked_commit": "450f6e582355",
- "secs": 58.9,
+ "source": "hourly: 2 local commit(s)",
+ "checked_commit": "8ff826b8f318",
+ "secs": 60.0,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 0.9,
+   "secs": 0.8,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "112 JSON files parse"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 1.6,
+   "secs": 1.9,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.2,
+   "secs": 1.4,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 653 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 1.8,
+   "secs": 1.9,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...7 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 0.4,
+   "secs": 0.3,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -129,17 +129,17 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 44.7,
+   "secs": 44.4,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 95%] | ............................                                             [100%] | 600 passed, 1 skipped, 3 xfailed in 42.95s"
+   "detail": "............................. [ 95%] | ............................                                             [100%] | 600 passed, 1 skipped, 3 xfailed in 42.78s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 1.0,
+   "secs": 1.9,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 985.9584"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1849.6065"
   },
   {
    "id": "rehear_rows",
@@ -177,7 +177,7 @@
    "id": "foreign_script",
    "required": false,
    "ok": false,
-   "secs": 0.1,
+   "secs": 0.2,
    "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)",
    "detail": "exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
   }
