@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-06T15:44:21-07:00",
+ "updated": "2026-10-06T15:52:58-07:00",
  "result": "pass",
- "source": "manual: LS-15 2026-10-06 (2)",
- "checked_commit": "cb38d3720b90",
- "secs": 63.6,
+ "source": "manual: LS-16 2026-10-06",
+ "checked_commit": "bfd7122f24a9",
+ "secs": 58.0,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 0.7,
+   "secs": 0.8,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "112 JSON files parse"
   },
@@ -33,9 +33,9 @@
    "id": "rule_registry",
    "required": true,
    "ok": true,
-   "secs": 0.3,
+   "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
-   "detail": "rule_registry: OK - 200 rules: enforced 110 (code 101, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
+   "detail": "rule_registry: OK - 201 rules: enforced 111 (code 102, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
   },
   {
    "id": "lesson_coverage",
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 2.0,
+   "secs": 1.9,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.1,
+   "secs": 1.0,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 5.0,
+   "secs": 4.0,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 68 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 0.4,
+   "secs": 0.3,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.7,
+   "secs": 0.5,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,17 +129,17 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 47.8,
+   "secs": 43.8,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 93%] | .........................................                                [100%] | 613 passed, 1 skipped, 3 xfailed in 45.44s"
+   "detail": "............................. [ 93%] | ..........................................                               [100%] | 614 passed, 1 skipped, 3 xfailed in 40.66s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 1.2,
+   "secs": 1.0,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1083.7904"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 942.3341"
   },
   {
    "id": "rehear_rows",
@@ -197,6 +197,6 @@
   "secs": 71.7,
   "commits_waiting": "2"
  },
- "blocks_before_this_pass": 1,
+ "blocks_before_this_pass": 0,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
