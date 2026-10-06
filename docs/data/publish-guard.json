@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-06T11:05:15-07:00",
+ "updated": "2026-10-06T11:24:11-07:00",
  "result": "pass",
- "source": "Claude 2026-10-06: merge + live Done tab (PG-32)",
- "checked_commit": "5d0cac80609a",
- "secs": 51.4,
+ "source": "hourly: retry 2026-10-05",
+ "checked_commit": "53f7c7a9d645",
+ "secs": 57.0,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.1,
+   "secs": 0.8,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "112 JSON files parse"
   },
@@ -33,7 +33,7 @@
    "id": "rule_registry",
    "required": true,
    "ok": true,
-   "secs": 0.3,
+   "secs": 0.4,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
    "detail": "rule_registry: OK - 197 rules: enforced 107 (code 98, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
   },
@@ -41,7 +41,7 @@
    "id": "lesson_coverage",
    "required": true,
    "ok": true,
-   "secs": 0.3,
+   "secs": 0.5,
    "what": "every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)",
    "detail": "all 19 lessons reach every page"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 1.6,
+   "secs": 1.8,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...7 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,9 +105,9 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 3.7,
+   "secs": 4.0,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
-   "detail": "pages OK: 68 pages, every link, data file and clip resolves (32 references to unpublished clips play from the full lesson recording)"
+   "detail": "pages OK: 68 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
   {
    "id": "arabizi_gaps",
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.5,
+   "secs": 0.4,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,17 +129,17 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 37.8,
+   "secs": 43.5,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 95%] | ..........................                                               [100%] | 598 passed, 1 skipped, 3 xfailed in 35.95s"
+   "detail": "............................. [ 95%] | ..........................                                               [100%] | 598 passed, 1 skipped, 3 xfailed in 40.33s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 0.8,
+   "secs": 0.9,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 768.1305"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 809.747"
   },
   {
    "id": "rehear_rows",
@@ -153,17 +153,17 @@
    "id": "review_freshness",
    "required": false,
    "ok": false,
-   "secs": 0.2,
+   "secs": 0.1,
    "what": "the two readers read the transcript the pages show now",
    "detail": "2026-09-04: transcript changed after the readers read it; 2026-09-05: transcript changed after the readers read it; 2026-09-10: transcript changed after the readers read it; 2026-09-14: transcript changed after the readers read it; 2026-09-15: transcript changed after the readers read it; 2026-09-16: transcript changed after the readers read it; 2026-09-18: transcript changed after the readers read it; 2026-09-19: transcript changed after the readers read it; 2026-09-21: transcript changed after the readers read it; 2026-09-23: transcript changed after the readers read it; 2026-09-26: transcript changed after the readers read it; 2026-09-28: transcript changed after the readers read it; 2026-09-30: transcript changed after the readers read it; 2026-10-01: transcript changed after the readers read it; 2026-10-02: transcript changed after the readers read it"
   },
   {
    "id": "data_freshness",
    "required": false,
-   "ok": true,
-   "secs": 0.4,
+   "ok": false,
+   "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
-   "detail": "every lesson in the raw archive is on the site; Amal trigger, Amal's word Doc and publishing are current"
+   "detail": "nothing published for 20 h (371 blocked pushes; last: step_failures: full_audit_build exit 1: duplicates.json: kept row FA-4db8e2d3 is not in the audit rows (uids changed?) -)"
   },
   {
    "id": "medi_corrections",
@@ -184,17 +184,18 @@
  ],
  "warnings": [
   "review_freshness: 2026-09-04: transcript changed after the readers read it; 2026-09-05: transcript changed after the readers read it; 2026-09-10: transcript changed after the readers read it; 2026-09-14: transcript changed after the readers read it; 2026-09-15: transcript changed after the readers read it; 2026-09-16: transcript changed after the readers read it; 2026-09-18: transcript changed after the readers read it; 2026-09-19: transcript changed after the readers read it; 2026-09-21: transcript changed after the readers read it; 2026-09-23: transcript changed after the readers read it; 2026-09-26: transcript changed after the readers read it; 2026-09-28: transcript changed after the readers read it; 2026-09-30: transcript changed after the readers read it; 2026-10-01: transcript changed after the readers read it; 2026-10-02: transcript changed after the readers read it",
+  "data_freshness: nothing published for 20 h (371 blocked pushes; last: step_failures: full_audit_build exit 1: duplicates.json: kept row FA-4db8e2d3 is not in the audit rows (uids changed?) -)",
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
-  "at": "2026-10-06T11:04:13-07:00",
-  "source": "Claude 2026-10-06: merge + live Done tab (PG-32)",
-  "outcome": "rebase_failed",
-  "sha": null,
-  "reason": "pull --rebase failed (a conflict with master; a person merges): conflict in a hand-made file (a person merges): data/lesson-work/full-audit/2026-09-10.r1.json.inputs.json, data/lesson-work/full-audit/2026-09-10.r2.json.inputs.json, data/lesson-work/full-audit/2026-09-10.r3.json.inputs.json",
-  "secs": null,
-  "commits_waiting": "467"
+  "at": "2026-10-06T11:17:14-07:00",
+  "source": "hourly: tutor refresh",
+  "outcome": "blocked",
+  "sha": "b7d4da158f965107daf98e358589bbf9cf288591",
+  "reason": "step_failures: full_audit_build exit 1: duplicates.json: kept row FA-4db8e2d3 is not in the audit rows (uids changed?) - fix the file (open since 2026-10-03T15:20, amal); review_lesson.py 2026-10-05 exit 1 (open since 2026-10-05T15:28, refresh:2026-10-05)",
+  "secs": 59.2,
+  "commits_waiting": "2"
  },
- "blocks_before_this_pass": 1,
+ "blocks_before_this_pass": 371,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
