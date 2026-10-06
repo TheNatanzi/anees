@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T10:49:41-07:00",
+ "updated": "2026-10-06T10:56:44-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -78,7 +78,7 @@
     "unscored_mistakes": 8,
     "eligible": 35,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -193,8 +193,7 @@
      "reader agreement: pass 2 readers agree on 80.9 % of rows (>= 95 % needed)",
      "reader agreement: pass 1 vs pass 2 settled rows agree on 78.9 % (>= 95 % needed)",
      "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model",
-     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -6957,6 +6956,30 @@
      "english": "the other ones (plural of تاني)",
      "t": "1:00:20",
      "note": "'sahabak al-thaniyin' = your other friends"
+    },
+    {
+     "key": "اضافه",
+     "latin": "idafa",
+     "arabic": "إضافة",
+     "english": "idafa (the possessive construct)",
+     "t": "45:50",
+     "note": "Medi searching for the term ('what is it when you put the...'); Amal: إضافة"
+    },
+    {
+     "key": "تالت",
+     "latin": "taalet",
+     "arabic": "تالت",
+     "english": "third (ordinal)",
+     "t": "45:50",
+     "note": "Amal introduces the ordinals: أول، تاني، تالت، رابع; 46:05 'Meaning first, second, third, fourth'"
+    },
+    {
+     "key": "رابع",
+     "latin": "raabe3",
+     "arabic": "رابع",
+     "english": "fourth",
+     "t": "45:50",
+     "note": "same line as تالت; glossed at 46:05"
     }
    ],
    "coverage": "Whole file read. Long English rule-discussion stretches (15:09-20:20, 40:21-41:58, 43:03-47:17, 59:40-1:03:44). Latin-transliterated Medi Arabic 55:30-1:01:00 and several Amal lines (37:49-38:41). Engine notes: 13:10/13:55 كام على = kaman marra?; 40:21 قبيحة is likely bish3a (Amal 40:24 Why do you not forget bisha, chat bish3a) - no error; 52:17 نفس الـ issue = nafs el-ishi (chat nafs el-ishi); 03:31/03:36 أملكت likely عملت repeated after her prompt; بوع (07:10, 07:56) = bu2a3 with dropped ق (S4, not counted). Self-fixes skipped: 01:20 عندي->كان عندي, 14:09 لا->ما شفت, 14:19 جديد->جديدة, 16:19 مش->ما, 17:43 فكر->بفكر, 22:30 محلي->في محلي, 35:14 بدلي->بدلة, 48:52 يزعج->يزعل, 53:21 إجازة->اجتماع. Not slips: 46:45 يومي الأول (he misunderstood the prompt), 56:32 ru7na vs rawwa7na (she offered Or), 30:54 الشاطئ (MSA; شط not on her sheet). Echo candidates: none are Arabic sound-alikes; take_verb and laazem_noun empty. / Large English/meta stretches (09:07-10:02, 11:41-13:05, 15:20-20:10 quiz on the أغلب rule, 40:24-42:00, 1:03:16-1:03:44). 16:09-17:51 wrong quiz answers about whether أغلب takes ال are rule questions, not filed. 43:00-47:17 is a rule discussion (أول يومي vs يومي الأول). 54:56-1:02:58 he speaks in Latin letters (engine). 07:10 بوع = بقع with dropped ق (S4). 03:31/03:36 أملكت unclear (engine; chat em 5atibti 3emlatha). 22:10-22:37 Amal seemed to mishear (my workers); his في محلي was a self-fix. 48:52-49:03 يزعج then يزعل for 'saddening' (beyza33el) - engine cannot show the doubled ع; not filed. Echo candidates reviewed: all real English/fillers.",

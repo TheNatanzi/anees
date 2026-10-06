@@ -1,8 +1,7 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 17,
+ "count": 16,
  "by_date": {
-  "2026-08-25": 1,
   "2026-09-04": 2,
   "2026-09-05": 1,
   "2026-09-10": 3,
@@ -14,32 +13,6 @@
   "2026-10-05": 1
  },
  "rows": [
-  {
-   "uid": "FA-8096ecda",
-   "date": "2026-08-25",
-   "t": "45:59",
-   "t_amal": null,
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B18",
-   "medi_said": "على كلٍ شو، اه، شو، اه، بعصب، بعصب. I'm asking you.",
-   "amal_said": "(47:04) اه، من شو بتعصب؟",
-   "wrong": "شو بعصب",
-   "right": "من شو بتعصبي؟",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Amal's reaction is about «على كل» sounding wrong, not a correction of «بعصب» or a supplied «من شو بتعصبي؟». There is no signalled verb-subject correction in this window."
-   },
-   "listen_from": "45:49",
-   "listen_to": "46:19"
-  },
   {
    "uid": "FA-a4ad5c2c",
    "date": "2026-09-04",
