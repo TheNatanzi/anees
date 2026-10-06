@@ -49,5 +49,9 @@ def test_gr_26_a_demonstrative_amal_takes_out_is_an_a10_grammar_slip():
 
 def test_ws_28_a_word_taught_in_an_earlier_lesson_is_scored():
     d = json.load(open(os.path.join(ROOT, "docs", "data", "lessons", "2026-10-02.json"), encoding="utf-8"))
-    hit = [e for e in d["vocab_errors"] if e.get("keyed_by") == "taught-earlier" and "متشجع" in str(e.get("fix") or e.get("arabic"))]
-    assert hit and hit[0]["on_sheet"] is True and "WS-28" in hit[0]["sheet_reason"]
+    hit = [e for e in d["vocab_errors"] if "متشجع" in str(e.get("fix") or e.get("arabic"))]
+    # 2026-10-06: Amal has since added متشجع to her Doc, so the row is keyed by the Doc ("auto-word") and scored that way;
+    # WS-28 (taught earlier) is the reason only while the word is not on the Doc yet. Either way it is scored.
+    assert hit and hit[0]["on_sheet"] is True, hit
+    if hit[0].get("keyed_by") == "taught-earlier":
+        assert "WS-28" in hit[0]["sheet_reason"]

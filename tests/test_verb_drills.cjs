@@ -34,7 +34,11 @@ test('Amal checked forms: not a guess any more, tagged checked (check list 1, 20
  const she=learn.tenses.Present.find(c=>c.person==='She');
  assert.equal(she.arabizi,'heyye bte7faz');assert.equal(she.guessed,false);assert.equal(she.checked,true);
  assert.equal(learn.tenses.Command.find(c=>c.person==='You (pl)').checked,true);
- assert.equal(all.filter(c=>c.checked).length,Object.keys(amal).length);   // 41 on 2026-09-22 -> 729 after the full pull
+ // 2026-10-06: a verb Amal later removed from her Doc (ana ba7rej, 36 forms) keeps her answers in amal_verb_checks.json but
+ // has no card any more; every answer whose verb is still in the Doc must be tagged, and an orphan's verb must be gone.
+ const verbs=new Set(V.map(v=>v.verb)), live=Object.keys(amal).filter(k=>verbs.has(k.split(':')[0]));
+ assert.equal(all.filter(c=>c.checked).length,live.length);   // 41 on 2026-09-22 -> 729 after the full pull
+ assert.ok(Object.keys(amal).every(k=>verbs.has(k.split(':')[0])||!V.some(v=>k.startsWith(v.verb+':'))),'an orphan answer belongs to a verb no longer in the Doc');
  assert.ok(all.every(c=>!(c.checked&&c.guessed)));
 });
 
