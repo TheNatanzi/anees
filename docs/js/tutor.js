@@ -119,8 +119,6 @@
     verify: b => b.appendChild($('#tv')),
     newwords: (b, it, on) => AneesNewWordsTask.mount(b, NW, { onChange: on }),
     ledger: (b, it, on) => AneesLedgerTask.mount(b, LG, { onChange: on }),
-    upload: (b, it, on) => AneesUploadTask.mount(b, UP, { onChange: on }),       // Medi 2026-10-05: "upload flashcards" at the top
-    homework: (b, it, on) => AneesHomeworkTask.mount(b, HW, { onChange: on }),   // Medi 2026-10-05: "assign homework" box + his answers
   };
   function panel(t, p) {
     p.innerHTML = `<h2 class="hb-ptitle">${esc(t.title)}</h2><p class="hb-pnote">${esc(sub(t))}</p>${t.item && t.item.what ? `<p class="hb-sub">${esc(t.item.what)}</p>` : ''}<div id="hb-body"></div><div data-earlier></div>`;
@@ -143,6 +141,16 @@
     }));
   }
 
+  // ---- Amal's two tools for Medi (2026-10-05): Upload flashcards / Assign homework, each a full-width panel of its own
+  function tool(tab) {
+    setTab(tab);
+    const view = $('#hb-view');
+    if (!UP || !HW) { view.innerHTML = '<div class="vp-notice">Loading…</div>'; return; }
+    view.innerHTML = `<div class="hb-panel hb-tool" id="hb-panel"><h2 class="hb-ptitle">${tab === 'upload' ? 'Upload flashcards' : 'Assign homework'}</h2><div id="hb-body"></div></div>`;
+    const on = s => { if (tab === 'homework') $('#hb-n-homework').textContent = s.left ? s.left + ' to check' : ''; else $('#hb-n-upload').textContent = s.total || ''; };
+    if (tab === 'upload') AneesUploadTask.mount($('#hb-body'), UP, { onChange: s => on({ total: s.total }) });
+    else AneesHomeworkTask.mount($('#hb-body'), HW, { onChange: s => on({ left: s.total - s.done }) });
+  }
   // ---- Grammar and Materials: one rule / one section at a time ------------------------------------------------
   async function grammar(id) {
     setTab('grammar');
@@ -224,6 +232,7 @@
   function route() {
     hold(); window.AneesClip && AneesClip.stopAll();
     const [tab, id] = (decodeURIComponent(location.hash.slice(1)) || 'todo').split('/');
+    if (tab === 'upload' || tab === 'homework') return tool(tab);
     if (tab === 'grammar') return grammar(id);
     if (tab === 'materials') return materials(id);
     if (tab === 'done') return doneView();
@@ -281,10 +290,9 @@
       const sets = uSets.concat(shakyN ? [{ id: 'shaky', title: 'Shaky words (last 2 lessons)', n: shakyN, group: 'Weak spots' }] : [], qz.map(s => ({ id: 'q:' + s.id, title: s.title, n: s.n || (s.terms || []).length, group: 'Quizlet' })));
       HW = { token: tok, tasks: HT || [], replies: HR || [], verdicts: HV || [], sets, live };
       const uc = AneesUploadTask.count(uploads), hc = AneesHomeworkTask.count(HW.tasks, HW.replies, HW.verdicts);
-      tasks.push({ id: 'upload', kind: 'upload', item: {}, title: 'Upload flashcards', total: uc.total, done: uc.total, left: 0, unit: 'sets', rank: -1, date: '', finished: false, quiet: true,
-                   subText: (uc.total ? `${fmt(uc.total)} set${uc.total === 1 ? '' : 's'} uploaded · ` : '') + 'paste a Google link or choose a file' });
-      tasks.push({ id: 'homework', kind: 'homework', item: {}, title: 'Assign homework', total: hc.total, done: hc.done, left: hc.waiting, unit: 'answers', rank: -0.5, date: '', finished: false, quiet: !hc.waiting,
-                   subText: hc.waiting ? `${fmt(hc.waiting)} answer${hc.waiting === 1 ? '' : 's'} from Medi to check · about ${Math.max(1, hc.waiting)} min` : (hc.total ? `${fmt(hc.total)} assigned · nothing to check` : 'translate · make a sentence · answer a question · cards for a lesson') });
+      // Medi 2026-10-05 "Separate the upload flash cards and assign homework from the other modules": their own strip above
+      // the To do tabs (#upload, #homework), never rows in her checking list
+      $('#hb-n-upload').textContent = uc.total || ''; $('#hb-n-homework').textContent = hc.waiting ? hc.waiting + ' to check' : '';
     } catch (e) {}
     rankAll(tasks); count();
     const open = tasks.filter(t => !t.finished && !t.quiet), m = open.reduce((s, t) => s + t.left * minEach(t), 0);
@@ -295,7 +303,7 @@
   }
   // rule L1 (2026-10-02): her list, counts and answers are re-read when the tab comes back; the view is re-drawn only on
   // the bare to-do list, so an open task (or a rule, a section, an open accordion) is never reset under her.
-  function onList() { const h = decodeURIComponent(location.hash.slice(1)); return !h || h === 'todo'; }
+  function onList() { const h = decodeURIComponent(location.hash.slice(1)); return !h || h === 'todo'; }   // #upload / #homework: her typing is never reset
   main();
   window.AneesLive && AneesLive.onReturn(main, { busy: () => !onList() });
 })();

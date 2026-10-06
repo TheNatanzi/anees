@@ -20,7 +20,7 @@ def kinds_built():
     """Every item kind scripts/build_tutor_data.py can put on the hub."""
     src = (ROOT / "scripts" / "build_tutor_data.py").read_text(encoding="utf-8")
     ks = set(re.findall(r'"kind": "([a-z_]+)"', src)) | {"after", "before", "verb_check", "word_review"}
-    return ks | {"verify", "newwords", "ledger", "upload", "homework"}   # the lists tutor.js adds itself (ledger: LS-12; upload / homework: AM-21 / AM-22)
+    return ks | {"verify", "newwords", "ledger"}   # the lists tutor.js adds itself (ledger: LS-12)
 
 
 def test_PG_17_no_hub_item_links_to_another_page():
@@ -173,3 +173,10 @@ def test_PG_18_done_rows_show_the_moment_and_the_result():
     js = TUTOR_JS
     assert "Result: ${esc(x.result)}" in js and "Medi: <span lang=\"ar\">${esc(x.medi)}</span>" in js and "AneesClip.bar(" in js
     assert "<b>Change an answer</b>" in js                                       # Undo one tap below the results while live
+
+
+def test_AM_21_AM_22_the_two_tools_have_their_own_strip_not_rows_in_her_checking_list():
+    """Medi 2026-10-05: "Separate the upload flash cards and assign homework from the other modules"."""
+    assert 'href="#upload" data-tab="upload"' in TUTOR_HTML and 'href="#homework" data-tab="homework"' in TUTOR_HTML
+    assert "if (tab === 'upload' || tab === 'homework') return tool(tab);" in TUTOR_JS
+    assert "kind: 'upload'" not in TUTOR_JS and "kind: 'homework'" not in TUTOR_JS      # never a task row
