@@ -1,6 +1,6 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 21,
+ "count": 17,
  "by_date": {
   "2026-08-25": 1,
   "2026-09-04": 2,
@@ -11,7 +11,7 @@
   "2026-09-17": 1,
   "2026-09-21": 2,
   "2026-09-26": 1,
-  "2026-10-05": 5
+  "2026-10-05": 1
  },
  "rows": [
   {
@@ -425,109 +425,30 @@
    "listen_to": "25:56"
   },
   {
-   "uid": "FA-13f6cac9",
+   "uid": "FA-5dc5d196",
    "date": "2026-10-05",
-   "t": "19:07",
-   "t_amal": "19:20",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A2",
-   "medi_said": "so ٱغْلَب most people because it's not ٱلنَّاسُ, so it'd be ٱغْلَب النَّاسِ.",
-   "amal_said": "أغلب after it there's ال. Why did you take it out?",
-   "wrong": "أغلب ناس (engine wrote ٱغْلَب النَّاسِ)",
-   "right": "أغلب الناس",
-   "why_check": [
-    "the transcript under it is disputed (engine wrote something else)"
-   ],
-   "check": "audio",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "18:57",
-   "listen_to": "19:40"
-  },
-  {
-   "uid": "FA-01a39508",
-   "date": "2026-10-05",
-   "t": "25:00",
-   "t_amal": "25:05",
+   "t": "17:15",
+   "t_amal": "17:19",
    "kind": "grammar",
    "tier": null,
    "bucket": "C4",
-   "medi_said": "مش، مش إشي. مش--",
-   "amal_said": "Still nothing؟ ما في إشي؟",
-   "wrong": "مش إشي",
-   "right": "ما في إشي",
+   "medi_said": "مش لـ-- مش بتحتاج الـ.",
+   "amal_said": "هلأ قصدك إنه أغلب ما بتحتاج ال أو الكلمة اللي بعدها.",
+   "wrong": "مش بتحتاج",
+   "right": "ما بتحتاج",
    "why_check": [
+    "reader confidence low",
     "decided by the third reader alone, in one pass only"
    ],
    "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "24:50",
-   "listen_to": "25:25"
-  },
-  {
-   "uid": "FA-d87c2eb3",
-   "date": "2026-10-05",
-   "t": "53:30",
-   "t_amal": "53:32",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B6",
-   "medi_said": "تاني اجتماع ... نفس الـ...",
-   "amal_said": "Was...",
-   "wrong": "تاني اجتماع نفس",
-   "right": "تاني اجتماع كان نفس",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "53:20",
-   "listen_to": "53:52"
-  },
-  {
-   "uid": "FA-e2fac85a",
-   "date": "2026-10-05",
-   "t": "59:03",
-   "t_amal": "59:06",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A9",
-   "medi_said": "sadiqik.",
-   "amal_said": "Friends.",
-   "wrong": "sadiqik",
-   "right": "sahabik (s7aabek)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "58:53",
-   "listen_to": "59:26"
-  },
-  {
-   "uid": "FA-9ea3b0b3",
-   "date": "2026-10-05",
-   "t": "59:14",
-   "t_amal": "59:16",
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "sahabik farq.",
-   "amal_said": "No, no. I want to choose thani. 'Cause thani is the best here.",
-   "wrong": "farq",
-   "right": "tani",
-   "why_check": [
-    "decided by the third reader alone, in one pass only"
-   ],
-   "check": "audio or human",
-   "stage": "needs the second judge (audio)",
-   "second_judge": null,
-   "listen_from": "59:04",
-   "listen_to": "59:36"
+   "stage": "waiting for Amal (the two AIs disagree)",
+   "second_judge": {
+    "reviewer": "codex gpt-5.5",
+    "verdict": "rejected",
+    "reason": "Medi did say «مش بتحتاج», but Amal's next turn is a meaning clarification, not a clear correction of مش to ما. The later «ما بتحتاج» can be her own phrasing rather than a signalled error."
+   },
+   "listen_from": "17:05",
+   "listen_to": "17:39"
   }
  ]
 }

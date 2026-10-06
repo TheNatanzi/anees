@@ -17354,6 +17354,360 @@
    },
    "at": "2026-10-03T04:29:03-07:00",
    "run_id": "e2da5a6f9cf94c4382ac14256f72dd06"
+  },
+  {
+   "uid": "FA-1c5c5e1a",
+   "date": "2026-10-05",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi first gives the date as separate bare forms, and Amal immediately supplies the date form; he then repeats her supplied form.",
+   "evidence": {
+    "t_start": 313.0,
+    "t_end": 352.0,
+    "quote": "Medi: «خمس ... عشرة» / Amal: «خمسة عشرة» / Medi: «خمسة عشرة...»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-05/FA-1c5c5e1a_Medi_Medi_Natanzi-8d93d94f56d.mp3",
+      "sha256": "9362d1cb22f55cd5554aa0a3884013c45463e2edc442865c06a86f1a952a61ae",
+      "source": "Medi_Natanzi-8d93d94f56d19107.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-05/FA-1c5c5e1a_Amal_Amal-83c4ea63d325bde7.mp3",
+      "sha256": "d3d9e423ade1cc779fa760c726b0ece2baa3fa7888d24164180df210d1b02be4",
+      "source": "Amal-83c4ea63d325bde7.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-05/FA-1c5c5e1a_mixed_lesson.mp3",
+      "sha256": "e445eac901400878deba248463a4de0789675bb9abbcbbd9fdb2d4e6ded7b11f",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اليوم يوم الثنين يوم الثنين خمس عشر خمسة عشر الفين ستو عشر خمسة لا وحد طول",
+     "Amal": "خمسة عشرة كم ساعة I hope there's a five in there",
+     "mixed": "اليوم يوم الاثنين يوم الاثنين خمس عشرة خمسة عشرة خمسة عشرة الفين ستة وعشرين قد ساعة أتمنى أن يكون هناك خمسة في هنا لا واحد وثلاث"
+    }
+   },
+   "claim": {
+    "wrong": "خمس، عشرة",
+    "right": "خمسة عشرة",
+    "bucket": "E4",
+    "tier": null
+   },
+   "at": "2026-10-06T10:47:09-07:00",
+   "run_id": "61dfa82fb8b84617b13e5b790630a0f9"
+  },
+  {
+   "uid": "FA-5dc5d196",
+   "date": "2026-10-05",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "rejected",
+   "confidence": "medium",
+   "reason": "Medi did say «مش بتحتاج», but Amal's next turn is a meaning clarification, not a clear correction of مش to ما. The later «ما بتحتاج» can be her own phrasing rather than a signalled error.",
+   "evidence": {
+    "t_start": 1025.0,
+    "t_end": 1059.0,
+    "quote": "Medi: «مش مش بتحتاج ال» / Amal: «هلأ قصدك إنه أغلب ما بتحتاج ال أو الكلمة اللي بعدها»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-05/FA-5dc5d196_Medi_Medi_Natanzi-8d93d94f56d.mp3",
+      "sha256": "e971c341d814ddafe32fdb23939ddefd021caf600395a59ff41de63b97739719",
+      "source": "Medi_Natanzi-8d93d94f56d19107.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-05/FA-5dc5d196_Amal_Amal-83c4ea63d325bde7.mp3",
+      "sha256": "edf2b83dd3a80cc6234a01163f47e62a00303d718b631332b63fe40d13dd8351",
+      "source": "Amal-83c4ea63d325bde7.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-05/FA-5dc5d196_mixed_lesson.mp3",
+      "sha256": "3e61caa53da1e59e363e0653a21d3e56ab80a5719ed6cd02768170fe9eb4caca",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "انا حكيت لك مش بتحتاج ترجمة نانسي قنقر",
+     "Amal": "so what's your answer شو جوابك هلا اصدق انه اغلب ما بتحتاج ال او الكلمة اللي بعدها اشتركوا في القناة",
+     "mixed": "ما هو إجابتك؟ ما هو إجابتك؟ ما هو إجابتك؟ ما هو إجابتك؟ ما هو إجابتك؟ ما هو إجابتك؟ ما هو إجابتك؟ ما هو إجابتك؟ ما هو إجابتك؟ ما هو إجابتك؟ ما هو إجابتك؟ ما هو إجابتك؟ ما هو إجابتك؟ المترجم للقناة"
+    }
+   },
+   "claim": {
+    "wrong": "مش بتحتاج",
+    "right": "ما بتحتاج",
+    "bucket": "C4",
+    "tier": null
+   },
+   "at": "2026-10-06T10:47:09-07:00",
+   "run_id": "61dfa82fb8b84617b13e5b790630a0f9"
+  },
+  {
+   "uid": "FA-13f6cac9",
+   "date": "2026-10-05",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "The dialect transcription shows Medi saying «أغلب ناس», and Amal explicitly asks why he removed the definite article, then states the rule.",
+   "evidence": {
+    "t_start": 1137.0,
+    "t_end": 1180.0,
+    "quote": "Medi: «سو أغلب ناس» / Amal: «أغلب after it there's ال. Why did you take it out?»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-05/FA-13f6cac9_Medi_Medi_Natanzi-8d93d94f56d.mp3",
+      "sha256": "916c78e7fe79579428d421c1519e9d2295c464408beac249eec9e27ae2874ee3",
+      "source": "Medi_Natanzi-8d93d94f56d19107.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-05/FA-13f6cac9_Amal_Amal-83c4ea63d325bde7.mp3",
+      "sha256": "827454403ed00dfa2eb151c498eb23cb38477cadc91b0b02719bedb2c6c017ac",
+      "source": "Amal-83c4ea63d325bde7.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-05/FA-13f6cac9_mixed_lesson.mp3",
+      "sha256": "2a6d9b723632a141135c203cc91fca740eab75348fc8135f8810c199ec60f611",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "لأنه وقتي. لا يبدو مباشراً. لذا أغلب معظم الناس. لأنه ليس أغلب الناس. نعم. حسناً. لأن الناس ليس مباشراً. شكرا",
+     "Amal": "لماذا لم أكتبه بالضبط؟ كيف أقول معظم الناس؟ نعم أغلبًا بعدها يوجد L لماذا أخذتها؟ مهما كانت الكلمة بعد الأكثر، نقول إلا إلا أنه يتعلق بمعنى",
+     "mixed": "لأنه مجرد مجرد مجرد. كيف أقول أكثر من الناس؟ لذا أغلب أكثر من الناس لأنه ليس أغلب الناس. نعم. نعم. حسنًا. أغلب. بعد ذلك، هناك. لماذا أخذتها؟ لأن الناس ليسوا تقريباً. مهما كانت الكلمة بعد الأكثر، نقول إلا أنه مرتبط بمعنى."
+    }
+   },
+   "claim": {
+    "wrong": "أغلب ناس (engine wrote ٱغْلَب النَّاسِ)",
+    "right": "أغلب الناس",
+    "bucket": "A2",
+    "tier": null
+   },
+   "at": "2026-10-06T10:47:09-07:00",
+   "run_id": "61dfa82fb8b84617b13e5b790630a0f9"
+  },
+  {
+   "uid": "FA-a2267598",
+   "date": "2026-10-05",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Medi appears to put ال before/onto «نفس» in «بعيد النفس», and Amal directly names the rule that «نفس» does not take ال before it and that ال comes after it.",
+   "evidence": {
+    "t_start": 1448.0,
+    "t_end": 1495.0,
+    "quote": "Medi: «بعيد النفس» / Amal: «نفس never takes ال before it... always after it»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-05/FA-a2267598_Medi_Medi_Natanzi-8d93d94f56d.mp3",
+      "sha256": "b30da0d21f8c6dd80e5306d1aaf5de2c990261a7e162844197aed7268a8c2fdd",
+      "source": "Medi_Natanzi-8d93d94f56d19107.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-05/FA-a2267598_Amal_Amal-83c4ea63d325bde7.mp3",
+      "sha256": "77e0e7d348ae98065fbdb081baba15f09dd41976fedd83d51fc296266fcff1fe",
+      "source": "Amal-83c4ea63d325bde7.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-05/FA-a2267598_mixed_lesson.mp3",
+      "sha256": "f9a84a53e49ec7553ccdc651f406179d16b8b4d6270879fb8e36f62935432cbb",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "سوء بايد بايد الناس. هذا لا يجد مفهوم لأنه سيكون نفس المستقبل وليس نفس المستقبل. نفس أوكي نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس نفس حسنا",
+     "Amal": "نفس never takes L before it دائما بعد نفس الشيء مع أجلاب",
+     "mixed": "سواء بايد بايد الناس. ليس هذا لا يجد معنى لأنه سيكون نفس المستقبل وليس نفس المستقبل. نفسه لا يأخذ نفسه قبله دائما بعده نفسه اوه حسنا وهذا نفسه مع نفسه مع اغلب حسنا"
+    }
+   },
+   "claim": {
+    "wrong": "بعيد النفس",
+    "right": "نفس + الـnoun",
+    "bucket": "A2",
+    "tier": null
+   },
+   "at": "2026-10-06T10:47:09-07:00",
+   "run_id": "61dfa82fb8b84617b13e5b790630a0f9"
+  },
+  {
+   "uid": "FA-8e86056a",
+   "date": "2026-10-05",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "Although the independent transcriptions may have auto-corrected Medi to «بشعة», Amal's immediate response supplies/reminds him of «بشعة», which fits a vocabulary correction from his «قبيحة».",
+   "evidence": {
+    "t_start": 2411.0,
+    "t_end": 2444.0,
+    "quote": "Medi transcript: «كانت، قبيحة» / Amal: «Why do you not ... بشعة for example?»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-05/FA-8e86056a_Medi_Medi_Natanzi-8d93d94f56d.mp3",
+      "sha256": "3a3515b5ca250be7e2b20754e3d0761663f3028bbcfc268150cf36676ded83f0",
+      "source": "Medi_Natanzi-8d93d94f56d19107.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-05/FA-8e86056a_Amal_Amal-83c4ea63d325bde7.mp3",
+      "sha256": "8d2af6e234bb4db511a00501be6d804bde1a85e3da0355af4dbc6972d311ccf6",
+      "source": "Amal-83c4ea63d325bde7.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-05/FA-8e86056a_mixed_lesson.mp3",
+      "sha256": "227e43ca5ec7dec3252bfaba95cf47b2f226776d327e04fe263129d34c109516",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "كون دارا الاخيرة اه كانت اه انا لا اعتقد ان الأسرار الأولى فيها بشكل جيد انا لا اعرف لماذا أعتقد أن الأولى كانت لدينا الكثير من المشاهدات.",
+     "Amal": "لماذا لا تنسى بشع لماذا لا تنسى بشع لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى لماذا لا تنسى أعتقد أنني لقد قلت فقط مثل نصف لسنة ماذا يعني هذا؟ ماذا يعني هذا؟",
+     "mixed": "كندرة الاخيرة اه كانت بشع. لماذا لا تنسى بشع على سبيل المثال؟ لا أعلم أعتقد أن الأسرار الأولى فيها بشكل جيد لا أعلم لماذا أعتقد أنني كنت فقط أقول مثل نصف الأسرار بما يعني هذا؟ ما يعني هذا؟ أعتقد بأن الأولى كانت لدينا الكثير منهم."
+    }
+   },
+   "claim": {
+    "wrong": "قبيحة",
+    "right": "بشعة",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-06T10:47:09-07:00",
+   "run_id": "61dfa82fb8b84617b13e5b790630a0f9"
+  },
+  {
+   "uid": "FA-da7c0a66",
+   "date": "2026-10-05",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi says «يومي الأول» for 'the beginning of my day'; Amal explicitly rejects it as 'my first day' and prompts the intended structure, which he gives as «أول يومي».",
+   "evidence": {
+    "t_start": 2795.0,
+    "t_end": 2827.0,
+    "quote": "Medi: «يومي الأول» / Amal: «No, that's my first day» / Medi: «أول يومي»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-05/FA-da7c0a66_Medi_Medi_Natanzi-8d93d94f56d.mp3",
+      "sha256": "41e8f76b6d4e40ecb4643955adab62c61c42e404998b0aa3d7fd1e988d523a85",
+      "source": "Medi_Natanzi-8d93d94f56d19107.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-05/FA-da7c0a66_Amal_Amal-83c4ea63d325bde7.mp3",
+      "sha256": "69614647b44d9f3efc41a6d7ee57f5ef4eca8ae4cbd2aa35d02bddddc9dd96b4",
+      "source": "Amal-83c4ea63d325bde7.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-05/FA-da7c0a66_mixed_lesson.mp3",
+      "sha256": "0a46bb26a98cdc1a71e39a042c4eb05445468fc556b1498050b23cd3e697dd08",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "يومي الاول اول يومي اول يومي اوه انت صحيح اوه انت صحيح اوه انت صحيح",
+     "Amal": "The sentence was The beginning of my day The beginning of my day was bad No that's my first day I want you to say The beginning of my day صح Yes because it's definitive يومي",
+     "mixed": "sentence was the beginning of my day the beginning of my day was bad so يومي الأول no that's my first day I want you to say the beginning of my day so أول يومي no صح so it just cuts the L yes because it's definitive oh you're right نعم أنت صحيح"
+    }
+   },
+   "claim": {
+    "wrong": "يومي الأول",
+    "right": "أول يومي",
+    "bucket": "A2",
+    "tier": null
+   },
+   "at": "2026-10-06T10:47:09-07:00",
+   "run_id": "61dfa82fb8b84617b13e5b790630a0f9"
+  },
+  {
+   "uid": "FA-973f126e",
+   "date": "2026-10-05",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "medium",
+   "reason": "The evidence does show Amal supplying/recasting the word, but it does not support that Medi said «يزعل». The mixed and Medi-track transcriptions point to him groping for «بزحقه/يزحقه», then Amal gives «بيزحق/بيزهأ» and he repeats it.",
+   "evidence": {
+    "t_start": 2982.0,
+    "t_end": 3016.0,
+    "quote": "Medi: «كان بزحقه، أو يزحقه» / Amal: «بيزحق» / Medi: «كان يزحق»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-05/FA-973f126e_Medi_Medi_Natanzi-8d93d94f56d.mp3",
+      "sha256": "79fd7be268c6085081cfcfb61104bc7bc7ba4f06675f343ce5fc775e477371f4",
+      "source": "Medi_Natanzi-8d93d94f56d19107.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-05/FA-973f126e_Amal_Amal-83c4ea63d325bde7.mp3",
+      "sha256": "3a89fc988c07e4e88a1ef0cfa4248a74973b819a62c55a80fe39ae5523175b05",
+      "source": "Amal-83c4ea63d325bde7.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-05/FA-973f126e_mixed_lesson.mp3",
+      "sha256": "49f512977a8068498d8d0e8d6fcdfe27c829427e278db5bf52df1005cd60e288",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "آخر الدرس كان بزحو أو يزحو آه هذا صحيح لا تقلق كان يزحي اشتركوا في القناة",
+     "Amal": "مرحبا بكم. ايش الفامنن من اول",
+     "mixed": "أخر الدرس. كان. بزهو. بزهاء. هذا صحيح. كان يزهاء. حلو ممتاز. ممتاز. أشهر فا من أول."
+    }
+   },
+   "claim": {
+    "wrong": "يزعل",
+    "right": "بيزهّق",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-06T10:47:24-07:00",
+   "run_id": "a4daf369b8ee4fe4b690d377da581a3d",
+   "changed_to": {
+    "wrong": "بزحقه / يزحقه",
+    "right": "بيزهّق / بيزهأ"
+   }
   }
  ]
 }
