@@ -207,7 +207,11 @@
       }
       return S;
     }
-    $quit.onclick = e => { e.preventDefault(); finish(); };
+    // Medi 2026-10-06 "why are still showing zeros in completed": Stop here PAUSES - the list stays open with its count; only
+    // answering the last question (show() past the end) finishes it. Four lists had been closed with 0 of 5 answered.
+    $quit.onclick = e => { e.preventDefault(); const left = counted().filter(s => !isDone(s)).length; if (!left) { finish(); return; }
+      save(null); $prog.textContent = 'Paused'; $root.innerHTML = `<h3 class="hb-q">Saved. ${left} left for later.</h3><p class="hb-sub">Come back any time - the list stays on your To do until every question is answered.</p><button type="button" class="hb-ans primary" data-resume>Continue</button>`;
+      $root.querySelector('[data-resume]').onclick = () => show(screens.findIndex(s => !isDone(s))); };
     (async () => {
       let rows = []; try { rows = await (await api('GET', 'amal_links?select=*&token=eq.' + encodeURIComponent(TOKEN))).json(); } catch (e) {}
       link = Array.isArray(rows) ? rows[0] : null;
