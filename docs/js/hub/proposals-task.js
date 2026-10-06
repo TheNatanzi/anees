@@ -25,14 +25,18 @@
       <p class="hb-foot">Saved as you tap · Medi still says yes before anything is scored</p></div>`;
     await root.AneesGrammarNotes.start({ token: ctx.token || '', base: '', scope: el });
     const notesOf = id => [...el.querySelectorAll(`.an-write[data-rule="${CSS.escape(id)}"] .an-saved li`)].length;
+    // AM-17: an answered rule shows her answer + the shared Undo; the Undo hands over to the note's own Undo in
+    // amal-grammar-notes.js, which records an amal_rules row kind 'undo' (AneesUndo.row(...)) - never a delete
     const report = () => { const ids = S.rules.map(r => r.id); const done = ids.filter(id => notesOf(id)).length;
-      el.querySelectorAll('[data-yes-for]').forEach(b => { b.hidden = notesOf(b.dataset.yesFor) > 0; });
+      el.querySelectorAll('[data-yes-for]').forEach(b => { const id = b.dataset.yesFor, n = notesOf(id);
+        b.innerHTML = n ? root.AneesUndo.answered('Answered · ' + n + ' note' + (n === 1 ? '' : 's') + ' saved', { 'data-prop-undo': id })
+                          : `<button type="button" class="hb-ans primary" data-yes="${esc(id)}">Yes, this is the rule<small>saves "${esc(YES)}" as your note on ${esc(id)}</small></button>`; });
+      el.querySelectorAll('[data-yes]').forEach(b => b.onclick = () => yes(b.dataset.yes));
+      el.querySelectorAll('[data-prop-undo]').forEach(b => b.onclick = () => { const u = el.querySelector(`.an-write[data-rule="${CSS.escape(b.dataset.propUndo)}"] .an-undo`); if (u) { u.click(); setTimeout(report, 300); } });
       opt.onChange && opt.onChange({ total: ids.length, done, finished: done >= ids.length }); };
-    el.querySelectorAll('[data-yes]').forEach(b => b.onclick = () => {
-      const w = el.querySelector(`.an-write[data-rule="${CSS.escape(b.dataset.yes)}"]`); if (!w) return;
+    const yes = id => { const w = el.querySelector(`.an-write[data-rule="${CSS.escape(id)}"]`); if (!w) return;
       w.open = true; const ta = w.querySelector('textarea'), save = w.querySelector('button'); if (!ta || !save) return;
-      ta.value = YES; save.click(); setTimeout(report, 300);
-    });
+      ta.value = YES; save.click(); setTimeout(report, 300); };
     el.addEventListener('click', e => { if (e.target.closest('.an-write button, .an-undo')) setTimeout(report, 300); });
     report();
   }
