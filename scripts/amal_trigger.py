@@ -155,6 +155,16 @@ def fetch_homework():
     return fp_rows([r for r in rows if r.get("amal_verdict") or r.get("amal_fix")], ("id", "amal_verdict", "amal_fix"), ("amal_at",))
 
 
+def fetch_student():
+    """Tutor page uploads + homework (migration 023, Medi 2026-10-05): any new row in the four append-only tables rebuilds the
+    Student / Flashcards data (scripts/build_student_data.py)."""
+    rows = []
+    for t in ("amal_uploads", "homework_tasks", "homework_replies", "homework_verdicts"):
+        for r in _db().select(t, {"select": "id,created_at", "order": "created_at.asc"}):
+            rows.append({"id": f"{t}:{r.get('id')}", "created_at": r.get("created_at")})
+    return fp_rows(rows, ("id",), ("created_at",))
+
+
 def fetch_grammar_doc():
     url = os.environ.get("ANEES_GRAMMAR_DOC_URL")
     if not url:
@@ -216,6 +226,8 @@ STEPS = [
     # new words Amal used that are not on her Doc + her add / later / forget taps (Medi 2026-10-02)
     ("amal_new_words", [sys.executable, "scripts/amal_new_words.py"]),
     ("build_tutor_data", [sys.executable, "scripts/build_tutor_data.py"]),
+    # Amal's uploads + homework -> Student tab / Flashcards data (Medi 2026-10-05)
+    ("build_student_data", [sys.executable, "scripts/build_student_data.py"]),
     # after the lesson data is rebuilt: proposals count the moments on the rebuilt transcript
     ("medi_corrections_propose", [sys.executable, "scripts/medi_corrections.py", "propose"]),
     ("write_build", [sys.executable, "scripts/write_build.py"]),
@@ -237,6 +249,7 @@ SOURCES = [
     {"id": "word_review", "label": "Word review", "fetch": fetch_word_review, "steps": ["build_tutor_data"],
      "note": "her answers are detected and logged; showing them in the Word Bank still needs the Speaking release rebuild (not automated)"},
     {"id": "homework", "label": "Homework verdicts", "fetch": fetch_homework, "steps": ["build_tutor_data"]},
+    {"id": "student", "label": "Tutor uploads + homework (uploads, tasks, Medi's answers, her verdicts)", "fetch": fetch_student, "steps": ["build_student_data"]},
     {"id": "grammar_notes", "label": "Grammar notes she writes on the rules page", "fetch": fetch_grammar_notes,
      "steps": ["build_amal_docs", "build_tutor_data"],
      "note": "like her Doc notes, a note becomes a scoring ruling only after a row-by-row read (amal_grammar_notes.py)"},

@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-05",
- "total": 176,
+ "total": 181,
  "replaced": 8,
  "counts": {
-  "Automatic": 96,
+  "Automatic": 101,
   "Written down": 68,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -1563,12 +1563,26 @@
    "key": "amal",
    "title": "Amal's say",
    "intro": "What Amal decides: her Doc, her pages, her rulings, and the words she promised to add.",
-   "count": 19,
+   "count": 21,
    "sections": [
     {
      "kind": "data",
      "heading": "Facts and records",
      "rules": [
+      {
+       "id": "AM-21",
+       "text": "At the top of the Tutor page Amal can give a flashcard list: a Google Sheets or Docs link, a file, or a pasted list. She checks which column is which and says PERMANENT (the words should go in the Doc too, a reminder stays until they are) or TEMPORARY (cards only). Her spelling is kept as written.",
+       "status": "enforced",
+       "topic": "Amal's uploads",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Lets add something at the top of the tutor for 'upload flashcards' where she can give a google link like this one or she can upload a file. Subsequently we need add a student tab now where she can assign me work. Lets start whatever she uploads and the shaky words from the previous lessons in flashcards. lets also create a box for her 'assign homework'. Give her three options. Translate Sentence, Create Sentence with (she will provide words), and answer question (she may want to give context) please do some research on how teachers assign homework like this and see if theres a function we can copy"
+        }
+       ]
+      },
       {
        "id": "AM-17",
        "text": "Every answer Amal gives on the Tutor page (and the pages it opens) has the same Undo button; tapping it makes the item unanswered again right away. Nothing is deleted - the undo is saved as a new record, and her latest action counts, so she can answer again. Everything that reads her answers respects the undo, and the page trusts the saved answers over an old copy in the browser.",
@@ -1855,6 +1869,25 @@
          "quote": "keep under 10 minutes for her"
         }
        ]
+      },
+      {
+       "id": "AM-22",
+       "text": "Amal assigns homework in one box: translate a sentence (either direction), make a sentence with her words, answer a question, or cards for a lesson. Medi answers on the Student tab, the AI gives a first check at once, and Amal confirms or overrules on her Tutor page. Only her word counts, and every overrule teaches the checker.",
+       "status": "enforced",
+       "topic": "homework",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Lets add something at the top of the tutor for 'upload flashcards' where she can give a google link like this one or she can upload a file. Subsequently we need add a student tab now where she can assign me work. Lets start whatever she uploads and the shaky words from the previous lessons in flashcards. lets also create a box for her 'assign homework'. Give her three options. Translate Sentence, Create Sentence with (she will provide words), and answer question (she may want to give context) please do some research on how teachers assign homework like this and see if theres a function we can copy"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Homework and the cards she assigns me for the next lessons."
+        }
+       ]
       }
      ]
     }
@@ -1884,12 +1917,36 @@
    "key": "flashcards",
    "title": "Flashcards",
    "intro": "How the review cards work.",
-   "count": 10,
+   "count": 11,
    "sections": [
     {
      "kind": "data",
      "heading": "Facts and records",
      "rules": [
+      {
+       "id": "FC-13",
+       "text": "Amal's uploaded lists are card sets on Flashcards under From Amal. A Shaky words set holds the words Medi got wrong or asked for in the last 2 lessons; a word leaves it after he gets it right twice on cards.",
+       "status": "enforced",
+       "topic": "Amal's uploads",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Lets add something at the top of the tutor for 'upload flashcards' where she can give a google link like this one or she can upload a file. Subsequently we need add a student tab now where she can assign me work. Lets start whatever she uploads and the shaky words from the previous lessons in flashcards. lets also create a box for her 'assign homework'. Give her three options. Translate Sentence, Create Sentence with (she will provide words), and answer question (she may want to give context) please do some research on how teachers assign homework like this and see if theres a function we can copy"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Let's go back 2 lessons"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Her flashcards should get merged into our cards"
+        }
+       ]
+      },
       {
        "id": "FC-12",
        "text": "On a flashcard the English side never shows the Arabic answer written in English letters: a note like (bel-3aks = on the contrary) is cut off the card, because it gives the answer away.",
@@ -2101,7 +2158,7 @@
    "key": "pages",
    "title": "Pages, audio & numbers on screen",
    "intro": "What each page shows, the audio clips, and keeping numbers up to date.",
-   "count": 38,
+   "count": 40,
    "sections": [
     {
      "kind": "data",
@@ -2330,6 +2387,39 @@
          "who": "Medi",
          "date": "2026-10-02",
          "quote": "close, but I want accordians to see the results and what you are asking"
+        }
+       ]
+      },
+      {
+       "id": "PG-28",
+       "text": "A Student tab sits under Tutor in the menu: Medi's homework to do and done, the card sets Amal assigned for a lesson with how many are done, and the shaky words of the last 2 lessons.",
+       "status": "enforced",
+       "topic": "homework",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "create a new tab 'student' below tutor"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Homework and the cards she assigns me for the next lessons."
+        }
+       ]
+      },
+      {
+       "id": "PG-29",
+       "text": "Homework has its own number, made only from Amal's verdicts (right 1, close half, wrong 0). It shows on the Student tab and on Progress. The lesson Words % and Grammar % never include homework.",
+       "status": "enforced",
+       "topic": "homework",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "Q5 scoring = 1: homework has its own number (Student tab + Progress); Words % / Grammar % stay lesson-only"
         }
        ]
       },

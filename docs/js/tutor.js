@@ -16,7 +16,7 @@
   const pretty = d => d ? new Date(String(d).slice(0, 10) + 'T12:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
   const today = () => new Date().toISOString().slice(0, 10);
   const PAGE = 20;
-  let T = { open: [], closed: [] }, tasks = [], verifyN = null, NW = null, LG = null;
+  let T = { open: [], closed: [] }, tasks = [], verifyN = null, NW = null, LG = null, UP = null, HW = null;
 
   async function rest(path, token) {
     const H = { apikey: ANEES.anon, Authorization: 'Bearer ' + ANEES.anon, 'X-Anees-Token': token };
@@ -72,7 +72,7 @@
   function rankAll(list) { return list.sort((a, b) => a.rank - b.rank || String(b.date).localeCompare(String(a.date))); }
   const minEach = t => (t.item && t.item.min_each) || MIN_EACH[t.kind] || 0.5;
   const mins = t => Math.max(1, Math.round(t.left * minEach(t)));
-  const sub = t => t.finished ? 'Done · thank you' : `${fmt(t.left)} ${t.unit} left · about ${mins(t)} min`;
+  const sub = t => t.subText ? t.subText : t.finished ? 'Done · thank you' : `${fmt(t.left)} ${t.unit} left · about ${mins(t)} min`;
   const bar = t => `<div class="hb-bar" aria-hidden="true"><i style="width:${t.total ? Math.round(100 * t.done / t.total) : 0}%"></i></div>`;
 
   // ---- the one list + panel every tab uses (PG-17) ----------------------------------------------------------------
@@ -119,6 +119,8 @@
     verify: b => b.appendChild($('#tv')),
     newwords: (b, it, on) => AneesNewWordsTask.mount(b, NW, { onChange: on }),
     ledger: (b, it, on) => AneesLedgerTask.mount(b, LG, { onChange: on }),
+    upload: (b, it, on) => AneesUploadTask.mount(b, UP, { onChange: on }),       // Medi 2026-10-05: "upload flashcards" at the top
+    homework: (b, it, on) => AneesHomeworkTask.mount(b, HW, { onChange: on }),   // Medi 2026-10-05: "assign homework" box + his answers
   };
   function panel(t, p) {
     p.innerHTML = `<h2 class="hb-ptitle">${esc(t.title)}</h2><p class="hb-pnote">${esc(sub(t))}</p>${t.item && t.item.what ? `<p class="hb-sub">${esc(t.item.what)}</p>` : ''}<div id="hb-body"></div><div data-earlier></div>`;
@@ -215,7 +217,7 @@
     }));
   }
   function count() {
-    $('#hb-n-todo').textContent = tasks.filter(t => !t.finished).length || '';
+    $('#hb-n-todo').textContent = tasks.filter(t => !t.finished && !t.quiet).length || '';
     $('#hb-n-done').textContent = (tasks.filter(t => t.finished).length + (T.closed || []).length) || '';
   }
   function hold() { const tv = $('#tv'); if (tv && tv.parentElement.id !== 'hb-hold') $('#hb-hold').appendChild(tv); }
@@ -262,8 +264,30 @@
       const c = AneesLedgerTask.count(Q, LG.answers);
       if (c.total) tasks.push({ id: 'ledger', kind: 'ledger', item: {}, title: 'Which word was wrong?', total: c.total, done: c.done, left: c.left, unit: 'moments', rank: 2.5, date: '', finished: c.left === 0 });
     } catch (e) {}
+    try {   // Medi 2026-10-05: "Upload flashcards" (top) + "Assign homework" (his answers to check). Rows are plain anon tables
+            // (migration 023); her Tutor link token is kept on each row for provenance only, so she is never blocked.
+      const rv = T.open.find(x => x.kind === 'review'), tok = rv ? rv.token : '';
+      const J = u => fetch(u, { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
+      const [U, HT, HR, HV, W, QZ, SH, UJ] = await Promise.all([rest('amal_uploads?select=*&order=created_at.asc', tok).catch(() => null), rest('homework_tasks?select=*&order=created_at.asc', tok).catch(() => null),
+        rest('homework_replies?select=*&order=created_at.asc', tok).catch(() => null), rest('homework_verdicts?select=*&order=created_at.asc', tok).catch(() => null),
+        J('data/words.json'), J('data/quizlet/amal-quizlet-sets.json'), J('data/shaky-words.json'), J('data/uploads.json')]);
+      const live = !!(U && HT && HR && HV);
+      const uploads = U || (UJ && UJ.rows) || [];
+      UP = { token: tok, uploads, words: (W && W.items) || [], live };
+      const SEL = window.AneesCardSelection, H = window.AneesHomework;
+      const uSets = H.uploadSets(uploads).map(s => ({ id: s.id, title: s.title, n: s.n, group: 'From Amal' }));
+      const shakyN = SH && SH.words ? SH.words.length : 0;
+      const qz = SEL && QZ ? SEL.mergeSameTitle((QZ.sets || []).filter(s => !SEL.isDated(s.title) && !/audio homework/i.test(s.title || ''))).sets : [];
+      const sets = uSets.concat(shakyN ? [{ id: 'shaky', title: 'Shaky words (last 2 lessons)', n: shakyN, group: 'Weak spots' }] : [], qz.map(s => ({ id: 'q:' + s.id, title: s.title, n: s.n || (s.terms || []).length, group: 'Quizlet' })));
+      HW = { token: tok, tasks: HT || [], replies: HR || [], verdicts: HV || [], sets, live };
+      const uc = AneesUploadTask.count(uploads), hc = AneesHomeworkTask.count(HW.tasks, HW.replies, HW.verdicts);
+      tasks.push({ id: 'upload', kind: 'upload', item: {}, title: 'Upload flashcards', total: uc.total, done: uc.total, left: 0, unit: 'sets', rank: -1, date: '', finished: false, quiet: true,
+                   subText: (uc.total ? `${fmt(uc.total)} set${uc.total === 1 ? '' : 's'} uploaded · ` : '') + 'paste a Google link or choose a file' });
+      tasks.push({ id: 'homework', kind: 'homework', item: {}, title: 'Assign homework', total: hc.total, done: hc.done, left: hc.waiting, unit: 'answers', rank: -0.5, date: '', finished: false, quiet: !hc.waiting,
+                   subText: hc.waiting ? `${fmt(hc.waiting)} answer${hc.waiting === 1 ? '' : 's'} from Medi to check · about ${Math.max(1, hc.waiting)} min` : (hc.total ? `${fmt(hc.total)} assigned · nothing to check` : 'translate · make a sentence · answer a question · cards for a lesson') });
+    } catch (e) {}
     rankAll(tasks); count();
-    const open = tasks.filter(t => !t.finished), m = open.reduce((s, t) => s + t.left * minEach(t), 0);
+    const open = tasks.filter(t => !t.finished && !t.quiet), m = open.reduce((s, t) => s + t.left * minEach(t), 0);
     $('#hb-hello').textContent = open.length ? `Marhaba Amal · ${open.length} thing${open.length === 1 ? '' : 's'} to check, about ${Math.max(1, Math.round(m))} min` : 'Marhaba Amal · nothing to check right now';
     $('#ab-source').textContent = 'Live · ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
     if (!wired) { wired = true; window.addEventListener('hashchange', route); route(); }

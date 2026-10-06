@@ -31,6 +31,8 @@ ONCE_OK = {
     'docs/js/hub/listen-check-task.js': "the listening check Amal has open; her 'Both wrong' box and unsent taps live on the page",
     'docs/js/hub/word-review-task.js': "the word review Amal has open; her unsent answers live on the page",
     'docs/js/tutor-verify.js': "the 'check these moments' task Amal has open (tutor.js re-reads the list around it)",
+    'docs/js/hub/upload-task.js': "Amal's upload box: a list she is checking and unsent uploads live on the page (tutor.js re-reads the list around it)",
+    'docs/js/hub/homework-task.js': "Amal's assign-homework box and her verdicts in progress live on the page (tutor.js re-reads the list around it)",
     'docs/homework.html': 'Medi types homework answers on it; a re-read would reset them',
     'docs/big-picture.html': "Medi's idea dump: he types on it; a re-read would reset a draft",
     'docs/speaking-review.html': 'review form: re-reads after each submit already',

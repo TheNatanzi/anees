@@ -7338,6 +7338,280 @@
     }
    ],
    "aliases": []
+  },
+  {
+   "id": "AM-21",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The Tutor page opens with 'Upload flashcards': Amal pastes a Google Sheets or Docs link (anyone-with-the-link) or picks a file (xlsx / csv / tsv / txt) or pastes the list; the browser reads it (docs/js/sheet-import.js), shows which column is Arabizi / Arabic / English / plural / notes (she can change it) and the first rows, and she taps PERMANENT or TEMPORARY. Saved to Supabase amal_uploads (migration 023, append-only, undo = a new row) with her text exactly as written (S1); the hourly job mirrors it to docs/data/uploads.json. PERMANENT = the words join the full list and a reminder 'Add these to the Doc' stays on her Tutor page until the Doc import sees each word (Anees never writes the Doc); TEMPORARY = cards only. A private link is refused with the two ways out (share it, or download CSV and upload); no Google address is written on her pages (AM-13).",
+   "plain": "At the top of the Tutor page Amal can give a flashcard list: a Google Sheets or Docs link, a file, or a pasted list. She checks which column is which and says PERMANENT (the words should go in the Doc too, a reminder stays until they are) or TEMPORARY (cards only). Her spelling is kept as written.",
+   "plain_for": "a6e2b573",
+   "topic": "Amal's uploads",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Lets add something at the top of the tutor for 'upload flashcards' where she can give a google link like this one or she can upload a file. Subsequently we need add a student tab now where she can assign me work. Lets start whatever she uploads and the shaky words from the previous lessons in flashcards. lets also create a box for her 'assign homework'. Give her three options. Translate Sentence, Create Sentence with (she will provide words), and answer question (she may want to give context) please do some research on how teachers assign homework like this and see if theres a function we can copy",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/hub/upload-task.js",
+     "contains": "function commit(keep) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/sheet-import.js",
+     "contains": "function detectColumns(rows) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/homework-core.js",
+     "contains": "function permanentReminder(sets, docWords) {"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_sheet_import.cjs",
+     "contains": "test('AM-21 a Google Sheets / Docs link is recognised"
+    },
+    {
+     "path": "tests/test_homework_core.cjs",
+     "contains": "test('FC-13 an upload is a card set keyed u:<upload>:<n>"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "AM-22",
+   "kind": "process",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "'Assign homework' on the Tutor page is one box with four kinds (the pattern Google Classroom, Quizlet Assign, Duolingo for Schools and Preply share, plan/HOMEWORK-RESEARCH-2026-10-05.md): Translate a sentence (she picks English to Arabic or Arabic to English per sentence), Make a sentence with these words (her words), Answer a question (optional context), Cards for a lesson (one of her uploads, a Quizlet set or the Shaky words + the lesson date). Rows go to homework_tasks; Medi answers on the Student tab (typed Arabizi or Arabic letters, homework_replies); the check-homework edge function gives the first verdict at once (right / close / wrong + one reason, OpenAI, same budget guard as grade); her Tutor page shows his answer with Confirm or an overrule (right / close / wrong + a note and how to say it, homework_verdicts) - nothing counts until she taps, and every overrule is a correction rule: listed in docs/data/homework.json overrules and fed back to the checker as its examples (S6). Undo on every row (AM-17). Nothing is sent to Amal by code; Medi sends the link (AM-01).",
+   "plain": "Amal assigns homework in one box: translate a sentence (either direction), make a sentence with her words, answer a question, or cards for a lesson. Medi answers on the Student tab, the AI gives a first check at once, and Amal confirms or overrules on her Tutor page. Only her word counts, and every overrule teaches the checker.",
+   "plain_for": "e0fac961",
+   "topic": "homework",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Lets add something at the top of the tutor for 'upload flashcards' where she can give a google link like this one or she can upload a file. Subsequently we need add a student tab now where she can assign me work. Lets start whatever she uploads and the shaky words from the previous lessons in flashcards. lets also create a box for her 'assign homework'. Give her three options. Translate Sentence, Create Sentence with (she will provide words), and answer question (she may want to give context) please do some research on how teachers assign homework like this and see if theres a function we can copy",
+     "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Homework and the cards she assigns me for the next lessons.",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/hub/homework-task.js",
+     "contains": "function assign() {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/student.js",
+     "contains": "async function answer(task, text) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/homework-core.js",
+     "contains": "function taskState(task, replies, verdicts) {"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_student_data.py",
+     "contains": "def overrules(tasks, replies, verdicts):"
+    },
+    {
+     "type": "code",
+     "path": "supabase/functions/check-homework/index.ts",
+     "contains": "Amal's earlier overrules of this checker (learn from them)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_homework_core.cjs",
+     "contains": "test('AM-22 a task is to do, then checking, then waiting for Amal"
+    },
+    {
+     "path": "tests/test_build_student_data.py",
+     "contains": "def test_S6_every_overrule_is_listed_as_a_correction_rule_with_her_note_and_fix"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "PG-28",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A STUDENT tab sits in the Anees menu right under Tutor (docs/student.html, same shell as the Tutor page, on every page's menu). It is Medi's side: To do (his homework with a type box, the AI's first check, then 'waiting for Amal'), Cards for lessons ('For <date>: <set> - N cards, M done', each opening Flashcards on that set via cards.html?tile=<set>), Shaky words (the last 2 lessons), Done (her verdict, her fix and note). Live Supabase rows first, docs/data/homework.json as the offline copy; re-read when the tab comes back unless he is typing (L1). The Tutor tab stays Amal's.",
+   "plain": "A Student tab sits under Tutor in the menu: Medi's homework to do and done, the card sets Amal assigned for a lesson with how many are done, and the shaky words of the last 2 lessons.",
+   "plain_for": "7a1c7db8",
+   "topic": "homework",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "create a new tab 'student' below tutor",
+     "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Homework and the cards she assigns me for the next lessons.",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/student.html",
+     "contains": "<a class=\"ab-nav\" aria-current=\"page\" href=\"student.html\">Student</a>"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/student.js",
+     "contains": "function cardsView() {"
+    },
+    {
+     "type": "code",
+     "path": "docs/cards.html",
+     "contains": "function openRef(ref){"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_build_student_data.py",
+     "contains": "def test_PG_28_student_is_in_every_menu_right_under_tutor"
+    },
+    {
+     "path": "tests/test_homework_core.cjs",
+     "contains": "test('PG-28 a cards assignment counts the distinct cards answered"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "PG-29",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Homework has its own number: Amal's verdicts only (right 1, close 1/2, wrong 0, divided by the answers she checked); the AI's check never counts and no verdict means a dash with the reason. It shows on the Student tab and as a Homework card on Progress > Overview (docs/data/homework.json score). The lesson Words % and Grammar % are untouched by homework.",
+   "plain": "Homework has its own number, made only from Amal's verdicts (right 1, close half, wrong 0). It shows on the Student tab and on Progress. The lesson Words % and Grammar % never include homework.",
+   "plain_for": "9cb8b78a",
+   "topic": "homework",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Q5 scoring = 1: homework has its own number (Student tab + Progress); Words % / Grammar % stay lesson-only",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/homework-core.js",
+     "contains": "function score(tasks, replies, verdicts) {"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_student_data.py",
+     "contains": "def score(tasks, replies, verdicts):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lesson-overview.js",
+     "contains": "metrics.push(['Homework'"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_homework_core.cjs",
+     "contains": "test('PG-29 the homework number counts Amal\\'s verdicts only"
+    },
+    {
+     "path": "tests/test_build_student_data.py",
+     "contains": "def test_PG_29_homework_score_is_amals_verdicts_only_right_1_close_half_wrong_0"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "FC-13",
+   "kind": "data",
+   "scope": "flashcards",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Amal's uploads are merged into the cards as their own sets: Flashcards > Sets > 'From Amal - uploads' has one tile per upload (permanent and temporary alike), cards keyed u:<upload>:<n> unless the card is a Doc word (then the Doc word, shared history, like Quizlet), her spelling as written. A 'Shaky words' tile under Weak spots holds the LAST 2 lessons' wrong / partly wrong words and the words he asked Amal for (docs/data/shaky-words.json, scripts/build_student_data.py); a word leaves it after two right answers on cards given after that lesson. cards.html?tile=<set> opens one set (the Student tab's assigned cards).",
+   "plain": "Amal's uploaded lists are card sets on Flashcards under From Amal. A Shaky words set holds the words Medi got wrong or asked for in the last 2 lessons; a word leaves it after he gets it right twice on cards.",
+   "plain_for": "b8c74f58",
+   "topic": "Amal's uploads",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Lets add something at the top of the tutor for 'upload flashcards' where she can give a google link like this one or she can upload a file. Subsequently we need add a student tab now where she can assign me work. Lets start whatever she uploads and the shaky words from the previous lessons in flashcards. lets also create a box for her 'assign homework'. Give her three options. Translate Sentence, Create Sentence with (she will provide words), and answer question (she may want to give context) please do some research on how teachers assign homework like this and see if theres a function we can copy",
+     "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Let's go back 2 lessons",
+     "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "Her flashcards should get merged into our cards",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/homework-core.js",
+     "contains": "function shakyCards(shaky, log) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/cards.html",
+     "contains": "function uploadSets(match){"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_student_data.py",
+     "contains": "def shaky_words(dates=None, lessons_dir=LESSONS_DIR, n=SHAKY_LESSONS):"
+    },
+    {
+     "type": "doc",
+     "path": "docs/flashcard-rules.md",
+     "contains": "| F15 | Amal's uploads from the Tutor page are card sets"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_homework_core.cjs",
+     "contains": "test('FC-13 Shaky words: the last 2 lessons"
+    },
+    {
+     "path": "tests/test_build_student_data.py",
+     "contains": "def test_FC_13_shaky_words_come_from_the_last_2_lessons_wrong_and_asked_only"
+    }
+   ],
+   "aliases": []
   }
  ]
 }
