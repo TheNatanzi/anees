@@ -298,7 +298,7 @@ def test_LS_12_committed_hub_cards_are_the_open_amal_questions():
 
 
 def test_LS_14_amal_may_name_another_word_and_leave_a_note():
-    """Medi 2026-10-06: "we need to allow for notes. The wrong word I said was Shawban (hot) instead of shab3an (full)"."""
+    """LS-14 (Medi 2026-10-06: "we need to allow for notes. The wrong word I said was Shawban (hot) instead of shab3an (full)")."""
     import apply_amal_audit_rulings as AR
     rows = [{"id": 1, "word_key": "ledger:C1q-x", "kind": "ledger_pick", "source": "review", "created_at": "2026-10-06T10:00:00Z",
              "payload": {"answer": "other", "said": "shawban", "right": "shab3an = full", "note": "he mixed hot and full"}}]
