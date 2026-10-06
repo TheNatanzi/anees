@@ -1,13 +1,61 @@
 {
  "date": "2026-09-26",
  "reader": "r3",
- "note": "D3 folded into A17, D15 into D9, D18 is A38. D11 timed to 1:04:14 (the line her 'Colors.' fixes). D1 and D5 are listening rows. No challenges: agreed rows spot-checked (A7, A22, A30, A37 read in transcript) and supported.",
+ "note": "Long Latin-engine stretches 25:00-50:00 (body parts) make several vocab rows low confidence. 18:08-20:17 is a connection drop. D8 and D15 are two separate rows on the same 'probably' moment: wrong word بسيرة (tier 1) then didn't-know على الأغلب (tier 0).",
  "rulings": [
   {
    "id": "D1",
    "verdict": "keep",
    "row": {
-    "id": "0926-r3-1",
+    "id": "0926-1",
+    "t": "00:17",
+    "t_amal": "00:19",
+    "medi_said": "را- راكبك؟",
+    "amal_said": "ركبتك.",
+    "chat": null,
+    "wrong": "راكبك",
+    "right": "ركبتك",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "A3",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "recast",
+    "confidence": "medium",
+    "why": "He left out the feminine -t of ركبة before the possessive ending; Amal recast ركبتك and he repeated it at 00:20.",
+    "english": "your knee?"
+   },
+   "why": "Both readers saw the same slip; the fix is purely the feminine -t before an ending (bucket A3), so grammar, not vocab tier 2."
+  },
+  {
+   "id": "D2",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-10",
+    "t": "09:37",
+    "t_amal": "09:48",
+    "medi_said": "uh, كتير من غلطتي.",
+    "amal_said": "كتير من what؟ ... غلطة one error. غلطات is errors, mistakes.",
+    "chat": "ana bazonn enno el-AI bey2eem kteer men 8altaati",
+    "wrong": "غلطتي",
+    "right": "غلطاتي",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "A9",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "prompt-then-fix",
+    "confidence": "high",
+    "why": "Singular غلطة for 'my mistakes'; Amal asked 'كتير من what؟', taught غلطة / غلطات, and he said غلطاتي at 09:56.",
+    "english": "a lot of my mistakes"
+   },
+   "why": "A plural-ending fix on a word he knows = A9 plurals (grammar), not a vocab form."
+  },
+  {
+   "id": "D3",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-16",
     "t": "21:25",
     "t_amal": "21:27",
     "medi_said": "اليوم بلبس بلوزة so شو؟",
@@ -22,110 +70,43 @@
     "mode": "listening",
     "signal": "prompt-then-fix",
     "confidence": "medium",
-    "why": "She asked كيف الجو عندكم اليوم؟ (21:21); he answered about clothes, she repeated الجو twice, he said 'Oh whoops' and answered الجو شوب - a listening miss of الجو.",
-    "english": "How is the weather -> it is hot"
+    "why": "Amal asked كيف الجو عندكم اليوم؟; he answered about clothes, she repeated الجو twice and he said 'Oh whoops ... الجو شوب'.",
+    "english": "today the weather is hot"
    },
-   "why": "Transcript 21:21-21:31 shows the misheard question, her repeat and his 'Oh whoops'."
-  },
-  {
-   "id": "D2",
-   "verdict": "keep",
-   "row": {
-    "id": "0926-r3-2",
-    "t": "24:21",
-    "t_amal": null,
-    "medi_said": "أنا ذكرت ثمانين بالمية",
-    "amal_said": "بالظبط، ممتاز.",
-    "chat": "ana tzakkaret tamaneen bilmiyye",
-    "wrong": "ذكرت",
-    "right": "تذكرت",
-    "kind": "grammar-B",
-    "tier": null,
-    "bucket": "B12",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "none",
-    "confidence": "low",
-    "why": "He said 'I remembered eighty percent' (24:17 English) but used ذكرت (mentioned/reminded) for تذكرت, the t- 'it happens to me' side; she voiced only praise, her chat (25:19) writes tzakkaret.",
-    "english": "I remembered eighty percent"
-   },
-   "why": "Same slip seen by both readers; the meaning he gave in English (I remembered) needs the t- form, a make-X/get-X side slip (B12) like بسط/انبسط, not a new word. Unvoiced, so grammar-B."
-  },
-  {
-   "id": "D3",
-   "verdict": "drop",
-   "why": "Duplicate of A17 (Doctor of sne -> دكتور الأسنان, 25:31): 'Stan, stan' 4 s later is the same attempt at أسنان, sound-shape (S4) rather than a new error."
+   "why": "Real comprehension slip on her question (21:21), fixed after her repeat; kept as listening mode so it stays apart from speaking scores."
   },
   {
    "id": "D4",
-   "verdict": "keep",
-   "row": {
-    "id": "0926-r3-3",
-    "t": "27:32",
-    "t_amal": "27:35",
-    "medi_said": "Doctor el Tom.",
-    "amal_said": "Stomach.",
-    "chat": null,
-    "wrong": "Tom",
-    "right": "بطن",
-    "kind": "vocab-A",
-    "tier": 1,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "prompt-then-fix",
-    "confidence": "low",
-    "why": "For 'stomach doctor' he said Tom (تم = mouth, which he used right at 27:11 'Tom Umunfar'); she repeated 'Stomach.' and he switched to Abaton (بطن). Engine may have garbled a start of batn, so low.",
-    "english": "stomach doctor"
-   },
-   "why": "Her 'Stomach.' after his Tom and his switch to Abaton is a voiced prompt; Tom is a word he knows for mouth."
+   "verdict": "drop",
+   "why": "Not an error: engine wrote خنزارة where her chat line has 'u kundara binniyye' - he most likely said كندرة (shoes); Amal voiced nothing."
   },
   {
    "id": "D5",
-   "verdict": "keep",
-   "row": {
-    "id": "0926-r3-4",
-    "t": "36:01",
-    "t_amal": "36:06",
-    "medi_said": "The doctor that's coming to see you is going to wait?",
-    "amal_said": "No. بتقدر تستنى دقيقة؟ This is separate.",
-    "chat": "bte2dar testanna d2ee2a",
-    "wrong": "is going to wait",
-    "right": "Can you wait a minute? (بتقدر تستنى دقيقة)",
-    "kind": "vocab-A",
-    "tier": 1,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "listening",
-    "signal": "explicit-no",
-    "confidence": "medium",
-    "why": "Listening: he took تستنى as the doctor waiting; Amal said No and that it is a separate question to him; he then got 'can you wait a minute'.",
-    "english": "Can you wait a minute?"
-   },
-   "why": "Explicit No at 36:06 on his gloss of her Arabic; listening row."
+   "verdict": "drop",
+   "why": "S4 / not an error: biwja3ni (بيوجعني) is a normal Levantine form; only her chat wrote beywajje3ni (GR-19: chat alone is not a correction) and she voiced only 'Mm'."
   },
   {
    "id": "D6",
    "verdict": "drop",
-   "why": "Not an error: ijreiha biwaj3uha = 'her legs hurt her' - plural verb (-u) plus the object -ha is correct; Amal said ممتاز at 43:29. Her chat beywajj3u? is her own question form, not a fix (GR-19)."
+   "why": "S4 pronunciation: وافى is the engine's rendering of wa'af (وقف with ق as hamza); he repeated ما واف يوجع and Amal accepted it with 'Mm-hmm' (34:34)."
   },
   {
    "id": "D7",
    "verdict": "drop",
-   "why": "Cannot be verified: the 45:02 line is fragmented (hijri-- ... jismi qabl) and the engine likely ate a bi- (he said fi jismi right at 44:02); Amal's 'Yeah, before' answers his question about qabl, the bijismi is chat only (GR-19)."
+   "why": "Cannot be verified: engine Latin 'sakeena' in a body-part list with no target recoverable and Amal only said 'Mm' - no evidence of what he said or meant."
   },
   {
    "id": "D8",
    "verdict": "keep",
    "row": {
-    "id": "0926-r3-5",
-    "t": "45:31",
-    "t_amal": "45:38",
-    "medi_said": "um, husfa aw asabiya.",
-    "amal_said": "is weeks. Mhm.",
-    "chat": "usba3 / asaabe3",
-    "wrong": "asabiya",
-    "right": "أصابع (asaabe3)",
+    "id": "0926-42",
+    "t": "54:56",
+    "t_amal": "55:00",
+    "medi_said": "انا بسيرة. انا بسيرة. ... What was the rule with probably? انا بكندرة",
+    "amal_said": "لا. Is like most likely or the be cone one.",
+    "chat": "3ala el-a8lab ra7 albes kundara biniyye",
+    "wrong": "بسيرة",
+    "right": "بكون / على الأغلب",
     "kind": "vocab-A",
     "tier": 1,
     "bucket": null,
@@ -133,156 +114,21 @@
     "mode": "speaking",
     "signal": "explicit-no",
     "confidence": "medium",
-    "why": "For fingers he said asabee3 (أسابيع = weeks); Amal told him his word 'is weeks' and typed usba3 / asaabe3 - a different lexical item, so tier 1 not 2.",
-    "english": "fingers"
+    "why": "He tried بسيرة for 'probably'; Amal said لا and pointed him to 'most likely' or bikoon. His next try أنا بكون راح ألبس (55:08) she only steered to a better-fitting phrase - not a grammar slip.",
+    "english": "I will probably (wear)"
    },
-   "why": "Both readers saw it; tier 1 because Amal named it as a different word (weeks), not a wrong form of fingers."
+   "why": "The voiced لا lands on بسيرة (wrong word); r2's B8 version is Amal rephrasing his bikoon into على الأغلب ('fits better here') = a nicer phrasing, not a slip."
   },
   {
    "id": "D9",
    "verdict": "keep",
    "row": {
-    "id": "0926-r3-6",
-    "t": "54:56",
-    "t_amal": "55:00",
-    "medi_said": "انا بسيرة. انا بسيرة. ... انا بكندرة",
-    "amal_said": "لا. Is like most likely or the be cone one.",
-    "chat": "3ala el-a8lab ra7 albes kundara biniyye",
-    "wrong": "انا بسيرة",
-    "right": "عالأغلب راح ألبس",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "B8",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "explicit-no",
-    "confidence": "medium",
-    "why": "For 'I will probably' he used a بصير-like form (engine wrote بسيرة); Amal said لا and pointed to على الأغلب or bikoon (B8 'probably'); she then voiced عالأغلب راح (55:49).",
-    "english": "I will probably wear (brown shoes)"
-   },
-   "why": "Voiced لا at 55:00 on his attempt; B8 covers bikoon = probably and the 3ala el-a8lab statement."
-  },
-  {
-   "id": "D10",
-   "verdict": "drop",
-   "why": "Cannot be verified: engine wrote English 'blouse' so the -t is not visible, Amal said only طيب; bloozet ryaada appears only in her chat at 1:00:47 (GR-19)."
-  },
-  {
-   "id": "D11",
-   "verdict": "keep",
-   "row": {
-    "id": "0926-r3-7",
-    "t": "1:04:14",
-    "t_amal": "1:04:23",
-    "medi_said": "أنا عندي كلسات في لون مختلف.",
-    "amal_said": "Colors.",
-    "chat": "ana 3indi kalsaat bi/fi alwaan mu5talfeen",
-    "wrong": "لون مختلف",
-    "right": "ألوان مختلفين",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "A9",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "prompt-then-fix",
-    "confidence": "high",
-    "why": "'Different colours' needs the plural ألوان; after his كلسات في لون مختلف she said 'Colors.' and he said ألوان. The preposition structure she modelled at 1:03:59 was help on the way, not a separate slip.",
-    "english": "I have socks in different colours"
-   },
-   "why": "Both readers saw the moment; the voiced fix is 'Colors.' -> ألوان, a plural slip (A9). The agreement slip that follows (مختلف -> مختلفين) is A38."
-  },
-  {
-   "id": "D12",
-   "verdict": "keep",
-   "row": {
-    "id": "0926-r3-8",
-    "t": "00:56",
-    "t_amal": "01:01",
-    "medi_said": "Uh, كيف حالك؟",
-    "amal_said": "So I don't know if you remember، بس this doesn't have an equivalent in English. كيف صرتي؟ كيف صارت؟",
-    "chat": "how have you been since = keef serti",
-    "wrong": "كيف حالك",
-    "right": "كيف صارت / كيف صرتي",
-    "kind": "vocab-A",
-    "tier": 0,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "asked",
-    "confidence": "low",
-    "why": "She set up 'in this case we would ask كيف صارت' and he produced the generic كيف حالك; she taught كيف صرتي / كيف صارت as an expression with no English equivalent - a didn't-know.",
-    "english": "How have you been since (the injury)?"
-   },
-   "why": "Real didn't-know moment; tier 0 keeps it apart from slips."
-  },
-  {
-   "id": "D13",
-   "verdict": "keep",
-   "row": {
-    "id": "0926-r3-9",
-    "t": "02:08",
-    "t_amal": "02:16",
-    "medi_said": null,
-    "amal_said": "Uh, we actually don't know this verb. To fall. وقعت.",
-    "chat": null,
-    "wrong": null,
-    "right": "وقعت",
-    "kind": "vocab-A",
-    "tier": 0,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "asked",
-    "confidence": "low",
-    "why": "Amal taught the new verb وقعت (to fall) herself - 'we actually don't know this verb'; he never attempted it. Didn't-know, tier 0 per reader brief.",
-    "english": "to fall"
-   },
-   "why": "Reader brief: Amal teaching a new word is written as vocab-A tier 0."
-  },
-  {
-   "id": "D14",
-   "verdict": "drop",
-   "why": "Not an error: rasi biwja3ni (راسي بيوجعني) is normal Levantine for 'my head hurts me'; Amal said only Mm and her chat beywajje3ni is cleanup (GR-19)."
-  },
-  {
-   "id": "D15",
-   "verdict": "drop",
-   "why": "Not a slip: bikoon for 'probably' was one of the two options she had just named (55:04); her 'most likely fits better here' re-phrases a nicer way (Medi 2026-10-01 rule). The real slip at this moment is D9."
-  },
-  {
-   "id": "D16",
-   "verdict": "keep",
-   "row": {
-    "id": "0926-r3-10",
-    "t": "55:28",
-    "t_amal": "55:30",
-    "medi_said": "أكثر... I don't know.",
-    "amal_said": "mm-mm. ... على. ... على الأغلب.",
-    "chat": null,
-    "wrong": "أكثر",
-    "right": "على الأغلب",
-    "kind": "vocab-A",
-    "tier": 1,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "explicit-no",
-    "confidence": "medium",
-    "why": "For 'most likely' he tried أكثر (literal 'most'); she said mm-mm, gave على, and when he said I don't know supplied على الأغلب.",
-    "english": "most likely"
-   },
-   "why": "Transcript shows his أكثر attempt and her mm-mm (55:30) before she supplied على الأغلب - a wrong-word attempt, so tier 1 rather than tier 0."
-  },
-  {
-   "id": "D17",
-   "verdict": "keep",
-   "row": {
-    "id": "0926-r3-11",
+    "id": "0926-43",
     "t": "56:25",
     "t_amal": "56:36",
-    "medi_said": "uh, شيك- شيكي لو، uh, لون، m-- uh، كندرتي.",
+    "medi_said": "شيك- شيكي لو، uh, لون، m-- uh، كندرتي.",
     "amal_said": "Like. What's like the color of my... mm-hmm.",
-    "chat": null,
+    "chat": "laazem ashteri 2shaat zayy loan kundarti",
     "wrong": "شيكي لو",
     "right": "زي",
     "kind": "vocab-A",
@@ -292,17 +138,179 @@
     "mode": "speaking",
     "signal": "prompt-then-fix",
     "confidence": "low",
-    "why": "He had no word for 'like' (engine wrote شيكي لو, maybe ishi ka-); she prompted 'Like' and he said زي لون كندرتي.",
-    "english": "things like the colour of my shoes"
+    "why": "He groped with شيكي لو for 'like'; Amal said 'Like. What's like...' and he produced زي لون كندرتي (56:38).",
+    "english": "like the colour of my shoes"
    },
-   "why": "Her English 'Like.' is a voiced prompt (PG-22) and he produced زي right after; low because the engine garbled his word."
+   "why": "She voiced a prompt for the word 'like' after his attempt, and he fixed it; low because the engine text of his attempt is unclear."
   },
   {
-   "id": "D18",
+   "id": "D10",
    "verdict": "drop",
-   "why": "Duplicate of agreed row A38 (same t 1:04:25, ألوان مختلف -> ألوان مختلفين)."
+   "why": "Engine Latin rendering: in the same line it wrote pantalón for بنطلون, and her chat has 'bloozet ryaada' - he most likely said بلوزة. Pre-ruled AR-1933 even if it was English."
+  },
+  {
+   "id": "D11",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-55",
+    "t": "1:07:48",
+    "t_amal": "1:07:49",
+    "medi_said": "لبستي خصلات،",
+    "amal_said": "كلسات.",
+    "chat": "kalsaat",
+    "wrong": "خصلات",
+    "right": "كلسات",
+    "kind": "vocab-A",
+    "tier": 2,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "recast",
+    "confidence": "low",
+    "why": "He garbled كلسات (a word he used at 1:02:23) into خصلات; Amal recast كلسات. Letter-swapped form of a known word = tier 2 (same as the 31:53 دبا precedent).",
+    "english": "you wore socks"
+   },
+   "why": "Wrong form of a word he knows (he said كلسات earlier), not a different lexical item, so tier 2."
+  },
+  {
+   "id": "D12",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-2",
+    "t": "00:57",
+    "t_amal": "01:01",
+    "medi_said": "Uh, كيف حالك؟",
+    "amal_said": "كيف صرتي؟ كيف صارت؟ It's like how is it after a change",
+    "chat": "how have you been since = keef serti",
+    "wrong": "كيف حالك",
+    "right": "كيف صارت",
+    "kind": "vocab-A",
+    "tier": 0,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "asked",
+    "confidence": "medium",
+    "why": "Amal introduced كيف صارت for asking about the knee after the injury; he offered كيف حالك and she taught the new phrase - a didn't-know.",
+    "english": "how is it now (since the injury)?"
+   },
+   "why": "New phrase he did not know, voiced by Amal = vocab-A tier 0."
+  },
+  {
+   "id": "D13",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-21",
+    "t": "27:32",
+    "t_amal": "27:35",
+    "medi_said": "Doctor el Tom.",
+    "amal_said": "Stomach.",
+    "chat": "doktoar el-butun u el-daher.",
+    "wrong": "Doctor el Tom",
+    "right": "دكتور البطن",
+    "kind": "vocab-A",
+    "tier": 1,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "Asked for a stomach doctor he said tom (mouth); she repeated 'Stomach.' and he switched to batn (27:35).",
+    "english": "stomach doctor"
+   },
+   "why": "Wrong body-part word, fixed after her voiced repeat."
+  },
+  {
+   "id": "D14",
+   "verdict": "drop",
+   "why": "Not a voiced correction: her 'In my body' (44:58) came before his line as a prompt, then she said 'Yeah, before.'; the missing بـ is only in her chat (GR-19), and the engine's Latin 'hijri-- jismi' may have swallowed bi-."
+  },
+  {
+   "id": "D15",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-41",
+    "t": "55:28",
+    "t_amal": "55:39",
+    "medi_said": "أكثر... على... I don't know.",
+    "amal_said": "على الأغلب.",
+    "chat": "3ala el-a8lab",
+    "wrong": "(none)",
+    "right": "على الأغلب",
+    "kind": "vocab-A",
+    "tier": 0,
+    "bucket": null,
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "asked",
+    "confidence": "high",
+    "why": "Amal asked for 'the most likely one'; he did not know it and she supplied على الأغلب.",
+    "english": "most likely"
+   },
+   "why": "Separate from D8: D8 is the wrong word بسيرة she said لا to; here he simply did not know على الأغلب (didn't-know, tier 0)."
+  },
+  {
+   "id": "D16",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-46",
+    "t": "1:03:47",
+    "t_amal": "1:03:52",
+    "medi_said": "كلسات، آآآ، لون مختلف.",
+    "amal_said": "Where do I put اللون؟ وين بحط اللون؟ ... I have socks in different colors.",
+    "chat": "ana 3indi kalsaat bi/fi alwaan mu5talfeen",
+    "wrong": "كلسات لون مختلف",
+    "right": "كلسات في ألوان مختلفين",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "D1",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "prompt-then-fix",
+    "confidence": "medium",
+    "why": "'Socks in different colours' needs في/بـ before the colours; she asked where the colour goes, gave the English structure and he added في (1:04:14).",
+    "english": "I have socks in different colours"
+   },
+   "why": "Voiced prompt-then-fix on the missing preposition; the plural and agreement fixes that follow are A39 / A40."
+  },
+  {
+   "id": "D17",
+   "verdict": "keep",
+   "row": {
+    "id": "0926-49",
+    "t": "1:04:41",
+    "t_amal": "1:04:48",
+    "medi_said": "خضرا، آآآ، خض-- do I need to use plural here؟ خضرات؟",
+    "amal_said": "No. ... أخضر بس يعني.",
+    "chat": "zayy a5dar",
+    "wrong": "خضرا",
+    "right": "أخضر",
+    "kind": "grammar",
+    "tier": null,
+    "bucket": "A8",
+    "bucket2": null,
+    "mode": "speaking",
+    "signal": "recast",
+    "confidence": "medium",
+    "why": "He named the colour with feminine خضرا; Amal said no and gave masculine أخضر, which he repeated.",
+    "english": "like green"
+   },
+   "why": "She voiced the fix after his خضرا (1:04:47) - not just an answer to his plural question."
   }
  ],
  "added": [],
- "challenges": []
+ "challenges": [
+  {
+   "id": "A13",
+   "why": "He asked 'Can I say متأكد إنه?' and Amal answered 'متأكد إنه، mm' (12:07) - she accepted it; net2akkad appears only in her chat (GR-19)."
+  },
+  {
+   "id": "A24",
+   "why": "ستة وستين is most likely the engine's rendering of him repeating تستنى after asking كمان مرة (35:47); the slip is comprehension of تستنى دقيقة (listening mode), not a wrong word he chose."
+  },
+  {
+   "id": "A28",
+   "why": "asabiya vs asaabe3: Amal heard أسابيع (weeks) - a ص/س and vowel-length difference, which may be S4 pronunciation rather than a wrong word; needs audio."
+  }
+ ]
 }

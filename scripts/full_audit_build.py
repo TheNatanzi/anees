@@ -233,7 +233,11 @@ def mark_duplicates(rows, hand=()):
             # 'عشرين سجاد', new uid): nothing left to count twice. Only a pair with its repeat still present must resolve.
             continue
         if keep is None:
-            raise SystemExit(f"duplicates.json: kept row {h['keep']} is not in the audit rows (uids changed?) - fix the file")
+            # 2026-10-06: a re-read left only the repeat (keep's uid is gone, drop's row is still here). The pair said
+            # "these two are one slip"; with one row left there is one slip, so that row stands. Exiting here blocked
+            # every publish for three days (hourly log 10-03..10-06: "kept row FA-4db8e2d3 is not in the audit rows").
+            print(f"duplicates.json: kept row {h['keep']} is gone (a re-read changed its uid); {h['drop']} stands as the one slip")
+            continue
         if drop is None:          # the repeat is already gone (e.g. union_rows no longer lets it through)
             continue
         _drop_as_duplicate(drop, keep, f"duplicate of {keep['uid']}: {h['why']}")

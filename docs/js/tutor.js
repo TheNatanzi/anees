@@ -246,7 +246,11 @@
   function accBody(el, x) {
     const liveLink = x.token && (!x.expires || x.expires >= today()) && MOUNT[x.kind];
     el.innerHTML = '<div data-res></div>' + (liveLink ? '<details class="hb-acc"><summary><b>Change an answer</b> <span>· Undo is here while the list is open</span></summary><div class="hb-acc-body" data-live></div></details>' : '');
-    readOnly(el.querySelector('[data-res]'), x.detail, liveLink ? '' : (x.why ? 'The link has closed (' + x.why + '), so answers cannot be changed' : ''));
+    const why = liveLink ? '' : (x.why ? 'The link has closed (' + x.why + '), so answers cannot be changed' : '');
+    readOnly(el.querySelector('[data-res]'), x.detail, why);
+    // PG-32 (Medi 2026-10-06 "a universal system that completes it right away"): her answers are read from the link's own
+    // row the moment the row opens; the built detail is only the fallback (an expired link cannot be read any more)
+    if (liveLink && window.AneesLiveDetail) AneesLiveDetail.live(x.kind, x, rest).then(d => { if (d && d.live) readOnly(el.querySelector('[data-res]'), d, why); });
     const d = el.querySelector('details');
     if (d) d.addEventListener('toggle', () => { if (d.open && !d.dataset.on) { d.dataset.on = '1'; MOUNT[x.kind](d.querySelector('[data-live]'), x, () => {}, { view: 'done' }); } });
   }
@@ -254,7 +258,7 @@
     setTab('done');
     const fin = tasks.filter(t => t.finished), C = T.closed || [];
     if (!fin.length && !C.length) { $('#hb-view').innerHTML = '<p class="hb-empty">Nothing finished yet.</p>'; return; }
-    const rows = fin.map(t => ({ key: 't:' + t.id, title: t.title, note: `${fmt(t.total)} ${t.unit} answered`, open: () => t }))
+    const rows = fin.map(t => ({ key: 't:' + t.id, title: t.title, note: `${fmt(t.done)} of ${fmt(t.total)} ${t.unit} answered`, open: () => t }))
       .concat(C.map(c => ({ key: 'c:' + c.id, title: c.title, note: `${c.why}${c.detail ? ` · ${fmt(c.detail.answered)} of ${fmt(c.detail.total)} answered` : ''}`, c })));
     $('#hb-view').innerHTML = `<p class="hb-sub">Tap a row to see what was asked and every answer. Undo works while a list is still open.</p><div class="hb-accs">${rows.map((r, i) =>
       `<details class="hb-acc" data-i="${i}"><summary><b>${esc(r.title)}</b> <span>· ${esc(r.note)}</span></summary><div class="hb-acc-body"></div><div data-earlier></div></details>`).join('')}</div>`;

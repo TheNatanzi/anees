@@ -1,140 +1,15 @@
-{
- "date": "2026-10-01",
- "reader": "r3",
- "note": "Names: Male (ماليه) = Malé, Amal = person - not words. 14:21-14:51 is one how-do-I-say 'on the Wi-Fi' exchange (A7); D5 sits inside it. 46:18-46:49 is one superlative-with-someone drill: D2 is the هذا/حدا word, A21 the -o ending.",
+{"date": "2026-10-01", "reader": "r3",
+ "note": "14:21-14:51 is one Wi-Fi episode of questions (A8 covers it). 57:54-58:49 is a hearing problem with Amal's 'al oola', not a parse error. A25: Amal said 'Mm-hmm ... Of course' - she voiced no fix.",
  "rulings": [
-  {
-   "id": "D1",
-   "verdict": "keep",
-   "row": {
-    "id": "1001-4",
-    "t": "06:15",
-    "t_amal": "06:18",
-    "medi_said": "Uh, uh, حافظ، حافظ.",
-    "amal_said": "Hafiz is a motivation، بس what's about motivated؟ ... متشـ... متشجع.",
-    "chat": "mitshajje3 = motivated",
-    "wrong": "حافظ",
-    "right": "متشجع",
-    "kind": "vocab-A",
-    "tier": 1,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "explicit-no",
-    "confidence": "medium",
-    "why": "Asked to recall yesterday's word 'motivated' he produced a different lexical item, حافز (sheet: 'motivation | 7aafez daafe3'; engine wrote حافظ); Amal said that is motivation and supplied متشجع (sheet: 'motivated | Mitshajje3'). He attempted a wrong word, so tier 1, not tier 0 didn't-know.",
-    "english": "motivated"
-   },
-   "why": "Tier 1: he gave a real but wrong word before saying he forgot; tier 0 is only for words never attempted."
-  },
-  {
-   "id": "D2",
-   "verdict": "keep",
-   "row": {
-    "id": "1001-22",
-    "t": "46:18",
-    "t_amal": "46:20",
-    "medi_said": "أكتر هذا إشي?",
-    "amal_said": "أكثر حدا بحبه.",
-    "chat": "aktar 7ada ba7ebbo",
-    "wrong": "هذا",
-    "right": "حدا",
-    "kind": "vocab-A",
-    "tier": 1,
-    "bucket": null,
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "recast",
-    "confidence": "high",
-    "why": "He used هذا (this) for 'someone' after she had just modelled أكثر حدا at 46:11; she recast أكثر حدا at 46:20 and again at 46:43 (sheet: 'someone | 7ada'); he only switched to حدا at 46:45.",
-    "english": "the person I like most"
-   },
-   "why": "Real wrong-word slip, recast twice; distinct from A21 (بحب -> بحبه)."
-  },
-  {
-   "id": "D3",
-   "verdict": "keep",
-   "row": {
-    "id": "1001-24",
-    "t": "53:19",
-    "t_amal": "53:21",
-    "medi_said": "The week's beginning.",
-    "amal_said": "Why? ... بس if you say the week's beginning, now you'd have to be إضافة ... It would be the first week.",
-    "chat": "el-usboo3 el-awal",
-    "wrong": "الأسبوع الأول = the week's beginning",
-    "right": "the first week",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "PROPOSE",
-    "bucket2": null,
-    "mode": "listening",
-    "signal": "explicit-no",
-    "confidence": "medium",
-    "why": "He read her الأسبوع الأول as 'the week's beginning'; Amal asked why, explained that would need idafa with awal first, and confirmed it means the first week at 53:51.",
-    "english": "the first week",
-    "proposed_rule": "awal before a noun (awal el-usboo3) = the beginning of; awal after a noun as an adjective (el-usboo3 el-awal) = the first - same as awal usboo3."
-   },
-   "why": "Real listening misread with a voiced fix; no bucket covers awal-as-tool vs awal-as-adjective (same rule as A22), so PROPOSE."
-  },
-  {
-   "id": "D4",
-   "verdict": "keep",
-   "row": {
-    "id": "1001-2",
-    "t": "02:21",
-    "t_amal": "02:23",
-    "medi_said": "Uh, واحدة وواحد و...",
-    "amal_said": "واحد.",
-    "chat": "yoam el-5amees, wa7ad 3ashara alafain u sitte u 3eshreen",
-    "wrong": "واحدة",
-    "right": "واحد",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "E4",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "recast",
-    "confidence": "medium",
-    "why": "For the date (the 1st) he started with feminine واحدة; Amal said واحد, and at 02:55 he states the rule he took from it: 'dates are واحد, times are واحدة'.",
-    "english": "the first (of the month)"
-   },
-   "why": "Voiced recast; his 02:55 remark confirms he registered a correction on the date number."
-  },
-  {
-   "id": "D5",
-   "verdict": "drop",
-   "why": "Duplicate of A7 / a question: 14:21-14:51 is one 'how do I say on the Wi-Fi?' exchange; at 14:37 he already said على الـ Wi-Fi, and 14:45 'أنا على Wi-Fi? ... على؟' is him checking the form she gave, not a fresh slip."
-  },
-  {
-   "id": "D6",
-   "verdict": "drop",
-   "why": "S5 hesitation: he had just said اسم مدرسته at 28:58 and she echoed مدرسته; the 29:05 'الـ مدرسته الـ قديمة' is a restart with filler الـ (the engine writes his 'uh' as الـ, cf. 06:09 'Uh, ال.'), and the second الـ before قديمة is correct. Amal's Mm-hmm accepts it."
-  },
-  {
-   "id": "D7",
-   "verdict": "keep",
-   "row": {
-    "id": "1001-20",
-    "t": "39:54",
-    "t_amal": "39:55",
-    "medi_said": "طيارة جاري ... المتأخر؟",
-    "amal_said": "صح. متأخر أو متأخرة. ... ليش؟",
-    "chat": "tayyaaret jaari el-mit2a55ra",
-    "wrong": "المتأخر",
-    "right": "المتأخرة",
-    "kind": "grammar",
-    "tier": null,
-    "bucket": "A8",
-    "bucket2": null,
-    "mode": "speaking",
-    "signal": "prompt-then-fix",
-    "confidence": "medium",
-    "why": "طيارة is feminine; he offered masculine المتأخر, Amal prompted 'متأخر أو متأخرة', he switched to المتأخرة at 39:59 and she asked why (طيارة).",
-    "english": "my neighbour's late flight"
-   },
-   "why": "Her 'متأخر أو متأخرة' is a voiced prompt that got him to fix the gender."
-  }
+  {"id": "D1", "verdict": "keep", "row": {"id": "1001-2", "t": "02:21", "t_amal": "02:23", "medi_said": "Uh, واحدة وواحد و...", "amal_said": "واحد.", "chat": "yoam el-5amees, wa7ad 3ashara alafain u sitte u 3eshreen", "wrong": "واحدة", "right": "واحد", "kind": "grammar", "tier": null, "bucket": "E4", "bucket2": null, "mode": "speaking", "signal": "recast", "confidence": "low", "why": "For the date he opened with the feminine واحدة; Amal recast واحد and he then said اليوم الخميس واحد. At 02:55 he says 'So dates are واحد, times are واحدة', so he had not known the date form. Confidence is low because he also said واحد in the same turn, which may be a self-fix.", "english": "Today is the 1st"}, "why": "Amal voiced واحد right after his واحدة, and his 02:55 remark shows the date gender was new to him. Kept at low confidence because of the possible self-fix."},
+  {"id": "D2", "verdict": "keep", "row": {"id": "1001-4", "t": "03:06", "t_amal": null, "medi_said": "الساعة واحدة و، uh، صباح.", "amal_said": null, "chat": "el-saa3a wa7de u taman da2aaye2", "wrong": "صباح", "right": "الصبح", "kind": "vocab-B", "tier": 2, "bucket": null, "bucket2": null, "mode": "speaking", "signal": "none", "confidence": "low", "why": "The sheet has 'morning | el-sube7 | الصبح'. صباح is the greeting/MSA form, and Amal's 'أووه' is not a fix. This is my reading, and it is unclear whether he meant a.m. at all.", "english": "It is 1:08 (in the morning)"}, "why": "Possible wrong form that she let pass. Kept as B at low confidence for Amal to review."},
+  {"id": "D3", "verdict": "drop", "why": "S5: in this engine 'الـ' between words is a hesitation sound (cf. 29:54 'الـ، الـ اسم'). He had just said اسم مدرسته correctly at 28:58, and Amal accepted with 'Mm-hmm'. The transcript cannot prove a real el- on مدرسته."},
+  {"id": "D4", "verdict": "drop", "why": "Part of the A8 Wi-Fi episode. 'أنا على Wi-Fi?' and 'على؟' are questions while he tries to repeat her contraction عالـ, which is a question about the form and not a slip. At 14:37 he had already said على الـ Wi-Fi correctly."},
+  {"id": "D5", "verdict": "keep", "row": {"id": "1001-26", "t": "53:19", "t_amal": "53:21", "medi_said": "The week's beginning.", "amal_said": "Why? ... بس if you say the week's beginning, now you'd have to be إضافة which is two nouns, so أول has to be, like already has to be before أسبوع.", "chat": "el-usboo3 el-awal", "wrong": "The week's beginning", "right": "the first week", "kind": "grammar", "tier": null, "bucket": "A7", "bucket2": "A2", "mode": "listening", "signal": "prompt-then-fix", "confidence": "high", "why": "He read Amal's الأسبوع الأول (noun + adjective) as an idafa, 'the week's beginning'. Amal asked why and explained that it means the first week, and at 53:51 she said 'صح. It would be the first week.'", "english": "the first week"}, "why": "A clear listening misread that Amal fixed out loud."},
+  {"id": "D6", "verdict": "drop", "why": "A hearing problem, not a grammar misread: he could not catch the sound 'al oola' ('that's what I heard', 58:49). Once he heard it, he glossed it right ('the first drive', 58:38). He never gave a wrong meaning, so it is S4-like."},
+  {"id": "D7", "verdict": "keep", "row": {"id": "1001-29", "t": "59:16", "t_amal": "59:26", "medi_said": "Uh, something else. ... Something else?", "amal_said": "Tani ishi. ... The second thing.", "chat": null, "wrong": "something else (for تاني إشي)", "right": "the second thing", "kind": "vocab-A", "tier": 1, "bucket": null, "bucket2": null, "mode": "listening", "signal": "explicit-no", "confidence": "medium", "why": "He glossed tani ishi as 'something else'. Amal repeated it and said 'The second thing', and he then saw that ishi tani is 'something else' (sheet: 'something else | Eshi taani').", "english": "the second thing"}, "why": "Amal voiced the correct gloss after his wrong one."}
  ],
  "added": [],
- "challenges": []
-}
+ "challenges": [
+  {"id": "A25", "why": "Amal answered 'Mm-hmm ... Of course' at 56:04/56:08 and voiced no fix. He may have meant the two options or been mis-transcribed. At most this is grammar-B, not a voiced correction, and it needs an audio check."}
+ ]}

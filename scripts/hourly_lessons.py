@@ -274,7 +274,12 @@ def build_clips(dates, raw, work):
 
 
 NODE = os.environ.get('ANEES_NODE') or (r'C:\dev\tools\node-v24.18.0-win-x64\node.exe' if os.path.exists(r'C:\dev\tools\node-v24.18.0-win-x64\node.exe') else 'node')
-AUTO_REREVIEW = True     # a lesson whose transcript grew after its readers ran (a Meet gap fill) is re-read, one per hour
+# 2026-10-06: OFF. From 10-03 to 10-06 the hourly job re-read 11 settled lessons because Medi's transcript corrections (TR-18/19,
+# ~20 lines a lesson) changed their dumps: the readers returned 471 rows where 591 stood, uids moved, Amal's rulings and
+# duplicates.json pointed at rows that no longer existed, full_audit_build exited 1 and every publish was blocked. A finished
+# review is re-read only when a person runs scripts/review_lesson.py <date>; the guard's review_freshness check still says
+# which lessons read an older transcript. A review that never FINISHED still runs by itself (pending_reviews 'never').
+AUTO_REREVIEW = False
 
 
 def run_step(name, cmd, failures, timeout=None, capture=True):
@@ -456,16 +461,17 @@ def commit_lessons(dates):
     return run('commit', '-m', f'Lessons {", ".join(dates)} loaded by the hourly job\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>').returncode == 0
 
 
-def pending_reviews(root=None):
+def pending_reviews(root=None, include_changed=True):
     """Lessons (from AUTO_START) whose same-day review must run (again): never finished (no settled audit) first, then those
-    whose transcript changed after the readers read it. [(date, why)], oldest first within each group."""
+    whose transcript changed after the readers read it (only when include_changed; the hourly job passes AUTO_REREVIEW).
+    [(date, why)], oldest first within each group."""
     root = Path(root or ROOT)
     work = root / 'data' / 'lesson-work' / 'full-audit'
     dates = sorted(p.stem for p in (root / 'docs' / 'lessons').glob('20??-??-??.html') if p.stem >= AUTO_START)
     never = [(d, 'the same-day review never finished (no settled audit)') for d in dates if not (work / f'{d}.settled.json').exists()]
     import review_lesson as RL
     changed = []
-    for d in dates:
+    for d in dates if include_changed else []:
         if (work / f'{d}.settled.json').exists():
             try:
                 why = RL.readers_read_current(d, str(root))
@@ -626,8 +632,8 @@ def _main():
     else:
         log('nothing new')
     # a lesson whose review never finished, or whose transcript grew after its readers ran: one re-review per hour
-    if not batch and AUTO_REREVIEW:
-        pend = pending_reviews(ROOT)
+    if not batch:
+        pend = pending_reviews(ROOT, include_changed=AUTO_REREVIEW)
         pend_dates = {d for d, _ in pend}
         for k in [k for k in G.open_failures(ROOT) if k.startswith('review:') and k.split(':', 1)[1] not in pend_dates]:
             G.set_open_failures(ROOT, k, [])     # fixed since (by hand or by a later run)
