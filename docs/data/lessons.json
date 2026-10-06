@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-04T01:11:34-07:00",
+ "updated": "2026-10-05T21:27:02-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -70,7 +70,7 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 248,
+    "uses": 247,
     "mistakes": 35,
     "pct": 89.1,
     "estimate": false,
@@ -85,7 +85,7 @@
       "8 slips are in rules the counter found 0 uses of in this lesson",
       "5 rules have more slips than counted uses (A12, A4, B18, C12, D2)"
      ],
-     "uses": 228,
+     "uses": 227,
      "slips": 35,
      "slips_latin": 7,
      "slips_in_zero_use_rules": 8,
@@ -658,7 +658,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-05.json",
-    "marks": 200,
+    "marks": 202,
     "conflicts": 1,
     "resolved": 0,
     "needs_medi": 1,
@@ -802,9 +802,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 243,
+    "uses": 239,
     "mistakes": 45,
-    "pct": 85.2,
+    "pct": 84.9,
     "estimate": false,
     "scored_mistakes": 36,
     "unscored_mistakes": 9,
@@ -817,7 +817,7 @@
       "16 slips are in rules the counter found 0 uses of in this lesson",
       "7 rules have more slips than counted uses (A7, B18, B2, C7, D2, E1, E2)"
      ],
-     "uses": 224,
+     "uses": 220,
      "slips": 45,
      "slips_latin": 3,
      "slips_in_zero_use_rules": 16,
@@ -925,7 +925,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-10.json",
-    "marks": 385,
+    "marks": 383,
     "conflicts": 2,
     "resolved": 1,
     "needs_medi": 0,
@@ -1472,9 +1472,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 180,
+    "uses": 178,
     "mistakes": 42,
-    "pct": 78.3,
+    "pct": 78.1,
     "estimate": false,
     "scored_mistakes": 39,
     "unscored_mistakes": 3,
@@ -1487,7 +1487,7 @@
       "5 slips are in rules the counter found 0 uses of in this lesson",
       "6 rules have more slips than counted uses (A9, B12, B18, B2, B5, B7)"
      ],
-     "uses": 143,
+     "uses": 141,
      "slips": 42,
      "slips_latin": 17,
      "slips_in_zero_use_rules": 5,
@@ -1597,7 +1597,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-14.json",
-    "marks": 269,
+    "marks": 268,
     "conflicts": 3,
     "resolved": 3,
     "needs_medi": 0,
@@ -1930,6 +1930,53 @@
    "type_why": "Review series continues: حمّس/تحمّس, وجّع/توجّع, ضايق/تضايق, حرّك/تحرّك in English-to-Arabic sentences (10:36 he had studied the flashcards; 33:25 'just wanted to make sure you remember all of these'); first ~10 min small talk.",
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
+   "summary": {
+    "headline": "Speaking review of four verb pairs: 7ammas / t7ammas, wajja3 / twajja3, daaya2 / tdaaya2, 7arrak / t7arrak",
+    "rules": [
+     {
+      "title": "7ammas = make someone excited, t7ammas = get excited (same for the other three pairs)",
+      "pattern": "verb = do it to someone / t- + verb = it happens to you",
+      "bullets": [
+       "The plain verb does it to someone: 7ammasni = he made me excited, wajja3tek? = did I hurt you?",
+       "Put t- in front and it happens to you: t7ammasna = we got excited, bnetwajja3 = we get hurt",
+       "Same pair for daaya2 / tdaaya2 (upset / get upset) and 7arrak / t7arrak (move / move yourself)",
+       "Commands follow the same split: 7ammsini = excite me, t7ammasi = get excited"
+      ],
+      "examples": [
+       {
+        "t": "15:02",
+        "line": "huwwe 7ammasni - he made me excited"
+       },
+       {
+        "t": "16:03",
+        "line": "Amal: It's the wrong verb. It's get excited, not excite. -> t7ammasi"
+       },
+       {
+        "t": "31:07",
+        "line": "wajja3tek? - did I hurt you?"
+       },
+       {
+        "t": "39:33",
+        "line": "e7na bnetwajja3 bsur3a - we get hurt quickly"
+       },
+       {
+        "t": "50:46",
+        "line": "wala 7ada byetdaaya2 zayyik - nobody gets upset like you"
+       },
+       {
+        "t": "1:08:09",
+        "line": "eedi btet7arrak la7aalha - my hand moves on its own"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Warm-up 00:27-08:47: his day (his cousin's daughter started at the shop), the date, the time, his clothes",
+     "08:47-10:36 recall of yesterday's verbs from the flashcards",
+     "One pair at a time: 7ammas 10:50-24:35, wajja3 28:32-42:56, daaya2 42:59-54:50, 7arrak 54:54-1:06:07",
+     "Side words she gave: ballashat (05:14), el-safar (21:02), nkammel (25:36), mitwajja3 (29:24), lawain (1:03:29), wara2a / wara2 (1:05:36)"
+    ]
+   },
    "words": {
     "unique": 41,
     "right": 35,
@@ -2439,6 +2486,84 @@
    "type_why": "Review: the rest of the T group (تأسف with لـ/من, already used on 08-25), خرب/خرّب (31:57 'we reviewed this a lot') and the doubled-middle verbs (56:02 'I know you know them'); first 14 min small talk.",
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
+   "summary": {
+    "headline": "Speaking review of t2assaf (la / min) and 5ereb / 5arrab, then a quick quiz on earlier verb pairs",
+    "rules": [
+     {
+      "title": "t2assaf la / t2assaf min = apologize to someone (both work the same)",
+      "pattern": "t2assaf + la- / min + the person",
+      "bullets": [
+       "la and min both point at the person you apologize to; Amal: same meaning",
+       "t2assaftelha = I apologized to her, t2assafli = apologize to me",
+       "Command: et2assaf / et2assafi; don't: ma tet2assaf/i"
+      ],
+      "examples": [
+       {
+        "t": "16:06",
+        "line": "Amal: Both mean the same. تنين نفس المعنى - I apologize to you (min or la)"
+       },
+       {
+        "t": "16:24",
+        "line": "la + min"
+       },
+       {
+        "t": "18:27",
+        "line": "t2assaftelha - I apologized to her"
+       },
+       {
+        "t": "20:31",
+        "line": "ma tet2assaf/i - don't apologize"
+       },
+       {
+        "t": "29:12",
+        "line": "ma 7ada ra7 yet2assaflek - nobody will apologize to you"
+       }
+      ]
+     },
+     {
+      "title": "5ereb = it broke / got ruined by itself, 5arrab = someone ruined it",
+      "pattern": "5ereb (thing breaks) / 5arrab (person ruins)",
+      "bullets": [
+       "5ereb: the thing itself - shu 5ereb? = what broke?",
+       "5arrab (doubled r): a person does it - min 5arrabo? = who ruined it?",
+       "kam takes the singular: kam 5u66a 5arrabti? = how many plans have you ruined?",
+       "ba5arreb el-denia = I mess everything up (lit. I ruin the world)"
+      ],
+      "examples": [
+       {
+        "t": "34:41",
+        "line": "laish 5ereb - why did it break?"
+       },
+       {
+        "t": "35:22",
+        "line": "min 5arrabo - who ruined it?"
+       },
+       {
+        "t": "38:03",
+        "line": "kam 5u66a 5arrabti? - how many plans have you ruined?"
+       },
+       {
+        "t": "43:16",
+        "line": "re7letna 5erbat 3ashaan ma66arat - our trip was ruined because it rained"
+       },
+       {
+        "t": "45:12",
+        "line": "huwwe 3aadatan beysalla7 illi bey5arrbo - he usually fixes what he ruins"
+       },
+       {
+        "t": "51:43",
+        "line": "ba5arreb el-denia - I mess everything up"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Small talk 01:37-14:00: jambalaya, the date, the weather, his clothes",
+     "Side words she gave: 5afeef (05:05), sujo2 (07:42), kunet ra7 = I was going to (14:23), waade7 (18:06), 3emel (22:44), kun = be! (58:38)",
+     "Quick quiz 52:26-1:02:31 on 5awwef, da77ek and the earlier pairs (56:30 'things you already trained on')",
+     "1:02:44-1:03:46 Medi tells her about the app in English"
+    ]
+   },
    "words": {
     "unique": 45,
     "right": 51,
@@ -2458,9 +2583,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 141,
+    "uses": 139,
     "mistakes": 47,
-    "pct": 69.5,
+    "pct": 69.1,
     "estimate": false,
     "scored_mistakes": 43,
     "unscored_mistakes": 4,
@@ -2473,7 +2598,7 @@
       "11 slips are in rules the counter found 0 uses of in this lesson",
       "13 rules have more slips than counted uses (A12, B10, B11, B12, B18, B2, B5, B7)"
      ],
-     "uses": 101,
+     "uses": 99,
      "slips": 47,
      "slips_latin": 35,
      "slips_in_zero_use_rules": 11,
@@ -3097,7 +3222,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-18.json",
-    "marks": 127,
+    "marks": 128,
     "conflicts": 1,
     "resolved": 1,
     "needs_medi": 0,
@@ -3606,7 +3731,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-21.json",
-    "marks": 590,
+    "marks": 591,
     "conflicts": 7,
     "resolved": 1,
     "needs_medi": 2,
@@ -3760,6 +3885,53 @@
    "type_why": "Conversation and role plays: coffee, stomach ache, then booking a hotel room, breakfast, paying, complaining to the manager, booking tickets and appointments, a weekend drive. Medi's first ~23 min is not transcribed (Amal's side only).",
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
+   "summary": {
+    "headline": "Role plays reviewing the Travel booking words (7ajez, ba7jez, tazkara, maw3ed), plus a dual (-ain) recap",
+    "rules": [
+     {
+      "title": "Two of something = -ain on the end: saa3tain, santain, bentain, waladain",
+      "pattern": "noun + -ain (zalamain for two men)",
+      "bullets": [
+       "No word for two: saa3a -> saa3tain (two hours), sane -> santain (two years)",
+       "benet -> bentain, walad -> waladain; zalame -> zalamain (treated as masculine because its meaning is men)",
+       "b3eed saa3tain = two hours away; a5adni sa3tain = it took me two hours"
+      ],
+      "examples": [
+       {
+        "t": "59:09",
+        "line": "Amal: As I'm seeing that you've been forgetting the dual."
+       },
+       {
+        "t": "1:01:01",
+        "line": "7awaali saa3tain - about two hours"
+       },
+       {
+        "t": "1:01:21",
+        "line": "b33ed saa3tain - two hours away"
+       },
+       {
+        "t": "1:02:27",
+        "line": "santain - two years; bentain - two girls (1:02:42); waladain - two boys (1:02:58)"
+       },
+       {
+        "t": "1:05:10",
+        "line": "a5adni sa3tain la-a6alless haadi el-taawla - it took me two hours to finish this table"
+       },
+       {
+        "t": "1:05:31",
+        "line": "zalamain - two men"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Small talk 00:00-19:09: coffee, a stomach ache (tummi shwai beywajje3 07:23), the time, clothes, fall",
+     "Hotel role play 19:09-41:00: booking a room (7ajez = booking 21:03, ba7jez = I reserve 21:14), breakfast, paying, complaining to the manager",
+     "Tickets and appointments 42:18-54:27: tazkara, maw3ed el-tayyara, maw3ed doktor el-snaan",
+     "Drive to a chalet 54:27-58:30: raakeb, sawwaa2 / shufair = driver (58:10-58:24), bildoar = taking turns (1:00:20)",
+     "Side word: ma ilo ta3em = it doesn't have a taste (11:55)"
+    ]
+   },
    "words": {
     "unique": 65,
     "right": 72,
@@ -3782,9 +3954,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 146,
+    "uses": 144,
     "mistakes": 38,
-    "pct": 74.0,
+    "pct": 73.6,
     "estimate": false,
     "scored_mistakes": 38,
     "unscored_mistakes": 0,
@@ -3797,7 +3969,7 @@
       "7 slips are in rules the counter found 0 uses of in this lesson",
       "5 rules have more slips than counted uses (A5, B12, B3, E2, E4)"
      ],
-     "uses": 113,
+     "uses": 111,
      "slips": 38,
      "slips_latin": 5,
      "slips_in_zero_use_rules": 7,
@@ -4283,6 +4455,45 @@
    "type_why": "Role plays that review words already taught: after small talk (his knee, the app, the date) and a ~2 min drop-out at 18:00, a doctor visit (types of doctor, head ache, medicine, body and face parts, feminine/dual body words, 'my hands' = إيدي) then a clothes shop for a wedding (suit, shirt, shoes, colours, socks, sunglasses). No new verb pair taught. Amal's first recording (00:00-18:33) is transcribed since 2026-10-02 (TR-17); 18:33-20:17 she was reconnecting (filled from the Meet recording).",
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
+   "summary": {
+    "headline": "Role plays reviewing the doctor / body cards and the clothes cards, with a recap of 'my' on dual body parts",
+    "rules": [
+     {
+      "title": "idain -> idayy, ijrain -> ijrayy: 'my' on a dual word drops the n",
+      "pattern": "noun-ain + my = noun-ayy",
+      "bullets": [
+       "Two hands = idain, two legs = ijrain",
+       "To say my hands / my legs, take out the n and add -ayy: idayy, ijrayy",
+       "Same shape for around me = 7awalayy"
+      ],
+      "examples": [
+       {
+        "t": "42:21",
+        "line": "Amal: We take out the n. So إيدين turns into إيدي."
+       },
+       {
+        "t": "44:34",
+        "line": "idain = idayy - two hands / my hands"
+       },
+       {
+        "t": "44:47",
+        "line": "ijrayy - my legs"
+       },
+       {
+        "t": "45:02",
+        "line": "around me = 7awalayy"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Small talk 00:04-17:29: her knee (keef serti 02:44), his app (el-barnaamej 08:07, 8altaat 10:24); 13:38-16:56 English about language apps",
+     "Call dropped 18:01-20:17; 20:17-24:35 weather, the time, clothes, bilmiyye = percent (25:06)",
+     "Doctor visit role play 24:38-50:35: kinds of doctor (doktoar el-snaan 28:16, doktoar nafsi 29:13, doktoar 3aam 29:51), headache, medicine, body parts",
+     "Clothes shop for a wedding 50:37-1:09:40: 3urus (55:06), badle, kundara, 3ala el-a8lab (58:57), naddaara shamsiyye, kalsaat (1:06:00)",
+     "Verb pairs re-drilled only: batwajja3 (39:39), el-shams betdaaye2ni (1:03:52)"
+    ]
+   },
    "words": {
     "unique": 99,
     "right": 139,
@@ -4302,9 +4513,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 234,
+    "uses": 232,
     "mistakes": 30,
-    "pct": 88.0,
+    "pct": 87.9,
     "estimate": false,
     "scored_mistakes": 28,
     "unscored_mistakes": 2,
@@ -4314,13 +4525,13 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "3 slips are in rules the counter found 0 uses of in this lesson",
+      "5 slips are in rules the counter found 0 uses of in this lesson",
       "4 rules have more slips than counted uses (A12, A7, B18, D2)"
      ],
-     "uses": 214,
+     "uses": 212,
      "slips": 30,
      "slips_latin": 3,
-     "slips_in_zero_use_rules": 3,
+     "slips_in_zero_use_rules": 5,
      "rules_slips_over_uses": [
       "A12",
       "A7",
@@ -4565,7 +4776,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-26.json",
-    "marks": 421,
+    "marks": 420,
     "conflicts": 2,
     "resolved": 0,
     "needs_medi": 1,
@@ -4678,6 +4889,76 @@
    "type_why": "After ~15 min of app/flashcard talk and a gym story (15:40-25:50), Amal reviews the people/family/professions cards she gave him (25:55 'شو الـ cards اللي أعطيتك إياهم؟'): family members and their jobs, cousins, relatives, siblings, ages (بنت/صبية/مرة/ختيارة), who works in a company, hospital, salon, school; at 64:57 she plans a grammar review next time and Medi asks for 'the L again'.",
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
+   "summary": {
+    "headline": "Words review: family and their jobs, cousins and relatives, ages (bent / sabiyye / mara / 5ityaara), professions",
+    "rules": [
+     {
+      "title": "Cousins: one = eben 3am / bent 3am, more than one = wlaad 3am / banaat 3am",
+      "pattern": "eben 3am (one)  ->  wlaad 3am (many)",
+      "bullets": [
+       "wlaad is the plural used for eben here; abnaa2 is fus7a and never used.",
+       "Mother's side the same way: eben 5aal, banaat 5aal u 5aale.",
+       "2araayeb = relatives; one relative is 2areeb, the same word as 'close'."
+      ],
+      "examples": [
+       {
+        "t": "38:40",
+        "line": "kam eben 3am 3indak - how many cousins do you have"
+       },
+       {
+        "t": "40:23",
+        "line": "We say ولاد عم. بس when we say one we say ابن عم"
+       },
+       {
+        "t": "41:12",
+        "line": "5ames banaat 3am u tese3 wlaad 3am - five female cousins and nine male cousins"
+       },
+       {
+        "t": "46:36",
+        "line": "3indi etna3sh banaat 5aal u 5aale, u e7da3sh eben 5aal u 5aale - twelve female and eleven male cousins on my mother's side"
+       },
+       {
+        "t": "48:26",
+        "line": "2araayeb - relatives"
+       }
+      ]
+     },
+     {
+      "title": "Ages: bent -> sabiyye -> mara -> 5ityaara (f); walad -> shab -> zalame -> 5ityaar (m)",
+      "pattern": "iza ... 3omorha a2al min ... betkoon ...  |  bein ... u ... bitkoon ...  |  aktar min ... bitkoon ...",
+      "bullets": [
+       "Under about 14 a girl is bent; 20-30 sabiyye; 30-60 mara; over 60 5ityaara.",
+       "A boy is walad; 13-30 shab; 30-60 zalame; over 60 5ityaar."
+      ],
+      "examples": [
+       {
+        "t": "54:54",
+        "line": "iza benet 3omorha a2al min arba3ta3sh, betkoon benet - if a girl is under fourteen she is a bent"
+       },
+       {
+        "t": "55:36",
+        "line": "u bein 3eshreen u talateen bitkoon sabiyye - between twenty and thirty she is a sabiyye"
+       },
+       {
+        "t": "57:12",
+        "line": "bein talateen u sitteen bitkoon mara u aktar min sitteen bitkoon 5ityaar - 30-60 a mara, over 60 a 5ityaar(a)"
+       },
+       {
+        "t": "58:46",
+        "line": "a2al min e7da3sh el-walad beykoon walad, bein talatta3sh u talateen beykoon shab, u bein talateen u sitteen bikoon zalame"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "00:00-15:40 mostly English: the flashcard / Tutor app, Quizlet import format",
+     "15:40-25:50 gym story in Arabic: 7amalet (I lifted), el-wazen (weight), akbar wazen (the most weight), barajj3o (I put it back)",
+     "25:55-1:04:50 the people / family / professions cards: who works in a company, hospital, salon, school",
+     "Professions given: mu7aami, ustaaz handasa, 3aalime, el-mummared, 7allaa2, zboon / zabaayen",
+     "Off-lesson: 04:33-05:05 shop talk, 06:38-07:29 phone call",
+     "1:04:58 next time: something grammatical - el-"
+    ]
+   },
    "words": {
     "unique": 72,
     "right": 112,
@@ -4698,9 +4979,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 174,
+    "uses": 171,
     "mistakes": 19,
-    "pct": 89.7,
+    "pct": 89.5,
     "estimate": false,
     "scored_mistakes": 18,
     "unscored_mistakes": 1,
@@ -4713,7 +4994,7 @@
       "4 slips are in rules the counter found 0 uses of in this lesson",
       "4 rules have more slips than counted uses (B12, B18, B3, E1)"
      ],
-     "uses": 158,
+     "uses": 155,
      "slips": 19,
      "slips_latin": 2,
      "slips_in_zero_use_rules": 4,
@@ -5121,6 +5402,136 @@
    "type_why": "16:00-65:30 (~50 of 66 min) is the planned el- review (16:52 'حكينا بدنا نراجع ال'; 58:02 'I'm not introducing anything new... just testing'): general nouns (A1), noun + adjective (A7), hada/hadol + el (A10/A10b), idafa with feminine -t and chains (A2/A3/A5), ending with Medi explaining the rule back; first 5 min app talk, 05:35-15:50 small talk about yesterday's rug customers.",
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
+   "summary": {
+    "headline": "el- review: general statements, noun + adjective, haada / hadol + el-, and two-noun chains (idafa)",
+    "rules": [
+     {
+      "title": "General statements take el-: el-akel muhem = food is important",
+      "pattern": "el- + noun + adjective (no el-) = X is Y",
+      "bullets": [
+       "Talking about something in general still uses el-: el-akel el-3arabi zaaki kteer.",
+       "Noun with el- + adjective without el- = a sentence: el-akel muhem (food is important).",
+       "Put el- on the adjective too and it becomes a label: el-akel el-muhem = the important food."
+      ],
+      "examples": [
+       {
+        "t": "17:58",
+        "line": "الأكل مهم - food is important (الأكل المهم = the important food)"
+       },
+       {
+        "t": "21:22",
+        "line": "el-wlaad el-z8aar byebse6u / beysallu - young children are fun"
+       },
+       {
+        "t": "21:54",
+        "line": "el-akel el-3arabi zaaki kteer - Arabic food is very tasty"
+       },
+       {
+        "t": "23:07",
+        "line": "el-fasa6een el-7ilween 8aalyeen - beautiful dresses are expensive"
+       },
+       {
+        "t": "26:43",
+        "line": "el-safraat el-twaal beyzahh2u - long trips are boring"
+       }
+      ]
+     },
+     {
+      "title": "haada / haadi / hadak / hadik / hadol / hadolak: the noun after them takes el-",
+      "pattern": "hadol + el- + noun (+ el- + adjective)",
+      "bullets": [
+       "hadol el-fasateen el-8aalyeen = those expensive dresses.",
+       "Drop the second el- and it becomes a sentence: hadol el-fasateen 8aalyeen = those dresses are expensive."
+      ],
+      "examples": [
+       {
+        "t": "23:10",
+        "line": "هدول الفساتين غاليين - those dresses are expensive (take out the second ال)"
+       },
+       {
+        "t": "29:01",
+        "line": "haada, haadi, hadak, hadik, hadol, hadolak"
+       },
+       {
+        "t": "29:44",
+        "line": "hadoal el-swaat muz3ejeen - these voices are annoying"
+       },
+       {
+        "t": "32:43",
+        "line": "hadik el-mu8aniye aseera - that singer is short"
+       },
+       {
+        "t": "34:48",
+        "line": "hadoalak el-naas zaruna - those people visited us"
+       }
+      ]
+     },
+     {
+      "title": "Noun + adjective: both get el-, or neither, or only the noun (el-walad el-3ayaan / walad 3ayaan / el-walad 3ayaan)",
+      "pattern": "el- + noun + el- + adjective = the X Y  |  noun + adjective = a X Y  |  el- + noun + adjective = the X is Y",
+      "bullets": [
+       "a big table: no el- at all. the big table: el- on both. the table is big: el- only on the noun.",
+       "el-walad el-3ayaan = the sick boy. el-walad 3ayaan = the boy is sick."
+      ],
+      "examples": [
+       {
+        "t": "35:56",
+        "line": "the big table is الطاولة الكبيرة; a big table is طاولة كبيرة"
+       },
+       {
+        "t": "36:14",
+        "line": "الطاولة كبيرة - the table is big"
+       },
+       {
+        "t": "44:48",
+        "line": "el-walad el-3ayaan laazem ydall fi beito - the sick boy must stay home"
+       }
+      ]
+     },
+     {
+      "title": "Two nouns (idafa): el- goes only on the second noun: baab el-8urfa, dars el-3arabi",
+      "pattern": "noun + el- + noun  |  feminine first noun ends in -t  |  three nouns: el- only on the last",
+      "bullets": [
+       "baab el-8urfa = the room's door. Its adjective comes after, with el-: baab el-8urfa el-maftoo7.",
+       "A type is idafa too: shajaret el-tuffaa7 (apple tree), lebaas el-shu8ul (work clothes), akel el-beit.",
+       "A possessive ending removes el- entirely: bent jaari, sayyaaret e5wti, bait sadiqet 5atibti.",
+       "haadi goes in front without changing anything: haadi shajaret el-tuffaa7."
+      ],
+      "examples": [
+       {
+        "t": "37:02",
+        "line": "bab al-ghurfa - the room's door (38:13 bab al-ghurfa al-maftuh = the open room door)"
+       },
+       {
+        "t": "40:57",
+        "line": "dars el-3arabi el-sa3b - the hard Arabic lesson"
+       },
+       {
+        "t": "42:18",
+        "line": "bent jaari - my neighbor's daughter"
+       },
+       {
+        "t": "45:58",
+        "line": "sayyaaret e5wti - my siblings' car"
+       },
+       {
+        "t": "55:32",
+        "line": "هذه شجرة التفاح - this apple tree (haadi added, nothing else changes)"
+       },
+       {
+        "t": "1:04:44",
+        "line": "bait sadiqet 5atibti azra2 - my fiancee's friend's house is blue"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "00:00-05:35 app / Tutor verb-list talk with Amal",
+     "05:36-15:50 small talk about yesterday's rug customers: mitshajje3 (motivated), raa7at 3aleiha (she missed out)",
+     "58:03 Amal: nothing new today, only testing; awal / aa5er / kul with el- set for next time",
+     "1:03:19-1:05:22 Medi explains the el- rule back"
+    ]
+   },
    "words": {
     "unique": 55,
     "right": 67,
@@ -5140,9 +5551,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 207,
+    "uses": 202,
     "mistakes": 19,
-    "pct": 91.3,
+    "pct": 91.1,
     "estimate": false,
     "scored_mistakes": 18,
     "unscored_mistakes": 1,
@@ -5155,7 +5566,7 @@
       "4 slips are in rules the counter found 0 uses of in this lesson",
       "4 rules have more slips than counted uses (B18, C1, D2, D4)"
      ],
-     "uses": 193,
+     "uses": 188,
      "slips": 19,
      "slips_latin": 5,
      "slips_in_zero_use_rules": 4,
@@ -5290,7 +5701,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-30.json",
-    "marks": 300,
+    "marks": 299,
     "conflicts": 1,
     "resolved": 1,
     "needs_medi": 0,
@@ -5363,6 +5774,157 @@
    "type_why": "15:22-1:04:50 (~49 of 66 min) continues the planned el- review from 09-30 in English-to-Arabic phrases (15:34 'سيارة الـ BMW'): a possessed noun is definite, so its adjective takes el (24:38, شنتة شغلي الحمرا 25:40), his old school's name (28:58), المطعم الإيراني الجديد (32:28), favourite as an adjective (35:10); then 'the thing before ال' (40:27): superlatives take no el (42:49) and أول/آخر/تاني/نفس/غير as tools before a noun vs adjectives after it (47:18-1:02:40), partly new (55:26 'we never said it before', 1:02:59 'this is new actually'). 00:00-06:00 date/time/clothes warm-up; 05:23-07:30 Amal reviews yesterday's word for motivation and teaches motivated: she says متشجع at 06:29, types 'mitshajje3 = motivated' at 06:52 and asks 'متشجع للعربي؟' (06:50); 07:04-07:28 he asks about بحسب; 08:14-08:48 Tutor hub talk; 09:00-09:58 the el- review starts (BMW). Off-lesson: 10:00-13:48 only (Medi's customer call). 14:08-15:20 is lesson (أنا على الـ Wi-Fi, the BMW sentence). Amal's audio for 00:00-20:37 is missing from the transcript (her first track was not transcribed; read here from that track); 20:37-23:12 she dropped out.",
    "type_source": "claude-read",
    "type_read_by": "Claude (agent, by hand from the transcript; first use of the LS-01 reader file); corrected 2026-10-02 by hand (LS-08/09/10) with Amal's first track 05:00-16:30 read locally (faster-whisper, check only)",
+   "summary": {
+    "headline": "el- review: two-noun chains, adjectives after them, superlatives without el-, then awal / taani / nafs / 8eir",
+    "rules": [
+     {
+      "title": "Two nouns together (idafa): only the second noun gets el-, the first never does",
+      "pattern": "noun + el- + noun  (sayyaaret el-BM)",
+      "bullets": [
+       "sayyaaret el-BM = the BM car. The first noun takes no el-.",
+       "A feminine first noun ends in -t: sayyaara -> sayyaaret, mudeera -> mudiret.",
+       "A possessive ending (-i, -o, -ha) also makes the noun definite, so no el- there either: makaan shu8lo."
+      ],
+      "examples": [
+       {
+        "t": "16:06",
+        "line": "sayyaaret el-BM illi - the BM car is mine"
+       },
+       {
+        "t": "17:13",
+        "line": "mudiret u5ti la2eemi - my sister's manager is mean"
+       },
+       {
+        "t": "18:15",
+        "line": "makaan shu8lo b3eed - his workplace is far"
+       },
+       {
+        "t": "27:35",
+        "line": "3ailet sadiqi - my friend's family"
+       }
+      ]
+     },
+     {
+      "title": "An adjective after a possessed noun takes el-: shantet shu8li el-7amra",
+      "pattern": "noun + possessor + el- + adjective",
+      "bullets": [
+       "shantet shu8li is definite (it is mine), so its adjective is definite too: el-7amra.",
+       "Without el- it turns into a sentence: shantet shu8li 7amra = my work bag is red.",
+       "The adjective's gender shows which noun it describes: esem madrasto el-2adeem (the name) / el-2adeeme (the school)."
+      ],
+      "examples": [
+       {
+        "t": "24:38",
+        "line": "if it's possessed by a pronoun it's definitive, so the adjective after it should be definitive as well"
+       },
+       {
+        "t": "25:40",
+        "line": "shantet shu8li el-7amra - my red work bag"
+       },
+       {
+        "t": "31:26",
+        "line": "esem madrasto el-2adeem/e - the old name of his school / the name of his old school"
+       },
+       {
+        "t": "40:51",
+        "line": "tayyaaret jaari el-mit2a55ra - my neighbor's late flight"
+       }
+      ]
+     },
+     {
+      "title": "A definite noun with adjectives: every word gets el- (el-mat3am el-Irani el-jdeed)",
+      "pattern": "el- + noun + el- + adjective + el- + adjective",
+      "bullets": [
+       "the new Iranian restaurant = el-mat3am el-Irani el-jdeed; el- repeats on every adjective.",
+       "mufaddal (favorite) is an adjective, so it never takes a possessive ending: ma7al awa3iha el-mufaddal."
+      ],
+      "examples": [
+       {
+        "t": "33:19",
+        "line": "El-mat3am el-Irani el-jdeed - the new Iranian restaurant"
+       },
+       {
+        "t": "35:10",
+        "line": "we consider مفضل here as an adjective, so we can't really say مفضلها"
+       },
+       {
+        "t": "37:09",
+        "line": "ma7al awa3iha el-mufaddal / ma7al el-awa3i el-mufadal 3indha - her favorite clothing store"
+       }
+      ]
+     },
+     {
+      "title": "Superlatives take no el-: a7san ma7al = the best store",
+      "pattern": "a7san / aswa2 / aktar + noun (no el-)",
+      "bullets": [
+       "a7san ma7al = the best store, even though English says 'the'.",
+       "aswa2 zboon = the worst customer. aktar 7ada ba7ebbo = the person I like most.",
+       "fus7a puts el- on them; spoken Arabic does not."
+      ],
+      "examples": [
+       {
+        "t": "42:39",
+        "line": "a7san ma7al = the best store"
+       },
+       {
+        "t": "42:49",
+        "line": "the superlative term, the best, the worst, we don't have the in them"
+       },
+       {
+        "t": "45:13",
+        "line": "aswa2 zboon ma beyshteir ishi - the worst customer doesn't buy anything"
+       },
+       {
+        "t": "47:27",
+        "line": "aktar 7ada ba7ebbo - the person I like most"
+       }
+      ]
+     },
+     {
+      "title": "awal / aa5er / taani / 8eir before a noun never take el-; after the noun they are adjectives with el-",
+      "pattern": "awal + noun = first  |  awal + el- + noun = the beginning of  |  el- + noun + el-awal / el-oola = the first",
+      "bullets": [
+       "awal marra = the first time. awal el-usboo3 = the beginning of the week. el-usboo3 el-awal = the first week.",
+       "oola = the feminine of awal: el-laffe el-oola = the first drive.",
+       "tani ishi = the second thing. ishi taani = something else.",
+       "nafs is the opposite: it always takes el-. nafs el-ishi = the same thing (nafs ishi means nothing)."
+      ],
+      "examples": [
+       {
+        "t": "47:59",
+        "line": "Actually أول never takes ال ... if you want to say it before the noun"
+       },
+       {
+        "t": "50:12",
+        "line": "awal marra - the first time"
+       },
+       {
+        "t": "54:11",
+        "line": "awal el-usboo3 - the beginning of the week (awal usboo3 / el-usboo3 el-awal = the first week)"
+       },
+       {
+        "t": "57:02",
+        "line": "oola = first (feminine)"
+       },
+       {
+        "t": "59:40",
+        "line": "awal laffe, awal el-lafe, el-laffe el-oola - first drive, beginning of the drive, the first drive"
+       },
+       {
+        "t": "1:01:49",
+        "line": "nafs el-ishi - the same thing"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Warm-up 00:00-06:00: date, time, clothes; 05:23-07:30 mitshajje3 (motivated) reviewed from 09-30",
+     "08:14-08:48 Tutor hub talk; 09:00-09:58 the el- review starts with the BM car",
+     "Off-lesson 10:00-13:48: Medi's customer call; 20:37-23:12 Amal dropped out",
+     "Words given: oola (first, feminine), laffe (a drive)",
+     "1:03:38-1:04:50 Medi asks for structure on the tool words; Amal will categorize them (done 10-02)"
+    ]
+   },
    "words": {
     "unique": 49,
     "right": 86,
@@ -5510,7 +6072,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-01.json",
-    "marks": 292,
+    "marks": 293,
     "conflicts": 1,
     "resolved": 1,
     "needs_medi": 0,
@@ -5620,6 +6182,205 @@
    "type_why": "16:54-1:03:48 (~47 of 64 min) is Amal teaching the tool words before/after a noun in full, after yesterday's rushed end-of-lesson start ('Yesterday... it was at the end, and it was random' 57:03): first a short review of أول (16:54 'شو بنتذكر عن أول؟', الساعة الأولى) and تاني derived by Medi (20:34), then new parts - آخر as the adjective أخير/أخيرة (31:59 'we can learn the way to say آخر as an adjective'), غير (36:01 'Now we're gonna add one more to the list which is غير'), نفس always + ال (49:59, 51:25), كل vs كل ال (53:31), mixed English-to-Arabic quiz 39:52-49:54, and Medi explaining the rules back (57:34 'It's your turn. دورك'). Mixed: ~13 min of it (16:54-29:37) re-tests أول/تاني from 10-01. 00:04-06:12 English talk about the Tutor app's verb+preposition list; 06:44-16:42 Arabic warm-up (woke up late, travel plans to his uncle's, camping, date, time, clothes).",
    "type_source": "claude-read",
    "type_read_by": "claude -p (review_lesson.py)",
+   "summary": {
+    "headline": "Tool words before or after a noun: awal, aa5er / a5eer, taani, 8eir, nafs, kul",
+    "rules": [
+     {
+      "title": "awal + noun = first; awal + el- + noun = the beginning of; after the noun it is el-awal / el-oola",
+      "pattern": "awal + noun = first  |  awal + el- + noun = the beginning of  |  el- + noun + el-awal / el-oola = the first",
+      "bullets": [
+       "awal sa3a = first hour / the first hour. No el- in front of awal when it comes first.",
+       "awal el-sa3a = the beginning of the hour. The el- on the noun changes the meaning.",
+       "After the noun it is an adjective and matches the gender: el-saa3a el-oola, el-yoam el-awal.",
+       "oola = the feminine of awal."
+      ],
+      "examples": [
+       {
+        "t": "17:46",
+        "line": "awal sa3a - the first hour"
+       },
+       {
+        "t": "17:53",
+        "line": "awal el-sa3a - the beginning of the hour"
+       },
+       {
+        "t": "21:04",
+        "line": "haadi awal sa3a fi shu8lna / haadi el-saa3a el-oowla fi shu8ulna - this is the first hour in our work"
+       },
+       {
+        "t": "30:26",
+        "line": "awal el-sa3a = the beginning of the hour"
+       },
+       {
+        "t": "31:06",
+        "line": "اليوم الأول - the first day (أول اليوم = the beginning of the day)"
+       }
+      ]
+     },
+     {
+      "title": "taani + noun = second; noun + taani = another or second; taani never takes el- in front",
+      "pattern": "taani + noun = second  |  noun + taani = another / second  |  el- + noun + el-taani = the second",
+      "bullets": [
+       "taani yoam = second day / the second day. yoam taani = another day (or the second).",
+       "taani el-... means nothing: there is no 'beginning of' meaning like awal el-.",
+       "Feminine after the noun: el-marra el-tanye = the second time; marra tanye = another time."
+      ],
+      "examples": [
+       {
+        "t": "21:50",
+        "line": "taani = second/else/other"
+       },
+       {
+        "t": "21:56",
+        "line": "We can't say تاني الساعة. It doesn't mean anything."
+       },
+       {
+        "t": "22:42",
+        "line": "taani saa3a = second hour / the second hour"
+       },
+       {
+        "t": "25:18",
+        "line": "el-masari ra7 yiju fi tani youm / youm tani - the money will come on the second day / another day"
+       },
+       {
+        "t": "28:42",
+        "line": "hadi tani marra ana bashufek el-yoam / hadi el-marra el-tania illi bashufek elyoam - this is the second time I see you today"
+       },
+       {
+        "t": "29:22",
+        "line": "bashufak marra tanye = i'll see you another time"
+       }
+      ]
+     },
+     {
+      "title": "aa5er works like awal: aa5er + noun = last, aa5er + el- = the end of; the adjective is a5eer / a5eera",
+      "pattern": "aa5er + noun = last  |  aa5er + el- + noun = the end of  |  el- + noun + el-a5eer / el-a5eera = the last",
+      "bullets": [
+       "aa5er marra = last time / the last time. aa5er el-marra = the end of the turn.",
+       "After the noun use a5eer (m) / a5eera (f) / a5eeraat (plural): el-marra el-a5eera.",
+       "aa5er el-ijtima3 = the end of the meeting."
+      ],
+      "examples": [
+       {
+        "t": "32:17",
+        "line": "The آخر as an adjective is أخير or أخيرة - last or final"
+       },
+       {
+        "t": "33:33",
+        "line": "a5eer/a = last/final (adjective)"
+       },
+       {
+        "t": "34:39",
+        "line": "aa5er marra = last time / the last time"
+       },
+       {
+        "t": "35:02",
+        "line": "el-marra el-a5eera = the last time"
+       },
+       {
+        "t": "35:55",
+        "line": "aa5er el-ijtima3 = the end of the meeting"
+       },
+       {
+        "t": "47:56",
+        "line": "aa5er 3ashar da2aaye2 / el-3ashar da2aaye2 el-a5eeraat - the last ten minutes"
+       }
+      ]
+     },
+     {
+      "title": "8eir + noun = other / different; 8eir never takes el- in front",
+      "pattern": "8eir + noun (no el-)",
+      "bullets": [
+       "8eir yoam = another day. 8eir akle = a different dish.",
+       "Only one meaning (other / different), so there is no el- version to learn.",
+       "After the noun (el-yoam el-8eir) is rare; 8eir yoam is far more common."
+      ],
+      "examples": [
+       {
+        "t": "38:06",
+        "line": "8eir = other/different"
+       },
+       {
+        "t": "38:06",
+        "line": "غير يوم is way, way, way more common"
+       },
+       {
+        "t": "40:51",
+        "line": "bashufek 8eir yoam = i'll see you another day"
+       },
+       {
+        "t": "41:17",
+        "line": "e7na bidna 8eir akle - we want a different dish"
+       },
+       {
+        "t": "51:27",
+        "line": "37na 3indna 8eir dyoof kul yoam - we have different guests every day"
+       }
+      ]
+     },
+     {
+      "title": "nafs always takes el- after it: nafs el-ishi = the same thing",
+      "pattern": "nafs + el- + noun",
+      "bullets": [
+       "nafs = the same. The noun after it always has el-.",
+       "Never el- before nafs: el-nafs el-... is wrong.",
+       "nafs is only a tool word, never an adjective after the noun."
+      ],
+      "examples": [
+       {
+        "t": "50:18",
+        "line": "نفس ... it takes ال. نفس الـ issue"
+       },
+       {
+        "t": "51:25",
+        "line": "the rule is نفس always takes ال after, but it never takes ال before"
+       },
+       {
+        "t": "53:20",
+        "line": "haad nafs el-ishi - this is the same thing"
+       },
+       {
+        "t": "54:26",
+        "line": "ana basoo2 nafs el-taree2 kul yom - I drive the same route every day"
+       }
+      ]
+     },
+     {
+      "title": "kul + noun = every; kul + el- + noun = all / the whole; el-kull = everyone",
+      "pattern": "kul + noun = every  |  kul + el- + noun = all / the whole  |  el-kull = everyone",
+      "bullets": [
+       "kul yoam = every day.",
+       "kul el-yoam = all day / the whole day.",
+       "el-kull on its own = everyone."
+      ],
+      "examples": [
+       {
+        "t": "53:37",
+        "line": "كل is every, and then كل ال is like all"
+       },
+       {
+        "t": "55:55",
+        "line": "kul + noun = every"
+       },
+       {
+        "t": "56:08",
+        "line": "kul + el = all / the whole"
+       },
+       {
+        "t": "56:25",
+        "line": "el-kull = everyone"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Review of awal / taani from 10-01 (16:54-29:37), then a mixed English-to-Arabic quiz on all the tool words (39:52-49:54)",
+     "Medi explains the rules back (57:34-1:00:00); Amal will make a card set and a table for them",
+     "Warm-up talk in Arabic 06:44-16:42: woke up late, travel plans to his uncle's, camping, date, time, clothes",
+     "00:04-06:12 English talk about the Tutor app's verb + preposition list",
+     "Words given: 3otle (vacation), 5eime / ta5yeem (tent / camping), dyoof (guests), el-farq / i5tilaaf (difference)"
+    ]
+   },
    "words": {
     "unique": 27,
     "right": 59,
@@ -5639,9 +6400,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 248,
+    "uses": 212,
     "mistakes": 18,
-    "pct": 92.7,
+    "pct": 91.5,
     "estimate": false,
     "scored_mistakes": 18,
     "unscored_mistakes": 0,
@@ -5654,7 +6415,7 @@
       "2 slips are in rules the counter found 0 uses of in this lesson",
       "2 rules have more slips than counted uses (A4, D2)"
      ],
-     "uses": 234,
+     "uses": 198,
      "slips": 18,
      "slips_latin": 2,
      "slips_in_zero_use_rules": 2,
@@ -5802,7 +6563,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-02.json",
-    "marks": 333,
+    "marks": 317,
     "conflicts": 2,
     "resolved": 1,
     "needs_medi": 0,

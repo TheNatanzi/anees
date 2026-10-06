@@ -16,7 +16,17 @@ scripts/review_lesson.py (a headless `claude -p` run with prompt() below) or by 
      "taught_words": [{"latin": "oola", "arabic": "...", "english": "first (feminine)", "t": "55:26"}],  # other words she introduced
      "not_taught": [{"key": "mumtaz", "reason": "her praise word, not taught"}],   # LS-09: Tutor new words that are NOT taught
      "off_lesson": [{"from": "10:00", "to": "13:48", "who": "Medi", "what": "customer call (booking a rug pickup)"}],  # LS-10
-     "read_by": "claude -p (review_lesson.py)" | "<agent>, by hand", "at": "<iso time>"}
+     "read_by": "claude -p (review_lesson.py)" | "<agent>, by hand", "at": "<iso time>",
+     "summary": {                                   # LS-13 (Medi 2026-10-05 "This is way to wordy. Please simplify it. We should be
+                                                    # very clear about the exact new grammar rule with the accordian for examples and
+                                                    # bulleted explanation"): what the Lessons page SHOWS instead of the why prose
+       "headline": "Tool words before and after a noun: awal, aa5er, taani, 8eir, nafs, kul",   # one line, <= 120 chars, no times
+       "rules": [{"title": "nafs always takes el-: nafs el-ishi",         # the exact rule, one line (her spelling, S1)
+                  "pattern": "nafs + el- + noun",                         # optional: the formula
+                  "bullets": ["nafs = the same", "the noun after it always has el-", "nafs el-ishi = the same thing"],   # 1-4 short lines
+                  "examples": [{"t": "49:59", "line": "نفس الإشي - the same thing"}]}],   # 1-6 real moments (mm:ss + the words said)
+       "also": ["Review of awal / taani from 10-01 (16:54-29:37)", "Warm-up talk 06:44-16:42: woke up late, travel, camping"]}}   # short lines
+   summary is optional for old reads; a new read must have it (check fails without it since 2026-10-05).
 
 LS-08 (Medi 2026-10-02 "there was a new word from the lesson yesterday... you didnt catch it it was like sheja3a or
 something for "motivation". why didnt you catch this"): taught_words lists EVERY word Amal introduces or gives Medi - when
@@ -101,6 +111,38 @@ def problems(d, date):
             bad.append(f"off_lesson entry {x!r}: to is not after from")
     if OFF_RE.search(why) and not off:
         bad.append("why calls a stretch off-lesson but off_lesson is empty: say who, what, from and to (LS-10)")
+    bad += summary_problems(d.get("summary"), required=str(d.get("at") or "") >= SUMMARY_SINCE)
+    return bad
+
+
+SUMMARY_SINCE = "2026-10-05T12:00"   # LS-13: reads from this time on must carry the structured summary
+
+
+def summary_problems(s, required=False):
+    """LS-13: the structured summary the Lessons page shows (headline, rules with bullets + examples, also). [] when fine."""
+    if s is None:
+        return ["summary missing: headline, rules (title, bullets, examples), also (LS-13)"] if required else []
+    bad = []
+    if not isinstance(s, dict):
+        return ["summary must be an object (LS-13)"]
+    h = str(s.get("headline") or "").strip()
+    if not (10 <= len(h) <= 120) or TIME_RE.search(h):
+        bad.append("summary.headline must be one plain line, 10-120 characters, no mm:ss times")
+    rules = s.get("rules")
+    if not isinstance(rules, list):
+        bad.append("summary.rules must be a list (empty when no rule was taught)")
+    for r in rules or []:
+        if not isinstance(r, dict) or not (3 <= len(str(r.get("title") or "")) <= 140):
+            bad.append(f"summary rule {r!r} needs a one-line title"); continue
+        b = r.get("bullets")
+        if not (isinstance(b, list) and 1 <= len(b) <= 4 and all(isinstance(x, str) and 3 <= len(x) <= 160 for x in b)):
+            bad.append(f"summary rule {r.get('title')!r}: bullets = 1-4 short lines")
+        ex = r.get("examples")
+        if not (isinstance(ex, list) and 1 <= len(ex) <= 6 and all(isinstance(x, dict) and CLOCK_RE.match(str(x.get("t") or "")) and len(str(x.get("line") or "")) >= 3 for x in ex)):
+            bad.append(f"summary rule {r.get('title')!r}: examples = 1-6 real moments with t (mm:ss) and line")
+    also = s.get("also")
+    if also is not None and not (isinstance(also, list) and all(isinstance(x, str) and len(x) <= 160 for x in also)):
+        bad.append("summary.also must be a list of short lines")
     return bad
 
 
@@ -216,6 +258,11 @@ def prompt(date, repo=None):
             f"neither speaks Arabic nor types; a stretch where her voice is just missing from the transcript is NOT off-lesson "
             f"(say 'her audio is missing' in why instead). LS-09: not_taught [{{key, reason}}] is for words on the Tutor "
             f"new-words list (data/lesson-work/amal-new-words-verdicts.json, verdict new, this date) that were not taught. "
+            f"summary (LS-13, what the page shows instead of why): headline = ONE plain line (<= 120 chars, no times) saying what "
+            f"was taught; rules = every grammar rule or word pattern Amal taught or drilled, each {{title (the exact rule in one "
+            f"line, her spelling), pattern (optional formula), bullets (1-4 short plain lines explaining it), examples (1-6 real "
+            f"moments {{t mm:ss, line = the words said, Arabic or her Arabizi + English}})}}; also = short lines for the rest "
+            f"(review of earlier lessons, warm-up talk, off-lesson stretches) - no sentence over 160 chars. "
             f"read_by \"claude -p (review_lesson.py)\", at = now (ISO). Edit no other file. Then run "
             f"`python scripts/lesson_type_read.py check {date}` and fix the file until it prints OK (it also runs the LS-09 / "
             f"LS-10 cross-check). "

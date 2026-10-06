@@ -48,6 +48,16 @@ Write exactly what MEDI said in the target line:
 - if he spoke English, write the English.
 Answer JSON only: {{"arabic": "his words in Arabic script (English words stay English)", "arabizi": "his words in Latin letters with 2 3 5 6 7 8 9 for ء ع خ ط ح غ ص", "engine_was_wrong": true|false, "changes": [{{"engine": "...", "said": "..."}}], "confidence": "high"|"medium"|"low", "why": "one short reason"}}"""
 
+# TR-26 (Medi 2026-10-05 "Can we cue gemini for similar sounding words?" / "but maybe we get in front of it too"): the
+# sound-alike groups (data/lesson-work/confusables.json) go into every second-listen prompt, right before the context rules.
+try:
+    import confusables as _CF
+    _CUE = _CF.cue().replace("{", "(").replace("}", ")")
+except Exception:   # the list is a cue, never a reason the listen fails
+    _CUE = ""
+if _CUE:
+    PROMPT = PROMPT.replace("How to use the context (general", _CUE + "\n\nHow to use the context (general", 1)
+
 CONFIRM = """Audio of ONE speaker: Medi, an American learner of Levantine Arabic who mixes English and Arabic and makes learner
 mistakes. Write exactly what he says, keeping his mistakes (do not correct his Arabic). Answer JSON only:
 {"arabic": "his words in Arabic script (English stays English)", "arabizi": "Latin letters with 2 3 5 6 7 8 9"}"""

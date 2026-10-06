@@ -39,3 +39,27 @@ def test_kaman_marra_when_amal_repeats():
     assert D.asks_again(T, 1, "آآآ، كم مرة؟")
     T[2]["text"] = "تلات مرات"
     assert not D.asks_again(T, 1, "آآآ، كم مرة؟")
+
+
+def test_GR_28_repeat_of_the_line_amal_just_fixed_is_not_a_new_use():
+    """GR-28, Medi 2026-10-05 (10-02 07:34 'على عشرة' -> Amal 'الـ.' -> 07:38 'على العشرة'): "this is a repeat of a mistake and
+    should be marked as repeat and not counted"."""
+    import detect_grammar_usage as G
+    T = [{"speaker": "Medi", "start": 454.0, "text": "آآآ على عشرة."}, {"speaker": "Amal", "start": 456.0, "text": "الـ."},
+         {"speaker": "Medi", "start": 457.8, "text": "على العشرة."}, {"speaker": "Medi", "start": 466.8, "text": "do you guys say lazy morning or no?"},
+         {"speaker": "Medi", "start": 520.0, "text": "على العشرة بروح."}]
+    assert G.repeat_of_fixed(T, 2)["start"] == 454.0          # the fixed repeat right after her prompt
+    assert G.repeat_of_fixed(T, 0) is None                    # the first line is the slip itself
+    assert G.repeat_of_fixed(T, 3) is None                    # English, nothing to repeat
+    assert G.repeat_of_fixed(T, 4) is None                    # a new sentence a minute later is a real use
+    T2 = [{"speaker": "Medi", "start": 10.0, "text": "على عشرة."}, {"speaker": "Medi", "start": 12.0, "text": "على العشرة."}]
+    assert G.repeat_of_fixed(T2, 1) is None                   # his own self-fix with no Amal between is GR-22's case, not a repeat
+
+
+def test_TR_26_sound_alike_cue_is_in_the_second_listen_prompt():
+    """TR-26, Medi 2026-10-05: "Can we cue gemini for similar sounding words?" / "but maybe we get in front of it too"."""
+    import confusables as CF, context_transcribe as CT
+    c = CF.cue()
+    assert "على" in c and "3ala" in c and "العشرة" in c
+    assert c in CT.PROMPT and CT.PROMPT.index(c) < CT.PROMPT.index("How to use the context")
+    assert CF.cue(path="C:/nowhere/none.json") == ""           # a missing list never breaks the prompt

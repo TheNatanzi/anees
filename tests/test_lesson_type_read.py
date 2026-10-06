@@ -98,3 +98,22 @@ def test_ls_10_off_lesson_window_needs_who_what_times_and_fails_on_amal_teaching
     assert len(issues) == 1 and issues[0].startswith('LS-10: off-lesson 10:00-13:48')
     make(tmp_path)                                               # her "Okay." (no Arabic) inside the call is not teaching
     assert LTR.cross_check(D, str(repo)) == []
+
+
+def test_ls_13_summary_is_a_headline_rules_with_bullets_and_examples_and_required_for_new_reads():
+    """LS-13 (Medi 2026-10-05: "This is way to wordy. Please simplify it..."): the page shows a structured reading, not prose."""
+    good = {'headline': 'Tool words before and after a noun: awal, aa5er, taani, 8eir, nafs, kul',
+            'rules': [{'title': 'nafs always takes el-: nafs el-ishi', 'pattern': 'nafs + el- + noun',
+                       'bullets': ['nafs = the same', 'the noun after it always has el-'],
+                       'examples': [{'t': '49:59', 'line': 'نفس الإشي - the same thing'}]}],
+            'also': ['Review of awal / taani from 10-01 (16:54-29:37)']}
+    assert LTR.summary_problems(good) == []
+    assert LTR.summary_problems(None) == [] and LTR.summary_problems(None, required=True)      # old reads may lack it; new reads may not
+    assert LTR.summary_problems({**good, 'headline': 'at 16:54 she taught awal'})               # a headline is one plain line without times
+    assert LTR.summary_problems({**good, 'rules': [{**good['rules'][0], 'bullets': []}]})       # a rule explains itself in 1-4 bullets
+    assert LTR.summary_problems({**good, 'rules': [{**good['rules'][0], 'examples': [{'t': 'noon', 'line': 'x'}]}]})   # examples are real moments
+    # a read stamped from 2026-10-05 noon on must carry the summary
+    d = dict(GOOD, at='2026-10-05T18:00:00-07:00')
+    assert any('summary missing' in x for x in LTR.problems(d, D))
+    assert LTR.problems({**d, 'summary': good}, D) == []
+    assert LTR.problems(GOOD, D) == []                                                          # the 10-02 read (no summary) still passes

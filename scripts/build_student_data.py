@@ -130,10 +130,39 @@ def lesson_dates(d=LESSONS_DIR):
     return sorted(os.path.basename(p)[:10] for p in glob.glob(os.path.join(d, "20??-??-??.json")))
 
 
-def shaky_words(dates=None, lessons_dir=LESSONS_DIR, n=SHAKY_LESSONS):
-    """Q3 (Medi 2026-10-05 'Let's go back 2 lessons'): wrong / partly wrong words and words he asked for, from the last n lessons."""
+STOP = {"the", "a", "an", "to", "of", "is", "i", "you", "my", "we", "they", "he", "she", "it", "and", "or", "in", "on", "with", "this", "that", "for", "at", "be", "am", "are", "was"}
+
+
+def meaning_tokens(s):
+    return {t for t in re.split(r"[^a-z]+", str(s or "").lower()) if len(t) > 1 and t not in STOP}
+
+
+def key_fits(row, doc):
+    """Medi 2026-10-05 ('Miskey sounds like a mistake'): the lesson audit sometimes ties a slip to the WRONG Doc word (the slip
+    'the last ten minutes' keyed to tesbah 'ala kheir = good night). The key is trusted only when the Doc word's meaning shares a
+    word with the slip's meaning; otherwise the row is left out of the set and listed, never dealt as the wrong card."""
+    w = doc.get(row.get("sheet_key") or row.get("word_key") or "")
+    if not w:
+        return True, None
+    if meaning_tokens(w.get("english")) & meaning_tokens(row.get("english")):
+        return True, None
+    ar = lambda x: re.sub(r"[ً-ٟـ]", "", str(x or "")).replace("أ", "ا").replace("إ", "ا").replace("آ", "ا").replace("ة", "ه")
+    if w.get("arabic") and ar(w["arabic"]) and ar(w["arabic"]) in ar((row.get("fix") or "") + " " + (row.get("arabic") or "")):
+        return True, None      # same Arabic word (حدا = حدا): the key fits even when the English glosses differ
+    return False, f"audit keyed it to the Doc word {w.get('arabizi')} = {w.get('english')}, which is not what the slip was about"
+
+
+def doc_words(repo=REPO):
+    d = J(os.path.join(repo, "docs", "data", "words.json"), {}) or {}
+    return {w["key"]: w for w in d.get("items") or [] if w.get("key")}
+
+
+def shaky_words(dates=None, lessons_dir=LESSONS_DIR, n=SHAKY_LESSONS, doc=None):
+    """Q3 (Medi 2026-10-05 'Let's go back 2 lessons'): wrong / partly wrong words and words he asked for, from the last n lessons.
+    A row whose Doc key does not fit its meaning (key_fits) goes to left_out with the reason - a mistake is never kept."""
     dates = (dates or lesson_dates(lessons_dir))[-n:]
-    words, seen = [], set()
+    doc = doc_words() if doc is None else doc
+    words, seen, left_out = [], set(), []
     for d in dates:
         L = J(os.path.join(lessons_dir, d + ".json"), {}) or {}
         for e in L.get("vocab_errors") or []:
@@ -145,11 +174,15 @@ def shaky_words(dates=None, lessons_dir=LESSONS_DIR, n=SHAKY_LESSONS):
                 continue
             seen.add(key)
             arabic = str(e.get("fix") or e.get("arabic") or "").split(" (")[0].strip()
+            ok, why = key_fits(e, doc)
+            if not ok:
+                left_out.append({"key": key, "date": d, "mmss": e.get("mmss") or "", "english": e.get("english") or "", "arabic": arabic, "reason": why})
+                continue
             if not re.search(r"[؀-ۿ]", arabic) and not (e.get("arabizi") or e.get("sheet_key")):
                 continue   # no Arabic and no spelling of hers: an English-only row from the audit is not a card
             words.append({"key": key, "arabizi": e.get("arabizi") or e.get("sheet_key") or "", "arabic": arabic, "english": e.get("english") or "", "kind": kind, "label": e.get("label") or "",
                           "date": d, "mmss": e.get("mmss") or "", "t": e.get("t"), "on_sheet": bool(e.get("on_sheet")), "said": e.get("said_arabizi") or e.get("said") or ""})
-    return {"built": datetime.datetime.now().astimezone().isoformat(timespec="seconds"), "lessons": dates, "rule": "Q3 2026-10-05: last 2 lessons, wrong / partly wrong / asked for; a word leaves after two right card answers (homework-core.js shakyCards)", "n": len(words), "words": words}
+    return {"built": datetime.datetime.now().astimezone().isoformat(timespec="seconds"), "lessons": dates, "rule": "Q3 2026-10-05: last 2 lessons, wrong / partly wrong / asked for; a word leaves after two right card answers (homework-core.js shakyCards)", "n": len(words), "words": words, "left_out": left_out}
 
 
 def pull():

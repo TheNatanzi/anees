@@ -426,6 +426,40 @@ def asks_again(T, i, txt):
     return len(w(before) & w(after)) >= 2
 
 
+# 3. GR-28 (Medi 2026-10-05, 10-02 07:34 -> 07:38 "'ala el-3ashrah": "this is a repeat of a mistake and should be marked as
+#    repeat and not counted"): a Medi line that says the SAME phrase again within 30 s after Amal spoke - the fixed version of
+#    the line she just prompted on - is one moment with the slip, not fresh correct uses. Same Arabic words once el- (ال) and
+#    fillers are stripped; at least two words; Amal (or chat) spoke between the two lines.
+FILLERS = {"آآآ", "اه", "امم", "اممم", "آآ", "اا", "ام", "يعني"}
+
+
+def _core(text):
+    out = set()
+    for w in AR_WORD.findall(text or ""):
+        w = nrm(w)
+        if w in FILLERS or len(w) < 2 or re.fullmatch(r"[اهميى]+", w):   # آآآ / اممم / يعني-less hums after nrm()
+            continue
+        out.add(w[2:] if w.startswith("ال") and len(w) > 3 else w)
+    return out
+
+
+def repeat_of_fixed(T, i, window=30.0):
+    """The earlier Medi line this one repeats (same core words, Amal between, within `window` s), or None."""
+    me = _core(T[i]["text"])
+    if len(me) < 2:
+        return None
+    saw_amal = False
+    for j in range(i - 1, -1, -1):
+        if T[i]["start"] - T[j]["start"] > window:
+            return None
+        if T[j]["speaker"] != "Medi":
+            saw_amal = True
+            continue
+        if saw_amal and _core(T[j]["text"]) == me and nrm(T[j]["text"]) != nrm(T[i]["text"]):
+            return T[j]
+    return None
+
+
 if __name__ == "__main__":
     dates = sorted(d for d in os.listdir(ANEES) if re.fullmatch(r"\d{4}-\d{2}-\d{2}", d))
     # only lessons with a published page (same list as full_audit_build.py), so the Lessons page and the console add up
@@ -475,6 +509,12 @@ if __name__ == "__main__":
             if asks_about_rule(t["text"]):
                 not_uses.append({"date": date, "t": round(t["start"], 1), "said": t["text"][:300],
                                  "why": "a question about the rule, not a use (automatic rule, Medi 2026-10-01)"})
+                continue
+            prev = repeat_of_fixed(T, i)
+            if prev is not None:
+                not_uses.append({"date": date, "t": round(t["start"], 1), "said": t["text"][:300],
+                                 "why": "repeat of the line Amal just fixed (%02d:%02d): one moment with the slip, not a new use (GR-28, Medi 2026-10-05)"
+                                        % (int(prev["start"]) // 60, int(prev["start"]) % 60)})
                 continue
             found = detect(txt)
             if "E5" in found and asks_again(T, i, txt):

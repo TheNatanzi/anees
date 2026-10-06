@@ -1,0 +1,30 @@
+{
+ "about": "Words the engines keep swapping in Medi's Arabic (Medi 2026-10-05: 'you are having a really hard time with 3ala and ala and allah. How can we address this. Can we cue gemini for similar sounding words?'). Hand-kept. Every re-hear / second-listen prompt (TR-22, scripts/bench_rehear.py template) and the Arabizi reader should carry this list as a cue: when the engine wrote one of a group, listen for the others and pick by meaning in the sentence. Add a group when a new swap shows up on the Lessons page ('Recording engine wrote ... fixed').",
+ "groups": [
+  {"sounds": "3ala / ila / allah / alla", "words": [
+    {"arabic": "على", "arabizi": "3ala", "english": "on / at (3ala el-3ashrah = at ten)"},
+    {"arabic": "إلى", "arabizi": "ila", "english": "to (MSA; Medi rarely means it - usually 3ala or la-)"},
+    {"arabic": "الله", "arabizi": "allah", "english": "God (in a set phrase: inshallah, wallah, el-7amdellah)"},
+    {"arabic": "ألا", "arabizi": "alla", "english": "unless / isn't it (rare for Medi)"},
+    {"arabic": "لـ", "arabizi": "la-", "english": "to / for (the dialect 'to')"}],
+   "cue": "Medi says 3ala for 'on/at' far more than ila; 'allah' only inside inshallah / wallah / 7amdellah. Decide by the noun after it.",
+   "seen": ["2026-10-02 07:38 engine 'على إلى العشاء' -> 'على العشرة'"]},
+  {"sounds": "el-3ashrah / el-3asha", "words": [
+    {"arabic": "العشرة", "arabizi": "el-3ashrah", "english": "ten (the hour ten)"},
+    {"arabic": "العشاء", "arabizi": "el-3asha", "english": "dinner / the evening prayer"},
+    {"arabic": "عشر", "arabizi": "3asher", "english": "ten (before a noun: 3asher da2aaye2)"}],
+   "cue": "after 3ala + a time word it is the hour (el-3ashrah); after 'akal / 3azam' it is dinner (el-3asha).",
+   "seen": ["2026-10-02 07:38", "2026-10-02 44:59 3asher da2aaye2"]},
+  {"sounds": "mitshajje3 / shuja3 / mit7ammes", "words": [
+    {"arabic": "متشجع", "arabizi": "mitshajje3", "english": "motivated"},
+    {"arabic": "شجاع", "arabizi": "shuja3", "english": "brave"},
+    {"arabic": "متحمس", "arabizi": "mit7ammes", "english": "excited"}],
+   "cue": "Medi reaches for 'motivated' and says shuja3 (brave); Amal recasts mitshajje3.",
+   "seen": ["2026-10-01 06:36", "2026-10-02 09:23"]},
+  {"sounds": "s7eet / sme3et", "words": [
+    {"arabic": "صحيت", "arabizi": "s7eet", "english": "I woke up"},
+    {"arabic": "سمعت", "arabizi": "sme3et", "english": "I heard"}],
+   "cue": "with met2a55ar / el-subu7 it is 'woke up'.",
+   "seen": ["2026-10-02 07:02 engine 'سمعت' for 'woke up'"]}
+ ]
+}

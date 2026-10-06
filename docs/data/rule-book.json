@@ -1,11 +1,11 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-05",
- "total": 181,
+ "total": 184,
  "replaced": 8,
  "counts": {
-  "Automatic": 101,
-  "Written down": 68,
+  "Automatic": 103,
+  "Written down": 69,
   "Fixed once": 12,
   "Waiting on you": 0
  },
@@ -107,7 +107,7 @@
    "key": "recording",
    "title": "Recording & transcript",
    "intro": "What gets written down from the lesson recording, and what is left out.",
-   "count": 25,
+   "count": 26,
    "sections": [
     {
      "kind": "error",
@@ -391,6 +391,25 @@
          "who": "Medi",
          "date": "2026-10-02",
          "quote": "fill always fill and be complete"
+        }
+       ]
+      },
+      {
+       "id": "TR-26",
+       "text": "Words that sound alike and get swapped by the engines (3ala, ila, allah; el-3ashrah, el-3asha; ...) are kept in one list with a hint on how to tell them apart. The second AI listen should read that list. Parked until the Gemini corrections land.",
+       "status": "written",
+       "topic": "the transcript",
+       "badge": "Written down",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "also you are having a really hard time with 3ala and ala and allah.  How can we address this.  Can we cue gemini for similar sounding words?"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "oh wait we havent made the gemini correction yet to see if they caught them.  I will wait"
         }
        ]
       }
@@ -1121,7 +1140,7 @@
    "key": "grammar",
    "title": "Grammar slips: what counts and what doesn't",
    "intro": "When a grammar mistake counts as a slip, and when it doesn't.",
-   "count": 27,
+   "count": 28,
    "sections": [
     {
      "kind": "error",
@@ -1346,6 +1365,20 @@
          "who": "Medi",
          "date": "2026-10-02",
          "quote": "looks like I corrected myself"
+        }
+       ]
+      },
+      {
+       "id": "GR-28",
+       "text": "When Medi says the same line again right after Amal fixed it, that repeat is part of the same moment: it is not counted as new correct grammar uses. The chip says 'not scored: repeat of the line Amal just fixed'.",
+       "status": "enforced",
+       "topic": "grammar uses",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "this is a repeat of a mistake and should be marked as repeat and not counted.  You have this in your rules right?"
         }
        ]
       },
@@ -1925,7 +1958,7 @@
      "rules": [
       {
        "id": "FC-13",
-       "text": "Amal's uploaded lists are card sets on Flashcards under From Amal. A Shaky words set holds the words Medi got wrong or asked for in the last 2 lessons; a word leaves it after he gets it right twice on cards.",
+       "text": "Amal's uploaded lists are card sets on Flashcards under From Amal. A Shaky words set holds the words Medi got wrong or asked for in the last 2 lessons; a word leaves it after he gets it right twice on cards. A slip the audit tied to the wrong Doc word is left out and listed, never dealt as that card.",
        "status": "enforced",
        "topic": "Amal's uploads",
        "badge": "Automatic",
@@ -1944,6 +1977,11 @@
          "who": "Medi",
          "date": "2026-10-05",
          "quote": "Her flashcards should get merged into our cards"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "dude what do you mean by miskey? Miskey sounds like a mistake and would you ever need prompting to keep a mistake"
         }
        ]
       },
@@ -2158,7 +2196,7 @@
    "key": "pages",
    "title": "Pages, audio & numbers on screen",
    "intro": "What each page shows, the audio clips, and keeping numbers up to date.",
-   "count": 40,
+   "count": 41,
    "sections": [
     {
      "kind": "data",
@@ -2592,6 +2630,20 @@
          "who": "Medi",
          "date": "2026-09-23",
          "quote": "add the same search and last seen from the word bank / I want every entry to look like this"
+        }
+       ]
+      },
+      {
+       "id": "LS-13",
+       "text": "A lesson's reading is one headline, then each grammar rule Amal taught as its own block: the rule in one line, a few plain bullets, and the real moments folded under Examples. The rest of the lesson and the long prose are folded away.",
+       "status": "enforced",
+       "topic": "the lesson page",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-05",
+         "quote": "This is way to wordy.  Please simplify it.  We should be very clear about the exact new grammar rule with the accordian for examples and bulleted explanation"
         }
        ]
       },

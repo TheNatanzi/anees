@@ -56,7 +56,7 @@ def test_FC_13_shaky_words_come_from_the_last_2_lessons_wrong_and_asked_only(tmp
     lesson("2026-10-01", [{"kind": "asked", "t": 375, "arabic": "متشجع", "english": "motivated"}, {"kind": "wrong", "t": 3556, "arabic": "the second thing", "english": "x"}])
     lesson("2026-10-02", [{"kind": "wrong", "t": 422, "fix": "صحيت", "sheet_key": "ana bas7a", "english": "I woke up late today", "on_sheet": True},
                           {"kind": "correct", "t": 500, "arabic": "بيت"}])
-    S = B.shaky_words(lessons_dir=str(d))
+    S = B.shaky_words(lessons_dir=str(d), doc={})
     assert S["lessons"] == ["2026-10-01", "2026-10-02"]
     keys = [w["key"] for w in S["words"]]
     assert keys == ["sh:2026-10-01:375", "ana bas7a"]            # the English-only audit row and the 'correct' row are not cards
@@ -69,6 +69,19 @@ def test_the_committed_shaky_words_file_matches_the_last_two_lessons_on_disk():
     assert S["lessons"] == B.lesson_dates()[-2:]
     fresh = B.shaky_words()
     assert [w["key"] for w in S["words"]] == [w["key"] for w in fresh["words"]]
+
+
+def test_FC_13_a_slip_keyed_to_a_doc_word_with_another_meaning_is_left_out_not_dealt(tmp_path):
+    """Medi 2026-10-05 "Miskey sounds like a mistake": the audit tied 'the last ten minutes' to tesbah 'ala kheir (good night)."""
+    d = tmp_path / "lessons"; d.mkdir()
+    (d / "2026-10-02.json").write_text(json.dumps({"vocab_errors": [
+        {"kind": "wrong", "t": 1, "fix": "الأخير", "sheet_key": "tesbah 2ala 5eir", "english": "the last ten minutes"},
+        {"kind": "wrong", "t": 2, "fix": "الطريق", "sheet_key": "6ari2", "english": "I drive the same route every day"},
+    ]}, ensure_ascii=False), encoding="utf-8")
+    doc = {"tesbah 2ala 5eir": {"arabizi": "tesbah 'ala kheir", "english": "good night (wake up to good)"}, "6ari2": {"arabizi": "6ariq", "english": "Road / way / route"}}
+    S = B.shaky_words(lessons_dir=str(d), doc=doc)
+    assert [w["key"] for w in S["words"]] == ["6ari2"]
+    assert S["left_out"][0]["key"] == "tesbah 2ala 5eir" and "good night" in S["left_out"][0]["reason"]
 
 
 def test_build_writes_the_score_and_the_cards_assignments():

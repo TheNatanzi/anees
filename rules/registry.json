@@ -7555,9 +7555,9 @@
    "scope": "flashcards",
    "status": "enforced",
    "change": "new",
-   "statement": "Amal's uploads are merged into the cards as their own sets: Flashcards > Sets > 'From Amal - uploads' has one tile per upload (permanent and temporary alike), cards keyed u:<upload>:<n> unless the card is a Doc word (then the Doc word, shared history, like Quizlet), her spelling as written. A 'Shaky words' tile under Weak spots holds the LAST 2 lessons' wrong / partly wrong words and the words he asked Amal for (docs/data/shaky-words.json, scripts/build_student_data.py); a word leaves it after two right answers on cards given after that lesson. cards.html?tile=<set> opens one set (the Student tab's assigned cards).",
-   "plain": "Amal's uploaded lists are card sets on Flashcards under From Amal. A Shaky words set holds the words Medi got wrong or asked for in the last 2 lessons; a word leaves it after he gets it right twice on cards.",
-   "plain_for": "b8c74f58",
+   "statement": "Amal's uploads are merged into the cards as their own sets: Flashcards > Sets > 'From Amal - uploads' has one tile per upload (permanent and temporary alike), cards keyed u:<upload>:<n> unless the card is a Doc word (then the Doc word, shared history, like Quizlet), her spelling as written. A 'Shaky words' tile under Weak spots holds the LAST 2 lessons' wrong / partly wrong words and the words he asked Amal for (docs/data/shaky-words.json, scripts/build_student_data.py); a word leaves it after two right answers on cards given after that lesson. cards.html?tile=<set> opens one set (the Student tab's assigned cards). A shaky row whose Doc key does not fit its meaning (the audit tied 'the last ten minutes' to tesbah 'ala kheir = good night) is never dealt as that card: scripts/build_student_data.py key_fits leaves it out and lists it under left_out with the reason (Medi 2026-10-05 'Miskey sounds like a mistake').",
+   "plain": "Amal's uploaded lists are card sets on Flashcards under From Amal. A Shaky words set holds the words Medi got wrong or asked for in the last 2 lessons; a word leaves it after he gets it right twice on cards. A slip the audit tied to the wrong Doc word is left out and listed, never dealt as that card.",
+   "plain_for": "92a2cbfd",
    "topic": "Amal's uploads",
    "source": [
     {
@@ -7577,6 +7577,12 @@
      "date": "2026-10-05",
      "quote": "Her flashcards should get merged into our cards",
      "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "dude what do you mean by miskey? Miskey sounds like a mistake and would you ever need prompting to keep a mistake",
+     "session": "cb4e8985"
     }
    ],
    "enforcement": [
@@ -7593,12 +7599,17 @@
     {
      "type": "code",
      "path": "scripts/build_student_data.py",
-     "contains": "def shaky_words(dates=None, lessons_dir=LESSONS_DIR, n=SHAKY_LESSONS):"
+     "contains": "def shaky_words(dates=None, lessons_dir=LESSONS_DIR, n=SHAKY_LESSONS, doc=None):"
     },
     {
      "type": "doc",
      "path": "docs/flashcard-rules.md",
      "contains": "| F15 | Amal's uploads from the Tutor page are card sets"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_student_data.py",
+     "contains": "def key_fits(row, doc):"
     }
    ],
    "test": [
@@ -7609,8 +7620,143 @@
     {
      "path": "tests/test_build_student_data.py",
      "contains": "def test_FC_13_shaky_words_come_from_the_last_2_lessons_wrong_and_asked_only"
+    },
+    {
+     "path": "tests/test_build_student_data.py",
+     "contains": "def test_FC_13_a_slip_keyed_to_a_doc_word_with_another_meaning_is_left_out_not_dealt"
     }
    ],
+   "aliases": []
+  },
+  {
+   "id": "LS-13",
+   "kind": "display",
+   "scope": "lessons",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A lesson's reading on the Lessons page is one headline (what was taught, one plain line, no times), then every grammar rule or word pattern Amal taught as its own block: the exact rule as the title (her spelling), an optional formula, 1-4 plain bullets, and the real moments (mm:ss + the words said) folded under 'Examples from the lesson'. The rest of the lesson (review, warm-up, off-lesson) and the full prose sit in two small accordions; the ledger note and the second-listen status are one short chip each (the long words on hover). The structure is the reader's `summary` in data/lesson-work/lesson-types/<date>.json (scripts/lesson_type_read.py summary_problems validates it; required for every read from 2026-10-05 on), passed through scripts/build_lessons_page_data.py to docs/data/lessons.json and drawn by docs/js/lessons-page.js summaryBlock. An old read without a summary shows its first sentence with the rest folded.",
+   "plain": "A lesson's reading is one headline, then each grammar rule Amal taught as its own block: the rule in one line, a few plain bullets, and the real moments folded under Examples. The rest of the lesson and the long prose are folded away.",
+   "plain_for": "1ba2fee4",
+   "topic": "the lesson page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "This is way to wordy.  Please simplify it.  We should be very clear about the exact new grammar rule with the accordian for examples and bulleted explanation",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/lesson_type_read.py",
+     "contains": "def summary_problems(s, required=False):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "function summaryBlock(L) {"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_lessons_page_data.py",
+     "contains": "**({\"summary\": type_summary} if type_summary else {}),"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_lesson_type_read.py",
+     "contains": "def test_ls_13_summary_is_a_headline_rules_with_bullets_and_examples_and_required_for_new_reads"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "GR-28",
+   "kind": "not-error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A Medi line that says the SAME phrase again within 30 s after Amal spoke - the fixed version of the line she just prompted on (10-02 07:34 'على عشرة' -> Amal 'الـ.' -> 07:38 'على العشرة') - is one moment with the slip, not fresh correct uses: scripts/detect_grammar_usage.py repeat_of_fixed() skips it (same Arabic words once el- and fillers are stripped, 2+ words, Amal or chat between) and lists it in grammar-usage.json not_uses_auto with the reason, so the transcript chip reads grey 'not scored: repeat of the line Amal just fixed (07:34)' instead of ✓ Correct, in every bucket. His own self-fix with no Amal between is GR-22's case, not this.",
+   "plain": "When Medi says the same line again right after Amal fixed it, that repeat is part of the same moment: it is not counted as new correct grammar uses. The chip says 'not scored: repeat of the line Amal just fixed'.",
+   "plain_for": "2ccafb1b",
+   "topic": "grammar uses",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "this is a repeat of a mistake and should be marked as repeat and not counted.  You have this in your rules right?",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "def repeat_of_fixed(T, i, window=30.0):"
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "## A repeat of the line Amal just fixed is the same moment (GR-28"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_arabizi_reader.py",
+     "contains": "def test_GR_28_repeat_of_the_line_amal_just_fixed_is_not_a_new_use"
+    }
+   ],
+   "aliases": [],
+   "example": {
+    "date": "2026-10-02",
+    "t": "07:38",
+    "medi": "على العشرة",
+    "note": "repeat of 07:34 'على عشرة' after Amal's 'الـ.' - not scored"
+   }
+  },
+  {
+   "id": "TR-26",
+   "kind": "data",
+   "scope": "transcription",
+   "status": "written",
+   "change": "new",
+   "statement": "Sound-alike words the engines keep swapping in Medi's Arabic (3ala / ila / allah / alla / la-; el-3ashrah / el-3asha; mitshajje3 / shuja3 / mit7ammes; s7eet / sme3et) live in data/lesson-work/confusables.json with a cue per group (decide by the word after it). Every second-listen prompt (TR-22, the re-hear template) and the Arabizi reader should carry the list as a cue; the Lessons page's 'Recording engine wrote ... fixed' lines feed new groups. Medi 2026-10-05: wait for the Gemini corrections to land first, then see what they caught before wiring the cue in.",
+   "plain": "Words that sound alike and get swapped by the engines (3ala, ila, allah; el-3ashrah, el-3asha; ...) are kept in one list with a hint on how to tell them apart. The second AI listen should read that list. Parked until the Gemini corrections land.",
+   "plain_for": "e538a41d",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "also you are having a really hard time with 3ala and ala and allah.  How can we address this.  Can we cue gemini for similar sounding words?",
+     "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "oh wait we havent made the gemini correction yet to see if they caught them.  I will wait",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "data/lesson-work/confusables.json",
+     "contains": "\"sounds\": \"3ala / ila / allah / alla\""
+    },
+    {
+     "type": "brief",
+     "path": "data/lesson-work/full-audit/READER-BRIEF.md",
+     "contains": "## Sound-alike words (TR-26"
+    },
+    {
+     "type": "code",
+     "path": "scripts/confusables.py",
+     "contains": "def cue(path=PATH):"
+    }
+   ],
+   "next_step": "after the TR-22 re-hear is published (engine-bench): the re-hear template and scripts/arabizi_reader.py read confusables.json; a test plants 'على إلى العشاء' and expects 'على العشرة'",
    "aliases": []
   }
  ]
