@@ -8093,6 +8093,39 @@
     }
    ],
    "aliases": []
+  },
+  {
+   "id": "LS-16",
+   "kind": "not-error",
+   "scope": "lessons",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Two mistake rows are ONE mistake, settled by rule and never put on Amal's 'one mistake or two?' list, when (a) within 30 s Amal's fix is the same word or phrase (GR-12: the same wrong phrase fixed once; fixes compared as Arabic after reading Arabizi, a ( ) gloss dropped, any '/' alternative may match), or (b) within 3 s one wrong phrase holds the other AND its fix holds the other's fix (a sentence row and the word row inside it). Different fixes, or a fix that only contains the other's (the 10-02 'أروح عند عمي' vs 'عمي' case), stay a question for Amal. scripts/build_amal_checks.py one_mistake_by_rule(); settled pairs listed in data/lesson-work/one-or-two-auto-same.json. 2026-10-06: 45 pairs -> 10 (LS-15) + 8 (LS-16) settled, 27 asked.",
+   "plain": "Two mistake rows are one mistake when Amal's fix is the same within 30 seconds, or when one row is a sentence and the other is the word inside it at the same second. The app settles those itself; different fixes still go to Amal.",
+   "plain_for": "43f12697",
+   "topic": "the Tutor page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "can you see if you can find any other logical rules to cut down the questions",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_amal_checks.py",
+     "contains": "def one_mistake_by_rule(first, second, dt):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_amal_checks.py",
+     "contains": "def test_LS_16_same_fix_within_30s_or_a_phrase_holding_the_word_is_one_mistake"
+    }
+   ],
+   "aliases": []
   }
  ]
 }

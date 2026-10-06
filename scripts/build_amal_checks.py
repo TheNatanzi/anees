@@ -80,6 +80,32 @@ def same_word_two_scripts(a, b):
     return bool(na) and (na == nb or na in nb or nb in na)
 
 
+def _norm_any(s):
+    """A 'should be' or a wrong phrase as one comparable Arabic string: a ( ) gloss dropped, Arabizi read into Arabic letters,
+    vowels / hamza forms / ta marbuta folded, spaces and punctuation gone."""
+    s = re.sub(r"\([^)]*\)", "", str(s or ""))
+    s = re.sub(r"\((.)\)", r"\1", str(s or ""))
+    parts = [p.strip() for p in re.split(r"\s*/\s*", s) if p.strip()]
+    return "|".join(sorted(_norm_ar(p) for p in parts if _norm_ar(p)))
+
+
+def one_mistake_by_rule(first, second, dt):
+    """LS-16 (Medi 2026-10-06 'find any other logical rules to cut down the questions'): two rows are ONE mistake when
+    (a) within 30 s Amal's fix is the same word (GR-12: the same wrong phrase fixed once), or
+    (b) within 3 s one wrong phrase contains the other (a phrase and the word inside it). Returns the reason or None."""
+    ra, rb = _norm_any(first.get("right")), _norm_any(second.get("right"))
+    wa, wb = _norm_ar(first.get("wrong")), _norm_ar(second.get("wrong"))
+    same_fix = ra and rb and any(x and x == y for x in ra.split("|") for y in rb.split("|"))
+    if dt <= 30 and same_fix:
+        return "same fix within 30 s (GR-12): one mistake"
+    # a phrase and the word inside it: BOTH the wrong and the fix of one sit inside the other's (never the fix alone -
+    # 'عمي' inside 'أروح عند عمي' was a different, grammar, mistake)
+    holds = wa and wb and len(min(wa, wb, key=len)) >= 3 and ((wa in wb and any(x and x in y for x in ra.split("|") for y in rb.split("|"))) or (wb in wa and any(y and y in x for x in ra.split("|") for y in rb.split("|"))))
+    if dt <= 3 and holds:
+        return "one phrase holds the other, fix included: one mistake"
+    return None
+
+
 auto_same = []
 ORDER = ("slip-check", "own-fix", "word-said", "old-new", "word-there", "one-or-two")
 
@@ -321,6 +347,10 @@ class Build:
                     # second, once in Arabic letters and once in Arabizi, is ONE mistake - settled here, never asked
                     if abs(T(first) - T(second)) <= 2.0 and same_word_two_scripts(first.get("wrong"), second.get("wrong")):
                         auto_same.append({"id": iid, "date": date, "mmss": first.get("mmss"), "said": [first.get("wrong"), second.get("wrong")], "rule": "LS-15"})
+                        continue
+                    why = one_mistake_by_rule(first, second, abs(T(first) - T(second)))
+                    if why:
+                        auto_same.append({"id": iid, "date": date, "mmss": first.get("mmss"), "said": [first.get("wrong"), second.get("wrong")], "right": [first.get("right"), second.get("right")], "rule": "LS-16", "why": why})
                         continue
                     ln = self.line_at(date, T(first))
                     own, both, size = self.clips("one-or-two", date, iid, ln)

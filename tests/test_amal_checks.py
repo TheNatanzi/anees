@@ -20,7 +20,7 @@ JS = (DOCS / "js" / "hub" / "check-task.js").read_text(encoding="utf-8")
 
 def test_the_lists_medi_asked_for_with_their_counts():
     assert [(L["list"], L["total"]) for L in INDEX] == [("slip-check", 27), ("own-fix", 13), ("word-said-1", 42), ("word-said-2", 42),
-                                                        ("old-new", 11), ("word-there", 28), ("one-or-two", 35)]   # 45 - 10 settled by rule LS-15 (same word, two scripts)
+                                                        ("old-new", 11), ("word-there", 28), ("one-or-two", 27)]   # 45 - 10 (LS-15 same word, two scripts) - 8 (LS-16 same fix within 30 s / phrase holds the word)
     assert sum(L["total"] for L in INDEX if L["task"] in ("own-fix", "word-said", "old-new")) == 108      # the 108 of listen-page-1
     assert KEYS["one-or-two"]["flagged_slips"] == 47                                                      # the Lessons notes' number
     assert INDEX[0]["title"] == "Listen: what did Medi say?" and "27 short clips of Medi" in LISTS["slip-check"]["intro"]
@@ -212,3 +212,15 @@ def test_LS_15_same_word_in_two_scripts_is_one_mistake_and_never_asked():
             for c in x["clips"]:
                 if "#t=" not in c["src"]:
                     assert (DOCS / "lessons" / c["src"]).stat().st_size > 1500, c["src"]   # no 0-second clip on a card (TR-06)
+
+
+def test_LS_16_same_fix_within_30s_or_a_phrase_holding_the_word_is_one_mistake():
+    """LS-16 (Medi 2026-10-06: "find any other logical rules to cut down the questions")."""
+    import build_amal_checks as B
+    assert B.one_mistake_by_rule({"wrong": "كانت عمرها", "right": "كان عمرها"}, {"wrong": "كانت", "right": "كان عمرها"}, 8)
+    assert B.one_mistake_by_rule({"wrong": "I agree", "right": "معك حق"}, {"wrong": "sa minik", "right": "معك حق"}, 29)
+    assert B.one_mistake_by_rule({"wrong": "كلسات لون مختلف", "right": "كلسات في ألوان مختلفين"}, {"wrong": "لون مختلف", "right": "ألوان مختلفين"}, 1)
+    assert not B.one_mistake_by_rule({"wrong": "بساتِتك", "right": "بَسْتَكْ (basattak)"}, {"wrong": "بسطه", "right": "basatto"}, 25)   # different fixes: Amal decides
+    assert not B.one_mistake_by_rule({"wrong": "a", "right": "x"}, {"wrong": "b", "right": "x"}, 31)                             # too far apart for GR-12
+    auto = json.loads((ROOT / "data" / "lesson-work" / "one-or-two-auto-same.json").read_text(encoding="utf-8"))["pairs"]
+    assert not ({x["id"] for x in LISTS["one-or-two"]["items"]} & {p["id"] for p in auto})
