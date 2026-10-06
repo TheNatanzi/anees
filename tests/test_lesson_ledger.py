@@ -65,7 +65,7 @@ def test_LS_11_c1q_a_phrase_with_two_candidate_words_is_one_medi_question_counte
     assert [c["kind"] for c in led["conflicts"]] == ["C1q", "C1q"]
     assert len(led["needs_medi"]) == 1                                      # one question for the moment
     lead = next(c for c in led["conflicts"] if c["id"] in led["needs_medi"])
-    assert set(lead["options"]) == {"بلبس", "بلوزة", "none"} and lead["ask"] == "amal"            # his own words, not the normalised ones
+    assert set(lead["options"]) == {"بلبس", "بلوزة", "other", "none"} and lead["ask"] == "amal"   # his own words, not the normalised ones; "other" = she types another word (2026-10-06)
     assert not act["overrides"] and led["counts"]["words"]["right"] == 2 and led["counts"]["words"]["wrong"] == 1
 
 
@@ -109,7 +109,7 @@ def test_LS_11_one_candidate_is_a_yes_no_question():
                vocab_errors=[audit("FA-h", 2000, "حدا", "ناس / أشخاص", conf="medium", signal="prompt-then-fix")])
     led, _ = build(d)
     c = next(c for c in led["conflicts"] if c["id"] in led["needs_medi"])
-    assert c["options"] == ["wrong", "none"] and "حدا" in c["question"] and c["ask"] == "amal"
+    assert c["options"] == ["wrong", "other", "none"] and "حدا" in c["question"] and c["ask"] == "amal"
     led2, act = build(d, rulings={c["id"]: {"conflict": c["id"], "answer": "wrong", "rule": "LS-11"}})
     assert act["overrides"] and not led2["needs_medi"]
 
@@ -254,7 +254,7 @@ def test_LS_12_word_questions_go_to_amal_in_plain_words():
     c = next(c for c in led["conflicts"] if c["id"] in led["needs_medi"])
     item = LL.amal_item("2026-09-28", led, c)
     assert item["id"] == "ledger:" + c["id"] and item["audio"].startswith("lessons/2026-09-28/audio/lesson.mp3#t=")
-    assert [o["label"] for o in item["options"]] == ["Yes, it was wrong", "Nothing was wrong"]
+    assert [o["label"] for o in item["options"]] == ["Yes, it was wrong", "Another word was wrong (Amal typed it)", "Nothing was wrong"]
     assert not re.search(r"[A-F]\d+|C1q|ledger|Word Bank", item["question"])      # no rule ids, no app words
 
 
@@ -295,3 +295,14 @@ def test_LS_12_committed_hub_cards_are_the_open_amal_questions():
     assert sorted(i["id"] for i in D["items"]) == want
     for i in D["items"]:
         assert i["audio"] and i["medi_said"] and i["question"] and len(i["options"]) >= 2
+
+
+def test_LS_14_amal_may_name_another_word_and_leave_a_note():
+    """Medi 2026-10-06: "we need to allow for notes. The wrong word I said was Shawban (hot) instead of shab3an (full)"."""
+    import apply_amal_audit_rulings as AR
+    rows = [{"id": 1, "word_key": "ledger:C1q-x", "kind": "ledger_pick", "source": "review", "created_at": "2026-10-06T10:00:00Z",
+             "payload": {"answer": "other", "said": "shawban", "right": "shab3an = full", "note": "he mixed hot and full"}}]
+    out = AR.ledger_answers(rows)
+    assert out == [{"conflict": "C1q-x", "answer": "other", "by": "amal", "at": "2026-10-06T10:00:00Z", "rule_id": 1, "rule": "LS-12",
+                    "said": "shawban", "right": "shab3an = full", "note": "he mixed hot and full"}]
+    assert LL.LABELS["other"].startswith("Another word")

@@ -215,7 +215,7 @@ AMAL_WORDS = {   # the question and the choices in plain words, for her card (no
     "C2q": "Was this the wrong word, or the right word with a grammar mistake?",
     "CR": "Was «%s» wrong here?",
 }
-LABELS = {"none": "Nothing was wrong", "wrong": "Yes, it was wrong", "ledger": "Yes, it was wrong",
+LABELS = {"none": "Nothing was wrong", "wrong": "Yes, it was wrong", "ledger": "Yes, it was wrong", "other": "Another word was wrong (Amal typed it)",
           "word": "Wrong word", "grammar": "Grammar mistake", "both": "Both"}
 
 
@@ -374,7 +374,7 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                 c["options"], c["question"], c["ask"] = lead["options"], question, lead["ask"]
                 r = rulings.get(lead["id"])
                 if r:
-                    c["medi"] = c["ruled"] = {"answer": r["answer"], "by": r.get("by") or "medi", "date": r.get("date") or r.get("at"), "quote": r.get("quote")}
+                    c["medi"] = c["ruled"] = {"answer": r["answer"], "by": r.get("by") or "medi", "date": r.get("date") or r.get("at"), "quote": r.get("quote"), **{k: r[k] for k in ("said", "right", "note") if r.get(k)}}
                     return r["answer"]
                 c["needs_medi"] = True
                 c["counted_as_now"] = lead["counted_as_now"]
@@ -382,7 +382,7 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
         r = rulings.get(c["id"])
         c["options"], c["question"], c["ask"] = options, question, ASK.get(c["kind"], "medi")
         if r:
-            c["medi"] = c["ruled"] = {"answer": r["answer"], "by": r.get("by") or "medi", "date": r.get("date") or r.get("at"), "quote": r.get("quote")}
+            c["medi"] = c["ruled"] = {"answer": r["answer"], "by": r.get("by") or "medi", "date": r.get("date") or r.get("at"), "quote": r.get("quote"), **{k: r[k] for k in ("said", "right", "note") if r.get(k)}}
             return r["answer"]
         c["needs_medi"] = True       # an open question (kept under this name: it is asked of c["ask"])
         c["counted_as_now"] = "both judgments count as before until %s answers" % ("Amal" if c["ask"] == "amal" else "Medi")
@@ -502,6 +502,8 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                 one = None
                 if not patched and len(opts) == 2:     # one candidate: a yes/no, nobody types the word
                     one, opts = opts[0], ["wrong", "none"]
+                if not patched:
+                    opts = opts[:-1] + ["other", "none"]   # 2026-10-06: Amal may name another word (the engine wrote the right one over his slip)
                 q = (AMAL_WORDS["CR"] % (m.get("tok") or "") if patched else AMAL_WORDS["C1q1"] % one if one else AMAL_WORDS["C1q"])
                 c["one"] = one
                 ans = needs_medi(c, opts, q, group=r["id"])
@@ -510,6 +512,10 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
                     who = "Amal" if (c.get("ruled") or {}).get("by") == "amal" else "Medi"
                     if ans == "none":
                         drop_slip(r, c, ans)
+                    elif ans == "other":
+                        # her typed word stands as the record; the rows stay as they are until a person reads the moment
+                        ru = c.get("ruled") or {}
+                        c["note"] = "Amal: another word was wrong - Medi said «%s»%s%s" % (ru.get("said") or "?", (" → «%s»" % ru["right"]) if ru.get("right") else "", (" · " + ru["note"]) if ru.get("note") else "")
                     elif resolve and (ans in ("ledger", "wrong") or base(norm(ans)) == t):
                         supersede_wb(m, r, "%s %s: %s was the wrong word" % (who, ((c.get("ruled") or {}).get("date") or "")[:10], ans if ans not in ("ledger", "wrong") else m.get("tok")), bool(why_same))
                         actions["move"].append(("vocab_correct", m["id"], m["why"], kind))

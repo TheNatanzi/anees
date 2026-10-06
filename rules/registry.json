@@ -8017,6 +8017,49 @@
     }
    ],
    "aliases": []
+  },
+  {
+   "id": "LS-14",
+   "kind": "process",
+   "scope": "lessons",
+   "status": "enforced",
+   "change": "new",
+   "statement": "On the 'Which word was wrong?' cards (LS-12) Amal can answer 'Another word' - she types what Medi said and the right word (the engine had written the right word over his slip, so the real wrong word was not on the list) - and any answer may carry a note. The tap stores answer 'other' with said / right / note (amal_rules payload); scripts/apply_amal_audit_rulings.py carries them into ledger-amal.json; scripts/lesson_ledger.py accepts 'other' on every word question (label 'Another word was wrong (Amal typed it)'), marks the moment resolved with her words as a note, and changes no count by itself - a person reads the moment.",
+   "plain": "On a 'Which word was wrong?' card Amal can pick Another word and type what Medi really said and the right word, and she can add a note to any answer. Her words are kept with the moment; a person reads it before any count changes.",
+   "plain_for": "81a698e0",
+   "topic": "the Tutor page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "we need to allow for notes.  The wrong word I said was Shawban (hot) instead of shab3an (full)",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/hub/ledger-task.js",
+     "contains": "const OTHER = 'other';"
+    },
+    {
+     "type": "code",
+     "path": "scripts/lesson_ledger.py",
+     "contains": "\"other\": \"Another word was wrong (Amal typed it)\""
+    },
+    {
+     "type": "code",
+     "path": "scripts/apply_amal_audit_rulings.py",
+     "contains": "**{k: p[k] for k in (\"said\", \"right\", \"note\") if p.get(k)}"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_lesson_ledger.py",
+     "contains": "def test_LS_14_amal_may_name_another_word_and_leave_a_note"
+    }
+   ],
+   "aliases": []
   }
  ]
 }

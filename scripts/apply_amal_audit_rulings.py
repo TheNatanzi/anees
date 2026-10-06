@@ -134,10 +134,13 @@ def ledger_answers(rows):
         wk = str(r.get("word_key") or "")
         if not wk.startswith("ledger:") or r.get("kind") != "ledger_pick" or str(r.get("source") or "review").startswith("test"):
             continue
-        ans = (r.get("payload") or {}).get("answer")
+        p = r.get("payload") or {}
+        ans = p.get("answer")
         if ans:
             last[wk] = {"conflict": wk[len("ledger:"):], "answer": ans, "by": "amal", "at": r.get("created_at"),
-                        "rule_id": r.get("id"), "rule": "LS-12"}
+                        "rule_id": r.get("id"), "rule": "LS-12",
+                        # 2026-10-06: "Another word" (answer other) carries what Medi said + the right word; any answer may carry a note
+                        **{k: p[k] for k in ("said", "right", "note") if p.get(k)}}
     return [last[k] for k in sorted(last)]
 
 

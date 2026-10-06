@@ -37,11 +37,19 @@
       flushing = false; render();
     }
     const push = body => { const q = LS(QK) || []; q.push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2), body }); LS(QK, q); flush(); };
+    // Medi 2026-10-06 "we need to allow for notes. The wrong word I said was Shawban (hot) instead of shab3an (full)": every
+    // answer may carry a note; "Another word" carries what Medi said and the right word (the engine had written the right word)
+    const OTHER = 'other';
+    const otherLabel = x => (x.said || x.right) ? `Another word: «${x.said || '?'}»${x.right ? ' → «' + x.right + '»' : ''}` : 'Another word';
+    const fieldsOf = (el, id) => { const g = s => { const f = el.querySelector(`[data-l${s}="${CSS.escape(id)}"]`); return f && f.value.trim() ? f.value.trim().slice(0, 300) : ''; }; return { said: g('said'), right: g('right'), note: g('note') }; };
     function pick(id, value) {
       const x = all(D).find(i => i.id === id); if (!x || !TOKEN) return;
-      answers[id] = { kind: 'ledger_pick', answer: value, at: new Date().toISOString() }; LS(AK, answers);
+      const f = fieldsOf(el, id);
+      if (value === OTHER && !f.said && !f.right) { const box = el.querySelector(`[data-lother="${CSS.escape(id)}"]`); if (box) { box.hidden = false; box.querySelector('input').focus(); } return; }
+      answers[id] = { kind: 'ledger_pick', answer: value, at: new Date().toISOString(), ...f }; LS(AK, answers);
       push({ token: TOKEN, source: 'review', lesson_date: x.date, kind: 'ledger_pick', word_key: id,
-             payload: { answer: value, label: labelOf(x, value), question: x.question, date: x.date, t: x.t } });
+             payload: { answer: value, label: value === OTHER ? otherLabel(f) : labelOf(x, value), question: x.question, date: x.date, t: x.t,
+                        ...(f.said ? { said: f.said } : {}), ...(f.right ? { right: f.right } : {}), ...(f.note ? { note: f.note } : {}) } });
       render();
     }
     function undo(id) {
@@ -59,8 +67,12 @@
         ${x.medi_said ? `<p class="tu-meta">Medi: <span lang="ar" dir="auto" class="tv-line">${esc(x.medi_said)}</span></p>` : ''}
         ${x.amal_said ? `<p class="tu-meta">You: <span lang="ar" dir="auto" class="tv-line">${esc(x.amal_said)}</span></p>` : ''}
         <p class="hb-sub"><b dir="auto">${esc(x.question)}</b></p>
-        ${a ? root.AneesUndo.answered('You said: ' + labelOf(x, a.answer) + saving, { 'data-lundo': x.id }) :
-          `<div class="tv-btns">${(x.options || []).map(o => `<button type="button" class="tu-btn${o.value === 'none' ? '' : ' tu-primary'}" data-lpick="${esc(o.value)}" data-id="${esc(x.id)}" dir="auto">${esc(o.label)}</button>`).join('')}</div>`}
+        ${a ? root.AneesUndo.answered('You said: ' + (a.answer === OTHER ? otherLabel(a) : labelOf(x, a.answer)) + (a.note ? ' · note: ' + a.note : '') + saving, { 'data-lundo': x.id }) :
+          `<div class="tv-btns">${(x.options || []).filter(o => o.value !== 'none' && o.value !== OTHER).map(o => `<button type="button" class="tu-btn tu-primary" data-lpick="${esc(o.value)}" data-id="${esc(x.id)}" dir="auto">${esc(o.label)}</button>`).join('')}
+            <button type="button" class="tu-btn tu-primary" data-lpick="other" data-id="${esc(x.id)}">Another word<small>type what Medi said and the right word</small></button>
+            ${(x.options || []).filter(o => o.value === 'none').map(o => `<button type="button" class="tu-btn" data-lpick="${esc(o.value)}" data-id="${esc(x.id)}" dir="auto">${esc(o.label)}</button>`).join('')}</div>
+          <div class="tv-reason" data-lother="${esc(x.id)}" hidden><input class="hb-input" data-lsaid="${esc(x.id)}" dir="auto" placeholder="What Medi said (e.g. shawban)"><input class="hb-input" data-lright="${esc(x.id)}" dir="auto" placeholder="The right word (e.g. shab3an = full)"><button type="button" class="tu-btn tu-primary" data-lpick="other" data-id="${esc(x.id)}">Save</button></div>
+          <details class="an-write"><summary>✎ Add a note (optional)</summary><textarea class="hb-input" data-lnote="${esc(x.id)}" dir="auto" rows="2" placeholder="Anything you want Medi to know about this moment"></textarea></details>`}
       </article>`;
     }
     function render() {
