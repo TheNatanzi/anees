@@ -110,11 +110,11 @@ def effect_after(label, row):
     """What her answer changed (PG-18 'the result'): the audit row's state now when the row is known, else what the tap does."""
     k = (row or {}).get("kind")
     if k in SCORED:
-        return "slip counted for Medi"
+        return "counted as a mistake for Medi"
     if k in ("rejected", "dropped-by-amal"):
-        return "not counted as a slip"
-    return {"Right": "not counted as a slip", "Wrong": "slip counted for Medi", "Wrong word": "slip counted for Medi (word)",
-            "Wrong grammar": "slip counted for Medi (grammar)", "Not Medi": "dropped - it was not Medi", "Skip": "no change"}.get(label, None)
+        return "not counted as a mistake"
+    return {"Right": "not counted as a mistake", "Wrong": "counted as a mistake for Medi", "Wrong word": "counted as a mistake for Medi (wrong word)",
+            "Wrong grammar": "counted as a mistake for Medi (wrong grammar)", "Not Medi": "dropped - it was not Medi", "Skip": "no change"}.get(label, None)
 
 
 def link_detail(r, dates):
@@ -212,8 +212,8 @@ def main():
             if not live or seen_review:
                 continue
             seen_review = True
-            open_.append({"id": "slips-review", "title": "Review Medi's slips", "kind": "review", "token": r["token"],
-                          "what": "Slips she let pass, grouped by pattern with the real moments to play. Per pattern she says: correct him, or a reason not to. New lessons add their patterns here the same day.",
+            open_.append({"id": "slips-review", "title": "Medi's mistakes to review", "kind": "review", "token": r["token"],
+                          "what": "Mistakes Medi made (a wrong word or wrong grammar) that you let pass in the lesson, grouped by kind, with the real moments to play. For each kind you say: yes, count it, or no, he was fine. New lessons add their patterns here the same day.",
                           "who": "Amal answers · Medi sends the link", "url": f"amal/review.html?t={r['token']}",
                           "total": (review.get("counts") or {}).get("patterns", 0), "moments": sum(len(x.get("examples", [])) for x in review.get("patterns", [])),
                           "expires": day(r["expires_at"])})

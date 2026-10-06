@@ -54,10 +54,10 @@ TASKS = {   # list -> what the hub and the page say; kind / prefix keep the task
     "word-there": {"kind": "word_there", "prefix": "wordthere", "clip": "wt", "title": "Check: is this word really there?", "unit": "clips", "mins": 8,
                    "intro": "28 short clips of Medi. He was given credit for a word here - listen and tell us if he really said it.",
                    "questions": [{"field": "said", "ask": "Did he say this word?", "type": "options", "options": YES_NO}]},
-    "one-or-two": {"kind": "one_or_two", "prefix": "oneortwo", "clip": "ot", "title": "Check: one slip or two?", "unit": "pairs", "mins": 12,
-                   "intro": "Pairs of slips from the same moment of a lesson. Are they the same slip written twice, or two different slips?",
-                   "questions": [{"field": "same", "ask": "Is this one slip or two?", "type": "options",
-                                  "options": [{"v": "same", "label": "Same slip"}, {"v": "different", "label": "Two different slips"}, {"v": "not_sure", "label": "Not sure"}]}]},
+    "one-or-two": {"kind": "one_or_two", "prefix": "oneortwo", "clip": "ot", "title": "Check: one mistake or two?", "unit": "pairs", "mins": 12,
+                   "intro": "Two mistakes written down from the same moment of a lesson. Is it the same mistake written twice, or two different mistakes?",
+                   "questions": [{"field": "same", "ask": "Is this one mistake or two?", "type": "options",
+                                  "options": [{"v": "same", "label": "The same mistake, written twice"}, {"v": "different", "label": "Two different mistakes"}, {"v": "not_sure", "label": "Not sure"}]}]},
 }
 ORDER = ("slip-check", "own-fix", "word-said", "old-new", "word-there", "one-or-two")
 
@@ -285,7 +285,7 @@ class Build:
                     iid = f"{date}:{pair[0]}+{pair[1]}"
                     ln = self.line_at(date, T(first))
                     own, both, size = self.clips("one-or-two", date, iid, ln)
-                    row = lambda n, x: {"label": f"Slip {n} · {x.get('mmss') or ''}",
+                    row = lambda n, x: {"label": f"Mistake {n} · {x.get('mmss') or ''}",
                                         "text": ["he said ", x.get("wrong") or "(did not know the word)", " → should be ", x.get("right") or ""]}
                     items.append({"id": iid, "date": date, "mmss": first.get("mmss") or "", "clips": self.players(own, both),
                                   "rows": [row(1, first), row(2, second)], "bytes": size})

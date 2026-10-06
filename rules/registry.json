@@ -7974,6 +7974,49 @@
     }
    ],
    "aliases": []
+  },
+  {
+   "id": "AM-24",
+   "kind": "display",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Amal never reads the word 'slip' on her Tutor page: it is 'mistake' (a wrong word or wrong grammar Medi said), spelled out the first time on each list ('Medi's mistakes to review', 'kinds of mistake', 'counted as a mistake for Medi', 'Check: one mistake or two?', 'The same mistake, written twice'). Code ids (slip-check, slips-review) stay; only her screen changes. Guard test scans tutor.js, review-task.js, tutor-verify.js strings and every Tutor data file title / intro.",
+   "plain": "Amal never sees the word slip. Her page says mistake, and spells out what that means: a wrong word or wrong grammar Medi said.",
+   "plain_for": "098823db",
+   "topic": "the Tutor page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "she doesnt understand the word slip in the tutor portal, be more explicit",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/tutor.js",
+     "contains": "review: 'kinds of mistake'"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_data.py",
+     "contains": "\"title\": \"Medi's mistakes to review\""
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_amal_checks.py",
+     "contains": "\"title\": \"Check: one mistake or two?\""
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_in_panel.py",
+     "contains": "def test_AM_24_amal_never_reads_the_word_slip"
+    }
+   ],
+   "aliases": []
   }
  ]
 }

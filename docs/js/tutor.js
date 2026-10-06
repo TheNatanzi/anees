@@ -61,11 +61,11 @@
 
   // ---- the task list -------------------------------------------------------------------------------------------
   const MIN_EACH = { proposals: 1.5, attention: 1, after: 0.7, before: 0.7, verify: 0.4, ledger: 0.5, review: 1.2, verb_check: 0.1, word_review: 0.3, newwords: 0.3, listen: 0.25 };
-  const UNIT = { after: 'moments', before: 'questions', review: 'slip patterns', verb_check: 'verb forms', word_review: 'lines', verify: 'moments', ledger: 'moments', newwords: 'words', listen: 'lines' };
+  const UNIT = { after: 'moments', before: 'questions', review: 'kinds of mistake', verb_check: 'verb forms', word_review: 'lines', verify: 'moments', ledger: 'moments', newwords: 'words', listen: 'lines' };
   function taskOf(it, L) {
     const total = it.total || 0, d = Math.min(total, (L && L.done) || 0), left = Math.max(0, total - d);
     const title = it.kind === 'after' ? 'After the lesson · ' + pretty(it.lesson_date)
-      : it.kind === 'review' ? 'Slips to review' : it.kind === 'verb_check' ? it.title.replace('Verb check', 'Verb forms') : it.title;
+      : it.kind === 'review' ? 'Medi\u2019s mistakes to review' : it.kind === 'verb_check' ? it.title.replace('Verb check', 'Verb forms') : it.title;
     const rank = it.kind === 'before' ? 0 : it.kind === 'after' ? 1 : it.kind === 'review' ? 3 : it.kind === 'word_review' ? 4 : it.kind === 'listen' ? 3.5 : it.kind === 'check' ? 3.6 : 5;
     return { id: it.id, kind: it.kind, item: it, title, total, done: d, left, unit: it.unit || UNIT[it.kind] || 'items', rank, date: it.lesson_date || '', finished: (L && L.finished) || (total > 0 && left === 0) };
   }

@@ -166,7 +166,7 @@ def test_PG_18_done_rows_show_the_moment_and_the_result():
     B._AUDIT.clear(); B._AUDIT.update({"FA-x": {"uid": "FA-x", "kind": "vocab-A", "medi_said": "ana mshajje3"}})
     d = B.link_detail(link, {})
     a, b = d["asked"]
-    assert (a["t"], a["medi"], a["answer"], a["at"], a["result"]) == ("6:36", "ana mshajje3", "Wrong word", "2026-10-02", "slip counted for Medi")
+    assert (a["t"], a["medi"], a["answer"], a["at"], a["result"]) == ("6:36", "ana mshajje3", "Wrong word", "2026-10-02", "counted as a mistake for Medi")   # AM-24: "mistake", never "slip", on her page
     assert a["clip"].startswith("lessons/2026-10-01/audio/lesson.mp3#t=393,")
     assert b["answer"] is None and b["result"].startswith("not asked")
     B._AUDIT.clear()
@@ -195,3 +195,22 @@ def test_AM_23_every_tutor_choice_is_a_plain_sentence_about_medi():
         assert "Yes, Medi was wrong" in js and "No, Medi was fine" in js and "Correction is correct<" not in js, f.name
     assert "Right as written" in (HUB / "verb-check-task.js").read_text(encoding="utf-8")
     assert "right: 'Medi got it right', close: 'Medi was close', wrong: 'Medi got it wrong'" in (HUB / "homework-task.js").read_text(encoding="utf-8")
+
+
+def test_AM_24_amal_never_reads_the_word_slip():
+    """AM-24 (Medi 2026-10-06: "she doesnt understand the word slip in the tutor portal, be more explicit")."""
+    import json, glob
+    shown = re.compile(r"(?i)\bslips?\b")
+    for f in ("docs/js/tutor.js", "docs/js/hub/review-task.js", "docs/js/tutor-verify.js"):
+        code = re.sub(r"/\*[\s\S]*?\*/|//[^\n]*", "", (ROOT / f).read_text(encoding="utf-8"))   # comments may say slip; her screen may not
+        strings = re.findall(r"'([^'\n]*)'|`([^`]*)`|\"([^\"\n]*)\"", code)
+        bad = [x for t in strings for x in t if shown.search(x) and "slip-check" not in x and "slips-review" not in x and "slip_check" not in x and "slipcheck" not in x]
+        assert not bad, (f, bad[:3])
+    T = json.loads((DOCS / "data" / "tutor.json").read_text(encoding="utf-8"))
+    for it in T["open"]:
+        for k in ("title", "what", "who"):
+            assert not shown.search(str(it.get(k) or "")), (it["id"], k)
+    for f in glob.glob(str(DOCS / "data" / "amal-check-*.json")) + [str(DOCS / "data" / "amal-checks.json")]:
+        d = json.loads(open(f, encoding="utf-8").read())
+        for key in ("title", "intro", "what"):
+            assert not shown.search(str(d.get(key) or "")), (f, key)

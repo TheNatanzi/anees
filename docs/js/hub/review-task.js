@@ -21,7 +21,7 @@
     const api = (m, p, b, extra) => fetch(ANEES.url + '/rest/v1/' + p, { method: m, headers: { ...H, ...(extra || {}) }, body: b ? JSON.stringify(b) : undefined });
     const QK = 'anees-amal-review-q-' + TOKEN, AK = 'anees-amal-review-a-' + TOKEN;
     let DATA = null, answers = {}, filter = 'all', flushing = false, shown = 20;
-    el.innerHTML = '<div class="hb-task"><p class="hb-sub">One card per pattern of slip. Play a moment if you like, then tap: <b>Yes, Medi was wrong</b> counts it against him; <b>No, Medi was fine</b> (say why in a line) drops it and the app never asks about this pattern again.</p><div class="hb-chips" data-filters></div><p class="hb-prog" data-prog>Loading…</p><div data-root></div><p class="hb-foot" data-foot>Saved as you tap · stop any time</p></div>';
+    el.innerHTML = '<div class="hb-task"><p class="hb-sub">One card per kind of mistake (a wrong word or wrong grammar Medi said more than once). Play a moment if you like, then tap: <b>Yes, Medi was wrong</b> counts it against him; <b>No, Medi was fine</b> (say why in a line) drops it and the app never asks about this pattern again.</p><div class="hb-chips" data-filters></div><p class="hb-prog" data-prog>Loading…</p><div data-root></div><p class="hb-foot" data-foot>Saved as you tap · stop any time</p></div>';
     const $root = el.querySelector('[data-root]'), $prog = el.querySelector('[data-prog]'), $filters = el.querySelector('[data-filters]');
 
     async function flush() {
@@ -57,7 +57,7 @@
       const a = answerOf(p), n = (p.examples || []).length, wait = pending(p.id) ? ' · saving…' : '';
       return `<article class="hb-moment hb-card" data-pid="${esc(p.id)}"><p class="hb-prog">${esc(p.kind_label || '')}${p.bucket ? ` · rule ${esc(p.bucket)} ${esc(p.bucket_name || '')}` : ''}</p>
         ${pair(p)}<p class="hb-why">${esc(p.why || '')}</p>${p.english ? `<p class="hb-sub">e.g. “${esc(p.english)}”</p>` : ''}<p class="hb-sub">${n} time${n === 1 ? '' : 's'} in ${esc(p.lessons_label || '')}</p>
-        ${a ? AneesUndo.answered((a.kind === 'audit_confirm' ? `You said: the correction is correct · result: ${n} slip${n === 1 ? '' : 's'} counted for Medi` : 'You said: no correction — ' + (a.reason || '') + ' · result: dropped, never asked again') + wait, { 'data-rv': 'undo', 'data-id': p.id })
+        ${a ? AneesUndo.answered((a.kind === 'audit_confirm' ? `You said: the correction is correct · result: ${n} mistake${n === 1 ? '' : 's'} counted for Medi` : 'You said: no correction — ' + (a.reason || '') + ' · result: dropped, never asked again') + wait, { 'data-rv': 'undo', 'data-id': p.id })
             : `<div class="hb-btns"><button type="button" class="hb-ans primary" data-rv="confirm" data-id="${esc(p.id)}">Yes, Medi was wrong<small>counts as a mistake for Medi</small></button>
           <button type="button" class="hb-ans" data-rv="skip" data-id="${esc(p.id)}">No, Medi was fine<small>say why in a line · the app stops asking about this</small></button>
           <div data-reason hidden><textarea class="hb-input" placeholder="e.g. both are fine in Palestinian; or: this is what I say too" aria-label="Your reason"></textarea><button type="button" class="hb-ans primary" data-rv="skip-save" data-id="${esc(p.id)}">Save reason</button></div></div>`}
