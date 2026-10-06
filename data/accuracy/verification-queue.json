@@ -1,9 +1,7 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 16,
+ "count": 13,
  "by_date": {
-  "2026-09-04": 2,
-  "2026-09-05": 1,
   "2026-09-10": 3,
   "2026-09-11": 4,
   "2026-09-16": 1,
@@ -13,82 +11,6 @@
   "2026-10-05": 1
  },
  "rows": [
-  {
-   "uid": "FA-a4ad5c2c",
-   "date": "2026-09-04",
-   "t": "00:29",
-   "t_amal": "00:33",
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B18",
-   "medi_said": "Nerd بعرف، انتَ بتعرف-",
-   "amal_said": "بعرف nerd آه. إنتا nerd.",
-   "wrong": "انتَ بتعرف",
-   "right": "إنتي بتعرفي",
-   "why_check": [
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "The evidence does not show Amal correcting a masculine address form; she echoes/answers «بعرف nerd» and then calls him «إنتا nerd». The independent transcription does not clearly support «انتَ بتعرف» as the corrected item."
-   },
-   "listen_from": "00:19",
-   "listen_to": "00:53"
-  },
-  {
-   "uid": "FA-b1718391",
-   "date": "2026-09-04",
-   "t": "03:01",
-   "t_amal": null,
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A1",
-   "medi_said": "مع عربي فلسطيني. آم",
-   "amal_said": null,
-   "wrong": "عربي فلسطيني",
-   "right": "العربي الفلسطيني",
-   "why_check": [
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Even if Medi said «عربي فلسطيني», Amal did not signal or correct the article issue; the later correction is about «مشكلة» being feminine."
-   },
-   "listen_from": "02:51",
-   "listen_to": "03:21"
-  },
-  {
-   "uid": "FA-407ececa",
-   "date": "2026-09-05",
-   "t": "46:16",
-   "t_amal": null,
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B1",
-   "medi_said": "Oh, oh, oh, okay. تستعمل الـ-- يتستعمل الـ telephone.",
-   "amal_said": null,
-   "wrong": "تستعمل الـ telephone",
-   "right": "بتستعملي التلفون",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Amal does not correct this line and simply continues explaining the computer issue. The independent transcriptions also hear «تستعملي», so the claimed missing feminine ending is not supported."
-   },
-   "listen_from": "46:06",
-   "listen_to": "46:36"
-  },
   {
    "uid": "FA-b0806e43",
    "date": "2026-09-10",
