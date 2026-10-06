@@ -228,13 +228,14 @@ STEPS = [
     ("build_tutor_data", [sys.executable, "scripts/build_tutor_data.py"]),
     # Amal's uploads + homework -> Student tab / Flashcards data (Medi 2026-10-05)
     ("build_student_data", [sys.executable, "scripts/build_student_data.py"]),
+    ("build_tutor_weak", [sys.executable, "scripts/build_tutor_weak.py"]),   # PG-30: Amal\'s Grammar / Vocab / Decay tabs
     # after the lesson data is rebuilt: proposals count the moments on the rebuilt transcript
     ("medi_corrections_propose", [sys.executable, "scripts/medi_corrections.py", "propose"]),
     ("write_build", [sys.executable, "scripts/write_build.py"]),
 ]
 AUDIT_CHAIN = ["full_audit_build", "apply_amal_audit_rulings", "amal_grammar_notes", "build_grammar_console", "build_amal_docs",
                "build_amal_grammar_rules", "build_amal_review", "build_lessons_page_data", "codex_list", "accuracy_annotate", "build_sentence_ladder", "amal_new_words",
-               "build_tutor_data"]
+               "build_tutor_data", "build_tutor_weak"]
 
 SOURCES = [
     {"id": "tutor_verify", "label": "Tutor page: check these moments", "fetch": fetch_tutor_verify, "steps": AUDIT_CHAIN},

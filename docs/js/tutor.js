@@ -152,18 +152,60 @@
     if (tab === 'upload') AneesUploadTask.mount($('#hb-body'), UP, { onChange: s => on({ total: s.total }) });
     else AneesHomeworkTask.mount($('#hb-body'), HW, { onChange: s => on({ left: s.total - s.done }) });
   }
-  // ---- Grammar and Materials: one rule / one section at a time ------------------------------------------------
+  // ---- Grammar · Vocab · Decay (PG-30, Medi 2026-10-05 "the grammar and materials feel redundant ... Instead lets have grammar
+  // and vocab. For now lets add my worst performing 20 vocab words and 10 grammar lessons. for her"; "lets add a 5th page for
+  // decay. Words that are untested or decaying"): what Medi struggles with, from docs/data/tutor-weak.json
+  // (scripts/build_tutor_weak.py), each item in the panel with its numbers, its last real moments and her note box.
+  let WEAK = null;
+  async function weak() { if (!WEAK) WEAK = await (await fetch('data/tutor-weak.json', { cache: 'no-store' })).json(); return WEAK; }
+  const notesToken = () => { const g = T.open.find(x => x.kind === 'grammar_notes'); return g ? g.token : ''; };
+  const pctTxt = v => (v === null || v === undefined) ? '—' : v + '%';
+  function momentsHtml(ms, how) {
+    if (!ms || !ms.length) return '<p class="hb-sub">No moment recorded yet.</p>';
+    return `<ul class="hb-done hb-moments">${ms.map(m => `<li><span><span class="hb-time">${esc(pretty(m.date))}${m.mmss ? ' · ' + esc(m.mmss) : ''}</span> ${esc(how(m))}</span><span data-clip="${esc(m.clip || '')}" data-date="${esc(m.date || '')}"></span></li>`).join('')}</ul>`;
+  }
+  function clips(p) {
+    p.querySelectorAll('[data-clip]').forEach(c => { const src = c.dataset.clip; if (!src || !window.AneesClip) return;
+      const f = /^lessons\//.test(src) ? src : 'lessons/' + src; const [file, frag] = f.split('#t='), [st, en] = (frag || '').split(',').map(Number);
+      c.appendChild(AneesClip.bar({ src: ANEES.pages + file, start: frag ? st : 0, end: frag ? en : null })); });
+  }
   async function grammar(id) {
-    setTab('grammar');
-    $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
-    let G; try { G = await AneesDoc.grammar(''); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The grammar rules could not load. Refresh to try again.</div>'; return; }
-    const g = T.open.find(x => x.kind === 'grammar_notes'), token = g ? g.token : '';
-    const rows = [{ id: 'general', title: 'A general note', sub: 'Anything not about one rule', find: 'note' }]
-      .concat(G.rules.map(r => ({ id: r.id, title: `${r.id} · ${r.title}`, sub: `${r.family} · ${r.status}`, find: r.family, r })));
+    setTab('grammar'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
+    let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
+    const rows = D.rules.map(r => ({ id: r.id, title: `${r.id} · ${r.name}`, sub: `${pctTxt(r.pct)} right · ${fmt(r.uses)} uses · ${fmt(r.mistakes)} corrections · last ${pretty(r.last_used)}`, find: r.family || '', r }));
     listPanel('grammar', rows, id, (row, p) => {
-      p.innerHTML = `<div class="hb-doc">${row.r ? row.r.html : `<h3 class="hb-q">A general note</h3><p class="hb-sub">${esc(G.intro)}</p><div data-general></div>`}</div>`;
-      AneesGrammarNotes.start({ token, base: '', scope: p });
-    }, { search: 'Find a rule (id, name or family)', head: `<p class="hb-sub hb-span">${esc(G.intro)} Tap a rule to read it and write a note under it.</p>` });
+      const r = row.r;
+      p.innerHTML = `<article id="${esc(r.id)}" class="hb-doc"><h3 class="hb-q">${esc(r.id)} · ${esc(r.name)}</h3><p class="hb-sub">${esc(r.one_line || '')}</p>
+        <p class="hb-prog">${pctTxt(r.pct)} right over ${fmt(r.uses)} uses · ${fmt(r.mistakes)} corrections · ${esc(r.status || '')}</p>
+        <h4 class="hb-q">His last moments</h4>${momentsHtml(r.moments, m => (m.said || '') + (m.recast ? ' → ' + m.recast : ''))}</article>`;
+      clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
+    }, { noAuto: false, head: `<p class="hb-sub hb-span">Medi's ${D.rules.length} weakest grammar rules, lowest % first (3+ uses). Tap one: his numbers, his last moments, and a note box for you.</p>` });
+  }
+  async function vocab(id) {
+    setTab('vocab'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
+    let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
+    const rows = D.words.map(w => ({ id: 'word:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(w.english)} · ${pctTxt(w.pct)} right · ${fmt(w.n)} uses · last ${pretty(w.last_date)}`, find: w.english || '', w }));
+    listPanel('vocab', rows, id, (row, p) => {
+      const w = row.w;
+      p.innerHTML = `<article id="${esc(row.id)}" class="hb-doc"><h3 class="hb-q">${esc(w.arabizi)} ${w.arabic ? `<span lang="ar" dir="rtl">${esc(w.arabic)}</span>` : ''}</h3><p class="hb-sub">${esc(w.english || '')}</p>
+        <p class="hb-prog">${pctTxt(w.pct)} right · ${fmt(w.right)} right, ${fmt(w.partial)} partly, ${fmt(w.wrong)} wrong · ${esc(w.status || '')}</p>
+        <h4 class="hb-q">His last moments</h4>${momentsHtml(w.moments, m => `he said «${m.said || '?'}»${m.fix ? ' → ' + m.fix : ''}${m.kind === 'asked' ? ' (asked you for the word)' : ''}`)}</article>`;
+      clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
+    }, { search: 'Find a word', head: `<p class="hb-sub hb-span">Medi's ${D.words.length} weakest Doc words, lowest % first (2+ scored uses). Tap one: his numbers, his last moments, and a note box for you.</p>` });
+  }
+  async function decay(id) {
+    setTab('decay'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
+    let D; try { D = await weak(); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The list could not load. Refresh to try again.</div>'; return; }
+    const K = D.decay || { decaying: [], untested: [], days: 0 };
+    const rows = K.decaying.map(w => ({ id: 'decay:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(w.english)} · last said ${pretty(w.last_date)} (${w.days_ago} days) · was ${esc(w.status || '')}`, find: w.english || '', w, kind: 'decaying' }))
+      .concat(K.untested.map(w => ({ id: 'untested:' + w.key, title: `${w.arabizi}${w.arabic ? ' · ' + w.arabic : ''}`, sub: `${esc(w.english)} · never said in a recorded lesson · in the Doc since ${pretty(w.first_seen)}`, find: w.english || '', w, kind: 'untested' })));
+    listPanel('decay', rows, id, (row, p) => {
+      const w = row.w;
+      p.innerHTML = `<article id="${esc(row.id)}" class="hb-doc"><h3 class="hb-q">${esc(w.arabizi)} ${w.arabic ? `<span lang="ar" dir="rtl">${esc(w.arabic)}</span>` : ''}</h3><p class="hb-sub">${esc(w.english || '')}</p>
+        <p class="hb-prog">${row.kind === 'decaying' ? `Last said ${esc(pretty(w.last_date))}, ${w.days_ago} days ago · was ${esc(w.status || '')} (${pctTxt(w.pct)} over ${fmt(w.n)} uses)` : `Never said in a recorded lesson · in the Doc since ${esc(pretty(w.first_seen))}`}</p>
+        ${row.kind === 'decaying' ? `<h4 class="hb-q">His last moments</h4>${momentsHtml(w.moments, m => `he said «${m.said || '?'}»${m.fix ? ' → ' + m.fix : ''}`)}` : ''}</article>`;
+      clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
+    }, { search: 'Find a word', noAuto: true, head: `<p class="hb-sub hb-span">Decay: ${fmt(K.decaying.length)} words Medi knew but has not said for ${K.days}+ days (longest first), then ${fmt(K.untested.length)} Doc words never said in a recorded lesson. Tap one for its story and a note box.</p>` });
   }
   async function materials(id) {
     setTab('materials');
@@ -228,6 +270,7 @@
   function count() {
     $('#hb-n-todo').textContent = tasks.filter(t => !t.finished && !t.quiet).length || '';
     $('#hb-n-done').textContent = (tasks.filter(t => t.finished).length + (T.closed || []).length) || '';
+    weak().then(D => { $('#hb-n-grammar').textContent = D.rules.length || ''; $('#hb-n-vocab').textContent = D.words.length || ''; $('#hb-n-decay').textContent = ((D.decay || {}).decaying || []).length || ''; }).catch(() => {});
   }
   function hold() { const tv = $('#tv'); if (tv && tv.parentElement.id !== 'hb-hold') $('#hb-hold').appendChild(tv); }
   function route() {
@@ -235,6 +278,8 @@
     const [tab, id] = (decodeURIComponent(location.hash.slice(1)) || 'todo').split('/');
     if (tab === 'upload' || tab === 'homework') return tool(tab);
     if (tab === 'grammar') return grammar(id);
+    if (tab === 'vocab') return vocab(id);
+    if (tab === 'decay') return decay(id);
     if (tab === 'materials') return materials(id);
     if (tab === 'done') return doneView();
     todo(id);

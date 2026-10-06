@@ -7797,6 +7797,54 @@
    ],
    "next_step": "Medi's yes per rule -> bucket in docs/data/grammar-buckets.json + pattern in scripts/detect_grammar_usage.py + a planted-mistake test; Amal's notes under P-A13.. read row by row (amal_grammar_notes.py)",
    "aliases": []
+  },
+  {
+   "id": "PG-30",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Amal's Tutor page has To do · Grammar · Vocab · Decay · Completed (the Grammar-rules mirror and the Materials tab are gone from the menu; their routes #grammar-rules content moved, #materials still answers old links). Grammar = Medi's 10 weakest rules (3+ uses, lowest % first), Vocab = his 20 weakest Doc words (2+ scored uses, lowest % first), Decay = Doc words he knew but has not said for 21+ days (longest first) then Doc words never said in a recorded lesson. Each item opens in the panel with its numbers, his last moments (clip when there is one) and her note box (amal-grammar-notes.js, word_key rule:<id>). Data: docs/data/tutor-weak.json from scripts/build_tutor_weak.py, rebuilt by the hourly job and every Amal trigger.",
+   "plain": "Amal's Tutor page now has five tabs: To do, Grammar (Medi's 10 weakest rules), Vocab (his 20 weakest words), Decay (words he has not said for 3 weeks, and words never said), Completed. Each item shows his numbers, his last moments and a note box for her.",
+   "plain_for": "9507e4bf",
+   "topic": "the Tutor page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "yeah the grammar and mateirals feel redundant.  We should jsut have todo and compeleted.  Intead lets have grammar and vocab.  For now lets add my worst performing 20 vocab words and 10 grammar lessons. for her",
+     "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "lets add a 5th page for decay.  Words that are untested or decaying (havent been said in a long time)",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_weak.py",
+     "contains": "def decay(lessons, words, days=DECAY_DAYS, as_of=None):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/tutor.js",
+     "contains": "async function decay(id) {"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_build_tutor_weak.py",
+     "contains": "def test_PG_30_tutor_page_has_todo_grammar_vocab_completed_and_no_materials_tab"
+    },
+    {
+     "path": "tests/test_build_tutor_weak.py",
+     "contains": "def test_PG_30_decay_is_words_not_said_for_three_weeks_longest_first_plus_never_said"
+    }
+   ],
+   "aliases": []
   }
  ]
 }

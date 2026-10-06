@@ -380,6 +380,7 @@ def tutor_refresh(no_push=False, rebuild_all=False):
                 run_step(s, [sys.executable, str(HERE / s)], failures, timeout=1800)
         run_step('build_tutor_data.py', [sys.executable, str(HERE / 'build_tutor_data.py')], failures, timeout=300)
         run_step('build_student_data.py', [sys.executable, str(HERE / 'build_student_data.py')], failures, timeout=300)   # Student tab + her uploads (Medi 2026-10-05)
+        run_step('build_tutor_weak.py', [sys.executable, str(HERE / 'build_tutor_weak.py')], failures, timeout=300)   # PG-30: her Grammar / Vocab / Decay tabs
         # rule PG-16: the rule book (docs/rules.html + RULE-BOOK.md) is rebuilt from rules/registry.json every hour
         run_step('build_rule_book.py', [sys.executable, str(HERE / 'build_rule_book.py')], failures)
         paths = [p for p in TUTOR_PATHS if (ROOT / p).exists()]

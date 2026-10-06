@@ -43,7 +43,7 @@ def test_PG_17_no_hub_item_links_to_another_page():
 def test_PG_17_every_item_kind_opens_in_the_panel_with_the_shared_module():
     mount = TUTOR_JS[TUTOR_JS.index("const MOUNT = {"):TUTOR_JS.index("};", TUTOR_JS.index("const MOUNT = {"))]
     have = set(re.findall(r"^\s+([a-z_]+): ", mount, re.M))
-    tabs = {"grammar_notes": "AneesDoc.grammar(", "materials": "AneesDoc.materials("}
+    tabs = {"grammar_notes": "AneesGrammarNotes.start(", "materials": "AneesDoc.materials("}   # PG-30: Grammar = his weakest rules with her note box; Materials = route only
     for k in sorted(kinds_built()):
         if k in tabs:
             assert tabs[k] in TUTOR_JS, f"{k} must open inside the hub (PG-17)"

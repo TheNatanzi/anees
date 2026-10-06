@@ -107,12 +107,21 @@
     $('#st-view').innerHTML = `<p class="hb-sub">Words you got wrong, partly wrong, or had to ask for in the last 2 lessons (${(S.lessons || []).map(pretty).join(' and ')}). A word leaves this list after two right answers on Flashcards. <a href="cards.html?tile=shaky">Open them as cards →</a></p>
       ${open.length ? `<ul class="hb-done">${open.map(w => `<li><b>${esc(w.arabizi || w.arabic)}</b>${w.arabizi && w.arabic ? ` <span lang="ar">${esc(w.arabic)}</span>` : ''} <span>· ${esc(w.english || '')} · ${w.kind === 'asked' ? 'you asked for it' : w.kind === 'partial' ? 'partly wrong' : 'wrong'} · ${esc(pretty(w.date))}${w.right_since ? ' · 1 right since' : ''}</span></li>`).join('')}</ul>` : '<p class="hb-empty">Nothing shaky left from the last 2 lessons.</p>'}`;
   }
+  // Medi 2026-10-05 "get rid of cards for lesson and have Todo be for all assignments": card sets for a lesson are To do rows too
+  function openCards(t) { return H.effective(D.tasks).filter(x => x.kind === 'cards' && !(x.n_cards && H.cardsDone(x, D.log) >= x.n_cards)); }
+  function cardsCard(t) {
+    const done = H.cardsDone(t, D.log), n = t.n_cards || 0, today = new Date().toISOString().slice(0, 10), past = t.lesson_date && t.lesson_date < today;
+    return `<a class="st-task st-cards" href="cards.html?tile=${encodeURIComponent(t.set_ref)}" style="display:block;text-decoration:none;color:inherit"><p class="st-kind">Cards for the lesson on ${esc(pretty(t.lesson_date))} · assigned ${esc(pretty(t.created_at))}</p>
+      <p class="st-prompt">${esc(t.set_title)}</p><p class="st-wait">${n} cards · ${done} done${done >= n && n ? ' · all done' : ''}${past ? ' · lesson passed' : ''} · tap to open on Flashcards</p>
+      <div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div></a>`;
+  }
   function todoView() {
     setTab('todo');
-    const L = states().filter(x => x.s && x.s.state !== 'done');
-    if (!L.length) { $('#st-view').innerHTML = '<p class="hb-empty">No homework waiting. It is assigned on the Tutor page.</p>'; return; }
+    const L = states().filter(x => x.s && x.s.state !== 'done'), C = openCards();
+    if (!L.length && !C.length) { $('#st-view').innerHTML = '<p class="hb-empty">No homework waiting. It is assigned on the Tutor page.</p>'; return; }
     const order = { todo: 0, checking: 1, waiting: 2 };
-    $('#st-view').innerHTML = L.sort((a, b) => order[a.s.state] - order[b.s.state] || String(b.t.created_at).localeCompare(String(a.t.created_at))).map(x => todoCard(x.t, x.s)).join('');
+    $('#st-view').innerHTML = C.sort((a, b) => String(a.lesson_date).localeCompare(String(b.lesson_date))).map(cardsCard).join('')
+      + L.sort((a, b) => order[a.s.state] - order[b.s.state] || String(b.t.created_at).localeCompare(String(a.t.created_at))).map(x => todoCard(x.t, x.s)).join('');
     $('#st-view').querySelectorAll('[data-task]').forEach(box => {
       const ta = box.querySelector('[data-answer]'), go = box.querySelector('[data-send]'), t = D.tasks.find(x => x.id === box.dataset.task);
       ta.oninput = () => { typing = !!ta.value.trim(); };
@@ -127,14 +136,13 @@
   }
   function counts() {
     const S = states(), sc = H.score(D.tasks, D.replies, D.verdicts);
-    $('#st-n-todo').textContent = (sc.todo + sc.waiting + sc.checking) || '';
-    $('#st-n-cards').textContent = S.filter(x => !x.s).length || '';
+    $('#st-n-todo').textContent = (sc.todo + sc.waiting + sc.checking + openCards().length) || '';
     $('#st-n-shaky').textContent = D.shaky ? (H.shakyCards(D.shaky, D.log).length || '') : '';
     $('#st-n-done').textContent = sc.done || '';
     $('#st-score').innerHTML = scoreHtml();
     $('#st-hello').textContent = sc.todo ? `${sc.todo} to do · ${sc.waiting + sc.checking} waiting for your teacher` : 'Homework your teacher assigned, and the cards to do before the next lesson.';
   }
-  function route() { counts(); const tab = (location.hash.slice(1) || 'todo').split('/')[0]; ({ cards: cardsView, shaky: shakyView, done: doneView })[tab] ? ({ cards: cardsView, shaky: shakyView, done: doneView })[tab]() : todoView(); }
+  function route() { counts(); const tab = (location.hash.slice(1) || 'todo').split('/')[0]; ({ cards: todoView, shaky: shakyView, done: doneView })[tab] ? ({ cards: todoView, shaky: shakyView, done: doneView })[tab]() : todoView(); }   // #cards = old links -> To do
   function render() { route(); }
   window.addEventListener('hashchange', route);
   load().then(flush);
