@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T15:30:01-07:00",
+ "updated": "2026-10-06T16:29:09-07:00",
  "rule": "GR-18",
  "about": "Grammar corrections Amal made that fit no existing rule. Each is a proposed new rule for Medi's yes or no; nothing here is scored until he says yes. Built by scripts/full_audit_build.py from the audit rows and data/lesson-work/full-audit/proposed-buckets.json.",
  "proposals": [
@@ -383,53 +383,27 @@
    ]
   },
   {
-   "id": "P-FA-fdb9aed3",
+   "id": "P-FA-874cbfa9",
    "name": null,
-   "proposed_rule": "After a know/say verb, link the next clause with enno: ba3ref enno 3indi safra; a7ki la-el-AI enno laazem.",
+   "proposed_rule": "After a knowing / telling verb (ba3ref, a7ki la-) join the next clause with enno (that): ba3ref enno 3indi safra; a7ki la-el-AI enno yeb3atlek.",
    "family": null,
-   "from": "audit-2026-09-26 row FA-fdb9aed3 (no bucket fits)",
+   "from": "audit-2026-09-26 row FA-874cbfa9 (no bucket fits)",
    "medi": null,
    "moments": [
     {
-     "uid": "FA-fdb9aed3",
+     "uid": "FA-874cbfa9",
      "date": "2026-10-06",
      "t": "06:34",
      "t_amal": "06:36",
      "medi_said": "عشان أنا بعرف عندي سفر، عندي سفرة، أنا عندي سفرة.",
      "amal_said": "إنه عندي.",
-     "chat": null,
-     "wrong": "بعرف عندي سفرة",
-     "right": "بعرف إنه عندي سفرة",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
-     "confidence": "medium",
-     "why": "After بعرف (I know) Amal inserted إنه before the clause.",
-     "also_counted_as": []
-    }
-   ]
-  },
-  {
-   "id": "P-FA-8ffefa50",
-   "name": null,
-   "proposed_rule": "Proper nouns (countries, people, names) are already definite and never take el-: wasat amreeka, wasat falasteen, never wasat el-falasteen.",
-   "family": null,
-   "from": "audit-2026-09-26 row FA-8ffefa50 (no bucket fits)",
-   "medi": null,
-   "moments": [
-    {
-     "uid": "FA-8ffefa50",
-     "date": "2026-10-06",
-     "t": "18:59",
-     "t_amal": "19:03",
-     "medi_said": "sorry وسط الـ America.",
-     "amal_said": "أمريكا doesn't need ال. وسط أمريكا.",
-     "chat": null,
-     "wrong": "وسط الـ America",
-     "right": "وسط أمريكا",
+     "chat": "3ashaan ana ba3ref enno 3indi safra areeban",
+     "wrong": "بعرف عندي",
+     "right": "بعرف إنه عندي",
      "kind": "grammar-propose",
      "bucket": "PROPOSE",
      "confidence": "high",
-     "why": "A proper noun (country, name) never takes el-; Amal: 'أمريكا doesn't need ال' and explained proper nouns.",
+     "why": "He joined 'I know' straight to the clause; Amal voiced إنه عندي and typed 'ba3ref enno 3indi' - no bucket covers enno after know/tell.",
      "also_counted_as": []
     }
    ]
@@ -437,7 +411,7 @@
   {
    "id": "P-FA-87d76f1c",
    "name": null,
-   "proposed_rule": "After a know/say verb, link the next clause with enno: ba3ref enno 3indi safra; a7ki la-el-AI enno laazem.",
+   "proposed_rule": "After a knowing / telling verb (ba3ref, a7ki la-) join the next clause with enno (that): ba3ref enno 3indi safra; a7ki la-el-AI enno yeb3atlek.",
    "family": null,
    "from": "audit-2026-09-26 row FA-87d76f1c (no bucket fits)",
    "medi": null,
@@ -447,15 +421,15 @@
      "date": "2026-10-06",
      "t": "22:10",
      "t_amal": "22:15",
-     "medi_said": "لازم،",
+     "medi_said": "أحكي لـ الـ AI لازم،",
      "amal_said": "إنه لازم. [تضحك] لازم",
-     "chat": null,
+     "chat": "ana lazem a7ki la-el-AI enno yeb3atlek el-nataa2ej",
      "wrong": "لازم",
-     "right": "إنه لازم",
+     "right": "إنه",
      "kind": "grammar-propose",
      "bucket": "PROPOSE",
      "confidence": "medium",
-     "why": "After أحكي لـ الـ AI the reported clause needs إنه; Amal supplied إنه لازم and he repeated it.",
+     "why": "He linked the second clause with laazem; Amal voiced إنه and typed 'enno yeb3atlek' - same proposed enno rule as 06:34.",
      "also_counted_as": []
     }
    ]

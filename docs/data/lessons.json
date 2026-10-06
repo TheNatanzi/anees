@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T16:16:13-07:00",
+ "updated": "2026-10-06T16:39:06-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -7225,48 +7225,48 @@
     ]
    },
    "words": {
-    "unique": 49,
-    "right": 68,
-    "wrong": 8,
-    "partial": 19,
-    "pct": 81.6,
-    "scored": 95,
-    "audit_wrong": 8,
-    "audit_partial": 3,
-    "not_on_sheet": 6,
-    "unique_rows": 47,
-    "eligible": 95,
+    "unique": 48,
+    "right": 65,
+    "wrong": 10,
+    "partial": 16,
+    "pct": 80.2,
+    "scored": 91,
+    "audit_wrong": 10,
+    "audit_partial": 0,
+    "not_on_sheet": 7,
+    "unique_rows": 46,
+    "eligible": 91,
     "excluded": 0,
-    "pending": 2,
-    "eligible_pct": 81.6,
+    "pending": 1,
+    "eligible_pct": 80.2,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 162,
-    "mistakes": 31,
-    "pct": 82.1,
+    "uses": 165,
+    "mistakes": 33,
+    "pct": 81.2,
     "estimate": false,
-    "scored_mistakes": 29,
+    "scored_mistakes": 31,
     "unscored_mistakes": 2,
-    "eligible": 31,
+    "eligible": 33,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
       "5 slips are in rules the counter found 0 uses of in this lesson",
-      "5 rules have more slips than counted uses (A7, B12, B18, B6, D2)"
+      "5 rules have more slips than counted uses (A7, B12, B18, C7, D2)"
      ],
      "uses": 137,
-     "slips": 31,
-     "slips_latin": 1,
+     "slips": 33,
+     "slips_latin": 0,
      "slips_in_zero_use_rules": 5,
      "rules_slips_over_uses": [
       "A7",
       "B12",
       "B18",
-      "B6",
+      "C7",
       "D2"
      ]
     },
@@ -7411,9 +7411,9 @@
      "note": "Medi: 'Do I know the word for choice?' (51:49), guessed مختار; Amal hinted cucumber"
     }
    ],
-   "coverage": "English-only stretches: 00:03-04:36 (AI project talk), 23:16-24:11, 25:30-28:30 (تاني explanation), 42:51-43:20, 46:23-50:00 (idafa / أول discussion), 1:01:14-end. Engine wrote 'jerash' for جاج (chicken) at 11:00 / 11:20; 'أولتي / أولة' for عطلتي / عطلة at 45-47 min; 'بس أعمل' = بستعمل at 42:15-42:25; 'روز / ما روز' = رز / بالرز at 12:21-14:00; 'يوم' at 52:12-52:20 likely the engine for خيار (cucumber); 'حافظي' = حافزي (S4). 14:09-14:25 date line unclear (التاسع عشر / تسعة) - skipped. No echo-candidates file for 10-06. / No echo-candidates file for 2026-10-06. Engine: 'jerash' at 11:00/11:20 is جاج (chicken) - a name-list item, not flagged; 'أمل' at 12:17/12:38 is likely عملوها (they made it), not the name; أولتي at 45:19-47:38 = عطلتي; 'مصرية' at 42:51 = مصاري; 'بس ذا' at 11:52 = فستق; خُطّات at 29:19-29:45 may be خطة/خطتك misheard. Long English-only stretches 00:03-04:36, 23:16-28:30 (rule talk on تاني), 41:25-43:20, 46:17-50:00 (rule talk). 14:09 date line is unclear. 42:15-42:39 (بس أعمل / على or بي) too garbled to judge.",
+   "coverage": "Opening 00:03-04:36 and long English stretches (09:37-11:20 pho grammar, 17:01-17:28, 25:26-28:34 tani rule, 46:31-50:08 awwal/idafa talk, 55:01-55:34, 1:01:25-end) are English meta talk. Latin-transliterated stretch 10:57-12:02 (Can fee ha jerash = kaan fiha jaaj, engine wrote the name jerash; sauce behreh, basel). Engine: 'أمل ما روز' 12:17 = 3amalu/bye3maluha ma(3) ruz (not the name); 'يمين' 05:08 = لسه; 'ليان' 07:57 likely = اليوم; 'سدسة/set' = SAT; 'بس أعمل' 42:25 = basta3mel; 'يوم' 52:12-52:20 likely = 5yaar (cucumber); Amal's 'حطتيها not حطتيها' 33:02 = 7attaitiha not 5a66aitiha; 'بدل' 41:36 = بضل. Date 14:09-14:25 unclear (التاسع عشر / ستا عشر vs chat sitte 3ashara) - not scored. 56:01 قايض for choice self-fixed to خيار at 56:57 (GR-22). 58:40 إجا(زة) for holiday: Amal says both work, not a slip. Echo: 'Masari.' 36:42 = مصاري (real Arabic in Latin); other echo candidates are real English. / 00:00-04:36, 23:16-28:30 (تاني rule talk), 41:25-43:20 and 46:17-50:00 (rule talk) are mostly English. Engine: 'jerash' at 11:00/11:20 = جاج (chicken, her chat jaaj), not the place; 'أولتي' 45:19-47:38 = عطلتي; 'ten, ten' 14:50 = tentain; 'أمل ما روز' 12:17 = 3amalu ma3 ruz; 'بس أعمل' 42:15 = بصرف; 'ده تن' 09:18 = 3adatan; 'أبيت' 29:39 = 7abbait; 'مصرية' 42:51 = مصاري (Amal's line); 'Ahmad' 1:01:25 = Amal. echo: 'This is' 16:06 = لسه (her chat 'lissa shoab kteer'). Echo-candidate list holds only real English; take_verb/laazem_noun/chat_pairs empty. 28:47 'فستان التاني' (el- dropped) is a repeat of the line she just fixed (GR-28), not scored. 58:40 إجازة vs عطلة: Amal said both work - not a slip. 08:10 فيتنامية: his own fix before her echo. 52:12 يوم for cucumber likely the engine for خيار - skipped. 14:09 date line unclear.",
    "notes": [
-    "grammar: 2 of the 31 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "grammar: 2 of the 33 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
     "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 28:37 one turn was both a use and a slip of the same rule: one attempt, wrong."
    ],
    "page": "lessons/2026-10-06.html",
@@ -7426,10 +7426,10 @@
    },
    "counts": {
     "turns": 1008,
-    "chat_lines": 0,
+    "chat_lines": 27,
     "vocab_errors": 17,
-    "vocab_correct": 84,
-    "grammar_errors": 31,
+    "vocab_correct": 81,
+    "grammar_errors": 33,
     "grammar_not_counted": 0
    },
    "ledger": {
@@ -7444,20 +7444,20 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: pass 1 70.0 %; 2 consecutive passes at >= 95 % are needed",
+     "reader agreement: pass 1 63.3 %; 2 consecutive passes at >= 95 % are needed",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3738 s) compared with a second model",
-     "checks: 3 scored rows need an audio or human check (2 words, 1 grammar)"
+     "checks: 1 scored rows need an audio or human check (1 words, 0 grammar)"
     ],
     "agreement": {
      "status": "withheld",
      "passes": [
       {
        "pass": 1,
-       "r1": 55,
+       "r1": 51,
        "r2": 53,
-       "agreed": 42,
-       "disputed": 18,
-       "agreement_pct": 70.0
+       "agreed": 38,
+       "disputed": 22,
+       "agreement_pct": 63.3
       }
      ],
      "between": [],
