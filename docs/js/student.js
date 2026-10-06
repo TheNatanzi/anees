@@ -41,8 +41,8 @@
       const r = await fetch(ANEES.url + '/functions/v1/check-homework', { method: 'POST', headers: HD, body: JSON.stringify({ reply_id: replyId }) });
       const j = await r.json().catch(() => ({}));
       if (r.ok && j.ai) { const rep = D.replies.find(x => x.id === replyId); if (rep) { rep.ai = j.ai; rep.ai_at = new Date().toISOString(); } return true; }
-      msg[replyId] = 'The AI check did not run (' + (j.error || r.status) + '). Amal will still see your answer.'; return false;
-    } catch (e) { msg[replyId] = 'The AI check did not run (offline). Amal will still see your answer.'; return false; }
+      msg[replyId] = 'The AI check did not run (' + (j.error || r.status) + '). Your teacher will still see your answer.'; return false;
+    } catch (e) { msg[replyId] = 'The AI check did not run (offline). Your teacher will still see your answer.'; return false; }
   }
   async function answer(task, text) {
     const t = String(text || '').trim(); if (!t) return;
@@ -50,7 +50,7 @@
     D.replies.push(body); busyIds.add(task.id); typing = false; render();
     let sent = false;
     try { const r = await post('homework_replies', body); sent = r.ok || r.status === 409; } catch (e) { sent = false; }
-    if (!sent) { const q = LS(QK) || []; q.push({ id: body.id, body }); LS(QK, q); msg[body.id] = 'Saved on this phone, will be sent when online. Amal sees it then.'; }
+    if (!sent) { const q = LS(QK) || []; q.push({ id: body.id, body }); LS(QK, q); msg[body.id] = 'Saved on this phone, will be sent when online. Your teacher sees it then.'; }
     else await check(body.id);
     busyIds.delete(task.id); render();
   }
@@ -75,12 +75,12 @@
       <button type="button" class="hb-ans primary st-go" data-send ${busy ? 'disabled' : ''}>${busy ? 'Checking…' : 'Check my answer'}</button></div>`;
     return `<div class="st-task">${head(t)}<p class="st-ans" dir="auto">You: ${esc(r.answer)}</p>
       ${s.ai ? `<p>${verdictHtml(s.ai.verdict, 'AI')} <span class="st-why">${esc(s.ai.reason || '')}${s.ai.fixed && s.ai.fixed !== r.answer ? ' · <span dir="auto">' + esc(s.ai.fixed) + '</span>' : ''}</span></p>` : (busy ? '<p class="st-wait">AI check running…</p>' : `<p class="st-wait">${esc(msg[r.id] || (r.ai && r.ai.reason) || 'AI check pending')}</p>`)}
-      <p class="st-wait">Waiting for Amal - her word is the one that counts.</p></div>`;
+      <p class="st-wait">Waiting for your teacher - that word is the one that counts.</p></div>`;
   }
   function doneCard(t, s) {
     const v = s.verdict;
     return `<div class="st-task">${head(t)}<p class="st-ans" dir="auto">You: ${esc(s.reply.answer)}</p>
-      <p>${verdictHtml(v.verdict, 'Amal')} ${s.ai ? `<span class="st-wait">AI said ${SAY[s.ai.verdict]}${v.agrees === false ? ' - she overruled it' : ''}</span>` : ''}</p>
+      <p>${verdictHtml(v.verdict, 'Teacher')} ${s.ai ? `<span class="st-wait">AI said ${SAY[s.ai.verdict]}${v.agrees === false ? ' - she overruled it' : ''}</span>` : ''}</p>
       ${v.fix ? `<p class="st-why" dir="auto">Say: <b>${esc(v.fix)}</b></p>` : ''}${v.note ? `<p class="st-why">${esc(v.note)}</p>` : ''}${s.ai && s.ai.reason && v.agrees !== false ? `<p class="st-why">${esc(s.ai.reason)}</p>` : ''}
       <p class="st-wait">${esc(pretty(v.created_at))}</p></div>`;
   }
@@ -88,16 +88,16 @@
   function scoreHtml() {
     const sc = H.score(D.tasks, D.replies, D.verdicts);
     const tile = (l, v, sub) => `<div class="vp-card"><div class="vp-card-label"><span>${l}</span></div><div class="vp-card-value"><span class="vp-num">${v}</span></div><div class="vp-card-sub">${sub}</div></div>`;
-    return tile('Homework', sc.pct === null ? '—' : sc.pct + '%', sc.done ? `${sc.done} checked by Amal · right 1, close ½` : 'nothing checked by Amal yet - this number is hers alone')
-      + tile('To do', sc.todo, 'not answered yet') + tile('Waiting', sc.waiting + sc.checking, 'answered, waiting for Amal') + tile('Overruled', sc.overruled, sc.done ? `of ${sc.done} the AI check was corrected by Amal` : '');
+    return tile('Homework', sc.pct === null ? '—' : sc.pct + '%', sc.done ? `${sc.done} checked by your teacher · right 1, close ½` : 'nothing checked by your teacher yet - only that verdict counts')
+      + tile('To do', sc.todo, 'not answered yet') + tile('Waiting', sc.waiting + sc.checking, 'answered, waiting for your teacher') + tile('Overruled', sc.overruled, sc.done ? `of ${sc.done} the AI check was corrected by your teacher` : '');
   }
   function setTab(tab) { document.querySelectorAll('.hb-tab').forEach(a => a.setAttribute('aria-selected', String(a.dataset.tab === tab))); }
   function cardsView() {
     setTab('cards');
     const C = H.effective(D.tasks).filter(t => t.kind === 'cards').sort((a, b) => String(a.lesson_date).localeCompare(String(b.lesson_date)));
-    if (!C.length) { $('#st-view').innerHTML = '<p class="hb-empty">Amal has not assigned cards for a lesson yet.</p>'; return; }
+    if (!C.length) { $('#st-view').innerHTML = '<p class="hb-empty">No card set assigned for a lesson yet.</p>'; return; }
     const today = new Date().toISOString().slice(0, 10);
-    $('#st-view').innerHTML = `<p class="hb-sub">Card sets Amal wants done before a lesson. Tap one to open it on Flashcards; every answer counts there as usual.</p><div class="hb-list">${C.map(t => { const done = H.cardsDone(t, D.log), n = t.n_cards || 0, past = t.lesson_date && t.lesson_date < today;
+    $('#st-view').innerHTML = `<p class="hb-sub">Card sets your teacher wants done before a lesson. Tap one to open it on Flashcards; every answer counts there as usual.</p><div class="hb-list">${C.map(t => { const done = H.cardsDone(t, D.log), n = t.n_cards || 0, past = t.lesson_date && t.lesson_date < today;
       return `<a class="hb-row" href="cards.html?tile=${encodeURIComponent(t.set_ref)}" style="display:block;text-decoration:none"><p class="hb-row-t">For ${esc(pretty(t.lesson_date))}: ${esc(t.set_title)}</p><p class="hb-row-s">${n} cards · ${done} done${done >= n && n ? ' · all done' : ''}${past ? ' · lesson passed' : ''}</p><div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div></a>`; }).join('')}</div>`;
   }
   function shakyView() {
@@ -110,7 +110,7 @@
   function todoView() {
     setTab('todo');
     const L = states().filter(x => x.s && x.s.state !== 'done');
-    if (!L.length) { $('#st-view').innerHTML = '<p class="hb-empty">No homework waiting. Amal assigns it on her Tutor page.</p>'; return; }
+    if (!L.length) { $('#st-view').innerHTML = '<p class="hb-empty">No homework waiting. It is assigned on the Tutor page.</p>'; return; }
     const order = { todo: 0, checking: 1, waiting: 2 };
     $('#st-view').innerHTML = L.sort((a, b) => order[a.s.state] - order[b.s.state] || String(b.t.created_at).localeCompare(String(a.t.created_at))).map(x => todoCard(x.t, x.s)).join('');
     $('#st-view').querySelectorAll('[data-task]').forEach(box => {
@@ -123,7 +123,7 @@
   function doneView() {
     setTab('done');
     const L = states().filter(x => x.s && x.s.state === 'done').sort((a, b) => String(b.s.verdict.created_at).localeCompare(String(a.s.verdict.created_at)));
-    $('#st-view').innerHTML = L.length ? L.map(x => doneCard(x.t, x.s)).join('') : '<p class="hb-empty">Nothing checked by Amal yet.</p>';
+    $('#st-view').innerHTML = L.length ? L.map(x => doneCard(x.t, x.s)).join('') : '<p class="hb-empty">Nothing checked by your teacher yet.</p>';
   }
   function counts() {
     const S = states(), sc = H.score(D.tasks, D.replies, D.verdicts);
@@ -132,7 +132,7 @@
     $('#st-n-shaky').textContent = D.shaky ? (H.shakyCards(D.shaky, D.log).length || '') : '';
     $('#st-n-done').textContent = sc.done || '';
     $('#st-score').innerHTML = scoreHtml();
-    $('#st-hello').textContent = sc.todo ? `${sc.todo} to do · ${sc.waiting + sc.checking} waiting for Amal` : 'Homework Amal assigned, and the cards she wants you to do before the next lesson.';
+    $('#st-hello').textContent = sc.todo ? `${sc.todo} to do · ${sc.waiting + sc.checking} waiting for your teacher` : 'Homework your teacher assigned, and the cards to do before the next lesson.';
   }
   function route() { counts(); const tab = (location.hash.slice(1) || 'todo').split('/')[0]; ({ cards: cardsView, shaky: shakyView, done: doneView })[tab] ? ({ cards: cardsView, shaky: shakyView, done: doneView })[tab]() : todoView(); }
   function render() { route(); }

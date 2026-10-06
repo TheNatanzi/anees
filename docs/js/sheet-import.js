@@ -44,7 +44,7 @@
   function titleOf(url, name) {
     if (name) return String(name).replace(/\.(xlsx|xlsm|csv|tsv|txt)$/i, '').replace(/[_-]+/g, ' ').trim();
     const i = linkInfo(url);
-    return i ? (i.kind === 'sheet' ? 'Amal’s sheet' : 'Amal’s doc') : 'Amal’s list';
+    return i ? (i.kind === 'sheet' ? 'From a sheet' : 'From a doc') : 'A list';
   }
 
   // ---- text -> rows -----------------------------------------------------------------------------------------------

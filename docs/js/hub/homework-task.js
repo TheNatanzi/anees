@@ -89,7 +89,7 @@
           <textarea class="hb-input" data-in="context" rows="2" placeholder="Context, if you want (optional)" dir="auto">${esc(f.context)}</textarea>` : ''}
         ${f.kind === 'cards' ? `<select class="hb-input" data-in="set_ref"><option value="">Pick a card set…</option>${sets.map(s => `<option value="${esc(s.id)}"${s.id === f.set_ref ? ' selected' : ''}>${esc(s.title)} · ${s.n} cards${s.group ? ' · ' + esc(s.group) : ''}</option>`).join('')}</select>` : ''}
         <label class="hb-sub">For the lesson on <input type="date" class="hb-input" data-in="lesson_date" value="${esc(f.lesson_date)}" style="width:auto;display:inline-block;margin:0 0 0 6px">${f.kind === 'cards' ? '' : ' <i>(optional)</i>'}</label>
-        <div class="hb-btns"><button type="button" class="hb-ans primary" data-assign>Assign<small>it shows on Medi’s Student tab at once</small></button></div></div>`;
+        <div class="hb-btns"><button type="button" class="hb-ans primary" data-assign>Assign<small>it shows on the Student tab at once</small></button></div></div>`;
     }
     function replyHtml(t, s) {
       const r = s.reply, ai = s.ai, pick = over[r.id];
@@ -107,12 +107,12 @@
       const toCheck = states.filter(x => x.s.state === 'waiting'), open = states.filter(x => x.s.state === 'todo' || x.s.state === 'checking' || x.s.state === 'cards'), done = states.filter(x => x.s.state === 'done');
       const c = count(tasks, replies, verdicts);
       el.innerHTML = `<div class="hb-task">
-        ${toCheck.length ? `<p class="hb-prog">Medi’s answers to check (${toCheck.length})</p><p class="hb-sub">The AI checked first. Confirm it, or say what it really is - your word is the one that counts.</p>${toCheck.map(x => replyHtml(x.t, x.s)).join('')}` : ''}
+        ${toCheck.length ? `<p class="hb-prog">Answers to check (${toCheck.length})</p><p class="hb-sub">The AI checked first. Confirm it, or say what it really is - your word is the one that counts.</p>${toCheck.map(x => replyHtml(x.t, x.s)).join('')}` : ''}
         ${formHtml()}
         ${msg ? `<p class="hb-sub" style="color:var(--sabz-danger,#B3261E)">${esc(msg)}</p>` : ''}
         ${open.length ? `<p class="hb-prog" style="margin-top:14px">Assigned, not answered yet (${open.length})</p><ul class="hb-done">${open.map(x => `<li data-answered="${esc(x.t.id)}"><span>${taskLine(x.t)} · ${esc(pretty(x.t.created_at))}${pending.has(x.t.id) ? ' · saving…' : ''}${x.s.state === 'checking' ? ' · he answered, AI check running' : ''}</span>${AneesUndo.button({ 'data-tundo': x.t.id })}</li>`).join('')}</ul>` : ''}
-        ${done.length ? `<p class="hb-prog" style="margin-top:14px">Checked (${done.length})</p><ul class="hb-done">${done.slice(0, 40).map(x => `<li data-answered="${esc(x.s.verdict.id)}"><span>${taskLine(x.t)}<br>Medi: <span dir="auto">${esc(x.s.reply.answer)}</span> · you: <b>${SAY[x.s.final]}</b>${x.s.verdict.agrees === false ? ' (overruled the AI' + (x.s.ai ? ': ' + SAY[x.s.ai.verdict] : '') + ')' : ''}${x.s.verdict.note ? ' · ' + esc(x.s.verdict.note) : ''}${pending.has(x.s.verdict.id) ? ' · saving…' : ''}</span>${AneesUndo.button({ 'data-vundo': x.s.verdict.id })}</li>`).join('')}</ul>` : ''}
-        <p class="hb-foot">Saved as you tap · Medi sees it on his Student tab · nothing is sent to anyone</p></div>`;
+        ${done.length ? `<p class="hb-prog" style="margin-top:14px">Checked (${done.length})</p><ul class="hb-done">${done.slice(0, 40).map(x => `<li data-answered="${esc(x.s.verdict.id)}"><span>${taskLine(x.t)}<br>Student: <span dir="auto">${esc(x.s.reply.answer)}</span> · you: <b>${SAY[x.s.final]}</b>${x.s.verdict.agrees === false ? ' (overruled the AI' + (x.s.ai ? ': ' + SAY[x.s.ai.verdict] : '') + ')' : ''}${x.s.verdict.note ? ' · ' + esc(x.s.verdict.note) : ''}${pending.has(x.s.verdict.id) ? ' · saving…' : ''}</span>${AneesUndo.button({ 'data-vundo': x.s.verdict.id })}</li>`).join('')}</ul>` : ''}
+        <p class="hb-foot">Saved as you tap · it shows on the Student tab at once · nothing is sent to anyone</p></div>`;
       el.querySelectorAll('[data-f]').forEach(b => b.onclick = () => { readForm(); form[b.dataset.f] = b.dataset.v; render(); });
       el.querySelectorAll('[data-in]').forEach(i => i.onchange = readForm);
       const as = el.querySelector('[data-assign]'); if (as) as.onclick = () => { readForm(); assign(); };

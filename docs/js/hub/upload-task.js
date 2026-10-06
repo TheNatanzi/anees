@@ -61,7 +61,7 @@
         preview(rws, { source: 'file', source_ref: name, title: SI.titleOf('', name) });
       } catch (e) { note('I could not read that file (' + (e && e.message || 'unknown') + '). A .csv, .tsv, .txt or .xlsx works.'); }
     }
-    function readPaste(text) { if (!String(text || '').trim()) return; preview(SI.parseText(text), { source: 'paste', source_ref: 'pasted list', title: 'Amal’s list' }); }
+    function readPaste(text) { if (!String(text || '').trim()) return; preview(SI.parseText(text), { source: 'paste', source_ref: 'pasted list', title: 'A list' }); }
     function preview(rws, meta) {
       if (!rws || !rws.length) { note('I found no rows in it.'); return; }
       draft = { rows: rws, cols: SI.detectColumns(rws), ...meta }; msg = ''; render();
@@ -106,7 +106,7 @@
       const sets = H.uploadSets(rows), pending = new Set((LS(QK) || []).map(j => j.body.id));
       const rem = H.permanentReminder(sets, ctx.words || []), open = rem.filter(c => !c.in_doc);
       el.innerHTML = `<div class="hb-task">
-        <p class="hb-sub">Give Medi a flashcard list: paste a Google Sheets or Docs link (share it as “anyone with the link”), choose a file, or paste the words. I read the columns, you check them, then say PERMANENT or TEMPORARY. Your spelling is kept as you wrote it.</p>
+        <p class="hb-sub">Give the student a flashcard list: paste a Google Sheets or Docs link (share it as “anyone with the link”), choose a file, or paste the words. I read the columns, you check them, then say PERMANENT or TEMPORARY. Your spelling is kept as you wrote it.</p>
         ${draft ? previewHtml() : `<div class="hb-moment">
           <label class="hb-sub" for="up-link">Google Sheets or Docs link</label>
           <div class="up-row"><input id="up-link" class="hb-input" type="url" inputmode="url" placeholder="paste the Sheets or Docs link here" data-link><button type="button" class="hb-ans primary up-go" data-read>Read it</button></div>
