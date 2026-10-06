@@ -401,3 +401,19 @@ def test_chat_that_lands_after_a_tracks_load_is_merged(tmp_path):
     (tmp_path / d / 'meet-chat-transcript.txt').write_text('x', encoding='utf-8')
     _, todo = H.plan(ledger, [bot('b', d)], rec, loaded_dates={d}, raw=tmp_path, has_chat=lambda p: True)
     assert todo == []                     # merged once: never again
+
+
+def test_a_settled_lesson_is_not_re_read_by_itself(tmp_path, monkeypatch):
+    """2026-10-06: the hourly job re-read 11 settled lessons after Medi's transcript corrections changed their dumps; the
+    readers returned 471 rows for 591, uids moved and every publish was blocked. A finished review is re-read only by a
+    person (review_lesson.py <date>); a review that never finished still runs by itself."""
+    import review_lesson as RL
+    work = tmp_path / 'data' / 'lesson-work' / 'full-audit'
+    work.mkdir(parents=True)
+    (tmp_path / 'docs' / 'lessons').mkdir(parents=True)
+    for d in ('2026-09-26', '2026-09-30'):
+        (tmp_path / 'docs' / 'lessons' / f'{d}.html').write_text('p', encoding='utf-8')
+    (work / '2026-09-26.settled.json').write_text('{}', encoding='utf-8')
+    monkeypatch.setattr(RL, 'readers_read_current', lambda d, repo=None: 'transcript changed after the readers read it')
+    assert H.AUTO_REREVIEW is False
+    assert [d for d, _ in H.pending_reviews(tmp_path, include_changed=H.AUTO_REREVIEW)] == ['2026-09-30']

@@ -206,3 +206,13 @@ def test_gr_23_a_proposal_medi_approved_is_scored_once_under_its_new_bucket():
     assert (by["FA-g"]["kind"], by["FA-g"]["bucket"]) == ("grammar", "A12") and by["FA-v"]["duplicate_of"] == "FA-g"
     assert (by["FA-r"]["kind"], by["FA-r"]["bucket"]) == ("grammar", "C12")
     assert sum(1 for r in rows if r["kind"] in ("grammar", "vocab-A")) == 3        # three moments, three slips
+
+
+def test_a_hand_pair_whose_kept_row_is_gone_leaves_the_remaining_row_standing(capsys):
+    """2026-10-06: a re-read of 09-21 left only the pair's 'drop' row; exit 1 here ('kept row FA-4db8e2d3 is not in the
+    audit rows') blocked every publish from 10-03 to 10-06. One row left = one slip: it stands, with a printed note."""
+    rows = [dict(date="2026-09-21", t="51:08", wrong="hadi nar", kind="grammar", bucket="A7", passes=[1])]
+    FB.assign_uids(rows)
+    FB.mark_duplicates(rows, hand=[{"date": "2026-09-21", "keep": "FA-00000000", "drop": rows[0]["uid"], "why": "same slip"}])
+    assert rows[0]["kind"] == "grammar" and "duplicate_of" not in rows[0]
+    assert "FA-00000000 is gone" in capsys.readouterr().out
