@@ -78,8 +78,8 @@ ${LM.why(G)}`],
     // hourly mirror of Supabase); the lesson Words % / Grammar % above are untouched. No verdict yet -> "—" and why (PG-05).
     const hw = L.homework || null, hs = hw && hw.score;
     metrics.push(['Homework', hs && hs.pct !== null && hs.pct !== undefined ? num(hs.pct, 1, '%') : '—',
-      hs && hs.done ? `${hs.done} answer${hs.done === 1 ? '' : 's'} checked by Amal · right 1, close ½ · ${hs.waiting || 0} waiting` : 'no homework answer checked by Amal yet · Student tab',
-      'Homework Amal assigns on her Tutor page and Medi answers on the Student tab. Only her verdict counts (the AI check never does): right = 1, close = ½, wrong = 0, divided by the answers she checked. Separate from the lesson numbers.']);
+      hs && hs.done ? `${hs.done} answer${hs.done === 1 ? '' : 's'} checked by the teacher · right 1, close ½ · ${hs.waiting || 0} waiting` : 'no homework answer checked by the teacher yet · Student tab',
+      'Homework assigned on the Tutor page and answered on the Student tab. Only the teacher's verdict counts (the AI check never does): right = 1, close = ½, wrong = 0, divided by the answers she checked. Separate from the lesson numbers.']);
     $('#ov-metrics').innerHTML = metrics.map(([l, v, s, t]) => `<div class="ab-metric"${t ? ` title="${esc(t)}"` : ''}><div class="ab-metric-label">${esc(l)}</div><div class="ab-number">${esc(v)}</div><div class="ab-tiny">${esc(s)}</div></div>`).join('');
 
     const bandc = p => { p = Math.round(p); return p >= 90 ? 'pct-a' : p >= 80 ? 'pct-b' : p >= 70 ? 'pct-c' : 'pct-d'; };   // Medi 2026-09-27 colours

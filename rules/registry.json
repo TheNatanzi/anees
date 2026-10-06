@@ -7758,6 +7758,34 @@
    ],
    "next_step": "after the TR-22 re-hear is published (engine-bench): the re-hear template and scripts/arabizi_reader.py read confusables.json; a test plants 'على إلى العشاء' and expects 'على العشرة'",
    "aliases": []
+  },
+  {
+   "id": "GR-29",
+   "kind": "process",
+   "scope": "grammar-scoring",
+   "status": "written",
+   "change": "new",
+   "statement": "The Oct 2 tool words are proposed as grammar rules A13 awal / oola, A14 taani, A15 aa5er / a5eer, A16 8eir, A17 nafs + el-, plus one added line on A11 (el-kull = everyone): docs/data/grammar-proposals.json (P-A13 .. P-A17, P-A11-add, medi pending, amal pending) and a 'Proposed rules from the Oct 2 lesson' section on Amal's rules page (docs/amal/grammar-rules.html) where she answers in the note box under each. Nothing is scored on them until Medi says yes and each gets a bucket + detector pattern (GR-18 / GR-23 path). Proposal: plan/GRAMMAR-RULES-PROPOSAL-TOOL-WORDS-2026-10-05.md.",
+   "plain": "The six tool words from the Oct 2 lesson (awal, taani, aa5er, 8eir, nafs, kul) are proposed as grammar rules A13 to A17 plus one line on A11. They sit on Amal's rules page for her yes or fix, and on the Grammar console for Medi's yes. Nothing is scored on them yet.",
+   "plain_for": "ab629e44",
+   "topic": "grammar rules",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-05",
+     "quote": "I need you to build a proposal on these on how to write them in our grammar rules and send them for review with letter number categories for Amal",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "doc",
+     "path": "plan/GRAMMAR-RULES-PROPOSAL-TOOL-WORDS-2026-10-05.md",
+     "contains": "Next free numbers: A13-A17"
+    }
+   ],
+   "next_step": "Medi's yes per rule -> bucket in docs/data/grammar-buckets.json + pattern in scripts/detect_grammar_usage.py + a planted-mistake test; Amal's notes under P-A13.. read row by row (amal_grammar_notes.py)",
+   "aliases": []
   }
  ]
 }
