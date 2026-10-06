@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T03:32:09-07:00",
+ "updated": "2026-10-06T03:47:12-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -2156,13 +2156,13 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 134,
-    "mistakes": 42,
-    "pct": 71.6,
+    "uses": 133,
+    "mistakes": 41,
+    "pct": 72.2,
     "estimate": false,
-    "scored_mistakes": 38,
+    "scored_mistakes": 37,
     "unscored_mistakes": 4,
-    "eligible": 33,
+    "eligible": 32,
     "excluded": 9,
     "pending": 1,
     "denominator": {
@@ -2172,8 +2172,8 @@
       "14 rules have more slips than counted uses (A12, A4, B10, B11, B12, B16, B18, B3)"
      ],
      "uses": 97,
-     "slips": 42,
-     "slips_latin": 37,
+     "slips": 41,
+     "slips_latin": 36,
      "slips_in_zero_use_rules": 14,
      "rules_slips_over_uses": [
       "A12",
@@ -2363,7 +2363,7 @@
    "notes": [
     "timings: anees-20260916-recall-amal-seg22: page/engine offset spread 42.34s; anees-20260916-recall-medi-seg0: page/engine offset spread 14.90s",
     "50 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow.",
-    "grammar: 4 of the 42 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
+    "grammar: 4 of the 41 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
    ],
    "page": "lessons/2026-09-16.html",
    "detail": "data/lessons/2026-09-16.json",
@@ -2378,12 +2378,12 @@
     "chat_lines": 69,
     "vocab_errors": 12,
     "vocab_correct": 35,
-    "grammar_errors": 42,
+    "grammar_errors": 41,
     "grammar_not_counted": 2
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-16.json",
-    "marks": 187,
+    "marks": 186,
     "conflicts": 1,
     "resolved": 0,
     "needs_medi": 0,
@@ -2662,14 +2662,14 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 141,
-    "mistakes": 47,
-    "pct": 69.5,
+    "uses": 138,
+    "mistakes": 44,
+    "pct": 71.0,
     "estimate": false,
-    "scored_mistakes": 43,
+    "scored_mistakes": 40,
     "unscored_mistakes": 4,
-    "eligible": 41,
-    "excluded": 6,
+    "eligible": 40,
+    "excluded": 4,
     "pending": 1,
     "denominator": {
      "valid": false,
@@ -2678,8 +2678,8 @@
       "13 rules have more slips than counted uses (A12, B10, B11, B12, B18, B2, B5, B7)"
      ],
      "uses": 101,
-     "slips": 47,
-     "slips_latin": 35,
+     "slips": 44,
+     "slips_latin": 32,
      "slips_in_zero_use_rules": 11,
      "rules_slips_over_uses": [
       "A12",
@@ -2860,7 +2860,7 @@
    "notes": [
     "timings: anees-20260917-recall-medi-seg1: page/engine offset spread 18.78s",
     "32 stretches of Medi's Arabic are '[speaking Arabic]' (engine heard speech, wrote no words): counted as talk time, but their fillers and words are missing from fillers and flow.",
-    "grammar: 4 of the 47 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
+    "grammar: 4 of the 44 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
    ],
    "page": "lessons/2026-09-17.html",
    "detail": "data/lessons/2026-09-17.json",
@@ -2875,12 +2875,12 @@
     "chat_lines": 41,
     "vocab_errors": 11,
     "vocab_correct": 51,
-    "grammar_errors": 47,
+    "grammar_errors": 44,
     "grammar_not_counted": 2
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-17.json",
-    "marks": 210,
+    "marks": 207,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,
