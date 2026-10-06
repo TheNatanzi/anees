@@ -1,67 +1,15 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 13,
+ "count": 6,
  "by_date": {
-  "2026-09-10": 3,
-  "2026-09-11": 4,
+  "2026-09-10": 1,
+  "2026-09-11": 1,
   "2026-09-16": 1,
-  "2026-09-17": 1,
-  "2026-09-21": 2,
+  "2026-09-21": 1,
   "2026-09-26": 1,
   "2026-10-05": 1
  },
  "rows": [
-  {
-   "uid": "FA-b0806e43",
-   "date": "2026-09-10",
-   "t": "07:32",
-   "t_amal": null,
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A1",
-   "medi_said": "جو كتير كتير. و،",
-   "amal_said": "عن جد؟",
-   "wrong": "جو",
-   "right": "الجو (شوب)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Amal's response is surprise/confirmation, not a correction of the article; there is no recast like «الجو». The independent audio is also unclear on whether Medi even said «جو»."
-   },
-   "listen_from": "07:22",
-   "listen_to": "07:52"
-  },
-  {
-   "uid": "FA-7d36c59d",
-   "date": "2026-09-10",
-   "t": "08:04",
-   "t_amal": null,
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "D1",
-   "medi_said": "شفت فيديو لـ YouTube و",
-   "amal_said": null,
-   "wrong": "لـ YouTube",
-   "right": "على YouTube (my reading)",
-   "why_check": [
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Medi did say something like «فيديو لـ/لا يوتيوب», but Amal did not correct or signal the preposition; her later correction is about «صلحته»."
-   },
-   "listen_from": "07:54",
-   "listen_to": "08:24"
-  },
   {
    "uid": "FA-1e2ca596",
    "date": "2026-09-10",
@@ -87,58 +35,6 @@
    },
    "listen_from": "45:14",
    "listen_to": "45:45"
-  },
-  {
-   "uid": "FA-a824c060",
-   "date": "2026-09-11",
-   "t": "06:48",
-   "t_amal": null,
-   "kind": "vocab-A",
-   "tier": 1,
-   "bucket": null,
-   "medi_said": "شو أكتر، شو أكتر كلمة عندي؟",
-   "amal_said": null,
-   "wrong": "أكتر",
-   "right": "كمان / تانية (my reading)",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Medi said «شو أكتر...» but Amal did not signal it as wrong; he then explicitly asked for the word for dark and she supplied «عتمة»."
-   },
-   "listen_from": "06:38",
-   "listen_to": "07:08"
-  },
-  {
-   "uid": "FA-c7d9a3fb",
-   "date": "2026-09-11",
-   "t": "12:37",
-   "t_amal": null,
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B1",
-   "medi_said": "بعدين، آآآ، مزيد. آآآ، بـ A.",
-   "amal_said": "مم. ... بـ a. To the end. To the beginning",
-   "wrong": "مزيد",
-   "right": "بنزيد",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "The independent transcription does not clearly support «مزيد»; it hears «بي ايه», and Amal only gives a backchannel before confirming the placement correction «أول الكلمة»."
-   },
-   "listen_from": "12:27",
-   "listen_to": "12:57"
   },
   {
    "uid": "FA-989a3618",
@@ -167,32 +63,6 @@
    "listen_to": "39:55"
   },
   {
-   "uid": "FA-3ee994c9",
-   "date": "2026-09-11",
-   "t": "46:02",
-   "t_amal": null,
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "Uh, shu, shu ahki? Shu tehki? Shu haket li? ... haket li. Shu haket li?",
-   "amal_said": "حكيت صح. ... حكيت لك صح.",
-   "wrong": "haket li",
-   "right": "حكيتيلي (inti 7akaiti li) - my reading",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Medi appears to self-repair toward the feminine form, and Amal answers the content rather than correcting the verb ending. Her lines are not a supplied «حكيتيلي» correction."
-   },
-   "listen_from": "45:52",
-   "listen_to": "46:22"
-  },
-  {
    "uid": "FA-311451ee",
    "date": "2026-09-16",
    "t": "48:52",
@@ -216,57 +86,6 @@
    },
    "listen_from": "48:42",
    "listen_to": "49:15"
-  },
-  {
-   "uid": "FA-c5ee0bdf",
-   "date": "2026-09-17",
-   "t": "49:17",
-   "t_amal": null,
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "B5",
-   "medi_said": "lama haket ziyada, ziyada ana, uh, kharab kul shee.",
-   "amal_said": "[laughs] Some peo-- there's another term is like bakharrib ad-dunya.",
-   "wrong": "ana, uh, kharab kul shee",
-   "right": "ana 5arrabt kul shi (my reading)",
-   "why_check": [
-    "found in pass 2 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "The independent tracks show Medi said something like «أنا أخرب كل شي», not «خرب كل شي», and Amal did not correct it to past «خرّبت». She offered an idiom with present «بخرب الدنيا»."
-   },
-   "listen_from": "49:07",
-   "listen_to": "49:37"
-  },
-  {
-   "uid": "FA-c2ac3a65",
-   "date": "2026-09-21",
-   "t": "1:05:16",
-   "t_amal": null,
-   "kind": "grammar",
-   "tier": null,
-   "bucket": "A9",
-   "medi_said": "قريب عشان في الـ دولة زي دولة عربية زي، uh، عما-- Qatar و، um، UAE،",
-   "amal_said": "أم.",
-   "wrong": "دولة زي دولة عربية",
-   "right": "دول زي الدول العربية",
-   "why_check": [
-    "decided by the third reader alone, in one pass only",
-    "found in pass 1 only (the other pass did not list it)"
-   ],
-   "check": "audio or human",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "rejected",
-    "reason": "Even if Medi used singular «دولة», Amal only gives backchannels «امم» and does not correct or recast the plural. This is no signalled error."
-   },
-   "listen_from": "1:05:06",
-   "listen_to": "1:05:36"
   },
   {
    "uid": "FA-f64beaa6",
