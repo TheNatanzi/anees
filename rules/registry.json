@@ -7936,6 +7936,44 @@
     }
    ],
    "aliases": []
+  },
+  {
+   "id": "AM-23",
+   "kind": "display",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every choice Amal taps on the Tutor page is a plain sentence about Medi, never app-speak: the after-lesson moments read 'Medi got it right' / 'Medi got the wrong word' / 'Medi had wrong grammar' / 'That was not Medi speaking' (docs/js/hub/after-task.js SHOW: display only, the stored labels stay the data keys); the slip patterns and the moments to check read 'Yes, Medi was wrong' / 'No, Medi was fine' (review-task.js, tutor-verify.js); verb forms 'Right as written' / 'Needs a fix'; homework 'Yes: Medi got it right' / 'No: Medi was close'. The machine reason under a question ('the app thinks you corrected a word; the readers were not sure') is replaced by one line: 'Listen, then tap. Your tap sets the score for this word.'",
+   "plain": "Every button Amal taps says it in plain words about Medi: Medi got it right, Medi got the wrong word, Medi had wrong grammar, Yes Medi was wrong / No Medi was fine. No app-speak under the questions.",
+   "plain_for": "0c5ce0c4",
+   "topic": "the Tutor page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "all the verbiage in the tutor section is confusing.  label it Medi got it right Medi got the wrong word Medi had wrong grammar  Please revisit all of them",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/hub/after-task.js",
+     "contains": "const SHOW = { 'Right': 'Medi got it right'"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/hub/review-task.js",
+     "contains": "Yes, Medi was wrong<small>counts as a mistake for Medi</small>"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_tutor_in_panel.py",
+     "contains": "def test_AM_23_every_tutor_choice_is_a_plain_sentence_about_medi"
+    }
+   ],
+   "aliases": []
   }
  ]
 }

@@ -180,3 +180,18 @@ def test_AM_21_AM_22_the_two_tools_have_their_own_strip_not_rows_in_her_checking
     assert 'href="#upload" data-tab="upload"' in TUTOR_HTML and 'href="#homework" data-tab="homework"' in TUTOR_HTML
     assert "if (tab === 'upload' || tab === 'homework') return tool(tab);" in TUTOR_JS
     assert "kind: 'upload'" not in TUTOR_JS and "kind: 'homework'" not in TUTOR_JS      # never a task row
+
+
+def test_AM_23_every_tutor_choice_is_a_plain_sentence_about_medi():
+    """AM-23 (Medi 2026-10-06: "all the verbiage in the tutor section is confusing. label it Medi got it right / Medi got the wrong
+    word / Medi had wrong grammar. Please revisit all of them")."""
+    after = (HUB / "after-task.js").read_text(encoding="utf-8")
+    for label in ("'Right': 'Medi got it right'", "'Wrong word': 'Medi got the wrong word'", "'Wrong grammar': 'Medi had wrong grammar'", "'Not Medi': 'That was not Medi speaking'"):
+        assert label in after
+    assert "esc(show(b))" in after and "Listen, then tap. Your tap sets the score for this word." in after
+    assert "the readers were not sure" not in after and "${esc(q.why)}" not in after      # no machine reason under the question
+    for f in (HUB / "review-task.js", DOCS / "js" / "tutor-verify.js"):
+        js = f.read_text(encoding="utf-8")
+        assert "Yes, Medi was wrong" in js and "No, Medi was fine" in js and "Correction is correct<" not in js, f.name
+    assert "Right as written" in (HUB / "verb-check-task.js").read_text(encoding="utf-8")
+    assert "right: 'Medi got it right', close: 'Medi was close', wrong: 'Medi got it wrong'" in (HUB / "homework-task.js").read_text(encoding="utf-8")

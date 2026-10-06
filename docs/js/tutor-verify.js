@@ -47,8 +47,8 @@
       <p class="tu-meta"><b>Listening AI says:</b> ${esc(x.codex_says)}</p>
       <div>${play}</div>
       ${a ? AneesUndo.answered(`${a.kind === 'audit_confirm' ? 'Amal said: the correction is correct · result: counted as a mistake for Medi' : 'Amal said: no correction — ' + (a.reason || '') + ' · result: dropped'}${pending ? ' · saving…' : ''}`, { 'data-tv': 'undo', 'data-id': x.id }) : ''}
-      <div class="tv-btns"><button class="tu-btn tu-primary" data-tv="confirm" data-id="${esc(x.id)}">Correction is correct<small>counts as a mistake for Medi</small></button>
-      <button class="tu-btn" data-tv="skip" data-id="${esc(x.id)}">Reason not to correct<small>type why · it is dropped</small></button>
+      <div class="tv-btns"><button class="tu-btn tu-primary" data-tv="confirm" data-id="${esc(x.id)}">Yes, Medi was wrong<small>counts as a mistake for Medi</small></button>
+      <button class="tu-btn" data-tv="skip" data-id="${esc(x.id)}">No, Medi was fine<small>say why in a line · it is dropped</small></button>
       <div class="tv-reason" id="tvr-${esc(x.id)}" hidden><textarea id="tvx-${esc(x.id)}" placeholder="e.g. he said it right; or: I was not correcting him here"></textarea>
       <button class="tu-btn tu-primary" data-tv="skip-save" data-id="${esc(x.id)}">Save reason</button></div></div></article>`;
   }

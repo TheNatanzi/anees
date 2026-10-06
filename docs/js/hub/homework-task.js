@@ -15,7 +15,7 @@
   const uuid = () => (crypto.randomUUID ? crypto.randomUUID() : 'h' + Date.now().toString(36) + Math.random().toString(36).slice(2));
   const pretty = d => d ? new Date(String(d).slice(0, 10) + 'T12:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
   const QK = 'anees-homework-q';
-  const SAY = { right: 'Right', close: 'Close', wrong: 'Wrong' };
+  const SAY = { right: 'Medi got it right', close: 'Medi was close', wrong: 'Medi got it wrong' };   // AM-23: plain sentences
 
   function count(tasks, replies, verdicts) {
     const H = root.AneesHomework, T = H.effective(tasks);
@@ -96,8 +96,8 @@
       return `<div class="hb-moment" data-reply="${esc(r.id)}"><p class="hb-prog">${taskLine(t)}</p>
         <div class="hb-big" dir="auto" style="font-size:20px">${esc(r.answer)}</div>
         <div class="hb-why">${ai ? `<b>AI check: ${SAY[ai.verdict]}</b> · ${esc(ai.reason || '')}${ai.fixed && ai.fixed !== r.answer ? ` · <span dir="auto">${esc(ai.fixed)}</span>` : ''}` : '<b>AI check:</b> not done (' + esc((r.ai && r.ai.reason) || 'budget or error') + ')'}</div>
-        <div class="hb-btns">${ai ? `<button type="button" class="hb-ans primary" data-judge="${esc(r.id)}" data-v="${ai.verdict}" data-agree="1">Confirm: ${SAY[ai.verdict]}<small>the AI's check stands</small></button>` : ''}
-          <div class="hb-chips">${H.VERDICTS.filter(v => !ai || v !== ai.verdict).map(v => `<button type="button" class="hb-chip" data-over="${esc(r.id)}" data-v="${v}" aria-pressed="${pick === v}">${ai ? 'No, it is ' : ''}${SAY[v]}</button>`).join('')}</div>
+        <div class="hb-btns">${ai ? `<button type="button" class="hb-ans primary" data-judge="${esc(r.id)}" data-v="${ai.verdict}" data-agree="1">Yes: ${SAY[ai.verdict]}<small>the AI's first check stands</small></button>` : ''}
+          <div class="hb-chips">${H.VERDICTS.filter(v => !ai || v !== ai.verdict).map(v => `<button type="button" class="hb-chip" data-over="${esc(r.id)}" data-v="${v}" aria-pressed="${pick === v}">${ai ? 'No: ' : ''}${SAY[v]}</button>`).join('')}</div>
           ${pick ? `<input class="hb-input" data-fix="${esc(r.id)}" placeholder="How he should say it (optional)" dir="auto"><textarea class="hb-input" data-note="${esc(r.id)}" rows="2" placeholder="Why - one line (becomes a rule the checker learns)"></textarea>
             <button type="button" class="hb-ans primary" data-judge="${esc(r.id)}" data-v="${pick}" data-agree="0">Save: ${SAY[pick]}</button>` : ''}</div></div>`;
     }

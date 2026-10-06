@@ -59,7 +59,7 @@
       const form = `<div class="hb-big">${esc(it.word)}</div>${it.arabic ? `<div class="hb-ar" lang="ar">${esc(it.arabic)}</div>` : ''}`;
       if (a && VC.done(answers, id)) return `<div class="hb-moment" data-vid="${esc(id)}">${head}${form}${AneesUndo.answered(a.choice === 'yes' ? 'You said: right · result: the guess becomes a checked form' : `You fixed it: ${a.word}${a.arabic ? ' · ' + a.arabic : ''} · result: your form replaces the guess`, { 'data-vc': 'undo', 'data-id': id })}</div>`;
       return `<div class="hb-moment" data-vid="${esc(id)}">${head}${form}
-        <div class="hb-btns"><button type="button" class="hb-ans primary" data-vc="yes" data-id="${esc(id)}">✓ Right</button><button type="button" class="hb-ans" data-vc="fix" data-id="${esc(id)}">Fix<small>type the correct form${payload.kind === 'verb-addons' ? ' (or no, if the verb never takes this)' : ''}</small></button></div>
+        <div class="hb-btns"><button type="button" class="hb-ans primary" data-vc="yes" data-id="${esc(id)}">✓ Right as written</button><button type="button" class="hb-ans" data-vc="fix" data-id="${esc(id)}">Needs a fix<small>type the right form${payload.kind === 'verb-addons' ? ' (or no, if the verb never takes this)' : ''}</small></button></div>
         <div data-fixbox${fix ? '' : ' hidden'}><input class="hb-input" data-f="word" placeholder="Correct Arabizi" value="${esc(fix ? a.word : it.word)}" autocomplete="off" autocapitalize="off" spellcheck="false"><input class="hb-input" data-f="arabic" dir="rtl" lang="ar" placeholder="Arabic (optional)" value="${esc(fix ? a.arabic : it.arabic)}" autocomplete="off"><button type="button" class="hb-ans primary" data-vc="fix-save" data-id="${esc(id)}">Save my form</button></div></div>`;
     }
     function render() {

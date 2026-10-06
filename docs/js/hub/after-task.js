@@ -14,6 +14,12 @@
   const timers = {};
   const KINDS = { 'Right': 'right', 'Wrong': 'wrong', 'Wrong word': 'wrong', 'Wrong grammar': 'wrong', 'Not Medi': 'not_medi', 'Skip': 'skip', 'Medi, right': 'right', 'Medi, wrong': 'wrong', 'Yes, a word': 'alias', 'No': 'no' };
   const MISS = { 'Wrong word': 'word', 'Wrong grammar': 'grammar' };
+  // AM-23 (Medi 2026-10-06 "all the verbiage in the tutor section is confusing. label it Medi got it right / Medi got the wrong
+  // word / Medi had wrong grammar"): what Amal reads on each button; the stored label stays the data key above.
+  const SHOW = { 'Right': 'Medi got it right', 'Wrong': 'Medi got it wrong', 'Wrong word': 'Medi got the wrong word', 'Wrong grammar': 'Medi had wrong grammar',
+                 'Not Medi': 'That was not Medi speaking', 'Skip': 'Skip this one', 'Medi, right': 'Medi said it, and it was right', 'Medi, wrong': 'Medi said it, and it was wrong',
+                 'Yes, a word': 'Yes, it is a word I taught', 'No': 'No, not a word of mine' };
+  const show = l => SHOW[l] || l;
   const SAID = { keep: 'Keep', drop: 'Drop', edit: 'Your version', right: 'Correct', fix: 'Needs a fix', skip: 'Skip' };
 
   function mount(el, item, opt) {
@@ -117,10 +123,10 @@
         // which tap an undo cancels: the word + lesson, narrowed by the moment when the same word is asked twice
         const twin = Q.some((x, j) => j !== i && x.word_key === q.word_key);
         const match = q.audit_uid ? { audit_uid: q.audit_uid } : (!q.word_key || twin) ? { t: q.t, ask: q.ask } : null;
-        S.push({ part: 'q', k: i, title: (q.ask ? q.ask + ' · ' : '') + (q.arabizi || q.arabic || ''), said: () => answers.q[i], prog: `${i + 1} of ${total}`, html: `<h3 class="hb-q">${esc(q.ask)}</h3><p class="hb-sub">${esc(q.why)}. Your answer changes how the app scores this word.</p>
+        S.push({ part: 'q', k: i, title: (q.ask ? q.ask + ' · ' : '') + (q.arabizi || q.arabic || ''), said: () => answers.q[i], prog: `${i + 1} of ${total}`, html: `<h3 class="hb-q">${esc(q.ask)}</h3><p class="hb-sub">Listen, then tap. Your tap sets the score for this word.</p>
           <div class="hb-moment">${q.arabizi ? `<div class="hb-big">${esc(q.arabizi)}</div>` : ''}<div class="hb-ar" dir="auto">${esc(q.arabic || '')}</div><div class="hb-en">${esc(q.english || '')}</div><div data-player></div></div>
           ${q.typed ? `<input class="hb-input" id="${id}t" placeholder="Your spelling (optional)" aria-label="Your spelling">` : ''}
-          <div class="hb-btns">${q.buttons.slice(0, 3).map((b, j) => btn(`${id}b${j}`, esc(b))).join('')}</div><a href="#" class="hb-skip" id="${id}s">Skip this one</a>`,
+          <div class="hb-btns">${q.buttons.slice(0, 3).map((b, j) => btn(`${id}b${j}`, esc(show(b)))).join('')}</div><a href="#" class="hb-skip" id="${id}s">Skip this one</a>`,
           undo(label) { unrule(KINDS[label] || 'skip', q.word_key, { label, ask: q.ask, t: q.t }, match); },
           wire() {
             $root.querySelector('[data-player]').appendChild(playerFor(q));
