@@ -7845,6 +7845,97 @@
     }
    ],
    "aliases": []
+  },
+  {
+   "id": "FC-14",
+   "kind": "process",
+   "scope": "flashcards",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every flashcard has a third button beside Still learning / Know: Attention (a warning icon). It opens a small box where Medi types a question or concern about that card; Send writes a card_attention row (migration 024, append-only, kind note, with the card's Arabizi / Arabic / English). The note is a To do row on Amal's Tutor page ('Questions from the student', docs/js/hub/attention-task.js) with a reply box; her reply (kind reply, ref = the note) shows under his question on the Student tab (To do while open, Done once answered); Undo = a new row (AM-17). Typing in the box never flips or answers the card.",
+   "plain": "Every flashcard has a third button, Attention: Medi types a question or concern about that card and it lands on Amal's To do list as 'Questions from the student'. Her reply shows under his question on the Student tab.",
+   "plain_for": "84b10973",
+   "topic": "card faces",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "For all the cards I want a third option called attention with the attention icon. This will send a to do message where I can ask Amal a questions or bring up a concern with her. This should be sent to the tutor portal",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/cards.html",
+     "contains": "<button id=\"attn\" class=\"attn\""
+    },
+    {
+     "type": "code",
+     "path": "docs/js/hub/attention-task.js",
+     "contains": "function view(rows) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/student.js",
+     "contains": "const attnCard = n =>"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_attention.cjs",
+     "contains": "test('FC-14 a note is open until a reply that is not undone answers it"
+    },
+    {
+     "path": "tests/test_attention.cjs",
+     "contains": "test('FC-14 every flashcard has the"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "PG-31",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "On a phone (680 px and narrower) every page with the shared menu hides the sidebar links and shows a bottom tab bar - Progress, Lessons, Cards, Student, More - built by docs/js/phone-nav.js from the page's own sidebar links; More opens a sheet with the other pages (Word Bank, Grammar Rules, Tutor, AI Reports, Big Picture, Settings). The current page is marked on the bar or on More. Laptops keep the left sidebar. Chosen as Option 1 of plan/PHONE-NAV-2026-10-06.md (Nielsen Norman Group: hidden menus are used less; Apple HIG / Material 3: 3-5 tab destinations).",
+   "plain": "On a phone the menu is a bar at the bottom with five tabs: Progress, Lessons, Cards, Student, More. More opens the other pages. Laptops keep the sidebar.",
+   "plain_for": "83935eaa",
+   "topic": "the phone",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "This top bar is really bothering me. Please do some deep research on app design and give me 5 options for the morning on we can reorgizne the app version",
+     "session": "cb4e8985"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "Option 1",
+     "session": "cb4e8985"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/phone-nav.js",
+     "contains": "const TABS = [['progress.html', 'Progress'], ['lessons.html', 'Lessons'], ['cards.html', 'Cards'], ['student.html', 'Student']];"
+    },
+    {
+     "type": "doc",
+     "path": "plan/PHONE-NAV-2026-10-06.md",
+     "contains": "| 1 | Bottom tab bar + More (recommended)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_build_tutor_weak.py",
+     "contains": "def test_PG_31_every_page_with_the_shared_menu_loads_the_phone_tab_bar"
+    }
+   ],
+   "aliases": []
   }
  ]
 }

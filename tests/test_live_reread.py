@@ -33,6 +33,7 @@ ONCE_OK = {
     'docs/js/tutor-verify.js': "the 'check these moments' task Amal has open (tutor.js re-reads the list around it)",
     'docs/js/hub/upload-task.js': "Amal's upload box: a list she is checking and unsent uploads live on the page (tutor.js re-reads the list around it)",
     'docs/js/hub/homework-task.js': "Amal's assign-homework box and her verdicts in progress live on the page (tutor.js re-reads the list around it)",
+    'docs/js/hub/attention-task.js': "Amal's reply boxes to the student's flashcard questions live on the page (tutor.js re-reads the list around it)",
     'docs/homework.html': 'Medi types homework answers on it; a re-read would reset them',
     'docs/big-picture.html': "Medi's idea dump: he types on it; a re-read would reset a draft",
     'docs/speaking-review.html': 'review form: re-reads after each submit already',

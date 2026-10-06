@@ -54,6 +54,8 @@ button.sel{border-color:var(--blue);color:var(--blue)} button.bad{background:var
 #miss.circle{color:var(--learn);border-color:var(--learn)} #got.circle{color:var(--know);border-color:var(--know)}
 #miss.circle:not(:disabled):hover{background:var(--learnbg)} #got.circle:not(:disabled):hover{background:var(--knowbg)}
 .ctrls .undo{width:44px;height:44px;min-height:44px;border-radius:999px;padding:0;border:none;background:none;font-size:22px;color:var(--mute)}
+.ctrls .attn{width:44px;height:44px;min-height:44px;border-radius:999px;padding:0;border:1px solid var(--line);background:none;font-size:20px;color:var(--mute)} .ctrls .attn.on{color:var(--learn);border-color:var(--learn)}
+.attnbox{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:12px;margin:8px 0 0} .attnbox textarea{width:100%;font:16px var(--sans);padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);min-height:48px;resize:vertical;margin-top:6px} .attnbox .row button{flex:1;min-height:44px}
 .hint{text-align:center;color:var(--mute);font-size:13px;min-height:18px}
 /* summary */
 .done{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
@@ -72,7 +74,7 @@ button.sel{border-color:var(--blue);color:var(--blue)} button.bad{background:var
 #anees-bank #root button{font:600 16px var(--sans);color:var(--ink)} #anees-bank #root .toggle button,#anees-bank #root .chips button{font-size:15px}
 #anees-bank #root button.study{font-size:18px;font-weight:800} #anees-bank #root button.primary{color:var(--sabz-cta-text)}
 #anees-bank #root button.sel{color:var(--sabz-data-ink)} #anees-bank #root button.bad{color:#fff}
-#anees-bank #root .qtop button,#anees-bank #root .ctrls .undo{font-size:22px;color:var(--mute)} #anees-bank #root .qtop .ask{font-size:13px;font-family:var(--sans)} #anees-bank #root .qtop .ask.on{color:var(--learn)} #anees-bank #root .ctrls .circle{font-size:26px;font-weight:700}
+#anees-bank #root .qtop button,#anees-bank #root .ctrls .undo{font-size:22px;color:var(--mute)} #anees-bank #root .ctrls .attn{font-size:20px;color:var(--mute)} #anees-bank #root .ctrls .attn.on{color:var(--learn)} #anees-bank #root .qtop .ask{font-size:13px;font-family:var(--sans)} #anees-bank #root .qtop .ask.on{color:var(--learn)} #anees-bank #root .ctrls .circle{font-size:26px;font-weight:700}
 #anees-bank #root #miss.circle{color:var(--learn)} #anees-bank #root #got.circle{color:var(--know)}
 #anees-bank #root button.fc-back{font:600 13px var(--sans);color:var(--ab-muted)}
 #anees-bank #root button.vp-card{font:inherit;color:var(--ab-text)}
@@ -279,7 +281,8 @@ function cardView(o){
       <div class="inner"><div class="face front"><span class="lab">${fl}</span><span class="tag">${esc(o.tag||'')}</span>${front}${o.chip?`<span class="boost" title="${esc(o.chip.title)}">${esc(o.chip.text)}</span>`:''}</div>
       <div class="face back"><span class="lab">${bl}</span>${back}${o.w.subtopic?`<div class="sub">${esc(o.w.subtopic)}</div>`:''}</div></div></div></div>
     <div class="ctrls${o.parts?' parts':''}" id="ctrls">${o.onUndo?'<button id="undo" class="undo" aria-label="Undo last answer" title="Undo (Ctrl+Z)">↺</button>':'<span style="width:44px"></span>'}${o.parts?`<button class="part" data-p="singular" title="Missed only ${esc(o.parts[0])}" disabled>✕ ${esc(o.parts[0])}</button>`:''}
-      <button id="miss" class="circle" aria-label="Still learning" title="Still learning (←)" disabled>✕</button><button id="got" class="circle" aria-label="Know" title="Know (→)" disabled>✓</button>${o.parts?`<button class="part" data-p="plural" title="Missed only ${esc(o.parts[1])}" disabled>✕ ${esc(o.parts[1])}</button>`:''}<span style="width:44px"></span></div>
+      <button id="miss" class="circle" aria-label="Still learning" title="Still learning (←)" disabled>✕</button><button id="got" class="circle" aria-label="Know" title="Know (→)" disabled>✓</button>${o.parts?`<button class="part" data-p="plural" title="Missed only ${esc(o.parts[1])}" disabled>✕ ${esc(o.parts[1])}</button>`:''}<button id="attn" class="attn" aria-label="Attention: ask Amal about this card" title="Attention: a question or concern for Amal">⚠</button></div>
+    <div class="attnbox" id="attnbox" hidden><label for="attntext" class="mute">A question or concern about this card, for Amal. It goes to her Tutor page; her reply comes back to your Student tab.</label><textarea id="attntext" dir="auto" rows="2" placeholder="e.g. Which one do you say more, tani yoam or yoam tani?"></textarea><div class="row" style="margin:6px 0 0"><button id="attnsend" class="primary">Send to Amal</button><button id="attncancel">Cancel</button></div><p class="mute" id="attnmsg"></p></div>
     ${o.next?`<p class="nexts" id="nexts" hidden><span class="l">✕ back in ${esc(o.next.missed)}</span><span class="k">✓ back in ${esc(o.next.got)}</span></p>`:''}<p class="hint" id="hint">Tap the card to flip · Space</p>`;
   const card=document.getElementById('card'), hint=document.getElementById('hint'), miss=document.getElementById('miss'), got=document.getElementById('got');
   const flip=()=>{ card.classList.toggle('flip'); if(!revealed){ revealed=true; timer.flip=timer.now(); miss.disabled=got.disabled=false; hint.textContent='Swipe or press → Know · ← Still learning'; const nx=document.getElementById('nexts'); if(nx) nx.hidden=false; root.querySelectorAll('.ctrls .part').forEach(b=>b.disabled=false); } };
@@ -300,6 +303,17 @@ function cardView(o){
   card.addEventListener('pointerup',end); card.addEventListener('pointercancel',()=>{ x0=null; card.style.transition=''; card.style.transform=''; card.classList.remove('dragL','dragR'); });
   miss.onclick=ask; got.onclick=()=>fly('got'); document.getElementById('close').onclick=o.onClose;
   const u=document.getElementById('undo'); if(u) u.onclick=o.onUndo;
+  // Medi 2026-10-06 "a third option called attention with the attention icon. This will send a to do message where I can ask
+  // Amal a question or bring up a concern with her. This should be sent to the tutor portal": card_attention row (kind note)
+  { const at=document.getElementById('attn'), box=document.getElementById('attnbox'), ta=document.getElementById('attntext'), msg=document.getElementById('attnmsg');
+    at.onclick=e=>{ e.stopPropagation(); box.hidden=!box.hidden; if(!box.hidden) ta.focus(); };
+    document.getElementById('attncancel').onclick=()=>{ box.hidden=true; };
+    ta.onkeydown=e=>e.stopPropagation();   // typing never flips or answers the card
+    document.getElementById('attnsend').onclick=async()=>{ const text=ta.value.trim(); if(!text){ msg.textContent='Write the question first.'; return; }
+      const w=o.w, row={id:uuid(), kind:'note', card_key:w.key, arabizi:(w.arabizi||'').slice(0,300), arabic:(w.arabic||'').slice(0,300), english:String(enBase(w)||'').slice(0,500), text:text.slice(0,2000), by_who:'student', created_at:new Date().toISOString()};
+      try{ const r=await fetch(ANEES.url+'/rest/v1/card_attention',{method:'POST',headers:{...H,Prefer:'return=minimal'},body:JSON.stringify(row)}); if(!r.ok) throw new Error(r.status);
+        msg.textContent='Sent. It is on Amal’s Tutor page under “Questions from the student”.'; ta.value=''; at.classList.add('on'); setTimeout(()=>{ box.hidden=true; msg.textContent=''; },1600); }
+      catch(e){ msg.textContent='Could not send (offline?). Try again in a moment.'; } }; }
   const ak=document.getElementById('ask'); ak.onclick=e=>{ e.stopPropagation(); const on=askToggle(o.w); ak.classList.toggle('on',on); ak.setAttribute('aria-pressed',on); ak.textContent=on?'✓ On Amal list':'? Ask Amal'; };
   if(askHas(o.w)) ak.textContent='✓ On Amal list';
   document.onkeydown=e=>{ if(e.target.closest&&e.target.closest('button')&&(e.key===' '||e.key==='Enter')&&e.target.id!=='card') return;
@@ -585,4 +599,4 @@ function showSummary(){ const s=C.summary(round); document.onkeydown=null; const
 window.AneesTest={ get alias(){return ALIAS;}, drillView, startDrill, get round(){return round;}, get stats(){return stats;}, get words(){return words;}, get cards(){return cards;}, answer:r=>{revealed=true;answer(r,{});}, grade:r=>{if(!sess)sess={know:0,learn:0,ms:[]};const q=dueQueue();const c=q.items[0];if(!c)return false;grade(c,byKey().get(c.id),r,{});return true;}, undo, queue:dueQueue, start, picker, home, selection, get tiles(){return tileMap;}, startTile, opts, startReview, sync, pref };
 if(window.self!==window.top){ const t=document.querySelector('#anees-bank aside'); if(t) t.style.display='none'; }   // inside the Flashcards tab the site menu is already there
 load().then(()=>qtile?openRef(qtile):qsub?picker():home());
-</script><script src="js/build.js"></script><script src="js/stale.js?v=fresh1"></script><script src="js/rule-names.js?v=20261002-1" defer></script></body></html>
+</script><script src="js/phone-nav.js?v=20261006-1"></script><script src="js/build.js"></script><script src="js/stale.js?v=fresh1"></script><script src="js/rule-names.js?v=20261002-1" defer></script></body></html>

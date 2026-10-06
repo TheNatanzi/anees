@@ -23,9 +23,9 @@
     const J = u => fetch(u, { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
     const mirror = await J('data/homework.json'), shaky = await J('data/shaky-words.json');
     try {
-      const [T, R, V, L] = await Promise.all([page('homework_tasks?select=*&order=created_at.asc'), page('homework_replies?select=*&order=created_at.asc'),
-        page('homework_verdicts?select=*&order=created_at.asc'), page('card_results?select=word_key,result,ts,subject,undone_at&order=ts.asc')]);
-      D = { tasks: T, replies: R, verdicts: V, log: L, shaky, live: true, built: mirror && mirror.built };
+      const [T, R, V, L, A] = await Promise.all([page('homework_tasks?select=*&order=created_at.asc'), page('homework_replies?select=*&order=created_at.asc'),
+        page('homework_verdicts?select=*&order=created_at.asc'), page('card_results?select=word_key,result,ts,subject,undone_at&order=ts.asc'), page('card_attention?select=*&order=created_at.asc').catch(() => [])]);
+      D = { tasks: T, replies: R, verdicts: V, log: L, attention: A, shaky, live: true, built: mirror && mirror.built };
     } catch (e) {
       D = { tasks: (mirror && mirror.tasks) || [], replies: (mirror && mirror.replies) || [], verdicts: (mirror && mirror.verdicts) || [], log: [], shaky, live: false, built: mirror && mirror.built };
     }
@@ -115,13 +115,18 @@
       <p class="st-prompt">${esc(t.set_title)}</p><p class="st-wait">${n} cards · ${done} done${done >= n && n ? ' · all done' : ''}${past ? ' · lesson passed' : ''} · tap to open on Flashcards</p>
       <div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div></a>`;
   }
+  // Medi 2026-10-06: the questions he sent from a flashcard (the attention button) and her replies
+  function attn() { return (window.AneesAttentionTask || { view: () => ({ all: [], open: [], answered: [] }) }).view(D.attention || []); }
+  const attnCard = n => `<div class="st-task st-attn"><p class="st-kind">Your question from a flashcard · ${esc(pretty(n.created_at))}</p><p class="st-prompt" dir="auto">${esc(n.arabizi || n.arabic || '')}${n.english ? ` <span class="st-ctx" style="display:inline">· ${esc(n.english)}</span>` : ''}</p><p class="st-ans" dir="auto">You: ${esc(n.text)}</p>
+    ${n.replies.length ? n.replies.map(r => `<p class="st-why" dir="auto"><b>Teacher:</b> ${esc(r.text)} <span class="st-wait">${esc(pretty(r.created_at))}</span></p>`).join('') : '<p class="st-wait">Waiting for your teacher.</p>'}</div>`;
   function todoView() {
     setTab('todo');
-    const L = states().filter(x => x.s && x.s.state !== 'done'), C = openCards();
-    if (!L.length && !C.length) { $('#st-view').innerHTML = '<p class="hb-empty">No homework waiting. It is assigned on the Tutor page.</p>'; return; }
+    const L = states().filter(x => x.s && x.s.state !== 'done'), C = openCards(), Q = attn().open;
+    if (!L.length && !C.length && !Q.length) { $('#st-view').innerHTML = '<p class="hb-empty">No homework waiting. It is assigned on the Tutor page.</p>'; return; }
     const order = { todo: 0, checking: 1, waiting: 2 };
     $('#st-view').innerHTML = C.sort((a, b) => String(a.lesson_date).localeCompare(String(b.lesson_date))).map(cardsCard).join('')
-      + L.sort((a, b) => order[a.s.state] - order[b.s.state] || String(b.t.created_at).localeCompare(String(a.t.created_at))).map(x => todoCard(x.t, x.s)).join('');
+      + L.sort((a, b) => order[a.s.state] - order[b.s.state] || String(b.t.created_at).localeCompare(String(a.t.created_at))).map(x => todoCard(x.t, x.s)).join('')
+      + Q.slice().reverse().map(attnCard).join('');
     $('#st-view').querySelectorAll('[data-task]').forEach(box => {
       const ta = box.querySelector('[data-answer]'), go = box.querySelector('[data-send]'), t = D.tasks.find(x => x.id === box.dataset.task);
       ta.oninput = () => { typing = !!ta.value.trim(); };
@@ -132,13 +137,14 @@
   function doneView() {
     setTab('done');
     const L = states().filter(x => x.s && x.s.state === 'done').sort((a, b) => String(b.s.verdict.created_at).localeCompare(String(a.s.verdict.created_at)));
-    $('#st-view').innerHTML = L.length ? L.map(x => doneCard(x.t, x.s)).join('') : '<p class="hb-empty">Nothing checked by your teacher yet.</p>';
+    const Qa = attn().answered.slice().reverse();
+    $('#st-view').innerHTML = (L.length || Qa.length) ? L.map(x => doneCard(x.t, x.s)).join('') + Qa.map(attnCard).join('') : '<p class="hb-empty">Nothing checked by your teacher yet.</p>';
   }
   function counts() {
     const S = states(), sc = H.score(D.tasks, D.replies, D.verdicts);
-    $('#st-n-todo').textContent = (sc.todo + sc.waiting + sc.checking + openCards().length) || '';
+    $('#st-n-todo').textContent = (sc.todo + sc.waiting + sc.checking + openCards().length + attn().open.length) || '';
     $('#st-n-shaky').textContent = D.shaky ? (H.shakyCards(D.shaky, D.log).length || '') : '';
-    $('#st-n-done').textContent = sc.done || '';
+    $('#st-n-done').textContent = (sc.done + attn().answered.length) || '';
     $('#st-score').innerHTML = scoreHtml();
     $('#st-hello').textContent = sc.todo ? `${sc.todo} to do · ${sc.waiting + sc.checking} waiting for your teacher` : 'Homework your teacher assigned, and the cards to do before the next lesson.';
   }

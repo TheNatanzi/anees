@@ -48,3 +48,14 @@ def test_PG_30_decay_is_words_not_said_for_three_weeks_longest_first_plus_never_
     assert D["as_of"] == "2026-10-02" and D["days"] == 21
     assert [w["key"] for w in D["decaying"]] == ["old"] and D["decaying"][0]["days_ago"] == 31
     assert [w["key"] for w in D["untested"]] == ["never"]        # an archived Doc word is not untested
+
+
+def test_PG_31_every_page_with_the_shared_menu_loads_the_phone_tab_bar():
+    """PG-31 (Medi 2026-10-06 'This top bar is really bothering me' -> Option 1): bottom tabs on phones, built from the sidebar."""
+    import glob
+    pages = [p for p in glob.glob(os.path.join(REPO, "docs", "*.html")) if 'class="ab-nav"' in open(p, encoding="utf-8").read()]
+    assert len(pages) >= 10
+    for p in pages:
+        assert "js/phone-nav.js" in open(p, encoding="utf-8").read(), os.path.basename(p)
+    js = open(os.path.join(REPO, "docs", "js", "phone-nav.js"), encoding="utf-8").read()
+    assert "max-width: 680px" in js and "'student.html', 'Student'" in js and "More" in js
