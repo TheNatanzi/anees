@@ -72,5 +72,8 @@ def test_wanted_keeps_shared_phrase_and_person_identities():
     assert by['sA7eb~owner']['english']=='Owner'
     assert by['salon']['english']=='Guest room'
     assert by['salon~hair-salon']['english']=='Hair Salon'
-    assert 'Ana bazahheq' in by['ana bazahe2']['aliases']
+    # 2026-10-06: the Doc lists this verb twice (bazahheq/2 and bazahhe2); which one is the key and which the alias
+    # follows the Doc's section order, which Amal changes. Both spellings must survive under one key.
+    names={by['ana bazahe2']['arabizi']}|set(by['ana bazahe2']['aliases'])
+    assert any('bazahheq' in n for n in names) and any('bazahhe2' in n for n in names), names
     assert set(matcher.match('قريب'))=={'2arIb','2arIb~relative'}
