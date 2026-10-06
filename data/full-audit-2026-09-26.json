@@ -1,5 +1,5 @@
 {
- "built": "2026-10-03T14:22:48-07:00",
+ "built": "2026-10-06T10:28:20-07:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -15602,6 +15602,627 @@
     "bucket": "A1",
     "bucket2": null,
     "new_bucket_group": null
+   },
+   {
+    "id": "FA-71e3c0ea",
+    "date": "2026-10-05",
+    "t": "01:27",
+    "t_amal": "01:34",
+    "medi_said": "Yeah، كان عندي زبون مهم صباح.",
+    "amal_said": "الصباح. either الصباح or في الصباح.",
+    "chat": "kaan 3indi zboon muhemm fi el-subu7",
+    "wrong": "صباح",
+    "right": "في الصباح",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-71e3c0ea",
+    "sweep_id": null,
+    "mistake": "He said bare صباح; she recast الصباح / في الصباح and he repeated في الصباح.",
+    "bucket": "A1",
+    "bucket2": "D1",
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-b5f58bd9",
+    "date": "2026-10-05",
+    "t": "05:23",
+    "t_amal": "05:32",
+    "medi_said": "Uh، خمس، uh، عشرة...",
+    "amal_said": "خمسة عشرة.",
+    "chat": "yoam el-tenain 5amse 3ashara alfain u sitte u 3eshreen",
+    "wrong": "خمس",
+    "right": "خمسة",
+    "confidence": "medium",
+    "confidence_why": "r1+r2",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-b5f58bd9",
+    "sweep_id": null,
+    "mistake": "For the date (5 October) he said خمس; she recast خمسة عشرة and he repeated خمسة.",
+    "bucket": "E4",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-92b3a7d2",
+    "date": "2026-10-05",
+    "t": "05:50",
+    "t_amal": "06:01",
+    "medi_said": "واحد وثلاث.",
+    "amal_said": "طيب if it's 1:25 what would you say? ... واحدة. Because it's ساعة.",
+    "chat": "wa7de u 5amse u 3eshreen",
+    "wrong": "واحد",
+    "right": "واحدة",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-92b3a7d2",
+    "sweep_id": null,
+    "mistake": "Clock time takes the feminine number; she said واحدة because it is ساعة.",
+    "bucket": "E2",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-03f27373",
+    "date": "2026-10-05",
+    "t": "07:10",
+    "t_amal": "07:20",
+    "medi_said": "عنده بوعى، بوع.",
+    "amal_said": "Eh, on it. ... عليه بقع.",
+    "chat": "el-yoam balbes 2amees rasmi abyad, 3alaih bu2a3.",
+    "wrong": "عنده",
+    "right": "عليه",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-03f27373",
+    "sweep_id": null,
+    "mistake": "He said عنده (it has) for stains on the shirt; she said 'on it' and recast عليه بقع.",
+    "bucket": "D1",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-50587a6a",
+    "date": "2026-10-05",
+    "t": "07:45",
+    "t_amal": "07:50",
+    "medi_said": "أنا بحط الـ...",
+    "amal_said": "حطيت.",
+    "chat": "ana 7attait bu2a3 3alaih",
+    "wrong": "بحط",
+    "right": "حطيت",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-50587a6a",
+    "sweep_id": null,
+    "mistake": "She asked who put stains on it (past); he used present بحط, she said حطيت and he said 'that's right'.",
+    "bucket": "B5",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-a82b14f1",
+    "date": "2026-10-05",
+    "t": "10:52",
+    "t_amal": "10:54",
+    "medi_said": "wait for you would be ستنت لك، ستنيت لك،",
+    "amal_said": "استنيتك.",
+    "chat": "ana stannaitek",
+    "wrong": "ستنيت لك",
+    "right": "استنيتك",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-a82b14f1",
+    "sweep_id": null,
+    "mistake": "He put the object on لـ; she recast with the ending on the verb استنيتك, he said 'There's no il'.",
+    "bucket": "D4",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-c10f800a",
+    "date": "2026-10-05",
+    "t": "11:18",
+    "t_amal": "11:26",
+    "medi_said": "حكيت لي ني؟ ... حكيت، حكيت لي لي؟",
+    "amal_said": "No. Try again. ... حكيت لي.",
+    "chat": null,
+    "wrong": "حكيت لي ني",
+    "right": "حكيت لي",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "explicit-no",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-c10f800a",
+    "sweep_id": null,
+    "mistake": "He tacked -ni onto حكيت لي; she said 'No. Try again' then حكيت لي - with la- 'me' is -li, not -ni.",
+    "bucket": "D3",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-5dc5d196",
+    "date": "2026-10-05",
+    "t": "17:15",
+    "t_amal": "17:19",
+    "medi_said": "مش لـ-- مش بتحتاج الـ.",
+    "amal_said": "هلأ قصدك إنه أغلب ما بتحتاج ال",
+    "chat": "a8lab el-naas",
+    "wrong": "مش بتحتاج",
+    "right": "ما بتحتاج",
+    "confidence": "medium",
+    "confidence_why": "r1+r2",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-5dc5d196",
+    "sweep_id": null,
+    "mistake": "He negated a verb with مش; she restated it as ما بتحتاج and he then said ما بتحتاج.",
+    "bucket": "C4",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-10e26bf4",
+    "date": "2026-10-05",
+    "t": "17:59",
+    "t_amal": "18:06",
+    "medi_said": "Because it's mostly like أغلب men most-- no?",
+    "amal_said": "لا، it's not the first time we discussed this. We never say أغلب من.",
+    "chat": null,
+    "wrong": "أغلب من",
+    "right": "أغلب + noun (أغلب وقتي)",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "explicit-no",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-10e26bf4",
+    "sweep_id": null,
+    "mistake": "He built 'most of' with من; she said we never say أغلب من - it goes straight onto the noun.",
+    "bucket": "A2",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-13f6cac9",
+    "date": "2026-10-05",
+    "t": "19:07",
+    "t_amal": "19:20",
+    "medi_said": "so ٱغْلَب most people because it's not ٱلنَّاسُ, so it'd be ٱغْلَب النَّاسِ.",
+    "amal_said": "أغلب after it there's ال. Why did you take it out?",
+    "chat": "a8lab el-naas",
+    "wrong": "أغلب ناس (engine wrote ٱغْلَب النَّاسِ)",
+    "right": "أغلب الناس",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "explicit-no",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-13f6cac9",
+    "sweep_id": null,
+    "mistake": "Her 'Why did you take it out?' and his 'because ناس is not definitive' show he said أغلب ناس without el- (engine wrote النَّاسِ); after أغلب the noun takes el-.",
+    "bucket": "A2",
+    "bucket2": "A2",
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-a2267598",
+    "date": "2026-10-05",
+    "t": "24:18",
+    "t_amal": "24:35",
+    "medi_said": "بَعِيدٍ النَّفْسِ?",
+    "amal_said": "نفس never takes ال before it. Al-always after it.",
+    "chat": null,
+    "wrong": "بَعِيدٍ النَّفْسِ",
+    "right": "نفس + الـnoun",
+    "confidence": "medium",
+    "confidence_why": "r1+r2",
+    "signal": "named-rule",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-a2267598",
+    "sweep_id": null,
+    "mistake": "He put النفس after the noun; she named the rule: نفس comes first and the ال goes on the noun after it.",
+    "bucket": "A2",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-01a39508",
+    "date": "2026-10-05",
+    "t": "25:00",
+    "t_amal": "25:05",
+    "medi_said": "مش، مش إشي. مش--",
+    "amal_said": "Still nothing؟ ما في إشي؟",
+    "chat": null,
+    "wrong": "مش إشي",
+    "right": "ما في إشي",
+    "confidence": "medium",
+    "confidence_why": "Voiced recast, he took it.",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-01a39508",
+    "sweep_id": null,
+    "mistake": "For 'there is nothing (in common)' he negated with مش; she recast ما في إشي and he repeated it at 25:07.",
+    "bucket": "C4",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-9fc71cb0",
+    "date": "2026-10-05",
+    "t": "26:43",
+    "t_amal": "26:57",
+    "medi_said": "So, uh, أشخاص النفس.",
+    "amal_said": "صح. نفس never takes ال before it always after and it's before the noun.",
+    "chat": "e7na bnekrah nafs el-ash5aas",
+    "wrong": "أشخاص النفس",
+    "right": "نفس الأشخاص",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "named-rule",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-9fc71cb0",
+    "sweep_id": null,
+    "mistake": "He said أشخاص النفس; she named the rule (نفس before the noun, ال after) and he fixed to نفس الأشخاص.",
+    "bucket": "A2",
+    "bucket2": "C9",
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-4419e330",
+    "date": "2026-10-05",
+    "t": "29:20",
+    "t_amal": "29:24",
+    "medi_said": "أغلب الـ آخر الأسبوع.",
+    "amal_said": "Why ال آخر؟ ... أغلب آخر الأسبوع.",
+    "chat": "a8lab aa5er el-usboo3 ru7na 3ala el-shatt",
+    "wrong": "أغلب الـ آخر الأسبوع",
+    "right": "أغلب آخر الأسبوع",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "named-rule",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-4419e330",
+    "sweep_id": null,
+    "mistake": "In a chain only the last noun takes ال; she asked why ال آخر and explained the idafa rule.",
+    "bucket": "A5",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-770718d7",
+    "date": "2026-10-05",
+    "t": "30:32",
+    "t_amal": "30:39",
+    "medi_said": "أغلب أسبوع الأخر. That sounds so awkward.",
+    "amal_said": "أغلب آخر الأسبوع.",
+    "chat": "a8lab aa5er el-usboo3",
+    "wrong": "أغلب أسبوع الأخر",
+    "right": "أغلب آخر الأسبوع",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-770718d7",
+    "sweep_id": null,
+    "mistake": "He flipped the chain; she recast أغلب آخر الأسبوع and he repeated it.",
+    "bucket": "A5",
+    "bucket2": "C9",
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-0572b949",
+    "date": "2026-10-05",
+    "t": "32:29",
+    "t_amal": "32:37",
+    "medi_said": "انبسطنا الشاطئ.",
+    "amal_said": "بلشات. أو فيلشات.",
+    "chat": "enbasa6na bilshatt",
+    "wrong": "انبسطنا الشاطئ",
+    "right": "انبسطنا بالشط",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-0572b949",
+    "sweep_id": null,
+    "mistake": "انبسط takes بـ; she recast بالشط and he said 'I forgot about انبسط' and repeated بالشاطئ.",
+    "bucket": "D2",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-b21bb2c9",
+    "date": "2026-10-05",
+    "t": "35:35",
+    "t_amal": "35:41",
+    "medi_said": "البدلة الأولى.",
+    "amal_said": "شو الأول؟ What's feminine of أول؟",
+    "chat": "7abaiti el-badle el-oola",
+    "wrong": "البدلة الأولى",
+    "right": "البدلة الأولى (أولى)",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-b21bb2c9",
+    "sweep_id": null,
+    "mistake": "Engine wrote الأولى but she echoed الأول and asked for the feminine - he said البدلة الأول; he then said أولى.",
+    "bucket": "A8",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-89dd7735",
+    "date": "2026-10-05",
+    "t": "39:22",
+    "t_amal": "39:50",
+    "medi_said": "كندارة الأخيرة?",
+    "amal_said": "Bas that would mean nothing... It's not idafa here, it's just adjective. ... You're missing an L.",
+    "chat": "el-kundara el-a5ira kaanat bish3a",
+    "wrong": "كندارة الأخيرة",
+    "right": "الكندرة الأخيرة",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-89dd7735",
+    "sweep_id": null,
+    "mistake": "Noun + adjective needs ال on both; she said he was missing an ال and he fixed to الكندارة الأخيرة.",
+    "bucket": "A7",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-2625734d",
+    "date": "2026-10-05",
+    "t": "44:00",
+    "t_amal": "44:03",
+    "medi_said": "So أول اليوم.",
+    "amal_said": "اليومي.",
+    "chat": "awal yoami kaan sayyi2",
+    "wrong": "أول اليوم",
+    "right": "أول يومي",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-2625734d",
+    "sweep_id": null,
+    "mistake": "'The beginning of my day' needs the possessive ending; she prompted يومي and he said أول يومي.",
+    "bucket": "A4",
+    "bucket2": "A2",
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-da7c0a66",
+    "date": "2026-10-05",
+    "t": "46:45",
+    "t_amal": "46:47",
+    "medi_said": "So يومي الأول.",
+    "amal_said": "No, that's my first day. I want you to say the beginning of my day.",
+    "chat": "awal yoami kaan sayyi2",
+    "wrong": "يومي الأول",
+    "right": "أول يومي",
+    "confidence": "medium",
+    "confidence_why": "r1+r2",
+    "signal": "explicit-no",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-da7c0a66",
+    "sweep_id": null,
+    "mistake": "He used the adjective structure (my first day) for 'beginning of my day'; she said no and he said أول يومي.",
+    "bucket": "A2",
+    "bucket2": "A2",
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-f04a2c9f",
+    "date": "2026-10-05",
+    "t": "47:55",
+    "t_amal": "47:59",
+    "medi_said": "So كل اليوم.",
+    "amal_said": "My whole day.",
+    "chat": "kul yoami kan /beyza33el",
+    "wrong": "كل اليوم",
+    "right": "كل يومي",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-f04a2c9f",
+    "sweep_id": null,
+    "mistake": "He dropped 'my'; she repeated 'My whole day' and he said كل يومي.",
+    "bucket": "A4",
+    "bucket2": "A11",
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-d87c2eb3",
+    "date": "2026-10-05",
+    "t": "53:30",
+    "t_amal": "53:32",
+    "medi_said": "تاني اجتماع ... نفس الـ...",
+    "amal_said": "Was...",
+    "chat": "taani ijtimaa3 kaan nafs awal waa7ad",
+    "wrong": "تاني اجتماع نفس",
+    "right": "تاني اجتماع كان نفس",
+    "confidence": "high",
+    "confidence_why": "Clear prompt-then-fix.",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-d87c2eb3",
+    "sweep_id": null,
+    "mistake": "Past sentence without كان; she prompted 'Was...' and he said 'Oh، كان' at 53:34. Separate from agreed A32 (56:09, a different sentence).",
+    "bucket": "B6",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-0601f0e6",
+    "date": "2026-10-05",
+    "t": "55:36",
+    "t_amal": "55:39",
+    "medi_said": "Uh, uh, ba'id ma shufit.",
+    "amal_said": "we saw.",
+    "chat": "ba3ed ma shufna enno tani mat3am kaan nafs el-ishi, rawwa7na",
+    "wrong": "shufit",
+    "right": "shufna",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-0601f0e6",
+    "sweep_id": null,
+    "mistake": "He used the I-form shufit for 'we saw'; she said 'we saw' and he changed to shufna.",
+    "bucket": "B5",
+    "bucket2": "B18",
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-1eb284ef",
+    "date": "2026-10-05",
+    "t": "56:09",
+    "t_amal": "56:17",
+    "medi_said": "tani matam nafs il'ishi?",
+    "amal_said": "Was, was.",
+    "chat": "ba3ed ma shufna enno tani mat3am kaan nafs el-ishi, rawwa7na",
+    "wrong": "tani matam nafs il'ishi",
+    "right": "tani mat3am kaan nafs el-ishi",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-1eb284ef",
+    "sweep_id": null,
+    "mistake": "Past state needs kaan; she said 'Was, was' and he added kan.",
+    "bucket": "B6",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-e2fac85a",
+    "date": "2026-10-05",
+    "t": "59:03",
+    "t_amal": "59:06",
+    "medi_said": "sadiqik.",
+    "amal_said": "Friends.",
+    "chat": "s7aabek el-tanyeen 8eir 3an hadoal",
+    "wrong": "sadiqik",
+    "right": "sahabik (s7aabek)",
+    "confidence": "high",
+    "confidence_why": "The slip is singular for plural; A9 plurals fits better than vocab tier 2.",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-e2fac85a",
+    "sweep_id": null,
+    "mistake": "For 'your other friends' he used a singular noun; she stressed 'Friends.' (plural) and he gave the plural sahabik at 59:09. The fix is number (plural), so A9, not a vocab tier.",
+    "bucket": "A9",
+    "bucket2": null,
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-ec3ba385",
+    "date": "2026-10-05",
+    "t": "59:28",
+    "t_amal": "1:00:20",
+    "medi_said": "Sahab-- Sahabik tani? No?",
+    "amal_said": "No. ... No, sahabak al-thaniyin.",
+    "chat": "s7aabek el-tanyeen 8eir 3an hadoal",
+    "wrong": "Sahabik tani",
+    "right": "s7aabek el-tanyeen",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "explicit-no",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-ec3ba385",
+    "sweep_id": null,
+    "mistake": "A definite noun (with -ik) takes an adjective with ال, plural to match; she said No and gave sahabak al-thaniyin.",
+    "bucket": "A7",
+    "bucket2": "A9",
+    "new_bucket_group": null
+   },
+   {
+    "id": "FA-ddf772d2",
+    "date": "2026-10-05",
+    "t": "1:03:58",
+    "t_amal": "1:04:15",
+    "medi_said": "your friends which are masculine, so هداك. ... Right? هداك?",
+    "amal_said": "شو؟ ... غير عن. What does this mean?",
+    "chat": "s7aabek el-tanyeen 8eir 3an hadoal",
+    "wrong": "هداك",
+    "right": "هدول",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-ddf772d2",
+    "sweep_id": null,
+    "mistake": "'These' (plural) is هدول, not هداك (that, m.); she asked شو and he changed to هدول.",
+    "bucket": "A10",
+    "bucket2": null,
+    "new_bucket_group": null
    }
   ],
   "unfiled": [],
@@ -23755,6 +24376,281 @@
     "kind": "wrong-word",
     "tier": 1,
     "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-bf5ddaa3",
+    "date": "2026-10-05",
+    "t": "02:36",
+    "t_amal": "03:00",
+    "medi_said": "uh، جهز، جهزت...",
+    "amal_said": "جهزت is like prepared... بس عملت أو طبخت would be a better fit for food.",
+    "chat": "em 5atibti 3emlatha",
+    "wrong": "جهزت",
+    "right": "عملت",
+    "confidence": "medium",
+    "confidence_why": "r1+r2",
+    "signal": "explicit-no",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-bf5ddaa3",
+    "sweep_id": null,
+    "amal_gave": "عملت",
+    "english": "My fiancee's mother made it.",
+    "why": "He used جهزت (prepared) for cooking the dish; she said عملت / طبخت is the right fit for food and typed 3emlatha.",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-75e802ae",
+    "date": "2026-10-05",
+    "t": "03:49",
+    "t_amal": "03:51",
+    "medi_said": "لحمت، لحمت خريف،",
+    "amal_said": "خريف. شو يعني خريف؟",
+    "chat": "ma3 la7met 5aroof",
+    "wrong": "خريف",
+    "right": "خروف",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-75e802ae",
+    "sweep_id": null,
+    "amal_gave": "خروف",
+    "english": "lamb meat",
+    "why": "He said خريف (autumn) for خروف (lamb); she echoed خريف and asked what it means, he switched to خروف; her chat la7met 5aroof.",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-1889bfa3",
+    "date": "2026-10-05",
+    "t": "08:20",
+    "t_amal": "08:20",
+    "medi_said": "أنا نسيت الـ...",
+    "amal_said": "بنجر.",
+    "chat": "ana 7attait bu2a3 3alaih 3ashan el-m7ammara u el-banjar",
+    "wrong": "beets",
+    "right": "بنجر",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "asked",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-1889bfa3",
+    "sweep_id": null,
+    "amal_gave": "بنجر",
+    "english": "beets",
+    "why": "He forgot the word for beets; she supplied بنجر.",
+    "kind": "didn't-know",
+    "tier": 0,
+    "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-58910c1d",
+    "date": "2026-10-05",
+    "t": "20:58",
+    "t_amal": "21:00",
+    "medi_said": "How do you say my clothes? Is it أَوَا...",
+    "amal_said": "أوايي، أوايي.",
+    "chat": "a8lab awa3iyyi la shu8li",
+    "wrong": "my clothes",
+    "right": "أواعي",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "asked",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-58910c1d",
+    "sweep_id": null,
+    "amal_gave": "أواعي",
+    "english": "my clothes",
+    "why": "He asked how to say my clothes; she supplied أوايي (awa3iyyi).",
+    "kind": "didn't-know",
+    "tier": 0,
+    "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-c0e4d09d",
+    "date": "2026-10-05",
+    "t": "37:28",
+    "t_amal": "37:30",
+    "medi_said": "كانت أكثر إشي.",
+    "amal_said": "Best. La, shu ya3ni best? Better.",
+    "chat": "aa5er libse kaanat a7san wa7de",
+    "wrong": "أكثر",
+    "right": "أحسن",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-c0e4d09d",
+    "sweep_id": null,
+    "amal_gave": "أحسن",
+    "english": "the best",
+    "why": "He used أكثر (most) for 'best'; she pushed with best/better and he said أحسن.",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-310fd0ae",
+    "date": "2026-10-05",
+    "t": "37:34",
+    "t_amal": "37:35",
+    "medi_said": "آه، أحسن إشي.",
+    "amal_said": "Ahsan. One. Now, what does one mean?",
+    "chat": "aa5er libse kaanat a7san wa7de",
+    "wrong": "إشي",
+    "right": "واحدة",
+    "confidence": "medium",
+    "confidence_why": "r1+r2",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-310fd0ae",
+    "sweep_id": null,
+    "amal_gave": "واحدة",
+    "english": "the best one",
+    "why": "He said إشي (thing) for 'one'; she prompted 'One?' and he said واحدة (chat a7san wa7de).",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-973f126e",
+    "date": "2026-10-05",
+    "t": "49:52",
+    "t_amal": "49:56",
+    "medi_said": "كان يزعل.",
+    "amal_said": "بيزهأ.",
+    "chat": "aa5er el-dars kaan be/yzahhe2",
+    "wrong": "يزعل",
+    "right": "بيزهق",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-973f126e",
+    "sweep_id": null,
+    "amal_gave": "بيزهق",
+    "english": "The end of the lesson was boring.",
+    "why": "He said يزعل (saddens) for 'boring'; she recast بيزهق, chat be/yzahhe2.",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-0571abfc",
+    "date": "2026-10-05",
+    "t": "51:52",
+    "t_amal": "51:55",
+    "medi_said": "أغلب العربية.",
+    "amal_said": "أغلب either العرب or العربيين.",
+    "chat": "a8lab el-3arabyeen nafs el-ishi",
+    "wrong": "العربية",
+    "right": "العرب / العربيين",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "recast",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-0571abfc",
+    "sweep_id": null,
+    "amal_gave": "العرب / العربيين",
+    "english": "most Arabs",
+    "why": "العربية is the feminine / the language; for 'Arabs' she gave العرب or العربيين.",
+    "kind": "wrong-word",
+    "tier": 2,
+    "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-a216df38",
+    "date": "2026-10-05",
+    "t": "55:32",
+    "t_amal": "55:34",
+    "medi_said": "Abel ma shufit.",
+    "amal_said": "After",
+    "chat": null,
+    "wrong": "Abel ma",
+    "right": "ba3ed ma",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-a216df38",
+    "sweep_id": null,
+    "amal_gave": "ba3ed ma",
+    "english": "after we saw",
+    "why": "He said abel ma (before) for 'after'; she said 'After' in English and he changed to ba'id ma.",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-9ea3b0b3",
+    "date": "2026-10-05",
+    "t": "59:14",
+    "t_amal": "59:16",
+    "medi_said": "sahabik farq.",
+    "amal_said": "No, no. I want to choose thani. 'Cause thani is the best here.",
+    "chat": "s7aabek el-tanyeen 8eir 3an hadoal",
+    "wrong": "farq",
+    "right": "tani",
+    "confidence": "medium",
+    "confidence_why": "Explicit no + her word, he took it.",
+    "signal": "explicit-no",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-9ea3b0b3",
+    "sweep_id": null,
+    "amal_gave": "tani",
+    "english": "your other friends",
+    "why": "For 'other' he used farq (difference); she said 'No, no' and gave thani (sheet: 'else/second/other | taani | تاني'); he took it at 59:20. Separate from A34 (1:01:28, farq for 'different').",
+    "kind": "wrong-word",
+    "tier": 1,
+    "amal_gave_arabizi": null
+   },
+   {
+    "id": "FA-0ef0c833",
+    "date": "2026-10-05",
+    "t": "1:01:28",
+    "t_amal": "1:01:31",
+    "medi_said": "So فرق right? فرق.",
+    "amal_said": "What is difference? They are different.",
+    "chat": "s7aabek el-tanyeen 8eir 3an hadoal",
+    "wrong": "فرق",
+    "right": "مختلفين",
+    "confidence": "high",
+    "confidence_why": "r1+r2",
+    "signal": "prompt-then-fix",
+    "machine_audit": false,
+    "mode": "speaking",
+    "source": "audit-2026-09-26",
+    "uid": "FA-0ef0c833",
+    "sweep_id": null,
+    "amal_gave": "مختلفين",
+    "english": "They are different.",
+    "why": "He used the noun فرق (difference) for the adjective 'different'; she pointed out it means difference and he said مختلفين.",
+    "kind": "wrong-word",
+    "tier": 2,
+    "amal_gave_arabizi": null
    }
   ],
   "per_lesson": [
@@ -23829,41 +24725,45 @@
    {
     "date": "2026-10-02",
     "coverage": "00:02-06:12 and 53:31-end are English meta talk. 12:34-15:40 and 37:41-42:12 transcribed in Latin. Engine wrote حاجة/هذا for حدا (43:16-43:20), عادي for hada (08:23), مسافة for masari (23:40). 49:07-50:07 garbled CJK. 45:01 عشر/عشرة and 51:15 hadi/hada were his questions, skipped. Main lesson: awal/tani/aa5er/8eir/nafs; PROPOSE rows share one rule. / 00:00-06:40 English meta talk about the verb list; 12:12-15:40, 37:41-42:19, 57:38-59:54 Medi lines Latin-transliterated; 17:00-1:03:40 mostly a rule lesson on awal/tani/aa5er/8eir/nafs with many rule questions (not rows); 45:01 عشر vs عشرة was a question (skipped); 51:15 hadi/hada asked as a question (skipped); 28:43 ساعة الأول repeats 18:12 as a question (skipped)."
+   },
+   {
+    "date": "2026-10-05",
+    "coverage": "Echo candidates checked: all are real English/filler, none an Arabic sound-alike. 40:21 engine wrote قبيحة but chat bish3a and Amal's 'why do you not forget bisha' suggest he said بشعة (engine). 03:31/03:36 أملكت = his attempt at her عملت (pronunciation, skipped). 15:04 شوي بتي = بطيء (S4, skipped). 27:41 عبوي = أبوي (engine). 55:00-1:03:00 his Arabic is in Latin letters. Quiz answers about the أغلب/نفس rule (16:09, 28:15, 50:31) skipped as rule questions. 13:10/13:55 كام على = kaman marra. Medi turns: 315 with Arabic script plus ~20 Latin-letter Arabic turns. / 55:13-1:01:07 is Latin-transliterated (Medi's Arabic in Latin letters). Large English-only stretches (09:07-13:00 app talk, 15:20-20:10 and 28:50-31:00 rule talk about أغلب/نفس, 40:24-43:31). Echo candidates all real English/fillers, none Arabic sound-alikes. Engine notes: 40:21 قبيحة is likely the engine for bish3a (her chat bish3a, she says he never forgets it) - not filed; 03:31/03:36 أملكت likely 3emlat(ha); 07:10 بوع = bu2a3 (بقعة, dropped ق - S4, not filed); 15:04 بتي = بطيء (S4); 49:59 his 'كان يزعل' after her بيزهأ is likely يزهق misheard; 52:17 'نفس الـ issue' likely نفس الإشي. Rule-quiz answers (16:09 أغلب takes no ال, 28:15, 33:44 ال...) treated as questions about the rule, not slips. Self-fixes skipped: 14:09 لا->ما, 14:19 جديد->جديدة, 17:43 فكر->بفكر, 22:30 محلي->في محلي, 35:14 بدلي->بدلة, 39:17 kundaret->kundara, 53:21 إجازة->اجتماع. 56:32 ruhna vs rawwa7na: she offered both, not a slip."
    }
   ],
   "rejected_on_hand_check": [],
   "pron_from_sweep": [],
   "hand_check": {},
   "totals": {
-   "speaking_grammar": 598,
-   "vocab": 282,
+   "speaking_grammar": 625,
+   "vocab": 293,
    "machine_caught_speaking": 104
   }
  },
  "decisions": "A counts (every fix Amal voiced; a chat-only fix never counts - GR-19, Medi 2026-10-02); B (she let it pass) is unscored until she rules on Amal's review page; tiers 1-3 vocab, tier 0 = she supplied a word he asked for; grammar filed by bucket; listening rows kept apart.",
  "lessons_missing": [],
  "totals": {
-  "rows": 1161,
-  "grammar_A": 598,
-  "grammar_B": 89,
-  "grammar_proposed": 8,
-  "vocab_A": 282,
+  "rows": 1204,
+  "grammar_A": 625,
+  "grammar_B": 90,
+  "grammar_proposed": 9,
+  "vocab_A": 293,
   "vocab_A_by_tier": {
-   "1": 160,
-   "0": 115,
-   "2": 46,
+   "1": 167,
+   "0": 117,
+   "2": 48,
    "3": 5
   },
-  "vocab_B": 44,
+  "vocab_B": 46,
   "vocab_B_by_tier": {
-   "1": 25,
-   "2": 13,
+   "1": 26,
+   "2": 14,
    "3": 6
   },
   "listening": 82,
-  "from_readers": 1046,
+  "from_readers": 1089,
   "readers_also_in_sweep": 362,
-  "readers_new": 684,
+  "readers_new": 727,
   "sweep_only_kept": 115,
   "machine_had": 104,
   "sweep_before": {
@@ -23876,40 +24776,41 @@
  },
  "by_bucket": {
   "B18": 61,
-  "B5": 54,
+  "B5": 56,
   "B12": 50,
-  "D2": 48,
-  "D4": 40,
-  "B1": 37,
-  "A8": 34,
-  "A2": 31,
-  "A9": 27,
-  "D1": 23,
-  "A1": 20,
-  "A4": 18,
-  "D3": 17,
-  "A7": 16,
+  "D2": 49,
+  "D4": 41,
+  "B1": 38,
+  "A2": 36,
+  "A8": 35,
+  "A9": 28,
+  "D1": 24,
+  "A1": 21,
+  "A4": 20,
+  "A7": 18,
+  "D3": 18,
   "B15": 16,
   "B11": 16,
+  "C4": 15,
   "B3": 13,
-  "C4": 13,
   "B2": 13,
   "C7": 12,
   "C2": 11,
   "B10": 9,
+  "B6": 9,
+  "PROPOSE": 9,
+  "E2": 8,
   "C3": 8,
-  "PROPOSE": 8,
-  "E2": 7,
   "B8": 7,
   "A3": 7,
-  "B6": 7,
+  "A10": 7,
   "E1": 7,
-  "A10": 6,
+  "E4": 6,
   "A12": 5,
-  "E4": 5,
   "B16": 4,
   "A11": 4,
   "E5": 4,
+  "A5": 4,
   "C9": 3,
   "C1": 3,
   "C6": 3,
@@ -23920,7 +24821,6 @@
   "C4b": 2,
   "B13": 2,
   "E3": 2,
-  "A5": 2,
   "B9": 1,
   "C5": 1,
   "C12": 1,
@@ -24092,6 +24992,15 @@
    "vocab_A": 10,
    "vocab_B": 1,
    "listening": 2,
+   "sweep_grammar_before": 0,
+   "sweep_vocab_before": 0
+  },
+  "2026-10-05": {
+   "grammar_A": 27,
+   "grammar_B": 1,
+   "vocab_A": 11,
+   "vocab_B": 2,
+   "listening": 0,
    "sweep_grammar_before": 0,
    "sweep_vocab_before": 0
   }
@@ -24875,6 +25784,32 @@
    "readers_rows": 32,
    "in_sweep_too": 0,
    "new_vs_sweep": 32,
+   "sweep_only_kept": 0
+  },
+  {
+   "date": "2026-10-05",
+   "coverage": {
+    "r1": "Echo candidates checked: all are real English/filler, none an Arabic sound-alike. 40:21 engine wrote قبيحة but chat bish3a and Amal's 'why do you not forget bisha' suggest he said بشعة (engine). 03:31/03:36 أملكت = his attempt at her عملت (pronunciation, skipped). 15:04 شوي بتي = بطيء (S4, skipped). 27:41 عبوي = أبوي (engine). 55:00-1:03:00 his Arabic is in Latin letters. Quiz answers about the أغلب/نفس rule (16:09, 28:15, 50:31) skipped as rule questions. 13:10/13:55 كام على = kaman marra. Medi turns: 315 with Arabic script plus ~20 Latin-letter Arabic turns.",
+    "r2": "55:13-1:01:07 is Latin-transliterated (Medi's Arabic in Latin letters). Large English-only stretches (09:07-13:00 app talk, 15:20-20:10 and 28:50-31:00 rule talk about أغلب/نفس, 40:24-43:31). Echo candidates all real English/fillers, none Arabic sound-alikes. Engine notes: 40:21 قبيحة is likely the engine for bish3a (her chat bish3a, she says he never forgets it) - not filed; 03:31/03:36 أملكت likely 3emlat(ha); 07:10 بوع = bu2a3 (بقعة, dropped ق - S4, not filed); 15:04 بتي = بطيء (S4); 49:59 his 'كان يزعل' after her بيزهأ is likely يزهق misheard; 52:17 'نفس الـ issue' likely نفس الإشي. Rule-quiz answers (16:09 أغلب takes no ال, 28:15, 33:44 ال...) treated as questions about the rule, not slips. Self-fixes skipped: 14:09 لا->ما, 14:19 جديد->جديدة, 17:43 فكر->بفكر, 22:30 محلي->في محلي, 35:14 بدلي->بدلة, 39:17 kundaret->kundara, 53:21 إجازة->اجتماع. 56:32 ruhna vs rawwa7na: she offered both, not a slip."
+   },
+   "r3_note": "D5/D7 are one slip (الشاطئ, 31:01). D3 بوع is ق-drop (S4); A6 already carries the 07:10-07:27 fix. A20: engine wrote الأولى but her 'what's feminine of أول' shows he said الأول.",
+   "passes": [
+    {
+     "pass": 1,
+     "r1": 42,
+     "r2": 44,
+     "agreed": 36,
+     "disputed": 11,
+     "agreement_pct": 76.6,
+     "r3_kept": 7,
+     "r3_dropped": 4,
+     "final": 43
+    }
+   ],
+   "agreement_pct": 76.6,
+   "readers_rows": 43,
+   "in_sweep_too": 0,
+   "new_vs_sweep": 43,
    "sweep_only_kept": 0
   }
  ],
@@ -26125,6 +27060,32 @@
        "bucket": "A1"
       }
      ]
+    }
+   ]
+  },
+  {
+   "id": "P-FA-89701583",
+   "name": null,
+   "proposed_rule": "An ordinal toolbox word (أول / تاني / آخر) needs a noun after it; for 'the first one' say أول واحد: nafs awal waa7ad.",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-89701583 (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-89701583",
+     "date": "2026-10-05",
+     "t": "54:04",
+     "t_amal": "54:23",
+     "medi_said": "آآآ، yeah، just نفس أول.",
+     "amal_said": "No، آآ go on. أول شو؟ ... What's one? What's one?",
+     "chat": "taani ijtimaa3 kaan nafs awal waa7ad",
+     "wrong": "نفس أول",
+     "right": "نفس أول واحد",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "medium",
+     "why": "He stopped at أول with no noun; she asked أول شو / what's one and he added واحد.",
+     "also_counted_as": []
     }
    ]
   }
@@ -67978,11 +68939,1471 @@
    "machine_had": false,
    "uid": "FA-605b741f",
    "n": 1161
+  },
+  {
+   "id": "1005-1",
+   "t": "01:02",
+   "t_amal": null,
+   "medi_said": "شكرًا. يومي مليء،",
+   "amal_said": null,
+   "chat": "yoami shwai malaan, kaan 3indi zboon muhemm fi el-subu7",
+   "wrong": "مليء",
+   "right": "مليان",
+   "kind": "vocab-B",
+   "tier": 2,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "none",
+   "confidence": "low",
+   "why": "He used the MSA form مليء (said again at 01:13/01:17); her sheet has 'full (general/object) | Malyaan | مليان' - same root, dialect form; she voiced nothing, so B. Tier 2: wrong form of a word he knows.",
+   "english": "My day is full/busy",
+   "ids": [
+    "1005-1",
+    "1005-1"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "Real let-pass; same root as مليان, so tier 2 (form), not tier 1 (different word).",
+   "fid": "1005-001",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "uid": "FA-7eeb2a79",
+   "n": 1162
+  },
+  {
+   "id": "A1",
+   "t": "01:27",
+   "t_amal": "01:34",
+   "medi_said": "Yeah، كان عندي زبون مهم صباح.",
+   "amal_said": "الصباح. either الصباح or في الصباح.",
+   "chat": "kaan 3indi zboon muhemm fi el-subu7",
+   "wrong": "صباح",
+   "right": "في الصباح",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A1",
+   "bucket2": "D1",
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "high",
+   "why": "He said bare صباح; she recast الصباح / في الصباح and he repeated في الصباح.",
+   "english": "I had an important client in the morning.",
+   "ids": [
+    "1005-2",
+    "1005-2"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-002",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "el- (the)",
+   "uid": "FA-71e3c0ea",
+   "n": 1163
+  },
+  {
+   "id": "A2",
+   "t": "02:36",
+   "t_amal": "03:00",
+   "medi_said": "uh، جهز، جهزت...",
+   "amal_said": "جهزت is like prepared... بس عملت أو طبخت would be a better fit for food.",
+   "chat": "em 5atibti 3emlatha",
+   "wrong": "جهزت",
+   "right": "عملت",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "explicit-no",
+   "confidence": "medium",
+   "why": "He used جهزت (prepared) for cooking the dish; she said عملت / طبخت is the right fit for food and typed 3emlatha.",
+   "english": "My fiancee's mother made it.",
+   "ids": [
+    "1005-3",
+    "1005-3"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-003",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "uid": "FA-bf5ddaa3",
+   "n": 1164
+  },
+  {
+   "id": "A3",
+   "t": "03:49",
+   "t_amal": "03:51",
+   "medi_said": "لحمت، لحمت خريف،",
+   "amal_said": "خريف. شو يعني خريف؟",
+   "chat": "ma3 la7met 5aroof",
+   "wrong": "خريف",
+   "right": "خروف",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "high",
+   "why": "He said خريف (autumn) for خروف (lamb); she echoed خريف and asked what it means, he switched to خروف; her chat la7met 5aroof.",
+   "english": "lamb meat",
+   "ids": [
+    "1005-4",
+    "1005-4"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-004",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "uid": "FA-75e802ae",
+   "n": 1165,
+   "duplicates_merged": [
+    "FA-96ee441d"
+   ]
+  },
+  {
+   "id": "1005-5",
+   "t": "04:08",
+   "t_amal": "04:11",
+   "medi_said": "What is خريف؟ Should we learn خريف؟",
+   "amal_said": "فصل، أي فصل الخريف؟ ... إحنا هلأ بأي فصل؟",
+   "chat": "5arif = autumn",
+   "wrong": "خريف",
+   "right": "خريف = autumn",
+   "kind": "rejected",
+   "tier": 0,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "asked",
+   "confidence": "medium",
+   "why": "He asked what خريف means (guessed winter at 04:26); she told him it is a season and led him to autumn. A didn't-know he asked about, not a misread of her Arabic aloud, so mode speaking.",
+   "english": "What is autumn?",
+   "ids": [
+    "1005-5",
+    "1005-5"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "Not a listening drill (he did not misread her Arabic aloud); it is an asked didn't-know -> speaking.",
+   "fid": "1005-005",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "uid": "FA-96ee441d",
+   "n": 1166,
+   "kind_before_rejection": "vocab-A",
+   "duplicate_of": "FA-75e802ae",
+   "rejected_why": "duplicate of FA-75e802ae: he repeated the same wrong phrase within 30 s, one slip (Medi 2026-10-01)"
+  },
+  {
+   "id": "A4",
+   "t": "05:23",
+   "t_amal": "05:32",
+   "medi_said": "Uh، خمس، uh، عشرة...",
+   "amal_said": "خمسة عشرة.",
+   "chat": "yoam el-tenain 5amse 3ashara alfain u sitte u 3eshreen",
+   "wrong": "خمس",
+   "right": "خمسة",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "E4",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "medium",
+   "why": "For the date (5 October) he said خمس; she recast خمسة عشرة and he repeated خمسة.",
+   "english": "the fifth of October",
+   "ids": [
+    "1005-6",
+    "1005-6"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-006",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "calendar",
+   "uid": "FA-b5f58bd9",
+   "n": 1167
+  },
+  {
+   "id": "A5",
+   "t": "05:50",
+   "t_amal": "06:01",
+   "medi_said": "واحد وثلاث.",
+   "amal_said": "طيب if it's 1:25 what would you say? ... واحدة. Because it's ساعة.",
+   "chat": "wa7de u 5amse u 3eshreen",
+   "wrong": "واحد",
+   "right": "واحدة",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "E2",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "high",
+   "why": "Clock time takes the feminine number; she said واحدة because it is ساعة.",
+   "english": "It's one-...",
+   "ids": [
+    "1005-7",
+    "1005-7"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-007",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "clock time",
+   "uid": "FA-92b3a7d2",
+   "n": 1168
+  },
+  {
+   "id": "A6",
+   "t": "07:10",
+   "t_amal": "07:20",
+   "medi_said": "عنده بوعى، بوع.",
+   "amal_said": "Eh, on it. ... عليه بقع.",
+   "chat": "el-yoam balbes 2amees rasmi abyad, 3alaih bu2a3.",
+   "wrong": "عنده",
+   "right": "عليه",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "D1",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "high",
+   "why": "He said عنده (it has) for stains on the shirt; she said 'on it' and recast عليه بقع.",
+   "english": "It has stains on it.",
+   "ids": [
+    "1005-8",
+    "1005-8"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-008",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "prepositions",
+   "uid": "FA-03f27373",
+   "n": 1169
+  },
+  {
+   "id": "A7",
+   "t": "07:45",
+   "t_amal": "07:50",
+   "medi_said": "أنا بحط الـ...",
+   "amal_said": "حطيت.",
+   "chat": "ana 7attait bu2a3 3alaih",
+   "wrong": "بحط",
+   "right": "حطيت",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "B5",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "high",
+   "why": "She asked who put stains on it (past); he used present بحط, she said حطيت and he said 'that's right'.",
+   "english": "I put stains on it.",
+   "ids": [
+    "1005-10",
+    "1005-9"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-009",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "past tense",
+   "uid": "FA-50587a6a",
+   "n": 1170
+  },
+  {
+   "id": "A8",
+   "t": "08:20",
+   "t_amal": "08:20",
+   "medi_said": "أنا نسيت الـ...",
+   "amal_said": "بنجر.",
+   "chat": "ana 7attait bu2a3 3alaih 3ashan el-m7ammara u el-banjar",
+   "wrong": "beets",
+   "right": "بنجر",
+   "kind": "vocab-A",
+   "tier": 0,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "asked",
+   "confidence": "high",
+   "why": "He forgot the word for beets; she supplied بنجر.",
+   "english": "beets",
+   "ids": [
+    "1005-11",
+    "1005-10"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-010",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "uid": "FA-1889bfa3",
+   "n": 1171
+  },
+  {
+   "id": "A9",
+   "t": "10:52",
+   "t_amal": "10:54",
+   "medi_said": "wait for you would be ستنت لك، ستنيت لك،",
+   "amal_said": "استنيتك.",
+   "chat": "ana stannaitek",
+   "wrong": "ستنيت لك",
+   "right": "استنيتك",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "D4",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "high",
+   "why": "He put the object on لـ; she recast with the ending on the verb استنيتك, he said 'There's no il'.",
+   "english": "I waited for you.",
+   "ids": [
+    "1005-12",
+    "1005-11"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-011",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "endings on verbs",
+   "uid": "FA-a82b14f1",
+   "n": 1172
+  },
+  {
+   "id": "A10",
+   "t": "11:18",
+   "t_amal": "11:26",
+   "medi_said": "حكيت لي ني؟ ... حكيت، حكيت لي لي؟",
+   "amal_said": "No. Try again. ... حكيت لي.",
+   "chat": null,
+   "wrong": "حكيت لي ني",
+   "right": "حكيت لي",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "D3",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "explicit-no",
+   "confidence": "high",
+   "why": "He tacked -ni onto حكيت لي; she said 'No. Try again' then حكيت لي - with la- 'me' is -li, not -ni.",
+   "english": "You told me?",
+   "ids": [
+    "1005-13",
+    "1005-12"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-012",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "endings on prepositions",
+   "uid": "FA-c10f800a",
+   "n": 1173
+  },
+  {
+   "id": "A11",
+   "t": "17:15",
+   "t_amal": "17:19",
+   "medi_said": "مش لـ-- مش بتحتاج الـ.",
+   "amal_said": "هلأ قصدك إنه أغلب ما بتحتاج ال",
+   "chat": "a8lab el-naas",
+   "wrong": "مش بتحتاج",
+   "right": "ما بتحتاج",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "C4",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "medium",
+   "why": "He negated a verb with مش; she restated it as ما بتحتاج and he then said ما بتحتاج.",
+   "english": "It doesn't need el-.",
+   "ids": [
+    "1005-14",
+    "1005-13"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-013",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "saying no",
+   "uid": "FA-5dc5d196",
+   "n": 1174
+  },
+  {
+   "id": "A12",
+   "t": "17:59",
+   "t_amal": "18:06",
+   "medi_said": "Because it's mostly like أغلب men most-- no?",
+   "amal_said": "لا، it's not the first time we discussed this. We never say أغلب من.",
+   "chat": null,
+   "wrong": "أغلب من",
+   "right": "أغلب + noun (أغلب وقتي)",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A2",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "explicit-no",
+   "confidence": "high",
+   "why": "He built 'most of' with من; she said we never say أغلب من - it goes straight onto the noun.",
+   "english": "most of",
+   "ids": [
+    "1005-15",
+    "1005-14"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-014",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "idafa (possession)",
+   "uid": "FA-10e26bf4",
+   "n": 1175
+  },
+  {
+   "id": "A13",
+   "t": "19:07",
+   "t_amal": "19:20",
+   "medi_said": "so ٱغْلَب most people because it's not ٱلنَّاسُ, so it'd be ٱغْلَب النَّاسِ.",
+   "amal_said": "أغلب after it there's ال. Why did you take it out?",
+   "chat": "a8lab el-naas",
+   "wrong": "أغلب ناس (engine wrote ٱغْلَب النَّاسِ)",
+   "right": "أغلب الناس",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A2",
+   "bucket2": "A2",
+   "mode": "speaking",
+   "signal": "explicit-no",
+   "confidence": "high",
+   "why": "Her 'Why did you take it out?' and his 'because ناس is not definitive' show he said أغلب ناس without el- (engine wrote النَّاسِ); after أغلب the noun takes el-.",
+   "english": "most people",
+   "ids": [
+    "1005-16",
+    "1005-15"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-015",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "idafa (possession)",
+   "uid": "FA-13f6cac9",
+   "n": 1176
+  },
+  {
+   "id": "A14",
+   "t": "20:58",
+   "t_amal": "21:00",
+   "medi_said": "How do you say my clothes? Is it أَوَا...",
+   "amal_said": "أوايي، أوايي.",
+   "chat": "a8lab awa3iyyi la shu8li",
+   "wrong": "my clothes",
+   "right": "أواعي",
+   "kind": "vocab-A",
+   "tier": 0,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "asked",
+   "confidence": "high",
+   "why": "He asked how to say my clothes; she supplied أوايي (awa3iyyi).",
+   "english": "my clothes",
+   "ids": [
+    "1005-17",
+    "1005-16"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-016",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "uid": "FA-58910c1d",
+   "n": 1177
+  },
+  {
+   "id": "A15",
+   "t": "24:18",
+   "t_amal": "24:35",
+   "medi_said": "بَعِيدٍ النَّفْسِ?",
+   "amal_said": "نفس never takes ال before it. Al-always after it.",
+   "chat": null,
+   "wrong": "بَعِيدٍ النَّفْسِ",
+   "right": "نفس + الـnoun",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A2",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "named-rule",
+   "confidence": "medium",
+   "why": "He put النفس after the noun; she named the rule: نفس comes first and the ال goes on the noun after it.",
+   "english": "the same distance",
+   "ids": [
+    "1005-18",
+    "1005-17"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-017",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "idafa (possession)",
+   "uid": "FA-a2267598",
+   "n": 1178
+  },
+  {
+   "id": "1005-19",
+   "t": "25:00",
+   "t_amal": "25:05",
+   "medi_said": "مش، مش إشي. مش--",
+   "amal_said": "Still nothing؟ ما في إشي؟",
+   "chat": null,
+   "wrong": "مش إشي",
+   "right": "ما في إشي",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "C4",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "medium",
+   "why": "For 'there is nothing (in common)' he negated with مش; she recast ما في إشي and he repeated it at 25:07.",
+   "english": "There is nothing (the same between Palestine and Iran)",
+   "ids": [
+    "1005-19"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "Voiced recast, he took it.",
+   "fid": "1005-018",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "saying no",
+   "uid": "FA-01a39508",
+   "n": 1179
+  },
+  {
+   "id": "A16",
+   "t": "26:43",
+   "t_amal": "26:57",
+   "medi_said": "So, uh, أشخاص النفس.",
+   "amal_said": "صح. نفس never takes ال before it always after and it's before the noun.",
+   "chat": "e7na bnekrah nafs el-ash5aas",
+   "wrong": "أشخاص النفس",
+   "right": "نفس الأشخاص",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A2",
+   "bucket2": "C9",
+   "mode": "speaking",
+   "signal": "named-rule",
+   "confidence": "high",
+   "why": "He said أشخاص النفس; she named the rule (نفس before the noun, ال after) and he fixed to نفس الأشخاص.",
+   "english": "the same people",
+   "ids": [
+    "1005-20",
+    "1005-18"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-019",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "idafa (possession)",
+   "uid": "FA-9fc71cb0",
+   "n": 1180
+  },
+  {
+   "id": "A17",
+   "t": "29:20",
+   "t_amal": "29:24",
+   "medi_said": "أغلب الـ آخر الأسبوع.",
+   "amal_said": "Why ال آخر؟ ... أغلب آخر الأسبوع.",
+   "chat": "a8lab aa5er el-usboo3 ru7na 3ala el-shatt",
+   "wrong": "أغلب الـ آخر الأسبوع",
+   "right": "أغلب آخر الأسبوع",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A5",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "named-rule",
+   "confidence": "high",
+   "why": "In a chain only the last noun takes ال; she asked why ال آخر and explained the idafa rule.",
+   "english": "most of the weekend",
+   "ids": [
+    "1005-21",
+    "1005-19"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-020",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "chain possession",
+   "uid": "FA-4419e330",
+   "n": 1181
+  },
+  {
+   "id": "A18",
+   "t": "30:32",
+   "t_amal": "30:39",
+   "medi_said": "أغلب أسبوع الأخر. That sounds so awkward.",
+   "amal_said": "أغلب آخر الأسبوع.",
+   "chat": "a8lab aa5er el-usboo3",
+   "wrong": "أغلب أسبوع الأخر",
+   "right": "أغلب آخر الأسبوع",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A5",
+   "bucket2": "C9",
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "high",
+   "why": "He flipped the chain; she recast أغلب آخر الأسبوع and he repeated it.",
+   "english": "most of the weekend",
+   "ids": [
+    "1005-22",
+    "1005-20"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-021",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "chain possession",
+   "uid": "FA-770718d7",
+   "n": 1182
+  },
+  {
+   "id": "1005-23",
+   "t": "31:01",
+   "t_amal": null,
+   "medi_said": "روحنا على، على الشاطئ.",
+   "amal_said": "The beach.",
+   "chat": "a8lab aa5er el-usboo3 ru7na 3ala el-shatt",
+   "wrong": "الشاطئ",
+   "right": "الشط",
+   "kind": "vocab-B",
+   "tier": 1,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "none",
+   "confidence": "low",
+   "why": "He used MSA الشاطئ; her sheet has 'beach | Sha66 | شط'; 'The beach.' only translates, no voiced fix here (she says بالشط later at 32:37, filed under A19). Different lexical item, so tier 1.",
+   "english": "We went to the beach",
+   "ids": [
+    "1005-23"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "Real let-pass; tier 1 since شاطئ and شط are different words. D7 is the same slip.",
+   "fid": "1005-022",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "uid": "FA-d67ee272",
+   "n": 1183
+  },
+  {
+   "id": "A19",
+   "t": "32:29",
+   "t_amal": "32:37",
+   "medi_said": "انبسطنا الشاطئ.",
+   "amal_said": "بلشات. أو فيلشات.",
+   "chat": "enbasa6na bilshatt",
+   "wrong": "انبسطنا الشاطئ",
+   "right": "انبسطنا بالشط",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "D2",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "high",
+   "why": "انبسط takes بـ; she recast بالشط and he said 'I forgot about انبسط' and repeated بالشاطئ.",
+   "english": "We enjoyed the beach.",
+   "ids": [
+    "1005-24",
+    "1005-22"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-023",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "verb + its fixed preposition",
+   "uid": "FA-0572b949",
+   "n": 1184
+  },
+  {
+   "id": "A20",
+   "t": "35:35",
+   "t_amal": "35:41",
+   "medi_said": "البدلة الأولى.",
+   "amal_said": "شو الأول؟ What's feminine of أول؟",
+   "chat": "7abaiti el-badle el-oola",
+   "wrong": "البدلة الأولى",
+   "right": "البدلة الأولى (أولى)",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A8",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "high",
+   "why": "Engine wrote الأولى but she echoed الأول and asked for the feminine - he said البدلة الأول; he then said أولى.",
+   "english": "the first suit",
+   "ids": [
+    "1005-25",
+    "1005-23"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-024",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "gender on adjectives",
+   "uid": "FA-b21bb2c9",
+   "n": 1185
+  },
+  {
+   "id": "A21",
+   "t": "37:28",
+   "t_amal": "37:30",
+   "medi_said": "كانت أكثر إشي.",
+   "amal_said": "Best. La, shu ya3ni best? Better.",
+   "chat": "aa5er libse kaanat a7san wa7de",
+   "wrong": "أكثر",
+   "right": "أحسن",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "high",
+   "why": "He used أكثر (most) for 'best'; she pushed with best/better and he said أحسن.",
+   "english": "the best",
+   "ids": [
+    "1005-26",
+    "1005-24"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-025",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "uid": "FA-c0e4d09d",
+   "n": 1186
+  },
+  {
+   "id": "A22",
+   "t": "37:34",
+   "t_amal": "37:35",
+   "medi_said": "آه، أحسن إشي.",
+   "amal_said": "Ahsan. One. Now, what does one mean?",
+   "chat": "aa5er libse kaanat a7san wa7de",
+   "wrong": "إشي",
+   "right": "واحدة",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "medium",
+   "why": "He said إشي (thing) for 'one'; she prompted 'One?' and he said واحدة (chat a7san wa7de).",
+   "english": "the best one",
+   "ids": [
+    "1005-27",
+    "1005-25"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-026",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "uid": "FA-310fd0ae",
+   "n": 1187
+  },
+  {
+   "id": "A23",
+   "t": "39:22",
+   "t_amal": "39:50",
+   "medi_said": "كندارة الأخيرة?",
+   "amal_said": "Bas that would mean nothing... It's not idafa here, it's just adjective. ... You're missing an L.",
+   "chat": "el-kundara el-a5ira kaanat bish3a",
+   "wrong": "كندارة الأخيرة",
+   "right": "الكندرة الأخيرة",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A7",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "high",
+   "why": "Noun + adjective needs ال on both; she said he was missing an ال and he fixed to الكندارة الأخيرة.",
+   "english": "the last shoes",
+   "ids": [
+    "1005-28",
+    "1005-26"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-027",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "noun + adjective",
+   "uid": "FA-89dd7735",
+   "n": 1188
+  },
+  {
+   "id": "A24",
+   "t": "44:00",
+   "t_amal": "44:03",
+   "medi_said": "So أول اليوم.",
+   "amal_said": "اليومي.",
+   "chat": "awal yoami kaan sayyi2",
+   "wrong": "أول اليوم",
+   "right": "أول يومي",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A4",
+   "bucket2": "A2",
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "high",
+   "why": "'The beginning of my day' needs the possessive ending; she prompted يومي and he said أول يومي.",
+   "english": "the beginning of my day",
+   "ids": [
+    "1005-29",
+    "1005-27"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-028",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "possessive endings",
+   "uid": "FA-2625734d",
+   "n": 1189
+  },
+  {
+   "id": "A25",
+   "t": "46:45",
+   "t_amal": "46:47",
+   "medi_said": "So يومي الأول.",
+   "amal_said": "No, that's my first day. I want you to say the beginning of my day.",
+   "chat": "awal yoami kaan sayyi2",
+   "wrong": "يومي الأول",
+   "right": "أول يومي",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A2",
+   "bucket2": "A2",
+   "mode": "speaking",
+   "signal": "explicit-no",
+   "confidence": "medium",
+   "why": "He used the adjective structure (my first day) for 'beginning of my day'; she said no and he said أول يومي.",
+   "english": "the beginning of my day",
+   "ids": [
+    "1005-30",
+    "1005-28"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-029",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "idafa (possession)",
+   "uid": "FA-da7c0a66",
+   "n": 1190
+  },
+  {
+   "id": "A26",
+   "t": "47:55",
+   "t_amal": "47:59",
+   "medi_said": "So كل اليوم.",
+   "amal_said": "My whole day.",
+   "chat": "kul yoami kan /beyza33el",
+   "wrong": "كل اليوم",
+   "right": "كل يومي",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A4",
+   "bucket2": "A11",
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "high",
+   "why": "He dropped 'my'; she repeated 'My whole day' and he said كل يومي.",
+   "english": "my whole day",
+   "ids": [
+    "1005-31",
+    "1005-29"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-030",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "possessive endings",
+   "uid": "FA-f04a2c9f",
+   "n": 1191
+  },
+  {
+   "id": "A27",
+   "t": "49:52",
+   "t_amal": "49:56",
+   "medi_said": "كان يزعل.",
+   "amal_said": "بيزهأ.",
+   "chat": "aa5er el-dars kaan be/yzahhe2",
+   "wrong": "يزعل",
+   "right": "بيزهق",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "high",
+   "why": "He said يزعل (saddens) for 'boring'; she recast بيزهق, chat be/yzahhe2.",
+   "english": "The end of the lesson was boring.",
+   "ids": [
+    "1005-32",
+    "1005-31"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-031",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "uid": "FA-973f126e",
+   "n": 1192
+  },
+  {
+   "id": "A28",
+   "t": "51:52",
+   "t_amal": "51:55",
+   "medi_said": "أغلب العربية.",
+   "amal_said": "أغلب either العرب or العربيين.",
+   "chat": "a8lab el-3arabyeen nafs el-ishi",
+   "wrong": "العربية",
+   "right": "العرب / العربيين",
+   "kind": "vocab-A",
+   "tier": 2,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "recast",
+   "confidence": "high",
+   "why": "العربية is the feminine / the language; for 'Arabs' she gave العرب or العربيين.",
+   "english": "most Arabs",
+   "ids": [
+    "1005-33",
+    "1005-32"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-032",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "uid": "FA-0571abfc",
+   "n": 1193
+  },
+  {
+   "id": "1005-33",
+   "t": "53:30",
+   "t_amal": "53:32",
+   "medi_said": "تاني اجتماع ... نفس الـ...",
+   "amal_said": "Was...",
+   "chat": "taani ijtimaa3 kaan nafs awal waa7ad",
+   "wrong": "تاني اجتماع نفس",
+   "right": "تاني اجتماع كان نفس",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "B6",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "high",
+   "why": "Past sentence without كان; she prompted 'Was...' and he said 'Oh، كان' at 53:34. Separate from agreed A32 (56:09, a different sentence).",
+   "english": "The second meeting was the same as the first one",
+   "ids": [
+    "1005-33"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "Clear prompt-then-fix.",
+   "fid": "1005-033",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "kaan = was / were",
+   "uid": "FA-d87c2eb3",
+   "n": 1194
+  },
+  {
+   "id": "A29",
+   "t": "54:04",
+   "t_amal": "54:23",
+   "medi_said": "آآآ، yeah، just نفس أول.",
+   "amal_said": "No، آآ go on. أول شو؟ ... What's one? What's one?",
+   "chat": "taani ijtimaa3 kaan nafs awal waa7ad",
+   "wrong": "نفس أول",
+   "right": "نفس أول واحد",
+   "kind": "grammar-propose",
+   "tier": null,
+   "bucket": "PROPOSE",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "medium",
+   "why": "He stopped at أول with no noun; she asked أول شو / what's one and he added واحد.",
+   "english": "the same as the first one",
+   "proposed_rule": "An ordinal toolbox word (أول / تاني / آخر) needs a noun after it; for 'the first one' say أول واحد: nafs awal waa7ad.",
+   "ids": [
+    "1005-34",
+    "1005-34"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-034",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "uid": "FA-89701583",
+   "n": 1195,
+   "kind_before_proposal": "grammar",
+   "bucket_before_proposal": "PROPOSE",
+   "proposal": "P-FA-89701583"
+  },
+  {
+   "id": "A30",
+   "t": "55:32",
+   "t_amal": "55:34",
+   "medi_said": "Abel ma shufit.",
+   "amal_said": "After",
+   "chat": null,
+   "wrong": "Abel ma",
+   "right": "ba3ed ma",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "high",
+   "why": "He said abel ma (before) for 'after'; she said 'After' in English and he changed to ba'id ma.",
+   "english": "after we saw",
+   "ids": [
+    "1005-35",
+    "1005-35"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-035",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "uid": "FA-a216df38",
+   "n": 1196
+  },
+  {
+   "id": "A31",
+   "t": "55:36",
+   "t_amal": "55:39",
+   "medi_said": "Uh, uh, ba'id ma shufit.",
+   "amal_said": "we saw.",
+   "chat": "ba3ed ma shufna enno tani mat3am kaan nafs el-ishi, rawwa7na",
+   "wrong": "shufit",
+   "right": "shufna",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "B5",
+   "bucket2": "B18",
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "high",
+   "why": "He used the I-form shufit for 'we saw'; she said 'we saw' and he changed to shufna.",
+   "english": "after we saw",
+   "ids": [
+    "1005-36",
+    "1005-36"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-036",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "past tense",
+   "uid": "FA-0601f0e6",
+   "n": 1197
+  },
+  {
+   "id": "A32",
+   "t": "56:09",
+   "t_amal": "56:17",
+   "medi_said": "tani matam nafs il'ishi?",
+   "amal_said": "Was, was.",
+   "chat": "ba3ed ma shufna enno tani mat3am kaan nafs el-ishi, rawwa7na",
+   "wrong": "tani matam nafs il'ishi",
+   "right": "tani mat3am kaan nafs el-ishi",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "B6",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "high",
+   "why": "Past state needs kaan; she said 'Was, was' and he added kan.",
+   "english": "the second restaurant was the same",
+   "ids": [
+    "1005-37",
+    "1005-38"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-037",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "kaan = was / were",
+   "uid": "FA-1eb284ef",
+   "n": 1198
+  },
+  {
+   "id": "1005-38",
+   "t": "59:03",
+   "t_amal": "59:06",
+   "medi_said": "sadiqik.",
+   "amal_said": "Friends.",
+   "chat": "s7aabek el-tanyeen 8eir 3an hadoal",
+   "wrong": "sadiqik",
+   "right": "sahabik (s7aabek)",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A9",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "high",
+   "why": "For 'your other friends' he used a singular noun; she stressed 'Friends.' (plural) and he gave the plural sahabik at 59:09. The fix is number (plural), so A9, not a vocab tier.",
+   "english": "your friends",
+   "ids": [
+    "1005-38",
+    "1005-39"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "The slip is singular for plural; A9 plurals fits better than vocab tier 2.",
+   "fid": "1005-038",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "plurals",
+   "uid": "FA-e2fac85a",
+   "n": 1199
+  },
+  {
+   "id": "1005-40",
+   "t": "59:14",
+   "t_amal": "59:16",
+   "medi_said": "sahabik farq.",
+   "amal_said": "No, no. I want to choose thani. 'Cause thani is the best here.",
+   "chat": "s7aabek el-tanyeen 8eir 3an hadoal",
+   "wrong": "farq",
+   "right": "tani",
+   "kind": "vocab-A",
+   "tier": 1,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "explicit-no",
+   "confidence": "medium",
+   "why": "For 'other' he used farq (difference); she said 'No, no' and gave thani (sheet: 'else/second/other | taani | تاني'); he took it at 59:20. Separate from A34 (1:01:28, farq for 'different').",
+   "english": "your other friends",
+   "ids": [
+    "1005-40"
+   ],
+   "agreed_by": "r3",
+   "r3_why": "Explicit no + her word, he took it.",
+   "fid": "1005-039",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "uid": "FA-9ea3b0b3",
+   "n": 1200
+  },
+  {
+   "id": "A33",
+   "t": "59:28",
+   "t_amal": "1:00:20",
+   "medi_said": "Sahab-- Sahabik tani? No?",
+   "amal_said": "No. ... No, sahabak al-thaniyin.",
+   "chat": "s7aabek el-tanyeen 8eir 3an hadoal",
+   "wrong": "Sahabik tani",
+   "right": "s7aabek el-tanyeen",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A7",
+   "bucket2": "A9",
+   "mode": "speaking",
+   "signal": "explicit-no",
+   "confidence": "high",
+   "why": "A definite noun (with -ik) takes an adjective with ال, plural to match; she said No and gave sahabak al-thaniyin.",
+   "english": "your other friends",
+   "ids": [
+    "1005-39",
+    "1005-41"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-040",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "noun + adjective",
+   "uid": "FA-ec3ba385",
+   "n": 1201
+  },
+  {
+   "id": "A34",
+   "t": "1:01:28",
+   "t_amal": "1:01:31",
+   "medi_said": "So فرق right? فرق.",
+   "amal_said": "What is difference? They are different.",
+   "chat": "s7aabek el-tanyeen 8eir 3an hadoal",
+   "wrong": "فرق",
+   "right": "مختلفين",
+   "kind": "vocab-A",
+   "tier": 2,
+   "bucket": null,
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "high",
+   "why": "He used the noun فرق (difference) for the adjective 'different'; she pointed out it means difference and he said مختلفين.",
+   "english": "They are different.",
+   "ids": [
+    "1005-40",
+    "1005-42"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-041",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "uid": "FA-0ef0c833",
+   "n": 1202
+  },
+  {
+   "id": "A35",
+   "t": "1:03:58",
+   "t_amal": "1:04:15",
+   "medi_said": "your friends which are masculine, so هداك. ... Right? هداك?",
+   "amal_said": "شو؟ ... غير عن. What does this mean?",
+   "chat": "s7aabek el-tanyeen 8eir 3an hadoal",
+   "wrong": "هداك",
+   "right": "هدول",
+   "kind": "grammar",
+   "tier": null,
+   "bucket": "A10",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "prompt-then-fix",
+   "confidence": "high",
+   "why": "'These' (plural) is هدول, not هداك (that, m.); she asked شو and he changed to هدول.",
+   "english": "different from these",
+   "ids": [
+    "1005-41",
+    "1005-43"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-042",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "hada / hadi",
+   "uid": "FA-ddf772d2",
+   "n": 1203
+  },
+  {
+   "id": "A36",
+   "t": "1:05:07",
+   "t_amal": null,
+   "medi_said": "Okay. أشوفك.",
+   "amal_said": "يلا بشوفك.",
+   "chat": null,
+   "wrong": "أشوفك",
+   "right": "بشوفك",
+   "kind": "grammar-B",
+   "tier": null,
+   "bucket": "B1",
+   "bucket2": null,
+   "mode": "speaking",
+   "signal": "none",
+   "confidence": "low",
+   "why": "Plain present takes b- (her بشوفك just before); may be the engine dropping b-.",
+   "english": "See you.",
+   "ids": [
+    "1005-42",
+    "1005-44"
+   ],
+   "agreed_by": "r1+r2",
+   "fid": "1005-043",
+   "passes": [
+    1
+   ],
+   "date": "2026-10-05",
+   "source": "audit-2026-09-26",
+   "machine_had": false,
+   "bucket_name": "present with b-",
+   "uid": "FA-6c26b1ed",
+   "n": 1204
   }
  ],
  "rulings_applied": [
   {
-   "at": "2026-10-03T21:22:50.385325+00:00",
+   "at": "2026-10-06T17:28:37.537336+00:00",
    "rules": [
     1928,
     1929,
@@ -68075,96 +70496,12 @@
     2047,
     2048,
     2049,
-    2050
-   ]
-  },
-  {
-   "at": "2026-10-03T07:15:04.654056+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-03T13:15:04.410926+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-03T14:15:05.307186+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-03T15:15:05.106869+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-03T16:15:04.798515+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-03T17:15:05.044107+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-03T18:15:05.325094+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-03T19:15:06.416624+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-03T20:15:05.423786+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-03T21:15:05.386045+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-03T22:01:16.737460+00:00",
-   "rules": [
-    1990,
-    2001,
+    2050,
     2098,
     2099,
     2100,
     2101,
-    2102
-   ]
-  },
-  {
-   "at": "2026-10-03T22:15:06.049181+00:00",
-   "rules": [
-    1990,
-    2001,
+    2102,
     2103,
     2104,
     2105,
@@ -68174,2086 +70511,7 @@
     2109,
     2110,
     2111,
-    2112
-   ]
-  },
-  {
-   "at": "2026-10-03T22:17:53.813617+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-03T22:31:11.994111+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-03T22:46:11.663691+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-03T23:01:14.094297+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-03T23:57:38.511169+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T00:15:06.646382+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T00:18:05.270274+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T00:31:22.921158+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T00:46:10.123277+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T01:01:11.176620+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T01:15:04.732244+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T01:17:04.800462+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T01:31:09.792606+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T01:46:09.982405+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T02:01:11.340614+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T02:15:05.484965+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T02:17:06.887057+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T02:31:10.516495+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T03:01:12.373278+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T03:15:05.105195+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T03:16:52.426590+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T03:31:21.196122+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T03:46:16.074253+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T04:01:13.881370+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T04:15:05.856045+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T04:16:57.362405+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T04:31:12.061510+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T04:46:13.641413+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T05:01:10.169476+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T05:15:05.362006+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T05:16:53.677707+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T05:31:10.113304+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T05:46:10.999990+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T06:01:11.192077+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T06:15:05.543929+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T06:17:29.154725+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T06:31:10.249460+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T06:46:11.167965+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T07:01:11.898573+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T07:15:05.940850+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T07:17:33.994433+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T07:31:29.217219+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T07:46:12.163204+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T08:01:11.519843+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T08:15:05.849306+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T08:16:05.084258+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T08:31:12.040498+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T08:46:11.471911+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T09:01:11.502448+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T09:15:05.857417+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T09:16:05.597932+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T09:31:13.477213+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T09:46:11.789884+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T10:01:12.701442+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T10:15:06.142623+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T10:16:14.696063+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T10:31:12.644830+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T10:46:12.440451+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T11:01:12.284990+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T11:15:05.771384+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T11:16:04.619708+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T11:31:12.103122+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T11:46:12.250330+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T12:01:12.014026+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T12:15:05.731040+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T12:16:06.514342+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T12:31:11.270424+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T12:46:12.424565+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T13:01:13.116942+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T13:15:05.603131+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T13:16:05.886391+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T13:31:11.631303+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T13:46:13.177960+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T14:01:14.113655+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T14:15:05.983003+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T14:16:07.151408+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T14:31:11.719294+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T14:46:12.784551+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T15:01:12.023868+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T15:15:06.838837+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T15:16:07.101184+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T15:31:11.536917+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T15:46:12.149937+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T16:01:12.051441+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T16:15:06.524689+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T16:16:10.423850+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T16:31:11.515895+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T16:46:12.174828+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T17:01:15.576344+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T17:15:05.939954+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T17:16:06.321098+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T17:31:11.706335+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T17:46:11.454064+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T18:01:14.913215+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T18:15:05.496516+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T18:16:08.625459+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T18:31:13.695168+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T18:46:14.019506+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T19:01:12.310421+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T19:15:07.477947+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T19:16:06.675243+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T19:31:11.892480+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T19:46:12.308453+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T20:01:12.341493+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T20:15:06.269719+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T20:16:05.637871+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T20:31:12.016642+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T20:46:12.247320+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T21:01:12.721497+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T21:15:06.849134+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T21:16:09.208127+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T21:31:12.384174+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T21:46:12.552987+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T22:01:12.753518+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T22:15:05.133280+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T22:15:59.718445+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T22:31:10.772686+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T22:46:10.824374+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T23:01:11.174575+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T23:15:05.429053+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T23:15:57.733087+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T23:31:11.107638+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-04T23:46:11.471888+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T00:01:11.654057+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T00:15:05.558530+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T00:15:59.824940+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T00:31:10.906687+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T00:46:11.878513+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T01:01:10.973701+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T01:15:05.363983+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T01:15:59.923173+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T01:31:11.308186+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T01:46:11.394636+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T02:01:11.907599+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T02:15:05.465991+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T02:16:00.863437+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T02:31:11.260997+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T02:46:11.881590+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T03:01:12.054223+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T03:15:06.420392+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T03:15:56.661407+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T03:31:10.547628+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T03:46:11.431662+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T04:01:11.826296+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T04:15:06.086886+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T04:16:00.918942+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T04:31:11.038471+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T04:46:11.971314+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T05:01:11.848622+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T05:15:05.716682+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T05:15:59.820146+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T05:31:11.738666+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T05:46:12.351017+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T06:01:11.822241+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T06:15:05.809212+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T06:16:01.528002+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T06:31:12.571455+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T06:46:13.597225+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T07:01:12.971193+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T07:15:05.898284+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T07:16:00.264354+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T07:31:11.174197+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T07:46:12.407708+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T08:01:14.762583+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T08:15:05.859499+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T08:16:02.909051+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T08:31:14.811016+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T08:46:12.344752+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T09:01:11.224036+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T09:15:05.492276+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T09:16:01.068207+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T09:31:11.569860+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T09:46:11.781984+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T10:01:12.419943+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T10:15:05.454459+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T10:15:59.373330+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T10:31:10.840712+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T10:46:11.741855+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T11:01:12.514126+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T11:15:05.592462+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T11:16:00.246027+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T11:31:11.931953+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T11:46:12.028141+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T12:01:11.165675+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T12:15:06.631974+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T12:16:01.287619+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T12:31:10.437423+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T12:46:12.144098+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T13:01:10.735139+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T13:15:05.847970+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T13:16:00.319623+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T13:31:11.233394+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T13:46:11.697650+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T14:01:11.297100+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T14:15:05.792074+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T14:16:01.873554+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T14:31:11.534565+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T14:46:11.793670+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T15:01:10.515739+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T15:15:05.938068+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T15:16:04.019160+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T15:31:10.496373+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T15:46:10.976371+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T16:01:11.337355+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T16:15:05.981250+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T16:16:02.718235+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T16:31:11.473620+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T16:46:12.563485+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T17:01:12.953663+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T17:15:05.196758+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T17:15:56.968674+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T17:31:13.343857+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T17:46:22.554031+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T18:01:15.141712+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T18:15:07.251055+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T18:16:04.803606+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T18:31:11.316068+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T18:46:13.425265+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T19:01:10.779026+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T19:15:05.901178+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T19:15:58.891007+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T19:31:10.326710+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T19:46:10.780817+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T20:01:09.984946+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T20:15:08.000484+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T20:16:08.376678+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T20:31:11.865694+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T20:46:12.312196+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T21:01:11.868612+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T21:15:06.552200+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T21:16:12.701275+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T21:31:11.111333+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T21:46:11.665849+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T22:01:11.209854+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T22:15:05.765298+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T22:15:59.274579+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T22:31:11.662164+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T22:46:12.800241+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T23:01:24.783841+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T23:15:06.483498+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T23:16:10.683626+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T23:31:11.309321+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-05T23:46:10.590378+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T00:01:10.724974+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T00:15:08.542520+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T00:16:02.749584+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T00:31:10.751989+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T00:46:12.039328+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T01:01:11.238077+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T01:15:05.443197+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T01:16:01.792890+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T01:31:11.038950+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T01:46:16.114045+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T02:01:12.193435+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T02:15:06.829343+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T02:16:11.657835+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T02:46:13.203588+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T03:01:11.189150+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T03:15:06.378200+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T03:15:58.525974+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T03:31:11.379240+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T03:46:11.093491+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T04:01:10.991068+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T04:15:06.471222+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T04:16:09.181535+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T04:31:12.159048+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T04:46:11.894946+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T05:01:11.726475+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T05:15:06.144681+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T05:16:06.389341+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T05:31:12.028644+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T05:46:14.259537+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T06:01:11.983903+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T06:15:06.754796+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T06:16:07.883856+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T06:31:12.033612+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T06:46:14.057741+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T07:01:13.070947+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T07:15:05.605021+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T07:16:04.078588+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T07:31:11.674943+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T07:46:11.020872+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T08:01:10.473690+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T08:15:05.129338+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T08:15:57.798960+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T08:31:10.687851+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T08:46:10.401068+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T09:01:10.499198+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T09:15:06.919128+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T09:15:58.036923+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T09:31:10.463699+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T09:46:10.551955+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T10:01:10.462682+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T10:15:05.508450+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T10:15:58.573804+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T10:31:10.366614+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T10:46:12.293073+00:00",
-   "rules": [
-    1990,
-    2001,
+    2112,
     2418,
     2419,
     2420,
@@ -70263,230 +70521,6 @@
     2427,
     2428,
     2429
-   ]
-  },
-  {
-   "at": "2026-10-06T11:01:10.484898+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T11:15:05.061637+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T11:15:55.230997+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T11:31:10.419328+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T11:46:11.207713+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T12:01:10.494729+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T12:15:04.567994+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T12:15:55.415264+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T12:31:10.591184+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T12:46:11.033053+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T13:01:11.176350+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T13:15:05.436240+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T13:15:58.548371+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T13:31:10.401416+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T13:46:11.351766+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T14:01:10.966494+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T14:15:05.912328+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T14:15:59.437221+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T14:31:10.597910+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T14:46:11.643361+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T15:01:10.712599+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T15:15:06.134485+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T15:16:03.239719+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T15:31:10.893143+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T15:46:12.191796+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T16:01:11.545188+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T16:15:05.711986+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T16:16:00.563787+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T16:31:11.488962+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T16:46:14.472615+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T17:01:13.749167+00:00",
-   "rules": [
-    1990,
-    2001
-   ]
-  },
-  {
-   "at": "2026-10-06T17:15:04.868768+00:00",
-   "rules": [
-    1990,
-    2001
    ]
   }
  ]
