@@ -71,7 +71,7 @@
       const row = { token: TOKEN, source: 'grammar_notes', kind: 'note', word_key: 'rule:' + id, payload: { rule: id, text, page: 'amal/grammar-rules.html' } };
       (rows[id] = rows[id] || []).push({ text, at: new Date().toISOString(), waiting: true }); refresh(id);
       ta.value = ''; st.textContent = 'Saving…';
-      try { await post(row); rows[id][rows[id].length - 1].waiting = false; refresh(id); st.textContent = 'Saved. Medi sees it in the app.'; }
+      try { await post(row); rows[id][rows[id].length - 1].waiting = false; refresh(id); st.textContent = 'Saved. The student sees it in the app.'; }
       catch (e) { const q = LS(Q) || []; q.push(row); LS(Q, q); st.textContent = 'No connection: kept on this device, it sends when you are back online.'; }
     });
   }
@@ -110,7 +110,7 @@
     for (const s of notes.sections || []) for (const id of s.rules) {
       const a = art(id); if (!a) continue;
       const also = s.rules.filter(x => x !== id);
-      a.insertAdjacentHTML('beforeend', `<div class="an-doc"><h4>Amal&#39;s notes${also.length ? ' (also on ' + also.map(esc).join(', ') + ')' : ''} · from her Doc, ${esc(notes.source && notes.source.edited ? day(notes.source.edited + 'T12:00') : '')}</h4>${s.html}</div>`);
+      a.insertAdjacentHTML('beforeend', `<div class="an-doc"><h4>The tutor&#39;s notes${also.length ? ' (also on ' + also.map(esc).join(', ') + ')' : ''} · from her Doc, ${esc(notes.source && notes.source.edited ? day(notes.source.edited + 'T12:00') : '')}</h4>${s.html}</div>`);
     }
     // the ask box: where to write, and the materials page
     const ask = SCOPE.querySelector('.ask');
@@ -119,12 +119,12 @@
     const mat = SCOPE === document ? '<a href="materials.html">Your Arabic Materials &rarr;</a>' : '<a href="#materials">Your Arabic Materials &rarr;</a>';
     box.innerHTML = canWrite
       ? `<b>Your notes now live here.</b> Write a note under any rule (✎) or below for anything general. Your notes from your Google Doc are shown under each rule. ${mat}${writer('general', 'A general note (anything not about one rule)')}`
-      : `<b>Your notes from your Google Doc are shown under each rule.</b> ${TOKEN ? 'This link has expired, so new notes cannot be saved; Medi can send a new one.' : 'To write new notes here, open this page from the Grammar rules link Medi sends you.'} ${mat}`;
+      : `<b>Your notes from your Google Doc are shown under each rule.</b> ${TOKEN ? 'This link has expired, so new notes cannot be saved; the student can send a new one.' : 'To write new notes here, open this page from the Grammar rules link the student sends you.'} ${mat}`;
     if (ask) ask.insertAdjacentElement('afterend', box);
     else if (SCOPE.querySelector('[data-general]')) SCOPE.querySelector('[data-general]').appendChild(box);
     if (!canWrite) for (const id of Object.keys(rows)) {
       const a = art(id) || (id === 'general' && box.isConnected ? box : null); if (!a || !rows[id].length) continue;
-      a.insertAdjacentHTML('beforeend', `<div class="an-doc"><h4>Amal&#39;s notes written on this page</h4>${savedHtml(id)}</div>`);
+      a.insertAdjacentHTML('beforeend', `<div class="an-doc"><h4>The tutor&#39;s notes written on this page</h4>${savedHtml(id)}</div>`);
     }
     if (canWrite) {
       SCOPE.querySelectorAll('article[id]').forEach(a => {

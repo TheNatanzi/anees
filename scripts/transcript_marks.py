@@ -377,7 +377,7 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
             caret(i, g.get("wrong"), g.get("right"), chip)
             amal_fix(chip, i, g.get("t_fix"), g.get("signal"), g.get("right"), "grammar " + str(g.get("id")))
     for g in detail.get("grammar_not_counted") or []:
-        grey(g.get("t"), g.get("not_counted_why") or "taken out by Amal's notes", "grammar · " + str(g.get("bucket")), g.get("wrong"))
+        grey(g.get("t"), g.get("not_counted_why") or "taken out by the tutor's notes", "grammar · " + str(g.get("bucket")), g.get("wrong"))
 
     # ---------------- grammar uses: detected uses no counted slip pairs with (grammar_math.pair's ±2 s window)
     for b, us in sorted(uses_by_bucket.items()):
@@ -400,7 +400,7 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
                 folded[(b, u.get("t"), u.get("hit"))] -= 1
                 continue
             if not_taught(b):
-                grey(u["t"], "rule not taught yet (Amal's notes)", "grammar · " + b, u.get("hit"))
+                grey(u["t"], "rule not taught yet (the tutor's notes)", "grammar · " + b, u.get("hit"))
                 continue
             scored_item(u["t"], {"id": nid("r"), "k": "grammar", "s": "correct", "rule": b, "name": buckets[b].get("name"),
                                  "said": u.get("hit"), "src": "use:%s:%s" % (b, u["t"])}, u.get("hit"), "use " + b)

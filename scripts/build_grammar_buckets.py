@@ -21,7 +21,7 @@ def A(id, fam, name, one, ex, why, more, rule=None, taught=None):
 
 # Amal's written notes on the rules ("Mahdi's Grammar Rules notes", her Google Doc, edited 2026-09-27; Medi said
 # "apply" 2026-09-29). Her words and spellings are the rule (RULES.md S1). Lines from her notes end in "(Amal)".
-TAUGHT_NOTE = "Taught in lessons: Amal corrected this %d time(s) out loud (09-24 sweep). No longer a gap rule - scored (Medi 2026-09-25)."
+TAUGHT_NOTE = "Taught in lessons: the tutor corrected this %d time(s) out loud (09-24 sweep). No longer a gap rule - scored (Medi 2026-09-25)."
 
 
 # ---------------- Family A - the noun phrase ----------------
@@ -30,8 +30,8 @@ A("A1", "A", "el- (the)",
   [["bait", "a house"], ["el-bait", "the house"], ["el-tuffaa7 zaaki", "apples are delicious (general)"],
    ["el-shita baared", "winter is cold (general)"]],
   "English has 'a' and 'the'. Arabic only has 'the' - leaving it off is how you say 'a'.",
-  ["\"el\" is used for general nouns: el-tuffaa7 zaaki = apples are delicious; el-shita baared = winter is cold. (Amal)",
-   "Sun and moon letters: no need. Not a priority - do NOT mark it as an error if he doesn't use them correctly. (Amal)",
+  ["\"el\" is used for general nouns: el-tuffaa7 zaaki = apples are delicious; el-shita baared = winter is cold. (Tutor)",
+   "Sun and moon letters: no need. Not a priority - do NOT mark it as an error if he doesn't use them correctly. (Tutor)",
    "So a sun/moon-letter slip (el-shams vs esh-shams) is never scored. Only el- there / not there counts."])
 
 A("A2", "A", "idafa (possession)",
@@ -42,7 +42,7 @@ A("A2", "A", "idafa (possession)",
    "The LAST noun decides whether the whole phrase is definite.",
    "bait m3allem = a teacher's house.  bait el-m3allem = the teacher's house.",
    "If a noun ends with a possessive pronoun it's definite and doesn't take \"el\": bait u5ti = my sister's house; "
-   "bent u5t jaarti = my neighbor's niece. (Amal)"])
+   "bent u5t jaarti = my neighbor's niece. (Tutor)"])
 
 A("A3", "A", "feminine -t in idafa",
   "A feminine first word grows a `-t` before the owner.",
@@ -51,7 +51,7 @@ A("A3", "A", "feminine -t in idafa",
   ["8urfe room -> 8urfet el-noam the bedroom.",
    "madrase school -> madraset el-walad the boy's school.",
    "Only feminine nouns do this. bait Medi stays plain.",
-   "Same as A2: a noun with a possessive ending is definite and takes no \"el\": bent u5t jaarti = my neighbor's niece. (Amal)"])
+   "Same as A2: a noun with a possessive ending is definite and takes no \"el\": bent u5t jaarti = my neighbor's niece. (Tutor)"])
 
 A("A4", "A", "possessive endings",
   "Stick the owner on the end of the word.",
@@ -60,15 +60,15 @@ A("A4", "A", "possessive endings",
   "Instead of 'my name', Arabic says 'name-my' as one word.",
   ["The set: -i my, -ak your (m), -ek your (f), -o his, -ha her, -na our, -kom your (pl), -hom their.",
    "baiti my house, baitha her house, baithom their house.",
-   "Biddi and 3indi conjugate with possessive endings (they are not real verbs): biddo = he wants, 3indna = we have. (Amal)",
+   "Biddi and 3indi conjugate with possessive endings (they are not real verbs): biddo = he wants, 3indna = we have. (Tutor)",
    "After a vowel: -ak -> -k, -ek -> -ki, -o -> long vowel + h: kursik = your (m) chair, awa3iki = your (f) clothes, "
-   "abuh = his father. (Amal)",
-   "Possessive endings also give object pronouns on verbs, except \"me\" is -ni: a3tini = give me, a3tih = give him. (Amal)",
-   "Dual -ain words: eed -> eedayy, eedaik, eedaiki, eedaikom, eedaih, eedaiha, eedaina, eedaihom. (Amal)",
-   "ijer -> ijrayy, ijraik, ijraiki, ijraikom, ijraih, ijraiha, ijraihom, ijraina. (Amal)",
-   "daan/denain -> dinayy, dinaik, dinaiki, dinaikom, dinaih, dinaiha, dinahom, dinaina. (Amal)",
-   "7awalain -> 7awalayy, 7awalaik, 7awalaiki, 7awalaikom, 7awalaih, 7awalaiha, 7awalaihom, 7awalaina. (Amal)",
-   "Not every dual works like this (no \"youmayy\"); the list grows as he learns more. (Amal)"])
+   "abuh = his father. (Tutor)",
+   "Possessive endings also give object pronouns on verbs, except \"me\" is -ni: a3tini = give me, a3tih = give him. (Tutor)",
+   "Dual -ain words: eed -> eedayy, eedaik, eedaiki, eedaikom, eedaih, eedaiha, eedaina, eedaihom. (Tutor)",
+   "ijer -> ijrayy, ijraik, ijraiki, ijraikom, ijraih, ijraiha, ijraihom, ijraina. (Tutor)",
+   "daan/denain -> dinayy, dinaik, dinaiki, dinaikom, dinaih, dinaiha, dinahom, dinaina. (Tutor)",
+   "7awalain -> 7awalayy, 7awalaik, 7awalaiki, 7awalaikom, 7awalaih, 7awalaiha, 7awalaihom, 7awalaina. (Tutor)",
+   "Not every dual works like this (no \"youmayy\"); the list grows as he learns more. (Tutor)"])
 
 A("A5", "A", "chain possession",
   "Stack three or more nouns; only the last can take `el-`.",
@@ -154,10 +154,10 @@ A("B2", "B", "b-drop after modals",
   [["biddi ashrab", "I want to drink - right"], ["biddi bashrab", "wrong"], ["muhem te3raf", "it's important to know"],
    ["3ala el-a8lab niji", "we'll most likely come"]],
   "The first word already carries the tense, so the second verb goes bare.",
-  ["The real rule: if a verb is followed by another verb, the second loses the b. (Amal)",
-   "Also after modal words: biddi, laazem, mumken, jaay 3abali. (Amal)",
+  ["The real rule: if a verb is followed by another verb, the second loses the b. (Tutor)",
+   "Also after modal words: biddi, laazem, mumken, jaay 3abali. (Tutor)",
    "Also after a statement like it's nice / it's important / most likely: muhem te3raf = it's important to know; "
-   "3ala el-a8lab niji = we'll most likely come. (Amal)",
+   "3ala el-a8lab niji = we'll most likely come. (Tutor)",
    "Verb + verb: ba7eb, ba2dar, baballesh, bajarreb + a bare verb.",
    "laazem aru7 I have to go - never laazem baru7.",
    "This is your single most recorded slip."], rule="R1")
@@ -167,11 +167,11 @@ A("B3", "B", "b-drop after time words",
   [["lamma azha2", "when I get bored - right"], ["iza bikoon 3indak", "if you have - b kept after iza"],
    ["enno bashrab", "that I drink - right"]],
   "Same logic as B2 - the linking word carries the tense.",
-  ["Drop after the time words lamma, ra7, ba3ed/2abel ma, and the purpose words la- and 3ashaan. (Amal)",
-   "Iza (if) KEEPS the b. (Amal) Keeping it after iza is never a mistake.",
+  ["Drop after the time words lamma, ra7, ba3ed/2abel ma, and the purpose words la- and 3ashaan. (Tutor)",
+   "Iza (if) KEEPS the b. (Tutor) Keeping it after iza is never a mistake.",
    "KEEP after enno too.",
    "3ashaan aru7 so that I go, enno baru7 that I go.",
-   "After kaan the b- is not scored either way - see B7. (Amal)"], rule="R1")
+   "After kaan the b- is not scored either way - see B7. (Tutor)"], rule="R1")
 
 A("B4", "B", "the drop carries down a chain",
   "Once dropped, it stays dropped across u / aw / wala.",
@@ -179,7 +179,7 @@ A("B4", "B", "the drop carries down a chain",
   "The second and third verbs stay bare as long as the person doing them hasn't changed.",
   ["laazem aru7 u ashuf u arja3 - all three bare.",
    "A new subject ends the chain: laazem aru7 u huwwe biji - biji gets its b- back.",
-   "Amal's rule behind B2-B4: a verb followed by another verb - the second loses the b."])
+   "The tutor's rule behind B2-B4: a verb followed by another verb - the second loses the b."])
 
 A("B4b", "B", "when the b- comes back",
   "The b- returns the moment you leave the want/must clause.",
@@ -195,11 +195,11 @@ A("B5", "B", "past tense",
   [["ana shribet", "I drank"], ["huwwe shirib", "he drank"], ["sherbat", "she drank"]],
   "No b-, no prefix - the past is all endings.",
   ["-et I, -et you (m), -ti you (f), nothing for he, -at she, -na we, -tu you (pl), -u they.",
-   "The \"she\" ending is -et or -at; we're going with -at: sherbat = she drank. (Amal) "
+   "The \"she\" ending is -et or -at; we're going with -at: sherbat = she drank. (Tutor) "
    "Scoring does not change: -et for she is an accent choice, not a mistake.",
    "Refer to the past-tense explanation for the patterns: middle long vowel, end vowel, short verbs, irregulars, "
-   "internal flipping. (Amal)",
-   "Amal's Doc has all 8 persons for each verb - 825 rows."])
+   "internal flipping. (Tutor)",
+   "The tutor's Doc has all 8 persons for each verb - 825 rows."])
 
 A("B6", "B", "kaan = was / were",
   "Arabic has no 'was' in the present, but it does in the past.",
@@ -213,12 +213,12 @@ A("B7", "B", "kaan + verb = used to / was doing",
   [["kunt bashte8el hon", "I used to work here"], ["kunet aqra2", "I was reading"],
    ["kaanat tetbu5", "she was cooking"]],
   "kaan plus a present verb puts it in the past: over and over back then, or going on at that moment.",
-  ["Also means past continuous: kunet aqra2 = I was reading; kaanat tetbu5 = she was cooking. (Amal)",
+  ["Also means past continuous: kunet aqra2 = I was reading; kaanat tetbu5 = she was cooking. (Tutor)",
    "The b- after kaan: some verbs keep it, some drop it. It is NOT a rule - b- kept or dropped after kaan is never "
-   "marked wrong. (Amal)",
+   "marked wrong. (Tutor)",
    "kaan bishrab ahwe kul yom he used to drink coffee every day.",
    "kaan laazem goes with this too: kaan laazem + past = should have; kaan laazem + present = should have OR had to. "
-   "Amal advises using it with the present. Scored under B16. (Amal)",
+   "The tutor advises using it with the present. Scored under B16. (Tutor)",
    TAUGHT_NOTE % 1], taught="lesson")
 
 A("B8", "B", "bakoon / ykoon",
@@ -228,13 +228,13 @@ A("B8", "B", "bakoon / ykoon",
    ["kaan biddi", "I wanted"], ["bikoon m3asseb halla", "he's probably angry now"]],
   "This is the 'being' verb that appears only in certain slots.",
   ["Plain now: drop it - ana ta3baan.",
-   "Habitual with usually / sometimes / every: 3aadatan bikoon mash8ool 3ala el-wa7de = he's usually busy at 1:00. (Amal)",
-   "With biddi / 3indi in the past and future it is REQUIRED: kaan biddi = I wanted; ra7 ykoon 3indi = He will have. (Amal)",
+   "Habitual with usually / sometimes / every: 3aadatan bikoon mash8ool 3ala el-wa7de = he's usually busy at 1:00. (Tutor)",
+   "With biddi / 3indi in the past and future it is REQUIRED: kaan biddi = I wanted; ra7 ykoon 3indi = He will have. (Tutor)",
    "With lamma / iza: lamma ykoon biddak = when you want; iza bikoon 3indak = if you have. Here it is NOT strict - "
-   "leaving it out after lamma / iza is not marked wrong. (Amal)",
+   "leaving it out after lamma / iza is not marked wrong. (Tutor)",
    "Bikoon can also mean \"probably\": bikoon m3asseb halla = he's probably angry now; bitkoon teshte8el = she's "
-   "probably working. (Amal; her Doc's autocorrect wrote \"Bitcoin teshte8el\")",
-   "To check with Amal: she glossed ra7 ykoon 3indi as \"He will have\"; ykoon 3indi reads as \"I will have\"."], rule="R2")
+   "probably working. (Tutor; her Doc's autocorrect wrote \"Bitcoin teshte8el\")",
+   "To check with the tutor: she glossed ra7 ykoon 3indi as \"He will have\"; ykoon 3indi reads as \"I will have\"."], rule="R2")
 
 A("B9", "B", "person on ykoon",
   "The ykoon form must match who you're talking about.",
@@ -250,17 +250,17 @@ A("B10", "B", "commands",
   ["btishrab you drink -> ishrab drink!",
    "Feminine adds -i: ishrabi. Plural adds -u: ishrabu.",
    "Refer to the explanation for all patterns: normal 3+ consonants, middle long vowel, doubled middle and short "
-   "verbs, irregular ta3aal / ta3aali / ta3aalu. (Amal)",
-   "Amal's Doc has 107 rows of these."])
+   "verbs, irregular ta3aal / ta3aali / ta3aalu. (Tutor)",
+   "The tutor's Doc has 107 rows of these."])
 
 A("B11", "B", "negative commands",
   "`ma` in front of the YOU-form. Never `la`.",
   [["ma tishrab", "don't drink"], ["ma tez3ejini", "don't annoy me"]],
   "You don't negate the command form - you negate the 'you do' form.",
-  ["\"la\" is fus7a (MSA); spoken uses only \"ma\". (Amal) So la + verb is a mistake.",
+  ["\"la\" is fus7a (MSA); spoken uses only \"ma\". (Tutor) So la + verb is a mistake.",
    "Not ma ishrab - you need ma tishrab.",
    "Feminine: ma tishrabi. Plural: ma tishrabu.",
-   "Amal drills this heavily - 202 hits across 9 of your lessons.",
+   "The tutor drills this heavily - 202 hits across 9 of your lessons.",
    TAUGHT_NOTE % 9], taught="lesson")
 
 A("B12", "B", "make-X vs get-X",
@@ -285,8 +285,8 @@ A("B14", "B", "3am = right now",
   "English uses -ing for both habits and right-now. Arabic splits them.",
   ["bashrab ahwe = I drink coffee (generally).",
    "3am bashrab ahwe = I'm drinking coffee right now.",
-   "Amal has said this only 3 times in your recorded lessons.",
-   "Not taught yet: part of the future present-progressive lesson. (Amal) Not scored until she teaches it - "
+   "The tutor has said this only 3 times in your recorded lessons.",
+   "Not taught yet: part of the future present-progressive lesson. (Tutor) Not scored until she teaches it - "
    "corrections stay visible but do not count."], taught="not-yet")
 
 A("B15", "B", "participles",
@@ -296,7 +296,7 @@ A("B15", "B", "participles",
   ["raaye7 going, naasi having forgotten, 3aaref knowing, saaken living.",
    "They take gender: raaye7 (m) / raay7a (f).",
    "Only 1 hit in all your lessons - this is your thinnest bucket.",
-   "Not taught yet: also part of the present-progressive lesson. (Amal) Not scored until she teaches it - her "
+   "Not taught yet: also part of the present-progressive lesson. (Tutor) Not scored until she teaches it - her "
    "corrections so far stay visible but do not count (it was scored 2026-09-25 to 2026-09-29)."], taught="not-yet")
 
 A("B16", "B", "kan laazem",
@@ -304,19 +304,19 @@ A("B16", "B", "kan laazem",
   [["kaan laazem ashte8el", "I had to work"], ["ma kaan laazem", "I shouldn't have"]],
   "B6 kaan plus B2 laazem, together - and the b- still drops.",
   ["kaan laazem aru7 I had to go - never kaan laazem baru7.",
-   "kaan laazem + past = should have; kaan laazem + present = should have OR had to. Amal advises using it with the "
-   "present. (Amal, under B7)",
+   "kaan laazem + past = should have; kaan laazem + present = should have OR had to. The tutor advises using it with the "
+   "present. (Tutor, under B7)",
    "Negative flips the meaning to regret: ma kaan laazem a7ki I shouldn't have spoken.",
-   "Amal corrected you on this live on Aug 25."])
+   "The tutor corrected you on this live on Aug 25."])
 
 A("B17", "B", "sarli",
   "'It's been X for me' - duration up to now.",
   [["sarli saa3a hon", "I've been here an hour"], ["2adaish sarlak?", "how long have you been...?"]],
   "Takes the PERSON ending, not a separate subject word.",
   ["sarli me, sarlak you (m), sarlek you (f), sarlo him, sarlha her.",
-   "It's preferred and more natural to put the duration right after sarli. (Amal)",
+   "It's preferred and more natural to put the duration right after sarli. (Tutor)",
    "sarli sitt shhoor bat3allam 3arabi - I've been learning Arabic for six months.",
-   "Fixed 2026-09-29: the old second example (min saarlha?) was wrong - it is 2adaish sarlak. (Amal)"])
+   "Fixed 2026-09-29: the old second example (min saarlha?) was wrong - it is 2adaish sarlak. (Tutor)"])
 
 A("B18", "B", "verb matches its subject",
   "The verb's person, gender and number must match who or what is doing it.",
@@ -375,19 +375,19 @@ A("C4b", "C", "words that drag a ma along",
   [["ana abadan ma baru7", "I never go"], ["abel ma aaji", "before I came"]],
   "Two different -ma's that pull opposite ways on the b-.",
   ["abadan ma baru7 - keeps the b-, because abadan is real negation.",
-   "After abel it's always ma + the present verb with no b-, even when the English is past: abel ma aaji = before I came. (Amal)",
+   "After abel it's always ma + the present verb with no b-, even when the English is past: abel ma aaji = before I came. (Tutor)",
    "abel ma yiju (before they come) - that -ma is part of the conjunction, not negation.",
    "ba3ed-ma teshra7i (after you explain) - same, and the b- drops.",
-   "Other words / prepositions take ma as well; Amal will explain them later. (Amal)"])
+   "Other words / prepositions take ma as well; the tutor will explain them later. (Tutor)"])
 
 A("C5", "C", "u / aw / willa / wala",
   "and, or, or, nor/nothing.",
   [["ahwe u shay", "coffee and tea"], ["ahwe willa shay?", "coffee or tea?"], ["wala shi", "nothing"],
    ["wala ana", "neither do I"]],
   "Small joining words that don't overlap the way English 'or' does.",
-  ["u = and.  aw = or.  willa = another way to say or. (Amal)  wala = nor / not even / none.",
-   "wala 7ada nobody, wala ishi nothing, wala ana neither do I. (Amal)",
-   "The recorded slip is aw vs willa, not aw vs wala. (Amal)"], rule="R8")
+  ["u = and.  aw = or.  willa = another way to say or. (Tutor)  wala = nor / not even / none.",
+   "wala 7ada nobody, wala ishi nothing, wala ana neither do I. (Tutor)",
+   "The recorded slip is aw vs willa, not aw vs wala. (Tutor)"], rule="R8")
 
 A("C6", "C", "iza / lamma",
   "if, when - conditional words. lamma drops the b- on the next verb, iza keeps it.",
@@ -395,10 +395,10 @@ A("C6", "C", "iza / lamma",
    ["lamma ykoon biddak", "when you want"]],
   "lamma drops the b- (B3); iza keeps it. Both bring in bikoon before an adjective or biddi / 3indi (B8).",
   ["lamma = when (it will happen).  iza = if (it might).",
-   "These are conditional words: they need bikoon before the adjective, or before biddi and 3indi, in their sentence. (Amal)",
-   "lamma drops the present marker b-; iza does not. (Amal) lamma aru7 when I go - bare verb.",
-   "Iza (if) KEEPS the b (Amal): iza bteji, never iza teji.",
-   "Scoring: under B8 Amal wrote that bikoon after lamma / iza is not strict, so leaving it out is not counted "
+   "These are conditional words: they need bikoon before the adjective, or before biddi and 3indi, in their sentence. (Tutor)",
+   "lamma drops the present marker b-; iza does not. (Tutor) lamma aru7 when I go - bare verb.",
+   "Iza (if) KEEPS the b (Tutor): iza bteji, never iza teji.",
+   "Scoring: under B8 the tutor wrote that bikoon after lamma / iza is not strict, so leaving it out is not counted "
    "(asked Medi 2026-09-30, since this note says 'require')."])
 
 A("C7", "C", "illi",
@@ -406,9 +406,9 @@ A("C7", "C", "illi",
   [["el-bait illi ishtareto", "the house that I bought"], ["seyyarti illi basoo2ha", "my car that I drive"],
    ["aktar ishi ba7ebbo", "the thing I like the most"], ["fi u8niyye ba3rafha", "there is a song that I know"]],
   "One word covers that / which / who, for everything - but only after a definite word.",
-  ["No el, no illi: if the word before illi is not definite (no el- and no possessive ending), don't add illi. (Amal)",
+  ["No el, no illi: if the word before illi is not definite (no el- and no possessive ending), don't add illi. (Tutor)",
    "aktar ishi ba7ebbo = the thing I like the most; seyyarti illi basoo2ha = my car that I drive; "
-   "fi u8niyye ba3rafha = there is a song that I know. (Amal)",
+   "fi u8niyye ba3rafha = there is a song that I know. (Tutor)",
    "It never changes for gender or number.",
    "The clause after it usually needs the C2 pointer ending - ishtareto not ishtarait."])
 
@@ -417,9 +417,9 @@ A("C8", "C", "question words",
   [["wein raaye7?", "where are you going?"], ["shu hada?", "what's this?"], ["kam dars?", "how many lessons?"]],
   "Arabic doesn't need a 'do' helper - the question word just goes first.",
   ["shu what, wein where, keef how, 2adaish how much, kam how many, lesh why, meen who, aymta when.",
-   "Addaish and kam both mean how much / how many; they're used differently and build the sentence differently. (Amal)",
-   "kam always takes the singular: kam dars = how many lessons. (Amal) See E5.",
-   "kam also means few: 3indi kam ishi = I have a few things. (Amal)"])
+   "Addaish and kam both mean how much / how many; they're used differently and build the sentence differently. (Tutor)",
+   "kam always takes the singular: kam dars = how many lessons. (Tutor) See E5.",
+   "kam also means few: 3indi kam ishi = I have a few things. (Tutor)"])
 
 A("C9", "C", "word order",
   "Normal is verb then object; front the object and C2 kicks in.",
@@ -435,7 +435,7 @@ A("C10", "C", "preposition goes in front",
   "The preposition fuses to the question word and leads the sentence.",
   ["min wein from where, lawein to where, 3an shu about what.",
    "ma3 meen with who, min emta since when, min shu from what.",
-   "Amal taught this out loud on Sep 16: lawein - we add it to the question, always."])
+   "The tutor taught this out loud on Sep 16: lawein - we add it to the question, always."])
 
 A("C11", "C", "noun, not verb, after a preposition",
   "After bi / fi / min use the noun of the action, not a verb.",
@@ -447,8 +447,8 @@ A("C11", "C", "noun, not verb, after a preposition",
 A("C12", "C", "a doing verb says what was done",
   "A verb like 3amal (do / make) names what was done.",
   [["3amalna tamreen kteer", "we did a lot of exercise (not just 3amalna kteer)"]],
-  "English 'we did a lot' is fine; Amal kept asking 'shu 3amalna?' until the thing done was named.",
-  ["08-25 59:04: he said 3amalna kteer, Amal asked shu 3amalna? twice, he said 3amalna tamreen kteer.",
+  "English 'we did a lot' is fine; the tutor kept asking 'shu 3amalna?' until the thing done was named.",
+  ["08-25 59:04: he said 3amalna kteer, the tutor asked shu 3amalna? twice, he said 3amalna tamreen kteer.",
    "Proposed 2026-10-02 from a row once rejected as 'no bucket fits' (FA-0075); approved by Medi 2026-10-02 (GR-18)."])
 
 # ---------------- Family D - partners ----------------
@@ -458,7 +458,7 @@ A("D1", "D", "prepositions",
   "Each one covers 2-4 English prepositions, so you learn them by use, not translation.",
   ["min from, 3ala on/about, fi in, ma3 with, bi by/with, la to/for.",
    "3ala alone covers on, about, against and owing.",
-   "For the fuller explanation, see Amal's Doc \"Arabic Materials\". (Amal)"])
+   "For the fuller explanation, see the tutor's Doc \"Arabic Materials\". (Tutor)"])
 
 A("D2", "D", "verb + its fixed preposition",
   "The verb chooses it. You can't guess from English.",
@@ -481,12 +481,12 @@ A("D3", "D", "endings on prepositions",
   "Stick the person on the end of the preposition. All take endings except bi.",
   [["ma3i", "with me"], ["minnak", "from you"], ["ili", "to me / mine"], ["fiyy", "in me"]],
   "Same idea as A4, but on prepositions instead of nouns.",
-  ["All prepositions take endings except \"bi\". (Amal)",
+  ["All prepositions take endings except \"bi\". (Tutor)",
    "ma3i with me, ma3ak with you, ma3o with him.",
    "minni from me, minnak from you, minno from him.",
    "Some double their letter: min -> minno, not mino.",
-   "la- has its own endings: ili, ilak, ilek, ilkom, ilo, ilha, ilhom, ilna. (Amal)",
-   "fi is like the others with small changes: fiyy, fik, fiki, fikom, fiyyo, fiha, fihom, fina. (Amal)"])
+   "la- has its own endings: ili, ilak, ilek, ilkom, ilo, ilha, ilhom, ilna. (Tutor)",
+   "fi is like the others with small changes: fiyy, fik, fiki, fikom, fiyyo, fiha, fihom, fina. (Tutor)"])
 
 A("D4", "D", "endings on verbs",
   "The object rides on the back of the verb.",
@@ -510,7 +510,7 @@ A("E1", "E", "number + noun",
   [["yomein", "2 days"], ["talat iyyaam", "3 days"], ["5ames da2aaye2", "5 minutes"], ["7da3sh yom", "11 day"]],
   "The rule flips twice as the number gets bigger - this is the part English never prepares you for.",
   ["Exactly 2: no number word, just the -ein ending - yomein, saa3tain.",
-   "3 to 10: the number without its -e / -a ending + the plural noun: 5ames da2aaye2 = 5 minutes. (Amal)",
+   "3 to 10: the number without its -e / -a ending + the plural noun: 5ames da2aaye2 = 5 minutes. (Tutor)",
    "talat iyyaam, 5ams saa3aat.",
    "11 and up: number + SINGULAR noun - 7da3sh yom, 3ishreen saa3a.",
    TAUGHT_NOTE % 3], taught="lesson")
@@ -520,8 +520,8 @@ A("E2", "E", "clock time",
   [["el-saa3a tlaate u noss", "3:30"], ["talaat u tult", "3:20"], ["el-saa3a talaat illa rube3", "2:45"]],
   "You say 'the hour three and a half', not 'three thirty'.",
   ["u noss and a half, u rube3 and a quarter, u tult twenty past, illa rube3 quarter to.",
-   "tult = the twenty-minute mark: talaat u tult = 3:20. (Amal)",
-   "illa also means except. (Amal)",
+   "tult = the twenty-minute mark: talaat u tult = 3:20. (Tutor)",
+   "illa also means except. (Tutor)",
    "u talateen and thirty, for exact minutes."])
 
 A("E3", "E", "time units, two-of and many-of",
@@ -546,7 +546,7 @@ A("E5", "E", "kam + singular",
   "English asks 'how many' with a plural noun. Levantine keeps the noun singular after kam, even though the answer is many.",
   ["kam soora sawwarti? = how many pictures did you take? (not kam suwar)",
    "The answer then follows E1: talat suwar (3-10 plural), 12 soora (11+ singular).",
-   "kam also means few: 3indi kam ishi = I have a few things. (Amal)",
+   "kam also means few: 3indi kam ishi = I have a few things. (Tutor)",
    "Added by Medi 2026-09-24."])
 
 # ---------------- Family F - sound ----------------
@@ -568,10 +568,10 @@ A("F3", "F", "causative verbs: 3 forms",
   "One root, two sides - doing it to someone vs it happening to you - made 3 ways: doubled middle, n-, or t-.",
   [["ba3allem / bat3allam", "I teach / I learn"], ["baz3ej / banze3ej", "I annoy / I get annoyed"],
    ["ba8ayyer / bat8ayyar", "I change (something) / I change"]],
-  "Amal: this card explains causative verbs instead of shadda. The doubled middle letter is one of the three forms.",
+  "Tutor: this card explains causative verbs instead of shadda. The doubled middle letter is one of the three forms.",
   ["Doubled middle, then t- for the 'it happens to me' side: ba3allem teach -> bat3allam learn; "
-   "ba8ayyer change -> bat8ayyar be changed. (Amal)",
-   "n- for the 'it happens to me' side: baz3ej annoy -> banze3ej be annoyed. (Amal)",
+   "ba8ayyer change -> bat8ayyar be changed. (Tutor)",
+   "n- for the 'it happens to me' side: baz3ej annoy -> banze3ej be annoyed. (Tutor)",
    "Replaces the old shadda card (Amal 2026-09-30). make-X / get-X slips are scored under B12; this card is "
    "still not scored on its own (family F)."])
 

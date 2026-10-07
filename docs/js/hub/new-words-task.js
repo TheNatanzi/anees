@@ -23,8 +23,8 @@
   // two Add choices - NEW (Medi learns it as a new word) or OLD (Medi already knows it). Nothing is pre-selected; Medi's
   // own mark only shows as a hint on the card. newword_add (before 2026-10-02) stays readable.
   const CHOICES = [
-    ['newword_add_new', 'Add to the Doc as NEW', 'a new word for Medi to learn', 'primary'],
-    ['newword_add_old', 'Add to the Doc as OLD', 'Medi already knows it', 'primary'],
+    ['newword_add_new', 'Add to the Doc as NEW', 'a new word for the student to learn', 'primary'],
+    ['newword_add_old', 'Add to the Doc as OLD', 'The student already knows it', 'primary'],
     ['newword_later', 'Save it for a future lesson', 'it waits for a later lesson', ''],
     ['newword_forget', 'Forget it', 'not needed - the app stops asking', 'drop'],
   ];
@@ -115,9 +115,9 @@
       const big = it.arabizi ? `<div class="hb-big">${esc(it.arabizi)}</div>${it.arabic ? `<div class="hb-ar" lang="ar">${esc(it.arabic)}</div>` : ''}`
                              : `<div class="hb-big hb-ar" lang="ar" style="color:var(--ab-text);font-size:24px">${esc(it.arabic)}</div>`;
       return `<div class="hb-moment" data-nw="${esc(it.id)}">
-        <p class="hb-prog">${it.source === 'glue' ? 'Small linking word Medi uses a lot (WS-19)' : `${esc(pretty(it.date))} lesson · ${esc(it.mmss || '')}${it.source === 'taught' ? ' · you taught this word' : ''}${alsoOf(it)}`}</p>${big}
+        <p class="hb-prog">${it.source === 'glue' ? 'Small linking word the student uses a lot (WS-19)' : `${esc(pretty(it.date))} lesson · ${esc(it.mmss || '')}${it.source === 'taught' ? ' · you taught this word' : ''}${alsoOf(it)}`}</p>${big}
         ${it.english ? `<div class="hb-en">${esc(it.english)}</div>` : ''}
-        ${it.hint ? `<div class="hb-why" data-hint="old"><b>Note from Medi:</b> ${esc(it.hint)}</div>` : ''}
+        ${it.hint ? `<div class="hb-why" data-hint="old"><b>Note from the student:</b> ${esc(it.hint)}</div>` : ''}
         ${it.line ? `<div class="hb-why">You ${it.typed ? 'typed' : 'said'}: <span lang="${it.typed ? 'en' : 'ar'}">${esc(it.line)}</span></div>` : ''}
         <div data-bar></div>
         ${a ? `<p class="hb-sub" style="color:var(--vp-sage,#2E6A4E);font-weight:600;margin:6px 0 0">✓ ${esc(SAID[a.kind] || '')}${pending ? ' · saving…' : ''}</p>`
@@ -134,7 +134,7 @@
       const parts = split(open, D);
       const ageOf = it => AGE[(decided(it, answers) || {}).kind] || (P[it.id] && P[it.id].age) || '';
       const c = count(D, answers);
-      el.innerHTML = `<div class="hb-task"><p class="hb-sub">Words you used in our lessons that are not on the vocabulary Doc. For each one: add it to the Doc as a NEW word or an OLD word Medi already knows, save it for a future lesson, or forget it.</p>
+      el.innerHTML = `<div class="hb-task"><p class="hb-sub">Words you used in our lessons that are not on the vocabulary Doc. For each one: add it to the Doc as a NEW word or an OLD word the student already knows, save it for a future lesson, or forget it.</p>
         ${TOKEN ? '' : '<p class="hb-sub">No open review link, so answers cannot be saved right now.</p>'}
         <div data-root>${open.length ? parts.newest.map(card).join('') : '<p class="hb-empty">All new words decided. Shukran!</p>'}</div>
         ${parts.older.length ? `<details class="hb-older" data-older><summary class="hb-prog">From older lessons (${parts.older.length})</summary>${parts.older.map(card).join('')}</details>` : ''}

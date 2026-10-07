@@ -83,7 +83,7 @@ const loadingTurns=()=>turnFail?empty('The turn files could not load. Refresh to
 
 /* ---------- A: lessons per week ---------- */
 function panelA(ls){
- const title='Showing up: lessons per week',sub='One square per lesson day, one bar per week. Band = the 3 to 4 lessons a week you and Amal agreed on.';
+ const title='Showing up: lessons per week',sub='One square per lesson day, one bar per week. Band = the 3 to 4 lessons a week you and the tutor agreed on.';
  if(!ls.length)return panel('a',title,sub,empty('No lessons yet.'));
  const now=new Date(),today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
  const first=monday(ls[0].date),lastW=monday(ls[ls.length-1].date),weeks=[];
@@ -153,7 +153,7 @@ function panelC(ls){
  let quote='';
  if(TURNS){let hit=null;for(const p of TURNS)for(const t of p.medi)if(/o'?clock meetings?|affecting me/i.test(t.text||''))hit={date:p.date,t};
   if(hit){const nextL=ls.filter(l=>l.date>hit.date).slice(0,3).map(l=>{const m=/T(\d\d:\d\d)/.exec(l.start_local||'');return m?m[1]:'—';});
-   quote=`<div class="ov2-quote">"${esc(String(hit.t.text).trim())}"<small>Medi to Amal, ${dm(hit.date)}, minute ${mmss(hit.t.t)}.${nextL.length?` The next ${nextL.length===1?'lesson':nextL.length+' lessons'} started ${nextL.join(', ')}.`:''}</small></div>`;}}
+   quote=`<div class="ov2-quote">"${esc(String(hit.t.text).trim())}"<small>The student to the tutor, ${dm(hit.date)}, minute ${mmss(hit.t.t)}.${nextL.length?` The next ${nextL.length===1?'lesson':nextL.length+' lessons'} started ${nextL.join(', ')}.`:''}</small></div>`;}}
  const Wc=1040,H=300,L=40,R=20,T=18,pw=Wc-L-R,x0=Math.floor((lo-10)/30)*30,x1=Math.ceil((hi+10)/30)*30,xs=m=>L+(m-x0)/(x1-x0)*pw;
  const wv=pts.filter(p=>p.words!==null).map(p=>p.words),wlo=wv.length?Math.max(0,Math.floor((Math.min(...wv)-5)/20)*20):0;
  const r1T=T,r1H=120,ya=v=>r1T+r1H-(v-wlo)/(100-wlo)*r1H;
@@ -216,14 +216,14 @@ function panelE(){
  let s='';[0,25,50,75,100].forEach(v=>{const yy=T+ph-v/100*ph;s+=hline(L,W-R,yy)+tx(L-6,yy+4,v+'%','end');});
  shown.forEach((e,i)=>{
   const x=L+i*(bw+gap),h=e.v/100*ph;
-  s+=`<rect class="ov2-f-seq2" x="${x.toFixed(1)}" y="${T}" width="${bw.toFixed(1)}" height="${ph}" rx="3"><title>Minute ${blk(e.b)}: Amal ${f1(100-e.v)}% of the talking</title></rect>`;
-  s+=`<rect class="${i===0?'ov2-f-accent':'ov2-f-ink'}" x="${x.toFixed(1)}" y="${(T+ph-h).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="3"><title>Minute ${blk(e.b)}: Medi ${f1(e.v)}% of the talking, ${e.reach} lessons</title></rect>`;
+  s+=`<rect class="ov2-f-seq2" x="${x.toFixed(1)}" y="${T}" width="${bw.toFixed(1)}" height="${ph}" rx="3"><title>Minute ${blk(e.b)}: Tutor ${f1(100-e.v)}% of the talking</title></rect>`;
+  s+=`<rect class="${i===0?'ov2-f-accent':'ov2-f-ink'}" x="${x.toFixed(1)}" y="${(T+ph-h).toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="3"><title>Minute ${blk(e.b)}: Student ${f1(e.v)}% of the talking, ${e.reach} lessons</title></rect>`;
   s+=tx(x+bw/2,T+ph-h+14,r0(e.v)+'%','middle','ov2-inbar')+tx(x+bw/2,H-10,'min '+blk(e.b),'middle','vp-lesson-label');
  });
  s+=`<line class="ov2-half" x1="${L}" x2="${W-R}" y1="${T+ph/2}" y2="${T+ph/2}"/>`+tx(W-R,T+ph/2-4,'50 / 50','end');
  const rest=shown.slice(1).map(e=>e.v),amal=shown.reduce((a,e)=>e.v<a.v?e:a);
- const why=`Amal's biggest share: minute ${blk(amal.b)} (she talks ${r0(100-amal.v)}%).${dropped.length?` Left out: minute ${dropped.map(e=>`${blk(e.b)} (${plural(e.reach,'lesson')})`).join(', ')}, reached by fewer than half the lessons.`:''}`;
- return panel('e',title,sub,frame(s,'Medi talk share per ten-minute block',H),{head:big(`${r0(shown[0].v)}%`,`in the first 10 minutes${rest.length?` · ${r0(Math.min(...rest))} to ${r0(Math.max(...rest))}% after that`:''}`),why,src:'turn t and end, talk.window respected'});
+ const why=`The tutor's biggest share: minute ${blk(amal.b)} (she talks ${r0(100-amal.v)}%).${dropped.length?` Left out: minute ${dropped.map(e=>`${blk(e.b)} (${plural(e.reach,'lesson')})`).join(', ')}, reached by fewer than half the lessons.`:''}`;
+ return panel('e',title,sub,frame(s,'Student talk share per ten-minute block',H),{head:big(`${r0(shown[0].v)}%`,`in the first 10 minutes${rest.length?` · ${r0(Math.min(...rest))} to ${r0(Math.max(...rest))}% after that`:''}`),why,src:'turn t and end, talk.window respected'});
 }
 
 /* ---------- F: language mix ---------- */
@@ -242,7 +242,7 @@ function panelF(){
  const byT=new Map();for(const p of P){if(!byT.has(p.type))byT.set(p.type,[]);byT.get(p.type).push(p);}
  const why='English share by lesson type (talk time, pooled): '+[...byT].map(([t,g])=>`${TYPE[t]||t} ${r0(sum(g,p=>p.enSec)/sum(g,p=>p.msec)*100)}% (${plural(g.length,'lesson')})`).join(' · ')+'.';
  const legend=`<div class="ov2-legend"><span><i class="ov2-sq ov2-k-ink"></i>Arabic script</span><span><i class="ov2-sq ov2-k-seq2"></i>Arabic in Latin letters</span><span><i class="ov2-sq ov2-k-warn"></i>English</span></div>`;
- return panel('f',title,sub,frame(s,'Medi turns per lesson by language',h)+legend,{head:big(`${r0(top.enShare)}%`,`of your talk time on ${dm(top.date)} was English turns · ${r0(l3s)}% in the last ${l3.length} lessons`),why,src:'Caveat: English vs Latin-letter Arabic is a stopword heuristic on engine text'});
+ return panel('f',title,sub,frame(s,'Student turns per lesson by language',h)+legend,{head:big(`${r0(top.enShare)}%`,`of your talk time on ${dm(top.date)} was English turns · ${r0(l3s)}% in the last ${l3.length} lessons`),why,src:'Caveat: English vs Latin-letter Arabic is a stopword heuristic on engine text'});
 }
 
 /* ---------- G: longest no-English stretch ---------- */
@@ -263,7 +263,7 @@ function panelG(){
  const meds=P.map(p=>p.medArw).filter(ok),mlo=meds.length?Math.min(...meds):null,mhi=meds.length?Math.max(...meds):null;
  const turnLen=!meds.length?'':mlo===mhi?` Turn length itself is flat: median ${trim0(f1(mlo))} Arabic words per turn in all ${meds.length} lessons, so it is not charted.`:` Turn length: median ${trim0(f1(mlo))} to ${trim0(f1(mhi))} Arabic words per turn across lessons.`;
  const why=`${hitT} of ${plural(P.length,'lesson')} reached the ${STRETCH_TARGET}-minute mark. The record (${dm(rec.date)}) started at minute ${rec.stretch.at===null?'—':mmss(rec.stretch.at)}.${turnLen}`;
- return panel('g',title,sub,frame(s,'Longest stretch without English per lesson, minutes',H),{head:big(`${f1(rec.stretch.s/60)} min`,`on ${dm(rec.date)}${sinceBest?` · best since: ${f1(sinceBest.stretch.s/60)} min (${dm(sinceBest.date)}) · last lesson ${f1(P[P.length-1].stretch.s/60)} min`:''}`),why,src:'Medi turns, kind ≠ English'});
+ return panel('g',title,sub,frame(s,'Longest stretch without English per lesson, minutes',H),{head:big(`${f1(rec.stretch.s/60)} min`,`on ${dm(rec.date)}${sinceBest?` · best since: ${f1(sinceBest.stretch.s/60)} min (${dm(sinceBest.date)}) · last lesson ${f1(P[P.length-1].stretch.s/60)} min`:''}`),why,src:'Student turns, kind ≠ English'});
 }
 
 /* ---------- H: filled pauses by block ---------- */

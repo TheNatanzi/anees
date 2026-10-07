@@ -50,10 +50,10 @@ function build(gc,usage,audit,review,ladder){
  const noScore=rules.filter(r=>r.status==='Unscored'||r.status==='Untested'||r.status==='NotTaught').map(r=>{
   let why,cls;
   if(r.family==='F'){why='A sound, never grammar (rule S4). Pronunciation is scored elsewhere.';cls='sound';}
-  else if(r.status==='NotTaught'){why=`${r.not_taught_why||'Not taught yet.'} No score until Amal teaches it; ${n(r.not_counted_count||0)} of her corrections are shown but not counted.`;cls='nottaught';}
+  else if(r.status==='NotTaught'){why=`${r.not_taught_why||'Not taught yet.'} No score until the tutor teaches it; ${n(r.not_counted_count||0)} of her corrections are shown but not counted.`;cls='nottaught';}
   else if(r.status==='Untested'){why='You never used it in a recorded lesson.';cls='unused';}
-  else if(!r.usage_total&&(r.uses||0)>=10){why=`No detector counts Medi’s right uses, so the ${n(r.uses)} on record are all Amal’s fixes. A % would read 0 for lack of a counter, not skill.`;cls='nodetector';}
-  else {why=`No detector for Medi’s right uses, and only ${n(r.uses)} use${r.uses===1?'':'s'} on record (all fixes).`;cls='few';}
+  else if(!r.usage_total&&(r.uses||0)>=10){why=`No detector counts the student’s right uses, so the ${n(r.uses)} on record are all the tutor’s fixes. A % would read 0 for lack of a counter, not skill.`;cls='nodetector';}
+  else {why=`No detector for the student’s right uses, and only ${n(r.uses)} use${r.uses===1?'':'s'} on record (all fixes).`;cls='few';}
   return {r,why,cls};
  }).sort((a,b)=>(b.r.uses||0)-(a.r.uses||0));
 
@@ -69,7 +69,7 @@ function build(gc,usage,audit,review,ladder){
  const neverDates=[...new Set(cands.filter(c=>c.gap==='never').map(c=>c.date))].sort();
  const latinSeen=cands.filter(c=>c.gap!=='never'&&c.gap!=='hole'&&!isArabic(c.said)),latinCaught=latinSeen.filter(c=>c.machine_audit===true).length;
  const GAPS=[
-  ['latin','His line came out in Latin letters','The transcription engine wrote Medi’s Arabic in English letters. The use counter skips these lines; the slip finder matches few.',`It caught ${n(latinCaught)} of ${n(latinSeen.length)} such lines in the lessons it read.`],
+  ['latin','His line came out in Latin letters','The transcription engine wrote the student’s Arabic in English letters. The use counter skips these lines; the slip finder matches few.',`It caught ${n(latinCaught)} of ${n(latinSeen.length)} such lines in the lessons it read.`],
   ['never','Lesson the machine never read',`No machine pass on ${neverDates.map(pretty).join(', ')||'—'}. An operations gap, not a detector gap.`,''],
   ['recast','She re-said it, the match failed','Her recast came within 25 s but the word shapes did not line up (ة/ه, ق/ء, a dropped ع).',''],
   ['prompt','She nudged first, fixed later','شو؟ / كمان مرة, then the fix a few turns on. The pairing window is too short.',''],
@@ -141,10 +141,10 @@ function ruleLine(id,name,why){const p=el('div','gu-rule');p.innerHTML=`<b>${esc
 // A hand-verified correction (grammar-console.json candidate).
 function corrCard(c,opt={}){
  const r=D.byId.get(c.rule)||{};
- return card('slip',[[opt.tag||'Amal corrected you','bad'],c.signal?[SIG[c.signal]||c.signal]:null,opt.machine!==false?(c.machine_audit?['machine caught it','ok']:['machine missed it','warn']):null],
+ return card('slip',[[opt.tag||'The tutor corrected you','bad'],c.signal?[SIG[c.signal]||c.signal]:null,opt.machine!==false?(c.machine_audit?['machine caught it','ok']:['machine missed it','warn']):null],
   pretty(c.date)+(c.mmss?' · '+c.mmss:''),
   [speech('gu-said',c.said_html,c.said),
-   (c.recast||c.recast_html)?labelled('Amal said'+(c.recast_at?' ('+c.recast_at+')':''),speech('gu-fix',c.recast_html,c.recast)):null,
+   (c.recast||c.recast_html)?labelled('The tutor said'+(c.recast_at?' ('+c.recast_at+')':''),speech('gu-fix',c.recast_html,c.recast)):null,
    c.chat?labelled('Typed in chat',speech('gu-fix',null,c.chat)):null,
    ruleLine(c.rule,r.name||c.ruleName,c.why)],c.clip);
 }
@@ -154,9 +154,9 @@ function useCard(u,rid){
 }
 // A slip Amal let pass (amal-review.json example): no signal, so not a slip yet (S3).
 function noSigCard(e){
- return card('nosig',[['No signal from Amal','warn'],[e.bucket,'']],pretty(e.date)+(e.mmss?' · '+e.mmss:''),
+ return card('nosig',[['No signal from the tutor','warn'],[e.bucket,'']],pretty(e.date)+(e.mmss?' · '+e.mmss:''),
   [speech('gu-said',markIn(e.medi_said,e.wrong,'ab-wrong'),e.medi_said),
-   e.amal_said?labelled('Amal said',speech('gu-fix',null,e.amal_said)):null,
+   e.amal_said?labelled('The tutor said',speech('gu-fix',null,e.amal_said)):null,
    e.right?labelled('The form a reader expected',speech('gu-fix',null,e.right)):null,
    ruleLine(e.bucket,e.bucketName,e.pattern)],e.clip);
 }
@@ -164,7 +164,7 @@ const LAB={understood:['You understood','ok'],breakdown:['You missed it','bad'],
 function hearCard(u){
  const l=LAB[u.label]||[u.label||'—',''];
  return card('hear-'+(u.label||'x'),[l,u.why_unknown?[u.why_unknown]:u.evidence&&u.label==='understood'?[u.evidence]:null],pretty(u.date)+' · '+mmss(u.t),
-  [labelled('Amal said',speech('gu-said',null,u.text)),u.reply&&u.reply.text?labelled('You replied',speech('gu-reply',null,u.reply.text)):null]);
+  [labelled('The tutor said',speech('gu-said',null,u.text)),u.reply&&u.reply.text?labelled('You replied',speech('gu-reply',null,u.reply.text)):null]);
 }
 
 /* ---------- accordions: lazy, PAGE at a time ---------- */
@@ -202,8 +202,8 @@ function g1(d){
  const robot=d.noScore.filter(x=>x.cls!=='unused'),mine=d.noScore.filter(x=>x.cls==='unused');
  const max=Math.max(1,...d.noScore.map(x=>x.r.uses||0));
  const rows=g1rows(robot,max);
- return panel('G1','Rules the app can’t score',`${n((sc.Unscored||0)+(sc.Untested||0)+(sc.NotTaught||0))} of ${n(tot)} rules have no % yet${sc.NotTaught?` (${n(sc.NotTaught)} not taught yet)`:''}. Open one to see every sentence behind it.`,strip+`<div class="gu-list">${rows}</div>`+(mine.length?`<p class="rb-link">${n(mine.length)} of them ${mine.length===1?'is a rule':'are rules'} Medi never used in a recorded lesson. That is about him, not the robot, so ${mine.length===1?'it lives':'they live'} on <a href="progress.html?tab=grammar#gp-sure-wrap">Progress › Grammar</a>.</p>`:''),
-  `${n(d.unscoredFixes)} hand-verified fixes sit on the unscored rules. They count in Medi’s totals, but the rule itself shows no %.`);
+ return panel('G1','Rules the app can’t score',`${n((sc.Unscored||0)+(sc.Untested||0)+(sc.NotTaught||0))} of ${n(tot)} rules have no % yet${sc.NotTaught?` (${n(sc.NotTaught)} not taught yet)`:''}. Open one to see every sentence behind it.`,strip+`<div class="gu-list">${rows}</div>`+(mine.length?`<p class="rb-link">${n(mine.length)} of them ${mine.length===1?'is a rule':'are rules'} the student never used in a recorded lesson. That is about him, not the robot, so ${mine.length===1?'it lives':'they live'} on <a href="progress.html?tab=grammar#gp-sure-wrap">Progress › Grammar</a>.</p>`:''),
+  `${n(d.unscoredFixes)} hand-verified fixes sit on the unscored rules. They count in the student’s totals, but the rule itself shows no %.`);
 }
 function g1rows(list,max){
  return list.map(x=>{const r=x.r;return acc('g1-'+r.id,`${esc(r.id)} ${esc(r.name)}`,`<span class="gu-pill gu-pill-${x.cls}">${r.status}</span> ${esc(x.why)}`,`${n(r.uses||0)} <small>use${r.uses===1?"":"s"}</small>`,
@@ -223,13 +223,13 @@ function g2(d){
  const max=Math.max(1,...d.GAPS.map(g=>g.items.length),d.noSignal.length);
  const rows=d.GAPS.map(g=>acc('g2-'+g.key,esc(g.label),esc(g.sub)+(g.note?` <em>${esc(g.note)}</em>`:''),`${n(g.items.length)} <small>${P(g.items.length,mN)}</small>`,
   g.items.slice().sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:(b.t||0)-(a.t||0)),c=>corrCard(c),{bar:track([[g.items.length,'gu-warnbar']],max)})).join('');
- const nosig=d.noSignal.length?acc('g2-nosig','Amal gave no signal',`A reader saw a slip but she let it pass, so it is not a slip yet (rule S3). ${n(d.reviewPatterns)} patterns wait for her tap.`,`${n(d.noSignal.length)} <small>rows</small>`,
+ const nosig=d.noSignal.length?acc('g2-nosig','The tutor gave no signal',`A reader saw a slip but she let it pass, so it is not a slip yet (rule S3). ${n(d.reviewPatterns)} patterns wait for her tap.`,`${n(d.noSignal.length)} <small>rows</small>`,
   d.noSignal,noSigCard,{bar:track([[d.noSignal.length,'gu-softbar']],max),cls:'gu-acc-soft'}):'';
  const caughtRow=acc('g2-caught','Caught by the machine','For comparison: what it already sees.',`${n(cN)} <small>${P(cN,all)}</small>`,d.caught.slice().sort((a,b)=>a.date<b.date?1:-1),c=>corrCard(c),{bar:track([[cN,'gu-okbar']],max),cls:'gu-acc-ok'});
  const wrong=`<div class="gu-static"><span class="gu-sumlab"><b>Caught, but filed under the wrong rule</b><small>Static: sentences are in data/full-audit-2026-09-26.json, not published.</small></span>${track([[AUDIT.wrongBucket,'gu-warnbar'],[AUDIT.hitsComparable-AUDIT.wrongBucket,'gu-okbar']],AUDIT.hitsComparable)}<span class="gu-v">${n(AUDIT.wrongBucket)} <small>of ${n(AUDIT.hitsComparable)}</small></span></div>`;
  return panel('G2','Slips the machine can’t see',`Of the ${n(all)} slips found by hand, the automatic slip finder caught ${n(cN)}. Each missed slip is listed under the first reason that applies.`,
   `<div class="gu-callout"><b>Today’s grammar numbers are safe.</b> They use the ${n(all)} hand-verified corrections, not the machine. These misses matter for the next lesson, before a hand sweep reads it.</div>`+split+`<div class="gu-list">${rows}${nosig}${caughtRow}</div>`+wrong,
-  `Whole hand audit, incl. vocab and listening rows: the machine caught ${n(AUDIT.caught)} of ${n(AUDIT.rows)} (${P(AUDIT.caught,AUDIT.rows)}). ${n(AUDIT.latinRows)} of ${n(AUDIT.rows)} rows (${P(AUDIT.latinRows,AUDIT.rows)}) had Medi’s line in Latin letters. Source: ${AUDIT.src}.`);
+  `Whole hand audit, incl. vocab and listening rows: the machine caught ${n(AUDIT.caught)} of ${n(AUDIT.rows)} (${P(AUDIT.caught,AUDIT.rows)}). ${n(AUDIT.latinRows)} of ${n(AUDIT.rows)} rows (${P(AUDIT.latinRows,AUDIT.rows)}) had the student’s line in Latin letters. Source: ${AUDIT.src}.`);
 }
 function g3(d){
  const B=d.bands,tot=d.scored.length;
@@ -239,7 +239,7 @@ function g3(d){
  const rows=B.thin.map(x=>{const r=x.r;return acc('g3-'+r.id,`${esc(r.id)} ${esc(r.name)}`,`<span class="gu-dot" style="background:${STATUS_COL[r.status]}"></span>${esc(r.status)} ${r.pct==null?'':r.pct+'%'} · ${n(x.lessons)} lesson${x.lessons===1?'':'s'}${x.added?` · ${n(x.added)} use${x.added===1?'':'s'} added from fixes`:''}`,`${n(r.uses)} <small>use${r.uses===1?"":"s"}</small>`,
   ()=>Promise.resolve((r.candidates||[]).map(c=>({k:'c',c,date:c.date,t:c.t})).concat((r.usage||[]).map(u=>({k:'u',u,date:u.date,t:u.t}))).sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:(b.t||0)-(a.t||0))),
   x2=>x2.k==='c'?corrCard(x2.c):useCard(x2.u,r.id),{bar:track([[r.mistakes||0,'gu-badbar',`${n(r.mistakes)} fixes`],[Math.max(0,(r.uses||0)-(r.mistakes||0)),'gu-okbar',`${n((r.uses||0)-(r.mistakes||0))} not corrected`]],max)});}).join('');
- return panel('G3','Thin evidence per rule',`How much each scored rule’s % rests on. Open a thin one to read every use and fix behind it. Green = not corrected, red = Amal fixed it.`,split+`<div class="gu-list">${rows}</div>`,
+ return panel('G3','Thin evidence per rule',`How much each scored rule’s % rests on. Open a thin one to read every use and fix behind it. Green = not corrected, red = the tutor fixed it.`,split+`<div class="gu-list">${rows}</div>`,
   `Uses are machine-counted; ${n(d.addedAll)} of ${n(d.usesAll)} (${P(d.addedAll,d.usesAll)}) were added back from hand-found fixes on lines the counter could not read. Fixes are hand-verified.`);
 }
 function g4(d){
@@ -247,9 +247,9 @@ function g4(d){
  const split=`<div class="gu-split" role="img" aria-label="${n(d.known.length)} measured, ${n(d.collecting.length)} collecting, ${n(d.never.length)} never heard"><i class="gu-okf" style="width:${Math.max(12,100*d.known.length/tot)}%">${n(d.known.length)} measured</i><i class="gu-midf" style="width:${Math.max(12,100*d.collecting.length/tot)}%">${n(d.collecting.length)} collecting</i><i class="gu-linef" style="width:${Math.max(12,100*d.never.length/tot)}%">${n(d.never.length)} never heard</i></div>`;
  const rows=d.collecting.map(x=>acc('g4-'+x.id,`${esc(x.id)} ${esc(x.name)}`,`collecting, ${n(x.k)} of ${n(F)} scored · ${n(x.h.unknown||0)} unknown`,`${n(x.k)}<small>/${n(F)}</small>`,
   ()=>examples(x.h.examples||[]),hearCard,{bar:track([[x.h.understood||0,'gu-okbar','understood'],[x.h.breakdown||0,'gu-badbar','missed'],[x.h.unknown||0,'gu-softbar','unknown']],F),
-   note:`Up to 6 of Amal’s ${n(x.h.n)} sentences with this rule, misses first (the ladder keeps 6 examples per rule).`,empty:'The example sentences could not be found in the lesson files.'})).join('');
- const neverRow=d.never.length?`<div class="gu-static gu-never"><span class="gu-sumlab"><b>Amal never used these in a scored sentence</b><small>${d.never.map(x=>`<span class="gu-chip" title="${esc(x.name)}">${esc(x.id)} ${esc(x.name)}</span>`).join(' ')}</small></span></div>`:'';
- return panel('G4','Listening side: when Amal uses the rule',`“Hear it” settles at ${n(F)} scored sentences (understood or missed); below that its % is grey and marked early. Unknowns sit out.`,split+`<div class="gu-list">${rows}</div>`+neverRow,
+   note:`Up to 6 of the tutor’s ${n(x.h.n)} sentences with this rule, misses first (the ladder keeps 6 examples per rule).`,empty:'The example sentences could not be found in the lesson files.'})).join('');
+ const neverRow=d.never.length?`<div class="gu-static gu-never"><span class="gu-sumlab"><b>The tutor never used these in a scored sentence</b><small>${d.never.map(x=>`<span class="gu-chip" title="${esc(x.name)}">${esc(x.id)} ${esc(x.name)}</span>`).join(' ')}</small></span></div>`:'';
+ return panel('G4','Listening side: when the tutor uses the rule',`“Hear it” settles at ${n(F)} scored sentences (understood or missed); below that its % is grey and marked early. Unknowns sit out.`,split+`<div class="gu-list">${rows}</div>`+neverRow,
   `${n(d.hearUnknown)} of ${n(d.hearAll)} rule-tagged sentences (${P(d.hearUnknown,d.hearAll)}) are unknown. Why: <a href="progress.html?tab=fluency">Progress › Fluency</a>, “What the ladder can’t tell yet”. Sounds (F) are left out.`);
 }
 async function examples(ids){
@@ -264,15 +264,15 @@ function g5(d){
  const L=[
   {n:latin?latin.items.length:0,unit:'missed slips',what:'Read Latin-letter lines as Arabic',how:`Skeleton-match the lines the engine wrote in English letters. The process audit’s single biggest grammar fix (${n(AUDIT.latinMisses)} misses in the whole audit). Also lets the use counter see those turns.`,who:'Robot'},
   {n:never?never.items.length:0,unit:'missed slips',what:'Run the slip finder on every lesson',how:`${d.neverDates.map(pretty).join(', ')||'—'} were never machine-read. Rule R1.`,who:'Robot'},
-  {n:d.noSignal.length,unit:'rows',what:'Amal answers the pattern cards',how:`${n(d.reviewPatterns)} grammar patterns wait for her tap. Her yes scores every row in a pattern. The audit says she must rule on only ${n(AUDIT.amalPatterns)} (${n(AUDIT.amalRows)} rows); the rest settle from her sheet.`,who:'Amal'},
-  {n:b18.reduce((s,x)=>s+(x.r.mistakes||0),0)+few.reduce((s,x)=>s+(x.r.mistakes||0),0),unit:'fixes get a %',what:`A detector for ${b18.map(x=>x.r.id).join(', ')||'B18'}${few.length?' (and '+few.map(x=>x.r.id).join(', ')+')':''}`,how:`Count Medi’s right uses, so ${n(b18.length+few.length)} unscored rules can show a %. ${b18.map(x=>x.r.id+' alone has '+n(x.r.mistakes)+' fixes').join('; ')}.`,who:'Robot'},
-  {n:AUDIT.rules,unit:'decisions',what:'Medi’s yes / no on the 18 audit rules',how:`R1–R18 in ${AUDIT.src}: each closes one gap (Latin lines, chat pairing, cue list, “no” matching, wrong bucket…).`,who:'Medi'},
-  {n:d.collecting.length,unit:'listening rules',what:'More lessons where Amal uses the rule',how:`Each needs ${n(d.floor)} scored sentences before its grey early “hear it” % settles. Nothing to build; it fills as you talk.`,who:'Time'}
+  {n:d.noSignal.length,unit:'rows',what:'The tutor answers the pattern cards',how:`${n(d.reviewPatterns)} grammar patterns wait for her tap. Her yes scores every row in a pattern. The audit says she must rule on only ${n(AUDIT.amalPatterns)} (${n(AUDIT.amalRows)} rows); the rest settle from her sheet.`,who:'Amal'},
+  {n:b18.reduce((s,x)=>s+(x.r.mistakes||0),0)+few.reduce((s,x)=>s+(x.r.mistakes||0),0),unit:'fixes get a %',what:`A detector for ${b18.map(x=>x.r.id).join(', ')||'B18'}${few.length?' (and '+few.map(x=>x.r.id).join(', ')+')':''}`,how:`Count the student’s right uses, so ${n(b18.length+few.length)} unscored rules can show a %. ${b18.map(x=>x.r.id+' alone has '+n(x.r.mistakes)+' fixes').join('; ')}.`,who:'Robot'},
+  {n:AUDIT.rules,unit:'decisions',what:'The student’s yes / no on the 18 audit rules',how:`R1–R18 in ${AUDIT.src}: each closes one gap (Latin lines, chat pairing, cue list, “no” matching, wrong bucket…).`,who:'Medi'},
+  {n:d.collecting.length,unit:'listening rules',what:'More lessons where the tutor uses the rule',how:`Each needs ${n(d.floor)} scored sentences before its grey early “hear it” % settles. Nothing to build; it fills as you talk.`,who:'Time'}
  ].sort((a,b)=>b.n-a.n);
  const max=Math.max(1,...L.map(x=>x.n));
  return panel('G5','What would shrink the unknowns','Each lever and how much it would unlock. Longest bar first.',
   `<div class="gu-levers">${L.map(x=>`<div class="gu-lever"><div class="gu-lvtop"><span class="gu-who gu-who-${x.who.toLowerCase()}">${esc(x.who)}</span><b>${esc(x.what)}</b></div><div class="gu-lvbar">${track([[x.n,'gu-accbar']],max)}<span class="gu-v">${n(x.n)} <small>${esc(x.unit)}</small></span></div><small>${esc(x.how)}</small></div>`).join('')}</div>`,
-  'The decisions are Medi’s; nothing here changes a score by itself.');
+  'The decisions are the student’s; nothing here changes a score by itself.');
 }
 
 /* ---------- render ---------- */
@@ -286,7 +286,7 @@ function paint(host,keys){
  const tile=(v,l,s)=>`<div class="gu-tile"><b>${v}</b><span>${esc(l)}</span>${s?`<small>${esc(s)}</small>`:''}</div>`;
  const mine=keys.every(k=>MEDI.includes(k)),robot=keys.every(k=>ROBOT.includes(k));
  const intro=mine?`<div class="gu-head"><span class="vp-eyebrow">How sure are these numbers?</span><h2 class="ov-h2">What your grammar numbers rest on</h2><p class="ab-sub">Rules you haven’t used yet, rules whose % rests on thin evidence, and rules whose “hear it” % is still early (grey). Open any row for the exact sentences.</p><p class="rb-link">Rules the robot has no detector for, and the slips its slip finder can’t see, are robot issues, so they live on <a href="ai-reports.html?tab=unknowns#ar-unk-grammar">AI Reports › Robot blind spots</a>.</p></div>`
-  :robot?`<div class="gu-head"><p class="ab-sub">Where the grammar numbers stop because of the robot: rules it has no detector for, slips its slip finder can’t see, and what would fix them. Open any row for the exact sentences.</p><p class="rb-link">Rules Medi hasn’t used yet, thin evidence per rule and rules whose “hear it” % is still early are about him, so they live on <a href="progress.html?tab=grammar#gp-sure-wrap">Progress › Grammar</a>.</p></div>`
+  :robot?`<div class="gu-head"><p class="ab-sub">Where the grammar numbers stop because of the robot: rules it has no detector for, slips its slip finder can’t see, and what would fix them. Open any row for the exact sentences.</p><p class="rb-link">Rules the student hasn’t used yet, thin evidence per rule and rules whose “hear it” % is still early are about him, so they live on <a href="progress.html?tab=grammar#gp-sure-wrap">Progress › Grammar</a>.</p></div>`
   :`<div class="gu-head"><span class="vp-eyebrow">What the robot doesn’t know</span><p class="ab-sub">Where the grammar numbers stop: rules with no %, slips the robot can’t see, thin evidence, and the listening side. Open any row for the exact sentences.</p></div>`;
  const tiles=[has('G1')&&tile(n(d.noScore.length),'rules with no %','G1 · of '+n(d.rules.length)),
   has('G1b')&&tile(n(d.noScore.filter(x=>x.cls==='unused').length),d.noScore.filter(x=>x.cls==='unused').length===1?'rule you haven’t used yet':'rules you haven’t used yet','G1b · of '+n(d.rules.length)),

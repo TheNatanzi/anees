@@ -78,7 +78,7 @@ function item(u){
  const lk=u.lookback?` · <span class="fu-chip">look-back</span>`:'';
  const why=u.label==='unknown'?(WHY[u.why_unknown]||[u.why_unknown||''])[0]:u.label==='understood'?(EV[u.evidence]||u.evidence||''):'missed';
  return `<div class="fu-item"><div class="fu-item-head"><span>${esc(pretty(u.date))} · ${fmtT(u.t)} · ${n(u.n)} word${u.n===1?'':'s'}${lk}</span><span class="fu-chip">${esc(why)}</span><button type="button" class="fu-play" data-play="${esc(u.id)}" aria-label="Play this moment from the lesson recording">▶ play</button></div>
- <div class="fu-who">Amal</div>${speech(u.text,'fu-her')}
+ <div class="fu-who">The tutor</div>${speech(u.text,'fu-her')}
  <div class="fu-who">You</div>${speech(u.reply&&u.reply.text,'fu-you')}</div>`;
 }
 function fill(g,more){
@@ -130,7 +130,7 @@ function actPanel(d){
  const tile=(v,l,s)=>`<div class="fu-tile"><b>${v}</b><span>${esc(l)}</span>${s?`<small>${esc(s)}</small>`:''}</div>`;
  return panel('act','U5','Turning unknowns into answers','What has been settled so far, and the three levers.',
   `<div class="fu-tiles">${tile(n(d.long.length),'unknowns at 3+ words','the ones that could move the ladder')}${tile(n(sw.length),'sentences you have swiped','on this device; your answer replaces the robot’s')}${tile(sw.length?n(res.length)+' of '+n(onUnk.length):'—','unknowns your swipes settled',sw.length?'':'swipe after your next lesson')}${tile(weakSw.length?P(weakWrong,weakSw.length):'—','of “weakest” understood you marked missed',weakSw.length?`${n(weakWrong)} of ${n(weakSw.length)} swipes`:'no swipes on these yet')}</div>
-  <ol class="fu-do"><li><b>You:</b> the 10-card swipe check at the top of this tab aims 3 cards at unknowns. That is the fastest way to shrink this.</li><li><b>Amal:</b> after a bare “aywa”, one quick check question turns an unknown into a real answer. Research on hidden non-understanding suggests exactly this.</li><li><b>The robot:</b> her one-word remarks could be dropped from scoring altogether, since they rarely test you. Decision for Medi.</li></ol>`,'',true);
+  <ol class="fu-do"><li><b>You:</b> the 10-card swipe check at the top of this tab aims 3 cards at unknowns. That is the fastest way to shrink this.</li><li><b>Tutor:</b> after a bare “aywa”, one quick check question turns an unknown into a real answer. Research on hidden non-understanding suggests exactly this.</li><li><b>The robot:</b> her one-word remarks could be dropped from scoring altogether, since they rarely test you. Decision for the student.</li></ol>`,'',true);
 }
 
 /* ---------- entry points ---------- */

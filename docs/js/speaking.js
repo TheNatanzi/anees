@@ -1,7 +1,7 @@
 // The ledger that produces word_stats also supplies filtering, summaries and history.
 (function(root){
   const labels={independent:'Independent success · provisional',helped:'Helped practice · provisional',recall_failure:'Recall failure · provisional',incorrect:'Incorrect attempt · provisional',unresolved:'Unresolved'};
-  function label(e){return e.assessment_status==='human_reviewed'?String(e.assessment).replace('_',' ')+' · Amal reviewed':labels[e.assessment]||'Not assessed';}
+  function label(e){return e.assessment_status==='human_reviewed'?String(e.assessment).replace('_',' ')+' · the tutor reviewed':labels[e.assessment]||'Not assessed';}
   function lessons(events){
     const by=new Map();
     for(const e of events){if(e.speaker!=='Medi')continue;if(!by.has(e.lesson_date))by.set(e.lesson_date,[]);by.get(e.lesson_date).push(e);}

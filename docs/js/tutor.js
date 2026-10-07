@@ -180,7 +180,7 @@
         <p class="hb-prog">${pctTxt(r.pct)} right over ${fmt(r.uses)} uses · ${fmt(r.mistakes)} corrections · ${esc(r.status || '')}</p>
         <h4 class="hb-q">His last moments</h4>${momentsHtml(r.moments, m => (m.said || '') + (m.recast ? ' → ' + m.recast : ''))}</article>`;
       clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
-    }, { noAuto: false, head: `<p class="hb-sub hb-span">Medi's ${D.rules.length} weakest grammar rules, lowest % first (3+ uses). Tap one: his numbers, his last moments, and a note box for you.</p>` });
+    }, { noAuto: false, head: `<p class="hb-sub hb-span">The student's ${D.rules.length} weakest grammar rules, lowest % first (3+ uses). Tap one: his numbers, his last moments, and a note box for you.</p>` });
   }
   async function vocab(id) {
     setTab('vocab'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
@@ -192,7 +192,7 @@
         <p class="hb-prog">${pctTxt(w.pct)} right · ${fmt(w.right)} right, ${fmt(w.partial)} partly, ${fmt(w.wrong)} wrong · ${esc(w.status || '')}</p>
         <h4 class="hb-q">His last moments</h4>${momentsHtml(w.moments, m => `he said «${m.said || '?'}»${m.fix ? ' → ' + m.fix : ''}${m.kind === 'asked' ? ' (asked you for the word)' : ''}`)}</article>`;
       clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
-    }, { search: 'Find a word', head: `<p class="hb-sub hb-span">Medi's ${D.words.length} weakest Doc words, lowest % first (2+ scored uses). Tap one: his numbers, his last moments, and a note box for you.</p>` });
+    }, { search: 'Find a word', head: `<p class="hb-sub hb-span">The student's ${D.words.length} weakest Doc words, lowest % first (2+ scored uses). Tap one: his numbers, his last moments, and a note box for you.</p>` });
   }
   async function decay(id) {
     setTab('decay'); $('#hb-view').innerHTML = '<div class="vp-notice">Loading…</div>';
@@ -206,7 +206,7 @@
         <p class="hb-prog">${row.kind === 'decaying' ? `Last said ${esc(pretty(w.last_date))}, ${w.days_ago} days ago · was ${esc(w.status || '')} (${pctTxt(w.pct)} over ${fmt(w.n)} uses)` : `Never said in a recorded lesson · in the Doc since ${esc(pretty(w.first_seen))}`}</p>
         ${row.kind === 'decaying' ? `<h4 class="hb-q">His last moments</h4>${momentsHtml(w.moments, m => `he said «${m.said || '?'}»${m.fix ? ' → ' + m.fix : ''}`)}` : ''}</article>`;
       clips(p); AneesGrammarNotes.start({ token: notesToken(), base: '', scope: p });
-    }, { search: 'Find a word', noAuto: true, head: `<p class="hb-sub hb-span">Decay: ${fmt(K.decaying.length)} words Medi knew but has not said for ${K.days}+ days (longest first), then ${fmt(K.untested.length)} Doc words never said in a recorded lesson. Tap one for its story and a note box.</p>` });
+    }, { search: 'Find a word', noAuto: true, head: `<p class="hb-sub hb-span">Decay: ${fmt(K.decaying.length)} words the student knew but has not said for ${K.days}+ days (longest first), then ${fmt(K.untested.length)} Doc words never said in a recorded lesson. Tap one for its story and a note box.</p>` });
   }
   async function materials(id) {
     setTab('materials');
@@ -214,14 +214,14 @@
     let M; try { M = await AneesDoc.materials(''); } catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The materials could not load. Refresh to try again.</div>'; return; }
     listPanel('materials', M.sections.map(s => ({ id: s.id, title: s.title, s })), id,
       (row, p) => { p.innerHTML = `<div class="hb-doc">${row.s.html}</div><p class="hb-foot">${esc(M.foot)}</p>`; },
-      { head: `<p class="hb-sub hb-span">${esc(M.intro.replace(/Medi's grammar rules →$/, ''))}</p>` });
+      { head: `<p class="hb-sub hb-span">${esc(M.intro.replace(/(Medi|The student)'s grammar rules →$/, ''))}</p>` });
   }
 
   // ---- Done: accordions -----------------------------------------------------------------------------------------
   // PG-18: what was asked (the moment: time, recording, Medi's line) and the result (her answer, date, what it changed)
   function asked(x) {
-    const moment = x.t || x.medi || x.clip ? `<div class="hb-moment"><p class="hb-prog">${x.t ? 'at ' + esc(x.t) : ''}</p>${x.medi ? `<div>Medi: <span lang="ar">${esc(x.medi)}</span></div>` : ''}${x.amal ? `<div>Amal: <span lang="ar">${esc(x.amal)}</span></div>` : ''}<div data-clip="${esc(x.clip || '')}"></div></div>` : '';
-    const res = x.answer ? `<p class="hb-ansline">Amal: ${esc(x.answer)}${x.at ? ` · ${esc(pretty(x.at))}` : ''}${x.carried ? ' · carried over from her earlier link' : ''}</p>${x.result ? `<p class="hb-result">Result: ${esc(x.result)}</p>` : ''}`
+    const moment = x.t || x.medi || x.clip ? `<div class="hb-moment"><p class="hb-prog">${x.t ? 'at ' + esc(x.t) : ''}</p>${x.medi ? `<div>Student: <span lang="ar">${esc(x.medi)}</span></div>` : ''}${x.amal ? `<div>Tutor: <span lang="ar">${esc(x.amal)}</span></div>` : ''}<div data-clip="${esc(x.clip || '')}"></div></div>` : '';
+    const res = x.answer ? `<p class="hb-ansline">Tutor: ${esc(x.answer)}${x.at ? ` · ${esc(pretty(x.at))}` : ''}${x.carried ? ' · carried over from her earlier link' : ''}</p>${x.result ? `<p class="hb-result">Result: ${esc(x.result)}</p>` : ''}`
                          : `<p class="hb-ansline"><i>${esc(x.result || 'not answered')}</i></p>`;
     return `<li><p class="hb-askq"><b>${esc(x.ask || '')}</b>${x.word ? ` · ${esc(x.word)}` : ''}${x.english ? ` <span>(${esc(x.english)})</span>` : ''}</p>${moment}${res}</li>`;
   }
@@ -354,7 +354,7 @@
       const uploads = U || (UJ && UJ.rows) || [];
       UP = { token: tok, uploads, words: (W && W.items) || [], live };
       const SEL = window.AneesCardSelection, H = window.AneesHomework;
-      const uSets = H.uploadSets(uploads).map(s => ({ id: s.id, title: s.title, n: s.n, group: 'From Amal' }));
+      const uSets = H.uploadSets(uploads).map(s => ({ id: s.id, title: s.title, n: s.n, group: 'From the tutor' }));
       const shakyN = SH && SH.words ? SH.words.length : 0;
       const qz = SEL && QZ ? SEL.mergeSameTitle((QZ.sets || []).filter(s => !SEL.isDated(s.title) && !/audio homework/i.test(s.title || ''))).sets : [];
       const sets = uSets.concat(shakyN ? [{ id: 'shaky', title: 'Shaky words (last 2 lessons)', n: shakyN, group: 'Weak spots' }] : [], qz.map(s => ({ id: 'q:' + s.id, title: s.title, n: s.n || (s.terms || []).length, group: 'Quizlet' })));

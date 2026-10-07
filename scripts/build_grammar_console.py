@@ -461,13 +461,13 @@ payload = {
         # eng audit 2026-09-29: the note named the 09-24 sweep (312 fixes) although the counts come from the full audit
         "note": ("Corrections come from the full audit of 2026-09-26: two independent readers per lesson, a third settling "
                  "disagreements, reconciled with the 2026-09-24 hand sweep (a hand check of 20 scored rows found 17 right). "
-                 "%d fixes Amal voiced or typed, filed in an approved rule, are counted. Uses are machine-counted: every time "
+                 "%d fixes the tutor voiced or typed, filed in an approved rule, are counted. Uses are machine-counted: every time "
                  "his Arabic exercises the rule, right or wrong; a fix with no counted use within 2 s counts as a use too, "
                  "so a rule never has more mistakes than uses. Unscored = no counter sees his right uses of the rule, so "
                  "its fixes are listed but no %% is given. Asks: his own questions about a form (rule M1). Untested = he "
-                 "never used it in any recorded lesson, or it is a sound (F). Not taught yet = Amal has not taught the rule "
+                 "never used it in any recorded lesson, or it is a sound (F). Not taught yet = the tutor has not taught the rule "
                  "(her notes, 2026-09-27): no score, left out of every total. %d corrections are shown but not counted "
-                 "(Amal's notes: not taught yet, or not a mistake - list in data/amal-grammar-notes-2026-09-29.json). "
+                 "(the tutor's notes: not taught yet, or not a mistake - list in data/amal-grammar-notes-2026-09-29.json). "
                  "A score built from a lesson that is not verified yet is marked with ≈ (hover or tap it for why)."
                  % (len(sweep_rows), len(ruled_rows))),
         "not_taught": sorted(AMAL.NOT_TAUGHT),
@@ -497,7 +497,7 @@ json.dump(payload, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=
 
 print("wrote", OUT)
 print("buckets:", len(rows), "scored:", len(scored))
-print("not counted (Amal's notes):", len(ruled_rows))
+print("not counted (the tutor's notes):", len(ruled_rows))
 print("sweep rows counted:", len(sweep_rows), "left out:", len(sweep_left_out),
       "mistakes on page:", sum(r["mistakes"] for r in rows), "clips:", payload["sweep"]["clips"], "marks:", mark_stats)
 for L in lessons:

@@ -22,7 +22,7 @@
     if (!S) { el.innerHTML = '<p class="hb-sub">No proposed rules right now.</p>'; return; }
     el.innerHTML = `<div class="hb-task"><p class="hb-sub">${esc(S.lede)} Tap <b>Yes</b> when the rule is right as written, or write the fix in the note box.</p>
       ${S.rules.map(r => `<div class="hb-doc hb-prop" data-rule="${esc(r.id)}">${r.html}<div class="hb-btns" data-yes-for="${esc(r.id)}"><button type="button" class="hb-ans primary" data-yes="${esc(r.id)}">Yes, this is the rule<small>saves "${esc(YES)}" as your note on ${esc(r.id)}</small></button></div></div>`).join('')}
-      <p class="hb-foot">Saved as you tap · Medi still says yes before anything is scored</p></div>`;
+      <p class="hb-foot">Saved as you tap · the student still says yes before anything is scored</p></div>`;
     await root.AneesGrammarNotes.start({ token: ctx.token || '', base: '', scope: el });
     const notesOf = id => [...el.querySelectorAll(`.an-write[data-rule="${CSS.escape(id)}"] .an-saved li`)].length;
     // AM-17: an answered rule shows her answer + the shared Undo; the Undo hands over to the note's own Undo in

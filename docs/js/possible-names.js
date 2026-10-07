@@ -16,7 +16,7 @@ const LS=(k,v)=>{try{if(v===undefined)return JSON.parse(localStorage.getItem(k)|
 const pretty=d=>{if(!d)return '—';const p=String(d).split('-');return new Date(+p[0],+p[1]-1,+p[2]).toLocaleDateString(undefined,{month:'short',day:'numeric'});};
 const mmss=t=>{t=Math.max(0,Number(t)||0);return Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0');};
 const uuid=()=>(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'nl-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10);
-const SIG={capital:'capitalised mid-sentence',chat_cap:'Amal typed it capitalised',after_fi_min:'after fi / min / 3a / la'};
+const SIG={capital:'capitalised mid-sentence',chat_cap:'The tutor typed it capitalised',after_fi_min:'after fi / min / 3a / la'};
 
 /* ---------- answers: name_labels, offline queue (mirror of fluency-ladder.js sentence_labels) ---------- */
 const QK='anees-name-label-queue',LK='anees-name-label-log',SK='anees-name-label-server';
@@ -78,7 +78,7 @@ function row(it,ans){
  const done=ans&&ans.label;
  const verdict=done?(ans.label==='name'?`Name${ans.kind?' · '+esc(ans.kind):''}`:'Not a name'):'';
  const sig=Object.keys(it.signals||{}).map(k=>SIG[k]||k).join(' · ');
- const ex=(it.examples||[]).map(x=>`<div class="pn-ex"><div class="pn-when">${esc(pretty(x.date))} · ${mmss(x.t)} · ${esc(x.chat?'typed in the Meet chat by '+(x.who||'Amal'):x.who==='?'?'speaker unclear':x.who)}</div><div class="pn-sent" dir="auto">${mark(x.sentence,x.word)}</div></div>`).join('');
+ const ex=(it.examples||[]).map(x=>`<div class="pn-ex"><div class="pn-when">${esc(pretty(x.date))} · ${mmss(x.t)} · ${esc(x.chat?'typed in the Meet chat by '+(x.who==='Medi'?'the student':'the tutor'):x.who==='?'?'speaker unclear':x.who==='Medi'?'Student':x.who==='Amal'?'Tutor':x.who)}</div><div class="pn-sent" dir="auto">${mark(x.sentence,x.word)}</div></div>`).join('');
  return `<details class="pn-acc${done?' pn-done':''}" data-cand="${esc(it.cand)}"><summary><span class="pn-lab"><b dir="auto">${esc(it.text)}</b><small>${n(it.lessons)} lesson${it.lessons===1?'':'s'} · ${n(it.hits)}× · ${esc(sig)}</small></span>`+
   `<span class="pn-btns" role="group" aria-label="Is “${esc(it.text)}” a name?">${done?`<span class="pn-verdict">${verdict}</span>`:''}<button type="button" class="pn-btn pn-yes" data-a="name"${done&&ans.label==='name'?' aria-pressed="true"':''}>Name</button><button type="button" class="pn-btn pn-no" data-a="not_name"${done&&ans.label==='not_name'?' aria-pressed="true"':''}>Not a name</button></span></summary>`+
   `<div class="pn-items"><p class="pn-guess">If it is a name, Anees files it as a <b>${esc(it.kind_guess)}</b>${it.kind_guess==='person'?' (stored only as a fingerprint, never the word itself)':''}.</p>${ex}</div></details>`;
@@ -87,7 +87,7 @@ function paint(){
  if(!host||!DATA)return;
  const ans=answers(),items=DATA.items||[];
  const open=items.filter(it=>!ans.has(it.cand)),done=items.filter(it=>ans.has(it.cand));
- host.innerHTML=`<section class="vp-panel pn-panel" aria-labelledby="pn-h"><div class="vp-panelhead"><div><span class="pn-key">N1</span><h2 id="pn-h">Possible names</h2><p class="ab-sub">Words on no names list and not on Amal’s list that look like a name. One tap each: a name is never scored, never counted as an unknown word, and the transcript engine and readers are told it is a name.</p></div></div>`+
+ host.innerHTML=`<section class="vp-panel pn-panel" aria-labelledby="pn-h"><div class="vp-panelhead"><div><span class="pn-key">N1</span><h2 id="pn-h">Possible names</h2><p class="ab-sub">Words on no names list and not on the tutor’s list that look like a name. One tap each: a name is never scored, never counted as an unknown word, and the transcript engine and readers are told it is a name.</p></div></div>`+
   (items.length?`<div class="pn-count">${n(open.length)} to check${done.length?` · ${n(done.length)} answered`:''}</div>`+open.concat(done).map(it=>row(it,ans.get(it.cand))).join(''):'<div class="vp-empty">No possible names right now.</div>')+
   `<p class="pn-foot"><span class="pn-sync" aria-live="polite"></span> Found by <code>scripts/names.py possible</code> · built ${esc(String(DATA.generated||'').replace('T',' '))}.</p></section>`;
  status();

@@ -40,15 +40,15 @@
     return `<article class="tu-card tv-card${a ? ' tv-done' : ''}" id="tv-${esc(x.id)}">
       <div class="tu-top"><h3 class="tu-title tv-title">${esc(x.date)} · ${esc(x.t || x.t_amal || '')}</h3><span class="tu-who">${what}</span></div>
       <div class="tv-pair"><span class="tv-ar tv-wrong" lang="ar">${esc(x.wrong)}</span><span class="tv-arrow">→</span><span class="tv-ar tv-right" lang="ar">${esc(x.right)}</span></div>
-      <p class="tu-meta">Medi: <span lang="ar" class="tv-line">${esc(x.medi_said)}</span></p>
-      ${x.amal_said ? `<p class="tu-meta">Amal: <span lang="ar" class="tv-line">${esc(x.amal_said)}</span></p>` : ''}
-      ${x.chat ? `<p class="tu-meta">Amal typed: <span lang="ar" class="tv-line">${esc(x.chat)}</span></p>` : ''}
+      <p class="tu-meta">Student: <span lang="ar" class="tv-line">${esc(x.medi_said)}</span></p>
+      ${x.amal_said ? `<p class="tu-meta">Tutor: <span lang="ar" class="tv-line">${esc(x.amal_said)}</span></p>` : ''}
+      ${x.chat ? `<p class="tu-meta">The tutor typed: <span lang="ar" class="tv-line">${esc(x.chat)}</span></p>` : ''}
       <p class="tu-meta"><b>Reader AI says:</b> ${esc(x.readers_say)}</p>
       <p class="tu-meta"><b>Listening AI says:</b> ${esc(x.codex_says)}</p>
       <div>${play}</div>
-      ${a ? AneesUndo.answered(`${a.kind === 'audit_confirm' ? 'Amal said: the correction is correct · result: counted as a mistake for Medi' : 'Amal said: no correction — ' + (a.reason || '') + ' · result: dropped'}${pending ? ' · saving…' : ''}`, { 'data-tv': 'undo', 'data-id': x.id }) : ''}
-      <div class="tv-btns"><button class="tu-btn tu-primary" data-tv="confirm" data-id="${esc(x.id)}">Yes, Medi was wrong<small>counts as a mistake for Medi</small></button>
-      <button class="tu-btn" data-tv="skip" data-id="${esc(x.id)}">No, Medi was fine<small>say why in a line · it is dropped</small></button>
+      ${a ? AneesUndo.answered(`${a.kind === 'audit_confirm' ? 'The tutor said: the correction is correct · result: counted as a mistake for the student' : 'The tutor said: no correction — ' + (a.reason || '') + ' · result: dropped'}${pending ? ' · saving…' : ''}`, { 'data-tv': 'undo', 'data-id': x.id }) : ''}
+      <div class="tv-btns"><button class="tu-btn tu-primary" data-tv="confirm" data-id="${esc(x.id)}">Yes, the student was wrong<small>counts as a mistake for the student</small></button>
+      <button class="tu-btn" data-tv="skip" data-id="${esc(x.id)}">No, the student was fine<small>say why in a line · it is dropped</small></button>
       <div class="tv-reason" id="tvr-${esc(x.id)}" hidden><textarea id="tvx-${esc(x.id)}" placeholder="e.g. he said it right; or: I was not correcting him here"></textarea>
       <button class="tu-btn tu-primary" data-tv="skip-save" data-id="${esc(x.id)}">Save reason</button></div></div></article>`;
   }

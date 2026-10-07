@@ -1709,7 +1709,7 @@
     {
      "type": "code",
      "path": "docs/js/lessons-page.js",
-     "contains": "Not on sheet · sent to Amal · not scored"
+     "contains": "Not on sheet · sent to the tutor · not scored"
     }
    ],
    "test": [],
@@ -4507,7 +4507,7 @@
     {
      "type": "code",
      "path": "docs/js/grammar-console.js",
-     "contains": "Amal corrected you"
+     "contains": "The tutor corrected you"
     }
    ],
    "test": [],
@@ -6673,7 +6673,7 @@
     {
      "type": "code",
      "path": "docs/js/transcript-marks.js",
-     "contains": "'Amal: say '"
+     "contains": "'Tutor: say '"
     }
    ],
    "test": [
@@ -7938,6 +7938,54 @@
    "aliases": []
   },
   {
+   "id": "PG-33",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "On screen the tutor is \"Tutor\" (or \"the tutor\" / \"your tutor\"; \"you\" on pages addressed to her) and the student is \"Student\" (or \"the student\"): every visible text in docs/*.html, docs/amal/*.html and the strings docs/js builds, and the labels, titles and notes the builders write into page data. Internal names are unchanged: file names, URLs, ids, CSS classes, data keys, Supabase tables and columns, code comments, the registry, RULES.md, RULE-BOOK.md rule texts, dated attributions (Medi 2026-..) and Arabic examples built on a name (bait Medi).",
+   "plain": "On screen the tutor is called Tutor and the student is called Student. Names stay only inside the code and files, in dated quotes, and in Arabic examples like bait Medi.",
+   "plain_for": "774716a3",
+   "topic": "names on screen",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-07",
+     "quote": "remove and change to tutor student?",
+     "session": "2090bac7"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-07",
+     "quote": "a, you can always remember that student means me and tutor means amal right",
+     "session": "2090bac7"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/screen_names.py",
+     "contains": "def strip_allowed(rel, text):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_data.py",
+     "contains": "def on_screen(text):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_screen_names.py",
+     "contains": "def test_PG_33_no_page_or_script_shows_amal_or_medi_on_screen"
+    },
+    {
+     "path": "tests/test_screen_names.py",
+     "contains": "def test_PG_33_builders_write_tutor_and_student_into_page_data"
+    }
+   ],
+   "aliases": []
+  },
+  {
    "id": "AM-23",
    "kind": "display",
    "scope": "amal-data",
@@ -7959,12 +8007,12 @@
     {
      "type": "code",
      "path": "docs/js/hub/after-task.js",
-     "contains": "const SHOW = { 'Right': 'Medi got it right'"
+     "contains": "const SHOW = { 'Right': 'The student got it right'"
     },
     {
      "type": "code",
      "path": "docs/js/hub/review-task.js",
-     "contains": "Yes, Medi was wrong<small>counts as a mistake for Medi</small>"
+     "contains": "Yes, the student was wrong<small>counts as a mistake for the student</small>"
     }
    ],
    "test": [
@@ -8002,7 +8050,7 @@
     {
      "type": "code",
      "path": "scripts/build_tutor_data.py",
-     "contains": "\"title\": \"Medi's mistakes to review\""
+     "contains": "\"title\": \"The student's mistakes to review\""
     },
     {
      "type": "code",

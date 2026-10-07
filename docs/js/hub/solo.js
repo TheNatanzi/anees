@@ -13,11 +13,11 @@
   function run(o) {
     const app = new URLSearchParams(location.search).get('from') === 'app';
     document.body.insertAdjacentHTML('afterbegin', `<div id="anees-bank" class="vp-sabz hb-solo"><main>
-      ${app ? '<p class="hb-solo-back"><a href="../tutor.html">‹ Back to Tutor</a> <span>Preview · any tap here saves as Amal’s answer</span></p>' : ''}
-      <header class="ab-header vp-header"><div><div class="vp-eyebrow">For Amal · from Medi's app</div><h1>${esc(o.title)}</h1><p class="ab-sub">${esc(o.who || '')}</p></div></header>
+      ${app ? '<p class="hb-solo-back"><a href="../tutor.html">‹ Back to Tutor</a> <span>Preview · any tap here saves as the tutor’s answer</span></p>' : ''}
+      <header class="ab-header vp-header"><div><div class="vp-eyebrow">For the tutor · from the student's app</div><h1>${esc(o.title)}</h1><p class="ab-sub">${esc(o.who || '')}</p></div></header>
       <section class="hb-panel" id="hb-body"></section></main></div>`);
     const t = token(), el = document.getElementById('hb-body');
-    if (!t && !o.noToken) { el.innerHTML = '<p class="hb-sub">This page needs the private link Medi sent you.</p>'; return; }
+    if (!t && !o.noToken) { el.innerHTML = '<p class="hb-sub">This page needs the private link the student sent you.</p>'; return; }
     o.mount(el, { token: t, base: '../' });
   }
   root.AneesSolo = { run, token };

@@ -18,7 +18,7 @@
 
 var QK = 'anees-correction-queue', LK = 'anees-correction-log', SK = 'anees-correction-server';
 var REASONS = [['not-correcting', "She wasn't correcting me"], ['fixed-first', 'I fixed it first'], ['both-fine', 'She said both are fine'],
-  ['asking', 'I was asking'], ['wrong-moment', 'Wrong speaker or time'], ['right', 'My Arabic was right (Amal decides)']];
+  ['asking', 'I was asking'], ['wrong-moment', 'Wrong speaker or time'], ['right', 'My Arabic was right (the tutor decides)']];
 var KIND_WORDS = { text: 'heard word', speaker: 'speaker', time: 'time', missing: 'missing word', 'not-slip': 'not a mistake',
   'was-wrong': 'was wrong', classify: 'vocab ↔ grammar', add: 'added a slip', 'not-use': 'not a use', 'rule-answer': 'rule answer' };
 
@@ -55,7 +55,7 @@ function guesses(word, ctx, toArabizi) {
   var az = toArabizi && /[؀-ۿ]/.test(word) ? toArabizi(word).text : word;
   var pool = [];
   (ctx.chat || []).forEach(function (w) { pool.push({ w: w, from: 'her chat', s: Math.max(sim(az, w), sim(word, w)) + 0.05 }); });
-  (ctx.amal || []).forEach(function (w) { pool.push({ w: w, from: "Amal's next line", s: sim(word, w) }); });
+  (ctx.amal || []).forEach(function (w) { pool.push({ w: w, from: "The tutor's next line", s: sim(word, w) }); });
   (ctx.list || []).forEach(function (x) { pool.push({ w: x.arabic, az: x.arabizi, from: 'your word list', s: Math.max(sim(word, x.arabic), sim(az, x.arabizi)) - 0.05 }); });
   var out = [], seen = {};
   seen[norm(word)] = 1;
@@ -241,7 +241,7 @@ function chipActions(d, c, x, turn, link) {
       why.appendChild(el('div', 'tc-q', 'Why?'));
       REASONS.forEach(function (q) {
         why.appendChild(btn('tc-reason' + (q[0] === 'right' ? ' tc-amal' : ''), q[1], function () { save(x, turn, 'not-slip', tg, { reason: q[0], signal: c.signal || null }); },
-          q[0] === 'right' ? "Amal decides whether your Arabic was right: it goes to her Tutor hub and keeps counting until she taps" : ''));
+          q[0] === 'right' ? "The tutor decides whether your Arabic was right: it goes to her Tutor hub and keeps counting until she taps" : ''));
       });
       box.appendChild(why);
     });
@@ -249,7 +249,7 @@ function chipActions(d, c, x, turn, link) {
   } else if (offer[0] === 'was-wrong') {
     box.appendChild(btn('tc-big', c.k === 'na' ? 'It was a mistake' : 'Was wrong', function () {
       save(x, turn, 'was-wrong', Object.assign(tg, { k: 'vocab' }), { right: c.ar || null, k: 'vocab' });
-    }, "Counted when Amal voiced the fix; otherwise it goes to her review page (tier B)"));
+    }, "Counted when the tutor voiced the fix; otherwise it goes to her review page (tier B)"));
   } else if (offer[0] === 'not-use') {
     box.appendChild(btn('tc-big', 'Not a use', function () { save(x, turn, 'not-use', tg, {}); }));
   } else if (offer[0] === 'not-correcting') {
@@ -359,7 +359,7 @@ function moreMenu(row, x, turn, parts) {
     };
     sf.appendChild(sw); sf.appendChild(sr); sf.appendChild(sk); sf.appendChild(btn('tc-big', 'Add slip', ssave)); sf.addEventListener('submit', function (e) { e.preventDefault(); ssave(); });
     P.appendChild(sf);
-    P.appendChild(el('div', 'ab-mini', 'Counted when Amal voiced the fix right after; otherwise it goes to her review page.'));
+    P.appendChild(el('div', 'ab-mini', 'Counted when the tutor voiced the fix right after; otherwise it goes to her review page.'));
   }
   P.appendChild(btn('tc-small tc-close', 'Close', function () { P.remove(); }));
   main.appendChild(P);
@@ -398,7 +398,7 @@ function proposalCard(x, p) {
   var mine = answerOf(p.id);
   if (p.owner === 'one-off') { card.appendChild(el('div', 'tc-plain', p.plain)); return card; }
   var head = el('div', 'tc-plain');
-  head.appendChild(el('b', '', p.owner === 'medi' ? 'This looks like a rule: ' : p.owner === 'amal' ? "Amal's call: " : 'A shape for a code rule: '));
+  head.appendChild(el('b', '', p.owner === 'medi' ? 'This looks like a rule: ' : p.owner === 'amal' ? "The tutor's call: " : 'A shape for a code rule: '));
   head.appendChild(azText(p.plain));
   card.appendChild(head);
   if (p.owner === 'medi') card.appendChild(el('div', 'ab-mini', 'It would change ' + p.n + ' other moment' + (p.n === 1 ? '' : 's') + (p.n ? ':' : ' today (and every future lesson).')));
@@ -419,7 +419,7 @@ function proposalCard(x, p) {
     bar.appendChild(el('span', 'tc-yours-note', '✎ ' + said + ' · '));
     bar.appendChild(btn('tc-small', 'Undo', function () { undo(mine); }));
   } else if (p.owner === 'amal') {
-    bar.appendChild(el('span', 'ab-mini', 'Whether your Arabic was right is Amal\'s call: it goes to her Tutor hub. Nothing for you to do.'));
+    bar.appendChild(el('span', 'ab-mini', 'Whether your Arabic was right is the tutor\'s call: it goes to her Tutor hub. Nothing for you to do.'));
   } else {
     var ans = function (a) { return function () { save(x, { t: p.t, who: 'Medi' }, 'rule-answer', null, { hash: p.hash }, null, { proposal: p.id, answer: a }); }; };
     bar.appendChild(btn('tc-big tc-primary', 'Just this one', ans('one')));

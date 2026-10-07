@@ -10,9 +10,9 @@
   'use strict';
   const TABLE = { after: 'amal_links', before: 'amal_links', verb_check: 'verb_check_links', word_review: 'transcript_review_links' };
   // what an answer on an "after the lesson" moment changes (mirror of effect_after in build_tutor_data.py)
-  const RESULT_AFTER = { 'Right': 'not counted as a slip', 'Wrong': 'slip counted for Medi', 'Wrong word': 'slip counted for Medi (word)',
-    'Wrong grammar': 'slip counted for Medi (grammar)', 'Not Medi': 'dropped - it was not Medi', 'Skip': 'no change',
-    'Medi, right': 'not counted as a slip', 'Medi, wrong': 'slip counted for Medi' };
+  const RESULT_AFTER = { 'Right': 'not counted as a slip', 'Wrong': 'slip counted for the student', 'Wrong word': 'slip counted for the student (word)',
+    'Wrong grammar': 'slip counted for the student (grammar)', 'Not Medi': 'dropped - it was not the student', 'Skip': 'no change',
+    'Medi, right': 'not counted as a slip', 'Medi, wrong': 'slip counted for the student' };
   const HEARD = { yes: 'Yes, that is what I hear', inaudible: 'Cannot hear clearly' };
   const day = s => s ? String(s).slice(0, 10) : null;
   const pick = (m, k) => { m = m || {}; return m[String(k)] !== undefined ? m[String(k)] : m[k]; };

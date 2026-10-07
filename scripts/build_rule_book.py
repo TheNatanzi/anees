@@ -30,10 +30,10 @@ OUT_MD = "RULE-BOOK.md"
 
 GROUPS = [  # (key, title, one short intro line)
     ("recording", "Recording & transcript", "What gets written down from the lesson recording, and what is left out."),
-    ("spelling", "Spelling (Amal's Arabizi)", "How Arabic words are spelled on screen. Arabizi = Arabic in Latin letters and numbers (3 = ع, 7 = ح)."),
+    ("spelling", "Spelling (the tutor's Arabizi)", "How Arabic words are spelled on screen. Arabizi = Arabic in Latin letters and numbers (3 = ع, 7 = ح)."),
     ("words", "Words: what counts and what doesn't", "Which words you said get scored, and which don't."),
     ("grammar", "Grammar slips: what counts and what doesn't", "When a grammar mistake counts as a slip, and when it doesn't."),
-    ("amal", "Amal's say", "What Amal decides: her Doc, her pages, her rulings, and the words she promised to add."),
+    ("amal", "The tutor's say", "What the tutor decides: her Doc, her pages, her rulings, and the words she promised to add."),
     ("flashcards", "Flashcards", "How the review cards work."),
     ("pages", "Pages, audio & numbers on screen", "What each page shows, the audio clips, and keeping numbers up to date."),
     ("process", "How Claude and Codex must work", "Rules for the AI helpers that build Anees."),
@@ -53,8 +53,8 @@ BADGES = {  # status -> (badge, what it means)
 }
 WHO = {"medi": "Medi", "amal": "Amal"}
 GLOSSARY = [
-    ("Doc", "Amal's vocabulary Google Doc: the master list of words."),
-    ("Arabizi", "Arabic written in Latin letters and numbers, the way Amal types it."),
+    ("Doc", "The tutor's vocabulary Google Doc: the master list of words."),
+    ("Arabizi", "Arabic written in Latin letters and numbers, the way the tutor types it."),
     ("Slip", "a grammar mistake that counts."),
     ("Rule group", "a named grammar pattern, like B8 (also called a bucket)."),
     ("AI readers", "the AI that reads each lesson transcript and finds the moments."),

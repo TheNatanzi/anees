@@ -291,7 +291,7 @@ function renderCharts() {
   var scPct = (caught + missed) ? Math.round(100 * caught / (caught + missed)) : null;
   fill('c2', scPct == null ? '—' : scPct + '%',
     L.length ? sparkline(sc, { bars: true, max: 100, label: 'Self-correction rate by lesson' }) : null,
-    L.length ? foot(caught + ' asked or caught by you · ' + missed + ' corrected by Amal') : null);
+    L.length ? foot(caught + ' asked or caught by you · ' + missed + ' corrected by the tutor') : null);
 
   // 3 - unique rules per lesson, averaged over the range
   var uq = L.map(function (x) { return x.unique_rules; });
@@ -427,7 +427,7 @@ function useCard(e) {
   var card = el('div', 'gc-use gc-use-' + e.kind);
   var head = el('div', 'gc-usehead');
   var left = el('span');
-  var tag = el('span', 'gc-tag gc-verdict-' + e.kind, e.kind === 'slip' ? '✗ Wrong · Amal corrected you' : e.kind === 'right' ? '✓ Correct' : 'You asked');
+  var tag = el('span', 'gc-tag gc-verdict-' + e.kind, e.kind === 'slip' ? '✗ Wrong · the tutor corrected you' : e.kind === 'right' ? '✓ Correct' : 'You asked');
   left.appendChild(tag);
   head.appendChild(left);
   head.appendChild(el('span', null, pretty(e.date) + (e.mmss ? ' · ' + e.mmss : '')));
@@ -439,7 +439,7 @@ function useCard(e) {
 
   if (e.recast || e.recast_html) {
     var rc = el('p', 'gc-recast');
-    rc.appendChild(el('span', null, e.kind === 'slip' ? 'Amal said: ' : 'Amal: '));
+    rc.appendChild(el('span', null, e.kind === 'slip' ? 'The tutor said: ' : 'Tutor: '));
     if (e.recast_at) rc.firstChild.textContent += '(' + e.recast_at + ')';
     rc.appendChild(speech('gc-fix', e.recast_html, e.recast));
     card.appendChild(rc);
@@ -544,7 +544,7 @@ function hearSay(r) {
   var h = x.hear, s = x.say, n = hearScored(h);
   var pair = el('div', 'gc-hs-pair');
   var a = el('div', 'gc-hs');
-  a.appendChild(el('div', 'gc-hs-label', 'Hear it · Amal says it'));
+  a.appendChild(el('div', 'gc-hs-label', 'Hear it · the tutor says it'));
   a.appendChild(hsNum(h.show, h.pct, n, '% understood'));
   a.appendChild(el('div', 'ab-mini', h.n
     ? 'In ' + h.n + ' of her sentences: ' + h.understood + ' understood, ' + h.breakdown + ' missed, ' + h.unknown + ' unclear (unclear is not counted).'
@@ -579,7 +579,7 @@ function detail(r) {
 
   if (r.not_taught) {
     d.appendChild(el('p', 'gc-nottaught', (r.not_taught_why || 'Not taught yet.') +
-      ' No score, and it is left out of every grammar total until Amal teaches it.' +
+      ' No score, and it is left out of every grammar total until the tutor teaches it.' +
       (r.uses_seen ? ' You used it ' + r.uses_seen + ' time' + (r.uses_seen === 1 ? '' : 's') + ' anyway (shown below, not counted).' : '')));
   }
   d.appendChild(el('h3', 'gc-secttitle', 'What the rule is'));
@@ -629,7 +629,7 @@ function detail(r) {
       var wrong = u.verdict === 'wrong';
       var card = el('div', 'gc-use ' + (wrong ? 'gc-use-slip' : 'gc-use-right'));
       var hd = el('div', 'gc-usehead');
-      hd.appendChild(el('span', 'gc-tag gc-verdict-' + (wrong ? 'slip' : 'right'), wrong ? '✗ Wrong · Amal corrected you' : '✓ Correct · Amal did not correct it'));
+      hd.appendChild(el('span', 'gc-tag gc-verdict-' + (wrong ? 'slip' : 'right'), wrong ? '✗ Wrong · the tutor corrected you' : '✓ Correct · the tutor did not correct it'));
       hd.appendChild(el('span', null, pretty(u.date) + ' · ' + u.mmss));
       card.appendChild(hd);
       card.appendChild(speech('gc-said', u.said_html, u.said || ''));
@@ -663,11 +663,11 @@ function detail(r) {
     var handChecked = cand.every(function (c) { return c.verified; });
     var ch = el('div', 'gc-useshead');
     ch.appendChild(el('h3', 'gc-secttitle', handChecked
-      ? 'Amal corrected you — hand-checked (' + cand.length + ')'
+      ? 'The tutor corrected you — hand-checked (' + cand.length + ')'
       : 'Found by the audit — machine, not yet checked (' + cand.length + ')'));
     d.appendChild(ch);
     d.appendChild(el('p', 'ab-mini gc-candnote', handChecked
-      ? 'Every fix Amal said aloud, read by hand in each lesson (sweep of 2026-09-24). These are the mistakes counted above.'
+      ? 'Every fix the tutor said aloud, read by hand in each lesson (sweep of 2026-09-24). These are the mistakes counted above.'
       : 'The machine spotted these in your transcripts and they count in the numbers above. ' +
         'Checked against hand-labelled lessons, about 85 in 100 are real corrections and about 7 in 10 sit in the right rule.'));
     cand.slice(0, SHOW).forEach(function (c) {
@@ -683,7 +683,7 @@ function detail(r) {
       card.appendChild(speech('gc-said', c.said_html, c.said));
 
       var a = el('div', 'gc-recast');
-      a.appendChild(el('span', null, 'Amal: '));
+      a.appendChild(el('span', null, 'Tutor: '));
       a.appendChild(speech('gc-fix', c.recast_html, c.recast));
       card.appendChild(a);
 
@@ -709,7 +709,7 @@ function detail(r) {
     var nh = el('div', 'gc-useshead');
     nh.appendChild(el('h3', 'gc-secttitle', 'Not counted — Amal\u2019s notes (' + nc.length + ')'));
     d.appendChild(nh);
-    d.appendChild(el('p', 'ab-mini gc-candnote', 'Amal corrected these, but her notes of Sep 27 say they do not count: ' +
+    d.appendChild(el('p', 'ab-mini gc-candnote', 'The tutor corrected these, but her notes of Sep 27 say they do not count: ' +
       'the rule is not taught yet, or what you said is not a mistake. They are not in any number on this page.'));
     nc.forEach(function (c) {
       var card = el('div', 'gc-use gc-cand gc-uncounted');
@@ -722,7 +722,7 @@ function detail(r) {
       card.appendChild(head);
       card.appendChild(speech('gc-said', c.said_html, c.said));
       var a = el('div', 'gc-recast');
-      a.appendChild(el('span', null, 'Amal: '));
+      a.appendChild(el('span', null, 'Tutor: '));
       a.appendChild(speech('gc-fix', c.recast_html, c.recast));
       card.appendChild(a);
       card.appendChild(speech('gc-pairline', null, c.pair_wrong + '  →  ' + c.pair_fixed));
@@ -900,9 +900,9 @@ function renderDoc() {
         (s.lines || []).forEach(function (line) { ul.appendChild(el('li', null, line)); });
         box.appendChild(ul);
       });
-      box.appendChild(el('p', 'ab-mini', 'Source: ' + (g.source || 'Amal’s Doc')));
+      box.appendChild(el('p', 'ab-mini', 'Source: ' + (g.source || 'The tutor’s Doc')));
     })
-    .catch(function (err) { box.textContent = 'Could not load Amal’s notes: ' + err.message; });
+    .catch(function (err) { box.textContent = 'Could not load the tutor’s notes: ' + err.message; });
 }
 
 // Words the spelling pass could not settle: which word did he say? Listed, never guessed.
@@ -936,7 +936,7 @@ function renderProposals(doc) {
   var box = $('gc-propose'), body = $('gc-propose-body');
   if (!box || !P.length) return;
   box.hidden = false;
-  $('gc-propose-sum').textContent = 'Proposed new rules (' + P.length + ') · fixes Amal made that fit no rule yet · not scored until you say yes';
+  $('gc-propose-sum').textContent = 'Proposed new rules (' + P.length + ') · fixes the tutor made that fit no rule yet · not scored until you say yes';
   body.textContent = '';
   P.forEach(function (p) {
     body.appendChild(el('div', 'gc-doc-head', (p.name || 'New rule') + (p.medi === 'yes' && p.bucket ? ' · you said yes: now rule ' + p.bucket + ', scored' : p.medi ? ' · your answer: ' + p.medi : ' · waiting for your yes or no')));
@@ -945,7 +945,7 @@ function renderProposals(doc) {
     (p.moments || []).forEach(function (m) {
       var also = (m.also_counted_as || []).map(function (a) { return a.kind + (a.bucket ? ' ' + a.bucket : ''); }).join(', ');
       ul.appendChild(el('li', null, pretty(m.date) + ' ' + (m.t || '') + ' · ' + (m.wrong || '') + ' → ' + (m.right || '') +
-        (m.amal_said ? ' · Amal: ' + m.amal_said : '') + (m.already_counted ? ' · already counted under ' + (m.bucket || m.kind || '') : also ? ' · also counted as ' + also : '') +
+        (m.amal_said ? ' · Tutor: ' + m.amal_said : '') + (m.already_counted ? ' · already counted under ' + (m.bucket || m.kind || '') : also ? ' · also counted as ' + also : '') +
         (m.confidence === 'low' ? ' · low confidence' : '')));
     });
     body.appendChild(ul);

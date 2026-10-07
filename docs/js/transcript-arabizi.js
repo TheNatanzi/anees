@@ -59,7 +59,7 @@
     if (approxSeen && !document.querySelector('.az-legend')) {
       var main = document.querySelector('main') || document.body;
       var lg = document.createElement('p'); lg.className = 'az-legend';
-      lg.textContent = 'Arabizi in Amal’s spelling on top, the recorded Arabic underneath. Unverified spelling stays in Arabic.';
+      lg.textContent = 'Arabizi in the tutor’s spelling on top, the recorded Arabic underneath. Unverified spelling stays in Arabic.';
       main.insertBefore(lg, main.firstChild);
     }
   }

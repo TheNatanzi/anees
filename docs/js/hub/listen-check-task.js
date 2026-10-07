@@ -137,7 +137,7 @@
       try { DATA = await (await fetch(BASE + 'data/amal-listen.json', { cache: 'no-store' })).json(); }
       catch (e) { $prog.textContent = 'The list could not load. Refresh to try again.'; return; }
       answers = LS(AK) || {};
-      if (!TOKEN) $prog.insertAdjacentHTML('afterend', '<p class="hb-sub lc-warn">This page was opened without the private link Medi sent, so answers cannot be saved. You can still listen.</p>');
+      if (!TOKEN) $prog.insertAdjacentHTML('afterend', '<p class="hb-sub lc-warn">This page was opened without the private link the student sent, so answers cannot be saved. You can still listen.</p>');
       else {
         try {   // once this browser's taps are sent, the live answers win (latest row per line; an undo = open again)
           const saved = await (await api('GET', 'amal_rules?select=kind,word_key,payload,created_at&source=eq.' + SOURCE + '&order=created_at.asc&token=eq.' + encodeURIComponent(TOKEN))).json();

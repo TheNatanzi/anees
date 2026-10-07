@@ -37,22 +37,22 @@ LETTERS = "abcdefgh"
 
 YES_NO = [{"v": "yes", "label": "Yes"}, {"v": "no", "label": "No"}, {"v": "not_sure", "label": "Not sure"}]
 TASKS = {   # list -> what the hub and the page say; kind / prefix keep the tasks apart in amal_rules
-    "slip-check": {"kind": "slip_check", "prefix": "slipcheck", "clip": "sc", "title": "Listen: what did Medi say?", "unit": "clips", "mins": 10,
-                   "intro": "27 short clips of Medi. A second AI listen changed how these lines are written - tell us what he really said.",
-                   "questions": [{"field": "choice", "ask": "Listen to Medi. What did he say?", "type": "versions", "other": "Something else"},
+    "slip-check": {"kind": "slip_check", "prefix": "slipcheck", "clip": "sc", "title": "Listen: what did the student say?", "unit": "clips", "mins": 10,
+                   "intro": "27 short clips of the student. A second AI listen changed how these lines are written - tell us what he really said.",
+                   "questions": [{"field": "choice", "ask": "Listen to the student. What did he say?", "type": "versions", "other": "Something else"},
                                  {"field": "mistake", "ask": "Was it a mistake?", "type": "options",
                                   "options": [{"v": "yes", "label": "Yes, he said it wrong"}, {"v": "no", "label": "No, he said it right"}, {"v": "not_sure", "label": "Not sure"}]}]},
-    "own-fix": {"kind": "own_fix", "prefix": "ownfix", "clip": "oc", "title": "Listen: Medi's own corrections", "unit": "clips", "mins": 5,
-                "intro": "13 short clips of Medi. His line is written in two or three ways - which one did he say?",
-                "questions": [{"field": "choice", "ask": "Listen to Medi. What did he say?", "type": "versions", "other": "Something else"}]},
-    "word-said": {"kind": "word_said", "prefix": "wordsaid", "clip": "ws", "title": "Listen: did Medi say this word?", "unit": "clips", "mins": None,
-                  "intro": "Short clips of Medi. You say a word a few seconds later - did Medi say it himself, in his own line?",
-                  "questions": [{"field": "said", "ask": "Did Medi say this word himself in his line?", "type": "options", "options": YES_NO}]},
+    "own-fix": {"kind": "own_fix", "prefix": "ownfix", "clip": "oc", "title": "Listen: the student's own corrections", "unit": "clips", "mins": 5,
+                "intro": "13 short clips of the student. His line is written in two or three ways - which one did he say?",
+                "questions": [{"field": "choice", "ask": "Listen to the student. What did he say?", "type": "versions", "other": "Something else"}]},
+    "word-said": {"kind": "word_said", "prefix": "wordsaid", "clip": "ws", "title": "Listen: did the student say this word?", "unit": "clips", "mins": None,
+                  "intro": "Short clips of the student. You say a word a few seconds later - did the student say it himself, in his own line?",
+                  "questions": [{"field": "said", "ask": "Did the student say this word himself in his line?", "type": "options", "options": YES_NO}]},
     "old-new": {"kind": "old_new", "prefix": "oldnew", "clip": "on", "title": "Listen: old or new line?", "unit": "clips", "mins": 4,
-                "intro": "11 short clips of Medi. His line is written two ways - which one did he say?",
-                "questions": [{"field": "choice", "ask": "Listen to Medi. What did he say?", "type": "versions", "other": "Something else"}]},
+                "intro": "11 short clips of the student. His line is written two ways - which one did he say?",
+                "questions": [{"field": "choice", "ask": "Listen to the student. What did he say?", "type": "versions", "other": "Something else"}]},
     "word-there": {"kind": "word_there", "prefix": "wordthere", "clip": "wt", "title": "Check: is this word really there?", "unit": "clips", "mins": 8,
-                   "intro": "28 short clips of Medi. He was given credit for a word here - listen and tell us if he really said it.",
+                   "intro": "28 short clips of the student. He was given credit for a word here - listen and tell us if he really said it.",
                    "questions": [{"field": "said", "ask": "Did he say this word?", "type": "options", "options": YES_NO}]},
     "one-or-two": {"kind": "one_or_two", "prefix": "oneortwo", "clip": "ot", "title": "Check: one mistake or two?", "unit": "pairs", "mins": 12,
                    "intro": "Two mistakes written down from the same moment of a lesson. Is it the same mistake written twice, or two different mistakes?",
@@ -200,11 +200,11 @@ class Build:
             for x in turns:
                 if x.get("who") in ("Amal", "chat") and t - 1 <= float(x.get("t", 0)) <= t + within and str(x.get("text") or "").strip() and (x.get("t"), x.get("text")) not in seen:
                     seen.add((x.get("t"), x.get("text")))
-                    tt = int(float(x["t"])); out.append({"label": f"Amal · {tt // 60}:{tt % 60:02d}" + (" (typed)" if x.get("who") == "chat" else ""), "text": ["", str(x["text"]).strip(), "", ""]})
-        return out[:4] or [{"label": "Amal", "text": ["", "no line from Amal in the next 20 seconds - she let it pass", "", ""]}]
+                    tt = int(float(x["t"])); out.append({"label": f"You · {tt // 60}:{tt % 60:02d}" + (" (typed)" if x.get("who") == "chat" else ""), "text": ["", str(x["text"]).strip(), "", ""]})
+        return out[:4] or [{"label": "You", "text": ["", "no line from you in the next 20 seconds - you let it pass", "", ""]}]
 
     def players(self, own, both):
-        out = [{"label": "Medi's microphone", "src": own}]
+        out = [{"label": "The student's microphone", "src": own}]
         if both:
             out.append({"label": "Both of you, a little before and after", "src": both})
         return out
@@ -284,7 +284,7 @@ class Build:
             own, both, size = self.clips("word-said", c["date"], c["i"], self._ln(c), both=True)
             versions, roles = self.blind(rng, [("old", c.get("engine") or ""), ("ai", c.get("heard") or "")])
             items.append({"id": iid, "date": c["date"], "mmss": c["mmss"], "clips": self.players(own, both), "versions": versions,
-                          "ask": ["Did Medi say ", f"«{w}»", " himself in his line?"] if w else "Did Medi say the extra word himself in his line?",
+                          "ask": ["Did the student say ", f"«{w}»", " himself in his line?"] if w else "Did the student say the extra word himself in his line?",
                           "note": ["You say ", w, " right after."] if w else None, "bytes": size})
             key.append({"id": iid, "i": c["i"], "t": c["t"], "roles": roles, "word": w, "old": c.get("engine"), "ai": c.get("heard"), "two_clip": c.get("two_clip")})
         return items, key

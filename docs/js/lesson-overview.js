@@ -78,8 +78,8 @@ ${LM.why(G)}`],
     // hourly mirror of Supabase); the lesson Words % / Grammar % above are untouched. No verdict yet -> "—" and why (PG-05).
     const hw = L.homework || null, hs = hw && hw.score;
     metrics.push(['Homework', hs && hs.pct !== null && hs.pct !== undefined ? num(hs.pct, 1, '%') : '—',
-      hs && hs.done ? `${hs.done} answer${hs.done === 1 ? '' : 's'} checked by the teacher · right 1, close ½ · ${hs.waiting || 0} waiting` : 'no homework answer checked by the teacher yet · Student tab',
-      'Homework assigned on the Tutor page and answered on the Student tab. Only the teacher's verdict counts (the AI check never does): right = 1, close = ½, wrong = 0, divided by the answers she checked. Separate from the lesson numbers.']);
+      hs && hs.done ? `${hs.done} answer${hs.done === 1 ? '' : 's'} checked by the tutor · right 1, close ½ · ${hs.waiting || 0} waiting` : 'no homework answer checked by the tutor yet · Student tab',
+      'Homework assigned on the Tutor page and answered on the Student tab. Only the tutor’s verdict counts (the AI check never does): right = 1, close = ½, wrong = 0, divided by the answers she checked. Separate from the lesson numbers.']);
     $('#ov-metrics').innerHTML = metrics.map(([l, v, s, t]) => `<div class="ab-metric"${t ? ` title="${esc(t)}"` : ''}><div class="ab-metric-label">${esc(l)}</div><div class="ab-number">${esc(v)}</div><div class="ab-tiny">${esc(s)}</div></div>`).join('');
 
     const bandc = p => { p = Math.round(p); return p >= 90 ? 'pct-a' : p >= 80 ? 'pct-b' : p >= 70 ? 'pct-c' : 'pct-d'; };   // Medi 2026-09-27 colours
@@ -90,7 +90,7 @@ ${LM.why(G)}`],
       return `<tr title="${esc(r.verbs)}"><td><a href="${esc(r.page)}">${esc(r.date)}</a></td><td>${esc(r.type)}</td><td>${num(r.min, 0)}</td>` +
         td(num(r.speak, 1), r.test || r.partial, tt) + td(num(r.wpm, 0), r.test || r.partial, tt) +
         td(num(r.vocab, 1), r.unver, r.relTitle, ok(r.vocab) ? bandc(r.vocab) : '') +
-        td(num(r.grammar, 1), r.unver || r.gest, [r.relTitle, r.gest ? 'estimate: every slip Amal fixed counted as a rule use' : ''].filter(Boolean).join(' · '), ok(r.grammar) ? bandc(r.grammar) : '') +
+        td(num(r.grammar, 1), r.unver || r.gest, [r.relTitle, r.gest ? 'estimate: every slip the tutor fixed counted as a rule use' : ''].filter(Boolean).join(' · '), ok(r.grammar) ? bandc(r.grammar) : '') +
         td(num(r.fillers, 1), r.test || r.fcmp === false, r.fTitle) +
         td(num(r.wait, 1), r.test || r.partial, tt) + '</tr>';
     }).join('')}</tbody></table></div>`;
@@ -102,7 +102,7 @@ ${LM.why(G)}`],
       `Grammar uses = rule uses the app counted plus every fixed slip no counted use pairs with, the same formula as the Grammar Console; slips in rules no counter can score are listed on the lesson but not in the %. ` +
       `"≈" Speak %, Words/min and Wait = measured over part of the lesson (hover for the window)${partialDates.length ? ': ' + partialDates.join(', ') : ''}. Sep 10 timings come from each person's own recording (the engine gave no word times). ` +
       `"≈" Fillers/min = not comparable: that lesson's page turns carry under half the filled pauses the engine heard, so its recording or cleaning differs${badFill.length ? ' (' + badFill.join(', ') + ')' : ''}${pending ? ' — still checking the turn files' : ''}; read those against each other only. ` +
-      `Wait = median seconds before Medi answers. Hover a row for the verb pairs Amal taught or reviewed that day (Sep 11 was the last new pair).`;
+      `Wait = median seconds before the student answers. Hover a row for the verb pairs the tutor taught or reviewed that day (Sep 11 was the last new pair).`;
   }
 
   // lessons.json written before 2026-09-27 has no fillers.comparable: derive it here from the page turns, same rule.

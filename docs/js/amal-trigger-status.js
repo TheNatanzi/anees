@@ -4,10 +4,10 @@
 (function () {
 'use strict';
 function lines(d) {
-  var out = { head: 'Amal trigger: not run yet.', sources: [], firings: [] };
+  var out = { head: 'Tutor trigger: not run yet.', sources: [], firings: [] };
   if (!d || !d.sources) return out;
   var unread = d.sources.filter(function (s) { return !s.readable; });
-  out.head = 'Amal trigger: watching ' + d.sources.length + ' sources of her answers' +
+  out.head = 'Tutor trigger: watching ' + d.sources.length + ' sources of her answers' +
              (unread.length ? ' (' + unread.length + ' not readable unattended)' : '') + '; last check ' + String(d.checked || '').slice(0, 16).replace('T', ' ') + '.';
   out.sources = d.sources.map(function (s) {
     return (s.readable ? '✓ ' : '✗ ') + s.label + (s.readable ? (s.n != null ? ' - ' + s.n + ' item(s)' : '') : ' - ' + s.why) + (s.note ? ' (' + s.note + ')' : '');

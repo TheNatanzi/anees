@@ -17,12 +17,12 @@ var TABS = [
 var FUTURE = [
   ['Deep research → rules.', 'Language-learning studies turned into rules the app follows (extends wiki 02 / 03 / 04 / 06).'],
   ['Voice homework answers.', 'Hold-to-talk on the homework page, transcribed by ElevenLabs Scribe (the chosen engine); typed answers only for now (Medi, 2026-09-05).'],
-  ['Audio homework that listens.', 'Medi records a sentence, the app compares pronunciation (ElevenLabs TTS + STT; the LearnerVoice caveat: ASR auto-corrects learners, so grading needs Amal’s ear or a phone-level model).'],
-  ['Adding words inside the app.', 'Today the Google Doc is the only truth; a form for Medi or Amal would feed a review inbox, never the Doc directly.'],
-  ['Discord + Craig separate-track recording.', 'One audio track per person makes speaker labels exact (design agreed 2026-09-04; Ennuicastr as the paid fallback if Amal is on her phone).']
+  ['Audio homework that listens.', 'The student records a sentence, the app compares pronunciation (ElevenLabs TTS + STT; the LearnerVoice caveat: ASR auto-corrects learners, so grading needs the tutor’s ear or a phone-level model).'],
+  ['Adding words inside the app.', 'Today the Google Doc is the only truth; a form for the student or the tutor would feed a review inbox, never the Doc directly.'],
+  ['Discord + Craig separate-track recording.', 'One audio track per person makes speaker labels exact (design agreed 2026-09-04; Ennuicastr as the paid fallback if the tutor is on her phone).']
 ];
 var SYS_NOTE = 'The mechanics: how lessons are recorded, transcribed, who spoke, what gets published and how numbers are shown.';
-var WORD_NOTE = 'How the AI decides what counts as a mistake, what is a new word, and how Amal’s taps win.';
+var WORD_NOTE = 'How the AI decides what counts as a mistake, what is a new word, and how the tutor’s taps win.';
 var REPORT_NOTE = 'Every research report so far, one card each: the question, the verdict, the numbers that decided it. Teal bars = the engine we use. Open the full report for the evidence.';
 
 var $ = function (id) { return document.getElementById(id); };
@@ -111,7 +111,7 @@ function renderMetrics() {
     ['Partly', String(n('partly')), leg.partly || 'fallback or half'],
     ['Planned', String(n('planned')), leg.planned || 'agreed, not built'],
     ['AI reports', String(((REPORTS && REPORTS.reports) || []).length), 'Research behind the rules'],
-    ['Standing rules', String(((STANDING && STANDING.rules) || []).length), 'From RULES.md, change only on Medi’s word']
+    ['Standing rules', String(((STANDING && STANDING.rules) || []).length), 'From RULES.md, change only on the student’s word']
   ];
   var box = $('st-metrics');
   box.textContent = '';
@@ -171,7 +171,7 @@ var HEADS = {
 function chip(cls, text, title) { var c = el('span', 'st-status ' + cls, text); if (title) c.title = title; return c; }
 function cells(it) {
   var r = it.r;
-  if (it.kind === 'standing') return [r.id, r.title, 'RULES.md', chip('st-standing', 'Standing', 'Changes only when Medi says so, in writing')];
+  if (it.kind === 'standing') return [r.id, r.title, 'RULES.md', chip('st-standing', 'Standing', 'Changes only when the student says so, in writing')];
   if (it.kind === 'rule') return [r.id, r.rule, r.group, chip('st-' + r.status, r.status, ((RULES && RULES.legend) || {})[r.status])];
   if (it.kind === 'report') {
     var n0 = (r.numbers || [])[0];
@@ -273,7 +273,7 @@ function render() {
   var leg = (RULES && RULES.legend) || {};
   $('st-legend').textContent = hasStatus(TAB) ? 'Enforced = ' + (leg.enforced || '') + ' · Partly = ' + (leg.partly || '') + ' · Planned = ' + (leg.planned || '') : 'Tap a row to open it';
   var cov = $('st-coverage');
-  if (TAB === 'standing') cov.textContent = 'Updated ' + ((STANDING && STANDING.updated) || '—') + '. Source: RULES.md (a rule changes only when Medi says so, in writing, there). Rebuilt by scripts/build_standing_rules.py.';
+  if (TAB === 'standing') cov.textContent = 'Updated ' + ((STANDING && STANDING.updated) || '—') + '. Source: RULES.md (a rule changes only when the student says so, in writing, there). Rebuilt by scripts/build_standing_rules.py.';
   else if (hasStatus(TAB)) cov.textContent = 'Updated ' + ((RULES && RULES.updated) || '—') + '. Source: docs/data/ai_rules.json (edit there, the page follows).';
   else if (TAB === 'reports') cov.textContent = 'Updated ' + ((REPORTS && REPORTS.updated) || '—') + '. Numbers are counts on frozen clips, not accuracy; no word-perfect transcript exists yet.';
   else cov.textContent = '';

@@ -179,9 +179,9 @@ def materials(meta):
             '<meta name="robots" content="noindex,nofollow"><title>Arabic Materials</title>'
             '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Literata:opsz,wght@7..72,600&family=Noto+Naskh+Arabic&display=swap">'
             '<style>%s</style></head><body><main><h1>Arabic Materials</h1>'
-            '<p class="lede">Amal&#39;s explanations for Medi: prepositions, possession, adjectives, time, kul, the b- prefix and the pointer rule. '
-            'Her words, copied from her Doc (last edited %s). <a href="grammar-rules.html">Medi&#39;s grammar rules &rarr;</a></p>'
-            '<nav class="toc">%s</nav>%s<footer>Copied word for word from Amal&#39;s Google Doc &ldquo;%s&rdquo; (read %s). '
+            '<p class="lede">Your explanations for the student: prepositions, possession, adjectives, time, kul, the b- prefix and the pointer rule. '
+            'Your words, copied from your Doc (last edited %s). <a href="grammar-rules.html">The student&#39;s grammar rules &rarr;</a></p>'
+            '<nav class="toc">%s</nav>%s<footer>Copied word for word from your Google Doc &ldquo;%s&rdquo; (read %s). '
             'Built by scripts/build_amal_docs.py.</footer></main>'
             # opened from the Tutor menu (go.html adds from=app): the same Back-to-Tutor bar as her other pages
             '<script>(function(){if(new URLSearchParams(location.search).get("from")!=="app")return;var b=document.createElement("div");'

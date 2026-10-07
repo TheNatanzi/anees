@@ -47,7 +47,7 @@ function saidLine(x) {
       line.appendChild(s);
     });
   } else if ('claude' in x) {
-    line.appendChild(el('span', 'rb-who', 'Written by Claude' + (x.claude ? ', ' + x.claude : '') + ' (not Medi’s or Amal’s words)'));
+    line.appendChild(el('span', 'rb-who', 'Written by Claude' + (x.claude ? ', ' + x.claude : '') + ' (not the student’s or the tutor’s words)'));
   }
   return line;
 }

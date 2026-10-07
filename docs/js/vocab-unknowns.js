@@ -60,9 +60,9 @@ function load(){
 const WHY={
  hold:["Scored, then put on hold","It had a verdict, but its recording changed since, so the verdict waits for a recheck."],
  isolated:["Said alone, nothing around it","One word on its own. The talk around it cannot show you knew it."],
- noamal:["Amal’s audio is missing","Her track is missing for that stretch, so no one can tell if she prompted you."],
+ noamal:["The tutor’s audio is missing","Her track is missing for that stretch, so no one can tell if she prompted you."],
  wording:["Transcript unclear","The words are garbled or ambiguous, so the word itself is not certain."],
- cue:["Amal cued or repeated it","She said or hinted it near your try. A person has to judge if it was yours."],
+ cue:["The tutor cued or repeated it","She said or hinted it near your try. A person has to judge if it was yours."],
  old:["Old grade withheld","Graded by the old rules, before the context audit, and not re-judged yet."],
  legacy:["Old match can’t be traced","An early import that cannot be tied back to one exact word."],
  wrongword:["Matched the wrong word","A look-alike word or a speech-to-text split, not the listed word."],
@@ -71,17 +71,17 @@ const WHY={
  clar:["You asked “what?”","A clarification question, not a missed word."],
  other:["One-off reviewer notes","Cases a reviewer wrote up one by one."],
  open:["Open question for a person","The audit could not settle it from the recording. Its question is on the card."],
- nc_echo:["Not counted: echo of Amal","Medi says Amal’s words back right after her. An echo is not a recall."],
+ nc_echo:["Not counted: echo of the tutor","The student says the tutor’s words back right after her. An echo is not a recall."],
  nc_repeat:["Not counted: repeat or restart","A restart or stutter of one try in the same exchange. That try is counted once."],
  nc_grammar:["Not counted: grammar practice","The exchange was about tense, person or agreement, so it is scored as grammar."],
  nc_not_this_word:["Not counted: not this word","A look-alike word or a speech-to-text split, not the listed word."],
- nc_quote:["Not counted: quoting or reading","Medi quotes, reads out or asks about the word. That is no recall."],
+ nc_quote:["Not counted: quoting or reading","The student quotes, reads out or asks about the word. That is no recall."],
  nc_filler:["Not counted: filler","“u” / و used as a filler sound, not the word “and”."],
  nc_clarification:["Not counted: asking what it means","A clarification question, not a try at the word."],
  nc_form_not_on_list:["Not counted: form not on the list","The form he said is not one of the listed forms for this word."],
- nc_farsi:["Not Arabic: Farsi side conversation","Medi talking to family in Farsi during the lesson. Not Arabic, so never scored."],
+ nc_farsi:["Not Arabic: Farsi side conversation","The student talking to family in Farsi during the lesson. Not Arabic, so never scored."],
  nc_other:["Not counted: other","Left out of the score by the audit."],
- ne_tutor_audio_missing:["No evidence possible: Amal’s audio missing","Her track is missing for that stretch, so no one can tell if she prompted him."],
+ ne_tutor_audio_missing:["No evidence possible: the tutor’s audio missing","Her track is missing for that stretch, so no one can tell if she prompted him."],
  ne_transcript_unclear:["No evidence possible: transcript unclear","The recording is too unclear to know which word was said."],
  ne_other:["No evidence possible","The recordings cannot show whether he knew it."]
 };
@@ -147,7 +147,7 @@ function compute(D){
   const band=days>=2?'multi':(helped+echo)*2>=at.length+echo&&(helped+echo)>0?'helped':at.length===1?'single':'oneday';
   return {...x,band,right:right.length,days,helped,echo,tries:at.length};
  });
- const BANDS=[['multi','Right, unaided, in 2+ lessons','Strongest: recalled on different days.','vu-ok'],['oneday','Right in one lesson only','Several tries, all on one day. Could be short-term.','vu-mid'],['single','One right try, ever','The Word Bank marks a form Good after one right first try.','vu-weak'],['helped','Mostly helped or echoing Amal','Half or more of your uses were hinted or repeats of her.','vu-weak']];
+ const BANDS=[['multi','Right, unaided, in 2+ lessons','Strongest: recalled on different days.','vu-ok'],['oneday','Right in one lesson only','Several tries, all on one day. Could be short-term.','vu-mid'],['single','One right try, ever','The Word Bank marks a form Good after one right first try.','vu-weak'],['helped','Mostly helped or echoing the tutor','Half or more of your uses were hinted or repeats of her.','vu-weak']];
  // V5: what the review overlay has settled, and the words worth checking first.
  const patches=Object.values(review?.patches||{});
  const SCORED=new Set(['independent','helped','incorrect','recall_failure']);
@@ -196,7 +196,7 @@ function echoOfAmal(e){
 }
 function notCounted(e){if(e.speaker!=='Medi'||e.assessment!=='unresolved')return null;const b=bucket(e);if(!isOpen(b)&&WHY[b]&&b.includes('_'))return b;return b==='grammar'?'nc_grammar':b==='repeat'?(echoOfAmal(e)?'nc_echo':'nc_repeat'):null;}
 const machine=e=>/^Claude\b/i.test(String(e.reviewer||e.audit_by||''));
-function outcome(e){if(e.audit_bin==='open'&&e.speaker==='Medi')return ['Open question','vu-o-hold'];if(e.needs_review)return ['On hold','vu-o-hold'];if(e.speaker!=='Medi')return ['Amal said it','vu-o-amal'];const p=C.points(e);if(p===1)return ['Correct','vu-o-ok'];if(p===.5)return ['Partial','vu-o-part'];if(p===0)return ['Wrong','vu-o-bad'];const nc=notCounted(e);if(nc)return [NC_BADGE(nc),'vu-o-nc'];if(e.audit_bin==='open')return ['Open question','vu-o-unk'];return e.assessment==='unresolved'?['Unresolved','vu-o-unk']:['Not scored','vu-o-unk'];}
+function outcome(e){if(e.audit_bin==='open'&&e.speaker==='Medi')return ['Open question','vu-o-hold'];if(e.needs_review)return ['On hold','vu-o-hold'];if(e.speaker!=='Medi')return ['The tutor said it','vu-o-amal'];const p=C.points(e);if(p===1)return ['Correct','vu-o-ok'];if(p===.5)return ['Partial','vu-o-part'];if(p===0)return ['Wrong','vu-o-bad'];const nc=notCounted(e);if(nc)return [NC_BADGE(nc),'vu-o-nc'];if(e.audit_bin==='open')return ['Open question','vu-o-unk'];return e.assessment==='unresolved'?['Unresolved','vu-o-unk']:['Not scored','vu-o-unk'];}
 function NC_BADGE(k){return k.startsWith('ne_')?'No evidence possible':WHY[k][0];}
 function wordName(e,d){const r=d.rowByKey.get(e.word_key);return r?{name:r.name,en:r.english||''}:{name:e.word_key||'?',en:''};}
 function eventItem(e,d){
@@ -208,8 +208,8 @@ function eventItem(e,d){
  const who=machine(e)?`<span class="vu-note">Machine verdict: ${esc(e.reviewer||e.audit_by)}. Not checked by a person yet.</span>`:'';
  const note=e.reason?`<span class="vu-note">${machine(e)?'Audit note':'Reviewer note'}: ${esc(String(e.reason).replace(/^Claude audit \d{4}-\d{2}-\d{2}:\s*/,''))}</span>`:'';
  return `<li class="vu-ev"><div class="vu-evhead"><span>${esc(pretty(C.date(e)))} · ${mmss(e.t_start)}</span><b>${esc(w.name)}</b>${w.en?`<span class="vu-en">${esc(w.en)}</span>`:''}<span class="vu-o ${ocls}">${esc(olab)}</span></div>`+
-  (prev?`<div class="vu-turn vu-amal"><span class="vu-who">Amal, just before</span>${speech(esc(prev.rows.map(rowText).join(' ')))}</div>`:'')+
-  `<div class="vu-turn"><span class="vu-who">${e.speaker==='Medi'?'You said':'Amal said'}</span>${speech(markHTML(said,e.text,cls))}</div>`+
+  (prev?`<div class="vu-turn vu-amal"><span class="vu-who">The tutor, just before</span>${speech(esc(prev.rows.map(rowText).join(' ')))}</div>`:'')+
+  `<div class="vu-turn"><span class="vu-who">${e.speaker==='Medi'?'You said':'The tutor said'}</span>${speech(markHTML(said,e.text,cls))}</div>`+
   (b?`<div class="vu-why"><b>${esc(b[0])}.</b> ${esc(b[1])}${e.audit_question?`<span class="vu-q"><b>Question:</b> ${speech(esc(e.audit_question))}</span>`:''}${note}${who}</div>`:(who?`<div class="vu-why">${who}</div>`:''))+
   (a?`<audio class="vu-audio" controls preload="metadata" data-start="${a.start}" src="${esc(a.src)}" aria-label="Play this moment"></audio>`:'<div class="vu-note">No recording for this moment.</div>')+`</li>`;
 }
@@ -243,16 +243,16 @@ function v1(d){
  const body=split+`<div class="vu-sub">Unresolved: a check could settle these · ${n(openN)} · tap a row for every sentence</div>`+(fix.length?fix.map(row).join(''):'<div class="vu-note">Nothing open.</div>')+
   (noev.length?`<div class="vu-sub">No evidence possible · ${n(noevN)} · the recordings cannot show it either way</div>`+noev.map(row).join(''):'')+
   (design.length?`<div class="vu-sub">Not counted by design · ${n(designN)} · echoes, repeats, fillers, grammar practice, Farsi</div>`+design.map(row).join(''):'');
- return panel('why','V1','Why the robot can’t settle these word events',`${n(U)} of Medi’s ${n(tot)} word events (${P(U,tot)}) sit out of every score: never right, never wrong. Only ${n(openN)} are still unresolved. ${n(designN)} are left out on purpose, and ${n(noevN)} cannot be judged from the recordings.`,body,`“Not counted by design” rows will never count: an echo of Amal or a repeat of one try is counted once, grammar practice is scored as grammar, and Farsi is not Arabic. Every row was checked by the Claude audit of 28 Sep 2026.${d.prep.length?` ${n(d.prep.length)} preposition events are left out: they are tracked as grammar.`:''}`);
+ return panel('why','V1','Why the robot can’t settle these word events',`${n(U)} of the student’s ${n(tot)} word events (${P(U,tot)}) sit out of every score: never right, never wrong. Only ${n(openN)} are still unresolved. ${n(designN)} are left out on purpose, and ${n(noevN)} cannot be judged from the recordings.`,body,`“Not counted by design” rows will never count: an echo of the tutor or a repeat of one try is counted once, grammar practice is scored as grammar, and Farsi is not Arabic. Every row was checked by the Claude audit of 28 Sep 2026.${d.prep.length?` ${n(d.prep.length)} preposition events are left out: they are tracked as grammar.`:''}`);
 }
 function v2(d){
- const V=d.V2,tot=d.unchecked.length,G=[['never','Never heard or said','No lesson has touched this form yet.',V.never,'vu-soft'],['heard','Heard from Amal only','She used it; you have not said it yet.',V.heard,'vu-mid'],['said','Said, but unresolved','You said it; every try is unresolved or not scored.',V.said,'vu-weak'],['slots','Form slots no lesson uses','Plural, future or command slots lessons almost never exercise.',V.slots,'vu-unk']];
+ const V=d.V2,tot=d.unchecked.length,G=[['never','Never heard or said','No lesson has touched this form yet.',V.never,'vu-soft'],['heard','Heard from the tutor only','She used it; you have not said it yet.',V.heard,'vu-mid'],['said','Said, but unresolved','You said it; every try is unresolved or not scored.',V.said,'vu-weak'],['slots','Form slots no lesson uses','Plural, future or command slots lessons almost never exercise.',V.slots,'vu-unk']];
  const max=Math.max(1,...G.map(g=>g[3].length));
  const items=g=>g[0]==='heard'?g[3].flatMap(x=>d.amalHeard(x.form)).sort(byTime):g[0]==='said'?g[3].flatMap(x=>d.mediUses(x.form)).sort(byTime):g[3];
  const groups=G.map(g=>acc(bar(g[1],g[2],g[3].length,max,g[4],`${n(g[3].length)} <small>${P(g[3].length,tot)}</small>`),items(g),g[0]==='heard'||g[0]==='said'?'event':'form')).join('');
  const tmax=Math.max(1,...d.types.map(t=>t.all));
  const types=d.types.map(t=>acc(bar(t.k,'',t.all,tmax,'',`${n(t.all)}${t.slots?` <small>· ${n(t.slots)} unused</small>`:''}`,`<i class="vu-mid" style="width:${100*(t.all-t.slots)/tmax}%"></i><i class="vu-unk vu-after" style="width:${100*t.slots/tmax}%"></i>`),t.list,'form','vu-acc-sm')).join('');
- return panel('never','V2','Never-checked words',`${n(tot)} studied forms are “Not yet checked”: no scored try. Here is what the lessons hold for them.`,groups+`<div class="vu-sub">By form type · dark = lessons use this type · light = slot no lesson uses</div>`+types,`${n(V.heard.length)} forms are free wins: Amal already uses them.${d.unassigned?` ${n(d.unassigned)} of your word events hit a word but no single form (tense unclear), so they check nothing.`:''}`);
+ return panel('never','V2','Never-checked words',`${n(tot)} studied forms are “Not yet checked”: no scored try. Here is what the lessons hold for them.`,groups+`<div class="vu-sub">By form type · dark = lessons use this type · light = slot no lesson uses</div>`+types,`${n(V.heard.length)} forms are free wins: the tutor already uses them.${d.unassigned?` ${n(d.unassigned)} of your word events hit a word but no single form (tense unclear), so they check nothing.`:''}`);
 }
 function v3(d){
  const L=d.lessons,max=Math.max(.01,...L.map(c=>c.unk.length/Math.max(1,c.all)));
@@ -270,10 +270,10 @@ function v4(d){
 }
 function v5(d){
  const tile=(v,l,s)=>`<div class="vu-tile"><b>${v}</b><span>${esc(l)}</span>${s?`<small>${esc(s)}</small>`:''}</div>`;
- const tiles=`<div class="vu-tiles">${tile(n(d.settled),'unresolved events settled by review','word-bank-review.json overlay')}${tile(n(d.withheld),'scores pulled back to unresolved','the context audit, same overlay')}${tile(n(d.flagged),'events flagged for a recheck',d.stale?`${n(d.stale)} because their recording changed`:'set by the review overlay')}${tile('—','Amal’s word-review answers','saved per private link; not readable here')}</div>`;
+ const tiles=`<div class="vu-tiles">${tile(n(d.settled),'unresolved events settled by review','word-bank-review.json overlay')}${tile(n(d.withheld),'scores pulled back to unresolved','the context audit, same overlay')}${tile(n(d.flagged),'events flagged for a recheck',d.stale?`${n(d.stale)} because their recording changed`:'set by the review overlay')}${tile('—','The tutor’s word-review answers','saved per private link; not readable here')}</div>`;
  const max=Math.max(1,...d.top.map(t=>t.list.length));
  const top=d.top.length?`<div class="vu-sub">Check these 3 first · most frequent fixable unknowns</div>`+d.top.map((t,i)=>acc(bar(`${i+1}. ${t.row?t.row.name:t.k}`,t.row?.english||'',t.list.length,max,'vu-mid',`${n(t.list.length)} <small>${n(t.days.size)} lesson${t.days.size===1?'':'s'}</small>`),t.list.slice().sort(byTime),'event')).join(''):'<div class="vp-empty">No fixable unknowns left.</div>';
- const levers=`<ol class="vu-do"><li><b>Review overlay:</b> a reviewer reads the whole exchange and writes a verdict into word-bank-review.json. Raw transcripts never change (S2).</li><li><b>Amal:</b> her word-review page asks “what was actually said?” for unclear audio. That settles transcript-unclear rows.</li><li><b>Medi:</b> there is no swipe check for words yet (the listening one is sentence-only). A 10-card word swipe aimed at the top of this list would be the fastest lever. Decision for Medi.</li></ol>`;
+ const levers=`<ol class="vu-do"><li><b>Review overlay:</b> a reviewer reads the whole exchange and writes a verdict into word-bank-review.json. Raw transcripts never change (S2).</li><li><b>Tutor:</b> her word-review page asks “what was actually said?” for unclear audio. That settles transcript-unclear rows.</li><li><b>Student:</b> there is no swipe check for words yet (the listening one is sentence-only). A 10-card word swipe aimed at the top of this list would be the fastest lever. Decision for the student.</li></ol>`;
  return panel('act','V5','Turning unknowns into answers',`What settles an unresolved event, what has been settled so far, and ${n(d.fixable)} fixable unknowns to work through.`,tiles+levers+top,'',true);
 }
 
@@ -286,7 +286,7 @@ const ROBOT=['V1','V3','V5'],MEDI=['V4','V2'],DRAW={V1:v1,V4:v4,V2:v2,V3:v3,V5:v
 function head(d,keys){
  const thin=d.known.filter(x=>x.band!=='multi').length;
  if(keys.every(k=>MEDI.includes(k)))return `<div class="vu-head"><span class="vp-eyebrow">How sure are these numbers?</span><h2 class="ov-h2">What your vocab numbers rest on</h2><p class="ab-sub">${n(thin)} of your “known” forms rest on thin proof, and ${n(d.unchecked.length)} studied forms have no scored try yet. Tap any row for the exact sentences.</p><p class="rb-link">Why the robot couldn’t settle ${n(d.open)} of your word events is a robot issue, so it lives on <a href="ai-reports.html?tab=unknowns#ar-unk-vocab">AI Reports › Robot blind spots</a>.</p></div>`;
- if(keys.every(k=>ROBOT.includes(k)))return `<div class="vu-head"><p class="ab-sub">The robot could not settle ${n(d.open)} of Medi’s word events: why, in which lessons, and what would settle them. Tap any row for the exact sentences.</p><p class="rb-link">How sure Medi’s “known” words are and the never-checked words on his list are about him, so they live on <a href="progress.html?tab=vocab#vp-vocab-sure">Progress › Vocab</a>.</p></div>`;
+ if(keys.every(k=>ROBOT.includes(k)))return `<div class="vu-head"><p class="ab-sub">The robot could not settle ${n(d.open)} of the student’s word events: why, in which lessons, and what would settle them. Tap any row for the exact sentences.</p><p class="rb-link">How sure the student’s “known” words are and the never-checked words on his list are about him, so they live on <a href="progress.html?tab=vocab#vp-vocab-sure">Progress › Vocab</a>.</p></div>`;
  return `<div class="vu-head"><span class="vp-eyebrow">Reporting on the gaps · vocabulary</span><h2 class="ov-h2">What the robot doesn’t know: vocabulary</h2><p class="ab-sub">${n(d.open)} unresolved word events, ${n(d.unchecked.length)} never-checked forms and ${n(thin)} thinly-proven “known” forms behind the vocab numbers. Tap any row for the exact sentences.</p></div>`;
 }
 async function render(host,opts={}){
@@ -303,7 +303,7 @@ async function render(host,opts={}){
  const last=d.lessons.at(-1);
  host.innerHTML=`${head(d,keys)}
  <div class="vp-grid vu-grid">${keys.map(k=>DRAW[k](d)).join('')}</div>
- <p class="vu-foot vu-end">Computed live from ${n(d.M.length)} of ${keys.every(k=>MEDI.includes(k))?'your':'Medi’s'} word events across ${n(d.lessons.length)} lessons${last?` (last ${esc(pretty(last.d))})`:''}, with the Word Bank’s own scoring and review overlay.${D.notes.length?' '+esc(D.notes.join(' ')):''}</p>`;
+ <p class="vu-foot vu-end">Computed live from ${n(d.M.length)} of ${keys.every(k=>MEDI.includes(k))?'your':'The student’s'} word events across ${n(d.lessons.length)} lessons${last?` (last ${esc(pretty(last.d))})`:''}, with the Word Bank’s own scoring and review overlay.${D.notes.length?' '+esc(D.notes.join(' ')):''}</p>`;
  host.addEventListener('toggle',ev=>{const det=ev.target;if(det.matches?.('details.vu-acc')&&det.open&&!det.dataset.built){det.dataset.built='1';more(det,d);}},true);
  host.addEventListener('click',ev=>{const b=ev.target.closest('.vu-more');if(b)more(b.closest('details.vu-acc'),d);});
  const seek=a=>{if(a.dataset.seeked)return;const s=Number(a.dataset.start)||0;if(s){try{a.currentTime=s;}catch{}}a.dataset.seeked='1';};

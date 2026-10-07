@@ -46,7 +46,7 @@ function createTrackPlayer(audio, sources, status, active) {
   }
   async function playFrom(button, sourceId, start) {
     if (!sources[sourceId] || !Number.isFinite(start) || start < 0) {
-      status('Audio unavailable for this line. Medi needs to repair its audio link.', true);
+      status('Audio unavailable for this line. The student needs to repair its audio link.', true);
       return;
     }
     if (selected === button && wants && (!audio.paused || pending)) {
@@ -83,12 +83,12 @@ function createTrackPlayer(audio, sources, status, active) {
       if (error.name === 'NotAllowedError') {
         status('Tap ▶ again to start the recording.', true);
       } else if (error.message === 'timestamp') {
-        status('This line’s audio link needs fixing. Let Medi know; you can skip it.', true);
+        status('This line’s audio link needs fixing. Let the student know; you can skip it.', true);
       } else if (error.name === 'AbortError') {
         status('Playback stopped. Tap ▶ to retry.', true);
       } else {
         currentSource = null; // A later tap retries the linked original automatically.
-        status('Audio unavailable here. Let Medi know; you can skip this line.', true);
+        status('Audio unavailable here. Let the student know; you can skip this line.', true);
       }
     }
   }
@@ -105,7 +105,7 @@ function createTrackPlayer(audio, sources, status, active) {
     if (pending) return;
     invalidate(); wants = false; pending = false; currentSource = null;
     pause(); clear();
-    status('Audio unavailable here. Let Medi know; you can skip this line.', true);
+    status('Audio unavailable here. Let the student know; you can skip this line.', true);
   }
   audio.addEventListener('pause', onPause);
   audio.addEventListener('ended', onEnd);
@@ -239,7 +239,7 @@ function mountWordReview(doc, win, payload, options = {}) {
       if (options.save && draft.pending && draft.state.revision !== state.revision &&
           reviewCanonical(draft.state.answers) !== reviewCanonical(state.answers)) {
         conflict = true;
-        announce('Answers changed on another device. Your unsent draft is kept; download it before resolving this with Medi.');
+        announce('Answers changed on another device. Your unsent draft is kept; download it before resolving this with the student.');
         state = draft.state;
       } else if (!options.save || (draft.pending && draft.state.revision === state.revision)) {
         state = draft.state; pending = !!draft.pending;
@@ -284,10 +284,10 @@ function mountWordReview(doc, win, payload, options = {}) {
       if (saved.revision !== snapshot.revision || reviewCanonical(saved.answers) !== reviewCanonical(snapshot.answers)) throw Error('save-mismatch');
       state.revision = saved.revision; savedVersion = sentVersion;
       pending = version !== savedVersion; persist();
-      announce(pending ? 'Saving…' : 'Saved for Medi.');
+      announce(pending ? 'Saving…' : 'Saved for the student.');
     } catch (error) {
       conflict = error.message === 'save-conflict';
-      announce(conflict ? 'Answers changed on another device, or this link expired. Download your unsent answers before reloading; let Medi know.' :
+      announce(conflict ? 'Answers changed on another device, or this link expired. Download your unsent answers before reloading; let the student know.' :
         storageBlocked ? 'Not saved online and device backup is unavailable. Keep this page open or download your answers, then retry.' :
         'Not saved online yet. Your draft is kept on this device. Tap Retry saving when connected.');
       const retry = doc.getElementById('review-retry');
@@ -302,7 +302,7 @@ function mountWordReview(doc, win, payload, options = {}) {
     version++; pending = !!options.save; persist(); draw();
     if (options.save) {
       announce('Saving…'); clearTimeout(timer); timer = setTimeout(flush,350);
-    } else announce(storageBlocked ? 'Not saved on this device. Download answers before leaving.' : 'Saved on this device. Download answers to return them to Medi.');
+    } else announce(storageBlocked ? 'Not saved on this device. Download answers before leaving.' : 'Saved on this device. Download answers to return them to the student.');
   }
   // AM-17 (Medi 2026-10-02 "can you add an undo button to all these tutor hub stuff"): Undo drops the answer from the
   // link's map (open again at once) and logs it in state.undone - nothing is lost
@@ -419,9 +419,9 @@ async function openSharedReview(doc, win, token) {
     pageStatus.textContent = payload.word_count+' words · '+payload.items.length+' quick checks · September 5 lesson';
     doc.getElementById('review-content').hidden = false;
   } catch (error) {
-    pageStatus.textContent = error.message === 'missing-link' ? 'Open the complete private link Medi sent you.' :
-      error.message === 'expired-link' ? 'This review link has expired or was closed. Ask Medi for a new link.' :
-      'The review could not open. Check your connection and reload. If it still fails, let Medi know.';
+    pageStatus.textContent = error.message === 'missing-link' ? 'Open the complete private link the student sent you.' :
+      error.message === 'expired-link' ? 'This review link has expired or was closed. Ask the student for a new link.' :
+      'The review could not open. Check your connection and reload. If it still fails, let the student know.';
   }
 }
 
@@ -432,7 +432,7 @@ function mount(el, item) {
     '<p id="page-status" class="hb-sub" role="status">Opening your review…</p><div id="review-content" hidden><p class="hb-sub">Listen, then confirm what was actually said—even if the attempt was incorrect. You can skip unclear audio.</p>'+
     '<p class="hb-prog" id="review-progress"></p><p id="review-save-status" class="hb-sub" role="status" aria-live="polite"></p><button type="button" class="an-undo" id="review-retry" hidden>Retry saving</button>'+
     '<div id="review-groups"></div><details class="review-toolbar"><summary>Backup answers</summary><button type="button" class="an-undo" id="review-download">Download answers</button></details>'+
-    '<p class="hb-foot">Answers save for Medi automatically. This access link is private; please don’t post it publicly.</p></div></div>';
+    '<p class="hb-foot">Answers save for the student automatically. This access link is private; please don’t post it publicly.</p></div></div>';
   return openSharedReview(document, window, item.token);
 }
 root.AneesWordReviewTask = { mount };

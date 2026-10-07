@@ -22,7 +22,7 @@ button[disabled]{opacity:.5;cursor:default}
 <h1>Homework</h1>
 <p class="sub" id="sub">Loading…</p>
 <div id="root"></div>
-<p class="mute">Type your answer in Arabizi (6=ط 7=ح 3=ع 2=ء 5=خ). Anees checks it on the spot; Amal gives the final word on her next link. Voice answers are on the <a href="index.html#future">Future projects</a> list.</p>
+<p class="mute">Type your answer in Arabizi (6=ط 7=ح 3=ع 2=ء 5=خ). Anees checks it on the spot; the tutor gives the final word on her next link. Voice answers are on the <a href="index.html#future">Future projects</a> list.</p>
 </main>
 <script src="js/config.js"></script>
 <script>
@@ -34,12 +34,12 @@ const root=document.getElementById('root'), sub=document.getElementById('sub');
 const KEY=new URLSearchParams(location.search).get('date');
 let items=[], answers={};
 function promptText(it){ return (it.status==='edit'||it.status==='amal')&&it.edited_english ? it.edited_english : it.english; }
-function badge(it){ if(it.status==='suggested') return '<span class="badge wait">Amal has not reviewed yet</span>'; if(it.status==='amal') return '<span class="badge amal">Amal\'s own line</span>'; if(it.status==='edit') return '<span class="badge amal">edited by Amal</span>'; return '<span class="badge amal">kept by Amal</span>'; }
+function badge(it){ if(it.status==='suggested') return '<span class="badge wait">The tutor has not reviewed yet</span>'; if(it.status==='amal') return '<span class="badge amal">The tutor\'s own line</span>'; if(it.status==='edit') return '<span class="badge amal">edited by the tutor</span>'; return '<span class="badge amal">kept by the tutor</span>'; }
 function gradeHtml(a){ if(!a) return ''; const g=a.grade; let h='<div class="grade">';
   if(!g) h+='<span class="pill">checking…</span>'; else { const v=g.verdict||'ungraded'; h+=`<span class="pill ${esc(v)}">${v==='right'?'Right':v==='close'?'Close':v==='wrong'?'Not yet':'Ungraded'}</span> <span class="mute">Anees</span>`;
     (g.notes||[]).forEach(n=>{ h+=`<div class="note"><b>${esc(n.kind||'')}</b> ${esc(n.say||'')}</div>`; });
     if(g.fixed&&v!=='right') h+=`<div class="fixed">→ ${esc(g.fixed)}</div>`; }
-  if(a.amal_verdict) h+=`<div class="amalv"><b>Amal:</b> ${a.amal_verdict==='right'?'correct ✓':a.amal_verdict==='fix'?('fix → '+esc(a.amal_fix||'')):'skipped'}</div>`; else h+='<div class="mute" style="margin-top:6px">Amal will confirm on her next link.</div>';
+  if(a.amal_verdict) h+=`<div class="amalv"><b>Tutor:</b> ${a.amal_verdict==='right'?'correct ✓':a.amal_verdict==='fix'?('fix → '+esc(a.amal_fix||'')):'skipped'}</div>`; else h+='<div class="mute" style="margin-top:6px">The tutor will confirm on her next link.</div>';
   return h+'</div>'; }
 function card(it){ const mine=(answers[it.id]||[]); const last=mine[0]; const id='i'+it.id;
   return `<div class="card" id="${id}"><div class="n">${it.n}${badge(it)}</div><div class="en">${esc(promptText(it))}</div>
@@ -48,7 +48,7 @@ function card(it){ const mine=(answers[it.id]||[]); const last=mine[0]; const id
    ${mine.length>1?`<details class="mute" style="margin-top:6px"><summary>${mine.length-1} earlier ${mine.length-1===1?'try':'tries'}</summary>${mine.slice(1).map(a=>`<div class="prev">${esc(a.answer)}${gradeHtml(a)}</div>`).join('')}</details>`:''}</div>`; }
 function render(){ if(!items.length){ root.innerHTML='<div class="card">No homework sheet yet. It appears after the next lesson.</div>'; return; }
   const date=items[0].lesson_date; const approved=items.filter(i=>i.status!=='suggested').length;
-  sub.textContent=`Sheet from the ${date} lesson · ${items.length} lines · ${approved} reviewed by Amal`;
+  sub.textContent=`Sheet from the ${date} lesson · ${items.length} lines · ${approved} reviewed by the tutor`;
   root.innerHTML=items.map(card).join('');
   items.forEach(it=>{ const id='i'+it.id; document.getElementById(id+'b').onclick=()=>submit(it); document.getElementById(id+'t').onkeydown=e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); submit(it);} }; }); }
 async function submit(it){ const id='i'+it.id; const t=document.getElementById(id+'t'), b=document.getElementById(id+'b'), err=document.getElementById(id+'e'); const v=t.value.trim(); if(!v) return; b.disabled=true; err.textContent='';
@@ -57,7 +57,7 @@ async function submit(it){ const id='i'+it.id; const t=document.getElementById(i
     (answers[it.id]=answers[it.id]||[]).unshift({...row,ts:new Date().toISOString(),grade:null}); render();
     const g=await fetch(ANEES.url+'/functions/v1/grade',{method:'POST',headers:{...H},body:JSON.stringify({answer_id:row.id})});
     const j=await g.json().catch(()=>({}));
-    if(!g.ok||!j.grade){ answers[it.id][0].grade={verdict:'ungraded',notes:[{kind:'offline',say:(j.error||'The grader did not answer; Amal will still see it.')}]}; }
+    if(!g.ok||!j.grade){ answers[it.id][0].grade={verdict:'ungraded',notes:[{kind:'offline',say:(j.error||'The grader did not answer; the tutor will still see it.')}]}; }
     else answers[it.id][0].grade=j.grade;
     render(); document.getElementById(id).scrollIntoView({block:'nearest'});
   }catch(e){ b.disabled=false; err.textContent='Could not save: '+(e.message||e)+'. Check your connection and tap Check again.'; } }

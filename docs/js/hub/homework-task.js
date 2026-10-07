@@ -15,7 +15,7 @@
   const uuid = () => (crypto.randomUUID ? crypto.randomUUID() : 'h' + Date.now().toString(36) + Math.random().toString(36).slice(2));
   const pretty = d => d ? new Date(String(d).slice(0, 10) + 'T12:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
   const QK = 'anees-homework-q';
-  const SAY = { right: 'Medi got it right', close: 'Medi was close', wrong: 'Medi got it wrong' };   // AM-23: plain sentences
+  const SAY = { right: 'The student got it right', close: 'The student was close', wrong: 'The student got it wrong' };   // AM-23: plain sentences
 
   function count(tasks, replies, verdicts) {
     const H = root.AneesHomework, T = H.effective(tasks);

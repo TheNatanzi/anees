@@ -166,12 +166,12 @@ def test_PG_18_done_rows_show_the_moment_and_the_result():
     B._AUDIT.clear(); B._AUDIT.update({"FA-x": {"uid": "FA-x", "kind": "vocab-A", "medi_said": "ana mshajje3"}})
     d = B.link_detail(link, {})
     a, b = d["asked"]
-    assert (a["t"], a["medi"], a["answer"], a["at"], a["result"]) == ("6:36", "ana mshajje3", "Wrong word", "2026-10-02", "counted as a mistake for Medi")   # AM-24: "mistake", never "slip", on her page
+    assert (a["t"], a["medi"], a["answer"], a["at"], a["result"]) == ("6:36", "ana mshajje3", "Wrong word", "2026-10-02", "counted as a mistake for the student")   # AM-24 + PG-33: "mistake", never "slip", on her page
     assert a["clip"].startswith("lessons/2026-10-01/audio/lesson.mp3#t=393,")
     assert b["answer"] is None and b["result"].startswith("not asked")
     B._AUDIT.clear()
     js = TUTOR_JS
-    assert "Result: ${esc(x.result)}" in js and "Medi: <span lang=\"ar\">${esc(x.medi)}</span>" in js and "AneesClip.bar(" in js
+    assert "Result: ${esc(x.result)}" in js and "Student: <span lang=\"ar\">${esc(x.medi)}</span>" in js and "AneesClip.bar(" in js
     assert "<b>Change an answer</b>" in js                                       # Undo one tap below the results while live
 
 
@@ -184,17 +184,17 @@ def test_AM_21_AM_22_the_two_tools_have_their_own_strip_not_rows_in_her_checking
 
 def test_AM_23_every_tutor_choice_is_a_plain_sentence_about_medi():
     """AM-23 (Medi 2026-10-06: "all the verbiage in the tutor section is confusing. label it Medi got it right / Medi got the wrong
-    word / Medi had wrong grammar. Please revisit all of them")."""
+    word / Medi had wrong grammar. Please revisit all of them"); PG-33 (2026-10-07): on screen he is "the student")."""
     after = (HUB / "after-task.js").read_text(encoding="utf-8")
-    for label in ("'Right': 'Medi got it right'", "'Wrong word': 'Medi got the wrong word'", "'Wrong grammar': 'Medi had wrong grammar'", "'Not Medi': 'That was not Medi speaking'"):
+    for label in ("'Right': 'The student got it right'", "'Wrong word': 'The student got the wrong word'", "'Wrong grammar': 'The student had wrong grammar'", "'Not Medi': 'That was not the student speaking'"):
         assert label in after
     assert "esc(show(b))" in after and "Listen, then tap. Your tap sets the score for this word." in after
     assert "the readers were not sure" not in after and "${esc(q.why)}" not in after      # no machine reason under the question
     for f in (HUB / "review-task.js", DOCS / "js" / "tutor-verify.js"):
         js = f.read_text(encoding="utf-8")
-        assert "Yes, Medi was wrong" in js and "No, Medi was fine" in js and "Correction is correct<" not in js, f.name
+        assert "Yes, the student was wrong" in js and "No, the student was fine" in js and "Correction is correct<" not in js, f.name
     assert "Right as written" in (HUB / "verb-check-task.js").read_text(encoding="utf-8")
-    assert "right: 'Medi got it right', close: 'Medi was close', wrong: 'Medi got it wrong'" in (HUB / "homework-task.js").read_text(encoding="utf-8")
+    assert "right: 'The student got it right', close: 'The student was close', wrong: 'The student got it wrong'" in (HUB / "homework-task.js").read_text(encoding="utf-8")
 
 
 def test_AM_24_amal_never_reads_the_word_slip():

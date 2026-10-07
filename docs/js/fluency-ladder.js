@@ -251,7 +251,7 @@ function headline(o){
   ${L?`<div class="fl-big"><b>${n(L.N)}</b><span>words at <strong>${P(L.pct_at_N)}</strong></span><span class="fl-arrow">→</span><span>target <strong>${n(L.target)}</strong> at ${P(L.pct_at_target)}${L.n_at_target?` <small>(last ${n(L.n_at_target)})</small>`:''}</span></div>${rungs(L,T)}${progressLine(L,T,okWord)}`:empty('No ladder in the data yet.')}${extra}</div>`;
  const strict=st?`<div class="fl-strict"><span class="fl-pill fl-pill-warn">Direct evidence only</span> <b>${n(st.N)}</b> words at ${P(st.pct_at_N)} · counts “understood” only when she confirmed, you reused her word, answered or glossed it. The ${n(Ll&&Ll.N)} above is the optimistic number; this is the floor.</div>`:'<div class="fl-strict">Direct-evidence ladder: — (not in the data)</div>';
  const note=o.ladder.recomputed?`<p class="fl-note">Listening ladder recomputed here with your ${n(o.usedSwipes)} swipe${o.usedSwipes===1?'':'s'} (your label beats the machine’s).</p>`:'';
- return `<div class="fl-heads">${card('Listening · you understand Amal',Ll,'understood',strict)}${card('Speaking · Amal lets it stand',Ls,'uncorrected','<div class="fl-strict">Success = your sentence was not corrected by Amal. Echoes of her line and mostly-English sentences are not scored.</div>')}</div>
+ return `<div class="fl-heads">${card('Listening · you understand the tutor',Ll,'understood',strict)}${card('Speaking · the tutor lets it stand',Ls,'uncorrected','<div class="fl-strict">Success = your sentence was not corrected by the tutor. Echoes of her line and mostly-English sentences are not scored.</div>')}</div>
  <p class="fl-rule"><b>Rule:</b> ${esc((S.ladder&&S.ladder.rule)||'—')} · unknowns (a bare “aywa”) never count.</p>${note}
  <div class="fl-legend"><span><i class="fl-r-good"></i>good</span><span><i class="fl-r-notyet"></i>not yet</span><span><i class="fl-r-one"></i>one lesson only</span><span><i class="fl-r-thin"></i>under ${n(T.ladder_last)} sentences</span></div>`;
 }
@@ -332,7 +332,7 @@ function grammar(o){
   :st==='early'?`<span class="fl-gbar fl-gbar-early" title="${esc(E.title(ke,floor))}"><i style="width:${p}%"></i></span><b class="fl-early">${P(p)}</b><small class="fl-early">${E.label(n(ke))}</small>`
   :`<span class="fl-coll">no clear sentence yet</span>`;};
  const heard=h=>(h.understood||0)+(h.breakdown||0);
- return `<div class="fl-gtable" role="table"><div class="fl-grow fl-ghead" role="row"><span>Rule</span><span>When Amal uses it: understood</span><span>When you use it: not corrected</span><span title="Corrections filed under this rule on the Grammar Console">fixes</span></div>
+ return `<div class="fl-gtable" role="table"><div class="fl-grow fl-ghead" role="row"><span>Rule</span><span>When the tutor uses it: understood</span><span>When you use it: not corrected</span><span title="Corrections filed under this rule on the Grammar Console">fixes</span></div>
  ${rs.map(r=>`<div class="fl-grow" role="row"><span class="fl-gid" title="${esc(r.name)}"><b>${esc(r.id)}</b> ${esc(r.name)}</span><span>${bar(r.hear.pct,r.hear.show,r.hear.n,'fl-fill-l',heard(r.hear))}</span><span>${r.say?bar(r.say.pct_ok,r.say.show,r.say.uses,'fl-fill-s'):'—'}</span><span>${r.say?n(r.say.corrections_this_rule):'—'}</span></div>`).join('')}</div>`;
 }
 
@@ -376,9 +376,9 @@ function swipeCard(){
  const sigs=(p.signals||[]).map(k=>SIG_LABEL[k]||k).join(', ');
  const prev=mine(p);
  return head+`<div class="fl-card" id="fl-card" tabindex="-1">
-  <div class="fl-who">Amal said</div>
+  <div class="fl-who">The tutor said</div>
   ${az?`<div class="fl-az">${esc(az)}</div>`:''}<div class="fl-ar" lang="ar" dir="rtl">${esc(p.text)}</div>
-  ${gloss?`<div class="fl-gloss" title="Word Bank glosses of her words (Amal’s Doc)">${gloss}</div>`:`<div class="fl-gloss fl-muted">${u?'No Word Bank gloss for these words.':'Loading the word glosses…'}</div>`}
+  ${gloss?`<div class="fl-gloss" title="Word Bank glosses of her words (the tutor’s Doc)">${gloss}</div>`:`<div class="fl-gloss fl-muted">${u?'No Word Bank gloss for these words.':'Loading the word glosses…'}</div>`}
   <div class="fl-who">You replied</div>
   <div class="fl-reply">${p.reply_text?(raz?`${esc(raz)}<div class="fl-ar fl-ar-s" lang="ar" dir="rtl">${esc(p.reply_text)}</div>`:esc(p.reply_text)):'— (no reply transcribed)'}</div>
   <div class="fl-mach">Machine says <span class="fl-pill ${mc}">${esc(ml)}</span>${sigs?` <small>${esc(sigs)}</small>`:''}${prev?` · <small>you said ${esc(prev.label)} before</small>`:''}</div>
@@ -431,8 +431,8 @@ function render(){
  ${panel('curve','A','Comprehension by sentence length','% understood of scored sentences at each length. Faded dots: under '+n(o.T.ladder_last)+' sentences. Strips below: every sentence, unknowns in their own band.',curve(o),{side:`<div class="vp-side"><b>${P(share(L.understood,(L.understood||0)+(L.breakdown||0)))}</b>heard · ${P(share(Sp.success,(Sp.success||0)+(Sp.corrected||0)))} said</div>`,foot:`Listening: ${n(L.understood)} understood, ${n(L.breakdown)} breakdowns, ${n(L.unknown)} unknown. Speaking: ${n(Sp.success)} ok, ${n(Sp.corrected)} corrected.${o.ov.size?' Includes your swipes.':''}`})}
  ${panel('signals','B','Miss signals, lesson by lesson','Each bar: the ways you showed you did not follow. Number on top: breakdowns per scored listening sentence.',signals(o),{wide:true,foot:'Rescue and wrong-answer are machine guesses (striped). A bare “aywa” is never a signal: it is unknown.'})}
  ${panel('costs-l','C','What costs you: hearing','Mantel-Haenszel difference, same lesson and same length. Bar = 95% range; most still cross 0, so read them as hints, not facts.',costs(o,'listen'),{})}
- ${panel('costs-s','C','What costs you: saying','Same model on your own sentences: how much more often Amal corrects you when the tag is present.',costs(o,'speak'),{})}
- ${panel('grammar','D','Grammar rules: hear vs say','The '+n(Math.min(8,Object.keys(S.rules||{}).length))+' rules you hear most. Left: Amal uses it. Right: you use it.',grammar(o),{foot:`Under ${n(o.T.effect_floor)} sentences a side the % is grey and marked early. The Grammar Console has the full list.`})}
+ ${panel('costs-s','C','What costs you: saying','Same model on your own sentences: how much more often the tutor corrects you when the tag is present.',costs(o,'speak'),{})}
+ ${panel('grammar','D','Grammar rules: hear vs say','The '+n(Math.min(8,Object.keys(S.rules||{}).length))+' rules you hear most. Left: the tutor uses it. Right: you use it.',grammar(o),{foot:`Under ${n(o.T.effect_floor)} sentences a side the % is grey and marked early. The Grammar Console has the full list.`})}
  </div>
  <p class="rb-link">How far to trust the labeller (its blind hand check and how often it agrees with your swipes) is about the robot, so it lives on <a href="ai-reports.html?tab=unknowns#ar-unk-listen">AI Reports › Robot blind spots › Listening</a>.</p>
  <p class="vp-footer">Sentence ladder ${esc(S.version||'')} · built ${esc(String(S.generated||'').replace('T',' '))} · ${n((S.lessons||[]).length)} lessons, latest ${esc(pretty(lastLesson&&lastLesson.date))}${U?` · ${n(U.listen.length)} listening + ${n(U.speak.length)} speaking sentences`:' · loading sentences'}${failed.length?` · not loaded: ${esc(failed.join(', '))}`:''}${o.ladder.checked?' · ladder re-checked in the browser':''}${o.join&&o.join.fs?` · FSRS from ${esc(o.join.fs.src)} (${n(o.join.fs.answers)} answers)`:''}${COG?` · Farsi cognates: ${esc(COG.status||'')}`:''}</p>`;

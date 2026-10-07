@@ -64,15 +64,15 @@
       return `<article class="tu-card tv-card${a ? ' tv-done' : ''}" data-lq="${esc(x.id)}">
         <div class="tu-top"><h3 class="tu-title tv-title">${esc(pretty(x.date))} · ${esc(x.mmss)}</h3></div>
         <div><button type="button" class="tu-btn tv-play" data-lplay="${esc(x.audio || '')}">▶ Play the moment</button></div>
-        ${x.medi_said ? `<p class="tu-meta">Medi: <span lang="ar" dir="auto" class="tv-line">${esc(x.medi_said)}</span></p>` : ''}
+        ${x.medi_said ? `<p class="tu-meta">Student: <span lang="ar" dir="auto" class="tv-line">${esc(x.medi_said)}</span></p>` : ''}
         ${x.amal_said ? `<p class="tu-meta">You: <span lang="ar" dir="auto" class="tv-line">${esc(x.amal_said)}</span></p>` : ''}
         <p class="hb-sub"><b dir="auto">${esc(x.question)}</b></p>
         ${a ? root.AneesUndo.answered('You said: ' + (a.answer === OTHER ? otherLabel(a) : labelOf(x, a.answer)) + (a.note ? ' · note: ' + a.note : '') + saving, { 'data-lundo': x.id }) :
           `<div class="tv-btns">${(x.options || []).filter(o => o.value !== 'none' && o.value !== OTHER).map(o => `<button type="button" class="tu-btn tu-primary" data-lpick="${esc(o.value)}" data-id="${esc(x.id)}" dir="auto">${esc(o.label)}</button>`).join('')}
-            <button type="button" class="tu-btn tu-primary" data-lpick="other" data-id="${esc(x.id)}">Another word<small>type what Medi said and the right word</small></button>
+            <button type="button" class="tu-btn tu-primary" data-lpick="other" data-id="${esc(x.id)}">Another word<small>type what the student said and the right word</small></button>
             ${(x.options || []).filter(o => o.value === 'none').map(o => `<button type="button" class="tu-btn" data-lpick="${esc(o.value)}" data-id="${esc(x.id)}" dir="auto">${esc(o.label)}</button>`).join('')}</div>
-          <div class="tv-reason" data-lother="${esc(x.id)}" hidden><input class="hb-input" data-lsaid="${esc(x.id)}" dir="auto" placeholder="What Medi said (e.g. shawban)"><input class="hb-input" data-lright="${esc(x.id)}" dir="auto" placeholder="The right word (e.g. shab3an = full)"><button type="button" class="tu-btn tu-primary" data-lpick="other" data-id="${esc(x.id)}">Save</button></div>
-          <details class="an-write"><summary>✎ Add a note (optional)</summary><textarea class="hb-input" data-lnote="${esc(x.id)}" dir="auto" rows="2" placeholder="Anything you want Medi to know about this moment"></textarea></details>`}
+          <div class="tv-reason" data-lother="${esc(x.id)}" hidden><input class="hb-input" data-lsaid="${esc(x.id)}" dir="auto" placeholder="What the student said (e.g. shawban)"><input class="hb-input" data-lright="${esc(x.id)}" dir="auto" placeholder="The right word (e.g. shab3an = full)"><button type="button" class="tu-btn tu-primary" data-lpick="other" data-id="${esc(x.id)}">Save</button></div>
+          <details class="an-write"><summary>✎ Add a note (optional)</summary><textarea class="hb-input" data-lnote="${esc(x.id)}" dir="auto" rows="2" placeholder="Anything you want the student to know about this moment"></textarea></details>`}
       </article>`;
     }
     function render() {

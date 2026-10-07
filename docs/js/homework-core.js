@@ -47,9 +47,9 @@
     return effective(rows).filter(r => r.kind === 'upload').map(u => {
       const cards = (Array.isArray(u.rows) ? u.rows : []).map((c, i) => ({
         key: 'u:' + u.id + ':' + (i + 1), arabizi: String(c.arabizi || c.arabic || ''), arabic: c.arabizi ? String(c.arabic || '') : '',
-        english: String(c.english || ''), plural: String(c.plural || ''), notes: String(c.notes || ''), topic: u.title || 'From Amal', upload: u.id,
+        english: String(c.english || ''), plural: String(c.plural || ''), notes: String(c.notes || ''), topic: u.title || 'From the tutor', upload: u.id,
       })).filter(c => (c.arabizi || c.arabic) && (c.english || (c.arabizi && c.arabic)));
-      return { id: 'u:' + u.id, uploadId: u.id, title: u.title || 'From Amal', keep: u.keep || 'temporary', source: u.source || 'file', source_ref: u.source_ref || '',
+      return { id: 'u:' + u.id, uploadId: u.id, title: u.title || 'From the tutor', keep: u.keep || 'temporary', source: u.source || 'file', source_ref: u.source_ref || '',
                created_at: u.created_at || '', cards, n: cards.length };
     }).sort((a, b) => ts(b).localeCompare(ts(a)));
   }

@@ -6,13 +6,13 @@
 (function (root) {
 'use strict';
 
-var FILTERS = [['all', 'All'], ['marked', 'Only marked'], ['wrong', 'Only ✗'], ['vocab', 'Vocab'], ['grammar', 'Grammar'], ['fix', "Amal's fixes"]];
+var FILTERS = [['all', 'All'], ['marked', 'Only marked'], ['wrong', 'Only ✗'], ['vocab', 'Vocab'], ['grammar', 'Grammar'], ['fix', "The tutor's fixes"]];
 var LEGEND = [
-  ['correct', '✓', 'Correct'], ['partial', '◐', 'Partial · got there with help'], ['asked', '◐', 'Asked Amal for the word'],
-  ['wrong', '✗', 'Wrong'], ['fix', '←', "Amal's fix (how she flagged it)"], ['na', '–', 'Not scored (reason on the chip)'],
-  ['medi', '?', 'Open question · two judges disagree; Amal decides on her Tutor hub, counted as before until she answers']
+  ['correct', '✓', 'Correct'], ['partial', '◐', 'Partial · got there with help'], ['asked', '◐', 'Asked the tutor for the word'],
+  ['wrong', '✗', 'Wrong'], ['fix', '←', "The tutor's fix (how she flagged it)"], ['na', '–', 'Not scored (reason on the chip)'],
+  ['medi', '?', 'Open question · two judges disagree; the tutor decides on her Tutor hub, counted as before until she answers']
 ];
-var WORD = { correct: 'Correct', partial: 'Partial', asked: 'Asked', wrong: 'Wrong', fix: "Amal's fix", na: 'Not scored', medi: 'Open question' };
+var WORD = { correct: 'Correct', partial: 'Partial', asked: 'Asked', wrong: 'Wrong', fix: "The tutor's fix", na: 'Not scored', medi: 'Open question' };
 var SIGN = { correct: '✓', partial: '◐', asked: '◐', wrong: '✗', fix: '←', na: '–', medi: '?' };
 
 function isArabic(s) { return /[؀-ۿ]/.test(s || ''); }
@@ -41,20 +41,20 @@ function subject(c, toArabizi) {
 function pair(said, right, toArabizi) {
   var p = [];
   if (said) p.push('said ' + az(said, null, toArabizi));
-  if (right) p.push('Amal: ' + az(right, null, toArabizi));
+  if (right) p.push('Tutor: ' + az(right, null, toArabizi));
   return p.join(' → ');
 }
 // The chip's words: {sign, word, kind, main, ar, tip}
 function clock(t) { t = Math.max(0, Math.floor(Number(t) || 0)); return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0'); }
 function chipModel(c, toArabizi) {
   var s = subject(c, toArabizi), tip = '';
-  if (c.s === 'wrong') tip = 'Wrong · ' + [c.said ? 'you said ' + az(c.said, null, toArabizi) : '', c.right ? 'Amal: say ' + az(c.right, null, toArabizi) : ''].filter(Boolean).join(' → ') + (c.sig ? ' (she ' + c.sig + ')' : '') +
+  if (c.s === 'wrong') tip = 'Wrong · ' + [c.said ? 'you said ' + az(c.said, null, toArabizi) : '', c.right ? 'Tutor: say ' + az(c.right, null, toArabizi) : ''].filter(Boolean).join(' → ') + (c.sig ? ' (she ' + c.sig + ')' : '') +
     (c.missing ? ' · missing ' + (c.missing.what || 'word') + ': ^' + (c.missing.az || c.missing.add) : '') +
-    (c.amal_line ? ' · Amal at ' + clock(c.amal_t) + ': «' + c.amal_line + '»' : '');
-  else if (c.s === 'asked') tip = 'Asked Amal for the word' + (c.right ? ' → Amal: ' + az(c.right, null, toArabizi) : '');
+    (c.amal_line ? ' · the tutor at ' + clock(c.amal_t) + ': «' + c.amal_line + '»' : '');
+  else if (c.s === 'asked') tip = 'Asked the tutor for the word' + (c.right ? ' → Tutor: ' + az(c.right, null, toArabizi) : '');
   else if (c.s === 'partial') tip = 'Partial · got there with help' + (c.said ? ' · said ' + az(c.said, null, toArabizi) : '');
   else if (c.s === 'correct') tip = 'Correct' + (c.said ? ' · said ' + az(c.said, null, toArabizi) : '');
-  else if (c.s === 'fix') tip = "Amal's fix: she " + c.sig + (c.said || c.right ? ' · ' + pair(c.said, c.right, toArabizi) : '') +
+  else if (c.s === 'fix') tip = "The tutor's fix: she " + c.sig + (c.said || c.right ? ' · ' + pair(c.said, c.right, toArabizi) : '') +
     (c.english ? ' · she said it in English: «' + c.english + '»' : '');
   else if (c.s === 'medi') tip = (c.label || 'Open question') + ' ' + (c.why || '');
   else tip = 'Not scored: ' + (c.why || '');

@@ -14,7 +14,7 @@ test('the Oct 2 link: five live answers over a built detail that had none', () =
   const d = L.overlay('after', BUILT, ROW);
   assert.equal(d.answered, 5); assert.equal(d.total, 5); assert.equal(d.live, true);
   assert.deepEqual(d.asked.map(x => x.answer), ['Right', 'Right', 'Wrong word', 'Wrong word', 'Right']);
-  assert.equal(d.asked[2].result, 'slip counted for Medi (word)');
+  assert.equal(d.asked[2].result, 'slip counted for the student (word)');
   assert.equal(d.asked[0].at, '2026-10-03');
   assert.equal(BUILT.asked[0].answer, null, 'the built detail is never changed in place');
 });

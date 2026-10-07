@@ -17,7 +17,7 @@
     const VC = root.AneesVerbCheck, token = item.token || '';
     el.innerHTML = '<div class="hb-task"><p class="hb-sub" data-intro>Opening the list…</p><input type="search" class="hb-search" data-q placeholder="Find a verb (Arabizi, Arabic or English)" aria-label="Find a verb" hidden><div class="hb-chips" data-show hidden></div><p class="hb-prog" data-prog></p><div data-root></div><p class="hb-foot"><span data-status>Saved as you tap</span> <button type="button" class="an-undo" data-retry hidden>Retry saving</button></p></div>';
     const $ = s => el.querySelector(s), $root = $('[data-root]');
-    if (!/^[A-Za-z0-9_-]{43}$/.test(token) || !VC) { $('[data-intro]').textContent = 'Open the complete private link Medi sent you.'; return; }
+    if (!/^[A-Za-z0-9_-]{43}$/.test(token) || !VC) { $('[data-intro]').textContent = 'Open the complete private link the student sent you.'; return; }
     const endpoint = ANEES.url + '/rest/v1/verb_check_links?token=eq.' + encodeURIComponent(token);
     const headers = { apikey: ANEES.anon, Authorization: 'Bearer ' + ANEES.anon, 'X-Anees-Token': token, 'Content-Type': 'application/json', Prefer: 'return=representation' };
     async function request(url, method, body) {
@@ -111,12 +111,12 @@
         ids = payload.verbs.flatMap(v => VC.byTense(payload, v).flatMap(t => t.ids));
         $('[data-intro]').innerHTML = payload.kind === 'verb-addons'
           ? 'Level 2: Claude guessed how each verb takes an ending (<i>him, me…</i>) or a small word after it (<i>ma3, la, 3ala…</i>). Tap <b>✓ Right</b>, or <b>Fix</b> and type the correct form; type <b>no</b> if the verb never takes this. Your answer always wins.'
-          : 'Claude guessed these verb forms from the forms you already taught Medi. Tap <b>✓ Right</b>, or <b>Fix</b> and type the correct form. Your answer always replaces the guess.';
+          : 'Claude guessed these verb forms from the forms you already taught the student. Tap <b>✓ Right</b>, or <b>Fix</b> and type the correct form. Your answer always replaces the guess.';
         $('[data-q]').hidden = false; $('[data-show]').hidden = false;
         render();
         if (JSON.stringify(VC.sendable(answers)) !== JSON.stringify(saved.answers) || undone.length !== (saved.undone || []).length) queue();
       } catch (error) {
-        $('[data-intro]').textContent = error.message === 'expired-link' ? 'This list has expired or was closed. Ask Medi for a new link.' : 'The list could not open. Check your connection and reload.';
+        $('[data-intro]').textContent = error.message === 'expired-link' ? 'This list has expired or was closed. Ask the student for a new link.' : 'The list could not open. Check your connection and reload.';
       }
     })();
   }

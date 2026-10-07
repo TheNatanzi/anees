@@ -164,7 +164,7 @@ function compute(rows,{lessons=null,gc=null,gu=null}={}){
  const oneT=said.filter(v=>v.tensesSaid.length===1&&KNOWN.has(v.status[v.tensesSaid[0]])).map(v=>{const has=v.tensesSaid[0],target=['Past','Present','Command'].find(t=>t!==has&&v.doc[t]>0);return {v,has,target};}).filter(o=>o.target).sort((a,b)=>b.v.said-a.v.said)[0];
  if(oneT)I.push({kind:'one tense only',v:oneT.v,why:`Said ${n(oneT.v.said)} times, always ${oneT.has.toLowerCase()}, ${oneT.v.status[oneT.has]}. Her Doc has ${n(oneT.v.doc[oneT.target])} ${oneT.target.toLowerCase()} form${oneT.v.doc[oneT.target]===1?'':'s'}${oneT.target!=='Command'&&oneT.v.doc.Command&&!oneT.v.tenses.Command?` and ${n(oneT.v.doc.Command)} command${oneT.v.doc.Command===1?'':'s'}`:''}; you have never said one.`,pill:`Drill the ${oneT.target.toLowerCase()}`,cls:'warn'});
  const ho=heardOnly[0];
- if(ho){const withDoc=TENSES.filter(t=>ho.doc[t]>0).map(t=>t.toLowerCase());I.push({kind:'heard only',v:ho,why:`Amal said it in ${n(ho.heard)} sentence${ho.heard===1?'':'s'} over the lessons; you never have.${withDoc.length?` Her Doc has ${withDoc.join(', ')} forms.`:' Her Doc lists the present only.'}`,pill:'Never said',cls:'bad'});}
+ if(ho){const withDoc=TENSES.filter(t=>ho.doc[t]>0).map(t=>t.toLowerCase());I.push({kind:'heard only',v:ho,why:`The tutor said it in ${n(ho.heard)} sentence${ho.heard===1?'':'s'} over the lessons; you never have.${withDoc.length?` Her Doc has ${withDoc.join(', ')} forms.`:' Her Doc lists the present only.'}`,pill:'Never said',cls:'bad'});}
  if(E&&E.worst){const w=E.worst;I.push({kind:'most corrected per use',v:w.v,why:`${n(w.said)} saying${w.said===1?'':'s'}, ${n(w.corr)} corrections: ${w.buckets.map(([id,k])=>`${E.ruleName.get(id)||id} ${k}`).join(', ')}.`,pill:w.corr>=w.said?'Every use corrected':'Often corrected',cls:'bad'});}
 
  return {verbs,byId,said,heardOnly,never,pairs,pairStatus,docForms,A,B,C:Cc,D,E,F,G:{list:heardOnly,never:never.length,rank:v=>1+verbs.filter(x=>x.heard>v.heard).length},H,I,topic:mode(vrows.map(r=>r.topic))};
@@ -191,7 +191,7 @@ const hrow=(label,title,w,num,cls='',labelHtml=null)=>`<div class="vl-row" title
 
 function pA(d){
  const a=d.A;if(!a.list)return empty('The verb list has not synced (no Verb rows in the Word Bank).');
- const rungs=[['On Amal’s list',a.list,`${n(a.list)} verbs, ${n(a.docForms)} forms written in her Doc`],['Heard or said in a lesson',a.touched,`${n(a.said)} said by you + ${n(a.heardOnly)} heard from Amal only`],['Said by you',a.said,`${n(a.events)} spoken events over ${n(a.lessons)} lessons`],['One tense Good or Mastered',a.oneKnown.length,`${n(a.oneKnown.length)} verbs with at least one known tense`],['Two tenses Good or Mastered',a.twoKnown.length,`${n(a.twoKnown.length)} verbs with two known tenses`]];
+ const rungs=[['On the tutor’s list',a.list,`${n(a.list)} verbs, ${n(a.docForms)} forms written in her Doc`],['Heard or said in a lesson',a.touched,`${n(a.said)} said by you + ${n(a.heardOnly)} heard from the tutor only`],['Said by you',a.said,`${n(a.events)} spoken events over ${n(a.lessons)} lessons`],['One tense Good or Mastered',a.oneKnown.length,`${n(a.oneKnown.length)} verbs with at least one known tense`],['Two tenses Good or Mastered',a.twoKnown.length,`${n(a.twoKnown.length)} verbs with two known tenses`]];
  return `<div class="vl-ladder">${rungs.map((r,i)=>hrow(r[0],`${r[0]}: ${r[2]}`,r[1]/a.list*100,`<b>${n(r[1])}</b>`,`vl-rung-${i}`)).join('')}</div>`;
 }
 function stack(label,note,segs,ramp){
@@ -207,10 +207,10 @@ function pB(d){
  return s;
 }
 function pC(d){
- const c=d.C,core=c.core;if(!core.length)return empty('Appears once a verb from Amal’s list has been said or heard in a lesson.');
+ const c=d.C,core=c.core;if(!core.length)return empty('Appears once a verb from the tutor’s list has been said or heard in a lesson.');
  const per=Math.ceil(core.length/2),cw=34,ch=22,gap=3,labW=150,w=labW+TENSES.length*(cw+gap)+4,hh=22+per*(ch+gap);
  const fill={M:'vl-st-M',G:'vl-st-G',S:'vl-st-S',W:'vl-st-W',U:'vl-st-U',H:'vl-cell-heard',D:'vl-cell-doc','-':'vl-cell-none'};
- const words={M:'Mastered',G:'Good',S:'Shaky',W:'Wrong',U:'said, not scorable yet',H:'heard from Amal only',D:'in the Doc, never used','-':'no form from Amal, engine guess only'};
+ const words={M:'Mastered',G:'Good',S:'Shaky',W:'Wrong',U:'said, not scorable yet',H:'heard from the tutor only',D:'in the Doc, never used','-':'no form from the tutor, engine guess only'};
  const block=list=>{let s=`<defs><pattern id="vl-hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect class="vl-hatch-bg" width="5" height="5"/><line class="vl-hatch-line" x1="0" y1="0" x2="0" y2="5"/></pattern></defs>`;
   TENSES.forEach((t,j)=>s+=`<text x="${labW+j*(cw+gap)+cw/2}" y="13" text-anchor="middle">${t.slice(0,4)}</text>`);
   list.forEach((v,i)=>{const y=20+i*(ch+gap);
@@ -219,7 +219,7 @@ function pC(d){
     const detail=`${words[code]}${k?` · said ${n(k)}`:''}${v.heardT[t]?` · heard ${n(v.heardT[t])}`:''}${v.doc[t]?` · ${n(v.doc[t])} Doc person${v.doc[t]===1?'':'s'}`:''}`;
     s+=`<rect class="${fill[code]}" x="${x}" y="${y}" width="${cw}" height="${ch}" rx="3"${code==='H'?' fill="url(#vl-hatch)"':''}><title>${esc(v.name)} (${esc(v.english)}) · ${t}: ${esc(detail)}</title></rect>${k&&'MGSWU'.includes(code)?`<text class="vl-cell-num ${code==='U'?'vl-cell-num-dark':''}" x="${x+cw/2}" y="${y+15}" text-anchor="middle">${n(k)}</text>`:''}`;});});
   return `<svg class="vp-chart" viewBox="0 0 ${w} ${hh}" role="img" aria-label="Coverage matrix: verbs by tense">${s}</svg>`;};
- const legend=`<div class="vl-legend">${[['vl-st-M','Mastered'],['vl-st-G','Good'],['vl-st-S','Shaky'],['vl-st-W','Wrong'],['vl-st-U','said, not scorable'],['vl-cell-heard','heard from Amal only'],['vl-cell-doc','in the Doc, untouched'],['vl-cell-none','no Doc form']].map(([k,l])=>`<span><i class="${k}"></i>${l}</span>`).join('')}</div>`;
+ const legend=`<div class="vl-legend">${[['vl-st-M','Mastered'],['vl-st-G','Good'],['vl-st-S','Shaky'],['vl-st-W','Wrong'],['vl-st-U','said, not scorable'],['vl-cell-heard','heard from the tutor only'],['vl-cell-doc','in the Doc, untouched'],['vl-cell-none','no Doc form']].map(([k,l])=>`<span><i class="${k}"></i>${l}</span>`).join('')}</div>`;
  return `<div class="vl-matrix">${block(core.slice(0,per))}${block(core.slice(per))}</div>${legend}`;
 }
 function pD(d){
@@ -229,9 +229,9 @@ function pD(d){
  s.forEach((p,i)=>{const cx=PAD.l+slot*i+slot/2,x=cx-bw/2;
   g+=`<rect class="vl-bar-repeat" x="${x.toFixed(1)}" y="${y(p.repeat).toFixed(1)}" width="${bw.toFixed(1)}" height="${(H-PAD.b-y(p.repeat)).toFixed(1)}" rx="2"><title>${pretty(p.date)}: ${n(p.repeat)} repeat verbs</title></rect>`;
   if(p.new)g+=`<rect class="vl-bar-new" x="${x.toFixed(1)}" y="${y(p.said).toFixed(1)}" width="${bw.toFixed(1)}" height="${(y(p.repeat)-y(p.said)).toFixed(1)}" rx="2"><title>${pretty(p.date)}: ${n(p.new)} new verbs: ${esc(p.newNames.join(', '))}</title></rect>`;
-  g+=`<circle class="vl-dot-amal" cx="${cx.toFixed(1)}" cy="${y(p.amal).toFixed(1)}" r="4.5"><title>${pretty(p.date)}: Amal said ${n(p.amal)} distinct verbs</title></circle>`;
+  g+=`<circle class="vl-dot-amal" cx="${cx.toFixed(1)}" cy="${y(p.amal).toFixed(1)}" r="4.5"><title>${pretty(p.date)}: the tutor said ${n(p.amal)} distinct verbs</title></circle>`;
   const step=Math.ceil(s.length/8);if(i%step===0||i===s.length-1)g+=`<text class="vp-lesson-label" x="${cx.toFixed(1)}" y="${H-10}" text-anchor="middle">${short(p.date)}</text>`;});
- return frame(g,`Verbs said per lesson, new versus repeat, across ${s.length} lessons`)+`<div class="vl-legend"><span><i class="vl-bar-new"></i>new</span><span><i class="vl-bar-repeat"></i>repeat</span><span><i class="vl-dot-amal vl-round"></i>Amal</span></div>`;
+ return frame(g,`Verbs said per lesson, new versus repeat, across ${s.length} lessons`)+`<div class="vl-legend"><span><i class="vl-bar-new"></i>new</span><span><i class="vl-bar-repeat"></i>repeat</span><span><i class="vl-dot-amal vl-round"></i>The tutor</span></div>`;
 }
 function pE(d){
  const e=d.E;if(!e)return empty('— grammar-console.json did not load, so corrections cannot be mapped to verbs.');
@@ -246,12 +246,12 @@ function pE(d){
 // Counts only since 2026-10-02 (Medi: no word lists on Progress); the verbs themselves are in the Word Bank.
 function pF(d){
  const f=d.F;if(!f)return empty('— lessons.json did not load (or has no taught list), so there are no taught pairs to follow.');
- if(!f.rows.length)return empty('No taught verb matches a verb on Amal’s list yet.');
+ if(!f.rows.length)return empty('No taught verb matches a verb on the tutor’s list yet.');
  const never=f.rows.filter(r=>!r.first).length,days=f.rows.filter(r=>r.first).map(r=>r.days).sort((x,y)=>x-y),med=days.length?days[days.length>>1]:null;
  return `<div class="vl-kv"><span><b>${n(never)}</b>taught, never said</span><span><b>${med===null?'—':n(med)+' d'}</b>median from taught to first said</span></div><p class="vl-more"><a href="word-bank.html?topic=${encodeURIComponent(d.topic||'Verbs List')}">The verbs are in the Word Bank →</a></p>`;
 }
 function pG(d){
- const g=d.G.list;if(!g.length)return empty('Every verb Amal has said, you have said too.');
+ const g=d.G.list;if(!g.length)return empty('Every verb the tutor has said, you have said too.');
  return `<p class="vl-more"><a href="word-bank.html?topic=${encodeURIComponent(d.topic||'Verbs List')}">The verbs are in the Word Bank →</a></p>`;
 }
 function pH(d){
@@ -286,32 +286,32 @@ function render(){
  const bar=STATUS.map(([k,cls])=>ps[k]?`<i class="${cls}" style="width:${ps[k]/np*100}%" title="${n(ps[k])} ${STLABEL[k]}"></i>`:'').join('');
  const presentI=b.pp?(()=>{const tot=[...b.pp.values()].reduce((x,y)=>x+y,0);return tot?Math.round((b.pp.get('I')||0)/tot*100):null;})():null;
  const homo=c.homoVerbs[0],homoV=homo&&homo[0],homoForm=homoV&&homoV.homographs[0];
- const cFoot=`${c.cmdEvents?`Command column: ${n(c.homoEvents)} of the ${n(c.cmdEvents)} command events you said rest on a command spelled exactly like a past form${homoV?` (${homoForm&&homoForm[2]?`<span class="vl-az">${esc(homoForm[2])}</span> `:''}<span class="vl-ar" lang="ar">${esc(homoForm?homoForm[1]:'')}</span>, ${esc(homoV.name)}, ${n(homo[1])} of them)`:''}. Unvocalized, the Word Bank cannot tell “get happy!” from “he got happy” and files them as commands; they are shown as scored, not re-scored here.`:'No command events yet.'} ${c.docT.Future?'':'Future: Amal’s Doc has no future forms, so every future cell is an engine guess.'}`;
- const Dfoot=D.series.length?(()=>{const am=D.series.map(p=>p.amal),me=D.series.map(p=>p.said),pk=D.series.reduce((x,y)=>y.said>x.said?y:x);return `Amal says ${n(Math.min(...am))} to ${n(Math.max(...am))} distinct verbs a lesson; you say ${n(Math.min(...me))} to ${n(Math.max(...me))}. Peak: ${n(pk.said)} on ${pretty(pk.date)}.`;})():'';
+ const cFoot=`${c.cmdEvents?`Command column: ${n(c.homoEvents)} of the ${n(c.cmdEvents)} command events you said rest on a command spelled exactly like a past form${homoV?` (${homoForm&&homoForm[2]?`<span class="vl-az">${esc(homoForm[2])}</span> `:''}<span class="vl-ar" lang="ar">${esc(homoForm?homoForm[1]:'')}</span>, ${esc(homoV.name)}, ${n(homo[1])} of them)`:''}. Unvocalized, the Word Bank cannot tell “get happy!” from “he got happy” and files them as commands; they are shown as scored, not re-scored here.`:'No command events yet.'} ${c.docT.Future?'':'Future: the tutor’s Doc has no future forms, so every future cell is an engine guess.'}`;
+ const Dfoot=D.series.length?(()=>{const am=D.series.map(p=>p.amal),me=D.series.map(p=>p.said),pk=D.series.reduce((x,y)=>y.said>x.said?y:x);return `The tutor says ${n(Math.min(...am))} to ${n(Math.max(...am))} distinct verbs a lesson; you say ${n(Math.min(...me))} to ${n(Math.max(...me))}. Peak: ${n(pk.said)} on ${pretty(pk.date)}.`;})():'';
  const Efoot=E?`${E.worst?`${esc(E.worst.v.name)}: ${n(E.worst.said)} saying${E.worst.said===1?'':'s'}, ${n(E.worst.corr)} corrections. `:''}${E.clean?`${esc(E.clean.v.name)}: ${n(E.clean.said)} sayings, none. `:''}Top-left is where a verb drill pays off.`:'';
  const Ffoot=F&&F.unmatched.length?`${n(F.unmatched.length)} more taught verb${F.unmatched.length===1?' is':'s are'} not on her Verbs List, so ${F.unmatched.length===1?'it has':'they have'} no forms to score.`:'';
- const gTop=G.list[0],Gfoot=gTop?`${esc(gTop.name)} (${esc(gTop.english)}) is Amal’s no. ${n(G.rank(gTop))} most-heard verb. Her Doc has ${n(gTop.doc.Past)} past persons and ${n(gTop.doc.Command)} commands for it.`:'';
- const Hfoot=Hh?`Command ${n(Hh.command)} and future ${n(Hh.future?Hh.future.count:0)} against present ${n(Hh.present)}. Amal’s Doc has ${n(Hh.docCmd)} command forms and ${Hh.docFut?n(Hh.docFut):'no'} future forms.`:'';
+ const gTop=G.list[0],Gfoot=gTop?`${esc(gTop.name)} (${esc(gTop.english)}) is the tutor’s no. ${n(G.rank(gTop))} most-heard verb. Her Doc has ${n(gTop.doc.Past)} past persons and ${n(gTop.doc.Command)} commands for it.`:'';
+ const Hfoot=Hh?`Command ${n(Hh.command)} and future ${n(Hh.future?Hh.future.count:0)} against present ${n(Hh.present)}. The tutor’s Doc has ${n(Hh.docCmd)} command forms and ${Hh.docFut?n(Hh.docFut):'no'} future forms.`:'';
  const futV=Hh&&Hh.future&&Hh.future.verbList;
  const lessonsN=D.series.length;
  host.innerHTML=`
- <a class="vl-strip" href="word-bank.html?topic=${encodeURIComponent(d.topic||'Verbs List')}" title="Open the Word Bank on Amal’s verbs">
-  <div><div class="vl-sub">Verbal lexicon · one-line summary</div><div class="vl-kv"><span><b>${n(a.list)}</b>verbs on Amal’s list</span><span><b>${n(a.docForms)}</b>forms in her Doc</span><span><b>${n(a.said)}</b>verbs you have said</span><span><b>${E?n(E.total):'—'}</b>verb corrections, hand-checked${E?'':' (grammar-console.json did not load)'}</span></div>
+ <a class="vl-strip" href="word-bank.html?topic=${encodeURIComponent(d.topic||'Verbs List')}" title="Open the Word Bank on the tutor’s verbs">
+  <div><div class="vl-sub">Verbal lexicon · one-line summary</div><div class="vl-kv"><span><b>${n(a.list)}</b>verbs on the tutor’s list</span><span><b>${n(a.docForms)}</b>forms in her Doc</span><span><b>${n(a.said)}</b>verbs you have said</span><span><b>${E?n(E.total):'—'}</b>verb corrections, hand-checked${E?'':' (grammar-console.json did not load)'}</span></div>
   <div class="vl-statusbar" aria-label="Status of the ${n(np)} verb and tense pairs you have said">${bar}</div>
   <small>Of the ${n(np)} verb × tense pairs you have said: ${n(ps.Mastered)} mastered · ${n(ps.Good)} good · ${n(ps.Shaky)} shaky · ${n(ps.Wrong)} wrong · ${n(ps.Untested)} said but not scorable yet. Per-form status lives in the Word Bank.</small></div>
   <span class="vl-open">Open →</span></a>
  <div class="vp-grid">
- ${panel('a','Verbs I can conjugate cold','A verb counts when two of its tenses sit at Good or Mastered on the Word Bank ladder. One ladder, from Amal’s list down to that.',pA(d),{head:big(n(a.twoKnown.length),`of ${n(a.list)}`),foot:`${n(a.oneTense)} of your ${n(a.said)} verbs exist in one tense only. The gap between the last two rungs is this tab’s job.`,src:'Ladder = Word Bank score(), speaking lane'})}
+ ${panel('a','Verbs I can conjugate cold','A verb counts when two of its tenses sit at Good or Mastered on the Word Bank ladder. One ladder, from the tutor’s list down to that.',pA(d),{head:big(n(a.twoKnown.length),`of ${n(a.list)}`),foot:`${n(a.oneTense)} of your ${n(a.said)} verbs exist in one tense only. The gap between the last two rungs is this tab’s job.`,src:'Ladder = Word Bank score(), speaking lane'})}
  ${panel('b','Tense and person spread','Top: which tense your verb events land in. Below: who the subject is, read off the b- prefix and the past ending of every present and past use.',pB(d),{head:big(presentI===null?'—':presentI+'%',presentI===null?'grammar-usage.json did not load':`of your present-tense uses are “I”${b.never.length?' · '+esc(b.never.join(', ').replace(/You/g,'you').replace(/She/,'she').replace(/They/,'they').replace(/We/,'we').replace(/He/,'he'))+': never detected in the evidence':''}`),foot:`The Word Bank detects a person on ${n(b.personTotal)} of ${n(b.tensed)} tensed events; the rest are bare forms. Person is inferred, not heard: from the form's prefix or ending (bt- is “you” or “she”, -t is “I”, “you” or “she”). ${n(b.untensed)} more verb events have no tense filed.`,src:'grammar-usage hits + evidence persons'})}
- ${panel('c',`Coverage matrix: ${n(c.core.length)} verbs × 4 tenses`,'Every verb said or heard in a lesson, most present first (your voice plus Amal’s). Filled = you said it, coloured by status. Hatched = only Amal has said it. Outlined = Amal’s Doc has the forms, nobody has used them. Dashed = no form from Amal, engine guess only.',pC(d),{wide:true,foot:cFoot,src:'Hover a cell: said / heard / Doc persons'})}
- ${panel('d','Verbs said per lesson, new vs repeat','Distinct verbs in your voice each lesson. Top of each bar = verbs said for the first time ever, bottom = repeats. Orange dots = distinct verbs Amal said in that lesson.',pD(d),{head:D.tail?big(n(D.zeroNew),`lesson${D.zeroNew===1?'':'s'} of the last ${n(D.tail)} with no new verb · ${n(D.cumulative)} cumulative`):'',foot:Dfoot,src:`evidence, your spoken events · lessons from ${D.lessonsFrom}`})}
- ${panel('e','Most corrected vs most used','Each dot a verb: how often you said it against how often Amal corrected a verb rule on it. Colour = corrections as a share of uses.',pE(d),{head:E?big(`${n(E.mapped)} of ${n(E.total)}`,`family-B corrections map to a Doc verb · ${n(E.verbs)} verbs corrected`):'',foot:Efoot,src:'grammar-console family B, matched on the fixed form'})}
- ${panel('f','Taught to said: every verb pair Amal introduced','Verbs from the lessons’ taught list: how many you went on to say, and how fast.',pF(d),{wide:true,head:F&&F.rows.length?big(`${n(F.saidAfter)}`,`of ${n(F.rows.length)} taught verbs said afterwards · ${n(F.sameDay)} the same day${F.recentDays.length>1?` · taught ${pretty(F.recentDays[0])}–${pretty(F.recentDays[F.recentDays.length-1])}: ${n(F.recentSaid)} of ${n(F.recent)}`:''}`):'',foot:Ffoot,src:'lessons.json taught × evidence first spoken date'})}
- ${panel('g','Verbs Amal uses that you never do','Verbs Amal says in lessons that have never left your mouth in a recorded lesson.',pG(d),{head:big(n(G.list.length),`verbs heard only · ${n(G.never)} never appeared at all`),foot:Gfoot,src:'Amal’s words, echoes excluded'})}
+ ${panel('c',`Coverage matrix: ${n(c.core.length)} verbs × 4 tenses`,'Every verb said or heard in a lesson, most present first (your voice plus the tutor’s). Filled = you said it, coloured by status. Hatched = only the tutor has said it. Outlined = the tutor’s Doc has the forms, nobody has used them. Dashed = no form from the tutor, engine guess only.',pC(d),{wide:true,foot:cFoot,src:'Hover a cell: said / heard / Doc persons'})}
+ ${panel('d','Verbs said per lesson, new vs repeat','Distinct verbs in your voice each lesson. Top of each bar = verbs said for the first time ever, bottom = repeats. Orange dots = distinct verbs the tutor said in that lesson.',pD(d),{head:D.tail?big(n(D.zeroNew),`lesson${D.zeroNew===1?'':'s'} of the last ${n(D.tail)} with no new verb · ${n(D.cumulative)} cumulative`):'',foot:Dfoot,src:`evidence, your spoken events · lessons from ${D.lessonsFrom}`})}
+ ${panel('e','Most corrected vs most used','Each dot a verb: how often you said it against how often the tutor corrected a verb rule on it. Colour = corrections as a share of uses.',pE(d),{head:E?big(`${n(E.mapped)} of ${n(E.total)}`,`family-B corrections map to a Doc verb · ${n(E.verbs)} verbs corrected`):'',foot:Efoot,src:'grammar-console family B, matched on the fixed form'})}
+ ${panel('f','Taught to said: every verb pair the tutor introduced','Verbs from the lessons’ taught list: how many you went on to say, and how fast.',pF(d),{wide:true,head:F&&F.rows.length?big(`${n(F.saidAfter)}`,`of ${n(F.rows.length)} taught verbs said afterwards · ${n(F.sameDay)} the same day${F.recentDays.length>1?` · taught ${pretty(F.recentDays[0])}–${pretty(F.recentDays[F.recentDays.length-1])}: ${n(F.recentSaid)} of ${n(F.recent)}`:''}`):'',foot:Ffoot,src:'lessons.json taught × evidence first spoken date'})}
+ ${panel('g','Verbs the tutor uses that you never do','Verbs the tutor says in lessons that have never left your mouth in a recorded lesson.',pG(d),{head:big(n(G.list.length),`verbs heard only · ${n(G.never)} never appeared at all`),foot:Gfoot,src:'The tutor’s words, echoes excluded'})}
  ${panel('h','Negation, command, future: the thin forms',`How often each verb shape shows up in your Arabic, all ${n(Hh?Hh.lessons:lessonsN)} lessons, and how many different Doc verbs carry it.`,pH(d),{head:Hh&&Hh.future?big(n(Hh.future.count),`future uses in ${n(Hh.lessons)} lessons${futV&&futV.length===1?`, all on one verb (${esc(futV[0].name)})`:futV&&futV.length?`, on ${n(futV.length)} verbs`:''}`):'',foot:Hfoot,src:'grammar-usage by bucket + hit words'})}
- ${panel('i','Next verb drill','Three verbs picked automatically from C, E and G. One card Amal or the Flashcards randomizer could take as is.',pI(d),{wide:true,foot:'Picking rule: the most-said verb you know in one tense only (with Doc forms for another), the verb Amal says most that you never have, the verb corrected more often than said.'})}
+ ${panel('i','Next verb drill','Three verbs picked automatically from C, E and G. One card the tutor or the Flashcards randomizer could take as is.',pI(d),{wide:true,foot:'Picking rule: the most-said verb you know in one tense only (with Doc forms for another), the verb the tutor says most that you never have, the verb corrected more often than said.'})}
  </div>
- <p class="vp-footer">Verbal lexicon: computed live from ${n(a.list)} verbs on Amal’s list, the Word Bank’s scored evidence and ${n(lessonsN)} lessons · said = your spoken events (tensed or not) · heard = Amal’s sentences with echoes removed${extra.failed.length?` · not loaded: ${esc(extra.failed.join(', '))}`:''}${E&&E.updated?` · corrections updated ${esc(E.updated)}`:''}</p>`;
+ <p class="vp-footer">Verbal lexicon: computed live from ${n(a.list)} verbs on the tutor’s list, the Word Bank’s scored evidence and ${n(lessonsN)} lessons · said = your spoken events (tensed or not) · heard = the tutor’s sentences with echoes removed${extra.failed.length?` · not loaded: ${esc(extra.failed.join(', '))}`:''}${E&&E.updated?` · corrections updated ${esc(E.updated)}`:''}</p>`;
 }
 function show(){
  const host=$('vp-tab-lexicon');if(!host)return;

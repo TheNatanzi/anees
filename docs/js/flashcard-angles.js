@@ -209,7 +209,7 @@ function panelC(x,d){
 }
 /* D */
 function panelD(x){
- const D=x.D,sub=`Cards seen for the first time each study day. Line = the ${CAP_NEW}-a-day new-card cap (wiki 06 rule 2). Since 27 Sep every path — the queue, topic drills, verb drills, Amal's sets — holds extra new cards for another day.`;
+ const D=x.D,sub=`Cards seen for the first time each study day. Line = the ${CAP_NEW}-a-day new-card cap (wiki 06 rule 2). Since 27 Sep every path — the queue, topic drills, verb drills, the tutor's sets — holds extra new cards for another day.`;
  if(!D.days.length)return panel('d','New cards per day vs the cap',sub,empty('No card has been seen yet.'));
  const days=D.days.slice(-14),last=D.days[D.days.length-1],times=last.v/CAP_NEW;
  const h=190,L=30,R=10,T=14,B=30,pw=W-L-R,ph=h-T-B,top=roomy(Math.max(CAP_NEW*1.5,...days.map(o=>o.v))*1.08),y=v=>T+ph-v/top*ph;

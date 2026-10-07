@@ -121,7 +121,7 @@ def test_hub_rows_follow_the_index_right_after_the_first_listening_check():
     assert ids[i + 1:i + 1 + len(INDEX)] == ["check-" + L["list"] for L in INDEX]
     rv = next(x for x in T["open"] if x["kind"] == "review")
     for L, row in zip(INDEX, T["open"][i + 1:]):
-        assert row["kind"] == "check" and row["list"] == L["list"] and row["title"] == L["title"] and row["total"] == L["total"]
+        assert row["kind"] == "check" and row["list"] == L["list"] and row["title"] == re.sub(r"\bMedi\b", "the student", L["title"]) and row["total"] == L["total"]
         assert row["token"] == rv["token"] and row["url"] == f"amal/check.html?list={L['list']}&t={rv['token']}"
     hub, js = (DOCS / "tutor.html").read_text(encoding="utf-8"), (DOCS / "js" / "tutor.js").read_text(encoding="utf-8")
     assert "js/hub/check-task.js" in hub

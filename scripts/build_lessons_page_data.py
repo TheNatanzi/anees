@@ -608,56 +608,56 @@ def run_node(strings, sheet=(), slips=None, overrides=None):
 # ------------------------------------------------------------------ Claude's reading of each lesson
 # (type, review_mode, why). Read from the lesson pages + the sweep's per-lesson coverage notes, 2026-09-25.
 LESSON_TYPES = {
-    "2026-08-25": ("free-speak", None, "Conversation from Amal's questions (time, clothes, weather, what tires you, fears, fiancee) with fixes as they come; ~4 min of Meet setup talk; no drill."),
-    "2026-09-04": ("new-grammar", None, "28:00-1:03:00 (~35 of 63 min) is the first causative/reflexive pair: Amal teaches how بسط/انبسط conjugate (b- before a root b, past endings, command); 11:00-28:00 is mostly English about AI tools and a honey seller."),
+    "2026-08-25": ("free-speak", None, "Conversation from the tutor's questions (time, clothes, weather, what tires you, fears, fiancee) with fixes as they come; ~4 min of Meet setup talk; no drill."),
+    "2026-09-04": ("new-grammar", None, "28:00-1:03:00 (~35 of 63 min) is the first causative/reflexive pair: the tutor teaches how بسط/انبسط conjugate (b- before a root b, past endings, command); 11:00-28:00 is mostly English about AI tools and a honey seller."),
     "2026-09-05": ("new-words", None, "Most of the lesson (~22:00-1:02) drills the new pair زعج/انزعج in past, present and command; 07:00-22:00 reviews بسط/انبسط; first 6 min is app-demo talk."),
-    "2026-09-10": ("new-words", None, "27:00-57:00 teaches the new pair كسر/انكسر in every tense; before that ~25 min of conversation and a review of زعج/انزعج; ends with Amal listing the causative verbs to learn."),
+    "2026-09-10": ("new-words", None, "27:00-57:00 teaches the new pair كسر/انكسر in every tense; before that ~25 min of conversation and a review of زعج/انزعج; ends with the tutor listing the causative verbs to learn."),
     "2026-09-11": ("new-words", None, "~10:00-1:00:00 drills the new pair خرب/خرّب (past, present, command, 'rots', 'mess up'); the first 10 min is small talk plus a short review of north/darkness/stars words."),
-    "2026-09-14": ("review-words", "speaking", "After ~22 min of small talk, Amal gives English sentences and Medi says them in Arabic with the verbs already taught (زعج/انزعج, كسر/انكسر, بسط/انبسط) - 'we're repeating today'; Amal types each answer in chat."),
-    "2026-09-15": ("review-words", "speaking", "Review of the T-verb group (غيّر/تغيّر, صوّر/تصوّر, ذكّر/تذكّر), part of the planned one-group-per-lesson review series; Medi already knew them (29:05 he answers what بغير/بتغير mean; T-verb flashcards existed); first 10 min small talk, 10:00-28:00 reviews كسر/انكسر."),
+    "2026-09-14": ("review-words", "speaking", "After ~22 min of small talk, the tutor gives English sentences and the student says them in Arabic with the verbs already taught (زعج/انزعج, كسر/انكسر, بسط/انبسط) - 'we're repeating today'; the tutor types each answer in chat."),
+    "2026-09-15": ("review-words", "speaking", "Review of the T-verb group (غيّر/تغيّر, صوّر/تصوّر, ذكّر/تذكّر), part of the planned one-group-per-lesson review series; the student already knew them (29:05 he answers what بغير/بتغير mean; T-verb flashcards existed); first 10 min small talk, 10:00-28:00 reviews كسر/انكسر."),
     "2026-09-16": ("review-words", "speaking", "Review series continues: حمّس/تحمّس, وجّع/توجّع, ضايق/تضايق, حرّك/تحرّك in English-to-Arabic sentences (10:36 he had studied the flashcards; 33:25 'just wanted to make sure you remember all of these'); first ~10 min small talk."),
     "2026-09-17": ("review-words", "speaking", "Review: the rest of the T group (تأسف with لـ/من, already used on 08-25), خرب/خرّب (31:57 'we reviewed this a lot') and the doubled-middle verbs (56:02 'I know you know them'); first 14 min small talk."),
-    "2026-09-18": ("review-words", "speaking", "Review of the doubled-middle group (زهّق/زهق, تعّب/تعب, زعّل/زعل, خوّف/خاف, ضحّك/ضحك, عصّب) across tenses and persons - all already in his speech on 08-25 (04:42 'رجعت الـ cards؟'); Amal: 'the best group yet'."),
-    "2026-09-19": ("review-words", "listening", "After ~12 min of songs and small talk, Amal wraps up the verb pairs 'by doing some listening': she says a form, Medi says what it means in English; Medi's own Arabic is only ~06:30-10:30 and a few drill lines."),
+    "2026-09-18": ("review-words", "speaking", "Review of the doubled-middle group (زهّق/زهق, تعّب/تعب, زعّل/زعل, خوّف/خاف, ضحّك/ضحك, عصّب) across tenses and persons - all already in his speech on 08-25 (04:42 'رجعت الـ cards؟'); the tutor: 'the best group yet'."),
+    "2026-09-19": ("review-words", "listening", "After ~12 min of songs and small talk, the tutor wraps up the verb pairs 'by doing some listening': she says a form, the student says what it means in English; the student's own Arabic is only ~06:30-10:30 and a few drill lines."),
     "2026-09-21": ("free-speak", None, "Conversation and role plays for the whole hour: stress at work, pizza, ordering at a cafe, complaining about food to a manager, how he cooks rice (tahdig), Iranian food abroad."),
-    "2026-09-23": ("free-speak", None, "Conversation and role plays: coffee, stomach ache, then booking a hotel room, breakfast, paying, complaining to the manager, booking tickets and appointments, a weekend drive. Medi's first ~23 min is not transcribed (Amal's side only)."),
-    "2026-09-28": ("review-words", "speaking", "After ~15 min of app/flashcard talk and a gym story (15:40-25:50), Amal reviews the people/family/professions cards she gave him (25:55 'شو الـ cards اللي أعطيتك إياهم؟'): family members and their jobs, cousins, relatives, siblings, ages (بنت/صبية/مرة/ختيارة), who works in a company, hospital, salon, school; at 64:57 she plans a grammar review next time and Medi asks for 'the L again'."),
-    "2026-09-30": ("review-grammar", "speaking", "16:00-65:30 (~50 of 66 min) is the planned el- review (16:52 'حكينا بدنا نراجع ال'; 58:02 'I'm not introducing anything new... just testing'): general nouns (A1), noun + adjective (A7), hada/hadol + el (A10/A10b), idafa with feminine -t and chains (A2/A3/A5), ending with Medi explaining the rule back; first 5 min app talk, 05:35-15:50 small talk about yesterday's rug customers."),
-    "2026-09-26": ("review-words", "speaking", "Role plays that review words already taught: after small talk (his knee, the app, the date) and a ~2 min drop-out at 18:00, a doctor visit (types of doctor, head ache, medicine, body and face parts, feminine/dual body words, 'my hands' = إيدي) then a clothes shop for a wedding (suit, shirt, shoes, colours, socks, sunglasses). No new verb pair taught. Amal's first recording (00:00-18:33) is transcribed since 2026-10-02 (TR-17); 18:33-20:17 she was reconnecting (filled from the Meet recording)."),
+    "2026-09-23": ("free-speak", None, "Conversation and role plays: coffee, stomach ache, then booking a hotel room, breakfast, paying, complaining to the manager, booking tickets and appointments, a weekend drive. The student's first ~23 min is not transcribed (the tutor's side only)."),
+    "2026-09-28": ("review-words", "speaking", "After ~15 min of app/flashcard talk and a gym story (15:40-25:50), the tutor reviews the people/family/professions cards she gave him (25:55 'شو الـ cards اللي أعطيتك إياهم؟'): family members and their jobs, cousins, relatives, siblings, ages (بنت/صبية/مرة/ختيارة), who works in a company, hospital, salon, school; at 64:57 she plans a grammar review next time and the student asks for 'the L again'."),
+    "2026-09-30": ("review-grammar", "speaking", "16:00-65:30 (~50 of 66 min) is the planned el- review (16:52 'حكينا بدنا نراجع ال'; 58:02 'I'm not introducing anything new... just testing'): general nouns (A1), noun + adjective (A7), hada/hadol + el (A10/A10b), idafa with feminine -t and chains (A2/A3/A5), ending with the student explaining the rule back; first 5 min app talk, 05:35-15:50 small talk about yesterday's rug customers."),
+    "2026-09-26": ("review-words", "speaking", "Role plays that review words already taught: after small talk (his knee, the app, the date) and a ~2 min drop-out at 18:00, a doctor visit (types of doctor, head ache, medicine, body and face parts, feminine/dual body words, 'my hands' = إيدي) then a clothes shop for a wedding (suit, shirt, shoes, colours, socks, sunglasses). No new verb pair taught. The tutor's first recording (00:00-18:33) is transcribed since 2026-10-02 (TR-17); 18:33-20:17 she was reconnecting (filled from the Meet recording)."),
 }
 
 DEFINITIONS = {
     "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
     "duration_min": "Length of the lesson audio the page plays, in minutes.",
-    "type": "Claude's reading of what the lesson mostly was: free-speak = conversation; review-words = practising words already taught; new-words = Amal teaching new vocabulary (new verb pairs drilled in all tenses count here); new-grammar = Amal teaching a rule; review-grammar = Amal drilling rules already taught (Medi 2026-10-01: Sep 30 was an el- review). One main type; if mixed, the one with the most minutes, and type_why says so. type_source 'claude-read' = Medi can correct it.",
-    "review_mode": "For review lessons only: listening = Amal says Arabic, Medi gives the meaning; speaking = Medi says it in Arabic; both.",
-    "words.unique": "How many different Word Bank forms (a verb tense or a plural counts on its own) Medi was scored on in this lesson, the lesson audit's word slips included - the same count as Progress > Vocab 'Unique words per lesson'. words.unique_rows = the same by Word Bank row.",
+    "type": "Claude's reading of what the lesson mostly was: free-speak = conversation; review-words = practising words already taught; new-words = the tutor teaching new vocabulary (new verb pairs drilled in all tenses count here); new-grammar = the tutor teaching a rule; review-grammar = the tutor drilling rules already taught (Medi 2026-10-01: Sep 30 was an el- review). One main type; if mixed, the one with the most minutes, and type_why says so. type_source 'claude-read' = the student can correct it.",
+    "review_mode": "For review lessons only: listening = the tutor says Arabic, the student gives the meaning; speaking = the student says it in Arabic; both.",
+    "words.unique": "How many different Word Bank forms (a verb tense or a plural counts on its own) the student was scored on in this lesson, the lesson audit's word slips included - the same count as Progress > Vocab 'Unique words per lesson'. words.unique_rows = the same by Word Bank row.",
     "words.right": "Scored uses marked correct (same rules as the Word Bank page: its own code is run on docs/data/word-bank-evidence.json + word-bank-review.json).",
-    "words.partial": "Scored uses marked partial (he got there with help) - worth half. Includes the audit's 'asked Amal for the word' rows.",
+    "words.partial": "Scored uses marked partial (he got there with help) - worth half. Includes the audit's 'asked the tutor for the word' rows.",
     "words.wrong": "Scored uses marked incorrect, plus the full audit's word slips (wrong word, wrong form, English for a word she taught).",
     "words.pct": "Word score for the lesson: (right + half of partial) / all scored uses, as a percent. The Word Bank's own weighting.",
-    "grammar.uses": "Times Medi's Arabic exercised a scored grammar rule in this lesson, right or wrong: the uses docs/data/grammar-usage.json counted, plus every slip Amal fixed that no counted use within 2 s pairs with (he tried the rule; the counter cannot read turns written in Latin letters). Same formula as the Grammar Console (scripts/grammar_math.py).",
-    "grammar.mistakes": "Grammar slips Amal fixed (voiced or typed) in this lesson: full audit 2026-09-26 speaking rows filed in an approved rule, minus the rows Amal's notes take out. Includes slips in rules no counter can score (unscored_mistakes).",
+    "grammar.uses": "Times the student's Arabic exercised a scored grammar rule in this lesson, right or wrong: the uses docs/data/grammar-usage.json counted, plus every slip the tutor fixed that no counted use within 2 s pairs with (he tried the rule; the counter cannot read turns written in Latin letters). Same formula as the Grammar Console (scripts/grammar_math.py).",
+    "grammar.mistakes": "Grammar slips the tutor fixed (voiced or typed) in this lesson: full audit 2026-09-26 speaking rows filed in an approved rule, minus the rows the tutor's notes take out. Includes slips in rules no counter can score (unscored_mistakes).",
     "grammar.scored_mistakes": "The slips that are in scored rules (rules with a usage counter, taught, not a sound).",
     "grammar.unscored_mistakes": "Slips in rules no counter can see his right uses of (e.g. B18): listed and counted as slips, left out of grammar.pct.",
     "grammar.pct": "Share of rule uses that were right: 1 - scored_mistakes / uses, as a percent. Never an estimate: mistakes <= uses by construction.",
-    "talk.medi_s": "Seconds Medi was talking: his words glued into turns (gaps under 1.2 s), turn lengths added up. Stretches the engine marked '[speaking Arabic]' count as talk.",
-    "talk.amal_s": "Same for Amal.",
-    "talk.speak_pct": "Medi's share of the talking: medi_s / (medi_s + amal_s).",
-    "talk.listen_pct": "Amal's share of the talking (the time Medi was listening to her).",
-    "fillers.count": "Medi's filled pauses (the technical name: filled pauses, a kind of disfluency) - uh, um, er, eh, mm, hmm, ah, and Arabic ام / امم / آآ / ممم; آه and اه only when they come mid-sentence (at the start they usually mean 'yes'). The engine drops some, so this is a floor.",
-    "fillers.per_min": "Filled pauses per minute of Medi's own talk time.",
+    "talk.medi_s": "Seconds the student was talking: his words glued into turns (gaps under 1.2 s), turn lengths added up. Stretches the engine marked '[speaking Arabic]' count as talk.",
+    "talk.amal_s": "Same for the tutor.",
+    "talk.speak_pct": "The student's share of the talking: medi_s / (medi_s + amal_s).",
+    "talk.listen_pct": "The tutor's share of the talking (the time the student was listening to her).",
+    "fillers.count": "The student's filled pauses (the technical name: filled pauses, a kind of disfluency) - uh, um, er, eh, mm, hmm, ah, and Arabic ام / امم / آآ / ممم; آه and اه only when they come mid-sentence (at the start they usually mean 'yes'). The engine drops some, so this is a floor.",
+    "fillers.per_min": "Filled pauses per minute of the student's own talk time.",
     "fillers.top": "The most frequent ones, with counts.",
     "fillers.in_turns": "How many of those filled pauses the lesson page's own turns (docs/data/lessons/<date>.json) still carry. The early pages (08-25, 09-04, 09-05) were cleaned of fillers, so their turns hold almost none.",
     "fillers.comparable": "True when in_turns is at least half of count, i.e. the page transcript and the engine words agree on how much hesitation was heard. False = a different recording set-up or cleaning step: read per_min against lessons recorded the same way only (shown with '≈' on the Overview tab).",
-    "latency.median_s": "Response latency: seconds from the end of Amal's turn to the start of Medi's reply, middle value. Only replies within 15 s; overlaps (he starts before she stops) are left out. A pause is not an error (rule S5) - this is a speed measure only.",
+    "latency.median_s": "Response latency: seconds from the end of the tutor's turn to the start of the student's reply, middle value. Only replies within 15 s; overlaps (he starts before she stops) are left out. A pause is not an error (rule S5) - this is a speed measure only.",
     "latency.p75_s": "Three quarters of his replies started within this many seconds.",
     "latency.n": "How many replies were measured.",
-    "flow.wpm": "Speaking flow: Arabic words per minute inside Medi's Arabic turns (a turn = words with gaps under 1.2 s; only turns with at least 2 Arabic-script words; filled pauses not counted as words). English-only turns and Latin-script transliterations are left out.",
+    "flow.wpm": "Speaking flow: Arabic words per minute inside the student's Arabic turns (a turn = words with gaps under 1.2 s; only turns with at least 2 Arabic-script words; filled pauses not counted as words). English-only turns and Latin-script transliterations are left out.",
     "flow.n_turns": "How many of his Arabic turns went into wpm.",
-    "new_words": "Only words Amal (or Medi) marked new for this lesson (amal_rules kind='new'). Never guessed from the recording (hard rule 2026-09-05).",
-    "taught": "New verbs: the verb pairs Amal taught in this lesson (Medi confirmed 2026-09-25). review = first taught in an earlier lesson. From the hand list TAUGHT, else the same-day reader (LS-01, data/lesson-work/lesson-types/<date>.json).",
-    "taught_words": "Other words Amal introduced as new in this lesson, read from context by the same-day reader (LS-01): shown on the lesson page, never fed to any score.",
+    "new_words": "Only words the tutor (or the student) marked new for this lesson (amal_rules kind='new'). Never guessed from the recording (hard rule 2026-09-05).",
+    "taught": "New verbs: the verb pairs the tutor taught in this lesson (the student confirmed 2026-09-25). review = first taught in an earlier lesson. From the hand list TAUGHT, else the same-day reader (LS-01, data/lesson-work/lesson-types/<date>.json).",
+    "taught_words": "Other words the tutor introduced as new in this lesson, read from context by the same-day reader (LS-01): shown on the lesson page, never fed to any score.",
     "type_read_by": "Who read the type: hand (LESSON_TYPES in the builder) or the same-day reader (claude -p in review_lesson.py, or an agent by hand). null = not read; the publish guard blocks.",
     "gap_fill": "Stretches where one person's side was missing and was recovered later (scripts/fill_meet_gaps.py): side, lesson-clock window, parts by source, lines added, clock offset + residual, diarization confidence. Those turns carry gap_fill: true and a source: own_track = the person's own recording transcribed late; meet_mixed = Google Meet's mixed recording, also from_meet: true - speakers there are split by the engine, not by separate microphones.",
 }
@@ -915,7 +915,7 @@ def build():
                 continue
             asked = v.get("tier") == 0
             verr.append({"t": round(tv, 2), "mmss": v.get("t"), "kind": "asked" if asked else "wrong",
-                         "label": ("Asked Amal for the word" if asked else {1: "Wrong word", 2: "Wrong form", 3: "English for a word she taught"}.get(v.get("tier"), "Word slip")),
+                         "label": ("Asked the tutor for the word" if asked else {1: "Wrong word", 2: "Wrong form", 3: "English for a word she taught"}.get(v.get("tier"), "Word slip")),
                          "word_key": None, "arabic": v.get("amal_gave"), "arabizi": v.get("amal_gave_arabizi"), "english": v.get("english"),
                          "said": v.get("medi_said"), "said_html": mark_html(v.get("medi_said") or "", v.get("wrong") or "", "ab-wrong") if v.get("wrong") else esc(v.get("medi_said") or ""),
                          "wrong": v.get("wrong"), "fix": v.get("amal_gave"), "clip": None, "why": v.get("why"), "event_id": None,
@@ -1066,7 +1066,7 @@ def build():
             hit = next(((dd, w) for dd, w in earlier if _tn(w["arabic"]) in want), None)
             if hit:
                 e["on_sheet"], e["keyed_by"] = True, "taught-earlier"
-                e["sheet_reason"] = "Amal taught %s (%s) on %s - scored as a word you were given (WS-28)" % (
+                e["sheet_reason"] = "The tutor taught %s (%s) on %s - scored as a word you were given (WS-28)" % (
                     hit[1].get("latin") or hit[1]["arabic"], hit[1].get("english") or "", hit[0])
     # A word not on her sheet is not his miss (Medi 2026-09-26: "a new word that's not on the document") - it is listed,
     # tagged "Not on sheet", sent to Amal's review, and left out of the Words %.
@@ -1241,7 +1241,7 @@ def build():
     for card in MC.amal_cards(MC.J(os.path.join(REPO, "data", "lesson-work", "medi-corrections-report.json")) or {}):
         (done_cards if card.get("answered") else cards).append(card)
     with open(os.path.join(DOCS, "data", "amal-ledger.json"), "w", encoding="utf-8") as f:
-        json.dump({"about": "Moments where two of Anees' judges disagree about one of Medi's Arabic words (LS-11/LS-12). Amal's tap "
+        json.dump({"about": "Moments where two of Anees' judges disagree about one of the student's Arabic words (LS-11/LS-12). The tutor's tap "
                             "settles each: amal_rules source 'review', word_key = the item id, kind 'ledger_pick', payload.answer.",
                    "items": cards, "answered": done_cards}, f, ensure_ascii=False, indent=1)
     LL.write_diff(published, lessons, ledgers)

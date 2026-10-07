@@ -246,7 +246,7 @@ function renderMetrics() {
   var pooled = function (a) { return a ? 'All uses pooled · ' + a.n + ' of ' + L.length + ' lessons' : 'Not measured'; };
   var marked = function (a) { return a ? LM.mark(Math.round(a.value) + '%', a.lessons) : { text: '—', approx: false, title: '' }; };
   var cards = [
-    ['Lessons', String(L.length), 'Recorded with Amal'],
+    ['Lessons', String(L.length), 'Recorded with the tutor'],
     ['Total hours', hours.toFixed(1), 'Of lesson audio'],
     ['Words right', marked(w), pooled(w)],
     ['Grammar right', marked(g), pooled(g)],
@@ -316,7 +316,7 @@ function band(p) { p = Math.round(p); return p >= 90 ? 'pct-a' : p >= 80 ? 'pct-
 // Medi's decision 4 (2026-09-29): a score from a lesson that is not verified shows "≈"; hover or tap says why.
 function approxInto(node, text, L, estimate) {
   var m = window.AneesLessonMath.mark(text, [L]);
-  var title = [m.title, estimate ? 'Estimate: the app counted fewer rule uses than Amal fixed slips.' : ''].filter(Boolean).join(' · ');
+  var title = [m.title, estimate ? 'Estimate: the app counted fewer rule uses than the tutor fixed slips.' : ''].filter(Boolean).join(' · ');
   node.textContent = (m.approx || estimate ? '≈' : '') + text;
   if (title) { node.classList.add('rel-approx'); node.title = title; node.setAttribute('data-why', title); node.tabIndex = 0; }
 }
@@ -354,13 +354,13 @@ function talkCell(L) {
   }
   var bar = el('div', 'ls-bar');
   bar.setAttribute('role', 'img');
-  bar.setAttribute('aria-label', 'You speak ' + Math.round(t.speak_pct) + '%, Amal speaks ' + Math.round(t.listen_pct) + '%');
+  bar.setAttribute('aria-label', 'You speak ' + Math.round(t.speak_pct) + '%, the tutor speaks ' + Math.round(t.listen_pct) + '%');
   var a = el('i', 'ls-bar-you'); a.style.width = t.speak_pct + '%';
   var b = el('i', 'ls-bar-amal'); b.style.width = t.listen_pct + '%';
   bar.appendChild(a); bar.appendChild(b);
   c.appendChild(bar);
   var lab = el('div', 'ls-small ls-barlab');
-  lab.innerHTML = '<span><i class="ls-dot ls-bar-you"></i>You ' + Math.round(t.speak_pct) + '%</span><span><i class="ls-dot ls-bar-amal"></i>Amal ' + Math.round(t.listen_pct) + '%</span>';
+  lab.innerHTML = '<span><i class="ls-dot ls-bar-you"></i>You ' + Math.round(t.speak_pct) + '%</span><span><i class="ls-dot ls-bar-amal"></i>Tutor ' + Math.round(t.listen_pct) + '%</span>';
   c.appendChild(lab);
   return c;
 }
@@ -416,7 +416,7 @@ function statStrip(L) {
     ['Uh, um, آآ sounds while you talk (a floor: the engine drops some).', D['fillers.count']], L, ['filler', 'timing']));
   strip.appendChild(statBox('Response speed', lt && num(lt.median_s) ? lt.median_s.toFixed(1) + ' s' : null,
     lt && num(lt.p75_s) ? '3 in 4 replies within ' + lt.p75_s.toFixed(1) + ' s · ' + lt.n + ' replies' : null,
-    ['Time from Amal finishing to you starting (middle value). A pause is not an error.', D['latency.median_s']], L, ['latency', 'timing']));
+    ['Time from the tutor finishing to you starting (middle value). A pause is not an error.', D['latency.median_s']], L, ['latency', 'timing']));
   strip.appendChild(statBox('Flow', fl && num(fl.wpm) ? fl.wpm.toFixed(0) + ' wpm' : null,
     fl && num(fl.n_turns) ? fl.n_turns + ' Arabic turns' : null,
     ['Arabic words per minute inside your Arabic turns.', D['flow.wpm']], L, ['flow', 'timing']));
@@ -471,7 +471,7 @@ function headWord(v) {
   box.appendChild(main);
   // Medi 2026-09-26: "label it 'not on sheet'" / "add the rating (shaky, mastered) with my percentage correct"
   var meta = el('div', 'ls-headmeta');
-  if (v.on_sheet === false) meta.appendChild(el('span', 'ls-pill ls-pill-off', 'Not on sheet · sent to Amal · not scored'));
+  if (v.on_sheet === false) meta.appendChild(el('span', 'ls-pill ls-pill-off', 'Not on sheet · sent to the tutor · not scored'));
   else if (v.word_bank_note) meta.appendChild(el('span', 'ls-pill ls-pill-off', 'Counted here · ' + v.word_bank_note));
   else if (v.rating) {
     var R = v.rating, st = R.status || 'Untested';
@@ -526,7 +526,7 @@ function vocabList(body, x, mode) {
     card.appendChild(mediSaid(v.t, speech('gc-said', v.said_html, v.said)));
     if (v.fix) {
       var rc = el('div', 'gc-recast');
-      rc.appendChild(el('span', null, 'Amal: '));
+      rc.appendChild(el('span', null, 'Tutor: '));
       rc.appendChild(speech('gc-fix', markText(v.fix, [[v.arabic, 'ab-correct']]), null));
       card.appendChild(rc);
     }
@@ -542,7 +542,7 @@ function vocabList(body, x, mode) {
 // "Medi (mm:ss):" over what he said - the same shape as Amal's line under it (Medi 2026-09-26)
 function mediSaid(t, sp) {
   var box = el('div', 'gc-recast ls-medisaid');
-  box.appendChild(el('span', null, 'Medi' + (num(t) ? ' (' + mmss(t) + ')' : '') + ': '));
+  box.appendChild(el('span', null, 'Student' + (num(t) ? ' (' + mmss(t) + ')' : '') + ': '));
   box.appendChild(sp);
   return box;
 }
@@ -578,7 +578,7 @@ function ruleHead(e, date) {
 function grammarList(body, x) {
   // counted slips first, then the ones Amal's notes (2026-09-27) take out of the count
   var list = (x.grammar_errors || []).concat(x.grammar_not_counted || []);
-  if (!list.length) { body.appendChild(el('div', 'gc-empty', 'No grammar slips Amal corrected in this lesson.')); return; }
+  if (!list.length) { body.appendChild(el('div', 'gc-empty', 'No grammar slips the tutor corrected in this lesson.')); return; }
   list.forEach(function (e) {
     var card = el('div', 'gc-use gc-use-slip' + (e.counted === false ? ' gc-uncounted' : ''));
     card.appendChild(ruleHead(e, x.date));
@@ -588,7 +588,7 @@ function grammarList(body, x) {
     card.appendChild(mediSaid(e.t, speech('gc-said', markText(e.said, [[e.wrong, 'ab-wrong']]), null)));
     if (e.fix) {
       var rc = el('div', 'gc-recast');
-      rc.appendChild(el('span', null, 'Amal' + (num(e.t_fix) ? ' (' + mmss(e.t_fix) + ')' : '') + ': '));
+      rc.appendChild(el('span', null, 'Tutor' + (num(e.t_fix) ? ' (' + mmss(e.t_fix) + ')' : '') + ': '));
       rc.appendChild(speech('gc-fix', markText(e.fix, [[e.right, 'ab-correct']]), null));
       card.appendChild(rc);
     }
@@ -628,7 +628,7 @@ function transcript(body, x) {
       leg.appendChild(it);
     });
     var ul = el('span', 'tm-legend-ul');
-    ul.innerHTML = '<mark class="tm-ul tm-ul-wrong">underlined red</mark> = the wrong word · <mark class="tm-ul tm-ul-fix">green</mark> = Amal\'s fix · tap a chip or a word to see what was said and jump to the other line';
+    ul.innerHTML = '<mark class="tm-ul tm-ul-wrong">underlined red</mark> = the wrong word · <mark class="tm-ul tm-ul-fix">green</mark> = the tutor\'s fix · tap a chip or a word to see what was said and jump to the other line';
     leg.appendChild(ul);
     body.appendChild(leg);
     var n = TMK.counts(tm), bar = el('div', 'ab-chips tm-filters');
@@ -734,7 +734,7 @@ function tmRow(x, t, m, i) {
   var r = el('div', 'ls-turn ls-turn-' + (t.who === 'Medi' ? 'medi' : t.who === 'chat' ? 'chat' : 'amal'));
   r.dataset.turn = i;
   var h = el('div', 'ls-turnhead');
-  h.appendChild(el('span', 'ls-who', t.who === 'Medi' ? 'Medi' : t.who === 'chat' ? 'Amal · chat' : t.who === '?' ? 'Unknown' : t.who));
+  h.appendChild(el('span', 'ls-who', t.who === 'Medi' ? 'Student' : t.who === 'Amal' ? 'Tutor' : t.who === 'chat' ? 'Tutor · chat' : t.who === '?' ? 'Unknown' : t.who));
   h.appendChild(timeButton(x.date, t.t, t.who));
   r.appendChild(h);
   var main = el('div', 'tm-main');
@@ -801,7 +801,7 @@ function openChip(list, id, x, chips) {
 function turnRow(x, t, marks) {
   var r = el('div', 'ls-turn ls-turn-' + (t.who === 'Medi' ? 'medi' : t.who === 'chat' ? 'chat' : 'amal'));
   var h = el('div', 'ls-turnhead');
-  h.appendChild(el('span', 'ls-who', t.who === 'Medi' ? 'Medi' : t.who === 'chat' ? 'Amal · chat' : t.who === '?' ? 'Unknown' : t.who));
+  h.appendChild(el('span', 'ls-who', t.who === 'Medi' ? 'Student' : t.who === 'Amal' ? 'Tutor' : t.who === 'chat' ? 'Tutor · chat' : t.who === '?' ? 'Unknown' : t.who));
   h.appendChild(timeButton(x.date, t.t, t.who));
   r.appendChild(h);
   r.appendChild(speech('ls-turntext', markText(t.text, marks || []), null));
@@ -858,7 +858,7 @@ function taughtBlock(L) {
   var rows = TAUGHT[L.date] || [];
   if (!rows.length) return null;
   var box = el('div', 'ls-newwords ls-taught');
-  box.appendChild(el('h3', 'gc-secttitle', 'Words Amal taught in this lesson (' + rows.length + ')'));
+  box.appendChild(el('h3', 'gc-secttitle', 'Words the tutor taught in this lesson (' + rows.length + ')'));
   var g = el('div', 'ls-nwgrid');
   rows.forEach(function (x) {
     var c = el('div', 'ls-nw');
@@ -890,9 +890,9 @@ function newWords(L) {
   }
   var withStatus = (TAUGHT[L.date] || []).length;   // AM-19: the taught list with statuses replaces the plain grids
   if (verbs.length && !withStatus) grid('New verbs you learned', verbs);
-  if ((L.new_words || []).length) grid('New words Amal marked', L.new_words);
+  if ((L.new_words || []).length) grid('New words the tutor marked', L.new_words);
   // LS-01: words Amal introduced in this lesson, read from context the same day (never scored)
-  if ((L.taught_words || []).length && !withStatus) grid('Words Amal introduced (read from the lesson)', L.taught_words);
+  if ((L.taught_words || []).length && !withStatus) grid('Words the tutor introduced (read from the lesson)', L.taught_words);
   if (review.length && !withStatus) grid('Reviewed from earlier lessons', review);
   var tb = taughtBlock(L); if (tb) box.appendChild(tb);
   if (!box.childNodes.length) box.appendChild(el('div', 'gc-empty', 'No new words or verbs recorded for this lesson.'));
@@ -968,11 +968,11 @@ function renderMedi() {
   box.textContent = '';
   box.hidden = !items.length && !amal;
   if (!items.length) {
-    if (amal) box.appendChild(el('p', 'ab-mini', 'Waiting for Amal · ' + amal + (amal === 1 ? ' moment' : ' moments') + ' where two judges disagree about a word are on her Tutor hub. Counted as before until she answers.'));
+    if (amal) box.appendChild(el('p', 'ab-mini', 'Waiting for the tutor · ' + amal + (amal === 1 ? ' moment' : ' moments') + ' where two judges disagree about a word are on her Tutor hub. Counted as before until she answers.'));
     return;
   }
-  if (amal) box.appendChild(el('p', 'ab-mini', 'Also waiting for Amal: ' + amal + ' word ' + (amal === 1 ? 'moment' : 'moments') + ' on her Tutor hub.'));
-  box.appendChild(el('h3', '', 'Medi? · ' + items.length + (items.length === 1 ? ' moment' : ' moments') + ' where two judges disagree'));
+  if (amal) box.appendChild(el('p', 'ab-mini', 'Also waiting for the tutor: ' + amal + ' word ' + (amal === 1 ? 'moment' : 'moments') + ' on her Tutor hub.'));
+  box.appendChild(el('h3', '', 'Student? · ' + items.length + (items.length === 1 ? ' moment' : ' moments') + ' where two judges disagree'));
   var ex = items.slice(0, 2).map(function (x, i) { var o = (x.it.options || [])[0] || 'keep'; return (i + 1) + ' ' + (o === 'wrong' ? 'wrong' : o === 'keep' ? 'keep' : (toArabizi && /[؀-ۿ]/.test(o) ? toArabizi(o).text : o)); }).join(', ');
   box.appendChild(el('p', 'ab-mini', 'Counted as before until you pick. Reply like: ' + ex));
   var ol = el('ol', '');
@@ -989,7 +989,7 @@ function renderMedi() {
     });
     var A = it.a || {}, B = it.b || {};
     li.appendChild(el('div', 'ab-mini', (A.by === 'word-bank' ? 'Word Bank: right' : 'Word slip: wrong') +
-      ' · ' + (B.bucket ? 'Grammar (' + (B.bucket_name || B.bucket) + '): wrong' : 'Amal: wrong') + ', said ' + az2(B.fix)));
+      ' · ' + (B.bucket ? 'Grammar (' + (B.bucket_name || B.bucket) + '): wrong' : 'Tutor: wrong') + ', said ' + az2(B.fix)));
     li.appendChild(el('div', 'ab-mini', 'Now: ' + (it.kind === 'C2q' ? 'counted twice (word + grammar)' : 'the word counts right and the slip counts wrong')));
     if (it.line) { var q = el('div', 'ab-mini', 'You said: ' + (toArabizi && /[؀-ۿ]/.test(it.line) ? toArabizi(it.line).text : it.line)); li.appendChild(q); }
     ol.appendChild(li);

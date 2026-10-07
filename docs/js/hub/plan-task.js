@@ -45,7 +45,7 @@
     }
     function show(i) { step = i; answers.step = i; LS(AK, answers); const s = screens[i]; if (!s) { finish(); return; } $prog.textContent = s.prog; $root.innerHTML = s.html; s.wire && s.wire(); report(); answeredList(); }
     const next = () => { let i = step + 1; while (screens[i] && isDone(screens[i])) i++; show(i); };
-    function showDone() { $prog.textContent = 'Done'; $root.innerHTML = '<h3 class="hb-q">All saved. Have a good lesson!</h3><p class="hb-sub">Medi\'s app suggested; you decided. Tap Undo on any answer to change it.</p>'; $quit.parentElement.hidden = true; report(); answeredList(); }
+    function showDone() { $prog.textContent = 'Done'; $root.innerHTML = '<h3 class="hb-q">All saved. Have a good lesson!</h3><p class="hb-sub">The student\'s app suggested; you decided. Tap Undo on any answer to change it.</p>'; $quit.parentElement.hidden = true; report(); answeredList(); }
     function finish() { answers.done = true; save('done'); $prog.textContent = 'Saving…'; $root.innerHTML = '<h3 class="hb-q">Saving your answers…</h3>'; $quit.parentElement.hidden = true; if (!(LS(QK) || []).length) showDone(); else { pendingDone = true; flush(); } }
     function undo(key) {
       const i = screens.findIndex(s => s.key === key), s = screens[i]; if (!s || !isDone(s)) return;
@@ -61,7 +61,7 @@
       S.push({ key: 'topic', title: "Today's lesson", answered: () => !!answers.topic, said: () => answers.topic || '', prog: `1 of ${total}`,
         undo() { unrule('topic', null, { topic: answers.topic }, { topic: answers.topic }); unrule('new_words', null, { from: 'topics' }, { from: 'topics' }); delete answers.topic; delete answers.topics; delete answers.new_words_expected; },
         html: `<h3 class="hb-q">What is today's lesson about?</h3><p class="hb-sub">Tap everything that applies, then Next.</p><div class="hb-btns">
-          ${MENU.map((t, i) => btn(t, (i === 0 && p.last_words) ? ('last time: ' + p.last_words) : (t === 'Review listening' ? 'Amal speaks, Medi listens and translates' : (t === 'Review conversation' ? 'back-and-forth practice on the last lessons' : '')), null, P + 't' + i)).join('')}</div>
+          ${MENU.map((t, i) => btn(t, (i === 0 && p.last_words) ? ('last time: ' + p.last_words) : (t === 'Review listening' ? 'The tutor speaks, the student listens and translates' : (t === 'Review conversation' ? 'back-and-forth practice on the last lessons' : '')), null, P + 't' + i)).join('')}</div>
           <div id="${P}typebox" hidden><input class="hb-input" id="${P}topic" placeholder="Which topic?" aria-label="Other topic"></div>${btn('Next', '', 'primary', P + 'tnext')}`,
         wire() {
           const sel = new Set(), nb = document.getElementById(P + 'tnext'); nb.hidden = true;
@@ -110,7 +110,7 @@
     (async () => {
       let rows = []; try { rows = await (await api('GET', 'amal_links?select=*&token=eq.' + encodeURIComponent(TOKEN))).json(); } catch (e) {}
       link = Array.isArray(rows) ? rows[0] : null;
-      if (!link) { $root.innerHTML = '<h3 class="hb-q">This list is closed.</h3><p class="hb-sub">Ask Medi for a fresh link.</p>'; $prog.textContent = ''; return; }
+      if (!link) { $root.innerHTML = '<h3 class="hb-q">This list is closed.</h3><p class="hb-sub">Ask the student for a fresh link.</p>'; $prog.textContent = ''; return; }
       if (new Date(link.expires_at) < new Date()) { $root.innerHTML = '<h3 class="hb-q">This list has closed.</h3><p class="hb-sub">Links work for 7 days.</p>'; $prog.textContent = ''; return; }
       const local = LS(AK), queued = (LS(QK) || []).length;   // AM-17: the server copy wins once nothing waits to be sent
       answers = Object.assign({}, link.answers || {}, queued && local ? local : {});

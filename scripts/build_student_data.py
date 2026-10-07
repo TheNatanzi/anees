@@ -76,7 +76,7 @@ def upload_sets(rows):
             if not (az or ar) or not (en or (az and ar)):
                 continue
             cards.append({"key": f"u:{u['id']}:{i + 1}", "arabizi": az, "arabic": ar, "english": en, "plural": str(c.get("plural") or ""), "notes": str(c.get("notes") or "")})
-        out.append({"id": "u:" + u["id"], "upload_id": u["id"], "title": u.get("title") or "From Amal", "keep": u.get("keep") or "temporary",
+        out.append({"id": "u:" + u["id"], "upload_id": u["id"], "title": u.get("title") or "From the tutor", "keep": u.get("keep") or "temporary",
                     "source": u.get("source") or "file", "source_ref": u.get("source_ref") or "", "created_at": u.get("created_at") or "", "n": len(cards), "cards": cards})
     return sorted(out, key=lambda s: s["created_at"], reverse=True)
 

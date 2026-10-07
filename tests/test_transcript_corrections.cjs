@@ -27,7 +27,7 @@ test('PG-24 undo is a new row; undoing the undo restores the correction',()=>{
 test('PG-24 "What did you say?" guesses come from her chat, her next line and the word list, most alike first',()=>{
  const g=C.guesses('العشاء',{chat:['3ala','el-3ashara'],amal:['العشرة','طيب'],list:[{arabic:'عشرة',arabizi:'3ashra'},{arabic:'بيت',arabizi:'beit'}]},s=>({text:'el-3asha'}));
  assert.ok(g.length>=2&&g.length<=3);
- assert.ok(g.some(x=>x.w==='العشرة'&&x.from==="Amal's next line"));
+ assert.ok(g.some(x=>x.w==='العشرة'&&x.from==="The tutor's next line"));
  assert.ok(!g.some(x=>x.w==='بيت'));
 });
 

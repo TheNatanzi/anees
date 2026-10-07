@@ -23,7 +23,7 @@ test('AM-19 still waiting after 7 days: a mark on her list and one line for Medi
   assert.equal(T.stillWaiting({ state: 'waiting', still_waiting: false }), '');
   const late = { id: 'x', arabizi: 'laffe', arabic: 'لفة', date: '2026-10-01', state: 'waiting', still_waiting: true, waiting_days: 9 };
   const h = P.html({ promised: [late, { id: 'y', arabic: 'ممتاز', state: 'waiting' }] });
-  assert.match(h, /1 word Amal said she'd add still not in the Doc after 7 days: laffe\./);
+  assert.match(h, /1 word the tutor said she'd add still not in the Doc after 7 days: laffe\./);
   assert.match(P.label(late), /Waiting · still waiting \(9 days\)/);
   assert.equal(P.note([{ state: 'in_doc', still_waiting: false }]), '');
 });

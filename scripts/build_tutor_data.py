@@ -10,7 +10,7 @@ same-day review (review_lesson.py step 7c); safe to run any time.
 
     python scripts/build_tutor_data.py            -> rewrites docs/data/tutor.json, prints the open cards
 """
-import datetime, json, os, sys
+import datetime, json, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE); DOCS = os.path.join(REPO, "docs")
 sys.path.insert(0, HERE)
 OUT = os.path.join(DOCS, "data", "tutor.json")
@@ -110,11 +110,11 @@ def effect_after(label, row):
     """What her answer changed (PG-18 'the result'): the audit row's state now when the row is known, else what the tap does."""
     k = (row or {}).get("kind")
     if k in SCORED:
-        return "counted as a mistake for Medi"
+        return "counted as a mistake for the student"
     if k in ("rejected", "dropped-by-amal"):
         return "not counted as a mistake"
-    return {"Right": "not counted as a mistake", "Wrong": "counted as a mistake for Medi", "Wrong word": "counted as a mistake for Medi (wrong word)",
-            "Wrong grammar": "counted as a mistake for Medi (wrong grammar)", "Not Medi": "dropped - it was not Medi", "Skip": "no change"}.get(label, None)
+    return {"Right": "not counted as a mistake", "Wrong": "counted as a mistake for the student", "Wrong word": "counted as a mistake for the student (wrong word)",
+            "Wrong grammar": "counted as a mistake for the student (wrong grammar)", "Not Medi": "dropped - it was not the student", "Skip": "no change"}.get(label, None)
 
 
 def link_detail(r, dates):
@@ -175,6 +175,18 @@ def link_detail(r, dates):
     return out
 
 
+def on_screen(text):
+    """PG-33 (Medi 2026-10-07): the hub is read by the tutor - she is "you", Medi is "the student". Applied to the hub's
+    titles and lines, including ones carried over from an older build or read from docs/data/amal-checks.json; names stay
+    in ids, tokens and data keys."""
+    if not isinstance(text, str):
+        return text
+    for a, b in (("Amal answers", "You answer"), ("Amal writes", "You write"), ("link already with her", "link already with you")):
+        text = text.replace(a, b)
+    text = re.sub(r"(^|[.!?]\s+)Medi\b", lambda m: m.group(1) + "The student", text)
+    return re.sub(r"\bMedi\b", "the student", text)
+
+
 def answered_first(rows):
     """AM-18: a lesson's row shows the link Amal really answered; a link re-made after she answered (and closed with her
     answers carried over) goes inside it as 'made again by mistake'."""
@@ -212,18 +224,18 @@ def main():
             if not live or seen_review:
                 continue
             seen_review = True
-            open_.append({"id": "slips-review", "title": "Medi's mistakes to review", "kind": "review", "token": r["token"],
-                          "what": "Mistakes Medi made (a wrong word or wrong grammar) that you let pass in the lesson, grouped by kind, with the real moments to play. For each kind you say: yes, count it, or no, he was fine. New lessons add their patterns here the same day.",
-                          "who": "Amal answers · Medi sends the link", "url": f"amal/review.html?t={r['token']}",
+            open_.append({"id": "slips-review", "title": "The student's mistakes to review", "kind": "review", "token": r["token"],
+                          "what": "Mistakes the student made (a wrong word or wrong grammar) that you let pass in the lesson, grouped by kind, with the real moments to play. For each kind you say: yes, count it, or no, he was fine. New lessons add their patterns here the same day.",
+                          "who": "You answer · the student sends the link", "url": f"amal/review.html?t={r['token']}",
                           "total": (review.get("counts") or {}).get("patterns", 0), "moments": sum(len(x.get("examples", [])) for x in review.get("patterns", [])),
                           "expires": day(r["expires_at"])})
             # Her grammar notes live on the Anees rules page now, written with this same link's token (Medi 2026-10-01:
             # nothing Amal uses stays in a Google Doc or behind a login). Her Doc notes are shown under each rule.
             notes = json.load(open(NOTES, encoding="utf-8")) if os.path.exists(NOTES) else {"sections": []}
             open_.append({"id": "grammar-notes", "title": "Grammar rules · her notes", "kind": "grammar_notes", "token": r["token"],
-                          "what": "Medi's 57 grammar rules. Under each rule: her notes from her Doc (" + str(len(notes.get("sections", [])))
+                          "what": "The student's 57 grammar rules. Under each rule: her notes from her Doc (" + str(len(notes.get("sections", [])))
                                   + " notes) and a box to write a new one - no Google Doc needed. Each note she saves reaches the app.",
-                          "who": "Amal writes · Medi sends the link", "url": f"amal/grammar-rules.html?t={r['token']}",
+                          "who": "You write · the student sends the link", "url": f"amal/grammar-rules.html?t={r['token']}",
                           "doc_notes": len(notes.get("sections", [])), "expires": day(r["expires_at"])})
             open_.append({"id": "materials", "title": "Arabic Materials", "kind": "materials", "token": None,
                           "what": "Her explanations: prepositions, possession, adjectives, time, kul, the b- prefix and the pointer rule, copied word for word from her Doc.",
@@ -234,14 +246,14 @@ def main():
             if n_listen:
                 open_.append({"id": "listen-check", "title": "Listen: which version is right?", "kind": "listen", "token": r["token"],
                               "what": f"{n_listen} of your own lines from two lessons, each written two ways. Play your clip and tap the one that is right. About 10 minutes.",
-                              "who": "Amal answers · on her Tutor page", "url": f"amal/listen-check.html?t={r['token']}",
+                              "who": "You answer · on your Tutor page", "url": f"amal/listen-check.html?t={r['token']}",
                               "total": n_listen, "expires": day(r["expires_at"])})
             # Her other listening / checking lists (Medi 2026-10-05 "have amal do the 27 line check too", "did you put the
             # 108 on amals list", "5 send to amal"): one row per list of docs/data/amal-checks.json, same token, same saving.
             for c in (json.load(open(CHECKS, encoding="utf-8")).get("lists") or []) if os.path.exists(CHECKS) else []:
                 if c.get("total"):
                     open_.append({"id": "check-" + c["list"], "title": c["title"], "kind": "check", "list": c["list"], "token": r["token"],
-                                  "what": c["what"], "who": "Amal answers · on her Tutor page", "url": f"amal/check.html?list={c['list']}&t={r['token']}",
+                                  "what": c["what"], "who": "You answer · on your Tutor page", "url": f"amal/check.html?list={c['list']}&t={r['token']}",
                                   "total": c["total"], "unit": c.get("unit") or "items", "min_each": round(c.get("mins", 5) / c["total"], 3),
                                   "expires": day(r["expires_at"])})
         elif r["kind"] in ("after", "before"):
@@ -253,7 +265,7 @@ def main():
                 open_.append({"id": f"{r['kind']}-{r.get('lesson_date')}", "title": title, "kind": r["kind"], "token": r["token"], "lesson_date": r.get("lesson_date"),
                               "what": ("3-5 moments from this lesson the app was least sure about: was he right here? One tap each, with the clip." if r["kind"] == "after"
                                        else "Words to bring back and sentences to try in this lesson. Keep or drop."),
-                              "who": "Amal answers · Medi sends the link", "url": f"amal/{'after' if r['kind'] == 'after' else 'plan'}.html?t={r['token']}",
+                              "who": "You answer · the student sends the link", "url": f"amal/{'after' if r['kind'] == 'after' else 'plan'}.html?t={r['token']}",
                               "total": n, "expires": day(r["expires_at"]), "detail": link_detail(r, dates)})
             elif day(r["expires_at"]) >= day((now - datetime.timedelta(days=21)).isoformat()):
                 why = "answered" if r.get("done_at") else f"link expired {day(r['expires_at'])}"
@@ -285,8 +297,8 @@ def main():
                 old = next((x for x in cur.get("open", []) if x.get("token") == r["token"]), {})
                 open_.append({"id": f"{kind}-{n_open}", "title": title + lvl + (f" · {pretty(p.get('lesson'))}" if p.get("lesson") else ""), "kind": kind, "token": r["token"],
                               "what": old.get("what") or p.get("what") or ("Every person of every verb she taught, filled in by the app. She taps right, or fixes the spelling." if kind == "verb_check"
-                                                            else "Transcript lines where the app is not sure what Medi said. Confirm the wording or type what you heard."),
-                              "who": old.get("who") or "Amal answers · Medi sends the link", "url": f"amal/{page}.html?t={r['token']}",
+                                                            else "Transcript lines where the app is not sure what the student said. Confirm the wording or type what you heard."),
+                              "who": old.get("who") or "You answer · the student sends the link", "url": f"amal/{page}.html?t={r['token']}",
                               "total": total, "pulled": pulled_count(p) if kind == "verb_check" else old.get("pulled", 0),
                               "expires": day(r["expires_at"])})
             elif day(r["expires_at"]) >= day((now - datetime.timedelta(days=21)).isoformat()):
@@ -294,6 +306,10 @@ def main():
                                "why": "answered" if r.get("done_at") else f"link expired {day(r['expires_at'])}", "kind": kind,
                                "token": r["token"], "expires": day(r["expires_at"]), "detail": link_detail({**r, "kind": kind}, {})})
     answered_first(closed)
+    for x in kept + open_ + closed:
+        for k in ("title", "what", "who"):
+            if k in x:
+                x[k] = on_screen(x[k])
     # keep the old stamp when nothing changed, so the hourly job does not commit a new file every hour
     same = cur.get("open") == kept + open_ and cur.get("closed") == closed
     out = {"updated": cur.get("updated") if same and cur.get("updated") else now.astimezone().isoformat(timespec="seconds"),

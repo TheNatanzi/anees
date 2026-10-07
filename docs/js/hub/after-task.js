@@ -16,8 +16,8 @@
   const MISS = { 'Wrong word': 'word', 'Wrong grammar': 'grammar' };
   // AM-23 (Medi 2026-10-06 "all the verbiage in the tutor section is confusing. label it Medi got it right / Medi got the wrong
   // word / Medi had wrong grammar"): what Amal reads on each button; the stored label stays the data key above.
-  const SHOW = { 'Right': 'Medi got it right', 'Wrong': 'Medi got it wrong', 'Wrong word': 'Medi got the wrong word', 'Wrong grammar': 'Medi had wrong grammar',
-                 'Not Medi': 'That was not Medi speaking', 'Skip': 'Skip this one', 'Medi, right': 'Medi said it, and it was right', 'Medi, wrong': 'Medi said it, and it was wrong',
+  const SHOW = { 'Right': 'The student got it right', 'Wrong': 'The student got it wrong', 'Wrong word': 'The student got the wrong word', 'Wrong grammar': 'The student had wrong grammar',
+                 'Not Medi': 'That was not the student speaking', 'Skip': 'Skip this one', 'Medi, right': 'The student said it, and it was right', 'Medi, wrong': 'The student said it, and it was wrong',
                  'Yes, a word': 'Yes, it is a word I taught', 'No': 'No, not a word of mine' };
   const show = l => SHOW[l] || l;
   const SAID = { keep: 'Keep', drop: 'Drop', edit: 'Your version', right: 'Correct', fix: 'Needs a fix', skip: 'Skip' };
@@ -142,7 +142,7 @@
       });
       HW.forEach((h, i) => {
         const id = `${TOKEN.slice(0, 6)}h${i}`;
-        S.push({ part: 'hw', k: i, title: h.arabizi, said: () => SAID[answers.hw[i]] || answers.hw[i], prog: `${Q.length + i + 1} of ${total}`, html: `<h3 class="hb-q">Homework suggestion ${i + 1} of ${HW.length}</h3><p class="hb-sub">The app suggests this for Medi (${esc(h.kind === 'say' ? 'a sentence to say' : h.kind === 'use' ? 'a word to use' : 'a mini-dialogue')}). Keep, drop or edit it.</p>
+        S.push({ part: 'hw', k: i, title: h.arabizi, said: () => SAID[answers.hw[i]] || answers.hw[i], prog: `${Q.length + i + 1} of ${total}`, html: `<h3 class="hb-q">Homework suggestion ${i + 1} of ${HW.length}</h3><p class="hb-sub">The app suggests this for the student (${esc(h.kind === 'say' ? 'a sentence to say' : h.kind === 'use' ? 'a word to use' : 'a mini-dialogue')}). Keep, drop or edit it.</p>
           <div class="hb-moment"><div class="hb-big">${esc(h.arabizi)}</div><div class="hb-ar" dir="auto">${esc(h.arabic || '')}</div><div class="hb-en">${esc(h.english || '')}</div>${h.note ? `<div class="hb-why">${esc(h.note)}</div>` : ''}</div>
           <div class="hb-btns">${btn(id + 'k', 'Keep', 'primary')}${btn(id + 'd', 'Drop', 'drop')}${btn(id + 'e', 'Edit')}</div>
           <div id="${id}box" hidden><input class="hb-input" id="${id}v" value="${esc(h.arabizi)}" aria-label="Your version">${btn(id + 'g', 'Save my version', 'primary')}</div>`,
@@ -162,7 +162,7 @@
         const id = `${TOKEN.slice(0, 6)}v${i}`, it = a.homework_items || {}, g = a.grade || {};
         const en = (it.status === 'edit' || it.status === 'amal') && it.edited_english ? it.edited_english : (it.english || '');
         const gtxt = g.verdict ? `The app said: <b>${esc(g.verdict === 'right' ? 'right' : g.verdict === 'close' ? 'close' : g.verdict === 'wrong' ? 'not right' : 'ungraded')}</b>${(g.notes || []).length ? ' · ' + esc((g.notes || []).map(n => n.say).join(' · ')) : ''}${g.fixed && g.verdict !== 'right' ? ' → ' + esc(g.fixed) : ''}` : 'The app has not graded this one.';
-        S.push({ part: 'v', k: a.id, title: a.answer, said: () => SAID[answers.v[a.id]] || answers.v[a.id], prog: `${Q.length + HW.length + i + 1} of ${total}`, html: `<h3 class="hb-q">Medi typed this answer. Is it right?</h3><p class="hb-sub">You have the final word; the app only suggested. Your answer scores the words.</p>
+        S.push({ part: 'v', k: a.id, title: a.answer, said: () => SAID[answers.v[a.id]] || answers.v[a.id], prog: `${Q.length + HW.length + i + 1} of ${total}`, html: `<h3 class="hb-q">The student typed this answer. Is it right?</h3><p class="hb-sub">You have the final word; the app only suggested. Your answer scores the words.</p>
           <div class="hb-moment"><div class="hb-en">${esc(en)}</div><div class="hb-big">${esc(a.answer)}</div><div class="hb-why">${gtxt}</div></div>
           <div class="hb-btns">${btn(id + 'r', 'Correct', 'primary')}${btn(id + 'f', 'Needs a fix')}${btn(id + 's', 'Skip')}</div>
           <div id="${id}box" hidden><input class="hb-input" id="${id}v" value="${esc(g.fixed && g.verdict !== 'right' ? g.fixed : a.answer)}" aria-label="Your fix">${btn(id + 'g', 'Save my fix', 'primary')}</div>`,
@@ -177,7 +177,7 @@
       });
       PR.forEach((it, i) => {
         const id = `${TOKEN.slice(0, 6)}p${i}`;
-        S.push({ part: 'pr', k: it.id, title: it.english, said: () => SAID[answers.pr[it.id]] || answers.pr[it.id], prog: `${Q.length + HW.length + PEND.length + i + 1} of ${total}`, html: `<h3 class="hb-q">Homework line ${i + 1} of ${PR.length}</h3><p class="hb-sub">The app suggests this English line for Medi to say in Arabic (it practises ${esc((it.keys || []).length)} of his words). Keep, drop or edit it.</p>
+        S.push({ part: 'pr', k: it.id, title: it.english, said: () => SAID[answers.pr[it.id]] || answers.pr[it.id], prog: `${Q.length + HW.length + PEND.length + i + 1} of ${total}`, html: `<h3 class="hb-q">Homework line ${i + 1} of ${PR.length}</h3><p class="hb-sub">The app suggests this English line for the student to say in Arabic (it practises ${esc((it.keys || []).length)} of his words). Keep, drop or edit it.</p>
           <div class="hb-moment"><div class="hb-big">${esc(it.english)}</div></div>
           <div class="hb-btns">${btn(id + 'k', 'Keep', 'primary')}${btn(id + 'd', 'Drop', 'drop')}${btn(id + 'e', 'Edit')}</div>
           <div id="${id}box" hidden><input class="hb-input" id="${id}v" value="${esc(it.english)}" aria-label="Your line">${btn(id + 'g', 'Save my version', 'primary')}</div>`,
@@ -193,7 +193,7 @@
       });
       if (PR.length) {
         const id = `${TOKEN.slice(0, 6)}own`;
-        S.push({ part: 'own', k: 0, title: 'Your own lines', said: () => '', prog: `${total} of ${total}`, html: `<h3 class="hb-q">Your own lines?</h3><p class="hb-sub">Type any English line you want Medi to say in Arabic, one at a time, as many as you like.</p>
+        S.push({ part: 'own', k: 0, title: 'Your own lines', said: () => '', prog: `${total} of ${total}`, html: `<h3 class="hb-q">Your own lines?</h3><p class="hb-sub">Type any English line you want the student to say in Arabic, one at a time, as many as you like.</p>
           <input class="hb-input" id="${id}v" placeholder="Did you call your brother yesterday?" aria-label="Your line"><div class="hb-btns">${btn(id + 'a', 'Add this line')}${btn(id + 'n', 'No more lines, finish', 'primary')}</div>`,
           undo() {},
           wire() {
@@ -215,7 +215,7 @@
     (async () => {
       let rows = []; try { rows = await (await api('GET', 'amal_links?select=*&token=eq.' + encodeURIComponent(TOKEN))).json(); } catch (e) {}
       link = Array.isArray(rows) ? rows[0] : null;
-      if (!link) { $root.innerHTML = '<h3 class="hb-q">This list is closed.</h3><p class="hb-sub">Nothing to do here any more. Ask Medi for a fresh link.</p>'; $prog.textContent = ''; return; }
+      if (!link) { $root.innerHTML = '<h3 class="hb-q">This list is closed.</h3><p class="hb-sub">Nothing to do here any more. Ask the student for a fresh link.</p>'; $prog.textContent = ''; return; }
       if (new Date(link.expires_at) < new Date()) { $root.innerHTML = '<h3 class="hb-q">This list has closed.</h3><p class="hb-sub">Lists stay open for 7 days.</p>'; $prog.textContent = ''; return; }
       const payload = Object.assign({}, link.payload || {});
       try {

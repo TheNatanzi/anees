@@ -27,7 +27,7 @@ function url(src,t,failed){
  if(!failed)return u[0];
  const i=u.indexOf(failed);return i>=0&&i+1<u.length?u[i+1]:null;
 }
-function label(u){return /\/lesson\.mp3#/.test(u)?'Playing from the full lesson recording (the short clip is missing).':'Playing '+(/\/Medi\.mp3#/.test(u)?'Medi':'Amal')+'’s channel of the lesson recording (the short clip is missing).';}
+function label(u){return /\/lesson\.mp3#/.test(u)?'Playing from the full lesson recording (the short clip is missing).':'Playing the '+(/\/Medi\.mp3#/.test(u)?'student':'tutor')+'’s channel of the lesson recording (the short clip is missing).';}
 document.addEventListener('error',e=>{
  const a=e.target;if(!a||a.tagName!=='AUDIO')return;
  const orig=a.dataset.clipSrc||a.currentSrc||a.getAttribute('src')||'';
