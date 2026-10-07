@@ -332,8 +332,8 @@ _What Amal decides: her Doc, her pages, her rulings, and the words she promised 
   <br><sub>Medi, 2026-09-30: “She took a few verbs off the list that was added by mistake”</sub>
 - The hourly vocab import reads Amal's live Doc by itself: an Apps Script under wc@adibs.com exports it every hour (read-only) to G:/My Drive/Anees doc sync, and an export older than 2 h is never imported and shows "Amal's word Doc not synced since <time>: <reason>" on Progress and Lessons plus a data_freshness warning. `AM-20` _Automatic_
   <br><sub>Medi, 2026-10-02: “DUDE FUCKING FIX THE ISSUE WITH HER DOCUMENT. YOU HAVE A DIRECT GOOGLE CONNECTION TO THE DOC WHY IS THIS SO FUCKING HARD”</sub>
-- Amal's second verb list only asks the verbs where the little word after the verb matters: it changes the meaning, the verb needs it, or the ending goes on the verb. Plain verbs like batbu5 and bakul are not asked. `AM-26` _Automatic_
-  <br><sub>Medi, 2026-10-06: “see if you can apply the same logic to the 402 verb form list for amal to reduce. Maybe with the answers she has already provided too” · Medi, 2026-10-06: “Ba7ki doesnt work often by itself.  It needs a preposition. Ba3ti doesnt need a preposition Ba3tini Badfa3 changes meanings with preposition.  Same with Bad7ak We really dont care about verbs like Ba6bu5 or Bakol.” · Medi, 2026-10-06: “send”</sub>
+- Amal's second verb list, and the level-2 drill cards, only use the verbs where the little word after the verb matters: it changes the meaning, the verb needs it, or the ending goes on the verb. Plain verbs like batbu5 and bakul are left out. `AM-26` _Automatic_
+  <br><sub>Medi, 2026-10-06: “see if you can apply the same logic to the 402 verb form list for amal to reduce. Maybe with the answers she has already provided too” · Medi, 2026-10-06: “Ba7ki doesnt work often by itself.  It needs a preposition. Ba3ti doesnt need a preposition Ba3tini Badfa3 changes meanings with preposition.  Same with Bad7ak We really dont care about verbs like Ba6bu5 or Bakol.” · Medi, 2026-10-06: “send” · Medi, 2026-10-06: “a”</sub>
 
 ### How it's shown
 

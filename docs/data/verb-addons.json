@@ -1,13 +1,10 @@
 {
  "version": "2026-09-23",
- "rules": "every verb: ma3 + la; object endings when the verb takes an object; Amal wins",
+ "rules": "AM-26: only the verbs where the preposition matters (data/vocab/verb-short-list.json); Amal wins",
  "verbs": {
   "ana batbu5": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "amal",
    "english": "I cook",
@@ -20,11 +17,8 @@
    }
   },
   "ana basawi": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "amal",
    "english": "I do",
@@ -37,133 +31,108 @@
    }
   },
   "ana barsem": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "amal",
    "english": "I draw",
    "name": "barsem"
   },
   "ana bashrab": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I drink",
    "name": "Bashrab"
   },
   "ana bakul": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I eat",
    "name": "bakul"
   },
   "ana ba3raf": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "3an"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I know",
-   "name": "ba3raf"
+   "name": "ba3raf",
+   "short": "meaning changes"
   },
   "ana ba7eb": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "amal-quizlet",
    "english": "I like",
    "name": "ba7eb"
   },
   "ana ba2ra2": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I read",
    "name": "baqra2"
   },
   "ana ba7ki": {
-   "object": true,
+   "object": false,
    "preps": [
     "ma3",
-    "la"
+    "la",
+    "3ala",
+    "3an"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I speak",
-   "name": "ba7ki"
+   "name": "ba7ki",
+   "short": "meaning changes"
   },
   "ana badrus": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I study",
    "name": "badrus"
   },
   "ana bafaker": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la",
     "fi"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I think",
-   "name": "bafakker"
+   "name": "bafakker",
+   "short": "needs a preposition"
   },
   "ana bamshi": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I walk",
    "name": "bamshi"
   },
   "ana bedi": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I want",
    "name": "beddi"
   },
   "ana bashte8el": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I work",
@@ -171,88 +140,77 @@
   },
   "ana baktub": {
    "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I write",
-   "name": "baktub"
+   "name": "baktub",
+   "short": "ending on the verb"
   },
   "ana bajli": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I wash dishes",
    "name": "Bajli"
   },
   "ana ba2li": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I fry",
    "name": "Ba2li"
   },
   "ana ba7ut": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "3ala"
    ],
    "geminate": true,
    "source": "claude",
    "english": "I put",
-   "name": "ba7ut"
+   "name": "ba7ut",
+   "short": "needs a preposition"
   },
   "ana ba3ti": {
    "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I give",
-   "name": "ba3ti"
+   "name": "ba3ti",
+   "short": "ending on the verb"
   },
   "ana baru7": {
    "object": false,
    "preps": [
-    "ma3",
+    "3ala",
     "la",
-    "3ala"
+    "ma3"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I go",
-   "name": "baru7"
+   "name": "baru7",
+   "short": "meaning changes"
   },
   "ana ba5ud": {
    "object": true,
    "preps": [
     "ma3",
-    "la"
+    "min"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I take",
-   "name": "ba5ud"
+   "name": "ba5ud",
+   "short": "meaning changes"
   },
   "ana banAm": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I sleep",
@@ -260,32 +218,23 @@
   },
   "ana bat7amam": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I shower",
    "name": "bat7ammam"
   },
   "ana ba8asel": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I wash",
    "name": "ba8assel"
   },
   "ana ba3mal": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I do/make",
@@ -293,10 +242,7 @@
   },
   "ana bas7a": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I wake up",
@@ -305,32 +251,29 @@
   "ana ba23ud": {
    "object": false,
    "preps": [
-    "ma3",
-    "la",
     "3ala"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I sit",
-   "name": "baq3ud"
+   "name": "baq3ud",
+   "short": "needs a preposition"
   },
   "ana basma3": {
    "object": true,
    "preps": [
-    "ma3",
-    "la"
+    "la",
+    "min"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I listen",
-   "name": "basma3"
+   "name": "basma3",
+   "short": "needs a preposition"
   },
   "ana bashuf": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I see",
@@ -340,75 +283,64 @@
    "object": false,
    "preps": [
     "ma3",
-    "la",
     "3ala"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I come",
-   "name": "baaji"
+   "name": "baaji",
+   "short": "meaning changes"
   },
   "ana ba7es": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "fi",
+    "3ala"
    ],
    "geminate": true,
    "source": "claude",
    "english": "I feel",
-   "name": "ba7ess"
+   "name": "ba7ess",
+   "short": "meaning changes"
   },
   "ana ba2dar": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "3ala"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I can",
-   "name": "baqdar"
+   "name": "baqdar",
+   "short": "meaning changes"
   },
   "ana basta5dem": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I use",
    "name": "basta5dem"
   },
   "ana bat3alam": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I learn",
    "name": "bat3allam"
   },
   "ana ba7tAj": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I need",
    "name": "ba7taaj"
   },
   "ana baso2": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I drive",
@@ -416,87 +348,72 @@
   },
   "ana babI3": {
    "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I sell",
-   "name": "babee3"
+   "name": "babee3",
+   "short": "ending on the verb"
   },
   "ana bashteri": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I buy",
    "name": "bashteri"
   },
   "ana bas2al": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "Ask (question)",
    "name": "bas2al"
   },
   "ana bastana": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "amal-quizlet",
    "english": "I wait",
    "name": "bastanna"
   },
   "ana bal3ab": {
-   "object": true,
+   "object": false,
    "preps": [
     "ma3",
-    "la"
+    "3ala",
+    "fi"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I play",
-   "name": "bal3ab"
+   "name": "bal3ab",
+   "short": "meaning changes"
   },
   "ana bafham": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "3ala"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I understand",
-   "name": "bafham"
+   "name": "bafham",
+   "short": "meaning changes"
   },
   "ana bashem": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I smell",
    "name": "bashemm"
   },
   "ana batzakar": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I remember",
@@ -504,275 +421,221 @@
   },
   "ana bajIb": {
    "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I bring",
-   "name": "bajeeb"
+   "name": "bajeeb",
+   "short": "ending on the verb"
   },
   "ana basA3ed": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I help",
    "name": "basaa3ed"
   },
   "ana balA2i": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I find",
    "name": "balaaqi"
   },
   "ana babda": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "fi"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I start",
-   "name": "babda"
+   "name": "babda",
+   "short": "needs a preposition"
   },
   "ana babalesh": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I start",
    "name": "baballesh"
   },
   "ana bawa2ef": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "ma3"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I stop",
-   "name": "bawaqqef"
+   "name": "bawaqqef",
+   "short": "needs a preposition"
   },
   "ana ba5ales": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "min"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I finish / I be done",
-   "name": "ba5alles"
+   "name": "ba5alles",
+   "short": "needs a preposition"
   },
   "ana bawaje3": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I hurt",
    "name": "bawajje3"
   },
   "ana ba2us": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I cut",
    "name": "Baquss"
   },
   "ana bafta7": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I open",
    "name": "bafta7"
   },
   "ana basaker": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "3ala"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I close",
-   "name": "basakker"
+   "name": "basakker",
+   "short": "meaning changes"
   },
   "ana bad7ak": {
    "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "3ala"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I smile / laugh",
-   "name": "bad7ak"
+   "name": "bad7ak",
+   "short": "meaning changes"
   },
   "ana ba7arek": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I move",
    "name": "ba7arrek"
   },
   "ana balef": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I turn",
    "name": "baleff"
   },
   "ana ba7mel": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I carry",
    "name": "ba7mel"
   },
   "ana bamsek": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I hold",
    "name": "bamsek"
   },
   "ana bartA7": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I relax",
    "name": "bartaa7"
   },
   "ana ba7dar": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I watch",
    "name": "ba7dar"
   },
   "ana bansa": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I forget",
    "name": "bansa"
   },
   "ana batdarab": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la",
     "3ala"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I practice",
-   "name": "batdarrab"
+   "name": "batdarrab",
+   "short": "needs a preposition"
   },
   "ana bakUn": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I be",
    "name": "bakoon"
   },
   "ana ba9Ir": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "ma3"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I become",
-   "name": "ba9eer"
+   "name": "ba9eer",
+   "short": "needs a preposition"
   },
   "ana balbes": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I wear / put on",
    "name": "balbes"
   },
   "ana bashla7": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I undress",
    "name": "bashla7"
   },
   "ana ba8aiyer": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I change",
@@ -781,33 +644,28 @@
   "ana ba6la3": {
    "object": true,
    "preps": [
-    "ma3",
-    "la",
     "3ala",
-    "min"
+    "min",
+    "la",
+    "fi"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I go out / up",
-   "name": "ba6la3"
+   "name": "ba6la3",
+   "short": "meaning changes"
   },
   "ana bada7ek": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I’m funny / make someone laugh",
    "name": "Bada77ek"
   },
   "ana bazahe2": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I make someone bored / boring",
@@ -815,121 +673,90 @@
   },
   "ana basali": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I’m make someone entertained / fun",
    "name": "basalli"
   },
   "ana bajanen": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I make someone crazy / Amazing",
    "name": "bajannen"
   },
   "ana ba5ali": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I let",
    "name": "ba5alli"
   },
   "ana bason": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I suppose/assume/believe",
    "name": "bathonn"
   },
   "ana banadef": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I clean",
    "name": "banaddef"
   },
   "ana barateb": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I tidy/organize/arrange",
    "name": "baratteb"
   },
   "ana ba7uk": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I scratch",
    "name": "ba7ukk"
   },
   "ana bakrah": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I hate",
    "name": "bakrahh"
   },
   "ana bajAweb": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la",
     "3ala"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I answer (a question)",
-   "name": "bajaaweb"
+   "name": "bajaaweb",
+   "short": "needs a preposition"
   },
   "ana badal": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I stay",
    "name": "badall"
   },
   "ana batmaran": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I exercise",
@@ -937,32 +764,23 @@
   },
   "ana basta3jel": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I hurry",
    "name": "basta3jel"
   },
   "ana ba2": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I fight",
    "name": "baqaatel"
   },
   "ana bajahez": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I prepare",
@@ -970,44 +788,35 @@
   },
   "ana ba2adi wa2et": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I spend time",
    "name": "ba2addi wa2et"
   },
   "ana ba5a6et": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "amal-quizlet",
    "english": "I plan",
    "name": "ba5a66et"
   },
   "ana balte2": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la",
-    "fi"
+    "fi",
+    "ma3"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I meet",
-   "name": "balte2i"
+   "name": "balte2i",
+   "short": "needs a preposition"
   },
   "ana ba5tAr": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I choose",
@@ -1016,44 +825,38 @@
   "ana ba2la2": {
    "object": false,
    "preps": [
-    "ma3",
-    "la",
     "3ala"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I worry",
-   "name": "ba2la2"
+   "name": "ba2la2",
+   "short": "needs a preposition"
   },
   "ana ba2~2": {
    "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I say / tell",
-   "name": "ba2ul"
+   "name": "ba2ul",
+   "short": "ending on the verb"
   },
   "ana badfa3": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la",
+    "3ala",
     "3an"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I push",
-   "name": "badfa3"
+   "name": "badfa3",
+   "short": "meaning changes"
   },
   "ana ba8ani": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I sing",
@@ -1061,43 +864,31 @@
   },
   "ana barkod": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I run",
    "name": "barkod"
   },
   "ana bakazeb": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I lie",
    "name": "bakazzeb"
   },
   "ana badwi": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I turn on",
    "name": "badwi"
   },
   "ana ba6fi": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I turn off",
@@ -1105,89 +896,75 @@
   },
   "ana baskut": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I be quiet",
    "name": "baskut"
   },
   "ana bafadel": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "3ala"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I prefer",
-   "name": "bafaddel"
+   "name": "bafaddel",
+   "short": "needs a preposition"
   },
   "ana ba3alem": {
    "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I teach",
-   "name": "ba3allem"
+   "name": "ba3allem",
+   "short": "ending on the verb"
   },
   "ana bafarji": {
    "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I show",
-   "name": "bafarji"
+   "name": "bafarji",
+   "short": "ending on the verb"
   },
   "ana bantebeh": {
    "object": true,
    "preps": [
-    "ma3",
     "la",
-    "3ala"
+    "min"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I pay attention",
-   "name": "bantebeh"
+   "name": "bantebeh",
+   "short": "meaning changes"
   },
   "ana badir bAli": {
    "object": false,
    "preps": [
-    "ma3",
-    "la",
     "3ala"
    ],
    "geminate": false,
    "source": "amal-quizlet",
    "english": "I take care of",
-   "name": "badir baali"
+   "name": "badir baali",
+   "short": "needs a preposition"
   },
   "ana bajahez 7Ali": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I get ready",
    "name": "bajahhez 7aali"
   },
   "ana batarjem": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I translate",
@@ -1195,10 +972,7 @@
   },
   "ana bat8aiyar": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I get changed",
@@ -1207,31 +981,29 @@
   "ana basAfer": {
    "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "3ala"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I travel",
-   "name": "basaafer"
+   "name": "basaafer",
+   "short": "needs a preposition"
   },
   "ana bawsal": {
    "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "la",
+    "3ala"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I arrive",
-   "name": "bawsal"
+   "name": "bawsal",
+   "short": "meaning changes"
   },
   "ana ba7jez": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I book",
@@ -1239,21 +1011,15 @@
   },
   "ana ba6Ir": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I fly",
    "name": "ba6eer"
   },
   "ana bazUr": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I visit",
@@ -1262,42 +1028,36 @@
   "ana banbese6": {
    "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "fi"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I get happy",
-   "name": "banbese6"
+   "name": "banbese6",
+   "short": "needs a preposition"
   },
   "ana babse6": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I cause happiness",
    "name": "babse6"
   },
   "ana bashtA2": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
     "la"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I miss",
-   "name": "bashtaa2"
+   "name": "bashtaa2",
+   "short": "needs a preposition"
   },
   "ana basawer": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I take a photo (photograph)",
@@ -1305,10 +1065,7 @@
   },
   "ana barawe7": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I go home",
@@ -1316,32 +1073,23 @@
   },
   "ana basba7": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I swim",
    "name": "basba7"
   },
   "ana bazbut": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I work out",
    "name": "bazbut"
   },
   "ana bahem": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": true,
    "source": "claude",
    "english": "I matter",
@@ -1350,42 +1098,37 @@
   "ana ba5Af": {
    "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "min",
+    "3ala"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I get scared",
-   "name": "ba5aaf"
+   "name": "ba5aaf",
+   "short": "meaning changes"
   },
   "ana ba5awef": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I scare (someone)",
    "name": "ba5awwef"
   },
   "ana bazaker": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "fi"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I remind",
-   "name": "bazakker"
+   "name": "bazakker",
+   "short": "needs a preposition"
   },
   "ana bajhaz": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I get ready",
@@ -1393,10 +1136,7 @@
   },
   "ana batwaja3": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I get hurt",
@@ -1404,21 +1144,15 @@
   },
   "ana bat7amas": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I get excited",
    "name": "bat7ammas"
   },
   "ana ba7ames": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I excite (someone)",
@@ -1426,32 +1160,23 @@
   },
   "ana bat3ab": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I get tired",
    "name": "bat3ab"
   },
   "ana bata3eb": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I cause tiredness / tire",
    "name": "bata33eb"
   },
   "ana baz3ej": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I annoy",
@@ -1459,10 +1184,7 @@
   },
   "ana banze3ej": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I get annoyed",
@@ -1471,20 +1193,18 @@
   "ana baz3al": {
    "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "min",
+    "3ala"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I get sad/upset",
-   "name": "baz3al"
+   "name": "baz3al",
+   "short": "meaning changes"
   },
   "ana baza3el": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I upset someone",
@@ -1492,43 +1212,31 @@
   },
   "ana ba3aseb": {
    "object": false,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I get angry / cause angriness",
    "name": "ba3asseb"
   },
   "ana bat7arak": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I (get moved) move",
    "name": "bat7arrak"
   },
   "ana bakser": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I break",
    "name": "bakser"
   },
   "ana badAye2": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I upset someone",
@@ -1537,53 +1245,44 @@
   "ana batdAya2": {
    "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "min"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I get upset",
-   "name": "batdaaya2"
+   "name": "batdaaya2",
+   "short": "needs a preposition"
   },
   "ana bazId": {
-   "object": true,
+   "object": false,
    "preps": [
-    "ma3",
-    "la"
+    "3ala"
    ],
    "geminate": false,
    "source": "claude",
    "english": "I add",
-   "name": "bazeed"
+   "name": "bazeed",
+   "short": "needs a preposition"
   },
   "ana ba2Im": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I remove / take away",
    "name": "ba2eem"
   },
   "ana barAje3": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I review",
    "name": "baraaje3"
   },
   "ana ba7faz": {
-   "object": true,
-   "preps": [
-    "ma3",
-    "la"
-   ],
+   "object": false,
+   "preps": [],
    "geminate": false,
    "source": "claude",
    "english": "I memorize",

@@ -22,6 +22,10 @@ for(const [term] of (set(/verb\s*\+\s*preposition/i)||{terms:[]}).terms){
  for(const [p,re] of PREPS)if(re.test(m[2].toLowerCase())&&!t.preps.includes(p))t.preps.push(p);
 }
 for(const [term] of (set(/pronoun objects? with verbs/i)||{terms:[]}).terms){const z=term.split('|')[0].trim().split(/\s+/)[1],v=find(z);if(v){const t=tags[v.verb]=tags[v.verb]||{object:false,preps:[],source:'amal-quizlet'};t.object=true;}else unmatched.push(z);}
+// AM-26 (Medi 2026-10-06: "We really dont care about verbs like Ba6bu5 or Bakol"; "a" = drills follow the same list):
+// only the verbs in data/vocab/verb-short-list.json get level-2 add-ons - their listed prepositions, and an object ending when
+// the list asks for it or Amal's Quizlet set shows one. Every other verb gets none. Amal's check answers still win.
+const shortP=path.join(root,'data/vocab/verb-short-list.json'),SHORT=fs.existsSync(shortP)?new Map(JSON.parse(fs.readFileSync(shortP,'utf8')).verbs.map(v=>[v.verb,v])):null;
 const checks=path.join(root,'data/vocab/amal_addon_checks.json'),amal=fs.existsSync(checks)?JSON.parse(fs.readFileSync(checks,'utf8')):{};
 const out={};
 for(const v of V){
@@ -30,8 +34,11 @@ for(const v of V){
  const phrase=/\s/.test(String(v.name).trim());   // verb + noun: prepositions only
  out[v.verb]={object:!phrase&&(t&&t.object?true:!INTRANS.test(base)),preps:[...new Set(['ma3','la',...((t&&t.preps)||[])])],
   geminate:forms.some(f=>/([^aeiou0-9])\1/.test(f.slice(-3))),source:t?'amal-quizlet':'claude',english:v.english,name:v.name,};
- const a=amal[v.verb];if(a){if('object' in a)out[v.verb].object=a.object;out[v.verb].preps=out[v.verb].preps.filter(p=>!(a.preps_off||[]).includes(p));if(a.forms)out[v.verb].amal_forms=a.forms;}
+ if(SHORT){const sv=SHORT.get(v.verb);
+  if(!sv){out[v.verb].preps=[];out[v.verb].object=false;}
+  else{out[v.verb].preps=[...new Set(sv.asks.filter(x=>x.k!=='obj').map(x=>x.k))];out[v.verb].object=!phrase&&(sv.asks.some(x=>x.k==='obj')||!!(t&&t.object));out[v.verb].short=sv.kind;}}
+ const a=amal[v.verb],listed=!SHORT||SHORT.has(v.verb);if(a){if('object' in a&&listed)out[v.verb].object=a.object;out[v.verb].preps=out[v.verb].preps.filter(p=>!(a.preps_off||[]).includes(p));if(a.forms)out[v.verb].amal_forms=a.forms;}
  if(amal[v.verb])out[v.verb].source='amal';
 }
-fs.writeFileSync(path.join(root,'docs/data/verb-addons.json'),JSON.stringify({version:'2026-09-23',rules:'every verb: ma3 + la; object endings when the verb takes an object; Amal wins',verbs:out},null,1)+'\n');
+fs.writeFileSync(path.join(root,'docs/data/verb-addons.json'),JSON.stringify({version:'2026-09-23',rules:SHORT?'AM-26: only the verbs where the preposition matters (data/vocab/verb-short-list.json); Amal wins':'every verb: ma3 + la; object endings when the verb takes an object; Amal wins',verbs:out},null,1)+'\n');
 const n=Object.values(out);console.log(JSON.stringify({verbs:n.length,from_amal_quizlet:n.filter(x=>x.source==='amal-quizlet').length,object:n.filter(x=>x.object).length,geminate:n.filter(x=>x.geminate).length,extra_preps:n.filter(x=>x.preps.length>2).length,unmatched}));

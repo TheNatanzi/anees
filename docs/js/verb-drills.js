@@ -75,7 +75,8 @@
   // mode 'full':   `count` verbs, every person of every allowed tense, verb by verb.
   function round(pool, opts) {
     const o = Object.assign({ mode: 'random', count: 20, tense: 'All', level: 1, random: Math.random }, opts || {});
-    const tenses = allowed(o.tense), usable = pool.filter(v => tenses.some(t => (v.tenses[t] || []).length));
+    const A = o.level === 2 && root.AneesVerbAddons, tenses = allowed(o.tense),
+      usable = pool.filter(v => tenses.some(t => (v.tenses[t] || []).length) && (!A || !A.hasAddons || A.hasAddons(v.verb)));   // AM-26
     const chosen = shuffled(usable, o.random).slice(0, o.count), out = [];
     for (const v of chosen) {
       if (o.mode === 'full') { for (const t of tenses) out.push(...(v.tenses[t] || [])); continue; }

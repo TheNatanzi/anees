@@ -61,6 +61,8 @@
   let TAGS = {};
   function useTags(tags) { TAGS = tags || {}; }
   function tagsFor(verb) { return TAGS[verb] || { object: false, preps: ['ma3', 'la'] }; }
+  // AM-26: a verb with no add-ons (plain verbs like batbu5) never comes up at level 2
+  function hasAddons(verb) { const t = tagsFor(verb); return !!(t.object || (t.preps || []).some(p => PREP[p])); }
 
   function addons(card) {
     const t = tagsFor(card.verb), out = [];
@@ -97,7 +99,7 @@
     return apply(card, a, tagsFor(card.verb).geminate);
   }
 
-  const api = { OBJ, PREP, END, klass, attach, attachAr, addons, apply, decorate, useTags, tagsFor, reflexive };
+  const api = { OBJ, PREP, END, klass, attach, attachAr, addons, apply, decorate, useTags, tagsFor, hasAddons, reflexive };
   root.AneesVerbAddons = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof window !== 'undefined' ? window : globalThis);

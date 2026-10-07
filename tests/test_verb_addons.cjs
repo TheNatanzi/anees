@@ -21,17 +21,19 @@ test('prepositions use Amal\'s own tables; no "I ... with me"',()=>{
  assert.equal(A.reflexive('I','me'),true);assert.equal(A.reflexive('You (f)','you (pl)'),true);assert.equal(A.reflexive('He','him'),false);
  A.useTags(tags.verbs);
  const V=D.verbs(catalog,words),card=V.find(v=>v.verb==='ana ba3raf').tenses.Past.find(c=>c.person==='I');
- const list=A.addons(card);assert.ok(list.every(a=>a.obj!=='me'));assert.ok(list.some(a=>a.kind==='ma3')&&list.some(a=>a.kind==='la'));
+ const list=A.addons(card);assert.ok(list.every(a=>a.obj!=='me'));assert.ok(list.some(a=>a.kind==='3an'));   // AM-26: 3irif 3an = know about
  const c=A.apply(card,{kind:'ma3',obj:'them'});assert.equal(c.arabizi,'Ana 3refet ma3hom');assert.equal(c.english,'I · knew with them');
  const o=A.apply(card,{kind:'obj',obj:'him'});assert.equal(o.arabizi,'Ana 3refto');assert.equal(o.arabic,'أنا عرفتو');
  assert.equal(o.key,'form:ana ba3raf:past:I:obj-him');assert.equal(o.guessed,true);
 });
 
-test('every verb gets ma3 + la; level-2 rounds; answers count on the tense entry',()=>{
+test('AM-26 only the short-list verbs get add-ons; plain verbs never come up at level 2; answers count on the tense entry',()=>{
  A.useTags(tags.verbs);
- assert.ok(Object.values(tags.verbs).every(t=>t.preps.includes('ma3')&&t.preps.includes('la')));
+ const short=new Set(require('../data/vocab/verb-short-list.json').verbs.map(v=>v.verb));
+ for(const [k,t] of Object.entries(tags.verbs))if(!short.has(k)&&!t.amal_forms)assert.ok(!A.hasAddons(k),k);
+ assert.ok(!A.hasAddons('ana batbu5')||tags.verbs['ana batbu5'].preps.length===0);assert.ok(A.hasAddons('ana badfa3'));
  const V=D.verbs(catalog,words),r=D.round(V,{mode:'random',count:20,level:2,random:D.rng(5)});
- assert.equal(r.length,20);assert.ok(r.every(c=>c.level===2&&/^form:.+:.+:(obj|ma3|la|fi|3ala|min|3an)-/.test(c.key)));
+ assert.equal(r.length,20);assert.ok(r.every(c=>short.has(c.verb)));assert.ok(r.every(c=>c.level===2&&/^form:.+:.+:(obj|ma3|la|fi|3ala|min|3an)-/.test(c.key)));
  const log=[{id:'a',word_key:r[0].key,ts:'2026-09-23T10:00:00Z',result:'got',attempt:1}];
  const row=WB.models(words,catalog,[],log).find(x=>x.id===r[0].verb);
  assert.equal(row.entries.find(f=>f.label===r[0].tense).flashcards.count,1);
