@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-07T03:16:44-07:00",
+ "updated": "2026-10-07T03:17:57-07:00",
  "result": "pass",
- "source": "hourly: tutor refresh",
- "checked_commit": "5b296a78f994",
- "secs": 59.1,
+ "source": "hourly: 1 local commit(s)",
+ "checked_commit": "04bcb2a5ea54",
+ "secs": 59.0,
  "checks": [
   {
    "id": "step_failures",
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.1,
+   "secs": 1.2,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 675 checks"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 4.1,
+   "secs": 4.4,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 69 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.4,
+   "secs": 0.5,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,9 +129,9 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 45.0,
+   "secs": 44.9,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 91%] | ....................................................                     [100%] | 624 passed, 1 skipped, 3 xfailed in 42.60s"
+   "detail": "............................. [ 91%] | ....................................................                     [100%] | 624 passed, 1 skipped, 3 xfailed in 42.24s"
   },
   {
    "id": "tests_node",
@@ -139,7 +139,7 @@
    "ok": true,
    "secs": 1.0,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 918.8569"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 966.593"
   },
   {
    "id": "rehear_rows",
@@ -161,7 +161,7 @@
    "id": "data_freshness",
    "required": false,
    "ok": true,
-   "secs": 0.5,
+   "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
    "detail": "every lesson in the raw archive is on the site; Amal trigger, Amal's word Doc and publishing are current"
   },
