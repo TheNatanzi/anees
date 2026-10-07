@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-06T18:19:28-07:00",
+ "updated": "2026-10-06T19:16:49-07:00",
  "result": "pass",
- "source": "hourly: 1 local commit(s)",
- "checked_commit": "b659f4b9c220",
- "secs": 52.5,
+ "source": "hourly: tutor refresh",
+ "checked_commit": "1d3ceb104ce8",
+ "secs": 59.8,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 0.8,
+   "secs": 0.9,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "114 JSON files parse"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 1.8,
+   "secs": 1.9,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 1.6,
+   "secs": 1.8,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...9 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 3.8,
+   "secs": 4.1,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 69 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.4,
+   "secs": 0.5,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 39.5,
+   "secs": 45.2,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 93%] | ...........................................                              [100%] | 615 passed, 1 skipped, 3 xfailed in 36.82s"
+   "detail": "............................. [ 93%] | ...........................................                              [100%] | 615 passed, 1 skipped, 3 xfailed in 41.98s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 1.0,
+   "secs": 1.1,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 889.4414"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1037.6603"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 0.2,
+   "secs": 0.1,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -161,17 +161,17 @@
    "id": "data_freshness",
    "required": false,
    "ok": true,
-   "secs": 0.0,
+   "secs": 0.5,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
    "detail": "every lesson in the raw archive is on the site; Amal trigger, Amal's word Doc and publishing are current"
   },
   {
    "id": "medi_corrections",
    "required": false,
-   "ok": true,
+   "ok": false,
    "secs": 0.1,
    "what": "Medi's transcript corrections: none orphaned, held or quarantined, no rule paused by probation (PR-15; a warning only, never blocks)",
-   "detail": "corrections: none orphaned, none held, no paused rule"
+   "detail": "exit 1: mirror older than 2 h (run: python scripts/medi_corrections.py pull)"
   },
   {
    "id": "foreign_script",
@@ -184,6 +184,7 @@
  ],
  "warnings": [
   "review_freshness: 2026-09-04: transcript changed after the readers read it; 2026-09-05: transcript changed after the readers read it; 2026-09-10: transcript changed after the readers read it; 2026-09-14: transcript changed after the readers read it; 2026-09-15: transcript changed after the readers read it; 2026-09-16: transcript changed after the readers read it; 2026-09-18: transcript changed after the readers read it; 2026-09-19: transcript changed after the readers read it; 2026-09-21: transcript changed after the readers read it; 2026-09-23: transcript changed after the readers read it; 2026-09-26: transcript changed after the readers read it; 2026-09-28: transcript changed after the readers read it; 2026-09-30: transcript changed after the readers read it; 2026-10-01: transcript changed after the readers read it; 2026-10-02: transcript changed after the readers read it",
+  "medi_corrections: exit 1: mirror older than 2 h (run: python scripts/medi_corrections.py pull)",
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
