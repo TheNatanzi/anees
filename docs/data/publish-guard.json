@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-07T09:16:47-07:00",
+ "updated": "2026-10-07T09:18:08-07:00",
  "result": "pass",
- "source": "hourly: tutor refresh",
- "checked_commit": "b720e25e83b6",
- "secs": 60.6,
+ "source": "hourly: 2 local commit(s)",
+ "checked_commit": "5b2b26f39d91",
+ "secs": 60.0,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.0,
+   "secs": 0.9,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "115 JSON files parse"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 0.9,
+   "secs": 1.0,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 4.1,
+   "secs": 4.4,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 69 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
@@ -129,9 +129,9 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 46.5,
+   "secs": 46.0,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 91%] | ....................................................                     [100%] | 624 passed, 1 skipped, 3 xfailed in 43.86s"
+   "detail": "............................. [ 91%] | ....................................................                     [100%] | 624 passed, 1 skipped, 3 xfailed in 42.88s"
   },
   {
    "id": "tests_node",
@@ -139,7 +139,7 @@
    "ok": true,
    "secs": 1.0,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 906.4578"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 898.9421"
   },
   {
    "id": "rehear_rows",
@@ -161,7 +161,7 @@
    "id": "data_freshness",
    "required": false,
    "ok": true,
-   "secs": 0.5,
+   "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
    "detail": "every lesson in the raw archive is on the site; Amal trigger, Amal's word Doc and publishing are current"
   },
