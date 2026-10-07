@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-07T11:16:44-07:00",
+ "updated": "2026-10-07T11:18:01-07:00",
  "result": "pass",
- "source": "hourly: tutor refresh",
- "checked_commit": "33b412f143c1",
- "secs": 57.6,
+ "source": "hourly: 2 local commit(s)",
+ "checked_commit": "06f70496d4e3",
+ "secs": 57.4,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.0,
+   "secs": 0.9,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "115 JSON files parse"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 0.9,
+   "secs": 1.0,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.1,
+   "secs": 1.2,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 675 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 1.6,
+   "secs": 1.7,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...9 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 4.1,
+   "secs": 4.3,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 69 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.4,
+   "secs": 0.5,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,17 +129,17 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 43.9,
+   "secs": 43.6,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 91%] | ....................................................                     [100%] | 624 passed, 1 skipped, 3 xfailed in 40.40s"
+   "detail": "............................. [ 91%] | ....................................................                     [100%] | 624 passed, 1 skipped, 3 xfailed in 40.72s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 0.9,
+   "secs": 1.0,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 836.5935"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 925.1548"
   },
   {
    "id": "rehear_rows",
@@ -161,7 +161,7 @@
    "id": "data_freshness",
    "required": false,
    "ok": true,
-   "secs": 0.4,
+   "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
    "detail": "every lesson in the raw archive is on the site; Amal trigger, Amal's word Doc and publishing are current"
   },
