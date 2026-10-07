@@ -2,6 +2,9 @@
 
   python scripts/verb_check_links.py create      # mint a private link from the catalog's unchecked guesses
   python scripts/verb_check_links.py create-addons   # level 2 (endings / prepositions): a second, separate link
+  python scripts/verb_check_links.py create-addons-short   # AM-26: level 2 cut to the 44 verbs where the preposition
+        matters (data/vocab/verb-short-list.json); closes the older open level-2 link, her answers on it stay the answers
+        of record (pull() reads every link), nothing deleted
   python scripts/verb_check_links.py pull        # her answers -> data/vocab/amal_verb_checks.json
   python scripts/verb_check_links.py list
 After pull, rebuild the catalog (build_word_bank_catalog.py) so her answers overwrite the guesses."""
@@ -46,7 +49,12 @@ def payload(catalog):
 
 
 def create(kind='verb-forms'):
-    if kind == 'verb-addons':      # level 2: endings / prepositions per verb, built by the same JS engine the cards use
+    if kind == 'verb-addons-short':   # AM-26: only the verbs where the preposition matters
+        import subprocess
+        body = json.loads(subprocess.run(['node', str(ROOT / 'scripts' / 'verb_addon_short_payload.cjs')], capture_output=True, text=True, check=True, encoding='utf-8').stdout)
+        if body.get('missing'):
+            raise SystemExit(f"verbs not in the catalog: {body['missing']}")
+    elif kind == 'verb-addons':      # level 2: endings / prepositions per verb, built by the same JS engine the cards use
         import subprocess
         body = json.loads(subprocess.run(['node', str(ROOT / 'scripts' / 'verb_addon_payload.cjs')], capture_output=True, text=True, check=True, encoding='utf-8').stdout)
     else:
@@ -57,9 +65,13 @@ def create(kind='verb-forms'):
     row = {'token': token, 'created_at': now.isoformat(), 'expires_at': (now + datetime.timedelta(days=DAYS)).isoformat(),
            'payload': body, 'answers': {'schema_version': 1, 'revision': 0, 'answers': {}}}
     db.upsert('verb_check_links', [row], on='token')
+    if kind == 'verb-addons-short':   # AM-26: the long level-2 link closes; her answers on it are kept and still pulled
+        for r in db.select('verb_check_links', {'select': 'token,payload,done_at', 'order': 'created_at.asc'}):
+            if r['token'] != token and (r.get('payload') or {}).get('kind') == 'verb-addons' and not (r['payload'] or {}).get('short') and not r.get('done_at'):
+                db.rest('PATCH', 'verb_check_links', params={'token': f"eq.{r['token']}"}, body={'done_at': now.isoformat()}, prefer='return=minimal')
     out = ROOT / 'data' / 'amal_links.json'
     hist = json.load(io.open(out, encoding='utf-8')) if out.exists() else []
-    hist.append({'kind': 'verb-check' if kind == 'verb-forms' else 'verb-addon-check', 'created_at': row['created_at'], 'expires_at': row['expires_at'], 'url': url(token), 'items': len(body['items'])})
+    hist.append({'kind': {'verb-forms': 'verb-check', 'verb-addons': 'verb-addon-check'}.get(kind, 'verb-addon-check-short'), 'created_at': row['created_at'], 'expires_at': row['expires_at'], 'url': url(token), 'items': len(body['items'])})
     io.open(out, 'w', encoding='utf-8').write(json.dumps(hist, ensure_ascii=False, indent=1))
     return url(token), len(body['items']), len(body['verbs'])
 
@@ -102,10 +114,10 @@ def pull():
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('cmd', choices=['create', 'create-addons', 'pull', 'list'])
+    ap.add_argument('cmd', choices=['create', 'create-addons', 'create-addons-short', 'pull', 'list'])
     a = ap.parse_args()
-    if a.cmd in ('create', 'create-addons'):
-        u, n, v = create('verb-addons' if a.cmd == 'create-addons' else 'verb-forms')
+    if a.cmd in ('create', 'create-addons', 'create-addons-short'):
+        u, n, v = create({'create': 'verb-forms', 'create-addons': 'verb-addons', 'create-addons-short': 'verb-addons-short'}[a.cmd])
         print(f'{n} forms across {v} verbs')
         print(u)
     elif a.cmd == 'pull':

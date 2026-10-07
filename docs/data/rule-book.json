@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-06",
- "total": 193,
+ "total": 195,
  "replaced": 8,
  "counts": {
-  "Automatic": 111,
+  "Automatic": 113,
   "Written down": 70,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -1615,12 +1615,31 @@
    "key": "amal",
    "title": "Amal's say",
    "intro": "What Amal decides: her Doc, her pages, her rulings, and the words she promised to add.",
-   "count": 23,
+   "count": 25,
    "sections": [
     {
      "kind": "data",
      "heading": "Facts and records",
      "rules": [
+      {
+       "id": "AM-25",
+       "text": "Anees also keeps an open-source Levantine dictionary (Wiktionary and the Maknuune Palestinian lexicon) as a second place to look up a word's meaning, root, plural, example sentences and which preposition a verb takes. It never decides a spelling (Amal's spelling is the only spelling) and never changes a score.",
+       "status": "enforced",
+       "topic": "Amal's Doc and the reference lexicon",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-06",
+         "quote": "Lets spin up a new agent to do deep research on different levantine arabic curriculum that you can create an index for yourself to use as a secondary data source, it may be useful to amal to help her"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-06",
+         "quote": "ingest"
+        }
+       ]
+      },
       {
        "id": "AM-21",
        "text": "At the top of the Tutor page Amal can give a flashcard list: a Google Sheets or Docs link, a file, or a pasted list. She checks which column is which and says PERMANENT (the words should go in the Doc too, a reminder stays until they are) or TEMPORARY (cards only). Her spelling is kept as written.",
@@ -1852,6 +1871,30 @@
          "who": "Medi",
          "date": "2026-10-02",
          "quote": "DUDE FUCKING FIX THE ISSUE WITH HER DOCUMENT. YOU HAVE A DIRECT GOOGLE CONNECTION TO THE DOC WHY IS THIS SO FUCKING HARD"
+        }
+       ]
+      },
+      {
+       "id": "AM-26",
+       "text": "Amal's second verb list only asks the verbs where the little word after the verb matters: it changes the meaning, the verb needs it, or the ending goes on the verb. Plain verbs like batbu5 and bakul are not asked.",
+       "status": "enforced",
+       "topic": "Verb checks",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-06",
+         "quote": "see if you can apply the same logic to the 402 verb form list for amal to reduce. Maybe with the answers she has already provided too"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-06",
+         "quote": "Ba7ki doesnt work often by itself.  It needs a preposition. Ba3ti doesnt need a preposition Ba3tini Badfa3 changes meanings with preposition.  Same with Bad7ak We really dont care about verbs like Ba6bu5 or Bakol."
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-06",
+         "quote": "send"
         }
        ]
       }

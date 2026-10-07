@@ -284,7 +284,7 @@ def main():
                 lvl = " · list 2 (endings and prepositions)" if p.get("kind") == "verb-addons" else (" · list 1" if kind == "verb_check" else "")
                 old = next((x for x in cur.get("open", []) if x.get("token") == r["token"]), {})
                 open_.append({"id": f"{kind}-{n_open}", "title": title + lvl + (f" · {pretty(p.get('lesson'))}" if p.get("lesson") else ""), "kind": kind, "token": r["token"],
-                              "what": old.get("what") or ("Every person of every verb she taught, filled in by the app. She taps right, or fixes the spelling." if kind == "verb_check"
+                              "what": old.get("what") or p.get("what") or ("Every person of every verb she taught, filled in by the app. She taps right, or fixes the spelling." if kind == "verb_check"
                                                             else "Transcript lines where the app is not sure what Medi said. Confirm the wording or type what you heard."),
                               "who": old.get("who") or "Amal answers · Medi sends the link", "url": f"amal/{page}.html?t={r['token']}",
                               "total": total, "pulled": pulled_count(p) if kind == "verb_check" else old.get("pulled", 0),

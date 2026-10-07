@@ -8019,6 +8019,104 @@
    "aliases": []
   },
   {
+   "id": "AM-25",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Anees keeps a SECONDARY reference lexicon (docs/data/reference-lexicon.json, built by scripts/build_reference_lexicon.py from open Levantine sources: Wiktionary South/North Levantine via kaikki.org CC BY-SA 3.0, Maknuune Palestinian lexicon CC BY-SA 4.0; raw dumps git-ignored, data/reference/README.md has URLs, dates, licenses). It is read for glosses, roots, plurals, example sentences and verb-preposition hints only, keyed by normalised Arabic (docs/js/reference-lexicon.js load / find / glossFor). It is never a spelling (RULES.md S1: Amal's spelling is the only spelling) and never a score: nothing from it is written into Amal's data, shown as her spelling, or used to score a word. The builder prints how many of her Doc words it covers, by part of speech.",
+   "plain": "Anees also keeps an open-source Levantine dictionary (Wiktionary and the Maknuune Palestinian lexicon) as a second place to look up a word's meaning, root, plural, example sentences and which preposition a verb takes. It never decides a spelling (Amal's spelling is the only spelling) and never changes a score.",
+   "plain_for": "fd800bdf",
+   "topic": "Amal's Doc and the reference lexicon",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "Lets spin up a new agent to do deep research on different levantine arabic curriculum that you can create an index for yourself to use as a secondary data source, it may be useful to amal to help her",
+     "session": "2090bac7"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "ingest",
+     "session": "2090bac7"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_reference_lexicon.py",
+     "contains": "Never a spelling (RULES.md S1), never a score."
+    },
+    {
+     "type": "code",
+     "path": "docs/js/reference-lexicon.js",
+     "contains": "function glossFor(arabic)"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_build_reference_lexicon.py",
+     "contains": "def test_AM_25_five_line_fixture_builds_one_record_per_lemma_with_sources_and_licenses"
+    },
+    {
+     "path": "tests/test_reference_lexicon.cjs",
+     "contains": "test('AM-25 glossFor() gives a copy of the glosses, or nothing - never a spelling or a score'"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "AM-26",
+   "kind": "data",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Amal's level-2 verb check (prepositions and endings) asks only the verbs where the preposition matters: it changes the meaning (badfa3 3ala = pay for something, 3an = pay for someone), the verb needs it (bashtA2 la), or the ending goes on the verb (ba3tini). Plain verbs whose preposition is optional (batbu5, bakul) are not asked. The list (data/vocab/verb-short-list.json, 44 verbs, one item per verb + preposition with its meaning) comes from the Living Arabic Levantine AR-EN senses for each Doc verb and Amal's own Quizlet tags; scripts/verb_check_links.py create-addons-short mints it with the same item keys as the long list and closes the long level-2 link, whose answers stay the answers of record (pull reads every link).",
+   "plain": "Amal's second verb list only asks the verbs where the little word after the verb matters: it changes the meaning, the verb needs it, or the ending goes on the verb. Plain verbs like batbu5 and bakul are not asked.",
+   "plain_for": "38d33184",
+   "topic": "Verb checks",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "see if you can apply the same logic to the 402 verb form list for amal to reduce. Maybe with the answers she has already provided too",
+     "session": "2090bac7"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "Ba7ki doesnt work often by itself.  It needs a preposition. Ba3ti doesnt need a preposition Ba3tini Badfa3 changes meanings with preposition.  Same with Bad7ak We really dont care about verbs like Ba6bu5 or Bakol.",
+     "session": "2090bac7"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "send",
+     "session": "2090bac7"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/verb_addon_short_payload.cjs",
+     "contains": "rule:'AM-26'"
+    },
+    {
+     "type": "code",
+     "path": "scripts/verb_check_links.py",
+     "contains": "create-addons-short"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_verb_short_list.cjs",
+     "contains": "test('AM-26 every listed verb is in the catalog"
+    }
+   ],
+   "aliases": []
+  },
+  {
    "id": "LS-14",
    "kind": "process",
    "scope": "lessons",
