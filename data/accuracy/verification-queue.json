@@ -1,36 +1,6 @@
 {
  "about": "Scored rows that need an independent audio or human check before they count in any verified total. Record each check in data/accuracy/verifications.json (append-only: uid, method audio|human, reviewer, verdict confirmed|rejected|changed, evidence {t_start, t_end, quote}, confidence, at).",
- "count": 1,
- "by_date": {
-  "2026-10-06": 1
- },
- "rows": [
-  {
-   "uid": "FA-e3afb2a2",
-   "date": "2026-10-06",
-   "t": "11:52",
-   "t_amal": "11:52",
-   "kind": "vocab-A",
-   "tier": 2,
-   "bucket": null,
-   "medi_said": "Fistin? Can I say peanut? ... Fistan. I was close. Sauce fistan.",
-   "amal_said": "بس ذا. (engine; likely fustu2)",
-   "wrong": "fistan",
-   "right": "فستق (fustu2)",
-   "why_check": [
-    "reader confidence low",
-    "decided by the third reader alone, in one pass only",
-    "the transcript under it is disputed (engine wrote something else)"
-   ],
-   "check": "audio",
-   "stage": "waiting for Amal (the two AIs disagree)",
-   "second_judge": {
-    "reviewer": "codex gpt-5.5",
-    "verdict": "unsure",
-    "reason": "The peanut word segment is garbled in the independent transcriptions, and Amal's mic does not clearly show her supplying «فستق» there. The evidence is not strong enough to confirm or reject."
-   },
-   "listen_from": "11:42",
-   "listen_to": "12:12"
-  }
- ]
+ "count": 0,
+ "by_date": {},
+ "rows": []
 }
