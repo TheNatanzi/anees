@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-07T00:18:06-07:00",
+ "updated": "2026-10-07T00:29:08-07:00",
  "result": "pass",
- "source": "hourly: 1 local commit(s)",
- "checked_commit": "2a922924eef6",
- "secs": 55.5,
+ "source": "manual: PG-33 Tutor/Student on screen 2026-10-07 (rebuilt)",
+ "checked_commit": "b79d7020e1dd",
+ "secs": 59.5,
  "checks": [
   {
    "id": "step_failures",
@@ -35,13 +35,13 @@
    "ok": true,
    "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
-   "detail": "rule_registry: OK - 203 rules: enforced 113 (code 104, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
+   "detail": "rule_registry: OK - 204 rules: enforced 114 (code 105, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
   },
   {
    "id": "lesson_coverage",
    "required": true,
    "ok": true,
-   "secs": 0.5,
+   "secs": 0.4,
    "what": "every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)",
    "detail": "all 20 lessons reach every page"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 2.0,
+   "secs": 1.9,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.3,
+   "secs": 1.2,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 675 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 1.8,
+   "secs": 1.6,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...9 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 4.6,
+   "secs": 4.1,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 69 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 40.7,
+   "secs": 45.8,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 92%] | ................................................                         [100%] | 620 passed, 1 skipped, 3 xfailed in 39.18s"
+   "detail": "............................. [ 91%] | ....................................................                     [100%] | 624 passed, 1 skipped, 3 xfailed in 42.85s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 1.0,
+   "secs": 0.9,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 987.7484"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 848.8509"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 0.1,
+   "secs": 0.2,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -153,7 +153,7 @@
    "id": "review_freshness",
    "required": false,
    "ok": false,
-   "secs": 0.1,
+   "secs": 0.2,
    "what": "the two readers read the transcript the pages show now",
    "detail": "2026-09-04: transcript changed after the readers read it; 2026-09-05: transcript changed after the readers read it; 2026-09-10: transcript changed after the readers read it; 2026-09-14: transcript changed after the readers read it; 2026-09-15: transcript changed after the readers read it; 2026-09-16: transcript changed after the readers read it; 2026-09-18: transcript changed after the readers read it; 2026-09-19: transcript changed after the readers read it; 2026-09-21: transcript changed after the readers read it; 2026-09-23: transcript changed after the readers read it; 2026-09-26: transcript changed after the readers read it; 2026-09-28: transcript changed after the readers read it; 2026-09-30: transcript changed after the readers read it; 2026-10-01: transcript changed after the readers read it; 2026-10-02: transcript changed after the readers read it"
   },
@@ -177,7 +177,7 @@
    "id": "foreign_script",
    "required": false,
    "ok": false,
-   "secs": 0.1,
+   "secs": 0.2,
    "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)",
    "detail": "exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
   }
@@ -188,14 +188,14 @@
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
-  "at": "2026-10-06T16:42:56-07:00",
-  "source": "hourly: lessons 2026-10-06",
+  "at": "2026-10-07T00:27:23-07:00",
+  "source": "manual: PG-33 Tutor/Student on screen 2026-10-07",
   "outcome": "blocked",
-  "sha": "c3250c042c1bd32f9d066c0b19e2f8acf8539ae7",
-  "reason": "tests_py: exit 1: FAILED tests/test_build_student_data.py::test_the_committed_shaky_words_file_matches_the_last_two_lessons_on_disk | 1 failed, 614 passed, 1 skipped, 3 xfailed in 45.33s",
-  "secs": 66.1,
-  "commits_waiting": "8"
+  "sha": "86c21afeb578ac52fccc2d995b41cdde6ba09ef8",
+  "reason": "step_failures: 24 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. data/lesson-work/ledger/2026-08-25.json, data/lesson-work/ledger/2026-09-04.json, data/lesson-work/ledger/2026-09-05.json, data/lesson-work/ledger/2026-09-10.json: rebuild pending (open since 2026-10-07T00:26, tutor); lesson_ledger: exit 1: ...cript_marks.py, scripts/build_lessons_page_data.py): rebuild (build_lessons_page_data.py) | 2026-10-06: ledger is older than its inputs (docs/data/grammar-buckets.json, scripts/transcript_marks.py, scripts/build_lessons_page_data.py): rebuild (build_lessons_page_data.py) | ledger: FAIL 20 problem(s); tests_py: exit 1: FAILED tests/test_lesson_ledger.py::test_LS_11_committed_pages_equal_the_ledger | 1 failed, 623 passed, 1 skipped, 3 xfailed in 43.13s",
+  "secs": 60.8,
+  "commits_waiting": "2"
  },
- "blocks_before_this_pass": 0,
+ "blocks_before_this_pass": 3,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
