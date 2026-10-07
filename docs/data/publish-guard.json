@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-06T19:16:49-07:00",
+ "updated": "2026-10-06T19:18:06-07:00",
  "result": "pass",
- "source": "hourly: tutor refresh",
- "checked_commit": "1d3ceb104ce8",
- "secs": 59.8,
+ "source": "hourly: 1 local commit(s)",
+ "checked_commit": "1d817b7efeea",
+ "secs": 60.1,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 0.9,
+   "secs": 0.8,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "114 JSON files parse"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 1.9,
+   "secs": 2.0,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 0.9,
+   "secs": 1.1,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.2,
+   "secs": 1.4,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 675 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 1.8,
+   "secs": 1.9,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...9 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 4.1,
+   "secs": 4.8,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 69 pages, every link, data file and clip resolves (0 references to unpublished clips play from the full lesson recording)"
   },
@@ -129,17 +129,17 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 45.2,
+   "secs": 44.9,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 93%] | ...........................................                              [100%] | 615 passed, 1 skipped, 3 xfailed in 41.98s"
+   "detail": "............................. [ 93%] | ...........................................                              [100%] | 615 passed, 1 skipped, 3 xfailed in 42.07s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 1.1,
+   "secs": 1.0,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1037.6603"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 953.2814"
   },
   {
    "id": "rehear_rows",
@@ -153,7 +153,7 @@
    "id": "review_freshness",
    "required": false,
    "ok": false,
-   "secs": 0.2,
+   "secs": 0.1,
    "what": "the two readers read the transcript the pages show now",
    "detail": "2026-09-04: transcript changed after the readers read it; 2026-09-05: transcript changed after the readers read it; 2026-09-10: transcript changed after the readers read it; 2026-09-14: transcript changed after the readers read it; 2026-09-15: transcript changed after the readers read it; 2026-09-16: transcript changed after the readers read it; 2026-09-18: transcript changed after the readers read it; 2026-09-19: transcript changed after the readers read it; 2026-09-21: transcript changed after the readers read it; 2026-09-23: transcript changed after the readers read it; 2026-09-26: transcript changed after the readers read it; 2026-09-28: transcript changed after the readers read it; 2026-09-30: transcript changed after the readers read it; 2026-10-01: transcript changed after the readers read it; 2026-10-02: transcript changed after the readers read it"
   },
@@ -161,7 +161,7 @@
    "id": "data_freshness",
    "required": false,
    "ok": true,
-   "secs": 0.5,
+   "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
    "detail": "every lesson in the raw archive is on the site; Amal trigger, Amal's word Doc and publishing are current"
   },
