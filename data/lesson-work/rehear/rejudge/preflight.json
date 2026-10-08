@@ -1,7 +1,20 @@
 {
- "made": "2026-10-07T17:13:56-07:00",
+ "made": "2026-10-07T22:48:08-07:00",
  "would_stop_build": [],
  "to_decide": [
+  {
+   "file": "rejected.json",
+   "ruling": "#13 2026-09-14 22:51 thalat sitta thalathin",
+   "status": "NOT APPLIED: the row it ruled on is still in the audit under another wording - add a row to the file with the new t / wrong (keep the old row)",
+   "severity": "decide",
+   "detail": {
+    "uid": "FA-13166072",
+    "old_wrong": "thalat sitta thalathin",
+    "new_t": "22:51",
+    "new_wrong": "الساعة ثلاث",
+    "new_kind": "grammar-B"
+   }
+  },
   {
    "file": "rejected.json",
    "ruling": "#25 2026-09-16 23:50 bi il AI",
@@ -12,8 +25,8 @@
      {
       "uid": "FA-75337ba9",
       "t": "23:44",
-      "wrong": "أنا كان أشتغل",
-      "right": "أنا كنت أشتغل",
+      "wrong": "كان",
+      "right": "كنت",
       "kind": "grammar"
      }
     ]
@@ -44,11 +57,11 @@
    "detail": {
     "at_the_moment": [
      {
-      "uid": "FA-2b29796d",
+      "uid": "FA-f4819c40",
       "t": "49:00",
-      "wrong": "أستعمل",
-      "right": "بستعمل",
-      "kind": "grammar-B"
+      "wrong": "المقلاة",
+      "right": "الملعقة",
+      "kind": "vocab-A"
      },
      {
       "uid": "FA-bd21df1a",
@@ -58,11 +71,11 @@
       "kind": "grammar"
      },
      {
-      "uid": "FA-f4819c40",
+      "uid": "FA-2b29796d",
       "t": "49:00",
-      "wrong": "المقلاة",
-      "right": "الملعقة / المغرفة",
-      "kind": "vocab-A"
+      "wrong": "أستعمل",
+      "right": "بستعمل",
+      "kind": "grammar-B"
      }
     ]
    }
@@ -83,15 +96,22 @@
      }
     ]
    }
+  },
+  {
+   "file": "rejected.json",
+   "ruling": "#48 2026-09-21 54:33 ehna Iraniyin",
+   "status": "NOT APPLIED: the row it ruled on is still in the audit under another wording - add a row to the file with the new t / wrong (keep the old row)",
+   "severity": "decide",
+   "detail": {
+    "uid": "FA-445fa1a6",
+    "old_wrong": "ehna Iraniyin",
+    "new_t": "54:33",
+    "new_wrong": "إحنا إيرانيين",
+    "new_kind": "grammar-B"
+   }
   }
  ],
  "info": [
-  {
-   "file": "rejected.json",
-   "ruling": "#1 2026-09-14 05:42 كبير",
-   "status": "nothing to rule on: the readers wrote no row at this moment",
-   "severity": "info"
-  },
   {
    "file": "rejected.json",
    "ruling": "#2 2026-08-25 59:04 عملنا كتير",
@@ -121,12 +141,6 @@
   },
   {
    "file": "rejected.json",
-   "ruling": "#7 2026-09-14 02:06 أشتري",
-   "status": "nothing to rule on: the readers wrote no row at this moment",
-   "severity": "info"
-  },
-  {
-   "file": "rejected.json",
    "ruling": "#8 2026-09-14 02:42 بيخلص",
    "status": "nothing to rule on: the readers wrote no row at this moment",
    "severity": "info"
@@ -146,12 +160,6 @@
   {
    "file": "rejected.json",
    "ruling": "#12 2026-09-14 22:31 sitta",
-   "status": "nothing to rule on: the readers wrote no row at this moment",
-   "severity": "info"
-  },
-  {
-   "file": "rejected.json",
-   "ruling": "#13 2026-09-14 22:51 thalat sitta thalathin",
    "status": "nothing to rule on: the readers wrote no row at this moment",
    "severity": "info"
   },
@@ -298,13 +306,13 @@
   },
   {
    "file": "rejected.json",
-   "ruling": "#46 2026-09-21 49:27 al aks al maghrafah",
+   "ruling": "#43 2026-09-21 45:02 أقيم",
    "status": "nothing to rule on: the readers wrote no row at this moment",
    "severity": "info"
   },
   {
    "file": "rejected.json",
-   "ruling": "#48 2026-09-21 54:33 ehna Iraniyin",
+   "ruling": "#46 2026-09-21 49:27 al aks al maghrafah",
    "status": "nothing to rule on: the readers wrote no row at this moment",
    "severity": "info"
   },
@@ -370,6 +378,12 @@
   },
   {
    "file": "duplicates.json",
+   "ruling": "2026-09-05 keep FA-516aa646 drop FA-da460c60",
+   "status": "nothing to merge: the repeat left with the re-read",
+   "severity": "info"
+  },
+  {
+   "file": "duplicates.json",
    "ruling": "2026-09-21 keep FA-4db8e2d3 drop FA-43ffb97d",
    "status": "nothing to merge: the repeat left with the re-read",
    "severity": "info"
@@ -412,12 +426,6 @@
   },
   {
    "file": "self-fix-rulings.json",
-   "ruling": "2026-09-16 p2 D4 (his 19:36 / her 19:28)",
-   "status": "idle: no pass-1 dispute at this moment now (the readers agreed, or wrote nothing there). If the audit no longer has the slip, read the moment",
-   "severity": "info"
-  },
-  {
-   "file": "self-fix-rulings.json",
    "ruling": "2026-09-17 p1 D9 (his 04:30 / her 04:21)",
    "status": "idle: no pass-1 dispute at this moment now (the readers agreed, or wrote nothing there). If the audit no longer has the slip, read the moment",
    "severity": "info"
@@ -435,7 +443,7 @@
    "severity": "info"
   }
  ],
- "resolves": 41,
+ "resolves": 49,
  "amal_confirmed_rows_without_a_row": [],
  "amal_rejected_rows_without_a_row": [
   {
@@ -500,13 +508,6 @@
    "t": "08:47",
    "amal": "rejected",
    "wrong": "saweroo"
-  },
-  {
-   "uid": "FA-d3f04bd5",
-   "date": "2026-09-05",
-   "t": "25:44",
-   "amal": "rejected",
-   "wrong": "el swat"
   },
   {
    "uid": "FA-dc9c70f3",
@@ -642,6 +643,13 @@
    "wrong": "daya ti"
   },
   {
+   "uid": "FA-bec3abbb",
+   "date": "2026-09-17",
+   "t": "05:21",
+   "amal": "rejected",
+   "wrong": "عذرتي"
+  },
+  {
    "uid": "FA-14654f82",
    "date": "2026-09-17",
    "t": "07:33",
@@ -712,11 +720,25 @@
    "wrong": "زبايننا = Arab customers"
   },
   {
+   "uid": "FA-db41adc6",
+   "date": "2026-09-21",
+   "t": "44:33",
+   "amal": "rejected",
+   "wrong": "20"
+  },
+  {
    "uid": "FA-32ec2df1",
    "date": "2026-09-21",
    "t": "47:43",
    "amal": "rejected",
    "wrong": "أعمل"
+  },
+  {
+   "uid": "FA-0cabc117",
+   "date": "2026-09-21",
+   "t": "1:01:29",
+   "amal": "rejected",
+   "wrong": "rice"
   },
   {
    "uid": "FA-7a3e67b3",
@@ -766,69 +788,15 @@
    "t": "32:12",
    "amal": "rejected",
    "wrong": "الأسبوع اللي بعده"
-  },
-  {
-   "uid": "FA-a0a76d00",
-   "date": "2026-09-30",
-   "t": "09:07",
-   "amal": "rejected",
-   "wrong": "إنهم"
-  },
-  {
-   "uid": "FA-121421d4",
-   "date": "2026-09-30",
-   "t": "13:19",
-   "amal": "rejected",
-   "wrong": "شفت"
   }
  ],
  "references_orphaned_tonight": {
   "amal_ruling": [
-   "FA-0de2bd00",
-   "FA-0e13917c",
-   "FA-121421d4",
-   "FA-14654f82",
-   "FA-18c61db3",
-   "FA-1ab94c39",
-   "FA-1e764d1d",
-   "FA-2078f5b0",
-   "FA-20ce3301",
-   "FA-25d8058a",
-   "FA-27a42e5b",
-   "FA-27cfce95",
-   "FA-2b056fd3",
-   "FA-34b52cb9",
-   "FA-3d453186",
-   "FA-43265fca",
-   "FA-45ad5e80",
-   "FA-4c7ea778",
-   "FA-56b8de34",
-   "FA-622f7da5",
-   "FA-65623974",
-   "FA-71d3c8fb",
-   "FA-7a3e67b3",
-   "FA-7c1d629f",
-   "FA-80e6401b",
-   "FA-838ef137",
-   "FA-83ca43af",
-   "FA-850f6234",
-   "FA-975b4e60",
-   "FA-9a6ffc95",
-   "FA-9d8a4295",
-   "FA-a01900ca",
-   "FA-a0a76d00",
-   "FA-a7b59b58",
-   "FA-a85abea0",
-   "FA-ab1497b9",
-   "FA-bd4865ad",
-   "FA-c3f091a1",
-   "FA-ce75619c",
-   "FA-da870913",
-   "FA-e0c1e94c",
-   "FA-eaff41c4",
-   "FA-f19b71e9"
+   "FA-0cabc117",
+   "FA-bec3abbb"
   ],
   "patterns": [
+   "FA-0cabc117",
    "FA-0de2bd00",
    "FA-0e13917c",
    "FA-14654f82",
@@ -868,9 +836,11 @@
    "FA-a85abea0",
    "FA-ab1497b9",
    "FA-bd4865ad",
+   "FA-bec3abbb",
    "FA-c3f091a1",
    "FA-c8f496a7",
    "FA-ce75619c",
+   "FA-d32b9d22",
    "FA-da870913",
    "FA-e0c1e94c",
    "FA-eaff41c4",
@@ -878,6 +848,7 @@
    "FA-f4ae1cc9"
   ],
   "ai_rules": [
+   "FA-0cabc117",
    "FA-0de2bd00",
    "FA-0e13917c",
    "FA-14654f82",
@@ -912,6 +883,7 @@
    "FA-a85abea0",
    "FA-ab1497b9",
    "FA-bd4865ad",
+   "FA-bec3abbb",
    "FA-c3f091a1",
    "FA-ce75619c",
    "FA-da870913",
@@ -922,19 +894,21 @@
   "verifications": [
    "FA-0323bb5f",
    "FA-04c646b6",
+   "FA-055294ad",
    "FA-0db47a38",
    "FA-0e7c89f7",
    "FA-1a2e5cff",
    "FA-20050678",
    "FA-2412b6ab",
    "FA-32ec2df1",
+   "FA-391aaceb",
+   "FA-3ee28ac2",
    "FA-3f8c78bd",
    "FA-404ef0cd",
    "FA-56f977ee",
    "FA-594b9df7",
    "FA-5b565b4ax",
    "FA-5de305a3",
-   "FA-5fbc3ea4",
    "FA-640005af",
    "FA-64681e02",
    "FA-6557d582",
@@ -947,18 +921,21 @@
    "FA-8a4cfe50",
    "FA-8dae067e",
    "FA-9641739c",
+   "FA-9801ea72",
    "FA-98c4de79",
    "FA-990e0961",
+   "FA-9e842a37",
    "FA-9f3cc9f6",
    "FA-9f911f2b",
    "FA-a13502c6",
    "FA-a412e4d4",
+   "FA-a5918114",
    "FA-b67967db",
    "FA-bba5c799",
    "FA-c0b4437b",
    "FA-cc6d2b4d",
-   "FA-d3f04bd5",
    "FA-d7a858df",
+   "FA-db41adc6",
    "FA-dc9c70f3",
    "FA-dcc998a3",
    "FA-e087be57",
@@ -973,7 +950,7 @@
    "FA-404ef0cd",
    "FA-777a8a87",
    "FA-7c1d629f",
-   "FA-d3f04bd5",
+   "FA-db41adc6",
    "FA-dc9c70f3",
    "FA-f18f1f72"
   ],
