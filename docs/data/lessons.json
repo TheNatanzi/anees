@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-07T18:07:37-07:00",
+ "updated": "2026-10-08T16:02:32-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -7187,6 +7187,181 @@
      "_lesson_s": 3738.0,
      "first_t": 2.86,
      "last_t": 3731.89,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    }
+   }
+  },
+  {
+   "date": "2026-10-08",
+   "start_local": "2026-10-08T13:34:45-07:00",
+   "start_source": "tracks.json (recording start = page-audio 0:00)",
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "duration_min": 67.2,
+   "type": "free-speak",
+   "review_mode": null,
+   "type_why": "Not read yet: default until the same-day reader (review_lesson.py, scripts/lesson_type_read.py) reads this lesson. The publish guard blocks while this shows.",
+   "type_source": "claude-read",
+   "type_read_by": null,
+   "words": {
+    "unique": 37,
+    "right": 70,
+    "wrong": 0,
+    "partial": 8,
+    "pct": 94.9,
+    "scored": 78,
+    "audit_wrong": 0,
+    "audit_partial": 0,
+    "rehear_word_conflicts": 0,
+    "unique_rows": 37,
+    "eligible": 78,
+    "excluded": 0,
+    "pending": 0,
+    "eligible_pct": 94.9,
+    "excluded_why": {},
+    "verified_pct": null
+   },
+   "grammar": {
+    "uses": 206,
+    "mistakes": 0,
+    "pct": 100.0,
+    "estimate": false,
+    "scored_mistakes": 0,
+    "unscored_mistakes": 0,
+    "eligible": 0,
+    "excluded": 0,
+    "pending": 0,
+    "denominator": {
+     "valid": true,
+     "reasons": [],
+     "uses": 206,
+     "slips": 0,
+     "slips_latin": 0,
+     "slips_in_zero_use_rules": 0,
+     "rules_slips_over_uses": []
+    },
+    "verified_pct": null
+   },
+   "talk": {
+    "medi_s": 1219.9,
+    "amal_s": 906.3,
+    "speak_pct": 57.4,
+    "listen_pct": 42.6,
+    "window": [
+     0.0,
+     4029.7
+    ]
+   },
+   "fillers": {
+    "count": 152,
+    "per_min": 7.48,
+    "top": [
+     [
+      "uh",
+      100
+     ],
+     [
+      "um",
+      40
+     ],
+     [
+      "آآ",
+      8
+     ],
+     [
+      "ah",
+      3
+     ],
+     [
+      "hmm",
+      1
+     ]
+    ],
+    "in_turns": 152,
+    "comparable": true
+   },
+   "latency": {
+    "median_s": 1.39,
+    "p75_s": 2.23,
+    "n": 300
+   },
+   "flow": {
+    "wpm": 63.0,
+    "n_turns": 107,
+    "arabic_words": 335
+   },
+   "new_words": [],
+   "taught": [],
+   "taught_words": [],
+   "coverage": null,
+   "notes": [],
+   "page": "lessons/2026-10-08.html",
+   "detail": "data/lessons/2026-10-08.json",
+   "rehear": {
+    "status": "pending",
+    "since": "2026-10-08",
+    "label": "Second listen: pending",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+   },
+   "counts": {
+    "turns": 1159,
+    "chat_lines": 0,
+    "vocab_errors": 0,
+    "vocab_correct": 78,
+    "grammar_errors": 0,
+    "grammar_not_counted": 0
+   },
+   "ledger": {
+    "file": "data/lesson-work/ledger/2026-10-08.json",
+    "marks": 300,
+    "conflicts": 0,
+    "resolved": 0,
+    "needs_medi": 0,
+    "mode": "on",
+    "items": []
+   },
+   "release": {
+    "status": "not verified",
+    "reasons": [
+     "reader agreement: no reader pass; 2 consecutive passes at >= 95 % are needed",
+     "coverage: no source audit of the raw audio for this lesson (run scripts/source_audit.py)",
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4032 s) compared with a second model"
+    ],
+    "agreement": {
+     "status": "withheld",
+     "passes": [],
+     "between": [],
+     "threshold_pct": 95.0
+    },
+    "asr": {
+     "model_compared_excerpts": 0,
+     "model_compared_s": 0,
+     "lesson_s": 4032.0,
+     "human_listened_s": 0,
+     "reviewed": false
+    }
+   },
+   "coverage_by_person": {
+    "Medi": {
+     "_lesson_s": 4032.0,
+     "first_t": 10.37,
+     "last_t": 4018.93,
+     "missing": [],
+     "holes": [],
+     "missing_s": 0,
+     "hole_s": 0,
+     "covered_pct": 100.0
+    },
+    "Amal": {
+     "_lesson_s": 4032.0,
+     "first_t": 9.29,
+     "last_t": 4016.62,
      "missing": [],
      "holes": [],
      "missing_s": 0,
