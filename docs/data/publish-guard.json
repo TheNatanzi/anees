@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-07T18:11:00-07:00",
+ "updated": "2026-10-07T18:33:35-07:00",
  "result": "pass",
- "source": "manual: PG-33 wording on the second-listen chip",
- "checked_commit": "ab07c99402bb",
- "secs": 70.5,
+ "source": "manual: AM-27 notes for the tutor on every screen",
+ "checked_commit": "7ee604af199f",
+ "secs": 80.7,
  "checks": [
   {
    "id": "step_failures",
@@ -25,9 +25,9 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 0.9,
+   "secs": 1.0,
    "what": "every docs/data JSON file parses and has its shape",
-   "detail": "120 JSON files parse"
+   "detail": "121 JSON files parse"
   },
   {
    "id": "rule_registry",
@@ -35,13 +35,13 @@
    "ok": true,
    "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
-   "detail": "rule_registry: OK - 207 rules: enforced 117 (code 108, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
+   "detail": "rule_registry: OK - 208 rules: enforced 118 (code 109, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
   },
   {
    "id": "lesson_coverage",
    "required": true,
    "ok": true,
-   "secs": 0.4,
+   "secs": 0.5,
    "what": "every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)",
    "detail": "all 20 lessons reach every page"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 2.1,
+   "secs": 2.3,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 0.8,
+   "secs": 0.9,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.2,
+   "secs": 1.5,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 697 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 1.7,
+   "secs": 1.9,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...9 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 4.3,
+   "secs": 5.0,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 70 pages, every link, data file and clip resolves (663 references to unpublished clips play from the full lesson recording)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 0.3,
+   "secs": 0.4,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.5,
+   "secs": 0.6,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 52.0,
+   "secs": 59.7,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 93%] | ..........................................                               [100%] | 686 passed, 1 skipped, 3 xfailed in 50.12s"
+   "detail": "............................. [ 93%] | ...........................................                              [100%] | 687 passed, 1 skipped, 3 xfailed in 57.26s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 0.9,
+   "secs": 1.0,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 872.0461"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 946.5838"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 4.4,
+   "secs": 5.0,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -168,10 +168,10 @@
   {
    "id": "medi_corrections",
    "required": false,
-   "ok": true,
+   "ok": false,
    "secs": 0.1,
    "what": "Medi's transcript corrections: none orphaned, held or quarantined, no rule paused by probation (PR-15; a warning only, never blocks)",
-   "detail": "corrections: none orphaned, none held, no paused rule"
+   "detail": "exit 1: mirror older than 2 h (run: python scripts/medi_corrections.py pull)"
   },
   {
    "id": "foreign_script",
@@ -183,15 +183,16 @@
   }
  ],
  "warnings": [
+  "medi_corrections: exit 1: mirror older than 2 h (run: python scripts/medi_corrections.py pull)",
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
-  "at": "2026-10-07T18:09:02-07:00",
-  "source": "manual: PG-33 wording on the second-listen chip",
+  "at": "2026-10-07T18:31:37-07:00",
+  "source": "manual: AM-27 notes for the tutor on every screen",
   "outcome": "blocked",
-  "sha": "4277122c802b6c5dd428f1eb69532487e0e02165",
-  "reason": "tests_py: exit 1: FAILED tests/test_rehear_status.py::test_pg27_no_status_claims_more_than_is_true | FAILED tests/test_final_approval_2026_10_05.py::test_the_second_listen_marks_say_ai_agreement_and_name_the_mixed_recordings | 2 failed, 684 passed, 1 skipped, 3 xfailed in 50.22s",
-  "secs": 72.4,
+  "sha": "0d695738f4a6e5f3ce9da3ce24ddd302dc391c91",
+  "reason": "tests_py: exit 1: FAILED tests/test_live_reread.py::test_every_live_page_rereads_or_says_why_not | 1 failed, 686 passed, 1 skipped, 3 xfailed in 53.28s",
+  "secs": 74.3,
   "commits_waiting": "1"
  },
  "blocks_before_this_pass": 1,
