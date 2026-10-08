@@ -16,7 +16,7 @@
   const pretty = d => d ? new Date(String(d).slice(0, 10) + 'T12:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
   const today = () => new Date().toISOString().slice(0, 10);
   const PAGE = 20;
-  let T = { open: [], closed: [] }, tasks = [], verifyN = null, NW = null, LG = null, UP = null, HW = null, PR = null, AT = null;
+  let T = { open: [], closed: [] }, tasks = [], verifyN = null, NW = null, LG = null, UP = null, HW = null, PR = null, AT = null, RS = null;
 
   async function rest(path, token) {
     const H = { apikey: ANEES.anon, Authorization: 'Bearer ' + ANEES.anon, 'X-Anees-Token': token };
@@ -108,6 +108,16 @@
     listPanel('todo', open.map(t => ({ id: t.id, title: t.title, sub: sub(t), bar: bar(t), t })), openId, (r, p) => panel(r.t, p));
   }
   // every kind of item opens here, with the same module as its old address (no link to another page)
+  // AM-27 (Medi 2026-10-07 "lets add a place for notes for amal always"): a note box under every card and one per list.
+  // amal_rules takes a row only with an amal_links token, so a list whose link lives in another table (verb check, word
+  // review) writes its notes with the newest open amal_links token of the hub.
+  const NOTE_KINDS = { after: 1, before: 1, listen: 1, check: 1, review: 1 };
+  function noteToken(it) {
+    if (it && it.token && NOTE_KINDS[it.kind]) return it.token;
+    const alt = ((window.ANEES_TUTOR && window.ANEES_TUTOR.open) || []).find(x => x.token && NOTE_KINDS[x.kind]);
+    return (alt && alt.token) || (it && it.token) || '';
+  }
+  function noteBox(el, t) { if (el && window.AneesNote) window.AneesNote.attach(el, { token: noteToken(t.item || t), list: t.id || (t.item && t.item.id) || t.kind, title: t.title }); }
   const MOUNT = {
     after: (b, it, on) => AneesAfterTask.mount(b, it, { onChange: on }),
     before: (b, it, on) => AneesPlanTask.mount(b, it, { onChange: on }),
@@ -121,6 +131,7 @@
     ledger: (b, it, on) => AneesLedgerTask.mount(b, LG, { onChange: on }),
     proposals: (b, it, on) => AneesProposalsTask.mount(b, PR, { onChange: on }),   // Medi 2026-10-05: new grammar rules to approve, top of her list
     attention: (b, it, on) => AneesAttentionTask.mount(b, AT, { onChange: on }),    // Medi 2026-10-06: his questions from the flashcards (the attention button)
+    results: b => AneesResultsTask.mount(b, RS),                                      // PG-36 Medi 2026-10-08: his card-set scores, read here (never sent)
   };
   function panel(t, p) {
     p.innerHTML = `<h2 class="hb-ptitle">${esc(t.title)}</h2><p class="hb-pnote">${esc(sub(t))}</p>${t.item && t.item.what ? `<p class="hb-sub">${esc(t.item.what)}</p>` : ''}<div id="hb-body"></div><div data-earlier></div>`;
@@ -131,6 +142,7 @@
     };
     const on = s => { t.total = s.total; t.done = Math.min(s.done, s.total); t.left = s.total - t.done; t.finished = s.finished; update(); };
     (MOUNT[t.kind] || ((b) => { b.innerHTML = '<p class="hb-sub">This list cannot be shown yet.</p>'; }))($('#hb-body'), t.item, on);
+    noteBox($('#hb-body'), t);
     earlier(p.querySelector('[data-earlier]'), t.item);
   }
   // a lesson whose first link was replaced by a newer one: the first link's questions and answers, inside the same item
@@ -252,7 +264,7 @@
     // row the moment the row opens; the built detail is only the fallback (an expired link cannot be read any more)
     if (liveLink && window.AneesLiveDetail) AneesLiveDetail.live(x.kind, x, rest).then(d => { if (d && d.live) readOnly(el.querySelector('[data-res]'), d, why); });
     const d = el.querySelector('details');
-    if (d) d.addEventListener('toggle', () => { if (d.open && !d.dataset.on) { d.dataset.on = '1'; MOUNT[x.kind](d.querySelector('[data-live]'), x, () => {}, { view: 'done' }); } });
+    if (d) d.addEventListener('toggle', () => { if (d.open && !d.dataset.on) { d.dataset.on = '1'; MOUNT[x.kind](d.querySelector('[data-live]'), x, () => {}, { view: 'done' }); noteBox(d.querySelector('[data-live]'), { id: x.id, item: x, title: x.title }); } });
   }
   function doneView() {
     setTab('done');
@@ -268,7 +280,7 @@
       if (r.c) { accBody(body, r.c); earlier(d.querySelector('[data-earlier]'), r.c); return; }
       const t = r.open();
       if (t.item && t.item.detail) accBody(body, t.item);            // results first, the live list (Undo) one tap below
-      else MOUNT[t.kind](body, t.item, () => {}, { view: 'done' });
+      else { MOUNT[t.kind](body, t.item, () => {}, { view: 'done' }); noteBox(body, t); }
       earlier(d.querySelector('[data-earlier]'), t.item);
     }));
   }
@@ -292,7 +304,7 @@
 
   let wired = false;
   async function main() {
-    try { T = await (await fetch('data/tutor.json', { cache: 'no-store' })).json(); }
+    try { T = await (await fetch('data/tutor.json', { cache: 'no-store' })).json(); window.ANEES_TUTOR = T; }   // AM-27: the note box's fallback token
     catch (e) { $('#hb-view').innerHTML = '<div class="vp-notice">The Tutor list could not load. Refresh to try again.</div>'; return; }
     const work = T.open.filter(x => ['after', 'before', 'review', 'verb_check', 'word_review', 'listen', 'check'].includes(x.kind));
     const lives = await Promise.all(work.map(live));
@@ -363,6 +375,14 @@
       // Medi 2026-10-05 "Separate the upload flash cards and assign homework from the other modules": their own strip above
       // the To do tabs (#upload, #homework), never rows in her checking list
       $('#hb-n-upload').textContent = uc.total || ''; $('#hb-n-homework').textContent = hc.waiting ? hc.waiting + ' to check' : '';
+      try {   // PG-36 (Medi 2026-10-08 "my scores get sent back to her"): a Student results section - every try of a card set with its
+              // first-pass score, the fix-mistakes retry, and how long after the try before. Read-only; nothing is sent (AM-01).
+        const L = await rest('card_results?select=word_key,result,ts,attempt,round_id,subject,undone_at&subject=like.sel:*&order=ts.asc&limit=5000', tok);
+        const view = AneesResultsTask.view(L, sets);
+        RS = { token: tok, view };
+        const rc = AneesResultsTask.count(view);
+        if (rc.total) tasks.push({ id: 'results', kind: 'results', item: {}, title: 'Student results', subText: rc.total + (rc.total === 1 ? ' try' : ' tries') + ' on ' + view.length + (view.length === 1 ? ' card set' : ' card sets') + ' - nothing to answer', total: rc.total, done: rc.done, left: 0, unit: 'tries', rank: -0.04, date: '', finished: false, quiet: true });
+      } catch (e) {}
     } catch (e) {}
     rankAll(tasks); count();
     const open = tasks.filter(t => !t.finished && !t.quiet), m = open.reduce((s, t) => s + t.left * minEach(t), 0);

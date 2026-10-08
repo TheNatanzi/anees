@@ -21,13 +21,14 @@
   async function page(path) { const out = []; for (let off = 0; ; off += 1000) { const p = await rest(path + '&limit=1000&offset=' + off); out.push(...p); if (p.length < 1000) return out; } }
   async function load() {
     const J = u => fetch(u, { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
-    const mirror = await J('data/homework.json'), shaky = await J('data/shaky-words.json');
+    const mirror = await J('data/homework.json'), shaky = await J('data/shaky-words.json'), upMirror = await J('data/uploads.json');
     try {
-      const [T, R, V, L, A] = await Promise.all([page('homework_tasks?select=*&order=created_at.asc'), page('homework_replies?select=*&order=created_at.asc'),
-        page('homework_verdicts?select=*&order=created_at.asc'), page('card_results?select=word_key,result,ts,subject,undone_at&order=ts.asc'), page('card_attention?select=*&order=created_at.asc').catch(() => [])]);
-      D = { tasks: T, replies: R, verdicts: V, log: L, attention: A, shaky, live: true, built: mirror && mirror.built };
+      const [T, R, V, L, A, U] = await Promise.all([page('homework_tasks?select=*&order=created_at.asc'), page('homework_replies?select=*&order=created_at.asc'),
+        page('homework_verdicts?select=*&order=created_at.asc'), page('card_results?select=word_key,result,ts,subject,undone_at&order=ts.asc'), page('card_attention?select=*&order=created_at.asc').catch(() => []),
+        page('amal_uploads?select=id,kind,undoes,title,keep,n,source,source_ref,created_at&order=created_at.asc').catch(() => (upMirror && upMirror.rows) || [])]);
+      D = { tasks: T, replies: R, verdicts: V, log: L, attention: A, uploads: U, shaky, live: true, built: mirror && mirror.built };
     } catch (e) {
-      D = { tasks: (mirror && mirror.tasks) || [], replies: (mirror && mirror.replies) || [], verdicts: (mirror && mirror.verdicts) || [], log: [], shaky, live: false, built: mirror && mirror.built };
+      D = { tasks: (mirror && mirror.tasks) || [], replies: (mirror && mirror.replies) || [], verdicts: (mirror && mirror.verdicts) || [], log: [], uploads: (upMirror && upMirror.rows) || [], shaky, live: false, built: mirror && mirror.built };
     }
     for (const j of LS(QK) || []) if (!D.replies.some(r => r.id === j.body.id)) D.replies.push(j.body);   // my answers still waiting to be sent
     $('#ab-source').textContent = D.live ? 'Live · ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }) : 'Offline copy' + (D.built ? ' · built ' + pretty(D.built) : '');
@@ -94,11 +95,11 @@
   function setTab(tab) { document.querySelectorAll('.hb-tab').forEach(a => a.setAttribute('aria-selected', String(a.dataset.tab === tab))); }
   function cardsView() {
     setTab('cards');
-    const C = H.effective(D.tasks).filter(t => t.kind === 'cards').sort((a, b) => String(a.lesson_date).localeCompare(String(b.lesson_date)));
+    const C = allCards().sort((a, b) => String(a.lesson_date || '9999').localeCompare(String(b.lesson_date || '9999')) || String(a.created_at).localeCompare(String(b.created_at)));
     if (!C.length) { $('#st-view').innerHTML = '<p class="hb-empty">No card set assigned for a lesson yet.</p>'; return; }
     const today = new Date().toISOString().slice(0, 10);
     $('#st-view').innerHTML = `<p class="hb-sub">Card sets your teacher wants done before a lesson. Tap one to open it on Flashcards; every answer counts there as usual.</p><div class="hb-list">${C.map(t => { const done = H.cardsDone(t, D.log), n = t.n_cards || 0, past = t.lesson_date && t.lesson_date < today;
-      return `<a class="hb-row" href="cards.html?tile=${encodeURIComponent(t.set_ref)}" style="display:block;text-decoration:none"><p class="hb-row-t">For ${esc(pretty(t.lesson_date))}: ${esc(t.set_title)}</p><p class="hb-row-s">${n} cards · ${done} done${done >= n && n ? ' · all done' : ''}${past ? ' · lesson passed' : ''}</p><div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div></a>`; }).join('')}</div>`;
+      return `<a class="hb-row" href="cards.html?tile=${encodeURIComponent(t.set_ref)}" style="display:block;text-decoration:none"><p class="hb-row-t">${t.upload ? 'Uploaded ' + esc(pretty(t.created_at)) : 'For ' + esc(pretty(t.lesson_date))}: ${esc(t.set_title)}</p><p class="hb-row-s">${n} cards · ${done} done${done >= n && n ? ' · all done' : ''}${past ? ' · lesson passed' : ''}</p><div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div></a>`; }).join('')}</div>`;
   }
   function shakyView() {
     setTab('shaky');
@@ -108,10 +109,14 @@
       ${open.length ? `<ul class="hb-done">${open.map(w => `<li><b>${esc(w.arabizi || w.arabic)}</b>${w.arabizi && w.arabic ? ` <span lang="ar">${esc(w.arabic)}</span>` : ''} <span>· ${esc(w.english || '')} · ${w.kind === 'asked' ? 'you asked for it' : w.kind === 'partial' ? 'partly wrong' : 'wrong'} · ${esc(pretty(w.date))}${w.right_since ? ' · 1 right since' : ''}</span></li>`).join('')}</ul>` : '<p class="hb-empty">Nothing shaky left from the last 2 lessons.</p>'}`;
   }
   // Medi 2026-10-05 "get rid of cards for lesson and have Todo be for all assignments": card sets for a lesson are To do rows too
-  function openCards(t) { return H.effective(D.tasks).filter(x => x.kind === 'cards' && !(x.n_cards && H.cardsDone(x, D.log) >= x.n_cards)); }
+  // PG-35 (Medi 2026-10-08 "see why amal uploaded two card sets but the student page only shows one"): a set she uploaded
+  // but has not assigned for a lesson yet is a To do row too - every upload is the student's, assigned or not
+  function allCards() { return H.effective(D.tasks).filter(x => x.kind === 'cards').concat(H.unassignedUploads(D.uploads || [], D.tasks)); }
+  function openCards(t) { return allCards().filter(x => !(x.n_cards && H.cardsDone(x, D.log) >= x.n_cards)); }
   function cardsCard(t) {
     const done = H.cardsDone(t, D.log), n = t.n_cards || 0, today = new Date().toISOString().slice(0, 10), past = t.lesson_date && t.lesson_date < today;
-    return `<a class="st-task st-cards" href="cards.html?tile=${encodeURIComponent(t.set_ref)}" style="display:block;text-decoration:none;color:inherit"><p class="st-kind">Cards for the lesson on ${esc(pretty(t.lesson_date))} · assigned ${esc(pretty(t.created_at))}</p>
+    const head = t.upload ? `New card set from your teacher · uploaded ${esc(pretty(t.created_at))}${t.keep === 'permanent' ? ' · permanent' : ' · for the next lessons'}` : `Cards for the lesson on ${esc(pretty(t.lesson_date))} · assigned ${esc(pretty(t.created_at))}`;
+    return `<a class="st-task st-cards" href="cards.html?tile=${encodeURIComponent(t.set_ref)}" style="display:block;text-decoration:none;color:inherit"><p class="st-kind">${head}</p>
       <p class="st-prompt">${esc(t.set_title)}</p><p class="st-wait">${n} cards · ${done} done${done >= n && n ? ' · all done' : ''}${past ? ' · lesson passed' : ''} · tap to open on Flashcards</p>
       <div class="hb-bar" aria-hidden="true"><i style="width:${n ? Math.min(100, Math.round(100 * done / n)) : 0}%"></i></div></a>`;
   }
@@ -124,7 +129,7 @@
     const L = states().filter(x => x.s && x.s.state !== 'done'), C = openCards(), Q = attn().open;
     if (!L.length && !C.length && !Q.length) { $('#st-view').innerHTML = '<p class="hb-empty">No homework waiting. It is assigned on the Tutor page.</p>'; return; }
     const order = { todo: 0, checking: 1, waiting: 2 };
-    $('#st-view').innerHTML = C.sort((a, b) => String(a.lesson_date).localeCompare(String(b.lesson_date))).map(cardsCard).join('')
+    $('#st-view').innerHTML = C.sort((a, b) => String(a.lesson_date || '9999').localeCompare(String(b.lesson_date || '9999')) || String(a.created_at).localeCompare(String(b.created_at))).map(cardsCard).join('')
       + L.sort((a, b) => order[a.s.state] - order[b.s.state] || String(b.t.created_at).localeCompare(String(a.t.created_at))).map(x => todoCard(x.t, x.s)).join('')
       + Q.slice().reverse().map(attnCard).join('');
     $('#st-view').querySelectorAll('[data-task]').forEach(box => {
@@ -149,7 +154,14 @@
     $('#st-hello').textContent = sc.todo ? `${sc.todo} to do · ${sc.waiting + sc.checking} waiting for your teacher` : 'Homework your teacher assigned, and the cards to do before the next lesson.';
   }
   function route() { counts(); const tab = (location.hash.slice(1) || 'todo').split('/')[0]; ({ cards: todoView, shaky: shakyView, done: doneView })[tab] ? ({ cards: todoView, shaky: shakyView, done: doneView })[tab]() : todoView(); }   // #cards = old links -> To do
-  function render() { route(); }
+  // AM-27: notes the tutor wrote on her screens (docs/data/tutor-notes.json, rebuilt by the hourly job and her every tap)
+  async function notes() {
+    const el = document.getElementById('st-notes'); if (!el) return;
+    let N = null; try { N = await (await fetch('data/tutor-notes.json', { cache: 'no-store' })).json(); } catch (e) { N = null; }
+    const L = (N && N.notes) || [];
+    el.innerHTML = L.length ? `<h2 class="hb-h">Notes from the tutor <span class="hb-n">${L.length}</span></h2>` + L.slice(0, 50).map(n => `<article class="hb-moment st-note"><p class="hb-sub">${esc(String(n.at || '').slice(0, 10))} · ${esc(n.list_title || n.list || '')}${n.item && n.item !== 'list' ? ' · ' + esc(n.context || n.item) : ''}</p><p dir="auto">${esc(n.note || '')}</p></article>`).join('') : '';
+  }
+  function render() { route(); notes(); }
   window.addEventListener('hashchange', route);
   load().then(flush);
   window.AneesLive && AneesLive.onReturn(load, { busy: () => typing || busyIds.size > 0 });

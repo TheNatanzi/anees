@@ -1,26 +1,33 @@
 {
- "made": "2026-10-07T17:42:31-07:00",
+ "made": "2026-10-07T22:50:39-07:00",
  "about": "One explicit disposition for every reference that points at an audit uid the re-read removed (report.json 'orphaned'), and for the six hand rulings preflight lists as 'to decide'. mapped = the same slip is still in the audit on the row named; retired = the row is gone, with the reason. No reference file was rewritten.",
  "counts": {
-  "ai_rules: retired": 40,
+  "ai_rules: retired": 42,
   "amal_check: retired": 7,
   "amal_grammar_notes: mapped": 1,
   "amal_grammar_notes: retired": 11,
   "duplicates: mapped": 2,
   "duplicates: retired": 3,
-  "patterns: retired": 47,
-  "verifications: mapped": 3,
-  "verifications: retired": 44
+  "patterns: retired": 50,
+  "verifications: mapped": 5,
+  "verifications: retired": 47
  },
  "hand_rulings_to_decide": [
+  {
+   "ruling": "rejected.json #13 2026-09-14 22:51 thalat sitta thalathin",
+   "rows_at_the_moment": null,
+   "disposition": "open",
+   "why": "not read yet",
+   "read_by": null
+  },
   {
    "ruling": "rejected.json #25 2026-09-16 23:50 bi il AI",
    "rows_at_the_moment": [
     {
      "uid": "FA-75337ba9",
      "t": "23:44",
-     "wrong": "أنا كان أشتغل",
-     "right": "أنا كنت أشتغل",
+     "wrong": "كان",
+     "right": "كنت",
      "kind": "grammar"
     }
    ],
@@ -47,11 +54,11 @@
    "ruling": "rejected.json #45 2026-09-21 49:00 أساهم",
    "rows_at_the_moment": [
     {
-     "uid": "FA-2b29796d",
+     "uid": "FA-f4819c40",
      "t": "49:00",
-     "wrong": "أستعمل",
-     "right": "بستعمل",
-     "kind": "grammar-B"
+     "wrong": "المقلاة",
+     "right": "الملعقة",
+     "kind": "vocab-A"
     },
     {
      "uid": "FA-bd21df1a",
@@ -61,11 +68,11 @@
      "kind": "grammar"
     },
     {
-     "uid": "FA-f4819c40",
+     "uid": "FA-2b29796d",
      "t": "49:00",
-     "wrong": "المقلاة",
-     "right": "الملعقة / المغرفة",
-     "kind": "vocab-A"
+     "wrong": "أستعمل",
+     "right": "بستعمل",
+     "kind": "grammar-B"
     }
    ],
    "disposition": "retired",
@@ -86,9 +93,33 @@
    "disposition": "retired",
    "why": "the chat-only fix 'fi darajat -> bidarjet 7araara' was not written again; the row at 50:29 (قصير -> واطية) is the word she voiced, which the ruling itself says is not the bi- fix. Nothing to reject.",
    "read_by": "Claude 2026-10-05 (a person may overrule by adding a row to the ruling file)"
+  },
+  {
+   "ruling": "rejected.json #48 2026-09-21 54:33 ehna Iraniyin",
+   "rows_at_the_moment": null,
+   "disposition": "open",
+   "why": "not read yet",
+   "read_by": null
   }
  ],
  "rows": [
+  {
+   "reference": "ai_rules",
+   "reference_is": "row list of one of Amal's rules in docs/data/ai_rules.json",
+   "uid": "FA-0cabc117",
+   "what_points_at_it": [
+    "AR-1933"
+   ],
+   "date": "2026-09-21",
+   "t": "1:01:29",
+   "kind": "dropped-by-amal",
+   "wrong": "rice",
+   "right": "الرز",
+   "amal": "rejected",
+   "disposition": "retired",
+   "why": "retired: the readers did not write it on the re-heard text - his line changed there and the quoted wrong piece is no longer on it. Amal had rejected it: there is nothing left to reject.",
+   "cause": "2"
+  },
   {
    "reference": "ai_rules",
    "reference_is": "row list of one of Amal's rules in docs/data/ai_rules.json",
@@ -154,8 +185,8 @@
    "right": "على مهندس",
    "amal": "rejected",
    "disposition": "retired",
-   "why": "retired: the readers did not write it on the re-heard text (the line did not change at that piece). Amal had rejected it: there is nothing left to reject.",
-   "cause": "3"
+   "why": "retired: the readers did not write it on the re-heard text - his line changed there and the quoted wrong piece is no longer on it. Amal had rejected it: there is nothing left to reject.",
+   "cause": "2"
   },
   {
    "reference": "ai_rules",
@@ -670,6 +701,23 @@
   {
    "reference": "ai_rules",
    "reference_is": "row list of one of Amal's rules in docs/data/ai_rules.json",
+   "uid": "FA-bec3abbb",
+   "what_points_at_it": [
+    "AR-1984"
+   ],
+   "date": "2026-09-17",
+   "t": "05:21",
+   "kind": "dropped-by-amal",
+   "wrong": "عذرتي",
+   "right": "آسف",
+   "amal": "rejected",
+   "disposition": "retired",
+   "why": "retired: the readers did not write it on the re-heard text (the line did not change at that piece). Amal had rejected it: there is nothing left to reject.",
+   "cause": "3"
+  },
+  {
+   "reference": "ai_rules",
+   "reference_is": "row list of one of Amal's rules in docs/data/ai_rules.json",
    "uid": "FA-c3f091a1",
    "what_points_at_it": [
     "AR-2004"
@@ -832,17 +880,17 @@
   {
    "reference": "amal_check",
    "reference_is": "Amal's Tutor-page check (a human record in verifications.json)",
-   "uid": "FA-d3f04bd5",
+   "uid": "FA-db41adc6",
    "what_points_at_it": "rejected",
-   "date": "2026-09-05",
-   "t": "25:44",
-   "kind": "grammar",
-   "wrong": "el swat",
-   "right": "الأصوات",
+   "date": "2026-09-21",
+   "t": "44:33",
+   "kind": "vocab-A",
+   "wrong": "20",
+   "right": "عشرين",
    "amal": "rejected",
    "disposition": "retired",
-   "why": "retired: Amal had rejected the row on her Tutor page and the readers did not write it again. Amal had rejected it: there is nothing left to reject.",
-   "cause": "c"
+   "why": "retired: the readers did not write it on the re-heard text - his line changed there and the quoted wrong piece is no longer on it. Amal had rejected it: there is nothing left to reject.",
+   "cause": "2"
   },
   {
    "reference": "amal_check",
@@ -918,7 +966,7 @@
    "amal": null,
    "disposition": "mapped",
    "mapped_to": "FA-835d985c",
-   "why": "mapped: the same slip is still in the audit as FA-835d985c (49:40, كم صُوَر -> كم صورة); the reference keeps its meaning there"
+   "why": "mapped: the same slip is still in the audit as FA-835d985c (49:41, كم صُوَر -> كم صورة); the reference keeps its meaning there"
   },
   {
    "reference": "amal_grammar_notes",
@@ -1050,7 +1098,7 @@
    "amal": null,
    "disposition": "mapped",
    "mapped_to": "FA-854becea",
-   "why": "mapped: the same slip is still in the audit as FA-854becea (51:10, Ma tazahoni -> ma tzahhe2ni (ما تزهقني)); the reference keeps its meaning there"
+   "why": "mapped: the same slip is still in the audit as FA-854becea (51:10, Ma tazahoni -> ما تزهقني (ma tzahhe2ni)); the reference keeps its meaning there"
   },
   {
    "reference": "duplicates",
@@ -1068,6 +1116,23 @@
    "disposition": "mapped",
    "mapped_to": "FA-88ce4612",
    "why": "mapped: the same slip is still in the audit as FA-88ce4612 (07:10, ستة -> تسعة); the reference keeps its meaning there"
+  },
+  {
+   "reference": "patterns",
+   "reference_is": "pattern row in full-audit/patterns.json",
+   "uid": "FA-0cabc117",
+   "what_points_at_it": [
+    "p-english-word-for-sheet-word"
+   ],
+   "date": "2026-09-21",
+   "t": "1:01:29",
+   "kind": "dropped-by-amal",
+   "wrong": "rice",
+   "right": "الرز",
+   "amal": "rejected",
+   "disposition": "retired",
+   "why": "retired: the readers did not write it on the re-heard text - his line changed there and the quoted wrong piece is no longer on it. Amal had rejected it: there is nothing left to reject.",
+   "cause": "2"
   },
   {
    "reference": "patterns",
@@ -1134,8 +1199,8 @@
    "right": "على مهندس",
    "amal": "rejected",
    "disposition": "retired",
-   "why": "retired: the readers did not write it on the re-heard text (the line did not change at that piece). Amal had rejected it: there is nothing left to reject.",
-   "cause": "3"
+   "why": "retired: the readers did not write it on the re-heard text - his line changed there and the quoted wrong piece is no longer on it. Amal had rejected it: there is nothing left to reject.",
+   "cause": "2"
   },
   {
    "reference": "patterns",
@@ -1728,6 +1793,23 @@
   {
    "reference": "patterns",
    "reference_is": "pattern row in full-audit/patterns.json",
+   "uid": "FA-bec3abbb",
+   "what_points_at_it": [
+    "p-3uzurti-for-sorry"
+   ],
+   "date": "2026-09-17",
+   "t": "05:21",
+   "kind": "dropped-by-amal",
+   "wrong": "عذرتي",
+   "right": "آسف",
+   "amal": "rejected",
+   "disposition": "retired",
+   "why": "retired: the readers did not write it on the re-heard text (the line did not change at that piece). Amal had rejected it: there is nothing left to reject.",
+   "cause": "3"
+  },
+  {
+   "reference": "patterns",
+   "reference_is": "pattern row in full-audit/patterns.json",
    "uid": "FA-c3f091a1",
    "what_points_at_it": [
     "p-ta3al-for-goodbye"
@@ -1774,6 +1856,23 @@
    "amal": "rejected",
    "disposition": "retired",
    "why": "retired: the readers did not write it on the re-heard text - his line changed there and the quoted wrong piece is no longer on it. Amal had rejected it: there is nothing left to reject.",
+   "cause": "2"
+  },
+  {
+   "reference": "patterns",
+   "reference_is": "pattern row in full-audit/patterns.json",
+   "uid": "FA-d32b9d22",
+   "what_points_at_it": [
+    "p-el-missing-on-noun"
+   ],
+   "date": "2026-09-30",
+   "t": "12:57",
+   "kind": "grammar-B",
+   "wrong": "من أسبوع الماضي",
+   "right": "من الأسبوع الماضي",
+   "amal": null,
+   "disposition": "retired",
+   "why": "retired: the readers did not write it on the re-heard text - his line changed there and the quoted wrong piece is no longer on it. The pattern / rule itself stays; it simply lists one row fewer that exists.",
    "cause": "2"
   },
   {
@@ -1858,8 +1957,8 @@
    "right": "متشجع",
    "amal": null,
    "disposition": "retired",
-   "why": "retired: the readers did not write it on the re-heard text (the line did not change at that piece). The pattern / rule itself stays; it simply lists one row fewer that exists.",
-   "cause": "3"
+   "why": "retired: the readers did not write it on the re-heard text - his line changed there and the quoted wrong piece is no longer on it. The pattern / rule itself stays; it simply lists one row fewer that exists.",
+   "cause": "2"
   },
   {
    "reference": "verifications",
@@ -1876,6 +1975,21 @@
    "what_points_at_it": 1,
    "disposition": "retired",
    "why": "retired: this uid was not a row in the snapshot taken before the re-read either"
+  },
+  {
+   "reference": "verifications",
+   "reference_is": "verification record(s) in data/accuracy/verifications.json",
+   "uid": "FA-055294ad",
+   "what_points_at_it": 1,
+   "date": "2026-09-05",
+   "t": "29:25",
+   "kind": "vocab-A",
+   "wrong": "za'ajatek",
+   "right": "أزعجتك",
+   "amal": null,
+   "disposition": "retired",
+   "why": "retired: the readers did not write it on the re-heard text - his line changed there and the quoted wrong piece is no longer on it. The record stays in the ledger as history; it settles no row now.",
+   "cause": "2"
   },
   {
    "reference": "verifications",
@@ -1937,6 +2051,36 @@
    "amal": "rejected",
    "disposition": "retired",
    "why": "retired: the readers did not write it on the re-heard text - his line changed there and the quoted wrong piece is no longer on it. Amal had rejected it: there is nothing left to reject.",
+   "cause": "2"
+  },
+  {
+   "reference": "verifications",
+   "reference_is": "verification record(s) in data/accuracy/verifications.json",
+   "uid": "FA-391aaceb",
+   "what_points_at_it": 1,
+   "date": "2026-09-16",
+   "t": "32:35",
+   "kind": "grammar",
+   "wrong": "رجلك",
+   "right": "رجله (ijro)",
+   "amal": null,
+   "disposition": "retired",
+   "why": "retired: the readers did not write it on the re-heard text - his line changed there and the quoted wrong piece is no longer on it. The record stays in the ledger as history; it settles no row now.",
+   "cause": "2"
+  },
+  {
+   "reference": "verifications",
+   "reference_is": "verification record(s) in data/accuracy/verifications.json",
+   "uid": "FA-3ee28ac2",
+   "what_points_at_it": 1,
+   "date": "2026-09-17",
+   "t": "32:21",
+   "kind": "grammar",
+   "wrong": "batahrab",
+   "right": "بخرب / بخرّب",
+   "amal": null,
+   "disposition": "retired",
+   "why": "retired: the readers did not write it on the re-heard text - his line changed there and the quoted wrong piece is no longer on it. The record stays in the ledger as history; it settles no row now.",
    "cause": "2"
   },
   {
@@ -2014,21 +2158,6 @@
    "what_points_at_it": 1,
    "disposition": "retired",
    "why": "retired: this uid was not a row in the snapshot taken before the re-read either"
-  },
-  {
-   "reference": "verifications",
-   "reference_is": "verification record(s) in data/accuracy/verifications.json",
-   "uid": "FA-5fbc3ea4",
-   "what_points_at_it": 1,
-   "date": "2026-09-05",
-   "t": "57:49",
-   "kind": "vocab-A",
-   "wrong": "I make retired",
-   "right": "أتعبها",
-   "amal": null,
-   "disposition": "retired",
-   "why": "retired: the readers did not write it on the re-heard text - his line changed there and the quoted wrong piece is no longer on it. The record stays in the ledger as history; it settles no row now.",
-   "cause": "2"
   },
   {
    "reference": "verifications",
@@ -2157,6 +2286,21 @@
   {
    "reference": "verifications",
    "reference_is": "verification record(s) in data/accuracy/verifications.json",
+   "uid": "FA-9801ea72",
+   "what_points_at_it": 1,
+   "date": "2026-09-15",
+   "t": "38:27",
+   "kind": "vocab-A",
+   "wrong": "بوتك",
+   "right": "كندرتك",
+   "amal": null,
+   "disposition": "retired",
+   "why": "retired: the readers did not write it on the re-heard text - his line changed there and the quoted wrong piece is no longer on it. The record stays in the ledger as history; it settles no row now.",
+   "cause": "2"
+  },
+  {
+   "reference": "verifications",
+   "reference_is": "verification record(s) in data/accuracy/verifications.json",
    "uid": "FA-98c4de79",
    "what_points_at_it": 1,
    "date": "2026-09-15",
@@ -2176,6 +2320,21 @@
    "what_points_at_it": 1,
    "disposition": "retired",
    "why": "retired: this uid was not a row in the snapshot taken before the re-read either"
+  },
+  {
+   "reference": "verifications",
+   "reference_is": "verification record(s) in data/accuracy/verifications.json",
+   "uid": "FA-9e842a37",
+   "what_points_at_it": 1,
+   "date": "2026-09-17",
+   "t": "30:04",
+   "kind": "grammar",
+   "wrong": "ala andik",
+   "right": "3indek",
+   "amal": null,
+   "disposition": "mapped",
+   "mapped_to": "FA-ad5eef79",
+   "why": "mapped: the same slip is still in the audit as FA-ad5eef79 (30:04, على عندك -> عندك); the reference keeps its meaning there"
   },
   {
    "reference": "verifications",
@@ -2213,7 +2372,7 @@
    "amal": null,
    "disposition": "mapped",
    "mapped_to": "FA-854becea",
-   "why": "mapped: the same slip is still in the audit as FA-854becea (51:10, Ma tazahoni -> ma tzahhe2ni (ما تزهقني)); the reference keeps its meaning there"
+   "why": "mapped: the same slip is still in the audit as FA-854becea (51:10, Ma tazahoni -> ما تزهقني (ma tzahhe2ni)); the reference keeps its meaning there"
   },
   {
    "reference": "verifications",
@@ -2222,6 +2381,21 @@
    "what_points_at_it": 1,
    "disposition": "retired",
    "why": "retired: this uid was not a row in the snapshot taken before the re-read either"
+  },
+  {
+   "reference": "verifications",
+   "reference_is": "verification record(s) in data/accuracy/verifications.json",
+   "uid": "FA-a5918114",
+   "what_points_at_it": 1,
+   "date": "2026-09-16",
+   "t": "43:39",
+   "kind": "grammar",
+   "wrong": "bidayi",
+   "right": "beydaay2ek",
+   "amal": null,
+   "disposition": "mapped",
+   "mapped_to": "FA-3b330b66",
+   "why": "mapped: the same slip is still in the audit as FA-3b330b66 (43:39, بدايي -> بيضايقك); the reference keeps its meaning there"
   },
   {
    "reference": "verifications",
@@ -2272,21 +2446,6 @@
   {
    "reference": "verifications",
    "reference_is": "verification record(s) in data/accuracy/verifications.json",
-   "uid": "FA-d3f04bd5",
-   "what_points_at_it": 2,
-   "date": "2026-09-05",
-   "t": "25:44",
-   "kind": "grammar",
-   "wrong": "el swat",
-   "right": "الأصوات",
-   "amal": "rejected",
-   "disposition": "retired",
-   "why": "retired: Amal had rejected the row on her Tutor page and the readers did not write it again. Amal had rejected it: there is nothing left to reject.",
-   "cause": "c"
-  },
-  {
-   "reference": "verifications",
-   "reference_is": "verification record(s) in data/accuracy/verifications.json",
    "uid": "FA-d7a858df",
    "what_points_at_it": 1,
    "date": "2026-09-17",
@@ -2297,6 +2456,21 @@
    "amal": null,
    "disposition": "retired",
    "why": "retired: the readers did not write it on the re-heard text - his line changed there and the quoted wrong piece is no longer on it. The record stays in the ledger as history; it settles no row now.",
+   "cause": "2"
+  },
+  {
+   "reference": "verifications",
+   "reference_is": "verification record(s) in data/accuracy/verifications.json",
+   "uid": "FA-db41adc6",
+   "what_points_at_it": 2,
+   "date": "2026-09-21",
+   "t": "44:33",
+   "kind": "vocab-A",
+   "wrong": "20",
+   "right": "عشرين",
+   "amal": "rejected",
+   "disposition": "retired",
+   "why": "retired: the readers did not write it on the re-heard text - his line changed there and the quoted wrong piece is no longer on it. Amal had rejected it: there is nothing left to reject.",
    "cause": "2"
   },
   {

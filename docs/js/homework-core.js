@@ -114,7 +114,17 @@
     for (const r of log || []) if (r && !r.undone && !r.undone_at && r.subject === 'sel:' + task.set_ref && String(r.ts) >= since) keys.add(r.word_key);
     return keys.size;
   }
+  // PG-35 (Medi 2026-10-08 "see why amal uploaded two card sets but the student page only shows one"): every set she
+  // uploads is the student's to do, assigned or not. An upload with no live cards task pointing at it becomes a cards row
+  // of its own (set_ref u:<upload>, no lesson date, upload:true); once she assigns it for a lesson that task takes over.
+  function unassignedUploads(uploads, tasks) {
+    const assigned = new Set(effective(tasks).filter(t => t.kind === 'cards').map(t => t.set_ref));
+    return uploadSets(uploads).filter(s => !assigned.has(s.id)).map(s => ({
+      id: 'up:' + s.uploadId, kind: 'cards', upload: true, set_ref: s.id, set_title: s.title, keep: s.keep,
+      n_cards: s.n || (uploads || []).filter(u => u.id === s.uploadId).map(u => u.n | 0)[0] || 0, lesson_date: null, created_at: s.created_at,
+    }));
+  }
   const scriptOf = s => { const t = String(s || ''); const ar = AR.test(t), lat = /[A-Za-z]/.test(t); return ar && lat ? 'mixed' : ar ? 'arabic' : /[235678]/.test(t) ? 'arabizi' : 'english'; };
 
-  return { KINDS, DIRECTIONS, VERDICTS, POINTS, effective, uploadSets, permanentReminder, docIndex, inDoc, shakyCards, latestReply, latestVerdict, taskState, score, cardsDone, scriptOf, norm };
+  return { KINDS, DIRECTIONS, VERDICTS, POINTS, effective, uploadSets, permanentReminder, docIndex, inDoc, shakyCards, latestReply, latestVerdict, taskState, score, cardsDone, unassignedUploads, scriptOf, norm };
 });

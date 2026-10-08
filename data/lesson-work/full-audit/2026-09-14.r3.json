@@ -1,163 +1,24 @@
-{
-  "date": "2026-09-14",
-  "reader": "r3",
-  "note": "Engine confuses اشتري/اشتغل for BOTH speakers all through the opening (Amal's 02:31 and 03:09 'اشتريت' are her saying اختارت/اخترت, not buying). D7 (r1) and D8 (r1) are two different slips at one moment (57:02 object ending, 57:06 pronoun); r2's D7 row is the same slip as D8, so the merger should treat r2[0914-43] as resolved under D8, not as a second D4 row. Amal's voiced 'انبسط بوقتك' at 40:24 is masculine - her typed enbes6i is cleanup, not a fix (GR-19).",
-  "rulings": [
-    {
-      "id": "D1",
-      "verdict": "drop",
-      "why": "Not an error / Amal says both forms are fine: he asked 'what is it?' (a question about the form), she gave the word (engine wrote اشتريت for her اخترت), then at 03:17 he said اختارت؟ and she answered 'Mhm. Some people say ... they add E to make it easier' - her chat spells it e5taret, exactly his form, so she accepted it."
-    },
-    {
-      "id": "D2",
-      "verdict": "drop",
-      "why": "Engine mishearing, not a slip (TR-18): he said كتير correctly at 05:38, her chat types 'ana enbasa6et kteer', she gave no signal, and كبير/كتير is a near-sound pair; the 05:42 repeat is the engine."
-    },
-    {
-      "id": "D3",
-      "verdict": "keep",
-      "row": {
-        "id": "0914-r3-D3",
-        "t": "11:20",
-        "t_amal": "11:27",
-        "medi_said": "أنا لازم أعمله-- أم-أعملهم هون. ... هون؟ هلق, goddammit. I always mix up هلق and هون.",
-        "amal_said": "هلا.",
-        "chat": null,
-        "wrong": "هون",
-        "right": "هلا",
-        "kind": "vocab-A",
-        "tier": 1,
-        "bucket": null,
-        "bucket2": null,
-        "mode": "speaking",
-        "signal": "recast",
-        "confidence": "low",
-        "why": "He said هون (here, sheet 'here | Hoan | هون') for 'now' (sheet 'now | Halla | هلا') and admits 'I always mix up هلق and هون' - a different lexical item, tier 1; his own هلق and her هلا both sit at 11:27, so this may be a simultaneous self-fix (GR-22) - needs the audio, kept low.",
-        "english": "I have to do them now."
-      },
-      "why": "Real wrong word (here for now) that he himself names as a confusion; the transcript cannot show whether his هلق came before her هلا (both stamped 11:27), so kept with confidence low for the audio check rather than dropped."
-    },
-    {
-      "id": "D4",
-      "verdict": "drop",
-      "why": "Cannot be verified: the 'missing u' rests only on the engine splitting his stuttered number across lines 22:47-22:59 (ثلاثو/ثلاثي/ثلاث - S5 restarts); Amal only said شو؟ and moved on, and her typed 'el-saa3a talaat u sitte u talateen' is a chat-only line (GR-19), not a voiced fix."
-    },
-    {
-      "id": "D5",
-      "verdict": "keep",
-      "row": {
-        "id": "0914-r3-D5",
-        "t": "24:44",
-        "t_amal": "24:49",
-        "medi_said": "بس في كاليفورنيا، uh عشان um عادةً um م-م-من شاف، من شاف؟ Try.",
-        "amal_said": "الجو ناشف.",
-        "chat": null,
-        "wrong": "من شاف",
-        "right": "ناشف",
-        "kind": "vocab-A",
-        "tier": 2,
-        "bucket": null,
-        "bucket2": null,
-        "mode": "speaking",
-        "signal": "asked",
-        "confidence": "medium",
-        "why": "Explaining why 84F is fine in California he reached for 'dry' (sheet 'dry | Naashef | ناشف') and produced a mangled form the engine wrote as من شاف, then asked her ('من شاف؟ Try.'); Amal supplied الجو ناشف and he repeated it - a wrong form of a word he was attempting, so tier 2 not tier 0, and his question makes the signal 'asked'.",
-        "english": "...because usually the weather is dry."
-      },
-      "why": "Both readers saw the same slip; the transcript supports tier 2 (he attempted the word himself, it was not a word he never tried) and signal 'asked' (he ended with 'من شاف؟ Try.' and she answered)."
-    },
-    {
-      "id": "D6",
-      "verdict": "drop",
-      "why": "Not an error: Amal herself VOICED the masculine 'انبسط بوقتك. صح.' at 40:24; only her typed line has the feminine enbes6i, and a chat line alone is not a correction (GR-19). The same moment's real slip (بوقتي -> بوقتك) is agreed row A29."
-    },
-    {
-      "id": "D7",
-      "verdict": "keep",
-      "row": {
-        "id": "0914-r3-D7",
-        "t": "57:02",
-        "t_amal": "57:02",
-        "medi_said": "هي بسطك ... لا، بسطت، بسطت. I knew there was an extra T.",
-        "amal_said": "بسطتك.",
-        "chat": "heyye bas6atek",
-        "wrong": "بسطت",
-        "right": "بسطتك",
-        "kind": "grammar",
-        "tier": null,
-        "bucket": "D4",
-        "bucket2": null,
-        "mode": "speaking",
-        "signal": "recast",
-        "confidence": "medium",
-        "why": "'Did she make you happy' = heyye bas6atek; he self-fixed بسطك to بسطت (adding the past -at) but dropped the object -ak, and Amal recast his fixed version as بسطتك which he repeated at 57:06 - her fix of his self-fixed form counts (GR-22).",
-        "english": "She made you happy."
-      },
-      "why": "r1's reading is the one the transcript supports: his final form before her word was بسطت (no object), she said بسطتك right after, he echoed it. r2's row at this id is actually the pronoun slip at 57:06 and is ruled under D8."
-    },
-    {
-      "id": "D8",
-      "verdict": "keep",
-      "row": {
-        "id": "0914-r3-D8",
-        "t": "57:06",
-        "t_amal": null,
-        "medi_said": "هو بسطتك.",
-        "amal_said": null,
-        "chat": "heyye bas6atek",
-        "wrong": "هو",
-        "right": "هي",
-        "kind": "grammar-B",
-        "tier": null,
-        "bucket": "A12",
-        "bucket2": null,
-        "mode": "speaking",
-        "signal": "none",
-        "confidence": "low",
-        "why": "The sentence is about 'she' (her chat heyye, the verb بسطتك is feminine) and when he repeated her fix the engine wrote هو; he had said هي at 56:52 and 56:57 and huwwe/heyye are a near-sound pair, so this may be the engine - Amal gave no signal; kept low for the audio check.",
-        "english": "She made you happy."
-      },
-      "why": "Real if he said it (pronoun does not match the person, A12) but unprovable from the engine alone since he used هي twice seconds earlier; kept with confidence low, not credited either way."
-    },
-    {
-      "id": "D9",
-      "verdict": "drop",
-      "why": "Engine repeating the 01:14 confusion (near-sound ashtari/ashtaghel) plus duplicate of agreed row A1: he had already said أنا بشتغل في بيتي correctly at 01:47, her chat types bashte8el, and Amal - who made a big deal of the same swap at 01:17 - said nothing at 02:06; a repeat of the same wrong phrase is one row, the first (A1)."
-    },
-    {
-      "id": "D10",
-      "verdict": "keep",
-      "row": {
-        "id": "0914-r3-D10",
-        "t": "1:02:38",
-        "t_amal": null,
-        "medi_said": "بشوف، بشوف. Thanks. Bye.",
-        "amal_said": null,
-        "chat": null,
-        "wrong": "بشوف",
-        "right": "بشوفك",
-        "kind": "grammar-B",
-        "tier": null,
-        "bucket": "D4",
-        "bucket2": null,
-        "mode": "speaking",
-        "signal": "none",
-        "confidence": "low",
-        "why": "Answering her بشوفك (see you) he repeated the verb twice without the object ending -ek; the engine can drop a final syllable and she had already said bye, so no signal and low confidence.",
-        "english": "See you."
-      },
-      "why": "Dropped object ending on a verb (D4) in a farewell echo; real as written but a suffix is exactly what the engine drops, so kept low with no score weight until the audio check."
-    }
-  ],
-  "added": [],
-  "challenges": [
-    {
-      "id": "A24",
-      "why": "The engine cannot show a shadda: his بسط, her بسات and his echo بساط at 26:43-26:47 differ only in vowel length / doubled middle, and at 26:51 she stopped the bare-conjugation drill ('No, no, I don't want you to do this'); this may be pronunciation (F2/F3) rather than a B12 make-X slip - audio check."
-    },
-    {
-      "id": "A36",
-      "why": "The engine wrote انبسطوا after لازم twice (51:53 and the 52:18 repeat) and both times Amal let it pass with 'More than this' and 'mm-hmm'; enbes6u/tenbes6u is a near-sound pair and her chat has tenbes6u, so this may be the engine dropping the t- rather than his slip - audio check. If real, the missing prefix after لازم could also be filed B2."
-    }
-  ]
-}
+{"date": "2026-09-14", "reader": "r3",
+ "note": "Engine repeatedly writes اشتريت for اخترت (Amal 03:09, 02:31) - read those as e5tart. D5 (34:00 تزعجنا) and D13 (32:49) are one correction sequence on za3ajna; filed once as D13. D7 and D14 are the same laazem enbes6u moment; filed once as D7. D8 kept as r1's row (object ending); r2's هو is the engine (heyye in her chat).",
+ "rulings": [
+  {"id": "D1", "verdict": "keep", "row": {"id": "0914-1", "t": "01:14", "t_amal": "01:44", "medi_said": "اليوم بشتري في بيتي.", "amal_said": "Oh، I thought you said اليوم اشتريت بيتي. ... إي ها، أنا هيك سمعت. آآآ، تحب، تحب تشتغل في بيتك أو في المحل؟", "chat": "ta2reeban dayman bashte8el fi ma7alli bas el-yoam kaan 3indi ijtimaa3 u 5allas mit2a55er u ana e5taret adall fi baiti", "wrong": "بشتري", "right": "بشتغل", "kind": "vocab-A", "tier": 1, "bucket": null, "bucket2": null, "mode": "speaking", "signal": "recast", "confidence": "high", "why": "He meant 'I am working at home today' but said bashtari (I buy); Amal echoed اشتريت؟ and congratulated him, he asked 'did I say بشتري؟' and she confirmed, then recast with تشتغل في بيتك and he took بشتغل at 01:47.", "english": "Today I am working at home."}, "why": "Her echo (اشتريت؟ / مبروك) and his own 'did I say بشتري?' prove the word; she supplied تشتغل."},
+  {"id": "D2", "verdict": "drop", "why": "Not an error: في البيت is natural Levantine (she herself fixed أضل بيتي to في بيتي at 03:33); her بالبيت is a re-phrasing echo of her own question, not a correction."},
+  {"id": "D3", "verdict": "drop", "why": "Not an error: two short juxtaposed clauses (أنا في المحل دايمًا. موظفيني...) are acceptable; the lamma exists only in her chat clean-up, no voiced signal (GR-19)."},
+  {"id": "D4", "verdict": "keep", "row": {"id": "0914-21", "t": "15:35", "t_amal": "16:04", "medi_said": "واحد", "amal_said": "Now for the one ... Is the hand feminine or masculine? ... صح. Okay. So بستعمل واحد or وحدة.", "chat": "one of my friend's hands broke when we were playing together = wa7de min idain sadiqi enkasrat lamma kunna nel3ab ma3 ba3ad", "wrong": "واحد", "right": "وحدة", "kind": "grammar", "tier": null, "bucket": "E1", "bucket2": "A8", "mode": "speaking", "signal": "prompt-then-fix", "confidence": "medium", "why": "'One of my friend's hands' - إيد is feminine so 'one' must be wa7de; he said واحد, Amal walked him through the gender of يد and he fixed it to وحدة at 16:10.", "english": "One (of my friend's hands)"}, "why": "His واحد came first; her questions led him to وحدة - prompt-then-fix."},
+  {"id": "D5", "verdict": "drop", "why": "Same moment as D13 (32:49-34:07, one continuous correction of the za3ajna past ending); filed once under D13."},
+  {"id": "D6", "verdict": "drop", "why": "Cannot be verified: Latin-letter engine line 'Basatu'; the final -h of basa6tuh is barely audible and Amal accepted it with mm-hmm - no evidence the object was missing."},
+  {"id": "D7", "verdict": "keep", "row": {"id": "0914-43", "t": "51:53", "t_amal": null, "medi_said": "إنتو لازم ... انبسطوا من، أكثر من، أكثر من هذا.", "amal_said": null, "chat": "intu laazem tenbes6u aktar min heik", "wrong": "انبسطوا", "right": "تنبسطوا", "kind": "grammar-B", "tier": null, "bucket": "B18", "bucket2": null, "mode": "speaking", "signal": "none", "confidence": "low", "why": "After laazem the you-plural verb needs the t- person prefix (tenbes6u, her chat); he said enbes6u (past/command shape) twice (51:53, 52:18) and she only fixed هذا -> هيك; the b-drop itself is right so the slip is the person prefix - could be the engine dropping t.", "english": "You guys should enjoy yourselves more than this."}, "why": "Real grammar slip she let pass; one row for both repeats (D14 is the same moment)."},
+  {"id": "D8", "verdict": "keep", "row": {"id": "0914-48", "t": "56:57", "t_amal": "57:02", "medi_said": "هي بسطك ... لا، بسطت، بسطت. I knew there was an extra T.", "amal_said": "بسطتك.", "chat": "heyye bas6atek", "wrong": "بسطت", "right": "بسطتك", "kind": "grammar", "tier": null, "bucket": "D4", "bucket2": null, "mode": "speaking", "signal": "recast", "confidence": "medium", "why": "He self-fixed the she-ending (بسطك -> بسطت) but dropped the object 'you'; Amal recast بسطتك and he repeated it at 57:06 (engine wrote هو for هي there - her chat has heyye).", "english": "She made you happy."}, "why": "r1's reading is what the transcript shows; r2's هو -> هي piece is the engine (her chat heyye, she did not react)."},
+  {"id": "D9", "verdict": "drop", "why": "Farewell echo of her بشوفك; the -ak may be clipped by the engine and there is no attempt or signal - cannot be verified, not a lesson slip."},
+  {"id": "D10", "verdict": "keep", "row": {"id": "0914-2", "t": "02:06", "t_amal": null, "medi_said": "تقريبًا دايمًا، uh, أشتري uh، في بي-- uh، في محلي.", "amal_said": null, "chat": "ta2reeban dayman bashte8el fi ma7alli", "wrong": "أشتري", "right": "بشتغل", "kind": "vocab-B", "tier": 1, "bucket": null, "bucket2": null, "mode": "speaking", "signal": "none", "confidence": "low", "why": "He means 'I almost always work in my shop' (her chat bashte8el) but the engine has أشتري (buy), the same slip he made at 01:14 and was fixed for at 01:47; no voiced signal, and it may be the engine.", "english": "I almost always work in my shop."}, "why": "A fresh slip after her 01:44 fix, not a repeat inside the same moment; she let it pass, so vocab-B, low."},
+  {"id": "D11", "verdict": "drop", "why": "Duplicate of agreed A10 (07:16-07:35 teams -> فرق / فرقنا, same moment); he was also already moving to فرق-- before her فرقنا."},
+  {"id": "D12", "verdict": "drop", "why": "Help on the way: he was building the drill sentence piece by piece and Amal prompted the next piece (the verb) - not a slip (Medi 2026-10-01 mid-sentence rule)."},
+  {"id": "D13", "verdict": "keep", "row": {"id": "0914-31", "t": "32:49", "t_amal": "32:56", "medi_said": "ممكن... uh, زعجناها", "amal_said": "Which verbs take the A؟ ... No. And it's not short so we don't put it. ... (Did I say the A sound?) Mm-hmm. ... It's neither. It's just زعجنا.", "chat": "mumken za3ajnaaha", "wrong": "زعجناها", "right": "زعجناها (za3ajnaaha, no short-verb -aina)", "kind": "grammar", "tier": null, "bucket": "B5", "bucket2": null, "mode": "speaking", "signal": "named-rule", "confidence": "medium", "why": "Engine wrote زعجناها but Amal flagged the short-verb A ending ('it's not short so we don't put it') and confirmed he said it (33:50 'Did I say the A sound?' - 'Mm-hmm'); his next try تزعجنا got 'it's just زعجنا' - one past-ending correction.", "english": "Maybe we annoyed her."}, "why": "She named the rule and confirmed his form; the engine wrote the right form."},
+  {"id": "D14", "verdict": "drop", "why": "Duplicate of D7 (same لازم انبسطوا moment at 51:53)."},
+  {"id": "D15", "verdict": "keep", "row": {"id": "0914-47", "t": "58:11", "t_amal": "58:15", "medi_said": "بن...", "amal_said": "There's a verb before it. ... Yeah it's two verbs. بس what do we do to the next 'cause you added a be. You wanted to add a be.", "chat": "e7na jarrabna nebse6o", "wrong": "بن...", "right": "نبسطه", "kind": "grammar", "tier": null, "bucket": "B2", "bucket2": null, "mode": "speaking", "signal": "named-rule", "confidence": "medium", "why": "After جربنا the second verb drops b-; he started بن..., Amal named the two-verb rule and he reached نبسطه at 59:17 (he denied adding b, but the engine and her ear both have it).", "english": "We tried to make him happy."}, "why": "Voiced named-rule fix of the b- on the second verb."}
+ ],
+ "added": [],
+ "challenges": [
+  {"id": "A6", "why": "كبير in انبسطت كبير is likely the engine for كتير: he said كتير at 05:38 four seconds earlier and her chat has 'ana enbasa6et kteer'; send to audio."},
+  {"id": "A15", "why": "Possible self-fix: his line 11:27 'هون؟ هلا, goddammit' and her هلا share the same second; he may have said هلا before her - audio check."}
+ ]}

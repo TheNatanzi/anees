@@ -1,264 +1,267 @@
 {
- "about": "Publish guard (Medi decision 7, 2026-09-29). Every push to master publishes the live site (GitHub Pages builds master:/docs), so scripts/publish_guard.py runs these checks right before any `git push`. A REQUIRED check that fails, times out or is missing blocks the push; an ADVISORY check only reports. Edit the two lists to change what blocks. Never move a check to advisory to make a push go through without Medi's yes.",
- "required": [
-  "step_failures",
-  "clean_tree",
-  "json_data",
-  "rule_registry",
-  "lesson_coverage",
-  "review_done",
-  "lesson_type_read",
-  "taught_words_cross_check",
-  "lesson_ledger",
-  "accuracy_gates",
-  "check_numbers",
-  "check_rules",
-  "check_pages",
-  "arabizi_gaps",
-  "recordings_complete",
-  "tests_py",
-  "tests_node",
-  "rehear_rows"
- ],
- "advisory": [
-  "review_freshness",
-  "data_freshness",
-  "medi_corrections",
-  "foreign_script"
- ],
- "total_timeout_s": 300,
- "clean_paths": [
-  "docs",
-  "data/full-audit-2026-09-26.json",
-  "data/accuracy",
-  "RULE-BOOK.md",
-  "data/lesson-work/ledger",
-  "data/lesson-work/ledger-amal.json"
- ],
- "commands": {
-  "rule_registry": {
-   "cmd": [
-    "{python}",
-    "scripts/rule_registry.py",
-    "check"
-   ],
-   "timeout_s": 60,
-   "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)"
+  "about": "Publish guard (Medi decision 7, 2026-09-29). Every push to master publishes the live site (GitHub Pages builds master:/docs), so scripts/publish_guard.py runs these checks right before any `git push`. A REQUIRED check that fails, times out or is missing blocks the push; an ADVISORY check only reports. Edit the two lists to change what blocks. Never move a check to advisory to make a push go through without Medi's yes.",
+  "required": [
+    "step_failures",
+    "clean_tree",
+    "json_data",
+    "rule_registry",
+    "lesson_coverage",
+    "review_done",
+    "lesson_type_read",
+    "taught_words_cross_check",
+    "lesson_ledger",
+    "accuracy_gates",
+    "check_numbers",
+    "check_rules",
+    "check_pages",
+    "arabizi_gaps",
+    "recordings_complete",
+    "tests_py",
+    "tests_node",
+    "rehear_rows"
+  ],
+  "advisory": [
+    "review_freshness",
+    "data_freshness",
+    "medi_corrections",
+    "foreign_script"
+  ],
+  "total_timeout_s": 300,
+  "clean_paths": [
+    "docs",
+    "data/full-audit-2026-09-26.json",
+    "data/accuracy",
+    "RULE-BOOK.md",
+    "data/lesson-work/ledger",
+    "data/lesson-work/ledger-amal.json"
+  ],
+  "commands": {
+    "rule_registry": {
+      "cmd": [
+        "{python}",
+        "scripts/rule_registry.py",
+        "check"
+      ],
+      "timeout_s": 60,
+      "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)"
+    },
+    "accuracy_gates": {
+      "cmd": [
+        "{python}",
+        "scripts/accuracy_gates.py",
+        "check"
+      ],
+      "timeout_s": 120,
+      "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar"
+    },
+    "recordings_complete": {
+      "cmd": [
+        "{python}",
+        "scripts/missing_recordings.py"
+      ],
+      "timeout_s": 60,
+      "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)"
+    },
+    "check_numbers": {
+      "cmd": [
+        "{python}",
+        "scripts/check_numbers.py"
+      ],
+      "timeout_s": 120,
+      "what": "every number shown on every page is recomputed from raw and matches"
+    },
+    "check_rules": {
+      "cmd": [
+        "{python}",
+        "scripts/check_rules.py"
+      ],
+      "timeout_s": 120,
+      "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)"
+    },
+    "check_pages": {
+      "cmd": [
+        "{python}",
+        "scripts/check_pages.py"
+      ],
+      "timeout_s": 120,
+      "what": "page health: links, audio clips, no blank numbers (worker F)"
+    },
+    "arabizi_gaps": {
+      "cmd": [
+        "{node}",
+        "scripts/arabizi_gaps.cjs"
+      ],
+      "timeout_s": 60,
+      "stdout_must_match": "\\b0 words\\b",
+      "what": "no Arabic-only word on the error cards (RULES.md S1)"
+    },
+    "tests_py": {
+      "cmd": [
+        "{python}",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/test_invariants.py",
+        "tests/test_medi_progress.py",
+        "tests/test_tally.py",
+        "tests/test_decisions.py",
+        "tests/test_hourly_lessons.py",
+        "tests/test_tr17_all_tracks.py",
+        "tests/test_review_lesson.py",
+        "tests/test_lesson_type_read.py",
+        "tests/test_publish_guard.py",
+        "tests/test_eval_floors.py",
+        "tests/test_bucket_labels.py",
+        "tests/test_sentence_ladder.py",
+        "tests/test_transcript_display.py",
+        "tests/test_review_new_lessons.py",
+        "tests/test_fill_meet_gaps.py",
+        "tests/test_names.py",
+        "tests/test_track.py",
+        "tests/test_speaking_evidence.py",
+        "tests/test_verb_forms.py",
+        "tests/test_source_phrase_parsing.py",
+        "tests/test_amal_trigger.py",
+        "tests/test_strict_fallbacks.py",
+        "tests/test_live_db_gate.py",
+        "tests/test_arabizi_reader.py",
+        "tests/test_audit_duplicates.py",
+        "tests/test_self_fix_timing.py",
+        "tests/test_transcript_fixes.py",
+        "tests/test_rehear_apply.py",
+        "tests/test_medi_corrections.py",
+        "tests/test_rules_check.py",
+        "tests/test_farsi.py",
+        "tests/test_rules_amal_rulings.py",
+        "tests/test_rule_registry.py",
+        "tests/test_live_reread.py",
+        "tests/test_speaking_snapshot_paged.py",
+        "tests/test_amal_word_lists.py",
+        "tests/test_amal_new_words.py",
+        "tests/test_taught_to_amal.py",
+        "tests/test_import_vocab_archive.py",
+        "tests/test_doc_sync.py",
+        "tests/test_word_marks.py",
+        "tests/test_session_asks.py",
+        "tests/test_bench_score.py",
+        "tests/test_bench_vars.py",
+        "tests/test_bench_batch.py",
+        "tests/test_batch_jobs.py",
+        "tests/test_rehear_status.py",
+        "tests/test_rehear_rejudge.py",
+        "tests/test_final_approval_2026_10_05.py",
+        "tests/test_bench_side.py",
+        "tests/test_bench_piles.py",
+        "tests/test_bench_key2.py",
+        "tests/test_rule_book.py",
+        "tests/test_amal_undo.py",
+        "tests/test_tutor_in_panel.py",
+        "tests/test_transcript_marks.py",
+        "tests/test_lesson_ledger.py",
+        "tests/test_correction_mode.py",
+        "tests/test_build_student_data.py",
+        "tests/test_build_tutor_weak.py",
+        "tests/test_screen_names.py",
+        "tests/test_amal_checks.py",
+        "tests/test_build_reference_lexicon.py",
+        "tests/test_rehear_tutor.py",
+        "tests/test_grammar_tool_words.py",
+        "tests/test_amal_note.py"
+      ],
+      "timeout_s": 180,
+      "what": "fast offline tests on the committed data (no network, no paid API)"
+    },
+    "tests_node": {
+      "cmd": [
+        "{node}",
+        "--test",
+        "tests/test_big_picture.cjs",
+        "tests/test_cards_selection.cjs",
+        "tests/test_cards_english_side.cjs",
+        "tests/test_context_review.cjs",
+        "tests/test_flashcard_boost.cjs",
+        "tests/test_flashcard_stats.cjs",
+        "tests/test_fsrs.cjs",
+        "tests/test_names_parity.cjs",
+        "tests/test_speaking_database.cjs",
+        "tests/test_verb_addons.cjs",
+        "tests/test_verb_check.cjs",
+        "tests/test_verb_drills.cjs",
+        "tests/test_vocabulary_memory.cjs",
+        "tests/test_vocabulary_stats.cjs",
+        "tests/test_word_bank.cjs",
+        "tests/test_word_bank_arabizi.cjs",
+        "tests/test_word_bank_audit.cjs",
+        "tests/test_word_bank_plan.cjs",
+        "tests/test_word_bank_reliability.cjs",
+        "tests/test_amal_newest.cjs",
+        "tests/test_amal_trigger_status.cjs",
+        "tests/test_publish_guard_status.cjs",
+        "tests/test_rule_names.cjs",
+        "tests/test_lesson_alerts.cjs",
+        "tests/test_promised_words.cjs",
+        "tests/test_taught_to_amal.cjs",
+        "tests/test_amal_undo.cjs",
+        "tests/test_live_detail.cjs",
+        "tests/test_early_values.cjs",
+        "tests/test_transcript_marks.cjs",
+        "tests/test_ledger_overrides.cjs",
+        "tests/test_transcript_corrections.cjs",
+        "tests/test_sheet_import.cjs",
+        "tests/test_homework_core.cjs",
+        "tests/test_attention.cjs",
+        "tests/test_results_task.cjs",
+        "tests/test_reference_lexicon.cjs",
+        "tests/test_verb_short_list.cjs",
+        "tests/test_amal_note.cjs"
+      ],
+      "timeout_s": 120,
+      "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)"
+    },
+    "lesson_ledger": {
+      "cmd": [
+        "{python}",
+        "scripts/lesson_ledger.py",
+        "check"
+      ],
+      "timeout_s": 60,
+      "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi"
+    },
+    "medi_corrections": {
+      "cmd": [
+        "{python}",
+        "scripts/medi_corrections.py",
+        "check"
+      ],
+      "timeout_s": 60,
+      "what": "Medi's transcript corrections: none orphaned, held or quarantined, no rule paused by probation (PR-15; a warning only, never blocks)"
+    },
+    "foreign_script": {
+      "cmd": [
+        "{python}",
+        "scripts/echo_candidates.py",
+        "--foreign-check"
+      ],
+      "timeout_s": 60,
+      "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)"
+    },
+    "rehear_rows": {
+      "cmd": [
+        "{python}",
+        "scripts/rehear_apply.py",
+        "check"
+      ],
+      "timeout_s": 300,
+      "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)"
+    }
   },
-  "accuracy_gates": {
-   "cmd": [
-    "{python}",
-    "scripts/accuracy_gates.py",
-    "check"
-   ],
-   "timeout_s": 120,
-   "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar"
-  },
-  "recordings_complete": {
-   "cmd": [
-    "{python}",
-    "scripts/missing_recordings.py"
-   ],
-   "timeout_s": 60,
-   "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)"
-  },
-  "check_numbers": {
-   "cmd": [
-    "{python}",
-    "scripts/check_numbers.py"
-   ],
-   "timeout_s": 120,
-   "what": "every number shown on every page is recomputed from raw and matches"
-  },
-  "check_rules": {
-   "cmd": [
-    "{python}",
-    "scripts/check_rules.py"
-   ],
-   "timeout_s": 120,
-   "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)"
-  },
-  "check_pages": {
-   "cmd": [
-    "{python}",
-    "scripts/check_pages.py"
-   ],
-   "timeout_s": 120,
-   "what": "page health: links, audio clips, no blank numbers (worker F)"
-  },
-  "arabizi_gaps": {
-   "cmd": [
-    "{node}",
-    "scripts/arabizi_gaps.cjs"
-   ],
-   "timeout_s": 60,
-   "stdout_must_match": "\\b0 words\\b",
-   "what": "no Arabic-only word on the error cards (RULES.md S1)"
-  },
-  "tests_py": {
-   "cmd": [
-    "{python}",
-    "-m",
-    "pytest",
-    "-q",
-    "-p",
-    "no:cacheprovider",
-    "tests/test_invariants.py",
-    "tests/test_medi_progress.py",
-    "tests/test_tally.py",
-    "tests/test_decisions.py",
-    "tests/test_hourly_lessons.py",
-    "tests/test_tr17_all_tracks.py",
-    "tests/test_review_lesson.py",
-    "tests/test_lesson_type_read.py",
-    "tests/test_publish_guard.py",
-    "tests/test_eval_floors.py",
-    "tests/test_bucket_labels.py",
-    "tests/test_sentence_ladder.py",
-    "tests/test_transcript_display.py",
-    "tests/test_review_new_lessons.py",
-    "tests/test_fill_meet_gaps.py",
-    "tests/test_names.py",
-    "tests/test_track.py",
-    "tests/test_speaking_evidence.py",
-    "tests/test_verb_forms.py",
-    "tests/test_source_phrase_parsing.py",
-    "tests/test_amal_trigger.py",
-    "tests/test_strict_fallbacks.py",
-    "tests/test_live_db_gate.py",
-    "tests/test_arabizi_reader.py",
-    "tests/test_audit_duplicates.py",
-    "tests/test_self_fix_timing.py",
-    "tests/test_transcript_fixes.py",
-    "tests/test_rehear_apply.py",
-    "tests/test_medi_corrections.py",
-    "tests/test_rules_check.py",
-    "tests/test_farsi.py",
-    "tests/test_rules_amal_rulings.py",
-    "tests/test_rule_registry.py",
-    "tests/test_live_reread.py",
-    "tests/test_speaking_snapshot_paged.py",
-    "tests/test_amal_word_lists.py",
-    "tests/test_amal_new_words.py",
-    "tests/test_taught_to_amal.py",
-    "tests/test_import_vocab_archive.py",
-    "tests/test_doc_sync.py",
-    "tests/test_word_marks.py",
-    "tests/test_session_asks.py",
-    "tests/test_bench_score.py",
-    "tests/test_bench_vars.py",
-    "tests/test_bench_batch.py",
-    "tests/test_batch_jobs.py",
-    "tests/test_rehear_status.py",
-    "tests/test_rehear_rejudge.py",
-    "tests/test_final_approval_2026_10_05.py",
-    "tests/test_bench_side.py",
-    "tests/test_bench_piles.py",
-    "tests/test_bench_key2.py",
-    "tests/test_rule_book.py",
-    "tests/test_amal_undo.py",
-    "tests/test_tutor_in_panel.py",
-    "tests/test_transcript_marks.py",
-    "tests/test_lesson_ledger.py",
-    "tests/test_correction_mode.py",
-    "tests/test_build_student_data.py",
-    "tests/test_build_tutor_weak.py",
-    "tests/test_screen_names.py",
-    "tests/test_amal_checks.py",
-    "tests/test_build_reference_lexicon.py",
-    "tests/test_rehear_tutor.py",
-    "tests/test_grammar_tool_words.py"
-   ],
-   "timeout_s": 180,
-   "what": "fast offline tests on the committed data (no network, no paid API)"
-  },
-  "tests_node": {
-   "cmd": [
-    "{node}",
-    "--test",
-    "tests/test_big_picture.cjs",
-    "tests/test_cards_selection.cjs",
-    "tests/test_cards_english_side.cjs",
-    "tests/test_context_review.cjs",
-    "tests/test_flashcard_boost.cjs",
-    "tests/test_flashcard_stats.cjs",
-    "tests/test_fsrs.cjs",
-    "tests/test_names_parity.cjs",
-    "tests/test_speaking_database.cjs",
-    "tests/test_verb_addons.cjs",
-    "tests/test_verb_check.cjs",
-    "tests/test_verb_drills.cjs",
-    "tests/test_vocabulary_memory.cjs",
-    "tests/test_vocabulary_stats.cjs",
-    "tests/test_word_bank.cjs",
-    "tests/test_word_bank_arabizi.cjs",
-    "tests/test_word_bank_audit.cjs",
-    "tests/test_word_bank_plan.cjs",
-    "tests/test_word_bank_reliability.cjs",
-    "tests/test_amal_newest.cjs",
-    "tests/test_amal_trigger_status.cjs",
-    "tests/test_publish_guard_status.cjs",
-    "tests/test_rule_names.cjs",
-    "tests/test_lesson_alerts.cjs",
-    "tests/test_promised_words.cjs",
-    "tests/test_taught_to_amal.cjs",
-    "tests/test_amal_undo.cjs",
-    "tests/test_live_detail.cjs",
-    "tests/test_early_values.cjs",
-    "tests/test_transcript_marks.cjs",
-    "tests/test_ledger_overrides.cjs",
-    "tests/test_transcript_corrections.cjs",
-    "tests/test_sheet_import.cjs",
-    "tests/test_homework_core.cjs",
-    "tests/test_attention.cjs",
-    "tests/test_reference_lexicon.cjs",
-    "tests/test_verb_short_list.cjs"
-   ],
-   "timeout_s": 120,
-   "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)"
-  },
-  "lesson_ledger": {
-   "cmd": [
-    "{python}",
-    "scripts/lesson_ledger.py",
-    "check"
-   ],
-   "timeout_s": 60,
-   "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi"
-  },
-  "medi_corrections": {
-   "cmd": [
-    "{python}",
-    "scripts/medi_corrections.py",
-    "check"
-   ],
-   "timeout_s": 60,
-   "what": "Medi's transcript corrections: none orphaned, held or quarantined, no rule paused by probation (PR-15; a warning only, never blocks)"
-  },
-  "foreign_script": {
-   "cmd": [
-    "{python}",
-    "scripts/echo_candidates.py",
-    "--foreign-check"
-   ],
-   "timeout_s": 60,
-   "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)"
-  },
-  "rehear_rows": {
-   "cmd": [
-    "{python}",
-    "scripts/rehear_apply.py",
-    "check"
-   ],
-   "timeout_s": 300,
-   "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)"
+  "left_out": {
+    "tests/test_transcript_player.cjs": "broken on master: requires a path that does not exist ('transcript-player.js' at the repo root) - fix the test, then add it",
+    "tests/test_vocab_audit.py": "3 tests fail on master (the rebuilt Word Bank review overlay differs from the committed one) - area 1/2 owner; add back once green",
+    "tests/test_m3_planner.py, test_m5_cards.py, test_stale_banner.py, word_bank_browser.cjs": "need a browser (Playwright)",
+    "tests/test_m4_after.py, tests/test_m5_cards.py": "NEVER in the guard: they write test answers into the LIVE Supabase database (coordinator 2026-09-29: 90 fake flashcard rows)",
+    "tests/test_m0_vocab.py, test_catalog_gloss.py, test_m2_report.py, test_m10_whatsapp.py": "slow (10-30 s each) or need the network; not every hour"
   }
- },
- "left_out": {
-  "tests/test_transcript_player.cjs": "broken on master: requires a path that does not exist ('transcript-player.js' at the repo root) - fix the test, then add it",
-  "tests/test_vocab_audit.py": "3 tests fail on master (the rebuilt Word Bank review overlay differs from the committed one) - area 1/2 owner; add back once green",
-  "tests/test_m3_planner.py, test_m5_cards.py, test_stale_banner.py, word_bank_browser.cjs": "need a browser (Playwright)",
-  "tests/test_m4_after.py, tests/test_m5_cards.py": "NEVER in the guard: they write test answers into the LIVE Supabase database (coordinator 2026-09-29: 90 fake flashcard rows)",
-  "tests/test_m0_vocab.py, test_catalog_gloss.py, test_m2_report.py, test_m10_whatsapp.py": "slow (10-30 s each) or need the network; not every hour"
- }
 }

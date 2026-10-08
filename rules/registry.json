@@ -8451,6 +8451,195 @@
     }
    ],
    "aliases": []
+  },
+  {
+   "id": "AM-27",
+   "kind": "display",
+   "scope": "amal-data",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every Tutor screen has a place for a note: docs/js/amal-note.js puts a '✎ Note for the student' box under every card that carries an id and one for the whole list at the bottom of each panel (the hub's panels, the Completed rows, and the old amal/*.html addresses through solo.js). A note is its own amal_rules row (source note, kind note, word_key note:<list>:<card id | list>, payload note / list / item / context) saved with the list's own amal_links token (a list whose link is in another table writes with the hub's newest open amal_links token); the latest note per card wins and an emptied box writes an undo row (AM-17). Nothing in it changes a score. Medi reads them on the Student tab ('Notes from the tutor', docs/data/tutor-notes.json built by scripts/build_tutor_data.py, refreshed by scripts/amal_trigger.py within 15 minutes of a note).",
+   "plain": "Everywhere your tutor answers something, there is now a box where she can write you a note. Her notes show up on your Student tab.",
+   "plain_for": "8abfb31d",
+   "topic": "the Tutor page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-07",
+     "quote": "lets add a place for notes for amal always",
+     "session": "7d12fb96"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-06",
+     "quote": "we need to allow for notes. The wrong word I said was Shawban (hot) instead of shab3an (full)"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/amal-note.js",
+     "contains": "function attach(panel, o) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/tutor.js",
+     "contains": "function noteBox(el, t) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/hub/solo.js",
+     "contains": "root.AneesNote.attach(el, { token: t,"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_tutor_data.py",
+     "contains": "def write_notes(rows, items):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/student.js",
+     "contains": "async function notes() {"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_amal_note.py",
+     "contains": "def test_AM_27_every_tutor_screen_loads_the_note_box_and_the_builder_mirrors_notes"
+    },
+    {
+     "path": "tests/test_amal_note.cjs",
+     "contains": "test('AM-27 a note row carries"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "TR-28",
+   "kind": "data",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A TR-27 hold is released by rule when it cannot hide a mistake. The hold exists so that the second listen cannot make one of Medi's mistakes vanish (the council gate: 12 of 27). So a held line is applied without the tutor when the three AI readers wrote NO mistake at that moment on the engine text (the live audit) AND none on the Gemini text (the 2026-10-05 read, data/lesson-work/rehear/gemini-read-moments.json) - nothing there to hide - or when they wrote a mistake on BOTH texts - it did not vanish. Only a line whose mistake stands on one text and not the other waits for the tutor (scripts/rehear_tutor.py mistake_on; rehear_apply.py lists them as released_by_rule with the hold's reason kept). 2026-10-07 on 18 lessons: 225 of 269 held lines released, 44 left for her part-2 list; every lesson whose text changed was re-read by the three readers afterwards.",
+   "plain": "A held line goes in by itself when no reader found a mistake there on either version of the text, or found the same mistake on both - because then nothing can be hidden. Only the lines where a mistake shows on one version and not the other still wait for your tutor.",
+   "plain_for": "d00393c8",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-07",
+     "quote": "223 is a large number, can you please think of some solutions on your own end to solve them?",
+     "session": "7d12fb96"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/rehear_tutor.py",
+     "contains": "def mistake_on(date, line, moments, slack=3.0):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/rehear_apply.py",
+     "contains": "if v.get(\"rule\") == \"TR-28\":"
+    },
+    {
+     "type": "data",
+     "path": "data/lesson-work/rehear/gemini-read-moments.json",
+     "contains": "\"source\": \"git show engine-bench:"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_rehear_tutor.py",
+     "contains": "def test_TR_28_a_held_line_that_cannot_hide_a_mistake_is_applied_by_rule"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "PG-35",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every set Amal uploads is on the Student tab, assigned or not. The To do list shows each live upload (amal_uploads, undo honoured) that no cards task points at as its own row - 'New card set from your teacher - uploaded <date>', N cards, M done, opening cards.html?tile=u:<upload> - next to the sets she assigned for a lesson (PG-28). Once she assigns that upload for a lesson, the lesson task replaces the row (same set_ref, so the done count carries). Live amal_uploads first, docs/data/uploads.json as the offline copy (docs/js/homework-core.js unassignedUploads, docs/js/student.js allCards). Found 2026-10-08: 'A list' (40 cards, temporary) was uploaded 10-06 but never assigned, so the tab showed one set of two.",
+   "plain": "Every list Amal uploads shows on Medi's Student tab right away, with its card count and a link to the cards, even before she assigns it for a lesson.",
+   "plain_for": "20b3eee9",
+   "topic": "homework",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-08",
+     "quote": "see why amal uploaded two card sets but the student page only shows one",
+     "session": "1e2b7148"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/homework-core.js",
+     "contains": "function unassignedUploads(uploads, tasks) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/student.js",
+     "contains": "function allCards() {"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_homework_core.cjs",
+     "contains": "test('PG-35 every set Amal uploads is on the Student tab"
+    }
+   ]
+  },
+  {
+   "id": "PG-36",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Medi's card-set scores reach Amal as a 'Student results' section on her Tutor page To do (never a message: AM-01). docs/js/hub/results-task.js reads the card_results rows cards.html already writes for a set round (subject sel:<set>, one round_id per try, attempt 1 = first pass, attempt 2+ = the fix-mistakes retry; undone rows left out) and shows, per set, one line per try: try 1 with its date and first-pass score (N of M right, %), then how the retry of his mistakes went (K of L right, or 'mistakes not retried' / 'nothing to fix'); a later try says how long after the one before ('2 h 15 min after try 1', days when it is days) with its own scores. Read-only, nothing to answer (quiet row, not counted in her 'things to check'); sets are named from her uploads, Quizlet sets and Shaky words.",
+   "plain": "Amal sees Medi's flashcard scores on her Tutor page: each time he runs a set, his first-pass score, how the retry of his mistakes went, and for a repeat how long after the earlier try it was. Nothing is sent to her.",
+   "plain_for": "28648a8d",
+   "topic": "homework",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-08",
+     "quote": "also lets set up a system where my scores get sent back to her. If I do the card set 1 time send score. If I fix mixtakes tell her how I did, If I do it again 30 min or howverlong later tell her how many hr/min after I tried again with new scores",
+     "session": "1e2b7148"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-08",
+     "quote": "student results section",
+     "session": "1e2b7148"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/hub/results-task.js",
+     "contains": "function view(log, sets) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/tutor.js",
+     "contains": "id: 'results', kind: 'results'"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_results_task.cjs",
+     "contains": "test('PG-36 one try = first-pass score"
+    },
+    {
+     "path": "tests/test_results_task.cjs",
+     "contains": "test('PG-36 the Tutor page loads the module and nothing in it writes or sends anything"
+    }
+   ]
   }
  ]
 }
