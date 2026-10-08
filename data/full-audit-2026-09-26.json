@@ -1,5 +1,5 @@
 {
- "built": "2026-10-07T22:48:09-07:00",
+ "built": "2026-10-07T23:05:13-07:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -5209,30 +5209,6 @@
     "uid": "FA-27e2ba45",
     "sweep_id": "0914-07",
     "mistake": "'what you broke' is the doing form kasarti; he used the get-X form enkasarti (you got broken); Amal: 'you broke... not you were broken', he then said كسرتي.",
-    "bucket": "B12",
-    "bucket2": null,
-    "new_bucket_group": null
-   },
-   {
-    "id": "FA-bd3849a8",
-    "date": "2026-09-14",
-    "t": "14:34",
-    "t_amal": "14:39",
-    "medi_said": "uh, en-enkis-enkistri.",
-    "amal_said": "You broke. You broke the thing that you have to fix. Not you were broken.",
-    "chat": "... illi kasartih / shu kasarti",
-    "wrong": "enkistri",
-    "right": "kasarti",
-    "confidence": "high",
-    "confidence_why": "r1+r2",
-    "signal": "explicit-no",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-bd3849a8",
-    "sweep_id": null,
-    "kept": "first-read slip; the re-read on 2026-10-04 did not write it again and its words are still on the line - kept until a person checks it",
-    "mistake": "He used the get-broken verb انكسر for 'what you broke'; she said no, you broke (كسرت), not you were broken; he then gave kasarti.",
     "bucket": "B12",
     "bucket2": null,
     "new_bucket_group": null
@@ -19202,31 +19178,6 @@
     "amal_gave_arabizi": null
    },
    {
-    "id": "FA-513b51aa",
-    "date": "2026-09-10",
-    "t": "54:44",
-    "t_amal": "54:51",
-    "medi_said": "إن إن. الفـ--، الفـ--، علات، الفعلات إن.",
-    "amal_said": "أفعال.",
-    "chat": null,
-    "wrong": "الفعلات",
-    "right": "الأفعال",
-    "confidence": "high",
-    "confidence_why": "Invented plural pattern; brief puts this under vocab tier 2.",
-    "signal": "recast",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-513b51aa",
-    "sweep_id": null,
-    "amal_gave": "الأفعال",
-    "english": "the in- verbs",
-    "why": "He invented the plural fe3laat for fe3el; Amal gave the broken plural أفعال and he said الأفعال. Invented plural pattern = vocab tier 2 per the brief.",
-    "kind": "wrong-word",
-    "tier": 2,
-    "amal_gave_arabizi": null
-   },
-   {
     "id": "FA-b26092ca",
     "date": "2026-09-10",
     "t": "56:44",
@@ -26390,8 +26341,8 @@
   "pron_from_sweep": [],
   "hand_check": {},
   "totals": {
-   "speaking_grammar": 649,
-   "vocab": 330,
+   "speaking_grammar": 648,
+   "vocab": 329,
    "machine_caught_speaking": 105
   }
  },
@@ -26399,14 +26350,14 @@
  "lessons_missing": [],
  "totals": {
   "rows": 1227,
-  "grammar_A": 649,
+  "grammar_A": 648,
   "grammar_B": 109,
   "grammar_proposed": 12,
-  "vocab_A": 330,
+  "vocab_A": 329,
   "vocab_A_by_tier": {
    "1": 155,
    "0": 129,
-   "2": 76,
+   "2": 75,
    "3": 2
   },
   "vocab_B": 26,
@@ -26432,7 +26383,7 @@
  "by_bucket": {
   "B18": 65,
   "B5": 53,
-  "B12": 51,
+  "B12": 50,
   "A8": 47,
   "D2": 45,
   "D4": 39,
@@ -26522,7 +26473,7 @@
   "2026-09-10": {
    "grammar_A": 33,
    "grammar_B": 12,
-   "vocab_A": 27,
+   "vocab_A": 26,
    "vocab_B": 1,
    "listening": 0,
    "sweep_grammar_before": 20,
@@ -26538,7 +26489,7 @@
    "sweep_vocab_before": 10
   },
   "2026-09-14": {
-   "grammar_A": 42,
+   "grammar_A": 41,
    "grammar_B": 4,
    "vocab_A": 11,
    "vocab_B": 0,
@@ -38510,7 +38461,13 @@
    "fid": "0910-19",
    "bucket_name": "broken plurals are patterns",
    "uid": "FA-d42c025b",
-   "n": 273
+   "n": 273,
+   "passes": [
+    1
+   ],
+   "duplicates_merged": [
+    "FA-513b51aa"
+   ]
   },
   {
    "id": "0910-r3-14",
@@ -38521,7 +38478,7 @@
    "chat": null,
    "wrong": "الفعلات",
    "right": "الأفعال",
-   "kind": "vocab-A",
+   "kind": "rejected",
    "tier": 2,
    "bucket": null,
    "bucket2": null,
@@ -38544,7 +38501,10 @@
    "source": "audit-2026-09-26",
    "machine_had": false,
    "uid": "FA-513b51aa",
-   "n": 274
+   "n": 274,
+   "kind_before_rejection": "vocab-A",
+   "duplicate_of": "FA-d42c025b",
+   "rejected_why": "duplicate of FA-d42c025b: 54:43/54:44 the same wrong phrase الفعلات with the same fix الأفعال, once as a grammar row and once as a word row: one mistake, counted once as grammar (2026-10-07 TR-28 re-read)"
   },
   {
    "id": "0910-r3-15",
@@ -41823,7 +41783,8 @@
    "agreed_by": "r1+r2",
    "fid": "0914-018",
    "passes": [
-    1
+    1,
+    2
    ],
    "date": "2026-09-14",
    "source": "audit-2026-09-26",
@@ -41831,7 +41792,10 @@
    "machine_had": false,
    "bucket_name": "make-X vs get-X",
    "uid": "FA-27e2ba45",
-   "n": 366
+   "n": 366,
+   "duplicates_merged": [
+    "FA-bd3849a8"
+   ]
   },
   {
    "id": "0914-22",
@@ -41842,7 +41806,7 @@
    "chat": "... illi kasartih / shu kasarti",
    "wrong": "enkistri",
    "right": "kasarti",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "B12",
    "bucket2": null,
@@ -41869,7 +41833,10 @@
    "kept": "first-read slip; the re-read on 2026-10-04 did not write it again and its words are still on the line - kept until a person checks it",
    "kept_from": "first read (before the 2026-10-04 re-hear)",
    "uid": "FA-bd3849a8",
-   "n": 367
+   "n": 367,
+   "kind_before_rejection": "grammar",
+   "duplicate_of": "FA-27e2ba45",
+   "rejected_why": "duplicate of FA-27e2ba45: 14:34 the same word in Arabic letters (انكسرتي) and in Arabizi (enkistri), same fix كسرتي: one mistake written twice (already settled by rule in one-or-two-auto-same.json; the 2026-10-07 TR-28 re-read brought the restored row back)"
   },
   {
    "id": "0914-21",
@@ -72105,7 +72072,7 @@
  ],
  "rulings_applied": [
   {
-   "at": "2026-10-08T05:48:10.897617+00:00",
+   "at": "2026-10-08T06:05:14.631717+00:00",
    "rules": [
     1928,
     1929,

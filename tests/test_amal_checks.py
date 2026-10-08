@@ -19,12 +19,16 @@ JS = (DOCS / "js" / "hub" / "check-task.js").read_text(encoding="utf-8")
 
 
 def test_the_lists_medi_asked_for_with_their_counts():
-    # 2026-10-07 (TR-27): the 7th task, "Listen: what did the student say? - part 2" (every line held for the tutor's ear), in 5 parts
+    # 2026-10-07 (TR-27): the 7th task, "Listen: what did the student say? - part 2" (every line held for the tutor's ear)
+    # 2026-10-07 TR-28 re-read: 225 held lines released by rule, so the task is ONE list "slip-check-2" of 44 (was 5 parts, 223)
     assert [(L["list"], L["total"]) for L in INDEX] == [("slip-check", 27), ("own-fix", 13), ("word-said-1", 42), ("word-said-2", 42),
                                                         ("old-new", 11), ("word-there", 28), ("one-or-two", 27),   # 45 - 10 (LS-15 same word, two scripts) - 8 (LS-16 same fix within 30 s / phrase holds the word)
-                                                        ("slip-check-2-1", 45), ("slip-check-2-2", 45), ("slip-check-2-3", 45), ("slip-check-2-4", 45), ("slip-check-2-5", 43)]
+                                                        ("slip-check-2", 44)]
     assert sum(L["total"] for L in INDEX if L["task"] in ("own-fix", "word-said", "old-new")) == 108      # the 108 of listen-page-1
-    assert sum(L["total"] for L in INDEX if L["task"] == "slip-check-2") == 223                           # TR-27: every held line, once
+    assert sum(L["total"] for L in INDEX if L["task"] == "slip-check-2") == 44                            # TR-27/TR-28: every line still held, once
+    # 2026-10-07 TR-28 re-read: the list is exactly the lines the apply plans still hold for the tutor (44), none released by rule in it
+    plans = [json.loads(p.read_text(encoding="utf-8")) for p in sorted((WORK / "rehear").glob("*/apply-plan.json"))]
+    assert sum(P["summary"].get("held_tutor", 0) for P in plans) == 44 and sum(len(P.get("released_by_rule") or []) for P in plans) == 225
     assert KEYS["one-or-two"]["flagged_slips"] == 47                                                      # the Lessons notes' number
     # PG-33 (2026-10-07): titles and intros say "the student", never his name
     assert INDEX[0]["title"] == "Listen: what did the student say?" and "27 short clips of the student" in LISTS["slip-check"]["intro"]
@@ -34,8 +38,9 @@ def test_the_lists_medi_asked_for_with_their_counts():
         parts = [x for x in INDEX if x["task"] == L["task"]]
         assert (L.get("parts") == len(parts) and L.get("part") == parts.index(L) + 1) if len(parts) > 1 else (L.get("part") is None and L.get("parts") is None), L["list"]
         if L["task"] == "slip-check-2":
-            assert L["title"] == "Listen: what did the student say? - part 2 - part %d of 5" % L["part"] and L["kind"] == "slip_check" and L["prefix"] == "slipcheck2"
-            assert ("short clips of the student (part %d of 5)" % L["part"]) in LISTS[L["list"]]["intro"]
+            # 2026-10-07 TR-28 re-read: one list now, so no "part n of 5" in the title or the intro
+            assert L["title"] == "Listen: what did the student say? - part 2" and L["kind"] == "slip_check" and L["prefix"] == "slipcheck2"
+            assert LISTS[L["list"]]["intro"].startswith("Short clips of the student.") and " of 5)" not in LISTS[L["list"]]["intro"]
     per = {}
     for x in LISTS["slip-check"]["items"]:
         per[x["date"]] = per.get(x["date"], 0) + 1

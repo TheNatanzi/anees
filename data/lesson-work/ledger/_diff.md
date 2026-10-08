@@ -7,9 +7,9 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 | 2026-08-25 | 77.1 | 94 | 90.4 | 33 | 271 | 0 / 0 |
 | 2026-09-04 | 75.0 | 22 | 74.1 | 44 | 139 | 0 / 0 |
 | 2026-09-05 | 78.6 -> **79.8** | 49 -> **47** | 82.2 -> **84.1** | 36 -> **37** | 185 -> **201** | 0 / 0 |
-| 2026-09-10 | 84.1 -> **85.0** | 110 | 86.1 | 43 | 252 | 1 / 0 |
+| 2026-09-10 | 84.1 -> **85.0** | 110 | 86.1 | 43 | 252 | 0 / 0 |
 | 2026-09-11 | 85.3 -> **83.8** | 68 | 81.6 -> **81.7** | 43 -> **42** | 207 -> **208** | 1 / 0 |
-| 2026-09-14 | 92.3 | 71 | 80.1 -> **80.2** | 46 -> **45** | 211 -> **212** | 1 / 0 |
+| 2026-09-14 | 92.3 | 71 | 80.1 -> **80.6** | 46 -> **44** | 211 | 1 / 0 |
 | 2026-09-15 | 80.0 -> **86.3** | 55 -> **51** | 83.5 -> **82.8** | 43 -> **44** | 230 -> **232** | 1 / 0 |
 | 2026-09-16 | 79.1 -> **76.1** | 43 -> **46** | 85.3 -> **86.8** | 37 -> **35** | 217 -> **227** | 0 / 0 |
 | 2026-09-17 | 88.4 | 56 | 82.8 -> **84.5** | 41 -> **37** | 215 -> **220** | 0 / 0 |
@@ -30,7 +30,6 @@ A cell 'a -> **b**' moved from a to b; a single number did not move.
 
 - 2026-09-05 10:38 C1a both stand: كل (word-bank right) vs كل الناس -> الكل (readers asked) - he asked for another word: both stand
 - 2026-09-10 17:01 C1a both stand: واحد (word-bank right) vs واحد أكتر -> كمان واحد (readers asked) - he asked for another word: both stand
-- 2026-09-10 54:44 C2 settled: الفعلات (readers wrong) vs الفعلات -> الأفعال (readers slip A9b) - one slip was counted twice (word + grammar): counted once, as grammar
 - 2026-09-11 09:30 C2 settled: أنجم (readers wrong) vs أنجم -> نجوم (readers slip A9) - one slip was counted twice (word + grammar): counted once, as grammar
 - 2026-09-14 08:16 C2 settled: اسمي (readers wrong) vs اسمي -> أسماء (readers slip A9) - one slip was counted twice (word + grammar): counted once, as grammar
 - 2026-09-15 1:02:41 C2 settled: أسامي (readers wrong) vs أسامي -> الأسماء (readers slip A1) - one slip was counted twice (word + grammar): counted once, as grammar

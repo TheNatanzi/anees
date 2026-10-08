@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-07T22:51:42-07:00",
+ "updated": "2026-10-07T23:06:33-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -903,8 +903,7 @@
     "grammar: 8 of the 43 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
     "2 question(s) of the new read sit at a moment Amal already ruled on (07:32, 08:30): they wait for Medi, not for her (owner-review.json).",
     "6 slip(s) here come from the first read only (5 grammar, 1 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
-    "2 slips may be counted twice (same slip written in Arabic and in English letters).",
-    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 54:44 one slip was counted twice (word + grammar): counted once, as grammar."
+    "2 slips may be counted twice (same slip written in Arabic and in English letters)."
    ],
    "page": "lessons/2026-09-10.html",
    "detail": "data/lessons/2026-09-10.json",
@@ -943,9 +942,9 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-10.json",
-    "marks": 400,
-    "conflicts": 2,
-    "resolved": 1,
+    "marks": 399,
+    "conflicts": 1,
+    "resolved": 0,
     "needs_medi": 0,
     "mode": "on",
     "items": []
@@ -1414,31 +1413,29 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 212,
-    "mistakes": 45,
-    "pct": 80.2,
+    "uses": 211,
+    "mistakes": 44,
+    "pct": 80.6,
     "estimate": false,
-    "scored_mistakes": 42,
+    "scored_mistakes": 41,
     "unscored_mistakes": 3,
-    "first_read_cards": 5,
-    "provisional": "5 of its slips come from the first read only and wait for a check",
-    "maybe_counted_twice": 1,
-    "eligible": 43,
+    "first_read_cards": 4,
+    "provisional": "4 of its slips come from the first read only and wait for a check",
+    "eligible": 42,
     "excluded": 2,
     "pending": 8,
     "denominator": {
      "valid": false,
      "reasons": [
       "6 slips are in rules the counter found 0 uses of in this lesson",
-      "7 rules have more slips than counted uses (A9, B12, B18, B2, B7, D2, E1)"
+      "6 rules have more slips than counted uses (A9, B18, B2, B7, D2, E1)"
      ],
      "uses": 176,
-     "slips": 45,
-     "slips_latin": 9,
+     "slips": 44,
+     "slips_latin": 8,
      "slips_in_zero_use_rules": 6,
      "rules_slips_over_uses": [
       "A9",
-      "B12",
       "B18",
       "B2",
       "B7",
@@ -1521,9 +1518,8 @@
    "taught_words": [],
    "coverage": "Lesson = N-verb drill (bakser/banz3ej/banbese6) with long English stretches (11:34-14:30, 21:01-22:10, 27:40-28:15, 32:56-33:50, 36:02-36:50, 46:06-47:12, 49:06-50:25). Several Medi lines are Latin-letter Arabic (12:23 Min kasar, 13:33 ana mazuruj, 13:53 ma tistameli, 16:38 El Sadeeki, 19:03 n-nitlab, 37:52 bienzaju, 40:20 wa'atik, 41:22 basatik, 42:06 Basatu, 42:16 Ajitu, 50:35 Bitenbasti). Engine issues: 02:06 'أشتري في محلي' is the engine for بشتغل (her chat bashte8el fi ma7alli; the real slip was 01:14 and he had already caught it); Amal's 03:09 'اشتريت. ما فتاك، اشتريت' and 03:18 'Some people say اشتريت' are the engine for اخترت (her chat e5taret); 04:12 Amal 'بيعطوني' = بيقاطعوني (chat bey2aat3uni); 24:44 Medi 'من شاف' = his attempt at ناشف; 26:44 Amal 'بسات' = بسطت; 28:22 Amal 'أزعجني' = her echo زعجني (chat huwwe za3ajni), not a fix; 57:06 'هو بسطتك' = هي; 59:29/59:34 Amal 'نبسِته' = her pronunciation of نبسطه (nebse6o), not a correction. Pronunciation only (S4, not filed): 05:17-05:20 هدرت/هدرتها for حضرتها (ح->ه, she recast حضرتها); 19:03 nitlab for نلعب; 53:16 انبسينا for انبسطنا (she said 'you missed a letter'); 05:34/05:42 انبس- restarts. Self-fixes not filed (GR-22): 02:42 بيخلص->خلاص; 13:48-13:53 ما تستعمل->ما تستعملي; 23:16-23:18 أزرق->زرقا is borderline (filed low as 0914-20 because her زرقا is on the same second); 30:06 ما تنزعجش -> 30:10 ما تنزعجي مني (he dropped the non-Levantine -sh himself); 54:38 بيبسط->بيبسطوا; 57:02 بسطك->بسطت. 1:01:58 'بكم مرة؟ Sorry.' = kaman marra? (Amal repeats herself) - not a slip. 1:00:43-1:01:16 'ما انبسط بـ عزومة' repeats the 1:00:10 el- miss (one row, 0914-39). 36:15 'كل حدا or الكل?' is a question about options, not filed. Echo candidates: none are sound-alikes (118.49 'uh', 253.69 'Mm.', 609.84 'Ah, oops.', 2389.6 'I am happy.' is his real English gloss of بانبسط, 2559.02 'I got happy?' is his real English); take_verb / laazem_noun lists are empty. Names: امريكا (06:20) not flagged. / Engine renders Amal's اخترت as اشتريت at 02:31/03:09/03:18 (her 'they add E' remark and chat e5taret confirm). 01:14 بشتري (for بشتغل) self-fixed by Medi at 01:30 before Amal supplied the word - left out (GR-22). 02:42 خلاص متأخر is the GR-22 example - left out. Pronunciation-only, left out (S4): 05:17 هدرت/هدرتها for حضرت, 19:03 n-nitlab for نلعب, 26:44 بساط, 53:16 انبسينا ('you missed a letter' = dropped ط), 59:29 نبسطه vs her نبسِته. 13:01 'mazuruj' and 12:19 'إسكَر' are engine renderings. 28:22 Amal's أزعجني is her repeat (chat huwwe za3ajni = his form right). 32:49 زعجناها: Amal's 'which verbs take the A?' plus his 'Did I say the A sound?' / 'Mm-hmm' show the engine cleaned up a long-a form. Echo candidates checked: 39:50 'I am happy.' and 42:39 'I got happy?' are real English glosses; others are fillers. Long English-only stretches: 10:06-11:15, 21:01-22:06, 27:44-28:13 (Meet dropped), 43:57-45:38 (Medi away), 1:01:28-1:02:30. 1:00:57 ما انبسط after إنه without b- left out: Amal's own chat writes ma anbese6.",
    "notes": [
-    "grammar: 3 of the 45 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
-    "7 slip(s) here come from the first read only (5 grammar, 2 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
-    "1 slips may be counted twice (same slip written in Arabic and in English letters).",
+    "grammar: 3 of the 44 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "6 slip(s) here come from the first read only (4 grammar, 2 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
     "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 08:16 one slip was counted twice (word + grammar): counted once, as grammar."
    ],
    "page": "lessons/2026-09-14.html",
@@ -1540,12 +1536,12 @@
     "chat_lines": 45,
     "vocab_errors": 11,
     "vocab_correct": 65,
-    "grammar_errors": 45,
+    "grammar_errors": 44,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-14.json",
-    "marks": 306,
+    "marks": 305,
     "conflicts": 1,
     "resolved": 1,
     "needs_medi": 0,
@@ -1556,7 +1552,7 @@
     "status": "not verified",
     "reasons": [
      "reader agreement: pass 1 73.2 %; 2 consecutive passes at >= 95 % are needed",
-     "grammar % provisional: 5 of its slips come from the first read only and wait for a check",
+     "grammar % provisional: 4 of its slips come from the first read only and wait for a check",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3768 s) compared with a second model",
      "checks: 9 scored rows need an audio or human check (1 words, 8 grammar)"
     ],

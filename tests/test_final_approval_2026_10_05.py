@@ -187,7 +187,8 @@ def test_word_credits_the_second_listen_no_longer_hears_are_listed_and_not_score
     over = J("docs", "data", "word-bank-audit-slips.json")["overrides"]
     assert not [o for o in over if (o.get("changes") or {}).get("rehear_hold")]
     tut = [o for o in over if (o.get("changes") or {}).get("tutor_listened")]
-    assert len(tut) == moved == 12 and all(o["changes"]["ledger"] == o["mark"] and "(TR-27)" in o["changes"]["ledger_reason"] for o in tut)
+    # 2026-10-07 TR-28 re-read: 13 (was 12) - the 09-11 line under her "no" (wb:75fd130f) is now applied by rule, so that word is off his line and the credit moved
+    assert len(tut) == moved == 13 and all(o["changes"]["ledger"] == o["mark"] and "(TR-27)" in o["changes"]["ledger_reason"] for o in tut)
     src = SRC("scripts", "lesson_ledger.py")
     assert 'state="tutor-listened"' in src and 'why_by="TR-27"' in src and '"tutor_listened": True' in src
 
@@ -287,13 +288,14 @@ def test_the_late_merges_of_the_last_build_were_each_re_validated():
     # 2026-10-07: the readers re-read the 17 changed lessons on the final text, so the old rule's late pairs are 8 now (14 on
     # 10-05); each still has its evidence, and the hand reading of 10-05 stays on every pair that still exists (merge-review-hand.json)
     hand = J("data", "lesson-work", "rehear", "rejudge", "merge-review-hand.json")["rows"]
-    assert len(M["rows"]) == 8 and M["merged"] + M["now_split"] == 8 and M["merged"] == 7
+    # 2026-10-07 TR-28 re-read: 10 late pairs (was 8), all 10 merged (was 7 of 8), none now split
+    assert len(M["rows"]) == 10 and M["merged"] + M["now_split"] == 10 and M["merged"] == 10
     for x in M["rows"]:
         assert x["result"] in ("merged", "now split") and x["why"], x["date"]
         assert x["read_by_hand"] == hand.get("%s|%s" % (x["date"], x["sweep_row"]["sweep_id"])), (x["date"], x["mmss"])
         if x["result"] == "merged":
             assert re.search(r"same rule|same wrong piece|same right piece|same word from Amal|two alphabets|same piece", x["why"]), x["why"]
-    assert sum(1 for x in M["rows"] if x["read_by_hand"]) == 4
+    assert sum(1 for x in M["rows"] if x["read_by_hand"]) == 2      # 2026-10-07 TR-28 re-read: 2 of the hand-read pairs still exist (was 4)
 
 
 # ---------------------------------------------------------------- council 4: the owner's override is written down
@@ -400,7 +402,9 @@ def test_no_formerly_scored_row_left_the_audit_without_a_reason():
             assert r["kind"] == "rejected", x["uid"]
             if (r.get("amal_ruling") or {}).get("kind") != "drop":
                 p = next(p for p in J("data", "lesson-work", "full-audit", "duplicates.json")["pairs"] if p["drop"] == x["uid"])
-                assert p["by"] == "tutor-listen" and p["rule"] == "LS-16" and p["keep"] == r["duplicate_of"] and "the tutor's answer" in p["why"], x["uid"]
+                # her answer (by tutor-listen), or a pair the 2026-10-07 audit joined under the LS-15 / LS-16 rule itself
+                assert p["keep"] == r["duplicate_of"] and ((p.get("by") == "tutor-listen" and p["rule"] == "LS-16" and "the tutor's answer" in p["why"])
+                                                          or (p["rule"] in ("LS-15", "LS-16") and "2026-10-07" in p["why"])), x["uid"]
                 assert r["duplicate_of"] in audit and audit[r["duplicate_of"]]["kind"] != "rejected", x["uid"]
     assert all(not RR.was_scored(before[x["uid"]]) for x in K["unscored_not_rewritten"])
     # no restored row doubles a row of the re-read: none has the same correction within 30 s on another row
@@ -441,7 +445,10 @@ def test_a_row_whose_wrong_piece_exists_only_in_a_withheld_line_is_not_scored_un
     assert line["was"] == "spot" and line["list"] == "old-new" and line["answer"]["choice"] == "new" and line["engine"] == "ما credit card" and line["heard"] == "مع credit card"
     turn = next(t for t in J("docs", "data", "lessons", "2026-09-21.json")["turns"] if abs(t["t"] - line["t"]) < 0.01)
     assert turn["text"] == "مع credit card" and turn["engine"] == "ما credit card" and [(h["engine_wrote"], h["heard"]) for h in turn["heard"]] == [("ما", "مع")]
-    r = next(x for x in rows if x["uid"] == "FA-99795002")
+    # 2026-10-07 TR-28 re-read: the readers' row (read key FA-99795002) now carries the before-snapshot uid of the scored slip, FA-a36f7b0e
+    c = next(e for v in J("data", "lesson-work", "full-audit", "uid-carry.json")["lessons"].values() for e in v if e["old_uid"] == "FA-a36f7b0e")
+    assert c["read_key"] == "FA-99795002" and c["new"]["wrong"] == "مع credit card" and c["new"]["right"] == "بالـ credit card"
+    r = next(x for x in rows if x["uid"] == "FA-a36f7b0e")
     assert r["kind"] == "grammar" and r["date"] == "2026-09-21" and r["t"] == "24:38" and r["wrong"] == "مع credit card" and r["right"] == "بالـ credit card"
     assert not r.get("rejected_rule") and not r.get("kind_before_rejection")
     L = J("docs", "data", "lessons", "2026-09-21.json")
@@ -503,6 +510,12 @@ SAME_BY_HAND = {
     ("mina", "منّا"), ("alaina (3alaina)", "علينا"), ("shu huwa", "شو هو"), ("ili (illi)", "اللي"), ("لما أنا كسول", "lama ana kasul"),
     ("sawa", "سوى"), ("sawwaah", "سوّى"), ("el akil mufaddal", "الأكل مفضل"), ("el-akel el-mufaddal", "الأكل المفضل"),
     ("khali", "خلّي"),      # 2026-10-07: the re-read on the final text wrote 09-15 11:31 in Arabic (khalli = خلّي, the bare form for 'I make')
+    # 2026-10-07 TR-28 re-read: the readers wrote these five 09-16 / 09-18 slips in Arabic on the final text (read by hand: same words)
+    ("hamasi", "حَمِّسي"), ("hamasini (7ammsini)", "حمسيني"),                                   # 09-16 22:00
+    ("bidayi", "بدايي"), ("beydaay2ek", "بيضايقك"),                                              # 09-16 43:39
+    ("khuffet aleiki (5ufet 3alaik)", "خفت عليك (5ufet 3alaik)"),                                # 09-18 10:29
+    ("alaina (3alaina)", "علينا (3alaina)"),                                                     # 09-18 44:13
+    ("ili (illi)", "اللي (illi sawwaah)"),                                                       # 09-18 45:58
 }
 
 
@@ -548,10 +561,14 @@ def test_every_ruled_carry_and_every_same_slip_removal_passes_the_independent_co
     # and the uid was carried onto that row by the piece; the past-tense-ending row at the same moment (B5, enbistee -> انبسطتي,
     # FA-aa03ebc5 on 10-05) is still its own row, never merged into it
     assert r["kind"] == "grammar" and r["bucket"] == before["FA-5ba734f4"]["bucket"] == "D2" and not r.get("kept") and not r.get("duplicate_of")
-    assert "في" in r["right"] and "في" not in r["wrong"] and r["t"] == "06:17"
+    # 2026-10-07 TR-28 re-read: the readers now write it at 06:50 as 'انبسطتي (no في)' -> 'انبسطتي في وقتك' (was 06:17 'انبسطتي وقتك');
+    # the في in the wrong side is only the readers' bracketed note, so his words (_tok drops the note) still lack it
+    assert "في" in r["right"] and "في" not in _tok(r["wrong"]) and r["t"] == "06:50"
     c = next(e for v in C["lessons"].values() for e in v if e["old_uid"] == "FA-5ba734f4")
     assert c["how"] == "piece" and c["old"]["wrong"] == "(missing في)" and c["new"]["wrong"] == r["wrong"] and c["new"]["right"] == r["right"]
-    b5 = [x for x in audit.values() if x["date"] == "2026-09-05" and x["t"] == "06:17" and x["uid"] != "FA-5ba734f4"]
+    # 2026-10-07 TR-28 re-read: the B5 row is now at 06:33 (FA-efab4f40), 17 s before the D2 row - the only other row within a minute of it
+    secs = lambda t: sum(int(v) * 60 ** i for i, v in enumerate(reversed(str(t).split(":"))))  # noqa: E731
+    b5 = [x for x in audit.values() if x["date"] == "2026-09-05" and abs(secs(x["t"]) - secs(r["t"])) <= 60 and x["uid"] != "FA-5ba734f4"]
     assert "FA-aa03ebc5" not in audit and [(x["bucket"], x["kind"], x.get("duplicate_of")) for x in b5] == [("B5", "grammar", None)]
 
 
@@ -567,7 +584,11 @@ def test_a_confirmed_kept_row_is_not_dropped_as_the_repeat_of_an_unruled_reread_
     FAB.mark_duplicates([a, b])
     assert a["kind"] == "grammar-B" and b["kind"] == "rejected"
     r = next(x for x in J("data", "full-audit-2026-09-26.json")["rows"] if x["uid"] == "FA-7d36c59d")
-    assert r["kept"] == RR.KEPT_MARK and r["kind"] == "grammar" and r["amal_ruling"]["kind"] == "confirm"
+    # 2026-10-07 TR-28 re-read: the readers wrote this slip again themselves on the final text (r1+r2, same uid), so it is their row
+    # now, not a kept one - still scored by her confirmation (they filed it as a B question) and not dropped as anyone's repeat
+    before = {u["uid"]: u for x in J("data", "lesson-work", "rehear", "rejudge", "before.json")["lessons"].values() for u in x["rows"]}
+    assert r.get("kept") is None and r["agreed_by"] == "r1+r2" and r["wrong"] == before["FA-7d36c59d"]["wrong"] and before["FA-7d36c59d"]["amal"] == "confirmed"
+    assert r["kind"] == "grammar" and r["amal_ruling"]["kind"] == "confirm" and r["amal_ruling"]["before"]["kind"] == "grammar-B" and not r.get("duplicate_of")
 
 
 def test_the_six_removals_codex_named_each_have_a_state():
@@ -576,12 +597,15 @@ def test_the_six_removals_codex_named_each_have_a_state():
     A = J("data", "lesson-work", "rehear", "rejudge", "removal-adjudications.json")["rows"]
     assert sorted(A) == ["FA-00b45200", "FA-27e2ba45", "FA-737a36aa", "FA-888a7072", "FA-9a8a82cc", "FA-e007181a"]
     carried = {e["old_uid"]: e for v in J("data", "lesson-work", "full-audit", "uid-carry.json")["lessons"].values() for e in v}
+    before = {r["uid"]: r for x in J("data", "lesson-work", "rehear", "rejudge", "before.json")["lessons"].values() for r in x["rows"]}
     for u, x in A.items():
         if x["state"] == "restored":
             # 2026-10-07: a restored slip is still scored under its uid - as the first-read slip, or (FA-27e2ba45) because the
             # re-read on the final text wrote the same slip again and the uid was carried onto that row
             assert audit[u]["kind"] in ("grammar", "vocab-A") and u not in cause, u
-            assert audit[u].get("kept") == RR.RESTORED_MARK or (not audit[u].get("kept") and u in carried and _independent_same(carried[u]["old"], carried[u]["new"])), u
+            # 2026-10-07 TR-28 re-read: FA-27e2ba45 was written again by the readers themselves (r1+r2) under its own uid - no carry, no kept mark
+            own = not audit[u].get("kept") and audit[u].get("agreed_by", "").startswith("r") and _independent_same(before[u], audit[u])
+            assert audit[u].get("kept") == RR.RESTORED_MARK or own or (not audit[u].get("kept") and u in carried and _independent_same(carried[u]["old"], carried[u]["new"])), u
         elif x["state"] == "removed (a)":
             c = cause[u]
             assert u not in audit and c["cause"] == "2" and c["line_changed"] and c["wrong_piece_gone_from_line"] and x["why"], u

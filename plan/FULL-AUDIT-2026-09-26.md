@@ -6,11 +6,11 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **649** (sweep had 312) |
+| Grammar fixes Amal voiced (A) | **648** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 109 |
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 12 |
-| Vocab fixes Amal voiced (A) | **330** (sweep had 147; lesson pages showed 23) |
-| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 155, '0': 129, '2': 76, '3': 2} |
+| Vocab fixes Amal voiced (A) | **329** (sweep had 147; lesson pages showed 23) |
+| - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 155, '0': 129, '2': 75, '3': 2} |
 | Vocab she let pass (B, to Amal) | **26** by tier {'1': 16, '2': 9, '3': 1} |
 | Listening-drill misreads (kept apart) | 63 |
 | Rows the readers found that the sweep did not have | 740 |
@@ -24,9 +24,9 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-08-25 | 29 | 13 | 22 | 5 | 3 | 24 | 13 | 79.3 % |
 | 2026-09-04 | 43 | 14 | 14 | 2 | 7 | 29 | 11 | 63.8 % |
 | 2026-09-05 | 36 | 2 | 10 | 1 | 0 | 25 | 5 | 58.1 % |
-| 2026-09-10 | 33 | 12 | 27 | 1 | 0 | 20 | 10 | 54.5 % |
+| 2026-09-10 | 33 | 12 | 26 | 1 | 0 | 20 | 10 | 54.5 % |
 | 2026-09-11 | 35 | 10 | 15 | 3 | 1 | 21 | 10 | 69.8 % |
-| 2026-09-14 | 42 | 4 | 11 | 0 | 0 | 29 | 7 | 73.2 % |
+| 2026-09-14 | 41 | 4 | 11 | 0 | 0 | 29 | 7 | 73.2 % |
 | 2026-09-15 | 42 | 4 | 9 | 0 | 2 | 29 | 8 | 66.7 % |
 | 2026-09-16 | 37 | 6 | 17 | 2 | 0 | 23 | 10 | 57.4 % |
 | 2026-09-17 | 38 | 8 | 9 | 1 | 2 | 28 | 5 | 60.7 % |
@@ -71,7 +71,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 |---|---|---|
 | B18 | verb matches its subject | 65 |
 | B5 | past tense | 53 |
-| B12 | make-X vs get-X | 51 |
+| B12 | make-X vs get-X | 50 |
 | A8 | gender on adjectives | 47 |
 | D2 | verb + its fixed preposition | 45 |
 | D4 | endings on verbs | 39 |
@@ -552,7 +552,7 @@ _Opening 00:04-01:42 is setup/noise; 03:42-05:51, 16:50-18:13, 41:10-42:30 (Medi
 | FA-3ec06e30 | 52:36 | vocab-A | tier 2 | ما سكرت uh, ولا اشي. | كسرت. | سكرت -> كسرت | Letters swapped again (sakkart = I closed) for kasart; Amal recast and he repeated كسرت at 52:44. | high | r1+r2 |
 | FA-7091ede5 | 53:45 | grammar | C4 | أنا نِمِت مش منيح. | Or ما نمت منيح. | نِمِت مش منيح -> ما نمت منيح | 'I didn't sleep well' negates the verb with ma; he negated the adverb with mish; Amal recast with 'Or' (may be offering the better form rather than ruling his wrong) and he repeated ما نِمِت منيح. | medium | r1+r2 |
 | FA-d42c025b | 54:43 | grammar | A9b | الف-الفعلات. الفعلات إن. | أفعال. | الفعلات -> الأفعال | made a regular -aat plural of فعل instead of the broken plural | high | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
-| FA-513b51aa | 54:44 | vocab-A | tier 2 | إن إن. الفـ--، الفـ--، علات، الفعلات إن. | أفعال. | الفعلات -> الأفعال | He invented the plural fe3laat for fe3el; Amal gave the broken plural أفعال and he said الأفعال. Invented plural pattern = vocab tier 2 per the brief. | high | r3 |
+| FA-513b51aa | 54:44 | rejected | tier 2 | إن إن. الفـ--، الفـ--، علات، الفعلات إن. | أفعال. | الفعلات -> الأفعال | He invented the plural fe3laat for fe3el; Amal gave the broken plural أفعال and he said الأفعال. Invented plural pattern = vocab tier 2 per the brief. | high | r3 |
 | FA-b26092ca | 56:44 | vocab-A | tier 2 | hold on. مزعج. No. | مم، مم، مم. أنا مزعوج. | مزعج -> مزعوج | For 'I am annoyed' he said مزعج (annoying); his 'No.' gave no right word before Amal supplied أنا مزعوج, then he confirmed مزعج = annoying. Sheet: annoyed / Maz3ooj / مزعوج; annoying / Muz3ej / مزعج. Same root, wrong participle of a word he knows (he said مزعوج at 18:41) = tier 2. | high | r3 |
 | FA-aba478de | 56:44 | grammar | B15 | hold on. مزعج. | مم، مم، مم. أنا مزعوج. | مزعج -> مزعوج | 'I am annoyed' is the passive participle مزعوج; مزعج = annoying (both on her sheet as separate rows); she recast and asked what أنا مزعج means (56:52). | high | r1+r2 |
 | FA-c8b1fca9 | 57:14 | grammar | B1 | is it بزور بنكسر؟ بنكسر. أكسر. Okay. | بكسر and بنكسر. صح. | أكسر -> بكسر | Naming the verb pair he gave the bare أكسر; she recast بكسر and بنكسر. | medium | r1+r2 |
@@ -659,7 +659,7 @@ _Lesson = N-verb drill (bakser/banz3ej/banbese6) with long English stretches (11
 | FA-f44d0ccc | 11:20 | vocab-A | tier 1 | أنا لازم أعمله-- أم-أعملهم هون. هون؟ هلا, goddammit. I always mix up هلا and هون. | هلا. | هون -> هلا | 'I have to do them now' is halla; he said hoan (here) - both on her sheet (here / Hoan / هون; now / Halla / هلا); Amal said هلا at 11:27 and he admits 'I always mix up هلا and هون' - possible self-fix on the same second, so medium. | medium | r1+r2 |
 | FA-5d3e9fc9 | 14:11 | grammar | C7 | abel ma tistallehi shu. ... iserti. | صح. Or how do I use into here? / And what do I add to the verb? | shu kasarti -> illi kasartih | used shu instead of illi and no pointer ending | low | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
 | FA-27e2ba45 | 14:34 | grammar | B12 | uh, en-enkis-enkistri. | You broke. You broke the thing that you have to fix. Not you were broken. | انكسرتي -> كسرتي | 'what you broke' is the doing form kasarti; he used the get-X form enkasarti (you got broken); Amal: 'you broke... not you were broken', he then said كسرتي. | high | r1+r2 |
-| FA-bd3849a8 | 14:34 | grammar | B12 | uh, en-enkis-enkistri. | You broke. You broke the thing that you have to fix. Not you were broken. | enkistri -> kasarti | He used the get-broken verb انكسر for 'what you broke'; she said no, you broke (كسرت), not you were broken; he then gave kasarti. | high | r1+r2 |
+| FA-bd3849a8 | 14:34 | rejected | B12 | uh, en-enkis-enkistri. | You broke. You broke the thing that you have to fix. Not you were broken. | enkistri -> kasarti | He used the get-broken verb انكسر for 'what you broke'; she said no, you broke (كسرت), not you were broken; he then gave kasarti. | high | r1+r2 |
 | FA-b929e84a | 15:35 | grammar | E1 | واحد | Now for the one ... Is the hand feminine or masculine? ... صح. Okay. So بستعمل واحد or وحدة. | واحد -> وحدة | 'One of my friend's hands' - إيد is feminine so 'one' must be wa7de; he said واحد, Amal walked him through the gender of يد and he fixed it to وحدة at 16:10. | medium | r3 |
 | FA-4ed253e5 | 16:28 | grammar | A9 | Eid El Sadeeki. | Hands. | Eid (hand) -> Edayn (min idain) | singular where 'one of the hands' needs the dual/plural | medium | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
 | FA-5007c80e | 16:29 | grammar | A9 | إيد الصديقي | Hands. | إيد -> إيدين | 'one of my friend's hands' needs the dual idain; he said the singular إيد, Amal prompted 'Hands.' and he produced إيدين. | high | r1+r2 |

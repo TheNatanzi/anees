@@ -125,26 +125,26 @@ def _reread_after(date, day):
 REREAD_2026_10_04 = {
     ("2026-09-04", "41:34"): {"is": "listening-row", "uid": "FA-968ffd70"},   # 2026-10-07 re-read (TR-27 text): the third reader wrote it again as a listening row - still never counted
     ("2026-09-04", "1:01:02"): {"is": "never-counted", "old": "FA-9948308b"},
-    ("2026-09-10", "54:44"): {"is": "grammar", "uid": "FA-d42c025b", "bucket": "A9", "right": "الأفعال", "old": "FA-513b51aa", "old_is": "restored"},
+    ("2026-09-10", "54:44"): {"is": "grammar", "uid": "FA-d42c025b", "bucket": "A9b", "right": "الأفعال", "old": "FA-513b51aa", "old_is": "duplicate"},   # 2026-10-07 TR-28 re-read: filed under A9b (was A9); the old vocab row came back and was joined to it as one mistake (LS-16)
     ("2026-09-14", "13:57"): {"is": "chat-only", "old": "FA-33130f91"},
     ("2026-09-14", "22:31"): {"is": "chat-only", "old": "FA-8cfe44af"},
     ("2026-09-15", "04:05"): {"is": "word-card", "uid": "FA-2b51b336", "right": "مفروم"},
-    ("2026-09-16", "22:34"): {"is": "rewritten", "old": "FA-186f5001"},   # 2026-10-07 re-read (TR-27 text): the readers wrote it again themselves (r3), so no restore mark
+    ("2026-09-16", "22:34"): {"is": "restored", "old": "FA-186f5001"},   # 2026-10-07 TR-28 re-read: the readers did not write it again on the new text, so it is back as the restored first-read slip (was rewritten by r3)
     ("2026-09-16", "52:29"): {"is": "grammar", "uid": "FA-dda4e377", "bucket": "A12", "right": "همّ"},
     ("2026-09-17", "18:05"): {"is": "grammar", "uid": "FA-ae6076c6", "bucket": "B5", "right": "تأسفتلها"},
     ("2026-09-17", "44:20"): {"is": "line-changed", "old": "FA-64681e02"},
-    ("2026-09-18", "32:55"): {"is": "rewritten", "old": "FA-bcbeff67"},   # 2026-10-07 re-read: written again by the readers themselves
+    ("2026-09-18", "32:55"): {"is": "restored", "old": "FA-bcbeff67"},   # 2026-10-07 TR-28 re-read: not written again on the new text, so back as the restored first-read slip (was rewritten)
     ("2026-09-18", "43:32"): {"is": "rewritten", "old": "FA-6abf9688"},   # 2026-10-07 re-read: written again by the readers themselves
-    ("2026-09-19", "03:44"): {"is": "never-counted", "old": "FA-ba332604"},
+    ("2026-09-19", "03:44"): {"is": "listening-row", "uid": "FA-ba332604"},   # 2026-10-07 TR-28 re-read: the third reader wrote it again as a listening row (was out of the audit) - still never counted
     ("2026-09-19", "22:58"): {"is": "rewritten", "old": "FA-2d1a4cb5"},   # 2026-10-07 re-read: written again by the readers themselves
     ("2026-09-19", "26:00"): {"is": "never-counted", "old": "FA-6a236ab9"},
     ("2026-09-21", "43:03"): {"is": "grammar", "uid": "FA-a47ebc9d", "bucket": "B1", "right": "بستعمل", "old": "FA-9e964adb", "old_is": "restored"},
     ("2026-09-21", "47:43"): {"is": "line-changed", "old": "FA-32ec2df1"},
     ("2026-09-23", "07:33"): {"is": "grammar", "uid": "FA-966e91f4", "bucket": "B5", "right": "ما رحت"},
-    ("2026-09-23", "09:06"): {"is": "grammar", "uid": "FA-f3f29483", "bucket": "A1", "right": "أغلب الأيام"},   # 2026-10-07 re-read: both readers file it under A1 (was A2)
+    ("2026-09-23", "09:06"): {"is": "grammar", "uid": "FA-f3f29483", "bucket": "A2", "right": "أغلب الأيام"},   # 2026-10-07 TR-28 re-read: filed under A2 again, A1 as its second rule (was A1)
     ("2026-09-23", "10:15"): {"is": "never-counted", "old": "FA-0cd5b995"},
     ("2026-09-23", "11:17"): {"is": "never-counted", "old": "FA-45d0d6bc"},
-    ("2026-09-23", "28:23"): {"is": "never-counted", "old": "FA-be8d84c0"},
+    ("2026-09-23", "28:23"): {"is": "listening-row", "uid": "FA-be8d84c0"},   # 2026-10-07 TR-28 re-read: the third reader wrote it again as a listening row (was out of the audit) - still never counted
 }
 RESTORED_MARK = "first-read slip; the re-read on 2026-10-04 did not write it again and its words are still on the line - kept until a person checks it"
 
@@ -177,6 +177,12 @@ def test_reread_gold_cards_keep_their_documented_disposition():
             assert abs(_secs(r["t"]) - _secs(mm)) <= B.VERDICT_DRIFT_S, why
             if x.get("old_is") == "restored":
                 restored(x["old"], d, why)
+            elif x.get("old_is") == "duplicate":   # the old row is back but joined to this one as one mistake (duplicates.json)
+                o = audit.get(x["old"])
+                assert o and o["date"] == d and o["kind"] == "rejected" and o.get("duplicate_of") == x["uid"], why
+            elif x.get("old_is") == "rewritten":   # the readers wrote the old row again on the final text: its own row, no kept mark
+                o = audit.get(x["old"])
+                assert o and o["date"] == d and o["kind"] == before[x["old"]]["kind"] and o.get("kept") is None and counted(o), why
         elif x["is"] == "word-card":
             r = audit.get(x["uid"])
             assert r and r["date"] == d and r["kind"] == "vocab-A" and B.word_core(x["right"]) in B.word_core(r.get("right")), why
