@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-07T18:02:33-07:00",
+ "updated": "2026-10-07T18:11:00-07:00",
  "result": "pass",
- "source": "manual: TR-27 the tutor's ear - Gemini second listen published with Amal's answers; GR-30 tool-word rules; 2026-10-07 audit",
- "checked_commit": "8eb53fff2854",
- "secs": 75.5,
+ "source": "manual: PG-33 wording on the second-listen chip",
+ "checked_commit": "ab07c99402bb",
+ "secs": 70.5,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.7,
+   "secs": 0.9,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "120 JSON files parse"
   },
@@ -33,7 +33,7 @@
    "id": "rule_registry",
    "required": true,
    "ok": true,
-   "secs": 0.7,
+   "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
    "detail": "rule_registry: OK - 207 rules: enforced 117 (code 108, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 3.2,
+   "secs": 2.1,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.0,
+   "secs": 0.8,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.3,
+   "secs": 1.2,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 697 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 2.0,
+   "secs": 1.7,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...9 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 4.5,
+   "secs": 4.3,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 70 pages, every link, data file and clip resolves (663 references to unpublished clips play from the full lesson recording)"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 53.8,
+   "secs": 52.0,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 93%] | ..........................................                               [100%] | 686 passed, 1 skipped, 3 xfailed in 51.94s"
+   "detail": "............................. [ 93%] | ..........................................                               [100%] | 686 passed, 1 skipped, 3 xfailed in 50.12s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 1.0,
+   "secs": 0.9,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 946.3008"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 872.0461"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 4.3,
+   "secs": 4.4,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -153,7 +153,7 @@
    "id": "review_freshness",
    "required": false,
    "ok": true,
-   "secs": 0.3,
+   "secs": 0.2,
    "what": "the two readers read the transcript the pages show now",
    "detail": "20 lessons audited on their current transcript"
   },
@@ -186,14 +186,14 @@
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
-  "at": "2026-10-07T18:00:43-07:00",
-  "source": "manual: TR-27 the tutor's ear - Gemini second listen published with Amal's answers; GR-30 tool-word rules; 2026-10-07 audit",
-  "outcome": "rebase_failed",
-  "sha": null,
-  "reason": "pull --rebase failed (a conflict with master; a person merges): conflict in a hand-made file (a person merges): data/lesson-work/echo-candidates/2026-09-14.json, data/lesson-work/echo-candidates/2026-09-15.json, data/lesson-work/echo-candidates/2026-09-16.json, data/lesson-work/echo-candidates/2026-09-19.json, data/lesson-work/echo-candidates/2026-09-21.json",
-  "secs": null,
-  "commits_waiting": "25"
+  "at": "2026-10-07T18:09:02-07:00",
+  "source": "manual: PG-33 wording on the second-listen chip",
+  "outcome": "blocked",
+  "sha": "4277122c802b6c5dd428f1eb69532487e0e02165",
+  "reason": "tests_py: exit 1: FAILED tests/test_rehear_status.py::test_pg27_no_status_claims_more_than_is_true | FAILED tests/test_final_approval_2026_10_05.py::test_the_second_listen_marks_say_ai_agreement_and_name_the_mixed_recordings | 2 failed, 684 passed, 1 skipped, 3 xfailed in 50.22s",
+  "secs": 72.4,
+  "commits_waiting": "1"
  },
- "blocks_before_this_pass": 2,
+ "blocks_before_this_pass": 1,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
