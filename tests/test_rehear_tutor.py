@@ -112,3 +112,25 @@ def test_TR_27_the_plan_lists_held_taken_out_and_applied_lines_and_the_chip_coun
     row = A.status_row("2026-09-21", P, since="2026-10-07")
     assert row["status"] == "applied" and row["tutor_wait"] == 3
     assert "3 lines wait for the tutor's ear" in row["note"] and "2 changes taken out on the tutor's word" in row["note"] and "1 applied on the tutor's word" in row["note"]
+
+
+def test_TR_28_a_held_line_that_cannot_hide_a_mistake_is_applied_by_rule():
+    """TR-28 (Medi 2026-10-07 "223 is a large number, can you please think of some solutions on your own end to solve them?")."""
+    r = {"i": 7, "t": 100.0, "engine": "انزعجتم كتير", "heard": "انزعجتوا كتير", "kind": "words"}
+    base = dict(EMPTY)
+    # no reader wrote a mistake there on either text: nothing to hide -> applied, the hold's reason kept
+    K = dict(base, _now={"2026-09-10": [400.0]}, _gemini={"2026-09-10": [400.0]})
+    v = RT.verdict("2026-09-10", r, LINE, HERS, {}, K)
+    assert v["status"] == "apply" and v["rule"] == "TR-28" and "no reader found a mistake" in v["why"] and v["held_why"]
+    # the same moment's mistake on both texts: it did not vanish -> applied
+    K = dict(base, _now={"2026-09-10": [101.0]}, _gemini={"2026-09-10": [101.5]})
+    assert RT.verdict("2026-09-10", r, LINE, HERS, {}, K)["status"] == "apply"
+    # a mistake on the engine text only (the gate's case: it would vanish) -> still held; on the Gemini text only -> held
+    K = dict(base, _now={"2026-09-10": [101.0]}, _gemini={"2026-09-10": []})
+    v = RT.verdict("2026-09-10", r, LINE, HERS, {}, K)
+    assert v["status"] == "held" and "engine text only" in v["why"]
+    K = dict(base, _now={"2026-09-10": []}, _gemini={"2026-09-10": [101.0]})
+    assert RT.verdict("2026-09-10", r, LINE, HERS, {}, K)["status"] == "held"
+    # without the two moment lists (an old caller) the hold stands as before
+    assert RT.verdict("2026-09-10", r, LINE, HERS, {}, base)["status"] == "held"
+    assert RT.mistake_on("d", {"t": 100.0, "end": 103.0}, {"d": [102.5]}) and not RT.mistake_on("d", {"t": 100.0, "end": 103.0}, {"d": [110.0]})

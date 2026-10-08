@@ -8513,6 +8513,49 @@
     }
    ],
    "aliases": []
+  },
+  {
+   "id": "TR-28",
+   "kind": "data",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A TR-27 hold is released by rule when it cannot hide a mistake. The hold exists so that the second listen cannot make one of Medi's mistakes vanish (the council gate: 12 of 27). So a held line is applied without the tutor when the three AI readers wrote NO mistake at that moment on the engine text (the live audit) AND none on the Gemini text (the 2026-10-05 read, data/lesson-work/rehear/gemini-read-moments.json) - nothing there to hide - or when they wrote a mistake on BOTH texts - it did not vanish. Only a line whose mistake stands on one text and not the other waits for the tutor (scripts/rehear_tutor.py mistake_on; rehear_apply.py lists them as released_by_rule with the hold's reason kept). 2026-10-07 on 18 lessons: 225 of 269 held lines released, 44 left for her part-2 list; every lesson whose text changed was re-read by the three readers afterwards.",
+   "plain": "A held line goes in by itself when no reader found a mistake there on either version of the text, or found the same mistake on both - because then nothing can be hidden. Only the lines where a mistake shows on one version and not the other still wait for your tutor.",
+   "plain_for": "d00393c8",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-07",
+     "quote": "223 is a large number, can you please think of some solutions on your own end to solve them?",
+     "session": "7d12fb96"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/rehear_tutor.py",
+     "contains": "def mistake_on(date, line, moments, slack=3.0):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/rehear_apply.py",
+     "contains": "if v.get(\"rule\") == \"TR-28\":"
+    },
+    {
+     "type": "data",
+     "path": "data/lesson-work/rehear/gemini-read-moments.json",
+     "contains": "\"source\": \"git show engine-bench:"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_rehear_tutor.py",
+     "contains": "def test_TR_28_a_held_line_that_cannot_hide_a_mistake_is_applied_by_rule"
+    }
+   ],
+   "aliases": []
   }
  ]
 }

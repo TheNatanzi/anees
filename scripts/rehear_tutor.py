@@ -104,6 +104,7 @@ def keys(ans=None):
     """Her answers keyed the way the hold reads them: by (date, line i), uid, event mark or pair id."""
     ans = answers() if ans is None else ans
     K = {"slip": {}, "wordsaid": {}, "oldnew": {}, "ownfix": collections.defaultdict(list), "wordthere": {}, "oneortwo": {}}
+    K["_now"], K["_gemini"] = mistake_moments()          # TR-28
     for name in ("slip-check", "slip-check-2"):
         for it in _key_items(name):
             p, at = ans.get(it["word_key"], ({}, None))
@@ -237,8 +238,39 @@ def verdict(date, r, line, hers, confirmed, K):
             why.append("the change puts the tutor's own word on his line (%s, said or typed within %d s)" % (", ".join(tw), int(AMAL_NEXT_S)))
         if cf:
             why.append("the line holds a mistake the tutor confirmed (%s)" % ", ".join(cf))
-        return {"status": "held", "why": "; ".join(why), "toward": tw, "confirmed": cf}
+        # TR-28 (Medi 2026-10-07 "223 is a large number, can you please think of some solutions on your own end"): the hold
+        # exists so a mistake cannot vanish. When the three readers wrote NO mistake on this line on the engine text and none
+        # on the Gemini text either, the change hides nothing; when they wrote one on BOTH texts, it did not vanish. Either
+        # way the line is applied by rule. Only a mistake that stands on one text and not the other waits for the tutor.
+        now, gem = mistake_on(date, line, K.get("_now") or {}), mistake_on(date, line, K.get("_gemini") or {})
+        if K.get("_now") is not None and K.get("_gemini") is not None and now == gem:
+            return {"status": "apply", "why": ("released by rule TR-28: no reader found a mistake on this line on either text" if not now
+                                               else "released by rule TR-28: the readers found the same moment's mistake on both texts - it did not vanish"),
+                    "rule": "TR-28", "held_why": "; ".join(why), "toward": tw, "confirmed": cf}
+        return {"status": "held", "why": "; ".join(why) + ("; a mistake stands on the engine text only" if now else "; a mistake stands on the Gemini text only"),
+                "toward": tw, "confirmed": cf}
     return {"status": "apply", "why": None}
+
+
+# ------------------------------------------------------------------ TR-28: what the readers wrote at that moment, on each text
+GEMINI_MOMENTS_P = os.path.join(REHEAR, "gemini-read-moments.json")
+
+
+def mistake_moments():
+    """({date: [seconds]} on the engine text = the live audit, {date: [seconds]} on the Gemini text = the 2026-10-05 read)."""
+    now = collections.defaultdict(list)
+    for r in (J(AUDIT_P) or {}).get("rows") or []:
+        s = _secs(r.get("t"))
+        if s is not None and r.get("kind") in ("grammar", "vocab-A", "grammar-B", "vocab-B"):
+            now[r.get("date")].append(s)
+    gem = {d: [float(x) for x in v] for d, v in ((J(GEMINI_MOMENTS_P) or {}).get("lessons") or {}).items()}
+    return now, gem
+
+
+def mistake_on(date, line, moments, slack=3.0):
+    """True when a reader wrote a mistake at this line's moment (within 3 s of its start, or inside the line)."""
+    t, end = line["t"], line.get("end", line["t"] + 3.0)
+    return any(abs(s - t) <= slack or t <= s <= end + 1.0 for s in moments.get(date, []))
 
 
 # ------------------------------------------------------------------ her other answers

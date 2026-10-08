@@ -13,6 +13,12 @@
 - **A10** hada / hadi (The noun phrase): This-and-that words must match the gender.
 - **A9b** broken plurals are patterns (The noun phrase): The irregular plurals repeat the same few shapes - learn the mould, not 200 words.
 - **A11** kul: all vs every (The noun phrase): `kul` + `el-` = all of it. `kul` alone = every.
+  - Added 2026-10-07 (GR-30, the Oct 2 lesson): kul + noun = every; kul + el- + noun = all / the whole; el-kull = everyone (Amal 2026-10-06: 'Yes - this is the rule as I teach it').
+- **A13** awal / oola: before or after the noun (The noun phrase): awal + noun = first; awal + el- + noun = the beginning of; after the noun: el-noun el-awal / el-oola.
+- **A14** taani: before or after the noun (The noun phrase): taani + noun = second; noun + taani = another / the second; el-noun el-taani / el-tanye; taani never takes el- in front.
+- **A15** aa5er / a5eer: before or after the noun (The noun phrase): aa5er + noun = last; aa5er + el- + noun = the end of; after the noun the adjective a5eer / a5eera / a5eeraat.
+- **A16** 8eir: other / different, no el- (The noun phrase): 8eir + noun = other / different; 8eir never takes el- in front; after the noun is rare.
+- **A17** nafs + el-: the same (The noun phrase): nafs + el- + noun = the same ...; never el- before nafs; nafs is never an adjective after the noun.
 - **B1** present with b- (The verb system): Every ordinary present verb starts with b-.
 - **B2** b-drop after modals (The verb system): A verb followed by another verb: the second one loses its b-. Same after want/must/can words.
 - **B3** b-drop after time words (The verb system): No b- after lamma, ra7, ba3ed/2abel ma, la- and 3ashaan - but iza KEEPS it, and so does enno.

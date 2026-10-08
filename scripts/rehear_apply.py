@@ -179,7 +179,7 @@ def plan(date):
     K = RT.keys()
     hers = RT.her_lines(date, amal)
     conf = RT.confirmed_moments()
-    for k in ("held_tutor", "taken_out_by_tutor", "applied_by_tutor"):
+    for k in ("held_tutor", "taken_out_by_tutor", "applied_by_tutor", "released_by_rule"):
         out[k] = []
 
     def tr27(r):
@@ -267,6 +267,9 @@ def plan(date):
         if v.get("tutor"):
             row["tutor"] = {"list": v.get("list"), "answer": v["tutor"], "rule": RT.RULE}
             out["applied_by_tutor"].append(dict(base_, heard=r["heard"], was="proposed", list=v.get("list"), answer=v["tutor"], why=v["why"]))
+        if v.get("rule") == "TR-28":
+            row["released_by"] = {"rule": "TR-28", "why": v["why"], "held_why": v.get("held_why")}
+            out["released_by_rule"].append(dict(base_, heard=r["heard"], why=v["why"], held_why=v.get("held_why"), toward=v.get("toward"), confirmed=v.get("confirmed")))
         out["rows"].append(row)
         out["lines_changed"].append(dict(base_, **x))
     # ---- Amal's lines (scripts/rehear_amal.py: the teacher prompt, 3 runs; no hold). Same rules: only the proposed pile,
@@ -354,6 +357,7 @@ def plan(date):
                       "held": len(out["held"]), "held_mix": len(out["held_mix"]), "no_agreement": len(out["no_agreement"]), "skipped": len(out["skipped"]),
                       "withheld_by_spot_check": len(out["withheld_by_spot_check"]),
                       "held_tutor": len(out["held_tutor"]), "taken_out_by_tutor": len(out["taken_out_by_tutor"]), "applied_by_tutor": len(out["applied_by_tutor"]),
+                      "released_by_rule": len(out["released_by_rule"]),
                       "amal_ran": out["amal"]["ran"], "amal_lines_changed": len(out["amal"]["lines_changed"]),
                       "amal_word_changes": sum(1 for x in out["amal"]["lines_changed"] if x["kind"] == "words"),
                       "amal_kept_because_already_corrected": len(out["amal"]["kept_overlay"]), "amal_held_mix": len(out["amal"]["held_mix"]),
