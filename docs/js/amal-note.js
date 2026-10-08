@@ -100,6 +100,9 @@
     sweep();
     new MutationObserver(() => sweep()).observe(panel, { childList: true, subtree: true });
     load();
+    // rule L1 (S7): the notes are live data - read them again when the tab comes back into view
+    const AL = (typeof window !== 'undefined' && window.AneesLive) || null;
+    if (AL && AL.onReturn) AneesLive.onReturn(load, { label: 'tutor notes' });
   }
   return { attach, body, latest, SOURCE };
 });
