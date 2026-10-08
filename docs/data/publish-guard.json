@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-08T00:29:47-07:00",
+ "updated": "2026-10-08T00:41:55-07:00",
  "result": "pass",
- "source": "manual: PG-35 every upload Amal makes shows on the Student tab",
- "checked_commit": "e8d7d775c3d1",
- "secs": 86.4,
+ "source": "manual: PG-36 Student results section on the Tutor page",
+ "checked_commit": "5280b57445c6",
+ "secs": 79.4,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.6,
+   "secs": 1.1,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "117 JSON files parse"
   },
@@ -35,7 +35,7 @@
    "ok": true,
    "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
-   "detail": "rule_registry: OK - 210 rules: enforced 120 (code 111, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
+   "detail": "rule_registry: OK - 211 rules: enforced 121 (code 112, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
   },
   {
    "id": "lesson_coverage",
@@ -65,7 +65,7 @@
    "id": "taught_words_cross_check",
    "required": true,
    "ok": true,
-   "secs": 0.2,
+   "secs": 0.1,
    "what": "every Tutor new word of a lesson is in its taught words (or says why not); no off-lesson window hides Amal teaching",
    "detail": "10 lesson type read(s) cover their Tutor new words; no off-lesson window has Amal teaching"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 3.5,
+   "secs": 2.4,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.1,
+   "secs": 1.0,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.4,
+   "secs": 1.5,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 697 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 4.0,
+   "secs": 1.9,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...9 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 4.8,
+   "secs": 4.5,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 70 pages, every link, data file and clip resolves (683 references to unpublished clips play from the full lesson recording)"
   },
@@ -129,9 +129,9 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 61.7,
+   "secs": 58.9,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 93%] | ............................................                             [100%] | 688 passed, 1 skipped, 3 xfailed in 58.32s"
+   "detail": "............................. [ 93%] | ............................................                             [100%] | 688 passed, 1 skipped, 3 xfailed in 55.62s"
   },
   {
    "id": "tests_node",
@@ -139,13 +139,13 @@
    "ok": true,
    "secs": 1.2,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1109.3869"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1097.0396"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 4.8,
+   "secs": 4.7,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
