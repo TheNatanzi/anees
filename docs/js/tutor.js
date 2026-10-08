@@ -16,7 +16,7 @@
   const pretty = d => d ? new Date(String(d).slice(0, 10) + 'T12:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
   const today = () => new Date().toISOString().slice(0, 10);
   const PAGE = 20;
-  let T = { open: [], closed: [] }, tasks = [], verifyN = null, NW = null, LG = null, UP = null, HW = null, PR = null, AT = null;
+  let T = { open: [], closed: [] }, tasks = [], verifyN = null, NW = null, LG = null, UP = null, HW = null, PR = null, AT = null, RS = null;
 
   async function rest(path, token) {
     const H = { apikey: ANEES.anon, Authorization: 'Bearer ' + ANEES.anon, 'X-Anees-Token': token };
@@ -131,6 +131,7 @@
     ledger: (b, it, on) => AneesLedgerTask.mount(b, LG, { onChange: on }),
     proposals: (b, it, on) => AneesProposalsTask.mount(b, PR, { onChange: on }),   // Medi 2026-10-05: new grammar rules to approve, top of her list
     attention: (b, it, on) => AneesAttentionTask.mount(b, AT, { onChange: on }),    // Medi 2026-10-06: his questions from the flashcards (the attention button)
+    results: b => AneesResultsTask.mount(b, RS),                                      // PG-36 Medi 2026-10-08: his card-set scores, read here (never sent)
   };
   function panel(t, p) {
     p.innerHTML = `<h2 class="hb-ptitle">${esc(t.title)}</h2><p class="hb-pnote">${esc(sub(t))}</p>${t.item && t.item.what ? `<p class="hb-sub">${esc(t.item.what)}</p>` : ''}<div id="hb-body"></div><div data-earlier></div>`;
@@ -374,6 +375,14 @@
       // Medi 2026-10-05 "Separate the upload flash cards and assign homework from the other modules": their own strip above
       // the To do tabs (#upload, #homework), never rows in her checking list
       $('#hb-n-upload').textContent = uc.total || ''; $('#hb-n-homework').textContent = hc.waiting ? hc.waiting + ' to check' : '';
+      try {   // PG-36 (Medi 2026-10-08 "my scores get sent back to her"): a Student results section - every try of a card set with its
+              // first-pass score, the fix-mistakes retry, and how long after the try before. Read-only; nothing is sent (AM-01).
+        const L = await rest('card_results?select=word_key,result,ts,attempt,round_id,subject,undone_at&subject=like.sel:*&order=ts.asc&limit=5000', tok);
+        const view = AneesResultsTask.view(L, sets);
+        RS = { token: tok, view };
+        const rc = AneesResultsTask.count(view);
+        if (rc.total) tasks.push({ id: 'results', kind: 'results', item: {}, title: 'Student results', subText: rc.total + (rc.total === 1 ? ' try' : ' tries') + ' on ' + view.length + (view.length === 1 ? ' card set' : ' card sets') + ' - nothing to answer', total: rc.total, done: rc.done, left: 0, unit: 'tries', rank: -0.04, date: '', finished: false, quiet: true });
+      } catch (e) {}
     } catch (e) {}
     rankAll(tasks); count();
     const open = tasks.filter(t => !t.finished && !t.quiet), m = open.reduce((s, t) => s + t.left * minEach(t), 0);

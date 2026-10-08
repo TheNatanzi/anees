@@ -8593,6 +8593,53 @@
      "contains": "test('PG-35 every set Amal uploads is on the Student tab"
     }
    ]
+  },
+  {
+   "id": "PG-36",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Medi's card-set scores reach Amal as a 'Student results' section on her Tutor page To do (never a message: AM-01). docs/js/hub/results-task.js reads the card_results rows cards.html already writes for a set round (subject sel:<set>, one round_id per try, attempt 1 = first pass, attempt 2+ = the fix-mistakes retry; undone rows left out) and shows, per set, one line per try: try 1 with its date and first-pass score (N of M right, %), then how the retry of his mistakes went (K of L right, or 'mistakes not retried' / 'nothing to fix'); a later try says how long after the one before ('2 h 15 min after try 1', days when it is days) with its own scores. Read-only, nothing to answer (quiet row, not counted in her 'things to check'); sets are named from her uploads, Quizlet sets and Shaky words.",
+   "plain": "Amal sees Medi's flashcard scores on her Tutor page: each time he runs a set, his first-pass score, how the retry of his mistakes went, and for a repeat how long after the earlier try it was. Nothing is sent to her.",
+   "plain_for": "28648a8d",
+   "topic": "homework",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-08",
+     "quote": "also lets set up a system where my scores get sent back to her. If I do the card set 1 time send score. If I fix mixtakes tell her how I did, If I do it again 30 min or howverlong later tell her how many hr/min after I tried again with new scores",
+     "session": "1e2b7148"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-08",
+     "quote": "student results section",
+     "session": "1e2b7148"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/hub/results-task.js",
+     "contains": "function view(log, sets) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/tutor.js",
+     "contains": "id: 'results', kind: 'results'"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_results_task.cjs",
+     "contains": "test('PG-36 one try = first-pass score"
+    },
+    {
+     "path": "tests/test_results_task.cjs",
+     "contains": "test('PG-36 the Tutor page loads the module and nothing in it writes or sends anything"
+    }
+   ]
   }
  ]
 }
