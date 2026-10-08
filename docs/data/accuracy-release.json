@@ -6,35 +6,35 @@
   "max_reader_passes": 2
  },
  "totals": {
-  "lessons": 20,
+  "lessons": 21,
   "verified_lessons": 0,
   "threshold_pct": 95.0,
   "words": {
    "verified_avg_pct": null,
-   "unverified_avg_pct": 83.6,
+   "unverified_avg_pct": 84.1,
    "avg_formula": "pooled: sum(right + half partial) / sum(scored) over the lessons",
-   "eligible": 1637,
+   "eligible": 1713,
    "excluded": 7,
    "pending": 36
   },
   "grammar": {
    "verified_avg_pct": null,
-   "unverified_avg_pct": 86.5,
+   "unverified_avg_pct": 87.1,
    "avg_formula": "pooled: 1 - sum(scored_mistakes) / sum(uses) over the lessons (scripts/grammar_math.py)",
-   "denominator_valid_lessons": 1,
+   "denominator_valid_lessons": 2,
    "eligible": 640,
    "excluded": 39,
    "pending": 92
   },
   "verification_queue": 128,
   "word_bank": {
-   "occurrences": 3239,
-   "eligible": 1420,
-   "excluded_not_scored": 1570,
-   "pending_needs_review": 249,
+   "occurrences": 3430,
+   "eligible": 1496,
+   "excluded_not_scored": 1616,
+   "pending_needs_review": 318,
    "other": 0,
    "pct": 94.8,
-   "lessons_in_audit": 20,
+   "lessons_in_audit": 21,
    "lessons_missing": [],
    "note": "pct = (Correct + half Partial) / (Correct + Partial + Wrong); 'Needs review' is pending and counts nowhere; 'Not scored' is excluded by rule (English, names, glue words...)."
   }
@@ -1157,6 +1157,55 @@
    "agreement": [
     63.3
    ],
+   "between_passes": []
+  },
+  {
+   "date": "2026-10-08",
+   "release": "not verified",
+   "reasons": [
+    "reader agreement: no reader pass; 2 consecutive passes at >= 95 % are needed",
+    "coverage: no source audit of the raw audio for this lesson (run scripts/source_audit.py)",
+    "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4032 s) compared with a second model"
+   ],
+   "words": {
+    "pct": 94.7,
+    "eligible_pct": 94.7,
+    "verified_pct": null,
+    "scored": 76,
+    "eligible": 76,
+    "excluded": 0,
+    "pending": 0,
+    "excluded_why": {}
+   },
+   "grammar": {
+    "pct": 100.0,
+    "verified_pct": null,
+    "mistakes": 0,
+    "uses": 206,
+    "eligible": 0,
+    "excluded": 0,
+    "pending": 0,
+    "estimate": false,
+    "denominator_valid": true,
+    "denominator_reasons": []
+   },
+   "coverage": {
+    "Medi": {
+     "covered_pct": 100.0,
+     "missing_s": 0,
+     "hole_s": 0
+    },
+    "Amal": {
+     "covered_pct": 100.0,
+     "missing_s": 0,
+     "hole_s": 0
+    }
+   },
+   "source": {
+    "attribution": "per-speaker-tracks",
+    "timing": "engine"
+   },
+   "agreement": [],
    "between_passes": []
   }
  ]
