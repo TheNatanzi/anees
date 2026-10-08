@@ -35,10 +35,13 @@ const spoken={
  'مغيم':'m8ayyem','مغيمة':'m8ayyme','مغني':'m8anni','شوب':'shob','درجة':'daraje','الحرارة':'el-7arara','حوالين':'7awalen','نفس':'nafs',
  'تمنتاش':'tmanta3sh','تمانين':'tamanin','ثمانين':'thamanin','تلاتة':'tlate','خمسة':'5amse','وعشرين':'w-3ishrin','ونص':'w-nu99','بسرعة':'bisur3a'
 };
-function create(words=[],catalog={},extra={}){
+function create(words=[],catalog={},extra={},opts={}){
  const exact=new Map(),lexicon=new Map();
  // Words she never typed whole: sound-alike matches and her own pieces, checked against the sentence (arabizi-extra.json).
- const built=new Map();for(const [ar,e] of Object.entries(extra.words||{}))if(e&&e.latin)built.set(norm(ar),e.latin);
+ // A row with a scope ("lessons": his own wrong / cut-off / unclear forms, method as-said) is used only by the page that
+ // asks for that scope - the Lessons page error cards and transcript lines (RULES.md S1, AZ-05 / AZ-10). Everywhere
+ // else the word falls through to the Arabic + "Unverified spelling stays in Arabic" (Codex final approval 2026-10-05).
+ const built=new Map();for(const [ar,e] of Object.entries(extra.words||{}))if(e&&e.latin&&(!e.scope||e.scope===opts.scope))built.set(norm(ar),e.latin);
  function add(ar,latin){
   // Her Doc adds notes in brackets: "أسبوع (أسبوعين" / "Usboo3", "3ain (F)". Keep the word, drop the note.
   const clean=x=>String(x||'').replace(/\([^)]*\)?/g,' ').replace(/\s+/g,' ').trim();

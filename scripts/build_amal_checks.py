@@ -42,6 +42,12 @@ TASKS = {   # list -> what the hub and the page say; kind / prefix keep the task
                    "questions": [{"field": "choice", "ask": "Listen to the student. What did he say?", "type": "versions", "other": "Something else"},
                                  {"field": "mistake", "ask": "Was it a mistake?", "type": "options",
                                   "options": [{"v": "yes", "label": "Yes, he said it wrong"}, {"v": "no", "label": "No, he said it right"}, {"v": "not_sure", "label": "Not sure"}]}]},
+    "slip-check-2": {"kind": "slip_check", "prefix": "slipcheck2", "clip": "s2", "title": "Listen: what did the student say? - part 2", "unit": "clips", "mins": None,
+                     "intro": "Short clips of the student. A second AI listen wants to change how these lines are written, but the new words are "
+                              "your own words from the same minute, or sit on a mistake you marked - so the change waits for your ear (TR-27). Tell us what he really said.",
+                     "questions": [{"field": "choice", "ask": "Listen to the student. What did he say?", "type": "versions", "other": "Something else"},
+                                   {"field": "mistake", "ask": "Was it a mistake?", "type": "options",
+                                    "options": [{"v": "yes", "label": "Yes, he said it wrong"}, {"v": "no", "label": "No, he said it right"}, {"v": "not_sure", "label": "Not sure"}]}]},
     "own-fix": {"kind": "own_fix", "prefix": "ownfix", "clip": "oc", "title": "Listen: the student's own corrections", "unit": "clips", "mins": 5,
                 "intro": "13 short clips of the student. His line is written in two or three ways - which one did he say?",
                 "questions": [{"field": "choice", "ask": "Listen to the student. What did he say?", "type": "versions", "other": "Something else"}]},
@@ -107,7 +113,7 @@ def one_mistake_by_rule(first, second, dt):
 
 
 auto_same = []
-ORDER = ("slip-check", "own-fix", "word-said", "old-new", "word-there", "one-or-two")
+ORDER = ("slip-check", "own-fix", "word-said", "old-new", "word-there", "one-or-two", "slip-check-2")
 
 
 def J(p):
@@ -236,6 +242,36 @@ class Build:
                           "note": ["You marked: he said ", c.get("wrong") or "(no word)", ", should be ", c.get("right") or ""], "bytes": size})
             key.append({"id": iid, "uid": c["uid"], "i": c["i"], "t": c["t"], "roles": roles, "old": c["line_before"], "new": c["line_after"],
                         "wrong": c.get("wrong"), "right": c.get("right")})
+        return items, key
+
+    def slip_check_2(self):
+        """TR-27 (2026-10-07): every second-listen change the widened hold keeps back for the tutor's ear - each lesson's
+        rehear/<date>/apply-plan.json held_tutor (a change toward her own words within 30 s, or on a mistake she
+        confirmed) that she has not answered yet. One list, in parts when the clips are big."""
+        rng = random.Random(SET + "|slip-check-2")
+        items, key = [], []
+        for p in sorted(glob.glob(str(self.rehear / "*" / "apply-plan.json"))):
+            P = J(p)
+            date = P.get("date")
+            if not date or not self.P.DATE_RE.match(date):
+                continue
+            by_i = {ln["i"]: ln for ln in self.lines(date)}
+            for h in sorted(P.get("held_tutor") or [], key=lambda h: h["t"]):
+                if h.get("tutor"):
+                    continue                                    # she answered this line on an earlier list
+                iid = f"{date}:{h['i']}"
+                ln = by_i.get(h["i"]) or {"i": h["i"], "t": h["t"], "end": h["t"] + 3.0}
+                c = {"date": date, "t": ln["t"], "end": ln.get("end", ln["t"] + 3.0), "clip_path": str(self.rehear / date / ln["clip"]) if ln.get("clip") else None}
+                own, both, size = self.clips("slip-check-2", date, h["i"], self._ln(c), both=True)
+                versions, roles = self.blind(rng, [("old", h["engine"]), ("new", h["heard"])])
+                note = None
+                if h.get("toward"):
+                    note = ["The new line has your own word: ", " / ".join(h["toward"]), "."]
+                elif h.get("confirmed"):
+                    note = ["You marked a mistake on this line earlier."]
+                items.append({"id": iid, "date": date, "mmss": h["mmss"], "clips": self.players(own, both), "versions": versions, "note": note, "bytes": size})
+                key.append({"id": iid, "i": h["i"], "t": h["t"], "roles": roles, "old": h["engine"], "new": h["heard"], "toward": h.get("toward"),
+                            "confirmed": h.get("confirmed"), "why": h.get("why")})
         return items, key
 
     def plan_cards(self):
@@ -374,8 +410,8 @@ def write_list(name, task, items, key, part=None, parts=None, extra_key=None):
     T = TASKS[task]
     size = sum(x.pop("bytes", 0) for x in items)
     n = len(items)
-    title = T["title"] + (f" · part {part} of {parts}" if parts and parts > 1 else "")
-    intro = T["intro"] if not (parts and parts > 1) else f"{n} short clips of Medi (part {part} of {parts}). " + T["intro"].split(". ", 1)[1]
+    title = T["title"] + (f" - part {part} of {parts}" if parts and parts > 1 else "")
+    intro = T["intro"] if not (parts and parts > 1) else f"{n} short clips of the student (part {part} of {parts}). " + T["intro"].split(". ", 1)[1]
     mins = T["mins"] or max(1, round(n * 0.3))
     doc = {"set": SET, "list": name, "kind": T["kind"], "prefix": T["prefix"], "title": title, "intro": intro, "unit": T["unit"],
            "questions": T["questions"], "n": n, "items": [{k: v for k, v in x.items() if v is not None} for x in items]}
@@ -392,21 +428,55 @@ def write_list(name, task, items, key, part=None, parts=None, extra_key=None):
         per[x["date"]] = per.get(x["date"], 0) + 1
     print(f"{name:14} {n:3} items  clips {size / 1e6:.2f} MB  {per}")
     return {"list": name, "task": task, "kind": T["kind"], "prefix": T["prefix"], "title": title, "total": n, "unit": T["unit"], "mins": mins,
-            "what": f"{intro} About {mins} minutes.", "key": keyname, "clip_bytes": size}
+            "what": f"{intro} About {mins} minutes.", "key": keyname, "clip_bytes": size, **({"part": part, "parts": parts} if parts and parts > 1 else {})}
+
+
+def reword(index_path=ROOT / "docs" / "data" / "amal-checks.json"):
+    """PG-33 / AM-24: the title, intro and question words of every EXISTING list file follow TASKS (the items, their
+    ids and the clips are untouched, so her answers keep their keys). Returns the index entries, re-worded."""
+    idx = J(index_path) if index_path.exists() else {"lists": []}
+    out = []
+    for e in idx.get("lists") or []:
+        T = TASKS.get(e.get("task") or e["list"])
+        p = ROOT / "docs" / "data" / f"amal-check-{e['list']}.json"
+        if not T or not p.exists():
+            out.append(e)
+            continue
+        doc = J(p)
+        part, parts = e.get("part"), e.get("parts")
+        m = re.search(r"part (\d+) of (\d+)", str(e.get("title") or ""))
+        if m:
+            part, parts = int(m.group(1)), int(m.group(2))
+        n = doc.get("n") or len(doc.get("items") or [])
+        title = T["title"] + (f" - part {part} of {parts}" if parts and parts > 1 else "")
+        intro = T["intro"] if not (parts and parts > 1) else f"{n} short clips of the student (part {part} of {parts}). " + T["intro"].split(". ", 1)[1]
+        doc.update(title=title, intro=intro, questions=T["questions"], kind=T["kind"], prefix=T["prefix"])
+        p.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        mins = T["mins"] or max(1, round(n * 0.3))
+        out.append(dict(e, task=e.get("task") or e["list"], title=title, kind=T["kind"], prefix=T["prefix"], mins=mins, what=f"{intro} About {mins} minutes.",
+                        **({"part": part, "parts": parts} if parts and parts > 1 else {})))
+    return out
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--src", required=True)
     ap.add_argument("--no-audio", action="store_true")
+    ap.add_argument("--only", nargs="*", help="build only these lists; the other index entries are kept (re-worded from TASKS)")
     a = ap.parse_args(argv)
     B = Build(a.src, audio=not a.no_audio)
-    plan = B.plan_cards()
-    index = []
-    for task in ORDER:
+    tasks = tuple(a.only) if a.only else ORDER
+    plan = B.plan_cards() if any(t in ("own-fix", "word-said", "old-new") for t in tasks) else None
+    index = [e for e in reword() if (e.get("task") or e["list"]) not in tasks] if a.only else []
+    for task in tasks:
         extra = None
         if task == "slip-check":
             items, key = B.slip_check()
+        elif task == "slip-check-2":
+            items, key = B.slip_check_2()
+            if not items:
+                print("slip-check-2: nothing is held for the tutor")
+                continue
         elif task == "own-fix":
             items, key = B.own_fix(plan["his-correction"])
         elif task == "word-said":
@@ -427,6 +497,7 @@ def main(argv=None):
             for n in range(parts):
                 sl = slice(n * per, (n + 1) * per)
                 index.append(write_list(f"{task}-{n + 1}", task, items[sl], key[sl], part=n + 1, parts=parts, extra_key=extra))
+    index.sort(key=lambda e: (ORDER.index(e.get("task") or e["list"]) if (e.get("task") or e["list"]) in ORDER else 99, e.get("part") or 0))
     (ROOT / "docs" / "data" / "amal-checks.json").write_text(json.dumps({"set": SET, "note": "Amal's listening / checking lists (scripts/build_amal_checks.py). "
                                                                            "scripts/build_tutor_data.py puts one row per list on her Tutor hub.",
                                                                            "lists": index}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

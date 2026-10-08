@@ -104,7 +104,27 @@
   const normTok = t => String(t).toLowerCase().replace(/[^\p{L}\p{N}_؀-ۿ]+/gu, '').replace(/ـ/g, '');
   const isFiller = (tok, pos) => { const n = normTok(tok); if (!n) return false; if (FL.has(n)) return true; if (/^(?:[آاأ]{2,}|[آاأ]?م{2,}|ه?م{2,})$/.test(n)) return true; return FA.has(n) && !(YES.has(n) && pos === 0); };
   const countFillers = txt => String(txt || '').replace(/،/g, ' ').split(/\s+/).filter(Boolean).reduce((s, t, i) => s + (isFiller(t, i) ? 1 : 0), 0);
-  const api = { release, why, approx, mark, html, wireTaps, pooledWords, pooledGrammar, pooledTalk, pooledFillers, mean, dm, isFiller, countFillers };
+  // ---------- method change (Codex / council final approval 2026-10-05) ----------
+  // lessons.json "method_change" = {date, text, why}: from that day the Words % and Grammar % of every lesson are counted
+  // another way, so a number seen before that day and one seen after are not comparable. Every view that plots those
+  // numbers over lessons shows this one mark (the words come from the data, never from the page code).
+  function methodChange(doc) { const m = doc && doc.method_change; return m && m.date && m.text ? m : null; }
+  function methodHtml(doc) {
+    const m = methodChange(doc);
+    if (!m) return '';
+    return `<p class="method-change" role="note" data-method-change="${esc(m.date)}" style="margin:10px 0;padding:8px 12px;border:1px dashed currentColor;border-radius:8px;font-size:13px;line-height:1.45;opacity:.9"><strong>Method change · ${esc(m.date)}.</strong> ${esc(m.text)}${m.why ? ' ' + esc(m.why) : ''}</p>`;
+  }
+  // Puts the mark once next to `anchor` (before it by default). Returns the node, or null when there is nothing to say.
+  function stampMethod(doc, anchor, where) {
+    if (!anchor || !anchor.parentNode || !methodChange(doc)) return null;
+    const host = anchor.parentNode;
+    const old = host.querySelector(':scope > .method-change'); if (old) old.remove();
+    const box = anchor.ownerDocument.createElement('div'); box.innerHTML = methodHtml(doc);
+    const node = box.firstChild;
+    host.insertBefore(node, where === 'after' ? anchor.nextSibling : anchor);
+    return node;
+  }
+  const api = { release, why, approx, mark, html, wireTaps, methodChange, methodHtml, stampMethod, pooledWords, pooledGrammar, pooledTalk, pooledFillers, mean, dm, isFiller, countFillers };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   root.AneesLessonMath = api;
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -32,7 +32,7 @@ def dates(argv):
 
 def set_status(date, status, note):
     """One lesson's second-listen mark, moved forward only (never back), with the lesson page re-stamped."""
-    order = ["pending", "submitted", "proposed", "applied"]
+    order = ["pending", "submitted", "proposed", "applied", "applied-limited"]
     doc = RS.load()
     row = doc["lessons"].get(date) or {"status": "pending", "since": RS.today(), "note": ""}
     if order.index(status) <= order.index(row["status"]):
@@ -167,6 +167,10 @@ def pump(ds, every=90):
                 msg = str(e)
                 # Google answering 5xx / a dropped connection on a status or download call is not a refusal: try again next round
                 soft = any(k in msg for k in ("batch status", "results download", "file upload")) and not any(k in msg for k in ("402", "429", "allowance"))
+                # the allowance counts jobs still with Google at their (high) estimate: while any is uncollected a refusal
+                # is "not yet" - the room comes back when their real dollars are in; with nothing outstanding it is final
+                if "allowance" in msg and any(j.get("job") and not j.get("collected_complete") and j.get("state") not in ("JOB_STATE_FAILED", "JOB_STATE_CANCELLED", "JOB_STATE_EXPIRED") for _, j in RJ.all_jobs()):
+                    soft = True
                 st[d] = ("retry: " if soft else "STOPPED: ") + msg[:200]
             except Exception as e:  # noqa: BLE001 - a connection error on this PC: try again next round
                 st[d] = "retry: %s: %s" % (type(e).__name__, str(e)[:160])

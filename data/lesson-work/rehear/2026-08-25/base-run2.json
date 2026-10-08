@@ -1,0 +1,6293 @@
+{
+ "label": "rehear.gemini-flash-batch-t1",
+ "job": "base-run2",
+ "model": "gemini-3.8-flash",
+ "transport": "batch",
+ "price_factor": 0.5,
+ "lines": {
+  "1": {
+   "text": "Can you hear me?",
+   "alt": "Can you hear me?",
+   "raw": {
+    "arabic": "Can you hear me?",
+    "arabizi": "Can you hear me?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly asks in English 'Can you hear me?' which matches the engine transcription perfectly."
+   },
+   "tokens": [
+    667,
+    42,
+    153
+   ],
+   "usd": 0.000537,
+   "job": "base-run2",
+   "logged": true
+  },
+  "2": {
+   "text": "Okay, let's try this.",
+   "alt": "Okay, let's try this.",
+   "raw": {
+    "arabic": "Okay, let's try this.",
+    "arabizi": "Okay, let's try this.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly speaks in English saying 'Okay, let's try this.'"
+   },
+   "tokens": [
+    702,
+    77,
+    116
+   ],
+   "usd": 0.000481,
+   "job": "base-run2",
+   "logged": true
+  },
+  "6": {
+   "text": "تمام، وإنتي؟",
+   "alt": "Tamam, w inti?",
+   "raw": {
+    "arabic": "تمام، وإنتي؟",
+    "arabizi": "Tamam, w inti?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "مهمتي",
+      "said": "وإنتي؟"
+     }
+    ],
+    "confidence": "high",
+    "why": "Amal asked how he was doing ('كيفك؟'), and Medi replied 'تمام، وإنتي؟' ('Good, and you?')."
+   },
+   "tokens": [
+    762,
+    67,
+    190
+   ],
+   "usd": 0.000642,
+   "job": "base-run2",
+   "logged": true
+  },
+  "8": {
+   "text": "يومي منيح، بس كان ممرن كتير سريع",
+   "alt": "yomi mni7, bas kān mamran ktīr sarī3",
+   "raw": {
+    "arabic": "يومي منيح، بس كان ممرن كتير سريع",
+    "arabizi": "yomi mni7, bas kān mamran ktīr sarī3",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "يا مهمني",
+      "said": "يومي منيح"
+     },
+     {
+      "engine": "بابا جان من ميرم بيته سريع",
+      "said": "بس كان ممرن كتير سريع"
+     }
+    ],
+    "confidence": "medium",
+    "why": "Amal asked 'كيف يومك؟' (how was your day?). Medi answers 'يومي منيح، بس كان...' trying to say his day went by very fast, mispronouncing/confusing the verb 'مر' (to pass) as 'ممرن' (mamran)."
+   },
+   "tokens": [
+    744,
+    90,
+    1192
+   ],
+   "usd": 0.002514,
+   "job": "base-run2",
+   "logged": true
+  },
+  "9": {
+   "text": "Um يومي كان منيح",
+   "alt": "Um yawmi kan mnee7",
+   "raw": {
+    "arabic": "Um يومي كان منيح",
+    "arabizi": "Um yawmi kan mnee7",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "مني",
+      "said": "منيح"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'Um يومي كان منيح' ('My day was good'), clearly pronouncing the 7 (ح) at the end."
+   },
+   "tokens": [
+    1153,
+    476,
+    275
+   ],
+   "usd": 0.000948,
+   "job": "base-run2",
+   "logged": true
+  },
+  "10": {
+   "text": "We never, I never, I never rem-- The word for productive never made my cards, but أنا اشتغلت كتير.",
+   "alt": "We never, I never, I never rem-- The word for productive never made my cards, but ana ishtaghalet kteer.",
+   "raw": {
+    "arabic": "We never, I never, I never rem-- The word for productive never made my cards, but أنا اشتغلت كتير.",
+    "arabizi": "We never, I never, I never rem-- The word for productive never made my cards, but ana ishtaghalet kteer.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "cards. أنا",
+      "said": "cards, but أنا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'but' in English right before switching to Arabic ('but ana ishtaghalet kteer')."
+   },
+   "tokens": [
+    1043,
+    384,
+    1253
+   ],
+   "usd": 0.00274,
+   "job": "base-run2",
+   "logged": true
+  },
+  "12": {
+   "text": "Huh? Um, أنا, uh, it's complicated in Arabic. It's بس um إحنا ببدا...",
+   "alt": "Huh? Um, ana, uh, it's complicated in Arabic. It's bas um e7na babda...",
+   "raw": {
+    "arabic": "Huh? Um, أنا, uh, it's complicated in Arabic. It's بس um إحنا ببدا...",
+    "arabizi": "Huh? Um, ana, uh, it's complicated in Arabic. It's bas um e7na babda...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "ها؟",
+      "said": "Huh?"
+     },
+     {
+      "engine": "أنااا",
+      "said": "Um, أنا, uh"
+     },
+     {
+      "engine": "بس",
+      "said": "It's بس um"
+     },
+     {
+      "engine": "بدأ...",
+      "said": "ببدا..."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi struggles to formulate the sentence in Arabic, laughs that it's complicated, says 'It's بس', then mistakenly conjugates 'we start/started' as 'إحنا ببدا', which Amal immediately corrects to 'بدأنا'."
+   },
+   "tokens": [
+    1330,
+    713,
+    1516
+   ],
+   "usd": 0.003341,
+   "job": "base-run2",
+   "logged": true
+  },
+  "14": {
+   "text": "بدأنا a marketing project و و لازم اشتغلت كتير",
+   "alt": "bada2na a marketing project w w lazem shtaghalet kteer",
+   "raw": {
+    "arabic": "بدأنا a marketing project و و لازم اشتغلت كتير",
+    "arabizi": "bada2na a marketing project w w lazem shtaghalet kteer",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "who who",
+      "said": "و و"
+     }
+    ],
+    "confidence": "high",
+    "why": "The engine misheard the repeated Arabic conjunction 'و' (w) as 'who who'."
+   },
+   "tokens": [
+    1145,
+    531,
+    641
+   ],
+   "usd": 0.001631,
+   "job": "base-run2",
+   "logged": true
+  },
+  "16": {
+   "text": "كان لازم أشتغل كتير و اليوم بنقدر نبدأ الـ الـ project so yeah",
+   "alt": "kan lazem ashtaghel kteer w elyom mne2dar nebda el el project so yeah",
+   "raw": {
+    "arabic": "كان لازم أشتغل كتير و اليوم بنقدر نبدأ الـ الـ project so yeah",
+    "arabizi": "kan lazem ashtaghel kteer w elyom mne2dar nebda el el project so yeah",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription matches Medi's speech accurately, including the English words at the end."
+   },
+   "tokens": [
+    1267,
+    591,
+    268
+   ],
+   "usd": 0.000978,
+   "job": "base-run2",
+   "logged": true
+  },
+  "18": {
+   "text": "الله يوفقك.",
+   "alt": "Allah ywaf2ek.",
+   "raw": {
+    "arabic": "الله يوفقك.",
+    "arabizi": "Allah ywaf2ek.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi replies with 'الله يوفقك' (mistaking it for the response to يعطيكم العافية or as a general polite phrase), which matches the engine transcript perfectly."
+   },
+   "tokens": [
+    950,
+    211,
+    532
+   ],
+   "usd": 0.001354,
+   "job": "base-run2",
+   "logged": true
+  },
+  "21": {
+   "text": "شو؟",
+   "alt": "Shoo?",
+   "raw": {
+    "arabic": "شو؟",
+    "arabizi": "Shoo?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'شو؟' (What?)."
+   },
+   "tokens": [
+    818,
+    61,
+    339
+   ],
+   "usd": 0.000942,
+   "job": "base-run2",
+   "logged": true
+  },
+  "23": {
+   "text": "آه الله يبارك فيكي",
+   "alt": "ah Allah yebarik feeki",
+   "raw": {
+    "arabic": "آه الله يبارك فيكي",
+    "arabizi": "ah Allah yebarik feeki",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "فيك",
+      "said": "فيكي"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi addresses Amal (female) correctly by adding the feminine suffix 'feeki' ('فيكي')."
+   },
+   "tokens": [
+    837,
+    80,
+    493
+   ],
+   "usd": 0.001238,
+   "job": "base-run2",
+   "logged": true
+  },
+  "25": {
+   "text": "أي، أي ساعة شو؟",
+   "alt": "ay, ay sa3a shu?",
+   "raw": {
+    "arabic": "أي، أي ساعة شو؟",
+    "arabizi": "ay, ay sa3a shu?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed Medi's exact words accurately as he asks Amal to repeat the rest of her question."
+   },
+   "tokens": [
+    873,
+    113,
+    212
+   ],
+   "usd": 0.000725,
+   "job": "base-run2",
+   "logged": true
+  },
+  "27": {
+   "text": "آه أنا صحيت على ثمانية",
+   "alt": "aah ana s7eet 3ala tamanye",
+   "raw": {
+    "arabic": "آه أنا صحيت على ثمانية",
+    "arabizi": "aah ana s7eet 3ala tamanye",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أنا",
+      "said": "آه أنا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts with an audible hesitation / filler 'آه' before saying 'أنا صحيت على ثمانية'."
+   },
+   "tokens": [
+    973,
+    168,
+    289
+   ],
+   "usd": 0.000907,
+   "job": "base-run2",
+   "logged": true
+  },
+  "28": {
+   "text": "ثمانية ونص.",
+   "alt": "tmanye w noss.",
+   "raw": {
+    "arabic": "ثمانية ونص.",
+    "arabizi": "tmanye w noss.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'ثمانية ونص' exactly as transcribed by the engine."
+   },
+   "tokens": [
+    895,
+    67,
+    442
+   ],
+   "usd": 0.001164,
+   "job": "base-run2",
+   "logged": true
+  },
+  "30": {
+   "text": "أنا شربت قهوة مع كريمة، و... مي كتير. آ، أنا أكلت، آ... لحمة، لحمة عجل.",
+   "alt": "ana shrbet ahweh ma3 kreema, w... mayy kteer. aa, ana akalet, aa... la7me, la7met 3ejel.",
+   "raw": {
+    "arabic": "أنا شربت قهوة مع كريمة، و... مي كتير. آ، أنا أكلت، آ... لحمة، لحمة عجل.",
+    "arabizi": "ana shrbet ahweh ma3 kreema, w... mayy kteer. aa, ana akalet, aa... la7me, la7met 3ejel.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "مكينة",
+      "said": "مع كريمة"
+     },
+     {
+      "engine": "وماء",
+      "said": "و... مي"
+     },
+     {
+      "engine": "لحم",
+      "said": "لحمة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'قهوة مع كريمة' (coffee with cream), 'مي كتير' instead of Standard Arabic 'ماء', and 'لحمة' instead of 'لحم'."
+   },
+   "tokens": [
+    1263,
+    435,
+    686
+   ],
+   "usd": 0.00176,
+   "job": "base-run2",
+   "logged": true
+  },
+  "32": {
+   "text": "كوري، كوري، Korea، كوري",
+   "alt": "kori, kori, Korea, kori",
+   "raw": {
+    "arabic": "كوري، كوري، Korea، كوري",
+    "arabizi": "kori, kori, Korea, kori",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "كوريا",
+      "said": "Korea"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is searching for the word for Korean (beef); he attempts 'كوري' twice, then switches to English 'Korea' with a chuckle, before trying 'كوري' again."
+   },
+   "tokens": [
+    928,
+    110,
+    975
+   ],
+   "usd": 0.002176,
+   "job": "base-run2",
+   "logged": true
+  },
+  "34": {
+   "text": "كوري، كوري، Korea، كوري",
+   "alt": "kuri, kuri, Korea, kuri",
+   "raw": {
+    "arabic": "كوري، كوري، Korea، كوري",
+    "arabizi": "kuri, kuri, Korea, kuri",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Korea.",
+      "said": "Korea، كوري"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats 'كوري' twice, then says 'Korea' in English, followed by one more 'كوري' which the engine omitted."
+   },
+   "tokens": [
+    901,
+    112,
+    824
+   ],
+   "usd": 0.001883,
+   "job": "base-run2",
+   "logged": true
+  },
+  "36": {
+   "text": "كوري، كوري. آآآم، مع noodles، مع مكرونة.",
+   "alt": "kori, kori. umm, ma3 noodles, ma3 makarona.",
+   "raw": {
+    "arabic": "كوري، كوري. آآآم، مع noodles، مع مكرونة.",
+    "arabizi": "kori, kori. umm, ma3 noodles, ma3 makarona.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "كوري",
+      "said": "كوري، كوري"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats 'كوري' twice before hesitating and saying 'مع noodles، مع مكرونة'."
+   },
+   "tokens": [
+    1023,
+    251,
+    613
+   ],
+   "usd": 0.001533,
+   "job": "base-run2",
+   "logged": true
+  },
+  "38": {
+   "text": "على قلبك.",
+   "alt": "3ala 2albek.",
+   "raw": {
+    "arabic": "على قلبك.",
+    "arabizi": "3ala 2albek.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi responds to Amal's 'صحتين' with the standard reply 'على قلبك'."
+   },
+   "tokens": [
+    854,
+    73,
+    337
+   ],
+   "usd": 0.000952,
+   "job": "base-run2",
+   "logged": true
+  },
+  "40": {
+   "text": "آه، أنا عم عم بمشي هون. هلأ، أنا بمشي هلأ.",
+   "alt": "Ah, ana 3am 3am bamshi hon. Halla2, ana bamshi halla2.",
+   "raw": {
+    "arabic": "آه، أنا عم عم بمشي هون. هلأ، أنا بمشي هلأ.",
+    "arabizi": "Ah, ana 3am 3am bamshi hon. Halla2, ana bamshi halla2.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أنا بمشي",
+      "said": "أنا عم عم بمشي"
+     },
+     {
+      "engine": "هلق",
+      "said": "هلأ"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi answers Amal's question about walking by saying 'عم عم بمشي هون', then repeats 'هلأ، أنا بمشي هلأ'. The engine missed the continuous particle 'عم' (said twice with hesitation) and transcribed the second 'هلأ' as 'هلق'."
+   },
+   "tokens": [
+    912,
+    149,
+    3312
+   ],
+   "usd": 0.006552,
+   "job": "base-run2",
+   "logged": true
+  },
+  "42": {
+   "text": "اليوم يوم التلات، آ خمسة وعشرين، تمانية ألفين ستة وعشرين.",
+   "alt": "elyoum yom el-talat, aa khamsah w 3eshreen, tamanya alfein sitteh w 3eshreen.",
+   "raw": {
+    "arabic": "اليوم يوم التلات، آ خمسة وعشرين، تمانية ألفين ستة وعشرين.",
+    "arabizi": "elyoum yom el-talat, aa khamsah w 3eshreen, tamanya alfein sitteh w 3eshreen.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الثلاثاء",
+      "said": "التلات"
+     },
+     {
+      "engine": "ثمانية",
+      "said": "تمانية"
+     },
+     {
+      "engine": "ألفين وستة",
+      "said": "ألفين ستة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi speaks spoken Levantine: 'el-talat' instead of standard 'el-thalatha'', 'tamanya' instead of 'thamanya', and omits 'wa' before 'sitteh'."
+   },
+   "tokens": [
+    1138,
+    355,
+    1380
+   ],
+   "usd": 0.003014,
+   "job": "base-run2",
+   "logged": true
+  },
+  "44": {
+   "text": "ألفين وخمسة. I was gonna say",
+   "alt": "alfayn w khamsa. I was gonna say",
+   "raw": {
+    "arabic": "ألفين وخمسة. I was gonna say",
+    "arabizi": "alfayn w khamsa. I was gonna say",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "خمسة",
+      "said": "ألفين وخمسة. I was gonna say"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi corrects his year from 2026 to 2025 ('alfayn w khamsa') after Amal prompts 'khamsa', adding in English 'I was gonna say'."
+   },
+   "tokens": [
+    800,
+    67,
+    1423
+   ],
+   "usd": 0.002968,
+   "job": "base-run2",
+   "logged": true
+  },
+  "46": {
+   "text": "الساعة تلاتة ونص",
+   "alt": "el-saa3a talateh w noṣ",
+   "raw": {
+    "arabic": "الساعة تلاتة ونص",
+    "arabizi": "el-saa3a talateh w noṣ",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'الساعة... تلاتة ونص' responding to Amal's question about the time."
+   },
+   "tokens": [
+    1077,
+    357,
+    470
+   ],
+   "usd": 0.001285,
+   "job": "base-run2",
+   "logged": true
+  },
+  "49": {
+   "text": "Uh, تنتين ونص.",
+   "alt": "Uh, tintayn w noss.",
+   "raw": {
+    "arabic": "Uh, تنتين ونص.",
+    "arabizi": "Uh, tintayn w noss.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "اثنتين",
+      "said": "Uh, تنتين"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi hesitates with an English 'Uh' and uses the colloquial Levantine form 'تنتين' (tintayn)."
+   },
+   "tokens": [
+    775,
+    73,
+    550
+   ],
+   "usd": 0.001322,
+   "job": "base-run2",
+   "logged": true
+  },
+  "51": {
+   "text": "اليوم بلبس بلوزة شوي بنية و بنطلون أزرق فاتح",
+   "alt": "elyom balbes blouzeh shway binniyeh w bantaloon azraq fate7",
+   "raw": {
+    "arabic": "اليوم بلبس بلوزة شوي بنية و بنطلون أزرق فاتح",
+    "arabizi": "elyom balbes blouzeh shway binniyeh w bantaloon azraq fate7",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "blouze",
+      "said": "بلوزة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi said the Levantine word 'بلوزة' (blouzeh), which the engine wrote in Latin letters as 'blouze'."
+   },
+   "tokens": [
+    1096,
+    369,
+    616
+   ],
+   "usd": 0.001566,
+   "job": "base-run2",
+   "logged": true
+  },
+  "52": {
+   "text": "وكندرة بنية",
+   "alt": "w kundara bunniyye",
+   "raw": {
+    "arabic": "وكندرة بنية",
+    "arabizi": "w kundara bunniyye",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "وفندرة",
+      "said": "وكندرة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is listing his clothes (kundara = shoes in Levantine Arabic), which the engine misheard as وفندرة."
+   },
+   "tokens": [
+    897,
+    94,
+    283
+   ],
+   "usd": 0.000867,
+   "job": "base-run2",
+   "logged": true
+  },
+  "54": {
+   "text": "الجو عندي منيح، شوب كتير، مش-",
+   "alt": "al-jaww 3indi mni7, shob kteer, mish-",
+   "raw": {
+    "arabic": "الجو عندي منيح، شوب كتير، مش-",
+    "arabizi": "al-jaww 3indi mni7, shob kteer, mish-",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately matches Medi's speech word for word."
+   },
+   "tokens": [
+    1077,
+    260,
+    403
+   ],
+   "usd": 0.001159,
+   "job": "base-run2",
+   "logged": true
+  },
+  "56": {
+   "text": "مش مغني، مغـ، مغيـ",
+   "alt": "mish mughanni, mugh-, mughay-",
+   "raw": {
+    "arabic": "مش مغني، مغـ، مغيـ",
+    "arabizi": "mish mughanni, mugh-, mughay-",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "مغـ",
+      "said": "مغيـ"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is struggling to remember the word 'مغيم' (cloudy) vs 'مغني' (singer); he stumbles on 'مغـ' then 'مغيـ' before Amal helps him with 'مغيم'."
+   },
+   "tokens": [
+    919,
+    100,
+    915
+   ],
+   "usd": 0.00206,
+   "job": "base-run2",
+   "logged": true
+  },
+  "58": {
+   "text": "مش مغيم، مغني is song.",
+   "alt": "mish mghayyim, mghanni is song.",
+   "raw": {
+    "arabic": "مش مغيم، مغني is song.",
+    "arabizi": "mish mghayyim, mghanni is song.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription perfectly matches the audio."
+   },
+   "tokens": [
+    978,
+    111,
+    424
+   ],
+   "usd": 0.001162,
+   "job": "base-run2",
+   "logged": true
+  },
+  "60": {
+   "text": "Yeah. مش، مش مغيمة.",
+   "alt": "Yeah. mesh, mesh mghayyimeh.",
+   "raw": {
+    "arabic": "Yeah. مش، مش مغيمة.",
+    "arabizi": "Yeah. mesh, mesh mghayyimeh.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed Medi's words accurately."
+   },
+   "tokens": [
+    1047,
+    209,
+    504
+   ],
+   "usd": 0.001338,
+   "job": "base-run2",
+   "logged": true
+  },
+  "63": {
+   "text": "الدرجة حـ-",
+   "alt": "ed-darajeh 7a-",
+   "raw": {
+    "arabic": "الدرجة حـ-",
+    "arabizi": "ed-darajeh 7a-",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الدرجة-",
+      "said": "الدرجة حـ-"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts repeating Amal's question 'درجة الحرارة', saying 'الدرجة' followed by a cut-off start of 'حرارة' ('حـ-')."
+   },
+   "tokens": [
+    913,
+    74,
+    727
+   ],
+   "usd": 0.001705,
+   "job": "base-run2",
+   "logged": true
+  },
+  "65": {
+   "text": "الدرجة حرارة",
+   "alt": "el-darajeh 7arara",
+   "raw": {
+    "arabic": "الدرجة حرارة",
+    "arabizi": "el-darajeh 7arara",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "درجة",
+      "said": "الدرجة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'الدرجة حرارة' with the definite article on 'الدرجة'; the voice at the end is Amal bleeding in."
+   },
+   "tokens": [
+    983,
+    80,
+    801
+   ],
+   "usd": 0.00187,
+   "job": "base-run2",
+   "logged": true
+  },
+  "67": {
+   "text": "درجة الحرارة حوالين، تمنتاش.",
+   "alt": "darajat el-7arara 7awaleen, tmanta3sh.",
+   "raw": {
+    "arabic": "درجة الحرارة حوالين، تمنتاش.",
+    "arabizi": "darajat el-7arara 7awaleen, tmanta3sh.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription is accurate; Medi says 'درجة الحرارة حوالين، تمنتاش', which Amal immediately repeats and questions in the next line."
+   },
+   "tokens": [
+    1100,
+    230,
+    361
+   ],
+   "usd": 0.001089,
+   "job": "base-run2",
+   "logged": true
+  },
+  "69": {
+   "text": "لا، تما- تمانين.",
+   "alt": "la, tama- tamanin.",
+   "raw": {
+    "arabic": "لا، تما- تمانين.",
+    "arabizi": "la, tama- tamanin.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "تمانين.",
+      "said": "لا، تما- تمانين."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi corrects Amal by saying 'لا' (no), starts to say 'تما-', then completes 'تمانين' (eighty, in Fahrenheit)."
+   },
+   "tokens": [
+    929,
+    79,
+    353
+   ],
+   "usd": 0.00101,
+   "job": "base-run2",
+   "logged": true
+  },
+  "71": {
+   "text": "تمانين.",
+   "alt": "tmaneen.",
+   "raw": {
+    "arabic": "تمانين.",
+    "arabizi": "tmaneen.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "ثمانين",
+      "said": "تمانين"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'تمانين' (eighty) using a 't' sound rather than the MSA 'th' sound, which matches colloquial Levantine."
+   },
+   "tokens": [
+    904,
+    55,
+    368
+   ],
+   "usd": 0.001029,
+   "job": "base-run2",
+   "logged": true
+  },
+  "73": {
+   "text": "Oh shoot, I can't",
+   "alt": "Oh shoot, I can't",
+   "raw": {
+    "arabic": "Oh shoot, I can't",
+    "arabizi": "Oh shoot, I can't",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "I.",
+      "said": "I can't"
+     }
+    ],
+    "confidence": "high",
+    "why": "Amal immediately responds with 'You can't?', confirming he said 'can't'."
+   },
+   "tokens": [
+    894,
+    56,
+    243
+   ],
+   "usd": 0.000791,
+   "job": "base-run2",
+   "logged": true
+  },
+  "77": {
+   "text": "Yeah, because I'm",
+   "alt": "Yeah, because I'm",
+   "raw": {
+    "arabic": "Yeah, because I'm",
+    "arabizi": "Yeah, because I'm",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The audio clearly matches the transcript in English."
+   },
+   "tokens": [
+    818,
+    63,
+    140
+   ],
+   "usd": 0.000569,
+   "job": "base-run2",
+   "logged": true
+  },
+  "81": {
+   "text": "غير مش مشكلة؟ uh بسيطة.",
+   "alt": "gheir mish mishkileh? uh basee6a.",
+   "raw": {
+    "arabic": "غير مش مشكلة؟ uh بسيطة.",
+    "arabizi": "gheir mish mishkileh? uh basee6a.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "غير مش مشكلة، بسيطة.",
+      "said": "غير مش مشكلة؟ uh بسيطة."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats Amal's prompt ('غير مش مشكلة؟') questioning it, pauses with a filler 'uh', then answers 'بسيطة'."
+   },
+   "tokens": [
+    831,
+    91,
+    719
+   ],
+   "usd": 0.00166,
+   "job": "base-run2",
+   "logged": true
+  },
+  "83": {
+   "text": "Uh, means like not a big deal?",
+   "alt": "Uh, means like not a big deal?",
+   "raw": {
+    "arabic": "Uh, means like not a big deal?",
+    "arabizi": "Uh, means like not a big deal?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "means",
+      "said": "Uh, means"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi responds in English, starting with a hesitant 'Uh' before 'means like not a big deal?'"
+   },
+   "tokens": [
+    830,
+    106,
+    290
+   ],
+   "usd": 0.000855,
+   "job": "base-run2",
+   "logged": true
+  },
+  "87": {
+   "text": "No problem. We can say لحظة too?",
+   "alt": "No problem. We can say la7za too?",
+   "raw": {
+    "arabic": "No problem. We can say لحظة too?",
+    "arabizi": "No problem. We can say la7za too?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed Medi's exact words accurately."
+   },
+   "tokens": [
+    832,
+    136,
+    189
+   ],
+   "usd": 0.000666,
+   "job": "base-run2",
+   "logged": true
+  },
+  "89": {
+   "text": "Yeah, we we say this too. We say لحظة, say one, one-",
+   "alt": "Yeah, we we say this too. We say la7za, say one, one-",
+   "raw": {
+    "arabic": "Yeah, we we say this too. We say لحظة, say one, one-",
+    "arabizi": "Yeah, we we say this too. We say la7za, say one, one-",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "يلا",
+      "said": "لحظة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is discussing the word 'لحظة' which Amal just defined as 'one second / moment'; the engine misheard 'لحظة' as 'يلا'."
+   },
+   "tokens": [
+    872,
+    157,
+    1287
+   ],
+   "usd": 0.00274,
+   "job": "base-run2",
+   "logged": true
+  },
+  "90": {
+   "text": "Mmm, moment.",
+   "alt": "Mmm, moment.",
+   "raw": {
+    "arabic": "Mmm, moment.",
+    "arabizi": "Mmm, moment.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Moment.",
+      "said": "Mmm, moment."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'Mmm, moment.' continuing his thought in English from the previous line."
+   },
+   "tokens": [
+    764,
+    62,
+    197
+   ],
+   "usd": 0.000656,
+   "job": "base-run2",
+   "logged": true
+  },
+  "92": {
+   "text": "Um, ما زبت. زبت is... uh, my God, what was زبت؟",
+   "alt": "Um, ma zabat. Zabat is... uh, my God, what was zabat?",
+   "raw": {
+    "arabic": "Um, ما زبت. زبت is... uh, my God, what was زبت؟",
+    "arabizi": "Um, ma zabat. Zabat is... uh, my God, what was zabat?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "آآآم",
+      "said": "Um"
+     },
+     {
+      "engine": "oh my God",
+      "said": "uh, my God"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'Um' at the start and 'uh, my God' rather than 'oh my God'."
+   },
+   "tokens": [
+    1218,
+    463,
+    897
+   ],
+   "usd": 0.002139,
+   "job": "base-run2",
+   "logged": true
+  },
+  "94": {
+   "text": "Yeah.",
+   "alt": "Yeah.",
+   "raw": {
+    "arabic": "Yeah.",
+    "arabizi": "Yeah.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply says 'Yeah.' while Amal's voice bleeds through saying 'زبط'."
+   },
+   "tokens": [
+    842,
+    57,
+    425
+   ],
+   "usd": 0.001113,
+   "job": "base-run2",
+   "logged": true
+  },
+  "102": {
+   "text": "Ugh. Okay, maybe not.",
+   "alt": "Ugh. Okay, maybe not.",
+   "raw": {
+    "arabic": "Ugh. Okay, maybe not.",
+    "arabizi": "Ugh. Okay, maybe not.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi spoke entirely in English ('Ugh. Okay, maybe not.') which matches the engine transcription accurately."
+   },
+   "tokens": [
+    1066,
+    263,
+    265
+   ],
+   "usd": 0.000897,
+   "job": "base-run2",
+   "logged": true
+  },
+  "108": {
+   "text": "So let's see. Um, الـ Google Meet بقدر um understand, بقدر، آ، تفهم",
+   "alt": "So let's see. Um, el-Google Meet bi2dar um understand, bi2dar, aa, tifham",
+   "raw": {
+    "arabic": "So let's see. Um, الـ Google Meet بقدر um understand, بقدر، آ، تفهم",
+    "arabizi": "So let's see. Um, el-Google Meet bi2dar um understand, bi2dar, aa, tifham",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Sure.",
+      "said": "So let's see. Um,"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'So let's see' rather than 'Sure' at the start of the audio."
+   },
+   "tokens": [
+    1074,
+    351,
+    888
+   ],
+   "usd": 0.002068,
+   "job": "base-run2",
+   "logged": true
+  },
+  "110": {
+   "text": "أم، يفهم، يفهم عربي بس ما، آآآم، م-م-ما، ما يقدر أكتب عربي. آآآم، هو راح أعطي، إيه، راح، يـ-يعـ-، يعطيـ-، نا-",
+   "alt": "um, yifham, yifham 3arabi bas ma, aaam, m-m-ma, ma yiqdar akteb 3arabi. aaam, huwwe ra7 a3ti, ee, ra7, y-ya3-, ya3ti-, na-",
+   "raw": {
+    "arabic": "أم، يفهم، يفهم عربي بس ما، آآآم، م-م-ما، ما يقدر أكتب عربي. آآآم، هو راح أعطي، إيه، راح، يـ-يعـ-، يعطيـ-، نا-",
+    "arabizi": "um, yifham, yifham 3arabi bas ma, aaam, m-m-ma, ma yiqdar akteb 3arabi. aaam, huwwe ra7 a3ti, ee, ra7, y-ya3-, ya3ti-, na-",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "يأتي",
+      "said": "أعطي، إيه"
+     },
+     {
+      "engine": "ي-يأ-- ي-يأتينا-",
+      "said": "يـ-يعـ-، يعطيـ-، نا-"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is trying to say that Google Meet will give them the translation ('يعطينا الترجمة'). He stumbles over conjugating 'يعطي', saying 'أعطي' then 'يـ-يعـ-، يعطيـ-نا-', which the engine misheard as 'يأتي/يأتينا'."
+   },
+   "tokens": [
+    1566,
+    866,
+    1543
+   ],
+   "usd": 0.00348,
+   "job": "base-run2",
+   "logged": true
+  },
+  "112": {
+   "text": "يأتي، yeah، يأتينا، آآ، الـ تجرمة، الـ ترجـ",
+   "alt": "ya'ti, yeah, ya'tina, aaa, el-tajrameh, el-tarj-",
+   "raw": {
+    "arabic": "يأتي، yeah، يأتينا، آآ، الـ تجرمة، الـ ترجـ",
+    "arabizi": "ya'ti, yeah, ya'tina, aaa, el-tajrameh, el-tarj-",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "يأت--",
+      "said": "يأتي،"
+     },
+     {
+      "engine": "الـ ترجمة. الـ-",
+      "said": "آآ، الـ تجرمة، الـ ترجـ"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'ya'ti, yeah, ya'tina' and then accidentally flips the consonants in 'tarjameh' saying 'tajrameh', starts correcting himself with 'el-tarj-', and Amal corrects him with 'tarjameh'."
+   },
+   "tokens": [
+    935,
+    236,
+    925
+   ],
+   "usd": 0.002085,
+   "job": "base-run2",
+   "logged": true
+  },
+  "114": {
+   "text": "ترجمة",
+   "alt": "tarjameh",
+   "raw": {
+    "arabic": "ترجمة",
+    "arabizi": "tarjameh",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly repeats Amal's prompt 'ترجمة'."
+   },
+   "tokens": [
+    801,
+    142,
+    103
+   ],
+   "usd": 0.000494,
+   "job": "base-run2",
+   "logged": true
+  },
+  "116": {
+   "text": "وما بد- ما بدنا إياه. um، إحنا بدنا العربي والـ، الـتاني، I don't know how to say issue, do I? الـتاني problem. Do I know how to say problem?",
+   "alt": "w ma bed- ma bedna iyyah. um, e7na bedna el 3arabi wel, eltani, I don't know how to say issue, do I? eltani problem. Do I know how to say problem?",
+   "raw": {
+    "arabic": "وما بد- ما بدنا إياه. um، إحنا بدنا العربي والـ، الـتاني، I don't know how to say issue, do I? الـتاني problem. Do I know how to say problem?",
+    "arabizi": "w ma bed- ma bedna iyyah. um, e7na bedna el 3arabi wel, eltani, I don't know how to say issue, do I? eltani problem. Do I know how to say problem?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed Medi's words accurately, including his English hesitations and questions."
+   },
+   "tokens": [
+    1536,
+    841,
+    619
+   ],
+   "usd": 0.001737,
+   "job": "base-run2",
+   "logged": true
+  },
+  "118": {
+   "text": "الـ تاني مشكلة. No.",
+   "alt": "al-tani mushkileh. No.",
+   "raw": {
+    "arabic": "الـ تاني مشكلة. No.",
+    "arabizi": "al-tani mushkileh. No.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed Medi's exact words accurately."
+   },
+   "tokens": [
+    927,
+    136,
+    678
+   ],
+   "usd": 0.001619,
+   "job": "base-run2",
+   "logged": true
+  },
+  "122": {
+   "text": "Or",
+   "alt": "Or",
+   "raw": {
+    "arabic": "Or",
+    "arabizi": "Or",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "So-",
+      "said": "Or"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly says the English word 'Or'."
+   },
+   "tokens": [
+    820,
+    53,
+    258
+   ],
+   "usd": 0.000791,
+   "job": "base-run2",
+   "logged": true
+  },
+  "124": {
+   "text": "Yeah, تاني",
+   "alt": "Yeah, tani",
+   "raw": {
+    "arabic": "Yeah, تاني",
+    "arabizi": "Yeah, tani",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Next problem",
+      "said": "Yeah, تاني"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'Yeah, تاني' which Amal immediately responds to with 'تاني، تاني مشكلة or المشكلة التانية'."
+   },
+   "tokens": [
+    815,
+    47,
+    262
+   ],
+   "usd": 0.000797,
+   "job": "base-run2",
+   "logged": true
+  },
+  "126": {
+   "text": "المشكلة التانية",
+   "alt": "el-moshkileh el-tanyeh",
+   "raw": {
+    "arabic": "المشكلة التانية",
+    "arabizi": "el-moshkileh el-tanyeh",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi repeats Amal's phrase 'المشكلة التانية' accurately as transcribed."
+   },
+   "tokens": [
+    864,
+    94,
+    233
+   ],
+   "usd": 0.000761,
+   "job": "base-run2",
+   "logged": true
+  },
+  "127": {
+   "text": "إنه إنه إحنا نكتب في Arabic or English letters. Uh oh I can say this: حروف، حروف إنجليزي؟",
+   "alt": "inno inno i7na nuktob fi Arabic or English letters. Uh oh I can say this: 7roof, 7roof ingleesi?",
+   "raw": {
+    "arabic": "إنه إنه إحنا نكتب في Arabic or English letters. Uh oh I can say this: حروف، حروف إنجليزي؟",
+    "arabizi": "inno inno i7na nuktob fi Arabic or English letters. Uh oh I can say this: 7roof, 7roof ingleesi?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "إنه احنا",
+      "said": "إنه إنه إحنا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi stutters 'إنه' twice before saying 'إحنا'."
+   },
+   "tokens": [
+    1229,
+    458,
+    664
+   ],
+   "usd": 0.001706,
+   "job": "base-run2",
+   "logged": true
+  },
+  "129": {
+   "text": "Okay. حروف إنجليزي، و... آه... ما بقدر، بس... It's gonna take some creativity I think because we, we-- I, I think if I can get it to transcribe, trans-script in Arabic, which I think we can do, um, then it can, it could still figure everything out.",
+   "alt": "Okay. 7roof ingleesi, w... aah... ma bagdar, bas... It's gonna take some creativity I think because we, we-- I, I think if I can get it to transcribe, trans-script in Arabic, which I think we can do, um, then it can, it could still figure everything out.",
+   "raw": {
+    "arabic": "Okay. حروف إنجليزي، و... آه... ما بقدر، بس... It's gonna take some creativity I think because we, we-- I, I think if I can get it to transcribe, trans-script in Arabic, which I think we can do, um, then it can, it could still figure everything out.",
+    "arabizi": "Okay. 7roof ingleesi, w... aah... ma bagdar, bas... It's gonna take some creativity I think because we, we-- I, I think if I can get it to transcribe, trans-script in Arabic, which I think we can do, um, then it can, it could still figure everything out.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "حروف إنجليزي، ما بقدر",
+      "said": "حروف إنجليزي، و... آه... ما بقدر"
+     },
+     {
+      "engine": "آآآم",
+      "said": "um"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi pauses and says 'و... آه...' between 'حروف إنجليزي' and 'ما بقدر', which the engine omitted, and his filler later is English 'um'."
+   },
+   "tokens": [
+    1764,
+    1006,
+    1110
+   ],
+   "usd": 0.002743,
+   "job": "base-run2",
+   "logged": true
+  },
+  "131": {
+   "text": "Yeah, we'll try it.",
+   "alt": "Yeah, we'll try it.",
+   "raw": {
+    "arabic": "Yeah, we'll try it.",
+    "arabizi": "Yeah, we'll try it.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'Yeah, we'll try it.' in English."
+   },
+   "tokens": [
+    705,
+    65,
+    216
+   ],
+   "usd": 0.000669,
+   "job": "base-run2",
+   "logged": true
+  },
+  "133": {
+   "text": "Okay.",
+   "alt": "Okay.",
+   "raw": {
+    "arabic": "Okay.",
+    "arabizi": "Okay.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply says 'Okay.' in response to Amal (the preceding 'Yeah' in the clip is bleed from Amal's audio)."
+   },
+   "tokens": [
+    689,
+    49,
+    245
+   ],
+   "usd": 0.000718,
+   "job": "base-run2",
+   "logged": true
+  },
+  "135": {
+   "text": "بتعبك هذي الـ... That means, uh... I don't remember. ما بـ-- من-- ما بتذكر، uh هذي الكلمة.",
+   "alt": "btet3abak haadi el-... That means, uh... I don't remember. ma b--- min-- ma batzakkar, uh haadi el-kelmeh.",
+   "raw": {
+    "arabic": "بتعبك هذي الـ... That means, uh... I don't remember. ما بـ-- من-- ما بتذكر، uh هذي الكلمة.",
+    "arabizi": "btet3abak haadi el-... That means, uh... I don't remember. ma b--- min-- ma batzakkar, uh haadi el-kelmeh.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "يتعبك",
+      "said": "بتعبك"
+     },
+     {
+      "engine": "That's been",
+      "said": "That means"
+     },
+     {
+      "engine": "أنا",
+      "said": ""
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats Amal's phrase 'بتعبك هذي الـ', tries to guess what 'فترة' means with 'That means...', then gives up saying 'I don't remember, ma batzakkar haadi el-kelmeh'."
+   },
+   "tokens": [
+    1215,
+    449,
+    1050
+   ],
+   "usd": 0.002424,
+   "job": "base-run2",
+   "logged": true
+  },
+  "137": {
+   "text": "Okay.",
+   "alt": "Okay.",
+   "raw": {
+    "arabic": "Okay.",
+    "arabizi": "Okay.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply acknowledges Amal's explanation by saying 'Okay.'"
+   },
+   "tokens": [
+    806,
+    64,
+    136
+   ],
+   "usd": 0.000557,
+   "job": "base-run2",
+   "logged": true
+  },
+  "141": {
+   "text": "تعب، تعب. Oh, make-",
+   "alt": "ta3ab, ta3ab. Oh, make-",
+   "raw": {
+    "arabic": "تعب، تعب. Oh, make-",
+    "arabizi": "ta3ab, ta3ab. Oh, make-",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the audio correctly; Medi is repeating 'ta3ab, ta3ab' and attempting to translate with 'Oh, make-' before cutting off."
+   },
+   "tokens": [
+    848,
+    56,
+    754
+   ],
+   "usd": 0.001732,
+   "job": "base-run2",
+   "logged": true
+  },
+  "143": {
+   "text": "بيتعبك",
+   "alt": "bita3bak",
+   "raw": {
+    "arabic": "بيتعبك",
+    "arabizi": "bita3bak",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi repeats the word 'بيتعبك' clearly as prompted by the teacher."
+   },
+   "tokens": [
+    865,
+    84,
+    177
+   ],
+   "usd": 0.000656,
+   "job": "base-run2",
+   "logged": true
+  },
+  "145": {
+   "text": "So made- The b is throwing me off. بي تعبك؟",
+   "alt": "So made- The b is throwing me off. bi te3bak?",
+   "raw": {
+    "arabic": "So made- The b is throwing me off. بي تعبك؟",
+    "arabizi": "So made- The b is throwing me off. bi te3bak?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "be",
+      "said": "b"
+     },
+     {
+      "engine": "up",
+      "said": "off"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says the idiom 'throwing me off' regarding the letter 'b' (ب / bi- prefix)."
+   },
+   "tokens": [
+    1108,
+    271,
+    317
+   ],
+   "usd": 0.00101,
+   "job": "base-run2",
+   "logged": true
+  },
+  "147": {
+   "text": "So بتعبك؟ بتـ...",
+   "alt": "So bit3ebak? Bit-...",
+   "raw": {
+    "arabic": "So بتعبك؟ بتـ...",
+    "arabizi": "So bit3ebak? Bit-...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "بي تعب أك.",
+      "said": "So بتعبك؟ بتـ..."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'So bit'abak? Bit-' before getting cut off / continuing his thought."
+   },
+   "tokens": [
+    917,
+    66,
+    684
+   ],
+   "usd": 0.001626,
+   "job": "base-run2",
+   "logged": true
+  },
+  "149": {
+   "text": "Like, yeah. بي تعب is he... Oh, it made you sad.",
+   "alt": "Like, yeah. byet3ab is he... Oh, it made you sad.",
+   "raw": {
+    "arabic": "Like, yeah. بي تعب is he... Oh, it made you sad.",
+    "arabizi": "Like, yeah. byet3ab is he... Oh, it made you sad.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "بي تعب",
+      "said": "Like, yeah. بي تعب"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts with 'Like, yeah' acknowledging Amal before analyzing 'بي تعب' and mistakenly guessing 'sad' (which Amal corrects to 'tired' next)."
+   },
+   "tokens": [
+    1002,
+    172,
+    693
+   ],
+   "usd": 0.001675,
+   "job": "base-run2",
+   "logged": true
+  },
+  "151": {
+   "text": "Oh, made you tired, tired, yeah.",
+   "alt": "Oh, made you tired, tired, yeah.",
+   "raw": {
+    "arabic": "Oh, made you tired, tired, yeah.",
+    "arabizi": "Oh, made you tired, tired, yeah.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately captured Medi's English line."
+   },
+   "tokens": [
+    910,
+    90,
+    438
+   ],
+   "usd": 0.001162,
+   "job": "base-run2",
+   "logged": true
+  },
+  "153": {
+   "text": "Present tense.",
+   "alt": "Present tense.",
+   "raw": {
+    "arabic": "Present tense.",
+    "arabizi": "Present tense.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi accurately responds to Amal's question 'شو يعني مضارع؟' in English."
+   },
+   "tokens": [
+    874,
+    56,
+    214
+   ],
+   "usd": 0.000729,
+   "job": "base-run2",
+   "logged": true
+  },
+  "155": {
+   "text": "Uh... okay, tell me... tell me... أو كمان مرة الـ- الجملة؟",
+   "alt": "Uh... okay, tell me... tell me... aw kaman marra el- el-jomleh?",
+   "raw": {
+    "arabic": "Uh... okay, tell me... tell me... أو كمان مرة الـ- الجملة؟",
+    "arabizi": "Uh... okay, tell me... tell me... aw kaman marra el- el-jomleh?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Tell me كم مرة",
+      "said": "tell me... أو كمان مرة الـ-"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is trying to translate Amal's sentence, saying 'tell me' in English, then asking her 'or one more time the sentence?' ('aw kaman marra el-jomle') to hear it again, which is why she repeats it right after."
+   },
+   "tokens": [
+    1150,
+    317,
+    1092
+   ],
+   "usd": 0.002479,
+   "job": "base-run2",
+   "logged": true
+  },
+  "157": {
+   "text": "Uh-huh.",
+   "alt": "Uh-huh.",
+   "raw": {
+    "arabic": "Uh-huh.",
+    "arabizi": "Uh-huh.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply acknowledges Amal with 'Uh-huh' while she is speaking."
+   },
+   "tokens": [
+    874,
+    72,
+    313
+   ],
+   "usd": 0.000915,
+   "job": "base-run2",
+   "logged": true
+  },
+  "161": {
+   "text": "Okay. Uh... uh...",
+   "alt": "Okay. Uh... uh...",
+   "raw": {
+    "arabic": "Okay. Uh... uh...",
+    "arabizi": "Okay. Uh... uh...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Okay.",
+      "said": "Okay. Uh... uh..."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'Okay' followed by hesitating vowel sounds 'uh... uh...' while thinking of an answer."
+   },
+   "tokens": [
+    858,
+    144,
+    213
+   ],
+   "usd": 0.000721,
+   "job": "base-run2",
+   "logged": true
+  },
+  "163": {
+   "text": "لما، أشتغل مع عي- عيلتنا كتير. و... هو، هما ما، ما، ما يخلصوا.",
+   "alt": "lamma, ashtaghel ma3 3ay- 3ayletna kteer. w... huwwe, humme ma, ma, ma ykhallso.",
+   "raw": {
+    "arabic": "لما، أشتغل مع عي- عيلتنا كتير. و... هو، هما ما، ما، ما يخلصوا.",
+    "arabizi": "lamma, ashtaghel ma3 3ay- 3ayletna kteer. w... huwwe, humme ma, ma, ma ykhallso.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "إي-",
+      "said": "عي-"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi stutters on the beginning of 'عيلتنا' (3ayletna), saying 'عي-' (3ay-), not 'إي-'."
+   },
+   "tokens": [
+    1709,
+    1034,
+    820
+   ],
+   "usd": 0.002178,
+   "job": "base-run2",
+   "logged": true
+  },
+  "165": {
+   "text": "ما يخلصوا، so they don't finish",
+   "alt": "ma y5alsu, so they don't finish",
+   "raw": {
+    "arabic": "ما يخلصوا، so they don't finish",
+    "arabizi": "ma y5alsu, so they don't finish",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "they don't finish",
+      "said": "so they don't finish"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly says 'so they don't finish' translating his thought."
+   },
+   "tokens": [
+    762,
+    101,
+    389
+   ],
+   "usd": 0.001015,
+   "job": "base-run2",
+   "logged": true
+  },
+  "167": {
+   "text": "شغلهم، when they don't finish, وأنا لازم كل اليوم، أطلبهم or أطلب-- is it أطلب لهم or أطلبهم؟",
+   "alt": "shogholhon, when they don't finish, w ana laazem koll el yom, atlobhon or atlob-- is it atlob elhon or atlobhon?",
+   "raw": {
+    "arabic": "شغلهم، when they don't finish, وأنا لازم كل اليوم، أطلبهم or أطلب-- is it أطلب لهم or أطلبهم؟",
+    "arabizi": "shogholhon, when they don't finish, w ana laazem koll el yom, atlobhon or atlob-- is it atlob elhon or atlobhon?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "They don't finish",
+      "said": "when they don't finish"
+     },
+     {
+      "engine": "أو",
+      "said": "or"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'when they don't finish' quietly, and uses the English word 'or' rather than Arabic 'أو'."
+   },
+   "tokens": [
+    1390,
+    728,
+    720
+   ],
+   "usd": 0.001871,
+   "job": "base-run2",
+   "logged": true
+  },
+  "169": {
+   "text": "أطلب منهم.",
+   "alt": "atlob minhom.",
+   "raw": {
+    "arabic": "أطلب منهم.",
+    "arabizi": "atlob minhom.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi repeats Amal's correction verbatim: أطلب منهم."
+   },
+   "tokens": [
+    792,
+    67,
+    112
+   ],
+   "usd": 0.000507,
+   "job": "base-run2",
+   "logged": true
+  },
+  "171": {
+   "text": "when كم، كم، لما كم يخلصوا. I get tired when I, when I have to keep asking them to finish their work.",
+   "alt": "when kam, kam, lamma kam yikhalsu. I get tired when I, when I have to keep asking them to finish their work.",
+   "raw": {
+    "arabic": "when كم، كم، لما كم يخلصوا. I get tired when I, when I have to keep asking them to finish their work.",
+    "arabizi": "when kam, kam, lamma kam yikhalsu. I get tired when I, when I have to keep asking them to finish their work.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately captures his stammering, false starts, and English explanation."
+   },
+   "tokens": [
+    1308,
+    563,
+    856
+   ],
+   "usd": 0.002096,
+   "job": "base-run2",
+   "logged": true
+  },
+  "173": {
+   "text": "their work يخلصوا شغلهم",
+   "alt": "their work ykhallso shogholhom",
+   "raw": {
+    "arabic": "their work يخلصوا شغلهم",
+    "arabizi": "their work ykhallso shogholhom",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "يخلصوا",
+      "said": "their work يخلصوا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats 'their work' in English before translating it to Arabic."
+   },
+   "tokens": [
+    887,
+    96,
+    207
+   ],
+   "usd": 0.000721,
+   "job": "base-run2",
+   "logged": true
+  },
+  "175": {
+   "text": "Oh، أنا... Okay. So be present tense.",
+   "alt": "Oh, ana... Okay. So be present tense.",
+   "raw": {
+    "arabic": "Oh، أنا... Okay. So be present tense.",
+    "arabizi": "Oh, ana... Okay. So be present tense.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately reflects Medi's speech in both English and Arabic."
+   },
+   "tokens": [
+    1032,
+    214,
+    588
+   ],
+   "usd": 0.001489,
+   "job": "base-run2",
+   "logged": true
+  },
+  "177": {
+   "text": "أنا بتعب",
+   "alt": "ana bat3ab",
+   "raw": {
+    "arabic": "أنا بتعب",
+    "arabizi": "ana bat3ab",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'أنا بتعب' ('I get tired') to answer how to say that part."
+   },
+   "tokens": [
+    884,
+    80,
+    215
+   ],
+   "usd": 0.000735,
+   "job": "base-run2",
+   "logged": true
+  },
+  "179": {
+   "text": "أنا بتعب",
+   "alt": "ana bat3ab",
+   "raw": {
+    "arabic": "أنا بتعب",
+    "arabizi": "ana bat3ab",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'أنا بتعب' as correctly identified by the engine."
+   },
+   "tokens": [
+    873,
+    70,
+    248
+   ],
+   "usd": 0.000792,
+   "job": "base-run2",
+   "logged": true
+  },
+  "181": {
+   "text": "الجملة كاملة؟",
+   "alt": "al-jumleh kamleh?",
+   "raw": {
+    "arabic": "الجملة كاملة؟",
+    "arabizi": "al-jumleh kamleh?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi accurately repeats Amal's phrase 'الجملة كاملة؟' to confirm what she meant."
+   },
+   "tokens": [
+    888,
+    87,
+    241
+   ],
+   "usd": 0.000785,
+   "job": "base-run2",
+   "logged": true
+  },
+  "183": {
+   "text": "كاملة؟",
+   "alt": "kamleh?",
+   "raw": {
+    "arabic": "كاملة؟",
+    "arabizi": "kamleh?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "كام... كاملة؟",
+      "said": "كاملة؟"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi asks 'كاملة؟' with a slight hesitation between syllables; the subsequent voice is Amal bleeding through his speakers."
+   },
+   "tokens": [
+    881,
+    98,
+    958
+   ],
+   "usd": 0.002127,
+   "job": "base-run2",
+   "logged": true
+  },
+  "185": {
+   "text": "Oh, okay. ca-- complete. أنا بحكي الجملة com-- ba-- كاملة؟",
+   "alt": "Oh, okay. ca-- complete. ana ba7ki el-jumleh com-- ba-- kamleh?",
+   "raw": {
+    "arabic": "Oh, okay. ca-- complete. أنا بحكي الجملة com-- ba-- كاملة؟",
+    "arabizi": "Oh, okay. ca-- complete. ana ba7ki el-jumleh com-- ba-- kamleh?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately reflects Medi's English and Arabic words, false starts, and hesitations."
+   },
+   "tokens": [
+    1021,
+    253,
+    702
+   ],
+   "usd": 0.001699,
+   "job": "base-run2",
+   "logged": true
+  },
+  "187": {
+   "text": "أنا، أنا بتـ، أنا بتعب كتير لما عيلتنا، عيلتي، اللي، أشتغل معهم، و هو...",
+   "alt": "ana, ana bat-, ana bat3ab kteer lamma 3eletna, 3eleti, illi, ashta8el ma3hom, w huwwe...",
+   "raw": {
+    "arabic": "أنا، أنا بتـ، أنا بتعب كتير لما عيلتنا، عيلتي، اللي، أشتغل معهم، و هو...",
+    "arabizi": "ana, ana bat-, ana bat3ab kteer lamma 3eletna, 3eleti, illi, ashta8el ma3hom, w huwwe...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Okay.",
+      "said": ""
+     },
+     {
+      "engine": "أنا بتعب",
+      "said": "أنا بتـ"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi didn't say 'Okay', and he cut off 'بتـ' on his first attempt rather than finishing the word 'بتعب'."
+   },
+   "tokens": [
+    1544,
+    777,
+    921
+   ],
+   "usd": 0.002306,
+   "job": "base-run2",
+   "logged": true
+  },
+  "189": {
+   "text": "ما بيخلصوا شغلتهم",
+   "alt": "ma bikhallsu shaghlethom",
+   "raw": {
+    "arabic": "ما بيخلصوا شغلتهم",
+    "arabizi": "ma bikhallsu shaghlethom",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "هما ما",
+      "said": "ما"
+     },
+     {
+      "engine": "اشتغلتهم",
+      "said": "شغلتهم"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi does not say 'هما' (which was Amal's prompt before), and says 'شغلتهم' (which Amal immediately corrects to 'شغلهم')."
+   },
+   "tokens": [
+    853,
+    152,
+    604
+   ],
+   "usd": 0.001452,
+   "job": "base-run2",
+   "logged": true
+  },
+  "191": {
+   "text": "شغلهم. و، لازم، لازم أطلب، أطلبهم",
+   "alt": "shugholhom. w, lazem, lazem a6lob, a6lobhom",
+   "raw": {
+    "arabic": "شغلهم. و، لازم، لازم أطلب، أطلبهم",
+    "arabizi": "shugholhom. w, lazem, lazem a6lob, a6lobhom",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcript matches the audio accurately; Medi repeats 'شغلهم' and says 'لازم أطلب، أطلبهم' before Amal corrects him with 'منهم'."
+   },
+   "tokens": [
+    1065,
+    396,
+    415
+   ],
+   "usd": 0.001177,
+   "job": "base-run2",
+   "logged": true
+  },
+  "193": {
+   "text": "أ- أطلب منهم كتير إنو um يخلص يخلصهم؟",
+   "alt": "a- o6lob menhom kteer enno um yekhalles yekhalleshom?",
+   "raw": {
+    "arabic": "أ- أطلب منهم كتير إنو um يخلص يخلصهم؟",
+    "arabizi": "a- o6lob menhom kteer enno um yekhalles yekhalleshom?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أطلب",
+      "said": "أ- أطلب"
+     },
+     {
+      "engine": "إنو،",
+      "said": "إنو um"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi stammers at the beginning with 'أ-' before 'أطلب', and hesitates with English 'um' between 'إنو' and 'يخلص'."
+   },
+   "tokens": [
+    1077,
+    373,
+    403
+   ],
+   "usd": 0.001159,
+   "job": "base-run2",
+   "logged": true
+  },
+  "195": {
+   "text": "يخلصوهم. Finish or it, finish it. يخلصوه، you're right.",
+   "alt": "yikhallsoohum. Finish or it, finish it. yikhallsooh, you're right.",
+   "raw": {
+    "arabic": "يخلصوهم. Finish or it, finish it. يخلصوه، you're right.",
+    "arabizi": "yikhallsoohum. Finish or it, finish it. yikhallsooh, you're right.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Finish or, finish it",
+      "said": "Finish or it, finish it"
+     },
+     {
+      "engine": "يخلصوا",
+      "said": "يخلصوه"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats Amal's correction 'يخلصوه' (with the 3rd person masculine object pronoun suffix) rather than 'يخلصوا'."
+   },
+   "tokens": [
+    928,
+    197,
+    1344
+   ],
+   "usd": 0.002868,
+   "job": "base-run2",
+   "logged": true
+  },
+  "197": {
+   "text": "Yeah. Oh.",
+   "alt": "Yeah. Oh.",
+   "raw": {
+    "arabic": "Yeah. Oh.",
+    "arabizi": "Yeah. Oh.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription is accurate; he says 'Yeah. Oh.'"
+   },
+   "tokens": [
+    748,
+    43,
+    323
+   ],
+   "usd": 0.000886,
+   "job": "base-run2",
+   "logged": true
+  },
+  "199": {
+   "text": "Uh, خطيبتي",
+   "alt": "Uh, 56ibti",
+   "raw": {
+    "arabic": "Uh, خطيبتي",
+    "arabizi": "Uh, 56ibti",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "خطيبتي",
+      "said": "Uh, خطيبتي"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts with the English filler 'Uh' before saying 'خطيبتي'."
+   },
+   "tokens": [
+    768,
+    68,
+    1107
+   ],
+   "usd": 0.002364,
+   "job": "base-run2",
+   "logged": true
+  },
+  "201": {
+   "text": "خطيب، خطيبتي.",
+   "alt": "kha6eeb, kha6eebti.",
+   "raw": {
+    "arabic": "خطيب، خطيبتي.",
+    "arabizi": "kha6eeb, kha6eebti.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi accurately pronounced both 'خطيب' and 'خطيبتي' as transcribed."
+   },
+   "tokens": [
+    807,
+    98,
+    282
+   ],
+   "usd": 0.000831,
+   "job": "base-run2",
+   "logged": true
+  },
+  "203": {
+   "text": "بالغلط",
+   "alt": "bil-ghalat",
+   "raw": {
+    "arabic": "بالغلط",
+    "arabizi": "bil-ghalat",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi accurately answered 'بالغلط' to Amal's question about how to say accidentally/by mistake."
+   },
+   "tokens": [
+    796,
+    78,
+    185
+   ],
+   "usd": 0.000645,
+   "job": "base-run2",
+   "logged": true
+  },
+  "205": {
+   "text": "بتبسط... Oh, how do I make her happy?",
+   "alt": "btibset... Oh, how do I make her happy?",
+   "raw": {
+    "arabic": "بتبسط... Oh, how do I make her happy?",
+    "arabizi": "btibset... Oh, how do I make her happy?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed Medi's exact words correctly: he repeats the verb 'بتبسط' from Amal's question, pauses, and translates it as 'Oh, how do I make her happy?'."
+   },
+   "tokens": [
+    958,
+    229,
+    935
+   ],
+   "usd": 0.002112,
+   "job": "base-run2",
+   "logged": true
+  },
+  "209": {
+   "text": "Okay.",
+   "alt": "Okay.",
+   "raw": {
+    "arabic": "Okay.",
+    "arabizi": "Okay.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi says 'Okay.' (the subsequent 'How, how do...' belongs to his next line listed in the context)."
+   },
+   "tokens": [
+    802,
+    79,
+    1975
+   ],
+   "usd": 0.004004,
+   "job": "base-run2",
+   "logged": true
+  },
+  "211": {
+   "text": "How, how do I make her happy? خطيبتي, doesn't stay... Is that present tense?",
+   "alt": "How, how do I make her happy? 5ateebti, doesn't stay... Is that present tense?",
+   "raw": {
+    "arabic": "How, how do I make her happy? خطيبتي, doesn't stay... Is that present tense?",
+    "arabizi": "How, how do I make her happy? 5ateebti, doesn't stay... Is that present tense?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Is that the present tense?",
+      "said": "Is that present tense?"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi asks 'Is that present tense?' without the article 'the'."
+   },
+   "tokens": [
+    1436,
+    708,
+    805
+   ],
+   "usd": 0.002048,
+   "job": "base-run2",
+   "logged": true
+  },
+  "213": {
+   "text": "Okay.",
+   "alt": "Okay.",
+   "raw": {
+    "arabic": "Okay.",
+    "arabizi": "Okay.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply acknowledges with 'Okay.'"
+   },
+   "tokens": [
+    823,
+    55,
+    157
+   ],
+   "usd": 0.000603,
+   "job": "base-run2",
+   "logged": true
+  },
+  "215": {
+   "text": "خطيبتي ما، ما بتضل",
+   "alt": "khatibti ma, ma btidoll",
+   "raw": {
+    "arabic": "خطيبتي ما، ما بتضل",
+    "arabizi": "khatibti ma, ma btidoll",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine accurately transcribed Medi's words and hesitations."
+   },
+   "tokens": [
+    1050,
+    266,
+    842
+   ],
+   "usd": 0.001972,
+   "job": "base-run2",
+   "logged": true
+  },
+  "217": {
+   "text": "بتضل، تـ- تعصب، تعصب، زمان طويل.",
+   "alt": "bitdall, t- t3a99ib, t3a99ib, zaman Taweel.",
+   "raw": {
+    "arabic": "بتضل، تـ- تعصب، تعصب، زمان طويل.",
+    "arabizi": "bitdall, t- t3a99ib, t3a99ib, zaman Taweel.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "تعصب،",
+      "said": "تـ- تعصب،"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats 'بتضل' and stutters 'تـ- تعصب' before repeating 'تعصب' and concluding with 'زمان طويل', which Amal then corrects to 'لوقت طويل'."
+   },
+   "tokens": [
+    1031,
+    329,
+    822
+   ],
+   "usd": 0.001928,
+   "job": "base-run2",
+   "logged": true
+  },
+  "219": {
+   "text": "لوقت طويل",
+   "alt": "la-wa2t 6aweel",
+   "raw": {
+    "arabic": "لوقت طويل",
+    "arabizi": "la-wa2t 6aweel",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi accurately repeats Amal's phrase 'لوقت طويل'."
+   },
+   "tokens": [
+    975,
+    188,
+    493
+   ],
+   "usd": 0.00129,
+   "job": "base-run2",
+   "logged": true
+  },
+  "221": {
+   "text": "لازم نصلح",
+   "alt": "laazim nSalla7",
+   "raw": {
+    "arabic": "لازم نصلح",
+    "arabizi": "laazim nSalla7",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Oh أنا.",
+      "said": "لازم نصلح"
+     }
+    ],
+    "confidence": "high",
+    "why": "The audio is Amal's voice bleeding into Medi's microphone saying 'لازم نصلح', which the engine completely misheard."
+   },
+   "tokens": [
+    908,
+    38,
+    1125
+   ],
+   "usd": 0.00245,
+   "job": "base-run2",
+   "logged": true
+  },
+  "223": {
+   "text": "و أنا, that's... We never did this word. Um, it's أنا بـ بنبسط. Is it b- بنبسطها؟",
+   "alt": "w ana, that's... We never did this word. Um, it's ana b- banbset. Is it b- banbsetha?",
+   "raw": {
+    "arabic": "و أنا, that's... We never did this word. Um, it's أنا بـ بنبسط. Is it b- بنبسطها؟",
+    "arabizi": "w ana, that's... We never did this word. Um, it's ana b- banbset. Is it b- banbsetha?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "it's",
+      "said": "Um, it's"
+     },
+     {
+      "engine": "بنزبط",
+      "said": "بنبسط"
+     },
+     {
+      "engine": "بنزبطها",
+      "said": "بنبسطها"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi mistakenly adds a 'ن' when trying to conjugate ببسطها (to please/cheer up), saying 'بنبسط' and 'بنبسطها', which Amal corrects immediately after to 'ببسطها'."
+   },
+   "tokens": [
+    1282,
+    447,
+    2583
+   ],
+   "usd": 0.005324,
+   "job": "base-run2",
+   "logged": true
+  },
+  "225": {
+   "text": "ببسطها.",
+   "alt": "babsit-ha.",
+   "raw": {
+    "arabic": "ببسطها.",
+    "arabizi": "babsit-ha.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi repeats the word Amal just said ('ببسطها')."
+   },
+   "tokens": [
+    877,
+    38,
+    306
+   ],
+   "usd": 0.000903,
+   "job": "base-run2",
+   "logged": true
+  },
+  "229": {
+   "text": "Uh ببسطها؟",
+   "alt": "Uh babsit-ha?",
+   "raw": {
+    "arabic": "Uh ببسطها؟",
+    "arabizi": "Uh babsit-ha?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "ببسطها.",
+      "said": "Uh ببسطها؟"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts with the English filler 'Uh' and repeats Amal's suggestion as a question: 'Uh ببسطها؟'."
+   },
+   "tokens": [
+    868,
+    56,
+    315
+   ],
+   "usd": 0.000916,
+   "job": "base-run2",
+   "logged": true
+  },
+  "231": {
+   "text": "أنا ببسوطها",
+   "alt": "ana babsoot-ha",
+   "raw": {
+    "arabic": "أنا ببسوطها",
+    "arabizi": "ana babsoot-ha",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "ببسطها",
+      "said": "ببسوطها"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi mispronounces the verb with an 'oo' vowel sound, saying 'babsutha/babsoot-ha'."
+   },
+   "tokens": [
+    907,
+    81,
+    416
+   ],
+   "usd": 0.00112,
+   "job": "base-run2",
+   "logged": true
+  },
+  "233": {
+   "text": "ببسطها، مع... I don't know how to say apologies.",
+   "alt": "babsotha, ma3... I don't know how to say apologies.",
+   "raw": {
+    "arabic": "ببسطها، مع... I don't know how to say apologies.",
+    "arabizi": "babsotha, ma3... I don't know how to say apologies.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "ماaa...",
+      "said": "مع..."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is trying to construct a sentence ('I make her happy with... apologies') and says 'مع' (with) before getting stuck on the word for apologies."
+   },
+   "tokens": [
+    1249,
+    380,
+    421
+   ],
+   "usd": 0.001258,
+   "job": "base-run2",
+   "logged": true
+  },
+  "236": {
+   "text": "إذا أنا احكيلها",
+   "alt": "iza ana a7keelha",
+   "raw": {
+    "arabic": "إذا أنا احكيلها",
+    "arabizi": "iza ana a7keelha",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "بحكيلها",
+      "said": "احكيلها"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'احكيلها' (a7keelha) without the 'b' prefix, which is why Amal immediately corrects him with 'بحكيلها'."
+   },
+   "tokens": [
+    1039,
+    218,
+    547
+   ],
+   "usd": 0.001415,
+   "job": "base-run2",
+   "logged": true
+  },
+  "238": {
+   "text": "بحكيلها. أنا، أنا أعمل، بـ- أ- أ- أعمل؟ بـ... أعمل. أعمل غلط. أنا...",
+   "alt": "ba7keelha. ana, ana a3mel, b- a- a- a3mel? b-... a3mel. a3mel ghalat. ana...",
+   "raw": {
+    "arabic": "بحكيلها. أنا، أنا أعمل، بـ- أ- أ- أعمل؟ بـ... أعمل. أعمل غلط. أنا...",
+    "arabizi": "ba7keelha. ana, ana a3mel, b- a- a- a3mel? b-... a3mel. a3mel ghalat. ana...",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine captured Medi's stuttered attempt accurately."
+   },
+   "tokens": [
+    1313,
+    554,
+    765
+   ],
+   "usd": 0.001927,
+   "job": "base-run2",
+   "logged": true
+  },
+  "240": {
+   "text": "عملت or is it خليت؟",
+   "alt": "3amilt or is it khallayt?",
+   "raw": {
+    "arabic": "عملت or is it خليت؟",
+    "arabizi": "3amilt or is it khallayt?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately captured Medi's spoken Arabic and English."
+   },
+   "tokens": [
+    808,
+    56,
+    421
+   ],
+   "usd": 0.001092,
+   "job": "base-run2",
+   "logged": true
+  },
+  "242": {
+   "text": "عملت. Okay.",
+   "alt": "3melet. Okay.",
+   "raw": {
+    "arabic": "عملت. Okay.",
+    "arabizi": "3melet. Okay.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Okay.",
+      "said": "عملت. Okay."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats 'عملت' after Amal confirms it, then says 'Okay.'"
+   },
+   "tokens": [
+    790,
+    56,
+    263
+   ],
+   "usd": 0.000789,
+   "job": "base-run2",
+   "logged": true
+  },
+  "244": {
+   "text": "أنا عملت إشي غلط",
+   "alt": "ana 3milit ishi ghalat",
+   "raw": {
+    "arabic": "أنا عملت إشي غلط",
+    "arabizi": "ana 3milit ishi ghalat",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The audio matches the engine transcript clearly and accurately."
+   },
+   "tokens": [
+    895,
+    127,
+    152
+   ],
+   "usd": 0.000621,
+   "job": "base-run2",
+   "logged": true
+  },
+  "249": {
+   "text": "So ما، ما بتضل معصب؟",
+   "alt": "So ma, ma bte6'all m3a99ab?",
+   "raw": {
+    "arabic": "So ما، ما بتضل معصب؟",
+    "arabizi": "So ma, ma bte6'all m3a99ab?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi tries to form the sentence using the masculine adjective معصب, prompting Amal's correction to معصبة."
+   },
+   "tokens": [
+    1008,
+    210,
+    392
+   ],
+   "usd": 0.001113,
+   "job": "base-run2",
+   "logged": true
+  },
+  "251": {
+   "text": "معصبة",
+   "alt": "m3a9beh",
+   "raw": {
+    "arabic": "معصبة",
+    "arabizi": "m3a9beh",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply repeats Amal's correction 'معصبة'."
+   },
+   "tokens": [
+    886,
+    68,
+    281
+   ],
+   "usd": 0.000859,
+   "job": "base-run2",
+   "logged": true
+  },
+  "253": {
+   "text": "Did you write it?",
+   "alt": "Did you write it?",
+   "raw": {
+    "arabic": "Did you write it?",
+    "arabizi": "Did you write it?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly asks in English 'Did you write it?'"
+   },
+   "tokens": [
+    845,
+    50,
+    491
+   ],
+   "usd": 0.001238,
+   "job": "base-run2",
+   "logged": true
+  },
+  "255": {
+   "text": "I do?",
+   "alt": "I do?",
+   "raw": {
+    "arabic": "I do?",
+    "arabizi": "I do?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi responds in English to Amal telling him 'you already know how to say sorry' with 'I do?'."
+   },
+   "tokens": [
+    846,
+    55,
+    277
+   ],
+   "usd": 0.000837,
+   "job": "base-run2",
+   "logged": true
+  },
+  "257": {
+   "text": "Oh, آسف",
+   "alt": "Oh, aasef",
+   "raw": {
+    "arabic": "Oh, آسف",
+    "arabizi": "Oh, aasef",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi answers Amal's question 'How do you say sorry?' with 'Oh, آسف' (Oh, sorry)."
+   },
+   "tokens": [
+    819,
+    61,
+    282
+   ],
+   "usd": 0.000836,
+   "job": "base-run2",
+   "logged": true
+  },
+  "259": {
+   "text": "بأسف؟",
+   "alt": "ba2sef?",
+   "raw": {
+    "arabic": "بأسف؟",
+    "arabizi": "ba2sef?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi tries guessing the verb form for 'I apologize' based on 'أسف', pronouncing it 'بأسف' (ba'asef), which the engine transcribed correctly."
+   },
+   "tokens": [
+    849,
+    63,
+    207
+   ],
+   "usd": 0.000706,
+   "job": "base-run2",
+   "logged": true
+  },
+  "261": {
+   "text": "بأسف",
+   "alt": "ba'asif",
+   "raw": {
+    "arabic": "بأسف",
+    "arabizi": "ba'asif",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أسف",
+      "said": "بأسف"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats his guess 'بأسف', clearly pronouncing the initial 'b'."
+   },
+   "tokens": [
+    857,
+    64,
+    351
+   ],
+   "usd": 0.000979,
+   "job": "base-run2",
+   "logged": true
+  },
+  "263": {
+   "text": "Okay.",
+   "alt": "Okay.",
+   "raw": {
+    "arabic": "Okay.",
+    "arabizi": "Okay.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply acknowledges with 'Okay.' in English."
+   },
+   "tokens": [
+    862,
+    58,
+    98
+   ],
+   "usd": 0.000507,
+   "job": "base-run2",
+   "logged": true
+  },
+  "265": {
+   "text": "Yeah, it's... yeah we should use the other one. But uh بتأسف",
+   "alt": "Yeah, it's... yeah we should use the other one. But uh bt2assaf",
+   "raw": {
+    "arabic": "Yeah, it's... yeah we should use the other one. But uh بتأسف",
+    "arabizi": "Yeah, it's... yeah we should use the other one. But uh bt2assaf",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "but, بتأسف",
+      "said": "But uh بتأسف"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'But uh' before trying the verb 'بتأسف'."
+   },
+   "tokens": [
+    1005,
+    174,
+    793
+   ],
+   "usd": 0.001864,
+   "job": "base-run2",
+   "logged": true
+  },
+  "267": {
+   "text": "No, meaning أسف؟",
+   "alt": "No, meaning asif?",
+   "raw": {
+    "arabic": "No, meaning أسف؟",
+    "arabizi": "No, meaning asif?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "I'm gonna use",
+      "said": "meaning"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi asks 'No, meaning أسف?' in English and Arabic, which the ASR misheard as 'I'm gonna use'."
+   },
+   "tokens": [
+    844,
+    66,
+    348
+   ],
+   "usd": 0.000969,
+   "job": "base-run2",
+   "logged": true
+  },
+  "271": {
+   "text": "Apologetic.",
+   "alt": "Apologetic.",
+   "raw": {
+    "arabic": "Apologetic.",
+    "arabizi": "Apologetic.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'Apologetic' in English, finishing Amal's sentence."
+   },
+   "tokens": [
+    805,
+    53,
+    139
+   ],
+   "usd": 0.000562,
+   "job": "base-run2",
+   "logged": true
+  },
+  "273": {
+   "text": "She gets-",
+   "alt": "She gets-",
+   "raw": {
+    "arabic": "She gets-",
+    "arabizi": "She gets-",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi starts repeating Amal's English prompt ('She gets happy...') before Amal interrupts to clarify the prompt."
+   },
+   "tokens": [
+    885,
+    69,
+    816
+   ],
+   "usd": 0.001862,
+   "job": "base-run2",
+   "logged": true
+  },
+  "275": {
+   "text": "So this is the verb. This is the verb of أتأسـ-",
+   "alt": "So this is the verb. This is the verb of at2as-",
+   "raw": {
+    "arabic": "So this is the verb. This is the verb of أتأسـ-",
+    "arabizi": "So this is the verb. This is the verb of at2as-",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أت-",
+      "said": "أتأسـ-"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi cuts off after starting to say the verb أتأسف, pronouncing 'at-as-' before stopping."
+   },
+   "tokens": [
+    802,
+    108,
+    594
+   ],
+   "usd": 0.001414,
+   "job": "base-run2",
+   "logged": true
+  },
+  "277": {
+   "text": "لما، أ- أتأسـ- أتأسف.",
+   "alt": "Lamma, a- ata2as- ata2assaf.",
+   "raw": {
+    "arabic": "لما، أ- أتأسـ- أتأسف.",
+    "arabizi": "Lamma, a- ata2as- ata2assaf.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أتأس-- أت--",
+      "said": "أ- أتأسـ-"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi stutters with 'a-' first, then 'ata2as-', and finally completes the verb 'ata2assaf', whereas the engine reversed the stutter sequence."
+   },
+   "tokens": [
+    860,
+    167,
+    687
+   ],
+   "usd": 0.001611,
+   "job": "base-run2",
+   "logged": true
+  },
+  "279": {
+   "text": "أتأسف.",
+   "alt": "at2assaf.",
+   "raw": {
+    "arabic": "أتأسف.",
+    "arabizi": "at2assaf.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi accurately repeats the verb 'أتأسف' as prompted by Amal."
+   },
+   "tokens": [
+    778,
+    56,
+    207
+   ],
+   "usd": 0.00068,
+   "job": "base-run2",
+   "logged": true
+  },
+  "281": {
+   "text": "أتأسف إلها.",
+   "alt": "at2assaf elha.",
+   "raw": {
+    "arabic": "أتأسف إلها.",
+    "arabizi": "at2assaf elha.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "لها",
+      "said": "إلها"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'elha' (إلها) rather than standard 'laha' (لها)."
+   },
+   "tokens": [
+    814,
+    59,
+    267
+   ],
+   "usd": 0.000806,
+   "job": "base-run2",
+   "logged": true
+  },
+  "283": {
+   "text": "okay. so لما أنا، لما أنا باعمل غلط، إشي غلط.",
+   "alt": "okay. so lamma ana, lamma ana ba3mel ghalat, ishi ghalat.",
+   "raw": {
+    "arabic": "okay. so لما أنا، لما أنا باعمل غلط، إشي غلط.",
+    "arabizi": "okay. so lamma ana, lamma ana ba3mel ghalat, ishi ghalat.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription matches what Medi said."
+   },
+   "tokens": [
+    1304,
+    546,
+    337
+   ],
+   "usd": 0.001121,
+   "job": "base-run2",
+   "logged": true
+  },
+  "285": {
+   "text": "Uh، إن- إنتي ما-",
+   "alt": "Uh, in- inti ma-",
+   "raw": {
+    "arabic": "Uh، إن- إنتي ما-",
+    "arabizi": "Uh, in- inti ma-",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "إن،",
+      "said": "Uh، إن-"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts with a hesitation 'uh' before stumbling on 'in- inti ma-', which Amal immediately corrects to 'هي'."
+   },
+   "tokens": [
+    953,
+    205,
+    689
+   ],
+   "usd": 0.001649,
+   "job": "base-run2",
+   "logged": true
+  },
+  "287": {
+   "text": "هي، sorry. هي ما بتضل، معصبة.",
+   "alt": "hiyye, sorry. hiyye ma btedall, m3assbeh.",
+   "raw": {
+    "arabic": "هي، sorry. هي ما بتضل، معصبة.",
+    "arabizi": "hiyye, sorry. hiyye ma btedall, m3assbeh.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "مناسبة",
+      "said": "معصبة"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is saying that 'she doesn't stay angry' (ما بتضل معصبة), which fits the context of Amal saying 'Perfect, ممتاز'."
+   },
+   "tokens": [
+    1018,
+    276,
+    601
+   ],
+   "usd": 0.001509,
+   "job": "base-run2",
+   "logged": true
+  },
+  "289": {
+   "text": "وقت كتير",
+   "alt": "wa2et kteer",
+   "raw": {
+    "arabic": "وقت كتير",
+    "arabizi": "wa2et kteer",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'وقت كتير', matching the engine transcription exactly; Amal responds with 'لا وقت طويل' to correct 'كتير' to 'طويل'."
+   },
+   "tokens": [
+    757,
+    55,
+    311
+   ],
+   "usd": 0.000867,
+   "job": "base-run2",
+   "logged": true
+  },
+  "291": {
+   "text": "لوقت طويل.",
+   "alt": "la-wa2et tawil.",
+   "raw": {
+    "arabic": "لوقت طويل.",
+    "arabizi": "la-wa2et tawil.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "لا، لا وقت",
+      "said": "لوقت"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi simply repeats Amal's correction 'لوقت طويل' (for a long time), without repeating 'لا'."
+   },
+   "tokens": [
+    805,
+    68,
+    389
+   ],
+   "usd": 0.001031,
+   "job": "base-run2",
+   "logged": true
+  },
+  "292": {
+   "text": "و أنا، أنا، بس-- بسبط، أنا بسبطها.",
+   "alt": "w ana, ana, bas-- basba6, ana basba6ha.",
+   "raw": {
+    "arabic": "و أنا، أنا، بس-- بسبط، أنا بسبطها.",
+    "arabizi": "w ana, ana, bas-- basba6, ana basba6ha.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "بس بت",
+      "said": "بسبط"
+     },
+     {
+      "engine": "بس بتها",
+      "said": "بسبطها"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi struggles with the verb 'ببسطها' and mispronounces it with metathesis as 'بسبطها', which Amal immediately corrects."
+   },
+   "tokens": [
+    1044,
+    306,
+    474
+   ],
+   "usd": 0.00128,
+   "job": "base-run2",
+   "logged": true
+  },
+  "294": {
+   "text": "ببسطها. I hate this verb. ببسطها. أنا ببسطها، لما",
+   "alt": "babsetha. I hate this verb. babsetha. ana babsetha, lamma",
+   "raw": {
+    "arabic": "ببسطها. I hate this verb. ببسطها. أنا ببسطها، لما",
+    "arabizi": "babsetha. I hate this verb. babsetha. ana babsetha, lamma",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine captured all the spoken words accurately, including the English phrase."
+   },
+   "tokens": [
+    1206,
+    445,
+    636
+   ],
+   "usd": 0.001645,
+   "job": "base-run2",
+   "logged": true
+  },
+  "296": {
+   "text": "What?",
+   "alt": "What?",
+   "raw": {
+    "arabic": "What?",
+    "arabizi": "What?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'What?' in English after Amal interrupts with 'أيوه'."
+   },
+   "tokens": [
+    815,
+    51,
+    219
+   ],
+   "usd": 0.000716,
+   "job": "base-run2",
+   "logged": true
+  },
+  "298": {
+   "text": "لما، لما أحكيلها. Or I can use the new",
+   "alt": "lamma, lamma a7keelha. Or I can use the new",
+   "raw": {
+    "arabic": "لما، لما أحكيلها. Or I can use the new",
+    "arabizi": "lamma, lamma a7keelha. Or I can use the new",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أحكي لها. Or I can use the new verb.",
+      "said": "أحكيلها. Or I can use the new"
+     }
+    ],
+    "confidence": "high",
+    "why": "The word 'verb' is cut off at the end of the audio clip, and 'أحكيلها' is pronounced as a single cliticized word."
+   },
+   "tokens": [
+    966,
+    229,
+    1071
+   ],
+   "usd": 0.00237,
+   "job": "base-run2",
+   "logged": true
+  },
+  "300": {
+   "text": "New verb. Yes. لما، لما أتأسف إلها، أتأسف إلها.",
+   "alt": "New verb. Yes. lamma, lamma at2assif ilha, at2assifilha.",
+   "raw": {
+    "arabic": "New verb. Yes. لما، لما أتأسف إلها، أتأسف إلها.",
+    "arabizi": "New verb. Yes. lamma, lamma at2assif ilha, at2assifilha.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "لما، لما",
+      "said": "New verb. Yes. لما، لما"
+     },
+     {
+      "engine": "لها، أتأسف لها",
+      "said": "إلها، أتأسف إلها"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts by saying 'New verb. Yes.' in English before repeating 'لما' and pronouncing 'إلها' instead of 'لها'."
+   },
+   "tokens": [
+    988,
+    265,
+    889
+   ],
+   "usd": 0.002037,
+   "job": "base-run2",
+   "logged": true
+  },
+  "302": {
+   "text": "Yeah.",
+   "alt": "Yeah.",
+   "raw": {
+    "arabic": "Yeah.",
+    "arabizi": "Yeah.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'Yeah.' in English in agreement/response to the teacher's praise."
+   },
+   "tokens": [
+    817,
+    104,
+    129
+   ],
+   "usd": 0.000548,
+   "job": "base-run2",
+   "logged": true
+  },
+  "304": {
+   "text": "ما...",
+   "alt": "ma...",
+   "raw": {
+    "arabic": "ما...",
+    "arabizi": "ma...",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi hesitates, chuckles, and begins to say 'ما...' before getting cut off / prompted by Amal."
+   },
+   "tokens": [
+    1029,
+    294,
+    735
+   ],
+   "usd": 0.001764,
+   "job": "base-run2",
+   "logged": true
+  },
+  "306": {
+   "text": "ما، ما باعمل إشي um",
+   "alt": "ma, ma ba3mel eshi um",
+   "raw": {
+    "arabic": "ما، ما باعمل إشي um",
+    "arabizi": "ma, ma ba3mel eshi um",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "بأعمل",
+      "said": "باعمل"
+     },
+     {
+      "engine": "إشي.",
+      "said": "إشي um"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'ما، ما باعمل إشي' followed by a laugh and 'um'."
+   },
+   "tokens": [
+    859,
+    122,
+    463
+   ],
+   "usd": 0.00119,
+   "job": "base-run2",
+   "logged": true
+  },
+  "308": {
+   "text": "Oh, هي، uh هي، هي، uh بتأسف. بتأسف. بتتسف. بتتأسف.",
+   "alt": "Oh, hiyye, uh hiyye, hiyye, uh bit'assaf. bit'assaf. bititsaf. btit'assaf.",
+   "raw": {
+    "arabic": "Oh, هي، uh هي، هي، uh بتأسف. بتأسف. بتتسف. بتتأسف.",
+    "arabizi": "Oh, hiyye, uh hiyye, hiyye, uh bit'assaf. bit'assaf. bititsaf. btit'assaf.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "بتأسس--",
+      "said": "بتأسف."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats 'بتأسف' before stumbling through 'بتتسف' and finally arriving at 'بتتأسف'."
+   },
+   "tokens": [
+    1298,
+    573,
+    673
+   ],
+   "usd": 0.001749,
+   "job": "base-run2",
+   "logged": true
+  },
+  "310": {
+   "text": "بتتسف، أ، بتأس-- oh my God، بتت-أسف لي.",
+   "alt": "btatsaf, a, btas-- oh my God, btet-asaf li.",
+   "raw": {
+    "arabic": "بتتسف، أ، بتأس-- oh my God، بتت-أسف لي.",
+    "arabizi": "btatsaf, a, btas-- oh my God, btet-asaf li.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "بتتأسف",
+      "said": "بتتسف"
+     },
+     {
+      "engine": "بتأف--",
+      "said": "أ، بتأس--"
+     },
+     {
+      "engine": "بتتأسف لي",
+      "said": "بتت-أسف لي"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi mispronounces the verb without the hamza at first ('بتتسف'), then cuts off a second attempt ('أ، بتأس--'), says 'oh my God', and stumbles through the verb again ('بتت-أسف لي')."
+   },
+   "tokens": [
+    882,
+    153,
+    1132
+   ],
+   "usd": 0.002453,
+   "job": "base-run2",
+   "logged": true
+  },
+  "312": {
+   "text": "بتت- بتتأسف لي.",
+   "alt": "btet- btet2assaf li.",
+   "raw": {
+    "arabic": "بتت- بتتأسف لي.",
+    "arabizi": "btet- btet2assaf li.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcript accurately captures Medi's false start and repetition."
+   },
+   "tokens": [
+    814,
+    87,
+    561
+   ],
+   "usd": 0.001357,
+   "job": "base-run2",
+   "logged": true
+  },
+  "314": {
+   "text": "Um, yeah, خلاص.",
+   "alt": "Um, yeah, khalas.",
+   "raw": {
+    "arabic": "Um, yeah, خلاص.",
+    "arabizi": "Um, yeah, khalas.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "yeah",
+      "said": "Um, yeah"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi hesitates with 'Um' before saying 'yeah, خلاص'."
+   },
+   "tokens": [
+    906,
+    151,
+    256
+   ],
+   "usd": 0.00082,
+   "job": "base-run2",
+   "logged": true
+  },
+  "316": {
+   "text": "كتير جوابك قصير. Uh, very short answer. لا.",
+   "alt": "kteer jawabak aseer. Uh, very short answer. la.",
+   "raw": {
+    "arabic": "كتير جوابك قصير. Uh, very short answer. لا.",
+    "arabizi": "kteer jawabak aseer. Uh, very short answer. la.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "جوابك",
+      "said": "كتير جوابك"
+     },
+     {
+      "engine": "very",
+      "said": "Uh, very"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats Amal's phrase 'كتير جوابك قصير' and translates it into English."
+   },
+   "tokens": [
+    1011,
+    301,
+    819
+   ],
+   "usd": 0.001915,
+   "job": "base-run2",
+   "logged": true
+  },
+  "318": {
+   "text": "شو، شو أكتر بقدر، شو أكتر بقدر أعمل؟",
+   "alt": "sho, sho aktar ba2dar, sho aktar ba2dar a3mal?",
+   "raw": {
+    "arabic": "شو، شو أكتر بقدر، شو أكتر بقدر أعمل؟",
+    "arabizi": "sho, sho aktar ba2dar, sho aktar ba2dar a3mal?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately captures what Medi said, including the repetition."
+   },
+   "tokens": [
+    839,
+    156,
+    419
+   ],
+   "usd": 0.0011,
+   "job": "base-run2",
+   "logged": true
+  },
+  "320": {
+   "text": "I know.",
+   "alt": "I know.",
+   "raw": {
+    "arabic": "I know.",
+    "arabizi": "I know.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply responds in English with 'I know' followed by laughter/sighing."
+   },
+   "tokens": [
+    796,
+    119,
+    268
+   ],
+   "usd": 0.000801,
+   "job": "base-run2",
+   "logged": true
+  },
+  "324": {
+   "text": "And um أختي وأنا um بنتـ بنتطلع بنتطلع بنات أخوي",
+   "alt": "And um ukhti w ana um bnt- bntalla3 bntalla3 banaat akhuy",
+   "raw": {
+    "arabic": "And um أختي وأنا um بنتـ بنتطلع بنتطلع بنات أخوي",
+    "arabizi": "And um ukhti w ana um bnt- bntalla3 bntalla3 banaat akhuy",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "عتيته أنا",
+      "said": "And um أختي وأنا um"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is forming a sentence about babysitting: 'My sister and I watch my brother's daughters', so 'عتيته أنا' is a mishearing of 'And um أختي وأنا'."
+   },
+   "tokens": [
+    1219,
+    522,
+    1406
+   ],
+   "usd": 0.003093,
+   "job": "base-run2",
+   "logged": true
+  },
+  "330": {
+   "text": "What, what, what is this?",
+   "alt": "What, what, what is this?",
+   "raw": {
+    "arabic": "What, what, what is this?",
+    "arabizi": "What, what, what is this?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi is speaking English and asking about the word Amal just introduced ('bindir'). The engine transcription is accurate."
+   },
+   "tokens": [
+    981,
+    59,
+    957
+   ],
+   "usd": 0.002162,
+   "job": "base-run2",
+   "logged": true
+  },
+  "332": {
+   "text": "Oh إحنا بن، بندار؟ بنـ",
+   "alt": "Oh, i7na bin, bindaar? Bin-",
+   "raw": {
+    "arabic": "Oh إحنا بن، بندار؟ بنـ",
+    "arabizi": "Oh, i7na bin, bindaar? Bin-",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi is guessing the conjugation of 'dār bāl-' for 'we' based on Amal prompting 'i7na', guessing 'bindaar' before Amal corrects him to 'bindir'."
+   },
+   "tokens": [
+    1108,
+    143,
+    570
+   ],
+   "usd": 0.001484,
+   "job": "base-run2",
+   "logged": true
+  },
+  "336": {
+   "text": "Okay, بالنا؟",
+   "alt": "Okay, balna?",
+   "raw": {
+    "arabic": "Okay, بالنا؟",
+    "arabizi": "Okay, balna?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi accurately repeats Amal's prompt 'balna' after saying 'Okay'."
+   },
+   "tokens": [
+    1055,
+    95,
+    330
+   ],
+   "usd": 0.001014,
+   "job": "base-run2",
+   "logged": true
+  },
+  "338": {
+   "text": "",
+   "alt": "",
+   "raw": {
+    "arabic": "",
+    "arabizi": "",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Is that-",
+      "said": ""
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi does not speak in this clip; the audio contains only a breath and bleed from Amal speaking."
+   },
+   "tokens": [
+    958,
+    44,
+    4596
+   ],
+   "usd": 0.008977,
+   "job": "base-run2",
+   "logged": true
+  },
+  "340": {
+   "text": "بن، بندير",
+   "alt": "bin, bindeer",
+   "raw": {
+    "arabic": "بن، بندير",
+    "arabizi": "bin, bindeer",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Bindir",
+      "said": "bin, bindeer"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi stumbles on the first syllable before completing the word: 'bin, bindeer'."
+   },
+   "tokens": [
+    1017,
+    91,
+    276
+   ],
+   "usd": 0.000899,
+   "job": "base-run2",
+   "logged": true
+  },
+  "342": {
+   "text": "Mm, بالي be-",
+   "alt": "Mm, bali be-",
+   "raw": {
+    "arabic": "Mm, بالي be-",
+    "arabizi": "Mm, bali be-",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "So wouldn't it be-",
+      "said": "Mm, bali be-"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts saying 'Mm, bali be[comes]-' before being cut off/restarting his question."
+   },
+   "tokens": [
+    1006,
+    49,
+    652
+   ],
+   "usd": 0.0016,
+   "job": "base-run2",
+   "logged": true
+  },
+  "346": {
+   "text": "Oh، بندير",
+   "alt": "Oh, bindir",
+   "raw": {
+    "arabic": "Oh، بندير",
+    "arabizi": "Oh, bindir",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Oh",
+      "said": "Oh, bindir"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats 'Oh, bindir' as he processes the conjugation explained by Amal."
+   },
+   "tokens": [
+    1041,
+    39,
+    298
+   ],
+   "usd": 0.000949,
+   "job": "base-run2",
+   "logged": true
+  },
+  "348": {
+   "text": "So is it إياهم؟",
+   "alt": "So is it iyyahom?",
+   "raw": {
+    "arabic": "So is it إياهم؟",
+    "arabizi": "So is it iyyahom?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "yahom",
+      "said": "iyyahom"
+     }
+    ],
+    "confidence": "high",
+    "why": "Amal asked what preposition follows 'bindir balna', and Medi guesses 'iyyahom' (إياهم) before Amal corrects him with 'ala'."
+   },
+   "tokens": [
+    1150,
+    134,
+    702
+   ],
+   "usd": 0.001747,
+   "job": "base-run2",
+   "logged": true
+  },
+  "350": {
+   "text": "On, um. Okay. So إحنا بندير",
+   "alt": "On, um. Okay. So e7na bndeer",
+   "raw": {
+    "arabic": "On, um. Okay. So إحنا بندير",
+    "arabizi": "On, um. Okay. So e7na bndeer",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Al",
+      "said": "On, um"
+     },
+     {
+      "engine": "ahna",
+      "said": "e7na"
+     }
+    ],
+    "confidence": "medium",
+    "why": "Amal prompted with the preposition 'Ala' (meaning 'on'), so Medi acknowledges it in English ('On, um...') before trying to construct the sentence 'e7na bndeer...'."
+   },
+   "tokens": [
+    1263,
+    291,
+    1084
+   ],
+   "usd": 0.002506,
+   "job": "base-run2",
+   "logged": true
+  },
+  "351": {
+   "text": "There should be a ding to this site. Can you hear that?",
+   "alt": "There should be a ding to this site. Can you hear that?",
+   "raw": {
+    "arabic": "There should be a ding to this site. Can you hear that?",
+    "arabizi": "There should be a ding to this site. Can you hear that?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Balna",
+      "said": "There should be a ding to this site. Can you hear that?"
+     }
+    ],
+    "confidence": "medium",
+    "why": "Medi is speaking entirely in English about an audio/browser issue, asking if Amal can hear a ding."
+   },
+   "tokens": [
+    1009,
+    86,
+    2226
+   ],
+   "usd": 0.004552,
+   "job": "base-run2",
+   "logged": true
+  },
+  "353": {
+   "text": "Mhm? عليهم",
+   "alt": "Mhm? 3alayhom",
+   "raw": {
+    "arabic": "Mhm? عليهم",
+    "arabizi": "Mhm? 3alayhom",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Alayhom",
+      "said": "Mhm? Alayhom"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts with a questioning hum 'Mhm?' before saying 'alayhom'."
+   },
+   "tokens": [
+    983,
+    62,
+    684
+   ],
+   "usd": 0.001651,
+   "job": "base-run2",
+   "logged": true
+  },
+  "355": {
+   "text": "Oh، على-",
+   "alt": "Oh, 3ala-",
+   "raw": {
+    "arabic": "Oh، على-",
+    "arabizi": "Oh, 3ala-",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply said 'Oh, 'ala-' as correctly transcribed by the engine."
+   },
+   "tokens": [
+    980,
+    56,
+    225
+   ],
+   "usd": 0.000789,
+   "job": "base-run2",
+   "logged": true
+  },
+  "357": {
+   "text": "على بنات أخوي right?",
+   "alt": "3ala banat akhoi right?",
+   "raw": {
+    "arabic": "على بنات أخوي right?",
+    "arabizi": "3ala banat akhoi right?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcript accurately matches the audio."
+   },
+   "tokens": [
+    984,
+    103,
+    48
+   ],
+   "usd": 0.000459,
+   "job": "base-run2",
+   "logged": true
+  },
+  "359": {
+   "text": "على بنات أخوي",
+   "alt": "Ala banat akhui",
+   "raw": {
+    "arabic": "على بنات أخوي",
+    "arabizi": "Ala banat akhui",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcript accurately captured what Medi said."
+   },
+   "tokens": [
+    988,
+    132,
+    173
+   ],
+   "usd": 0.000695,
+   "job": "base-run2",
+   "logged": true
+  },
+  "362": {
+   "text": "an el-walad, el-binat, el-walad",
+   "alt": "an el-walad, el-binat, el-walad",
+   "raw": {
+    "arabic": "an el-walad, el-binat, el-walad",
+    "arabizi": "an el-walad, el-binat, el-walad",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "and",
+      "said": "an"
+     }
+    ],
+    "confidence": "high",
+    "why": "He says the English/Arabic conjunction/preposition 'an' (or false start 'an') rather than 'and'."
+   },
+   "tokens": [
+    1021,
+    201,
+    89
+   ],
+   "usd": 0.00055,
+   "job": "base-run2",
+   "logged": true
+  },
+  "368": {
+   "text": "نخاف من",
+   "alt": "nkhaf min",
+   "raw": {
+    "arabic": "نخاف من",
+    "arabizi": "nkhaf min",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly repeats 'nkhaf min' just as transcribed."
+   },
+   "tokens": [
+    862,
+    53,
+    335
+   ],
+   "usd": 0.000951,
+   "job": "base-run2",
+   "logged": true
+  },
+  "370": {
+   "text": "بنخاف نكون، إن نكون؟",
+   "alt": "binkhaf nikun, in nikun?",
+   "raw": {
+    "arabic": "بنخاف نكون، إن نكون؟",
+    "arabizi": "binkhaf nikun, in nikun?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Bin khaf nikun.",
+      "said": "بنخاف نكون، إن نكون؟"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats Amal's phrase 'بنخاف نكون' and then checks if 'إن نكون' is needed."
+   },
+   "tokens": [
+    925,
+    146,
+    883
+   ],
+   "usd": 0.002002,
+   "job": "base-run2",
+   "logged": true
+  },
+  "372": {
+   "text": "أهل.",
+   "alt": "Ahel.",
+   "raw": {
+    "arabic": "أهل.",
+    "arabizi": "Ahel.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly repeats 'Ahel' as correctly transcribed by the engine."
+   },
+   "tokens": [
+    853,
+    44,
+    236
+   ],
+   "usd": 0.000762,
+   "job": "base-run2",
+   "logged": true
+  },
+  "376": {
+   "text": "إحنا شفنا، لما أهل سيء، سيئين",
+   "alt": "e7na shufna, lamma ahel sayye2, sayye2een",
+   "raw": {
+    "arabic": "إحنا شفنا، لما أهل سيء، سيئين",
+    "arabizi": "e7na shufna, lamma ahel sayye2, sayye2een",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately matches what Medi said in the audio clip."
+   },
+   "tokens": [
+    1131,
+    295,
+    329
+   ],
+   "usd": 0.001041,
+   "job": "base-run2",
+   "logged": true
+  },
+  "378": {
+   "text": "يخلوا يخلوا يخلوا ولادهم",
+   "alt": "yikhallu yikhallu yikhallu wladhom",
+   "raw": {
+    "arabic": "يخلوا يخلوا يخلوا ولادهم",
+    "arabizi": "yikhallu yikhallu yikhallu wladhom",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription matches what Medi said, with repeated attempts at 'yikhallu' followed by 'wladhom'."
+   },
+   "tokens": [
+    1262,
+    516,
+    363
+   ],
+   "usd": 0.001154,
+   "job": "base-run2",
+   "logged": true
+  },
+  "380": {
+   "text": "سيء كمان، سيئين كمان",
+   "alt": "sayye2 kaman, sayye2een kaman",
+   "raw": {
+    "arabic": "سيء كمان، سيئين كمان",
+    "arabizi": "sayye2 kaman, sayye2een kaman",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription matches what Medi said in the audio."
+   },
+   "tokens": [
+    852,
+    122,
+    732
+   ],
+   "usd": 0.001692,
+   "job": "base-run2",
+   "logged": true
+  },
+  "382": {
+   "text": "كمان مرّة؟",
+   "alt": "kaman marra?",
+   "raw": {
+    "arabic": "كمان مرّة؟",
+    "arabizi": "kaman marra?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "come again?",
+      "said": "kaman marra?"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi asks 'kaman marra?' (once more?) which sounds very similar to 'come again' to an English ASR engine."
+   },
+   "tokens": [
+    862,
+    71,
+    125
+   ],
+   "usd": 0.000558,
+   "job": "base-run2",
+   "logged": true
+  },
+  "384": {
+   "text": "Yeah",
+   "alt": "Yeah",
+   "raw": {
+    "arabic": "Yeah",
+    "arabizi": "Yeah",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply acknowledges with 'Yeah' as Amal repeats her question."
+   },
+   "tokens": [
+    1220,
+    429,
+    672
+   ],
+   "usd": 0.001718,
+   "job": "base-run2",
+   "logged": true
+  },
+  "389": {
+   "text": "Okay.",
+   "alt": "Okay.",
+   "raw": {
+    "arabic": "Okay.",
+    "arabizi": "Okay.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply acknowledges with 'Okay.'"
+   },
+   "tokens": [
+    989,
+    50,
+    222
+   ],
+   "usd": 0.000787,
+   "job": "base-run2",
+   "logged": true
+  },
+  "397": {
+   "text": "Is- uh, إسما؟",
+   "alt": "Is- uh, isma?",
+   "raw": {
+    "arabic": "Is- uh, إسما؟",
+    "arabizi": "Is- uh, isma?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Is, isma.",
+      "said": "Is- uh, isma?"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi hesitates trying to recall the word for 'name' (ism) and guesses 'isma', saying 'Is- uh, isma?'"
+   },
+   "tokens": [
+    998,
+    97,
+    1000
+   ],
+   "usd": 0.002249,
+   "job": "base-run2",
+   "logged": true
+  },
+  "399": {
+   "text": "اسم. أنا أستعمل الفعل، no؟",
+   "alt": "Ism. Ana asta3mel el fe3el, no?",
+   "raw": {
+    "arabic": "اسم. أنا أستعمل الفعل، no؟",
+    "arabizi": "Ism. Ana asta3mel el fe3el, no?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "il fa'il",
+      "said": "el fe3el"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'el fe3el' (verb) rather than 'il fa'il'."
+   },
+   "tokens": [
+    1111,
+    162,
+    1403
+   ],
+   "usd": 0.003047,
+   "job": "base-run2",
+   "logged": true
+  },
+  "405": {
+   "text": "Okay, so, so بخوفني.",
+   "alt": "Okay, so, so bikhowfni.",
+   "raw": {
+    "arabic": "Okay, so, so بخوفني.",
+    "arabizi": "Okay, so, so bikhowfni.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately captured Medi's speech."
+   },
+   "tokens": [
+    1012,
+    151,
+    758
+   ],
+   "usd": 0.001801,
+   "job": "base-run2",
+   "logged": true
+  },
+  "406": {
+   "text": "ني... خوّفنا",
+   "alt": "ni... 5awwafna",
+   "raw": {
+    "arabic": "ني... خوّفنا",
+    "arabizi": "ni... 5awwafna",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "بخوفنا",
+      "said": "ني... خوّفنا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi realized he said '-ni' (me) instead of '-na' (us) in the previous turn ('بخوفني'), repeats the ending '-ni', then attempts the verb with '-na' without the prefix 'b-'."
+   },
+   "tokens": [
+    903,
+    79,
+    909
+   ],
+   "usd": 0.002043,
+   "job": "base-run2",
+   "logged": true
+  },
+  "408": {
+   "text": "اه، بخوفنا. يكون-- اه، نكون أهل.",
+   "alt": "ah, bikhawwifna. ykoo-- ah, nkoun ahel.",
+   "raw": {
+    "arabic": "اه، بخوفنا. يكون-- اه، نكون أهل.",
+    "arabizi": "ah, bikhawwifna. ykoo-- ah, nkoun ahel.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "يخوفنا",
+      "said": "بخوفنا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'بخوفنا' with a 'b' following Amal's instruction to use the prefix 'bi-' (بس بتحكي بي)."
+   },
+   "tokens": [
+    1081,
+    226,
+    1530
+   ],
+   "usd": 0.003274,
+   "job": "base-run2",
+   "logged": true
+  },
+  "409": {
+   "text": "Mhm. Okay.",
+   "alt": "Mhm. Okay.",
+   "raw": {
+    "arabic": "Mhm. Okay.",
+    "arabizi": "Mhm. Okay.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Okay.",
+      "said": "Mhm. Okay."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts with 'Mhm.' before saying 'Okay.'"
+   },
+   "tokens": [
+    864,
+    48,
+    263
+   ],
+   "usd": 0.000817,
+   "job": "base-run2",
+   "logged": true
+  },
+  "411": {
+   "text": "What? What?",
+   "alt": "What? What?",
+   "raw": {
+    "arabic": "What? What?",
+    "arabizi": "What? What?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi asks 'What? What?' in English because he did not catch the Arabic word Amal said."
+   },
+   "tokens": [
+    924,
+    67,
+    343
+   ],
+   "usd": 0.00099,
+   "job": "base-run2",
+   "logged": true
+  },
+  "413": {
+   "text": "بتخططوا. اه، بخطط. آه.",
+   "alt": "btkhattatu. ah, bkhattat. aah.",
+   "raw": {
+    "arabic": "بتخططوا. اه، بخطط. آه.",
+    "arabizi": "btkhattatu. ah, bkhattat. aah.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "اه، اه.",
+      "said": "آه."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats the word 'بتخططوا', hesitates with 'اه، بخطط', and finishes with a single prolonged 'آه', not repeated 'اه، اه'."
+   },
+   "tokens": [
+    1030,
+    185,
+    1179
+   ],
+   "usd": 0.002597,
+   "job": "base-run2",
+   "logged": true
+  },
+  "415": {
+   "text": "اه، إحنا، إحنا بنخـ-- بنخط، بنخـ-- it's just بنخط، right?",
+   "alt": "ah, e7na, e7na bankh-- bankha6, bankh-- it's just bankha6, right?",
+   "raw": {
+    "arabic": "اه، إحنا، إحنا بنخـ-- بنخط، بنخـ-- it's just بنخط، right?",
+    "arabizi": "ah, e7na, e7na bankh-- bankha6, bankh-- it's just bankha6, right?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "إحنا",
+      "said": "اه، إحنا"
+     },
+     {
+      "engine": "Ben--",
+      "said": "بنخـ--"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts with 'اه' (ah) before repeating 'احنا', and stutters 'بنخـ--' before asking in English if it's 'بنخط'."
+   },
+   "tokens": [
+    1084,
+    233,
+    1043
+   ],
+   "usd": 0.002362,
+   "job": "base-run2",
+   "logged": true
+  },
+  "417": {
+   "text": "بنخطط ... اه، يكونوا أهل.",
+   "alt": "binkhattat ... ah, ykoono ahel.",
+   "raw": {
+    "arabic": "بنخطط ... اه، يكونوا أهل.",
+    "arabizi": "binkhattat ... ah, ykoono ahel.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately captures what Medi said, including his grammatical mistake 'يكونوا' which Amal corrects right after."
+   },
+   "tokens": [
+    1020,
+    137,
+    612
+   ],
+   "usd": 0.00153,
+   "job": "base-run2",
+   "logged": true
+  },
+  "419": {
+   "text": "يكون. Uh, not يكون. نكون.",
+   "alt": "ykoon. Uh, not ykoon. nkoon.",
+   "raw": {
+    "arabic": "يكون. Uh, not يكون. نكون.",
+    "arabizi": "ykoon. Uh, not ykoon. nkoon.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "اه، لا",
+      "said": "Uh, not"
+     }
+    ],
+    "confidence": "high",
+    "why": "Amal just corrected his previous 'يكون' to 'نكون'. Medi corrects himself in English/Arabic: 'يكون... Uh, not يكون. نكون.'"
+   },
+   "tokens": [
+    949,
+    101,
+    1591
+   ],
+   "usd": 0.003339,
+   "job": "base-run2",
+   "logged": true
+  },
+  "421": {
+   "text": "نكون.",
+   "alt": "nkoon.",
+   "raw": {
+    "arabic": "نكون.",
+    "arabizi": "nkoon.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'نكون', exactly as transcribed by the engine."
+   },
+   "tokens": [
+    945,
+    38,
+    398
+   ],
+   "usd": 0.001101,
+   "job": "base-run2",
+   "logged": true
+  },
+  "423": {
+   "text": "أهل.",
+   "alt": "ahel.",
+   "raw": {
+    "arabic": "أهل.",
+    "arabizi": "ahel.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi completes his sentence by saying 'أهل' as heard and confirmed by Amal's response 'نكون أهل'."
+   },
+   "tokens": [
+    959,
+    52,
+    272
+   ],
+   "usd": 0.00087,
+   "job": "base-run2",
+   "logged": true
+  },
+  "425": {
+   "text": "اه، نعم.",
+   "alt": "ah, na3am.",
+   "raw": {
+    "arabic": "اه، نعم.",
+    "arabizi": "ah, na3am.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine accurately transcribed Medi saying 'اه، نعم'."
+   },
+   "tokens": [
+    973,
+    101,
+    253
+   ],
+   "usd": 0.000839,
+   "job": "base-run2",
+   "logged": true
+  },
+  "427": {
+   "text": "Valid?",
+   "alt": "Valid?",
+   "raw": {
+    "arabic": "Valid?",
+    "arabizi": "Valid?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi repeats the English word 'valid?' with rising intonation, confused whether it was Arabic or English."
+   },
+   "tokens": [
+    894,
+    48,
+    248
+   ],
+   "usd": 0.0008,
+   "job": "base-run2",
+   "logged": true
+  },
+  "429": {
+   "text": "Wait, what?",
+   "alt": "Wait, what?",
+   "raw": {
+    "arabic": "Wait, what?",
+    "arabizi": "Wait, what?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'Wait, what?' in English, confused by Amal using the English word 'valid'."
+   },
+   "tokens": [
+    880,
+    81,
+    213
+   ],
+   "usd": 0.000729,
+   "job": "base-run2",
+   "logged": true
+  },
+  "433": {
+   "text": "Okay. Got it.",
+   "alt": "Okay. Got it.",
+   "raw": {
+    "arabic": "Okay. Got it.",
+    "arabizi": "Okay. Got it.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi says 'Okay' while laughing, then says 'Got it.'"
+   },
+   "tokens": [
+    992,
+    205,
+    720
+   ],
+   "usd": 0.001722,
+   "job": "base-run2",
+   "logged": true
+  },
+  "435": {
+   "text": "Yeah.",
+   "alt": "Yeah.",
+   "raw": {
+    "arabic": "Yeah.",
+    "arabizi": "Yeah.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply acknowledges with 'Yeah.' while Amal's voice ('something else', 'بتعصب') bleeds through."
+   },
+   "tokens": [
+    808,
+    55,
+    561
+   ],
+   "usd": 0.001355,
+   "job": "base-run2",
+   "logged": true
+  },
+  "437": {
+   "text": "بتعصب. So in, in general, do you say الكل if I wanna say in general?",
+   "alt": "bte3seb. So in, in general, do you say el-kull if I wanna say in general?",
+   "raw": {
+    "arabic": "بتعصب. So in, in general, do you say الكل if I wanna say in general?",
+    "arabizi": "bte3seb. So in, in general, do you say el-kull if I wanna say in general?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately reflects the speech in the audio."
+   },
+   "tokens": [
+    957,
+    212,
+    256
+   ],
+   "usd": 0.000839,
+   "job": "base-run2",
+   "logged": true
+  },
+  "439": {
+   "text": "It wouldn't work in, in...",
+   "alt": "It wouldn't work in, in...",
+   "raw": {
+    "arabic": "It wouldn't work in, in...",
+    "arabizi": "It wouldn't work in, in...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "الكل؟",
+      "said": "in..."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi cut himself off after repeating 'in', never actually saying 'الكل'."
+   },
+   "tokens": [
+    865,
+    57,
+    809
+   ],
+   "usd": 0.001841,
+   "job": "base-run2",
+   "logged": true
+  },
+  "441": {
+   "text": "الكل؟ 'Cause we say كلًا، we say كلًا.",
+   "alt": "el-kull? 'Cause we say kollan, we say kollan.",
+   "raw": {
+    "arabic": "الكل؟ 'Cause we say كلًا، we say كلًا.",
+    "arabizi": "el-kull? 'Cause we say kollan, we say kollan.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "'Cause",
+      "said": "الكل؟ 'Cause"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts by repeating 'الكل؟' before explaining ''Cause we say كلًا, we say كلًا'."
+   },
+   "tokens": [
+    915,
+    107,
+    795
+   ],
+   "usd": 0.001834,
+   "job": "base-run2",
+   "logged": true
+  },
+  "445": {
+   "text": "Yeah.",
+   "alt": "Yeah.",
+   "raw": {
+    "arabic": "Yeah.",
+    "arabizi": "Yeah.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply says 'Yeah.' in agreement."
+   },
+   "tokens": [
+    872,
+    43,
+    139
+   ],
+   "usd": 0.000588,
+   "job": "base-run2",
+   "logged": true
+  },
+  "447": {
+   "text": "على كلٍ",
+   "alt": "3ala kullin",
+   "raw": {
+    "arabic": "على كلٍ",
+    "arabizi": "3ala kullin",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "كلًا",
+      "said": "كلٍ"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi pronounces it with tanween kasr ('kullin'), which leads Amal to correct it to 'kullan' in the next line, and Medi immediately responds with 'كلٍ أو كلًا'."
+   },
+   "tokens": [
+    924,
+    61,
+    474
+   ],
+   "usd": 0.001235,
+   "job": "base-run2",
+   "logged": true
+  },
+  "449": {
+   "text": "كلٍ or كلًا؟",
+   "alt": "kullin or kullan?",
+   "raw": {
+    "arabic": "كلٍ or كلًا؟",
+    "arabizi": "kullin or kullan?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أو",
+      "said": "or"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi asks in English whether it is 'kullin' or 'kullan', using the English word 'or'."
+   },
+   "tokens": [
+    907,
+    73,
+    451
+   ],
+   "usd": 0.001186,
+   "job": "base-run2",
+   "logged": true
+  },
+  "451": {
+   "text": "على كلٍ. على كلٍ شو uh شو uh بعصب؟ بعصب؟ I'm asking you.",
+   "alt": "3ala kullin. 3ala kullin shu uh shu uh ba3seb? ba3seb? I'm asking you.",
+   "raw": {
+    "arabic": "على كلٍ. على كلٍ شو uh شو uh بعصب؟ بعصب؟ I'm asking you.",
+    "arabizi": "3ala kullin. 3ala kullin shu uh shu uh ba3seb? ba3seb? I'm asking you.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "اه",
+      "said": "uh"
+     },
+     {
+      "engine": "اه",
+      "said": "uh"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is repeating 'على كلٍ شو' and then questioning the word 'بعصب؟ بعصب؟' using English hesitation 'uh'."
+   },
+   "tokens": [
+    1352,
+    487,
+    1762
+   ],
+   "usd": 0.003811,
+   "job": "base-run2",
+   "logged": true
+  },
+  "453": {
+   "text": "Are you talking about كل، كلٍ؟",
+   "alt": "Are you talking about kull, kullin?",
+   "raw": {
+    "arabic": "Are you talking about كل، كلٍ؟",
+    "arabizi": "Are you talking about kull, kullin?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately captures what Medi said."
+   },
+   "tokens": [
+    979,
+    101,
+    336
+   ],
+   "usd": 0.000997,
+   "job": "base-run2",
+   "logged": true
+  },
+  "455": {
+   "text": "All right. Okay.",
+   "alt": "All right. Okay.",
+   "raw": {
+    "arabic": "All right. Okay.",
+    "arabizi": "All right. Okay.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "okay.",
+      "said": "All right. Okay."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'All right. Okay.' in English acknowledging Amal's explanation."
+   },
+   "tokens": [
+    881,
+    69,
+    449
+   ],
+   "usd": 0.001172,
+   "job": "base-run2",
+   "logged": true
+  },
+  "457": {
+   "text": "Okay. So do you mean-",
+   "alt": "Okay. So do you mean-",
+   "raw": {
+    "arabic": "Okay. So do you mean-",
+    "arabizi": "Okay. So do you mean-",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The audio matches the engine transcript exactly."
+   },
+   "tokens": [
+    834,
+    70,
+    238
+   ],
+   "usd": 0.000759,
+   "job": "base-run2",
+   "logged": true
+  },
+  "462": {
+   "text": "اه. كل الناس. اه. كل الناس. بيحكوا الـ... بيحكولي.",
+   "alt": "ah. kull in-nas. ah. kull in-nas. byi7ku el-... byi7kooli.",
+   "raw": {
+    "arabic": "اه. كل الناس. اه. كل الناس. بيحكوا الـ... بيحكولي.",
+    "arabizi": "ah. kull in-nas. ah. kull in-nas. byi7ku el-... byi7kooli.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the speech and false starts accurately."
+   },
+   "tokens": [
+    1417,
+    624,
+    582
+   ],
+   "usd": 0.001623,
+   "job": "base-run2",
+   "logged": true
+  },
+  "464": {
+   "text": "بيحكولي إنه أنا، اه، ما بـ... أنا ما بـ... أنا ما بعصب. اه. أنا أبدًا ما بعصب.",
+   "alt": "by7kooli enno ana, uh, ma b... ana ma b... ana ma ba3seb. uh. ana abadan ma ba3seb.",
+   "raw": {
+    "arabic": "بيحكولي إنه أنا، اه، ما بـ... أنا ما بـ... أنا ما بعصب. اه. أنا أبدًا ما بعصب.",
+    "arabizi": "by7kooli enno ana, uh, ma b... ana ma b... ana ma ba3seb. uh. ana abadan ma ba3seb.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately matches what Medi said, including false starts and hesitations."
+   },
+   "tokens": [
+    1215,
+    518,
+    574
+   ],
+   "usd": 0.001532,
+   "job": "base-run2",
+   "logged": true
+  },
+  "466": {
+   "text": "So it has to be, has to be, um, إشي كان، اه، كان إشي",
+   "alt": "So it has to be, has to be, um, ishi kan, ah, kan ishi",
+   "raw": {
+    "arabic": "So it has to be, has to be, um, إشي كان، اه، كان إشي",
+    "arabizi": "So it has to be, has to be, um, ishi kan, ah, kan ishi",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "اه",
+      "said": ""
+     },
+     {
+      "engine": "issue",
+      "said": "إشي"
+     },
+     {
+      "engine": "can",
+      "said": "كان"
+     },
+     {
+      "engine": "can issue-",
+      "said": "كان إشي"
+     }
+    ],
+    "confidence": "high",
+    "why": "The engine misheard the Levantine word 'إشي' (something) as the English word 'issue', and 'كان' (to be) as English 'can'."
+   },
+   "tokens": [
+    1222,
+    513,
+    1581
+   ],
+   "usd": 0.003423,
+   "job": "base-run2",
+   "logged": true
+  },
+  "470": {
+   "text": "لازم يكون إشي سيء. سيء كتير.",
+   "alt": "lazem ykoon eshy sayye2. sayye2 kteer.",
+   "raw": {
+    "arabic": "لازم يكون إشي سيء. سيء كتير.",
+    "arabizi": "lazem ykoon eshy sayye2. sayye2 kteer.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "issue",
+      "said": "إشي"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says the Arabic word for 'something' (إشي, eshy), which the speech recognition misheard as the English word 'issue'."
+   },
+   "tokens": [
+    921,
+    109,
+    492
+   ],
+   "usd": 0.001268,
+   "job": "base-run2",
+   "logged": true
+  },
+  "472": {
+   "text": "عشان تعـ-- mm yeah.",
+   "alt": "3ashan ta3-- mm yeah.",
+   "raw": {
+    "arabic": "عشان تعـ-- mm yeah.",
+    "arabizi": "3ashan ta3-- mm yeah.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "yeah",
+      "said": "mm yeah"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts repeating Amal's word 'عشان تعـ--' before cutting himself off with 'mm yeah'."
+   },
+   "tokens": [
+    894,
+    103,
+    888
+   ],
+   "usd": 0.002,
+   "job": "base-run2",
+   "logged": true
+  },
+  "474": {
+   "text": "اه، أنا أحكي الـ، أحكي الجملة؟",
+   "alt": "ah, ana a7ki el-, a7ki el-jumleh?",
+   "raw": {
+    "arabic": "اه، أنا أحكي الـ، أحكي الجملة؟",
+    "arabizi": "ah, ana a7ki el-, a7ki el-jumleh?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The automated transcript accurately matches what Medi said."
+   },
+   "tokens": [
+    943,
+    144,
+    289
+   ],
+   "usd": 0.000896,
+   "job": "base-run2",
+   "logged": true
+  },
+  "476": {
+   "text": "عشان، اه، بعصب",
+   "alt": "3ashan, ah, ba3seb",
+   "raw": {
+    "arabic": "عشان، اه، بعصب",
+    "arabizi": "3ashan, ah, ba3seb",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription is accurate; Medi says 'عشان' followed by a hesitation and 'بعصب', which Amal corrects right after."
+   },
+   "tokens": [
+    922,
+    122,
+    559
+   ],
+   "usd": 0.001394,
+   "job": "base-run2",
+   "logged": true
+  },
+  "478": {
+   "text": "أعصب، عشان. عشان gets rid of b?",
+   "alt": "a3sab, 3ashan. 3ashan gets rid of b?",
+   "raw": {
+    "arabic": "أعصب، عشان. عشان gets rid of b?",
+    "arabizi": "a3sab, 3ashan. 3ashan gets rid of b?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "be?",
+      "said": "b?"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is asking if the word 'عشان' removes the 'b-' prefix (b/ب) from 'بعصب', turning it into 'أعصب'."
+   },
+   "tokens": [
+    987,
+    138,
+    815
+   ],
+   "usd": 0.001898,
+   "job": "base-run2",
+   "logged": true
+  },
+  "480": {
+   "text": "عشان أعصب",
+   "alt": "3ashan a3sab",
+   "raw": {
+    "arabic": "عشان أعصب",
+    "arabizi": "3ashan a3sab",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'عشان أعصب' as transcribed by the engine."
+   },
+   "tokens": [
+    871,
+    61,
+    209
+   ],
+   "usd": 0.000718,
+   "job": "base-run2",
+   "logged": true
+  },
+  "482": {
+   "text": "آآآه. ولا إشي makes me angry. آآآه. ولا إشي، ولا إشي بيعص-- بعصبني",
+   "alt": "aaah. wala ishi makes me angry. aaah. wala ishi, wala ishi bi3as-- ba3assibni",
+   "raw": {
+    "arabic": "آآآه. ولا إشي makes me angry. آآآه. ولا إشي، ولا إشي بيعص-- بعصبني",
+    "arabizi": "aaah. wala ishi makes me angry. aaah. wala ishi, wala ishi bi3as-- ba3assibni",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcript matches Medi's speech accurately, including his English phrase and false start."
+   },
+   "tokens": [
+    1175,
+    399,
+    1416
+   ],
+   "usd": 0.003096,
+   "job": "base-run2",
+   "logged": true
+  },
+  "484": {
+   "text": "يعصبني",
+   "alt": "ye3sebni",
+   "raw": {
+    "arabic": "يعصبني",
+    "arabizi": "ye3sebni",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "بيعصبني",
+      "said": "يعصبني"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats Amal's prompt but drops the initial 'b', pronouncing it as 'ye3sebni' (يعصبني)."
+   },
+   "tokens": [
+    784,
+    50,
+    606
+   ],
+   "usd": 0.00143,
+   "job": "base-run2",
+   "logged": true
+  },
+  "486": {
+   "text": "محظوظ",
+   "alt": "ma7zooz",
+   "raw": {
+    "arabic": "محظوظ",
+    "arabizi": "ma7zooz",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'محظوظ' answering Amal's question about the meaning of 'lucky'."
+   },
+   "tokens": [
+    762,
+    74,
+    210
+   ],
+   "usd": 0.000679,
+   "job": "base-run2",
+   "logged": true
+  },
+  "488": {
+   "text": "I'm lucky.",
+   "alt": "I'm lucky.",
+   "raw": {
+    "arabic": "I'm lucky.",
+    "arabizi": "I'm lucky.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Okay",
+      "said": "I'm lucky."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly says 'I'm lucky' in response to Amal saying he's lucky."
+   },
+   "tokens": [
+    793,
+    93,
+    351
+   ],
+   "usd": 0.000955,
+   "job": "base-run2",
+   "logged": true
+  },
+  "490": {
+   "text": "آآه، كمان مرة؟",
+   "alt": "aah, kaman marra?",
+   "raw": {
+    "arabic": "آآه، كمان مرة؟",
+    "arabizi": "aah, kaman marra?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "كان",
+      "said": "كمان"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is asking Amal to repeat what she said ('once more?'), saying 'كمان مرة' which the engine misheard as 'كان مرة'."
+   },
+   "tokens": [
+    716,
+    55,
+    235
+   ],
+   "usd": 0.000709,
+   "job": "base-run2",
+   "logged": true
+  },
+  "492": {
+   "text": "إذا كانت",
+   "alt": "eza kanat",
+   "raw": {
+    "arabic": "إذا كانت",
+    "arabizi": "eza kanat",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly repeats 'إذا كانت' as transcribed by the engine."
+   },
+   "tokens": [
+    772,
+    83,
+    207
+   ],
+   "usd": 0.000678,
+   "job": "base-run2",
+   "logged": true
+  },
+  "494": {
+   "text": "آآآه، هي، آآآه. She doesn't get, it's... هي ما، ما تعصب",
+   "alt": "aaah, hiyye, aaah. She doesn't get, it's... hiyye ma, ma t3a99ab",
+   "raw": {
+    "arabic": "آآآه، هي، آآآه. She doesn't get, it's... هي ما، ما تعصب",
+    "arabizi": "aaah, hiyye, aaah. She doesn't get, it's... hiyye ma, ma t3a99ab",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "She doesn't get--",
+      "said": "She doesn't get, it's..."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi mutters 'she doesn't get, it's...' to himself while formulating the Levantine sentence."
+   },
+   "tokens": [
+    1180,
+    468,
+    963
+   ],
+   "usd": 0.002248,
+   "job": "base-run2",
+   "logged": true
+  },
+  "496": {
+   "text": "ما-- هي ما بتعصب، آآآه، سهل كمان quickly",
+   "alt": "ma-- hiyye ma bte3seb, aaah, sahel kaman quickly",
+   "raw": {
+    "arabic": "ما-- هي ما بتعصب، آآآه، سهل كمان quickly",
+    "arabizi": "ma-- hiyye ma bte3seb, aaah, sahel kaman quickly",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "سهل كمان",
+      "said": "سهل كمان quickly"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'quickly' in English right after 'كمان', which prompts Amal's next line 'Quickly. Just quickly'."
+   },
+   "tokens": [
+    962,
+    214,
+    1188
+   ],
+   "usd": 0.002588,
+   "job": "base-run2",
+   "logged": true
+  },
+  "498": {
+   "text": "بسر-- آه",
+   "alt": "bsur-- ah",
+   "raw": {
+    "arabic": "بسر-- آه",
+    "arabizi": "bsur-- ah",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "بسرعة كمان",
+      "said": "بسر-- آه"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi hesitates while trying to say 'بسرعة', uttering 'بسر-- آه' before Amal prompts him with 'سرعة'."
+   },
+   "tokens": [
+    812,
+    63,
+    436
+   ],
+   "usd": 0.001122,
+   "job": "base-run2",
+   "logged": true
+  },
+  "500": {
+   "text": "بس هي، آآآه، هي بتزعل",
+   "alt": "bas hiyye, aaah, hiyye btez3al",
+   "raw": {
+    "arabic": "بس هي، آآآه، هي بتزعل",
+    "arabizi": "bas hiyye, aaah, hiyye btez3al",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription matches Medi's speech accurately."
+   },
+   "tokens": [
+    1026,
+    273,
+    356
+   ],
+   "usd": 0.001052,
+   "job": "base-run2",
+   "logged": true
+  },
+  "502": {
+   "text": "بتزعل بسرعة كمان، آآه، آآه، بسرعة، just",
+   "alt": "btiz3al bi-sur3a kaman, aah, aah, bi-sur3a, just",
+   "raw": {
+    "arabic": "بتزعل بسرعة كمان، آآه، آآه، بسرعة، just",
+    "arabizi": "btiz3al bi-sur3a kaman, aah, aah, bi-sur3a, just",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription accurately captures what Medi said, including his repetition and switch to English."
+   },
+   "tokens": [
+    939,
+    197,
+    936
+   ],
+   "usd": 0.002107,
+   "job": "base-run2",
+   "logged": true
+  },
+  "504": {
+   "text": "هي بتزعل بسرعة",
+   "alt": "hye btiz3al bisur3ah",
+   "raw": {
+    "arabic": "هي بتزعل بسرعة",
+    "arabizi": "hye btiz3al bisur3ah",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription matches the clear audio of Medi saying 'هي بتزعل بسرعة'."
+   },
+   "tokens": [
+    960,
+    119,
+    219
+   ],
+   "usd": 0.000771,
+   "job": "base-run2",
+   "logged": true
+  },
+  "506": {
+   "text": "Do you guys say مظـ- مظلوم؟",
+   "alt": "Do you guys say maz- mazloom?",
+   "raw": {
+    "arabic": "Do you guys say مظـ- مظلوم؟",
+    "arabizi": "Do you guys say maz- mazloom?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "مظلوم",
+      "said": "مظـ- مظلوم"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi stutters on the first syllable before completing the word: 'maz- mazloom'."
+   },
+   "tokens": [
+    966,
+    171,
+    1020
+   ],
+   "usd": 0.002275,
+   "job": "base-run2",
+   "logged": true
+  },
+  "510": {
+   "text": "إحنا مظلوم",
+   "alt": "e7na ma6loom",
+   "raw": {
+    "arabic": "إحنا مظلوم",
+    "arabizi": "e7na ma6loom",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi says 'إحنا مظلوم' before correcting himself in the next line to 'مظلومين'."
+   },
+   "tokens": [
+    860,
+    67,
+    219
+   ],
+   "usd": 0.000733,
+   "job": "base-run2",
+   "logged": true
+  },
+  "512": {
+   "text": "مظلومين",
+   "alt": "mazloomeen",
+   "raw": {
+    "arabic": "مظلومين",
+    "arabizi": "mazloomeen",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi says 'مظلومين', matching the engine transcription exactly (with Amal's bleed-through at the very start)."
+   },
+   "tokens": [
+    843,
+    49,
+    290
+   ],
+   "usd": 0.00086,
+   "job": "base-run2",
+   "logged": true
+  },
+  "514": {
+   "text": "مظلوم يعني، آآآه، مش صوت، طـ- طويل، وما، ما بنعصب، وما، آآآه",
+   "alt": "mazloom ya3ni, aaah, mesh sot, t-taweel, w-ma, ma bin3asib, w-ma, aaah",
+   "raw": {
+    "arabic": "مظلوم يعني، آآآه، مش صوت، طـ- طويل، وما، ما بنعصب، وما، آآآه",
+    "arabizi": "mazloom ya3ni, aaah, mesh sot, t-taweel, w-ma, ma bin3asib, w-ma, aaah",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "آآآه، طويل",
+      "said": "طـ- طويل"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi hesitates on the letter 'ط' before saying 'طويل' rather than saying 'آآآه'."
+   },
+   "tokens": [
+    1321,
+    485,
+    1138
+   ],
+   "usd": 0.002629,
+   "job": "base-run2",
+   "logged": true
+  },
+  "516": {
+   "text": "آه، okay. What does مظلوم mean in Arabic?",
+   "alt": "Ah, okay. What does mazloom mean in Arabic?",
+   "raw": {
+    "arabic": "آه، okay. What does مظلوم mean in Arabic?",
+    "arabizi": "Ah, okay. What does mazloom mean in Arabic?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcript accurately captured the spoken phrase."
+   },
+   "tokens": [
+    982,
+    82,
+    395
+   ],
+   "usd": 0.001109,
+   "job": "base-run2",
+   "logged": true
+  },
+  "518": {
+   "text": "مظلوم is like um, calm, or like unreactive or-",
+   "alt": "mazloom is like um, calm, or like unreactive or-",
+   "raw": {
+    "arabic": "مظلوم is like um, calm, or like unreactive or-",
+    "arabizi": "mazloom is like um, calm, or like unreactive or-",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "ca--",
+      "said": "um,"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'um' rather than a cut-off 'ca--'."
+   },
+   "tokens": [
+    1155,
+    227,
+    396
+   ],
+   "usd": 0.001176,
+   "job": "base-run2",
+   "logged": true
+  },
+  "520": {
+   "text": "Yeah",
+   "alt": "Yeah",
+   "raw": {
+    "arabic": "Yeah",
+    "arabizi": "Yeah",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly said 'Yeah'."
+   },
+   "tokens": [
+    970,
+    41,
+    249
+   ],
+   "usd": 0.000831,
+   "job": "base-run2",
+   "logged": true
+  },
+  "522": {
+   "text": "رايق؟ Not ha-",
+   "alt": "rayeq? Not ha-",
+   "raw": {
+    "arabic": "رايق؟ Not ha-",
+    "arabizi": "rayeq? Not ha-",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "fa-",
+      "said": "ha-"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts to ask 'Not hadi?' in English and Arabic, cutting off after 'ha-', which connects directly to his next line 'I was gonna say هادي'."
+   },
+   "tokens": [
+    998,
+    58,
+    404
+   ],
+   "usd": 0.001132,
+   "job": "base-run2",
+   "logged": true
+  },
+  "524": {
+   "text": "Yeah, I was gonna say هادي but...",
+   "alt": "Yeah, I was gonna say hadi but...",
+   "raw": {
+    "arabic": "Yeah, I was gonna say هادي but...",
+    "arabizi": "Yeah, I was gonna say hadi but...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "I",
+      "said": "Yeah, I"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts the sentence with 'Yeah, I was gonna say هادي but...'."
+   },
+   "tokens": [
+    980,
+    84,
+    388
+   ],
+   "usd": 0.001095,
+   "job": "base-run2",
+   "logged": true
+  },
+  "526": {
+   "text": "رايق",
+   "alt": "rayeq",
+   "raw": {
+    "arabic": "رايق",
+    "arabizi": "rayeq",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply repeats the word 'رايق' that Amal just taught him."
+   },
+   "tokens": [
+    972,
+    44,
+    177
+   ],
+   "usd": 0.000696,
+   "job": "base-run2",
+   "logged": true
+  },
+  "528": {
+   "text": "رايق، آه",
+   "alt": "rayeq, ah",
+   "raw": {
+    "arabic": "رايق، آه",
+    "arabizi": "rayeq, ah",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "رايق",
+      "said": "رايق، آه"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats the word 'رايق' and follows it with an acknowledging 'آه'."
+   },
+   "tokens": [
+    974,
+    44,
+    346
+   ],
+   "usd": 0.001014,
+   "job": "base-run2",
+   "logged": true
+  },
+  "530": {
+   "text": "Does this come from راي or no?",
+   "alt": "Does this come from ra2y or no?",
+   "raw": {
+    "arabic": "Does this come from راي or no?",
+    "arabizi": "Does this come from ra2y or no?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcript accurately captured the English and Arabic words spoken by Medi."
+   },
+   "tokens": [
+    1095,
+    144,
+    231
+   ],
+   "usd": 0.000844,
+   "job": "base-run2",
+   "logged": true
+  },
+  "532": {
+   "text": "Mm",
+   "alt": "Mm",
+   "raw": {
+    "arabic": "Mm",
+    "arabizi": "Mm",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "okay",
+      "said": "Mm"
+     }
+    ],
+    "confidence": "medium",
+    "why": "Medi just makes a quiet acknowledging hum/grunt ('Mm') after Amal says 'No', not 'okay'."
+   },
+   "tokens": [
+    994,
+    72,
+    636
+   ],
+   "usd": 0.001565,
+   "job": "base-run2",
+   "logged": true
+  },
+  "534": {
+   "text": "بروق",
+   "alt": "brou2",
+   "raw": {
+    "arabic": "بروق",
+    "arabizi": "brou2",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly repeats the word Amal just introduced: 'بروق'."
+   },
+   "tokens": [
+    999,
+    56,
+    177
+   ],
+   "usd": 0.000706,
+   "job": "base-run2",
+   "logged": true
+  },
+  "536": {
+   "text": "روق",
+   "alt": "roo2",
+   "raw": {
+    "arabic": "روق",
+    "arabizi": "roo2",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "Okay",
+      "said": "روق"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats the imperative verb Amal just taught him ('روق')."
+   },
+   "tokens": [
+    982,
+    49,
+    648
+   ],
+   "usd": 0.001583,
+   "job": "base-run2",
+   "logged": true
+  },
+  "542": {
+   "text": "Oh, that's ظلم for us",
+   "alt": "Oh, that's 9'ulm for us",
+   "raw": {
+    "arabic": "Oh, that's ظلم for us",
+    "arabizi": "Oh, that's 9'ulm for us",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi accurately repeats the word ظلم (pronouncing it close to zelm/zilm) in the English frame 'Oh, that's ظلم for us'."
+   },
+   "tokens": [
+    896,
+    95,
+    252
+   ],
+   "usd": 0.000808,
+   "job": "base-run2",
+   "logged": true
+  },
+  "546": {
+   "text": "Uh لما أنا لما أزآن.",
+   "alt": "Uh lamma ana lamma az2an.",
+   "raw": {
+    "arabic": "Uh لما أنا لما أزآن.",
+    "arabizi": "Uh lamma ana lamma az2an.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "لما",
+      "said": "Uh لما"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi hesitates with 'Uh' at the beginning, then tries to formulate his sentence using the misheard word 'أزآن' (instead of زهآن)."
+   },
+   "tokens": [
+    1098,
+    357,
+    1450
+   ],
+   "usd": 0.003131,
+   "job": "base-run2",
+   "logged": true
+  },
+  "548": {
+   "text": "آه؟",
+   "alt": "Ah?",
+   "raw": {
+    "arabic": "آه؟",
+    "arabizi": "Ah?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply responds with a confused 'آه؟' (huh/what?), exactly as the engine transcribed."
+   },
+   "tokens": [
+    729,
+    43,
+    235
+   ],
+   "usd": 0.000714,
+   "job": "base-run2",
+   "logged": true
+  },
+  "550": {
+   "text": "أز، uh, um، أزآن.",
+   "alt": "az, uh, um, az2an.",
+   "raw": {
+    "arabic": "أز، uh, um، أزآن.",
+    "arabizi": "az, uh, um, az2an.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أزأل",
+      "said": "uh, um، أزآن"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi is struggling to find the word for 'bored' (زهقان, which he mispronounces as أزآن); he pauses with 'uh, um' and says 'أزآن', not 'أزأل'."
+   },
+   "tokens": [
+    796,
+    112,
+    1130
+   ],
+   "usd": 0.002417,
+   "job": "base-run2",
+   "logged": true
+  },
+  "552": {
+   "text": "Wait, أزآن؟ Did, did you say أزآن؟",
+   "alt": "Wait, az2an? Did, did you say az2an?",
+   "raw": {
+    "arabic": "Wait, أزآن؟ Did, did you say أزآن؟",
+    "arabizi": "Wait, az2an? Did, did you say az2an?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "وي",
+      "said": "Wait,"
+     },
+     {
+      "engine": "لم، did",
+      "said": "Did, did"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi speaks English ('Wait... Did, did you say...?') asking about the pronunciation of the Arabic word he tried to use."
+   },
+   "tokens": [
+    833,
+    150,
+    1190
+   ],
+   "usd": 0.002544,
+   "job": "base-run2",
+   "logged": true
+  },
+  "554": {
+   "text": "زهآن. بس، آه، لما بزهأ.",
+   "alt": "zah2aan. bas, uh, lamma bazha2.",
+   "raw": {
+    "arabic": "زهآن. بس، آه، لما بزهأ.",
+    "arabizi": "zah2aan. bas, uh, lamma bazha2.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "زهآن. زهآن.",
+      "said": "زهآن."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi only said 'زهآن' once before pausing, not twice. The bleed-through at the very end is Amal."
+   },
+   "tokens": [
+    948,
+    209,
+    1170
+   ],
+   "usd": 0.002549,
+   "job": "base-run2",
+   "logged": true
+  },
+  "556": {
+   "text": "لما أزهأ... أنااا، أنا بقرأ، أو، أو. Oh, I can say ولا right? ولا...",
+   "alt": "lamma azha2... anaaa, ana ba2ra, aw, aw. Oh, I can say wla right? wla...",
+   "raw": {
+    "arabic": "لما أزهأ... أنااا، أنا بقرأ، أو، أو. Oh, I can say ولا right? ولا...",
+    "arabizi": "lamma azha2... anaaa, ana ba2ra, aw, aw. Oh, I can say wla right? wla...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "بكرى",
+      "said": "بقرأ"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'أنا بقرأ' (I read) instead of 'بكرى'."
+   },
+   "tokens": [
+    1444,
+    654,
+    666
+   ],
+   "usd": 0.00179,
+   "job": "base-run2",
+   "logged": true
+  },
+  "558": {
+   "text": "أو. What is ولا؟ When do you use uh ولا is, is or?",
+   "alt": "Aw. What is willa? When do you use uh willa is, is or?",
+   "raw": {
+    "arabic": "أو. What is ولا؟ When do you use uh ولا is, is or?",
+    "arabizi": "Aw. What is willa? When do you use uh willa is, is or?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "When do you use، ولا",
+      "said": "When do you use uh ولا"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi hesitates with 'uh' before saying 'ولا is, is or?' as a question."
+   },
+   "tokens": [
+    939,
+    144,
+    476
+   ],
+   "usd": 0.001245,
+   "job": "base-run2",
+   "logged": true
+  },
+  "560": {
+   "text": "آه. Okay.",
+   "alt": "Ah. Okay.",
+   "raw": {
+    "arabic": "آه. Okay.",
+    "arabizi": "Ah. Okay.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "آآآح",
+      "said": "آه"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'Ah/آه' in understanding, followed by 'Okay', not 'آآآح'."
+   },
+   "tokens": [
+    841,
+    91,
+    214
+   ],
+   "usd": 0.000717,
+   "job": "base-run2",
+   "logged": true
+  },
+  "562": {
+   "text": "Got it. So أو، أو.",
+   "alt": "Got it. So aw, aw.",
+   "raw": {
+    "arabic": "Got it. So أو، أو.",
+    "arabizi": "Got it. So aw, aw.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أوو",
+      "said": "أو، أو"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'Got it. So aw...', Amal repeats 'aw' in the background, and then Medi says 'aw' again."
+   },
+   "tokens": [
+    905,
+    153,
+    520
+   ],
+   "usd": 0.001314,
+   "job": "base-run2",
+   "logged": true
+  },
+  "564": {
+   "text": "بختار مسلسل أو، أو.",
+   "alt": "bakhtar mosalsal aw, aw.",
+   "raw": {
+    "arabic": "بختار مسلسل أو، أو.",
+    "arabizi": "bakhtar mosalsal aw, aw.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the phrase accurately matching the audio."
+   },
+   "tokens": [
+    945,
+    212,
+    701
+   ],
+   "usd": 0.001669,
+   "job": "base-run2",
+   "logged": true
+  },
+  "566": {
+   "text": "From my verbs?",
+   "alt": "From my verbs?",
+   "raw": {
+    "arabic": "From my verbs?",
+    "arabizi": "From my verbs?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply repeated Amal's phrase 'from your verbs' in English as a question: 'From my verbs?'."
+   },
+   "tokens": [
+    873,
+    61,
+    209
+   ],
+   "usd": 0.000719,
+   "job": "base-run2",
+   "logged": true
+  },
+  "568": {
+   "text": "Um, مسلسل... مسلسل إللي... No, no. Yeah. No.",
+   "alt": "Um, mosalsal... mosalsal illi... No, no. Yeah. No.",
+   "raw": {
+    "arabic": "Um, مسلسل... مسلسل إللي... No, no. Yeah. No.",
+    "arabizi": "Um, mosalsal... mosalsal illi... No, no. Yeah. No.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "مسلسل",
+      "said": "Um, مسلسل"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi starts with 'Um' before saying 'مسلسل'."
+   },
+   "tokens": [
+    1112,
+    298,
+    397
+   ],
+   "usd": 0.001161,
+   "job": "base-run2",
+   "logged": true
+  },
+  "570": {
+   "text": "Yeah, مسلسل، بيضحكني؟",
+   "alt": "Yeah, mosalsal, bida77ikni?",
+   "raw": {
+    "arabic": "Yeah, مسلسل، بيضحكني؟",
+    "arabizi": "Yeah, mosalsal, bida77ikni?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed the words accurately; Medi said 'Yeah, مسلسل ... بيضحكني?' with a questioning intonation."
+   },
+   "tokens": [
+    1017,
+    268,
+    703
+   ],
+   "usd": 0.0017,
+   "job": "base-run2",
+   "logged": true
+  },
+  "572": {
+   "text": "بيضحكني.",
+   "alt": "biyda77ikni.",
+   "raw": {
+    "arabic": "بيضحكني.",
+    "arabizi": "biyda77ikni.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcribed Medi correctly; he says 'بيضحكني'."
+   },
+   "tokens": [
+    808,
+    63,
+    298
+   ],
+   "usd": 0.000862,
+   "job": "base-run2",
+   "logged": true
+  },
+  "574": {
+   "text": "Or I can just say بيضحك too, right? Just funny.",
+   "alt": "Or I can just say biDa77ek too, right? Just funny.",
+   "raw": {
+    "arabic": "Or I can just say بيضحك too, right? Just funny.",
+    "arabizi": "Or I can just say biDa77ek too, right? Just funny.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcript accurately captures what Medi said in mixed English and Arabic."
+   },
+   "tokens": [
+    993,
+    215,
+    397
+   ],
+   "usd": 0.001117,
+   "job": "base-run2",
+   "logged": true
+  },
+  "577": {
+   "text": "Uh, mm, so لما الجو...",
+   "alt": "Uh, mm, so lamma el-jaww...",
+   "raw": {
+    "arabic": "Uh, mm, so لما الجو...",
+    "arabizi": "Uh, mm, so lamma el-jaww...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "So لما الجو...",
+      "said": "Uh, mm, so لما الجو..."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi hesitates with 'uh, mm' before starting his thought with 'so لما الجو...'."
+   },
+   "tokens": [
+    923,
+    156,
+    865
+   ],
+   "usd": 0.001968,
+   "job": "base-run2",
+   "logged": true
+  },
+  "579": {
+   "text": "Walk أنا بشم هوا و...",
+   "alt": "Walk ana bashem hawa w...",
+   "raw": {
+    "arabic": "Walk أنا بشم هوا و...",
+    "arabizi": "Walk ana bashem hawa w...",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أنا",
+      "said": "Walk أنا"
+     },
+     {
+      "engine": "هواء",
+      "said": "هوا"
+     },
+     {
+      "engine": "أو",
+      "said": "و"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi repeats 'walk' from Amal's previous English prompt, followed by 'أنا بشم هوا و...'."
+   },
+   "tokens": [
+    976,
+    141,
+    614
+   ],
+   "usd": 0.001517,
+   "job": "base-run2",
+   "logged": true
+  },
+  "583": {
+   "text": "أغير",
+   "alt": "aghayer",
+   "raw": {
+    "arabic": "أغير",
+    "arabizi": "aghayer",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply says 'أغير' trying to recall the expression to change the scenery."
+   },
+   "tokens": [
+    897,
+    65,
+    183
+   ],
+   "usd": 0.000679,
+   "job": "base-run2",
+   "logged": true
+  },
+  "587": {
+   "text": "أ، أغو... أغير الجو.",
+   "alt": "a, aghaw... aghayyer el-jaww.",
+   "raw": {
+    "arabic": "أ، أغو... أغير الجو.",
+    "arabizi": "a, aghaw... aghayyer el-jaww.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أغو",
+      "said": "أ، أغو..."
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi hesitates with 'a, aghaw...' before completing the phrase 'aghayyer el-jaww'."
+   },
+   "tokens": [
+    907,
+    117,
+    754
+   ],
+   "usd": 0.001754,
+   "job": "base-run2",
+   "logged": true
+  },
+  "589": {
+   "text": "بغير الجو.",
+   "alt": "baghayyer el jaww.",
+   "raw": {
+    "arabic": "بغير الجو.",
+    "arabizi": "baghayyer el jaww.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine transcription is accurate; Medi says 'بغير الجو' (repeating it with 'ال', which Amal immediately corrects in the next line)."
+   },
+   "tokens": [
+    852,
+    77,
+    249
+   ],
+   "usd": 0.000786,
+   "job": "base-run2",
+   "logged": true
+  },
+  "591": {
+   "text": "بغير الجو.",
+   "alt": "bghayyer el-jaww.",
+   "raw": {
+    "arabic": "بغير الجو.",
+    "arabizi": "bghayyer el-jaww.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi says 'بغير الجو' (bghayyer el-jaww) with the definite article, matching the engine transcript."
+   },
+   "tokens": [
+    874,
+    73,
+    1574
+   ],
+   "usd": 0.003279,
+   "job": "base-run2",
+   "logged": true
+  },
+  "593": {
+   "text": "خلص.",
+   "alt": "khalas.",
+   "raw": {
+    "arabic": "خلص.",
+    "arabizi": "khalas.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi confirms Amal's question 'خلص؟' by saying 'خلص.'"
+   },
+   "tokens": [
+    932,
+    78,
+    524
+   ],
+   "usd": 0.001332,
+   "job": "base-run2",
+   "logged": true
+  },
+  "595": {
+   "text": "I... Yeah. أنا، I، أنا، it's really hard that you guys don't use بحس as I feel. أنا بظن إنه، عملنا كتير. عملنا-",
+   "alt": "I... Yeah. ana, I, ana, it's really hard that you guys don't use ba7ess as I feel. ana bazon inno, 3amalena kteer. 3amalena-",
+   "raw": {
+    "arabic": "I... Yeah. أنا، I، أنا، it's really hard that you guys don't use بحس as I feel. أنا بظن إنه، عملنا كتير. عملنا-",
+    "arabizi": "I... Yeah. ana, I, ana, it's really hard that you guys don't use ba7ess as I feel. ana bazon inno, 3amalena kteer. 3amalena-",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "أنا، أنا",
+      "said": "أنا، I، أنا"
+     },
+     {
+      "engine": "as I, I feel",
+      "said": "as I feel"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi says 'I' between the two instances of 'أنا', and only says 'I feel' once rather than repeating 'I'."
+   },
+   "tokens": [
+    1430,
+    572,
+    1280
+   ],
+   "usd": 0.002936,
+   "job": "base-run2",
+   "logged": true
+  },
+  "597": {
+   "text": "عملنا كتير.",
+   "alt": "3malna kteer.",
+   "raw": {
+    "arabic": "عملنا كتير.",
+    "arabizi": "3malna kteer.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'عملنا كتير' (we did a lot), exactly matching the engine transcript."
+   },
+   "tokens": [
+    922,
+    62,
+    211
+   ],
+   "usd": 0.000741,
+   "job": "base-run2",
+   "logged": true
+  },
+  "599": {
+   "text": "We did a lot.",
+   "alt": "We did a lot.",
+   "raw": {
+    "arabic": "We did a lot.",
+    "arabizi": "We did a lot.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi answered Amal's question in clear English: 'We did a lot.'"
+   },
+   "tokens": [
+    912,
+    70,
+    383
+   ],
+   "usd": 0.00106,
+   "job": "base-run2",
+   "logged": true
+  },
+  "601": {
+   "text": "عملنا كتير.",
+   "alt": "3melna kteer.",
+   "raw": {
+    "arabic": "عملنا كتير.",
+    "arabizi": "3melna kteer.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi repeats 'عملنا كتير' as transcribed."
+   },
+   "tokens": [
+    941,
+    86,
+    278
+   ],
+   "usd": 0.000874,
+   "job": "base-run2",
+   "logged": true
+  },
+  "603": {
+   "text": "عملنا تمرين كتير.",
+   "alt": "3melna tamreen kteer.",
+   "raw": {
+    "arabic": "عملنا تمرين كتير.",
+    "arabizi": "3melna tamreen kteer.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine accurately transcribed Medi's exact words: 'عملنا تمرين كتير'."
+   },
+   "tokens": [
+    1018,
+    100,
+    437
+   ],
+   "usd": 0.001201,
+   "job": "base-run2",
+   "logged": true
+  },
+  "605": {
+   "text": "أنا؟",
+   "alt": "ana?",
+   "raw": {
+    "arabic": "أنا؟",
+    "arabizi": "ana?",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "آه.",
+      "said": "أنا؟"
+     }
+    ],
+    "confidence": "high",
+    "why": "Medi clearly says 'أنا؟' (Me?) with rising question intonation, prompting Amal to clarify in the next line with 'تعبت؟' (Are you tired?)."
+   },
+   "tokens": [
+    944,
+    46,
+    763
+   ],
+   "usd": 0.001785,
+   "job": "base-run2",
+   "logged": true
+  },
+  "607": {
+   "text": "شوي.",
+   "alt": "shway.",
+   "raw": {
+    "arabic": "شوي.",
+    "arabizi": "shway.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi responds to Amal's question 'تعبت؟' with 'شوي' (a little bit), which is clear and correctly transcribed by the engine."
+   },
+   "tokens": [
+    892,
+    43,
+    191
+   ],
+   "usd": 0.000693,
+   "job": "base-run2",
+   "logged": true
+  },
+  "609": {
+   "text": "آه.",
+   "alt": "Ah.",
+   "raw": {
+    "arabic": "آه.",
+    "arabizi": "Ah.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi simply responds with 'آه' (yes/yeah) as transcribed."
+   },
+   "tokens": [
+    902,
+    52,
+    145
+   ],
+   "usd": 0.00061,
+   "job": "base-run2",
+   "logged": true
+  },
+  "611": {
+   "text": "Okay.",
+   "alt": "Okay.",
+   "raw": {
+    "arabic": "Okay.",
+    "arabizi": "Okay.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'Okay.' in English."
+   },
+   "tokens": [
+    910,
+    59,
+    109
+   ],
+   "usd": 0.000546,
+   "job": "base-run2",
+   "logged": true
+  },
+  "613": {
+   "text": "الله يعافيكي. شكراً.",
+   "alt": "Allah y3afeeki. Shukran.",
+   "raw": {
+    "arabic": "الله يعافيكي. شكراً.",
+    "arabizi": "Allah y3afeeki. Shukran.",
+    "engine_was_wrong": true,
+    "changes": [
+     {
+      "engine": "يفيكي",
+      "said": "يعافيكي"
+     }
+    ],
+    "confidence": "high",
+    "why": "In response to Amal saying 'يعطيك العافية', Medi properly replies with 'الله يعافيكي, شكراً'."
+   },
+   "tokens": [
+    928,
+    80,
+    227
+   ],
+   "usd": 0.000774,
+   "job": "base-run2",
+   "logged": true
+  },
+  "615": {
+   "text": "The AI?",
+   "alt": "The AI?",
+   "raw": {
+    "arabic": "The AI?",
+    "arabizi": "The AI?",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi is speaking English, clarifying 'The AI?' after Amal says 'Do let me know what it tells you.'"
+   },
+   "tokens": [
+    872,
+    64,
+    186
+   ],
+   "usd": 0.000676,
+   "job": "base-run2",
+   "logged": true
+  },
+  "617": {
+   "text": "I will.",
+   "alt": "I will.",
+   "raw": {
+    "arabic": "I will.",
+    "arabizi": "I will.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'I will' in English in response to Amal asking him to let her know."
+   },
+   "tokens": [
+    821,
+    38,
+    155
+   ],
+   "usd": 0.000598,
+   "job": "base-run2",
+   "logged": true
+  },
+  "619": {
+   "text": "All right.",
+   "alt": "All right.",
+   "raw": {
+    "arabic": "All right.",
+    "arabizi": "All right.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "Medi clearly says 'All right.' in English."
+   },
+   "tokens": [
+    817,
+    46,
+    108
+   ],
+   "usd": 0.000509,
+   "job": "base-run2",
+   "logged": true
+  },
+  "621": {
+   "text": "بشوفك. Bye.",
+   "alt": "bashoofek. Bye.",
+   "raw": {
+    "arabic": "بشوفك. Bye.",
+    "arabizi": "bashoofek. Bye.",
+    "engine_was_wrong": false,
+    "changes": [],
+    "confidence": "high",
+    "why": "The engine correctly transcribed Medi's response repeating 'بشوفك' (to Amal) followed by 'Bye.'"
+   },
+   "tokens": [
+    837,
+    78,
+    269
+   ],
+   "usd": 0.000818,
+   "job": "base-run2",
+   "logged": true
+  }
+ },
+ "cost_usd": 0.401675,
+ "complete": true,
+ "collected": "2026-10-04T11:18:00"
+}

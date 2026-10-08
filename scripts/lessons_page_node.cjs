@@ -64,7 +64,7 @@ events = events.map(e => { const clip = clips[e.id]; const bound = clip && clip.
 const rows = C.models(words, catalog, events, []);
 
 // Same label as word-bank.js outcome().
-function outcome(e) { const p = C.points(e); if (e.grammar_only || e.classification === 'grammar') return 'Grammar · not vocabulary'; return e.self_corrected && p === 1 ? 'Correct · self-corrected' : e.confusion_pair && p === 0 ? 'Wrong · linked word confusion' : e.ignored && !e.immediate_repeat && !e.is_echo ? 'Not scored' : e.observation_only ? 'Said here · another word intended' : e.scored_in_event ? 'Same attempt · counted once' : p === 1 ? 'Correct' : p === .5 ? 'Partial' : p === 0 ? 'Wrong' : e.immediate_repeat || e.is_echo ? 'Repeat · not scored' : 'Ignored pending review'; }
+function outcome(e) { const p = C.points(e); if (e.grammar_only || e.classification === 'grammar') return 'Grammar · not vocabulary'; return e.self_corrected && p === 1 ? 'Correct · self-corrected' : e.confusion_pair && p === 0 ? 'Wrong · linked word confusion' : e.ignored && !e.immediate_repeat && !e.is_echo ? 'Not scored' : e.rehear_hold ? 'Not scored · second listen no longer hears this word (needs a look)' : e.observation_only ? 'Said here · another word intended' : e.scored_in_event ? 'Same attempt · counted once' : p === 1 ? 'Correct' : p === .5 ? 'Partial' : p === 0 ? 'Wrong' : e.immediate_repeat || e.is_echo ? 'Repeat · not scored' : 'Ignored pending review'; }
 
 const byKey = new Map(words.map(w => [w.key, w]));
 const scored = [];
@@ -95,7 +95,7 @@ for (const e of events) {
   if (firstSeen[k].date === d) { if (e.speaker === 'Amal') firstSeen[k].amal.push(e.t_start); else if (e.speaker === 'Medi') firstSeen[k].medi++; }
 }
 
-const render = Az.create(words, catalog, J('arabizi-extra.json'));
+const render = Az.create(words, catalog, J('arabizi-extra.json'), { scope: 'lessons' });   // the Lessons page's own data (S1: as-said forms show there)
 const arabizi = {};
 for (const s of inp.arabic || []) { const r = render(s); arabizi[s] = { text: r.text, approximate: !!r.approximate }; }
 // the said-sentences of scored misses too, so the per-lesson file can show them in her spelling
@@ -148,7 +148,7 @@ const sameMeaning = (key, en) => { const E = enw(en); if (!E.size) return true; 
 const lat = t => String(t || '').toLowerCase().replace(/^ana\s+/, '').replace(/[^a-z0-9]/g, '').replace(/([aeiou])\1+/g, '$1');   // Tanaaneer = her Tananeer
 const latIndex = new Map();
 for (const w of words) for (const x of [w.arabizi, w.plural, w.house_spelling]) { const k = lat(x); if (k.length >= 3 && !latIndex.has(k)) latIndex.set(k, w.key); }
-const renderLat = Az.create(words, catalog, J('arabizi-extra.json'));
+const renderLat = Az.create(words, catalog, J('arabizi-extra.json'), { scope: 'lessons' });
 for (const entry of inp.sheet || []) {
   const [s, en] = String(entry).split('');
   let hit = null, how = null;

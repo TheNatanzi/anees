@@ -48,6 +48,13 @@ def test_s1_extra_rows_need_method_source_and_her_letters(tmp_path):
                 {"latin": "دلت", "method": "as-said", "from": "x"}):
         w(tmp_path / "docs" / "data" / "arabizi-extra.json", {"words": {"كلمة": bad}})
         assert cr.check_s1_extra(tmp_path, None)["status"] == "fail", bad
+    # Codex final approval 2026-10-05, blocker 7: his own wrong / unclear forms (as-said) are spelled on the Lessons page
+    # only - a new as-said row must carry the scope; an older one (before the re-read) is left as it was published
+    new = {"latin": "tez-", "method": "as-said", "from": "cut-off tez3ej", "added": "2026-10-04 re-heard transcript lines (TR-22)"}
+    for row, want in ((new, "fail"), (dict(new, scope="lessons"), "pass"), (dict(new, scope="everywhere"), "fail"),
+                      ({"latin": "tez-", "method": "as-said", "from": "cut-off tez3ej"}, "pass")):
+        w(tmp_path / "docs" / "data" / "arabizi-extra.json", {"words": {"تز": row}})
+        assert cr.check_s1_extra(tmp_path, None)["status"] == want, row
 
 
 # ---------------------------------------------------------------- S2

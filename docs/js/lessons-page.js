@@ -314,10 +314,10 @@ function typeTags(L) {
 // Medi 2026-09-27: 90%+ dark green · 80-89 light green · 70-79 yellow · 69 and below red
 function band(p) { p = Math.round(p); return p >= 90 ? 'pct-a' : p >= 80 ? 'pct-b' : p >= 70 ? 'pct-c' : 'pct-d'; }
 // Medi's decision 4 (2026-09-29): a score from a lesson that is not verified shows "≈"; hover or tap says why.
-function approxInto(node, text, L, estimate) {
+function approxInto(node, text, L, estimate, provisional) {
   var m = window.AneesLessonMath.mark(text, [L]);
-  var title = [m.title, estimate ? 'Estimate: the app counted fewer rule uses than the tutor fixed slips.' : ''].filter(Boolean).join(' · ');
-  node.textContent = (m.approx || estimate ? '≈' : '') + text;
+  var title = [provisional ? 'Provisional: ' + provisional : '', m.title, estimate ? 'Estimate: the app counted fewer rule uses than the tutor fixed slips.' : ''].filter(Boolean).join(' · ');
+  node.textContent = (m.approx || estimate || provisional ? '≈' : '') + text;
   if (title) { node.classList.add('rel-approx'); node.title = title; node.setAttribute('data-why', title); node.tabIndex = 0; }
 }
 function wordsCell(L) {
@@ -336,7 +336,7 @@ function grammarCell(L) {
   var c = el('div', 'ls-cell');
   var g = L.grammar || {};
   var top = el('div', 'ls-big');
-  if (num(g.pct)) { approxInto(top, Math.round(g.pct) + '%', L, g.estimate); top.classList.add(band(g.pct)); } else top.appendChild(dash(L, ['grammar']));
+  if (num(g.pct)) { approxInto(top, Math.round(g.pct) + '%', L, g.estimate, g.provisional); top.classList.add(band(g.pct)); } else top.appendChild(dash(L, ['grammar']));
   c.appendChild(top);
   // grammar_math (eng audit 2026-09-29): slips in rules no counter can score are listed but kept out of the %
   var sm = num(g.scored_mistakes) ? g.scored_mistakes : g.mistakes;
@@ -536,6 +536,7 @@ function vocabList(body, x, mode) {
     if (v.clip) bar.appendChild(playButton('Play clip', function () { play(v.clip, 0, prettyDate(x.date) + ' · ' + v.mmss + ' · ' + (v.arabizi || v.arabic)); }));
     else bar.appendChild(playButton('Play from ' + v.mmss, function () { play(lessonAudio(x.date, 'Medi'), Math.max(0, v.t - 2), prettyDate(x.date) + ' · lesson from ' + v.mmss); }));
     card.appendChild(bar);
+    if (v.needs_check && v.check_note) card.appendChild(el('div', 'ab-mini ls-note ls-needscheck', '≈ Needs a check. ' + v.check_note));   // round 4: kept from the first read
     body.appendChild(card);
   });
 }
@@ -584,6 +585,8 @@ function grammarList(body, x) {
     card.appendChild(ruleHead(e, x.date));
     // Amal's notes 2026-09-27: shown, but not in any count (rule not taught yet, or not a mistake)
     if (e.counted === false) card.appendChild(el('div', 'ab-mini ls-note', (e.not_counted_kind === 'not-taught' ? 'Not taught yet: not counted. ' : 'Not a mistake: not counted. ') + (e.not_counted_why || '')));
+    // round 4 (2026-10-05): a slip kept from the first read is counted but unchecked - the card says so (text from the data)
+    if (e.needs_check && e.check_note) card.appendChild(el('div', 'ab-mini ls-note ls-needscheck', '\u2248 Needs a check. ' + e.check_note));
     if (e.mistake) card.appendChild(el('div', 'ls-mistake', e.mistake));
     card.appendChild(mediSaid(e.t, speech('gc-said', markText(e.said, [[e.wrong, 'ab-wrong']]), null)));
     if (e.fix) {
@@ -1043,7 +1046,7 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
         var h = house[w.match_loose];
         return h && h.house ? Object.assign({}, w, { house_spelling: h.house }) : w;
       });
-      toArabizi = window.AneesWordBankArabizi.create(words, res[2] || {}, res[3] || {});
+      toArabizi = window.AneesWordBankArabizi.create(words, res[2] || {}, res[3] || {}, { scope: 'lessons' });   // S1: as-said forms show here only
     }
     // Grammar clips cut from the hand sweep: joined by sweep id, else by date + mm:ss.
     ((res[4] && res[4].rules) || []).forEach(function (r) {
@@ -1063,6 +1066,7 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
     $('ls-source').textContent = L.length + ' lessons · ' + L[0].date.slice(5) + ' to ' + L[L.length - 1].date.slice(5);
     $('ls-coverage').textContent = 'Source: docs/data/lessons.json · updated ' + DATA.updated + ' · lesson types are Claude’s reading, tell Claude to change any.';
     window.AneesLessonMath.wireTaps(document);
+    window.AneesLessonMath.stampMethod(DATA, $('ls-coverage'), 'after');   // 2026-10-05: the numbers are counted another way from that day
     renderMetrics();
     renderTabs();
     renderModes();

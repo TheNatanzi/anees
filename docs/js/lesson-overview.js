@@ -39,7 +39,7 @@
     const verbs = [taught.length ? `New verbs (${taught.length}): ${taught.map(x => x.latin).join(' · ')}` : 'New verbs: none',
       reviewed.length ? `Reviewed (${reviewed.length}): ${reviewed.map(x => x.latin).join(' · ')}` : ''].filter(Boolean).join('\n');
     return { date: l.date, type: TYPE[l.type] || l.type || '—', min: l.duration_min, speak: g('talk', 'speak_pct'), wpm: g('flow', 'wpm'),
-      vocab: g('words', 'pct'), grammar: g('grammar', 'pct'), gest: !!(l.grammar && l.grammar.estimate), test, testTitle, partial, winTitle,
+      vocab: g('words', 'pct'), grammar: g('grammar', 'pct'), gest: !!(l.grammar && l.grammar.estimate), gprov: (l.grammar && l.grammar.provisional) || '', test, testTitle, partial, winTitle,
       // Medi's decision 4 (2026-09-29): scores from a lesson that is not verified carry "≈" and the reasons
       unver: LM.approx([l]), relTitle: LM.why([l]),
       fillers: g('fillers', 'per_min'), fcmp, fTitle, wait: g('latency', 'median_s'), verbs, page: l.page || ('lessons/' + l.date + '.html') };
@@ -68,7 +68,7 @@
       ['Last lesson', last.date || '—', last.type || ''],
       ['Vocab right', (last.unver ? '≈' : '') + num(last.vocab, 1, '%'), `Last lesson · pooled avg ${LM.mark(num(vocabAvg, 1, '%'), W).text} · ${W.length} of ${rows.length} lessons`, `Pooled = Σ right + ½ partial ÷ Σ scored uses (${num(wR, 1)} ÷ ${wS}), the Word Bank's own weighting. A mean of the lesson percentages would let one small lesson pull it.
 ${LM.why(W)}`],
-      ['Grammar right', ((last.unver || last.gest) ? '≈' : '') + num(last.grammar, 1, '%'), `Last lesson · pooled avg ${LM.mark(num(grammarAvg, 1, '%'), G).text} · ${G.length} of ${rows.length} lessons`, `Pooled = Σ (uses − slips) ÷ Σ uses (${gU - gM} ÷ ${gU}), same formula as the Grammar Console. ${gEst > 0 ? gEst + ' estimated lesson' + (gEst === 1 ? '' : 's') + ' ("≈") left out.' : 'No lesson left out.'}
+      ['Grammar right', ((last.unver || last.gest || last.gprov) ? '≈' : '') + num(last.grammar, 1, '%'), `Last lesson · pooled avg ${LM.mark(num(grammarAvg, 1, '%'), G).text} · ${G.length} of ${rows.length} lessons`, `Pooled = Σ (uses − slips) ÷ Σ uses (${gU - gM} ÷ ${gU}), same formula as the Grammar Console. ${gEst > 0 ? gEst + ' estimated lesson' + (gEst === 1 ? '' : 's') + ' ("≈") left out.' : 'No lesson left out.'}
 ${LM.why(G)}`],
       // Was "Medi speaking" - the Talk time card one row up already shows it. Words per minute is not shown anywhere else.
       ['Words per minute', approx(last, last.test || last.partial) + num(last.wpm, 0), `Last lesson · pooled avg ${num(wpmAvg, 0)} · ${F.length} of ${rows.length} lessons`, `Arabic words inside your Arabic turns, per minute of those turns. Pooled = Σ Arabic words ÷ Σ minutes (${fW} ÷ ${num(fMin, 1)}).${last.partial ? ' Last lesson: ' + last.winTitle : ''}${last.test ? ' Last lesson: ' + last.testTitle : ''}`],
@@ -90,13 +90,14 @@ ${LM.why(G)}`],
       return `<tr title="${esc(r.verbs)}"><td><a href="${esc(r.page)}">${esc(r.date)}</a></td><td>${esc(r.type)}</td><td>${num(r.min, 0)}</td>` +
         td(num(r.speak, 1), r.test || r.partial, tt) + td(num(r.wpm, 0), r.test || r.partial, tt) +
         td(num(r.vocab, 1), r.unver, r.relTitle, ok(r.vocab) ? bandc(r.vocab) : '') +
-        td(num(r.grammar, 1), r.unver || r.gest, [r.relTitle, r.gest ? 'estimate: every slip the tutor fixed counted as a rule use' : ''].filter(Boolean).join(' · '), ok(r.grammar) ? bandc(r.grammar) : '') +
+        td(num(r.grammar, 1), r.unver || r.gest || r.gprov, [r.gprov ? 'provisional: ' + r.gprov : '', r.relTitle, r.gest ? 'estimate: every slip the tutor fixed counted as a rule use' : ''].filter(Boolean).join(' · '), ok(r.grammar) ? bandc(r.grammar) : '') +
         td(num(r.fillers, 1), r.test || r.fcmp === false, r.fTitle) +
         td(num(r.wait, 1), r.test || r.partial, tt) + '</tr>';
     }).join('')}</tbody></table></div>`;
 
     const partialDates = rows.filter(r => r.partial).map(r => dm(r.date)), badFill = rows.filter(r => r.fcmp === false).map(r => dm(r.date));
     const pending = rows.some(r => r.fcmp === undefined && ok(r.fillers));
+    LM.stampMethod(L, document.getElementById('ov-metrics'));   // 2026-10-05: the numbers are counted another way from that day
     $('#ov-note').textContent = `Source: data/lessons.json · updated ${String(L.updated || '').replace('T', ' ').slice(0, 16)} · Averages are pooled totals over the lessons, not a mean of the lesson percentages: Vocab = Σ right + ½ partial ÷ Σ scored uses; Grammar = Σ (uses − slips) ÷ Σ uses, estimated lessons left out; Words/min = Σ Arabic words ÷ Σ minutes. ` +
       `"≈" Vocab % and Grammar % = that lesson is not verified yet (reader agreement under 95 %, audio or speech recognition not checked, or rows waiting for a check); hover or tap for its reasons. Averages that include such a lesson are "≈" too. ` +
       `Grammar uses = rule uses the app counted plus every fixed slip no counted use pairs with, the same formula as the Grammar Console; slips in rules no counter can score are listed on the lesson but not in the %. ` +

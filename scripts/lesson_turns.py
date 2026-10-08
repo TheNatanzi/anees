@@ -172,3 +172,46 @@ def lesson_turns(date, with_chat=False):
     import transcript_fixes                      # TR-18 heard-word overlay (raw files untouched, RULES.md S2)
     T = transcript_fixes.apply_tracks(date, T)
     return T, src
+
+
+# ---------------------------------------------------------------- the lines the pages show (2026-10-05)
+_PAGE_LINES = {}
+
+
+def page_lines(date, with_chat=False):
+    """(turns, source label) - the SAME lines the Lessons page delivers (docs/data/lessons/<date>.json "turns"): the
+    page builder's own page_turns + Meet gap fills + the heard-word overlay (transcript_fixes.apply: Medi's corrections
+    first, then the second listen's whole-line rows) with each line's end time from the engine's words. In the shape
+    the grammar-use counter and the console read: {speaker, start, end, text, engine?, heard?, chat?, gap_fill?}.
+
+    Codex final approval 2026-10-05, blocker 1: the counter used to read lesson_turns() + apply_tracks(), another turn
+    list than the pages (track turns glue several page lines), so on 09-10 only 8 of 253 re-heard spans reached it and
+    Grammar % had a denominator counted on other text than the lesson showed. Now there is one text.
+    Typed chat lines are left out unless with_chat (they were never counted as his speech)."""
+    if date not in _PAGE_LINES:
+        import build_lessons_page_data as B
+        import transcript_fixes as TF
+        raw = B.page_turns(date)
+        if not raw:
+            _PAGE_LINES[date] = []
+        else:
+            layers = B.trim_layers(B.gapfill_layers(date), raw)
+            P = TF.apply(date, B.with_gapfill(raw, layers))
+            W, _note = B.words_for(date, P)
+            if W is not None and layers:
+                W = sorted(W + B.gapfill_words(layers), key=lambda w: w["s"])
+            B.attach_words(P, B.capped(W))
+            _PAGE_LINES[date] = P
+    out = []
+    for p in _PAGE_LINES[date]:
+        if p.get("chat") and not with_chat:
+            continue
+        t = float(p["t"])
+        u = {"speaker": p["who"], "start": t, "end": float(p["end"]) if p.get("end") is not None and float(p["end"]) >= t else t, "text": p["text"]}
+        for k in ("engine", "heard", "gap_fill", "from_meet", "source", "engine_who", "engine_t"):
+            if p.get(k) is not None:
+                u[k] = p[k]
+        if p.get("chat"):
+            u["chat"] = True
+        out.append(u)
+    return out, ("the lesson page's lines (docs/lessons/%s.html + gap fills + heard-word overlay)" % date if out else None)

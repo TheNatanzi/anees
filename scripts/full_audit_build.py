@@ -80,9 +80,70 @@ def match_sweep(row, cands, used):
     return None
 
 
+def same_piece_two_alphabets(a, b):
+    """The same piece written once in Latin letters and once in Arabic script (08-25 39:07: the readers' 'bin khaf nakun'
+    and the sweep's 'بنخاف نكون'): the identical consonant skeleton of the whole piece (xscript.skel), 3+ consonants."""
+    import xscript as X
+    if not a or not b or X.is_ar(a) == X.is_ar(b):
+        return False
+    ka, kb = (X.skel(re.sub(r"[^\w']+", "", str(x))) for x in (a, b))
+    return len(ka) >= 3 and ka == kb
+
+
+def late_pair_evidence(r, s):
+    """Why a reader row r and a 09-24 sweep row s are the SAME slip (None = they are not shown to be).
+    Same kind class and within REPEAT_S seconds, and
+      - word slips: the same word from Amal (her fix, or what the sweep says she said); or
+      - the same line of his (3+ words) AND evidence of the same error on it: the same rule (bucket), or the same wrong
+        or right piece (full_audit_compare.same_piece; or the identical piece in the other alphabet).
+    Codex final approval 2026-10-05, blocker 4: the same 3-word line alone used to be enough, so two different grammar
+    errors in different buckets on one line were merged into one row. A line can hold two slips."""
+    a, b = sec(r.get("t")), sec(s.get("t"))
+    cls = kind_class(r.get("kind"))
+    if cls != kind_class(s.get("kind")) or a is None or b is None or abs(a - b) > REPEAT_S:
+        return None
+    if cls == "vocab" and same_piece(r.get("right"), s.get("right")):
+        return "the same word from Amal (her fix)"
+    if cls == "vocab" and same_piece(r.get("right"), s.get("amal_said")):
+        return "the same word from Amal (what she said)"
+    ra, sa = norm(r.get("medi_said")), norm(s.get("medi_said"))
+    if not (ra and ra == sa and len(ra.split()) >= 3):
+        return None
+    if r.get("bucket") and r.get("bucket") == s.get("bucket"):
+        return "the same line of his and the same rule (%s)" % r["bucket"]
+    if same_piece(r.get("wrong"), s.get("wrong")):
+        return "the same line of his and the same wrong piece"
+    if same_piece(r.get("right"), s.get("right")):
+        return "the same line of his and the same right piece"
+    if same_piece_two_alphabets(r.get("right"), s.get("right")) or same_piece_two_alphabets(r.get("wrong"), s.get("wrong")):
+        return "the same line of his and the same piece, written in the two alphabets"
+    return None
+
+
+def late_sweep_pairs(readers, cands, used):
+    """2026-10-04: after a re-read on the re-heard transcript the readers can time a slip more than 5 s from where the
+    09-24 sweep timed it (his re-heard line starts earlier or later), so match_sweep() no longer pairs them and the slip
+    is in the audit twice: the readers' row and the sweep's own row ('sweep-only kept'). 09-15 مفروم 03:55 / 04:05, 09-11
+    مراجعة, 09-23 تذكرة, 09-19 59:47 انبسطولي. A reader row with no sweep row and a sweep row no reader took are the same
+    slip only with evidence of the same error (late_pair_evidence), and only when each has exactly one such partner.
+    -> [(reader row, index into cands)]"""
+    free = [i for i in range(len(cands)) if i not in used]
+    mine = {id(r): [i for i in free if late_pair_evidence(r, cands[i])] for r in readers}
+    taken = collections.Counter(i for v in mine.values() for i in v)
+    return [(r, mine[id(r)][0]) for r in readers if len(mine[id(r)]) == 1 and taken[mine[id(r)][0]] == 1]
+
+
 def uid_base(r):
     """What makes a slip one slip: lesson, second of his line, the wrong piece, vocab vs grammar."""
     return f"{r['date']}|{int(sec(r.get('t')) or 0)}|{norm(r.get('wrong'))}|{kind_class(r.get('kind'))}"
+
+
+def ruled_piece(r):
+    """The piece of a row a rejected.json ruling is matched on: its wrong piece; a row with none (a 09-24 sweep word row
+    he asked for: 'didn't know', wrong = None) is matched on what he said. 2026-10-04: after the re-read the readers no
+    longer wrote 09-19 08:54 'أب الامبارح' (hand check: pronunciation, S4) and 09-14 55:06 'مشاوي' (GR-19), so the sweep's
+    own rows came back without a wrong piece and both rulings stopped landing - the slips would have counted again."""
+    return r.get("wrong") if norm(r.get("wrong")) else r.get("medi_said")
 
 
 def apply_misheard(rows, fixes=None):
@@ -92,6 +153,7 @@ def apply_misheard(rows, fixes=None):
     overlay rows - a reader's overlay row never drops a slip by itself. -> how many rows it dropped."""
     import transcript_fixes as TF
     fixes = [f for f in (TF.load() if fixes is None else fixes) if f.get("by") == "medi" and f.get("engine_wrote") and f.get("who", "Medi") == "Medi"]
+    fixes = [f for f in fixes if f.get("engine_wrote") != f.get("heard")]      # a confirming row (he DID say the engine's word) drops no slip
     n = 0
     for r in rows:
         if r.get("kind") == "rejected" or not norm(r.get("wrong")):
@@ -107,6 +169,52 @@ def apply_misheard(rows, fixes=None):
                 r["kind_before_rejection"] = r["kind"]
                 r.update(kind="rejected", rejected_rule="TR-24",
                          rejected_why="TR-24: the recording engine wrote %s; Medi said %s (%s), so it is not his slip" % (f["engine_wrote"], f["heard"], f.get("on") or ""))
+                n += 1
+                break
+    return n
+
+
+WITHHELD_WHY = ("its wrong piece exists only in a re-heard line that the blind spot check withheld on 2026-10-05; "
+                "not scored until Medi adjudicates the line (old or new)")
+
+
+def withheld_lines(root=None):
+    """{date: [{t, engine, heard, mmss}]} - proposed second-listen lines that were NOT applied because the blind spot
+    check preferred the old line (rehear/<date>/apply-plan.json withheld_by_spot_check, scripts/rehear_apply.py)."""
+    root = root or os.path.join(REPO, "data", "lesson-work", "rehear")
+    out = {}
+    for d in sorted(os.listdir(root)) if os.path.isdir(root) else []:
+        p = os.path.join(root, d, "apply-plan.json")
+        if re.fullmatch(r"\d{4}-\d\d-\d\d", d) and os.path.exists(p):
+            w = json.load(open(p, encoding="utf-8")).get("withheld_by_spot_check") or []
+            if w:
+                out[d] = w
+    return out
+
+
+def apply_withheld(rows, withheld=None, carry=None):
+    """TR-22 (Codex final approval round 3, item 1): the readers read the re-heard version of a line that was then
+    withheld. A row whose WRONG PIECE stands in that re-heard line and not in the delivered (engine) line scores a
+    wording the transcript does not show (09-21 24:38 FA-99795002 'مع credit card': the delivered line reads
+    'ما credit card'). The row keeps its uid and everything the readers wrote; it is not scored until Medi adjudicates
+    the line (his 'old or new' card): kind rejected, rule TR-22, the reason on the row. When the line is adjudicated the
+    plan no longer lists it and the row counts again by itself. -> how many rows."""
+    withheld = withheld_lines() if withheld is None else withheld
+    n = 0
+    for r in rows:
+        w = norm(r.get("wrong"))
+        if not w or r.get("kind") in ("rejected", "dropped-by-amal") or r.get("kept"):
+            continue
+        tt = [v for v in (sec(r.get("t")), sec(r.get("t_amal"))) if v is not None]
+        for x in withheld.get(r.get("date")) or []:
+            if any(abs(v - float(x["t"])) <= 12 for v in tt) and w in norm(x.get("heard")) and w not in norm(x.get("engine")):
+                # the uid hashes the kind class: keep the uid the row has as a scored row (its carried one, else its own)
+                keep = (carry or {}).get(r.get("read_key")) or r.get("read_key")
+                if keep:
+                    r["uid_keep"] = keep
+                r["kind_before_rejection"] = r["kind"]
+                r.update(kind="rejected", rejected_rule="TR-22", rejected_why="TR-22: " + WITHHELD_WHY,
+                         withheld_line={"mmss": x.get("mmss"), "delivered": x.get("engine"), "reheard_not_applied": x.get("heard")})
                 n += 1
                 break
     return n
@@ -222,7 +330,14 @@ def mark_duplicates(rows, hand=()):
             continue
         k = (r["date"], r.get("bucket"), r["kind"], norm(r.get("wrong")))
         if k in last and sec(r["t"]) - sec(last[k]["t"]) <= REPEAT_S:
-            _drop_as_duplicate(r, last[k], f"duplicate of {last[k]['uid']}: he repeated the same wrong phrase within {REPEAT_S} s, one slip (Medi 2026-10-01)")
+            keep, drop = last[k], r
+            if str(r.get("kept") or "").startswith("amal-confirmed") and not keep.get("kept"):
+                # 2026-10-05: the row Amal CONFIRMED (kept from the first read) is the one that stays; the re-read's row of
+                # the same wrong phrase is its repeat - else her confirmation would be dropped for an unruled row and she
+                # would be asked the same thing again (09-10 08:04 'لـ YouTube')
+                keep, drop = r, last[k]
+                last[k] = r
+            _drop_as_duplicate(drop, keep, f"duplicate of {keep['uid']}: he repeated the same wrong phrase within {REPEAT_S} s, one slip (Medi 2026-10-01)")
         else:
             last[k] = r
     by_uid = {r["uid"]: r for r in rows}
@@ -444,6 +559,7 @@ def compat_entry(r):
             "confidence": r.get("confidence") or "medium", "confidence_why": r.get("r3_why") or r.get("agreed_by"),
             "signal": r.get("signal"), "machine_audit": bool(r.get("machine_had")), "mode": r.get("mode", "speaking"),
             "source": r.get("source"), "uid": r["uid"], "sweep_id": r.get("sweep_id"),
+            **({"kept": r["kept"]} if r.get("kept") else {}),                   # a kept / restored row says so on every page (round 4)
             **({"correction": r["correction"]} if r.get("correction") else {})}   # PR-15: his correction travels to every page
     if r["kind"] == "grammar":
         return {**base, "mistake": r.get("why"), "bucket": r.get("bucket"), "bucket2": r.get("bucket2"), "new_bucket_group": r.get("new_bucket_group")}
@@ -462,6 +578,13 @@ def sync_compat(A):
     moment, not a second slip: it is marked compat_same_moment_as and left out. Returns (added, removed, same_moment)."""
     sc = A.setdefault("sweep_compat", {})
     kind = {r["uid"]: r["kind"] for r in A["rows"]}
+    conf = {r["uid"]: r["amal_ruling"] for r in A["rows"] if (r.get("amal_ruling") or {}).get("kind") == "confirm"}
+    for x in sc.get("rows", []) + sc.get("vocab", []):          # her confirmation travels with the row (council 5, 2026-10-05)
+        ar = conf.get(x.get("uid") or x.get("id"))
+        if ar:
+            x["amal_confirmed"] = {"at": ar.get("at"), "pattern": ar.get("pattern"), "rule_id": ar.get("rule_id")}
+        else:
+            x.pop("amal_confirmed", None)
     before = {x.get("uid") or x.get("id") for x in sc.get("rows", []) + sc.get("vocab", [])}
     sc["rows"] = [x for x in sc.get("rows", []) if kind.get(x.get("uid") or x.get("id"), "grammar") == "grammar"]
     sc["vocab"] = [x for x in sc.get("vocab", []) if kind.get(x.get("uid") or x.get("id"), "vocab-A") == "vocab-A"]
@@ -479,7 +602,10 @@ def sync_compat(A):
                 same.append(r["uid"])
                 continue
             r.pop("compat_same_moment_as", None)
-            sc[key].append(compat_entry(r))
+            e = compat_entry(r)
+            if r["uid"] in conf:
+                e["amal_confirmed"] = {"at": conf[r["uid"]].get("at"), "pattern": conf[r["uid"]].get("pattern"), "rule_id": conf[r["uid"]].get("rule_id")}
+            sc[key].append(e)
             at.setdefault((r.get("date"), r.get("t")), r["uid"])
             added += 1
         sc[key].sort(key=lambda x: (x.get("date") or "", sec(x.get("t")) if sec(x.get("t")) is not None else 1e9))
@@ -521,6 +647,15 @@ def gather(carry=None, preserved=None, write_report=True):
                 r["machine_had"] = False
                 n_new += 1
             rows.append(r)
+        for r, i in late_sweep_pairs([r for r in rows if r["date"] == d and r.get("source") == "audit-2026-09-26" and not r.get("sweep_id")], by_date[d], used):
+            s = by_date[d][i]
+            used.add(i)
+            r.update(sweep_id=s["sweep_id"], machine_had=s.get("machine_had", False), sweep_paired_late=s.get("t"),
+                     sweep_paired_why=late_pair_evidence(r, s))
+            if kind_class(r["kind"]) == "grammar" and not r.get("bucket") and s.get("bucket"):
+                r["bucket"] = s["bucket"]
+            n_both += 1
+            n_new -= 1
         kept = 0
         for i, s in enumerate(by_date[d]):
             if i in used:
@@ -549,7 +684,7 @@ def gather(carry=None, preserved=None, write_report=True):
     if os.path.exists(rej_p):
         for x in json.load(open(rej_p, encoding="utf-8"))["rows"]:
             for r in rows:
-                if r["date"] == x["date"] and same_moment(r, x) and same_piece(r.get("wrong"), x.get("wrong")) and r["kind"] != "rejected"                         and (not x.get("kind") or kind_class(x["kind"]) == kind_class(r["kind"])):
+                if r["date"] == x["date"] and same_moment(r, x) and same_piece(ruled_piece(r), x.get("wrong")) and r["kind"] != "rejected"                         and (not x.get("kind") or kind_class(x["kind"]) == kind_class(r["kind"])):
                     r["kind_before_rejection"] = r["kind"]
                     r["kind"] = "rejected"
                     r["rejected_why"] = x["why"]
@@ -560,6 +695,7 @@ def gather(carry=None, preserved=None, write_report=True):
     apply_el_prompt(rows)
     apply_demonstrative(rows)
     apply_misheard(rows)
+    apply_withheld(rows, carry=carry)
     import medi_corrections as MC     # PR-15: Medi's corrections (page table mirror + the ones he gave in chat)
     import hashlib as _hl
     # a carried row answers to its OLD uid (his correction's target.src), 2026-10-04

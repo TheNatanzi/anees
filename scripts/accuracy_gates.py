@@ -471,6 +471,8 @@ def annotate(lessons_doc, details, audit, usage, policy, ledger, work=WORK, wb_c
             reasons.append("coverage: " + ("line times estimated from each person's recording by silence detection (no engine word timings)"
                                            if src["timing"] == "estimated" else "no word timings"))
         reasons += apply_source_audit(cov, ((source_audit or {}).get("lessons") or {}).get(d))
+        if (L.get("grammar") or {}).get("provisional"):          # 2026-10-05: no separate microphone track -> Grammar % provisional
+            reasons.append("grammar % provisional: " + L["grammar"]["provisional"])
         asr = asr_review(d, (L.get("duration_min") or 0) * 60, wb_checks, evidence_dates or {})
         if policy.get("asr_review_required_for_verified", True) and not asr["reviewed"]:
             reasons.append(f"speech recognition not reviewed: nobody listened; {asr['model_compared_excerpts']} excerpts "

@@ -139,7 +139,42 @@ A("A11", "A", "kul: all vs every",
   "One little el- flips the whole meaning.",
   ["kul el-zlaam = all the men (a specific group).",
    "kul zalame = every man (each one separately).",
-   "el-kul on its own = everybody."])
+   "el-kul on its own = everybody.",
+   "Added 2026-10-07 (GR-30, the Oct 2 lesson): kul + noun = every; kul + el- + noun = all / the whole; el-kull = everyone (Amal 2026-10-06: 'Yes - this is the rule as I teach it')."])
+
+# GR-30 (Medi 2026-10-07 "yes count them but wait until we add the gemini changes"; Amal 2026-10-06 "Yes - this is the rule as I
+# teach it" on all six): the Oct 2 tool words, proposed as P-A13 .. P-A17 (GR-29), now scored.
+A("A13", "A", "awal / oola: before or after the noun",
+  "awal + noun = first; awal + el- + noun = the beginning of; after the noun: el-noun el-awal / el-oola.",
+  [["awal sa3a", "the first hour"], ["awal el-sa3a", "the beginning of the hour"], ["el-saa3a el-oola", "the first hour (adjective, feminine)"]],
+  "No el- in front of awal when it comes first; the el- on the noun changes the meaning to 'the beginning of'.",
+  ["After the noun it is an adjective and matches the gender: el-saa3a el-oola, el-yoam el-awal.",
+   "oola = the feminine of awal.",
+   "Proposed from the Oct 2 lesson (GR-29); Amal 2026-10-06 'Yes - this is the rule as I teach it'; Medi 2026-10-07 'yes count them'."])
+A("A14", "A", "taani: before or after the noun",
+  "taani + noun = second; noun + taani = another / the second; el-noun el-taani / el-tanye; taani never takes el- in front.",
+  [["taani yoam", "the second day"], ["yoam taani", "another day"], ["el-marra el-tanye", "the second time"]],
+  "taani el-... means nothing: there is no 'beginning of' meaning like awal el-.",
+  ["Feminine after the noun: el-marra el-tanye = the second time; marra tanye = another time.",
+   "Proposed from the Oct 2 lesson (GR-29); Amal 2026-10-06 'Yes - this is the rule as I teach it'; Medi 2026-10-07 'yes count them'."])
+A("A15", "A", "aa5er / a5eer: before or after the noun",
+  "aa5er + noun = last; aa5er + el- + noun = the end of; after the noun the adjective a5eer / a5eera / a5eeraat.",
+  [["aa5er marra", "the last time"], ["aa5er el-ijtima3", "the end of the meeting"], ["el-marra el-a5eera", "the last time (adjective)"]],
+  "Before the noun it is a tool word; after the noun it is an adjective with its own form.",
+  ["a5eer (m) / a5eera (f) / a5eeraat (plural): el-3ashar da2aaye2 el-a5eeraat.",
+   "Proposed from the Oct 2 lesson (GR-29); Amal 2026-10-06 'Yes - this is the rule as I teach it'; Medi 2026-10-07 'yes count them'."])
+A("A16", "A", "8eir: other / different, no el-",
+  "8eir + noun = other / different; 8eir never takes el- in front; after the noun is rare.",
+  [["8eir yoam", "another day"], ["8eir akle", "a different dish"]],
+  "Only one meaning (other / different), so there is no el- version to learn.",
+  ["After the noun (el-yoam el-8eir) is rare; 8eir yoam is far more common.",
+   "Proposed from the Oct 2 lesson (GR-29); Amal 2026-10-06 'Yes - this is the rule as I teach it'; Medi 2026-10-07 'yes count them'."])
+A("A17", "A", "nafs + el-: the same",
+  "nafs + el- + noun = the same ...; never el- before nafs; nafs is never an adjective after the noun.",
+  [["nafs el-ishi", "the same thing"], ["nafs el-taree2", "the same route"]],
+  "The noun after nafs always has el-; el- before nafs is wrong.",
+  ["nafs is only a tool word, never an adjective after the noun.",
+   "Proposed from the Oct 2 lesson (GR-29); Amal 2026-10-06 'Yes - this is the rule as I teach it'; Medi 2026-10-07 'yes count them'."])
 
 # ---------------- Family B - verbs ----------------
 A("B1", "B", "present with b-",

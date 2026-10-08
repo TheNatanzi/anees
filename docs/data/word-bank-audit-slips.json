@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-07T17:15:25-07:00",
+ "updated": "2026-10-07T18:00:15-07:00",
  "version": 1,
  "about": "Word slips from the full audit (data/full-audit-2026-09-26.json) that are on Medi’s list, as Word Bank events. Built by scripts/build_lessons_page_data.py (pass 2 of scripts/lessons_page_node.cjs); every page that scores words appends these to the lesson evidence. unplaced = on-list slips the Word Bank has no form for; they count on the Lessons page only.",
  "events": [
@@ -18,7 +18,7 @@
    "vocab_points": 0,
    "text": "مغني",
    "said": "مش مغني، مغـ، مغـ.",
-   "reason": "He reached for 'cloudy' and produced مغني (singer); she supplied مغيم (sheet: the weather is cloudy | El-jaw m8ayyem | الجو مغيم).",
+   "reason": "مغني is singer, not cloudy; she supplied مغيم and then said 'مغني is singer'.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-1e980002"
   },
@@ -37,7 +37,7 @@
    "vocab_points": 0,
    "text": "تمنتاش",
    "said": "درجة الحرارة حوالين، تمنتاش.",
-   "reason": "He said eighteen for eighty degrees; her echo-question made him fix it to تمانين (sheet: eighty | tamanin | تمانين).",
+   "reason": "He said 18 for 80 (Fahrenheit); her questioning echo تمنتاش؟ made him change it to تمانين.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-1ec60d5a"
   },
@@ -52,11 +52,11 @@
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "ما زبت",
-   "said": "ما زبت. زبت is... oh my God, what was زبت؟",
-   "reason": "Didn't-know: he could not recall the meaning of her ما زبط, she explained it.",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "ما زبت = it's okay",
+   "said": "ما زبت. زبت is... It means it's okay, right? It's positive.",
+   "reason": "She asked what ما زبت means; he guessed the opposite (positive) and she gave 'it didn't work out', which he accepted ('That's right').",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-37961d02"
   },
@@ -73,30 +73,11 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "makes you sad",
+   "text": "بتعبك = makes you sad",
    "said": "So what, what makes you sad at this time?",
-   "reason": "He glossed her بتعبك as 'makes you sad' (17:54 and again 18:35 'it made you sad'); she corrected to 'tired' and to present 'makes'.",
+   "reason": "He read تعب as sad; she kept prompting and said 'Tired', he took it ('made you tired').",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-f752e277"
-  },
-  {
-   "id": "audit:FA-035422b0",
-   "word_key": "kAmel",
-   "entry_id": "kAmel:singular",
-   "lesson_date": "2026-08-25",
-   "t_start": 1317,
-   "t_end": 1317,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "كاملة (not understood)",
-   "said": "كام... كاملة؟",
-   "reason": "He did not know كاملة in her الجملة كاملة; she repeated and he worked out 'complete' (sheet: whole / complete | kaamel | كامل) - didn't-know.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-035422b0"
   },
   {
    "id": "audit:FA-0cd3293a",
@@ -113,7 +94,7 @@
    "vocab_points": 0,
    "text": "اشتغلتهم",
    "said": "هما ما بيخلصوا اشتغلتهم.",
-   "reason": "Verb form اشتغلت used as the noun 'their work'; the noun is شغل + هم.",
+   "reason": "He used the verb 'I worked' as the noun 'their work'; she gave شغلهم and he repeated it.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-0cd3293a"
   },
@@ -132,7 +113,7 @@
    "vocab_points": 0,
    "text": "زمان طويل",
    "said": "بتضل تعصب، تعصب، زمان طويل.",
-   "reason": "'for a long time' is لوقت طويل on her sheet (for a long time | la-wa2et taweel | لوقت طويل); he used زمان.",
+   "reason": "زمان is 'long ago / old times'; for a long time she gave لوقت طويل and he repeated it.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-185197c5"
   },
@@ -151,7 +132,7 @@
    "vocab_points": 0,
    "text": "بنزبطها",
    "said": "it's أنا بـ بنزبط. Is it b- بنزبطها؟",
-   "reason": "He grabbed زبط (fix / work out) from her 'لازم نزبط' for 'I make her happy'; the verb is بسّط (sheet: it causes happiness | Byebse6 | بيبسط).",
+   "reason": "He reached for زبط (fix / work out) to mean make her happy; she gave ببسطها and said 'we did a lot' (known word).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-0939ce87"
   },
@@ -189,28 +170,9 @@
    "vocab_points": 0,
    "text": "بأسف",
    "said": "بأسف",
-   "reason": "He built the verb from أسف as بأسف; the verb 'I apologize' is بتأسف (t-form), which she supplied after 'very close'.",
+   "reason": "'I apologize' is the t-verb بتأسف, not ba+آسف; Amal said 'Very close' and he reached بتأسف at 30:00, which she confirmed.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-ffbfe226"
-  },
-  {
-   "id": "audit:FA-a54545fb",
-   "word_key": "ana babse6",
-   "entry_id": "ana babse6:present",
-   "lesson_date": "2026-08-25",
-   "t_start": 1947,
-   "t_end": 1947,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "بتها",
-   "said": "و أنا، أنا، بس-- بس بت، أنا بس بتها.",
-   "reason": "Second failure on the verb she taught at 26:33: he could not retrieve ببسطها, ended on the non-word بتها, she supplied it and he said 'I hate this verb' (32:40); low because it could be read as an S5 stumble, but he never reached the word himself.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-a54545fb"
   },
   {
    "id": "audit:FA-b5403431",
@@ -226,8 +188,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "بنتطلع",
-   "said": "عتيته أنا، بنت-- بنتطلع، بنتطلع بنات أخوي-",
-   "reason": "He used تطلع (look at) for 'we watch (babysit) my brother's girls'; she questioned it and built بندير بالنا على with him (sheet: i take care of | Ana badir baali | أنا بدير بالي).",
+   "said": "بنتطلع، بنتطلع بنات أخوي-",
+   "reason": "He used 'look at' for babysitting his nieces; she queried بنطلع؟ and gave bindir balna 3ala, which he used.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-b5403431"
   },
@@ -244,9 +206,9 @@
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "tinen",
+   "text": "tinen (asked)",
    "said": "ooh, I wanna say both of us. Do I just say ‹tinen›? Or-",
-   "reason": "Didn't-know: he asked how to say 'both of us' and offered bare tinen; she supplied إحنا التنين (sheet: two | Tenein | تنين). Transcript in Latin here.",
+   "reason": "He asked how to say 'both of us'; Amal supplied ahna il tinen and he used it at 39:07.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-4f2ba60d"
   },
@@ -284,7 +246,7 @@
    "vocab_points": 0,
    "text": "isma",
    "said": "Is, ‹isma›.",
-   "reason": "He asked the term for 'noun' (42:02); she hinted 'name' (42:06) and he attempted isma (اسمه, the possessed form); she recast ism (sheet: noun – nouns | Esem | اسم). He attempted the word, so a wrong-form tier 2 rather than a tier-0 didn't-know; Latin transcript, so medium.",
+   "reason": "Name/noun is ism; he added an ending, she recast and he repeated ism.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-bce1dcb5"
   },
@@ -303,7 +265,7 @@
    "vocab_points": 0,
    "text": "بنخط",
    "said": "إحنا، إحنا بنخ-- بنخط. Ben-- it's just بنخط، right?",
-   "reason": "He believed the verb form was بنخط; خطّط keeps its doubled root (sheet: i plan | Ana ba5a66et | أنا بخطط) - tier 2 rather than S4 because he asked whether the short form was the word.",
+   "reason": "The verb is خطط; he cut it to بنخط and checked it, she recast بنخطط and he repeated it at 43:42.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-df90374e"
   },
@@ -320,9 +282,9 @@
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "it has to be (not known)",
+   "text": "has to be (no Arabic)",
    "said": "So it has to be, has to be، اه، issue can، اه، can issue- ... So if I wanna say it has to be something really bad.",
-   "reason": "Didn't-know: he never produced Arabic, asked 'if I wanna say it has to be something really bad' (48:19) and she supplied لازم يكون issue سيء (B8 ykoon after laazem), which he repeated (48:28); no Arabic error to recast, so tier 0 asked with bucket B8 noted for the grammar tally.",
+   "reason": "He asked how to say 'it has to be something really bad' and she supplied لازم يكون; he repeated it at 48:28.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-766bcdbd"
   },
@@ -340,8 +302,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "سهل",
-   "said": "ما-- هي ما بتعصب، آآآه، سهل كمان",
-   "reason": "He used سهل (easy) as 'easily'; she steered him to 'quickly' and he produced بسرعة, which she accepted.",
+   "said": "هي ما بتعصب، آآآه، سهل كمان",
+   "reason": "سهل (easy) for 'quickly'; Amal said 'Quickly' in English and he switched to بسرعة.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-a1d75179"
   },
@@ -378,8 +340,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "أزآن",
-   "said": "لما أنا لما أزآن. ... أز، أزأل. ... وي أزآن. لم، did you say أزآن؟",
-   "reason": "She had said إذا كنت زهقان (54:21); he heard and reproduced it as the non-word أزآن (then أزأل) and asked 'did you say أزآن؟'; she said No and restored زهقان (sheet: bored | Zahqaan | زهقان). A mishearing of her spoken word reproduced aloud, so mode listening; borderline S4 (dropped ه + his usual ق->ء) - merger may treat as pronunciation.",
+   "said": "لما أنا لما أزآن. ... أز، أزأل.",
+   "reason": "Her question used زهآن; he mangled it into أزآن / أزأل, she said No twice and gave زهآن, which he repeated at 55:28.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-d8999cbc"
   },
@@ -388,17 +350,17 @@
    "word_key": "ana la2ait",
    "entry_id": "ana balA2i:past",
    "lesson_date": "2026-09-04",
-   "t_start": 94,
-   "t_end": 94,
+   "t_start": 87,
+   "t_end": 87,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "What language?",
-   "said": "يعني ،شو يعني شو لا-- what... What language?",
-   "reason": "She asked شو لقيت؟ twice (01:24, 01:31) and he decoded it as 'what language?' - he took لقيت for لغة, the word they had just been on at 00:57-01:03; she said 'No' and explained بلاقي / بتلاقي / لقيت (sheet: i found | Ana la2ait | أنا لقيت), so this is a wrong-word listening error, not a didn't-know: he never asked, he answered wrong and she corrected.",
+   "assessment": "helped",
+   "vocab_points": 0.5,
+   "text": "شو لقيت",
+   "said": "يعني ،شو يعني شو لا-- what...",
+   "reason": "He did not understand her شو لقيت and asked; she explained بلاقي / بتلاقي - a didn't-know on listening (sheet: find | Laa2i | لاقي).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-5a4aadcd"
   },
@@ -407,8 +369,8 @@
    "word_key": "tari2a",
    "entry_id": "tari2a:singular",
    "lesson_date": "2026-09-04",
-   "t_start": 115,
-   "t_end": 115,
+   "t_start": 112,
+   "t_end": 112,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
@@ -416,8 +378,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "الطريق",
-   "said": "أنا لقيت الطريق منيح كتير",
-   "reason": "He meant 'the method' (research on how to learn) and said طريق; her sheet lists them as two separate words, 'road / way / route | 6ariq | طريق' and 'way / method | Tariqa | طريقة', she asked طريق أو طريقة؟ and he fixed to طريقة at 02:03.",
+   "said": "أنا لقيت الطريق منيح كتير في research.",
+   "reason": "He said طريق (road) for 'a way / method'; she asked طريق أو طريقة؟ and he fixed to طريقة (sheet: way / method | Tariqa | طريقة).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-32926ce2"
   },
@@ -434,9 +396,9 @@
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "muhadatha",
-   "said": "Muhadatha? ... Shuyani. Muhadath-... I don't remember.",
-   "reason": "She asked him what محادثة means and he did not know; she gave 'conversation' (sheet: conversation practice | Mu7aadase | محادثة).",
+   "text": "محادثة",
+   "said": "محادثة؟ ... Shuyani. Muhadath-... Hold on. This is present. No, muhadath... Muhadatha. I don't remember.",
+   "reason": "Amal asked 'shu ya3ni muhadatha' (20:31); he could not recall the meaning ('I don't remember') and she gave 'conversation' - a didn't-know on a sheet word (conversation practice | Mu7aadase | محادثة), listening mode.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-9fc7c8c5"
   },
@@ -453,11 +415,30 @@
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "banzaj",
-   "said": "that was zaj. What shuu, shu yanni banzaj?",
-   "reason": "He asked the meaning of her verb (sheet: i get annoyed | Ana banze3ej | أنا بنزعج).",
+   "text": "banzaj?",
+   "said": "So that was zaj. What shuu, shu yanni banzaj?",
+   "reason": "He asked what banzaj means; she taught it (sheet: i get annoyed | Banz3ej | بنزعج) - a didn't-know.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-8d032ec5"
+  },
+  {
+   "id": "audit:FA-4711a917",
+   "word_key": "ma7rUj",
+   "entry_id": "ma7rUj:singular",
+   "lesson_date": "2026-09-04",
+   "t_start": 1329,
+   "t_end": 1329,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "helped",
+   "vocab_points": 0.5,
+   "text": "maruj? mitruj?",
+   "said": "maruj baru... Is it m-maruj? M-mitruj?",
+   "reason": "He guessed the adjective 'embarrassed' and asked; she supplied محروج and he repeated it - a didn't-know.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-4711a917"
   },
   {
    "id": "audit:FA-ec2482c1",
@@ -473,8 +454,8 @@
    "assessment": "helped",
    "vocab_points": 0.5,
    "text": "bees",
-   "said": "il, il zalama and, ando... What was bees? Bee.",
-   "reason": "He asked for 'bees'; she supplied نحل (sheet: bees (general) | Na7el | نحل).",
+   "said": "il, il zalama and, ando... Oh my God, bees. What was bees? Bee.",
+   "reason": "He asked 'What was bees?'; she supplied نحل (sheet: bees (general) | Na7el | نحل) and he repeated it - a didn't-know.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-ec2482c1"
   },
@@ -493,85 +474,9 @@
    "vocab_points": 0,
    "text": "aswad",
    "said": "Ana hakeet ma khatibti ashan Arabiyi. Arabiyi, aswad or-",
-   "reason": "Reaching for 'my Arabic is bad / getting worse' he trailed off on 'aswad or-' and she supplied a different word, sayyie' (sheet: bad | Sayyi2 | سيء), which he then built on (baseer sayyee'); the transcript shows aswad (sheet: black (m/f) | Aswad | أسود) but the Latin transliteration cannot show the final hamza of aswa2 (worse, also on the sheet), so his actual word is uncertain - her substitution rather than an echo is the only signal.",
+   "reason": "For 'my Arabic is bad / getting worse' the engine wrote aswad (black, sheet: black | Aswad); she supplied سيء (sheet: bad | Sayyi2). He may have said aswa2 (worse, sheet: worse | Aswa2) and the engine wrote aswad - low.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-62d34e79"
-  },
-  {
-   "id": "audit:FA-d265c15c",
-   "word_key": "ana ba2Im",
-   "entry_id": "ana ba2Im:present",
-   "lesson_date": "2026-09-04",
-   "t_start": 1736,
-   "t_end": 1736,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "Qeem kamar marra?",
-   "said": "Qeem kamar marra?",
-   "reason": "She said 'bedna n2eemha' (remove the N, 28:22) and asked shu ya3ni; he answered 'Kam marra?' (28:29) and again heard 'qeem kaman' as 'kam marra' (28:56); she explained 'Ana baqim' (sheet 'i remove / take away | Ba2eem | بقيم'); low because the Latin transcript of this stretch is garbled.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-d265c15c"
-  },
-  {
-   "id": "audit:FA-968ffd70",
-   "word_key": "inti la2aiti",
-   "entry_id": "ana balA2i:past",
-   "lesson_date": "2026-09-04",
-   "t_start": 2494,
-   "t_end": 2494,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "Laeit, laeit mal",
-   "said": "hold on. These words are jumbling together now this is problem. Laeit, laeit mal",
-   "reason": "In 'Basatini lama haketili innek laiti shughal' (41:19) he could not place laiti and stalled; she explained balaa2i and repeated the sentence until he got 'when you find work' (41:50) and 'laiti is you found' (42:31); sheet 'you (f) found | inti la2aiti | إنتي لقيتي'; r1's D17 row is this same piece.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-968ffd70"
-  },
-  {
-   "id": "audit:FA-9948308b",
-   "word_key": "aktar shI",
-   "entry_id": "aktar shI:word",
-   "lesson_date": "2026-09-04",
-   "t_start": 3662,
-   "t_end": 3662,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "More, more happy?",
-   "said": "More, more happy? ... Oh, the most happy. Did you say أحسن or أكثر؟ أحسن right?",
-   "reason": "Her question 'shoo aktar ishi biebsitak' (1:00:46): he read aktar ishi as 'more' (1:01:02), she said 'The most'; he then guessed she had said أحسن (1:01:07) and she said No, شو أكتر إشي, the best thing is أحسن إشي (1:01:15); one listening miss of the sheet item 'the most | Aktar shee | أكتر شيء'.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-9948308b"
-  },
-  {
-   "id": "audit:FA-b243dce8",
-   "word_key": "aktar",
-   "entry_id": "aktar:word",
-   "lesson_date": "2026-09-04",
-   "t_start": 3667,
-   "t_end": 3667,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "أحسن",
-   "said": "Oh, the most happy. Did you say أحسن or أكثر؟ أحسن right?",
-   "reason": "Her question at 1:00:46 was شو أكتر إشي بيبسطك (the thing that MOST makes you happy); after translating it as 'more happy' he guessed she had said أحسن (best) and asked 'أحسن right?'; she repeated شو أكتر إشي and at 1:01:15 said No, the best thing is أحسن إشي - he swapped one word for another, which is a lexical (which word) slip, not a comparative-formation rule.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-b243dce8"
   },
   {
    "id": "audit:FA-416e787d",
@@ -586,9 +491,9 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "nafs",
-   "said": "nafs?",
-   "reason": "Asked for 'everyone' he offered nafs (self/same), a different word; she supplied الكل. Sheet row: 'all / everyone | Elkul | الكل' (she then also accepted his كل حدا).",
+   "text": "كل حدا",
+   "said": "كل حدا ... كل الناس؟",
+   "reason": "For 'everyone' he said كل حدا then كل الناس; Amal prompted 'what's everyone?' and supplied her sheet word (sheet: 'everybody / all / everyone | El-kul | الكل').",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-416e787d"
   },
@@ -606,10 +511,67 @@
    "assessment": "helped",
    "vocab_points": 0.5,
    "text": "too much",
-   "said": "And I don't know how to say too much, right?",
-   "reason": "He said he did not know 'too much'; she supplied كتير (sheet: 'a lot / very / much | Kteer | كتير'); his 'extra' guess Ziyada was right.",
+   "said": "Fi halak. And I don't know how to say too much, right?",
+   "reason": "He said he does not know 'too much' and Amal supplied كتير (sheet: 'a lot / very / much | Kteer | كتير') - a didn't-know.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-6441a55d"
+  },
+  {
+   "id": "audit:FA-a7f34585",
+   "word_key": "ziAdeh",
+   "entry_id": "ziAdeh:singular",
+   "lesson_date": "2026-09-05",
+   "t_start": 1222,
+   "t_end": 1222,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "زيادي",
+   "said": "زيادي",
+   "reason": "For 'extra' he said زيادي twice (20:18 and 20:22); Amal recast زيادة and he repeated it (sheet: 'extra / increase | Ziaadeh | زيادة') - wrong form of a word he knows.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-a7f34585"
+  },
+  {
+   "id": "audit:FA-5f2d67f1",
+   "word_key": "baz3ej",
+   "entry_id": "ana baz3ej:present",
+   "lesson_date": "2026-09-05",
+   "t_start": 1322,
+   "t_end": 1322,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "helped",
+   "vocab_points": 0.5,
+   "text": "(new verb)",
+   "said": "Huh? Oh, chat. There we go. Okay. Baz'ej. Baz'ej. Baz'ej.",
+   "reason": "Didn't-know / new word: the lesson's planned new verb بزعج (I annoy; sheet: i annoy | Baz3ej | بزعج) was introduced by Amal (voice 21:53 + chat) and he had never attempted it - written as tier 0 per the brief (Amal teaching a word he never attempted). Not a slip; the merger may file it as 'new'.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-5f2d67f1"
+  },
+  {
+   "id": "audit:FA-bdf03761",
+   "word_key": "maz3Uj",
+   "entry_id": "maz3Uj:singular",
+   "lesson_date": "2026-09-05",
+   "t_start": 1379,
+   "t_end": 1379,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "مزعوج = annoying / مزعج = annoyed",
+   "said": "so I, I think I remembered mazuj as annoying ... and مزعـ مزعج as annoyed.",
+   "reason": "He swapped the two words (sheet: 'annoyed | Maz3ooj | مزعوج', 'annoying | Muz3ej | مزعج'); Amal said بالعكس (the opposite) and gave the -oo- = feeling rule; at 22:24-22:46 he could not produce مزعج either (mazuj / mozuj) until he read it in the chat.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-bdf03761"
   },
   {
    "id": "audit:FA-8095eaa6",
@@ -624,30 +586,49 @@
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "متعب",
-   "said": "Mutab? ... No.",
-   "reason": "Didn't-know: asked if he remembered متعب he said no and she supplied the meaning (sheet: 'tiring | Mut3eb | متعب').",
+   "text": "متعب؟ ... Mmm, No.",
+   "said": "متعب؟ ... Mmm, No.",
+   "reason": "Amal asked if he remembers متعب (tiring); he said No and she supplied the meaning - a didn't-know, not a slip (not on her sheet as an adjective; 'tired | Ta3baan' and 'i cause tiredness | Ana bata33eb' are).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-8095eaa6"
   },
   {
-   "id": "audit:FA-055294ad",
-   "word_key": "ana baz3ej",
-   "entry_id": "ana baz3ej:present",
+   "id": "audit:FA-3c2eceda",
+   "word_key": "banz3ej",
+   "entry_id": "banz3ej:word",
    "lesson_date": "2026-09-05",
-   "t_start": 1765,
-   "t_end": 1765,
+   "t_start": 1619,
+   "t_end": 1619,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "za'ajatek",
-   "said": "\"Feeya za'ajat-za'ajatek.\"",
-   "reason": "The drill was 'she annoyed you, with an a' (29:01, the أزعج form she introduced at 28:13 as the more-used one); he gave bare زعجتك, she recast أزعجتك and he fixed to az'ajet (29:32); the endings (-at, -ek) were right, so it is a wrong form of the verb (tier 2), not a bucket rule; low because she said both زعج and أزعج exist and to learn both.",
+   "assessment": "helped",
+   "vocab_points": 0.5,
+   "text": "(asked)",
+   "said": "Can I-- What is the other verb, just so that I know?",
+   "reason": "Didn't-know: he asked for the get-annoyed verb ('is there an annoy someone and get annoyed version... What is the other verb?') and Amal supplied بنزعج (sheet: i get annoyed | Banz3ej | بنزعج); he took it ('Okay, it's an N').",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-055294ad"
+   "audit_uid": "FA-3c2eceda"
+  },
+  {
+   "id": "audit:FA-cc1069a7",
+   "word_key": "ana baz3ej",
+   "entry_id": "ana baz3ej:present",
+   "lesson_date": "2026-09-05",
+   "t_start": 1728,
+   "t_end": 1728,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "helped",
+   "vocab_points": 0.5,
+   "text": "(new form)",
+   "said": "So it's أزعج؟ ... So should I learn az'aj or should I learn za'aj?",
+   "reason": "Didn't-know / taught: after he conjugated the past زعج correctly (27:30, Amal: زعج), she introduced the a-form أزعج as the more-used past ('we can add an a at the beginning... أزعج and أحرج are more used'); he had never attempted it and asked 'So it's أزعج؟' / 'should I learn az'aj or za'aj?' - a new form she taught, tier 0, not a slip (she says both are right).",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-cc1069a7"
   },
   {
    "id": "audit:FA-b1291e4d",
@@ -669,50 +650,12 @@
    "audit_uid": "FA-b1291e4d"
   },
   {
-   "id": "audit:FA-ab15e48a",
-   "word_key": "shab3An",
-   "entry_id": "shab3An:singular",
-   "lesson_date": "2026-09-05",
-   "t_start": 3316,
-   "t_end": 3316,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "لما أكون شبعان",
-   "said": "لما أكون شبعان.",
-   "reason": "She explicitly rejected what she heard ('Full, مش hot' = you said the hot word, not full) and re-supplied شبعان (sheet: full (food) | Shab3aan | شبعان); the engine already wrote شبعان, so his actual slip is not visible in the transcript - kept low; if it was only a mispronunciation of شبعان it is S4, but her voiced fix is real.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-ab15e48a"
-  },
-  {
-   "id": "audit:FA-5fbc3ea4",
-   "word_key": "ana bata3eb",
-   "entry_id": "ana bata3eb:present",
-   "lesson_date": "2026-09-05",
-   "t_start": 3469,
-   "t_end": 3469,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "I make retired",
-   "said": "إيه بتنزع، بتنزعج لما I make retired.",
-   "reason": "Arabic-led sentence (هي بتنزعج لما ...) with the last verb phrase dropped in English though the verb is on her sheet (row 821: i tire / make people tired | Ana bata33eb | بتعِّب); after a 30 s stall she prompted 'Her.' and he produced أتعب ... أتعبها [58:22], which she confirmed. The English piece stands for one Arabic word, so not the 'whole clause is English' exclusion. r2's أتعبك -> أتعبها at 58:22 is his own fix inside the same turn before any help, so it is not a separate row.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-5fbc3ea4"
-  },
-  {
    "id": "audit:FA-ac9e3b6c",
    "word_key": "ana 3azamet",
    "entry_id": "ana 3azamet:word",
    "lesson_date": "2026-09-10",
-   "t_start": 179,
-   "t_end": 179,
+   "t_start": 169,
+   "t_end": 169,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
@@ -720,8 +663,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "زعمت",
-   "said": "زعمت، أنا زعمت.",
-   "reason": "Letter-order slip that lands on a different real verb (زعم = claimed) for عزمت (sheet: 'i invited | Ana 3azamet | أنا عزمت'); she recast it and Medi himself at 04:05 asked that it be marked wrong - borderline S4 root-letter slip.",
+   "said": "زعمت ... أزعم ... زعمت، أنا زعمت.",
+   "reason": "He said za3amet (letters swapped) three times for 'I invited'; Amal prompted him to try again, then said عزمت and he repeated it; Medi at 04:05 says this is the word she corrected (wrong form by letter order, like the 09-26 دبا precedent; could be ruled S4 by the third reader).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-ac9e3b6c"
   },
@@ -738,9 +681,9 @@
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "raki",
-   "said": "Is it raki? What was electricity?",
-   "reason": "Didn't-know: he asked for the word for electricity and she supplied كهربا (sheet: 'electricity | Kahraba | كهربا').",
+   "text": "راكي",
+   "said": "Is it را-- راكي؟ What, What was electricity?",
+   "reason": "He could not find 'electricity', guessed راكي and asked; Amal supplied كهربا (didn't-know; sheet row: electricity | Kahraba | كهربا).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-f54c2b83"
   },
@@ -757,9 +700,9 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "صلاحني",
-   "said": "صلاح، صلاحني شوي.",
-   "reason": "He used صلّح (fix) for 'help'; she asked whether he meant helped and he produced ساعدني (sheet: 'help | Saa3ed | ساعد'), which she confirmed at 11:10.",
+   "text": "صلح",
+   "said": "صلحني شوي. ... helps... to...",
+   "reason": "He meant 'he helped me' but used صلح (fix); Amal asked whether he meant helped and he produced ساعدني (sheet: help | Saa3ed | ساعد).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-dd93d85e"
   },
@@ -777,8 +720,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "دولت",
-   "said": "دولت،",
-   "reason": "Wrong form of the verb 'stayed' (sheet: 'i stayed/kept | Ana dallait | أنا ضليت'); she did not understand ('what?') and supplied ضليت. Could also be read as B5 past ending.",
+   "said": "دولت، اه، اليوم دولت stayed.",
+   "reason": "He said dawlet for 'I stayed' and had to add 'stayed' in English; Amal asked 'what?' and gave ضليت, which he repeated at 12:41 (wrong form of a word he knows; sheet: i stayed/kept | Ana dallait | أنا ضليت).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-0fb595e2"
   },
@@ -797,7 +740,7 @@
    "vocab_points": 0,
    "text": "واحد أكتر",
    "said": "One more is واحد أكتر؟",
-   "reason": "English calque 'one more' with أكتر; she recast كمان واحد (sheet: 'also / more / too | Kamaan | كمان').",
+   "reason": "He built 'one more' literally as wa7ad aktar and asked if it was right; Amal gave كمان واحد and he repeated it (sheet: one more time | Kaman marra - kaman is her 'more'); low because he framed it as a question.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-4ed1bf4b"
   },
@@ -815,8 +758,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "بزياد",
-   "said": "So I add his بزيء، بزياد،",
-   "reason": "'I add' (sheet: i add | Bazeed | بزيد): he produced بزياد, a wrong vowel mould of a verb he knows (the ī became yā - a different shape, not a length slip); she recast بزيد and he repeated it at 26:42.",
+   "said": "So I add is بزيء، بزياد،",
+   "reason": "He reached for 'I add' and produced bziyaad (a noun-like shape); Amal gave بزيد and he repeated it.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-467df0d2"
   },
@@ -833,11 +776,30 @@
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "شول، فيل",
-   "said": "شول، فيل،",
-   "reason": "Groping for 'I remove' he produced only fragments (شول may be the start of بشيل, which would also be usable), never a committed wrong word; she supplied بقيم (sheet: i remove / take away | Ba2eem | بقيم), so this is a didn't-know (tier 0), not a tier-1 wrong word. His later بعينك / بعين / بعيم are بقيم with a dropped ق (S4).",
+   "text": "(to remove)",
+   "said": "شو الفعل؟",
+   "reason": "He asked for the verb 'to remove' and Amal supplied بقيم, which he repeated (didn't-know).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-05c944c5"
+  },
+  {
+   "id": "audit:FA-301232be",
+   "word_key": "ana bakser",
+   "entry_id": "ana bakser:present",
+   "lesson_date": "2026-09-10",
+   "t_start": 2054,
+   "t_end": 2054,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "إسكر",
+   "said": "Is it يسكر and يسكري؟ اسكرو؟ إسكر.",
+   "reason": "Command forms with the root letters swapped (s-k-r); Amal told him the K comes before the S and he fixed اكسري، اكسروا (letter-order swap, may be ruled S4).",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-301232be"
   },
   {
    "id": "audit:FA-5c400d33",
@@ -859,42 +821,42 @@
    "audit_uid": "FA-5c400d33"
   },
   {
-   "id": "audit:FA-c8409014",
-   "word_key": "mudAre3",
-   "entry_id": "mudAre3:word",
-   "lesson_date": "2026-09-10",
-   "t_start": 2673,
-   "t_end": 2673,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "مضارعة",
-   "said": "مضارعة أو جملة؟",
-   "reason": "Feminine form invented for the noun he knows (sheet: 'present tense | Mudaare3 | مضارع'); she recast مضارع; he still said المضارعة at 44:41.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-c8409014"
-  },
-  {
-   "id": "audit:FA-8acffb4e",
+   "id": "audit:FA-814ecede",
    "word_key": "5arbAn",
    "entry_id": "5arbAn:singular",
    "lesson_date": "2026-09-10",
-   "t_start": 2968,
-   "t_end": 2968,
+   "t_start": 2921,
+   "t_end": 2921,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "إن كسر",
-   "said": "إن كسر",
-   "reason": "انكسر is for physically shattering; for the AC 'stopped working' she wants خرب/خربان (49:05, 49:51 'my issue is with the verb itself... It's physical'); he conceded at 50:05.",
+   "text": "انكسر",
+   "said": "الـ air conditioning تبعي ... انكسر. انكسر؟",
+   "reason": "inkasar is physical breaking; an air conditioner that stops working is 5arbaan / 5ireb (sheet: not working properly | 5arbaan | خربان) - Amal named the rule at 48:49 and 49:51 ('كسر، مكسور، بكسر، بنكسر. It's physical'), he recalled خربان at 48:58 and agreed at 50:05 'you'll never use it for stop working'; his 49:28 'إن كسر من الحرارة' is the same slip repeated inside the same explanation (one row).",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-8acffb4e"
+   "audit_uid": "FA-814ecede"
+  },
+  {
+   "id": "audit:FA-3ec06e30",
+   "word_key": "ana bakser",
+   "entry_id": "ana bakser:present",
+   "lesson_date": "2026-09-10",
+   "t_start": 3156,
+   "t_end": 3156,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "سكرت",
+   "said": "ما سكرت، uh, ولا اشي.",
+   "reason": "Root letters swapped once more (sakart = I closed); Amal recast كسرت and he repeated أنا أبدًا ما كسرت ولا اشي (letter-order swap, may be ruled S4).",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-3ec06e30"
   },
   {
    "id": "audit:FA-dea6cd5f",
@@ -910,8 +872,8 @@
    "assessment": "helped",
    "vocab_points": 0.5,
    "text": "review",
-   "said": "Review. What was the word for review?",
-   "reason": "Didn't-know: he asked for the word; sheet rows 'review | Muraaja3a | مراجعة' and 'i review | Ana baraaje3 | أنا براجع'.",
+   "said": "Review. What was the word for review? ... What is the word for review?",
+   "reason": "Didn't-know: he asked twice for the word for review (02:21, 02:32); she gave the noun مراجعة, asked for the verb, said صح to his مراجعة and supplied براجع herself - one supplied word, not a wrong form (sheet: review | Muraaja3a | مراجعة; i review | Ana baraaje3 | أنا براجع).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-dea6cd5f"
   },
@@ -968,28 +930,9 @@
    "vocab_points": 0.5,
    "text": "dark",
    "said": "How do I say dark again؟",
-   "reason": "Didn't-know: he asked; sheet 'darkness | 3etme | عتمة'.",
+   "reason": "Didn't-know: he asked how to say dark and Amal supplied عتمة (sheet: darkness | 3etme | عتمة).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-f9524956"
-  },
-  {
-   "id": "audit:FA-b89b88fc",
-   "word_key": "nejme",
-   "entry_id": "nejme:singular",
-   "lesson_date": "2026-09-11",
-   "t_start": 543,
-   "t_end": 543,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "Asafa",
-   "said": "Is it Asafa؟ Is that, is that stars؟",
-   "reason": "He offered عاصفة (sheet 'storm | 3aasefe | عاصفة') for 'stars'; she said No, Storm, then supplied نجمة/نجوم.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-b89b88fc"
   },
   {
    "id": "audit:FA-62f0ae06",
@@ -1005,8 +948,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "بنعيد",
-   "said": "نعيد ... بنعيد ... الـ.",
-   "reason": "She said بنقيم (we remove the -aan) at 11:10 and he echoed it as بنعيد (we repeat) three times (11:11, 11:25, 11:47); she re-said بنقيم at 12:02 while spelling out the steps; sheet 'i remove / take away | Ba2eem | بقيم'. A mis-echo of her meta-verb; the engine may have shaped his word, so low and kept apart as listening.",
+   "said": "نعيد، بنعيد الـ.",
+   "reason": "Explaining how to build the verb from 5arbaan he said bn3eed (we repeat) for 'we add'; Amal recast bazeed (sheet: i add | Bazeed | بزيد) and he then used بزيد at 11:55; could partly be the engine hearing z as 3.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-62f0ae06"
   },
@@ -1025,17 +968,17 @@
    "vocab_points": 0,
    "text": "تحت الكلمة",
    "said": "تحت الكلمة.",
-   "reason": "تحت (under) for آخر (end); she prompted 'The end' until he said آخر الكلمة; sheet 'last / the end of | 2aa5er | آخر'.",
+   "reason": "Amal asked how to say 'from the end of the word'; he said ta7t (under) the word, she prompted 'The end' in English and he fixed آخر الكلمة which she confirmed (sheet: last / the end of | 2aa5er | آخر).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-2ffc5915"
   },
   {
-   "id": "audit:FA-748c580b",
+   "id": "audit:FA-85bd2a71",
    "word_key": "ana ba7ut",
    "entry_id": "ana ba7ut:present",
    "lesson_date": "2026-09-11",
-   "t_start": 1504,
-   "t_end": 1504,
+   "t_start": 1572,
+   "t_end": 1572,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
@@ -1043,10 +986,10 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "بتفتحي",
-   "said": "ما، ما تفتحي. ... ما بهتي، ما بهتي. بي-- بتفتحي",
-   "reason": "فتح (open) for حط (put) in 'if you don't put it in the fridge'; sheet 'i put | Ana ba7ut | أنا بحط' and 'she put | heyye 7attat | هي حطت'; she recast ما بتحطي.",
+   "said": "إذا ما بتفتحي،",
+   "reason": "Repeating the rice sentence one minute after her fix ما بتحطي (25:08) he again used فتح (open) for حط (put): sheet 'put | 7ott | حط' vs 'he opened | huwwe fata7 | هو فتح'; she answered ممتاز (26:25). Same slip as D19, which is dropped as a duplicate; the word sits in the 26:12 line, not the 26:04 one.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-748c580b"
+   "audit_uid": "FA-85bd2a71"
   },
   {
    "id": "audit:FA-22717df0",
@@ -1062,8 +1005,8 @@
    "assessment": "helped",
    "vocab_points": 0.5,
    "text": "تذاكر",
-   "said": "شوي يعني تذاكر.",
-   "reason": "Didn't-know: he asked (شو يعني تذاكر) what the plural in her example سفرتنا خربت لأنه ما في تذاكر meant and she glossed 'tickets'; sheet 'ticket | Tazkara | تذكرة'. READER-BRIEF reserves mode=listening for drills where he misread her Arabic aloud; a meaning question is an asked/tier-0 row in the default speaking mode.",
+   "said": "شو يعني تذاكر.",
+   "reason": "Didn't-know while listening to her example سفرتنا خربت لأنه ما في تذاكر; he asked the meaning, she gave it (sheet: ticket | Tazkara | تذكرة).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-22717df0"
   },
@@ -1080,30 +1023,11 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "ثانورك",
-   "said": "Uh, ثانورك.",
-   "reason": "تنورة (sheet 'skirt | Tannoora | تنورة') for 'dress' (sheet 'dress | Fus6aan | فستان'); she said mm-mm, skirt; he then said فستانك and she confirmed.",
+   "text": "تنورك",
+   "said": "Uh, تنورك؟",
+   "reason": "Wrong word: tannoora (skirt) for 'your dress' (fustaan); Amal said no, tannoora is skirt, he fixed فستانك and she confirmed (sheet: dress | Fus6aan | فستان; skirt | Tannoora | تنورة). His تنورك also lacks the feminine -t before -ek (A3) but she did not go there.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-1f80a7c1"
-  },
-  {
-   "id": "audit:FA-42b62f38",
-   "word_key": "ana bashte8el",
-   "entry_id": "ana bashte8el:present",
-   "lesson_date": "2026-09-14",
-   "t_start": 107,
-   "t_end": 107,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "بسشتري",
-   "said": "Oh my gosh. Okay, this is a great start. أنا [ضحكة] بسشتري في بيتي.",
-   "reason": "Second swipe at 'today I work at home': right after she modelled تشتغل (01:44) he again produced the buy-root (بسشتري, sheet 'i buy | Ana bashteri | بشتري') for 'i work | ana bashteghel | بشتغل'; her 03:35 question and 03:41 chat recast give the work-verb. Medium because he laughed while saying it and may have known it was wrong.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-42b62f38"
   },
   {
    "id": "audit:FA-f44d0ccc",
@@ -1120,7 +1044,7 @@
    "vocab_points": 0,
    "text": "هون",
    "said": "أنا لازم أعمله-- أم-أعملهم هون. ... هون؟ هلق, goddammit. I always mix up هلق and هون.",
-   "reason": "'I have to do them now' came out with هون (sheet 'here | Hoan | هون') for 'now'; he caught it himself ('هلق ... I always mix up هلق and هون') and she then voiced her word هلا (sheet 'now | Halla | هلا'). Wrong word = tier 1; medium because his self-fix came first and her هلا is both a fix of هون and her dialect's form of his هلق.",
+   "reason": "He said هون (here, sheet 'here | Hoan | هون') for 'now' (sheet 'now | Halla | هلا') and admits 'I always mix up هلق and هون' - a different lexical item, tier 1; his own هلق and her هلا both sit at 11:27, so this may be a simultaneous self-fix (GR-22) - needs the audio, kept low.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-f44d0ccc"
   },
@@ -1138,8 +1062,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "من شاف",
-   "said": "م-م-من شاف، من شاف؟ Try.",
-   "reason": "'California is usually dry': he garbled ناشف as من شاف and handed it to her ('Try'); she supplied الجو ناشف. May be pronunciation rather than a wrong word.",
+   "said": "بس في كاليفورنيا، uh عشان um عادةً um م-م-من شاف، من شاف؟ Try.",
+   "reason": "Explaining why 84F is fine in California he reached for 'dry' (sheet 'dry | Naashef | ناشف') and produced a mangled form the engine wrote as من شاف, then asked her ('من شاف؟ Try.'); Amal supplied الجو ناشف and he repeated it - a wrong form of a word he was attempting, so tier 2 not tier 0, and his question makes the signal 'asked'.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-e6e6f5cb"
   },
@@ -1175,30 +1099,30 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "hada",
-   "said": "akthar min, akthar min hada.",
-   "reason": "'More than this' is أكتر من هيك; he used هادا, she gave هيك and he asked Heik or hada? - هيك.",
+   "text": "هذا",
+   "said": "من، أكثر من، أكثر من هذا.",
+   "reason": "'more than this' is aktar min heik (sheet: like this / this way | Heik | هيك); he said هذا, Amal said هيك, he asked 'هيك or هادا؟' and she confirmed هيك.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-bd7e954c"
   },
   {
-   "id": "audit:FA-2b51b336",
-   "word_key": "la7meh mafrumeh",
-   "entry_id": "la7meh mafrumeh:word",
+   "id": "audit:FA-1c7186d9",
+   "word_key": "ma6fi",
+   "entry_id": "ma6fi:word",
    "lesson_date": "2026-09-15",
-   "t_start": 245,
-   "t_end": 245,
+   "t_start": 132,
+   "t_end": 132,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "معروف",
-   "said": "خروف is lamb. مرفوف؟ What was it؟ What was ground؟",
-   "reason": "He tried معروف (known) then مرفوف for 'ground' meat and asked; she supplied مفروم (sheet: 'ground beef | La7meh mafrumeh | لحمة مفرومة'). Wrong lexical item then asked.",
+   "assessment": "helped",
+   "vocab_points": 0.5,
+   "text": "ما تفي",
+   "said": "ما تفي ليش. Why am I off? ... You can use ما تفي for people? (engine; = مطفي)",
+   "reason": "Amal described him as مطفي (sheet 'off | Ma6fi | مطفي'); he did not know the use, echoed it (engine wrote ما تفي), asked 'Why am I off?' and 'can you use it for people?' and she explained - a didn't-know on a sheet word, tier 0.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-2b51b336"
+   "audit_uid": "FA-1c7186d9"
   },
   {
    "id": "audit:FA-26285dfe",
@@ -1214,8 +1138,8 @@
    "assessment": "helped",
    "vocab_points": 0.5,
    "text": "fatad",
-   "said": "Uh, but fatad means, like, you choose?",
-   "reason": "He did not recognise her بتفضل (asked if it means choose); she supplied بفضل = I prefer (sheet: 'i prefer / favor | Bafaddel | بفضل'). Didn't-know / forgotten word.",
+   "said": "Uh, but fatad means, like, you choose? ... So I know bafadal. Is it one of my words?",
+   "reason": "He did not recognise her بتفضل (prefer) and asked, confusing it with تفضل (here you go); Amal re-taught بفضل = I prefer. Comprehension, not a misuse - kept apart as listening, tier 0.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-26285dfe"
   },
@@ -1230,32 +1154,13 @@
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "haketni bare",
-   "said": "haketni bare. / Sure.",
-   "reason": "To 'حبيت إنت امبارح كيف اتدربنا' he answered an unreadable phrase and 'Sure'; she repeated حبيت and rephrased the whole question before he answered. A comprehension miss of حبيت; his own line is engine-garbled so it cannot be pinned down.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-7f52721c"
-  },
-  {
-   "id": "audit:FA-98c4de79",
-   "word_key": "a8lab",
-   "entry_id": "a8lab:word",
-   "lesson_date": "2026-09-15",
-   "t_start": 1058,
-   "t_end": 1058,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "اقرب",
-   "said": "اقرب.",
-   "reason": "For 'most' he said اقرب (a2rab, closest); she did not accept it and prompted 'do you remember most?', after which he produced aqlab (18:14, 18:18). Sheet: 'most | a8lab | أغلب'. Low: the engine may have rendered a8lab as اقرب.",
+   "text": "حكيتلي",
+   "said": "حكيتلي مبارح",
+   "reason": "He misheard her حبيت (you liked) as حكيتلي (you told me) and repeated it back; Amal corrected and rephrased her question. Listening slip, kept apart.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-98c4de79"
+   "audit_uid": "FA-7f52721c"
   },
   {
    "id": "audit:FA-a748e5cc",
@@ -1270,30 +1175,11 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "snenha",
-   "said": "aqlab snenha.",
-   "reason": "He said سنين (years) for سنان (teeth); she asked 'what's سنين?', he answered 'year' and fixed to snanha (sheet 'tooth brush | Furshayet snan | فرشاية سنان', 'dentist | Doctoar snan') - a different lexical item, tier 1.",
+   "text": "سنينها",
+   "said": "أغلب سنينها ... سنانها، year.",
+   "reason": "He said سنين (years) for teeth; Amal gave سنان and asked what سنين means, he answered 'year'. Different word, not a plural-pattern slip (sheet: tooth = Sin; furshayet snan).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-a748e5cc"
-  },
-  {
-   "id": "audit:FA-e5be8145",
-   "word_key": "kAsa",
-   "entry_id": "kAsa:singular",
-   "lesson_date": "2026-09-15",
-   "t_start": 1210,
-   "t_end": 1210,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "qasa",
-   "said": "the plural for \"qasa\" is... Is \"qasa\"-- Did you-- Did we learn? That's just general, right? Cups is cups. \"Qasa.\"",
-   "reason": "He never produced a wrong plural; he asked what the plural of كاسة is (sheet 'cup | Kaasa | كاسة'), she gave the -at rule (buckets A9) and he said qasat - a didn't-know of a word form, tier 0, not a scored grammar error.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-e5be8145"
   },
   {
    "id": "audit:FA-d5f1813b",
@@ -1308,38 +1194,19 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "qasarat",
-   "said": "Uh, \"Min qasar hadhol il qasarat.\"",
-   "reason": "Plural of كاسة (sheet 'cup | Kaasa | كاسة'), which she had just given him as kasat at 20:21, came out as the invented pattern qasarat (blended with kasar, as he explains at 21:04); she recast Kasat and he took it - a wrong form of a word he knows, tier 2, not a different word.",
+   "text": "كسرات",
+   "said": "مين كسر هذول الـ كسرات",
+   "reason": "Plural of كاسة is كاسات (he had produced it himself at 20:27); here he blended it with كسر (engine wrote كسرات, Amal later echoed 'Kasar? Kasat.' at 21:10), she recast Kasat and he said 'كاسات، that's right' - a wrong form of a word he knows, taken from her.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-d5f1813b"
-  },
-  {
-   "id": "audit:FA-9f860553",
-   "word_key": "ba3ad",
-   "entry_id": "ba3ad:word",
-   "lesson_date": "2026-09-15",
-   "t_start": 1635,
-   "t_end": 1635,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "ما بعد",
-   "said": "عطلوا ما بعد واحدة. Fat. Is it ما بعد or fat? Fat.",
-   "reason": "'Each other' is بعض (sheet 'each other | Ba3ad | بعض'); he used مع بعض (sheet 'together | Ma3 ba3ad | مع بعض'), a different sheet item, right after she had modelled قتلوا بعض at 27:12; she re-glossed 'they fought each other', he conceded 'not fought together', and her chat has 2aatalu ba3ad. His عطلوا for 2aatalu is S4.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-9f860553"
   },
   {
    "id": "audit:FA-0de22241",
    "word_key": "6aiyAra",
    "entry_id": "6aiyAra:singular",
    "lesson_date": "2026-09-15",
-   "t_start": 1921,
-   "t_end": 1921,
+   "t_start": 1927,
+   "t_end": 1927,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
@@ -1347,8 +1214,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "flight",
-   "said": "flight time.",
-   "reason": "Mid-sentence 'وقت ال... flight' he fell into English for a sheet word: 'airplane / flight | 6ayyaara | طيارة'; she hinted with 'remember car?' and he produced طيارة.",
+   "said": "The time of the flight. وقت ال... اه... flight. Oh my God.",
+   "reason": "Inside the Arabic phrase وقت الـ... he blanked and dropped the English 'flight'; the word is on her sheet ('airplane / flight | 6ayyaara | طيارة', 'flight time | Maw3ed el-6ayyaara | موعد الطيارة'); Amal cued it ('remember car?') and he produced طيارة at 32:23 - a voiced tier-3 fix. Medium: the 'flight. Oh my God' is as much frustration as a sentence word.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-0de22241"
   },
@@ -1357,8 +1224,8 @@
    "word_key": "kundara",
    "entry_id": "kundara:singular",
    "lesson_date": "2026-09-15",
-   "t_start": 2307,
-   "t_end": 2307,
+   "t_start": 2310,
+   "t_end": 2310,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
@@ -1366,8 +1233,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "بوتك",
-   "said": "بوتك?",
-   "reason": "She had asked at 37:20 for the formal shoes, not tennis shoes; he said بوت (sheet 'sneakers / boots | Boat | بوت') and she prompted for the other word; he gave كندرتك (sheet 'formal shoes | Kundara | كندرة').",
+   "said": "بواتك؟ ... That's not plural, uh, بوتك.",
+   "reason": "She asked for the FORMAL shoes (sheet: formal shoes = Kundara; sneakers/boots = Boat); he said بوتك, she prompted 'what's the other shoes?' and he gave كندرتك. Her chat lists both, so medium.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-9801ea72"
   },
@@ -1385,29 +1252,10 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "الآن",
-   "said": "هدول ال، uh, الآن",
-   "reason": "For 'these colors' he produced el-aan, a mangled shape of ألوان (sheet 'colors | Alwaan | ألوان'); she flagged 'very close' and he found ألوان. He knows لون (used at 44:12), so this is a wrong form of a known word, not a choice of the word 'now'. Low: could be an S4 sound slip.",
+   "said": "هدول ال، uh, الآن (engine; a mangled ألوان)",
+   "reason": "His first try at 'colors' came out as a near form the engine wrote as الآن (now); Amal said 'very close' (a voiced signal that the form was off) and he fixed to ألوان at 39:59 (sheet 'colors | Alwaan | ألوان'). Low: may be only a slipped vowel / dropped و (pronunciation, S4) - needs the audio.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-bda3a2d0"
-  },
-  {
-   "id": "audit:FA-c90e4e5b",
-   "word_key": "z8Ir",
-   "entry_id": "z8Ir:singular",
-   "lesson_date": "2026-09-16",
-   "t_start": 328,
-   "t_end": 328,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "[speaking Arabic]",
-   "said": "[speaking Arabic]",
-   "reason": "Asked how the new girl seemed (منيحة؟ شاطرة؟), he stalled ('Um, yeah, uh') and she cued the first letter صـ then supplied صغيرة, which her chat confirms; his Arabic is untranscribed so the attempt cannot be scored as wrong, hence tier 0 and low. Sheet: small | Z8eer.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-c90e4e5b"
   },
   {
    "id": "audit:FA-81e826ef",
@@ -1424,7 +1272,7 @@
    "vocab_points": 0,
    "text": "واحد أكتر",
    "said": "واحد أكتر.",
-   "reason": "English calque 'one more' with أكتر; Amal recast كمان واحد, and recast it again at 10:19 when he repeated واحد أكتر at 10:17 (one row, the first).",
+   "reason": "'One more' calqued from English as waa7ad aktar (aktar = more, comparative); Amal recast كمان واحد (sheet: some more / also / another | Kaman). He said it again at 10:17 and she recast again (10:19) - one row, the first; at 10:21 he took it (ضل واحد).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-81e826ef"
   },
@@ -1460,11 +1308,30 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "shara",
-   "said": "fi el shara.",
-   "reason": "He said shaare3 (street) for 'road'; Amal: 'street. What's the road?' and he gave taree2. Sheet: 'road / way / route | 6ariq' vs 'street | Shaare3'.",
+   "text": "الشارع",
+   "said": "في الشارع. Or ala el shara? No, fi el shara.",
+   "reason": "She asked for 'on the road'; he said shaare3 (street); Amal: 'street. What's the road?' and he produced على الطريق (19:36), she confirmed. Sheet: 'on the road / way | 3ala el-6aree2 | على الطريق'.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-e9d2ae46"
+  },
+  {
+   "id": "audit:FA-bc5d156b",
+   "word_key": "safar",
+   "entry_id": "safar:word",
+   "lesson_date": "2026-09-16",
+   "t_start": 1258,
+   "t_end": 1258,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "السفرة",
+   "said": "Okay. السفرة",
+   "reason": "'Traveling' is safar; safra is one trip (sheet: '(travel) trip | Safra | سفرة' vs 'traveling (noun) | Safar | سفر'); Amal recast el-safar and he repeated السفر (21:04).",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-bc5d156b"
   },
   {
    "id": "audit:FA-186f5001",
@@ -1481,7 +1348,7 @@
    "vocab_points": 0.5,
    "text": "too",
    "said": "Do I know how to say too?",
-   "reason": "Didn't-know: 'they got too excited' - he asked how to say 'too'; she pointed him to ziaade (extra), which he then used at [22:47]. Sheet: extra / increase | Ziaadeh (the sheet's 'too' entries are kamaan = also).",
+   "reason": "Didn't-know: for 'they got too excited' he asked whether he knows 'too'; Amal pointed him to the word for extra (sheet: 'extra / increase | Ziaadeh | زيادة'), he first tried أكتر (22:39) then landed on زيادة (22:47, 23:18) and she said ممتاز; written as a tier-0 asked row, not a wrong word.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-186f5001"
   },
@@ -1509,38 +1376,19 @@
    "word_key": "3aks",
    "entry_id": "3aks:word",
    "lesson_date": "2026-09-16",
-   "t_start": 3319,
-   "t_end": 3319,
+   "t_start": 3325,
+   "t_end": 3325,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "bilax",
-   "said": "Ilbal-- Il, il bilax. Ma, ma ando bilax.",
-   "reason": "bil3aks = on the contrary; the noun 'opposite' is 3aks. Amal recast and explained (55:40-55:49). Sheet: 'opposite (bel-3aks = on the contrary) | 3aks'.",
+   "text": "بالعكس",
+   "said": "ما عنده بالعكس",
+   "reason": "He used the fixed adverb bil-3aks (on the contrary) as the noun 'an opposite'; Amal recast ma 3indo 3aks and explained; he said 'it's not bilax, it's mando ax' (55:35). Sheet: 'opposite (bel-3aks = on the contrary) | 3aks | عكس'.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-ca99319f"
-  },
-  {
-   "id": "audit:FA-d27c5f8a",
-   "word_key": "eshi",
-   "entry_id": "eshi:singular",
-   "lesson_date": "2026-09-16",
-   "t_start": 3625,
-   "t_end": 3625,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "Bish-bishik",
-   "said": "Bish-bishik?",
-   "reason": "He asked how to say 'your things'; Amal supplied ashyaa2; he said 'I don't think we've used that before'.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-d27c5f8a"
   },
   {
    "id": "audit:FA-cf6eb60a",
@@ -1576,28 +1424,9 @@
    "vocab_points": 0,
    "text": "زفير",
    "said": "uh، زفير ماي.",
-   "reason": "Non-word / wrong word for 'light, thin'; Amal supplied 5afeef and her chat wrote it.",
+   "reason": "Describing the soup as thin/light he produced a word the engine wrote زفير (exhale); Amal offered خفيف with a question and he took it ('خفيف، like yeah'); the engine may have misheard a mangled 5afeef, so low.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-e6badeef"
-  },
-  {
-   "id": "audit:FA-d7a858df",
-   "word_key": "5afIf",
-   "entry_id": "5afIf:word",
-   "lesson_date": "2026-09-17",
-   "t_start": 281,
-   "t_end": 281,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "كافية",
-   "said": "كافية الزباين، yeah، كافية. كافية ماي.",
-   "reason": "Said kaafye (enough) for 'not much water'; she recast mish kteer and typed 5afeef.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-d7a858df"
   },
   {
    "id": "audit:FA-61d08dbe",
@@ -1610,32 +1439,13 @@
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "sijal",
-   "said": "Is it sijal? No.",
-   "reason": "He asked for the word for sausage ('My God, what was the word?'), guessed sijal, Amal supplied سجق.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-61d08dbe"
-  },
-  {
-   "id": "audit:FA-463a55ab",
-   "word_key": "se7i",
-   "entry_id": "se7i:word",
-   "lesson_date": "2026-09-17",
-   "t_start": 468,
-   "t_end": 468,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "صحيح",
-   "said": "مش صحيح.",
-   "reason": "He meant 'not healthy' but said صحيح (correct/true); Amal recast to صحي.",
+   "text": "sijal",
+   "said": "Is it sijal? No.",
+   "reason": "He reached for the sausage word and said sijal (wrong vowels and an l for the q), repeated at 06:58 's-sijal'; Amal supplied سجق and he said 'I was close. Sijal, سجق'; her chat spells it sujo2.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-463a55ab"
+   "audit_uid": "FA-61d08dbe"
   },
   {
    "id": "audit:FA-01f826d7",
@@ -1652,28 +1462,9 @@
    "vocab_points": 0,
    "text": "ما قايمة",
    "said": "ما قايمة.",
-   "reason": "Wrong word for 'cloudy'; Amal supplied m8ayyme.",
+   "reason": "For 'cloudy' he said ma-2ayme, the wrong shape of her word (sheet 'it's cloudy | M8ayyme | مغيمة'); Amal recast مغيمة. Possibly only a غ->ق pronunciation slip (S4), so medium.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-01f826d7"
-  },
-  {
-   "id": "audit:FA-64681e02",
-   "word_key": "ana ba5areb",
-   "entry_id": "ana ba5areb:word",
-   "lesson_date": "2026-09-17",
-   "t_start": 2660,
-   "t_end": 2660,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "سرابته",
-   "said": "سرابته.",
-   "reason": "For 'I broke it' (drill on 5arrab) the engine wrote سرابته; Amal supplied خرب. Possibly كسرته garbled.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-64681e02"
   },
   {
    "id": "audit:FA-15a9ac17",
@@ -1708,8 +1499,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "makhaf",
-   "said": "Al-film kan... I thought the adjective is \"makhaf\"? \"Matkhaf\"?",
-   "reason": "He invented a participle-shaped adjective makhaf / mat5af from the root he knows for 'scary'; she said there is no such adjective and supplied the verb-based bey5awwef (sheet 'scary | bey5awwef | بيخوف'); an invented form of a known word is tier 2; the later 'khawaf' without the prefix (54:15) is D14, not part of this row.",
+   "said": "I thought the adjective is 'makhaf'? 'Matkhaf'?",
+   "reason": "For 'scary' he built an adjective makhaf / matkhaf from the verb he knows (خوّف); Amal said there is no such adjective, scary is the verb form bey5awwef (sheet 'scary | bey5awwef | بيخوف'). Tier 2 not 1: an invented pattern on a known root, like an invented plural. Separate from A28 (54:15 bare خوّف -> كان بيخوّف).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-8a93585f"
   },
@@ -1766,7 +1557,7 @@
    "vocab_points": 0,
    "text": "معروف",
    "said": "this word معروف. No. آآآ معروف؟",
-   "reason": "He reached for 'ground (beef)' and produced 'معروف' (well known, sheet row 1789); she supplied 'مفرومة' (sheet row 411 'ground beef | La7meh mafrumeh | لحمة مفرومة').",
+   "reason": "He reached for 'minced' and said ma3roof (known), a different word; Amal supplied mafroome and he repeated it.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-e30bbfe0"
   },
@@ -1838,11 +1629,11 @@
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "mish lissa",
+   "assessment": "helped",
+   "vocab_points": 0.5,
+   "text": "mish lissa / ma lissa",
    "said": "Is it mish lissa or ma lissa? Mish lissa or-",
-   "reason": "He built 'not yet' as a negation plus lissa; lissa alone already means 'not yet' (sheet: 'still / yet | Lissa | لسه'); she said no and gave 'willa lissa / aw lissa'.",
+   "reason": "Amal had just introduced 'did you get tired or not yet?' in English; he asked how to build 'or not yet', guessing mish/ma lissa, she supplied willa lissa / aw lissa and he used aw lissa at 33:53 - a didn't-know (tier 0), not a slip; medium because it is phrased as an is-it-X-or-Y question.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-bcbeff67"
   },
@@ -1860,37 +1651,18 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "Mudira",
-   "said": "Mudira.",
-   "reason": "He revised mudir to the feminine mudira for the generic 'company's manager'; she restated mudir (sheet: 'manager / director | Mudeer | مدير'); low because he may have been reaching for the idafa rather than the gender.",
+   "said": "مُدير ... Mudira.",
+   "reason": "He said mudeer then switched to the feminine mudeera for 'the company's manager'; Amal recast mudeer (sheet: manager / director | Mudeer | مدير) - the fem/masc form of a noun he knows.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-6abf9688"
-  },
-  {
-   "id": "audit:FA-d643e1f2",
-   "word_key": "shu",
-   "entry_id": "shu:word",
-   "lesson_date": "2026-09-18",
-   "t_start": 2682,
-   "t_end": 2682,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "sakar al jumla",
-   "said": "Did you say sakar, sakar al jumla?",
-   "reason": "Didn't-know / misheard her 'shu kul el-jumla'; she explained it means 'go back and say the whole sentence'.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-d643e1f2"
   },
   {
    "id": "audit:FA-f17d7066",
    "word_key": "da7k",
    "entry_id": "ana bada7ek:command",
    "lesson_date": "2026-09-18",
-   "t_start": 3589,
-   "t_end": 3589,
+   "t_start": 3592,
+   "t_end": 3592,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
@@ -1899,7 +1671,7 @@
    "vocab_points": 0,
    "text": "zahai",
    "said": "uh, zah- zah, uh, zahai...",
-   "reason": "For 'make him laugh' he started the bore-verb zahha2; she said that is 'make him bored' and he switched to da77kih (sheet row 974 'make someone laugh | Da77k | ضحّك').",
+   "reason": "For 'make him laugh' he started zahhi- (make bored, sheet: he made someone bored | huwwe zahha2); Amal said 'this is make him bored' and he switched to da77kih ('tahaki'), which she confirmed.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-f17d7066"
   },
@@ -1908,38 +1680,19 @@
    "word_key": "ana bashuf",
    "entry_id": "ana bashuf:present",
    "lesson_date": "2026-09-18",
-   "t_start": 3773,
-   "t_end": 3773,
+   "t_start": 3777,
+   "t_end": 3777,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "We'll see",
+   "text": "mnshuf (unknown)",
    "said": "Min shuf is we'll see?",
-   "reason": "Didn't-know: he said 'we'll see' in an English exchange; she taught mnshoof. Not on her sheet (no hit for منشوف).",
+   "reason": "Amal offered 'mnshuf' for 'we'll see'; he asked and she confirmed - a didn't-know, tier 0.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-ec3aa0ff"
-  },
-  {
-   "id": "audit:FA-ba332604",
-   "word_key": "sa7et albait",
-   "entry_id": "sa7et albait:singular",
-   "lesson_date": "2026-09-19",
-   "t_start": 224,
-   "t_end": 224,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "Sakit",
-   "said": "Does it come from, like, Sakit?",
-   "reason": "She quizzed him on a lyric word ('What's [word]?' 03:22); he guessed it came from sakit (quiet) and she said no, it is from the word for a house yard, which he then glossed 'the yard of the house' (03:54); her Arabic is redacted so the target is quoted from her sheet, hence low.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-ba332604"
   },
   {
    "id": "audit:FA-f54cbff7",
@@ -1955,29 +1708,10 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "تسعة عشرين",
-   "said": "This is it today. تسعة عشرين. / uh, تسعة عشر. / تسعش ستة.",
-   "reason": "For 19 he first built nine-twenty (تسعة عشرين), then MSA تسعة عشر, then a clipped تسعش; Amal prompted '19.' and at 07:12 recast the Levantine form تسعطاش and typed tese3ta3sh - a wrong form of a number he knows (sheet: nineteen | tese3ta3sh | تسعتاش), and no bucket covers the shape of the number itself, so vocab tier 2.",
+   "said": "This is it today. تسعة عشرين. ... uh, تسعة عشر. ... تسعش or تسعش. ... تسعش ستة.",
+   "reason": "For the date 19 he produced three shapes that are not the dialect number (تسعة عشرين, MSA تسعة عشر, clipped تسعش); Amal prompted '19' and finally recast تسعطاش at 07:12 and he echoed it at 07:15 - a wrong form of a number he knows (sheet: nineteen | tese3ta3sh | تسعتاش), no bucket in buckets.md covers number shapes so it is vocab tier 2, not E4; one row for the whole 06:37-07:10 stretch, the ستة->تسعة part is agreed row A1.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-f54cbff7"
-  },
-  {
-   "id": "audit:FA-caf56e28",
-   "word_key": "tes3ah",
-   "entry_id": "tes3ah:word",
-   "lesson_date": "2026-09-19",
-   "t_start": 423,
-   "t_end": 423,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "ستة",
-   "said": "ألفين وسبعة عشرين. Uh, or تيش-- uh, تسعش or تسعش. / تسعش ستة.",
-   "reason": "Giving the date 19/9 he said the month as ستة (six) twice; she queried 'ستة؟' then recast 'تسعطاش تسعة' and typed tes3a - wrong number word.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-caf56e28"
   },
   {
    "id": "audit:FA-4283dc2e",
@@ -1993,8 +1727,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "I was sad",
-   "said": "Isn't this to inflict sadness? ... Okay, I was sad.",
-   "reason": "He heard زهقت as زعلت (sad); she said زهقت مش زعلت and he fixed to 'I was bored'.",
+   "said": "Isn't this to inflict sadness? The past tense. ... Okay, I was sad.",
+   "reason": "He took zhe2et for z3elet (sad) and also for the make-form zahha2 ('inflict'); Amal said زهقت مش زعلت and he gave 'I was bored or you were bored' at 16:52.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-4283dc2e"
   },
@@ -2011,9 +1745,9 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "boring",
-   "said": "What boring hap-- What happened boring?",
-   "reason": "He read بيزعل as بيزهق (boring); she said بيزعل مش بيزهق and he fixed to 'what happened is sad'.",
+   "text": "What happened boring",
+   "said": "بيساع ... What boring hap-- What happened boring?",
+   "reason": "He echoed beyza33el as بيساع and then read it as beyzahhe2 (boring); Amal said بيزعل مش بيزهق and he gave 'what happened is sad' at 20:39.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-cac18cf8"
   },
@@ -2032,7 +1766,7 @@
    "vocab_points": 0.5,
    "text": "he will not be bored of you",
    "said": "he will not be bored of you. Is that...",
-   "reason": "Didn't-know: while sorting out ما راح أزهقك / يزهقك he asked how 'he will not be bored of you' is said and she supplied the ra7 ykoon zah2aan minnak form.",
+   "reason": "Didn't-know: he asked whether ما راح يزهقك could mean 'he will not be bored of you' and Amal built the phrase for that meaning with ykoon + zah2aan (sheet: bored | Zahqaan | زهقان); he never attempted Arabic for it, so tier 0 (unscored, kept apart), not an error.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-2d1a4cb5"
   },
@@ -2068,30 +1802,30 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "sad",
+   "text": "Were you sad",
    "said": "Were you sad from what happened?",
-   "reason": "He read انزعجتي as 'sad'; she said مش sad and he fixed to annoyed.",
+   "reason": "enza3ajti (you got annoyed) read as 'sad' (z3elti); Amal said 'مش sad' and he gave 'are you annoyed?' at 24:22, she recast 'did you get annoyed'.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-5ea7e655"
   },
   {
-   "id": "audit:FA-6a236ab9",
-   "word_key": "aldenia",
-   "entry_id": "aldenia:word",
+   "id": "audit:FA-80682590",
+   "word_key": "zah2An",
+   "entry_id": "zah2An:singular",
    "lesson_date": "2026-09-19",
-   "t_start": 1560,
-   "t_end": 1560,
+   "t_start": 2684,
+   "t_end": 2684,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "the world",
-   "said": "They ruined the world?",
-   "reason": "He read الدنيا literally as 'the world'; she prompted 'remember what it means?' and he fixed to 'they ruined everything' (26:07), which she confirmed (sheet: the world / the conditions | El-denia | الدنيا).",
+   "text": "بزهق",
+   "said": "بزهق ... بزهّق ... Is it zar-zarha, zar'a?",
+   "reason": "Asked for the adjective 'bored' he gave the verb bazha2/bazahhe2; Amal said 'that's boring', he groped for 'zar'a' and she supplied زهقان (sheet: bored | Zahqaan | زهقان), which he repeated at 45:12.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-6a236ab9"
+   "audit_uid": "FA-80682590"
   },
   {
    "id": "audit:FA-9bdc3ec6",
@@ -2106,49 +1840,30 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "annoyed",
+   "text": "don't be annoyed",
    "said": "uh, you guys don't, uh, don't be annoyed.",
-   "reason": "زعل is sad/upset, not annoyed (زعج); she queried 'Annoyed?' and he fixed to 'don't be sad from it or from him' (49:38-49:41).",
+   "reason": "ma tez3alu (don't get sad/upset) read as 'annoyed' (tenze3ju); Amal queried 'Annoyed?' and he fixed to 'don't be sad from it or from him' at 49:38.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-9bdc3ec6"
   },
   {
-   "id": "audit:FA-b4751269",
+   "id": "audit:FA-c8bfae4a",
    "word_key": "mad8U6",
    "entry_id": "mad8U6:singular",
    "lesson_date": "2026-09-21",
-   "t_start": 103,
-   "t_end": 103,
+   "t_start": 134,
+   "t_end": 134,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "متوتر",
-   "said": "شوي متوتر عشان عندي شغل كتير. ... I don't know. ما بتذكر.",
-   "reason": "He meant stressed, she accepted متوتر as anxious, asked if he meant stressed, he could not recall the word (ما بتذكر) and she supplied مضغوط (sheet: stressed / under pressure | Mad8oo6 | مضغوط) - a didn't-know, not a wrong word.",
+   "text": "stressed",
+   "said": "What is... stressed? ... I don't know. ما بتذكر.",
+   "reason": "He could not retrieve the word for stressed (said ما بتذكر); Amal supplied مضغوط - a didn't-know, not a slip.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-b4751269"
-  },
-  {
-   "id": "audit:FA-92fa5dfe",
-   "word_key": "kulIyan",
-   "entry_id": "kulIyan:word",
-   "lesson_date": "2026-09-21",
-   "t_start": 211,
-   "t_end": 211,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "كامل",
-   "said": "can you say كامل نسيتو؟ I completely forgot.",
-   "reason": "He used the adjective كامل (sheet: whole / complete | kaamel | كامل) as the adverb 'completely'; she said لا and gave كليًا (sheet: completely / fully | Kulliyyan | كليًا).",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-92fa5dfe"
+   "audit_uid": "FA-c8bfae4a"
   },
   {
    "id": "audit:FA-ce128069",
@@ -2164,8 +1879,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "مرجة",
-   "said": "The مرجة emotions. مرجة. Hold on. مرجة is for future. ... Are- are you saying مرجة؟",
-   "reason": "He heard her نراجع (we review) as a word مرجة and guessed it meant 'future' (04:24); she said No, spelled out نراجع / مراجعة (04:28, 04:55) and reminded him he knows أنا براجع (05:09; sheet: i review | Ana baraaje3 | أنا براجع). Tier 1: a taught word misread and given a wrong meaning, not a new word.",
+   "said": "The مرجة emotions. مرجة. Hold on. مرجة is for ... for future. right?",
+   "reason": "Amal said لما نراجع الـ emotions (04:05, 04:15); he heard a non-word مرجة and took it for a future marker; she said No (04:26) and spelled out نراجع / مراجعة (04:28, 04:55). A word he had learned (she: 'Yes you did, أنا براجع' 05:09) that he did not recognise - listening, not his own production.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-ce128069"
   },
@@ -2184,9 +1899,28 @@
    "vocab_points": 0,
    "text": "فضاء",
    "said": "فضاء means space, right?",
-   "reason": "He heard her فصل (season) as فضاء (space); she repeated فصل and he then got 'season'.",
+   "reason": "Amal asked اليوم في أي فصل؟ (05:44, 05:53); he heard فصل (season) as فضاء and glossed it 'space'; she repeated فصل (06:00) and he got it ('Oh yeah, فصل season' 06:01). Listening only.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-394bf733"
+  },
+  {
+   "id": "audit:FA-1eb05c1b",
+   "word_key": "5arIf",
+   "entry_id": "5arIf:word",
+   "lesson_date": "2026-09-21",
+   "t_start": 395,
+   "t_end": 395,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "helped",
+   "vocab_points": 0.5,
+   "text": "(could not recall autumn)",
+   "said": "No, ربيع is spring. And then صيف is summer. شتاء is winter. Uh, let's see.",
+   "reason": "He listed the other three seasons and stalled on autumn; Amal supplied خريف and he said 'That's right' - a didn't-know (sheet: autumn / fall | 5areef).",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-1eb05c1b"
   },
   {
    "id": "audit:FA-3ee43251",
@@ -2201,9 +1935,9 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "جايبة لي",
-   "said": "آآآ عشان جايبة لي pizza. ... دائمًا جايبة لي pizza. جايبالي، جايبالي pizza.",
-   "reason": "For 'I felt like pizza' the transcript has جايبة لي / جايبالي (jaayib = bringing) and she recast كان جاي على بالك (sheet: i feel like | Jaay 3ala bali | جاي على بالي); low because جايبالي may be his compressed pronunciation of جاي على بالي (S4) rather than a different word, and she laughed rather than corrected.",
+   "text": "جايبة لي pizza",
+   "said": "آآآ عشان جايبة لي pizza. ... دائمًا جايبة لي pizza.",
+   "reason": "Answering her 'كان جاي على بالك pizza؟' (15:48, 16:02) he produced جايبة لي (bringing me) twice (16:22, 16:27); she laughed and recast كان جاي على بالك (16:26) and he fixed to 'ع بالي، جاي ع بالي pizza' (16:30). A mangled form of an expression on her sheet (i feel like / in the mood for | Jaay 3ala bali | جاي على بالي) - tier 2; medium because the engine can hear jaay 3abaali as jaayba li (sheet also lists Jaay 3abaali).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-3ee43251"
   },
@@ -2222,7 +1956,7 @@
    "vocab_points": 0,
    "text": "نشاف",
    "said": "نشاف or yeah نشاف؟",
-   "reason": "Wrong shape of a word he knows (sheet: dry | Naashef | ناشف); she recast it and typed it.",
+   "reason": "Wrong form of a word he knows (sheet: dry | Naashef | ناشف); Amal recast ناشف and he repeated it.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-4a89968f"
   },
@@ -2237,51 +1971,13 @@
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "تستانا (= order)",
-   "said": "So تستانا is to order or, or an order?",
-   "reason": "He read her تستنى (wait) as 'order' after she had said it three times (21:27-21:45); she repeated it and asked him, and he got 'sit and wait' at 21:56. Tier 1 not 0: he knows the verb (uses أستناك at 22:28), he assigned it a wrong meaning.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-f06a3712"
-  },
-  {
-   "id": "audit:FA-ec814975",
-   "word_key": "shukran",
-   "entry_id": "shukran:word",
-   "lesson_date": "2026-09-21",
-   "t_start": 1379,
-   "t_end": 1379,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "سلامتي",
-   "said": "شكرًا. سلامتي.",
-   "reason": "He added a Persian-style 'salamat' thank-you; when he asked at 33:41 whether they say it she said no, just شكرًا.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-ec814975"
-  },
-  {
-   "id": "audit:FA-ed8509a3",
-   "word_key": "7a2",
-   "entry_id": "7a2:word",
-   "lesson_date": "2026-09-21",
-   "t_start": 1394,
-   "t_end": 1394,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "price",
-   "said": "oh my gosh. What was price?",
-   "reason": "This is r1's 0921-30 piece from D9, not a new find: he asked for the word 'price', she hinted 'same as right' and he recovered أديش الحق at 23:53 (sheet: right / cost | 7aqq | حق; how much cost | 2addaish 7a22). Low: she hinted rather than supplied, and the word came back to him.",
+   "text": "تستانا (= to order?)",
+   "said": "So تستانا is to order or, or an order?",
+   "reason": "He did not recognise تستنى (wait; sheet wait | estanna) in her line and guessed 'order'; she repeated it and he worked out 'sit and wait'. Listening.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-ed8509a3"
+   "audit_uid": "FA-f06a3712"
   },
   {
    "id": "audit:FA-05d57cd3",
@@ -2296,47 +1992,28 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "Shumel (شمال = the north)",
+   "text": "Shumel (شمال)",
    "said": "The north? ... Shumel. Shumen. Men is...",
-   "reason": "He heard her شو مالها الشاورما as شمال (north); she tied it to شو مالك (sheet: what's wrong with you? | Shu maalak | شو مالك؟) and he got 'what's wrong with the-' at 31:39. Tier 1: a taught phrase read as a different word, not a new word.",
+   "reason": "Amal asked شو مالها الشاورما؟ (31:18, 31:26); he heard it as شمال and guessed 'The north?' (31:24, 31:29); she repeated and explained شو مالك / شو مال الشاورما (31:37) and he got 'what's wrong with the' (31:39). A wrong word for what he heard (not a 'how do you say' question) - tier 1, listening.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-05d57cd3"
-  },
-  {
-   "id": "audit:FA-0400a15c",
-   "word_key": "6a3em",
-   "entry_id": "6a3em:word",
-   "lesson_date": "2026-09-21",
-   "t_start": 1947,
-   "t_end": 1947,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "mailha",
-   "said": "Uh, mailha mur oo hamid. Hamet, uh, hamha mura oo hamida.",
-   "reason": "Right after she said طعمها (32:14) he used mailha (مالها, 'its matter') for 'its taste'; she prompted 'you're describing the taste' and he produced tam mur oo hamid at 32:48 (sheet: taste / flavor | 6a3em | طعم).",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-0400a15c"
   },
   {
    "id": "audit:FA-e94d8b1c",
    "word_key": "beihem",
    "entry_id": "beihem:word",
    "lesson_date": "2026-09-21",
-   "t_start": 2047,
-   "t_end": 2047,
+   "t_start": 2052,
+   "t_end": 2052,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "Alamara",
-   "said": "Alamara? ... Bihinna. ... Is bihim important, like muhim?",
-   "reason": "He did not catch بيهمنا in her sentence (sheet: it matters to me | Beyhemmni | بيهمني), asked, and guessed 'important like muhim'; she repeated and explained 'it matters to us'. A didn't-recognise with no wrong meaning committed, so tier 0.",
+   "text": "بيهنّا",
+   "said": "أول مرة؟ ... بيهنّا. Should-- Wait, oh, بيهنّا. ... Is بيهم important, like مهم؟",
+   "reason": "She asked شو يعني؟ of her own إحنا بيهمنا زبايننا (34:01); he could not say (أول مرة؟ 34:07), echoed بيهنّا (34:12), she repeated بهم، بيهمنا (34:15) and glossed 'It matters to us' (34:30) after he guessed 'Is بيهم important, like مهم؟'. Listening / didn't-know of a sheet word (it matters | Beyhemm | بيهم).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-e94d8b1c"
   },
@@ -2374,7 +2051,7 @@
    "vocab_points": 0,
    "text": "طريق",
    "said": "بعمله الـ طريق طويل.",
-   "reason": "طريق is the road (sheet: road / way / route | 6ariq | طريق); the method is طريقة (sheet: way / method | Tariqa | طريقة) - two separate sheet items, so a wrong word (tier 1); she recast and he took الطريقة at 43:54.",
+   "reason": "طريق is a road; the way/method is طريقة. Amal recast الطريقة and he repeated it.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-85c2bfca"
   },
@@ -2391,9 +2068,9 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "20",
-   "said": "20 دايّة.",
-   "reason": "Transcript shows the number in English digits and she immediately said عشرين, so he likely said 'twenty' in English; sheet: twenty | 3eshreen | عشرين. Low: the digit may be the transcriber's.",
+   "text": "20 (said in English)",
+   "said": "لـ 20 دايّة.",
+   "reason": "The number came out in English inside the Arabic sentence (engine wrote the digits); Amal voiced عشرين. Sheet: twenty | 3eshreen | عشرين. His دايّة = دقيقة, pronunciation only.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-db41adc6"
   },
@@ -2410,9 +2087,9 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "ساعية",
+   "text": "ثلث ساعية",
    "said": "Oh، الـ ثلث. uh, الـ-- لا، ثلث ساعية؟ Or",
-   "reason": "He added an ending to ساعة (sheet: watch / hour | Saa3a | ساعة); she recast ثلث ساعة and he repeated it twice. May be a stumble.",
+   "reason": "He put an odd ending on ساعة (ساعية) while asking; Amal recast ثلث ساعة and he repeated it twice. Low: half question, half slip.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-04d9e42f"
   },
@@ -2431,28 +2108,9 @@
    "vocab_points": 0,
    "text": "زبداية",
    "said": "uh، زبداية.",
-   "reason": "Invented shape of a word he knows (sheet: butter | Zibdeh | زبدة); she recast, he repeated.",
+   "reason": "Wrong shape of a word he knows (sheet butter | Zibdeh | زبدة); Amal recast زبدة, he repeated it, then said زبداية again at 46:49 and she fixed it once more (one row, the first).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-f45c7a9f"
-  },
-  {
-   "id": "audit:FA-32ec2df1",
-   "word_key": "esta3mel",
-   "entry_id": "ana basta5dem:command",
-   "lesson_date": "2026-09-21",
-   "t_start": 2863,
-   "t_end": 2863,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "أعمل",
-   "said": "بعدين، uh، بس أعمل الـ، الـ، الـ ... Would I say الـ تحت تاني من مقلاة؟",
-   "reason": "'Then I use the other end of the ladle' with أعمل (do / make, and without b-); she rebuilt the sentence with بستعمل (sheet: use | Esta3mel | استعمل). Low: 'بس أعمل' could be the ASR splitting a stumbled بستعمل, though his أساهم at 43:03 and 49:00 says he did not have the verb.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-32ec2df1"
   },
   {
    "id": "audit:FA-522ecc47",
@@ -2468,8 +2126,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "الـ تحت تاني",
-   "said": "الـ تحت تاني من مقلاة، مقلاة؟",
-   "reason": "تحت (sheet: down / under / bottom / below | Ta7t) used for 'the other end/side'; she said لا and gave جهة / عكس (sheet: opposite | 3aks | عكس).",
+   "said": "الـ تحت تاني من معلقة، معلقة؟ ... الـ تحت، الـ تحت تاني. ... الآخر تاني؟",
+   "reason": "He used تحت (under) for 'the other end/side' of the spoon; Amal said لا twice (تحت is just under; الآخر no) and led him to عكس / جهة.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-522ecc47"
   },
@@ -2487,10 +2145,29 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "المقلاة",
-   "said": "So أنا أساهم بالعكس المقلاة. ... Oh، عكس المـ- مقلاة.",
-   "reason": "مقلاة is the pan (sheet: pan | Ma2la | مقلى); the spoon is ملعقة (sheet: spoon | Ma3la2a | معلقة) and the ladle مغرفة (sheet: spatula / ladle | Ma8rafa | مغرفة); she recast twice and he said Maghrafah.",
+   "said": "So أنا أستعمل بالعكس المقلاة. ... Oh، عكس المـ- مقلاة.",
+   "reason": "The engine wrote مقلاة (frying pan) twice (49:00, 49:06) for the spoon he had said right at 48:02 (معلقة; sheet spoon | Ma3la2a); Amal recast الملعقة (49:04) and checked 'بس ملعقة spoon. أنت بتستخدم spoon؟' (49:10), then gave مغرفة for the ladle (A44). Low: her reply treats his word as ملعقة, so مقلاة may be the engine hearing a dropped ع (S4) - audio check.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-f4819c40"
+  },
+  {
+   "id": "audit:FA-24c9d0ef",
+   "word_key": "ma8rafa",
+   "entry_id": "ma8rafa:singular",
+   "lesson_date": "2026-09-21",
+   "t_start": 2953,
+   "t_end": 2953,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "helped",
+   "vocab_points": 0.5,
+   "text": "(no word for ladle / big spoon)",
+   "said": "Yeah, what was the bixfun? Bixfun was also not that family tree.",
+   "reason": "He asked for the big-spoon word; Amal supplied مغرفة and he repeated it - a didn't-know.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-24c9d0ef"
   },
   {
    "id": "audit:FA-d5435708",
@@ -2505,68 +2182,30 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "asir",
-   "said": "fi darajat halala hararah asir",
-   "reason": "قصير (sheet: short | Qaseer | قصير) used for 'low' temperature; sheet: low | Waati | واطي.",
+   "text": "قصير",
+   "said": "في درجة halala حرارة قصير؟",
+   "reason": "He used قصير (short) for a low temperature; Amal recast واطية (sheet low | Waati | واطي) and he repeated it. (Also masculine for the feminine درجة.)",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-d5435708"
-  },
-  {
-   "id": "audit:FA-8fe8f0c2",
-   "word_key": "hAdi",
-   "entry_id": "hAdi:singular",
-   "lesson_date": "2026-09-21",
-   "t_start": 3056,
-   "t_end": 3056,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "sot asir",
-   "said": "Sot tawil or sot asir nar?",
-   "reason": "He tried صوت (sheet: sound / voice | Soat | صوت) for 'quiet fire'; she said مش صوت, the word is هادي (sheet: calm | Haadi | هادي).",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-8fe8f0c2"
   },
   {
    "id": "audit:FA-beb8285c",
    "word_key": "mistwi",
    "entry_id": "mistwi:singular",
    "lesson_date": "2026-09-21",
-   "t_start": 3105,
-   "t_end": 3105,
+   "t_start": 3101,
+   "t_end": 3101,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "mishtihi",
-   "said": "U lama yakun mishtihi.",
-   "reason": "For 'when it's done/cooked' he said مشتهي (craving); the word is مستوي (sheet: cooked/done (m) | Mistwi | مستوي); she recast it and questioned his word.",
+   "text": "مشتهي",
+   "said": "لما مشتهي ... ولما يكون مشتهي",
+   "reason": "He said مشتهي (craving) for cooked/done; Amal recast مستوي (sheet cooked/done (m) | Mistwi | مستوي) and he took it: 'مستوي؟ مستوي'.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-beb8285c"
-  },
-  {
-   "id": "audit:FA-102d3de3",
-   "word_key": "ana ba2li",
-   "entry_id": "ana ba2li:present",
-   "lesson_date": "2026-09-21",
-   "t_start": 3199,
-   "t_end": 3199,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "ali",
-   "said": "Is ali I can say or bialy or mi-mi-mit? ... Like ali is fried, right?",
-   "reason": "He asked whether 'ali' means fried; she gave مقلي (the sheet has only the verb: he fried | huwwe 2ala | قلى, so the participle may be a didn't-know, tier 0). His Ma'ali afterwards is the ق pronunciation.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-102d3de3"
   },
   {
    "id": "audit:FA-bef9647d",
@@ -2581,9 +2220,9 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "awali",
-   "said": "uh, awali is, awali is country, right? ... Awali dawla. Iran",
-   "reason": "He offered a non-word (awali, which she heard as عالم - sheet: the world / people | 3aalam | عالم) for 'country' and asked; the word is دولة (sheet: country | Dawle | دولة), which she supplied and he took. Tier 1 not 0: he attempted a word and it was wrong.",
+   "text": "awali / دوالي",
+   "said": "uh, awali is, awali is country, right? ... دوالي، دولة.",
+   "reason": "Wrong shape of دولة (sheet country | Dawle); Amal recast دولة, he said دوالي again then دولة.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-bef9647d"
   },
@@ -2601,8 +2240,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "بيدفع",
-   "said": "مين بيدفع؟ Hold on. مين بيدفع؟ ... Who pays? ... Oh yeah. مطبخ. Okay.",
-   "reason": "He heard her بيفتح (opens) as بيدفع (pays), then answered 'مطبخ' (kitchen); she recast 'opens, بيفتح'.",
+   "said": "مين بيدفع؟ Hold on. مين بيدفع؟ ... Who pays?",
+   "reason": "Amal asked مين بيفتح هدول المطاعم؟ (1:06:30); he heard بيفتح as بيدفع and glossed 'Who pays?' (1:06:35-1:06:43); she corrected 'Opens، بيفتح' (1:06:45) and he got it (1:06:47). Listening; a wrong word for what he heard, so tier 1.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-05897aaa"
   },
@@ -2611,17 +2250,17 @@
    "word_key": "mu7Adase",
    "entry_id": "mu7Adase:singular",
    "lesson_date": "2026-09-21",
-   "t_start": 4254,
-   "t_end": 4254,
+   "t_start": 4251,
+   "t_end": 4251,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "conversation",
-   "said": "Conversation. Uh, ma ba'rif.",
-   "reason": "She asked شيعني conversation (produce the Arabic); he said ma ba'rif and she supplied محادثة (sheet: conversation practice | Mu7aadase | محادثة) - a didn't-know. Speaking, not listening: he was asked to produce the word, not to read her Arabic.",
+   "text": "(did not know conversation)",
+   "said": "Conversation. Uh, ما بعرف.",
+   "reason": "She asked for 'conversation', he said ما بعرف; she supplied محادثة and he repeated it - a didn't-know.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-f2c089aa"
   },
@@ -2640,7 +2279,7 @@
    "vocab_points": 0,
    "text": "too much",
    "said": "اه، too much قهوة.",
-   "reason": "English word inside an Arabic sentence; sheet row 'a lot / very / much | Kteer | كتير'; she supplied كتير and he repeated it.",
+   "reason": "English 'too much' inside the Arabic sentence; sheet row 'a lot / very / much | Kteer | كتير'; Amal supplied كتير and he said بتشرب قهوة كثير.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-2e21f16e"
   },
@@ -2657,87 +2296,11 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "توني",
-   "said": "توني شوي توجع.",
-   "reason": "Amal's echo (طمك؟ / شو يعني طم؟) shows he said tommi = my mouth (sheet 'mouth | Tomm | تم') for his stomach; he answered 'Mouth' and fixed to بطني (sheet 'stomach / belly | Bâ6en | بطن'); engine wrote توني. A wrong Arabic word = tier 1, not an English drop-in.",
+   "text": "طمي",
+   "said": "طمي شوي بوجع.",
+   "reason": "طم is mouth (sheet 'mouth | Tomm | تم'); he meant stomach (sheet 'stomach / belly | Bâ6en | بطن'); she asked شو يعني طم and he fixed 'Oh، بطني sorry بطني'.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-d71e58bb"
-  },
-  {
-   "id": "audit:FA-45d0d6bc",
-   "word_key": "ma ma3i",
-   "entry_id": "ma ma3i:word",
-   "lesson_date": "2026-09-23",
-   "t_start": 585,
-   "t_end": 585,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "ما إله",
-   "said": "ما إله؟ ... What is ما إله؟",
-   "reason": "He did not understand her expression ma ilo ta3em (heard ما as مع) and asked; she explained it 09:47-11:55 - didn't-know.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-45d0d6bc"
-  },
-  {
-   "id": "audit:FA-89c96e25",
-   "word_key": "ma ma3i",
-   "entry_id": "ma ma3i:word",
-   "lesson_date": "2026-09-23",
-   "t_start": 603,
-   "t_end": 603,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "مع",
-   "said": "[Medi track missing] - he heard her ما as مع",
-   "reason": "Listening drill on 'الناشف ما إله طعم': he took ما for مع; she said 'ما, not مع'.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-89c96e25"
-  },
-  {
-   "id": "audit:FA-0cd5b995",
-   "word_key": "elsharaf eli",
-   "entry_id": "elsharaf eli:word",
-   "lesson_date": "2026-09-23",
-   "t_start": 615,
-   "t_end": 615,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "إله = whatever",
-   "said": "[Medi track missing] - he glossed إله as 'whatever'",
-   "reason": "Listening: asked what 'ما إله طعم' means he read إله as 'whatever'; she said 'No, not whatever' and ran إله/إلي/إلك, chat 'ma ilo ta3em = it doesn't have a taste'; his line is not on the track.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-0cd5b995"
-  },
-  {
-   "id": "audit:FA-d31d3358",
-   "word_key": "elsharaf eli",
-   "entry_id": "elsharaf eli:word",
-   "lesson_date": "2026-09-23",
-   "t_start": 633,
-   "t_end": 633,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "اللي",
-   "said": "[Medi track missing] - he read إلي as اللي",
-   "reason": "Same listening drill: he heard إلي/إله (to me / to him, possession) as the relative اللي; she said 'No, إلي, not اللي' and gave هذا الكتاب إلي.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-d31d3358"
   },
   {
    "id": "audit:FA-769877e7",
@@ -2763,8 +2326,8 @@
    "word_key": "al5arIf",
    "entry_id": "al5arIf:word",
    "lesson_date": "2026-09-23",
-   "t_start": 907,
-   "t_end": 907,
+   "t_start": 933,
+   "t_end": 933,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
@@ -2772,29 +2335,10 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "الخفيف",
-   "said": "الخفيف،",
-   "reason": "He said خفيف (light) for خريف (autumn; sheet 'autumn / fall | 5areef'); she offered خريف and then explained خفيف is light.",
+   "said": "اه، أنا فكرت إنه الخفيف دبا started.",
+   "reason": "خفيف is 'light' (sheet 'light | 5afeef'); he meant autumn (sheet 'autumn | El-5areef | الخريف'); said at 15:07, 15:13, 15:33; she asked 'خفيف or خريف' and he said خريف.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-42d11519"
-  },
-  {
-   "id": "audit:FA-9b93760e",
-   "word_key": "5ayAr",
-   "entry_id": "5ayAr:singular",
-   "lesson_date": "2026-09-23",
-   "t_start": 1133,
-   "t_end": 1133,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "خيار",
-   "said": "شو يعني خيار؟ ... Is this options or mistakes?",
-   "reason": "She used خيار (sheet 'option – options | 5ayaar') and asked what it means; he was unsure (options or mistakes?) and she confirmed options - didn't-know of her word.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-9b93760e"
   },
   {
    "id": "audit:FA-36358459",
@@ -2810,37 +2354,18 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "أطلب",
-   "said": "أنا بدي أطلب غرفة",
-   "reason": "'Book a room' is أحجز (sheet 'i book / reserve | Ba7jez'); she said No, a specific word, and at 20:24 'طلب is order'; he got أحجز at 20:32.",
+   "said": "أنا بدي أطلب غرفة، شفت؟ ... Is it some طلب؟",
+   "reason": "For 'book a room' he used طلب (order); she said 'طلب is order. No' and gave حجز / أحجز (sheet 'i book / reserve | Ba7jez | بحجز'), which he then used at 21:35.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-36358459"
-  },
-  {
-   "id": "audit:FA-2e194cb5",
-   "word_key": "ba7jez",
-   "entry_id": "ba7jez:word",
-   "lesson_date": "2026-09-23",
-   "t_start": 1215,
-   "t_end": 1215,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "طلب",
-   "said": "[Medi track missing] - he offered طلب for 'to book'",
-   "reason": "She names his word ('طلب is order. No.') and gives the verb in chat 'ba7jez = I reserve'; sheet: 'i book / reserve | Ba7jez | بحجز'.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-2e194cb5"
   },
   {
    "id": "audit:FA-4d354cf3",
    "word_key": "manzar",
    "entry_id": "manzar:singular",
    "lesson_date": "2026-09-23",
-   "t_start": 1330,
-   "t_end": 1330,
+   "t_start": 1332,
+   "t_end": 1332,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
@@ -2848,29 +2373,10 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "منظرة",
-   "said": "[Medi track missing] - he said منظرة",
-   "reason": "He made منظر feminine (منظرة); she said 'منظر is masculine. It's not منظرة' - wrong gender form of a noun he knows (sheet: 'view / scenery | Manzar | منظر').",
+   "said": "Do you say مع منظرة؟",
+   "reason": "He invented a feminine form of a noun he knows (sheet 'view / scenery | Manzar | منظر'); she said it is masculine, not منظرة, and he said مع منظر الشاطئ.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-4d354cf3"
-  },
-  {
-   "id": "audit:FA-be8d84c0",
-   "word_key": "kamAn shwai",
-   "entry_id": "kamAn shwai:word",
-   "lesson_date": "2026-09-23",
-   "t_start": 1703,
-   "t_end": 1703,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "كمان نص ساعة = half hour more",
-   "said": "آآآ in a half آآآ in half hour more.",
-   "reason": "He read kamaan + time as 'more'; she said No and explained it means 'in / after' (28:44).",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-be8d84c0"
   },
   {
    "id": "audit:FA-89974a5e",
@@ -2896,17 +2402,17 @@
    "word_key": "i7na nsIna",
    "entry_id": "ana bansa:past",
    "lesson_date": "2026-09-23",
-   "t_start": 1873,
-   "t_end": 1873,
+   "t_start": 1863,
+   "t_end": 1863,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "نصيب",
-   "said": "So، نصيب.",
-   "reason": "Listening: she asked what انسينا means and he misheard it as مصيبة / نصيب / نصينة; she gave نسيت. نسينا (sheet 'forget | Insa').",
+   "text": "مصيبة",
+   "said": "Okay. مصيبة. ... So، نسين؟ ... بسين بس... بسين؟ I don't know. انسينا؟",
+   "reason": "Listening: asked شو يعني انسينا he answered مصيبة and could not place نسينا until she tied it to نسيت (sheet 'i forgot | Ana nseet | نسيت'); a didn't-know on the we-form.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-c7ec2afb"
   },
@@ -2925,7 +2431,7 @@
    "vocab_points": 0,
    "text": "لازم أشكي",
    "said": "أنا لازم أحكي مع مديرك. أنا لازم أشكي.",
-   "reason": "She recast 'I must complain' as 'I want to complain' (lazem -> biddi); he repeated أنا بدي أشكي.",
+   "reason": "He said laazem ashki (I must complain); she recast بدي أشتكي (I want to complain) and he took it at 33:28 ('أنا بدي أشكي. I want to complain. Okay'); the sure part is لازم -> بدي (word choice, tier 1); أشكي itself is a valid form - the sheet has 'i complain | Ana bashki (min) | أنا بشكي' and her own chat typed 'biddi ashki' - so أشتكي vs أشكي is her variant, not his slip.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-12b749a0"
   },
@@ -2934,8 +2440,8 @@
    "word_key": "ana 6alabet",
    "entry_id": "ana 6alabet:word",
    "lesson_date": "2026-09-23",
-   "t_start": 2053,
-   "t_end": 2053,
+   "t_start": 2047,
+   "t_end": 2047,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
@@ -2943,8 +2449,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "سألت",
-   "said": "سألت،",
-   "reason": "He used سأل (ask a question) for 'request'; she asked which he meant and he switched to طلبت.",
+   "said": "سألت، ... سألت، ... سألت موظف، موظف،",
+   "reason": "سأل is ask a question (sheet 'i asked | Ana sa2alet'); 'asked him to come' is طلب (sheet 'i ordered | Ana 6alabet'); she asked which he meant and he said 'طلب. أنا طلبت'.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-8c44631e"
   },
@@ -2959,11 +2465,11 @@
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "تزكر",
-   "said": "بدزكر ... هزكر. ... What's تزكر؟",
-   "reason": "She asked إيش يعني تذاكر؟; he could not place it and asked; she gave تذكرة = ticket (sheet 'ticket | Tazkara') - didn't-know.",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "بتذكّر",
+   "said": "بتذكّر ... No. ... هزكر.",
+   "reason": "Listening: asked 'إيش يعني تذاكر؟' (40:19) he attempted an answer and read it as 'I remember' (بتذكّر, then هزكر) - a wrong word, not a blank; she gave تذكرة = ticket (sheet 'ticket | Tazkara | تذكرة') and he still asked 'what's تزكر؟' at 41:01.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-f05f77e2"
   },
@@ -2980,9 +2486,9 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "قريبًا سفر",
+   "text": "قريبًا من السفر",
    "said": "[speaking Arabic]",
-   "reason": "Engine hid his Arabic; her echo shows he said قريبًا سفر (adverb 'soon') for 'close to'; she said it doesn't work: قريب من السفر.",
+   "reason": "Engine wrote [speaking Arabic]; her echo shows he said قريبًا (soon, the adverb) for 'close to'; the adjective قريب من is the form; she said 'مش قريبًا ... قريب من السفر' and he said قريب.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-96ff89c2"
   },
@@ -3018,9 +2524,9 @@
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "passenger",
+   "text": "Passenger",
    "said": "Passenger in Farsi is... I don't even remember it now.",
-   "reason": "She asked him to recall passenger (sheet 'passenger | Raakeb'); he could not and she supplied راكب - same type as agreed A42 (driver).",
+   "reason": "Asked تتذكر شو passenger he could not recall it; she supplied راكب (sheet 'passenger | Raakeb | راكب') - a didn't-know.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-82e2eee7"
   },
@@ -3038,8 +2544,8 @@
    "assessment": "helped",
    "vocab_points": 0.5,
    "text": "driver",
-   "said": "Yeah. And driver is...",
-   "reason": "He could not recall 'driver' (sheet 'driver | Sawwaa2'); she supplied سواق.",
+   "said": "Yeah. And driver is... This one's the same as Farsi, but I, uh, I forgot.",
+   "reason": "He said he forgot 'driver'; she hinted بسوق then gave سواق (sheet 'driver | Sawwaa2 | سواق') - a didn't-know.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-8786b214"
   },
@@ -3048,17 +2554,17 @@
    "word_key": "ba3Id",
    "entry_id": "ba3Id:singular",
    "lesson_date": "2026-09-23",
-   "t_start": 3514,
-   "t_end": 3514,
+   "t_start": 3513,
+   "t_end": 3513,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "two hours away",
-   "said": "Uh, two hours away. Would I say [speaking foreign language]",
-   "reason": "He asked how to say two hours away; she prompted 'What's far?' (sheet 'far | Ba3eed') and gave بعيد ساعتين; his try is lost in the transcript.",
+   "text": "ساعتين",
+   "said": "Would I say ساعتين؟",
+   "reason": "For 'two hours away' he offered only the dual and asked; she prompted 'what's far' and gave ba3eed saa3tain (sheet: 'far | Ba3eed | بعيد') - asked, not a slip.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-1803bd4c"
   },
@@ -3075,9 +2581,9 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "أعمل ... أخلص",
-   "said": "[speaking Arabic]",
-   "reason": "Engine hid his Arabic; her echo shows he used both أعمل and أخلص for one action; she said just one and confirmed أخلص.",
+   "text": "أعمل أخلص",
+   "said": "[speaking Arabic] ... It took me two hours to make this table.",
+   "reason": "Engine wrote [speaking Arabic]; her 'أعمل or أخلص just one, which one?' shows he strung أعمل (make) and أخلص (finish) together for 'to finish this table'; she prompted him to pick one and confirmed أخلص (chat la-a6alless) - a word-choice fix, not an ending or prefix rule, so vocab tier 1; low because his Arabic is not in the transcript.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-adf19727"
   },
@@ -3086,8 +2592,8 @@
    "word_key": "musA3ada",
    "entry_id": "musA3ada:singular",
    "lesson_date": "2026-09-26",
-   "t_start": 613,
-   "t_end": 613,
+   "t_start": 619,
+   "t_end": 619,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
@@ -3095,29 +2601,10 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "مساعد",
-   "said": "ساعد، مساعد. ... Is it مساعد or مساعد؟",
-   "reason": "He used ساعد/مساعد (verb / helper) for the noun 'help'; Amal: 'Help as a noun is?' then supplied مساعدة (sheet: help | Musaa3ada).",
+   "said": "مساعد or مساعد؟ ... Is it مساعد or مساعد؟",
+   "reason": "He tried ساعد / مساعد for the noun 'help' and asked which; she gave مساعدة (sheet: help | Musaa3ada | مساعدة).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-97c9d936"
-  },
-  {
-   "id": "audit:FA-45ca9b70",
-   "word_key": "jaw",
-   "entry_id": "jaw:singular",
-   "lesson_date": "2026-09-26",
-   "t_start": 1285,
-   "t_end": 1285,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "بلبس بلوزة",
-   "said": "اليوم بلبس بلوزة so شو؟",
-   "reason": "Amal asked كيف الجو عندكم اليوم؟; he answered about clothes, she repeated الجو twice and he said 'Oh whoops ... الجو شوب'.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-45ca9b70"
   },
   {
    "id": "audit:FA-25bdf75b",
@@ -3151,9 +2638,9 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "Doctor el Tom",
-   "said": "Doctor el Tom.",
-   "reason": "Asked for a stomach doctor he said tom (mouth); she repeated 'Stomach.' and he switched to batn (27:35).",
+   "text": "التم",
+   "said": "Uh, دكتور التم؟",
+   "reason": "Asked for 'stomach doctor' he said تم (mouth); she repeated 'Stomach' and he fixed to دكتور البطن at 27:35 - may be a mishearing of her English.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-5ed77f53"
   },
@@ -3170,30 +2657,30 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "جاب (he said دبا)",
-   "said": "راسي جاب, uh, يوجع",
-   "reason": "Engine wrote جاب; he asked 'What did I say?' and Amal answered دبا - he swapped letters of بدا; she supplied بدأ.",
+   "text": "دبا",
+   "said": "راسي جاب, uh, يوجع (engine wrote جاب; Amal's echo: دبا)",
+   "reason": "He said daba (بدا with the letters swapped); she recast بدأ, he asked 'What did I say?' and she answered دبا - engine wrote راسي جاب.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-3a1cd185"
   },
   {
-   "id": "audit:FA-fb9e849e",
-   "word_key": "ana bastana",
-   "entry_id": "ana bastana:present",
+   "id": "audit:FA-88fa1170",
+   "word_key": "ra2abe",
+   "entry_id": "ra2abe:singular",
    "lesson_date": "2026-09-26",
-   "t_start": 2157,
-   "t_end": 2157,
+   "t_start": 2293,
+   "t_end": 2293,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "ستة وستين",
-   "said": "ستة وستين. ... The doctor that's coming to see you is going to wait?",
-   "reason": "He misheard تستنى دقيقة as ستة وستين and misread the sentence; Amal said No and repeated it.",
+   "text": "ركاب",
+   "said": "ركاب، Riqaba? Ri-riqaba.",
+   "reason": "Wrong shape rikaab / riqaba for 'neck' (sheet: neck | Raqabe | رقبة), after also saying رقاب at 38:02; she recast رقبة and noted the ق.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-fb9e849e"
+   "audit_uid": "FA-88fa1170"
   },
   {
    "id": "audit:FA-eea3da3e",
@@ -3208,9 +2695,9 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "asabiya",
-   "said": "um, husfa aw asabiya.",
-   "reason": "He said a form of أسابيع (weeks) for fingers; Amal pointed out 'is weeks', he tried asabi; chat usba3 / asaabe3.",
+   "text": "أسابيع",
+   "said": "um, أصبع أو أسابيع",
+   "reason": "For the plural of أصبع (sheet: 'finger | Osba3 | أصبع') he produced أسابيع - the plural shape of 'week' (sheet: usboo3) - a wrong plural pattern of a word he knows (tier 2, not a different lexical choice); she said 'is weeks' and he fixed أصابع at 45:42, chat usba3 / asaabe3. Medium: he offered the two forms with أو, so partly a question; Amal's own 45:26 line also reads أسابيع (engine or her slip).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-eea3da3e"
   },
@@ -3227,9 +2714,9 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "اجرب",
-   "said": "اجرب كبير.",
-   "reason": "He said إجر (leg) for 'body'; Amal: 'شو يعني؟ أجر is leg'; chat jesem kbeer (sheet: body | Jissem).",
+   "text": "أجر",
+   "said": "اجرب كبير. (engine; Amal's echo: أجر كبير)",
+   "reason": "He said إجر (leg) for 'body'; she echoed أجر كبير؟ 'أجر is leg' and he fixed to جسم كبير at 49:06 - engine wrote اجرب.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-9713a603"
   },
@@ -3247,10 +2734,67 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "واطيات",
-   "said": "اجربين واط-- واطين or واطيات. واطيات?",
-   "reason": "He said واطيات (low) for short legs; Amal glossed 'Low legs' and he switched to اسيرات (2aseeraat).",
+   "said": "إجرين واط-- واطية، واطيين or واطيات. واطيات?",
+   "reason": "واطي (low) for 'short' legs; she translated back 'Low legs' and he fixed to قصيرات at 49:48 (sheet: short | Qaseer, low | Waati).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-6d6ea94b"
+  },
+  {
+   "id": "audit:FA-bd536e35",
+   "word_key": "tanUra",
+   "entry_id": "tanUra:singular",
+   "lesson_date": "2026-09-26",
+   "t_start": 3476,
+   "t_end": 3476,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "تنانين",
+   "said": "فـ فساتين، uh, تنانين، فستان.",
+   "reason": "Plural of تنورة came out تنانين; after the singular she said the plural تنانير and he repeated تنانير at 58:15.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-bd536e35"
+  },
+  {
+   "id": "audit:FA-3489931c",
+   "word_key": "tanUra",
+   "entry_id": "tanUra:singular",
+   "lesson_date": "2026-09-26",
+   "t_start": 3489,
+   "t_end": 3489,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "تنور",
+   "said": "تنور",
+   "reason": "Singular 'skirt' without its -a (sheet: skirt | Tannoora | تنورة); she recast تنورة and he repeated it.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-3489931c"
+  },
+  {
+   "id": "audit:FA-28561a58",
+   "word_key": "ana badAye2",
+   "entry_id": "ana badAye2:present",
+   "lesson_date": "2026-09-26",
+   "t_start": 3616,
+   "t_end": 3616,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "helped",
+   "vocab_points": 0.5,
+   "text": "(not attempted)",
+   "said": "Uh, uh, بتضايـ... One, one more time. ... Does it mean it upsets you?",
+   "reason": "Didn't-know: she introduced الشمس بتضايقني and asked what it meant; he asked for it again and guessed 'it upsets you', which she refined to 'irritates me'. He never produced the word, so tier 0. Low: the root is on her sheet (متضايق / بدايق / بيدايق) and he understood the sentence - this is a new form of a known family, closer to a comprehension check than a gap.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-28561a58"
   },
   {
    "id": "audit:FA-21d8c454",
@@ -3266,18 +2810,37 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "ولاد",
-   "said": "لما كنتي ولاد",
-   "reason": "He used ولاد (kids) for 'small'; Amal supplied صغيرة and he repeated it.",
+   "said": "Yeah، لما كنتي ولاد",
+   "reason": "ولاد (kids) for 'little / small'; she recast صغيرة and he repeated لما كنتي صغيرة (sheet: small | Z8eer).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-21d8c454"
+  },
+  {
+   "id": "audit:FA-84878243",
+   "word_key": "kul shI",
+   "entry_id": "kul shI:word",
+   "lesson_date": "2026-09-26",
+   "t_start": 4143,
+   "t_end": 4143,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "الكل",
+   "said": "حكينا الكل or الـ كل-كلأن، كليا-كليان. Huh?",
+   "reason": "For 'everything' he used الكل (her sheet: 'everybody / all | El-kul') and then non-words كلأن / كليان; she supplied كل شي (sheet: 'everything | kulshi') and he repeated عن كل شي (1:09:14). Wrong lexical item for the meaning - tier 1. Same utterance as A48 (missing عن, D2): two pieces, merger may fold them.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-84878243"
   },
   {
    "id": "audit:FA-65cc8860",
    "word_key": "shu ra2yak",
    "entry_id": "shu ra2yak:word",
    "lesson_date": "2026-09-28",
-   "t_start": 43,
-   "t_end": 43,
+   "t_start": 35,
+   "t_end": 35,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
@@ -3285,8 +2848,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "بتظني",
-   "said": "شو بتظني؟ / أو شو، شو بتفكري؟ / شو، شو أصدك؟",
-   "reason": "He used بتظني (then بتفكري, أصدك) for 'what do you think?'; Amal said 'No' to each and he reached شو رأيك.",
+   "said": "شو، شو بتظني؟ ... أو شو، شو بتفكري؟ ... شو قصدك؟",
+   "reason": "For 'what do you think (of it)?' he reached for بتظني then بتفكري then قصدك; Amal said 'What's the better word?', 'No', 'Close' until he landed on شو رأيك at 01:02 and she typed it (sheet: opinion | Ra2ey | رأي).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-65cc8860"
   },
@@ -3322,9 +2885,9 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "حدا",
-   "said": "اآآ الـ-الـ حدا",
-   "reason": "He said حدا ('someone') for the 'people' card; Amal asked 'what is people?' and he said الأشخاص, she added ناس.",
+   "text": "الـحدا",
+   "said": "Uh, الـ، الـحدا.",
+   "reason": "Asked what the cards were about (people), he said حدا (someone); Amal prompted 'شو يعني people?' and he fixed to الأشخاص; she confirmed ناس، أشخاص. Sheet: 'people (plural) | Naas | ناس'.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-fa283f02"
   },
@@ -3341,9 +2904,9 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "أشتغل",
-   "said": "أشتغل، أشتغل.",
-   "reason": "He used the verb أشتغل ('I work') for the noun 'jobs'; Amal said No and asked for the plural of شغل.",
+   "text": "بشتغل",
+   "said": "بشتغل، أشتغل،",
+   "reason": "For 'jobs / works' (a noun) he gave the verb بشتغل; Amal said No and asked for the plural of the noun شغل (sheet: work | Shu8ul | شغل).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-329f1035"
   },
@@ -3361,8 +2924,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "أخي",
-   "said": "بنات وولاد أخوي، er، أخي أمتي--",
-   "reason": "He said أخي (my brother) meaning uncle; Amal asked what أخي means and he switched to خالي، خالتي، عمتي.",
+   "said": "بنت وولاد أخوي، er، أخي عمتي uh",
+   "reason": "Asked how to say cousins, he started with 'children of my brother' (أخوي / أخي); Amal prompted 'أخي that would be شو?', he said 'Oh, that's brother' and fixed to خالي، خالتي، عمتي، عمي. Wrong relative word.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-ac785b7c"
   },
@@ -3371,57 +2934,76 @@
    "word_key": "eben 3am",
    "entry_id": "eben 3am:singular",
    "lesson_date": "2026-09-28",
-   "t_start": 2269,
-   "t_end": 2269,
+   "t_start": 2244,
+   "t_end": 2244,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "ولاد",
-   "said": "Oh، is there a word, is there a word for cousins?",
-   "reason": "Amal said 'we wouldn't say ولد عمي, what's the other word?'; he asked for the cousin word and she supplied ابن (sheet: 'cousin (male, paternal) | Eben 3am | ابن عم'). He then said 'I said ولاد'.",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "ولاد (عمي)",
+   "said": "بنت وولاد أخوي ... ولاد",
+   "reason": "Male cousin is ابن عم not ولد عمي; Amal said 'we wouldn't say ولد عمي, what's the other word?' and gave ابن; he said 'Okay, I said ولاد' (sheet: cousin (male, paternal) | Eben 3am).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-39a67af7"
   },
   {
-   "id": "audit:FA-9ad64b74",
-   "word_key": "2arIb~relative",
-   "entry_id": "2arIb~relative:singular",
+   "id": "audit:FA-98d6f261",
+   "word_key": "eben 5Al",
+   "entry_id": "eben 5Al:singular",
    "lesson_date": "2026-09-28",
-   "t_start": 2785,
-   "t_end": 2785,
+   "t_start": 2732,
+   "t_end": 2732,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
-   "text": "عائلة",
-   "said": "Relatives. عائلة? ... So close is قريب. ... قريبًا? ... قريبة? ... قرايب.",
-   "reason": "Didn't-know: 'relatives' was not on his cards; he guessed عائلة (No) and Amal hinted until قرايب. Sheet: 'relative | Qareeb | قريب'.",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "ولد خال",
+   "said": "ولد خال؟",
+   "reason": "Male cousin singular is ابن خال, not ولد خال; Amal recast 'Actually ابن' and he said 'Oh yeah, it's ابن' - a second fix of the ولد/ابن choice after 37:45 (sheet: cousin (male, maternal) | Eben 5aal).",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-9ad64b74"
+   "audit_uid": "FA-98d6f261"
   },
   {
    "id": "audit:FA-4c4ca2e5",
    "word_key": "a5",
    "entry_id": "a5:singular",
    "lesson_date": "2026-09-28",
-   "t_start": 2880,
-   "t_end": 2880,
+   "t_start": 2902,
+   "t_end": 2902,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
+   "assessment": "incorrect",
+   "vocab_points": 0,
    "text": "خوار",
-   "said": "There's a ف in there, right? ... خوار? ... أخوت، أخوت. أخوتي?",
-   "reason": "Didn't-know: he tried خوار (Farsi) and أخوت; Amal said No and supplied إخوة.",
+   "said": "خوار? No, خوار is... ... Is it خوار? ... أخوت، أخوت. ... أخوتي?",
+   "reason": "Siblings: after 'I forgot' he still attempted, offering the non-word خوار twice; Amal said No (48:29), explained أخوات = sisters, and gave إخوتي / إخوة - a non-word attempt she rejected is tier 1, not a bare didn't-know (he had the word before: 'I think we did this in a different lesson', 49:21); the later أخوة / إخوة vowel is pronunciation.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-4c4ca2e5"
+  },
+  {
+   "id": "audit:FA-63e2c2d1",
+   "word_key": "mura",
+   "entry_id": "mur:singular",
+   "lesson_date": "2026-09-28",
+   "t_start": 2983,
+   "t_end": 2983,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "مرات",
+   "said": "مرات.",
+   "reason": "For 'wife' he said مرات (plural / 'times'); Amal prompted 'my uncle's wife?' and he produced مرة then مرت خالي and مراتي, which she confirmed (sheet: woman / wife | Mara | مرة).",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-63e2c2d1"
   },
   {
    "id": "audit:FA-beb49479",
@@ -3436,11 +3018,49 @@
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "أفحد",
-   "said": "Is it أفحد؟",
-   "reason": "He knew the word family and offered the plural (metathesised أحفاد) for 'grandchild'; Amal said it is plural and asked for one, he gave حفيد. He attempted a wrong form, so tier 2, not a didn't-know.",
+   "text": "أفحد (engine; Amal's echo: أحفاد)",
+   "said": "I always mix up the plural and the singular. آآآ. ... Is it أفحد؟",
+   "reason": "Grandchild (singular): asked شو يعني grandchild he offered the plural (a7faad - engine wrote أفحد, Amal echoed أحفاد); she said 'أحفاد is plural, what's one?' and he fixed to حفيد (50:43) - the wrong form (plural for singular) of a word on her sheet (grandchildren (plural) | A7faad; grandson | 7afeed), tier 2, prompt-then-fix.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-beb49479"
+  },
+  {
+   "id": "audit:FA-1ebbf399",
+   "word_key": "sabIyeh",
+   "entry_id": "sabIyeh:singular",
+   "lesson_date": "2026-09-28",
+   "t_start": 3251,
+   "t_end": 3251,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "عصبية",
+   "said": "آ، بتكون صبية؟",
+   "reason": "Amal echoed his word back as عصبية (angry woman) three times and explained the difference, so he said 3asabiyye for sabiyye (young woman) - engine wrote صبية at 54:11. A different word, not a dropped letter (he added one). Sheet: 'young woman | Sâbiyyeh | صبية'.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-1ebbf399"
+  },
+  {
+   "id": "audit:FA-c856eb64",
+   "word_key": "sabIyeh",
+   "entry_id": "sabIyeh:singular",
+   "lesson_date": "2026-09-28",
+   "t_start": 3276,
+   "t_end": 3276,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "helped",
+   "vocab_points": 0.5,
+   "text": "(didn't know: plural of صبية)",
+   "said": "آآآ، إيش جمع سبية؟ ... Okay. What is it just for my curiosity? ... Just for my curiosity? What is it?",
+   "reason": "Amal asked شو جمع عصبية (54:34); he did not know and asked for it, she said it was not in the cards and then gave صبايا (54:53), he repeated it (55:04) - a didn't-know, tier 0, kept apart from A30 (his عصبية for صبية at 54:11).",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-c856eb64"
   },
   {
    "id": "audit:FA-6b79877d",
@@ -3453,11 +3073,11 @@
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
-   "assessment": "helped",
-   "vocab_points": 0.5,
+   "assessment": "incorrect",
+   "vocab_points": 0,
    "text": "مماير",
-   "said": "مـ-مماير؟ مميان؟",
-   "reason": "Didn't-know: he guessed non-words with question marks; Amal supplied ممرض (sheet: 'nurse | Mummared | ممرض').",
+   "said": "Um, مماير؟ مماين؟ ... ممار.",
+   "reason": "Nurse (sheet: nurse | Mummared | ممرض): he groped مماير / مماين / ممار for a word on her sheet, Amal recast ممرض and typed el-mummared, then he got the plural ممرضين - a mangled form of a word he knows, tier 2, the same way the agreed rows file زبان -> زبون (A32), كوفار -> كوافير (A33) and جيرار -> جيران (A34).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-6b79877d"
   },
@@ -3475,48 +3095,10 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "زبان",
-   "said": "زبـ-- آآآ زبان، زبان أو زباين.",
-   "reason": "Wrong singular form زبان; Amal recast زبون (sheet: 'customer | Zboon | زبون').",
+   "said": "oh my God uh زبان، زبان أو زباين.",
+   "reason": "Customer: he said زبان for the singular, Amal recast زبون، زباين and he repeated it (sheet: customer | Zboon | زبون).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-f6c9e014"
-  },
-  {
-   "id": "audit:FA-86d191ab",
-   "word_key": "sha3ar",
-   "entry_id": "sha3ar:word",
-   "lesson_date": "2026-09-28",
-   "t_start": 3699,
-   "t_end": 3699,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "streets",
-   "said": "Who makes the streets?",
-   "reason": "Listening: he heard شعرك as 'streets'; Amal repeated until he got 'hair'.",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-86d191ab"
-  },
-  {
-   "id": "audit:FA-491c9ab1",
-   "word_key": "7ala2",
-   "entry_id": "7ala2:singular",
-   "lesson_date": "2026-09-28",
-   "t_start": 3752,
-   "t_end": 3752,
-   "speaker": "Medi",
-   "spoken": true,
-   "review_locked": true,
-   "classification": "lexical",
-   "assessment": "incorrect",
-   "vocab_points": 0,
-   "text": "حلق",
-   "said": "على آآآ حلق.",
-   "reason": "He said حلق for 'barber'; Amal recast حلاق (sheet: 'barber | 7alla2 | حلاق').",
-   "source": "audit-2026-09-26",
-   "audit_uid": "FA-491c9ab1"
   },
   {
    "id": "audit:FA-efb76c4d",
@@ -3532,8 +3114,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "كوفار",
-   "said": "كوفا-كوفار، كوفار.",
-   "reason": "Wrong form of 'hairdresser'; Amal recast it (engine clipped her كوافير to وفير); sheet: 'hairdresser | Kwafair | كوافير'.",
+   "said": "آآآ، كوفا-كوفار، كوفار.",
+   "reason": "Hairdresser: he said كوفار, Amal recast كوافير (engine cut it to وفير) and he repeated كوفير (sheet: hairdresser | Kwafair | كوافير).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-efb76c4d"
   },
@@ -3552,7 +3134,7 @@
    "vocab_points": 0,
    "text": "جيرار",
    "said": "جيرار.",
-   "reason": "Wrong plural shape of جار (he knows the singular); after her hints (walls, teeth) Amal recast جيران.",
+   "reason": "Plural of جار: after her hint 'like walls, like teeth' he said جيرار, Amal recast جيران and he repeated it - an invented plural pattern.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-b6a6cbad"
   },
@@ -3569,49 +3151,68 @@
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "(asked)",
-   "said": "I really need the word for motivated.",
-   "reason": "Didn't-know: he asked for 'motivated' and Amal supplied متشجع.",
+   "text": "motivated",
+   "said": "I really need the word, I really need the word for motivated.",
+   "reason": "He asked outright for the word for 'motivated'; Amal supplied حافز/دافع (motivation) then متشجع (motivated) and typed it - a didn't-know, tier 0.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-127a867d"
   },
   {
-   "id": "audit:FA-d7918f68",
-   "word_key": "mitshaje3",
-   "entry_id": "mitshaje3:singular",
+   "id": "audit:FA-88cf5879",
+   "word_key": "su2et",
+   "entry_id": "ana baso2:past",
    "lesson_date": "2026-09-30",
-   "t_start": 414,
-   "t_end": 414,
+   "t_start": 441,
+   "t_end": 441,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "شجاع",
-   "said": "أنا مش شجاع عشان",
-   "reason": "He used شجاع (brave) for 'motivated'; Amal had just taught متشجع and recast it at once.",
+   "text": "سويت",
+   "said": "أنا سويت ... سويت، سويت، سويت، uh,",
+   "reason": "He said a form the engine wrote سويت four times while Amal could not place it (she guessed صرت, then gave the past of 'drive' - engine سألت, her chat 'ana su2et' shows the word was سقت); he said 'yeah' and repeated it (07:38) - a wrong form of ساق (sheet: 'i drove | su2et | سقت'), the -et ending was right so not B5. Audio must decide: if he said 'suwet' with a dropped ق it is S4 pronunciation and the row falls; if he said sawweet (I did) it is tier 1.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-d7918f68"
+   "audit_uid": "FA-88cf5879"
   },
   {
-   "id": "audit:FA-ac0aab01",
-   "word_key": "maw3ed",
-   "entry_id": "maw3ed:singular",
+   "id": "audit:FA-9b1db5d8",
+   "word_key": "hadAk",
+   "entry_id": "hadAk:word",
    "lesson_date": "2026-09-30",
-   "t_start": 735,
-   "t_end": 735,
+   "t_start": 1624,
+   "t_end": 1624,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "مواعد",
-   "said": "مواعد. ... Yeah الموعد.",
-   "reason": "He said a plural/wrong form مواعد; Amal recast the singular موعد.",
+   "text": "هناك",
+   "said": "So, هناك is that, right? ... And then هناك is that?",
+   "reason": "He used هناك (over there) as the demonstrative 'that'; Amal said no, it means over there, and the list is hadak / hadik.",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-ac0aab01"
+   "audit_uid": "FA-9b1db5d8"
+  },
+  {
+   "id": "audit:FA-77af7eae",
+   "word_key": "maftU7",
+   "entry_id": "maftU7:singular",
+   "lesson_date": "2026-09-30",
+   "t_start": 2244,
+   "t_end": 2244,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "مفتاح",
+   "said": "So باب الغرفة uh, مفتاح",
+   "reason": "For 'open' he said مفتاح (key, sheet 'key | Muftaa7 | مفتاح'); Amal recast مفتوح (sheet 'open | Maftoo7 | مفتوح').",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-77af7eae"
   },
   {
    "id": "audit:FA-d34ce259",
@@ -3633,23 +3234,42 @@
    "audit_uid": "FA-d34ce259"
   },
   {
-   "id": "audit:FA-033b326f",
-   "word_key": "7ada",
-   "entry_id": "7ada:word",
-   "lesson_date": "2026-10-01",
-   "t_start": 2778,
-   "t_end": 2778,
+   "id": "audit:FA-aeeaf48c",
+   "word_key": "shantet safar",
+   "entry_id": "shantet safar:word",
+   "lesson_date": "2026-09-30",
+   "t_start": 3535,
+   "t_end": 3535,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "incorrect",
    "vocab_points": 0,
-   "text": "هذا",
-   "said": "أكتر هذا إشي?",
-   "reason": "He used هذا (this) for 'person / someone'; Amal recast أكثر حدا (sheet: 'someone | 7ada | حدا') at 46:20 and 46:43.",
+   "text": "جزدان",
+   "said": "جزدان، Oh, جزدان",
+   "reason": "For 'suitcase' he offered جزدان (purse/wallet); Amal prompted 'the other word, big bag', he said 'I forgot' and she supplied شنتة سفر (sheet 'suitcase | Shantet safar | شنتة سفر').",
    "source": "audit-2026-09-26",
-   "audit_uid": "FA-033b326f"
+   "audit_uid": "FA-aeeaf48c"
+  },
+  {
+   "id": "audit:FA-5daec05f",
+   "word_key": "safra",
+   "entry_id": "safra:singular",
+   "lesson_date": "2026-10-01",
+   "t_start": 3128,
+   "t_end": 3128,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "سفر",
+   "said": "Uh, سفر",
+   "reason": "Asked 'what's trip?' he first said سفرة (52:01, right, sheet '(travel) trip | Safra | سفرة'), Amal said 'anything', and he then gave سفر (sheet 'traveling (noun) | Safar | سفر'), a different form of the same word; she answered at once with رحلة. سفرة - a recast on the transcript. Low because his first answer was right, her reply also reads as her listing the example nouns she wanted, and the engine may simply have dropped the final -a of سفرة; audio should settle it.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-5daec05f"
   },
   {
    "id": "audit:FA-172fc4ea",
@@ -3665,8 +3285,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "سمعت",
-   "said": "أنا سمعت متأخر اليوم",
-   "reason": "He said سمعت (I heard) for 'I woke up'; Amal voiced صحيت and asked what his word was, and he explained 'I listened'.",
+   "said": "أنا سمعت متأخر اليوم. صحيت. That's right. (engine wrote سمعت; he said sme3et)",
+   "reason": "He meant 'I woke up late' and said sme3et (I heard); Amal recast صحيت at 07:06, he repeated it and said 'That's right' (GR-24 - her word came after his), then she asked what his word was and he answered 'I listened'.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-172fc4ea"
   },
@@ -3684,8 +3304,8 @@
    "assessment": "incorrect",
    "vocab_points": 0,
    "text": "شجاع",
-   "said": "أنا لا مش شجاع اليوم. مش شجاع اليوم.",
-   "reason": "She asked لسه مش متشجع لل شغل؟ and he answered with شجاع (brave), a different lexical item; she recast متشجع at once - tier 1 (different word), not a form of متشجع.",
+   "said": "شجاع اليوم. متشجاع اليوم.",
+   "reason": "Answering 'لسه مش متشجع للشغل؟' he said shuja3 (brave) for mitshajje3 (motivated), then a stretched متشجاع; Amal recast متشجع (confusables group mitshajje3 / shuja3).",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-27538ea5"
   },
@@ -3694,19 +3314,38 @@
    "word_key": "ta5yIm",
    "entry_id": "ta5yIm:word",
    "lesson_date": "2026-10-02",
-   "t_start": 858,
-   "t_end": 858,
+   "t_start": 873,
+   "t_end": 873,
    "speaker": "Medi",
    "spoken": true,
    "review_locked": true,
    "classification": "lexical",
    "assessment": "helped",
    "vocab_points": 0.5,
-   "text": "camping",
-   "said": "Oh my gosh, I forgot the word for, for camping.",
-   "reason": "He asked for 'camping'; Amal hinted خيمة and he got takheem (ta5yeem).",
+   "text": "تشكيل",
+   "said": "تش- تشكيل؟ / Tesh-- Was it tesh-- What was it?",
+   "reason": "'I forgot the word for camping' (14:14) - a didn't-know: she hinted with خيمة and supplied تخييم (sheet: camping | ta5yeem | تخييم); his تشكيل was a guess asked as a question, so tier 0.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-c093d0ab"
+  },
+  {
+   "id": "audit:FA-ee7adb71",
+   "word_key": "3ashrah",
+   "entry_id": "3ashrah:word",
+   "lesson_date": "2026-10-02",
+   "t_start": 940,
+   "t_end": 940,
+   "speaker": "Medi",
+   "spoken": true,
+   "review_locked": true,
+   "classification": "lexical",
+   "assessment": "incorrect",
+   "vocab_points": 0,
+   "text": "عشا",
+   "said": "Talat عشا، ألفين ستة وعشرين",
+   "reason": "Saying the date (13 = talat 3ashara, her chat) he said talat 3asha - the word for dinner (sheet: dinner | 3asha | عشا); this is not the engine (TR-26 el-3ashrah/el-3asha) because Amal reacted to it: she echoed عشاء at 15:42, he fixed to عشرة at 15:44, then she asked 'What's عشاء؟' and he said 'dinner'; tier 2 because it is a mangled form of a number he knows (sheet: ten | 3ashrah | عشرة), fixed the moment she echoed it, not a lexical choice of the wrong word.",
+   "source": "audit-2026-09-26",
+   "audit_uid": "FA-ee7adb71"
   },
   {
    "id": "audit:FA-5442b74f",
@@ -3723,7 +3362,7 @@
    "vocab_points": 0,
    "text": "اليوم",
    "said": "هذي اليوم التانية.",
-   "reason": "He said اليوم (day) where he meant المرة (time); Amal supplied هذي المرة and he rebuilt it.",
+   "reason": "For 'this is the second time (I see you today)' he said hadi el-yoam el-taanye; Amal echoed هذي اليوم and recast مرة, هذي المرة; he rebuilt هذي المرة التانية اللي بشوفك اليوم.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-5442b74f"
   },
@@ -3742,7 +3381,7 @@
    "vocab_points": 0,
    "text": "الطريقة",
    "said": "أنا بسوق نفس الطريقة",
-   "reason": "طريقة is 'way/method'; for 'route' Amal recast طريق and he fixed نفس الطريق.",
+   "reason": "6ariqa (way / method, on her sheet) for 6ariq (road / route, on her sheet); Amal recast طريق and asked what طريقة means, he answered 'a way of doing things' and said نفس الطريق.",
    "source": "audit-2026-09-26",
    "audit_uid": "FA-605b741f"
   },
@@ -3982,19 +3621,63 @@
    "t": 1319,
    "key": "ana ba7rej",
    "kind": "asked",
-   "said": "Bahrej. Bahrej. Shu yanni?",
-   "wrong": "bahrej",
+   "said": "بحرج، بحرج، شو يعني؟",
+   "wrong": "بحرج",
    "why": "no Word Bank row for this list word",
    "keyed_by": "reader"
   },
   {
-   "uid": "FA-85bd2a71",
-   "date": "2026-09-11",
-   "t": 1572,
-   "key": "ana ba7ut",
+   "uid": "FA-968ffd70",
+   "date": "2026-09-04",
+   "t": 2489,
+   "key": "ana balA2i",
+   "kind": "asked",
+   "said": "Laeti? Laeti ... hold on. These words are jumbling together now this is problem. Laeit, laeit mal",
+   "wrong": "laiti",
+   "why": "which list word it is waits for a reader (the automatic match was part)",
+   "keyed_by": "auto-part"
+  },
+  {
+   "uid": "FA-cb94d5be",
+   "date": "2026-09-10",
+   "t": 1786,
+   "key": "ana bakser",
    "kind": "wrong",
-   "said": "إذا ما بتفتحي،",
-   "wrong": "بتفتحي",
+   "said": "شو سكرتي؟",
+   "wrong": "سكرتي",
+   "why": "which list word it is waits for a reader (the automatic match was part)",
+   "keyed_by": "auto-part"
+  },
+  {
+   "uid": "FA-55190226",
+   "date": "2026-09-15",
+   "t": 2658,
+   "key": "sha3ar",
+   "kind": "wrong",
+   "said": "لون شهرها؟ ... Oh, شهرك. ... شهرك",
+   "wrong": "شهرك",
+   "why": "which list word it is waits for a reader (the automatic match was part)",
+   "keyed_by": "auto-part"
+  },
+  {
+   "uid": "FA-e81bd40b",
+   "date": "2026-09-15",
+   "t": 3926,
+   "key": "kulshi",
+   "kind": "wrong",
+   "said": "بدي أتمرن uh, الكل، um, كتير ... All the words? You can't just say in general? El kul. Do I need to say el kul, el sema or... Kul.",
+   "wrong": "الكل",
+   "why": "which list word it is waits for a reader (the automatic match was latin)",
+   "keyed_by": "auto-latin"
+  },
+  {
+   "uid": "FA-f31ba26f",
+   "date": "2026-09-18",
+   "t": 2218,
+   "key": "ana ba3aseb",
+   "kind": "wrong",
+   "said": "So is it, uh, خليك؟",
+   "wrong": "خليك",
    "why": "which list word it is waits for a reader (the automatic match was part)",
    "keyed_by": "auto-part"
   },
@@ -4037,8 +3720,8 @@
    "t": 3448,
    "key": "ma3",
    "kind": "asked",
-   "said": "I agree. Hold on. How do I say I agree?",
-   "wrong": "agree",
+   "said": "I agree. Hold on. How do I say I agree? ... Sa, uh, sa? Sa min, sa minik?",
+   "wrong": "(no word for 'you're right / I agree')",
    "why": "a preposition: the Word Bank scores prepositions as grammar, not words (2026-09-21) - rule conflict, Medi to decide",
    "keyed_by": "reader",
    "grammar": true
@@ -4073,7 +3756,7 @@
    "t": 917,
    "key": "ana babda",
    "kind": "wrong",
-   "said": "اه، دبا.",
+   "said": "اه، دبا. ... اه، أنا فكرت إنه الخفيف دبا started. ... So it's دبا?",
    "wrong": "دبا",
    "why": "which list word it is waits for a reader (the automatic match was part)",
    "keyed_by": "auto-part"
@@ -4085,7 +3768,7 @@
    "key": "3end",
    "kind": "wrong",
    "said": "How long will you stay with me؟",
-   "wrong": "عنا = with me",
+   "wrong": "with me",
    "why": "a preposition: the Word Bank scores prepositions as grammar, not words (2026-09-21) - rule conflict, Medi to decide",
    "keyed_by": "reader",
    "grammar": true
@@ -4103,16 +3786,26 @@
    "grammar": true
   },
   {
-   "uid": "FA-4456ef11",
-   "date": "2026-09-26",
-   "t": 3385,
-   "key": "zaI",
+   "uid": "FA-f056d488",
+   "date": "2026-09-23",
+   "t": 3024,
+   "key": "furshayet snan",
    "kind": "wrong",
-   "said": "شيك- شيكي لو، uh, لون، m-- uh، كندرتي.",
-   "wrong": "شيكي لو",
-   "why": "a preposition: the Word Bank scores prepositions as grammar, not words (2026-09-21) - rule conflict, Medi to decide",
-   "keyed_by": "reader",
-   "grammar": true
+   "said": "Yeah. موعد دكتور لـ الأسنان، دكتور الأسنان.",
+   "wrong": "الأسنان",
+   "why": "which list word it is waits for a reader (the automatic match was part)",
+   "keyed_by": "auto-part"
+  },
+  {
+   "uid": "FA-6baf0d9e",
+   "date": "2026-09-26",
+   "t": 1714,
+   "key": "kul 2am u enti b5eir",
+   "kind": "wrong",
+   "said": "دكتور عادي؟ ... How would I say, like, general doctor?",
+   "wrong": "عادي",
+   "why": "which list word it is waits for a reader (the automatic match was part)",
+   "keyed_by": "auto-part"
   },
   {
    "uid": "FA-24b68dea",
@@ -4132,19 +3825,19 @@
    "t": 1596,
    "key": "shu8ul",
    "kind": "wrong",
-   "said": "فـ شغلين، شغلات.",
-   "wrong": "شغلين، شغلات",
+   "said": "آآ شغلين، شغلات.",
+   "wrong": "شغلات",
    "why": "which list word it is waits for a reader (the automatic match was latin)",
    "keyed_by": "auto-latin"
   },
   {
-   "uid": "FA-7e835cb3",
+   "uid": "FA-20efe475",
    "date": "2026-09-30",
-   "t": 497,
-   "key": "mit7ames",
+   "t": 792,
+   "key": "ana bafarji",
    "kind": "wrong",
-   "said": "أنا كنت بهمس. أنا كنت أهمس.",
-   "wrong": "بهمس",
+   "said": "كانت متحمسة كتير لما شفت السجادة.",
+   "wrong": "شفت",
    "why": "which list word it is waits for a reader (the automatic match was part)",
    "keyed_by": "auto-part"
   },
@@ -4154,32 +3847,10 @@
    "t": 1130,
    "key": "ana babse6",
    "kind": "wrong",
-   "said": "الولاد الصغار ... بيضحوا.",
-   "wrong": "بيضحوا",
+   "said": "بيضحكوا.",
+   "wrong": "بيضحكوا",
    "why": "which list word it is waits for a reader (the automatic match was part)",
    "keyed_by": "auto-part"
-  },
-  {
-   "uid": "FA-9b1db5d8",
-   "date": "2026-09-30",
-   "t": 1624,
-   "key": "hadAk",
-   "kind": "asked",
-   "said": "So, honak is that, right?",
-   "wrong": "honak",
-   "why": "which list word it is waits for a reader (the automatic match was latin)",
-   "keyed_by": "auto-latin"
-  },
-  {
-   "uid": "FA-d7775cb3",
-   "date": "2026-09-30",
-   "t": 1779,
-   "key": "shab",
-   "kind": "wrong",
-   "said": "hadak el zalameh.",
-   "wrong": "zalameh",
-   "why": "which list word it is waits for a reader (the automatic match was latin)",
-   "keyed_by": "auto-latin"
   },
   {
    "uid": "FA-b664c997",
@@ -4188,7 +3859,7 @@
    "key": "3ayAn",
    "kind": "asked",
    "said": "I forgot the word for, like, mild sickness.",
-   "wrong": "(forgot)",
+   "wrong": "sick",
    "why": "which list word it is waits for a reader (the automatic match was part)",
    "keyed_by": "auto-part"
   },
@@ -4215,26 +3886,37 @@
    "keyed_by": "auto-part"
   },
   {
+   "uid": "FA-736711de",
+   "date": "2026-10-01",
+   "t": 93,
+   "key": "alsA3a talAte u tult",
+   "kind": "wrong",
+   "said": "لسه الـ divine يروحوا. (engine wrote 'divine' = الزباين, see Amal's echo at 01:40)",
+   "wrong": "لسه",
+   "why": "which list word it is waits for a reader (the automatic match was part)",
+   "keyed_by": "auto-part"
+  },
+  {
+   "uid": "FA-86e94285",
+   "date": "2026-10-01",
+   "t": 3789,
+   "key": "seiyara",
+   "kind": "asked",
+   "said": "uh, like not this car, the other car. You wouldn't say say...",
+   "wrong": "(asked) the other car - he was reaching for غير",
+   "why": "which list word it is waits for a reader (the automatic match was part)",
+   "keyed_by": "auto-part"
+  },
+  {
    "uid": "FA-c7cbcaff",
    "date": "2026-10-02",
    "t": 584,
    "key": "ana basAfer",
    "kind": "wrong",
-   "said": "أنا لازم أخد أطلع وسفر، سفر.",
+   "said": "أنا لازم أخد عطلة وسفر، سفر.",
    "wrong": "سفر",
    "why": "which list word it is waits for a reader (the automatic match was part)",
    "keyed_by": "auto-part"
-  },
-  {
-   "uid": "FA-ee7adb71",
-   "date": "2026-10-02",
-   "t": 940,
-   "key": "3ashrah",
-   "kind": "wrong",
-   "said": "Talat Asha Alfayn Sitwa Ashrin.",
-   "wrong": "Asha",
-   "why": "which list word it is waits for a reader (the automatic match was sound)",
-   "keyed_by": "auto-sound"
   },
   {
    "uid": "FA-310fd0ae",
@@ -4328,34 +4010,378 @@
  ],
  "overrides": [
   {
-   "event_id": "eabf8bd0e7a8d8ae8a21dc1718560d2f8edbe85406ed003b04f797b2d25d2843",
-   "date": "2026-09-14",
-   "mark": "rg:FA-b0398c9e",
-   "was": "wrong",
+   "event_id": "6b40eb8181cdca73e71562bfb4563121d6914dfc1269cdba045cd2952a927a68",
+   "date": "2026-09-10",
+   "mark": "wb:6b40eb8181cdca73e71562bfb4563121d6914dfc1269cdba045cd2952a927a68",
+   "was": "right",
    "changes": {
-    "grammar_only": true,
-    "classification": "grammar",
-    "ledger": "rg:FA-b0398c9e",
-    "ledger_reason": "Grammar, not vocabulary: the same slip is counted as grammar A8 (WS-06)"
+    "tutor_listened": true,
+    "ledger": "wb:6b40eb8181cdca73e71562bfb4563121d6914dfc1269cdba045cd2952a927a68",
+    "ledger_reason": "the tutor listened: the word is not there - the credit is removed (TR-27)"
    },
    "expected": {
-    "word_key": "azra2",
-    "t_start": 1395.72
+    "word_key": "alyoum",
+    "t_start": 473.03439448999995
+   }
+  },
+  {
+   "event_id": "63d9396266e4b953096e3a9b43ac3c3462234c4e4c8002ff9ef4bde65a356e3f",
+   "date": "2026-09-10",
+   "mark": "wb:63d9396266e4b953096e3a9b43ac3c3462234c4e4c8002ff9ef4bde65a356e3f",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:63d9396266e4b953096e3a9b43ac3c3462234c4e4c8002ff9ef4bde65a356e3f",
+    "ledger_reason": "the recording engine wrote أو; you said Or (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 820.10239449
+   }
+  },
+  {
+   "event_id": "07b0da35c5ca5bbfe06f4364e177a8b9330204ef6bed76dac8c9acffd17de32f",
+   "date": "2026-09-10",
+   "mark": "wb:07b0da35c5ca5bbfe06f4364e177a8b9330204ef6bed76dac8c9acffd17de32f",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:07b0da35c5ca5bbfe06f4364e177a8b9330204ef6bed76dac8c9acffd17de32f",
+    "ledger_reason": "the recording engine wrote ماضي.; you said معي (TR-22)"
+   },
+   "expected": {
+    "word_key": "mAdi",
+    "t_start": 956.26239449
+   }
+  },
+  {
+   "event_id": "c523c69c3db3f8389016dadfbfe14559e2e93df85a9815827dec65640ba23e91",
+   "date": "2026-09-10",
+   "mark": "wb:c523c69c3db3f8389016dadfbfe14559e2e93df85a9815827dec65640ba23e91",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:c523c69c3db3f8389016dadfbfe14559e2e93df85a9815827dec65640ba23e91",
+    "ledger_reason": "the recording engine wrote أو; you said or (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 2613.9643944900004
+   }
+  },
+  {
+   "event_id": "560236df44e235109ab238c8661cc28babf4eab6380c9e6190664c4bfc54379c",
+   "date": "2026-09-10",
+   "mark": "wb:560236df44e235109ab238c8661cc28babf4eab6380c9e6190664c4bfc54379c",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:560236df44e235109ab238c8661cc28babf4eab6380c9e6190664c4bfc54379c",
+    "ledger_reason": "the recording engine wrote الجو; you said الشوب (TR-22)"
+   },
+   "expected": {
+    "word_key": "jaw",
+    "t_start": 2975.45439449
+   }
+  },
+  {
+   "event_id": "ec19ab99ccd353a9a0b6490a389a6d4d0ea12f22bccf3252670342e19efbce66",
+   "date": "2026-09-10",
+   "mark": "wb:ec19ab99ccd353a9a0b6490a389a6d4d0ea12f22bccf3252670342e19efbce66",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:ec19ab99ccd353a9a0b6490a389a6d4d0ea12f22bccf3252670342e19efbce66",
+    "ledger_reason": "the recording engine wrote أبدًا، uh, ما--; you said um... (TR-22)"
+   },
+   "expected": {
+    "word_key": "abadan",
+    "t_start": 3088.18339449
+   }
+  },
+  {
+   "event_id": "4460ebfdcea9576b0681cbc8747e6eb60164eb55e7dd574eb2b181f7885ac535",
+   "date": "2026-09-11",
+   "mark": "wb:4460ebfdcea9576b0681cbc8747e6eb60164eb55e7dd574eb2b181f7885ac535",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:4460ebfdcea9576b0681cbc8747e6eb60164eb55e7dd574eb2b181f7885ac535",
+    "ledger_reason": "the recording engine wrote بشتغل; you said بفضّل (TR-22)"
+   },
+   "expected": {
+    "word_key": "ana bashte8el",
+    "t_start": 508.455565139
+   }
+  },
+  {
+   "event_id": "10554378a6acdc4d2eb537b8644ee31c203c084d80a8ad7d1b143333934cb967",
+   "date": "2026-09-11",
+   "mark": "wb:10554378a6acdc4d2eb537b8644ee31c203c084d80a8ad7d1b143333934cb967",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:10554378a6acdc4d2eb537b8644ee31c203c084d80a8ad7d1b143333934cb967",
+    "ledger_reason": "the recording engine wrote فعل; you said في أول (TR-22)"
+   },
+   "expected": {
+    "word_key": "fe3el",
+    "t_start": 771.497565139
+   }
+  },
+  {
+   "event_id": "1b21dcb656ed15207f0870524e64c96f5a8300b5ab2ef631d738857b32e76912",
+   "date": "2026-09-14",
+   "mark": "wb:1b21dcb656ed15207f0870524e64c96f5a8300b5ab2ef631d738857b32e76912",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:1b21dcb656ed15207f0870524e64c96f5a8300b5ab2ef631d738857b32e76912",
+    "ledger_reason": "the recording engine wrote اسم, اسم.; you said أسماء. (TR-22)"
+   },
+   "expected": {
+    "word_key": "esem",
+    "t_start": 508.777088516
+   }
+  },
+  {
+   "event_id": "7099cac44e5641c5a14a9c8a20a70fd9f6c1f987f289a0eaa7f0f17a1a943a0e",
+   "date": "2026-09-14",
+   "mark": "wb:7099cac44e5641c5a14a9c8a20a70fd9f6c1f987f289a0eaa7f0f17a1a943a0e",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:7099cac44e5641c5a14a9c8a20a70fd9f6c1f987f289a0eaa7f0f17a1a943a0e",
+    "ledger_reason": "the recording engine wrote بس إيش؟; you said as in, (TR-22)"
+   },
+   "expected": {
+    "word_key": "bas",
+    "t_start": 1531.297088516
+   }
+  },
+  {
+   "event_id": "037df3920228591fcdb5a79e8ef14ff71ff940b0f86e14318fd1036834b2ccae",
+   "date": "2026-09-14",
+   "mark": "wb:037df3920228591fcdb5a79e8ef14ff71ff940b0f86e14318fd1036834b2ccae",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:037df3920228591fcdb5a79e8ef14ff71ff940b0f86e14318fd1036834b2ccae",
+    "ledger_reason": "the recording engine wrote أو; you said or (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 1574.777088516
+   }
+  },
+  {
+   "event_id": "e1020d281c5390a9159e05eb5ef067c44985f07afe391e48b8e5aa33dbbf5d4f",
+   "date": "2026-09-14",
+   "mark": "wb:e1020d281c5390a9159e05eb5ef067c44985f07afe391e48b8e5aa33dbbf5d4f",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:e1020d281c5390a9159e05eb5ef067c44985f07afe391e48b8e5aa33dbbf5d4f",
+    "ledger_reason": "the recording engine wrote هيك,; you said حكيت, (TR-22)"
+   },
+   "expected": {
+    "word_key": "heik",
+    "t_start": 2007.397088516
    }
   },
   {
    "event_id": "820cb91913d06b663f5731b109e655b13e157c33d22fd7e20807d91c9cbe4c96",
    "date": "2026-09-14",
-   "mark": "ra:FA-bd7e954c",
+   "mark": "wb:820cb91913d06b663f5731b109e655b13e157c33d22fd7e20807d91c9cbe4c96",
    "was": "right",
    "changes": {
     "observation_only": true,
-    "ledger": "ra:FA-bd7e954c",
-    "ledger_reason": "Said here, another word intended: Amal repeats it right (هيك)"
+    "ledger": "wb:820cb91913d06b663f5731b109e655b13e157c33d22fd7e20807d91c9cbe4c96",
+    "ledger_reason": "the recording engine wrote min akthar min, akthar min hada.; you said من، أكثر من، أكثر من هذا. (TR-22)"
    },
    "expected": {
     "word_key": "hada",
     "t_start": 3123.839088516
+   }
+  },
+  {
+   "event_id": "95024d192002ebdce86801c80a68742732b57834002ce9aeb68d9ff9640e632e",
+   "date": "2026-09-14",
+   "mark": "wb:95024d192002ebdce86801c80a68742732b57834002ce9aeb68d9ff9640e632e",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:95024d192002ebdce86801c80a68742732b57834002ce9aeb68d9ff9640e632e",
+    "ledger_reason": "the recording engine wrote انبسط.; you said  (TR-22)"
+   },
+   "expected": {
+    "word_key": "enbese6",
+    "t_start": 3580.203088516
+   }
+  },
+  {
+   "event_id": "07d23b9d973eda1fc2ab1578f12429707ffaedf0f838ad5419305610b98af5c7",
+   "date": "2026-09-14",
+   "mark": "wb:07d23b9d973eda1fc2ab1578f12429707ffaedf0f838ad5419305610b98af5c7",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:07d23b9d973eda1fc2ab1578f12429707ffaedf0f838ad5419305610b98af5c7",
+    "ledger_reason": "the recording engine wrote إلا Azume.; you said العزومة، (TR-22)"
+   },
+   "expected": {
+    "word_key": "ila",
+    "t_start": 3684.5830885160003
+   }
+  },
+  {
+   "event_id": "d3c10f22396756d0e419883ef352fbeb75647609a73109c329e7cef4310af578",
+   "date": "2026-09-15",
+   "mark": "wb:d3c10f22396756d0e419883ef352fbeb75647609a73109c329e7cef4310af578",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:d3c10f22396756d0e419883ef352fbeb75647609a73109c329e7cef4310af578",
+    "ledger_reason": "the recording engine wrote راي،; you said را... (TR-22)"
+   },
+   "expected": {
+    "word_key": "ra2ei",
+    "t_start": 1781.743497106
+   }
+  },
+  {
+   "event_id": "f4c1e2b67b36844ef10844066f83ff5efdf1f5383338c4fb900e22518411921e",
+   "date": "2026-09-16",
+   "mark": "wb:f4c1e2b67b36844ef10844066f83ff5efdf1f5383338c4fb900e22518411921e",
+   "was": "right",
+   "changes": {
+    "tutor_listened": true,
+    "ledger": "wb:f4c1e2b67b36844ef10844066f83ff5efdf1f5383338c4fb900e22518411921e",
+    "ledger_reason": "the tutor listened: the word is not there - the credit is removed (TR-27)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 585.351120611
+   }
+  },
+  {
+   "event_id": "93e301c40354878c26da27547ddec9f82cce59b7ce50ba3696ca2d7a6437ba48",
+   "date": "2026-09-16",
+   "mark": "wb:93e301c40354878c26da27547ddec9f82cce59b7ce50ba3696ca2d7a6437ba48",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:93e301c40354878c26da27547ddec9f82cce59b7ce50ba3696ca2d7a6437ba48",
+    "ledger_reason": "the recording engine wrote enno; you said إنه (TR-22)"
+   },
+   "expected": {
+    "word_key": "eno",
+    "t_start": 3145.8731206109996
+   }
+  },
+  {
+   "event_id": "dea33a460b379fdb1fc3a49b54672609fa76386e13f33a7c3e0506287d71ab75",
+   "date": "2026-09-17",
+   "mark": "wb:dea33a460b379fdb1fc3a49b54672609fa76386e13f33a7c3e0506287d71ab75",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:dea33a460b379fdb1fc3a49b54672609fa76386e13f33a7c3e0506287d71ab75",
+    "ledger_reason": "the recording engine wrote gambari،; you said جمبري، (TR-22)"
+   },
+   "expected": {
+    "word_key": "gambari",
+    "t_start": 352.576021157
+   }
+  },
+  {
+   "event_id": "247bf7025518b875757565c61105cc899e009bd18ffc39dfeab41560ba183d3f",
+   "date": "2026-09-17",
+   "mark": "wb:247bf7025518b875757565c61105cc899e009bd18ffc39dfeab41560ba183d3f",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:247bf7025518b875757565c61105cc899e009bd18ffc39dfeab41560ba183d3f",
+    "ledger_reason": "the recording engine wrote enno lama,; you said إنّه لمّا (TR-22)"
+   },
+   "expected": {
+    "word_key": "eno",
+    "t_start": 2924.3160211570003
+   }
+  },
+  {
+   "event_id": "11b4bc261b08122f5a55a300a4acfc53caaaf11be9e396d4198956fbc8879a5b",
+   "date": "2026-09-19",
+   "mark": "wb:11b4bc261b08122f5a55a300a4acfc53caaaf11be9e396d4198956fbc8879a5b",
+   "was": "wrong",
+   "changes": {
+    "tutor_listened": true,
+    "ledger": "wb:11b4bc261b08122f5a55a300a4acfc53caaaf11be9e396d4198956fbc8879a5b",
+    "ledger_reason": "the tutor listened: the word is not there - the credit is removed (TR-27)"
+   },
+   "expected": {
+    "word_key": "rI7a",
+    "t_start": 576.242310796
+   }
+  },
+  {
+   "event_id": "2b63278686e97f80a073af159f646dd8e13dd39d605da98e61ad899ca34f982e",
+   "date": "2026-09-21",
+   "mark": "wb:2b63278686e97f80a073af159f646dd8e13dd39d605da98e61ad899ca34f982e",
+   "was": "right",
+   "changes": {
+    "tutor_listened": true,
+    "ledger": "wb:2b63278686e97f80a073af159f646dd8e13dd39d605da98e61ad899ca34f982e",
+    "ledger_reason": "the tutor listened: the word is not there - the credit is removed (TR-27)"
+   },
+   "expected": {
+    "word_key": null,
+    "t_start": 707.394506425
+   }
+  },
+  {
+   "event_id": "7d47d9ad84ff155b76739d376a70a02e4d8145e9f99f08ff2ac16a50ec2cca7a",
+   "date": "2026-09-21",
+   "mark": "wb:7d47d9ad84ff155b76739d376a70a02e4d8145e9f99f08ff2ac16a50ec2cca7a",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:7d47d9ad84ff155b76739d376a70a02e4d8145e9f99f08ff2ac16a50ec2cca7a",
+    "ledger_reason": "the recording engine wrote بس هذا.; you said بصل. (TR-22)"
+   },
+   "expected": {
+    "word_key": "bas",
+    "t_start": 1043.004506425
+   }
+  },
+  {
+   "event_id": "43a008ed1da359aa99c7caa7bd5b066adcdf1888abe1a7738cdb1bc0d594c4db",
+   "date": "2026-09-21",
+   "mark": "wb:43a008ed1da359aa99c7caa7bd5b066adcdf1888abe1a7738cdb1bc0d594c4db",
+   "was": "right",
+   "changes": {
+    "tutor_listened": true,
+    "ledger": "wb:43a008ed1da359aa99c7caa7bd5b066adcdf1888abe1a7738cdb1bc0d594c4db",
+    "ledger_reason": "the tutor listened: the word is not there - the credit is removed (TR-27)"
+   },
+   "expected": {
+    "word_key": "ba3dain",
+    "t_start": 1466.594506425
+   }
+  },
+  {
+   "event_id": "fd88e6e32acdcc7419d225d681a1a9d359d74815429c052267ecd73fb2e21c41",
+   "date": "2026-09-21",
+   "mark": "wb:fd88e6e32acdcc7419d225d681a1a9d359d74815429c052267ecd73fb2e21c41",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:fd88e6e32acdcc7419d225d681a1a9d359d74815429c052267ecd73fb2e21c41",
+    "ledger_reason": "the recording engine wrote أو; you said و... (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 1740.694506425
    }
   },
   {
@@ -4374,6 +4400,81 @@
    }
   },
   {
+   "event_id": "ae584125677a861f8a847daad52a18842c9bd1d4af8b8350a6a7b531809ea2eb",
+   "date": "2026-09-21",
+   "mark": "wb:ae584125677a861f8a847daad52a18842c9bd1d4af8b8350a6a7b531809ea2eb",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:ae584125677a861f8a847daad52a18842c9bd1d4af8b8350a6a7b531809ea2eb",
+    "ledger_reason": "the recording engine wrote shukran.; you said شكرًا (TR-22)"
+   },
+   "expected": {
+    "word_key": "shukran",
+    "t_start": 2018.264506425
+   }
+  },
+  {
+   "event_id": "6c006095b2c2b375b14cc4e1c278541f60f321094c4aa37d2bccbd6e9b12ffb3",
+   "date": "2026-09-21",
+   "mark": "wb:6c006095b2c2b375b14cc4e1c278541f60f321094c4aa37d2bccbd6e9b12ffb3",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:6c006095b2c2b375b14cc4e1c278541f60f321094c4aa37d2bccbd6e9b12ffb3",
+    "ledger_reason": "the recording engine wrote بس أعمل; you said بستعمل (TR-22)"
+   },
+   "expected": {
+    "word_key": "bas",
+    "t_start": 2866.044506425
+   }
+  },
+  {
+   "event_id": "7ba631cd15134c2175ca9234ecf1375c30c400634848718d90626531e8c96687",
+   "date": "2026-09-21",
+   "mark": "wb:7ba631cd15134c2175ca9234ecf1375c30c400634848718d90626531e8c96687",
+   "was": "right",
+   "changes": {
+    "tutor_listened": true,
+    "ledger": "wb:7ba631cd15134c2175ca9234ecf1375c30c400634848718d90626531e8c96687",
+    "ledger_reason": "the tutor listened: the word is not there - the credit is removed (TR-27)"
+   },
+   "expected": {
+    "word_key": null,
+    "t_start": 3911.580506425
+   }
+  },
+  {
+   "event_id": "bed8a3bc0f036de8b5326087b6ef0d9adf77e4f468d69510d4d474a60ab312de",
+   "date": "2026-09-21",
+   "mark": "wb:bed8a3bc0f036de8b5326087b6ef0d9adf77e4f468d69510d4d474a60ab312de",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:bed8a3bc0f036de8b5326087b6ef0d9adf77e4f468d69510d4d474a60ab312de",
+    "ledger_reason": "the recording engine wrote ana baf-bazun enno ashan,; you said أنا بفـ بظن إنه عشان (TR-22)"
+   },
+   "expected": {
+    "word_key": "eno",
+    "t_start": 4225.470506425
+   }
+  },
+  {
+   "event_id": "4e790eda742351a872bcb1fda0c2ac254fdff774c4b0208259c5cb1a90f14505",
+   "date": "2026-09-21",
+   "mark": "wb:4e790eda742351a872bcb1fda0c2ac254fdff774c4b0208259c5cb1a90f14505",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:4e790eda742351a872bcb1fda0c2ac254fdff774c4b0208259c5cb1a90f14505",
+    "ledger_reason": "the recording engine wrote Shukran. Al-yafeeki, shukran.; you said شكراً. الله يعافيكِ، شكراً. (TR-22)"
+   },
+   "expected": {
+    "word_key": "shukran",
+    "t_start": 4318.850506424999
+   }
+  },
+  {
    "event_id": "2107970d53aa8cf490c60e7601503da9799d80bb945a7c9ead99c0413fde9dab",
    "date": "2026-09-21",
    "mark": "ra:FA-85c2bfca",
@@ -4386,6 +4487,36 @@
    "expected": {
     "word_key": "6ari2",
     "t_start": 2628.384506425
+   }
+  },
+  {
+   "event_id": "a651ada292186c683688d9f6e01ece7ffdf9b96b411305eead1ddd16588d07f1",
+   "date": "2026-09-23",
+   "mark": "wb:a651ada292186c683688d9f6e01ece7ffdf9b96b411305eead1ddd16588d07f1",
+   "was": "right",
+   "changes": {
+    "tutor_listened": true,
+    "ledger": "wb:a651ada292186c683688d9f6e01ece7ffdf9b96b411305eead1ddd16588d07f1",
+    "ledger_reason": "the tutor listened: the word is not there - the credit is removed (TR-27)"
+   },
+   "expected": {
+    "word_key": "inti fhemti",
+    "t_start": 1560.366308591
+   }
+  },
+  {
+   "event_id": "294714a0e961eebb6c457bee8886460de93063fc594cbc1824914b3460666c54",
+   "date": "2026-09-23",
+   "mark": "wb:294714a0e961eebb6c457bee8886460de93063fc594cbc1824914b3460666c54",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:294714a0e961eebb6c457bee8886460de93063fc594cbc1824914b3460666c54",
+    "ledger_reason": "the recording engine wrote أوناس أو، أوناس; you said Oh نص، uh-oh، Oh نص (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 1690.126308591
    }
   },
   {
@@ -4404,6 +4535,81 @@
    }
   },
   {
+   "event_id": "e348b7424dbe76f7db320f79fba96253666b8d882d79e1cd23709136b540af8c",
+   "date": "2026-09-26",
+   "mark": "wb:e348b7424dbe76f7db320f79fba96253666b8d882d79e1cd23709136b540af8c",
+   "was": "right",
+   "changes": {
+    "tutor_listened": true,
+    "ledger": "wb:e348b7424dbe76f7db320f79fba96253666b8d882d79e1cd23709136b540af8c",
+    "ledger_reason": "the tutor listened: the word is not there - the credit is removed (TR-27)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 700.374089638
+   }
+  },
+  {
+   "event_id": "4e28e9d11353318bba1bf4c65d35a3de9d391893a9c73d1d5babbdb999819487",
+   "date": "2026-09-26",
+   "mark": "wb:4e28e9d11353318bba1bf4c65d35a3de9d391893a9c73d1d5babbdb999819487",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:4e28e9d11353318bba1bf4c65d35a3de9d391893a9c73d1d5babbdb999819487",
+    "ledger_reason": "the recording engine wrote [background noise] كان; you said and, (TR-22)"
+   },
+   "expected": {
+    "word_key": "huwe kAn",
+    "t_start": 1272.3640896380002
+   }
+  },
+  {
+   "event_id": "56f5e2b5bc4543818c9e4aa3494e49bd9eda57dd49895ecbb930ef315f78f6ce",
+   "date": "2026-09-26",
+   "mark": "wb:56f5e2b5bc4543818c9e4aa3494e49bd9eda57dd49895ecbb930ef315f78f6ce",
+   "was": "right",
+   "changes": {
+    "tutor_listened": true,
+    "ledger": "wb:56f5e2b5bc4543818c9e4aa3494e49bd9eda57dd49895ecbb930ef315f78f6ce",
+    "ledger_reason": "the tutor listened: the word is not there - the credit is removed (TR-27)"
+   },
+   "expected": {
+    "word_key": "5amsah",
+    "t_start": 1276.3840896380002
+   }
+  },
+  {
+   "event_id": "fa42b272b06e66d196006607fe4887e0e95ecbd74248db1830f9bf4e480e4923",
+   "date": "2026-09-26",
+   "mark": "wb:fa42b272b06e66d196006607fe4887e0e95ecbd74248db1830f9bf4e480e4923",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:fa42b272b06e66d196006607fe4887e0e95ecbd74248db1830f9bf4e480e4923",
+    "ledger_reason": "the recording engine wrote ساعد.; you said ساعدا... (TR-22)"
+   },
+   "expected": {
+    "word_key": "sA3ed",
+    "t_start": 2035.650089638
+   }
+  },
+  {
+   "event_id": "cd886dc92531821237a355146bb7d345f0b9080b5a393023af36ef1986493ad6",
+   "date": "2026-09-26",
+   "mark": "wb:cd886dc92531821237a355146bb7d345f0b9080b5a393023af36ef1986493ad6",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:cd886dc92531821237a355146bb7d345f0b9080b5a393023af36ef1986493ad6",
+    "ledger_reason": "the recording engine wrote بيض ناي.; you said بتضايـ... (TR-22)"
+   },
+   "expected": {
+    "word_key": "baid",
+    "t_start": 3616.716089638
+   }
+  },
+  {
    "event_id": "31e43ed3614dbd10183615b2033945095b28ad76c424308e2b94f30409b1197f",
    "date": "2026-09-26",
    "mark": "wb:31e43ed3614dbd10183615b2033945095b28ad76c424308e2b94f30409b1197f",
@@ -4419,6 +4625,66 @@
    }
   },
   {
+   "event_id": "7f6d8ad6b50ba5262dfc407809bf5bab62f6f52eccf7e5ad69caf3c91881f63d",
+   "date": "2026-09-26",
+   "mark": "wb:7f6d8ad6b50ba5262dfc407809bf5bab62f6f52eccf7e5ad69caf3c91881f63d",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:7f6d8ad6b50ba5262dfc407809bf5bab62f6f52eccf7e5ad69caf3c91881f63d",
+    "ledger_reason": "the recording engine wrote أكو-- أو; you said أكون، er (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 4015.776089638
+   }
+  },
+  {
+   "event_id": "c0de3f0f103b5f2bd4701a0a073e64bf1cc9cf07b0cd9ac7c15de2318c0ee425",
+   "date": "2026-09-26",
+   "mark": "wb:c0de3f0f103b5f2bd4701a0a073e64bf1cc9cf07b0cd9ac7c15de2318c0ee425",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:c0de3f0f103b5f2bd4701a0a073e64bf1cc9cf07b0cd9ac7c15de2318c0ee425",
+    "ledger_reason": "the recording engine wrote كنت; you said كنتي (TR-22)"
+   },
+   "expected": {
+    "word_key": "kunet",
+    "t_start": 4038.252089638
+   }
+  },
+  {
+   "event_id": "1c11b177a33e4374dcb58ff32997986b55e532fa09502dbaa4fcbbce210f7f35",
+   "date": "2026-09-28",
+   "mark": "wb:1c11b177a33e4374dcb58ff32997986b55e532fa09502dbaa4fcbbce210f7f35",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:1c11b177a33e4374dcb58ff32997986b55e532fa09502dbaa4fcbbce210f7f35",
+    "ledger_reason": "the recording engine wrote أو; you said oh, (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 1370.878218264
+   }
+  },
+  {
+   "event_id": "dd56925eb5f8048ea4cc48a33fa78fa75c1493bdec54c4f80767aa2b511143f4",
+   "date": "2026-09-28",
+   "mark": "wb:dd56925eb5f8048ea4cc48a33fa78fa75c1493bdec54c4f80767aa2b511143f4",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:dd56925eb5f8048ea4cc48a33fa78fa75c1493bdec54c4f80767aa2b511143f4",
+    "ledger_reason": "the recording engine wrote أم; you said Um تشتـ... آ (TR-22)"
+   },
+   "expected": {
+    "word_key": "em",
+    "t_start": 1782.188218264
+   }
+  },
+  {
    "event_id": "af791118881c9d088838fcaeff15f5d06e57b0d2ea7bfe18a50e7f6e34652f2d",
    "date": "2026-09-28",
    "mark": "wb:af791118881c9d088838fcaeff15f5d06e57b0d2ea7bfe18a50e7f6e34652f2d",
@@ -4431,6 +4697,276 @@
    "expected": {
     "word_key": "em",
     "t_start": 2312.676218264
+   }
+  },
+  {
+   "event_id": "e7a51a000d0df55f50813db953dcb7c5ed047f5b235e20e9fef2d7614fa61bc2",
+   "date": "2026-09-28",
+   "mark": "wb:e7a51a000d0df55f50813db953dcb7c5ed047f5b235e20e9fef2d7614fa61bc2",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:e7a51a000d0df55f50813db953dcb7c5ed047f5b235e20e9fef2d7614fa61bc2",
+    "ledger_reason": "the recording engine wrote أم. أم،; you said I'm... Um, uh, (TR-22)"
+   },
+   "expected": {
+    "word_key": "em",
+    "t_start": 2364.176218264
+   }
+  },
+  {
+   "event_id": "ddcc2973f68681a8f9f31e175ebbfd3faec28f18ce135a6cc3531af863d3b61e",
+   "date": "2026-09-28",
+   "mark": "wb:ddcc2973f68681a8f9f31e175ebbfd3faec28f18ce135a6cc3531af863d3b61e",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:ddcc2973f68681a8f9f31e175ebbfd3faec28f18ce135a6cc3531af863d3b61e",
+    "ledger_reason": "the recording engine wrote أمي، أم، أم مو، أم.; you said Uh، عمي، عم، عمو، عم. (TR-22)"
+   },
+   "expected": {
+    "word_key": "em",
+    "t_start": 2410.736218264
+   }
+  },
+  {
+   "event_id": "9be31efb7229db41c03c7afa2097673e2492e9285a196cab965e60e8af5cea8a",
+   "date": "2026-09-28",
+   "mark": "wb:9be31efb7229db41c03c7afa2097673e2492e9285a196cab965e60e8af5cea8a",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:9be31efb7229db41c03c7afa2097673e2492e9285a196cab965e60e8af5cea8a",
+    "ledger_reason": "the recording engine wrote أم، أمي.; you said عم، عمي. Yeah. (TR-22)"
+   },
+   "expected": {
+    "word_key": "em",
+    "t_start": 2550.196218264
+   }
+  },
+  {
+   "event_id": "b356237d244acc39426b9a6416125801909bfb819aec8ab7977765c5cd2d27b5",
+   "date": "2026-09-28",
+   "mark": "wb:b356237d244acc39426b9a6416125801909bfb819aec8ab7977765c5cd2d27b5",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:b356237d244acc39426b9a6416125801909bfb819aec8ab7977765c5cd2d27b5",
+    "ledger_reason": "the recording engine wrote أو; you said آ، (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 3042.560218264
+   }
+  },
+  {
+   "event_id": "437d8790b6ecc122f7b3a02b378abc6f2b50059654ab9e377bd018c73146bb1f",
+   "date": "2026-09-28",
+   "mark": "wb:437d8790b6ecc122f7b3a02b378abc6f2b50059654ab9e377bd018c73146bb1f",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:437d8790b6ecc122f7b3a02b378abc6f2b50059654ab9e377bd018c73146bb1f",
+    "ledger_reason": "the recording engine wrote أو آآآ; you said و أخـ- آآ (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 3054.740218264
+   }
+  },
+  {
+   "event_id": "0e6539dda328d8a2b5cec68b19c7c2acc02550cdc37ccee863a4e2809d812768",
+   "date": "2026-09-28",
+   "mark": "wb:0e6539dda328d8a2b5cec68b19c7c2acc02550cdc37ccee863a4e2809d812768",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:0e6539dda328d8a2b5cec68b19c7c2acc02550cdc37ccee863a4e2809d812768",
+    "ledger_reason": "the recording engine wrote اسم أو; you said آ آ اسمه or (TR-22)"
+   },
+   "expected": {
+    "word_key": "esem",
+    "t_start": 3215.120218264
+   }
+  },
+  {
+   "event_id": "896f1db5e06b18df68fca06e345ea8fa71bd06f8e141ef63e0f9b136185ab2dd",
+   "date": "2026-09-28",
+   "mark": "wb:896f1db5e06b18df68fca06e345ea8fa71bd06f8e141ef63e0f9b136185ab2dd",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:896f1db5e06b18df68fca06e345ea8fa71bd06f8e141ef63e0f9b136185ab2dd",
+    "ledger_reason": "the recording engine wrote اسم أو; you said آ آ اسمه or (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 3216.260218264
+   }
+  },
+  {
+   "event_id": "102bdf37a17420ea11cd79b2d361628e09b206ff16577aa5ec43b9f59f8edf84",
+   "date": "2026-09-28",
+   "mark": "wb:102bdf37a17420ea11cd79b2d361628e09b206ff16577aa5ec43b9f59f8edf84",
+   "was": "partial",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:102bdf37a17420ea11cd79b2d361628e09b206ff16577aa5ec43b9f59f8edf84",
+    "ledger_reason": "the recording engine wrote يعني; you said جمع (TR-22)"
+   },
+   "expected": {
+    "word_key": "ya3ni",
+    "t_start": 3277.360218264
+   }
+  },
+  {
+   "event_id": "2de250cb455c3e3326a6fdfd3ddd363a98a93ceab82fb980d5751268a90b25a4",
+   "date": "2026-09-28",
+   "mark": "wb:2de250cb455c3e3326a6fdfd3ddd363a98a93ceab82fb980d5751268a90b25a4",
+   "was": "right",
+   "changes": {
+    "tutor_listened": true,
+    "ledger": "wb:2de250cb455c3e3326a6fdfd3ddd363a98a93ceab82fb980d5751268a90b25a4",
+    "ledger_reason": "the tutor listened: the word is not there - the credit is removed (TR-27)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 3343.440218264
+   }
+  },
+  {
+   "event_id": "1f8976a2c3558e9d27c220af23be722dc0b511d247a6569d4e1cd71674239dfa",
+   "date": "2026-09-30",
+   "mark": "wb:1f8976a2c3558e9d27c220af23be722dc0b511d247a6569d4e1cd71674239dfa",
+   "was": "right",
+   "changes": {
+    "tutor_listened": true,
+    "ledger": "wb:1f8976a2c3558e9d27c220af23be722dc0b511d247a6569d4e1cd71674239dfa",
+    "ledger_reason": "the tutor listened: the word is not there - the credit is removed (TR-27)"
+   },
+   "expected": {
+    "word_key": null,
+    "t_start": 788.0065453210001
+   }
+  },
+  {
+   "event_id": "e8ef757f97b10b8309521971dc2ebc1aae394f6cafdc73b2ff2bab710e8de693",
+   "date": "2026-09-30",
+   "mark": "wb:e8ef757f97b10b8309521971dc2ebc1aae394f6cafdc73b2ff2bab710e8de693",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:e8ef757f97b10b8309521971dc2ebc1aae394f6cafdc73b2ff2bab710e8de693",
+    "ledger_reason": "the recording engine wrote So one و عشر.; you said Oh no, I showed. (TR-22)"
+   },
+   "expected": {
+    "word_key": "u",
+    "t_start": 804.426545321
+   }
+  },
+  {
+   "event_id": "ccaefd66236dc2c5bf3e24e902002555e8d44d06911da2b6862533d532322802",
+   "date": "2026-09-30",
+   "mark": "wb:ccaefd66236dc2c5bf3e24e902002555e8d44d06911da2b6862533d532322802",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:ccaefd66236dc2c5bf3e24e902002555e8d44d06911da2b6862533d532322802",
+    "ledger_reason": "the recording engine wrote hadak el shab; you said هداك الشاب (TR-22)"
+   },
+   "expected": {
+    "word_key": "shab",
+    "t_start": 1786.486545321
+   }
+  },
+  {
+   "event_id": "f524c4e117a5bb036a7cc9f2c0fd49abb8f27ffae65531cf8d00119e604803fe",
+   "date": "2026-09-30",
+   "mark": "wb:f524c4e117a5bb036a7cc9f2c0fd49abb8f27ffae65531cf8d00119e604803fe",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:f524c4e117a5bb036a7cc9f2c0fd49abb8f27ffae65531cf8d00119e604803fe",
+    "ledger_reason": "the recording engine wrote واطي,; you said واطية, (TR-22)"
+   },
+   "expected": {
+    "word_key": "wAti",
+    "t_start": 1899.0765453210001
+   }
+  },
+  {
+   "event_id": "f29fbfa5482cfe5e5837314a9c6aaaaf789d29f034e32bfb9979353446902b51",
+   "date": "2026-09-30",
+   "mark": "wb:f29fbfa5482cfe5e5837314a9c6aaaaf789d29f034e32bfb9979353446902b51",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:f29fbfa5482cfe5e5837314a9c6aaaaf789d29f034e32bfb9979353446902b51",
+    "ledger_reason": "the recording engine wrote كبير,; you said كبيرة, (TR-22)"
+   },
+   "expected": {
+    "word_key": "kbIr",
+    "t_start": 2085.216545321
+   }
+  },
+  {
+   "event_id": "f14ef6c38a547e728981036fd8f7bd9c68d316b043af1a4d8e42ecc661802419",
+   "date": "2026-10-01",
+   "mark": "wb:f14ef6c38a547e728981036fd8f7bd9c68d316b043af1a4d8e42ecc661802419",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:f14ef6c38a547e728981036fd8f7bd9c68d316b043af1a4d8e42ecc661802419",
+    "ledger_reason": "the recording engine wrote أخ-أخ-أخضر أو،; you said أخ- أخ- أخضر و، (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 217.76330256300002
+   }
+  },
+  {
+   "event_id": "792813c2c9942b16bc8ca277c658ddca13ad0826f5402c2afd6933ff8b461879",
+   "date": "2026-10-01",
+   "mark": "wb:792813c2c9942b16bc8ca277c658ddca13ad0826f5402c2afd6933ff8b461879",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:792813c2c9942b16bc8ca277c658ddca13ad0826f5402c2afd6933ff8b461879",
+    "ledger_reason": "the recording engine wrote أو; you said Oh, (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 220.563302563
+   }
+  },
+  {
+   "event_id": "0ac2a018ec188405eb537afa2392d17960944498f5698580845d56d690b084ff",
+   "date": "2026-10-01",
+   "mark": "wb:0ac2a018ec188405eb537afa2392d17960944498f5698580845d56d690b084ff",
+   "was": "right",
+   "changes": {
+    "tutor_listened": true,
+    "ledger": "wb:0ac2a018ec188405eb537afa2392d17960944498f5698580845d56d690b084ff",
+    "ledger_reason": "the tutor listened: not sure - not scored either way (TR-27)"
+   },
+   "expected": {
+    "word_key": "heik",
+    "t_start": 1702.893302563
+   }
+  },
+  {
+   "event_id": "212803c7a87692af34516da5b6914d0e5e65d4f78b9a952e7191e37eea47f429",
+   "date": "2026-10-01",
+   "mark": "wb:212803c7a87692af34516da5b6914d0e5e65d4f78b9a952e7191e37eea47f429",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:212803c7a87692af34516da5b6914d0e5e65d4f78b9a952e7191e37eea47f429",
+    "ledger_reason": "the recording engine wrote أو هذا--; you said uh حدا (TR-22)"
+   },
+   "expected": {
+    "word_key": "aw",
+    "t_start": 2753.443302563
    }
   },
   {
@@ -4456,11 +4992,26 @@
    "changes": {
     "observation_only": true,
     "ledger": "ra:FA-736711de",
-    "ledger_reason": "Said here, another word intended: Amal says no (لـ (la) الزباين يروحوا); her word is not on her list, so neither counts"
+    "ledger_reason": "Said here, another word intended: Amal repeats it right (لا)"
    },
    "expected": {
     "word_key": "lisa",
     "t_start": 92.923302563
+   }
+  },
+  {
+   "event_id": "914be0e8057372291080be5f1b37e4b7b7f67547cd2a9074de75cae05e0ed0db",
+   "date": "2026-10-02",
+   "mark": "wb:914be0e8057372291080be5f1b37e4b7b7f67547cd2a9074de75cae05e0ed0db",
+   "was": "right",
+   "changes": {
+    "observation_only": true,
+    "ledger": "wb:914be0e8057372291080be5f1b37e4b7b7f67547cd2a9074de75cae05e0ed0db",
+    "ledger_reason": "the recording engine wrote ما، لا، إلا; you said مع، لـ، على (TR-22)"
+   },
+   "expected": {
+    "word_key": "ila",
+    "t_start": 276.700810951
    }
   },
   {

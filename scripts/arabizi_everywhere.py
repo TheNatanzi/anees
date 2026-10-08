@@ -34,11 +34,19 @@ def tags(js, selector):
             f'<script src="{js}transcript-arabizi.js?v={V}" data-arabizi-selector="{selector}"></script>')
 
 
+PHONE = '<script src="{js}phone-nav.js"></script>'    # PG-31: the phone tab bar on every lesson page too (2026-10-07 audit)
+
+
 def patch(path, js, selector):
     s = open(path, encoding="utf-8").read()
     if "transcript-arabizi.js" in s:
+        if "phone-nav.js" not in s and "/lessons/" in path.replace("\\", "/"):
+            t = PHONE.format(js=js)
+            s = s.replace("</body>", t + "</body>", 1) if "</body>" in s else s + t
+            open(path, "w", encoding="utf-8").write(s)
+            return "phone bar added"
         return "already"
-    t = tags(js, selector)
+    t = tags(js, selector) + (PHONE.format(js=js) if "/lessons/" in path.replace("\\", "/") else "")
     if "</body>" in s:
         s = s.replace("</body>", t + "</body>", 1)
     elif "</html>" in s:

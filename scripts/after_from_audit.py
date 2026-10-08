@@ -33,7 +33,7 @@ def questions(date):
             continue
         taken.append(t)
         vocab = r["kind"] == "vocab-A"
-        ask = ("Did Medi mean this word?" if vocab and r.get("tier") == 0 else "Did Medi get this wrong here?")
+        ask = ("Did the student mean this word?" if vocab and r.get("tier") == 0 else "Did the student get this wrong here?")   # PG-33 (2026-10-07)
         why = ("the app read your reply as the word he was missing" if vocab and r.get("tier") == 0 else
                "the app thinks you corrected " + ("a word" if vocab else "grammar (rule " + str(r.get("bucket")) + ")") +
                ("; the readers were not sure" if r.get("confidence") == "low" else ""))

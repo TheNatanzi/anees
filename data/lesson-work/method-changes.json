@@ -1,0 +1,11 @@
+{
+ "about": "Dated changes in HOW the lesson numbers are counted. The newest entry is written into docs/data/lessons.json as \"method_change\" (scripts/build_lessons_page_data.py) and every trend / progress view that plots Words % or Grammar % over lessons shows it (docs/js/lesson-math.js methodHtml / stampMethod). Hand-made; add an entry, never delete one. No entry may call a change an improvement: a method change only says the numbers are not comparable.",
+ "changes": [
+  {
+   "date": "2026-10-05",
+   "text": "From 2026-10-05 these numbers are counted on a second AI listen of your lines and a new read of every lesson; earlier and later values are not comparable.",
+   "why": "Three lessons where almost no line was re-heard (no separate microphone track) still lost 50 slip rows, so most of the change comes from the new read of the lessons, not from better hearing.",
+   "by": "Codex final approval + council final approval 2026-10-05 (data/lesson-work/rehear/reviews/)"
+  }
+ ]
+}

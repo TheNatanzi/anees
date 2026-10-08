@@ -154,7 +154,7 @@ lesson_dates = sorted(set(list(tally["lessons"]) + list(usage.get("lessons", {})
 
 import sys
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
-from lesson_turns import lesson_turns  # noqa: E402
+from lesson_turns import page_lines  # noqa: E402  (2026-10-05: the console reads the lines the pages show)
 _AUD = {}
 
 
@@ -165,7 +165,7 @@ def turns_sentences(date):
         src = open(os.path.join(ROOT, "scripts", "audit_grammar_lessons.py"), encoding="utf-8").read()
         _AUD["__file__"] = os.path.join(ROOT, "scripts", "audit_grammar_lessons.py")
         exec(src.split("# ---------------------------------------------------------------- run")[0], _AUD)
-    T, _ = lesson_turns(date)
+    T, _ = page_lines(date)
     return sum(1 for x in T if x["speaker"] == "Medi" and len(_AUD["_ar_words"](x["text"])) >= 2) or None
 lessons = []
 for d in lesson_dates:

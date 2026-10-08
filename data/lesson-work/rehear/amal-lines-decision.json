@@ -1,0 +1,28 @@
+{
+ "about": "Decision 3 of the Gemini second listen (ANEES-GEMINI-BACKFILL-RESULTS-2026-10-05 section 10): Amal's own re-heard lines. Her 40-line check 'Listen: which version is right?' decides; her answer wins (AM-06).",
+ "decided": "2026-10-07",
+ "by": "the tutor's 40-line check (40 of 40 answered by 2026-10-07 00:40 UTC)",
+ "numbers": {
+  "3_of_3_runs_agree": {
+   "lines": 20,
+   "elevenlabs_right": 9,
+   "gemini_right": 8,
+   "both_wrong": 0,
+   "same_or_cant_tell": 3
+  },
+  "2_of_3_runs_agree": {
+   "lines": 20,
+   "elevenlabs_right": 9,
+   "gemini_right": 6,
+   "both_wrong": 2,
+   "same_or_cant_tell": 3
+  }
+ },
+ "ruling": "APPLY NONE of Gemini's changes to her lines: ElevenLabs scored higher on her own lines in both groups (9 vs 8, 9 vs 6). Her lines stay exactly as the engine wrote them; ANEES_REHEAR_AMAL stays unset and no apply-plan carries one of her rows.",
+ "rule": "TR-27",
+ "medi": {
+  "date": "2026-10-07",
+  "quote": "ok the questions are complete open a chip and run the changes and the audit"
+ },
+ "source": "python scripts/amal_listen_results.py (amal_rules source listen-check, kind listen_pick)"
+}

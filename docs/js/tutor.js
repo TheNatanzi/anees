@@ -65,7 +65,7 @@
   function taskOf(it, L) {
     const total = it.total || 0, d = Math.min(total, (L && L.done) || 0), left = Math.max(0, total - d);
     const title = it.kind === 'after' ? 'After the lesson · ' + pretty(it.lesson_date)
-      : it.kind === 'review' ? 'Medi\u2019s mistakes to review' : it.kind === 'verb_check' ? it.title.replace('Verb check', 'Verb forms') : it.title;
+      : it.kind === 'review' ? 'The student\u2019s mistakes to review' : it.kind === 'verb_check' ? it.title.replace('Verb check', 'Verb forms') : it.title;
     const rank = it.kind === 'before' ? 0 : it.kind === 'after' ? 1 : it.kind === 'review' ? 3 : it.kind === 'word_review' ? 4 : it.kind === 'listen' ? 3.5 : it.kind === 'check' ? 3.6 : 5;
     return { id: it.id, kind: it.kind, item: it, title, total, done: d, left, unit: it.unit || UNIT[it.kind] || 'items', rank, date: it.lesson_date || '', finished: (L && L.finished) || (total > 0 && left === 0) };
   }

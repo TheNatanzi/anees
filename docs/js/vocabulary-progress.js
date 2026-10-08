@@ -66,6 +66,7 @@ function renderTop(){
   `<div id="vp-talk">${card({label:'Talk time',icon:'◌',value:'…',sub:'Loading from the lessons…'})}</div>`
  ].join('');
  json('data/lessons.json').then(d=>{
+  if(LM&&LM.stampMethod)LM.stampMethod(d,$('vp-vocab'));   // 2026-10-05: the numbers are counted another way from that day
   const all=(d.lessons||d).slice().sort((a,b)=>a.date<b.date?1:-1),r1=v=>Math.round(v*10)/10,pl={week:'this week',month:'this month',all:'all time'}[period]||period;
   // Lessons / Lesson hours from lessons.json (one row per lesson; duration_min = the audio the lesson page plays).
   const D=all.filter(l=>l.duration_min!=null),hrs=r1(D.reduce((a,l)=>a+l.duration_min,0)/60),avgMin=D.length?Math.round(D.reduce((a,l)=>a+l.duration_min,0)/D.length):null;

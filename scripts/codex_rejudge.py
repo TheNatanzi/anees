@@ -288,7 +288,7 @@ LEDGER_ABOUT = ("Append-only verification ledger (scripts/accuracy_gates.py read
 
 
 # ------------------------------------------------------------------------------------------------ Amal's list
-def amal_list(queue_rows=None, ledger=None, audit=None, repo=REPO):
+def amal_list(queue_rows=None, ledger=None, audit=None, repo=REPO, hold=None):
     """Rows where Codex (audio) and the Claude readers disagree and no human has ruled -> docs/data/amal-verify.json.
     Same card pattern as her review page: 'Correction is correct' / 'Reason not to correct' + a box."""
     ledger = ledger if ledger is not None else J(LEDGER_P, {"records": []})
@@ -296,6 +296,9 @@ def amal_list(queue_rows=None, ledger=None, audit=None, repo=REPO):
     rows = {r["uid"]: r for r in audit.get("rows", [])}
     st = G.ledger_state(ledger)
     items, answered = [], []
+    import amal_hold
+    if hold is None:                     # the hold (scripts/amal_hold.py); no hold file = nothing is skipped
+        hold = amal_hold.Hold()
     for uid, s in st.items():
         h = s.get("human")
         # AM-17: a moment Amal answered on the Tutor page stays listed as answered (with her answer and Undo); any other
@@ -308,6 +311,10 @@ def amal_list(queue_rows=None, ledger=None, audit=None, repo=REPO):
             continue
         r = rows.get(uid) or {}
         if r.get("kind") not in G.SCORED_KINDS:
+            continue
+        if not mine and amal_hold.AlreadyRuled().uid(uid):       # a re-read row at a moment she already ruled on: the owner's list (round 5)
+            continue
+        if not mine and hold.blocks("verify", uid, uid=uid, date=r.get("date")):     # created or changed by the 2026-10-04 re-read: not asked of Amal until Medi's OK
             continue
         t = G.sec(r.get("t")) or G.sec(r.get("t_amal")) or c["evidence"]["t_start"]
         (answered if mine else items).append({"id": "verify:" + uid, "uid": uid, "date": c.get("date") or r.get("date"), "t": r.get("t"), "t_amal": r.get("t_amal"),

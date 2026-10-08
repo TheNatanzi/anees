@@ -19,12 +19,23 @@ JS = (DOCS / "js" / "hub" / "check-task.js").read_text(encoding="utf-8")
 
 
 def test_the_lists_medi_asked_for_with_their_counts():
+    # 2026-10-07 (TR-27): the 7th task, "Listen: what did the student say? - part 2" (every line held for the tutor's ear), in 5 parts
     assert [(L["list"], L["total"]) for L in INDEX] == [("slip-check", 27), ("own-fix", 13), ("word-said-1", 42), ("word-said-2", 42),
-                                                        ("old-new", 11), ("word-there", 28), ("one-or-two", 27)]   # 45 - 10 (LS-15 same word, two scripts) - 8 (LS-16 same fix within 30 s / phrase holds the word)
+                                                        ("old-new", 11), ("word-there", 28), ("one-or-two", 27),   # 45 - 10 (LS-15 same word, two scripts) - 8 (LS-16 same fix within 30 s / phrase holds the word)
+                                                        ("slip-check-2-1", 45), ("slip-check-2-2", 45), ("slip-check-2-3", 45), ("slip-check-2-4", 45), ("slip-check-2-5", 43)]
     assert sum(L["total"] for L in INDEX if L["task"] in ("own-fix", "word-said", "old-new")) == 108      # the 108 of listen-page-1
+    assert sum(L["total"] for L in INDEX if L["task"] == "slip-check-2") == 223                           # TR-27: every held line, once
     assert KEYS["one-or-two"]["flagged_slips"] == 47                                                      # the Lessons notes' number
-    assert INDEX[0]["title"] == "Listen: what did Medi say?" and "27 short clips of Medi" in LISTS["slip-check"]["intro"]
-    assert [L["title"] for L in INDEX if L["task"] == "word-said"] == ["Listen: did Medi say this word? · part 1 of 2", "Listen: did Medi say this word? · part 2 of 2"]
+    # PG-33 (2026-10-07): titles and intros say "the student", never his name
+    assert INDEX[0]["title"] == "Listen: what did the student say?" and "27 short clips of the student" in LISTS["slip-check"]["intro"]
+    assert [L["title"] for L in INDEX if L["task"] == "word-said"] == ["Listen: did the student say this word? - part 1 of 2", "Listen: did the student say this word? - part 2 of 2"]
+    assert not [L["list"] for L in INDEX if re.search(r"\bMedi\b", L["title"] + LISTS[L["list"]]["intro"])]
+    for L in INDEX:                                                                                        # a task split in parts says which part it is
+        parts = [x for x in INDEX if x["task"] == L["task"]]
+        assert (L.get("parts") == len(parts) and L.get("part") == parts.index(L) + 1) if len(parts) > 1 else (L.get("part") is None and L.get("parts") is None), L["list"]
+        if L["task"] == "slip-check-2":
+            assert L["title"] == "Listen: what did the student say? - part 2 - part %d of 5" % L["part"] and L["kind"] == "slip_check" and L["prefix"] == "slipcheck2"
+            assert ("short clips of the student (part %d of 5)" % L["part"]) in LISTS[L["list"]]["intro"]
     per = {}
     for x in LISTS["slip-check"]["items"]:
         per[x["date"]] = per.get(x["date"], 0) + 1
@@ -44,7 +55,11 @@ def test_each_list_has_its_own_kind_and_never_mixes():
         assert all(k["word_key"] == D["prefix"] + ":" + k["id"] for k in KEYS[L["list"]]["items"])
     assert all(len(v) == 1 for v in kinds.values())
     pairs = [next(iter(v)) for v in kinds.values()]
-    assert len({k for k, _ in pairs}) == len(pairs) == len({p for _, p in pairs}) == 6
+    # 2026-10-07 (TR-27): 7 tasks, 7 prefixes; slip-check-2 asks the slip-check question (kind slip_check) under its own prefix
+    # (slipcheck2), so the two tasks' saves never mix - 6 kinds, and that is the only kind two tasks share
+    assert len(pairs) == len({p for _, p in pairs}) == 7 and len({k for k, _ in pairs}) == 6
+    assert kinds["slip-check"] == {("slip_check", "slipcheck")} and kinds["slip-check-2"] == {("slip_check", "slipcheck2")}
+    assert {k for k, _ in pairs if sum(1 for k2, _ in pairs if k2 == k) > 1} == {"slip_check"}
     assert "listen" not in {p for _, p in pairs} and "listen_pick" not in {k for k, _ in pairs}          # her first check keeps its own
     parts = [x["id"] for n in ("word-said-1", "word-said-2") for x in LISTS[n]["items"]]
     assert len(set(parts)) == 84                                                                          # the two parts share no card
@@ -57,8 +72,12 @@ def test_cards_are_blind_and_complete():
             assert word not in raw, (name, word)
         fields = [q["field"] for q in D["questions"]]
         versions_asked = any(q["type"] == "versions" for q in D["questions"])
+        after_pg33 = name.startswith("slip-check-2")                        # built after PG-33 (2026-10-07): "the student", never his name
+        if after_pg33:
+            assert "medi" not in raw, name
         for x, k in zip(D["items"], KEYS[name]["items"]):
-            assert x["clips"] and x["clips"][0]["label"] == "Medi's microphone"
+            # PG-33: lists built on 2026-10-07 label his clip "The student's microphone"; older lists keep their item files as built
+            assert x["clips"] and x["clips"][0]["label"] == ("The student's microphone" if after_pg33 else "Medi's microphone"), name
             if name != "one-or-two":
                 texts = {v["k"]: v["text"] for v in x["versions"]}
                 assert set(texts) == set(k["roles"]) and len(texts) >= 2
@@ -67,12 +86,19 @@ def test_cards_are_blind_and_complete():
             else:
                 assert len([r for r in x["rows"] if r["label"].startswith("Mistake")]) == 2 and len(k["ids"]) == 2 and not versions_asked   # + Amal's lines after (2026-10-06)
         assert fields == {"slip-check": ["choice", "mistake"], "own-fix": ["choice"], "old-new": ["choice"], "word-there": ["said"],
-                          "one-or-two": ["same"]}.get(name, ["said"])
+                          "one-or-two": ["same"]}.get("slip-check" if name.startswith("slip-check-2") else name, ["said"])
     sc = LISTS["slip-check"]
     assert all(x["note"][0] == "You marked: he said " and x["note"][2] == ", should be " for x in sc["items"])
     assert [o["label"] for o in sc["questions"][1]["options"]] == ["Yes, he said it wrong", "No, he said it right", "Not sure"]
     roles = [k["roles"]["a"] for k in KEYS["slip-check"]["items"]]
     assert 5 <= roles.count("old") <= 22                                                                 # shuffled, not always old first
+    # TR-27 (2026-10-07): the part-2 cards are the held lines - the same two choices, the held word named, shuffled too
+    for name in [L["list"] for L in INDEX if L["task"] == "slip-check-2"]:
+        D, K = LISTS[name], KEYS[name]
+        assert [o["label"] for o in D["questions"][1]["options"]] == ["Yes, he said it wrong", "No, he said it right", "Not sure"]
+        assert all(set(k["roles"].values()) == {"old", "new"} and k["why"] and k["word_key"] == "slipcheck2:" + k["id"] for k in K["items"]), name
+        r2 = [k["roles"]["a"] for k in K["items"]]
+        assert 0 < r2.count("old") < len(r2), name
 
 
 def test_every_clip_is_published_and_each_list_is_light():
@@ -88,7 +114,9 @@ def test_every_clip_is_published_and_each_list_is_light():
                 if "#t=" in c["src"]:                                     # 2026-10-06: a both-voices window of the lesson audio
                     assert (DOCS / "lessons" / c["src"].split("#t=")[0]).exists(), c["src"]; continue
                 assert p.exists() and p.stat().st_size > 800, c["src"]
-                assert re.fullmatch(r"\d{4}-\d{2}-\d{2}/clips/(sc|oc|ws|on|wt|ot)-[0-9a-f]{10}(-both)?\.mp3", c["src"])
+                # s2 = the part-2 clips of 2026-10-07 (TR-27)
+                assert re.fullmatch(r"\d{4}-\d{2}-\d{2}/clips/(sc|oc|ws|on|wt|ot|s2)-[0-9a-f]{10}(-both)?\.mp3", c["src"])
+                assert c["src"].split("/clips/")[1].startswith("s2-") == name.startswith("slip-check-2"), c["src"]
                 size += p.stat().st_size
                 if tracked:
                     assert "docs/lessons/" + c["src"] in tracked, c["src"] + " is not force-added"

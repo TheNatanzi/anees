@@ -39,7 +39,9 @@ function prepareEvidence(events){return unique(events).map(e=>{
 });}
 function points(e,lane='speaking'){
  if(isGrammar(e))return null;
- if(e.scored_in_event||e.observation_only||e.ignored||e.immediate_repeat||e.is_echo||e.grammar_only||e.classification==='grammar'||e.classification==='ignored')return null;
+ // rehear_hold (TR-22, 2026-10-05): credited by an earlier review, but the second listen no longer hears the word - not scored either way until someone looks
+ // tutor_listened (TR-27, 2026-10-07): the tutor listened and the word is not there (or she was not sure) - not scored either way
+ if(e.rehear_hold||e.tutor_listened||e.scored_in_event||e.observation_only||e.ignored||e.immediate_repeat||e.is_echo||e.grammar_only||e.classification==='grammar'||e.classification==='ignored')return null;
  if(lane==='speaking'&&e.speaker!=='Medi')return null;
  if(lane==='speaking'&&(!date(e)||!Number.isFinite(e.t_start)))return null;
  if(lane==='speaking'&&(e.assessment==='unresolved'||e.needs_review||e.wording_status==='unresolved'))return null;

@@ -7,6 +7,7 @@ lets replace it").
     python scripts/rehear_apply.py apply [dates]     # the plan's rows into data/lesson-work/transcript-fixes.json (by: gemini-rehear), status -> applied
     python scripts/rehear_apply.py unapply [dates]   # takes this job's rows out again (a row of anyone else is never touched), status back to proposed
     python scripts/rehear_apply.py check [dates]     # every gemini-rehear row lands on exactly its line and nothing else moves
+    python scripts/rehear_apply.py notes [dates]     # re-write the second-listen mark of applied lessons from their plans (no change to the overlay)
 
 What goes in: only the PROPOSED pile of scripts/rehear_lesson.py (2 of 3 runs agree on the line or the span; held lines
 released by the two-clip check). What never goes in: a held line, a line with no agreement, a word change on a line cut
@@ -29,6 +30,7 @@ import bench_common as BC  # noqa: E402
 import bench_score as BS  # noqa: E402
 import rehear_lesson as RL  # noqa: E402
 import rehear_status as RS  # noqa: E402
+import rehear_tutor as RT  # noqa: E402
 import transcript_fixes as TF  # noqa: E402
 
 BY = "gemini-rehear"
@@ -165,11 +167,70 @@ def plan(date):
     runs = [BC.J(RL.run_path(d, "base", n))["lines"] for n in (1, 2, 3)]
 
     out = {"date": date, "built": time.strftime("%Y-%m-%dT%H:%M:%S"), "rows": [], "lines_changed": [], "kept_overlay": [], "his_corrections": [],
-           "reader_rows_gemini_disagrees": [], "listen": [], "held": [], "held_mix": [], "no_agreement": [], "skipped": []}
+           "reader_rows_gemini_disagrees": [], "listen": [], "held": [], "held_mix": [], "no_agreement": [], "skipped": [],
+           "withheld_by_spot_check": []}
+    # Codex final approval round 2 (2026-10-05): a proposed line the blind spot check judged against (rehear/<date>/
+    # spot.json verdict "old text": all usable votes of the forced choice preferred the engine's line) is adverse
+    # evidence on that very line. It is NOT applied: the engine's text stays and the line waits for Medi's ear (it is on
+    # his listen page as "old or new"). The spot file is evidence; it is never changed here.
+    spot_old = {int(i): v for i, v in ((BC.J(os.path.join(d, "spot.json")) or {}).get("lines") or {}).items() if v.get("verdict") == "old text"}
+    # TR-27 (2026-10-07): the tutor's ear. Her answers release or take out a change; a change that moves toward her own
+    # form, or sits on a mistake she confirmed, is held for her (scripts/rehear_tutor.py).
+    K = RT.keys()
+    hers = RT.her_lines(date, amal)
+    conf = RT.confirmed_moments()
+    for k in ("held_tutor", "taken_out_by_tutor", "applied_by_tutor"):
+        out[k] = []
+
+    def tr27(r):
+        ln = by_i.get(r["i"]) or {"t": r["t"], "end": r["t"] + 3.0}
+        return RT.verdict(date, r, ln, hers, conf, K)
+
+    def make_row(r, how):
+        """-> (row, lines_changed entry) or (None, why the engine's text stays)."""
+        u = turns[r["i"]] if r["i"] < len(turns) else None
+        e = eturns[order[r["i"]]["_id"]] if u else None            # the same line as the builder holds it, before any row
+        if not (u and u["who"] == "Medi" and not e.get("chat") and abs(u["t"] - r["t"]) < 0.01 and RL.raw(u) == r["engine"] and e["text"] == r["engine"]):
+            return None, "the page line changed since the freeze"
+        if any(TF._lands(x, e) for x in others):                  # the line carries a correction: it stays as it is
+            return None, "kept_overlay"
+        line, sp = spans(r["engine"], r["heard"] or "")
+        if line is None or not BC.tokens(line, fillers=True):
+            return None, "Gemini wrote no word there, or no word differs; the engine's text stays"
+        row = {"date": date, "t": u["t"], "who": "Medi", "i": r["i"], "line": r["engine"], "heard_line": line, "spans": sp,
+               "engine_wrote": r["engine"], "heard": line,          # plain aliases: older readers of the overlay file expect these two keys
+               "rule": RULE, "by": BY,
+               "on": RS.today(), "kind": r.get("kind"), "how": how,
+               "why": "Gemini 3.8 Flash re-heard his own microphone for this line with the lesson around it (3 runs; %s)" % how}
+        if verify(date, [row], others):                           # e.g. two identical lines within a second, or a neighbour's correction that would land on the new text
+            return None, "the row cannot name this line alone, or a neighbouring correction would land on the new text"
+        return row, dict(heard=line, kind=r.get("kind"), how=how, src=by_i[r["i"]].get("src") if r["i"] in by_i else None, spans=len(sp))
+
+    def tutor_release(r, base_, v, pile):
+        """A held / withheld line the tutor released: the row goes in on her word (TR-27)."""
+        how = "released by the tutor's listen (TR-27: %s)" % v["why"]
+        row, x = make_row(r, how)
+        if row is None:
+            if x == "kept_overlay":
+                out["kept_overlay"].append(dict(base_, now=turns[r["i"]]["text"], gemini=r["heard"]))
+            else:
+                out["skipped"].append(dict(base_, why=x))
+            return
+        row["tutor"] = {"list": v.get("list"), "answer": v["tutor"], "rule": RT.RULE}
+        out["rows"].append(row)
+        out["lines_changed"].append(dict(base_, **x))
+        out["applied_by_tutor"].append(dict(base_, heard=r["heard"], was=pile, list=v.get("list"), answer=v["tutor"], why=v["why"]))
+
     for r in P["rows"]:
         base_ = {"i": r["i"], "t": r["t"], "mmss": mmss(r["t"]), "engine": r["engine"], "runs": r["runs"]}
         if r["status"] == "held":
-            out["held"].append(dict(base_, heard=r["heard"], her_words=r.get("amal_next"), two_clip=r.get("two_clip")))
+            v = tr27(r)
+            if v["status"] == "apply":
+                tutor_release(r, base_, v, "held")
+            elif v["status"] == "out":
+                out["taken_out_by_tutor"].append(dict(base_, heard=r["heard"], was="held", list=v.get("list"), answer=v["tutor"], why=v["why"]))
+            else:
+                out["held"].append(dict(base_, heard=r["heard"], her_words=r.get("amal_next"), two_clip=r.get("two_clip"), **({"tutor": v["tutor"], "why": v["why"]} if v.get("tutor") else {})))
             continue
         if r["status"] == "held-mix":
             out["held_mix"].append(dict(base_, heard=r["heard"]))
@@ -177,29 +238,72 @@ def plan(date):
         if r["status"] != "proposed":
             out["no_agreement"].append(base_)
             continue
-        u = turns[r["i"]] if r["i"] < len(turns) else None
-        e = eturns[order[r["i"]]["_id"]] if u else None            # the same line as the builder holds it, before any row
-        if not (u and u["who"] == "Medi" and not e.get("chat") and abs(u["t"] - r["t"]) < 0.01 and RL.raw(u) == r["engine"] and e["text"] == r["engine"]):
-            out["skipped"].append(dict(base_, why="the page line changed since the freeze"))
+        if r["i"] in spot_old and spot_old[r["i"]].get("engine") == r["engine"]:
+            v = tr27(r)
+            if v["status"] == "apply":
+                tutor_release(r, base_, v, "spot")
+            elif v.get("tutor"):
+                out["taken_out_by_tutor"].append(dict(base_, heard=r["heard"], was="spot", list=v.get("list"), answer=v["tutor"], why=v["why"]))
+            else:
+                out["withheld_by_spot_check"].append(dict(base_, heard=r["heard"], votes=spot_old[r["i"]].get("votes"),
+                                                          why="the blind spot check preferred the old line; not applied until Medi listens"))
             continue
-        if any(TF._lands(x, e) for x in others):                  # the line carries a correction: it stays as it is
-            out["kept_overlay"].append(dict(base_, now=u["text"], gemini=r["heard"]))
+        how = "released by the two-clip check" if r.get("released") else ("2 of 3 runs agree on these words" if r["how"] == "spans" else "%d of 3 runs agree on the line" % r["agree"])
+        v = tr27(r)
+        if v["status"] == "out":
+            out["taken_out_by_tutor"].append(dict(base_, heard=r["heard"], was="proposed", list=v.get("list"), answer=v["tutor"], why=v["why"]))
+            continue
+        if v["status"] == "held":
+            out["held_tutor"].append(dict(base_, heard=r["heard"], how=how, why=v["why"], toward=v.get("toward"), confirmed=v.get("confirmed"),
+                                          **({"tutor": v["tutor"], "list": v.get("list")} if v.get("tutor") else {})))
+            continue
+        row, x = make_row(r, how)
+        if row is None:
+            if x == "kept_overlay":
+                out["kept_overlay"].append(dict(base_, now=turns[r["i"]]["text"], gemini=r["heard"]))
+            else:
+                out["skipped"].append(dict(base_, why=x))
+            continue
+        if v.get("tutor"):
+            row["tutor"] = {"list": v.get("list"), "answer": v["tutor"], "rule": RT.RULE}
+            out["applied_by_tutor"].append(dict(base_, heard=r["heard"], was="proposed", list=v.get("list"), answer=v["tutor"], why=v["why"]))
+        out["rows"].append(row)
+        out["lines_changed"].append(dict(base_, **x))
+    # ---- Amal's lines (scripts/rehear_amal.py: the teacher prompt, 3 runs; no hold). Same rules: only the proposed pile,
+    # never a line that carries a correction (Medi's 6 fixes of her lines on 10-02 stay), each row verified alone.
+    # Her rows go in only when ANEES_REHEAR_AMAL=1: on 2026-10-04 the first lesson back showed 43 % of her lines changed,
+    # many for the worse, so Medi has Amal check 40 of them first (Tutor hub "Listen: which version is right?").
+    AP = BC.J(os.path.join(d, "amal", "proposals.json")) if os.environ.get("ANEES_REHEAR_AMAL") == "1" else None
+    out["amal"] = {"ran": bool(AP), "lines_changed": [], "kept_overlay": [], "held_mix": [], "no_agreement": 0, "skipped": []}
+    for r in (AP or {}).get("rows", []):
+        b_ = {"i": r["i"], "t": r["t"], "mmss": mmss(r["t"]), "engine": r["engine"], "runs": r["runs"]}
+        if r["status"] == "held-mix":
+            out["amal"]["held_mix"].append(dict(b_, heard=r["heard"]))
+            continue
+        if r["status"] != "proposed":
+            out["amal"]["no_agreement"] += 1
+            continue
+        u = turns[r["i"]] if r["i"] < len(turns) else None
+        e = eturns[order[r["i"]]["_id"]] if u else None
+        if not (u and u["who"] == "Amal" and not e.get("chat") and abs(u["t"] - r["t"]) < 0.01 and RL.raw(u) == r["engine"] and e["text"] == r["engine"]):
+            out["amal"]["skipped"].append(dict(b_, why="the page line changed since the freeze"))
+            continue
+        if any(TF._lands(x, e) for x in others):
+            out["amal"]["kept_overlay"].append(dict(b_, now=u["text"], gemini=r["heard"]))
             continue
         line, sp = spans(r["engine"], r["heard"] or "")
         if line is None or not BC.tokens(line, fillers=True):
-            out["skipped"].append(dict(base_, why="Gemini wrote no word there, or no word differs; the engine's text stays"))
+            out["amal"]["skipped"].append(dict(b_, why="Gemini wrote no word there, or no word differs; the engine's text stays"))
             continue
-        how = "released by the two-clip check" if r.get("released") else ("2 of 3 runs agree on these words" if r["how"] == "spans" else "%d of 3 runs agree on the line" % r["agree"])
-        row = {"date": date, "t": u["t"], "who": "Medi", "i": r["i"], "line": r["engine"], "heard_line": line, "spans": sp,
-               "engine_wrote": r["engine"], "heard": line,          # plain aliases: older readers of the overlay file expect these two keys
-               "rule": RULE, "by": BY,
-               "on": RS.today(), "kind": r.get("kind"), "how": how,
-               "why": "Gemini 3.8 Flash re-heard his own microphone for this line with the lesson around it (3 runs; %s)" % how}
-        if verify(date, [row], others):                           # e.g. two identical lines within a second, or a neighbour's correction that would land on the new text
-            out["skipped"].append(dict(base_, why="the row cannot name this line alone, or a neighbouring correction would land on the new text"))
+        how = "2 of 3 runs agree on these words" if r["how"] == "spans" else "%d of 3 runs agree on the line" % r["agree"]
+        row = {"date": date, "t": u["t"], "who": "Amal", "i": r["i"], "line": r["engine"], "heard_line": line, "spans": sp, "engine_wrote": r["engine"], "heard": line,
+               "rule": RULE, "by": BY, "on": RS.today(), "kind": r.get("kind"), "how": how,
+               "why": "Gemini 3.8 Flash re-heard Amal's own microphone for this line with the teacher prompt (3 runs, no context; %s)" % how}
+        if verify(date, [row], others):
+            out["amal"]["skipped"].append(dict(b_, why="the row cannot name this line alone"))
             continue
         out["rows"].append(row)
-        out["lines_changed"].append(dict(base_, heard=line, kind=r.get("kind"), how=how, src=by_i[r["i"]].get("src"), spans=len(sp)))
+        out["amal"]["lines_changed"].append(dict(b_, heard=line, kind=r.get("kind"), how=how, spans=len(sp)))
     # ---- every correction already on the lesson, against the 3 runs (also where Gemini agreed with the engine)
     idx = {u["_id"]: k for k, u in enumerate(order)}              # builder line -> page index (= the runs' line number)
     for f in others:
@@ -223,6 +327,20 @@ def plan(date):
         elif len(usable) == 3 and agree == 0:
             out["reader_rows_gemini_disagrees"].append(row)
     bad = verify(date, out["rows"], others)
+    for _ in range(5):                                            # rows that are fine alone but not together (two identical lines of his within
+        if not bad:                                               # a second, both changed): none of them goes in, they are listed
+            break
+        ts = {b["t"] for b in bad}
+        drop = [r for r in out["rows"] if r["t"] in ts or any(abs(r["t"] - t) <= 1.0 for t in ts)]
+        if not drop:
+            break
+        for r in drop:
+            out["rows"].remove(r)
+            pool = out["lines_changed"] if r["who"] == "Medi" else out["amal"]["lines_changed"]
+            x = next(c for c in pool if c["i"] == r["i"])
+            pool.remove(x)
+            (out["skipped"] if r["who"] == "Medi" else out["amal"]["skipped"]).append(dict({k: x[k] for k in ("i", "t", "mmss", "engine", "runs")}, why="two of his lines with the same words start within a second: a row could not name one of them alone"))
+        bad = verify(date, out["rows"], others)
     if bad:
         raise SystemExit("%s: the planned rows do not verify together: %s" % (date, json.dumps(bad[:3], ensure_ascii=False)))
     hc = out["his_corrections"]
@@ -233,7 +351,13 @@ def plan(date):
                       "his_corrections_heard_by_2_of_3": sum(1 for x in hc if x["runs_with_his_word"] >= 2),
                       "his_corrections_heard_by_1_of_3": sum(1 for x in hc if x["runs_with_his_word"] == 1),
                       "his_corrections_all_3_runs_disagree": len(out["listen"]), "reader_rows_gemini_disagrees": len(out["reader_rows_gemini_disagrees"]),
-                      "held": len(out["held"]), "held_mix": len(out["held_mix"]), "no_agreement": len(out["no_agreement"]), "skipped": len(out["skipped"])}
+                      "held": len(out["held"]), "held_mix": len(out["held_mix"]), "no_agreement": len(out["no_agreement"]), "skipped": len(out["skipped"]),
+                      "withheld_by_spot_check": len(out["withheld_by_spot_check"]),
+                      "held_tutor": len(out["held_tutor"]), "taken_out_by_tutor": len(out["taken_out_by_tutor"]), "applied_by_tutor": len(out["applied_by_tutor"]),
+                      "amal_ran": out["amal"]["ran"], "amal_lines_changed": len(out["amal"]["lines_changed"]),
+                      "amal_word_changes": sum(1 for x in out["amal"]["lines_changed"] if x["kind"] == "words"),
+                      "amal_kept_because_already_corrected": len(out["amal"]["kept_overlay"]), "amal_held_mix": len(out["amal"]["held_mix"]),
+                      "amal_no_agreement": out["amal"]["no_agreement"], "amal_skipped": len(out["amal"]["skipped"])}
     out["page_data_sha256"] = BC.sha_file(os.path.join(BC.REPO, "docs", "data", "lessons", date + ".json"))
     BC.W(os.path.join(d, "apply-plan.json"), out)
     print(date, json.dumps(out["summary"]), flush=True)
@@ -261,7 +385,7 @@ def apply(ds):
         P = BC.J(os.path.join(RL.ldir(date), "apply-plan.json"))
         if not P:
             raise SystemExit("%s: no apply-plan.json (run plan)" % date)
-        if any(str(r.get("date")) != date or r.get("by") != BY or r.get("who") != "Medi" for r in P["rows"]):
+        if any(str(r.get("date")) != date or r.get("by") != BY or r.get("who") not in ("Medi", "Amal") for r in P["rows"]):
             raise SystemExit("%s: the plan holds a row that is not this lesson's own Gemini row" % date)
         bad = verify(date, P["rows"])
         if bad:
@@ -273,12 +397,68 @@ def apply(ds):
     _save(doc)
     doc2 = RS.load()
     for date, P in plans.items():
-        s = P["summary"]
-        doc2["lessons"][date] = {"status": "applied", "since": RS.today(),
-                                 "note": "Gemini's second listen changed %d of your lines (%d with a different word, %d only the alphabet); your own corrections stayed; %d lines wait for your ear." % (
-                                     s["lines_changed"], s["word_changes"], s["alphabet_only"], s["held"] + s["held_mix"] + s["his_corrections_all_3_runs_disagree"])}
+        doc2["lessons"][date] = status_row(date, P)
     RS.stamp_pages(RS.save(doc2))
     print("applied:", ", ".join("%s (%d rows)" % (d, len(plans[d]["rows"])) for d in ds))
+
+
+def limited(date):
+    """A lesson with no separate microphone track of his: every line the listen heard was cut from the mixed recording."""
+    c = (BC.J(os.path.join(RL.ldir(date), "manifest.json")) or {}).get("counts") or {}
+    return bool(c.get("listen")) and not c.get("own_track")
+
+
+def status_row(date, P, since=None):
+    """The lesson's second-listen mark after its plan was applied (Codex final approval 2026-10-05, required labels):
+    the counts, in plain words - how many lines changed, that the changes are an agreement of 2 of 3 AI runs (nobody
+    checked them), that Amal's lines are unchanged, and how many lines wait (held + no agreement). A lesson with no
+    microphone track of his is 'applied-limited': only alphabet-only changes went in; the word changes wait."""
+    s = P["summary"]
+    spot = s.get("withheld_by_spot_check", 0)
+    tut = s.get("held_tutor", 0)
+    wait = s["held"] + s["held_mix"] + s["no_agreement"] + spot + tut
+    amal = ("Amal's lines: unchanged (her re-heard lines are not applied)." if not s.get("amal_lines_changed")
+            else "Amal's lines: %d changed." % s["amal_lines_changed"])
+    mine = ("%d of your own corrections that none of the 3 runs heard stay as you wrote them." % s["his_corrections_all_3_runs_disagree"]) if s["his_corrections_all_3_runs_disagree"] else ""
+    if limited(date):
+        odd = [x for x in P["lines_changed"] if x.get("kind") == "words"]
+        note = ("%d of your lines changed, all alphabet-only by the hold rule (the same words, written in the other alphabet). "
+                "%d word changes wait for a check (not applied: mixed recording), and on %d more lines the 3 runs did not agree. %s" % (
+                    s["lines_changed"], s["held_mix"] + s["held"], s["no_agreement"], amal))
+        if odd:
+            note += (" %d of the applied lines (%s) is counted as a word change by the stricter counter; by the hold rule it is the same word in the other alphabet." % (
+                len(odd), "; ".join("%s %s -> %s" % (x["mmss"], x["engine"].strip(" ."), x["heard"].strip(" .")) for x in odd)))
+        st = "applied-limited"
+    else:
+        note = ("%d of your lines changed (%d with a different word, %d only the alphabet), each agreed by 2 of 3 AI runs. %s "
+                "%d lines wait: %d held for a check, %d where the 3 runs did not agree%s." % (
+                    s["lines_changed"], s["word_changes"], s["alphabet_only"], amal, wait, s["held"] + s["held_mix"], s["no_agreement"],
+                    (", %d taken out again because a blind check preferred the old line" % spot) if spot else ""))
+        st = "applied"
+    # TR-27 (2026-10-07): the tutor's ear - what her listen decided and what still waits for her
+    tr = []
+    if tut:
+        tr.append("%d line%s wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word)." % (tut, "" if tut == 1 else "s"))
+    if s.get("taken_out_by_tutor"):
+        tr.append("%d change%s taken out on the tutor's word." % (s["taken_out_by_tutor"], "" if s["taken_out_by_tutor"] == 1 else "s"))
+    if s.get("applied_by_tutor"):
+        tr.append("%d applied on the tutor's word." % s["applied_by_tutor"])
+    return {"status": st, "since": since or RS.today(), "note": " ".join(x for x in [note, mine] + tr if x).strip(), **({"tutor_wait": tut} if tut else {})}
+
+
+def notes(ds):
+    """Re-write the second-listen mark of lessons that are already applied from their plan (no change to the overlay)."""
+    doc2 = RS.load()
+    n = 0
+    for date in ds:
+        row = doc2["lessons"].get(date) or {}
+        P = BC.J(os.path.join(RL.ldir(date), "apply-plan.json"))
+        if row.get("status") not in RS.APPLIED or not P:
+            continue
+        doc2["lessons"][date] = status_row(date, P, since=row.get("since"))
+        n += 1
+    RS.stamp_pages(RS.save(doc2))
+    print("second-listen marks re-written from the plans: %d lessons" % n)
 
 
 def unapply(ds):
@@ -288,7 +468,7 @@ def unapply(ds):
     _save(doc)
     doc2 = RS.load()
     for date in ds:
-        if (doc2["lessons"].get(date) or {}).get("status") == "applied":
+        if (doc2["lessons"].get(date) or {}).get("status") in RS.APPLIED:
             doc2["lessons"][date] = {"status": "proposed", "since": RS.today(), "note": "Gemini's second listen ran; its changes were taken out again and none is in the transcript."}
     RS.stamp_pages(RS.save(doc2))
     print("removed %d rows of %s; status back to proposed" % (n - len(doc["rows"]), BY))
@@ -302,7 +482,7 @@ def check(ds=None):
     status = RS.load()["lessons"]
     for date in (ds or sorted(set(RS.published()) | {str(r.get("date")) for r in rows})):
         mine = [r for r in rows if str(r.get("date")) == date]
-        applied = (status.get(date) or {}).get("status") == "applied"
+        applied = (status.get(date) or {}).get("status") in RS.APPLIED
         P = BC.J(os.path.join(RL.ldir(date), "apply-plan.json")) or {}
         if applied and mine != (P.get("rows") or []):
             bad.append({"date": date, "why": "marked applied but the overlay file does not hold exactly the plan's rows"})
@@ -324,6 +504,8 @@ if __name__ == "__main__":
         apply(ds)
     elif cmd == "unapply":
         unapply(ds)
+    elif cmd == "notes":
+        notes(ds)
     elif cmd == "check":
         bad = check(argv[1:] or None)
         for b in bad:

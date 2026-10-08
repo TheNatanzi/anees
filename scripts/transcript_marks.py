@@ -31,6 +31,7 @@ SIGNAL_WORDS = {
     "asked": "you asked, she answered",
     "amal-ruling": "confirmed on her review page",
 }
+PROMPT_FIRST = ("asked", "prompt-then-fix")   # PG-34: signals where her word comes before his line
 VOICED = set(SIGNAL_WORDS) - {"amal-ruling"}     # signals she gives in the lesson itself
 NO_USAGE = {"F1", "F2", "F3"}
 
@@ -313,8 +314,10 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
             return
         rep["fix_wanted"] += 1
         p = place(turns, t_amal, "Amal", right)
-        # her fix comes at or after his line (a recast never comes before the slip)
-        if p and medi_i is not None and p[0] < medi_i:
+        # her fix comes at or after his line (a recast never comes before the slip) - except when the row's signal says she
+        # gave the word first and he asked about it or repeated it (PG-34, 2026-10-07: 'asked' / 'prompt-then-fix' rows of the
+        # re-read text, e.g. 09-05 21:53 her بزعج then his 'Baz'ej?' at 22:02): her turn before his line is the fix
+        if p and medi_i is not None and p[0] < medi_i and signal not in PROMPT_FIRST:
             p = None
         if not p:
             rep["fix_missed"].append({"t": t_amal, "what": what})

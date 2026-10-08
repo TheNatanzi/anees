@@ -32,16 +32,30 @@ def key_check(date="2026-10-02"):
         return None
     rows = [dict(r, status="held" if r["status"] == "held-mix" else r["status"]) for r in P["rows"] if r["i"] in {ln["i"] for ln in truth["lines"]}]
     m = PL.measure(truth, rows)
-    return {k: m[k] for k in ("moments", "moments_right_in_delivered_transcript", "moments_fixed_by_proposed", "moments_fixed_with_held", "slips_hidden_by_proposed",
-                              "slips_hidden_with_held", "untouched_lines_word_changed_proposed", "proposed", "held", "no_agreement", "slips_hidden_rows")}
+    out = {k: m[k] for k in ("moments", "moments_right_in_delivered_transcript", "moments_fixed_by_proposed", "moments_fixed_with_held", "slips_hidden_by_proposed",
+                             "slips_hidden_with_held", "untouched_lines_word_changed_proposed", "proposed", "held", "no_agreement", "slips_hidden_rows")}
+    # 2026-10-05 (Codex final approval, blocker 2): the numbers above are the PILE (what Gemini's rows would do on the
+    # engine's lines). A line Medi corrected himself keeps his correction and never takes the pile's row, so what counts
+    # for a hidden slip is the transcript the pages DELIVER: his slips whose wrong piece is no longer on the delivered line.
+    import bench_score as BS
+    turns = (BC.J(os.path.join(BC.REPO, "docs", "data", "lessons", date + ".json")) or {}).get("turns") or []
+    lines = {ln["i"]: ln for ln in truth["lines"]}
+    hidden = [s for s in truth["slips"] if s["i"] < len(turns) and BS.slip_hidden(s, lines[s["i"]]["truth"], turns[s["i"]]["text"])]
+    out["slips_hidden_in_delivered_transcript"] = len(hidden)
+    out["slips_hidden_in_delivered_rows"] = [{"t": s["t"], "wrong": s["wrong"], "right": s["right"], "delivered_line": turns[s["i"]]["text"]} for s in hidden]
+    out["pile_rows_not_delivered_because_medi_corrected_the_line"] = [
+        {"t": s["t"], "wrong": s["wrong"], "delivered_line": turns[s["i"]]["text"]} for s in truth["slips"]
+        if s not in hidden and any(x["t"] == s["t"] for x in m["slips_hidden_rows"]) and s["i"] < len(turns)]
+    return out
 
 
 def track_reach(date, rows):
-    """How many of the lesson's Gemini rows also reach the track turns the grammar-use counter reads."""
+    """How many of the lesson's Gemini spans reach the lines the grammar-use counter reads. Since 2026-10-05 the counter
+    reads the lines the pages show (lesson_turns.page_lines: Codex final approval, blocker 1), so every span that is on
+    the page is on the counter's lines; before, it read track turns (09-10: 8 of 253)."""
     import lesson_turns as LT
-    T, src = LT.lesson_turns(date)
-    out = TF.apply_tracks(date, T, rows=RA.other_rows(date) + rows)
-    landed = sum(1 for u in out for h in (u.get("heard") or []) if h.get("by") == RA.BY)
+    T, src = LT.page_lines(date)
+    landed = sum(1 for u in T for h in (u.get("heard") or []) if h.get("by") == RA.BY)
     return {"source": src, "spans": sum(len(r["spans"]) for r in rows), "spans_reaching_track_turns": landed}
 
 
@@ -59,8 +73,12 @@ def integrity():
     old = BC.J(os.path.join(REJ, "transcript-fixes-before.json"))["rows"]
     now = BC.J(TF.FIXES_P)["rows"]
     others = [r for r in now if r.get("by") != RA.BY]
+    it = iter(others)
+    kept_in_order = all(any(o == r for r in it) for o in old)            # every row of before is still there, unchanged, in order
+    added = [r for r in others if r not in old]
     return {"raw_files_hashed_before": sum(len(v) for v in before["lessons"].values()), "raw_files_changed": changed, "raw_files_missing": missing,
-            "overlay_rows_before": len(old), "overlay_rows_of_others_now": len(others), "others_rows_identical_and_in_order": others == old,
+            "overlay_rows_before": len(old), "overlay_rows_of_others_now": len(others), "others_rows_identical_and_in_order": kept_in_order,
+            "others_rows_added_since": [{"date": r.get("date"), "t": r.get("t"), "by": r.get("by"), "on": r.get("on"), "quote": r.get("quote")} for r in added],
             "gemini_rows_now": len(now) - len(others), "row_check_problems": RA.check()}
 
 
@@ -121,8 +139,13 @@ def build():
                "- Corrections right in the transcript the proposed pile delivers: **%d of %d** (the engine alone: 4). Fixed by the proposed pile: %d; with the held lines: %d." % (
                    k["moments_right_in_delivered_transcript"], k["moments"], k["moments_fixed_by_proposed"], k["moments_fixed_with_held"]),
                "- His slips hidden by the proposed pile: %d (%s). Untouched lines with a word changed: %d." % (
-                   k["slips_hidden_by_proposed"], "; ".join("%02d:%02d %s -> %s" % (int(s["t"]) // 60, int(s["t"]) % 60, s["wrong"], s["right"]) for s in k["slips_hidden_rows"]) or "none", k["untouched_lines_word_changed_proposed"]), ""]
-    md += ["## 3. Per lesson", "", "| Lesson | Status | Lines heard | Own mic / mix | Lines changed | words / alphabet | Kept (already corrected) | His corrections: heard by 2 of 3 / 1 / 0 (of listened) | Held | Held (mix) | No agreement | Reach track turns | Blind check: new / old / split | $ |",
+                   k["slips_hidden_by_proposed"], "; ".join("%02d:%02d %s -> %s" % (int(s["t"]) // 60, int(s["t"]) % 60, s["wrong"], s["right"]) for s in k["slips_hidden_rows"]) or "none", k["untouched_lines_word_changed_proposed"]),
+               "- **His slips hidden in the delivered transcript: %d.**%s" % (
+                   k.get("slips_hidden_in_delivered_transcript", 0),
+                   (" The pile's row at %s is not delivered: Medi's own correction is on that line (he re-listened on 2026-10-04 and confirmed the word), so the line reads '%s' and the slip stands." % (
+                       ", ".join("%02d:%02d" % (int(x["t"]) // 60, int(x["t"]) % 60) for x in k["pile_rows_not_delivered_because_medi_corrected_the_line"]),
+                       k["pile_rows_not_delivered_because_medi_corrected_the_line"][0]["delivered_line"])) if k.get("pile_rows_not_delivered_because_medi_corrected_the_line") else ""), ""]
+    md += ["## 3. Per lesson", "", "| Lesson | Status | Lines heard | Own mic / mix | Lines changed | words / alphabet | Kept (already corrected) | His corrections: heard by 2 of 3 / 1 / 0 (of listened) | Held | Held (mix) | No agreement | Spans on the use counter's lines | Blind check: new / old / split | $ |",
            "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for d, r in doc["lessons"].items():
         c, a, p = r.get("counts") or {}, r.get("apply") or {}, r.get("piles") or {}
@@ -135,7 +158,9 @@ def build():
     i = doc["integrity"]
     md += ["", "## 4. Integrity", "",
            "- Raw archive: %d files hashed before; changed %d, missing %d." % (i["raw_files_hashed_before"], len(i["raw_files_changed"]), len(i["raw_files_missing"])),
-           "- Overlay file: %d rows before; other people's rows now %d, identical and in order: %s; Gemini rows %d." % (i["overlay_rows_before"], i["overlay_rows_of_others_now"], i["others_rows_identical_and_in_order"], i["gemini_rows_now"]),
+           "- Overlay file: %d rows before; other people's rows now %d; every row of before still there, identical and in order: %s; added since: %s; Gemini rows %d." % (
+               i["overlay_rows_before"], i["overlay_rows_of_others_now"], i["others_rows_identical_and_in_order"],
+               "; ".join("%s %s by %s (%s) '%s'" % (x["date"], x["t"], x["by"], x["on"], x["quote"]) for x in i["others_rows_added_since"]) or "none", i["gemini_rows_now"]),
            "- Row check (each Gemini row changes exactly its own line, on the page builder's lines): %s." % ("OK" if not i["row_check_problems"] else "%d problem(s)" % len(i["row_check_problems"])), ""]
     if doc.get("rejudge"):
         md += ["## 5. Re-judge: see data/lesson-work/rehear/rejudge/report.md (slips before / after, Amal's rulings, page numbers)", ""]

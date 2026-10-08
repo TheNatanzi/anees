@@ -110,6 +110,101 @@ def _reread_after(date, day):
     return m.exists() and str(J(m).get("written") or "")[:10] > day
 
 
+# 2026-10-04: all 18 lessons were re-read on the re-heard transcript (TR-22) and the old second pass was retired. These
+# sheet@v1 cards left the page then. 2026-10-05 (Codex final approval, blocker 5, and round 2 item 2): no card is excused
+# by "the readers did not write it again" - each names its REAL disposition as data and
+# test_reread_gold_cards_keep_their_documented_disposition checks it against the audit, the snapshot taken before the
+# re-read and removed-rows-by-cause.json:
+#   grammar        now a grammar row: uid, rule, the fix it carries ("old" = its former word row and what became of it)
+#   word-card      still a word card on the Lessons page, under this audit uid (re-timed)
+#   restored       the old row is back in the audit under its old uid, as it was ("first-read slip ... kept until a person checks it")
+#   line-changed   his line changed in the second listen and the row's wrong piece is no longer on it
+#   same-slip      the same correction is in the audit on the row named
+#   chat-only      a chat-only fix (GR-19): the row was already rejected before the re-read (it never counted)
+#   never-counted  the old row was not a counted slip (a listening row): it may stay out, and is listed
+REREAD_2026_10_04 = {
+    ("2026-09-04", "41:34"): {"is": "listening-row", "uid": "FA-968ffd70"},   # 2026-10-07 re-read (TR-27 text): the third reader wrote it again as a listening row - still never counted
+    ("2026-09-04", "1:01:02"): {"is": "never-counted", "old": "FA-9948308b"},
+    ("2026-09-10", "54:44"): {"is": "grammar", "uid": "FA-d42c025b", "bucket": "A9", "right": "الأفعال", "old": "FA-513b51aa", "old_is": "restored"},
+    ("2026-09-14", "13:57"): {"is": "chat-only", "old": "FA-33130f91"},
+    ("2026-09-14", "22:31"): {"is": "chat-only", "old": "FA-8cfe44af"},
+    ("2026-09-15", "04:05"): {"is": "word-card", "uid": "FA-2b51b336", "right": "مفروم"},
+    ("2026-09-16", "22:34"): {"is": "rewritten", "old": "FA-186f5001"},   # 2026-10-07 re-read (TR-27 text): the readers wrote it again themselves (r3), so no restore mark
+    ("2026-09-16", "52:29"): {"is": "grammar", "uid": "FA-dda4e377", "bucket": "A12", "right": "همّ"},
+    ("2026-09-17", "18:05"): {"is": "grammar", "uid": "FA-ae6076c6", "bucket": "B5", "right": "تأسفتلها"},
+    ("2026-09-17", "44:20"): {"is": "line-changed", "old": "FA-64681e02"},
+    ("2026-09-18", "32:55"): {"is": "rewritten", "old": "FA-bcbeff67"},   # 2026-10-07 re-read: written again by the readers themselves
+    ("2026-09-18", "43:32"): {"is": "rewritten", "old": "FA-6abf9688"},   # 2026-10-07 re-read: written again by the readers themselves
+    ("2026-09-19", "03:44"): {"is": "never-counted", "old": "FA-ba332604"},
+    ("2026-09-19", "22:58"): {"is": "rewritten", "old": "FA-2d1a4cb5"},   # 2026-10-07 re-read: written again by the readers themselves
+    ("2026-09-19", "26:00"): {"is": "never-counted", "old": "FA-6a236ab9"},
+    ("2026-09-21", "43:03"): {"is": "grammar", "uid": "FA-a47ebc9d", "bucket": "B1", "right": "بستعمل", "old": "FA-9e964adb", "old_is": "restored"},
+    ("2026-09-21", "47:43"): {"is": "line-changed", "old": "FA-32ec2df1"},
+    ("2026-09-23", "07:33"): {"is": "grammar", "uid": "FA-966e91f4", "bucket": "B5", "right": "ما رحت"},
+    ("2026-09-23", "09:06"): {"is": "grammar", "uid": "FA-f3f29483", "bucket": "A1", "right": "أغلب الأيام"},   # 2026-10-07 re-read: both readers file it under A1 (was A2)
+    ("2026-09-23", "10:15"): {"is": "never-counted", "old": "FA-0cd5b995"},
+    ("2026-09-23", "11:17"): {"is": "never-counted", "old": "FA-45d0d6bc"},
+    ("2026-09-23", "28:23"): {"is": "never-counted", "old": "FA-be8d84c0"},
+}
+RESTORED_MARK = "first-read slip; the re-read on 2026-10-04 did not write it again and its words are still on the line - kept until a person checks it"
+
+
+def test_reread_gold_cards_keep_their_documented_disposition():
+    """Codex final approval 2026-10-05 (blocker 5; round 2 item 2): the 22 gold cards that left the page with the re-read
+    are not exempt and none is excused by omission - each one's real disposition is asserted. If a grammar row loses its
+    uid / rule / fix, a restored row leaves again, a 'changed line' turns out unchanged, or a row said never to have
+    counted did count, this fails."""
+    import build_lessons_page_data as B
+    audit = {r["uid"]: r for r in J(os.path.join(ROOT, "data", "full-audit-2026-09-26.json"))["rows"]}
+    before = {r["uid"]: dict(r, date=d) for d, x in J(ROOT / "data" / "lesson-work" / "rehear" / "rejudge" / "before.json")["lessons"].items() for r in x["rows"]}
+    cause = {r["uid"]: r for r in J(ROOT / "data" / "lesson-work" / "rehear" / "rejudge" / "removed-rows-by-cause.json")["removed"]}
+    counted = lambda o: o.get("kind") in ("grammar", "vocab-A") and o.get("mode", "speaking") == "speaking"  # noqa: E731
+    assert len(REREAD_2026_10_04) == 22
+
+    def restored(uid, d, why):
+        r = audit.get(uid)
+        assert r and r["date"] == d and r.get("kept") == RESTORED_MARK and r["kind"] == before[uid]["kind"], why
+
+    for (d, mm), x in REREAD_2026_10_04.items():
+        why = f"{d} {mm} {x}"
+        old = before.get(x.get("old")) if x.get("old") else None
+        if x.get("old"):
+            assert old is not None and old["date"] == d, why
+        if x["is"] == "grammar":
+            r = audit.get(x["uid"])
+            assert r and r["date"] == d and r["kind"] in ("grammar", "grammar-propose") and r["bucket"] == x["bucket"], why
+            assert B.word_core(x["right"]) in B.word_core(r.get("right")), why
+            assert abs(_secs(r["t"]) - _secs(mm)) <= B.VERDICT_DRIFT_S, why
+            if x.get("old_is") == "restored":
+                restored(x["old"], d, why)
+        elif x["is"] == "word-card":
+            r = audit.get(x["uid"])
+            assert r and r["date"] == d and r["kind"] == "vocab-A" and B.word_core(x["right"]) in B.word_core(r.get("right")), why
+            card = [e for e in lesson_detail(d)["vocab_errors"] if e.get("audit_uid") == x["uid"] or x["uid"] in (e.get("folded") or [])]
+            assert card and all(e.get("on_sheet") is not False for e in card), why
+        elif x["is"] == "restored":
+            assert counted(old), why
+            restored(x["old"], d, why)
+        elif x["is"] == "line-changed":
+            c = cause[x["old"]]
+            assert x["old"] not in audit and c["cause"] == "2" and c["line_changed"] and c["wrong_piece_gone_from_line"], why
+        elif x["is"] == "same-slip":
+            c = cause[x["old"]]
+            assert x["old"] not in audit and c["cause"] == "4" and c["same_slip_now_on"] == x["now"] and x["now"] in audit, why
+        elif x["is"] == "chat-only":
+            assert x["old"] not in audit and old["kind"] == "rejected" and old.get("rejected_rule") == "GR-19", why
+        elif x["is"] == "never-counted":
+            assert x["old"] not in audit and not counted(old) and cause[x["old"]]["was_scored"] is False, why
+        elif x["is"] == "rewritten":               # the readers wrote the old row again on the final text: its own row, no kept mark
+            r = audit.get(x["old"])
+            assert r and r["date"] == d and r["kind"] == before[x["old"]]["kind"] and r.get("kept") is None and counted(r), why
+        elif x["is"] == "listening-row":           # back in the audit as a listening-mode row: shown, never counted
+            r = audit.get(x["uid"])
+            assert r and r["date"] == d and r.get("mode") == "listening" and not counted(r), why
+        else:
+            raise AssertionError("unknown disposition: " + why)
+
+
 def test_sheet_v1_known_list_words_never_flagged_new():
     """Guards aa1e7f8: the string match called 56 of 98 words 'not on sheet' that were on Medi's list.
     A card is followed when a re-read re-timed it (same word, same lesson, within the builder's drift window, as
@@ -117,7 +212,7 @@ def test_sheet_v1_known_list_words_never_flagged_new():
     gold set was frozen AND the audit has no word row for that word near that moment any more (the readers moved it to a
     grammar row or dropped it) - a moved key still has its word row, so it still fails here."""
     import build_lessons_page_data as B
-    cards, bad, seen, gone = _cards(), [], 0, []
+    cards, bad, seen, gone, reread = _cards(), [], 0, [], []
     by_word = {}
     for (d, mm), xs in cards.items():
         for where, e in xs:
@@ -135,6 +230,9 @@ def test_sheet_v1_known_list_words_never_flagged_new():
             continue
         k = (v["date"], v["mmss"])
         hits = cards.get(k, [])
+        if not hits and k in REREAD_2026_10_04:
+            reread.append(k)                # accounted for: read after the 2026-10-04 re-read, reason above (checked before the
+            continue                        # same-word follow: a Latin-only gloss has an empty word core and would match any)
         if not hits:
             t = _secs(v["mmss"])
             near = [(abs(_secs(mm) - t), w, e) for mm, w, e in by_word.get((v["date"], B.word_core(v["arabic"])), [])
@@ -153,7 +251,7 @@ def test_sheet_v1_known_list_words_never_flagged_new():
             seen += 1
             if where == "shown" and e.get("on_sheet") is False:
                 bad.append(f"{v['date']} {v['mmss']} {v['arabic']}")
-    assert seen + len(gone) >= 56, f"only {seen} of the 56 known on-list cards are still on the page (card keys moved?)"
+    assert seen + len(gone) + len(reread) >= 56, f"only {seen} of the 56 known on-list cards are still on the page (card keys moved?)"
     assert len(gone) <= 10, f"{len(gone)} known on-list cards left the page after re-reads - check the readers: {gone}"
     assert not bad, "known on-list words flagged 'Not on sheet': " + "; ".join(bad)
 

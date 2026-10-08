@@ -13,6 +13,19 @@
       ],
       "port": 8095,
       "autoPort": false
+    },
+    {
+      "name": "anees-gemini-docs",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8321",
+        "--directory",
+        "C:/dev/anees-wt-gemini/docs"
+      ],
+      "port": 8321,
+      "autoPort": false
     }
   ]
 }

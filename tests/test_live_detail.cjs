@@ -14,13 +14,13 @@ test('the Oct 2 link: five live answers over a built detail that had none', () =
   const d = L.overlay('after', BUILT, ROW);
   assert.equal(d.answered, 5); assert.equal(d.total, 5); assert.equal(d.live, true);
   assert.deepEqual(d.asked.map(x => x.answer), ['Right', 'Right', 'Wrong word', 'Wrong word', 'Right']);
-  assert.equal(d.asked[2].result, 'slip counted for the student (word)');
+  assert.equal(d.asked[2].result, 'counted as a mistake for the student (word)');
   assert.equal(d.asked[0].at, '2026-10-03');
   assert.equal(BUILT.asked[0].answer, null, 'the built detail is never changed in place');
 });
 
 test('an undo opens the row again: no answer, no date, no result', () => {
-  const built = { answered: 1, total: 1, asked: [{ ask: 'q', answer: 'Right', at: '2026-10-03', result: 'not counted as a slip' }] };
+  const built = { answered: 1, total: 1, asked: [{ ask: 'q', answer: 'Right', at: '2026-10-03', result: 'not counted as a mistake' }] };
   const d = L.overlay('after', built, { payload: { questions: [{}] }, answers: { q: {} } });
   assert.deepEqual([d.asked[0].answer, d.asked[0].at, d.asked[0].result, d.answered], [null, null, null, 0]);
 });

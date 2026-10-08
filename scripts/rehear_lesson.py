@@ -161,7 +161,11 @@ def freeze(date):
     return man
 
 
-def load(date):
+def load(date, calling=False):
+    """The frozen lesson. calling=True (a stage that SENDS prompts) also requires today's prompt template to be the frozen
+    one; reading the saved runs back (piles, plan, spot, listen pages) needs only the frozen files themselves - the
+    prompts.json they were made from is pinned by its own sha (2026-10-07: master's TR-26 cue changed the template after
+    the 18 lessons were run)."""
     d = ldir(date)
     man = BC.J(os.path.join(d, "manifest.json"))
     if not man:
@@ -169,7 +173,7 @@ def load(date):
     for f, k in (("lines.json", "lines_sha256"), ("prompts.json", "prompts_sha256")):
         if BC.sha_file(os.path.join(d, f)) != man[k]:
             raise SystemExit("%s: %s changed since the freeze" % (date, f))
-    if BC.sha_text(CT.PROMPT) != man["template_sha256"]:
+    if calling and BC.sha_text(CT.PROMPT) != man["template_sha256"]:
         raise SystemExit("the prompt template changed since the freeze")
     L = BC.J(os.path.join(d, "lines.json"))
     return d, man, L["lines"], L["amal_all"], BC.J(os.path.join(d, "prompts.json"))["prompts"]
@@ -188,7 +192,7 @@ def run_path(d, stage, n):
 def base_stage(date, n, cmd):
     import batch_jobs as BJ
     import rehear_job as RJ
-    d, man, lines, amal, prompts = load(date)
+    d, man, lines, amal, prompts = load(date, calling=True)
     listen = [ln for ln in lines if ln["listen"]]
     name = "base-run%d" % n
     clip = {str(ln["i"]): os.path.join(d, ln["clip"]) for ln in listen}
@@ -216,6 +220,18 @@ def base_stage(date, n, cmd):
 
 # ------------------------------------------------------------------ piles (bench_piles.decide: never a key)
 
+def valid_first(runs):
+    """The same answers with, per line, the runs that answered put first. bench_piles.decide reads a missing answer as
+    the engine's text and breaks a tie by run order, so WHICH run failed could decide a line (Codex audit 2026-10-04);
+    with the answered runs first the result is the same whichever run failed."""
+    keys = set().union(*[set(r) for r in runs]) if runs else set()
+    out = [dict() for _ in runs]
+    for k in keys:
+        for n, o in enumerate([r[k] for r in runs if k in r]):
+            out[n][k] = o
+    return out
+
+
 def base_runs(d):
     runs = []
     for n in (1, 2, 3):
@@ -223,7 +239,7 @@ def base_runs(d):
         if not r or not r.get("complete"):
             raise SystemExit("base run %d is not complete" % n)
         runs.append({i: o for i, o in r["lines"].items() if not o.get("error")})      # a failed call changes nothing: the engine's text stands for that run
-    return runs
+    return valid_first(runs)
 
 
 def took(raw_answer, asked):
@@ -313,7 +329,7 @@ def v3_load(d, man):
 def v3_stage(date, n, cmd):
     import batch_jobs as BJ
     import rehear_job as RJ
-    d, man, lines, amal, prompts = load(date)
+    d, man, lines, amal, prompts = load(date, calling=True)
     P = v3_load(d, man)
     by_i = {str(ln["i"]): ln for ln in lines}
     name = "v3-run%d" % n

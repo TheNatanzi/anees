@@ -38,7 +38,7 @@ function safeLink(url){try{const u=new URL(url,location.href);return u.origin===
 function lessonLink(e){const url=safeLink(e.transcript_url);return url?url+(e.row_id?'#'+encodeURIComponent(e.row_id):''):null;}
 function audioLink(e){const p=e.sentence_audio_url||e.audio_url;if(!/^lessons\/\d{4}-\d{2}-\d{2}\/(?:audio\/(?:Medi|Amal)\.mp3|clips\/[A-Za-z0-9_.-]+\.mp3)$/.test(p||''))return null;return p;}
 const ago=e=>{const n=Math.max(0,C.daysAgo(e));return n===0?'Today':n===1?'1 day ago':n+' days ago';};
-function outcome(e){const p=C.points(e);if(e.grammar_only||e.classification==='grammar')return 'Grammar · not vocabulary';return e.self_corrected&&p===1?'Correct · self-corrected':e.confusion_pair&&p===0?'Wrong · linked word confusion':e.ignored&&!e.immediate_repeat&&!e.is_echo?'Not scored':e.observation_only?'Said here · another word intended':e.scored_in_event?'Same attempt · counted once':p===1?'Correct':p===.5?'Partial':p===0?'Wrong':e.immediate_repeat||e.is_echo?'Repeat · not scored':e.grammar_only||e.classification==='grammar'?'Grammar/null':'Ignored pending review';}
+function outcome(e){const p=C.points(e);if(e.grammar_only||e.classification==='grammar')return 'Grammar · not vocabulary';return e.self_corrected&&p===1?'Correct · self-corrected':e.confusion_pair&&p===0?'Wrong · linked word confusion':e.ignored&&!e.immediate_repeat&&!e.is_echo?'Not scored':e.rehear_hold?'Not scored · second listen no longer hears this word (needs a look)':e.tutor_listened?'Not scored · the tutor listened: the word is not there':e.observation_only?'Said here · another word intended':e.scored_in_event?'Same attempt · counted once':p===1?'Correct':p===.5?'Partial':p===0?'Wrong':e.immediate_repeat||e.is_echo?'Repeat · not scored':e.grammar_only||e.classification==='grammar'?'Grammar/null':'Ignored pending review';}
 function outcomeBadge(label){
  label=label.replace(/^Wrong/, 'Incorrect').replace('Ignored pending review','Pending review');
  const kind=label.startsWith('Correct')?'correct':label.startsWith('Incorrect')?'incorrect':label.startsWith('Partial')?'partial':label==='Pending review'?'pending':'neutral';
@@ -49,8 +49,8 @@ function outcomeBadge(label){
 function unscoredNote(r){
  if(r.spoke||!r.last)return '';
  const uses=r.events.filter(e=>e.speaker==='Medi'&&e.spoken!==false);
- const pending=uses.some(e=>!e.ignored&&!e.observation_only&&!e.scored_in_event&&!e.immediate_repeat&&!e.is_echo&&!e.grammar_only&&e.classification!=='grammar');
- return '<div class="ab-tiny">'+(r.unassigned.length?'Form needs review':pending?'Said · awaiting review':uses.some(e=>e.observation_only)?'Said · another word intended':uses.some(e=>e.scored_in_event)?'Said · correction counted once':'Said · grammar / repeats only')+'</div>';
+ const pending=uses.some(e=>!e.ignored&&!e.rehear_hold&&!e.tutor_listened&&!e.observation_only&&!e.scored_in_event&&!e.immediate_repeat&&!e.is_echo&&!e.grammar_only&&e.classification!=='grammar');
+ return '<div class="ab-tiny">'+(r.unassigned.length?'Form needs review':pending?'Said · awaiting review':uses.some(e=>e.rehear_hold)?'Second listen no longer hears this word · needs a look':uses.some(e=>e.tutor_listened)?'The tutor listened · the word is not there':uses.some(e=>e.observation_only)?'Said · another word intended':uses.some(e=>e.scored_in_event)?'Said · correction counted once':'Said · grammar / repeats only')+'</div>';
 }
 function speech(text,preferred='',parts=[],partial=[],correct=[],feedback=[]){
  const source=String(text||'');const rendered=toArabizi(preferred||source);

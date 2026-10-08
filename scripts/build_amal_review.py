@@ -60,7 +60,10 @@ def mmss(t):
     return f"{t // 60:02d}:{t % 60:02d}"
 
 
-def sheet_new_words(ldir, clips=False):
+import amal_hold  # noqa: E402
+
+
+def sheet_new_words(ldir, clips=False, hold=None):
     """Not-on-sheet cards for Amal from the Lessons page data -> (cards newest first, set of skipped loan entries).
     WS-15: dish names, foods, brands, loan words and countries are never put on her list (scripts/loanwords.py)."""
     new_words, skipped_loan = {}, set()
@@ -70,6 +73,10 @@ def sheet_new_words(ldir, clips=False):
         for v in json.load(open(os.path.join(ldir, f), encoding="utf-8")).get("vocab_errors", []):
             if v.get("on_sheet") is not False or not v.get("arabic"):
                 continue
+            if amal_hold.AlreadyRuled().uid(v.get("audit_uid")):         # a re-read row at a moment she already ruled on: the owner's list, not hers (round 5)
+                continue
+            if hold is not None and hold.uid(v.get("audit_uid")):     # a row the 2026-10-04 re-read created: not shown to Amal until Medi's OK (scripts/amal_hold.py)
+                continue
             ar = re.split(r"\s=\s|\s-\s", v["arabic"])[0].strip()
             if loanwords.loan_entry(ar):        # WS-15: dishes, foods, brands, loan words, countries are never asked
                 skipped_loan.add(ar)
@@ -78,13 +85,23 @@ def sheet_new_words(ldir, clips=False):
             w = new_words.setdefault(k, {"id": k, "arabic": ar, "arabizi": v.get("arabizi"), "english": v.get("english"), "moments": []})
             w["moments"].append({"date": f[:10], "mmss": v.get("mmss"), "medi_said": v.get("said"), "amal_gave": v.get("fix"),
                                  "clip": cut_clip(f[:10], v.get("t"), None) if clips and v.get("t") is not None else None})
+    if hold is not None:                 # while the hold file exists: no word card she did not have before the re-read
+        new_words = {k: w for k, w in new_words.items() if not hold.blocks("new_words", k, date=max(m["date"] for m in w["moments"]))}
     new_words = sorted(new_words.values(), key=lambda w: max(m["date"] for m in w["moments"]), reverse=True)
     return new_words, skipped_loan
 
 
 def main(clips=True):
     A = json.load(open(AUDIT, encoding="utf-8"))
-    B = {r["uid"]: r for r in A["rows"] if r.get("kind") in ("vocab-B", "grammar-B")}
+    # the hold (scripts/amal_hold.py): a B row the 2026-10-04 re-read created, or one that was not on her list before it,
+    # is not a question for Amal until Medi's OK. It stays a B row everywhere else. No hold file = nothing is skipped.
+    import amal_hold
+    HOLD = amal_hold.Hold()
+    # the repeat-review hold (amal_hold.AlreadyRuled, Codex round 5): a re-read B row within 5 s of a moment Amal already
+    # ruled on (old uid not carried) is not asked of her again - it is on the owner's list (rehear/rejudge/owner-review.json)
+    RULED = amal_hold.AlreadyRuled()
+    B = {r["uid"]: r for r in A["rows"] if r.get("kind") in ("vocab-B", "grammar-B") and not HOLD.blocks("review", r["uid"], uid=r["uid"], date=r.get("date"))
+         and not RULED.uid(r["uid"])}
     P = json.load(open(PATTERNS, encoding="utf-8")).get("patterns", []) if os.path.exists(PATTERNS) else []
     buckets = {b["id"]: b for b in json.load(open(os.path.join(DOCS, "data", "grammar-buckets.json"), encoding="utf-8"))["buckets"]}
     claimed, patterns = set(), []
@@ -151,7 +168,7 @@ def main(clips=True):
     # Words that came up in a lesson but are not on her sheet (Medi 2026-09-26: "should be sent to Amal's review as a word
     # that appeared in our lesson and not on our sheet"). One card per word, every moment under it. Her tap: sheet_add /
     # sheet_skip in amal_rules (source 'review'). Read from the Lessons page data (on_sheet False).
-    new_words, skipped_loan = sheet_new_words(os.path.join(DOCS, "data", "lessons"), clips)
+    new_words, skipped_loan = sheet_new_words(os.path.join(DOCS, "data", "lessons"), clips, HOLD)
     out = {"built": A["built"], "lessons": len({r["date"] for r in A["rows"]}), "patterns": patterns, "answered": answered, "new_words": new_words,
            "note": "Slips the app thinks Amal let pass (B rows of the 2026-09-26 audit). Nothing is scored until she taps.",
            "counts": {"patterns": len(patterns), "rows": len(B), "vocab": sum(1 for p in patterns if p["kind"] == "vocab"), "grammar": sum(1 for p in patterns if p["kind"] == "grammar"), "new_words": len(new_words),

@@ -133,3 +133,19 @@ def test_PG_20_underlines_point_at_real_chips_and_are_counted():
         assert e == r.get("ul_english", 0), f
         assert carets == r.get("carets", 0), f
         assert r["ul_exact"] + len(r["ul_closest"]) + len(r["ul_none"]) + r["ul_shared"] == r["ul_wanted"], f
+
+
+def test_PG_34_a_fix_the_tutor_gave_before_his_asked_line_is_placed_on_her_earlier_turn():
+    """PG-34 (2026-10-07 audit on the re-read text): on an 'asked' / 'prompt-then-fix' row the tutor says the word first
+    and he asks about it; her earlier turn is the fix. On any other signal a turn before his line is still never the fix."""
+    turns = [{"t": 10.0, "end": 11.0, "who": "Amal", "text": "بزعج."},
+             {"t": 12.0, "end": 14.0, "who": "Medi", "text": "Baz'ej? Baz'ej."},
+             {"t": 20.0, "end": 21.0, "who": "Amal", "text": "مزعوج."}]
+    def detail(signal):
+        return {"turns": turns, "vocab_correct": [], "vocab_errors": [], "not_errors": [], "grammar_not_counted": [],
+                "grammar_errors": [{"t": 12, "t_fix": 10, "bucket": "B6", "bucket_name": "kan", "wrong": "Baz'ej", "right": "بزعج", "signal": signal, "id": "FA-2"}]}
+    tm, rep = TM.build("2026-09-05", detail("asked"), {}, BUCKETS, lambda b: False)
+    assert rep["fix_wanted"] == rep["fix_placed"] == 1 and not rep["fix_missed"]
+    assert tm["0"]["c"][0]["k"] == "fix" and tm["0"]["c"][0]["link"] == [c for c in tm["1"]["c"] if c["s"] in ("wrong", "asked")][0]["id"]
+    tm, rep = TM.build("2026-09-05", detail("recast"), {}, BUCKETS, lambda b: False)
+    assert rep["fix_placed"] == 0 and len(rep["fix_missed"]) == 1          # a recast never comes before the slip

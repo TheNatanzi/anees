@@ -144,6 +144,143 @@ def reviewed(review_patches, event_id):
     return "hand" if ch.get("contextual_audit") or not ch.get("auto_rule") else "auto"
 
 
+# TR-22 / Codex 3: a Word Bank credit (or miss) an earlier review set on a word the second listen no longer hears.
+REHEAR_CONFLICT = "rehear-word-conflict"
+REHEAR_CONFLICT_WHY = "credited by an earlier review; the second listen no longer hears this word - needs a look"
+
+PROCLITIC = ("وال", "بال", "لل", "ال", "و", "ب", "ل")
+
+
+_LAT_UNITS = (("’", "'"), ("`", "'"), ("2", "'"), ("3", "'"), ("5", "K"), ("7", "h"), ("6", "t"), ("9", "s"), ("8", "G"), ("x", "K"),
+              ("sh", "S"), ("ch", "S"), ("kh", "K"), ("gh", "G"), ("th", "t"), ("dh", "z"), ("q", "'"), ("c", "k"), ("g", "G"))
+_AR_UNITS = {"ب": "b", "ت": "t", "ث": "t", "ج": "j", "ح": "h", "خ": "K", "د": "d", "ذ": "z", "ر": "r", "ز": "z", "س": "s", "ش": "S",
+             "ص": "s", "ض": "d", "ط": "t", "ظ": "z", "غ": "G", "ف": "f", "ك": "k", "ل": "l", "م": "m", "ن": "n", "ه": "h",
+             "ڤ": "v", "پ": "p", "چ": "S", "گ": "G"}
+_AR_VOWEL = {"ا": "A", "أ": "A", "إ": "A", "آ": "A", "ٱ": "A", "ى": "A", "ة": "A", "و": "w", "ي": "y"}
+_LAT_ARTICLE = re.compile(r"^((el|il|al|l)[-']|[aei](t|th|d|dh|r|z|s|sh|n|l)-)(?=[a-z0-9]{2})")
+
+
+def _shape(w):
+    """(consonants, slots) of one word, in either alphabet - only for "is this the SAME word?" (still_on_line).
+    consonants = the full consonant skeleton (ع ء ق and doubled letters aside, as xscript.skel); slots[i] = what stands
+    before consonant i (the last slot = after the last consonant): Arabic vowel LETTERS as A (ا أ إ آ ى ة) / w (و) / y (ي),
+    Latin vowels and w / y as written. So كتب = (ktb, ['', '', '', '']) and كاتب = (ktb, ['', 'A', '', ''])."""
+    import xscript as X
+    cons, slots = [], [""]
+    if X.is_ar(w):
+        w = re.sub(r"[ً-ْٰـ]", "", w)
+        if len(w) > 2 and w.endswith("ه"):
+            w = w[:-1] + "ة"                                   # the normaliser writes ة as ه: one letter here
+        for ch in w:
+            if ch in _AR_VOWEL:
+                slots[-1] += _AR_VOWEL[ch]
+            elif ch in _AR_UNITS:
+                if cons and cons[-1] == _AR_UNITS[ch] and not slots[-1]:
+                    continue                                   # a doubled letter is one
+                cons.append(_AR_UNITS[ch])
+                slots.append("")
+            # ء ؤ ئ ع ق and anything else: no letter of the skeleton
+    else:
+        k = _LAT_ARTICLE.sub("", re.sub(r"[^a-z0-9'’`-]", "", (w or "").lower())).replace("-", "")
+        for a, b in _LAT_UNITS:
+            k = k.replace(a, b)
+        for ch in k:
+            if ch in "aeiouwy":
+                slots[-1] += ch
+            elif ch.isalpha():
+                if cons and cons[-1] == ch and not slots[-1]:
+                    continue
+                cons.append(ch)
+                slots.append("")
+    if not X.is_ar(w) and len(cons) >= 2 and cons[-1] == "h" and not slots[-1] and slots[-2]:   # Latin 'sodah': the -h writes the ة
+        cons.pop()
+        slots.pop()
+    return "".join(cons), slots
+
+
+_LAT_FOR = {"A": "ae", "w": "wou", "y": "yie"}
+
+
+def _slots_agree(lat, ar):
+    """One Latin word against one Arabic word with the same consonants: do the vowels agree for sure?
+    - every Arabic vowel letter is written in the Latin word at the same place (ا: a / e, و: w / o / u, ي: y / i / e);
+      the first letter of the word (أ إ ا) takes any vowel;
+    - an ا INSIDE the word must be written long in Latin (aa) or the word is another candidate (katab is كتب, not كاتب);
+    - where Arabic writes no vowel letter, Latin has at most short vowels (no doubled vowel, no w / y)."""
+    n = len(ar) - 1
+    for i, (L, R) in enumerate(zip(lat, ar)):
+        if not R:
+            if re.search(r"[wy]|(.)\1", L):
+                return False
+            continue
+        j = 0
+        for x in R:
+            ok = "aeiou" if (x == "A" and i == 0) else _LAT_FOR[x]
+            while j < len(L) and L[j] not in ok:
+                j += 1
+            if j >= len(L):
+                return False
+            if x == "A" and 0 < i < n and L[j:j + 2] not in ("aa", "ee"):
+                return False                                   # a long ا inside the word, a short vowel in Latin: not sure
+            j += 2 if L[j:j + 2] in ("aa", "ee", "ii", "oo", "uu", "ou") else 1
+    return True
+
+
+def still_on_line(tok, text, doc_forms=None):
+    """Is the word the Word Bank scored still on his line after a TR-22 re-hear - as the SAME word? A re-hear span is the
+    difference between the engine's line and the re-heard line, so it also covers words he DID say that were only written
+    another way: the engine's Latin 'iza' / 'shufna' / 'Shanta' re-heard as إذا / شفنا / شنطة, or 'لـ أول' joined into
+    لأول. Those are not misheard words (TR-18 is about a word the engine got wrong).
+
+    Codex final approval 2026-10-05, blocker 3: this used to accept any two words that share consonants (katab against
+    كاتب). Now each token of the scored piece must be on the line as the same word, and when that is not sure the answer
+    is no (the mark then leaves the score: lesson_ledger.build):
+      - an Arabic token: its own letters after the repo's normaliser (a line word minus و / ب / ل / ال counts);
+      - a Latin token: the same Latin word still on the line, or an Arabic line word with the IDENTICAL full consonant
+        skeleton and
+          * when the scored word's own Arabic (doc_forms: the Doc's spelling of the Word Bank word, both in Arabic
+            script) has that skeleton: the same vowel-letter pattern as it (حدا is not هادا, شب is not شاب), else
+          * the vowels agree for sure across the two alphabets (_slots_agree: katab is not كاتب)."""
+    import xscript as X
+    line = X.TOK.findall(text or "")
+    ar_forms, lat_keys = set(), set()
+    for w in line:
+        if X.is_ar(w):
+            ar_forms.add(w)
+            n = norm(w)
+            for pre in PROCLITIC:
+                if n.startswith(pre) and len(n) > len(pre):
+                    ar_forms.update((pre, n[len(pre):]))
+        else:
+            lat_keys.add(X.key(w))
+    ar = {norm(w) for w in ar_forms}
+    shapes = [_shape(w) for w in ar_forms]
+    doc = [_shape(f) for f in X.TOK.findall(" ".join(str(x) for x in (doc_forms or []) if x)) if X.is_ar(f)]
+
+    def there(t):
+        if X.is_ar(t):
+            return norm(t) in ar
+        if X.key(t) and X.key(t) in lat_keys:
+            return True
+        c, sl = _shape(t)
+        if not c and not any(sl):
+            return False
+        for wc, ws in shapes:
+            if wc != c:
+                continue
+            same_doc = [ds for dc, ds in doc if dc == wc]
+            if same_doc:
+                if ws in same_doc:
+                    return True
+                continue
+            if _slots_agree(sl, ws):
+                return True
+        return False
+
+    toks = X.TOK.findall(tok or "")
+    return bool(toks) and all(there(t) for t in toks)
+
+
 def word_core(arabic):
     a = str(arabic or "").split(" = ")[0]
     a = re.sub(r"\([^)]*\)", " ", a)
@@ -203,6 +340,10 @@ def load_rulings(path=RULINGS_P, amal_path=None):
         amal_path = os.path.join(os.path.dirname(os.path.abspath(path)), "ledger-amal.json")
     A = J(amal_path, {"rulings": []}) or {"rulings": []}
     out.update({r["conflict"]: dict(r, by="amal") for r in A.get("rulings", []) if r.get("conflict") and r.get("answer")})
+    # TR-27 (2026-10-07): her answers on "is this word really there?" (a credit the second listen no longer heard),
+    # keyed by the Word Bank mark (wb:<event>), written by scripts/rehear_tutor.py word-there
+    T = J(os.path.join(os.path.dirname(os.path.abspath(path)), "ledger-tutor-listen.json"), {"rulings": []}) or {"rulings": []}
+    out.update({r["conflict"]: dict(r, by="amal") for r in T.get("rulings", []) if r.get("conflict") and r.get("answer")})
     return out
 
 
@@ -338,6 +479,47 @@ def build(date, detail, uses_by_bucket, buckets, scored_rules, not_taught, ruled
         tk = norm(m.get("tok"))
         hit = next((h for h in H if tk and norm(h["engine_wrote"]) and (norm(h["engine_wrote"]) == tk or set(norm(h["engine_wrote"]).split()) <= set(tk.split())
                                                                         or tk in norm(h["engine_wrote"]).split() or (" " + tk + " ") in (" " + norm(h["engine_wrote"]) + " "))), None)
+        if hit and str(hit.get("by") or "").startswith("gemini"):
+            # TR-22 (2026-10-04): a machine re-hear span is not a hand row naming one misheard word. (1) The scored word
+            # is still on the line (only re-spelled or re-joined): the engine did not mishear it, the score stays.
+            # (2) The word is gone but the Word Bank's own review already scored this event from the whole exchange
+            # (word-bank-review.json sets the same keys, so an override could not show - lesson_ledger.check): its
+            # call stands over a machine listen, as in C1r; Medi's own heard-word row still overrides (below).
+            #
+            # Codex final approval 2026-10-05, blocker 3: (1) is occurrence-specific now (the SAME word, see
+            # still_on_line), and (2) no longer keeps the credit silently - the mark becomes its own visible state,
+            # scored neither right nor wrong, until someone looks (data/lesson-work/rehear/rejudge/word-credit-conflicts.json).
+            doc = [m.get("arabic")] if m["verdict"] in ("right", "partial") else None
+            if still_on_line(m.get("tok"), turns[m["turn"]].get("text"), doc):
+                continue
+            tr = rulings.get(m["id"])
+            if tr and tr.get("rule") == "TR-27" and tr.get("answer") in ("yes", "no", "not_sure"):
+                # TR-27 (2026-10-07): the tutor listened to this very word. yes = it is there, the credit stands;
+                # no = it is not there, the credit is removed (not a mistake: no signal, S3); not sure = unscored.
+                if tr["answer"] == "yes":
+                    m["tutor_note"] = "the tutor listened: the word is there (TR-27)"
+                    continue
+                why = "the tutor listened: %s (TR-27)" % ("the word is not there - the credit is removed" if tr["answer"] == "no" else "not sure - not scored either way")
+                if resolve:
+                    lst = "vocab_correct" if m["verdict"] in ("right", "partial") else "vocab_errors"
+                    m.update(verdict="not-scored", state="tutor-listened", why=why, why_by="TR-27", was=m["verdict"])
+                    actions["move"].append((lst, m["id"], why, "TR-27"))
+                    actions["overrides"].append({"event_id": m["by"]["ref"], "date": date, "mark": m["id"], "was": m["was"],
+                                                 "changes": {"tutor_listened": True, "ledger": m["id"], "ledger_reason": why}})   # its own key: no review patch sets it (lesson_ledger.check)
+                continue
+            rv = reviewed(review_patches, m["by"]["ref"])
+            if rv:
+                m["rehear_note"] = ("the re-hear (TR-22) wrote %s for the engine's %s; the Word Bank's %s review of this event had scored it %s"
+                                    % (hit["heard"] or "nothing", hit["engine_wrote"], "context" if rv == "hand" else "automatic", m["verdict"]))
+                if resolve:
+                    lst = "vocab_correct" if m["verdict"] in ("right", "partial") else "vocab_errors"
+                    m.update(verdict="not-scored", state=REHEAR_CONFLICT, why=REHEAR_CONFLICT_WHY, why_by="TR-22", was=m["verdict"],
+                             rehear={"engine_wrote": hit["engine_wrote"], "heard": hit["heard"], "old_line": turns[m["turn"]].get("engine"),
+                                     "new_line": turns[m["turn"]].get("text"), "review": rv})
+                    actions["move"].append((lst, m["id"], REHEAR_CONFLICT_WHY, "TR-22"))
+                    actions["overrides"].append({"event_id": m["by"]["ref"], "date": date, "mark": m["id"], "was": m["was"],
+                                                 "changes": {"rehear_hold": True, "ledger": m["id"], "ledger_reason": REHEAR_CONFLICT_WHY}})
+                continue
         if hit and resolve:
             why = "the recording engine wrote %s; you said %s (%s)" % (hit["engine_wrote"], hit["heard"], hit.get("rule") or "TR-18")
             lst = "vocab_correct" if m["verdict"] in ("right", "partial") else "vocab_errors"
@@ -579,6 +761,7 @@ def counts(led, scored_rules=None):
     right, partial, wrong = v["right"], v["partial"] + v["asked"], v["wrong"]
     scored = right + partial + wrong
     words = {"right": right, "partial": partial, "wrong": wrong, "scored": scored,
+             "rehear_word_conflicts": sum(1 for m in M if m["kind"] == "vocab" and m.get("state") == REHEAR_CONFLICT),
              "pct": round(100 * (right + .5 * partial) / scored, 1) if scored else None,
              "audit_wrong": sum(1 for m in M if m["kind"] == "vocab" and m["id"].startswith("ra:") and m["verdict"] == "wrong"),
              "audit_partial": sum(1 for m in M if m["kind"] == "vocab" and m["id"].startswith("ra:") and m["verdict"] == "asked"),
@@ -589,7 +772,9 @@ def counts(led, scored_rules=None):
             continue
         r = by_rule.setdefault(m["bucket"], {"uses": 0, "mistakes": 0, "scored": bool(m.get("scored_rule"))})
         r["mistakes"] += m["verdict"] == "slip"
-        r["uses"] += 1
+        # F1-F3 are sounds, not grammar (grammar_math.NO_USAGE_SCORE, wiki/18 rule M4): a slip filed there is listed, never
+        # a grammar use - the Grammar page shows 0 uses for them (2026-10-04: the re-read filed the first three such rows)
+        r["uses"] += m["bucket"] not in NO_USAGE
     sc = [r for r in by_rule.values() if r["scored"]]
     uses, smis = sum(r["uses"] for r in sc), sum(r["mistakes"] for r in sc)
     grammar = {"uses": uses, "mistakes": sum(r["mistakes"] for r in by_rule.values()), "scored_mistakes": smis,

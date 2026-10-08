@@ -73,6 +73,19 @@ def _before(r):
     return {"kind": r.get("kind"), "signal": r.get("signal"), "confidence": r.get("confidence")}
 
 
+def confirm_scored_row(r, ru, pid):
+    """Council 5 / Codex 6 (2026-10-05): Amal confirmed a pattern row that the readers now score THEMSELVES (after the
+    re-read she voiced the fix, so the row is grammar / vocab-A, not a B row waiting for her). Before, her tap only
+    flipped B rows, so her confirmation vanished from such a row ('ruling not back': 09-23 25:24 FA-cca6494e). The row
+    keeps its kind and the readers' signal (her voice); it now also carries her ruling as provenance (amal_ruling
+    kind confirm, on_scored_row) - undo puts it back through "before", like any other ruling. True when recorded."""
+    if not r or r.get("kind") not in ("vocab-A", "grammar") or r.get("amal_ruling"):
+        return False
+    r["amal_ruling"] = {"kind": "confirm", "pattern": pid, "at": ru.get("created_at"), "rule_id": ru.get("id"), "before": _before(r),
+                        "on_scored_row": True}
+    return True
+
+
 LEDGER = os.path.join(REPO, "data", "accuracy", "verifications.json")
 
 
@@ -199,7 +212,7 @@ def apply(dry=False):
     # which taps are already applied is kept HERE (the audit JSON), not written back into her Supabase rows
     # (plan/AI-ENGINEERING-REVIEW-2026-09-27.md: stop PATCHing payload.applied). Old rows may still carry payload.applied.
     done_ids = {i for x in A.get("rulings_applied") or [] for i in x.get("rules") or []}
-    changed, flipped, dropped, new_rules = [], 0, 0, 0
+    changed, flipped, dropped, new_rules, confirmed_scored = [], 0, 0, 0, 0
     # Tutor-page checks of single rows go to the verification ledger, not to the pattern logic below
     L = json.load(open(LEDGER, encoding="utf-8")) if os.path.exists(LEDGER) else {"records": []}
     vrec = verify_records(rulings, rows, L) + withdrawn_records(undone, L)
@@ -239,6 +252,9 @@ def apply(dry=False):
         if ru["kind"] == "audit_confirm":
             for u in uids:
                 r = rows.get(u)
+                if confirm_scored_row(r, ru, pid):
+                    confirmed_scored += 1
+                    continue
                 if not r or r.get("kind") not in ("vocab-B", "grammar-B"):
                     continue
                 b = _before(r)
@@ -264,7 +280,7 @@ def apply(dry=False):
                 known.add(pid)
                 new_rules += 1
         changed.append(ru["id"])
-    print(f"rulings {len(rulings)} new {len(changed)} | undone {len(undone)} (put back {reverted}) | rows scored {flipped} dropped {dropped} | new rules {new_rules} | "
+    print(f"rulings {len(rulings)} new {len(changed)} | undone {len(undone)} (put back {reverted}) | rows scored {flipped} (+{confirmed_scored} already scored, her confirmation recorded) dropped {dropped} | new rules {new_rules} | "
           f"Tutor-page checks {len(vrec)} ({sum(v['verdict'] == 'confirmed' for v in vrec)} confirmed)")
     # GR-21: a confirm must reach the copy the pages read (sweep_compat), every run - not only when a ruling is new
     import full_audit_build as FAB

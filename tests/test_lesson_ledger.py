@@ -306,3 +306,90 @@ def test_LS_14_amal_may_name_another_word_and_leave_a_note():
     assert out == [{"conflict": "C1q-x", "answer": "other", "by": "amal", "at": "2026-10-06T10:00:00Z", "rule_id": 1, "rule": "LS-12",
                     "said": "shawban", "right": "shab3an = full", "note": "he mixed hot and full"}]
     assert LL.LABELS["other"].startswith("Another word")
+
+
+def _reheard(text, engine_wrote, heard, by="gemini-rehear", rule="TR-22"):
+    t = turns()
+    t[2] = dict(t[2], text=text, heard=[{"engine_wrote": engine_wrote, "heard": heard, "rule": rule, "by": by}])
+    return t
+
+
+def test_tr_22_a_rehear_span_that_only_respells_the_word_keeps_its_word_bank_score():
+    """TR-18 un-scores a Word Bank event on a word the engine MISHEARD. A TR-22 re-hear span also covers words he did say
+    that the engine wrote in Latin letters (iza -> إذا, Shanta -> شنطة) or split (لـ أول -> لأول): 2026-10-04, half of the
+    189 overrides were such words and their credits were being taken away."""
+    assert LL.still_on_line("iza", "إذا بتحطي") and LL.still_on_line("shufna,", "إحنا شفنا، لما أهل سيء")
+    assert LL.still_on_line("Shanta?", "Okay, so you want شنطة؟") and LL.still_on_line("أول", "لأول الكلمة")
+    assert LL.still_on_line("بلبس blouze", "اليوم بلبس بلوزة so شو؟") and LL.still_on_line("awal", "أول الأسبوع")
+    assert not LL.still_on_line("جو", "شوب كتير كتير") and not LL.still_on_line("كم مرة؟", "كمان مرة")
+    assert not LL.still_on_line("ذكي.", "مش زاكي") and not LL.still_on_line("صرت", "أنا صحيت متأخر") and not LL.still_on_line("", "x")
+    # Codex final approval 2026-10-05, blocker 3: the SAME word, not any word with the same consonants
+    assert not LL.still_on_line("katab", "كاتب") and LL.still_on_line("katab", "كتب")
+    assert not LL.still_on_line("kaman", "وانتي كمان")                      # a long ا inside, a short a in Latin: not sure -> no
+    assert LL.still_on_line("kaman", "وانتي كمان", ["كمان"])                # ... unless it is the Word Bank word's own Arabic
+    assert not LL.still_on_line("hada", "هادا؟", ["حدا"]) and LL.still_on_line("hada", "ولا حدا", ["حدا"])   # someone is not this
+    assert not LL.still_on_line("shab", "هداك الشاب", ["شب"])              # her شب against the re-heard شاب: not sure -> no
+    assert LL.still_on_line("safra.", "إنتي خربتي السفرة", ["سفرة"]) and LL.still_on_line("tamanin.", "ثمانين", ["تمانين"])
+    assert LL.still_on_line("kul shee", "كل شي خرب", ["كل شيء"]) and LL.still_on_line("u", "و زرقا", ["و"])
+    assert LL.still_on_line("kaman", "kaman yes") and not LL.still_on_line("kaman", "kamana yes")
+    # the engine's Latin 'blouze' re-heard as بلوزة: the Word Bank's balbes on that line keeps its credit
+    led, act = build(detail(turns=_reheard("اليوم بلبس بلوزة so شو؟", "blouze", "بلوزة"),
+                            vocab_correct=[wb("e-b", 1285.2, "balbes", "بلبس blouze")]))
+    m = {x["id"]: x for x in led["marks"]}
+    assert m["wb:e-b"]["verdict"] == "right" and not act["overrides"] and led["counts"]["words"]["right"] == 1
+    # the engine's جو re-heard as شوب: that word is gone, TR-18 applies as before
+    led, act = build(detail(turns=_reheard("اليوم شوب كتير", "جو", "شوب"), vocab_correct=[wb("e-j", 1285.2, "jaw", "جو")]))
+    m = {x["id"]: x for x in led["marks"]}
+    assert m["wb:e-j"]["verdict"] == "not-scored" and m["wb:e-j"]["why_by"] == "TR-18"
+    assert act["overrides"][0]["changes"]["observation_only"] is True
+    # a hand row (Medi's, a reader's) names the misheard word itself: unchanged, it always un-scores the event
+    led, act = build(detail(turns=_reheard("اليوم بلبس بلوزة so شو؟", "blouze", "بلوزة", by="medi", rule="TR-18"),
+                            vocab_correct=[wb("e-b", 1285.2, "balbes", "بلبس blouze")]))
+    assert {x["id"]: x for x in led["marks"]}["wb:e-b"]["verdict"] == "not-scored" and len(act["overrides"]) == 1
+
+
+def test_tr_22_a_reviewed_credit_on_a_word_the_second_listen_no_longer_hears_is_its_own_state_not_scored():
+    """The word is gone from the re-heard line, but word-bank-review.json had already scored this event. Before
+    2026-10-05 the review stood silently (28 marks). Codex final approval, blocker 3: it is its own visible state -
+    scored neither right nor wrong, left out of Words %, with an override key no review patch sets (rehear_hold), so the
+    Word Bank shows the same. Medi's own heard-word row is not a machine re-hear: it still overrides as TR-18."""
+    patches = {"e-j": {"expected": {}, "changes": {"contextual_audit": True, "vocab_points": 1, "observation_only": False}}}
+    led, act = build(detail(turns=_reheard("اليوم شوب كتير", "جو", "شوب"), vocab_correct=[wb("e-j", 1285.2, "jaw", "جو")]), patches=patches)
+    m = {x["id"]: x for x in led["marks"]}["wb:e-j"]
+    assert m["verdict"] == "not-scored" and m["state"] == LL.REHEAR_CONFLICT and m["was"] == "right"
+    assert m["why"] == "credited by an earlier review; the second listen no longer hears this word - needs a look"
+    assert act["overrides"] == [{"event_id": "e-j", "date": led["date"], "mark": "wb:e-j", "was": "right",
+                                 "changes": {"rehear_hold": True, "ledger": "wb:e-j", "ledger_reason": LL.REHEAR_CONFLICT_WHY}}]
+    assert not set(act["overrides"][0]["changes"]) & set(patches["e-j"]["changes"])          # no review patch can hide it
+    assert ("vocab_correct", "wb:e-j", LL.REHEAR_CONFLICT_WHY, "TR-22") in act["move"]
+    w = led["counts"]["words"]
+    assert (w["right"], w["scored"], w["pct"], w["rehear_word_conflicts"]) == (0, 0, None, 1)   # not scored either way
+    # in shadow mode nothing is applied: the mark only carries the note
+    led, act = build(detail(turns=_reheard("اليوم شوب كتير", "جو", "شوب"), vocab_correct=[wb("e-j", 1285.2, "jaw", "جو")]), patches=patches, resolve=False)
+    m = {x["id"]: x for x in led["marks"]}["wb:e-j"]
+    assert m["verdict"] == "right" and not act["overrides"] and "rehear_note" in m
+    led, act = build(detail(turns=_reheard("اليوم شوب كتير", "جو", "شوب", by="medi", rule="TR-18"),
+                            vocab_correct=[wb("e-j", 1285.2, "jaw", "جو")]), patches=patches)
+    assert {x["id"]: x for x in led["marks"]}["wb:e-j"]["verdict"] == "not-scored" and len(act["overrides"]) == 1
+
+
+def test_the_word_bank_does_not_score_a_rehear_hold_event():
+    """docs/js/word-bank-core.js points(): rehear_hold is not scored, whatever a review patch set."""
+    import subprocess
+    node = r"C:\dev\tools\node-v24.18.0-win-x64\node.exe"
+    js = ("const C=require('./docs/js/word-bank-core.js');const e={speaker:'Medi',lesson_date:'2026-10-02',t_start:5,vocab_points:1,assessment:'independent'};"
+          "console.log(JSON.stringify([C.points(e),C.points({...e,rehear_hold:true})]))")
+    out = subprocess.run([node if os.path.exists(node) else "node", "-e", js], cwd=ROOT, capture_output=True, encoding="utf-8", check=True).stdout
+    assert json.loads(out) == [1, None]
+
+
+def test_LS_11_a_slip_filed_under_a_sound_bucket_is_listed_but_never_a_grammar_use():
+    """F1-F3 are sounds, not grammar (S4; grammar_math.NO_USAGE_SCORE): the Grammar page shows 0 uses for them, so the
+    ledger must too (2026-10-04: the re-read filed 09-10 08:08 salaa7to -> salla7to under F2 and the two disagreed)."""
+    g = {"id": "FA-f", "t": 2000, "bucket": "F2", "wrong": "صلاحتو", "right": "صلحته", "signal": "recast", "confidence": "low"}
+    led = LL.build("2026-10-01", detail(grammar_errors=[g]), {}, dict(BUCKETS, F2={"name": "long vowel"}), SCORED, NOT_TAUGHT, (), (), {}, {})[0]
+    r = led["counts"]["grammar"]["by_rule"]["F2"]
+    assert r == {"uses": 0, "mistakes": 1, "scored": False} and led["counts"]["grammar"]["uses"] == 0
+    g2 = dict(g, id="FA-a", bucket="A9")           # a grammar bucket: the slip is an attempt, as before
+    led = build(detail(grammar_errors=[g2]))[0]
+    assert led["counts"]["grammar"]["by_rule"]["A9"]["uses"] == 1

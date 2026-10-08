@@ -3288,8 +3288,15 @@
    "moments": [
     {
      "type": "data",
+     "path": "data/lesson-work/full-audit/2026-09-11.settled.json",
+     "contains": "\"right\": \"نجمة / نجوم\"",
+     "note": "2026-10-05: 09-11 was re-read on the final text (the spot-check lines went back to the engine's text); both readers now write the star moment as ONE asked row at 09:14 (عاصفة guessed for stars -> نجمة / نجوم, r1+r2), so the third reader has no self-fix call to overturn and no row carries agreed_by GR-24 any more. Before (2026-10-04) the code overturn lived here as 09:30 أنجم -> نجوم. The overturn itself stays proven by tests/test_self_fix_timing.py on its fixtures"
+    },
+    {
+     "type": "data",
      "path": "data/lesson-work/full-audit/2026-10-02.settled.json",
-     "contains": "\"agreed_by\": \"GR-24\""
+     "contains": "'That's right' (GR-24",
+     "note": "the rule's first moment (10-02 07:02 سمعت -> صحيت): since the 2026-10-04 re-read both readers file it as her recast, citing GR-24 from the brief | 2026-10-07 re-read (TR-27 text): the readers now write \"said 'That's right' (GR-24 - her word came after his)\""
     },
     {
      "type": "data",
@@ -7795,7 +7802,7 @@
      "contains": "const YES = 'Yes - this is the rule as I teach it';"
     }
    ],
-   "next_step": "Medi's yes per rule -> bucket in docs/data/grammar-buckets.json + pattern in scripts/detect_grammar_usage.py + a planted-mistake test; Amal's notes under P-A13.. read row by row (amal_grammar_notes.py)",
+   "next_step": "done 2026-10-07 (GR-30): buckets A13-A17 + patterns + test; Amal's yes on all six read from amal_rules grammar_notes",
    "aliases": []
   },
   {
@@ -7933,6 +7940,11 @@
     {
      "path": "tests/test_build_tutor_weak.py",
      "contains": "def test_PG_31_every_page_with_the_shared_menu_loads_the_phone_tab_bar"
+    },
+    {
+     "path": "tests/test_build_tutor_weak.py",
+     "contains": "def test_PG_31_every_page_with_the_shared_menu_loads_the_phone_tab_bar",
+     "note": "2026-10-07 audit (Medi 2026-10-06 'The button menu bottom disappears on lesson page'): a lesson's own page has no shared menu - the bar is built from the shell's list, Lessons current; arabizi_everywhere.py stamps the script on every lesson page"
     }
    ],
    "aliases": []
@@ -8284,6 +8296,158 @@
     {
      "path": "tests/test_amal_checks.py",
      "contains": "def test_LS_16_same_fix_within_30s_or_a_phrase_holding_the_word_is_one_mistake"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "TR-27",
+   "kind": "data",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The tutor's ear decides a second-listen change that could hide a mistake. A Gemini change (TR-22) of one of Medi's lines is HELD - not applied, listed for the tutor - when (a) a WORD it puts on the line is a word the tutor says, or types in the chat, within the next 30 s and the engine did not have it (the change moves toward the teacher's form; before: 15 s, spoken only, released by a two-clip AI check - no AI check releases it any more), or (b) the line holds a moment the tutor confirmed as a mistake. Only her own listen releases or takes out a held line: 'he said it right' / 'yes, he said the word' / 'the new line' = applied; 'he said it wrong' / 'no' / 'the old line' = the engine's text stays; 'not sure' = still held. Every held line not yet answered is ONE Tutor-portal list, 'Listen: what did the student say? - part 2' (scripts/build_amal_checks.py slip-check-2); the lesson's PG-27 chip says how many lines wait for her. Her other listen answers win too (AM-06): an AI run she picked over Medi's own correction is a whole-line row by tutor-listen that wins over his row (scripts/transcript_fixes.py 'wins'); 'is this word really there?' no = the credit is removed through data/lesson-work/ledger-tutor-listen.json (never a deleted row); 'one mistake or two?' same = a duplicates.json pair under LS-16. Why: the council's 27-line gate (2026-10-05) came back 12 of 27 'he said it wrong' - the second listen had replaced his real mistakes with Amal's correct form; 8 or more = widen the hold rule and take those lines out. 2026-10-07 on 18 lessons: 12 lines taken out by the gate, 52 taken out on her word in all, 65 applied on her word, 223 held for her part-2 list (scripts/rehear_tutor.py; data/lesson-work/rehear/tutor-hold.json).",
+   "plain": "When the second AI listen changes one of your lines into a word your tutor says in the same minute, or on a line where she already marked a mistake, the change waits for her ear instead of going in. Only her listen puts it in or keeps it out. The lines waiting for her are one list on her Tutor page; each lesson's chip says how many.",
+   "plain_for": "f7b2948f",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-07",
+     "quote": "ok the questions are complete open a chip and run the changes and the audit. Please prompt it to loop it and ensure the data is graded and entered correctly in all areas. Page by page. Make sure literally everything is checked 3 times",
+     "session": "7d12fb96"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-04",
+     "quote": "put anything that needs to be checked in the tutor portal, i will have her check"
+    },
+    {
+     "by": "amal",
+     "date": "2026-10-06",
+     "quote": "Listen: what did the student say? - 27 of 27 answered: 12 'Yes, he said it wrong', 15 'No, he said it right'"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/rehear_tutor.py",
+     "contains": "def verdict(date, r, line, hers, confirmed, K):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/rehear_apply.py",
+     "contains": "def tutor_release(r, base_, v, pile):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/transcript_fixes.py",
+     "contains": "if g is not None and (not under or g.get(\"wins\")):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/lesson_ledger.py",
+     "contains": "if tr and tr.get(\"rule\") == \"TR-27\""
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_amal_checks.py",
+     "contains": "def slip_check_2(self):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_rehear_tutor.py",
+     "contains": "def test_TR_27_a_change_toward_the_tutors_own_word_within_30_s_is_held_spoken_or_typed"
+    },
+    {
+     "path": "tests/test_rehear_tutor.py",
+     "contains": "def test_TR_27_only_the_tutors_own_listen_releases_or_takes_out_a_line"
+    },
+    {
+     "path": "tests/test_rehear_tutor.py",
+     "contains": "def test_TR_27_the_tutors_pick_of_an_ai_run_wins_over_his_own_correction_on_the_line"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "GR-30",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The Oct 2 tool words are scored grammar rules: A13 awal / oola, A14 taani, A15 aa5er / a5eer, A16 8eir, A17 nafs + el-, and one added line on A11 (el-kull = everyone). Each is a bucket in docs/data/grammar-buckets.json (scripts/build_grammar_buckets.py) with a use pattern in scripts/detect_grammar_usage.py (the tool word with a noun next to it, before or after; a function word after it is not a noun; the wrong el- forms count as uses, a slip is still an attempt). The proposals P-A13 .. P-A17 and P-A11-add carry Medi's yes in data/lesson-work/full-audit/proposed-buckets.json (GR-18 path); a past PROPOSE row on one of these words is re-filed under its bucket by the same file. Amal said yes to all six on her rules page 2026-10-06 ('Yes - this is the rule as I teach it'); Medi 2026-10-07 'yes count them'.",
+   "plain": "The five little words from the Oct 2 lesson (awal, taani, aa5er, 8eir, nafs) and the extra line on kul are real grammar rules now: the app counts every time you use one, right or wrong, under its own letter-number (A13 to A17).",
+   "plain_for": "7a9d817f",
+   "topic": "grammar rules",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-07",
+     "quote": "yes count them but wait until we add the gemini changes",
+     "session": "2090bac7"
+    },
+    {
+     "by": "amal",
+     "date": "2026-10-06",
+     "quote": "Yes - this is the rule as I teach it"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/build_grammar_buckets.py",
+     "contains": "A(\"A13\", \"A\", \"awal / oola: before or after the noun\","
+    },
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "\"A17\": [r\"(?:^|\\s)(?:ال)?نفس"
+    },
+    {
+     "type": "data",
+     "path": "data/lesson-work/full-audit/proposed-buckets.json",
+     "contains": "\"id\": \"P-A13\""
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_grammar_tool_words.py",
+     "contains": "def test_GR_30_the_oct_2_tool_words_are_counted_as_uses_before_or_after_the_noun"
+    }
+   ],
+   "aliases": []
+  },
+  {
+   "id": "PG-34",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "On the transcript page a voiced fix chip (PG-20) is placed on the tutor's turn at or after the student's line - except when the audit row's signal is 'asked' or 'prompt-then-fix': there the tutor gave the word first and he asked about it or repeated it, so her turn BEFORE his line is the fix and the chip goes there (scripts/transcript_marks.py amal_fix, PROMPT_FIRST). Found by the 2026-10-07 audit on the re-read text: 09-05 had 3 of 42 voiced fixes unplaced (21:53 her بزعج then his 'Baz'ej?' at 22:02; 28:13 أزعج; 09:55 بسط), over the 5 % bar of the PG-20 test.",
+   "plain": "When the tutor says the word first and you ask about it or repeat it, the transcript page now pins her fix on the line she said it, even though it comes before yours.",
+   "plain_for": "5bdee058",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-07",
+     "quote": "Please prompt it to loop it and ensure the data is graded and entered correctly in all areas. Page by page. Make sure literally everything is checked 3 times",
+     "session": "7d12fb96"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/transcript_marks.py",
+     "contains": "and signal not in PROMPT_FIRST:"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_transcript_marks.py",
+     "contains": "def test_PG_34_a_fix_the_tutor_gave_before_his_asked_line_is_placed_on_her_earlier_turn"
     }
    ],
    "aliases": []

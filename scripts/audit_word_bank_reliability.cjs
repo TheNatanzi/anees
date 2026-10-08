@@ -4,7 +4,7 @@ const read=p=>JSON.parse(fs.readFileSync(p,'utf8').replace(/^\uFEFF/,'')),hash=v
 const slipsP=root+'/docs/data/word-bank-audit-slips.json',slipsDoc=fs.existsSync(slipsP)?read(slipsP):null; // LS-11: the ledger's overrides apply here too (not the slip events: they have no clip/context to audit)
 const snap=read(process.argv[2]),raw=R.withLedger(snap.events||snap,slipsDoc),baseline=process.argv[3]?read(process.argv[3]):raw,review=read(root+'/docs/data/word-bank-review.json'),applied=R.apply(raw,review);if(applied.stale.length)throw Error('Stale source guards: '+applied.stale.join(','));
 const ev=C.prepareEvidence(applied.events),learners=ev.filter(e=>e.speaker==='Medi'),clips=read(root+'/docs/data/word-bank-clips.json').clips,words=read(root+'/docs/data/words.json').items,keys=new Set(words.map(w=>w.key)),catalog=read(root+'/docs/data/word-bank-catalog.json'),models=C.models(words,catalog,ev,[]);
-const pending=e=>C.points(e)===null&&!e.ignored&&!e.immediate_repeat&&!e.is_echo&&!e.grammar_only&&!e.observation_only&&!e.scored_in_event;
+const pending=e=>C.points(e)===null&&!e.ignored&&!e.immediate_repeat&&!e.is_echo&&!e.grammar_only&&!e.observation_only&&!e.scored_in_event&&!e.rehear_hold&&!e.tutor_listened;
 const originalPending=new Set(baseline.filter(e=>e.speaker==='Medi'&&pending(e)).map(e=>e.id)),counts={},problems=[];
 const sourceRows=new Map();for(const e of ev){if(!sourceRows.has(e.lesson_date))sourceRows.set(e.lesson_date,new Map());for(const r of e.context||[])sourceRows.get(e.lesson_date).set(r.row_id,r);}
 const ledger=learners.map(e=>{

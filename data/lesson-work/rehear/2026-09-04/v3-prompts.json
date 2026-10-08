@@ -1,0 +1,15 @@
+{
+ "782": {
+  "amal_words": [
+   "بسطني"
+  ],
+  "amal_span": [
+   1831.0,
+   1843.39
+  ],
+  "amal_clip": "clips/v3-amal-0782.wav",
+  "amal_src": "mix",
+  "amal_clip_sha256": "2ed88e762db87394c453bcb717006c9848334d274d2753edd6f8550c196c4000",
+  "prompt": "Two short clips from an online Arabic lesson.\nCLIP 1: the learner (Medi), one line. He makes learner mistakes (wrong words, wrong forms).\nCLIP 2: his teacher (Amal), a few seconds later. In clip 2 she says: «بسطني».\nFor each of those words: does the LEARNER say that same word in CLIP 1, or does he say something different at that place (for example a wrong\nword or a wrong form that she then corrects)? Judge by the sound of clip 1 only: a teacher often corrects a learner, so her saying a word\ndoes not mean he said it.\nAnswer JSON only: {\"words\": [{\"word\": \"her word\", \"same\": true|false, \"learner_said\": \"what he says at that place in clip 1, in Arabic script (or English)\"}], \"confidence\": \"high\"|\"medium\"|\"low\", \"why\": \"one short reason\"}"
+ }
+}

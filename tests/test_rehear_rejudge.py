@@ -159,7 +159,10 @@ def test_amal_confirmed_row_without_a_new_row_is_kept_and_listed():
     assert [x["uid"] for x in L["kept_confirmed"]] == ["FA-conf0001"] and [x["uid"] for x in L["listed_rejected"]] == ["FA-rej00001"]
     assert L["kept_confirmed"][0]["line_before"] == "أنا صحيت على ثمانية." and L["kept_confirmed"][0]["line_after"] == "أنا صحيت عالتمانية."
     assert [x["uid"] for x in L["line_changed"]] == ["FA-car00001"]          # carried, his line changed: listed, not dropped
-    assert len(pres) == 1
+    # round 2 (2026-10-05): the plain scored row nobody wrote again is restored too (its own mark), not dropped
+    assert len(pres) == 2 and pres[1]["uid_keep"] == "FA-plain001" and pres[1]["kept"] == RR.RESTORED_MARK
+    assert [x["uid"] for x in L["restored_first_read"]] == ["FA-plain001"]
+    pres = pres[:1]
     p = pres[0]
     assert p["uid_keep"] == "FA-conf0001" and p["kept"] == RR.KEPT_MARK and "amal_ruling" not in p and "uid" not in p
     assert (p["kind"], p["signal"], p["confidence"]) == ("grammar-B", "none", "low")     # her confirm can be re-applied
@@ -292,3 +295,219 @@ def test_accept_pins_an_agent_file_as_fresh(tmp_path, monkeypatch):
     assert R.readers_read_current(D, repo) is None
     put("docs/data/lessons/%s.json" % D, json.dumps({"turns": [{"t": 1.0, "who": "Medi", "text": "مرحبتين"}]}))
     assert R.readers_read_current(D, repo)                                              # the text moved on: stale again
+
+
+# ------------------------------------------------------------------------------------------------ the hold (nothing new for Amal)
+def _hold(**k):
+    import amal_hold
+    return amal_hold.Hold(doc={"uids": [], "before": {}, "dates": [D], **k})
+
+
+def test_no_hold_file_blocks_nothing(tmp_path):
+    import amal_hold
+    H = amal_hold.Hold(path=str(tmp_path / "none.json"))
+    assert not H.active and not H.uid("FA-1") and not H.blocks("review", "FA-1", uid="FA-1", date=D)
+
+
+def test_hold_blocks_created_rows_and_anything_not_on_her_list_before():
+    H = _hold(uids=["FA-new"], before={"review": ["FA-was"], "verify": None})
+    assert H.uid("FA-new") and H.blocks("review", "FA-new", uid="FA-new", date=D)
+    assert not H.blocks("review", "FA-was", uid="FA-was", date=D)
+    assert H.blocks("review", "FA-carried-now-B", uid="FA-carried-now-B", date=D)      # carried, but she was never asked it
+    assert not H.blocks("review", "FA-next", uid="FA-next", date="2026-10-06")         # a lesson after the re-read flows as before
+    assert not H.blocks("verify", "FA-x", uid="FA-x", date=D)                           # no 'before' list for it: only held uids
+    assert H.uid("ra:FA-new".split(":", 1)[-1])                                         # a ledger mark of a held row
+
+
+def test_hold_doc_holds_only_rows_the_reread_created():
+    before = {D: {"rows": [dict(row("05:00", "a"), uid="FA-old"), dict(row("06:00", "b"), uid="FA-carried"), dict(row("07:00", "k"), uid="FA-kept")]}}
+    audit = [dict(row("05:00", "a"), uid="FA-old"), dict(row("06:01", "b2"), uid="FA-carried", uid_carried_from="FA-zz"),
+             dict(row("07:00", "k"), uid="FA-kept", kept=RR.KEPT_MARK), dict(row("09:00", "n", kind="grammar-B"), uid="FA-new")]
+    pub = {"docs/data/amal-review.json": json.dumps({"patterns": [{"id": "p", "examples": [{"uid": "FA-b1"}]}], "answered": [{"id": "q", "examples": [{"uid": "FA-b2"}]}],
+                                                     "new_words": [{"id": "sheet-1"}]}),
+           "docs/data/amal-verify.json": json.dumps({"items": [{"uid": "FA-v1"}], "answered": [{"uid": "FA-v2"}]}),
+           "docs/data/amal-ledger.json": json.dumps({"items": [{"id": "ledger:C1q-1", "conflict": "C1q-1"}], "answered": []})}
+    doc = RR.hold_doc(before, audit, pub)
+    assert doc["uids"] == ["FA-new"] and doc["rows"][0]["why"] == RR.HOLD_WHY and doc["rows"][0]["kind"] == "grammar-B"
+    assert doc["before"] == {"review": ["FA-b1", "FA-b2"], "new_words": ["sheet-1"], "verify": ["FA-v1", "FA-v2"], "ledger": ["C1q-1"]}
+    assert doc["dates"] == [D]
+
+
+def test_a_held_row_never_reaches_her_check_list(tmp_path):
+    import codex_rejudge as CR, amal_hold
+    ev = {"t_start": 290, "t_end": 325}
+    audit = {"rows": [{"uid": u, "date": D, "kind": "grammar", "t": "05:00", "wrong": "a", "right": "b"} for u in ("FA-1", "FA-2", "FA-3")]}
+    L = {"records": [{"uid": u, "role": "second-judge", "reviewer": "codex gpt-5.5", "verdict": "rejected", "evidence": ev, "at": "1", "date": D} for u in ("FA-1", "FA-2", "FA-3")]
+         + [{"uid": "FA-3", "role": "human", "method": "human", "reviewer": "Amal", "verdict": "confirmed", "evidence": ev, "at": "2", "date": D, "source": "amal_rules review (Tutor page)"}]}
+    none = amal_hold.Hold(path=str(tmp_path / "none.json"))
+    plain = CR.amal_list(audit=audit, ledger=L, repo=str(tmp_path), hold=none)
+    assert [x["uid"] for x in plain["items"]] == ["FA-1", "FA-2"] and [x["uid"] for x in plain["answered"]] == ["FA-3"]
+    held = CR.amal_list(audit=audit, ledger=L, repo=str(tmp_path), hold=_hold(uids=["FA-2"]))
+    assert [x["uid"] for x in held["items"]] == ["FA-1"] and held["answered"] == plain["answered"]     # her own answers stay
+    only_before = CR.amal_list(audit=audit, ledger=L, repo=str(tmp_path), hold=_hold(before={"verify": ["FA-2"]}))
+    assert [x["uid"] for x in only_before["items"]] == ["FA-2"]
+
+
+def test_a_held_row_never_reaches_her_review_page(tmp_path, monkeypatch):
+    import build_amal_review as BR, amal_hold
+    audit = {"built": "x", "rows": [dict(row("05:00", "a", kind="grammar-B"), uid="FA-b1", medi_said="m", amal_said=None),
+                                    dict(row("06:00", "b", kind="vocab-B"), uid="FA-new", medi_said="m", amal_said=None),
+                                    dict(row("07:00", "c", kind="grammar-B"), uid="FA-b3", medi_said="m", amal_said=None)]}
+    (tmp_path / "audit.json").write_text(json.dumps(audit), encoding="utf-8")
+    (tmp_path / "patterns.json").write_text(json.dumps({"patterns": [{"id": "p-1", "kind": "grammar", "rows": ["FA-b1", "FA-b3"]}]}), encoding="utf-8")
+    ld = tmp_path / "lessons"; ld.mkdir()
+    (ld / (D + ".json")).write_text(json.dumps({"vocab_errors": [
+        {"on_sheet": False, "arabic": "كلمة", "mmss": "01:00", "audit_uid": "FA-w-old"}, {"on_sheet": False, "arabic": "جديد", "mmss": "02:00", "audit_uid": "FA-new"}]}), encoding="utf-8")
+    real_words = BR.sheet_new_words
+    monkeypatch.setattr(BR, "AUDIT", str(tmp_path / "audit.json")); monkeypatch.setattr(BR, "PATTERNS", str(tmp_path / "patterns.json"))
+    monkeypatch.setattr(BR, "OUT", str(tmp_path / "out.json")); monkeypatch.setattr(BR, "sheet_new_words", lambda ldir, clips, hold: ([], set()))
+    monkeypatch.setattr(amal_hold, "HOLD_P", str(tmp_path / "hold.json"))
+    uids = lambda: sorted(e["uid"] for p in json.load(open(tmp_path / "out.json", encoding="utf-8"))["patterns"] for e in p["examples"])
+    BR.main(clips=False)
+    assert uids() == ["FA-b1", "FA-b3", "FA-new"]                                  # no hold file: every B row, as today
+    plain = open(tmp_path / "out.json", encoding="utf-8").read()
+    (tmp_path / "hold.json").write_text(json.dumps({"uids": ["FA-new"], "before": {"review": ["FA-b1"]}, "dates": [D]}), encoding="utf-8")
+    BR.main(clips=False)
+    assert uids() == ["FA-b1"]                                                    # the created row and the row she never saw are skipped
+    os.remove(tmp_path / "hold.json")
+    BR.main(clips=False)
+    assert open(tmp_path / "out.json", encoding="utf-8").read() == plain          # hold gone = byte-for-byte the old output
+    first = lambda w: w["arabic"]
+    assert sorted(map(first, real_words(str(ld))[0])) == sorted(["كلمة", "جديد"])
+    assert [first(w) for w in real_words(str(ld), hold=_hold(uids=["FA-new"]))[0]] == ["كلمة"]
+    keep = [w["id"] for w in real_words(str(ld))[0] if w["arabic"] == "جديد"]
+    assert [first(w) for w in real_words(str(ld), hold=_hold(before={"new_words": keep}))[0]] == ["جديد"]
+
+
+def test_ledger_cards_for_amal_skip_held_rows():
+    src = open(os.path.join(REPO, "scripts", "build_lessons_page_data.py"), encoding="utf-8").read()
+    assert 'held_card = lambda c, d: HOLD.blocks("ledger", c["id"], date=d) or any(HOLD.uid(str(m).split(":", 1)[-1]) for m in c.get("marks") or [])' in src
+    assert src.index("if held_card(c, d):") < src.index("cards.append(LL.amal_item(d, led, c))")
+
+
+def test_amal_diff_lists_added_and_removed():
+    b = {"docs/data/amal-review.json": json.dumps({"patterns": [{"id": "p", "title": "t", "examples": [{"uid": "FA-1"}, {"uid": "FA-2"}]}], "new_words": []}),
+         "docs/data/amal-verify.json": json.dumps({"items": [{"uid": "FA-v"}], "answered": []}),
+         "docs/data/amal-ledger.json": json.dumps({"items": [], "answered": []}), "docs/amal/review.html": "<a>", "docs/data/tutor.json": json.dumps({"open": [{"id": "x"}]})}
+    assert RR.amal_diff_docs(b, dict(b)) == {"added": [], "removed": [], "changed_pages": []}
+    a = dict(b)
+    a["docs/data/amal-review.json"] = json.dumps({"patterns": [{"id": "p", "title": "t", "examples": [{"uid": "FA-1"}, {"uid": "FA-3"}]},
+                                                               {"id": "single-FA-9", "examples": [{"uid": "FA-9"}]}], "new_words": [{"id": "sheet-1", "moments": []}]})
+    a["docs/data/amal-verify.json"] = json.dumps({"items": [], "answered": [{"uid": "FA-v"}]})
+    a["docs/data/amal-ledger.json"] = json.dumps({"items": [{"id": "ledger:C1q-9"}], "answered": []})
+    a["docs/amal/review.html"] = "<b>"
+    x = RR.amal_diff_docs(b, a)
+    assert {i["item"] for i in x["added"]} == {"row FA-3", "pattern single-FA-9", "row FA-9", "word sheet-1", "card ledger:C1q-9"}
+    assert {i["item"] for i in x["removed"]} == {"row FA-2", "verify FA-v"}
+    assert x["changed_pages"] == [{"file": "docs/amal/review.html", "state": "changed"}]
+
+
+def test_report_counts_held_rows_as_a_or_b():
+    before = {"date": D, "headline": None, "rows": [dict(row("05:00", "a"), uid="FA-1", amal=None)]}
+    after = [dict(row("05:00", "a"), uid="FA-1"), dict(row("06:00", "n", kind="grammar"), uid="FA-n1"),
+             dict(row("07:00", "m", kind="vocab-B"), uid="FA-n2"), dict(row("08:00", "r", kind="rejected"), uid="FA-n3")]
+    assert RR.report_lesson(before, after)["held_from_amal"] == {"rows": 3, "A": 1, "B": 1, "other": 1}
+
+
+def test_a_rejected_ruling_lands_on_a_sweep_word_row_that_has_no_wrong_piece(tmp_path):
+    """2026-10-04: after the re-read the readers no longer wrote 09-19 08:54 'أب الامبارح' (hand check: pronunciation,
+    S4), so the 09-24 sweep's own row came back - a 'didn't know' word row, wrong = None - and the ruling stopped landing.
+    A row without a wrong piece is matched on what he said; a row WITH a wrong piece is still matched on that piece only."""
+    asked = dict(row("08:54", None, kind="vocab-A", right="قبل امبارح"), medi_said="أب الامبارح")
+    assert FAB.ruled_piece(asked) == "أب الامبارح"
+    with_piece = dict(row("08:54", "مغاير", kind="vocab-A"), medi_said="أب الامبارح مغاير")
+    assert FAB.ruled_piece(with_piece) == "مغاير"
+    x = {"date": D, "t": "08:54", "wrong": "أب الامبارح", "why": "S4"}
+    assert RR.ruling_hits(asked, x) and not RR.ruling_hits(with_piece, x)
+    assert not RR.ruling_hits(dict(asked, medi_said="شو يعني"), x)
+    w = str(tmp_path)
+    for name, obj in (("rejected.json", {"rows": [x]}), ("signal-rulings.json", {"rows": []}), ("proposed-buckets.json", {"proposals": []}),
+                      ("duplicates.json", {"pairs": []}), ("self-fix-rulings.json", {"rows": []})):
+        open(os.path.join(w, name), "w", encoding="utf-8").write(json.dumps(obj, ensure_ascii=False))
+    before = [dict(row("08:54", "أب الامبارح", kind="rejected", kind_before_rejection="vocab-A"), uid="FA-o")]
+    P = RR.check_hand_rulings([dict(asked, uid="FA-o")], before, work=w, disputes_of=lambda d: [])
+    assert [p["severity"] for p in P if p["file"] == "rejected.json"] == ["ok"]
+
+
+def test_a_repointed_ruling_is_not_asked_again(tmp_path):
+    """A person re-pointed a rejected.json ruling (a new row with repointed_from = the old row's t + wrong; the old row
+    stays, RULES S6): preflight lists the old row as re-pointed, not as something still to decide."""
+    w = str(tmp_path)
+    old = {"date": D, "t": "51:53", "wrong": "lazem enbestu", "kind": "grammar", "why": "GR-19"}
+    new = {"date": D, "t": "51:53", "wrong": "انبسطوا", "kind": "grammar", "why": "GR-19 | re-pointed", "repointed_from": {"t": "51:53", "wrong": "lazem enbestu"}}
+    for name, obj in (("rejected.json", {"rows": [old, new]}), ("signal-rulings.json", {"rows": []}), ("proposed-buckets.json", {"proposals": []}),
+                      ("duplicates.json", {"pairs": []}), ("self-fix-rulings.json", {"rows": []})):
+        open(os.path.join(w, name), "w", encoding="utf-8").write(json.dumps(obj, ensure_ascii=False))
+    before = [dict(row("51:53", "lazem enbestu", kind="rejected", kind_before_rejection="grammar"), uid="FA-o")]
+    now = [dict(row("51:53", "انبسطوا", kind="rejected", kind_before_rejection="grammar-B"), uid="FA-o"), dict(row("51:55", "هذا", kind="vocab-A"), uid="FA-n")]
+    P = [p for p in RR.check_hand_rulings(now, before, work=w, disputes_of=lambda d: []) if p["file"] == "rejected.json"]
+    assert [p["severity"] for p in P] == ["info", "ok"] and P[0]["detail"] == {"repointed_to": 1}
+    P = [p for p in RR.check_hand_rulings(now, before, work=w, disputes_of=lambda d: []) if p["file"] == "rejected.json"]
+    del new["repointed_from"]
+    open(os.path.join(w, "rejected.json"), "w", encoding="utf-8").write(json.dumps({"rows": [old, new]}, ensure_ascii=False))
+    P = [p for p in RR.check_hand_rulings(now, before, work=w, disputes_of=lambda d: []) if p["file"] == "rejected.json"]
+    assert P[0]["severity"] == "decide"
+
+
+def test_two_rows_at_one_second_are_carried_by_their_rule_and_a_dead_x_uid_is_not_carried():
+    """09-17 22:14: his line is untranscribed, so both slips quote '[speaking Arabic]'. Before: FA-..(kul, A11) and its
+    rejected repeat FA-..x (tet2assafi). The carry gave the kul row's uid to the new tet2assafi row and the dead x uid to
+    the new kul row, which then counted under a uid ending in x (test_published_audit_has_no_double_counted_slip)."""
+    old = as_old([dict(row("22:14", "[speaking Arabic]", right="لالكل"), bucket="A11", t_amal="22:43"),
+                  dict(row("22:14", "[speaking Arabic]", right="تتأسفي"), bucket="B2", t_amal="22:32")])
+    assert old[1]["uid"] == old[0]["uid"] + "x"
+    old[1].update(kind="rejected", kind_before_rejection="grammar", duplicate_of=old[0]["uid"])
+    new = as_new([dict(row("22:14", "[speaking Arabic] (tet2assaf, not transcribed)", right="تتأسفي"), bucket="B18", t_amal="22:32"),
+                  dict(row("22:14", "[speaking Arabic] (likely لكل حدا, not transcribed)", right="للكل"), bucket="A11", t_amal="22:49")])
+    entries, m = RR.carry_entries(old, new)
+    assert [(e["old_uid"], e["new"]["right"]) for e in entries] == [(old[0]["uid"], "للكل")]
+    rows = FAB.assign_uids(copy.deepcopy(new), {e["read_key"]: e["old_uid"] for e in entries})
+    assert [r["uid"] for r in rows if r["right"] == "للكل"] == [old[0]["uid"]] and not [r for r in rows if r["uid"].endswith("x")]
+    kept = copy.deepcopy(old)
+    kept[1]["refs"] = {"verifications": ["x"]}            # something points at the x uid: it is still carried
+    assert len(RR.carry_entries(kept, new)[0]) == 2
+
+
+def test_a_slip_the_readers_now_time_ten_seconds_away_is_still_the_sweeps_row_not_a_second_slip():
+    """2026-10-04, 09-15: the readers put 'ground meat' (مفروم) at 03:55 on the re-heard text, the 09-24 sweep had it at
+    04:05 - more than the 5 s of match_sweep, so the audit held the slip twice. Same word from Amal within 30 s, one
+    partner each: one slip. Two readers' rows that could both be it, a grammar row with another line, a row 31 s away
+    are left alone."""
+    sweep = [dict(row("04:05", None, kind="vocab-A", right="مفروم"), sweep_id="V-1", medi_said="مرفوف؟ What was ground؟", amal_said="مفروم"),
+             dict(row("20:00", "عنده", right="فيها"), sweep_id="G-1", medi_said="عنده مي")]
+    r = dict(row("03:55", "معروف", kind="vocab-A", right="مفروم"), medi_said="معروف is ground؟")
+    assert FAB.late_sweep_pairs([r], sweep, set()) == [(r, 0)]
+    assert FAB.late_sweep_pairs([r], sweep, {0}) == []                                        # the sweep row is taken
+    assert FAB.late_sweep_pairs([dict(r, t="03:34")], sweep, set()) == []                     # 31 s away
+    assert FAB.late_sweep_pairs([r, dict(r, t="04:00", wrong="مرفوف")], sweep, set()) == []     # two candidates: nobody decides
+    g = dict(row("20:20", "خفيف ماي", right="فيها ماي بس خفيف"), medi_said="خفيف uh ماي")
+    assert FAB.late_sweep_pairs([g], sweep, set()) == []                                      # grammar: her word alone is not enough
+    g2 = dict(row("20:08", "you guys", right="they"), medi_said="عنده مي")                       # grammar: needs 3+ words of the same line
+    assert FAB.late_sweep_pairs([g2], sweep, set()) == []
+    sweep[1]["medi_said"] = g2["medi_said"] = "did you guys enjoy to me"
+    # Codex final approval 2026-10-05, blocker 4: the same 3-word line alone is NOT the same error - two different
+    # slips (other rule, other wrong piece, other fix) quoted from one line of his stay two rows
+    assert FAB.late_sweep_pairs([g2], sweep, set()) == [] and FAB.late_pair_evidence(g2, sweep[1]) is None
+    assert FAB.late_sweep_pairs([dict(g2, bucket="B5")], [sweep[0], dict(sweep[1], bucket="D2")], set()) == []
+    # ... merged only with evidence of the same error: the same rule, the same wrong piece, the same right piece
+    same_rule = dict(g2, bucket="D2")
+    assert FAB.late_sweep_pairs([same_rule], [sweep[0], dict(sweep[1], bucket="D2")], set()) == [(same_rule, 1)]
+    same_wrong = dict(g2, wrong="عنده", bucket="B5")
+    assert FAB.late_sweep_pairs([same_wrong], [sweep[0], dict(sweep[1], bucket="D2")], set()) == [(same_wrong, 1)]
+    same_right = dict(g2, right="فيها", bucket="B5")
+    assert FAB.late_sweep_pairs([same_right], [sweep[0], dict(sweep[1], bucket="D2")], set()) == [(same_right, 1)]
+    # 08-25 39:07: the readers wrote the piece in Latin letters, the sweep in Arabic script - one piece, two alphabets
+    lat = dict(row("39:07", "bin khaf min, ... nakun", right="bin khaf nakun"), bucket="C11", medi_said="bin khaf min is it nakun ahel")
+    ar = dict(row("39:07", "بنخاف من نكون", right="بنخاف نكون"), bucket="D2", sweep_id="0825-14", medi_said="bin khaf min is it nakun ahel")
+    assert FAB.late_sweep_pairs([lat], [ar], set()) == [(lat, 0)] and "two alphabets" in FAB.late_pair_evidence(lat, ar)
+    assert not FAB.same_piece_two_alphabets("bin khaf nakun", "بنخاف يكون") and not FAB.same_piece_two_alphabets("ab", "اب")
+
+
+def test_two_distinct_errors_on_one_line_stay_two_rows_through_the_build_pairing():
+    """The regression Codex reproduced: a reader row and a 09-24 sweep row in different buckets, different wrong and
+    right pieces, quoting the same 3-word line. One line can hold two slips: no pair, both rows stay."""
+    line = "أنا رحت على البيت الكبير"
+    reader = dict(row("10:00", "رحت على", right="رحت عـ"), bucket="D1", medi_said=line)
+    sweep = [dict(row("10:02", "البيت الكبير", right="البيت الكبيرة"), bucket="A8", sweep_id="G-9", medi_said=line)]
+    assert FAB.late_pair_evidence(reader, sweep[0]) is None
+    assert FAB.late_sweep_pairs([reader], sweep, set()) == []

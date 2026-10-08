@@ -58,7 +58,12 @@ def test_pg27_the_page_mark_is_one_block_under_the_title_and_leaves_the_transcri
 
 
 def test_pg27_no_status_claims_more_than_is_true():
-    assert list(RH.STATUS) == ["pending", "submitted", "proposed", "applied"]
+    assert list(RH.STATUS) == ["pending", "submitted", "proposed", "applied", "applied-limited"]
+    # 2026-10-05 (Codex final approval): "applied" says who agreed (2 of 3 AI runs, no person), never "reviewed"; a lesson
+    # with no microphone track says "limited (mixed recording)" and that only alphabet-only changes went in
+    for st in RH.APPLIED:
+        assert "agreed by 2 of 3 AI runs" in RH.STATUS[st][1] and "reviewed" not in RH.STATUS[st][1] and "Amal's lines are unchanged" in RH.STATUS[st][1], st
+    assert "mixed recording" in RH.STATUS["applied-limited"][0] and "alphabet-only" in RH.STATUS["applied-limited"][1]
     for st in ("pending", "submitted", "proposed"):                       # nothing of Gemini's is in the transcript yet
         label, tip = RH.STATUS[st]
         assert "ElevenLabs only" in tip and "applied" not in label and "in the transcript" not in tip, st
@@ -90,7 +95,8 @@ def test_pg27_every_published_lesson_is_marked_on_its_page_and_on_the_list():
     for d in dates:
         c = RH.chip(d, doc)
         assert rows[d].get("rehear") == c, d                               # the list shows exactly what the source says
-        assert c["label"] in _read(ROOT, d) and c["tip"] in _read(ROOT, d), d
+        import html
+        assert html.escape(c["label"]) in _read(ROOT, d) and html.escape(c["tip"]) in _read(ROOT, d), d   # the page holds the text HTML-escaped (Amal's)
 
 
 def test_pg27_the_list_draws_the_chip_and_the_builders_keep_it_up():

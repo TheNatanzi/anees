@@ -10,8 +10,9 @@ the lessons" (pending). Until a lesson's lines are really re-heard by Gemini and
 
 Source (hand-edited when a lesson moves on; `build` never changes an existing row):
     data/lesson-work/rehear-status.json   {"lessons": {"<date>": {"status", "since", "note"}}}
-Statuses: pending (not re-heard) -> submitted (sent to Gemini, no answers yet) -> proposed (answers back, changes not
-reviewed, nothing applied) -> applied (reviewed changes are in the transcript).
+Statuses: pending (not re-heard) -> submitted (sent to Gemini, no answers yet) -> proposed (answers back, nothing
+applied) -> applied (the changes 2 of 3 AI runs agreed on are in the transcript; no person checked them) or
+applied-limited (a lesson with no separate microphone track: only alphabet-only changes went in).
 
 Where it shows:
     the Lessons list   docs/data/lessons.json rows carry "rehear" (scripts/build_lessons_page_data.py calls chip());
@@ -23,8 +24,9 @@ import datetime, html, json, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 SRC = os.path.join("data", "lesson-work", "rehear-status.json")
-EXPLAIN = ("The second listen is a second AI (Gemini) re-hearing each of your lines from your own microphone, with the lesson around it. "
-           "A lesson is pending until that has been run on it and its changes reviewed; until then the transcript is ElevenLabs only.")
+EXPLAIN = ("The second listen is a second AI (Gemini) re-hearing each of your lines from your own microphone, with the lesson around it, 3 times. "
+           "A lesson is pending until that has been run on it; until then the transcript is ElevenLabs only. A change goes in only when 2 of the 3 "
+           "runs agree on it - an AI agreement, not a person's check. Amal's lines are not changed.")
 # status -> (the chip's words, the one-line explanation). Each sentence says no more than the status proves.
 STATUS = {
     "pending": ("Second listen: pending",
@@ -33,9 +35,19 @@ STATUS = {
                   "A second AI listen of your microphone (Gemini) was sent for this lesson and its answers are not back yet. The transcript is still ElevenLabs only."),
     "proposed": ("Second listen: changes to review",
                  "A second AI listen of your microphone (Gemini) was run on this lesson. Its changes are not reviewed and none is applied: the transcript is still ElevenLabs only."),
+    # Codex final approval 2026-10-05 (required labels): "applied" never said who agreed - no person has checked the
+    # changes, they are the ones 2 of the 3 AI runs agreed on; Amal's lines are not changed. The per-lesson note
+    # (scripts/rehear_apply.py status_row) carries the counts: lines changed, lines that wait.
     "applied": ("Second listen: applied",
-                "A second AI listen of your microphone (Gemini) was run on this lesson and its reviewed changes are in the transcript."),
+                "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; "
+                "no person has checked them. Your own corrections stayed and Amal's lines are unchanged."),
+    # a lesson with no separate microphone track: the listen heard both voices, so only alphabet-only changes went in
+    "applied-limited": ("Second listen: limited (mixed recording)",
+                        "This lesson has no separate microphone track for you, so the second AI listen (Gemini, 3 runs) heard a mixed recording with both voices. "
+                        "Only alphabet-only changes were applied (the same words written in the other alphabet), agreed by 2 of 3 AI runs; no person has checked them. "
+                        "Word changes wait for a check. Amal's lines are unchanged."),
 }
+APPLIED = ("applied", "applied-limited")       # the statuses whose Gemini rows are in the overlay file
 START, END = "<!--rehear:start-->", "<!--rehear:end-->"
 BLOCK_RE = re.compile(re.escape(START) + ".*?" + re.escape(END), re.S)
 # the lesson pages carry their own small stylesheet (not the Sabz shell), so the block styles itself: currentColor

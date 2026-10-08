@@ -18,7 +18,7 @@ import json, os, re, sys
 from collections import Counter, defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from lesson_turns import lesson_turns  # noqa: E402
+from lesson_turns import page_lines  # noqa: E402  (2026-10-05: the counter reads the lines the pages show)
 from arabizi_reader import to_arabic  # noqa: E402  (2026-10-01: Latin-letter turns are read too)
 
 ANEES = r"C:\dev\anees\data\lessons"
@@ -114,6 +114,7 @@ def is_b_present(w):
 
 # ---------------------------------------------------------------- patterns
 E = r"(?=\s|$|[،.؟?!])"
+FUNC = r"(?:و|في|من|مع|على|عن|يعني|شو|مش|هو|هي|بس|كمان|لما|إذا|اذا|إنه|انه|إنو|انو|لأنه|لانه|عشان|ما|لا|أو|او)(?=\s|$|[،.؟?!])"   # not a noun after a tool word
 BARE_IMPERF = r"(?!ال)(?!(?:أنا|انا|إنت|انت|إنتي|انتي|احنا|إحنا)(?:\s|$))(?:أ|ا|ت|ي|ن)[\u0621-\u064A]{2,}"
 
 # Regex rules. Each fires at most once per turn per bucket.
@@ -134,6 +135,14 @@ P = {
  "A10": [r"(?:^|\s)(?:هاد|هادي|هدول|هذا|هذي|هداك|هديك|هاي)" + E],
  "A10b":[r"(?:^|\s)(?:هاد|هادي|هدول|هذا|هذي|هاي|هداك|هديك|هدولاك)\s+ال[\u0621-\u064A]{2,}"],
  "A11": [r"(?:^|\s)الكل" + E, r"(?:^|\s)كل\s+(?:حدا|إشي|اشي|شي|يوم|الناس|ال[\u0621-\u064A]{2,})"],
+ # GR-30 (2026-10-07): the Oct 2 tool words before or after a noun (A13 awal / oola, A14 taani, A15 aa5er / a5eer, A16 8eir,
+ # A17 nafs). A use = the tool word with a noun next to it (a function word after it is not a noun). The wrong forms
+ # (el- before nafs / 8eir / taani) are uses too: a slip is still an attempt at the rule.
+ "A13": [r"(?:^|\s)(?:ال)?أول[ىي]?\s+(?!" + FUNC + r")(?:ال)?[\u0621-\u064A]{2,}", r"(?:^|\s)ال[\u0621-\u064A]{2,}\s+الأول[ىي]?" + E],
+ "A14": [r"(?:^|\s)(?:ال)?تان[يى][ةه]?\s+(?!" + FUNC + r")(?:ال)?[\u0621-\u064A]{2,}", r"(?:^|\s)(?:ال)?[\u0621-\u064A]{2,}\s+(?:ال)?تان[يى][ةه]?" + E],
+ "A15": [r"(?:^|\s)(?:ال)?آخر\s+(?!" + FUNC + r")(?:ال)?[\u0621-\u064A]{2,}", r"(?:^|\s)(?:ال)?[\u0621-\u064A]{2,}\s+الأخير(?:ة|ه|ات)?" + E],
+ "A16": [r"(?:^|\s)(?:ال)?غير\s+(?!" + FUNC + r")(?!هيك|إنه|انه|إنو|انو|كده|كدا)(?:ال)?[\u0621-\u064A]{2,}"],
+ "A17": [r"(?:^|\s)(?:ال)?نفس\s+(?!" + FUNC + r")(?:ال)?[\u0621-\u064A]{2,}"],
 
  "B2":  [r"(?:^|\s)(?:بدي|بدك|بدها|بدنا|بدهم|لازم|ممكن|بحب|بقدر|بتقدر|بجرب|ببلش|بعرف)\s+" + BARE_IMPERF,
          # Amal's notes 2026-09-27: also after "it's important / most likely / I feel like" statements
@@ -474,7 +483,7 @@ if __name__ == "__main__":
     for date in dates:
         if date in NOT_ARABIC:
             continue
-        T, src = lesson_turns(date)
+        T, src = page_lines(date)          # the delivered transcript: the same lines as docs/data/lessons/<date>.json
         if not T:
             continue
         seen_here = Counter()

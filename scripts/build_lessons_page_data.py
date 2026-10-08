@@ -695,6 +695,40 @@ def mark_html(said, token, cls):
     return esc(s[:i]) + f'<mark class="{cls}">' + esc(token) + "</mark>" + esc(s[i + len(token):])
 
 
+GRAMMAR_PROVISIONAL_MIXED = "re-read, but the recording has no separate microphone track, so almost no line was re-heard"
+# Codex final approval round 4: a slip restored from the first read is counted, but nobody has checked it - the card says so
+FIRST_READ_NOTE = "From the first read; the new read did not write this slip again. Counted until someone checks it."
+
+
+def first_read_mark(row):
+    """Card fields for a slip that scripts/rehear_rejudge.py kept restored from the first read (audit row "kept":
+    "first-read slip ..."): needs_check + the sentence the card shows."""
+    return {"first_read": True, "needs_check": True, "check_note": FIRST_READ_NOTE} if str(row.get("kept") or "").startswith("first-read slip") else {}
+
+
+def first_read_summary(detail):
+    """(cards from the first read: grammar, words; how many of them may be the same slip as another card, written in the
+    other alphabet). The second number comes from a deliberately LOOSE detector (rehear_rejudge.maybe_same_slip_loose)
+    that is used for this label only - never for a score, a uid or a removal."""
+    import rehear_rejudge as RR
+    g = [dict(e, kind="grammar", t=RR.sec_mmss(e.get("mmss"))) for e in detail.get("grammar_errors") or []]
+    w = [dict(e, kind="vocab-A", right=e.get("fix") or e.get("arabic"), t=RR.sec_mmss(e.get("mmss"))) for e in detail.get("vocab_errors") or []]
+    twice = 0
+    for pool in (g, w):
+        for e in pool:
+            if e.get("first_read") and any(o is not e and RR.maybe_same_slip_loose(e, o) for o in pool):
+                twice += 1
+    return sum(1 for e in g if e.get("first_read")), sum(1 for e in w if e.get("first_read")), twice
+
+
+def method_change(repo=REPO):
+    """The newest dated change in how the lesson numbers are counted (data/lesson-work/method-changes.json), or None."""
+    p = os.path.join(repo, "data", "lesson-work", "method-changes.json")
+    rows = (J(p).get("changes") or []) if os.path.exists(p) else []
+    rows = sorted((r for r in rows if r.get("date") and r.get("text")), key=lambda r: r["date"])
+    return {k: rows[-1][k] for k in ("date", "text", "why") if rows[-1].get(k)} if rows else None
+
+
 def build():
     RH.build(REPO)                                 # PG-27: a newly published lesson joins as pending; lesson pages get their mark
     rehear_doc = RH.load(REPO)
@@ -831,6 +865,11 @@ def build():
                              f"(the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.")
         grammar = {"uses": uses, "mistakes": mistakes, "pct": gpct, "estimate": False,
                    **({"scored_mistakes": gl["scored_mistakes"], "unscored_mistakes": gl["unscored_mistakes"]} if uses is not None else {})}
+        # Codex / council final approval 2026-10-05: a lesson with no separate microphone track was re-read by the readers
+        # but almost none of its lines was re-heard - its Grammar % is provisional and says so wherever it shows.
+        if RH.chip(date, rehear_doc)["status"] == "applied-limited":
+            grammar["provisional"] = GRAMMAR_PROVISIONAL_MIXED
+            notes.append("Grammar % is provisional: " + GRAMMAR_PROVISIONAL_MIXED + ".")
 
         # ---- new words
         rd = TYPE_READS.get(date)
@@ -921,6 +960,7 @@ def build():
                          "wrong": v.get("wrong"), "fix": v.get("amal_gave"), "clip": None, "why": v.get("why"), "event_id": None,
                          "tier": v.get("tier"), "signal": v.get("signal"), "confidence": v.get("confidence"), "source": "audit-2026-09-26", "audit_uid": v.get("uid"),
                          "t_fix": sec(v.get("t_amal")) if v.get("t_amal") else None,
+                         **first_read_mark(v),
                          **({"correction": v["correction"]} if v.get("correction") else {})})
             need_ar.add(v.get("medi_said") or "")
         verr.sort(key=lambda e: e["t"])
@@ -942,6 +982,7 @@ def build():
                          "chat": r.get("chat"), "wrong": r.get("wrong"), "wrong_arabizi": r.get("wrong_arabizi"),
                          "right": r.get("right"), "right_arabizi": r.get("right_arabizi"),
                          "confidence": r.get("confidence"), "signal": r.get("signal"), "id": r.get("id"),
+                         **first_read_mark(r),
                          **({"correction": r["correction"]} if r.get("correction") else {}),
                          **({"counted": False, "not_counted_kind": r["_ruling"]["kind"],
                              "not_counted_why": r["_ruling"]["why"]} if r.get("_ruling") else {})})
@@ -1107,6 +1148,9 @@ def build():
     except Exception:
         published = {x["date"]: x for x in (J(prev_p).get("lessons", []) if os.path.exists(prev_p) else [])}
     ledgers, fold_uses_all = {}, []
+    word_credit_conflicts = []
+    _orp = os.path.join(REPO, "data", "lesson-work", "rehear", "rejudge", "owner-review.json")
+    OWNER_REVIEW = (J(_orp).get("items") or []) if os.path.exists(_orp) else []
     for L in lessons:
         d, v = L["date"], per[L["date"]]
         led, act = LL.build(d, v, U0.get("uses", {}), buckets, scored_rules, AMAL.not_taught, U0.get("ruled_out", []),
@@ -1117,6 +1161,8 @@ def build():
                                 **{"ra:" + e["audit_uid"]: e for e in v["vocab_errors"] if e.get("source") == "audit-2026-09-26"}}}
         ids["grammar_errors"] = {"rg:" + g["id"]: g for g in v["grammar_errors"]}
         for lst, mid, why, rule in act["move"]:
+            if mid not in ids[lst] and lst in ("vocab_correct", "vocab_errors"):      # a Word Bank partial lives in either list
+                lst = "vocab_errors" if lst == "vocab_correct" else "vocab_correct"
             e = ids[lst][mid]
             if lst == "grammar_errors":          # Medi said the slip is a word slip: the grammar card is shown apart, not counted
                 v[lst] = [x for x in v[lst] if x is not e]
@@ -1138,6 +1184,36 @@ def build():
         old = dict(w)
         for k in ("right", "partial", "wrong", "scored", "pct", "audit_wrong", "audit_partial"):
             w[k] = c["words"][k]
+        # Codex final approval 2026-10-05, blocker 3: Word Bank marks an earlier review had scored on a word the second
+        # listen no longer hears - their own state, scored neither way, listed one by one (word_credit_conflicts below)
+        owner = [x for x in OWNER_REVIEW if x["date"] == d]
+        if owner:
+            L["owner_review"] = [{"mmss": x["mmss"], "earlier_uid": x["earlier"]["uid"], "amal": x["earlier"]["amal"], "new": [n["uid"] for n in x["new_rows"]]} for x in owner]
+            L["notes"].append(f"{sum(len(x['new_rows']) for x in owner)} question(s) of the new read sit at a moment Amal already ruled on "
+                              f"({', '.join(x['mmss'] for x in owner)}): they wait for Medi, not for her (owner-review.json).")
+        fg, fw, twice = first_read_summary(v)
+        if fg or fw:
+            g_, w_ = L["grammar"], L["words"]
+            g_["first_read_cards"], w_["first_read_cards"] = fg, fw
+            L["notes"].append(f"{fg + fw} slip(s) here come from the first read only ({fg} grammar, {fw} word): the new read did not write them "
+                              f"again. They are counted until someone checks them, so Grammar % and Words % are not exact.")
+            if fg:
+                why = f"{fg} of its slips come from the first read only and wait for a check"
+                g_["provisional"] = (g_["provisional"] + "; " + why) if g_.get("provisional") else why
+            if twice:
+                g_["maybe_counted_twice"] = twice
+                L["notes"].append(f"{twice} slips may be counted twice (same slip written in Arabic and in English letters).")
+        held = [m for m in led["marks"] if m.get("state") == LL.REHEAR_CONFLICT]
+        w["rehear_word_conflicts"] = len(held)
+        for m in held:
+            word_credit_conflicts.append({"date": d, "t": m["t"], "mmss": LL.mmss(m["t"]), "word": m.get("tok"), "word_key": m.get("word_key"),
+                                          "list_word": m.get("arabic"), "was": m.get("was"), "state": "not scored (needs a look)",
+                                          "old_line": (m.get("rehear") or {}).get("old_line"), "new_line": (m.get("rehear") or {}).get("new_line"),
+                                          "engine_wrote": (m.get("rehear") or {}).get("engine_wrote"), "second_listen": (m.get("rehear") or {}).get("heard"),
+                                          "earlier_review": (m.get("rehear") or {}).get("review"), "event_id": m["by"]["ref"], "mark": m["id"]})
+        if held:
+            L["notes"].append(f"{len(held)} word mark(s) an earlier review had scored are not scored now: the second listen no longer hears "
+                              f"the word on that line, and nobody has looked yet ({', '.join(LL.mmss(m['t']) for m in held)}).")
         if LMODE == "shadow" and any(old[k] != w[k] for k in ("right", "partial", "wrong", "scored")):
             raise SystemExit(f"{d}: the ledger in shadow mode counts {w} but the lists give {old} (a producer item has no mark)")
         g = L["grammar"]
@@ -1160,6 +1236,15 @@ def build():
                               + "; ".join(x["mmss"] for x in led["conflicts"] if x["id"] in led["needs_medi"]) + ".")
         L["counts"]["vocab_errors"], L["counts"]["vocab_correct"] = len(v["vocab_errors"]), len(v["vocab_correct"])
         v["marks"] = [m for m in v["marks"] if m["kind"] != "vocab" or any(abs(m["t"] - e["t"]) < .01 for e in v["vocab_errors"])]
+    _wcc = os.path.join(REPO, "data", "lesson-work", "rehear", "rejudge", "word-credit-conflicts.json")
+    if os.path.isdir(os.path.dirname(_wcc)):
+        with open(_wcc, "w", encoding="utf-8", newline="\n") as f:
+            json.dump({"about": "Word Bank marks that an earlier review (word-bank-review.json) had scored, on a word the second listen "
+                                "(TR-22) no longer hears on that line. Each is its own ledger state (rehear-word-conflict): scored neither "
+                                "right nor wrong, left out of Words %, until someone looks. Generated by scripts/build_lessons_page_data.py "
+                                "(scripts/lesson_ledger.py); never edit by hand.",
+                       "count": len(word_credit_conflicts), "rows": word_credit_conflicts}, f, ensure_ascii=False, indent=1)
+            f.write("\n")
     # self-check: the console's formula with the same folded uses gives the ledger's grammar numbers
     GT2 = grammar_math.table(LL.uses_minus(J(usage_p).get("uses", {}) if os.path.exists(usage_p) else {}, fold_uses_all),
                              [{"bucket": r["bucket"], "date": r["date"], "t": (sec(r.get("t")) if r.get("t") else sec(r.get("t_amal")))}
@@ -1227,11 +1312,21 @@ def build():
     amal_q = J(LL.AMAL_P).get("rulings", []) if os.path.exists(LL.AMAL_P) else []
     amal_by = {r["conflict"]: r for r in amal_q}
     cards, done_cards = [], []
+    # the hold (scripts/amal_hold.py): a question that rests on a row the 2026-10-04 re-read created, or that was not on
+    # her list before it, is not put on Amal's hub until Medi's OK; it stays open in the ledger. No hold file = no skip.
+    import amal_hold
+    HOLD = amal_hold.Hold()
+    RULED = amal_hold.AlreadyRuled()      # round 5: a card resting on a re-read row at a moment she already ruled on goes to the owner, not to her
+    held_card = lambda c, d: HOLD.blocks("ledger", c["id"], date=d) or any(HOLD.uid(str(m).split(":", 1)[-1]) for m in c.get("marks") or [])
+    _held_by_hold = held_card
+    held_card = lambda c, d: _held_by_hold(c, d) or any(RULED.uid(str(m).split(":", 1)[-1]) for m in c.get("marks") or [])  # noqa: E731
     for d, led in sorted(ledgers.items()):
         for c in led["conflicts"]:
             if c.get("ask") != "amal" or c.get("group"):
                 continue
             if c["id"] in led["needs_medi"]:
+                if held_card(c, d):
+                    continue
                 cards.append(LL.amal_item(d, led, c))
             elif c["id"] in amal_by:
                 r = amal_by[c["id"]]
@@ -1251,7 +1346,7 @@ def build():
             json.dump(v, f, ensure_ascii=False, separators=(",", ":"))
     out = {"updated": dt.datetime.now().astimezone().isoformat(timespec="seconds"),
            "method": __doc__.strip().split("\n\n", 1)[1] if "\n\n" in __doc__ else __doc__,
-           "definitions": DEFINITIONS, "lessons": lessons}
+           "definitions": DEFINITIONS, **({"method_change": method_change()} if method_change() else {}), "lessons": lessons}
     with open(os.path.join(DOCS, "data", "lessons.json"), "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     # release layer (Medi 2026-09-27): reader agreement, source coverage, checks, grammar denominator -> verified or not,

@@ -85,10 +85,18 @@ def apply(date, turns, rows=None, sort=True):
         # A whole-line row goes in first, and ONLY on a line no correction of anyone lands on (Medi 2026-10-04: his own
         # corrections stay; a line he corrects later keeps his correction and loses the second listen's text).
         g = own.get(k)
-        if g is not None and not any(_lands(r, u) for r in rows):
+        under = [r for r in rows if _lands(r, u)] if g is not None else []
+        if g is not None and (not under or g.get("wins")):
             u["engine"] = u["text"]
             u["text"] = g["heard_line"]
             u.setdefault("heard", []).extend({"engine_wrote": x["engine_wrote"], "heard": x["heard"], "rule": g.get("rule"), "by": g.get("by")} for x in g.get("spans") or [])
+            if under:
+                # TR-27 (2026-10-07): the tutor listened and picked this reading over the correction on the line; her
+                # answer wins (AM-06). The superseded row stays in the file and is recorded here, not applied.
+                u["heard"].extend({"engine_wrote": r.get("engine_wrote") or "", "heard": r.get("heard") or "", "rule": r.get("rule"), "by": r.get("by"),
+                                   "superseded_by": g.get("by"), "superseded": True} for r in under)
+                out.append(u)
+                continue
         for r in rows:
             if not _hit(r, u):
                 continue
@@ -112,6 +120,11 @@ def apply(date, turns, rows=None, sort=True):
                                                   **({"correction": r["correction"]} if r.get("correction") else {})})
                 continue
             if r["engine_wrote"] in (u.get("text") or ""):
+                if r["engine_wrote"] == r.get("heard"):
+                    # a CONFIRMING row (Medi re-listened and the engine's word is what he said: 10-02 08:22 الصباح,
+                    # 2026-10-04). It changes nothing on the line and writes no "engine wrote / you said" pair, but it
+                    # lands (_lands), so the second listen's whole-line row never replaces this line.
+                    continue
                 u.setdefault("engine", u["text"])
                 u["text"] = u["text"].replace(r["engine_wrote"], r["heard"], 1)
                 u.setdefault("heard", []).append({"engine_wrote": r["engine_wrote"], "heard": r["heard"], "rule": r.get("rule"),
@@ -175,30 +188,90 @@ def apply_tracks(date, T, rows=None):
             d = float(v["t"]) - float(u["start"])
             u = dict(u, start=float(v["t"]), end=(float(u["end"]) + d) if u.get("end") is not None else None, engine_start=u["start"])
         res.append(u)
+    res_engine = [(u.get("text") or "") for u in T]                # the engine's text of every turn, corrected or not
     # Whole-line rows (the second listen) on track turns. A track turn glues several page lines, so the row's line is
-    # looked for as WHOLE WORDS in the ENGINE text of his turns whose span holds the row's time (0.3 s of slack). Every
-    # owner is decided on the engine's text before anything is replaced (a row never lands on words another row wrote);
-    # a row is applied only when exactly one turn holds its line exactly once and no correction of anyone is on that turn.
+    # looked for as WHOLE WORDS in the ENGINE text of his turns whose span holds the row's time. Every owner is decided
+    # on the engine's text before anything is replaced (a row never lands on words another row wrote); a row is applied
+    # only when its line stands exactly once in all the turns that hold its time and no correction of anyone is on that
+    # turn. Typed chat lines never take one.
+    #   span  - a turn with a real end: start .. end, 0.3 s of slack. A lesson read from transcript.txt has [mm:ss]
+    #           stamps only (whole seconds, end == start on every turn): there a turn runs to the same speaker's next
+    #           stamp, plus the second the stamp cut off.
+    #   text  - the line letter for letter first; if that is nowhere, the same WORDS with punctuation, spacing and
+    #           sound tags ([laughs], which track turns never carry) left out - replaced at the true positions.
+    win = _spans(T, span0)
     todo = {}
     for r in [x for x in every if x.get("heard_line") is not None]:
         pat = _re.compile(r"(?<!\S)" + _re.escape(r["line"]) + r"(?!\S)")
-        own = []
-        for k, v in enumerate(res):
-            a0, b0 = span0[k]
-            if k not in touched and T[k].get("speaker") == r.get("who") and a0 - 0.3 <= float(r["t"]) <= max(b0, a0) + 0.3:
-                m = list(pat.finditer(v.get("text") or ""))
-                if len(m) == 1:
-                    own.append((k, m[0].start(), m[0].end()))
-        if len(own) == 1:
-            todo.setdefault(own[0][0], []).append((own[0][1], own[0][2], r))
+        near = [k for k in range(len(res)) if not T[k].get("chat") and T[k].get("speaker") == r.get("who") and win[k][0] <= float(r["t"]) <= win[k][1]]
+        own = [(k, m.start(), m.end(), True) for k in near for m in pat.finditer(res_engine[k])]
+        if not own:
+            own = [(k, a0, b0, False) for k in near for a0, b0 in _find_words(r["line"], res_engine[k])]
+        if len(own) == 1 and (own[0][0] not in touched or r.get("wins")):
+            todo.setdefault(own[0][0], []).append(own[0][1:] + (r,))
     for k, hits in todo.items():
         hits.sort(key=lambda h: h[0])
         if any(b0[1] > a1[0] for b0, a1 in zip(hits, hits[1:])):     # two rows claim overlapping words of one turn: none
             continue
-        v, text, heard = res[k], res[k]["text"], []
-        for a0, b0, r in reversed(hits):
-            text = text[:a0] + r["heard_line"] + text[b0:]
-        for a0, b0, r in hits:
-            heard += [{"engine_wrote": x["engine_wrote"], "heard": x["heard"], "rule": r.get("rule"), "by": r.get("by")} for x in r.get("spans") or []]
-        res[k] = dict(v, engine=v["text"], text=text, heard=heard, rehear=True)
+        v, text, heard = res[k], (res_engine[k] if any(h[3].get("wins") for h in hits) else res[k]["text"]), []   # TR-27: a winning row starts from the engine's text
+        for a0, b0, exact, r in reversed(hits):
+            new = r["heard_line"] if exact else _no_tags(r["heard_line"])
+            if new == text[a0:b0]:                                   # only a sound tag differed: nothing to say here
+                continue
+            text = text[:a0] + new + text[b0:]
+            cut = (lambda x: x) if exact else _no_tags              # track turns carry no sound tags: the record neither
+            heard = [{"engine_wrote": cut(x["engine_wrote"]), "heard": cut(x["heard"]), "rule": r.get("rule"), "by": r.get("by")} for x in r.get("spans") or []
+                     if cut(x["engine_wrote"]) != cut(x["heard"])] + heard
+        if text != v["text"]:
+            res[k] = dict(v, engine=v["text"], text=text, heard=heard, rehear=True)
     return res
+
+
+import unicodedata as _ud
+_TAG = _re.compile(r"\[[^\]\n]*\]")
+
+
+def _no_tags(s):
+    """The text without sound tags ([laughs], [ضحكة]) - track turns are words only."""
+    return _re.sub(r"\s+", " ", _TAG.sub(" ", s or "")).strip()
+
+
+def _words(s):
+    """[(the word without punctuation / symbols, start, end)] - sound tags and bare punctuation are no words."""
+    out = []
+    for m in _re.finditer(r"\[[^\]\n]*\]|\S+", s or ""):
+        if m.group(0).startswith("["):
+            continue
+        w = "".join(c for c in m.group(0) if _ud.category(c)[0] not in "PS")
+        if w:
+            out.append((w, m.start(), m.end()))
+    return out
+
+
+def _find_words(line, text):
+    """Every place the line's words stand in text as a run of whole words, punctuation and spacing aside:
+    [(start, end)] true character positions in text."""
+    a, b = [w for w, _, _ in _words(line)], _words(text)
+    if not a:
+        return []
+    keys = [w for w, _, _ in b]
+    return [(b[i][1], b[i + len(a) - 1][2]) for i in range(len(b) - len(a) + 1) if keys[i:i + len(a)] == a]
+
+
+def _spans(T, span0):
+    """{turn index: (from, to)} - the time a whole-line row must fall in to belong to the turn."""
+    real = [k for k, u in enumerate(T) if not u.get("chat")]
+    stamps = bool(real) and all(span0[k][1] == span0[k][0] and span0[k][0] == int(span0[k][0]) for k in real)
+    if not stamps:
+        return {k: (a0 - 0.3, max(b0, a0) + 0.3) for k, (a0, b0) in span0.items()}
+    import bisect
+    starts = {}
+    for k in real:
+        starts.setdefault(T[k].get("speaker"), set()).add(span0[k][0])
+    starts = {w: sorted(v) for w, v in starts.items()}
+    out = {}
+    for k, (a0, b0) in span0.items():
+        s = starts.get(T[k].get("speaker")) or []
+        i = bisect.bisect_right(s, a0)
+        out[k] = (a0 - 0.3, (s[i] if i < len(s) else float("inf")) + 1.0)
+    return out

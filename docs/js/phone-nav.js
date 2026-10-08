@@ -28,16 +28,26 @@
   .pn-sheet button { margin-top: 6px; min-height: 44px; border: 1px solid var(--ab-line, #33423c); background: transparent; color: var(--ab-text, #e9ede8); border-radius: 10px; font: 600 14px var(--sabz-font-sans, system-ui, sans-serif); }
 }
 @media (min-width: 681px) { .pn-bar, .pn-sheet { display: none !important; } }`;
+  // PG-31 (Medi 2026-10-06 "The button menu bottom disappears on lesson page"; 2026-10-07 audit): a lesson's own page
+  // (docs/lessons/<date>.html) has no shared menu, so the bar is built from the shell's own list, Lessons marked current.
+  const SHELL = [['progress.html', 'Progress & Stats'], ['lessons.html', 'Lessons & Audio'], ['word-bank.html', 'Word Bank'], ['grammar.html', 'Grammar Rules'],
+                 ['cards.html', 'Flashcards & Review'], ['tutor.html', 'Tutor'], ['student.html', 'Student'], ['ai-reports.html', 'AI Reports'],
+                 ['big-picture.html', 'Big Picture'], ['settings.html', 'System Settings']];
   function build() {
-    const nav = document.querySelector('#anees-bank aside nav'); if (!nav || document.querySelector('.pn-bar')) return;
+    if (document.querySelector('.pn-bar')) return;
+    const nav = document.querySelector('#anees-bank aside nav');
+    const lessonPage = !nav && /\/lessons\/\d{4}-\d{2}-\d{2}(-report)?\.html$/.test(location.pathname);
+    if (!nav && !lessonPage) return;
     // four pages (Lessons, Word Bank, Grammar, Settings) mark their own entry as a <button> with no href: it is this page
     const here = (location.pathname.split('/').pop() || 'progress.html').replace(/^$/, 'progress.html');
-    const links = [...nav.querySelectorAll('a.ab-nav, button.ab-nav')].map(a => ({ href: a.getAttribute('href') || here, label: a.textContent.trim(), cur: a.getAttribute('aria-current') === 'page' }));
+    const links = nav ? [...nav.querySelectorAll('a.ab-nav, button.ab-nav')].map(a => ({ href: a.getAttribute('href') || here, label: a.textContent.trim(), cur: a.getAttribute('aria-current') === 'page' }))
+                      : SHELL.map(([h, label]) => ({ href: '../' + h, label, cur: h === 'lessons.html' }));
     if (!links.length) return;
-    const style = document.createElement('style'); style.textContent = css; document.head.appendChild(style);
-    const byHref = h => links.find(l => l.href === h);
+    const style = document.createElement('style'); style.textContent = css + (lessonPage ? `
+@media ${MQ} { body { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)) !important; } }` : ''); document.head.appendChild(style);
+    const byHref = h => links.find(l => l.href === h || l.href === '../' + h);
     const main = TABS.map(([h, label]) => { const l = byHref(h); return l ? { ...l, label } : null; }).filter(Boolean);
-    const rest = links.filter(l => !TABS.some(([h]) => h === l.href));
+    const rest = links.filter(l => !TABS.some(([h]) => h === l.href || '../' + h === l.href));
     const moreCur = rest.some(l => l.cur);
     const bar = document.createElement('nav'); bar.className = 'pn-bar'; bar.setAttribute('aria-label', 'Phone menu');
     bar.innerHTML = main.map(l => `<a class="pn-tab" href="${l.href}"${l.cur ? ' aria-current="page"' : ''}><i></i>${l.label}</a>`).join('')

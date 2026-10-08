@@ -171,7 +171,8 @@ def new_words_prompt(date):
 def gaps_prompt(date=None):
     return (f"Repo: {REPO}. Read RULES.md S1 (incl. the 2026-09-26 line: nothing on the error cards stays Arabic-only). "
             f"data/lesson-work/arabizi-gaps.json lists Arabic tokens the renderer cannot spell. Add every one to "
-            f"docs/data/arabizi-extra.json 'words' ({{latin, method pieces|her-chat|sound|guess|as-said, from, meaning}}), her letters "
+            f"docs/data/arabizi-extra.json 'words' ({{latin, method pieces|her-chat|sound|guess|as-said, from, meaning, added: today's date; an as-said row also "
+            f"\"scope\": \"lessons\" - his own wrong / cut-off / unclear forms are spelled on the Lessons page only}}), her letters "
             f"and her spellings first (docs/data/words.json arabizi, house_spelling.json). Only add. Then run "
             f"`{NODE} scripts/arabizi_gaps.cjs` until it prints 0 words. Reply with one line: added n, gaps left n. "
             f"A proper name (docs/data/names.json: a place, country, nationality or person) is never spelled word by word "

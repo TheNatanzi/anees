@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-07T17:15:45-07:00",
+ "updated": "2026-10-07T17:56:09-07:00",
  "note": "What Amal needs to check right now. Rebuilt by scripts/build_tutor_data.py every hour and after every same-day lesson review; answered counts are read live from Supabase with each link's own token. Medi sends every link himself; the app never contacts Amal.",
  "open": [
   {
@@ -10,8 +10,8 @@
    "what": "Mistakes the student made (a wrong word or wrong grammar) that you let pass in the lesson, grouped by kind, with the real moments to play. For each kind you say: yes, count it, or no, he was fine. New lessons add their patterns here the same day.",
    "who": "You answer · the student sends the link",
    "url": "amal/review.html?t=WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
-   "total": 25,
-   "moments": 25,
+   "total": 47,
+   "moments": 47,
    "expires": "2026-10-26"
   },
   {
@@ -51,7 +51,7 @@
    "kind": "check",
    "list": "slip-check",
    "token": "WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
-   "what": "27 short clips of the student. Our second listening changed how these lines are written - tell us what he really said. About 10 minutes.",
+   "what": "27 short clips of the student. A second AI listen changed how these lines are written - tell us what he really said. About 10 minutes.",
    "who": "You answer · on your Tutor page",
    "url": "amal/check.html?list=slip-check&t=WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
    "total": 27,
@@ -75,7 +75,7 @@
   },
   {
    "id": "check-word-said-1",
-   "title": "Listen: did the student say this word? · part 1 of 2",
+   "title": "Listen: did the student say this word? - part 1 of 2",
    "kind": "check",
    "list": "word-said-1",
    "token": "WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
@@ -89,7 +89,7 @@
   },
   {
    "id": "check-word-said-2",
-   "title": "Listen: did the student say this word? · part 2 of 2",
+   "title": "Listen: did the student say this word? - part 2 of 2",
    "kind": "check",
    "list": "word-said-2",
    "token": "WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
@@ -144,6 +144,76 @@
    "expires": "2026-10-26"
   },
   {
+   "id": "check-slip-check-2-1",
+   "title": "Listen: what did the student say? - part 2 - part 1 of 5",
+   "kind": "check",
+   "list": "slip-check-2-1",
+   "token": "WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
+   "what": "45 short clips of the student (part 1 of 5). A second AI listen wants to change how these lines are written, but the new words are your own words from the same minute, or sit on a mistake you marked - so the change waits for your ear (TR-27). Tell us what he really said. About 14 minutes.",
+   "who": "You answer · on your Tutor page",
+   "url": "amal/check.html?list=slip-check-2-1&t=WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
+   "total": 45,
+   "unit": "clips",
+   "min_each": 0.311,
+   "expires": "2026-10-26"
+  },
+  {
+   "id": "check-slip-check-2-2",
+   "title": "Listen: what did the student say? - part 2 - part 2 of 5",
+   "kind": "check",
+   "list": "slip-check-2-2",
+   "token": "WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
+   "what": "45 short clips of the student (part 2 of 5). A second AI listen wants to change how these lines are written, but the new words are your own words from the same minute, or sit on a mistake you marked - so the change waits for your ear (TR-27). Tell us what he really said. About 14 minutes.",
+   "who": "You answer · on your Tutor page",
+   "url": "amal/check.html?list=slip-check-2-2&t=WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
+   "total": 45,
+   "unit": "clips",
+   "min_each": 0.311,
+   "expires": "2026-10-26"
+  },
+  {
+   "id": "check-slip-check-2-3",
+   "title": "Listen: what did the student say? - part 2 - part 3 of 5",
+   "kind": "check",
+   "list": "slip-check-2-3",
+   "token": "WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
+   "what": "45 short clips of the student (part 3 of 5). A second AI listen wants to change how these lines are written, but the new words are your own words from the same minute, or sit on a mistake you marked - so the change waits for your ear (TR-27). Tell us what he really said. About 14 minutes.",
+   "who": "You answer · on your Tutor page",
+   "url": "amal/check.html?list=slip-check-2-3&t=WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
+   "total": 45,
+   "unit": "clips",
+   "min_each": 0.311,
+   "expires": "2026-10-26"
+  },
+  {
+   "id": "check-slip-check-2-4",
+   "title": "Listen: what did the student say? - part 2 - part 4 of 5",
+   "kind": "check",
+   "list": "slip-check-2-4",
+   "token": "WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
+   "what": "45 short clips of the student (part 4 of 5). A second AI listen wants to change how these lines are written, but the new words are your own words from the same minute, or sit on a mistake you marked - so the change waits for your ear (TR-27). Tell us what he really said. About 14 minutes.",
+   "who": "You answer · on your Tutor page",
+   "url": "amal/check.html?list=slip-check-2-4&t=WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
+   "total": 45,
+   "unit": "clips",
+   "min_each": 0.311,
+   "expires": "2026-10-26"
+  },
+  {
+   "id": "check-slip-check-2-5",
+   "title": "Listen: what did the student say? - part 2 - part 5 of 5",
+   "kind": "check",
+   "list": "slip-check-2-5",
+   "token": "WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
+   "what": "43 short clips of the student (part 5 of 5). A second AI listen wants to change how these lines are written, but the new words are your own words from the same minute, or sit on a mistake you marked - so the change waits for your ear (TR-27). Tell us what he really said. About 13 minutes.",
+   "who": "You answer · on your Tutor page",
+   "url": "amal/check.html?list=slip-check-2-5&t=WcvsRL9kmF8fNKQx76LvDkdA9EXFPt_4",
+   "total": 43,
+   "unit": "clips",
+   "min_each": 0.302,
+   "expires": "2026-10-26"
+  },
+  {
    "id": "verb_check-1",
    "title": "Verb check · list 1",
    "kind": "verb_check",
@@ -182,7 +252,7 @@
     "total": 5,
     "asked": [
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "Fistin  ->  فستق",
       "arabic": "Fistin  ->  فستق",
       "english": "peanut sauce",
@@ -196,7 +266,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "ما لا  ->  لا، لسه ما لقيته",
       "arabic": "ما لا  ->  لا، لسه ما لقيته",
       "english": "No, I still haven't found it",
@@ -210,7 +280,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "can it fee  ->  هذي الشوربة كان فيها جاج",
       "arabic": "can it fee  ->  هذي الشوربة كان فيها جاج",
       "english": "this soup had chicken in it",
@@ -224,7 +294,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi mean this word?",
+      "ask": "Did the student mean this word?",
       "word": "telephony  ->  التليفون",
       "arabic": "telephony  ->  التليفون",
       "english": "on the phone",
@@ -238,7 +308,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "هذه  ->  هذي",
       "arabic": "هذه  ->  هذي",
       "english": "this year",
@@ -267,7 +337,7 @@
     "total": 5,
     "asked": [
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "مش بتحتاج  ->  ما بتحتاج",
       "arabic": "مش بتحتاج  ->  ما بتحتاج",
       "english": "it doesn't need el-",
@@ -281,7 +351,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "جهزت  ->  عملت / طبخت",
       "arabic": "جهزت  ->  عملت / طبخت",
       "english": "My fiancee's mother made (it).",
@@ -295,7 +365,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "إشي  ->  واحدة",
       "arabic": "إشي  ->  واحدة",
       "english": "the best one",
@@ -309,7 +379,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "قبيحة  ->  بشعة",
       "arabic": "قبيحة  ->  بشعة",
       "english": "it was ugly",
@@ -323,7 +393,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "farq  ->  tani",
       "arabic": "farq  ->  tani",
       "english": "(your) other (friends)",
@@ -352,7 +422,7 @@
     "total": 5,
     "asked": [
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "تلات  ->  تنتين",
       "arabic": "تلات  ->  تنتين",
       "english": "it's two (twenty-six)",
@@ -366,13 +436,13 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "Mudira  ->  Mudir (sheet: manager / director | Mudeer)",
       "arabic": "Mudira  ->  Mudir (sheet: manager / director | Mudeer)",
       "english": "manager",
       "t": "43:32",
       "clip": "lessons/2026-09-18/clips/gc-433b074ae34da163.mp3",
-      "medi": "Mudira.",
+      "medi": "مُدير ... Mudira.",
       "amal": "Mudir. Shu, company's manager.",
       "answer": "Wrong word",
       "at": "2026-10-03",
@@ -380,21 +450,21 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "Hasabit  ->  3assabti",
       "arabic": "Hasabit  ->  3assabti",
       "english": "Why did you get angry?",
       "t": "12:16",
       "clip": "lessons/2026-09-18/clips/gc-619af789b480280b.mp3",
-      "medi": "Hasabit or hasabti.",
-      "amal": "Ah, hasabti.",
+      "medi": null,
+      "amal": null,
       "answer": "Right",
       "at": "2026-10-03",
       "result": "not counted as a mistake",
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "zehekti  ->  zaha2tih",
       "arabic": "zehekti  ->  zaha2tih",
       "english": "Why did you make him bored?",
@@ -408,7 +478,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "(singular verb; engine dropped his Arabic)  ->  beyzah2uni",
       "arabic": "(singular verb; engine dropped his Arabic)  ->  beyzah2uni",
       "english": "meetings make me bored",
@@ -437,27 +507,27 @@
     "total": 5,
     "asked": [
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "اقرب  ->  أغلب (a8lab)",
       "arabic": "اقرب  ->  أغلب (a8lab)",
       "english": "most (of her teeth)",
       "t": "17:38",
       "clip": "lessons/2026-09-15/clips/gc-7a92832564248215.mp3",
-      "medi": "اقرب.",
-      "amal": "All him... Do you remember most؟",
+      "medi": null,
+      "amal": null,
       "answer": null,
       "at": null,
       "result": null,
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "الآن  ->  ألوان",
       "arabic": "الآن  ->  ألوان",
       "english": "these colors",
       "t": "39:52",
       "clip": "lessons/2026-09-15/clips/gc-5bfee6173ec29931.mp3",
-      "medi": "هدول ال، uh, الآن",
+      "medi": "هدول ال، uh, الآن (engine; a mangled ألوان)",
       "amal": "Very close.",
       "answer": null,
       "at": null,
@@ -465,7 +535,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "haketni  ->  حبيت",
       "arabic": "haketni  ->  حبيت",
       "english": "I liked it yesterday",
@@ -479,7 +549,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi mean this word?",
+      "ask": "Did the student mean this word?",
       "word": "qasa (plural?)  ->  كاسات (kasat)",
       "arabic": "qasa (plural?)  ->  كاسات (kasat)",
       "english": "cups",
@@ -493,7 +563,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi mean this word?",
+      "ask": "Did the student mean this word?",
       "word": "(missing each other)  ->  بعض",
       "arabic": "(missing each other)  ->  بعض",
       "english": "The boys fought each other",
@@ -522,7 +592,7 @@
     "total": 5,
     "asked": [
      {
-      "ask": "Did Medi mean this word?",
+      "ask": "Did the student mean this word?",
       "word": "امريكي  ->  أمريكا",
       "arabic": "امريكي  ->  أمريكا",
       "english": "in America",
@@ -536,27 +606,27 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "يزعجك  ->  بيزعجك",
       "arabic": "يزعجك  ->  بيزعجك",
       "english": "what is annoying you",
       "t": "32:23",
       "clip": "lessons/2026-09-14/clips/gc-cfe3e5fb3de17c6f.mp3",
-      "medi": "يزعجك، يزعجك.",
-      "amal": "شو بيزعجك؟",
+      "medi": null,
+      "amal": null,
       "answer": null,
       "at": null,
       "result": null,
       "carried": false
      },
      {
-      "ask": "Did Medi mean this word?",
+      "ask": "Did the student mean this word?",
       "word": "من شاف  ->  ناشف (naashef)",
       "arabic": "من شاف  ->  ناشف (naashef)",
       "english": "(In California) the weather is usually dry.",
       "t": "24:44",
       "clip": "lessons/2026-09-14/clips/gc-ec0879bf70c7daa6.mp3",
-      "medi": "م-م-من شاف، من شاف؟ Try.",
+      "medi": "بس في كاليفورنيا، uh عشان um عادةً um م-م-من شاف، من شاف؟ Try.",
       "amal": "الجو ناشف.",
       "answer": null,
       "at": null,
@@ -564,7 +634,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi mean this word?",
+      "ask": "Did the student mean this word?",
       "word": "كل حدا / حدا  ->  الكل",
       "arabic": "كل حدا / حدا  ->  الكل",
       "english": "everyone",
@@ -578,14 +648,14 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "اختارت  ->  اخترت (e5taret)",
       "arabic": "اختارت  ->  اخترت (e5taret)",
       "english": "I chose to stay home.",
       "t": "3:03",
       "clip": "lessons/2026-09-14/clips/gc-00bb6ff513d67274.mp3",
-      "medi": "اختارت أدل...",
-      "amal": "اشتريت. ما فتاك، اشتريت. [engine garble of: اخترت، ما في ألف] ... Some people say اختريت، they add E to make it easier.",
+      "medi": "اختارت، uh، اختارت أدل...",
+      "amal": "اشتريت. ما فتاك، اشتريت.",
       "answer": null,
       "at": null,
       "result": null,
@@ -607,7 +677,7 @@
     "total": 5,
     "asked": [
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "يسكر  ->  اكسر",
       "arabic": "يسكر  ->  اكسر",
       "english": "Break! (command)",
@@ -621,35 +691,35 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "زري  ->  تكسري",
       "arabic": "زري  ->  تكسري",
       "english": "you keep breaking (my plates)",
       "t": "33:22",
       "clip": "lessons/2026-09-10/clips/gc-51638ef0659bbc95.mp3",
-      "medi": "زري.",
-      "amal": "I didn't hear the \"t\".",
+      "medi": null,
+      "amal": null,
       "answer": null,
       "at": null,
       "result": null,
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "Next far  ->  انكسر",
       "arabic": "Next far  ->  انكسر",
       "english": "it broke / got broken (he)",
       "t": "36:58",
       "clip": "lessons/2026-09-10/clips/gc-4a03f672fc899427.mp3",
-      "medi": "Next far. Is it next far?",
-      "amal": "So it's either inكسر or انكسر.",
+      "medi": null,
+      "amal": null,
       "answer": null,
       "at": null,
       "result": null,
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "كاسته  ->  كاسه",
       "arabic": "كاسته  ->  كاسه",
       "english": "His cup broke.",
@@ -663,7 +733,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "صلاحتو  ->  صلحته",
       "arabic": "صلاحتو  ->  صلحته",
       "english": "I fixed it",
@@ -692,7 +762,7 @@
     "total": 5,
     "asked": [
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "عادي الصباح  ->  الصبح / بالصباح",
       "arabic": "عادي الصباح  ->  الصبح / بالصباح",
       "english": "this morning",
@@ -706,21 +776,21 @@
       "carried": false
      },
      {
-      "ask": "Did Medi mean this word?",
+      "ask": "Did the student mean this word?",
       "word": "Rah bida  ->  ra7 nenbese6",
       "arabic": "Rah bida  ->  ra7 nenbese6",
       "english": "we will have fun",
       "t": "13:14",
       "clip": "lessons/2026-10-02/clips/gc-058d2ddaa428f2be.mp3",
-      "medi": "How do I say we will have fun, Rah? Rah bida.",
-      "amal": "No. It's the reason of our whole one month long lesson.",
+      "medi": "راح بنجح؟",
+      "amal": "No. It's the whole-- It's the reason of our whole one month long lesson. / We will get happy.",
       "answer": "Right",
       "at": "2026-10-03",
       "result": "not counted as a mistake",
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "المال  ->  المصاري (el-masari)",
       "arabic": "المال  ->  المصاري (el-masari)",
       "english": "the money will come",
@@ -734,27 +804,27 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "اليوم  ->  المرة",
       "arabic": "اليوم  ->  المرة",
       "english": "this is the second time",
       "t": "27:16",
       "clip": "lessons/2026-10-02/clips/gc-9a0c213c6aff0885.mp3",
       "medi": "هذي اليوم التانية.",
-      "amal": "مرة، هذي المرة.",
+      "amal": "مم، مم، هذي اليوم. / مرة، هذي المرة.",
       "answer": "Wrong word",
       "at": "2026-10-03",
       "result": "counted as a mistake for the student",
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "الآخر  ->  الأخير / الأخيرات",
       "arabic": "الآخر  ->  الأخير / الأخيرات",
       "english": "the last ten minutes",
       "t": "45:55",
       "clip": "lessons/2026-10-02/clips/gc-213b20370522d716.mp3",
-      "medi": "العشر دقايق الـ، الآخر.",
+      "medi": "العشر دقايق الـ، uh, الآخر.",
       "amal": "ال أخي-",
       "answer": "Right",
       "at": "2026-10-03",
@@ -777,7 +847,7 @@
     "total": 5,
     "asked": [
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "asfi  ->  ma tet2assafi",
       "arabic": "asfi  ->  ma tet2assafi",
       "english": "Don't (f.) apologize.",
@@ -791,7 +861,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "[speaking Arabic]  ->  لالكل",
       "arabic": "[speaking Arabic]  ->  لالكل",
       "english": "You should apologize to everyone",
@@ -805,21 +875,21 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "la...  ->  3ashaan / عشان",
       "arabic": "la...  ->  3ashaan / عشان",
       "english": "I need to apologize because I cannot go to your place.",
       "t": "29:18",
       "clip": "lessons/2026-09-17/clips/gc-80459de227ee0b7a.mp3",
-      "medi": "Ana laazim at'assif, uh, la... (29:27: 'I was thinking for, for not being able to-- for not going.')",
-      "amal": "For who؟ You need to apologize to someone or just, just apologize؟ ... إزعشان.",
+      "medi": "أنا لازم / أتأسف / لَـ...",
+      "amal": "إزعشان. (= عشان)",
       "answer": "Right",
       "at": "2026-10-06",
       "result": "not counted as a mistake",
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "ma'aruh  ->  ma ba2dar aru7",
       "arabic": "ma'aruh  ->  ma ba2dar aru7",
       "english": "...because I cannot go to your place.",
@@ -833,17 +903,17 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "كافية  ->  مش كتير / خفيف",
       "arabic": "كافية  ->  مش كتير / خفيف",
       "english": "not much water",
       "t": "4:41",
       "clip": "lessons/2026-09-17/clips/gc-005a820b0a28e960.mp3",
-      "medi": "كافية الزباين، yeah، كافية. كافية ماي.",
-      "amal": "مش كتير.",
+      "medi": null,
+      "amal": null,
       "answer": "Skip",
       "at": "2026-10-06",
-      "result": "counted as a mistake for the student",
+      "result": "no change",
       "carried": false
      }
     ]
@@ -862,21 +932,21 @@
     "total": 5,
     "asked": [
      {
-      "ask": "Did Medi mean this word?",
+      "ask": "Did the student mean this word?",
       "word": "[speaking Arabic]  ->  z8eere (صغيرة)",
       "arabic": "[speaking Arabic]  ->  z8eere (صغيرة)",
       "english": "She is very young/small",
       "t": "5:28",
       "clip": "lessons/2026-09-16/clips/gc-53cc47612fd1e41b.mp3",
       "medi": "[speaking Arabic]",
-      "amal": "صـ... / صغيرة.",
+      "amal": "صغيرة",
       "answer": "Wrong word",
       "at": "2026-10-06",
       "result": "counted as a mistake for the student",
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "[speaking Arabic]  ->  الله يعافيكي",
       "arabic": "[speaking Arabic]  ->  الله يعافيكي",
       "english": "(reply to) may God give you strength",
@@ -890,7 +960,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "[speaking foreign language] is... Hold on  ->  wajja3tek",
       "arabic": "[speaking foreign language] is... Hold on  ->  wajja3tek",
       "english": "Did I hurt you?",
@@ -904,7 +974,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "mashufeta  ->  ma shufetha",
       "arabic": "mashufeta  ->  ma shufetha",
       "english": "because I didn't see her",
@@ -918,7 +988,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "[speaking Arabic] (b- kept after ra7)  ->  ra7 t7arrki",
       "arabic": "[speaking Arabic] (b- kept after ra7)  ->  ra7 t7arrki",
       "english": "Where will you move this table to?",
@@ -947,7 +1017,7 @@
     "total": 5,
     "asked": [
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "واحدة  ->  واحد",
       "arabic": "واحدة  ->  واحد",
       "english": "Today is the 1st",
@@ -961,7 +1031,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "بحب  ->  بحبه",
       "arabic": "بحب  ->  بحبه",
       "english": "the one I like the most",
@@ -975,27 +1045,27 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "لسه  ->  لـ (la) الزباين يروحوا",
       "arabic": "لسه  ->  لـ (la) الزباين يروحوا",
       "english": "Until the customers leave.",
       "t": "1:33",
       "clip": "lessons/2026-10-01/clips/gc-93c52c72b62bba74.mp3",
-      "medi": "لسه الـ divine يروحوا.",
-      "amal": "شو يعني لسه الزباين يروحوا؟ ... لا، لا الزباين يروحوا. ... There are other words, but the one we know is لا.",
+      "medi": "لسه الـ divine يروحوا. (engine wrote 'divine' = الزباين, see Amal's echo at 01:40)",
+      "amal": "لا، لا الزباين يروحوا.",
       "answer": "Wrong word",
       "at": "2026-10-03",
       "result": "counted as a mistake for the student",
       "carried": false
      },
      {
-      "ask": "Did Medi mean this word?",
+      "ask": "Did the student mean this word?",
       "word": "حافظ  ->  متشجع",
       "arabic": "حافظ  ->  متشجع",
       "english": "motivated",
       "t": "6:15",
       "clip": "lessons/2026-10-01/clips/gc-9398559e09f361da.mp3",
-      "medi": "Uh, uh, حافظ، حافظ. ... لا، أنا نسيت، نسيت، نسيت.",
+      "medi": "Uh, uh, حافز؟ حافز؟",
       "amal": "Hafiz is a motivation، بس what's about motivated؟ ... متشـ... متشجع.",
       "answer": "Right",
       "at": "2026-10-03",
@@ -1003,7 +1073,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi mean this word?",
+      "ask": "Did the student mean this word?",
       "word": "  ->  بحسب",
       "arabic": "  ->  بحسب",
       "english": "I consider",
@@ -1028,7 +1098,7 @@
       "total": 5,
       "asked": [
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "واحدة  ->  واحد",
         "arabic": "واحدة  ->  واحد",
         "english": "Today is the 1st",
@@ -1042,7 +1112,7 @@
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "بحب  ->  بحبه",
         "arabic": "بحب  ->  بحبه",
         "english": "the one I like the most",
@@ -1056,27 +1126,27 @@
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "لسه  ->  لـ (la) الزباين يروحوا",
         "arabic": "لسه  ->  لـ (la) الزباين يروحوا",
         "english": "Until the customers leave.",
         "t": "1:33",
         "clip": "lessons/2026-10-01/clips/gc-93c52c72b62bba74.mp3",
-        "medi": "لسه الـ divine يروحوا.",
-        "amal": "شو يعني لسه الزباين يروحوا؟ ... لا، لا الزباين يروحوا. ... There are other words, but the one we know is لا.",
+        "medi": "لسه الـ divine يروحوا. (engine wrote 'divine' = الزباين, see Amal's echo at 01:40)",
+        "amal": "لا، لا الزباين يروحوا.",
         "answer": null,
         "at": null,
         "result": null,
         "carried": false
        },
        {
-        "ask": "Did Medi mean this word?",
+        "ask": "Did the student mean this word?",
         "word": "حافظ  ->  متشجع",
         "arabic": "حافظ  ->  متشجع",
         "english": "motivated",
         "t": "6:15",
         "clip": "lessons/2026-10-01/clips/gc-9398559e09f361da.mp3",
-        "medi": "Uh, uh, حافظ، حافظ. ... لا، أنا نسيت، نسيت، نسيت.",
+        "medi": "Uh, uh, حافز؟ حافز؟",
         "amal": "Hafiz is a motivation، بس what's about motivated؟ ... متشـ... متشجع.",
         "answer": null,
         "at": null,
@@ -1084,7 +1154,7 @@
         "carried": false
        },
        {
-        "ask": "Did Medi mean this word?",
+        "ask": "Did the student mean this word?",
         "word": "  ->  بحسب",
         "arabic": "  ->  بحسب",
         "english": "I consider",
@@ -1109,7 +1179,7 @@
       "total": 5,
       "asked": [
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "واحدة  ->  واحد",
         "arabic": "واحدة  ->  واحد",
         "english": "Today is the 1st",
@@ -1123,7 +1193,7 @@
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "بحب  ->  بحبه",
         "arabic": "بحب  ->  بحبه",
         "english": "the one I like the most",
@@ -1137,27 +1207,27 @@
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "لسه  ->  لـ (la) الزباين يروحوا",
         "arabic": "لسه  ->  لـ (la) الزباين يروحوا",
         "english": "Until the customers leave.",
         "t": "1:33",
         "clip": "lessons/2026-10-01/clips/gc-93c52c72b62bba74.mp3",
-        "medi": "لسه الـ divine يروحوا.",
-        "amal": "شو يعني لسه الزباين يروحوا؟ ... لا، لا الزباين يروحوا. ... There are other words, but the one we know is لا.",
+        "medi": "لسه الـ divine يروحوا. (engine wrote 'divine' = الزباين, see Amal's echo at 01:40)",
+        "amal": "لا، لا الزباين يروحوا.",
         "answer": null,
         "at": null,
         "result": null,
         "carried": false
        },
        {
-        "ask": "Did Medi mean this word?",
+        "ask": "Did the student mean this word?",
         "word": "حافظ  ->  متشجع",
         "arabic": "حافظ  ->  متشجع",
         "english": "motivated",
         "t": "6:15",
         "clip": "lessons/2026-10-01/clips/gc-9398559e09f361da.mp3",
-        "medi": "Uh, uh, حافظ، حافظ. ... لا، أنا نسيت، نسيت، نسيت.",
+        "medi": "Uh, uh, حافز؟ حافز؟",
         "amal": "Hafiz is a motivation، بس what's about motivated؟ ... متشـ... متشجع.",
         "answer": null,
         "at": null,
@@ -1165,7 +1235,7 @@
         "carried": false
        },
        {
-        "ask": "Did Medi mean this word?",
+        "ask": "Did the student mean this word?",
         "word": "  ->  بحسب",
         "arabic": "  ->  بحسب",
         "english": "I consider",
@@ -1190,27 +1260,27 @@
       "total": 5,
       "asked": [
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "أحسن  ->  aswa2",
         "arabic": "أحسن  ->  aswa2",
         "english": "the worst customer",
         "t": "43:55",
         "clip": "lessons/2026-10-01/clips/gc-d7e4514fd42385aa.mp3",
-        "medi": "Okay. So أحسن الزبون ما، ما تشتري إشي.",
-        "amal": "ممتاز.",
+        "medi": "Okay. So أحسن زبون ... ما ما بتشتري إشي.",
+        "amal": "It's ما بي، ما بيشتري because it's زبون. (only the verb)",
         "answer": null,
         "at": null,
         "result": "not asked - she had answered this lesson already",
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "واحد  ->  wa7de (واحدة)",
         "arabic": "واحد  ->  wa7de (واحدة)",
         "english": "It's one o'clock",
         "t": "2:49",
         "clip": "lessons/2026-10-01/clips/gc-47983da1f9224d73.mp3",
-        "medi": "الساعة، uh، واح-واحد.",
+        "medi": "uh، واح-واحد.",
         "amal": "واحد. ... هيك الساعة واحدة.",
         "answer": null,
         "at": null,
@@ -1218,7 +1288,7 @@
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "في الـ Wi-Fi  ->  على الـ Wi-Fi",
         "arabic": "في الـ Wi-Fi  ->  على الـ Wi-Fi",
         "english": "I'm on the Wi-Fi",
@@ -1232,7 +1302,7 @@
         "carried": true
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "بحب  ->  ba7ebbo",
         "arabic": "بحب  ->  ba7ebbo",
         "english": "the one I like the most",
@@ -1246,7 +1316,7 @@
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "مشجع  ->  mitshajje3",
         "arabic": "مشجع  ->  mitshajje3",
         "english": "motivated",
@@ -1272,7 +1342,7 @@
       "total": 5,
       "asked": [
        {
-        "ask": "Did Medi mean this word?",
+        "ask": "Did the student mean this word?",
         "word": "(new word)  ->  oola",
         "arabic": "(new word)  ->  oola",
         "english": "first (feminine)",
@@ -1286,21 +1356,21 @@
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "مشجع  ->  mitshajje3 (متشجع)",
         "arabic": "مشجع  ->  mitshajje3 (متشجع)",
         "english": "motivated",
         "t": "6:36",
         "clip": "lessons/2026-10-01/clips/gc-1e8edf21118d180f.mp3",
-        "medi": null,
-        "amal": null,
+        "medi": "مشجع. (again 06:40 مشجع; 07:36 أنا، أنا مشجع الدرس)",
+        "amal": "مت-- Okay، شكرًا. (07:47; earlier 06:29 she gave متشجع)",
         "answer": "Right",
         "at": "2026-10-02",
         "result": "not counted as a mistake",
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "أنا في الـ Wi-Fi  ->  أنا على الـ Wi-Fi",
         "arabic": "أنا في الـ Wi-Fi  ->  أنا على الـ Wi-Fi",
         "english": "I'm on the Wi-Fi",
@@ -1314,7 +1384,7 @@
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "الـ سيارة  ->  sayyaaret el-BM",
         "arabic": "الـ سيارة  ->  sayyaaret el-BM",
         "english": "the BMW car that...",
@@ -1328,7 +1398,7 @@
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "اسم القديمة  ->  esem madrasto el-2adeem",
         "arabic": "اسم القديمة  ->  esem madrasto el-2adeem",
         "english": "the old name of his school",
@@ -1353,21 +1423,21 @@
       "total": 5,
       "asked": [
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "أحسن  ->  أسوأ",
         "arabic": "أحسن  ->  أسوأ",
         "english": "the worst customer doesn't buy anything",
         "t": "43:55",
         "clip": "lessons/2026-10-01/clips/gc-d7e4514fd42385aa.mp3",
-        "medi": "Okay. So أحسن الزبون ما، ما تشتري إشي.",
-        "amal": "ممتاز.",
+        "medi": "Okay. So أحسن زبون ... ما ما بتشتري إشي.",
+        "amal": "It's ما بي، ما بيشتري because it's زبون. (only the verb)",
         "answer": null,
         "at": null,
         "result": null,
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "  ->  أول سيارة",
         "arabic": "  ->  أول سيارة",
         "english": "the first car",
@@ -1381,7 +1451,7 @@
         "carried": false
        },
        {
-        "ask": "Did Medi mean this word?",
+        "ask": "Did the student mean this word?",
         "word": "  ->  أول الوقت",
         "arabic": "  ->  أول الوقت",
         "english": "the beginning of time",
@@ -1395,13 +1465,13 @@
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "واحد  ->  واحدة",
         "arabic": "واحد  ->  واحدة",
         "english": "It is one o'clock.",
         "t": "2:49",
         "clip": "lessons/2026-10-01/clips/gc-47983da1f9224d73.mp3",
-        "medi": "الساعة، uh، واح-واحد.",
+        "medi": "uh، واح-واحد.",
         "amal": "واحد. ... هيك الساعة واحدة.",
         "answer": null,
         "at": null,
@@ -1409,7 +1479,7 @@
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "في  ->  على",
         "arabic": "في  ->  على",
         "english": "I'm on the Wi-Fi.",
@@ -1440,21 +1510,21 @@
     "total": 5,
     "asked": [
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "وافى  ->  وقف",
       "arabic": "وافى  ->  وقف",
       "english": "It didn't stop hurting.",
       "t": "34:24",
       "clip": "lessons/2026-09-26/clips/gc-dad9ace04f687ae6.mp3",
-      "medi": null,
-      "amal": null,
+      "medi": "It didn't stop. ما وافى.",
+      "amal": "وقف.",
       "answer": "Right",
       "at": "2026-10-02",
       "result": "not counted as a mistake",
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "عروسين  ->  عريس",
       "arabic": "عروسين  ->  عريس",
       "english": "Groom.",
@@ -1468,7 +1538,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi mean this word?",
+      "ask": "Did the student mean this word?",
       "word": "كلسات  ->  جرابين",
       "arabic": "كلسات  ->  جرابين",
       "english": "Socks.",
@@ -1482,7 +1552,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "خصلات  ->  كلسات",
       "arabic": "خصلات  ->  كلسات",
       "english": "You wore white socks.",
@@ -1496,7 +1566,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi mean this word?",
+      "ask": "Did the student mean this word?",
       "word": "stan  ->  أسنان",
       "arabic": "stan  ->  أسنان",
       "english": "Dentist (doctor of teeth).",
@@ -1521,7 +1591,7 @@
       "total": 5,
       "asked": [
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "ملآن  ->  مليان",
         "arabic": "ملآن  ->  مليان",
         "english": "Yesterday was very full/busy.",
@@ -1535,7 +1605,7 @@
         "carried": false
        },
        {
-        "ask": "Did Medi mean this word?",
+        "ask": "Did the student mean this word?",
         "word": "brain  ->  دماغ",
         "arabic": "brain  ->  دماغ",
         "english": "brain doctor",
@@ -1549,21 +1619,21 @@
         "carried": false
        },
        {
-        "ask": "Did Medi mean this word?",
+        "ask": "Did the student mean this word?",
         "word": "(none)  ->  دكتور نفسي",
         "arabic": "(none)  ->  دكتور نفسي",
         "english": "psychologist",
         "t": "28:01",
         "clip": "lessons/2026-09-26/audio/lesson.mp3#t=1678,1693",
-        "medi": "Yeah, no, that's it.",
-        "amal": "دكتور نفسي.",
+        "medi": "Doctor Nefs. ... دكتور نفسي؟ The same doc?",
+        "amal": "دكتور نفسي. Psychologist. ... دكتور نفسي is psychologist.",
         "answer": null,
         "at": null,
         "result": "not asked - she had answered this lesson already",
         "carried": false
        },
        {
-        "ask": "Did Medi mean this word?",
+        "ask": "Did the student mean this word?",
         "word": "most likely  ->  على الأغلب",
         "arabic": "most likely  ->  على الأغلب",
         "english": "most likely",
@@ -1577,13 +1647,13 @@
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "أبعت الـ link  ->  أبعت لك الـ link",
         "arabic": "أبعت الـ link  ->  أبعت لك الـ link",
         "english": "I'll send you the link after the lesson.",
         "t": "8:58",
         "clip": "lessons/2026-09-26/clips/gc-795259a276e925c6.mp3",
-        "medi": "أنا، أنا راح أبدا-- أبعت الـ link بعد الـ درس.",
+        "medi": "أنا راح أبدا-- أبعت الـ link بعد الـ درس.",
         "amal": "أبعت لك. الـ link.",
         "answer": null,
         "at": null,
@@ -1609,7 +1679,7 @@
     "total": 5,
     "asked": [
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "[his word for 'started' - track missing]  ->  بدأ / بلش",
       "arabic": "[his word for 'started' - track missing]  ->  بدأ / بلش",
       "english": "I thought autumn had started.",
@@ -1623,21 +1693,21 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "موعد  ->  حجز",
       "arabic": "موعد  ->  حجز",
       "english": "booking / reservation",
       "t": "19:35",
       "clip": "lessons/2026-09-23/clips/gc-44ee75682ba4ecde.mp3",
-      "medi": "[Medi track missing] - he answered 'شو يعني Booking؟' with the word for appointment (موعد)",
-      "amal": "No. ما هو this appointment or time of something. ... So it's a booking. To book. ... No. There's a specific word we know. ... طلب is order. No. ... The noun is حجز.",
+      "medi": "Um, موعد، um, hold on.",
+      "amal": "No. ما هو this appointment or time of something. ... So it's a booking. To book.",
       "answer": "Right",
       "at": "2026-10-02",
       "result": "not counted as a mistake",
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "paper  ->  ورقة",
       "arabic": "paper  ->  ورقة",
       "english": "Where is the paper?",
@@ -1651,7 +1721,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "تزكر  ->  تذكرة",
       "arabic": "تزكر  ->  تذكرة",
       "english": "I usually book the ticket.",
@@ -1665,7 +1735,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi mean this word?",
+      "ask": "Did the student mean this word?",
       "word": "[untranscribed] his plural of تذكرة  ->  تذاكر",
       "arabic": "[untranscribed] his plural of تذكرة  ->  تذاكر",
       "english": "tickets",
@@ -1690,7 +1760,7 @@
       "total": 5,
       "asked": [
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "paper  ->  ورقة",
         "arabic": "paper  ->  ورقة",
         "english": "paper (I don't have a paper)",
@@ -1704,7 +1774,7 @@
         "carried": true
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "dual of قهوة (his form not on track)  ->  أهوتين (ahwetain)",
         "arabic": "dual of قهوة (his form not on track)  ->  أهوتين (ahwetain)",
         "english": "two coffees",
@@ -1718,7 +1788,7 @@
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "لازم بحجز (his form not on the track)  ->  لازم أحجز",
         "arabic": "لازم بحجز (his form not on the track)  ->  لازم أحجز",
         "english": "I must book a room",
@@ -1732,7 +1802,7 @@
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "(object pronoun missing, untranscribed)  ->  بشتريهم",
         "arabic": "(object pronoun missing, untranscribed)  ->  بشتريهم",
         "english": "I can buy them close to the day of the trip",
@@ -1746,7 +1816,7 @@
         "carried": false
        },
        {
-        "ask": "Did Medi get this wrong here?",
+        "ask": "Did the student get this wrong here?",
         "word": "(his 'the day of the trip', untranscribed)  ->  يوم السفر",
         "arabic": "(his 'the day of the trip', untranscribed)  ->  يوم السفر",
         "english": "the day of the trip",
@@ -1778,21 +1848,21 @@
     "total": 5,
     "asked": [
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "شفت  ->  فرجيت (show: فرجي)",
       "arabic": "شفت  ->  فرجيت (show: فرجي)",
       "english": "when I showed her the rug",
       "t": "13:19",
       "clip": "lessons/2026-09-30/clips/gc-e6565621edaeab00.mp3",
-      "medi": "لما شفت السجادة.",
-      "amal": "شافت. ... So I showed is a different verb.",
+      "medi": null,
+      "amal": null,
       "answer": "Right",
       "at": "2026-10-01",
       "result": "not counted as a mistake",
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "zalameh  ->  shab",
       "arabic": "zalameh  ->  shab",
       "english": "that young guy",
@@ -1806,7 +1876,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "Jazam  ->  شنتة سفر",
       "arabic": "Jazam  ->  شنتة سفر",
       "english": "suitcase",
@@ -1820,7 +1890,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "مش شجاع  ->  ما كنت متشجع",
       "arabic": "مش شجاع  ->  ما كنت متشجع",
       "english": "I wasn't motivated (yesterday)",
@@ -1834,14 +1904,14 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "إنهم  ->  إلهم",
       "arabic": "إنهم  ->  إلهم",
       "english": "excited for them",
       "t": "9:07",
       "clip": "lessons/2026-09-30/clips/gc-4684b58d21bb078e.mp3",
-      "medi": "متهمس إنهم",
-      "amal": "متحمس إلهم.",
+      "medi": null,
+      "amal": null,
       "answer": "Right",
       "at": "2026-10-01",
       "result": "not counted as a mistake",
@@ -1863,13 +1933,13 @@
     "total": 5,
     "asked": [
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "بطيت  ->  رجّعت",
       "arabic": "بطيت  ->  رجّعت",
       "english": "I put it back.",
       "t": "25:26",
       "clip": "lessons/2026-09-28/clips/gc-15475bd40864a521.mp3",
-      "medi": "I put it past tense. أنا بطيت أريحا. ... بطيت أريحا. No?",
+      "medi": "I put it past tense. أنا حطيت أرجع؟ Is that right? ... حطيت أرجع، No?",
       "amal": "No. ... بـ برجع.",
       "answer": "Wrong word",
       "at": "2026-09-30",
@@ -1877,41 +1947,41 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "عصبية  ->  صبية",
       "arabic": "عصبية  ->  صبية",
       "english": "she is a young woman",
       "t": "54:11",
       "clip": "lessons/2026-09-28/clips/gc-6eead2027087fe6b.mp3",
-      "medi": null,
-      "amal": null,
-      "answer": "Right",
-      "at": "2026-09-30",
-      "result": "not counted as a mistake",
-      "carried": false
-     },
-     {
-      "ask": "Did Medi mean this word?",
-      "word": "weight  ->  وزن",
-      "arabic": "weight  ->  وزن",
-      "english": "weight",
-      "t": "17:39",
-      "clip": "lessons/2026-09-28/clips/gc-b14dd3d83b5bfb24.mp3",
-      "medi": "But this would be to, like, also works for the, for the gym.",
-      "amal": "نعم، عادي، حملت. بس، وزن is weight، وزن.",
+      "medi": "آ، بتكون صبية؟",
+      "amal": "طيب. شو يعني عصبية؟ ... شو جمع عصبية؟ ... عصبية is an angry woman. يعني she's angry. ... صبايا.",
       "answer": "Right",
       "at": "2026-09-30",
       "result": "counted as a mistake for the student",
       "carried": false
      },
      {
-      "ask": "Did Medi mean this word?",
+      "ask": "Did the student mean this word?",
+      "word": "weight  ->  وزن",
+      "arabic": "weight  ->  وزن",
+      "english": "weight",
+      "t": "17:39",
+      "clip": "lessons/2026-09-28/clips/gc-b14dd3d83b5bfb24.mp3",
+      "medi": "um أنا حملت؟ حملت؟ um الأكثر الأكثر إشي ... No, I don't know how to say. I'm trying to say I lift-- I lifted the most amount ever today.",
+      "amal": "نعم، عادي، حملت. بس، وزن is weight، وزن. ... we would need biggest. So, would be أكبر، أكبر وزن.",
+      "answer": "Right",
+      "at": "2026-09-30",
+      "result": "counted as a mistake for the student",
+      "carried": false
+     },
+     {
+      "ask": "Did the student mean this word?",
       "word": "محرك  ->  حركة",
       "arabic": "محرك  ->  حركة",
       "english": "movement",
       "t": "23:55",
       "clip": "lessons/2026-09-28/clips/gc-454a41dac0133a7e.mp3",
-      "medi": "Is it محرك or just حركة؟",
+      "medi": "Is it محرك or it's حركة؟",
       "amal": "حركة.",
       "answer": "Right",
       "at": "2026-09-30",
@@ -1919,14 +1989,14 @@
       "carried": false
      },
      {
-      "ask": "Did Medi get this wrong here?",
+      "ask": "Did the student get this wrong here?",
       "word": "حدا  ->  ناس / أشخاص",
       "arabic": "حدا  ->  ناس / أشخاص",
       "english": "people",
       "t": "26:02",
       "clip": "lessons/2026-09-28/clips/gc-b3b0b9d04c06c2e1.mp3",
-      "medi": "اآآ الـ-الـ حدا",
-      "amal": "الـ، شو يعني people؟",
+      "medi": "Uh, الـ، الـحدا.",
+      "amal": "الـ، شو يعني people؟ ... Mm. ناس، أشخاص. Yes.",
       "answer": "Right",
       "at": "2026-09-30",
       "result": "counted as a mistake for the student",
@@ -1948,7 +2018,7 @@
     "total": 23,
     "asked": [
      {
-      "ask": "Did Medi say Bil8ala6 right here?",
+      "ask": "Did the student say Bil8ala6 right here?",
       "word": "Bil8ala6",
       "arabic": "بالغلط",
       "english": "Accidentally",
@@ -1962,7 +2032,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi say kaan right here?",
+      "ask": "Did the student say kaan right here?",
       "word": "kaan",
       "arabic": "كان",
       "english": "I wanted / You (m) wanted / You (f) wanted / You (pl) wanted / We wanted",
@@ -1976,7 +2046,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi say Shmaal right here?",
+      "ask": "Did the student say Shmaal right here?",
       "word": "Shmaal",
       "arabic": "شمال",
       "english": "Left",
@@ -1990,7 +2060,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi say 2aa5er right here?",
+      "ask": "Did the student say 2aa5er right here?",
       "word": "2aa5er",
       "arabic": "آخر",
       "english": "Last / The end of",
@@ -2004,7 +2074,7 @@
       "carried": false
      },
      {
-      "ask": "Did Medi say Awal right here?",
+      "ask": "Did the student say Awal right here?",
       "word": "Awal",
       "arabic": "أول",
       "english": "First / The beginning of",

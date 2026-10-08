@@ -256,9 +256,17 @@ def test_pg_25_a_missing_preposition_or_verb_is_a_caret_where_it_belongs():
     assert T.missing_piece("راح على", "راح أروح على")["before"] == "على" and T.missing_piece("راح على", "راح أروح على")["add"] == "أروح"
     assert T.missing_piece("أنا لازم آآآ عطلة", "أنا لازم آخد عطلة")["add"] == "آخد"
     assert T.missing_piece("سمعت", "صحيت") is None
-    d = json.load(open(os.path.join(ROOT, "docs", "data", "lessons", "2026-10-02.json"), encoding="utf-8"))
-    carets = [u for m in d["tmarks"].values() for u in m["u"] if u[2] == "missing"]
-    assert any(u[5] == "ل" and u[6] == "la" for u in carets) and any(u[5] == "أروح" for u in carets)
+    # On the real lessons. 2026-10-04: the readers re-read 10-02 on the re-heard transcript. His 10:56-11:07 lines are now
+    # heard as 'خططت امم سفر، سفرة / بسفر / على سفر' (he tried bi- and 3ala), so the readers file a WRONG preposition there
+    # (على سفر -> لسفرة), and 11:16 as a whole phrase (راح آآآ على عند عموي -> راح أروح عند عمي): neither is a pure missing piece
+    # any more, so neither is a caret. The two shapes Medi asked for still show on real moments: the missing verb on
+    # 10-02 (لازم ^آخد عطلة, his own 10-03 correction) and the missing la on 09-16 (وين راح ^لـ ...).
+    def carets(date):
+        d = json.load(open(os.path.join(ROOT, "docs", "data", "lessons", date + ".json"), encoding="utf-8"))
+        return [u for m in d["tmarks"].values() for u in m["u"] if u[2] == "missing"]
+    assert any(u[5] == "آخد" and u[7] == "word" for u in carets("2026-10-02"))
+    # 2026-10-07 (TR-27 text): the 09-16 re-read files that moment as a wrong word, not a missing piece; the missing la now shows on 10-06
+    assert any(u[5] in ("ل", "لـ") and u[6] == "la" and u[7] == "preposition" for u in carets("2026-10-06"))
 
 
 def test_tr_23_his_arabic_in_english_letters_is_read_and_checked_against_her_chat_and_gemini_tests_it():

@@ -1,0 +1,15 @@
+# Publish log - Gemini second listen with the tutor's answers (2026-10-07)
+
+Worktree C:\dev\anees-wt-gemini, branch gemini-publish-2026-10-07 (off origin/master 230e42a, engine-bench 18fb248 merged in).
+Medi 2026-10-07: "ok the questions are complete open a chip and run the changes and the audit. Please prompt it to loop it and
+ensure the data is graded and entered correctly in all areas. Page by page. Make sure literally everything is checked 3 times".
+
+| Step | What | Result |
+|---|---|---|
+| 0 | Merge engine-bench into a fresh worktree off master | 95 conflicts: 91 generated files keep master's copy (S7 G1, rebuild pending), rehear-status.json takes the branch's, 3 hand files merged by hand (lesson-overview.js, lessons-page.js, test_lesson_ledger.py: branch's provisional mark + master's Tutor wording). The 18 re-read lessons keep the branch's reader files (read on the re-heard text); master had reverted 13 of them to the 09-26 read (e01f4aa), which is not the text the pages now show. Commit 82d79b3. |
+| 0b | Amal's answers pulled read-only | data/lesson-work/rehear/tutor-answers.json: 275 taps; 27/27 slip-check (12 wrong, 15 right), 84/84 word-said (47 yes, 35 no, 2 not sure), 13/13 own-fix, 11/11 old-new, 28/28 word-there, 27/27 one-or-two, 40/40 her own lines |
+| 1 | The gate: 12 'he said it wrong' lines out, 15 'right' stay | TR-27 (scripts/rehear_tutor.py + rehear_apply.py plan): her slip-check answer decides each line; the 12 go back to the engine's text, the 15 keep the new text (tutor-hold.json 'taken_out' / 'applied'). |
+| 2 | Widen the hold rule (TR-27) | A word change toward a word the tutor says or types within 30 s, or on a line with a mistake she confirmed, is held, not applied; no AI check releases it. Re-run on 18 lessons: 223 more lines held (per lesson 2-25; 08-25 / 09-04 none), 52 taken out on her word in all, 65 applied on her word. New Tutor list 'Listen: what did the student say? - part 2' (5 parts, 223 clips) - Medi sends the link; published with the lines held (PG-27 chip: 'N lines wait for the tutor's ear'). |
+| 3 | Her other answers | own-fix: 7 lines take the AI run she picked (tutor-listen rows, wins over his row), 3 keep his line. word-said 47 yes / 35 no / 2 not sure; old-new 6 new / 3 old / 2 other - all inside the plan. word-there: 13 credits stand, 14 removed, 1 unscored (data/lesson-work/ledger-tutor-listen.json). one-or-two: 19 'same' = 19 duplicates.json pairs (LS-16), 8 'different' both stand (one-or-two-tutor.json). Her 40 lines: APPLY NONE (ElevenLabs 9 vs Gemini 8 and 9 vs 6; rehear/amal-lines-decision.json). |
+| 3b | Arabizi | The branch's 425 Arabizi rows for the re-heard words merged back into docs/data/arabizi-extra.json; 3 last gaps filled by hand (yotbo5o, tele, el-mas--); arabizi_gaps.cjs = 0. |
+| 5 | Grammar proposals A13-A17 + A11 line | GR-30: buckets A13-A17 built, detector patterns, planted test, proposals carry Medi's yes ('yes count them') and Amal's yes; past moments re-filed after the re-read (see step 6). |

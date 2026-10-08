@@ -10,7 +10,7 @@ same-day review (review_lesson.py step 7c); safe to run any time.
 
     python scripts/build_tutor_data.py            -> rewrites docs/data/tutor.json, prints the open cards
 """
-import datetime, json, os, re, sys
+import re, datetime, json, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__)); REPO = os.path.dirname(HERE); DOCS = os.path.join(REPO, "docs")
 sys.path.insert(0, HERE)
 OUT = os.path.join(DOCS, "data", "tutor.json")
@@ -20,6 +20,11 @@ NOTES = os.path.join(DOCS, "data", "amal-grammar-notes.json")
 LISTEN = os.path.join(DOCS, "data", "amal-listen.json")
 CHECKS = os.path.join(DOCS, "data", "amal-checks.json")
 
+
+
+def screen_words(text):
+    """PG-33 (2026-10-07 audit): a question stored in a link payload before the name change still says 'Medi' - on screen it is the student."""
+    return str(text).replace("Did Medi ", "Did the student ") if text else text
 
 def day(s):
     return str(s or "")[:10]
@@ -136,7 +141,7 @@ def link_detail(r, dates):
             ans = pick(a.get("q"), i)
             row = rows.get(q.get("audit_uid")) or {}
             t = q.get("t")
-            asked.append({"ask": q.get("ask"), "word": q.get("arabizi") or q.get("arabic"), "arabic": q.get("arabic"), "english": q.get("english"),
+            asked.append({"ask": screen_words(q.get("ask")), "word": q.get("arabizi") or q.get("arabic"), "arabic": q.get("arabic"), "english": q.get("english"),
                           "t": mmss(t), "clip": clip_for(r.get("lesson_date"), q.get("clip"), t),
                           "medi": row.get("medi_said"), "amal": row.get("amal_said"),
                           "answer": ans, "at": (when(q.get("audit_uid") or q.get("word_key")) or (a.get("updated") or r.get("done_at") or "")[:10] or None) if ans else None,

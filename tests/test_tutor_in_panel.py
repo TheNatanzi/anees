@@ -201,7 +201,9 @@ def test_AM_24_amal_never_reads_the_word_slip():
     """AM-24 (Medi 2026-10-06: "she doesnt understand the word slip in the tutor portal, be more explicit")."""
     import json, glob
     shown = re.compile(r"(?i)\bslips?\b")
-    for f in ("docs/js/tutor.js", "docs/js/hub/review-task.js", "docs/js/tutor-verify.js"):
+    # 2026-10-07 audit: every hub module (the Done tab's live-detail.js said "slip counted for the student")
+    hub = sorted(str(p.relative_to(ROOT)).replace("\\", "/") for p in (ROOT / "docs" / "js" / "hub").glob("*.js"))
+    for f in ["docs/js/tutor.js", "docs/js/tutor-verify.js"] + hub:
         code = re.sub(r"/\*[\s\S]*?\*/|//[^\n]*", "", (ROOT / f).read_text(encoding="utf-8"))   # comments may say slip; her screen may not
         strings = re.findall(r"'([^'\n]*)'|`([^`]*)`|\"([^\"\n]*)\"", code)
         bad = [x for t in strings for x in t if shown.search(x) and "slip-check" not in x and "slips-review" not in x and "slip_check" not in x and "slipcheck" not in x]

@@ -31,5 +31,13 @@ def test_gr_24_settle_puts_the_slip_back_on_the_real_lesson():
     import json
     p = os.path.join(SFT.WORK, "2026-10-02.settled.json")
     rows = json.load(open(p, encoding="utf-8"))["rows"]
-    hit = [r for r in rows if r.get("rule") == "GR-24" and r.get("wrong") == "سمعت"]
-    assert hit and hit[0]["right"] == "صحيت" and hit[0]["gr24"]["verdict"] == "her-first"
+    # 2026-10-04: the readers re-read 10-02 on the re-heard transcript with GR-24 in their brief, and both now file the
+    # 07:02 slip themselves (her صحيت came first): it is on the lesson without settle having to put it back.
+    hit = [r for r in rows if r.get("wrong") == "سمعت" and r.get("right") == "صحيت"]
+    assert hit and hit[0]["kind"] == "vocab-A" and (hit[0].get("agreed_by") == "r1+r2" or hit[0]["gr24"]["verdict"] == "her-first")
+    # the same overturn on a real lesson after the re-read: 09-11 09:30 أنجم -> نجوم (the third reader's self-fix drop)
+    rows = json.load(open(os.path.join(SFT.WORK, "2026-09-11.settled.json"), encoding="utf-8"))["rows"]
+    # 2026-10-05: 09-11 was re-read on the final text and both readers now write that moment as one asked row (09:14,
+    # نجمة / نجوم), so there is no self-fix call left to overturn - the slip is on the lesson either way (as on 10-02 above)
+    hit = [r for r in rows if "نجوم" in str(r.get("right"))]
+    assert hit and hit[0]["kind"] == "vocab-A" and (hit[0].get("agreed_by") == "r1+r2" or (hit[0].get("gr24") or {}).get("verdict") == "her-first")

@@ -59,3 +59,10 @@ def test_PG_31_every_page_with_the_shared_menu_loads_the_phone_tab_bar():
         assert "js/phone-nav.js" in open(p, encoding="utf-8").read(), os.path.basename(p)
     js = open(os.path.join(REPO, "docs", "js", "phone-nav.js"), encoding="utf-8").read()
     assert "max-width: 680px" in js and "'student.html', 'Student'" in js and "More" in js
+    # 2026-10-07 (Medi 2026-10-06 "The button menu bottom disappears on lesson page"): a lesson's own page has no shared
+    # menu, so the bar comes from the shell's own list; every published lesson page loads the script
+    assert "const lessonPage = !nav &&" in js and "SHELL.map" in js
+    lesson_pages = glob.glob(os.path.join(REPO, "docs", "lessons", "2*.html"))
+    assert len(lesson_pages) >= 18
+    for p in lesson_pages:
+        assert "phone-nav.js" in open(p, encoding="utf-8").read(), os.path.basename(p)

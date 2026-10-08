@@ -9,7 +9,8 @@ const J = p => JSON.parse(fs.readFileSync(p, 'utf8'));
 const az = require(path.join(DOCS, 'js', 'word-bank-arabizi.js'));
 const house = (J(path.join(DOCS, 'data', 'house_spelling.json')).items) || {};
 const words = J(path.join(DOCS, 'data', 'words.json')).items.map(w => { const h = house[w.match_loose]; return h && h.house ? Object.assign({}, w, { house_spelling: h.house }) : w; });
-const render = az.create(words, J(path.join(DOCS, 'data', 'word-bank-catalog.json')), J(path.join(DOCS, 'data', 'arabizi-extra.json')));
+// scope 'lessons': this guard reads what the Lessons page shows (its error cards and transcript lines), where as-said rows apply
+const render = az.create(words, J(path.join(DOCS, 'data', 'word-bank-catalog.json')), J(path.join(DOCS, 'data', 'arabizi-extra.json')), { scope: 'lessons' });
 const AR = /[\u0621-\u064A]/;
 const gaps = new Map();
 for (const f of fs.readdirSync(path.join(DOCS, 'data', 'lessons')).filter(f => /^20\d\d-\d\d-\d\d\.json$/.test(f))) {

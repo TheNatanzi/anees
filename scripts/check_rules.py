@@ -155,6 +155,12 @@ def check_s1_extra(root, raw):
             bad.append(f"{w} ({lat}): digit outside her letters 2 3 5 6 7 8 9")
         elif not re.fullmatch(r"[A-Za-z0-9' .\-]+", lat):
             bad.append(f"{w} ({lat}): character that is not a Latin letter / her digit")
+        elif v.get("scope") not in (None, "lessons"):
+            bad.append(f"{w} ({lat}): scope {v.get('scope')!r} is not 'lessons'")
+        elif m == "as-said" and str(v.get("added") or "")[:10] >= "2026-10-04" and v.get("scope") != "lessons":
+            # Codex final approval 2026-10-05, blocker 7: his own wrong / cut-off / unclear forms are Arabizi only on the
+            # Lessons page (S1, AZ-05 / AZ-10); a new as-said row without the scope would show on every page
+            bad.append(f"{w} ({lat}): an as-said row added from 2026-10-04 on must carry \"scope\": \"lessons\"")
     return res("S1-extra", "block", "Built Arabizi rows carry method + source; only her letters",
                "RULES.md S1 amendment 2026-09-23", bad, total=len(d.get("words", {})))
 

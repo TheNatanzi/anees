@@ -90,3 +90,61 @@ def test_heard_his_counts_at_the_correction():
 def test_ledger_override_sees_spans_not_the_whole_line():
     out = TF.apply(D, [{"t": 10.0, "who": "Medi", "text": "ana biddi this suck"}], rows=[row(10.0, "ana biddi this suck", "ana biddi لسه")], sort=False)
     assert [h["engine_wrote"] for h in out[0]["heard"]] == ["this suck"]         # biddi's stored score is not named, so it stays
+
+
+def _stamps(*turns):
+    return [{"speaker": w, "start": float(t), "end": float(t), "text": x} for t, w, x in turns]
+
+
+def test_track_turns_from_stamps_run_to_the_speakers_next_stamp():
+    # transcript.txt lessons: [mm:ss] only - whole seconds, end == start on every turn
+    T = _stamps((60, "Medi", "hello there my cat sat"), (65, "Amal", "a cat"), (80, "Medi", "next thing"))
+    out = TF.apply_tracks(D, T, rows=[row(72.4, "my cat", "my dog")])
+    assert [u["text"] for u in out] == ["hello there my dog sat", "a cat", "next thing"]      # 12 s in, her stamp between: still his turn
+    assert out[0]["engine"] == "hello there my cat sat" and out[0]["heard"][0]["by"] == A.BY
+    assert TF.apply_tracks(D, T, rows=[row(80.9, "my cat", "my dog")])[0]["text"] == "hello there my dog sat"   # the second the next stamp cut off
+    assert TF.apply_tracks(D, T, rows=[row(81.5, "my cat", "my dog")])[0]["text"] == "hello there my cat sat"   # past his next stamp
+    assert TF.apply_tracks(D, T, rows=[row(59.0, "my cat", "my dog")])[0]["text"] == "hello there my cat sat"   # before the turn
+    T = _stamps((60, "Medi", "my cat"), (60, "Medi", "and my cat"), (80, "Medi", "next"))
+    assert [u["text"] for u in TF.apply_tracks(D, T, rows=[row(60.5, "my cat", "my dog")])] == ["my cat", "and my cat", "next"]   # two turns hold it: none
+    T = _stamps((60, "Medi", "white white grey white"), (80, "Medi", "next"))            # two rows want overlapping words: none
+    assert TF.apply_tracks(D, T, rows=[row(61.0, "white grey", "white gray"), row(63.0, "grey white", "gray white")])[0]["text"] == "white white grey white"
+    # one turn with a real end: the lesson is not read from stamps, an end == start turn stays one moment
+    T = [{"speaker": "Medi", "start": 60.0, "end": 60.0, "text": "my cat sat"}, {"speaker": "Medi", "start": 80.0, "end": 82.0, "text": "next thing"}]
+    assert TF.apply_tracks(D, T, rows=[row(72.4, "my cat", "my dog")])[0]["text"] == "my cat sat"
+    assert TF.apply_tracks(D, T, rows=[row(60.2, "my cat", "my dog")])[0]["text"] == "my dog sat"
+
+
+def test_track_turns_same_words_punctuation_and_sound_tags_aside():
+    T = [{"speaker": "Medi", "start": 10.0, "end": 14.0, "text": "well my cat  sat، now"}]
+    out = TF.apply_tracks(D, T, rows=[row(10.5, "my cat, sat.", "my dog, sat.")])
+    assert out[0]["text"] == "well my dog, sat. now" and out[0]["engine"] == "well my cat  sat، now"      # replaced at the true places
+    assert [(h["engine_wrote"], h["heard"]) for h in out[0]["heard"]] == [("cat,", "dog,")]
+    T = [{"speaker": "Medi", "start": 10.0, "end": 14.0, "text": "so my cat sat"}]                       # track turns carry no sound tags
+    out = TF.apply_tracks(D, T, rows=[row(10.5, "my [laughs] cat sat", "my [laughs] dog sat")])
+    assert out[0]["text"] == "so my dog sat" and len(out[0]["heard"]) == 1
+    T = [{"speaker": "Medi", "start": 10.0, "end": 14.0, "text": "my cats sat"}]
+    assert TF.apply_tracks(D, T, rows=[row(10.5, "my cat, sat", "my dog, sat")])[0]["text"] == "my cats sat"    # whole words only
+    T = [{"speaker": "Medi", "start": 10.0, "end": 14.0, "text": "my cat my cat"}]
+    assert TF.apply_tracks(D, T, rows=[row(10.5, "my cat.", "my dog.")])[0]["text"] == "my cat my cat"         # the words stand twice: none
+    T = [{"speaker": "Medi", "start": 10.0, "end": 14.0, "text": "cat, cat."}]
+    assert TF.apply_tracks(D, T, rows=[row(10.5, "cat.", "dog.")])[0]["text"] == "cat, dog."                   # letter for letter goes first
+    T = [{"speaker": "Medi", "start": 10.0, "end": 14.0, "text": "my Cat sat"}]
+    assert TF.apply_tracks(D, T, rows=[row(10.5, "my cat, sat", "my dog, sat")])[0]["text"] == "my Cat sat"     # another letter is another word
+    T = [{"speaker": "Medi", "start": 10.0, "end": 14.0, "text": "so okay"}]                                  # a line that is only a sound tag has no words
+    r = {"date": D, "t": 10.5, "who": "Medi", "line": "[laughs]", "heard_line": "okay", "spans": [{"engine_wrote": "[laughs]", "heard": "okay"}], "by": A.BY}
+    assert TF.apply_tracks(D, T, rows=[r])[0]["text"] == "so okay"
+    r = {"date": D, "t": 10.5, "who": "Medi", "line": "so [laughs] okay", "heard_line": "so okay", "spans": [{"engine_wrote": "[laughs]", "heard": ""}], "by": A.BY}
+    out = TF.apply_tracks(D, T, rows=[r])
+    assert out[0]["text"] == "so okay" and not out[0].get("heard") and not out[0].get("engine")               # only the tag differed: untouched
+    T = [{"speaker": "Medi", "start": 10.0, "end": 14.0, "text": "my cat, sat"}]                             # another correction on the turn: his
+    his = {"date": D, "t": 10.0, "who": "Medi", "engine_wrote": "sat", "heard": "sad", "by": "medi"}
+    assert TF.apply_tracks(D, T, rows=[his, row(10.5, "my cat sat", "my dog sat")])[0]["text"] == "my cat, sad"
+
+
+def test_track_turns_a_typed_chat_line_takes_no_row():
+    T = [{"speaker": "Medi", "start": 10.0, "end": 10.0, "text": "my cat sat", "chat": True}, {"speaker": "Medi", "start": 30.0, "end": 33.0, "text": "later"}]
+    assert TF.apply_tracks(D, T, rows=[row(10.0, "my cat sat", "my dog sat")])[0]["text"] == "my cat sat"
+    T = _stamps((60, "Medi", "my cat sat"), (80, "Medi", "next")) + [{"speaker": "Medi", "start": 61.4, "end": 61.4, "text": "my cat sat", "chat": True}]
+    out = TF.apply_tracks(D, T, rows=[row(61.0, "my cat sat", "my dog sat")])            # chat lines do not hide that the lesson is stamps
+    assert [u["text"] for u in out] == ["my dog sat", "next", "my cat sat"]

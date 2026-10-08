@@ -12,7 +12,9 @@ Tags: [L] local, [N] needs a Supabase READ, [A] a Claude agent writes one file, 
 |---|---|
 | `scripts/full_audit_build.py` | `build()` split into `gather()` (all rows, all rulings, nothing written when `write_report=False`) + the rest. `assign_uids(rows, carry)` gives a row named in `full-audit/uid-carry.json` its OLD uid (`uid_carried_from` = the hash it would have had). Rows in `full-audit/preserved-rows.json` are merged in under their old uid, marked `kept`. Medi's corrections find a carried row by its old uid. No carry file and no preserved file = byte-identical uids to before (checked: 1,161 of 1,161). |
 | `scripts/full_audit_compare.py` | `hand_self_fix()`: a `self-fix-rulings.json` ruling follows its MOMENT (his_t / her_t within 10 s of the dispute row) when the dispute number moved or its pass was retired; a ruling whose number still fits applies to that dispute only. |
-| `scripts/rehear_rejudge.py` | new: `snapshot`, `retire-pass2`, `prompts`, `accept`, `carry`, `kept`, `preflight`, `report`. |
+| `scripts/rehear_rejudge.py` | new: `snapshot`, `retire-pass2`, `prompts`, `accept`, `carry`, `kept`, `preflight`, `hold`, `report`, `amal-diff`. |
+| `scripts/amal_hold.py` | new: reads `full-audit/hold-from-amal.json`. No file = nothing is blocked. |
+| `scripts/build_amal_review.py`, `scripts/codex_rejudge.py` (`amal_list`), `scripts/build_lessons_page_data.py` (Amal's ledger cards) | skip a held row, and (for the re-read lessons) anything that was not on her list before. With no hold file the output is unchanged. |
 | `scripts/publish_guard_config.json` | `tests/test_rehear_rejudge.py` added to `tests_py`. |
 
 ## Order (one deviation from the brief: `kept` runs BEFORE `full_audit_build`, because the build is what keeps the rows)
@@ -71,6 +73,13 @@ Tags: [L] local, [N] needs a Supabase READ, [A] a Claude agent writes one file, 
     orphaned, uid references orphaned tonight, Amal-confirmed rows with no row (= run `kept`), stale carry entries
     (= re-run `carry`), pass-2 files still in place, lessons whose readers are not on the current text.
     Fix data, re-run 13-15 until it exits 0.
+15b. [L] `python scripts/rehear_rejudge.py hold` -> `full-audit/hold-from-amal.json` - BEFORE the build, so no builder
+    ever writes a new question. Held = every row the build would write whose uid is not in `before.json` (carried and
+    kept rows are not held). The file also records what was on her lists on `origin/master` (review rows, sheet-word
+    cards, check moments, ledger cards) and the 18 re-read dates: while the file exists, for those lessons her lists
+    show only what they showed before - so a carried row that turned A -> B, or was re-worded into a new sheet-word
+    card, is not asked either. A held row counts on Medi's pages exactly as the build decides. Re-run after any new
+    settle / carry. Release = Medi's OK = delete the file and rebuild.
 16. [L] `python scripts/full_audit_build.py`
 17. [N] `python scripts/apply_amal_audit_rulings.py` - mandatory right after 16 (the build wipes her rulings; this reads
     `amal_rules` and puts them back by uid; writes nothing to Supabase). It also runs `build_amal_review.py`,
@@ -84,6 +93,27 @@ Tags: [L] local, [N] needs a Supabase READ, [A] a Claude agent writes one file, 
     `arabizi_gaps.cjs`, `source_audit.py`, `accuracy_gates.py annotate`, `codex_rejudge.py --list`,
     `build_sentence_ladder.py`, `amal_new_words.py`, `medi_corrections.py propose`, `build_rule_book.py`,
     `write_build.py`), then the proofs (steps 23-27).
+20. [L] `python scripts/rehear_rejudge.py amal-diff` - ~~must print `ADDED for Amal 0` (exit 0) before any push~~ **a report, not a
+    gate (owner's override, below).**
+
+    > **Owner's override of step 20 - Medi, 2026-10-04:** "put anything that needs to be checked in the tutor portal, i will
+    > have her check". So items ADDED for Amal are expected after the re-read (142 added / 128 removed in
+    > `rehear/rejudge/amal-diff.json` of 2026-10-05): every check that needs a person goes to Amal's Tutor portal, or to a
+    > listen page for Medi. Keep running the command and read its list before a push - it shows what her portal gains and
+    > loses - but its exit code no longer blocks one. Recorded 2026-10-05 (council final approval, condition 4). Nothing
+    > here sends Amal anything: Medi sends her links (AGENTS.md rule 6).
+    >
+    > The same decision retires step 15b: **do not run `hold`** on a rebuild. `full-audit/hold-from-amal.json` must not
+    > exist (commit 9662fa7: "no hold, by Medi's decision"); if it does, delete it and re-run `build_amal_review.py`,
+    > `build_lessons_page_data.py`, `codex_rejudge.py --list` before anything is committed - with the file in place her
+    > lists are frozen to what they showed before the re-read.
+
+    What the command does (unchanged):
+    Compares `docs/data/amal-review.json`, `amal-verify.json`, `amal-ledger.json`, `amal-new-words.json`, `tutor.json`
+    and `docs/amal/*.html` with `origin/master`. ADDED (new pattern, new row in a pattern, new sheet-word card or
+    moment, new check moment, new ledger card, new open new-word, new open link) = exit 1. Removed items (their row is
+    gone or no longer asked) are listed, not an error. A changed `docs/amal/*.html` is listed for reading. Also written
+    to `rehear/rejudge/amal-diff.json`. `report` separately warns when a created row is missing from the hold file.
 
 ## Pass 2 (decision)
 
@@ -104,12 +134,15 @@ No code path needed changing: with the files gone `union_rows`, `full_audit_buil
 
 ## Caveats
 
-- **No new question for Amal.** A new B row (a slip the readers now see that she let pass) lands in
-  `docs/data/amal-review.json` as a one-row pattern (the pattern reader is a `claude -p` step and is not run), and rows
-  needing a check land in `docs/data/amal-verify.json`. Both are her Tutor-hub lists once pushed. Before any push, diff
-  `docs/data/amal-review.json`, `amal-verify.json`, `amal-ledger.json`, `amal-new-words.json` against `origin/master`;
-  every added item is a new question. Never run `after_from_audit.py`, `amal_review_link.py`, `review_lesson.py`,
-  `hourly_lessons.py`, `codex_rejudge.py` without `--list`.
+- **No new question for Amal** is enforced by the hold (step 15b) and proven by `amal-diff` (step 20). Not gated by
+  the hold, only caught by `amal-diff`: `docs/data/amal-new-words.json` (built from Amal's own lines, lessons >= 10-01;
+  it moves only if her lines change), Medi's "my Arabic was right" cards in `amal-ledger.json` (they come from his own
+  corrections), `docs/data/tutor.json` (built from Supabase link rows by `build_tutor_data.py`, [N]; its review total
+  follows `amal-review.json`), and `docs/amal/grammar-rules.html` (status and % per rule: numbers, not questions - they
+  WILL change with the re-read and show as a changed page). Never run `after_from_audit.py`, `amal_review_link.py`,
+  `review_lesson.py`, `hourly_lessons.py`, `codex_rejudge.py` without `--list`.
+- **The hold file must not outlive the decision.** For the 18 re-read lessons it freezes her lists to what they showed
+  before; lessons taught later are not affected. A held B row is still unscored and simply waits.
 - **Her ruling can fail to land on a carried row**: a row she said "do not correct" that the readers now file as an A
   slip (she voiced a fix on the new text), or a row a rule now rejects. `apply_amal_audit_rulings.py` only flips B rows.
   The report lists each under "ruling not back"; it is not forced.

@@ -23,7 +23,7 @@ let D=null,loaded=false,loading=null;
 async function json(url){const r=await fetch(url+'?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(20000)});if(!r.ok)throw Error('HTTP '+r.status+' '+url);return r.json();}
 async function load(){
  const [console_,usage,lessons]=await Promise.all([json('data/grammar-console.json'),json('data/grammar-usage.json').catch(()=>null),json('data/lessons.json').catch(()=>null)]);
- D=build(console_,usage,lessons);loaded=true;
+ D=build(console_,usage,lessons);D.lj=lessons;loaded=true;
 }
 function build(gc,usage,lj){
  const rules=gc.rules||[],byId=new Map(rules.map(r=>[r.id,r]));
@@ -201,6 +201,7 @@ function render(){
  <a class="gp-strip" href="grammar.html" title="Open the Grammar Console">
   <div><div class="gp-sub">Grammar Console · one-line summary</div><div class="gp-kv"><span><b>${n(total)}</b>rules</span><span><b>${n(d.cands.length)}</b>corrections, hand-checked</span><span><b>${n(d.lessons.length)}</b>lessons</span><span><b>${sentences?'1 in '+Math.round(sentences/Math.max(1,slips)):'—'}</b>sentences corrected</span></div><div class="gp-statusbar" aria-label="Rule status mix">${strip}</div><small>${n(sc.Mastered||0)} mastered · ${n(sc.Good||0)} good · ${n(sc.Shaky||0)} shaky · ${n(sc.Wrong||0)} wrong · ${n((sc.Unscored||0)+(sc.Untested||0))} unscored or untested${sc.NotTaught?` · ${n(sc.NotTaught)} not taught yet (${d.rules.filter(r=>r.status==='NotTaught').map(r=>r.id).join(', ')}, no score, out of every total)`:''}. Mistakes per sentence, self-correction, unique rules and the rule table live on the Grammar Console.</small></div>
   <span class="gp-open">Open →</span></a>
+ ${(window.AneesLessonMath&&window.AneesLessonMath.methodHtml(d.lj))||''}
  <div class="vp-grid">
  ${panel('a','Corrections per 10 minutes','Same corrections, measured against the clock instead of sentence count. Band = your first two weeks. Dotted line = trailing four lessons.',perTen(d),{side:`<div class="vp-side"><b>${f1(d.tailRate)}</b>last ${n(tail4)} lessons · baseline ${f1(d.baseRate)}</div>`,foot:'Progress is called only when three weekly points sit under the band.'})}
  ${panel('b','When in the lesson you slip','Corrections per lesson in each ten-minute block, averaged over the lessons that reached that block.',fatigue(d),{side:d.peak?`<div class="vp-side"><b>min ${d.peak.b*10}–${d.peak.b*10+10}</b>peak · ${f1(d.peak.avg)} per lesson${d.blocks[0]&&d.blocks[0].avg?` · ${(d.peak.avg/d.blocks[0].avg).toFixed(1)}× the opening block`:''}</div>`:'',foot:'Faded bars: fewer than half the lessons ran that long.'})}

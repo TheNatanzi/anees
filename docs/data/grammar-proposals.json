@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-07T09:01:11-07:00",
+ "updated": "2026-10-07T17:23:57-07:00",
  "rule": "GR-18",
  "about": "Grammar corrections Amal made that fit no existing rule. Each is a proposed new rule for Medi's yes or no; nothing here is scored until he says yes. Built by scripts/full_audit_build.py from the audit rows and data/lesson-work/full-audit/proposed-buckets.json.",
  "proposals": [
@@ -24,7 +24,7 @@
      "right": "هي",
      "kind": "grammar",
      "bucket": "A12",
-     "confidence": "medium",
+     "confidence": "high",
      "why": "sweep row 0825-U3: Amal recast هي for his إنتي about his fiancee; the readers filed the same moment as a vocab word swap (FA-2c9e0146)",
      "also_counted_as": [],
      "scored_under": "A12"
@@ -34,7 +34,7 @@
      "date": "2026-08-25",
      "t": "22:13",
      "t_amal": "22:44",
-     "medi_said": "أنا بتعب كتير لما عيلتنا-- عيلتي، اللي، أشتغل معهم. و هو...",
+     "medi_said": "و هو...",
      "amal_said": "هما.",
      "chat": null,
      "wrong": "هو",
@@ -71,8 +71,8 @@
      "medi_said": "would it be a-ana mash-mashhur bi-ut-bi atbuk without the bi, right?",
      "amal_said": "في. في or be. في، mm, the noun. Noun is طبخ.",
      "chat": "ana ma3roof bi el-tabe5 el-kabab",
-     "wrong": "bi atbuk",
-     "right": "bi el-tabe5",
+     "wrong": "mashhur bi atbuk",
+     "right": "مشهور بطبخ الكباب",
      "kind": "grammar",
      "bucket": "C11",
      "confidence": "high",
@@ -94,26 +94,291 @@
     {
      "uid": "FA-2ca615a8",
      "date": "2026-08-25",
-     "t": "59:04",
-     "t_amal": "59:06",
-     "medi_said": "عملنا كتير.",
-     "amal_said": "شو عملنا؟ ... عملنا. ... شو عملنا؟",
+     "t": "58:41",
+     "t_amal": "59:12",
+     "medi_said": "أنا بظن إنه، عملنا كتير. عملنا-",
+     "amal_said": "شو عملنا؟",
      "chat": null,
      "wrong": "عملنا كتير",
      "right": "عملنا تمرين كتير",
      "kind": "grammar",
      "bucket": "C12",
-     "confidence": "low",
+     "confidence": "high",
      "why": "59:04 he said عملنا كتير; Amal asked شو عملنا؟ at 59:06 and 59:12 until he said عملنا تمرين كتير (59:15). Low: the hand check read her question as conversation",
-     "also_counted_as": [],
+     "also_counted_as": [
+      {
+       "uid": "FA-65ef214e",
+       "kind": "grammar-B",
+       "bucket": "A9"
+      }
+     ],
      "scored_under": "C12"
+    }
+   ]
+  },
+  {
+   "id": "P-A13",
+   "name": "awal / oola: before or after the noun",
+   "proposed_rule": "awal + noun = first; awal + el- + noun = the beginning of; after the noun: el-noun el-awal / el-oola (matches gender)",
+   "family": "A",
+   "from": "the Oct 2 lesson tool words (GR-29, plan/GRAMMAR-RULES-PROPOSAL-TOOL-WORDS-2026-10-05.md); Amal's yes on her rules page 2026-10-06; Medi's yes 2026-10-07",
+   "medi": "yes",
+   "bucket": "A13",
+   "moments": [
+    {
+     "uid": "FA-a0e94e92",
+     "date": "2026-10-01",
+     "t": "56:00",
+     "t_amal": null,
+     "medi_said": "Il awal il tamreen or il tamreen il awal ... is the first exercise.",
+     "amal_said": "Mm-hmm. ... Of course.",
+     "chat": "[59:40] awal laffe, awal el-lafe, el-laffe el-oola",
+     "wrong": "Il awal il tamreen",
+     "right": "awal tamreen / el-tamreen el-awal",
+     "kind": "grammar-B",
+     "bucket": "A13",
+     "confidence": "low",
+     "why": "the readers filed it as PROPOSE on the Oct 2 tool-word rule; scored under A13 since Medi's yes 2026-10-07",
+     "also_counted_as": [],
+     "scored_under": "A13"
+    },
+    {
+     "uid": "FA-478fa349",
+     "date": "2026-10-02",
+     "t": "30:35",
+     "t_amal": "30:41",
+     "medi_said": "The first day (for her أول اليوم, twice)",
+     "amal_said": "أول اليوم. / أول اليوم. [تضحك]",
+     "chat": "awal el-sa3a = the b eginning of the hour.",
+     "wrong": "the first day",
+     "right": "the beginning of the day",
+     "kind": "grammar",
+     "bucket": "A13",
+     "confidence": "medium",
+     "why": "the readers filed it as PROPOSE on the Oct 2 tool-word rule; scored under A13 since Medi's yes 2026-10-07",
+     "also_counted_as": [],
+     "scored_under": "A13"
+    }
+   ]
+  },
+  {
+   "id": "P-A14",
+   "name": "taani: before or after the noun",
+   "proposed_rule": "taani + noun = second; noun + taani = another / the second; el-noun el-taani / el-tanye; taani never takes el- in front",
+   "family": "A",
+   "from": "the Oct 2 lesson tool words (GR-29, plan/GRAMMAR-RULES-PROPOSAL-TOOL-WORDS-2026-10-05.md); Amal's yes on her rules page 2026-10-06; Medi's yes 2026-10-07",
+   "medi": "yes",
+   "bucket": "A14",
+   "moments": [
+    {
+     "uid": "FA-0529f692",
+     "date": "2026-10-02",
+     "t": "21:50",
+     "t_amal": "21:56",
+     "medi_said": "and تاني الساعة means a different hour.",
+     "amal_said": "لا. We can't say تاني الساعة. It doesn't mean anything.",
+     "chat": "taani saa3a = second hour / second hour",
+     "wrong": "تاني الساعة",
+     "right": "ساعة تانية",
+     "kind": "grammar",
+     "bucket": "A14",
+     "confidence": "medium",
+     "why": "the readers filed it as PROPOSE on the Oct 2 tool-word rule; scored under A14 since Medi's yes 2026-10-07",
+     "also_counted_as": [],
+     "scored_under": "A14"
+    },
+    {
+     "uid": "FA-2a4b4458",
+     "date": "2026-10-02",
+     "t": "43:20",
+     "t_amal": "43:27",
+     "medi_said": "Oh, you're right. Uh, حدا التاني. (engine wrote هذا الثاني; Amal echoed حدا التاني)",
+     "amal_said": "حدا التاني is / no. X. Just حدا تاني.",
+     "chat": "ana fakkaret enno inti 8eir 7ada / 7ada taani",
+     "wrong": "حدا التاني",
+     "right": "حدا تاني",
+     "kind": "grammar",
+     "bucket": "A14",
+     "confidence": "medium",
+     "why": "the readers filed it as PROPOSE on the Oct 2 tool-word rule; scored under A14 since Medi's yes 2026-10-07",
+     "also_counted_as": [],
+     "scored_under": "A14"
+    }
+   ]
+  },
+  {
+   "id": "P-A15",
+   "name": "aa5er / a5eer: before or after the noun",
+   "proposed_rule": "aa5er + noun = last; aa5er + el- + noun = the end of; after the noun the adjective a5eer / a5eera / a5eeraat",
+   "family": "A",
+   "from": "the Oct 2 lesson tool words (GR-29, plan/GRAMMAR-RULES-PROPOSAL-TOOL-WORDS-2026-10-05.md); Amal's yes on her rules page 2026-10-06; Medi's yes 2026-10-07",
+   "medi": "yes",
+   "bucket": "A15",
+   "moments": [
+    {
+     "uid": "FA-439fd3f5",
+     "date": "2026-10-02",
+     "t": "47:06",
+     "t_amal": "47:09",
+     "medi_said": "آخر الموظفة, right?",
+     "amal_said": "The end of the employees?",
+     "chat": null,
+     "wrong": "آخر الموظفة",
+     "right": "آخر موظفة",
+     "kind": "grammar",
+     "bucket": "A15",
+     "confidence": "high",
+     "why": "the readers filed it as PROPOSE on the Oct 2 tool-word rule; scored under A15 since Medi's yes 2026-10-07",
+     "also_counted_as": [],
+     "scored_under": "A15"
+    }
+   ]
+  },
+  {
+   "id": "P-A16",
+   "name": "8eir: other / different, no el-",
+   "proposed_rule": "8eir + noun = other / different; 8eir never takes el- in front; after the noun is rare",
+   "family": "A",
+   "from": "the Oct 2 lesson tool words (GR-29, plan/GRAMMAR-RULES-PROPOSAL-TOOL-WORDS-2026-10-05.md); Amal's yes on her rules page 2026-10-06; Medi's yes 2026-10-07",
+   "medi": "yes",
+   "bucket": "A16",
+   "moments": [
+    {
+     "uid": "FA-76206565",
+     "date": "2026-10-02",
+     "t": "39:16",
+     "t_amal": "39:18",
+     "medi_said": "غير يوم.\" \"غير اليوم.\" I'll see you another day.",
+     "amal_said": "غير يوم.",
+     "chat": "bashufek 8eir yoam = i'll see you another day",
+     "wrong": "غير اليوم",
+     "right": "غير يوم",
+     "kind": "grammar",
+     "bucket": "A16",
+     "confidence": "medium",
+     "why": "the readers filed it as PROPOSE on the Oct 2 tool-word rule; scored under A16 since Medi's yes 2026-10-07",
+     "also_counted_as": [],
+     "scored_under": "A16"
+    }
+   ]
+  },
+  {
+   "id": "P-A17",
+   "name": "nafs + el-: the same",
+   "proposed_rule": "nafs + el- + noun = the same ...; never el- before nafs; nafs is never an adjective after the noun",
+   "family": "A",
+   "from": "the Oct 2 lesson tool words (GR-29, plan/GRAMMAR-RULES-PROPOSAL-TOOL-WORDS-2026-10-05.md); Amal's yes on her rules page 2026-10-06; Medi's yes 2026-10-07",
+   "medi": "yes",
+   "bucket": "A17",
+   "moments": [
+    {
+     "uid": "FA-180b27bf",
+     "date": "2026-10-01",
+     "t": "1:00:03",
+     "t_amal": "1:00:04",
+     "medi_said": "So نفس إشي",
+     "amal_said": "Nafs al ishi. ... نفس إشي without L ... doesn't make sense. (1:01:01) نفس الـ إشي the same thing. نفس إشي doesn't mean anything.",
+     "chat": "nafs el-ishi",
+     "wrong": "نفس إشي",
+     "right": "نفس الإشي",
+     "kind": "grammar",
+     "bucket": "A17",
+     "confidence": "high",
+     "why": "the readers filed it as PROPOSE on the Oct 2 tool-word rule; scored under A17 since Medi's yes 2026-10-07",
+     "also_counted_as": [],
+     "scored_under": "A17"
+    },
+    {
+     "uid": "FA-e3dc859a",
+     "date": "2026-10-02",
+     "t": "52:53",
+     "t_amal": "52:59",
+     "medi_said": "uh, إشي مش نفس.",
+     "amal_said": "Or مش نفس... / صح. (after his مش نفس الإشي)",
+     "chat": "el-qanoon la 8eir mish nafs el-ishi la=8eir",
+     "wrong": "إشي مش نفس",
+     "right": "مش نفس الإشي",
+     "kind": "grammar",
+     "bucket": "A17",
+     "confidence": "medium",
+     "why": "the readers filed it as PROPOSE on the Oct 2 tool-word rule; scored under A17 since Medi's yes 2026-10-07",
+     "also_counted_as": [],
+     "scored_under": "A17"
+    }
+   ]
+  },
+  {
+   "id": "P-A11-add",
+   "name": "kul: all vs every (add el-kull = everyone)",
+   "proposed_rule": "kul + noun = every; kul + el- + noun = all / the whole; el-kull = everyone (new line for A11)",
+   "family": "A",
+   "from": "the Oct 2 lesson tool words (GR-29, plan/GRAMMAR-RULES-PROPOSAL-TOOL-WORDS-2026-10-05.md); Amal's yes on her rules page 2026-10-06; Medi's yes 2026-10-07",
+   "medi": "yes",
+   "bucket": "A11",
+   "moments": []
+  },
+  {
+   "id": "P-FA-aaec4e5a",
+   "name": null,
+   "proposed_rule": "After ayy (which / any) the noun is singular, like after kam: ayy kilme, not ayy kalimaat.",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-aaec4e5a (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-aaec4e5a",
+     "date": "2026-09-04",
+     "t": "06:59",
+     "t_amal": "07:08",
+     "medi_said": "If, أي كلمات، مشكلة، مشكل-- yeah. عندي",
+     "amal_said": "مشكلة، أي كلمة؟",
+     "chat": null,
+     "wrong": "أي كلمات",
+     "right": "أي كلمة",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "low",
+     "why": "He said أي كلمات (any words) at 06:59 (speaker label is '?', but it continues his 'If,' at 06:56 and his 'مشكلة' at 07:03); Amal recast أي كلمة at 07:08 and he repeated أي كلمة at 07:12. No bucket covers ayy + singular (E5 is kam only), so PROPOSE per GR-18. Low because her line may also be a plain question ('which word?') prompting him to name it.",
+     "also_counted_as": [
+      {
+       "uid": "FA-6e75ab24",
+       "kind": "grammar",
+       "bucket": "C10"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "P-FA-53291c01",
+   "name": null,
+   "proposed_rule": "'X are easy to do' keeps sehel unchanged before the verb - el-asmaa2 sehel netzakkarhom - no plural or feminine ending on sehel to match the noun.",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-53291c01 (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-53291c01",
+     "date": "2026-09-14",
+     "t": "08:36",
+     "t_amal": "08:52",
+     "medi_said": "أسماء، سـ- uh, سهلي-- سهلات.",
+     "amal_said": "It's different than English. We will say the nouns it's easy to remember them. So it's easy. We don't need to tie it back to أسماء. ... So just سهل to remember them.",
+     "chat": "el-asmaa2 sehel netzakkarhom",
+     "wrong": "سهلات",
+     "right": "سهل",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "medium",
+     "why": "He made 'easy' agree with the plural أسماء (سهلات); Amal explained the Arabic frame is 'the names, it is easy to remember them' with invariant سهل - no bucket covers this frame, A8/A9 agreement is the nearest.",
+     "also_counted_as": []
     }
    ]
   },
   {
    "id": "P-FA-30250557",
    "name": null,
-   "proposed_rule": "To make / let someone become X use a5alli + object ending + bare verb (a5alliha t9eer), not laazem + verb.",
+   "proposed_rule": "To make / let someone become X, use khalla + the person + a bare verb: a5alliha t9eer muwazzafe mnee7a (never laazem + tseer with no causer).",
    "family": null,
    "from": "audit-2026-09-26 row FA-30250557 (no bucket fits)",
    "medi": null,
@@ -121,17 +386,17 @@
     {
      "uid": "FA-30250557",
      "date": "2026-09-16",
-     "t": "06:13",
+     "t": "06:28",
      "t_amal": "06:37",
-     "medi_said": "make her a good [speaking Arabic] Would it be [speaking Arabic] ?",
-     "amal_said": "Let her be. ... أخليها تصير ... أنا لازم تصير؟ No. You'd need something like to make her، to make to let her become.",
+     "medi_said": "[speaking Arabic] If I say, if I say [speaking Arabic] , it wouldn't make sense?",
+     "amal_said": "أنا لازم تصير؟ No. You'd need something like to make her، to make to let her become.",
      "chat": "bas ana ra7 ajrreb a5alliha t9eer muwazzafe mnee7a",
-     "wrong": "لازم تصير",
-     "right": "أخليها تصير",
+     "wrong": "أنا لازم تصير",
+     "right": "أخليها تصير موظفة منيحة",
      "kind": "grammar-propose",
      "bucket": "PROPOSE",
      "confidence": "medium",
-     "why": "Amal echoed his form 'أنا لازم تصير؟' and said No, then gave a5alliha t9eer; low because he offered it as 'would it be ...?' and his Arabic is hidden by the engine.",
+     "why": "Amal echoed his sentence 'ana laazem tseer? No' (engine wrote [speaking Arabic]) and supplied a5alliha tseer (06:24, chat 07:04) - the causative 'make her become' was missing; he said 'Okay'.",
      "also_counted_as": []
     }
    ]
@@ -139,7 +404,7 @@
   {
    "id": "P-FA-b8a11e6b",
    "name": null,
-   "proposed_rule": "For weather use ONE subject, الدنيا (feminine verb/adjective) or الجو (masculine), never both together: الدنيا بردت / الجو برد",
+   "proposed_rule": "A weather sentence takes ONE subject word, el-denia OR el-jaww, never both together: not دنيا الجو, say الدنيا باردة or الجو بارد.",
    "family": null,
    "from": "audit-2026-09-26 row FA-b8a11e6b (no bucket fits)",
    "medi": null,
@@ -153,180 +418,107 @@
      "amal_said": "No, no, no. Either دنيا or جو. One just one.",
      "chat": null,
      "wrong": "دنيا جو",
-     "right": "الدنيا or الجو",
+     "right": "الدنيا بارد / الجو بارد",
      "kind": "grammar-propose",
      "bucket": "PROPOSE",
      "confidence": "high",
-     "why": "He stacked both weather words; Amal: either دنيا or جو, just one.",
+     "why": "He stacked the two weather subjects (دنيا الجو at 10:58, دنيا جو at 11:02); Amal said 'No, no, no. Either دنيا or جو. One just one.' and he fixed to دنيا بارد. No bucket covers choosing one subject word.",
      "also_counted_as": [
       {
        "uid": "FA-58f0da05",
        "kind": "grammar",
        "bucket": "A1"
+      },
+      {
+       "uid": "FA-545da78e",
+       "kind": "grammar-B",
+       "bucket": "A8"
       }
      ]
     }
    ]
   },
   {
-   "id": "P-FA-af168fb5",
+   "id": "P-FA-dc15e590",
    "name": null,
-   "proposed_rule": "After asking / telling someone to do something (talabet min ...) the action is a bare present verb even in a past story, never the past: talabet min el-muwazzaf yiji, not aja.",
+   "proposed_rule": "kaan does not take the -li / -lak ending glued on: 'they were mine' is kaanu ili (two words), never kaanuli",
    "family": null,
-   "from": "audit-2026-09-26 row FA-af168fb5 (no bucket fits)",
+   "from": "audit-2026-09-26 row FA-dc15e590 (no bucket fits)",
    "medi": null,
    "moments": [
     {
-     "uid": "FA-af168fb5",
-     "date": "2026-09-23",
-     "t": "35:21",
-     "t_amal": "35:31",
-     "medi_said": "آآآ جا،",
-     "amal_said": "To come. So it's not to came. So it's to come.",
-     "chat": "talabet min el-muwazzaf illi yiji u ynaddef el-8urfe",
-     "wrong": "جا",
-     "right": "يجي",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
-     "confidence": "high",
-     "why": "After asking someone to do something the action is a bare present verb, not past; she said it's to come not came and he said يجي. No bucket covers tense after a request verb (B2 is about the b-, not past vs present).",
-     "also_counted_as": []
-    }
-   ]
-  },
-  {
-   "id": "P-FA-a0e94e92",
-   "name": null,
-   "proposed_rule": "awal / aa5er / taani before a noun never take el-: awal sayyaara = the first car; after the noun they are adjectives and take el-: el-usboo3 el-awal.",
-   "family": null,
-   "from": "audit-2026-09-26 row FA-a0e94e92 (no bucket fits)",
-   "medi": null,
-   "moments": [
-    {
-     "uid": "FA-a0e94e92",
-     "date": "2026-10-01",
-     "t": "56:00",
-     "t_amal": "56:04",
-     "medi_said": "Il awal il tamreen or il tamreen il awal is the first exercise.",
-     "amal_said": "Mm-hmm. ... Of course.",
-     "chat": null,
-     "wrong": "Il awal il tamreen",
-     "right": "awal tamreen / il tamreen il awal",
+     "uid": "FA-dc15e590",
+     "date": "2026-09-17",
+     "t": "38:22",
+     "t_amal": "38:26",
+     "medi_said": "they were mine. So كانولي؟",
+     "amal_said": "كانوا إلي. / No, no, no, no. No, no, no, no.",
+     "chat": "el-5u66at illi 5arrabtihom kaanu ili",
+     "wrong": "كانولي",
+     "right": "كانوا إلي (kaanu ili)",
      "kind": "grammar-propose",
      "bucket": "PROPOSE",
      "confidence": "medium",
-     "why": "Amal's rule this lesson: awal before the noun never takes el- (il awal il tamreen is not a form); she let it pass.",
+     "why": "He glued -li onto kaanu; Amal said كانوا إلي and a string of 'No' when he checked ('you can't do the kanuli'), and he then said كانوا إلي (38:36). No bucket says kaan rejects the dative ending (D3 is endings on prepositions, D4 object endings on verbs), so PROPOSE per GR-18.",
      "also_counted_as": []
     }
    ]
   },
   {
-   "id": "P-FA-180b27bf",
+   "id": "P-FA-737a36aa",
    "name": null,
-   "proposed_rule": "nafs (same) is followed by an el- noun: nafs el-ishi = the same thing; nafs ishi is not a phrase.",
+   "proposed_rule": "verb after a preposition - needs the verbal noun",
    "family": null,
-   "from": "audit-2026-09-26 row FA-180b27bf (no bucket fits)",
+   "from": "sweep-2026-09-24 row FA-737a36aa (no bucket fits)",
    "medi": null,
    "moments": [
     {
-     "uid": "FA-180b27bf",
-     "date": "2026-10-01",
-     "t": "1:00:03",
-     "t_amal": "1:00:04",
-     "medi_said": "So nafs ishi.",
-     "amal_said": "Nafs al ishi. ... نفس الـ إشي the same thing. نفس إشي doesn't mean anything.",
-     "chat": "nafs el-ishi",
-     "wrong": "nafs ishi",
-     "right": "nafs el-ishi",
+     "uid": "FA-737a36aa",
+     "date": "2026-09-21",
+     "t": "38:10",
+     "t_amal": "38:23",
+     "medi_said": "would it be a-ana mash-mashhur bi-ut-bi atbuk without the bi, right?",
+     "amal_said": "في. ... في or be. ... في، mm, the noun. Noun is طبخ.",
+     "chat": "ana ma3roof bi el-tabe5 el-kabab",
+     "wrong": "بـ أطبخ",
+     "right": "بالطبخ",
      "kind": "grammar-propose",
      "bucket": "PROPOSE",
      "confidence": "high",
-     "why": "Amal recast نفس الـ إشي and said نفس إشي means nothing.",
-     "also_counted_as": []
-    }
-   ]
-  },
-  {
-   "id": "P-FA-0529f692",
-   "name": null,
-   "proposed_rule": "Before the noun, awal / tani / aa5er / 8eir take no el- (awal sa3a, tani yoam, 8eir yoam); 'the first X' puts the ordinal AFTER as an adjective with el- on both (el-saa3a el-oowla) - el-awal el-saa3a / tani el-saa3a mean nothing",
-   "family": null,
-   "from": "audit-2026-09-26 row FA-0529f692 (no bucket fits)",
-   "medi": null,
-   "moments": [
-    {
-     "uid": "FA-0529f692",
-     "date": "2026-10-02",
-     "t": "21:50",
-     "t_amal": "21:56",
-     "medi_said": "and التاني الساعة means a different hour.",
-     "amal_said": "لا. We can't say تاني الساعة. It doesn't mean anything.",
-     "chat": "taani saa3a = second hour / second hour",
-     "wrong": "التاني الساعة",
-     "right": "ساعة تانية / تاني ساعة",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
-     "confidence": "medium",
-     "why": "He put el-tani before el-saa3a; she said it means nothing.",
-     "also_counted_as": []
-    }
-   ]
-  },
-  {
-   "id": "P-FA-ea740d3c",
-   "name": null,
-   "proposed_rule": "Tool words awal / aa5er / tani / 8eir: right BEFORE a noun they take the bare noun with no el- (tani 7ada = second person, 8eir yoam = another day, aa5er muwazzafe = the last employee); awal el- / aa5er el- + noun means beginning / end of; AFTER the noun they act as adjectives (7ada taani = someone else)",
-   "family": null,
-   "from": "audit-2026-09-26 row FA-ea740d3c (no bucket fits)",
-   "medi": null,
-   "moments": [
-    {
-     "uid": "FA-ea740d3c",
-     "date": "2026-10-02",
-     "t": "43:16",
-     "t_amal": "43:18",
-     "medi_said": "تاني حاجة.",
-     "amal_said": "تاني حدا would mean the second person.",
-     "chat": "ana fakkaret enno inti 8eir 7ada / 7ada taani",
-     "wrong": "تاني حاجة",
-     "right": "حدا تاني",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
-     "confidence": "high",
-     "why": "Engine wrote حاجة; Amal echoes تاني حدا - before the noun tani means 'second', for 'someone else' it goes after: 7ada taani.",
-     "also_counted_as": []
-    }
-   ]
-  },
-  {
-   "id": "P-FA-07c3e8d5",
-   "name": null,
-   "proposed_rule": "آخر (like أول) before an el- noun means 'the end of'; for 'the last X' use آخر + bare noun (آخر موظفة) or X el-a5eera.",
-   "family": null,
-   "from": "audit-2026-09-26 row FA-07c3e8d5 (no bucket fits)",
-   "medi": null,
-   "moments": [
-    {
-     "uid": "FA-07c3e8d5",
-     "date": "2026-10-02",
-     "t": "47:01",
-     "t_amal": "47:09",
-     "medi_said": "مين آخر الـ ... آخر Moazafa, right?",
-     "amal_said": "The end of the employees?",
-     "chat": "min aa5er muwazzafe/a / min el-muwazzafa el-a5ira",
-     "wrong": "آخر الـ Moazafa",
-     "right": "آخر موظفة",
-     "kind": "grammar-propose",
-     "bucket": "PROPOSE",
-     "confidence": "medium",
-     "why": "آخر + el-noun means 'the end of'; Amal asked 'The end of the employees?' and he dropped el-: مين آخر موظفة?, which she accepted (Mm-hmm).",
+     "why": "verb after a preposition - needs the verbal noun",
      "also_counted_as": [
       {
-       "uid": "FA-439fd3f5",
+       "uid": "FA-0d4e7fff",
        "kind": "grammar",
-       "bucket": "A1"
+       "bucket": "C11"
       }
      ]
+    }
+   ]
+  },
+  {
+   "id": "P-FA-b106381b",
+   "name": null,
+   "proposed_rule": "'Put it back / do it again' is برجع + the action verb (برجع أحط الرز, برجع بعمله); برجع + a noun alone means 'I return the thing' (or use برجّع).",
+   "family": null,
+   "from": "audit-2026-09-26 row FA-b106381b (no bucket fits)",
+   "medi": null,
+   "moments": [
+    {
+     "uid": "FA-b106381b",
+     "date": "2026-09-21",
+     "t": "45:13",
+     "t_amal": "45:21",
+     "medi_said": "Or برجع الـ الرز في الـ طنجرة.",
+     "amal_said": "Or برجع أحط الرز. ... أنا برجع بعمله ... أنا برجع أعمل. ... برجع أحطه أو برجعه",
+     "chat": "u barja3 a7ut fi el-tanjara",
+     "wrong": "برجع الرز في الطنجرة",
+     "right": "برجع أحط الرز في الطنجرة",
+     "kind": "grammar-propose",
+     "bucket": "PROPOSE",
+     "confidence": "medium",
+     "why": "He used برجع + الرز for 'I put the rice back'; Amal recast برجع أحط الرز and explained the two uses of برجع. No bucket covers the 'go-back verb needs the action verb' rule.",
+     "also_counted_as": []
     }
    ]
   },
