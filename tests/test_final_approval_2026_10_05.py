@@ -84,7 +84,7 @@ def test_a_confirming_row_changes_nothing_but_blocks_the_whole_line_row():
 def test_the_second_listen_marks_say_ai_agreement_and_name_the_mixed_recordings():
     assert list(RH.STATUS) == ["pending", "submitted", "proposed", "applied", "applied-limited"]
     label, tip = RH.STATUS["applied"]
-    assert "agreed by 2 of 3 AI runs" in tip and "no person has checked" in tip and "Amal's lines are unchanged" in tip
+    assert "agreed by 2 of 3 AI runs" in tip and "no person has checked" in tip and "the tutor's lines are unchanged" in tip
     assert "reviewed" not in tip and "reviewed" not in RH.EXPLAIN
     label, tip = RH.STATUS["applied-limited"]
     assert label == "Second listen: limited (mixed recording)" and "Only alphabet-only changes were applied" in tip and "Word changes wait for a check" in tip
@@ -98,7 +98,7 @@ def test_the_second_listen_marks_say_ai_agreement_and_name_the_mixed_recordings(
             continue
         applied += 1
         P = J("data", "lesson-work", "rehear", d, "apply-plan.json")["summary"]
-        assert "Amal's lines: unchanged" in r["note"], d
+        assert "The tutor's lines: unchanged" in r["note"], d
         if d in lim:
             assert ("%d word changes wait for a check" % (P["held_mix"] + P["held"])) in r["note"] and "your microphone" not in r["note"], d
         else:

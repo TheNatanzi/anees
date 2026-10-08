@@ -62,7 +62,7 @@ def test_pg27_no_status_claims_more_than_is_true():
     # 2026-10-05 (Codex final approval): "applied" says who agreed (2 of 3 AI runs, no person), never "reviewed"; a lesson
     # with no microphone track says "limited (mixed recording)" and that only alphabet-only changes went in
     for st in RH.APPLIED:
-        assert "agreed by 2 of 3 AI runs" in RH.STATUS[st][1] and "reviewed" not in RH.STATUS[st][1] and "Amal's lines are unchanged" in RH.STATUS[st][1], st
+        assert "agreed by 2 of 3 AI runs" in RH.STATUS[st][1] and "reviewed" not in RH.STATUS[st][1] and "the tutor's lines are unchanged" in RH.STATUS[st][1].lower(), st
     assert "mixed recording" in RH.STATUS["applied-limited"][0] and "alphabet-only" in RH.STATUS["applied-limited"][1]
     for st in ("pending", "submitted", "proposed"):                       # nothing of Gemini's is in the transcript yet
         label, tip = RH.STATUS[st]
