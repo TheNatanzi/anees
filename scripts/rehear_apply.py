@@ -417,8 +417,8 @@ def status_row(date, P, since=None):
     spot = s.get("withheld_by_spot_check", 0)
     tut = s.get("held_tutor", 0)
     wait = s["held"] + s["held_mix"] + s["no_agreement"] + spot + tut
-    amal = ("Amal's lines: unchanged (her re-heard lines are not applied)." if not s.get("amal_lines_changed")
-            else "Amal's lines: %d changed." % s["amal_lines_changed"])
+    amal = ("The tutor's lines: unchanged (her re-heard lines are not applied)." if not s.get("amal_lines_changed")
+            else "The tutor's lines: %d changed." % s["amal_lines_changed"])
     mine = ("%d of your own corrections that none of the 3 runs heard stay as you wrote them." % s["his_corrections_all_3_runs_disagree"]) if s["his_corrections_all_3_runs_disagree"] else ""
     if limited(date):
         odd = [x for x in P["lines_changed"] if x.get("kind") == "words"]

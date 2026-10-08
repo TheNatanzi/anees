@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-07T18:00:21-07:00",
+ "updated": "2026-10-07T18:07:37-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -179,8 +179,8 @@
     "status": "applied-limited",
     "since": "2026-10-07",
     "label": "Second listen: limited (mixed recording)",
-    "tip": "This lesson has no separate microphone track for you, so the second AI listen (Gemini, 3 runs) heard a mixed recording with both voices. Only alphabet-only changes were applied (the same words written in the other alphabet), agreed by 2 of 3 AI runs; no person has checked them. Word changes wait for a check. Amal's lines are unchanged.",
-    "note": "12 of your lines changed, all alphabet-only by the hold rule (the same words, written in the other alphabet). 99 word changes wait for a check (not applied: mixed recording), and on 15 more lines the 3 runs did not agree. Amal's lines: unchanged (her re-heard lines are not applied)."
+    "tip": "This lesson has no separate microphone track for you, so the second AI listen (Gemini, 3 runs) heard a mixed recording with both voices. Only alphabet-only changes were applied (the same words written in the other alphabet), agreed by 2 of 3 AI runs; no person has checked them. Word changes wait for a check. The tutor's lines are unchanged.",
+    "note": "12 of your lines changed, all alphabet-only by the hold rule (the same words, written in the other alphabet). 99 word changes wait for a check (not applied: mixed recording), and on 15 more lines the 3 runs did not agree. The tutor's lines: unchanged (her re-heard lines are not applied)."
    },
    "counts": {
     "turns": 623,
@@ -426,8 +426,8 @@
     "status": "applied-limited",
     "since": "2026-10-07",
     "label": "Second listen: limited (mixed recording)",
-    "tip": "This lesson has no separate microphone track for you, so the second AI listen (Gemini, 3 runs) heard a mixed recording with both voices. Only alphabet-only changes were applied (the same words written in the other alphabet), agreed by 2 of 3 AI runs; no person has checked them. Word changes wait for a check. Amal's lines are unchanged.",
-    "note": "16 of your lines changed, all alphabet-only by the hold rule (the same words, written in the other alphabet). 387 word changes wait for a check (not applied: mixed recording), and on 17 more lines the 3 runs did not agree. Amal's lines: unchanged (her re-heard lines are not applied). 1 applied on the tutor's word."
+    "tip": "This lesson has no separate microphone track for you, so the second AI listen (Gemini, 3 runs) heard a mixed recording with both voices. Only alphabet-only changes were applied (the same words written in the other alphabet), agreed by 2 of 3 AI runs; no person has checked them. Word changes wait for a check. The tutor's lines are unchanged.",
+    "note": "16 of your lines changed, all alphabet-only by the hold rule (the same words, written in the other alphabet). 387 word changes wait for a check (not applied: mixed recording), and on 17 more lines the 3 runs did not agree. The tutor's lines: unchanged (her re-heard lines are not applied). 1 applied on the tutor's word."
    },
    "counts": {
     "turns": 1395,
@@ -687,8 +687,8 @@
     "status": "applied",
     "since": "2026-10-07",
     "label": "Second listen: applied",
-    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and Amal's lines are unchanged.",
-    "note": "186 of your lines changed (53 with a different word, 133 only the alphabet), each agreed by 2 of 3 AI runs. Amal's lines: unchanged (her re-heard lines are not applied). 36 lines wait: 0 held for a check, 14 where the 3 runs did not agree. 22 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 4 changes taken out on the tutor's word. 5 applied on the tutor's word."
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "186 of your lines changed (53 with a different word, 133 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 36 lines wait: 0 held for a check, 14 where the 3 runs did not agree. 22 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 4 changes taken out on the tutor's word. 5 applied on the tutor's word."
    },
    "counts": {
     "turns": 833,
@@ -923,8 +923,8 @@
     "status": "applied",
     "since": "2026-10-07",
     "label": "Second listen: applied",
-    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and Amal's lines are unchanged.",
-    "note": "203 of your lines changed (129 with a different word, 74 only the alphabet), each agreed by 2 of 3 AI runs. Amal's lines: unchanged (her re-heard lines are not applied). 33 lines wait: 0 held for a check, 21 where the 3 runs did not agree. 12 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 7 changes taken out on the tutor's word. 5 applied on the tutor's word."
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "203 of your lines changed (129 with a different word, 74 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 33 lines wait: 0 held for a check, 21 where the 3 runs did not agree. 12 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 7 changes taken out on the tutor's word. 5 applied on the tutor's word."
    },
    "counts": {
     "turns": 970,
@@ -1160,8 +1160,8 @@
     "status": "applied",
     "since": "2026-10-07",
     "label": "Second listen: applied",
-    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and Amal's lines are unchanged.",
-    "note": "179 of your lines changed (82 with a different word, 97 only the alphabet), each agreed by 2 of 3 AI runs. Amal's lines: unchanged (her re-heard lines are not applied). 35 lines wait: 0 held for a check, 19 where the 3 runs did not agree. 16 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 4 changes taken out on the tutor's word. 10 applied on the tutor's word."
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "179 of your lines changed (82 with a different word, 97 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 35 lines wait: 0 held for a check, 19 where the 3 runs did not agree. 16 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 4 changes taken out on the tutor's word. 10 applied on the tutor's word."
    },
    "counts": {
     "turns": 937,
@@ -1550,8 +1550,8 @@
     "status": "applied",
     "since": "2026-10-07",
     "label": "Second listen: applied",
-    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and Amal's lines are unchanged.",
-    "note": "228 of your lines changed (97 with a different word, 131 only the alphabet), each agreed by 2 of 3 AI runs. Amal's lines: unchanged (her re-heard lines are not applied). 27 lines wait: 4 held for a check, 12 where the 3 runs did not agree. 11 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 3 changes taken out on the tutor's word. 2 applied on the tutor's word."
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "228 of your lines changed (97 with a different word, 131 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 27 lines wait: 4 held for a check, 12 where the 3 runs did not agree. 11 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 3 changes taken out on the tutor's word. 2 applied on the tutor's word."
    },
    "counts": {
     "turns": 996,
@@ -1782,8 +1782,8 @@
     "status": "applied",
     "since": "2026-10-07",
     "label": "Second listen: applied",
-    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and Amal's lines are unchanged.",
-    "note": "231 of your lines changed (106 with a different word, 125 only the alphabet), each agreed by 2 of 3 AI runs. Amal's lines: unchanged (her re-heard lines are not applied). 28 lines wait: 0 held for a check, 23 where the 3 runs did not agree. 5 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 2 changes taken out on the tutor's word. 4 applied on the tutor's word."
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "231 of your lines changed (106 with a different word, 125 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 28 lines wait: 0 held for a check, 23 where the 3 runs did not agree. 5 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 2 changes taken out on the tutor's word. 4 applied on the tutor's word."
    },
    "counts": {
     "turns": 1025,
@@ -2186,8 +2186,8 @@
     "status": "applied",
     "since": "2026-10-07",
     "label": "Second listen: applied",
-    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and Amal's lines are unchanged.",
-    "note": "258 of your lines changed (114 with a different word, 144 only the alphabet), each agreed by 2 of 3 AI runs. Amal's lines: unchanged (her re-heard lines are not applied). 39 lines wait: 1 held for a check, 21 where the 3 runs did not agree. 17 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 2 changes taken out on the tutor's word. 1 applied on the tutor's word."
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "258 of your lines changed (114 with a different word, 144 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 39 lines wait: 1 held for a check, 21 where the 3 runs did not agree. 17 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 2 changes taken out on the tutor's word. 1 applied on the tutor's word."
    },
    "counts": {
     "turns": 976,
@@ -2685,8 +2685,8 @@
     "status": "applied",
     "since": "2026-10-07",
     "label": "Second listen: applied",
-    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and Amal's lines are unchanged.",
-    "note": "212 of your lines changed (81 with a different word, 131 only the alphabet), each agreed by 2 of 3 AI runs. Amal's lines: unchanged (her re-heard lines are not applied). 39 lines wait: 1 held for a check, 23 where the 3 runs did not agree. 15 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 4 changes taken out on the tutor's word. 5 applied on the tutor's word."
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "212 of your lines changed (81 with a different word, 131 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 39 lines wait: 1 held for a check, 23 where the 3 runs did not agree. 15 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 4 changes taken out on the tutor's word. 5 applied on the tutor's word."
    },
    "counts": {
     "turns": 958,
@@ -3036,8 +3036,8 @@
     "status": "applied-limited",
     "since": "2026-10-07",
     "label": "Second listen: limited (mixed recording)",
-    "tip": "This lesson has no separate microphone track for you, so the second AI listen (Gemini, 3 runs) heard a mixed recording with both voices. Only alphabet-only changes were applied (the same words written in the other alphabet), agreed by 2 of 3 AI runs; no person has checked them. Word changes wait for a check. Amal's lines are unchanged.",
-    "note": "60 of your lines changed, all alphabet-only by the hold rule (the same words, written in the other alphabet). 160 word changes wait for a check (not applied: mixed recording), and on 18 more lines the 3 runs did not agree. Amal's lines: unchanged (her re-heard lines are not applied). 1 of the applied lines (01:06 مهم -> Mhm) is counted as a word change by the stricter counter; by the hold rule it is the same word in the other alphabet. 2 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word)."
+    "tip": "This lesson has no separate microphone track for you, so the second AI listen (Gemini, 3 runs) heard a mixed recording with both voices. Only alphabet-only changes were applied (the same words written in the other alphabet), agreed by 2 of 3 AI runs; no person has checked them. Word changes wait for a check. The tutor's lines are unchanged.",
+    "note": "60 of your lines changed, all alphabet-only by the hold rule (the same words, written in the other alphabet). 160 word changes wait for a check (not applied: mixed recording), and on 18 more lines the 3 runs did not agree. The tutor's lines: unchanged (her re-heard lines are not applied). 1 of the applied lines (01:06 مهم -> Mhm) is counted as a word change by the stricter counter; by the hold rule it is the same word in the other alphabet. 2 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word)."
    },
    "counts": {
     "turns": 962,
@@ -3226,8 +3226,8 @@
     "status": "applied",
     "since": "2026-10-07",
     "label": "Second listen: applied",
-    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and Amal's lines are unchanged.",
-    "note": "116 of your lines changed (51 with a different word, 65 only the alphabet), each agreed by 2 of 3 AI runs. Amal's lines: unchanged (her re-heard lines are not applied). 31 lines wait: 1 held for a check, 18 where the 3 runs did not agree. 12 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 2 changes taken out on the tutor's word. 3 applied on the tutor's word."
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "116 of your lines changed (51 with a different word, 65 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 31 lines wait: 1 held for a check, 18 where the 3 runs did not agree. 12 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 2 changes taken out on the tutor's word. 3 applied on the tutor's word."
    },
    "counts": {
     "turns": 843,
@@ -3503,8 +3503,8 @@
     "status": "applied",
     "since": "2026-10-07",
     "label": "Second listen: applied",
-    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and Amal's lines are unchanged.",
-    "note": "293 of your lines changed (128 with a different word, 165 only the alphabet), each agreed by 2 of 3 AI runs. Amal's lines: unchanged (her re-heard lines are not applied). 44 lines wait: 0 held for a check, 19 where the 3 runs did not agree. 25 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 9 changes taken out on the tutor's word. 9 applied on the tutor's word."
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "293 of your lines changed (128 with a different word, 165 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 44 lines wait: 0 held for a check, 19 where the 3 runs did not agree. 25 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 9 changes taken out on the tutor's word. 9 applied on the tutor's word."
    },
    "counts": {
     "turns": 1274,
@@ -3879,8 +3879,8 @@
     "status": "applied",
     "since": "2026-10-07",
     "label": "Second listen: applied",
-    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and Amal's lines are unchanged.",
-    "note": "168 of your lines changed (115 with a different word, 53 only the alphabet), each agreed by 2 of 3 AI runs. Amal's lines: unchanged (her re-heard lines are not applied). 44 lines wait: 0 held for a check, 24 where the 3 runs did not agree. 20 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 4 changes taken out on the tutor's word. 9 applied on the tutor's word."
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "168 of your lines changed (115 with a different word, 53 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 44 lines wait: 0 held for a check, 24 where the 3 runs did not agree. 20 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 4 changes taken out on the tutor's word. 9 applied on the tutor's word."
    },
    "counts": {
     "turns": 1056,
@@ -4484,8 +4484,8 @@
     "status": "applied",
     "since": "2026-10-07",
     "label": "Second listen: applied",
-    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and Amal's lines are unchanged.",
-    "note": "227 of your lines changed (113 with a different word, 114 only the alphabet), each agreed by 2 of 3 AI runs. Amal's lines: unchanged (her re-heard lines are not applied). 43 lines wait: 0 held for a check, 25 where the 3 runs did not agree. 18 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 4 changes taken out on the tutor's word. 1 applied on the tutor's word."
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "227 of your lines changed (113 with a different word, 114 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 43 lines wait: 0 held for a check, 25 where the 3 runs did not agree. 18 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 4 changes taken out on the tutor's word. 1 applied on the tutor's word."
    },
    "counts": {
     "turns": 1218,
@@ -4938,8 +4938,8 @@
     "status": "applied",
     "since": "2026-10-07",
     "label": "Second listen: applied",
-    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and Amal's lines are unchanged.",
-    "note": "201 of your lines changed (148 with a different word, 53 only the alphabet), each agreed by 2 of 3 AI runs. Amal's lines: unchanged (her re-heard lines are not applied). 32 lines wait: 1 held for a check, 15 where the 3 runs did not agree. 16 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 4 changes taken out on the tutor's word. 4 applied on the tutor's word."
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "201 of your lines changed (148 with a different word, 53 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 32 lines wait: 1 held for a check, 15 where the 3 runs did not agree. 16 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 4 changes taken out on the tutor's word. 4 applied on the tutor's word."
    },
    "counts": {
     "turns": 1082,
@@ -5387,8 +5387,8 @@
     "status": "applied",
     "since": "2026-10-07",
     "label": "Second listen: applied",
-    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and Amal's lines are unchanged.",
-    "note": "163 of your lines changed (84 with a different word, 79 only the alphabet), each agreed by 2 of 3 AI runs. Amal's lines: unchanged (her re-heard lines are not applied). 29 lines wait: 0 held for a check, 19 where the 3 runs did not agree. 10 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word)."
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "163 of your lines changed (84 with a different word, 79 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 29 lines wait: 0 held for a check, 19 where the 3 runs did not agree. 10 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word)."
    },
    "counts": {
     "turns": 1067,
@@ -5760,8 +5760,8 @@
     "status": "applied",
     "since": "2026-10-07",
     "label": "Second listen: applied",
-    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and Amal's lines are unchanged.",
-    "note": "120 of your lines changed (56 with a different word, 64 only the alphabet), each agreed by 2 of 3 AI runs. Amal's lines: unchanged (her re-heard lines are not applied). 24 lines wait: 0 held for a check, 14 where the 3 runs did not agree. 10 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 3 changes taken out on the tutor's word. 3 applied on the tutor's word."
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "120 of your lines changed (56 with a different word, 64 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 24 lines wait: 0 held for a check, 14 where the 3 runs did not agree. 10 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 3 changes taken out on the tutor's word. 3 applied on the tutor's word."
    },
    "counts": {
     "turns": 936,
@@ -6242,8 +6242,8 @@
     "status": "applied",
     "since": "2026-10-07",
     "label": "Second listen: applied",
-    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and Amal's lines are unchanged.",
-    "note": "113 of your lines changed (50 with a different word, 63 only the alphabet), each agreed by 2 of 3 AI runs. Amal's lines: unchanged (her re-heard lines are not applied). 20 lines wait: 0 held for a check, 8 where the 3 runs did not agree. 13 of your own corrections that none of the 3 runs heard stay as you wrote them. 12 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 3 applied on the tutor's word."
+    "tip": "A second AI listen of your microphone (Gemini, 3 runs) was run on this lesson. The changes agreed by 2 of 3 AI runs are in the transcript; no person has checked them. Your own corrections stayed and the tutor's lines are unchanged.",
+    "note": "113 of your lines changed (50 with a different word, 63 only the alphabet), each agreed by 2 of 3 AI runs. The tutor's lines: unchanged (her re-heard lines are not applied). 20 lines wait: 0 held for a check, 8 where the 3 runs did not agree. 13 of your own corrections that none of the 3 runs heard stay as you wrote them. 12 lines wait for the tutor's ear (a change toward her own words, or on a mistake she confirmed, is applied only on her word). 3 applied on the tutor's word."
    },
    "counts": {
     "turns": 1003,
