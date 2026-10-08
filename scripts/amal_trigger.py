@@ -115,7 +115,7 @@ def fetch_plan():
 
 
 # listen-check: her listening check (amal/listen-check.html, 2026-10-04) - nothing is rebuilt from it but her hub list
-KNOWN_RULE_SOURCES = ("review", "after", "before", "plan", "planner", "grammar_notes", "listen-check")
+KNOWN_RULE_SOURCES = ("review", "after", "before", "plan", "planner", "grammar_notes", "listen-check", "note")
 # not Amal: machine flags from flashcard answers, and Medi's own marks
 NOT_AMAL_SOURCES = ("flashcards", "medi")
 
@@ -133,6 +133,10 @@ def fetch_medi_corrections():
 def fetch_grammar_notes():
     """Notes Amal writes under the rules on amal/grammar-rules.html (replaces writing in her Google Doc, 2026-10-01)."""
     return fp_rows(_amal_rules(lambda r: r.get("source") == "grammar_notes"), ("id", "kind", "word_key", "payload"))
+
+
+def fetch_notes():
+    return fp_rows(_amal_rules(lambda r: r.get("source") == "note"), ("id", "kind", "word_key", "payload"))
 
 
 def fetch_rules_other():
@@ -244,6 +248,7 @@ SOURCES = [
     {"id": "plan_links", "label": "Before-lesson planner", "fetch": fetch_plan, "steps": ["build_tutor_data"]},
     {"id": "listen_check", "label": "Listening check: which version is right", "fetch": fetch_listen_check, "steps": ["build_tutor_data"],
      "note": "her taps are read by scripts/amal_listen_results.py; nothing is re-scored, only her hub list is refreshed"},
+    {"id": "tutor_notes", "label": "Notes she writes on her Tutor screens (AM-27)", "fetch": fetch_notes, "steps": ["build_tutor_data", "build_student_data"]},
     {"id": "amal_rules_other", "label": "Any other answer she gives in the app", "fetch": fetch_rules_other, "steps": AUDIT_CHAIN},
     {"id": "verb_checks", "label": "Verb check lists 1 and 2", "fetch": fetch_verb_checks,
      "steps": ["pull_verb_checks", "build_word_bank_catalog", "build_verb_addon_tags", "build_sentence_ladder", "build_tutor_data"]},

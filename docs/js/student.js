@@ -149,7 +149,14 @@
     $('#st-hello').textContent = sc.todo ? `${sc.todo} to do · ${sc.waiting + sc.checking} waiting for your teacher` : 'Homework your teacher assigned, and the cards to do before the next lesson.';
   }
   function route() { counts(); const tab = (location.hash.slice(1) || 'todo').split('/')[0]; ({ cards: todoView, shaky: shakyView, done: doneView })[tab] ? ({ cards: todoView, shaky: shakyView, done: doneView })[tab]() : todoView(); }   // #cards = old links -> To do
-  function render() { route(); }
+  // AM-27: notes the tutor wrote on her screens (docs/data/tutor-notes.json, rebuilt by the hourly job and her every tap)
+  async function notes() {
+    const el = document.getElementById('st-notes'); if (!el) return;
+    let N = null; try { N = await (await fetch('data/tutor-notes.json', { cache: 'no-store' })).json(); } catch (e) { N = null; }
+    const L = (N && N.notes) || [];
+    el.innerHTML = L.length ? `<h2 class="hb-h">Notes from the tutor <span class="hb-n">${L.length}</span></h2>` + L.slice(0, 50).map(n => `<article class="hb-moment st-note"><p class="hb-sub">${esc(String(n.at || '').slice(0, 10))} · ${esc(n.list_title || n.list || '')}${n.item && n.item !== 'list' ? ' · ' + esc(n.context || n.item) : ''}</p><p dir="auto">${esc(n.note || '')}</p></article>`).join('') : '';
+  }
+  function render() { route(); notes(); }
   window.addEventListener('hashchange', route);
   load().then(flush);
   window.AneesLive && AneesLive.onReturn(load, { busy: () => typing || busyIds.size > 0 });

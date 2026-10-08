@@ -19,6 +19,7 @@
     const t = token(), el = document.getElementById('hb-body');
     if (!t && !o.noToken) { el.innerHTML = '<p class="hb-sub">This page needs the private link the student sent you.</p>'; return; }
     o.mount(el, { token: t, base: '../' });
+    if (root.AneesNote) root.AneesNote.attach(el, { token: t, list: (location.pathname.split('/').pop() || 'page').replace('.html', '') + (new URLSearchParams(location.search).get('list') ? ':' + new URLSearchParams(location.search).get('list') : ''), title: o.title });   // AM-27
   }
   root.AneesSolo = { run, token };
 })(window);

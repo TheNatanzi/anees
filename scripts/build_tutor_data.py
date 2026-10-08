@@ -208,6 +208,40 @@ def answered_first(rows):
     return rows
 
 
+NOTES_OUT = os.path.join(DOCS, "data", "tutor-notes.json")
+
+
+def latest_notes(rows):
+    """{word_key: (payload, created_at)} - the latest note per card; an undo row removes it (AM-17)."""
+    out = {}
+    for r in sorted(rows or [], key=lambda r: str(r.get("created_at") or "")):
+        k = r.get("word_key")
+        if not k:
+            continue
+        if r.get("kind") == "undo":
+            out.pop(k, None)
+        elif r.get("kind") == "note" and (r.get("payload") or {}).get("note"):
+            out[k] = (r.get("payload") or {}, r.get("created_at"))
+    return out
+
+
+def write_notes(rows, items):
+    """docs/data/tutor-notes.json: every note she wrote, newest first, with the list's title (AM-27)."""
+    titles = {x.get("id"): x.get("title") for x in items if x.get("id")}
+    notes = []
+    for k, (p, at) in latest_notes(rows).items():
+        notes.append({"key": k, "list": p.get("list"), "list_title": titles.get(p.get("list")) or p.get("list"), "item": p.get("item"),
+                      "context": p.get("context"), "page": p.get("page"), "note": p.get("note"), "at": at})
+    notes.sort(key=lambda n: str(n.get("at") or ""), reverse=True)
+    doc = {"about": "Notes the tutor wrote on her Tutor screens (AM-27, Medi 2026-10-07 'lets add a place for notes for amal always'). "
+                    "amal_rules source note, latest per card; shown on the Student tab and the Tutor Completed rows. Built by scripts/build_tutor_data.py.",
+           "built": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"), "count": len(notes), "notes": notes}
+    with open(NOTES_OUT, "w", encoding="utf-8") as f:
+        json.dump(doc, f, ensure_ascii=False, indent=1)
+    print("tutor notes:", len(notes))
+    return doc
+
+
 def main():
     import db
     now = datetime.datetime.now(datetime.timezone.utc)
@@ -321,6 +355,10 @@ def main():
            "note": "What Amal needs to check right now. Rebuilt by scripts/build_tutor_data.py every hour and after every same-day lesson review; "
                    "answered counts are read live from Supabase with each link's own token. Medi sends every link himself; the app never contacts Amal.",
            "open": kept + open_, "closed": closed}
+    try:      # AM-27: her notes (amal_rules source note, latest per card, an undo wipes it) -> docs/data/tutor-notes.json for the Student tab
+        write_notes(db.select("amal_rules", {"select": "kind,word_key,payload,created_at,token", "source": "eq.note", "order": "created_at.asc"}, undo=False), open_ + closed)
+    except Exception as e:  # noqa: BLE001
+        print("notes not read:", type(e).__name__)
     json.dump(out, open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     for x in out["open"]:
         print(f"open   {x['id']:22} {x.get('total', x.get('done', '')):>5}  {x['title']}")
