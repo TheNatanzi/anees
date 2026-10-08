@@ -73,3 +73,17 @@ test('AM-22 the three homework kinds and both translate directions exist; the sc
   assert.deepEqual(Object.keys(H.DIRECTIONS), ['en_ar', 'ar_en']);
   assert.equal(H.scriptOf('ana bas7a'), 'arabizi'); assert.equal(H.scriptOf('أنا صحيت'), 'arabic'); assert.equal(H.scriptOf('I woke up'), 'english');
 });
+
+test('PG-35 every set Amal uploads is on the Student tab: an upload with no cards task is a cards row of its own; her assignment takes over', () => {
+  // Medi 2026-10-08 "see why amal uploaded two card sets but the student page only shows one"
+  const up = (id, title, n, keep, at) => ({ id, kind: 'upload', title, keep, n, created_at: at, rows: Array.from({ length: n }, (_, i) => ({ arabizi: 'w' + i, arabic: '', english: 'e' + i })) });
+  const uploads = [up('c95f', 'Function (tool) Words + "el"', 22, 'permanent', '2026-10-06T03:21:24Z'), up('17b0', 'A list', 40, 'temporary', '2026-10-06T23:17:40Z')];
+  const tasks = [T('d9bb', 'cards', { set_ref: 'u:c95f', set_title: 'Function (tool) Words + "el"', n_cards: 22, lesson_date: '2026-10-06' })];
+  const extra = H.unassignedUploads(uploads, tasks);
+  assert.deepEqual(extra.map(x => [x.set_ref, x.set_title, x.n_cards, x.lesson_date, x.upload]), [['u:17b0', 'A list', 40, null, true]]);
+  assert.equal(extra[0].created_at, '2026-10-06T23:17:40Z');                       // the tile link and cardsDone both key off set_ref / created_at
+  assert.deepEqual(H.unassignedUploads(uploads, []).map(x => x.set_ref), ['u:17b0', 'u:c95f']);   // nothing assigned: both show, newest first
+  const undone = uploads.concat([{ id: 'x', kind: 'undo', undoes: '17b0', created_at: '2026-10-07T00:00:00Z' }]);
+  assert.deepEqual(H.unassignedUploads(undone, tasks), []);                         // an upload she took back is gone (AM-17)
+  assert.equal(H.cardsDone(extra[0], [{ word_key: 'u:17b0:1', result: 'good', ts: '2026-10-07T01:00:00Z', subject: 'sel:u:17b0' }]), 1);
+});

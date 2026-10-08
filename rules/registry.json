@@ -8556,6 +8556,43 @@
     }
    ],
    "aliases": []
+  },
+  {
+   "id": "PG-35",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every set Amal uploads is on the Student tab, assigned or not. The To do list shows each live upload (amal_uploads, undo honoured) that no cards task points at as its own row - 'New card set from your teacher - uploaded <date>', N cards, M done, opening cards.html?tile=u:<upload> - next to the sets she assigned for a lesson (PG-28). Once she assigns that upload for a lesson, the lesson task replaces the row (same set_ref, so the done count carries). Live amal_uploads first, docs/data/uploads.json as the offline copy (docs/js/homework-core.js unassignedUploads, docs/js/student.js allCards). Found 2026-10-08: 'A list' (40 cards, temporary) was uploaded 10-06 but never assigned, so the tab showed one set of two.",
+   "plain": "Every list Amal uploads shows on Medi's Student tab right away, with its card count and a link to the cards, even before she assigns it for a lesson.",
+   "plain_for": "20b3eee9",
+   "topic": "homework",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-08",
+     "quote": "see why amal uploaded two card sets but the student page only shows one",
+     "session": "1e2b7148"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/homework-core.js",
+     "contains": "function unassignedUploads(uploads, tasks) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/student.js",
+     "contains": "function allCards() {"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_homework_core.cjs",
+     "contains": "test('PG-35 every set Amal uploads is on the Student tab"
+    }
+   ]
   }
  ]
 }
