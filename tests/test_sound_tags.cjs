@@ -34,6 +34,8 @@ test('PG-38 the closed map: the 10-08 tags and the common ones read in English',
  assert.equal(S.label('[يتنفس]'),'breathes');
  assert.equal(S.label('[صوت في الخلفية]'),'background noise');
  assert.equal(S.label('[background noise]'),'background noise');
+ for(const t of ['[background chatter]','[background chattering]'])assert.equal(S.label(t),'background noise',t);   // 10-08 English tags
+ assert.equal(S.label('[speaking Arabic]'),'speaking Arabic');
 });
 
 test('PG-38 an unknown bracket tag with Arabic letters is "(sound)"; a bracket with no Arabic and no known tag is left alone',()=>{

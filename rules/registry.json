@@ -9103,6 +9103,43 @@
      "no"
     ]
    }
+  },
+  {
+   "id": "AZ-13",
+   "kind": "display",
+   "scope": "arabizi",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Her Doc has a male and a female row for one Arabic spelling (كيفك? keefak (Male) / keefek (Female)). On a transcript line a vowel mark on the last letter's carrier picks her row: ـِك (kasra) = her female Arabizi, ـَك (fatha) = her male one; without a mark the word shows as before. His own correction 'keefak, keefik (correcting himself)' at 10-08 0:42-0:45 is written كيفك then كيفِك and now shows keefak, keefek.",
+   "plain": "When the tutor's list has a boy and a girl form of one Arabic word, a vowel mark on the last letter shows the right one: كيفِك is keefek, كيفَك is keefak.",
+   "plain_for": "b681f6b7",
+   "topic": "Arabizi spelling",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "Defect. Defect. is Keefak, Keefik (Correcting himself)",
+     "session": "1fc084ad"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/word-bank-arabizi.js",
+     "contains": "function genderOf(raw){"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_arabizi_snap.cjs",
+     "contains": "test('AZ-13 a vowel mark picks her gendered row"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "0:45",
+    "note": "his self-fix keefik showed as keefak; now keefek"
+   }
   }
  ]
 }

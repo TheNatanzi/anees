@@ -25672,6 +25672,464 @@
    },
    "at": "2026-10-08T17:20:21-07:00",
    "run_id": "59185148ec23421d9c6ad9c83bfabe45"
+  },
+  {
+   "uid": "FA-2b51b336",
+   "date": "2026-09-15",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi was reaching for 'ground' and tried forms like «مروف/مرفوف» before asking what the word was; Amal immediately supplied «مفروم» and he repeated it.",
+   "evidence": {
+    "t_start": 235.0,
+    "t_end": 271.0,
+    "quote": "Medi: «مرفوف... what was ground?» / Amal: «مفروم» / Medi: «مفروم»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-09-15/FA-2b51b336_Medi_Medi_Natanzi.mp3",
+      "sha256": "e797b096d91dab49fa32dd7afb7a8d98502ca6b5613e0693206588f6e504ba60",
+      "source": "Medi_Natanzi.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-09-15/FA-2b51b336_Amal_Amal-33129.mp3",
+      "sha256": "bf4bda1c1be032540cd8865bd3fa2c3c26bd97d6fd91241319aa3a30ce8c6aed",
+      "source": "Amal-33129.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-09-15/FA-2b51b336_mixed_lesson.mp3",
+      "sha256": "1bd4e5bac6979458dfbeadedcb9e138abbc911f401c6b5a07aef30442abbe19d",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "خروف خروف خروف محروم محروم محروف محروس مختلف مختلف مختلف",
+     "Amal": "مفلوم مفلوم مفلوم اشتركوا في القناة",
+     "mixed": "خروف لا خروف خروف خروف خروف مرفوف مفروم مفروم مفروم مفروم مفروم مفروم مفروم مختلف مختلف مختلف"
+    }
+   },
+   "claim": {
+    "wrong": "معروف / مرفوف",
+    "right": "مفروم",
+    "bucket": null,
+    "tier": 1
+   },
+   "at": "2026-10-09T01:13:44-07:00",
+   "run_id": "d446be924f404c8ab43899ede844cfa5"
+  },
+  {
+   "uid": "FA-f50617dc",
+   "date": "2026-10-08",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "medium",
+   "reason": "The mixed transcription has Medi using «إيهن/Ayan» for his fiancée being sick, and Amal immediately recasts it as the feminine «عيانة؟». The audio evidence is noisy, but the correction signal is present.",
+   "evidence": {
+    "t_start": 107.0,
+    "t_end": 140.0,
+    "quote": "Medi: «إيهن سكت» / Amal: «عيانة؟»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-08/FA-f50617dc_Medi_Medi_Natanzi-18ed4eb03e6.mp3",
+      "sha256": "e93491ffeaafd7dc10d72550afd0ee110bbe3f45903a773d6d203bc579e79774",
+      "source": "Medi_Natanzi-18ed4eb03e68d4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-08/FA-f50617dc_Amal_Amal-e291e6255273800f.mp3",
+      "sha256": "5eb008e8550c09c45ab145332603651df8ec5582154843580d20f08925cfc06d",
+      "source": "Amal-e291e6255273800f.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-08/FA-f50617dc_mixed_lesson.mp3",
+      "sha256": "4f261423faa8930633fc586fe2b67982d90c057cf2ef6dfa8f31905fbac75363",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أتمنى أن تسمعني أتسمعني شكرا",
+     "Amal": "مرحبا بكم اشتركوا في القناة",
+     "mixed": "اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه اه يروني المنين"
+    }
+   },
+   "claim": {
+    "wrong": "Ayan",
+    "right": "عيانة",
+    "bucket": "A8",
+    "tier": null
+   },
+   "at": "2026-10-09T01:13:44-07:00",
+   "run_id": "d446be924f404c8ab43899ede844cfa5"
+  },
+  {
+   "uid": "FA-baaef6fc",
+   "date": "2026-10-08",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi explicitly asked for the word for sky and said he forgot; Amal then supplied «سما» and continued with «سما is sky».",
+   "evidence": {
+    "t_start": 972.0,
+    "t_end": 1015.0,
+    "quote": "Medi: «What was sky؟ ... أنا نسيت» / Amal: «سما ... سما is sky»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-08/FA-baaef6fc_Medi_Medi_Natanzi-18ed4eb03e6.mp3",
+      "sha256": "8a1c6e27539ffbf996880d6143b7a4911c5c0e10d17b57f0252bb13efc1af31b",
+      "source": "Medi_Natanzi-18ed4eb03e68d4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-08/FA-baaef6fc_Amal_Amal-e291e6255273800f.mp3",
+      "sha256": "2d6fa74259e26b20da9c64745d2ed37ba289fe210aeb9f37ecd17fc69bec7afe",
+      "source": "Amal-e291e6255273800f.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-08/FA-baaef6fc_mixed_lesson.mp3",
+      "sha256": "d73768513fbaca4638a5061f049e9103b945e09f67a5036264f8cbd10161cef5",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "اوه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه انه ملقايم ملقايم",
+     "Amal": "في بلسكاي صفيت بس. نو عصفرز بيرتز. It's a girl's name in Arabic. My my niece's name actually. سماء السماء is sky يلا شوفي بالسماء سايمة واحدة",
+     "mixed": "سفير بالسكاي هل هذا اسفير؟ لا، اسفير هو برج نعم، نعم، نعم يا إلهي، ما هو سكاي؟ إنه إسم الفتاة نعم، أعلم إنه إسم أبي أنا نسيت سما سما، نعم سما هو سكاي ماذا يوجد في السماء؟ مقيمة مقيمة واحدة؟ مقيمة مضيوم"
+    }
+   },
+   "claim": {
+    "wrong": "None",
+    "right": "سما",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-09T01:13:44-07:00",
+   "run_id": "d446be924f404c8ab43899ede844cfa5"
+  },
+  {
+   "uid": "FA-ab65b185",
+   "date": "2026-10-08",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi said he forgot the word, and Amal supplied «عتمة» immediately afterward; the mixed transcription also shows him acknowledging it.",
+   "evidence": {
+    "t_start": 1358.0,
+    "t_end": 1390.0,
+    "quote": "Medi: «أنا نسيت» / Amal: «عتمة» / mixed: «عتمة، إيه»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-08/FA-ab65b185_Medi_Medi_Natanzi-18ed4eb03e6.mp3",
+      "sha256": "87b3749508d87c7eae432871466d17da51d56d53614877b8dc4bd630722b89a2",
+      "source": "Medi_Natanzi-18ed4eb03e68d4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-08/FA-ab65b185_Amal_Amal-e291e6255273800f.mp3",
+      "sha256": "71c317742f5f3edff661a1a2182094ff40186a8f59c6902773c6e2bd0e74cfdc",
+      "source": "Amal-e291e6255273800f.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-08/FA-ab65b185_mixed_lesson.mp3",
+      "sha256": "ffd22639ef4ebe840821866ef195a6247280a02194a6097b686a6d9a7b672a6c",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "نعم، أعلم، لقد أخطأت، نعم نعم، إذا كنت تنظر إلى مقارنتي، لقد أخطأت ذلك كثيراً ترجمة نانسي قنقر",
+     "Amal": "كيف ينظرني إلى قطراتك؟ شكرا",
+     "mixed": "آآ انا انا سيت اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى اتنى ا"
+    }
+   },
+   "claim": {
+    "wrong": "None",
+    "right": "عتمة",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-09T01:13:44-07:00",
+   "run_id": "d446be924f404c8ab43899ede844cfa5"
+  },
+  {
+   "uid": "FA-8de30458",
+   "date": "2026-10-08",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "medium",
+   "reason": "There is a signalled correction, but the evidence supports Amal correcting Medi from «ثلجات/تلجات» to «ثلجت/تلجت», not specifically marking the doubled ل in «تَلَّجَت».",
+   "evidence": {
+    "t_start": 2195.0,
+    "t_end": 2227.0,
+    "quote": "mixed dialect: «ثلجات» → «ثلجت»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-08/FA-8de30458_Medi_Medi_Natanzi-18ed4eb03e6.mp3",
+      "sha256": "e451e2bbcf322e1b6411dfc7142d0aa4fad9e2ff15078cb0b1742746ac28279e",
+      "source": "Medi_Natanzi-18ed4eb03e68d4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-08/FA-8de30458_Amal_Amal-e291e6255273800f.mp3",
+      "sha256": "1f5d98d1a1b6763e7abd86dc230e1f1847053b4eab52b815faf17109fc5fd983",
+      "source": "Amal-e291e6255273800f.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-08/FA-8de30458_mixed_lesson.mp3",
+      "sha256": "4bc7076f132a53fbda8c8ec87783968c04c33cafc5bb6b4ce418605f146070cd",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "أخير مرة تلجأت تلجأت كانت قبل ثلاث سنين أريد أن أخبرك بأنني أشربت كوكباً آخر اليوم",
+     "Amal": "طيب شو الجملة كلها؟ تلجت ممتاز طيب شكرا",
+     "mixed": "ما هي الجملة الجميلة؟ أخير مرة تلجت كانت قبل ثلاث سنين ممتاز ترجمة نانسي قنقر"
+    }
+   },
+   "claim": {
+    "wrong": "تلجات",
+    "right": "تَلَّجَت",
+    "bucket": "B5",
+    "tier": null
+   },
+   "at": "2026-10-09T01:13:44-07:00",
+   "run_id": "d446be924f404c8ab43899ede844cfa5",
+   "changed_to": {
+    "wrong": "ثلجات / تلجات",
+    "right": "ثلجت / تلجت"
+   }
+  },
+  {
+   "uid": "FA-23278d16",
+   "date": "2026-10-08",
+   "kind": "vocab-A",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi was trying to remember the plants word and asked around «زبيب»; Amal clarified that «زبيب» is raisins and supplied «زريعة», which he then repeated as «زريا».",
+   "evidence": {
+    "t_start": 2843.0,
+    "t_end": 2886.0,
+    "quote": "Medi: «زبيب؟ ... what's زبيب?» / Amal: «زبيب is raisins ... زريعة» / Medi: «زريا»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-08/FA-23278d16_Medi_Medi_Natanzi-18ed4eb03e6.mp3",
+      "sha256": "5a2243a71f4f9600a3b11dea4a0805e01011cb24ffec86b767ce865c06620f0a",
+      "source": "Medi_Natanzi-18ed4eb03e68d4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-08/FA-23278d16_Amal_Amal-e291e6255273800f.mp3",
+      "sha256": "9d37ce9ce00c219e8201117157b871e5a94eab66554976012d6934e7e8f46b05",
+      "source": "Amal-e291e6255273800f.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-08/FA-23278d16_mixed_lesson.mp3",
+      "sha256": "66690e0823744d51ebd39031d6ca61ce8217bcf4df429f77633e91ee1dc3c577",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "الورد وارد اوووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووووو ولكن هل هذا ، مهلا ، هل لديه فئة داخلية صحيحة ، لا حسنا ، هل",
+     "Amal": "واحدة شو? زبيب? زبيب زريع نعم نعم يمكن أن تكون خارجية",
+     "mixed": "الواردة واردة زبيب زبيب زبيب زريع زريعة زريعة زريعة زريعة زريعة زريعة زريعة زريعة زريعة زريعة زريعة"
+    }
+   },
+   "claim": {
+    "wrong": "None",
+    "right": "زريعة",
+    "bucket": null,
+    "tier": 0
+   },
+   "at": "2026-10-09T01:13:44-07:00",
+   "run_id": "d446be924f404c8ab43899ede844cfa5"
+  },
+  {
+   "uid": "FA-4ebda5f6",
+   "date": "2026-10-08",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi was trying to say the streets were made/are stone with «عملت ... حجر», and Amal immediately recast it as just «حجر» and explained that “made of” is different from “made.”",
+   "evidence": {
+    "t_start": 3084.0,
+    "t_end": 3125.0,
+    "quote": "Medi: «ويرد ميد، عملات ما اه، حجر» / Amal: «or just حجر... Are stone... الشوارع القدام في أمريكا حجر»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-08/FA-4ebda5f6_Medi_Medi_Natanzi-18ed4eb03e6.mp3",
+      "sha256": "223e5ff56e18ec7ab0f919cef6813afee4ca86891fbc3db4284c427cde384a75",
+      "source": "Medi_Natanzi-18ed4eb03e68d4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-08/FA-4ebda5f6_Amal_Amal-e291e6255273800f.mp3",
+      "sha256": "05cf0303549063945a0c552af2cf94a2e48e9e2d4b1c651958e4643d03da97ba",
+      "source": "Amal-e291e6255273800f.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-08/FA-4ebda5f6_mixed_lesson.mp3",
+      "sha256": "7a3a61baf7bb3ce3ab418cb9cbdeadac18ab1d8704c4523f61c9fb1f038725e1",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "دام في أمريكي في أمريكا في أمريكا أمالات ما حاجة أرميد ستون أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو أو حسنا",
+     "Amal": "او فقط حجر ارستون ارستون made of is different than made الشوارع الأقدام في أمريكا حجر",
+     "mixed": "دام في أمريكي في أمريكا في أمريكا آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآ آآآ آآآ آآآ آآآآآآآآآآآآآآآآآآآآ� فرع الأقدام في أمريكا حجر"
+    }
+   },
+   "claim": {
+    "wrong": "عملت ما حجر",
+    "right": "حجر",
+    "bucket": "C1",
+    "tier": null
+   },
+   "at": "2026-10-09T01:14:04-07:00",
+   "run_id": "578d1d38cde4489499cb1d3f96ad1832"
+  },
+  {
+   "uid": "FA-6267c03f",
+   "date": "2026-10-08",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "confirmed",
+   "confidence": "high",
+   "reason": "Medi said «مفضلي/مفضل لي» for 'my favorite,' and Amal supplied «المفضل عندي» then corrected him again when he repeated it without «الـ».",
+   "evidence": {
+    "t_start": 3239.0,
+    "t_end": 3274.0,
+    "quote": "Medi: «كان مفدلي» / Amal: «المفضل عندي» and «الـ، المفضل عندي»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-08/FA-6267c03f_Medi_Medi_Natanzi-18ed4eb03e6.mp3",
+      "sha256": "0912481ad383606e1797ec35691711394c39e768e9bfbf2fbfc77ec6cc1683bc",
+      "source": "Medi_Natanzi-18ed4eb03e68d4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-08/FA-6267c03f_Amal_Amal-e291e6255273800f.mp3",
+      "sha256": "bf170fdb7c96595450909e53c2a6027be70a58249ca770e196708f7233a124d7",
+      "source": "Amal-e291e6255273800f.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-08/FA-6267c03f_mixed_lesson.mp3",
+      "sha256": "330b026f760fb07851dc7f85bd08dc8eeb2f19e3612506f8c08c4a011229cd07",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "تاني هجر تان مفدلي مفدل عندي أو مفدلي عندي أو يجب أن أقول ذلك في البداية",
+     "Amal": "So You can either say my favorite stone Or my favorite using عندي المفضل عندي المفضل عندي اشتركوا في القناة",
+     "mixed": "تاني هجر تان مفضلي مفضل عندي مفضل عندي المفضل عندي أو يجب أن أقول ذلك في البداية"
+    }
+   },
+   "claim": {
+    "wrong": "مفضل لي",
+    "right": "المفضل عندي",
+    "bucket": "A7",
+    "tier": null
+   },
+   "at": "2026-10-09T01:14:04-07:00",
+   "run_id": "578d1d38cde4489499cb1d3f96ad1832"
+  },
+  {
+   "uid": "FA-c8e0ceea",
+   "date": "2026-10-08",
+   "kind": "grammar",
+   "method": "audio",
+   "method_detail": "independent ASR of the raw clip (faster-whisper large-v3 + Levantine dialect whisper, no prompt) + the transcript lines, judged by Codex",
+   "reviewer": "codex gpt-5.5",
+   "role": "second-judge",
+   "verdict": "changed",
+   "confidence": "medium",
+   "reason": "Amal did not only correct missing «الـ» on «مفضل عندي»; she corrected the adjective placement/agreement after «هاد الدرس», giving the full phrase «هاد الدرس المفضل عندي».",
+   "evidence": {
+    "t_start": 3493.0,
+    "t_end": 3526.0,
+    "quote": "Medi: «So مفضل عندي» / Amal: «بس المفضل is an adjective, so it follows الدرس... هاد الدرس المفضل عندي»",
+    "clips": [
+     {
+      "who": "Medi",
+      "file": "data/accuracy/clips/2026-10-08/FA-c8e0ceea_Medi_Medi_Natanzi-18ed4eb03e6.mp3",
+      "sha256": "acfdab3b2837243b2bd01416e668cbca48f09dd75693a26ee074342d347c74bf",
+      "source": "Medi_Natanzi-18ed4eb03e68d4d2.mp3"
+     },
+     {
+      "who": "Amal",
+      "file": "data/accuracy/clips/2026-10-08/FA-c8e0ceea_Amal_Amal-e291e6255273800f.mp3",
+      "sha256": "8456fd41b9f06c0ffda60babb6676ae5f1d64adc028a9121ec9ce7628c2a7dc4",
+      "source": "Amal-e291e6255273800f.mp3"
+     },
+     {
+      "who": "mixed",
+      "file": "data/accuracy/clips/2026-10-08/FA-c8e0ceea_mixed_lesson.mp3",
+      "sha256": "dbffd1ca4bbf8232130212a37f459d2c3c711c0c540b47ad35f3bb905feac8b5",
+      "source": "lesson.mp3"
+     }
+    ],
+    "independent_asr_large_v3": {
+     "Medi": "ويأتي النهاية قبل أو بعد مفضل أندي ما يعني أني أتبع هذا؟ ترجمة نانسي قنقر",
+     "Amal": "after بس المفضل is an adjective so it follows الدرس يعني يتولد أزنك هذا الدرس",
+     "mixed": "الدرس the end comes before or after after so مفضل بس المفضل is an adjective so it follows درس so is it what do you mean it follows درس يعني يتولد أزنك هذا الدرس"
+    }
+   },
+   "claim": {
+    "wrong": "mufaddal andi",
+    "right": "المفضل عندي",
+    "bucket": "A7",
+    "tier": null
+   },
+   "at": "2026-10-09T01:14:04-07:00",
+   "run_id": "578d1d38cde4489499cb1d3f96ad1832",
+   "changed_to": {
+    "wrong": "مفضل عندي / المفضل عندي as a standalone continuation after هاد الدرس",
+    "right": "هاد الدرس المفضل عندي"
+   }
   }
  ]
 }

@@ -22,3 +22,11 @@ test('AZ-12 his own wrong forms (as-said) stay as he said them; taanye stays taa
  assert.equal(snap('ختيفتي').text,'5ateefti');
  assert.notEqual(snap('تانية').text,'Saanie');
 });
+
+test('AZ-13 a vowel mark picks her gendered row: كيفِك keefek (f), كيفَك keefak (m); no mark keeps the first row',()=>{
+ const G=[{arabic:'كيفك؟',arabizi:'keefek?',english:'How are you? (Female)'},{arabic:'كيفك؟',arabizi:'keefak?',english:'How are you? (Male)'}];
+ const z=A.create(G,{},{},{scope:'lessons',snap:true});
+ assert.equal(z('كيفِك').text,'keefek');
+ assert.equal(z('كيفَك').text,'keefak');
+ assert.equal(z('كيفك').text,A.create(G,{},{},{scope:'lessons'})('كيفك').text);   // no mark: exactly as before
+});
