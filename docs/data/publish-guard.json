@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-09T08:17:58-07:00",
+ "updated": "2026-10-09T08:30:55-07:00",
  "result": "pass",
- "source": "hourly: 1 local commit(s)",
- "checked_commit": "0c6571bd04b3",
- "secs": 71.5,
+ "source": "manual: GR-31 laughs out of grammar, TR-29 per-lesson limit (Medi 2026-10-09)",
+ "checked_commit": "427e0947b268",
+ "secs": 80.6,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.0,
+   "secs": 1.1,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "119 JSON files parse"
   },
@@ -35,13 +35,13 @@
    "ok": true,
    "secs": 0.2,
    "what": "every correction is a registry entry whose rule is proven: code + a guard test, or the readers' brief + a real moment (RULES.md S6, rules/registry.json)",
-   "detail": "rule_registry: OK - 220 rules: enforced 129 (code 120, brief 9), written 70, moment-only 12, needs Medi 1, superseded 8"
+   "detail": "rule_registry: OK - 220 rules: enforced 130 (code 121, brief 9), written 70, moment-only 12, needs Medi 0, superseded 8"
   },
   {
    "id": "lesson_coverage",
    "required": true,
    "ok": true,
-   "secs": 0.4,
+   "secs": 0.5,
    "what": "every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)",
    "detail": "all 21 lessons reach every page"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 2.3,
+   "secs": 2.5,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 0.9,
+   "secs": 1.1,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.4,
+   "secs": 1.6,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 719 checks"
   },
@@ -97,7 +97,7 @@
    "id": "check_rules",
    "required": true,
    "ok": true,
-   "secs": 2.0,
+   "secs": 2.1,
    "what": "the standing rules (RULES.md + Medi's rules) hold in the data (worker D, eng-audit-d)",
    "detail": "...8 checked) | PASS block  AMAL-onsite         0  Amal's pages and Tutor data link only to Anees itself (no claude.ai, Google Docs/Drive or other login-only site)"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 4.8,
+   "secs": 5.2,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 71 pages, every link, data file and clip resolves (13 references to unpublished clips play from the full lesson recording)"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 51.9,
+   "secs": 58.5,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 91%] | .............................................................            [100%] | 705 passed, 1 skipped, 3 xfailed in 48.53s"
+   "detail": "............................. [ 91%] | ................................................................         [100%] | 708 passed, 1 skipped, 3 xfailed in 56.24s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 1.1,
+   "secs": 1.2,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1064.1406"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1139.0505"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 4.2,
+   "secs": 4.8,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -177,7 +177,7 @@
    "id": "foreign_script",
    "required": false,
    "ok": false,
-   "secs": 0.1,
+   "secs": 0.2,
    "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)",
    "detail": "exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
   }
@@ -187,14 +187,14 @@
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": {
-  "at": "2026-10-09T00:17:07-07:00",
-  "source": "hourly: tutor refresh",
+  "at": "2026-10-09T08:28:29-07:00",
+  "source": "manual: GR-31 laughs out of grammar, TR-29 per-lesson limit (Medi 2026-10-09)",
   "outcome": "blocked",
-  "sha": "ecc57789caa8b4a36b6b9eb1602163b20a92f238",
-  "reason": "step_failures: 1 generated file(s) took master's copy after a rebase (rebuilt, never merged), e.g. docs/data/tutor-notes.json: rebuild pending (open since 2026-10-08T23:34, tutor)",
-  "secs": 72.5,
-  "commits_waiting": "19"
+  "sha": "61de139efa72b03178db3c26fa456fd871091d63",
+  "reason": "lesson_ledger: exit 1: Grammar page B5: 282 uses, the ledgers 270 | Grammar page B10: 50 uses, the ledgers 43 | ledger: FAIL 4 problem(s); check_numbers: exit 1: numbers: FAIL rule A1: console shows 698 uses, recompute from the audit + usage gives 697 (+4 more); tests_py: exit 1: FAILED tests/test_lesson_ledger.py::test_LS_11_committed_pages_equal_the_ledger | 1 failed, 707 passed, 1 skipped, 3 xfailed in 59.17s",
+  "secs": 89.4,
+  "commits_waiting": "1"
  },
- "blocks_before_this_pass": 0,
+ "blocks_before_this_pass": 1,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
