@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-09T08:51:20-07:00",
+ "updated": "2026-10-09T09:03:33-07:00",
  "result": "pass",
- "source": "manual: TR-29 $4 per lesson (Medi 2026-10-09)",
- "checked_commit": "d1ec45e44c73",
- "secs": 84.6,
+ "source": "manual: TR-29 restore clips (Medi 2026-10-09 '23$ go')",
+ "checked_commit": "c6b02cef40da",
+ "secs": 84.9,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.1,
+   "secs": 1.0,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "119 JSON files parse"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 2.6,
+   "secs": 2.5,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -81,7 +81,7 @@
    "id": "accuracy_gates",
    "required": true,
    "ok": true,
-   "secs": 1.1,
+   "secs": 1.0,
    "what": "Lessons, Word Bank, Grammar and the audit agree; verified only above the 95% agreement bar",
    "detail": "accuracy check: OK"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 4.8,
+   "secs": 5.3,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 71 pages, every link, data file and clip resolves (13 references to unpublished clips play from the full lesson recording)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 0.3,
+   "secs": 0.4,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 62.3,
+   "secs": 62.6,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 91%] | ................................................................         [100%] | 708 passed, 1 skipped, 3 xfailed in 58.91s"
+   "detail": "............................. [ 90%] | .................................................................        [100%] | 709 passed, 1 skipped, 3 xfailed in 58.73s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 1.3,
+   "secs": 1.2,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1219.193"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1154.4581"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.1,
+   "secs": 4.9,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -177,7 +177,7 @@
    "id": "foreign_script",
    "required": false,
    "ok": false,
-   "secs": 0.3,
+   "secs": 0.2,
    "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)",
    "detail": "exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
   }
