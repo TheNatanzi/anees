@@ -130,3 +130,12 @@ def test_tr_29_a_lesson_frozen_in_another_checkout_gets_its_clips_cut_again_befo
     assert calls == [("restore", "2026-10-08"), ("pump", "2026-10-08")]
     src = open(os.path.join(ROOT, "scripts", "rehear_lesson.py"), encoding="utf-8").read()
     assert "def restore_clips(date):" in src and "check_clips(d, man, [ln[\"clip\"] for ln in listen])" in src
+
+
+def test_tr_29_a_line_released_by_rule_needs_no_tutor_answer():
+    """2026-10-09 09:26: 'second listen step failed: KeyError' on all three new lessons - a held line released by rule
+    TR-28 carries no tutor answer, and the apply step read v['tutor']."""
+    src = open(os.path.join(ROOT, "scripts", "rehear_apply.py"), encoding="utf-8").read()
+    i = src.index("def tutor_release(r, base_, v, pile):")
+    body = src[i:src.index("for r in P[\"rows\"]:", i)]
+    assert 'if v.get("tutor") is None:' in body and body.index('if v.get("tutor") is None:') < body.index('v["tutor"]')

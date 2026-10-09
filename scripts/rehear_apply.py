@@ -216,9 +216,15 @@ def plan(date):
             else:
                 out["skipped"].append(dict(base_, why=x))
             return
-        row["tutor"] = {"list": v.get("list"), "answer": v["tutor"], "rule": RT.RULE}
         out["rows"].append(row)
         out["lines_changed"].append(dict(base_, **x))
+        if v.get("tutor") is None:
+            # TR-28 (2026-10-09, first new lesson after the backfill): released by rule, not by her answer - no "tutor" key
+            # (a KeyError here stopped 10-05 / 10-06 / 10-08 at 09:26)
+            row["released_by_rule"] = v.get("rule") or "TR-28"
+            out["released_by_rule"].append(dict(base_, heard=r["heard"], was=pile, why=v.get("why"), held_why=v.get("held_why")))
+            return
+        row["tutor"] = {"list": v.get("list"), "answer": v["tutor"], "rule": RT.RULE}
         out["applied_by_tutor"].append(dict(base_, heard=r["heard"], was=pile, list=v.get("list"), answer=v["tutor"], why=v["why"]))
 
     for r in P["rows"]:
