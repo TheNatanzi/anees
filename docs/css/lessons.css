@@ -232,3 +232,8 @@
 #anees-bank .ls-fullreading{margin-top:10px;padding-top:8px;border-top:1px dashed var(--ab-line);color:var(--ab-muted)}
 /* PG-38: an engine sound tag ([laughs], [cough]) is one small grey English note on the top line; the small Arabic line does not repeat it */
 #anees-bank .gc-arabic .snd-tag{display:none}
+/* Medi 2026-10-09 "can we make better use of the space here": the engine's own words sit under the line, in the wide text
+   column (like the Arabic under the Arabizi), never squeezed under the time and the edit button */
+#anees-bank .ls-turn > .ls-heard{grid-column:2;margin-top:-6px}
+#anees-bank .ls-turn > .ls-turnhead{grid-row:span 2}
+#anees-bank .ls-heard{line-height:1.45;overflow-wrap:anywhere}

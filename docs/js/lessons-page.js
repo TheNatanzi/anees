@@ -821,7 +821,10 @@ function heardNote(host, t) {
   var a = el('span', '', t.engine);
   a.setAttribute('lang', 'ar'); a.setAttribute('dir', 'rtl');
   n.appendChild(a);
-  n.appendChild(document.createTextNode(' · fixed: ' + (t.heard || []).map(function (h) { return h.engine_wrote + ' → ' + h.heard; }).join(', ')));
+  // a whole-line fix (the second listen) repeats the line: say only what the engine wrote; word fixes keep "a → b"
+  var bare = function (x) { return String(x || '').replace(/[^\p{L}\p{N}]+/gu, ''); };
+  var parts = (t.heard || []).filter(function (h) { return h.engine_wrote && bare(h.engine_wrote) !== bare(t.engine); });
+  if (parts.length) n.appendChild(document.createTextNode(' · fixed: ' + parts.map(function (h) { return h.engine_wrote + ' → ' + h.heard; }).join(', ')));
   n.title = 'The raw transcript is never edited; this line shows the word that was said (rule ' + ((t.heard || [])[0] || {}).rule + ')';
   host.appendChild(n);
 }
