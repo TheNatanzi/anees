@@ -4,7 +4,9 @@
    - The fix lives inside the chip detail: ✗ → "Not a mistake" (one tap asks why); ✓ vocab → "Was wrong"; ✓ grammar →
      "Not a use"; Amal's fix → "Not a correction"; a grey dropped word → "It was a mistake".
    - Tap a word on a line → "What did you say?" with 2-3 guesses (her chat words, Amal's next line, list words) + a box.
-   - "✎ more" on each line: wrong speaker, wrong time, a missing word, add a slip.
+   - "✎ more" on each line: ONE box, "Write the fix in your own words" + Send (PG-37, Medi 2026-10-08) - read by
+     docs/js/correction-parse.js (rules) or one Claude Haiku call (supabase/functions/parse-correction) into the same
+     rows (speaker / time / missing / text / add, or a note); his raw words ride along in payload.raw.
    - Toast "Saved · Undo · counts update within 15 min"; the "✎ yours" tag on the line is the Undo (no expiry).
    - Under the transcript: "This looks like a rule: …" cards from docs/data/correction-proposals.json (built by
      scripts/medi_corrections.py propose) with the first 3 moments before → after and ▶, "Just this one" / "Make it a rule".
@@ -20,7 +22,7 @@ var QK = 'anees-correction-queue', LK = 'anees-correction-log', SK = 'anees-corr
 var REASONS = [['not-correcting', "She wasn't correcting me"], ['fixed-first', 'I fixed it first'], ['both-fine', 'She said both are fine'],
   ['asking', 'I was asking'], ['wrong-moment', 'Wrong speaker or time'], ['right', 'My Arabic was right (the tutor decides)']];
 var KIND_WORDS = { text: 'heard word', speaker: 'speaker', time: 'time', missing: 'missing word', 'not-slip': 'not a mistake',
-  'was-wrong': 'was wrong', classify: 'vocab ↔ grammar', add: 'added a slip', 'not-use': 'not a use', 'rule-answer': 'rule answer' };
+  'was-wrong': 'was wrong', classify: 'vocab ↔ grammar', add: 'added a slip', 'not-use': 'not a use', 'rule-answer': 'rule answer', note: 'your words' };
 
 /* ---------- pure helpers (tested) ---------- */
 function norm(s) {
@@ -175,13 +177,13 @@ function arabic(n) { n.setAttribute('lang', 'ar'); n.setAttribute('dir', 'auto')
 
 /* ---------- saving + toast + undo ---------- */
 var toastTimer = null;
-function save(x, turn, kind, target, payload, note, extra) {
+function save(x, turn, kind, target, payload, note, extra, quiet) {
   var d = new Date();
   var row = Object.assign({ id: uuid(), lesson_date: x.date, turn_t: Math.round(Number(turn.t) * 100) / 100, turn_who: turn.who || 'Medi',
     kind: kind, target: target || null, payload: Object.assign({ turn_end: turn.end != null ? turn.end : null, line: (turn.engine || turn.text || '').slice(0, 400) }, payload || {}),
     note: note || null, ts: d.toISOString(), tz_offset_min: -d.getTimezoneOffset() }, extra || {});
   enqueue(row);
-  toast(row);
+  if (!quiet) toast(row);
   if (H.redraw) H.redraw();
   return row;
 }
@@ -332,37 +334,151 @@ function openWordPanel(row, x, turn, parts, word) {
 }
 function g_len(P) { return P.querySelectorAll('.tc-guess').length; }
 
-/* ---------- "✎ more": speaker, time, missing word, add a slip ---------- */
+/* ---------- "✎ more": ONE box per line (PG-37; Medi 2026-10-08 "Can we turn this into just 1 box and we can write the
+   correction, not try and separate into so many boxes?") ---------- */
+// He writes the fix in his own words. docs/js/correction-parse.js reads the obvious shapes at once (chips); when it is not
+// sure, one cheap AI read (supabase/functions/parse-correction, Claude Haiku) fills the chips; he taps a chip to edit it,
+// × to drop it, Send saves one row per chip - the same rows the old boxes made - with his raw words in payload.raw.
+// "This was Amal" stays as one tap (the most common fix, no typing). No key / offline -> his words are saved as a note
+// and the hourly job reads them (scripts/correction_parse.py).
+var PARSER = function () { return root.AneesCorrectionParse || null; };
+var AI_WAIT_MS = 900, AI_MAX_MS = 7000;
+function rowFor(it) {
+  var tg = it.target || null;
+  if (it.kind === 'add' && tg) tg = { k: tg.k, said: tg.said };
+  return { kind: it.kind, target: tg, payload: Object.assign({}, it.payload || {}) };
+}
+async function askAI(text, part) {
+  if (!A().url) return { status: 'offline', items: [] };
+  try {
+    var r = await fetch(A().url + '/functions/v1/parse-correction', { method: 'POST', headers: hdr(),
+      body: JSON.stringify({ text: text, line: (part.engine || part.text || '').slice(0, 600), who: part.who || 'Medi', t: Number(part.t) || 0 }), signal: AbortSignal.timeout(AI_MAX_MS) });
+    if (!r.ok) return { status: 'error', items: [] };
+    return await r.json();
+  } catch (e) { return { status: 'error', items: [] }; }
+}
 function moreMenu(row, x, turn, parts) {
   closePanels(row);
-  var P = el('div', 'tc-panel'), main = row.querySelector('.tm-main') || row, part = (parts || [])[0] || turn;
-  var other = part.who === 'Medi' ? 'Amal' : 'Medi';
-  var r1 = el('div', 'tc-row');
-  r1.appendChild(btn('tc-big', 'This was ' + other, function () { save(x, part, 'speaker', null, { who: other }); }));
-  var tf = el('form', 'tc-type'), ti = el('input'); ti.placeholder = 'Right time, e.g. ' + mmss(part.t); ti.setAttribute('aria-label', 'Right time');
-  var tsave = function () { var v = parseTime(ti.value); if (v == null) { ti.setCustomValidity('Use m:ss'); ti.reportValidity(); return; } save(x, part, 'time', null, { t: v }); };
-  tf.appendChild(ti); tf.appendChild(btn('tc-big', 'Fix time', tsave)); tf.addEventListener('submit', function (e) { e.preventDefault(); tsave(); });
-  var mf = el('form', 'tc-type'), mi = el('input'); mi.placeholder = 'A word the engine dropped'; mi.setAttribute('dir', 'auto'); mi.setAttribute('aria-label', 'Missing word');
-  var msave = function () { if (mi.value.trim()) save(x, part, 'missing', null, { heard: mi.value.trim() }); };
-  mf.appendChild(mi); mf.appendChild(btn('tc-big', 'Add word', msave)); mf.addEventListener('submit', function (e) { e.preventDefault(); msave(); });
+  var P = el('div', 'tc-panel tc-one'), main = row.querySelector('.tm-main') || row, part = (parts || [])[0] || turn;
+  var other = part.who === 'Medi' ? 'Amal' : 'Medi', PR = PARSER();
+  var ctx = { who: part.who || 'Medi', line: part.engine || part.text || '', t: part.t, toArabizi: H.toArabizi ? function (w) { return H.toArabizi(w).text; } : null };
+  var items = [], sure = false, aiTimer = null, aiBusy = null, aiFor = '', aiState = '';
   P.appendChild(el('div', 'tc-q', 'Fix this line'));
-  P.appendChild(r1); P.appendChild(tf); P.appendChild(mf);
-  if (part.who === 'Medi') {
-    P.appendChild(el('div', 'tc-q', 'A mistake nobody marked'));
-    var sf = el('form', 'tc-type tc-slip'), sw = el('input'), sr = el('input'), sk = el('select');
-    sw.placeholder = 'What you said'; sr.placeholder = 'What it should be'; sw.setAttribute('dir', 'auto'); sr.setAttribute('dir', 'auto');
-    sw.setAttribute('aria-label', 'What you said'); sr.setAttribute('aria-label', 'What it should be'); sk.setAttribute('aria-label', 'Word or grammar');
-    [['vocab', 'Wrong word'], ['grammar', 'Grammar']].forEach(function (o) { var op = el('option', '', o[1]); op.value = o[0]; sk.appendChild(op); });
-    var ssave = function () {
-      if (!sw.value.trim()) { sw.focus(); return; }
-      save(x, part, 'add', { k: sk.value, said: sw.value.trim() }, { k: sk.value, wrong: sw.value.trim(), right: sr.value.trim() || null });
-    };
-    sf.appendChild(sw); sf.appendChild(sr); sf.appendChild(sk); sf.appendChild(btn('tc-big', 'Add slip', ssave)); sf.addEventListener('submit', function (e) { e.preventDefault(); ssave(); });
-    P.appendChild(sf);
-    P.appendChild(el('div', 'ab-mini', 'Counted when the tutor voiced the fix right after; otherwise it goes to her review page.'));
-  }
-  P.appendChild(btn('tc-small tc-close', 'Close', function () { P.remove(); }));
+  var r1 = el('div', 'tc-row');
+  r1.appendChild(btn('tc-big', 'This was ' + other, function () { save(x, part, 'speaker', null, { who: other, raw: 'This was ' + other }); P.remove(); },
+    'One tap: the recording engine put this line on the wrong speaker'));
+  P.appendChild(r1);
+  var ta = el('textarea'); ta.placeholder = 'Write the fix in your own words'; ta.setAttribute('dir', 'auto'); ta.setAttribute('aria-label', 'Write the fix in your own words');
+  ta.rows = 2; ta.enterKeyHint = 'send';
+  var read = el('div', 'tc-read'), why = el('div', 'tc-reading', 'e.g. "this was the tutor" · "time 2:13" · "missing word ya3ni" · "I said عشرة not العشاء" · "ومه should be أمه"');
+  var bar = el('div', 'tc-row'), send = btn('tc-big tc-primary tc-send', 'Send', function () { doSend(); }); send.disabled = true;
+  bar.appendChild(send); bar.appendChild(btn('tc-small tc-close', 'Close', function () { P.remove(); }));
+  P.appendChild(ta); P.appendChild(read); P.appendChild(why); P.appendChild(bar);
   main.appendChild(P);
+  ta.focus();
+
+  function noteOf() { return { kind: 'note', label: 'Note: ' + ta.value.trim(), payload: { raw: ta.value.trim() } }; }
+  function paintChips() {
+    read.textContent = '';
+    items.forEach(function (it, i) {
+      var c = el('span', 'tc-chip-read' + (it.kind === 'note' ? ' tc-note' : '') + (it.by === 'ai' ? ' tc-ai' : ''));
+      c.setAttribute('role', 'button'); c.tabIndex = 0; c.title = 'Tap to edit';
+      c.appendChild(el('span', '', (it.by === 'ai' ? 'AI read: ' : '') + it.label));
+      if (items.length > 1 || it.kind !== 'note') {
+        var xb = el('span', 'tc-x', '×'); xb.title = 'Drop this';
+        xb.addEventListener('click', function (e) { e.stopPropagation(); items.splice(i, 1); if (!items.length) items = [noteOf()]; paintChips(); });
+        c.appendChild(xb);
+      }
+      c.addEventListener('click', function () { editChip(i); });
+      c.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); editChip(i); } });
+      read.appendChild(c);
+    });
+    if (aiState === 'reading') read.appendChild(el('span', 'tc-reading', 'Reading your words…'));
+    send.disabled = !items.length || !ta.value.trim();
+  }
+  function reparse() {
+    var text = ta.value.trim();
+    if (!PR || !text) { items = []; sure = false; paintChips(); return; }
+    var r = PR.parse(text, ctx);
+    items = r.items; sure = r.sure;
+    why.textContent = sure ? 'Read by rule · tap a chip to change it' : (r.why === 'no shape' ? 'Not sure what to change: saved as your words unless the AI can read it' : 'Not sure: ' + r.why);
+    paintChips();
+    clearTimeout(aiTimer);
+    if (!sure) aiTimer = setTimeout(function () { runAI(text); }, AI_WAIT_MS);
+  }
+  function runAI(text) {
+    if (aiFor === text || !text) return;
+    aiFor = text; aiState = 'reading'; paintChips();
+    aiBusy = askAI(text, part).then(function (ans) {
+      aiBusy = null; aiState = ans.status || 'done';
+      if (ta.value.trim() !== text) return;                                   // he kept typing: this answer is stale
+      if (ans.status === 'ok' && PR) {
+        var got = PR.fromAI(ans, text, ctx);
+        if (got.length && got[0].kind !== 'note') { items = got; why.textContent = 'Read by AI · tap a chip to change it, × to drop it'; }
+        else why.textContent = 'The AI could not shape it either: saved as your words.';
+      } else if (ans.status === 'no-key') why.textContent = 'Saved as your words (the AI read is not set up yet); Anees reads them within the hour.';
+      else if (ans.status === 'cap') why.textContent = "Today's AI reading budget is used up: saved as your words.";
+      else why.textContent = 'Saved as your words; Anees reads them within the hour.';
+      paintChips();
+    });
+  }
+  ta.addEventListener('input', reparse);
+  ta.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); doSend(); } });
+  async function doSend() {
+    var text = ta.value.trim();
+    if (!text) { ta.focus(); return; }
+    if (!sure && aiBusy) { send.disabled = true; send.textContent = 'Reading…'; try { await aiBusy; } catch (e) { /* saved as a note */ } send.textContent = 'Send'; }
+    if (!items.length) items = [noteOf()];
+    var saved = [];
+    items.forEach(function (it) {
+      var r = rowFor(it);
+      r.payload.raw = text;
+      saved.push(save(x, part, r.kind, r.target, r.payload, null, null, true));
+    });
+    toastMany(saved);
+    P.remove();
+  }
+  function editChip(i) {
+    var it = items[i], box = el('div', 'tc-edit'), fields = [], p = it.payload || {};
+    function f(label, key, val, isSel) {
+      var l = el('label', '', label), inp;
+      if (isSel) { inp = el('select'); [['vocab', 'Wrong word'], ['grammar', 'Grammar']].forEach(function (o) { var op = el('option', '', o[1]); op.value = o[0]; op.selected = val === o[0]; inp.appendChild(op); }); }
+      else { inp = el('input'); inp.type = 'text'; inp.value = val == null ? '' : String(val); inp.setAttribute('dir', 'auto'); }
+      l.appendChild(inp); box.appendChild(l); fields.push([key, inp]);
+    }
+    if (it.kind === 'speaker') f('Who said it (tutor / student)', 'who', p.who === 'Amal' ? 'tutor' : 'student');
+    else if (it.kind === 'time') f('Right time (m:ss)', 't', PR ? PR.mmss(p.t) : p.t);
+    else if (it.kind === 'missing') f('The word the engine dropped', 'heard', p.heard);
+    else if (it.kind === 'text') { f('Engine wrote', 'engine_wrote', p.engine_wrote); f('You said', 'heard', p.heard); }
+    else if (it.kind === 'add') { f('You said', 'wrong', p.wrong); f('It should be', 'right', p.right); f('Kind', 'k', p.k, true); }
+    else f('Your words', 'raw', p.raw);
+    var ok = btn('tc-big', 'OK', function () {
+      var v = {}; fields.forEach(function (q) { v[q[0]] = q[1].value.trim(); });
+      if (it.kind === 'time') { var t = PR ? PR.parseTime(v.t) : null; if (t == null) { fields[0][1].setCustomValidity('Use m:ss'); fields[0][1].reportValidity(); return; } it.payload = Object.assign({}, p, { t: t }); it.label = 'Time → ' + v.t; }
+      else if (it.kind === 'speaker') { var w = /^(a|t|h)/i.test(v.who) ? 'Amal' : 'Medi'; /* tutor / her -> the tutor's line */ it.payload = Object.assign({}, p, { who: w }); it.label = 'This was ' + w; }
+      else if (it.kind === 'missing') { if (!v.heard) return; it.payload = Object.assign({}, p, { heard: v.heard }); it.label = 'Missing word: ' + v.heard; }
+      else if (it.kind === 'text') { if (!v.engine_wrote || !v.heard) return; it.payload = Object.assign({}, p, { engine_wrote: v.engine_wrote, heard: v.heard, from: 'typed' }); it.target = { word: v.engine_wrote }; it.label = 'You said ' + v.heard + ', engine wrote ' + v.engine_wrote; }
+      else if (it.kind === 'add') { if (!v.wrong) return; it.payload = Object.assign({}, p, { wrong: v.wrong, right: v.right || null, k: v.k }); it.target = { k: v.k, said: v.wrong }; it.label = 'You said ' + v.wrong + (v.right ? ', should be ' + v.right : '') + ', ' + (v.k === 'grammar' ? 'grammar' : 'wrong word'); }
+      else { it.payload = Object.assign({}, p, { raw: v.raw || p.raw }); it.label = 'Note: ' + (v.raw || p.raw); }
+      it.by = 'you'; box.remove(); paintChips();
+    });
+    box.appendChild(ok); box.appendChild(btn('tc-small', 'Cancel', function () { box.remove(); }));
+    read.insertAdjacentElement('afterend', box);
+    var first = box.querySelector('input, select'); if (first) first.focus();
+  }
+}
+function toastMany(rows) {
+  if (!rows.length) return;
+  if (rows.length === 1) { toast(rows[0]); return; }
+  var t = doc.getElementById('tc-toast');
+  if (!t) { t = el('div', 'tc-toast'); t.id = 'tc-toast'; t.setAttribute('role', 'status'); (doc.getElementById('anees-bank') || doc.body).appendChild(t); }
+  t.textContent = '';
+  t.appendChild(el('span', '', 'Saved · ' + rows.map(function (r) { return KIND_WORDS[r.kind] || r.kind; }).join(' + ') + ' · '));
+  t.appendChild(btn('tc-undo', 'Undo', function () { rows.forEach(undo); t.hidden = true; }));
+  t.appendChild(el('span', '', ' · counts update within 15 min'));
+  t.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () { t.hidden = true; }, 8000);
 }
 
 /* ---------- each line: "✎ more" + "✎ yours" (= Undo) ---------- */
@@ -376,7 +492,7 @@ function decorate(row, x, turn, parts) {
       'Your correction (' + (KIND_WORDS[last.kind] || last.kind) + '). Tap to undo the last one.'));
     row.classList.add('tc-has');
   }
-  head.appendChild(btn('tc-more', '✎ more', function () { moreMenu(row, x, turn, parts); }, 'Wrong speaker, wrong time, a missing word, or a mistake nobody marked'));
+  head.appendChild(btn('tc-more', '✎ more', function () { moreMenu(row, x, turn, parts); }, 'Write the fix in your own words: wrong speaker, wrong time, a missing word, or a mistake nobody marked'));
   if (turn.engine_who) row.appendChild(el('div', 'ab-mini ls-heard', 'Recording engine put this on ' + turn.engine_who));
   if (turn.engine_t != null) row.appendChild(el('div', 'ab-mini ls-heard', 'Recording engine time: ' + mmss(turn.engine_t)));
 }
@@ -444,7 +560,7 @@ async function loadWords() {
 function mountLesson(body, x) {
   var box = el('section', 'tc-box');
   box.setAttribute('aria-label', 'Your corrections');
-  var intro = el('p', 'ab-mini tc-intro', 'Correct anything: tap a chip (Not a mistake / Was wrong / Not a use), tap a word the engine got wrong, or ✎ more on a line. ');
+  var intro = el('p', 'ab-mini tc-intro', 'Correct anything: tap a chip (Not a mistake / Was wrong / Not a use), tap a word the engine got wrong, or ✎ more on a line and write the fix in your own words. ');
   intro.appendChild(el('span', 'tc-sync', statusText()));
   box.appendChild(intro);
   var props = el('div', 'tc-props');

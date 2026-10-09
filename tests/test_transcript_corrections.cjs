@@ -43,7 +43,7 @@ test('PG-24 his correction shows on the line at once and is not applied twice af
 
 test('PG-24 the Lessons page loads the module, and every control is 44 px',()=>{
  const html=fs.readFileSync(path.join(DOCS,'lessons.html'),'utf8');
- assert.match(html,/'transcript-marks','transcript-corrections','lessons-page'/);
+ assert.match(html,/'transcript-marks','correction-parse','transcript-corrections','lessons-page'/);   // PG-37: the one-box parser loads first
  const css=fs.readFileSync(path.join(DOCS,'css','lessons.css'),'utf8');
  assert.match(css,/\.tc-big,#anees-bank \.tc-reason,#anees-bank \.tc-word\{min-height:44px;min-width:44px/);
  assert.match(css,/\.tc-small,#anees-bank \.tc-tag,#anees-bank \.tc-more,#anees-bank \.tc-play,#anees-bank \.tc-undo\{min-height:44px/);

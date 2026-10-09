@@ -36,7 +36,7 @@ test("filters: All, Only marked, Only ✗, Vocab, Grammar, Amal's fixes",()=>{
  assert.ok(T.LEGEND.some(l=>l[0]==='fix')&&T.LEGEND.some(l=>l[2]==='Wrong')&&T.LEGEND.some(l=>l[2]==='Correct'));
 });
 test('the Lessons page loads the marks and draws them from tmarks',()=>{
- assert.match(fs.readFileSync(path.join(DOCS,'lessons.html'),'utf8'),/'transcript-marks','transcript-corrections','lessons-page'/);
+ assert.match(fs.readFileSync(path.join(DOCS,'lessons.html'),'utf8'),/'transcript-marks','correction-parse','transcript-corrections','lessons-page'/);
  const js=fs.readFileSync(path.join(DOCS,'js','lessons-page.js'),'utf8');
  assert.match(js,/x\.tmarks/);assert.match(js,/function openChip\(list, id, x, chips\)/);
 });

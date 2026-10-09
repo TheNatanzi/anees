@@ -8640,6 +8640,75 @@
      "contains": "test('PG-36 the Tutor page loads the module and nothing in it writes or sends anything"
     }
    ]
+  },
+  {
+   "id": "PG-37",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The '✎ more' panel on a transcript line is ONE box ('Write the fix in your own words') and one Send, plus the one-tap 'This was Amal / Medi' button. The text is read into the same structured rows the seven boxes made: first a rule layer (docs/js/correction-parse.js: 'this was Amal', 'time 2:13', 'missing word X', 'I said X not Y', 'X should be Y' with Arabic or Arabizi on either side); when the rules are not sure, ONE Claude Haiku read (supabase/functions/parse-correction, prompt scripts/correction_parse_prompt.md, cost in api_spend and mirrored to data/budget.json + the run log by scripts/correction_parse.py); the reading shows as plain-words chips he taps to edit or drops before Send; nothing parsed = a 'note' row with his words (migration 024) that the hourly job reads with the same prompt (scripts/correction_parse.py read-notes, one logged call per note). Every row keeps his raw words in payload.raw; Undo stays one tap (AM-17 pattern); storage and the builders are unchanged.",
+   "plain": "The fix panel on a transcript line is one box: write the fix in your own words and tap Send. Anees reads your words into the same corrections as before (speaker, time, a dropped word, what the engine misheard, a mistake), shows its reading as chips you can change, and keeps your exact words with the correction. The one-tap 'This was Amal' button stays.",
+   "plain_for": "6bd7af3a",
+   "topic": "your corrections",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-08",
+     "quote": "Can we turn this into just 1 box and we can write the correction, not try and separate into so many boxes?",
+     "session": "66753f1f"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/correction-parse.js",
+     "contains": "function parse(text, ctx) {"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/transcript-corrections.js",
+     "contains": "ta.placeholder = 'Write the fix in your own words'"
+    },
+    {
+     "type": "code",
+     "path": "scripts/correction_parse.py",
+     "contains": "def read_notes(rows=None, insert=None, runner=None, log=print, limit=MAX_NOTES_PER_RUN, spend=None):"
+    },
+    {
+     "type": "code",
+     "path": "supabase/functions/parse-correction/index.ts",
+     "contains": "const MODEL = \"claude-haiku-5-5\";"
+    },
+    {
+     "type": "code",
+     "path": "scripts/medi_corrections.py",
+     "contains": "\"rule-answer\", \"note\")"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_correction_parse.cjs",
+     "contains": "test('PG-37 \"X should be Y\" on his line is a slip (said / should / kind), wrong word unless grammar words appear'"
+    },
+    {
+     "path": "tests/test_correction_parse.cjs",
+     "contains": "test('PG-37 the panel is one box: transcript-corrections.js has no time / missing / slip inputs left'"
+    },
+    {
+     "path": "tests/test_correction_parse.py",
+     "contains": "def test_pg_37_rows_with_raw_and_kind_note_are_accepted_and_a_note_changes_nothing"
+    },
+    {
+     "path": "tests/test_correction_parse.py",
+     "contains": "def test_pg_37_read_notes_makes_rows_with_raw_and_parsed_from_and_never_re_reads_a_note"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "0:00",
+    "note": "the 'Fix this line' panel under a STUDENT line: 7 controls (speaker button, time box + Fix time, dropped-word box + Add word, said / should / kind + Add slip) -> 1 box + Send"
+   }
   }
  ]
 }

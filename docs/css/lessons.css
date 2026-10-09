@@ -189,6 +189,19 @@
 #anees-bank .tm-chip.tc-chip-yours .tc-chip-note{text-decoration:none;display:inline-block;color:var(--ab-accent);font-weight:600}
 #anees-bank .tc-az .tc-ar{display:block;color:var(--ab-muted);font-size:11px;text-decoration:none}
 #anees-bank .tc-actions{flex-direction:row;flex-wrap:wrap;align-items:center}
+/* PG-37 one box per line: a textarea, the reading as chips he confirms, one Send (Medi 2026-10-08) */
+#anees-bank .tc-one{display:flex;flex-direction:column;gap:8px}
+#anees-bank .tc-one textarea{min-height:64px;padding:8px 10px;font:inherit;font-size:16px;border-radius:8px;border:1px solid var(--ab-line,#ccc);background:var(--ab-panel);color:var(--ab-text);resize:vertical;width:100%;box-sizing:border-box}
+#anees-bank .tc-read{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:24px}
+#anees-bank .tc-chip-read{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:6px 10px;border-radius:999px;border:1px solid var(--ab-accent);background:color-mix(in srgb,var(--ab-accent) 10%,transparent);font-size:14px;cursor:pointer}
+#anees-bank .tc-chip-read.tc-note{border-style:dashed;border-color:var(--ab-muted)}
+#anees-bank .tc-chip-read.tc-ai{border-style:dotted}
+#anees-bank .tc-chip-read .tc-x{font-weight:700;color:var(--ab-muted);padding:0 2px}
+#anees-bank .tc-edit{display:grid;grid-template-columns:1fr;gap:6px;padding:8px;border:1px dashed var(--ab-accent);border-radius:8px}
+#anees-bank .tc-edit label{display:flex;flex-direction:column;gap:2px;font-size:12px;color:var(--ab-muted)}
+#anees-bank .tc-edit input,#anees-bank .tc-edit select{min-height:44px;padding:6px 10px;font:inherit;font-size:14px;border-radius:8px;border:1px solid var(--ab-line,#ccc);background:var(--ab-panel);color:var(--ab-text)}
+#anees-bank .tc-reading{font-size:12px;color:var(--ab-muted)}
+#anees-bank .tc-send[disabled]{opacity:.5}
 /* PG-25: ^ marks where a missing word / preposition belongs on his line */
 #anees-bank mark.tm-caret{background:none;color:light-dark(#C4321F,#FF8A7A);font-weight:700;font-size:.8em;vertical-align:super;padding:0 1px;cursor:pointer;white-space:nowrap}
 #anees-bank mark.tm-caret.tm-on{background:color-mix(in srgb,currentColor 12%,transparent);border-radius:3px}

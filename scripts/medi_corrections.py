@@ -36,7 +36,7 @@ QUEUE_P = os.path.join(REPO, "data", "lesson-work", "code-rule-queue.json")
 PROPOSALS_P = os.path.join(REPO, "docs", "data", "correction-proposals.json")
 AMAL_P = os.path.join(REPO, "data", "lesson-work", "ledger-amal.json")
 GEN_TEST = "tests/test_correction_rules_generated.py"
-KINDS = ("text", "speaker", "time", "missing", "not-slip", "was-wrong", "classify", "add", "not-use", "undo", "rule-answer")
+KINDS = ("text", "speaker", "time", "missing", "not-slip", "was-wrong", "classify", "add", "not-use", "undo", "rule-answer", "note")   # note: PG-37 his words, read later
 TEXT_KINDS = ("text", "speaker", "time", "missing")
 ROW_KINDS = ("not-slip", "was-wrong", "classify", "add")
 REASONS = {   # "Not a mistake" asks why in one tap; only 'right' is Amal's
@@ -527,6 +527,12 @@ def propose(corrections=None, repo=REPO, rows=None, uses_=None):
         k, p, tg = c.get("kind"), c.get("payload") or {}, c.get("target") or {}
         if k in ("rule-answer",):
             continue
+        if k == "note":   # PG-37: his words the one box could not shape; scripts/correction_parse.py reads them (never a rule by itself)
+            out.append({"id": "P-" + c["id"][:8], "from": c["id"], "kind": k, "date": str(c["lesson_date"]), "t": float(c["turn_t"]), "mmss": mmss(c["turn_t"]),
+                        "moments": [], "n": 0, "owner": "one-off",
+                        "plain": ("Your words were kept: «%s»" % ((p.get("raw") or c.get("note") or "")[:120]))
+                                 + ("" if p.get("parsed_from") else " · Anees reads them within the hour.")})
+            continue
         skip = (str(c["lesson_date"]), float(c["turn_t"]), float(p.get("turn_end") or c["turn_t"]), tg.get("src"))
         X = None
         prop = {"id": "P-" + c["id"][:8], "from": c["id"], "kind": k, "date": str(c["lesson_date"]), "t": float(c["turn_t"]),
@@ -868,6 +874,11 @@ def main(argv=None):
     if a.cmd == "pull":
         res = pull()
         print("transcript_corrections pull:", json.dumps(res))
+        try:   # PG-37: read his free-words notes (one Haiku call each) and mirror the edge function's spend; fail-open
+            import correction_parse as CP
+            print("correction_parse:", json.dumps(CP.run(), ensure_ascii=False)[:300])
+        except Exception as e:  # noqa: BLE001
+            print("correction_parse failed (kept going):", type(e).__name__, str(e)[:200])
         try:
             P, R = write_proposals()
             print("%d proposals, %d standing rules" % (len(P), len(R)))
