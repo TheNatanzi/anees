@@ -1,5 +1,5 @@
 {
- "built": "2026-10-09T11:55:23-07:00",
+ "built": "2026-10-09T13:46:46-07:00",
  "method": "Step 3 of the full audit: reconcile the settled reader rows of all 13 lessons with what already exists\n(data/grammar-sweep-2026-09-24.json: 302 grammar rows + 31 unfiled + 147 vocab fixes) and write\n\n    data/full-audit-2026-09-26.json     rows (every error, one source of truth), per-pass counts, per-lesson agreement,\n                                        machine-caught / missed, sweep reconciliation\n    plan/FULL-AUDIT-2026-09-26.md       per-lesson tables + totals (Medi's reading copy)\n\nRules: nothing the sweep verified is dropped without a stated reason (a sweep row the readers did not find is KEPT,\ntagged source \"sweep-2026-09-24\", and listed under \"sweep rows the readers missed\"); everything new is added.\nVocab-B and grammar-B rows are never scored here: they go to Amal's review page (step 5).\n\n    python scripts/full_audit_build.py",
  "sweep_compat": {
   "built": "2026-09-26",
@@ -1945,29 +1945,6 @@
     "mistake": "'the thing that makes ME happy' needs the object -ni; her first move was to add it to his word (بيسبتني) before walking him through the letter order; he reached بيبسطني at 1:01:50 (ممتاز); low because his line is cut off (بيسبط–) so he may have been about to add -ni, and the ب/س order part is S4 (brief: بنسبت for بنبسط).",
     "bucket": "D4",
     "bucket2": null,
-    "new_bucket_group": null
-   },
-   {
-    "id": "FA-101b3562",
-    "date": "2026-09-04",
-    "t": "1:01:53",
-    "t_amal": "1:02:11",
-    "medi_said": "بيبسطني لماaa would this be conditional؟ لما بكون في الطبيعة؟",
-    "amal_said": "لما أكون",
-    "chat": null,
-    "wrong": "لما بكون",
-    "right": "لما أكون",
-    "confidence": "high",
-    "confidence_why": "r1+r2",
-    "signal": "recast",
-    "machine_audit": true,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-101b3562",
-    "sweep_id": "0904-27",
-    "mistake": "After lamma the b- drops; he said بكون, she recast لما أكون and he took it ('لما اكون yeah. I knew it was conditional').",
-    "bucket": "B3",
-    "bucket2": "C6",
     "new_bucket_group": null
    },
    {
@@ -14637,29 +14614,6 @@
     "sweep_id": null,
     "mistake": "Stay IN his home takes في not على; she rephrased in English 'In his home' and he said في بيته.",
     "bucket": "D1",
-    "bucket2": null,
-    "new_bucket_group": null
-   },
-   {
-    "id": "FA-1d6036bf",
-    "date": "2026-09-30",
-    "t": "44:32",
-    "t_amal": "44:42",
-    "medi_said": "سيارة. ... أخوتي.",
-    "amal_said": "ممتاز. So for feminine nouns, what do we add?",
-    "chat": "sayyaaret e5wti",
-    "wrong": "سيارة أخوتي",
-    "right": "سيارة(ت) أخوتي - sayyaaret e5wti",
-    "confidence": "low",
-    "confidence_why": "Her immediate prompt about the feminine -t looks like a prompt-then-fix, but her two ممتاز and Arabic script hiding the -t mean it cannot be proven from the transcript; kept low for audio check.",
-    "signal": "prompt-then-fix",
-    "machine_audit": false,
-    "mode": "speaking",
-    "source": "audit-2026-09-26",
-    "uid": "FA-1d6036bf",
-    "sweep_id": null,
-    "mistake": "Right after his answer she asked what feminine nouns add, he said 'the T', and her chat wrote sayyaaret; but she also said ممتاز twice and the script cannot show whether he said sayyaara or sayyaaret - needs the audio.",
-    "bucket": "A3",
     "bucket2": null,
     "new_bucket_group": null
    },
@@ -27368,7 +27322,7 @@
   "pron_from_sweep": [],
   "hand_check": {},
   "totals": {
-   "speaking_grammar": 674,
+   "speaking_grammar": 672,
    "vocab": 345,
    "machine_caught_speaking": 105
   }
@@ -27377,7 +27331,7 @@
  "lessons_missing": [],
  "totals": {
   "rows": 1274,
-  "grammar_A": 674,
+  "grammar_A": 672,
   "grammar_B": 110,
   "grammar_proposed": 12,
   "vocab_A": 345,
@@ -27387,10 +27341,10 @@
    "2": 75,
    "3": 2
   },
-  "vocab_B": 27,
+  "vocab_B": 26,
   "vocab_B_by_tier": {
    "1": 17,
-   "2": 9,
+   "2": 8,
    "3": 1
   },
   "listening": 64,
@@ -27432,14 +27386,14 @@
   "B6": 12,
   "B15": 11,
   "E2": 10,
-  "B3": 10,
+  "B3": 9,
   "C3": 8,
-  "A3": 8,
   "A10": 8,
   "A13": 8,
   "A12": 7,
   "B8": 7,
   "B10": 7,
+  "A3": 7,
   "E4": 7,
   "A15": 7,
   "A14": 6,
@@ -27480,10 +27434,10 @@
    "sweep_vocab_before": 13
   },
   "2026-09-04": {
-   "grammar_A": 43,
+   "grammar_A": 42,
    "grammar_B": 14,
    "vocab_A": 14,
-   "vocab_B": 2,
+   "vocab_B": 1,
    "listening": 7,
    "sweep_grammar_before": 29,
    "sweep_vocab_before": 11
@@ -27606,7 +27560,7 @@
    "sweep_vocab_before": 0
   },
   "2026-09-30": {
-   "grammar_A": 23,
+   "grammar_A": 22,
    "grammar_B": 0,
    "vocab_A": 16,
    "vocab_B": 0,
@@ -35257,7 +35211,7 @@
    "chat": null,
    "wrong": "لما بكون",
    "right": "لما أكون",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "B3",
    "bucket2": "C6",
@@ -35279,8 +35233,11 @@
    "source": "audit-2026-09-26",
    "sweep_id": "0904-27",
    "machine_had": true,
+   "kind_before_rejection": "grammar",
+   "rejected_rule": "GR-33",
+   "rejected_why": "GR-33: the tutor praised it right after (61:52 «✓ ممتاز.»), so he said it right",
    "bucket_name": "b-drop after time words",
-   "uid_carried_from": "FA-1765f105",
+   "uid_carried_from": "FA-7554a8d9",
    "uid": "FA-101b3562",
    "n": 154
   },
@@ -35328,7 +35285,7 @@
    "chat": null,
    "wrong": "عافيا فيكي",
    "right": "الله يعافيكي (my reading)",
-   "kind": "dropped-by-amal",
+   "kind": "rejected",
    "tier": 2,
    "bucket": null,
    "bucket2": null,
@@ -35349,20 +35306,11 @@
    "date": "2026-09-04",
    "source": "audit-2026-09-26",
    "machine_had": false,
-   "uid": "FA-cd7583e1",
-   "n": 156,
-   "amal_ruling": {
-    "kind": "skip",
-    "pattern": "p-ya3tik-el-3afye-reply",
-    "reason": "not necessary. it's not part of the lesson. slips like this are ok at the end.",
-    "at": "2026-09-30T18:04:10.340381+00:00",
-    "rule_id": 1952,
-    "before": {
-     "kind": "vocab-B",
-     "signal": "none",
-     "confidence": "low"
-    }
-   }
+   "kind_before_rejection": "vocab-B",
+   "rejected_rule": "GR-33",
+   "rejected_why": "GR-33: the tutor praised it right after (63:07 «Good job today بشوفك.»), so he said it right",
+   "uid": "FA-7b6bf635",
+   "n": 156
   },
   {
    "id": "A1",
@@ -67169,7 +67117,7 @@
    "chat": "sayyaaret e5wti",
    "wrong": "سيارة أخوتي",
    "right": "سيارة(ت) أخوتي - sayyaaret e5wti",
-   "kind": "grammar",
+   "kind": "rejected",
    "tier": null,
    "bucket": "A3",
    "bucket2": null,
@@ -67190,8 +67138,11 @@
    "date": "2026-09-30",
    "source": "audit-2026-09-26",
    "machine_had": false,
+   "kind_before_rejection": "grammar",
+   "rejected_rule": "GR-33",
+   "rejected_why": "GR-33: the tutor praised it right after (44:33 «ممتاز.»), so he said it right",
    "bucket_name": "feminine -t in idafa",
-   "uid": "FA-1d6036bf",
+   "uid": "FA-d7a8ef82",
    "n": 1056
   },
   {
@@ -74720,7 +74671,7 @@
  ],
  "rulings_applied": [
   {
-   "at": "2026-10-09T19:00:22.554255+00:00",
+   "at": "2026-10-09T20:46:48.813450+00:00",
    "rules": [
     1928,
     1929,

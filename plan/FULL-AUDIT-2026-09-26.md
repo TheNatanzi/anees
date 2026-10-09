@@ -6,12 +6,12 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 
 | | count |
 |---|---|
-| Grammar fixes Amal voiced (A) | **674** (sweep had 312) |
+| Grammar fixes Amal voiced (A) | **672** (sweep had 312) |
 | Grammar she let pass (B, to Amal) | 110 |
 | Grammar fixes that fit no rule (proposed new rules, unscored until Medi's yes - GR-18) | 12 |
 | Vocab fixes Amal voiced (A) | **345** (sweep had 147; lesson pages showed 23) |
 | - by tier (0 asked / 1 wrong word / 2 wrong form / 3 English-in-Arabic) | {'1': 164, '0': 137, '2': 75, '3': 2} |
-| Vocab she let pass (B, to Amal) | **27** by tier {'1': 17, '2': 9, '3': 1} |
+| Vocab she let pass (B, to Amal) | **26** by tier {'1': 17, '2': 8, '3': 1} |
 | Listening-drill misreads (kept apart) | 64 |
 | Rows the readers found that the sweep did not have | 787 |
 | Sweep rows the readers did not list (kept) | 129 |
@@ -22,7 +22,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | lesson | grammar A | grammar B | vocab A | vocab B | listening | sweep grammar before | sweep vocab before | reader agreement |
 |---|---|---|---|---|---|---|---|---|
 | 2026-08-25 | 29 | 13 | 22 | 5 | 3 | 24 | 13 | 79.3 % |
-| 2026-09-04 | 43 | 14 | 14 | 2 | 7 | 29 | 11 | 63.8 % |
+| 2026-09-04 | 42 | 14 | 14 | 1 | 7 | 29 | 11 | 63.8 % |
 | 2026-09-05 | 36 | 2 | 10 | 1 | 0 | 25 | 5 | 58.1 % |
 | 2026-09-10 | 33 | 12 | 26 | 1 | 0 | 20 | 10 | 54.5 % |
 | 2026-09-11 | 35 | 10 | 15 | 3 | 1 | 21 | 10 | 69.8 % |
@@ -36,7 +36,7 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | 2026-09-23 | 37 | 5 | 29 | 2 | 5 | 23 | 20 | 72.9 % |
 | 2026-09-26 | 35 | 1 | 25 | 1 | 3 | 0 | 0 | 63.6 % |
 | 2026-09-28 | 24 | 2 | 23 | 1 | 0 | 0 | 0 | 70.0 % |
-| 2026-09-30 | 23 | 0 | 16 | 0 | 0 | 0 | 0 | 86.5 % |
+| 2026-09-30 | 22 | 0 | 16 | 0 | 0 | 0 | 0 | 86.5 % |
 | 2026-10-01 | 18 | 4 | 3 | 1 | 2 | 0 | 0 | 82.8 % |
 | 2026-10-02 | 27 | 2 | 11 | 0 | 3 | 0 | 0 | 77.5 % |
 | 2026-10-05 | 24 | 0 | 12 | 1 | 0 | 0 | 0 | 76.7 % |
@@ -95,14 +95,14 @@ Two independent readers per lesson, a third settles disagreements, reconciled wi
 | B6 | kaan = was / were | 12 |
 | B15 | participles | 11 |
 | E2 | clock time | 10 |
-| B3 | b-drop after time words | 10 |
+| B3 | b-drop after time words | 9 |
 | C3 | comparatives | 8 |
-| A3 | feminine -t in idafa | 8 |
 | A10 | hada / hadi | 8 |
 | A13 | awal / oola: before or after the noun | 8 |
 | A12 | pronoun matches who you mean | 7 |
 | B8 | bakoon / ykoon | 7 |
 | B10 | commands | 7 |
+| A3 | feminine -t in idafa | 7 |
 | E4 | calendar | 7 |
 | A15 | aa5er / a5eer: before or after the noun | 7 |
 | A14 | taani: before or after the noun | 6 |
@@ -420,9 +420,9 @@ _English-only stretch 11:00-20:30 (AI / transcription talk). Latin-transliterate
 | FA-8f7899c6 | 1:01:23 | grammar | C3 | So الأكتر إشي- | No أل just أكتر إشي. | الأكتر إشي -> أكتر إشي | el- on the comparative again (cf. 02:15); she said 'No el, just أكتر إشي' and he repeated أكثر إشي. | high | r1+r2 |
 | FA-bb1ccb9b | 1:01:29 | grammar | C7 | إشي and then I have to say إلي right؟ | No there's no ... إلـ. | أكتر إشي إلي -> أكتر إشي | added illi after aktar ishi | low | sweep (readers did not list it - kept, per the rule that nothing verified is dropped without a reason) |
 | FA-8acf9a78 | 1:01:34 | grammar | D4 | أكتر إشي بيس– بيسبط– | بيسبتني- بيب... بي and then س | بيسبط -> بيبسطني | 'the thing that makes ME happy' needs the object -ni; her first move was to add it to his word (بيسبتني) before walking him through the letter order; he reached بيبسطني at 1:01:50 (ممتاز); low because his line is cut off (بيسبط–) so he may have been about to add -ni, and the ب/س order part is S4 (brief: بنسبت for بنبسط). | low | r3 |
-| FA-101b3562 | 1:01:53 | grammar | B3 | بيبسطني لماaa would this be conditional؟ لما بكون في الطبيعة؟ | لما أكون | لما بكون -> لما أكون | After lamma the b- drops; he said بكون, she recast لما أكون and he took it ('لما اكون yeah. I knew it was conditional'). | high | r1+r2 |
+| FA-101b3562 | 1:01:53 | rejected | B3 | بيبسطني لماaa would this be conditional؟ لما بكون في الطبيعة؟ | لما أكون | لما بكون -> لما أكون | After lamma the b- drops; he said بكون, she recast لما أكون and he took it ('لما اكون yeah. I knew it was conditional'). | high | r1+r2 |
 | FA-d0c70580 | 1:02:23 | grammar | B18 | to make someone happy is آآá بيسبط. | ببسّط. | بيسبط -> ببسّط | Asked for 'to make someone happy' (her dictionary form babse6) he gave the he-form bi-; she recast ببسّط and he repeated it; she then drilled 'ببسط' five times. The missing root ب in the engine's بيسبط is pronunciation, so low. | low | r1+r2 |
-| FA-cd7583e1 | 1:03:05 | vocab-B | tier 2 | عافيا فيكي. شكرًا. | Good job today بشوفك. | عافيا فيكي -> الله يعافيكي (my reading) | The reply to يعطيك العافية is the set phrase الله يعافيكي; his 'عافيا فيكي' is a mangled form of it. She let it pass. | low | r1+r2 |
+| FA-7b6bf635 | 1:03:05 | rejected | tier 2 | عافيا فيكي. شكرًا. | Good job today بشوفك. | عافيا فيكي -> الله يعافيكي (my reading) | The reply to يعطيك العافية is the set phrase الله يعافيكي; his 'عافيا فيكي' is a mangled form of it. She let it pass. | low | r1+r2 |
 
 ### 2026-09-05
 
@@ -1420,7 +1420,7 @@ _Long English stretches 02:08-05:45 (app talk), 16:32-17:34, 35:00-36:30, 45:21-
 | FA-5d4cb265 | 42:34 | grammar | A7 | ولد الـ uh, عيان | So where, where do I put the ال؟ ... No. ... It's the sick boy. | ولد الـ عيان -> الولد العيان | 'The sick boy' needs el- on both noun and adjective; she asked where the L goes, said no to 'walad al ayan', and he fixed it to الولد العيان. | high | r1+r2 |
 | FA-2f6c3602 | 43:14 | grammar | B2 | لازم بيدل بيته. | لازم. | لازم بيدل -> لازم يضل | After لازم the verb drops b-; she repeated لازم and he said 'needs to say يضل'. | high | r1+r2 |
 | FA-c127b823 | 43:27 | grammar | D1 | على بيته. | In his home. | على بيته -> في بيته | Stay IN his home takes في not على; she rephrased in English 'In his home' and he said في بيته. | high | r1+r2 |
-| FA-1d6036bf | 44:32 | grammar | A3 | سيارة. ... أخوتي. | ممتاز. So for feminine nouns, what do we add? | سيارة أخوتي -> سيارة(ت) أخوتي - sayyaaret e5wti | Right after his answer she asked what feminine nouns add, he said 'the T', and her chat wrote sayyaaret; but she also said ممتاز twice and the script cannot show whether he said sayyaara or sayyaaret - needs the audio. | low | r3 |
+| FA-d7a8ef82 | 44:32 | rejected | A3 | سيارة. ... أخوتي. | ممتاز. So for feminine nouns, what do we add? | سيارة أخوتي -> سيارة(ت) أخوتي - sayyaaret e5wti | Right after his answer she asked what feminine nouns add, he said 'the T', and her chat wrote sayyaaret; but she also said ممتاز twice and the script cannot show whether he said sayyaara or sayyaaret - needs the audio. | low | r3 |
 | FA-75a9b961 | 45:07 | grammar | A2 | So الشجر الـ | Mm، the apple tree. I'm not describing the tree. I'm saying it's the tree of apples. ... It's a dufa still. | الشجر الـ -> شجرة التفاح | He built 'the apple tree' as noun + adjective with el- on the first word; Amal explained it is idafa (later: شجرة التفاح). | high | r1+r2 |
 | FA-16c519c0 | 57:02 | grammar | C1 | Uh, فيه هون | ليش فيه هون؟ ... No, they're just هون. طلاب الجامعة هون. | فيه هون -> طلاب الجامعة هون | He used فيه (there is) for 'are'; she asked why, said they're just هون - no word for 'are'. | high | r1+r2 |
 | FA-d34ce259 | 58:55 | vocab-A | tier 1 | جزدان، Oh, جزدان | What's bag؟ Uh, the other word ... شنتة سفر. | جزدان -> شنتة سفر | For 'suitcase' he offered جزدان (purse/wallet); she asked for the other word, he said he forgot, and she gave شنتة سفر. | medium | r1+r2 |

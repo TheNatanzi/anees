@@ -9179,9 +9179,9 @@
    "scope": "word-scoring",
    "status": "enforced",
    "change": "new",
-   "statement": "Every Arabic word Medi says gets a visible judgment. From 2026-10-08 on (scripts/word_coverage.py FROM), every Arabic word on his lines AFTER the overlay (the second listen and his own fixes; Latin letters read by scripts/arabizi_reader.py, only her words and only sure ones inside an English sentence) is either a Word Bank mark (right / partial / wrong / repeat) or a grey chip with the reason (not on her word list, a preposition = grammar, two list words spelled the same, one word of a longer list phrase, a verb form the Word Bank does not list yet, his own note, broken off, off-lesson). A word on her list with no Word Bank event becomes one (review-overlay addition by 'word-coverage', with its own clip cut from the lesson audio), judged by the context rules (WS-31; a cue from her right after = the readers decide); a word said alone counts like any other (no more 'Isolated production' limbo: 10-08 00:10 مرحبا). Why: the matcher read the engine's words, and the engine wrote most of his 10-08 Arabic in English-ear Latin ('Ayan', 'Shui', 'rasa biwaja'); the second listen fixed the lines but made no Word Bank event, so 388 of his 508 Arabic words on 10-08 had no mark. After: 0. The 20 earlier lessons are counted (1,793 new credits, 686 repeats) and wait for Medi's yes (PR-05). Three gaps closed on 10-08 08:36 (his note 'soda is the femanine for aswad?. I dont understand the confusion with balbes ... I should get credit for all of thse'): a colour word's feminine / plural is her row (سودا = أسود, زرقا = أزرق); two rows of her list that are the same word (بلبس 'balbes' / 'ana balbes') are one word, not 'unclear'; a 'no' from her right after his line that the three readers did not turn into a slip on the word does not hold the word back. An older open-question patch (2026-09-28 audit) gives way to the judgment and is kept on it.",
-   "plain": "Every Arabic word you say gets a mark: right, half, wrong, repeat, or a grey chip that says why it is not scored. Feminine colour words, duplicate list rows and a tutor 'no' that was not about the word no longer block credit.",
-   "plain_for": "f52a6eab",
+   "statement": "Every Arabic word Medi says gets a visible judgment. From 2026-10-08 on (scripts/word_coverage.py FROM), every Arabic word on his lines AFTER the overlay (the second listen and his own fixes; Latin letters read by scripts/arabizi_reader.py, only her words and only sure ones inside an English sentence) is either a Word Bank mark (right / partial / wrong / repeat) or a grey chip with the reason (not on her word list, a preposition = grammar, two list words spelled the same, one word of a longer list phrase, a verb form the Word Bank does not list yet, his own note, broken off, off-lesson). A word on her list with no Word Bank event becomes one (review-overlay addition by 'word-coverage', with its own clip cut from the lesson audio), judged by the context rules (WS-31; a cue from her right after = the readers decide); a word said alone counts like any other (no more 'Isolated production' limbo: 10-08 00:10 مرحبا). Why: the matcher read the engine's words, and the engine wrote most of his 10-08 Arabic in English-ear Latin ('Ayan', 'Shui', 'rasa biwaja'); the second listen fixed the lines but made no Word Bank event, so 388 of his 508 Arabic words on 10-08 had no mark. After: 0. The 20 earlier lessons are counted (1,793 new credits, 686 repeats) and wait for Medi's yes (PR-05). Three gaps closed on 10-08 08:36 (his note 'soda is the femanine for aswad?. I dont understand the confusion with balbes ... I should get credit for all of thse'): a colour word's feminine / plural is her row (سودا = أسود, زرقا = أزرق); two rows of her list that are the same word (بلبس 'balbes' / 'ana balbes') are one word, not 'unclear'; a 'no' from her right after his line that the three readers did not turn into a slip on the word does not hold the word back. An older open-question patch (2026-09-28 audit) gives way to the judgment and is kept on it. APPLIED TO EVERY LESSON 2026-10-09 (Medi: 'you are making rules for all these right? to solve in the future and past'; word_coverage.FROM = 2026-08-25): 2,956 words of his across the 20 earlier lessons became Word Bank events (1,046 clips cut, the rest reuse a clip); Words % rose in every lesson (e.g. 09-18 31.8 -> 86.4, 09-04 75.0 -> 92.1).",
+   "plain": "Every Arabic word you say gets a mark: right, half, wrong, repeat, or a grey chip that says why it is not scored. This now holds for every lesson, past and future.",
+   "plain_for": "3328d7ff",
    "topic": "word scoring",
    "source": [
     {
@@ -9194,6 +9194,12 @@
      "by": "medi",
      "date": "2026-10-09",
      "quote": "soda is the femanine for aswad?. I dont understand the confusion with balbes, I wear a black shirt and light blue pants.. I should get credit for all of thse.",
+     "session": "f5d90041"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "you are making rules for all these right? to solve in the future and past",
      "session": "f5d90041"
     }
    ],
@@ -9236,9 +9242,9 @@
    "scope": "word-scoring",
    "status": "enforced",
    "change": "new",
-   "statement": "A word Medi says within 15 s after Amal GAVE it - her recast of his line, the fix a counted slip names, her answer to his 'how do I say', her typed chat line (scripts/word_coverage.py supplies()) - or his pure echo of her line, is a REPEAT: chip ↻ Repeat on the transcript, no credit, not a mistake (Word Bank immediate_repeat). Her own question wording ('شو اليوم؟') is not a fix: used in his own new answer it stays as before (3+ words independent, shorter half credit). From 2026-10-08 on; on 10-08: 70 word repeats (04:06 راسها / بيوجع after her 04:04 راسها بيوجع; 02:25 عيانة after her 02:22 recast). The 20 earlier lessons wait for Medi's yes (PR-05): there, 75 half credits (helped) and 105 full credits after her fix would become repeats.",
-   "plain": "A word you say right after the tutor gave it to you (her fix, her recast, her typed line) is a repeat: no credit, and not a mistake.",
-   "plain_for": "2252f98d",
+   "statement": "A word Medi says within 15 s after Amal GAVE it - her recast of his line, the fix a counted slip names, her answer to his 'how do I say', her typed chat line (scripts/word_coverage.py supplies()) - or his pure echo of her line, is a REPEAT: chip ↻ Repeat on the transcript, no credit, not a mistake (Word Bank immediate_repeat). Her own question wording ('شو اليوم؟') is not a fix: used in his own new answer it stays as before (3+ words independent, shorter half credit). From 2026-10-08 on; on 10-08: 70 word repeats (04:06 راسها / بيوجع after her 04:04 راسها بيوجع; 02:25 عيانة after her 02:22 recast). Earlier lessons: see below: there, 75 half credits (helped) and 105 full credits after her fix would become repeats. APPLIED TO EVERY LESSON 2026-10-09 (Medi: 'you are making rules for all these right? to solve in the future and past'; word_coverage.FROM = 2026-08-25): 1,246 word repeats across the 21 lessons.",
+   "plain": "A word you say right after the tutor gave it to you (her fix, her recast, her typed line) is a repeat: no credit, and not a mistake. Every lesson.",
+   "plain_for": "dd037f62",
    "topic": "word scoring",
    "source": [
     {
@@ -9251,6 +9257,12 @@
      "by": "medi",
      "date": "2026-10-09",
      "quote": "shouldnt count as correct it was a repeat.  Lets mark repeats as repeats",
+     "session": "f5d90041"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "you are making rules for all these right? to solve in the future and past",
      "session": "f5d90041"
     }
    ],
@@ -9288,9 +9300,9 @@
    "scope": "grammar-scoring",
    "status": "enforced",
    "change": "new",
-   "statement": "A grammar use on Medi's line whose words Amal gave him in the 30 s before (her correction or recast of his line, the fix a counted slip names, her answer to his 'how do I say' - word_coverage.supplies(); her questions are not fixes) is not a use: scripts/detect_grammar_usage.py grammar_repeat() lists it in not_uses_auto with repeat: true and the reason, and the transcript chip reads ↻ Repeat. The form must be hers letter for letter (el- counts): his wrong عيان again after her عيانة is the slip again, never her word - on 10-08 02:21 she fixed it a second time and that is its own A8 slip (his note). GR-28 (his own earlier line repeated) now shows as a repeat chip too. From 2026-10-08 on; on 10-08: 33 uses became repeats. The 20 earlier lessons wait for Medi's yes (PR-05): 489 uses there.",
-   "plain": "A grammar form you repeat right after the tutor corrected you is a repeat: it is not counted as a use.",
-   "plain_for": "1cd70311",
+   "statement": "A grammar use on Medi's line whose words Amal gave him in the 30 s before (her correction or recast of his line, the fix a counted slip names, her answer to his 'how do I say' - word_coverage.supplies(); her questions are not fixes) is not a use: scripts/detect_grammar_usage.py grammar_repeat() lists it in not_uses_auto with repeat: true and the reason, and the transcript chip reads ↻ Repeat. The form must be hers letter for letter (el- counts): his wrong عيان again after her عيانة is the slip again, never her word - on 10-08 02:21 she fixed it a second time and that is its own A8 slip (his note). GR-28 (his own earlier line repeated) now shows as a repeat chip too. From 2026-10-08 on; on 10-08: 33 uses became repeats. Earlier lessons: see below: 489 uses there. APPLIED TO EVERY LESSON 2026-10-09 (Medi: 'you are making rules for all these right? to solve in the future and past'; word_coverage.FROM = 2026-08-25): 883 grammar repeat chips across the 21 lessons (GR-28 repeats included); Grammar % fell 1-7 points per lesson (e.g. 09-05 84.1 -> 77.3).",
+   "plain": "A grammar form you repeat right after the tutor corrected you is a repeat: it is not counted as a use. Every lesson.",
+   "plain_for": "b516f722",
    "topic": "grammar scoring",
    "source": [
     {
@@ -9303,6 +9315,12 @@
      "by": "medi",
      "date": "2026-10-09",
      "quote": "shouldnt count as correct it was a repeat.  Lets mark repeats as repeats",
+     "session": "f5d90041"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "you are making rules for all these right? to solve in the future and past",
      "session": "f5d90041"
     }
    ],
@@ -9345,15 +9363,21 @@
    "scope": "grammar-scoring",
    "status": "enforced",
    "change": "new",
-   "statement": "When the tutor praises his line right after it - 'Excellent', 'Great job', 'Perfect', ممتاز, برافو, شاطر - within 8 s and before his next line, with no fix in between (no 'but / no / بس / لا', no Arabic word he did not say, not the slip's right form; echoing his own words is fine), he said it right: a reader's slip on that line is kept, rejected (scripts/full_audit_build.py apply_praise, rule GR-33). From 2026-10-08 on; on 10-08 it dropped 23:51 واحدة شمس (her 'Mm-hmm. واحدة.' then 'Great job.'). Her ممتاز at 32:41 came 40 s after the 32:00 بعيد slip, not right after, so that slip stays. The earlier lessons wait for Medi's yes (PR-05): 4 slips there (09-04 x2, 09-30 x2).",
-   "plain": "When the tutor praises your line right after it (Excellent, Great job, ممتاز), you said it right: no mistake there.",
-   "plain_for": "34abcc9f",
+   "statement": "When the tutor praises his line right after it - 'Excellent', 'Great job', 'Perfect', ممتاز, برافو, شاطر - within 8 s and before his next line, with no fix in between (no 'but / no / بس / لا', no Arabic word he did not say, not the slip's right form; echoing his own words is fine), he said it right: a reader's slip on that line is kept, rejected (scripts/full_audit_build.py apply_praise, rule GR-33). From 2026-10-08 on; on 10-08 it dropped 23:51 واحدة شمس (her 'Mm-hmm. واحدة.' then 'Great job.'). Her ممتاز at 32:41 came 40 s after the 32:00 بعيد slip, not right after, so that slip stays. Earlier lessons: see below: 4 slips there (09-04 x2, 09-30 x2). APPLIED TO EVERY LESSON 2026-10-09 (Medi: 'you are making rules for all these right? to solve in the future and past'; word_coverage.FROM = 2026-08-25): the 4 earlier slips (09-04 x2, 09-30 x2) are dropped too.",
+   "plain": "When the tutor praises your line right after it (Excellent, Great job, ممتاز), you said it right: no mistake there. Every lesson.",
+   "plain_for": "2499c61d",
    "topic": "grammar scoring",
    "source": [
     {
      "by": "medi",
      "date": "2026-10-09",
      "quote": "if she is saying praises like excellent or great jobs you can assume I said it right",
+     "session": "f5d90041"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "you are making rules for all these right? to solve in the future and past",
      "session": "f5d90041"
     }
    ],
@@ -9490,6 +9514,107 @@
     "date": "2026-10-08",
     "t": "11:45",
     "note": "Amal: على. بدير بالي takes على. showed ''ala', now 3ala"
+   }
+  },
+  {
+   "id": "PG-40",
+   "kind": "process",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Every line of the lesson transcript that holds Arabic (Arabic script, or his Latin-letter Arabic the Arabizi reader reads) shows one natural English sentence of what was said, small under the line (Medi chose 'whole sentence' over word-by-word). Made by Claude Haiku through the Claude command line, 60 lines a call (scripts/translate_lines.py, logged in data/runs), cached per line text in data/lesson-work/translations/<date>.json so a line is translated again only when its text changes; the student's meaning is translated even when his Arabic has a slip. Every new lesson gets it in the same-day review (scripts/review_lesson.py step 6) and scripts/build_lessons_page_data.py puts it on the turn as 'en'. Display only: nothing is scored from it. ANEES_TRANSLATE=off stops it.",
+   "plain": "Every Arabic line on the lesson transcript has its English translation underneath.",
+   "plain_for": "f9afa2f1",
+   "topic": "the lessons page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "Lets add all the english transaltions below the arabic writing",
+     "session": "f5d90041"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "Whole sentence (Recommended)",
+     "session": "f5d90041"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/translate_lines.py",
+     "contains": "def attach(date, turns):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/review_lesson.py",
+     "contains": "py(os.path.join(HERE, \"translate_lines.py\"), d, check=False)"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "if (t.en) main.appendChild(el('div', 'ls-line-en', t.en));"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_pg_40_every_arabic_line_of_10_08_has_its_english_under_it"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "08:36",
+    "note": "اليوم بلبس بلوزة سودا ... -> 'Today I'm wearing a black shirt ...'"
+   }
+  },
+  {
+   "id": "WS-32",
+   "kind": "process",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Subject pronouns (أنا ana, إنت inta, إنتي inti, هو huwwe, هي heyye, إحنا e7na, إنتو intu, هم humme) are never judged words: no chip, no credit, no 'not on her list' (scripts/word_coverage.py is_pronoun; he knows them). And راح is read from the word after it: before a verb (أعمله, بنقلق) it is her ra7 'will', otherwise her raa7 'he went' - never 'unclear'. 10-08 15:36 also: the engine wrote his غلط 8ala6 (on her list: 'Wrong / Mistake') as قلات; his heard-word row fixes the line and the word is judged.",
+   "plain": "Pronouns like ana, inta, heyye are never marked: you know them. Raa7 (went) and ra7 (will) are told apart by the next word.",
+   "plain_for": "4d215ea1",
+   "topic": "word scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "Lets leave out all the anna inti inta heyya huwwe humme e7na we can assume I know these always.",
+     "session": "f5d90041"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "8ala6 isnt on the list? if not why isnt it being marked as a new word? it shouyld be on her list",
+     "session": "f5d90041"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def is_pronoun(w):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "set(key) == {\"ra7\", \"rA7\"}"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_ws_32_pronouns_are_never_judged_and_ra7_is_read_from_the_next_word"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "15:36",
+    "note": "أنا راح أعمله غلط كتير: no chip on أنا, راح = ra7 (will), غلط = 8ala6"
    }
   }
  ]

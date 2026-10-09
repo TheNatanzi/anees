@@ -745,6 +745,7 @@ function tmRow(x, t, m, i) {
   r.appendChild(h);
   var main = el('div', 'tm-main');
   main.appendChild(speech('ls-turntext', TMK.underlined(t.text, m.u), null));
+  if (t.en) main.appendChild(el('div', 'ls-line-en', t.en));    // PG-40: the English of the line, under the Arabic
   heardNote(main, t, toArabizi);
   var chips = el('div', 'tm-chips');
   (m.c || []).forEach(function (c) {

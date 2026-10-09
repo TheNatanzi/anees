@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-09T13:31:26-07:00",
+ "updated": "2026-10-09T14:27:45-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -57,29 +57,29 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 67,
-    "right": 70,
+    "unique": 113,
+    "right": 166,
     "wrong": 19,
-    "partial": 5,
-    "pct": 77.1,
-    "scored": 94,
+    "partial": 8,
+    "pct": 88.1,
+    "scored": 193,
     "audit_wrong": 14,
     "audit_partial": 4,
     "not_on_sheet": 4,
     "first_read_cards": 2,
     "rehear_word_conflicts": 0,
-    "unique_rows": 67,
-    "eligible": 94,
+    "unique_rows": 112,
+    "eligible": 193,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 77.1,
+    "eligible_pct": 88.1,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 271,
+    "uses": 220,
     "mistakes": 33,
-    "pct": 90.4,
+    "pct": 88.2,
     "estimate": false,
     "scored_mistakes": 26,
     "unscored_mistakes": 7,
@@ -92,15 +92,17 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "7 slips are in rules the counter found 0 uses of in this lesson",
-      "4 rules have more slips than counted uses (A12, B18, C12, D2)"
+      "9 slips are in rules the counter found 0 uses of in this lesson",
+      "6 rules have more slips than counted uses (A12, A7, B16, B18, C12, D2)"
      ],
-     "uses": 252,
+     "uses": 200,
      "slips": 33,
      "slips_latin": 5,
-     "slips_in_zero_use_rules": 7,
+     "slips_in_zero_use_rules": 9,
      "rules_slips_over_uses": [
       "A12",
+      "A7",
+      "B16",
       "B18",
       "C12",
       "D2"
@@ -171,7 +173,8 @@
     "fillers: the page turns carry 16 of the 167 filled pauses the engine words hold, so fillers.per_min is not comparable with lessons whose pages keep them.",
     "2 question(s) of the new read sit at a moment Amal already ruled on (14:08): they wait for Medi, not for her (owner-review.json).",
     "7 slip(s) here come from the first read only (5 grammar, 2 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
-    "1 slips may be counted twice (same slip written in Arabic and in English letters)."
+    "1 slips may be counted twice (same slip written in Arabic and in English letters).",
+    "one ledger (LS-11): 3 moment(s) where two judges disagreed were settled by the existing rules: 08:50 Word Bank said right, Amal said no to that word: her no counts; 22:48 Word Bank said right, Amal said no to that word: her no counts; 52:21 Word Bank said right, Amal said no to that word: her no counts."
    ],
    "page": "lessons/2026-08-25.html",
    "detail": "data/lessons/2026-08-25.json",
@@ -186,7 +189,7 @@
     "turns": 623,
     "chat_lines": 0,
     "vocab_errors": 27,
-    "vocab_correct": 71,
+    "vocab_correct": 170,
     "grammar_errors": 33,
     "grammar_not_counted": 1
    },
@@ -203,9 +206,9 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-08-25.json",
-    "marks": 382,
-    "conflicts": 0,
-    "resolved": 0,
+    "marks": 484,
+    "conflicts": 4,
+    "resolved": 3,
     "needs_medi": 0,
     "mode": "on",
     "items": []
@@ -280,49 +283,50 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 20,
-    "right": 13,
+    "unique": 51,
+    "right": 66,
     "wrong": 2,
-    "partial": 7,
-    "pct": 75.0,
-    "scored": 22,
+    "partial": 8,
+    "pct": 92.1,
+    "scored": 76,
     "audit_wrong": 2,
     "audit_partial": 7,
     "not_on_sheet": 7,
     "first_read_cards": 0,
     "rehear_word_conflicts": 0,
-    "unique_rows": 20,
-    "eligible": 22,
+    "unique_rows": 48,
+    "eligible": 76,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 75.0,
+    "eligible_pct": 92.1,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 139,
-    "mistakes": 44,
-    "pct": 74.1,
+    "uses": 113,
+    "mistakes": 43,
+    "pct": 69.0,
     "estimate": false,
-    "scored_mistakes": 36,
+    "scored_mistakes": 35,
     "unscored_mistakes": 8,
     "provisional": "re-read, but the recording has no separate microphone track, so almost no line was re-heard; 9 of its slips come from the first read only and wait for a check",
     "first_read_cards": 9,
     "maybe_counted_twice": 5,
-    "eligible": 43,
+    "eligible": 42,
     "excluded": 1,
     "pending": 2,
     "denominator": {
      "valid": false,
      "reasons": [
       "17 slips are in rules the counter found 0 uses of in this lesson",
-      "7 rules have more slips than counted uses (A2, A3, A7, B18, B5, C10, D2)"
+      "8 rules have more slips than counted uses (A10, A2, A3, A7, B18, B5, C10, D2)"
      ],
-     "uses": 108,
-     "slips": 44,
+     "uses": 82,
+     "slips": 43,
      "slips_latin": 24,
      "slips_in_zero_use_rules": 17,
      "rules_slips_over_uses": [
+      "A10",
       "A2",
       "A3",
       "A7",
@@ -413,7 +417,7 @@
    "coverage": "English-only stretch 11:00-20:30 (AI / transcription talk). Latin-transliterated Arabic 12:27-13:25, 20:31-27:00 and 28:22-1:00:46 (the whole basat / inbasat drill); Arabic script only at the start and after 1:00:53. Honey-seller interruption 22:49-25:00 (English, not lesson). Many of Medi's lines are split onto '?:' lines (e.g. 01:52/01:55 'أنا لقيت الطريق منيح كتير', 04:44, 36:05 'بساتِتك. بَسْتَكْ.' is Amal). Possible swapped label: 25:29 'Amal: Ma biheb asal lana kateer' reads like Medi (I don't like honey alone much). 25:05-25:15 garbled Latin (bihna binkhales al-asal / ahana shay na'na' ma asal mufrad) - not judged. 38:37 he said بسطته (basatto = I made him happy), she echoed 'Basato. Basato.' - unclear, not judged. echo: 'Luka. Software luka.' (00:59) = لغة; 'Qwaad?' / 'quad' (07:34, 07:43) = قواعد; 'Bas,' (12:27) = بس; 'ban biscuit' (58:36) = بنبسط; 'Babysit.' (31:07, Amal) = ببسط; 'Investii' (59:45) = انبسطي; 'embaixoet' (53:13) = انبسطت. 'How' (00:55) and 'Work.' (42:45) are real English. 00:39 'software لقة' (software-language, English word order) left unfiled: he broke off to ask the word. Root-letter slips بنسبت / بسبت for بنبسط / ببسط (21:08, 32:30, 34:21, 56:04, 1:01:34) treated as S4 pronunciation, not filed. Vowel-length drills (beset/basat 29:37, imbestu/imbasatu 51:42) = F2, not filed. 'Kam marra?' 28:29 = kaman marra, not filed. / Lesson = 30 min AI/method talk + the bast/anbasat verb drill. English-only stretches: 13:25-20:30 (AI tooling talk, no Arabic from him), 22:49-25:00 beekeeper at the door (a third person's English lines are labelled Amal/Medi), 45:39-50:30 mostly English (Renata on the phone). Latin-transliterated Arabic stretches: 12:27-13:20, 20:31-30:00, 36:37-42:59, 45:12-1:00:37 (most of the conjugation drill is in Latin; his forms are often engine-mangled: 'biscuit' = بنبسط, 'button visit' = بتنبسط, 'been visit' = بينبسط, 'In beastie' = انبسطي, 'embaixoet' = انبسطت). Speaker labels: 36:05 '?: بساتِتك. بَسْتَكْ.' is Amal; 52:24-52:27 are swapped (Amal said 'No, that's sah'); many '?' lines are continuations of the previous speaker. echo: 'Babysit.' (31:07, Amal) = ببسط; 'Investii' (59:45, Medi) = انبسطي; 'bihna binkhales al-asal' (25:05) = بحب العسل (her echo 'Bihteb asal?'); 'Luka. Software luka.' (00:59) = لغة; 'Qwaad' (07:34) = قواعد; 'Bas, il, wait, el wajib' (12:27) is his Latin Arabic (بس الواجب). Not written as slips: 00:13 عمام = تمام (engine); 04:47 Spanish -> إسباني self-fix; 05:28 أكتب -> 05:32 احكي self-fix; 07:45 دورة self-rejected ('no that's your turn'); 09:42 'ذكي؟' confirm question; 09:46 'لما الـ سؤال ما عنده جواب' Amal said صحيح then rephrased with يكون (valid, re-phrase only); 28:29 and 28:56 'Kam marra?' = kaman marra (again?) - she repeats herself; 29:35 beset/besat, 30:35 بسّتني/بسطني, 51:37 inbashatat, 55:22 'you stressed on the T' = pronunciation (S4/F2); 51:42 hume imbestu -> imbasatu self-fixed before her word; 56:04 'ban sebet'/'bansabet' for بنبسط = root-letter swap (S4, brief example); 44:55 'go have fun with them' never attempted in Arabic; 50:43 nabasit/nabasat and 59:21 'in basit?' are questions about the form; 1:01:32 'إلي right? No' question answered no illi; 36:54 ابسطه question about the a- variant. English words not on her sheet (not tier 3): nerd, software, research, test, tips, grammar (asked -> row), possibility, computer program, AI, Quizlet.",
    "notes": [
     "timings: one mixed recording, speakers labelled by the engine's diarization (words_labeled.json)",
-    "grammar: 8 of the 44 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "grammar: 8 of the 43 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
     "Grammar % is provisional: re-read, but the recording has no separate microphone track, so almost no line was re-heard.",
     "fillers: the page turns carry 8 of the 129 filled pauses the engine words hold, so fillers.per_min is not comparable with lessons whose pages keep them.",
     "4 question(s) of the new read sit at a moment Amal already ruled on (02:46, 03:01, 04:28, 20:51): they wait for Medi, not for her (owner-review.json).",
@@ -433,8 +437,8 @@
     "turns": 1395,
     "chat_lines": 0,
     "vocab_errors": 16,
-    "vocab_correct": 13,
-    "grammar_errors": 44,
+    "vocab_correct": 67,
+    "grammar_errors": 43,
     "grammar_not_counted": 5
    },
    "owner_review": [
@@ -473,8 +477,8 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-04.json",
-    "marks": 186,
-    "conflicts": 0,
+    "marks": 239,
+    "conflicts": 1,
     "resolved": 0,
     "needs_medi": 0,
     "mode": "on",
@@ -551,29 +555,29 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 33,
-    "right": 35,
+    "unique": 50,
+    "right": 84,
     "wrong": 7,
     "partial": 5,
-    "pct": 79.8,
-    "scored": 47,
+    "pct": 90.1,
+    "scored": 96,
     "audit_wrong": 4,
     "audit_partial": 3,
     "not_on_sheet": 2,
     "first_read_cards": 0,
     "rehear_word_conflicts": 0,
-    "unique_rows": 33,
-    "eligible": 47,
+    "unique_rows": 45,
+    "eligible": 96,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 79.8,
+    "eligible_pct": 90.1,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 201,
+    "uses": 141,
     "mistakes": 37,
-    "pct": 84.1,
+    "pct": 77.3,
     "estimate": false,
     "scored_mistakes": 32,
     "unscored_mistakes": 5,
@@ -589,7 +593,7 @@
       "15 slips are in rules the counter found 0 uses of in this lesson",
       "8 rules have more slips than counted uses (A3, B18, B6, C1, C4, C9, D2, F3)"
      ],
-     "uses": 174,
+     "uses": 114,
      "slips": 37,
      "slips_latin": 17,
      "slips_in_zero_use_rules": 15,
@@ -693,14 +697,14 @@
     "turns": 833,
     "chat_lines": 0,
     "vocab_errors": 12,
-    "vocab_correct": 37,
+    "vocab_correct": 86,
     "grammar_errors": 37,
     "grammar_not_counted": 1
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-05.json",
-    "marks": 265,
-    "conflicts": 1,
+    "marks": 314,
+    "conflicts": 3,
     "resolved": 0,
     "needs_medi": 0,
     "mode": "on",
@@ -777,29 +781,29 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 67,
-    "right": 91,
+    "unique": 99,
+    "right": 172,
     "wrong": 14,
-    "partial": 5,
-    "pct": 85.0,
-    "scored": 110,
+    "partial": 6,
+    "pct": 91.1,
+    "scored": 192,
     "audit_wrong": 8,
     "audit_partial": 4,
     "not_on_sheet": 6,
     "first_read_cards": 1,
     "rehear_word_conflicts": 0,
-    "unique_rows": 65,
-    "eligible": 110,
+    "unique_rows": 92,
+    "eligible": 192,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 85.0,
+    "eligible_pct": 91.1,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 251,
+    "uses": 217,
     "mistakes": 43,
-    "pct": 86.1,
+    "pct": 83.9,
     "estimate": false,
     "scored_mistakes": 35,
     "unscored_mistakes": 8,
@@ -815,7 +819,7 @@
       "14 slips are in rules the counter found 0 uses of in this lesson",
       "6 rules have more slips than counted uses (A7, B18, B2, C7, D2, E1)"
      ],
-     "uses": 235,
+     "uses": 198,
      "slips": 43,
      "slips_latin": 2,
      "slips_in_zero_use_rules": 14,
@@ -903,7 +907,9 @@
     "grammar: 8 of the 43 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
     "2 question(s) of the new read sit at a moment Amal already ruled on (07:32, 08:30): they wait for Medi, not for her (owner-review.json).",
     "6 slip(s) here come from the first read only (5 grammar, 1 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
-    "2 slips may be counted twice (same slip written in Arabic and in English letters)."
+    "2 slips may be counted twice (same slip written in Arabic and in English letters).",
+    "one ledger (LS-11): 2 moment(s) where two judges disagreed were settled by the existing rules: 29:46 Word Bank said right, Amal said no to that word: her no counts; 52:36 Word Bank said right, Amal said no to that word: her no counts.",
+    "1 moment(s) wait for Medi (counted as before until he picks): 07:08."
    ],
    "page": "lessons/2026-09-10.html",
    "detail": "data/lessons/2026-09-10.json",
@@ -918,7 +924,7 @@
     "turns": 970,
     "chat_lines": 0,
     "vocab_errors": 24,
-    "vocab_correct": 92,
+    "vocab_correct": 174,
     "grammar_errors": 43,
     "grammar_not_counted": 1
    },
@@ -942,12 +948,43 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-10.json",
-    "marks": 398,
-    "conflicts": 1,
-    "resolved": 0,
-    "needs_medi": 0,
+    "marks": 484,
+    "conflicts": 6,
+    "resolved": 2,
+    "needs_medi": 1,
     "mode": "on",
-    "items": []
+    "items": [
+     {
+      "id": "C1q-441cf74f93",
+      "kind": "C1q",
+      "t": 428.27,
+      "mmss": "07:08",
+      "line": "سـ... تلات إلا نـ... إلا تلت.",
+      "question": "Was «تلات» wrong here?",
+      "options": [
+       "wrong",
+       "other",
+       "none"
+      ],
+      "now": "both judgments count as before until Amal answers",
+      "also": [],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "تلات",
+       "word_key": "talat"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "not-scored",
+       "wrong": "تلات إلا تلت",
+       "fix": "تنتين إلا تلت",
+       "bucket": null,
+       "signal": "prompt-then-fix"
+      },
+      "ask": "amal"
+     }
+    ]
    },
    "release": {
     "status": "not verified",
@@ -1019,29 +1056,29 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 51,
-    "right": 55,
+    "unique": 94,
+    "right": 151,
     "wrong": 9,
-    "partial": 4,
-    "pct": 83.8,
-    "scored": 68,
+    "partial": 5,
+    "pct": 93.0,
+    "scored": 165,
     "audit_wrong": 7,
     "audit_partial": 3,
     "not_on_sheet": 1,
     "first_read_cards": 1,
     "rehear_word_conflicts": 0,
-    "unique_rows": 51,
-    "eligible": 68,
+    "unique_rows": 92,
+    "eligible": 165,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 83.8,
+    "eligible_pct": 93.0,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 207,
+    "uses": 183,
     "mistakes": 42,
-    "pct": 81.6,
+    "pct": 79.2,
     "estimate": false,
     "scored_mistakes": 38,
     "unscored_mistakes": 4,
@@ -1054,13 +1091,13 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "14 slips are in rules the counter found 0 uses of in this lesson",
+      "16 slips are in rules the counter found 0 uses of in this lesson",
       "8 rules have more slips than counted uses (A11, A2, A3, A7, A9, B18, B3, C2)"
      ],
-     "uses": 175,
+     "uses": 150,
      "slips": 42,
      "slips_latin": 12,
-     "slips_in_zero_use_rules": 14,
+     "slips_in_zero_use_rules": 16,
      "rules_slips_over_uses": [
       "A11",
       "A2",
@@ -1142,7 +1179,7 @@
     "1 question(s) of the new read sit at a moment Amal already ruled on (06:48): they wait for Medi, not for her (owner-review.json).",
     "7 slip(s) here come from the first read only (6 grammar, 1 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
     "2 slips may be counted twice (same slip written in Arabic and in English letters).",
-    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 09:30 one slip was counted twice (word + grammar): counted once, as grammar."
+    "one ledger (LS-11): 2 moment(s) where two judges disagreed were settled by the existing rules: 06:30 Word Bank said right, Amal said no to that word: her no counts; 09:30 one slip was counted twice (word + grammar): counted once, as grammar."
    ],
    "page": "lessons/2026-09-11.html",
    "detail": "data/lessons/2026-09-11.json",
@@ -1157,7 +1194,7 @@
     "turns": 937,
     "chat_lines": 0,
     "vocab_errors": 13,
-    "vocab_correct": 56,
+    "vocab_correct": 153,
     "grammar_errors": 42,
     "grammar_not_counted": 0
    },
@@ -1173,9 +1210,9 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-11.json",
-    "marks": 297,
-    "conflicts": 1,
-    "resolved": 1,
+    "marks": 396,
+    "conflicts": 3,
+    "resolved": 2,
     "needs_medi": 0,
     "mode": "on",
     "items": []
@@ -1393,29 +1430,29 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 53,
-    "right": 65,
+    "unique": 101,
+    "right": 177,
     "wrong": 5,
-    "partial": 1,
-    "pct": 92.3,
-    "scored": 71,
+    "partial": 3,
+    "pct": 96.5,
+    "scored": 185,
     "audit_wrong": 3,
     "audit_partial": 1,
     "not_on_sheet": 5,
     "first_read_cards": 2,
     "rehear_word_conflicts": 0,
-    "unique_rows": 49,
-    "eligible": 71,
+    "unique_rows": 93,
+    "eligible": 185,
     "excluded": 0,
     "pending": 1,
-    "eligible_pct": 92.3,
+    "eligible_pct": 96.5,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 203,
+    "uses": 170,
     "mistakes": 44,
-    "pct": 79.8,
+    "pct": 75.9,
     "estimate": false,
     "scored_mistakes": 41,
     "unscored_mistakes": 3,
@@ -1427,18 +1464,20 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "6 slips are in rules the counter found 0 uses of in this lesson",
-      "6 rules have more slips than counted uses (A9, B18, B2, B7, D2, E1)"
+      "7 slips are in rules the counter found 0 uses of in this lesson",
+      "8 rules have more slips than counted uses (A9, B18, B2, B5, B7, C7, D2, E1)"
      ],
-     "uses": 168,
+     "uses": 134,
      "slips": 44,
      "slips_latin": 8,
-     "slips_in_zero_use_rules": 6,
+     "slips_in_zero_use_rules": 7,
      "rules_slips_over_uses": [
       "A9",
       "B18",
       "B2",
+      "B5",
       "B7",
+      "C7",
       "D2",
       "E1"
      ]
@@ -1520,7 +1559,8 @@
    "notes": [
     "grammar: 3 of the 44 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
     "6 slip(s) here come from the first read only (4 grammar, 2 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
-    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 08:16 one slip was counted twice (word + grammar): counted once, as grammar."
+    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 08:16 one slip was counted twice (word + grammar): counted once, as grammar.",
+    "1 moment(s) wait for Medi (counted as before until he picks): 24:44."
    ],
    "page": "lessons/2026-09-14.html",
    "detail": "data/lessons/2026-09-14.json",
@@ -1535,18 +1575,50 @@
     "turns": 996,
     "chat_lines": 45,
     "vocab_errors": 11,
-    "vocab_correct": 65,
+    "vocab_correct": 179,
     "grammar_errors": 44,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-14.json",
-    "marks": 297,
-    "conflicts": 1,
+    "marks": 411,
+    "conflicts": 4,
     "resolved": 1,
-    "needs_medi": 0,
+    "needs_medi": 1,
     "mode": "on",
-    "items": []
+    "items": [
+     {
+      "id": "C1q-cf9073af3c",
+      "kind": "C1q",
+      "t": 1483.7,
+      "mmss": "24:44",
+      "line": "م-م-من شاف، من شاف؟ Try.",
+      "question": "Which of Medi's words was wrong here?",
+      "options": [
+       "من",
+       "شاف",
+       "other",
+       "none"
+      ],
+      "now": "both judgments count as before until Amal answers",
+      "also": [],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "شاف",
+       "word_key": "ana bashuf"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "wrong",
+       "wrong": "من شاف",
+       "fix": "ناشف",
+       "bucket": null,
+       "signal": "recast"
+      },
+      "ask": "amal"
+     }
+    ]
    },
    "release": {
     "status": "not verified",
@@ -1617,28 +1689,28 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 42,
-    "right": 42,
+    "unique": 104,
+    "right": 153,
     "wrong": 5,
-    "partial": 4,
-    "pct": 86.3,
-    "scored": 51,
+    "partial": 7,
+    "pct": 94.8,
+    "scored": 165,
     "audit_wrong": 4,
     "audit_partial": 2,
     "first_read_cards": 0,
     "rehear_word_conflicts": 0,
-    "unique_rows": 42,
-    "eligible": 51,
+    "unique_rows": 97,
+    "eligible": 165,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 86.3,
+    "eligible_pct": 94.8,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 231,
+    "uses": 197,
     "mistakes": 44,
-    "pct": 82.7,
+    "pct": 79.7,
     "estimate": false,
     "scored_mistakes": 40,
     "unscored_mistakes": 4,
@@ -1651,19 +1723,20 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "8 slips are in rules the counter found 0 uses of in this lesson",
-      "5 rules have more slips than counted uses (B16, B18, B2, D2, D4)"
+      "9 slips are in rules the counter found 0 uses of in this lesson",
+      "6 rules have more slips than counted uses (B16, B18, B2, D2, D4, E5)"
      ],
-     "uses": 198,
+     "uses": 164,
      "slips": 44,
      "slips_latin": 5,
-     "slips_in_zero_use_rules": 8,
+     "slips_in_zero_use_rules": 9,
      "rules_slips_over_uses": [
       "B16",
       "B18",
       "B2",
       "D2",
-      "D4"
+      "D4",
+      "E5"
      ]
     },
     "verified_pct": null
@@ -1765,7 +1838,7 @@
     "turns": 1025,
     "chat_lines": 72,
     "vocab_errors": 7,
-    "vocab_correct": 44,
+    "vocab_correct": 158,
     "grammar_errors": 44,
     "grammar_not_counted": 1
    },
@@ -1781,7 +1854,7 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-15.json",
-    "marks": 293,
+    "marks": 407,
     "conflicts": 1,
     "resolved": 1,
     "needs_medi": 0,
@@ -1904,31 +1977,32 @@
     ]
    },
    "words": {
-    "unique": 38,
-    "right": 33,
+    "unique": 95,
+    "right": 146,
     "wrong": 9,
-    "partial": 4,
-    "pct": 76.1,
-    "scored": 46,
+    "partial": 6,
+    "pct": 92.5,
+    "scored": 161,
     "audit_wrong": 7,
     "audit_partial": 4,
     "not_on_sheet": 1,
     "first_read_cards": 3,
     "rehear_word_conflicts": 0,
-    "unique_rows": 38,
-    "eligible": 43,
-    "excluded": 3,
+    "unique_rows": 88,
+    "eligible": 155,
+    "excluded": 6,
     "pending": 0,
-    "eligible_pct": 79.1,
+    "eligible_pct": 93.5,
     "excluded_why": {
+     "Medi's speech": 3,
      "his line": 3
     },
     "verified_pct": null
    },
    "grammar": {
-    "uses": 227,
+    "uses": 213,
     "mistakes": 35,
-    "pct": 86.8,
+    "pct": 85.9,
     "estimate": false,
     "scored_mistakes": 30,
     "unscored_mistakes": 5,
@@ -1941,19 +2015,20 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "8 slips are in rules the counter found 0 uses of in this lesson",
-      "6 rules have more slips than counted uses (A12, B12, B13, B16, B18, C9)"
+      "10 slips are in rules the counter found 0 uses of in this lesson",
+      "7 rules have more slips than counted uses (A12, B12, B13, B16, B18, C10, C9)"
      ],
-     "uses": 200,
+     "uses": 186,
      "slips": 35,
      "slips_latin": 11,
-     "slips_in_zero_use_rules": 8,
+     "slips_in_zero_use_rules": 10,
      "rules_slips_over_uses": [
       "A12",
       "B12",
       "B13",
       "B16",
       "B18",
+      "C10",
       "C9"
      ]
     },
@@ -2131,7 +2206,8 @@
     "grammar: 5 of the 35 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
     "1 question(s) of the new read sit at a moment Amal already ruled on (46:42): they wait for Medi, not for her (owner-review.json).",
     "9 slip(s) here come from the first read only (6 grammar, 3 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
-    "1 slips may be counted twice (same slip written in Arabic and in English letters)."
+    "1 slips may be counted twice (same slip written in Arabic and in English letters).",
+    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 19:23 Word Bank said right, Amal said no to that word: her no counts."
    ],
    "page": "lessons/2026-09-16.html",
    "detail": "data/lessons/2026-09-16.json",
@@ -2146,7 +2222,7 @@
     "turns": 976,
     "chat_lines": 69,
     "vocab_errors": 14,
-    "vocab_correct": 33,
+    "vocab_correct": 148,
     "grammar_errors": 35,
     "grammar_not_counted": 1
    },
@@ -2162,9 +2238,9 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-16.json",
-    "marks": 286,
-    "conflicts": 2,
-    "resolved": 0,
+    "marks": 402,
+    "conflicts": 3,
+    "resolved": 1,
     "needs_medi": 0,
     "mode": "on",
     "items": []
@@ -2413,29 +2489,29 @@
     ]
    },
    "words": {
-    "unique": 41,
-    "right": 49,
+    "unique": 83,
+    "right": 118,
     "wrong": 6,
-    "partial": 1,
-    "pct": 88.4,
-    "scored": 56,
+    "partial": 2,
+    "pct": 94.4,
+    "scored": 126,
     "audit_wrong": 6,
     "audit_partial": 1,
     "not_on_sheet": 1,
     "first_read_cards": 2,
     "rehear_word_conflicts": 0,
-    "unique_rows": 41,
-    "eligible": 56,
+    "unique_rows": 81,
+    "eligible": 126,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 88.4,
+    "eligible_pct": 94.4,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 220,
+    "uses": 186,
     "mistakes": 37,
-    "pct": 84.5,
+    "pct": 81.7,
     "estimate": false,
     "scored_mistakes": 34,
     "unscored_mistakes": 3,
@@ -2448,13 +2524,13 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "5 slips are in rules the counter found 0 uses of in this lesson",
+      "7 slips are in rules the counter found 0 uses of in this lesson",
       "4 rules have more slips than counted uses (B18, B7, C2, D2)"
      ],
-     "uses": 192,
+     "uses": 158,
      "slips": 37,
      "slips_latin": 13,
-     "slips_in_zero_use_rules": 5,
+     "slips_in_zero_use_rules": 7,
      "rules_slips_over_uses": [
       "B18",
       "B7",
@@ -2642,13 +2718,13 @@
     "turns": 958,
     "chat_lines": 41,
     "vocab_errors": 8,
-    "vocab_correct": 49,
+    "vocab_correct": 119,
     "grammar_errors": 37,
     "grammar_not_counted": 1
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-17.json",
-    "marks": 287,
+    "marks": 357,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,
@@ -2811,29 +2887,29 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 11,
-    "right": 2,
+    "unique": 40,
+    "right": 49,
     "wrong": 6,
-    "partial": 3,
-    "pct": 31.8,
-    "scored": 11,
+    "partial": 4,
+    "pct": 86.4,
+    "scored": 59,
     "audit_wrong": 6,
     "audit_partial": 3,
     "not_on_sheet": 2,
     "first_read_cards": 4,
     "rehear_word_conflicts": 0,
-    "unique_rows": 11,
-    "eligible": 11,
+    "unique_rows": 38,
+    "eligible": 59,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 31.8,
+    "eligible_pct": 86.4,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 131,
+    "uses": 116,
     "mistakes": 33,
-    "pct": 78.6,
+    "pct": 75.9,
     "estimate": false,
     "scored_mistakes": 28,
     "unscored_mistakes": 5,
@@ -2849,7 +2925,7 @@
       "14 slips are in rules the counter found 0 uses of in this lesson",
       "5 rules have more slips than counted uses (A12, B12, B18, B3, D2)"
      ],
-     "uses": 104,
+     "uses": 89,
      "slips": 33,
      "slips_latin": 21,
      "slips_in_zero_use_rules": 14,
@@ -2952,7 +3028,8 @@
     "Grammar % is provisional: re-read, but the recording has no separate microphone track, so almost no line was re-heard.",
     "15 slip(s) here come from the first read only (11 grammar, 4 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
     "4 slips may be counted twice (same slip written in Arabic and in English letters).",
-    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 01:25 one slip was counted twice (word + grammar): counted once, as grammar."
+    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 01:25 one slip was counted twice (word + grammar): counted once, as grammar.",
+    "1 moment(s) wait for Medi (counted as before until he picks): 43:32."
    ],
    "page": "lessons/2026-09-18.html",
    "detail": "data/lessons/2026-09-18.json",
@@ -2967,18 +3044,49 @@
     "turns": 962,
     "chat_lines": 66,
     "vocab_errors": 11,
-    "vocab_correct": 2,
+    "vocab_correct": 50,
     "grammar_errors": 33,
     "grammar_not_counted": 1
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-18.json",
-    "marks": 153,
-    "conflicts": 2,
+    "marks": 201,
+    "conflicts": 4,
     "resolved": 1,
-    "needs_medi": 0,
+    "needs_medi": 1,
     "mode": "on",
-    "items": []
+    "items": [
+     {
+      "id": "C1q-4564e71deb",
+      "kind": "C1q",
+      "t": 2611.99,
+      "mmss": "43:32",
+      "line": "Mudira.",
+      "question": "Was «Mudira» wrong here?",
+      "options": [
+       "wrong",
+       "other",
+       "none"
+      ],
+      "now": "both judgments count as before until Amal answers",
+      "also": [],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "Mudira",
+       "word_key": "mudIr"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "wrong",
+       "wrong": "Mudira",
+       "fix": "مدير (mudeer)",
+       "bucket": null,
+       "signal": "recast"
+      },
+      "ask": "amal"
+     }
+    ]
    },
    "release": {
     "status": "not verified",
@@ -3050,30 +3158,30 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 28,
-    "right": 21,
+    "unique": 52,
+    "right": 68,
     "wrong": 9,
-    "partial": 3,
-    "pct": 68.2,
-    "scored": 33,
+    "partial": 4,
+    "pct": 86.4,
+    "scored": 81,
     "audit_wrong": 8,
     "audit_partial": 3,
     "not_an_error": 1,
     "not_on_sheet": 3,
     "first_read_cards": 3,
     "rehear_word_conflicts": 0,
-    "unique_rows": 28,
-    "eligible": 33,
+    "unique_rows": 52,
+    "eligible": 81,
     "excluded": 0,
     "pending": 1,
-    "eligible_pct": 68.2,
+    "eligible_pct": 86.4,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 73,
+    "uses": 61,
     "mistakes": 3,
-    "pct": 95.9,
+    "pct": 95.1,
     "estimate": false,
     "scored_mistakes": 3,
     "unscored_mistakes": 0,
@@ -3084,7 +3192,7 @@
     "denominator": {
      "valid": true,
      "reasons": [],
-     "uses": 71,
+     "uses": 59,
      "slips": 3,
      "slips_latin": 0,
      "slips_in_zero_use_rules": 0,
@@ -3142,7 +3250,8 @@
    "coverage": "Opening 00:00-06:26 is English chat about a song (Amal's Arabic shows as '[foreign language]'); speaking practice 06:28-10:40 (date, time, weather, clothes); 10:40-1:00:35 is a listening/translation drill of make-X vs get-X verbs (Amal says Arabic, Medi translates), so most rows are mode=listening. Not rows: 08:54/09:04 ابل امبارح (qaf->hamza, S4); 09:56-10:01 بياض/أبيض -> بيضة self-fixed before Amal's بيضة; 10:08 رسمي -> قميص رسمي self-fix; 34:46 'are you scared--were you scared' self-fix; 57:50 'you guys enjoyed with him' is right (chat enbas6tu ma3o). Engine: 14:17 'back su-- back sir' likely kasar; 47:22 'too much fucked' = engine noise; 20:04 بيساع = his echo of بيزعل. Echo candidate 'Oh, the smell.' at 09:40 is real English, not an echo. / Structure: 00:00-06:26 English chat about a song (lyric words balad/bilaad, saa7et el-bait, 5ubza taught); 06:28-10:40 the only real speaking stretch (date, time, weather, clothes); 11:13-1:00:35 a listening drill - Amal says a verb sentence, Medi translates to English, so almost every row is mode=listening and his 'medi_said' is an English translation; 1:00:39-end scheduling in English. Speaking rows: 06:37/07:03 date number, 07:50 b- present for past (B5), 09:36 ree7a didn't-know, 10:25 8aame2 supplied, 38:13 ma t7ammasi -> ma tet7ammasi (B12), 44:44 bazha2 for zah2aan. Engine notes: 07:38 Amal 'سنتين وته' = tentan u tult (her chat); 20:04 Medi 'بيساع' = his echo of بيزعل; 38:48 'أُمه safulu' + 38:59 'By all eight' = humme t2assafuli (echo: 'Wait. Asafulu.' = اتأسفوا لي, 39:02); 51:24 Amal 'عمسني' = حمسني (her chat 7ammasni); 44:50 'zar-zarha, zar'a' = his attempt at zah2aan; 47:22 'it's just too much fucked' = garbled echo of za3ajto; 53:51 'home' = -hom of زهقتهم; 1:02:02 'شوفك' = ashoofak with dropped a- (S4). Echo candidates checked: 'Oh, the smell.' 09:40, 'Smile.' 45:17, 'Bored.' 44:38, 'Or who enjoyed?' 42:33 are real English, not Arabic sound-alikes. Not errors (left out): 06:33 ثلاث self-fix to يوم السبت; 08:54 'أبل امبارح or ...?' is a question she confirmed (قبل امبارح); 09:56-10:05 بياض/أبيض/بيضة he reached بيضا himself and she only echoed بيضة; 10:08 بلوزة -> قميص رسمي self-fix; 30:19 and 57:50 he offered both readings and she picked one; 41:10 إنتي خربتي السفرة correct production; 48:27 'was-- no, is' self-fix; 1:00:47 أحسن كتير اليوم accepted. No tier-3 English-in-Arabic slips found: his English is whole-clause meta talk. Names: Palestine, Spanish ('[in Spanish]' at 30:40 is an engine tag, not a word he said).",
    "notes": [
     "1 word card(s) dropped after the 2026-09-27 hand check (he said it right, it was not his slip, or it repeats a slip already counted): 07:10 تسعة.",
-    "3 slip(s) here come from the first read only (0 grammar, 3 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact."
+    "3 slip(s) here come from the first read only (0 grammar, 3 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
+    "1 moment(s) wait for Medi (counted as before until he picks): 44:44."
    ],
    "page": "lessons/2026-09-19.html",
    "detail": "data/lessons/2026-09-19.json",
@@ -3157,18 +3266,49 @@
     "turns": 843,
     "chat_lines": 78,
     "vocab_errors": 15,
-    "vocab_correct": 21,
+    "vocab_correct": 69,
     "grammar_errors": 3,
     "grammar_not_counted": 1
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-19.json",
-    "marks": 114,
-    "conflicts": 2,
+    "marks": 162,
+    "conflicts": 3,
     "resolved": 0,
-    "needs_medi": 0,
+    "needs_medi": 1,
     "mode": "on",
-    "items": []
+    "items": [
+     {
+      "id": "C1q-082f291611",
+      "kind": "C1q",
+      "t": 2684.13,
+      "mmss": "44:44",
+      "line": "بزهق",
+      "question": "Was «بزهق» wrong here?",
+      "options": [
+       "wrong",
+       "other",
+       "none"
+      ],
+      "now": "both judgments count as before until Amal answers",
+      "also": [],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "بزهق",
+       "word_key": "ana bazahe2"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "wrong",
+       "wrong": "بزهق",
+       "fix": "زهقان",
+       "bucket": null,
+       "signal": "recast"
+      },
+      "ask": "amal"
+     }
+    ]
    },
    "release": {
     "status": "not verified",
@@ -3302,30 +3442,30 @@
    "type_source": "claude-read",
    "type_read_by": "hand (LESSON_TYPES)",
    "words": {
-    "unique": 98,
-    "right": 160,
+    "unique": 168,
+    "right": 385,
     "wrong": 21,
-    "partial": 5,
-    "pct": 87.4,
-    "scored": 186,
+    "partial": 10,
+    "pct": 93.8,
+    "scored": 416,
     "audit_wrong": 15,
     "audit_partial": 5,
     "not_an_error": 1,
     "not_on_sheet": 9,
     "first_read_cards": 4,
     "rehear_word_conflicts": 0,
-    "unique_rows": 98,
-    "eligible": 186,
+    "unique_rows": 164,
+    "eligible": 416,
     "excluded": 0,
     "pending": 1,
-    "eligible_pct": 87.4,
+    "eligible_pct": 93.8,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 464,
+    "uses": 382,
     "mistakes": 64,
-    "pct": 87.7,
+    "pct": 85.1,
     "estimate": false,
     "scored_mistakes": 57,
     "unscored_mistakes": 7,
@@ -3338,19 +3478,22 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "9 slips are in rules the counter found 0 uses of in this lesson",
-      "5 rules have more slips than counted uses (A12, A4, B10, B18, C11)"
+      "12 slips are in rules the counter found 0 uses of in this lesson",
+      "8 rules have more slips than counted uses (A12, A4, B10, B16, B18, C11, C2, D2)"
      ],
-     "uses": 423,
+     "uses": 338,
      "slips": 64,
      "slips_latin": 17,
-     "slips_in_zero_use_rules": 9,
+     "slips_in_zero_use_rules": 12,
      "rules_slips_over_uses": [
       "A12",
       "A4",
       "B10",
+      "B16",
       "B18",
-      "C11"
+      "C11",
+      "C2",
+      "D2"
      ]
     },
     "verified_pct": null
@@ -3417,7 +3560,7 @@
     "4 question(s) of the new read sit at a moment Amal already ruled on (14:16, 41:55, 1:05:16, 1:08:24): they wait for Medi, not for her (owner-review.json).",
     "12 slip(s) here come from the first read only (8 grammar, 4 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
     "7 slips may be counted twice (same slip written in Arabic and in English letters).",
-    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 43:48 Word Bank said right, Amal said no to that word: her no counts."
+    "one ledger (LS-11): 3 moment(s) where two judges disagreed were settled by the existing rules: 43:48 Word Bank said right, Amal said no to that word: her no counts; 50:29 Word Bank said right, Amal said no to that word: her no counts; 1:06:35 Word Bank said right, Amal said no to that word: her no counts."
    ],
    "page": "lessons/2026-09-21.html",
    "detail": "data/lessons/2026-09-21.json",
@@ -3432,7 +3575,7 @@
     "turns": 1274,
     "chat_lines": 57,
     "vocab_errors": 35,
-    "vocab_correct": 160,
+    "vocab_correct": 390,
     "grammar_errors": 64,
     "grammar_not_counted": 2
    },
@@ -3472,9 +3615,9 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-21.json",
-    "marks": 696,
-    "conflicts": 5,
-    "resolved": 1,
+    "marks": 930,
+    "conflicts": 9,
+    "resolved": 3,
     "needs_medi": 0,
     "mode": "on",
     "items": []
@@ -3595,32 +3738,33 @@
     ]
    },
    "words": {
-    "unique": 58,
-    "right": 69,
+    "unique": 84,
+    "right": 140,
     "wrong": 14,
-    "partial": 8,
-    "pct": 80.2,
-    "scored": 91,
+    "partial": 9,
+    "pct": 88.7,
+    "scored": 163,
     "audit_wrong": 14,
     "audit_partial": 7,
     "not_an_error": 1,
     "not_on_sheet": 1,
     "first_read_cards": 3,
     "rehear_word_conflicts": 0,
-    "unique_rows": 57,
-    "eligible": 87,
-    "excluded": 4,
+    "unique_rows": 80,
+    "eligible": 157,
+    "excluded": 6,
     "pending": 2,
-    "eligible_pct": 82.8,
+    "eligible_pct": 90.1,
     "excluded_why": {
+     "Medi's speech": 2,
      "his line": 4
     },
     "verified_pct": null
    },
    "grammar": {
-    "uses": 268,
+    "uses": 234,
     "mistakes": 39,
-    "pct": 85.4,
+    "pct": 83.3,
     "estimate": false,
     "scored_mistakes": 39,
     "unscored_mistakes": 0,
@@ -3634,9 +3778,9 @@
      "valid": false,
      "reasons": [
       "4 slips are in rules the counter found 0 uses of in this lesson",
-      "4 rules have more slips than counted uses (A5, B12, B8, E2)"
+      "5 rules have more slips than counted uses (A5, B12, B8, E1, E2)"
      ],
-     "uses": 237,
+     "uses": 203,
      "slips": 39,
      "slips_latin": 5,
      "slips_in_zero_use_rules": 4,
@@ -3644,6 +3788,7 @@
       "A5",
       "B12",
       "B8",
+      "E1",
       "E2"
      ]
     },
@@ -3778,14 +3923,14 @@
     "gap_fill": 266,
     "from_meet": 0,
     "vocab_errors": 22,
-    "vocab_correct": 70,
+    "vocab_correct": 142,
     "grammar_errors": 39,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-23.json",
-    "marks": 376,
-    "conflicts": 1,
+    "marks": 448,
+    "conflicts": 3,
     "resolved": 1,
     "needs_medi": 0,
     "mode": "on",
@@ -4051,29 +4196,31 @@
     ]
    },
    "words": {
-    "unique": 97,
-    "right": 131,
+    "unique": 146,
+    "right": 266,
     "wrong": 15,
-    "partial": 19,
-    "pct": 85.2,
-    "scored": 165,
+    "partial": 12,
+    "pct": 92.8,
+    "scored": 293,
     "audit_wrong": 13,
     "audit_partial": 1,
     "not_on_sheet": 11,
     "first_read_cards": 1,
     "rehear_word_conflicts": 0,
-    "unique_rows": 95,
-    "eligible": 165,
-    "excluded": 0,
+    "unique_rows": 143,
+    "eligible": 292,
+    "excluded": 1,
     "pending": 0,
-    "eligible_pct": 85.2,
-    "excluded_why": {},
+    "eligible_pct": 92.8,
+    "excluded_why": {
+     "Amal not transcribed": 1
+    },
     "verified_pct": null
    },
    "grammar": {
-    "uses": 281,
+    "uses": 231,
     "mistakes": 35,
-    "pct": 88.3,
+    "pct": 85.7,
     "estimate": false,
     "scored_mistakes": 33,
     "unscored_mistakes": 2,
@@ -4087,15 +4234,17 @@
      "valid": false,
      "reasons": [
       "4 slips are in rules the counter found 0 uses of in this lesson",
-      "4 rules have more slips than counted uses (A7, B18, D2, D4)"
+      "6 rules have more slips than counted uses (A7, A9, B18, B6, D2, D4)"
      ],
-     "uses": 257,
+     "uses": 207,
      "slips": 35,
      "slips_latin": 1,
      "slips_in_zero_use_rules": 4,
      "rules_slips_over_uses": [
       "A7",
+      "A9",
       "B18",
+      "B6",
       "D2",
       "D4"
      ]
@@ -4318,7 +4467,9 @@
     "grammar: 2 of the 35 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
     "1 question(s) of the new read sit at a moment Amal already ruled on (32:12): they wait for Medi, not for her (owner-review.json).",
     "3 slip(s) here come from the first read only (2 grammar, 1 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
-    "2 slips may be counted twice (same slip written in Arabic and in English letters)."
+    "2 slips may be counted twice (same slip written in Arabic and in English letters).",
+    "one ledger (LS-11): 6 moment(s) where two judges disagreed were settled by the existing rules: 08:31 Word Bank said right, Amal said no to that word: her no counts; 27:32 Word Bank said right, Amal said no to that word: her no counts; 28:34 Word Bank said right, Amal said no to that word: her no counts; 48:58 Word Bank said right, Amal said no to that word: her no counts; 49:35 Word Bank said right, Amal said no to that word: her no counts; 56:25 Word Bank said right, Amal said no to that word: her no counts.",
+    "1 moment(s) wait for Medi (counted as before until he picks): 29:46."
    ],
    "page": "lessons/2026-09-26.html",
    "detail": "data/lessons/2026-09-26.json",
@@ -4333,7 +4484,7 @@
     "turns": 1218,
     "chat_lines": 74,
     "vocab_errors": 27,
-    "vocab_correct": 149,
+    "vocab_correct": 277,
     "grammar_errors": 35,
     "grammar_not_counted": 0
    },
@@ -4349,12 +4500,45 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-26.json",
-    "marks": 474,
-    "conflicts": 4,
-    "resolved": 0,
-    "needs_medi": 0,
+    "marks": 611,
+    "conflicts": 12,
+    "resolved": 6,
+    "needs_medi": 1,
     "mode": "on",
-    "items": []
+    "items": [
+     {
+      "id": "C1q-7d2518f9d8",
+      "kind": "C1q",
+      "t": 1785.94,
+      "mmss": "29:46",
+      "line": "أنا وجع، uh, وجع",
+      "question": "Which of Medi's words was wrong here?",
+      "options": [
+       "أنا",
+       "وجع",
+       "وجع",
+       "other",
+       "none"
+      ],
+      "now": "both judgments count as before until Amal answers",
+      "also": [],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "وجع",
+       "word_key": "waje3"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "not-scored",
+       "wrong": "أنا وجع، وجع راسي",
+       "fix": "راسي بيوجعني",
+       "bucket": null,
+       "signal": "prompt-then-fix"
+      },
+      "ask": "amal"
+     }
+    ]
    },
    "release": {
     "status": "not verified",
@@ -4504,30 +4688,30 @@
     ]
    },
    "words": {
-    "unique": 71,
-    "right": 101,
+    "unique": 107,
+    "right": 203,
     "wrong": 14,
-    "partial": 14,
-    "pct": 83.7,
-    "scored": 129,
+    "partial": 8,
+    "pct": 92.0,
+    "scored": 225,
     "audit_wrong": 14,
     "audit_partial": 4,
     "not_an_error": 2,
     "not_on_sheet": 3,
     "first_read_cards": 1,
     "rehear_word_conflicts": 0,
-    "unique_rows": 71,
-    "eligible": 129,
+    "unique_rows": 105,
+    "eligible": 225,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 83.7,
+    "eligible_pct": 92.0,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 219,
+    "uses": 175,
     "mistakes": 25,
-    "pct": 89.5,
+    "pct": 86.9,
     "estimate": false,
     "scored_mistakes": 23,
     "unscored_mistakes": 2,
@@ -4542,7 +4726,7 @@
       "9 slips are in rules the counter found 0 uses of in this lesson",
       "6 rules have more slips than counted uses (A14, B12, B18, B3, D2, E1)"
      ],
-     "uses": 199,
+     "uses": 155,
      "slips": 25,
      "slips_latin": 2,
      "slips_in_zero_use_rules": 9,
@@ -4740,7 +4924,8 @@
     "timings: anees-20260928-recall-medi-seg0: page/engine offset spread 91.50s",
     "grammar: 2 of the 25 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
     "2 word card(s) dropped after the 2026-09-27 hand check (he said it right, it was not his slip, or it repeats a slip already counted): 34:54 عالمة; 1:03:08 طالب / طلاب.",
-    "6 slip(s) here come from the first read only (5 grammar, 1 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact."
+    "6 slip(s) here come from the first read only (5 grammar, 1 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
+    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 00:35 Word Bank said right, Amal said no to that word: her no counts."
    ],
    "page": "lessons/2026-09-28.html",
    "detail": "data/lessons/2026-09-28.json",
@@ -4755,15 +4940,15 @@
     "turns": 1082,
     "chat_lines": 28,
     "vocab_errors": 21,
-    "vocab_correct": 111,
+    "vocab_correct": 207,
     "grammar_errors": 25,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-28.json",
-    "marks": 385,
-    "conflicts": 0,
-    "resolved": 0,
+    "marks": 482,
+    "conflicts": 3,
+    "resolved": 1,
     "needs_medi": 0,
     "mode": "on",
     "items": []
@@ -5020,34 +5205,34 @@
     ]
    },
    "words": {
-    "unique": 52,
-    "right": 60,
+    "unique": 105,
+    "right": 185,
     "wrong": 10,
-    "partial": 9,
-    "pct": 81.6,
-    "scored": 79,
+    "partial": 6,
+    "pct": 93.5,
+    "scored": 201,
     "audit_wrong": 10,
     "audit_partial": 2,
     "not_on_sheet": 3,
     "first_read_cards": 3,
     "rehear_word_conflicts": 0,
-    "unique_rows": 52,
-    "eligible": 79,
+    "unique_rows": 104,
+    "eligible": 201,
     "excluded": 0,
     "pending": 1,
-    "eligible_pct": 81.6,
+    "eligible_pct": 93.5,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 229,
-    "mistakes": 22,
-    "pct": 90.8,
+    "uses": 199,
+    "mistakes": 21,
+    "pct": 89.9,
     "estimate": false,
-    "scored_mistakes": 21,
+    "scored_mistakes": 20,
     "unscored_mistakes": 1,
     "first_read_cards": 0,
-    "eligible": 22,
+    "eligible": 21,
     "excluded": 0,
     "pending": 0,
     "denominator": {
@@ -5056,8 +5241,8 @@
       "4 slips are in rules the counter found 0 uses of in this lesson",
       "4 rules have more slips than counted uses (B18, C1, D2, D4)"
      ],
-     "uses": 212,
-     "slips": 22,
+     "uses": 183,
+     "slips": 21,
      "slips_latin": 1,
      "slips_in_zero_use_rules": 4,
      "rules_slips_over_uses": [
@@ -5169,8 +5354,10 @@
    ],
    "coverage": "Long English stretches 02:08-05:45 (app talk), 16:32-17:34, 35:00-36:30, 45:21-56:07 (rule discussion, mostly English with Arabic examples). Echo candidates checked: all are real English, no sound-alikes. Engine notes: 07:34 Amal 'سألت' = su2et (سقت, drove; her chat 'ana su2et la-saa3tain'); 33:05 'سوالونا' is most likely وصلونا (he then asks 'Is it وصل'); 08:17/08:49 متهمس/تهمس = mit7ammes with h for 7 (S4). Left out: 12:57 'من أسبوع ماضي' (repeat within 30 s of her fix, GR-28); 10:47 ساعة->ساعات (his own fix); 31:38 واطية->قصيرة (self-fix before her comment); 24:05 هاديين vs هاديات (Amal agreed both work); 38:36 الدرس العربي (Amal: both valid); 59:28 هادي الشنتة (rephrase only, Medi 10-01 ruling); 1:02:30 صديقة/House (help on the way); 1:01:25 يصلوا->يوصلوا (self-fix); 22:25/22:54 صغار->غاليين (self-fix); 53:38 kundara el Chanel (self-fix). Few vocab-B/grammar-B: Amal caught almost every slip in this drill-heavy lesson. / Long English-only stretches (00:00-05:45 app talk; 17:00-20:30, 34:49-36:30, 38:42-41:07, 45:21-56:13 rule discussion). Some Medi Arabic in Latin letters (benet jari, walad al ayan, pantalon el riada, kundara el Chanel, bahal al-sajjad). Echo candidates (1219 'Okay. Well, um,', 1581 'these.', 2676 'uh,') are real English, no engine sound-alikes. Engine wrote سألت for su2et (07:32/07:38). Self-fixes left out: 10:39 ثلاث ساعة->ساعات, 22:08 فساتين->الفساتين, 22:25 صغار->غاليين, 31:38 واطية->قصيرة, 53:38 kunda->kundara, 57:50 أكل الـ->أكل إمي, 1:01:25 يصلوا->يوصلوا. Not slips: 24:05 هاديين/هاديات (both work), 38:36 الدرس العربي (both valid), 59:28 هادي الـ شنتة (re-phrase), 1:02:30 House prompt, 12:57 من أسبوع ماضي (repeat of fixed line, GR-28).",
    "notes": [
-    "grammar: 1 of the 22 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
-    "3 slip(s) here come from the first read only (0 grammar, 3 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact."
+    "grammar: 1 of the 21 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
+    "3 slip(s) here come from the first read only (0 grammar, 3 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
+    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 37:24 Word Bank said right, Amal said no to that word: her no counts.",
+    "2 moment(s) wait for Medi (counted as before until he picks): 07:21; 58:55."
    ],
    "page": "lessons/2026-09-30.html",
    "detail": "data/lessons/2026-09-30.json",
@@ -5185,18 +5372,79 @@
     "turns": 1067,
     "chat_lines": 30,
     "vocab_errors": 15,
-    "vocab_correct": 67,
-    "grammar_errors": 22,
+    "vocab_correct": 189,
+    "grammar_errors": 21,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-30.json",
-    "marks": 325,
-    "conflicts": 0,
-    "resolved": 0,
-    "needs_medi": 0,
+    "marks": 446,
+    "conflicts": 5,
+    "resolved": 1,
+    "needs_medi": 2,
     "mode": "on",
-    "items": []
+    "items": [
+     {
+      "id": "C1q-83409d28b8",
+      "kind": "C1q",
+      "t": 440.99,
+      "mmss": "07:21",
+      "line": "أنا سويت",
+      "question": "Was «سويت» wrong here?",
+      "options": [
+       "wrong",
+       "other",
+       "none"
+      ],
+      "now": "both judgments count as before until Amal answers",
+      "also": [],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "سويت",
+       "word_key": "ana basawi"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "wrong",
+       "wrong": "سويت",
+       "fix": "سقت (su2et; engine wrote سألت)",
+       "bucket": null,
+       "signal": "recast"
+      },
+      "ask": "amal"
+     },
+     {
+      "id": "C1q-ff14829ffb",
+      "kind": "C1q",
+      "t": 3534.71,
+      "mmss": "58:55",
+      "line": "جزدان، Oh, جزدان",
+      "question": "Was «جزدان» wrong here?",
+      "options": [
+       "wrong",
+       "other",
+       "none"
+      ],
+      "now": "both judgments count as before until Amal answers",
+      "also": [],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "جزدان",
+       "word_key": "juzdAn"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "wrong",
+       "wrong": "جزدان",
+       "fix": "شنتة سفر",
+       "bucket": null,
+       "signal": "recast"
+      },
+      "ask": "amal"
+     }
+    ]
    },
    "release": {
     "status": "not verified",
@@ -5417,28 +5665,30 @@
     ]
    },
    "words": {
-    "unique": 47,
-    "right": 82,
+    "unique": 84,
+    "right": 171,
     "wrong": 1,
-    "partial": 13,
-    "pct": 92.2,
-    "scored": 96,
+    "partial": 14,
+    "pct": 95.7,
+    "scored": 186,
     "audit_wrong": 1,
     "audit_partial": 0,
     "not_on_sheet": 1,
     "rehear_word_conflicts": 0,
-    "unique_rows": 47,
-    "eligible": 96,
-    "excluded": 0,
+    "unique_rows": 84,
+    "eligible": 181,
+    "excluded": 5,
     "pending": 0,
-    "eligible_pct": 92.2,
-    "excluded_why": {},
+    "eligible_pct": 95.6,
+    "excluded_why": {
+     "Amal not transcribed": 5
+    },
     "verified_pct": null
    },
    "grammar": {
-    "uses": 204,
+    "uses": 169,
     "mistakes": 15,
-    "pct": 93.6,
+    "pct": 92.3,
     "estimate": false,
     "scored_mistakes": 13,
     "unscored_mistakes": 2,
@@ -5451,7 +5701,7 @@
       "3 slips are in rules the counter found 0 uses of in this lesson",
       "3 rules have more slips than counted uses (A12, A3, B18)"
      ],
-     "uses": 195,
+     "uses": 160,
      "slips": 15,
      "slips_latin": 0,
      "slips_in_zero_use_rules": 3,
@@ -5558,13 +5808,13 @@
     "turns": 936,
     "chat_lines": 32,
     "vocab_errors": 2,
-    "vocab_correct": 95,
+    "vocab_correct": 185,
     "grammar_errors": 15,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-01.json",
-    "marks": 316,
+    "marks": 405,
     "conflicts": 2,
     "resolved": 1,
     "needs_medi": 0,
@@ -5864,29 +6114,29 @@
     ]
    },
    "words": {
-    "unique": 27,
-    "right": 58,
+    "unique": 64,
+    "right": 170,
     "wrong": 7,
-    "partial": 10,
-    "pct": 84.0,
-    "scored": 75,
+    "partial": 3,
+    "pct": 95.3,
+    "scored": 180,
     "audit_wrong": 7,
     "audit_partial": 1,
     "not_on_sheet": 1,
     "first_read_cards": 0,
     "rehear_word_conflicts": 0,
-    "unique_rows": 26,
-    "eligible": 75,
+    "unique_rows": 63,
+    "eligible": 180,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 84.0,
+    "eligible_pct": 95.3,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 286,
+    "uses": 236,
     "mistakes": 27,
-    "pct": 90.6,
+    "pct": 88.6,
     "estimate": false,
     "scored_mistakes": 27,
     "unscored_mistakes": 0,
@@ -5899,15 +6149,16 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "2 slips are in rules the counter found 0 uses of in this lesson",
-      "2 rules have more slips than counted uses (A4, D2)"
+      "3 slips are in rules the counter found 0 uses of in this lesson",
+      "3 rules have more slips than counted uses (A4, B2, D2)"
      ],
-     "uses": 268,
+     "uses": 216,
      "slips": 27,
      "slips_latin": 2,
-     "slips_in_zero_use_rules": 2,
+     "slips_in_zero_use_rules": 3,
      "rules_slips_over_uses": [
       "A4",
+      "B2",
       "D2"
      ]
     },
@@ -6031,7 +6282,8 @@
    "notes": [
     "2 slip(s) here come from the first read only (2 grammar, 0 word): the new read did not write them again. They are counted until someone checks them, so Grammar % and Words % are not exact.",
     "2 slips may be counted twice (same slip written in Arabic and in English letters).",
-    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 09:50 Word Bank said right, Amal said no to that word: her no counts."
+    "one ledger (LS-11): 2 moment(s) where two judges disagreed were settled by the existing rules: 09:50 Word Bank said right, Amal said no to that word: her no counts; 52:13 Word Bank said right, Amal said no to that word: her no counts.",
+    "1 moment(s) wait for Medi (counted as before until he picks): 15:40."
    ],
    "page": "lessons/2026-10-02.html",
    "detail": "data/lessons/2026-10-02.json",
@@ -6046,18 +6298,49 @@
     "turns": 1003,
     "chat_lines": 44,
     "vocab_errors": 9,
-    "vocab_correct": 67,
+    "vocab_correct": 172,
     "grammar_errors": 27,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-02.json",
-    "marks": 389,
-    "conflicts": 2,
-    "resolved": 1,
-    "needs_medi": 0,
+    "marks": 502,
+    "conflicts": 4,
+    "resolved": 2,
+    "needs_medi": 1,
     "mode": "on",
-    "items": []
+    "items": [
+     {
+      "id": "C1q-1558e271a2",
+      "kind": "C1q",
+      "t": 939.58,
+      "mmss": "15:40",
+      "line": "عشا، ألفين ستة وعشرين",
+      "question": "Was «عشا» wrong here?",
+      "options": [
+       "wrong",
+       "other",
+       "none"
+      ],
+      "now": "both judgments count as before until Amal answers",
+      "also": [],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "عشا",
+       "word_key": "3asha"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "wrong",
+       "wrong": "عشا",
+       "fix": "عشرة (talat 3ashara)",
+       "bucket": null,
+       "signal": "prompt-then-fix"
+      },
+      "ask": "amal"
+     }
+    ]
    },
    "release": {
     "status": "not verified",
@@ -6269,28 +6552,28 @@
     ]
    },
    "words": {
-    "unique": 57,
-    "right": 86,
+    "unique": 104,
+    "right": 236,
     "wrong": 9,
-    "partial": 20,
-    "pct": 83.5,
-    "scored": 115,
+    "partial": 8,
+    "pct": 94.9,
+    "scored": 253,
     "audit_wrong": 9,
     "audit_partial": 1,
     "not_on_sheet": 2,
     "rehear_word_conflicts": 0,
-    "unique_rows": 57,
-    "eligible": 115,
+    "unique_rows": 102,
+    "eligible": 253,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 83.5,
+    "eligible_pct": 94.9,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 256,
+    "uses": 222,
     "mistakes": 24,
-    "pct": 90.6,
+    "pct": 89.2,
     "estimate": false,
     "scored_mistakes": 24,
     "unscored_mistakes": 0,
@@ -6303,7 +6586,7 @@
       "3 slips are in rules the counter found 0 uses of in this lesson",
       "5 rules have more slips than counted uses (A4, A5, A9, D2, E2)"
      ],
-     "uses": 235,
+     "uses": 201,
      "slips": 24,
      "slips_latin": 4,
      "slips_in_zero_use_rules": 3,
@@ -6468,6 +6751,7 @@
    ],
    "coverage": "Whole file read. Long English rule-discussion stretches (15:09-20:20, 40:21-41:58, 43:03-47:17, 59:40-1:03:44). Latin-transliterated Medi Arabic 55:30-1:01:00 and several Amal lines (37:49-38:41). Engine notes: 13:10/13:55 كام على = kaman marra?; 40:21 قبيحة is likely bish3a (Amal 40:24 Why do you not forget bisha, chat bish3a) - no error; 52:17 نفس الـ issue = nafs el-ishi (chat nafs el-ishi); 03:31/03:36 أملكت likely عملت repeated after her prompt; بوع (07:10, 07:56) = bu2a3 with dropped ق (S4, not counted). Self-fixes skipped: 01:20 عندي->كان عندي, 14:09 لا->ما شفت, 14:19 جديد->جديدة, 16:19 مش->ما, 17:43 فكر->بفكر, 22:30 محلي->في محلي, 35:14 بدلي->بدلة, 48:52 يزعج->يزعل, 53:21 إجازة->اجتماع. Not slips: 46:45 يومي الأول (he misunderstood the prompt), 56:32 ru7na vs rawwa7na (she offered Or), 30:54 الشاطئ (MSA; شط not on her sheet). Echo candidates: none are Arabic sound-alikes; take_verb and laazem_noun empty. / Large English/meta stretches (09:07-10:02, 11:41-13:05, 15:20-20:10 quiz on the أغلب rule, 40:24-42:00, 1:03:16-1:03:44). 16:09-17:51 wrong quiz answers about whether أغلب takes ال are rule questions, not filed. 43:00-47:17 is a rule discussion (أول يومي vs يومي الأول). 54:56-1:02:58 he speaks in Latin letters (engine). 07:10 بوع = بقع with dropped ق (S4). 03:31/03:36 أملكت unclear (engine; chat em 5atibti 3emlatha). 22:10-22:37 Amal seemed to mishear (my workers); his في محلي was a self-fix. 48:52-49:03 يزعج then يزعل for 'saddening' (beyza33el) - engine cannot show the doubled ع; not filed. Echo candidates reviewed: all real English/fillers.",
    "notes": [
+    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 51:52 Word Bank said right, Amal said no to that word: her no counts.",
     "1 moment(s) wait for Medi (counted as before until he picks): 37:34."
    ],
    "page": "lessons/2026-10-05.html",
@@ -6483,15 +6767,15 @@
     "turns": 1051,
     "chat_lines": 36,
     "vocab_errors": 12,
-    "vocab_correct": 105,
+    "vocab_correct": 243,
     "grammar_errors": 24,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-05.json",
-    "marks": 400,
-    "conflicts": 1,
-    "resolved": 0,
+    "marks": 539,
+    "conflicts": 3,
+    "resolved": 1,
     "needs_medi": 1,
     "mode": "on",
     "items": [
@@ -6723,28 +7007,28 @@
     ]
    },
    "words": {
-    "unique": 47,
-    "right": 64,
+    "unique": 91,
+    "right": 191,
     "wrong": 10,
-    "partial": 16,
-    "pct": 80.0,
-    "scored": 90,
+    "partial": 8,
+    "pct": 93.3,
+    "scored": 209,
     "audit_wrong": 10,
     "audit_partial": 0,
     "not_on_sheet": 7,
     "rehear_word_conflicts": 0,
-    "unique_rows": 45,
-    "eligible": 90,
+    "unique_rows": 86,
+    "eligible": 209,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 80.0,
+    "eligible_pct": 93.3,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 212,
+    "uses": 176,
     "mistakes": 33,
-    "pct": 85.4,
+    "pct": 82.4,
     "estimate": false,
     "scored_mistakes": 31,
     "unscored_mistakes": 2,
@@ -6757,7 +7041,7 @@
       "6 slips are in rules the counter found 0 uses of in this lesson",
       "5 rules have more slips than counted uses (A10b, A7, B12, B18, D2)"
      ],
-     "uses": 186,
+     "uses": 150,
      "slips": 33,
      "slips_latin": 0,
      "slips_in_zero_use_rules": 6,
@@ -6913,7 +7197,8 @@
    "coverage": "Opening 00:03-04:36 and long English stretches (09:37-11:20 pho grammar, 17:01-17:28, 25:26-28:34 tani rule, 46:31-50:08 awwal/idafa talk, 55:01-55:34, 1:01:25-end) are English meta talk. Latin-transliterated stretch 10:57-12:02 (Can fee ha jerash = kaan fiha jaaj, engine wrote the name jerash; sauce behreh, basel). Engine: 'أمل ما روز' 12:17 = 3amalu/bye3maluha ma(3) ruz (not the name); 'يمين' 05:08 = لسه; 'ليان' 07:57 likely = اليوم; 'سدسة/set' = SAT; 'بس أعمل' 42:25 = basta3mel; 'يوم' 52:12-52:20 likely = 5yaar (cucumber); Amal's 'حطتيها not حطتيها' 33:02 = 7attaitiha not 5a66aitiha; 'بدل' 41:36 = بضل. Date 14:09-14:25 unclear (التاسع عشر / ستا عشر vs chat sitte 3ashara) - not scored. 56:01 قايض for choice self-fixed to خيار at 56:57 (GR-22). 58:40 إجا(زة) for holiday: Amal says both work, not a slip. Echo: 'Masari.' 36:42 = مصاري (real Arabic in Latin); other echo candidates are real English. / 00:00-04:36, 23:16-28:30 (تاني rule talk), 41:25-43:20 and 46:17-50:00 (rule talk) are mostly English. Engine: 'jerash' at 11:00/11:20 = جاج (chicken, her chat jaaj), not the place; 'أولتي' 45:19-47:38 = عطلتي; 'ten, ten' 14:50 = tentain; 'أمل ما روز' 12:17 = 3amalu ma3 ruz; 'بس أعمل' 42:15 = بصرف; 'ده تن' 09:18 = 3adatan; 'أبيت' 29:39 = 7abbait; 'مصرية' 42:51 = مصاري (Amal's line); 'Ahmad' 1:01:25 = Amal. echo: 'This is' 16:06 = لسه (her chat 'lissa shoab kteer'). Echo-candidate list holds only real English; take_verb/laazem_noun/chat_pairs empty. 28:47 'فستان التاني' (el- dropped) is a repeat of the line she just fixed (GR-28), not scored. 58:40 إجازة vs عطلة: Amal said both work - not a slip. 08:10 فيتنامية: his own fix before her echo. 52:12 يوم for cucumber likely the engine for خيار - skipped. 14:09 date line unclear.",
    "notes": [
     "grammar: 2 of the 33 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
-    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 28:37 one turn was both a use and a slip of the same rule: one attempt, wrong."
+    "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 28:37 one turn was both a use and a slip of the same rule: one attempt, wrong.",
+    "1 moment(s) wait for Medi (counted as before until he picks): 41:04."
    ],
    "page": "lessons/2026-10-06.html",
    "detail": "data/lessons/2026-10-06.json",
@@ -6928,18 +7213,49 @@
     "turns": 1008,
     "chat_lines": 27,
     "vocab_errors": 17,
-    "vocab_correct": 80,
+    "vocab_correct": 199,
     "grammar_errors": 33,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-06.json",
-    "marks": 322,
-    "conflicts": 1,
+    "marks": 441,
+    "conflicts": 4,
     "resolved": 1,
-    "needs_medi": 0,
+    "needs_medi": 1,
     "mode": "on",
-    "items": []
+    "items": [
+     {
+      "id": "C1q-f0c9c0f38b",
+      "kind": "C1q",
+      "t": 2464.19,
+      "mmss": "41:04",
+      "line": "أنا ما بدفع",
+      "question": "Was «بدفع» wrong here?",
+      "options": [
+       "wrong",
+       "other",
+       "none"
+      ],
+      "now": "both judgments count as before until Amal answers",
+      "also": [],
+      "a": {
+       "by": "word-bank",
+       "verdict": "right",
+       "word": "بدفع",
+       "word_key": "ana badfa3"
+      },
+      "b": {
+       "by": "readers",
+       "verdict": "not-scored",
+       "wrong": "بدفع",
+       "fix": "بستعمل",
+       "bucket": null,
+       "signal": "explicit-no"
+      },
+      "ask": "amal"
+     }
+    ]
    },
    "release": {
     "status": "not verified",
@@ -7125,7 +7441,7 @@
     ]
    },
    "words": {
-    "unique": 92,
+    "unique": 93,
     "right": 212,
     "wrong": 5,
     "partial": 11,
@@ -7134,8 +7450,8 @@
     "audit_wrong": 5,
     "audit_partial": 6,
     "not_on_sheet": 6,
-    "rehear_word_conflicts": 4,
-    "unique_rows": 92,
+    "rehear_word_conflicts": 3,
+    "unique_rows": 93,
     "eligible": 228,
     "excluded": 0,
     "pending": 0,
@@ -7144,7 +7460,7 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 215,
+    "uses": 216,
     "mistakes": 26,
     "pct": 88.4,
     "estimate": false,
@@ -7159,7 +7475,7 @@
       "6 slips are in rules the counter found 0 uses of in this lesson",
       "6 rules have more slips than counted uses (A4, A7, A9, B18, C1, D2)"
      ],
-     "uses": 194,
+     "uses": 195,
      "slips": 26,
      "slips_latin": 0,
      "slips_in_zero_use_rules": 6,
@@ -7382,7 +7698,7 @@
    "coverage": "Echo candidates all real English, no echoes. laazem_noun at 12:56 is a question to Amal; he built أنا لازم أدير بالي himself at 13:20, so no slip. Engine garbles: 16:49 فئة واحدة and 47:24 وحدات = her 'one?' prompt; 32:14 زعلتكش عن = her عن; 43:06 بهدئ = بحرق. 46:38-1:01 is mostly English talk about المفضل; 1:04-end is English app talk. Skipped: 06:10 'dangerous' (not on the sheet), 48:38 رمل (a question, he found تراب himself). 24:50 تاني/تانية kept as low. / Whole file read. Mostly a nature-vocab and grammar Q&A lesson; long English meta stretches (09:55-11:30 on دير بال, 55:20-1:02:30 on المفضل عندي, 1:04:11-end app talk). Self-fixes not written: 06:51 قلقان->قلقانين, 30:29 ثلاث مرة->مرات, 50:27 حجور/حجرات->حجار, 22:03 قمر->القمر. Pronunciation (S4) not written: 15:37 قلات=غلطات, 30:11 maratat, 36:45 تلجات (Amal تَلَّجَت; he said تلجت right at 35:25). Repeats not scored: 04:07, 21:46, 44:20. 29:41 بمطر? and 34:15 بتلج? are questions. 06:10 'dangerous' not on her sheet, so not tier 3. Echo candidates all real English (no echo fixes). laazem_noun 12:56 is a meta question, not a B2 slip. Engine garble: 02:23 لسة الخطيب بتاع = Amal's recast عيانة; 32:14 زعلتكش عن = her عن; 47:24 وحدات = وردات?; 21:09 شجرة متيارة.",
    "notes": [
     "grammar: 1 of the 26 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct.",
-    "4 word mark(s) an earlier review had scored are not scored now: the second listen no longer hears the word on that line, and nobody has looked yet (16:52, 20:05, 20:54, 54:09).",
+    "3 word mark(s) an earlier review had scored are not scored now: the second listen no longer hears the word on that line, and nobody has looked yet (16:52, 20:05, 20:54).",
     "one ledger (LS-11): 1 moment(s) where two judges disagreed were settled by the existing rules: 31:42 Word Bank said right, Amal said no to that word: her no counts.",
     "2 moment(s) wait for Medi (counted as before until he picks): 32:00; 48:38."
    ],
@@ -7405,7 +7721,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-08.json",
-    "marks": 520,
+    "marks": 521,
     "conflicts": 3,
     "resolved": 1,
     "needs_medi": 2,

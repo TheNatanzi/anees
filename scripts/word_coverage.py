@@ -30,7 +30,7 @@ import difflib, hashlib, json, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
-FROM = "2026-10-08"
+FROM = "2026-08-25"   # every lesson: Medi 2026-10-09 "you are making rules for all these right? to solve in the future and past"
 BY = "word-coverage"
 REVIEW_P = os.path.join(REPO, "docs", "data", "word-bank-review.json")
 EVID_P = os.path.join(REPO, "docs", "data", "word-bank-evidence.json")
@@ -94,6 +94,15 @@ LAT_TOK = re.compile(r"[A-Za-z0-9'\u2019`]+(?:-[A-Za-z0-9'\u2019`]+)*(?:--|\u201
 LAT_FILL = {"uh", "um", "umm", "uhm", "mm", "hmm", "er", "eh", "ah", "like", "oh", "okay", "ok", "yeah", "so"}
 
 
+PRONOUN_WORDS = {"انا", "انت", "انتي", "هو", "هي", "احنا", "انتو", "هم", "همه", "هيه", "هوه"}
+
+
+def is_pronoun(w):
+    """WS-32 (Medi 2026-10-09 "Lets leave out all the anna inti inta heyya huwwe humme e7na we can assume I know these
+    always"): a subject pronoun is never a judged word - no chip, no credit, no 'not on her list'."""
+    return norm(w).lstrip("و") in PRONOUN_WORDS or norm(w) in PRONOUN_WORDS
+
+
 def word_tokens(text):
     """[{ar, cut, shown}] - the Arabic words of a line. Arabic script as written. A Latin word is one of hers when
     scripts/arabizi_reader.py reads it (her Doc words, her closed list); in a line that also has English it must be
@@ -136,7 +145,7 @@ def word_tokens(text):
             pend = None
     out = []
     for k, it in enumerate(items):
-        if it is None:
+        if it is None or is_pronoun(it["ar"]):
             continue
         if it["latin"] and english and not it["strong"]:
             near = [items[x] for x in (k - 1, k + 1) if 0 <= x < len(items) and items[x] is not None]
@@ -470,13 +479,17 @@ def plan(date, detail, events, keys, off=(), rulings=None):
             for w, cut in arabic_tokens(u.get("text")):
                 rows.append({"i": i, "t": t0, "word": w, "state": "na", "why": "off-lesson"})
             continue
-        for n, tk in enumerate(word_tokens(u.get("text"))):
+        toks = word_tokens(u.get("text"))
+        for n, tk in enumerate(toks):
             w, cut, shown = tk["ar"], tk["cut"], tk["shown"]
             row = {"i": i, "t": t0, "word": w, **({"shown": shown} if shown != w else {})}
             if cut:
                 rows.append(dict(row, state="na", why="broken off before the end of the word (not a try)"))
                 continue
             key, how = keys.lookup(w)
+            if how == "unclear" and set(key) == {"ra7", "rA7"}:
+                nxt = toks[n + 1]["ar"] if n + 1 < len(toks) else ""
+                key, how = ("ra7" if re.match(r"[اأنتيب]\S{2,}", norm(nxt) or "") and norm(nxt) not in FUNCTION else "rA7"), "one"
             ruling = next((r for r in mine if abs(float(r["t"]) - t0) <= 1.0 and (similar(r.get("heard") or "", w) or
                                                                                 (r.get("word_key") and r["word_key"] in ([key] if isinstance(key, str) else key or [])))), None)
             if ruling and ruling.get("credit") == "none":
@@ -515,7 +528,13 @@ def plan(date, detail, events, keys, off=(), rulings=None):
                                              "readers wrote no slip on it (WS-30)")
             if e is not None:
                 row["event"] = e["id"]
+                ent = keys.entry(key, e.get("text") or w)
+                if ent is None and state != "repeat":
+                    rows.append(dict(row, state="na", why="a form of %s the Word Bank does not list yet (it cannot place this one)" % key))
+                    continue
                 p = _patch(e, state, why, turns, j)
+                if p and ent:
+                    p["changes"]["entry_id"] = ent
                 if p:
                     patches[e["id"]] = p
                     row["patched"] = state
@@ -524,7 +543,13 @@ def plan(date, detail, events, keys, off=(), rulings=None):
             if anchor is None:
                 rows.append(dict(row, state="na", why="no Word Bank evidence for this lesson yet"))
                 continue
+            if t0 - (float(anchor.get("t_start") or 0) - float(anchor.get("local_start") or 0)) < 0:
+                rows.append(dict(row, state="na", why="said before his own recording starts (no clip of his voice)"))
+                continue
             entry = keys.entry(key, w)
+            if not re.search(r"(?<!\w)%s(?!\w)" % re.escape(shown), u.get("text") or ""):
+                rows.append(dict(row, state="na", why="read from the line's letters but not written as one word there (left to the readers)"))
+                continue
             if entry is None:
                 rows.append(dict(row, state="na", why="a form of %s the Word Bank does not list yet (it cannot place this one)" % key))
                 continue
@@ -551,10 +576,22 @@ def _repeat_fields(turns, j):
             **({"repeat_of": {"t": float(turns[j]["t"]), "text": (turns[j].get("text") or "")[:120]}} if j is not None else {})}
 
 
+LEDGER_IDS = None
+
+
+def ledger_ids():
+    """Word Bank events the lesson ledger already ruled on (docs/data/word-bank-audit-slips.json overrides, LS-11)."""
+    global LEDGER_IDS
+    if LEDGER_IDS is None:
+        d = J(os.path.join(REPO, "docs", "data", "word-bank-audit-slips.json"), {}) or {}
+        LEDGER_IDS = {o.get("event_id") for o in d.get("overrides") or []}
+    return LEDGER_IDS
+
+
 def _patch(e, state, why, turns, j):
     """A patch on a Word Bank event the engine words made: a repeat of her fix loses its credit (WS-31); a word said alone
     that sat 'unresolved' is judged (WS-30). Nothing else is touched (a reader's or Amal's ruling stays)."""
-    if e.get("review_locked") or e.get("medi_ruling") or e.get("grammar_only") or e.get("assessment") in ("incorrect", "recall_failure"):
+    if e.get("review_locked") or e.get("medi_ruling") or e.get("grammar_only") or e.get("assessment") in ("incorrect", "recall_failure")             or e.get("id") in ledger_ids():
         return None
     exp = {k: e.get(k) for k in ["source_sha256", "row_id", "word_key", "text", "t_start", "t_end", "assessment", "reason"]}
     if state == "repeat":
@@ -569,12 +606,14 @@ def _patch(e, state, why, turns, j):
 
 def _event(date, a, u, i, n, w, key, state, why, turns, j):
     off = float(a.get("t_start") or 0) - float(a.get("local_start") or 0)
-    t0, t1 = float(u["t"]), float(u.get("end") or u["t"])
+    t0 = float(u["t"])
+    t1 = max(t0 + 0.3, float(u.get("end") or u["t"]))
     rid = "cover:%s:%s" % (date, round(t0, 2))
     ev = {"id": sha([BY, date, round(t0, 2), n, key, w]), "lesson_date": date, "word_key": key,
           "local_start": round(t0 - off, 3), "local_end": round(t1 - off, 3), "candidate_keys": [key],
           "source_id": a.get("source_id"), "source_sha256": a.get("source_sha256"), "row_id": rid, "item_ids": [],
-          "t_start": t0, "t_end": t1, "speaker": "Medi", "speaker_basis": a.get("speaker_basis"), "text": w,
+          # whole seconds stay whole, as JS writes them (the ledger compares them as text)
+          "t_start": int(t0) if t0.is_integer() else t0, "t_end": int(t1) if float(t1).is_integer() else t1, "speaker": "Medi", "speaker_basis": a.get("speaker_basis"), "text": w,
           "original_text": u.get("engine") or u.get("text") or "", "match_method": "word_coverage",
           "assessment": "helped" if state == "repeat" else state, "assessment_status": "provisional", "spoken": True,
           "wording_status": "asr", "review_ids": [], "version": a.get("version"),
@@ -655,25 +694,47 @@ def ensure_clips(path=CLIPS_P, review_p=REVIEW_P, log=print, cut=None):
     ffmpeg = shutil.which("ffmpeg")
     n = 0
     changed = False
+    by_lesson = {}
+    for c in clips.values():
+        by_lesson.setdefault(c.get("lesson"), []).append(c)
     for a in review.get("additions") or []:
         e = a.get("event") or {}
-        if e.get("speaker") != "Medi" or a.get("by") not in (BY, "heard-credit") or e.get("id") in clips:
+        if e.get("speaker") != "Medi" or a.get("by") not in (BY, "heard-credit"):
             continue
+        have = clips.get(e.get("id"))
+        if have and have.get("start", 1e9) <= e["t_start"] and have.get("end", -1) >= e["t_end"]:
+            continue                      # its clip still holds it
         date = e["lesson_date"]
         src = os.path.join(REPO, "docs", "lessons", date, "audio", "lesson.mp3")
         ctx = e.get("context") or []
+        lo = min([e["t_start"]] + [r["timeline_start"] for r in ctx if isinstance(r.get("timeline_start"), (int, float))])
+        hi = max([e["t_end"]] + [r["timeline_end"] for r in ctx if isinstance(r.get("timeline_end"), (int, float))])
+        # a clip already cut for this lesson that holds the whole line is reused (no new file: 10-08's clips are 50 MB)
+        old = next((c for c in sorted(by_lesson.get(date, []), key=lambda c: c["end"] - c["start"])
+                    if c.get("source_sha256") == e.get("source_sha256") and c["start"] <= lo and c["end"] >= hi
+                    and os.path.exists(os.path.join(REPO, "docs", c["sentence_audio_url"]))), None)
+        if old:
+            clips[e["id"]] = dict(old, event_id=e["id"], cut_by=BY, reused=True)
+            changed = True
+            continue
         start = max(0, math.floor(min([e["t_start"]] + [r["timeline_start"] for r in ctx if isinstance(r.get("timeline_start"), (int, float))]) - 1))
         end = math.ceil(max([e["t_end"]] + [r["timeline_end"] for r in ctx if isinstance(r.get("timeline_end"), (int, float))]) + 1)
         name = "context-" + hashlib.sha256(str((date, start, end)).encode()).hexdigest()[:16] + ".mp3"
         url = "lessons/%s/clips/%s" % (date, name)
         out = os.path.join(REPO, "docs", url)
+        tracks = [os.path.join(REPO, "docs", "lessons", date, "audio", x + ".mp3") for x in ("Amal", "Medi")]
+        two = not os.path.exists(src) and all(os.path.exists(t) for t in tracks)     # 09-10: one file per speaker
         if not os.path.exists(out):
-            if not os.path.exists(src) or not (ffmpeg or cut):
+            if not (os.path.exists(src) or two) or not (ffmpeg or cut):
                 log("word_coverage: no clip for %s %s (no lesson audio or no ffmpeg)" % (date, e.get("text")))
                 continue
             os.makedirs(os.path.dirname(out), exist_ok=True)
             if cut:
                 cut(src, start, end, out)
+            elif two:
+                subprocess.run([ffmpeg, "-hide_banner", "-loglevel", "error", "-y", "-ss", str(start), "-t", str(end - start), "-i", tracks[0],
+                                "-ss", str(start), "-t", str(end - start), "-i", tracks[1], "-filter_complex", "amix=inputs=2:duration=longest:normalize=0",
+                                "-ar", "16000", "-ac", "1", "-c:a", "libmp3lame", "-b:a", "48k", out], check=True, capture_output=True)
             else:
                 subprocess.run([ffmpeg, "-hide_banner", "-loglevel", "error", "-y", "-ss", str(start), "-i", src, "-t", str(end - start),
                                 "-ar", "16000", "-ac", "1", "-c:a", "libmp3lame", "-b:a", "48k", out], check=True, capture_output=True)

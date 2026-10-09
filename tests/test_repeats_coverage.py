@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""WS-30 / WS-31 / GR-32 / GR-33 / PG-39 / AZ-14 (Medi 2026-10-09 on the 10-08 lesson: "any time I speak ANY arabic word that you are giving me
+"""WS-30 / WS-31 / GR-32 / GR-33 / PG-39 / AZ-14 / PG-40 / WS-32 (Medi 2026-10-09 on the 10-08 lesson: "any time I speak ANY arabic word that you are giving me
 credit or marking as incorrect. Mark as repeat if I am repeating one of amals corrections and dont give me credit for it
 ... for grammar errors that I am being corrected and repeating the correctiong. THese should also be marked as repeat
 and uncounted")."""
@@ -25,9 +25,9 @@ TURNS = [
 FAKE_KEY = {"بيوجع": "bawaje3", "راسها": "rAs", "راس": "rAs", "يوم": "yoam"}.get
 
 
-def test_scope_starts_with_the_10_08_lesson_and_earlier_lessons_wait_for_medi():
-    assert WC.in_scope("2026-10-08") and WC.in_scope("2026-10-12")
-    assert not WC.in_scope("2026-10-06")        # PR-05: the 20 earlier lessons change only on Medi's yes
+def test_scope_is_every_lesson_past_and_future():
+    # Medi 2026-10-09 "you are making rules for all these right? to solve in the future and past"
+    assert WC.in_scope("2026-08-25") and WC.in_scope("2026-10-06") and WC.in_scope("2026-10-08") and WC.in_scope("2026-10-12")
 
 
 def test_ws_31_her_recast_is_a_supply_and_her_question_is_not():
@@ -130,9 +130,9 @@ def test_gr_33_her_praise_right_after_means_he_said_it_right():
     assert F.apply_praise([row2], lessons={"2026-10-08": fixed}) == 0
     but = [turns[0], {"t": 1433, "end": 1434, "who": "Amal", "text": "Great job, but say وحدة."}]
     assert F.apply_praise([dict(row2)], lessons={"2026-10-08": but}) == 0
-    # the earlier lessons wait for Medi's yes (PR-05)
-    old = dict(row2, date="2026-09-30")
-    assert F.apply_praise([old], lessons={"2026-09-30": turns}) == 0
+    # every lesson, past ones too
+    old = dict(row, date="2026-09-30", kind="grammar")
+    assert F.apply_praise([old], lessons={"2026-09-30": turns}) == 1
 
 
 def test_pg_39_one_chip_per_word_the_strongest_shown_the_rest_kept_hidden():
@@ -188,3 +188,39 @@ const r=require(path.join(R,'js','word-bank-arabizi.js')).create(w,J('word-bank-
 console.log(JSON.stringify(['على. بدير بالي takes على.','من','مع','تسعة'].map(s=>r(s).text)));""" % json.dumps(os.path.join(ROOT, "docs"))
     out = subprocess.run([node, "-e", js], capture_output=True, text=True, encoding="utf-8", check=True).stdout.strip()
     assert json.loads(out) == ["3ala. badir baali takes 3ala.", "min", "Ma3", "tes3ah"]
+
+
+def test_pg_40_every_arabic_line_of_10_08_has_its_english_under_it():
+    """PG-40 (Medi 2026-10-09 "Lets add all the english transaltions below the arabic writing" -> whole sentence)."""
+    import translate_lines as TRL
+    d = json.load(open(os.path.join(ROOT, "docs", "data", "lessons", "2026-10-08.json"), encoding="utf-8"))
+    want = [u for u in d["turns"] if TRL.wants(u)]
+    have = [u for u in want if u.get("en")]
+    assert want and len(have) >= 0.97 * len(want), (len(have), len(want))
+    assert not any(u.get("en") for u in d["turns"] if not TRL.wants(u))     # English lines get none
+    js = open(os.path.join(ROOT, "docs", "js", "lessons-page.js"), encoding="utf-8").read()
+    assert "if (t.en) main.appendChild(el('div', 'ls-line-en', t.en));" in js
+    os.environ["ANEES_TRANSLATE"] = "off"
+    try:
+        assert TRL.run("2026-10-08", log=lambda *a: None) == 0              # the kill switch calls no model
+    finally:
+        os.environ.pop("ANEES_TRANSLATE", None)
+
+
+def test_ws_32_pronouns_are_never_judged_and_ra7_is_read_from_the_next_word():
+    """WS-32 (Medi 2026-10-09 "Lets leave out all the anna inti inta heyya huwwe humme e7na we can assume I know these
+    always"); راح before a verb is her ra7 (will), else raa7 (he went)."""
+    assert [t["ar"] for t in WC.word_tokens("Uh, yes, أنا راح، um, أعمله، uh، غلط كتير بس.")] == ["راح", "أعمله", "غلط", "كتير", "بس"]
+    assert all(WC.is_pronoun(w) for w in ("أنا", "إنتي", "هي", "هو", "هم", "إحنا", "وأنا"))
+    words = [{"key": "ra7", "arabic": "رح", "arabizi": "ra7"}, {"key": "rA7", "arabic": "راح", "arabizi": "raa7", "topic": "Past Tense"},
+             {"key": "8ala6", "arabic": "غلط", "arabizi": "8ala6", "topic": "Adjectives"}]
+    keys = WC.Keys(words, catalog={"groups": []})
+    assert keys.lookup("راح")[1] == "unclear"          # the matcher alone cannot tell will from went
+    detail = {"turns": [{"t": 930.0, "end": 935.0, "who": "Medi", "text": "أنا راح أعمله غلط"}], "grammar_errors": [], "vocab_errors": []}
+    anchor = {"id": "a", "lesson_date": "2026-10-09", "speaker": "Medi", "t_start": 1, "local_start": 1, "source_sha256": "h"}
+    adds, _, rows = WC.plan("2026-10-09", detail, [anchor], keys, rulings=[])
+    assert all(not WC.is_pronoun(r["word"]) for r in rows)
+    assert next(r for r in rows if r["word"] == "راح")["key"] == "ra7"
+    detail["turns"][0]["text"] = "أمس هو راح"
+    _, _, rows = WC.plan("2026-10-09", detail, [anchor], keys, rulings=[])
+    assert next(r for r in rows if r["word"] == "راح")["key"] == "rA7"

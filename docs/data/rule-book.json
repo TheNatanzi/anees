@@ -1,10 +1,10 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-09",
- "total": 218,
+ "total": 220,
  "replaced": 8,
  "counts": {
-  "Automatic": 136,
+  "Automatic": 138,
   "Written down": 70,
   "Fixed once": 12,
   "Waiting on you": 0
@@ -830,7 +830,7 @@
    "key": "words",
    "title": "Words: what counts and what doesn't",
    "intro": "Which words you said get scored, and which don't.",
-   "count": 31,
+   "count": 32,
    "sections": [
     {
      "kind": "error",
@@ -969,7 +969,7 @@
       },
       {
        "id": "WS-30",
-       "text": "Every Arabic word you say gets a mark: right, half, wrong, repeat, or a grey chip that says why it is not scored. Feminine colour words, duplicate list rows and a tutor 'no' that was not about the word no longer block credit.",
+       "text": "Every Arabic word you say gets a mark: right, half, wrong, repeat, or a grey chip that says why it is not scored. This now holds for every lesson, past and future.",
        "status": "enforced",
        "topic": "word scoring",
        "badge": "Automatic",
@@ -983,12 +983,17 @@
          "who": "Medi",
          "date": "2026-10-09",
          "quote": "soda is the femanine for aswad?. I dont understand the confusion with balbes, I wear a black shirt and light blue pants.. I should get credit for all of thse."
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "you are making rules for all these right? to solve in the future and past"
         }
        ]
       },
       {
        "id": "WS-31",
-       "text": "A word you say right after the tutor gave it to you (her fix, her recast, her typed line) is a repeat: no credit, and not a mistake.",
+       "text": "A word you say right after the tutor gave it to you (her fix, her recast, her typed line) is a repeat: no credit, and not a mistake. Every lesson.",
        "status": "enforced",
        "topic": "word scoring",
        "badge": "Automatic",
@@ -1002,6 +1007,11 @@
          "who": "Medi",
          "date": "2026-10-09",
          "quote": "shouldnt count as correct it was a repeat.  Lets mark repeats as repeats"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "you are making rules for all these right? to solve in the future and past"
         }
        ]
       }
@@ -1265,6 +1275,25 @@
      "heading": "How the work runs",
      "rules": [
       {
+       "id": "WS-32",
+       "text": "Pronouns like ana, inta, heyye are never marked: you know them. Raa7 (went) and ra7 (will) are told apart by the next word.",
+       "status": "enforced",
+       "topic": "word scoring",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "Lets leave out all the anna inti inta heyya huwwe humme e7na we can assume I know these always."
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "8ala6 isnt on the list? if not why isnt it being marked as a new word? it shouyld be on her list"
+        }
+       ]
+      },
+      {
        "id": "WS-29",
        "text": "When you fix a word the engine misheard, the word you really said counts for you if it is on the tutor's list. Saying a word should count makes it count.",
        "status": "enforced",
@@ -1473,7 +1502,7 @@
       },
       {
        "id": "GR-32",
-       "text": "A grammar form you repeat right after the tutor corrected you is a repeat: it is not counted as a use.",
+       "text": "A grammar form you repeat right after the tutor corrected you is a repeat: it is not counted as a use. Every lesson.",
        "status": "enforced",
        "topic": "grammar scoring",
        "badge": "Automatic",
@@ -1487,12 +1516,17 @@
          "who": "Medi",
          "date": "2026-10-09",
          "quote": "shouldnt count as correct it was a repeat.  Lets mark repeats as repeats"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "you are making rules for all these right? to solve in the future and past"
         }
        ]
       },
       {
        "id": "GR-33",
-       "text": "When the tutor praises your line right after it (Excellent, Great job, ممتاز), you said it right: no mistake there.",
+       "text": "When the tutor praises your line right after it (Excellent, Great job, ممتاز), you said it right: no mistake there. Every lesson.",
        "status": "enforced",
        "topic": "grammar scoring",
        "badge": "Automatic",
@@ -1501,6 +1535,11 @@
          "who": "Medi",
          "date": "2026-10-09",
          "quote": "if she is saying praises like excellent or great jobs you can assume I said it right"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "you are making rules for all these right? to solve in the future and past"
         }
        ]
       },
@@ -2589,7 +2628,7 @@
    "key": "pages",
    "title": "Pages, audio & numbers on screen",
    "intro": "What each page shows, the audio clips, and keeping numbers up to date.",
-   "count": 53,
+   "count": 54,
    "sections": [
     {
      "kind": "not-error",
@@ -3446,6 +3485,25 @@
          "who": "Medi",
          "date": "2026-10-09",
          "quote": "Also do the corrections in arabizi as well"
+        }
+       ]
+      },
+      {
+       "id": "PG-40",
+       "text": "Every Arabic line on the lesson transcript has its English translation underneath.",
+       "status": "enforced",
+       "topic": "the lessons page",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "Lets add all the english transaltions below the arabic writing"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "Whole sentence (Recommended)"
         }
        ]
       },

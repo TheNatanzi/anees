@@ -992,6 +992,11 @@ def build():
         marks = sorted([{"t": v["t"], "kind": "vocab", "wrong": v["wrong"], "right": v["fix"] or v["arabic"]} for v in verr if v["kind"] == "wrong" and v.get("wrong")] +
                        [{"t": g["t"], "kind": "grammar", "wrong": g["wrong"], "right": g["right"]} for g in gerr if g["wrong"]],
                        key=lambda m: m["t"])
+        try:                                # PG-40 (Medi 2026-10-09): the English of each Arabic line, under it
+            import translate_lines as TRL
+            TRL.attach(date, turns)
+        except Exception as e:  # noqa: BLE001 - a missing translation never stops a build
+            print("translate_lines: not attached (%s)" % type(e).__name__)
         per[date] = {"date": date, "clock": "seconds on the lesson page audio (docs/lessons/%s/audio/...)" % date,
                      "turns": turns, "vocab_errors": verr, "vocab_correct": vok, "grammar_errors": gerr,
                      "grammar_not_counted": gnc, "marks": marks}

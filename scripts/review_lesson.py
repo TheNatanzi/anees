@@ -447,6 +447,9 @@ def main():
     py(os.path.join(HERE, "full_audit_build.py"))
     # the build rewrites the audit JSON without Amal's rulings: re-apply them before any page is built (2026-09-30)
     py(os.path.join(HERE, "apply_amal_audit_rulings.py"))
+    # PG-40 (Medi 2026-10-09 "Lets add all the english transaltions below the arabic writing"): every new lesson's Arabic
+    # lines get their English before the pages are built (a failed batch only leaves those lines without it)
+    py(os.path.join(HERE, "translate_lines.py"), d, check=False)
     for s in ("build_lessons_page_data.py", "build_grammar_console.py", "build_amal_grammar_rules.py", "arabizi_everywhere.py"):
         rc = py(os.path.join(HERE, s), check=False).returncode
         if rc:
