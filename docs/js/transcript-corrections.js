@@ -296,11 +296,18 @@ function rowFor(it) {
   if (it.kind === 'add' && tg) tg = { k: tg.k, said: tg.said };
   return { kind: it.kind, target: tg, payload: Object.assign({}, it.payload || {}) };
 }
-async function askAI(text, part) {
+// PR-22: the lines around the one he writes under (his sentence is split over short lines; his note often names them)
+function contextOf(x, parts) {
+  var t0 = Number(parts[0].t) - 20, t1 = Number(parts[parts.length - 1].end != null ? parts[parts.length - 1].end : parts[parts.length - 1].t) + 40;
+  var mm = function (t) { t = Math.max(0, Math.floor(t)); return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0'); };
+  return ((x && x.turns) || []).filter(function (u) { return u.t >= t0 && u.t <= t1; })
+    .map(function (u) { return '[' + mm(u.t) + ' ' + (u.who === 'chat' ? 'Tutor (chat)' : u.who) + '] ' + (u.engine || u.text || ''); }).join(String.fromCharCode(10)).slice(0, 3000);
+}
+async function askAI(text, part, context) {
   if (!A().url) return { status: 'offline', items: [] };
   try {
     var r = await fetch(A().url + '/functions/v1/parse-correction', { method: 'POST', headers: hdr(),
-      body: JSON.stringify({ text: text, line: (part.engine || part.text || '').slice(0, 600), who: part.who || 'Medi', t: Number(part.t) || 0 }), signal: AbortSignal.timeout(AI_MAX_MS) });
+      body: JSON.stringify({ text: text, line: (part.engine || part.text || '').slice(0, 600), who: part.who || 'Medi', t: Number(part.t) || 0, context: context || '' }), signal: AbortSignal.timeout(AI_MAX_MS) });
     if (!r.ok) return { status: 'error', items: [] };
     return await r.json();
   } catch (e) { return { status: 'error', items: [] }; }
@@ -310,7 +317,9 @@ function moreMenu(row, x, turn, parts, prefill, replaces) {
   closePanels(row);
   var P = el('div', 'tc-panel tc-one'), main = row.querySelector('.tm-main') || row, part = (parts || [])[0] || turn;
   var other = part.who === 'Medi' ? 'Amal' : 'Medi', PR = PARSER();
-  var ctx = { who: part.who || 'Medi', line: part.engine || part.text || '', t: part.t, toArabizi: H.toArabizi ? function (w) { return H.toArabizi(w).text; } : null };
+  var pieces = (parts && parts.length ? parts : [turn]).map(function (p) { return { t: Number(p.t), line: p.engine || p.text || '', turn: p }; });
+  var ctx = { who: part.who || 'Medi', line: pieces.map(function (p) { return p.line; }).join(' '), parts: pieces, t: part.t,
+    toArabizi: H.toArabizi ? function (w) { return H.toArabizi(w).text; } : null };
   var items = [], sure = false, aiTimer = null, aiBusy = null, aiFor = '', aiState = '';
   P.appendChild(el('div', 'tc-q', 'Fix this line'));
   var r1 = el('div', 'tc-row');
@@ -363,7 +372,7 @@ function moreMenu(row, x, turn, parts, prefill, replaces) {
   function runAI(text) {
     if (aiFor === text || !text) return;
     aiFor = text; aiState = 'reading'; paintChips();
-    aiBusy = askAI(text, part).then(function (ans) {
+    aiBusy = askAI(text, part, contextOf(x, pieces.map(function (p) { return p.turn; }))).then(function (ans) {
       aiBusy = null; aiState = ans.status || 'done';
       if (ta.value.trim() !== text) return;                                   // he kept typing: this answer is stale
       if (ans.status === 'ok' && PR) {
@@ -388,7 +397,12 @@ function moreMenu(row, x, turn, parts, prefill, replaces) {
     items.forEach(function (it) {
       var r = rowFor(it);
       r.payload.raw = text;
-      saved.push(save(x, part, r.kind, r.target, r.payload, null, null, true));
+      // PR-22: a text fix goes on the piece of his sentence it changes (named by the AI's m:ss, else the piece that holds
+      // the engine's words) - his 10-08 notes all landed on the first piece and doubled or missed the words
+      var on = part;
+      if (r.kind === 'text' && PR && PR.pieceFor) { var pc = PR.pieceFor(ctx, r.payload.engine_wrote || '', r.payload.at); if (pc && pc.turn) on = pc.turn; }
+      delete r.payload.at;
+      saved.push(save(x, on, r.kind, r.target, r.payload, null, null, true));
     });
     toastMany(saved);
     P.remove();

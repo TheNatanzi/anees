@@ -92,6 +92,8 @@ def chip(date, doc=None, root=REPO):
     row = ((doc or load(root)).get("lessons") or {}).get(date) or {}
     st = row.get("status") if row.get("status") in STATUS else "pending"
     out = {"status": st, "since": row.get("since"), "label": STATUS[st][0], "tip": STATUS[st][1]}
+    if st == "pending" and str(row.get("note") or "").startswith("Waiting for the Google allowance"):
+        out["label"] = "Second listen: waiting for allowance"      # TR-29: why it has not run, on the chip itself
     if row.get("note"):
         out["note"] = row["note"]
     return out

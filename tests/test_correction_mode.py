@@ -314,3 +314,24 @@ def test_tr_25_another_script_on_a_line_is_the_engine_switching_language():
     import transcript_fixes as TF
     fixed = TF.apply("2026-10-02", [{"t": 2947.05, "who": "Medi", "text": "Uh, every-- Is it 結 局 ?"}])
     assert "كل يوم" in fixed[0]["text"] and not E.foreign_script(fixed)
+
+
+def test_pr_19_a_person_typing_for_an_hour_is_never_held_and_rows_held_before_are_released(tmp_path):
+    """PR-19 (Medi 2026-10-09 "go and fix it permanently"): his 58 rows on 10-08, typed over 54 minutes, sat held for good
+    by the more-than-50 guard. The guard holds a burst only (more than HOLD_OVER rows inside BURST_S); held rows written at
+    a person's pace are released on the next pull."""
+    out, q = str(tmp_path / "m.json"), str(tmp_path / "q.json")
+    paced = [_c(cid="p%d" % i, ts="2026-10-09T06:%02d:00+00:00" % i) for i in range(MC.HOLD_OVER + 5)]   # 55 rows over 54 min
+    assert MC.human_paced(paced) and not MC.human_paced([_c(cid="a"), _c(cid="b")])
+    res = MC.pull(out, fetch=lambda: paced, dates={"2026-10-02"}, quar=q, log=Q)
+    assert res["status"] == "ok" and res["new"] == len(paced)
+    # the old behaviour left them in the quarantine as held: the next pull releases them
+    out2, q2 = str(tmp_path / "m2.json"), str(tmp_path / "q2.json")
+    MC.W(q2, {"rows": [{"row": r, "why": "held: 55 new rows in one pull (more than 50)"} for r in paced]})
+    res = MC.pull(out2, fetch=lambda: paced, dates={"2026-10-02"}, quar=q2, log=Q)
+    assert res["status"] == "ok" and res["released"] == len(paced) and len(MC.J(out2)["rows"]) == len(paced)
+    assert not any(str(x.get("why", "")).startswith("held") for x in MC.J(q2)["rows"])
+    # a burst is still held, and a later burst never re-holds his released rows
+    burst = [_c(cid="b%d" % i) for i in range(MC.HOLD_OVER + 1)]
+    assert MC.pull(out2, fetch=lambda: paced + burst, dates={"2026-10-02"}, quar=q2, log=Q)["status"] == "held"
+    assert len(MC.J(out2)["rows"]) == len(paced)

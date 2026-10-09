@@ -1133,6 +1133,11 @@ def build():
     # can commit, read by the hourly job too)
     LMODE = LL.mode(REPO)
     U0 = J(usage_p) if os.path.exists(usage_p) else {}
+    try:                                    # WS-29: the Doc words of his own corrections are Word Bank events too
+        import heard_credits as HC
+        HC.refresh(log=lambda *a: print(*a))
+    except Exception as e:  # noqa: BLE001 - never stops a build; the credits wait for the next one
+        print("heard_credits: not refreshed (%s)" % type(e).__name__)
     patches = (J(os.path.join(DOCS, "data", "word-bank-review.json")).get("patches") or {})
     EV = {e["id"]: e for e in J(os.path.join(DOCS, "data", "word-bank-evidence.json")).get("events", [])}
     for _a in J(os.path.join(DOCS, "data", "word-bank-review.json")).get("additions", []):

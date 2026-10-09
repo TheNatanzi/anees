@@ -27,7 +27,7 @@ Deno.serve(async (req) => {
   const H = cors(req.headers.get("origin"));
   if (req.method === "OPTIONS") return new Response("ok", { headers: H });
   if (req.method !== "POST") return json(H, { error: "POST only" }, 405);
-  let body: { text?: string; line?: string; who?: string; t?: number } = {};
+  let body: { text?: string; line?: string; who?: string; t?: number; context?: string } = {};
   try { body = await req.json(); } catch { /* empty */ }
   const text = String(body.text || "").trim().slice(0, 600), line = String(body.line || "").slice(0, 600);
   const who = body.who === "Amal" ? "Amal" : "Medi", t = Number(body.t) || 0;
@@ -40,7 +40,8 @@ Deno.serve(async (req) => {
   const { data: spent } = await sb.from("api_spend").select("usd").eq("service", "anthropic").gte("ts", since.toISOString());
   if ((spent || []).reduce((s: number, x: { usd: number }) => s + (x.usd || 0), 0) >= DAILY_CAP_USD) return json(H, { status: "cap", items: [] });
 
-  const prompt = PROMPT.replace("{who}", who).replace("{mmss}", mmss(t)).replace("{line}", line || "(empty)").replace("{text}", text);
+  const context = String(body.context || "").slice(0, 3000) || "(not given)";   // PR-22: the lines around his line
+  const prompt = PROMPT.replace("{context}", context).replace("{who}", who).replace("{mmss}", mmss(t)).replace("{line}", line || "(empty)").replace("{text}", text);
   const r = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: { "x-api-key": key, "anthropic-version": "2023-06-01", "Content-Type": "application/json" },

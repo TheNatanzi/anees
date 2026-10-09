@@ -41,14 +41,15 @@ function create(words=[],catalog={},extra={},opts={}){
  // A row with a scope ("lessons": his own wrong / cut-off / unclear forms, method as-said) is used only by the page that
  // asks for that scope - the Lessons page error cards and transcript lines (RULES.md S1, AZ-05 / AZ-10). Everywhere
  // else the word falls through to the Arabic + "Unverified spelling stays in Arabic" (Codex final approval 2026-10-05).
- const built=new Map();for(const [ar,e] of Object.entries(extra.words||{}))if(e&&e.latin&&(!e.scope||e.scope===opts.scope))built.set(norm(ar),e.latin);
+ const built=new Map(),asSaid=new Set();for(const [ar,e] of Object.entries(extra.words||{}))if(e&&e.latin&&(!e.scope||e.scope===opts.scope)){built.set(norm(ar),e.latin);if(e.method==='as-said'||e.scope)asSaid.add(norm(ar));}
+ const sheetPairs=[];   // AZ-snap: [norm Arabic, her Latin] from her own sheet rows only
  function add(ar,latin){
   // Her Doc adds notes in brackets: "أسبوع (أسبوعين" / "Usboo3", "3ain (F)". Keep the word, drop the note.
   const clean=x=>String(x||'').replace(/\([^)]*\)?/g,' ').replace(/\s+/g,' ').trim();
   ar=clean(ar);latin=clean(latin);
   if(!ar||!latin||AR.test(latin)||/[\/|()[\]]/.test(ar+latin)||!AR.test(ar))return;
   const a=ar.split(/\s+/),b=latin.split(/\s+/);if(a.length!==b.length)return;
-  a.forEach((s,i)=>{if(AR.test(s)&&/^[\p{L}0-9'’\-]+$/u.test(b[i])&&!lexicon.has(norm(s)))lexicon.set(norm(s),b[i]);});
+  a.forEach((s,i)=>{if(AR.test(s)&&/^[\p{L}0-9'’\-]+$/u.test(b[i])){if(!lexicon.has(norm(s)))lexicon.set(norm(s),b[i]);sheetPairs.push([norm(s).replace(/[^ء-ي]/g,''),b[i]]);}});
  }
  for(const w of words)add(w.arabic,w.house_spelling||w.arabizi);
  for(const g of catalog.groups||[])for(const f of g.entries||[]){add(f.arabic,f.word);for(const p of f.persons||[])if(p.provenance==='document')add(p.arabic,p.word);}
@@ -77,8 +78,28 @@ function create(words=[],catalog={},extra={},opts={}){
   for(const [prefix,latin] of [['وال','w-el-'],['بال','b-el-'],['لل','l-el-'],['ال','el-'],['و','w-']]){
    if(n.startsWith(prefix)&&lexicon.has(n.slice(prefix.length)))return {text:latin+lexicon.get(n.slice(prefix.length)),approximate:false};
   }
+  // his own wrong / cut-off forms (as-said) win: the error cards must show what he said
+  if(asSaid.has(n))return {text:built.get(n),approximate:false,built:true};
+  // AZ-12 (Medi 2026-10-09 "99% of the words said should come from amals arabic list ... if you strongly suspect a word to
+  // be on my list. You need to using the arabizi from our sheet." + "yes"): on a transcript line, a word one letter away
+  // from exactly ONE word of her sheet is shown in her sheet's Arabizi; the engine's Arabic stays small underneath (S2,
+  // TR-02: his real slip stays visible there and on the error cards, whose as-said forms are matched above).
+  if(opts.snap){const s=snap(n);if(s)return {text:s.latin,approximate:false,snapped:s.ar};}
   if(built.has(n))return {text:built.get(n),approximate:false,built:true};
   return {text:raw,approximate:true}; // Keep Arabic when vowels/spelling are not documented; never invent a consonant string.
+ }
+ // Her sheet's words only (her Doc + catalog rows - not the built-in spoken list, not arabizi-extra), 3+ letters.
+ // A strong suspicion = the SAME word once the letters the engine swaps by sound are folded together (ث=ت, ذ=ز/د, ظ=ض,
+ // ص=س, ط=ت, ق=ء, ة=ه, ى=ي, أ/إ/آ=ا) and exactly ONE of her rows folds to it. A blind one-letter distance was tried on
+ // 10-08 (2026-10-09) and was wrong in most of 41 changes (ثلاث three -> Tult a third, أمريكا -> Amriki): not used.
+ let sheetIdx=null;
+ const fold=w=>w.replace(/[ث]/g,'ت').replace(/[ذ]/g,'ز').replace(/[ظ]/g,'ض').replace(/[ص]/g,'س').replace(/[ط]/g,'ت').replace(/[ق]/g,'ء').replace(/[ؤئ]/g,'ء').replace(/ة/g,'ه').replace(/[^ء-ي]/g,'');
+ function snap(n){
+  if(n.length<3)return null;
+  if(!sheetIdx){sheetIdx=new Map();for(const [ar,lat] of sheetPairs){const f=fold(ar);if(!f)continue;const o=sheetIdx.get(f);if(!o)sheetIdx.set(f,{ar,lat,n:1});else if(o.lat.toLowerCase()!==lat.toLowerCase())o.n++;}}
+  if(fold(n)===fold('ثانيه'))return null;              // تانية taanye (another) vs her ثانية Saanie (a second): sense() decides
+  const h=sheetIdx.get(fold(n));
+  return h&&h.n===1?{ar:h.ar,latin:h.lat}:null;      // two different rows fold the same = not a strong suspicion
  }
  return function render(text){let approximate=false;const source=String(text||'');const value=source.replace(/ـ/g,'').replace(/[\u061C\u200E\u200F\u202A-\u202E\u2066-\u2069]/g,'').replace(/[\u0621-\u063A\u0641-\u065F\u0670\u0671]+/g,(s,off,str)=>{const w=sense(s,str.slice(0,off));approximate ||= w.approximate;return w.text;}).replace(/،/g,',').replace(/؟/g,'?').replace(/؛/g,';');return {text:value,source,generated:AR.test(source),approximate};};
 }

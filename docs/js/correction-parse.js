@@ -64,6 +64,14 @@ function slipItem(said, right, k) {
     target: { k: k, said: said }, payload: { k: k, wrong: said, right: right || null } };
 }
 function noteItem(text) { return { kind: 'note', label: 'Note: ' + text, payload: {} }; }
+// PR-22: ctx.parts = the pieces of his joined sentence [{t, line}]; the one named by m:ss (+-1.5 s), else the one holding w
+function pieceFor(ctx, w, at) {
+  var parts = (ctx && ctx.parts) || [];
+  if (!parts.length) return { line: (ctx && ctx.line) || '', t: null };
+  var sec = at == null ? null : (typeof at === 'number' ? at : parseTime(String(at)));
+  if (sec != null) { var n = parts.filter(function (p) { return Math.abs(p.t - sec) <= 1.5; })[0]; if (n) return n; }
+  return parts.filter(function (p) { return p.line.indexOf(w) >= 0; })[0] || parts.filter(function (p) { return inLine(w, p.line, 0.6); })[0] || parts[0];
+}
 
 /* ---------- the rule layer ---------- */
 function parse(text, ctx) {
@@ -165,7 +173,17 @@ function fromAI(ans, text, ctx) {
     else if (a.kind === 'time' && typeof a.t === 'number' && a.t >= 0) it = timeItem(a.t);
     else if (a.kind === 'time' && parseTime(a.t) != null) it = timeItem(parseTime(a.t));
     else if (a.kind === 'missing' && clean(a.word)) it = missingItem(clean(a.word));
-    else if (a.kind === 'text' && clean(a.engine_wrote) && clean(a.heard)) { var h = inLine(clean(a.engine_wrote), ctx.line || '', 0.6); if (h) it = textItem(h, clean(a.heard)); }
+    else if (a.kind === 'text' && clean(a.engine_wrote) && clean(a.heard)) {
+      // PR-22: "at" names the piece of his split sentence it changes; else the piece that holds the words
+      var pc = pieceFor(ctx, clean(a.engine_wrote), a.at), ew = clean(a.engine_wrote);
+      var h = pc && pc.line.indexOf(ew) >= 0 ? ew : (ew.split(/\s+/).length === 1 && pc ? inLine(ew, pc.line, 0.6) : null);
+      if (h) { it = textItem(h, clean(a.heard)); if (pc.t != null) it.payload.at = pc.t; }
+    }
+    else if (a.kind === 'credit' && clean(a.word) && (ctx.who || 'Medi') === 'Medi') {      // WS-29: "should count"
+      var cw = inLine(clean(a.word), ctx.line || '', 0.6) || clean(a.word);
+      it = { kind: 'text', label: 'Count ' + cw + ' as right', target: { word: cw }, payload: { engine_wrote: cw, heard: cw, credit: 'independent' } };
+    }
+    else if (a.kind === 'not-use' && clean(a.said)) { it = noteItem(raw); it.label = 'Not a use: ' + clean(a.said) + ' (read within the hour)'; }
     else if (a.kind === 'add' && clean(a.said) && (ctx.who || 'Medi') === 'Medi') it = slipItem(clean(a.said), clean(a.right) || null, a.k === 'grammar' ? 'grammar' : 'vocab');
     if (it) { it.payload = Object.assign({}, it.payload, { raw: raw, from: 'ai' }); it.by = 'ai'; out.push(it); }
   });
@@ -173,7 +191,7 @@ function fromAI(ans, text, ctx) {
   return out;
 }
 
-var api = { parse: parse, fromAI: fromAI, sim: sim, inLine: inLine, parseTime: parseTime, mmss: mmss, slipKind: slipKind, words: words, AR: AR };
+var api = { parse: parse, fromAI: fromAI, pieceFor: pieceFor, sim: sim, inLine: inLine, parseTime: parseTime, mmss: mmss, slipKind: slipKind, words: words, AR: AR };
 if (typeof module !== 'undefined' && module.exports) module.exports = api;
 else root.AneesCorrectionParse = api;
 })(typeof window !== 'undefined' ? window : this);

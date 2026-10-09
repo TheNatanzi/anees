@@ -51,13 +51,51 @@ def all_jobs():
     return out
 
 
+SPEND_P = os.path.join(REHEAR, "spend.json")       # TR-29: the committed money record (job files are git-ignored)
+BACKFILL_LAST = "2026-10-02"                      # the backfill job's lessons; later lessons draw on Medi's new-lessons allowance
+
+
+def spend_doc():
+    return BC.J(SPEND_P) or {}
+
+
 def spent(but=None):
+    """The backfill's dollars: this checkout's job files, never less than the committed record (the backfill ran in
+    another checkout, C:/dev/anees-wt-bench - from here its $43.99 was invisible and the allowance looked untouched)."""
+    local = _spent_local(but, lambda d: d <= BACKFILL_LAST)
+    return round(max(local, float(((spend_doc().get("backfill") or {}).get("spent_usd")) or 0.0)), 4)
+
+
+def new_lessons_spent(month, but=None):
+    """Dollars of the new-lessons allowance in one month (YYYY-MM, by the lesson date): committed jobs of every checkout
+    + this checkout's job files not yet recorded."""
+    rec = ((spend_doc().get("new_lessons") or {}).get("jobs")) or {}
+    usd = {k: float(v.get("usd") or 0.0) for k, v in rec.items() if str(v.get("date", ""))[:7] == month}
+    for p, j in all_jobs():
+        d = os.path.basename(os.path.dirname(os.path.dirname(p)))
+        if d <= BACKFILL_LAST or d[:7] != month or (but and os.path.abspath(p) == os.path.abspath(but)):
+            continue
+        k = d + "/" + os.path.basename(p)
+        if j.get("collected_complete"):
+            usd[k] = j.get("usd") or 0.0
+        elif j.get("job") or j.get("create_attempted"):
+            usd[k] = max(j.get("est_usd") or 0.0, j.get("usd") or 0.0, usd.get(k, 0.0))
+    return round(sum(usd.values()), 4)
+
+
+def new_lessons_limit():
+    return float(((spend_doc().get("new_lessons") or {}).get("monthly_usd")) or 0.0)
+
+
+def _spent_local(but=None, keep=lambda d: True):
     """Dollars against the allowance: a collected job's real dollars; a job submitted and not (fully) collected counts at
     its estimate or its collected dollars, whichever is more - also a job whose create was attempted and whose answer
     was lost (it may exist at Google). A job file that never reached create is $0."""
     usd = 0.0
     for p, j in all_jobs():
         if but and os.path.abspath(p) == os.path.abspath(but):
+            continue
+        if not keep(os.path.basename(os.path.dirname(os.path.dirname(p)))):
             continue
         if j.get("collected_complete"):
             usd += j.get("usd") or 0.0
@@ -86,6 +124,13 @@ def submit(date, name, est_usd):
     P = BJ.paths(folder, name)
 
     def cap(est):
+        if date > BACKFILL_LAST:                  # TR-29: a lesson after the backfill draws on Medi's new-lessons allowance only
+            m, lim = date[:7], new_lessons_limit()
+            s = new_lessons_spent(m, but=P["job"])
+            if s + est > lim:
+                return "new-lessons allowance (Medi's, data/lesson-work/rehear/spend.json): $%.2f spent or owed in %s + $%.2f for %s %s > $%.2f - stopped, nothing sent" % (
+                    s, m, est, date, name, lim)
+            return None
         s = spent(but=P["job"])
         if s + est > BACKFILL_LIMIT_USD:
             return "backfill allowance (Medi 2026-10-04: $%.0f for this job): $%.2f spent or owed + $%.2f for %s %s > $%.2f - stopped, nothing sent" % (

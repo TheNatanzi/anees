@@ -360,7 +360,8 @@ TUTOR_PATHS = ['docs/data', 'docs/amal/grammar-rules.html', 'data/full-audit-202
 BUILT_PATHS = ['docs', 'RULE-BOOK.md', 'data/full-audit-2026-09-26.json', 'data/accuracy', 'data/lesson-work/full-audit', 'data/lesson-work/ledger', 'data/lesson-work/ledger-amal.json', 'plan/FULL-AUDIT-2026-09-26.md',
                'data/budget.json', 'data/lessons/recall_bots.json', 'data/runs', 'data/decisions', 'data/backfill',
                'data/amal-trigger', 'data/vocab', 'data/lesson-work/amal-new-words', 'data/lesson-work/amal-new-words-verdicts.json',
-               'data/lesson-work/rehear-status.json']   # PG-27: a new lesson's pending row (scripts/rehear_status.py, via build_lessons_page_data.py)
+               'data/lesson-work/rehear-status.json',   # PG-27: a new lesson's pending row (scripts/rehear_status.py, via build_lessons_page_data.py)
+               'data/lesson-work/rehear', 'data/lesson-work/transcript-fixes.json']   # TR-29: the second listen's runs, money record, applied rows
 
 
 def tutor_refresh(no_push=False, rebuild_all=False):
@@ -647,6 +648,24 @@ def _main():
     if g is not None:
         G.set_open_failures(ROOT, 'gapfill', g.get('failures') or []); run_failures += g.get('failures') or []
     decisions_refresh()                                 # logs only; never raises
+    # TR-29 (Medi 2026-10-09 "go and fix it permanently"): the second listen (Gemini re-hear) runs by itself on every new
+    # lesson, one step an hour, inside Medi's own allowance; a lesson that waits says why (chip + one LS-04 line). A
+    # lesson it changed is read again by the three readers, one lesson an hour, when no new lesson is being fed.
+    try:
+        import rehear_auto as RH
+        rh = RH.step(log=log)
+        if rh['problems']:
+            alerts(load_problems + rh['problems'])
+        nxt = RH.reread_next()
+        if nxt and not batch:
+            f = []
+            log('re-read after the second listen', nxt)
+            run_step(f'review_lesson.py {nxt}', [sys.executable, str(HERE / 'review_lesson.py'), nxt, '--no-push'], f, timeout=3 * 3600, capture=False)
+            G.set_open_failures(ROOT, 'reread:' + nxt, f); run_failures += f
+            if not f:
+                RH.reread_done(nxt)
+    except Exception as e:
+        log('second listen step failed:', type(e).__name__, str(e)[:200])
     # The run's ONE push (lessons, gap fill, logs, and any commit an earlier blocked hour left behind) goes through the
     # publish guard: it re-checks the numbers first; on a block nothing is published and the local commits wait.
     # whatever this hour built and no step committed (e.g. data/accuracy/verification-queue.json) goes in one last commit,

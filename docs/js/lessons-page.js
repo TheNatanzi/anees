@@ -65,6 +65,9 @@ function speech(cls, html, text) {
   var box = el('div', 'gc-speech ' + (cls || ''));
   var src = el('span');
   if (html) src.innerHTML = html; else src.textContent = text || '—';
+  // PG-38: engine sound tags ([تضحك], [تسعلة]) become small grey English notes before any Arabizi is read, so the reader
+  // never spells them ("[tas3ile]"); the note is drawn on the top line only (CSS hides it on the small Arabic line)
+  var SND = window.AneesSoundTags; if (SND) SND.decorate(src);
   var source = src.textContent;
   if (!toArabizi || !isArabic(source)) {
     var only = el('div', 'gc-latin');
@@ -77,7 +80,7 @@ function speech(cls, html, text) {
   var walk = document.createTreeWalker(latin, NodeFilter.SHOW_TEXT, null), n, nodes = [];
   while ((n = walk.nextNode())) nodes.push(n);
   nodes.forEach(function (t) {
-    if (!isArabic(t.nodeValue)) return;
+    if (!isArabic(t.nodeValue) || (SND && SND.inTag(t))) return;
     var r = toArabizi(t.nodeValue);
     if (r.approximate) approximate = true;
     t.nodeValue = r.text;
@@ -1046,7 +1049,7 @@ Promise.all([optional('data/words.json' + q), optional('data/house_spelling.json
         var h = house[w.match_loose];
         return h && h.house ? Object.assign({}, w, { house_spelling: h.house }) : w;
       });
-      toArabizi = window.AneesWordBankArabizi.create(words, res[2] || {}, res[3] || {}, { scope: 'lessons' });   // S1: as-said forms show here only
+      toArabizi = window.AneesWordBankArabizi.create(words, res[2] || {}, res[3] || {}, { scope: 'lessons', snap: true });   // S1: as-said forms show here only; AZ-snap: her sheet's word for a one-letter miss
     }
     // Grammar clips cut from the hand sweep: joined by sweep id, else by date + mm:ss.
     ((res[4] && res[4].rules) || []).forEach(function (r) {

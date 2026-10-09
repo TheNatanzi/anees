@@ -17,6 +17,7 @@
   var toArabizi = null, pending = [], approxSeen = false, NM = null;   // NM: names matcher (js/names.js, 2026-09-28)
 
   var css = '.az-latin{display:block;direction:ltr;unicode-bidi:isolate}' +
+            '.az-arabic .snd-tag{display:none}' +                                     // PG-38: the English note shows once, on the top line
             '.az-arabic{display:block;font-size:.82em;opacity:.72;line-height:1.5;margin-top:1px}' +
             '.az-legend{font-size:12px;opacity:.7;margin:6px 0 10px}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
@@ -27,6 +28,8 @@
   // transcript-context-review.js, still find the same .words span and the same text).
   function apply(el) {
     if (!toArabizi || el.dataset.az === '1') return;
+    // PG-38: engine sound tags ([تضحك], [تسعلة]) become small grey English notes first, so they are never spelled as words
+    var SND = window.AneesSoundTags; if (SND) SND.decorate(el);
     var text = el.textContent;
     if (!AR.test(text)) return;
     var latin = el.cloneNode(true), approx = false;
@@ -35,7 +38,7 @@
     var walk = document.createTreeWalker(latin, NodeFilter.SHOW_TEXT, null), n, nodes = [];
     while ((n = walk.nextNode())) nodes.push(n);
     nodes.forEach(function (t) {
-      if (!AR.test(t.nodeValue) || (NM && window.AneesNames.inName(t))) return;
+      if (!AR.test(t.nodeValue) || (NM && window.AneesNames.inName(t)) || (SND && SND.inTag(t))) return;
       var r = toArabizi(t.nodeValue);
       if (r.approximate) approx = true;
       t.nodeValue = r.text;
@@ -72,7 +75,12 @@
     var s = document.createElement('script'); s.src = base + 'js/names.js' + q; s.onload = go; s.onerror = function () { res(); };
     document.head.appendChild(s);
   });
-  Promise.all([get('data/words.json' + q), get('data/house_spelling.json' + q), get('data/word-bank-catalog.json' + q), get('data/arabizi-extra.json' + q), names])
+  var sounds = new Promise(function (res) {          // PG-38 helper; optional: without it the line renders as before
+    if (window.AneesSoundTags) return res();
+    var s = document.createElement('script'); s.src = base + 'js/sound-tags.js' + q; s.onload = function () { res(); }; s.onerror = function () { res(); };
+    document.head.appendChild(s);
+  });
+  Promise.all([get('data/words.json' + q), get('data/house_spelling.json' + q), get('data/word-bank-catalog.json' + q), get('data/arabizi-extra.json' + q), names, sounds])
     .then(function (res) {
       if (!window.AneesWordBankArabizi) return;
       var house = (res[1] && res[1].items) || {};
@@ -80,7 +88,7 @@
         var h = house[w.match_loose];
         return h && h.house ? Object.assign({}, w, { house_spelling: h.house }) : w;
       });
-      toArabizi = window.AneesWordBankArabizi.create(words, res[2] || {}, res[3] || {});
+      toArabizi = window.AneesWordBankArabizi.create(words, res[2] || {}, res[3] || {}, { snap: true });   // AZ-snap on transcript lines
       var todo = pending.length ? pending : [document]; pending = [];
       todo.forEach(applyAll);
       // pages that draw their lines later (slips, speaking review, index): render what appears

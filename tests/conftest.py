@@ -6,6 +6,8 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 os.environ.setdefault('PYTHONIOENCODING', 'utf-8')
 # AM-20: tests never read the real synced Doc export on G:/My Drive (an empty folder = "not synced")
 os.environ['ANEES_DOC_SYNC_DIR'] = str(ROOT / 'tests' / '.no-doc-sync')
+# TR-29: tests never step the second listen (it can send PAID Gemini jobs); the hourly job's step is off under pytest
+os.environ['ANEES_REHEAR_AUTO'] = 'off'
 
 
 # ---- Live-database gate (engineering audit 2026-09-29; FC-08 tightened 2026-10-02) ---------------------------------

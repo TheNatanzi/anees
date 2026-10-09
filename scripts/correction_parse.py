@@ -80,9 +80,28 @@ def prompt_ts_fresh(path=PROMPT_TS):
         return json.dumps(prompt_text(), ensure_ascii=False) in f.read()
 
 
-def fill(who, t, line, text):
-    return (prompt_text().replace("{who}", who).replace("{mmss}", mmss(t)).replace("{line}", line or "(empty)")
-            .replace("{text}", text))
+def fill(who, t, line, text, context=None):
+    return (prompt_text().replace("{context}", context or "(not given)").replace("{who}", who).replace("{mmss}", mmss(t))
+            .replace("{line}", line or "(empty)").replace("{text}", text))
+
+
+CTX_BEFORE, CTX_AFTER = 20.0, 40.0          # PR-22: the lines around the one he wrote under (his sentence is often split)
+
+
+def lesson_turns(date):
+    """The lesson's lines as the engine wrote them: [{t, end, who, text}] (the page's overlay undone: engine words)."""
+    L = J(os.path.join(REPO, "docs", "data", "lessons", str(date) + ".json"), {}) or {}
+    return [{"t": float(u["t"]), "end": u.get("end"), "who": u.get("who"), "text": u.get("engine") or u.get("text") or ""}
+            for u in L.get("turns") or [] if u.get("who") in ("Medi", "Amal", "chat")]
+
+
+def context_lines(note, turns=None):
+    """PR-22: the lines from 20 s before to 40 s after the note's line, one per row: '[m:ss Who] text'."""
+    t0 = float(note.get("turn_t") or 0)
+    t1 = float((note.get("payload") or {}).get("turn_end") or t0)
+    turns = lesson_turns(note.get("lesson_date")) if turns is None else turns
+    return chr(10).join("[%s %s] %s" % (mmss(u["t"]), "Tutor (chat)" if u["who"] == "chat" else u["who"], u["text"])
+                     for u in turns if t0 - CTX_BEFORE <= u["t"] <= t1 + CTX_AFTER)
 
 
 # ------------------------------------------------------------------ the AI read -> items (checked against the line)
@@ -134,9 +153,41 @@ def _clean(s):
     return re.sub(r"^[\s\"'“”«»‘’:,.;-]+|[\s\"'“”«»‘’:,.;!?-]+$", "", str(s or "")).strip()
 
 
-def items_from_ai(ans, note):
+def _line_at(at, note, turns):
+    """(the text of the line named by 'm:ss' near the note - same speaker - and its time), else the note's own line."""
+    line = (note.get("payload") or {}).get("line") or ""
+    if at in (None, ""):
+        return line, None
+    try:
+        p = [int(x) for x in str(at).strip().split(":")]
+        sec = p[-1] + 60 * p[-2] + (3600 * p[-3] if len(p) == 3 else 0)
+    except (ValueError, IndexError):
+        return line, None
+    who = note.get("turn_who") or "Medi"
+    c = sorted((abs(u["t"] - sec), u) for u in (turns or []) if u["who"] == who and abs(u["t"] - sec) <= 1.5) if turns else []
+    if not c:
+        return line, None
+    return c[0][1]["text"], c[0][1]["t"]
+
+
+def use_at(note, said):
+    """The grammar use the use-counter scored on this line (or the joined sentence) whose words hold `said`; None if none."""
+    U = (J(os.path.join(REPO, "docs", "data", "grammar-usage.json"), {}) or {}).get("uses") or {}
+    t0 = float(note.get("turn_t") or 0)
+    t1 = float((note.get("payload") or {}).get("turn_end") or t0)
+    n = _norm(said)
+    for b, lst in U.items():
+        for x in lst or []:
+            if x.get("date") == str(note.get("lesson_date")) and t0 - 1 <= float(x.get("t") or -9) <= t1 + 1 and n and (n in _norm(x.get("said")) or n in _norm(x.get("hit")) or _sim(said, x.get("hit")) >= 0.6):
+                return {"bucket": b, "said": x.get("hit") or x.get("said"), "t": x.get("t")}
+    return None
+
+
+def items_from_ai(ans, note, turns=None):
     """The model's JSON -> rows the builders already know (mirrors docs/js/correction-parse.js fromAI)."""
     line, who = (note.get("payload") or {}).get("line") or "", note.get("turn_who") or "Medi"
+    if turns is None:
+        turns = lesson_turns(note.get("lesson_date"))
     out = []
     for a in (ans or {}).get("items") or []:
         if not isinstance(a, dict):
@@ -154,9 +205,24 @@ def items_from_ai(ans, note):
         elif k == "missing" and _clean(a.get("word")):
             out.append(("missing", None, {"heard": _clean(a["word"])}))
         elif k == "text" and _clean(a.get("engine_wrote")) and _clean(a.get("heard")):
-            hit = in_line(_clean(a["engine_wrote"]), line)
+            # PR-22: "at" names the line it changes (his sentence is split over short lines); the words must stand on it
+            tl, at = _line_at(a.get("at"), note, turns)
+            ew = _clean(a["engine_wrote"])
+            hit = ew if ew in tl else (in_line(ew, tl) if len(ew.split()) == 1 else None)
             if hit:
-                out.append(("text", {"word": hit}, {"engine_wrote": hit, "heard": _clean(a["heard"]), "from": "ai"}))
+                out.append(("text", {"word": hit}, {"engine_wrote": hit, "heard": _clean(a["heard"]), "from": "ai", **({"at": at} if at is not None else {})}))
+        elif k == "credit" and _clean(a.get("word")) and who == "Medi":
+            # WS-29: "should count" = a confirming row (the word stays as it is) that asks for the credit
+            w = _clean(a["word"])
+            short = re.sub(r"[.…,،؟?!:;]+", " ", line).split()
+            hit = in_line(w, line) or (" ".join(short) if 0 < len(short) <= 4 else None)   # "Merhaba" for the line مرحبا.
+            if not hit:
+                continue
+            out.append(("text", {"word": hit}, {"engine_wrote": hit, "heard": hit, "credit": "independent", "from": "ai"}))
+        elif k == "not-use" and _clean(a.get("said")) and who == "Medi":
+            u = use_at(note, _clean(a["said"]))
+            if u:
+                out.append(("not-use", {"rule": u["bucket"], "said": u["said"], "t": u["t"]}, {"reason": "asking", "from": "ai"}))
         elif k == "add" and _clean(a.get("said")) and who == "Medi":
             kk = "grammar" if a.get("k") == "grammar" else "vocab"
             out.append(("add", {"k": kk, "said": _clean(a["said"])}, {"k": kk, "wrong": _clean(a["said"]), "right": _clean(a.get("right")) or None}))
@@ -167,7 +233,8 @@ def claude_read(note, runner=None, log=print, spend=None):
     """ONE Haiku read of a note's raw words through `claude -p` (the repo's Claude path, scripts/track.py logs the run:
     model, tokens, cost). runner(prompt) -> stdout is injectable for tests. Returns the parsed JSON dict or None."""
     p = note.get("payload") or {}
-    prompt = fill(note.get("turn_who") or "Medi", note.get("turn_t"), p.get("line") or "", p.get("raw") or note.get("note") or "")
+    prompt = fill(note.get("turn_who") or "Medi", note.get("turn_t"), p.get("line") or "", p.get("raw") or note.get("note") or "",
+                  context_lines(note))
     cmd = [CLAUDE, "-p", prompt, "--output-format", "json", "--model", MODEL]
     with track.run("correction_parse.read_note", str(note.get("lesson_date")), kind="inference", provider="anthropic",
                    request_model=MODEL, prompt_file="scripts/correction_parse_prompt.md",
@@ -214,7 +281,8 @@ def rows_from_items(note, items, now=None):
     rows = []
     p = note.get("payload") or {}
     for kind, target, payload in items:
-        rows.append({"id": str(uuid.uuid4()), "lesson_date": str(note["lesson_date"]), "turn_t": note["turn_t"], "turn_who": note.get("turn_who") or "Medi",
+        at = payload.pop("at", None)                       # PR-22: the row goes on the line it changes
+        rows.append({"id": str(uuid.uuid4()), "lesson_date": str(note["lesson_date"]), "turn_t": at if at is not None else note["turn_t"], "turn_who": note.get("turn_who") or "Medi",
                      "kind": kind, "target": target, "payload": dict(payload, turn_end=p.get("turn_end"), line=p.get("line"), raw=p.get("raw") or note.get("note"), parsed_from=note["id"]),
                      "note": note.get("note"), "ts": now.isoformat(timespec="milliseconds").replace("+00:00", "Z"), "tz_offset_min": 0})
     return rows

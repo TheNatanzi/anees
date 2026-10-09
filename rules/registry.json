@@ -8750,6 +8750,359 @@
     "t": "0:00",
     "note": "the 'Fix this line' panel under a STUDENT line: 7 controls (speaker button, time box + Fix time, dropped-word box + Add word, said / should / kind + Add slip) -> 1 box + Send"
    }
+  },
+  {
+   "id": "PG-38",
+   "kind": "display",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "On every transcript view a sound the recording engine wrote in square brackets ([تصفير في الخلفية], [تسعلة], [تضحك], [laughs]) shows as a small grey English note - (whistling), (cough), (laughs), (clears throat), (breathes), (background noise) - never as Arabizi and never as a word; an unknown bracket tag with Arabic letters shows (sound). One shared helper (docs/js/sound-tags.js, a closed map) runs before the Arabizi reader on the Lessons page (lessons-page.js speech()) and on each lesson's own page (loaded by transcript-arabizi.js); the reader skips the note. Display only (S2): the raw transcript and the built lesson JSON keep the bracket text; PG-20 underlines and the PG-23 sentence joiner work on the same text as before.",
+   "plain": "Sounds the recording engine heard, like a cough or a laugh, show as a small grey note in English, such as (cough) or (laughs). They are never spelled as Arabic words and never scored.",
+   "plain_for": "a510c49e",
+   "topic": "the transcript",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-08",
+     "quote": "whjat does [tasfeer Fi el-5alfiyye] [tas3ile] why is this here",
+     "session": "1fc084ad"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "ok do it",
+     "session": "1fc084ad"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/sound-tags.js",
+     "contains": "'تسعلة': 'cough'"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "SND.decorate(src)"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/transcript-arabizi.js",
+     "contains": "js/sound-tags.js"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_sound_tags.cjs",
+     "contains": "test('PG-38 the 00:15 tutor line"
+    },
+    {
+     "path": "tests/test_sound_tags.cjs",
+     "contains": "test('PG-38 the Arabizi reader never spells a tag"
+    },
+    {
+     "path": "tests/test_sound_tags.cjs",
+     "contains": "test('PG-38 the pages load the helper"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "0:15",
+    "note": "tutor line 'Ahla. [tasfeer Fi el-5alfiyye] [tas3ile] keefak?' -> 'Ahla. (whistling) (cough) keefak?'"
+   }
+  },
+  {
+   "id": "AZ-12",
+   "kind": "display",
+   "scope": "arabizi",
+   "status": "enforced",
+   "change": "new",
+   "statement": "On a transcript line, a word that is one of her sheet's words once the letters the engine swaps by sound are folded together (ث=ت, ذ=ز, ظ=ض, ص=س, ط=ت, ق=ء, ة=ه) - and exactly one of her rows folds to it - shows her sheet's Arabizi on top; the engine's Arabic stays small underneath (S2, TR-02). His own as-said forms (the error cards) win over it, and تانية taanye keeps its homograph rule. A blind one-letter distance was measured on 10-08 and was wrong in most of 41 changes (ثلاث three -> Tult a third), so it is not used. Measured 2026-10-09: on 10-08 every Arabic word already had an Arabizi spelling (0 left in Arabic); the snap changes 4 words to her own spelling (لسة -> Lissa). The bad lines on 10-08 were the engine hearing the wrong words, not the spelling.",
+   "plain": "When the engine spells one of the tutor's sheet words with a sound-alike letter, the transcript shows her sheet's Arabizi on top. The engine's Arabic stays small underneath, so a real mistake stays visible.",
+   "plain_for": "3141edd2",
+   "topic": "Arabizi spelling",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "99% of the words said should come from amals arabic list of words ... if you strongly suspect a word to be on my list.  You need to using the arabizi from our sheet.",
+     "session": "1fc084ad"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "Yes please do a full audit of the lesson again.",
+     "session": "1fc084ad"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "docs/js/word-bank-arabizi.js",
+     "contains": "function snap(n){"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "{ scope: 'lessons', snap: true }"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_arabizi_snap.cjs",
+     "contains": "test('AZ-12 a sound-alike spelling of her word shows her Arabizi"
+    },
+    {
+     "path": "tests/test_arabizi_snap.cjs",
+     "contains": "test('AZ-12 no blind one-letter guess"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "various",
+    "note": "Amal's لسة shows her sheet's Lissa (was lessa)"
+   }
+  },
+  {
+   "id": "PR-19",
+   "kind": "process",
+   "scope": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The more-than-50-rows guard on his page corrections holds a BURST only: more than 50 new rows written inside 10 minutes. Rows written at a person's pace are applied, and rows the old guard held are released on the next pull. Found 2026-10-09: his 58 rows on the 10-08 lesson (54 minutes of typing) were held for good and none reached the pages.",
+   "plain": "Your corrections are never held back for being many. Only a burst of more than 50 in ten minutes waits for a look.",
+   "plain_for": "74159621",
+   "topic": "your corrections",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "go and fix it permanently",
+     "session": "1fc084ad"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "Its SO bad man it heard every line wrong.  Please evaluate my notes.",
+     "session": "1fc084ad"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/medi_corrections.py",
+     "contains": "def human_paced(rows, burst_s=None):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_correction_mode.py",
+     "contains": "def test_pr_19_a_person_typing_for_an_hour_is_never_held_and_rows_held_before_are_released"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "0:10-5:49",
+    "note": "58 rows held as 'more than 50 in one pull'; released: written over 54 min"
+   }
+  },
+  {
+   "id": "WS-29",
+   "kind": "process",
+   "scope": "word-scoring",
+   "status": "enforced",
+   "change": "new",
+   "statement": "A word he really said counts. When his own correction says the engine misheard him, the Doc words in his corrected words are Word Bank events (scripts/heard_credits.py, through the review overlay's additions; the raw evidence is untouched, S2), judged by the matcher's own context rules (the tutor said it in the 15 s before = practice; her correction cue after = left to the readers; else independent). Before, his correction could only take a credit away (TR-18). His 'should count' on a word the matcher already had rules on that event. Only his own rows add credits: a machine listen never does. A gendered form (كيفك keefak / keefek) counts only when his row says which; his self-fixed keefak to a woman got none. 2026-10-09 on 10-08: 16 credits from his notes (15 independent, 1 practice) + marhaba.",
+   "plain": "When you fix a word the engine misheard, the word you really said counts for you if it is on the tutor's list. Saying a word should count makes it count.",
+   "plain_for": "e38b97f1",
+   "topic": "your corrections",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "I should get credit for knowing \"alayhi salmik\"",
+     "session": "1fc084ad"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "Merhaba should count as a vocab",
+     "session": "1fc084ad"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/heard_credits.py",
+     "contains": "def build(rows=None, words=None, evidence=None, lessons=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/build_lessons_page_data.py",
+     "contains": "HC.refresh(log=lambda *a: print(*a))"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_heard_credits.py",
+     "contains": "def test_ws_29_his_heard_doc_word_is_credited_and_an_engine_word_is_not_credited_twice"
+    },
+    {
+     "path": "tests/test_heard_credits.py",
+     "contains": "def test_ws_29_should_count_on_a_word_the_matcher_had_patches_that_event"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "4:49",
+    "note": "engine 'alayhi salmik', he said الله يسلمك (her Doc 'Allah ysalmek'): counted"
+   }
+  },
+  {
+   "id": "TR-29",
+   "kind": "process",
+   "scope": "transcription",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The second listen (Gemini re-hear, TR-22) runs by itself on every new lesson: each hour scripts/rehear_auto.py moves every published lesson after the backfill that is not applied one step (freeze, the 3 paid base runs, collect, two-clip runs, proposals, apply with the TR-27 holds, then the three readers read the lesson again), with the same recipe and rules as the backfill. Money: a lesson after 10-02 draws only on Medi's new-lessons allowance (data/lesson-work/rehear/spend.json new_lessons.monthly_usd, never raised by code); no room = the lesson waits, its chip says 'Second listen: waiting for allowance' with the dollars, and one LS-04 line says so. The backfill's own $45 is checked against the committed record, never less than $43.99 (its job files are git-ignored in another checkout, so from the hourly checkout it looked untouched). Found 2026-10-09: 10-05, 10-06 and 10-08 sat pending with ElevenLabs-only text; nothing ever ran the listen after the one-time backfill. Tests never step it (ANEES_REHEAR_AUTO=off).",
+   "plain": "The second Google listen runs by itself on every new lesson, within the monthly money you set. If the money is used up, the lesson says so on its chip.",
+   "plain_for": "d007b675",
+   "topic": "the second listen",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "why the fuck wasnt it applied?",
+     "session": "1fc084ad"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "go and fix it permanently",
+     "session": "1fc084ad"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "im going to bed, please be thorough.  Im so disappointed in this, I htought google was supposed to be a huge improvement but its worse than 11 so far",
+     "session": "1fc084ad"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/rehear_auto.py",
+     "contains": "def step(log=print, dates=None):"
+    },
+    {
+     "type": "code",
+     "path": "scripts/hourly_lessons.py",
+     "contains": "rh = RH.step(log=log)"
+    },
+    {
+     "type": "code",
+     "path": "scripts/rehear_job.py",
+     "contains": "if date > BACKFILL_LAST:"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_rehear_auto.py",
+     "contains": "def test_tr_29_no_room_in_the_allowance_sends_nothing_and_says_why"
+    },
+    {
+     "path": "tests/test_rehear_auto.py",
+     "contains": "def test_tr_29_a_new_lesson_never_draws_on_the_backfill_allowance_and_the_backfill_money_is_seen_everywhere"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "all",
+    "note": "pending since 10-08; first base run (sent 00:25, $0.70) heard 'keefek' for the engine's 'Defect', 'yomi mnee7' for 'Yomi, me', 'talat illa telt' for 'halat el tod'"
+   }
+  },
+  {
+   "id": "PR-22",
+   "kind": "process",
+   "scope": "process",
+   "status": "enforced",
+   "change": "new",
+   "statement": "The one-box fix (PG-37) reads his note with the lines around it: the page sends the 20 s before to 40 s after (the edge function's {context}) and the hourly reader adds them too (scripts/correction_parse.py context_lines). His sentence is split over short lines (PG-23), so each text fix names the line it changes ('at' m:ss) and is saved on that piece, never on the first piece with his whole sentence; English look-alikes of his Arabic ('Defect' for keefak, 'and then' for tamam) are the engine's error, never a slip of his; 'should count' is a credit (WS-29) and 'shouldn't count' a not-use. Measured on his 16 notes of 2026-10-08: the old reading had 3 right (one made a vocab mistake against him from 'Um, and then is supposed to be um tamam'); the new one 13. His 10-08 notes were re-read by hand into rows (data/lesson-work/medi-corrections-hand.json; the wrong ones undone).",
+   "plain": "When you write a fix under a line, Anees reads it with the lines around it. Each part of your fix goes on the line it belongs to, and a misheard word is never counted as your mistake.",
+   "plain_for": "f603d96f",
+   "topic": "your corrections",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "Yes please do a full audit of the lesson again.  Its SO bad man it heard every line wrong.  Please evaluate my notes.",
+     "session": "1fc084ad"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/correction_parse.py",
+     "contains": "def context_lines(note, turns=None):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/transcript-corrections.js",
+     "contains": "function contextOf(x, parts) {"
+    },
+    {
+     "type": "code",
+     "path": "scripts/correction_parse_prompt.md",
+     "contains": "it is the ENGINE's error: \"text\" items"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_heard_credits.py",
+     "contains": "def test_pr_22_the_note_reader_puts_each_fix_on_the_line_it_changes_and_reads_credit_and_not_use"
+    },
+    {
+     "path": "tests/test_correction_pieces.cjs",
+     "contains": "test('PR-22 a text item lands on the piece named by m:ss"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "0:48",
+    "note": "'Um, and then is supposed to be um tamam' was saved as a vocab slip of his; now the engine's and then -> تمام"
+   }
+  },
+  {
+   "id": "GR-31",
+   "kind": "error",
+   "scope": "grammar-scoring",
+   "status": "needs-medi",
+   "change": "new",
+   "statement": "The grammar use-counter counts the engine's sound tags as his grammar uses: 22 uses in 6 lessons are a laugh or a noise in square brackets ([ضحك] / [ضحكة] counted 13 times as B5 and 7 as B10; [صوت من behind الكاميرا] as A1 and A8). Taking them out lowers those rules' use counts and moves their %, so it waits for Medi (PR-05). Builders that count words already skip tags (the engine marks them audio_event; scripts/load_lesson.py and build_lessons_page_data.py count type 'word' only; the Word Bank matcher reads words only).",
+   "plain": "Your laughs and other sounds were counted as grammar uses in a few lessons. Taking them out changes some grammar numbers, so it waits for your yes.",
+   "plain_for": "4c6f8865",
+   "topic": "grammar scoring",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "ok do it",
+     "session": "1fc084ad"
+    }
+   ],
+   "example": {
+    "date": "2026-09-14",
+    "t": "04:13",
+    "note": "his line '[ضحكة]' (a laugh) counted as a B5 use of ضحكة"
+   },
+   "question": {
+    "ask": "Take the 22 sound tags out of the grammar use counts?",
+    "options": [
+     "yes",
+     "no"
+    ]
+   }
   }
  ]
 }
