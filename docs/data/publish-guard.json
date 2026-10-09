@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-08T23:31:33-07:00",
+ "updated": "2026-10-08T23:43:42-07:00",
  "result": "pass",
- "source": "manual: PG-37 your fix shows with Edit (Medi 2026-10-08)",
- "checked_commit": "28d1e73439ed",
- "secs": 80.3,
+ "source": "manual: PG-37 Save/Cancel on edit (Medi 2026-10-08)",
+ "checked_commit": "4df3690c31dd",
+ "secs": 78.7,
  "checks": [
   {
    "id": "step_failures",
@@ -25,7 +25,7 @@
    "id": "json_data",
    "required": true,
    "ok": true,
-   "secs": 1.0,
+   "secs": 1.1,
    "what": "every docs/data JSON file parses and has its shape",
    "detail": "119 JSON files parse"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 2.5,
+   "secs": 2.4,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.7,
+   "secs": 1.5,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 719 checks"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 4.6,
+   "secs": 4.7,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 71 pages, every link, data file and clip resolves (336 references to unpublished clips play from the full lesson recording)"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.5,
+   "secs": 0.6,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,9 +129,9 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 59.0,
+   "secs": 57.7,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 92%] | ..................................................                       [100%] | 694 passed, 1 skipped, 3 xfailed in 55.64s"
+   "detail": "............................. [ 92%] | ..................................................                       [100%] | 694 passed, 1 skipped, 3 xfailed in 54.29s"
   },
   {
    "id": "tests_node",
@@ -139,13 +139,13 @@
    "ok": true,
    "secs": 1.2,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1128.6024"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1091.481"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.0,
+   "secs": 4.7,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -163,7 +163,7 @@
    "ok": false,
    "secs": 0.0,
    "what": "the pages are not older than their newest source (raw lessons, Amal trigger, last publish)",
-   "detail": "Amal's answers last checked 7 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
+   "detail": "Amal's answers last checked 8 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)"
   },
   {
    "id": "medi_corrections",
@@ -183,7 +183,7 @@
   }
  ],
  "warnings": [
-  "data_freshness: Amal's answers last checked 7 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)",
+  "data_freshness: Amal's answers last checked 8 h ago (scripts/amal_trigger.py: neither its 15-minute task nor the hourly fallback ran)",
   "foreign_script: exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
  ],
  "last_block": null,
