@@ -113,3 +113,18 @@ def test_tr_29_medi_s_limit_is_per_lesson_with_no_monthly_cap(monkeypatch):
     monkeypatch.setattr(RJ, "spend_doc", lambda: {"new_lessons": {"monthly_usd": None, "per_lesson_usd": None, "jobs": {}}})
     RJ.submit("2026-10-08", "base-run3", 0.82)
     assert caps["base-run3"].startswith("no Google limit set")
+
+
+def test_tr_29_a_lesson_frozen_in_another_checkout_gets_its_clips_cut_again_before_anything_is_sent(monkeypatch):
+    """2026-10-09 09:00: the hourly checkout had 10-05/06/08's committed lines + manifest but not the git-ignored clips
+    (frozen in a worktree) and stopped with 'clips missing'. The step cuts them again (hash-checked) first."""
+    calls = []
+    import rehear_lesson as RL
+    monkeypatch.setattr(RB, "stage_of", lambda d: "base")
+    monkeypatch.setattr(RL, "restore_clips", lambda d: calls.append(("restore", d)) or 3)
+    monkeypatch.setattr(RB, "run_done", lambda d, s, n: True)
+    monkeypatch.setattr(RB, "pump_one", lambda d: calls.append(("pump", d)) or "base")
+    RH.step_one("2026-10-08", log=lambda *a: None)
+    assert calls == [("restore", "2026-10-08"), ("pump", "2026-10-08")]
+    src = open(os.path.join(ROOT, "scripts", "rehear_lesson.py"), encoding="utf-8").read()
+    assert "def restore_clips(date):" in src and "check_clips(d, man, [ln[\"clip\"] for ln in listen])" in src

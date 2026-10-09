@@ -161,6 +161,35 @@ def freeze(date):
     return man
 
 
+def restore_clips(date):
+    """TR-29 (2026-10-09): the clips are git-ignored, so a lesson frozen in one checkout has its lines, prompts and
+    manifest (committed) but no clips in another - the hourly checkout stopped with 'clips missing'. Cut them again from
+    the frozen windows exactly as freeze() did (the edge re-cut window when there was one) and require every clip to
+    match the manifest's hash; any mismatch stops the lesson (nothing is sent on a clip that is not the frozen one).
+    Returns how many clips were cut."""
+    d = ldir(date)
+    man = BC.J(os.path.join(d, "manifest.json"))
+    listen = [ln for ln in BC.J(os.path.join(d, "lines.json"))["lines"] if ln.get("listen")]
+    todo = [ln for ln in listen if not os.path.exists(os.path.join(d, ln["clip"]))]
+    if not todo:
+        return 0
+    srcs = RA.sources(date)
+    os.makedirs(os.path.join(d, "clips"), exist_ok=True)
+
+    def cut(ln):
+        out = os.path.join(d, ln["clip"])
+        if ln.get("recut") and ln.get("src") == "own" and ln.get("k") is not None:
+            s = srcs["Medi"][ln["k"]]
+            RA.cut(s["file"], ln["window"][0] - s["start"], ln["window"][1] - s["start"], out)
+        else:
+            RA.clip(date, "Medi", ln["window"][0], ln["window"][1], out, srcs)
+    from concurrent.futures import ThreadPoolExecutor
+    with ThreadPoolExecutor(8) as ex:
+        list(ex.map(cut, todo))
+    check_clips(d, man, [ln["clip"] for ln in listen])
+    return len(todo)
+
+
 def load(date, calling=False):
     """The frozen lesson. calling=True (a stage that SENDS prompts) also requires today's prompt template to be the frozen
     one; reading the saved runs back (piles, plan, spot, listen pages) needs only the frozen files themselves - the

@@ -133,6 +133,11 @@ def step_one(date, log=print):
     if st == "not frozen":
         RB.freeze([date])
         st = RB.stage_of(date)
+    if st != "not frozen":
+        import rehear_lesson as RL
+        n = RL.restore_clips(date)           # frozen elsewhere: the git-ignored clips are cut again, hash-checked
+        if n:
+            log("second listen: %s - %d clips cut again from the frozen windows (hashes match)" % (date, n))
     if st == "base":
         unsent = [n for n in (1, 2, 3) if not RB.run_done(date, "base", n) and RJ.state(date, "base-run%d" % n) in ("none", "built")]
         if unsent:
