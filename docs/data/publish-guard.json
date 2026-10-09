@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-09T08:30:55-07:00",
+ "updated": "2026-10-09T08:51:20-07:00",
  "result": "pass",
- "source": "manual: GR-31 laughs out of grammar, TR-29 per-lesson limit (Medi 2026-10-09)",
- "checked_commit": "427e0947b268",
- "secs": 80.6,
+ "source": "manual: TR-29 $4 per lesson (Medi 2026-10-09)",
+ "checked_commit": "d1ec45e44c73",
+ "secs": 84.6,
  "checks": [
   {
    "id": "step_failures",
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 2.5,
+   "secs": 2.6,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.6,
+   "secs": 1.7,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 719 checks"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 5.2,
+   "secs": 4.8,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 71 pages, every link, data file and clip resolves (13 references to unpublished clips play from the full lesson recording)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 0.4,
+   "secs": 0.3,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -129,23 +129,23 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 58.5,
+   "secs": 62.3,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 91%] | ................................................................         [100%] | 708 passed, 1 skipped, 3 xfailed in 56.24s"
+   "detail": "............................. [ 91%] | ................................................................         [100%] | 708 passed, 1 skipped, 3 xfailed in 58.91s"
   },
   {
    "id": "tests_node",
    "required": true,
    "ok": true,
-   "secs": 1.2,
+   "secs": 1.3,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1139.0505"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1219.193"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 4.8,
+   "secs": 5.1,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
@@ -177,7 +177,7 @@
    "id": "foreign_script",
    "required": false,
    "ok": false,
-   "secs": 0.2,
+   "secs": 0.3,
    "what": "no transcript line shows the engine's language switch (Chinese/Japanese/Russian/Hebrew/Hindi letters) unfixed (TR-25; a warning only)",
    "detail": "exit 1: 2026-09-04 253.0 'را ー'; 2026-09-30 462.51 'хотим سا-- لـ سا-ساعين.'"
   }
@@ -195,6 +195,6 @@
   "secs": 89.4,
   "commits_waiting": "1"
  },
- "blocks_before_this_pass": 1,
+ "blocks_before_this_pass": 0,
  "note": "Written only when every required check passed, right before the push. When a check fails the hourly job does not publish, so this page keeps showing the last pass until the next one; the reason for a block is in the hourly log (C:/dev/anees/data/lessons/hourly.log) and in data/publish-guard/state.json on the PC, and appears here as \"last block\" once a later run passes."
 }
