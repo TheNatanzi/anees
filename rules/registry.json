@@ -8965,9 +8965,9 @@
    "scope": "transcription",
    "status": "enforced",
    "change": "new",
-   "statement": "The second listen (Gemini re-hear, TR-22) runs by itself on every new lesson: each hour scripts/rehear_auto.py moves every published lesson after the backfill that is not applied one step (freeze, the 3 paid base runs, collect, two-clip runs, proposals, apply with the TR-27 holds, then the three readers read the lesson again), with the same recipe and rules as the backfill. Money: a lesson after 10-02 draws only on Medi's new-lessons allowance (data/lesson-work/rehear/spend.json new_lessons.monthly_usd, never raised by code); no room = the lesson waits, its chip says 'Second listen: waiting for allowance' with the dollars, and one LS-04 line says so. The backfill's own $45 is checked against the committed record, never less than $43.99 (its job files are git-ignored in another checkout, so from the hourly checkout it looked untouched). Found 2026-10-09: 10-05, 10-06 and 10-08 sat pending with ElevenLabs-only text; nothing ever ran the listen after the one-time backfill. Tests never step it (ANEES_REHEAR_AUTO=off).",
-   "plain": "The second Google listen runs by itself on every new lesson, within the monthly money you set. If the money is used up, the lesson says so on its chip.",
-   "plain_for": "d007b675",
+   "statement": "The second listen (Gemini re-hear, TR-22) runs by itself on every new lesson: each hour scripts/rehear_auto.py moves every published lesson after the backfill that is not applied one step (freeze, the 3 paid base runs, collect, two-clip runs, proposals, apply with the TR-27 holds, then the three readers read the lesson again), with the same recipe and rules as the backfill. Money: a lesson after 10-02 draws only on Medi's limits in data/lesson-work/rehear/spend.json, never raised by code - since 2026-10-09 $2.50 per lesson and no monthly cap ('no budget 2.50 per lesson is fine'); every job is checked against what its lesson has spent or owes; no room = the lesson waits, its chip says 'Second listen: waiting for allowance' with the dollars, and one LS-04 line says so (runs already paid are kept and go on when the limit allows). The backfill's own $45 is checked against the committed record, never less than $43.99 (its job files are git-ignored in another checkout, so from the hourly checkout it looked untouched). Found 2026-10-09: 10-05, 10-06 and 10-08 sat pending with ElevenLabs-only text; nothing ever ran the listen after the one-time backfill. Tests never step it (ANEES_REHEAR_AUTO=off).",
+   "plain": "The second Google listen runs by itself on every new lesson, up to $2.50 a lesson with no monthly cap. If a lesson needs more, it says so on its chip.",
+   "plain_for": "5b258143",
    "topic": "the second listen",
    "source": [
     {
@@ -8986,6 +8986,12 @@
      "by": "medi",
      "date": "2026-10-09",
      "quote": "im going to bed, please be thorough.  Im so disappointed in this, I htought google was supposed to be a huge improvement but its worse than 11 so far",
+     "session": "1fc084ad"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "no budget 2.50 per lesson is fine",
      "session": "1fc084ad"
     }
    ],
@@ -9014,6 +9020,10 @@
     {
      "path": "tests/test_rehear_auto.py",
      "contains": "def test_tr_29_a_new_lesson_never_draws_on_the_backfill_allowance_and_the_backfill_money_is_seen_everywhere"
+    },
+    {
+     "path": "tests/test_rehear_auto.py",
+     "contains": "def test_tr_29_medi_s_limit_is_per_lesson_with_no_monthly_cap"
     }
    ],
    "example": {
@@ -9077,17 +9087,23 @@
    "id": "GR-31",
    "kind": "error",
    "scope": "grammar-scoring",
-   "status": "needs-medi",
+   "status": "enforced",
    "change": "new",
-   "statement": "The grammar use-counter counts the engine's sound tags as his grammar uses: 22 uses in 6 lessons are a laugh or a noise in square brackets ([ضحك] / [ضحكة] counted 13 times as B5 and 7 as B10; [صوت من behind الكاميرا] as A1 and A8). Taking them out lowers those rules' use counts and moves their %, so it waits for Medi (PR-05). Builders that count words already skip tags (the engine marks them audio_event; scripts/load_lesson.py and build_lessons_page_data.py count type 'word' only; the Word Bank matcher reads words only).",
-   "plain": "Your laughs and other sounds were counted as grammar uses in a few lessons. Taking them out changes some grammar numbers, so it waits for your yes.",
-   "plain_for": "4c6f8865",
+   "statement": "The grammar use-counter never counts the engine's sound tags in square brackets ([ضحك], [ضحكة], [laughs], [صوت من behind الكاميرا]) as his grammar uses: scripts/detect_grammar_usage.py read_turn removes them before reading the line. 2026-10-09: 28 uses in 6 lessons were a laugh or a noise (B5, B10, A1, A8) and are gone; one real use the tag had hidden (09-14 01:30 اشتغلت, B5) now counts. Builders that count words already skipped tags (the engine marks them audio_event; load_lesson.py and build_lessons_page_data.py count type 'word' only; the Word Bank reads words only).",
+   "plain": "Your laughs and other sounds the engine wrote in brackets are never counted as grammar. 28 of them were taken out of 6 lessons.",
+   "plain_for": "342ba18c",
    "topic": "grammar scoring",
    "source": [
     {
      "by": "medi",
      "date": "2026-10-09",
      "quote": "ok do it",
+     "session": "1fc084ad"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "remvoe the [lauging] grammar errors",
      "session": "1fc084ad"
     }
    ],
@@ -9096,13 +9112,23 @@
     "t": "04:13",
     "note": "his line '[ضحكة]' (a laugh) counted as a B5 use of ضحكة"
    },
-   "question": {
-    "ask": "Take the 22 sound tags out of the grammar use counts?",
-    "options": [
-     "yes",
-     "no"
-    ]
-   }
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/detect_grammar_usage.py",
+     "contains": "mask_names(SOUND_TAG.sub(\" \", t[\"text\"]))"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_sound_tag_grammar.py",
+     "contains": "def test_gr_31_a_laugh_tag_is_no_grammar_use_and_the_words_around_it_still_count"
+    },
+    {
+     "path": "tests/test_sound_tag_grammar.py",
+     "contains": "def test_gr_31_the_published_counts_hold_no_use_built_on_a_tag"
+    }
+   ]
   },
   {
    "id": "AZ-13",

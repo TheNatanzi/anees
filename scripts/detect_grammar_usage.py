@@ -399,12 +399,17 @@ def stretches(T):
     return [r for r in runs if len(r) > 1]
 
 
+SOUND_TAG = re.compile(r"\[[^\[\]\n]{1,60}\]")     # GR-31: an engine sound tag in square brackets
+
+
 def read_turn(t):
     """(text in Arabic script with names masked, names, read_as or None). read_as = the line as the counter read it
     when it had Latin letters (Arabizi), so the page can show what was counted."""
     if _is_farsi(t["text"]):
         return None, [], None                       # Farsi side conversation (2026-09-28) is no grammar evidence
-    txt, back = mask_names(t["text"])               # names are never rule triggers (see mask_names)
+    # GR-31 (Medi 2026-10-09 "remvoe the [lauging] grammar errors"): the engine's sound tags ([ضحك], [ضحكة], [laughs],
+    # [صوت من behind الكاميرا]) are no words of his - 22 of them had counted as B5 / B10 / A1 / A8 uses
+    txt, back = mask_names(SOUND_TAG.sub(" ", t["text"]))   # names are never rule triggers (see mask_names)
     ar = to_arabic(txt)
     if not AR_WORD.search(ar):
         return None, back, None

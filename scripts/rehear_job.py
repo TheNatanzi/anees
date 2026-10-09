@@ -66,14 +66,14 @@ def spent(but=None):
     return round(max(local, float(((spend_doc().get("backfill") or {}).get("spent_usd")) or 0.0)), 4)
 
 
-def new_lessons_spent(month, but=None):
-    """Dollars of the new-lessons allowance in one month (YYYY-MM, by the lesson date): committed jobs of every checkout
-    + this checkout's job files not yet recorded."""
+def _new_spent(keep, but=None):
+    """Dollars of lessons after the backfill whose date passes keep(date): the committed record of every checkout + this
+    checkout's job files not yet recorded (a job sent and not collected counts at its estimate: money owed)."""
     rec = ((spend_doc().get("new_lessons") or {}).get("jobs")) or {}
-    usd = {k: float(v.get("usd") or 0.0) for k, v in rec.items() if str(v.get("date", ""))[:7] == month}
+    usd = {k: float(v.get("usd") or 0.0) for k, v in rec.items() if keep(str(v.get("date", "")))}
     for p, j in all_jobs():
         d = os.path.basename(os.path.dirname(os.path.dirname(p)))
-        if d <= BACKFILL_LAST or d[:7] != month or (but and os.path.abspath(p) == os.path.abspath(but)):
+        if d <= BACKFILL_LAST or not keep(d) or (but and os.path.abspath(p) == os.path.abspath(but)):
             continue
         k = d + "/" + os.path.basename(p)
         if j.get("collected_complete"):
@@ -83,8 +83,26 @@ def new_lessons_spent(month, but=None):
     return round(sum(usd.values()), 4)
 
 
+def new_lessons_spent(month, but=None):
+    """Dollars of the new-lessons allowance in one month (YYYY-MM, by the lesson date)."""
+    return _new_spent(lambda d: d[:7] == month, but)
+
+
+def lesson_spent(date, but=None):
+    """Dollars spent or owed on one lesson after the backfill (TR-29: Medi's limit is per lesson)."""
+    return _new_spent(lambda d: d == date, but)
+
+
 def new_lessons_limit():
-    return float(((spend_doc().get("new_lessons") or {}).get("monthly_usd")) or 0.0)
+    """Medi's monthly limit, or None when he set none (2026-10-09: 'no budget')."""
+    v = (spend_doc().get("new_lessons") or {}).get("monthly_usd")
+    return None if v is None else float(v)
+
+
+def per_lesson_limit():
+    """Medi's limit per lesson (2026-10-09: 'no budget 2.50 per lesson is fine'), or None."""
+    v = (spend_doc().get("new_lessons") or {}).get("per_lesson_usd")
+    return None if v is None else float(v)
 
 
 def _spent_local(but=None, keep=lambda d: True):
@@ -124,12 +142,21 @@ def submit(date, name, est_usd):
     P = BJ.paths(folder, name)
 
     def cap(est):
-        if date > BACKFILL_LAST:                  # TR-29: a lesson after the backfill draws on Medi's new-lessons allowance only
-            m, lim = date[:7], new_lessons_limit()
-            s = new_lessons_spent(m, but=P["job"])
-            if s + est > lim:
-                return "new-lessons allowance (Medi's, data/lesson-work/rehear/spend.json): $%.2f spent or owed in %s + $%.2f for %s %s > $%.2f - stopped, nothing sent" % (
-                    s, m, est, date, name, lim)
+        if date > BACKFILL_LAST:                  # TR-29: a lesson after the backfill draws on Medi's new-lessons limits only
+            pl, ml = per_lesson_limit(), new_lessons_limit()
+            if pl is None and ml is None:
+                return "no Google limit set for lessons after %s (data/lesson-work/rehear/spend.json) - stopped, nothing sent" % BACKFILL_LAST
+            if pl is not None:
+                s = lesson_spent(date, but=P["job"])
+                if s + est > pl:
+                    return "per-lesson limit (Medi's, data/lesson-work/rehear/spend.json): $%.2f spent or owed on %s + $%.2f for %s > $%.2f - stopped, nothing sent" % (
+                        s, date, est, name, pl)
+            if ml is not None:
+                m = date[:7]
+                s = new_lessons_spent(m, but=P["job"])
+                if s + est > ml:
+                    return "monthly limit (Medi's, data/lesson-work/rehear/spend.json): $%.2f spent or owed in %s + $%.2f for %s %s > $%.2f - stopped, nothing sent" % (
+                        s, m, est, date, name, ml)
             return None
         s = spent(but=P["job"])
         if s + est > BACKFILL_LIMIT_USD:

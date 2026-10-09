@@ -136,14 +136,16 @@ def step_one(date, log=print):
     if st == "base":
         unsent = [n for n in (1, 2, 3) if not RB.run_done(date, "base", n) and RJ.state(date, "base-run%d" % n) in ("none", "built")]
         if unsent:
-            m, lim = date[:7], RJ.new_lessons_limit()
-            used = RJ.new_lessons_spent(m)
-            est = base_estimate(date)
-            if used + est > lim:
-                msg = ("%s: Google allowance $%.2f used of $%.2f for %s, this lesson needs about $%.2f. "
-                       "The transcript stays ElevenLabs only until Medi sets the monthly allowance (data/lesson-work/rehear/spend.json)." % (WAIT, used, lim, m, est))
+            pl, ml = RJ.per_lesson_limit(), RJ.new_lessons_limit()
+            est = round(base_estimate(date) * len(unsent) / 3, 2)
+            used = RJ.lesson_spent(date) if pl is not None else RJ.new_lessons_spent(date[:7])
+            lim = pl if pl is not None else ml
+            if lim is None or used + est > lim:
+                what = "per lesson" if pl is not None else "for %s" % date[:7]
+                msg = ("%s: $%.2f used of $%.2f %s, the next runs need about $%.2f. The transcript stays ElevenLabs only until "
+                       "Medi changes the limit (data/lesson-work/rehear/spend.json)." % (WAIT, used, lim or 0.0, what, est))
                 note_wait(date, msg)
-                return st, "%s: second listen waiting - Google allowance $%.2f of $%.2f this month (needs about $%.2f)" % (date[5:], used, lim, est)
+                return st, "%s: second listen waiting - Google limit $%.2f %s, $%.2f used, needs about $%.2f" % (date[5:], lim or 0.0, what, used, est)
             note_wait(date, "")
             RB.submit([date])
         RB.pump_one(date)
@@ -195,7 +197,10 @@ def show():
     for d in todo():
         print(d, RB.stage_of(d), "|", RS.chip(d, doc)["label"], "|", (doc["lessons"].get(d) or {}).get("note", "")[:120])
     m = datetime.date.today().isoformat()[:7]
-    print("new-lessons allowance: $%.2f used of $%.2f in %s; backfill: $%.2f of $%.0f" % (RJ.new_lessons_spent(m), RJ.new_lessons_limit(), m, RJ.spent(), RJ.BACKFILL_LIMIT_USD))
+    for d in todo():
+        print("  %s: $%.2f spent or owed" % (d, RJ.lesson_spent(d)))
+    print("limits: per lesson %s, monthly %s ($%.2f in %s); backfill: $%.2f of $%.0f" % (
+        RJ.per_lesson_limit(), RJ.new_lessons_limit(), RJ.new_lessons_spent(m), m, RJ.spent(), RJ.BACKFILL_LIMIT_USD))
 
 
 if __name__ == "__main__":

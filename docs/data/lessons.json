@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-09T01:10:28-07:00",
+ "updated": "2026-10-09T08:26:43-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -797,7 +797,7 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 252,
+    "uses": 251,
     "mistakes": 43,
     "pct": 86.1,
     "estimate": false,
@@ -815,7 +815,7 @@
       "14 slips are in rules the counter found 0 uses of in this lesson",
       "6 rules have more slips than counted uses (A7, B18, B2, C7, D2, E1)"
      ],
-     "uses": 236,
+     "uses": 235,
      "slips": 43,
      "slips_latin": 2,
      "slips_in_zero_use_rules": 14,
@@ -942,7 +942,7 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-10.json",
-    "marks": 399,
+    "marks": 398,
     "conflicts": 1,
     "resolved": 0,
     "needs_medi": 0,
@@ -1039,9 +1039,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 208,
+    "uses": 207,
     "mistakes": 42,
-    "pct": 81.7,
+    "pct": 81.6,
     "estimate": false,
     "scored_mistakes": 38,
     "unscored_mistakes": 4,
@@ -1057,7 +1057,7 @@
       "14 slips are in rules the counter found 0 uses of in this lesson",
       "8 rules have more slips than counted uses (A11, A2, A3, A7, A9, B18, B3, C2)"
      ],
-     "uses": 176,
+     "uses": 175,
      "slips": 42,
      "slips_latin": 12,
      "slips_in_zero_use_rules": 14,
@@ -1173,7 +1173,7 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-11.json",
-    "marks": 298,
+    "marks": 297,
     "conflicts": 1,
     "resolved": 1,
     "needs_medi": 0,
@@ -1413,9 +1413,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 211,
+    "uses": 203,
     "mistakes": 44,
-    "pct": 80.6,
+    "pct": 79.8,
     "estimate": false,
     "scored_mistakes": 41,
     "unscored_mistakes": 3,
@@ -1430,7 +1430,7 @@
       "6 slips are in rules the counter found 0 uses of in this lesson",
       "6 rules have more slips than counted uses (A9, B18, B2, B7, D2, E1)"
      ],
-     "uses": 176,
+     "uses": 168,
      "slips": 44,
      "slips_latin": 8,
      "slips_in_zero_use_rules": 6,
@@ -1541,7 +1541,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-14.json",
-    "marks": 305,
+    "marks": 297,
     "conflicts": 1,
     "resolved": 1,
     "needs_medi": 0,
@@ -1636,9 +1636,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 232,
+    "uses": 231,
     "mistakes": 44,
-    "pct": 82.8,
+    "pct": 82.7,
     "estimate": false,
     "scored_mistakes": 40,
     "unscored_mistakes": 4,
@@ -1654,7 +1654,7 @@
       "8 slips are in rules the counter found 0 uses of in this lesson",
       "5 rules have more slips than counted uses (B16, B18, B2, D2, D4)"
      ],
-     "uses": 199,
+     "uses": 198,
      "slips": 44,
      "slips_latin": 5,
      "slips_in_zero_use_rules": 8,
@@ -1781,7 +1781,7 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-15.json",
-    "marks": 294,
+    "marks": 293,
     "conflicts": 1,
     "resolved": 1,
     "needs_medi": 0,
@@ -3323,9 +3323,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 466,
+    "uses": 464,
     "mistakes": 64,
-    "pct": 87.8,
+    "pct": 87.7,
     "estimate": false,
     "scored_mistakes": 57,
     "unscored_mistakes": 7,
@@ -3338,16 +3338,17 @@
     "denominator": {
      "valid": false,
      "reasons": [
-      "8 slips are in rules the counter found 0 uses of in this lesson",
-      "4 rules have more slips than counted uses (A12, A4, B18, C11)"
+      "9 slips are in rules the counter found 0 uses of in this lesson",
+      "5 rules have more slips than counted uses (A12, A4, B10, B18, C11)"
      ],
-     "uses": 425,
+     "uses": 423,
      "slips": 64,
      "slips_latin": 17,
-     "slips_in_zero_use_rules": 8,
+     "slips_in_zero_use_rules": 9,
      "rules_slips_over_uses": [
       "A12",
       "A4",
+      "B10",
       "B18",
       "C11"
      ]
@@ -3471,7 +3472,7 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-21.json",
-    "marks": 698,
+    "marks": 696,
     "conflicts": 5,
     "resolved": 1,
     "needs_medi": 0,
@@ -3617,9 +3618,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 274,
+    "uses": 268,
     "mistakes": 39,
-    "pct": 85.8,
+    "pct": 85.4,
     "estimate": false,
     "scored_mistakes": 39,
     "unscored_mistakes": 0,
@@ -3635,7 +3636,7 @@
       "4 slips are in rules the counter found 0 uses of in this lesson",
       "4 rules have more slips than counted uses (A5, B12, B8, E2)"
      ],
-     "uses": 243,
+     "uses": 237,
      "slips": 39,
      "slips_latin": 5,
      "slips_in_zero_use_rules": 4,
@@ -3783,7 +3784,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-23.json",
-    "marks": 382,
+    "marks": 376,
     "conflicts": 1,
     "resolved": 1,
     "needs_medi": 0,
@@ -4070,7 +4071,7 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 283,
+    "uses": 281,
     "mistakes": 35,
     "pct": 88.3,
     "estimate": false,
@@ -4088,7 +4089,7 @@
       "4 slips are in rules the counter found 0 uses of in this lesson",
       "4 rules have more slips than counted uses (A7, B18, D2, D4)"
      ],
-     "uses": 259,
+     "uses": 257,
      "slips": 35,
      "slips_latin": 1,
      "slips_in_zero_use_rules": 4,
@@ -4348,7 +4349,7 @@
    ],
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-26.json",
-    "marks": 476,
+    "marks": 474,
     "conflicts": 4,
     "resolved": 0,
     "needs_medi": 0,
@@ -5039,9 +5040,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 230,
+    "uses": 229,
     "mistakes": 22,
-    "pct": 90.9,
+    "pct": 90.8,
     "estimate": false,
     "scored_mistakes": 21,
     "unscored_mistakes": 1,
@@ -5055,7 +5056,7 @@
       "4 slips are in rules the counter found 0 uses of in this lesson",
       "4 rules have more slips than counted uses (B18, C1, D2, D4)"
      ],
-     "uses": 213,
+     "uses": 212,
      "slips": 22,
      "slips_latin": 1,
      "slips_in_zero_use_rules": 4,
@@ -5190,7 +5191,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-09-30.json",
-    "marks": 326,
+    "marks": 325,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,
@@ -5883,7 +5884,7 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 288,
+    "uses": 286,
     "mistakes": 27,
     "pct": 90.6,
     "estimate": false,
@@ -5901,7 +5902,7 @@
       "2 slips are in rules the counter found 0 uses of in this lesson",
       "2 rules have more slips than counted uses (A4, D2)"
      ],
-     "uses": 270,
+     "uses": 268,
      "slips": 27,
      "slips_latin": 2,
      "slips_in_zero_use_rules": 2,
@@ -6051,7 +6052,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-02.json",
-    "marks": 391,
+    "marks": 389,
     "conflicts": 2,
     "resolved": 1,
     "needs_medi": 0,
@@ -7144,9 +7145,9 @@
     "verified_pct": null
    },
    "grammar": {
-    "uses": 231,
+    "uses": 228,
     "mistakes": 24,
-    "pct": 90.0,
+    "pct": 89.9,
     "estimate": false,
     "scored_mistakes": 23,
     "unscored_mistakes": 1,
@@ -7159,7 +7160,7 @@
       "7 slips are in rules the counter found 0 uses of in this lesson",
       "6 rules have more slips than counted uses (A16, A7, B18, C1, D2, D4)"
      ],
-     "uses": 211,
+     "uses": 208,
      "slips": 24,
      "slips_latin": 3,
      "slips_in_zero_use_rules": 7,
@@ -7402,7 +7403,7 @@
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-08.json",
-    "marks": 355,
+    "marks": 352,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,

@@ -25,6 +25,7 @@ def test_tr_29_no_room_in_the_allowance_sends_nothing_and_says_why(monkeypatch):
     monkeypatch.setattr(RB, "run_done", lambda d, s, n: False)
     monkeypatch.setattr(RJ, "state", lambda d, n: "none")
     monkeypatch.setattr(RJ, "new_lessons_limit", lambda: 0.0)
+    monkeypatch.setattr(RJ, "per_lesson_limit", lambda: None)
     monkeypatch.setattr(RJ, "new_lessons_spent", lambda m, but=None: 0.70)
     monkeypatch.setattr(RB, "submit", lambda ds: sent.append(ds))
     monkeypatch.setattr(RB, "pump_one", lambda d: "base")
@@ -57,7 +58,7 @@ def test_tr_29_a_new_lesson_never_draws_on_the_backfill_allowance_and_the_backfi
     """The backfill's $43.99 sat in another checkout's git-ignored job files: from the hourly checkout the $45 looked
     untouched. spent() is never less than the committed record; a lesson after 10-02 is checked against Medi's
     new-lessons allowance only."""
-    monkeypatch.setattr(RJ, "spend_doc", lambda: {"backfill": {"spent_usd": 43.99}, "new_lessons": {"monthly_usd": 0.0, "jobs": {}}})
+    monkeypatch.setattr(RJ, "spend_doc", lambda: {"backfill": {"spent_usd": 43.99}, "new_lessons": {"monthly_usd": 0.0, "per_lesson_usd": None, "jobs": {}}})
     monkeypatch.setattr(RJ, "all_jobs", lambda: [])
     assert RJ.spent() == 43.99
     caps = {}
@@ -69,7 +70,7 @@ def test_tr_29_a_new_lesson_never_draws_on_the_backfill_allowance_and_the_backfi
     monkeypatch.setattr(BJ, "submit", fake_submit)
     monkeypatch.setattr(RJ, "LOCK", os.path.join(RJ.REHEAR, ".test.lock"))
     RJ.submit("2026-10-08", "base-run2", 0.82)
-    assert caps["base-run2"].startswith("new-lessons allowance") and "nothing sent" in caps["base-run2"]
+    assert caps["base-run2"].startswith("monthly limit") and "nothing sent" in caps["base-run2"]
     RJ.submit("2026-10-02", "base-run9", 0.82)
     assert caps["base-run9"] is None                      # 43.99 + 0.82 <= 45: inside the backfill's own limit
     RJ.submit("2026-10-02", "base-run9b", 1.50)
@@ -82,9 +83,33 @@ def test_tr_29_the_chip_says_waiting_for_allowance_and_the_hourly_job_steps_it()
     src = open(os.path.join(ROOT, "scripts", "hourly_lessons.py"), encoding="utf-8").read()
     assert "rh = RH.step(log=log)" in src and "'data/lesson-work/rehear'" in src
     spend = json.load(open(os.path.join(ROOT, "data", "lesson-work", "rehear", "spend.json"), encoding="utf-8"))
-    assert spend["backfill"]["spent_usd"] == 43.99 and "monthly_usd" in spend["new_lessons"]
+    assert spend["backfill"]["spent_usd"] == 43.99 and spend["new_lessons"]["per_lesson_usd"] == 2.5 and spend["new_lessons"]["monthly_usd"] is None
 
 
 def test_tr_29_tests_never_step_the_paid_listen():
     assert os.environ.get("ANEES_REHEAR_AUTO") == "off"
     assert RH.step(dates=["2026-10-08"]) == {"stages": {}, "problems": [], "changed": False}
+
+
+def test_tr_29_medi_s_limit_is_per_lesson_with_no_monthly_cap(monkeypatch):
+    """Medi 2026-10-09: 'no budget 2.50 per lesson is fine'. Each job of a lesson after 10-02 is checked against what
+    that lesson has spent or owes; no month total."""
+    jobs = {"2026-10-08/base-run1.job.json": {"date": "2026-10-08", "usd": 0.70}, "2026-10-05/base-run1.job.json": {"date": "2026-10-05", "usd": 2.0}}
+    monkeypatch.setattr(RJ, "spend_doc", lambda: {"backfill": {"spent_usd": 43.99}, "new_lessons": {"monthly_usd": None, "per_lesson_usd": 2.5, "jobs": jobs}})
+    monkeypatch.setattr(RJ, "all_jobs", lambda: [])
+    assert RJ.lesson_spent("2026-10-08") == 0.70 and RJ.new_lessons_limit() is None and RJ.per_lesson_limit() == 2.5
+    caps = {}
+
+    def fake_submit(folder, name, est, cap_check=None):
+        caps[name] = cap_check(est)
+        return {"job": None}
+    import batch_jobs as BJ
+    monkeypatch.setattr(BJ, "submit", fake_submit)
+    monkeypatch.setattr(RJ, "LOCK", os.path.join(RJ.REHEAR, ".test.lock"))
+    RJ.submit("2026-10-08", "base-run2", 0.82)
+    assert caps["base-run2"] is None                         # 0.70 + 0.82 <= 2.50
+    RJ.submit("2026-10-05", "base-run2", 0.82)
+    assert caps["base-run2"].startswith("per-lesson limit")    # 2.00 + 0.82 > 2.50: that lesson stops, nothing sent
+    monkeypatch.setattr(RJ, "spend_doc", lambda: {"new_lessons": {"monthly_usd": None, "per_lesson_usd": None, "jobs": {}}})
+    RJ.submit("2026-10-08", "base-run3", 0.82)
+    assert caps["base-run3"].startswith("no Google limit set")
