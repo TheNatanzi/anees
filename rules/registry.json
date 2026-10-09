@@ -9179,15 +9179,21 @@
    "scope": "word-scoring",
    "status": "enforced",
    "change": "new",
-   "statement": "Every Arabic word Medi says gets a visible judgment. From 2026-10-08 on (scripts/word_coverage.py FROM), every Arabic word on his lines AFTER the overlay (the second listen and his own fixes; Latin letters read by scripts/arabizi_reader.py, only her words and only sure ones inside an English sentence) is either a Word Bank mark (right / partial / wrong / repeat) or a grey chip with the reason (not on her word list, a preposition = grammar, two list words spelled the same, one word of a longer list phrase, a verb form the Word Bank does not list yet, his own note, broken off, off-lesson). A word on her list with no Word Bank event becomes one (review-overlay addition by 'word-coverage', with its own clip cut from the lesson audio), judged by the context rules (WS-31; a cue from her right after = the readers decide); a word said alone counts like any other (no more 'Isolated production' limbo: 10-08 00:10 مرحبا). Why: the matcher read the engine's words, and the engine wrote most of his 10-08 Arabic in English-ear Latin ('Ayan', 'Shui', 'rasa biwaja'); the second listen fixed the lines but made no Word Bank event, so 388 of his 508 Arabic words on 10-08 had no mark. After: 0. The 20 earlier lessons are counted (1,793 new credits, 686 repeats) and wait for Medi's yes (PR-05).",
-   "plain": "Every Arabic word you say gets a mark: right, half, wrong, repeat, or a grey chip that says why it is not scored (for example: not on the tutor's list).",
-   "plain_for": "7c78be7f",
+   "statement": "Every Arabic word Medi says gets a visible judgment. From 2026-10-08 on (scripts/word_coverage.py FROM), every Arabic word on his lines AFTER the overlay (the second listen and his own fixes; Latin letters read by scripts/arabizi_reader.py, only her words and only sure ones inside an English sentence) is either a Word Bank mark (right / partial / wrong / repeat) or a grey chip with the reason (not on her word list, a preposition = grammar, two list words spelled the same, one word of a longer list phrase, a verb form the Word Bank does not list yet, his own note, broken off, off-lesson). A word on her list with no Word Bank event becomes one (review-overlay addition by 'word-coverage', with its own clip cut from the lesson audio), judged by the context rules (WS-31; a cue from her right after = the readers decide); a word said alone counts like any other (no more 'Isolated production' limbo: 10-08 00:10 مرحبا). Why: the matcher read the engine's words, and the engine wrote most of his 10-08 Arabic in English-ear Latin ('Ayan', 'Shui', 'rasa biwaja'); the second listen fixed the lines but made no Word Bank event, so 388 of his 508 Arabic words on 10-08 had no mark. After: 0. The 20 earlier lessons are counted (1,793 new credits, 686 repeats) and wait for Medi's yes (PR-05). Three gaps closed on 10-08 08:36 (his note 'soda is the femanine for aswad?. I dont understand the confusion with balbes ... I should get credit for all of thse'): a colour word's feminine / plural is her row (سودا = أسود, زرقا = أزرق); two rows of her list that are the same word (بلبس 'balbes' / 'ana balbes') are one word, not 'unclear'; a 'no' from her right after his line that the three readers did not turn into a slip on the word does not hold the word back. An older open-question patch (2026-09-28 audit) gives way to the judgment and is kept on it.",
+   "plain": "Every Arabic word you say gets a mark: right, half, wrong, repeat, or a grey chip that says why it is not scored. Feminine colour words, duplicate list rows and a tutor 'no' that was not about the word no longer block credit.",
+   "plain_for": "f52a6eab",
    "topic": "word scoring",
    "source": [
     {
      "by": "medi",
      "date": "2026-10-09",
      "quote": "ok lets open a new chip. Before I continue I want you to audit oct 8 again. You are missing some major things. I want you to be sure that any time I speak ANY arabic word that you are giving me credit or marking as incorrect.",
+     "session": "f5d90041"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "soda is the femanine for aswad?. I dont understand the confusion with balbes, I wear a black shirt and light blue pants.. I should get credit for all of thse.",
      "session": "f5d90041"
     }
    ],
@@ -9368,6 +9374,85 @@
     "date": "2026-10-08",
     "t": "23:51",
     "note": "واحدة شمس, then her 'Great job.': not a slip"
+   }
+  },
+  {
+   "id": "PG-39",
+   "kind": "process",
+   "scope": "pages",
+   "status": "enforced",
+   "change": "new",
+   "statement": "Transcript chips: one chip per word and one colour per meaning (key approved by Medi 2026-10-09 'go'). Green ✓ correct (his own, full point), blue ◐ half (she said it just before, or he asked), red ✗ wrong (she corrected it), purple ↻ repeat (said right after she gave or fixed it: no credit, not a mistake), yellow ★ new word (taught this lesson and not on her list yet: not scored), orange ← her correction on her line, grey – not scored with the reason. On his line every word shows the strongest of its chips (✗ > ↻ > ★ > ◐ > ✓ > –; scripts/transcript_marks.py one_per_word); the others stay in the data hidden and are listed on the shown chip ('also'). Display only: no count changes. A preposition is grammar, so it never gets a word chip of its own (10-08 07:28 من نار: one ↻ Repeat · grammar D1, her fix من نار was written by the engine as 'Men not.', so a repeat is now also checked against the fix the slip row gives). From 2026-10-08 on. All the ✓ words of a line show as ONE green chip listing them (Medi 2026-10-09 'Lets put all the correct words in one correct vocab pil'); the 'Recording engine wrote ... fixed:' line shows each fixed word in her Arabizi with the Arabic after it ('do the corrections in arabizi as well').",
+   "plain": "Each word on the transcript gets one mark, in one colour per meaning: green right, blue half, red wrong, purple repeat, yellow new word, orange the tutor's correction, grey not scored. All your right words on a line sit in one green chip, and fixed words show in Arabizi.",
+   "plain_for": "6fd4e580",
+   "topic": "the lessons page",
+   "source": [
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "Im confused here you counted the preposition then didnt score? Just make one mark that the preposition was a repeat.",
+     "session": "f5d90041"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "Lets assign a new color for new words and another color for repeats, and another for corrections.",
+     "session": "f5d90041"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "go",
+     "session": "f5d90041"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "Lets put all the correct words in one correct vocab pil",
+     "session": "f5d90041"
+    },
+    {
+     "by": "medi",
+     "date": "2026-10-09",
+     "quote": "Also do the corrections in arabizi as well",
+     "session": "f5d90041"
+    }
+   ],
+   "enforcement": [
+    {
+     "type": "code",
+     "path": "scripts/transcript_marks.py",
+     "contains": "def one_per_word(tmarks, turns):"
+    },
+    {
+     "type": "code",
+     "path": "docs/js/lessons-page.js",
+     "contains": "if (c.hide) return;"
+    },
+    {
+     "type": "code",
+     "path": "scripts/word_coverage.py",
+     "contains": "def taught_match(a, w):"
+    }
+   ],
+   "test": [
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_pg_39_one_chip_per_word_the_strongest_shown_the_rest_kept_hidden"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_pg_39_a_word_taught_this_lesson_and_not_on_her_list_is_a_new_word"
+    },
+    {
+     "path": "tests/test_repeats_coverage.py",
+     "contains": "def test_pg_39_the_page_key_has_one_colour_per_meaning"
+    }
+   ],
+   "example": {
+    "date": "2026-10-08",
+    "t": "07:29",
+    "note": "من نار: three chips before, one ↻ Repeat · grammar D1 now"
    }
   }
  ]

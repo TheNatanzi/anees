@@ -490,7 +490,7 @@ def audit_fix_times(date, path=None):
     for r in (sc.get("rows") or []) + (sc.get("vocab") or []):
         if r.get("date") == date and r.get("t_amal"):
             try:
-                out.append(_secs(r["t_amal"]))
+                out.append((_secs(r["t_amal"]), r.get("right") or r.get("amal_gave")))
             except ValueError:
                 pass
     return out
@@ -512,7 +512,7 @@ def grammar_repeat(Tw, i, hit, sup):
     for j in WC.tutor_before(Tw, i, WC.GRAMMAR_REPEAT_S):
         if j not in sup:
             continue                      # only her correction / recast / given form (a question of hers is not one)
-        hers = {same(w) for w, cut in WC.arabic_tokens(Tw[j].get("text")) if not cut}
+        hers = {same(w) for w in WC.her_words(Tw, j, sup)}
         if all(h in hers for h in hw):
             return j
     return None

@@ -7,14 +7,17 @@
 'use strict';
 
 var FILTERS = [['all', 'All'], ['marked', 'Only marked'], ['wrong', 'Only ✗'], ['vocab', 'Vocab'], ['grammar', 'Grammar'], ['fix', "The tutor's fixes"]];
+// PG-39 (Medi 2026-10-09 "Lets assign a new color for new words and another color for repeats, and another for
+// corrections" - key approved 'go'): one colour per meaning, one chip per word
 var LEGEND = [
-  ['correct', '✓', 'Correct'], ['partial', '◐', 'Partial · got there with help'], ['asked', '◐', 'Asked the tutor for the word'],
-  ['wrong', '✗', 'Wrong'], ['repeat', '↻', "Repeat · said right after the tutor gave it: no credit, not a mistake"],
-  ['fix', '←', "The tutor's fix (how she flagged it)"], ['na', '–', 'Not scored (reason on the chip)'],
+  ['correct', '✓', 'Correct · your own (full point)'], ['partial', '◐', 'Half · she said it just before, or you asked'],
+  ['wrong', '✗', 'Wrong · the tutor corrected it'], ['repeat', '↻', 'Repeat · said right after she gave or fixed it: no credit, not a mistake'],
+  ['new', '★', 'New word · taught this lesson, not scored yet'], ['fix', '←', "The tutor's correction (on her line)"],
+  ['na', '–', 'Not scored (reason on the chip)'],
   ['medi', '?', 'Open question · two judges disagree; the tutor decides on her Tutor hub, counted as before until she answers']
 ];
-var WORD = { correct: 'Correct', partial: 'Partial', asked: 'Asked', wrong: 'Wrong', repeat: 'Repeat', fix: "The tutor's fix", na: 'Not scored', medi: 'Open question' };
-var SIGN = { correct: '✓', partial: '◐', asked: '◐', wrong: '✗', repeat: '↻', fix: '←', na: '–', medi: '?' };
+var WORD = { correct: 'Correct', partial: 'Half', asked: 'Asked', wrong: 'Wrong', repeat: 'Repeat', 'new': 'New word', fix: "The tutor's fix", na: 'Not scored', medi: 'Open question' };
+var SIGN = { correct: '✓', partial: '◐', asked: '◐', wrong: '✗', repeat: '↻', 'new': '★', fix: '←', na: '–', medi: '?' };
 
 function isArabic(s) { return /[؀-ۿ]/.test(s || ''); }
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -30,6 +33,9 @@ function subject(c, toArabizi) {
   // PG-21 (Medi 2026-10-02 "you marked the correct word wrong for safar"): a ✗ names what he said → what Amal wanted,
   // never the right word alone (a ✗ beside asaafer read as "asaafer is wrong")
   if (c.k === 'vocab' && c.s === 'wrong' && c.said) return { kind: 'vocab', main: az(c.said, null, toArabizi) + ' → ' + az(c.right || c.ar, c.w, toArabizi), ar: isArabic(c.ar) ? c.ar : '' };
+  // PG-39: all the ✓ words of a line in one green chip
+  if (c.k === 'vocab' && c.words && c.words.length) return { kind: 'vocab', main: c.words.map(function (x) { return az(x.ar, x.w, toArabizi); }).join(', '),
+    ar: c.words.map(function (x) { return isArabic(x.ar) ? x.ar : ''; }).filter(Boolean).join('، ') };
   if (c.k === 'vocab') return { kind: 'vocab', main: az(c.ar, c.w, toArabizi), ar: isArabic(c.ar) ? c.ar : '' };
   if (c.k === 'grammar') return { kind: 'grammar', main: (c.rule || '') + (c.name ? ' ' + c.name : ''), ar: '' };
   if (c.k === 'fix') {
@@ -59,8 +65,11 @@ function chipModel(c, toArabizi) {
     (c.english ? ' · she said it in English: «' + c.english + '»' : '');
   else if (c.s === 'medi') tip = (c.label || 'Open question') + ' ' + (c.why || '');
   // WS-31 / GR-32 (Medi 2026-10-09 "Mark as repeat if I am repeating one of amals corrections and dont give me credit for it")
+  else if (c.s === 'new') tip = 'New word · ' + (c.why || 'taught this lesson');
   else if (c.s === 'repeat') tip = 'Repeat · not credited, not a mistake' + (c.amal_line ? ' · the tutor at ' + clock(c.amal_t) + ': «' + c.amal_line + '»' : '') + (c.why ? ' · ' + c.why : '');
   else tip = 'Not scored: ' + (c.why || '');
+  // PG-39: one chip per word - the other judgments of the same word are listed on it
+  if (c.also && c.also.length) tip += ' · also: ' + c.also.map(function (a) { return (WORD[a.s] || a.s) + ' ' + (a.k === 'na' ? '' : a.k) + (a.rule ? ' ' + a.rule : ''); }).join('; ');
   var arSrc = [c.said, c.right].filter(isArabic).join(' → ');
   return {
     sign: SIGN[c.s] || '', word: WORD[c.s] || '', kind: s.kind, main: c.s === 'na' || c.s === 'medi' ? (c.why || '') : c.s === 'repeat' && c.k === 'grammar' ? s.main + ' · ' + (c.said || '') : s.main,
@@ -92,9 +101,10 @@ function underlined(text, ul) {
   return out;
 }
 // Does a turn show under this filter?
+function visible(m) { return ((m && m.c) || []).filter(function (c) { return !c.hide; }); }
 function shows(m, filter) {
   if (filter === 'all') return true;
-  var c = (m && m.c) || [];
+  var c = visible(m);
   if (!c.length) return false;
   if (filter === 'marked') return true;
   if (filter === 'wrong') return c.some(function (x) { return x.s === 'wrong'; });
@@ -110,7 +120,7 @@ function counts(tmarks) {
   return n;
 }
 
-var api = { FILTERS: FILTERS, LEGEND: LEGEND, chipModel: chipModel, underlined: underlined, shows: shows, counts: counts };
+var api = { FILTERS: FILTERS, LEGEND: LEGEND, chipModel: chipModel, underlined: underlined, shows: shows, counts: counts, visible: visible };
 if (typeof module !== 'undefined' && module.exports) { module.exports = api; return; }
 root.AneesTranscriptMarks = api;
 })(this);

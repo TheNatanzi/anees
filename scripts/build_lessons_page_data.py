@@ -1321,8 +1321,8 @@ def build():
                                                   U.get("ruled_out", []), U.get("not_uses_auto", []),
                                                   (TYPE_READS.get(d) or {}).get("off_lesson") or [], ledger=ledgers.get(d))
         if d in COVER:
-            v["tmarks"] = TM.add_coverage(v["tmarks"], v["marks_report"],
-                                          WC.chips(d, v, COVER[d], [x for x in NO2.get("unscored") or [] if x.get("date") == d]))
+            v["tmarks"] = TM.add_coverage_one(v["tmarks"], v["marks_report"],
+                                              WC.chips(d, v, COVER[d], [x for x in NO2.get("unscored") or [] if x.get("date") == d]), v["turns"])
         r = v["marks_report"]
         print(f"transcript marks {d}: {r['placed']}/{r['scored']} placed ({r['rate']}%), Amal fixes {r['fix_placed']}/{r['fix_wanted']}, "
               f"underlines {r['ul_exact']} exact + {len(r['ul_closest'])} closest + {len(r['ul_none'])} none of {r['ul_wanted']}")

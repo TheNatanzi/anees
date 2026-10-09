@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""WS-30 / WS-31 / GR-32 (Medi 2026-10-09 on the 10-08 lesson: "any time I speak ANY arabic word that you are giving me
+"""WS-30 / WS-31 / GR-32 / GR-33 / PG-39 (Medi 2026-10-09 on the 10-08 lesson: "any time I speak ANY arabic word that you are giving me
 credit or marking as incorrect. Mark as repeat if I am repeating one of amals corrections and dont give me credit for it
 ... for grammar errors that I am being corrected and repeating the correctiong. THese should also be marked as repeat
 and uncounted")."""
-import json, os, subprocess, sys
+import json, os, re, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
@@ -133,3 +133,46 @@ def test_gr_33_her_praise_right_after_means_he_said_it_right():
     # the earlier lessons wait for Medi's yes (PR-05)
     old = dict(row2, date="2026-09-30")
     assert F.apply_praise([old], lessons={"2026-09-30": turns}) == 0
+
+
+def test_pg_39_one_chip_per_word_the_strongest_shown_the_rest_kept_hidden():
+    import transcript_marks as TM
+    turns = [{"t": 449.3, "who": "Medi", "text": "من نار."}]
+    tm = {"0": {"c": [{"id": "r1", "k": "grammar", "s": "repeat", "rule": "D1", "said": "من نار"},
+                      {"id": "n1", "k": "na", "s": "na", "label": "vocab", "ar": "من", "why": "من: a preposition: scored as grammar, not as a word"},
+                      {"id": "n2", "k": "na", "s": "na", "label": "vocab", "ar": "نار", "why": "نار: on her list"}], "u": []}}
+    out = TM.one_per_word(tm, turns)["0"]["c"]
+    shown = [c for c in out if not c.get("hide")]
+    assert [c["id"] for c in shown] == ["r1"] and len(shown[0]["also"]) == 2
+    # a wrong beats everything on the same word
+    tm = {"0": {"c": [{"id": "v1", "k": "vocab", "s": "correct", "ar": "عيان"}, {"id": "x1", "k": "grammar", "s": "wrong", "said": "عيان"}], "u": []}}
+    turns = [{"t": 141.1, "who": "Medi", "text": "خطيبتي شوي عيان"}]
+    assert [c["id"] for c in TM.one_per_word(tm, turns)["0"]["c"] if not c.get("hide")] == ["x1"]
+
+
+def test_pg_39_a_word_taught_this_lesson_and_not_on_her_list_is_a_new_word():
+    assert WC.taught_match("مطر", "مطرت") and WC.taught_match("حجر", "حجري")
+    assert not WC.taught_match("بيدير", "بيد")          # his بعيد misheard, not her بيدير
+    d = json.load(open(os.path.join(ROOT, "docs", "data", "lessons", "2026-10-08.json"), encoding="utf-8"))
+    new = [c for v in d["tmarks"].values() for c in v["c"] if c["s"] == "new"]
+    assert new and all("not scored" in c["why"] for c in new)
+
+
+def test_pg_39_the_page_key_has_one_colour_per_meaning():
+    css = open(os.path.join(ROOT, "docs", "css", "lessons.css"), encoding="utf-8").read()
+    for s in ("correct", "partial", "wrong", "repeat", "new", "fix", "na"):
+        assert "#anees-bank .tm-%s{" % s in css or ".tm-%s," % s in css, s
+
+
+def test_ws_30_10_08_08_36_every_word_of_his_outfit_line_is_credited():
+    """Medi 2026-10-09: 'I wear a black shirt and light blue pants.. I should get credit for all of thse.'"""
+    d = json.load(open(os.path.join(ROOT, "docs", "data", "lessons", "2026-10-08.json"), encoding="utf-8"))
+    T, tm = d["turns"], d["tmarks"]
+    ok = set()
+    for k, v in tm.items():
+        if 515 < T[int(k)]["t"] < 530:
+            for c in v["c"]:
+                if c["k"] == "vocab" and c["s"] == "correct":
+                    ok |= {WC.core(w) for x in [c] + (c.get("words") or []) for w in re.split(r"[\s/]+", str(x.get("ar") or "")) if w}
+    for w in ("اليوم", "بلبس", "بلوزة", "سودة", "بنطلون", "أزرق", "فاتح"):
+        assert WC.core(w) in ok, w

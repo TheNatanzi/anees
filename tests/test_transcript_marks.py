@@ -82,8 +82,8 @@ def test_PG_20_every_scored_item_lands_on_exactly_one_medi_turn():
             turn = x["turns"][int(k)]
             for c in v["c"]:
                 ids.append(c["id"])
-                if c["k"] in ("vocab", "grammar") and c["s"] == "repeat":
-                    assert turn["who"] == "Medi", (f, k, c)          # WS-31 / GR-32: a repeat is shown, never scored
+                if c["k"] in ("vocab", "grammar") and c["s"] in ("repeat", "new"):
+                    assert turn["who"] == "Medi", (f, k, c)          # WS-31 / GR-32 / PG-39: a repeat or a new word is shown, never scored
                 elif c["k"] in ("vocab", "grammar") and c["s"] != "na":
                     scored_chips += 1
                     assert turn["who"] == "Medi", (f, k, c)

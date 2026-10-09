@@ -33,7 +33,7 @@ test("filters: All, Only marked, Only ✗, Vocab, Grammar, Amal's fixes",()=>{
  assert.ok(T.shows(fx,'fix')&&!T.shows(fx,'grammar')&&!T.shows(fx,'wrong'));
  assert.ok(T.shows(na,'vocab')&&!T.shows(na,'wrong'));
  assert.deepEqual(T.counts({0:m,1:fx,2:na}),{marked:3,wrong:1,vocab:1,grammar:1,fix:1});
- assert.ok(T.LEGEND.some(l=>l[0]==='fix')&&T.LEGEND.some(l=>l[2]==='Wrong')&&T.LEGEND.some(l=>l[2]==='Correct'));
+ assert.ok(T.LEGEND.some(l=>l[0]==='fix')&&T.LEGEND.some(l=>/^Wrong/.test(l[2]))&&T.LEGEND.some(l=>/^Correct/.test(l[2]))&&T.LEGEND.some(l=>l[0]==='repeat')&&T.LEGEND.some(l=>l[0]==='new'));   // PG-39 key
 });
 test('the Lessons page loads the marks and draws them from tmarks',()=>{
  assert.match(fs.readFileSync(path.join(DOCS,'lessons.html'),'utf8'),/'transcript-marks','correction-parse','transcript-corrections','lessons-page'/);

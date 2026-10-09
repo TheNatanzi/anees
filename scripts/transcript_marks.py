@@ -239,6 +239,78 @@ def add_coverage(tmarks, rep, chips):
     return {k: tmarks[k] for k in sorted(tmarks, key=int)}
 
 
+def add_coverage_one(tmarks, rep, chips, turns):
+    """add_coverage + one_per_word (PG-39)."""
+    return one_per_word(add_coverage(tmarks, rep, chips), turns)
+
+
+RANK = {"wrong": 0, "repeat": 1, "new": 2, "asked": 3, "partial": 3, "correct": 4, "na": 5}
+
+
+def _words_of(c, text):
+    """The words of his line a chip is about (normalised): its said / hit / list word, as far as they are on the line."""
+    toks = {_norm_tok(w) for w in re.split(r"[\s.…,،؟?!:;\"“”()\-]+", text or "") if w}
+    out = set()
+    # a word chip is about its own word (tok / list form), never the whole sentence it quotes in 'said'
+    fields = (c.get("tok"), c.get("ar")) if c.get("k") == "vocab" and c.get("s") != "wrong" else (c.get("said"), c.get("ar"), c.get("hit"))
+    for f in fields:
+        for w in re.split(r"[\s.…,،؟?!:;\"“”()\-/]+", str(f or "")):
+            n = _norm_tok(w)
+            if n and n in toks:
+                out.add(n)
+    if not out and c.get("why") and ":" in c["why"]:
+        n = _norm_tok(c["why"].split(":", 1)[0])
+        if n in toks:
+            out.add(n)
+    return out
+
+
+def _norm_tok(w):
+    n = normalise(w)[0].strip()
+    return n[2:] if n.startswith("ال") and len(n) > 3 else n
+
+
+def one_per_word(tmarks, turns):
+    """PG-39 (Medi 2026-10-09 "Im confused here you counted the preposition then didnt score? Just make one mark"): on
+    his line each word shows ONE chip - the strongest of the chips about it (✗ wrong, ↻ repeat, ★ new, ◐ half, ✓ correct,
+    – not scored); the others stay in the data with hide = the shown chip's id and are listed on it ('also'). Nothing is
+    counted differently: hiding is display only."""
+    for k, v in tmarks.items():
+        if turns[int(k)].get("who") != "Medi":
+            continue
+        cs = [c for c in v["c"] if c.get("k") in ("vocab", "grammar", "na") and c.get("label") != "lesson"]
+        groups = []
+        for c in cs:
+            ws = _words_of(c, turns[int(k)].get("text"))
+            if not ws:
+                continue
+            g = next((g for g in groups if g["w"] & ws), None)
+            if g:
+                g["w"] |= ws
+                g["c"].append(c)
+            else:
+                groups.append({"w": set(ws), "c": [c]})
+        for g in groups:
+            if len(g["c"]) < 2:
+                continue
+            top = sorted(g["c"], key=lambda c: (RANK.get(c.get("s"), 6), 0 if c.get("k") == "grammar" else 1))[0]
+            keep = [c for c in g["c"] if c is top or (RANK.get(c.get("s"), 6) == RANK.get(top.get("s")) and c.get("k") != top.get("k")
+                                                       and c.get("k") in ("vocab", "grammar"))]
+            for c in g["c"]:
+                if c not in keep:
+                    c["hide"] = top["id"]
+            also = [{"k": c.get("k"), "s": c.get("s"), "rule": c.get("rule"), "w": c.get("ar") or c.get("said")} for c in g["c"] if c not in keep]
+            if also:
+                top["also"] = also
+        # Medi 2026-10-09 "Lets put all the correct words in one correct vocab pil": the ✓ words of a line, one green chip
+        ok = [c for c in v["c"] if c.get("k") == "vocab" and c.get("s") == "correct" and not c.get("hide")]
+        if len(ok) > 1:
+            ok[0]["words"] = [{"ar": c.get("ar"), "w": c.get("w"), "said": c.get("said")} for c in ok]
+            for c in ok[1:]:
+                c["hide"] = ok[0]["id"]
+    return tmarks
+
+
 def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_uses=(), off_lesson=(), ledger=None):
     """detail = the per-lesson JSON (turns, vocab_errors, vocab_correct, grammar_errors, grammar_not_counted, not_errors).
     Returns (tmarks, report): tmarks = {turn index: {"c": [chips], "u": [underlines]}}."""
@@ -359,7 +431,8 @@ def build(date, detail, uses_by_bucket, buckets, not_taught, ruled_out=(), not_u
     for e in detail.get("vocab_correct") or []:
         s = "correct" if e.get("kind") == "correct" else "partial"
         scored_item(e["t"], {"id": nid("v"), "k": "vocab", "s": s, "w": e.get("arabizi"), "ar": e.get("arabic"),
-                             "en": e.get("english"), "said": e.get("said"), **({"key": e["word_key"]} if e.get("word_key") else {}), **_src(e)}, e.get("arabic"), "vocab " + str(e.get("word_key")))
+                             "en": e.get("english"), "said": e.get("said"), **({"tok": e["tok"]} if e.get("tok") else {}),
+                             **({"key": e["word_key"]} if e.get("word_key") else {}), **_src(e)}, e.get("arabic"), "vocab " + str(e.get("word_key")))
     for e in detail.get("vocab_errors") or []:
         if e.get("on_sheet") is False:
             grey(e["t"], "not on her word list (left out of the Words %)", "vocab", e.get("wrong"))

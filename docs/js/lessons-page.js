@@ -65,7 +65,7 @@ function speech(cls, html, text) {
   var box = el('div', 'gc-speech ' + (cls || ''));
   var src = el('span');
   if (html) src.innerHTML = html; else src.textContent = text || '—';
-  // PG-38: engine sound tags ([تضحك], [تسعلة]) become small grey English notes before any Arabizi is read, so the reader
+  // PG-39: engine sound tags ([تضحك], [تسعلة]) become small grey English notes before any Arabizi is read, so the reader
   // never spells them ("[tas3ile]"); the note is drawn on the top line only (CSS hides it on the small Arabic line)
   var SND = window.AneesSoundTags; if (SND) SND.decorate(src);
   var source = src.textContent;
@@ -745,9 +745,10 @@ function tmRow(x, t, m, i) {
   r.appendChild(h);
   var main = el('div', 'tm-main');
   main.appendChild(speech('ls-turntext', TMK.underlined(t.text, m.u), null));
-  heardNote(main, t);
+  heardNote(main, t, toArabizi);
   var chips = el('div', 'tm-chips');
   (m.c || []).forEach(function (c) {
+    if (c.hide) return;                                   // PG-39: one chip per word (the others are listed on it)
     var v = TMK.chipModel(c, toArabizi);
     var b = el('button', 'tm-chip tm-' + c.s);
     b.type = 'button';
@@ -815,7 +816,7 @@ function turnRow(x, t, marks) {
   return r;
 }
 // TR-18 heard-word overlay (RULES.md S2): the line shows what was said; the engine's own words stay visible under it.
-function heardNote(host, t) {
+function heardNote(host, t, toArabizi) {
   if (!t.engine) return;
   var n = el('div', 'ab-mini ls-heard', 'Recording engine wrote: ');
   var a = el('span', '', t.engine);
@@ -824,7 +825,9 @@ function heardNote(host, t) {
   // a whole-line fix (the second listen) repeats the line: say only what the engine wrote; word fixes keep "a → b"
   var bare = function (x) { return String(x || '').replace(/[^\p{L}\p{N}]+/gu, ''); };
   var parts = (t.heard || []).filter(function (h) { return h.engine_wrote && bare(h.engine_wrote) !== bare(t.engine); });
-  if (parts.length) n.appendChild(document.createTextNode(' · fixed: ' + parts.map(function (h) { return h.engine_wrote + ' → ' + h.heard; }).join(', ')));
+  // S1 (Medi 2026-10-09 "do the corrections in arabizi as well"): the fixed word in her Arabizi, the Arabic small after it
+  var azw = function (s) { return toArabizi && /[\u0600-\u06FF]/.test(s || '') ? toArabizi(s).text + ' (' + s + ')' : s; };
+  if (parts.length) n.appendChild(document.createTextNode(' · fixed: ' + parts.map(function (h) { return h.engine_wrote + ' → ' + azw(h.heard); }).join(', ')));
   n.title = 'The raw transcript is never edited; this line shows the word that was said (rule ' + ((t.heard || [])[0] || {}).rule + ')';
   host.appendChild(n);
 }

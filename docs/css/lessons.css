@@ -129,13 +129,14 @@
 #anees-bank .tm-chip .tm-word{font-weight:600;color:var(--c)}
 #anees-bank .tm-chip .tm-kind{color:var(--ab-muted)}
 #anees-bank .tm-chip .tm-ar{font-size:10px;color:var(--ab-muted);margin-left:6px}
-#anees-bank .tm-correct{--c:var(--ab-green)}
-#anees-bank .tm-partial{--c:var(--ab-blue)}
-#anees-bank .tm-asked{--c:var(--ab-orange)}
-#anees-bank .tm-wrong{--c:var(--ab-red)}
-#anees-bank .tm-fix{--c:var(--ab-green);border-style:dashed}
+/* PG-39 (Medi 2026-10-09, key approved): one colour per meaning */
+#anees-bank .tm-correct{--c:light-dark(#2f7d4f,#7fd1a0)}
+#anees-bank .tm-partial,#anees-bank .tm-asked{--c:light-dark(#2b63b5,#8dbbff)}
+#anees-bank .tm-wrong{--c:light-dark(#b42332,#ff9aa4)}
+#anees-bank .tm-repeat{--c:light-dark(#7b4fc4,#c4a8ff)}
+#anees-bank .tm-new{--c:light-dark(#9a7300,#f0cf5a)}
+#anees-bank .tm-fix{--c:light-dark(#c2570c,#f5a35b);border-style:dashed}
 #anees-bank .tm-na{--c:var(--ab-muted);border-style:dotted}
-#anees-bank .tm-repeat{--c:var(--ab-muted);border-style:dashed}
 #anees-bank .tm-medi{--c:var(--ab-orange);border-width:2px}
 #anees-bank .lg-medi{border:2px solid var(--ab-orange);border-radius:8px;padding:8px 10px;margin:0 0 12px;background:color-mix(in srgb,var(--ab-orange) 8%,transparent)}
 #anees-bank .lg-medi h3{margin:0 0 6px;font-size:14px}
@@ -149,7 +150,7 @@
 #anees-bank .tm-filters{margin-bottom:8px}
 #anees-bank mark.tm-ul{background:none;color:inherit;padding:0;text-decoration-line:underline;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-skip-ink:none;cursor:pointer}
 #anees-bank mark.tm-ul-wrong{text-decoration-style:wavy;text-decoration-color:light-dark(#C4321F,#FF8A7A)}
-#anees-bank mark.tm-ul-fix{text-decoration-style:solid;text-decoration-color:light-dark(#2F7D52,#6FD39A)}
+#anees-bank mark.tm-ul-fix{text-decoration-style:solid;text-decoration-color:light-dark(#c2570c,#f5a35b)}
 #anees-bank mark.tm-ul.tm-on{background:color-mix(in srgb,currentColor 12%,transparent);border-radius:3px}
 #anees-bank .tm-detail{margin-top:6px;padding:6px 8px;border-left:3px solid var(--ab-accent);background:var(--ab-panel);border-radius:4px;font-size:12px}
 #anees-bank .ls-turn.tm-flash{box-shadow:0 0 0 2px var(--ab-accent)}
@@ -231,7 +232,7 @@
 #anees-bank .ls-smallnotes{display:flex;gap:6px;flex-wrap:wrap}
 #anees-bank .ls-chipnote{display:inline-block;border:1px solid var(--ab-line);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--ab-muted)}
 #anees-bank .ls-fullreading{margin-top:10px;padding-top:8px;border-top:1px dashed var(--ab-line);color:var(--ab-muted)}
-/* PG-38: an engine sound tag ([laughs], [cough]) is one small grey English note on the top line; the small Arabic line does not repeat it */
+/* PG-39: an engine sound tag ([laughs], [cough]) is one small grey English note on the top line; the small Arabic line does not repeat it */
 #anees-bank .gc-arabic .snd-tag{display:none}
 /* Medi 2026-10-09 "can we make better use of the space here": the engine's own words sit under the line, in the wide text
    column (like the Arabic under the Arabizi), never squeezed under the time and the edit button */

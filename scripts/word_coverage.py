@@ -155,13 +155,29 @@ def _is_amal(u):
     return u.get("who") == "Amal" or (u.get("who") == "chat" and u.get("typed_by") == "Amal")
 
 
+class Sup(dict):
+    """{turn index: why} + given = {turn index: [Arabic words of her fix as the slip row writes it]}."""
+
+    def __init__(self):
+        super().__init__()
+        self.given = {}
+
+
+def her_words(turns, j, sup=None):
+    """The Arabic words of her line j, plus the words of the fix a counted slip says she gave there (the engine may
+    have written her Arabic in English letters: 10-08 07:12 'Men not.' = her من نار)."""
+    out = [w for w, cut in arabic_tokens(turns[j].get("text")) if not cut]
+    return out + list(((sup and getattr(sup, "given", None)) or {}).get(j, []))
+
+
 def supplies(turns, fix_times=()):
     """{turn index: why} - the tutor's lines that GIVE him a form (WS-31): her typed chat line; a line a counted slip
     names as her fix (its t_fix within 3 s); her answer to his 'how do I say'; or a recast - her line shares a near-same
     Arabic word with his Arabic line of the 20 s before and does not open with a question word ('شو مالها؟' is a question
     to him, not a fix)."""
-    out = {}
-    fix_times = [float(x) for x in fix_times if x is not None]
+    out = Sup()
+    fixes = [(float(x[0]), x[1]) if isinstance(x, (list, tuple)) else (float(x), None) for x in fix_times if x is not None
+             and (not isinstance(x, (list, tuple)) or x[0] is not None)]
     for j, u in enumerate(turns):
         if not _is_amal(u):
             continue
@@ -170,8 +186,10 @@ def supplies(turns, fix_times=()):
             if toks or re.search(r"[0-9]", u.get("text") or ""):
                 out[j] = "her typed line in the chat"
             continue
-        if any(abs(float(u["t"]) - x) <= FIX_S for x in fix_times):
+        mine_fix = [r for t_, r in fixes if abs(float(u["t"]) - t_) <= FIX_S]
+        if mine_fix:
             out[j] = "her fix of a counted slip"
+            out.given[j] = [w for r in mine_fix if r for w, cut in arabic_tokens(r) if not cut]
             continue
         if not toks:
             continue
@@ -212,9 +230,7 @@ def judge_word(turns, i, word, key, key_of, sup):
     unresolved. key_of(word) -> list key or None (her words matched the same way as his)."""
     same = []
     for j in tutor_before(turns, i, REPEAT_S):
-        for w, cut in arabic_tokens(turns[j].get("text")):
-            if cut:
-                continue
+        for w in her_words(turns, j, sup):
             if similar(w, word) or (key and key_of(w) == key):
                 same.append(j)
                 break
@@ -253,6 +269,15 @@ class Keys:
         catalog = (J(os.path.join(REPO, "docs", "data", "word-bank-catalog.json"), {}) or {}) if catalog is None else catalog
         self.group = {}                   # key -> catalog group (verbs and their forms)
         self.forms = {}                   # normalised form -> {(group key, entry id, documented)}
+        # colour adjectives on the af3al pattern (أسود aswad 'Black (M/F)'): her row covers the feminine fa3la' and the
+        # plural fu3l (سودا / سوداء / سود) - 10-08 08:36 'بلوزة سودا' (Medi: "soda is the femanine for aswad")
+        self.colour = {}
+        for w in self.words.values():
+            m = re.fullmatch(r"ا(\S)(\S)(\S)", jsnorm(w.get("arabic") or ""))
+            if m and w.get("topic") == "Adjectives":
+                x = "".join(m.groups())
+                for f in (x + "ا", x + "اء", x):
+                    self.colour.setdefault(f, set()).add(w["key"])
         for g in catalog.get("groups") or []:
             for k in g.get("keys") or [g["key"]]:
                 self.group[k] = g
@@ -269,6 +294,15 @@ class Keys:
     def of(self, w):
         k = self.lookup(w)
         return k[0] if k and k[1] == "one" else None
+
+    def same_word(self, keys):
+        """Two rows of her list that are the same word (بلبس: 'balbes' and 'ana balbes', both 'I wear'): the row the Word
+        Bank keeps the forms on (a catalog group), else the first - or None when they are really different words."""
+        forms = {PRONOUNS.sub("", jsnorm((self.words.get(k) or {}).get("arabic") or "")).strip() for k in keys}
+        if len(forms) != 1 or not next(iter(forms)):
+            return None
+        grouped = [k for k in keys if k in self.group]
+        return (grouped or keys)[0]
 
     def _stems(self, w):
         n = jsnorm(w)
@@ -294,7 +328,11 @@ class Keys:
         if len(m) == 1:
             return next(iter(m)), "one"
         if len(m) > 1:
-            return sorted(m), "unclear"
+            same = self.same_word(sorted(m))
+            return (same, "one") if same else (sorted(m), "unclear")
+        c = self.colour.get(jsnorm(w))
+        if c and len(c) == 1:
+            return next(iter(c)), "one"
         for cand in self._stems(w):
             gk = {k for k, _, _ in self.forms.get(cand, ())}
             if len(gk) == 1:
@@ -324,6 +362,10 @@ def jsnorm(s):
     return se.normalize(str(s or "")).strip(" .،,؟?!")
 
 
+def _fem(c):
+    return re.sub(r"[اهة]$", "", c) if len(c) >= 4 else c
+
+
 def related(w, doc):
     """Is this word a form of the list word (the word itself, + el-, + an ending: راسها of راس)? A word of a longer list
     phrase is not (أنا of 'أنا بطبخ')."""
@@ -333,7 +375,16 @@ def related(w, doc):
         if not f or " " in f:
             continue
         c = core(f)
-        if c and (n == c or (len(c) >= 3 and n.startswith(c) and len(n) - len(c) <= 3)):
+        if c and (n == c or _fem(n) == _fem(c) or (len(c) >= 3 and n.startswith(c) and len(n) - len(c) <= 3)):
+            return True
+    return False
+
+
+def slip_on(detail, t0, t1, w):
+    """A counted slip (grammar or word) on his line whose wrong part holds this word."""
+    for g in (detail.get("grammar_errors") or []) + (detail.get("vocab_errors") or []):
+        t = g.get("t")
+        if t is not None and t0 - 2 <= float(t) <= t1 + 2 and any(similar(x, w) for x, cut in arabic_tokens(g.get("wrong") or g.get("said") or "")):
             return True
     return False
 
@@ -351,11 +402,40 @@ def event_on(evs, t0, t1, word, key):
 
 
 def fix_times_of(detail):
+    """[(time of her fix, the right form the slip row gives)] of every counted slip."""
+    return [(g["t_fix"], g.get("right") or g.get("fix")) for g in (detail.get("grammar_errors") or []) + (detail.get("vocab_errors") or [])
+            if g.get("t_fix") is not None]
+
+
+def preps():
+    """The Word Bank's prepositions (word-bank-core.js PREPOSITIONS): grammar, never a vocabulary word."""
+    try:
+        s = open(os.path.join(REPO, "docs", "js", "word-bank-core.js"), encoding="utf-8").read()
+        return set(re.findall(r"'([^']+)'", re.search(r"PREPOSITIONS=new Set\(\[(.*?)\]\)", s).group(1)))
+    except (OSError, AttributeError):
+        return set()
+
+
+def taught_match(a, w):
+    """Is his word w the taught word a (the word itself, + an ending, or one letter off in a 4+ letter word)?"""
+    ca, cw = core(a), core(w)
+    if not ca or not cw:
+        return False
+    if ca == cw or (len(ca) >= 3 and cw.startswith(ca) and len(cw) - len(ca) <= 3):
+        return True
+    return min(len(ca), len(cw)) >= 4 and difflib.SequenceMatcher(None, ca, cw).ratio() >= 0.8
+
+
+def taught_today(date, repo=REPO):
+    """[(arabic, mm:ss)] the tutor taught in this lesson (the same-day reader's taught_words, LS-08)."""
+    d = J(os.path.join(repo, "data", "lesson-work", "lesson-types", date + ".json"), {}) or {}
     out = []
-    for g in (detail.get("grammar_errors") or []) + (detail.get("vocab_errors") or []):
-        for k in ("t_fix",):
-            if g.get(k) is not None:
-                out.append(g[k])
+    for w in d.get("taught_words") or []:
+        if isinstance(w, dict) and w.get("arabic"):
+            for a in re.split(r"\s*/\s*", w["arabic"]):
+                for x in a.split():          # a taught phrase: each of its own words (not على, في ...)
+                    if len(core(x)) >= 3 and core(x) not in FUNCTION:
+                        out.append((x, w.get("t") or ""))
     return out
 
 
@@ -380,6 +460,8 @@ def plan(date, detail, events, keys, off=(), rulings=None):
     anchor = next((e for e in sorted(evs, key=lambda e: e.get("t_start") or 0)), None)
     adds, patches, rows = [], {}, []
     mine = his_rulings(date, rulings)
+    PREP = preps()
+    taught = taught_today(date)
     for i, u in enumerate(turns):
         if u.get("who") != "Medi":
             continue
@@ -409,6 +491,10 @@ def plan(date, detail, events, keys, off=(), rulings=None):
             if how == "part":
                 rows.append(dict(row, state="na", why="one word of a longer list phrase (%s), not a list word by itself" % key))
                 continue
+            new = next((t_ for a, t_ in taught if taught_match(a, w)), None)
+            if how in ("none", "sheet") and new is not None:
+                rows.append(dict(row, state="new", key=key, why="new word: the tutor taught it in this lesson (%s); not on her list yet, not scored" % new))
+                continue
             if how in ("none", "sheet"):
                 import loanwords
                 why = ("a name, dish or loan word (never on her list)" if _loan(loanwords, w)
@@ -417,8 +503,16 @@ def plan(date, detail, events, keys, off=(), rulings=None):
                 rows.append(dict(row, state="na", why=why, key=key))
                 continue
             row["key"] = key
+            if key in PREP:
+                rows.append(dict(row, state="na", grammar=True, why="a preposition: scored as grammar, not as a word"))
+                continue
             e = event_on(evs, t0, t1, w, key)
+            if e is not None and e.get("word_key") != key:
+                e = None                  # the matcher's event names no list word (two candidates): it scores nothing, so this word gets its own
             state, why, j = judge_word(turns, i, w, key, keys.of, sup)
+            if state == "unresolved" and not slip_on(detail, t0, t1, w):
+                state, why = "independent", ("Word he said on his own: the tutor's 'no' right after was not about it - the three "
+                                             "readers wrote no slip on it (WS-30)")
             if e is not None:
                 row["event"] = e["id"]
                 p = _patch(e, state, why, turns, j)
@@ -460,12 +554,12 @@ def _repeat_fields(turns, j):
 def _patch(e, state, why, turns, j):
     """A patch on a Word Bank event the engine words made: a repeat of her fix loses its credit (WS-31); a word said alone
     that sat 'unresolved' is judged (WS-30). Nothing else is touched (a reader's or Amal's ruling stays)."""
-    if e.get("review_locked") or e.get("medi_ruling") or e.get("assessment") in ("incorrect", "recall_failure"):
+    if e.get("review_locked") or e.get("medi_ruling") or e.get("grammar_only") or e.get("assessment") in ("incorrect", "recall_failure"):
         return None
     exp = {k: e.get(k) for k in ["source_sha256", "row_id", "word_key", "text", "t_start", "t_end", "assessment", "reason"]}
     if state == "repeat":
         ch = {"assessment": "helped", "reason": why, "by": BY, "rule": "WS-31", **_repeat_fields(turns, j)}
-    elif e.get("assessment") == "unresolved" and str(e.get("reason") or "").startswith("Isolated production") and state in ("independent", "helped"):
+    elif e.get("assessment") == "unresolved" and state in ("independent", "helped"):
         ch = {"assessment": state, "reason": why + " (WS-30)", "by": BY, "rule": "WS-30", "classification": "lexical",
               "vocab_points": {"independent": 1, "helped": 0.5}[state]}
     else:
@@ -519,10 +613,21 @@ def refresh(per, sheet, off_by_date=None, path=REVIEW_P, log=print, events=None,
     keep = [x for x in review.get("additions") or [] if x.get("by") != BY]
     P = review.setdefault("patches", {})
     old = {k: v for k, v in P.items() if (v.get("changes") or {}).get("by") == BY}
-    pats = {k: v for k, v in pats.items() if k not in P or (P[k].get("changes") or {}).get("by") == BY}
+    # an older patch that only left the word an open question (the 2026-09-28 audit: audit_created, no verdict) gives way
+    # to a judgment; its note is kept on the new patch (replaced_audit)
+    def _open(x):
+        ch = (x or {}).get("changes") or {}
+        return ch.get("audit_created") and ch.get("assessment") in (None, "unresolved")
+    for k, v in pats.items():
+        if k in P and _open(P[k]):
+            v["changes"]["replaced_audit"] = P[k]["changes"]
+    pats = {k: v for k, v in pats.items() if k not in P or (P[k].get("changes") or {}).get("by") == BY or _open(P[k])}
     if [x for x in review.get("additions") or [] if x.get("by") == BY] != adds or old != pats:
         for k in old:
+            ra = (P[k].get("changes") or {}).get("replaced_audit")
             P.pop(k, None)
+            if ra and k not in pats:                      # put the open question back when this file no longer judges it
+                P[k] = {"expected": old[k]["expected"], "changes": ra}
         P.update(pats)
         review["additions"] = keep + adds
         with open(path, "w", encoding="utf-8", newline="\n") as f:
@@ -621,12 +726,16 @@ def chips(date, detail, rows, unscored=()):
             continue
         seen.add(dup)
         mine = have.get(i, [])
-        if any((r.get("key") and c.get("key") == r.get("key")) or similar(c.get("ar") or "", r["word"]) or
-               any(similar(x, r["word"]) for x in re.split(r"[\s،,.؟?]+", str(c.get("said") or "")) if x) for c in mine):
+        if any((r.get("key") and c.get("key") == r.get("key")) or similar(c.get("ar") or "", r["word"]) or similar(c.get("tok") or "", r["word"])
+               or any(similar(x, r["word"]) for x in re.split(r"[\s،,.؟?/]+", str(c.get("ar") or "")) if x)
+               or (c.get("s") == "wrong" and any(similar(x, r["word"]) for x in re.split(r"[\s،,.؟?]+", str(c.get("said") or "")) if x)) for c in mine):
             continue
         e = by_id.get(r.get("event"))
-        if r.get("state") == "na":
-            out.append((i, {"k": "na", "s": "na", "label": "vocab", "w": None, "ar": r["word"], "why": r["word"] + ": " + r["why"], "rule": "WS-30"}))
+        if r.get("state") == "new":
+            out.append((i, {"k": "vocab", "s": "new", "ar": r["word"], "why": r["why"], "rule": "WS-18"}))
+        elif r.get("state") == "na":
+            out.append((i, {"k": "na", "s": "na", "label": "vocab", "w": None, "ar": r["word"], "why": r["word"] + ": " + r["why"], "rule": "WS-30",
+                            **({"grammar_word": True} if r.get("grammar") else {})}))
         elif (e and e.get("repeat")) or r.get("added") == "repeat" or r.get("patched") == "repeat":
             rep = (e or {}).get("repeat_of") or {}
             out.append((i, {"k": "vocab", "s": "repeat", "ar": r["word"], "key": r.get("key"),
@@ -654,7 +763,7 @@ def report(date, repo=REPO):
     for i, u in enumerate(turns):
         if u.get("who") != "Medi":
             continue
-        cs = [c for c in (tm.get(str(i)) or {}).get("c", []) if c.get("k") == "vocab" or (c.get("k") == "na" and c.get("label") in ("vocab", "lesson"))]
+        cs = [c for c in (tm.get(str(i)) or {}).get("c", []) if c.get("k") in ("vocab", "grammar") or (c.get("k") == "na" and c.get("label") in ("vocab", "lesson"))]
         for w, cut in arabic_tokens(u.get("text")):
             hit = next((c for c in cs if similar(c.get("ar") or "", w) or (c.get("why") or "").startswith(w + ":")
                         or any(similar(x, w) for x in re.split(r"[\s،,.؟?]+", str(c.get("said") or "")) if x)), None)
