@@ -8870,9 +8870,9 @@
    "scope": "process",
    "status": "enforced",
    "change": "new",
-   "statement": "The more-than-50-rows guard on his page corrections holds a BURST only: more than 50 new rows written inside 10 minutes. Rows written at a person's pace are applied, and rows the old guard held are released on the next pull. Found 2026-10-09: his 58 rows on the 10-08 lesson (54 minutes of typing) were held for good and none reached the pages.",
-   "plain": "Your corrections are never held back for being many. Only a burst of more than 50 in ten minutes waits for a look.",
-   "plain_for": "74159621",
+   "statement": "The more-than-50-rows guard on his page corrections holds a BURST only: more than 50 new rows written inside 10 minutes. Rows written at a person's pace are applied, and rows the old guard held are released on the next pull. Found 2026-10-09 in a fresh checkout: his 58 rows on the 10-08 lesson (54 minutes of typing) came in one pull and were held for good. The live job had pulled them in smaller batches as he typed, so the live pages had them; a pull after a gap (the hourly job down, a new checkout) would have dropped a whole session of his corrections.",
+   "plain": "Your corrections are never held back for being many. Only a burst of more than 50 in ten minutes waits for a look, so a pull after a gap never drops a whole session of your fixes.",
+   "plain_for": "967bd5e6",
    "topic": "your corrections",
    "source": [
     {
@@ -8904,7 +8904,7 @@
    "example": {
     "date": "2026-10-08",
     "t": "0:10-5:49",
-    "note": "58 rows held as 'more than 50 in one pull'; released: written over 54 min"
+    "note": "fresh checkout 2026-10-09: 58 rows held as 'more than 50 in one pull'; released: written over 54 min"
    }
   },
   {

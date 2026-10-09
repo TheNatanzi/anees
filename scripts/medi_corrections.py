@@ -45,7 +45,7 @@ REASONS = {   # "Not a mistake" asks why in one tap; only 'right' is Amal's
 SIGNAL = "medi-correction"
 HOLD_OVER = 50          # council 5: more new rows than this in one pull = hold + warning
 BURST_S = 600           # PR-19 (Medi 2026-10-09): ...only when they were written inside 10 minutes (a runaway, not a person);
-                        # his 58 rows on 10-08 took 54 minutes of typing and sat held for good
+                        # a fresh checkout pulled his 58 rows on 10-08 (54 minutes of typing) at once and held them for good
 YES_MAX = 15            # council 3: "Make it a rule" is disabled when it would change more than this
 VOICED = {"recast", "explicit-no", "prompt-then-fix", "named-rule", "finished-sentence"}
 

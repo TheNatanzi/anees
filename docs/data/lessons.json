@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-09T00:47:59-07:00",
+ "updated": "2026-10-09T01:02:00-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -6474,8 +6474,9 @@
    "rehear": {
     "status": "pending",
     "since": "2026-10-07",
-    "label": "Second listen: pending",
-    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+    "label": "Second listen: waiting for allowance",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only.",
+    "note": "Waiting for the Google allowance: Google allowance $0.70 used of $0.00 for 2026-10, this lesson needs about $2.37. The transcript stays ElevenLabs only until Medi sets the monthly allowance (data/lesson-work/rehear/spend.json)."
    },
    "counts": {
     "turns": 1051,
@@ -6919,8 +6920,9 @@
    "rehear": {
     "status": "pending",
     "since": "2026-10-07",
-    "label": "Second listen: pending",
-    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+    "label": "Second listen: waiting for allowance",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only.",
+    "note": "Waiting for the Google allowance: Google allowance $0.70 used of $0.00 for 2026-10, this lesson needs about $2.37. The transcript stays ElevenLabs only until Medi sets the monthly allowance (data/lesson-work/rehear/spend.json)."
    },
    "counts": {
     "turns": 1008,
@@ -7123,28 +7125,28 @@
     ]
    },
    "words": {
-    "unique": 41,
-    "right": 68,
+    "unique": 53,
+    "right": 84,
     "wrong": 2,
-    "partial": 14,
-    "pct": 89.3,
-    "scored": 84,
+    "partial": 15,
+    "pct": 90.6,
+    "scored": 101,
     "audit_wrong": 2,
     "audit_partial": 6,
     "not_on_sheet": 6,
     "rehear_word_conflicts": 0,
-    "unique_rows": 41,
-    "eligible": 84,
+    "unique_rows": 53,
+    "eligible": 101,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 89.3,
+    "eligible_pct": 90.6,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 229,
+    "uses": 231,
     "mistakes": 25,
-    "pct": 89.5,
+    "pct": 89.6,
     "estimate": false,
     "scored_mistakes": 24,
     "unscored_mistakes": 1,
@@ -7157,7 +7159,7 @@
       "8 slips are in rules the counter found 0 uses of in this lesson",
       "6 rules have more slips than counted uses (A16, A4, B18, C1, D2, D4)"
      ],
-     "uses": 209,
+     "uses": 211,
      "slips": 25,
      "slips_latin": 6,
      "slips_in_zero_use_rules": 8,
@@ -7207,7 +7209,7 @@
       1
      ]
     ],
-    "in_turns": 153,
+    "in_turns": 152,
     "comparable": true
    },
    "latency": {
@@ -7386,20 +7388,21 @@
    "rehear": {
     "status": "pending",
     "since": "2026-10-08",
-    "label": "Second listen: pending",
-    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only."
+    "label": "Second listen: waiting for allowance",
+    "tip": "The second AI listen of your microphone (Gemini) has not been run for the transcript of this lesson yet. The transcript is ElevenLabs only.",
+    "note": "Waiting for the Google allowance: Google allowance $0.70 used of $0.00 for 2026-10, this lesson needs about $2.52. The transcript stays ElevenLabs only until Medi sets the monthly allowance (data/lesson-work/rehear/spend.json)."
    },
    "counts": {
     "turns": 1159,
     "chat_lines": 0,
     "vocab_errors": 14,
-    "vocab_correct": 76,
+    "vocab_correct": 93,
     "grammar_errors": 25,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-08.json",
-    "marks": 336,
+    "marks": 356,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,

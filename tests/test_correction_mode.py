@@ -317,7 +317,7 @@ def test_tr_25_another_script_on_a_line_is_the_engine_switching_language():
 
 
 def test_pr_19_a_person_typing_for_an_hour_is_never_held_and_rows_held_before_are_released(tmp_path):
-    """PR-19 (Medi 2026-10-09 "go and fix it permanently"): his 58 rows on 10-08, typed over 54 minutes, sat held for good
+    """PR-19 (Medi 2026-10-09 "go and fix it permanently"): in a fresh checkout his 58 rows on 10-08, typed over 54 minutes, came in one pull and sat held for good
     by the more-than-50 guard. The guard holds a burst only (more than HOLD_OVER rows inside BURST_S); held rows written at
     a person's pace are released on the next pull."""
     out, q = str(tmp_path / "m.json"), str(tmp_path / "q.json")

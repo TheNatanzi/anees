@@ -1,13 +1,13 @@
 {
  "about": "Built by scripts/build_rule_book.py from rules/registry.json + RULES.md (rule PG-16). Do not edit by hand.",
  "updated": "2026-10-09",
- "total": 204,
+ "total": 211,
  "replaced": 8,
  "counts": {
-  "Automatic": 122,
+  "Automatic": 128,
   "Written down": 70,
   "Fixed once": 12,
-  "Waiting on you": 0
+  "Waiting on you": 1
  },
  "badges": [
   {
@@ -107,7 +107,7 @@
    "key": "recording",
    "title": "Recording & transcript",
    "intro": "What gets written down from the lesson recording, and what is left out.",
-   "count": 28,
+   "count": 29,
    "sections": [
     {
      "kind": "error",
@@ -530,6 +530,30 @@
        ]
       },
       {
+       "id": "TR-29",
+       "text": "The second Google listen runs by itself on every new lesson, within the monthly money you set. If the money is used up, the lesson says so on its chip.",
+       "status": "enforced",
+       "topic": "the second listen",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "why the fuck wasnt it applied?"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "go and fix it permanently"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "im going to bed, please be thorough.  Im so disappointed in this, I htought google was supposed to be a huge improvement but its worse than 11 so far"
+        }
+       ]
+      },
+      {
        "id": "TR-22",
        "text": "Each of your lines can be re-heard by an AI that listens to your microphone with the lesson around it. It may only change a word it also hears without the context, so your real mistakes stay.",
        "status": "written",
@@ -553,7 +577,7 @@
    "key": "spelling",
    "title": "Spelling (the tutor's Arabizi)",
    "intro": "How Arabic words are spelled on screen. Arabizi = Arabic in Latin letters and numbers (3 = ع, 7 = ح).",
-   "count": 10,
+   "count": 11,
    "sections": [
     {
      "kind": "display",
@@ -575,6 +599,25 @@
          "who": "Medi",
          "date": "2026-09-23",
          "quote": "we are using amals spelling always right? create the rule"
+        }
+       ]
+      },
+      {
+       "id": "AZ-12",
+       "text": "When the engine spells one of the tutor's sheet words with a sound-alike letter, the transcript shows her sheet's Arabizi on top. The engine's Arabic stays small underneath, so a real mistake stays visible.",
+       "status": "enforced",
+       "topic": "Arabizi spelling",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "99% of the words said should come from amals arabic list of words ... if you strongly suspect a word to be on my list.  You need to using the arabizi from our sheet."
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "Yes please do a full audit of the lesson again."
         }
        ]
       },
@@ -743,7 +786,7 @@
    "key": "words",
    "title": "Words: what counts and what doesn't",
    "intro": "Which words you said get scored, and which don't.",
-   "count": 28,
+   "count": 29,
    "sections": [
     {
      "kind": "error",
@@ -1134,6 +1177,31 @@
        ]
       }
      ]
+    },
+    {
+     "kind": "process",
+     "heading": "How the work runs",
+     "rules": [
+      {
+       "id": "WS-29",
+       "text": "When you fix a word the engine misheard, the word you really said counts for you if it is on the tutor's list. Saying a word should count makes it count.",
+       "status": "enforced",
+       "topic": "your corrections",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "I should get credit for knowing \"alayhi salmik\""
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "Merhaba should count as a vocab"
+        }
+       ]
+      }
+     ]
     }
    ],
    "old": [
@@ -1178,7 +1246,7 @@
    "key": "grammar",
    "title": "Grammar slips: what counts and what doesn't",
    "intro": "When a grammar mistake counts as a slip, and when it doesn't.",
-   "count": 30,
+   "count": 31,
    "sections": [
     {
      "kind": "error",
@@ -1301,6 +1369,27 @@
          "quote": "Yes - this is the rule as I teach it"
         }
        ]
+      },
+      {
+       "id": "GR-31",
+       "text": "Your laughs and other sounds were counted as grammar uses in a few lessons. Taking them out changes some grammar numbers, so it waits for your yes.",
+       "status": "needs-medi",
+       "topic": "grammar scoring",
+       "badge": "Waiting on you",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "ok do it"
+        }
+       ],
+       "question": {
+        "ask": "Take the 22 sound tags out of the grammar use counts?",
+        "options": [
+         "yes",
+         "no"
+        ]
+       }
       },
       {
        "id": "GR-26",
@@ -2387,7 +2476,7 @@
    "key": "pages",
    "title": "Pages, audio & numbers on screen",
    "intro": "What each page shows, the audio clips, and keeping numbers up to date.",
-   "count": 51,
+   "count": 52,
    "sections": [
     {
      "kind": "not-error",
@@ -3014,6 +3103,25 @@
        ]
       },
       {
+       "id": "PG-38",
+       "text": "Sounds the recording engine heard, like a cough or a laugh, show as a small grey note in English, such as (cough) or (laughs). They are never spelled as Arabic words and never scored.",
+       "status": "enforced",
+       "topic": "the transcript",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-08",
+         "quote": "whjat does [tasfeer Fi el-5alfiyye] [tas3ile] why is this here"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "ok do it"
+        }
+       ]
+      },
+      {
        "id": "PG-30",
        "text": "Amal's Tutor page now has five tabs: To do, Grammar (Medi's 10 weakest rules), Vocab (his 20 weakest words), Decay (words he has not said for 3 weeks, and words never said), Completed. Each item shows his numbers, his last moments and a note box for her.",
        "status": "enforced",
@@ -3253,7 +3361,7 @@
    "key": "process",
    "title": "How Claude and Codex must work",
    "intro": "Rules for the AI helpers that build Anees.",
-   "count": 19,
+   "count": 21,
    "sections": [
     {
      "kind": "data",
@@ -3514,6 +3622,39 @@
          "who": "Medi",
          "date": "2026-10-03",
          "quote": "do a hand off chip where I can make all the corrections. Have it make rules for every correction if possible"
+        }
+       ]
+      },
+      {
+       "id": "PR-19",
+       "text": "Your corrections are never held back for being many. Only a burst of more than 50 in ten minutes waits for a look, so a pull after a gap never drops a whole session of your fixes.",
+       "status": "enforced",
+       "topic": "your corrections",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "go and fix it permanently"
+        },
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "Its SO bad man it heard every line wrong.  Please evaluate my notes."
+        }
+       ]
+      },
+      {
+       "id": "PR-22",
+       "text": "When you write a fix under a line, Anees reads it with the lines around it. Each part of your fix goes on the line it belongs to, and a misheard word is never counted as your mistake.",
+       "status": "enforced",
+       "topic": "your corrections",
+       "badge": "Automatic",
+       "said": [
+        {
+         "who": "Medi",
+         "date": "2026-10-09",
+         "quote": "Yes please do a full audit of the lesson again.  Its SO bad man it heard every line wrong.  Please evaluate my notes."
         }
        ]
       }
