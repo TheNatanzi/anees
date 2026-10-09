@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T16:10:45-07:00",
+ "updated": "2026-10-08T17:22:59-07:00",
  "method": "    python scripts/build_lessons_page_data.py            -> docs/data/lessons.json + docs/data/lessons/<date>.json\n    python scripts/build_lessons_page_data.py --dump D   -> print a condensed transcript of lesson D (for reading)\n\nEverything is on the LESSON CLOCK = the audio the lesson page plays (docs/lessons/<date>/audio/...).\nWord timings come from the raw engine files, put on that clock by calibrating against the page itself:\nevery page line carries data-t (its first word's time on the page audio) and data-row\n(<source>:row:<index into that source's Scribe words>), so offset = data-t - words[index].start, which is\nconstant per track (checked: spread < 0.02 s).\n\nSources per lesson (C:/dev/anees/data/lessons/<date>/):\n  per-speaker Scribe (scribe_Medi.json / scribe_Amal.json [+ scribe_Amal_seg33.json on 09-15])  09-11 .. 09-23 except 09-18\n  one diarized Scribe (scribe.json), speaker taken from the page line each word falls in         09-18\n  words_labeled.json (already on the lesson clock, speaker labelled)                              08-25, 09-04, 09-05\n  nothing with word timings (page has line start times only)                                       09-10 -> timing metrics null\n  + data/backfill/gapfill/<date>/gapfill_<side>.json: a side whose track was empty, recovered from the mixed Meet\n    recording or the person's own late-transcribed track (scripts/fill_meet_gaps.py); its lines join the turns tagged\n    gap_fill + source (+ from_meet for Meet lines), its words join the timings.\n\nWord scores run the Word Bank page's own JS (scripts/lessons_page_node.cjs) so they count exactly like it.\nGrammar mistakes = the 2026-09-24 hand sweep (data/grammar-sweep-2026-09-24.json), speaking rows in an\napproved bucket (docs/data/grammar-buckets.json) + unfiled rows in NEW-B18 (approved as B18).\nGrammar uses = docs/data/grammar-usage.json (owned by another worker; read at build time).\nLesson types are Claude's reading of each lesson (LESSON_TYPES by hand, else the same-day reader's\ndata/lesson-work/lesson-types/<date>.json - LS-01), marked type_source 'claude-read'.\nNo paid APIs, nothing re-transcribed. Missing data -> null + a note, never a guess.",
  "definitions": {
   "start_local": "When the recording started, local time with offset. From the Meet recording's tracks.json, its folder name, or source.json. Null if none of these exist.",
@@ -71,7 +71,7 @@
     "unique_rows": 67,
     "eligible": 94,
     "excluded": 0,
-    "pending": 3,
+    "pending": 0,
     "eligible_pct": 77.1,
     "excluded_why": {},
     "verified_pct": null
@@ -88,7 +88,7 @@
     "maybe_counted_twice": 1,
     "eligible": 33,
     "excluded": 0,
-    "pending": 4,
+    "pending": 1,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -217,7 +217,7 @@
      "coverage: speakers split by the engine's diarization of one mixed recording (labels can swap)",
      "grammar % provisional: re-read, but the recording has no separate microphone track, so almost no line was re-heard; 5 of its slips come from the first read only and wait for a check",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model",
-     "checks: 7 scored rows need an audio or human check (3 words, 4 grammar)"
+     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
     ],
     "agreement": {
      "status": "withheld",
@@ -294,7 +294,7 @@
     "unique_rows": 20,
     "eligible": 22,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "eligible_pct": 75.0,
     "excluded_why": {},
     "verified_pct": null
@@ -311,7 +311,7 @@
     "maybe_counted_twice": 5,
     "eligible": 43,
     "excluded": 1,
-    "pending": 5,
+    "pending": 2,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -488,7 +488,7 @@
      "coverage: speaker labels agree with an independent check on only 86.7 % of 875 lines (voice pitch per line (Medi < 155 Hz, Amal > 180 Hz) vs the engine's diarization labels)",
      "grammar % provisional: re-read, but the recording has no separate microphone track, so almost no line was re-heard; 9 of its slips come from the first read only and wait for a check",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model",
-     "checks: 6 scored rows need an audio or human check (1 words, 5 grammar)"
+     "checks: 2 scored rows need an audio or human check (0 words, 2 grammar)"
     ],
     "agreement": {
      "status": "withheld",
@@ -565,7 +565,7 @@
     "unique_rows": 33,
     "eligible": 47,
     "excluded": 0,
-    "pending": 2,
+    "pending": 0,
     "eligible_pct": 79.8,
     "excluded_why": {},
     "verified_pct": null
@@ -582,7 +582,7 @@
     "maybe_counted_twice": 2,
     "eligible": 35,
     "excluded": 2,
-    "pending": 7,
+    "pending": 1,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -714,7 +714,7 @@
      "coverage: speaker labels agree with an independent check on only 89.8 % of 659 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
      "grammar % provisional: 4 of its slips come from the first read only and wait for a check",
      "speech recognition not reviewed: nobody listened; 9 excerpts (241 s of 3762 s) compared with a second model",
-     "checks: 9 scored rows need an audio or human check (2 words, 7 grammar)"
+     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
     ],
     "agreement": {
      "status": "withheld",
@@ -791,7 +791,7 @@
     "unique_rows": 65,
     "eligible": 110,
     "excluded": 0,
-    "pending": 4,
+    "pending": 0,
     "eligible_pct": 85.0,
     "excluded_why": {},
     "verified_pct": null
@@ -808,7 +808,7 @@
     "maybe_counted_twice": 2,
     "eligible": 39,
     "excluded": 4,
-    "pending": 10,
+    "pending": 4,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -956,7 +956,7 @@
      "coverage: line times estimated from each person's recording by silence detection (no engine word timings)",
      "grammar % provisional: 5 of its slips come from the first read only and wait for a check",
      "speech recognition not reviewed: nobody listened; 21 excerpts (519 s of 3762 s) compared with a second model",
-     "checks: 14 scored rows need an audio or human check (4 words, 10 grammar)"
+     "checks: 4 scored rows need an audio or human check (0 words, 4 grammar)"
     ],
     "agreement": {
      "status": "withheld",
@@ -1033,7 +1033,7 @@
     "unique_rows": 51,
     "eligible": 68,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "eligible_pct": 83.8,
     "excluded_why": {},
     "verified_pct": null
@@ -1050,7 +1050,7 @@
     "maybe_counted_twice": 2,
     "eligible": 32,
     "excluded": 10,
-    "pending": 6,
+    "pending": 1,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -1188,7 +1188,7 @@
      "coverage: 10 stretches of Amal's speech written as '[speaking ...]' markers (00:58 in all)",
      "grammar % provisional: 6 of its slips come from the first read only and wait for a check",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3756 s) compared with a second model",
-     "checks: 7 scored rows need an audio or human check (1 words, 6 grammar)"
+     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
     ],
     "agreement": {
      "status": "withheld",
@@ -1423,7 +1423,7 @@
     "provisional": "4 of its slips come from the first read only and wait for a check",
     "eligible": 42,
     "excluded": 2,
-    "pending": 8,
+    "pending": 1,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -1554,7 +1554,7 @@
      "reader agreement: pass 1 73.2 %; 2 consecutive passes at >= 95 % are needed",
      "grammar % provisional: 4 of its slips come from the first read only and wait for a check",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3768 s) compared with a second model",
-     "checks: 9 scored rows need an audio or human check (1 words, 8 grammar)"
+     "checks: 2 scored rows need an audio or human check (1 words, 1 grammar)"
     ],
     "agreement": {
      "status": "withheld",
@@ -1630,7 +1630,7 @@
     "unique_rows": 42,
     "eligible": 51,
     "excluded": 0,
-    "pending": 2,
+    "pending": 1,
     "eligible_pct": 86.3,
     "excluded_why": {},
     "verified_pct": null
@@ -1647,7 +1647,7 @@
     "maybe_counted_twice": 4,
     "eligible": 44,
     "excluded": 0,
-    "pending": 3,
+    "pending": 1,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -1794,7 +1794,7 @@
      "reader agreement: pass 1 66.7 %; 2 consecutive passes at >= 95 % are needed",
      "grammar % provisional: 9 of its slips come from the first read only and wait for a check",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4026 s) compared with a second model",
-     "checks: 5 scored rows need an audio or human check (2 words, 3 grammar)"
+     "checks: 2 scored rows need an audio or human check (1 words, 1 grammar)"
     ],
     "agreement": {
      "status": "withheld",
@@ -1918,7 +1918,7 @@
     "unique_rows": 38,
     "eligible": 43,
     "excluded": 3,
-    "pending": 2,
+    "pending": 0,
     "eligible_pct": 79.1,
     "excluded_why": {
      "his line": 3
@@ -1937,7 +1937,7 @@
     "maybe_counted_twice": 1,
     "eligible": 31,
     "excluded": 4,
-    "pending": 5,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -2176,8 +2176,7 @@
      "coverage: 19 stretches of Medi's speech written as '[speaking ...]' markers (04:46 in all)",
      "coverage: speaker labels agree with an independent check on only 78.1 % of 795 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
      "grammar % provisional: 6 of its slips come from the first read only and wait for a check",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4182 s) compared with a second model",
-     "checks: 7 scored rows need an audio or human check (2 words, 5 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4182 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -2428,7 +2427,7 @@
     "unique_rows": 41,
     "eligible": 56,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "eligible_pct": 88.4,
     "excluded_why": {},
     "verified_pct": null
@@ -2445,7 +2444,7 @@
     "maybe_counted_twice": 2,
     "eligible": 33,
     "excluded": 4,
-    "pending": 6,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -2663,8 +2662,7 @@
      "coverage: 17 stretches of Medi's speech written as '[speaking ...]' markers (04:47 in all)",
      "coverage: speaker labels agree with an independent check on only 89.1 % of 801 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
      "grammar % provisional: 6 of its slips come from the first read only and wait for a check",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model",
-     "checks: 7 scored rows need an audio or human check (1 words, 6 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -2827,7 +2825,7 @@
     "unique_rows": 11,
     "eligible": 11,
     "excluded": 0,
-    "pending": 1,
+    "pending": 0,
     "eligible_pct": 31.8,
     "excluded_why": {},
     "verified_pct": null
@@ -2844,7 +2842,7 @@
     "maybe_counted_twice": 4,
     "eligible": 32,
     "excluded": 1,
-    "pending": 4,
+    "pending": 1,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -2989,7 +2987,7 @@
      "coverage: speakers guessed by voice pitch on one mixed recording",
      "grammar % provisional: re-read, but the recording has no separate microphone track, so almost no line was re-heard; 11 of its slips come from the first read only and wait for a check",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3828 s) compared with a second model",
-     "checks: 5 scored rows need an audio or human check (1 words, 4 grammar)"
+     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
     ],
     "agreement": {
      "status": "withheld",
@@ -3319,7 +3317,7 @@
     "unique_rows": 98,
     "eligible": 186,
     "excluded": 0,
-    "pending": 3,
+    "pending": 1,
     "eligible_pct": 87.4,
     "excluded_why": {},
     "verified_pct": null
@@ -3336,7 +3334,7 @@
     "maybe_counted_twice": 7,
     "eligible": 62,
     "excluded": 2,
-    "pending": 15,
+    "pending": 3,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -3486,7 +3484,7 @@
      "reader agreement: pass 1 66.3 %; 2 consecutive passes at >= 95 % are needed",
      "grammar % provisional: 8 of its slips come from the first read only and wait for a check",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4332 s) compared with a second model",
-     "checks: 18 scored rows need an audio or human check (3 words, 15 grammar)"
+     "checks: 4 scored rows need an audio or human check (1 words, 3 grammar)"
     ],
     "agreement": {
      "status": "withheld",
@@ -3611,7 +3609,7 @@
     "unique_rows": 57,
     "eligible": 87,
     "excluded": 4,
-    "pending": 4,
+    "pending": 2,
     "eligible_pct": 82.8,
     "excluded_why": {
      "his line": 4
@@ -3630,7 +3628,7 @@
     "maybe_counted_twice": 1,
     "eligible": 33,
     "excluded": 6,
-    "pending": 2,
+    "pending": 1,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -3799,7 +3797,7 @@
      "coverage: 30 stretches of Medi's speech written as '[speaking ...]' markers (05:09 in all)",
      "grammar % provisional: 7 of its slips come from the first read only and wait for a check",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3876 s) compared with a second model",
-     "checks: 6 scored rows need an audio or human check (4 words, 2 grammar)"
+     "checks: 3 scored rows need an audio or human check (2 words, 1 grammar)"
     ],
     "agreement": {
      "status": "withheld",
@@ -4066,7 +4064,7 @@
     "unique_rows": 95,
     "eligible": 165,
     "excluded": 0,
-    "pending": 4,
+    "pending": 0,
     "eligible_pct": 85.2,
     "excluded_why": {},
     "verified_pct": null
@@ -4083,7 +4081,7 @@
     "maybe_counted_twice": 2,
     "eligible": 35,
     "excluded": 0,
-    "pending": 6,
+    "pending": 1,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -4366,7 +4364,7 @@
      "coverage: Amal 00:00-20:17 comes from the mixed Meet recording, speakers split by diarization (their own track is silent there)",
      "grammar % provisional: 2 of its slips come from the first read only and wait for a check",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4188 s) compared with a second model",
-     "checks: 10 scored rows need an audio or human check (4 words, 6 grammar)"
+     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
     ],
     "agreement": {
      "status": "withheld",
@@ -4520,7 +4518,7 @@
     "unique_rows": 71,
     "eligible": 129,
     "excluded": 0,
-    "pending": 4,
+    "pending": 0,
     "eligible_pct": 83.7,
     "excluded_why": {},
     "verified_pct": null
@@ -4536,7 +4534,7 @@
     "provisional": "5 of its slips come from the first read only and wait for a check",
     "eligible": 22,
     "excluded": 3,
-    "pending": 2,
+    "pending": 1,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -4777,7 +4775,7 @@
      "coverage: speaker labels agree with an independent check on only 87.3 % of 874 lines (own-track loudness (each labelled line: is the labelled person's own track >= 6 dB louder?))",
      "grammar % provisional: 5 of its slips come from the first read only and wait for a check",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3948 s) compared with a second model",
-     "checks: 6 scored rows need an audio or human check (4 words, 2 grammar)"
+     "checks: 1 scored rows need an audio or human check (0 words, 1 grammar)"
     ],
     "agreement": {
      "status": "withheld",
@@ -5035,7 +5033,7 @@
     "unique_rows": 52,
     "eligible": 79,
     "excluded": 0,
-    "pending": 2,
+    "pending": 1,
     "eligible_pct": 81.6,
     "excluded_why": {},
     "verified_pct": null
@@ -5050,7 +5048,7 @@
     "first_read_cards": 0,
     "eligible": 22,
     "excluded": 0,
-    "pending": 2,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -5204,7 +5202,7 @@
     "reasons": [
      "reader agreement: pass 1 86.5 %; 2 consecutive passes at >= 95 % are needed",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3942 s) compared with a second model",
-     "checks: 4 scored rows need an audio or human check (2 words, 2 grammar)"
+     "checks: 1 scored rows need an audio or human check (1 words, 0 grammar)"
     ],
     "agreement": {
      "status": "withheld",
@@ -5896,7 +5894,7 @@
     "maybe_counted_twice": 2,
     "eligible": 27,
     "excluded": 0,
-    "pending": 5,
+    "pending": 0,
     "denominator": {
      "valid": false,
      "reasons": [
@@ -6065,8 +6063,7 @@
     "reasons": [
      "reader agreement: pass 1 77.5 %; 2 consecutive passes at >= 95 % are needed",
      "grammar % provisional: 2 of its slips come from the first read only and wait for a check",
-     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3852 s) compared with a second model",
-     "checks: 5 scored rows need an audio or human check (0 words, 5 grammar)"
+     "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 3852 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
@@ -7003,47 +7000,175 @@
     "timing": "engine"
    },
    "duration_min": 67.2,
-   "type": "free-speak",
-   "review_mode": null,
-   "type_why": "Not read yet: default until the same-day reader (review_lesson.py, scripts/lesson_type_read.py) reads this lesson. The publish guard blocks while this shows.",
+   "type": "review-words",
+   "review_mode": "speaking",
+   "type_why": "14:19-52:10 (~38 of 67 min) reviews the nature card words he had not studied (14:19 'أي كلمات بدنا نراجع إذا ما درست؟ طبيعة؟', 15:40 'you're up to trying without'): sky, sun, stars, darkness, rain, wind, snow, earth, soil, stones, with their unusual genders (37:21 'it has an unusual gender'). 52:13-1:04:11 is a grammar review of taani before or after the noun and 'my favorite' = المفضل عندي (57:15 'I've noticed a lot that you struggle with it'); 00:09-14:19 is warm-up (his fiancee is sick, the date, fire worries, دير بالك) and 1:04:16-1:06:59 is talk about checking the app's transcripts.",
    "type_source": "claude-read",
-   "type_read_by": null,
+   "type_read_by": "claude -p (review_lesson.py)",
+   "summary": {
+    "headline": "Review of the nature words (sky, sun, rain, snow, earth, stones) and how to say 'my favorite'",
+    "rules": [
+     {
+      "title": "Some nature words have a hidden gender: شمس، نار، أرض، سما are feminine; هوا is masculine",
+      "bullets": [
+       "شمس, نار, أرض, سما, نجمة = feminine, even when they sound masculine",
+       "هوا sounds feminine but is masculine",
+       "A plural takes the plural verb, whatever the singular's gender"
+      ],
+      "examples": [
+       {
+        "t": "17:05",
+        "line": "الشمس feminine - صح"
+       },
+       {
+        "t": "40:50",
+        "line": "الهوا كان قوي كتير الصباح - the wind was very strong this morning"
+       },
+       {
+        "t": "41:22",
+        "line": "نار - yes, it's feminine"
+       },
+       {
+        "t": "45:38",
+        "line": "الأرض كانت وسخة كتير - the floor was very dirty"
+       }
+      ]
+     },
+     {
+      "title": "Weather verbs are feminine: بتمطر، مطرت، تلّجت (because of الدنيا / السما)",
+      "pattern": "(الدنيا) بتمطر / مطرت / تلّجت",
+      "bullets": [
+       "It rains = بتمطر, not بمطر",
+       "Past: مطرت, تلّجت",
+       "'ago' = قبل before the time: قبل تلات سنين"
+      ],
+      "examples": [
+       {
+        "t": "29:45",
+        "line": "بتمطر - it rains"
+       },
+       {
+        "t": "30:51",
+        "line": "من أول اليوم مطرت تلات مرات - since the start of the day it rained three times"
+       },
+       {
+        "t": "36:47",
+        "line": "آخر مرة تلّجت كانت قبل تلات سنين - the last time it snowed was three years ago"
+       }
+      ]
+     },
+     {
+      "title": "awal / taani / 8eir before a noun take no el-; after the noun taani takes el-",
+      "pattern": "taani + noun  =  el-noun + el-taani",
+      "bullets": [
+       "Before the noun: no el- ever (تاني حجر, أول نجمة, غير شمس)",
+       "After the noun it is an adjective: الحجر التاني",
+       "التاني or تاني واحد = the second one"
+      ],
+      "examples": [
+       {
+        "t": "25:41",
+        "line": "هذي أول نجمة بشوفها اليوم - this is the first star I see today"
+       },
+       {
+        "t": "20:30",
+        "line": "غير شمس و يوم - other than sun and clouds (يوم = غيوم)"
+       },
+       {
+        "t": "27:22",
+        "line": "If it's before the noun... it never takes it"
+       },
+       {
+        "t": "53:53",
+        "line": "تاني حجر أو الحجر التاني - the second stone"
+       },
+       {
+        "t": "56:33",
+        "line": "أول واحد أو الأول - the first one"
+       }
+      ]
+     },
+     {
+      "title": "'my favorite' alone = المفضل عندي, after the noun with el-",
+      "pattern": "el-noun + el-mufaddal + 3indi  /  noun-i + el-mufaddal",
+      "bullets": [
+       "مفضل is an adjective: always after the noun",
+       "'mine' is عندي, not إلي",
+       "Or put the pronoun on the noun: حجري المفضل"
+      ],
+      "examples": [
+       {
+        "t": "54:37",
+        "line": "تاني حجر كان حجري المفضل - the second stone was my favorite stone"
+       },
+       {
+        "t": "58:45",
+        "line": "هاد الدرس المفضل عندي - this lesson is my favorite"
+       },
+       {
+        "t": "1:02:58",
+        "line": "كتابه المفضل مش هون - his favorite book isn't here"
+       },
+       {
+        "t": "1:03:51",
+        "line": "هذاك المطعم المفضل عنده - that restaurant is his favorite"
+       }
+      ]
+     }
+    ],
+    "also": [
+     "Warm-up 00:09-14:19: his fiancee is sick (كحة), the date, fire worries, دير بالك على",
+     "Words given along the way: سما, عصافير, فجر, عتمة, زريعة, رملة, حجر, صخر, قبل = ago",
+     "App talk 1:04:16-1:06:59: who checks which lesson's transcript line by line"
+    ]
+   },
    "words": {
-    "unique": 37,
+    "unique": 41,
     "right": 68,
-    "wrong": 0,
-    "partial": 8,
-    "pct": 94.7,
-    "scored": 76,
-    "audit_wrong": 0,
-    "audit_partial": 0,
+    "wrong": 2,
+    "partial": 14,
+    "pct": 89.3,
+    "scored": 84,
+    "audit_wrong": 2,
+    "audit_partial": 6,
+    "not_on_sheet": 6,
     "rehear_word_conflicts": 0,
-    "unique_rows": 37,
-    "eligible": 76,
+    "unique_rows": 41,
+    "eligible": 84,
     "excluded": 0,
     "pending": 0,
-    "eligible_pct": 94.7,
+    "eligible_pct": 89.3,
     "excluded_why": {},
     "verified_pct": null
    },
    "grammar": {
-    "uses": 206,
-    "mistakes": 0,
-    "pct": 100.0,
+    "uses": 226,
+    "mistakes": 25,
+    "pct": 89.4,
     "estimate": false,
-    "scored_mistakes": 0,
-    "unscored_mistakes": 0,
-    "eligible": 0,
+    "scored_mistakes": 24,
+    "unscored_mistakes": 1,
+    "eligible": 25,
     "excluded": 0,
     "pending": 0,
     "denominator": {
-     "valid": true,
-     "reasons": [],
+     "valid": false,
+     "reasons": [
+      "8 slips are in rules the counter found 0 uses of in this lesson",
+      "6 rules have more slips than counted uses (A16, A4, B18, C1, D2, D4)"
+     ],
      "uses": 206,
-     "slips": 0,
-     "slips_latin": 0,
-     "slips_in_zero_use_rules": 0,
-     "rules_slips_over_uses": []
+     "slips": 25,
+     "slips_latin": 6,
+     "slips_in_zero_use_rules": 8,
+     "rules_slips_over_uses": [
+      "A16",
+      "A4",
+      "B18",
+      "C1",
+      "D2",
+      "D4"
+     ]
     },
     "verified_pct": null
    },
@@ -7097,9 +7222,144 @@
    },
    "new_words": [],
    "taught": [],
-   "taught_words": [],
-   "coverage": null,
-   "notes": [],
+   "taught_words": [
+    {
+     "latin": null,
+     "arabic": "كحة",
+     "english": "cough",
+     "t": "04:20",
+     "note": "Medi: 'I don't know how to say cough'"
+    },
+    {
+     "latin": null,
+     "arabic": "بدير بالي على",
+     "english": "I take care of / watch over (command: دير بالك)",
+     "t": "09:15",
+     "note": "Medi asked how to say taking care; she gave ديرت بالي, then 11:45 'بدير بالي takes على'"
+    },
+    {
+     "latin": null,
+     "arabic": "بدير",
+     "english": "I lead / I turn (from مدير)",
+     "t": "10:23",
+     "note": "Medi asked what دير means by itself"
+    },
+    {
+     "latin": null,
+     "arabic": "عصافير",
+     "english": "birds",
+     "t": "16:16",
+     "note": "Medi said أسف"
+    },
+    {
+     "latin": null,
+     "arabic": "سما",
+     "english": "sky",
+     "t": "16:35",
+     "note": "Medi: 'what was sky?', أنا نسيتو"
+    },
+    {
+     "latin": null,
+     "arabic": "بتطلع",
+     "english": "(the sun) rises / goes up",
+     "t": "18:14",
+     "note": "Medi heard 'when do you watch the sky'"
+    },
+    {
+     "latin": null,
+     "arabic": "فجر",
+     "english": "dawn",
+     "t": "18:36",
+     "note": "Medi: أنا نسي تلك الكلمة, guessed سجر"
+    },
+    {
+     "latin": null,
+     "arabic": "حتى لو",
+     "english": "even if",
+     "t": "19:55",
+     "note": "Medi asked what لو is connected to"
+    },
+    {
+     "latin": null,
+     "arabic": "عتمة",
+     "english": "darkness / it's dark",
+     "t": "22:50",
+     "note": "Medi: أنا نسيته"
+    },
+    {
+     "latin": null,
+     "arabic": "من",
+     "english": "since",
+     "t": "28:59",
+     "note": "Medi: 'What's since?'"
+    },
+    {
+     "latin": null,
+     "arabic": "مطرت",
+     "english": "it rained",
+     "t": "30:16",
+     "note": "Medi stuck on mara-maratat"
+    },
+    {
+     "latin": null,
+     "arabic": "غير عن",
+     "english": "different from",
+     "t": "32:21",
+     "note": "Medi said بيد من"
+    },
+    {
+     "latin": null,
+     "arabic": "سنين",
+     "english": "years",
+     "t": "36:01",
+     "note": "Medi stuck on سن-"
+    },
+    {
+     "latin": null,
+     "arabic": "قبل",
+     "english": "ago (قبل تلات سنين)",
+     "t": "36:14",
+     "note": "Amal: 'How do I say ago?'"
+    },
+    {
+     "latin": null,
+     "arabic": "بتحرق / حرقتني",
+     "english": "it burns / it burned me",
+     "t": "44:11",
+     "note": "Medi stuck on 'burns'"
+    },
+    {
+     "latin": null,
+     "arabic": "زريعة",
+     "english": "plant(s)",
+     "t": "47:44",
+     "note": "Medi: 'what's the bee plants?'"
+    },
+    {
+     "latin": null,
+     "arabic": "رملة",
+     "english": "sand",
+     "t": "48:41",
+     "note": "Medi guessed ramen"
+    },
+    {
+     "latin": null,
+     "arabic": "حجر",
+     "english": "stone",
+     "t": "50:16",
+     "note": "Medi: 'I always forget this word'"
+    },
+    {
+     "latin": null,
+     "arabic": "صخر",
+     "english": "rock",
+     "t": "51:03"
+    }
+   ],
+   "coverage": "No echo-candidates file for 2026-10-08. Opening 01:44-02:21 and 05:09-05:39 (date/time) are Latin-transliterated and unclear (Yomi me PTT Shui; halat el tod) - left out. 06:18-06:53 'احنا بين الـ worried' / 'احنا الآن' unclear (maybe قلقانين misheard); Amal never supplied the word, left out. 06:10 'dangerous' not on her sheet - not an error. 08:36 'pantalon' is بنطلون (on sheet), 'talvez' likely engine for لابس. 36:45 تلجات vs her تَلَّجَت is shadda/vowel (sound) - left out. 18:47 سجر for فجر is a sound slip folded into the أذان row. 32:00 بيد accepted by Amal (ممتاز) - word unclear in engine. 1:06:49 'عافيا فيكي' closing, left. Names (Palestine, Amsterdam 'Adam', أمريكا) not counted. / Long Latin-transliterated stretches for Medi (01:43-05:51, 30:11-30:36, 40:00-41:02, 45:38-48:16, 55:17-59:47) - read from Latin. Echo-candidates file for 2026-10-08 not present. Engine: 'talvez' 08:36 likely لابس, 'pantalon' likely بنطلون (sheet word, said in Arabic) - not tier 3; echo: شكرًا = شجر (49:10, 49:59); 52:50 'بير حجر' = غير حجر; 43:06 بهدئ = بيحرق; 32:14 زعلتكش عن = بيختلف عن. 'Adam'/الإدام 51:19 treated as the name Amsterdam per task. 06:27 'worried' is a meta English question, not tier 3. 11:35 repeat of ديرت بالي ختيفتي (Amal named على again) folded into the 09:49 row.",
+   "notes": [
+    "grammar: 1 of the 25 slips are in rules no counter can see his right uses of (the console's Unscored rules, e.g. B18); they are listed and counted as slips but left out of grammar.pct."
+   ],
    "page": "lessons/2026-10-08.html",
    "detail": "data/lessons/2026-10-08.json",
    "rehear": {
@@ -7111,14 +7371,14 @@
    "counts": {
     "turns": 1159,
     "chat_lines": 0,
-    "vocab_errors": 0,
+    "vocab_errors": 14,
     "vocab_correct": 76,
-    "grammar_errors": 0,
+    "grammar_errors": 25,
     "grammar_not_counted": 0
    },
    "ledger": {
     "file": "data/lesson-work/ledger/2026-10-08.json",
-    "marks": 298,
+    "marks": 333,
     "conflicts": 0,
     "resolved": 0,
     "needs_medi": 0,
@@ -7128,13 +7388,21 @@
    "release": {
     "status": "not verified",
     "reasons": [
-     "reader agreement: no reader pass; 2 consecutive passes at >= 95 % are needed",
-     "coverage: no source audit of the raw audio for this lesson (run scripts/source_audit.py)",
+     "reader agreement: pass 1 71.2 %; 2 consecutive passes at >= 95 % are needed",
      "speech recognition not reviewed: nobody listened; 0 excerpts (0 s of 4032 s) compared with a second model"
     ],
     "agreement": {
      "status": "withheld",
-     "passes": [],
+     "passes": [
+      {
+       "pass": 1,
+       "r1": 44,
+       "r2": 47,
+       "agreed": 37,
+       "disputed": 15,
+       "agreement_pct": 71.2
+      }
+     ],
      "between": [],
      "threshold_pct": 95.0
     },

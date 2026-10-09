@@ -1,5 +1,5 @@
 {
-  "built": "2026-10-06",
+  "built": "2026-10-08",
   "patterns": [
     {
       "id": "p-present-no-b",
@@ -96,6 +96,28 @@
       ]
     },
     {
+      "id": "p-msa-form-for-her-word",
+      "kind": "vocab",
+      "bucket": null,
+      "tier": 2,
+      "title": "MSA form where her sheet has the Levantine word (maa2 -> mayy, dajaaj -> jaaj, al-aan -> halla, malee2 -> malyaan, tilka -> hadeek)",
+      "wrong": "maa2 / dajaaj / al-aan / malee2 / tilka",
+      "right": "mayy / jaaj / halla / malyaan / hadeek",
+      "wrong_arabic": "ماء / دجاج / الآن / مليء / تلك",
+      "right_arabic": "مي / جاج / هلا / مليان / هديك",
+      "wrong_arabizi": null,
+      "right_arabizi": "Mayy / Jaj / Halla / Malyaan / Hadeek",
+      "why": "He says the book (MSA) form of a word he knows in her dialect form, and she lets it pass (the Arabic-script engine may also normalise what he said, so please confirm).",
+      "english": "lots of water / chicken / now / my day was a bit full / I forgot that word",
+      "rows": [
+        "FA-34b52cb9",
+        "FA-bd4865ad",
+        "FA-4c7ea778",
+        "FA-7eeb2a79",
+        "FA-8b3a8c2b"
+      ]
+    },
+    {
       "id": "p-b-kept-after-lamma-iza",
       "kind": "grammar",
       "bucket": "B3",
@@ -156,27 +178,6 @@
         "FA-65623974",
         "FA-c76e3435",
         "FA-f4ae1cc9"
-      ]
-    },
-    {
-      "id": "p-msa-form-for-her-word",
-      "kind": "vocab",
-      "bucket": null,
-      "tier": 2,
-      "title": "MSA form where her sheet has the Levantine word (maa2 -> mayy, dajaaj -> jaaj, al-aan -> halla, malee2 -> malyaan)",
-      "wrong": "maa2 / dajaaj / al-aan / malee2",
-      "right": "mayy / jaaj / halla / malyaan",
-      "wrong_arabic": "ماء / دجاج / الآن / مليء",
-      "right_arabic": "مي / جاج / هلا / مليان",
-      "wrong_arabizi": null,
-      "right_arabizi": "Mayy / Jaj / Halla / Malyaan",
-      "why": "He says the book (MSA) form of a word he knows in her dialect form, and she lets it pass (the Arabic-script engine may also normalise what he said, so please confirm).",
-      "english": "lots of water / chicken / now / my day was a bit full",
-      "rows": [
-        "FA-34b52cb9",
-        "FA-bd4865ad",
-        "FA-4c7ea778",
-        "FA-7eeb2a79"
       ]
     },
     {
@@ -1721,6 +1722,78 @@
       "english": "because the heat came",
       "rows": [
         "FA-877eb514"
+      ]
+    },
+    {
+      "id": "p-enno-for-illi",
+      "kind": "grammar",
+      "bucket": "C7",
+      "tier": null,
+      "title": "enno used for 'that / which' in a relative clause (ed-dars enno ... -> ed-dars elli ...)",
+      "wrong": "ed-dars enno",
+      "right": "ed-dars elli",
+      "wrong_arabic": "الدرس إنه",
+      "right_arabic": "الدرس اللي",
+      "wrong_arabizi": "eno",
+      "right_arabizi": null,
+      "why": "He uses enno (the 'that' after say/know) to join a noun to its description, where we think elli belongs; he did it twice and she let it pass.",
+      "english": "Let's do the lesson that you planned.",
+      "rows": [
+        "FA-4a508f5b"
+      ]
+    },
+    {
+      "id": "p-tafattatli-non-word-planned",
+      "kind": "vocab",
+      "bucket": null,
+      "tier": 1,
+      "title": "tafattatli (non-word) for 'you planned for me' (-> 5a66attili)",
+      "wrong": "tafattatli",
+      "right": "5a66attili",
+      "wrong_arabic": "تفتتلي",
+      "right_arabic": "خططتيلي",
+      "wrong_arabizi": null,
+      "right_arabizi": null,
+      "why": "He made up a word for 'you planned for me'; she asked what he meant but never gave the word, so we think it should be 5a66attili (from her 5a66at).",
+      "english": "the lesson that you planned for me",
+      "rows": [
+        "FA-5e71a58e"
+      ]
+    },
+    {
+      "id": "p-el-after-existential-fi",
+      "kind": "grammar",
+      "bucket": "A1",
+      "tier": null,
+      "title": "el- on a new thing after 'there is' (fi bil-lail el-2amar -> fi 2amar)",
+      "wrong": "(bil-lail) el-2amar",
+      "right": "(fi) 2amar",
+      "wrong_arabic": "الـ قمر",
+      "right_arabic": "(في) قمر",
+      "wrong_arabizi": null,
+      "right_arabizi": "2amar",
+      "why": "After fi (there is) the noun is new so it takes no el-; he first said it right, then switched to el-2amar and she only echoed 2amar.",
+      "english": "In the sky at night there is a moon.",
+      "rows": [
+        "FA-e6dabb2a"
+      ]
+    },
+    {
+      "id": "p-wa7de-before-noun",
+      "kind": "grammar",
+      "bucket": "E1",
+      "tier": null,
+      "title": "'one' put before the noun (wa7de shams -> shams wa7de)",
+      "wrong": "wa7de shams",
+      "right": "shams wa7de",
+      "wrong_arabic": "واحدة شمس",
+      "right_arabic": "شمس وحدة",
+      "wrong_arabizi": null,
+      "right_arabizi": "shams wa7de",
+      "why": "In Arabic 'one' comes after the noun like an adjective; he put it first and she said 'Great job'.",
+      "english": "one sun",
+      "rows": [
+        "FA-ec97e0bb"
       ]
     }
   ],
