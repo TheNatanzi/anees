@@ -1,9 +1,9 @@
 {
- "updated": "2026-10-08T23:10:06-07:00",
+ "updated": "2026-10-08T23:31:33-07:00",
  "result": "pass",
- "source": "manual: PG-37 one box per line (Medi 2026-10-08)",
- "checked_commit": "5af82e9e8778",
- "secs": 78.6,
+ "source": "manual: PG-37 your fix shows with Edit (Medi 2026-10-08)",
+ "checked_commit": "28d1e73439ed",
+ "secs": 80.3,
  "checks": [
   {
    "id": "step_failures",
@@ -41,7 +41,7 @@
    "id": "lesson_coverage",
    "required": true,
    "ok": true,
-   "secs": 0.4,
+   "secs": 0.5,
    "what": "every lesson reaches every page (Lessons, Word Bank, Grammar, Progress, audio)",
    "detail": "all 21 lessons reach every page"
   },
@@ -73,7 +73,7 @@
    "id": "lesson_ledger",
    "required": true,
    "ok": true,
-   "secs": 2.3,
+   "secs": 2.5,
    "what": "LS-11 one lesson ledger: every number on Lessons, Word Bank and Grammar is a count over the marked transcript; every producer item is one mark; every disagreement is settled by a rule or listed for Medi",
    "detail": "ledger: OK"
   },
@@ -89,7 +89,7 @@
    "id": "check_numbers",
    "required": true,
    "ok": true,
-   "secs": 1.5,
+   "secs": 1.7,
    "what": "every number shown on every page is recomputed from raw and matches",
    "detail": "numbers: OK 719 checks"
   },
@@ -105,7 +105,7 @@
    "id": "check_pages",
    "required": true,
    "ok": true,
-   "secs": 5.1,
+   "secs": 4.6,
    "what": "page health: links, audio clips, no blank numbers (worker F)",
    "detail": "pages OK: 71 pages, every link, data file and clip resolves (336 references to unpublished clips play from the full lesson recording)"
   },
@@ -113,7 +113,7 @@
    "id": "arabizi_gaps",
    "required": true,
    "ok": true,
-   "secs": 0.4,
+   "secs": 0.3,
    "what": "no Arabic-only word on the error cards (RULES.md S1)",
    "detail": "arabizi gaps on error cards and transcript lines: 0 words, 0 uses"
   },
@@ -121,7 +121,7 @@
    "id": "recordings_complete",
    "required": true,
    "ok": true,
-   "secs": 0.6,
+   "secs": 0.5,
    "what": "freshness: every recording of every lesson in the raw archive (ANEES_RAW) is transcribed - none dropped (rule TR-17)",
    "detail": "recordings: every recording of every lesson is transcribed"
   },
@@ -129,9 +129,9 @@
    "id": "tests_py",
    "required": true,
    "ok": true,
-   "secs": 56.7,
+   "secs": 59.0,
    "what": "fast offline tests on the committed data (no network, no paid API)",
-   "detail": "............................. [ 92%] | ..................................................                       [100%] | 694 passed, 1 skipped, 3 xfailed in 54.60s"
+   "detail": "............................. [ 92%] | ..................................................                       [100%] | 694 passed, 1 skipped, 3 xfailed in 55.64s"
   },
   {
    "id": "tests_node",
@@ -139,13 +139,13 @@
    "ok": true,
    "secs": 1.2,
    "what": "page math tests (FSRS, word bank, flashcard stats, the guard's own status line)",
-   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1134.5642"
+   "detail": "ℹ skipped 0 | ℹ todo 0 | ℹ duration_ms 1128.6024"
   },
   {
    "id": "rehear_rows",
    "required": true,
    "ok": true,
-   "secs": 5.5,
+   "secs": 5.0,
    "what": "every Gemini re-hear row (TR-22, by: gemini-rehear) changes exactly its own line to its planned text and no other line, on the page builder's own lines; a lesson marked 'Second listen: applied' holds exactly its plan's rows (PG-27)",
    "detail": "rehear rows: OK"
   },
