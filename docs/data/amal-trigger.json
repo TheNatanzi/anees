@@ -1,6 +1,52 @@
 {
  "firings": [
   {
+   "at": "2026-10-08T23:34:27-07:00",
+   "changed": [
+    {
+     "source": "medi_corrections",
+     "label": "Medi's corrections on the Lessons transcript (PR-15)",
+     "n": 2,
+     "newest": "2026-10-09T06:27:55.0512+00:00",
+     "note": "his own taps, not Amal's: recounted within 15 min; 'my Arabic was right' becomes a card on her hub"
+    }
+   ],
+   "steps": [
+    "pull_medi_corrections",
+    "detect_grammar_usage",
+    "full_audit_build",
+    "apply_amal_audit_rulings",
+    "amal_grammar_notes",
+    "build_grammar_console",
+    "build_amal_docs",
+    "build_amal_grammar_rules",
+    "build_amal_review",
+    "build_lessons_page_data",
+    "codex_list",
+    "accuracy_annotate",
+    "build_sentence_ladder",
+    "amal_new_words",
+    "build_tutor_data",
+    "build_tutor_weak",
+    "medi_corrections_propose",
+    "write_build"
+   ],
+   "failures": [],
+   "numbers_moved": [
+    {
+     "what": "2026-10-08 Grammar %",
+     "from": 90.6,
+     "to": 89.4
+    },
+    {
+     "what": "2026-10-08 Words %",
+     "from": 89.8,
+     "to": 89.3
+    }
+   ],
+   "published": null
+  },
+  {
    "at": "2026-10-08T17:53:14-07:00",
    "changed": [
     {
@@ -1317,62 +1363,16 @@
    ],
    "numbers_moved": [],
    "published": null
-  },
-  {
-   "at": "2026-10-08T09:03:22-07:00",
-   "changed": [
-    {
-     "source": "listen_check",
-     "label": "Listening check: which version is right",
-     "n": 388,
-     "newest": "2026-10-08T13:30:20.900346+00:00",
-     "note": "her taps are read by scripts/amal_listen_results.py; nothing is re-scored, only her hub list is refreshed"
-    },
-    {
-     "source": "amal_rules_other",
-     "label": "Any other answer she gives in the app",
-     "n": 3,
-     "newest": "2026-10-08T11:36:07.36575+00:00"
-    },
-    {
-     "source": "student",
-     "label": "Tutor uploads + homework (uploads, tasks, Medi's answers, her verdicts)",
-     "n": 4,
-     "newest": "2026-10-08T07:41:27.114+00:00"
-    }
-   ],
-   "steps": [
-    "full_audit_build",
-    "apply_amal_audit_rulings",
-    "amal_grammar_notes",
-    "build_grammar_console",
-    "build_amal_docs",
-    "build_amal_grammar_rules",
-    "build_amal_review",
-    "build_lessons_page_data",
-    "codex_list",
-    "accuracy_annotate",
-    "build_sentence_ladder",
-    "amal_new_words",
-    "build_tutor_data",
-    "build_student_data",
-    "build_tutor_weak"
-   ],
-   "failures": [
-    "amal_grammar_notes exit 1: ssing\n           ^^^^^^^^^^^\nAssertionError: 09-30 rows not in the full audit: ['FA-1e934159', 'FA-2c926c84', 'FA-50c3b4ac', 'FA-63834679', 'FA-9641739c', 'FA-9c92be40', 'FA-aaec4e5a', 'FA-fe29a96e']"
-   ],
-   "numbers_moved": [],
-   "published": null
   }
  ],
  "about": "Anything Amal does is detected (hash of her answers per source), re-pulled, recalculated, and published only if the publish guard passes (scripts/amal_trigger.py; Medi 2026-09-29).",
- "checked": "2026-10-08T23:16:44-07:00",
+ "checked": "2026-10-08T23:34:27-07:00",
  "sources": [
   {
    "id": "tutor_verify",
    "label": "Tutor page: check these moments",
    "readable": true,
-   "checked": "2026-10-08T23:16:37-07:00",
+   "checked": "2026-10-08T23:31:02-07:00",
    "n": 67,
    "newest": "2026-10-07T15:50:18.585091+00:00",
    "last_change": "2026-10-07T09:03:10-07:00"
@@ -1381,7 +1381,7 @@
    "id": "pattern_review",
    "label": "Slips-by-pattern review",
    "readable": true,
-   "checked": "2026-10-08T23:16:38-07:00",
+   "checked": "2026-10-08T23:31:03-07:00",
    "n": 145,
    "newest": "2026-10-07T15:05:28.629785+00:00",
    "last_change": "2026-10-07T08:19:04-07:00"
@@ -1390,7 +1390,7 @@
    "id": "after_links",
    "label": "After-lesson questions",
    "readable": true,
-   "checked": "2026-10-08T23:16:38-07:00",
+   "checked": "2026-10-08T23:31:04-07:00",
    "n": 61,
    "newest": "2026-10-06T10:44:32.662191+00:00",
    "last_change": "2026-10-06T11:19:32-07:00"
@@ -1399,7 +1399,7 @@
    "id": "plan_links",
    "label": "Before-lesson planner",
    "readable": true,
-   "checked": "2026-10-08T23:16:39-07:00",
+   "checked": "2026-10-08T23:31:04-07:00",
    "n": 4,
    "newest": "2026-09-05T20:45:51.461908+00:00",
    "last_change": "2026-09-29T09:41:30-07:00"
@@ -1408,7 +1408,7 @@
    "id": "listen_check",
    "label": "Listening check: which version is right",
    "readable": true,
-   "checked": "2026-10-08T23:16:39-07:00",
+   "checked": "2026-10-08T23:31:05-07:00",
    "n": 388,
    "newest": "2026-10-08T13:30:20.900346+00:00",
    "note": "her taps are read by scripts/amal_listen_results.py; nothing is re-scored, only her hub list is refreshed",
@@ -1418,7 +1418,7 @@
    "id": "tutor_notes",
    "label": "Notes she writes on her Tutor screens (AM-27)",
    "readable": true,
-   "checked": "2026-10-08T23:16:39-07:00",
+   "checked": "2026-10-08T23:31:05-07:00",
    "n": 3,
    "newest": "2026-10-08T11:36:07.36575+00:00",
    "last_change": "2026-10-08T17:46:05-07:00"
@@ -1427,7 +1427,7 @@
    "id": "amal_rules_other",
    "label": "Any other answer she gives in the app",
    "readable": true,
-   "checked": "2026-10-08T23:16:40-07:00",
+   "checked": "2026-10-08T23:31:06-07:00",
    "n": 0,
    "newest": null,
    "last_change": "2026-10-08T17:53:14-07:00"
@@ -1436,7 +1436,7 @@
    "id": "verb_checks",
    "label": "Verb check lists 1 and 2",
    "readable": true,
-   "checked": "2026-10-08T23:16:40-07:00",
+   "checked": "2026-10-08T23:31:07-07:00",
    "n": 3,
    "newest": "2026-10-07T05:44:46.56994+00:00",
    "last_change": "2026-10-07T14:32:01-07:00"
@@ -1445,7 +1445,7 @@
    "id": "word_review",
    "label": "Word review",
    "readable": true,
-   "checked": "2026-10-08T23:16:41-07:00",
+   "checked": "2026-10-08T23:31:07-07:00",
    "n": 1,
    "newest": "2026-09-09T19:39:04.959412+00:00",
    "note": "her answers are detected and logged; showing them in the Word Bank still needs the Speaking release rebuild (not automated)",
@@ -1455,7 +1455,7 @@
    "id": "homework",
    "label": "Homework verdicts",
    "readable": true,
-   "checked": "2026-10-08T23:16:41-07:00",
+   "checked": "2026-10-08T23:31:08-07:00",
    "n": 1,
    "newest": "2026-09-05T21:32:06.328+00:00",
    "last_change": "2026-09-29T09:41:33-07:00"
@@ -1464,7 +1464,7 @@
    "id": "student",
    "label": "Tutor uploads + homework (uploads, tasks, Medi's answers, her verdicts)",
    "readable": true,
-   "checked": "2026-10-08T23:16:43-07:00",
+   "checked": "2026-10-08T23:31:10-07:00",
    "n": 4,
    "newest": "2026-10-08T07:41:27.114+00:00",
    "last_change": "2026-10-08T16:21:32-07:00"
@@ -1473,7 +1473,7 @@
    "id": "grammar_notes",
    "label": "Grammar notes she writes on the rules page",
    "readable": true,
-   "checked": "2026-10-08T23:16:43-07:00",
+   "checked": "2026-10-08T23:31:10-07:00",
    "n": 6,
    "newest": "2026-10-06T11:30:00.89803+00:00",
    "note": "like her Doc notes, a note becomes a scoring ruling only after a row-by-row read (amal_grammar_notes.py)",
@@ -1484,24 +1484,24 @@
    "label": "Her grammar-rules Google Doc",
    "readable": false,
    "why": "her grammar Doc is private (the export URL answers HTTP 401 without a Google sign-in) and this PC has no Google API credentials; publish the Doc to the web and set ANEES_GRAMMAR_DOC_URL",
-   "checked": "2026-10-08T23:16:43-07:00",
+   "checked": "2026-10-08T23:31:10-07:00",
    "last_change": null
   },
   {
    "id": "medi_corrections",
    "label": "Medi's corrections on the Lessons transcript (PR-15)",
    "readable": true,
-   "checked": "2026-10-08T23:16:44-07:00",
-   "n": 1,
-   "newest": "2026-10-03T17:06:32.457835+00:00",
+   "checked": "2026-10-08T23:31:11-07:00",
+   "n": 2,
+   "newest": "2026-10-09T06:27:55.0512+00:00",
    "note": "his own taps, not Amal's: recounted within 15 min; 'my Arabic was right' becomes a card on her hub",
-   "last_change": "2026-10-03T10:31:07-07:00"
+   "last_change": "2026-10-08T23:34:27-07:00"
   },
   {
    "id": "quizlet",
    "label": "Her Quizlet sets",
    "readable": true,
-   "checked": "2026-10-08T23:16:44-07:00",
+   "checked": "2026-10-08T23:31:11-07:00",
    "n": 126,
    "newest": null,
    "remote": "not read: quizlet.com answers HTTP 403 to scripts and FIRECRAWL_API_KEY is not set",
