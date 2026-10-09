@@ -94,7 +94,8 @@ def test_the_second_listen_marks_say_ai_agreement_and_name_the_mixed_recordings(
     applied = 0
     for d, r in doc["lessons"].items():
         if r["status"] == "pending":                                     # 2026-10-07: 10-05 and 10-06 are on the list, not re-heard yet - no plan, no mark
-            assert r["note"] == "" and not os.path.exists(os.path.join(ROOT, "data", "lesson-work", "rehear", d, "apply-plan.json")), d
+            # TR-29 (2026-10-09): a pending lesson may say why it waits (the Google allowance); never more than that
+            assert (r["note"] == "" or r["note"].startswith("Waiting for the Google allowance"))                 and not os.path.exists(os.path.join(ROOT, "data", "lesson-work", "rehear", d, "apply-plan.json")), d
             continue
         applied += 1
         P = J("data", "lesson-work", "rehear", d, "apply-plan.json")["summary"]
